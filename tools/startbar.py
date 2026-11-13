@@ -531,9 +531,21 @@ def ungetestet(rolle):
     return len(ungetestet_zeilen(rolle))
 
 def ungetestet_zeilen(rolle):
+    """1129 A 2 (Chef 13.11., 13:59): nur Zeilen, die in einem Build auf den Test warten; fertig ohne Build sperrt nichts,
+    denn kein Test des Chefs löste sie (die Sperre hing an 30 Zeilen ohne Build). Sie fahren im nächsten Sammelbuild mit
+    (ohne_build_zeilen, Ausgabe in --stand)."""
+    return [d for d in fertig_zeilen(rolle) if (d.get("build") or "").strip() not in ("", "–", "-")]
+
+
+def fertig_zeilen(rolle):
     return [d for d in zeilen_liste() if d["besitzer"] == rolle and d["kl"] == "M" and d["wort"] in ("gebaut", "zu testen")
             and not (d.get("zweig") or "").startswith("claude/build-")
             and not (d.get("bereich") or "").startswith("B ")]
+
+
+def ohne_build_zeilen(rolle):
+    """1129 A 2: fertig, aber in keinem Build — Pflicht im nächsten Sammelbuild."""
+    return [d for d in fertig_zeilen(rolle) if (d.get("build") or "").strip() in ("", "–", "-")]
 
 # 779: Wörter, die in fast jedem Titel eines Teams stehen und allein keine Überschneidung machen (Dorf, Höhle: ganzes Gebiet eines Teams)
 ALLGEMEIN = {"kampf", "mars", "chef", "build", "held", "helden", "gegner", "alt", "neu", "spiel", "test", "idee", "werte", "regel",
@@ -931,6 +943,10 @@ def main():
             print("  VOLLZUG FEHLT %s (%s): Stichtag %s vorbei, keine Vollzugsmeldung zu %s (Telegram „Vollzug <Nr>: was gilt, "
                   "Geprüft an: <Commit>“; Fehlendes mit Ursache und neuem Termin an den Chef, 1137.1)"
                   % (nr, wer, stichtag.strftime("%d.%m., %H:%M"), ", ".join(offen)))
+        for r in UEBERNAHME:  # 1129 A 2: fertig ohne Build fährt Pflicht im nächsten Sammelbuild
+            ob = ohne_build_zeilen(r)
+            if ob: print("  OHNE BUILD %s (%d, Pflicht im nächsten Sammelbuild, 1129 A 2; sperrt nicht): %s"
+                         % (r, len(ob), ", ".join(d["nr"] for d in ob[:12]) + (" …" if len(ob) > 12 else "")))
         ff = festgefahrene()
         if ff: print("  Festgefahren (827 A; ab %s nächste Sitzung auf dem stärksten Modell): %s" % (STARK_AB.strftime("%d.%m., %H:%M"), "; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))
