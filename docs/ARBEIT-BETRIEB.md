@@ -300,3 +300,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 13.11.: Marke Start-fehlt Perikles 13.11.-01:04 (lauf.py)
 - 02:04 13.11.: Marke Start-fehlt Spike 13.11.-01:04 (lauf.py)
 - 02:05 13.11.: Lauf 02:04: Perikles …75rgvDKLnLFNBy5fwU (Spiegel beantwortet) archiviert, 1,52 $ von Hand auf Betrieb (lauf.py --kosten fand die Zeile „Betrieb“ nicht); WEITER an Sokrates (Stellungnahme zu 867-menuehelden.md); Spike-Start für Tom-Spiegel wieder nicht ausgeführt (Tom beantwortet ihn selbst).
+- 02:07 13.11.: Startsperre 02:07 Start Sokrates (Ford, Neustart-Meldung ee732f182, Nachfolger „Sokrates – 1077: Nachtführung und Chefrunde Build 281“; Hoch, effort high)
