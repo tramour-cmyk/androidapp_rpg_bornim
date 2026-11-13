@@ -223,3 +223,17 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Am meisten gekostet und am wenigsten gebracht: Toms Neustart-Haken alle 20 Minuten in der Nacht (00:10, 00:25, 00:48 und weitere).
 9. Unklar: `lauf.py --kosten` mit Zeile „Betrieb“ nach `--aufraeumen`; fehlt: ein fester Schlüssel für Betriebskosten ohne Vorgang. Streichen: der Spike-Start für fremde Spiegelzeilen.
 10. Lob, ein Satz: Alle Neustarts nach Prüfung des Commits, keine Doppelstarts, Kosten gebucht; Schritte: (a) Spiegel-Zeilen in `lauf.py` vom Spike-Start ausnehmen, (b) Betriebskosten-Zeile festschreiben, (c) 60-Sekunden-Regel vor `archive_session` im Werkzeug prüfen lassen. Keinen davon beginnen, bevor der Chef Ja sagt.
+
+### Team Tom (13.11., 08:51, Sitzung „Tom – 282: Lauf 420 auswerten, Testbitte; 1092 messen (13.11., 07:14)“)
+
+0. Angekündigt (06.11.): je Aussehensfrage zuerst das gute Bild als Maßstab, Widerspruch Messung–Prüfer mit Bild klären, Zeit nur aus der Uhr. Geschehen: Zeit aus der Uhr ja; Maßstab und Bild nicht messbar belegt, 21 Tom-Vorgänge stehen „zu testen“ (vorgang.py --rolle Tom, 13.11.).
+1. Halb erfüllt: „ein Build mit Test je Sitzung“ und Prüftreppe; Lauf 419 war rot mit zwei veralteten Tests (e7992230b), die vor dem Push am Rechner auffindbar gewesen wären.
+2. Heute etwa 60 % Chef (Testbitte 282, Befund 1092), 30 % Betrieb (Modellbau am Rechner, Weckrufe, Vorrat), 10 % andere (1101 an Jerry). Richtig so; der Betriebsanteil ist zu hoch, weil der Kaufcache nicht greift (1101).
+3. Ziel weiter: höchstens zwei Runden je Aussehensfrage bis „passt“, gezählt von Diogenes; Ist kenne ich nicht, festgefahren nach 827 A sind 431, 492, 505, 757, 814, 882.1, 1022 (startbar.py, 13.11.).
+4. Vorgelegt: 1092 (Ursache gemessen, Weg, Kosten, Gegenargument „558 nicht zu clean“, Text fremd geprüft; ansehen/1092-streifen.md). Fehlte: ein Bild „nachher“, weil nicht gebaut werden durfte.
+5. Zurückweisen könnte er, dass Rowena in 1092 nur gemessen, aber nicht im Befundbild ist, und dass die Prüfliste t282 zuerst Version 0.348.418 trug, bevor ich sie auf 420 setzte.
+6. Gemeldet: Kaufcache-Ablegen scheitert (1101, Jerry). ARBEIT-BETRIEB.md 56 KB (notiz.sh-Warnung) hatte Sokrates schon gemeldet (Eingang 00:33), steht in Fords Übergabe; darum nicht doppelt.
+7. Auf mich wartete der Chef auf Build 282 (APK 08:02). Ich wartete etwa 45 Minuten auf den Modellbau am Rechner, weil Lauf 420 nichts ablegen konnte; 1101 verkürzt das für alle Sitzungen.
+8. Am meisten gekostet bei wenig Ertrag: der erste Modellbau am Rechner (30 Minuten), den ich abbrach in der Annahme, Lauf 420 lege ab; vorher die Ablegebedingung zu prüfen hätte ihn gespart.
+9. Unklar: ob der Probelauf-Haken (621 A) einen Rechnerlauf zur Ursache als Probe zählt; er zählte ihn als 1 von 1. Fehlt nichts; streichen würde ich nichts.
+10. Ernste Ansage: Builds und Befunde kommen, aber 492 und 505 sind mit über 170 $ festgefahren. Schritte: (a) vor jedem Push die betroffenen Tests am Rechner laufen lassen; (b) Annahmen über Werkzeuge (Cache, Ablegen) vorher im Code prüfen; (c) festgefahrene Vorgänge nicht mehr anfassen, ohne den Weg vorher mit Sokrates zu klären.
