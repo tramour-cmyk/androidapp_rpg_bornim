@@ -57,7 +57,6 @@ BLOECKE = {
     'kampf': dict(schritt='Kampfort bauen', skripte=None, braucht=[], kauf=True, karten=False, marken=('vor_kampf', 'kampf'),
                   dazu=['v3/tex.py']),
 }
-LEUTE_KARTEN = ('village', 'inn', 'shop', 'elder', 'temple', 'forest', 'deep_forest')   # wie der Schritt „Leute bauen“ (ids=…)
 # 1114 (Diogenes D191.4: in 34 Läufen baute kampf nie allein neu, immer mit figur): kampf braucht figur nicht mehr. Vom Block figur
 # nahm der Schritt nur held.glb (jetzt eigener Schritt danach) und rig.log (Zeile RUHE, jetzt aus godot/daten/kauf.txt); die
 # Texturen gras, erde, halme in $RUNNER_TEMP/out/tex macht tex.py (dazu), held3 und rig schreiben dort nichts. Dazu las die Suche in
@@ -282,10 +281,14 @@ def _leute_felder_hash(rel, ein, run):
 
 
 def leute_ids():
-    # dieselbe Auswahl wie der Schritt „Leute bauen“: jede Person der Karten, deren Id oder Aussehen leute.json kennt
-    k = json.load(open(os.path.join(REPO, 'godot/daten/karten.json'), encoding='utf-8'))['karten']
-    l = json.load(open(os.path.join(REPO, BL, 'v3/leute.json'), encoding='utf-8'))
-    return sorted({x for m in LEUTE_KARTEN for n in k.get(m, {}).get('leute', []) for x in (n['id'], n.get('aussehen', '')) if x in l})
+    # dieselbe Auswahl wie der Schritt „Leute bauen“: dessen Zeile ids=$(python3 -c "…") wird hier selbst ausgeführt, damit Schritt
+    # und Kennung nie auseinanderlaufen (492 nahm „cave“ dazu, 635 das Aussehen)
+    run = (_schritt(BLOECKE['leute']['schritt']) or {}).get('run', '')
+    m = re.search(r'ids=\$\(python3 -c "(.*?)"\)', run)
+    if not m:
+        return ['ohne Zeile ids']
+    r = subprocess.run([sys.executable, '-I', '-c', m.group(1)], cwd=REPO, capture_output=True, text=True)
+    return r.stdout.split() if r.returncode == 0 else ['ids Fehler ' + r.stderr.strip()[-80:]]
 
 
 _kennungen = {}

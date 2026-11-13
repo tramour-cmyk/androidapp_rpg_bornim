@@ -19,7 +19,8 @@ T=$(mktemp -d); [ -n "${BEHALTEN:-}" ] && echo "Probe in $T" || trap 'rm -rf "$T
 R=$T/repo; mkdir -p $R/tools/godot $R/.github/workflows $R/godot/daten $R/godot/kampf/daten
 cp -r $QUELLE/tools/blender348 $R/tools/; cp $QUELLE/tools/godot/kauf_cache.py $R/tools/godot/
 cp $QUELLE/.github/workflows/godot.yml $R/.github/workflows/
-echo '{"karten": {}}' > $R/godot/daten/karten.json
+KARTEN_LEER='{"karten": {"village": {"leute": []}, "inn": {"leute": []}, "shop": {"leute": []}, "elder": {"leute": []}, "temple": {"leute": []}, "forest": {"leute": []}, "deep_forest": {"leute": []}, "cave": {"leute": []}}}'   # 1115: alle Karten, die „Leute bauen“ liest
+echo "$KARTEN_LEER" > $R/godot/daten/karten.json
 git init -q --bare $T/kauf.git
 export KAUF_CACHE_PROBE=$T/kauf.git KAUF=$T/ohne
 fehler=0
@@ -142,10 +143,10 @@ lauf leute2
 pruefe '[ "$KAUF_LEUTE" = treffer ] && [ "$KAUF_FIGUR" = treffer ]' "1115: Feld nur für Godot in leute.json baut keine Leute neu"
 pruefe 'grep -q nur_godot_1115 $R/godot/daten/leute/leute.json' "1115: neue leute.json trotzdem neben den Leuten"
 p=$(python3 -c "import json,sys; print([k for k in json.load(open(sys.argv[1])) if not k.startswith('_')][0])" $R/tools/blender348/v3/leute.json)
-echo '{"karten": {"village": {"leute": [{"id": "'$p'"}]}}}' > $R/godot/daten/karten.json
-pruefe '[ "$($KC pruefen 2>/dev/null | grep -c "^KAUF_LEUTE=bauen")" = 1 ]' "1115: eine Person mehr auf der Karte baut leute neu"
+python3 -c "import json,sys; k=json.loads(sys.argv[1]); k['karten']['village']['leute']=[{'id': sys.argv[2]}]; print(json.dumps(k))" "$KARTEN_LEER" "$p" > $R/godot/daten/karten.json
+pruefe '[ "$($KC pruefen 2>/dev/null | grep -c "^KAUF_LEUTE=bauen")" = 1 ] && python3 -c "import sys; sys.path.insert(0, sys.argv[1]); import kauf_cache as k; sys.exit(0 if k.leute_ids() == [sys.argv[2]] else 1)" $R/tools/godot "$p"' "1115: eine Person mehr auf der Karte baut leute neu (Ids aus der Zeile des Schritts)"
 lauf leute3
-echo '{"karten": {"village": {"leute": [{"id": "'$p'"}], "name": "anders"}}}' > $R/godot/daten/karten.json
+python3 -c "import json,sys; k=json.loads(sys.argv[1]); k['karten']['village']['leute']=[{'id': sys.argv[2]}]; k['karten']['village']['name']='anders'; print(json.dumps(k))" "$KARTEN_LEER" "$p" > $R/godot/daten/karten.json
 pruefe '[ "$($KC pruefen 2>/dev/null | grep -E "^KAUF_(LEUTE|DORF)=" | tr "\n" " ")" = "KAUF_DORF=bauen KAUF_LEUTE=treffer " ]' "1115: andere Änderung an karten.json baut nur dorf"
 lauf leute4
 
