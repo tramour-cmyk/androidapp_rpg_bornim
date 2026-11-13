@@ -1145,7 +1145,7 @@ def main():
             if ob: print("  OHNE BUILD %s (%d, Pflicht im nächsten Sammelbuild, 1129 A 2; sperrt nicht): %s"
                          % (r, len(ob), ", ".join(d["nr"] for d in ob[:12]) + (" …" if len(ob) > 12 else "")))
         ff = festgefahrene()
-        if ff: print("  Festgefahren (827 A; ab %s nächste Sitzung auf dem stärksten Modell): %s" % (STARK_AB.strftime("%d.%m., %H:%M"), "; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
+        if ff: print("  Festgefahren (827.1: mehr Leistung nur mit „Nachfolger: … (Aufwand hoch, weil …)“): %s" % ("; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))
     sys.exit(1 if fehler else 0)
 
