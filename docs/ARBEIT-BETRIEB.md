@@ -136,3 +136,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:36 13.11.: Startsperre 21:36 Start Sokrates (Neustart f0933cd29; Ford)
 - 21:38 13.11.: Neustart Sokrates (f0933cd29): neue Sitzung `…797jN7dteYW35dpYLZ` 21:37, Vorgängerin `…79ojfheg8dzo9KaZF9` archiviert (8,08 $ auf 1228, 1233, 1231, 1227; Ford)
 - 21:39 13.11.: Startsperre 21:39 Start Tuffy (Neustart 5a311f2f6, Nachfolger „Tuffy – 844: Film aus Lauf 458 schneiden und senden“; Ford)
+- 21:39 13.11.: Neustart Tuffy (5a311f2f6): neue Sitzung `…79ZApqezAzombu1DWK` 21:40, Vorgängerin `…79CJCy8HRzLSWKT81C` archiviert (20,40 $ auf 844; nur 47 s Ruhe statt 60, Übergabe stand, nichts verloren; Ford)
