@@ -28,7 +28,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.437](ansehen/t284-rand.md) | [Build 284](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/203) | Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein | Tom und Jerry | 13.11., 17:00 |
+| 1 | [0.348.450](ansehen/t284-rand.md) | [Build 284](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43471160263/artifacts/14063726222) | Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein | Tom und Jerry | 13.11., 17:00 |
 
 ## Zu tun
 
