@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1189](entscheiden/1189-leichen.md) | **Muss** | B Abläufe | 13.11., 16:50 | Leichenprüfung alle 48 h durch Diogenes (Prüfer), Werkzeug-Hinweise vorweg, höchstens 10 $ je Lauf, nach zwei Wochen Rückstufung, wenn kaum noch Funde. | Sokrates |
+| [1189](entscheiden/1189-leichen.md) | **Muss** | B Abläufe | 13.11., 17:06 | Leichenprüfung alle 48 h durch Diogenes (Prüfer) anhand der neuen Werkzeugtreffer, höchstens 10 $ je Lauf, nach zwei Wochen Rückstufung, wenn kaum noch Funde. | Sokrates |
 
 ## Zu billigen
 
