@@ -1,0 +1,21 @@
+// Gradle-Init-Skript, nur für Cloud-Sitzungen (tools/setup-session.sh legt es nach ~/.gradle/init.d).
+// Maven Central (repo.maven.apache.org, auch repo1.maven.org) weist Downloads aus der Cloud oft mit 429 ab;
+// der Google-Spiegel liefert denselben Inhalt. GitHub Actions nutzt es nicht.
+def mirror = "https://maven-central.storage-download.googleapis.com/maven2/"
+def fix = { RepositoryHandler repos ->
+    repos.withType(MavenArtifactRepository).configureEach { r ->
+        def u = r.url.toString()
+        if (u.startsWith("https://repo.maven.apache.org/maven2") || u.startsWith("https://repo1.maven.org/maven2")) r.url = mirror
+    }
+}
+beforeSettings { s ->
+    fix(s.pluginManagement.repositories)
+    fix(s.buildscript.repositories)
+    s.dependencyResolutionManagement.repositories.whenObjectAdded { fix(s.dependencyResolutionManagement.repositories) }
+}
+allprojects { p ->
+    fix(p.buildscript.repositories)
+    fix(p.repositories)
+    p.repositories.whenObjectAdded { fix(p.repositories) }
+    p.buildscript.repositories.whenObjectAdded { fix(p.buildscript.repositories) }
+}
