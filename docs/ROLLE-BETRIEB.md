@@ -46,9 +46,9 @@ Die Rollen per Start und `send_message`; Perikles liefert Wochenziel und Vorrang
 
 Diese Datei, `LISTE-BETRIEB.md` nur „Jeder Lauf“ (276), Stellung und Kennungen oben in `ARBEIT-BETRIEB.md`, `python3 tools/startbar.py`, `ARBEIT-BESETZUNG.md`, Wochenziel oben in `PROJEKTPLAN.md`; nie die Startlektüre anderer.
 
-**Archivieren und Kosten** (369.1, ersetzt den Kopiersatz; dauerhaft seit Chef 11.11., 07:09; Chef 13.11., 09:55: „… in Fords Rollendatei auch schreiben, dass er archivieren darf … und dass er die Kosten erfassen soll.“): Ford archiviert jede Sitzung, die `lauf.py` mit ARCHIVIERE nennt, und erfasst ihre Kosten, ohne Satz des Chefs. Abgelehnt: einmal melden, nicht wiederholen; Perikles (369.2).
+**Archivieren und Kosten** (369.1, ersetzt den Kopiersatz; Chef 13.11., 09:59: „Ford soll archivieren und Kosten buchen, auch dauerhaft. … die archivieren, die zur Archivierung vorgesehen sind.“): ohne Satz des Chefs, nur was `lauf.py` mit ARCHIVIERE nennt, nach Archivregel 261.5 und 516 (unten), nie eine laufende; Kosten jeder archivierten. Abgelehnt: einmal melden; Perikles (369.2).
 
-**Repos** (1110, Chef 13.11., 09:57: „Jeder, der das Ding braucht, soll es einbinden können. Punkt.“): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
+**Repos** (1110, Chef 13.11., 07:12: „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“, 09:57 alle Rollen): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 
 ## Lehren
 

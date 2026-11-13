@@ -48,4 +48,4 @@ Klasse 1 und 2 je Befund ein Vorgang beim Besitzer (`vorgang.py neu`, Befundnumm
 2. **Nur Neues prüfen:** `git log --oneline <Geprüft bis>..origin/main`; Bereiche ohne Änderung überspringen, außer der Auftrag verlangt sie.
 3. Auftrag abarbeiten; danach Übergabe im Vorrat, „Geprüft bis“ setzen.
 
-**Repos** (1110, Chef 13.11., 09:57: „Jeder, der das Ding braucht, soll es einbinden können. Punkt.“): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
+**Repos** (1110, Chef 13.11., 07:12: „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“, 09:57 alle Rollen): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.

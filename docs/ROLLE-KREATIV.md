@@ -48,7 +48,7 @@ Die Teams über ihren Vorrat (Antworten, fehlende Texte); den Chef über die Che
 
 Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Homer`), `tools/story.sh <Gelesen bis>` (geänderte Texte gegen `STORY-REGELN.md` und Storyplan), alle Punkte zu eigenen Vorgängen in der Chefsache; `DESIGN-…` und `STORY-…` nur für den Punkt, den du bearbeitest. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Homer – <Thema>“, pushen.
 
-**Repos** (1110, Chef 13.11., 09:57: „Jeder, der das Ding braucht, soll es einbinden können. Punkt.“): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
+**Repos** (1110, Chef 13.11., 07:12: „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“, 09:57 alle Rollen): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 
 ## Handwerk
 
