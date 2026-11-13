@@ -56,6 +56,12 @@ LISTE = 'godot/daten/kauf.txt'
 ZUSATZ = 'KAUF_ZUSATZ'
 EINGABEN = 'EINGABEN'
 ENDUNGEN = ('py', 'json', 'txt', 'csv', 'png', 'jpg', 'jpeg', 'blend', 'glb', 'gltf', 'fbx', 'obj', 'svg', 'bin', 'sh', 'npy', 'exr')
+# 1101 (Tom 13.11., Lauf 420: deep_forest.bin 122 MB, GitHub lehnt Dateien über 100 MB ab, GH001): größere Dateien gehen in Teilen
+# <name>.kauf-teil-<i>-von-<n> in den Zweig, holen und vergleich setzen sie wieder zusammen; die Kennung bleibt (alte Zweige ohne
+# Teile gelten weiter). Teilgröße und Stückgröße in MB über KAUF_CACHE_TEIL_MB, KAUF_CACHE_STUECK_MB (nur für kauf_cache_probe.sh).
+TEIL_MB = float(os.environ.get('KAUF_CACHE_TEIL_MB', '45'))
+TEIL = re.compile(r'^(.+)\.kauf-teil-(\d{3})-von-(\d{3})$')
+STUECK_MB = float(os.environ.get('KAUF_CACHE_STUECK_MB', '60'))
 
 
 def api(pfad, daten=None, methode=None, host='api.github.com', typ='application/json', laenge=None):
@@ -324,13 +330,80 @@ def holen():
             namen = [n for n in namen if n not in (ZUSATZ, EINGABEN)]
             if any(n.startswith(('/', '..')) or '/../' in n or not n.startswith(tuple(o + '/' for o in ORDNER)) for n in namen):
                 sys.exit('KAUF-CACHE fremder Pfad im Zweig')
+            fehlt = _teile_pruefen(namen)
+            if fehlt:
+                print('KAUF-CACHE Zweig unvollständig', block, k, 'Teile fehlen:', ', '.join(fehlt[:5]), flush=True)
+                return 1
             if namen:
                 git('-c', 'core.autocrlf=false', '--work-tree', REPO, 'checkout', '-q', 'FETCH_HEAD', '--', *namen, cwd=t)
+            namen = _zusammensetzen(REPO, namen)
             zusatz += git('show', 'FETCH_HEAD:' + ZUSATZ, cwd=t, capture_output=True).stdout
         print('KAUF-CACHE geholt', block, k, len(namen), 'Dateien', flush=True)
     with open(os.path.join(REPO, LISTE), 'a') as f:
         f.write(zusatz)
     return 0
+
+
+def _teile_pruefen(namen):
+    # je zerteilter Datei alle Teile 1..n da? Gibt die fehlenden Namen zurück
+    da, fehlt = {}, []
+    for n in namen:
+        m = TEIL.match(n)
+        if m:
+            da.setdefault((m.group(1), int(m.group(3))), set()).add(int(m.group(2)))
+    for (basis, von), nr in sorted(da.items()):
+        fehlt += ['%s.kauf-teil-%03d-von-%03d' % (basis, i, von) for i in range(1, von + 1) if i not in nr]
+    return fehlt
+
+
+def _zusammensetzen(wurzel, namen):
+    # Teile unter wurzel zur Datei zusammensetzen und löschen; gibt die Namen der ganzen Dateien zurück
+    ganz, teile = [], {}
+    for n in namen:
+        m = TEIL.match(n)
+        if m:
+            teile.setdefault(m.group(1), []).append((int(m.group(2)), n))
+        else:
+            ganz.append(n)
+    for basis, liste in sorted(teile.items()):
+        with open(os.path.join(wurzel, basis), 'wb') as aus:
+            for _, n in sorted(liste):
+                with open(os.path.join(wurzel, n), 'rb') as ein:
+                    shutil.copyfileobj(ein, aus, 2**22)
+                os.remove(os.path.join(wurzel, n))
+        ganz.append(basis)
+    return sorted(ganz)
+
+
+def _eintraege(neu):
+    # (Name im Zweig, Quelle, Anfang, Länge); Dateien über TEIL_MB in Teile von höchstens TEIL_MB
+    grenze = int(TEIL_MB * 2**20)
+    out = []
+    for f in neu:
+        g = os.path.getsize(os.path.join(REPO, f))
+        if g <= grenze:
+            out.append((f, f, 0, g))
+            continue
+        n = -(-g // grenze)
+        for i in range(n):
+            out.append(('%s.kauf-teil-%03d-von-%03d' % (f, i + 1, n), f, i * grenze, min(grenze, g - i * grenze)))
+    return out
+
+
+def _schreibe(t, e):
+    name, quelle, anfang, laenge = e
+    ziel = os.path.join(t, name)
+    os.makedirs(os.path.dirname(ziel), exist_ok=True)
+    if anfang == 0 and laenge == os.path.getsize(os.path.join(REPO, quelle)):
+        shutil.copy2(os.path.join(REPO, quelle), ziel)
+        return
+    with open(os.path.join(REPO, quelle), 'rb') as ein, open(ziel, 'wb') as aus:
+        ein.seek(anfang)
+        rest = laenge
+        while rest:
+            b = ein.read(min(rest, 2**22))
+            aus.write(b)
+            rest -= len(b)
 
 
 def stand():
@@ -377,10 +450,14 @@ def _block_dateien(block):
 
 def ablegen():
     # je gebautem Block ein eigener Zweig bau/<block>-<Kennung> ohne Vorgeschichte im Kaufrepo (Versionen anlegen darf eine Sitzung
-    # nicht); gleiche Dateien teilen sich git-Objekte. In Stücken von etwa 60 MB geschoben (413); ZUSATZ kommt mit dem letzten Stück
-    # und zeigt, dass der Zweig vollständig ist (Löschen von Zweigen lehnt die Sitzung ab).
+    # nicht); gleiche Dateien teilen sich git-Objekte. In Stücken von etwa 60 MB geschoben (413), Dateien über TEIL_MB in Teilen (1101).
+    # 1101: die Stücke gehen erst auf einen Zwischenzweig bau/teil/<block>-<Kennung>-<Lauf>; erst das letzte Stück (mit ZUSATZ) setzt
+    # bau/<block>-<Kennung>. So steht nie ein halber Zweig unter dem Namen, den pruefen als Treffer zählt (Löschen von Zweigen lehnt
+    # die Sitzung ab). Misslingt ein Block, gehen die übrigen trotzdem; Ende 1, wenn einer misslang.
     werte = _werte_aus_env()
     alle = _fern('refs/heads/bau/*') or {}
+    lauf = os.environ.get('GITHUB_RUN_ID') or str(os.getpid())
+    misslungen = []
     for block in BLOECKE:
         if werte.get('KAUF_' + block.upper()) != 'bauen':
             continue
@@ -395,6 +472,7 @@ def ablegen():
         if ('refs/heads/' + zweig(block)) in alle:
             print('KAUF-CACHE %s: Zweig gibt es schon, nicht überschrieben' % block, k, flush=True)
             continue
+        zwischen = 'bau/teil/%s-%s-%s' % (block, k, lauf)
         with tempfile.TemporaryDirectory() as t:
             git('init', '-q', t)
             git('config', 'user.name', 'kauf_cache', cwd=t); git('config', 'user.email', 'kauf_cache@bornim.invalid', cwd=t)
@@ -403,25 +481,37 @@ def ablegen():
             with open(os.path.join(t, EINGABEN), 'w') as f:
                 f.write(''.join(z + '\n' for z in _liste_eingaben(block)))
             stuecke, jetzt, groesse = [], [], 0
-            for f in neu:
-                jetzt.append(f); groesse += os.path.getsize(os.path.join(REPO, f))
-                if groesse > 60 * 2**20:
+            for e in _eintraege(neu):
+                if jetzt and groesse + e[3] > STUECK_MB * 2**20:
                     stuecke.append(jetzt); jetzt, groesse = [], 0
-            stuecke.append(jetzt + [EINGABEN, ZUSATZ])
+                jetzt.append(e); groesse += e[3]
+            stuecke.append(jetzt + [(EINGABEN, None, 0, 0), (ZUSATZ, None, 0, 0)])
+            ok = True
             for i, st in enumerate(stuecke):
-                for f in st:
-                    if f not in (ZUSATZ, EINGABEN):
-                        os.makedirs(os.path.dirname(os.path.join(t, f)), exist_ok=True)
-                        shutil.copy2(os.path.join(REPO, f), os.path.join(t, f))
-                git('add', '-f', '--', *st, cwd=t)
+                for e in st:
+                    if e[1] is not None:
+                        _schreibe(t, e)
+                git('add', '-f', '--', *[e[0] for e in st], cwd=t)
                 git('commit', '-q', '-m', '854 %s %s, Teil %d/%d' % (block, k, i + 1, len(stuecke)), cwd=t)
+                ziel = zweig(block) if i == len(stuecke) - 1 else zwischen
                 for versuch in range(4):
-                    if git('push', '-q', url(), 'HEAD:refs/heads/' + zweig(block), cwd=t, check=False).returncode == 0:
+                    if git('push', '-q', url(), 'HEAD:refs/heads/' + ziel, cwd=t, check=False).returncode == 0:
                         break
                 else:
-                    sys.exit('KAUF-CACHE Ablegen misslungen %s %s' % (block, k))
+                    ok = False
+                    break
+                if i < len(stuecke) - 1:
+                    # die Objekte der Stücke liegen schon im Arbeitsordner von git; die Dateien selbst nicht mehr gebraucht
+                    for e in st:
+                        os.remove(os.path.join(t, e[0]))
+        if not ok:
+            print('::warning::KAUF-CACHE Ablegen misslungen %s %s (Stück %d/%d)' % (block, k, i + 1, len(stuecke)), flush=True)
+            misslungen.append(block)
+            continue
+        teile = sum(1 for e in _eintraege(neu) if TEIL.match(e[0]))
         print('KAUF-CACHE abgelegt', block, k, len(neu), 'Dateien', sum(os.path.getsize(os.path.join(REPO, f)) for f in neu) // 2**20,
-              'MB', flush=True)
+              'MB', '(%d Teile)' % teile if teile else '', flush=True)
+    return 1 if misslungen else 0
 
 
 def vergleich():
@@ -440,6 +530,9 @@ def vergleich():
                      if n not in (ZUSATZ, EINGABEN)]
             if namen:
                 git('-c', 'core.autocrlf=false', 'checkout', '-q', 'FETCH_HEAD', '--', *namen, cwd=t)
+            fehlt = _teile_pruefen(namen)
+            anders += [block + ': ' + n + ' (Teil fehlt)' for n in fehlt]
+            namen = _zusammensetzen(t, namen) if not fehlt else [n for n in namen if not TEIL.match(n)]
             gesamt += len(namen)
             for n in namen:
                 p = os.path.join(REPO, n)
@@ -466,7 +559,7 @@ if __name__ == '__main__':
     elif befehl == 'holen':
         sys.exit(holen())
     elif befehl == 'ablegen':
-        ablegen()
+        sys.exit(ablegen())
     elif befehl == 'vergleich':
         sys.exit(vergleich())
     else:
