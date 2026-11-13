@@ -48,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 756.1 | M | Zeichen für Schlecht: Chef 13.11., 13:45 „756.1 voller Punkt wie in 3, aber etwas heller ( | in Arbeit bei Spike |
+| 756.1 | M | Zeichen für Schlecht: Chef 13.11., 13:45 „756.1 voller Punkt wie in 3, aber etwas heller ( | wartet auf Test (Build 284) |
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | wartet auf Test t283 (Chef) |
 | 1104 | M | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station | wartet auf Test (Build 282) |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 870.10 (wartet) |
@@ -60,7 +60,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 568 | M | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf 643 (ruht) |
 | 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test/Build (gebaut) |
-| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 20 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
+| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 21 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
 | 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) · zurück t282 | wartet auf Test (Build 283) |
 | 515 | M | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
 | 376.1 | M | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | ruht |
@@ -116,7 +116,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | ruht |
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | ruht |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf Test (Build 283) |
-| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | wartet auf 756.1 (in Arbeit) |
+| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | wartet auf Test (Build 283) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
@@ -137,8 +137,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 785.4 | M | Von Spike (785): Gegenstandsfenster nennt bei Fernwaffen „Fernkampf“ wie alt (GearUi.kt 19 | wartet auf 870.13 (wartet) |
 | 785.5 | M | Von Spike (785): Kampfwerte im Reiter Ausrüstung mit Zeile für die Nebenhandwaffe wie alt | wartet auf 870.13 (wartet) |
 | 785.6 | M | Von Spike (785): Kampfwerte zeigen Lebensraub, Widerstand, Goldfund, EP-Bonus der getragen | wartet auf 870.13 (wartet) |
-| 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | Sperre 620.1 B: 20 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
-| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | Sperre 620.1 B: 20 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
+| 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | Sperre 620.1 B: 21 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
+| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | Sperre 620.1 B: 21 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
 | 785.20 | M | Von Spike (785): Klick-Klang auch auf Knöpfen im Stil 549a (PanelContainer: Spielstände, E | wartet auf 870.13 (wartet) |
 | 785.21 | M | Von Spike (785): Android-Zurück wie alt: in der Welt öffnet sie das Menü (WorldScreen.kt 1 | wartet auf 870.13 (wartet) |
 | 785.22 | M | Von Spike (785): Leiste zeigt den Zustand „Satt“ wie alt (WorldScreen.kt 2856–2872; zustan | wartet auf 870.13 (wartet) |
@@ -160,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1118 | M | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksa | wartet auf Test (Build 283) |
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | wartet auf Test (Build 283) |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test (Build 283) |
-| 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | Sperre 620.1 B: 20 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 |
+| 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | Sperre 620.1 B: 21 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 |
 | 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | startbar |
 
 **Jerry** – offen 133, Muss 118, startbar 1
@@ -246,7 +246,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 936 | M | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | ruht |
 | 937 | M | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | ruht |
 | 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | Sperre 620.1 B: 36 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolfs) |
-| 947 | M | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleiche | wartet auf Test/Build (gebaut) |
+| 947 | M | Fund t276.12 (Chef 11.11., 13:36): MARS-Probekampf stellt dem Helden einen Söldner gleiche | wartet auf Test (Build 284) |
 | 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | Sperre 620.1 B: 36 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 904 (grak) |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | wartet auf Test t278 (Chef) |
 | 930.3 | M | Von Sokrates (930): Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgeme | wartet auf 931 (startbar) |
