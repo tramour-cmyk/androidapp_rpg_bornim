@@ -38,6 +38,11 @@ var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher
 var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 var herde: Herde                                 # 490 Monster auf der Karte (herde.gd, streuner.gd)
 var im_kampf := false                            # 490: vom Angriff bis zurueck auf der Karte
+## 1025 (Chef 12.11., 10:25–10:28, Build 278: Probekampf, dann greift das Rudel der Karte an — zwei Kaempfe zugleich, der zweite ohne
+## Kampfort ueber der Karte, danach Kampfort schwarz, 7–8 Bilder/s): wahr vom ersten bis zum letzten Bild eines Kampfs, auch im
+## Probekampf und im Wald (im_kampf setzten nur die Kaempfe auf der Karte und in der Szene). Solange er laeuft, ruht die Karte und
+## kein zweiter Kampf beginnt
+var kampf_laeuft := false
 var kraut_tag := -1                              # 490 Heilkraeuter: fuer welchen Tag sie stehen (Game.herbDay)
 
 func _ready() -> void:
@@ -355,7 +360,7 @@ func _betritt(t: Vector2i) -> void:
 	_steht_auf(t)
 	if not ui.spricht(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
 	pfluecke(t)   # 490 Game.pickHerbs
-	if herde and not im_kampf and not ui.spricht(): herde.betreten(t)   # 490 respawnRoamers, Ueberfall im hohen Gras
+	if herde and not welt_ruht() and not ui.spricht(): herde.betreten(t)   # 490 respawnRoamers, Ueberfall im hohen Gras (1025: nie im Kampf)
 
 # was der Held von t aus mit dem Knopf tun kann: Ausgang unter ihm, Tuer daneben (zuerst die vor ihm), Schild daneben
 func vor_ihm(t: Vector2i) -> Vector2i:
@@ -586,7 +591,27 @@ const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", 
 
 ## 1034: [spielprobe] Probekampf aus dem Reiter Test mit dem Spielhelden: alles zählt wie im Spiel (ohne [probe]), dazu der Söldner
 ## der Wahl, Gegnerzug, Ausweichen und „Nochmal“; nach „Nochmal“ ist der Lohn gutgeschrieben und es kommt "AGAIN" zurück
+## 1025: die Karte ruht in jedem Kampf (im_kampf setzen nur die Kaempfe auf der Karte und in der Szene, kampf_laeuft jeder)
+func welt_ruht() -> bool:
+	return im_kampf or kampf_laeuft
+
+
+## 1025 (Chef 12.11., 10:25–10:28): ein Kampf zur Zeit. Laeuft schon einer, beginnt kein zweiter (sonst haengen zwei Kampforte unter
+## /root: der zweite ohne eigenen Kampfort ueber der Karte, der erste bleibt mit seiner Oberflaeche liegen, 7–8 Bilder/s). Nach jedem
+## Kampf hat die Karte Schonzeit wie nach einem Kampf auf der Karte (Herde.nach_kampf: frieden_bis, schonzeit), auch nach dem
+## Probekampf: sonst greift das Rudel an, sobald der Held zurueck ist.
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0, spielprobe := false) -> String:
+	if kampf_laeuft:
+		push_warning("1025: Kampf %s nicht gestartet, es laeuft schon einer" % gegner)
+		return "NONE"
+	kampf_laeuft = true
+	var ende := await _kampf_im_wald(zurueck, gegner, probe, eroeffnung, nr, spielprobe)
+	kampf_laeuft = false
+	if herde: herde.nach_kampf(null, ende)   # Schonzeit und Frieden nach jedem Kampf; das Monster selbst nimmt _kampf_auf_karte
+	return ende
+
+
+func _kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0, spielprobe := false) -> String:
 	# 1020.2 B: Held, Söldner, Leben, Tasche und Tageszeit des Probekampfs nach der Wahl im Reiter Test (Testmodus.probe_aufbau)
 	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]), zustand.name)
 	var hw: BrsHeld = held_werte() if probe.is_empty() else pa["held"]
@@ -1643,7 +1668,7 @@ func _process(dt: float) -> void:
 	if rast_ort == "" and laden == null: zustand.uhr(dt)   # 390: in Rast und Laden steht die Uhr; die Rast stellt sie selbst weiter
 	licht_nach_uhr()
 	# 490: Monster ziehen, solange der Held frei unterwegs ist (Mode.Explore); Kraeuter wachsen bei Sonnenaufgang nach
-	if herde and not im_kampf and not ui.spricht() and rast_ort == "" and laden == null and not brett_offen and not get_tree().paused: herde.schritt(dt)
+	if herde and not welt_ruht() and not ui.spricht() and rast_ort == "" and laden == null and not brett_offen and not get_tree().paused: herde.schritt(dt)   # 1025: auch im Probekampf ruht die Karte
 	if kraut_tag != kraut_heute(): kraeuter_neu()
 	leiste_uhr -= dt
 	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
