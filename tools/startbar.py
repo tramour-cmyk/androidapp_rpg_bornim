@@ -857,8 +857,10 @@ def vollzug_offen(archiv_text=None, jetzt=None):
                     folge.append(n)
                 continue
             # 1137.2 (b): ein Elternvorgang („zuerst 1128, 1129 bis …“) steht für seine Unternummern, auch erledigte; eine
-            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist noch nicht fällig
+            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist bis dahin nicht fällig
             kinder = sorted(k for k in nummern if k.startswith(n + ".") and not (k in termin and termin[k] > stichtag)) if n in eltern else []
+            if not kinder and n in termin and termin[n] > jetzt:
+                continue   # 1137.2 (e, Sokrates 16:04): direkt genannt mit eigenem späterem Termin (1172 Mo 16.11.) ist bis dahin nicht fällig
             folge += kinder or [n]
         folge = [n for n in dict.fromkeys(folge) if n not in verworfen]
         if not folge:
