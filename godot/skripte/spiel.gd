@@ -730,7 +730,9 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		while aufruf.kampf != null and not aufruf.kampf.is_inside_tree() and erg["ende"] == "": await get_tree().process_frame
 		kampf = aufruf.kampf
 		Messung.kampf_ms = Time.get_ticks_msec() - k0
-		Messung.kampf_beginn("%s, %s" % [gegner, String(lage["platz"])])   # 211.14: Leistung je Kampf am Gerät
+		# 1104 (Chef 13.11., 09:09, t281.11): in der Hoehle hat lage kein „platz“ (seit 492 nur im Wald); der Fehler brach kampf_im_wald
+		# ab, nach jedem Hoehlenkampf blieb die Welt unsichtbar (schwarz). Name des Orts ersatzweise
+		Messung.kampf_beginn("%s, %s" % [gegner, String(lage.get("platz", ort))])   # 211.14: Leistung je Kampf am Gerät
 		if kampf and Bausteine806.naechster:   # 806: Testmenü „Kampf messen“, nur dieser Kampf
 			Bausteine806.naechster = false
 			kampf.add_child(Bausteine806.new(kampf))

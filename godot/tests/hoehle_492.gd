@@ -100,6 +100,27 @@ func _lauf() -> void:
 	pruefe(kisten == 3, "drei Truhen: %d" % kisten)
 	var h: Herde = spiel.herde
 	pruefe(h != null and h.liste.size() >= 1 and h.liste.size() <= 6, "Monster der Hoehle (alt 6, ohne Modell weniger): %d" % (h.liste.size() if h else -1))
+	# 1104 (Chef 13.11., 09:09, t281.11): ein Kampf in der Hoehle endet, danach ist die Welt wieder zu sehen (vorher brach
+	# kampf_im_wald an lage["platz"] ab, die Welt blieb schwarz)
+	var fertig := [false, "?"]
+	var kf := func():
+		fertig[1] = await spiel.kampf_im_wald(spiel.held.kachel, "WOLF")
+		fertig[0] = true
+	kf.call()
+	var gestartet := false
+	for i in 300:
+		await process_frame
+		var a: Array = spiel.get_children().filter(func(n): return n.has_method("_fertig") and n.get("kampf") != null)
+		if not a.is_empty() and a[0].kampf.is_inside_tree():
+			gestartet = true
+			for j in 20: await process_frame
+			a[0]._fertig("WON")
+			break
+	for i in 120:
+		if fertig[0]: break
+		await process_frame
+	pruefe(gestartet and fertig[0] and String(fertig[1]) == "WON", "Kampf in der Hoehle endet: gestartet %s, zurueck %s mit %s" % [gestartet, fertig[0], fertig[1]])
+	pruefe(spiel.visible and spiel.ui.visible and spiel.karte.id == "cave", "nach dem Kampf: Hoehle wieder zu sehen (Welt %s, Bedienung %s)" % [spiel.visible, spiel.ui.visible])
 	# zurueck
 	var raus: Dictionary = spiel.karte.ausgang(Vector2i(10, 19))
 	pruefe(String(raus.get("ziel", {}).get("karte", "")) == "forest", "Ausgang (10, 19) in den Wald")
