@@ -20,8 +20,9 @@ const HELDEN := [
 	# Kamera nur 7, aussen 35 Grad sind 20: jetzt alle vier etwa 20 Grad, im Bogen), der Kopf zurueck bis etwa 5 Grad vor dem Spieler
 	# Sokrates 13.11., 02:06 („867, Vorlage 5 B“): die Faeuste auf dem Knauf reicht die gekaufte Figur nicht (Arm 0,515 m, Knauf
 	# 0,54 bis 0,58 m von der Schulter; am Rechner nachgestellt, auch mit dem Griff naeher am Koerper und tiefer gefasst nicht) ->
-	# Ersatz wie entschieden: Schwert gesenkt in der rechten Hand (senken, HandSenken), Schild am linken Arm, Flaeche schraeg zum Spieler
-	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.32, "dreh": 35.0, "haltung": "", "kopf": 0.4, "senken": true},
+	# Ersatz wie entschieden: Schwert gesenkt in der rechten Hand (senken, HandSenken), Schild am linken Arm, Flaeche schraeg zum Spieler;
+	# Sokrates 03:14 (Vorlage 6 passt): der Schild lag nah am Zauberlehrling -> 8 cm weiter nach aussen (x -1,40)
+	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.40, "dreh": 35.0, "haltung": "", "kopf": 0.4, "senken": true},
 	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 25.0, "haltung": "zauberer", "kopf": 0.6, "arm": 22.0},
 	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -25.0, "haltung": "bogen", "kopf": 0.6},
 	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -35.0, "haltung": "", "kopf": 0.4},
@@ -41,6 +42,10 @@ const BILD_HOEHE := 2.3        # Meter, die das Bild hoch zeigt (Stab, Hut), Fue
 var _v: SubViewport
 var _bilder := 0
 var figuren: Array[Node3D] = []
+
+## 867: gibt es die Figuren des Spiels (gekauft, im Bau)? Sonst zeigt das Hauptmenue das alte Bild
+static func da() -> bool:
+	return FileAccess.file_exists("res://daten/bewegungen.bin") and not (HeldFigur.lade_info().get("trachten", {}) as Dictionary).is_empty()
 
 func _init(breite_dp := 330.0) -> void:
 	custom_minimum_size = Vector2(breite_dp, breite_dp * 0.625) * DP   # Seitenverhaeltnis des alten Bilds (600 x 375)

@@ -26,19 +26,34 @@ func _lauf() -> void:
 	var hm := Hauptmenue.new(null)
 	root.add_child(hm)
 	for i in 10: await process_frame
-	var alt: TextureRect = null
-	for r in hm.find_children("*", "TextureRect", true, false):
-		if alt == null and (r as TextureRect).texture is ImageTexture and (r as TextureRect).custom_minimum_size.x > 200: alt = r
-	if alt == null:
-		print("MENU867 altes Bild nicht gefunden"); quit(1); return
-	await knips("867_vorher")
-	var neu := HauptmenueHelden.new(alt.custom_minimum_size.x / AktionsKnopf.DP)
-	neu.size_flags_horizontal = alt.size_flags_horizontal
-	var eltern := alt.get_parent()
-	var i := alt.get_index()
-	eltern.add_child(neu)
-	eltern.move_child(neu, i)
-	alt.visible = false
+	# seit dem Einbau (Sokrates 03:14) zeigt das Hauptmenue die Helden selbst, wenn es die Figuren gibt; vorher das alte Bild zum Vergleich
+	var neu: HauptmenueHelden = null
+	for c in hm.find_children("*", "HauptmenueHelden", true, false): neu = c
+	var alt_bild := hm.bild(Hauptmenue.BILD, 330) if neu else null
+	if neu and alt_bild:
+		var eltern0 := neu.get_parent()
+		eltern0.move_child(alt_bild, neu.get_index())
+		neu.visible = false
+		for k in 3: await process_frame
+		await knips("867_vorher")
+		alt_bild.queue_free()
+		neu.visible = true
+		neu._bilder = 0
+		neu._v.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	else:
+		var alt: TextureRect = null
+		for r in hm.find_children("*", "TextureRect", true, false):
+			if alt == null and (r as TextureRect).texture is ImageTexture and (r as TextureRect).custom_minimum_size.x > 200: alt = r
+		if alt == null:
+			print("MENU867 altes Bild nicht gefunden"); quit(1); return
+		await knips("867_vorher")
+		neu = HauptmenueHelden.new(alt.custom_minimum_size.x / AktionsKnopf.DP)
+		neu.size_flags_horizontal = alt.size_flags_horizontal
+		var eltern := alt.get_parent()
+		var i := alt.get_index()
+		eltern.add_child(neu)
+		eltern.move_child(neu, i)
+		alt.visible = false
 	for k in 15: await process_frame
 	print("MENU867 Figuren %d: %s" % [neu.figuren.size(), HauptmenueHelden.HELDEN.map(func(h): return "%s %s %s" % [h["herkunft"], h["volk"], h["geschlecht"]])])
 	for h in HauptmenueHelden.HELDEN:

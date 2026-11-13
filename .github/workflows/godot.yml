@@ -257,6 +257,13 @@ jobs:
           # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
           cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
           ls -l $D/held_*.bin $D/haare.bin $D/haare_w.bin $D/bewegungen.bin $D/kampf-bewegungen.bin
+          # 867 (Vorentscheid Sokrates 13.11., 03:14, Vorlage 6 passt): die Haltungen der Menuehelden (zauber385.py aus den gekauften
+          # Protofactor-Saetzen auf das Geruest der UAL, wie im Pruefschritt „Hauptmenübild (867)“) ins Spiel, gekauft (kauf.txt)
+          P=$(find ${KAUF:-/kein} -path '*Unreal-Godot*' -name UAL1.glb 2>/dev/null | sort | head -1)
+          for hm in "zauberer:Humanoid@IdleWizard.fbx" "bogen:Humanoid@IdleBreatheBow.fbx"; do n=${hm%%:*}; q=$(find ${KAUF:-/kein} -name "${hm#*:}" 2>/dev/null | head -1)
+            [ -n "$q" ] && [ -n "$P" ] && QUELLE="$q" ZIEL="$P" NAME="Menue_$n" OUT=$RUNNER_TEMP/menue-$n.glb BECKEN=bein bl/bin/python -I tools/blender348/v3/zauber385.py > menue-$n.log 2>&1 \
+              && cp $RUNNER_TEMP/menue-$n.glb $D/menue-$n.bin && echo daten/menue-$n.bin >> $D/kauf.txt && echo "MENU867 Haltung $n im Spiel" || echo "MENU867 Haltung $n fehlt"
+          done
           # 656 (Chef 08.11., 14:52, Beule unter dem Schwertarm): der Kämpfer noch einmal wie vorher (UMHANG_ARM=1, Umhang mit den
           # Armgewichten) für den Vergleich vorher/nachher im Schritt „Umhang 656“; nur von Hand mit kampf=656
           if [ "${{ github.event.inputs.kampf }}" = "656" ]; then
