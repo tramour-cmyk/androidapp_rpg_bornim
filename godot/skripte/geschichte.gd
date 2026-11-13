@@ -24,6 +24,7 @@ const LOCKED := "locked_forever"
 const CHAPTER2_STARTED := "chapter2_started"
 const CHAPTER1_LEVEL_CAP := 6
 const SMOKE_BUNDLE := "smoke_bundle"
+const SMOKE_DUE := "smoke_due"   # 1160, 427.2a: gegen Krogg mit Rauch verloren, Morwen bindet beim nächsten Besuch ein neues Bündel
 const CLASS_WEAPON := "@class_weapon"
 ## 632, 870.4 (STORY-BRS-HELD.md „Die Truhe in der Blutzahnhöhle“): die Truhe cave_3 gibt die Waffe zur stärksten Waffenfertigkeit
 ## des Helden, eine Magieschule darüber den Glutstab oder Morgenröte; bei Gleichstand gewinnt, was in TRUHE_FOLGE zuerst kommt.
@@ -173,6 +174,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 				k.variante(s, "504.morwen.kraeuter", morwen, [[HERBALIST_HERBS["de"], HERBALIST_HERBS["en"]]])
 				k.shop(HERBALIST_STOCK, true)
 			else:
+				if smoke_due(s): smoke_again(k, s)   # 1160, 427.2a: vor ihrem üblichen Gruß
 				if s.has(GRIMFANG_DEFEATED): k.variante(s, "504.morwen.wieder.danach", morwen, [["Ohne Grimmzahn ist der Wald ruhiger geworden. Brauchst du Tränke?", "The woods are quieter without Grimfang. Need potions?"]])
 				else: k.variante(s, "504.morwen.wieder", morwen, [["Brauchst du Tränke? Für Grimmzahn wirst du sie brauchen.", "Need potions? You'll need them for Grimfang."]])
 				k.variante(s, "504.morwen.kraeuter", morwen, [[HERBALIST_HERBS["de"], HERBALIST_HERBS["en"]]])
@@ -193,6 +195,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 			else:
 				# [356.ketten]; a game saved between Grak and Lyra has no key: the chains open all the same
 				if s.anzahl("grak_key") > 0: k.take("grak_key")
+				k.ereignis("ketten")   # 1144: mit der Zeile klirren die Ketten, Lyra reibt die Handgelenke, die Arme sinken
 				k.narrate("Der Schlüssel dreht sich schwer. Die Ketten fallen klirrend zu Boden.", "The key turns stiffly. The chains fall clattering to the floor.")
 				k.say(lyra, "Du hast Grak besiegt! Ich bin Lyra, Priesterin des Morgenlichts.", "You defeated Grak! I'm Lyra, priestess of the Dawnlight.")
 				k.say(lyra, "Sie wollten mich und das Amulett zu jemandem bringen … zum »Grauen Propheten«.", "They were going to take me and the amulet to someone… to the “Gray Prophet”.")
@@ -326,6 +329,35 @@ static func gitter(s: Zustand) -> Array:
 		k.narrate("Du steckst den rostigen Schlüssel ins Schloss. Mit lautem Quietschen öffnet sich das Gitter.", "You put the rusty key into the lock. With a loud screech, the gate swings open.")
 	else: k.variante(s, "504.gitter", {}, [["Ein schweres Eisengitter. Es ist verschlossen.", "A heavy iron gate. It's locked."]])
 	return k.befehle
+
+# 1160 (427.2a, Chef 03.11., 15:44): nach jeder Niederlage gegen Krogg, in der ein Bündel verbraucht wurde, solange Krogg lebt und
+# keins in der Tasche ist
+static func smoke_due(s: Zustand) -> bool: return s.has(SMOKE_DUE) and not s.has(KROGG_DEFEATED) and s.anzahl(SMOKE_BUNDLE) <= 0
+
+# [427.2a.morwen.rauch] (Homer 03.11., Wortlaut aus STORY-K1-HANDLUNG.md)
+static func smoke_again(k: Skript, s: Zustand) -> void:
+	k.variante_eigen(s, "427.2a.morwen.rauch", morwen, [
+		[["Krogg hat dich erwischt, ich seh's an deinem Gang. Der Rauch hat getan, was er konnte. Hier, ein neues Bündel. Diesmal bring mehr mit als Mut.", "Krogg got you, I can tell by the way you walk. The smoke did what it could. Here, a new bundle. This time bring more than courage."]],
+		[["Mein Rauch ist verflogen, und Krogg steht noch? Dann nimm dieses hier. Kräuter wachsen nach; du hoffentlich auch.", "My smoke is gone, and Krogg still stands? Then take this one. Herbs grow back; I hope you do too."]],
+		[["Ich hab dir schon eins gebunden. Nimm es, und geh erst wieder in den Ostflügel, wenn du sicher stehst.", "I've already bound one for you. Take it, and don't go back to the east wing until you're steady on your feet."]]])
+	k.give(SMOKE_BUNDLE, 1)
+	k.unflag(SMOKE_DUE)
+
+# [427.2.rauch] (Homer 03.11., Vorgang 427.2, 427.1 Chef 02.11.: Hinweis spätestens nach der ersten Niederlage gegen Krogg): zweite Zeile
+# nach [504.erwachen]; mit Rauch verloren, mit Garricks Rat, ohne ihn; je drei Wortlaute, erster beim ersten Mal. [Marke, Wortlaute]
+static func krogg_niederlage(s: Zustand, mit_rauch: bool) -> Array:
+	if mit_rauch: return ["427.2.rauch.buendel", [
+		["Der Rauch hat ihm den ersten Hieb genommen, aber nicht die übrigen. Krogg ist stärker als du, noch. Morwen bindet dir ein neues Bündel.", "The smoke robbed him of his first strike, but not of the others. Krogg is stronger than you. For now. Morwen will bind you a new bundle."],
+		["Morwens Rauch hat gewirkt; du warst es, der nicht gereicht hat. Hol dir bei ihr ein neues Bündel und werde stärker, bevor du wieder in den Ostflügel gehst.", "Morwen's smoke worked; you were the one who fell short. Get a new bundle from her and grow stronger before you go back to the east wing."],
+		["Ohne den ersten Hieb blieb Krogg noch genug. Ein paar Narben mehr und ein neues Bündel von Morwen, dann versuchst du es wieder.", "Even without his first strike, Krogg had enough left. A few more scars and a new bundle from Morwen, then you'll try again."]]]
+	if s.has(HUNTER_MET): return ["427.2.rauch", [
+		["Kroggs erster Hieb aus dem Dunkel hat dich gebrochen, bevor der Kampf richtig begann. Garrick hat dich gewarnt: Geh nicht mit leeren Händen zu ihm. Morwen im Tiefen Flüsterwald weiß, wie man so einem den ersten Hieb nimmt.", "Krogg's first blow from the dark broke you before the fight had truly begun. Garrick warned you: don't go to him empty-handed. Morwen in the Deep Whisperwood knows how to rob one like him of his first strike."],
+		["Kroggs erster Hieb sitzt dir noch in den Knochen. Garrick sprach von Morwen, der Kräuterfrau im Tiefen Flüsterwald. Vielleicht ist es Zeit, auf ihn zu hören.", "Krogg's first blow is still in your bones. Garrick spoke of Morwen, the herbalist in the Deep Whisperwood. Perhaps it's time to listen to him."],
+		["Gegen Kroggs ersten Hieb hilft kein Mut. Morwen im Tiefen Flüsterwald weiß Rat dagegen, hat Garrick gesagt.", "Courage is no help against Krogg's first strike. Morwen in the Deep Whisperwood knows a way around it, Garrick said."]]]
+	return ["427.2.rauch.ohne", [
+		["Kroggs erster Hieb aus dem Dunkel hat dich gebrochen, bevor der Kampf richtig begann. Wer weiß, wie man so einem den ersten Hieb nimmt? Vielleicht jemand, der den Wald kennt. Am Lagerfeuer im Flüsterwald sitzt ein Jäger.", "Krogg's first blow from the dark broke you before the fight had truly begun. Who knows how to rob one like him of his first strike? Perhaps someone who knows the woods. A hunter sits by the campfire in the Whisperwood."],
+		["Kroggs erster Hieb sitzt dir noch in den Knochen. Allein und mit leeren Händen kommst du an ihm nicht vorbei. Der Jäger am Lagerfeuer im Flüsterwald weiß vielleicht Rat.", "Krogg's first blow is still in your bones. Alone and empty-handed, you won't get past him. The hunter by the campfire in the Whisperwood may have advice."],
+		["Gegen Kroggs ersten Hieb hilft kein Mut. Frag im Flüsterwald nach, beim Jäger am Lagerfeuer.", "Courage is no help against Krogg's first blow. Ask around in the Whisperwood, at the hunter's campfire."]]]
 
 static func wants_smoke(s: Zustand) -> bool: return s.has(HUNTER_MET) and not s.has(KROGG_DEFEATED) and not s.has(SMOKE_GIVEN)
 

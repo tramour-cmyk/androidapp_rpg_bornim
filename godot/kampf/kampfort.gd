@@ -1291,7 +1291,7 @@ func _play_say(e: Dictionary) -> void:
 		if e.hp[id] < was:
 			var mx: int = mars.find(id).max_hp if mars.find(id) != null else 1
 			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)
-		elif target == id and _missed(e) and across and figures[id].blockt():
+		elif target == id and _missed(e) and across and figures[id].blockt() and e.cue != "EVADED":     # 949: perfekter Ring weicht aus
 			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
 			var af = figures.get(actor)
 			var von := Vector3.INF     # 662: vom Platz, an dem der Angriff ankommt, nicht von dort, wo er losläuft

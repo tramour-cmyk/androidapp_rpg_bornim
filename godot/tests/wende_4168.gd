@@ -108,8 +108,14 @@ func _lauf() -> void:
 	p.queue_free()
 	# 5) echte Figur (nur mit gebauten Leuten): Standfuss in der Welt waehrend einer Wende
 	var echt: Leute = null
+	var ohne := []   # 1040.1 (Lauf 427: Kaufleute ohne Drehen_L/R, hier still uebergangen): mit gebautem Kaufkoerper muss jede Person wenden koennen
 	for l in spiel.leute_liste():
-		if l is Leute and l.visible and not l.daten.has("tier") and l.wende_kurve.size() == 2 and l.anim: echt = l; break
+		if not (l is Leute and l.visible and not l.daten.has("tier") and not l.monster and l.anim): continue
+		if l.wende_kurve.size() == 2:
+			if echt == null: echt = l
+		else: ohne.append(String(l.daten.get("id", "?")))
+	if FileAccess.file_exists("res://daten/bewegungen.bin"):
+		pruefe(ohne.is_empty(), "Kaufkoerper gebaut, aber ohne Wende mit Schritten (Drehen_L/R, held-klassen.json wende): %s" % ", ".join(PackedStringArray(ohne)))
 	if echt == null:
 		print("ohne gebaute Leute mit Drehen_L/R (Bau ohne Kaufmodelle): echte Figur nicht geprueft")
 	else:

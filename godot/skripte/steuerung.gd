@@ -508,6 +508,9 @@ func naechste() -> void:
 				(l2 as Label).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 				(l2 as Label).custom_minimum_size.x = 0.0
 				(l2 as Label).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+				# 1120 (Chef 13.11., 16:52: „Der muss da randrücken ans Größerzeichen.“): die Aufschrift füllt die halbe Breite, steht
+				# aber rechtsbündig direkt am Pfeil ›
+				(l2 as Label).horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 			spalten.add_child(reihe)
 		text_knopf.add_child(spalten)
 	text_knopf.visible = knopf_text != ""

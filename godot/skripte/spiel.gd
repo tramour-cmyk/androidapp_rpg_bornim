@@ -596,7 +596,17 @@ func zeilen(liste: Array) -> Array:
 	return r
 
 # Ziel gebaut: hinein; sonst Name des Grundrisses zeigen und vor der Tuer wieder herauskommen
+# 495 (Lauf 259, Zufallsspieler Saat 4: Held im Haus des Aeltesten auf (5, 21), ausserhalb des Grundrisses, 481 Spielminuten fest):
+# zweimal der Knopf an der Tuer waehrend der Blende, beide gingen hinaus; der zweite fand die Karte schon gewechselt (id == karte.id)
+# und setzte den Helden auf das Feld vor der Dorftuer, nun im Grundriss. Ein Weg hinaus zur Zeit, jeder weitere wartet nicht, er entfaellt
+var geht_hinaus := false
 func geh_hinaus(a: Dictionary) -> void:
+	if geht_hinaus: return
+	geht_hinaus = true
+	await _geh_hinaus(a)
+	geht_hinaus = false
+
+func _geh_hinaus(a: Dictionary) -> void:
 	var z: Dictionary = a["ziel"]
 	var id := String(z["karte"])
 	ui.biete_an("")
@@ -641,6 +651,22 @@ var kampf_mess: Label   # 211.14: Bildrate im Kampf (Testmodus „Bildrate“ od
 
 # 399.3 (Jerry): Musik und Klang ueber den Autoload Klang; ueber den Knoten statt den Namen, denn mit -s (skripte_pruefen,
 # Lauf 135) gibt es den Autoload noch nicht und spiel.gd liesse sich nicht laden
+# 1144 (Chef 13.11., 14:49: „Die Ketten fallen klirrend zu Boden. Da wäre vielleicht ein Geräusch nicht das Schlechteste … erst wenn der
+# Dialog rum ist … geht sie heraus und hat … keine Ketten mehr an, weil sie die Arme bewegt. Das könnte man … cleverer timen“): zur
+# Zeile der Ketten, kurz nach dem Schlüssel, der Klang (tools/klang/ketten.py) und Lyra frei (Haltung.befreie); dann spricht sie, geht erst
+# nach dem Gespräch (LYRA_RESCUED am Ende der Szene)
+const KETTEN_NACH := 0.45   # s: erst dreht sich der Schlüssel
+func ereignis(was: String) -> void:
+	if was != "ketten": return
+	var ly: Leute = null
+	for l in leute_liste():
+		if String(l.daten.get("id", "")) == "lyra_cave": ly = l
+	get_tree().create_timer(KETTEN_NACH).timeout.connect(func():
+		klang("effekt", ["chains", 0.9])
+		var sk := Gebiet.finde(ly, "Skeleton3D") if ly != null and is_instance_valid(ly) else null
+		var h := sk.get_node_or_null("Haltung") if sk != null else null
+		if h != null and h.has_method("befreie"): h.befreie())
+
 func klang(was: String, mit := []) -> void:
 	var k := get_node_or_null("/root/Klang")
 	if k: k.callv(was, mit)
@@ -717,7 +743,9 @@ func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeff
 	# Einzelstueck (Beute.kampfbeute). [m]: der MARS des Kampfs (kampfort.gd _done)
 	var beute := func(m) -> Array:
 		var w := KotlinZufall.new(randi())
-		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt")).map(func(f): return String(f.monster.get("id", "")))
+		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt") and not f.get("vor_feuer")).map(func(f): return String(f.monster.get("id", "")))
+		if besiegt.is_empty() or m.kein_lohn:     # 915: das Rudel floh vor dem Feuer, keiner erlegt: keine Beute
+			return []
 		var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 		return Beute.kampfbeute(hw, w, besiegt, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
@@ -823,7 +851,17 @@ func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeff
 				if String(a["ziel"]["karte"]) == String(wk["karte"]): tuer = vor_tuer(alle, String(wk["karte"]), a)
 			held.setze(tuer, "DOWN")
 		kamera.springe(); await abblenden(0.0)
-		ui.sage(zeilen(variiere([{"text": {"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."}}])))
+		var erwachen := variiere([{"text": {"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."}}])
+		# 1160 (427.1, 427.2, 427.2a): gegen Krogg verloren: zweite Zeile mit dem Hinweis auf Morwens Rauch; mit Rauch: neues Bündel fällig
+		if gegner == "KROGG" and not zustand.has(Geschichte.KROGG_DEFEATED):
+			var mit_rauch := bool(erg.get("rauch", false))
+			if mit_rauch: zustand.setze(Geschichte.SMOKE_DUE)
+			var kn := Geschichte.krogg_niederlage(zustand, mit_rauch)
+			var wi := Skript.wahl(zustand, String(kn[0]), (kn[1] as Array).size())
+			var kv: Array = zustand.varianten.get(String(kn[0]), [0, -1])
+			zustand.varianten[String(kn[0])] = [int(kv[0]) + 1, wi]
+			erwachen.append({"text": {"de": String(kn[1][wi][0]), "en": String(kn[1][wi][1])}})
+		ui.sage(zeilen(erwachen))
 		return ende[0]
 	hw.leben = clampi(tp_nach, 1, hw.max_leben())
 	if ende[0] in ["WON", "ENEMY_FLED"]: zustand.siege += 1   # 492 (Game.kt 1498): Flucht von Grak oder Krogg zaehlt als Sieg; 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
@@ -1096,6 +1134,8 @@ func weiter() -> void:
 				zustand.setze(String(c["flagge"]))
 				if String(c["flagge"]) == Geschichte.BARRIER_OPEN: klang("effekt", ["door"])   # 636 Game.kt SetFlag: Schlagbaum auf mit Türgeräusch
 				flaggen_neu()
+			"flagge_weg":   # 1160: Morwens neues Bündel (Geschichte.SMOKE_DUE)
+				zustand.flaggen.erase(String(c["flagge"]))
 			"variante":   # 504.1: Wortlaut gehoert (Skript.variante)
 				var vm := String(c["marke"])
 				var vv: Array = zustand.varianten.get(vm, [0, -1])
@@ -1118,6 +1158,7 @@ func weiter() -> void:
 				return
 			"rast": Rast.heilen(zustand, held_werte(), platz())   # Cmd.Rest (Tempel): dazu der Wiederkehrort
 			"heilen": Rast.heilen(zustand, held_werte())
+			"ereignis": ereignis(String(c["was"]))
 			"laden":   # Cmd.OpenShop: Thessa oder Morwen; die Szene geht weiter, wenn der Laden zu ist
 				oeffne_laden(c["waren"], bool(c.get("brauen", false)), bool(c.get("nur_vorraete", false)))
 				return
@@ -1444,6 +1485,8 @@ func test_tat(was: String, mit: Array) -> void:
 				speichere()
 				neu_brs = w
 				get_tree().reload_current_scene())
+		"lage":   # 1156: Lage einer Zeile der Prüfliste (Knopf „Lage herstellen“)
+			await lage_herstellen(mit[0])
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
@@ -1457,6 +1500,37 @@ func test_tat(was: String, mit: Array) -> void:
 			if was == "probe" and mit.size() > 3 and bool(mit[3]) and ende != "NONE": oeffne_menue("test")
 
 # 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
+# 1156 (Vorlage 1020 D Stufe 2): stellt die Lage einer Zeile der Prüfliste her (Testmodus.LAGE_SCHLUESSEL): erst Held und Uhr,
+# dann der Ort (Station mit ihrem Stand der Geschichte, Kapitelende oder ort=), dann die Merker der Lage, zuletzt der Probekampf mit
+# der Wahl der Lage („Zurück zum Testmenü“ führt wieder in den Reiter). Fehlerhafte Lage: eine Meldung, nichts geändert.
+func lage_herstellen(l: Dictionary) -> void:
+	var fehler := Testmodus.lage_fehler(l)
+	if not fehler.is_empty():
+		ui.kurz(Sprache.t({"de": "Lage nicht herstellbar: ", "en": "Cannot set up: "}) + String(fehler[0]))
+		return
+	if l.has("stufe"): Testmodus.stufe_setzen(werte, zustand, int(l["stufe"]))
+	if l.has("vorraete"): Testmodus.vorraete(werte, zustand)
+	if l.has("einmaliges"): await test_tat("einmaliges", [])
+	if l.has("uhr"): zustand.minuten = Testmodus.lage_uhr(String(l["uhr"]))
+	var merker := func() -> void:
+		for w in String(l.get("merker", "")).split(",", false):
+			if w.begins_with("-"): zustand.flaggen.erase(w.substr(1))
+			else: zustand.setze(w.trim_prefix("+"))
+	if l.has("station"):
+		await test_tat("kapitelende" if String(l["station"]) == "Kapitelende" else "station", [String(l["station"])])
+		if l.has("merker"):
+			merker.call()
+			await test_tat("ort_neu", [])
+	else:
+		merker.call()
+		if l.has("ort"):
+			var o := String(l["ort"]).split(":")
+			await test_tat("teleport", [o[0], int(o[1]), int(o[2]), o[3] if o.size() > 3 else held.blick()])
+		elif l.has("merker") or l.has("uhr"):
+			await test_tat("ort_neu", [])
+	var pr := Testmodus.lage_probe(l)
+	if not pr.is_empty(): await test_tat("probe", pr)
+
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
 func ortsworte(von: String, erster: bool) -> void:
 	if not Zwischenbild.da():

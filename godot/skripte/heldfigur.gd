@@ -494,8 +494,6 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 	var neben = aus.get("OFF_HAND")
 	var schild := _modell(neben) if neben is Dictionary and String(Beute.grundform(String(neben.get("base", ""))).get("art", "")) == "SHIELD" else ""
 	var waffe := _modell(aus.get("MAIN_HAND"))
-	var dolch := _modell(neben) if neben is Dictionary and schild == "" and String(neben.get("base", "")) == "dagger" else ""
-	if dolch != "": dolch_anlegen(m, sk, dolch, pts)
 	# Ruhelage: die Figur blickt nach +Z, ihre linke Seite ist +X. Schild auf dem Ruecken (Vorderseite nach hinten), geneigt wie der
 	# Ruecken zwischen Schulterblatt und Kreuz (Pruefer Lauf 1: unten 5-7 cm Spalt); die Waffe schraeg, Griff ueber der rechten
 	# Schulter, hinter allem, was hinten am weitesten absteht (Lauf 1: Schwert hinter dem Schild verdeckt, Parierstange im Umhang)
@@ -597,37 +595,6 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var quer := Vector3.FORWARD
 		var t := Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), griff)
 		_haenge(m, sk, bi, brust, waffe, t, "RueckenWaffe")
-
-# 1149 (aus 1140, 522; Chef 04.11., 11:55 „Streitkolben und Dolch angelegt, am Helden nichts“): der Dolch der Nebenhand am Körper,
-# unterwegs, im Drehteller und in der Ausrüstung; Platz ist Aussehen, darum zur Wahl (Chefsache 1149, Probebild tests/dolch_bild_1149.gd):
-# „guertel“ senkrecht an der linken Hüfte, Griff vorn oben, Klinge schräg nach hinten unten, flach am Bein; „kreuz“ waagrecht quer
-# über dem Kreuz, Griff rechts. Am Becken (pelvis), damit er mit der Hüfte geht. Ruhelage wie oben: Blick +Z, links +X
-static var dolch_platz := "guertel"
-static func dolch_anlegen(m: Node3D, sk: Skeleton3D, was: String, pts: PackedVector3Array) -> void:
-	var pi := sk.find_bone("pelvis")
-	if pi < 0: return
-	var becken := im_raum(m, sk) * sk.get_bone_global_rest(pi)
-	var yp := becken.origin.y
-	var t: Transform3D
-	if dolch_platz == "kreuz":
-		var hinten := 9.0   # hinterste Stelle des Rumpfs 6–12 cm über dem Becken (z am kleinsten), nur die Mitte
-		for p in pts:
-			if absf(p.x) < 0.1 and p.y > yp + 0.06 and p.y < yp + 0.12: hinten = minf(hinten, p.z)
-		if hinten > 8.0: hinten = becken.origin.z - 0.12
-		var achse := Vector3(1.0, -0.12, 0.0).normalized()   # Griff rechts (-X), Klinge nach links
-		var quer := (Vector3.UP - achse * achse.dot(Vector3.UP)).normalized()   # Schneide nach oben, flach am Rücken
-		t = Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), Vector3(-0.11, yp + 0.09, hinten - 0.025))
-	else:
-		var aussen := 0.0   # äußerste Stelle der linken Hüfte (x), Arme ausgenommen (über 0,3 m)
-		for p in haut_punkte(m, sk, false, null, [], INF):
-			if p.x > 0.0 and p.x < 0.3 and absf(p.y - yp) < 0.05: aussen = maxf(aussen, p.x)
-		if aussen <= 0.0: aussen = 0.17
-		var achse := Vector3(0.08, -1.0, -0.35).normalized()   # Klinge nach unten, schräg nach hinten
-		var quer := (Vector3.BACK - achse * achse.dot(Vector3.BACK)).normalized()   # Schneide nach vorn, Klinge flach am Bein
-		t = Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), Vector3(aussen + 0.02, yp + 0.03, 0.05))
-	var h := Halt.gegenstand(was)   # 653: Griff, Achse und Schneide des Modells (Dolch: Schneide +X), t gilt für den Griffrahmen
-	if not h.is_empty(): t = t * Halt.griff_rahmen(h).affine_inverse()
-	_haenge(m, sk, pi, becken, was, t, "RueckenDolch")
 
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
@@ -1050,6 +1017,18 @@ class Haltung extends SkeletonModifier3D:
 	var dame_w := -1.0
 	var dame_mass := Vector2.ZERO   # Fuesse, Handgelenke auseinander in Hueftbreiten nach dem letzten _dame (dame_1044; ausserhalb der Modifikation zeigt das Skelett wieder die Bewegung)
 	var _dame_t := 0
+	# 1144 (Chef 13.11., 14:49, Lyra in Graks Halle: „Die steht aber noch da, ob es angekettet wäre“): mit den Händen vorn wirkt der
+	# Damenstand in der Halle wie gefesselt. Bei „Die Ketten fallen klirrend zu Boden“ (befreie) reibt sie die Handgelenke, erst die
+	# rechte Hand über das linke, dann umgekehrt (REIB_S), dann sinken die Arme und sie steht frei (SINK_S); danach ohne Damenstand
+	var frei_seit := -1
+	const REIB_S := 2.0
+	const SINK_S := 0.8
+	func befreie() -> void:
+		if dame and frei_seit < 0: frei_seit = Time.get_ticks_msec()
+	## 1144: [Reiben 0–1 (welche Hand reibt: 0 rechte, 1 linke), Gewicht des Damenstands] t s nach befreie
+	static func frei_phase(t: float) -> Vector2:
+		if t < REIB_S: return Vector2(0.0 if t < REIB_S * 0.5 else 1.0, 1.0)
+		return Vector2(-1.0, 1.0 - smoothstep(0.0, 1.0, (t - REIB_S) / SINK_S))
 	func _drehe(sk: Skeleton3D, i: int, r: Basis) -> void:
 		var g := sk.get_bone_global_pose(i)
 		var pa := sk.get_bone_parent(i)
@@ -1080,6 +1059,15 @@ class Haltung extends SkeletonModifier3D:
 		if dame_w < 0.0: dame_w = soll
 		else: dame_w = move_toward(dame_w, soll, clampf((jetzt - _dame_t) / 1000.0, 0.0, 0.1) / DAME_BLENDE)
 		_dame_t = jetzt
+		var reib := -1.0   # 1144: welche Hand reibt (befreie), -1 keine
+		var t_frei := (jetzt - frei_seit) / 1000.0 if frei_seit >= 0 else 0.0
+		if frei_seit >= 0:
+			var ph := frei_phase(t_frei)
+			reib = ph.x
+			dame_w = minf(dame_w, ph.y)
+			if ph.y <= 0.0:
+				dame = false
+				return
 		if dame_w < 0.01: return
 		var w := smoothstep(0.0, 1.0, dame_w)
 		var b := {}
@@ -1132,6 +1120,13 @@ class Haltung extends SkeletonModifier3D:
 		var rumpf := maxf(0.05, oben.y - ziel_p.y)
 		var bauch := ziel_p + Vector3.UP * (0.08 * rumpf)
 		var zh := [bauch + links * (0.42 * breite) + vorn * (0.75 * breite), bauch - links * (0.36 * breite) + vorn * (0.85 * breite) + Vector3.UP * (0.06 * rumpf)]
+		if reib >= 0.0:
+			# 1144: die reibende Hand kreist über dem Handgelenk der anderen (etwa zwei Kreise je Hand), die gehaltene liegt etwas höher
+			var r := 0 if reib < 0.5 else 1
+			var o := 1 - r
+			var ph := TAU * 2.2 * t_frei
+			zh[o] = bauch + vorn * (0.8 * breite) + Vector3.UP * (0.12 * rumpf) + (links if o == 0 else -links) * (0.08 * breite)
+			zh[r] = zh[o] + (links if o == 0 else -links) * (0.1 * breite + 0.06 * breite * cos(ph)) + Vector3.UP * (0.05 * rumpf + 0.04 * rumpf * sin(ph)) + vorn * (0.05 * breite)
 		for s in 2:
 			var e := "_l" if s == 0 else "_r"
 			var aussen := links if s == 0 else -links
