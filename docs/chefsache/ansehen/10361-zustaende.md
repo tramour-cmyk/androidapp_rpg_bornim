@@ -31,6 +31,6 @@ Schon festgelegt (12.11., 20:52) und nicht im Film: Brennend `burning`, Vergifte
 
 Netz, Ranken oder Ketten gibt es in keinem Paket. Für „Festgehalten“ passt darum vielleicht keiner der drei.
 
-Nicht in dieser Vorlage: Arkanhaut und Bannschild, Im Schatten, Rasend, Brennen in drei Größen (der Lauf brach nach 15 Minuten Aufnahme ab).
+Nicht in dieser Vorlage: Arkanhaut und Bannschild, Im Schatten, Rasend, Brennen in drei Größen (der Lauf brach nach 15 Minuten Aufnahme ab). Die Aufnahme ist jetzt geteilt (Zweig `claude/jerry-1036-1-zustaende`, `2b757817d`); ein neuer Lauf dauert etwa 1¾ Stunden.
 
-**Sag bitte:** Welcher Effekt gilt je Zustand (Film und Nummer), oder „eigen“, oder was anders sein soll.
+**Sag bitte:** Welcher Effekt gilt je Zustand (Film und Nummer), oder „eigen“, oder was anders sein soll. Und ob du die übrigen vier sehen willst (dann neuer Lauf).
