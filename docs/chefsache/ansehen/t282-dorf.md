@@ -1,6 +1,7 @@
 # Tom und Jerry · Build 282 · 0.348.420 · Dorf, Höhle, Hauptmenü: Kartenrand, Blutzahnhöhle mit Nebel, Helden im Hauptmenü, Frauen, Pim, Schenke · PR #201
 E Welt · Tom (492, 521, 757, 758, 764, 814, 860, 867, 1035, 1044, 1090), Spike (842, 1086, 1022), Jerry (1046, 1037), Tuffy (1058, 1062, 1084) · 13.11., 04:35 · [APK (Lauf 420)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43370553634/artifacts/14017521202)
 Gegengelesen: Sokrates 13.11., 04:39
+Billigung mit diesem Test (Chef 13.11., 09:33): „passt“ billigt den Vorentscheid, „falsch“ ist „zurück“ (Rückbau als Muss beim Besitzer): 282.2 = 867, 282.5 = 1022, 282.6, 282.18, 282.22 = 1044, 282.7 = 1090, 282.8, 282.9, 282.15 = 842, 282.19 bis 282.21 = 492.
 
 Noch nicht in 282, bitte nicht melden: Rowena steht noch in der alten Haltung (Arme gehen durch den Bauch, kommt mit eigenem Körper je Statur, 431); dunkle Längsstreifen in hellen Roben und Röcken (Lyra, Osric, Rowena; 1092, Ursache wird gemessen); harter heller Fleck unten links am Höhleneingang (Tageslicht des Ausgangs mit harter Kante, zu 505); Bilder der Gegenstände in der Tasche noch aus der alten Fassung (1073); Güte und Zustand an den Gegenständen (756, Vorlage kommt).
 
