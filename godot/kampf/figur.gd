@@ -4685,8 +4685,13 @@ func die() -> void:
 			if randf() < 0.5: sterbe_spiegeln()
 		anim.play(nm, TOD_BLEND)
 	else:
+		# 1141 (Chef 13.11., 14:36: „wie Playmobil-Figuren umfallen. Und zwar alle auf die gleiche Seite“): ohne „Tod“ (Ersatz, seit
+		# 1141 hat jeder Gegnerkörper einen, tod_1141) wenigstens zufällig zur einen oder anderen Seite, beschleunigt wie ein Fall
+		# und am Boden kurz nachgebend statt mit gleichem Tempo steif um 80°
+		var seite := 1.0 if randf() < 0.5 else -1.0
 		var t := create_tween()
-		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
+		t.tween_property(model, "rotation:z", deg_to_rad(84) * seite, FALL_MS * 0.8 / 1000.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		t.tween_property(model, "rotation:z", deg_to_rad(80) * seite, FALL_MS * 0.2 / 1000.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	# 348.12 (Chef 28.10., 15:23: „Krag ist ein Hauptheld, der muss fulminant sterben am Schluss. Nicht einfach ausgeblendet werden,
 	# wir brauchen einen Zusammenbruch“): Grak bricht zusammen (Tod aus Death02: in die Knie, dann vornüber) und bleibt liegen
 	if fighter.side == "FOES" and Mars.koerper_of(fighter.monster) not in [Mars.GRAK, Mars.KROGG]:     # 494: Krogg bricht zusammen wie Grak

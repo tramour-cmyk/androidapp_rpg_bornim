@@ -272,6 +272,118 @@ def bake_action(name, n, fn, measure=False):
 FPS = 30; scn.render.fps = FPS
 bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True)
 bake_action('Stehen', 90, pose_idle)
+# 1141 (Chef 13.11., 14:36: Goblins, Schamane „wie Playmobil-Figuren umfallen. Und zwar alle auf die gleiche Seite“): die Goblins
+# (goblin.py baut alle vier Arten mit dieser Datei) hatten keine Sterbebewegung, figur.gd kippte sie steif um 80°. Jetzt drei wie
+# im alten Spiel (FoeArt.kt deaths): Knie geben nach und vornüber aufs Gesicht, Arme vor sich; vom Schlag zurückgeworfen auf den
+# Rücken, Arme weit; herumgerissen aufs Knie und zur Seite. Schlüsselbilder als Zusatz auf Bild 0 der Ruhe (Lauer bei Goblins), so
+# behält jede Art ihre Arme; Grad um die Weltachsen (Vorbeugen +X am Rumpf, Bein und Arm nach vorn -X, Y + nach rechts, Zx Hochachse).
+# Am Boden hält das Netz selbst (tiefste Ecke auf 0), nicht die Füße: liegend steckte sonst der Rumpf im Boden.
+RUHE0 = globals().get('pose_lauer', pose_idle)
+GERADE = Quaternion((1, 0, 0, 0))
+RUMPF = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']     # Hals nicht: das Gerüst ist gebeugt gebaut (goblin.py gebeugt), gerade hinge der Kopf auf die Brust
+HUEFTE = ['hipR-thighR', 'hipL-thighL', 'thighR-kneeR', 'thighL-kneeL']
+KNIE = ['kneeR-calfR', 'kneeL-calfL', 'ankleR-heelR', 'ankleL-heelL', 'ankleR-ballR', 'ankleL-ballL']
+def _q(name, d):
+    return rot_world2(name, [(X, d[0]), (Y, d[1]), (Zx, d[2])])
+def _glatt(u):
+    return u * u * (3 - 2 * u)
+def beide(d, r, l=None):
+    """Knochenname mit S, Werte für rechts (l: links, sonst gespiegelt: Y und Zx umgekehrt)"""
+    return {d.replace('S', 'R'): r, d.replace('S', 'L'): l if l is not None else (r[0], -r[1], -r[2])}
+def gerade(f_rumpf, f_huefte, f_knie):
+    """Anteil, um den die Ruhe (Lauer: Rumpf 40° vor, Knie 68° gebeugt) zur geraden Haltung zurückgeht: liegend ein Körper"""
+    return dict([(b, f_rumpf) for b in RUMPF] + [(b, f_huefte) for b in HUEFTE] + [(b, f_knie) for b in KNIE])
+def _tod_pose(keys, t):
+    """keys: [(Zeit s, {Knochen: (x, y, z) Grad}, {Knochen: Anteil gerade}, Anteil zur Mitte)]; liefert den Anteil zur Mitte"""
+    for i in range(len(keys) - 1):
+        if t <= keys[i + 1][0] or i == len(keys) - 2: break
+    (ta, ka, ga, za), (tb, kb, gb, zb) = keys[i], keys[i + 1]
+    u = _glatt(min(1.0, max(0.0, (t - ta) / max(tb - ta, 1e-6))))
+    for b in set(ka) | set(kb) | set(ga) | set(gb):
+        a_, b_ = ka.get(b, (0, 0, 0)), kb.get(b, (0, 0, 0))
+        d = tuple(a_[j] + (b_[j] - a_[j]) * u for j in range(3))
+        g = ga.get(b, 0.0) + (gb.get(b, 0.0) - ga.get(b, 0.0)) * u
+        q0 = PB[b].rotation_quaternion.copy()
+        if g > 0: q0 = q0.slerp(GERADE, g)
+        PB[b].rotation_quaternion = _q(b, d) @ q0
+    return za + (zb - za) * u
+def _boden_netz(z):
+    """tiefste Ecke des Netzes auf den Boden; z: Anteil, um den die Mitte des Netzes über den Ursprung rückt (liegend bleibt der
+    Körper, wo er stand, statt eine Körperlänge vor oder hinter seinen Füßen zu liegen)"""
+    PB['root'].location = (0, 0, 0); bpy.context.view_layer.update()
+    ev = held.evaluated_get(bpy.context.evaluated_depsgraph_get()); me = ev.to_mesh()
+    co = np.empty(len(me.vertices) * 3, np.float32); me.vertices.foreach_get('co', co)
+    mw = np.array(ev.matrix_world); W = co.reshape(-1, 3) @ mw[:3, :3].T + mw[:3, 3]
+    ev.to_mesh_clear()
+    low = float(W[:, 2].min()); cx, cy = float(W[:, 0].mean()), float(W[:, 1].mean())
+    PB['root'].location = arm.bones['root'].matrix_local.to_3x3().inverted() @ Vector((-cx * z, -cy * z, -low))
+    return low
+KOB_ = FIGUR.startswith('kobold')
+KNIE_LIEGT = -45 if KOB_ else -20     # liegend standen die Unterschenkel hoch (Gerüst gebeugt gebaut, goblin.py gebeugt; Kobold dazu kurze Beine, beine 0,5)
+def schwanz(a):
+    """Kobold: der Schwanz hängt starr an pelvis-hipR (goblin.py); liegend zeigte er auf dem Bauch in den Himmel, auf dem Rücken in
+    den Boden (wie alt, Doll.kt: er liegt längs der Beine). Das rechte Bein dreht gegen, es bleibt, wo es war"""
+    return {'pelvis-hipR': (a, 0, 0), 'hipR-thighR': (-a, 0, 0)} if KOB_ else {}
+def _plus(k, d):
+    """Zusatz [d] auf die Schlüsselhaltung [k] (Grad addiert)"""
+    k = dict(k)
+    for b, v in d.items():
+        w = k.get(b, (0, 0, 0)); k[b] = tuple(w[j] + v[j] for j in range(3))
+    return k
+def tod_vorn():
+    """Knie geben nach, er sackt auf die Knie und schlägt vornüber aufs Gesicht, die Arme vor sich (FoeArt deaths 1)"""
+    k1 = {'pelvis-waist': (-10, 0, 0), 'belly-chest': (-10, 0, 0), 'neck-neckTop': (-18, 0, 0), **beide('shS-upS', (25, 10, 0))}
+    k2 = {'root': (6, 0, 0), 'pelvis-waist': (10, 0, 0), 'neck-neckTop': (10, 0, 0), **beide('hipS-thighS', (-22, 0, 0)),
+          **beide('kneeS-calfS', (42, 0, 0)), **beide('shS-upS', (45, 6, 0)), **beide('elS-foS', (40, 0, 0))}
+    k3 = {'root': (45, 0, 0), 'neck-neckTop': (-10, 0, 10), **beide('kneeS-calfS', (20, 0, 0)),
+          **beide('shS-upS', (-40, 15, 0)), **beide('elS-foS', (45, 0, 0))}
+    k4 = {'root': (88, 0, 0), 'neck-neckTop': (-15, 0, 40), **beide('hipS-thighS', (6, 3, 0)), **beide('kneeS-calfS', (4 + KNIE_LIEGT, 0, 0)),
+          **beide('shS-upS', (-100, 25, 0)), **beide('elS-foS', (55, 0, 0))}
+    g3, g4 = gerade(0.5, 0.4, 0.2), gerade(0.9, 0.85, 0.9)
+    k3, k4 = _plus(k3, schwanz(-30)), _plus(k4, schwanz(-70))
+    return [(0.0, {}, {}, 0.0), (0.14, k1, {}, 0.0), (0.5, k2, {}, 0.0), (0.8, k3, g3, 0.4), (1.08, k4, g4, 0.75),
+            (1.22, dict(k4, root=(91, 0, 0)), g4, 0.75), (1.42, dict(k4, root=(89, 0, 0)), g4, 0.75), (1.6, dict(k4, root=(89, 0, 0)), g4, 0.75)]
+def tod_rueck():
+    """vom Schlag zurückgeworfen: taumelt, fällt flach auf den Rücken, die Arme weit (FoeArt deaths 2)"""
+    k1 = {'root': (-6, 0, 0), 'pelvis-waist': (-22, 0, 0), 'belly-chest': (-16, 0, 0), 'neck-neckTop': (-28, 0, 0),
+          **beide('shS-upS', (40, 30, 0)), **beide('elS-foS', (30, 0, 0))}
+    k2 = {'root': (-22, 0, 0), 'pelvis-waist': (-14, 0, 0), 'belly-chest': (-12, 0, 0), 'neck-neckTop': (-10, 0, 0),
+          **beide('hipS-thighS', (-12, 0, 0)), **beide('kneeS-calfS', (22, 0, 0)), **beide('shS-upS', (55, 45, 0)), **beide('elS-foS', (50, 0, 0))}
+    k3 = {'root': (-86, 0, 0), 'neck-neckTop': (-30, 0, -30), 'chestTop-neck': (-10, 0, 0), **beide('hipS-thighS', (-14 - 0.3 * KNIE_LIEGT, 5, 0)), **beide('kneeS-calfS', (26 + 0.7 * KNIE_LIEGT, 0, 0)),
+          **beide('shS-upS', (70, 80, 0)), **beide('elS-foS', (60, 0, 0))}
+    g2, g3 = gerade(0.4, 0.2, 0.0), gerade(0.9, 0.8, 0.6)
+    k3 = _plus(k3, schwanz(-40))
+    return [(0.0, {}, {}, 0.0), (0.16, k1, gerade(0.3, 0.0, 0.0), 0.0), (0.5, k2, g2, 0.2), (1.0, k3, g3, 0.75),
+            (1.14, dict(k3, root=(-89, 0, 0)), g3, 0.75), (1.34, dict(k3, root=(-87, 0, 0)), g3, 0.75), (1.5, dict(k3, root=(-87, 0, 0)), g3, 0.75)]
+def tod_seite():
+    """herumgerissen, sinkt aufs rechte Knie und kippt zur Seite (FoeArt deaths 3)"""
+    k1 = {'pelvis-waist': (-6, 0, 22), 'belly-chest': (-4, 0, 12), 'neck-neckTop': (-10, 0, 25), **beide('shS-upS', (20, 15, 0))}
+    k2 = {'root': (6, -8, 28), 'pelvis-waist': (10, 0, 26), 'belly-chest': (6, 0, 12), 'neck-neckTop': (10, 0, 20),
+          'hipR-thighR': (-10, 0, 0), 'kneeR-calfR': (45, 0, 0), 'hipL-thighL': (-35, 0, 0), 'kneeL-calfL': (55, 0, 0),
+          **beide('shS-upS', (40, 10, 0)), **beide('elS-foS', (35, 0, 0))}
+    k3 = {'root': (8, -86, 32), 'pelvis-waist': (6, 0, 18), 'neck-neckTop': (0, -25, 10),
+          'hipR-thighR': (-6, 0, 0), 'kneeR-calfR': (10, 0, 0), 'hipL-thighL': (-30, 0, 0), 'kneeL-calfL': (35, 0, 0),
+          'shR-upR': (10, 35, 0), 'elR-foR': (30, 0, 0), 'shL-upL': (25, -20, 0), 'elL-foL': (50, 0, 0)}
+    g3 = gerade(0.7, 0.4, 0.3)
+    return [(0.0, {}, {}, 0.0), (0.16, k1, {}, 0.0), (0.62, k2, {}, 0.1), (1.12, k3, g3, 0.7),
+            (1.26, dict(k3, root=(8, -89, 32)), g3, 0.7), (1.44, dict(k3, root=(8, -87, 32)), g3, 0.7), (1.6, dict(k3, root=(8, -87, 32)), g3, 0.7)]
+def bake_tod(name, keys):
+    act = bpy.data.actions.new(name); act.use_fake_user = True
+    rig.animation_data_create()
+    for t_ in rig.animation_data.nla_tracks: t_.mute = True
+    rig.animation_data.action = act
+    n = int(round(keys[-1][0] * FPS)); lows = []
+    for f in range(n + 1):
+        clear(); RUHE0(0.0); z = _tod_pose(keys, f / FPS); lows.append(_boden_netz(z))
+        for pb in PB:
+            pb.keyframe_insert('rotation_quaternion', frame=f + 1); pb.keyframe_insert('location', frame=f + 1)
+    for t_ in rig.animation_data.nla_tracks: t_.mute = False
+    spur = rig.animation_data.nla_tracks.new(); spur.name = name; spur.strips.new(name, 1, act)   # anders geschrieben als in bake_action: goblin.py sucht dort genau eine Stelle
+    rig.animation_data.action = None
+    INFO[name + '_s'] = n / FPS; INFO[name + '_gehoben_cm'] = round(-min(lows), 1)     # so weit hob der Boden das Netz höchstens an
+if os.environ.get('TOD', '1') != '0':
+    for nm_, k_ in (('Tod', tod_vorn()), ('Tod2', tod_rueck()), ('Tod3', tod_seite())):
+        bake_tod(nm_, k_)
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0
 INFO['fps'] = FPS; INFO['ecken'] = len(held.data.vertices)
