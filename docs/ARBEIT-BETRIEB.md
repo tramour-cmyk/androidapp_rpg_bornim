@@ -129,3 +129,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 13.11.: Marke Archiv session_01Hmoj79opdaF8aU7sFWvj1X (lauf.py)
 - 22:04 13.11.: Marke Archiv session_01Hmoj79PfKha1ofQ8tTivdv (lauf.py)
 - 22:05 13.11.: Lauf 22:03: Diogenes (1175) `…75tnffFfTRAMHuhTAy`, Homer (1235) `…79TDPJJvAZwbQx6fLi`, Perikles (1230) `…78AKcmYZYcEtyFxx5V` gestartet; Vorgänger `…793z8s…` (1,97 $ auf 1221), `…79opda…` (6,80 $ auf 1229, 1232), `…79PfKh…` (3,40 $ auf 1221) archiviert; Listenstatus „pending“ der Sokrates-Sitzung war veraltet, get_session zeigte idle (Ford)
+- 22:29 13.11.: Startsperre 22:29 Start Jerry (Neustart a1a10e156, Nachfolger „Jerry – 709.1: Grimmzahn reicht nicht an den Schild“; Umgebung Mittel ohne Aufwandsfeld seit 22:04; Ford)
