@@ -1,5 +1,7 @@
 # 1043 · Der Held weicht dem Wolf sichtbar aus · Jerry · 13.11., 02:55
 
+[Film von 13.11., 02:56](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261113-025609-1043/2026-11/13-0256-1043-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf · Zweig `claude/jerry-1043-ausweichen` · auf dem Bauserver mit den gekauften Figuren, wie im Spiel; Film über Telegram
 
 Geprüft an: [Lauf 409](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43331361357), [Commit a2b2cb6](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/a2b2cb6c8)
