@@ -47,6 +47,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/mars_regeln.gd > regeln.log 2>&1 || true
           cat regeln.log
           grep -q "MARS Regeln: 0 abweichend" regeln.log
+          ! grep -q "SCRIPT ERROR" regeln.log     # 1054 (Hinweis Tom 12.11.): ein Laufzeitfehler bricht eine Prüfung ab, ohne sie abweichend zu zählen
       - name: Regeln aus core (390, Pechsträhne, Ausdauer, Talente)
         run: |
           cd godot

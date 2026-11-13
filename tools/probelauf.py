@@ -17,7 +17,7 @@ Probelauf heißt:
   sonst Nummer in Klammern im Namen des Ablaufs; auch ein Messlauf mit bild=nein (646, ersetzt 390a für den Bauserver),
   nur ein Sammelbuild `claude/build-<n>` für den Gerätetest nicht; Neustart eines Laufs (rerun) hält der Haken an;
 - ein Push auf einen Zweig `claude/…`, der einen Ablauf auslöst (letzter Commit ohne „[skip ci]“, Änderung
-  unter godot/, tools/blender348/, core/src/main/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
+  unter godot/, tools/blender348/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
 Vorlage heißt: eine Meldung mit Bild, Film oder Datei zu dem Vorgang (Zeile im Zweig „meldungen“, schreibt `meldung.sh`, 383).
 Jeder Lauf wird gezählt, auch einer, der abbricht. Die Zählung steht im Zweig „probelaeufe“ in `probelaeufe.tsv` (überlebt den
 Neustart) und hilfsweise in ~/.bornim-probelaeufe.tsv. Bei eigenem Fehler (kein Git, kein Netz) lässt der Haken durch.
@@ -57,6 +57,7 @@ DATEI = "probelaeufe.tsv"
 NR = r"[A-Za-z]?\d+[a-z]?(?:\.\d+[a-z]?)*"
 PROBE = re.compile(r"\bPROBE=(" + NR + r")\b")
 PROBEBILD = re.compile(r"\bPROBEBILD=(" + NR + r")\b")
+MESS = re.compile(r"\bMESS=(" + NR + r")\b")  # 1129 A 3b: eigener Mess- oder Testlauf, zählt nicht gegen die Grenze
 FILM = re.compile(r"--write-movie|\.mp4\b|\bffmpeg\b|\b(?:WALK|IDLE|FOE)?FILM(?:BATCH)?=|\btools/t\s+film\b|[\w./-]*film[\w-]*\.(?:sh|py)\b", re.I)
 GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\n|;&]*--path[^\n|;&]*")
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
@@ -177,7 +178,7 @@ GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
 GH_RERUN = re.compile(BEFEHL_ANFANG + r"(?:gh\s+run\s+rerun\b|(?:curl|gh\s+api)\b[^\n|;&]*/actions/(?:runs|jobs)/\d+/rerun)", re.M)
 API_LAUF = re.compile(BEFEHL_ANFANG + r"(?:curl|gh\s+api)\b[^\n|;&]*/actions/workflows/([\w.-]+)/dispatches[^\n|;&]*", re.M)
 ARCHIV_KOPF = re.compile(r"^- \*\*([^*]+)\*\*\s*\((\d\d)\.(\d\d)\.,\s*(\d\d):(\d)([\dx])", re.M)
-CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe
+CI_PFADE = ("godot/", "tools/blender348/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe; 882.2: core/ baut nicht mehr
 
 
 def jetzt():
@@ -185,10 +186,12 @@ def jetzt():
 
 
 def testlauf(lauf, befehl, cwd):
-    """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn eng: `--headless`, kein xvfb-run,
-    `-s res://tests/….gd`, und die Testdatei enthält keinen Bildbefehl. Datei nicht gefunden: zählt als Bildlauf."""
+    """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn `-s res://tests/….gd` läuft, kein Film
+    geschrieben wird und die Testdatei keinen Bildbefehl enthält. Datei nicht gefunden: zählt als Bildlauf.
+    1146 (von Jerry, 1025): `xvfb-run` zählt nicht mehr dagegen — ein Test, der nur einen Bildschirm braucht, aber kein Bild
+    ablegt, zeigt dem Chef nichts (zweikampf_1025 und welt_548 verbrauchten je die eine Probe aus 621 A)."""
     s = TEST_SKRIPT.search(lauf)
-    if "--headless" not in lauf or "xvfb-run" in lauf or "--write-movie" in lauf or not s:
+    if "--write-movie" in lauf or not s:
         return False
     p = re.search(r"--path[=\s]+(\S+)", lauf)
     pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
@@ -275,7 +278,7 @@ def stand(nr):
     frei = urteil(nr)
     gesehen = set()
     for z in zeilen(laeufe) + zeilen(lokal):
-        if z[1] == nr and (frei is None or z[0] > frei):
+        if z[1] == nr and z[3] != "mess" and (frei is None or z[0] > frei):  # 1129 A 3b: Messläufe sind frei
             gesehen.add(tuple(z[:5]))
     return len(gesehen), frei
 
@@ -319,7 +322,11 @@ def push_lauf(befehl, cwd):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
     if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
-        oben = git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+        # 1213 (Jerry 13.11.: claude/jerry-1162-… von build-284 zählte, kein Ablauf lief): GitHub prüft „paths“ beim neuen Zweig nur an
+        # den Commits, die noch auf keinem Zweig liegen; darum ab dem Elternteil des ältesten Commits, der auf keinem origin-Zweig liegt
+        neue = git("rev-list", "--topo-order", "--reverse", "HEAD", "--not", "--remotes=origin", cwd=wo).stdout.split()
+        eltern = git("rev-parse", "-q", "--verify", neue[0] + "^", cwd=wo).stdout.strip() if neue else ""
+        oben = (eltern if neue else git("rev-parse", "HEAD", cwd=wo).stdout.strip()) or git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
     neu_f = COMMIT_F.search(befehl[:m.start()])  # 627 (Tuffy 07.11., 21:15): Nachricht aus dem Heredoc, nicht die des alten HEAD
     neu = neu_f or COMMIT.search(befehl[:m.start()])
@@ -391,10 +398,6 @@ def loest_aus(wo, zweig, pfade, nachricht):
         wege = push.get("paths")
         if wege and pfade is not None and not any(_glob(m, p) for m in wege for p in pfade):
             continue
-        # 858 (D129.1): in der Wurzel suchen, nicht im Ordner des Aufrufs; im Paket (push_files) genügt der Pfad
-        if datei == "vorschau.yml" and not os.path.exists(os.path.join(wurzel, "tools", "preview", "vorschau.env")) \
-                and "tools/preview/vorschau.env" not in (pfade or []):
-            continue  # 848 (Tom 10.11., 506a): Kotlin-Vorschau ohne vorschau.env bricht ohne Bild ab, keine Probe
         bed = re.findall(r"startsWith\(\s*github\.event\.head_commit\.message\s*,\s*'([^']+)'\s*\)", text)
         jobs = d.get("jobs") or {}
         if bed and jobs and all("startsWith(github.event.head_commit.message" in str((j or {}).get("if", "")) for j in jobs.values()) \
@@ -730,7 +733,7 @@ def spielcode(pfade):
 def alt_meldung(zweig, spiel):
     return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
             f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
-            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
+            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in der Kotlin-Fassung lesen (app/, core/; nach 870.10 im Zweit-Repo), dann eine Zeile "
             "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
             "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
 
@@ -885,9 +888,15 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     if d is not None:
         e = d.get("tool_input") or {}
         dateien = [f for f in (e.get("files") or []) if isinstance(f, dict)] + ([e] if e.get("path") else [])
+        wurzel = git("rev-parse", "--show-toplevel", cwd=cwd).stdout.strip() or cwd
         for f in dateien:
             o = vp.ordner_von(str(f.get("path", "")))
-            if o and (fehlt := vp.luecken(str(f.get("content") or ""), o)):
+            inhalt = str(f.get("content") or "")
+            fehlt = vp.luecken(inhalt, o) if o else []
+            if o and git("cat-file", "-e", "origin/main:" + str(f["path"]), cwd=wurzel).returncode != 0:  # 1129 A 1: neue Datei
+                fehlt += vp.tor(inhalt, str(f["path"]), wurzel)
+                _abk_warnung(f["path"], vp.warnungen(inhalt))
+            if fehlt:
                 befunde.append((f["path"], fehlt))
         return vp.meldung(befunde) if befunde else None
     m = GIT_SCHREIBT.search(befehl)
@@ -905,13 +914,34 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     for p in sorted(set(pfade)):
         datei = os.path.join(wurzel, p)
         o = vp.ordner_von(p)
-        if o and os.path.isfile(datei) and (fehlt := vp.luecken(open(datei, encoding="utf-8").read(), o)):
+        if not (o and os.path.isfile(datei)):
+            continue
+        inhalt = open(datei, encoding="utf-8").read()
+        fehlt = vp.luecken(inhalt, o)
+        if git("cat-file", "-e", "origin/main:" + p, cwd=wurzel).returncode != 0:  # 1129 A 1: neue Datei
+            fehlt += vp.tor(inhalt, p, wurzel)
+            _abk_warnung(p, vp.warnungen(inhalt))
+        if fehlt:
             befunde.append((p, fehlt))
     return vp.meldung(befunde) if befunde else None
 
 
+WARNUNG = {"text": ""}
+
+
+def _abk_warnung(pfad, woerter):
+    """MUSTER.md Checkliste 9 (1129.3): Abkürzungen in einer neuen Vorlage nur als Hinweis, hält nicht an."""
+    if woerter:
+        WARNUNG["text"] += (f"Checkliste 9 (MUSTER.md): {pfad} enthält Abkürzungen ({', '.join(woerter)}); "
+                            "im Text an den Chef ausschreiben (Wortliste vorlage_pruefen.ABKUERZUNGEN). ")
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
+    try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“)
+        import hakenzahl; hakenzahl.vermerk("probelauf", text)
+    except Exception:
+        pass
     sys.exit(2)
 
 
@@ -1005,11 +1035,20 @@ def main():
                          f"`PROBE={pb.group(1)}`.")
             return hinweis_geben(f"783 W1: Einzelbild zu {pb.group(1)}, zählt nicht als Probelauf. Selbst ansehen, ob Inhalt da "
                                  "ist (kein Weißbild, richtiger Ort), dann gleich Film; nicht an den Chef, kein Helfer.")
+        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
+            if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl):
+                anhalten("1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. "
+                         "Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.")
+            if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
+                anhalten(fs)
+            zaehlen(ms.group(1), wer, "mess")
+            return hinweis_geben(f"1129 A 3b: Messlauf zu {ms.group(1)}, frei und ohne Grenze; Kosten beim Vorgang vermerken. "
+                                 "Bild oder Film an den Chef nur mit `PROBE=<Nr>`.")
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
                 anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
-                         "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
+                         "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).")
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
             STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
         elif (hand := handlauf_bash(befehl)):
@@ -1066,7 +1105,7 @@ def bereich_merken(pfade, befehl, sitzung, cwd="."):
 
 def hinweis_geben(text=""):
     """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389, falls nötig Ungeprüftes 464.1, Liste je Bereich 822."""
-    text = " ".join(t for t in (text, ungeprueft_hinweis(), BEREICH["text"]) if t)
+    text = " ".join(t for t in (text, WARNUNG["text"].strip(), ungeprueft_hinweis(), BEREICH["text"]) if t)
     if text:
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}, ensure_ascii=False))
 

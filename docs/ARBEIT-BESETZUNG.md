@@ -2,16 +2,13 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 21:25 (lauf.py)
+**Stand:** 13.11., 22:04 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Tom | [Tom – 882.1: Vergleichsbilder alt rendern (12.11., 19:05)](https://claude.ai/code/session_01Hmoj77p3xo2Lh4AJGbrWem) | 882.1 | – | 12.11., 19:04 |
-| Sokrates | [Sokrates – 760: Chefrunde und offene Fragen (12.11., 20:30)](https://claude.ai/code/session_01Hmoj768i5bMWftBpLC5aF3) | 760 | – | 12.11., 20:29 |
-| Spike | [Spike – 867 (12.11., 20:50)](https://claude.ai/code/session_01Hmoj77o4gpxMkFhcBeDkZo) | 867 | – | 12.11., 20:50 |
-| Tuffy | [Tuffy – 1055: Sammelbuild 281 Kampf (12.11., 20:51)](https://claude.ai/code/session_01Hmoj78Tpa6Wd2yU1RGXmze) | 1055 | – | 12.11., 20:50 |
-| Ford | [Ford – Betriebsleiter (12.11., 20:55)](https://claude.ai/code/session_01Hmoj78bq2gFgYwjfaKARrR) | Betrieb | – | 12.11., 20:54 |
-| Perikles | [Perikles – 1078: Film-Prüfpunkt G4 (12.11., 21:10)](https://claude.ai/code/session_01Hmoj78PZLyrZi48EAPquLA) | 1078 | – | 12.11., 21:10 |
-| Jerry | [Jerry – 1066: Zauberlehrling Verstand 3, Wille 3 (12.11., 21:18)](https://claude.ai/code/session_01Hmoj7ACzQBoUuxji6wbGku) | 1066 | – | 12.11., 21:18 |
-| Homer | [Homer – Pflege (12.11., 21:18)](https://claude.ai/code/session_01Hmoj78UrLAkBg1ViZsEzSS) | Betrieb | – | 12.11., 21:18 |
-| Sokrates | [Sokrates – 1077: Chefrunde und offene Fragen (12.11., 21:22)](https://claude.ai/code/session_01Hmoj76DvMKgeNHFrceWV9c) | 1077 | – | 12.11., 21:21 |
+| Ford | [Ford](https://claude.ai/code/session_01Hmoj772q8aDimJ7oU9STTH) | Betrieb | – | 13.11., 18:22 |
+| Jerry | [Jerry – 709.1: Bissplan an die Kapseln angleichen (13.11., 21:00)](https://claude.ai/code/session_01Hmoj76yF68cGVE8dBiecQT) | 709.1 | – | 13.11., 20:59 |
+| Spike | [Spike – 542 (13.11., 21:11)](https://claude.ai/code/session_01Hmoj79QJ2L8FTAiLRqDERR) | 542 | – | 13.11., 21:11 |
+| Sokrates | [Sokrates – 1137: Vollzug prüfen (15.11.), bis dahin Chefrunde (13.11., 21:37)](https://claude.ai/code/session_01Hmoj797jN7dteYW35dpYLZ) | 1137 | – | 13.11., 21:36 |
+| Tuffy | [Tuffy – 844: Film aus Lauf 458 schneiden und senden (13.11., 21:40)](https://claude.ai/code/session_01Hmoj79ZApqezAzombu1DWK) | 844 | – | 13.11., 21:39 |
+| Tom | [Tom – 285: Bilder, Filme und Testbitte (13.11., 21:43)](https://claude.ai/code/session_01Hmoj78jYddD6WmJoPRmjVB) | 285 | – | 13.11., 21:42 |

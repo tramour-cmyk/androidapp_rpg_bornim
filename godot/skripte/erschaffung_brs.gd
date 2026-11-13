@@ -542,7 +542,7 @@ func fertigkeiten() -> void:
 	p.add_child(txt(", ".join(PackedStringArray(alle.keys().map(func(f): return "%s %d" % [fert_name(String(f)), int(alle[f])]))) if not alle.is_empty() else "—", 15))
 	if b.wahl_anzahl() > 0:
 		p.add_child(txt(wahl_satz(), 15, Stil.BRIGHT if b.wahl.size() < b.wahl_anzahl() else Stil.TEXT, true))
-		var wb := BrsHeld.waehlbar()
+		var wb := BrsHeld.zur_ansicht()   # 984.1: nicht waehlbare matt (kann_waehlen), Bergbau verborgen
 		for gr in wb:
 			var liste: Array = (wb[gr] as Array).filter(func(f): return not b.herkunft_fertigkeiten().has(f))
 			if liste.is_empty(): continue

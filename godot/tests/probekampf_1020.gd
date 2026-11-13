@@ -202,7 +202,7 @@ func _lauf() -> void:
 	m.reiter = "test"; m.baue()
 	for i in 8: await process_frame
 	var worte: Array = m.inhalt.find_children("*", "Zeichenknopf", true, false).map(func(k): return String(k.wort))
-	for w in ["Herkunft", "Volk", "Waffe", "Andere Hand", "Söldner", "Tasche", "Leben", "Tageszeit", "Eröffnung", "Kampfort"]:
+	for w in ["Held", "Herkunft", "Volk", "Waffe", "Andere Hand", "Söldner", "Tasche", "Leben", "Tageszeit", "Eröffnung", "Kampfort"]:   # 1034: „Held“
 		pruefe("Schalter %s" % w, worte.has(w), str(worte))
 	var knoepfe: Array = m.inhalt.find_children("*", "Button", true, false).filter(func(b): return not (b is Zeichenknopf))
 	var texte: Array = knoepfe.map(func(b): return String(b.text).to_upper())
@@ -225,7 +225,7 @@ func _lauf() -> void:
 	if los.size() == 1:
 		los[0].pressed.emit()
 		for i in 2: await process_frame
-		pruefe("startet mit der Wahl", gesendet.size() == 1 and gesendet[0][0] == "probe" and (gesendet[0][1] as Array).size() == 4 and bool(gesendet[0][1][3]), str(gesendet))
+		pruefe("startet mit der Wahl", gesendet.size() == 1 and gesendet[0][0] == "probe" and (gesendet[0][1] as Array).size() == 5 and bool(gesendet[0][1][3]) and String(gesendet[0][1][4]) == "test", str(gesendet))
 	var k = load("res://kampf/kampfort.gd").new()
 	pruefe("Kampfort kennt den Text für „Zurück“", "zurueck_text" in k and "again_fn" in k)
 	k.free()

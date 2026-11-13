@@ -35,7 +35,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - **Wochenziel** (montags nach der Wochenzählung):
   - ein Satz plus Nummernliste mit Termin, aus dem Meilenstein „marktreif“ (338: Blöcke a–f, Rückwärtsplan bis Weihnachten), oben in `PROJEKTPLAN.md`; dort zuerst den ausführlichen Stand neu setzen (Zeile 10 des Tagesberichts);
   - was drinsteht, ist Muss (M), alles andere Kür (K); „M?“ in den Vorräten entscheidest du dabei;
-  - „Reif“ aus `LISTE-IDEEN.md` mit Nummer als Zeile in den Vorrat des Bereichs; „Verwerfen?“ als eine Datei in die Chefsache;
+  - „Reif“ aus `LISTE-IDEEN.md` mit Nummer als Zeile in den Vorrat des Bereichs (Verworfenes streicht Homer sonntags selbst, 1129 A 3d);
   - danach Kennzahlen der Woche bewerten, höchstens drei Empfehlungen, per Telegram.
 - **Vorrang:** Reihenfolge der Vorräte nach dem Wochenziel, Muss oben.
 - **Kosten:**
@@ -68,7 +68,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 
 ## Start
 
-1. Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Perikles`), eigene Punkte in der Chefsache, `python3 tools/startbar.py --stand`.
+1. Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Perikles`), eigene Punkte in der Chefsache, `python3 tools/startbar.py --stand`. **Repos** (1110, Chef 13.11., 07:12: „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“, 09:57 alle Rollen): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 2. Vor jeder Antwort: `PRUEFBERICHT.md` (nur offene Läufe) und `git log <Gelesen bis>..origin/main`.
 3. **Ford muss laufen** (außer Stellung „aus“): `get_session` der Sitzung oben in `ARBEIT-BETRIEB.md`; älter als 70 Minuten → `send_message` „Ford-Lauf“.
 4. Größere Entwürfe als Claude-Docs-Dokument; Abläufe in `LISTE-RELEASE-NEUSTART.md`, Aufbau in `FIRMA.md`.
@@ -76,17 +76,12 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 
 ## Begründungen
 
-- **M?-Entscheid 08.11., 11:01** (614 ff., 477, 474, 476, 568, 593): Git, Stand vor „Perikles: M?-Entscheid 824 …“.
-- **M?-Entscheide 08.11., 14:0x, 20:06, 22:05** (648, 651, 677, 698, 699, 700, 704, 705): Git, Stand vor „Perikles: M?-Entscheid 935–941“.
-- **Wochenziel 09.11., 10:1x (338.1, 190.8):** Kampf zuerst (Chef 08.11., 21:36): 54 Zeilen ohne Kampfbezug „ruht, Kampf zuerst (338.1)“; Funde aus Chef-Tests bleiben Muss hinter dem Kampf (Fehler, nicht Neues); 492 nur bis zum Lager, weil der Chef nach 21:36 noch „492b“ gab; 560 und 680 an Tom (Lehre Fehler 341); 725–742 K (keine Werkzeugregel ohne Fund des Chefs), meine ruhen; 515, 568 M (Abnahme 2.8, 3.4), ruhen. Gegenargument: Durchspielen rückt eine Woche nach hinten; entkräftet im Wochenziel.
-- **759, 09.11., 15:08:** Rollenspiegel 06.11. für die sechs anderen Rollen nicht nachgeholt, der Termin Fr 13.11. deckt 02.–13.11. (765–770). Gegenargument: eine Woche ohne Spiegel; zählt, aber sechs Sitzungen bei Woche auf `allowed_warning` für Antworten, die vier Tage später ohnehin kommen, und `rollenspiegel.sh` bricht ab, weil unter „Woche 06.11.“ schon die Antworten vom 02.11. stehen. Ab 13.11. je Rolle eine Zeile (`startbar.py` WOCHENTERMINE).
-- **818, 09.11., 23:08:** Vorschlag Sokrates 22:48 (per Telegram um ein Chefwort bitten) nicht genommen: der Chef sagte 22:27 „kann ich ihnen auch nicht helfen“. Gegenargument: eine Zeile mit Kaufmodellen bleibt liegen; zählt, aber sie wartet sichtbar auf 391, und eine Sitzung mit Repo nimmt sie selbst. `WEITER` in lauf.py nicht gebaut: lauf.py sieht eingebundene Repos nicht; die Sitzung bleibt selbst offen (Haken), Ford startet daneben nichts, weil die Rolle belegt ist.
-- **M?-Entscheid 11.11., 11:15** (824, 844, 845, 836, 909, alle M): Git, Stand vor „Perikles: 969 M“.
-- **M?-Entscheid 11.11., 15:37** (965, 966, 967, 969, alle M; B1-Namen): Git, Stand vor „Perikles: 1070 M“.
-- **M?-Entscheid 12.11., 02:08** (997–1001, 1003, 1004 M; 1002 K): Git, Stand vor „Perikles: 1076 M“.
-- **M?-Entscheid 12.11., 20:53 (190.8):** 1070 M: Fund des Chefs zum zweiten Mal (1012 13:36, 20:06), zählt gegen uns (Haltung 7). Gegenargument „Werkzeuge lesen die Datei“: geprüft; `vorgang.py build` liest Gelöschtes aus Git, die Commit-Prüfung liest im selben Commit aus HEAD, `pruefliste.py` nimmt die höchste Nummer auf `main` (ohne alte Liste kein falscher Reiter „Test“), zug-index und Neustart-Haken brauchen nur offene. Darum Löschen im selben Commit wie „tN“, nicht später (sonst sieht die Prüfung 774 die Liste nicht mehr). Regelbilanz: das Löschen in 13 wandert nach 11, keine neue Regel.
-- **M?-Entscheid 12.11., 20:57:** 1076 M (Chef 20:42 zu Film 1039, Direktive „professionell“). Gegenargument „manches braucht Zusammenhang“: Ausnahme „Chef will langen Film“; Wächter in `meldung.sh` ab 20 s. Regelbilanz: schärft 783 W1 „zeigt, was es zeigen soll“, kein neuer Punkt.
-- **M?-Entscheid 11.11., 13:48** (935–942, 957, alle M; 936–938 ruhen): Git, Stand vor „Perikles: M?-Entscheid 997–1004“.
+- **1129 A 4, Muss umgestuft (13.11., 14:2x):** 277 offene Muss gegen das Wochenziel 09.–15.11. geprüft; Muss bleibt, was im Wochenziel steht, „jetzt“ oder „bitte machen“ trägt, ein Kampffund oder Absturz ist, einen Stichtag bis 15.11. hat oder in einem Build auf den Test wartet, dazu jede Zeile, auf die eine bleibende wartet. Übrig 134 (Jerry 61, Tom 34). Statt „M?“ direkt **K**, weil „M?“ je Zeile einen Start „M? entscheiden“ auslöst (921) und die Entscheidung bei mir liegt; nichts gelöscht, wieder M, sobald eine Zeile ins Wochenziel kommt oder der Chef „jetzt“ sagt. Ruhende Zeilen haben jetzt Termine (16.11. bei „Kampf zuerst“, sonst 23.11.).
+- **Klassen aus der Archivprüfung (13.11., 15:45, Maß 1129 A 4):** 698 M, weil 623.8 A „jetzt Muss“ sagt; 816, 1155 warten darauf, Klasse im Wochenziel. 1162 (Steinkreis), 1166 (Atmen der Monster) M: Fund des Chefs im Kampf. K: 1158, 1164, 1165 (Chef „nach dem Durchspielen“), 1157, 1167, 1168 (weder Kampf noch Wochenziel). Gegenargument: Jerry hat Stau; dagegen zählt die Reihenfolge, beide stehen hinter „zeigt, was geschieht“.
+- **Ältere Begründungen** (M?-Entscheide 08.–11.11., Wochenziel 09.11., 759, 818, 1070, 1076, zweite Meinung 1128 vom 13.11., 12:09): Git, Stand vor „Perikles: 1225 Prüfzeile, Vorrang Jerry“.
+- **M?-Entscheid 13.11., 14:0x (1073):** K. Die Kotlin-Zeichnungen der Dinge sind da, die Abnahmeliste verlangt nur „mindestens so gut wie alt“ (2.11); eigener Stil der Dinge gehört unter „Aussehen fertig“ (großer Punkt 8), Chef 12.11., 20:40: „Ist nicht wichtig.“ Gegenargument: der Stilbruch fällt in jeder Tasche auf; dagegen Kampf zuerst, Kür wird startbar, sobald Tom kein Muss hat.
+- **Vorrang Jerry 13.11., 21:1x (Zu 1072, Sokrates 21:09):** 1072 von Platz 97 direkt nach 709.1: Chef 12.11., 20:27 „Bau vor 760 und 1068“, 1068 stand schon auf Platz 6 und wartet darauf; t284 brachte drei Funde mit Wurzel 1072 (7d, 7e als dritter Wiederholfund, 7j). 709.1 bleibt vorn, weil in Arbeit mit fertigem Plan. 1222, 1223 M (Kampffund des Chefs, Maß 1129 A 4) nach 709. Gegenargument: 709 ist seit 08.11. oberster Kampfpunkt und hat neue Funde (7c, 7p); dagegen zählt die Wiederholquote, und 1072 macht drei Zeilen frei. 1223 nur „erkennbar“; Lebenspunkte des Leitwolfs bleiben Idee (Balance, Chef).
+- **1221 K (13.11., 21:10):** Werkzeugfehler ohne Kampfbezug, Ford hatte eine Abhilfe (`--ohne`); gebaut gleich mit. **1225 M:** Fund des Chefs am Test (21:04), Tom schreibt t285 jetzt.
 
 - **Ein Text an einem Ort:** Doppelungen kosten Token und laufen auseinander; nichts Aufgabenrelevantes verlieren.
 - **Rückfragen als Holschuld:** wiederholte Fragen verdeckten das Neue; die Chefsache ist der eine Ort.
@@ -95,6 +90,10 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - **Ford-2-Lauf wie Fords Lauf** (Ford 2 entfällt, 650.1): eine Regel mit Kriterium. Eine offene Frage des Chefs darf beim Archivieren nicht verloren gehen; seit 261.5 überträgt Ford sie vorher an die neuere Sitzung (ÜBERTRAGE), statt die alte offen zu lassen.
 
 ## Lehren
+
+- Eine Abhängigkeit erst mit ihrem letzten Nutzer entfernen, nie mit dem Plan „danach“ (13.11., 1207: Gradle-Spiegel vor 882.1 entfernt, fand Diogenes).
+
+- Eine Regelzeile nur an der Stelle ändern, die der Vorgang nennt (Edit mit kurzem Ausschnitt), nie die ganze Zeile neu schreiben (13.11., D205.3, D206.2: zweimal an einem Tag ungenannt Wörter gestrichen).
 
 - Einstellung und Freigabe am Ergebnis prüfen (`get_session`, App), auf jedem Weg (16.10., 99g; 11.11., Fehler 341: Hoch nur als Variable, App „Mittel“; 982).
 
