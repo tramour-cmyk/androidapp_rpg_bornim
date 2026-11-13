@@ -31,6 +31,11 @@ func _initialize() -> void:
 	var a = Aufruf.new()
 	var nur := OS.get_environment("NUR")
 	print("RING1068 N=%d" % n_k)
+	if OS.get_environment("TEIL") == "D":
+		_teil_d(a, tab, skills, monsters, n_k, nur)
+		a.free()
+		quit(0)
+		return
 	print("Regel  Spieler    Herkunft        Gegner  Siege  Ringe/Kampf  Runden  Ringe/Runde  Leben verloren")
 	for gegner in ["RUDEL", "GRIMM", "GRAK", "SPIDER", "KROGG"]:
 		for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:
@@ -45,7 +50,22 @@ func _initialize() -> void:
 	quit(0)
 
 
-func _messe(a, tab: Dictionary, skills: Dictionary, monsters: Dictionary, neu: bool, spieler: String, k: String, gegner: String, n_k: int) -> Dictionary:
+## D (1048 D): Ring beim eigenen Angriff, nur perfekt zählt: Schaden × f. Abwehr wie A+H mit Automatik; der Spieler trifft den
+## eigenen Ring mit Anteil p perfekt (Zufall je Treffer). Nachgebildet wie H: trifft der Held, zieht der Zuhörer (f − 1) × Schaden
+## ab, tötet dabei aber nie (bleibt bei 1 Leben; die Rechnung ist für D darum leicht zu vorsichtig).
+func _teil_d(a, tab: Dictionary, skills: Dictionary, monsters: Dictionary, n_k: int, nur: String) -> void:
+	print("D: Herkunft        Gegner  p     f     Siege  Runden  Leben verloren")
+	for gegner in ["RUDEL", "GRIMM", "GRAK", "SPIDER"]:
+		for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:
+			if nur != "" and not (k + gegner).contains(nur):
+				continue
+			for pf in [[0.0, 1.0], [0.5, 1.25], [0.5, 1.5], [0.5, 2.0], [1.0, 1.25], [1.0, 1.5], [1.0, 2.0]]:
+				var z := _messe(a, tab, skills, monsters, true, Mars.GOOD, k, gegner, n_k, pf[0], pf[1])
+				print("D: %-15s %-7s %.1f  %.2f  %4d%%  %6.1f  %10.0f%%" % [k, gegner, pf[0], pf[1], z.siege * 100 / n_k,
+					float(z.runden) / n_k, 100.0 * z.verlust / n_k])
+
+
+func _messe(a, tab: Dictionary, skills: Dictionary, monsters: Dictionary, neu: bool, spieler: String, k: String, gegner: String, n_k: int, p_eigen := 0.0, f_eigen := 1.0) -> Dictionary:
 	var z := {"siege": 0, "ringe": 0, "runden": 0, "verlust": 0.0}
 	for s in n_k:
 		var foes: Array = Aufruf.rudel(monsters, Wuerfel.new(s * 7 + 1)) if gegner == "RUDEL" else Aufruf.gegner(gegner, monsters, Wuerfel.new(s * 7 + 1))
@@ -58,7 +78,12 @@ func _messe(a, tab: Dictionary, skills: Dictionary, monsters: Dictionary, neu: b
 		var offen := [""]     # ein neuer Ringschlag, der noch nicht getroffen hat
 		var max_hp: int = hero.max_hp
 		var verlust := [0]
+		var los := Wuerfel.new(s * 7 + 5)
 		mars.listener = func(e):
+			if e.actor == "hero" and e.target != null and e.target != "hero" and int(e.damage) > 0 and p_eigen > 0.0 and los.chance(p_eigen):
+				var g = mars.find(String(e.target))
+				if g != null and g.hp > 0:
+					g.hp = maxi(1, g.hp - roundi(int(e.damage) * (f_eigen - 1.0)))
 			if e.target == "hero" and int(e.damage) > 0 and e.actor != null and e.actor != "hero":
 				var extra := 0
 				if offen[0] != "" and spieler != Mars.PERFECT:
