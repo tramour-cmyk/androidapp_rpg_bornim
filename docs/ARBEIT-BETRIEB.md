@@ -391,3 +391,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 13.11.: Marke Archiv session_01Hmoj76bi2dhnXLC43LUzuG (lauf.py)
 - 12:04 13.11.: Marke Archiv session_01Hmoj78EvBobSYTXdaNQzkv (lauf.py)
 - 12:08 13.11.: Startsperre 12:08 Start Sokrates (Neustart-Meldung 9a9f062bf, Nachfolger „Sokrates – 1128: Prüfumfang, zweite Meinung Perikles“; Hoch)
+- 12:40 13.11.: Startsperre 12:40 Start Jerry (Neustart-Meldung 43088ea54, Nachfolger „Jerry – 1036.1: Filme Zustände an den Chef“; Hoch)
