@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten buchen ohne Satz des Chefs, dauerhaft; alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893) --ohne 492:hängt an 870.4 (Tom), Spike ohne Arbeit beendet --ohne 771:erledigt --ohne 901:gebaut` (771/901 entfallen, sobald Diogenes/Perikles den Stand setzen). Tom hat Wecker 08:38 (Lauf 338): `WEITER Tom` nicht ausführen, solange er läuft. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1107** (zuletzt 1106 Jerry 13.11. 09:13:30 6b5c) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1108** (zuletzt 1107 Sokrates 13.11. 09:30:00 f67e) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -342,5 +342,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:04 13.11.: Startsperre 09:04 Start Tom, Perikles (lauf.py)
 - 09:12 13.11.: Startsperre 09:12 Start Tom (Ford, Auftrag Sokrates 09:10 nach Chef-Test t281: 1104 eilt, dazu 1040.1; Hoch, effort high)
 - 09:15 13.11.: Startsperre 09:15 Start Sokrates (Ford, Neustart-Meldung 99de65ca4, Nachfolger „Sokrates – Chefrunde (13.11.)“; Chef wartet; Hoch, effort high)
+- 09:30 13.11.: Startsperre 09:30 Start Perikles (Ford, Auftrag Sokrates 09:30 nach Chef „1100 A mit 6“, Commit 9f65d917e; Hoch, effort high)
 - 09:04 13.11.: Marke Start-fehlt Perikles 13.11.-08:51 (lauf.py)
 - 09:04 13.11.: Marke Start-fehlt Tom 13.11.-07:14 (lauf.py)
