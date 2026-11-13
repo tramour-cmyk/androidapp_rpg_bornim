@@ -13,7 +13,7 @@ const FORMAT := Vector2(1080, 2340)
 const BLENDE_BILDER := 6
 ## je Tod: welche Sterbebewegung (Tod, Tod2, Tod3, Tod4) und ob gespiegelt. r3 (Chef 13.11., 17:16: vornüber abgenommen; „nur seitlich
 ## und rücklings“): rücklings, seitlich zu beiden Seiten; gespiegelt wird ein Bewaffneter nicht mehr (die Waffe wechselte die Hand)
-const FOLGE := [[1, false], [2, false], [3, false]]
+const FOLGE := [[2, false], [3, false]]     # r4 (Chef 18:25: vornüber und rücklings abgenommen): nur seitlich, beide Seiten
 const NAMEN := ["vornüber", "rücklings", "seitlich", "seitlich zur anderen Seite"]
 
 var schwarz: ColorRect

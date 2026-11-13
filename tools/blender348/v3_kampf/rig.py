@@ -364,23 +364,21 @@ def tod_rueck():
     k3 = _plus(k3, schwanz(-40))
     return [(0.0, {}, {}, 0.0), (0.16, k1, gerade(0.3, 0.0, 0.0, 0.2), 0.0), (0.5, k2, g2, 0.0), (1.0, k3, g3, 0.0),
             (1.13, dict(k3, root=(-90, 0, 0)), g3, 0.0), (1.32, dict(k3, root=(-88, 0, 0)), g3, 0.0), (1.5, dict(k3, root=(-88, 0, 0)), g3, 0.0)]
-# 1141 r3 (Chef 13.11., 17:16: „zur Seite wirkt drollig, weil der Körper halt nicht wirklich richtig zusammensackt“): r2 kippte
-# über die Füße (Drehpunkt der Wurzel) mit sich streckenden Beinen wie ein Brett. Jetzt sackt er erst ganz auf die Knie, Rumpf und Kopf
-# fallen nach vorn, kurz hält der Körper; dann kippt er über die Knie (Anker: die Knie bleiben, wo sie aufkamen) auf die Seite, die
-# Beine bleiben gebeugt beieinander, der obere Arm fällt vor den Leib auf den Boden
+# 1141 r4 (Chef 13.11., 18:25: „Seitlich haben wir genau das gleiche Problem wie vorwärts und rückwärts, nämlich, dass die Beine
+# weggezogen werden, weil anscheinend wieder der Nabel auf die Unfallstelle fällt … auch da einfach von den Füßen weg zur Seite
+# umkippen“): r3 sackte über den stehenden Füßen auf die Knie (das Becken blieb über dem Standplatz) und kippte dann über die Knie.
+# Jetzt wie tod_vorn, nur zur Seite: die Füße bleiben stehen und sind der Drehpunkt, die Knie geben wenig nach, der Körper kippt
+# gestreckt zur Seite, der Kopf landet eine Körperlänge neben den Füßen; liegend Beine beieinander, oberer Arm vor dem Leib
 def tod_seite():
-    """sackt auf die Knie zusammen, dann über die Knie zur Seite (nach links; spiegel(tod_seite()) ergibt Tod4)"""
+    """kippt über die stehenden Füße zur Seite (nach links; spiegel(tod_seite()) ergibt Tod4)"""
     k1 = {'root': (0, -3, 0), 'pelvis-waist': (-6, 0, 12), 'neck-neckTop': (-12, 0, 18)}
-    beine = {**beide('hipS-thighS', (-50, 0, 0)), **beide('kneeS-calfS', (78, 0, 0)), **beide('ankleS-heelS', (35, 0, 0)), **beide('ankleS-ballS', (35, 0, 0))}
-    k2 = {'root': (2, -4, 6), 'pelvis-waist': (14, -4, 8), 'belly-chest': (8, 0, 0), 'neck-neckTop': (22, 0, 8), **beine}
-    k2b = dict(k2, **{'pelvis-waist': (20, -8, 8), 'neck-neckTop': (30, -6, 8)})
-    k3 = {'root': (4, -90, 6), 'pelvis-waist': (14, 6, 0), 'belly-chest': (6, 4, 0), 'neck-neckTop': (12, 12, 6),
-          **beide('hipS-thighS', (-40, 0, 0)), **beide('kneeS-calfS', (55, 0, 0)), **beide('ankleS-heelS', (20, 0, 0)), **beide('ankleS-ballS', (20, 0, 0)),
-          'shR-upR': (-40, 0, 0), 'elR-foR': (25, 0, 0), 'shL-upL': (-10, 0, 0), 'elL-foL': (15, 0, 0)}
-    g2, g3 = gerade(0.4, 0.0, 0.0, 0.8), gerade(0.85, 0.15, 0.15, 1.0)
-    return [(0.0, {}, {}, 0.0), (0.14, k1, gerade(0.1, 0.0, 0.0, 0.3), 0.0), (0.46, k2, g2, 0.0), (0.62, k2b, g2, 0.0),
-            (1.02, k3, g3, 0.0, 'knie'), (1.13, dict(k3, root=(4, -93, 6)), g3, 0.0, 'knie'),
-            (1.3, dict(k3, root=(4, -90, 6)), g3, 0.0, 'knie'), (1.5, dict(k3, root=(4, -90, 6)), g3, 0.0, 'knie')]
+    k2 = {'root': (3, -10, 4), 'pelvis-waist': (4, -6, 8), 'neck-neckTop': (10, 6, 8), **beide('kneeS-calfS', (14, 0, 0))}
+    k3 = {'root': (4, -48, 5), 'neck-neckTop': (6, 10, 6), **beide('kneeS-calfS', (10, 0, 0)), 'shR-upR': (-12, 0, 0)}
+    k4 = {'root': (4, -88, 5), 'pelvis-waist': (6, 4, 0), 'neck-neckTop': (4, -12, 6), **beide('kneeS-calfS', (KNIE_LIEGT + 14, 0, 0)),
+          **beide('hipS-thighS', (-10, 0, 0)), 'shR-upR': (-30, 0, 0), 'elR-foR': (20, 0, 0), 'shL-upL': (-6, 0, 0), 'elL-foL': (10, 0, 0)}
+    g2, g3, g4 = gerade(0.3, 0.2, 0.0, 0.6), gerade(0.7, 0.6, 0.5, 0.9), gerade(0.95, 0.9, 0.85, 1.0)
+    return [(0.0, {}, {}, 0.0), (0.14, k1, gerade(0.1, 0.0, 0.0, 0.3), 0.0), (0.45, k2, g2, 0.0), (0.8, k3, g3, 0.0), (1.08, k4, g4, 0.0),
+            (1.2, dict(k4, root=(4, -91, 5)), g4, 0.0), (1.38, dict(k4, root=(4, -89, 5)), g4, 0.0), (1.55, dict(k4, root=(4, -89, 5)), g4, 0.0)]
 def _spiegel_name(b):
     return re.sub(r'(?<=[a-z])([RL])(?=-|$)', lambda m: 'L' if m.group(1) == 'R' else 'R', b)
 def spiegel(keys):
