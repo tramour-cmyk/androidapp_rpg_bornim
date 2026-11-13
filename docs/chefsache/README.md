@@ -17,6 +17,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
+| [756.1](ansehen/7561-schlecht.md) | Zeichen für Schlecht in der Tasche (roter Punkt, heller) | – | 13.11., 16:31 |
 
 ## Zu tun
 
