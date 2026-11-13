@@ -6,6 +6,9 @@
 # kampf neu gebaut, aber nicht geholt), eine an held_klassen.py nur klassen. 1101: eine Datei über der Teilgröße (hier 1 MB statt 45,
 # Kaufrepo lehnt wie GitHub (GH001) jede Datei darüber ab) geht in Teilen über mehrere Stücke und kommt beim Holen ganz zurück, ohne
 # Teile in godot/daten; misslingt dorf, steht kein halber Zweig bau/dorf-…, und kampf wird trotzdem abgelegt.
+# 1111: NEU=1 (cache=neu) baut trotz Treffer alles, überschreibt nichts, vergleich prüft die vorher abgelegten Zweige gegen den Bau
+# (gleich: 0 abweichend; anders gebaut: jede Datei abweichend). 1112: HALB=kampf (geduldeter Fehler) legt kampf nicht ab, der nächste
+# Lauf baut ihn neu. 1113: aufraeumen lässt je Block die neuesten 3 und den eigenen, alte bau/teil/* gehen weg.
 # Aufruf im Repo: bash tools/godot/kauf_cache_probe.sh   (Ende 0 = gut)
 set -euo pipefail
 QUELLE=$(cd "$(dirname "$0")/../.." && pwd)
@@ -22,10 +25,10 @@ KC="python3 $R/tools/godot/kauf_cache.py"
 
 lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, holen, Kampfort, ablegen; $1 = Inhalt der Platzhalter
   export RUNNER_TEMP=$T/rt-$RANDOM; mkdir -p $RUNNER_TEMP
-  ABLEGEN=0
+  ABLEGEN=0; unset KAUF_GEGENPROBE   # nur der Lauf mit NEU=1 setzt es (Bauserver: jeder Lauf frisch)
   rm -rf $R/godot/daten/*.bin $R/godot/daten/leute $R/godot/kampf/daten/*; : > $R/godot/daten/kauf.txt
   local E=$RUNNER_TEMP/env; : > $E
-  $KC pruefen --env $E > $RUNNER_TEMP/pruefen.log || true
+  $KC pruefen --env $E ${NEU:+--neu} > $RUNNER_TEMP/pruefen.log || true
   set -a; . $E; set +a
   if [ "$KAUF_ALLES" != treffer ]; then
     $KC merke start
@@ -43,9 +46,12 @@ lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, h
   mkdir -p $R/godot/daten/leute; echo leute > $R/godot/daten/leute/garrick.bin; echo daten/leute/garrick.bin >> $R/godot/daten/kauf.txt
   [ "$KAUF_HOLEN" = ja ] && $KC holen > $RUNNER_TEMP/holen.log
   if [ "$KAUF_KAMPF" != treffer ]; then
-    $KC merke vor_kampf; echo "kampf $1" > $R/godot/kampf/daten/wolf.bin; $KC merke kampf
+    $KC merke vor_kampf; echo "kampf $1" > $R/godot/kampf/daten/wolf.bin
+    [ -n "${HALB:-}" ] && $KC halb $HALB "Probe 1112" > /dev/null
+    $KC merke kampf
   fi
   if [ "$KAUF_ALLES" = bauen ]; then $KC ablegen > $RUNNER_TEMP/ablegen.log || ABLEGEN=$?; fi
+  VERGLEICH=-; if [ -n "${KAUF_GEGENPROBE:-}" ]; then (cd $R && $KC vergleich > $RUNNER_TEMP/vergleich.log) && VERGLEICH=0 || VERGLEICH=$?; fi
   return 0
 }
 inhalt() { cat $R/godot/daten/held.bin $R/godot/daten/dorf.bin $R/godot/daten/held_WACHE_M.bin $R/godot/kampf/daten/wolf.bin 2>/dev/null | tr '\n' ' '; }
@@ -60,6 +66,14 @@ pruefe '[ "$KAUF_ALLES" = treffer ] && [ "$KAUF_HOLEN" = ja ]' "zweiter Lauf tri
 pruefe '[ "$(inhalt)" = "$eins" ]' "geholt wie gebaut ($(inhalt))"
 pruefe 'grep -qx daten/held_WACHE_M.bin $R/godot/daten/kauf.txt && grep -qx daten/held.bin $R/godot/daten/kauf.txt' "kauf.txt der Blöcke angehängt"
 pruefe '[ $(grep -c . $R/godot/daten/kauf.txt) = 3 ]' "kauf.txt ohne Doppel ($(grep -c . $R/godot/daten/kauf.txt) Zeilen)"
+
+zweige=$(git --git-dir=$T/kauf.git for-each-ref --format='%(refname) %(objectname)' refs/heads/bau)
+NEU=1 lauf eins
+pruefe '[ "$KAUF_ALLES" = bauen ] && [ "$KAUF_FIGUR_BAUEN" = ja ] && [ "$KAUF_HOLEN" = nein ] && [ "$KAUF_GEGENPROBE" = figur,dorf,klassen,kampf ]' "1111: cache=neu baut trotz Treffer alles ($KAUF_GEGENPROBE)"
+pruefe '[ $VERGLEICH = 0 ] && grep -q "Gegenprobe 4 Dateien, 0 abweichend (figur, dorf, klassen, kampf)" $RUNNER_TEMP/vergleich.log' "1111: Gegenprobe gegen den frischen Bau ($(tail -1 $RUNNER_TEMP/vergleich.log))"
+pruefe '[ "$(git --git-dir=$T/kauf.git for-each-ref --format="%(refname) %(objectname)" refs/heads/bau)" = "$zweige" ]' "1111: kein Zweig überschrieben"
+NEU=1 lauf anders
+pruefe '[ $VERGLEICH = 1 ] && [ $(grep -c "weicht ab" $RUNNER_TEMP/vergleich.log) = 4 ]' "1111: anders gebaut, vier Dateien weichen ab ($(tail -1 $RUNNER_TEMP/vergleich.log))"
 
 echo "# 854 Probe" >> $R/tools/blender348/v3/raum.py
 lauf drei
@@ -116,6 +130,34 @@ pruefe 'git --git-dir=$T/kauf.git rev-parse -q --verify refs/heads/bau/kampf-$kk
 rm $T/kauf.git/abweisen
 lauf zehn
 pruefe '[ "$KAUF_DORF" = bauen ] && [ "$KAUF_KAMPF" = treffer ] && [ $ABLEGEN = 0 ]' "1101: nächster Lauf baut dorf neu und legt ab"
+
+
+# 1112: geduldeter Fehler in kampf
+echo "# 1112 Probe" >> $R/tools/blender348/kauftier.py
+kk=$($KC kennung kampf | cut -d' ' -f2)
+HALB=kampf lauf elf
+pruefe '[ "$KAUF_KAMPF" = bauen ] && [ $ABLEGEN = 0 ] && grep -q "::warning::KAUF-CACHE kampf halb, nicht abgelegt (Probe 1112)" $RUNNER_TEMP/ablegen.log' "1112: halber Block nicht abgelegt, Warnung"
+pruefe '! git --git-dir=$T/kauf.git rev-parse -q --verify refs/heads/bau/kampf-$kk > /dev/null' "1112: kein Zweig bau/kampf-$kk"
+lauf zwoelf
+pruefe '[ "$KAUF_KAMPF" = bauen ] && git --git-dir=$T/kauf.git rev-parse -q --verify refs/heads/bau/kampf-$kk > /dev/null' "1112: nächster Lauf baut kampf neu und legt ab"
+(export RUNNER_TEMP=$T/rt-halb; $KC halb kampf alt > /dev/null; $KC merke vor_kampf; [ ! -e $RUNNER_TEMP/kauf_halb_kampf ]) && h=0 || h=1
+pruefe '[ $h = 0 ]' "1112: erste Marke des Blocks löscht alte Marke halb"
+
+# 1113: aufräumen
+for i in 1 2 3; do echo "# 1113 Probe $i" >> $R/tools/blender348/v3/rig.py; lauf drei$i; done
+vorher=$(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau | wc -l)
+teil=$(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau/teil | wc -l)
+(cd $R && $KC aufraeumen > $T/auf1.log)
+pruefe '[ $(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau/teil | wc -l) = $teil ] && [ $teil -ge 1 ]' "1113: junge Zwischenzweige bleiben ($teil)"
+ok=1; for b in figur dorf klassen kampf; do
+  n=$(git --git-dir=$T/kauf.git for-each-ref "refs/heads/bau/$b-*" | wc -l); [ $n -le 3 ] || ok=0
+  git --git-dir=$T/kauf.git rev-parse -q --verify refs/heads/bau/$b-$($KC kennung $b | cut -d' ' -f2) > /dev/null || ok=0
+done
+pruefe '[ $ok = 1 ]' "1113: je Block höchstens 3, der eigene bleibt ($vorher Zweige vorher, $(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau | wc -l) nachher; $(grep aufgeräumt $T/auf1.log | cut -c1-80))"
+(cd $R && KAUF_CACHE_TEIL_STUNDEN=-1 $KC aufraeumen > $T/auf2.log)
+pruefe '[ $(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau/teil | wc -l) = 0 ]' "1113: alte Zwischenzweige weg"
+lauf dreizehn
+pruefe '[ "$KAUF_ALLES" = treffer ]' "1113: danach trifft alles"
 
 echo "KAUFCACHE854 $([ $fehler = 0 ] && echo gut || echo "$fehler Fehler")"
 exit $fehler

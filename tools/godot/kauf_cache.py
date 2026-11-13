@@ -17,14 +17,19 @@
 # Aufruf im Repo (nach „Karten und Texte“, weil karten.json in die Kennung geht):
 #   kauf_cache.py kennung [block]    Kennungen ausgeben
 #   kauf_cache.py eingaben block     die Eingabedateien eines Blocks
-#   kauf_cache.py pruefen [--env D]  je Block Treffer oder nicht; schreibt KAUF_<BLOCK>=treffer|bauen, KAUF_FIGUR_BAUEN, KAUF_ALLES,
-#                                    KAUF_HOLEN nach D (Bauserver: $GITHUB_ENV); Ende 0, wenn alle Blöcke Treffer sind
+#   kauf_cache.py pruefen [--env D] [--neu]  je Block Treffer oder nicht; schreibt KAUF_<BLOCK>=treffer|bauen, KAUF_FIGUR_BAUEN,
+#                                    KAUF_ALLES, KAUF_HOLEN nach D (Bauserver: $GITHUB_ENV); Ende 0, wenn alle Blöcke Treffer sind;
+#                                    --neu (Eingang cache=neu, 910, 1111): jeder Block bauen, KAUF_GEGENPROBE nennt die Blöcke mit
+#                                    abgelegtem Zweig, die vergleich nach dem Bau gegen den frischen Stand prüft
 #   kauf_cache.py merke NAME         Stand von godot/daten und godot/kampf/daten merken (Schritte: start, figur, dorf, vor_klassen,
 #                                    klassen, vor_kampf, kampf)
 #   kauf_cache.py holen              die Blöcke mit Treffer, die nicht ohnehin neu gebaut werden, nach godot/daten, godot/kampf/daten
 #   kauf_cache.py ablegen            je gebautem Block die zwischen seinen Marken neuen oder geänderten Dateien als Zweig schieben
 #   kauf_cache.py vergleich          Gegenprobe nach einem vollen Bau ohne Cache: jede Datei jedes Blockzweigs Byte für Byte gegen den
 #                                    Bau; Ende 1 bei Abweichung (dann deckt die Kennung eine Eingabe nicht; Perikles 10.11., zu 854)
+#   kauf_cache.py halb BLOCK GRUND   geduldeter Fehler im Block (1112): der Block wird in diesem Lauf nicht abgelegt
+#   kauf_cache.py aufraeumen         je Block nur die neuesten KAUF_CACHE_BEHALTEN Zweige (3) und den der eigenen Kennung, Zwischen-
+#                                    zweige bau/teil/* älter als 3 Stunden weg (1113; nur der Bauserver darf löschen)
 # Zugang: in der Sitzung über den Proxy; auf dem Bauserver GH_TOKEN mit Schreibrecht (Contents) aufs Kaufrepo.
 import hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.request
 
@@ -301,19 +306,31 @@ def _was_anders(block, alle):
     return 'geändert: ' + (', '.join(best[:12]) + (' …' if len(best) > 12 else '') if best else 'nichts (Zweig halb?)')
 
 
-def pruefen(env_datei=None):
+def pruefen(env_datei=None, neu=False):
+    # 1111 (Diogenes D191.1): seit dem Umbau je Block (1f4e21a81) fiel der Zweig cache=neu aus 910 weg; vergleich prüfte danach nur
+    # Geholtes oder frisch Abgelegtes gegen sich selbst. Mit neu baut jeder Block, ablegen überschreibt keinen vorhandenen Zweig, und
+    # KAUF_GEGENPROBE nennt die Blöcke, deren Zweig es vorher gab (nur die vergleicht vergleich gegen den frischen Bau).
     alle = _fern('refs/heads/bau/*')
     werte = {}
+    gegen = []
+    if neu:
+        print('KAUF-CACHE neu (von Hand, 910): Treffer übergangen, voller Bau, danach Gegenprobe', flush=True)
     for block in BLOECKE:
         k = kennung(block)
-        treffer = alle is not None and ('refs/heads/' + zweig(block)) in alle
+        da = alle is not None and ('refs/heads/' + zweig(block)) in alle
+        treffer = da and not neu
+        if neu and da:
+            gegen.append(block)
         werte['KAUF_' + block.upper()] = 'treffer' if treffer else 'bauen'
         print('KAUF-CACHE %-8s %s %s%s' % (block, 'treffer' if treffer else 'bauen  ', k,
+              ('  (Zweig da, Gegenprobe)' if da else '  (kein Zweig, keine Gegenprobe)') if neu else
               '' if treffer or alle is None else '  (' + _was_anders(block, alle) + ')'), flush=True)
     figur_bauen = any(werte['KAUF_' + b] == 'bauen' for b in ('FIGUR', 'KLASSEN', 'KAMPF'))
     werte['KAUF_FIGUR_BAUEN'] = 'ja' if figur_bauen else 'nein'
     werte['KAUF_ALLES'] = 'treffer' if all(v == 'treffer' for k, v in werte.items() if k[5:].lower() in BLOECKE) else 'bauen'
     werte['KAUF_HOLEN'] = 'ja' if _zu_holen(werte) else 'nein'
+    if neu:
+        werte['KAUF_GEGENPROBE'] = ','.join(gegen) or '-'
     if env_datei:
         with open(env_datei, 'a') as f:
             f.write(''.join('%s=%s\n' % kv for kv in werte.items()))
@@ -456,6 +473,27 @@ def _marke(name):
 def merke(name):
     os.makedirs(RT, exist_ok=True)
     json.dump({'stand': stand(), 'liste': liste()}, open(_marke(name), 'w'))
+    for block, b in BLOECKE.items():   # 1112: die erste Marke eines Blocks löscht eine alte Marke „halb“ (am Rechner bleibt RT liegen)
+        if b['marken'][0] == name and os.path.exists(_halb(block)):
+            os.remove(_halb(block))
+
+
+# 1112 (Diogenes D191.2): ein Schritt duldet Fehler einzelner Teile (Kampfort: Grimmzahn, Keiler, Hundertfüßer, Egel, Schnecke,
+# Skelett, Wiedergänger, Grabhund; Held je Klasse: LEUTE KAUF abgebrochen) und baut weiter. Ein solcher Block ist halb; abgelegt
+# käme er bei jedem späteren Lauf als Treffer ohne FEHLER-Zeile zurück, bis sich eine Eingabe ändert. Darum schreibt jeder geduldete
+# Zweig `kauf_cache.py halb <block> <grund>` (Datei $RUNNER_TEMP/kauf_halb_<block>), und ablegen legt den Block nicht ab; der nächste
+# Lauf baut ihn neu.
+def _halb(block):
+    return os.path.join(RT, 'kauf_halb_%s' % block)
+
+
+def halb(block, grund):
+    if block not in BLOECKE:
+        sys.exit('kein Block: ' + block)
+    os.makedirs(RT, exist_ok=True)
+    with open(_halb(block), 'a') as f:
+        f.write(grund + '\n')
+    print('KAUF-CACHE %s halb: %s (wird nicht abgelegt)' % (block, grund), flush=True)
 
 
 def _block_dateien(block):
@@ -498,6 +536,10 @@ def ablegen():
             continue
         if ('refs/heads/' + zweig(block)) in alle:
             print('KAUF-CACHE %s: Zweig gibt es schon, nicht überschrieben' % block, k, flush=True)
+            continue
+        if os.path.exists(_halb(block)):
+            gruende = ', '.join(z.strip() for z in open(_halb(block)) if z.strip())
+            print('::warning::KAUF-CACHE %s halb, nicht abgelegt (%s); der nächste Lauf baut ihn neu' % (block, gruende), flush=True)
             continue
         zwischen = 'bau/teil/%s-%s-%s' % (block, k, lauf)
         with tempfile.TemporaryDirectory() as t:
@@ -543,11 +585,20 @@ def ablegen():
 
 def vergleich():
     alle = _fern('refs/heads/bau/*') or {}
-    anders, gesamt = [], 0
+    anders, gesamt, geprueft = [], 0, []
+    # 1111: nur Zweige, die es vor dem Bau gab (pruefen --neu, KAUF_GEGENPROBE); ein eben abgelegter gliche sich selbst
+    gegen = os.environ.get('KAUF_GEGENPROBE')
     for block in BLOECKE:
+        if gegen is not None and block not in gegen.split(','):
+            print('KAUF-CACHE Gegenprobe %s: vor dem Bau kein Zweig, nichts zu vergleichen' % block, flush=True)
+            continue
         if ('refs/heads/' + zweig(block)) not in alle:
             print('KAUF-CACHE Gegenprobe %s: kein Zweig' % block, flush=True)
             continue
+        if os.path.exists(_halb(block)):
+            print('KAUF-CACHE Gegenprobe %s: Bau halb (%s), Abweichungen können daher kommen' % (
+                block, ', '.join(z.strip() for z in open(_halb(block)) if z.strip())), flush=True)
+        geprueft.append(block)
         with tempfile.TemporaryDirectory() as t:
             git('init', '-q', t)
             if git('fetch', '-q', '--depth', '1', url(), zweig(block), cwd=t, check=False).returncode:
@@ -567,8 +618,82 @@ def vergleich():
                     anders.append(block + ': ' + n)
     for n in anders[:20]:
         print('KAUF-CACHE weicht ab', n, flush=True)
-    print('KAUF-CACHE Gegenprobe', gesamt, 'Dateien,', len(anders), 'abweichend', flush=True)
+    print('KAUF-CACHE Gegenprobe', gesamt, 'Dateien,', len(anders), 'abweichend', '(%s)' % (', '.join(geprueft) or 'kein Block'),
+          flush=True)
     return 1 if anders else 0
+
+
+# 1113 (Diogenes D191.3): das Kaufrepo wuchs in drei Tagen auf 524 MB (21 Zweige bau/*); jede Änderung an Leuten oder Held legt
+# figur, klassen, kampf neu ab (etwa 300 MB). Nach dem Ablegen bleiben je Block die neuesten BEHALTEN Zweige (nach Zeit des
+# Commits) und der Zweig der eigenen Kennung; Zwischenzweige bau/teil/* (1101) älter als TEIL_STUNDEN gehen weg (ein jüngerer gehört
+# vielleicht einem laufenden Ablegen). Zweige anderer Form bleiben und werden nur genannt. Löschen darf nur der Bauserver; die
+# Größe des Repos sinkt erst, wenn GitHub die Objekte ohne Zweig selbst wegräumt.
+BEHALTEN = int(os.environ.get('KAUF_CACHE_BEHALTEN', '3'))
+TEIL_STUNDEN = float(os.environ.get('KAUF_CACHE_TEIL_STUNDEN', '3'))
+
+
+def aufraeumen(jetzt=None):
+    import time
+    alle = _fern('refs/heads/bau/*')
+    if alle is None:
+        return 1
+    if not alle:
+        print('KAUF-CACHE aufräumen: keine Zweige', flush=True)
+        return 0
+    jetzt = jetzt or time.time()
+    zeiten = {}
+    t = tempfile.mkdtemp()   # bleibt bis zum Löschen: git push braucht ein Repo, auch nur zum Löschen
+    try:
+        return _aufraeumen(alle, zeiten, jetzt, t)
+    finally:
+        shutil.rmtree(t, ignore_errors=True)
+
+
+def _aufraeumen(alle, zeiten, jetzt, t):
+    git('init', '-q', t)
+    if git('fetch', '-q', '--depth', '1', '--filter=blob:none', url(), 'refs/heads/bau/*:refs/k/bau/*', cwd=t, check=False,
+           capture_output=True).returncode:
+        print('KAUF-CACHE aufräumen: Zweige nicht geladen', flush=True)
+        return 1
+    for z in git('for-each-ref', '--format=%(refname) %(committerdate:unix)', 'refs/k/bau/', cwd=t,
+                 capture_output=True).stdout.splitlines():
+        ref, zeit = z.rsplit(' ', 1)
+        zeiten['refs/heads/' + ref[len('refs/k/'):]] = int(zeit)
+    weg, fremd = [], []
+    je_block = dict((b, []) for b in BLOECKE)
+    for ref in alle:
+        name = ref[len('refs/heads/'):]
+        m = re.match(r'^bau/(%s)-([0-9a-f]{20})$' % '|'.join(BLOECKE), name)
+        if m:
+            je_block[m.group(1)].append(ref)
+        elif name.startswith('bau/teil/'):
+            if jetzt - zeiten.get(ref, jetzt) > TEIL_STUNDEN * 3600:
+                weg.append(ref)
+        else:
+            fremd.append(name)
+    for block, refs in je_block.items():
+        eigen = 'refs/heads/' + zweig(block)
+        refs.sort(key=lambda r: zeiten.get(r, jetzt), reverse=True)
+        bleibt = set(refs[:BEHALTEN]) | ({eigen} & set(refs))
+        weg += [r for r in refs if r not in bleibt]
+        print('KAUF-CACHE aufräumen %-8s %d Zweige, %d bleiben' % (block, len(refs), len(bleibt)), flush=True)
+    if fremd:
+        print('KAUF-CACHE aufräumen: andere Zweige bleiben:', ', '.join(sorted(fremd)[:10]), flush=True)
+    ende = 0
+    for i in range(0, len(weg), 20):
+        stueck = weg[i:i + 20]
+        if git('push', '-q', url(), *[':' + r for r in stueck], cwd=t, check=False).returncode:
+            print('::warning::KAUF-CACHE aufräumen: Löschen misslungen (%s …)' % stueck[0][len('refs/heads/'):], flush=True)
+            ende = 1
+    print('KAUF-CACHE aufgeräumt: %d Zweige weg%s' % (len(weg), (' (' + ', '.join(r[len('refs/heads/'):] for r in weg[:8]) +
+          (' …' if len(weg) > 8 else '') + ')') if weg else ''), flush=True)
+    if not PROBE:
+        try:
+            print('KAUF-CACHE Kaufrepo %d MB (GitHub zählt Objekte ohne Zweig, bis es selbst aufräumt)' % (api('')['size'] // 1024),
+                  flush=True)
+        except Exception as e:
+            print('KAUF-CACHE Größe nicht gelesen:', e, flush=True)
+    return ende
 
 
 if __name__ == '__main__':
@@ -580,7 +705,7 @@ if __name__ == '__main__':
     elif befehl == 'eingaben' and len(a) == 2:
         print('\n'.join(eingaben(a[1])))
     elif befehl == 'pruefen':
-        sys.exit(pruefen(a[a.index('--env') + 1] if '--env' in a else None))
+        sys.exit(pruefen(a[a.index('--env') + 1] if '--env' in a else None, '--neu' in a))
     elif befehl == 'merke' and len(a) == 2:
         merke(a[1])
     elif befehl == 'holen':
@@ -589,5 +714,10 @@ if __name__ == '__main__':
         sys.exit(ablegen())
     elif befehl == 'vergleich':
         sys.exit(vergleich())
+    elif befehl == 'halb' and len(a) >= 3:
+        halb(a[1], ' '.join(a[2:]))
+    elif befehl == 'aufraeumen':
+        sys.exit(aufraeumen())
     else:
-        sys.exit('Aufruf: kauf_cache.py kennung [block]|eingaben block|pruefen [--env datei]|merke name|holen|ablegen|vergleich')
+        sys.exit('Aufruf: kauf_cache.py kennung [block]|eingaben block|pruefen [--env datei] [--neu]|merke name|holen|ablegen|'
+                 'vergleich|halb block grund|aufraeumen')
