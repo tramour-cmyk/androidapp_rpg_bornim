@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Übergabe Ford (13.11., 14:31, `session_01Hmoj79VeEbfi8Yk1Y2Eb6y`; Ford-Wache `…01EjSztWBEfCSuvh2gg2pRrC` als `--wecker`; Lauf 14:29 gebucht; Sokrates neu `…769t2FmdXy5uubf2Av` (14:30), **alter Sokrates `…79pjCAyCS5phwcjMAq` archivieren ab 14:41, Kosten 1129**; Tom 1140 (Fackel) startet `lauf.py`; laufend: Jerry `…76V89RK78reuYrWsK3`, Tom `…76QGCyum1TR8XXZHN7` (284), Diogenes 632 `…76zsZtPcMeUXunfjXE`, Perikles 1129.2 `…77SjZb1gmYXPgTr429`, Tuffy 1114 `…78i7ZB3tWNz6MEwbTh`; **Spike `…78LUomV3gY1qNRdSe2` nicht archivieren, solange der Render-Lauf 882.1 läuft** (lauf.py zeigt ARCHIVIERE trotz `--ohne`; Spike sagt 14:02 „nichts zu tun, bis der Lauf fertig“); offen: Sokrates bittet Tom für 1129.3 und 1137.2 (Stichtag 15.11., 20:00), `lauf.py` startet es, sobald Tom/Jerry/Tuffy frei sind; Sammelbuild Jerry 1138 angelegt):** Lauf nach „Jeder Lauf“ (1100 A): `list_sessions` (Seite 1 genügt, ältere sind archiviert), `list_triggers`, Kurzzeilen, `lauf.py --besetzung --liegt --wecker <Ids> --ohne "506.2:Tuffy nur auf Chef-Wort" --ohne "M?:Planfehler Klasse als Vorgang (893)" --ohne "492:hängt an 870.4" --ohne "Spiegel:Rolle beantwortet ihn selbst" --ohne "1068:Überschneidung mit Jerry 1094" --ohne "Pflege:nur Kür" <Datei>` erst ohne, dann mit `--sperre` (Zu 843); Zeile OHNE-ÜBERHOLT: das `--ohne` streichen. Archivieren nur ARCHIVIERE-Zeilen oder Neustart-Absender, Kosten mit `--kosten`; Aufträge an laufende Sitzungen nur „Weiter:“ nach WEITER-Zeile oder auf Bitte Sokrates oder Chef. Offen: dieser Vorrat 43 KB, Eingang unten (Zeilen „Von …“ vor „Anregungen“) durchsehen und Erledigtes streichen. Nachfolger: Ford – Betriebsleiter
+- **Übergabe Ford (13.11., 14:52, `session_01Hmoj79VeEbfi8Yk1Y2Eb6y`; Ford-Wache `…01EjSztWBEfCSuvh2gg2pRrC` als `--wecker`; Lauf 14:51 gebucht; **Tuffy `…78i7ZB3tWNz6MEwbTh` hat Neustart gemeldet (14:50, Nachfolger „Tuffy – nächstes startbares Muss“): starten, sobald seine Sitzung idle ist, dann alte archivieren, Kosten 1114/1025**; Tom 1140 (Fackel) startet `lauf.py`; laufend: Sokrates `…769t2FmdXy5uubf2Av`, Jerry `…76V89RK78reuYrWsK3`, Tom `…76QGCyum1TR8XXZHN7` (284), Diogenes 1114 `…76LpaZJ4MPubS2PfK9`, Perikles 1129.2 `…77SjZb1gmYXPgTr429`, Tuffy 1114 `…78i7ZB3tWNz6MEwbTh`; **Spike `…78LUomV3gY1qNRdSe2` nicht archivieren, solange der Render-Lauf 882.1 läuft** (lauf.py zeigt ARCHIVIERE trotz `--ohne`; Spike sagt 14:02 „nichts zu tun, bis der Lauf fertig“); offen: Sokrates bittet Tom für 1129.3 und 1137.2 (Stichtag 15.11., 20:00), `lauf.py` startet es, sobald Tom/Jerry/Tuffy frei sind; Sammelbuild Jerry 1138 angelegt):** Lauf nach „Jeder Lauf“ (1100 A): `list_sessions` (Seite 1 genügt, ältere sind archiviert), `list_triggers`, Kurzzeilen, `lauf.py --besetzung --liegt --wecker <Ids> --ohne "506.2:Tuffy nur auf Chef-Wort" --ohne "M?:Planfehler Klasse als Vorgang (893)" --ohne "492:hängt an 870.4" --ohne "Spiegel:Rolle beantwortet ihn selbst" --ohne "1068:Überschneidung mit Jerry 1094" --ohne "Pflege:nur Kür" <Datei>` erst ohne, dann mit `--sperre` (Zu 843); Zeile OHNE-ÜBERHOLT: das `--ohne` streichen. Archivieren nur ARCHIVIERE-Zeilen oder Neustart-Absender, Kosten mit `--kosten`; Aufträge an laufende Sitzungen nur „Weiter:“ nach WEITER-Zeile oder auf Bitte Sokrates oder Chef. Offen: dieser Vorrat 43 KB, Eingang unten (Zeilen „Von …“ vor „Anregungen“) durchsehen und Erledigtes streichen. Nachfolger: Ford – Betriebsleiter
 - **Ford** `session_01Hmoj79VeEbfi8Yk1Y2Eb6y` (13.11., 13:19), Stundenuhr „Ford-Lauf“ `trig_01V6NKSG889Hx9Pc4keu9PxX` (`3 * * * *`); Vorgänger `…799ZkNaijAJMrQQjx9` 13:20 archiviert (9,65 $); seine Uhr `trig_01BF6Lp6NmrCqGU6deZrg8tm` nur abgeschaltet (Löschen vom Klassifizierer abgelehnt; Chef kann sie löschen).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **Ford-Starter:** keiner; ruht bis zur Antwort des Chefs auf 1098 (`entscheiden/1098-ford-starter.md`, Vorlage statt Vorentscheid wegen Bremse 194.1, Perikles 08:31); bis dahin Selbstneustart wie bisher, kein Starter anlegen.
@@ -193,8 +193,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 05:31 13.11.: Nachfolger-Warnung Jerry (Übergabe 13.11., 05:29) (lauf.py)
 - 06:04 13.11.: Marke Archiv session_01Hmoj79qGhEdjuvdUYbpj3h (lauf.py)
 - 06:04 13.11.: Marke Archiv session_01Hmoj78CkDSPDMASL6K5Kd8 (lauf.py)
-- 08:18 13.11.: Startsperre 08:18 Start Perikles (Ford, Neustart-Meldung 320c3030b, Nachfolger „Perikles – 1098: Ford-Tiefe beim Selbstneustart“; Hoch, effort high)
-- 08:29 13.11.: Startsperre 08:29 Start Perikles (Ford, Neustart-Meldung ecfebf92c, Nachfolger „Perikles – 1100: Ford-Lauf kürzen“; Hoch, effort high)
 - 13:51 13.11.: Startsperre 13:51 Start Sokrates (Ford, Neustart-Meldung 5b10649b9, Nachfolger „Sokrates – 1129: Chefrunde blinde Flecken“; Hoch, effort high)
 - 13:57 13.11.: Startsperre 13:57 Start Spike (Ford, Neustart-Meldung bf4222f84, Nachfolger „Spike – 882.1: Vergleichsbilder alt rendern“; Hoch, effort high)
 - 13:58 13.11.: Startsperre 13:58 Start Tom (Ford, Neustart-Meldung f966d7dcb, Nachfolger „Tom – 284: Prüfliste und Testbitte nach Test 283“; Hoch, effort high)
@@ -205,10 +203,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:04 13.11.: Marke Tagesbericht 13.11. (lauf.py)
 - 08:04 13.11.: Marke Nachhalten 13.11. (lauf.py)
 - 08:18 13.11.: Marke Archiv session_01Hmoj78o1EcVNksEbvzKHga (lauf.py)
-- 08:18 13.11.: Marke Start-fehlt Spike 13.11.-08:04 (lauf.py)
-- 08:51 13.11.: Startsperre 08:51 Start Jerry, Diogenes, Perikles (lauf.py)
 - 08:51 13.11.: Marke Stellungnahme Sokrates 13.11. (lauf.py)
-- 08:51 13.11.: Marke Start-fehlt Perikles 13.11.-08:29 (lauf.py)
 - 08:51 13.11.: Marke Archiv session_01Hmoj78PvRkTAsLPoGWG9we (lauf.py)
 - 08:51 13.11.: Marke Archiv session_01Hmoj78nYhWJDwpTUKcGeBd (lauf.py)
 - 09:04 13.11.: Startsperre 09:04 Start Tom, Perikles (lauf.py)
@@ -292,3 +287,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:10 13.11.: Marke Archiv session_01Hmoj76uwtqjKezwuFGaC2j (lauf.py)
 - 14:10 13.11.: Marke Archiv session_01Hmoj79V13ud4srAyFcA7Gf (lauf.py)
 - 14:10 13.11.: Marke Archiv session_01Hmoj765owYWUUNb8HS1ekh (lauf.py)
+- 14:51 13.11.: Startsperre 14:51 Start Diogenes, Spike (lauf.py)
+- 14:51 13.11.: Marke Archiv session_01Hmoj79pjCAyCS5phwcjMAq (lauf.py)
+- 14:51 13.11.: Marke Archiv session_01Hmoj76zsZtPcMeUXunfjXE (lauf.py)
