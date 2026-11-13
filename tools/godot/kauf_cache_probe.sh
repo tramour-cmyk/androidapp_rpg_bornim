@@ -8,7 +8,8 @@
 # Teile in godot/daten; misslingt dorf, steht kein halber Zweig bau/dorf-…, und kampf wird trotzdem abgelegt.
 # 1111: NEU=1 (cache=neu) baut trotz Treffer alles, überschreibt nichts, vergleich prüft die vorher abgelegten Zweige gegen den Bau
 # (gleich: 0 abweichend; anders gebaut: jede Datei abweichend). 1112: HALB=kampf (geduldeter Fehler) legt kampf nicht ab, der nächste
-# Lauf baut ihn neu. 1113: aufraeumen lässt je Block die neuesten 3 und den eigenen, alte bau/teil/* gehen weg.
+# Lauf baut ihn neu. 1113: aufraeumen lässt je Block die neuesten 3 und den eigenen, alte bau/teil/* gehen weg. 1126: verschwindet
+# ein Treffer nach pruefen (WEG=block), holt holen ihn aus dem in pruefen gesicherten Stand.
 # Aufruf im Repo: bash tools/godot/kauf_cache_probe.sh   (Ende 0 = gut)
 set -euo pipefail
 QUELLE=$(cd "$(dirname "$0")/../.." && pwd)
@@ -44,7 +45,10 @@ lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, h
     $KC merke klassen
   fi
   mkdir -p $R/godot/daten/leute; echo leute > $R/godot/daten/leute/garrick.bin; echo daten/leute/garrick.bin >> $R/godot/daten/kauf.txt
-  [ "$KAUF_HOLEN" = ja ] && $KC holen > $RUNNER_TEMP/holen.log
+  HOLEN=-; if [ "$KAUF_HOLEN" = ja ]; then
+    for b in ${WEG:-}; do git --git-dir=$T/kauf.git update-ref -d refs/heads/bau/$b-$($KC kennung $b | cut -d' ' -f2); done   # 1126
+    $KC holen > $RUNNER_TEMP/holen.log && HOLEN=0 || HOLEN=$?
+  fi
   if [ "$KAUF_KAMPF" != treffer ]; then
     $KC merke vor_kampf; echo "kampf $1" > $R/godot/kampf/daten/wolf.bin
     [ -n "${HALB:-}" ] && $KC halb $HALB "Probe 1112" > /dev/null
@@ -158,6 +162,13 @@ pruefe '[ $ok = 1 ]' "1113: je Block höchstens 3, der eigene bleibt ($vorher Zw
 pruefe '[ $(git --git-dir=$T/kauf.git for-each-ref refs/heads/bau/teil | wc -l) = 0 ]' "1113: alte Zwischenzweige weg"
 lauf dreizehn
 pruefe '[ "$KAUF_ALLES" = treffer ]' "1113: danach trifft alles"
+
+# 1126: ein gleichzeitiger Lauf räumt den Treffer zwischen pruefen und holen weg; holen nimmt ihn aus dem Gesicherten
+vorher=$(inhalt)
+WEG=kampf lauf vierzehn
+pruefe '[ "$KAUF_KAMPF" = treffer ] && [ $HOLEN = 0 ] && grep -q "geholt kampf" $RUNNER_TEMP/holen.log && [ "$(inhalt)" = "$vorher" ]' "1126: Treffer gelöscht nach pruefen, trotzdem geholt (Ende $HOLEN, $(grep -c gesichert $RUNNER_TEMP/pruefen.log) gesichert)"
+lauf fuenfzehn
+pruefe '[ "$KAUF_KAMPF" = bauen ] && [ "$KAUF_DORF" = treffer ]' "1126: danach baut kampf neu"
 
 echo "KAUFCACHE854 $([ $fehler = 0 ] && echo gut || echo "$fehler Fehler")"
 exit $fehler

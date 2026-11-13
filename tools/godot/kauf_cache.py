@@ -325,10 +325,9 @@ def pruefen(env_datei=None, neu=False):
         print('KAUF-CACHE %-8s %s %s%s' % (block, 'treffer' if treffer else 'bauen  ', k,
               ('  (Zweig da, Gegenprobe)' if da else '  (kein Zweig, keine Gegenprobe)') if neu else
               '' if treffer or alle is None else '  (' + _was_anders(block, alle) + ')'), flush=True)
-    figur_bauen = any(werte['KAUF_' + b] == 'bauen' for b in ('FIGUR', 'KLASSEN', 'KAMPF'))
-    werte['KAUF_FIGUR_BAUEN'] = 'ja' if figur_bauen else 'nein'
-    werte['KAUF_ALLES'] = 'treffer' if all(v == 'treffer' for k, v in werte.items() if k[5:].lower() in BLOECKE) else 'bauen'
-    werte['KAUF_HOLEN'] = 'ja' if _zu_holen(werte) else 'nein'
+    _ableiten(werte)
+    if _sichern(werte):
+        _ableiten(werte)
     if neu:
         werte['KAUF_GEGENPROBE'] = ','.join(gegen) or '-'
     if env_datei:
@@ -337,6 +336,37 @@ def pruefen(env_datei=None, neu=False):
     else:
         print('\n'.join('%s=%s' % kv for kv in werte.items()))
     return 0 if werte['KAUF_ALLES'] == 'treffer' else 1
+
+
+def _ableiten(werte):
+    figur_bauen = any(werte['KAUF_' + b] == 'bauen' for b in ('FIGUR', 'KLASSEN', 'KAMPF'))
+    werte['KAUF_FIGUR_BAUEN'] = 'ja' if figur_bauen else 'nein'
+    werte['KAUF_ALLES'] = 'treffer' if all(werte['KAUF_' + b.upper()] == 'treffer' for b in BLOECKE) else 'bauen'
+    werte['KAUF_HOLEN'] = 'ja' if _zu_holen(werte) else 'nein'
+
+
+# 1126 (Diogenes D196.1): aufraeumen eines gleichzeitigen Laufs auf einem anderen Zweig löschte einen Treffer zwischen pruefen und
+# holen; holen brach ab, der Block war übersprungen und wurde nicht gebaut. Darum lädt pruefen jeden zu holenden Treffer sofort in
+# ein Repo unter RUNNER_TEMP (bleibt für den ganzen Lauf), holen nimmt ihn von dort. Lädt er nicht, baut der Block (kein Treffer).
+SICHER = os.path.join(RT, 'kauf-cache-sicher')
+
+
+def _sichern(werte):
+    if not os.path.isdir(os.path.join(SICHER, '.git')):
+        os.makedirs(SICHER, exist_ok=True)
+        git('init', '-q', SICHER)
+    weg = False
+    for block in _zu_holen(werte):
+        for versuch in range(3):
+            if git('fetch', '-q', '--depth', '1', url(), '+%s:refs/sicher/%s' % (zweig(block), block), cwd=SICHER,
+                   check=False).returncode == 0:
+                print('KAUF-CACHE gesichert', block, kennung(block), flush=True)
+                break
+        else:
+            print('::warning::KAUF-CACHE %s: Treffer nicht geladen (gelöscht?), Block wird gebaut (1126)' % block, flush=True)
+            werte['KAUF_' + block.upper()] = 'bauen'
+            weg = True
+    return weg
 
 
 def _zu_holen(werte):
@@ -361,8 +391,13 @@ def holen():
         k = kennung(block)
         with tempfile.TemporaryDirectory() as t:
             git('init', '-q', t)
+            # 1126: zuerst aus dem Repo, in das pruefen den Treffer gesichert hat; fehlt er dort, wie früher aus dem Kaufrepo
+            gesichert = git('rev-parse', '-q', '--verify', 'refs/sicher/' + block, cwd=SICHER, check=False,
+                            capture_output=True).returncode == 0 if os.path.isdir(SICHER) else False
+            quelle = (SICHER, 'refs/sicher/' + block) if gesichert else (url(), zweig(block))
             for versuch in range(3):
-                if git('fetch', '-q', '--depth', '1', url(), zweig(block), cwd=t, check=False).returncode == 0:
+                if git('fetch', '-q', '--depth', '1', 'file://' + quelle[0] if gesichert else quelle[0], quelle[1], cwd=t,
+                       check=False).returncode == 0:
                     break
             else:
                 print('KAUF-CACHE Laden misslungen', block, k, flush=True)
