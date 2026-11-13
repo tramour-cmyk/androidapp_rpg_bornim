@@ -320,6 +320,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:05 13.11.: Startsperre 07:05 Start Sokrates (Ford, Neustart-Meldung bde5bf823, Nachfolger „Sokrates – 1077: Chefrunde Morgenliste (13.11.)“; Hoch, effort high)
 - 07:14 13.11.: Startsperre 07:14 Start Tom (Ford, Neustart-Meldung 0bee2c50f, Nachfolger „Tom – 282: Lauf 420 auswerten, Testbitte; 1092 messen (13.11.)“; Hoch, effort high)
 - 08:18 13.11.: Startsperre 08:18 Start Perikles (Ford, Neustart-Meldung 320c3030b, Nachfolger „Perikles – 1098: Ford-Tiefe beim Selbstneustart“; Hoch, effort high)
+- 08:29 13.11.: Startsperre 08:29 Start Perikles (Ford, Neustart-Meldung ecfebf92c, Nachfolger „Perikles – 1100: Ford-Lauf kürzen“; Hoch, effort high)
 - 07:04 13.11.: Startsperre 07:04 Start Jerry (lauf.py)
 - 07:04 13.11.: Marke Archiv-Warnung session_01Hmoj79qGhEdjuvdUYbpj3h (lauf.py)
 - 07:04 13.11.: Marke Archiv session_01Hmoj7A1dnZnLGSEWvQkYYP (lauf.py)
