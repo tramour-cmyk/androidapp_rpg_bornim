@@ -399,3 +399,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:56 13.11.: Startsperre 12:56 Start Sokrates (Neustart-Meldung 78c5b453e, Nachfolger „Sokrates – 1129: Systemprüfung blinde Flecken“; Hoch)
 - 12:56 13.11.: Marke Mehrfach Sokrates (lauf.py)
 - 12:58 13.11.: Startsperre 12:58 Start Perikles (Neustart-Meldung ee2b7ced6, Nachfolger „Perikles – 1129.1: Systemprüfung Abläufe“; Hoch)
+- 13:05 13.11.: Marke Archiv session_01Hmoj78stBJJXqscNXjZ3CZ (lauf.py)
+- 13:05 13.11.: Marke Mehrfach Perikles (lauf.py)
+- 13:05 13.11.: Marke Hängt session_01Hmoj78Rf6zNyPd2bCm6EA8 2026-11-13T11:00 (lauf.py)
