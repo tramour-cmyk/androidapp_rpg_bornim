@@ -313,3 +313,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 05:09 13.11.: Startsperre 05:09 Start Ford (selbst, Neustart-Haken 400 Tsd., Übergabe 05:09)
 - 05:31 13.11.: Nachfolger-Warnung Jerry (Übergabe 13.11., 05:29) (lauf.py)
 - 05:32 13.11.: Startsperre 05:32 Start Jerry (Ford, Neustart-Meldung f920b5338, Nachfolger „Jerry – 1043: Messlauf 416 auswerten“; Hoch, effort high; lauf.py: 1043 wartet auf 760, Auswertung des laufenden Messlaufs trotzdem Nachtauftrag Sokrates)
+- 06:04 13.11.: Startsperre 06:04 Start Jerry (lauf.py)
+- 06:04 13.11.: Marke Archiv session_01Hmoj79qGhEdjuvdUYbpj3h (lauf.py)
+- 06:04 13.11.: Marke Archiv session_01Hmoj78CkDSPDMASL6K5Kd8 (lauf.py)
