@@ -335,7 +335,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 251.3 | Logo B abheben: drei Varianten ohne offenes C, goldener Kern bleibt (Chef 21.10., 20:03; an Sokrates 20:29) | M Markt | M | –; +4,83 $ | Sokrates | erledigt |
 | 90 | Tagesrückblick (ersetzt durch Tagesbericht 247) | B Steuerung | K |  | Perikles | ersetzt |
 | 280.1 | Texte Kapitel 1 aus 280: Tipp beim Aufwachen, Chronik Krogg | G Story | M | – | Team Tom | erledigt |
-| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | 1,16 $ | Tom | erledigt |
+| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | 1,23 $ | Tom | erledigt |
 | 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | erledigt |
 | 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +4,61 $ | Homer | erledigt |
@@ -1189,7 +1189,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1048 | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der Abwehr und beim Angriff“): Abwehr bei angesagten großen Schlägen (Anspringen, Krogg), Angriff; aus 930 gelöst, Bau nach 1039 | E Kampf | M | 47,50 $ | Sokrates | erledigt |
 | 1050a | Rückfrage Zauberlehrling: Punkte der Herkunft nach 952 D (Wille 5, Verstand 1) neu verteilen? (aus 1050, Chef 11.11., 20:00 „Verstand als Grundwert da ganz entscheidend“) | G Balance | M | – | Sokrates | erledigt |
 | 1074 | Von Sokrates (Chef 12.11., 20:48, 842 zurück): Text für den sichtbaren zweiten Knopf neben einer Wahl im Gespräch (Pim „Schick Pim heim“, Osric „Kaufen“), etwa „Weiter“ oder „Lass ihn“; für Tom 842 | G Story | M | 2,15 $ | Homer | erledigt |
-| 1077 | Von Tuffy (1055): Prüfliste Build 281 Kampf gegenlesen (docs/entwurf/t281-kampf.md, 12 Punkte), Zeile „Gegengelesen“, nach chefsache/ansehen/ verschieben; erst dann baut 281 | B Abläufe | M | 9,91 $ | Sokrates | erledigt |
+| 1077 | Von Tuffy (1055): Prüfliste Build 281 Kampf gegenlesen (docs/entwurf/t281-kampf.md, 12 Punkte), Zeile „Gegengelesen“, nach chefsache/ansehen/ verschieben; erst dann baut 281 | B Abläufe | M | 9,98 $ | Sokrates | erledigt |
 | 1080 | Von Spike (Lauf 400): ziege_4162 einmal rot ohne Dorfänderung (Lauf 399 grün); Test misst mit Echtzeit 6 s, wohl wackelig | Q QS | M? | – | Tom | erledigt, doppelt zu 1079 |
 | 1071 | Von Sokrates (Chef 12.11., 20:09, Film 1036; Wiederholfund 09.11., 21:15 und 10.11., 19:29): hinterer Wolf im Rudel läuft außen herum statt durch die Lücke in der Mitte | E Kampf | M? | – | Jerry | erledigt, doppelt zu 1072 |
 | 1075 | Von Jerry (1029): Kampftests mit derselben Schleife wie probekampf_1020 (go_on auch beim Söldner „selbst“) prüfen, ob dort ein Söldner mitkämpft und der Kampf stehen bleibt (Schwanken) | E Kampf | M? | – | Jerry | erledigt, geprüft: die übrigen 22 Tests setzen merc.auto oder haben keinen Söldner |
