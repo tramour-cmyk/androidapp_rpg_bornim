@@ -331,7 +331,7 @@
 | 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 644a.5 | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und die übrigen Fertigkeiten beim Wachsen durch Üben? Gebaut: nur Waffengruppen und Schulen, 10 Punkte je +1; Regelwerk 2 und 13 nachziehen | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): `tools/rollenspiegel.sh Ford` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Ford | M | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 53365 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 53612 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 <<<<<<< HEAD
 | 1043a | Von Jerry (1043, Sokrates 22:03, Nacht nach 1077): Lauf 404 ohne Ausweichen (Testfehler), vierter Filmlauf oder anderer Weg? | Sokrates | M | erledigt | – | – | – | E Kampf | 0,90 $ |
 =======
