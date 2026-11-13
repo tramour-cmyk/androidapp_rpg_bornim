@@ -271,7 +271,7 @@ def lauf_laeuft(rolle):
     Spike und Tuffy teilen den Vorrat des Teams: ohne Namen gilt die Marke für das Team, mit „(Spike)“ nur für ihn."""
     if rolle not in VORRAT: return None
     for m in re.finditer(LAUF_MARKE, startbar.lesen(VORRAT[rolle])[:4000]):
-        wer = m.group(5)
+        wer, _ = marke_wer(m, VORRAT[rolle])
         if wer and wer != rolle: continue
         if not wer and rolle in startbar.ZUSATZ: continue
         try: bis = marke_bis(m)
@@ -280,7 +280,18 @@ def lauf_laeuft(rolle):
     return None
 
 # 1161 (D206.1): „Uhr“ nach der Zeit ist erlaubt, sonst galt „(Spike)“ nicht und die Marke traf das Team
-LAUF_MARKE = r"Lauf läuft bis (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?: Uhr)?(?:\s*\((\w+)\))?"
+# 1177 (D208.1): die Klammer darf mehr als den Namen tragen („(Spike, Render)“); sonst galt die Marke still für das Team
+LAUF_MARKE = r"Lauf läuft bis (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?: Uhr)?(?:\s*\(([^)\n]*)\))?"
+
+def marke_wer(m, datei):
+    """(Name, Fehler) aus der Klammer der Marke: der Name einer Rolle dieses Vorrats irgendwo in der Klammer gilt (1177);
+    ohne Klammer gilt die Marke für das Team. Klammer ohne passenden Namen: gilt für das Team, Fehler für die Warnung."""
+    if m.group(5) is None: return None, None
+    namen = [r for r, d in VORRAT.items() if d == datei]
+    wer = [w for w in re.findall(r"\w+", m.group(5)) if w in namen]
+    if len(set(wer)) == 1: return wer[0], None
+    if wer: return None, "mehrere Namen in der Klammer (%s), gilt für das Team" % ", ".join(dict.fromkeys(wer))
+    return None, "Klammer ohne Namen dieses Vorrats (%s), gilt für das Team" % "/".join(namen)
 
 def marke_bis(m):
     """Zeit der Marke; über den Jahreswechsel (D206: 31.12. mit „bis 01.01.“) ins nächste bzw. vorige Jahr. ValueError bei unmöglichem Datum."""
@@ -301,7 +312,9 @@ def lauf_marke_falsch(rolle):
         if not m: falsch.append((stueck, "ohne Datum oder Zeit in der Form TT.MM., HH:MM")); continue
         try: bis = marke_bis(m)
         except ValueError: falsch.append((stueck, "Datum oder Zeit unmöglich")); continue
-        if bis > JETZT + datetime.timedelta(hours=12): falsch.append((m.group(0), "über 12 h voraus"))
+        if bis > JETZT + datetime.timedelta(hours=12): falsch.append((m.group(0), "über 12 h voraus")); continue
+        _, fehler = marke_wer(m, VORRAT[rolle])
+        if fehler and bis >= JETZT: falsch.append((m.group(0), fehler))  # 1177: Klammer ohne passenden Namen nicht mehr still
     return falsch
 
 def nachfolger(rolle):
