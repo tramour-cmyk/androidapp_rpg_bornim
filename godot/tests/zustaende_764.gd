@@ -36,6 +36,15 @@ func _lauf() -> void:
 	pruefe(t.contains("Blut") and t.contains("Schaden jede Runde, Heilung nur halb so stark."), "Blutung mit Erklärung")
 	var frei := m.get_viewport_rect().size.x - 48 * Menue.DP
 	pruefe(m.inhalt.get_combined_minimum_size().x <= frei + 0.5, "passt auf den Schirm (%.0f von %.0f)" % [m.inhalt.get_combined_minimum_size().x, frei])
+	# t282.12 (Chef 13.11., 10:25): „Betrunken“ stand senkrecht, ein Buchstabe je Zeile; jedes Schild in einer Zeile, so breit wie sein Wort
+	z.met = Rast.BETRUNKEN
+	m.baue()
+	await process_frame
+	await process_frame
+	for st in ["POISON", "BLEED", "DRUNK"]:
+		var kw := m.inhalt.find_child("Schild_" + st, true, false) as Label
+		pruefe(kw != null and kw.get_line_count() == 1 and kw.size.x >= kw.get_minimum_size().x - 0.5 and kw.size.x > kw.size.y, "Schild %s waagerecht in einer Zeile (%s)" % [st, str(kw.size) if kw else "fehlt"])
+	pruefe(texte(m.inhalt).contains("Betrunken"), "Betrunken steht im Heldenreiter")
 	var l := Leiste.new()
 	root.add_child(l)
 	await process_frame

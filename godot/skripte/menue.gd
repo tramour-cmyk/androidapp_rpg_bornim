@@ -263,7 +263,15 @@ func zustaende_kurz() -> void:
 		s.content_margin_left = 4 * DP; s.content_margin_right = 4 * DP
 		k.add_theme_stylebox_override("panel", s)
 		k.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-		k.add_child(Stil.txt(Sprache.t(zd[st]["kurz"]), 13, Color.WHITE))
+		# t282.12 (Chef 13.11., 10:25, Bild: „Betrunken“ senkrecht, ein Buchstabe je Zeile): Stil.txt bricht um und dehnt sich, neben dem
+		# ebenso dehnbaren Satz blieb dem Schild nur die Mindestbreite eines Buchstabens. Das Wort steht jetzt in einer Zeile, das Schild
+		# so breit wie das Wort, der Satz nimmt den Rest und bricht dort um
+		var kw := Stil.txt(Sprache.t(zd[st]["kurz"]), 13, Color.WHITE)
+		kw.autowrap_mode = TextServer.AUTOWRAP_OFF
+		kw.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		kw.name = "Schild_" + String(st)
+		k.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		k.add_child(kw)
 		r.add_child(k)
 		var d: Array = Mars.STATUS_DESC.get(st, ["", ""])
 		var t := Stil.txt(String(d[0 if de else 1]), 14, Stil.TEXT)
