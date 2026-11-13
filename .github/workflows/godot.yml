@@ -515,7 +515,9 @@ jobs:
           cd godot
           ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
           timeout 120 ~/godot/godot --headless --path . --quit-after 300 2>&1 | tee check.log | tail -20
-          ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
+          # 1136: „! grep“ löste die Falle ERR nie aus (bash zählt negierte Befehle nicht), die Prüfung lief nie; „ERROR:“ allein traf in
+          # Lauf 427 nur Speicherzeilen beim Beenden („RID allocations … leaked at exit“), echte Fehler 0
+          grep -E "SCRIPT ERROR|Parse Error|Failed to load" check.log | head -20 || :; [ "$(grep -cE "SCRIPT ERROR|Parse Error|Failed to load" check.log || :)" -eq 0 ]
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           STUFE=test
           # 909 (Chef 11.11., 08:52): die vier längsten Messungen laufen nebenher (Lauf 353: schild_406 491 s, wolf_mess_438 138 s,
@@ -564,8 +566,13 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/angriff_824.gd 2>&1 | grep -E "^(ANGRIFF824|FEHLER|MASS)|SCRIPT ERROR"   # 824 (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
-          # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; misst und meldet, haelt noch nicht an
-          nebenher schild_406 'timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR" || true'
+          # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; 1136 (1128 A Laufnachweis): haelt an
+          # (Lauf 427: „SCHILD 406 gut“, Ende 0), traegt 1013 und 1014
+          nebenher schild_406 'timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR"'
+          # 1136 (1128 A, für 904): Simulation 444 im Spielkampf, N=200 je Gegner, ohne Skriptfehler (am Rechner 92 s, 0 Fehler)
+          nebenher sim444_870 'python3 ../tools/sim444/sim.py --ohne-wirtschaft --json $RUNNER_TEMP/sim870.json > /dev/null && SIM=$RUNNER_TEMP/sim870.json N=200 timeout 900 ~/godot/godot --headless --path . -s res://tests/sim444_870.gd > sim870.log 2>&1; r=$?; tail -8 sim870.log; grep -E "SCRIPT ERROR" sim870.log | head -5; [ $r -eq 0 ] && [ "$(grep -c "SCRIPT ERROR" sim870.log)" -eq 0 ]'
+          # 1136 (1128 A, für 1054): Regeln des Kampfs, bisher nur in godot-kampf.yml; am Rechner „MARS Regeln: 0 abweichend“, 0 Skriptfehler
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/mars_regeln.gd 2>&1 | tee regeln.log | grep -E "^abweich|MARS Regeln|SCRIPT ERROR"; [ "$(grep -c "SCRIPT ERROR" regeln.log || :)" -eq 0 ]
           # 406a G1 (Jerry): Kampfkamera des Schlussfilms ohne Bild, angeschnittene Figuren je Kampf; meldet nur
           MESS=1 TEIL=kampf timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_406.gd 2>&1 | grep -E "^Film 406|AUSSERHALB|SCRIPT ERROR" || true
           nebenher wolf_mess_438 'set -o pipefail; SCHAU_SCHILD=1 SCHAU_709=1 timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf |438 DIAG|438 GLEIT|Schild |709 (Ziel|Hieb))|SCRIPT ERROR"'   # 900: SCHAU_SCHILD, SCHAU_709, GLEIT bis B1 grün   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
@@ -628,7 +635,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kapitelende_537.gd 2>&1 | grep -E "FEHLER|KAPITELENDE|SCRIPT ERROR"   # 537 Kapitelende, Tempelszene, Morgen
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/rueckfrage_526.gd 2>&1 | grep -E "FEHLER|RUECKFRAGE|SCRIPT ERROR"   # 526 Rückfragen: daneben tippen, Zurück
-          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/protokoll_574.gd 2>&1 | tee p574.log | grep -E "FALSCH|PROTOKOLL574|SCRIPT ERROR"; ! grep -E "Lambda capture|buffer_size" p574.log   # 574 Fehler im Laufprotokoll
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/protokoll_574.gd 2>&1 | tee p574.log | grep -E "FALSCH|PROTOKOLL574|SCRIPT ERROR"; [ "$(grep -cE "Lambda capture|buffer_size" p574.log || :)" -eq 0 ]   # 574 Fehler im Laufprotokoll; 1136: „! grep“ löst die Falle ERR nie aus
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wischen_571.gd 2>&1 | grep -E "FALSCH|WISCHEN571|SCRIPT ERROR"   # 571 Wischen auf Knöpfen rollt jede Liste
           timeout 300 ~/godot/godot --headless --path . -s res://tests/kamin_501.gd 2>&1 | grep -E "FEHLER|KAMIN501|Kamin|SCRIPT ERROR"   # 501 Flamme auf den Scheiten
           timeout 120 ~/godot/godot --headless --path . -s res://tests/probeknoepfe_500.gd 2>&1 | grep -E "FEHLER|PROBEKNOEPFE500|SCRIPT ERROR"   # 500 Probeknoepfe weg
