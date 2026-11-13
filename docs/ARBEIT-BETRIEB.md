@@ -308,3 +308,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:04 13.11.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
 - 04:04 13.11.: Marke Start-fehlt Spike 13.11.-03:03 (lauf.py)
 - 04:10 13.11.: Startsperre 04:10 Start Tom (Ford, Neustart-Meldung 39358e034, Nachfolger „Tom – Sammelbuild 1022, 842, 867, 492, 1044 und 1090-Urteil“; Hoch, effort high)
+- 04:11 13.11.: Neustart Tom (39358e034, Nachfolger „Tom – Sammelbuild 1022, 842, 867, 492, 1044 und 1090-Urteil“): Tom neu …77AiQEf1srY1TqyM5y gestartet (Hoch, effort high); Tom alt …76h3kQK3RzBGphx1PP um 04:11 archiviert (Thema fertig, 716 Tsd. Token), 50,06 $ auf 1022, 492, 1044, 867, 1090 gebucht.
