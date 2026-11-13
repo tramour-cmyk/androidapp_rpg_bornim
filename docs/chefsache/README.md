@@ -320,7 +320,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | Sperre 620.1 B: 36 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 833 |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15639 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 18, Muss 15, startbar 1
+**Perikles** – offen 19, Muss 16, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -339,16 +339,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | wartet auf 1098 (wartet) |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Test t281 (Chef) |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Chef (Datei in der Chefsache) |
-| 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | wartet auf Diogenes |
+| 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | wartet auf 1103 (startbar) |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
+| 1103 | M | D190.1 von Diogenes (zu 1099): alte Bitte-Regel steht noch (ARBEIT-BETRIEB Zeile 44: Chef | startbar |
 
-**Diogenes** – offen 8, Muss 7, startbar 1
+**Diogenes** – offen 7, Muss 6, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
-| 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
