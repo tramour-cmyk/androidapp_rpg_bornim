@@ -177,7 +177,67 @@ def wochentermine_faellig(jetzt):
     tag = jetzt.strftime("%d.%m.")
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
-            if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da]
+            if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
+            ] + urteil_faellig(jetzt, da)
+
+# 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“): Kür veraltet still (99 ruhte seit 17.10. überholt).
+# Montags ab 8 Uhr legt lauf.py --sperre je Besitzer eine Zeile an, die seine Kür ohne Bewegung seit URTEIL_TAGE einmal zum Urteil
+# vorlegt: gilt (neuer Termin im Feld „wartet auf“) oder schließen. Jedes Urteil ändert die Zeile, damit beginnen die Tage neu.
+URTEIL_TAGE = 14
+URTEIL_MAX = 15  # Nummern je Zeile (Titel höchstens 400 Zeichen); der Rest kommt am nächsten Montag
+SAMMEL = 25  # Commits, die mehr Zeilen der Liste ändern (Wochenziel, Klassen, Umschaltung), sind keine Bewegung der Zeile
+
+def ohne_bewegung(zs=None, jetzt=None):
+    """1188: [(Tage, dict)] offene Kür (K, M?) ohne Bewegung seit URTEIL_TAGE, älteste zuerst. Bewegung = letzte Änderung der Zeile
+    nach git blame -M (verschobene Zeilen zählen nicht), ohne Sammel-Commits. Nicht vorgelegt: in Arbeit, gebaut, zu testen, Dauer,
+    Idee, erledigt, aufgeteilt; Besitzer Ideen (Homer sonntags); Feld „wartet auf“ mit einem Datum in der Zukunft (schon geurteilt)."""
+    jetzt = jetzt or JETZT
+    zs = zeilen_liste() if zs is None else zs
+    pfad = os.path.join(DOCS, LISTE)
+    seit = (jetzt - datetime.timedelta(days=60)).strftime("%Y-%m-%d")
+    gross = []; c = None
+    for z in _git("log", "--since=" + seit, "--format=@%H", "--numstat", "--", pfad).stdout.splitlines():
+        if z.startswith("@"): c = z[1:]
+        elif c and z.split("\t")[0].isdigit() and int(z.split("\t")[0]) > SAMMEL: gross.append(c)
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
+        f.write("\n".join(gross) + "\n"); ign = f.name
+    try:
+        out = _git("blame", "-M", "--ignore-revs-file", ign, "--line-porcelain", "--", pfad).stdout
+    finally:
+        os.unlink(ign)
+    zeit, cur = [], None
+    for z in out.splitlines():
+        if z.startswith("committer-time "): cur = int(z.split()[1])
+        elif z.startswith("\t"): zeit.append(cur)
+    if not zeit: return []  # kein Git: lieber nichts vorlegen als alles
+    aus = []
+    for d in zs:
+        if d.get("kl") not in ("K", "M?") or d["besitzer"] in ("Ideen",) or d["nr"] in SONDER: continue
+        if d["wort"] in (None, "in Arbeit", "gebaut", "zu testen", "Dauer", "Idee", "erledigt", "aufgeteilt"): continue
+        if any(art(w) == "datum" and datum_von(w) > jetzt for w in d.get("warte") or []): continue
+        if d["i"] >= len(zeit) or zeit[d["i"]] is None: continue
+        tage = (jetzt - datetime.datetime.fromtimestamp(zeit[d["i"]])).days
+        if tage >= URTEIL_TAGE: aus.append((tage, d))
+    return sorted(aus, key=lambda x: -x[0])
+
+def urteil_faellig(jetzt, da=None):
+    """1188: montags ab 8 Uhr je Besitzer mit Kür ohne Bewegung (ohne_bewegung) eine Zeile (Titel, Bereich, Besitzer), noch ohne
+    Zeile in Liste oder Archiv."""
+    if jetzt.weekday() != 0 or jetzt.hour < 8 or jetzt.date() < datetime.date(2026, 11, 16): return []
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
+    tag = jetzt.strftime("%d.%m.")
+    je = {}
+    for tage, d in ohne_bewegung(jetzt=jetzt): je.setdefault(d["besitzer"], []).append(d["nr"])
+    aus = []
+    for wer, nrn in je.items():
+        kopf = "Wochentermin %s: Urteil Kür %s" % (tag, wer)
+        if kopf in da: continue
+        rest = len(nrn) - URTEIL_MAX
+        aus.append(("%s, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen, ohne Bewegung seit %d Tagen: %s%s (1188)"
+                    % (kopf, URTEIL_TAGE, ", ".join(nrn[:URTEIL_MAX]), " (+%d am nächsten Montag)" % rest if rest > 0 else ""),
+                    "B Abläufe", wer))
+    return aus
 
 def sammelbuild_faellig():
     """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
