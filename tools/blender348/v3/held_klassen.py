@@ -946,6 +946,12 @@ BEWEGUNGEN = [('Stehen', 'Idle_Loop'), ('Gehen', 'Walk_Loop'), ('Rennen', 'Jog_F
               # 1044 zurueck (Chef 13.11., 09:35): Ruhebewegungen je Person (heldfigur.gd RUHE_JE), alle aus der UAL Pro
               ('Ruhe_Tresen', 'Counter_Idle_Loop'), ('Ruhe_Trinken', 'Drink'), ('Ruhe_Weinen', 'Crying'),
               ('Ruhe_Greifen', 'Interact')]
+# 1040.1 (Chef 13.11., 15:58, t283: „alle wie auf dem Drehteller“; vierter Anlauf): die Leute stehen seit 475 auf dem Kaufkoerper
+# (heldfigur.gd person), dort fehlten Drehen_L/R ganz, leute.gd wende_von fand keine und drehte stetig (Lauf 427: wende_4168
+# „echte Figur nicht geprueft“). Wie geruest.py 416.8: die Bewegung aus UAL1.glb (Wurzel steht, die Fuesse treten), die Drehung je
+# Bild vom Wurzelknochen in UAL1_RM.glb (dort liegen die 90 Grad) -> held-klassen.json wende.<Name>.gier (Grad, gegen den
+# Uhrzeigersinn von oben, 30 Bilder/s); leute.gd dreht den Knoten danach
+WENDE = [('Drehen_L', 'Turn90_L'), ('Drehen_R', 'Turn90_R')]
 
 
 def schritt_tempo(arm, a, fuesse=('foot_l', 'foot_r'), toleranz=0.02):
@@ -978,6 +984,9 @@ def bewegungen():
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
     for o in [o for o in bpy.data.objects if o != arm]: bpy.data.objects.remove(o)
     namen = dict((q, n) for n, q in BEWEGUNGEN)
+    for n, q in WENDE:   # 1040.1: Turn90_L oder Turn90_L_Loop
+        qq = next((x for x in (q, q + '_Loop') if x in bpy.data.actions), None)
+        if qq: namen[qq] = n
     for a in list(bpy.data.actions):
         if a.name in namen: a.name = namen[a.name]; a.use_fake_user = True
         else: bpy.data.actions.remove(a)
@@ -1001,9 +1010,46 @@ def bewegungen():
     bpy.ops.export_scene.gltf(filepath=os.path.join(ZIEL, 'bewegungen.glb'), export_format='GLB', use_selection=True, export_animations=True,
                               export_animation_mode='ACTIONS', export_skins=True, export_force_sampling=True)
     arten = sorted({n.split('_', 1)[1] for n in tempo if '_' in n})
-    return {'gang': {k: {'gehen_m_je_s': tempo.get('Gehen_' + k, 0.0), 'rennen_m_je_s': tempo.get('Rennen_' + k, 0.0)} for k in arten},
+    wende = wende_gier(pro)
+    return {'wende': wende,'gang': {k: {'gehen_m_je_s': tempo.get('Gehen_' + k, 0.0), 'rennen_m_je_s': tempo.get('Rennen_' + k, 0.0)} for k in arten},
             'gehen_m_je_s': tempo.get('Gehen', 0.0), 'rennen_m_je_s': tempo.get('Rennen', 0.0), 'becken_m': round(arm.data.bones['pelvis'].head_local.z, 4),
             'bewegungen': sorted(a.name for a in bpy.data.actions), 'ual': os.path.basename(pro) if pro else 'UAL1_Standard.glb', 'gekauft': bool(pro)}
+
+
+def wende_gier(pro):
+    """1040.1: je Wende die Drehung des Wurzelknochens in UAL1_RM.glb seit Bild 0, 30 Bilder/s (wie geruest.py wende_gier, dort am Becken)"""
+    import math
+    rm = os.path.join(os.path.dirname(pro), 'UAL1_RM.glb') if pro else ''
+    if not os.path.exists(rm):
+        print('WENDE KAUF fehlt', rm or 'ohne UAL Pro'); return {}
+    vor_o, vor_a = set(bpy.data.objects), set(bpy.data.actions)
+    bpy.ops.import_scene.gltf(filepath=rm)
+    arm = next(o for o in bpy.data.objects if o not in vor_o and o.type == 'ARMATURE')
+    neu = [a for a in bpy.data.actions if a not in vor_a]
+    scn = bpy.context.scene
+    fps = scn.render.fps / scn.render.fps_base
+    rb = arm.pose.bones['root']
+    R = rb.bone.matrix_local.to_3x3().inverted()
+    aus = {}
+    for n, q in WENDE:
+        a = next((a for a in neu if a.name in (q, q + '_Loop')), None)
+        if a is None: continue
+        arm.animation_data_create(); arm.animation_data.action = a
+        if hasattr(arm.animation_data, 'action_slot') and a.slots: arm.animation_data.action_slot = a.slots[0]
+        f0, f1 = a.frame_range
+        g = []
+        for i in range(int(round((f1 - f0) / fps * 30)) + 1):
+            fr = f0 + i * fps / 30.0
+            scn.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
+            v = rb.matrix.to_3x3() @ (R @ Vector((0, -1, 0)))
+            g.append(math.atan2(v.x, -v.y))
+        g = np.degrees(np.unwrap(g))
+        aus[n] = {'quelle': a.name, 'gier': [round(float(x - g[0]), 2) for x in g]}
+        print('WENDE KAUF', n, a.name, len(g), 'Bilder', aus[n]['gier'][-1], 'Grad')
+    if arm.animation_data: arm.animation_data.action = None
+    for o in [o for o in bpy.data.objects if o not in vor_o]: bpy.data.objects.remove(o)
+    for a in neu: bpy.data.actions.remove(a)
+    return aus
 
 
 # 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper, je Person ihre Kleidung aus held3 (leute.json) und ein
