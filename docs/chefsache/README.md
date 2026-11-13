@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1092](entscheiden/1092-streifen.md) | M? | E Figuren | 13.11., 09:12 | die gemalten Faltentäler der Stoffmalerei 558 laufen ins Schwarze; nur das Schwarz kappen und im nächsten Build prüfen, oder erst ein Bild vorher/nachher | Tom (Befund 08:50), Sokrates (Vorlage 09:12) |
 | [1100](entscheiden/1100-ford-lauf.md) | Kür | B Abläufe | 13.11., 08:36 | Ford kostet gemessen etwa 0,90 $ je Stunde (rund 22 $ am Tag); fünf Änderungen am Lauf sparen geschätzt ein Drittel bis die Hälfte | Perikles |
 
 ## Zu billigen
@@ -49,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 115, Muss 90, startbar 7
+**Tom** – offen 115, Muss 91, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,7 +166,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf Test (Build 282) |
 | 1090 | M? | Von Sokrates (zu 1044, Nacht 1077): Beine stoßen durch Röcke (Lyra: dunkler Fleck zwischen | wartet auf Test (Build 282) |
 | 1091 | M? | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | startbar |
-| 1092 | M? | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | Chef (Datei in der Chefsache) |
+| 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | startbar |
 
 **Jerry** – offen 128, Muss 115, startbar 3
 
