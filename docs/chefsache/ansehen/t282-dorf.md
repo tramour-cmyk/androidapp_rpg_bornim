@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 282 · Dorf, Höhle, Hauptmenü: Kartenrand, Blutzahnhöhle mit Nebel, Helden im Hauptmenü, Frauen, Pim, Schenke · PR #201
+# Tom und Jerry · Build 282 · 0.348.418 · Dorf, Höhle, Hauptmenü: Kartenrand, Blutzahnhöhle mit Nebel, Helden im Hauptmenü, Frauen, Pim, Schenke · PR #201
 E Welt · Tom (492, 521, 757, 758, 764, 814, 860, 867, 1035, 1044, 1090), Spike (842, 1086, 1022), Jerry (1046, 1037), Tuffy (1058, 1062, 1084) · 13.11., 04:35 · APK folgt mit dem Lauf
 Gegengelesen: Sokrates 13.11., 04:39
 
