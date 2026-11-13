@@ -52,6 +52,15 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 221 · 1208 jede Bild- und Filmzeile gesendet (Perikles `8ba6fa07e`; 13.11., 20:1x)
+
+- **Greift am Werkzeug** (Wegwerfklon): t284 als neue `ansehen/t998-probe.md` (Zeile 2 mit APK-Link, gegengelesen): Commit-Prüfung hält an 284.2a und 284.2b (Film ohne Link), Exit 1; mit `@film/`-Link in beiden Zeilen Exit 0. Halt-Text 866 jetzt „trägt die Zeile im Entwurf ein; nach ansehen/ erst mit APK, Bildern und Filmen“. `meldung.sh` trägt Links in `ansehen/` ein (Tom 20:04–20:05, t284.1–284.6); in `docs/entwurf/` noch ungesehen (erst t285).
+- Zur Kenntnis (1128.3): in t284 stehen 284.2a, 284.2b weiter ohne Film (Zeile 30 „folgt im nächsten Build“; Datei vor 1208), für den Chef nicht prüfbar.
+
+## Lauf 220 · 1207 Gradle-Spiegel zurück (Perikles `875db5b6b`; 13.11., 20:1x)
+
+- **Greift:** neue Sitzung (20:05) hat `~/.gradle/init.d/bornim-maven-mirror.gradle`; `./gradlew -p core exportMaps` in Wegwerfkopie Exit 0, „Karten: 8“, kein 429. 882.2 wartet nur noch auf 882.1.
+
 ## Lauf 219 · 1180 Lage nur mit Gruppe mit Modell (Tom `711d4ff2e`, `claude/tom-1180-lage-modell`; 13.11., 20:1x)
 
 - **Am Code ohne Befund:** `lage_fehler` nennt `probe=` mit Gruppe aus `feinde(true)` ohne `gruppe_da` als Fehler; der Reiter nimmt `feinde()` = dieselbe Bedingung `gruppe_da`, unbekannte Gruppe bleibt Fehler. Test `lage_modell_1180` steht in „Skripte pruefen“ nach den Kaufmodellen, ohne `|| true`.
