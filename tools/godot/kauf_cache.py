@@ -414,8 +414,8 @@ def _sichern(werte):
 
 
 def _zu_holen(werte):
-    # Treffer, die nicht ohnehin gebaut werden: figur wird neu gebaut, sobald klassen fehlt
-    out = [b for b in BLOECKE if werte.get('KAUF_' + b.upper()) == 'treffer']
+    # Treffer, die nicht ohnehin gebaut werden: figur wird neu gebaut, sobald klassen fehlt; 1194: was nochmal schon geholt hat, nicht
+    out = [b for b in BLOECKE if werte.get('KAUF_' + b.upper()) == 'treffer' and werte.get('KAUF_' + b.upper() + '_GEHOLT') != 'ja']
     if werte.get('KAUF_FIGUR_BAUEN') == 'ja' and 'figur' in out:
         out.remove('figur')
     return out
@@ -425,8 +425,9 @@ def _werte_aus_env():
     return dict((k, v) for k, v in os.environ.items() if k.startswith('KAUF_'))
 
 
-def holen():
-    bloecke = _zu_holen(_werte_aus_env())
+def holen(bloecke=None):
+    if bloecke is None:
+        bloecke = _zu_holen(_werte_aus_env())
     if not bloecke:
         print('KAUF-CACHE nichts zu holen', flush=True)
         return 0
@@ -464,6 +465,31 @@ def holen():
         print('KAUF-CACHE geholt', block, k, len(namen), 'Dateien', flush=True)
     with open(os.path.join(REPO, LISTE), 'a') as f:
         f.write(zusatz)
+    return 0
+
+
+# 1194 (Sokrates aus Lauf 437/438/442: 437 und 442 hatten dieselben Schlüssel wie 438, prüften vor dessen Ablegen und bauten alles
+# noch einmal, 76 und 43 min; 442 begann „Leute bauen“ 16:47 und „Kampfort bauen“ 16:54, da lag der Stand schon seit 16:29): direkt
+# vor dem Bau eines Blocks noch einmal nachsehen; hat ein gleichzeitiger Lauf ihn inzwischen abgelegt, holen statt bauen
+def nochmal(block, env_datei=None):
+    werte = _werte_aus_env()
+    gross = 'KAUF_' + block.upper()
+    if werte.get(gross) == 'treffer' or 'KAUF_GEGENPROBE' in werte:     # schon Treffer, oder cache=neu (910: bewusst bauen)
+        return 0
+    alle = _fern('refs/heads/' + zweig(block))
+    if not alle or ('refs/heads/' + zweig(block)) not in alle:
+        print('KAUF-CACHE nochmal %-8s noch kein Treffer %s' % (block, kennung(block)), flush=True)
+        return 0
+    w = {gross: 'treffer'}
+    if _sichern(w) or holen([block]):
+        print('::warning::KAUF-CACHE nochmal %s: Treffer da, Laden misslungen, Block wird gebaut' % block, flush=True)
+        return 0
+    print('KAUF-CACHE nochmal %-8s Treffer (ein anderer Lauf hat ihn inzwischen abgelegt), Bau übersprungen %s' % (block, kennung(block)),
+          flush=True)
+    neu = {gross: 'treffer', gross + '_GEHOLT': 'ja'}
+    if env_datei:
+        with open(env_datei, 'a') as f:
+            f.write(''.join('%s=%s\n' % kv for kv in neu.items()))
     return 0
 
 
@@ -795,6 +821,8 @@ if __name__ == '__main__':
         merke(a[1])
     elif befehl == 'holen':
         sys.exit(holen())
+    elif befehl == 'nochmal' and len(a) >= 2:
+        sys.exit(nochmal(a[1], a[a.index('--env') + 1] if '--env' in a else None))
     elif befehl == 'ablegen':
         sys.exit(ablegen())
     elif befehl == 'vergleich':
@@ -805,4 +833,4 @@ if __name__ == '__main__':
         sys.exit(aufraeumen())
     else:
         sys.exit('Aufruf: kauf_cache.py kennung [block]|eingaben block|pruefen [--env datei] [--neu]|merke name|holen|ablegen|'
-                 'vergleich|halb block grund|aufraeumen')
+                 'vergleich|halb block grund|aufraeumen|nochmal block [--env datei]')
