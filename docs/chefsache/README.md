@@ -297,7 +297,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Diogenes (greift?) |
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 19, Muss 16, startbar 3
+**Perikles** – offen 19, Muss 17, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -317,11 +317,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Diogenes (greift?) |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | wartet auf Ford |
 | 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | wartet auf 1103 (startbar) |
-| 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
+| 1100 | M | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
 | 1103 | M | D190.1 von Diogenes (zu 1099): alte Bitte-Regel steht noch (ARBEIT-BETRIEB Zeile 44: Chef | startbar |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 15166 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 16205 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 9, Muss 8, startbar 2
+**Diogenes** – offen 11, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -334,6 +334,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
+| 1100.1 | M | Von Sokrates (Chef 13.11., 09:29, 1100 A mit 6): Ford-Lauf nach Perikles' Umbau gegenprüfe | wartet auf 1100 (startbar) |
+| 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | wartet auf 1098 (wartet) |
 
 **Sokrates** – offen 52, Muss 37, startbar 29
 
