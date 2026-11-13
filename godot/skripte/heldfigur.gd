@@ -602,7 +602,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 # unterwegs, im Drehteller und in der Ausrüstung; Platz ist Aussehen, darum zur Wahl (Chefsache 1149, Probebild tests/dolch_bild_1149.gd):
 # „guertel“ senkrecht an der linken Hüfte, Griff vorn oben, Klinge schräg nach hinten unten, flach am Bein; „kreuz“ waagrecht quer
 # über dem Kreuz, Griff rechts. Am Becken (pelvis), damit er mit der Hüfte geht. Ruhelage wie oben: Blick +Z, links +X
-static var dolch_platz := "guertel"
+static var dolch_platz := "guertel"   # 1149 A (Chef 13.11., 19:44): links an der Hüfte; „kreuz“ bleibt nur für das Probebild
 static func dolch_anlegen(m: Node3D, sk: Skeleton3D, was: String, pts: PackedVector3Array) -> void:
 	var pi := sk.find_bone("pelvis")
 	if pi < 0: return
