@@ -101,7 +101,10 @@ func _lauf() -> void:
 		print("Paket %s (%s): %s" % [k, ORDNER[k], ", ".join(PackedStringArray(namen)) if not namen.is_empty() else "nicht da"])
 	await _bilder(int(FPS * 0.5))
 	var halt := int(FPS * (2.4 if film else 0.3))
-	for ab in ABSCHNITTE:
+	# Lauf 426: nach 900 s (timeout von film in godot.yml) waren erst 6 der 10 Abschnitte aufgenommen; TEIL=1 die ersten 5, TEIL=2 der Rest (je etwa 80 s)
+	var teil := OS.get_environment("TEIL")
+	var liste: Array = ABSCHNITTE.slice(0, 5) if teil == "1" else ABSCHNITTE.slice(5) if teil == "2" else ABSCHNITTE
+	for ab in liste:
 		var eintraege := _aufloesen(ab[3])
 		if eintraege.is_empty():
 			print("Abschnitt %s: nichts da" % ab[0])

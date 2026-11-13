@@ -1059,12 +1059,16 @@ jobs:
           # Effekt alle passenden Effekte der Pakete nacheinander an Held und Wolf, Brennen in drei Größen; je Zustand ein Film bis 15 s
           # (1076), geschnitten nach den Zeilen „SCHNITT <name> <von s> <bis s>“ des Tests
           if [ "${{ github.event.inputs.kampf }}" = "10361" ]; then
-            film 1036-1-alle zustand_10361
-            grep -E "^(Paket|Eintrag|fehlt|Abschnitt|SCHNITT|ZUSTAND10361|FEHLER)|SCRIPT ERROR" $B/1036-1-alle.log | cut -c1-2000 || true
-            grep "^SCHNITT" $B/1036-1-alle.log | while read -r _ n a z; do
-              ffmpeg -loglevel error -y -nostdin -i $B/1036-1-alle.mp4 -ss "$a" -to "$z" -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -an $B/1036-1-$n.mp4 || true
+            # Lauf 426: in 900 s nur 6 der 10 Abschnitte aufgenommen, darum zwei Aufnahmen (TEIL=1, TEIL=2: je 5 Abschnitte)
+            for t in 1 2; do
+              film 1036-1-teil$t zustand_10361 TEIL=$t
+              grep -E "^(Paket|Eintrag|fehlt|Abschnitt|SCHNITT|ZUSTAND10361|FEHLER)|SCRIPT ERROR" $B/1036-1-teil$t.log | cut -c1-2000 || true
+              grep "^SCHNITT" $B/1036-1-teil$t.log | while read -r _ n a z; do
+                ffmpeg -loglevel error -y -nostdin -i $B/1036-1-teil$t.mp4 -ss "$a" -to "$z" -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -an $B/1036-1-$n.mp4 || true
+              done
+              rm -f $B/1036-1-teil$t.mp4
             done
-            rm -f $B/1036-1-alle.mp4; ls -l $B; exit 0
+            ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
             film held-feld2 film_403 ATEM_FELD2=1 DAUER_MS=40000
