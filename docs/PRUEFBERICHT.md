@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 232 · 827.1 Aufwand hoch je Aufgabe (Doppelpack 421, Perikles `30a4cb2c4`; 13.11., 23:1x)
+
+- **Greift:** `modell` mit Nachfolger „(Aufwand hoch, weil …)“ → hoch, `aufwand` „ | effort high“, Umgebung HOCH; ohne → Mittel, leer; `HOCH_BIS` 13.11., 22:04 (901); `STARK_AB` 2099 (aus). Keine Regelstelle nennt noch stärkstes Modell oder 827 A außer `LISTE-BETRIEB.md` 45 (neu). Gegen Chefwort 22:08 („setzt er den Aufwand für die Aufgabe auf hoch … und dann wieder zurück“) und 22:04 („Mittel für alle“): deckt sich; abweichend vom Titel schaltet „festgefahren“ nicht selbst hoch, nur Hinweis (begründet im Commit, näher am Wortlaut). Klein, ohne Vorgang: „weil“ wird nicht verlangt, „(aufwand hoch)“ allein genügt.
+
 ## Lauf 231 · 1236 Gespräch vor großem Vorhaben (Doppelpack 421, Perikles `97ffbfaa4`; 13.11., 23:1x)
 
 - **Werkzeug greift** (Wegwerfkopie): `setze 1240 warte="Chef Gespräch"` → Sperrgrund „Chef Gespräch (…, 1236)“, `--rolle Sokrates` zeigt „GESPRÄCH 1240 (Tom)“; nach Archivzeile „- **1240, Chef Gespräch: los**“ startbar, keine GESPRÄCH-Zeile mehr. Regel gegen Chefwort 21:41 und Archiv: deckt sich; Regelbilanz (Zusammenarbeit 3 ersetzt) eingehalten; die in `ROLLE-ENTWICKLUNG.md` gestrichenen Sätze stehen anderswo (Blatt: Begriffe; Film: Melden; Klartext: `MUSTER.md` 9).
