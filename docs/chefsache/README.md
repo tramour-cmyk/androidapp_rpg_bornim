@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1128](entscheiden/1128-pruefumfang.md) | **Muss** | B Abläufe | 13.11., 11:52 | je Vorgang in der Prüfliste eine Art: Handy (Ablauf, Bedienung), Bild/Film (Aussehen) oder ohne dich (Regeln und Technik mit grünem Bautest) | Sokrates |
+| [1128](entscheiden/1128-pruefumfang.md) | **Muss** | B Abläufe | 13.11., 12:03 | Prüffragen nur noch für Neues, und zwar als Bild oder Film; am Handy spielst du frei; was du nicht bemängelst, gilt als getestet | Sokrates |
 
 ## Zu billigen
 
