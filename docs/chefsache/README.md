@@ -17,9 +17,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | [1044](billigen/1044-frauenstand.md) | **Muss** | E Figuren | 13.11., 00:09 | keine gekaufte Bewegung steht mit geschlossenen Beinen; Tom passt die heutige an (Füße zusammen, Hände vorn), zuerst Lyra, Bild vorher/nachher | Sokrates |
 | [842](billigen/842-knopf.md) | **Muss** | E Welt | 13.11., 00:03 | Pim hat drei Knöpfe, Osric „Kaufen“ und „Nicht jetzt“, der Verband steht in Tasche und Laden; Osric bekommt noch einen Satz, der sagt, was er verkauft | Sokrates |
 | [1022](billigen/1022-kartenrand.md) | **Muss** | E Welt | 12.11., 23:50 | der weiche Rand ins Dunkel passt; Weg am Schlagbaum und Fluss sollen noch mit ins Dunkel laufen, dann fährt er im nächsten Build | Sokrates |
-| [1084](billigen/1084-proben-rest.md) | **Muss** | E Kampf | 12.11., 23:08 | Für die Überreden-Probe bei Pim gilt Stufe 1; Handeln bekommt vorerst keine Probe | Sokrates |
 | [1090](billigen/1090-rockfleck.md) | M? | E Figuren | 13.11., 02:46 | unter der Robe steckt bei den Leuten noch eine Hose dicht am Bein, die durch den Stoff stößt; sie fällt weg wie beim Helden im Zaubergewand | Sokrates |
-| [1085](billigen/1085-pim-gold.md) | – | G Story | 12.11., 22:33 | Pim lässt sich auch für 5 Gold heimschicken, sicher, aber ohne Übung und ohne Ruf | Sokrates |
 
 ## Anzusehen
 
@@ -44,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 115, Muss 91, startbar 6
+**Tom** – offen 115, Muss 91, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -59,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 568 | M | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf 643 (ruht) |
 | 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test/Build (gebaut) |
-| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 22 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
+| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
 | 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | wartet auf Test (Build 282) |
 | 515 | M | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
 | 376.1 | M | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | ruht |
@@ -118,7 +116,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 758 | M | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben | wartet auf Test (Build 282) |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf Test (Build 282) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | startbar |
-| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 22 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 521 (menue.gd) |
+| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 521 (menue.gd) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | wartet auf Test (Build 282) |
@@ -143,8 +141,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 785.4 | M | Von Spike (785): Gegenstandsfenster nennt bei Fernwaffen „Fernkampf“ wie alt (GearUi.kt 19 | wartet auf 870.13 (wartet) |
 | 785.5 | M | Von Spike (785): Kampfwerte im Reiter Ausrüstung mit Zeile für die Nebenhandwaffe wie alt | wartet auf 870.13 (wartet) |
 | 785.6 | M | Von Spike (785): Kampfwerte zeigen Lebensraub, Widerstand, Goldfund, EP-Bonus der getragen | wartet auf 870.13 (wartet) |
-| 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | Sperre 620.1 B: 22 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
-| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | Sperre 620.1 B: 22 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
+| 785.7 | M | Von Spike (785): Karte im Menü: Wald, Tiefer Wald, Höhle als Kartenblatt mit Nebel, Höhlen | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
+| 785.8 | M | Von Spike (785): Karte im Menü: Lagerfeuer-Marken und Zielmarke eines Auftrags wie alt (Me | Sperre 620.1 B: 23 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
 | 785.20 | M | Von Spike (785): Klick-Klang auch auf Knöpfen im Stil 549a (PanelContainer: Spielstände, E | wartet auf 870.13 (wartet) |
 | 785.21 | M | Von Spike (785): Android-Zurück wie alt: in der Welt öffnet sie das Menü (WorldScreen.kt 1 | wartet auf 870.13 (wartet) |
 | 785.22 | M | Von Spike (785): Leiste zeigt den Zustand „Satt“ wie alt (WorldScreen.kt 2856–2872; zustan | wartet auf 870.13 (wartet) |
@@ -162,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf Test (Build 282) |
 | 1090 | M? | Von Sokrates (zu 1044, Nacht 1077): Beine stoßen durch Röcke (Lyra: dunkler Fleck zwischen | wartet auf Test (Build 282) |
 | 1091 | M? | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | startbar |
-| 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | startbar |
+| 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | wartet auf Test/Build (gebaut) |
 
 **Jerry** – offen 128, Muss 115, startbar 3
 
