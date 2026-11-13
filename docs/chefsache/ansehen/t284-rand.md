@@ -1,7 +1,10 @@
-# Tom und Jerry · Build 284 · 0.348.437 · Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein · PR #203
-E Welt · Tom (1022, 1040.1, 1119, 1086, 1092, 1118, 1081, 1156, 1178, 1160, 542, 495, 964, 967, 1140, 1115, 505, 1144), Jerry (947, 993, 1003, 709, 616, 784, 1041, 958, 1094, 949, 705, 1102, 1093, 1025, 1136, 980, 987, 1126, 1127, 1114, 1142 von Tom übernommen) · 13.11., 17:00 · APK folgt
+# Tom und Jerry · Build 284 · 0.348.450 · Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein · PR #203
+E Welt · Tom (1022, 1040.1, 1119, 1086, 1092, 1118, 1081, 1156, 1178, 1160, 542, 495, 964, 967, 1140, 1115, 505, 1144), Jerry (947, 993, 1003, 709, 616, 784, 1041, 958, 1094, 949, 705, 1102, 1093, 1025, 1136, 980, 987, 1126, 1127, 1114, 1142 von Tom übernommen) · 13.11., 17:00 · [APK (Lauf 450)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43471160263/artifacts/14063726222)
+Rot, bekannt, nicht melden: ziege_4162 – die Ziege machte einmal zufällig einen eigenen Schritt, bevor der Held sie erreichte (im Lauf davor grün), Ursache wird behoben; die APK heißt darum „-rot“.
 
 Gegengelesen: Sokrates 13.11., 17:55
+
+Aus dem Lauf nicht gekommen, folgt im nächsten Build: Bild Wald Ost (284.2, blieb schwarz; ein Wolf stand vor dem Helden), Film Lyra wendet (284.2a, das Filmskript fand Lyra nicht), Film Fußstaub (284.2b, auf dem Bauserver fehlte das Umwandeln in einen Film); 284.6 und 284.6b zeigen zwei Schilde, Schild und Rundschild.
 
 Aus 283 ungetestet und hier wieder dabei: 283.1, .2, .14 bis .16, .18 (284.2b, 284.2c, 284.7j bis 284.7m); aus 283.5 und 283.10 als Film statt am Handy: 284.2d (Pim), 284.2f (Lyras Robe). Am Bild abgenommen, nicht in dieser Liste: 756.1 Tasche mit vier Güten (Chef 16:50, darin auch 283.9), 764 „Betrunken“ im Heldenreiter (16:50, statt 283.8), 1120 Knöpfe bei Pim und Osric (16:52, Beschriftung rechts am Pfeil 17:13; statt 283.4 und 283.7).
 
