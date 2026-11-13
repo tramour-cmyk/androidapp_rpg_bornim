@@ -1167,11 +1167,11 @@ func spaeher_zum_verjagen():
 	return null
 
 
-## 841: Chance in Prozent (werte.json „proben“ „_einschuechtern“): einschuechtern_basis + einschuechtern_je_punkt × Einschüchtern
-## + je_stufe × (eigene Stufe − Stufe des Spähers), begrenzt auf min bis max
+## 841, 1084 (1051 A): Chance in Prozent wie alle Proben ohne Grundwert (werte.json „proben“ „_ohne_grundwert“): einschuechtern_basis
+## + einschuechtern_je_punkt × Einschüchtern + je_stufe × (eigene Stufe − Stufe des Spähers), begrenzt auf min bis max
 func einschuechtern_chance(h: Fighter, s: Fighter) -> float:
 	var P := _proben()
-	var c := float(P.get("einschuechtern_basis", 35)) + float(P.get("einschuechtern_je_punkt", 1.0)) * float(h.b.get("fert", {}).get("Einschüchtern", 0)) \
+	var c := float(P.get("einschuechtern_basis", 30)) + float(P.get("einschuechtern_je_punkt", 0.6)) * float(h.b.get("fert", {}).get("Einschüchtern", 0)) \
 			+ float(P.get("je_stufe", 5)) * float(int(h.b.get("stufe", 1)) - int(s.b.get("stufe", 1)))
 	return clampf(c, float(P.get("min", 5)), float(P.get("max", 95)))
 
@@ -2314,7 +2314,7 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	f.naechster = 0.0
 	f.geschlagen = true
 	grund *= float(mod.get("schaden", 1.0))
-	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
+	var e := BrsKampf.schlag(dice, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
 			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, BrsKampf.krit_prozent(f.b.werte, gruppe, float(f.b.fert.get(gruppe, 0)))
 			+ float(f.b.get("zusatz", {}).get("krit", 0)))     # 870.6: kritisch der Zusatzeigenschaften
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
@@ -2356,7 +2356,7 @@ func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 	var grund := (float(z["schaden"]) + float(f.b.werte.get(BrsKampf.zauber_grundwert(schule), 0))) * _zauber_faktor(f)     # 870.6: Zauberschaden der Ausrüstung; 952 D
 	var e := {}
 	for i in 30:     # Testmenü „Rettung nie“: Gegner wehren keinen Zauber ab
-		e = BrsKampf.schlag(dice.rng, fert, float(t.b.abwehr), grund,
+		e = BrsKampf.schlag(dice, fert, float(t.b.abwehr), grund,
 				float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _treffer_mod(f, true)) + _beistand(f),
 				BrsKampf.krit_prozent(f.b.werte, schule, fert))     # 952 D
 		if e.treffer or not (gegner_ohne_rettung and t.side == "FOES"):
@@ -2527,5 +2527,5 @@ func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> D
 		faktor += float(BrsKampf.w().get("absicht_zusatz", {}).get(String(intent.id), 0.0))
 	if bool(foe.b.get("ueberfall", false)) and not foe.has_hit:     # 870.5: der erste Treffer des Überfalls mit Wucht (444 „erster_treffer_faktor“)
 		faktor *= float(_ueberfall().get("erster_treffer_faktor", 1.0))
-	return BrsKampf.schlag(dice.rng, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,
+	return BrsKampf.schlag(dice, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,
 			float(int(foe.b.stufe) - int(t.b.stufe)), BrsKampf.held_abzug(t.b, in_hand) + t.schutz, _brs_bonus(mode, _treffer_mod(foe)))     # 870.5: Bannschild, Arkanhaut

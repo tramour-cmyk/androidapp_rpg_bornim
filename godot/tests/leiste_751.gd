@@ -63,7 +63,7 @@ func _lauf() -> void:
 						verraten += 1
 						if erst == "":
 							erst = "Kasten ohne ▶ bei %.1f s (outcome %s)" % [n / 30.0, m.outcome]
-					# Knöpfe stehen immer; solange ein anderer zieht, nur Söldner und Held Auto bedienbar; darüber „<Name> ist dran“
+					# Knöpfe stehen immer; solange ein anderer zieht, nur Söldner und Held Auto bedienbar; keine Zeile „ist dran“ mehr (1095)
 					var knoepfe := 0
 					var offen := 0
 					for b in ui.orders.find_children("*", "Button", true, false):
@@ -77,7 +77,7 @@ func _lauf() -> void:
 						if c is Label and not c.is_queued_for_deletion():
 							zeile = c.text
 							break
-					if knoepfe == 0 or not zeile.ends_with(" ist dran") or (kf.busy and offen > 0):
+					if knoepfe == 0 or zeile.ends_with(" ist dran") or (kf.busy and offen > 0):
 						ohne_knopf += 1
 						if erst == "":
 							erst = "Leiste bei %.1f s: %d Knöpfe, %d offen, Zeile „%s“ (busy %s)" % [n / 30.0, knoepfe, offen, zeile, kf.busy]

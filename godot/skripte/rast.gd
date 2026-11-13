@@ -1,7 +1,7 @@
 class_name Rast
 extends RefCounted
 # 390 (Rast, Resting.kt und Game.rest/drinkMead/Cmd.Rest): eine Rast kostet Zeit. Am Lagerfeuer „Rasten?“: 870.4 (DESIGN-BRS.md 12)
-# Kurze Erholung 2 Stunden (Ausdauer voll, ein Viertel des Lebens zurueck), Langes Ausruhen 9 Stunden (Leben, Mana, Ausdauer voll,
+# Kurze Erholung 2 Stunden (Ausdauer voll; 1038 R1, Chef 12.11., 16:24: kein Leben mehr), Langes Ausruhen 9 Stunden (Leben, Mana, Ausdauer voll,
 # Zustaende geheilt), lang nur einmal je Spieltag. In der Schenke Met (der fuenfte macht betrunken bis zur naechsten Rast) und ein Zimmer fuer Gold (lange Rast).
 # Jede Rast beendet Ausdauertrank, Funken und Met. Texte aus texte.json „rast“ (TextExport.rast), Gegenprobe tests/rast_test.gd.
 
@@ -21,7 +21,6 @@ static func met_preis(z: Zustand) -> int:
 	return 0 if z.has(Geschichte.CHAPTER1_DONE) and not z.has(Geschichte.CAMP_TOLD) else MET_PREIS
 
 static func lange_erlaubt(z: Zustand) -> bool: return z.lange_rast_tag != z.tag
-static func kurz_heilung(hw: BrsHeld) -> int: return (hw.max_leben() + 3) / 4
 
 # die Uhr weiter, Tag fuer Tag
 static func vergeht(z: Zustand, minuten: int) -> void:
@@ -63,10 +62,8 @@ static func rasten(z: Zustand, hw: BrsHeld, art: String, ort: String, ort_jetzt:
 		z.leiden.clear()
 		z.lange_rast_tag = z.tag
 		zeilen.append(Sprache.r("longRested" if ort == "feuer" else "roomRested"))   # 604: das Zimmer liegt oben
-	else:
-		var vorher := hw.leben
-		hw.leben = mini(hw.max_leben(), hw.leben + kurz_heilung(hw))
-		zeilen.append(Sprache.r("shortRested", [hw.leben - vorher]))
+	else:   # 1038 R1: die Kurze Erholung gibt nur Ausdauer; Leben kommt aus Langem Ausruhen, Trank, Verband, Braten
+		zeilen.append(Sprache.r("shortRested"))
 	if funkte: zeilen.append(Sprache.r("sparkFaded"))
 	# 114: ein Zimmer an Rowenas Theke gebucht: der Held wacht am Startplatz auf, nicht an der Theke (604: unten kein Bett)
 	var neu := ort_jetzt.duplicate()

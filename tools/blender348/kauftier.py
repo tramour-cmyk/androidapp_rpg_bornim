@@ -13,6 +13,7 @@
 # figur.gd Pfotenschatten und Pfotenhalt).
 import os, sys, glob, json, math, time, fnmatch
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 T0 = time.time()
 import bpy
 import numpy as np
@@ -148,9 +149,9 @@ def auspacken():
 def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
-    t = suche(KAUF, T['rig'])
+    t = kaufquelle.lesbar(suche(KAUF, T['rig']), TIER)
     if not t:
-        t = auspacken()
+        t = kaufquelle.lesbar(auspacken(), TIER)
     if not t:
         stamm = T['tex'].rstrip('*').lower()
         print('DATEIEN mit „%s“ unter %s:' % (stamm, KAUF))
