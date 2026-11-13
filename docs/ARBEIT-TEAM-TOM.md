@@ -32,6 +32,14 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 
+
+
+
+
+- **Zu 964, von Chef (Fund t284.5, Test Build 284, Automatik B):** nicht prüfbar, Fehler der Liste: „Beute erzeugen“ ist zufällig, 30–40 Mal kein Kettenhemd (Chef 20:47); jede Metallrüstung zählt (Kettenpanzer), Ergebnis offen
+- **Zu 542, von Chef (Fund t284.4, Test Build 284, Automatik B):** nicht prüfbar, Fehler der Liste: Station „Krogg“ liegt vor Kroggs Kampf, Jorins Aushang hängt erst danach; weder „Krogg besiegen“ noch „alle Aufträge annehmen“ stand da (Chef 20:44–20:46, Zu 542); nach 285
+- **Zu 1092, von Chef (Fund t284.2f, Test Build 284, Automatik B):** Rock wirkt gestreift statt gefaltet (Chef 20:06, Zu 1092); Drehen im Stand gehört zu 1040.1
+- **Zu 1022, von Chef (Fund t284.2, Test Build 284, Automatik B):** Wald Süd: grüner Querstrich über dem Weg, Weg zu gerade, Rand nicht franzig (Chef 20:08, Zu 1022); Tiefer Wald West ebenso, Weg noch gerader (Chef 20:11); neu 1218 Brücke Dorf Süd schwebt
 - **Zu 1108, von Chef (Fund t283.5, Test Build 283, Automatik B):** Spiel 283.4: „... rennt heim", steht aber noch neben mir...“; Spiel 283.5: „gab eh keinen Dank...“
 - **Zu 1092, von Sokrates (Test t284.2f des Chefs, Chat 13.11., 20:06, mit Bild Lyra im Tempel):** falsch: „Fleckig sind sie nicht, aber das schaut halt nicht aus wie Falten, das schaut aus, als ob der Rock halt so Streifen hätte.“ Gehen auf der Stelle: „da geht sie auf der Stelle im Video, das ist richtig. Ich weiß zwar nicht wofür“. Drehen: „drehen tut sie sich ohne leichte Schritte, aber ich glaube, wir haben grundsätzlich ein Drehproblem. Wie sich Menschen drehen auf der Stelle. Weil entweder drehen sie sich wieder wie am Spieß oder auf einer Drehscheibe oder sie laufen vorwärts auf der Stelle, was genauso bekloppt ausschaut“ → Drehen gehört zu 1040.1 (Zu 1040.1).
 - **Zu 1092, von Chef (Fund t283.10, Test Build 283, Automatik B):** Spiel 283.6 (Lyra): „wie um Chat“; Osrics Robe ✓ (Spiel 283.3)
