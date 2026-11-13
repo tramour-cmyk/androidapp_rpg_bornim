@@ -68,7 +68,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 
 ## Start
 
-1. Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Perikles`), eigene Punkte in der Chefsache, `python3 tools/startbar.py --stand`.
+1. Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Perikles`), eigene Punkte in der Chefsache, `python3 tools/startbar.py --stand`. **Repos** (1110, Chef 13.11., 09:57: „Jeder, der das Ding braucht, soll es einbinden können. Punkt.“): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 2. Vor jeder Antwort: `PRUEFBERICHT.md` (nur offene Läufe) und `git log <Gelesen bis>..origin/main`.
 3. **Ford muss laufen** (außer Stellung „aus“): `get_session` der Sitzung oben in `ARBEIT-BETRIEB.md`; älter als 70 Minuten → `send_message` „Ford-Lauf“.
 4. Größere Entwürfe als Claude-Docs-Dokument; Abläufe in `LISTE-RELEASE-NEUSTART.md`, Aufbau in `FIRMA.md`.

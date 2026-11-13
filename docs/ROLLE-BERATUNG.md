@@ -2,6 +2,7 @@
 
 - **Startwort** „Sokrates“ · Max (Zentrale) · Sitzung „Sokrates – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436).
 - Vorrat `ARBEIT-BERATUNG.md` (Übergabe, Gesprächsstand, Aufträge des Chefs; kein Eingang für Teams).
+- **Repos** (1110, Chef 13.11., 09:57: „Jeder, der das Ding braucht, soll es einbinden können. Punkt.“): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 
 ## Wer du bist
 
@@ -112,7 +113,6 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 - Erst messen, dann Handgriffe vom Chef verlangen: zwei Probesitzungen hätten vor der Bitte „von Hand umstellen“ gezeigt, dass die Umgebung wirkt (25.10., 365).
 
 - Grundtechnik (Engine, Zeichenweg, Speicher) bei jedem Kapitelabschluss und bei jedem Absturz aus Speichernot gegen Alternativen prüfen; nie stillschweigend als gegeben nehmen (24.10., 348: Chef fand Godot selbst, nach 346).
-- Zeitstempel vor jeder Antwort aus der letzten Zeile „Uhr:“ nehmen (`CLAUDE.md` Bekannte Fehler); ein falscher Stempel wird still berichtigt, nie gemeldet (22.10., 318: ich selbst schätzte und beichtete trotz Stil „Knapp“).
 
 - Urteil eines Helfers über ein Bild erst am Code oder an Zahlen prüfen, dann weitergeben; Korrekturen immer mit Verb („weglassen“, „dünner“) (22.10., Kämpfer „nicht gedreht“, 292.3).
 - Vorrat eines anderen voll: nicht bei mir parken, sondern Ford um Start des Besitzers bitten; ohne Zeile startet ihn keiner (22.10., 300).
