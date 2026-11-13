@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1128](entscheiden/1128-pruefumfang.md) | **Muss** | B Abläufe | 13.11., 11:52 | je Vorgang in der Prüfliste eine Art: Handy (Ablauf, Bedienung), Bild/Film (Aussehen) oder ohne dich (Regeln und Technik mit grünem Bautest) | Sokrates |
 
 ## Zu billigen
 
@@ -147,13 +151,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 20960 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
-**Jerry** – offen 130, Muss 117, startbar 2
+**Jerry** – offen 132, Muss 118, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | wartet auf Diogenes (greift?) |
-| 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | wartet auf Diogenes (greift?) |
-| 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | wartet auf Diogenes (greift?) |
+| 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | wartet auf Test t283 (Chef) |
+| 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | wartet auf Test t283 (Chef) |
+| 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | wartet auf 1126 (startbar) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolf) |
@@ -281,8 +285,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | wartet auf Test/Build (gebaut) |
 | 1114 | M | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1111 |
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
+| 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | Sperre 620.1 B: 32 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1113 |
+| 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | startbar |
 
-**Perikles** – offen 19, Muss 15, startbar 2
+**Perikles** – offen 18, Muss 16, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -302,20 +308,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 919 | M | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | Termin 14.11. |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Diogenes (greift?) |
-| 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf 1125 (startbar) |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 16221 Bytes (Grenze 15000), Erledigtes streichen | startbar |
-| 1125 | M? | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | startbar |
+| 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
+| 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 13, Muss 12, startbar 5
+**Diogenes** – offen 12, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | startbar |
-| 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | startbar |
-| 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | startbar |
 | 1124 | M | Von Sokrates (Chef 13.11., 11:36): „wartet auf <Rolle>“ löst sich nie von selbst; Ford sch | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | startbar |
+| 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | startbar |
+| 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
 | 461b | M | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 348.9 | M | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | ruht |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht |
@@ -324,10 +328,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | Termin 14.11. |
 
-**Sokrates** – offen 50, Muss 35, startbar 27
+**Sokrates** – offen 51, Muss 36, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1128 | M | Prüfliste nur, wo der Gerätetest etwas finden kann: je Vorgang Gerät, Bild/Film oder ohne | startbar |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
