@@ -259,7 +259,6 @@
 | 1084 | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden, Einschüchtern, Handeln, Tiere beruhigen) 30 % + 0,6 je Punkt + 5 je Stufe, 5 bis 95; werte.json, Simulation 444 alle Kapitel | Jerry | M | gebaut, fährt im nächsten Build; Geprüft an: 76d175451 (sim --pruefen, einschuechtern_841) | – | claude/tuffy-1084 | – | G Balance | 1,16 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
-| Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): `tools/rollenspiegel.sh Perikles` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
 | 882.2 | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-env, setup-session, probelauf, story.sh, startbar, Probe-Abläufe, vorschau.yml, Regeltexte; LISTE-UMZUG-BRS.md 8 | Perikles | M | startbar | 882.1 | – | – | B Werkzeuge | – |
 | 870.10 | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UMZUG-BRS.md 4 | Perikles | M | wartet | 882.2 | – | – | B Werkzeuge | – |
@@ -331,7 +330,6 @@
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | M | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 19,74 $ |
 | 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Oberfläche | – |
 | 644a.5 | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und die übrigen Fertigkeiten beim Wachsen durch Üben? Gebaut: nur Waffengruppen und Schulen, 10 Punkte je +1; Regelwerk 2 und 13 nachziehen | Sokrates | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 15609 Bytes (Grenze 15000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): `tools/rollenspiegel.sh Ford` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Ford | M | startbar | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 13.11.): 53365 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 <<<<<<< HEAD
