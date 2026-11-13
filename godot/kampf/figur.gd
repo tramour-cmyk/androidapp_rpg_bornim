@@ -3361,6 +3361,8 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	if other.has_method("halt_fuer_hieb"):
 		other.halt_fuer_hieb(int((t_run + bl + 0.2) * 1000.0))     # 900: bis zum Ende des Hiebs (im selben Bild wie der Plan)
 	busy_ms = int((t_run + bl + back) * 1000.0)
+	if OS.get_environment("SCHAU_932") != "":     # 932 (784 A, F9: Held höchstens 2,4 s): woraus sein Zug besteht, gemessen im Bau (sollbild_784)
+		print("932 Held %s: hin %.2f m in %.2f s, Hieb %s %.2f s, heim %.2f m in %.2f s, zusammen %.2f s" % [fighter.id, position.distance_to(start), t_run, hn, bl, heim, back, t_run + bl + back])
 	anlauf_ms = 0
 	return int((t_run + auf) * 1000.0 / 0.42)
 
