@@ -5,6 +5,7 @@ extends "res://tests/am_zug_565.gd"
 # nennt den, der am Zug ist, und lässt ihn aufleuchten; am Ende Titel, Zierlinie und Knöpfe der Schirme.
 # Aufruf: im Ordner godot --headless -s res://tests/schirm_833.gd (braucht daten/ und kampf/daten/ wie im Bau). Exit 0 = richtig.
 # Die Bilder dazu macht tests/schirm_833_bild.gd (gleicher Ablauf).
+# 1102 (Chef 13.11., 281.14: links und rechts schmale Streifen Wald neben dem Kampfbericht): kein durchsichtiger Rand um Fenster.
 
 func _schalte(ui, art: String) -> void:
 	ui.schirm_833 = art
@@ -19,6 +20,11 @@ func _knoepfe(ui) -> Array:
 		for b in r.find_children("*", "Button", true, false):
 			out.append(b)
 	return out
+
+## 1102: ein Rand mit durchsichtiger Farbe lässt die Szene durchscheinen (StyleBoxFlat malt den Grund nur innerhalb des Rands)
+func _durchsichtig(sb: StyleBoxFlat) -> bool:
+	var w: int = sb.border_width_left + sb.border_width_right + sb.border_width_top + sb.border_width_bottom
+	return w > 0 and sb.border_color.a < 1.0
 
 func _pruefe_a(ui, was: String) -> void:
 	# der Kasten bleibt so breit wie der Bildschirm abzüglich Rand (fünf Knöpfe unten schoben ihn hinaus)
@@ -66,6 +72,11 @@ func _lauf() -> void:
 	var fb: StyleBoxFlat = ui.full_log.get_theme_stylebox("panel")
 	if fb.border_color.a > 0.0:
 		print("FEHLER ganzer Bericht mit Rahmen"); fehler += 1
+	if _durchsichtig(fb):
+		print("FEHLER ganzer Bericht: Rand %d px durchsichtig, die Szene scheint durch (1102)" % fb.border_width_left); fehler += 1
+	var fr: Rect2 = ui.full_log.get_global_rect()
+	if fr.position.x > 0.5 or fr.end.x < root.size.x - 0.5 or fr.end.y < root.size.y - 0.5:
+		print("FEHLER ganzer Bericht deckt nicht: %s bei %s" % [fr, root.size]); fehler += 1
 	var titel = ui.full_log.find_child("Titel", true, false)
 	if titel == null or titel.text != "KAMPFBERICHT":
 		print("FEHLER ganzer Bericht ohne Titel KAMPFBERICHT"); fehler += 1
@@ -90,6 +101,8 @@ func _lauf() -> void:
 	var tb: StyleBoxFlat = ui.tip.get_theme_stylebox("normal")
 	if tb.border_color.a > 0.0:
 		print("FEHLER Erklärfenster mit Goldrand"); fehler += 1
+	if _durchsichtig(tb):
+		print("FEHLER Erklärfenster: Rand durchsichtig (1102)"); fehler += 1
 	ui.tip.visible = false
 	# ein Wolf zieht: anhalten, solange er zieht
 	k.order(["wait"])

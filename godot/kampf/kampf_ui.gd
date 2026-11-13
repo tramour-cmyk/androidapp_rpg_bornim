@@ -277,7 +277,10 @@ func _box(bg: Color, border: Color, pad_x: float, pad_y: float, rim_dp: float) -
 	var s := StyleBoxFlat.new()
 	s.bg_color = bg
 	s.border_color = border
-	s.set_border_width_all(maxi(1, int(round(rim_dp * dp))))
+	# 1102 (Chef 13.11., 281.14: Streifen Wald links und rechts neben dem Kampfbericht): StyleBoxFlat malt den Grund nur innerhalb des
+	# Rands; ein durchsichtiger Rand (833 A ohne Rahmen) ließ 1 dp Szene durchscheinen. Ohne Farbe kein Rand; die Ränder innen
+	# (content_margin) stehen fest, die Maße bleiben
+	s.set_border_width_all(0 if border.a <= 0.0 else maxi(1, int(round(rim_dp * dp))))
 	s.content_margin_left = pad_x * dp
 	s.content_margin_right = pad_x * dp
 	s.content_margin_top = pad_y * dp
