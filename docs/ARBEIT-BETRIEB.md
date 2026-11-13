@@ -25,7 +25,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
-- **Von Perikles (13.11., 14:57, zu 1146):** `lauf.py --aufraeumen` kürzt das Protokoll jetzt stärker (Technik nur von heute, höchstens 20 Archiv-Merker): an einer Kopie 45,5 → 39,0 KB. Über 30 KB bleibt der Kopf dieser Datei mit 22 KB (alte Chefworte und Regeln, die kein Werkzeug kürzen darf, zum Beispiel „Arbeitsweise (28.10.)“, Nachtpläne vom 07./09.11., Zu 693). Bitte beim nächsten Aufräumen Erledigtes daraus streichen; der Verlauf bleibt in Git.
+- **Von Perikles (13.11., 14:57, zu 1147):** `lauf.py --aufraeumen` kürzt das Protokoll jetzt stärker (Technik nur von heute, höchstens 20 Archiv-Merker): an einer Kopie 45,5 → 39,0 KB. Über 30 KB bleibt der Kopf dieser Datei mit 22 KB (alte Chefworte und Regeln, die kein Werkzeug kürzen darf, zum Beispiel „Arbeitsweise (28.10.)“, Nachtpläne vom 07./09.11., Zu 693). Bitte beim nächsten Aufräumen Erledigtes daraus streichen; der Verlauf bleibt in Git.
 
 
 - **von Sokrates (13.11., 00:33):** Diese Datei hat 53 KB (Grenze 15 KB), der Haken meldet es jedem Start seit Tagen; Protokoll und erledigte Übergaben in Git lassen, hier streichen (CLAUDE.md „Vorräte klein halten“). Ebenso `ARBEIT-TEAM-JERRY.md` 26 KB (an Jerry).

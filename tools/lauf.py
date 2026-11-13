@@ -358,7 +358,7 @@ def nummern_aus_titel(t):
     alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,4}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)]
     return ",".join(dict.fromkeys(alle))
 
-ARCHIVMARKEN_MAX = 20  # 1146: Merker „Marke Archiv <id>“, nur die jüngsten
+ARCHIVMARKEN_MAX = 20  # 1147: Merker „Marke Archiv <id>“, nur die jüngsten
 PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
 TECHNIK = re.compile(r"Marke |Startsperre \d|Nachfolger-Warnung")
 ZEILE = re.compile(r"- (\d\d):(\d[\dx]) (\d\d)\.(\d\d)\.")
@@ -376,7 +376,7 @@ def aufraeumen():
             (zeilen if ZEILE.match(l) else kopf).append(l)
         def zeit(l):
             m = ZEILE.match(l); return (m.group(4), m.group(3), m.group(1), m.group(2).replace("x", "9"))
-        # 1146: Technikzeilen nur von heute (vorher heute und gestern): die Marken prüfen auf „heute“ oder je Sitzung einmal,
+        # 1147: Technikzeilen nur von heute (vorher heute und gestern): die Marken prüfen auf „heute“ oder je Sitzung einmal,
         # und 182 von 205 Zeilen waren Technik (22 KB im Protokoll, Datei 45 KB). Schlimmster Fall: eine Warnung über Mitternacht doppelt.
         technik = [l for l in zeilen if TECHNIK.search(l) and ZEILE.match(l).group(3) + "." + ZEILE.match(l).group(4) + "." == JETZT.strftime("%d.%m.")]
         # 1129.1 P4 (a): Startsperren und „Start-fehlt“ liest lauf.py nur 20 Minuten (SPERRE_MIN) bis 3 Stunden (START_PRUEF_STD) weit;
@@ -394,7 +394,7 @@ def aufraeumen():
                     if name not in juengste or alter_h(l) < alter_h(juengste[name]): juengste[name] = l
         technik = [l for l in technik if alter_h(l) <= 6 or l in juengste.values()
                    or not re.search(r"Startsperre \d|Marke Start-fehlt", l)]
-        # 1146: „Marke Archiv <id>“ ist nur ein Merker je Sitzung (D40.2); die 20 jüngsten reichen, ältere Sitzungen sind längst archiviert
+        # 1147: „Marke Archiv <id>“ ist nur ein Merker je Sitzung (D40.2); die 20 jüngsten reichen, ältere Sitzungen sind längst archiviert
         archiv = [l for l in technik if re.search(r"Marke Archiv \S", l)]
         if len(archiv) > ARCHIVMARKEN_MAX:
             alt_archiv = set(sorted(archiv, key=alter_h)[ARCHIVMARKEN_MAX:])
