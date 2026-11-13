@@ -2,8 +2,10 @@ extends SceneTree
 # 1022 ohne Bild (Chef 12.11., 08:26: „der Wald ist außenrum nicht dicht oder abgedunkelt … 1000 Wege weg“; alt 27m): der Rand jeder
 # Gebietskarte (Dorf, Flüsterwald, Tiefer Wald). Je Seite und je Kachel des Randes (Gasse) aus dorf.py (info rand):
 #  1. Wald dicht: jede trockene Gasse hat hinter dem Rand einen Baum oder Busch (Wasser laeuft ins Dunkel weiter, MapEdge);
-#  2. kein Weg ins Offene: jede Gasse, in der ein begehbarer Rand liegt (Weg, Wiese, Ausgang), hat in ihr oder daneben einen Baum
-#     5 bis 6 Kacheln draussen, wo der Wald zugeht (MapEdge.CLOSE, RING);
+#  2. kein Weg ins Offene: jede Gasse, in der ein begehbarer Rand liegt (Wiese, Ausgang), hat in ihr oder daneben einen Baum
+#     5 bis 6 Kacheln draussen, wo der Wald zugeht (MapEdge.CLOSE, RING); ein Weg (=) dagegen laeuft gerade weiter durch den Wald ins
+#     Dunkel (Chef 13.11., 10:15, Fund t282.5: „Warum geht der Weg nicht grundsätzlich weiter und endet dann im Dunkel?“): auf ihm
+#     bis RING kein Baum, neben ihm Wald;
 #  3. jede Seite traegt den ganzen Ring (ein Baum 6 Kacheln draussen; vorher fehlten im Norden und Westen die Reihen 5 und 6);
 #  4. ins Dunkel: jedes Netz des Gebiets laeuft hinter dem Rand aus (rand_karte an, toon, boden, wasser, halm mit rand_licht);
 #  5. weich: der Verlauf ist im Bild lang genug und endet vor Boden und Wasser (RAND_HELL, RAND_WEICH).
@@ -67,14 +69,18 @@ func karte_pruefen(spiel) -> void:
 			var z := String(spiel.karte.zeichen(rand_k))
 			if z == "~" or z == "h": continue          # Wasser und Bruecke laufen ins Dunkel weiter (MapEdge wet)
 			gassen += 1
+			var weg := z == "="
+			var quer1 := Vector2i(1, 0) if aus.y != 0 else Vector2i(0, 1)
 			var dicht := false
 			for d in range(1, ring + 1):
-				if etwas.has(rand_k + aus * d): dicht = true
+				for q in ([-2, -1, 1, 2] if weg else [0]):      # 1022: am Weg zaehlt der Wald daneben
+					if etwas.has(rand_k + quer1 * q + aus * d): dicht = true
 				if d == ring and baum.has(rand_k + aus * d): voll = true
+				if weg: pruefe(not baum.has(rand_k + aus * d), "%s %s: Weg am Rand %s laeuft weiter (Baum %d Kacheln draussen auf dem Weg)" % [id, seite[0], rand_k, d])
 			if not dicht:
 				offen += 1
 				print("  %s %s: Gasse %s ohne Baum oder Busch bis %d Kacheln" % [id, seite[0], rand_k, ring])
-			if spiel.karte.begehbar(rand_k):
+			if spiel.karte.begehbar(rand_k) and not weg:
 				var zu := false
 				for d in range(CLOSE, ring + 1):
 					for q in [-1, 0, 1]:
