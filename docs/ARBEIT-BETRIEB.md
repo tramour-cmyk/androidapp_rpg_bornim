@@ -125,3 +125,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:30 13.11.: Neustart Diogenes (addcb05f9): Nachfolger „Diogenes – 1133 …“ erst ab 14.11., kein Start; Sitzung `…77QFVKxHtWXK1ztLCC` archiviert (6,30 $ auf 1199, 1208); Lauf-Ausschluss ab jetzt zusätzlich `--ohne "882.2:wartet auf 882.1"` bis 1221 behoben (Ford)
 - 20:59 13.11.: Startsperre 20:59 Start Jerry (Neustart 0a23bf21f nach Begründung: t284-Punkte 7a–f, k, l, p, q vom Chef beantwortet, nur 7n offen; Nachfolger „Jerry – 709.1: Bissplan an die Kapseln angleichen“; Ford)
 - 21:01 13.11.: Neustart Jerry (0a23bf21f): neue Sitzung `…76yF68cGVE8dBiecQT` 20:59, Vorgängerin `…7972hfEsxURwGCfPMq` archiviert (36,09 $ auf 709.1, 1162, 1166; Ford)
+- 21:04 13.11.: Startsperre 21:04 Start Sokrates (Neustart 09def5d11; Ford)
