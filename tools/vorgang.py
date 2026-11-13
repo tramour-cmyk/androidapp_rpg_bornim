@@ -135,7 +135,9 @@ def klasse(nr, kl, rolle=None):
 # Nummer („<Nr>: …“ auf irgendeinem Zweig) oder die Übergabe im Vorrat des Besitzers einen Rest, hält fertig an, bis es einen
 # Folgevorgang gibt (offene Unternummer <Nr>.x oder eine Zeile, die „aus <Nr>“ oder „(<Nr>)“ nennt) oder der Commit den Grund sagt
 # („Kein Folgevorgang, weil: …“).
-REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist))|braucht noch|später|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
+# 1237: seit jeder Code-Commit zählt, weckten „späterer“, „späterem“ (1137.2, 1237 selbst) und „<andere Nr> noch nicht im Build“
+# (1180) Fehlalarme; „später“ nur als ganzes Wort, „noch nicht im Build/auf main“ ist ein Stand, kein Rest
+REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist|im Build|auf main))|braucht noch|später\b|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
 
 # 1175 (D207.1 Diogenes): nur der jüngste Commit der Nummer verdeckte den Rest, sobald ein Notizcommit wie „1143: in Arbeit bei
 # Spike“ (nur docs/) danach kam. Gelesen wird jetzt der jüngste Commit der Nummer, der mehr als Notizen ändert (Code, Werkzeuge,
