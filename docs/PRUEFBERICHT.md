@@ -52,6 +52,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 191 · 1109 Querprüfung Vorberechnung 854 mit 1101 (Chef 13.11., 09:44; `jerry-1101-teile` `f52d5dc23`, `build-282` `1cbb7e575`; 13.11., 09:5x)
+
+- **Greift:** in 24 von 34 Läufen (12.–13.11., Protokolle) trafen klassen und kampf; Lauf mit allen Treffern etwa 49 min, voller Bau 115 min (420). Seit Lauf 387 scheiterte das Ablegen an dorf (deep_forest 122 MB), der alte Code brach ab, klassen und kampf wurden nie mehr abgelegt (409–420 sechsmal neu). 1101 behebt beides; Probe am gemischten Stand `build-282` + 1101: 15 mal gut, ohne Konflikt.
+- **Schlüssel:** alle 36 Skripte der Blöcke gefunden; held3 und rig in `held_klassen.py` nur über `block:figur` gedeckt (Name zusammengesetzt); 60 übrige Dateien unter `tools/blender348` in keinem Block benutzt (nur Wortgleichheit); bpy-, CC0- und Kaufstand in der Kennung.
+- **Befunde:** D191.1 → 1111 (`cache=neu` wirkt nicht, Gegenprobe leer), D191.2 → 1112 (halber Block wird abgelegt und ausgeliefert), D191.3 → 1113 (Kaufrepo 524 MB, wächst ohne Löschen), alle Jerry; Sparvorschläge D191.4 → 1114 (Jerry), D191.5 → 1115 (Tom); Geldwert → 1116 (Perikles).
+- **Nicht geprüft:** ob Blender-Ausgaben Byte für Byte gleich bleiben (ohne Gegenprobe nicht messbar); Laufzeit der Prüfungen (30 min, 909).
+
 ## Lauf 190 · 1099 Repos selbst einbinden (Perikles, Doppelpack 421, `c9d1aa05d`; 13.11., 08:5x)
 
 - **D190.1 = 1103 (Perikles), 1099 wartet darauf:** Regel passt zum Wortlaut 07:12 und zu 376.1, 513, 708, 506, 797; aber alte Bitte-Regel in `ARBEIT-BETRIEB.md` Zeile 44 (391) steht noch, Wortlaut 07:12 nicht im Archiv, `add_repo` trotz 797 abgelehnt (Jerry 03:15) und „wartet auf Kaufrepo“ ohne Löser.
