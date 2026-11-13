@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 192 · 1099, 1103, 1110 Repos und Archivieren in den Rollendateien (Perikles, Doppelpack 421; `cc52ea528`, `e70cb24f3`, `6f970b4a2`; 13.11., 10:08)
+
+- **Greift:** Bitte-Zeile 642 in `ARBEIT-BETRIEB.md` weg; Archiv 1099 und 1110 mit Wortlaut 07:12, 09:55–09:59; Repo-Satz in allen sechs Rollendateien gleich dem Archiv; Ford archiviert ohne Satz nur ARCHIVIERE, nie laufende (Wortlaut 09:59); keine Regel „nur auf Wort/Satz des Chefs“ zu Repos oder Archiv mehr (Rollendateien, `LISTE-*`, `CLAUDE.md`). Beleg 1099: diese von Ford gestartete Sitzung band `bornim-kaufmodelle` um 09:50 ohne Chefwort ein. Gestrichene Dubletten (Uhr-Lehre, drei Homer-Lehren, Beispiel D3.10, „kein Eingang für Teams“ steht weiter in `ARBEIT-BERATUNG.md`) ohne Widerspruch.
+- **Befund:** D192.1 → 1117 (Perikles): Zeile 391 trägt noch Stand „Chefwort in der Sitzung wirkt“.
+- **Nicht geprüft:** Archivieren durch Ford ohne Satz am echten Lauf (nächster ARCHIVIERE).
+
 ## Lauf 191 · 1109 Querprüfung Vorberechnung 854 mit 1101 (Chef 13.11., 09:44; `jerry-1101-teile` `f52d5dc23`, `build-282` `1cbb7e575`; 13.11., 09:5x)
 
 - **Greift:** in 24 von 34 Läufen (12.–13.11., Protokolle) trafen klassen und kampf; Lauf mit allen Treffern etwa 49 min, voller Bau 115 min (420). Seit Lauf 387 scheiterte das Ablegen an dorf (deep_forest 122 MB), der alte Code brach ab, klassen und kampf wurden nie mehr abgelegt (409–420 sechsmal neu). 1101 behebt beides; Probe am gemischten Stand `build-282` + 1101: 15 mal gut, ohne Konflikt.
