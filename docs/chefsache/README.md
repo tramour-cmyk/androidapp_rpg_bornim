@@ -39,12 +39,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht bis 23.11. |
 
-**Tom** – offen 131, Muss 39, startbar 10
+**Tom** – offen 134, Muss 41, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test (Build 284) |
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf Test (Build 284) |
+| 1212 | M | Lauf 450 (Build 284) rot in ziege_4162: Ziege trat einmal zufällig selbst vor dem Tausch ( | wartet auf Test/Build (gebaut) |
 | 1129.3 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1 und 6 (Punkt 2 mac | wartet auf Test/Build (gebaut) |
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | wartet auf Test (Build) |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 870.10 (wartet) |
@@ -154,32 +155,34 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1140 | M | Von Chef (13.11., 14:26, Höhle): Fackel ausgerüstet, am Helden im Menü Ausrüstung unsichtb | wartet auf Test (Build 284) |
 | 1143 | M | Von Perikles (Vorschlag Sokrates zu 1129, Fund des Chefs 1141): Wächter in vorgang.py fert | wartet auf 1175 (startbar) |
 | 1144 | M | Von Sokrates (Chef 13.11., 14:49, Build 282, Lyra in Graks Halle): bei „Die Ketten fallen | wartet auf Test (Build 284) |
-| 1145 | K | Von Sokrates (Chef 13.11., 14:35/14:45, Build 282): Höhle fühlt sich hakelig an, Bilder/s | startbar |
-| 1149 | M | Dolch in der Nebenhand am Körper zeigen (aus 1140, 522): Platz am Gürtel oder Rücken, Prob | Chef (Datei in der Chefsache) |
-| 1155 | K | Von Sokrates (623.8 A, Chef 09.11., 22:23; Lücke, Chef 13.11., 15:12 „wann kommt … Teich u | startbar |
-| 1156 | M | Von Sokrates (Archivprüfung, 1020 A–E, Chef 12.11., 08:09): Prüfliste im Spiel Stufe 2 feh | wartet auf 1180 (startbar) |
-| 1157 | K | Von Sokrates (Archivprüfung, 1038 A R1, Chef 12.11., 16:24): Verband herstellen mit dem Re | startbar |
-| 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | startbar |
+| 1145 | K | Von Sokrates (Chef 13.11., 14:35/14:45, Build 282): Höhle fühlt sich hakelig an, Bilder/s | wartet auf Test/Build (gebaut) |
+| 1149 | M | Dolch in der Nebenhand am Körper zeigen (aus 1140, 522): Platz am Gürtel oder Rücken, Prob | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (Zweig liegt darauf) |
+| 1155 | K | Von Sokrates (623.8 A, Chef 09.11., 22:23; Lücke, Chef 13.11., 15:12 „wann kommt … Teich u | ruht |
+| 1156 | M | Von Sokrates (Archivprüfung, 1020 A–E, Chef 12.11., 08:09): Prüfliste im Spiel Stufe 2 feh | wartet auf Test (Build 284) |
+| 1157 | K | Von Sokrates (Archivprüfung, 1038 A R1, Chef 12.11., 16:24): Verband herstellen mit dem Re | wartet auf 976 (startbar) |
+| 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | ruht |
 | 1160 | M | Von Sokrates (Archivprüfung, 427.1 Chef 02.11.; 427.2a 03.11.): Rauch nach Niederlage gege | wartet auf Test (Build 284) |
-| 1164 | K | Von Sokrates (Archivprüfung, 490/491/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefun | startbar |
-| 1167 | K | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11.): Atmen für die Dorftiere (g | startbar |
-| 1168 | K | Von Sokrates (Archivprüfung, 410 Chef 31.10.; 417a 02.11.; DESIGN-KAMPF E1): Waffe innen ( | startbar |
-| 1171 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): Art „Kleinkram“ in pruefliste.py, zug-inde | wartet auf 1184 (startbar) |
+| 1164 | K | Von Sokrates (Archivprüfung, 490/491/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefun | ruht |
+| 1167 | K | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11.): Atmen für die Dorftiere (g | ruht |
+| 1168 | K | Von Sokrates (Archivprüfung, 410 Chef 31.10.; 417a 02.11.; DESIGN-KAMPF E1): Waffe innen ( | wartet auf Test/Build (gebaut) |
+| 1171 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): Art „Kleinkram“ in pruefliste.py, zug-inde | wartet auf Diogenes (greift?) |
 | 1174 | M? | Von Sokrates (Archivprüfung, 348.10 Chef 25.10., 16:36 „brauchen wir auf jeden Fall“; Zwec | wartet auf 431 (wartet) |
 | 1175 | M | D207.1 von Diogenes (1143): Wächter Rest liest nur den jüngsten Commit mit der Nummer (git | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 505 |
 | 1178 | M | Von Sokrates (Chef 13.11., 15:49, Test 283): Prüfliste im Spiel (APK Lauf 427) ist der alt | wartet auf Test t285 (Chef) |
-| 1180 | M? | D209.2 von Diogenes (1156): Lage nimmt Gegnergruppen ohne Modell an (testmodus.gd lage_feh | startbar |
-| 1184 | M | D210.1 von Diogenes (1171, 1173 A): Werkzeug führt Kleinkram als Zeile in der Prüfliste de | wartet auf Perikles |
+| 1180 | M | D209.2 von Diogenes (1156, Lauf 209): Lage nahm Gegnergruppen ohne Modell an (testmodus.gd | wartet auf Diogenes (greift?) |
 | 1185 | M | Von Perikles (1183, 1020 D): pruefliste.py warnt im Prüfschritt bei jeder Zeile ohne Eintr | Termin 13.11. 19:30 |
-| 1190 | M? | Von Sokrates (Chef 13.11., 16:50, zu 756.1): Kurzzeile jeder Übersicht ohne Gütewort, nur | startbar |
+| 1190 | M | Von Sokrates (Chef 13.11., 16:50, zu 756.1): Kurzzeile jeder Übersicht ohne Gütewort, nur | wartet auf Test/Build (gebaut) |
 | 1195 | M? | Von Spike (Lauf 442): hoehle_492 rot ohne Höhlenänderung, Kampf endet mit NONE (Sperre 102 | wartet auf Test/Build (gebaut) |
-| 1205 | M? | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | startbar |
+| 1205 | K | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | ruht |
+| 1211 | M? | Von Sokrates (Prüfauftrag Chef 13.11., 19:10): Leuchtfunke mit R7 rocket_trail als Schweif | ruht |
+| 1210 | K | Von Sokrates: Regen wie alt (D3.10) fehlt in Godot; Bild ohne Vorgang (R8 Weather FX statt | ruht |
+| 1214 | K | Von Spike (1073): Bild ding-spider_silk fehlt in godot/daten; godot/tests/laden_test.gd da | wartet auf 1073 (in Arbeit) |
 
-**Jerry** – offen 124, Muss 60, startbar 13
+**Jerry** – offen 125, Muss 61, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1141 | M | Von Sokrates (Chef 13.11., 14:36, Graks Höhle, wiederholt aus 596): Goblins, Schamane fall | Chef (Datei in der Chefsache) |
+| 1141 | M | Von Sokrates (Chef 13.11., 14:36, Graks Höhle, wiederholt aus 596): Goblins, Schamane fall | wartet auf Test/Build (gebaut) |
 | 949 | M | Fund t276.13 (Chef 11.11., 13:44): perfekter Ring gegen Grak – Kampftext „greift an, schlä | wartet auf Test (Build 284) |
 | 1142 | M | Von Sokrates (Chef 13.11., 14:44, Build 282, Höhle): nach Sieg über Grak (Haken im Testmod | wartet auf Test (Build 284) |
 | 1138 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 542, 632, 964, 967, 1009; Jerry 1041, | wartet auf Test t284 (Chef) |
@@ -191,8 +194,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Build 278): zwei Kämpfe zugleich (Probekampf, dann | wartet auf Test (Build 284) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 949 (kampfort.gd) |
 | 1041 | M | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | wartet auf Test t284 (Chef) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | startbar |
-| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (in Arbeit) |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 949 (kampfort.gd) |
+| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (startbar) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Test t284 (Chef) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht bis 23.11. |
 | 705 | M | Zauberlehrling Stufe 1 gewinnt gegen Wolf und Rudel selten (BRS 2–30 %, Messung anspringen | wartet auf Test (Build 284) |
@@ -234,14 +237,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 784 | M | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweich | wartet auf Test t284 (Chef) |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht bis 23.11. |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test (Build) |
-| 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | startbar |
+| 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | in Arbeit bei Tuffy |
 | 845 | M | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 987 (krogg) |
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | wartet auf 1135 (startbar) |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Test/Build (gebaut) |
 | 918 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | startbar |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | wartet auf 1135 (startbar) |
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 705 (wolf) |
-| 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | startbar |
+| 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | wartet auf Test t285 (Chef) |
 | 938 | K | Von Tom (786): Klang bei Handel, Rast und Gaben wie alt: Münzen beim Kaufen, Verkaufen, Zu | ruht bis 16.11. |
 | 936 | K | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | ruht bis 16.11. |
 | 937 | K | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | ruht bis 16.11. |
@@ -278,7 +281,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1013 | M | Von Jerry (988, Lauf 370 auf main): schild_406 erwartet im Kampf beim CLERIC einen Schild, | wartet auf Test (Build) |
 | 1014 | M | Von Jerry (1013, Lauf 365 und 370): schild_406 FIGHTER SS_ParryLow: Körper bis 0,071 m im | wartet auf Test (Build) |
 | 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf 1135 (startbar) |
-| 644b.1 | K | Von Sokrates (644b A, Chef 12.11., 13:40): Deckel streichen für Grundwerte und Schutzwert; | startbar |
+| 644b.1 | K | Von Sokrates (644b A, Chef 12.11., 13:40): Deckel streichen für Grundwerte und Schutzwert; | wartet auf Test/Build (gebaut) |
 | 1049 | M | Von Sokrates (Befund 12.11.): Gegner ohne eigene Ansage fallen auf „Stich“ zurück (mars.gd | wartet auf 1135 (startbar) |
 | 1054 | M | Von Tom (Hinweis 12.11., 16:40): tests/mars_regeln.gd nach dem Umzug veraltet (massstab, _ | wartet auf Test (Build) |
 | 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (6 statt 9 Punkt | wartet auf Test (Build) |
@@ -299,16 +302,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1162 | M | Von Sokrates (Archivprüfung, 493 Chef 03.11., 15:59): Steinkreis im Kampfort nachbessern ( | startbar |
 | 1165 | K | Von Sokrates (Archivprüfung, 490/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefunde K | startbar |
 | 1166 | M | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11. „gilt für alle Vierbeiner“): | startbar |
-| 1141.1 | M | Aus 1141 (Sokrates zu Chef 16:17, Punkte 3 und 4): Körper mit Bibliothekstod (Grak, Krogg, | startbar |
-| 1194 | M? | Von Sokrates (1113, Lauf 437/442): Kauf-Cache: Läufe mit demselben Schlüssel bauen paralle | startbar |
+| 1141.1 | M | Aus 1141 (Sokrates zu Chef 16:17, Punkt 3): Körper mit Bibliothekstod (Grak, Krogg, Skelet | wartet auf Test t285 (Chef) |
+| 1194 | K | Von Sokrates (1113, Lauf 437/442): Kauf-Cache: Läufe mit demselben Schlüssel bauen paralle | wartet auf Diogenes (greift?) |
 | 1196 | K | Von Spike (Lauf 442, 1062): Wache 1062 greift erst im Lauf; fünf Filme in build-284 (1086, | startbar |
-| 1206 | K | Von Perikles (882.2): Test eingebung_840 kippt in tools/t logik nebeneinander unter Last ( | startbar |
+| 1206 | K | Von Perikles (882.2): Test eingebung_840 kippt in tools/t logik nebeneinander unter Last ( | wartet auf Test/Build (gebaut) |
+| 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | wartet auf 1141.1 (wartet) |
 
-**Perikles** – offen 23, Muss 14, startbar 3
+**Perikles** – offen 27, Muss 18, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1148 | M | Von Ford (13.11., 14:58): lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen | Termin 16.11. |
+| 1199 | M | Von Sokrates (Chef 13.11., 18:30, wiederholt): Prüfliste erst in die Chefsache, wenn der C | wartet auf Diogenes |
 | 1192 | M | Von Sokrates (1189 A, Chef 13.11., 17:09): Leichenprüfung alle 48 h durch Diogenes in ROLL | Termin 17.11. 08:00 |
 | 1129.1 | M | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufe | wartet auf 1133 (startbar) |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Termin 14.11. |
@@ -324,20 +329,31 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Termin 14.11. |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 14.11. |
 | 1170 | M | Von Sokrates (Chef 13.11., 15:37, zu 1128 A): Klang nicht in die APK: Auswahl eines Klangs | Termin 16.11. |
-| 1173 | M | Von Sokrates (Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“, A): Regel Kleinkram o | wartet auf 1184 (startbar) |
+| 1173 | M | Von Sokrates (Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“, A): Regel Kleinkram o | wartet auf Diogenes (greift?) |
 | 1179 | M | Von Tom (1178, Test 283): Reihenfolge der Prüfliste nachziehen: gegenlesen und nach ansehe | wartet auf Test t285 (Chef) |
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 16.11. |
-| 1193 | K | Von Sokrates (t284, 17:44): Regeltext LISTE-CHECK-BUILD-TEST 9 „Bild und Film nur aus dem | startbar |
-| 1199 | M? | Von Sokrates (Chef 13.11., 18:30, wiederholt): Prüfliste erst in die Chefsache, wenn der C | startbar |
-| 1184 | M? | D210.1 von Diogenes (1171, 1173 A): Werkzeug führt Kleinkram als Zeile in der Prüfliste de | startbar |
-| 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | wartet auf Diogenes (greift?) |
+| 1193 | K | Von Sokrates (t284, 17:44): Regeltext LISTE-CHECK-BUILD-TEST 9 „Bild und Film nur aus dem | wartet auf Diogenes |
+| 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | Termin 16.11. |
+| 1207 | M | D215.1 von Diogenes (882.2): Gradle-Spiegel vor 882.1 und 870.10 entfernt; ./gradlew -p co | wartet auf Diogenes |
+| 1208 | M | D216.1 von Diogenes (1199): Prüfliste darf nach ansehen/, sobald Zeile 2 einen Link hat; B | wartet auf Diogenes |
+| 1184 | M | D210.1 von Diogenes (1171, 1173 A): Werkzeug führt Kleinkram als Zeile in der Prüfliste de | wartet auf Diogenes |
+| 1213 | K | Von Jerry: probelauf.py zählte den ersten Push eines neuen Zweigs (claude/jerry-1162-493-s | startbar |
+| Pflege | K | von Werkzeug (340.3, 13.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Diogenes** – offen 12, Muss 7, startbar 2
+**Diogenes** – offen 20, Muss 13, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1199 | M | Von Sokrates (Chef 13.11., 18:30, wiederholt): Prüfliste erst in die Chefsache, wenn der C | startbar |
+| 1171 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): Art „Kleinkram“ in pruefliste.py, zug-inde | startbar |
+| 1180 | M | D209.2 von Diogenes (1156, Lauf 209): Lage nahm Gegnergruppen ohne Modell an (testmodus.gd | startbar |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | startbar |
-| 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | startbar |
+| 1173 | M | Von Sokrates (Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“, A): Regel Kleinkram o | startbar |
+| 1207 | M | D215.1 von Diogenes (882.2): Gradle-Spiegel vor 882.1 und 870.10 entfernt; ./gradlew -p co | startbar |
+| 1208 | M | D216.1 von Diogenes (1199): Prüfliste darf nach ansehen/, sobald Zeile 2 einen Link hat; B | startbar |
+| 1184 | M | D210.1 von Diogenes (1171, 1173 A): Werkzeug führt Kleinkram als Zeile in der Prüfliste de | startbar |
+| 1194 | K | Von Sokrates (1113, Lauf 437/442): Kauf-Cache: Läufe mit demselben Schlüssel bauen paralle | startbar |
+| 1193 | K | Von Sokrates (t284, 17:44): Regeltext LISTE-CHECK-BUILD-TEST 9 „Bild und Film nur aus dem | startbar |
 | 1133 | M | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, | Termin 14.11. |
 | 461b | K | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
@@ -349,7 +365,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | Termin 16.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 16.11. |
 
-**Sokrates** – offen 41, Muss 9, startbar 16
+**Sokrates** – offen 42, Muss 9, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -394,6 +410,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 15.11. 20:00 |
 | 1169 | K | Systemlösung? Tür: 9 frühere Vorgänge (629, 611, 629.1, 636, 1063 …), neu 1168; einmal gru | startbar |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
+| 1209 | K | Systemlösung? Halt: 10 frühere Vorgänge (793, 662, 849, 653, 872 …), neu 1208; einmal grun | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
