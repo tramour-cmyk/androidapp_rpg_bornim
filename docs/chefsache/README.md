@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [949a](entscheiden/949a.md) | **Muss** | E Kampf | 13.11., 18:37 | Der Film aus Lauf 438 zeigte keinen perfekten Ring, die Ursache ist behoben; die eine Probe ist verbraucht, ein neuer Film braucht dein Wort. | Tuffy |
+| [1149](entscheiden/1149.md) | **Muss** | E Figuren | 13.11., 18:55 | Dolch der Nebenhand am Körper zeigen; Probe Gürtel gegen Kreuz am Herumtreiber. | Tom |
 
 ## Zu billigen
 
@@ -21,6 +21,8 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
+| [1141](ansehen/1141-sterben.md) | Goblins fallen seitlich über die Füße | – | 13.11., 18:55 |
+| [1149](ansehen/1149-dolch.md) | Dolch der zweiten Hand am Körper: Bild Gürtel gegen Kreuz | – | 13.11., 18:55 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -398,7 +400,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md
+Format (Muster: „So geht's“ unten): ansehen/1149-dolch.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/1141-sterben.md
 
 ## So geht's
 
