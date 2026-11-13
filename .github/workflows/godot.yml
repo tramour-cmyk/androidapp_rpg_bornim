@@ -886,7 +886,7 @@ jobs:
           if [ "${{ github.event.inputs.dorf }}" = "10401" ]; then
             timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
               ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
-              -s res://tests/film_wenden_10401.gd > $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log 2>&1 || true
+              -s res://tests/film_wenden_10401.gd -- --film=10401 > $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log 2>&1 || true
             grep -E "SCRIPT ERROR|^FILM10401" $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log | cut -c1-300 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.mp4 || true
             ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
