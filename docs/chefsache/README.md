@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1072](entscheiden/1072-plaetze-am-gegner.md) | **Muss** | E Kampf | 13.11., 23:32 | Startplätze, dazu Plätze am Gegner (Kontakt und ein Hops dahinter) aus beiden Umrissen; Bahnen von jedem Stand, Platzmachen als Gehschritt; in drei Schritten mit Messung. | Jerry |
 
 ## Zu billigen
 
