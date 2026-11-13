@@ -52,6 +52,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 215 · 882.2 Werkzeuge ohne Kotlin, Doppelpack 421 (Perikles `471d99e2c`; 13.11., 18:5x)
+
+- **Logiksatz am Rechner grün:** neue Sitzung, `tools/t logik` 153 gut, 0 rot, 158 s, kein WACKELIG (auch `eingebung_840` nebeneinander grün), Marke `kerntest-ok` 18:58 gesetzt. 18 sperrende Tests aus `godot.yml` fehlen in `logik.txt` (Kaufmodelle oder über 16 s laut Kopf der Liste), wie geplant.
+- **Kerntest-Warnung belegt** (Wegwerfkopie, `commit-pruefung.py`): `.gd` ohne Marke Warnung, nach Marke still, nach erneuter Änderung wieder Warnung; Exit 0 wie vorher. Nur `godot/daten/*.json` geändert: keine Warnung; nicht befundet, weil in 7 Tagen 0 von 8 Daten- und Szenencommits aller Zweige ohne `.gd` waren.
+- **Warm-Log neue Sitzung:** Godot 4.7.2, Karten und Texte, Klang, Import; kein Gradle, kein Java. `check-env.sh` 9/9. `story.sh --alle HEAD` 1.310 Texte aus `godot/`.
+- **D215.1 → 1207 (Perikles):** `~/.gradle/init.d` fehlt in neuen Sitzungen; `./gradlew -p core exportMaps` in Wegwerfkopie: 429 von `repo.maven.apache.org`, BUILD FAILED nach 48 s. Auf `main` hängen noch `tools/godot/wald_daten.sh`, sechs `tools/pruef348/*.sh` und `LISTE-BAUEN-TESTEN.md` 11, 64 an Gradle (882.1 nur auf Zweig, 870.10 offen); die Abhilfe in 64 („`setup-session.sh` von Hand“) entfernt den Spiegel jetzt. Plan `LISTE-UMZUG-BRS.md` 147: „bis 870.10 … nichts bricht dazwischen“; Reihenfolge 882.1 → 882.2 nicht eingehalten. 882.2 wartet auf 882.1, 1207.
+- Nicht geprüft: echter Team-Commit unter `godot/` (keiner seit `471d99e2c`); `grep gradlew|core/src` nach 882.1 auf `main`.
+
 ## Lauf 214 · 1187 Startsperren über Mitternacht (Perikles `9594965dc`), 1191 Übersicht „Offen je Rolle“ (Tom `31f9f4088`; 13.11., 17:2x)
 
 - **1187 greift, damit 1147:** Kopie mit gestellter Uhr, Zeilen „23:58 13.11. Startsperre Tom“, „23:59 13.11. Marke Start-fehlt Jerry“, „20:40 13.11. Startsperre Homer“, „22:10 13.11. Marke Archiv“. `aufraeumen()` 14.11., 00:02: Tom und Jerry bleiben, Homer (über 3 h) und Archiv-Merker fallen; 00:08 und 00:15 Startmarke Tom unter 20 Minuten (Sperre hält); 02:50 beide noch da, 03:05 beide weg (lauf.py liest höchstens 3 h). `--help`, Docstring und Kommentar `START_PRUEF_STD` stimmen jetzt.
