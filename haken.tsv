@@ -103,3 +103,4 @@
 2026-11-13 20:01:51	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30373 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 20:06:44	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 32470 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 20:15:19	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30139 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-13 20:20:30	commit-pruefung	docs/ARBEIT-PROJEKT.md: „Zu 1220 … von Diogenes“ liefert, aber 1220 wartet noch auf Diogenes; Feld nachziehen: `vorgang.py warte 1220 –` (Rolle löst sich nie von selbst, 1124; liefert noch nicht: BORN	main
