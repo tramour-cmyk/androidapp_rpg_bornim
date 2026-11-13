@@ -64,9 +64,11 @@ func _lauf() -> void:
 	pruefe(vier.size() == 4 and vier.all(func(g): return Beute.ist_waffe(Beute.grundform(String(g["base"])))), "Vier Güten: keine vier Waffen")
 	pruefe(vier.map(func(g): return Menue.guete_zeichen_von(g)) == [-1, 0, 1, 2], "Vier Güten: Güten %s" % [vier.map(func(g): return g.get("guete"))])
 	pruefe(vier.all(func(g): return String(g["base"]) == String(vier[0]["base"])), "Vier Güten: verschiedene Waffen")
+	var kinder: Array = []   # je nach gewürfelter Waffe kommt „2H“ dazu; Normal ohne Gütezeichen, die drei anderen eins mehr
 	for g in vier:
 		var rv := Menue.stueck_rahmen(g, 46)
-		pruefe(rv.get_child_count() == (1 if int(g["guete"]) == 0 else 2), "Vier Güten: Zeichen an Güte %d" % int(g["guete"]))
+		kinder.append(rv.get_child_count())
 		rv.free()
+	pruefe(kinder[0] == kinder[1] + 1 and kinder[2] == kinder[1] + 1 and kinder[3] == kinder[1] + 1, "Vier Güten: Zeichen am Bild %s" % [kinder])
 	print("SPERRE756 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
