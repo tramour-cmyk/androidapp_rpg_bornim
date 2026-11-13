@@ -408,7 +408,19 @@ def main():
         import tempfile
         with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as f:
             f.write(git("show", ":" + p)); tmp = f.name
-        r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", "origin/claude/build-" + m.group(1)], capture_output=True, text=True)
+        # 1178 × 1128.2 (Sokrates 13.11., 17:44, Sperre im Kreis): der Lauf auf build-<n> braucht ansehen/t<n> schon auf main, die neuen
+        # Tests stehen bis zum Push aber nur auf dem Laufzweig, der danach vorgespult nach build-<n> geht. Darum gilt auch
+        # claude/tom-<n>-lauf, claude/jerry-<n>-lauf oder ein in der Liste genannter „Laufzweig: claude/…“; zuerst build-<n>
+        refs = ["origin/claude/build-" + m.group(1), "origin/claude/tom-%s-lauf" % m.group(1), "origin/claude/jerry-%s-lauf" % m.group(1)]
+        lz = re.search(r"^Laufzweig:\s*`?(claude/[\w./-]+)`?", git("show", ":" + p), re.M)
+        if lz: refs.insert(1, "origin/" + lz.group(1))
+        r0 = None
+        for ref in refs:
+            r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", ref], capture_output=True, text=True)
+            if r.returncode == 0: break
+            if r0 is None or (r0.returncode != 1 and r.returncode == 1): r0 = r   # ein fehlender Test zählt vor „nicht lesbar“
+        else:
+            r = r0
         os.unlink(tmp)
         nein = [re.sub(r"\s+", " ", z.strip()[5:]) for z in r.stdout.splitlines() if z.strip().startswith("NEIN ")]
         if r.returncode == 1:

@@ -1296,6 +1296,18 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Steuerung | K | – | Sokrates | erledigt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | K | 2,29 $ | Sokrates | erledigt, überholt durch 448 Tagesbericht (1186) |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q QM | K | –; +7,03 $ | Sokrates | erledigt |
-| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Abläufe | K | 54,63 $ | Sokrates | erledigt, aufgegangen in 488 Durchspielregel (1186) |
+| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Abläufe | K | 101,94 $ | Sokrates | erledigt, aufgegangen in 488 Durchspielregel (1186) |
 | 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | B Abläufe | K | – | Sokrates | erledigt |
 | 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | B Abläufe | K | 7,02 $ | Sokrates | erledigt |
+| 756.1 | Zeichen für Schlecht: Chef 13.11., 13:45 „756.1 voller Punkt wie in 3, aber etwas heller (wie vorgeschlagen)“: Variante 3 einstellen, Rot etwa wie die Leiste (Kontrast 4,6), übrige drei entfernen, ohne neue Vorlage, fährt im nächsten Build · „jetzt“ 13.11., 13:09 | E Oberfläche | M | – | Tom | erledigt, passt am Bild (16:50), Code mit 284 auf main |
+| 764 | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste öffnet nur das Menü, eine Erklärung gibt es nirgends (Chef 09.11., 14:49) · zurück t282 | E Oberfläche | M | – | Tom | erledigt, passt am Bild (16:50), Code mit 284 auf main |
+| 1120 | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht jetzt links neben der Wahl rechts (1074), bei Pim neben der unteren | E Oberfläche | M | 1,68 $ | Tom | erledigt, gebilligt am Bild 17:13, Code mit 284 auf main |
+| 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | erledigt, überholt (Niederlassung ruht seit 17.10., Archiv 159; 1186) |
+| 866 | Von Sokrates (620, Lagebild t274): Prüfliste geht nur gegengelesen raus; Wächter statt Absprache | Q QS | M | – | Perikles | erledigt, greift Lauf 145 (Lücke 881; 1186) |
+| 896 | Von Jerry (870.5): Wächter meldet „TP“ als SRD-Begriff (886), Homer 870.14 und DESIGN-BRS 12 lassen TP in Meldungen stehen; Widerspruch klären | E Technik | M | 0,53 $ | Perikles | erledigt, greift Lauf 150 (mit 898; 1186) |
+| 740 | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand geprüft“ (434); nicht nachtragbar, schließen mit erledigt oder verworfen (von Diogenes, Lauf 61) | B Abläufe | K | – | Sokrates | erledigt |
+| 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | B Abläufe | K | – | Sokrates | erledigt |
+| 782 | Von Tom (697): ein Lauf am Rechner frei? Der erste (17:38) brach vor dem Zeichnen ab (Projekt nicht importiert, kein Messwert); gleicher Messlauf, nur Alphazahlen, kein Bild an den Chef nötig | B Abläufe | M | – | Sokrates | erledigt |
+| 850 | Systemlösung? Halt: 7 frühere Vorgänge (244, 321.1, 488, 793, 662 …), neu 849; einmal grundsätzlich lösen? (654) | B Abläufe | K | – | Sokrates | erledigt |
+| 869 | Systemlösung? Rüstung: 2 frühere Vorgänge (49, 817), neu 868; einmal grundsätzlich lösen? (654) | E Kampf | K | – | Sokrates | erledigt |
+| 985 | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? (654) | E Oberfläche | K | – | Sokrates | erledigt |
