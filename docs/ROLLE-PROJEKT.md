@@ -92,6 +92,8 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 
 ## Lehren
 
+- Eine Regelzeile nur an der Stelle ändern, die der Vorgang nennt (Edit mit kurzem Ausschnitt), nie die ganze Zeile neu schreiben (13.11., D205.3, D206.2: zweimal an einem Tag ungenannt Wörter gestrichen).
+
 - Einstellung und Freigabe am Ergebnis prüfen (`get_session`, App), auf jedem Weg (16.10., 99g; 11.11., Fehler 341: Hoch nur als Variable, App „Mittel“; 982).
 
 - Probe nie in einer `cp -r`-Kopie von `bornim-main`: das ist ein Worktree, die Kopie teilt Index und Zweig, ein Commit dort landet auf `main` (09.11., 774: Prüfliste t271 und Archivzeile „Probe 774“ kurz auf `main`, zurückgenommen); Kopie mit `git clone`.
