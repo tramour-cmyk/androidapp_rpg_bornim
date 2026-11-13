@@ -311,3 +311,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:27 13.11.: Startsperre 04:27 Start Tom (Ford, Neustart-Meldung 087fe0877, Nachfolger „Tom – 282: Lauf auswerten, Prüfliste t282“; Hoch, effort high)
 - 04:40 13.11.: Startsperre 04:40 Start Sokrates (Ford, Neustart-Meldung 1b4507713, Nachfolger „Sokrates – 1077: Nachtführung und Morgenliste“; Hoch, effort high)
 - 05:09 13.11.: Startsperre 05:09 Start Ford (selbst, Neustart-Haken 400 Tsd., Übergabe 05:09)
+- 05:31 13.11.: Nachfolger-Warnung Jerry (Übergabe 13.11., 05:29) (lauf.py)
+- 05:32 13.11.: Startsperre 05:32 Start Jerry (Ford, Neustart-Meldung f920b5338, Nachfolger „Jerry – 1043: Messlauf 416 auswerten“; Hoch, effort high; lauf.py: 1043 wartet auf 760, Auswertung des laufenden Messlaufs trotzdem Nachtauftrag Sokrates)
