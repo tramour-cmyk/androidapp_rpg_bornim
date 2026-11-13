@@ -313,7 +313,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1103 | M | D190.1 von Diogenes (zu 1099): alte Bitte-Regel steht noch (ARBEIT-BETRIEB Zeile 44: Chef | startbar |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15744 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
-**Diogenes** – offen 13, Muss 11, startbar 5
+**Diogenes** – offen 14, Muss 11, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -330,6 +330,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | startbar |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | wartet auf 1098 (wartet) |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 15671 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Sokrates** – offen 51, Muss 36, startbar 28
 
