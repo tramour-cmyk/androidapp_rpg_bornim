@@ -1,5 +1,7 @@
 # 1141 · Goblins fallen, wo sie stehen · Team Jerry · 13.11., 17:10
 
+[Film von 13.11., 17:12](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261113-171158-1141/2026-11/13-1711-1141-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 
 Geprüft an: [Commit 73e27bce1](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/73e27bce1) (Zweig `claude/jerry-1141-sterben`, Film am Rechner `film_tod_1141`, Test `tod_1141` gut)
