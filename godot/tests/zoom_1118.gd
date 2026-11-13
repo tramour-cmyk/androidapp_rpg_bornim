@@ -35,7 +35,9 @@ func _lauf() -> void:
 		pruefe(kam.size >= Kamera.NAH - 0.05, "%s %s: ganz hineingezoomt ist das Bild mindestens %.1f m breit (heute %.2f)" % [ort[0], ort[1], Kamera.NAH, kam.size])
 		var r := Rect2(Vector2.ZERO, vp)
 		pruefe(r.has_point(fuss) and r.has_point(kopf), "%s %s: Held von Kopf bis Fuss im Bild" % [ort[0], ort[1]])
-		for i in 40: kam.kneifen(1.25)
-		for i in 5: await process_frame
+		for i in 40: kam.kneifen(1.25)       # 1081: ganz hinaus nur bis 10,2 Kacheln Breite
+		for i in 90: await process_frame
+		print("%s %s: ganz hinaus zoom %.2f m = %.1f Kacheln, Bildbreite %.2f m" % [ort[0], ort[1], kam.zoom, kam.zoom / Karte.TS, kam.size])
+		pruefe(kam.size <= 10.2 * Karte.TS + 0.05, "%s %s: ganz hinausgezoomt höchstens 10,2 Kacheln breit (heute %.1f)" % [ort[0], ort[1], kam.size / Karte.TS])
 	print("ZOOM1118 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

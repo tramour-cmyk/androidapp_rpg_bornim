@@ -5,6 +5,7 @@ extends Camera3D
 
 const FERN := 9.0                      # Bildbreite in Metern
 const NAH := 3.4
+const WEIT := 10.2 * Karte.TS             # 1081 (Chef 12.11., 21:28: „Zoomgrenze 10,2 Kacheln“): weitester Fingerzoom, 11,8 m (vorher FERN * 1,6 = 12,4 Kacheln; alt MapZoom 10,5)
 const NORD := 45.0                     # Grundansicht wie alt, Blick nach Nordwesten (Chefrunde 25.10., 13:26, 3486 a: Tueren und Fronten zum Betrachter); Windrose: Tippen dreht dorthin zurueck
 
 var ziel: Node3D
@@ -131,7 +132,7 @@ func fern_neu() -> void:
 # 1118 (Chef 13.11., 10:06, Test 282: „eine Mindeststufe festlegen“): mit zwei Fingern nur bis NAH, der Held bleibt von Kopf bis Fuss
 # im Bild (vorher NAH * 0,8; naeher nur ueber den Reiter „Test“, test_kacheln)
 func kneifen(faktor: float) -> void:
-	zoom = clampf(zoom * faktor, NAH, FERN * 1.6)
+	zoom = clampf(zoom * faktor, NAH, WEIT)
 	nah = zoom < (NAH + FERN) * 0.5
 
 # 615 (Chef 07.11., t268: „Kamerabewegungen (Zoom/Drehung) um den Avatar als Fixpunkt. Bisher läuft die Kamera gerne aus dem Bild“):
