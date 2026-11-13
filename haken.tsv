@@ -1,2 +1,3 @@
 2026-11-13 13:19:09	commit-pruefung	docs/chefsache/entscheiden/7561a-schlecht.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-13 13:19:13	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	HEAD
+2026-11-13 13:21:21	commit-pruefung	docs/ARBEIT-PRUEFUNG.md hat 16113 Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
