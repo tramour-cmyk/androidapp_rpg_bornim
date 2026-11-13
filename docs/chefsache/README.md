@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1043a](entscheiden/1043a-ausweichen-film.md) | **Muss** | E Kampf | 13.11., 00:26 | Lauf 404 ohne Ausweichen wegen eines Testfehlers (Zeitgrenze); behoben am Rechner, vierter Lauf nur auf Ja. | Jerry |
+Nichts offen.
 
 ## Zu billigen
 
@@ -36,7 +32,7 @@ Nichts offen.
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 2, Muss 0, startbar 0
 
@@ -55,14 +51,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
 | 697 | M | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | wartet auf 782 (startbar) |
 | 870.13 | M | Von Sokrates (870, Umzug BRS Schritt 9): Aufräumen, Hinweis SRD 5.1 · CC BY 4.0 raus (Spie | wartet auf 870.10 (wartet) |
-| 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1030 (spiel.gd) |
+| 492 | M | Blutzahnhöhle begehbar mit Krogg, Grak, Lyra (Orte O8; Wochenziel 03.11., 488; von Jerry a | startbar |
 | 521 | M | Build 249, Ausrüstung: Wechselschirm eines Platzes wie alt (Bild, Art und Wert, ▲/▼, „nich | wartet auf Test/Build (gebaut) |
 | 569 | M | Baumkronen ohne erkennbare Tuschelinie, „ein einziger Brei“ (Chef 04.11., 19:44, Bild 558 | ruht |
 | 568 | M | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf 643 (ruht) |
 | 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test/Build (gebaut) |
-| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | wartet auf 492 (startbar) |
-| 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | wartet auf 492 (startbar) |
+| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | wartet auf 492 (in Arbeit) |
+| 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) | wartet auf 492 (in Arbeit) |
 | 515 | M | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
 | 376.1 | M | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | ruht |
 | 455.1 | M | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | ruht |
@@ -120,7 +116,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 758 | M | Borin soll in der Schenke am Tisch sitzen wie in der alten Fassung, nicht seitlich daneben | wartet auf Test/Build (gebaut) |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf Test/Build (gebaut) |
 | 769 | M | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woc | Termin 13.11. 08:00 |
-| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1030 (baeume_831.gd.uid) |
+| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | Sperre 620.1 B: 19 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1030 (baeume_831.gd.uid) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 814 | M | Effekte Szene 1 Dorf am Abend: Kaminrauch, Fackeln, Staub im Licht, Fußstaub, Fahne, Wind, | wartet auf Test/Build (gebaut) |
@@ -129,7 +125,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | wartet auf Test/Build (gebaut) |
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
-| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | Sperre 620.1 B: 18 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1030 (baeume_831.gd.uid) |
+| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | wartet auf Sokrates |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test (Build) |
 | 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
@@ -154,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | 984.1 | M | Von Sokrates (984 A, Chef 11.11., 20:12): Illusion und Beschwörung in Kapitel 1 bei der Er | wartet auf Test (Build 281) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build) |
-| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | startbar |
+| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | wartet auf Test/Build (gebaut) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | 1035 | M | Von Sokrates (Chef 12.11., 14:39): Startbildschirm mit eigenem Zeichen statt Godot (boot_s | wartet auf Test/Build (gebaut) |
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test (Build 281) |
@@ -164,15 +160,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 134, Muss 120, startbar 2
+**Jerry** – offen 132, Muss 119, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Spiegel | M | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): tools/rollenspiegel.sh Jerry zeigt die F | startbar |
 | 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | wartet auf Test t281 (Chef) |
 | 1039 | M | Von Sokrates (Chef 12.11., 15:04, Build 280, Probekampf Grak, Schwerer Hieb): innerer Ring | wartet auf Test (Build 281) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1039 |
-| 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 1043a (startbar) |
+| 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | startbar |
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolf) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 1025 (startbar) |
 | 1036 | M | Von Sokrates (Chef 12.11., 14:48, Build 280, Probekampf Brandflasche): sichtbare Zustände | wartet auf Test (Build 281) |
@@ -199,7 +194,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 406.1 | M | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann | wartet auf 469 (ruht) |
 | 510 | M | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt ( | ruht |
 | 509 | M | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; Po | ruht |
-| 494 | M | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Woche | wartet auf 492 (startbar) |
+| 494 | M | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Woche | wartet auf 492 (in Arbeit) |
 | 517 | M | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wal | ruht |
 | 507 | M | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | ruht |
 | 496 | M | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | ruht |
@@ -301,13 +296,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 1072 | M | Von Sokrates (Chef 12.11., 20:09, zu 1036; Wiederholfund 09.11. und 10.11.): hinterer Wolf | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1036.1 | M | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände: jeder Zustand des Codes (auch | Sperre 620.1 B: 34 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1036 |
 | 1084 | M | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 25498 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 15, Muss 14, startbar 1
+**Perikles** – offen 14, Muss 13, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Spiegel | M | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): tools/rollenspiegel.sh Perikles zeigt di | startbar |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | wartet auf 882.1 (in Arbeit) |
 | 870.10 | M | Von Sokrates (870, Umzug BRS Schritt 8): Kotlin-Bau aus (android.yml), mit 870.9; LISTE-UM | wartet auf 882.2 (startbar) |
@@ -335,11 +328,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 54, Muss 39, startbar 30
+**Sokrates** – offen 52, Muss 38, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Spiegel | M | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): tools/rollenspiegel.sh Sokrates zeigt di | startbar |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | M | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
@@ -391,8 +383,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 12.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| Pflege | K | von Werkzeug (340.3, 13.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
-| 1043a | M | Von Jerry (1043, Sokrates 22:03, Nacht nach 1077): Lauf 404 ohne Ausweichen (Testfehler), | startbar |
+| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
