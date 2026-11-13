@@ -335,8 +335,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 251.3 | Logo B abheben: drei Varianten ohne offenes C, goldener Kern bleibt (Chef 21.10., 20:03; an Sokrates 20:29) | M Markt | M | –; +4,83 $ | Sokrates | erledigt |
 | 90 | Tagesrückblick (ersetzt durch Tagesbericht 247) | B Steuerung | K |  | Perikles | ersetzt |
 | 280.1 | Texte Kapitel 1 aus 280: Tipp beim Aufwachen, Chronik Krogg | G Story | M | – | Team Tom | erledigt |
-| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | 16,46 $ | Tom | erledigt |
-| 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | erledigt |
+| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | 20,35 $ | Tom | erledigt |
+| 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | 3,79 $ | Tom | erledigt |
 | 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +4,61 $ | Homer | erledigt |
 | 251.4 | Logo auf Leiterbahn mit Lötaugen (Fassung C) umstellen, Papiere `docs/firma/` neu erzeugen (Chef 21.10., 22:08) | M Markt | K | – | Homer | erledigt |
@@ -1247,3 +1247,11 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1110 | Von Sokrates (Chef 13.11., 09:51/09:55): Chef-Erlaubnisse wörtlich in die Rollendateien, wo der Rechtefilter sie liest: Repos für alle Rollen; Ford archiviert und bucht Kosten ohne Satz, dauerhaft (369.1 streichen); alle Regeln „nur auf Wort des Chefs“ suchen (Zu 1110) | B Abläufe | M | 1,79 $ | Perikles | erledigt, greift Lauf 192 |
 | 1109 | Von Sokrates (Chef 13.11., 09:44/09:45, „das ist wichtig“): Querprüfung Vorberechnung 854/1101 und Bauweg insgesamt optimieren (ausfallsicher, verlässlich, billiger, schneller); Tom, Jerry, Perikles einbinden; Vorlage höchstens fünf Vorschläge | B Werkzeuge | M | 16,90 $ | Diogenes | erledigt |
 | 1121 | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B einen Punkt ohne Rückmeldung auf „zu testen“ ohne Build setzt (1040.1); Automatik und Prüfung widersprechen sich | B Abläufe | M | – | Perikles | erledigt, greift Lauf 193 |
+| 769 | Wochentermin 13.11.: Rollenspiegel Tom (rollenspiegel.sh Tom) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | B Abläufe | M | – | Tom | erledigt |
+| 1124 | Von Sokrates (Chef 13.11., 11:36): „wartet auf <Rolle>“ löst sich nie von selbst; Ford schrieb das Ergebnis der Probe D als Zu 1098, ließ „wartet auf Ford“ stehen, 1098 nie startbar, kein Perikles gestartet; wer liefert, leert das Feld (Werkzeug oder Regel) | B Abläufe | M | 1,68 $ | Perikles | erledigt, greift Lauf 197 |
+| 1070 | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., 20:06; von Sokrates) | B Steuerung | M | 3,36 $ | Perikles | erledigt, greift Lauf 198 |
+| 1116 | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Repo), Ersparnis ist Wartezeit; was kostet eine Stunde Warten auf einen Lauf in Sitzungen | B Werkzeuge | K | – | Perikles | erledigt, überholt: Chef 10:56 „1109 A bis D“ ohne Geldwert |
+| 1117 | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitzung wirkt (22:47)“, seit 1099/1110 überholt; Stand und Titel nachziehen oder schließen | B Abläufe | M | – | Perikles | erledigt |
+| 1100.1 | Von Sokrates (Chef 13.11., 09:29, 1100 A mit 6): Ford-Lauf nach Perikles' Umbau gegenprüfen: Kosten und Schritte je Lauf vorher/nachher, kein Start und keine Warnung verloren (Zu 1100) | B Abläufe | M | – | Diogenes | erledigt |
+| 391 | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | B Werkzeuge | M | 2,75 $ | Sokrates | erledigt, ersetzt durch 1110 (Archiv 13.11., 09:59) |
+| 1130 | Von Sokrates (Chef 12:51, 1128): Stellungnahme Prüfumfang in entscheiden/1128-pruefumfang.md, Zählung der 52 ungetesteten Muss prüfen | Q QM | M | 4,40 $ | Diogenes | erledigt |

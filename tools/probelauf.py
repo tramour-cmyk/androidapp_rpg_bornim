@@ -912,6 +912,10 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
 
 def anhalten(text):
     print(text, file=sys.stderr)
+    try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“)
+        import hakenzahl; hakenzahl.vermerk("probelauf", text)
+    except Exception:
+        pass
     sys.exit(2)
 
 

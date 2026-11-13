@@ -422,6 +422,12 @@ def main():
         if r.returncode: stop.append("Regelwerte (969): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
+    if stop:
+        try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“), je Grund eine Zeile
+            import hakenzahl
+            for s in stop: hakenzahl.vermerk("commit-pruefung", s)
+        except Exception:
+            pass
     return 1 if stop else 0
 
 def rolle_geliefert(neu):
