@@ -388,6 +388,19 @@ def main():
                 if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram") and not KLEIN_LINK.search("|".join(r)):
                     stop.append("%s: Zeile %s Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link "
                                 "„[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkram fragt der Reiter „Test“ nicht ab" % (p, r[0]))
+    for s, p in dat:  # 1217 (Chef 13.11., 20:13 zu t284.7p: „da gibt es gar kein P … Ah, das ist in der falschen Reihenfolge“): ab Build 285
+        m = re.match(r"docs/(?:chefsache/ansehen|entwurf)/t(\d+)-[^/]+\.md$", p)   # die Zeilen jeder Tabelle in Nummernfolge
+        if s == "D" or not m or int(m.group(1)) < 285: continue
+        def schluessel(nr): return [(int(x), "") if x.isdigit() else (int(re.match(r"\d+", x).group(0)), x.lstrip("0123456789")) for x in nr.split(".")]
+        vorher = None
+        for zl in git("show", ":" + p).splitlines():
+            nr = (zl.strip().strip("|").split("|") or [""])[0].strip().strip("*") if zl.startswith("|") else ""
+            if not re.fullmatch(r"%s\.\d+[a-z]?(\.\d+[a-z]?)*" % m.group(1), nr):
+                if not zl.startswith("|"): vorher = None
+                continue
+            if vorher and schluessel(nr) < schluessel(vorher):
+                stop.append("%s: Zeile %s nach %s; Nummern in der Reihenfolge des Wegs vergeben, aufsteigend (1217)" % (p, nr, vorher)); break
+            vorher = nr
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
         inhalt = git("show", ":" + p)

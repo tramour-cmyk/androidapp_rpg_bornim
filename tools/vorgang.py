@@ -471,7 +471,7 @@ def telegram_ergebnisse(n, text, punkte):
     for k, (e, mid, wann) in sorted(tg.items()):
         if k not in punkte or punkte[k][1] is not None: continue
         wo = "%s auf Telegram, %s, Nachricht %s" % ("👎" if e == "✗" else "👍", wann[11:], mid)
-        punkte[k][1:] = [e, ("falsch laut Zeile: %s (%s)" % (fs.get(k) or "ohne Text", wo)) if e == "✗" else wo]
+        punkte[k][1:] = [e, ("nicht bestanden (%s); Zeile „Falsch“: %s; was der Chef dazu schrieb, geht vor" % (wo, fs.get(k) or "ohne Text")) if e == "✗" else wo]
         print("vorgang.py: %s %s aus Telegram (Nachricht %s)" % (k, e, mid))
 
 def build_abschluss(n, datei=None, probe=False):
@@ -486,7 +486,13 @@ def build_abschluss(n, datei=None, probe=False):
     # D80.1: nur die Vorgänge des Builds (Feld Build = N, eingetragen mit build N --mit); in der Prüfliste genannte Nummern ohne Build N
     # bleiben, wie sie sind (Hinweis unten), sonst fielen startbare Zeilen anderer Arbeit aus der Rechnung
     betroffen = [d for d in zs if d.get("build") == str(n) and d["wort"] != "erledigt"]
-    fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d.get("build") != str(n) and d["wort"] != "erledigt"})
+    # 1220 (D222.1: 👎 auf 284.7c, 284.7p trafen 709 nicht, 15 Punkte ohne Build 284): ein genannter Vorgang „gebaut“ oder „zu testen“
+    # ohne Build-Nummer wartet auf genau diesen Test und zählt mit; andere (startbar, in Arbeit, anderer Build) bleiben wie in D80.1
+    nach = [d for d in zs if d["nr"] in je and not re.fullmatch(r"\d+", str(d.get("build") or "")) and d["wort"] in ("gebaut", "zu testen")
+            and d not in betroffen]
+    if nach: print("%s nachgezogen in Build %s (gebaut/zu testen ohne Build, 1220): %s" % ("PROBE" if probe else "BUILD", n, ", ".join(d["nr"] for d in nach)))
+    betroffen += nach
+    fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d not in betroffen and d["wort"] != "erledigt"})
     if not betroffen: sys.exit("vorgang.py: kein Vorgang mit Build %s in der Liste; erst vorgang.py build %s --mit <Nr,…>%s" % (n, n, ("; in der Prüfliste genannt: " + ", ".join(fremd)) if fremd else ""))
     aus = []
     for d in betroffen:

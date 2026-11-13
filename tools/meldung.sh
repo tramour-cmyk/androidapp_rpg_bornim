@@ -83,8 +83,37 @@ if [ -n "$art" ]; then
   if [ "$art" != document ] && [[ "$nr" =~ ^[tT][0-9]+$ ]]; then
     echo "meldung: Bild oder Film zu $nr ohne Punkt, nichts gesendet; je Prüfpunkt eine Nachricht „$nr.<Punkt>: …“ (1217)" >&2; exit 2
   fi
-  if [ "$art" != document ] && [[ "$nr" =~ ^[tT][0-9]+\. ]] && ! { printf '%s' "$text" | grep -q '👍' && printf '%s' "$text" | grep -q '👎'; }; then
-    echo "meldung: $nr ohne „👍 passt: …“ und „👎 falsch: …“ aus der Zeile, nichts gesendet (1217)" >&2; exit 2
+  # 1217 (Chef 20:13 zu t284.7p: „ist die Frage, was ich sehen soll … War ich mal in der Prüfliste“): die Nachricht trägt die Zeile
+  # ganz, er braucht die Liste nie; fehlt „Zu sehen“, „👍 passt“ oder „👎 falsch“, setzt meldung.sh sie aus der Zeile des Punkts ein
+  if [ "$art" != document ] && [[ "$nr" =~ ^[tT]([0-9]+)\.(.+)$ ]]; then
+    voll=$(TEXT="$text" N="${BASH_REMATCH[1]}" P="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}" DOCS="$(dirname "$(realpath "$0")")/../docs" python3 -c '
+import glob, os, re, sys
+t, n, p, d = os.environ["TEXT"], os.environ["N"], os.environ["P"], os.environ["DOCS"]
+fs = [f for o in ("chefsache/ansehen", "entwurf") for f in sorted(glob.glob(os.path.join(d, o, "t%s-*.md" % n)))]
+if not fs: print("keine Prüfliste t%s-….md in ansehen/ oder entwurf/" % n); sys.exit(1)
+schlicht = lambda s: re.sub(r"\[(?:Bild|Film) von [^\]]*\]\([^)]*\)", "", re.sub(r"\*\*|`", "", s)).strip()
+kopf, zeilen = None, {}
+for z in open(fs[0], encoding="utf-8").read().splitlines():
+    if not z.startswith("|"): kopf = None if z.strip() else kopf; continue
+    c = [x.strip() for x in z.strip().strip("|").split("|")]
+    if kopf is None: kopf = c; continue
+    if c: zeilen[c[0]] = dict(zip(kopf, c))
+def feld(r, *namen, tiefe=0):   # „wie 284.7c“ aus jener Zeile, der Chef soll die Liste nie brauchen
+    w = schlicht(next((r[x] for x in namen if x in r), ""))
+    m = re.fullmatch(r"wie (\d+\.\d+[a-z]?)\.?", w)
+    return feld(zeilen[m.group(1)], *namen, tiefe=tiefe + 1) if m and m.group(1) in zeilen and tiefe < 3 else w
+if p in zeilen:
+    r = zeilen[p]
+    wo, ok, no = feld(r, "Wo und wie"), feld(r, "Passt", "Richtig"), feld(r, "Falsch")
+    zl = t.split("\\n")
+    if wo and wo[:40] not in t:
+        zl.insert(1, "Zu sehen: " + (wo if len(wo) < 500 else wo[:500].rstrip() + "…"))
+    if "👍" not in t: zl.append("👍 passt: " + ok)
+    if "👎" not in t: zl.append("👎 falsch: " + no)
+    print("\\n".join(zl)); sys.exit(0)
+print("Punkt %s steht nicht in %s" % (p, os.path.relpath(fs[0], d))); sys.exit(1)') || {
+      echo "meldung: $nr: $voll; nichts gesendet (1217)" >&2; exit 2; }
+    text="$voll"
   fi
   # 374 (373 Punkt 2, 228): Bilder an den Chef nur mit Datei docs/chefsache/ansehen/<Nummer ohne Punkt>-….md; auch die Vorlage
   # entscheiden/<Nr>.md (Tom 13.11.) und der Entwurf einer Prüfliste docs/entwurf/t<n>-….md, die erst mit den Bildern nach ansehen/ darf (1199, 1208)
