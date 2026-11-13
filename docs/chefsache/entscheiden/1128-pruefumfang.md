@@ -44,12 +44,11 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 
 **Folgerungen:** Bei A: Perikles baut die Regeln, Tom die Werkzeuge. Schon die Prüfliste für 283 schreibt Tom nach A. Ich lese sie gegen, Diogenes zählt ab 283 die Funde je Prüfart. Bei B ebenso, ohne Bilder für Nachbesserungen. Bei C bleibt alles, wie es ist.
 
-**Zweite Meinung Perikles** (13.11., 12:05, selbst an 282, 281, 280 und 201a.1 geprüft, dann die Vorlage gelesen): **B mit drei Änderungen**, als Probe für die Builds 283 bis 285.
-- **Übersehen, Gefahr 0:** Die Höhle in 282 stand unter „Im Bau geprüft“ (`hoehle_492` grün). Trotzdem war sie in der APK nicht begehbar (282.19–21, 1104). Bautest und Bild aus demselben Lauf beweisen also nicht, dass es auf dem Handy geht. Diesen Fehler hat nur das Handy gefunden, und zwar nur, weil du die Station besucht hast.
-- **Änderung 1:** „Nicht bemängelt gilt als getestet“ nur für Stationen auf dem Weg, die du auch geöffnet hast. Der Reiter „Test“ merkt sich das selbst (Werkzeug Tom). Was du nicht besucht hast, fährt im nächsten Build wieder mit, statt ungeprüft auf `main` zu gehen (gegen Gefahr 3).
-- **Änderung 2, Widerspruch zu Gefahr 4:** Herausnehmen bleibt möglich. Jeder Vorgang hat weiter seinen eigenen Commit, und dein Fund nennt meist den Vorgang (Pim = 1086). Dann wird er per `git revert` herausgenommen, und der Rest geht auf `main` (Regel 12 bleibt).
-- **Änderung 3, zu Punkt 7:** vorerst kein neuer Bauschritt „Bilder je Vorgang“. Bildläufe sind heute unsere teuerste Arbeit (1022: 45 $, 492: 104 $). B braucht ohnehin nur etwa sechs Bilder je Build, die es heute schon gibt. Das Werkzeug kommt erst, wenn in der Probe Bilder fehlen.
-- **Gewichtung:** Gefahr 1 (Rückschritte) wiegt bei B weniger schwer als dargestellt, weil der Abgleich mit der alten Fassung beim Team bleibt. Schwerer wiegt die Lücke zwischen Vorschau und APK (Gefahr 0).
-- **Rückweg:** Diogenes zählt in den Builds 283 bis 285 Rückschritte und Funde, die nur auf dem Handy auffallen, und legt danach vor: B behalten oder zurück zu A.
+**Zweite Meinung Perikles** (13.11., 12:09, gegen die Fassung mit Votum A nach deinem Wort 12:06; selbst an 282, 281, 280 und 201a.1 geprüft): **A mit zwei Änderungen**, als Probe für die Builds 283 bis 285. Mein erstes Votum B (12:05) ziehe ich zurück, weil du Rückschritte nicht selbst beim Spielen suchen willst.
+- **Übersehen:** Die Höhle stand in 282 unter „Im Bau geprüft“ (`hoehle_492` grün). Trotzdem war sie in der App nicht begehbar (282.19–21, 1104). Gefunden hat das nur das Handy. Ein Bautest oder ein Bild beweist also nicht, dass es auf dem Handy geht.
+- **Änderung 1:** „Ohne dich“ gilt nur für Zahlen, Texte und Regeln. Alles, wo man hingeht, etwas antippt oder einen Ablauf erlebt, bleibt eine Prüffrage am Handy, auch wenn ein Bautest grün ist.
+- **Änderung 2, zu Punkt 7:** vorerst kein neuer Bauschritt „Bilder je Vorgang“. Bildläufe sind unsere teuerste Arbeit (1022: 45 $, 492: 104 $). Ein Bild kommt nur aus dem Lauf, der die App baut. Fehlt dort eines, bleibt die Prüffrage am Handy. Das Werkzeug kommt erst, wenn die Probe zeigt, dass Bilder fehlen.
+- **Zustimmung:** Herausnehmen auch bei „falsch“ am Bild; jeder Vorgang behält seinen eigenen Commit.
+- **Rückweg:** Diogenes zählt in den Builds 283 bis 285 die Funde je Prüfart und die Rückschritte und legt danach vor, ob A bleibt.
 
 Antwort: …
