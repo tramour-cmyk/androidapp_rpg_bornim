@@ -113,3 +113,4 @@
 2026-11-13 21:07:05	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 32118 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 21:07:28	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31489 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 21:11:06	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 32717 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-13 21:13:11	commit-pruefung	docs/ROLLE-PROJEKT.md: 13997 Bytes, Obergrenze 13200, Commit fügt 807 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
