@@ -14,3 +14,4 @@
 2026-11-13 14:02:09	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	HEAD
 2026-11-13 14:02:36	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tom-756-merkmale ändert Spielcode (godot/skripte/menue.gd)	claude/tom-882-1-ohne-gradle
 2026-11-13 14:02:52	commit-pruefung	docs/chefsache/ansehen/t283-probe.md: Laufnachweis fehlt (1128 A): schild_406 kann nicht rot werden oder läuft nicht immer (Zeile 606: `|| true`); sollbild_784 kann nicht rot werden oder läuft nicht i	HEAD
+2026-11-13 14:07:22	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	HEAD
