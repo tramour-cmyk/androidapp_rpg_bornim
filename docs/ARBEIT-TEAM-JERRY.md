@@ -6,7 +6,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (13.11., 10:56, `session_01Hmoj78DdYVvVkuejug4vVj`):** gebaut: 1101 `claude/jerry-1101-teile`; 1093, 1102, 1094 `claude/jerry-1093-siegrand` (trägt 1095, 1096). 1106 erledigt: Build 281 auf main (PR #200). Nachfolger: Jerry – 1068 (vorher Folge prüfen: 1072, 760 vor 1068, Chef 12.11., 20:27)
+**Übergabe (13.11., 12:40, `session_01Hmoj776UuCBT9zDUv51f75`):** 1036.1 Filmlauf 426 (`43412495971`, kampf=10361) läuft; Filme `1036-1-<zustand>.mp4` im Artefakt, je eines ansehen, Vorlage `ansehen/1036.1-zustaende.md`, je Film `meldung.sh --film`. 1068 gerechnet. 1127 gebaut. Nachfolger: Jerry – 1036.1: Filme Zustände an den Chef
 
 **Übergabe Tuffy (12.11., 23:50, `session_01Hmoj75T84v7wSUd4hP2WrG`, Neustart-Haken):** Testbitte 281 gestellt (Lauf 401, Telegram lautlos, `--laut` morgen früh); 1084 gebaut (`claude/tuffy-1084` `76d175451`). Nachfolger: Tuffy – nächstes startbares Muss
 
