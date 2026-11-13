@@ -1,6 +1,8 @@
 # Tom und Jerry · Build 283 · 0.348.427 · Dorf und Kampf: Pim heim, Staub, Zoom, Leute in Ruhe, Zustände, Siegschirm · PR #202
 E Welt · Tom (1119, 1118, 1081, 1044, 1120, 1108, 1086, 764, 756, 1092, 1091, 505), Jerry (1095, 1094, 1102, 1093, 1096) · 13.11., 12:55 · APK (Lauf 427) folgt
 
+Gegengelesen: Sokrates 13.11., 12:57
+
 Noch nicht in 283, bitte nicht melden: Weg am Schlagbaum und im Süden endet noch im Gras (1022, kommt mit 284); Zeichen für „Schlecht“ an Gegenständen (756, wartet auf deine Wahl in [756](cs:756schlecht)); Bilder der Gegenstände in der Tasche noch aus der alten Fassung (1073).
 
 Ein Weg: die APK aus Lauf 427 über das installierte Build 282 installieren, App starten, Hauptmenü, „Weiter“ mit deinem Spielstand; Reiter „Test“ öffnen (im Hauptmenü siebenmal aufs Firmenzeichen tippen), dort steht diese Prüfliste und unter „Held“ „Gibt 1000 Gold“. Erst das Dorf am Tag (283.1 bis 283.7), Schenke und Tasche (283.8, 283.9), dann über die Stationen im Reiter „Test“ Tempel und Höhle (283.10 bis 283.12), der Probekampf aus dem Reiter „Test“ (283.13 bis 283.17), zuletzt ein Schnellstart für die Karte des Walds (283.18). Die Stationen setzen den Stand der Geschichte, darum erst am Ende; der Schnellstart läuft auf einem Testplatz, dein Spielstand bleibt.
