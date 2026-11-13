@@ -25,6 +25,9 @@ def fremd_hinweis(p):
     kürzen bleibt Sache des Besitzers (regelcheck meldet die Größe weiter). Sonst blieb der Hinweis beim Absender liegen."""
     eig = BESITZER.get(re.match(r"docs/ARBEIT-(.*)\.md$", p).group(1))
     zeilen = [z[1:] for z in git("diff", "--cached", "-U0", "--", p).splitlines() if z.startswith("+") and not z.startswith("+++") and z[1:].strip()]
+    if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():  # Zusammenführen (Diogenes 13.11.): Zeilen der anderen Seite sind nicht neu
+        drueben = set(git("show", "MERGE_HEAD:" + p).splitlines()); zeilen = [z for z in zeilen if z not in drueben]
+        if not zeilen: return True  # nur beide Seiten vereint, nichts Eigenes hinzugefügt
     andere = "|".join(n for n in NAMEN if n != eig)
     # D80.2: Fund aus dem Test des Chefs, von Automatik B geschrieben („Zu NR, von Chef (Fund tN.k, …)“), ist ebenso ein fremder Hinweis
     return bool(zeilen) and all(re.search(r"\bvon (Team |Chef über )?(%s)\b|\bvon Chef \(Fund t\d+" % andere, z) for z in zeilen)
