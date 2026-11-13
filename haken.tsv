@@ -141,3 +141,4 @@
 2026-11-13 22:17:40	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/jerry-709-1-film
 2026-11-13 22:17:49	commit-pruefung	VORGANGSARCHIV.md: Telegram-Nachricht 4006 steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)	main
 2026-11-13 22:21:59	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30023 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-13 22:28:33	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31369 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
