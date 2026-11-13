@@ -1502,6 +1502,22 @@ jobs:
           grep -E "SCRIPT ERROR|^FILM10401" $B/wenden10401.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wenden10401.mp4 || true
           ls -l $B
+      # 1144 (Chef 13.11., 14:49): Lyra in Graks Halle, Ketten fallen (Klang laut Protokoll), Handgelenke reiben, Arme sinken, dann
+      # spricht sie, dann geht sie (tests/film_ketten_1144.gd), bei „1144 Film“ im Commit
+      - name: Kettenfilm (1144)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1144 Film') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/ketten1144; mkdir -p $B
+          cd godot
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ketten1144.avi --fixed-fps 30 \
+            -s res://tests/film_ketten_1144.gd > $B/ketten1144.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true
+          ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
