@@ -147,6 +147,11 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 		if dn < nah:
 			nah = dn
 			nah_ms = n * 1000 / 30
+		if mess and OS.get_environment("KURVE") != "" and n % 3 == 0 and n * 1000 / 30 <= ms + 900:     # 709.1 Messlauf: Verlauf je 0,1 s
+			print("KURVE 7091 %s %s %s: %4d ms Rumpf %.2f m, Schnauze vor dem Rumpf %s, Bewegung %s %.2f s, Tempo %.2f" % [g, klasse,
+					"T" if treffer else "A", n * 1000 / 30, dn + (sv if is_finite(sv) else 0.0), "%.2f" % sv if is_finite(sv) else "keine Kapsel",
+					wolf.anim.current_animation if wolf.anim else "-", wolf.anim.current_animation_position if wolf.anim else 0.0,
+					wolf.anim.get_playing_speed() if wolf.anim else 0.0])
 		if mess and abs(n * 1000 / 30 - ms) <= 17:
 			print("MESS 7091 %s %s %s: Schnauze %s, Biss bei %d ms" % [g, klasse, "Treffer" if treffer else "Abwehr", wolf.position, ms])
 	if mess:
