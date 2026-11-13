@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 229 · 1230 ein ✗ schlägt Sammelbuild und ✓ (Perikles `94be68e5c`; 13.11., 22:1x)
+
+- **Greift:** `build 284 --probe` an `bc73ae6a3^`, Fassung vor 1230 (`94be68e5c^`) gegen 1230: nur 1022 weicht ab, „erledigt (Sammelbuild)“ → „startbar (✗ 284.2)“; 42 übrige gleich. Nebenbei, gewollt: ein Sammelbuild mit eigenen Punkten geht jetzt über „bestanden“ (mit Restsperre) oder bleibt ohne Rückmeldung „zu testen“.
+
 ## Lauf 228 · 1175 Wächter Rest liest den jüngsten Code-Commit (Tom `0befe2a24`; 13.11., 22:0x)
 
 - **Greift für 1143:** `bau_commit` 1143 → `9acb42063` (vorher Notizcommit `49a85026c`), 1131 → `42e107815`, 1175 → `0befe2a24` (vorher `f66b86535` „gebaut“); 1084, 1115, 1199, 1212, 1217 alt gleich neu.
