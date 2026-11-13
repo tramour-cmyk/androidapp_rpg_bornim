@@ -22,6 +22,12 @@ Nichts offen.
 |---|---|---|---|
 | [756](ansehen/756-schlecht.md) | Zeichen für Schlecht: Vorlage mit vier Varianten | – | 13.11., 11:52 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.425](ansehen/t282-hoehle.md) | [Build 282](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43394728258/artifacts/14029055635) | Nachtest Höhle: Blutzahnhöhle, Krogg, Gitter, Lyra | Tom | 13.11., 11:43 |
+
 ## Zu tun
 
 Nichts offen.
@@ -37,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 112, Muss 88, startbar 3
+**Tom** – offen 112, Muss 88, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -142,7 +148,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test (Build 282) |
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 (lyra) |
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
-| 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | Termin 13.11. 12:00 |
+| 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | startbar |
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | wartet auf Test/Build (gebaut) |
 | 1086 | M | Von Sokrates (1077 Nacht, zu 842): Pim zweiter Weg „Gib Pim 5 Gold“ bauen nach Homers Text | wartet auf Test/Build (gebaut) |
 | 1091 | M? | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | wartet auf Test/Build (gebaut) |
