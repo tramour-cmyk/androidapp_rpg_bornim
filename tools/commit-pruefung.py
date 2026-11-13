@@ -10,7 +10,7 @@ Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). E
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
 Gelöschte Vorlage mit „Was du tust: …“ ohne neue Datei in chefsache/tun/ (890; Ausweg BORNIM_GETAN=1); Datei in ansehen/ (außer t<Build>-…) ohne Bild, Film oder Frage (890).
-Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -409,6 +409,8 @@ def main():
             if neu_b > 15000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):
                 stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
     for w in tun_und_inhalt(dat): stop.append(w)  # 890
+    if os.environ.get("BORNIM_WARTET") != "1" and not git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():
+        for w in rolle_geliefert(neu): stop.append(w)  # 1124
     if any(p in ("tools/gegenstaende/gegenstaende.json", "docs/LISTE-GEGENSTAENDE.md", "tools/gegenstaende.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/gegenstaende.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Gegenstandskatalog (458, D56.4): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
@@ -418,6 +420,30 @@ def main():
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     return 1 if stop else 0
+
+def rolle_geliefert(neu):
+    """1124 (Chef 13.11., 11:36): eine Rolle im Feld „wartet auf“ löst sich nie von selbst. Neue Kopfzeile „- **Zu <Nr> … von <Rolle>**“
+    in einem Vorrat, und Vorgang <Nr> wartet auf eben diese Rolle: hält an, bis der Liefernde das Feld nachzieht
+    (`vorgang.py warte <Nr> <Rest|–>` im selben Commit); liefert er noch nicht, BORNIM_WARTET=1."""
+    import startbar
+    aus, datei = [], ""
+    for z in neu:
+        if z.startswith("+++ b/"): datei = z[6:]; continue
+        if not z.startswith("+") or z.startswith("+++") or not re.match(r"docs/ARBEIT-[A-Z-]+\.md$", datei): continue
+        kopf = re.match(r"\s*- \*\*(.+?)\*\*", z[1:])
+        if not kopf: continue
+        k = kopf.group(1)
+        zu = re.match(r"Zu ((?:D?\d[\w.]*(?:, |,? und )?)+)", k)
+        if not zu: continue
+        von = set(re.findall(r"\bvon (?:Team )?(%s)\b" % "|".join(map(re.escape, startbar.WARTE_ROLLEN)), k))
+        for nr in re.findall(r"D?\d[\w.]*\w|D?\d", zu.group(1)):
+            for d in startbar.zeilen_liste():
+                if d["nr"] == nr and von & set(d["warte"]):
+                    rest = [t for t in d["warte"] if t not in von]
+                    aus.append("%s: „Zu %s … von %s“ liefert, aber %s wartet noch auf %s; Feld nachziehen: `vorgang.py warte %s %s` "
+                               "(Rolle löst sich nie von selbst, 1124; liefert noch nicht: BORNIM_WARTET=1)"
+                               % (datei, nr, "/".join(sorted(von)), nr, ", ".join(d["warte"]), nr, ", ".join(rest) or "–"))
+    return aus
 
 WAS_DU_TUST = re.compile(r"(?m)^\W*Was du tust:?\**\s*(.*)$")
 INHALT_BILD = re.compile(r"!\[|<img|<video|\.(?:png|webp|jpe?g|gif|mp4|webm)\b|bilder/|\bFilm:|\bBild:", re.I)
