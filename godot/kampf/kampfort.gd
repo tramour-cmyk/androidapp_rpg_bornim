@@ -989,6 +989,9 @@ func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
 func _langsam(f) -> bool:
 	if not figures.has(f.id) or f.ranged():
 		return false
+	# 844: Goblins und Kobolde haben jetzt einen Wurzelweg (Kobold 1,03 m/s); sie stehen weiter wie abgenommen (oben)
+	if f.monster != null and Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT]:
+		return false
 	var v: float = figures[f.id].anmarsch_mps()
 	return v > 0.0 and v < LANGSAM_MPS
 

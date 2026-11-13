@@ -412,6 +412,76 @@ def bake_tod(name, keys):
 if os.environ.get('TOD', '1') != '0':
     for nm_, k_ in (('Tod', tod_vorn()), ('Tod2', tod_rueck()), ('Tod3', tod_seite()), ('Tod4', spiegel(tod_seite()))):
         bake_tod(nm_, k_)
+# 844 (aus 709, treffen_709: Goblins und Kobolde „haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im Stehen 60 % des Wegs
+# vor, Treffer ohne Schlag“): figur.gd fand weder „Hieb“ noch einen Wurzelweg und schob den Körper in der Lauer vor. Jetzt ein Hieb je
+# Art wie im alten Spiel (FoeArt.kt: Klinge und Beil von oben über die Schulter, Speer und Dolch stoßen, der Schamane schlägt mit dem
+# Stab wie mit einer Keule), Schlüsselbilder als Zusatz auf Bild 0 der Lauer wie die Tode (1141), die Füße bleiben stehen (ground);
+# Richtwerte DESIGN-ABNAHME „Selbst prüfen“: Hieb 0,8–0,9 s mit kurzem Halt beim Aufschlag, Stich 0,6 s, Ausholen länger als der
+# Schlag. Dazu für figur.gd der Wurzelweg „Gehen“ (am Ort gebacken: so weit wandert der Standfuß) und „hieb“ wie bei Grak (Reichweite
+# der Faust vor der Wurzel beim Aufschlag m, Zeit des Aufschlags s, Drehung beim Schlag), damit er mit Schritten heran geht und dort
+# schlägt; den Stand rechnet figur.gd aus dem Weg der Waffe (_hieb_bahn, hieb_plan).
+# Der Späher schießt nur (Mars ranged), er bekommt keinen.
+HIEB_ART = None if 'archer' in FIGUR else ('stich' if FIGUR.startswith('kobold') else ('keule' if 'shaman' in FIGUR else 'hieb'))
+HIEB_SEITE = 'L' if HIEB_ART == 'keule' else 'R'     # der Schamane hält den Stab links (goblin.py Runde 4, „Hände tauschen“)
+def hieb_keys(art):
+    """[(Zeit s, {Knochen: Grad}, {}, 0)], Zeit des Aufschlags (s) und Drehung beim Schlag (Grad, wie Grak „hieb“ [2]: + nach links)"""
+    if art == 'stich':
+        # Speer und Dolch (FoeArt THRUST_W, THRUST_H): Arm und Schulter zurück, dann gerade nach vorn gestoßen, der Rumpf dreht mit
+        zur = {'pelvis-waist': (-6, 0, -18), 'belly-chest': (0, 0, -8), 'shR-upR': (38, 6, 0), 'elR-foR': (-28, 0, 0),
+               **beide('kneeS-calfS', (4, 0, 0))}
+        vor = {'pelvis-waist': (4, 0, 16), 'belly-chest': (2, 0, 8), 'shR-upR': (-58, -4, 0), 'elR-foR': (34, 0, 0), 'foR-wrR': (30, 0, 0),
+               'shL-upL': (14, 0, 0), **beide('kneeS-calfS', (10, 0, 0))}
+        return [(0.0, {}, {}, 0.0), (0.24, zur, {}, 0.0), (0.30, zur, {}, 0.0), (0.38, vor, {}, 0.0), (0.46, vor, {}, 0.0),
+                (0.66, {}, {}, 0.0)], 0.38, 0.0
+    if art == 'keule':
+        # Schamane, der Stab links, in der Mitte gefasst (goblin.py, figur.gd: der Fuß steht in Ruhe am Boden). Als Keule über die
+        # Schulter (FoeArt: „struck with the staff like a club“) fuhr das untere Ende durch Bein und Hüfte (hieb_844: 13–18 cm im
+        # eigenen Körper); darum ein Stoß: der Arm zieht zurück, der Schädel neigt sich etwas nach hinten, dann stößt er ihn 45° nach
+        # vorn oben zum Gegner (Handgelenk am Bau gesucht: die Hand dreht den Stab so, dass er nicht zur Seite kippt)
+        zur = {'pelvis-waist': (-4, 0, 8), 'belly-chest': (0, 0, 4), 'shL-upL': (20, 0, 0), 'elL-foL': (-20, 0, 0), 'foL-wrL': (-15, 0, 15),
+               **beide('kneeS-calfS', (4, 0, 0))}
+        vor = {'pelvis-waist': (6, 0, -8), 'belly-chest': (2, 0, -4), 'shL-upL': (-45, 0, 0), 'elL-foL': (25, 0, 0), 'foL-wrL': (15, 30, -60),
+               **beide('kneeS-calfS', (10, 0, 0))}
+        return [(0.0, {}, {}, 0.0), (0.24, zur, {}, 0.0), (0.30, zur, {}, 0.0), (0.40, vor, {}, 0.0), (0.48, vor, {}, 0.0),
+                (0.72, {}, {}, 0.0)], 0.40, -20.0
+    # Klinge, Beil, Stab (FoeArt CHOP_OVER, CHOP_SWING, CHOP_HIT): aufgerichtet, der Arm hoch über die Schulter zurück, die Waffe
+    # hinter dem Kopf; dann über die Schulter nach vorn unten, der Rumpf dreht und beugt sich mit, die Knie geben nach
+    aus = {'pelvis-waist': (-10, 0, -22), 'belly-chest': (0, 0, -10), 'shR-upR': (-80, 10, 0), 'elR-foR': (-30, 0, 0),
+           'shL-upL': (10, 0, 0), **beide('kneeS-calfS', (4, 0, 0))}
+    auf = {'pelvis-waist': (-4, 0, 18), 'belly-chest': (0, 0, 8), 'shR-upR': (-92, 0, 0), 'elR-foR': (50, 0, 0), 'foR-wrR': (90, 0, 0),
+           'shL-upL': (-6, 0, 0), **beide('kneeS-calfS', (10, 0, 0))}
+    nach = {'pelvis-waist': (4, 0, 22), 'belly-chest': (3, 0, 10), 'shR-upR': (-74, 0, 0), 'elR-foR': (56, 0, 0), 'foR-wrR': (92, 0, 0),
+            'shL-upL': (-6, 0, 0), **beide('kneeS-calfS', (11, 0, 0))}
+    return [(0.0, {}, {}, 0.0), (0.30, aus, {}, 0.0), (0.38, aus, {}, 0.0), (0.50, auf, {}, 0.0), (0.56, auf, {}, 0.0),
+            (0.64, nach, {}, 0.0), (0.95, {}, {}, 0.0)], 0.50, 0.0
+def _faust_vor():
+    """wie weit die Faust der Waffenhand vor der Wurzel steht (m; vorn ist −Y)"""
+    bpy.context.view_layer.update()
+    return -(rig.matrix_world @ PB['fo%s-wr%s' % (HIEB_SEITE, HIEB_SEITE)].tail).y / 100.0
+def bake_hieb(name, keys, t_auf, dreh):
+    act = bpy.data.actions.new(name); act.use_fake_user = True
+    rig.animation_data_create()
+    for t_ in rig.animation_data.nla_tracks: t_.mute = True
+    rig.animation_data.action = act
+    n = int(round(keys[-1][0] * FPS)); f_auf = int(round(t_auf * FPS)); reich = 0.0
+    for f in range(n + 1):
+        clear(); RUHE0(0.0); _tod_pose(keys, f / FPS); ground()
+        if f == f_auf: reich = _faust_vor()
+        for pb in PB:
+            pb.keyframe_insert('rotation_quaternion', frame=f + 1); pb.keyframe_insert('location', frame=f + 1)
+    for t_ in rig.animation_data.nla_tracks: t_.mute = False
+    spur = rig.animation_data.nla_tracks.new(); spur.name = name; spur.strips.new(name, 1, act)
+    rig.animation_data.action = None
+    INFO[name + '_s'] = n / FPS
+    INFO['hieb'] = [round(reich, 3), round(f_auf / FPS, 3), dreh]
+if HIEB_ART and os.environ.get('HIEB', '1') != '0':
+    bake_hieb('Hieb', *hieb_keys(HIEB_ART))
+    # Wurzelweg „Gehen“ in Metern (Blick +Z in Godot): am Ort gebacken, so weit trägt der Standfuß je Bild
+    _gn = int(GANG['takt']); _d = INFO['Gehen_cm_je_bild'] / 100.0
+    INFO['weg'] = {'Gehen': [[0.0, round(i * _d, 4)] for i in range(_gn + 1)]}
+    # ohne Wurzelweg ging er mit WALK_MPS (1,4 m/s) bei gleitenden Füßen; jetzt im Tempo seiner Schritte, darum der Gang schneller
+    # gespielt (Goblin 0,67 m/s → 1,4; Kobold 0,47 → 1,03, höchstens 2,2-fach), so bleibt der Kampf so flott wie vorher
+    INFO['tempo'] = {'Gehen': round(min(2.2, max(1.0, 1.4 / (INFO['Gehen_cm_je_bild'] * FPS / 100.0))), 2)}
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0
 INFO['fps'] = FPS; INFO['ecken'] = len(held.data.vertices)
