@@ -343,6 +343,15 @@ static func betreten(karte_id: String, s: Zustand) -> Array:
 				k.flag("cave_seen")
 	return k.befehle
 
+## 1142: Auslöser einer Kachel nur, wenn kein Gespräch läuft, kein Kampf und keine Szene noch Befehle hat
+static func ausloeser_frei(spricht: bool, im_kampf: bool, szene_leer: bool) -> bool:
+	return not spricht and not im_kampf and szene_leer
+
+## 1142: ein Szenenkampf („kampf“ mit Flagge), dessen Flagge schon gesetzt ist, wird übersprungen
+static func kampf_schon_gewonnen(c: Dictionary, s: Zustand) -> bool:
+	var f := String(c.get("flagge", ""))
+	return f != "" and s.has(f)
+
 # auf einer Kachel (MapDef.triggers): vor Graks Halle spricht Grak, solange er lebt
 static func ausloeser(karte_id: String, t: Vector2i, s: Zustand) -> Array:
 	var k := Skript.new()

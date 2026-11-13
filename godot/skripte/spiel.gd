@@ -395,7 +395,11 @@ func _steht_auf(t: Vector2i) -> void:
 func _betritt(t: Vector2i) -> void:
 	zustand.schritte += 1   # 399.1: GameState.steps, je betretene Kachel (System „Schritte“)
 	_steht_auf(t)
-	if not ui.spricht(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
+	# 1142 (Chef 13.11., 14:44: nach dem Sieg über Grak „etwas Text … dann kam nochmal der Kampf“): nach dem Kampf setzt
+	# kampf_im_wald den Helden zurück auf seine Kachel (held.setze → steht_auf), bevor _szenenkampf grak_defeated setzt; stand er
+	# auf dem Auslöser vor Graks Halle, hängte sich ein zweites grak_talk an die laufende Szene. Kein Auslöser im Kampf oder in
+	# einer laufenden Szene
+	if Geschichte.ausloeser_frei(ui.spricht(), im_kampf, szene.is_empty()): spiele(Geschichte.ausloeser(karte.id, t, zustand))
 	pfluecke(t)   # 490 Game.pickHerbs
 	if herde and not im_kampf and not ui.spricht(): herde.betreten(t)   # 490 respawnRoamers, Ueberfall im hohen Gras
 
@@ -1093,6 +1097,7 @@ func weiter() -> void:
 				oeffne_laden(c["waren"], bool(c.get("brauen", false)), bool(c.get("nur_vorraete", false)))
 				return
 			"kampf":   # 491 Cmd.Fight (Game.startBattle aus der Szene): Sieg setzt die Flagge, die Szene geht weiter; sonst endet sie
+				if Geschichte.kampf_schon_gewonnen(c, zustand): continue   # 1142: ein Kampf, dessen Sieg schon gilt, nie zweimal
 				if Streuner.da(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):   # 492: Gruppe und Modell (Grak, Krogg)
 					_szenenkampf(String(c["monster"]), String(c.get("flagge", "")))
 					return
