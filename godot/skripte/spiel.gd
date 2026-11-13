@@ -2327,7 +2327,7 @@ func gehen_499() -> void:
 	get_tree().quit()
 
 # 348.13 Zoom-Blatt (Chef 20:24: „nicht vergessen, dass wir zoomen koennen“): --tusche=<ordner> legt je Ort und Sonnenstand
-# ein Bild in der Nahstufe, der Grundansicht und ganz herausgezoomt ab (Kamera.kneifen: FERN * 1,6)
+# ein Bild in der Nahstufe, der Grundansicht und ganz herausgezoomt ab (Kamera.kneifen: WEIT)
 func tusche_blatt() -> void:
 	var dir := ""
 	for a in OS.get_cmdline_user_args():
@@ -2342,7 +2342,7 @@ func tusche_blatt() -> void:
 		licht.setze_stand(st[0])
 		for o in [[Vector2i(31, 22), "kirche"], [Vector2i(19, 13), "markt"], [Vector2i(10, 17), "gras"]]:
 			held.setze(o[0], "DOWN")
-			for z in [[Kamera.NAH, "nah"], [Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
+			for z in [[Kamera.NAH, "nah"], [Kamera.FERN, "grund"], [Kamera.WEIT, "weit"]]:
 				kamera.zoom = z[0]
 				kamera.nah = z[0] < (Kamera.NAH + Kamera.FERN) * 0.5
 				kamera.springe()
@@ -2364,7 +2364,7 @@ func probe_blatt() -> void:
 	held.setze(Vector2i(7, 16), "UP")
 	for st in [[Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
 		licht.setze_stand(st[0])
-		for z in [[Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
+		for z in [[Kamera.FERN, "grund"], [Kamera.WEIT, "weit"]]:
 			kamera.zoom = z[0]
 			kamera.nah = false
 			kamera.springe()
@@ -2810,10 +2810,10 @@ func nebel_bilder() -> void:
 	# Ecke ganz herausgezoomt: die Kamera haelt am Randwald, der Ausschnitt wird kleiner
 	betrete("forest", Vector2i(1, 30), "UP")
 	if herde: herde.aus = true
-	await nebel_blick(Vector2i(1, 30), 135.0, Kamera.FERN * 1.6)
+	await nebel_blick(Vector2i(1, 30), 135.0, Kamera.WEIT)
 	await nebel_titel(schilder, "Wald, Ecke Südwest, ganz herausgezoomt")
 	await knips("%s/5_wald_ecke_weit.png" % dir)
-	print("NEBELRAND Ecke Ausschnitt %.2f m (gewaehlt %.2f) verkleinert %s" % [kamera.size, Kamera.FERN * 1.6, kamera.rand_klein])
+	print("NEBELRAND Ecke Ausschnitt %.2f m (gewaehlt %.2f) verkleinert %s" % [kamera.size, Kamera.WEIT, kamera.rand_klein])
 	# Dreiecke mit und ohne Randwald (Dorf, Suedrand)
 	betrete("village", Vector2i(17, 28), "UP")
 	if herde: herde.aus = true
