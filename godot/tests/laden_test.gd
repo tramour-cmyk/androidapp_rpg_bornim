@@ -108,7 +108,7 @@ func _init() -> void:
 	pruefe("Bilder der Dinge", fehlt.slice(0, 5), [])
 	# 1073: alte Pixelbilder 32 px, gemalte nach der Signatur 128 px (tools/dinge/dingbilder.py); quadratisch
 	for n in ["stueck-longsword-RARE", "stueck-mace-RARE", "ding-potion", "ding-remedy"]:
-		var g: Vector2 = Kartenreiter.bild(n).get_size()
-		pruefe("Bildgroesse " + n, g.x == g.y and g.x in [32.0, 128.0], true)
+		var gr: Vector2 = Kartenreiter.bild(n).get_size()
+		pruefe("Bildgroesse " + n, gr.x == gr.y and gr.x in [32.0, 128.0], true)
 	print("LADEN %s: %d Fehler" % ["OK" if fehler == 0 else "FALSCH", fehler])
 	quit(1 if fehler else 0)
