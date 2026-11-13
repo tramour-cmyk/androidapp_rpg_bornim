@@ -10,7 +10,7 @@ Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). E
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
 Gelöschte Vorlage mit „Was du tust: …“ ohne neue Datei in chefsache/tun/ (890; Ausweg BORNIM_GETAN=1); Datei in ansehen/ (außer t<Build>-…) ohne Bild, Film oder Frage (890).
-Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,6 +25,9 @@ def fremd_hinweis(p):
     kürzen bleibt Sache des Besitzers (regelcheck meldet die Größe weiter). Sonst blieb der Hinweis beim Absender liegen."""
     eig = BESITZER.get(re.match(r"docs/ARBEIT-(.*)\.md$", p).group(1))
     zeilen = [z[1:] for z in git("diff", "--cached", "-U0", "--", p).splitlines() if z.startswith("+") and not z.startswith("+++") and z[1:].strip()]
+    if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():  # Zusammenführen (Diogenes 13.11.): Zeilen der anderen Seite sind nicht neu
+        drueben = set(git("show", "MERGE_HEAD:" + p).splitlines()); zeilen = [z for z in zeilen if z not in drueben]
+        if not zeilen: return True  # nur beide Seiten vereint, nichts Eigenes hinzugefügt
     andere = "|".join(n for n in NAMEN if n != eig)
     # D80.2: Fund aus dem Test des Chefs, von Automatik B geschrieben („Zu NR, von Chef (Fund tN.k, …)“), ist ebenso ein fremder Hinweis
     return bool(zeilen) and all(re.search(r"\bvon (Team |Chef über )?(%s)\b|\bvon Chef \(Fund t\d+" % andere, z) for z in zeilen)
@@ -204,19 +207,45 @@ def srd_woerter():
     return w + SRD_DAZU
 
 
+# 978 (870.9): texte.json und held.json, bisher im Bau aus core erzeugt, einmal eingecheckt, sind Bestand, keine neuen Zeilen,
+# wenn ihre kompakte Form (tools/karten/karten.py kanon) gleich dem Export von f32a789e6 ist; spätere Änderungen prüft srd_neu
+# wie jede Zeile, --srd-bestand findet sie weiter (870.13).
+BESTAND_870_9 = {"godot/daten/texte.json": "74d37eb3fb2759194a4b18c1972a5a0dfc8305724df64bd197c1712ca7f76fd7",
+                 "godot/daten/held.json": "2e955c9b15d268abee7954ea5e9e8001fb244c055024adbb8f21e0bb0f529d2d"}
+
+
+def bestand_870_9(p):
+    """978: die neu angelegte Datei p ist der unveränderte Export aus core (Stand f32a789e6)."""
+    if p not in BESTAND_870_9: return False
+    import hashlib, json
+    try: k = json.dumps(json.loads(git("show", ":" + p)), ensure_ascii=False, separators=(",", ":"))
+    except ValueError: return False
+    return hashlib.sha256(k.encode()).hexdigest() == BESTAND_870_9[p]
+
+
 def srd_neu(dat):
     """870.11 (870, Umzug BRS Schritt 9): neue Zeilen unter godot/ (ohne tests/) mit SRD-Begriffen. Hält an, sobald 870.4 erledigt
     (nicht mehr offen in der Liste), vorher Warnung. (stop, warn)"""
     wege = [p for s, p in dat if s != "D" and p.startswith("godot/") and "/tests/" not in "/" + p
-            and p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg"))]
+            and p.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")) and not (s == "A" and bestand_870_9(p))]
     if not wege: return [], []
     muster = re.compile(r"(?<![\wÄÖÜäöüß])(%s)(?![\wÄÖÜäöüß])" % "|".join(map(re.escape, srd_woerter())))
+    def dazu(*gegen):
+        aus, datei = [], ""
+        for z in git("diff", "--cached", "-U0", "--no-renames", *gegen, "--", *wege).splitlines():
+            if z.startswith("+++ b/"): datei = z[6:]; continue
+            if z.startswith("+") and not z.startswith("+++"): aus.append((datei, z[1:]))
+        return aus
+    neu = dazu()
+    # 979: beim Abschluss eines Merges nur Zeilen, die in keinem Elternteil stehen (Konfliktlösung); den Rest hat der Wächter
+    # beim Commit im jeweiligen Zweig gesehen
+    mh = git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip()
+    if mh:
+        auch = set(dazu(mh))
+        neu = [x for x in neu if x in auch]
     funde = {}
-    datei = ""
-    for z in git("diff", "--cached", "-U0", "--no-renames", "--", *wege).splitlines():
-        if z.startswith("+++ b/"): datei = z[6:]; continue
-        if not z.startswith("+") or z.startswith("+++"): continue
-        for m in muster.finditer(z[1:]): funde.setdefault(datei, set()).add(m.group(1))
+    for datei, z in neu:
+        for m in muster.finditer(z): funde.setdefault(datei, set()).add(m.group(1))
     if not funde: return [], []
     text = "neue SRD-Begriffe im Godot-Spiel (870.11, Namen nur nach DESIGN-BRS.md 12): " + "; ".join(
         "%s: %s" % (d, ", ".join(sorted(w))) for d, w in sorted(funde.items()))
@@ -319,9 +348,14 @@ def main():
             n = m.group(1)
             wege = {x for x in git("ls-tree", "-r", "--name-only", "HEAD", "docs/chefsache/ansehen/").split()} | {p for s, p in dat}
             pl = "".join(git("show", "HEAD:" + x) + git("show", ":" + x) for x in wege if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x))
+            # 1070 (Chef 12.11., 20:06 „warum steht der … 280er immer noch drin“): getestet heißt weg, im selben Commit wie „tN“ (Git behält sie)
+            noch = [x for x in git("ls-files", "--full-name", ":/docs/chefsache/ansehen/").split() if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x)]
+            if noch: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, Prüfliste noch in der Chefsache (%s); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)" % (n, ", ".join(noch)))
             import vorgang  # 775: dieselbe Lesart wie vorgang.py build (mehrere Nummern, Haken in Spalte 1)
             genannt = {x for nrs, _, _ in vorgang.ergebnisse(n, pl).values() for x in nrs}
-            lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")]
+            # 1121 (t282, 1040.1): „zu testen, ohne Rückmeldung tN“ setzt vorgang.py build N selbst (Build „–“), das ist gebucht, nicht lose
+            lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")
+                    and ("ohne Rückmeldung t%s" % n) not in d["stand"]]
             if lose: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber %s aus der Prüfliste ohne Build %s; erst `vorgang.py build %s --mit %s`, dann `vorgang.py build %s` (774)" % (n, ", ".join(lose[:8]), n, n, ",".join(lose), n))
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
@@ -338,7 +372,7 @@ def main():
             for zl in re.findall(r"(?m)^\|\s*\d+\.\d+[a-z]?\s*\|.*$", git("show", ":" + p)):
                 rf = " ".join(zl.rstrip().rstrip("|").split("|")[-2:])
                 rf = re.sub(r"(?i)Lizenzen der Engine", "", rf)  # 847 (D128.1): Menüeintrag als Bedienelement ist kein Lizenzlesen
-                if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Richtig/Falsch, der Weg darf über „Lizenzen“ führen
+                if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Passt/Falsch (1033, alt Richtig), der Weg darf über „Lizenzen“ führen
                     stop.append("%s: Prüfzeile verlangt Lizenzlesen (%s); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)" % (p, zl.split("|")[1].strip()))
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
@@ -378,12 +412,41 @@ def main():
             if neu_b > 15000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):
                 stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
     for w in tun_und_inhalt(dat): stop.append(w)  # 890
+    if os.environ.get("BORNIM_WARTET") != "1" and not git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():
+        for w in rolle_geliefert(neu): stop.append(w)  # 1124
     if any(p in ("tools/gegenstaende/gegenstaende.json", "docs/LISTE-GEGENSTAENDE.md", "tools/gegenstaende.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/gegenstaende.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Gegenstandskatalog (458, D56.4): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
+    if any(p in ("tools/sim444/werte.json", "docs/LISTE-REGELWERTE.md", "tools/regelwerte.py") for s, p in dat if s != "D"):
+        r = subprocess.run([sys.executable, "tools/regelwerte.py", "--pruefen"], capture_output=True, text=True)
+        if r.returncode: stop.append("Regelwerte (969): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     return 1 if stop else 0
+
+def rolle_geliefert(neu):
+    """1124 (Chef 13.11., 11:36): eine Rolle im Feld „wartet auf“ löst sich nie von selbst. Neue Kopfzeile „- **Zu <Nr> … von <Rolle>**“
+    in einem Vorrat, und Vorgang <Nr> wartet auf eben diese Rolle: hält an, bis der Liefernde das Feld nachzieht
+    (`vorgang.py warte <Nr> <Rest|–>` im selben Commit); liefert er noch nicht, BORNIM_WARTET=1."""
+    import startbar
+    aus, datei = [], ""
+    for z in neu:
+        if z.startswith("+++ b/"): datei = z[6:]; continue
+        if not z.startswith("+") or z.startswith("+++") or not re.match(r"docs/ARBEIT-[A-Z-]+\.md$", datei): continue
+        kopf = re.match(r"\s*- \*\*(.+?)\*\*", z[1:])
+        if not kopf: continue
+        k = kopf.group(1)
+        zu = re.match(r"Zu ((?:D?\d[\w.]*(?:, |,? und )?)+)", k)
+        if not zu: continue
+        von = set(re.findall(r"\bvon (?:Team )?(%s)\b" % "|".join(map(re.escape, startbar.WARTE_ROLLEN)), k))
+        for nr in re.findall(r"D?\d[\w.]*\w|D?\d", zu.group(1)):
+            for d in startbar.zeilen_liste():
+                if d["nr"] == nr and von & set(d["warte"]):
+                    rest = [t for t in d["warte"] if t not in von]
+                    aus.append("%s: „Zu %s … von %s“ liefert, aber %s wartet noch auf %s; Feld nachziehen: `vorgang.py warte %s %s` "
+                               "(Rolle löst sich nie von selbst, 1124; liefert noch nicht: BORNIM_WARTET=1)"
+                               % (datei, nr, "/".join(sorted(von)), nr, ", ".join(d["warte"]), nr, ", ".join(rest) or "–"))
+    return aus
 
 WAS_DU_TUST = re.compile(r"(?m)^\W*Was du tust:?\**\s*(.*)$")
 INHALT_BILD = re.compile(r"!\[|<img|<video|\.(?:png|webp|jpe?g|gif|mp4|webm)\b|bilder/|\bFilm:|\bBild:", re.I)

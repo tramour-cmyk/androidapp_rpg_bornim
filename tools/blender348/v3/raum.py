@@ -667,19 +667,53 @@ def tisch(c, r):
     L = (c1 - c0 + 1) * TS - 14
     ms = masse('Table_Large')
     pm = Vector(((tx(c0) + tx(c1 + 1)) / 2, ty(r) - TS / 2, 0))
-    stelle(P, 'Table_Large', pm, 0, (L / ms.x, 84 / ms.y, 76 / ms.z), ton=(0.9, 0.85, 0.8))
+    # 757 (Chef 09.11., 14:29: der Tisch 7/2 „wirkt als 1:1-Kopie des Tischs vor der Theke, gleiche Sachen darauf“; beide Einzeltische
+    # zogen je Feld dieselbe Losnummer): das Gedeck gehoert dem Tisch, nicht dem Feld, drei Saetze wie alt table v % 3, im Raum der Reihe
+    # nach vergeben (bis drei Tische nie derselbe); jeder Satz mit eigener Platte (gescheuert hell, Leinenlaeufer, dunkel gebeizt)
+    tische = sorted({(rr, lauf_x(cc, rr, 'Y')[0]) for rr in range(NR) for cc in range(NC) if ch(cc, rr) == 'Y'})
+    satz = (tische.index((r, c0)) + sum(map(ord, ID))) % 3
+    stelle(P, 'Table_Large', pm, 0, (L / ms.x, 84 / ms.y, 76 / ms.z), ton=[(1.05, 1.0, 0.9), (0.9, 0.85, 0.8), (0.62, 0.55, 0.5)][satz])
     oben = 76.0
-    for cc in range(c0, c1 + 1):   # je Platz Geschirr; mal ein umgekippter Krug, Wuerfel und Muenzen (alt table)
+    KL = klein(P)
+    TON = lin(0x8a5a3a); BIER = lin(0x8a6a2a)
+    if satz == 1:   # Leinenlaeufer laengs ueber den Tisch, an den Enden ueberhaengend
+        box(P, (tx(c0) + 4, pm.y - 14, oben), (tx(c1 + 1) - 4, pm.y + 14, oben + 0.6), lambda q, n_: sc(lin(0xcfc3a4), 0.9 + 0.15 * vn(q.x / 12, q.y / 12, 5)), 'stoff')
+        for x in (tx(c0) + 4, tx(c1 + 1) - 4):
+            box(P, (x - 0.6, pm.y - 14, oben - 14), (x + 0.6, pm.y + 14, oben + 0.6), lin(0xc4b898), 'stoff')
+    for i, cc in enumerate(range(c0, c1 + 1)):
         p = Vector((tx(cc) + TS / 2, ty(r) - TS / 2, oben))
-        w = hsh(cc, r, 4) % 4
-        stelle(P, 'Table_Plate', p + Vector((-18, -16, 0)), 0, 0.75)
-        stelle(P, 'Table_Knife', p + Vector((-2, -16, 0)), 0, 0.75)
-        if w == 0: stelle(P, 'Mug', p + Vector((14, 10, 0)), 40); stelle(P, 'Bottle_1', p + Vector((26, -8, 0)), 0, 0.8)
-        elif w == 1: stelle(P, 'Mug', p + Vector((16, -6, 0)), 120); stelle(P, 'Coin_Pile', p + Vector((-10, 18, 0)), 10)
-        elif w == 2: stelle(P, 'Table_Plate', p + Vector((20, 14, 0)), 0, 0.75); stelle(P, 'Table_Spoon', p + Vector((32, 14, 0)), 0, 0.75)
-        else: stelle(P, 'Mug', p + Vector((10, 12, 0)), 200); stelle(P, 'Coin', p + Vector((-24, 14, 0)), 70)
-    f = leuchter(P, pm + Vector((0, 8, oben)), 0)
-    kerze_licht(pm + Vector((0, 0, oben + 18)), 1.7 if herd_naehe else 2.8, 0.62 if herd_naehe else 0.6, [f])   # Lauf 3: tiefer, Insel am Boden
+        sg = 1 if (hsh(cc, r, 4) + i) % 2 else -1   # lange Tische: Plaetze gespiegelt, nicht im Gleichtakt
+        if satz == 0:   # alt 0: Zinnkrug, Tonschale mit Eintopf und Loeffel
+            q = p + Vector((-12 * sg, -10, 0))
+            zylinder(KL, q, 8.0, 5.5, 14, TON, 'weiss', r2=11.0)
+            zylinder(KL, q + Vector((0, 0, 4.2)), 10.0, 0.6, 14, lin(0x5a3418), 'weiss')
+            stelle(P, 'Table_Spoon', q + Vector((6 * sg, 2, 5.5)), 30 * sg, 0.75)
+            stelle(P, 'Mug', p + Vector((18 * sg, 10, 0)), 40 + 90 * i)
+        elif satz == 1:   # alt 1: Brotlaib mit Messer, Teller und Gabel, ein umgekippter Krug in einer Bierlache
+            q = p + Vector((-14 * sg, 6, 0))
+            Mb = Matrix.Translation(q) @ Matrix.Diagonal((1.0, 1.0, 0.7, 1.0))
+            zylinder(KL, Vector((-11, 0, 6.5)), 6.5, 22, 12, lambda q_, n_: sc(lin(0xb07a40), 0.8 + 0.3 * vn(q_.x / 4, q_.z / 4, 2)), 'weiss', M=Mb, achse=Vector((1, 0, 0)))
+            zylinder(KL, q + Vector((14 * sg, -1, 0)), 5.5, 1.6, 10, lin(0xd8b880), 'weiss')   # eine Scheibe
+            stelle(P, 'Table_Knife', q + Vector((4 * sg, -14, 0.6)), 20 * sg, 0.75)
+            stelle(P, 'Table_Plate', p + Vector((16 * sg, -14, 0.6)), 0, 0.75)
+            stelle(P, 'Table_Fork', p + Vector((30 * sg, -14, 0.6)), 0, 0.75)
+            if i == 0:
+                k0 = p + Vector((22 * sg, 16, 0))
+                zylinder(KL, k0 + Vector((6, -4, 0)), 10.0, 0.3, 12, BIER, 'weiss')
+                zylinder(KL, k0 + Vector((-5, 0, 4.5)), 4.5, 11, 10, TON, 'weiss', achse=Vector((1, -0.3, 0)))
+        else:   # alt 2: zwei Kruege, Wuerfel und ein paar Muenzen
+            stelle(P, 'Mug', p + Vector((-20 * sg, -8, 0)), 70 + 60 * i)
+            stelle(P, 'Mug', p + Vector((22 * sg, 14, 0)), 200)
+            for k, (dx, dy, a) in enumerate(((-2, 4, 20), (5, -2, 55))):
+                Md = Matrix.Translation(p + Vector((dx * sg, dy, 0))) @ Matrix.Rotation(math.radians(a), 4, 'Z')
+                box(KL, (-1.3, -1.3, 0), (1.3, 1.3, 2.6), lin(0xd8ccb0), 'weiss', M=Md)
+            stelle(P, 'Coin_Pile', p + Vector((12 * sg, -16, 0)), 10)
+            stelle(P, 'Coin', p + Vector((-6 * sg, 18, 0)), 70)
+    if satz == 0:   # Kerze im Leuchter mitten auf dem Tisch
+        f = leuchter(P, pm + Vector((0, 8, oben)), 0)
+    else:   # Kerzenstumpf am Rand (alt 1, 2: Kerze ohne Halter)
+        f = stumpf(P, pm + Vector((-26 if satz == 1 else 28, 20, oben)), 9 if satz == 1 else 6)
+    kerze_licht(Vector((f.x, f.y, oben + 18)), 1.7 if herd_naehe else 2.8, 0.62 if herd_naehe else 0.6, [f])   # Lauf 3: tiefer, Insel am Boden
 
 def bank(c, r):
     c0, c1 = lauf_x(c, r, 'n')
@@ -960,13 +994,26 @@ for r in range(NR):
     for c in range(NC):
         z = ch(c, r)
         if z in MOEBEL: MOEBEL[z](c, r)
-if SCHENKE and ch(8, 4) == 'k':   # Borins Hocker und sein Hammer an der Tischkante (alt 55.2)
-    P = part('Ding_' + stueck(8, 4))
-    p = mitte(8, 4)
-    stelle(P, 'Stool', p + Vector((0, 4, 0)), 0, 0.9)
-    q0 = p + Vector((-44, -30, 0)); q1 = p + Vector((-52, -6, 70))
-    zylinder(P, q0, 2.5, (q1 - q0).length, 6, lambda p_, n_: sc(DUNKEL, 0.9), 'holz', achse=q1 - q0)
-    box(P, (q0.x - 10, q0.y - 7, 0), (q0.x + 10, q0.y + 7, 13), lin(0x4a4a4e), 'weiss')
+# 758 A (Chef 09.11., 20:45): wer in leute.json „sitzt“, bekommt auf seiner Kachel einen Hocker in seiner Sitzhoehe, zum Tisch vor ihm
+# geschoben, und einen Krug auf die Tischkante vor sich (alt MapFolk.kt 103 sits, 162-206 Krug); leute.gd setzt die Figur darauf
+LEUTE = json.load(open(ROOT + '/tools/blender348/v3/leute.json'))
+for n in K.get('leute', []):
+    st = LEUTE.get(n['id'], LEUTE.get(n.get('aussehen', ''), {})).get('sitzt')
+    if not st: continue
+    c, r = int(n['x']), int(n['y'])
+    d = {'LEFT': Vector((-1, 0, 0)), 'RIGHT': Vector((1, 0, 0)), 'UP': Vector((0, 1, 0)), 'DOWN': Vector((0, -1, 0))}[n.get('blick', 'DOWN')]
+    P = part('Ding_' + stueck(c, r))
+    p = mitte(c, r) + d * st.get('zum_tisch_cm', 0)
+    ms = masse('Stool')
+    stelle(P, 'Stool', p, 0, (0.9, 0.9, st['sitz_cm'] / ms.z))
+    tc, tr = c + int(d.x), r - int(d.y)
+    if ch(tc, tr) == 'Y':   # Krug auf der Platte, eine Handbreit hinter der Kante zu ihm
+        rand = mitte(tc, tr) - d * (TS / 2 - 7)
+        stelle(P, 'Mug', rand + d * 16 + Vector((-d.y, d.x, 0)) * 8 + Vector((0, 0, 76.0)), 200)
+    if n['id'] == 'borin':   # sein Hammer an der Tischkante (alt 55.2), neben dem Hocker zum Tisch hin
+        q0 = p + d * 30 + Vector((-d.y, d.x, 0)) * 30; q1 = p + d * 38 + Vector((-d.y, d.x, 0)) * 6 + Vector((0, 0, 70))
+        zylinder(P, q0, 2.5, (q1 - q0).length, 6, lambda p_, n_: sc(DUNKEL, 0.9), 'holz', achse=q1 - q0)
+        box(P, (q0.x - 10, q0.y - 7, 0), (q0.x + 10, q0.y + 7, 13), lin(0x4a4a4e), 'weiss')
 print('LICHTER', len(LICHTER), 'TEILE', len(PARTS), 'BAUSATZ', len(KITC))
 
 # ---------------------------------------------------------------- Netze, Ausgabe wie dorf.py

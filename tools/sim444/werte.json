@@ -38,7 +38,9 @@
     "ruestungsfertigkeit_im_abzug_je_punkt": 0.01,
     "glueckstreffer_anteil": 0.01,
     "kritisch_faktor": 1.5,
-    "kritisch_prozent_je_gewandtheit": 1,
+    "kritisch_je_punkt": 1,
+    "kritisch_fertigkeit_teiler": 50,
+    "_kritisch": "952 D (Chef 11.11., 20:03): kritisch in Prozent = zweiter Grundwert x Fertigkeit / 50, nie der Grundwert des Schadens; welcher Grundwert: 'kritisch' je Waffengruppe und Schule (null = nie kritisch)",
     "ausweichen_je_gewandtheit": 2,
     "fernkampf_treffer_je_wahrnehmung": 1,
     "parieren_anteil_waffenfertigkeit": 0.5,
@@ -65,7 +67,18 @@
     "_initiative": "Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos",
     "initiative_streuung": 100,
     "initiative_atemlos": 25,
-    "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)"
+    "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)",
+    "_ohne_grundwert": "1084 (1051 A, Chef 12.11., 22:18; DESIGN-BRS.md 3): Proben mit einer Fertigkeit ohne Grundwert (Ueberreden, Einschuechtern, Handeln, Tiere beruhigen), je Fertigkeit <name>_basis und <name>_je_punkt (Name klein, Umlaute als ae, oe, ue): Chance = basis + je_punkt x Fertigkeitswert + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; auf gleicher Stufe 30 / 44 / 59 / 74 / 90 % bei 0 / 24 / 49 / 74 / 100 Punkten; Uebung je Versuch, gelungen oder nicht. Einschuechtern: gegen die Stufe des Goblin-Spaehers (841, mars.gd); Ueberreden: gegen die Stufe der Figur aus ueberreden_stufe (Pim 1, Vorentscheid Sokrates 1084, 23:08), dazu minus <name>_gegen der Figur (1037, Pim 0; geschichte.gd probe_chance, Stufe dort noch nicht gerechnet); Tiere beruhigen: gegen die Stufe des Tiers, Ranggrenze wirtschaft tiere_beruhigen (sim.py, im Spiel noch nicht gebaut); Handeln: noch keine Probe im Spiel, die Preise rechnen mit welt handeln_je_punkt",
+    "einschuechtern_basis": 30,
+    "einschuechtern_je_punkt": 0.6,
+    "ueberreden_basis": 30,
+    "ueberreden_je_punkt": 0.6,
+    "tiere_beruhigen_basis": 30,
+    "tiere_beruhigen_je_punkt": 0.6,
+    "handeln_basis": 30,
+    "handeln_je_punkt": 0.6,
+    "ueberreden_gegen": {"Pim": 0},
+    "ueberreden_stufe": {"Pim": 1}
   },
 
   "gegenwirkung": {
@@ -103,30 +116,42 @@
     "bedarf_teiler": 5,
     "_bedarf": "Uebung fuer +1 Punkt = (Wert + 10) / 5: bei 10 sind es 4, bei 24 rund 7, bei 49 rund 12",
     "leicht_teiler": 5,
-    "leicht_min": 0.2,
+    "leicht_min": 0.1,
     "leicht_max": 1.5,
-    "_leicht": "Uebung x (1 + (Gegnerstufe - Heldenstufe) / 5), begrenzt 0,2 bis 1,5 ('zu leichte Ziele bringen kaum etwas')",
+    "_leicht": "Uebung x (1 + (Gegnerstufe - Heldenstufe) / 5), begrenzt 0,1 bis 1,5 (966 A, Chef 11.11., 15:58: „0,1 … die Belohnung sollte nicht so groß sein“) ('zu leichte Ziele bringen kaum etwas')",
     "puffer_uebung": 15,
     "_puffer": "an der Rangdecke werden bis zu 15 Uebung gemerkt",
     "probe_siege": 3,
+    "grundwert_punkte": 10,
+    "_grundwert_punkte": "644a F (Chef 12.11., 08:21): ein Grundwert steigt um 1 je so viele Punkte, die die Fertigkeiten an ihm seit dem Start gewonnen haben (in Kapitel 1 etwa einmal beim Hauptwert; Rechnung tools/sim444/stufe644a.py: Hauptfertigkeit bis Stufe 6 etwa +10). An einem Grundwert haengen die Waffengruppen und Schulen mit ihrem 'grundwert' (waffen, schulen), dazu grundwert_von; die uebrigen Fertigkeiten noch an keinem (offen, 644b)",
+    "grundwert_von": {},
     "_probe_siege": "Bewaehrungsprobe: 3 Siege gegen Gegner mindestens der eigenen Stufe, in denen die Fertigkeit benutzt wurde"
   },
 
   "waffen": {
     "_quelle": "N 4: Grundschaden und Grundwert; Klingen fuer Schleim-Widerstand A",
-    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "wucht"},
-    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "stich"},
-    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
-    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"},
-    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "wucht"},
-    "Bogen":        {"schaden": 6,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich"},
-    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "stich"},
-    "Armbrust":     {"schaden": 8,  "grundwert": null,          "art": "fern", "typ": "stich"},
-    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "schnitt"}
+    "Faustkampf":   {"schaden": 2,  "grundwert": "kraft",       "art": "nah",  "typ": "wucht", "kritisch": "gewandtheit"},
+    "Dolche":       {"schaden": 4,  "grundwert": "gewandtheit", "art": "nah",  "typ": "stich", "kritisch": "wahrnehmung"},
+    "Wurfwaffen":   {"schaden": 4,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich", "kritisch": "wahrnehmung"},
+    "Einhänder":    {"schaden": 6,  "grundwert": "kraft",       "art": "nah",  "typ": "schnitt", "kritisch": "gewandtheit"},
+    "Stumpfe Waffen": {"schaden": 6, "grundwert": "kraft",      "art": "nah",  "typ": "wucht", "kritisch": "gewandtheit"},
+    "Bogen":        {"schaden": 6,  "grundwert": "gewandtheit", "art": "fern", "typ": "stich", "kritisch": "wahrnehmung"},
+    "Stangenwaffen":{"schaden": 8,  "grundwert": "kraft",       "art": "nah",  "typ": "stich", "kritisch": "gewandtheit"},
+    "Armbrust":     {"schaden": 8,  "grundwert": null,          "art": "fern", "typ": "stich", "kritisch": "wahrnehmung"},
+    "Zweihänder":   {"schaden": 10, "grundwert": "kraft",       "art": "nah",  "typ": "schnitt", "kritisch": "gewandtheit"}
+  },
+
+  "schulen": {
+    "_quelle": "952 D (Chef 11.11., 20:03): Grundwert des Zauberschadens (Heilung: Wille) und des kritischen Treffers je Schule; Mana bleibt Wille",
+    "Evokation":   {"grundwert": "verstand", "kritisch": "wille"},
+    "Illusion":    {"grundwert": "verstand", "kritisch": "wille"},
+    "Beschwörung": {"grundwert": "verstand", "kritisch": "wille"},
+    "Heilmagie":   {"grundwert": "wille",    "kritisch": null},
+    "Schutzmagie": {"grundwert": "wille",    "kritisch": null}
   },
 
   "zauber": {
-    "_quelle": "N 4: Zauber wie Waffe, Grundwert Wille, Fertigkeit = Schule; Grundschaden, Kosten, Heilung A",
+    "_quelle": "N 4: Zauber wie Waffe, Grundwert nach der Schule (schulen, 952 D), Fertigkeit = Schule; Grundschaden, Kosten, Heilung A",
     "Funkenpfeil": {"schule": "Evokation", "schaden": 6, "kosten": 4, "art": "zauber", "typ": "feuer"},
     "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5,
                     "_heilung": "Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte"},
@@ -183,7 +208,7 @@
     },
     "Zauberlehrling": {
       "fertigkeiten": ["Evokation", "Schutzmagie"],
-      "plus": {"wille": 5, "verstand": 1}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1},
+      "plus": {"verstand": 3, "wille": 3}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1}, "_1066": "1050a A (Chef 12.11., 20:02): Verstand 3, Wille 3 statt Wille 5, Verstand 1",
       "waffe": "Stumpfe Waffen", "ruestung": "keine", "schild": false, "zauber": ["Bannschild", "Funkenpfeil"]
     },
     "Klosterschüler": {
@@ -197,7 +222,7 @@
       "waffe": "Dolche", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
     },
     "Schmiedelehrling": {
-      "fertigkeiten": ["Schmieden", "Bergbau"],
+      "fertigkeiten": ["Schmieden", "Bergbau", "Stumpfe Waffen"], "_959": "461c (3), DESIGN-BRS 2: Stumpfe Waffen gehoert zur Herkunft",
       "plus": {"kraft": 3, "zaehigkeit": 1, "verstand": 2}, "plus_variante": {"zaehigkeit": 2, "gewandtheit": 1},
       "waffe": "Stumpfe Waffen", "ruestung": "Leichte Rüstung", "schild": false, "zauber": []
     },
@@ -261,8 +286,8 @@
     "_dorf": "A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen",
 
     "preise": {
-      "_quelle": "Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A",
-      "Heiltrank": 25, "Großer Heiltrank": 75, "Alchemistenfeuer": 30, "Weihwasser": 25,
+      "_quelle": "Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A; Verband 1037 A",
+      "Heiltrank": 25, "Großer Heiltrank": 75, "Verband": 8, "Alchemistenfeuer": 30, "Weihwasser": 25,
       "Fleisch": 6, "Wolfsfell": 24, "Hauer": 20, "Spinnendrüse": 30, "Fledermausflügel": 16,
       "Fell klein": 8, "Zähne": 10, "Schwarte": 12, "Giftdrüse": 20, "Panzerplatten": 10,
       "Spinnseide": 20, "Knochen": 4, "Säure": 20
@@ -304,12 +329,8 @@
     },
 
     "tiere_beruhigen": {
-      "_quelle": "N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere. Zahlen A: Chance wie Trefferchance mit Basis 50 gegen die Wachsamkeit des Tiers; misslingt es, schlaegt das Tier zuerst",
+      "_quelle": "N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere; misslingt es, schlaegt das Tier zuerst. Chance wie alle Proben ohne Grundwert (proben tiere_beruhigen_basis, 1084, 1051 A; vorher 50 + 0,5 je Punkt gegen die Wachsamkeit des Tiers)",
       "arten": ["Riesenratte", "Wolf", "Wildschwein", "Riesenfledermaus"],
-      "chance_basis": 50,
-      "chance_je_punkt": 0.5,
-      "chance_min": 5,
-      "chance_max": 95,
       "rang_bis_tierstufe": [[24, 2], [49, 4]],
       "_rang": "Anfaenger (bis 24) beruhigt Tiere bis Stufe 2, Geselle (bis 49) bis Stufe 4"
     },
@@ -353,8 +374,7 @@
 
     "traenke": {
       "_quelle": "Wirkung im BRS ohne Zahl (A); alt heilt der Heiltrank 2W4+2, der grosse 4W4+4; Preis alt",
-      "Heiltrank": {"heilung": 12},
-      "Großer Heiltrank": {"heilung": 30},
+      "_heilung": "923: Heilung der Heiltraenke nur in welt.heilung (potion, greater_potion), wie im Spiel",
       "trinken_unter": 0.35,
       "_trinken": "A: Held trinkt statt anzugreifen, wenn Leben unter 35 % (erst den kleinen, dann den grossen)",
       "vorrat_ziel": 3,
@@ -379,8 +399,8 @@
     "punkte": 21,
     "_punkte": "E 77: jeder Grundwert beginnt bei 1, 21 Punkte, danach jeder zwischen 3 und 8 (12 gebunden, 9 frei)",
     "volk_max": 9,
-    "volk_min": 3,
-    "_volk": "E 78: das Volk hebt bis 9, senkt nie unter 3",
+    "volk_min": 2,
+    "_volk": "E 78: das Volk hebt bis 9; 933 A (Chef 11.11., 13:07): senkt bis 2 (vorher nie unter 3)",
     "wanderer_fertigkeiten": 2,
     "voelker": {
       "Mensch": {"plus": {}, "frei": 1, "fertigkeit_extra": 1, "merkmal": "Wandelbar"},
@@ -401,8 +421,39 @@
       "Meisterschaften": ["Schmieden", "Lederarbeit", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
       "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
     },
-    "nicht_waehlbar": ["Bergbau"]
+    "nicht_waehlbar": ["Bergbau", "Illusion", "Beschwörung"],
+    "_nicht_waehlbar": "984.1 (Chef 11.11., 20:12 „984 A“): Illusion und Beschwörung in Kapitel 1 nicht zur Wahl wie Bergbau (461c)",
+    "verborgen": ["Bergbau"],
+    "_verborgen": "461c: Bergbau zeigt sich erst ab Kapitel 2; die übrigen nicht wählbaren stehen bei der Erschaffung matt da (984.1, Fund t278.38)"
   },
+  "absichten": {
+    "_quelle": "1049 (Sokrates 12.11.): was jede Art im MARS ansagt, als Tabelle statt Zweigen in mars.gd _pick_intent; je Eintrag [Absicht, Anzahl im Los, Bedingung]; gewuerfelt nur bei mehr als einer Absicht; Stand gleich dem Code vor 1049 (Test absicht_1049); Namen neuer Absichten von Homer (1057)",
+    "_bedingungen": "rudel: zwei Woelfe stehen, keiner kreist schon, der Held hat gewaehlt, angreifbar; reihe: ein Gegner deckt einen anderen; nicht_versteckt: der Spaeher steht nicht im Schatten; ruf: Grak hat noch keinen gerufen und es ist ein Platz frei; halbes_leben: unter der Haelfte des Lebens",
+    "je_art": {
+      "giant_rat": [["bite", 1]],
+      "giant_bat": [["bite", 1]],
+      "ghoul": [["bite", 1]],
+      "zombie": [["claw", 1]],
+      "wolf": [["pounce", 2], ["circle", 1, "rudel"]],
+      "dire_wolf": "wolf",
+      "giant_spider": [["venom", 1], ["web", 1]],
+      "goblin_archer": [["aim", 1], ["aim", 1, "nicht_versteckt"], ["shadow", 1, "nicht_versteckt"]],
+      "goblin": [["slash", 2], ["flank", 1, "reihe"]],
+      "goblin_shaman": "goblin",
+      "hobgoblin_captain": [["heavy", 2], ["breakthrough", 1, "reihe"], ["call", 1, "ruf"], ["gather", 1, "halbes_leben"]],
+      "_sonst": [["stab", 1]]
+    }
+  },
+  "rast_1046": {
+    "_quelle": "1046 (1038 A, R1, Chef 12.11., 16:24): Simulation, ob Kapitel 1 ohne Grinden durchspielbar bleibt, wenn die Kurze Erholung kein Leben mehr gibt. Zahlen der Rast aus godot/skripte/rast.gd (KURZ_MIN, LANG_MIN, ZIMMER_PREIS, kurz_heilung alt = Viertel aufgerundet) und spiel.gd (Niederlage: Leben und Mana voll, 4 Stunden); Verhalten des Spielers A",
+    "kurz_minuten": 120, "lang_minuten": 540, "niederlage_minuten": 240, "zimmer_preis": 5,
+    "start_minuten": 480, "_start": "Spielbeginn 8 Uhr am Tag 1; Langes Ausruhen geht einmal je Spieltag (rast.gd lange_erlaubt), am Feuer frei, im Zimmer 5 Gold",
+    "kaempfe_je_tag": [4, 8, 12], "_je_tag": "A: Kaempfe je Spieltag (eine Spielminute je Sekunde auf der Karte, zustand.gd uhr: ein Tag sind 24 Minuten Spiel); jede Zahl ein eigener Fall",
+    "heilen_unter": 0.5, "_heilen": "A: vor einem Kampf heilt der Held, wenn Leben oder Mana unter der Haelfte: R1 erst Verband, dann Braten, dann Langes Ausruhen, wenn heute noch nicht; alt Kurze Erholungen bis Leben voll",
+    "verband_vorrat": 3, "_verband": "A: im Dorf nach den Heiltraenken Verbaende bis 3 im Beutel (Preis wirtschaft preise Verband, Wirkung welt verband)",
+    "fleisch_essen": true, "_fleisch": "A: das erste Teil von Ratte, Wolf, Wildschwein ist Fleisch; der Held behaelt es als Braten (heilt welt heilung roast_meat) statt es zu verkaufen; der Erloes von 1 bis 2 Gold je Stueck bleibt in der Rechnung"
+  },
+
   "kampftraenke": {
     "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; seit 876 (857a A, Chef 10.11.) nach Alchemie; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",
     "wirkung_grund": 0.5,
@@ -432,6 +483,8 @@
     "_quelle": "870.4 (Tom 11.11., LISTE-UMZUG-BRS.md Schritt 4): die Welt nach dem BRS statt nach dem SRD (Heldwerte entfallen). Alle Zahlen A als Uebergang, so gewaehlt, dass sich wenig aendert (Leben nach BRS sind auf Stufe 1 etwa doppelt so gross wie die alten TP); Vorentscheid Sokrates erbeten (783 W5), Messung 444, Vorlage an den Chef vor B1",
     "heilung": {"potion": 14, "greater_potion": 28, "superior_potion": 56, "remedy": 5, "roast_meat": 14},
     "_heilung": "A: Leben fest statt Wuerfel, je das Doppelte des alten Mittels (Heiltrank alt 2W4+2 = 7); gilt in der Welt und im Kampf",
+    "verband": {"grund": 5, "je_heilkunde": 0.2, "uebung": 1},
+    "_verband": "1037 (807 A, Verband aus der Tasche nur ausserhalb des Kampfs; vorlaeufig A, Jerry, Vorentscheid Sokrates): heilt grund + je_heilkunde x Heilkunde Leben, gerundet (ohne Heilkunde 5, Startwert 10 = 7, Decke Kapitel 1 24 = 10, Geselle 49 = 15, Grossmeister 100 = 25; Heiltrank 14 fuer 25 Gold); Uebung je Anlegen, nur wenn Leben fehlen; Preis wirtschaft preise Verband",
     "essen_je_kochen": 0.2,
     "_essen": "A: eine Mahlzeit heilt dazu 0,2 Leben je Punkt Kochen (alt: Modifikator Konstitution)",
     "ausdauer": {"sekunden": 6, "je_punkt": 0.5, "mitte": 10, "je_zwei_stufen": 1, "min": 2, "schwer_kraft": 7},
@@ -443,14 +496,14 @@
     "kraut_je_kraeutersammeln": 0.01,
     "kraut_je_wahrnehmung": 0.05,
     "kraut_wahrnehmung_ab": 3,
-    "_kraut": "A: Chance auf ein Kraut mehr: 1 % je Punkt Kraeutersammeln (875) und 5 % je Punkt Wahrnehmung ueber 3 (alt 15 % je Punkt Mod(WEI))",
+    "_kraut": "A: Chance auf ein Kraut mehr: 1 % je Punkt Kraeutersammeln (875) und 5 % je Punkt Wahrnehmung ueber 3, darunter 5 % weniger (933: Volk senkt bis 2; alt 15 % je Punkt Mod(WEI))",
     "bemerken_felder": 4,
     "bemerken_je_gewandtheit": 0.2,
     "bemerken_min": 2,
     "hinterhalt_je_wahrnehmung": 0.075,
     "hinterhalt_min": 0.4,
     "sinne_ab": 3,
-    "_sinne": "A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 % (alt 15 % je Punkt Mod(WEI))",
+    "_sinne": "A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 %; unter sinne_ab (Volk senkt bis 2, 933) je Punkt 7,5 % haeufiger, Bemerken bleibt durch das Abrunden gleich (alt 15 % je Punkt Mod(WEI))",
     "wissen_verstand_ab": 6,
     "_wissen": "870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12)",
     "leiden_zaehigkeit_ab": 5,
@@ -515,15 +568,24 @@
       "INT": {"wert": 1, "grundwert": "verstand"},
       "WIS": {"wert": 1, "grundwert": "wahrnehmung"},
       "CHA": {"wert": 1, "grundwert": "wille"},
-      "AC": {"wert": 1, "wert2_ab_stufe": 4},
-      "HP": {"wert": 5},
-      "SP": {"wert": 5},
-      "CRIT": {"wert": 3, "prozent": true},
-      "SPELL": {"wert": 10, "prozent": true},
-      "TENACITY": {"wert": 5, "prozent": true},
+      "AC": {"wert": 1, "je_schritt": true},
+      "HP": {"spanne": [4, 6]},
+      "SP": {"spanne": [4, 6]},
+      "CRIT": {"spanne": [2, 4], "prozent": true},
+      "SPELL": {"spanne": [8, 12], "prozent": true},
+      "TENACITY": {"spanne": [4, 6], "prozent": true},
       "SKILL": {"wert": 1, "wert2_ab_stufe": 6, "ab_seltenheit": "EPIC"}
     },
     "_zusatz": "N 11 (870a 6 A): Grundwert +1, Schutzwert +1 oder +2 (+2 ab Gegenstandsstufe 4, A), Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %, Fertigkeit +1 oder +2 nur ab episch (644 C1; +2 ab Gegenstandsstufe 6, A). Kennungen bleiben aus der alten Fassung (Spielstand, Namen der Stuecke): AC Schutzwert, HP Leben, SP Mana, SPELL Zauberschaden, TENACITY Abwehrprobe, SKILL Fertigkeit (dritter Eintrag im Wurf: welche)",
+    "zusatz_schritt_stufen": 3,
+    "_spanne": "644a A mit Spanne (Chef 12.11., 08:21; DESIGN-BRS.md 11 'Gegenstandsstufe'): die Gegenstandsstufe hebt die Zusatzeigenschaften in Schritten von zusatz_schritt_stufen Stufen (1-3 einmal, 4-6 doppelt, 7-9 dreifach ...); 'spanne' [von, bis] mal Schritt, beim Fund gewuerfelt, am Stueck steht die Zahl, die wirkt; Schutzwert 'wert' mal Schritt; Grundwert je Stueck immer +1; Fertigkeit (episch) +1, ab Stufe 6 +2. Rechnung tools/sim444/stufe644a.py",
+    "zusatz_gewicht": 2,
+    "grundwert_gewicht": 0.5,
+    "_zusatz_gewicht": "644a D: beim Fund wuerfeln Grundwerte als Zusatzeigenschaft mit halbem Gewicht (zusatz_gewicht x grundwert_gewicht) gegenueber den uebrigen (zusatz_gewicht)",
+    "beute_stufe_ueber_held": 1,
+    "_beute_stufe": "644a A: Beute eines Kampfs in der Stufe des staerksten Gegners, hoechstens Heldenstufe + beute_stufe_ueber_held (beute.gd beute_stufe); Gaben ebenso (beute.gd gabe_stufe)",
+    "laden_grundwert_ab_kapitel": 2,
+    "_laden_grundwert_ab_kapitel": "644a D (N 11 'Kein Deckel'): Haendler verkaufen erst ab diesem Kapitel Stuecke mit einem Grundwert als Zusatzeigenschaft (beute.gd laden_ohne_grundwert)",
     "deckel": {"STR": [1, 0], "DEX": [1, 0], "CON": [1, 0], "INT": [1, 0], "WIS": [1, 0], "CHA": [1, 0], "AC": [1, 1]},
     "_deckel": "A: was alle getragenen Stuecke zusammen hoechstens geben: [je Kapitel, plus] (alt Rules.gearCap: Grundwerte Kapitel, Schutzwert Kapitel); die uebrigen ohne Deckel",
     "erlaubt": {
@@ -562,20 +624,20 @@
     "_fertigkeit_grund": "A (870a 6, kein Klassenfilter): Beute nach den Fertigkeiten des Helden gewichtet: Gewicht je Grundform = fertigkeit_grund + Wert der Fertigkeit, die sie braucht (Waffengruppe, Ruestung, Schild); ohne Fertigkeit fertigkeit_grund + fertigkeit_grund"
   },
   "monsterregeln": {
-    "_quelle": "870.6 (LISTE-UMZUG-BRS.md 3: tabellen.json geloescht): was das Spiel je Kennung ausser den Werten (monster) braucht: Sonderregel im Kampf (MARS), Schadensart des Angriffs (Schnitt blutet, Wucht betaeubt bei kritisch), Gift im Verhaeltnis zum ueblichen (alt 1W4 gegen 1W6), immun gegen Zustaende, Gold nur, wo 'wirtschaft' 'beute' keins nennt (Bosse; Wurf gleichverteilt min bis max), Beute als Kennung der Dinge mit Chance (alt Monsters.kt; Spinnseide 870.6, A). Tierteile bleiben Beute, bis es Zerlegen im Spiel gibt",
+    "_quelle": "870.6 (LISTE-UMZUG-BRS.md 3: tabellen.json geloescht): was das Spiel je Kennung ausser den Werten (monster) braucht: Sonderregel im Kampf (MARS), Schadensart des Angriffs (Schnitt blutet, Wucht betaeubt bei kritisch), Gift im Verhaeltnis zum ueblichen (alt 1W4 gegen 1W6), immun gegen Zustaende, Gold nur, wo 'wirtschaft' 'beute' keins nennt (Bosse; Wurf gleichverteilt min bis max), Beute als Kennung der Dinge mit Chance (alt Monsters.kt; Spinnseide 870.6, A). Tierteile bleiben Beute, bis es Zerlegen im Spiel gibt; 'einzelstueck' [[Kennung, Chance]]: Einzelstueck dieser Gegnerart als Beute (633, alt Monsters.kt loot; beute.gd kampfbeute)",
     "wolf":             {"sonder": "KNOCKDOWN", "typ": "stich", "beute": [["potion", 0.12], ["raw_meat", 0.6], ["wolf_pelt", 0.45]]},
-    "hobgoblin_captain": {"sonder": "MARTIAL_ADVANTAGE", "typ": "schnitt", "gold": [8, 80], "beute": [["sun_amulet", 1.0], ["prophet_letter", 1.0], ["grak_key", 1.0]]},
+    "hobgoblin_captain": {"sonder": "MARTIAL_ADVANTAGE", "typ": "schnitt", "gold": [8, 80], "beute": [["sun_amulet", 1.0], ["prophet_letter", 1.0], ["grak_key", 1.0]], "einzelstueck": [["greataxe_grak", 1.0]]},
     "goblin":           {"sonder": "NONE", "typ": "schnitt", "beute": [["potion", 0.15], ["alchemist_fire", 0.06]]},
     "goblin_archer":    {"sonder": "NONE", "typ": "stich", "beute": [["potion", 0.15], ["alchemist_fire", 0.05]]},
-    "giant_spider":     {"sonder": "POISON", "typ": "stich", "gift": 1.0, "beute": [["greater_potion", 0.15], ["spider_gland", 0.6], ["spider_silk", 0.5]]},
-    "dire_wolf":        {"sonder": "KNOCKDOWN", "typ": "stich", "gold": [4, 40], "beute": [["greater_potion", 0.5], ["wolf_pelt", 1.0], ["raw_meat", 1.0]]},
+    "giant_spider":     {"sonder": "POISON", "typ": "stich", "gift": 1.0, "beute": [["greater_potion", 0.15], ["spider_gland", 0.6], ["spider_silk", 0.5]], "einzelstueck": [["cloak_protection", 0.03]]},
+    "dire_wolf":        {"sonder": "KNOCKDOWN", "typ": "stich", "gold": [4, 40], "beute": [["greater_potion", 0.5], ["wolf_pelt", 1.0], ["raw_meat", 1.0]], "einzelstueck": [["amulet_grimfang", 1.0]]},
     "giant_rat":        {"sonder": "NONE", "typ": "stich", "beute": [["potion", 0.08], ["raw_meat", 0.3]]},
     "giant_bat":        {"sonder": "EVASIVE", "typ": "stich", "beute": [["potion", 0.1], ["bat_wing", 0.6]]},
     "kobold":           {"sonder": "PACK_TACTICS", "typ": "stich", "beute": [["potion", 0.12], ["alchemist_fire", 0.04]]},
     "goblin_shaman":    {"sonder": "SHAMAN", "typ": "wucht", "beute": [["potion", 0.25], ["greater_potion", 0.06]]},
     "boar":             {"sonder": "CHARGE", "typ": "schnitt", "beute": [["potion", 0.08], ["raw_meat", 0.8], ["boar_tusk", 0.5]]},
     "giant_centipede":  {"sonder": "POISON", "typ": "stich", "gift": 0.71, "beute": [["potion", 0.1]]},
-    "bugbear":          {"sonder": "SURPRISE_ATTACK", "typ": "stich", "gold": [4, 40], "beute": [["rusty_key", 1.0]]},
+    "bugbear":          {"sonder": "SURPRISE_ATTACK", "typ": "stich", "gold": [4, 40], "beute": [["rusty_key", 1.0]], "einzelstueck": [["gauntlets_ogre", 1.0]]},
     "stirge":           {"sonder": "BLOOD_DRAIN", "typ": "stich", "beute": [["potion", 0.06]]},
     "ochre_jelly":      {"sonder": "ACID", "typ": "wucht", "immun": ["BLEED", "STUN", "BLIND"], "beute": [["greater_potion", 0.2]]},
     "skeleton":         {"sonder": "NONE", "typ": "stich", "immun": ["POISON", "BLEED"], "beute": [["potion", 0.08], ["holy_water", 0.04]]},

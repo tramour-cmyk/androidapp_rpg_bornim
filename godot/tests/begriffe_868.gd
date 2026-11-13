@@ -44,7 +44,7 @@ func _lauf() -> void:
 		var r := RegEx.new()
 		r.compile(ALT[k])
 		muster[k] = r
-	var tables: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tables: Dictionary = Tabellen.lade()     # 870.3: tabellen.json ist weg, die Kampftabellen kommen aus Tabellen (werte.json)
 	var skills := {}
 	for s in tables.skills:
 		skills[s.id] = s

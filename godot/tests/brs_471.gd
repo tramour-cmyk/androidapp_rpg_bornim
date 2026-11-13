@@ -22,7 +22,7 @@ func _lauf() -> void:
 	pruefe("Bedarf bei 10", BrsFertigkeit.bedarf(10), 4.0)
 	pruefe("Bedarf bei 49", BrsFertigkeit.bedarf(49), 11.8)
 	pruefe("Faktor gleich", BrsFertigkeit.faktor(3, 3), 1.0)
-	pruefe("Faktor zu leicht", BrsFertigkeit.faktor(1, 6), 0.2)
+	pruefe("Faktor zu leicht", BrsFertigkeit.faktor(1, 6), 0.1)     # 971 (966 A): höchstens ein Zehntel
 	pruefe("Faktor schwer", BrsFertigkeit.faktor(9, 1), 1.5)
 	pruefe("Raenge", [0, 24, 25, 49, 50, 74, 75, 100].map(func(x): return BrsFertigkeit.rang(x)), [0, 0, 1, 1, 2, 2, 3, 3])
 	# Folge wie sim.py (gegen471)

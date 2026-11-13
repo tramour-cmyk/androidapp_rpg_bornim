@@ -6,7 +6,7 @@ extends VBoxContainer
 # oeffnet ein bekannter Ort seine Karte (keine Reise). Zeichen erinnern, fuehren nie (MapMarks): Antippen nennt sie; drei
 # Schalter Auftraege, Leute, Dienste (62f). Schilder ueber den Tueren bekannter Haeuser (62n, MapLook.labels 2).
 # Die Blaetter zeichnet core im Bau (MapSheetExport.kt, daten/kartenblatt.json, karte-<id>.bild, land-<wald><tiefer>.bild).
-# Noch nicht wie alt: Wald und Hoehle als Blatt mit Nebel (62c) samt Lagerfeuern, solange der Held sie in Godot nicht begeht;
+# 505: der Wald als Blatt mit Nebel (62c, nur Erkundetes); noch nicht wie alt: die Hoehle (492), Lagerfeuer;
 # Ziele der Nebenauftraege in Hoehle und Wald (MapMarks.goal); Gewohnheiten der Leute (MapPeople.seenAt).
 
 const DP := AktionsKnopf.DP
@@ -46,7 +46,7 @@ static func bild(name: String) -> Texture2D:
 		_bilder[name] = ImageTexture.create_from_image(img) if not roh.is_empty() and img.load_png_from_buffer(roh) == OK else null
 	return _bilder[name]
 
-# 62g: Handschrift der Ortsnamen auf der Landkarte (Fondamento, OFL; im Bau aus app/src/main/res/font kopiert)
+# 62g: Handschrift der Ortsnamen auf der Landkarte (Fondamento, OFL; daten/fondamento.ttf, eingecheckt, 870.9)
 static func hand() -> Font:
 	if _hand == null:
 		var roh := FileAccess.get_file_as_bytes("res://daten/fondamento.ttf")
@@ -54,6 +54,34 @@ static func hand() -> Font:
 		_hand = FontFile.new()
 		_hand.data = roh
 	return _hand
+
+## 505 (62c, MapInk.render): ein Wald zeigt nur, was der Held gesehen hat (Nebel.lade: Zustand.erkundet je Kachel), der Rest
+## leeres Pergament (karte-<id>-leer.bild), die Kante ausgefranst (karte-<id>-rand.bild); Mischung im Shader
+static func nebelblatt(z_: Zustand, id: String, k: Dictionary, voll: Texture2D) -> TextureRect:
+	var leer := bild("karte-%s-leer" % id)
+	var rand := bild("karte-%s-rand" % id)
+	if leer == null or rand == null: return null
+	var w := int(k["breite"]); var h := int(k["hoehe"])
+	var ek := Nebel.lade(z_, id, w * h)
+	var maske := Image.create(w, h, false, Image.FORMAT_L8)
+	for i in w * h:
+		if ek[i] == 1: maske.set_pixel(i % w, i / w, Color(1, 1, 1))
+	var m := ShaderMaterial.new()
+	m.shader = load("res://shader/kartennebel.gdshader")
+	m.set_shader_parameter("leer", leer)
+	m.set_shader_parameter("rand", rand)
+	m.set_shader_parameter("bekannt", ImageTexture.create_from_image(maske))
+	m.set_shader_parameter("kacheln", Vector2(w, h))
+	m.set_shader_parameter("kachel", float(blatt().get("kachel", 8)))
+	m.set_shader_parameter("rahmen", float(blatt().get("rand", 10)))
+	var t := TextureRect.new()
+	t.texture = voll
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_SCALE
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	t.material = m
+	t.set_meta("maske", maske)   # für den Test ohne Bild (kartennebel_505)
+	return t
 
 static func wort(k: String) -> String: return Sprache.t(blatt().get("worte", {}).get(k, k))
 
@@ -111,8 +139,8 @@ func baue() -> void:
 		add_child(reihe)
 		for g in [["QUESTS", "auftraege"], ["PEOPLE", "leute"], ["SERVICES", "dienste"]]:
 			var gruppe: String = g[0]
-			var s := Stil.knopf(wort(g[1]), func(): schalter[gruppe] = not schalter[gruppe]; baue(), schalter[gruppe])
-			s.custom_minimum_size = Vector2(0, 34 * DP)
+			# 860 (Chef 10.11., 13:07, t274.10; 549a): Filter ohne Kasten, an hell auf RAISED, aus gedämpftes Gold
+			var s := Spielstaende.wahl(wort(g[1]), func(): schalter[gruppe] = not schalter[gruppe]; baue(), schalter[gruppe], 40.0)
 			reihe.add_child(s)
 	var rahmen := Control.new()
 	rahmen.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -375,11 +403,13 @@ class Kartenblatt extends Flaeche:
 	var marken: Array
 	var haus: Array
 	var anfang := true
+	var unten: TextureRect     # 505: Wald mit Nebel (62c): das Blatt darunter, gemischt nach dem Erkundeten (kartennebel.gdshader)
 
 	func _init(r: Kartenreiter) -> void:
 		super(r)
 		k = r.karte_daten()
 		tex = Kartenreiter.bild("karte-" + r.gezeigt)
+		if tex and k.get("nebel", false): unten = Kartenreiter.nebelblatt(r.z, r.gezeigt, k, tex)
 		var b: Dictionary = Kartenreiter.blatt()
 		if tex: fein = tex.get_width() / float(int(k["breite"]) * int(b["kachel"]) + 2 * int(b["rand"]))
 		hier = r.gezeigt == String(r.ort.get("karte", ""))
@@ -412,9 +442,18 @@ class Kartenblatt extends Flaeche:
 	func cy(ty: int) -> float: return cx(ty)
 	func an(x: int, y: int) -> Vector2: return versatz + Vector2(cx(x), cy(y)) * mass
 
+	func _ready() -> void:
+		if unten:   # unter der Fläche, damit Zeichen und Held darüber liegen
+			get_parent().add_child(unten)
+			get_parent().move_child(unten, 0)
+
 	func _draw() -> void:
 		if tex == null: return
-		draw_texture_rect(tex, Rect2(versatz, tex.get_size() * mass), false)
+		if unten:
+			unten.position = position + versatz
+			unten.size = tex.get_size() * mass
+		else:
+			draw_texture_rect(tex, Rect2(versatz, tex.get_size() * mass), false)
 		for h in haus: Kartenreiter.zeichne_schild(self, String(h["name"]["de"]), an(int(h["x"]), int(h["y"]) - 2), 9 * Kartenreiter.DP)
 		for m in marken:
 			var c := an(int(m["x"]), int(m["y"]))

@@ -21,7 +21,7 @@ static func brau_chance(hw: BrsHeld) -> float: return float(_wl().get("brauen_je
 static func kraut_chance(hw: BrsHeld) -> float:
 	var wl := _wl()
 	return float(wl.get("kraut_je_kraeutersammeln", 0.01)) * hw.fertigkeit("Kräutersammeln") \
-		+ float(wl.get("kraut_je_wahrnehmung", 0.05)) * maxi(0, hw.wert("wahrnehmung") - int(wl.get("kraut_wahrnehmung_ab", 3)))
+		+ float(wl.get("kraut_je_wahrnehmung", 0.05)) * (hw.wert("wahrnehmung") - int(wl.get("kraut_wahrnehmung_ab", 3)))     # 933: eine 2 zaehlt mit
 ## Leben dazu aus einer Mahlzeit (Kochen)
 static func essen_bonus(hw: BrsHeld) -> int: return roundi(float(_wl().get("essen_je_kochen", 0.2)) * hw.fertigkeit("Kochen"))
 # Ueberschriften wie ShopScreen.kt (dort ohne eigenen Namen)
@@ -54,6 +54,7 @@ static func gewoehnliche_text(n: int) -> String:
 
 var waren: Array = []                  # Kennungen der Dinge im Angebot (Story.shopStock, HERBALIST_STOCK)
 var brauen := false                    # Morwen braut (Mode.Shop.brewing)
+var nur_vorraete := false              # 842: nur Vorraete kaufen, keine Ausruestung, kein Verkauf (Osric, Verband)
 var rueckkauf: Array = []              # {ding, anzahl, preis}, neueste zuerst (Game.buyback)
 
 func _init(waren_: Array = [], brauen_: bool = false) -> void:

@@ -67,7 +67,7 @@ static func blut_stufe() -> int:
 ## so lang; Ruhig 1,35, Normal 1, Schnell 0,7
 static func tempo_faktor() -> float:
 	lade()
-	return [1.35, 1.0, 0.7][tempo]
+	return [1.35, 1.0, 0.7, 0.25][clampi(tempo, 0, 3)]     # 1020.2 C: „sehr schnell“ nur im Testmodus (Testmodus, Kampfort), nie gespeichert
 
 static func ring_dp() -> float:
 	lade()

@@ -19,7 +19,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
 - [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26). · Stand: in Arbeit
-- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. · Stand: im Umzug BRS (870)
+- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. Umzug BRS (870): Held, Kampf, Beute mit Build 277 auf `main`, Laden (870.7) und Kotlin-Ausstieg (870.9) mit Build 280 (12.11.); Behebungen der Kampf-Funde aus t280 in Build 281. · Stand: in Arbeit
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 - [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
@@ -38,7 +38,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
   - [x] Zum Schlafenden Greif (Schänke) · [x] Thessas Kramladen · [x] Haus des Ältesten · [x] Tempel des Morgenlichts: Haken 720 (Chef 09.11., 14:49)
-  - [ ] **Blutzahnhöhle:** fehlt im Build (492 seit 08.11. wieder in Arbeit; neu nach Signatur)
+  - [ ] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492 passt, Vorentscheid 13.11., 03:33; 505), wartet auf den Test des Chefs
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
   - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
@@ -53,7 +53,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 
 **Stufe 3 · Alle Systeme angelegt** (447 „mit K2b“, Chef 01.11.: „alle Elemente grundsätzlich drin … die Anlagen sollen schon erkennbar sein“; je System ein kleiner, ganzer Kreislauf mit spürbarer Wirkung, kein leerer Knopf. Prüfung: je Punkt ein Spieltest „merkt man, was das kann?“; 444 rechnet Gold, Reparatur und Tränke mit)
 - [ ] **3.1** G · Pfad und Lehrmeister: Einladung, Anwärter, Hinweise und Aufgaben des Lehrmeisters, Bewährungsprobe zum Gesellen je Pfad, den Kapitel 1 trägt (Jorin Wächter, Osric Heiler und Paladin, Garrick Waldläufer und Scharfschütze, Thessa Schatzjäger, Morwen Magier und Kriegsmagier; NW 5, E 79, Archiv 447.4a); Zwischenprüfung ab Kapitel 2 (447.5).
-- [ ] **3.2** G · Meisterschaften: Einladung zu dreien (Alchemist Morwen, Lederarbeit Garrick, Feldkoch Rowena); Schmied und Runenmeister laden ab Kapitel 2 ein, Schmieden und Runenkunde üben und benutzen geht in Kapitel 1 (Archiv 447.4a); Alchemie (Kräuter → Heiltrank) und Schmieden (Reparatur, Dietrich) ganz, Leder, Runen, Kochen je ein Rezept (NW 6; Texte der Einladungen Homer).
+- [ ] **3.2** G · Meisterschaften: Einladung zu dreien (Alchemist Morwen, Schneider Garrick, Feldkoch Rowena; 975a); Schmied und Runenmeister laden ab Kapitel 2 ein, Schmieden und Runenkunde üben und benutzen geht in Kapitel 1 (Archiv 447.4a); Alchemie (Kräuter → Heiltrank) und Schmieden (Reparatur, Dietrich) ganz, Schneidern, Runen, Kochen je ein Rezept (NW 6; Texte der Einladungen Homer).
 - [ ] **3.3** G · Ruf bei den Leuten im Dorf; Wirkung sichtbar: Preis bei Borin und Händler, eine Auskunft mehr (NW 9; Ruf-Gespräche Homer).
 - [ ] **3.4** G · Herstellen und Sammeln: Kräuter, Fisch, Jagd mit Zerlegen; Rezepte am Lagerfeuer und an Werkorten im Dorf; kein Bergbau (Chef 01.11., 11:55: „Erze brauchen wir doch noch gar nicht“), Erz für Schmieden und Runen nur kaufen oder finden (NW 10).
 - [ ] **3.5** G · Abnutzung und Reparatur: Zustand, Borin repariert, „Alles reparieren“ (NW 11).
@@ -69,7 +69,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **4.5** A · Signatur nach `DESIGN-STIL.md`: schwarz-gold, Tusche, düster und lesbar; Hauptmenü, Erschaffung, Menüs, Vorspann und Zwischenbilder im selben Look (Prüfer: Chef).
 - [ ] **4.6** K · Musik je Ort, Tageszeit und Kampf; Umgebung aus echten Aufnahmen je Ort.
 - [ ] **4.7** K · Schritte je Untergrund (74), Raumklang in Innenräumen und Höhle (119), Stimmen der Gegner (18); bisher „wenn Zeit ist“, jetzt Muss, weil die Direktive Klang nennt (Prüfer: Chef).
-- [ ] **4.8** G · Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27; NW 12; `regelcheck` zählt die Reste, 446).
+- [ ] **4.8** G · Namen nach dem Glossar, keine SRD-Begriffe im Spiel (E 24, E 25, E 27; NW 12; `regelcheck` zählt die Reste, 446). Wächter 870.11 greift, Aufräumen 870.13 nach dem Kotlin-Ausstieg. · Stand: in Arbeit
 - [ ] **4.9** W · Englisch durchgehend (Homer, Tom).
 - [ ] **4.10** W · **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch und sagt „gut“ (Prüfer: Chef).
 
@@ -130,22 +130,32 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-ABGLEICH-AL
 
 „da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
 
-## Wochenziel 09.–15.11.: Der Kampf funktioniert (Perikles, gesetzt 09.11., 10:1x; ersetzt das vom 03.11.)
+## Wochenziel 09.–15.11.: Der Kampf funktioniert (Perikles, gesetzt 09.11., 10:1x; neu geordnet 12.11., 16:5x nach 1052; ersetzt das vom 03.11.)
 
-**Du kämpfst im nächsten gemeinsamen Build gegen Wölfe, Ratten und Grimmzahn und sagst „Kampf passt“: der Held sieht ordentlich aus, der Umhang sitzt, jeder Angriff trifft den Gegner sichtbar, die Gegner laufen frei statt auf Schienen und zeigen dir nicht den Rücken, der Kampf ist flott.** Grundlage: „Kampf zuerst, nichts Neues“ (Chef 08.11., 21:36, Archiv). Muss sind nur die Zeilen unten, deine „jetzt“ und Abstürze. Was ohne Kampfbezug neu gebaut würde, ruht mit dem Stand „ruht, Kampf zuerst (338.1)“ (54 Zeilen: Tom 23, Jerry 19, Perikles 12); gestrichen wird nichts. Kür baut diese Woche keiner. Termine gibt es keine, die Reihenfolge gilt; Schätzungen bringen Tom und Jerry mit der ersten Sitzung nach deinem Test von Build 271.
+**Du kämpfst im nächsten gemeinsamen Build (281) gegen Wölfe, Ratten und Grimmzahn und sagst „Kampf passt“: der Held sieht ordentlich aus, jeder Angriff trifft den Gegner sichtbar, der Kampf zeigt, was geschieht (Ring lesbar, Ausweichen, Angriff mit Bewegung, Zustände an den Figuren, Bericht in Farbe), die Gegner laufen frei statt auf Schienen, drehen mit Schritten und zeigen dir nicht den Rücken, der Kampf ist flott.** Der Umhang gehört nicht mehr dazu: gestoppt, Vorlage für irgendwann (861, Chef 12.11., 07:10). Grundlage: „Kampf zuerst, nichts Neues“ (Chef 08.11., 21:36, Archiv). Muss sind nur die Zeilen unten, deine „jetzt“, deine „bitte machen“ und Abstürze. Was ohne Kampfbezug neu gebaut würde, ruht mit dem Stand „ruht, Kampf zuerst (338.1)“; gestrichen wird nichts. Kür baut diese Woche keiner. Termine gibt es keine, die Reihenfolge gilt. Der alte Stand (Build 271, Schritte 1–8 vom 09.11.): Git, Stand vor „Perikles: 1052“.
 
 | Reihenfolge | Vorgang | Wer | fertig, wenn |
 |---|---|---|---|
-| 1 | Build 271 testen (t271, Prüfliste in Git; bestanden 09.11., 14:09), danach `vorgang.py build 271` | du; Tom trägt ein | löst die Sperre 620.1 B (Tom 10, Jerry 7 ungetestete Muss); 656 Umhang und 703 Ausweichen fahren darin |
-| 2 | Bewegung im Kampf: 717, 717.1 (deine „jetzt“ 09.11.), 682 Bögen statt Schienen, 709 Angriffe treffen sichtbar, 562 Angriffsgang, 662 Parade, 593 und 406.2 Ausweichen und Schild, 438 und 642 Wölfe | Jerry | dein Probekampf: flüssig, Treffer am Körper |
-| 3 | Werte und Anzeigen im Kampf: 704, 705 (messen und vorlegen, keine Werte selbst), 702 (Texte 712), 679 Knöpfe fehlen, 595, 616, 532, 536, 296.2, 211.14 | Jerry | wie in der Zeile |
-| 4 | Held: 610 Finger am Stab, 522 Schild fehlt im Spiel, 697 halbtransparent in der Erschaffung, 653 Halt der Waffen | Tom | Held im Kampf und im Dorf ohne diese Fehler |
-| 5 | von Jerry an Tom (Lehre Fehler 341): 560 Monster drehen sich mit Schritten (Technik aus 416.8), 680 Absturz nach Met | Tom | Grimmzahn dreht wie die Wölfe; Absturz nachgestellt und behoben |
-| 6 | zu Ende bringen, was fast steht: 506 Untote im Kampf, 492 Höhle nur noch Lager (dein „492b“ 21:46) | Tom | im nächsten Build, keine neuen Läufe darüber hinaus |
-| 7 | deine übrigen Funde aus t269 und t270: 670, 581, 583, 521, 540, 617, 701, 636, 683, 700 | Tom | wie in der Zeile |
-| 8 | gemeinsamer Build, sobald 2 und 4 stehen | Jerry stellt zusammen | Prüfliste als Kampfweg; jede Zeile ohne Vorwissen prüfbar, Größen nur mit Vergleichsbild (zu 695) |
+| 1 | Build 280 auf `main`: 1029 schalter_1024 grün, PR #199 zusammenführen (deine Freigabe 15:55) | Jerry | PR #199 gemischt; an 280 hängen alle neuen Zweige beider Teams |
+| 2 | **Sammelbuild 281** gleich danach (1055): alle fertigen Zweige beider Teams (45 Punkte warten: Tom 14, Jerry 31); Prüfliste als Kampfweg, Kampf zuerst, jede Zeile ohne Vorwissen prüfbar, gegengelesen vor dem Baustart (1020.1) | Jerry stellt zusammen; du testest | dein Test von t281, danach `vorgang.py build 281`; senkt die Sperre 620.1 B (Stand 13.11.: Jerry 34 → 20, Tom 23 → 20; mit 282 Jerry 17, Tom 6) |
+| 3 | **Der Kampf zeigt, was geschieht** (ein Paket, am Kotlin-Bild gemessen): 1039 Ring lesbar, 1043 Ausweichen sichtbar, 1025 und 1032 Angriff mit Bewegung, 1036 Zustände an Figuren, 1031 Bericht in Farbe; was davon gebaut ist, fährt in 281 | Jerry | dein Probekampf in 281: jede Handlung ist zu sehen |
+| 4 | Drehen mit Schritten: 1040 Grimmzahn, 1040.1 Leute (Wiederholfund t268) | Jerry, Tom | keine Figur dreht sich mehr wie eine Puppe auf der Stelle |
+| 5 | danach Jerry: 1041 Platztausch im selben Takt, 1034 ein Probekampf für alles; Ring öfter (1048, Vorlage bei dir) wird erst nach 1039 gebaut | Jerry | wie in der Zeile |
+| 6 | Tom: übrige Funde aus t280 (1022 Kartenrand, 984.1), dann 1044 Standpose der Frauen (dein „bitte machen“ 16:08); Tom hat Luft und bietet Jerry Übernahme an (`ROLLE-ENTWICKLUNG.md`, Stau 114 Muss bei Jerry) | Tom | wie in der Zeile |
 
-**Danach** (nach deinem „Kampf passt“): Durchspielen (492, 496, 505, 507, 506), dann die Referenzszene (620.4 A). **Stärkstes Gegenargument:** das Durchspielen, Ziel der Vorwoche, rückt eine weitere Woche nach hinten; Höhle, Nebel und Kampforte der Höhle ruhen. **Entkräftet:** du hast den Kampf vor alles gestellt; der größte Teil von Kapitel 1 ist Kampf; ein Durchspiel mit diesem Kampf brächte dieselben Funde wieder (Wiederholquote 6 in t268 und t269, Sokrates).
+**Stärkstes Gegenargument zur neuen Ordnung:** Ein Sammelbuild mit 45 Punkten ist schwer zu testen, und die Funde aus t280 kämen mit einem kleineren Build schneller. **Entkräftet:** beide Teams stehen unter Sperre, bis getestet ist; ein Build löst beide, die Prüfliste stellt den Kampf nach oben, du kannst nach dem Kampfteil abbrechen und den Rest später prüfen.
+
+**Große Punkte danach, in dieser Reihenfolge** (1061, Perikles 12.11., 17:4x, auf Chef 17:42 „erst einen Umzug fertig machen, dass wir 431 wieder als Thema grundsätzlich anfassen“):
+1. **Umzug BRS fertig** (läuft neben dem Kampf): 882.1 Tom, 882.2 und 870.10 Perikles (Kotlin-Bau aus), 870.13 Tom (Aufräumen, SRD-Hinweis raus).
+2. **Kampf passt** (Wochenziel oben, t281).
+3. **431 Körper je Volk im Helden** (Tom, gleich nach 870.10): zuerst Aufwand vorlegen (Kleidung und Rüstung auf fünf Körpern, Völker im Umriss deutlich verschieden), bauen erst nach deinem Ja. Vor jedem weiteren Figurenfeinschliff (372, 397, 513, 1044 ausgenommen), weil Kleidung und Rüstung sonst zweimal angepasst werden.
+4. **Kapitel 1 durchspielbar** (Stufe 2): 492 Höhle, 505 Nebel und Sichtfeld, 494 übrige Gegner, 507 Kampforte Höhle, 506 Untote, 495 Zufallsspieler, 496 Durchspiel-Build. Läuft mit 3 nebeneinander (Spike und Jerry), sobald der Kampf passt.
+5. **Was der Spieler tun kann nach BRS** (2.6–2.9): Lehrmeister, Handlung je Herkunft, Schleichen, Spähen, Truhen (515), Rast und Tragkraft, Ernten (568).
+6. **Welt lebendig wie alt** (2.11): Leute, Dinge, Innenräume, Nacht, Kleinleben (614, 637–640, 665, 509), Klang je Ort und Monster (598, 517, 936–938).
+7. **Ausgleich gemessen** (2.5): Kapitelsimulation, jede Herkunft schafft die Bosse (1050, 38).
+8. **Aussehen fertig:** Tusche nach Licht (348.13, 348.13b, 302.1), Held im Feinschliff (372), Ruhebewegungen (397); danach Store (622 AAB, 142).
+
+**Stärkstes Gegenargument:** 431 vor dem Durchspielen schiebt Höhle und Nebel weiter, Ziel seit 03.11. **Entkräftet:** 431 ist Figurenarbeit bei Tom, Höhle und Nebel laufen bei Spike und Jerry daneben; der Held ist, womit sich der Spieler identifiziert (Chef 17:38), und jeder Figurenfeinschliff vor 431 wäre doppelte Arbeit.
 
 **Mit diesem Wochenziel entschieden (Perikles):** M? der Prüferbefunde 725–742 → K, meine ruhen; 515 Truhen und 568 Ernten → M (Abnahme 2.8, 3.4), ruhen bis „Kampf passt“; Reifes aus `LISTE-IDEEN.md` holt diese Woche keiner (nichts Neues); „Verwerfen?“ als eine Chefsache (743).
 

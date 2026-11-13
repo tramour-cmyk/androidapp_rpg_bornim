@@ -70,9 +70,13 @@ func _lauf() -> void:
 	await process_frame
 	var w := " | ".join(texte(m))
 	pruefe(w.contains(Beute.name(schwert)) and w.contains(Beute.name(gross)) and w.contains("Schnitt"), "Wechselschirm Haupthand: beide Waffen mit Angabe")
+	# 521 mit 644a A (Mindeststufe): eine Kappe der Stufe 6 steht für den Helden der Stufe 1 matt mit „nicht tragbar“
+	var hoch := ding(z, "leather_cap")
+	hoch["ilvl"] = 6
 	m.waehle("HEAD")
 	await process_frame
 	w = " | ".join(texte(m))
 	pruefe(not w.contains("kannst du das nicht tragen"), "Wechselschirm Kopf ohne Sperre nach Klasse: %s" % w.right(160))
+	pruefe(w.count("nicht tragbar") == 1, "Wechselschirm Kopf: genau die Kappe der Stufe 6 „nicht tragbar“: %s" % w.right(200))
 	print("TASCHE521 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

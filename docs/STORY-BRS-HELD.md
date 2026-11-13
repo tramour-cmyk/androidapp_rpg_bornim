@@ -6,37 +6,41 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
 
 **Bauregel (wie 817):** nur Zeilen bauen, deren Wirkung im Code steht; fehlt eine, entfällt ihre Zeile, und Tom schreibt es in den Vorrat Homer. Platzhalter %d aus den Regelwerten (`werte.json`).
 
-`[870.14.wert.kopf]` Wert %d / EN: Value %d (Grundwert 2–9 (933); in Kapitel 1 fest, 870a 4)
+`[870.14.wert.kopf]` Wert %d / EN: Value %d (Endwert wie `BrsHeld.wert`: verteilt mit Volk 2–9 (933), dazu Üben (644a F, ersetzt „in Kapitel 1 fest“, 870a 4) und Ausrüstung)
+
+`[1026.grundwert.auf]` Meldung, wenn ein Grundwert durch Üben steigt: {Grundwert} ↑ {Wert} / EN: {attribute} ↑ {value}, etwa „Kraft ↑ 5“ / “Strength ↑ 5” (Homer 12.11., 1026; gebaut 644a.2 Tom, `spiel.gd` `grundwerte_notiz`). Wert wie `[870.14.wert.kopf]`; Name nach `[870.14.wert.…]`. Steht hinter den Fertigkeiten derselben Notiz, getrennt wie dort („Einhänder ↑ 12  ·  Kraft ↑ 5“): erst die Ursache, dann die Folge; dazu der Aufstiegsklang. Kein Wort wie „gestiegen“: dasselbe Zeichen wie bei Fertigkeiten (`[423.fert.wachsen]`) und beim Ruf (`[447.4.ruf.auf]`), der Klang zeigt das Seltene (in Kapitel 1 etwa einmal beim Hauptwert, 644a F). Gegenargument: in 1,8 s neben zwei Fertigkeiten leicht zu übersehen; dann eigene Zeile darunter, nicht mehr Worte.
 
 `[870.14.wert.kraft]` Kraft / Strength
 - Schaden mit Nahkampfwaffen und Fäusten, außer Dolchen. / EN: Damage with melee weapons and fists, except daggers.
-- Wie viel du tragen kannst. / EN: How much you can carry.
-- Truhen und Türen aufbrechen. / EN: Forcing chests and doors.
+- ruht (Bauregel, Tom 11.11.): „Wie viel du tragen kannst.“ / “How much you can carry.”; „Truhen und Türen aufbrechen.“ / “Forcing chests and doors.”; kommen dazu, sobald sie wirken.
 
 `[870.14.wert.gewandtheit]` Gewandtheit / Agility
-- Schaden mit Dolchen, Bögen und Wurfwaffen. / EN: Damage with daggers, bows and throwing weapons.
+- Schaden mit Dolchen und Bögen. / EN: Damage with daggers and bows. (1015: „und Wurfwaffen“ / “and throwing weapons” wie unten, sobald es eine Wurfwaffe gibt)
 - Wer ausweicht, ist schwerer zu treffen: +%d je Punkt. / EN: When you dodge, you are harder to hit: +%d per point.
-- Kritische Treffer: %d %% Aussicht, anderthalbfacher Schaden. / EN: Critical hits: %d%% chance, half again as much damage.
+- Kritische Treffer (anderthalbfacher Schaden) mit Nahkampfwaffen und Fäusten, außer Dolchen; die Waffenfertigkeit zählt mit. / EN: Critical hits (half again as much damage) with melee weapons and fists, except daggers; weapon skill counts as well. (1008, nach 952 D; ohne Zahl, die Aussicht mit der Hauptwaffe zeigen die Kampfwerte `[870.14.kw.krit]`)
 - Wer im Kampf zuerst handelt, und die Aussicht zu fliehen. / EN: Who acts first in combat, and your chance to flee.
-- Abwehr gegen Flächenwirkungen wie Feuer. / EN: Resisting area effects such as fire.
+- ruht (Bauregel, 1008): „Abwehr gegen Flächenwirkungen wie Feuer.“ / “Resisting area effects such as fire.”; keine Abwehrprobe rechnet mit Gewandtheit (`mars.gd` `_inflict` nur Zähigkeit). Nicht bauen, bis sie wirkt.
 
 `[870.14.wert.zaehigkeit]` Zähigkeit / Toughness
 - Leben: +%d je Punkt. / EN: Life: +%d per point.
 - Ausdauer, zusammen mit Wille. / EN: Stamina, together with Will.
-- Abwehr gegen Gift. / EN: Resisting poison. (963: Krankheit gibt es in Kapitel 1 nicht; „und Krankheit“ / “and disease” kommt dazu, sobald es sie gibt)
+- Abwehr gegen Gift, Betäubung und Blendung. / EN: Resisting poison, stunning and blinding. (1008: Abwehrproben mit Zähigkeit gegen Gift, Betäubung, Blindheit, `mars.gd` `_inflict`; 963: Krankheit gibt es in Kapitel 1 nicht; „und Krankheit“ / “and disease” kommt dazu, sobald es sie gibt)
 
 `[870.14.wert.verstand]` Verstand / Wits
-- Wissen: Schwächen und Stärken der Gegner vorher erkennen (nur wenn 870.14 a so entschieden, unten). / EN: Lore: spotting a foe's weaknesses and strengths beforehand.
-- Handwerk und Alchemie gelingen besser. / EN: Crafting and alchemy go better.
+- Schaden mit Evokation. / EN: Damage with Evocation. (1008, nach 952 D; Illusion und Beschwörung kommen dazu, sobald es Zauber dieser Schulen gibt)
+- Wissen: ab Wert %d Schwächen und Stärken der Gegner vorher erkennen. / EN: Lore: from value %d, spotting a foe's weaknesses and strengths beforehand. (1008: 870d, %d = `welt` „wissen_verstand_ab“; erst bauen, wenn `BrsHeld.kennt_schwaechen` im Spiel wirkt, heute ruft es nur der Test)
+- ruht (Bauregel, 1008): „Handwerk und Alchemie gelingen besser.“ / “Crafting and alchemy go better.”; Brauen hängt an der Fertigkeit Alchemie, nicht am Verstand. Kommt dazu, sobald der Verstand dort wirkt.
 
 `[870.14.wert.wille]` Wille / Will
 - Mana: +%d je Punkt. / EN: Mana: +%d per point.
-- Stärke deiner Zauber. / EN: The strength of your spells.
+- Heilung und Schaden mit Heilmagie. / EN: Healing and damage with Healing Magic. (1008, nach 952 D; Schutzmagie und Beistand hängen nicht am Willen)
+- Kritische Treffer (anderthalbfacher Schaden) mit Evokation; die Fertigkeit zählt mit. / EN: Critical hits (half again as much damage) with Evocation; the skill counts as well. (1008; Heil- und Schutzmagie treffen nie kritisch; Illusion und Beschwörung wie beim Verstand)
 - Ausdauer, zusammen mit Zähigkeit. / EN: Stamina, together with Toughness.
-- Abwehr gegen Furcht und Zauber. / EN: Resisting fear and spells.
+- ruht (Bauregel, 1008): „Abwehr gegen Furcht und Zauber.“ / “Resisting fear and spells.”; keine Probe rechnet mit Wille. Nicht bauen, bis sie wirkt.
 
 `[870.14.wert.wahrnehmung]` Wahrnehmung / Perception
 - Treffen im Fernkampf: +%d %% je Punkt. / EN: Ranged accuracy: +%d%% per point.
+- Kritische Treffer (anderthalbfacher Schaden) mit Dolchen, Bögen und Armbrüsten; die Waffenfertigkeit zählt mit. / EN: Critical hits (half again as much damage) with daggers, bows and crossbows; weapon skill counts as well. (1008, nach 952 D; 1015: „und Wurfwaffen“ / “and throwing weapons” kommt dazu, sobald es eine Wurfwaffe gibt; heute keine Grundform, `werte.json` „Elstern“, Bauregel)
 - Hinterhalte bemerken. / EN: Noticing ambushes.
 - Aussicht auf ein Kraut mehr beim Sammeln. / EN: A chance of an extra herb when foraging. (963: nur das wirkt, `laden.gd` `kraut_chance`; „Hilft dem Spähen, Verstecktes und Fallen zu finden.“ / “Helps Scouting find hidden things and traps.” kommt als eigene Zeile davor, sobald Spähen wirkt)
 
@@ -62,7 +66,7 @@ Homer 10.11.; Texte für Schritt 4 und 5 des Umzugs (`LISTE-UMZUG-BRS.md`; Vorg�
   - `[870.14.ding.zweihand]` Braucht beide Hände: kein Schild dazu. / EN: Needs both hands: no shield with it.
   - `[870.14.ding.stufe]` Erst ab Heldenstufe %d. / EN: Only from Hero Level %d.
 - „Ungeübt: kein Fertigkeitsbonus“ wird: `[870.14.ding.neu]` (Fertigkeit noch 0) Noch nie benutzt: du fängst bei null an. / EN: Never used: you start from nothing.
-- `[870.14.ding.guete]` (statt „Angriff +%d“ der alten Verbesserung) Güte: Normal / Gut / Meisterhaft. EN: Quality: Standard / Fine / Masterwork.
+- `[870.14.ding.guete]` (statt „Angriff +%d“ der alten Verbesserung) Güte: Schlecht / Normal / Gut / Meisterhaft. EN: Quality: Poor / Common / Fine / Masterwork. (976a A, Chef 11.11., 20:13; ersetzt Normal / Gut / Meisterhaft, EN Standard / Fine / Masterwork, heute noch in `beute.gd` `GUETE_DE`, `GUETE_EN`.) Am Ding steht nur, was von Normal abweicht, wie gebaut (`beute.gd` 404); „Common“ am Ding verwechselt man sonst mit der Seltenheit „common“ („Sell common items“).
 - `[870.14.ding.grundwert]` (statt „Finesse: trifft mit GES oder STÄ“, „Fernkampf: trifft mit GES“) Schaden mit %s / EN: Damage with %s (Kraft oder Gewandtheit nach `werte.json`); Armbrust: `[870.14.ding.armbrust]` Schaden ohne Grundwert. / EN: Damage without an attribute.
 - Rüstung: nur „Schutzwert %d“ (ohne „+ GES (max 2)“ und ohne „Obergrenze“-Zeilen). „Vielseitig, mit beiden Händen“ samt Würfeltext, „Als %s kannst du das nicht tragen“ (Vergleich), „Zauberkraft +%d“ und „Zauberkraft nützt nur Zauberwirkern“ entfallen (Zauberkraft steht nicht in der Liste 11).
 - Zusatzeigenschaften nur nach `DESIGN-BRS.md` 11: „+%d Kraft“ usw., „+%d Schutzwert“, „+%d Leben“, „+%d Mana“, „+%d %% kritisch“, „+%d %% Zauberschaden“, „+%d %% Abwehrprobe“; EN „+%d Strength“, „+%d Protection“, „+%d Life“, „+%d Mana“, „+%d%% critical“, „+%d%% spell damage“, „+%d%% resistance roll“.
@@ -115,5 +119,5 @@ Gegenwirkung (beim ersten Mal, sichtbar):
 
 Vorher erkannt (Wissen) im Ziel-Tipp und im Bestiarium:
 - `[870.14.wissen]` Verwundbar: %s. Widersteht: %s. / EN: Vulnerable: %s. Resists: %s. (fehlt eins: „–“)
-- `[870.14.wissen.gegen]` (Art mit Gegenwirkung) Vorsicht: %s. / EN: Beware: %s. Kurztexte: Wolf „Feuer vertreibt das Rudel samt Beute und Erfahrung, sobald sein Leitwolf halb tot ist“ / “fire drives off the pack, loot, experience and all, once its leader is half dead” (899, 870c 3 A; 915); Wildschwein „Feuer macht es rasend“ / “fire sends it into a frenzy”; Spinne „Feuer verbrennt die Seide“ / “fire burns the silk”; Blutflügler „Blut lockt ihn“ / “blood draws it”; Zombie „Feuer und Licht halten ihn liegen“ / “fire and light keep it down”; Ockerschleim „Schnitt und Wucht teilen ihn“ / “slash and crush split it”.
+- `[870.14.wissen.gegen]` (Art mit Gegenwirkung) Vorsicht: %s. / EN: Beware: %s. Kurztexte: Wolf „Feuer vertreibt das Rudel samt Beute und Erfahrung, sobald sein Leitwolf halb tot ist“ / “fire drives off the pack, loot, experience and all, once its leader is half dead” (899, 870c 3 A; 915); Wildschwein „Feuer macht es rasend“ / “fire sends it into a frenzy”; Spinne „Feuer verbrennt die Seide“ / “fire burns the silk”; Riesenegel „Blut lockt ihn“ / “blood draws it”; Wiedergänger „Feuer und Licht halten ihn liegen“ / “fire and light keep it down”; Säureschnecke „Schnitt und Wucht teilen sie“ / “slash and crush split it” (Namen nach 348.12c, Homer 12.11. aus der Fremdprüfung 1057; vorher Blutflügler, Zombie, Ockerschleim „teilen ihn“).
 - `[870.14.wissen.unbekannt]` (nicht erkannt, noch nie bekämpft) Schwächen: unbekannt. / EN: Weaknesses: unknown.

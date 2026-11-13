@@ -73,13 +73,13 @@ const BRS := {
 	"rast": {
 		"short": {"de": "Kurze Erholung · 2 Stunden", "en": "Short Respite · 2 hours"},
 		"long": {"de": "Langes Ausruhen · 9 Stunden", "en": "Long Rest · 9 hours"},
-		"shortDoes": {"de": "Ausdauer voll, ein Teil des Lebens zurück", "en": "Full stamina, some of your life back"},
+		"shortDoes": {"de": "Ausdauer voll, kein Leben zurück", "en": "Full stamina, no life back"},   # 1038 R1 (Homer 1047)
 		"longDoes": {"de": "Leben, Mana und Ausdauer voll, Zustände geheilt", "en": "Life, mana and stamina full, conditions cured"},
 		"longDone": {"de": "Das Lange Ausruhen hattest du heute schon.", "en": "You have already had your Long Rest today."},
 		"roomDoes": {"de": "Ein Bett oben unter dem Dach: Langes Ausruhen", "en": "A bed upstairs under the roof: Long Rest"},
 		"hourGone": {"de": "Zwei Stunden vergehen.", "en": "Two hours pass."},
 		"hoursGone": {"de": "Neun Stunden vergehen.", "en": "Nine hours pass."},
-		"shortRested": {"de": "Zwei Stunden Ruhe. Die Ausdauer ist voll, +{0} TP.", "en": "Two hours of rest. Your stamina is full, +{0} HP."},
+		"shortRested": {"de": "Zwei Stunden Ruhe. Die Ausdauer ist voll.", "en": "Two hours of rest. Your stamina is full."},
 		"longRested": {"de": "Neun Stunden Schlaf. Leben, Mana und Ausdauer sind voll.", "en": "Nine hours of sleep. Life, mana and stamina are full."},
 		"roomRested": {"de": "Du steigst die Treppe hinauf und schläfst neun Stunden. Leben, Mana und Ausdauer sind voll.",
 			"en": "You climb the stairs and sleep for nine hours. Life, mana and stamina are full."},
@@ -122,4 +122,4 @@ static func lade() -> void:
 				for k in BRS[teil]: texte[teil][k] = BRS[teil][k]
 			dinge_brs(texte.get("dinge", {}))
 			ui = texte.get("ui", {})
-	if texte.is_empty(): push_warning("390: daten/texte.json fehlt (./gradlew -p core exportTexts)")
+	if texte.is_empty(): push_warning("390: daten/texte.json fehlt (eingecheckt seit 870.9)")

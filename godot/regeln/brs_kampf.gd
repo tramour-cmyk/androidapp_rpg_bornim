@@ -171,3 +171,15 @@ static func schlag(rng, fertigkeit: float, abwehr: float, grund: float, d: float
 	e.kritisch = kritisch_prozent > 0.0 and zk * 100.0 < kritisch_prozent
 	e.schaden = Brs.endschaden(Brs.schaden_roh(grund, fertigkeit, d, zg, zk, zs, kritisch_prozent), abzug)
 	return e
+
+
+## 952 D (Chef 11.11., 20:03; sim.py krit_prozent): kritisch in Prozent = zweiter Grundwert × Fertigkeit / 50, nie der Grundwert des
+## Schadens; welcher, steht je Waffengruppe und Schule in werte.json unter „kritisch“ (null: nie, Heil- und Schutzmagie)
+static func krit_prozent(werte: Dictionary, gruppe_oder_schule: String, fertigkeit: float) -> float:
+	return BrsHeldS.krit_von(werte, gruppe_oder_schule, fertigkeit)
+
+
+## 952 D (sim.py zauber_grund): Grundwert des Zauberschadens nach der Schule (Evokation, Illusion, Beschwörung Verstand; Heil- und
+## Schutzmagie Wille)
+static func zauber_grundwert(schule: String) -> String:
+	return String(w().get("schulen", {}).get(schule, {}).get("grundwert", "wille"))

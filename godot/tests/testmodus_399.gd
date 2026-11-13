@@ -58,6 +58,7 @@ func _lauf() -> void:
 	root.add_child(m)
 	await process_frame
 	pruefe("sieben Reiter", m.leiste.get_child_count(), 7)
+	for g in load("res://kampf/probe.gd").FOES: Testmodus._gruppe_da[g] = true   # 1034: Probekampf auch ohne gebaute Modelle (wie probekampf_1020)
 	var taten := []
 	m.test.connect(func(w, mit): taten.append([w, mit]))
 	m.reiter = "test"
@@ -79,17 +80,35 @@ func _lauf() -> void:
 	pruefe("Nebenhand", String(hw.ding("OFF_HAND")["base"]) if hw.ding("OFF_HAND") != null else "", Testmodus.NEBENHAND[(maxi(Testmodus.NEBENHAND.find(nb_vor), 0) + 1) % 4])
 	var uhr := z.minuten
 	await druecke(m, "Uhrzeit")
-	pruefe("Uhr", z.minuten, (uhr + 180) % 1440)
+	var naechste: Array = Testmodus.UHRZEITEN.filter(func(u): return u > uhr)   # 1020.1 E: die nächste Zeit der Prüflisten
+	pruefe("Uhr", z.minuten, int(naechste[0]) if not naechste.is_empty() else int(Testmodus.UHRZEITEN[0]))
 	var stuecke := z.beutel.size()
 	await druecke(m, "Selten")
 	pruefe("Beute selten", [z.beutel.size(), String(z.beutel[-1]["rarity"]) if z.beutel.size() > stuecke else ""], [stuecke + 1, "RARE"])
 	await druecke(m, "Dorf")
 	await druecke(m, "Kapitelende")
 	await druecke(m, "Tag / Nacht")   # 500: statt des Probeknopfs rechts in der Welt
+	# 1034: „Kampf beschwören“ entfällt; ein Tipp auf einen Gegner wählt ihn für den Probekampf (Testheld, Vorgabe)
 	await druecke(m, "Wolfsrudel")
-	await druecke(m, ErschaffungBrs.herkunft_name("Wachsoldat"))   # 870.4: Probehelden nach Herkunft
-	pruefe("an die Welt", taten.map(func(x): return x[0]), ["teleport", "kapitelende", "nacht", "kampf", "probe"])
-	pruefe("Probe", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "Wachsoldat", 3])
+	await druecke(m, "Probekampf starten")   # 1020.2 B: Herkunft als Schalter (Vorgabe Wachsoldat), ein Knopf startet
+	pruefe("an die Welt", taten.map(func(x): return x[0]), ["teleport", "kapitelende", "nacht", "probe"])
+	pruefe("Probe", taten[-1][1] if taten.size() == 4 else [], ["WOLVES", "Wachsoldat", 3, true, "test"])
+	var herkunft_da := func() -> bool:
+		return m.find_children("*", "Zeichenknopf", true, false).any(func(b): return b.is_visible_in_tree() and String(b.wort) == "Herkunft")
+	pruefe("Testheld: Herkunft wählbar", herkunft_da.call(), true)
+	await druecke(m, "Held")   # 1034: Spielheld, eigener Held aus dem Spielstand
+	pruefe("Spielheld: keine Herkunft", herkunft_da.call(), false)
+	await druecke(m, "Grak")
+	await druecke(m, "Probekampf starten")
+	pruefe("Probe Spielheld", taten[-1][1] if taten.size() == 5 else [], ["GRAK", "Wachsoldat", 3, true, "spiel"])
+	await druecke(m, "Gegner")   # klappt die Liste zu
+	pruefe("Gegnerliste zu", m.find_children("*", "Button", true, false).any(func(b): return b.is_visible_in_tree() and String(b.text) == "WOLFSRUDEL"), false)
+	Testmodus.probe_held = "test"; Testmodus.gegner_auf = true; Testmodus.probe_gegner = "GRAK"
+	var a := Testmodus.probe_aufbau("Wachsoldat", 3, "Bertram")
+	pruefe("Namen Held und Söldner", [(a["held"] as BrsHeld).name, (a["soeldner"] as BrsHeld).name], ["Bertram", "Hagen"])
+	var sh := BrsHeld.fuer_spiel("Mira", "Mensch", "Klosterschüler", z.neue_uid)
+	var ss = Testmodus.probe_soeldner_fuer(sh)
+	pruefe("Söldner des Spielhelden", [ss.name, ss.herkunft, ss.stufe] if ss != null else [], ["Bertram", "Klosterschüler", sh.stufe])
 	pruefe("vor Aldric", Testmodus.vor_aldric().size(), 2)
 	var ph := Testmodus.probeheld("Zauberlehrling", 5)
 	pruefe("Probeheld", [ph.stufe, ph.leben == ph.max_leben(), ph.mana == ph.max_mana(), ph.herkunft], [5, true, true, "Zauberlehrling"])

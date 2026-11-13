@@ -15,6 +15,9 @@ var band_brs := false
 func _init(seed_or_tape = null) -> void:
 	if seed_or_tape is Array:
 		tape = seed_or_tape
+		# 988 (krogg_494 „Rauch 0: erster Schlag fehl“ in 3 von 7 Läufen am Rechner): der Treffer nach BRS (BrsKampf.schlag) zieht
+		# aus rng, nicht vom Band; ohne Saat war rng bei jedem Lauf anders. Mit fester Saat spielt ein Band jeden Kampf gleich nach
+		rng.seed = 988
 	elif seed_or_tape != null:
 		rng.seed = int(seed_or_tape)
 	else:

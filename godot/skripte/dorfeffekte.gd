@@ -12,7 +12,9 @@ const VFX := "res://addons/reeboo_vfx/"
 const FLAGGE := "res://addons/reeboo_surfaces/shaders/cloth_flag.gdshader"
 const ORTE := ["village", "inn", "shop"]   # Szene 1; Wald und Hoehle kommen mit Szene 3 (623.8 A)
 const RAUCH_K := 0.45                      # Kaminrauch des Pakets auf unseren Massstab (Haus gut 4 m, Rauch bisher 0,45-m-Flocken)
-const STAUB_K := 0.5                       # Fussstaub: der Held ist 1,8 m, die Vorlage fuer groessere Figuren
+# 814 Fussstaub: Groesse und Deckung der Vorlage (R7 footstep_dust) auf unser Bild, Begruendung bei fussstaub()
+const STAUB_K := 1.8
+const STAUB_DECK := 2.8
 const FEDER_K := 0.35                      # Huhn statt Mensch
 const FACKEL_K := 0.6
 
@@ -67,8 +69,8 @@ func baue() -> void:
 		baue_kaminrauch()
 		baue_schlagbaum()
 		baue_schenkenfackel()
-	if gebiet.info.get("innen", false):
-		baue_staub()
+	# 990 (Chef 12.11., 08:34, t278.4: „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“): kein
+	# Staub im Licht mehr in Innenräumen; baue_staub bleibt im Bestand (LISTE-EFFEKTE), aufgerufen wird es nicht
 	sammle_laub(gebiet)
 	nacht(nacht_k)
 
@@ -104,8 +106,8 @@ static func nach_tusche(fx: Node) -> void:
 			m.render_priority = 1
 			gi.material_override = m
 
-## Leitbild 1: Farben der Vorlage entsaettigt und dunkler (Faktor auf den Farbverlauf: Saettigung s, Helligkeit v)
-static func daempfe(fx: Node, s: float, v: float) -> void:
+## Leitbild 1: Farben der Vorlage entsaettigt und dunkler (Faktor auf den Farbverlauf: Saettigung s, Helligkeit v, Deckung a)
+static func daempfe(fx: Node, s: float, v: float, a := 1.0) -> void:
 	for p in fx.find_children("*", "GPUParticles3D", true, false):
 		var pm := (p as GPUParticles3D).process_material as ParticleProcessMaterial
 		var gt := pm.color_ramp as GradientTexture1D
@@ -113,7 +115,7 @@ static func daempfe(fx: Node, s: float, v: float) -> void:
 		var g := gt.gradient.duplicate() as Gradient
 		for i in g.get_point_count():
 			var c := g.get_color(i)
-			g.set_color(i, Color.from_hsv(c.h, c.s * s, c.v * v, c.a))
+			g.set_color(i, Color.from_hsv(c.h, c.s * s, c.v * v, clampf(c.a * a, 0.0, 1.0)))
 		var nt := gt.duplicate() as GradientTexture1D
 		nt.gradient = g
 		pm.color_ramp = nt
@@ -280,20 +282,60 @@ func fahne(fuss: Vector3) -> void:
 
 # ---------------------------------------------------------------- Staub im Licht
 ## R7 dust_motes in Schenke und Laden: nur die Flocken (Lichtschacht und Licht der Vorlage aus; das Licht malt raumlicht.gd), je Fenster
-## (raum.py „tageslicht“, die Lichtquelle vor dem Fenster) ein Schwarm gut eine Kachel in den Raum; die Fenster hinten zuerst
+## (raum.py „tageslicht“, die Lichtquelle vor dem Fenster) ein Schwarm im Lichtkegel; die Fenster hinten zuerst.
+## 990 (Chef 11.11., 20:19 und 20:51, t277: „Die Partikel gehen über den Raum hinaus“; in der Schenke „bei der Tür … irgendwelche
+## Partikel“, an den Fenstern keine): vorher stand der Schwarm 1,9 m von der Lichtquelle zur Raummitte hin, die Quelle steht aber
+## 1,6 m vor der Wand, also nur gut 0,2 m innen, schräg zur Mitte, und die Austrittsform der Vorlage reichte durch die Wand ins
+## Schwarze. Jetzt: Mitte im Kegel zwischen Fenster und Lichtfleck am Boden („ziel“), eigene Austrittsform, die mit dem Weg der
+## Flocken innen bleibt (staub_kasten), und nur am Tag (nacht: das Fenster ist dunkel)
+const STAUB_RAND := 0.2                    # so weit bleiben Flocken samt Weg von der Innenseite der Wand (m)
+var staub: Array[GPUParticles3D] = []
+
 func baue_staub() -> void:
 	var k := gebiet.karte
-	var mitte := Vector3(k.breite * Karte.TS / 2, 0, k.hoehe * Karte.TS / 2)
-	var fenster: Array[Vector3] = []
+	var lichter: Array = []
 	for l in gebiet.info["lichter"]:
-		if l["art"] == "tageslicht" or l["art"] == "fenster": fenster.append(Gebiet.gpos(l["pos"]))
-	fenster.sort_custom(func(a, b): return a.z < b.z)
-	for q in fenster.slice(0, 3):   # Leistung: hoechstens drei Schwaerme je Raum
-		var d := Vector3(mitte.x - q.x, 0, mitte.z - q.z)
-		var p := Vector3(q.x, 0.2, q.z) + d.normalized() * minf(d.length(), 1.6 * Karte.TS)
-		var fx := setze("effects/dust_motes.tscn", p, 0.6, ["Shaft", "Light"])
+		if l["art"] == "tageslicht" or l["art"] == "fenster": lichter.append(l)
+	lichter.sort_custom(func(a, b): return Gebiet.gpos(a["pos"]).z < Gebiet.gpos(b["pos"]).z)
+	for l in lichter.slice(0, 3):   # Leistung: hoechstens drei Schwaerme je Raum
+		var q := Gebiet.gpos(l["pos"])
+		var z := Gebiet.gpos(l["ziel"]) if l.has("ziel") else Vector3(k.breite * Karte.TS / 2, 0, k.hoehe * Karte.TS / 2)
+		var fx := setze("effects/dust_motes.tscn", Vector3.ZERO, 0.6, ["Shaft", "Light"])
 		if fx == null: return
 		daempfe(fx, 0.5, 0.75)
+		for gp in fx.find_children("*", "GPUParticles3D", true, false):
+			var p := gp as GPUParticles3D
+			var pm := p.process_material as ParticleProcessMaterial
+			var weg := staub_weg(pm, p.lifetime)
+			var kasten := staub_kasten(q, z, k.breite, k.hoehe, weg)
+			fx.position = kasten["mitte"]
+			p.position = Vector3.ZERO
+			pm.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+			pm.emission_box_extents = kasten["halb"]
+			p.visibility_aabb = AABB(-kasten["halb"] - Vector3.ONE * weg, (kasten["halb"] + Vector3.ONE * weg) * 2.0)
+			staub.append(p)
+
+## Weg einer Flocke in ihrer Lebenszeit (m): Anfangstempo und Schwere; was die Vorlage sonst treibt, faengt STAUB_RAND
+static func staub_weg(pm: ParticleProcessMaterial, lebenszeit: float) -> float:
+	var v := maxf(absf(pm.initial_velocity_max), absf(pm.initial_velocity_min))
+	return minf(v * lebenszeit + 0.5 * pm.gravity.length() * lebenszeit * lebenszeit, 0.6)
+
+## 990: Mitte und halbe Groesse des Schwarms fuer das Fenster mit Lichtquelle [quelle] (vor der Wand) und Lichtfleck [ziel] (am Boden
+## im Raum) in einem Raum von [breite] x [hoehe] Kacheln (Waende in den Randkacheln); [weg]: so weit treiben die Flocken aus dem Kasten.
+## Der Kasten liegt im Kegel, gut 0,8 m innen vor dem Fenster, und mit [weg] und STAUB_RAND ganz innerhalb der Innenwaende.
+static func staub_kasten(quelle: Vector3, ziel: Vector3, breite: int, hoehe: int, weg := 0.0) -> Dictionary:
+	var n := Vector3(ziel.x - quelle.x, 0, ziel.z - quelle.z).normalized()   # vom Fenster in den Raum
+	var mitte := Vector3(ziel.x, 1.2, ziel.z) - n * 0.55
+	var halb := Vector3(0.45, 0.5, 0.45)
+	if absf(n.x) > absf(n.z): halb = Vector3(0.4, 0.5, 0.5)
+	else: halb = Vector3(0.5, 0.5, 0.4)
+	var lo := Vector3(Karte.TS, 0.1, Karte.TS) + Vector3.ONE * (STAUB_RAND + weg)
+	var hi := Vector3((breite - 1) * Karte.TS, 2.4, (hoehe - 1) * Karte.TS) - Vector3.ONE * (STAUB_RAND + weg)
+	for a in 3:
+		var platz := (hi[a] - lo[a]) / 2.0
+		halb[a] = clampf(minf(halb[a], platz), 0.05, 1.0)
+		mitte[a] = clampf(mitte[a], lo[a] + halb[a], maxf(lo[a] + halb[a], hi[a] - halb[a]))
+	return {"mitte": mitte, "halb": halb}
 
 # ---------------------------------------------------------------- Fussstaub
 ## Fussstaub, wo der Fuss aufsetzt (Held.schritt_phase: 0 rechter, 0,5 linker Ballen), nur auf Erde (Bodenmaske Rot, nicht Pflaster,
@@ -314,8 +356,38 @@ func tritt(held: Node3D) -> void:
 	var rechts := h.global_basis.x.normalized()
 	var p := h.global_position + rechts * 0.1 * tritt_seite
 	if not erde(p): return
-	var fx := setze("effects/footstep_dust.tscn", Vector3(p.x, 0.02, p.z), STAUB_K * (1.3 if cur.begins_with("Rennen") else 1.0))
-	if fx: daempfe(fx, 0.7, 0.8 - 0.4 * nacht_k)
+	fussstaub(Vector3(p.x, 0.02, p.z), cur.begins_with("Rennen"))
+
+## 814 (dritter Fund t278.2, „ich sehe diese Wölkchen wieder nicht“): am Rechner in Echtzeitschritten nachgestellt (--fixed-fps 30; ohne
+## das laeuft das Spiel dort mit einem Bild je 1,5 s, eine 0,7-s-Wolke lebt dann ein Bild). Zwei Ursachen: (1) der Shader der Vorlage
+## blendet aus, was naeher als 0,25 m vor dem Boden dahinter liegt (proximity_fade); von schraeg oben liegt der Boden kaum 0,15 m hinter
+## den Woelkchen, sie verschwanden ganz; jetzt nur die letzten STAUB_NAH m an der Schnittkante. (2) Auch ohne Ausblendung nur ein Hauch:
+## Puffs 13-50 cm, hoechstens die Haelfte deckend und das nur 0,1 s, 0,7 s Leben, beige wie der Erdweg. Jetzt groesser (STAUB_K),
+## deckender (STAUB_DECK), heller als die Erde (STAUB_HELL) und laenger (STAUB_LEBEN); abends weiter um 0,4 dunkler. Ohne die Funken
+## der Vorlage (Specks, additiv hell): in dieser Groesse lasen sie sich als weisse Kuegelchen
+const STAUB_NAH := 0.03
+const STAUB_LEBEN := 1.5
+const STAUB_HELL := 1.05
+## 1119 (Chef 13.11., 10:14, t282.4: „staubt es jetzt, als ob hier ein Traktor rumfahren würde … Nur einen Tick“; 10:20: „bei normalen
+## Gehen müsste es ja fast gar nicht stauben. Bei Rennen macht es eher Sinn“): nach Gang gestaffelt. Rennen die Wolke von 282 einen
+## Tick kleiner und duenner (STAUB_RENNEN), Gehen nur ein Hauch (STAUB_GEHEN: halb so gross, ein Drittel der Deckung, kurz)
+const STAUB_RENNEN := [1.3 * 0.85, 0.85, 1.0]   # Groesse, Deckung, Leben je mal STAUB_K, STAUB_DECK, STAUB_LEBEN
+const STAUB_GEHEN := [0.5, 0.35, 0.6]
+func fussstaub(at: Vector3, rennen: bool) -> Node3D:
+	var st: Array = STAUB_RENNEN if rennen else STAUB_GEHEN
+	var fx := setze("effects/footstep_dust.tscn", at, STAUB_K * float(st[0]), ["Specks"])
+	if fx == null: return null
+	daempfe(fx, 0.8, STAUB_HELL * (1.0 - 0.4 * nacht_k), STAUB_DECK * float(st[1]))
+	nah_am_boden(fx)
+	for p in fx.find_children("*", "GPUParticles3D", true, false):
+		(p as GPUParticles3D).lifetime *= STAUB_LEBEN * float(st[2])
+	return fx
+
+static func nah_am_boden(fx: Node) -> void:
+	for gi in fx.find_children("*", "GeometryInstance3D", true, false):
+		var m = (gi as GeometryInstance3D).material_override
+		if m is ShaderMaterial and (m as ShaderMaterial).shader and (m as ShaderMaterial).shader.get_shader_uniform_list().any(func(u): return u.name == "proximity_fade"):
+			(m as ShaderMaterial).set_shader_parameter("proximity_fade", STAUB_NAH)
 
 func erde(p: Vector3) -> bool:
 	var img := Gebiet.maske_bild(gebiet.karte.id)
@@ -387,6 +459,10 @@ func _process(dt: float) -> void:
 
 func nacht(k: float) -> void:
 	nacht_k = k
+	for p in staub:   # 990: Staub nur im Licht der Fenster, abends verblasst er mit dem Tageslicht (814 bekannt: leuchtete abends)
+		if not is_instance_valid(p): continue
+		p.amount_ratio = clampf(1.0 - k * 1.4, 0.0, 1.0)
+		p.visible = p.amount_ratio > 0.02
 	for pm in rauch_pm:
 		pm.color = Color(0.92, 0.9, 0.88, 0.85).lerp(Color(0.42, 0.4, 0.39, 0.75), k)
 	var brennt := k > 0.2   # abends und nachts; am Tag stecken die Fackeln kalt im Halter
