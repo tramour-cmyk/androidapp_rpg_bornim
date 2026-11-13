@@ -155,12 +155,19 @@ func _lauf() -> void:
 	# Sieg (Testknopf)
 	ui.tip.visible = false
 	k.test_end(true)
-	bis = Time.get_ticks_msec() + 60000
+	# 1106 (Lauf 401, Bildlauf mit Fenster): 60 s reichten dort nicht, die Wölfe lagen, der Kampf war noch beschäftigt, und der Test
+	# meldete „zwei Zierlinien“ auf dem Schirm vor dem Sieg (Bild 833_3_sieg_a: Knöpfe matt, kein Sieg); jetzt bis 300 s, und ohne
+	# Sieg ein eigener Fehler statt der Prüfungen des Siegs
+	bis = Time.get_ticks_msec() + 300000
 	while Time.get_ticks_msec() < bis and (k.mars.outcome == "ONGOING" or k.busy):
 		if k.ring_open and Time.get_ticks_msec() - k.ring_start > 3000:
 			k._answer_ring("NONE")
 		await process_frame
 	await create_timer(1.0).timeout
+	if k.mars.outcome == "ONGOING" or k.busy:
+		print("FEHLER Sieg nach 300 s nicht erreicht (Ausgang %s, beschäftigt %s)" % [k.mars.outcome, k.busy]); fehler += 1
+		print("SCHIRM833 %d Fehler" % fehler)
+		quit(1); return
 	await _schalte(ui, "")
 	await _bild("833_3_sieg_heute")
 	await _schalte(ui, "A")
