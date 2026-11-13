@@ -8,6 +8,8 @@ const START := "village"
 const START_KACHEL := Vector2i(19, 13)          # Dorfplatz am Brunnen (Probe Build 11)
 
 var karte: Karte
+# 834 (Spike): Held aus „Erschaffung BRS“ im Testmenue; nach dem Neuladen der Szene beginnt mit ihm ein neues Spiel ohne Hauptmenue
+static var neu_brs := {}
 var gebiet: Gebiet
 var held: Held
 var leute: Node3D                                # 348.6 Leute der Karte (leute.gd)
@@ -21,7 +23,7 @@ var zustand := Zustand.new()                     # 390: Flaggen, Taschen, Gold (
 var szene: Array = []                            # 390: Befehle, die noch laufen (Game.queue)
 var ziel_person: Leute                           # 390: angetippte Person: beim Ankommen ansprechen
 var angebot_uhr := 0.0                           # 390: Knopf neu, wenn Leute herankommen oder gehen
-var werte: Heldwerte                             # 390 (Rast): TP und ZP des Helden (Hero), bis die Erschaffung ihn uebergibt
+var werte: BrsHeld                               # 870.4: der Held nach BRS (Leben, Mana, Ausruestung, Stufe), einzige Quelle seiner Werte
 var rast_ort := ""                               # 390 (Mode.Rest): Feld offen an "feuer", "schenke" oder "zimmer"
 var rast_notiz := ""
 var rast_zweites := false
@@ -36,9 +38,23 @@ var naechster_ruf := 0                           # 134.3 Game.nextCallAt: vorher
 var spricht_mit := ""                            # bis das Gespraech vorbei ist, dann gilt gehoert (Game.talkingTo)                        # 399.1 Anschlagbrett (Mode.Board)
 var herde: Herde                                 # 490 Monster auf der Karte (herde.gd, streuner.gd)
 var im_kampf := false                            # 490: vom Angriff bis zurueck auf der Karte
+var nebel: Nebel                                 # 505 Nebel des Krieges in der Wildnis (nebel.gd)
 var kraut_tag := -1                              # 490 Heilkraeuter: fuer welchen Tag sie stehen (Game.herbDay)
 
+## 1062: ein Film (--write-movie) des Spiels ohne Argument hinter „--“ zeigte nur das Hauptmenü (399); so ein Lauf bricht ab
+const FILM_OHNE_ZIEL := "1062: Film ohne Argument hinter „--“ zeigt nur das Hauptmenü; im Aufruf „-- --<was>“ anhängen"
+static func film_ohne_ziel(user_args: PackedStringArray, film_pfad: String) -> bool:
+	return film_pfad != "" and user_args.is_empty()
+
+
 func _ready() -> void:
+	# 492 (Diogenes 04.11., 14:0x: „HP/XP“, „Day 1“, „Bloodfang Cave“ in den Vergleichsbildern): Bildlaeufe am Bauserver laufen mit
+	# englischem Gebietsschema; Bilder fuer den Chef immer deutsch, ausser --sprache=en
+	var bildlauf := false
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--sprache="): Sprache.lang = a.substr(10)
+		elif a.begins_with("--") and a.contains("="): bildlauf = true
+	if bildlauf and Sprache.lang == "": Sprache.lang = "de"
 	licht = Licht.new()
 	add_child(licht)
 	kamera = Kamera.new()
@@ -57,16 +73,41 @@ func _ready() -> void:
 	ui.aktion.connect(_aktion)
 	ui.knopf.connect(_knopf)
 	ui.windrose.zurueck.connect(kamera.nach_norden)
-	ui.leiste.menue.connect(oeffne_menue)
+	# 764 (Chef 09.11., 14:49: „wenn ich im Status oben in der Statusleiste drücke … kriege ich keine Erklärung“): mit einem Zustand
+	# in der Leiste oeffnet sie den Heldenreiter, dort steht er mit Erklaerung
+	ui.leiste.menue.connect(func(): oeffne_menue("held" if ui.leiste.zustaende_da else ""))
 	ui.leiste.karte.connect(func(): oeffne_menue("karte"))   # 528 (86.2)
 	ui.gelesen.connect(weiter)
+	ui.knopf_im_text.connect(_knopf_gewaehlt)   # 842
+	ui.knopf_aus.connect(_knopf_ausgelassen)   # 842 „Nicht jetzt“
 	ui.gewaehlt.connect(_rast_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
+	Leute.daheim = func(id: String) -> Array: return Geschichte.daheim(id, zustand)   # 1108: Pim nach dem Heimschicken bei seiner Huette
 	Rand.beim_start = Rand.oben(get_viewport())
 	add_child(Rand.band(Rand.beim_start))   # 399.4: schwarz, was die Kamera des Handys verdeckt
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
+	if not neu_brs.is_empty():   # 834: neues Spiel mit dem Helden aus „Erschaffung BRS“ (Testmenue), wie aus dem Hauptmenue
+		var nw: Dictionary = neu_brs
+		neu_brs = {}
+		add_child(Helligkeit.schicht())
+		starte(nw)
+		return
+	# 1021 (Chef 12.11., 08:09): hat Android das Spiel im Hintergrund beendet, gleich im Spielstand weiter, ohne Vorspann und Hauptmenue
+	var fp := Fortsetzen.offen() if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless" else 0
+	if fp > 0:
+		Fortsetzen.vergiss()
+		add_child(Helligkeit.schicht())
+		starte({"platz": fp, "laden": true})
+		return
 	if OS.get_cmdline_user_args().is_empty() and DisplayServer.get_name() != "headless":
+		# 1062 (Sokrates 12.11., 18:00; Läufe 384, 389 und 814: der ganze Film zeigte nur das Hauptmenü): ein Film des Spiels ohne
+		# Argument hinter „--“ bricht gleich mit Fehler ab, statt einen Lauf mit dem Hauptmenü zu verbrauchen
+		if film_ohne_ziel(OS.get_cmdline_user_args(), Engine.get_write_movie_path()):
+			push_error(FILM_OHNE_ZIEL)
+			print("FEHLER " + FILM_OHNE_ZIEL)
+			get_tree().quit(1)
+			return
 		var ebene := CanvasLayer.new()   # 399.1 (Test 130: Probeknoepfe und Windrose lagen ueber dem Menue): eigene Ebene ueber allem
 		ebene.layer = 50
 		add_child(ebene)
@@ -80,6 +121,8 @@ func _ready() -> void:
 		return
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
+	pruefliste_bild()
+	staub_bild()
 	gang_film()
 	leute_blatt()
 	held_film()
@@ -95,6 +138,8 @@ func _ready() -> void:
 	wald_bilder()
 	tiefwald_bilder()
 	gluehen_bilder()
+	hoehle_bilder()
+	nebel_bilder()
 	robe_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
@@ -106,8 +151,7 @@ func starte(w: Dictionary) -> void:
 	Herde.neues_spiel()   # 490: Game.herds gehoeren zum laufenden Spiel
 	if not stand.is_empty():
 		zustand = Zustand.aus_daten(stand["zustand"])
-		werte = Heldwerte.aus_daten(stand["held"])
-		werte.ep_dazu(0, Geschichte.stufendeckel(zustand))   # 538 Game.begin: Erfahrung ueber dem Kapiteldeckel (aeltere Spielstaende) zurueck auf den Deckel
+		werte = BrsHeld.aus_spiel_daten(stand["held"])   # 870.4
 		stufe_abgleichen()
 		var o: Dictionary = stand["ort"]
 		blende.color.a = 1.0
@@ -118,17 +162,20 @@ func starte(w: Dictionary) -> void:
 	zustand = Zustand.new()   # nichts vom vorigen Spiel: Flaggen, Gold, Taschen, Ort
 	zustand.name = String(w.get("name", zustand.name))
 	zustand.aussehen = (w.get("aussehen", {}) as Dictionary).duplicate()   # 376.1
-	werte = Heldwerte.erschaffe(zustand.name, String(w.get("volk", "HUMAN")), String(w.get("klasse", "FIGHTER")), w.get("werte", {}), zustand.neue_uid)   # 399.1 Punktekauf
-	startvorrat(zustand, werte.klasse)
-	# 470: Held nach BRS (Erschaffung 1.1) im Spielstand; bis 2.3 kaempft er mit den SRD-Werten der Bruecke (BrsHeld.alt, Rueckfrage 470a)
+	# 470, 870.4: der Held nach BRS (Erschaffung 1.1) mit der Startausruestung seiner Herkunft (werte.json „welt“ „start“)
 	zustand.brs = (w.get("brs", {}) as Dictionary).duplicate(true)
-	if w.has("srd"):
-		for a in Heldwerte.ATTRIBUTE: werte.basis[a] = int(w["srd"].get(a, werte.basis[a]))
-		werte.start = werte.basis.duplicate()
-		werte.voll()
+	werte = BrsHeld.aus_daten(zustand.brs) if not zustand.brs.is_empty() else BrsHeld.neu()
+	if zustand.brs.is_empty(): zustand.brs = werte.als_daten()
+	werte.name = zustand.name
+	werte.ausstatten(zustand.neue_uid)
+	startvorrat(zustand)
+	stufe_abgleichen()
+	werte.voll()
 	# 399.1 wie alt (69, GameViewModel.newGame): einmal die Ankunft bei Nacht, dann erwacht der Held neben dem Bett der Schenke
 	# (Story.START), wo Rowena ihn weckt; vorher begann das neue Spiel am Brunnen
-	await zwischenbild("intro")
+	# 1020.1 A (Chef 12.11., 07:55: „das 50. Mal die Intro-Szene überspringen“): Schnellstart im Testmodus ohne Intro, schon erwacht
+	if w.get("schnell", false): zustand.setze(Geschichte.INTRO_DONE)
+	else: await zwischenbild("intro")
 	blende.color.a = 1.0
 	klang("verhuelle", [true])
 	betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
@@ -159,9 +206,11 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if leute: leute.queue_free()
 	if herde: herde.queue_free()
 	herde = null
+	if nebel: nebel.queue_free()
 	karte = Karte.lade(id, zustand.flaggen)   # 390: Schlagbaum, Tor, Ausgaenge und Wege lesen den Spielstand
 	zustand.setze("besucht:" + id)   # 399.1 Chronik „Die Blutzahnhöhle“ (alt GameState.explored)
-	licht.innen = String(karte.daten.get("art", "")) == "INTERIOR"   # 399.1 Grundriss
+	licht.innen = String(karte.daten.get("art", "")) in ["INTERIOR", "CAVE"]   # 399.1 Grundriss; 492 die Hoehle wie ein Grundriss
+	licht.hoehle = String(karte.daten.get("art", "")) == "CAVE"
 	for m in kamera.tusche_mats: m.set_shader_parameter("relativ", 1.0 if licht.innen else 0.0)   # 399.5: Tusche nie heller als die Flaeche
 	licht.herd = "".join(karte.zeilen).contains("Z")   # 399.5 wie alt hasHearth
 	licht.stelle(licht.nacht)
@@ -189,9 +238,16 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	kraut_tag = -1
 	kraeuter_neu()
 	sichtbar_neu()
+	gitter_neu()
+	nebel = Nebel.new(self, karte)   # 505
+	add_child(nebel)
+	# 505c (3): die Kamera haelt am Randwald (kamera.gd am_rand); Grundriss wie bisher
+	var rand_an := String(karte.daten.get("art", "")) in ["FOREST", "TOWN", "CAVE"]
+	kamera.rand(Rect2(0, 0, karte.breite * Karte.TS, karte.hoehe * Karte.TS), Nebel.RAND_SCHWARZ * Karte.TS if rand_an else 0.0)
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
+	gebiet.gras_neu()   # 804: der Held schiebt das Gras des Kits beiseite
 	if gebiet.gluehwuermchen:
 		gebiet.gluehwuermchen.zustand = zustand   # 514: nur in manchen Naechten
 		var nb = get("nebel")   # 505 (eigener Zweig): ausser Sicht vergehen sie mit dem Nebel
@@ -221,16 +277,26 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_WM_CLOSE_REQUEST:
 		speichere()
 		spiel_seit = -1   # 529: im Hintergrund zaehlt nichts (alt pausePlayClock)
-	if what == NOTIFICATION_APPLICATION_RESUMED and spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
+		# 1021: beendet Android das Spiel im Hintergrund, geht es beim naechsten Start gleich hier weiter (fortsetzen.gd)
+		if what == NOTIFICATION_APPLICATION_PAUSED and held and karte and not OS.get_cmdline_user_args().size():
+			Fortsetzen.merke(Spielstand.platz)
+		elif what == NOTIFICATION_WM_CLOSE_REQUEST:
+			Fortsetzen.vergiss()
+	if what == NOTIFICATION_APPLICATION_RESUMED:
+		Fortsetzen.vergiss()   # 1021: die App lief weiter, nichts fortzusetzen
+		if spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
 	# Funktion auf dieses Spiel, Godot raeumt statische Variablen erst nach den Knoten ab; beim Verlassen des Baums loesen
-	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable()
+	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable(); Leute.daheim = Callable()
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
 	if gebiet: gebiet.nacht(k)
+	# 492/505: DorfEffekte.nacht zuendet abends die Fackeln (Licht und Flamme sichtbar), auch auf nie gesehenen Kacheln; der Nebel
+	# schaltet sie dort gleich wieder aus (dinge_zeigen, Chef 03.11., 16:12: nichts scheint durch)
+	if nebel and nebel.an: nebel.dinge_zeigen()
 	if held: held.nacht(k)
 	if leute:
 		for l in leute.get_children(): l.nacht(k)
@@ -263,6 +329,7 @@ func tiere_an_aus() -> void:
 	else:
 		for t in da: t.queue_free()
 	held.leute = leute.get_children().filter(func(l): return not l.is_queued_for_deletion())
+	Testmodus.tiere = da.is_empty()   # 991: Zustand am Zeichen im Testmenue
 
 # ---------------------------------------------------------------- Tippen, Ausgaenge, Schilder
 const NACHBARN := [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]
@@ -287,7 +354,7 @@ func _tippen(sp: Vector2) -> void:
 		if not held.geh_zu(p): Bedienung.ruettle()   # 399.1 Ruetteln: kein Weg dorthin (WorldScreen route == null)
 		return
 	# Tuer, gesperrter Ausgang, Schild, Schlagbaum: davor stellen, dann Knopf oder Text
-	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or brett(b) or karte.zeichen(b) == "z" or kiste(b) != {}):
+	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or brett(b) or karte.zeichen(b) in ["z", "L"] or kiste(b) != {}):   # 492 Gitter
 		Bedienung.ruettle()
 		return
 	var ziel := naechster_nachbar(b)
@@ -312,6 +379,8 @@ func naechster_nachbar(b: Vector2i) -> Vector2i:
 func zeichen_lesbar(t: Vector2i) -> bool:
 	return karte.zeichen(t) == "S" and schild(t) != ""
 
+func gitter_zu(t: Vector2i) -> bool: return karte.zeichen(t) == "L" and not karte.flaggen.has("gate_open")   # 492 Tile.GATE
+
 func brett(t: Vector2i) -> bool: return karte.zeichen(t) == "!"   # 399.1 Tile.NOTICE (Navigation: READ)
 
 func schild(t: Vector2i) -> String:
@@ -326,7 +395,11 @@ func _steht_auf(t: Vector2i) -> void:
 func _betritt(t: Vector2i) -> void:
 	zustand.schritte += 1   # 399.1: GameState.steps, je betretene Kachel (System „Schritte“)
 	_steht_auf(t)
-	if not ui.spricht(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
+	# 1142 (Chef 13.11., 14:44: nach dem Sieg über Grak „etwas Text … dann kam nochmal der Kampf“): nach dem Kampf setzt
+	# kampf_im_wald den Helden zurück auf seine Kachel (held.setze → steht_auf), bevor _szenenkampf grak_defeated setzt; stand er
+	# auf dem Auslöser vor Graks Halle, hängte sich ein zweites grak_talk an die laufende Szene. Kein Auslöser im Kampf oder in
+	# einer laufenden Szene
+	if Geschichte.ausloeser_frei(ui.spricht(), im_kampf, szene.is_empty()): spiele(Geschichte.ausloeser(karte.id, t, zustand))
 	pfluecke(t)   # 490 Game.pickHerbs
 	if herde and not im_kampf and not ui.spricht(): herde.betreten(t)   # 490 respawnRoamers, Ueberfall im hohen Gras
 
@@ -335,7 +408,7 @@ func vor_ihm(t: Vector2i) -> Vector2i:
 	if not karte.ausgang(t).is_empty(): return t
 	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
 	for d in [vorn] + NACHBARN:
-		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {} or ansehbar(t + d) or fund(t + d): return t + d
+		if karte.tuer(t + d) or zeichen_lesbar(t + d) or brett(t + d) or rast_kachel(t + d) != "" or kiste(t + d) != {} or ansehbar(t + d) or fund(t + d) or gitter_zu(t + d): return t + d
 	return Vector2i(-1, -1)
 
 # wie Navigation.actionAt: Ausgang und Tuer (auch verschlossen) ENTER, Schild READ; dazu actionPlace: wohin, wenn offen
@@ -349,6 +422,7 @@ func angebot(t: Vector2i) -> Array:
 	if zeichen_lesbar(z) or brett(z): return ["READ", ""]
 	if kiste(z) != {}: return ["OPEN", ""]   # 490 Tile.CHEST (Navigation: OPEN)
 	if fund(z): return ["LOOK", ""]   # 542 Jobs.findAt: Jorins Fetzen am Steinkreis
+	if gitter_zu(z): return ["UNLOCK", ""]   # 492 Tile.GATE (Navigation: UNLOCK), bis gate_open
 	var rk := rast_kachel(z)
 	if rk != "": return ["REST" if rk in ["feuer", "zimmer"] else "LOOK", ""]
 	if ansehbar(z): return ["UNLOCK" if karte.zeichen(z) == "L" else "LOOK", ""]   # 541 Navigation.actionAt
@@ -396,8 +470,25 @@ func _aktion() -> void:
 			# 611 (Chef 07.11., 268.8: „Klopfen sollte deutlicher sein“): man hoert es klopfen wie alt (Game.kt 1024: Sound.KNOCK, 215.1,
 			# drei Aufnahmen knock_1–3); in Godot fehlte der Klang ganz
 			klang("effekt", ["knock"])
-			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
+			# 1086 (Chef 13.11., 10:23: „Pim ist ja noch zu sehen, also er kann nicht zu Hause sein“): gedankt wird erst, wenn Pim angekommen
+			# ist; rennt er noch, ist er nicht da ([504.tuer.pim]), der Dank kommt beim naechsten Klopfen
+			var pim_unterwegs := karte.id == "village" and z == Geschichte.PIMS_TUER and pim_rennt_heim()
+			var dankt := karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_dankt(zustand) and not pim_unterwegs   # 842 [807.pim.dank], einmal
+			var anders := {} if pim_unterwegs else Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
+			if dankt:
+				zustand.setze(Geschichte.PIM_DANK)
+				anders = {"de": String(anders["de"]).replace("{name}", zustand.name), "en": String(anders["en"]).replace("{name}", zustand.name)}
 			var gesagt: Array = [{"text": anders}] if not anders.is_empty() else variiere(a["klopfen"]["nacht" if nachts else "tag"])   # 504.1 Varianten
+			# 1086 [1085.pim.dank]: nach dem ersten Heimschicken fuer Gold dankt die Mutter einmal, ohne Ruf; nach [807.pim.dank], wenn beide anliegen
+			if pim_unterwegs: pass
+			elif not dankt and karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_gold_dankt(zustand):
+				zustand.setze(Geschichte.PIM_GOLD_DANK)
+				gesagt = Geschichte.PIM_GOLD_DANK_TEXT.map(func(t): return {"text": {"de": String(t["de"]).replace("{name}", zustand.name), "en": String(t["en"]).replace("{name}", zustand.name)}})
+			elif not dankt and Geschichte.pim_tuer_daheim(karte.id, z, zustand):   # 1108 [1108.tuer.pim.daheim] statt [504.tuer.pim]
+				var mk := "1108.tuer.pim.daheim"
+				var i := Skript.wahl(zustand, mk, Geschichte.PIM_TUER_DAHEIM.size())
+				zustand.varianten[mk] = [int((zustand.varianten.get(mk, [0, -1]) as Array)[0]) + 1, i]
+				gesagt = [{"text": Geschichte.PIM_TUER_DAHEIM[i]}]
 			ui.sage(zeilen(Geschichte.klopf_sprecher(karte.id, z, gesagt)))   # 629.1 mit dem Namen der Stimme
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
@@ -405,6 +496,13 @@ func _aktion() -> void:
 		ui.sage(zeilen(a.get("abgewiesen", [])))
 		return
 	geh_hinaus(a)
+
+## 1086: Pim ist heimgeschickt und rennt noch zu seiner Huette (leute.gd eilt)
+func pim_rennt_heim() -> bool:
+	if leute == null: return false
+	for l in leute.get_children():
+		if l is Leute and String(l.daten.get("id", "")) == "pim" and l.eilt: return true
+	return false
 
 func _stoesst(t: Vector2i) -> void:
 	if await _schiebt(t): return
@@ -534,11 +632,12 @@ func vor_tuer(alle: Dictionary, id: String, a: Dictionary) -> Vector2i:
 # Der Weg in den Wald fuehrt in den Kampfort von Jerry (kampf/kampfort.gd, MARS) gegen ein Wolfsrudel, bis Wald und tiefer Wald als
 # Gebietskarten stehen; danach zurueck vor den Ausgang, die Trefferpunkte bleiben. Verloren: wie Game.kt (154) vier Stunden vergehen,
 # der Held erwacht ganz geheilt im Wiederkehrort (steht dieser Grundriss noch nicht, vor dessen Tuer im Dorf). Das Kampfblatt
-# kommt aus den Heldwerten (kampf/aufruf.gd, 399.2 Jerry).
+# kommt aus BrsHeld (kampf/aufruf.gd, 399.2 Jerry; 870.4).
 const WALD := ["forest", "deep_forest"]
 const AufrufS = preload("res://kampf/aufruf.gd")
 var kampf: Node
 var leiste_uhr := 0.0
+var kampf_mess: Label   # 211.14: Bildrate im Kampf (Testmodus „Bildrate“ oder --messen); eigene Ebene, die Steuerung ist dann verborgen
 
 # 399.3 (Jerry): Musik und Klang ueber den Autoload Klang; ueber den Knoten statt den Namen, denn mit -s (skripte_pruefen,
 # Lauf 135) gibt es den Autoload noch nicht und spiel.gd liesse sich nicht laden
@@ -552,16 +651,57 @@ func tageszeit() -> String:   # Kampfort.tageszeit: tag, abend, nacht
 
 # gegner wie kampf/probe.gd FOES; [probe] (Test „MARS-Probekampf“, Skirmish.probe): Held und Soeldner [klasse, stufe] statt des eigenen
 # Helden, danach bleibt er, wie er war (kein Lohn, keine TP, kein Tod)
-func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0) -> String:
-	var hw := held_werte() if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var soeldner = null if probe.is_empty() else Testmodus.probeheld(String(probe[0]), int(probe[1]))
-	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": zustand.anzahl("potion"), "held": null}
+## 532, 935: was der Held im Kampf trinken oder werfen kann (alt ItemKind POTION, BOMB; Battle.useItem), in dieser Folge in der
+## Tasche des Kampforts
+const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", "alchemist_fire", "holy_water"]
+
+## 1034: [spielprobe] Probekampf aus dem Reiter Test mit dem Spielhelden: alles zählt wie im Spiel (ohne [probe]), dazu der Söldner
+## der Wahl, Gegnerzug, Ausweichen und „Nochmal“; nach „Nochmal“ ist der Lohn gutgeschrieben und es kommt "AGAIN" zurück
+## 1025 (Chef 12.11., 10:25–10:28, Build 278): ein Kampf zur Zeit. Der Weg in den Wald und der Probekampf aus dem Reiter „Test“ setzten
+## `im_kampf` nie, darum zog die Herde weiter (`_process` → `herde.schritt`) und ihr Angriff begann mitten im laufenden Kampf einen
+## zweiten: zwei Kampforte übereinander (schwarzes Bild, wenige Bilder/s), nach dem Ende blieb die Kampfoberfläche über der Karte, weil
+## der zweite Kampf Welt und Umgebung erst wieder einschaltete, als der erste sie schon abgebaut hatte. Jetzt sperrt der laufende Kampf
+## jeden weiteren Aufruf (Ergebnis „NONE“) und hält die Welt an; danach lassen die Monster den Helden kurz in Ruhe wie nach einem Kampf
+## auf der Karte (herde.gd nach_kampf, alt Game.peaceUntil).
+var kampf_laeuft := false
+
+func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0, spielprobe := false) -> String:
+	if kampf_laeuft:
+		push_warning("1025: ein Kampf läuft schon, %s beginnt nicht" % gegner)
+		return "NONE"
+	kampf_laeuft = true
+	var kampf_vorher := im_kampf
+	im_kampf = true
+	var ergebnis: String = await _kampf_lauf(zurueck, gegner, probe, eroeffnung, nr, spielprobe)
+	kampf_laeuft = false
+	im_kampf = kampf_vorher
+	# Schonzeit wie nach einem Kampf auf der Karte, auch nach Probekampf und Waldkampf; sie deckt auch die wenigen Bilder, in denen
+	# „Nochmal“ (Ergebnis AGAIN) denselben Probekampf wieder aufbaut
+	if herde:
+		herde.frieden_bis = herde.jetzt + 2500
+		herde.schonzeit = 3
+	return ergebnis
+
+func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0, spielprobe := false) -> String:
+	# 1020.2 B: Held, Söldner, Leben, Tasche und Tageszeit des Probekampfs nach der Wahl im Reiter Test (Testmodus.probe_aufbau)
+	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]), zustand.name)
+	var hw: BrsHeld = held_werte() if probe.is_empty() else pa["held"]
+	var soeldner = (Testmodus.probe_soeldner_fuer(hw) if spielprobe else null) if probe.is_empty() else pa["soeldner"]
+	var probekampf := spielprobe or not probe.is_empty()
+	var mars_s = load("res://regeln/mars.gd")
+	mars_s.test_gegnerzug = Testmodus.probe_zug if probekampf else ""     # 1020.2 C: nur im Probekampf, nie im Spiel
+	mars_s.test_ausweichen = Testmodus.probe_ausweichen if probekampf else false
+	var erg := {"ende": "", "tp": {}, "lohn": {}, "rest": {}, "held": null}
+	# 532 (Durchspielregel 488): die ganze Tasche in den Kampf; danach wird nur weggenommen, was verbraucht ist
+	var tasche := {}
+	for id in KAMPF_TASCHE:
+		if zustand.anzahl(id) > 0: tasche[id] = zustand.anzahl(id)
 	var aufruf := AufrufS.new()
 	add_child(aufruf)
 	aufruf.ende.connect(func(o, tp, lohn):
 		erg["tp"] = tp; erg["lohn"] = lohn
 		if aufruf.kampf and aufruf.kampf.mars:
-			erg["rest"] = int(aufruf.kampf.mars.potions.get("potion", 0))
+			erg["rest"] = aufruf.kampf.mars.potions.duplicate()
 			erg["held"] = aufruf.kampf.mars.find("hero")     # 532: ZP, Verbrauchtes, Zustände nach dem Kampf
 			erg["rauch"] = aufruf.kampf.mars.smoke_thrown     # 494: Morwens Rauchbündel geworfen (Battle.smokeBundle nimmt es weg)
 		erg["ende"] = String(o))
@@ -572,62 +712,104 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 	# 399.2a (Chef 14:19 „a“): Wolf mit 1–2 Jungwölfen wie im alten Spiel
 	klang("verhuelle", [true])   # 402 (Jerry): unter der Blende vor dem Kampf schweigt alles; sie bringt den Klang des Kampfbeginns
 	klang("spiele_szene", ["BATTLE"])   # 399.3 (Jerry): Kampfmusik wie alt (300 ms), nach der Blende
-	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf, Gebietsstufe)
-	var beute := func() -> Array:
+	# 399.2 (Jerry 3b9fb3116): Ausruestung als Beute nach einem Sieg wie Battle.finishWin (Loot.drops, einmal je Kampf). 644a A: in der
+	# Stufe des staerksten besiegten Gegners, hoechstens Heldenstufe + 1 (statt der Gebietsstufe, 543); 633: mit Boss Bossbeute und sein
+	# Einzelstueck (Beute.kampfbeute). [m]: der MARS des Kampfs (kampfort.gd _done)
+	var beute := func(m) -> Array:
 		var w := KotlinZufall.new(randi())
-		var ilvl := int(karte.daten.get("stufe", 1))   # 543 Battle.finishWin: Stufe des Gebiets, in dem gekaempft wird (Tiefer Wald 2, Hoehle 3)
-		var st: Dictionary = Heldwerte.lade()["seltenheiten"]
-		return Beute.beute(hw, w, ilvl, false, false, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
+		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt")).map(func(f): return String(f.monster.get("id", "")))
+		var st: Dictionary = BrsHeld.daten()["seltenheiten"]
+		return Beute.kampfbeute(hw, w, besiegt, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
 	var lage := {"atemlos": zustand.atemlos, "satt": zustand.satt} if probe.is_empty() else {}   # 399.2 (Jerry): wie der Held kommt
 	if Testmodus.ist_an(): lage["eroeffnung"] = Testmodus.eroeffnung   # 399.2 (Jerry): Eröffnung aus dem Reiter Test
 	if eroeffnung != "": lage["eroeffnung"] = eroeffnung   # 490: Ueberfall, Held zuerst (Opening) vom Monster auf der Karte
 	lage["blende"] = true   # 402 (Jerry): die Blende vor dem Kampf wie alt, auch im Probekampf
+	lage["verjagen"] = true   # 841: mit einem Goblin-Späher „Kämpfen“ oder „Verjag den Späher“ zu Beginn (Kampfort.tor), auch im Probekampf
 	if nr > 0: lage["nr"] = nr   # 494 (Prüfer 512b): im Kampf dasselbe Fell wie das Monster auf der Karte (Streuner.nr)
 	if probe.is_empty(): lage["aussehen"] = zustand.aussehen   # 403 (Jerry): der Held im Kampf wie im Dorf (HeldFigur)
 	if probe.is_empty(): lage["leiden"] = zustand.leiden.duplicate()   # 532 (Jerry): Zustände aus dem letzten Kampf (GameState.ailments)
 	if probe.is_empty(): lage["betrunken"] = zustand.betrunken()   # 532 Metrausch wie alt (Battle.drunk): betrunken aus der Schenke in den Kampf
+	if probe.is_empty(): lage["tasche"] = tasche   # 532: die ganze Tasche (aufruf.gd starte)
+	else: lage["tasche"] = pa["tasche"]   # 1020.2 B: Tasche nach der Wahl im Reiter
 	if probe.is_empty(): lage["rauch"] = zustand.anzahl(Geschichte.SMOKE_BUNDLE)   # 494 (Jerry, D4.1): Morwens Rauchbündel gegen Krogg
+	if probe.is_empty(): lage["flaggen"] = zustand.flaggen   # 836: Hinweise einmal je Spielstand (Kampfort.flaggen, nicht kopiert)
+	var ort := "hoehle" if String(karte.daten.get("art", "")) == "CAVE" else "wald"   # 492: Kampforte der Hoehle (507, Jerry)
 	if probe.is_empty(): lage["brs"] = zustand.brs   # 478 (Jerry): der Held nach BRS, wenn der Kampf nach BRS rechnet (brs_kampf.gd)
+	if probe.is_empty() and not zustand.fert.is_empty(): lage["brs_fert"] = zustand.fert["werte"]   # 471: was er seither geuebt hat
+	# 870.5 (Jerry, lohn.gd): Lohn nach BRS aus dem Stand der Heldenstufe und dem Erfahrungstopf des Gebiets (werte.json „welt“ „gebiet“)
+	if probe.is_empty(): lage["stand"] = zustand.stufe_brs()
+	if probe.is_empty(): lage["gebiet"] = String(BrsHeld.welt().get("gebiet", {}).get(karte.id, ""))
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
-	lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
-	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, "wald", tageszeit(), zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	if ort == "wald": lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
+	var zeit := tageszeit() if probe.is_empty() or String(pa["zeit"]) == "" else String(pa["zeit"])   # 1020.2 B: Tageszeit nach Wahl
+	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, ort, zeit, zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
+	# 1020.2 B: nach dem Probekampf „Nochmal“ mit derselben Wahl (Kampfort.again_fn, wie kampf/probe.gd) und „Zurück zum Testmenü“
+	if gestartet and not probe.is_empty() and aufruf.kampf != null:
+		aufruf.kampf.again_fn = func(): aufruf._fertig("AGAIN")
+		aufruf.kampf.zurueck_text = ["Zurück zum Testmenü", "Back to test menu"]
+		aufruf.kampf.ohne_folgen = true   # 1034 (Chef 12.11., 15:04): Siegfenster „ohne Folgen“, keine Geschichtsgegenstände als Beute
+	# 1034: mit dem Spielhelden zählt der Ausgang wie im Spiel, „Nochmal“ schreibt ihn gut und startet neu (nach einer Niederlage nicht:
+	# der Held erwacht wie im Spiel an einem sicheren Ort)
+	if gestartet and spielprobe and aufruf.kampf != null:
+		var kf = aufruf.kampf
+		kf.again_fn = func():
+			erg["nochmal"] = true
+			aufruf._fertig(String(kf.mars.outcome))
+		kf.again_nicht_nach_niederlage = true
+		kf.zurueck_text = ["Zurück zum Testmenü", "Back to test menu"]
 	if probe.is_empty(): zustand.satt = false   # 399.1: Battle.wellFed endet mit dem Kampfbeginn (der Kampfort gibt +1, 399.2)
+	# 471: welche Fertigkeiten der Held im Kampf benutzt, hoert Kampfuebung mit (wie der Kampfort); gutgeschrieben am Kampfende
+	var uebung: Kampfuebung = null
+	if gestartet and probe.is_empty() and not zustand.fertigkeiten_stand().is_empty() and aufruf.kampf != null and aufruf.kampf.mars != null:
+		uebung = Kampfuebung.new()
+		var m = aufruf.kampf.mars
+		var vorher: Callable = m.listener
+		var daten := zustand.brs
+		m.listener = func(e):
+			uebung.hoere(e, m, daten)
+			if vorher.is_valid(): vorher.call(e)
 	if gestartet:
 		for we in umgebung: we.environment = null
 		visible = false; ui.visible = false
 		while aufruf.kampf != null and not aufruf.kampf.is_inside_tree() and erg["ende"] == "": await get_tree().process_frame
 		kampf = aufruf.kampf
 		Messung.kampf_ms = Time.get_ticks_msec() - k0
+		# 1104 (Chef 13.11., 09:09, t281.11): in der Hoehle hat lage kein „platz“ (seit 492 nur im Wald); der Fehler brach kampf_im_wald
+		# ab, nach jedem Hoehlenkampf blieb die Welt unsichtbar (schwarz). Name des Orts ersatzweise
+		Messung.kampf_beginn("%s, %s" % [gegner, String(lage.get("platz", ort))])   # 211.14: Leistung je Kampf am Gerät
+		if kampf and Bausteine806.naechster:   # 806: Testmenü „Kampf messen“, nur dieser Kampf
+			Bausteine806.naechster = false
+			kampf.add_child(Bausteine806.new(kampf))
 		if kampf and kampf.cam: kampf.cam.make_current()
 	while erg["ende"] == "": await get_tree().process_frame
 	kampf = null
+	if kampf_mess: kampf_mess.get_parent().visible = false
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
-	if probe.is_empty() and int(erg["rest"]) < zustand.anzahl("potion"): zustand.weg("potion", zustand.anzahl("potion") - int(erg["rest"]))   # getrunken
+	if probe.is_empty():
+		for id in tasche:   # 532, 935: getrunken oder geworfen (fehlt ein Ding in der Tasche des Kampfs, ist nichts verbraucht)
+			var rest := int((erg["rest"] as Dictionary).get(id, tasche[id]))
+			if rest < int(tasche[id]): zustand.weg(id, int(tasche[id]) - rest)
 	if probe.is_empty() and bool(erg.get("rauch", false)) and zustand.anzahl(Geschichte.SMOKE_BUNDLE) > 0: zustand.weg(Geschichte.SMOKE_BUNDLE, 1)   # 494: geworfen
 	var lohn: Dictionary = erg["lohn"]
 	var ende := [String(erg["ende"])]
-	klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
+	if ende[0] == "AGAIN": return ende[0]   # 1020.2 B: die Blende bleibt schwarz, test_tat startet denselben Probekampf neu
+	var nochmal: bool = bool(erg.get("nochmal", false)) and ende[0] != "LOST"   # 1034: Spielheld, „Nochmal“
+	if not nochmal: klang("nach_kampf", [ende[0] == "WON", karte])   # 399.3 (Jerry): Sieg mit sieg_, sonst Ortsmusik nach 10 s
 	if ende[0] == "NONE" or not probe.is_empty():
 		held.setze(zurueck, "DOWN"); kamera.springe(); await abblenden(0.0)
 		return ende[0]
-	var tp_nach := int(erg["tp"].get("hero", hw.tp))
-	# 532 (Jerry, Abgleich 512; alt Battle.kt 487–489, Game.keepAilments): Zauberpunkte und „einmal je Rast“ verbraucht, Zustände bleiben
+	var tp_nach := int(erg["tp"].get("hero", hw.leben))
+	# 532 (Jerry, Abgleich 512; alt Battle.kt 487–489, Game.keepAilments): Mana verbraucht, Zustände bleiben; 870.4: kürzer je Zähigkeit
 	var hf = erg["held"]
 	if hf != null:
-		hw.zp = clampi(int(hf.sp), 0, hw.max_zp())
-		var tabelle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
-		for s in tabelle.skills:
-			if s.cost == "PER_REST" and hf.uses.has(s.id):
-				var weg := int(s.amount) - int(hf.uses[s.id])
-				if weg > 0: hw.verbraucht[String(s.id)] = weg
-				else: hw.verbraucht.erase(String(s.id))
-	zustand.leiden = AufrufS.leiden_nach(hf, ende[0], hw.mod("CON"))
+		hw.mana = clampi(int(hf.sp), 0, hw.max_mana())
+	zustand.leiden = AufrufS.leiden_nach(hf, ende[0], maxi(0, hw.wert("zaehigkeit") - int(BrsHeld.welt().get("leiden_zaehigkeit_ab", 5))))
 	if ende[0] == "LOST":
 		Rast.vergeht(zustand, 4 * 60)   # Game.DEATH_HOURS
-		hw.voll()   # 532: Hero.restoreFully (TP, ZP, Verbrauchtes)
+		hw.voll()   # 532: Hero.restoreFully (Leben, Mana)
 		var wk: Dictionary = zustand.wiederkehr
 		var alle: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
 		# Test 132 (Chef 16:09: „Bei Heilung bin ich nicht vor der Schenke, sondern vor dem Tempel“): wie Game.kt state.place =
@@ -643,18 +825,47 @@ func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroe
 		kamera.springe(); await abblenden(0.0)
 		ui.sage(zeilen(variiere([{"text": {"de": "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.", "en": "You wake up somewhere safe… The way home took hours."}}])))
 		return ende[0]
-	hw.tp = clampi(tp_nach, 1, hw.max_tp())
-	if ende[0] == "WON": zustand.siege += 1   # 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
+	hw.leben = clampi(tp_nach, 1, hw.max_leben())
+	if ende[0] in ["WON", "ENEMY_FLED"]: zustand.siege += 1   # 492 (Game.kt 1498): Flucht von Grak oder Krogg zaehlt als Sieg; 399.1: GameState.battlesWon (System „Siege“, Thessas Ware); zaehlte bisher nie
+	grundwert_gestiegen = false   # 644a F (Homer 1026): ein Kampf ohne Uebung spielt den Aufstiegsklang des vorigen nicht noch einmal
+	var gestiegen := fertigkeiten_nach_kampf(uebung, ende[0]) if uebung != null else ""   # 471
 	if not lohn.is_empty():
 		zustand.gold += int(lohn.get("gold", 0))
 		for d in lohn.get("items", []): zustand.dazu(String(d))   # Beute (Felle, Zaehne)
 		for g in lohn.get("gear", []): zustand.ausruestung_dazu(g)   # 399.2 Ausruestung aus dem Kampflohn
-		hw.ep_dazu(int(lohn.get("xp", 0)), Geschichte.stufendeckel(zustand))   # Hero.gainXp mit Story.levelCap (538): Stufe hoeher heilt ganz
+		# 870.5 (Jerry, lohn.gd): neuer Stand der Heldenstufe nach BRS (Grenze und weiche Grenze rechnet Brs.gib_erfahrung); Stufe hoeher heilt ganz
+		if lohn.get("stand") is Dictionary and not (lohn["stand"] as Dictionary).is_empty(): zustand.brs_stufe = (lohn["stand"] as Dictionary).duplicate(true)
 		stufe_abgleichen()
+	if nochmal: return "AGAIN"   # 1034: gutgeschrieben; die Blende bleibt schwarz, test_tat startet denselben Probekampf neu
 	held.setze(zurueck, blick_nach)
 	kamera.springe()
 	await abblenden(0.0)
+	if gestiegen != "": ui.kurz(gestiegen)   # 471: „Bogen ↑ 12“, wenn die Welt wieder zu sehen ist
+	if grundwert_gestiegen: klang("effekt", ["level_up"])   # 644a F: ein Grundwert gestiegen, gemeldet wie ein Aufstieg
 	return ende[0]
+
+# 471: Uebung aus dem Kampf gutschreiben (nur nach einem Sieg), Bewaehrungsprobe; die Erfahrung der Fertigkeiten geht in die Heldenstufe
+# nach BRS (zustand.brs_stufe, Stufe wie der Held, bis 472 ihn fuehrt). Gibt die Notiz „Bogen ↑ 12“ zurueck oder leer.
+# 644a F: ist dabei ein Grundwert durchs Ueben gestiegen (BrsHeld.uebungs_plus), steht er dahinter wie eine Fertigkeit
+# („Gewandtheit ↑ 6“, Wert wie im Heldenreiter) und grundwert_gestiegen ist wahr (Klang wie ein Aufstieg)
+var grundwert_gestiegen := false
+func fertigkeiten_nach_kampf(u: Kampfuebung, ende: String) -> String:
+	grundwert_gestiegen = false
+	var s := zustand.fertigkeiten_stand()
+	if s.is_empty(): return ""
+	var vorher: Dictionary = (s.get("werte", {}) as Dictionary).duplicate()
+	var ev := u.gutschreiben(ende, s, zustand.stufe_brs())
+	zustand.spiegle()
+	stufe_abgleichen()   # 870.4: die Erfahrung der Fertigkeiten kann die Heldenstufe heben
+	var t := Kampfuebung.notiz(ev)
+	var gw := grundwerte_notiz(vorher)
+	grundwert_gestiegen = gw != ""
+	return gw if t == "" else (t if gw == "" else t + "  ·  " + gw)
+
+## 644a F: „Kraft ↑ 5“ je Grundwert, der seit [vorher] (Geuebtes vor dem Kampf) durchs Ueben gestiegen ist, sonst leer
+func grundwerte_notiz(vorher: Dictionary) -> String:
+	var hw := held_werte()
+	return "  ·  ".join(hw.grundwerte_gestiegen(vorher).map(func(g): return "%s ↑ %d" % [Sprache.t(ErschaffungBrs.GRUNDWERT[String(g)]), hw.wert(String(g))]))
 
 # ---------------------------------------------------------------- 490 Kampf mit einem Monster der Karte (Game.engage, startBattle, endBattle)
 # Die Welt ruht im Kampf; danach steht der Held, wo er stand, mit seinem Blick; das Monster ist nach dem Sieg fort (herde.gd)
@@ -682,7 +893,7 @@ func _szenenkampf(monster: String, flagge: String) -> void:
 	var ende := await kampf_im_wald(held.kachel, String(Streuner.GRUPPE[monster]))
 	blick_nach = "DOWN"
 	im_kampf = false
-	if ende != "WON":
+	if ende != "WON" and ende != "ENEMY_FLED":   # 492 Game.kt 1498: auch wenn der Gegner flieht, gilt der Sieg (winFlag)
 		szene.clear()
 		return
 	if flagge != "":
@@ -730,7 +941,10 @@ func oeffne_kiste(k: Dictionary) -> void:
 	zustand.setze(id)
 	klang("effekt", ["chest"])
 	var bef: Array = []
-	if k.has("ding"): bef.append({"art": "geben", "ding": String(k["ding"]), "anzahl": int(k.get("anzahl", 1))})
+	if k.has("ding"):
+		var ding := String(k["ding"])
+		if ding == Geschichte.CLASS_WEAPON: ding = Geschichte.truhen_waffe(held_werte().fertigkeiten_jetzt())   # 632, 870.4: nach der stärksten Fertigkeit
+		bef.append({"art": "geben", "ding": ding, "anzahl": int(k.get("anzahl", 1))})
 	if int(k.get("gold", 0)) > 0: bef.append({"art": "gold", "anzahl": int(k["gold"])})
 	if bef.is_empty(): ui.sage([{"text": Sprache.u("chestEmpty")}])
 	spiele(bef)
@@ -773,11 +987,13 @@ func kraeuter_neu() -> void:
 func pfluecke(t: Vector2i) -> void:
 	if not kraut_da(t): return
 	zustand.gepflueckt["%s:%d:%d" % [karte.id, t.x, t.y]] = kraut_heute()
-	var weise := 0.15 * maxi(0, held_werte().mod("WIS"))   # Perks.extraHerbChance
+	var weise := Laden.kraut_chance(held_werte())   # 870.4: Kräutersammeln (875) und Wahrnehmung (alt Perks.extraHerbChance)
 	var n := 1 + (1 if randf() < 0.3 else 0) + (1 if randf() < weise else 0)
 	zustand.dazu("herbs", n)
 	klang("effekt", ["loot"])
-	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}))
+	zustand.uebe("Kräutersammeln")   # 471: Pfluecken uebt Kraeutersammeln (875, 857a A)
+	var auf := zustand.fert_notiz()
+	ui.kurz(Sprache.t({"de": "Du pflückst Heilkräuter (+%d)." % n, "en": "You pick healing herbs (+%d)." % n}) + ("\n" + auf if auf != "" else ""))
 	kraeuter_neu()
 
 func abblenden(ziel: float) -> void:
@@ -872,6 +1088,8 @@ func weiter() -> void:
 			"sagen":
 				var e := {"text": Sprache.t(c["text"]).replace("{name}", zustand.name)}
 				if c.has("wer"): e["wer"] = Sprache.t(c["wer"]).replace("{name}", zustand.name)
+				knopf_offen = _knopf_danach()   # 842: Knoepfe (Probe, Kaufen, 1086 Gold) stehen unter der letzten Zeile davor
+				if not knopf_offen.is_empty(): e["knopf"] = knopf_offen.map(func(k): return Sprache.t(k["knopf"]))
 				zeige(e)
 				return
 			"flagge":
@@ -893,6 +1111,7 @@ func weiter() -> void:
 				zeige({"text": Sprache.u("found", [Sprache.ding(String(c["ding"]), int(c["anzahl"]))])})
 				return
 			"nehmen": zustand.weg(String(c["ding"]), int(c["anzahl"]))
+			"zahlen": zustand.gold = maxi(0, zustand.gold - int(c["anzahl"]))   # 1086: Gold geben ohne eigene Zeile (Pim)
 			"gold":
 				zustand.gold += int(c["anzahl"])
 				zeige({"text": Sprache.u("foundGold", [int(c["anzahl"])])})
@@ -900,10 +1119,11 @@ func weiter() -> void:
 			"rast": Rast.heilen(zustand, held_werte(), platz())   # Cmd.Rest (Tempel): dazu der Wiederkehrort
 			"heilen": Rast.heilen(zustand, held_werte())
 			"laden":   # Cmd.OpenShop: Thessa oder Morwen; die Szene geht weiter, wenn der Laden zu ist
-				oeffne_laden(c["waren"], bool(c.get("brauen", false)))
+				oeffne_laden(c["waren"], bool(c.get("brauen", false)), bool(c.get("nur_vorraete", false)))
 				return
 			"kampf":   # 491 Cmd.Fight (Game.startBattle aus der Szene): Sieg setzt die Flagge, die Szene geht weiter; sonst endet sie
-				if Streuner.GRUPPE.has(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):
+				if Geschichte.kampf_schon_gewonnen(c, zustand): continue   # 1142: ein Kampf, dessen Sieg schon gilt, nie zweimal
+				if Streuner.da(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):   # 492: Gruppe und Modell (Grak, Krogg)
 					_szenenkampf(String(c["monster"]), String(c.get("flagge", "")))
 					return
 				szene.clear()
@@ -928,31 +1148,68 @@ func weiter() -> void:
 		spricht_mit = ""
 	if held: _steht_auf(held.kachel)
 
-# 542 Uniques.make: das Einzelstueck mit Grundform, Seltenheit, Plus und Werten aus texte.json „einzelstuecke“, Stufe wie
-# maxOf(areaLevel, hero.level); zurueck „Name (Seltenheit)“
-static func einzelstueck(id: String) -> bool:
-	Sprache.lade()
-	return Sprache.texte.get("einzelstuecke", {}).get(id, {}).has("grundform")
+# 842 (807 A): folgt nach dieser Zeile (nur Buchfuehrung „variante“ dazwischen) ein Knopf (Skript.knopf, Skript.probe), kommt er aus der
+# Szene und unter die Zeile; wer weitertippt, laesst ihn aus
+var knopf_offen: Array = []   # 1086: alle Knoepfe hintereinander (Pim: Ueberreden, Gold)
+var probe_wurf := Callable()   # Tests: fester Wurf 0–1; sonst randf()
+func _knopf_danach() -> Array:
+	var r: Array = []
+	var i := 0
+	while i < szene.size():
+		var a := String(szene[i]["art"])
+		if a == "variante":
+			i += 1; continue
+		if a != "knopf": break
+		r.append(szene[i])
+		szene.remove_at(i)
+	return r
+
+# 842 „Nicht jetzt“ (Homer [1074.zweit]): die Wahl faellt weg, das Gespraech laeuft weiter wie beim Weitertippen
+func _knopf_ausgelassen() -> void:
+	if knopf_offen.is_empty(): return
+	knopf_offen = []
+	ui.naechste()
+
+func _knopf_gewaehlt(nr := 0) -> void:
+	if knopf_offen.is_empty() or nr < 0 or nr >= knopf_offen.size(): return
+	var k: Dictionary = knopf_offen[nr]
+	knopf_offen = []
+	var bef: Array = k.get("dann", [])
+	var auf := ""
+	if k.has("probe"):
+		var p: Dictionary = k["probe"]
+		var fert := String(p["fert"])
+		var fs := zustand.fertigkeiten_stand()
+		var chance := Geschichte.probe_chance(fert, BrsFertigkeit.wert(fs, fert) if not fs.is_empty() else 0, String(p["gegen"]), held_werte().stufe)   # 1084
+		var wurf: float = float(probe_wurf.call()) if probe_wurf.is_valid() else randf()
+		zustand.uebe(fert)   # 471: jeder Versuch uebt, gelungen oder nicht (1037)
+		auf = zustand.fert_notiz()
+		bef = p["ja"] if wurf * 100.0 < chance else p["nein"]
+	for i in range(bef.size() - 1, -1, -1): szene.push_front(bef[i])
+	ui.schliesse_text()   # die Szene geht mit dem Gewaehlten weiter (gelesen -> weiter)
+	if auf != "": ui.kurz(auf)
+
+# 542 Uniques.make: das Einzelstueck, Stufe aus dem Gegenstandskatalog (644a A, DESIGN-BRS.md 11 „Funde“; vorher maxOf(areaLevel,
+# hero.level)); zurueck „Name (Seltenheit)“. 870.6: Grundform,
+# Seltenheit, Guete und Zusatzeigenschaften nach dem BRS aus den Regelwerten (werte.json „gegenstaende“ „einzelstuecke“), Name aus dem
+# Gegenstandskatalog (Beute.name)
+static func einzelstueck(id: String) -> bool: return Beute.einzelstueck(id).has("grundform")
 
 func einzel_gabe(id: String) -> String:
-	var e: Dictionary = Sprache.texte["einzelstuecke"][id]
-	var ilvl := maxi(int(karte.daten.get("stufe", 1)), held_werte().stufe)
-	var rolls := []
-	for r in e.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
-	var g := {"uid": zustand.neue_uid(), "base": String(e["grundform"]), "rarity": String(e["rarity"]), "ilvl": ilvl, "plus": int(e.get("plus", 0)),
-		"rolls": rolls, "unique": id, "name_seed": 0}
+	var g := Beute.einzel(id, zustand.neue_uid(), Katalog.stufe(id))
 	zustand.ausruestung_dazu(g)
-	return "%s (%s)" % [Beute.name(g), Sprache.t(e["seltenheit"])]
+	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
-# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level)
+# Loot.generate mit Mindestseltenheit (rarityFor special, floor) und Platz, Stufe wie maxOf(areaLevel, hero.level), hoechstens
+# Heldenstufe + 1 (644a A, Beute.gabe_stufe)
 func gear_gabe(was: String) -> String:
 	var t := was.trim_prefix("@gear:").split(":")
 	var hw := held_werte()
 	var w := KotlinZufall.new(randi())
-	var ilvl := maxi(int(karte.daten.get("stufe", 1)), hw.stufe)
-	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw.klasse, t[1] if t.size() > 1 else "")
+	var ilvl := Beute.gabe_stufe(int(karte.daten.get("stufe", 1)), hw.stufe)
+	var g := Beute.erzeuge(w, zustand.neue_uid(), ilvl, Beute.seltenheit_fuer(hw, w, ilvl, true, t[0]), hw, t[1] if t.size() > 1 else "", true)   # 870.6: nach seinen Fertigkeiten, besonderer Fund
 	zustand.ausruestung_dazu(g)
-	return "%s (%s)" % [Beute.name(g), Sprache.t(Heldwerte.lade()["seltenheiten"][String(g["rarity"])]["name"])]
+	return "%s (%s)" % [Beute.name(g), Sprache.t(BrsHeld.daten()["seltenheiten"][String(g["rarity"])]["name"])]
 
 # ---------------------------------------------------------------- Anschlagbrett (399.1, BoardScreen.kt): was haengt, mit Aushang
 # und Lohn, je einer „Annehmen“ (angenommen: grau); nichts: verblichene Naegel; „Zurück“ schliesst (Game.advance)
@@ -1047,13 +1304,16 @@ func oeffne_menue(reiter := "") -> void:
 	m.test.connect(func(was: String, mit: Array):   # 399.1 Reiter „Test“: erst das Menue zu, dann in der Welt
 		# 555 (Chef 11:52: „Wenn ich auf Kartenzoom klicke, dann bin ich sofort aus dem Testmenü draußen“): Schalter bleiben wie alt im
 		# Menue, die Wirkung steht als kurze Meldung; nur Orts-, Kampf- und Schirmwechsel schliessen
-		if was in ["zoom", "nacht", "tiere"]:
+		if was in ["zoom", "nacht", "tiere", "gras", "kampfeffekte", "kampfmessen"]:
 			test_tat(was, [])
 			var de := Sprache.aktiv() == "de"
 			match was:
 				"zoom": m.meldung(String(mit[0]) if mit.size() > 0 else ("Kartenzoom gestellt" if de else "Map zoom set"))
 				"nacht": m.meldung(("Nacht, 23:00 Uhr" if de else "Night, 11 pm") if licht.ziel > 0.5 else ("Tag, 12:00 Uhr" if de else "Day, noon"))
 				"tiere": m.meldung("Tiere umgeschaltet" if de else "Animals toggled")
+				"gras": m.meldung(("Gras: Grass & Wind" if de else "Grass: Grass & Wind") if GrasBausatz.an else ("Gras: unser altes" if de else "Grass: our old one"))
+				"kampfeffekte": m.meldung(("Lichtschächte an" if de else "Light shafts on") if KampfEffekte.an else ("Lichtschächte aus" if de else "Light shafts off"))
+				"kampfmessen": m.meldung(("Der nächste Kampf misst jeden Baustein (etwa 40 s)" if de else "The next battle measures each part (about 40 s)") if Bausteine806.naechster else ("Kampf messen aus" if de else "Battle measuring off"))
 			return
 		m.zu.emit()
 		test_tat(was, mit))
@@ -1079,6 +1339,42 @@ func oeffne_menue(reiter := "") -> void:
 func test_tat(was: String, mit: Array) -> void:
 	match was:
 		"nacht", "tiere": _knopf(was)   # 500: aus dem Testmenue statt der Probeknoepfe
+		"gras":   # 804: Gras des Kits gegen unser altes, zum Vergleich und fuer die Bilder/s vorher und nachher
+			GrasBausatz.an = not GrasBausatz.an
+			if gebiet: gebiet.gras_neu()
+		"kampfeffekte":   # 806: Lichtschächte im Kampfort, ab dem nächsten Kampf (Bodennebel seit Test 277 aus)
+			KampfEffekte.an = not KampfEffekte.an
+		"kampfmessen":   # 806: der nächste Kampf misst Bild-, Grafik- und Zeichenzeit je Baustein (Bausteine806)
+			Bausteine806.naechster = not Bausteine806.naechster
+		"lage_merken":   # 1020.1 A: die Lage jetzt in den Lageplatz (Testmodus.LAGEPLATZ), der eigene Platz bleibt
+			var eigen := Spielstand.platz
+			buche_spielzeit()
+			Spielstand.platz = Testmodus.LAGEPLATZ
+			Spielstand.speichere(zustand, held_werte(), platz())
+			Spielstand.platz = eigen
+			ui.kurz(Sprache.t({"de": "Lage gemerkt.", "en": "Situation saved."}))
+		"lage_zurueck":   # 1020.1 A: zurück in die gemerkte Lage; gespeichert wird weiter in den eigenen Platz
+			var eigen2 := Spielstand.platz
+			var stand := Spielstand.lade(Testmodus.LAGEPLATZ)
+			if stand.is_empty():
+				ui.kurz(Sprache.t({"de": "Noch keine Lage gemerkt.", "en": "No situation saved yet."}))
+				return
+			await abblenden(1.0)
+			var von2 := karte.id
+			zustand = Zustand.aus_daten(stand["zustand"])
+			werte = BrsHeld.aus_spiel_daten(stand["held"])
+			stufe_abgleichen()
+			var o: Dictionary = stand["ort"]
+			betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
+			Spielstand.platz = eigen2
+			await ortsworte(von2, false)
+			ui.kurz(Sprache.t({"de": "Gemerkte Lage.", "en": "Saved situation."}))
+		"einmaliges":   # 1020.1 A: Eingebungen, Kampfhinweise und Ortssätze wie beim ersten Mal
+			for f in zustand.flaggen.keys():
+				if String(f).begins_with("eingebung_") or String(f).begins_with("kampf_hinweis_"): zustand.flaggen.erase(f)
+			Ortsblende.besuche.clear()
+			Ortsblende.letzter.clear()
+			ui.kurz(Sprache.t({"de": "Eingebungen, Kampfhinweise und Ortssätze wie beim ersten Mal.", "en": "Insights, fight hints and place lines as the first time."}))
 		"teleport":
 			await abblenden(1.0)
 			var von := karte.id
@@ -1129,24 +1425,36 @@ func test_tat(was: String, mit: Array) -> void:
 			get_tree().root.add_child(s)
 			get_tree().current_scene.queue_free()
 			get_tree().current_scene = s
-		"erschaffung_brs":   # 470a B: Seite nach BRS 1.1 nur ansehen; der Held bleibt, wie er ist
+		"erschaffung_brs":   # 470a B; 834 (Spike, Chef 10.11., 10:21): „Abenteuer beginnen“ speichert das laufende Spiel und beginnt ein neues
+			# mit dem Helden nach BRS (zustand.brs) im freien oder gewaehlten Platz
 			var ebene := CanvasLayer.new()
 			ebene.layer = 40
 			ebene.process_mode = Node.PROCESS_MODE_ALWAYS
 			add_child(ebene)
 			var e := ErschaffungBrs.new()
-			e.ziel = maxi(Spielstand.platz, 1)   # nie die Platzwahl: es wird nichts gespeichert
+			e.ziel = 0   # 834: erster freier Platz, sind alle belegt, die Platzwahl (795)
 			ebene.add_child(e)
 			get_tree().paused = true
 			var weg := func():
 				ebene.queue_free()
 				get_tree().paused = false
 			e.zurueck.connect(weg)
-			e.fertig.connect(func(_w): weg.call())
+			e.fertig.connect(func(w):
+				weg.call()
+				speichere()
+				neu_brs = w
+				get_tree().reload_current_scene())
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
-			await kampf_im_wald(held.kachel, String(mit[0]), [] if was == "kampf" else [String(mit[1]), int(mit[2])])
+			# 1034: Probekampf mit dem Spielhelden (mit[4] „spiel“) wie ein Kampf im Spiel, mit Söldner und „Nochmal“
+			var spielheld: bool = was == "probe" and mit.size() > 4 and String(mit[4]) == "spiel"
+			var pr: Array = [] if was == "kampf" or spielheld else [String(mit[1]), int(mit[2])]
+			var ende := await kampf_im_wald(held.kachel, String(mit[0]), pr, "", 0, spielheld)
+			while ende == "AGAIN" and was == "probe":   # 1020.2 B: „Nochmal“ mit derselben Wahl
+				ende = await kampf_im_wald(held.kachel, String(mit[0]), pr, "", 0, spielheld)
+			# 1020.2 B: aus dem Reiter gestartet, führt „Zurück zum Testmenü“ dorthin (Tests rufen ohne das vierte Feld)
+			if was == "probe" and mit.size() > 3 and bool(mit[3]) and ende != "NONE": oeffne_menue("test")
 
 # 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
@@ -1155,6 +1463,7 @@ func ortsworte(von: String, erster: bool) -> void:
 		await abblenden(0.0)
 		return
 	var a := Ortsblende.art_fuer(von, karte.id, erster)
+	Ortsblende.merke(karte.id)
 	var satz = null
 	if a == "FULL":
 		var z := RandomNumberGenerator.new()
@@ -1245,21 +1554,32 @@ func held_figur_neu(vorher: String) -> void:
 	held.neu_figur(w)
 
 func fackel_neu() -> void:
-	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR")
+	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR", String(karte.daten.get("art", "")) == "CAVE")
 
-# 538: die Gespraeche (Geschichte, s.stufe(): Garrick vor Krogg) fragen den Spielstand nach der Stufe des Helden (alt s.hero.level)
+# 538, 870.4: die Heldenstufe steht im Stand nach BRS (zustand.brs_stufe, Kampf und Uebung schreiben hinein); der Held spiegelt sie,
+# eine Stufe hoeher heilt ganz (Jerry 870.5: Leben und Mana voll)
 func stufe_abgleichen() -> void:
-	zustand.stufe_held = held_werte().stufe
+	var h := held_werte()
+	var neu := zustand.stufe()
+	if neu > h.stufe:
+		h.stufe = neu
+		h.voll()
+	else:
+		h.stufe = neu
+		h.begrenze()
 
-# 543 GameState.newGame: Startgold der Klasse (15–25) und was von ihren Startdingen keine Ausruestung ist (Heiltraenke) in die Tasche
-static func startvorrat(z: Zustand, klasse: String) -> void:
-	var d := Heldwerte.lade()
-	var k: Dictionary = d["klassen"].get(klasse, {})
-	z.gold = int(k.get("startgold", 0))
-	for id in k.get("start", []):
-		if not d["grundformen"].has(id) and not Laden.ding(String(id)).is_empty(): z.dazu(String(id))
-func held_werte() -> Heldwerte:
-	if werte == null: werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "FIGHTER")
+# 543, 870.4: Startgold und Heiltraenke fuer jede Herkunft gleich (werte.json „wirtschaft“ startgold, start_heiltraenke)
+static func startvorrat(z: Zustand) -> void:
+	var wi: Dictionary = BrsHeld.lade().get("wirtschaft", {})
+	z.gold = int(wi.get("startgold", 20))
+	z.dazu("potion", int(wi.get("start_heiltraenke", 2)))
+
+func held_werte() -> BrsHeld:
+	if werte == null:
+		werte = BrsHeld.aus_daten(zustand.brs) if not zustand.brs.is_empty() else BrsHeld.neu()
+		werte.name = zustand.name
+		werte.voll()
+	if not zustand.fert.is_empty(): werte.geuebt = zustand.fert["werte"]   # 471: was er seither geuebt hat
 	return werte
 
 func platz() -> Dictionary:
@@ -1343,21 +1663,33 @@ func _rast_wahl(id: String) -> void:
 		"kurz", "lang":
 			await raste(id)
 
+## 753: Name der Rast ueber dem Satz der Blende, aus dem Text der Wahl („Lange Rast · 8 Stunden“, „Zimmer · 5 Gold“)
+static func rast_name(art: String, ort: String) -> String:
+	var schluessel := "short" if art == "kurz" else ("long" if ort == "feuer" or ort == "" else "roomBuy")
+	return Sprache.r(schluessel).split(" · ")[0]
+
 # die Welt wird schwarz, die Zeit vergeht (Satz in Gold), dann die Welt zur neuen Stunde mit dem Satz der Rast
 func raste(art: String) -> void:
 	var ort := rast_ort
 	rast_feld_zu()
 	ui.schliesse_wahl()
 	await abblenden(1.0)
-	var satz := Label.new()
-	satz.text = Sprache.r("hourGone" if art == "kurz" else "hoursGone")
-	satz.add_theme_font_size_override("font_size", 40)
-	satz.add_theme_color_override("font_color", Steuerung.GOLD)
-	satz.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	satz.grow_horizontal = Control.GROW_DIRECTION_BOTH; satz.grow_vertical = Control.GROW_DIRECTION_BOTH
-	blende.add_child(satz)
-	await get_tree().create_timer(1.3).timeout
-	satz.queue_free()
+	# 753 (Chef 09.11., 14:09: „klein und futzelig … nicht wie unser neues Design“): wie die Ortsblende (556) die Rast klein und
+	# gesperrt, Goldstrich, der Satz in Alegreya; die Worte kommen, stehen, gehen wie alt (RestScreen.kt: 500, 1300, 400 ms)
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var worte := Ortsblende.worte_spalte(rast_name(art, ort), Sprache.r("hourGone" if art == "kurz" else "hoursGone"))
+	worte.custom_minimum_size.x = get_viewport().get_visible_rect().size.x - 2 * 36 * AktionsKnopf.DP
+	worte.modulate.a = 0.0
+	mitte.add_child(worte)
+	blende.add_child(mitte)
+	var tw := create_tween()
+	tw.tween_property(worte, "modulate:a", 1.0, 0.5)
+	tw.tween_interval(1.3)
+	tw.tween_property(worte, "modulate:a", 0.0, 0.4)
+	await tw.finished
+	mitte.queue_free()
 	var r := Rast.rasten(zustand, held_werte(), art, ort, platz())
 	if r.has("nein"):
 		rast_notiz = String(r["nein"])
@@ -1378,8 +1710,9 @@ func raste(art: String) -> void:
 # Verkaeufliches aus der Tasche verkaufen, die letzten fuenf Verkaeufe zurueckkaufen, bei Morwen brauen; Ausruestung bei Thessa
 # kaufen (Tragbares zuerst, 59.2), ueberall verkaufen (Seltenes zuerst), Gewoehnliches auf einmal.
 # 416.3 (Chef 31.10.): bildschirmfuellend wie alt (ladenschirm.gd, ShopScreen.kt); zu: die Szene geht weiter (Game.advance)
-func oeffne_laden(waren: Array, brauen: bool) -> void:
+func oeffne_laden(waren: Array, brauen: bool, nur_vorraete := false) -> void:
 	laden = Laden.new(waren, brauen)
+	laden.nur_vorraete = nur_vorraete   # 842: Osric verkauft nur Verbände
 	held.halt()
 	held.richtung = Vector3.ZERO
 	var ebene := CanvasLayer.new()
@@ -1392,6 +1725,8 @@ func oeffne_laden(waren: Array, brauen: bool) -> void:
 		laden = null
 		laden_schirm = null
 		weiter()
+		var auf := zustand.fert_notiz()   # 471: „Handeln ↑ 3“ nach dem Laden
+		if auf != "": ui.kurz(auf)
 		_steht_auf(held.kachel))
 
 func zeige_zeilen(z: Array) -> void:
@@ -1410,21 +1745,44 @@ func flaggen_neu() -> void:
 	karte.baue_wege()
 	if gebiet: gebiet.schlagbaum(karte.flaggen.has("barrier_open"))   # 530
 	sichtbar_neu()
+	gitter_neu(true)
 
 func sichtbar_neu() -> void:
 	if leute == null: return
 	for l in leute.get_children():
-		if l is Leute: l.zeige(Geschichte.sichtbar(String(l.daten.get("id", "")), zustand))
+		if l is Leute:
+			l.zeige(Geschichte.sichtbar(String(l.daten.get("id", "")), zustand))
+			# 492 (356.1 Leave): Lyra, befreit, geht durch das offene Gitter aus der Halle (10/7), dort ist sie fort (LYRA_GONE)
+			if String(l.daten.get("id", "")) == "lyra_cave" and zustand.has(Geschichte.LYRA_RESCUED) and not zustand.has(Geschichte.LYRA_GONE):
+				l.geht_fort(Vector2i(10, 7), func():
+					zustand.setze(Geschichte.LYRA_GONE)
+					sichtbar_neu())
+
+# 492 das Gitter der Hoehle (hoehle.py Gitter_L, Gitter_R, Ursprung an der Angel): offen schwenken die Fluegel nach Norden in die
+# Halle; beim Oeffnen sieht man es, beim Betreten steht es schon offen
+func gitter_neu(schwenk := false) -> void:
+	if gebiet == null: return
+	var auf := zustand.has(Geschichte.GATE_OPEN)
+	for n in [["Gitter_L", 1.0], ["Gitter_R", -1.0]]:
+		var g := gebiet.find_child(String(n[0]), true, false) as Node3D
+		if g == null: continue
+		var soll := deg_to_rad(100.0) * float(n[1]) if auf else 0.0
+		if schwenk and absf(g.rotation.y - soll) > 0.01: create_tween().tween_property(g, "rotation:y", soll, 1.4).set_trans(Tween.TRANS_SINE)
+		else: g.rotation.y = soll
 
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
-	Messung.bild(dt, "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
+	Messung.bild(dt, ("Kampf " + Messung.kampf_wo) if kampf != null else "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
+	if kampf != null:
+		Messung.kampf_bild(dt)
+		_kampf_messe()
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
 	held.atemlos_neu(zustand.atemlos and kampf == null)   # 592: leer kurz stehen, Haende auf den Knien
 	if held.funke_an != zustand.funke: held.funke_neu(zustand.funke)   # 677: getrunken, geloescht, nach der Rast verglommen
 	ui.ausdauer_balken.z = zustand
-	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer])   # 399.3 (Jerry): atemlos keucht er (Panting.kt)
+	# 399.3 (Jerry): atemlos keucht er (Panting.kt); 1003: die Heldin mit Frauenstimme (alt Panting.kt hero.sex, Erschaffung „geschlecht“)
+	klang("atme", [zustand.atemlos and kampf == null, zustand.ausdauer, String(zustand.aussehen.get("geschlecht", "m")) == "w"])
 	rufe_neu()
 	Leute.still = ui.spricht()   # 390: wer spricht, bleibt stehen (Mode.Dialog)
 	if is_instance_valid(ziel_person) and not ui.spricht():
@@ -1451,6 +1809,12 @@ func _process(dt: float) -> void:
 	# 490: Monster ziehen, solange der Held frei unterwegs ist (Mode.Explore); Kraeuter wachsen bei Sonnenaufgang nach
 	if herde and not im_kampf and not ui.spricht() and rast_ort == "" and laden == null and not brett_offen and not get_tree().paused: herde.schritt(dt)
 	if kraut_tag != kraut_heute(): kraeuter_neu()
+	if nebel and nebel.an:   # 505: Nebel nachziehen; Leute und Monster nur in Sicht (WorldScreen: fog != VISIBLE nicht gezeichnet)
+		nebel.schritt(dt)
+		if herde:
+			for s in herde.liste: s.visible = nebel.zeigt(s.kachel)
+		for l in leute.get_children():
+			if l is Leute: l.visible = l.da and not l.drinnen and nebel.zeigt(l.kachel)
 	leiste_uhr -= dt
 	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
 		leiste_uhr = 0.25
@@ -1462,6 +1826,33 @@ func _process(dt: float) -> void:
 	if zeiten.size() > 240: zeiten.pop_front()
 	if Testmodus.standort: ui.standort = "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y]
 	ui.messe(zeiten)
+
+# 211.14 (Rest 211.13, Sokrates 20.10.: „Leistung am A56 messen“): im Kampf ist die Steuerung mit ihrer Bildrate verborgen; dieselbe
+# Anzeige auf eigener Ebene unter dem Rand (Rand.EBENE - 1), links in der Mitte über dem Kampfort, wo weder Zugleiste noch Knöpfe sind
+func _kampf_messe() -> void:
+	var bs = kampf.get_node_or_null("Bausteine806") if kampf else null   # 806: Messlauf „Kampf messen“ zeigt sich immer
+	var an: bool = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or bs != null
+	if kampf_mess == null:
+		if not an: return
+		var e := CanvasLayer.new()
+		e.layer = Rand.EBENE - 1
+		e.name = "KampfMessung"
+		add_child(e)
+		kampf_mess = Label.new()
+		kampf_mess.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var vs := get_viewport().get_visible_rect().size
+		kampf_mess.position = Vector2(24, vs.y * 0.30)
+		kampf_mess.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART   # wie die Steuerung (624): bricht innerhalb des Schirms um
+		kampf_mess.custom_minimum_size.x = vs.x - 48
+		kampf_mess.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
+		kampf_mess.add_theme_color_override("font_color", Color(0.86, 0.68, 0.32))   # wie Steuerung.GOLD
+		kampf_mess.add_theme_color_override("font_outline_color", Color.BLACK)
+		kampf_mess.add_theme_constant_override("outline_size", 8)
+		e.add_child(kampf_mess)
+	kampf_mess.get_parent().visible = an
+	if an and Engine.get_process_frames() % 15 == 0: kampf_mess.text = bs.stand if bs != null else Messung.kampf_zeile()
+	# 1024 (Chef 12.11., 09:04: Ansage über der Bildrate-Zeile): der Kampfschirm hält die Zeile frei
+	if kampf and kampf.get("ui") != null: kampf.ui.frei_halten = [kampf_mess.get_global_rect()] if an and kampf_mess.text != "" else []
 
 # ---------------------------------------------------------------- Standbilder am Rechner (Vergleich alt/neu)
 func bilder() -> void:
@@ -1541,6 +1932,100 @@ func bilder() -> void:
 	held.rotation.y = atan2(zu.x, zu.z)
 	await get_tree().create_timer(2.0).timeout
 	await knips(dir + "/nah.png")
+	# 870.4 (LISTE-UMZUG-BRS.md Schritt 4 Pruefung): der Heldenreiter nach BRS als Bild vor B1, Spielgroesse, Held wie im Spiel
+	kamera.nah_fern()
+	ui.leiste.visible = true
+	oeffne_menue("held")
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/heldenreiter.png")
+	get_tree().quit()
+
+# 1020.1: --pruefbild=<ordner> zeigt den Reiter „Test“ mit der Prüfliste des Builds: zwei Zeilen beantwortet (passt, falsch mit
+# Wort), die dritte aufgeklappt; ein Bild zugeklappt (oben), eines aufgeklappt (Zeile offen). Nur am Rechner (eigene Ablage user://)
+func pruefliste_bild() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--pruefbild="): dir = a.substr(12)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	Testmodus.an = true
+	Testmodus.geladen = true
+	Sprache.setze("de")
+	var zl := Pruefliste.zeilen()
+	if zl.size() >= 3:
+		Pruefliste.setze(String(zl[0]["nr"]), "✓")
+		Pruefliste.setze(String(zl[1]["nr"]), "✗ kein Staub")
+		Pruefliste.setze(String(zl[2]["nr"]), "")
+	await get_tree().create_timer(1.0).timeout
+	oeffne_menue("test")
+	await get_tree().create_timer(1.5).timeout
+	await knips(dir + "/pruefliste.png")
+	if zl.size() >= 3:
+		Pruefliste._oeffne(String(zl[1]["nr"]))
+		var m = get_tree().root.find_children("*", "Menue", true, false)
+		if not m.is_empty(): m[0].baue()
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/pruefliste_offen.png")
+	get_tree().quit()
+
+# 814 (Fund t278.2, dritter: Chef sieht den Fussstaub nicht): --staubbild=<ordner> laesst den Helden um 10 Uhr auf dem Erdweg vor dem
+# Schlagbaum nach Norden gehen und rennen, je 0,15 s ein Bild, und schreibt, wie viele Staubwoelkchen leben und wo (Ursache nachstellen)
+func staub_bild() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--staubbild="): dir = a.substr(12)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	zustand.minuten = 10 * 60
+	licht_nach_uhr(true)
+	ui.mess.visible = false
+	held.setze(Vector2i(17, 9), "UP")
+	if OS.get_environment("STAUB_NAH") != "": kamera.nah_fern()
+	await get_tree().create_timer(1.5).timeout
+	var fx = gebiet.effekte
+	print("STAUB erde am Helden ", fx.erde(held.global_position) if fx else "ohne Effekte", " Paket ", fx.szene("effects/footstep_dust.tscn") != null if fx else false)
+	if fx and OS.get_environment("STAUB_STILL") != "":   # eine Wolke neben dem stehenden Helden, in Zeitlupe, Bilder in festen Abstaenden
+		var at: Vector3 = held.global_position + Vector3(0.5, 0.02, -0.5)
+		fx.fussstaub(at, false)
+		var t0 := Time.get_ticks_msec()
+		print("STAUB Wolke am Bild ", kamera.get_viewport().get_camera_3d().unproject_position(at))
+		for i in 6:
+			await get_tree().create_timer(0.06).timeout
+			await knips(dir + "/still_%d.png" % i)
+			print("STAUB still %d nach %d ms" % [i, Time.get_ticks_msec() - t0])
+		get_tree().quit()
+		return
+	held.geh_zu(held.position + Vector3(0, 0, -2.0 * Karte.TS))
+	for i in 8:
+		await get_tree().create_timer(0.15).timeout
+		var wolken: Array = fx.get_children().filter(func(c): return String(c.scene_file_path).ends_with("footstep_dust.tscn")) if fx else []
+		print("STAUB Bild %d: %d Woelkchen, Held %s, Anim %s, Tempo %.2f" % [i, wolken.size(), held.global_position.snapped(Vector3.ONE * 0.01),
+			held.anim.current_animation if held.anim else "-", held.tempo_jetzt])
+		if i == 2 and not wolken.is_empty():
+			for gp in (wolken[-1] as Node).find_children("*", "GPUParticles3D", true, false):
+				var p := gp as GPUParticles3D
+				var pm := p.process_material as ParticleProcessMaterial
+				var mesh = p.draw_pass_1
+				var mat = mesh.surface_get_material(0) if mesh else null
+				print("STAUB Teil %s: an %s, einmal %s, Menge %d, Leben %.2f, Groesse %s, global %s, Mesh %s, Mat %s, Skala %.2f-%.2f, Farbe %s, sichtbar %s" % [p.name,
+					p.emitting, p.one_shot, p.amount, p.lifetime, (mesh.get_aabb().size if mesh else Vector3.ZERO), p.global_transform.basis.get_scale(),
+					mesh.get_class() if mesh else "-", (mat.get_class() + " " + str(mat.resource_path)) if mat else "-",
+					pm.scale_min if pm else 0.0, pm.scale_max if pm else 0.0,
+					(pm.color_ramp.gradient.colors if pm and pm.color_ramp else "-"), p.is_visible_in_tree()])
+		await knips(dir + "/staub_%d.png" % i)
+	# gross und ohne Daempfen: wird die Vorlage hier ueberhaupt gezeichnet? Dazu Kaminrauch zum Vergleich
+	if fx:
+		for k in [4.0, 5.0]:
+			var g = fx.setze("effects/footstep_dust.tscn", held.global_position + Vector3(0.6, 0.02, 0), 4.0)
+			if k == 5.0:   # dieselbe Wolke mit ausdruecklich gesetzten Vorgaben des Shaders (in der Vorlage „null“)
+				for gi in g.find_children("*", "GeometryInstance3D", true, false):
+					var sm = (gi as GeometryInstance3D).material_override
+					if sm is ShaderMaterial:
+						sm.set_shader_parameter("alpha_scale", 1.0); sm.set_shader_parameter("noise_scale", 1.0)
+						sm.set_shader_parameter("erosion_edge", 0.06); sm.set_shader_parameter("proximity_fade", 0.0); sm.set_shader_parameter("alpha_scale", 1.0)
+			await get_tree().create_timer(0.12).timeout
+			await knips(dir + "/gross_%d.png" % int(k))
+		print("STAUB Kaminrauch ", fx.kamine.size(), " Teile ", fx.get_children().filter(func(c): return String(c.scene_file_path).contains("chimney")).size())
 	get_tree().quit()
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
@@ -1619,6 +2104,13 @@ func leute_blatt() -> void:
 		if r == 0 and k == reihe / 2: mitte_n = l
 	held.leute = leute.get_children()
 	print("LEUTE BLATT ", ids)
+	if "--gesichter" in OS.get_cmdline_user_args():   # 475: zuerst alle Gesichter nebeneinander
+		if "--gesichtervergleich" in OS.get_cmdline_user_args():   # Lauf 2: wie Lauf 1 (Nahebene) und doppelt so weit (Zoom), zum Vergleich
+			await gesichter(dir, true, "leute_gesichter_nah.png")
+			await gesichter(dir, false, "leute_gesichter_weit.png", 2.0)
+		if "--gesichterspiel" in OS.get_cmdline_user_args():   # Spur (c): Spielgroesse (Chef 04.11., 20:49), Tusche wie im Spiel
+			await gesichter(dir, false, "leute_gesichter_spiel.png", Kamera.NAH / GESICHT_BREITE, true)
+		await gesichter(dir)
 	kamera.ziel = mitte_n
 	kamera.springe()
 	await get_tree().create_timer(1.5).timeout
@@ -1658,6 +2150,106 @@ func leute_blatt() -> void:
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/leute_nacht.png")
 	get_tree().quit()
+
+# 475 (Chef 03.11., 07:47: „mit individuellem Gesicht … damit die alle wieder gleich ausschauen“): je Person ein Bild des Kopfs mit der
+# Spielkamera (Tusche, Licht wie im Spiel), schmal und flacher wie das Kopfblatt (figurenprobe.gd), die anderen ausgeblendet; zusammen
+# in leute_gesichter.png (4 Spalten, Name darunter). Zeilen GESICHT: Person, Kaufkoerper oder alt
+const GESICHT_BREITE := 0.55          # m Bildbreite der Kamera
+const GESICHT_KACHEL := 420           # Punkte je Bild (Quadrat um den Kopf)
+const GESICHT_NAME := 50              # Punkte fuer den Namen unter dem Quadrat (Lauf 2, Pruefer 22:24: Aldrics Bart lag in der Schrift)
+# 475 Lauf 2 (Pruefer 20:39: „Im ganzen Blatt fehlt die Tuschelinie“): nah = wie Lauf 1 (Nahebene kurz vor die Person); sonst bleibt die
+# Nahebene, und statt dessen sind Dorf und Held ausgeblendet (was vor dem Kopf stand, waren Haeuser); Licht und Kamera wie im Spiel
+# 475 Spur (c) (Tom 04.11., 22:3x): bei 0,55 m Bildbreite traf tusche.gdshader „knick“ (0,06 m Tiefenkruemmung ueber 1–2 Bildpunkte) kaum
+# eine Kante, nur der Umriss blieb; ausschnitt = Spielgroesse: Kamera auf weit × 0,55 m (NAH 3,4 m), aus dem Bild nur die 0,55 m um den Kopf,
+# ohne Glaetten vergroessert (so gross wie am Handy, jeder Bildpunkt sichtbar)
+func gesichter(dir: String, nah := false, datei := "leute_gesichter.png", weit := 1.0, ausschnitt := false) -> void:
+	var alle: Array = leute.get_children().filter(func(x): return x is Leute and not x.is_queued_for_deletion())
+	var mk := Node3D.new()
+	leute.add_child(mk)
+	var neig_vorher: float = kamera.neigung
+	var zoom_vorher: float = kamera.zoom
+	kamera.neigung = -12.0
+	kamera.zoom = GESICHT_BREITE * weit
+	# Lauf 258 (Pruefer 05:16: fuenf von zwoelf Bildern zeigten nur Dachziegel): die Kamera steht 40 m zurueck (kamera.gd folge), Haeuser
+	# davor verdeckten den Kopf; die Nahebene kurz vor die Person, was davor steht, faellt weg
+	var near_vorher: float = kamera.near
+	if nah: kamera.near = 40.0 - 1.5
+	var welt_sichtbar: Array = []
+	if not nah:
+		for n in [gebiet, held]:
+			if n is Node3D: welt_sichtbar.append([n, (n as Node3D).visible]); (n as Node3D).visible = false
+	var name_l := Label.new()
+	name_l.add_theme_font_override("font", Stil.schrift())
+	name_l.add_theme_font_size_override("font_size", 30)
+	name_l.add_theme_color_override("font_color", Color("f0c850"))
+	name_l.add_theme_color_override("font_outline_color", Color("201408"))
+	name_l.add_theme_constant_override("outline_size", 8)
+	name_l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var grund := StyleBoxFlat.new()   # der Streifen unter dem Quadrat zeigt sonst den Rumpf hinter dem Namen
+	grund.bg_color = Color("0e0b08")
+	name_l.add_theme_stylebox_override("normal", grund)
+	var ebene := CanvasLayer.new()
+	ebene.layer = 50
+	add_child(ebene)
+	ebene.add_child(name_l)
+	var vp := get_viewport().get_visible_rect().size
+	name_l.size = Vector2(GESICHT_KACHEL, 40)
+	name_l.size = Vector2(vp.x, 90)
+	name_l.add_theme_font_size_override("font_size", 64)   # das Quadrat wird von der Bildbreite auf 420 Punkte verkleinert
+	name_l.position = Vector2(0, vp.y * 0.5 + vp.x * 0.5 + 10)   # unter dem Quadrat, nie ueber Bart oder Kinn
+	var kacheln: Array[Image] = []
+	for l in alle:
+		if l == mk: continue
+		for x in alle: x.visible = x == l
+		var kopf: Vector3 = l.global_position + Vector3.UP * (l.kopfhoehe() - 0.13)
+		var sk := Gebiet.finde(l.modell, "Skeleton3D") as Skeleton3D
+		if sk and sk.find_bone("Head") >= 0:
+			kopf = sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")).origin + Vector3.UP * 0.09
+		mk.position = leute.to_local(kopf)
+		# zur Kamera gewandt (Lauf 258: Gesichter nicht zu sehen); die Kamera sitzt auf ihrer +Z-Seite, die Person blickt nach +Z (leute.gd)
+		var blick_vorher: float = l.blick
+		l.blick = deg_to_rad(kamera.gieren_ziel); l.rotation.y = l.blick
+		kamera.ziel = mk
+		kamera.springe()
+		name_l.text = String(l.daten["id"]).capitalize()
+		await get_tree().create_timer(0.6).timeout
+		await RenderingServer.frame_post_draw
+		var im := get_viewport().get_texture().get_image()
+		# Lauf 258 (Pruefer 05:16: je Bild nur das Viertel oben links, Rest schwarz): vp ist die Flaeche der Oberflaeche (1080 x 2340,
+		# canvas_items), das Bild hat die Fenstergroesse (--resolution 540x1170); Ausschnitt in Bildpunkten des Bilds
+		# und das Quadrat ueber die ganze Bildbreite (GESICHT_BREITE 0,55 m), 420 von 1080 Punkten waren nur 0,21 m, enger als ein Kopf
+		var kk := im.get_width()
+		if ausschnitt: kk = int(round(im.get_width() / weit))
+		var c := Vector2i(im.get_width() / 2 - kk / 2, im.get_height() / 2 - kk / 2)
+		var stueck := im.get_region(Rect2i(c, Vector2i(kk, kk)))
+		if kk != GESICHT_KACHEL: stueck.resize(GESICHT_KACHEL, GESICHT_KACHEL, Image.INTERPOLATE_NEAREST if ausschnitt else Image.INTERPOLATE_LANCZOS)
+		# der Name steht unter dem Quadrat: als eigener Streifen unter die Kachel
+		var sc := im.get_width() / vp.x
+		var ny := clampi(int(name_l.position.y * sc) + 1, 0, im.get_height() - 1)
+		var streifen := im.get_region(Rect2i(0, ny, im.get_width(), mini(int(88.0 * sc), im.get_height() - ny)))
+		streifen.resize(GESICHT_KACHEL, GESICHT_NAME, Image.INTERPOLATE_LANCZOS)
+		var kachel := Image.create(GESICHT_KACHEL, GESICHT_KACHEL + GESICHT_NAME, false, stueck.get_format())
+		kachel.blit_rect(stueck, Rect2i(Vector2i.ZERO, stueck.get_size()), Vector2i.ZERO)
+		kachel.blit_rect(streifen, Rect2i(Vector2i.ZERO, streifen.get_size()), Vector2i(0, GESICHT_KACHEL))
+		stueck = kachel
+		kacheln.append(stueck)
+		l.blick = blick_vorher; l.rotation.y = blick_vorher
+		print("GESICHT ", l.daten["id"], " ", "Kaufkoerper" if String(l.modell.name).begins_with("Person_") else "alt", " Kopf ", kopf)
+	var sp := 4
+	var zeilen := ceili(kacheln.size() / float(sp))
+	var blatt := Image.create(sp * GESICHT_KACHEL, zeilen * (GESICHT_KACHEL + GESICHT_NAME), false, kacheln[0].get_format() if kacheln.size() > 0 else Image.FORMAT_RGBA8)
+	blatt.fill(Color("0e0b08"))
+	for i in kacheln.size():
+		blatt.blit_rect(kacheln[i], Rect2i(Vector2i.ZERO, kacheln[i].get_size()), Vector2i((i % sp) * GESICHT_KACHEL, (i / sp) * (GESICHT_KACHEL + GESICHT_NAME)))
+	blatt.save_png(dir + "/" + datei)
+	print("GESICHTER ", kacheln.size(), " ", dir + "/" + datei, " nah" if nah else " ohne Dorf")
+	for w in welt_sichtbar: (w[0] as Node3D).visible = w[1]
+	ebene.queue_free()
+	mk.queue_free()
+	kamera.near = near_vorher
+	for x in alle: x.visible = true
+	kamera.neigung = neig_vorher
+	kamera.zoom = zoom_vorher
 
 # 348.6 Held (Chef 18:06/18:20 zur Dorf-APK): --held=<ordner> Brunnen und Marktstand, Gehen in Rennen (Bild je 1/15 s),
 # Rennen seitlich nah, nachts Stehen, Gehen, Rennen mit der Fackel
@@ -1743,8 +2335,8 @@ func gehen_499() -> void:
 	ui.oben.visible = false
 	ui.leiste.visible = false
 	zustand.minuten = 11 * 60
-	for k in ["FIGHTER", "CLERIC"]:
-		werte = Heldwerte.erschaffe("Thora", "HUMAN", k, {}, zustand.neue_uid)
+	for k in ["Wachsoldat", "Klosterschüler"]:
+		werte = BrsHeld.fuer_spiel("Thora", "Mensch", k, zustand.neue_uid)
 		betrete("village", Vector2i(6, 8), "RIGHT")
 		for l in leute.get_children(): l.free()
 		held.leute = []
@@ -1781,7 +2373,7 @@ func gehen_499() -> void:
 	get_tree().quit()
 
 # 348.13 Zoom-Blatt (Chef 20:24: „nicht vergessen, dass wir zoomen koennen“): --tusche=<ordner> legt je Ort und Sonnenstand
-# ein Bild in der Nahstufe, der Grundansicht und ganz herausgezoomt ab (Kamera.kneifen: FERN * 1,6)
+# ein Bild in der Nahstufe, der Grundansicht und ganz herausgezoomt ab (Kamera.kneifen: WEIT)
 func tusche_blatt() -> void:
 	var dir := ""
 	for a in OS.get_cmdline_user_args():
@@ -1796,7 +2388,7 @@ func tusche_blatt() -> void:
 		licht.setze_stand(st[0])
 		for o in [[Vector2i(31, 22), "kirche"], [Vector2i(19, 13), "markt"], [Vector2i(10, 17), "gras"]]:
 			held.setze(o[0], "DOWN")
-			for z in [[Kamera.NAH, "nah"], [Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
+			for z in [[Kamera.NAH, "nah"], [Kamera.FERN, "grund"], [Kamera.WEIT, "weit"]]:
 				kamera.zoom = z[0]
 				kamera.nah = z[0] < (Kamera.NAH + Kamera.FERN) * 0.5
 				kamera.springe()
@@ -1818,7 +2410,7 @@ func probe_blatt() -> void:
 	held.setze(Vector2i(7, 16), "UP")
 	for st in [[Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
 		licht.setze_stand(st[0])
-		for z in [[Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
+		for z in [[Kamera.FERN, "grund"], [Kamera.WEIT, "weit"]]:
 			kamera.zoom = z[0]
 			kamera.nah = false
 			kamera.springe()
@@ -2162,6 +2754,279 @@ func gluehen_bilder() -> void:
 	print("GLUEHBILDER fertig")
 	get_tree().quit()
 
+# 492 Blutzahnhoehle am Rechner: --hoehle=<ordner> knipst aus Sicht des Helden: Eingang vom Wald, Gang mit Stuetzbalken, Gitter vor
+# Graks Halle, Krogg im Ostfluegel, Lager am Feuer, Teich im Westen, Westfluegel mit Truhe und Kristallen, Graks Halle mit Lyra;
+# dazu der Gang um 180 Grad gedreht (die Waende wechseln hoch und niedrig, raumlicht.gd)
+func hoehle_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--hoehle="): dir = a.substr(9)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	zustand.setze("cave_seen")
+	betrete("cave", Vector2i(10, 18), "UP")
+	if herde: herde.aus = true   # Bilder ohne Angriff
+	await get_tree().create_timer(1.5).timeout
+	# 492 G1 (Pruefer 08.11., 19:29: im Lager steht eine Gestalt am Bildrand): das Lager (Feuer 16/15, Lager 14-19/13-15) von unten
+	# mittig statt von links, die ganze Lagerstatt im Bild
+	var orte := [["eingang", Vector2i(10, 18), "UP"], ["gang", Vector2i(11, 14), "UP"], ["gitter", Vector2i(10, 7), "UP"],
+		["krogg", Vector2i(15, 11), "UP"], ["lager", Vector2i(16, 16), "UP"], ["teich", Vector2i(5, 14), "LEFT"],
+		["westfluegel", Vector2i(5, 9), "UP"], ["halle", Vector2i(10, 3), "UP"]]
+	# 492 (Chef 04.11., 13:54, Zu 492 und 505: „Und wenn ich schon mal was gesehen habe … dann sehe ich das halt abgedunkelt“): der Held
+	# geht den echten Weg Kachel fuer Kachel (Nebel: nur Betretenes und Gesehenes gedaempft, der Rest schwarz), das Gitter steht offen
+	zustand.setze(Geschichte.GATE_OPEN); flaggen_neu()
+	if nebel: nebel.vergiss()
+	for o in orte:
+		var ziel: Vector2i = o[1]
+		# Lauf 308: der Weg in die Halle trat auf Graks Kachel (y 4), sein Gespräch und der Kampf liefen in die Fassung B; in die
+		# Halle darum ohne Weg
+		for t in ([] if o[0] == "halle" else karte.weg(held.kachel, ziel)):
+			var d: Vector2i = t - held.kachel
+			held.setze(t, "UP" if d.y < 0 else ("DOWN" if d.y > 0 else ("LEFT" if d.x < 0 else ("RIGHT" if d.x > 0 else String(o[2])))))
+			kamera.springe()
+			await get_tree().create_timer(0.12).timeout
+		held.setze(ziel, o[2]); kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		ui.textfeld.visible = false
+		await knips("%s/%s.png" % [dir, o[0]])
+	held.setze(Vector2i(11, 14), "DOWN"); kamera.springe()
+	kamera.drehe(180.0)
+	await get_tree().create_timer(2.5).timeout
+	ui.textfeld.visible = false
+	await knips("%s/gang_gedreht.png" % dir)
+	# 492 Fassung B (Chef 08.11., 21:46 „492b“) ist seit 13.11. der Standard (licht.gd HOEHLE_UMGEBUNG 0,12, kalte Farbe); die zweite
+	# Bildreihe mit B entfaellt, die erste ist B
+	print("HOEHLENBILDER fertig")
+	get_tree().quit()
+
+# 505c Nebel, Rand, Ausgaenge am Rechner: --nebel=<ordner> (Chef 04.11., 14:06 „Vorgang 505c“, Zu 505 (Rand)): eine Vorlage fuer
+# Wald, Dorf und Hoehle. Wald: der Weg vom Dorf nach Norden, die drei Stufen beschriftet und gemessen (Fassung B); die Ausgaenge mit
+# Blick zum Rand (Sueden zum Dorf, Osten zum Tiefen Wald, Norden der Hoehlenmund); eine Ecke ganz herausgezoomt (Kamera haelt). Dorf:
+# Sued- und Nordausgang. Hoehle: Nebel im Gang, beschriftet, und der Ausgang zum Tageslicht. Dazu Dreiecke mit und ohne Randwald.
+# Monster ruhig, Tag (10 Uhr).
+func nebel_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--nebel="): dir = a.substr(8)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	zustand.setze("quest_started"); zustand.setze("cave_seen")
+	var schilder := CanvasLayer.new()
+	schilder.layer = 30
+	add_child(schilder)
+	# Wald, Stufen: Kachel fuer Kachel nach Norden bis vor Garricks Lichtung
+	betrete("forest", Vector2i(9, 29), "UP")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.0).timeout
+	nebel.vergiss()
+	for y in range(29, 17, -1):
+		held.setze(Vector2i(9, y), "UP"); kamera.springe()
+		await get_tree().create_timer(0.25).timeout
+		if y == 22:   # dieselbe Kachel in Sicht und spaeter erkundet: Verhaeltnis der Helligkeit (Zu 505 (Rand) (1): Werte messen)
+			await get_tree().create_timer(1.0).timeout
+			ui.textfeld.visible = false
+			# Lauf 1: (9, 25) lag bei (9, 18) unter dem Bildrand (Messung 0); am Rechner blieb (9, 21) bei (9, 18) in Sicht (rundum 5,2);
+			# (11, 23): bei (9, 22) in Sicht, bei (9, 18) 5,4 Kacheln weit, also erkundet, und noch im Bild
+			print("NEBELMASS Wald (11, 23) Stufe %d Helligkeit %.0f" % [nebel.nebel(11, 23), await nebel_hell(Vector2i(11, 23))])
+	await get_tree().create_timer(1.0).timeout
+	print("NEBELMASS Wald (11, 23) Stufe %d Helligkeit %.0f" % [nebel.nebel(11, 23), await nebel_hell(Vector2i(11, 23))])
+	await nebel_stufen(schilder, "Wald: Fassung B, drei Stufen", [[0, "unbekannt: schwarz", Vector2i(3, 14)], [1, "erkundet: abgedunkelt", Vector2i(9, 25)], [2, "in Sicht: hell", Vector2i(10, 19)]])
+	await knips("%s/1_wald_stufen.png" % dir)
+	for c in schilder.get_children(): c.queue_free()
+	# Ausgaenge mit Blick zum Rand (Drehung: 0 Norden oben, 180 Sueden oben, 270 Osten oben)
+	for b in [["2_wald_sued", "forest", Vector2i(9, 30), 180.0, "Wald, Süden: Weg zum Dorf"], ["3_wald_ost", "forest", Vector2i(18, 10), 270.0, "Wald, Osten: Weg zum Tiefen Wald"],
+			["4_wald_hoehlenmund", "forest", Vector2i(10, 2), 0.0, "Wald, Norden: Höhlenmund"], ["6_dorf_sued", "village", Vector2i(17, 30), 180.0, "Dorf, Süden: Feldweg"],
+			["7_dorf_nord", "village", Vector2i(17, 1), 0.0, "Dorf, Norden: Weg zum Wald"],
+			# Lauf 2 (Pruefer der Vorlage 15:58): alle Ausgaenge der Liste, auch der Bach im Westen und Osten und der Weg aus dem Tiefen Wald
+			["10_dorf_west", "village", Vector2i(1, 24), 90.0, "Dorf, Westen: Bach"], ["11_dorf_ost", "village", Vector2i(34, 24), 270.0, "Dorf, Osten: Bach"],
+			["12_tiefwald_west", "deep_forest", Vector2i(1, 18), 90.0, "Tiefer Wald, Westen: Weg zum Wald"]]:
+		if karte.id != b[1]:
+			betrete(b[1], b[2], "UP")
+			if herde: herde.aus = true
+		await nebel_blick(b[2], b[3], Kamera.FERN)
+		await nebel_titel(schilder, b[4])
+		await knips("%s/%s.png" % [dir, b[0]])
+		print("NEBELRAND %s Ausschnitt %.2f m (gewaehlt %.2f) verkleinert %s" % [b[0], kamera.size, Kamera.FERN, kamera.rand_klein])
+	# Ecke ganz herausgezoomt: die Kamera haelt am Randwald, der Ausschnitt wird kleiner
+	betrete("forest", Vector2i(1, 30), "UP")
+	if herde: herde.aus = true
+	await nebel_blick(Vector2i(1, 30), 135.0, Kamera.WEIT)
+	await nebel_titel(schilder, "Wald, Ecke Südwest, ganz herausgezoomt")
+	await knips("%s/5_wald_ecke_weit.png" % dir)
+	print("NEBELRAND Ecke Ausschnitt %.2f m (gewaehlt %.2f) verkleinert %s" % [kamera.size, Kamera.WEIT, kamera.rand_klein])
+	# Dreiecke mit und ohne Randwald (Dorf, Suedrand)
+	betrete("village", Vector2i(17, 28), "UP")
+	if herde: herde.aus = true
+	await nebel_blick(Vector2i(17, 28), 180.0, Kamera.FERN)
+	for mit in [true, false]:
+		for n in gebiet.find_children("Randwald_*", "", true, false): n.visible = mit
+		await get_tree().create_timer(0.5).timeout
+		await RenderingServer.frame_post_draw
+		print("NEBELRAND Dreiecke %s Randwald %d, Zeichenaufrufe %d" % ["mit" if mit else "ohne", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME)])
+	# 505 Lauf 2 (Chef 16:12: „Dorf mit Nebel zeigen“): vom Nordtor den Weg hinab, Stufen beschriftet (Haeuser als Ganzes)
+	for n in gebiet.find_children("Randwald_*", "", true, false): n.visible = true
+	betrete("village", Vector2i(17, 1), "DOWN")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.0).timeout
+	nebel.vergiss()
+	for y in range(1, 11):
+		held.setze(Vector2i(17, y), "DOWN"); kamera.springe()
+		await get_tree().create_timer(0.25).timeout
+	kamera.zoom = Kamera.FERN; kamera.size = Kamera.FERN; kamera.nah = false; kamera.gieren_ziel = 0.0
+	for i in 3: kamera.springe()
+	await get_tree().create_timer(1.2).timeout
+	await nebel_stufen(schilder, "Dorf: drei Stufen", [[0, "unbekannt: schwarz", Vector2i(26, 16)], [1, "erkundet: abgedunkelt", Vector2i(17, 3)], [2, "in Sicht: hell", Vector2i(17, 12)]])
+	await knips("%s/13_dorf_stufen.png" % dir)
+	for c in schilder.get_children(): c.queue_free()
+	# Hoehle: vom Eingang in den Gang, Stufen beschriftet; dann der Ausgang mit Blick hinaus
+	betrete("cave", Vector2i(10, 18), "UP")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.0).timeout
+	nebel.vergiss()
+	for t in [Vector2i(10, 18), Vector2i(10, 17), Vector2i(10, 16), Vector2i(11, 15), Vector2i(11, 14)]:
+		held.setze(t, "UP"); kamera.springe()
+		await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(1.0).timeout
+	await nebel_stufen(schilder, "Höhle: drei Stufen", [[0, "unbekannt: schwarz", Vector2i(5, 9)], [1, "erkundet: abgedunkelt", Vector2i(10, 18)], [2, "in Sicht: hell", Vector2i(11, 12)]])
+	await knips("%s/8_hoehle_stufen.png" % dir)
+	for c in schilder.get_children(): c.queue_free()
+	await nebel_blick(Vector2i(10, 17), 180.0, Kamera.FERN)
+	await nebel_titel(schilder, "Höhle: Ausgang zum Tageslicht")
+	await knips("%s/9_hoehle_ausgang.png" % dir)
+	schilder.queue_free()
+	print("NEBELBILDER fertig")
+	get_tree().quit()
+
+## Held auf t, Kamera mit Blick dorthin (Drehung wie kamera.gieren ab Norden), Zoom, ohne Text
+func nebel_blick(t: Vector2i, drehung: float, zoom: float) -> void:
+	held.setze(t, "UP")
+	kamera.zoom = zoom; kamera.size = zoom; kamera.nah = false
+	kamera.gieren_ziel = drehung; kamera.springe()
+	for i in 3: kamera.springe()
+	await get_tree().create_timer(1.2).timeout
+	ui.textfeld.visible = false
+
+func nebel_titel(e: CanvasLayer, text: String) -> void:
+	for c in e.get_children(): c.queue_free()
+	nebel_schild(e, text, Vector2(get_viewport().get_visible_rect().size.x / 2.0, 60), 26)
+	await get_tree().create_timer(0.3).timeout
+	ui.textfeld.visible = false
+
+## mittlere Helligkeit (0-255) des Bilds um die Mitte der Kachel t (9 x 9 Punkte)
+func nebel_hell(t: Vector2i) -> float:
+	await RenderingServer.frame_post_draw
+	var img := get_viewport().get_texture().get_image()
+	var q := kamera.unproject_position(karte.kachel_pos(t))
+	var sk := Vector2(img.get_width(), img.get_height()) / get_viewport().get_visible_rect().size
+	var summe := 0.0; var n := 0
+	for dy in range(-4, 5):
+		for dx in range(-4, 5):
+			var x := int(q.x * sk.x) + dx * 2; var y := int(q.y * sk.y) + dy * 2
+			if x < 0 or y < 0 or x >= img.get_width() or y >= img.get_height(): continue
+			var c := img.get_pixel(x, y)
+			summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
+	return summe / n if n > 0 else -1.0   # -1: Kachel nicht im Bild (Lauf 1 meldete 0)
+
+## mittlere Helligkeit (0-255) von img um die Mitte der Kachel t (9 x 9 Punkte), wie nebel_hell
+func bild_hell(img: Image, t: Vector2i) -> float:
+	var q := kamera.unproject_position(karte.kachel_pos(t))
+	var sk := Vector2(img.get_width(), img.get_height()) / get_viewport().get_visible_rect().size
+	var summe := 0.0; var n := 0
+	for dy in range(-4, 5):
+		for dx in range(-4, 5):
+			var x := int(q.x * sk.x) + dx * 2; var y := int(q.y * sk.y) + dy * 2
+			if x < 0 or y < 0 or x >= img.get_width() or y >= img.get_height(): continue
+			var c := img.get_pixel(x, y)
+			summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
+	return summe / n if n > 0 else -1.0
+
+## je Stufe die naechste Kachel im Bild beschriften; Helligkeit des Bilds dort (9 x 9 Punkte um die Kachelmitte) messen, vor den Schildern
+func nebel_stufen(e: CanvasLayer, titel: String, stufen: Array) -> void:
+	# 505 Lauf 2 (Pruefer 16:01, Bild 2: „Titel doppelt übereinander“): der Titel des vorigen Bilds stand noch
+	for c in e.get_children(): c.queue_free()
+	await get_tree().process_frame
+	ui.textfeld.visible = false
+	await RenderingServer.frame_post_draw
+	var img := get_viewport().get_texture().get_image()
+	var orte := []
+	for st in stufen:
+		var t := nebel_kachel(int(st[0]), st[2])
+		if t.x < 0: print("NEBELMASS %s %s: keine Kachel im Bild" % [titel, st[1]]); continue
+		var q := kamera.unproject_position(karte.kachel_pos(t))
+		var sk := Vector2(img.get_width(), img.get_height()) / get_viewport().get_visible_rect().size
+		var summe := 0.0; var n := 0
+		for dy in range(-4, 5):
+			for dx in range(-4, 5):
+				var x := int(q.x * sk.x) + dx * 2; var y := int(q.y * sk.y) + dy * 2
+				if x < 0 or y < 0 or x >= img.get_width() or y >= img.get_height(): continue
+				var c := img.get_pixel(x, y)
+				summe += (0.299 * c.r + 0.587 * c.g + 0.114 * c.b) * 255.0; n += 1
+		print("NEBELMASS %s %s Kachel %s Helligkeit %.0f" % [titel, st[1], t, summe / maxf(1.0, n)])
+		orte.append([st[1], q])
+		# 505 Lauf 2 (Uebergabe 17:20: Hoehle „nie gesehen“ 27 statt 0, Ursache offen): Fels gilt bis 2 Kacheln vom gesehenen Boden
+		# als gesehen und ragt im Bild nach oben ueber die Kachel dahinter; streng misst eine Kachel, um die bis 2 Kacheln (nach Sueden,
+		# zur Kamera, bis 4) auch Fels und Baeume dieselbe Stufe haben. Gleich dunkel wie oben: der Wert ist echt; 0: die Messung traf Fels
+		var ts := nebel_kachel(int(st[0]), st[2], true)
+		if ts.x >= 0: print("NEBELMASS %s %s streng Kachel %s Helligkeit %.0f" % [titel, st[1], ts, bild_hell(img, ts)])
+		elif ts.x < 0: print("NEBELMASS %s %s streng: keine Kachel im Bild" % [titel, st[1]])
+	nebel_schild(e, titel, Vector2(get_viewport().get_visible_rect().size.x / 2.0, 60), 26)
+	for o in orte: nebel_schild(e, o[0], o[1], 20)
+	await get_tree().create_timer(0.3).timeout
+	ui.textfeld.visible = false
+
+## naechste Kachel mit dieser Stufe (kein Baum), die im Bild liegt; sonst (-1, -1)
+func nebel_kachel(stufe: int, gern: Vector2i, streng := false) -> Vector2i:
+	var r := get_viewport().get_visible_rect().size
+	var best := Vector2i(-1, -1); var bd := 1e9
+	for ty in karte.hoehe:
+		for tx in karte.breite:
+			var t := Vector2i(tx, ty)
+			if nebel.nebel(tx, ty) != stufe or nebel.zeichen_name(tx, ty) in ["TREE"] + Nebel.HOEHLENFELS: continue
+			# Lauf 1: am Uebergang mischt der Nebel weich mit den Nachbarn (nie gesehen 24 und 31 statt etwa 10); nur Kacheln, deren
+			# Nachbarn dieselbe Stufe haben; in der Hoehle nicht am Ausgang (Tageslicht, „erkundet“ 64 heller als „in Sicht“)
+			var rein := true
+			for d in NACHBARN + [Vector2i(1, 1), Vector2i(-1, 1), Vector2i(1, -1), Vector2i(-1, -1)]:
+				var u: Vector2i = t + d
+				if u.x >= 0 and u.y >= 0 and u.x < karte.breite and u.y < karte.hoehe and not nebel.fest(u.x, u.y) and nebel.nebel(u.x, u.y) != stufe: rein = false
+			if rein and streng:
+				for dy in range(-2, 5):
+					for dx in range(-2, 3):
+						var u := t + Vector2i(dx, dy)
+						if u.x >= 0 and u.y >= 0 and u.x < karte.breite and u.y < karte.hoehe and nebel.nebel(u.x, u.y) != stufe: rein = false
+			if not rein: continue
+			if karte.id == "cave" and ty >= karte.hoehe - 3: continue
+			var p := karte.kachel_pos(t)
+			if kamera.is_position_behind(p): continue
+			var q := kamera.unproject_position(p)
+			if q.x < 90 or q.x > r.x - 90 or q.y < 120 or q.y > r.y - 120: continue
+			var d := Vector2(t - gern).length()
+			if d < bd: bd = d; best = t
+	return best
+
+func nebel_schild(e: CanvasLayer, text: String, p: Vector2, groesse: int) -> void:
+	var l := Label.new()
+	l.text = text
+	l.add_theme_font_size_override("font_size", groesse)
+	l.add_theme_color_override("font_color", Color(0.96, 0.93, 0.85))
+	l.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	l.add_theme_constant_override("outline_size", 8)
+	e.add_child(l)
+	l.reset_size()
+	l.position = p - Vector2(l.size.x / 2.0, l.size.y / 2.0)
+	if groesse < 26:   # Punkt auf der Kachel, Schrift darueber
+		var punkt := ColorRect.new()
+		punkt.color = Color(0.85, 0.68, 0.25)
+		punkt.size = Vector2(10, 10)
+		punkt.position = p - Vector2(5, 5)
+		e.add_child(punkt)
+		l.position.y -= l.size.y * 0.8
+
 # 558 Robe am Rechner (Chef 04.11., 11:31, Bild Build 257 im Tiefen Fluesterwald): --robe558=<ordner> knipst den Magier wie im Spiel,
 # zur Kamera gewandt: Tiefer Fluesterwald am Weg Tag und Nacht (wie das Bild des Chefs), Dorfplatz Tag, Nahstufe; der Ablauf
 # tom-probe-558.yml ruft es einmal mit der Robe von jetzt und einmal mit der neuen (held3.py STOFF) und setzt beide nebeneinander
@@ -2174,7 +3039,7 @@ func robe_bilder() -> void:
 	ui.mess.visible = false
 	ui.oben.visible = false
 	ui.leiste.visible = false
-	werte = Heldwerte.erschaffe(zustand.name, "HUMAN", "WIZARD")
+	werte = BrsHeld.fuer_spiel(zustand.name, "Mensch", "Zauberlehrling")
 	var orte := [["wald_tag", "deep_forest", Vector2i(21, 14), 10 * 60, false], ["wald_nacht", "deep_forest", Vector2i(21, 14), 22 * 60 + 25, true],
 		["dorf_tag", "village", Vector2i(6, 8), 11 * 60, false], ["dorf_nah", "village", Vector2i(6, 8), 11 * 60, false]]
 	var nacht := false
@@ -2282,9 +3147,9 @@ func rast_probe() -> void:
 	var log := func(was: String) -> void:
 		var knoepfe := ui.wahl_box.get_children().filter(func(c): return c is Button).map(func(b): return "%s%s" % [b.text, "" if not b.disabled else " (aus)"])
 		print("RASTPROBE %s | Feld %s %s | Text %s '%s' | Tag %d %02d:%02d | TP %d/%d | Gold %d | Met %d | Nacht %s | %s" % [was, ui.waehlt(), knoepfe,
-			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.tp, h.max_tp(), zustand.gold, zustand.met, licht.ziel > 0.5,
+			ui.spricht(), ui.text.text, zustand.tag, zustand.minuten / 60, zustand.minuten % 60, h.leben, h.max_leben(), zustand.gold, zustand.met, licht.ziel > 0.5,
 			zustand.taschen])
-	h.tp = 1
+	h.leben = 1
 	zustand.minuten = 20 * 60
 	oeffne_rast("feuer")
 	log.call("Feuer offen")

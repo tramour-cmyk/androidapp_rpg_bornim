@@ -4,6 +4,18 @@ Ein Blick: was im Kampfsystem MARS steht, was fehlt, was zwischen klassischem Ka
 
 Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen · – gewollt nicht
 
+## Checkliste
+
+Vor jeder Arbeit an `godot/kampf/` und `godot/regeln/` (823, aus 745 A2; der Haken zeigt sie beim ersten Commit dort).
+1. Balance, Spielgefühl und Aussehen entscheidet der Chef; neue Zahlen erst über die Simulation 444 (`tools/sim444`), dann Vorlage an den Chef (`LISTE-UMZUG-BRS.md` Grundsatz 3).
+2. Zahlen nur in `tools/sim444/werte.json`, nie als Konstante im Code (649a); vor dem Test nach `godot/daten/` kopieren.
+3. Ein Kampfweg: nur der Weg nach dem BRS in `mars.gd`; keine Würfel und kein Maß der alten Trefferpunkte (Grundsatz 2).
+4. Messung vor Bau: die Ursache in Vorschau oder Test nachstellen, nie zweimal mit Vermutung bauen (334); Vergleich alt gegen neu mit `tests/sim444_870.gd` und gleicher Zahl Kämpfe, bei Unterschieden unter 10 Punkten mindestens 500 je Zelle (870.6a: 100 täuschten).
+5. Ändert sich, wie oft gewürfelt wird, verschiebt sich der Zufall: erst prüfen, ob nur das den Unterschied macht (870.6a, Rudel).
+6. Die alte Fassung lesen (`core/…/Battle.kt`), im Commit „Alt: …, übernommen: …, besser: …“ (647).
+7. Spieltexte nur von Homer, Namen nach `DESIGN-BRS.md` 12.
+8. Vor dem Commit Kerntests (`./gradlew -p core test`, Exit-Code) und die berührten Kampftests (`godot --headless -s res://tests/<datei>.gd`).
+
 ## Was MARS kann
 
 | Bereich | Punkt | MARS | Vorgang |

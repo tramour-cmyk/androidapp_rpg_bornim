@@ -31,7 +31,7 @@ func _weg(fig) -> float:
 
 
 func _lauf() -> void:
-	var tables: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tables: Dictionary = Tabellen.lade()
 	var skills := {}
 	for s in tables.skills:
 		skills[s.id] = s

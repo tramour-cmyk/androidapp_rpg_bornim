@@ -24,7 +24,7 @@ func alle(n: Node, art, aus: Array) -> Array:
 func texte(n: Node) -> PackedStringArray:
 	return PackedStringArray(alle(n, Label, []).map(func(x): return (x as Label).text.replace("\u00a0", " ")))
 
-# Erschaffung.knopf(…, gewaehlt): Schrift Veil.bright
+# Stil.knopf(…, gewaehlt): Schrift Veil.bright
 func gewaehlt(b: Button) -> bool: return b.get_theme_color("font_color") == Stil.BRIGHT
 
 func farbe(l: Label) -> Color: return l.get_theme_color("font_color")
@@ -40,7 +40,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 12
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	z.dazu("herbs", 5)
 	z.dazu("potion", 2)
 	var heil := rezept("potion")

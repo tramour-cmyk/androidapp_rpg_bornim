@@ -15,7 +15,7 @@ mark="$(git rev-parse --git-common-dir)/notiz-zuletzt"
 name="unbekannt"
 if [ -n "$CLAUDE_CODE_ACCOUNT_UUID" ]; then
     zeile=$(cat "$wt/docs/ROLLE-BETRIEB.md" docs/ROLLE-BETRIEB.md CLAUDE.md 2>/dev/null | grep -oE "(Tom|Jerry)[^,]{0,20}\`$CLAUDE_CODE_ACCOUNT_UUID" | head -1)
-    case "$zeile" in *Tom*) name="Zentrale (Tom, Ford, Perikles, Homer, Sokrates oder Diogenes; Rolle aus der ersten Nachricht)" ;; *Jerry*) name="Jerry" ;; esac
+    case "$zeile" in *Tom*) name="Zentrale (Tom, Jerry, Ford, Perikles, Homer, Sokrates oder Diogenes; Rolle aus der ersten Nachricht, auch wenn sie als Systemmeldung von Ford kommt, 853)" ;; *Jerry*) name="Niederlassung (ruht; Rolle aus der ersten Nachricht, 853)" ;; esac
 fi
 
 git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht holen (Netz?)."

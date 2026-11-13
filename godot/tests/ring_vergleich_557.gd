@@ -17,43 +17,41 @@ func _pruef(was: String, gut: bool) -> void:
 func _ring(z: Zustand, saat: int, rolls: Array) -> Dictionary:
 	return {"uid": z.neue_uid.call(), "base": "ring", "rarity": "DIVINE", "ilvl": 9, "plus": 0, "rolls": rolls, "unique": null, "name_seed": saat}
 
-func _werte(h: Heldwerte) -> Dictionary:
+func _werte(h: BrsHeld) -> Dictionary:
 	var r := {}
-	for a in ["STR", "DEX", "CON", "INT", "WIS", "CHA"]: r[a] = [h.wert(a), h.roh_bonus(a), h.ausruestungs_bonus(a)]
+	for g in BrsHeld.grundwerte(): r[g] = [h.wert(g), h.roh_bonus(BrsHeld.AFFIX[g]), h.ausruestungs_bonus(g)]
 	return r
 
 func _lauf() -> void:
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	hw.anlegen(_ring(z, 1, [["DEX", 2], ["STR", 2]]))
 	var neu := _ring(z, 0, [["ALL_STATS", 1], ["DEX", 2], ["CHA", 2]])
 	var vor := _werte(hw)
 	print("vorher ", vor, " ALL roh ", hw.roh_bonus("ALL_STATS"))
 	var v := Vergleich.von(hw, neu)
 	for r in v.zeilen: print("ZEILE ", r)
-	var k := Heldwerte.aus_daten(hw.als_daten())
+	var k := hw.kopie()
 	k.anlegen(neu)
 	var nach := _werte(k)
 	print("nachher ", nach, " ALL roh ", k.roh_bonus("ALL_STATS"))
 	var worte := v.zeilen.map(func(r): return String(r["wort"]))
-	var d := Heldwerte.lade()
-	for a in nach:
-		if nach[a][0] != vor[a][0] or nach[a][1] != vor[a][1] or k.roh_bonus("ALL_STATS") != hw.roh_bonus("ALL_STATS"):
-			_pruef("%s %d -> %d (Bonus roh %d -> %d) hat eine Zeile" % [a, vor[a][0], nach[a][0], vor[a][1], nach[a][1]], Sprache.t(d["attribute"][a]["name"]) in worte)
-	_pruef("keine Sammelzeile Attribute mehr", not ("Abilities" in worte or "Attribute" in worte))
-	var panzer := Beute.erzeuge_mit_uid(KotlinZufall.new(5), z.neue_uid, 9, "DIVINE", "FIGHTER")
+	# 870.4: nach BRS hat jeder Grundwert, dessen Wert sich aendert, seine Zeile (ein Mehr, das die Obergrenze schluckt, aendert nichts)
+	for g in nach:
+		if nach[g][0] != vor[g][0]:
+			var nm := ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT[g])
+			_pruef("%s %d -> %d hat eine Zeile" % [g, vor[g][0], nach[g][0]], nm in worte)
+	var panzer := Beute.erzeuge_mit_uid(KotlinZufall.new(5), z.neue_uid, 9, "DIVINE", "")
 	print("PANZER ", panzer)
-	print("RK vorher ", hw.rk())
+	print("Schutzwert vorher ", hw.schutzwert())
 	var vp := Vergleich.von(hw, panzer)
 	for r in vp.zeilen: print("PZEILE ", r)
-	var kp := Heldwerte.aus_daten(hw.als_daten())
+	var kp := hw.kopie()
 	kp.anlegen(panzer)
-	print("RK nachher ", kp.rk(), " roh AC ", kp.roh_bonus("AC"), " wirkt AC ", kp.bonus("AC"))
-	# nachgerechnet: Kettenhemd 16 + plus 3 (= „RK 19“ im Fenster) + Kampfstil Verteidigung 1 + Schild 2 + AC-Bonus wirkt 1 = 23
-	var g := Heldwerte.grundform(panzer["base"])
-	var soll := int(g["ruestung"]) + int(panzer["plus"]) + (1 if kp.hat("FIGHTING_STYLE") else 0) + kp.bonus("AC")
-	var schild = kp.ding("OFF_HAND")
-	if schild != null and String(Heldwerte.grundform(schild["base"])["art"]) == "SHIELD": soll += int(Heldwerte.grundform(schild["base"])["ruestung"]) + int(schild["plus"])
-	_pruef("RK nach dem Anlegen %d = Panzer %d + plus %d + Kampfstil + Schild + Bonus (%d)" % [kp.rk(), int(g["ruestung"]), int(panzer["plus"]), soll], kp.rk() == soll)
+	var zs := vp.zeilen.filter(func(r): return String(r["wort"]) in ["Schutzwert", "Protection"])
+	if kp.schutzwert() != hw.schutzwert():
+		_pruef("Schutzwert im Vergleich %s = nach dem Anlegen %d" % [zs, kp.schutzwert()], not zs.is_empty() and String(zs[0]["nachher"]) == str(kp.schutzwert()))
+	else:
+		_pruef("Schutzwert gleich, keine Zeile", zs.is_empty())
 	print("RINGVERGLEICH557 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

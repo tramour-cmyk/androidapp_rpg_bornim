@@ -64,7 +64,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 100
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	# die Saat, die „Göttlicher Ring des Eisernen Richters“ ergibt (Aufnahme des Chefs)
 	var saat := -1
 	for s in 200:
@@ -83,9 +83,9 @@ func _lauf() -> void:
 	var texte := PackedStringArray(alle(m.get_child(m.get_child_count() - 1), "Label", []).map(func(l): return (l as Label).text))
 	print("Fenster: ", " | ".join(texte))
 	# Zu 519: ein Bonus, den der Deckel des Kapitels schluckt, bekommt einen Hinweis wie alt
-	var kopie := Heldwerte.aus_daten(hw.als_daten()); kopie.anlegen(neu)
+	var kopie := hw.kopie(); kopie.anlegen(neu)
 	var geschluckt := ["STR", "DEX", "CON", "INT", "WIS", "CHA"].filter(func(a):
-		return Heldwerte.gesamt(neu, a) + Heldwerte.gesamt(neu, "ALL_STATS") > 0 and kopie.ausruestung_gedeckelt(a) and kopie.wert(a) <= hw.wert(a))
+		return BrsHeld.gesamt(neu, a) + BrsHeld.gesamt(neu, "ALL_STATS") > 0 and kopie.ausruestung_gedeckelt(a) and kopie.wert(a) <= hw.wert(a))
 	print("geschluckt: %s" % [geschluckt])
 	if not geschluckt.is_empty():
 		pruefe(" ".join(texte).contains("Obergrenze für dieses Kapitel"), "Bonus vom Deckel geschluckt (%s), aber kein Hinweis" % [geschluckt])

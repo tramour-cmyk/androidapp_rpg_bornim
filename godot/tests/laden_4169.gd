@@ -39,8 +39,8 @@ func _lauf() -> void:
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 640
 	for id in ["potion", "remedy"]: z.dazu(id, 3)
-	var hw := Heldwerte.erschaffe("Thora", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[9]))
+	var hw := BrsHeld.fuer_spiel("Thora", "Elf", "Zauberlehrling", z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 9)
 	for i in 8: z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(40 + i), z.neue_uid, 9, ["COMMON", "UNCOMMON", "RARE", "VERY_RARE"][i % 4], "WIZARD" if i % 3 else ""))
 	var ebene := CanvasLayer.new()
 	root.add_child(ebene)
@@ -71,9 +71,10 @@ func _lauf() -> void:
 		pruefe(leer > 0, "Probe ohne leeren Platz")
 		print("Plaetze: ", belegt, " belegt, ", leer, " leer")
 
-	# 2. nicht Tragbares: Zeichen auf jedem Bild und vor der Ueberschrift
+	# 2. 644a A (DESIGN-BRS.md 11 „Mindeststufe“; vorher 870.4 „jeder darf alles tragen“): Stücke der Stufe 9 trägt der Held der Stufe 8
+	# (Grenze von Kapitel 1) nicht, gewöhnliche in der Stufe ihrer Grundform schon; jedes nicht Tragbare hat das Zeichen, dazu die Überschrift
 	var nicht := z.beutel.filter(func(g): return not hw.kann_tragen(g)).size()
-	pruefe(nicht > 0, "Probe ohne nicht Tragbares")
+	pruefe(nicht > 0 and nicht < z.beutel.size(), "644a: Probe mit Tragbarem und nicht Tragbarem (%d von %d nicht)" % [nicht, z.beutel.size()])
 	pruefe(zaehle(l.inhalt, "kein_zeichen") == nicht + 1, "Zeichen %d, erwartet %d" % [zaehle(l.inhalt, "kein_zeichen"), nicht + 1])
 	pruefe(not texte(l.inhalt).contains("⊘"), "Schriftzeichen ⊘ noch da")
 

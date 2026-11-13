@@ -14,7 +14,7 @@ In der Nacht, in der {name} im Gasthaus »Zum Schlafenden Greif« schlief, kamen
 
 `[64d.auftrag]` (Gespräch mit Aldric)
 **Der Auftrag**
-Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Hobgoblin namens Grak an. Aldric bat {name}, Lyra und das Amulett zurückzubringen, und gab Tränke und Gold mit auf den Weg.
+Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Goblin-Hauptmann namens Grak an. Aldric bat {name}, Lyra und das Amulett zurückzubringen, und gab Tränke und Gold mit auf den Weg.
 
 `[64d.schlagbaum]` (Jorin öffnet den Schlagbaum)
 **Der Schlagbaum hebt sich**
@@ -30,7 +30,7 @@ Am Nordende des Waldes warnte ein Schild der Goblins jeden, der weitergeht. {nam
 
 `[64d.krogg]` (Krogg besiegt)
 **Kroggs Schlüssel**
-Im Ostflügel der Höhle bewachte der Grottenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.
+Im Ostflügel der Höhle bewachte der Bärenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.
 
 `[64d.gitter]` (Gitter geöffnet)
 **Das Gitter**
@@ -38,7 +38,7 @@ Mit Kroggs Schlüssel öffnete {name} das Gitter in der Mitte der Höhle. Dahint
 
 `[64d.grak]` (Grak besiegt)
 **Graks Fall**
-Grak prahlte, ein Prophet zahle ihm Gold für jede Seele, und die Priesterin gehöre schon ihm. {name} besiegte den Hobgoblin. Bei ihm lagen das Sonnenamulett und ein versiegelter Brief.
+Grak prahlte, ein Prophet zahle ihm Gold für jede Seele, und die Priesterin gehöre schon ihm. {name} besiegte den Goblin-Hauptmann. Bei ihm lagen das Sonnenamulett und ein versiegelter Brief.
 
 `[64d.lyra]` (Lyra befreit)
 **Lyra ist frei**
@@ -148,10 +148,10 @@ Gwenna sagt, der alte Kael habe schon vom Grauen Propheten erzählt, als sie ein
 Borin sagt, Dorran sei für einen Menschen ein ordentlicher Schmied, nur die Griffe mache er schlecht.
 
 `[62i.pers.krogg]` (Quelle Jäger Garrick)
-Garrick sagt, der Grottenschrat Krogg trage den Schlüssel zu Graks Halle und hause im Ostflügel der Höhle.
+Garrick sagt, der Bärenschrat Krogg trage den Schlüssel zu Graks Halle und hause im Ostflügel der Höhle.
 
 `[62i.pers.grak]` (Quelle Ältester Aldric)
-Aldric sagt, der Hobgoblin Grak sei grausam und gerissen, und seitdem er führt, seien die Goblins nicht mehr feige.
+Aldric sagt, der Goblin-Hauptmann Grak sei grausam und gerissen, und seitdem er führt, seien die Goblins nicht mehr feige.
 
 `[62i.pers.grak.2]` (nach Kapitel 1; Quelle Liska)
 Liska sagt, Grak sei tot, und ganz Bornim streite darüber, wer zuerst an den Helden geglaubt habe.

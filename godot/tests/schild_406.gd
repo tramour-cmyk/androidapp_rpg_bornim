@@ -9,7 +9,10 @@ extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
 const Figur = preload("res://kampf/figur.gd")
-const SOLL := {"FIGHTER": "round_shield", "CLERIC": "shield"}
+const SOLL := {"Wachsoldat": "round_shield", "FIGHTER": "round_shield", "CLERIC": "shield"}
+# 870.4: unterwegs nur Herkünfte mit Schild (werte.json „herkuenfte“ schild: nur der Wachsoldat); im Kampfort die Probeblätter
+# (tabellen.json „probe“ nennen noch die Klasse), damit Drachenschild mit Sonne weiter geprüft wird
+const PROBE := {"Wachsoldat": "FIGHTER", "Klosterschüler": "CLERIC"}
 const DREIECKE := {"round_shield": 428, "shield": 864}     # kaufschild.py: PolyMech 15, Omie 2
 # Grenzen knapp über dem Stand 01.11., damit nichts schlechter wird. Vorher mit den Schilden aus waffen.py: Rücken 4,1 bis 7,2 cm
 # (Schulter, Oberarm an der Oberkante; Lage aus 376.1), Kampf bis 5,8 cm (Kleriker, Ausweichen)
@@ -483,11 +486,12 @@ func _run() -> void:
 	DisplayServer.window_set_size(Vector2i(1080, 2340))
 	root.size = Vector2i(1080, 2340)
 	await process_frame
-	if not FileAccess.file_exists("res://daten/kampf-bewegungen.bin") or not HeldFigur.da("FIGHTER"):
+	if not FileAccess.file_exists("res://daten/kampf-bewegungen.bin") or not HeldFigur.da("Wachsoldat"):
 		print("Schild 406: ohne Kauf, nichts zu prüfen")
 		quit(0)
 		return
-	var klassen := OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(["FIGHTER", "CLERIC"])
+	var klassen := OS.get_environment("KLASSEN").split(",") if OS.get_environment("KLASSEN") != "" else PackedStringArray(["Wachsoldat"])
+	var kampf_klassen := PackedStringArray(["FIGHTER", "CLERIC"]) if OS.get_environment("KLASSEN") == "" else PackedStringArray(Array(klassen).map(func(x): return PROBE.get(x, x)))
 	# --- unterwegs: Schild auf dem Rücken
 	var buehne := Node3D.new()
 	root.add_child(buehne)
@@ -496,10 +500,10 @@ func _run() -> void:
 	var figuren := []
 	for i in klassen.size():
 		var k := klassen[i]
-		var hw := Heldwerte.erschaffe("Test", "HUMAN", k)
+		var hw := BrsHeld.fuer_spiel("Test", "Mensch", k)
 		var off = hw.ausruestung.get("OFF_HAND")
 		_check(off is Dictionary and String(off["base"]) == SOLL[k], "%s: Startausrüstung %s (%s)" % [k, SOLL[k], off["base"] if off is Dictionary else "kein Schild"])
-		var m := HeldFigur.baue({"klasse": k, "volk": "HUMAN", "aussehen": {}, "ausruestung": hw.ausruestung}, [])
+		var m := HeldFigur.baue({"herkunft": k, "volk": "HUMAN", "aussehen": {}, "ausruestung": hw.ausruestung}, [])
 		buehne.add_child(m)
 		m.position = Vector3((i - (klassen.size() - 1) / 2.0) * 1.1, 0, 0)
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
@@ -559,7 +563,7 @@ func _run() -> void:
 	buehne.queue_free()
 	await process_frame
 	# --- Kampfort: Schild am linken Unterarm, jedes Bild gemessen
-	for k in klassen:
+	for k in kampf_klassen:
 		var p = Probe.new()
 		p.hero_cls = k
 		p.merc_cls = "FIGHTER" if k != "FIGHTER" else "CLERIC"
@@ -572,7 +576,11 @@ func _run() -> void:
 		var kf = p.fight
 		var fig = kf.figures.get("hero")
 		var schild: Node = fig.model.find_child("Schild", true, false) if fig else null
-		_check(schild != null, "%s: Schild in der Hand im Kampf" % k)
+		# 1013 (wie 988 in held_kampf_403): die Probehelden sind seit 870.6 Helden nach BRS der Herkunft; Schild nur, wenn die
+		# Herkunft einen trägt (werte.json „herkuenfte“: Wachsoldat ja, Klosterschüler nein)
+		var hk: String = String(load("res://regeln/brs_kampf.gd").KLASSE_HERKUNFT.get(k, "Wanderer"))
+		var soll_schild := bool(Brs.lade()["herkuenfte"].get(hk, {}).get("schild", false))
+		_check((schild != null) == soll_schild, "%s: Schild in der Hand im Kampf nur, wenn die Herkunft einen trägt (%s: %s, %s)" % [k, hk, "ja" if soll_schild else "nein", "da" if schild else "keiner"])
 		if schild == null:
 			continue
 		var d := _dreiecke(schild)
@@ -683,20 +691,35 @@ func _run() -> void:
 		for v in VARIANTEN:
 			var_k.append([-INF, Vector3.ZERO]); var_s.append([-INF, Vector3.ZERO])
 		var n := 0
+		var diag_vorher := ""
+		var diag_jetzt := ""
 		var dauer := int(OS.get_environment("DAUER_MS")) if OS.get_environment("DAUER_MS") != "" else DAUER_MS
 		while n < (dauer * 30 / 1000 if film else 6000):
 			await process_frame
 			n += 1
 			if fig.visible and not fig.down:
 				var b := String(fig.anim.current_animation)
+				if b != diag_jetzt:
+					diag_vorher = "%s (Bild %d)" % [diag_jetzt, n]
+					diag_jetzt = b
 				var e: Array = tief.get(b, [-INF, Vector3.ZERO, 0])
-				if n % 3 == 0:
+				if n % 3 == 0 or OS.get_environment("DIAG1014") != "":
 					var t := _netz_tiefe(sm, _haut_ecken(sk))
 					if t[0] > e[0]:
 						e[0] = t[0]
 						e[1] = t[1]
 					if t[0] > NETZ_M:
 						e[2] += 1
+						if OS.get_environment("DIAG1014") != "":
+							var wp: Vector3 = sm.global_transform * (t[1] / 100.0)
+							var nb := ""
+							var nd := INF
+							for bi in sk.get_bone_count():
+								var bp: Vector3 = sk.global_transform * sk.get_bone_global_pose(bi).origin
+								if bp.distance_to(wp) < nd:
+									nd = bp.distance_to(wp)
+									nb = sk.get_bone_name(bi)
+							print("DIAG1014 Bild %d %s bei %.3f/%.3f s, vorher %s, %.3f m, Stelle %s, nächster Knochen %s (%.2f m), Welt %s" % [n, b, fig.anim.current_animation_position, fig.anim.current_animation_length, diag_vorher, t[0], t[1], nb, nd, sk.global_transform.affine_inverse() * wp])
 				if n % 6 == 3:
 					faust.an = true
 				if n % 6 == 0:

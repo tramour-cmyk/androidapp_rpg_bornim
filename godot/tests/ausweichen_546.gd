@@ -26,6 +26,14 @@ func _lauf() -> void:
 	p._start()
 	for i in 30: await process_frame
 	var kf = p.fight
+	# 703 (Lauf 313, Build 271: „wolf2 … danach 1.32 m bewegt“, nachgestellt 09.11.): die Gegner ziehen am Anfang selbst
+	# (Platzwechsel), je nach Takt mitten in der Messung; erst messen, wenn der Kampf auf den Helden wartet und alle stehen
+	var w := 0
+	while w < 30 * 40 and (kf.busy or kf.playing or not kf.beats.is_empty() or kf.figures.values().any(func(f): return f.unterwegs())):
+		await process_frame
+		w += 1
+	for i in 30: await process_frame
+	print("AUSWEICHEN_546 Kampf wartet nach %.1f s" % (w / 30.0))
 	var fehler := 0
 	seed(5)
 	for id in ["wolf1", "wolf2", "wolf3"]:

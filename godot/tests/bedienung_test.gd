@@ -1,6 +1,6 @@
 extends SceneTree
-# 399.1 ohne Bild: Bedienung aus dem Menue System wie alt (MenuSigns.kt „Bedienung“, „Rückfragen“): Wischen und Klassisch
-# (Steuerkreuz, Knoepfe in der Leiste, „Weiter“ im Gespraech), Aktionsknopf links, Joystick-Ring, Renntaste, Karte näher,
+# 399.1 ohne Bild: Bedienung aus dem Menue System wie alt (MenuSigns.kt „Bedienung“, „Rückfragen“): nur Wischen (663, kein
+# Steuerkreuz), Aktionsknopf links, Joystick-Ring, Renntaste, Karte näher,
 # Rückfragen beim Wegwerfen und im Laden, gespeichert. Aufruf: im Ordner godot mit -s res://tests/bedienung_test.gd
 
 var fehler := 0
@@ -22,8 +22,8 @@ func _lauf() -> void:
 	Sprache.setze("de")
 	Bedienung.lade()
 	var vorher := {}
-	for k in ["klassisch", "ring", "lauf_taste", "links", "karte_nah", "ruetteln", "rueckfragen"]: vorher[k] = Bedienung._wert(k)
-	Bedienung.klassisch = false; Bedienung.ring = 1; Bedienung.lauf_taste = false; Bedienung.links = false
+	for k in ["ring", "lauf_taste", "links", "karte_nah", "ruetteln", "rueckfragen"]: vorher[k] = Bedienung._wert(k)
+	Bedienung.ring = 1; Bedienung.lauf_taste = false; Bedienung.links = false
 	Bedienung.karte_nah = false; Bedienung.ruetteln = false; Bedienung.rueckfragen = true
 	var dp := AktionsKnopf.DP
 	var ui := Steuerung.new()
@@ -35,8 +35,7 @@ func _lauf() -> void:
 	ui.laufen.connect(func(an): lauf.append(an))
 	var tipps := []
 	ui.tippen.connect(func(p): tipps.append(p))
-	# Wischen: ohne Angebot kein Knopf, keine Leiste; Angebot rechts unten, 22 dp vom Rand
-	pruefe("Wischen Leiste", ui.kreuz_leiste.visible, false)
+	# Wischen: ohne Angebot kein Knopf; Angebot rechts unten, 22 dp vom Rand
 	pruefe("Wischen ohne Angebot", [ui.aktion_knopf.visible, ui.lauf_knopf.visible], [false, false])
 	ui.biete_an("ENTER", "Laden")
 	pruefe("Wischen Angebot", [ui.aktion_knopf.visible, ui.ort_schild.visible, ui.aktion_knopf.anchor_left], [true, true, 1.0])
@@ -54,42 +53,22 @@ func _lauf() -> void:
 	ui.lauf_knopf.button_down.emit(); ui.lauf_knopf.button_up.emit()
 	pruefe("Renntaste schaltet aus", lauf, [true, false])
 	lauf.clear()
-	# Klassisch: Leiste, Knopf immer (matt mit Funke), Renntaste solange gedrueckt, ein Finger auf der Welt tut nichts
-	Bedienung.klassisch = true
-	ui.richte_ein()
-	ui.biete_an("")
-	pruefe("Klassisch Leiste", ui.kreuz_leiste.visible, true)
-	pruefe("Knoepfe ueber der Leiste", [ui.aktion_knopf.get_index() > ui.kreuz_leiste.get_index(), ui.lauf_knopf.get_index() > ui.kreuz_leiste.get_index(),
-		ui.textfeld.get_index() > ui.kreuz_leiste.get_index(), ui.wahl_grund.get_index() > ui.kreuz_leiste.get_index()], [true, true, true, true])
-	pruefe("Klassisch Knopf", [ui.aktion_knopf.visible, ui.aktion_knopf.matt, ui.aktion_knopf.zeichen, ui.ort_schild.visible], [true, true, "ACT", false])
-	ui.biete_an("TALK")
-	pruefe("Klassisch Angebot", [ui.aktion_knopf.matt, ui.aktion_knopf.zeichen], [false, "TALK"])
-	pruefe("Klassisch Kreuz rechts bei links", ui.kreuz.anchor_left, 1.0)
-	ui.lauf_knopf.button_down.emit()
-	ui.lauf_knopf.button_up.emit()
-	pruefe("Klassisch Rennen halten", lauf, [true, false])
+	# 663 (Chef 08.11., 15:24): nur Touch, kein Steuerkreuz und keine Knopfleiste; ein Finger auf der Welt tippt (hingehen)
+	pruefe("kein Steuerkreuz", ui.find_children("*", "", true, false).filter(func(n): return String(n.name).to_lower().contains("kreuz")).size(), 0)
 	var w := InputEventScreenTouch.new()
 	w.position = Vector2(300, 400); w.pressed = true; w.index = 0
 	ui._unhandled_input(w)
 	w = w.duplicate(); w.pressed = false
 	ui._unhandled_input(w)
-	pruefe("Klassisch kein Tippen", tipps.size(), 0)
-	# Steuerkreuz: oben gedrueckt = Bildschirm oben, Mitte frei, Loslassen = still
-	var g := ui.kreuz.size.x
-	tipp(ui.kreuz, Vector2(g / 2, g * 0.1), true)
-	tipp(ui.kreuz, Vector2(g / 2, g * 0.1), false)
-	tipp(ui.kreuz, Vector2(g * 0.9, g / 2), true)
-	pruefe("Kreuz", js, [Vector2(0, -1), Vector2.ZERO, Vector2(1, 0)])
-	pruefe("Kreuz Mitte", ui.kreuz.dir_bei(Vector2(g / 2 + 2, g / 2 - 2)), Vector2.ZERO)
-	tipp(ui.kreuz, Vector2(g * 0.9, g / 2), false)
-	# im Gespraech zeigt der Knopf „Weiter“ und schaltet die Zeile weiter
+	pruefe("Tippen geht hin", tipps.size(), 1)
+	# im Gespraech kein Aktionsknopf und keine Renntaste; Weiter schaltet die Zeile weiter, das Textfeld steht unten
 	var gelesen := [0]
 	ui.gelesen.connect(func(): gelesen[0] += 1)
 	ui.sage([{"text": "Eins"}])
-	pruefe("Klassisch Weiter", [ui.aktion_knopf.visible, ui.aktion_knopf.zeichen, ui.lauf_knopf.visible], [true, "NEXT", false])
-	ui.aktion_knopf.pressed.emit()
+	pruefe("Gespräch ohne Knöpfe", [ui.aktion_knopf.visible, ui.lauf_knopf.visible], [false, false])
+	ui.naechste()
 	pruefe("Weiter schliesst", [ui.textfeld.visible, gelesen[0]], [false, 1])
-	pruefe("Textfeld ueber der Leiste", ui.textfeld.offset_bottom < -(Steuerung.KREUZ + 28) * dp, true)
+	pruefe("Textfeld unten", ui.textfeld.offset_bottom, -60.0)
 	# Karte näher: 5,6 statt 6,75 Kacheln quer
 	var k := Kamera.new()
 	root.add_child(k)
@@ -102,7 +81,7 @@ func _lauf() -> void:
 	k.free()
 	# Rückfragen aus: Wegwerfen ohne Frage
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(42), z.neue_uid, 3, "RARE", "WIZARD"))
 	var m := Menue.new(hw, z)
 	root.add_child(m)
@@ -125,7 +104,7 @@ func _lauf() -> void:
 		Bedienung.lade()
 		pruefe("gespeichert", Bedienung.links, false)
 	var zk: Array = m.inhalt.find_children("*", "Zeichenknopf", true, false)
-	pruefe("Menue Klassisch ohne Joystick", [zk.filter(func(b): return b.wort == "Steuerung").size(), zk.filter(func(b): return b.wort == "Joystick").size()], [1, 0])
+	pruefe("Menue ohne Wahl der Steuerung, mit Joystick (663)", [zk.filter(func(b): return b.wort == "Steuerung").size(), zk.filter(func(b): return b.wort == "Joystick").size()], [0, 1])
 	m.free()
 	# Laden (416.3: ladenschirm.gd wie ShopScreen.kt): Seltenes verkaufen fragt noch einmal; „Abbrechen“ laesst es, „Verkaufen“ verkauft
 	Bedienung.rueckfragen = true
@@ -196,7 +175,6 @@ func _lauf() -> void:
 	ls.queue_free()
 	for kk in vorher:
 		match kk:
-			"klassisch": Bedienung.klassisch = vorher[kk]
 			"ring": Bedienung.ring = vorher[kk]
 			"lauf_taste": Bedienung.lauf_taste = vorher[kk]
 			"links": Bedienung.links = vorher[kk]

@@ -6,9 +6,8 @@ Feste Zeitpunkte und Routinen: wer, wohin gemeldet, wo es liegt (143, 246). Stan
 
 | Wann | Was | Wer | Gemeldet | Ablage |
 |---|---|---|---|---|
-| 7:00 (Sa, So, Urlaub 9:00) | Morgenmeldung, nur eine Zeile: „Tagesbericht kommt 7:30“ oder „Ford steht“ | Ford | Telegram mit Ton | nur Telegram |
-| 7:08 (Sa, So 9:08) | Ford-Wache: lebt Ford? Meldet sich nur bei Stillstand; kommt um 7 Uhr keine Morgenmeldung, ein Wort an Team Tom oder Perikles | Wache-Sitzung | Telegram mit Ton, nur bei Stillstand | nur Telegram |
-| 7:30 (Sa, So, Urlaub 9:30) | **Tagesbericht** (247, Probe): was du heute tun musst, Wochenziel als Ampel, geschafft, was hakt, Kosten, heute geplant | Perikles, Ford startet | Telegram mit Ton: Link und erste Zeile | oben in [ARBEIT-TAGESBERICHT.md](ARBEIT-TAGESBERICHT.md) |
+| 7:08 (Sa, So 9:08) | Ford-Wache: lebt Ford? Meldet sich nur bei Stillstand, dann ein Wort an Team Tom oder Perikles | Wache-Sitzung | Telegram mit Ton, nur bei Stillstand | nur Telegram |
+| 7:30 (Sa, So, Urlaub 9:30) | **Tagesbericht** (448; einzige Morgenmeldung seit 783 W7): was du heute tun musst, Zahl offener Chefsache, Wochenziel als Ampel, geschafft, was hakt, Kosten, Bitte um das Bild der Nutzung, heute geplant; fehlt er um 10 Uhr (Sa, So 12 Uhr), meldet Ford | Perikles, Ford startet | Telegram mit Ton: Link und erste Zeile | oben in [ARBEIT-TAGESBERICHT.md](ARBEIT-TAGESBERICHT.md) |
 | ab 8:00 | Erster Lauf: liegen gebliebene Anstöße und Befunde (älter als zwei Tage) leise an den Bereich; freigegebene, nicht zusammengeführte Builds als Muss ans Team | Ford | Telegram leise | [ARBEIT-BETRIEB.md](ARBEIT-BETRIEB.md#protokoll), Abschnitt „Protokoll“ |
 | stündlich, :03 | Fords Lauf: startet Sitzungen, wo Arbeit startbar ist, archiviert Fertige, bucht Kosten, schreibt die Besetzung | Ford | Telegram leise | [ARBEIT-BESETZUNG.md](ARBEIT-BESETZUNG.md); Kosten als Spalte in [LISTE-VORGAENGE.md](LISTE-VORGAENGE.md) |
 | laufend | Standzeile etwa alle 5 Minuten; jedes Bild der Chefsache auch als Bild | alle | Telegram leise | nur Telegram; Bilder zusätzlich in [chefsache/bilder](chefsache/bilder/) |
@@ -18,12 +17,15 @@ Feste Zeitpunkte und Routinen: wer, wohin gemeldet, wo es liegt (143, 246). Stan
 
 ## Woche
 
+Jeder Wochentermin legt sich an seinem Tag selbst als Muss-Vorgang an (719, `startbar.WOCHENTERMINE`); Ford startet ihn wie jeden Vorgang.
+
 | Tag | Was | Wer | Ablage |
 |---|---|---|---|
-| Mo ab 8:00 | Wochenzählung (Kennzahlen zählen, nicht bewerten), danach Wochenziel (Muss und Kür, Reifes aus dem Ideenspeicher) | Diogenes, dann Perikles; Ford startet | Zählung: [PRUEFBERICHT.md](PRUEFBERICHT.md), oberster Abschnitt „Lauf n“; Wochenziel: oben in [PROJEKTPLAN.md](PROJEKTPLAN.md) |
-| Di–Fr | nur die täglichen Routinen | – | – |
-| Sa | Morgenmeldung und Wache erst 9 Uhr | Ford | – |
-| So | Morgenmeldung 9 Uhr; Urteil über den Ideenspeicher: „reif“, „später“, „verwerfen?“ (verworfen nur mit Ja des Chefs) | Homer | Urteil je Idee in [LISTE-IDEEN.md](LISTE-IDEEN.md) |
+| Mo ab 8:00 | Wochenzählung (Kennzahlen zählen, nicht bewerten), danach Wochenziel (Muss und Kür, Reifes aus dem Ideenspeicher) und Haken-Frage Abnahmeliste (720) | Diogenes, dann Perikles; Ford startet | Zählung: [PRUEFBERICHT.md](PRUEFBERICHT.md), oberster Abschnitt „Lauf n“; Wochenziel: oben in [PROJEKTPLAN.md](PROJEKTPLAN.md); Haken-Frage: Datei in [chefsache/ansehen](chefsache/ansehen/) |
+| Di–Do | nur die täglichen Routinen | – | – |
+| Fr ab 8:00 | Rollenspiegel je Rolle (`rollenspiegel.sh <Rolle>`, 759) | jede Rolle | `LISTE-ROLLENSPIEGEL.md` (nur über das Werkzeug) |
+| Sa | Wache 9:08, Tagesbericht 9:30 | Ford, Perikles | – |
+| So | Wache 9:08, Tagesbericht 9:30; Urteil über den Ideenspeicher: „reif“, „später“, „verwerfen?“ (verworfen nur mit Ja des Chefs) | Homer | Urteil je Idee in [LISTE-IDEEN.md](LISTE-IDEEN.md) |
 
 ## Einmalige Termine
 

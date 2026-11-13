@@ -12,11 +12,11 @@ signal laufen(an: bool)
 signal knopf(was: String)
 signal gelesen                          # 390: Textfeld zu, die Szene geht weiter (Game.advance)
 signal gewaehlt(id: String)             # 390 (Rast): Knopf im Wahlfeld, "" = Weiter
+signal knopf_im_text(nr: int)           # 842: Knopf unter der Zeile im Textkasten (spiel.gd _knopf_gewaehlt); 1086: welcher, ab 0
+signal knopf_aus                        # 842: „Nicht jetzt“ neben der Wahl (spiel.gd _knopf_ausgelassen)
 
 const GOLD := Color(0.86, 0.68, 0.32)
 var JOY := 94.0 * AktionsKnopf.DP            # 131 (alt StickFeel.runAt): im Ring gehen, darueber hinaus laufen; 399.1 nach Bedienung.ring
-const NACHTLICHT := Color("2c2a48")          # Colors.nightLight: Grund der Leiste „Klassisch“
-const KREUZ := 150.0                         # DPad: 150 dp, Arme 50 dp
 
 var finger := {}
 var kneif_d := 0.0
@@ -29,14 +29,14 @@ var zeichner: Control
 var aktion_knopf: AktionsKnopf
 var ort_schild: Label                  # wohin der Ausgang fuehrt, neben dem Knopf (alt 215, 254: actionPlace)
 var lauf_knopf: AktionsKnopf             # 399.1 wie alt ActionButton(RUN, 58 dp): Stiefel, matt, solange er nicht rennt
-var kreuz_leiste: ColorRect              # 399.1 Klassisch (ClassicControls): Leiste unten, Steuerkreuz und Knoepfe
-var kreuz: Steuerkreuz
 var ausdauer_balken: Ausdauer.Balken      # 399.1 StaminaBar
 var ort: Label
 var mess: Label
 var textfeld: PanelContainer
 var sprecher: Label                     # 399.1: Name im Kasten, gesperrte Versalien in Gold
 var weiter_zeichen: Label               # ▼, blinkt wie alt alle 400 ms
+var text_knopf: HBoxContainer           # 842: Knopf im Gespraech unter der Zeile
+var knopf_text := ""
 var text: Label
 var zeilen: Array = []
 var lauf_an := false
@@ -90,9 +90,9 @@ func _ready() -> void:
 	aktion_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	aktion_knopf.position = Vector2(-98, -98) * AktionsKnopf.DP
 	aktion_knopf.visible = false
-	# Klassisch im Gespraech „Weiter“ (pressA: dialog -> advance); kurz ruetteln, wenn vor dir etwas zu tun ist (WorldScreen buzz)
+	# kurz ruetteln, wenn vor dir etwas zu tun ist (WorldScreen buzz)
 	aktion_knopf.pressed.connect(func():
-		if textfeld.visible: naechste(); return
+		if textfeld.visible: weiter(); return
 		if angebot != "": Bedienung.ruettle()
 		aktion.emit())
 	add_child(aktion_knopf)
@@ -112,16 +112,15 @@ func _ready() -> void:
 	ort_schild.visible = false
 	add_child(ort_schild)
 	# 348.6 (Befund: verdeckte den Tuerknopf): wie alt (131) ueber dem Aktionsknopf, 58 dp, 31 dp vom Rand, 112 dp von unten; Wischen:
-	# Antippen schaltet um (runLatch), Klassisch: rennen, solange gedrueckt (ClassicControls onRun)
+	# Antippen schaltet um (runLatch)
 	lauf_knopf = AktionsKnopf.new(58)
 	lauf_knopf.setze("RUN")
 	lauf_knopf.matt = true
 	lauf_knopf.button_down.connect(func():
-		lauf_an = not lauf_an if not Bedienung.klassisch else true
+		lauf_an = not lauf_an
 		lauf_knopf.matt = not lauf_an
 		laufen.emit(lauf_an))
 	lauf_knopf.button_up.connect(func():
-		if Bedienung.klassisch: lauf_an = false; lauf_knopf.matt = true; laufen.emit(false)
 		lauf_knopf.queue_redraw())
 	add_child(lauf_knopf)
 	# 399.1 (Chef 14:38 „auch in den Dialogen“): Textkasten wie im alten Spiel (DialogDraft.kt DialogBoxVeil, 42b): ganz schwarz,
@@ -142,17 +141,6 @@ func _ready() -> void:
 	add_child(textfeld)
 	ausdauer_balken = Ausdauer.Balken.new()
 	add_child(ausdauer_balken)
-	# 399.1 Klassisch (ClassicControls): ueber der Welt, unter den Knoepfen und dem Textfeld; das Wahlfeld liegt darueber
-	kreuz_leiste = ColorRect.new()
-	kreuz_leiste.color = NACHTLICHT
-	kreuz_leiste.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	kreuz_leiste.offset_top = -(KREUZ + 28) * AktionsKnopf.DP
-	kreuz_leiste.mouse_filter = Control.MOUSE_FILTER_STOP
-	add_child(kreuz_leiste)
-	kreuz = Steuerkreuz.new()
-	kreuz.richtung.connect(func(v: Vector2): joystick.emit(v))
-	kreuz_leiste.add_child(kreuz)
-	move_child(kreuz_leiste, aktion_knopf.get_index())   # unter Aktions- und Renntaste, sonst verdeckt und sperrt sie die Leiste
 	wahl_grund = ColorRect.new()
 	wahl_grund.color = Color(0, 0, 0, 0.6)                      # alt 0x99000000
 	wahl_grund.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -181,6 +169,13 @@ func _ready() -> void:
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_constant_override("line_spacing", int(4 * Stil.SP))   # Zeilenhoehe 24 sp bei 17 sp
 	spalte.add_child(text)
+	# 842 (807a A): Knopf im Gespraech (Probe, Kaufen) unter der Zeile, rechts, wie die Knoepfe ohne Kasten (549a: Versalien, hell golden,
+	# „›“); erst, wenn die Zeile ganz steht (wie ▼)
+	text_knopf = HBoxContainer.new()
+	text_knopf.alignment = BoxContainer.ALIGNMENT_END
+	text_knopf.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	text_knopf.visible = false
+	spalte.add_child(text_knopf)
 	# 583 (Abgleich 512b, „Sammel▼“): das ▼ lag unten rechts im Textbereich und damit auf der letzten Zeile; jetzt steht es unter
 	# dem Text im unteren Rand des Kastens (16 dp), rechts in den Seitenrand geschoben, und deckt nie ein Wort
 	var ecke := Control.new()
@@ -207,48 +202,30 @@ func _ready() -> void:
 	for c in get_children():
 		if c is Control and c != zeichner: Rand.ruecke(c, r)
 
-# 399.1 Bedienung aus dem Menue System (Bedienung.gd): Wischen oder Klassisch, Ring, Renntaste, Seite des Aktionsknopfs.
+# 399.1 Bedienung aus dem Menue System (Bedienung.gd): Ring, Renntaste, Seite des Aktionsknopfs (663: nur Touch, kein Steuerkreuz).
 # Masse wie alt in dp: Wischen Aktionsknopf 76, 22 vom Rand, Renntaste 58, 31 vom Rand, 112 von unten, Schild 106 und 46;
-# Klassisch Leiste 178 hoch (Kreuz 150, Rand 16 und 14), Knoepfe in 140 x 140: Aktion 70 oben aussen, Rennen 58 unten innen
 func richte_ein() -> void:
 	Bedienung.lade()
-	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort
+	mess.visible = "--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate or Testmodus.standort or Testmodus.klang   # 636 A Klang
 	var dp := AktionsKnopf.DP
-	var k := Bedienung.klassisch
 	var li := Bedienung.links
 	JOY = Bedienung.ring_dp() * dp
-	if k and (unten or zieht):
-		unten = false; zieht = false; joy_v = Vector2.ZERO
-		joystick.emit(joy_v)
-		ring(false)
 	if lauf_an:
 		lauf_an = false; laufen.emit(false)
 	lauf_knopf.matt = true
-	kreuz_leiste.visible = k
-	var a := 70.0 if k else 76.0
+	var a := 76.0
 	aktion_knopf.custom_minimum_size = Vector2(a, a) * dp
 	aktion_knopf.size = aktion_knopf.custom_minimum_size
 	for c in [aktion_knopf, lauf_knopf]:
 		c.set_anchors_preset(Control.PRESET_BOTTOM_LEFT if li else Control.PRESET_BOTTOM_RIGHT)
-	if k:
-		var mitte := -(14 + KREUZ - 5)   # Oberkante der 140er Flaeche
-		an_ecke(aktion_knopf, Vector2(16 if li else -(16 + 70), mitte + 6) * dp)
-		an_ecke(lauf_knopf, Vector2(16 + 140 - 58 if li else -(16 + 140), mitte + 140 - 6 - 58) * dp)
-		kreuz.anchor_left = 1.0 if li else 0.0
-		kreuz.anchor_right = kreuz.anchor_left
-		kreuz.offset_left = -(16 + KREUZ) * dp if li else 16 * dp
-		kreuz.offset_right = kreuz.offset_left + KREUZ * dp
-		kreuz.offset_top = 14 * dp; kreuz.offset_bottom = (14 + KREUZ) * dp
-	else:
-		an_ecke(aktion_knopf, Vector2(22 if li else -98, -98) * dp)
-		an_ecke(lauf_knopf, Vector2(31 if li else -(31 + 58), -(112 + 58)) * dp)
+	an_ecke(aktion_knopf, Vector2(22 if li else -98, -98) * dp)
+	an_ecke(lauf_knopf, Vector2(31 if li else -(31 + 58), -(112 + 58)) * dp)
 	ort_schild.set_anchors_preset(Control.PRESET_BOTTOM_LEFT if li else Control.PRESET_BOTTOM_RIGHT)
 	ort_schild.grow_horizontal = Control.GROW_DIRECTION_END if li else Control.GROW_DIRECTION_BEGIN
 	ort_schild.offset_left = 106 * dp if li else -106 * dp
 	ort_schild.offset_right = ort_schild.offset_left
 	ort_schild.offset_bottom = -46 * dp; ort_schild.offset_top = ort_schild.offset_bottom
-	# Textfeld ueber der Leiste (alt: das Kartenfeld endet ueber ClassicControls)
-	textfeld.offset_bottom = -((KREUZ + 28) * dp + 8 * dp) if k else -60.0
+	textfeld.offset_bottom = -60.0
 	textfeld.offset_top = textfeld.offset_bottom - 132 * dp
 	zeige_knoepfe()
 
@@ -258,20 +235,14 @@ func an_ecke(c: Control, p: Vector2) -> void:
 	c.offset_left = p.x; c.offset_top = p.y
 	c.offset_right = p.x + c.custom_minimum_size.x; c.offset_bottom = p.y + c.custom_minimum_size.y
 
-# was gerade zu sehen ist: Wischen den Aktionsknopf nur mit Angebot, Klassisch immer (matt ohne Angebot, im Gespraech „Weiter“)
+# was gerade zu sehen ist: den Aktionsknopf nur mit Angebot
 func zeige_knoepfe() -> void:
-	var k := Bedienung.klassisch
 	var frei := not textfeld.visible and not wahl_grund.visible
-	if k:
-		aktion_knopf.visible = not wahl_grund.visible
-		aktion_knopf.matt = frei and angebot == ""
-		aktion_knopf.setze("NEXT" if textfeld.visible else (angebot if angebot != "" else "ACT"))
-	else:
-		aktion_knopf.matt = false
-		aktion_knopf.setze(angebot)
-		aktion_knopf.visible = angebot != "" and frei
-	lauf_knopf.visible = frei and (k or Bedienung.lauf_taste)
-	ort_schild.visible = ort_schild.text != "" and aktion_knopf.visible and not k and frei
+	aktion_knopf.matt = false
+	aktion_knopf.setze(angebot)
+	aktion_knopf.visible = angebot != "" and frei
+	lauf_knopf.visible = frei and Bedienung.lauf_taste
+	ort_schild.visible = ort_schild.text != "" and aktion_knopf.visible and frei
 
 var angebot := ""
 
@@ -446,6 +417,39 @@ func schliesse_wahl() -> void:
 	zeige_knoepfe()
 func waehlt() -> bool: return wahl_grund.visible
 
+# 785.19 (alt WorldScreen.kt 123-130, 382-388): der Text erscheint Zeichen für Zeichen, ein Zeichen je 18 ms; ein Tippen, solange er
+# noch läuft, zeigt ihn ganz, erst das nächste geht weiter. naechste() selbst (Spiel, Tests) geht immer weiter
+const ZEICHEN_MS := 18.0
+var schreib_ms := 0.0
+
+func schreibt() -> bool:
+	return textfeld.visible and text.visible_characters >= 0 and text.visible_characters < text.get_total_character_count()
+
+# 842: der Knopf steht und laesst sich tippen (Zeile ganz geschrieben)
+func knopf_bereit() -> bool: return textfeld.visible and text_knopf.visible and knopf_text != "" and not schreibt()
+
+# 842: Zeile zu ohne weitere Zeilen; die Szene geht weiter (gelesen)
+func schliesse_text() -> void:
+	zeilen.clear()
+	knopf_text = ""
+	naechste()
+
+func weiter() -> void:
+	if knopf_bereit(): return   # 842: Wahl und „Nicht jetzt“ stehen, einer von beiden schaltet weiter
+	if schreibt():
+		text.visible_characters = -1
+		return
+	naechste()
+
+func _process(dt: float) -> void:
+	# ▼ erst, wenn der Text ganz steht (alt DialogDraft.kt 65); 842: nicht, solange Wahl und „Nicht jetzt“ stehen (Tippen schaltet dann nicht weiter)
+	if weiter_zeichen != null: weiter_zeichen.visible = not schreibt() and not knopf_bereit()
+	if text_knopf != null: text_knopf.modulate.a = 0.0 if schreibt() else 1.0   # 842: Platz von Anfang an, nichts springt
+	if not schreibt(): return
+	schreib_ms += dt * 1000.0
+	var n := int(schreib_ms / ZEICHEN_MS)
+	text.visible_characters = -1 if n >= text.get_total_character_count() else n
+
 func naechste() -> void:
 	if zeilen.is_empty():
 		var war := textfeld.visible
@@ -464,9 +468,52 @@ func naechste() -> void:
 	sprecher.text = String(z["wer"]).to_upper() if z.has("wer") else ""
 	sprecher.visible = z.has("wer")
 	text.text = String(z["text"])
+	text.visible_characters_behavior = TextServer.VC_CHARS_AFTER_SHAPING   # Umbruch und Kastenhöhe gleich vom ganzen Text, nichts springt
+	text.visible_characters = 0   # 785.19: Zeichen für Zeichen wie alt
+	schreib_ms = 0.0
 	text.add_theme_font_override("font", Stil.variante(0.3, not z.has("wer")))   # Erzaehltes schraeg wie alt
+	var kz = z.get("knopf", "")   # 842; 1086: auch mehrere (Pim: Ueberreden, Gold)
+	var knoepfe: Array = kz if kz is Array else ([kz] if String(kz) != "" else [])
+	knopf_text = " / ".join(knoepfe.map(func(x): return String(x)))
+	for c in text_knopf.get_children():
+		text_knopf.remove_child(c)
+		c.queue_free()
+	if knopf_text != "":
+		# 842 zurueck (Chef 12.11., 20:31 „weder ein Abbrechen … sondern es gibt genau eins“; 20:33 „wo ist denn hier weiter?“): neben der
+		# Wahl rechts ein zweiter Knopf links, fuer jede Wahl derselbe (Homer [1074.zweit]); er laesst die Wahl aus, das Gespraech laeuft
+		# weiter wie beim Weitertippen. Solange beide stehen, schaltet Tippen auf den Text nicht weiter (_tipp_text)
+		var nein := Spielstaende.knopf("neben", Sprache.t({"de": "Nicht jetzt", "en": "Not now"}), func(): if knopf_bereit(): knopf_aus.emit(), true)
+		# die Wahl rechts, „Nicht jetzt“ links darunter: nebeneinander passen sie nicht immer (Vorlage 22:43: Pims Wahl und „Nicht
+		# jetzt“ in einer Reihe schoben den Kasten rechts aus dem Bild); immer gleich, damit jede Wahl gleich aussieht
+		var spalten := VBoxContainer.new()
+		spalten.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		spalten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		# 1086 (Homer 1085): mehrere Wahlen rechts untereinander, die erste oben
+		# 1120 (Chef 13.11., 10:32, Osric: „Kann man die Auswahl nicht auf gleiche Höhe stellen? Warum ist das unterschiedlich hoch?“):
+		# „‹ Nicht jetzt“ links auf derselben Höhe wie die (untere) Wahl rechts, wie Abbrechen und Benutzen in der Tasche (1074)
+		for i in knoepfe.size():
+			var nr := i
+			var kn := Spielstaende.knopf("haupt", String(knoepfe[i]), func(): if knopf_bereit(): knopf_im_text.emit(nr))
+			kn.size_flags_horizontal = Control.SIZE_SHRINK_END
+			if i < knoepfe.size() - 1:
+				spalten.add_child(kn)
+				continue
+			var reihe := Spielstaende.knopfzeile(nein, kn)   # je die halbe Breite wie in der Tasche
+			reihe.name = "Reihe"
+			nein.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			kn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			# lange Aufschriften (Pims „Schick Pim heim (Überreden)“) schoben den Kasten aus dem Bild (Vorlage 22:43): in der Reihe
+			# bricht die Aufschrift um, statt die halbe Breite zu sprengen
+			for l2 in kn.find_children("Text", "Label", true, false):
+				(l2 as Label).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+				(l2 as Label).custom_minimum_size.x = 0.0
+				(l2 as Label).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			spalten.add_child(reihe)
+		text_knopf.add_child(spalten)
+	text_knopf.visible = knopf_text != ""
+	text_knopf.modulate.a = 0.0
 	textfeld.visible = true
-	zeige_knoepfe()   # Renntaste schien durch das Textfeld (Helferbefund 348.6); Klassisch zeigt „Weiter“
+	zeige_knoepfe()   # Renntaste schien durch das Textfeld (Helferbefund 348.6)
 
 # 390 (Pruefer): ein Tippen kommt als Beruehrung und als nachgebildete Maus; nur Beruehrungen zaehlen, je Bild hoechstens eine,
 # und nur ein Druck, der bei offenem Textfeld begann
@@ -477,13 +524,16 @@ func _text_tippen(e: InputEvent) -> void:
 	if e is InputEventScreenTouch: _tipp_text(e as InputEventScreenTouch)
 
 func _tipp_text(t: InputEventScreenTouch) -> void:
+	if knopf_bereit():   # 842: Wahl und „Nicht jetzt“ stehen: nur die Knoepfe, Tippen auf den Text schaltet nicht weiter
+		druck_im_text = false
+		return
 	if t.pressed:
 		druck_im_text = true
 		return
 	if not druck_im_text or Engine.get_process_frames() == letzter_tipp: return
 	druck_im_text = false
 	letzter_tipp = Engine.get_process_frames()
-	naechste()
+	weiter()
 
 # 390: Aufschriften neu nach dem Sprachwechsel
 func sprache_neu() -> void:
@@ -511,8 +561,6 @@ func _unhandled_input(e: InputEvent) -> void:
 			kneif_d = a.distance_to(b); kneif_w = (b - a).angle()
 			unten = false; zieht = false; joy_v = Vector2.ZERO
 			joystick.emit(joy_v)
-		elif t.index == 0 and Bedienung.klassisch:
-			unten = false
 		elif t.index == 0:
 			if t.pressed:
 				unten = true; zieht = false; joy_von = t.position; joy_v = Vector2.ZERO
@@ -552,7 +600,8 @@ var standort := ""                       # 399.1 Testmodus „Standort anzeigen�
 func messe(times: Array) -> void:
 	if not mess.visible or Engine.get_process_frames() % 15 != 0 or times.is_empty(): return
 	if not ("--messen" in OS.get_cmdline_user_args() or Testmodus.bildrate):
-		mess.text = standort
+		mess.text = standort if Testmodus.standort else ""
+		_klang_zeilen()
 		return
 	var s := times.duplicate()
 	s.sort()
@@ -567,65 +616,10 @@ func messe(times: Array) -> void:
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)]
 	if Testmodus.standort: mess.text += "\n" + standort
+	_klang_zeilen()
 
-# 399.1 DPad (WorldScreen.kt) wie alt: Kreuz 150 dp, Arme 50 dp, Mitte frei (10 %); vier Richtungen auf dem Bildschirm, gedrueckt
-# heller; die Welt geht in Bildschirmrichtung wie beim Joystick (spiel.gd kamera.richtung)
-class Steuerkreuz extends Control:
-	signal richtung(v: Vector2)
-	const DUNKEL := Color("2a2a3a")
-	const HELL := Color("4a4a66")
-	const PFEIL := Color("9090b0")
-	var jetzt := Vector2.ZERO
-	var finger := -1
-
-	func _init() -> void:
-		custom_minimum_size = Vector2.ONE * Steuerung.KREUZ * AktionsKnopf.DP
-		size = custom_minimum_size
-		mouse_filter = Control.MOUSE_FILTER_STOP
-
-	func dir_bei(p: Vector2) -> Vector2:
-		var d := p - size / 2
-		if absf(d.x) < size.x * 0.1 and absf(d.y) < size.y * 0.1: return Vector2.ZERO
-		if absf(d.x) > absf(d.y): return Vector2(signf(d.x), 0)
-		return Vector2(0, signf(d.y))
-
-	func setze(v: Vector2) -> void:
-		if v == jetzt: return
-		jetzt = v
-		richtung.emit(v)
-		queue_redraw()
-
-	func _gui_input(e: InputEvent) -> void:
-		if e is InputEventScreenTouch:
-			if e.pressed and finger < 0: finger = e.index; setze(dir_bei(e.position))
-			elif not e.pressed and e.index == finger: finger = -1; setze(Vector2.ZERO)
-			accept_event()
-		elif e is InputEventScreenDrag:
-			if e.index == finger: setze(dir_bei(e.position))
-			accept_event()
-		elif e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT and e.device != InputEvent.DEVICE_ID_EMULATION:
-			setze(dir_bei(e.position) if e.pressed else Vector2.ZERO)
-			accept_event()
-		elif e is InputEventMouseMotion and e.device != InputEvent.DEVICE_ID_EMULATION and (e.button_mask & MOUSE_BUTTON_MASK_LEFT):
-			setze(dir_bei(e.position))
-
-	func _draw() -> void:
-		var dp := AktionsKnopf.DP
-		var arm := 50.0 * dp
-		var g := size.x
-		var sb := StyleBoxFlat.new()
-		sb.bg_color = DUNKEL
-		sb.set_corner_radius_all(int(8 * dp))
-		draw_style_box(sb, Rect2((g - arm) / 2, 0, arm, g))
-		draw_style_box(sb, Rect2(0, (g - arm) / 2, g, arm))
-		# ▲ ▼ ◀ ▶ in 18 sp als Dreiecke (Alegreya hat die Zeichen nicht)
-		var h := 18.0 * Stil.SP * 0.36
-		for p in [[Vector2(0, -1), Vector2((g - arm) / 2, 0)], [Vector2(0, 1), Vector2((g - arm) / 2, g - arm)],
-				[Vector2(-1, 0), Vector2(0, (g - arm) / 2)], [Vector2(1, 0), Vector2(g - arm, (g - arm) / 2)]]:
-			var b := sb.duplicate() as StyleBoxFlat
-			b.bg_color = HELL if jetzt == p[0] else DUNKEL
-			draw_style_box(b, Rect2(p[1], Vector2(arm, arm)))
-			var v: Vector2 = p[0]
-			var m: Vector2 = p[1] + Vector2(arm, arm) / 2
-			var q := Vector2(-v.y, v.x)
-			draw_colored_polygon(PackedVector2Array([m + v * h, m - v * h * 0.7 + q * h, m - v * h * 0.7 - q * h]), PFEIL)
+# 636 A: Testmodus „Klang“, die letzten Effekte (klang.gd protokoll_zeilen) unter den übrigen Messwerten
+func _klang_zeilen() -> void:
+	var k := get_node_or_null("/root/Klang")
+	if not Testmodus.klang or k == null: return
+	mess.text = ("" if mess.text == "" else mess.text + "\n") + "\n".join(k.protokoll_zeilen())

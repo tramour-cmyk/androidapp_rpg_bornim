@@ -87,11 +87,11 @@ REGELN = """## So geht's
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
 - Anzusehen als Bildvorschau (228, kein Build): `ansehen/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>`, dann Bild aus `bilder/` und der Satz, was der Chef sagen soll.
 - Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Aufbau und Regeln nur in `LISTE-CHECK-BUILD-TEST.md` (657 D).
-- Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann in dieser Folge (364): **Frage**, **Votum** (was der Chef tun oder sagen soll), **Berührt** (Vorgänge); darunter kurz **Begründung**, **Sachverhalt** (belegt, mit Quelle), **Auswertung** (mit dem stärksten Gegenargument), **Folgerungen** (was danach geschieht, wer); zuletzt `Antwort: …`. Lange Teile in `<details>`.
+- Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann in dieser Folge (364): **Frage**, **Votum** (was der Chef tun oder sagen soll), **Berührt** (Vorgänge); darunter kurz **Begründung**, **Sachverhalt** (belegt, mit Quelle), **Auswertung** (mit dem stärksten Gegenargument), **Folgerungen** (was danach geschieht, wer); zuletzt `Antwort: …`. Lange Teile in `<details>`. Vorlage zum Kopieren: [MUSTER.md](MUSTER.md) (799); `probelauf.py` hält einen Commit oder Push an, der eine unvollständige Datei in `entscheiden/` oder `billigen/` nach `main` bringt.
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“. Ablage im Zweig `bilder` als `bilder:<pfad>` (z. B. `[Film](bilder:pruefung/x.mp4)`); die Übersicht macht daraus Links, Filme spielen im Browser (381.1).
 - **Überarbeiten** (275, Chef 27.10., 15:23: „sonst schaue ich es mir am Schluss zweimal an“): wer eine Vorlage überarbeitet, löscht die Datei sofort und legt sie neu an, wenn die neue Fassung fertig ist; nie „folgt“, „kommt nach“ in einer Vorlage (die Übersicht meldet es unter „Lücken“).
-- **Beantwortet oder zurück beim Team** (383.3, Chef 27.10., 19:55: „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“): wer eine Antwort des Chefs zu einer Vorlage einträgt (Vorgangsarchiv oder Vorrat), löscht die Datei im selben Commit, auch die eines anderen; bleibt ein Teil offen, legt der Besitzer sie neu an, sobald sie vorlegbar ist. Gilt die Antwort einer anderen Frage derselben Nummer, setzt er die Zeit in Zeile 1 oder 2 neu. Die Commit-Prüfung hält einen Archiveintrag an, dessen Vorlage stehen bleibt; Übersehenes meldet die Übersicht unter „Lücken“.
+- **Beantwortet oder zurück beim Team** (383.3, Chef 27.10., 19:55: „Sachen, die nicht mehr zur Vorlage sind, dann weg … Das ist kein Arbeiten so.“): wer eine Antwort des Chefs zu einer Vorlage einträgt (Vorgangsarchiv oder Vorrat), löscht die Datei im selben Commit, auch die eines anderen, und trägt jeden Auftrag, der aus der Antwort folgt, im selben Commit dem Betroffenen ein (783 W8, Chef 09.11., 20:07: „das darf nicht untergehen“); anlegen darf jeder nur seine, Sokrates auch für andere; bleibt ein Teil offen, legt der Besitzer sie neu an, sobald sie vorlegbar ist. Gilt die Antwort einer anderen Frage derselben Nummer, setzt er die Zeit in Zeile 1 oder 2 neu. Die Commit-Prüfung hält einen Archiveintrag an, dessen Vorlage stehen bleibt; Übersehenes meldet die Übersicht unter „Lücken“.
 - Zu tun (275): `tun/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <was der Chef tun soll>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich>`, dann der Satz zum Kopieren als Codeblock oder der Weg in Schritten; erledigt heißt Datei löschen (wer sie angelegt hat). Ein „wartet auf Chef“ ohne Datei hier meldet `startbar.py` als Leiche.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
 """
@@ -190,7 +190,7 @@ DOCS = os.path.join(ZUG, "..")
 TEAMS = ("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
 
 def formfehler():
-    """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Richtig | Falsch."""
+    """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Passt | Falsch (1033; alte Listen „Richtig“)."""
     pfad = os.path.join(ZUG, "ansehen")
     fehler = []
     for o in ("entscheiden", "ansehen", "billigen", "tun"):  # D77.2: ohne Absender bleibt „Wer“ leer, jetzt gemeldet
@@ -200,6 +200,14 @@ def formfehler():
             try:
                 if eintrag(o, n)[1].split("|")[-2].strip() == "": fehler.append(f"{o}/{n}: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)")
             except Exception: pass
+    try:  # 799: Aufbau 364 (Muster MUSTER.md) für entscheiden/ und billigen/, auch Altbestand
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import vorlage_pruefen as _vp
+        for o in ("entscheiden", "billigen"):
+            d = os.path.join(ZUG, o)
+            for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+                if n.endswith(".md") and (f := _vp.luecken(open(os.path.join(d, n), encoding="utf-8").read(), o)):
+                    fehler.append(f"{o}/{n}: fehlt {', '.join(f)} (364, [Muster](MUSTER.md))")
+    except Exception: pass
     for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
         if not re.match(r"t\d+-.*\.md$", n): continue
         text = open(os.path.join(pfad, n), encoding="utf-8").read()
@@ -207,7 +215,7 @@ def formfehler():
         kopf, meta = (z + ["", ""])[:2]
         if any(re.sub(r" \d+$", "", t.strip()) not in TEAMS for t in re.split(r" und | \+ |/|, ", kopf.lstrip("# ").split(" · ")[0])): fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
         if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
-        if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*Richtig\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Richtig | Falsch` fehlt")
+        if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|(\s*Art\s*\|)?\s*Wo und wie\s*\|\s*(?:Passt|Richtig)\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Art | Wo und wie | Passt | Falsch` fehlt (Art ab 284, 1128 A)")
         else:  # 317: gemeinsamer Build bündelt mindestens 3 Vorgänge, keine Obergrenze (Chef 07.11., 20:5x), weniger nur auf „jetzt“ des Chefs
             zeilen = [[c.strip() for c in x.strip("|").split("|")] for x in z if x.startswith("|") and not re.match(r"\|[\s|:-]*$", x)]
             sp = zeilen[0].index("Nr.") if zeilen and "Nr." in zeilen[0] else 1
@@ -273,7 +281,14 @@ def luecken():
     return "\n".join(teile)
 
 def offen_je_rolle():
-    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt."""
+    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt.
+    1129 A 6 (Chef 13.11., 13:59): neu gerechnet nur stündlich (ZUG_ROLLEN=1 aus dem Zeitplan oder von Hand); sonst bleibt der
+    Abschnitt aus der bisherigen Übersicht stehen, damit ein Push unter docs/chefsache/ nicht jedes Mal Vorrang und Zahlen neu schreibt."""
+    if os.environ.get("ZUG_ROLLEN") != "1" and os.path.exists(os.path.join(ZUG, "README.md")):
+        alt = open(os.path.join(ZUG, "README.md"), encoding="utf-8").read()
+        m = re.search(r"^## Offen je Rolle\n.*?(?=^## |\Z)", alt, re.S | re.M)
+        if m:
+            return m.group(0).strip()
     try:
         import subprocess, sys as _s
         r = subprocess.run([_s.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "startbar.py"), "--md"], capture_output=True, text=True, timeout=60)
@@ -282,7 +297,7 @@ def offen_je_rolle():
         return ""
 
 def lauf_version(pr, _cache={}):
-    """298: Version 0.1.<Laufnummer> des neuesten „Build APK“-Laufs am Zweig des PR (GitHub-API, nur mit GITHUB_TOKEN)."""
+    """298: Version 0.348.<Laufnummer> des neuesten Godot-Laufs am Zweig des PR (GitHub-API, nur mit GITHUB_TOKEN); 894: vorher Kotlin 0.1.<n>."""
     token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
     if not (token and repo): return None
     if pr in _cache: return _cache[pr]
@@ -292,8 +307,8 @@ def lauf_version(pr, _cache={}):
         with urllib.request.urlopen(req, timeout=20) as r: return json.load(r)
     try:
         zweig = hole(f"pulls/{pr}")["head"]["ref"]
-        laeufe = hole(f"actions/workflows/android.yml/runs?per_page=1&branch={urllib.parse.quote(zweig)}")["workflow_runs"]
-        _cache[pr] = f"0.1.{laeufe[0]['run_number']}" if laeufe else None
+        laeufe = hole(f"actions/workflows/godot.yml/runs?per_page=1&branch={urllib.parse.quote(zweig)}")["workflow_runs"]
+        _cache[pr] = f"0.348.{laeufe[0]['run_number']}" if laeufe else None   # wie version/name in godot.yml (Android-Export)
     except Exception as e:
         print(f"zug-index: Version zu PR #{pr} nicht geholt ({e})")
         _cache[pr] = None

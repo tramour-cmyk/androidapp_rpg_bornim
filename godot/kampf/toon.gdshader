@@ -14,6 +14,8 @@ uniform float vorrang = 0.0;       // 463 wie shader/toon.gdshader: Umhang (UV2.
 uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
 uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float weg = 0.0;           // 348.7: Ausblenden des Toten (0 da, 1 weg), als Raster, damit Tiefe und Tusche bleiben
+uniform float schnitt = 0.0;       // 506 Grabhund: Haarkarten (glTF MASK) unter diesem Alpha ausgeschnitten, auch im Schatten
+uniform float glow_tex = 0.0;      // 995 Grabhund: Augen leuchten in ihrer gemalten Farbe (Pupille bleibt schwarz), im Schatten lesbar
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -61,11 +63,13 @@ void fragment() {
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
 	if (weg > 0.0 && fract(sin(dot(floor(FRAGCOORD.xy), vec2(12.9898, 78.233))) * 43758.5453) < weg) discard;
-	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	vec4 t = texture(tex, UV);
+	if (schnitt > 0.0 && t.a < schnitt) discard;
+	ALBEDO = t.rgb * COLOR.rgb;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
-	EMISSION = glow_col * glow + COLOR.rgb * (1.0 - COLOR.a) * glut;
+	EMISSION = glow_col * glow + COLOR.rgb * (1.0 - COLOR.a) * glut + t.rgb * glow_tex;
 }
 void light() {
 	float ndl = clamp(dot(NORMAL, LIGHT), 0.0, 1.0);

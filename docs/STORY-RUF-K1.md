@@ -1,10 +1,10 @@
 # Meisterschaften und Ruf, Kapitel 1 (Entwurf)
 
-Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf wie bei den Pfaden, „Für Tom“ in `STORY-LEHRMEISTER-K1.md`) und 3.3 (Ruf bei den Leuten im Dorf; Preis bei Borin und Händler, eine Auskunft mehr). Quellen: Nachschlagewerk `DESIGN-SPIELSYSTEM-2-0-ENTWURF.md` Abschnitte 6, 9, 11; Storyplan `STORY-PLAN-K1.md` „Nebenquests vom Anschlagbrett“; Kampfaufstellung `godot/kampf/aufruf.gd`. Lehrmeister in `STORY-LEHRMEISTER-K1.md`. Fremd geprüft 01.11.
+Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf wie bei den Pfaden, „Für Tom“ in `STORY-LEHRMEISTER-K1.md`) und 3.3 (Ruf bei den Leuten im Dorf; Preis bei Borin und Händler, eine Auskunft mehr). Quellen: Nachschlagewerk `DESIGN-BRS.md` Abschnitte 6, 9, 11; Storyplan `STORY-PLAN-K1.md` „Nebenquests vom Anschlagbrett“; Kampfaufstellung `godot/kampf/aufruf.gd`. Lehrmeister in `STORY-LEHRMEISTER-K1.md`. Fremd geprüft 01.11.
 
 ## Meisterschaften (3.2)
 
-### Kräuterfrau Morwen · Alchemist (Alchemie, Kräuterkunde)
+### Kräuterfrau Morwen · Alchemist (Alchemie, Kräutersammeln)
 
 `[447.4.morwen.alchemie.ruf]` Deine Tränke taugen etwas. Und du weißt, welches Kraut man pflückt und welches man stehen lässt. / EN: Your potions are worth something. And you know which herb to pick and which to leave.
 `[447.4.morwen.alchemie.frage]` Willst du Alchemist werden? Dann zeig mir, was du kannst. Ich sag dir, was fehlt. / EN: Do you want to become an Alchemist? Then show me what you can do. I'll tell you what's missing.
@@ -13,12 +13,12 @@ Entwurf Homer, 01.11.; Vorgang 447.4, Abnahmeliste 3.2 (Meisterschaften; Ablauf 
 `[447.4.morwen.alchemie.nein]` Dann kauf weiter bei mir. Mir soll's recht sein. / EN: Then keep buying from me. Suits me.
 `[447.4.morwen.alchemie.grenze]` Für heute kannst du genug. Den Rest zeigt dir die Welt, und dann prüfe ich dich. / EN: You know enough for now. The world will show you the rest, and then I'll test you.
 
-### Jäger Garrick · Lederarbeit (Lederarbeit, Jagd)
+### Jäger Garrick · Schneider (Schneidern, Jagd)
 
 `[447.4.garrick.leder.ruf]` Deine Felle sind sauber abgezogen, und was du daraus machst, hält. / EN: Your pelts are cleanly skinned, and what you make of them holds.
-`[447.4.garrick.leder.frage]` Willst du das Leder richtig lernen? Gerben, schneiden, nähen. / EN: Do you want to learn leather properly? Tanning, cutting, stitching.
+`[447.4.garrick.leder.frage]` Willst du richtig schneidern lernen? Gerben, zuschneiden, nähen. Erst Leder; Tuch ist danach leicht. / EN: Do you want to learn tailoring properly? Tanning, cutting, stitching. Leather first; cloth comes easy after.
 `[447.4.garrick.leder.ja]` Gut. Du kannst schon was. Sieh dir an, wie ich's mach. / EN: Good. You already know a thing or two. Watch how I do it.
-`[447.4.garrick.leder.hinweis]` Ein Loch im Fell ist ein Loch in der Rüstung. Zieh langsam ab. / EN: A hole in the pelt is a hole in the armour. Skin slowly.
+`[447.4.garrick.leder.hinweis]` Ein Loch im Fell ist ein Loch in der Rüstung. Zieh langsam ab. / EN: A hole in the pelt is a hole in the armor. Skin slowly.
 `[447.4.garrick.leder.nein]` Gut. Thessa kauft Felle auch roh. / EN: Fine. Thessa buys pelts raw as well.
 `[447.4.garrick.leder.grenze]` Mehr Leder gibt dieser Wald nicht her. Draußen gibt's andere Tiere; dann prüf ich dich. / EN: These woods give no better leather. Out there are other beasts; then I'll test you.
 

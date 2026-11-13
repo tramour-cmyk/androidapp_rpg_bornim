@@ -58,7 +58,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	Bedienung.lade()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	m.reiter = "system"; m.baue()

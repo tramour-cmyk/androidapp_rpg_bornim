@@ -28,7 +28,7 @@ def eintraege():
 
 
 def fundstellen(wort):
-    r = subprocess.run(["git", "-C", REPO, "grep", "-l", "-w", "-F", wort, "--", "docs", "CLAUDE.md", "tools/*.py", *[o for o in OHNE if o != ":!CLAUDE.md"]],
+    r = subprocess.run(["git", "-C", REPO, "grep", "-l", "-w", "-F", "-e", wort, "--", "docs", "CLAUDE.md", "tools/*.py", *[o for o in OHNE if o != ":!CLAUDE.md"]],
                        capture_output=True, text=True)
     return r.stdout.split()
 
@@ -44,7 +44,7 @@ def main():
                 w = w.strip()
                 if not w or w == "–" or " " in w or w in ALLTAG:
                     continue
-                r = subprocess.run(["git", "-C", REPO, "grep", "-n", "-w", "-F", w, "--", "docs", *OHNE],
+                r = subprocess.run(["git", "-C", REPO, "grep", "-n", "-w", "-F", "-e", w, "--", "docs", *OHNE],
                                    capture_output=True, text=True).stdout.splitlines()
                 if r:
                     treffer += len(r)

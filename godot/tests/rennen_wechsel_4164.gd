@@ -29,7 +29,7 @@ func _lauf() -> void:
 	var fehler := 0
 	for art in ["heute", "A"]:
 		var z := Zustand.new()
-		var w := HeldFigur.wahl(Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER", {}, z.neue_uid), z)
+		var w := HeldFigur.wahl(BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat", z.neue_uid), z)
 		w["rennen"] = art
 		w["ausruestung"] = {}
 		var m := HeldFigur.baue(w, [])

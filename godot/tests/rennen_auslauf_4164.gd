@@ -23,7 +23,7 @@ func pruefe(ok: bool, was: String) -> void:
 
 func _held(k: Karte) -> Held:
 	var z := Zustand.new()
-	var w := HeldFigur.wahl(Heldwerte.erschaffe("Probe", "HUMAN", "FIGHTER", {}, z.neue_uid), z)
+	var w := HeldFigur.wahl(BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat", z.neue_uid), z)
 	w["ausruestung"] = {}
 	var h := Held.new(k, w)
 	root.add_child(h)

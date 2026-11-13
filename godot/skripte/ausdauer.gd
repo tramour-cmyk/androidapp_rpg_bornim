@@ -1,7 +1,7 @@
 class_name Ausdauer
 extends RefCounted
-# 399.1 Atem zum Rennen wie alt (Stamina.kt, 86.3, 131): ein voller Vorrat reicht bei Konstitution 10 etwa 6 s, je Punkt Bonus 2 s
-# mehr oder weniger, je zwei Stufen 1 s mehr, halb so lange in schwerer Ruestung ohne die Staerke dafuer; der Ausdauertrank
+# 399.1 Atem zum Rennen wie alt (Stamina.kt, 86.3, 131), 870.4 nach BRS: ein voller Vorrat reicht nach Zaehigkeit und Wille
+# (BrsHeld.ausdauer_s), je zwei Stufen 1 s mehr, halb so lange in schwerer Ruestung ohne die Kraft dafuer; der Ausdauertrank
 # verdoppelt ihn (86.6). Er fuellt sich in 40 s beim Gehen, in 20 s im Stehen, mit einer Rast sofort. Leer geht der Held, bis ein
 # Viertel zurueck ist; betrunken rennt er nicht (181). Gespeichert in Zustand.ausdauer, atemlos.
 
@@ -9,17 +9,14 @@ const GEHEN_MS := 40000.0
 const STEHEN_MS := 20000.0
 const WIEDER := 0.25
 
-static func reicht_ms(hw: Heldwerte, trank := false) -> float:
-	var s := maxf(6.0 + 2.0 * hw.mod("CON") + int(hw.stufe / 2), 2.0)
-	return s * 1000.0 * (0.5 if schwer(hw) else 1.0) * (2.0 if trank else 1.0)
+static func reicht_ms(hw: BrsHeld, trank := false) -> float:
+	return hw.ausdauer_s() * 1000.0 * (0.5 if schwer(hw) else 1.0) * (2.0 if trank else 1.0)   # 870.4: aus Zaehigkeit und Wille
 
-# schwere Ruestung am Koerper ohne Staerke 13 (Kettenhemd im SRD)
-static func schwer(hw: Heldwerte) -> bool:
-	var g = hw.ding("CHEST")
-	return g != null and String(Beute.grundform(String(g["base"])).get("gewicht", "")) == "HEAVY" and hw.wert("STR") < 13
+# schwere Ruestung am Koerper ohne die Kraft dafuer (870.4: werte.json „welt“ „ausdauer“ schwer_kraft; alt Staerke 13)
+static func schwer(hw: BrsHeld) -> bool: return hw.zu_schwer()
 
 # ein Bild von dt ms: der Held bewegt sich, will rennen; zurueck, ob er rennt
-static func schritt(z: Zustand, hw: Heldwerte, dt: float, bewegt: bool, will: bool) -> bool:
+static func schritt(z: Zustand, hw: BrsHeld, dt: float, bewegt: bool, will: bool) -> bool:
 	var rennt := bewegt and will and not z.atemlos and not z.betrunken()
 	if rennt: z.ausdauer -= dt / reicht_ms(hw, z.ausdauer_trank)
 	elif bewegt: z.ausdauer += dt / GEHEN_MS

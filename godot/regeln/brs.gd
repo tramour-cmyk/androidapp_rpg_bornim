@@ -9,13 +9,15 @@ extends RefCounted
 
 const DATEI := "res://daten/werte.json"
 
-# Kennung im Spiel (tabellen.json, Monsters.kt) -> Art im Bestiarium; Nachfolger nach 348.12c erben die Werte dort.
-const ARTEN := {
-	"giant_rat": "Riesenratte", "kobold": "Kobold", "stirge": "Blutflügler", "wolf": "Wolf", "boar": "Wildschwein",
-	"giant_centipede": "Riesen-Hundertfüßer", "goblin": "Goblin", "goblin_archer": "Goblin-Späher", "skeleton": "Skelett",
-	"zombie": "Zombie", "giant_bat": "Riesenfledermaus", "goblin_shaman": "Goblin-Schamane", "giant_spider": "Riesenspinne",
-	"ghoul": "Ghul", "ochre_jelly": "Ockerschleim", "bugbear": "Krogg", "dire_wolf": "Grimmzahn", "hobgoblin_captain": "Grak",
-}
+# Kennung im Spiel -> Art im Bestiarium, Name, Gruppe: werte.json „kennungen“ (870.3, 649a Schritt 1); Nachfolger nach 348.12c
+# erben die Werte dort.
+static func kennung(id: String) -> Dictionary:
+	var k = lade().get("kennungen", {}).get(id, {})
+	return k if k is Dictionary else {}
+
+## Anzeigename einer Kennung (Sprache 0 deutsch, 1 englisch); "" ohne Eintrag
+static func name(id: String, sprache := 0) -> String:
+	return String(kennung(id).get("en" if sprache == 1 else "de", ""))
 
 static var W := {}
 
@@ -33,8 +35,28 @@ static func kampf() -> Dictionary: return lade().get("kampf", {})
 ## Werte einer Art nach Kennung im Spiel (stufe, leben, ruestung, schaden, angriff, abwehr, wachsamkeit, art, gebiet,
 ## boss, schwaeche); leer, wenn die Kennung keine Art des Bestiariums ist.
 static func monster(id: String) -> Dictionary:
-	var m = lade().get("monster", {}).get(ARTEN.get(id, ""), {})
+	var m = lade().get("monster", {}).get(String(kennung(id).get("art", "")), {})
 	return m if m is Dictionary else {}
+
+## 870.3: Werte eines Begleiters [rudel] (werte.json „merkmale“ „rudel“: Jungwolf, Leibwache) hinter dem Anführer [anfuehrer]
+## (Kennung im Spiel): Körper (Stufe, Abwehr, Rüstung, Leben × leben_anteil), Angriff des Anführers + angriff_verschiebung, Schaden
+## des Anführers × schaden_anteil, chance je Runde; leer, wenn eins fehlt.
+static func begleiter(rudel: String, anfuehrer: String) -> Dictionary:
+	var r = lade().get("merkmale", {}).get("rudel", {}).get(rudel, {})
+	var f := monster(anfuehrer)
+	if not (r is Dictionary) or r.is_empty() or f.is_empty():
+		return {}
+	var k = lade().get("monster", {}).get(String(r.get("koerper", "")), {})
+	var b: Dictionary = (k if k is Dictionary and not k.is_empty() else f).duplicate()
+	b.erase("boss")
+	b.erase("rudel")
+	b.erase("umreissen")
+	b.angriff = float(f["angriff"]) + float(r.get("angriff_verschiebung", 0))
+	b.schaden = float(f["schaden"]) * float(r.get("schaden_anteil", 1.0))
+	b.leben = maxi(1, runde(float(b["leben"]) * float(r.get("leben_anteil", 1.0))))
+	b.chance = float(r.get("chance", 1.0))
+	b.angreifbar = bool(r.get("angreifbar", true))     # 870.5: Leibwache nicht (wie alt Packs.kt guard, 444 „rudel“)
+	return b
 
 static func stufe(id: String) -> int: return int(monster(id).get("stufe", 0))
 static func boss(id: String) -> bool: return bool(monster(id).get("boss", false))

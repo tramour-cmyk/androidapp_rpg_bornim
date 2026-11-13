@@ -43,8 +43,8 @@ static func gehoert(z: Zustand, id: String, nach: bool) -> void:
 
 static func zeigt(ms: int) -> bool: return (ms >= 0 and ms < ZEIGT_MS) or (ms >= WIEDER_MS and ms < WIEDER_MS + ZEIGT_MS)
 
-# Perks.noticeRange: 4 Kacheln, je zwei Punkte Geschicklichkeitsbonus eine weniger, mindestens 2
-static func reichweite(hw: Heldwerte) -> int: return maxi(2, 4 - int(maxi(0, hw.mod("DEX")) / 2))
+# Perks.noticeRange (870.4: BrsHeld.bemerkt_aus nach Gewandtheit)
+static func reichweite(hw: BrsHeld) -> int: return hw.bemerkt_aus()
 
 # 134.3 Hail.voice: wie [id] ruft, ohne Worte: Kind (klein), Frau, Mann; "" fuer wen leute.json nicht kennt
 static func stimme(id: String) -> String:

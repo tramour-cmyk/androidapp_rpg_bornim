@@ -23,7 +23,7 @@ func _lauf() -> void:
 	Sprache.lade()
 	Sprache.setze("de")
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Probe", "HUMAN", "WIZARD", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Probe", "Mensch", "Zauberlehrling", z.neue_uid)
 	for d in [["longsword", "COMMON"], ["greatsword", "UNCOMMON"], ["dagger", "RARE"], ["leather_cap", "UNCOMMON"], ["hood", "COMMON"],
 			["ring", "UNCOMMON"], ["quarterstaff", "UNCOMMON"], ["shield", "COMMON"]]:
 		if Beute.grundform(d[0]) != null: ding(z, d[0], d[1], 2)

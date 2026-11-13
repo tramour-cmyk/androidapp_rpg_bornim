@@ -67,6 +67,12 @@ var tables: Dictionary
 var on_end: Callable
 ## Starts the same fight anew ("Nochmal").
 var again_fn: Callable
+var zurueck_text: Array = []     # 1020.2 B: Text des Knopfs „Zurück“ [de, en], leer: „Zurück“
+## 1034 (Chef 12.11., 15:04): Probekampf mit dem Testhelden, nichts geht in den Spielstand; das Siegfenster sagt es, Geschichtsgegenstände
+## (Schlüsseldinge wie Graks Schlüssel, der versiegelte Brief) sind keine Probebeute
+var ohne_folgen := false
+## 1034: Probekampf mit dem Spielhelden: nach einer Niederlage kein „Nochmal“ (sie zählt wie im Spiel)
+var again_nicht_nach_niederlage := false
 var cam: Camera3D
 var ui
 var figures := {}          # id -> Figur
@@ -75,6 +81,7 @@ var shown := {}            # the last message played: hp, places, intents, queue
 ## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
 var progress := {}
 var verhuellt := false     # 402: die Blende vor dem Kampf steht noch (Kampfblende.gd)
+var messpause := false     # 806: „Kampf messen“ (Bausteine806) hält die Meldungen an, bis jeder Baustein gemessen ist
 ## 296.2: what the won fight brings ({xp, gold, items, level, levels, xp_total, lines}), empty otherwise
 var reward := {}
 ## 399.2 (aufruf.gd): Kampfort und Tageszeit aus dem Aufruf; heute gibt es nur den Wald, die Tageszeit dämpft das Licht
@@ -83,6 +90,9 @@ var tageszeit := "tag"
 ## 493: welcher Kampfort im Wald (kampfort_wald.py SPOT): lichtung, waldrand, teich, baum, felsen, steinkreis; fehlt sein Modell im
 ## Bau, die Lichtung
 var platz := "lichtung"
+## 836 (Homer 830): Flaggen des Spielstands (Zustand.flaggen, dasselbe Dictionary; aufruf.gd aus lage „flaggen“); Hinweise, die einmal
+## je Spielstand kommen, merken sich hier, dass sie gezeigt sind. Proben und Tests: leer, je Kampf neu
+var flaggen := {}
 ## 527: Tempo aus dem Menue System (Bedienung.tempo_faktor; aufruf.gd setzt es, Proben und Tests bleiben bei 1): alle Bewegungen,
 ## Wartezeiten und Zeilen des Kampfs laufen über Engine.time_scale so viel mal so lang, die Blende davor und der Reaktionsring nicht
 ## (der Ring misst in Echtzeit)
@@ -160,10 +170,11 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
 	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))
 	mars.fed = bool(p_progress.get("satt", false))
+	mars.gesehen = flaggen     # 840: Eingebungen einmal je Spielstand (836: Zustand.flaggen, aufruf.gd setzt flaggen vor setup)
 	mars.smoke = int(p_progress.get("rauch", 0))     # D4.1, 494: Morwens Rauchbündel gegen Krogg (aufruf.gd lage „rauch“)
 	for k in potions:
 		mars.potions[k] = int(potions[k])
-	mars.listener = func(e): _post({"say": e})
+	mars.listener = func(e): _post({"say": _mit_waffen(e)})
 	return true
 
 
@@ -198,16 +209,33 @@ func _ready() -> void:
 		verhuellt = true
 		kb.geht.connect(func():
 			verhuellt = false
+			_geheul_beim_erscheinen()     # 939: wie alt, wenn die Blende fort ist
 			_tempo_setzen())
 		ebene.add_child(kb)
 	else:
+		_geheul_beim_erscheinen()
 		_tempo_setzen()
+	# 841: mit einem Goblin-Späher wartet der Kampf auf „Kämpfen“ oder „Verjag den Späher (Einschüchtern)“ (kampf_ui.gd); nur aus dem
+	# Spiel (progress „verjagen“, spiel.gd), nicht in kampf/probe.gd und dessen Tests
+	if bool(progress.get("verjagen", false)) and mars.spaeher_zum_verjagen() != null:
+		tor = "einschuechtern"
+		ui.refresh()
+		return
 	_run(func(): mars.start(_react))
+
+
+## 841: die Wahl zu Kampfbeginn; [verjagen] wahr: erst die Probe auf Einschüchtern (Mars.start), sonst gleich der Kampf
+var tor := ""
+func tor_wahl(verjagen: bool) -> void:
+	if tor == "":
+		return
+	tor = ""
+	_run(func(): mars.start(_react, verjagen))
 
 
 ## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht
 func tempo_wechseln() -> void:
-	Bedienung.tempo = (Bedienung.tempo + 1) % 3
+	Bedienung.tempo = (Bedienung.tempo + 1) % (4 if Testmodus.ist_an() else 3)     # 1020.2 C: im Testmodus auch „sehr schnell“
 	Bedienung.speichere()
 	tempo = Bedienung.tempo_faktor()
 	if verhuellt:
@@ -354,6 +382,23 @@ func _build_forest() -> void:
 	ground.position.y = -0.01
 	forest.add_child(ground)
 	_grass()
+	_lichtung_806()
+
+
+## 806: zwei Lichtschächte mit Staub (R7) hinter den Kämpfern, von der Kamera aus gesehen (wie _grass: 15 m Abstand, Blick örtlich
+## (0,866, −0,5)); Paket fehlt oder Grafikstufe aus: nichts
+func _lichtung_806() -> void:
+	if OS.get_environment("EFFEKTE_806") == "0":     # Vergleich und Bilder/s vorher
+		return
+	# Kein Bodennebel mehr (Archiv „806, Lichtung mit Nebel“, 11.11., 12:06: mit Nebel nur, wenn die Bilder/s nicht sinken, sonst ohne):
+	# Test 277 (Chef 20:27/20:30) 13 Bilder/s mit, 17 ohne, und „den Nebel habe ich wirklich nicht gesehen“; vier Lagen über den
+	# ganzen Schirm kosteten am Handy etwa 18 ms je Bild. NEBEL_806=1 zeigt ihn noch zum Vergleich (Bildpaar am Rechner)
+	if OS.get_environment("NEBEL_806") == "1":
+		KampfEffekte.nebel(self, 0.45, 0.28)
+	var cam_l := Vector2(-0.866 * 15.0, 0.5 * 15.0)
+	for quer: float in [-5.5, 4.5]:
+		var q := cam_l + Vector2(0.866, -0.5) * 22.0 + Vector2(0.5, 0.866) * quer
+		KampfEffekte.staub(forest, Vector3(q.x, 0.0, q.y), 1.6)
 
 
 func _toon_all(n: Node) -> void:
@@ -460,10 +505,58 @@ func _grass() -> void:
 	mmi.material_override = hm
 	forest.add_child(mmi)
 	halm_mat = hm
+	# 806 (Chef 09.11., 21:12: Kampforte mit den Paketen schöner): Gras und Blumen des Kits wie im Dorf (804, GrasBausatz) an den
+	# Stellen unserer Büschel, unser Gras dann aus; fehlt das Kit oder ist der Schalter aus (698), bleibt halm.gdshader
+	if GrasBausatz.aktiv():
+		# Chef 10.11., 08:58: „Vielleicht ein bisschen mehr Gras“, die Blumen sah er kaum: jede zweite Stelle trägt einen zweiten
+		# Büschel daneben (der Bausatz nimmt jede dritte, so 1,5-mal so viele), und in Flecken von einigen Metern Blumenwiese (Bausatz:
+		# dort 30 % Blumen statt 1,5 %), damit sie als Gruppen zu sehen sind statt einzeln verstreut
+		var stellen: Array[Vector3] = []
+		var art := PackedByteArray()
+		var rb := RandomNumberGenerator.new()
+		rb.seed = 806
+		for i in xf.size():
+			var o: Vector3 = xf[i].origin
+			var fleck: bool = sin(o.x * 0.35 + 1.3) * sin(o.z * 0.41 + sin(o.x * 0.2)) > 0.62
+			stellen.append(o)
+			art.append(2 if fleck else 0)
+			if i % 2 == 0:
+				stellen.append(o + Vector3(rb.randf_range(-0.35, 0.35), 0.0, rb.randf_range(-0.35, 0.35)))
+				art.append(2 if fleck else 0)
+		kit_gras = GrasBausatz.baue(forest, stellen, art)
+		# Standbild 10.11. (Jerry, vor der Vorlage): ohne unser Gras lag zwischen den Büscheln kahler Boden, und die hellen Spitzen der
+		# Büschel standen wie Stroh im Bild: unser Gras bleibt als Grund, die Spitzen dunkler (Lichtung im Wald, nicht Sommerwiese)
+		for k in kit_gras:
+			var m := k.material_override as ShaderMaterial
+			if m == null or k.name.begins_with("Gras_flower"):
+				continue
+			m = m.duplicate() as ShaderMaterial
+			for f in ["tip_color", "dry_tip_color"]:
+				var c = m.get_shader_parameter(f)
+				if c is Color:
+					m.set_shader_parameter(f, (c as Color).darkened(0.35))
+			k.material_override = m
+
+
+var kit_gras: Array[MultiMeshInstance3D] = []
+## 806: die Kämpfer schieben das Gras des Kits beiseite (Kit: höchstens vier Schieber), die Gruppe zuerst
+func _kit_schieber() -> void:
+	if kit_gras.is_empty():
+		return
+	var n := 0
+	for side in ["PARTY", "FOES"]:
+		for fig in figures.values():
+			if fig.fighter.side != side or not fig.visible:
+				continue
+			if n >= 4:
+				return
+			GrasBausatz.schieber(fig)
+			n += 1
 
 
 var halm_mat: ShaderMaterial = null
 func _grass_spots() -> void:
+	_kit_schieber()
 	if halm_mat == null:
 		return
 	var sp: Array[Vector3] = []
@@ -486,7 +579,12 @@ func _plain(c: Color) -> ImageTexture:
 ## The scene above the orders, in viewport pixels.
 func scene_rect() -> Rect2:
 	var vs := get_viewport().get_visible_rect().size
+	# 992 (kamera_992, Wölfe Zug 2: der Kasten war ein Bild lang 1207 statt 849 px hoch, bevor er sich neu ordnete; _rand_kamera nahm
+	# die Linse darum für die halbe Szene zurück, 4 % in einem Bild, und kam langsam wieder): die Szene ist die, für die die Kamera
+	# zuletzt gepasst wurde (kampf_ui.fitted_h), nicht der Kasten in diesem Augenblick
 	var below: float = ui.panel_height() if ui else vs.y * 0.33
+	if ui and ui.fitted_h > 0.0 and ui.panel:
+		below = ui.fitted_h - ui.panel.offset_bottom
 	return Rect2(0, 0, vs.x, maxf(vs.y - below, vs.y * 0.4))
 
 
@@ -521,8 +619,22 @@ func _fit_camera() -> void:
 	for fig in figures.values():
 		if fig.dead_at >= 0:     # 573: wer gefallen ist, bleibt liegen, wo er fiel (Krogg sprang am Ende 1,5 m, Grak 2,9 m)
 			fig.snap_to(fig.position + _ground(0, 0) - g_alt)
-		else:
+		elif zuege == 0 and not busy:
 			fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+		else:
+			# 864 (Chef 10.11., 13:26 und 11.11., 07:08: „Beam-Schritt … in die Ausgangsgegnerlage zurück“, beam_864): wächst der Kasten zu
+			# Beginn des Heldenzugs („…“ → Knöpfe), passt die Kamera neu; wer nach seinem Angriff beim Helden stehen blieb (717.1, rückt
+			# erst im eigenen Zug in die Reihe), sprang hier auf seinen Platz. Jetzt rückt jeder nur mit dem Boden, der Abstand zum Platz bleibt
+			var platz := _spot_pos(fig.fighter, shown.places[fig.fighter.id])
+			fig.snap_to(fig.position + platz - fig.home)
+			fig.home = platz
+	# 992 (Chef 11.11., 20:29, Test 277: „der Bildschirm springt am Anfang zwei, dreimal … das Bild zuckt einfach ab und zu“; kamera_992:
+	# Linse ein Bild lang auf Grundstellung, dann zurück, weil hier cam.size gesetzt wurde, während _rand_kamera sie zurückgenommen hatte
+	# oder ein Schlag heranzoomte): die Linse bleibt im selben Bild, wo sie war, nur um die neue Grundstellung
+	if not hit.is_empty():
+		_hit_camera()
+	elif rand_z < 1.0:
+		_rand_anwenden()
 
 
 ## 249: Zoom und Ruck des Schlags in [hit] wie im alten MARS: in 110 ms (tödlich 220) heran, so lange der Halt dauert
@@ -556,7 +668,7 @@ func _hit_camera() -> void:
 		hit["pivot"] = _pivot(_near_of(on.position), 1.0 + (0.10 if kill else Wucht.zoom(w)) + 0.03)
 	var p: Vector2 = hit.pivot
 	var z0: float = hit.get("z0", 1.0)
-	if z0 > 1.0001 and el < t_in:     # 438: vom Stand des vorigen Schlags weich zum neuen
+	if absf(z0 - 1.0) > 0.0001 and el < t_in:     # 438: vom Stand des vorigen Schlags weich zum neuen (992: auch aus dem Rückzug von _rand_kamera)
 		var s := _soft(el / t_in)
 		z = lerpf(z0, z, s)
 		p = (hit.p0 as Vector2).lerp(p, s)
@@ -615,6 +727,17 @@ func _rand_kamera() -> void:
 				need = minf(need, (c.x - m) / absf(dw.x))
 			if absf(dw.y) > 1.0:
 				need = minf(need, (c.y - m) / absf(dw.y))
+		# 988 (wolf_mess_438 Lauf 369: CLERIC neigte sich beim Ausweichen auf der Stelle 11 px über den Rand): eine Bewegung auf
+		# der Stelle zählt mit allen Haltungen, die sie noch nimmt (Figur.reichweite), nicht nur mit der jetzigen
+		var rw: Array = fig.reichweite.get(String(fig.anim.current_animation), []) if fig.anim else []
+		for e in rw:
+			var q: Vector3 = fig.global_transform * (e[0] as Vector3)
+			var d3: Vector2 = (screen_of(q) - c) / rand_z
+			var r3: float = float(e[1]) / m_per_dp(q) * (sr.size.x / 412.0) / rand_z
+			if absf(d3.x) > 1.0:
+				need = minf(need, (c.x - m) / (absf(d3.x) + r3))
+			if absf(d3.y) > 1.0:
+				need = minf(need, (c.y - m) / (absf(d3.y) + r3))
 		# 438 (wolf_mess_438: Wolf 1 drehte am Rand auf der Stelle, der Kopf schwang 45 px hinaus): wer gerade läuft oder dreht,
 		# zählt mit dem ganzen Kreis, den sein Körper beim Drehen überstreicht
 		if fig.tween and fig.tween.is_running():
@@ -631,10 +754,18 @@ func _rand_kamera() -> void:
 	rand_z = lerpf(rand_z, need, RAND_RAUS if need < rand_z else RAND_REIN)
 	if absf(rand_z - 1.0) < 0.001:
 		rand_z = 1.0
+	_rand_anwenden()
+
+
+## 992: die Linse nach rand_z um die Mitte der Szene (aus _rand_kamera und _fit_camera); rand_p ist diese Mitte (ein Schlag beginnt dort)
+var rand_p := Vector2.ZERO
+func _rand_anwenden() -> void:
+	var vs := get_viewport().get_visible_rect().size
+	var c := scene_rect().size / 2.0
 	var per := base_size / vs.y
-	var p := Vector2(base_off.x + (c.x - vs.x / 2.0) * per, base_off.y - (c.y - vs.y / 2.0) * per)
+	rand_p = Vector2(base_off.x + (c.x - vs.x / 2.0) * per, base_off.y - (c.y - vs.y / 2.0) * per)
 	cam.size = base_size / rand_z
-	cam.frustum_offset = p + (base_off - p) / rand_z
+	cam.frustum_offset = rand_p + (base_off - rand_p) / rand_z
 
 
 ## 348.7 (Helfer Lauf 126: Heldin am Rand angeschnitten): die Mitte des Zooms so nah an [p] wie möglich, aber so, dass bei
@@ -820,7 +951,46 @@ func _spot_ab(f, spot: Vector2i) -> Vector2:
 			ab.x += PAIR_BACK_A
 			ab.y += PAIR_BACK_B * (-1.0 if spot.y == 0 else 1.0)
 			ab.y += PAIR_BACK_SHIFT
+	if f.side == "FOES":
+		ab = _naeher(f, ab, spot.x == Mars.BACK)
 	return ab
+
+
+## 506.1 (Chef 10.11., 12:25, Film 506: „der dritte Wiedergänger … steht ja so weit hinten … läuft ja allein schon eine halbe
+## Stunde … cool, dass die so langsam gehen. Aber die müssen irgendwie dann näher am Gegner sein“): wer langsam geht (Anmarsch
+## unter LANGSAM_MPS, gemessen am Wurzelweg seines Modells: Wiedergänger 0,82–0,88 m/s, Skelett rund 1,6), steht in der
+## Nahaufstellung: vorn NAH_VORN_M (Tiefe) vor dem Helden, hinten NAH_REIHE_M dahinter; sein Gang bleibt langsam. Die übrigen
+## Gegner (Wölfe, Goblins, Skelette) stehen wie abgenommen. Nur näher, nie weiter weg
+const LANGSAM_MPS := 1.2
+const NAH_VORN_M := 3.0       # vordere Reihe: Mitte zu Mitte in der Tiefe zum Helden (vorher 3,8–4,35 m)
+const NAH_REIHE_M := 1.6       # hintere Reihe so weit hinter der vorderen (anmarsch_506_1: Deckung im Bild 32 %, bei 1,3 m 35 %)
+## 567: allein hinter zweien vorn stand er mit BACK_GAP_B −2,0 bei 3,6 m Tiefe hinter der Mitte der beiden (−0,22) im Bild mittig:
+## je Meter Tiefe 0,49 m nach links
+const NAH_SCHRAEG := -(-0.22 - BACK_GAP_B) / (BACK_M + BACK_GAP_A - (FRONT_M + FOE_LEFT_BACK_M + FRONT_M) / 2.0)
+func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
+	if not _langsam(f):
+		return ab
+	var held_a := -(FRONT_M + NEAR_M)
+	if not hinten:
+		return Vector2(minf(ab.x, held_a + NAH_VORN_M), ab.y)
+	var a := minf(ab.x, held_a + NAH_VORN_M + NAH_REIHE_M)
+	# allein hinter zweien vorn (BACK_GAP_B: im Bild mittig dahinter): die Tiefe verschiebt im Bild zur Seite (Achse 30°), darum
+	# mit der kürzeren Tiefe weniger weit nach links, so dass er im Bild zwischen den beiden bleibt
+	var vorn := []
+	for o in mars.fighters():
+		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
+			vorn.append(_spot_ab(o, shown.places[o.id]))
+	if vorn.size() == 2 and _alone(f, Mars.BACK):
+		var mitte: Vector2 = (vorn[0] + vorn[1]) / 2.0
+		return Vector2(a, mitte.y + NAH_SCHRAEG * (a - mitte.x))
+	return Vector2(a, ab.y)
+
+
+func _langsam(f) -> bool:
+	if not figures.has(f.id) or f.ranged():
+		return false
+	var v: float = figures[f.id].anmarsch_mps()
+	return v > 0.0 and v < LANGSAM_MPS
 
 
 func _alone(f, row: int, side := "") -> bool:
@@ -863,7 +1033,7 @@ func _foe_scale(f) -> float:
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
 	if Figur.eigene_haut(f):
 		return 1.0     # 494 Riesenspinne (kaufspinne.py, Spannweite 1,69 m wie LISTE-FIGUREN): echte Größe wie die Kauftiere, nicht 1,5-fach
-	if Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT, Mars.GRAK, Mars.KROGG]:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
+	if Mars.koerper_of(f.monster) in Figur.ZWEI:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75); 348.12 Grak ebenso
 		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 
@@ -904,6 +1074,9 @@ func order(o: Array) -> void:
 
 
 func go_on() -> void:
+	if tor != "":     # 841: weiter (Autopilot, Tests) heißt an der Wahl zu Beginn „Kämpfen“
+		tor_wahl(false)
+		return
 	if busy or mars.outcome != "ONGOING":
 		return
 	_run(func(): mars.proceed(_react))
@@ -954,7 +1127,21 @@ func _answer_ring(r: String) -> void:
 	ring_open = false
 	ring_answer = r
 	ui.ring_verdict(r)
+	var klang = get_node_or_null("/root/Klang")
+	if klang != null and r != Mars.NONE:
+		klang.effekt("block", 0.8 if r == Mars.PERFECT else 0.5)     # 939 (alt SkirmishScreen 726): Block bei perfekt, leiser bei gut
 	ring_sem.post()
+
+
+## 999: welche Waffe jeder der Gruppe gerade führt (Fighter.drawn), mit der Meldung, wie sie gesagt wurde; die Figur zeigt sie, wenn
+## die Meldung dran ist (Wechsel ohne Zugverlust, mars.gd „draw“, „swap“ mit Waffe)
+func _mit_waffen(e: Dictionary) -> Dictionary:
+	var d := {}
+	for f in mars.fighters():
+		if f.hero != null:
+			d[f.id] = f.drawn
+	e["drawn"] = d
+	return e
 
 
 func _state_now() -> Dictionary:
@@ -977,7 +1164,7 @@ func _process(_dt: float) -> void:
 	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
-	if playing or verhuellt:     # 402: unter der Blende warten Worte und Züge
+	if playing or verhuellt or messpause:     # 402: unter der Blende warten Worte und Züge; 806: ebenso beim Messen
 		return
 	if end_asked != null:
 		_skip_beats()
@@ -999,13 +1186,18 @@ func _process(_dt: float) -> void:
 
 func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
+	if OS.get_environment("DBGPL") != "" and absf(clock_ms / 1000.0 - float(OS.get_environment("DBGPL"))) < 4.0:
+		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	shown = e
 	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
 	var im_schatten: Dictionary = e.get("hidden", {})
 	for id in figures:
 		figures[id].im_schatten(im_schatten.has(id))
+	for id in e.get("drawn", {}):     # 999
+		if figures.has(id):
+			figures[id].waffe_ziehen(bool(e.drawn[id]))
 	for f in mars.fighters():
-		# called to the fight (Rudel rufen); the rules' thread may already hold one this message does not know yet
+		# called to the fight (Hilfe rufen); the rules' thread may already hold one this message does not know yet
 		if not figures.has(f.id) and e.places.has(f.id):
 			var fig := Figur.new()
 			fig.setup(f, self)
@@ -1022,6 +1214,12 @@ func _play_say(e: Dictionary) -> void:
 	if across and (e.roll != null or e.spell != null or e.cue == "DUCKED"):
 		lunge_ms = figures[actor].strike(figures[target], e)
 		busy_ms = figures[actor].busy_ms
+	# 717.1 A (Chef 09.11., 09:03/09:06; F8): Zurechtrücken beginnt im Zug der Gegner und darf in den Zug des Helden hinein auslaufen,
+	# nie erst dort anfangen: was im Zug des Helden umgestellt wurde (glide_to merkt es vor), rückt mit dem nächsten Zug der Gegner
+	if by != null and by.side == "FOES":
+		for fid in figures:
+			if fid != actor or lunge_ms == 0:
+				figures[fid].zurueck_in_reihe()
 	for id in e.intents:
 		var aimed: Array = e.intents[id][1]
 		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
@@ -1054,6 +1252,8 @@ func _play_say(e: Dictionary) -> void:
 	if fx != null:
 		fx_zahl[fx] = int(fx_zahl.get(fx, 0)) + 1
 		var los: float = maxf(0.0, float(figures[actor].netz_los_ms)) if fx == "WEB" else 0.0     # 494: das Netz fliegt mitten im Netzwurf los
+		if fx in Zauber.BOMBS:     # 935: die Flasche fliegt los, wenn der Arm über dem Kopf nach vorn geht
+			los = maxf(0.0, float(figures[actor].wurf_los_ms))
 		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED", los)
 		lands = int(step + los + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
@@ -1094,7 +1294,10 @@ func _play_say(e: Dictionary) -> void:
 		elif target == id and _missed(e) and across and figures[id].blockt():
 			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
 			var af = figures.get(actor)
-			figures[id].abwehr(lands, art, af.global_position if af != null else Vector3.INF, true, af != null and af.niedrig())
+			var von := Vector3.INF     # 662: vom Platz, an dem der Angriff ankommt, nicht von dort, wo er losläuft
+			if af != null:
+				von = to_global(af.angriff_von) if af.angriff_von != Vector3.INF else af.global_position
+			figures[id].abwehr(lands, art, von, true, af != null and af.niedrig())
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
@@ -1109,7 +1312,10 @@ func _play_say(e: Dictionary) -> void:
 			if Wucht.jolt_dp(w) > 0.0:
 				# 438 (Prüfer Film 08:18: Kamera zoomt 0:38 ruckartig): kam der Schlag, während der vorige noch heranrückte,
 				# sprang die Linse auf Grundstellung und von dort neu heran; jetzt beginnt er, wo die Linse gerade steht
-				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": cam_z, "p0": cam_p}
+				# 992 (kamera_992: hatte _rand_kamera die Linse zurückgenommen, sprang sie beim Schlag in einem Bild auf Grundstellung): von dort
+				var z0_: float = cam_z if not hit.is_empty() or rand_z >= 1.0 else rand_z
+				var p0_: Vector2 = cam_p if not hit.is_empty() or rand_z >= 1.0 else rand_p
+				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": z0_, "p0": p0_}
 			if wound:
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
 	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf
@@ -1144,19 +1350,28 @@ func _play_say(e: Dictionary) -> void:
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled and f.hp > 0:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
 			var ziel := _spot_pos(f, e.places[f.id])
 			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
-				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel))
+				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel, by != null and by.side == "FOES"))
 			else:
-				figures[f.id].glide_to(ziel)
+				figures[f.id].glide_to(ziel, by != null and by.side == "FOES")
+	# 717 C: beim Platztausch kommt der neue Platz des einen vor dem des anderen; erst wenn alle Plätze dieser Meldung stehen, rücken
+	# die Vorgemerkten (im Zug der Gegner)
+	if by != null and by.side == "FOES":
+		for fid in figures:
+			figures[fid].zurueck_in_reihe()
 	if tot_ms > 0:
 		await get_tree().create_timer(maxi(SAY_MS, maxi(lunge_ms, busy_ms) - tot_ms) / 1000.0).timeout
 		return
-	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, maxi(lunge_ms, busy_ms)) / 1000.0).timeout
+	# 751 (Chef 09.11., 14:00: „manchmal verschwindet das einfach alles“; haenger_751: je Biss 8 s „…“): lunge_ms ist die Zeit bis zum
+	# Treffer geteilt durch 0,42 und wuchs mit dem Anlauf weit über die Bewegung hinaus; ein Gegner meldet seine wirkliche Dauer
+	# (busy_ms, ohne das Zurechtrücken, das in den Zug des Helden auslaufen darf, F8)
+	var dauer := busy_ms if busy_ms > 0 and by != null and by.side == "FOES" else maxi(lunge_ms, busy_ms)
+	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, dauer) / 1000.0).timeout
 
 
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
 func _zeigen(e: Dictionary) -> void:
 	if e.text != "" and not e.get("vorweg", false):
-		ui.log_line(e.text)
+		ui.log_line(e.text, e.get("cue") == "EINGEBUNG")     # 840: die Eingebung des Helden in eigener Farbe
 	ui.refresh()
 	ui.show_roll(e)
 
@@ -1250,6 +1465,9 @@ func _play_ring(target_id: String, intent: Dictionary) -> void:
 	ring_start = Time.get_ticks_msec()
 	ring_open = true
 	ui.ring_open(target_id, intent)
+	var klang = get_node_or_null("/root/Klang")
+	if klang != null:
+		klang.effekt("swing_heavy", 0.6)     # 939 (alt SkirmishScreen 713): schwerer Schwung, wenn der Ring aufgeht
 	while ring_open:
 		await get_tree().process_frame
 	await get_tree().create_timer(0.3).timeout
@@ -1262,9 +1480,11 @@ func _refused() -> void:
 	queue_free()
 
 
+var zuege := 0     # 709: fertige Züge (kampf_ui.panel_passt)
 func _done() -> void:
 	shown.queue = mars.queue()
 	busy = false
+	zuege += 1
 	if end_asked != null and mars.outcome == "ONGOING":
 		test_end(bool(end_asked))
 		return
@@ -1272,11 +1492,37 @@ func _done() -> void:
 	if mars.outcome == "WON" and reward.is_empty():
 		# 399.2: Ausrüstung als Beute (Loot.drops) würfelt die Welt, die Held und Tasche kennt (progress „beute“, aufruf.gd)
 		var beute: Callable = progress.get("beute", Callable())
-		reward = Lohn.reward(mars, int(progress.get("xp", 0)), mars.dice, int(progress.get("over", 0)), progress.get("cap"), 1.0, 1.0,
-			beute.call() if beute.is_valid() else [])
+		# 870.5: Heldenstufe nach BRS (progress „stand“, Brs.neuer_stand) und Gebiet für den Erfahrungstopf (progress „gebiet“)
+		reward = Lohn.reward(mars, progress.get("stand", {}), mars.dice, String(progress.get("gebiet", "")),
+			beute.call(mars) if beute.is_valid() else [], ohne_folgen)     # 644a A, 633: die Welt liest Stufe und Boss der besiegten Gegner
+		_sieg_klang()
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()
 	ui.refresh()
+	ui.panel_passt.call_deferred()     # 709: was während des Zugs an der Höhe des Kastens geschah
+
+
+## 939 (alt BattleScreen 523, 587): zum Lohn epische Beute (ab EPIC), sonst Beute, sonst Münzen; ein Stufenaufstieg danach wie
+## alt beim Weiterblättern zum Feld mit der Stufe (hier alles in einem Fenster, darum kurz nach dem Lohn)
+const STUFE_KLANG_MS := 1400
+func _sieg_klang() -> void:
+	var klang = get_node_or_null("/root/Klang")
+	if klang == null or reward.is_empty():
+		return
+	var episch: bool = (reward.get("gear", []) as Array).any(func(g): return Beute.SELTENHEIT.find(String(g.get("rarity", "COMMON"))) >= Beute.SELTENHEIT.find("EPIC"))
+	var beute: bool = not (reward.get("items", []) as Array).is_empty() or not (reward.get("gear", []) as Array).is_empty()
+	klang.effekt("loot_epic" if episch else ("loot" if beute else "coins"))
+	if int(reward.get("levels", 0)) > 0:
+		get_tree().create_timer(STUFE_KLANG_MS / 1000.0, true, false, true).timeout.connect(func(): if is_instance_valid(klang): klang.effekt("level_up"))
+
+
+## 939 (alt SkirmishScreen 548, „256: wolves now and then howl as they appear“): Wölfe heulen beim Erscheinen, halb so oft
+func _geheul_beim_erscheinen() -> void:
+	var klang = get_node_or_null("/root/Klang")
+	if klang == null or not mars.all.any(func(f): return f.side == "FOES" and f.monster != null and String(f.monster.get("id", "")) in [Mars.WOLF, Mars.DIRE_WOLF]):
+		return
+	if randf() < 0.5:
+		klang.effekt("howl")
 
 
 func again() -> void:

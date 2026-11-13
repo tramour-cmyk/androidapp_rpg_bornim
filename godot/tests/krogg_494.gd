@@ -18,7 +18,7 @@ func _initialize() -> void:
 
 
 func _lauf() -> void:
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var krogg: Array = tab.monsters.filter(func(m): return m.id == "bugbear")
 	if krogg.is_empty() or not krogg[0].boss or krogg[0].loot.filter(func(l): return l.item == "rusty_key").is_empty():
 		fehler += 1
@@ -51,9 +51,10 @@ func _kampf(k: String) -> void:
 	if feinde.size() != 1 or String(feinde[0].monster.id) != "bugbear" or String(feinde[0].monster.de) != "Krogg der Grobian":
 		fehler += 1
 		print("FEHLER Gegner: %s" % [feinde.map(func(f): return "%s/%s" % [f.monster.id, f.monster.de])])
-	elif feinde[0].max_hp < 10 or feinde[0].max_hp > 45:
+	elif feinde[0].max_hp != int(preload("res://regeln/brs.gd").monster("bugbear").get("leben", -1)):
+		# 900 (Lauf 336 am Rechner, Tom: 55 statt 10–45 SRD): Leben nach BRS aus werte.json (Krogg 55)
 		fehler += 1
-		print("FEHLER Trefferpunkte %d (10–45)" % feinde[0].max_hp)
+		print("FEHLER Trefferpunkte %d (werte.json %d)" % [feinde[0].max_hp, int(preload("res://regeln/brs.gd").monster("bugbear").get("leben", -1))])
 	# Autopilot nie gegen Bosse (72p.1): der Held schlägt den ersten, den er erreicht, wie tests/kampfort_lauf.gd
 	kf.mars.find("merc").auto = true
 	var t0 := Time.get_ticks_msec()
@@ -92,7 +93,9 @@ func _rauch(tab: Dictionary, rauch: int) -> void:
 	var held = Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
 	var krogg: Dictionary = tab.monsters.filter(func(m): return m.id == "bugbear")[0]
 	var foe = Mars.monster_fighter("krogg", Mars.SPOTS[0], krogg, 999)
-	var m = Mars.new([held], [foe], tab, Wuerfel.new(range(400).map(func(_i): return 20)), Wuerfel.new(7), 0, false, "AMBUSHED")
+	var band = Wuerfel.new(range(400).map(func(_i): return 20))
+	band.band_brs = true     # 987: „jeder Wurf 20“ auch für die BRS-Schläge (sonst Zufall, 2 von 5 rot)
+	var m = Mars.new([held], [foe], tab, band, Wuerfel.new(7), 0, false, "AMBUSHED")
 	m.smoke = rauch
 	var gehoert := []
 	m.listener = func(e): gehoert.append(e)

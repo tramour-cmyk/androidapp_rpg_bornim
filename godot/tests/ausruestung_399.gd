@@ -51,7 +51,7 @@ func zeile_mit(m: Node, text: String) -> Control:
 func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Vera", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Vera", "Mensch", "Wachsoldat", z.neue_uid)
 	var w = hw.waffe()
 	if w == null: print("FEHLER Kaempferin ohne Waffe"); quit(1); return
 	var m := Menue.new(hw, z)

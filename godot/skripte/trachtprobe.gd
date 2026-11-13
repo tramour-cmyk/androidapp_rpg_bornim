@@ -29,7 +29,6 @@ const SEITEN := {
 const DAUER := {"umhang": 12.0, "robe": 12.0}
 # Kopf je Herkunft: der Beispielkopf der Klasse, zu der sie gehoert (HeldFigur.KLASSEN_VORGABE); die Heldin mit langem Haar (zeigt,
 # dass es unter der Kapuze verschwindet)
-const KLASSE := {"WACHSOLDAT": "FIGHTER", "ZAUBERLEHRLING": "WIZARD", "KLOSTERSCHUELER": "CLERIC", "HERUMTREIBER": "ROGUE", "JAEGERKIND": "ROGUE"}
 
 var fp: FigurenProbe
 var streifen := {}         # Name -> [Marker, [Figuren], [Eintraege]]
@@ -80,12 +79,11 @@ func _streifen(name: String, figuren: Array, x0: Vector3) -> void:
 	for i in figuren.size():
 		var e: Array = figuren[i]
 		var h := String(e[0]); var g := String(e[1]); var st := String(e[2]); var bew := String(e[3])
-		var k := String(KLASSE.get(h, "FIGHTER"))
-		var a := HeldFigur.vorgabe(k, g)
+		var a := HeldFigur.vorgabe(h, g)   # 870.4: Beispielkopf nach der Herkunft
 		if g == "w": a["frisur"] = "Hair_Long"
 		a["statur"] = st
 		var mats := []
-		var m := HeldFigur.baue({"klasse": k, "herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": {}}, mats)
+		var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": {}}, mats)
 		if m == null: fp.protokoll.append("FEHLT %s %s" % [h, g]); continue
 		for mt in mats: (mt as ShaderMaterial).set_shader_parameter("fill", 0.42)   # wie klasse_figur (Held)
 		var w := Node3D.new()

@@ -1,7 +1,7 @@
 class_name Ortsblende
 extends Control
 # 399.1 Schwarzblende zwischen Orten wie alt (24.1, InterludeUi.kt MapVeil und InterludeVeil, InterludeClock.kt, Interlude.kt):
-# beim Spielbeginn und beim ersten Besuch der Name des Orts klein und gesperrt, darunter ein Satz; sonst nur der Name; eine Tuer
+# der Name des Orts gesperrt, Zierleiste, darunter ein Satz (661: worte_spalte); nur bei haeufigen Wechseln der Name allein (951); eine Tuer
 # im Dorf blinzelt nur. Die Worte kommen, stehen, bis sie zu lesen sind (Tippen beendet frueher), gehen, dann steigt der Ort aus
 # dem Schwarz. In Godot ist alles schon gezeichnet, wenn die Blende kommt: ohne Ladebalken und Spruch (267.1). Zeiten und Saetze
 # aus core: intro.json „blende“ (IntroExport.kt).
@@ -11,8 +11,6 @@ signal fertig
 const DP := AktionsKnopf.DP
 # VeilInk (InterludeUi.kt)
 const TEXT := Color("e6ddcb")
-const NAME := Color("b59a6a")
-const LINIE := Color(0xb5 / 255.0, 0x9a / 255.0, 0x6a / 255.0, 0x66 / 255.0)
 
 static var letzter := {}                  # VeilMemory.last: der zuletzt gezeigte Satz, nie zweimal hintereinander
 
@@ -39,12 +37,27 @@ static func schwarz() -> ColorRect:
 static func lese_ms(zeichen: int, d: Dictionary) -> float:
 	return float(d.get("lesen_ms", 1000)) + float(d.get("lesen_je_zeichen_ms", 40)) * zeichen
 
-# InterludeClock.kindFor: FULL beim Spielbeginn ([von] leer) und beim ersten Besuch, BLINK von Tuer zu Tuer im Dorf, sonst NAME
-static func art_fuer(von: String, nach: String, erster: bool) -> String:
+# 951 (Fund t276, Chef 11.11., 13:44: Flüsterwald zeigte nur den Namen; DESIGN-BLENDE 6): Name und Satz bei jedem Besuch, nur bei
+# haeufigen Wechseln (der Ort schon [HAEUFIG_AB]-mal unter den letzten [HAEUFIG_FENSTER] betretenen, etwa zum fuenften Mal) nur der
+# Name; BLINK von Tuer zu Tuer im Dorf; derselbe Ort neu (Test „ort_neu“) nur der Name. Alt (InterludeClock.kindFor) zeigte ab dem
+# zweiten Besuch immer nur den Namen. [vorher] die zuletzt betretenen Orte, neuester hinten (ohne: [besuche])
+const HAEUFIG_FENSTER := 8
+const HAEUFIG_AB := 4
+static var besuche: Array = []
+
+static func art_fuer(von: String, nach: String, erster: bool, vorher = null) -> String:
 	var dorf: Array = daten().get("dorf", [])
 	if von == "" or erster: return "FULL"
 	if von in dorf and nach in dorf: return "BLINK"
-	return "NAME"
+	if von == nach: return "NAME"
+	var l: Array = besuche if vorher == null else vorher
+	if l.slice(-HAEUFIG_FENSTER).count(nach) >= HAEUFIG_AB: return "NAME"
+	return "FULL"
+
+## 951: [nach] betreten, fuer die Zaehlung der haeufigen Wechsel
+static func merke(nach: String) -> void:
+	besuche.append(nach)
+	if besuche.size() > HAEUFIG_FENSTER: besuche = besuche.slice(-HAEUFIG_FENSTER)
 
 # Interlude.placeLines: was beim Betreten von [karte] passt; nachts kommen die eigenen Saetze der Nacht doppelt ins Los
 static func saetze(karte: String, z: Zustand, nacht: bool) -> Array:
@@ -89,29 +102,73 @@ func _init(art_: String, name_: String, satz) -> void:
 	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(mitte)
+	worte = Ortsblende.worte_spalte(name_, Sprache.t(satz) if satz != null else "")
+	mitte.add_child(worte)
+	_stelle()
+
+## 661 (Chef 08.11., 15:11; 10.11., 09:34 Kramladen „wieder relativ klein“; 10:17 „die Blenden wie von dir vorgeschlagen …
+## gebrochene Zierleiste gefällt mir“): ein Aufbau fuer alle Blenden, Ort, Rast (753), Kampf normal, Hinterhalt, Boss: der Name
+## gesperrt so gross wie die Titel der Schirme ohne Kasten (549a), darunter deren Zierleiste mit Raute (Spielstaende.zier), dann der
+## Satz gross, beim Kampf darunter der Satz des Gegners etwas kleiner. Der Kampf unterscheidet sich nur durch Tempo und Klang, der
+## Hinterhalt dazu durch die gebrochene Zierleiste. Vorher (556, 753, 402): Name 13 sp, Goldstrich 44 dp, Satz 19 sp; im Kampf
+## erst der Satz, dann Strich und Name 24/30 sp.
+const NAME_SP := Stil.TITEL_SP            # 22 sp wie die Titel der Schirme (586a)
+const SATZ_SP := 21.0
+const SATZ_ZEILE := 31.0
+const NEBEN_SP := 17.0
+const NEBEN_ZEILE := 25.0
+
+static func worte_spalte(name_: String, satz: String, neben := "", gebrochen := false) -> VBoxContainer:
 	var v := VBoxContainer.new()
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	v.add_theme_constant_override("separation", 0)
-	mitte.add_child(v)
-	worte = v
-	var n := Stil.zeile(name_.to_upper(), 13, NAME, 4.0)
-	n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_child(n)
-	if satz != null:
-		v.add_child(Erschaffung.luecke(14))
-		var r := ColorRect.new()
-		r.color = LINIE
-		r.custom_minimum_size = Vector2(44, 1) * DP
-		r.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-		r.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		v.add_child(r)
-		v.add_child(Erschaffung.luecke(18))
-		var l := Stil.zeile(Sprache.t(satz), 19, TEXT, 0.6)
-		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.add_theme_constant_override("line_spacing", int((28 - 19 * 1.2) * Stil.SP))
-		v.add_child(l)
-	_stelle()
+	v.add_child(_zeile(name_.to_upper().replace("ß", "SS"), NAME_SP, Stil.GOLD, 3.0, 0.0))
+	v.add_child(Stil.luecke(8))
+	v.add_child(zier(gebrochen))
+	if satz != "":
+		v.add_child(Stil.luecke(14))
+		v.add_child(_zeile(satz, SATZ_SP, TEXT, 0.6, SATZ_ZEILE))
+	if neben != "":
+		v.add_child(Stil.luecke(14))
+		v.add_child(_zeile(neben, NEBEN_SP, Color(TEXT, 0.8), 0.4, NEBEN_ZEILE))
+	return v
+
+static func _zeile(text: String, sp: float, farbe: Color, sperrung: float, zeile_sp: float) -> Label:
+	var l := Stil.zeile(text, sp, farbe, sperrung)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if zeile_sp > 0.0: l.add_theme_constant_override("line_spacing", int((zeile_sp - sp * 1.2) * Stil.SP))
+	return l
+
+## die Zierleiste der Schirme (549a); beim Hinterhalt gebrochen: jede Seite zweimal gerissen und versetzt, die Raute gespalten
+static func zier(gebrochen := false) -> Control:
+	if not gebrochen: return Spielstaende.zier()
+	var c := Control.new()
+	c.custom_minimum_size = Vector2(0, 14 * DP)
+	c.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	c.draw.connect(func():
+		var mi := c.size / 2
+		var w := 1.0 * DP
+		var x := c.size.x
+		# je Seite drei Stuecke mit zwei Rissen (Luecke 1,5 dp), aussen ruhig, zur Raute hin staerker versetzt (dp)
+		var luecke := 1.5 * DP
+		for seite in [[x * 0.12, mi.x - 10 * DP, [0.0, 1.6, -1.2]], [x * 0.88, mi.x + 10 * DP, [0.0, -1.6, 1.2]]]:
+			var aussen: float = seite[0]; var innen: float = seite[1]
+			var punkte := [aussen, lerp(aussen, innen, 0.55), lerp(aussen, innen, 0.8), innen]
+			var richtung := signf(innen - aussen)
+			for i in 3:
+				var von: float = punkte[i] + (richtung * luecke / 2 if i > 0 else 0.0)
+				var bis: float = punkte[i + 1] - (richtung * luecke / 2 if i < 2 else 0.0)
+				var y: float = mi.y + float(seite[2][i]) * DP
+				c.draw_line(Vector2(von, y), Vector2(bis, y), Stil.RIM, w, true)
+		# Raute senkrecht gespalten, die Haelften gegeneinander versetzt
+		var r := 4.5 * DP
+		var links := mi + Vector2(-1.4, -1.0) * DP
+		var rechts := mi + Vector2(1.4, 1.0) * DP
+		c.draw_polyline(PackedVector2Array([links + Vector2(0, -r), links + Vector2(-r, 0), links + Vector2(0, r)]), Stil.GOLD, w, true)
+		c.draw_polyline(PackedVector2Array([rechts + Vector2(0, -r), rechts + Vector2(r, 0), rechts + Vector2(0, r)]), Stil.GOLD, w, true))
+	return c
 
 func _ready() -> void:
 	worte.custom_minimum_size.x = get_viewport_rect().size.x - 2 * 36 * DP

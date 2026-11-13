@@ -1,4 +1,4 @@
-# Abgleich alt: Kapitel 1 der alten Fassung je Ort und je Figur (620.2)
+# Abgleich alt: Kapitel 1 der alten Fassung je Ort und je Figur (620.2), Bestand mit Stand (348.8)
 
 Vorgang 620.2 (Chef 07.11., 14:3x zu 620; 621 D ja, 16:4x: „Abgleich alt einmal je Ort und Figur statt je Build“). Gelesen aus dem alten Code von einem Helfer am 07.11., 21:1x, gesammelt von Perikles. **So wird sie benutzt:** jeder Ort und jede Figur wird **einmal** gegen diese Liste in Godot geprüft; je Zeile in der Spalte „Godot“ ein Wort: **da**, **fehlt** (wird ein Vorgang im eigenen Vorrat), **anders** (mit Grund) oder **entfällt** (nur mit Chefwort, z. B. BRS statt SRD). Bis eine Zeile geprüft ist, gilt für ihren Ort weiter der Abgleich je Build (512, 512b). Die Liste ist Grundlage jeder Prüfliste: was hier „da“ ist, steht in keiner Testbitte mehr als neu. Keine 1:1-Kopie (`LISTE-UMZUG-348.md` „Grundsätze“): verglichen wird, was da ist, nicht jede Drehung einer Fichte.
 
@@ -163,6 +163,8 @@ Wohnhäuser im Dorf: kein Innenraum, nur verschlossene Tür mit Stimme (1.1 „T
 
 Für alle sprechenden Figuren: Aktionsknopf = ansprechen; sie drehen sich zum Helden und schauen ihn bis 3 Kacheln an (nach 10 s Stillstand verloren); goldenes Zeichen + kurzer Ruf (Mann/Frau/Kind) + Geste, wenn sie Neues haben (Text geändert oder Auftrag abgebbar); Ruhebewegungen (Atmen, Gewicht, Blick, Hand zum Gürtel); Ansprechen setzt `met_<id>` (Karte merkt Namen und Gewohnheiten). Quellen: `G:495-560`, `H:1-68`, `A/MapRest.kt:1-10`, `A/MapFolk.kt:855-875`.
 
+**Offen vom Chef (aus der Umzugsliste, 650.2 C3):** Gang je Figur (25.10., 17:03: „Kind ein bisschen flotter, eine Dame schreitet mehr, ein alter Bauer geht langsam. Und schleift vielleicht Bein noch“; Helfer 25.10.: Hinken kaum sichtbar, Pims Takt kaum schneller; 18:28: „Der kleine Junge marschiert ein bisschen wie ein Soldat“). Wenden (26.10., 11:41: Leute wenden um 180° „sehr flott … wirkt jetzt nicht sehr natürlich. Aber wir wollen ja eine natürlich lebendige Welt haben“): langsamer, über Schritte. Beides prüft Tom mit den Leuten.
+
 Gesten bei Neuem (`A/MapFolk.kt:216-229`): Hand (Normalfall; Bram), Segen (Osric), schüchtern (Gwenna), Winken (Pim), Heranwinken (Thessa), kurz (Jorin), langsam (Morwen), Nicken (Lyra, Garrick, Liska), Stab heben (Aldric), Krug heben (Rowena), Becher heben (Borin). Karten-Gewohnheiten der Leute: `MP:115-134`.
 
 ### Aldric (Ältester, `elder`, Haus des Ältesten (7/3))
@@ -326,3 +328,241 @@ Statt der Spalte „Godot“ je Zeile hier gesammelt:
 - **1.6 Hütten:** da (verschlossen mit Stimme).
 - **1.7, 1.8 Wald da:** Gebietskarten, Ausgänge, Schilder, Lagerfeuer, Rast, Truhen, Steinkreis, Teich, Kräuter, Schutzzonen, Morwens Hütte, Grimmzahn. **Anders/fehlt:** Höhle nicht gebaut (492); Nebel und erkundete Waldkarte (505); Libellen und Frösche (509, Jerry); fallende Blätter (638); Morwens Rauch nicht grünlich (640).
 - **Leute da:** Aussehen, Gespräche und Stände aller Figuren, Tagesabläufe (Pim, Bram, Liska, Gwenna), Jorins Runde, Rowenas und Morwens Dienste, Garricks Gespräch mit Rast, Hausstimmen. **Fehlt/anders:** Lyra wird nie gebaut, steht nicht im Tempel (635); Gesten zu „!“ und Ruf, Rowenas Wischen und Einschenken, Borin sitzt, trinkt, isst nicht, Garricks Ruhebewegungen (475, 531); Jorins Speer, Aldrics Stab quer (639), Garricks Langbogen und Fackel (531); Gwennas Ring, Krogg, Grak nur mit der Höhle (492); Blende ohne Figurensprüche (267.1, so gebaut).
+
+---
+
+## 6. Bestand und Stand: Modelle, Orte, Schirme und Systeme (348.8; aus `LISTE-UMZUG-348.md`, 650.2 C3)
+
+**Zählgrundlage von 4.4 und 2.11** (`PROJEKTPLAN.md`; vorher Bestandsliste und Funktionen der Umzugsliste; Schätzungen 348.14 nur noch in `alt/LISTE-UMZUG-348.md`). Abschnitte 1–2 prüfen, ob etwas **wie alt** da ist; dieser Abschnitt zählt, wie weit jedes Modell, jeder Ort und jede Funktion **umgesetzt und abgenommen** ist. Aufteilung nach Bereich (Tom: Leute, Häuser, Innenräume, Dorftiere wie Hühner, Katzen, Hunde; Jerry: Monster, Wald- und Höhlentiere wie Frösche, Libellen, Schmetterlinge, Höhle, Waffen und Rüstungen), Reihenfolge wie Kapitel 1 gespielt wird.
+
+Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `ui/` = `app/src/main/java/de/bornim/game/ui/`. Spalte „Modell“: Skript in `tools/blender348/`, Stand (– = keins).
+
+**Checkliste** (348.9): jede Tabellenzeile und jeder fette Absatz ohne Tabelle (Ausrüstung: jeder Unterpunkt) ist ein Punkt. Der Stand steht unter „Modell“ (nach dem Skript, bei Absätzen als „Modell: …“ am Ende; fehlt er, gilt –) als eines dieser Wörter: **–** (nichts) · **Entwurf** (grob neben dem alten Bild beim Chef) · **gebaut** (fertig im Godot-Zweig, Vergleichsblatt da) · **gemessen** (fertiges Vergleichsblatt von Diogenes ohne Befund) · **abgenommen** (Chef ja zum Vergleichsblatt, mit Datum; auch sein „steht“ nach der Grenze 10 Runden, Feinschliff bleibt eigene Zeile; Perikles 26.10. auf Frage Jerry). Jedes Bild, auch ein Entwurf, geht nach einer Fehlerprüfung zum Chef, Diogenes misst nebenher (373, `LISTE-UMZUG-348.md` Arbeitsteilung 3); „abgenommen“ geht auch ohne „gemessen“; mit Bewegungen samt Kurzvideo (Modellregel 9, 368). Bis „gebaut“ schreibt das Team, „gemessen“ Diogenes, „abgenommen“ das Team nach dem Wort des Chefs. Bei Karten, Grundrissen und Funktionen meint „Modell“ die ganze Umsetzung (Boden, Dinge, Leute, Licht, Bedienung). Die Stand-Wörter sind unverändert übernommen (meist Stand 26.–28.10.); nachziehen die Teams, zählen Diogenes.
+
+Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
+
+### 6.1 Bereich Tom (Tom 25.10.)
+
+**Gebietskarten und Grundrisse** (genau 8, `World.maps` `core/World.kt:205`; keine Ebenen, Kapitel 2 ohne Karte):
+
+| Kennung | Name | Quelle | Zeichner alt | Modell | Wer |
+|---|---|---|---|---|---|
+| village | Bornim (36×32) | `Story.kt:129` | `MapGround`, `MapTownIso`, `MapWoodIso.fieldObjects`, `MapFlora`; verteilt in `WorldArt.buildObjects` | `v3/dorf.py`, Entwurf (348.6) | Tom |
+| inn | Zum Schlafenden Greif | `Story.kt:296` | `MapRoom`, `MapRoomIso.objects` | – | Tom |
+| shop | Thessas Kramladen | `Story.kt:364` | wie inn | – | Tom |
+| elder | Haus des Ältesten | `Story.kt:390` | wie inn | – | Tom |
+| temple | Tempel des Morgenlichts | `Story.kt:478` | wie inn | – | Tom |
+| forest | Flüsterwald | `Story.kt:524` | `MapGround`, `MapWoodIso`, `MapFlora`, `MapEdge` | – | Tom |
+| deep_forest | Tiefer Flüsterwald (mit Morwens Hütte, `HUT`) | `Story.kt:619` | wie forest, Hütte `MapTownIso.houseObjects`; Anforderung 353a (Chef 25.10.): Held immer ganz sichtbar, Weg voraus erkennbar (Probe Zweig `claude/tom-353-sicht-probe`) | – | Tom |
+| cave | Blutzahnhöhle | `Story.kt:731` | `MapCaveIso` | – | Jerry |
+
+**Dinge im Dorf** (Kachelzeichen `core/World.kt:3-84`, Zeichner `art/MapTownIso.kt`, sonst genannt): Haus mit Gasthausschild, Markise, Glockenturm (`Story.kt:196-206`; `house` :77), Brunnen `w` (:734), Stand `m` (:772), Laterne `l` (:823; Sonderfälle Kaels Tür 24/6 :850, Brücke 19/27 :930), Bank `n` (:958), Fass `b` (`MapRoomIso.barrelOutside`), Brücke `h` (:945), Zaun `x` (:1255), Schlagbaum `z` (:1182), Schild `S` (:611), Anschlagbrett `!` (:646), Hof `p` (:975, :986: Heukarren 13/9, Waschzuber 11/11, Holzstapel 2/5 und 28/13, Netz 7/24 und 22/27), Korn `c`, Beet `v`, Heu `y`, Wäscheleine `q` (`MapWoodIso.fieldObjects`), Baum `T` (Eiche, Fichte, toter Baum, Stumpf, Busch; `MapFlora.kt:140-173`), Blumen `f`, Rauch (`ui/WorldScreen.kt:2109`, `MapTownIso.chimneyTops`). In `dorf.py` fehlen noch: Heukarren, Waschzuber, toter Baum, Sonderlaternen, Gasthausschild, Markise (Stand 25.10.).
+
+**Möbel der Grundrisse** (`art/MapRoomIso.kt`): Theke `K`, Tisch `Y`, Bett `B`, Regal `Q` (Laden: Waren, Ältester: Bücher), Altar `A`, Kamin `Z` (Rauch `WorldScreen.kt:2274`), Kram `J` (:2184-2198), Pult `d`, Truhe `a`, Lehnstuhl `s`, Wandtuch `V`, Gestell `U`, Kerzen `N`, Weihwasser `&`, Kisten `u`, Bank, Fass; Wandschmuck `MapRoom.wallThing` (:268); Borins Hocker und Hammer (:2136). Modell: –, Tom.
+
+**Leute** (Puppe `Doll` + Outfit `art/MapFolk.kt`, gezeichnet `MapFigure.render`; Tagesablauf `core/VillageDay.kt`, Stammplätze `core/MapPeople.kt`). Skelett für alle: `v3/rig.py` (Modellregel 4). Modell: `v3/held3.py` mit `FIGUR=<kennung>`, Werte in `v3/leute.json` (Tom 25.10.).
+
+| Kennung | Name | Quelle | Aussehen (`MapFolk.kt`) | Modell |
+|---|---|---|---|---|
+| jorin | Wache Jorin | `Story.kt:209` | guard :59 | `leute.json`, Entwurf |
+| pim | Pim (Kind) | `Story.kt:225` | child :62 | `leute.json`, Entwurf |
+| bram | Bauer Bram | `Story.kt:233` | farmer :65 | `leute.json`, Entwurf |
+| liska | Liska | `Story.kt:241` | maid :68 | `leute.json`, Entwurf |
+| gwenna | Gwenna | `Story.kt:249` | villager :71 | `leute.json`, Entwurf |
+| rowena | Rowena | `Story.kt:313` | innkeeper :44 | `leute.json`, Entwurf |
+| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 | `leute.json`, Entwurf |
+| thessa | Thessa | `Story.kt:380` | merchant :50 | `leute.json`, Entwurf |
+| aldric | Ältester Aldric | `Story.kt:404` | elder :47 | `leute.json`, Entwurf |
+| osric | Bruder Osric | `Story.kt:495` | priest :53 | `leute.json`, Entwurf |
+| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 | `leute.json`, Entwurf |
+| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 | `leute.json`, Entwurf |
+| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 | `leute.json`, Entwurf |
+| merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) | – |
+| Held | Held, vier Klassen | – | – | `v3/held3.py` + `rig.py`, Entwurf (348.6) |
+
+Die Leute hatten schon 12 Runden (Grenze 10), darum nur noch Fehler mit Befund „stark“ und Wort des Chefs. Grimmzahn, Krogg, Grak stehen auf Karten, sind aber Monster (Bereich Jerry).
+
+**Dorftiere** (Modell: –, Tom): Huhn, 3 Gefieder, je 2 an jedem Heuballen (`art/MapHen.kt:474`); Katze im Gasthaus (`art/MapCat.kt:142`); Dorfhund (`art/MapDog.kt:144`: 24/10, 30/7, 19/9); Vögel (`art/MapBirds.kt:26`, Pixel). Keine Nutztiere, keine Tiere in Laden, Ältestenhaus, Tempel. **Chef 26.10., 19:09 (über Sokrates):** Huhn aus dem gekauften Janpec-Paket statt Eigenbau, „erst wenn Rattenprobe gelaufen ist. Sollte ja dann auch einfacher für Dorfhund und Katze gehen“: nach 348.12f Huhn, Hund, Katze aus Janpec, falls im Paket (sonst CC0 CDmir, `LISTE-QUELLEN.md`); drei Gefieder durch Bemalung; Blatt an den Chef.
+
+**Gegenstände** (Bilder, Modell nur, was der Held trägt): 21 Vorrat und Quest (`core/Items.kt:38-88`; Bild `art/SupplyArt.kt`, ohne eigenes Bild: spark_potion, gwenna_ring, grey_rag, smoke_bundle), Ladenwaren (`Story.kt:107`, `:42`; `Loot.shopGear`). Ausrüstung (57 Grundtypen `core/Gear.kt:269-336`, 9 Einzelstücke `:369-389`, Bild `art/ItemArt.kt`): Bereich Jerry.
+
+**Oberfläche im Dorf** (`ui/WorldScreen.kt`, Tom): Leiste oben `HudChip` (LP, ZP, EP, Stufe, Uhr, Zustände, Beutel; :2827), Ausdauer `StaminaBar`, Handlungs- und Rennknopf `ActionButton` (:2955), Steuerkreuz (:2922), Gesprächsfenster `DialogBox` (:2900), Schwarzblende `MapVeil`; Menü `MenuScreen` (Held, Tasche, Ausrüstung, Karte, Chronik, System, Test); Laden, Anschlagbrett, Rast (:96-100). In Godot damals (25.10.) nur Knöpfe, Textfeld, Joystick (`steuerung.gd`).
+
+### 6.2 Bereich Jerry (Jerry 25.10.)
+
+Wer: Jerry. Modell: Stand je Zeile (26.10.); Held: Tom. Vorkommen: Kapitel 1 endet bei Stufe 6, darum Ausrüstung bis Mindeststufe 6.
+
+**Monster** (Werte ruhen, neu nach dem BRS, 424; Regeln `core/Monsters.kt`, Rudel `core/Packs.kt`; Bild alt `art/FoeArt.kt` + Ausrüstung `core/MonsterKit.kt` für Menschenähnliche, `art/BeastArt.kt`/`WolfArt.kt` Tiere, `art/VerminArt.kt` Ungeziefer):
+
+| Kennung | Name | Quelle | Bild alt | Wo | Skelett | Modell |
+|---|---|---|---|---|---|---|
+| wolf | Wolf | `Monsters.kt:91` | WolfArt | Flüsterwald, Tiefer Wald; Rudel, Leibwache Grimmzahns | Vierbeiner | `wolf.py`, gebaut (Runde 10; Chef 25.10., 21:03 „Wolf steht“) |
+| dire_wolf | Grimmzahn | `:133` | WolfArt 1,45-fach | Endgegner Tiefer Wald (22,4) | Vierbeiner | `wolf.py ART=dire_wolf`, gebaut (Runde 10 und Pony; Chef 22:00 „kleiner“) |
+| boar | Wildschwein | `:145` | BeastArt | Wald am Tag | Vierbeiner | `wildschwein.py`, Entwurf (Runde 3 beim Chef) |
+| giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner | `ratte.py`, gebaut (Runde 11; Chef 25.10., 19:43 „Ratte steht“) |
+| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch | `goblin.py`, gebaut (Runde 6 steht, billigen/3487-goblin-r6) |
+| goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch | `goblin.py ART=goblin_archer`, gebaut (Runde 4b, 26.10.) |
+| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch | `goblin.py ART=goblin_shaman`, gebaut (Runde 4c steht, 26.10.) |
+| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch | `goblin.py ART=kobold`, Entwurf (Runde 2c bei Diogenes, 1facdedd5; steht, wenn Prüfer und Diogenes (a)–(e) bestätigen) |
+| skeleton | Skelett | `:108` | FoeArt, Kit :84 | Wald nachts, Höhle | Mensch | – |
+| zombie | Zombie | `:115` | FoeArt, Kit :53 | Wald nachts, Höhle | Mensch | – |
+| ghoul | Ghul | `:175` | FoeArt, Kit :71 | Tiefer Wald nachts, Höhle | Mensch | – |
+| bugbear | Krogg | `:127` | FoeArt, Kit :60 | Endgegner Höhle (16,9) | Mensch | – |
+| hobgoblin_captain | Grak | `:139` | FoeArt, Kit :65 | Endgegner Höhle (10,2) | Mensch | – |
+| giant_spider | Riesenspinne | `:121` | VerminArt | Tiefer Wald, Höhle | Spinne | – |
+| giant_centipede | Riesen-Hundertfüßer | `:155` | VerminArt | Wald am Tag | Insekt | – |
+| stirge | Stirge | `:150` | VerminArt | Wald | Insekt | – |
+| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel | `fledermaus.py`, Entwurf (Runde 4d, gemessen 27.10.) |
+| ochre_jelly | Ockergallerte | `:180` | VerminArt | Höhle, selten | keins | – |
+
+Je Monster: Bewegungen nach Modellregel 5 (Biss oder Hieb, Treffer, Sturz, Tod), Kontaktblatt, Einbau in den Kampfort.
+
+**Kleintiere** (nur Bild, keine Regeln): Frosch und Libelle an den Teichen (`art/PondLife.kt:75`, `:29`), Schmetterling auf Blumen (`ui/WorldScreen.kt:1675`, auch im Dorf), Glühwürmchen nachts (`WorldScreen.kt:1896`, Kampfort `art/BattleScene.kt:549`); Eule, Grille nur Ton (`audio/WildSound.kt:36`). Vögel: Tom (Dorftiere), im Wald gleiches Modell.
+
+**Höhle** `cave` (Blutzahnhöhle, `Story.kt:731`, 22×20, eine Ebene; Bild `art/MapCaveIso.kt`, Boden `art/MapCave.kt:848`, Licht `MapLight.kt`): Eingang/Ausgang, Fels, Boden (`core/World.kt:22-25`); Wandfackel 2, Kristalle 2, Leuchtpilze 5, Stalagmit 3, Geröll 3, Felsblock 1, Knochen 4, Kisten 2, Schlafstätte 2, Lagerfeuer 1, Stützbalken 3 Paare, Lichtspalt 1, Gitter vor Graks Halle (öffnet `rusty_key`, `Game.kt:1093`), Truhen `cave_1`–`cave_3` (`Story.kt:762`), Wasser 5 (Kachelzeichen `World.kt:9-78`). Kampforte der Höhle `art/CaveScene.kt:24` (Eingang, Gang, Halle, Teich, Lager; Licht Fackel, Glimmen, Schacht, dunkel). Ketten gibt es im Spiel nicht (nur ungenutzt `MapCave.kt:593`; 356.1 braucht sie).
+
+**Ausrüstung** (Werte ruhen, neu nach dem BRS, 424; Regeln `core/Gear.kt:269-336`, Einzelstücke `:369-389`; Bild am Körper `art/Dress.kt`, Symbol `art/ItemArt.kt`; Laden Thessa `Loot.shopGear`; Beute ab Mindeststufe; als eigene `.glb`, Modellregel 4):
+- **Waffen** (`:305-326`): dagger, shortsword, scimitar, handaxe, mace, spear, quarterstaff, rapier, longsword, battleaxe, morningstar, warhammer, wand, greatsword, greataxe, maul, halberd, staff, shortbow, longbow, light_crossbow. Startwaffen: Kämpfer longsword, Schurke shortsword, Magier und Kleriker quarterstaff. Von Gegnern getragen (`MonsterKit.kt`): dagger, shortsword, scimitar, handaxe, spear, morningstar (Krogg), greataxe (Grak), staff, shortbow. Modell: `waffen.py`, Entwurf (an den Goblins gezeigt).
+- **Einzelstücke** (`:373-387`): longsword_oakford, staff_of_embers, rapier_whisper, mace_of_dawn (Truhe `cave_3` je Klasse), greataxe_grak (Grak), gauntlets_ogre (Krogg), cloak_protection (Spinne, 3 %); Schmuck amulet_grimfang, ring_protection u. a. nur als Symbol.
+- **Schilde** (`:328-330`): shield (Start Kämpfer), round_shield (Start Kleriker; Goblin, Kobold, Skelett), tower_shield (ab 5).
+- **Nebenhand** (`:332-335`): torch (Laden), orb, tome, holy_symbol.
+- **Rüstung** (`:271-299`): Kopf hood, circlet, leather_cap, helmet, great_helm; Körper robe, leather, studded_leather, chain_shirt, scale_mail, breastplate, half_plate, chain_mail, splint (plate ab 7: nicht in Kapitel 1); Arme wraps, gloves, bracers, gauntlets; Beine leggings, boots, chain_leggings, greaves; Rücken cloak, mantle.
+
+### 6.3 Schirme und Systeme (Funktionen; Perikles 25.10., 348.9; Quelle nach Dateinamen, Teams berichtigen Quelle und Wer)
+
+Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen wie `core` (`LISTE-UMZUG-348.md` „Grundsätze“). **Seit 31.10. (424, Chef: „keine Energie mehr in das alte SRD-System stecken“):** was Regeln des alten Systems überträgt (Würfel, Klassen, Talente, Charisma, SRD-Monsterwerte), ruht; neu gebaut wird nach `DESIGN-BRS.md` und Block G der Abnahmeliste. Ansicht, Bedienung und Klang dieser Zeilen bleiben Muss. Gebautes bleibt liegen, bis das neue Regelmodul trägt (E 32).
+
+| Funktion | Quelle alt | Wer | Modell |
+|---|---|---|---|
+| Gehen, Tippen, Joystick, Kollision, Kartenwechsel, Boden bremst | `core/FreeWalk.kt`, `Navigation.kt`, `Terrain.kt` | Tom | Entwurf (348.6) |
+| Uhr, Tag und Nacht, Sonne, Wetter | `core/PlayClock.kt`, `Light.kt`, `Weather.kt` | Tom | Entwurf (3486-sonne) |
+| Tagesablauf und Stammplätze der Leute, Hinweiszeichen | `core/VillageDay.kt`, `MapPeople.kt`, `Hail.kt` | Tom | – |
+| Gespräche, Story, Quests, Chronik | `core/Story.kt`, `Script.kt`, `Chronicle.kt`; `ui/Dialogs.kt`, `ChronicleTab.kt` | Tom | – |
+| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | gebaut (390, 64a6e5a80: `laden.gd`, Ausrüstung aus `beute.gd` = `Loot.kt` mit Zufall wie Kotlin `kotlin_zufall.gd`, Menge wählen 59.5; Tests `laden_test.gd`, `beute_golden.gd` 236 Proben gleich; Preise nach Charisma ruhen (424), nach Ruf offen (418)) |
+| Anschlagbrett (Aufträge) | `ui/BoardScreen.kt`, `core/Jobs.kt` | Tom | – |
+| Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | gebaut (390, 7269390b9: `rast.gd`, Test `rast_test.gd`; Fleisch an Rowena mit dem Laden) |
+| Menü: Held, Tasche, Ausrüstung mit Vergleich, Karte mit Nebel, System | `ui/MenuScreen.kt`, `MenuTabs.kt`, `GearUi.kt`; `core/GearCompare.kt`, `Fog.kt`, `MapMarks.kt` | Tom | – |
+| Charaktererstellung, vier Klassen | `ui/CreateScreen.kt`, `core/Hero.kt` | Tom | ruht (424): Klassen entfallen, neu mit Grundwerten und Werdegängen (E 1, 64); Puppe drehen (357) |
+| Vorspann, Hauptmenü, Spielstände | `core/Prelude.kt`, `GameState.kt`; `ui/App.kt`, `SlotsScreen.kt` | Tom | – |
+| Intro, Zwischenbilder, Outro | `core/Intro.kt`, `Interlude.kt`; `ui/IntroScreen.kt`, `InterludeUi.kt` | Tom | – |
+| Hilfe im Systemmenü | `core/Guide.kt`, `ui/GuideScreen.kt` | Tom | – |
+| **Neu:** Grafikstufen im Systemmenü (Niedrig/Mittel/Hoch, Automatisch; Bildrate, Schatten einzeln; Chef 28.10., 08:31, `LISTE-IDEEN.md` „Oberfläche“; nach Messung auf einem schwachen Gerät, A22, 388) | – (gibt es alt nicht) | Tom | – |
+| Deutsch und Englisch | `core/I18n.kt` | Tom | – |
+| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | Regeln ruhen (424), Ansicht bleibt; Regeln gebaut (390: `regeln/klassisch.gd`, golden 92 Kämpfe gleich; ohne Elite/schimmernd, Beute vom Aufrufer); Ansicht offen |
+| MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) |
+| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | ruht (424): neu nach dem BRS (Kampf ohne W20, E 7); Talente, Ausdauer gebaut (390: `talente.gd`, `ausdauer.gd`, Test `regeln_390.gd`) |
+| Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – |
+| Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – |
+| Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | gebaut (390, a43772d5d: `laden.gd` `braue`) |
+| Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – |
+| Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – |
+| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | gebaut (390: `pechstraehne.gd`; Einbau mit dem klassischen Kampf) |
+| Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – |
+| **398:** Bewegungen in drei Varianten (Treffer, Tod, Angriff), Killerschlag (`DESIGN-STIL.md` „Abwechslung“) | `art/HeroFigure.kt:458` `variant.mod(3)` | Jerry | – |
+| **398:** Klang wiederverwenden (Regel: `LISTE-UMZUG-348.md` „Klang“): alle Aufnahmen (1284 `.ogg`, davon 41 Musikstücke) und die Mischung übernehmen, Schritte nach Boden | `app/src/main/assets` (1284 Aufnahmen), `Recorded.kt`, `audio/Footsteps.kt` | Jerry | – |
+| **398:** Kampfort nach dem Ort auf der Karte (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis; 77e.3) | `art/BattleScene.kt` `spotFor` | Jerry | – |
+| **398:** Niederlage: Erwachen am Wiederkehrort, Stunden vergehen, volle TP, Zustände weg, auf Normal kein Goldverlust (154) | `Game.kt:1503–1517` | Jerry (Kampfende), Tom (Wiederkehr) | Tom gebaut (399.1 `spiel.gd` `kampf_im_wald`: vier Stunden, ganz geheilt am Wiederkehrort; Test 132.5); Jerry: Ende LOST aus `aufruf.gd`, Zustände weg mit seinen Regeln |
+| **398:** Beute mit Seltenheitsdeckel je Kapitel; Ausrüstung aus Kämpfen (Einbau Jerry, Perikles 28.10.) | `Loot.kt:38–46` | Jerry | Regeln gebaut von Tom (390, 64a6e5a80, Zweig `claude/tom-390-englisch`: `skripte/beute.gd` `Beute.beute` wie `Loot.drops`, Würfel mit `weighted` wie `kotlin_zufall.gd`; Test `beute_golden.gd`); offen Einbau in `klassisch.gd` `gear_drops` (Jerry) |
+| **398:** Elite- (12 %) und Schimmergegner (1/150), mehr EP und beste Beute | `Game.kt:39–40`, `Battle.kt:85–116` | Jerry | – |
+| **398:** Wiederkehr besiegter Gegner nach 60 Schritten (Grinden möglich) | `Game.kt:1476` | Jerry | – |
+| **398:** Balance-Messung: Kapitelsimulation, Zufallsspieler (Meilenstein; 38) | `ChapterSimTest`, `PlayerSimTest`, `BalanceTest` | Jerry | ruht (424) bis Regeln nach dem BRS |
+| **398:** MARS-Lernhilfen: Erklärung je Knopf auf langen Druck, Ersthinweise je Absicht, Ring, Rücken | `MarsTips.kt`, `SkirmishScreen.kt:116–119, 571–583` | Jerry | – |
+| **398:** Leute schauen den Helden an (bis 3 Felder, nach etwa 10 s nicht mehr; `DESIGN-STIL.md` „Lebendige Welt“) | `art/MapFolk.kt:858` | Tom | – |
+| **398:** Held unterwegs: Waffe geschultert, Schild auf dem Rücken | `DESIGN-STIL.md` „Karte und Räume“ | Tom | – |
+| **398:** Spielstand mit Fassungsnummer, Übernahme alter Spielstände der Tester, automatisch beim Kartenwechsel | `GameState.kt:35, 128`, `Game.kt:60` | Tom | Fassung 1 und Kartenwechsel gebaut (399, `spielstand.gd`); Übernahme erst, wenn das Godot-Spiel die Kennung de.bornim.game trägt |
+| **398:** Absturzbericht (Leitbild 12; 30.1) | `app/…/CrashLog.kt` | Tom | – |
+| **398:** Eine Schrift überall: Alegreya, auch in der Welt (292.3) | `DESIGN-STIL.md` „Oberfläche“ | Tom | gebaut (399.1, Build 132: Alegreya als Schrift des Projekts, Menü und Textkasten; Schilder in der Welt prüfen, Ortsnamen auf der Karte bleiben Handschrift) |
+| **398:** Sprungtest je Übergang Bild für Bild, Ziel 0 (`DESIGN-ABNAHME.md`) | `JumpTest` | Tom, Jerry | – |
+
+Gegenprobe 398 (Sokrates mit zwei Prüfern, 28.10., 11:2x): die Zeilen „398“ fehlten zuvor; sie gehören zur Checkliste (Jerrys in Block K, Klang in H, Toms in D und R). Neu, kein Umzugsverlust: Schwierigkeitsgrade (39, nie im alten Spiel); 39 bleibt Muss für den Marktstart, aber nicht in dieser Liste: baut auf der Balance-Messung (38) im neuen Kampf auf; PR #107 (alter Code) dient nur als Vorlage.
+
+---
+
+## 7. Kampffunde der Kotlin-Zeit gegen Godot (620.2c, Tuffy, 11.11., 22:3x; drei Helfer am Code von `main` 5731960d1, nur gelesen)
+
+Quelle: `LISTE-VORGAENGE-ARCHIV.md`, Bereich E Kampf, erledigt, Nummern unter 360, ohne Doppelte und ohne Rückfragen (82). Urteil: **gilt** (im Code belegt) · **Test** (angelegt, wirkt nur am Gerät sichtbar, oder Abhilfe auf einem Zweig) · **fehlt** · **entfällt** (kein Kampffund oder durch Beschluss überholt, meist 870a 2: nur MARS).
+
+**Zahlen:** gilt 40, Test 11, fehlt 16, entfällt 15. **Wiederholquote** (fehlt unter den 67 geltenden): 16 = 24 %; davon schon wieder offen 10 (785.9–785.16, 836, 840/986, 551), neu 6 (997–1002). Dazu 241, 241.2: Abhilfe 945 nur auf `claude/build-277` (PR #196 wartet auf 988). Nebenbei gefunden: 1003, 1004; 290: Eröffnungssätze kommen aus dem Kotlin-Export (`Interlude.kt` → `intro.json`), mit 870.9 umziehen; `LISTE-MARS.md` veraltet (Todesschrei ○, gebaut `klang.gd` 371).
+
+- 16 | gilt | kampfort.gd:545 Halt nach Wucht (trefferwucht.gd), Ruck nur bei kritisch/tödlich (561, 578); Test mars_regeln.gd:297
+- 34 | entfällt | klassischer Kampf entfällt (870a 2); im MARS beendet jede Aktion den Zug (kampf_ui.gd:694)
+- 35 | Test | Weihwasser auf main nicht benutzbar (aufruf.gd:254 nur „potion“); gebaut in 935 (`claude/tuffy-935-wurf`, nur Untote)
+- 72.10a | fehlt | Zugleiste, Tränke, Zauber da (kampf_ui.gd:1922); Reihensatz in jedem Kampf (seen_rows nie gesetzt; offen 836, 785.13); Zauberziele nicht hervorgehoben (offen 785.11)
+- 72.10a.T | gilt | Meldungen aus Skirmish.kt (mars_texte.gd:1); Wurfzeile mit Abzug entfällt (868/870.14)
+- 53 | entfällt | Flammen am Umriss gibt es im 3D-Kampfort nicht; Zustandsschild 563
+- 95 | gilt | Keuchen bei atemlos (spiel.gd:1502 → klang.gd:523), Balken (spiel.gd:1501); Heldin mit Männerstimme → 1003
+- 130.3 | gilt | eigene Ansagen je Gegner (mars.gd:207–226)
+- 72.10a.7 | gilt | Deckung hinten, Nachteil von hinten (mars.gd:1337, 1343, 1359); Späher (1931); Betrunken (107, 1353)
+- 72.10a.8 | gilt | Durchbrechen/Flanke (mars.gd:225–226); Platztausch halber Zug (mars.gd:1006)
+- 72.10a.9 | entfällt | Klassen entfallen (870a 3 A); „Decken“ nie beim BRS-Helden → 1004
+- 72.10a.11 | fehlt | Wechsel ohne Zugverlust da (mars.gd:1006), Waffe in der Hand wechselt im Bild nicht (figur.gd:588, 621) → 999
+- 72.10b | gilt | Probekampf Stufe 3 (testmodus.gd:51), Gegner wählbar, Treffer und Chance abschaltbar (kampf_ui.gd:2075, 236)
+- 174 | gilt | vordere Reihe näher an der Mitte (kampfort.gd:24–25, 723–732)
+- 181 | gilt | ausdauer.gd:20
+- 182 | gilt | „vorn/hinten“ (kampf_ui.gd:629), Platzwahl nennt Besetzer oder „(frei)“ (:741)
+- 183 | fehlt | Zauber ohne Ziel grau (kampf_ui.gd:766); „Kein Ziel in Sicht“ nie gezeigt; offen 785.10
+- 174.1 | gilt | kampf_ui.gd:629, „Wechsel“ :692
+- 172 | gilt | ein Ziel: „Angriff“ mit einem Tipp (kampf_ui.gd:684–688); Abwehr, Flucht im ersten Menü
+- 198 | gilt | 12 s Ruhe nach Flucht (herde.gd:258, streuner.gd:29)
+- 199 | gilt | kampf_ui.gd:684
+- 200 | gilt | 3D-Kampfort mit Perspektive (kampfort.gd:278)
+- 201 | fehlt | Probekampf nur im Testreiter, nicht im Systemmenü (menue.gd:1516 „folgt“), keine Regelseite; offen 785.9
+- 203 | gilt | „Abwehr“ (kampf_ui.gd:694), Nachteil bis zum nächsten Befehl (mars.gd:1179, 1345)
+- 204 | fehlt | langer Druck nur auf Hauptknöpfen; Flucht, einzelne Zauber, Tränke ohne Erklärung; offen 785.10
+- 205 | gilt | figur.gd:4141–4177; Grak, Krogg bleiben liegen
+- 207 | entfällt | SRD-Zauber entfallen (870.5); Reihenzauber jetzt Flammenfächer (mars.gd:188)
+- 208 | gilt | mars.gd:1347 Nachteil auf Verborgene; 1588, 1893 kein zweites Mal Schatten; blass kampfort.gd:1051
+- 210 | fehlt | Ansage erklärt (marstips.gd:22) gilt; Eingebung beim ersten Auftreten fehlt auf main: offen 840 (Zweig), 986
+- 211 | Test | Bericht, Zugleiste, Knöpfe da (kampf_ui.gd:328, 1923, 538); Lesbarkeit nur am Gerät
+- 219 | fehlt | Ring, Urteil mit Wirkung, Gegenschlag da (kampf_ui.gd:1728, 839; mars.gd:1760); Ersthinweis zum Ring fehlt, offen 785.12
+- 226 | entfällt | Absturz nur im Kotlin-MarsTips.kt
+- 223 | fehlt | Regel gilt (mars.gd:1343, 1358); Eingebung beim ersten Schlag von hinten fehlt, offen 785.13
+- 229 | gilt | kampf_ui.gd:237, 986–991, 1973 Raster für jeden Spieler
+- 231 | gilt | mars.gd:1966 Schonfrist, 1887 Einkreisen erst nach erster Wahl
+- 232 | gilt | kampf_ui.gd:486–501 Name eigene Zeile; höchstens 12 Zeichen (erschaffung_brs.gd:330)
+- 233 | fehlt | Name der laufenden Bewegung im Testkampf (alt SkirmishScreen.kt:629) → 997
+- 211.15 | fehlt | goldene Zeile weg, Namen bei Zielwahl (kampf_ui.gd:1016–1031); langer Druck auf eigene Figur fehlt, offen 785.14
+- 211.16 | gilt | kampf_ui.gd:1724–1727, 1013, 489
+- 211.17 | Test | Bissplatz figur.gd:2165–2190, Tests treffen_709, biss_achse_454; klassisch entfällt
+- 240 | gilt | mars.gd:330–333 Nummer am Namen; Reihe in der Zielliste offen 785.11
+- 241 | Test | Abbruch der Automatik auf main fehlt (kampf_ui.gd:671–676); Abhilfe 945 auf `claude/build-277` (t277 frei, PR #196)
+- 242 | gilt | kampf_ui.gd:1719–1720, 981–984, 1006–1013; mars.gd:1597
+- 242.1 | Test | Ring Vierbeiner 0,75 m (kampf_ui.gd:982), Bodenschatten figur.gd:202–245
+- 229.3 | fehlt | Raster schwächer als beschlossen (kampf_ui.gd:991) → 998
+- 241.1 | gilt | mars.gd:976–977 nur lead(); Söldner über merc.auto (kampf_ui.gd:702–706)
+- 242.3 | gilt | kampfort.gd:812–820 allein vorn/hinten versetzt (438)
+- 242.4 | gilt | kampfort.gd:22 MID 0.64
+- 242.2 | Test | Kontaktschatten figur.gd:202–274; im Ring nur am Gerät
+- 240.1 | gilt | kampf_ui.gd:1022–1029
+- 241.2 | Test | wie 241: Knopf da (kampf_ui.gd:707–717), Abhilfe 945 auf build-277
+- 260 | fehlt | Knopf, 2,5 s + 0,4 s gilt (kampf_ui.gd:62, 1101); nicht gemerkt (offen 785.16); Schalter bleiben beim Ring stehen → 1001
+- 268 | fehlt | Fackel nie, Fernwaffe nie in der Hand, Schild bleibt beim Zweihänder (figur.gd:588–592) → 999
+- 272 | gilt | kampf_ui.gd:2009–2016, kampfort.gd:962–971
+- 288 | entfällt | klassischer Kampf; im MARS fehlt die Testzeile ebenso → 997
+- 280.2 | gilt | Grak-Axt marstips.gd:24, EN „mercenary“ marstips.gd:18
+- 279 | gilt | pick() nie zweimal dieselbe Fassung (mars.gd:693), Wolf 3–5 Fassungen (mars_texte.gd:70)
+- 285 | gilt | _leap_forward mars.gd:1827 vor der Trefferprüfung (1715)
+- 290 | gilt | kampfblende.gd:51 aus intro.json (core Interlude.kt:100, godot.yml:70); mit 870.9 umziehen
+- 295 | entfällt | klassischer Kampf; im MARS Sturz/Aufstehen mars.gd:1147–1151
+- 301.1 | gilt | MSG301_REAIMS 5 Fassungen (mars_texte.gd:66, mars.gd:1211)
+- 303 | entfällt | klassischer Kampf
+- 305 | entfällt | klassischer Kampf; MARS-Lohn kampf_ui.gd:646
+- 309 | entfällt | klassischer Kampf
+- 310 | fehlt | „holt weit aus“ da (mars.gd:1924), Ausholhaltung bis zum Hieb fehlt (figur.gd:2657 nur POUNCE) → 1000
+- 313 | Test | Schrift, Kästen schwarz-gold, Zugleiste (kampf_ui.gd:135, 198, 1959); Regelseite fehlt (785.9)
+- 323 | gilt | kein Wischstrich; Ausweichen als Bewegung figur.gd:3937
+- 311 | entfällt | klassischer Kampf
+- 321.1 | Test | Richtwerte DESIGN-ABNAHME.md:54; gekaufte Bewegungen (figur.gd:6, 2558); nur im Film
+- 328 | entfällt | klassischer Kampf
+- 335 | fehlt | Knopfzeilen 6 dp wie alt (kampf_ui.gd:190); Rahmen unterbrochen: offen 551 (ruht)
+- 336 | gilt | perfekter Ring mit Dolch: Angriff mit Schaden (mars.gd:1778–1780); verwandt offen 949
+- 337 | Test | Grak schreitet zum Hieb und zurück (figur.gd:1450, 2536–2609)
+- 351 | gilt | Rudel flieht beim Fall des Führers (mars.gd:2013, kampfort.gd:1103)
+- 86 | entfällt | kein Kampffund (Welt)
+- 217 | Test | Biss zielt auf den Körper (figur.gd:2155–2216); offen 709, 709.1, 900
+- 19 | entfällt | gestrichen mit 626 (steht in 562, 595)
+- 249 | gilt | Zoom/Ruck kampfort.gd:535–563, Blut menue.gd:1549, Zustände kampf_ui.gd:1602
+- 296.1 | entfällt | Pflege `LISTE-MARS.md`, kein Kampffund
+- 296.3 | fehlt | Siegerpose fehlt im Spiel (Probe 08.11. verworfen, erst Umhang 656); Todesschrei, Zustände da → 1002 (Kür)
+- 211.14 | gilt | messung.gd:25, Test kampf_leistung_21114.gd
+- 296.2 | gilt | Lohn, Flucht, Eröffnung, Zustände, eigene Ausrüstung da; Boss-Beute offen 633

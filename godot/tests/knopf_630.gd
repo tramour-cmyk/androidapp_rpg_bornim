@@ -25,7 +25,7 @@ func _lauf() -> void:
 		for sprache in ["de", "en"]:
 			if Sprache.aktiv() != sprache: Sprache.wechsle()
 			root.size = Vector2i(breite, 2340)
-			var e := Erschaffung.new()
+			var e := ErschaffungBrs.new()   # 470: Seite „Neues Spiel“ nach BRS
 			root.add_child(e)
 			for i in 4: await process_frame
 			var unten: HBoxContainer = e.find_child("Unten", true, false)

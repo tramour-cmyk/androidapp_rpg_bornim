@@ -33,8 +33,10 @@ func _initialize() -> void:
 
 
 func _run() -> void:
-	for x in OS.get_environment("BILD_S").split(",", false):
-		bilder.append(float(x))
+	# 656 (Lauf 310): „vorn“ wurde als Zahl 0 gelesen, das Bild entstand nach 0,03 s im Kampfstehen statt mitten in jeder Pose
+	if OS.get_environment("BILD_S") != "vorn":
+		for x in OS.get_environment("BILD_S").split(",", false):
+			bilder.append(float(x))
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
@@ -88,7 +90,8 @@ func _run() -> void:
 	vorn.y = 0.0
 	vorn = vorn.normalized()
 	fg.position = mitte
-	grund_y = atan2(vorn.x, vorn.z) + deg_to_rad(30.0)
+	# 656 (Vergleich Umhang vorher/nachher): BILD_DREH=<Grad> dreht den Helden fürs Probebild weiter (150: schräg von hinten)
+	grund_y = atan2(vorn.x, vorn.z) + deg_to_rad(30.0 + OS.get_environment("BILD_DREH").to_float())
 	fg.rotation = Vector3(0, grund_y, 0)
 	# Spielkamera (waagerecht, Linse verschoben) herangezogen: Held mittig, stehend etwa 40 % der Bildhöhe (Platz für erhobene Arme)
 	var vs: Vector2 = root.get_visible_rect().size
@@ -116,7 +119,7 @@ func _run() -> void:
 	for n in namen:
 		i += 1
 		lb.text = "%d · %s" % [i, _paket(n)]
-		lz.text = n
+		lz.text = n + ("  ·  " + OS.get_environment("BILD_TEXT") if OS.get_environment("BILD_TEXT") != "" else "")   # 656: „vorher“/„nachher“ im Bild
 		var lang := anim.get_animation(n).length
 		# 296.3 (Chef 08.11., 16:44: „dreimal den Helden von hinten … was soll ich jetzt da für Siegerposen beurteilen?“; die ganze
 		# Drehung stand im Probebild mitten in der Bewegung bei 180°): erst von vorn ohne Drehung, dann dieselbe Bewegung einmal drehend

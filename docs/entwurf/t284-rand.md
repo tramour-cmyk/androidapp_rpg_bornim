@@ -1,0 +1,23 @@
+# Tom und Jerry · Build 284 · Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein · PR #203
+E Welt · Tom (1022, 756.1, 542, 964, 967), Jerry (947, 980, 987, 1126, 1127) · 13.11., 14:35 · APK folgt (Lauf 433)
+
+Ein Weg: erst Build 283 testen; dann die APK aus dem Lauf über Build 283 installieren, App starten, Hauptmenü, „Weiter“ mit deinem Spielstand; Reiter „Test“ wie in 283. Zuerst die Bilder vom Kartenrand (284.1, 284.2, kommen per Telegram, je Stelle eines), dann am Handy die Tasche (284.3), die Aufträge im Dorf (284.4), Probekampf und Zauber (284.5 bis 284.7); der Rest ohne dich.
+
+Verglichen (alt gegen neu): vom Bauenden gegen die alte Fassung: Kartenrand von Dorf Nord am Schlagbaum, Dorf Süd hinter der Brücke, Wald Süd und Ost, Tiefer Wald West; Tasche und Fenster zum Gegenstand; Anschlagbrett und die Gespräche mit Jorin, Gwenna und Aldric; Probekampf im Reiter „Test“.
+
+Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, alle drei Gebietskarten), roter Punkt an Schlecht, „Güte: Schlecht“ im Fenster, vier Güten nebeneinander (`sperre_756`), Probekampf ohne Söldner als Vorgabe und zuschaltbar (`probekampf_1020`), Krogg-Kampf mit festen Würfen (`krogg_494`), Jorins, Gwennas und Aldrics Auftrag abschließbar (`auftraege_542`).
+
+| # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
+|---|---|---|---|---|---|---|
+| 284.1 | Tom | 1022 | Bild | Dorf, Blick vom Helden den Weg entlang über den Kartenrand: Nord am Schlagbaum, Süd hinter der Brücke; je Stelle ein eigenes Bild, darin links Build 283, rechts 284 | rechts läuft der Weg gerade weiter, links und rechts dichter Wald, bis er im Dunkel vergeht | der Weg endet und wird Wiese; ein Baum steht auf dem Weg; der Weg biegt ab |
+| 284.2 | Tom | 1022 | Bild | Wald Süd (Weg ins Dorf), Wald Ost (Weg in den Tiefen Wald), Tiefer Wald West (Weg zurück in den Wald); je Stelle ein eigenes Bild, links 283, rechts 284 | wie 284.1 | der Weg endet am Wald oder offen im Gras |
+| 284.3 | Tom | 756.1 | Handy (der Lauf knipst die Tasche nicht) | Reiter „Test“ → unter „Beute erzeugen“ „Vier Güten“, dann Menü → Tasche; das Stück mit dem roten Punkt antippen | dieselbe Waffe viermal: oben links ein voller roter Punkt, hell wie das Rot der Zustandsleiste, dann keins, ein Goldpunkt, zwei Goldpunkte | Punkt so dunkel, dass er im Schwarz untergeht; Ring statt Punkt; Punkt verdeckt den Namen |
+| 284.4 | Tom | 542 | Handy | Reiter „Test“ → Station „Krogg“, dann Teleport „Dorf“: Anschlagbrett lesen, Jorin ansprechen (Feuer am Steinkreis), Gwenna ansprechen (Ring), Aldric ansprechen | Jorins Auftrag lässt sich abschließen (der Fetzen ist in der Tasche); Gwennas Ring ist am Brett zu finden; Aldrics Ring ist ein Einzelstück mit eigenem Namen | ein Auftrag bleibt offen, obwohl alles getan ist; der Ring heißt nur „Ring“ |
+| 284.5 | Tom | 964 | Handy | Reiter „Test“ → Probekampf, Held „Testheld“, Herkunft Zauberlehrling, dazu ein Kettenhemd anlegen (Reiter „Test“ → „Beute erzeugen“ und anlegen); im Kampf die Zauberliste öffnen | Evokation, Illusion und Beschwörung sind matt und sagen, dass Metall sie sperrt; Zauber anderer Schulen gehen | gesperrte Zauber wirken trotzdem; keine Begründung am matten Zauber |
+| 284.6 | Tom | 967 | Handy | Reiter „Test“ → Probekampf mit „Testheld“, je einmal Herkunft Klosterschüler und Jägerkind, Schild in der Hand; im Kampf nah heranzoomen und um den Helden drehen | der Schild liegt am Arm, nichts steckt im Körper oder Umhang | Schildrand verschwindet im Arm, in der Brust oder im Umhang |
+| 284.7 | Jerry | 947 | Handy | Reiter „Test“ → „Probekampf“: unter „Söldner“ steht „keiner“; „Probekampf starten“ gegen Wölfe; danach „Söldner“ antippen bis „wie der Held“ und nochmal starten | erster Kampf: der Held allein; zweiter Kampf: ein Söldner derselben Herkunft an seiner Seite | Söldner im ersten Kampf; „Söldner“ lässt sich nicht umstellen |
+| 284.8 | Jerry | 987 | ohne dich (Diogenes bestätigt am Lauf) | `krogg_494` im Lauf der APK | grün | rot |
+| 284.9 | Jerry | 980 | ohne dich (Diogenes bestätigt am Lauf) | Lauf der APK, Block „kampf“ mit Kaufmodellen | Block gebaut, Spinne aus der Binär-FBX | Block bricht ab |
+| 284.10 | Jerry | 1126, 1127 | ohne dich (Diogenes bestätigt am Lauf) | Lauf der APK, Schritte „pruefen“ und „holen“ der Kaufablage | je Treffer „KAUF-CACHE gesichert …“, holen grün, keine Meldung „Ablegen misslungen“ nach gelungenem Ablegen | „Laden misslungen“; Fehlmeldung nach gelungenem Ablegen |
+
+Jerrys weitere Punkte auf „wartet auf t284“ (993, 1003, 709, 616, 784, 1041, 958, 1037) kommen als eigene Zeilen dazu, Wortlaut von Jerry erbeten (14:30).

@@ -6,10 +6,10 @@ extends SceneTree
 # Größe wie die Figur (± 2 %). Aufruf: im Ordner godot mit -s res://tests/drehteller_499.gd -> „DREHTELLER499 n Fehler“; die Bilder macht
 # drehteller_bild_499.gd (dieselbe Messung, mit Fenster), damit die Messung ohne Bild am Rechner kein Bildlauf ist (390a, 621 A)
 
-const KLASSEN := ["FIGHTER", "CLERIC", "ROGUE", "WIZARD"]
+const KLASSEN := ["Wachsoldat", "Klosterschüler", "Herumtreiber", "Zauberlehrling"]
 # 417a (Archiv 417, 03.11., 06:54 „417 passt“, Stand 3b29ac0cb): Waffe in der Hand, Schild auf dem Ruecken; Schwert mit dem Einhandgang
-const GANG := {"FIGHTER": "einhand", "CLERIC": "", "ROGUE": "einhand", "WIZARD": ""}
-const SCHILD := {"FIGHTER": true, "CLERIC": true, "ROGUE": false, "WIZARD": false}
+const GANG := {"Wachsoldat": "einhand", "Klosterschüler": "", "Herumtreiber": "einhand", "Zauberlehrling": ""}   # 870.4: Startausruestung nach Herkunft (Kampfstab bis 458.3, 870e Nachtrag; Dolch)
+const SCHILD := {"Wachsoldat": true, "Klosterschüler": false, "Herumtreiber": false, "Zauberlehrling": false}
 const FAUST_M := 0.03
 const RUECKEN_M := 0.06
 const SPALT_M := 0.04   # 499: Spalt an der Unterkante des Schilds (Prüfer Lauf 1: 5–7 cm war zu viel)
@@ -65,7 +65,7 @@ func bilder(_dt: Drehteller, _k: String, _aus: String) -> void:
 func klasse(k: String, bild: bool, aus: String) -> void:
 	if true:
 		var z := Zustand.new()
-		var hw := Heldwerte.erschaffe("Thora", "HUMAN", k, {}, z.neue_uid)
+		var hw := BrsHeld.fuer_spiel("Thora", "Mensch", k, z.neue_uid)
 		var w := HeldFigur.wahl(hw, z)
 		var dt := Drehteller.new(w, 1.6)
 		dt.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

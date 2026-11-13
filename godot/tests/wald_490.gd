@@ -56,6 +56,7 @@ func _lauf() -> void:
 		for s in h.liste:   # die anderen lassen ihn in Ruhe, damit der Angriff von diesem kommt
 			if s != jaeger: s.ruhig_bis = 1 << 40; s.jagt = false; s.kachel = s.heim; s.von = s.heim
 		jaeger.kachel = t; jaeger.von = t; jaeger.heim = t; jaeger.jagt = true; jaeger.naechst_ms = 0
+		jaeger.gang = null; jaeger.position = spiel.karte.kachel_pos(t)   # 744: ein laufender Gang zoege ihn sonst weiter
 		h.frieden_bis = 0
 		for i in 20:
 			h.schritt(0.05)

@@ -75,15 +75,15 @@ func _wahl_spalte(w: Dictionary) -> Control:
 	s.alignment = BoxContainer.ALIGNMENT_BEGIN
 	var z := Rastzeichen.neu(String(w.get("zeichen", "REST")), 40, Stil.BRIGHT if an else Stil.DIM)
 	z.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	s.add_child(Erschaffung.luecke(6))
+	s.add_child(Stil.luecke(6))
 	s.add_child(z)
-	s.add_child(Erschaffung.luecke(4))
+	s.add_child(Stil.luecke(4))
 	for t in [[String(w["name"]), 18, Stil.TEXT if an else Stil.DIM], [String(w.get("dauer", "")), 15, Stil.GOLD if an else Stil.DIM], [String(w.get("tut", "")), 13, Stil.DIM]]:
 		if String(t[0]) == "": continue
 		var l := _satz(String(t[0]), t[1], t[2])
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		s.add_child(l)
-	s.add_child(Erschaffung.luecke(8))
+	s.add_child(Stil.luecke(8))
 	var b := _tippbar(s, String(w["id"]), an)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return b
@@ -139,7 +139,7 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 		var n := _satz(notiz, 15, Stil.TEXT)
 		n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		sp.add_child(n)
-	sp.add_child(Erschaffung.luecke(6))
+	sp.add_child(Stil.luecke(6))
 	if Spielstaende.vorlage2:   # 557/549 (Chef 16:37: „mit denselben Bausteinen“): die Nebenwahl links wie Abbrechen;
 		# 557 Runde 4 (Chef 17:40: „sinnvoller wäre ein Zurück oder ein Abbrechen“): „‹ ZURÜCK“ statt „‹ WEITERGEHEN“, so gross wie jeder Knopf
 		var neben := Spielstaende.knopf("neben", Sprache.u("back"), func(): gewaehlt.emit(""), true)

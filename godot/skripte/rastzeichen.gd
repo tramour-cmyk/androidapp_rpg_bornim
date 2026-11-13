@@ -74,6 +74,8 @@ func _draw() -> void:
 			l.call(12, 7.5, 12, 16.5); l.call(7.5, 12, 16.5, 12)
 		"KREUZ":   # 557: Löschen, leise
 			l.call(7, 7, 17, 17, duenn); l.call(17, 7, 7, 17, duenn)
+		"HAKEN":   # 1020.1: Prüfzeile passt (die Schrift hat kein ✓)
+			zug.call([Vector2(6, 12.5), Vector2(10.5, 17), Vector2(18, 7)])
 		"SCHENKE":   # 557 Runde 4 (Pruefer 17:12: an der Theke die Flamme vom Lagerfeuer): Wirtshausschild, am Arm haengend, darin ein Krug
 			l.call(2.5, 3, 2.5, 9.5); l.call(2.5, 4, 21.5, 4); l.call(2.5, 8.5, 7, 4, duenn)
 			l.call(8, 4, 8, 8, duenn); l.call(18, 4, 18, 8, duenn)
