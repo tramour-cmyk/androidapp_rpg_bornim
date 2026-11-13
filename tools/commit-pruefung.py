@@ -394,7 +394,8 @@ def main():
         gl = re.search(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(Sokrates|Perikles|Homer|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)\b.*\d\d?:\d\d", inhalt)
         if not gl:
             stop.append("%s: Zeile „Gegengelesen: <Rolle> <TT.MM., HH:MM>“ fehlt; Entwurf zuerst nach docs/entwurf/, eine Sitzung außerhalb des Teams prüft je Punkt "
-                        "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll), trägt die Zeile ein und verschiebt (866, 881)" % p)
+                        "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll) und trägt die Zeile im Entwurf ein; nach ansehen/ "
+                        "erst mit APK, Bildern und Filmen (866, 881, 1199)" % p)
             continue
         # 881 (D139.1): nie das eigene Team; Team aus Zeile 1 („# <Team oder „Tom und Jerry“> · Build …“), Spike zählt zu Tom, Tuffy zu Jerry
         team = {"Spike": "Tom", "Tuffy": "Jerry"}.get(gl.group(1), gl.group(1))
@@ -407,6 +408,15 @@ def main():
         if not re.search(r"https?://", z2):
             stop.append("%s: Zeile 2 ohne APK-Link (%s); die Prüfliste kommt erst mit der Testbitte in die Chefsache, wenn APK, Bilder und "
                         "Filme da sind; bis dahin gegengelesen in docs/entwurf/, der Bau liest sie dort (1199)" % (p, z2.strip()[:60] or "leer"))
+        # 1208 (D216.1): auch jedes Bild und jeder Film gesendet; meldung.sh mit Text „t<n>.<Punkt>: …“ trägt den Link in die Zeile ein
+        tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in inhalt.splitlines() if zl.startswith("|")]
+        sa = next((r.index("Art") for r in tab if "Art" in r), -1)
+        for r in tab:
+            if sa >= 0 and len(r) > sa and re.match(r"(?i)(bild|film)\b", r[sa]) and not (KLEIN_LINK.search("|".join(r))
+                    or re.search(r"\]\(https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/", "|".join(r))):
+                w = r[sa].split()[0]
+                stop.append("%s: Zeile %s Art %s ohne Link aufs Gesendete; erst `meldung.sh --%s <datei> <Name> \"t%s: …\"` (trägt den Link "
+                            "in die Zeile des Entwurfs ein), dann verschieben (1199, 1208)" % (p, r[0], w, w.lower(), r[0]))
     for s, p in dat:  # 1128.2 (1128 A, Chef 13.11., 13:36): Laufnachweis; jeder Test unter „Im Bau geprüft“/„Ohne dich“ steht im Lauf
         # der APK (godot.yml von claude/build-<n>) und kann dort rot werden (ohne `|| true`, continue-on-error, Bedingung; Diogenes 12:59)
         m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
