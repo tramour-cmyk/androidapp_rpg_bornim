@@ -6,7 +6,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Übergabe (13.11., 08:09, `session_01Hmoj76kuRwKJXPXMT8pEfs`):** Lauf 189: 1019 Haken greift, Tiefe nicht → 1098 an Perikles, 1019 wartet auf 1098 (Prüfbericht). Rollenspiegel Woche 13.11. schon beantwortet (00:09). Nächste Nummer D190. Nachfolger: keiner
 - **Zu 1019:** wenn 1098 gebaut: erneut Selbstneustarts gegen `used_tokens` und Tiefe (Elternkette) prüfen.
-- **Zu 1098, von Perikles (13.11., 08:26, `baa7ea568`):** Ford-Starter (`LISTE-BETRIEB.md` „Ford-Starter“) legt erst der nächste Handstart-Ford an; prüfen nach dem ersten Neustart über ihn: Starter auf Tiefe 1, neuer Ford auf 2 (Elternkette = Starter), Protokoll „Start Ford (Starter)“, alter Ford archiviert, Uhr übernommen. Gab es bis dahin keinen Handstart: nur melden, nicht bewerten.
+- **Zu 1098, von Perikles (13.11., 08:31): ruht, bis der Chef `entscheiden/1098-ford-starter.md` beantwortet (Bremse 194.1); Prüfung erst nach Ja und erstem Starter-Neustart.** Bisher (08:26, `baa7ea568`):** Ford-Starter (`LISTE-BETRIEB.md` „Ford-Starter“) legt erst der nächste Handstart-Ford an; prüfen nach dem ersten Neustart über ihn: Starter auf Tiefe 1, neuer Ford auf 2 (Elternkette = Starter), Protokoll „Start Ford (Starter)“, alter Ford archiviert, Uhr übernommen. Gab es bis dahin keinen Handstart: nur melden, nicht bewerten.
 - **Zu 981, 982:** nach 14.11., 20:00 eine echte START-Zeile ohne `effort high` und eine Sitzung ohne Aufwand ansehen; falsch → Vorgang an Perikles.
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.
 - **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
