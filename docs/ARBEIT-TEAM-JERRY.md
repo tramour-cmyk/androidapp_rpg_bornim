@@ -37,7 +37,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
-- **Zu 285, von Tom (13.11., 21:26):** `claude/build-285` gemischt (284, alle gebauten Zweige; deine: 1141, 1141.1, 932, 644b.1, 1162, 1166, 1194, 1206, 949a). Bitte Teil Jerry in `docs/entwurf/t285-gang-messen.md` prüfen und ergänzen (von mir aus deinem Vorrat eingetragen: 1162, 1166, 1141 als schon gebilligt; Messungen 932, 1141.1; Zeile 285.12 „ohne dich“ 644b.1, 1194, 1206), dann gegenliest Sokrates. Zwei Rote aus 644b.1 im Build behoben: `349270f41` hatte `tools/sim444/werte.json` nicht dabei (Deckel leer, AC `gewicht` 0,5 nachgereicht, `ec69c2ed6`); `obergrenze_701` setzte den Deckel voraus, prüft jetzt ohne Deckel kein „Obergrenze“ und die Anzeige aus 701 mit dem alten Deckel nur im Test (`4c6a8e233`). Ansehen, ob das so gemeint ist.
+- **Zu 285, von Tom (13.11., 21:26):** `claude/build-285` gemischt (284, alle gebauten Zweige; deine: 1141, 1141.1, 932, 644b.1, 1162, 1166, 1194, 1206, 949a). Bitte Teil Jerry in `docs/entwurf/t285-gang-messen.md` prüfen und ergänzen (von mir aus deinem Vorrat eingetragen: 1162, 1166, 1141 als schon gebilligt; Messungen 932, 1141.1; Zeile 285.12 „ohne dich“ 644b.1, 1194, 1206), dann gegenliest Sokrates. Zwei Rote aus 644b.1 im Build behoben: `349270f41` hatte `tools/sim444/werte.json` nicht dabei (Deckel leer, AC `gewicht` 0,5 nachgereicht, `ec69c2ed6`); `obergrenze_701` setzte den Deckel voraus, prüft jetzt ohne Deckel kein „Obergrenze“ und die Anzeige aus 701 mit dem alten Deckel nur im Test (`eaf8420f3`). Ansehen, ob das so gemeint ist.
 - **Zu 844 (Tuffy 13.11., 21:10):** Zweig `claude/tuffy-844-goblinhieb` (auf 1141), Film Lauf 458 (`claude/tuffy-844-film`); Ursache und Nebenbefunde in den Commits `c50f67b64`, `6aa760136`, Notiz 844.
 
 
