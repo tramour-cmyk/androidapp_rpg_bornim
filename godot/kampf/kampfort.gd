@@ -1010,8 +1010,10 @@ func _count(row: int, side: String) -> int:
 	return n
 
 
+## 973 (930a A, Chef 11.11., 16:09; DESIGN-KAMPF.md F3): ein gefallener Gegner behält seinen Platz in der Aufstellung, damit die
+## Übrigen nach einem Tod stehen bleiben, statt neu aufzurücken (vorher zählte er nur, solange er fiel); wer flieht, zählt nicht mehr
 func _present(f) -> bool:
-	return shown.hp.get(f.id, f.hp) > 0 or figures.has(f.id) and figures[f.id].falling()
+	return shown.hp.get(f.id, f.hp) > 0 or figures.has(f.id) and figures[f.id].falling() or f.side == "FOES" and not f.fled
 
 
 ## Screen point of a world position (for names, signs, the ring).
