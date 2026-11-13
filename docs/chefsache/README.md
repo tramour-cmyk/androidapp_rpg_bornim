@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [867](entscheiden/867-menuehelden.md) | **Muss** | G Stil | 13.11., 03:11 | Vorlage 6: die Wachsoldatin hält das Schwert gesenkt in der rechten Hand, der Schild sitzt am linken Arm mit der Fläche schräg zum Spieler; die drei anderen wie in Vorlage 5. Die Fäuste auf dem Knauf erreicht die gekaufte Figur nicht (nachgestellt), darum der Ersatz, den Sokrates dafür bestimmt hat. | Tom |
+Nichts offen.
 
 ## Zu billigen
 
@@ -16,6 +12,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [867](billigen/867-menuehelden.md) | **Muss** | G Stil | 13.11., 03:14 | Vorlage 6: die Wachsoldatin hält das Schwert gesenkt in der rechten Hand, der Schild sitzt am linken Arm mit der Fläche schräg zum Spieler; die drei anderen wie in Vorlage 5. Die Fäuste auf dem Knauf erreicht die gekaufte Figur nicht (nachgestellt), darum der Ersatz, den Sokrates dafür bestimmt hat. | Sokrates |
 | [1044](billigen/1044-frauenstand.md) | **Muss** | E Figuren | 13.11., 00:09 | keine gekaufte Bewegung steht mit geschlossenen Beinen; Tom passt die heutige an (Füße zusammen, Hände vorn), zuerst Lyra, Bild vorher/nachher | Sokrates |
 | [842](billigen/842-knopf.md) | **Muss** | E Welt | 13.11., 00:03 | Pim hat drei Knöpfe, Osric „Kaufen“ und „Nicht jetzt“, der Verband steht in Tasche und Laden; Osric bekommt noch einen Satz, der sagt, was er verkauft | Sokrates |
 | [1022](billigen/1022-kartenrand.md) | **Muss** | E Welt | 12.11., 23:50 | der weiche Rand ins Dunkel passt; Weg am Schlagbaum und Fluss sollen noch mit ins Dunkel laufen, dann fährt er im nächsten Build | Sokrates |
@@ -46,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 116, Muss 92, startbar 8
+**Tom** – offen 116, Muss 92, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -130,7 +127,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 860 | M | Von Sokrates (Chef 10.11., 13:07, t274.10 „Ja“): Chronik (Hauptauftrag, Aufträge, Bisher g | wartet auf Test/Build (gebaut) |
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
-| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | wartet auf Sokrates |
+| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
 | 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test (Build) |
 | 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
@@ -335,7 +332,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 
-**Sokrates** – offen 52, Muss 38, startbar 28
+**Sokrates** – offen 51, Muss 37, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -390,13 +387,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 930 | M | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
-| 867 | M | Von Sokrates (Chef 10.11., 13:48): Hauptmenü zeigt noch die vier Kotlin-Figuren; dort die | startbar |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): entscheiden/867-menuehelden.md: fehlt Gegenargument in der Auswertung (364, [Muster](MUSTER.md))
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
