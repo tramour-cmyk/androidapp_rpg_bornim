@@ -4683,6 +4683,7 @@ func die() -> void:
 			nm = alle[randi() % alle.size()]
 			tod_name = nm
 			if randf() < 0.5: sterbe_spiegeln()
+			_waffe_faellt()
 		anim.play(nm, TOD_BLEND)
 	else:
 		# 1141 (Chef 13.11., 14:36: „wie Playmobil-Figuren umfallen. Und zwar alle auf die gleiche Seite“): ohne „Tod“ (Ersatz, seit
@@ -4702,6 +4703,60 @@ func die() -> void:
 		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 1141 r2 (Chef 13.11., 16:17: „Waffen sonst wo“): im Fall lässt der Tote los; die Waffe (nicht der Schild am Arm, nicht die im
+## Modell gebackene von Grak und Krogg) fällt beschleunigt zu Boden und liegt flach, wo sie aufkommt; sie vergeht mit dem Toten
+const WAFFE_LOS := 0.4      # Anteil der Sterbebewegung, ab dem die Hand loslässt
+const WAFFE_FALL := 0.32    # s bis zum Boden
+func _waffe_faellt() -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null:
+		return
+	var los: float = sterbe_ms() * WAFFE_LOS / 1000.0
+	for at in sk.get_children():
+		if not at is BoneAttachment3D:
+			continue
+		var was := String(at.get_meta("was", ""))
+		if was == "" or was == "waffe-im-modell" or was.contains("shield"):
+			continue
+		for w in at.get_children():
+			if w is Node3D:
+				get_tree().create_timer(los).timeout.connect(_waffe_zu_boden.bind(w))
+
+
+func _waffe_zu_boden(w: Node3D) -> void:
+	if not is_instance_valid(w) or not visible:
+		return
+	var g := w.global_transform
+	w.get_parent().remove_child(w)
+	add_child(w)
+	w.global_transform = g
+	# längste Achse des Netzes waagerecht, in ihrer Richtung über dem Boden; dann so tief, dass die tiefste Ecke aufliegt
+	var box := AABB()
+	var erst := true
+	for mi in w.find_children("*", "MeshInstance3D", true, false) + ([w] if w is MeshInstance3D else []):
+		var bb: AABB = (w.global_transform.affine_inverse() * (mi as MeshInstance3D).global_transform) * (mi as MeshInstance3D).get_aabb()
+		box = bb if erst else box.merge(bb)
+		erst = false
+	if erst:
+		return
+	var achse := Vector3.RIGHT if box.size.x >= maxf(box.size.y, box.size.z) else (Vector3.UP if box.size.y >= box.size.z else Vector3.BACK)
+	var d: Vector3 = (g.basis * achse).normalized()
+	var flach := Vector3(d.x, 0.0, d.z)
+	if flach.length() < 0.2:
+		flach = global_transform.basis.z
+	var q := Quaternion(d, flach.normalized())
+	var zb := Basis(q) * g.basis
+	var tief := INF
+	for i in 8:
+		var ecke := box.position + box.size * Vector3(i & 1, (i >> 1) & 1, (i >> 2) & 1)
+		tief = minf(tief, (zb * ecke).y)
+	var boden: float = global_position.y + 0.01
+	var unten := Vector3(g.origin.x, boden - tief, g.origin.z)
+	# Drehung und Weg getrennt (gespiegelte Tote, 596: ihre Basis ist gespiegelt, interpolate_with verlöre das Vorzeichen)
+	var t := create_tween()
+	t.tween_method(func(x: float): w.global_transform = Transform3D(Basis(Quaternion.IDENTITY.slerp(q, x * x)) * g.basis, g.origin.lerp(unten, x * x)), 0.0, 1.0, WAFFE_FALL)
 
 
 ## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)

@@ -290,9 +290,11 @@ def _glatt(u):
 def beide(d, r, l=None):
     """Knochenname mit S, Werte für rechts (l: links, sonst gespiegelt: Y und Zx umgekehrt)"""
     return {d.replace('S', 'R'): r, d.replace('S', 'L'): l if l is not None else (r[0], -r[1], -r[2])}
-def gerade(f_rumpf, f_huefte, f_knie):
-    """Anteil, um den die Ruhe (Lauer: Rumpf 40° vor, Knie 68° gebeugt) zur geraden Haltung zurückgeht: liegend ein Körper"""
-    return dict([(b, f_rumpf) for b in RUMPF] + [(b, f_huefte) for b in HUEFTE] + [(b, f_knie) for b in KNIE])
+ARME = ['shR-upR', 'shL-upL', 'elR-foR', 'elL-foL']
+def gerade(f_rumpf, f_huefte, f_knie, f_arme=0.0):
+    """Anteil, um den die Ruhe (Lauer: Rumpf 40° vor, Knie 68° gebeugt, Arme vor der Brust) zur geraden Haltung zurückgeht:
+    liegend ein Körper, die toten Arme hängen am Leib (1141, Chef 16:17: „Gliedmaßen … schwerkraftmäßig nach unten“)"""
+    return dict([(b, f_rumpf) for b in RUMPF] + [(b, f_huefte) for b in HUEFTE] + [(b, f_knie) for b in KNIE] + [(b, f_arme) for b in ARME])
 def _tod_pose(keys, t):
     """keys: [(Zeit s, {Knochen: (x, y, z) Grad}, {Knochen: Anteil gerade}, Anteil zur Mitte)]; liefert den Anteil zur Mitte"""
     for i in range(len(keys) - 1):
@@ -330,43 +332,42 @@ def _plus(k, d):
     for b, v in d.items():
         w = k.get(b, (0, 0, 0)); k[b] = tuple(w[j] + v[j] for j in range(3))
     return k
+# 1141 r2 (Chef 16:17 zu den Filmen: „die fallen alle mit Schwerpunkt dahin, wo sie halt standen … als würden ihm die Beine nach
+# hinten weggezogen“; „seitlich … Beine breit, Arme abgespreizt“): der Drehpunkt sind die Füße, sie bleiben stehen (keine Mitte mehr,
+# Anteil 0); vornüber landet der Kopf eine Körperlänge vorn, rücklings hinten. Die Glieder werden schlaff: Arme hängen am Leib,
+# Beine gerade und beieinander, nichts abgespreizt
 def tod_vorn():
-    """Knie geben nach, er sackt auf die Knie und schlägt vornüber aufs Gesicht, die Arme vor sich (FoeArt deaths 1)"""
-    k1 = {'pelvis-waist': (-10, 0, 0), 'belly-chest': (-10, 0, 0), 'neck-neckTop': (-18, 0, 0), **beide('shS-upS', (25, 10, 0))}
-    k2 = {'root': (6, 0, 0), 'pelvis-waist': (10, 0, 0), 'neck-neckTop': (10, 0, 0), **beide('hipS-thighS', (-22, 0, 0)),
-          **beide('kneeS-calfS', (42, 0, 0)), **beide('shS-upS', (45, 6, 0)), **beide('elS-foS', (40, 0, 0))}
-    k3 = {'root': (45, 0, 0), 'neck-neckTop': (-10, 0, 10), **beide('kneeS-calfS', (20, 0, 0)),
-          **beide('shS-upS', (-40, 15, 0)), **beide('elS-foS', (45, 0, 0))}
-    k4 = {'root': (88, 0, 0), 'neck-neckTop': (-15, 0, 40), **beide('hipS-thighS', (6, 3, 0)), **beide('kneeS-calfS', (4 + KNIE_LIEGT, 0, 0)),
-          **beide('shS-upS', (-100, 25, 0)), **beide('elS-foS', (55, 0, 0))}
-    g3, g4 = gerade(0.5, 0.4, 0.2), gerade(0.9, 0.85, 0.9)
+    """Knie geben ein wenig nach, dann kippt er über die Füße vornüber aufs Gesicht, die Arme schlaff am Leib"""
+    k1 = {'pelvis-waist': (-10, 0, 0), 'belly-chest': (-8, 0, 0), 'neck-neckTop': (-16, 0, 0)}
+    k2 = {'root': (8, 0, 0), 'pelvis-waist': (6, 0, 0), 'neck-neckTop': (8, 0, 0), **beide('kneeS-calfS', (12, 0, 0))}
+    k3 = {'root': (45, 0, 0), 'neck-neckTop': (-8, 0, 10), **beide('shS-upS', (-15, 6, 0))}
+    k4 = {'root': (88, 0, 0), 'neck-neckTop': (-14, 0, 40), **beide('kneeS-calfS', (KNIE_LIEGT + 8, 0, 0)),
+          **beide('shS-upS', (-6, 10, 0)), **beide('elS-foS', (8, 0, 0))}
+    g2, g3, g4 = gerade(0.2, 0.2, 0.0, 0.5), gerade(0.6, 0.6, 0.5, 0.85), gerade(0.95, 0.95, 0.9, 1.0)
     k3, k4 = _plus(k3, schwanz(-30)), _plus(k4, schwanz(-70))
-    return [(0.0, {}, {}, 0.0), (0.14, k1, {}, 0.0), (0.5, k2, {}, 0.0), (0.8, k3, g3, 0.4), (1.08, k4, g4, 0.75),
-            (1.22, dict(k4, root=(91, 0, 0)), g4, 0.75), (1.42, dict(k4, root=(89, 0, 0)), g4, 0.75), (1.6, dict(k4, root=(89, 0, 0)), g4, 0.75)]
+    return [(0.0, {}, {}, 0.0), (0.14, k1, {}, 0.0), (0.45, k2, g2, 0.0), (0.8, k3, g3, 0.0), (1.08, k4, g4, 0.0),
+            (1.2, dict(k4, root=(91, 0, 0)), g4, 0.0), (1.38, dict(k4, root=(89, 0, 0)), g4, 0.0), (1.55, dict(k4, root=(89, 0, 0)), g4, 0.0)]
 def tod_rueck():
-    """vom Schlag zurückgeworfen: taumelt, fällt flach auf den Rücken, die Arme weit (FoeArt deaths 2)"""
-    k1 = {'root': (-6, 0, 0), 'pelvis-waist': (-22, 0, 0), 'belly-chest': (-16, 0, 0), 'neck-neckTop': (-28, 0, 0),
-          **beide('shS-upS', (40, 30, 0)), **beide('elS-foS', (30, 0, 0))}
-    k2 = {'root': (-22, 0, 0), 'pelvis-waist': (-14, 0, 0), 'belly-chest': (-12, 0, 0), 'neck-neckTop': (-10, 0, 0),
-          **beide('hipS-thighS', (-12, 0, 0)), **beide('kneeS-calfS', (22, 0, 0)), **beide('shS-upS', (55, 45, 0)), **beide('elS-foS', (50, 0, 0))}
-    k3 = {'root': (-86, 0, 0), 'neck-neckTop': (-30, 0, -30), 'chestTop-neck': (-10, 0, 0), **beide('hipS-thighS', (-14 - 0.3 * KNIE_LIEGT, 5, 0)), **beide('kneeS-calfS', (26 + 0.7 * KNIE_LIEGT, 0, 0)),
-          **beide('shS-upS', (70, 80, 0)), **beide('elS-foS', (60, 0, 0))}
-    g2, g3 = gerade(0.4, 0.2, 0.0), gerade(0.9, 0.8, 0.6)
+    """vom Schlag zurückgeworfen: richtet sich auf und kippt über die Fersen auf den Rücken, die Arme schlaff zur Seite"""
+    k1 = {'root': (-5, 0, 0), 'pelvis-waist': (-20, 0, 0), 'belly-chest': (-14, 0, 0), 'neck-neckTop': (-26, 0, 0)}
+    k2 = {'root': (-22, 0, 0), 'pelvis-waist': (-10, 0, 0), 'neck-neckTop': (-12, 0, 0), **beide('kneeS-calfS', (10, 0, 0)),
+          **beide('shS-upS', (20, 12, 0))}
+    k3 = {'root': (-87, 0, 0), 'neck-neckTop': (-34, 0, -30), 'chestTop-neck': (-10, 0, 0), **beide('kneeS-calfS', (KNIE_LIEGT + 12, 0, 0)),
+          **beide('shS-upS', (4, 22, 0)), **beide('elS-foS', (10, 0, 0))}
+    g2, g3 = gerade(0.5, 0.3, 0.0, 0.6), gerade(0.95, 0.9, 0.85, 1.0)
     k3 = _plus(k3, schwanz(-40))
-    return [(0.0, {}, {}, 0.0), (0.16, k1, gerade(0.3, 0.0, 0.0), 0.0), (0.5, k2, g2, 0.2), (1.0, k3, g3, 0.75),
-            (1.14, dict(k3, root=(-89, 0, 0)), g3, 0.75), (1.34, dict(k3, root=(-87, 0, 0)), g3, 0.75), (1.5, dict(k3, root=(-87, 0, 0)), g3, 0.75)]
+    return [(0.0, {}, {}, 0.0), (0.16, k1, gerade(0.3, 0.0, 0.0, 0.2), 0.0), (0.5, k2, g2, 0.0), (1.0, k3, g3, 0.0),
+            (1.13, dict(k3, root=(-90, 0, 0)), g3, 0.0), (1.32, dict(k3, root=(-88, 0, 0)), g3, 0.0), (1.5, dict(k3, root=(-88, 0, 0)), g3, 0.0)]
 def tod_seite():
-    """herumgerissen, sinkt aufs rechte Knie und kippt zur Seite (FoeArt deaths 3)"""
-    k1 = {'pelvis-waist': (-6, 0, 22), 'belly-chest': (-4, 0, 12), 'neck-neckTop': (-10, 0, 25), **beide('shS-upS', (20, 15, 0))}
-    k2 = {'root': (6, -8, 28), 'pelvis-waist': (10, 0, 26), 'belly-chest': (6, 0, 12), 'neck-neckTop': (10, 0, 20),
-          'hipR-thighR': (-10, 0, 0), 'kneeR-calfR': (45, 0, 0), 'hipL-thighL': (-35, 0, 0), 'kneeL-calfL': (55, 0, 0),
-          **beide('shS-upS', (40, 10, 0)), **beide('elS-foS', (35, 0, 0))}
-    k3 = {'root': (8, -86, 32), 'pelvis-waist': (6, 0, 18), 'neck-neckTop': (0, -25, 10),
-          'hipR-thighR': (-6, 0, 0), 'kneeR-calfR': (10, 0, 0), 'hipL-thighL': (-30, 0, 0), 'kneeL-calfL': (35, 0, 0),
-          'shR-upR': (10, 35, 0), 'elR-foR': (30, 0, 0), 'shL-upL': (25, -20, 0), 'elL-foL': (50, 0, 0)}
-    g3 = gerade(0.7, 0.4, 0.3)
-    return [(0.0, {}, {}, 0.0), (0.16, k1, {}, 0.0), (0.62, k2, {}, 0.1), (1.12, k3, g3, 0.7),
-            (1.26, dict(k3, root=(8, -89, 32)), g3, 0.7), (1.44, dict(k3, root=(8, -87, 32)), g3, 0.7), (1.6, dict(k3, root=(8, -87, 32)), g3, 0.7)]
+    """sackt über den Füßen auf die Knie und kippt zur Seite; Beine beieinander, Arme schlaff am Leib, nichts steht ab"""
+    k1 = {'pelvis-waist': (-6, 0, 12), 'neck-neckTop': (-10, 0, 15)}
+    k2 = {'root': (4, 0, 8), 'pelvis-waist': (-10, 0, 10), 'neck-neckTop': (14, 0, 10),
+          **beide('hipS-thighS', (-45, 0, 0)), **beide('kneeS-calfS', (70, 0, 0)), **beide('ankleS-heelS', (30, 0, 0)), **beide('ankleS-ballS', (30, 0, 0))}
+    k3 = {'root': (6, -86, 10), 'neck-neckTop': (8, -15, 10), **beide('hipS-thighS', (-30, 0, 0)), **beide('kneeS-calfS', (40, 0, 0)),
+          **beide('shS-upS', (0, 6, 0)), **beide('elS-foS', (12, 0, 0))}
+    g2, g3 = gerade(0.5, 0.0, 0.0, 0.7), gerade(0.9, 0.3, 0.2, 1.0)
+    return [(0.0, {}, {}, 0.0), (0.16, k1, {}, 0.0), (0.6, k2, g2, 0.0), (1.12, k3, g3, 0.0),
+            (1.25, dict(k3, root=(6, -89, 10)), g3, 0.0), (1.42, dict(k3, root=(6, -87, 10)), g3, 0.0), (1.6, dict(k3, root=(6, -87, 10)), g3, 0.0)]
 def bake_tod(name, keys):
     act = bpy.data.actions.new(name); act.use_fake_user = True
     rig.animation_data_create()

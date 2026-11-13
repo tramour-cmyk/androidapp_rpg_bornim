@@ -121,13 +121,13 @@ func _gegner(g: String) -> void:
 			print("FEHLER 1141: %s hat %d Sterbebewegungen (%s)" % [fig.fighter.id, alle, fig._model_path()])
 			fehler += 1
 		# von vorn halb seitlich (aus Richtung der Helden, 30° gedreht) und von oben (35°): vornüber fällt er auf die Kamera zu,
-		# rücklings von ihr weg, seitlich quer; so weit, dass der Liegende ganz im Bild ist (G1: 1,4 m quer)
+		# rücklings von ihr weg, seitlich quer; so weit, dass der Liegende ganz im Bild ist (G1: 2,6 m quer)
 		var mitte: Vector3 = fig.position
 		var zu: Vector3 = (helden[0].position - mitte) if not helden.is_empty() else Vector3(0, 0, 1)
 		zu.y = 0.0
 		zu = zu.normalized().rotated(Vector3.UP, deg_to_rad(30.0))
 		var hfov := 2.0 * atan(tan(deg_to_rad(cam.fov) / 2.0) * FORMAT.x / FORMAT.y)
-		var d: float = 0.7 * fig._scale() / tan(hfov / 2.0)
+		var d: float = 1.3 * fig._scale() / tan(hfov / 2.0)     # r2: die Füße bleiben stehen, der Tote liegt bis 1,1 m daneben
 		var z := mitte + Vector3(0, 0.25, 0)
 		cam.position = z + zu * d * cos(deg_to_rad(35.0)) + Vector3(0, d * sin(deg_to_rad(35.0)), 0)
 		cam.look_at(z)
