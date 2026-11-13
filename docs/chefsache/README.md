@@ -37,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 113, Muss 89, startbar 6
+**Tom** – offen 113, Muss 89, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -52,8 +52,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 568 | M | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht |
 | 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf 643 (ruht) |
 | 542 | M | Aufträge: Jorins „Feuer am Steinkreis“ nicht abschließbar (Fetzen fehlt), Gwennas Ring am | wartet auf Test/Build (gebaut) |
-| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
-| 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) · zurück t282 | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
+| 495 | M | Zufallsspieler spielt Kapitel 1 in Godot durch (Abnahme 2.2; Wochenziel 03.11., 488) | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
+| 505 | M | Bau Nebel des Krieges und Sichtfeld des Helden (Archiv 502; Welt W24, W25) · zurück t282 | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 |
 | 515 | M | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
 | 376.1 | M | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | ruht |
 | 455.1 | M | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | ruht |
@@ -138,10 +138,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 785.23 | M | Von Spike (785): Renntaste geht von selbst aus, wenn der Held steht oder außer Atem ist (W | wartet auf 870.13 (wartet) |
 | 785.24 | M | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build) |
-| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (gebiet.gd) |
+| 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (gebiet.gd) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
 | 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Test (Build 282) |
-| 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | Sperre 620.1 B: 16 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 (lyra) |
+| 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | Sperre 620.1 B: 17 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 492 (lyra) |
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
 | 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | Termin 13.11. 12:00 |
 | 1081 | M? | Von Sokrates (Chef 12.11., 21:28): Zoom nach außen begrenzen auf 10,2 Kacheln Breite (heut | startbar |
@@ -150,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | wartet auf Test/Build (gebaut) |
 | 1108 | M | Von Sokrates (Chef 13.11., 09:38, 1108 A): Pim nur einmal heimschicken, Überreden höchsten | wartet auf Test/Build (gebaut) |
 | 1115 | M | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | wartet auf 1114 (startbar) |
-| 1118 | M | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksa | startbar |
+| 1118 | M | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksa | wartet auf Test/Build (gebaut) |
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | wartet auf Test/Build (gebaut) |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test/Build (gebaut) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 20960 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
