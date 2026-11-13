@@ -2598,19 +2598,8 @@ func hoehle_bilder() -> void:
 	await get_tree().create_timer(2.5).timeout
 	ui.textfeld.visible = false
 	await knips("%s/gang_gedreht.png" % dir)
-	# 492 Fassung B (Pruefer 08.11., 19:29: Waende hell lila ohne Lichtquelle, hellstes Zehntel neu 65–104 gegen alt 27–62): dieselben
-	# Stellen mit schwaecherem, kaum blauem Grundlicht (Umgebung 0,12 statt 0,3, wie Lauf 1; Farbe kalt wie alt MapGrade CAVE), Licht
-	# nur noch von Fackel, Feuer, Kristallen; der Chef waehlt (zwei Fassungen in einem Bild)
-	kamera.drehe(180.0)
-	licht.hoehle_umgebung = 0.12
-	licht.hoehle_farbe = Color(0.5, 0.56, 0.62)
-	licht.stelle(licht.nacht)
-	await get_tree().create_timer(2.5).timeout   # Drehung zurueck wie oben
-	for o in orte:
-		held.setze(o[1], o[2]); kamera.springe()
-		await get_tree().create_timer(1.0).timeout
-		ui.textfeld.visible = false
-		await knips("%s/%s_b.png" % [dir, o[0]])
+	# 492 Fassung B (Chef 08.11., 21:46 „492b“) ist seit 13.11. der Standard (licht.gd HOEHLE_UMGEBUNG 0,12, kalte Farbe); die zweite
+	# Bildreihe mit B entfaellt, die erste ist B
 	print("HOEHLENBILDER fertig")
 	get_tree().quit()
 

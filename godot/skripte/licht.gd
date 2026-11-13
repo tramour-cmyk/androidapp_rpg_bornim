@@ -11,7 +11,7 @@ var ziel := 0.0
 var herd := true                       # 399.5 Grundriss mit Kamin (alt hasHearth)
 var hoehle := false                    # 492 Hoehle: wie innen, aber fern der Quellen fast schwarz (alt MapLight ambient CAVE)
 var hoehle_umgebung := HOEHLE_UMGEBUNG   # 492 Pruefer 08.11., 19:29 (Waende hell lila ohne Quelle): fuer die Bildreihe B umstellbar
-var hoehle_farbe := Color(0.55, 0.55, 0.8)
+var hoehle_farbe := Color(0.5, 0.56, 0.62)   # 492 B (Chef 08.11., 21:46 „492b“): kalt, kaum blau wie alt MapGrade CAVE
 var innen := false                     # 399.1 Grundriss: Licht aus Kamin, Kerzen, Fenstern; die Sonne nur als schwacher Rest von oben
 
 # 348.6 Runde 11 (Chef 25.10., 12:12: Sonnenstand und Schatten falsch, neu kurz nach rechts statt alt lang nach links unten):
@@ -29,7 +29,7 @@ const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
 const HOEHLE_HELL := 2.1       # 492 Abgleich: Lauf 1 ohne Kontrasthebung halb so hell wie alt (p90 15 gegen 30–43)
-const HOEHLE_UMGEBUNG := 0.3    # 492: alt CAVE 0,05 gegen Raum mit Herd nachts 0,13; Lauf 1 bei 0,12 (Pruefer: fern der Lichter gar nichts, keine Umrisse)
+const HOEHLE_UMGEBUNG := 0.12   # 492 B (Chef 08.11., 21:46 „492b“: Fassung B fuer die ganze Hoehle; vorher 0,3 hell lila ohne Quelle); 492: alt CAVE 0,05 gegen Raum mit Herd nachts 0,13; Lauf 1 bei 0,12 (Pruefer: fern der Lichter gar nichts, keine Umrisse)
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
 const INNEN_NACHT_KONTRAST := 0.93   # Lauf 5 (Nacht in % des Tags, alt 44–64): Kontrast 0,87 → 78–84, 0,96 mit Umgebung 0,16 → 40–56
 const INNEN_TAG_OHNE_HERD := 0.75   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51; Lauf 8 bei 0,55: 41,5)
