@@ -111,6 +111,7 @@ func _ready() -> void:
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	pruefliste_bild()
+	staub_bild()
 	gang_film()
 	leute_blatt()
 	held_film()
@@ -1811,6 +1812,66 @@ func pruefliste_bild() -> void:
 		if not m.is_empty(): m[0].baue()
 		await get_tree().create_timer(1.0).timeout
 		await knips(dir + "/pruefliste_offen.png")
+	get_tree().quit()
+
+# 814 (Fund t278.2, dritter: Chef sieht den Fussstaub nicht): --staubbild=<ordner> laesst den Helden um 10 Uhr auf dem Erdweg vor dem
+# Schlagbaum nach Norden gehen und rennen, je 0,15 s ein Bild, und schreibt, wie viele Staubwoelkchen leben und wo (Ursache nachstellen)
+func staub_bild() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--staubbild="): dir = a.substr(12)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	zustand.minuten = 10 * 60
+	licht_nach_uhr(true)
+	ui.mess.visible = false
+	held.setze(Vector2i(17, 9), "UP")
+	if OS.get_environment("STAUB_NAH") != "": kamera.nah_fern()
+	await get_tree().create_timer(1.5).timeout
+	var fx = gebiet.effekte
+	print("STAUB erde am Helden ", fx.erde(held.global_position) if fx else "ohne Effekte", " Paket ", fx.szene("effects/footstep_dust.tscn") != null if fx else false)
+	if fx and OS.get_environment("STAUB_STILL") != "":   # eine Wolke neben dem stehenden Helden, in Zeitlupe, Bilder in festen Abstaenden
+		var at: Vector3 = held.global_position + Vector3(0.5, 0.02, -0.5)
+		fx.fussstaub(at, false)
+		var t0 := Time.get_ticks_msec()
+		print("STAUB Wolke am Bild ", kamera.get_viewport().get_camera_3d().unproject_position(at))
+		for i in 6:
+			await get_tree().create_timer(0.06).timeout
+			await knips(dir + "/still_%d.png" % i)
+			print("STAUB still %d nach %d ms" % [i, Time.get_ticks_msec() - t0])
+		get_tree().quit()
+		return
+	held.geh_zu(held.position + Vector3(0, 0, -2.0 * Karte.TS))
+	for i in 8:
+		await get_tree().create_timer(0.15).timeout
+		var wolken: Array = fx.get_children().filter(func(c): return String(c.scene_file_path).ends_with("footstep_dust.tscn")) if fx else []
+		print("STAUB Bild %d: %d Woelkchen, Held %s, Anim %s, Tempo %.2f" % [i, wolken.size(), held.global_position.snapped(Vector3.ONE * 0.01),
+			held.anim.current_animation if held.anim else "-", held.tempo_jetzt])
+		if i == 2 and not wolken.is_empty():
+			for gp in (wolken[-1] as Node).find_children("*", "GPUParticles3D", true, false):
+				var p := gp as GPUParticles3D
+				var pm := p.process_material as ParticleProcessMaterial
+				var mesh = p.draw_pass_1
+				var mat = mesh.surface_get_material(0) if mesh else null
+				print("STAUB Teil %s: an %s, einmal %s, Menge %d, Leben %.2f, Groesse %s, global %s, Mesh %s, Mat %s, Skala %.2f-%.2f, Farbe %s, sichtbar %s" % [p.name,
+					p.emitting, p.one_shot, p.amount, p.lifetime, (mesh.get_aabb().size if mesh else Vector3.ZERO), p.global_transform.basis.get_scale(),
+					mesh.get_class() if mesh else "-", (mat.get_class() + " " + str(mat.resource_path)) if mat else "-",
+					pm.scale_min if pm else 0.0, pm.scale_max if pm else 0.0,
+					(pm.color_ramp.gradient.colors if pm and pm.color_ramp else "-"), p.is_visible_in_tree()])
+		await knips(dir + "/staub_%d.png" % i)
+	# gross und ohne Daempfen: wird die Vorlage hier ueberhaupt gezeichnet? Dazu Kaminrauch zum Vergleich
+	if fx:
+		for k in [4.0, 5.0]:
+			var g = fx.setze("effects/footstep_dust.tscn", held.global_position + Vector3(0.6, 0.02, 0), 4.0)
+			if k == 5.0:   # dieselbe Wolke mit ausdruecklich gesetzten Vorgaben des Shaders (in der Vorlage „null“)
+				for gi in g.find_children("*", "GeometryInstance3D", true, false):
+					var sm = (gi as GeometryInstance3D).material_override
+					if sm is ShaderMaterial:
+						sm.set_shader_parameter("alpha_scale", 1.0); sm.set_shader_parameter("noise_scale", 1.0)
+						sm.set_shader_parameter("erosion_edge", 0.06); sm.set_shader_parameter("proximity_fade", 0.0); sm.set_shader_parameter("alpha_scale", 1.0)
+			await get_tree().create_timer(0.12).timeout
+			await knips(dir + "/gross_%d.png" % int(k))
+		print("STAUB Kaminrauch ", fx.kamine.size(), " Teile ", fx.get_children().filter(func(c): return String(c.scene_file_path).contains("chimney")).size())
 	get_tree().quit()
 
 # 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
