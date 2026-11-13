@@ -1170,6 +1170,13 @@ jobs:
             film 7091-grimm film_wolfsbiss_7091 GEGNER=GRIMM
             ls -l $B; exit 0
           fi
+          # 709 (Chef 13.11., 20:13 zu 284.7p Ratten: „berührt hier irgendwer irgendwas? … sieht man ja nicht im Film“): kampf=709r nur Treffer
+          # der Ratten, von der Seite, um den Biss verlangsamt (wie 7091), erst die Messung
+          if [ "${{ github.event.inputs.kampf }}" = "709r" ]; then
+            MESS=1 NUR_TREFFER=1 GEGNER=RATS timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wolfsbiss_7091.gd 2>&1 | grep -vE "^(Godot|$)" | head -40 || true
+            film 709-ratten film_wolfsbiss_7091 GEGNER=RATS NUR_TREFFER=1
+            ls -l $B; exit 0
+          fi
           # 709.1 Messlauf ohne Film (Sokrates 20:08): Verlauf von Rumpf, Schnauze und Bewegung je 0,1 s um den Biss, Grimm und Wolf;
           # dazu wolf_mess_438 mit SCHAU_709 (Wolf im Rundschild)
           if [ "${{ github.event.inputs.kampf }}" = "7091m" ]; then

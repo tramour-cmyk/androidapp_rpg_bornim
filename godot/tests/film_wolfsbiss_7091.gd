@@ -9,6 +9,7 @@
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
+const Mars = preload("res://regeln/mars.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const FORMAT := Vector2(1080, 2340)
 const BLENDE_BILDER := 6
@@ -47,6 +48,8 @@ func _run() -> void:
 	for g in liste.split(","):
 		print("Film 7091 %s: ab Bild %d" % [g, Engine.get_process_frames()])
 		for f in FOLGE:
+			if OS.get_environment("NUR_TREFFER") != "" and not f[1]:     # 709 (Chef 20:13 zu 284.7p): nur die Treffer
+				continue
 			await _biss(g.strip_edges(), f[0], f[1])
 		print("Film 7091 %s: bis Bild %d" % [g, Engine.get_process_frames()])
 	print("Film 7091 %s" % ("fertig" if fehler == 0 else "%d Fehler" % fehler))
@@ -180,9 +183,9 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 				nah, nah_ms, ms, nah_ms - ms])
 		# Berührung: beim Biss höchstens LUECKE_M vor dem Ziel, nie tiefer als TIEF_M darin, die kleinste Lücke höchstens 250 ms neben dem Biss
 		# (ohne Schild weicht der Held aus, der Biss geht mit Absicht VERFEHLT_M daneben: nur die Tiefe zählt)
-		var gut: bool = luecke >= -TIEF_M and (not treffer and not held.blockt() or luecke_biss <= LUECKE_M and absi(luecke_ms - ms) <= 250)
+		var gut: bool = luecke >= -TIEF_M and (not treffer and not _am_schild(wolf, held) or luecke_biss <= LUECKE_M and absi(luecke_ms - ms) <= 250)
 		print("MESS3D 7091 %s %s %s (%s): Lücke beim Biss %.3f m, kleinste %.3f m bei %d ms, Biss bei %d ms, Versatz %d ms%s" % [g, klasse,
-				"Treffer" if treffer else "Abwehr", "Schild" if held.blockt() else "Körper", luecke_biss, luecke, luecke_ms, ms, luecke_ms - ms,
+				"Treffer" if treffer else "Abwehr", "Schild" if _am_schild(wolf, held) else "Körper", luecke_biss, luecke, luecke_ms, ms, luecke_ms - ms,
 				"" if gut else " FALSCH"])
 		if not gut:
 			fehler += 1
@@ -197,7 +200,7 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 ## 709.1: kleinste räumliche Lücke (m, < 0: darin) von Kopf, Kiefer, Zunge des Wolfs (Figur.BISS_TEILE) zum Schild des Helden, wenn
 ## er mit Schild kämpft (Figur.schild_kapseln), sonst zu seinem Körper (Figur.koerper), wie Figur.hieb_plan sie misst
 func _luecke(wolf, held) -> float:
-	var ziel: Array = held.schild_kapseln() if held.blockt() else held.koerper()
+	var ziel: Array = held.schild_kapseln() if _am_schild(wolf, held) else held.koerper()
 	if ziel.is_empty():
 		ziel = held.koerper()
 	var best := INF
@@ -214,3 +217,9 @@ func _luecke(wolf, held) -> float:
 			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(c[0], c[1], z[0], z[1])
 			best = minf(best, pq[0].distance_to(pq[1]) - float(c[2]) - float(z[2]))
 	return best
+
+
+## 709.1: beißt [wolf] in den Schild (Figur._bite_plan schild_biss: Wolf oder Grimmzahn gegen einen Helden mit Schild)? Ratten, Spinne
+## und Schnecke bleiben unter dem Schild und beißen in den Körper
+func _am_schild(wolf, held) -> bool:
+	return held.blockt() and Mars.wolfig(wolf.fighter.monster) and held.fighter.monster == null
