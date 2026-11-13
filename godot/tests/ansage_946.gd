@@ -47,7 +47,7 @@ func _lauf() -> void:
 				if m.outcome != "ONGOING" and not kf.busy:
 					break
 				var sr: Rect2 = kf.scene_rect()
-				var unten: float = ui.get("turns_unten") if ui.get("turns_unten") != null else ui.turns_top + ui.sp(13) * 1.35 + 4 * ui.dp
+				var unten: float = ui.turns_bottom     # 946: Unterkante der letzten Zeile (die Leiste bricht um)
 				for r in ui.sign_rects:
 					gesehen += 1
 					if r.position.y < unten - 0.5 or r.end.y > sr.size.y + 0.5:

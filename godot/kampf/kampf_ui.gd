@@ -123,6 +123,11 @@ static func ecke_dp(_vp: Viewport) -> float:
 ## und zeichnete die Zugleiste darunter. Dieselbe Höhe wie das Band (beim Start der Welt), sonst die sichere Fläche jetzt.
 var turns_top := 0.0     # Oberkante der Zugleiste (Test zugleiste_552)
 var turns_bottom := 0.0     # 997: Unterkante der Zugleiste
+## 946 (Chef 11.11., 13:29, Bild t276: „! Anspringen“ des hinteren Wolfs unter der Zugleiste, nur „!ger“ sichtbar): Ansagen und
+## Zustände bleiben unter der Zugleiste; die Grenze war fest 34 dp, die Leiste liegt aber unter dem Rand der Kamera (rand_oben) und
+## bricht mit vielen Kämpfern oder großer Schrift in eine zweite Zeile um (_draw_turns, Unterkante des letzten Bildes)
+func grenze_oben() -> float:
+	return maxf(34 * dp, turns_bottom + 3 * dp)
 func rand_oben() -> float:
 	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
 
@@ -2269,7 +2274,7 @@ func _draw_statuses(sr: Rect2) -> void:
 			spots.push_front(Vector2(sg.get_center().x - width / 2, sg.end.y + gap if under else sg.position.y - gap - h))
 		# Prüfer Runde 3: ging nichts davon, fiel es auf die Lage unter den Füßen zurück; dann höher über den Kopf, bis frei
 		var row := Rect2(clampf(x, 4 * dp, sr.size.x - width - 4 * dp), spots[3].y, width, h)
-		while _status_clash(row, id) and row.position.y - 26 * dp >= 34 * dp:
+		while _status_clash(row, id) and row.position.y - 26 * dp >= grenze_oben():
 			row.position.y -= 26 * dp
 		for q in spots:
 			var r := Rect2(clampf(q.x, 4 * dp, sr.size.x - width - 4 * dp), q.y, width, h)
@@ -2424,7 +2429,7 @@ func _draw_intents(sr: Rect2) -> void:
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
 		var frei := func(q: Vector2, mode: int) -> bool:
-			return q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
+			return q.y >= grenze_oben() and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
 		# 536 t270.10 (Chef 08.11., 20:54, Foto Wolfsrudel: „Klappt wohl nicht so, oder????“, wiederholt nach t268.20): die Ansagen
 		# hingen seitlich mit langer Linie statt dicht über dem Kopf (Messung ansage_536: mit Namen jede zweite). Wie alt zuerst über
 		# dem eigenen Kopf (über dem Namen), auch wenn dahinter ein anderer steht; deckt sie eine andere Ansage, einen Namen oder eine
@@ -2469,8 +2474,9 @@ func _draw_intents(sr: Rect2) -> void:
 		if not done:
 			# höher über dem eigenen Kopf, bis frei
 			var yy: float = s.y
-			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= 34 * dp:
+			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= grenze_oben():
 				yy -= step
+			yy = maxf(yy, grenze_oben())     # 946: lieber auf einem anderen als unter der Zugleiste
 			x = s.x
 			y = yy
 			sign_wahl[s.id] = [-1, 0, yy - s.y]
@@ -2485,7 +2491,7 @@ func _draw_intents(sr: Rect2) -> void:
 				glatt["ansage:" + String(s.id)] = [ziel - fuss, kampfort.clock_ms]
 				break
 		s.x = ziel.x
-		s.y = ziel.y
+		s.y = maxf(ziel.y, grenze_oben())     # 946: auch auf dem Weg zum neuen Platz nie unter die Zugleiste
 		placed.append(s)
 	sign_rects.clear()
 	sign_of.clear()
