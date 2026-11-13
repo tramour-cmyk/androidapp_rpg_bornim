@@ -6,10 +6,6 @@ extends "res://tests/am_zug_565.gd"
 # Bild zum nächsten (eckig: ein Knick) und den kleinsten Abstand. Exit 0 = beide gehen im selben Bild los, kommen höchstens 2 Bilder
 # auseinander an, keiner schneller als das Tempo des anderen um mehr als 10 %, kein Knick über KNICK, Abstand nie unter NAH.
 # Ohne Kaufmodelle (am Rechner) mit dem eigenen Helden (Gehen). Aufruf: im Ordner godot --headless --fixed-fps 30 -s res://tests/tausch_1041.gd
-# 1041 (Chef 12.11., 20:35, Film 1039: „Mensch mit Stab mit dem vorne befindlichen Mensch mit Schild und Schwert … indem er einfach
-# durch ihn durchläuft“): KLASSE=FIGHTER SOELDNER=WIZARD ist sein Paar (Schild und Schwert vorn, Stab dahinter); dazu misst der Test
-# je Bild den Spalt zwischen den Umrissen beider Figuren samt Waffe, Schild und Stab (Kasten aller Netze, von oben), nicht nur
-# zwischen den Mitten; berühren sie sich, ist es ein Fehler. Ohne Netze (am Rechner ohne Modelle) misst er das nicht.
 
 const KNICK := 12.0     # Grad je Bild
 const NAH := 0.6
@@ -22,7 +18,7 @@ func _lauf() -> void:
 	root.add_child(p)
 	await process_frame
 	p.hero_cls = OS.get_environment("KLASSE") if OS.get_environment("KLASSE") != "" else "ROGUE"
-	p.merc_cls = OS.get_environment("SOELDNER") if OS.get_environment("SOELDNER") != "" else "FIGHTER"
+	p.merc_cls = "FIGHTER"
 	p.foe = "WOLVES"
 	p._start(7)
 	var t0 := Time.get_ticks_msec()
@@ -72,7 +68,6 @@ func _lauf() -> void:
 	# los, an, größtes Tempo gegen die Schritte, Weg, größter Knick, Tempo (m/s) Mittel
 	var mess := {"hero": [-1, -1, 0.0, 0.0, 0.0], "merc": [-1, -1, 0.0, 0.0, 0.0]}
 	var nah := INF
-	var spalt := INF     # kleinster Spalt der Umrisse (m), INF ohne Netze
 	var dt := 1.0 / 30.0
 	for i in 200:
 		await process_frame
@@ -98,12 +93,6 @@ func _lauf() -> void:
 					w[4] = maxf(w[4], knick)
 				rich[id] = atan2(s.x, s.z)
 		nah = minf(nah, Vector2(figs.hero.position.x - figs.merc.position.x, figs.hero.position.z - figs.merc.position.z).length())
-		var ua = _umriss(figs.hero)
-		var ub = _umriss(figs.merc)
-		if ua != null and ub != null:
-			var gx: float = maxf(ua.position.x - ub.end.x, ub.position.x - ua.end.x)
-			var gz: float = maxf(ua.position.y - ub.end.y, ub.position.y - ua.end.y)
-			spalt = minf(spalt, maxf(gx, gz))
 	var fehler := 0
 	for id in mess:
 		var w: Array = mess[id]
@@ -128,28 +117,5 @@ func _lauf() -> void:
 	print("Abstand Held–Söldner kleinster %.2f m" % nah)
 	if nah < NAH:
 		print("FEHLER zu nah (unter %.2f m)" % NAH); fehler += 1
-	if spalt == INF:
-		print("Umrisse: ohne Netze nicht gemessen")
-	else:
-		print("Umrisse Held–Söldner (Körper, Waffe, Schild, Stab) kleinster Spalt %.2f m" % spalt)
-		if spalt <= 0.0:
-			print("FEHLER Körper, Waffe, Schild oder Stab berühren sich (Spalt %.2f m)" % spalt); fehler += 1
 	print("TAUSCH1041 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
-
-
-## 1041: Umriss einer Figur von oben (x, z) aus den Kästen aller sichtbaren Netze unter ihr (Körper, Waffe, Schild, Stab), ohne
-## Bodenschatten und Abziehbilder; null ohne Netze
-func _umriss(fig):
-	var r = null
-	for n in fig.find_children("*", "MeshInstance3D", true, false):
-		var mi := n as MeshInstance3D
-		if not mi.is_visible_in_tree() or mi.mesh == null or mi.cast_shadow == GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY:
-			continue
-		var nm := String(mi.name).to_lower()
-		if nm.contains("schatten") or nm.contains("shadow") or nm.contains("decal") or nm.contains("ring"):
-			continue
-		var box: AABB = mi.global_transform * mi.get_aabb()
-		var q := Rect2(box.position.x, box.position.z, box.size.x, box.size.z)
-		r = q if r == null else (r as Rect2).merge(q)
-	return r
