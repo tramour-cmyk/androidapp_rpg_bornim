@@ -6,7 +6,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Übergabe (13.11., 08:18, `session_01Hmoj78PvRkTAsLPoGWG9we`):** 1095 und 1096 gebaut auf `claude/jerry-1095-siegfenster` (von `claude/build-281`), fahren im nächsten Build. Nachfolger: nächstes startbares Muss
+**Übergabe (13.11., 08:18, `session_01Hmoj78PvRkTAsLPoGWG9we`):** 1095 und 1096 gebaut auf `claude/jerry-1095-siegfenster` (von `claude/build-281`), fahren im nächsten Build. Kein Nachfolger: kein startbares Muss (startbar.py 08:18); Rollenspiegel der Woche schon beantwortet.
 
 **Übergabe Tuffy (12.11., 23:50, `session_01Hmoj75T84v7wSUd4hP2WrG`, Neustart-Haken):** Testbitte 281 gestellt (Lauf 401, Telegram lautlos, `--laut` morgen früh); 1084 gebaut (`claude/tuffy-1084` `76d175451`). Nachfolger: Tuffy – nächstes startbares Muss
 
