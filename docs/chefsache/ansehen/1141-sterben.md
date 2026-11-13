@@ -1,5 +1,7 @@
 # 1141 · Goblins fallen rücklings und seitlich · Team Jerry · 13.11., 18:10
 
+[Film von 13.11., 18:09](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261113-180944-1141/2026-11/13-1809-1141-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 
 Beim Chef, weil: Aussehen einer Bewegung (Film).
