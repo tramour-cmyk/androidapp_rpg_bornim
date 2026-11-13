@@ -135,3 +135,4 @@
 2026-11-13 21:43:26	commit-pruefung	docs/chefsache/billigen/1236-gespraech.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-13 21:46:27	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31561 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 21:46:44	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31482 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-13 21:52:14	probelauf	407 (Chef 02.11., 07:18: „die ganze Nacht über jetzt 1000 Filmchen gedreht“): einen Lauf neu starten zählt der Haken nicht nach Vorgang; neu starten nur mit run_workflow (`mcp__github__actions_run_tri	claude/build-285
