@@ -376,6 +376,21 @@ def aufraeumen():
             m = ZEILE.match(l); return (m.group(4), m.group(3), m.group(1), m.group(2).replace("x", "9"))
         gestern = (JETZT - datetime.timedelta(days=1)).strftime("%d.%m.")
         technik = [l for l in zeilen if TECHNIK.search(l) and ZEILE.match(l).group(3) + "." + ZEILE.match(l).group(4) + "." in (JETZT.strftime("%d.%m."), gestern)]
+        # 1129.1 P4 (a): Startsperren und „Start-fehlt“ liest lauf.py nur 20 Minuten (SPERRE_MIN) bis 3 Stunden (START_PRUEF_STD) weit;
+        # älter als 6 Stunden fallen sie weg, außer der jüngsten Startsperre je Rolle (startmarken). 13.11.: 174 von 296 Zeilen, 58 KB Datei
+        def alter_h(l):
+            m = ZEILE.match(l)
+            try: d = JETZT.replace(day=int(m.group(3)), month=int(m.group(4)), hour=int(m.group(1)), minute=int(m.group(2).replace("x", "0")), second=0, microsecond=0)
+            except ValueError: return 0
+            return (JETZT - d).total_seconds() / 3600
+        juengste = {}
+        for l in technik:
+            m = re.search(r"Startsperre \d\d:\d\d Start (\w+(?:, \w+)*)", l)
+            if m:
+                for name in m.group(1).split(", "):
+                    if name not in juengste or alter_h(l) < alter_h(juengste[name]): juengste[name] = l
+        technik = [l for l in technik if alter_h(l) <= 6 or l in juengste.values()
+                   or not re.search(r"Startsperre \d|Marke Start-fehlt", l)]
         taten = sorted([l for l in zeilen if not TECHNIK.search(l)], key=zeit, reverse=True)[:PROTOKOLL_MAX]
         while kopf and not kopf[-1].strip(): kopf.pop()
         neu = t[:i] + "\n".join(kopf) + "\n\n" + "\n".join(taten + technik) + "\n"
