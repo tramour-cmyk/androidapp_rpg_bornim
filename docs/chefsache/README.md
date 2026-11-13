@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [867](entscheiden/867-menuehelden.md) | **Muss** | G Stil | 13.11., 01:42 | Vorlage 5: Zauberlehrling und Jägerkind zur Mitte gedreht, Gesicht zum Spieler; das Schwert der Wachsoldatin steht senkrecht mit der Spitze am Boden, der Schild lehnt neben ihr. Offen: sie stützt die Hände nicht auf das Schwert, die Arme hängen. | Tom |
+Nichts offen.
 
 ## Zu billigen
 
