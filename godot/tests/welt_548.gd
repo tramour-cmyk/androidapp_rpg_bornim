@@ -107,7 +107,8 @@ func _lauf() -> void:
 	for i in 60: await process_frame
 	k.finish()
 	t0 = Time.get_ticks_msec()
-	while (spiel.kampf != null or not spiel.visible) and Time.get_ticks_msec() - t0 < 15000: await process_frame
+	# 1025: der Kampf ist erst zu Ende, wenn auch Lohn, Stufe und Blende durch sind (spiel.gd kampf_laeuft); bis dahin beginnt kein zweiter
+	while (spiel.kampf != null or spiel.kampf_laeuft or not spiel.visible) and Time.get_ticks_msec() - t0 < 25000: await process_frame
 	for i in 30: await process_frame
 	# 2) Ratten der Karte, ohne Eingabe
 	for er in ["NORMAL", "AMBUSHED"]:
@@ -151,7 +152,7 @@ func _lauf() -> void:
 		for i in 60: await process_frame
 		k.finish()
 		t0 = Time.get_ticks_msec()
-		while (spiel.kampf != null or not spiel.visible) and Time.get_ticks_msec() - t0 < 15000: await process_frame
+		while (spiel.kampf != null or spiel.kampf_laeuft or not spiel.visible) and Time.get_ticks_msec() - t0 < 25000: await process_frame
 		for i in 30: await process_frame
 	print("WELT_548 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

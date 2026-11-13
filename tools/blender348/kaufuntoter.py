@@ -15,6 +15,7 @@
 # Aufruf: KAUF=<ordner> OUT=<ordner> [KIT=lumpen] python -I kaufuntoter.py  ->  <OUT>/zombie-<kit>.glb, zombie-info.json
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 T0 = time.time()
 import bpy
 import bmesh
@@ -65,13 +66,13 @@ IM_BODEN_ERLAUBT = ('Auferstehen',)                  # steigt aus dem Boden (wir
 def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
-    t = sorted(glob.glob(os.path.join(KAUF, '**', 'Base mesh.fbx'), recursive=True))
+    t = kaufquelle.alle(KAUF, 'Base mesh.fbx', 'UNTOTER')
     t = [p for p in t if 'Undead' in p] or t
     if not t:
         sys.exit('Base mesh.fbx (Evil Undead) nicht gefunden unter %s (evil.undead.zip und darin Base mesh.zip, Animations.zip, '
                  'Textures.zip entpackt?)' % KAUF)
     stamm = os.path.dirname(os.path.dirname(os.path.dirname(t[0])))
-    anim = sorted(glob.glob(os.path.join(stamm, '**', 'EvilUndead@idle1.fbx'), recursive=True))
+    anim = kaufquelle.alle(stamm, 'EvilUndead@idle1.fbx', 'UNTOTER')
     tex = sorted(glob.glob(os.path.join(stamm, '**', 'T_EvilUndead_Albedo.tga'), recursive=True))
     if not anim or not tex:
         sys.exit('Bewegungen oder Bilder des Evil Undead fehlen unter %s' % stamm)

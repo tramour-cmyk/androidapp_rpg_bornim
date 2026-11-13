@@ -52,6 +52,9 @@ func _verjagen(spiel, alt, wurf: int) -> Object:
 	var s = k.mars.spaeher_zum_verjagen()
 	var h = k.mars.lead()
 	print("Chance %.0f %% (Einschüchtern %d, Stufe %d gegen %d)" % [k.mars.einschuechtern_chance(h, s), int(h.b.get("fert", {}).get("Einschüchtern", 0)), int(h.b.get("stufe", 1)), int(s.b.get("stufe", 1))])
+	# 1084 (1051 A): 30 % + 0,6 je Punkt Einschüchtern + 5 je Stufe über dem Späher, 5 bis 95
+	var soll := clampf(30.0 + 0.6 * float(h.b.get("fert", {}).get("Einschüchtern", 0)) + 5.0 * float(int(h.b.get("stufe", 1)) - int(s.b.get("stufe", 1))), 5.0, 95.0)
+	pruefe("Chance nach 1051 A (%.1f %%)" % soll, absf(k.mars.einschuechtern_chance(h, s) - soll) < 0.01, "%.2f" % k.mars.einschuechtern_chance(h, s))
 	var echt = k.mars.dice
 	k.mars.dice = Wuerfel.new([wurf])
 	k.tor_wahl(true)

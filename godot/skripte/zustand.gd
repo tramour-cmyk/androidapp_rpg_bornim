@@ -33,6 +33,7 @@ var gehoert := {}                      # 399.1 Person -> Fingerabdruecke der let
 var uid_zaehler := 0                   # GameState.uidCounter
 var gespielt_ms := 0                   # 529 (GameState.playedMs, PlayClock): gespielte Zeit fuer die Karte des Spielstands
 var varianten := {}                    # 504.1 Marke -> [wie oft gehoert, letzte Wahl] (Skript.variante)
+var erkundet := {}                     # 505 Karte -> hex, je Ziffer 4 Kacheln, die der Held je gesehen hat (GameState.explored)
 var gepflueckt := {}                   # 490 „Karte:x:y“ -> Tag, an dem dort Heilkraut gepflueckt wurde (GameState.picked)
 
 func has(f: String) -> bool: return flaggen.has(f)
@@ -81,7 +82,8 @@ func als_daten() -> Dictionary:
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege, "schritte": schritte,
 		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true), "aussehen": aussehen.duplicate(),
-		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "fert": fert.duplicate(true), "brs_stufe": brs_stufe.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true)}
+		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "fert": fert.duplicate(true), "brs_stufe": brs_stufe.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true),
+		"erkundet": erkundet.duplicate()}
 
 ## 471: Stand der Fertigkeiten nach BRS, beim ersten Mal aus den Startfertigkeiten des Helden (leer ohne BRS-Held)
 func fertigkeiten_stand() -> Dictionary:
@@ -96,10 +98,10 @@ func stufe_brs() -> Dictionary:
 ## 471: eine Taetigkeit ausserhalb des Kampfs (Kraeuter pfluecken, Handeln im Laden) uebt [f] einmal, Ziel der eigenen Stufe; die
 ## Ereignisse sammeln sich fuer die naechste Notiz (fert_notiz)
 var fert_ev: Array = []
-func uebe(f: String) -> void:
+func uebe(f: String, menge := -1.0) -> void:   # 842: menge < 0 wie BrsFertigkeit.uebe (Uebung je Benutzung)
 	var s := fertigkeiten_stand()
 	if s.is_empty(): return
-	fert_ev.append_array(BrsFertigkeit.uebe(s, stufe_brs(), f, stufe()))
+	fert_ev.append_array(BrsFertigkeit.uebe(s, stufe_brs(), f, stufe(), menge))
 	spiegle()
 
 ## 471: die geuebten Werte auch in brs.fertigkeiten (Heldenreiter 762 liest dort), nur Bekanntes
@@ -143,4 +145,5 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	for k in d.get("gepflueckt", {}): z.gepflueckt[String(k)] = int(d["gepflueckt"][k])
 	z.gespielt_ms = int(d.get("gespielt_ms", 0))
 	for k in d.get("varianten", {}): z.varianten[String(k)] = [int(d["varianten"][k][0]), int(d["varianten"][k][1])]   # 504.1
+	for k in d.get("erkundet", {}): z.erkundet[String(k)] = String(d["erkundet"][k])   # 505
 	return z

@@ -166,7 +166,7 @@ static var probe_herkunft := "Wachsoldat"
 static var probe_volk := "Mensch"
 static var probe_waffe := "*"           # Grundform, "" ohne Waffe, "*" wie die Herkunft
 static var probe_neben := "*"           # NEBENHAND oder "*"
-static var probe_soeldner := "*"        # "*" wie der Held, "" keiner, sonst Herkunft
+static var probe_soeldner := ""         # "*" wie der Held, "" keiner, sonst Herkunft; 947 (Chef 11.11., t276.12): keiner wie in Kapitel 1 (168 D: Söldner ab K3)
 static var probe_tasche := "zwei"
 static var probe_leben := "voll"
 static var probe_zeit := ""             # "" nach der Spieluhr
@@ -481,6 +481,25 @@ static func reiter(m: Menue) -> void:
 			func():   # Game.cheatLoot
 				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw))   # 870.6: nach seinen Fertigkeiten
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
+	# 756.1: Schlecht gibt es im Spiel erst mit 976 (Herstellen); fuer die Prüfliste je Güte ein Stück, damit alle vier Zeichen
+	# nebeneinander in der Tasche liegen (Schlecht roter Punkt, Normal keins, Gut ein Goldpunkt, Meisterhaft zwei)
+	m.zeichenreihe([zk.call(t.call("Vier Güten", "Four qualities"), null,
+		t.call("Legt je ein Stück Schlecht, Normal, Gut und Meisterhaft auf der Stufe des Helden in die Tasche.",
+			"Puts one item each of Poor, Common, Fine and Masterwork at the hero's level into the bag."),
+		func():
+			vier_gueten(z, hw)
+			m.meldung(t.call("Erhalten: vier Stücke, je Güte eins", "Received: four items, one per quality")), "GEM")])
+
+## 756.1: dieselbe Waffe viermal, Güte Schlecht, Normal, Gut, Meisterhaft (-1 bis 2), in die Tasche; gibt die vier Stücke zurück
+static func vier_gueten(z: Zustand, hw: BrsHeld) -> Array:
+	var b0 := Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, "COMMON", hw, "MAIN_HAND")
+	var aus: Array = []
+	for gu in [-1, 0, 1, 2]:
+		var b: Dictionary = b0.duplicate(true)
+		b["uid"] = z.neue_uid()
+		b["guete"] = gu
+		aus.append(z.ausruestung_dazu(b))
+	return aus
 
 # 1020.2 B (Chef 12.11., 08:09): der Probekampf als Baukasten. 1034 (Chef 12.11., 14:34–14:38): ein Probekampf für alles, mit dem
 # Spielhelden (zählt im Spielstand) oder dem Testhelden (Spielstand unberührt; Herkunft, Volk, Stufe, Waffe, Leben, Tasche nur für ihn);
@@ -565,6 +584,90 @@ static func probekampf(m: Menue, t: Callable, zk: Callable, reihe: Callable, fs:
 			t.call("Der erste Angriff auf den Helden im Probekampf geht fehl: er weicht aus, mit Schild wehrt er ab.", "The first attack on the hero in the trial fight misses: he dodges, with a shield he blocks."),
 			func(): probe_ausweichen = not probe_ausweichen, "", "↷", probe_ausweichen)])
 	reihe.call([[t.call("Probekampf starten", "Start trial fight"), func(): m.test.emit("probe", [probe_gegner, probe_herkunft, probe_stufe, true, probe_held])]])
+
+# 1156 (Vorlage 1020 D Stufe 2): die Lage einer Zeile der Prüfliste (Abschnitt „## Lagen“, tools/pruefliste.py), die der Knopf
+# „Lage herstellen“ herstellt (spiel.gd lage_herstellen). Werte wie die Knöpfe dieses Reiters.
+const LAGE_TASCHEN := ["zwei", "keine", "voll"]
+const LAGE_LEBEN := ["voll", "halb", "knapp"]
+const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
+const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
+	"waffe", "neben", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort"]
+
+## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
+static func lage_uhr(s: String) -> int:
+	var t := s.split(":")
+	if t.size() > 2 or not t[0].is_valid_int() or (t.size() == 2 and not t[1].is_valid_int()): return -1
+	var h := int(t[0])
+	var mi := int(t[1]) if t.size() == 2 else 0
+	return h * 60 + mi if h >= 0 and h < 24 and mi >= 0 and mi < 60 else -1
+
+## was an der Lage nicht stimmt, je Fehler ein Satz; leer: herstellbar
+static func lage_fehler(l: Dictionary) -> Array:
+	var f := []
+	var in_ := func(k: String, liste: Array) -> void:
+		if l.has(k) and not liste.has(String(l[k])):
+			f.append("%s=%s unbekannt (%s)" % [k, l[k], ", ".join(PackedStringArray(liste.map(func(x): return String(x))))])
+	for k in l:
+		if not LAGE_SCHLUESSEL.has(String(k)): f.append("Schlüssel %s unbekannt" % k)
+	in_.call("station", STATIONEN.map(func(s_): return String(s_[0])) + ["Kapitelende"])
+	if l.has("ort"):
+		var o := String(l["ort"]).split(":")
+		if o.size() < 3 or not o[1].is_valid_int() or not o[2].is_valid_int() or not da(o[0]): f.append("ort=%s: Karte:x:y[:Blick], Karte im Spiel" % l["ort"])
+		elif o.size() > 3 and not ["UP", "DOWN", "LEFT", "RIGHT"].has(o[3]): f.append("ort=%s: Blick UP, DOWN, LEFT oder RIGHT" % l["ort"])
+	if l.has("uhr") and lage_uhr(String(l["uhr"])) < 0: f.append("uhr=%s: HH:MM" % l["uhr"])
+	if l.has("merker"):
+		var ids := MERKER.map(func(m_): return String(m_[0]))
+		for w in String(l["merker"]).split(",", false):
+			if not ids.has(w.trim_prefix("+").trim_prefix("-")): f.append("merker %s unbekannt" % w)
+	for k in ["stufe", "pstufe"]:
+		if l.has(k) and not String(l[k]).is_valid_int(): f.append("%s=%s keine Zahl" % [k, l[k]])
+	in_.call("probe", feinde(true).keys())
+	in_.call("held", PROBE_HELDEN)
+	in_.call("herkunft", BrsHeld.herkuenfte())
+	in_.call("volk", BrsHeld.voelker())
+	in_.call("waffe", probe_waffen())
+	in_.call("neben", ["*"] + NEBENHAND)
+	in_.call("soeldner", ["*", ""] + BrsHeld.herkuenfte())
+	in_.call("tasche", LAGE_TASCHEN)
+	in_.call("leben", LAGE_LEBEN)
+	in_.call("zeit", PROBE_ZEITEN)
+	in_.call("zug", PROBE_ZUEGE)
+	in_.call("eroeffnung", LAGE_EROEFFNUNGEN)
+	in_.call("kampfort", kampforte().keys())
+	return f
+
+## setzt die Wahl des Probekampfs aus der Lage und gibt die Angaben für „probe“ zurück (wie „Probekampf starten“); [] ohne probe
+static func lage_probe(l: Dictionary) -> Array:
+	if not l.has("probe"): return []
+	probe_gegner = String(l["probe"])
+	probe_held = String(l.get("held", "test"))
+	if l.has("herkunft"): probe_herkunft = String(l["herkunft"])
+	if l.has("volk"): probe_volk = String(l["volk"])
+	if l.has("pstufe"): probe_stufe = int(l["pstufe"])
+	probe_waffe = String(l.get("waffe", "*"))
+	probe_neben = String(l.get("neben", "*"))
+	probe_soeldner = String(l.get("soeldner", ""))
+	probe_tasche = String(l.get("tasche", "zwei"))
+	probe_leben = String(l.get("leben", "voll"))
+	probe_zeit = String(l.get("zeit", ""))
+	probe_zug = String(l.get("zug", ""))
+	probe_ausweichen = l.has("ausweichen")
+	if l.has("eroeffnung"): eroeffnung = String(l["eroeffnung"])
+	if l.has("kampfort"): kampfort = String(l["kampfort"])
+	return [probe_gegner, probe_herkunft, probe_stufe, true, probe_held]
+
+## kurz, was der Knopf herstellt („Station Garrick · 20:30 Uhr · Probekampf Grak“)
+static func lage_text(l: Dictionary, de: bool) -> String:
+	var t := []
+	if l.has("station"): t.append("Station " + String(l["station"]))
+	elif l.has("ort"): t.append(String(l["ort"]).split(":")[0])
+	if l.has("uhr"): t.append(String(l["uhr"]) + (" Uhr" if de else ""))
+	if l.has("stufe"): t.append(("Stufe " if de else "Level ") + String(l["stufe"]))
+	if l.has("merker"): t.append(("Geschichte " if de else "Story ") + String(l["merker"]))
+	if l.has("vorraete"): t.append("Vorräte" if de else "Supplies")
+	if l.has("einmaliges"): t.append("Einmaliges" if de else "One-time")
+	if l.has("probe"): t.append(("Probekampf " if de else "Trial fight ") + String(feinde(true).get(String(l["probe"]), l["probe"])))
+	return " · ".join(PackedStringArray(t))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric
 static func vor_aldric() -> Array: return vor_person("elder", "aldric")
