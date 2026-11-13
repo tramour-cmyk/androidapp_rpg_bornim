@@ -1,5 +1,7 @@
 # 756 · Zeichen für Schlecht: Vorlage mit vier Varianten · Team Tom (Spike) · 13.11., 11:52
 
+[Bild von 13.11., 11:52](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-1152-756-Spike.png) (eingetragen von meldung.sh, Spike)
+
 E Oberfläche
 
 Geprüft an: [Commit fc26a112a](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/fc26a112a) (Bildlauf am Rechner, Test `schlecht_bild_756`)
