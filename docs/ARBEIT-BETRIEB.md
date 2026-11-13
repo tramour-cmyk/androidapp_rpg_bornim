@@ -316,3 +316,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 13.11.: Startsperre 06:04 Start Jerry (lauf.py)
 - 06:04 13.11.: Marke Archiv session_01Hmoj79qGhEdjuvdUYbpj3h (lauf.py)
 - 06:04 13.11.: Marke Archiv session_01Hmoj78CkDSPDMASL6K5Kd8 (lauf.py)
+- 07:05 13.11.: Startsperre 07:05 Start Sokrates (Ford, Neustart-Meldung bde5bf823, Nachfolger „Sokrates – 1077: Chefrunde Morgenliste (13.11.)“; Hoch, effort high)
