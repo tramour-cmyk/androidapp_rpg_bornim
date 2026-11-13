@@ -488,7 +488,7 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
 	var rahmen_ := Menue.stueck_rahmen(g, 42)
-	if merkmale and not hw.kann_tragen(g): rahmen_.modulate.a = 0.5   # 756 Probe: wie die Wechselliste
+	if merkmale and not hw.kann_tragen(g): rahmen_.modulate.a = 0.5   # 756: wie die Wechselliste
 	r.add_child(rahmen_)
 	var s := VBoxContainer.new()
 	s.add_theme_constant_override("separation", 0)
@@ -849,7 +849,7 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	elif hat_kennwert(g):
 		z_.append(fett.call(Stil.txt(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16)))
 	if hat_kennwert(g): z_.append(Stil.txt(guete_text(g, de), 14, Stil.TEXT))
-	if merkmale and zustand_von(g) > 0: z_.append(Stil.txt(zustand_text(g, de), 14, zustand_farbe(g)))   # 756 Probe
+	if merkmale and zustand_von(g) > 0: z_.append(Stil.txt(zustand_text(g, de), 14, zustand_farbe(g)))   # 756
 	if fertigkeit_text(g, de) != "": z_.append(Stil.txt(fertigkeit_text(g, de), 13, Stil.DIM))
 	# Zusatzeigenschaften (870.7: Wortlaut Beute.zusatz_text, STORY-BRS-HELD.md), blau wie alt
 	for r in g["rolls"]:
@@ -1333,7 +1333,7 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	elif hat_kennwert(g):
 		z_.append(fett.call(satz.call(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16, Stil.TEXT)))
 	if hat_kennwert(g): z_.append(satz.call(guete_text(g, de), 14, Stil.TEXT))
-	if merkmale and zustand_von(g) > 0: z_.append(satz.call(zustand_text(g, de), 14, zustand_farbe(g)))   # 756 Probe
+	if merkmale and zustand_von(g) > 0: z_.append(satz.call(zustand_text(g, de), 14, zustand_farbe(g)))   # 756
 	if fertigkeit_text(g, de) != "": z_.append(satz.call(fertigkeit_text(g, de), 13, Stil.DIM))
 	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
 	if not g.get("rolls", []).is_empty():
@@ -1445,13 +1445,18 @@ static func stueck_rahmen(g: Dictionary, dp: float) -> Control:
 	if merkmale: Menue.merkmal_ecken(p, g, c.get_child(0))
 	return p
 
-# ---------------------------------------------------------------- 756 Merkmale am Bild (Probe)
+# ---------------------------------------------------------------- 756 Merkmale am Bild
 # 756 A (Chef 09.11., 17:46: „Probebild Merkmale jetzt“; Vorschlag Sokrates 14:28): feste Stellen am Bild eines Stuecks, hoechstens drei
 # Zeichen zugleich: Rahmenfarbe = Seltenheit (wie bisher), oben rechts „2H“ (wie bisher), oben links die Guete (Normal nichts, Gut ein
-# Goldpunkt, Meisterhaft zwei, Schlecht ein matter Ring; Schlecht kommt mit 976), unten der Zustand als Balken nur bei Abnutzung
-# (Beschaedigt gelb, Defekt rot, das Bild entsaettigt; Benutzt ohne Balken); nicht Tragbares abgedunkelt. Zustand gibt es im Spiel noch
-# nicht (DESIGN-BRS.md 11: eigener Vorgang nach dem Umzug), gelesen wird „zustand“ 0–3 am Stueck. Aus, bis der Chef das Bild abnimmt (228).
-static var merkmale := false
+# Goldpunkt, Meisterhaft zwei, Schlecht ein eigenes Zeichen nach SCHLECHT; Schlecht kommt mit 976), unten der Zustand als Balken nur bei
+# Abnutzung (Beschaedigt gelb, Defekt rot, das Bild entsaettigt; Benutzt ohne Balken); nicht Tragbares abgedunkelt. Zustand gibt es im
+# Spiel noch nicht (DESIGN-BRS.md 11: eigener Vorgang nach dem Umzug), gelesen wird „zustand“ 0–3 am Stueck.
+# An seit dem „passt“ des Chefs (12.11., 20:14: „Einer wäre gut und 2 wären dann das Beste“).
+static var merkmale := true
+## Zeichen fuer Schlecht (Chef 12.11., 20:23: „Vorlage … mit rostbraun oder dunkelrot oder halbvoll oder voll oder Ring“): [Form, Farbe];
+## gilt SCHLECHT[schlecht_art], bis der Chef in der Vorlage waehlt; ein Stueck mit „schlecht_art“ zeigt seine eigene (nur die Vorlage)
+const SCHLECHT := [["ring", Color("9a5530")], ["ring", Color("9c2c24")], ["halb", Color("9c2c24")], ["voll", Color("9c2c24")]]
+static var schlecht_art := 0
 const ZUSTAND := [["Makellos", "Pristine"], ["Benutzt", "Worn"], ["Beschädigt", "Damaged"], ["Defekt", "Broken"]]   # DESIGN-BRS.md 11
 const ZUSTAND_GELB := Color("d9b24a")
 const ZUSTAND_ROT := Color("c4523c")
@@ -1485,8 +1490,22 @@ static func merkmal_ecken(p: Control, g: Dictionary, bild: Control = null, balke
 		var r := clampf(minf(s.x, s.y) / 17.0, 2.0 * DP, 3.2 * DP)
 		var rand := 3.5 * DP + r
 		if gu == -1:
-			o.draw_circle(Vector2(rand, rand), r + 1.0 * DP, Color(0, 0, 0, 0.85))
-			o.draw_arc(Vector2(rand, rand), r * 0.8, 0.0, TAU, 20, Stil.DIM, 1.2 * DP, true)
+			# so gross und deutlich wie ein Goldpunkt (Chef 12.11., 20:14: „So ein hohler wäre schlecht“), auf schwarzem Hof wie die Punkte
+			var sz: Array = SCHLECHT[clampi(int(g.get("schlecht_art", schlecht_art)), 0, SCHLECHT.size() - 1)]
+			var mi := Vector2(rand, rand)
+			var fa: Color = sz[1]
+			o.draw_circle(mi, r + 1.0 * DP, Color(0, 0, 0, 0.85))
+			match String(sz[0]):
+				"voll": o.draw_circle(mi, r, fa)
+				"halb":
+					var w := 0.32 * r
+					o.draw_arc(mi, r - w * 0.5, 0.0, TAU, 32, fa, w, true)
+					var pk := PackedVector2Array()
+					for i in 17: pk.append(mi + Vector2.from_angle(PI * i / 16.0) * (r - w * 0.5))   # untere Haelfte voll
+					o.draw_colored_polygon(pk, fa)
+				_:
+					var w := 0.45 * r
+					o.draw_arc(mi, r - w * 0.5, 0.0, TAU, 32, fa, w, true)
 		for i in maxi(gu, 0):
 			var m_ := Vector2(rand + i * (2.0 * r + 2.0 * DP), rand)
 			o.draw_circle(m_, r + 1.0 * DP, Color(0, 0, 0, 0.85))
@@ -1536,7 +1555,7 @@ func fach(platz: String) -> Control:
 		sp.add_child(n)
 		rahmen.add_child(sp)
 	else: rahmen.add_child(n)
-	if merkmale and g != null: Menue.merkmal_ecken(rahmen, g, rahmen.get_child(0).get_child(0), true)   # 756 Probe
+	if merkmale and g != null: Menue.merkmal_ecken(rahmen, g, rahmen.get_child(0).get_child(0), true)   # 756
 	v.add_child(rahmen)
 	var p := Stil.txt(platzname(platz), 11, Stil.DIM)
 	p.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

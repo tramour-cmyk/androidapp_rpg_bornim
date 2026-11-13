@@ -1,7 +1,7 @@
 extends SceneTree
 # 756 A (Chef 09.11., 17:46: „Sperren zeigen“): das Gegenstandsfenster sagt, warum „Anlegen“ matt ist ([870.14.ding.stufe]
 # „Erst ab Heldenstufe %d.“, 644a A), zuerst und hervorgehoben; nicht an Getragenem (bleibt angelegt). Zustand und Zeichen am Bild nur
-# mit Menue.merkmale (Probe, aus bis zum Urteil des Chefs).
+# mit Menue.merkmale (an seit dem „passt“ des Chefs 12.11., 20:14); Schlecht in vier Varianten (Vorlage, Chef 20:23).
 # Ohne Bildbefehl. Aufruf: im Ordner godot mit -s res://tests/sperre_756.gd -> „SPERRE756 n Fehler“
 
 var fehler := 0
@@ -26,6 +26,8 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
+	pruefe(Menue.merkmale, "Menue.merkmale ist aus (an seit 756 passt)")
+	Menue.merkmale = false
 	var hoch := {"uid": z.neue_uid.call(), "base": "longsword", "rarity": "COMMON", "ilvl": 3, "guete": 1, "zustand": 2, "rolls": [], "unique": null, "name_seed": 1}
 	var tief := {"uid": z.neue_uid.call(), "base": "shortsword", "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": null, "name_seed": 1}
 	pruefe(hw.stufe < 3 and not hw.kann_tragen(hoch), "Held der Stufe %d kann ein Stück der Stufe 3 anlegen" % hw.stufe)
@@ -40,15 +42,21 @@ func _lauf() -> void:
 	hw.ausruestung["MAIN_HAND"] = hoch
 	pruefe(not texte(Menue.stueck_zeilen_b(hw, hoch)).contains("Heldenstufe"), "Sperre an Getragenem")
 	hw.ausruestung.erase("MAIN_HAND")
-	# Probe: Zustand im Fenster, Zeichen am Bild
+	# Zustand im Fenster, Zeichen am Bild
 	Menue.merkmale = true
 	var t2 := texte(Menue.stueck_zeilen_b(hw, hoch))
-	pruefe(t2.contains("Zustand: Beschädigt") and t2.contains("Güte: Gut"), "Probe ohne Zustand oder Güte: %s" % t2)
+	pruefe(t2.contains("Zustand: Beschädigt") and t2.contains("Güte: Gut"), "ohne Zustand oder Güte: %s" % t2)
 	var r := Menue.stueck_rahmen(hoch, 46)
-	pruefe(r.get_child_count() == 2, "Probe: Zeichen fehlen am Bild (%d Kinder)" % r.get_child_count())
+	pruefe(r.get_child_count() == 2, "Zeichen fehlen am Bild (%d Kinder)" % r.get_child_count())
 	var schlicht := Menue.stueck_rahmen(tief, 46)
-	pruefe(schlicht.get_child_count() == 1, "Probe: Zeichen an normalem, makellosem Stück")
+	pruefe(schlicht.get_child_count() == 1, "Zeichen an normalem, makellosem Stück")
 	r.free(); schlicht.free()
-	Menue.merkmale = false
+	# Schlecht (mit 976): jede Variante legt ein Zeichen ans Bild
+	for art in Menue.SCHLECHT.size():
+		var sl := tief.duplicate()
+		sl["guete"] = -1; sl["schlecht_art"] = art
+		var rs := Menue.stueck_rahmen(sl, 46)
+		pruefe(rs.get_child_count() == 2, "Schlecht, Variante %d: kein Zeichen am Bild" % art)
+		rs.free()
 	print("SPERRE756 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
