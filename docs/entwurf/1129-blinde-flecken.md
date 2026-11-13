@@ -97,4 +97,4 @@ Perikles, 13.11., 13:08. Messung 12:59–13:06 über 7 Tage (Git `main`, `startb
 - Vorschlag: kein eigener. P1 bis P5 und S1 senken ihn. Als Maß dient B unter 15 % in der Woche ab 16.11. (Z5 Perikles).
 - Gegenargument: Ein Teil von B ist Werkzeugbau, der später Spielzeit spart. Dagegen: Das soll man dann am sinkenden B sehen.
 
-**Sofort selbst (Werkzeug, ohne Vorlage):** P1 `OHNE-ÜBERHOLT` und Engpass-Zahl, P2 (a), P3, P4 (a). Jeweils als Prüfzeile an Diogenes (421). Zur Entscheidung beim Chef: P2 (b), P4 (b), P6.
+**Selbst gebaut, 13:09–13:13 (Werkzeug, Prüfzeile an Diogenes, `cd2cdc1cc`):** P1 `OHNE-ÜBERHOLT` (`e466b8d45`), P2 (a) (`279416a1f`), P3 `hakenzahl.py` (`c660c954e`), P4 (a) (Protokoll 58 → 44 KB nach Fords nächstem Lauf). Noch nicht gebaut: die Engpass-Zahl aus P1. Sie wirkt heute nur auf 882.1, und das steht bei Tom ohnehin oben. Beim Chef zu entscheiden: P2 (b), P4 (b) und (c), P6. An Diogenes geht P5.
