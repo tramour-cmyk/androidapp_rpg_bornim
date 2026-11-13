@@ -62,7 +62,7 @@ Neuer Godot-Test: sperrend in `godot.yml` „Skripte pruefen“; prüft er ohne 
 
 ### Sitzungsstart
 
-`.claude/settings.json` startet `tools/setup-session.sh --warm`: holt Godot, falls es fehlt (`~/godot/godot`, Fassung aus `godot.yml`), und bereitet im Hintergrund Daten und Import für `tools/t logik` vor (`/tmp/bornim-warm.log`). Fehlt etwas: `tools/setup-session.sh` von Hand, dann `tools/t pruef`.
+`.claude/settings.json` startet `tools/setup-session.sh --warm`: holt Godot, falls es fehlt (`~/godot/godot`, Fassung aus `godot.yml`), und bereitet im Hintergrund Daten und Import für `tools/t logik` vor (`/tmp/bornim-warm.log`). Solange `core/` da ist (bis 882.1, 870.10), legt es auch den Gradle-Spiegel für `wald_daten.sh` und `tools/pruef348/*.sh` an (Maven Central weist die Cloud mit 429 ab; 1207). Fehlt etwas: `tools/setup-session.sh` von Hand, dann `tools/t pruef`.
 
 ### Bauen (GitHub)
 
