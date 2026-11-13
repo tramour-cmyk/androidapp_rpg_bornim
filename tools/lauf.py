@@ -33,6 +33,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
   (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
+             Steht statt NR ein Rollenname (auch Spike, Tuffy), fällt die Rolle ganz aus dem Lauf: kein START, keine Zusatzentwickler-Zeile, kein ARCHIVIERE, keine Warnung „Start nicht angekommen“ (1148).
+             Dasselbe tut die Marke „Lauf läuft bis HH:MM“ oben im Vorrat, solange die Zeit nicht vorbei ist (Hintergrundlauf in der Sitzung; bei Spike und Tuffy mit Namen in Klammern).
 --wecker ID[,ID]  (mehrfach) Sitzungen mit offenem eigenem Weckruf (list_triggers: enabled, next_run_at in der Zukunft, persistent_session_id) gelten als laufend:
              belegen ihre Rolle (auch Spike/Tuffy), werden nicht archiviert und bekommen kein WEITER, auch nach 20 oder 60 Minuten Ruhe (916, Tuffy 784 am 11.11.).
 --ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
@@ -262,6 +264,21 @@ def haelt(nr_sitzung, nummern):
 NACHFOLGER = re.compile(r"Nachfolger:\*{0,2}\s*(.+)")
 UEBERGABE = re.compile(r"Übergabe \((\d\d)\.(\d\d)\.,? (\d\d):(\d)([\dx])")
 
+def lauf_laeuft(rolle):
+    """1148 (von Ford): Marke „Lauf läuft bis HH:MM“ oben im Vorrat — ein Hintergrundlauf (Render, Messung) hält die Sitzung
+    belegt, obwohl sie idle aussieht; bis zu dieser Uhrzeit heute startet und archiviert Ford die Rolle nicht.
+    Die Sitzung setzt die Marke selbst und streicht sie, wenn der Lauf fertig ist; abgelaufen gilt sie nicht."""
+    if rolle not in VORRAT: return None
+    for m in re.finditer(r"Lauf läuft bis (\d\d):(\d\d)(?:\s*\((\w+)\))?", startbar.lesen(VORRAT[rolle])[:4000]):
+        wer = m.group(3)  # Spike und Tom teilen den Vorrat: ohne Namen gilt die Marke für das Team, mit Namen für ihn
+        if wer and wer != rolle: continue
+        if not wer and rolle in startbar.ZUSATZ: continue
+        try: bis = JETZT.replace(hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0)
+        except ValueError: continue
+        if bis >= JETZT: return m.group(0)
+    return None
+
+
 def nachfolger(rolle):
     """(Titel, Übergabezeit, Rohtext) aus der Übergabe im Vorrat, sonst (None, None, Grund); Titel None + Grund „bedingt“ lässt die Zeilenregel gelten."""
     inhalt = startbar.lesen(VORRAT[rolle])
@@ -468,6 +485,9 @@ def main():
             nr, _, grund = a[i + 1].partition(":")
             if grund.strip(): ausschluss[nr.strip()] = grund.strip()
             else: print("WARNUNG --ohne %s ohne Grund ignoriert (190.2)" % nr)
+    # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START, auch als Zusatzentwickler,
+    # ARCHIVIERE und die Warnung „Start nicht angekommen“); vorher wirkte nur --ohne <Nr>, und Ford bekam weiter START Spike
+    ohne_rollen = {n for n in ausschluss if re.fullmatch(startbar.ROLLEN_NAMEN, n)}
     seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker"))]
     if not seiten: sys.exit(__doc__)
     offen = []; alle = {}
@@ -563,6 +583,7 @@ def main():
                 if not marke_zeit("Ohne-Rolle " + s["id"]):
                     ausgabe.append("WARNUNG Sitzung %s „%s“ hat keine Rolle im Titel: bleibt stehen, nicht archiviert (261.5)" % (s["id"], s.get("title", ""))); neue_marken.append("Ohne-Rolle " + s["id"])
             continue
+        if r in ohne_rollen or lauf_laeuft(r): continue  # 1148: --ohne <Rolle> und „Lauf läuft bis HH:MM“ nehmen sie ganz aus dem Lauf
         for s in ss:
             _, laufend, ruhig, hinder = s["_info"]
             if laufend: continue
@@ -615,7 +636,7 @@ def main():
     nicht_da = set()
     for name, d in sorted(marken.items()):  # nur die jüngste Sperre je Rolle; ein späterer Start ersetzt einen früheren
         alter = (JETZT - d).total_seconds() / 60
-        if alter < START_PRUEF_MIN or alter > START_PRUEF_STD * 60 or start_angekommen(name, d, alle): continue
+        if alter < START_PRUEF_MIN or alter > START_PRUEF_STD * 60 or start_angekommen(name, d, alle) or name in ohne_rollen: continue  # 1148
         nicht_da.add(name)
         schl = "Start-fehlt %s %s" % (name, d.strftime("%d.%m.-%H:%M"))
         if schl in marke_alt or schl in neue_marken: continue
@@ -638,6 +659,10 @@ def main():
             noch_offen(ausgabe, r, nummern_aus_titel(s.get("title", "")))
             if not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
     for r in START_REIHE:
+        if r in ohne_rollen:  # 1148
+            ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r, r, ausschluss[r])); continue
+        if (lm := lauf_laeuft(r)):  # 1148: Hintergrundlauf in der Sitzung
+            ausgabe.append("NICHTS %s: „%s“ im Vorrat, Hintergrundlauf in der Sitzung" % (r, lm)); continue
         muss, kuer, pause, _ = st.get(r, ([], [], None, []))
         # Hindernis hält nur die Sitzung der Zeile, nicht die Rolle (190.4)
         belegt = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN and not liegt)]
@@ -715,6 +740,10 @@ def main():
     # endete Spike ohne neuen Stand, startet er auf dieser Zeile wieder, sobald Tom belegt ist.
     def laeuft(rr): return [s for s in je_rolle.get(rr, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
     for team, zusatz in (("Tom", "Spike"), ("Jerry", "Tuffy")):
+        if zusatz in ohne_rollen:  # 1148: --ohne Spike nimmt auch die Zusatzentwickler-Zeile aus
+            ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (zusatz, zusatz, ausschluss[zusatz])); continue
+        if (lm := lauf_laeuft(zusatz)):  # 1148
+            ausgabe.append("NICHTS %s: „%s“ im Vorrat, Hintergrundlauf in der Sitzung" % (zusatz, lm)); continue
         team_s = laeuft(team); zus_s = laeuft(zusatz)
         team_start = [l for l in ausgabe if l.startswith("START %s " % team) or (l.startswith("WEITER ") and " | %s | " % team in l)]
         if not team_s and not team_start: ausgabe.append("NICHTS %s: %s frei, macht es selbst" % (zusatz, team)); continue
