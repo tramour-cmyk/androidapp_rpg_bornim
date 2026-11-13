@@ -90,7 +90,8 @@ def zellen(z):
 
 
 LAGE_SCHLUESSEL = {'station', 'ort', 'uhr', 'merker', 'stufe', 'vorraete', 'einmaliges', 'probe', 'held', 'herkunft', 'volk', 'pstufe',
-                   'waffe', 'neben', 'ruestung', 'soeldner', 'tasche', 'leben', 'zeit', 'zug', 'ausweichen', 'eroeffnung', 'kampfort'}
+                   'waffe', 'neben', 'ruestung', 'soeldner', 'tasche', 'leben', 'zeit', 'zug', 'ausweichen', 'eroeffnung', 'kampfort',
+                   'ruhig'}   # 542: ruhig = Monster beachten nicht; station= mit ort= stellt den Helden an den Ort (nicht Kapitelende)
 
 
 def lage(text):

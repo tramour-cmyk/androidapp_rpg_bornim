@@ -637,7 +637,7 @@ const LAGE_TASCHEN := ["zwei", "keine", "voll"]
 const LAGE_LEBEN := ["voll", "halb", "knapp"]
 const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
 const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
-	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort"]
+	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig"]   # 542: ruhig = Monster beachten nicht
 
 ## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
 static func lage_uhr(s: String) -> int:
@@ -660,6 +660,7 @@ static func lage_fehler(l: Dictionary) -> Array:
 		var o := String(l["ort"]).split(":")
 		if o.size() < 3 or not o[1].is_valid_int() or not o[2].is_valid_int() or not da(o[0]): f.append("ort=%s: Karte:x:y[:Blick], Karte im Spiel" % l["ort"])
 		elif o.size() > 3 and not ["UP", "DOWN", "LEFT", "RIGHT"].has(o[3]): f.append("ort=%s: Blick UP, DOWN, LEFT oder RIGHT" % l["ort"])
+		if String(l.get("station", "")) == "Kapitelende": f.append("ort= nicht mit station=Kapitelende (Aldrics Haus ist der Ort)")   # 542
 	if l.has("uhr") and lage_uhr(String(l["uhr"])) < 0: f.append("uhr=%s: HH:MM" % l["uhr"])
 	if l.has("merker"):
 		var ids := MERKER.map(func(m_): return String(m_[0]))
@@ -712,12 +713,13 @@ static func lage_probe(l: Dictionary) -> Array:
 static func lage_text(l: Dictionary, de: bool) -> String:
 	var t := []
 	if l.has("station"): t.append("Station " + String(l["station"]))
-	elif l.has("ort"): t.append(String(l["ort"]).split(":")[0])
+	if l.has("ort"): t.append(String(l["ort"]).split(":")[0])   # 542: auch Station mit Ort
 	if l.has("uhr"): t.append(String(l["uhr"]) + (" Uhr" if de else ""))
 	if l.has("stufe"): t.append(("Stufe " if de else "Level ") + String(l["stufe"]))
 	if l.has("merker"): t.append(("Geschichte " if de else "Story ") + String(l["merker"]))
 	if l.has("vorraete"): t.append("Vorräte" if de else "Supplies")
 	if l.has("einmaliges"): t.append("Einmaliges" if de else "One-time")
+	if l.has("ruhig"): t.append("Monster beachten nicht" if de else "Monsters ignore")
 	if l.has("probe"): t.append(("Probekampf " if de else "Trial fight ") + String(feinde(true).get(String(l["probe"]), l["probe"])))
 	return " · ".join(PackedStringArray(t))
 
