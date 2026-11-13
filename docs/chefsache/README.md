@@ -56,11 +56,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 117, Muss 92, startbar 6
+**Tom** – offen 116, Muss 91, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| Spiegel | M | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): tools/rollenspiegel.sh Tom zeigt die Fra | startbar |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 870.10 (wartet) |
 | 1030 | M | Von Sokrates (Chef 12.11., 13:53, Build 280, Rückläufer zu 1020.1): Reiter „Test“ springt | wartet auf Test (Build 281) |
 | 825 | M | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635 | wartet auf Test/Build (gebaut) |
@@ -178,7 +177,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1091 | M? | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | startbar |
 | 1092 | M? | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | ruht |
 
-**Jerry** – offen 137, Muss 124, startbar 1
+**Jerry** – offen 138, Muss 124, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -319,6 +318,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1096 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld | wartet auf Test/Build (gebaut) |
 | 1101 | M | Von Tom (854, Lauf 420 und Rechner 13.11., 08:40): kauf_cache.py ablegen scheitert am Bloc | startbar |
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | Sperre 620.1 B: 36 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 833 |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 15639 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 18, Muss 15, startbar 1
 
