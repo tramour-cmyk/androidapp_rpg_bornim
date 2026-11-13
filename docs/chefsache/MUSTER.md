@@ -10,10 +10,10 @@ Für `entscheiden/` und `billigen/`. Chef 09.11., 20:45 zu 758: „Ich verstehe 
 # <Nr.> · <die Frage an den Chef, als Frage>?
 <Absender> · <TT.MM.>, <HH:MM> · <Bereich, z. B. E Welt> · <Anlass, z. B. aus deinem Wort 14:29>
 Kurz: <ein Satz für die Übersicht>
-Beim Chef, weil: <Code auf `main` | Geld | Lizenz | Story | Aussehen | neue Richtung im Spielgefühl | Release | Rollen und Accounts>
+Beim Chef, weil: <Code auf `main` (Prüfart nach 1128 A, Kleinkram nicht, 1173) | Geld | Lizenz | Story | Aussehen | neue Richtung im Spielgefühl | Release | Rollen und Accounts>
 
 Geprüft an: <Link, Commit oder Lauf>
-Beim Chef, weil: <Code auf main, Geld, Lizenz, Story, Aussehen, neue Richtung im Spielgefühl, Release, Rollen und Accounts> (nur `entscheiden/`, 1129 A 1; sonst entscheidet das Team, Perikles oder Sokrates per Vorentscheid)
+Beim Chef, weil: <Code auf main (Prüfart nach 1128 A, Kleinkram nicht), Geld, Lizenz, Story, Aussehen, neue Richtung im Spielgefühl, Release, Rollen und Accounts> (nur `entscheiden/`, 1129 A 1; sonst entscheidet das Team, Perikles oder Sokrates per Vorentscheid)
 
 **Frage:** <ausführlich, so dass der Chef sie ohne Vorwissen versteht>
 

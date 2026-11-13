@@ -14,6 +14,9 @@ Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# 1171: Link aufs Bild im Zweig bilder (meldung.sh, 450)
+KLEIN_LINK = re.compile(r"\]\((?:\.\./bilder/|bilder:|https://github\.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/|https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/)")
+
 def git(*a):
     return subprocess.run(["git"] + list(a), capture_output=True, text=True).stdout
 
@@ -292,6 +295,9 @@ def main():
         if datei == "docs/LISTE-VORGAENGE.md" and t.startswith("| ") and t.count("|") >= 8:
             # 264.1: Feld „wartet auf“ darf eine spätere Uhrzeit von heute tragen (vorgang.py warte NR "TT.MM. HH:MM", Automatik A)
             zellen = t.split("|"); tz = "|".join(zellen[:6] + zellen[7:])
+        if datei.startswith("docs/ARBEIT-"):
+            # 1159 (von Ford, zu 1148): Marke „Lauf läuft bis TT.MM., HH:MM“ im Vorrat trägt eine Zeit nach jetzt; Form und 12 h prüft lauf.py (1161)
+            tz = re.sub(r"Lauf läuft bis \d\d\.\d\d\.,? \d\d:\d\d", "", tz)
         for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
@@ -374,6 +380,14 @@ def main():
                 rf = re.sub(r"(?i)Lizenzen der Engine", "", rf)  # 847 (D128.1): Menüeintrag als Bedienelement ist kein Lizenzlesen
                 if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Passt/Falsch (1033, alt Richtig), der Weg darf über „Lizenzen“ führen
                     stop.append("%s: Prüfzeile verlangt Lizenzlesen (%s); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)" % (p, zl.split("|")[1].strip()))
+    for s, p in dat:  # 1171 (1173 A, Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“): Zeile mit Art Kleinkram nur mit Link aufs Bild
+        if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
+            tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in git("show", ":" + p).splitlines() if zl.startswith("|")]
+            sa = next((r.index("Art") for r in tab if "Art" in r), -1)
+            for r in tab:
+                if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram") and not KLEIN_LINK.search("|".join(r)):
+                    stop.append("%s: Zeile %s Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link "
+                                "„[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkram fragt der Reiter „Test“ nicht ab" % (p, r[0]))
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
         inhalt = git("show", ":" + p)
@@ -394,7 +408,19 @@ def main():
         import tempfile
         with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as f:
             f.write(git("show", ":" + p)); tmp = f.name
-        r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", "origin/claude/build-" + m.group(1)], capture_output=True, text=True)
+        # 1178 × 1128.2 (Sokrates 13.11., 17:44, Sperre im Kreis): der Lauf auf build-<n> braucht ansehen/t<n> schon auf main, die neuen
+        # Tests stehen bis zum Push aber nur auf dem Laufzweig, der danach vorgespult nach build-<n> geht. Darum gilt auch
+        # claude/tom-<n>-lauf, claude/jerry-<n>-lauf oder ein in der Liste genannter „Laufzweig: claude/…“; zuerst build-<n>
+        refs = ["origin/claude/build-" + m.group(1), "origin/claude/tom-%s-lauf" % m.group(1), "origin/claude/jerry-%s-lauf" % m.group(1)]
+        lz = re.search(r"^Laufzweig:\s*`?(claude/[\w./-]+)`?", git("show", ":" + p), re.M)
+        if lz: refs.insert(1, "origin/" + lz.group(1))
+        r0 = None
+        for ref in refs:
+            r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", ref], capture_output=True, text=True)
+            if r.returncode == 0: break
+            if r0 is None or (r0.returncode != 1 and r.returncode == 1): r0 = r   # ein fehlender Test zählt vor „nicht lesbar“
+        else:
+            r = r0
         os.unlink(tmp)
         nein = [re.sub(r"\s+", " ", z.strip()[5:]) for z in r.stdout.splitlines() if z.strip().startswith("NEIN ")]
         if r.returncode == 1:

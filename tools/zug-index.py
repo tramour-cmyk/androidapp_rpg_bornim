@@ -219,12 +219,18 @@ def formfehler():
         else:  # 317: gemeinsamer Build bündelt mindestens 3 Vorgänge, keine Obergrenze (Chef 07.11., 20:5x), weniger nur auf „jetzt“ des Chefs
             zeilen = [[c.strip() for c in x.strip("|").split("|")] for x in z if x.startswith("|") and not re.match(r"\|[\s|:-]*$", x)]
             sp = zeilen[0].index("Nr.") if zeilen and "Nr." in zeilen[0] else 1
-            nrn = {r[sp] for r in zeilen[1:] if len(r) > sp and r[sp]}
+            sa = zeilen[0].index("Art") if zeilen and "Art" in zeilen[0] else -1
+            klein = [r for r in zeilen[1:] if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram")]   # 1171 (1173 A)
+            nrn = {r[sp] for r in zeilen[1:] if len(r) > sp and r[sp] and r not in klein}
+            for r in klein:
+                if not KLEIN_LINK.search("|".join(r)): fehler.append(f"{n}: Zeile {r[0]} Art Kleinkram ohne Link aufs Bild auf Telegram (1173 A)")
             if len(nrn) < 3 and "jetzt" not in text: fehler.append(f"{n}: nur {len(nrn)} Vorgänge; ein Build bündelt mindestens 3, weniger nur auf „jetzt“ des Chefs (317)")
         kopfzeilen = [kopf] + [x for x in z if re.match(r"## Build \d+ · ", x)]
         if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
     return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
+# 1171 (1173 A): Kleinkram trägt den Link aufs Bild, das meldung.sh im Zweig bilder ablegt (wie 450)
+KLEIN_LINK = re.compile(r"\]\((?:\.\./bilder/|bilder:|https://github\.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/|https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/)")
 
 def ohne_link():
     """450 (Chef 01.11., 10:55): jedes Blatt in ansehen/ (außer Builds t<n>-) zeigt ein Bild aus bilder/ oder verlinkt Bild bzw. Film im Zweig bilder."""
