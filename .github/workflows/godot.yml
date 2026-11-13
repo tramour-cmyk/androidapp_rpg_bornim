@@ -32,7 +32,7 @@ on:
       kamin:
         description: "Kamine 501 (Spike): ja = Grundrisse am Tag und nachts (--raeume), Lage der Kaminflammen"
       drehteller:
-        description: "Drehteller 499 (Spike): ja = Held je Klasse im Drehteller, Messung und Bilder"
+        description: "Drehteller 499 (Spike): ja = Held je Klasse im Drehteller, Messung und Bilder; 697 = Alpha des Helden (halbtransparent, nur Zahlen)"
         default: ""
       leute:
         description: "Gesichter der Leute 475 (Tom): ja"
@@ -924,6 +924,20 @@ jobs:
           grep -E "SCRIPT ERROR|FEHLER|^GEHEN499" $B/gehen499.log | cut -c1-300 | head -40 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/gehen499.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/499-gehen.mp4 || true
           ls -l $B
+      # 697 (Chef 08.11., 15:23 „das Modell ist halbtransparent“): Alpha des echten Helden im Drehteller, Renderer wie am Handy (mobile)
+      # und zum Vergleich opengl3; nur Zahlen, Bilder vor Weiss nur zum Ansehen (Messlauf, drehteller=697)
+      - name: Alpha 697 (nur von Hand mit drehteller=697)
+        if: ${{ !cancelled() && github.event.inputs.drehteller == '697' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/alpha697; mkdir -p $B/mobile $B/gl
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          cd godot
+          ALPHA_AUS=$B/mobile VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/alpha_held_697.gd 2>&1 | grep -E "SCRIPT ERROR|^ALPHAHELD697" | cut -c1-400 | tee $B/mobile.log || true
+          ALPHA_AUS=$B/gl timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver opengl3 --resolution 540x1170 -s res://tests/alpha_held_697.gd 2>&1 | grep -E "SCRIPT ERROR|^ALPHAHELD697" | cut -c1-400 | tee $B/gl.log || true
+          ls -l $B/*
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
       - name: Tusche nachts (348.13b)
         if: contains(github.event.head_commit.message, '348.13b')
