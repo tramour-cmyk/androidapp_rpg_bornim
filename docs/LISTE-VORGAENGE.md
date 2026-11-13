@@ -276,7 +276,7 @@
 | 1116 | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Repo), Ersparnis ist Wartezeit; was kostet eine Stunde Warten auf einen Lauf in Sitzungen | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
 | 1117 | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitzung wirkt (22:47)“, seit 1099/1110 überholt; Stand und Titel nachziehen oder schließen | Perikles | M? | startbar | – | – | – | B Abläufe | – |
 | 1121 | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B einen Punkt ohne Rückmeldung auf „zu testen“ ohne Build setzt (1040.1); Automatik und Prüfung widersprechen sich | Perikles | M | erledigt, greift Lauf 193 | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 15334 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | erledigt | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 15210 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -339,7 +339,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 44,76 $ (darin 13.11. 05:09 `session_01Hmoj78SjLo9HXycxxu7G2K` 7,38 $), Perikles Vorratsdurchsicht 1,90 $, Perikles Spiegel 13.11. 1,52 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +1069,86 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 59455 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 56040 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
