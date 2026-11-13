@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss: `--ohne 506.2:Tuffy nur auf Chef-Wort --ohne M?:Planfehler Klasse als Vorgang (893) --ohne 492:hängt an 870.4 (Tom), Spike ohne Arbeit beendet --ohne 771:erledigt --ohne 901:gebaut` (771/901 entfallen, sobald Diogenes/Perikles den Stand setzen). Tom hat Wecker 08:38 (Lauf 338): `WEITER Tom` nicht ausführen, solange er läuft. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1148** (zuletzt 1147 Perikles 13.11. 14:57:39 72ad) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1149** (zuletzt 1148 Perikles 13.11. 14:58:35 1b62) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -199,6 +199,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:57 13.11.: Startsperre 13:57 Start Spike (Ford, Neustart-Meldung bf4222f84, Nachfolger „Spike – 882.1: Vergleichsbilder alt rendern“; Hoch, effort high)
 - 13:58 13.11.: Startsperre 13:58 Start Tom (Ford, Neustart-Meldung f966d7dcb, Nachfolger „Tom – 284: Prüfliste und Testbitte nach Test 283“; Hoch, effort high)
 - 14:30 13.11.: Startsperre 14:30 Start Sokrates (Ford, Neustart-Meldung b0e5869af, Nachfolger „Sokrates – 1137: Vollzug nachhalten“; Hoch, effort high)
+- 14:59 13.11.: Startsperre 14:59 Start Jerry (Ford, Neustart-Meldung 1f8c83598, Nachfolger „Jerry – 1141: Sterbebewegung je Körper“; Hoch, effort high)
+- 14:59 13.11.: Startsperre 14:59 Start Tuffy (Ford, Neustart-Meldung 1ba5bca10, Nachfolger „Tuffy – nächstes startbares Muss“; Hoch, effort high)
 - 07:04 13.11.: Marke Archiv-Warnung session_01Hmoj79qGhEdjuvdUYbpj3h (lauf.py)
 - 07:04 13.11.: Marke Archiv session_01Hmoj7A1dnZnLGSEWvQkYYP (lauf.py)
 - 07:14 13.11.: Marke Archiv session_01Hmoj79zmT5JwNzRZrw7FW2 (lauf.py)
