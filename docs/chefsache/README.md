@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1236](billigen/1236-gespraech.md) | M? | B Abläufe | 13.11., 21:44 | Vor dem ersten Code-Commit eines großen Vorhabens eine Zeile „gilt der Beschluss noch?“ an dich, gebündelt in der Chefrunde; bis zu deinem Wort baut der Besitzer an Anderem | Sokrates |
 
 ## Anzusehen
 
