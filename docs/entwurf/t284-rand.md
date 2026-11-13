@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 284 · Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein · PR #203
-E Welt · Tom (1022, 1040.1, 1119, 1086, 1092, 1118, 1081, 1156, 1178, 1160, 542, 495, 964, 967, 1140, 1115, 505), Jerry (947, 993, 1003, 709, 616, 784, 1041, 958, 1037, 1094, 949, 705, 1102, 1093, 1025, 1136, 980, 987, 1126, 1127, 1114, 1142 von Tom übernommen) · 13.11., 17:00 · APK folgt
+E Welt · Tom (1022, 1040.1, 1119, 1086, 1092, 1118, 1081, 1156, 1178, 1160, 542, 495, 964, 967, 1140, 1115, 505), Jerry (947, 993, 1003, 709, 616, 784, 1041, 958, 1094, 949, 705, 1102, 1093, 1025, 1136, 980, 987, 1126, 1127, 1114, 1142 von Tom übernommen) · 13.11., 17:00 · APK folgt
 
 Aus 283 ungetestet und hier wieder dabei: 283.1, .2, .14 bis .16, .18 (284.2b, 284.2c, 284.7j bis 284.7m). Am Bild abgenommen, nicht in dieser Liste: 756.1 Tasche mit vier Güten (Chef 16:50, darin auch 283.9), 764 „Betrunken“ im Heldenreiter (16:50, statt 283.8), 1120 Knöpfe bei Pim und Osric (16:52, Beschriftung rechts am Pfeil 17:13; statt 283.4 und 283.7).
 
@@ -15,7 +15,7 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 | 284.2 | Tom | 1022 | Bild | Wald Süd (Weg ins Dorf), Wald Ost (Weg in den Tiefen Wald), Tiefer Wald West (Weg zurück in den Wald); je Stelle ein eigenes Bild, links 283, rechts 284 | wie 284.1 | der Weg endet am Wald oder offen im Gras |
 | 284.2a | Tom | 1040.1 | Film | Höhle, Lyra im Gitter; der Held geht an ihr vorbei, bleibt stehen, geht zurück, dann dichter vorbei; Lyra schaut ihm nach, nah, etwa dreimal | Lyra wendet sich mit kleinen Schritten, die Füße setzen um | Lyra dreht sich auf der Stelle wie auf einem Drehteller, die Füße gleiten |
 | 284.2b | Tom | 1119 | Film (aus dem Lauf, kommt per Telegram; aus 283.1) | Dorf am Mittag, der Held auf dem Erdweg, zweimal erst gehen, dann rennen | beim Gehen nur ein kaum sichtbarer Hauch; beim Rennen eine kleine Wolke, etwas kleiner als in 282 | beim Gehen staubt es wie beim Rennen; große Wolken |
-| 284.2d | Tom | 1086 | Film (aus dem Lauf, kommt per Telegram; aus 283.5) | Dorf, Pim bekommt mit „Gib Pim 5 Gold“ das Gold, der Held bleibt neben ihm stehen | Pim rennt gleich los, um den Helden herum heim; an der Tür dankt die Mutter | Pim bleibt neben dem Helden stehen; kein Dank an der Tür |
+| 284.2d | Tom | 1086, 1108 | Film (aus dem Lauf, kommt per Telegram; aus 283.5) | Dorf, Pim bekommt mit „Gib Pim 5 Gold“ das Gold, der Held bleibt neben ihm stehen | Pim rennt gleich los, um den Helden herum heim; an der Tür dankt die Mutter | Pim bleibt neben dem Helden stehen; kein Dank an der Tür |
 | 284.2f | Tom | 1092 | Film (aus dem Lauf, kommt per Telegram; statt 283.10) | Tempel, Lyra nah: im Stehen einmal rundum gedreht, dann Gehen auf der Stelle | die helle Robe zeigt Falten mit weichen Schatten | dunkle, fleckige Streifen von oben nach unten wie Schmutz |
 | 284.2c | Tom | 1118, 1081 | Handy (aus 283.2) | Weiter mit deinem Spielstand, im Dorf mit zwei Fingern ganz hineinzoomen und ganz hinaus, einmal in der Mitte, einmal am Rand der Karte | ganz hinein: der Held von Kopf bis Fuß im Bild; ganz hinaus: gut 10 Kacheln quer, nicht die halbe Karte | nur Rocksaum und Schuhe; fast die ganze Karte im Bild |
 | 284.2e | Tom | 495 | Handy | Weiter mit deinem Spielstand, im Dorf vor der Schenke den Knopf an der Tür zweimal schnell hintereinander tippen | eine Blende, der Held steht drinnen an der Tür | der Held steht außerhalb des Raums, im Schwarzen, oder das Spiel hängt |
@@ -31,9 +31,11 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 | 284.7 | Jerry | 947 | Handy | Reiter „Test“ → „Probekampf“: unter „Söldner“ steht „keiner“; „Probekampf starten“ gegen Wölfe; danach „Söldner“ antippen bis „wie der Held“ und nochmal starten | erster Kampf: der Held allein; zweiter Kampf: ein Söldner derselben Herkunft an seiner Seite | Söldner im ersten Kampf; „Söldner“ lässt sich nicht umstellen |
 | 284.7a | Jerry | 993 | Film (am Rechner, kommt per Telegram, Jerry) | Probekampf Zauberlehrling gegen Wölfe, Arkanpfeil auf einen Wolf | leuchtender Pfeil fliegt vom Stab zum Ziel und schlägt dort ein | dünner Strich, kein Einschlag |
 | 284.7b | Jerry | 1003 | Film mit Ton (am Rechner, kommt per Telegram, Jerry) | neuer Held, weiblich, Probekampf gegen Wölfe, bis sie außer Atem ist | sie keucht mit Frauenstimme | Männerstimme |
-| 284.7c | Jerry | 709 | Film (am Rechner, kommt per Telegram, Jerry), je Gegner einer | Probekampf gegen Wölfe, gegen Riesenratten und gegen Grak (Lagen WOLVES, RATS, GRAK), jeder Angriff beider Seiten | Waffe, Zähne oder Klauen berühren den Körper des Getroffenen, kein Schlag in die Luft | Schlag oder Biss in die Luft, deutlich vor dem Körper |
+| 284.7c | Jerry | 709 | Film (am Rechner, kommt per Telegram, Jerry) | Probekampf gegen Wölfe, jeder Angriff beider Seiten | Waffe oder Zähne berühren den Körper des Getroffenen, kein Schlag in die Luft | Schlag oder Biss in die Luft, deutlich vor dem Körper |
+| 284.7p | Jerry | 709 | Film (am Rechner, kommt per Telegram, Jerry) | Probekampf gegen Riesenratten, jeder Angriff beider Seiten | wie 284.7c | wie 284.7c |
+| 284.7q | Jerry | 709 | Film (am Rechner, kommt per Telegram, Jerry) | Probekampf gegen Grak, jeder Angriff beider Seiten | wie 284.7c | wie 284.7c |
 | 284.7d | Jerry | 616 | Film (am Rechner, kommt per Telegram, Jerry) | Probekampf gegen Wölfe, Rückweg jedes Wolfs nach seinem Angriff | er weicht rückwärts auf seinen Platz zurück, Blick zum Helden | er dreht sich um und läuft vorwärts zurück |
-| 284.7e | Jerry | 784 | Handy | Probekampf gegen das Wolfsrudel, eine ganze Runde ansehen | jeder geht geradewegs zu seinem Ziel und zurück, keine Handlung zieht sich, Ausweichen bleibt sichtbar | lange Pausen, Umwege, Figuren laufen ineinander |
+| 284.7e | Jerry | 784 | Film (am Rechner, kommt per Telegram, Jerry) | Probekampf gegen das Wolfsrudel, eine ganze Runde | jeder geht geradewegs zu seinem Ziel und zurück, keine Handlung zieht sich, Ausweichen bleibt sichtbar | lange Pausen, Umwege, Figuren laufen ineinander |
 | 284.7f | Jerry | 1041 | Film (am Rechner, kommt per Telegram, Jerry) | Probekampf mit Söldner, Held und Söldner tauschen den Platz (vorn und hinten) | beide gehen im selben Takt auf rundem Bogen; bekannt: Schild und Schwert vorn, Stab hinten können sich noch berühren (kommt mit 1072) | einer hastet eckig, der andere schreitet gemessen |
 | 284.7g | Jerry | 958 | Handy | Weiter mit deinem Spielstand, in der Schenke bei Rowena Met kaufen, bis „Betrunken“ in der Leiste steht, dann Reiter „Test“ → Probekampf mit dem Spielhelden; danach rasten | im Kampf hat der Held den Zustand „Betrunken“; nach der Rast nicht mehr | kein „Betrunken“ im Kampf, oder er bleibt nach der Rast |
 | 284.7j | Jerry | 1094 | Handy (aus 283.14; Tippen) | Probekampf gegen Wölfe, den Ring beim Anspringen perfekt tippen | der große Ring bleibt auf dem kleinen stehen, dann weg | der Ring läuft nach dem Tippen nach innen weiter |
@@ -62,6 +64,8 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 - 284.7a: probe=WOLVES held=test herkunft=Zauberlehrling
 - 284.7b: probe=WOLVES held=spiel
 - 284.7c: probe=WOLVES
+- 284.7p: probe=RATS
+- 284.7q: probe=GRAK
 - 284.7d: probe=WOLVES
 - 284.7e: probe=WOLVES
 - 284.7f: probe=WOLVES soeldner=*

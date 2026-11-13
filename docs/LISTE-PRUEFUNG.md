@@ -23,6 +23,14 @@ Je Rolle höchstens drei Ziele: **Z3** und **Z4** für alle, **Ze** eigen (Tabel
 - **Folge:** zwei Wochen hintereinander dasselbe Ziel verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern); für Sokrates selbst Perikles.
 - Diogenes zählt, Perikles meldet montags mit dem Wochenziel eine Zeile je Rolle, unverändert mit Link.
 
+## Leichenprüfung (1189 A, Chef 13.11., 17:09; Werkzeug 1192)
+
+- Alle 48 h, ab 17.11., legt `lauf.py --sperre` dir den Vorgang „Leichenprüfung TT.MM.“ an (nicht, solange einer offen ist).
+- `startbar.py --leichen 7` gegen Archiv und Code: erledigt, überholt, hängt die Zeile? `startbar.py --urteile 48`: jedes Urteil des Chefs der letzten 48 h gegen die Zeile derselben Nummer (folgen Stand, Klasse, Titel dem Wortlaut?).
+- Nummern in einer offenen Zeile „Urteil alte Zeilen“ (montags, 1188) überspringst du.
+- Funde je Besitzer ein Vorgang (Nummer, was nicht stimmt, ein Satz); der Besitzer schließt, du änderst keine Zeile.
+- Höchstens 10 $ je Lauf: ab 8 $ (`get_session` ohne Kennung) Schluss, Rest in die Übergabe.
+- Eine Zeile im Prüfbericht: Treffer, Funde, Kosten (Rückstufung auf montags prüft Sokrates am 27.11.); dann den Vorgang schließen.
 
 ## Wie du prüfst
 
