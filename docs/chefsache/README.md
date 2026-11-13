@@ -318,7 +318,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | wartet auf Diogenes (greift?) |
 | 1134 | M | D198.1 von Diogenes (1133, 1129.1 P1): OHNE-ÜBERHOLT meldet „in Arbeit“ falsch bei Titeln | startbar |
 
-**Diogenes** – offen 14, Muss 10, startbar 5
+**Diogenes** – offen 13, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -335,7 +335,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | Termin 14.11. |
 | 790.1 | K | Von Perikles (1129.1 P5): 790 Zwischenzahl jetzt: seit 383 A 106 statt 29 Sitzungen am Tag | startbar |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 16019 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Sokrates** – offen 51, Muss 37, startbar 28
 
