@@ -41,6 +41,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 00:05 14.11.: Lauf 00:03: Spike (1040.1) `…76xVCXk2y824rYD6Rk` und Perikles (echter Nachfolger 1098, 1019, 1100, 1125, von Hand wegen Parserfehler 1239, Mittel) `…76yL3LGXZZZ4orHsL5` gestartet; Vorgängerinnen `…78AKcm…` (8,47 $ auf 1230) und `…79QJ2L…` (7,48 $ auf 542) archiviert; Commit-Prüfung hielt an Zeile 827 (Termin heute 20 Uhr), Zeile von Hand auf HEAD zurückgesetzt, danach neuer Vorgang an Perikles (Ford)
 - 23:52 13.11.: Neustart Sokrates (1dc3da5d9): neue Sitzung `…794Zd84otPipZDDhLx` 23:50 (Mittel), Vorgängerin `…7A5LHnTB8QgSgxTD8M` archiviert (4,35 $ auf 1072, 709); Jerry ruht auf Wort des Chefs 23:35, kein Start dafür bis zur Entscheidung zu 930 (Ford)
 - 23:39 13.11.: Neustart Jerry (207af913c): neue Sitzung `…76T6cjjcpvFiQSkmub` (Mittel), Vorgängerin `…78sHDY7SBKAQW8Re2t` archiviert (6,03 $ auf 709.1); Halt 23:35 über Sokrates (709, 709.1, 1072 u. a.) steht in Jerrys Vorrat; Beobachtung: Jerry-Neustarts 22:30, 23:21, 23:34 binnen einer Stunde, Haken feuert früh (Ford)
 - 23:32 13.11.: „Neustart Tom, 919bb6cb0“ nicht ausgeführt: Chef testet t285 (Testbitte 906a81451), Neustart während seines Tests nie (812, 865); Tom bleibt, meldet nach dem Ergebnis neu (Ford)
@@ -60,11 +61,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:01 13.11.: Neustart Jerry (0a23bf21f): neue Sitzung `…76yF68cGVE8dBiecQT` 20:59, Vorgängerin `…7972hfEsxURwGCfPMq` archiviert (36,09 $ auf 709.1, 1162, 1166; Ford)
 - 20:30 13.11.: Neustart Diogenes (addcb05f9): Nachfolger „Diogenes – 1133 …“ erst ab 14.11., kein Start; Sitzung `…77QFVKxHtWXK1ztLCC` archiviert (6,30 $ auf 1199, 1208); Lauf-Ausschluss ab jetzt zusätzlich `--ohne "882.2:wartet auf 882.1"` bis 1221 behoben (Ford)
 - 20:25 13.11.: Neustart Perikles (374faeafe): Nachfolger „Perikles – 1098, 1019, 1100, 1125: Stichtag 14.11. prüfen“ erst ab 14.11., kein Start; Sitzung `…79eigjcZiNVgt6FmRD` archiviert (7,51 $ auf 1217, 1213; 1220-Zeile schon über 400 Zeichen, Kostenfeld dort nicht beschreibbar; Ford)
-- 20:09 13.11.: Neustart Perikles (e53c8c12b): neue Sitzung `…79eigjcZiNVgt6FmRD` 20:07, Vorgängerin `…77NmwkQgV4yHakA4mG` archiviert (5,86 $ auf 1184, 1193; Ford)
-- 21:06 13.11.: Startsperre 21:06 Start Perikles (lauf.py)
-- 21:07 13.11.: Startsperre 21:07 Start Tom (Neustart d95c5f814, Test t284 fertig 21:02, Ergebnis eingetragen; Nachfolger „Tom – 285: Build 285 und Prüfliste, dann 1092“; Ford)
-- 21:11 13.11.: Startsperre 21:11 Start Diogenes, Spike (lauf.py)
-- 21:11 13.11.: Marke Start-fehlt Diogenes 13.11.-20:04 (lauf.py)
 - 21:25 13.11.: Startsperre 21:25 Start Homer (lauf.py)
 - 21:36 13.11.: Startsperre 21:36 Start Sokrates (Neustart f0933cd29; Ford)
 - 21:39 13.11.: Startsperre 21:39 Start Tuffy (Neustart 5a311f2f6, Nachfolger „Tuffy – 844: Film aus Lauf 458 schneiden und senden“; Ford)
@@ -80,5 +76,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
-- 00:05 14.11.: Lauf 00:03: Spike (1040.1) `…76xVCXk2y824rYD6Rk` und Perikles (echter Nachfolger 1098, 1019, 1100, 1125, von Hand wegen Parserfehler 1239, Mittel) `…76yL3LGXZZZ4orHsL5` gestartet; Vorgängerinnen `…78AKcm…` (8,47 $ auf 1230) und `…79QJ2L…` (7,48 $ auf 542) archiviert; Commit-Prüfung hielt an Zeile 827 (Termin heute 20 Uhr), Zeile von Hand auf HEAD zurückgesetzt, danach neuer Vorgang an Perikles (Ford)
 - 00:15 14.11.: Startsperre 00:15 Start Ford (selbst, Tiefe 0, Selbstneustart nach Haken 1019, Neustart Perikles 3c83e9ce6 ohne Start, Nachfolger erst 15.11., Sitzung `…76yL3LGXZZZ4orHsL5` archiviert, 3,32 $ auf 1019, 1098; Ford)
+- 00:17 14.11.: Startsperre 00:17 Start Diogenes (lauf.py)
+- 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
+- 00:17 14.11.: Marke Archiv session_01Hmoj783kjRUn2ac4Ks2Yhg (lauf.py)
