@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 230 · 1237 Wächter Rest liest Code-Klon und jeden Code-Commit (Jerry für Tom, `78e06a17e`, `a9700a9c6`; 13.11., 23:0x)
+
+- **Greift, damit auch 1175:** `_repos` = `bornim-main/docs` und `androidapp_rpg_bornim` (976 entfernte Zweige, 63 `build`); `bau_commits` 505: 22 Commits samt `c999dc014`, 1084: 3 samt `096ac8149`; `rest_offen` 1084 → Rest aus `096ac8149` („im Spiel noch nicht gebaut“); 1143, 1180 leer (Fehlalarm „noch nicht im Build“ weg); `pruefen` Exit 0, 0,04 s. 505 steht nicht mehr in der Liste, nur am Commit belegt.
+- **Nebenbei, ohne Vorgang:** 946 nennt denselben Rest zweimal (`8f24b3339`, `eb1e6dec2`, gleicher Text, übertragener Commit); 1137.2 meldet „noch nicht getesteten Builds“ als Rest (Fehlalarm; löst „Kein Folgevorgang, weil:“, wie im Commit gesagt).
+
 ## Lauf 229 · 1230 ein ✗ schlägt Sammelbuild und ✓ (Perikles `94be68e5c`; 13.11., 22:1x)
 
 - **Greift:** `build 284 --probe` an `bc73ae6a3^`, Fassung vor 1230 (`94be68e5c^`) gegen 1230: nur 1022 weicht ab, „erledigt (Sammelbuild)“ → „startbar (✗ 284.2)“; 42 übrige gleich. Nebenbei, gewollt: ein Sammelbuild mit eigenen Punkten geht jetzt über „bestanden“ (mit Restsperre) oder bleibt ohne Rückmeldung „zu testen“.
