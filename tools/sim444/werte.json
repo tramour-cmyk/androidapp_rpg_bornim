@@ -444,6 +444,15 @@
       "_sonst": [["stab", 1]]
     }
   },
+  "rast_1046": {
+    "_quelle": "1046 (1038 A, R1, Chef 12.11., 16:24): Simulation, ob Kapitel 1 ohne Grinden durchspielbar bleibt, wenn die Kurze Erholung kein Leben mehr gibt. Zahlen der Rast aus godot/skripte/rast.gd (KURZ_MIN, LANG_MIN, ZIMMER_PREIS, kurz_heilung alt = Viertel aufgerundet) und spiel.gd (Niederlage: Leben und Mana voll, 4 Stunden); Verhalten des Spielers A",
+    "kurz_minuten": 120, "lang_minuten": 540, "niederlage_minuten": 240, "zimmer_preis": 5,
+    "start_minuten": 480, "_start": "Spielbeginn 8 Uhr am Tag 1; Langes Ausruhen geht einmal je Spieltag (rast.gd lange_erlaubt), am Feuer frei, im Zimmer 5 Gold",
+    "kaempfe_je_tag": [4, 8, 12], "_je_tag": "A: Kaempfe je Spieltag (eine Spielminute je Sekunde auf der Karte, zustand.gd uhr: ein Tag sind 24 Minuten Spiel); jede Zahl ein eigener Fall",
+    "heilen_unter": 0.5, "_heilen": "A: vor einem Kampf heilt der Held, wenn Leben oder Mana unter der Haelfte: R1 erst Verband, dann Braten, dann Langes Ausruhen, wenn heute noch nicht; alt Kurze Erholungen bis Leben voll",
+    "verband_vorrat": 3, "_verband": "A: im Dorf nach den Heiltraenken Verbaende bis 3 im Beutel (Preis wirtschaft preise Verband, Wirkung welt verband)",
+    "fleisch_essen": true, "_fleisch": "A: das erste Teil von Ratte, Wolf, Wildschwein ist Fleisch; der Held behaelt es als Braten (heilt welt heilung roast_meat) statt es zu verkaufen; der Erloes von 1 bis 2 Gold je Stueck bleibt in der Rechnung"
+  },
 
   "kampftraenke": {
     "_quelle": "481.1 (Jerry 02.11.): Vorschlag Sokrates (Zu 481, Chat 18:58): Kampftraenke mit Preis, je ein Zug, Wirkung nach Kraeuterkunde statt Sperre; seit 876 (857a A, Chef 10.11.) nach Alchemie; Chef 18:55 'zwei Runden unverwundbar'. Alle Zahlen A",

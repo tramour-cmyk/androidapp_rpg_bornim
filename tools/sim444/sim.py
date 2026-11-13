@@ -22,6 +22,8 @@ Zwei Teile:
   6. Traenke im Bosskampf (481.1): je Herkunft und Boss Siegquote ohne Traenke, mit Heiltraenken,
      mit Kampftraenken (Steinhaut, Berserkertrank, Alchemistenfeuer; Wirkung nach Alchemie, 857a);
      Zahlen im Block "kampftraenke". Nur dieser Teil: --nur-traenke.
+  7. Rast nach 1038 R1 (1046): Fortschritt wie 5, Leben und Mana von Kampf zu Kampf mitgenommen, Kurze Erholung
+     mit (alt) und ohne Leben (R1, Verband, Braten, Langes Ausruhen); Zahlen im Block "rast_1046". Nur dieser Teil: --nur-rast.
 """
 import argparse
 import json
@@ -251,16 +253,18 @@ def held_abwehr(W, held, art, waffe_name=None, schild=True):
 
 # ---------------------------------------------------------------- Kampf
 
-def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=None):
+def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=None, leben0=None, mana0=None):
     """wirt: Zustand, Traenke und Zaehler der Wirtschaft (Teil 5) oder None (Teile 1 bis 4 unveraendert).
     tier_zuerst: misslungenes Beruhigen, das Tier handelt in Runde 1 vor dem Helden.
-    beutel: Heil- und Kampftraenke fuer einen Bosskampf (Teil 6, 481.1) oder None."""
+    beutel: Heil- und Kampftraenke fuer einen Bosskampf (Teil 6, 481.1) oder None.
+    leben0, mana0: Leben und Mana zu Beginn (Teil 7, 1046: von Kampf zu Kampf mitgenommen), sonst voll;
+    das Ergebnis nennt dann auch "leben_abs" und "mana"."""
     k = W["kampf"]
     z = W["zauber"]
     d_held = held.stufe - mon["stufe"]
-    leben = held.leben_max()
-    lmax = leben
-    mana = held.mana_max()
+    lmax = held.leben_max()
+    leben = lmax if leben0 is None else min(lmax, leben0)
+    mana = held.mana_max() if mana0 is None else min(held.mana_max(), mana0)
     mleben = mon["leben"]
     bann = 0.0
     benutzt = set()
@@ -339,7 +343,7 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
     if ueb and ueb["gegner_zuerst"]:
         gegner_handelt()
         if leben <= 0:
-            return {"sieg": False, "runden": 0, "leben": 0.0, "benutzt": benutzt}
+            return {"sieg": False, "runden": 0, "leben": 0.0, "benutzt": benutzt, "leben_abs": max(0.0, leben), "mana": mana}
     while runde < W["lauf"]["max_runden"]:
         runde += 1
         # ---- Held handelt
@@ -437,12 +441,12 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
                     held.uebe(fert_name, mon["stufe"])
                     benutzt.add(fert_name)
             if mleben <= 0:
-                return {"sieg": True, "runden": runde, "leben": leben / lmax, "benutzt": benutzt}
+                return {"sieg": True, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "leben_abs": max(0.0, leben), "mana": mana}
         # ---- Monster handelt (427.1: mit Merkmalen, danach das Rudel)
         gegner_handelt()
         if leben <= 0:
-            return {"sieg": False, "runden": runde, "leben": 0.0, "benutzt": benutzt}
-    return {"sieg": False, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "remis": True}
+            return {"sieg": False, "runden": runde, "leben": 0.0, "benutzt": benutzt, "leben_abs": max(0.0, leben), "mana": mana}
+    return {"sieg": False, "runden": runde, "leben": leben / lmax, "benutzt": benutzt, "remis": True, "leben_abs": max(0.0, leben), "mana": mana}
 
 
 def ep_fuer(W, held, mon):
@@ -986,6 +990,155 @@ def wirtschaft_alle(W, herkunft, laeufe, rng, beruhigen=False):
     return out
 
 
+# ---------------------------------------------------------------- Teil 7: Rast nach 1038 R1 (1046)
+
+def fortschritt_rast(W, herkunft, rng, regel, je_tag):
+    """Fortschritt wie Teil 5 ("kaempft"), aber Leben und Mana gehen von Kampf zu Kampf mit (1046).
+    regel "alt": vor einem Kampf unter der Schwelle Kurze Erholungen (je ein Viertel Leben) bis Leben voll;
+    regel "R1": Kurze Erholung ohne Leben; erst Verband, dann Braten, dann Langes Ausruhen (einmal je Spieltag)."""
+    wi = W["wirtschaft"]
+    ra = W["rast_1046"]
+    fs = W["fortschritt"]
+    grenze = W["held"]["kapitelgrenze"]
+    vb = W["welt"]["verband"]
+    braten = W["welt"]["heilung"]["roast_meat"]
+    monster = {n: m for n, m in ohne_info(W["monster"]).items() if not m.get("boss") and not m.get("nur_matrix")}
+    held = Held(W, herkunft, wi["punkte_variante"])
+    wirt = Wirt(W, held)
+    uhr = {"min": ra["start_minuten"], "tag": 1, "lang_tag": 0}
+    st = {"leben": float(held.leben_max()), "mana": float(held.mana_max())}
+    z = {k: 0 for k in ("kurz", "lang", "zimmer", "verband", "fleisch", "schwach", "gold_verband", "gold_zimmer")}
+    verbaende = fleisch = 0
+    schwelle = ra["heilen_unter"]
+
+    def vergeht(m):
+        uhr["min"] += m
+        while uhr["min"] >= 24 * 60:
+            uhr["min"] -= 24 * 60
+            uhr["tag"] += 1
+
+    def lang_erlaubt():
+        return uhr["lang_tag"] != uhr["tag"]
+
+    def lang(zimmer=False):
+        vergeht(ra["lang_minuten"])
+        uhr["lang_tag"] = uhr["tag"]
+        st["leben"], st["mana"] = float(held.leben_max()), float(held.mana_max())
+        z["zimmer" if zimmer else "lang"] += 1
+
+    def niedrig():
+        return st["leben"] < held.leben_max() * schwelle or st["mana"] < held.mana_max() * schwelle
+
+    begegnungen = kaempfe = niederlagen = seit_dorf = 0
+    while held.stufe < grenze and begegnungen < fs["max_kaempfe"]:
+        lo = held.stufe - fs["gegner_band_unten"]
+        hi = held.stufe + fs["gegner_band_oben"]
+        name, mon = rng.choice([(n, m) for n, m in monster.items() if lo <= m["stufe"] <= hi])
+        begegnungen += 1
+        lmax = held.leben_max()
+        if regel == "alt":
+            if st["leben"] < lmax * schwelle:
+                while st["leben"] < lmax:
+                    st["leben"] = min(lmax, st["leben"] + (lmax + 3) // 4)
+                    vergeht(ra["kurz_minuten"])
+                    z["kurz"] += 1
+            if st["mana"] < held.mana_max() * schwelle and lang_erlaubt():
+                lang()
+        else:
+            while st["leben"] < lmax * schwelle and verbaende > 0:
+                verbaende -= 1
+                z["verband"] += 1
+                st["leben"] = min(lmax, st["leben"] + round(vb["grund"] + vb["je_heilkunde"] * held.f("Heilkunde")))
+                held.uebe("Heilkunde", held.stufe, vb["uebung"])
+            while st["leben"] < lmax * schwelle and fleisch > 0:
+                fleisch -= 1
+                z["fleisch"] += 1
+                st["leben"] = min(lmax, st["leben"] + braten)
+            if niedrig() and lang_erlaubt():
+                lang()
+        if st["leben"] < lmax * schwelle:
+            z["schwach"] += 1
+        kaempfe += 1
+        seit_dorf += 1
+        r = kampf(W, held, mon, rng, lernen=True, wirt=wirt, leben0=st["leben"], mana0=st["mana"])
+        if r["sieg"]:
+            st["leben"], st["mana"] = r["leben_abs"], r["mana"]
+            held.gib_ep(ep_fuer(W, held, mon), "kampf")
+            held.nach_sieg(r["benutzt"], mon["stufe"])
+            if wirt.beute(name, mon, rng) and regel != "alt" and ra["fleisch_essen"]:
+                teile = wi["zerlegen"]["teile"].get(name, [])
+                if teile and teile[0] == "Fleisch":
+                    fleisch += 1
+        else:
+            niederlagen += 1
+            if r.get("remis"):
+                st["leben"], st["mana"] = r["leben_abs"], r["mana"]
+            else:   # spiel.gd: Niederlage, Leben und Mana voll, 4 Stunden vergehen
+                st["leben"], st["mana"] = float(held.leben_max()), float(held.mana_max())
+                vergeht(ra["niederlage_minuten"])
+        held.stufe_auf()   # ein Aufstieg hebt das Hoechstleben; mitgenommenes Leben bleibt
+        vergeht(24 * 60 // je_tag)
+        if seit_dorf >= wi["dorf_alle_kaempfe"] or wirt.warnung():
+            wirt.dorf()
+            seit_dorf = 0
+            if regel != "alt":
+                while verbaende < ra["verband_vorrat"] and wirt.gold >= wi["preise"]["Verband"]:
+                    wirt.gold -= wi["preise"]["Verband"]
+                    z["gold_verband"] += wi["preise"]["Verband"]
+                    verbaende += 1
+                if niedrig() and lang_erlaubt() and wirt.gold >= ra["zimmer_preis"]:
+                    wirt.gold -= ra["zimmer_preis"]
+                    z["gold_zimmer"] += ra["zimmer_preis"]
+                    lang(zimmer=True)
+    wirt.dorf()
+    return {"erreicht": held.stufe >= grenze, "kaempfe": kaempfe, "niederlagen": niederlagen, "tage": uhr["tag"],
+            "gold_ende": wirt.gold, "getrunken": wirt.z["getrunken"], "aus_traenke": wirt.z["aus_traenke"] + wirt.z["aus_brauen"],
+            "heilkunde": held.f("Heilkunde"), "z": z}
+
+
+def rast_alle(W, herkunft, laeufe, rng, regel, je_tag):
+    res = [fortschritt_rast(W, herkunft, rng, regel, je_tag) for _ in range(laeufe)]
+    kaempfe = sum(r["kaempfe"] for r in res)
+    mittel = lambda f: sum(f(r) for r in res) / laeufe
+    golde = sorted(r["gold_ende"] for r in res)
+    return {
+        "erreicht": sum(r["erreicht"] for r in res) / laeufe,
+        "kaempfe": statistics.median(r["kaempfe"] for r in res),
+        "niederlagen": sum(r["niederlagen"] for r in res) / kaempfe if kaempfe else 0,
+        "schwach": sum(r["z"]["schwach"] for r in res) / kaempfe if kaempfe else 0,
+        "tage": statistics.median(r["tage"] for r in res),
+        "gold_ende": statistics.median(golde), "gold_p10": golde[laeufe // 10],
+        "getrunken": mittel(lambda r: r["getrunken"]), "aus_traenke": mittel(lambda r: r["aus_traenke"]),
+        "heil_gold": mittel(lambda r: r["aus_traenke"] + r["z"]["gold_verband"] + r["z"]["gold_zimmer"]),
+        "heilkunde": statistics.median(r["heilkunde"] for r in res),
+        **{k: mittel(lambda r, k=k: r["z"][k]) for k in ("kurz", "lang", "zimmer", "verband", "fleisch", "gold_verband", "gold_zimmer")},
+    }
+
+
+def bericht_rast(W, rr, laeufe):
+    ra = W["rast_1046"]
+    vb = W["welt"]["verband"]
+    out = []
+    a = out.append
+    a("## 7. Rast nach 1038 R1: Leben von Kampf zu Kampf (1046)\n")
+    a(f"Fortschritt wie Abschnitt 5 („kämpft“, 21 Punkte), aber Leben und Mana gehen von Kampf zu Kampf mit; {laeufe} Läufe je Fall. "
+      f"Neu rechnen: `python3 tools/sim444/sim.py --nur-rast`. Zahlen in `werte.json` Block `rast_1046`.\n")
+    a("**Annahmen:**\n")
+    a(f"- **alt:** vor einem Kampf mit weniger als {round(100 * ra['heilen_unter'])} % Leben Kurze Erholungen (je ein Viertel Leben, {ra['kurz_minuten'] // 60} Stunden) bis Leben voll; Langes Ausruhen nur für Mana.")
+    a(f"- **R1:** Kurze Erholung ohne Leben. Unter {round(100 * ra['heilen_unter'])} % Leben: Verband ({vb['grund']} + {zahl(vb['je_heilkunde'])} je Punkt Heilkunde, {W['wirtschaft']['preise']['Verband']} Gold, im Dorf bis {ra['verband_vorrat']}), dann Braten ({W['welt']['heilung']['roast_meat']} Leben, Fleisch aus dem Zerlegen von Ratte, Wolf, Wildschwein), dann Langes Ausruhen am Feuer, wenn heute noch nicht ({ra['lang_minuten'] // 60} Stunden, alles voll); im Dorf das Zimmer ({ra['zimmer_preis']} Gold), wenn Leben oder Mana unter der Hälfte. Sonst kämpft er geschwächt.")
+    a(f"- **Beide:** Heiltränke wie Abschnitt 5 (im Kampf unter 35 %, im Dorf bis 3); Niederlage: Leben und Mana voll, {ra['niederlage_minuten'] // 60} Stunden vergehen, kein Gold weg (spiel.gd). "
+      f"Spielbeginn {ra['start_minuten'] // 60} Uhr; Kämpfe je Spieltag {', '.join(str(x) for x in ra['kaempfe_je_tag'])} (eine Spielminute je Sekunde auf der Karte, ein Spieltag sind 24 Minuten Spiel).")
+    a("- **Nicht gerechnet:** Blutung (den Helden trifft sie in Kapitel 1 nur durch den Blutflügler, 30 % je Treffer, zwei Runden, endet mit Zähigkeit über 5 früher), Kräuter sammeln, Quests, Söldner; Kurze Erholungen nur, um die Uhr zum nächsten Tag zu drehen.\n")
+    a("| Herkunft | Regel | Kämpfe/Tag | Kämpfe bis 6 | Niederl. % | geschwächt % | Spieltage | Lange Rast | Zimmer | Kurze (alt) | Verbände | Braten | Tränke getr. | Gold Heilung | Gold am Ende (p10) | Heilkunde |")
+    a("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
+    for (hk, regel, jt), e in rr.items():
+        a(f"| {hk} | {regel} | {jt} | {zahl(e['kaempfe'], 0)} | {pz(e['niederlagen'])} | {pz(e['schwach'])} | {zahl(e['tage'], 0)} | "
+          f"{zahl(e['lang'])} | {zahl(e['zimmer'])} | {zahl(e['kurz'])} | {zahl(e['verband'])} | {zahl(e['fleisch'])} | {zahl(e['getrunken'])} | "
+          f"{zahl(e['heil_gold'], 0)} | {zahl(e['gold_ende'], 0)} ({zahl(e['gold_p10'], 0)}) | {zahl(e['heilkunde'], 0)} |")
+    a("")
+    return "\n".join(out) + "\n"
+
+
 # ---------------------------------------------------------------- Pruefen
 
 def pruefen(W):
@@ -1285,6 +1438,7 @@ def main():
     p.add_argument("--nur-wirtschaft", action="store_true", help="nur Abschnitt 5 (Wirtschaft) rechnen und ausgeben")
     p.add_argument("--ohne-wirtschaft", action="store_true", help="Abschnitt 5 nicht rechnen")
     p.add_argument("--nur-traenke", action="store_true", help="nur Abschnitt 6 (Traenke im Bosskampf, 481.1) ausgeben")
+    p.add_argument("--nur-rast", action="store_true", help="nur Abschnitt 7 (Rast nach 1038 R1, 1046) rechnen und ausgeben")
     args = p.parse_args()
     W = lade(args.werte)
     # 427.1: Boss mit Ueberfall auch mit Morwens Rauch (D4.1: der erste Hieb geht fehl), nur in Bossen und Matrix
@@ -1307,6 +1461,26 @@ def main():
                 we[(hk, ber)] = wirtschaft_alle(W, hk, laeufe, rng, ber)
             print(f"  {hk} Wirtschaft fertig", file=sys.stderr)
         return bericht_wirtschaft(W, we, laeufe)
+
+    def rechne_rast():
+        rng = random.Random(W["lauf"]["zufallskeim"] + 7)
+        rr = {}
+        for hk in ohne_info(W["herkuenfte"]):
+            jt = W["rast_1046"]["kaempfe_je_tag"]
+            rr[(hk, "alt", jt[len(jt) // 2])] = rast_alle(W, hk, laeufe, rng, "alt", jt[len(jt) // 2])
+            for t in jt:
+                rr[(hk, "R1", t)] = rast_alle(W, hk, laeufe, rng, "R1", t)
+            print(f"  {hk} Rast fertig", file=sys.stderr)
+        return bericht_rast(W, rr, laeufe)
+
+    if args.nur_rast:
+        text = rechne_rast()
+        if args.aus:
+            with open(args.aus, "w", encoding="utf-8") as f:
+                f.write(text)
+        else:
+            sys.stdout.write(text)
+        return
 
     if args.nur_wirtschaft:
         text = rechne_wirtschaft()
@@ -1348,6 +1522,7 @@ def main():
     if not args.ohne_wirtschaft:
         text += "\n" + rechne_wirtschaft()
     text += "\n" + rechne_traenke(erg)
+    text += "\n" + rechne_rast()
     if args.aus:
         with open(args.aus, "w", encoding="utf-8") as f:
             f.write(text)
