@@ -22,6 +22,7 @@ func _initialize() -> void:
 	_spanne_644a()
 	_beute_stufe_644a()
 	_ueben_644a()
+	_ohne_deckel_644b()
 	print("GEGENSTAENDE870 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -246,3 +247,13 @@ func _ueben_644a() -> void:
 	pruefe(BrsHeld.grundwerte().all(func(g): return h.uebungs_plus(String(g)) == 0), "Rüstung und Schild heben keinen Grundwert")
 	h.geuebt = {"Einhänder": 10 + n}
 	pruefe(int(h.mein_kampfblatt()["werte"]["kraft"]) == kraft + 1, "Kampfblatt mit gewachsenem Grundwert")
+
+
+## 644b.1 (644b A, Chef 12.11., 13:40): kein Deckel für Grundwerte und Schutzwert; der Schutzwert würfelt mit halbem Gewicht wie die
+## Grundwerte, Leben mit vollem
+func _ohne_deckel_644b() -> void:
+	var w := BrsHeld.neu()
+	for a in ["STR", "DEX", "CON", "INT", "WIS", "CHA", "AC"]:
+		pruefe(w.deckel(a) >= 1 << 20, "644b: Deckel für %s ist %d" % [a, w.deckel(a)])
+	pruefe(Beute.zusatz_gewicht("AC") * 2 == Beute.zusatz_gewicht("HP"), "644b: Schutzwert %d gegen Leben %d" % [Beute.zusatz_gewicht("AC"), Beute.zusatz_gewicht("HP")])
+	pruefe(Beute.zusatz_gewicht("STR") == Beute.zusatz_gewicht("AC"), "644b: Grundwert %d gegen Schutzwert %d" % [Beute.zusatz_gewicht("STR"), Beute.zusatz_gewicht("AC")])

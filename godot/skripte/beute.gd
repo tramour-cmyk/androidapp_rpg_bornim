@@ -113,10 +113,14 @@ static func zusatz_wert(a: String, stufe: int, w = null) -> int:
 	if w == null: return (int(sp[0]) + int(sp[1])) / 2
 	return w.next_int(int(sp[0]), int(sp[1]) + 1)
 
-## 644a D: Grundwerte wuerfeln als Zusatzeigenschaft mit „grundwert_gewicht“ (halb) gegenueber den uebrigen
+## 644a D: Grundwerte wuerfeln als Zusatzeigenschaft mit „grundwert_gewicht“ (halb) gegenueber den uebrigen; 644b A: „gewicht“ je
+## Zusatzeigenschaft (Schutzwert halb, Chef 12.11., 13:40) geht vor
 static func zusatz_gewicht(a: String) -> int:
 	var gw := int(r_().get("zusatz_gewicht", 2))
-	return maxi(1, roundi(gw * float(r_().get("grundwert_gewicht", 1.0)))) if r_()["zusatz"].get(a, {}).has("grundwert") else gw
+	var z: Dictionary = r_()["zusatz"].get(a, {})
+	if z.has("gewicht"):
+		return maxi(1, roundi(gw * float(z.gewicht)))
+	return maxi(1, roundi(gw * float(r_().get("grundwert_gewicht", 1.0)))) if z.has("grundwert") else gw
 
 static func zusatz_prozent(a: String) -> bool: return bool(r_()["zusatz"].get(a, {}).get("prozent", false))
 
