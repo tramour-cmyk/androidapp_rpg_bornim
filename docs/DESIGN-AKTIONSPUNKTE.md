@@ -128,6 +128,32 @@ Frage des Chefs 00:25: geben Pfade einen Punkt mehr, gibt die Heldenstufe etwas?
 - **Votum Sokrates:** 3 Punkte mit den Probepreisen und der Regel „ein Angriff je Zug“; über die Wunschzüge entscheidet der Chef.
 - **Chef:** …
 
+### Rechnung: 3 Punkte gegen 2 (Sokrates, 14.11., 00:50, über Nacht)
+
+Gerechnet mit `handgemenge.py` aus `e38789523` (Formeln und Werte vom 11.11., je Fall 1000 Kämpfe, Autopilot ohne Ring und Tränke wie 930.3), Preise wie im Entwurf 930 (Weg nach Tempo, Schlag 1, Schwung nach Treffer, Rest Deckung). Drei Läufe: 2 Punkte für alle (Gegenprobe, gleich 930.3), 3 für alle, 3 für den Helden und 2 für die Gegner (eine Zeile mehr im Werkzeug: `punkte_gegner`). Schwerer Zauber, Trank und Waffenwechsel kennt das Werkzeug nicht; Wunschzug 3 bis 5 ist damit nicht gerechnet.
+
+**Runden bis zum Sieg** (heute / 2 Punkte / 3 Punkte):
+
+| Fall | heute | 2 | 3 |
+|---|---|---|---|
+| Wachsoldat gegen Rudel St. 1 | 4,1 | 3,2 | 2,9 |
+| Wachsoldat gegen Krogg St. 4 | 8,1 | 5,8 | 5,8 |
+| Wachsoldat gegen Grak St. 6 | 8,5 | 6,1 | 5,7 |
+| Klosterschüler gegen Krogg | 15,1 | 8,5 | 7,6 |
+| Kräutersammler gegen Grak | 9,4 | 7,2 | 6,8 |
+| Wanderer gegen Grimmzahn St. 5 | 6,3 | 4,9 | 4,4 |
+| Jägerkind (Schütze) gegen Grak | 7,0 | 7,0 | 7,2 |
+
+**Sieg je 100 Kämpfe** (heute / 2 / 3): Kräutersammler gegen Krogg 5 / 38 / 36, gegen Grak 28 / 72 / 76, gegen Rudel 41 / 71 / 77; Herumtreiber gegen Krogg 27 / 70 / 68; Wanderer gegen Grimmzahn 60 / 83 / 87. Mit gezähmtem Schwung (Ungunst, Ausdauer doppelt): Kräutersammler gegen Krogg 15 / 16.
+
+**Befund:**
+1. **Der dritte Punkt ändert die Balance kaum.** Die große Verschiebung (schwache Herkünfte gewinnen viel öfter) kommt vom Schwung, nicht von der Zahl; sie ist mit 2 und 3 Punkten fast gleich.
+2. **Kämpfe werden noch etwas kürzer,** meist 0,3 bis 0,9 Runden gegenüber 2 Punkten. Der Held setzt den dritten Punkt meist für Schwung ein (Schläge je Runde Wachsoldat 1,29 → 1,42), seltener für Deckung. Wunschzug 1 („heran, zuschlagen, 1 Deckung“) wählt der Autopilot so nicht; ob Deckung einen Punkt wert ist, hängt am Ring (930 Abschnitt F) und ist offen.
+3. **Wichtig für Frage 7: Haben die Gegner auch 3 Punkte, verliert der Abstand seinen Preis.** Ein langsamer Zombie (Feld 2 Punkte) kommt dann von fern heran und beißt im selben Zug: Zauberlehrling gegen Zombie, Bisse je Kampf mit 2 Punkten 0,0, mit 3 für alle 1,9, mit 3 für den Helden und 2 für die Gegner wieder 0,0. Die Eröffnung „weit“ hilft dem Schützen mit 3 für alle nicht mehr (Jägerkind gegen Rudel 96 → 91 Siege, gegen Goblin 0,7 → 1,6 Bisse), mit 2 für die Gegner wie bisher.
+4. Meine Tabelle oben („Abstand zählt: ja“ bei 3 Punkten) stimmt also nur für den Helden. Für die Gegner gilt die Spalte „2 Punkte“: dort wirkt der Abstand.
+
+**Votum Sokrates (vorläufig):** 3 Punkte für den Helden bleibt richtig (Wunschzug 5 und 6). Gegner nicht einfach mit denselben 3 Punkten, sondern mit 2 oder eigenen Mustern (Frage 7 zusammen mit der Zahl entscheiden). Gegenargument: ungleiche Regeln für Held und Gegner sind schwerer zu durchschauen; dagegen: der Spieler sieht nur, was ein Gegner tut (der Wolf springt und beißt, der Zombie schlurft), nicht dessen Punkte. Vor einer Entscheidung fehlen: Rundenzeit auf dem Bildschirm (931) und eine Rechnung mit Trank, Waffenwechsel und schwerem Zauber, die das Werkzeug noch nicht kann.
+
 ### 3. bis 7.
 
 Noch nicht besprochen.
