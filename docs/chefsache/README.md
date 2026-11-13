@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [1098](entscheiden/1098-ford-starter.md) | **Muss** | B Abläufe | 13.11., 08:31 | ein kleiner Starter auf Tiefe 1 startet jeden neuen Ford; Ford bleibt so auf Tiefe 2, statt jeden Tag bis 6 zu sinken und dich um einen Handstart zu bitten | Perikles |
+| [1100](entscheiden/1100-ford-lauf.md) | Kür | B Abläufe | 13.11., 08:36 | Ford kostet gemessen etwa 0,90 $ je Stunde (rund 22 $ am Tag); fünf Änderungen am Lauf sparen geschätzt ein Drittel bis die Hälfte | Perikles |
 
 ## Zu billigen
 
@@ -311,7 +312,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1095 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 751): Zeile „<Name> ist dran“ über den Knöp | wartet auf Test/Build (gebaut) |
 | 1096 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 18, Muss 15, startbar 2
+**Perikles** – offen 18, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -331,7 +332,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | wartet auf Test t281 (Chef) |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Chef (Datei in der Chefsache) |
 | 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | wartet auf Diogenes |
-| 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
+| 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Chef (Datei in der Chefsache) |
 | Pflege | K | von Werkzeug (340.3, 13.11.): Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabe | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 1
