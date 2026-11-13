@@ -92,6 +92,40 @@ Frage des Chefs 00:25: geben Pfade einen Punkt mehr, gibt die Heldenstufe etwas?
 **Stärkstes Gegenargument gegen C:** Billigere Handlungen sind schwerer zu sehen als „du hast jetzt 4 Punkte“; der Spieler merkt das Wachsen weniger. Dagegen: die Glutmarken zeigen vor dem Tippen, was eine Handlung kostet; „Trank kostet nichts mehr“ fühlt man sofort.
 
 **Votum Sokrates:** 3 Punkte für alle; Wachsen über C (billiger durch Fertigkeit), ab Kapitel 2 dazu D (gebundener Punkt des Pfads); E offen lassen bis Kapitel 3. Kapitel 1 bleibt bei 3 Punkten für alle.
+- **Chef (14.11., 00:44):** „Naja, für mich hängt schon davon ab, wie viele Punkte auch damit zusammen was kostet.“ → **Zahl der Punkte und Preise zusammen entscheiden** (2 und 4 gemeinsam).
+
+### 2 und 4 zusammen: erst die Wunschzüge, dann Preise und Zahl (Sokrates, 00:44)
+
+**Vorgehen:** Nicht mit der Zahl anfangen, sondern festlegen, welche Züge in einen Zug passen sollen und welche nicht. Daraus folgen Preise und Zahl.
+
+**Wunschzüge (Vorschlag, der Chef ergänzt oder streicht):**
+1. Ein Feld heran und zuschlagen: geht.
+2. Schießen und einen Schritt zurück: geht.
+3. Trank und zuschlagen: geht.
+4. Waffe wechseln und zuschlagen: geht.
+5. Schwerer Zauber: geht, danach höchstens ein Schritt.
+6. Von weit (zwei Felder) heran und zuschlagen: geht, kostet aber alles, keine Deckung.
+7. Zweimal zuschlagen: geht nicht (Doppelzug gestrichen), nur als Schwung nach einem Treffer.
+8. Wer nah steht und nur zuschlägt, hat noch etwas für Deckung übrig.
+
+**Preise zur Probe:** Schritt 1, Schritt zurück 1, Angriff oder Schuss 1, leichter Zauber 1, schwerer Zauber 2, Trank 1, Waffenwechsel 1; dazu Regel „höchstens ein Angriff je Zug, außer Schwung“.
+
+**Prüfung der Zahl gegen die Wunschzüge:**
+
+| Wunschzug | 2 Punkte | 3 Punkte | 4 Punkte |
+|---|---|---|---|
+| 1 heran und zuschlagen | ja, ohne Deckung | ja, 1 Deckung | ja, 2 Deckung |
+| 2 Schuss und zurück | ja, ohne Deckung | ja, 1 Deckung | ja, 2 Deckung |
+| 3 Trank und zuschlagen | ja | ja | ja |
+| 4 Waffenwechsel und zuschlagen | ja | ja | ja |
+| 5 schwerer Zauber, ein Schritt | nein, nur der Zauber | ja | ja, und noch Deckung |
+| 6 von weit heran und zuschlagen | nein | ja, ohne Deckung | ja, 1 Deckung |
+| 8 nah zuschlagen, Rest Deckung | ja, 1 | ja, 2 | ja, 3 |
+| Abstand zählt | stark, oft zu stark | ja: weit kostet die Deckung | kaum: weit kostet fast nichts |
+
+- **Befund:** Mit 2 Punkten scheitern Wunschzug 5 und 6; mit 4 verliert der Abstand seinen Preis (von weit heran und trotzdem gedeckt). 3 ist die kleinste Zahl, bei der alle Wunschzüge gehen und Abstand trotzdem kostet.
+- **Feinere Skala** (etwa 6 Punkte, Schritt 2, Angriff 2, Trank 1): erlaubt halbe Preise (Trank billiger als Schritt), aber sechs Glutmarken am Fuß des Helden sind schwer zu lesen. Erst nötig, wenn ein Wunschzug mit 3 nicht abzubilden ist.
+- **Votum Sokrates:** 3 Punkte mit den Probepreisen und der Regel „ein Angriff je Zug“; über die Wunschzüge entscheidet der Chef.
 - **Chef:** …
 
 ### 3. bis 7.
