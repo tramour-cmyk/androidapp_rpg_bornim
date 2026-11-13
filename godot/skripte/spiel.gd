@@ -1511,12 +1511,20 @@ func lage_herstellen(l: Dictionary) -> void:
 	if l.has("stufe"): Testmodus.stufe_setzen(werte, zustand, int(l["stufe"]))
 	if l.has("vorraete"): Testmodus.vorraete(werte, zustand)
 	if l.has("einmaliges"): await test_tat("einmaliges", [])
+	if l.has("ruhig"): Herde.beachten_nicht = true   # 542: wie „Monster: beachten nicht“ im Reiter, kein Kampf auf dem Weg
 	if l.has("uhr"): zustand.minuten = Testmodus.lage_uhr(String(l["uhr"]))
 	var merker := func() -> void:
 		for w in String(l.get("merker", "")).split(",", false):
 			if w.begins_with("-"): zustand.flaggen.erase(w.substr(1))
 			else: zustand.setze(w.trim_prefix("+"))
-	if l.has("station"):
+	# 542 (Fund t284.4: Station „Krogg“ lag vor dem Aushang, „Teleport Dorf“ stand nur im Text): Station mit ort= nimmt den Stand
+	# der Station und stellt den Helden an den Ort, eine Blende
+	if l.has("station") and l.has("ort") and String(l["station"]) != "Kapitelende":
+		Testmodus.station(String(l["station"]), zustand)
+		merker.call()
+		var o := String(l["ort"]).split(":")
+		await test_tat("teleport", [o[0], int(o[1]), int(o[2]), o[3] if o.size() > 3 else held.blick()])
+	elif l.has("station"):
 		await test_tat("kapitelende" if String(l["station"]) == "Kapitelende" else "station", [String(l["station"])])
 		if l.has("merker"):
 			merker.call()
