@@ -328,7 +328,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | 7,79 $ | Tom | erledigt |
 | 278 | Held steht in der Markise von Thessas Kramladen (Chef 21.10., Build 53, Bild) | E Welt | M? | – | Tom | erledigt |
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | B Steuerung | M | –; +0,57 $ | Perikles | erledigt |
-| 281 | E-Gitarre aus der Kampfmusik entfernen, nur Orchester (Chef 21.10.; 18:19 „es war keine E-Gitarre im Kampf zu hören“) | E Klang | – | – | Jerry | erledigt |
+| 281 | E-Gitarre aus der Kampfmusik entfernen, nur Orchester (Chef 21.10.; 18:19 „es war keine E-Gitarre im Kampf zu hören“) | E Klang | – | 1,35 $ | Jerry | erledigt |
 | 280 | Durchgang aller Spieltexte Kapitel 1: Tippfehler, Ton, Text passt zum Bild (Vorschlag Sokrates) | G Story | K | 4,46 $ | Homer | erledigt |
 | 286 | Anzusehen ohne Versionsnummer: `zug-index.py` meldet fehlende Version unter „Lücken“ (Chef 21.10., 19:42; Version nach dem Lauf: t62 Tom, t63 Jerry nachtragen) | B Werkzeuge | M | – | Perikles | erledigt |
 | 251.2 | Markenprüfung Logo B (Quelle): Verwechslung mit fremden Bildmarken? (Chef 21.10.) | M Markt | K | – | Sokrates | erledigt 21.10. (→ 251.3) |
@@ -1189,7 +1189,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1048 | Ring öfter im Kampf (Chef 12.11., 14:59: „ein bisschen mehr Ring … mehr Einfluss … bei der Abwehr und beim Angriff“): Abwehr bei angesagten großen Schlägen (Anspringen, Krogg), Angriff; aus 930 gelöst, Bau nach 1039 | E Kampf | M | 47,50 $ | Sokrates | erledigt |
 | 1050a | Rückfrage Zauberlehrling: Punkte der Herkunft nach 952 D (Wille 5, Verstand 1) neu verteilen? (aus 1050, Chef 11.11., 20:00 „Verstand als Grundwert da ganz entscheidend“) | G Balance | M | – | Sokrates | erledigt |
 | 1074 | Von Sokrates (Chef 12.11., 20:48, 842 zurück): Text für den sichtbaren zweiten Knopf neben einer Wahl im Gespräch (Pim „Schick Pim heim“, Osric „Kaufen“), etwa „Weiter“ oder „Lass ihn“; für Tom 842 | G Story | M | 2,15 $ | Homer | erledigt |
-| 1077 | Von Tuffy (1055): Prüfliste Build 281 Kampf gegenlesen (docs/entwurf/t281-kampf.md, 12 Punkte), Zeile „Gegengelesen“, nach chefsache/ansehen/ verschieben; erst dann baut 281 | B Abläufe | M | 11,49 $ | Sokrates | erledigt |
+| 1077 | Von Tuffy (1055): Prüfliste Build 281 Kampf gegenlesen (docs/entwurf/t281-kampf.md, 12 Punkte), Zeile „Gegengelesen“, nach chefsache/ansehen/ verschieben; erst dann baut 281 | B Abläufe | M | 12,84 $ | Sokrates | erledigt |
 | 1080 | Von Spike (Lauf 400): ziege_4162 einmal rot ohne Dorfänderung (Lauf 399 grün); Test misst mit Echtzeit 6 s, wohl wackelig | Q QS | M? | – | Tom | erledigt, doppelt zu 1079 |
 | 1071 | Von Sokrates (Chef 12.11., 20:09, Film 1036; Wiederholfund 09.11., 21:15 und 10.11., 19:29): hinterer Wolf im Rudel läuft außen herum statt durch die Lücke in der Mitte | E Kampf | M? | – | Jerry | erledigt, doppelt zu 1072 |
 | 1075 | Von Jerry (1029): Kampftests mit derselben Schleife wie probekampf_1020 (go_on auch beim Söldner „selbst“) prüfen, ob dort ein Söldner mitkämpft und der Kampf stehen bleibt (Schwanken) | E Kampf | M? | – | Jerry | erledigt, geprüft: die übrigen 22 Tests setzen merc.auto oder haben keinen Söldner |
