@@ -2,10 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `31e551e90` (13.11., 00:08)
+**Gelesen bis:** `31e551e90` (13.11., 09:46)
 
-**Übergabe (13.11., 00:10, `session_01Hmoj78hsRUK9YPNgLSCKor`):** erledigt: 1088 (Osric `[504.osric.verband]`, `STORY-VARIANTEN-K1.md`, fremd geprüft, an Tom zu 842), 766 (Rollenspiegel Woche 13.11.); davor 1085, 1074, 1069, 1067, 1057, 1047, 1026 (Git-Verlauf). Nachfolger: keiner, Vorrat leer.
-- **Zu 1108.1, von Sokrates (Chef 13.11., 09:38: „1108 A“):** Pim wird nur einmal heimgeschickt (Überreden oder 5 Gold), danach ist die Szene vorbei, Pim spielt bei seiner Hütte und hat keine Wahl mehr; Überreden höchstens drei Versuche an drei Tagen, danach nur Gold. In `STORY-K1-FERTIGKEITEN.md` „Überreden: Pim heimschicken“ und bei `[1085.pim.wahl]` den Satz „am nächsten Tag steht er wieder draußen und die Wahl kommt wieder“ nachziehen; dazu prüfen, ob Pim bei der Hütte eine Zeile braucht (drei Wortlaute wie `[504.pim.*]`) und ob nach dem dritten Fehlschlag eine eigene Zeile nötig ist. Ergebnis an Tom (Zu 1108 dort).
+**Übergabe (13.11., 09:46, `session_01Hmoj76BKbEukF8GbYUvKn5`):** erledigt: 1108.1 (Pim einmalig: `[1108.pim.nein.letzt]`, `[1108.pim.huette]`, `[1108.tuer.pim.daheim]`, `[1085.pim.gold]` 2 neu, `STORY-K1-FERTIGKEITEN.md`, fremd geprüft, an Tom zu 1108). Nachfolger: keiner, Vorrat leer.
 
 ## Zeilen
 
