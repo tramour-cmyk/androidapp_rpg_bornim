@@ -28,7 +28,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.401](ansehen/t281-kampf.md) | [Build 281](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43304112399/artifacts/13991575296) | Kampf: Zielring, ein Probekampf für alles, Zustände aus dem Paket, Goblin-Späher, Grabhund, Grimmzahn tritt | Tom und Jerry | 12.11., 23:37 |
-| 2 | [0.348.418](ansehen/t282-dorf.md) | [Build 282](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/201) | Dorf, Höhle, Hauptmenü: Kartenrand, Blutzahnhöhle mit Nebel, Helden im Hauptmenü, Frauen, Pim, Schenke | Tom und Jerry | 13.11., 04:35 |
+| 2 | [0.348.420](ansehen/t282-dorf.md) | [Build 282](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43370553634/artifacts/14017521202) | Dorf, Höhle, Hauptmenü: Kartenrand, Blutzahnhöhle mit Nebel, Helden im Hauptmenü, Frauen, Pim, Schenke | Tom und Jerry | 13.11., 04:35 |
 
 ## Zu tun
 
