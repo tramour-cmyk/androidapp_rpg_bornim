@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1072](entscheiden/1072-plaetze-am-gegner.md) | **Muss** | E Kampf | 13.11., 23:32 | Startplätze, dazu Plätze am Gegner (Kontakt und ein Hops dahinter) aus beiden Umrissen; Bahnen von jedem Stand, Platzmachen als Gehschritt; in drei Schritten mit Messung. | Jerry |
+| [1072](entscheiden/1072-plaetze-am-gegner.md) | **Muss** | E Kampf | 13.11., 23:33 | Startplätze, dazu Plätze am Gegner (Kontakt und ein Hops dahinter) aus beiden Umrissen; Bahnen von jedem Stand, Platzmachen als Gehschritt; in drei Schritten mit Messung. |  |
 
 ## Zu billigen
 
@@ -398,6 +398,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): entscheiden/1072-plaetze-am-gegner.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/844-schlagen.md
 
