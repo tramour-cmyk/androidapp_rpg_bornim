@@ -1213,8 +1213,8 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wendebild=$GITHUB_WORKSPACE/bilder/wende4168/probebild.png 2>&1 | grep -E "SCRIPT ERROR|^WENDE|^BILD|^LEUTE" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wende4168
-      # 1044 Weg 2 (Vorentscheid Sokrates 13.11., 00:09): Lyra im Tempel vorher/nachher (Damenstand, heldfigur.gd Haltung.dame), Spielansicht
-      # und nah; nur von Hand auf claude/tom-1044-… (das Kandidatenblatt der Sichtung: Commit 21b662236, tests/frauenstand_1044.gd)
+      # 1044 Weg 2 (Vorentscheid Sokrates 13.11., 00:09; Lyra passt 02:30): alle Frauen (HeldFigur.DAMEN) nah an ihrem Platz vorher/nachher
+      # (Damenstand, heldfigur.gd Haltung.dame); nur von Hand auf claude/tom-1044-… (das Kandidatenblatt der Sichtung: Commit 21b662236, tests/frauenstand_1044.gd)
       - name: Damenstand (1044)
         if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-1044') }}
         continue-on-error: true
@@ -1224,8 +1224,8 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
             -s res://tests/dame_1044.gd -- --aus=$A 2>&1 | grep -E "SCRIPT ERROR|^DAME1044|^BILD" | cut -c1-400 || true
-          cd $A && [ -f nah_vorher.png ] && [ -f nah_nachher.png ] && montage spiel_vorher.png spiel_nachher.png -tile 2x -geometry 405x878+6+6 -background black spiel.png \
-            && montage nah_vorher.png nah_nachher.png -tile 2x -geometry +6+6 -background black nah.png; ls -l $A
+          cd $A && for n in liska gwenna rowena thessa morwen lyra_temple; do [ -f ${n}_nachher.png ] && montage ${n}_vorher.png ${n}_nachher.png -tile 2x -geometry +2+2 -background black p_$n.png; done; \
+            ls p_*.png > /dev/null 2>&1 && montage p_*.png -tile 3x -geometry +4+4 -background black alle.png; ls -l $A
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:

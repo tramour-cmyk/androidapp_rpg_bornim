@@ -896,8 +896,9 @@ static func person_modell(id: String) -> String:
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % mo) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return ""
 	return mo
 
-# 1044: Personen mit Damenstand (Haltung.dame); zuerst Lyra (Vorentscheid Sokrates 13.11., 00:09), nach „passt“ alle Frauen
-const DAMEN := ["lyra"]
+# 1044: Personen mit Damenstand (Haltung.dame); Lyra (Vorentscheid Sokrates 13.11., 00:09), nach „Lyra passt“ (02:30) alle Frauen
+# ausserhalb des Kampfs aus leute.json (sex w): die Heldin nicht
+const DAMEN := ["lyra", "liska", "gwenna", "rowena", "thessa", "morwen"]
 
 static func person(id: String, mats: Array) -> Node3D:
 	var mo := person_modell(id)
@@ -1006,7 +1007,15 @@ class Haltung extends SkeletonModifier3D:
 		var breite := links.length()
 		if breite < 0.001: return
 		links /= breite
-		var vorn := links.cross(Vector3.UP).normalized()   # Figur blickt nach +Z, links +X: (1,0,0) x (0,1,0) = (0,0,1)
+		# vorn nach den Zehen (Fuss -> Ballen), nicht nach den Hueften: bei Liska und Gwenna lag thigh_l rechts (Probebild 02:36, Haende
+		# landeten hinter dem Ruecken); nur ohne Ballen aus den Hueften (Figur blickt nach +Z, links +X)
+		var vorn := links.cross(Vector3.UP).normalized()
+		var zehen := Vector3.ZERO
+		for e in ["_l", "_r"]:
+			var ib := sk.find_bone("ball" + e)
+			if ib >= 0: zehen += sk.get_bone_global_pose(ib).origin - sk.get_bone_global_pose(b["foot" + e]).origin
+		zehen.y = 0.0
+		if zehen.length() > 0.001: vorn = zehen.normalized()
 		var kr: Vector3 = g.call("calf_r")
 		var bein: float = hr.distance_to(kr) + kr.distance_to(g.call("foot_r"))
 		var fuesse := [sk.get_bone_global_pose(b["foot_l"]), sk.get_bone_global_pose(b["foot_r"])]

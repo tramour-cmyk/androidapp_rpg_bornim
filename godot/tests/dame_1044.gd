@@ -1,16 +1,24 @@
 extends SceneTree
-# 1044 Weg 2 (Vorentscheid Sokrates 13.11., 00:09, billigen/1044-frauenstand.md): Lyra im Tempel vorher (UAL-Ruhe, breitbeinig) und
-# nachher (Damenstand, heldfigur.gd Haltung.dame), je in der Spielansicht und nah um Lyra; dazu Messzeilen DAME1044 (Fussabstand in
-# Hueftbreiten, Handgelenke vor dem Bauch). Nur mit Fenster und Kaufdaten (godot.yml „Damenstand (1044)“), im Ordner godot:
-#   xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/dame_1044.gd -- --aus=<ordner>
+# 1044 Weg 2 (Vorentscheid Sokrates 13.11., 00:09; Lyra passt 02:30): die Frauen ausserhalb des Kampfs (HeldFigur.DAMEN) nah im
+# Stehen an ihrem Platz, je vorher (UAL-Ruhe, breitbeinig) und nachher (Damenstand, heldfigur.gd Haltung.dame); dazu Messzeilen
+# DAME1044 (Fussabstand und Handgelenke in Hueftbreiten, im Modifikator gemessen). Nur mit Fenster und Kaufdaten (godot.yml
+# „Damenstand (1044)“), im Ordner godot:
+#   xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/dame_1044.gd -- --aus=<ordner> [--nur=lyra_temple,…]
+# Plaetze aus daten/karten.json (Leute mit Aussehen in leute.json, sex w), der Held auf einem freien Nachbarfeld, Kamera nah.
+
+const FRAUEN := [["village", "liska"], ["village", "gwenna"], ["inn", "rowena"], ["shop", "thessa"], ["deep_forest", "morwen"],
+	["temple", "lyra_temple"]]
+const NACHBARN := [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(2, 0), Vector2i(-2, 0), Vector2i(1, -1), Vector2i(-1, -1), Vector2i(1, 1), Vector2i(-1, 1)]   # seitlich, nicht davor
 
 var aus := ""
+var nur: PackedStringArray = []
 var spiel: Node
 
 
 func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--aus="): aus = a.substr(6)
+		if a.begins_with("--nur="): nur = a.substr(6).split(",")
 	_lauf.call_deferred()
 
 
@@ -18,29 +26,24 @@ func warte(s: float) -> void:
 	await create_timer(s).timeout
 
 
-func knips(n: String, lyra: Node3D = null) -> void:
+func knips(n: String, frau: Node3D) -> void:
 	for i in 4: await process_frame
 	await RenderingServer.frame_post_draw
 	var img := root.get_texture().get_image()
-	if lyra:
-		var cam: Camera3D = spiel.kamera
-		var o := cam.unproject_position(lyra.global_position + Vector3.UP * 0.85) * float(img.get_width()) / cam.get_viewport().get_visible_rect().size.x
-		print("DAME1044 Lyra im Bild %s (Fenster %s, Bild %d)" % [o, cam.get_viewport().get_visible_rect().size, img.get_width()])
-		var b := int(img.get_width() * 0.62); var h := int(b * 1.35)
-		var r := Rect2i(clampi(int(o.x) - b / 2, 0, img.get_width() - b), clampi(int(o.y) - h / 2, 0, img.get_height() - h), b, h)
-		img = img.get_region(r)
-	img.save_png(aus + "/" + n + ".png")
+	var cam: Camera3D = spiel.kamera
+	var o := cam.unproject_position(frau.global_position + Vector3.UP * 0.85) * float(img.get_width()) / cam.get_viewport().get_visible_rect().size.x
+	var b := int(img.get_width() * 0.62); var h := int(b * 1.35)
+	var r := Rect2i(clampi(int(o.x) - b / 2, 0, img.get_width() - b), clampi(int(o.y) - h / 2, 0, img.get_height() - h), b, h)
+	img.get_region(r).save_png(aus + "/" + n + ".png")
 	print("BILD ", aus + "/" + n + ".png")
 
 
-func messe(n: String, m: Node3D) -> void:
-	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
-	var p := func(b: String) -> Vector3: return sk.get_bone_global_pose(sk.find_bone(b)).origin
-	var breite: float = (p.call("thigh_l") - p.call("thigh_r")).length()
-	var fuss: float = Vector2(p.call("foot_l").x - p.call("foot_r").x, p.call("foot_l").z - p.call("foot_r").z).length()
-	var hand: float = (p.call("hand_l") - p.call("hand_r")).length()
-	print("DAME1044 %s Fuesse %.2f Hueftbreiten, Haende %.2f Hueftbreiten auseinander, Hand links %.2f / rechts %.2f ueber dem Becken" % [n, fuss / breite, hand / breite,
-		(p.call("hand_l").y - p.call("pelvis").y) / breite, (p.call("hand_r").y - p.call("pelvis").y) / breite])
+func platz(karte_id: String, id: String) -> Vector2i:
+	var j = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
+	var k: Dictionary = j["karten"][karte_id]
+	for n in k.get("leute", []):
+		if String(n["id"]) == id: return Vector2i(int(n["x"]), int(n["y"]))
+	return Vector2i(-1, -1)
 
 
 func _lauf() -> void:
@@ -50,34 +53,45 @@ func _lauf() -> void:
 	await warte(0.5)
 	spiel.zustand.setze(Geschichte.LYRA_RESCUED)
 	spiel.zustand.minuten = 11 * 60
-	var lyra: Node3D = null
-	var haltung = null
-	for ansicht in [["spiel", Vector2i(4, 4)], ["nah", Vector2i(7, 2)]]:
-		spiel.betrete("temple", ansicht[1], "UP")
+	var fehlt := 0
+	for fr in FRAUEN:
+		var kid: String = fr[0]; var id: String = fr[1]
+		if not nur.is_empty() and id not in nur: continue
+		var p := platz(kid, id)
+		spiel.betrete(kid, p if p.x >= 0 else Vector2i(2, 2), "UP")
+		await warte(1.0)
+		var karte = spiel.karte
+		var hp := p
+		for d in NACHBARN:
+			if p.x >= 0 and karte.begehbar(p + d) and not (spiel.leute.get_children().any(func(l): return l.kachel == p + d)):
+				hp = p + d; break
+		spiel.betrete(kid, hp, "UP")
 		await warte(2.0)
 		spiel.ui.mess.visible = false
 		spiel.ui.oben.visible = false
 		spiel.ui.leiste.visible = false
 		spiel.ui.sage([])
 		spiel.ui.textfeld.visible = false
-		if ansicht[0] == "nah" and not spiel.kamera.nah: spiel.kamera.nah_fern()
+		if not spiel.kamera.nah: spiel.kamera.nah_fern()
 		await warte(1.5)
-		lyra = null
+		var frau: Node3D = null
 		for l in spiel.leute.get_children():
-			if String(l.daten.get("id", "")) == "lyra_temple": lyra = l
-		if lyra == null or lyra.modell == null:
-			print("DAME1044 FEHLER Lyra nicht im Tempel"); quit(1); return
-		haltung = lyra.modell.find_child("Haltung", true, false)
+			if String(l.daten.get("id", "")) == id: frau = l
+		if frau:   # steht still, zur Kamera, auch wer im Dorf gerade geht
+			frau.set_process(false); frau.set_physics_process(false)
+			var zk: Vector3 = spiel.kamera.global_position - frau.global_position   # Gesicht zur Kamera (die Figur blickt nach +Z)
+			frau.rotation.y = atan2(zk.x, zk.z)
+			if frau.anim and frau.anim.has_animation("Stehen"): frau.anim.play("Stehen")
+		var haltung = frau.modell.find_child("Haltung", true, false) if frau and frau.modell else null
 		if haltung == null or not ("dame" in haltung):
-			print("DAME1044 FEHLER keine Haltung an Lyra (Kaufkoerper fehlt?)"); quit(1); return
-		print("DAME1044 Lyra ", lyra.kachel, " Bewegung ", lyra.anim.current_animation if lyra.anim else "-", " dame in leute.json ", haltung.dame)
+			print("DAME1044 FEHLER %s nicht da oder ohne Kaufkoerper (%s %s)" % [id, kid, p]); fehlt += 1; continue
+		print("DAME1044 %s %s an %s, Held %s, Bewegung %s, in DAMEN %s" % [id, kid, frau.kachel, hp, frau.anim.current_animation if frau.anim else "-", haltung.dame])
 		for stand in [["vorher", false], ["nachher", true]]:
 			haltung.dame = stand[1]
 			haltung.dame_w = -1.0
 			await warte(0.6)
 			spiel.ui.textfeld.visible = false
-			messe("%s %s" % [ansicht[0], stand[0]], lyra.modell)
-			if stand[1]: print("DAME1044 %s im Modifikator: Fuesse %.2f, Haende %.2f Hueftbreiten auseinander" % [ansicht[0], haltung.dame_mass.x, haltung.dame_mass.y])
-			await knips("%s_%s" % [ansicht[0], stand[0]], lyra if ansicht[0] == "nah" else null)
-	print("DAME1044 fertig")
+			if stand[1]: print("DAME1044 %s im Modifikator: Fuesse %.2f, Haende %.2f Hueftbreiten auseinander" % [id, haltung.dame_mass.x, haltung.dame_mass.y])
+			await knips("%s_%s" % [id, stand[0]], frau)
+	print("DAME1044 fertig, %d fehlen" % fehlt)
 	quit(0)
