@@ -52,6 +52,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 208 · 1159, 1161, 1163 Marke „Lauf läuft bis“, Wortlaut ROLLE-ENTWICKLUNG (Perikles `49c8f4e08`, `66ea6e95d`, `9fa556184`; 13.11., 15:4x)
+
+- **1159 greift.** Klon, Zeile in `ARBEIT-TEAM-TOM.md`, Marke heute +3 h: „bis TT.MM., HH:MM“, „… HH:MM Uhr (Spike)“, „bis TT.MM. HH:MM“ je Exit 0; „Render fertig gegen TT.MM., HH:MM“ und dieselbe Zeit als zweite Angabe in der Markenzeile halten weiter (Exit 1).
+- **1161 greift.** `lauf_laeuft`/`lauf_marke_falsch` mit untergeschobenem Vorrat: „18:30 Uhr (Spike)“ gilt für Spike, nicht Tom; ohne Datum, „etwa 18:30“, 32.11., über 12 h warnen; Zitat in „…“ und abgelaufene Marke schweigen; Fettdruck zählt. Heutige Vorräte: keine Warnung. Jahreswechsel (1163): 31.12., 23:00 mit „bis 01.01., 02:00“ zählt, „01.01., 12:30“ warnt über 12 h.
+- **1163 greift.** Wortvergleich `7d44e0f23~1` gegen jetzt: nur „TT.MM.,“ und „danach streichen“ (1148) dazu, „wirklich“, „alle eigenen“→„ihre“, „erst“ weg, wie im Commit genannt.
+- **D208.1 → 1177 (Perikles):** „Lauf läuft bis TT.MM. HH:MM (Spike, Render)“, heute +3 h: die Klammer nimmt nur einen Namen, also gilt die Marke still fürs Team: `lauf_laeuft("Tom")` sperrt, `lauf_laeuft("Spike")` None, keine Warnung. Spike würde mitten im Lauf gestartet oder archiviert (Fall 1148). Stärkstes Gegenargument: die Regel schreibt „Namen in Klammern“, die Form ist bisher nicht vorgekommen.
+- 1148 wartet auf 882.1: der Prüfpunkt „nächste echte Marke von Spike ohne Halt, keine Warnung, kein ARCHIVIERE bis zur Zeit“ ist erst am Lauf zu sehen; heute steht keine Marke.
+
 ## Lauf 207 · 1153 Wächter Rest auf allen Wegen, 1143 (Tom `e4170b4d5`, `b9cb52a73`; 13.11., 15:4x)
 
 - **1153 greift.** Am Klon, Probevorgang 9901 (Bereich B, „gebaut“) mit Baucommit „Rest: … braucht noch einen Bau“: `stand … erledigt`, `stand „erledigt, greift Lauf 5“`, `setze stand=erledigt`, `setze „stand=erledigt, Bautest Lauf 5“`, `fertig`, `greift`, `bautest` halten je mit Exit 1, die Liste bleibt gleich (Prüfsumme); `build 9990` mit Prüfliste „9990.1 ✓“ hält mit „nichts geschrieben“ (Exit 1), `--probe` nennt „PROBE gesperrt“. Mit „Kein Folgevorgang, weil: …“ im Commit geht `build` durch („erledigt, t9990 bestanden“), mit Folgevorgang „(aus 9901)“ geht `greift` durch. Andere Schreiber der Liste setzen kein „erledigt“ (`startbar.loesen` nur „startbar, gelöst“, `lauf.py --aufraeumen` verschiebt nur). Der Sammelbuild („erledigt, tN getestet“) bleibt mit Absicht frei. Nicht abgedeckt, weil gegen 275.2: Handänderung der Liste (Commit-Prüfung warnt nur).
