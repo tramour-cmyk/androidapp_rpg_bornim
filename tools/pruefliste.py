@@ -47,7 +47,9 @@ def eigene_nummer():
 
 def eigene_von_main(n):
     """1178: nur docs/chefsache/ansehen/t<n>-….md auf origin/main (frisch geholt); zwei Dateien derselben Nummer: die zuletzt geänderte."""
-    _git('fetch', '-q', '--depth=1', 'origin', 'main:refs/remotes/origin/main')
+    # flach nur in einem flachen Klon (Bauserver); ein voller Klon bliebe sonst ab origin/main flach (am Rechner 13.11., 15:52)
+    flach = _git('rev-parse', '--is-shallow-repository').stdout.strip() == 'true'
+    _git('fetch', '-q', *(['--depth=1'] if flach else []), 'origin', 'main:refs/remotes/origin/main')
     r = _git('ls-tree', '--name-only', 'origin/main', 'docs/chefsache/ansehen/')
     wege = [p for p in r.stdout.split() if re.match(r't%d-.*\.md$' % n, os.path.basename(p))]
     if not wege:
