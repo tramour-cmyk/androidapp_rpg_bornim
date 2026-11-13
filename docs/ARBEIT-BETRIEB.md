@@ -307,3 +307,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:16 13.11.: Startsperre 03:16 Start Sokrates (Ford, Neustart-Meldung 26e22cf0b, Nachfolger „Sokrates – 1077: Nachtführung und Chefrunde Build 281“; Hoch, effort high)
 - 04:04 13.11.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
 - 04:04 13.11.: Marke Start-fehlt Spike 13.11.-03:03 (lauf.py)
+- 04:10 13.11.: Startsperre 04:10 Start Tom (Ford, Neustart-Meldung 39358e034, Nachfolger „Tom – Sammelbuild 1022, 842, 867, 492, 1044 und 1090-Urteil“; Hoch, effort high)
