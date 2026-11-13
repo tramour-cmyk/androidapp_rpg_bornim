@@ -52,6 +52,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 196 · 1111, 1112, 1113 Kauf-Cache: Gegenprobe, halbe Blöcke, Aufräumen (Jerry `826974d2e` auf `claude/jerry-1111-cache`; 13.11., 11:4x)
+
+- **1111 richtig gebaut:** `pruefen --neu` setzt jeden Block auf bauen, `KAUF_HOLEN` nein, `KAUF_GEGENPROBE` nennt nur Blöcke mit vorher abgelegtem Zweig; `ablegen` überschreibt keinen, `vergleich` prüft damit den alten Zweig gegen den frischen Bau, nicht sich selbst. Abweichung macht den Schritt rot (continue-on-error, Bau geht weiter).
+- **1112 richtig gebaut:** alle geduldeten Fehler in Blöcken setzen `halb` (Block klassen: LEUTE KAUF; Block kampf: Grimmzahn, vier Kauftiere, Skelett, Wiedergänger, Grabhund); figur und dorf dulden keinen Fehler (`exit 1`); Waffen, Dorftiere, Leute liegen außerhalb der Blockmarken. Die erste Marke des Blocks löscht alte `halb`-Dateien.
+- **1113 mit Lücke:** D196.1 → 1126 (Jerry, M): Aufräumen kann einem gleichzeitigen Lauf auf einem anderen Zweig den gewählten Treffer zwischen Prüfen und Holen wegnehmen; `holen` baut dann nicht nach, Lauf rot. 1113 wartet darauf.
+- **Nebenbefund:** D196.2 → 1127 (Jerry, K): rote Gegenprobe meldet zusätzlich „Ablegen misslungen“.
+- **Nicht geprüft (wartet auf t283):** echter Lauf mit `cache=neu`, mit geduldetem Fehler, Löschen per KAUF_TOKEN.
+
 ## Lauf 195 · 1100.1 Ford-Lauf vorher/nachher (Perikles `70a4467fe`, Ford ab 10:03; 13.11., 11:4x)
 
 - **Grundlage:** alle 41 Züge der Ford-Sitzungen `…78Qg516rLn1yGt11hL` (05:11–11:08) und `…799ZkNaijAJMrQQjx9` (11:12–11:43), je Zug Kosten, Schritte, Verlauf (result-Ereignisse).
