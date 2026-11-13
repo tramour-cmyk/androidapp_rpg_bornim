@@ -149,6 +149,7 @@ def rest_offen(nr, d=None):
         if re.search(r"Kein Folgevorgang, weil:\s*\S", text):
             text = ""
         for z in text.splitlines():
+            z = re.sub(r"\[[\w.]+\]", "", z)   # Textmarken wie [954.1.spaeter] (Spike 15:05: Fehlalarm in 1015, 1017)
             if REST.search(z) and not z.startswith(("Co-Authored-By", "Claude-Session")):
                 funde.append(("Commit " + kopf.strip(), z.strip()[:160]))
     d = d or finden(nr)
