@@ -1163,6 +1163,13 @@ jobs:
           # 453.1 Feld 2 (Tuffy; Chef 02.11., 11:07 „steigert sich … und dann wieder normalisiert … einen Tick schneller“): kampf=4531
           # derselbe Kampf (SEED 7) wie Feld 2 links, neu rechts
           # 784 (Tuffy, 654 A): kampf=784 eine Runde Wolfsrudel im Handyformat, Uhr oben links; das Protokoll misst gegen das Sollbild
+          # 709.1 (Jerry; 709c A, Chef 11.11., 07:56): kampf=7091 Wolf und Grimmzahn beißen in den Schild; erst Messung (MESS=1), dann je Gegner ein Film
+          if [ "${{ github.event.inputs.kampf }}" = "7091" ]; then
+            for g in WOLVES GRIMM; do MESS=1 GEGNER=$g timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wolfsbiss_7091.gd 2>&1 | grep -vE "^(Godot|$)" | head -40 || true; done
+            film 7091-wolf film_wolfsbiss_7091 GEGNER=WOLVES
+            film 7091-grimm film_wolfsbiss_7091 GEGNER=GRIMM
+            ls -l $B; exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
