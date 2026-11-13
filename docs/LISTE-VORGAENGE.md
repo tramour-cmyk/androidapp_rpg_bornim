@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 756.1 | Zeichen für Schlecht, neue Vorlage (Chef 13.11., 13:09 an Ford: „756 ist keine vernünftige Vorlage. Kümmere dich.“) · „jetzt“ 13.11., 13:09 | Tom | M | in Arbeit, bei Spike | – | – | – | E Oberfläche | – |
+| 756.1 | Zeichen für Schlecht, neue Vorlage (Chef 13.11., 13:09 an Ford: „756 ist keine vernünftige Vorlage. Kümmere dich.“) · „jetzt“ 13.11., 13:09 | Tom | M | wartet | 756.1a | – | – | E Oberfläche | – |
 | 1122 | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf claude/build-…, auf Teamzweigen aus (falsches Rot aus älterem Code gegen neueste Prüfliste) | Tom | M | zu testen | t283 | claude/tom-1122-pruefliste | 283 | B Werkzeuge | 7,04 $ |
 | 1104 | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station „Höhle“ im Reiter „Test“ geht auch nicht; zuerst nachstellen, ob Build 282 (282.17 bis 282.22 Wald, Höhle, Lyra) dasselbe hat, bevor der Chef 282 testet | Tom | M | zu testen | – | claude/tom-1104-hoehlenkampf | 282 | E Welt | 4,53 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, nach dem Umzug erster großer Punkt Tom (1061): erst Aufwand vorlegen | 870.10 | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
@@ -125,6 +125,7 @@
 | 1120 | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht jetzt links neben der Wahl rechts (1074), bei Pim neben der unteren | Tom | M | zu testen | – | claude/tom-1120-knoepfe | 283 | E Oberfläche | 1,68 $ |
 | 1131 | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … t274“ noch „gebaut“ steht (t274 getestet 10.11., 13:34); 825 abschließen, sammelbuild_faellig() soll Sammelbuild-Zeilen mit getestetem Build nicht zählen | Tom | M | startbar | – | – | – | E Technik | – |
 | Pflege | von Werkzeug (340.3, 13.11.): 17013 Bytes (Grenze 15000), Erledigtes streichen; Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Tom | K | startbar | – | – | – | B Abläufe | – |
+| 756.1a | Rückfrage zu 756.1: was an der Vorlage Schlecht nicht vernünftig war, Weg für die neue (Spike) | Tom | M | Chef | Chef 756.1a | – | – | E Oberfläche | – |
 | 1111 | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen keine Treffer, vergleich prüft nur Geholtes gegen sich selbst; keine Gegenprobe in 34 Läufen | Jerry | M | zu testen | t283 | claude/jerry-1111-cache | 283 | B Werkzeuge | 5,95 $ |
 | 1112 | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEUTE KAUF abgebrochen), danach als Treffer ausgeliefert, bis sich eine Eingabe ändert | Jerry | M | zu testen | t283 | claude/jerry-1111-cache | 283 | B Werkzeuge | – |
 | 1113 | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; je Änderung an Leuten oder Held etwa 300 MB dazu; Aufräumen (z. B. je Block die neuesten 3) über den Bauserver | Jerry | M | zu testen | 1126 | claude/jerry-1111-cache | 283 | B Werkzeuge | – |
