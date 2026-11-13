@@ -193,8 +193,14 @@ def sammelbuild_faellig():
         return any(n.strip() in getestet for n in nrn if n.strip().isdigit())
     if any(offen(d) and d["titel"].startswith("Sammelbuild") and not build_getestet(d) for d in zs):
         return None
+    # 1139 (von Jerry, 1138): ein offener, noch nicht getesteter Build hält die Automatik ebenso an, auch ohne Zeile „Sammelbuild“
+    # (Regel 3: „läuft schon ein offener Build ohne Test, kommt der Punkt dort hinein“); sonst legte sie 1138 doppelt zu Build 284 an
+    if any(offen(d) and str(d.get("build") or "").strip().isdigit() and not build_getestet(d) for d in zs):
+        return None
     fertig = [d for d in zs if d["besitzer"] in ("Tom", "Jerry") and d["wort"] in ("gebaut", "zu testen")
-              and d.get("build") in ("", "–", "-", None) and not d.get("bereich", "").startswith("B ")]
+              and d.get("build") in ("", "–", "-", None) and not d.get("bereich", "").startswith("B ")
+              and not re.search(r"\bt\d+\b", " ".join(d.get("warte") or []))  # 1139: wartet schon auf einen Test
+              and not any(w in UEBERNAHME or w == "Diogenes" for w in (d.get("warte") or []))]
     if len(fertig) < 4:
         return None
     n = {r: [d["nr"] for d in fertig if d["besitzer"] == r] for r in ("Tom", "Jerry")}
