@@ -30,6 +30,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
   OHNE-ÜBERHOLT NR: Grund                                           → (1129.1 P1) der Ausschluss gilt nicht mehr (Nummer im Archiv, ruht, oder „in Arbeit“ ohne Sitzung seit 2 h): Ford streicht --ohne NR ab dem nächsten Lauf, auch in seiner Übergabe
+  URTEIL <Text>, Nachricht <Kennung>                              → (1228) offenes 👍/👎/✅ des Chefs: Ford erledigt es wie jeder (Archiveintrag mit Wortlaut und „Nachricht <Kennung>“, Datei der Chefsache weg, Stand); steht die Kennung schon im Archiv, nichts
   GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
   (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
@@ -939,6 +940,12 @@ def main():
     except Exception as e:
         ausgabe.append("WARNUNG Rückmeldungswächter fehlgeschlagen: %s (559, Perikles)" % e)
     wochen += vorentscheid_marken + neue_marken
+    try:  # 1228 (Chef 13.11., 21:22: „jeder, der sieht, das erledigt“): offene Urteile auf Telegram, Netz für Sitzungen, die notiz.sh nicht rufen
+        import reaktionen
+        reaktionen.main(["--still"])
+        ausgabe += ["URTEIL " + u for u in reaktionen.offene_urteile()]
+    except Exception as e:
+        ausgabe.append("WARNUNG Telegram-Urteile nicht gelesen: %s (1228, Perikles)" % str(e)[:120])
     # 942 (D171.2): eine hängende Sitzung, die derselbe Lauf archiviert (auch als Vorgänger beim START), meldet nicht „Sitzung hängt“
     haengt_weg = lambda l: " Sitzung hängt: " in l and any(l.endswith("code/%s (927)" % a) for a in archiviert)
     ausgabe = [l for l in ausgabe if not haengt_weg(l)]
