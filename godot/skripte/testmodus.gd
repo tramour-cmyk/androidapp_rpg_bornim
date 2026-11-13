@@ -628,7 +628,8 @@ static func probekampf(m: Menue, t: Callable, zk: Callable, reihe: Callable, fs:
 		zk.call(t.call("Ausweichen", "Dodge"), t.call("erzwingen", "forced") if probe_ausweichen else t.call("Zufall", "random"),
 			t.call("Der erste Angriff auf den Helden im Probekampf geht fehl: er weicht aus, mit Schild wehrt er ab.", "The first attack on the hero in the trial fight misses: he dodges, with a shield he blocks."),
 			func(): probe_ausweichen = not probe_ausweichen, "", "↷", probe_ausweichen)])
-	reihe.call([[t.call("Probekampf starten", "Start trial fight"), func(): m.test.emit("probe", [probe_gegner, probe_herkunft, probe_stufe, true, probe_held])]])
+	# 964: die Rüstung einer Lage gilt nur für deren Kampf; von Hand gestartet wieder wie die Herkunft
+	reihe.call([[t.call("Probekampf starten", "Start trial fight"), func(): probe_ruestung = "*"; m.test.emit("probe", [probe_gegner, probe_herkunft, probe_stufe, true, probe_held])]])
 
 # 1156 (Vorlage 1020 D Stufe 2): die Lage einer Zeile der Prüfliste (Abschnitt „## Lagen“, tools/pruefliste.py), die der Knopf
 # „Lage herstellen“ herstellt (spiel.gd lage_herstellen). Werte wie die Knöpfe dieses Reiters.
