@@ -133,3 +133,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:29 13.11.: Startsperre 23:29 Start Sokrates (Neustart 28d978c49, Mittel; Ford)
 - 23:31 13.11.: Neustart Sokrates (28d978c49): neue Sitzung `…7A5LHnTB8QgSgxTD8M` 23:30 (Mittel), Vorgängerin `…797jN7dteYW35dpYLZ` archiviert (10,28 $ auf 1236, 1072, 827; Ford)
 - 23:32 13.11.: „Neustart Tom, 919bb6cb0“ nicht ausgeführt: Chef testet t285 (Testbitte 906a81451), Neustart während seines Tests nie (812, 865); Tom bleibt, meldet nach dem Ergebnis neu (Ford)
+- 23:34 13.11.: Startsperre 23:34 Start Jerry (Neustart 207af913c, Nachfolger „Jerry – 709.1: Messlauf 465 auswerten“, Mittel; Jerrys Punkte in t285 sind „ohne dich“, kein Test des Chefs an einem Jerry-Build; Ford)
