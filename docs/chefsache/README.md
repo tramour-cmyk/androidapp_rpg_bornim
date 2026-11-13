@@ -157,7 +157,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test (Build 283) |
 | 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | Sperre 620.1 B: 21 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 |
 
-**Jerry** – offen 133, Muss 119, startbar 2
+**Jerry** – offen 133, Muss 119, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -293,7 +293,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 | 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | wartet auf Test t284 (Chef) |
 | 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | wartet auf Test t284 (Chef) |
-| 1132 | M | D197.1 von Diogenes (1130): 947, 980, 987 stehen „gebaut“ mit Zweig claude/build-277, aber | startbar |
+| 1132 | M | D197.1 von Diogenes (1130): 947, 980, 987 stehen „gebaut“ mit Zweig claude/build-277, aber | in Arbeit bei Tuffy |
 
 **Perikles** – offen 18, Muss 15, startbar 1
 
