@@ -6,7 +6,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 
 **Frage:** Heute bekommt jeder fertige Vorgang eine Prüffrage, und du gehst sie alle am Handy ab. Das kostet dich Zeit für Dinge, die ein Bild genauso zeigt oder die ohnehin passen. Soll „vom Chef getestet“ künftig jede Form von Test sein: frei am Handy spielen, Bild oder Film ansehen, im Gespräch klären?
 
-**Votum:** „1128 A“. Zweite Meinung: Perikles (unten, auf deinen Zuruf 12:02).
+**Votum:** „1128 A“, mit den beiden Änderungen von Perikles und einem Laufnachweis (unten, Abgleich 12:11). Zweite Meinung: Perikles (unten, auf deinen Zuruf 12:02).
 
 **Berührt:** Tom, Jerry, Spike, Tuffy (Prüflisten), Perikles (Abläufe), Diogenes (prüft Bautests, zählt Funde), Werkzeuge `startbar.py`, Commit-Prüfung, Test `pruefliste_1020`.
 
@@ -40,6 +40,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 - `LISTE-CHECK-BUILD-TEST.md`: Aufbau der Prüfliste (Weg, Bilder für Neues, „Ohne dich“ mit Bautest), Regel 12 (Herausnehmen auch bei „falsch“ am Bild), Regel 13.
 - `ROLLE-ENTWICKLUNG.md` (Testbitte), `DESIGN-ABNAHME.md` (Vorlage nur für Neues).
 - `tools/startbar.py`: Die Sperre 620.1 B zählt ein Urteil am Bild und einen bestätigten Bautest als getestet.
+- Laufnachweis: Jeder Test unter „Im Bau geprüft“ muss in `godot.yml` stehen, sonst lehnt die Testbitte ab (Tom).
 - Test `pruefliste_1020`, Commit-Prüfung, `godot.yml`: ein Schritt „Bilder je Vorgang“.
 
 **Folgerungen:** Bei A: Perikles baut die Regeln, Tom die Werkzeuge. Schon die Prüfliste für 283 schreibt Tom nach A. Ich lese sie gegen, Diogenes zählt ab 283 die Funde je Prüfart. Bei B ebenso, ohne Bilder für Nachbesserungen. Bei C bleibt alles, wie es ist.
@@ -50,5 +51,11 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 - **Änderung 2, zu Punkt 7:** vorerst kein neuer Bauschritt „Bilder je Vorgang“. Bildläufe sind unsere teuerste Arbeit (1022: 45 $, 492: 104 $). Ein Bild kommt nur aus dem Lauf, der die App baut. Fehlt dort eines, bleibt die Prüffrage am Handy. Das Werkzeug kommt erst, wenn die Probe zeigt, dass Bilder fehlen.
 - **Zustimmung:** Herausnehmen auch bei „falsch“ am Bild; jeder Vorgang behält seinen eigenen Commit.
 - **Rückweg:** Diogenes zählt in den Builds 283 bis 285 die Funde je Prüfart und die Rückschritte und legt danach vor, ob A bleibt.
+
+**Abgleich Sokrates** (13.11., 12:11, am Bauablauf `godot.yml` von Build 282 nachgesehen):
+- **Perikles' Beleg stimmt so nicht, sein Schluss trotzdem.** `hoehle_492` war in 282 nicht grün, er lief gar nicht im Bau; erst seit 09:28 (`334cff53a`, 1104). Gegen 282 gibt er 2 Fehler: Er hätte die unbegehbare Höhle gefunden. Ebenso standen `rand_505` und `rast_test` unter „Im Bau geprüft“, liefen aber nicht. 3 von 12 Bautests der Prüfliste 282 waren also nur behauptet.
+- **Daraus:** Die Gefahr bei A ist nicht, dass ein Bautest nichts taugt, sondern dass die Prüfliste einen Test nennt, der nie lief. **Laufnachweis:** Ein Punkt gilt nur dann als „ohne dich“ geprüft, wenn der Test im Bauablauf steht und im Lauf der APK grün ist. Das prüft ein Werkzeug bei der Testbitte (Namen der Prüfliste gegen `godot.yml`, Tom), Diogenes bestätigt es am Lauf.
+- **Änderung 1 übernehme ich:** Begehen, Antippen und Abläufe bleiben am Handy, weil der Bau ohne Bildschirm und ohne Finger läuft. Das kostet dich etwa 2 bis 4 Fragen mehr je Build. **Änderung 2 übernehme ich:** Bilder nur aus dem Lauf der APK, kein neuer Schritt vorab; fehlt ein Bild, bleibt die Frage am Handy.
+- **Gefahr 4** entfällt bei A: Jeder Vorgang behält seinen eigenen Commit, Herausnehmen bleibt wie heute.
 
 Antwort: …
