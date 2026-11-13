@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 199 · 1125 Sammelbilligungen in `abgleich.py` (Perikles `377a1a533`; 13.11., 11:5x)
+
+- **Vorläufig:** `abgleich.py` auf `main` gibt keine Vorentscheid-Warnung mehr, nur Zeilen „ohne Build“ (in `lauf.py` eine Zahlzeile, zählt als Leerlauf). Ob ein Uhrlauf ohne Startbares jetzt nach einem Schritt endet und billiger wird, zeigt erst der nächste echte Lauf; 1125 wartet bis 13:15.
+
 ## Lauf 198 · 1070 getestete Prüfliste im selben Commit wie „tN“ aus der Chefsache (Perikles `95e4f4bef`; 13.11., 11:5x)
 
 - **Greift:** beide Tests seit dem Bau: t281 (`67b8504be`, 09:10) und t282 (`94621abe7`, 10:44) löschen `ansehen/t28n-…` im selben Commit wie den Archiveintrag „tN getestet“; `chefsache/ansehen/` hält heute keine getestete Prüfliste mehr.
