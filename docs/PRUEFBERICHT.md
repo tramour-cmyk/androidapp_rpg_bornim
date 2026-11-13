@@ -52,6 +52,32 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 202 · 790.1 Zwischenzahl Kosten nach 383 A (09.11., 18:07 bis 13.11., 13:23; 13.11., 13:2x)
+
+405 Sitzungen (`list_sessions` mine), 392 abgeschlossen mit `usage` (13 laufend oder ohne Feld), zusammen 3.053 $; je Sitzung `get_session` über acht Helfer, Rechnung wie Lauf 113. Aufwand: `effort_level` fehlt bei 210 Sitzungen (meist vor 11.11.), darum zusätzlich nach Zeit getrennt.
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 61 | 669 | 8,30 | 0,055 | 293 | 742 | 0,160 | 14 |
+| Jerry | 53 | 592 | 9,50 | 0,059 | 317 | 595 | 0,150 | 13 |
+| Sokrates | 67 | 576 | 7,08 | 0,056 | 263 | 478 | 0,135 | 17 |
+| Tuffy | 31 | 317 | 8,05 | 0,055 | 289 | 612 | 0,138 | 15 |
+| Spike | 38 | 215 | 4,61 | 0,051 | 218 | 404 | 0,131 | 20 |
+| Ford | 23 | 209 | 6,99 | 0,030 | 381 | 889 | 0,119 | 26 |
+| Perikles | 45 | 198 | 4,23 | 0,050 | 206 | 315 | 0,117 | 20 |
+| Homer | 30 | 152 | 3,92 | 0,060 | 186 | 307 | 0,101 | 28 |
+| Diogenes | 43 | 124 | 1,76 | 0,051 | 152 | 392 | 0,118 | 27 |
+| alle | 392 | 3053 | 6,10 | 0,054 | 247 | 889 | 0,137 | 17 |
+| vor 11.11., 07:18 | 129 | 850 | 5,75 | 0,052 | 234 | 742 | 0,134 | 19 |
+| ab 11.11., 07:18 (alle Hoch) | 263 | 2203 | 6,39 | 0,055 | 260 | 889 | 0,138 | 17 |
+| Aufwand hoch | 178 | 1534 | 6,43 | 0,056 | 266 | 889 | 0,139 | 17 |
+
+Gegen Lauf 113 (alle, Woche davor): $ je 1000 Ausgabe 0,137 statt 0,144; je Aufruf 0,054 statt 0,074; Median je Sitzung 6,10 statt 13,41 $; Median Länge 247 statt 391 Tsd. Kosten 3.053 $ in 3,8 Tagen statt 3.083 $ in 7 Tagen. Ohne Bewertung; ganze Woche in 790 am 16.11.
+
+## Lauf 201 · 1134 OHNE-ÜBERHOLT mit allen Nummern und laufenden Sitzungen (Perikles `5fbb88a3a`; 13.11., 13:2x)
+
+- **Greift:** gestellte Sitzungen: „Jerry – 1111, 1112, 1113“ laufend mit `updated_at` vor 5 h → keine Meldung für alle drei; „Tom – Kauf-Cache 1114“ erkannt; archivierte 882.1 vor 5 h und 1101 ohne Sitzung → OHNE-ÜBERHOLT. `nummer_aus_titel` alt gegen neu an 629 echten Titeln seit 02.11.: eine Abweichung („Tom – Sammelbuild 1022, 842, …“: 842 → 1022, richtiger). Echter Ford-Lauf mit `--ohne` bleibt in 1133.
+
 ## Lauf 200 · 1133 Werkzeugpunkte P1–P4 der Systemprüfung 1129.1 (Perikles `d92d2caed`, `e2652d81d`, `e466b8d45`, `c660c954e`; 13.11., 13:2x)
 
 - **Pflegehinweis (Auftrag 1):** `gleich_bis_auf_zahlen` ersetzt nur Zahlen vor „Bytes“, „Zeichen“, „KB“; gleiche Zeile desselben Besitzers bleibt stehen. Einziger Pflege-Commit danach (13:15) war eine echte Änderung (Tom weg, Diogenes neu). 13.11. bis 13:15: 41 Commits; Tageszahl erst 14.11. Im Auftrag stand `279416a1f` (ein Zusammenführen), der Bau ist `d92d2caed`.
