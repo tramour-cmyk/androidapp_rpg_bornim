@@ -57,6 +57,7 @@ DATEI = "probelaeufe.tsv"
 NR = r"[A-Za-z]?\d+[a-z]?(?:\.\d+[a-z]?)*"
 PROBE = re.compile(r"\bPROBE=(" + NR + r")\b")
 PROBEBILD = re.compile(r"\bPROBEBILD=(" + NR + r")\b")
+MESS = re.compile(r"\bMESS=(" + NR + r")\b")  # 1129 A 3b: eigener Mess- oder Testlauf, zählt nicht gegen die Grenze
 FILM = re.compile(r"--write-movie|\.mp4\b|\bffmpeg\b|\b(?:WALK|IDLE|FOE)?FILM(?:BATCH)?=|\btools/t\s+film\b|[\w./-]*film[\w-]*\.(?:sh|py)\b", re.I)
 GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\n|;&]*--path[^\n|;&]*")
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
@@ -275,7 +276,7 @@ def stand(nr):
     frei = urteil(nr)
     gesehen = set()
     for z in zeilen(laeufe) + zeilen(lokal):
-        if z[1] == nr and (frei is None or z[0] > frei):
+        if z[1] == nr and z[3] != "mess" and (frei is None or z[0] > frei):  # 1129 A 3b: Messläufe sind frei
             gesehen.add(tuple(z[:5]))
     return len(gesehen), frei
 
@@ -1032,11 +1033,20 @@ def main():
                          f"`PROBE={pb.group(1)}`.")
             return hinweis_geben(f"783 W1: Einzelbild zu {pb.group(1)}, zählt nicht als Probelauf. Selbst ansehen, ob Inhalt da "
                                  "ist (kein Weißbild, richtiger Ort), dann gleich Film; nicht an den Chef, kein Helfer.")
+        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
+            if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl):
+                anhalten("1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. "
+                         "Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.")
+            if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
+                anhalten(fs)
+            zaehlen(ms.group(1), wer, "mess")
+            return hinweis_geben(f"1129 A 3b: Messlauf zu {ms.group(1)}, frei und ohne Grenze; Kosten beim Vorgang vermerken. "
+                                 "Bild oder Film an den Chef nur mit `PROBE=<Nr>`.")
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
                 anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
-                         "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
+                         "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).")
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
             STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
         elif (hand := handlauf_bash(befehl)):
