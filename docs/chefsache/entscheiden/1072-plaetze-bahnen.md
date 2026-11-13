@@ -10,7 +10,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/1b1bcd
 Bestand geprüft: Schema mit eigenem Werkzeug (matplotlib), kein Spielbild; Plätze und Bahnen fehlen im Bestand.
 
 ![Plätze und Bahnen von oben](../bilder/1072-plaetze-bahnen.webp)
-Großbild (1200 px): Telegram 13.11. 22:4x
+Großbild: Telegram 13.11. 22:42
 
 **Frage:** Heute stellt jeder Kampfort seine Figuren nach festen Abständen und vielen Sonderfällen auf (ein Wolf allein vorn, zwei hinten, Grimmzahn …), und wer durch die Reihe muss, sucht sich nachträglich einen Umweg. Soll stattdessen eine gemeinsame Routine gelten: sechs Plätze je Seite, deren Abstände sich aus dem Umriss jeder Figur von oben ergeben, mit Gassen, durch die die hinteren passen, und je Tausch zwei gespiegelte Bahnen in der Breite dessen, was die Figur in Bewegung überstreicht?
 
