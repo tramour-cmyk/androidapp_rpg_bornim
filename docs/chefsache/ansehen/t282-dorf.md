@@ -39,10 +39,28 @@ Im Bau geprüft: Kartenrand je Gebietskarte (`rand_1022`), Nebel und Sicht (`neb
 
 ## Ergebnis
 
-Chef an Sokrates, laufend eingetragen.
+Chef an Sokrates, Liste 13.11., 10:40 (Wortlaut der Urteile; Einzelheiten aus dem Gespräch 10:06 bis 10:36 dahinter). Außerhalb der Liste: Mindeststufe Zoom 1118 (10:06).
 
-- 282.4 ✗ Staub jetzt zu stark (Chef 10:14): „jetzt ist sie fast überdeutlich. Für das, dass sie vorher nicht existent war, staubt es jetzt, als ob hier ein Traktor rumfahren würde. Also vielleicht können wir es wieder einen Ticken zurückdrehen. Nur einen Tick.“ Dazu 10:20: „es staubt auch wie wild, wenn ich nur ganz leicht mal antippe und auf dem Weg bin. Also bei normalen Gehen müsste es ja fast gar nicht stauben. Bei Rennen macht es eher Sinn, oder?“ Heute staubt Gehen fast wie Rennen (`dorfeffekte.gd` `fussstaub`: Gehen 1,0, Rennen 1,3 × `STAUB_K`). Vorschlag Sokrates: Gehen nur ein Hauch, kaum sichtbar, aber nicht null; Rennen die Wolke von heute, einen Tick kleiner.
-- 282.9 ✗ Pim bleibt nach dem Gold stehen (Chef 10:22): „Wenn ich Pim 5 Gold gebe, sagt der Text, er beißt … die Münzen … und er rennt heim. Fakt ist, er steht ja bei mir. Er rennt nicht heim. Also da passt Text wieder nicht zur Handlung. Genau, das muss angepasst werden.“ Vorschlag Sokrates: die Handlung an Text und Regel anpassen (1108 A: Pim geht heim und bleibt dort), nicht den Text: nach dem Gespräch rennt Pim sichtbar zu seiner Hütte (`frueh_heim` greift heute erst später). Dasselbe nach gelungenem Überreden (282.8) prüfen. Dazu 10:23 (Bild: Pim steht hinter dem Helden, während die Mutter an der Tür „Pim kam heim, Gold in der Faust …“ sagt): „Der Beweis beim Türklopfen. Pim ist ja noch zu sehen, also er kann nicht zu Hause sein.“ Pim folgt dem Helden bis an seine eigene Tür.
-- 282.15 ✗ Knöpfe ungleich hoch (Chef 10:32, Bild Osric: „Kaufen ›“ rechts, „‹ Nicht jetzt“ eine Zeile tiefer links): „Kann man die Auswahl nicht auf gleiche Höhe stellen? Warum ist das unterschiedlich hoch?“ Soll nach 1074 („wie Abbrechen und Benutzen in der Tasche“): „‹ Nicht jetzt“ links auf derselben Höhe wie die Wahl rechts; bei Pim mit zwei Wahlen auf der Höhe der unteren. Gilt für jedes Gespräch mit Wahl.
-- 282.12 ✗ Zustand verbogen (Chef 10:25, Bild, `bilder/t282-764-zustand.jpg`; 10:26: „Status betrunken sieht ein bisschen arg komisch aus.“): Heldenreiter → Zustände: „Betrunken“ steht senkrecht, ein Buchstabe je Zeile, in einem schmalen goldenen Streifen; kein Zeichen. Satz „Angriffe und Flucht mit Ungunst, bis zur nächsten Rast.“ steht richtig. Soll: Zeichen und Name waagerecht in einer Zeile, der Satz daneben oder darunter.
-- 282.5 ✗ Weg am Schlagbaum (Chef 10:15, Bild): „warum endet der Weg jetzt und wird eine Feldwiese? Warum geht der Weg nicht grundsätzlich weiter und endet dann im Dunkel?“ Der Weg zum Flüsterwald läuft unter den Bäumen weiter und geht mit dem Rand ins Dunkel, statt davor im Gras auszulaufen (Vorentscheid Sokrates 13.11., 01:07 damit zurück). Ebenso im Süden (Chef 10:16, Bild hinter der Brücke): „Der Weg endet mit einem Wald. Ich meine, der Übergang per se ist gut, aber es macht halt keinen Sinn, dass der Weg endet.“ Also: der weiche Übergang ins Dunkel passt; jeder Weg, der an den Rand führt, auf allen Gebietskarten, läuft durch den Wald weiter ins Dunkel.
+- 282.1 ✓
+- 282.2 ✓
+- 282.3 ✗ „sichtöinie passt, Karte zeigt alles vom Dorf, ist aber alter spielstand“. Anmerkung Sokrates: die Karte des Dorfs hat mit Absicht keinen Nebel (wie alt; `MapSheetExport.kt` nur Wald, Test `MapSheetExportTest`), der Prüfpunkt war falsch geschrieben (Gegenlesen Sokrates). Nachtest im nächsten Build: Karte im Wald zeigt nur Gesehenes.
+- 282.4 ✓ (Wunsch dazu: 1119)
+- 282.5 ✗ „Siehe Kommentar direkt an Socrates“: Weg am Schlagbaum (10:15, Bild): „warum endet der Weg jetzt und wird eine Feldwiese? Warum geht der Weg nicht grundsätzlich weiter und endet dann im Dunkel?“ Süden hinter der Brücke (10:16, Bild): „Der Weg endet mit einem Wald. Ich meine, der Übergang per se ist gut, aber es macht halt keinen Sinn, dass der Weg endet.“ Also: der weiche Übergang ins Dunkel bleibt; jeder Weg, der an den Rand führt, auf allen Gebietskarten, läuft durch den Wald weiter ins Dunkel, statt davor im Gras auszulaufen (Vorentscheid Sokrates 13.11., 01:07 zurück).
+- 282.6 ✗ „Wie besprochen“ (1044 zurück bis auf Lyra, Chef 09:35; Rückbau gebaut auf `claude/tom-1092-streifen`)
+- 282.7 ✓
+- 282.8 ✓
+- 282.9 ✗ „wie besprochen“: Pim bleibt nach dem Gold stehen (10:22): „Wenn ich Pim 5 Gold gebe, sagt der Text, er beißt … die Münzen … und er rennt heim. Fakt ist, er steht ja bei mir. Er rennt nicht heim. Also da passt Text wieder nicht zur Handlung. Genau, das muss angepasst werden.“ 10:23 (Bild: Pim steht hinter dem Helden, während die Mutter an der Tür „Pim kam heim, Gold in der Faust …“ sagt): „Der Beweis beim Türklopfen. Pim ist ja noch zu sehen, also er kann nicht zu Hause sein.“ Vorschlag Sokrates: Handlung an Text und Regel (1108 A) anpassen, nicht den Text: nach dem Gespräch rennt Pim sichtbar zu seiner Hütte und bleibt dort; dasselbe nach gelungenem Überreden prüfen.
+- 282.10 ✓
+- 282.11 ✓
+- 282.12 ✗ „Siehe bild bei Sokrates“ (10:25, `bilder/t282-764-zustand.jpg`; 10:26: „Status betrunken sieht ein bisschen arg komisch aus.“): Heldenreiter → Zustände: „Betrunken“ steht senkrecht, ein Buchstabe je Zeile, in einem schmalen goldenen Streifen, kein Zeichen; der Satz steht richtig. Soll: Zeichen und Name waagerecht in einer Zeile, der Satz daneben oder darunter.
+- 282.13 ✓
+- 282.14 ✓
+- 282.15 ✓ (Wunsch dazu: 1120)
+- 282.16 ✓
+- 282.17 ✓
+- 282.18 ✗ „Wie besprochen“ (wie 282.6)
+- 282.19 ✗ „wie besprochen“ (Höhle in der APK aus Lauf 420 nicht begehbar, 1104; Chef 09:23: Höhle erst mit neuer APK; Nachtest)
+- 282.20 ✗ „wie besprochen“ (wie 282.19)
+- 282.21 ✗ „wie besprochen“ (wie 282.19)
+- 282.22 ✓
+- 282.23 ohne Rückmeldung (Station Lyra, Höhle; Nachtest)
