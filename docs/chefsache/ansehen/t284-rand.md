@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 284 · Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein · PR #203
+# Tom und Jerry · Build 284 · 0.348.437 · Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein · PR #203
 E Welt · Tom (1022, 1040.1, 1119, 1086, 1092, 1118, 1081, 1156, 1178, 1160, 542, 495, 964, 967, 1140, 1115, 505, 1144), Jerry (947, 993, 1003, 709, 616, 784, 1041, 958, 1094, 949, 705, 1102, 1093, 1025, 1136, 980, 987, 1126, 1127, 1114, 1142 von Tom übernommen) · 13.11., 17:00 · APK folgt
 
 Gegengelesen: Sokrates 13.11., 17:55

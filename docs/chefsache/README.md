@@ -18,6 +18,12 @@ Nichts offen.
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.437](ansehen/t284-rand.md) | [Build 284](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/203) | Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein | Tom und Jerry | 13.11., 17:00 |
+
 ## Zu tun
 
 Nichts offen.
