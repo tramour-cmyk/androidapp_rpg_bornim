@@ -251,6 +251,7 @@
 | 1215 | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, Glieder sinken schlaff, Beine knicken (Chef 13.11., 19:41 zu 1141); Kosten am Handy; aus 1141.1 gelöst | Jerry | M | startbar | 1141.1 | claude/jerry-1141-1-tod-mass | – | E Kampf | 1,29 $ |
 | 1224 | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beider Figuren von oben) sperrend machen, sobald 1072 die Bahnen trennt; heute meldet sie nur | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1227 | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche im Kampf zeigt die neuen Gegenstandsbilder glatt statt pixelscharf (kampf_ui.gd), sobald Spike alle gemalt hat (aus 1073) | Jerry | K | startbar | – | – | – | E Kampf | 2,02 $ |
+| Pflege | von Werkzeug (340.3, 13.11.): 30209 Bytes (Grenze 30000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | erledigt | – | – | – | G Story | 4,27 $ |
 | 1229 | Von Jerry (1223, Chef 13.11., 20:59 „Leitwolf nicht erkennbar“): Anführer des Wolfsrudels auf der Karte heißt im Kampf „Wolf“, seine Begleiter „Jungwolf“ (aufruf.gd JUNGWOLF); soll er „Leitwolf“ heißen (de/en)? | Homer | M | erledigt | – | – | – | E Kampf | – |
