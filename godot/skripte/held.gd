@@ -25,6 +25,7 @@ var richtung := Vector3.ZERO           # Joystick, Laenge 0..1
 var laeuft := false
 var fackel: OmniLight3D
 var flamme: MeshInstance3D
+var fackel_teil: Fackel   # 1140: fackel.gd, auch im Menü und im Kampfort
 var kachel := Vector2i(-1, -1)
 var zeit := 0.0
 var ruhe := "Stehen"                  # 397: jetzige Ruhebewegung (Gebiet.ruhe_naechste)
@@ -559,105 +560,20 @@ func nacht(k: float) -> void:
 		fackel.visible = traegt_fackel and not im_raum and (k > 0.02 or in_hoehle)
 
 func baue_fackel() -> void:
+	# 1140: dieselbe Fackel wie Ausrüstung und Kampfort (fackel.gd); Stiel, Flamme und Licht unverändert aus Runde 5 bis 5c
 	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
 	if sk == null: return
-	var ba := BoneAttachment3D.new()
-	ba.bone_name = faust_knochen
-	sk.add_child(ba)
-	var t := Node3D.new()
-	t.name = "Fackel"
-	ba.add_child(t)
-	var stiel := MeshInstance3D.new()
-	var cm := CylinderMesh.new()
-	cm.top_radius = 0.022; cm.bottom_radius = 0.016; cm.height = 0.42
-	stiel.mesh = cm
-	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.42, 0.28, 0.16)
-	stiel.material_override = wm
-	stiel.position = Vector3(0, 0.06, 0)
-	stiel.layers = 2                                   # die eigene Flamme beleuchtet den Stiel nicht (sonst gluehte er, Licht vor der Flamme)
-	t.add_child(stiel)
-	# Runde 5b (Helfer: schwarzer Stummel im Flammenfuss, die Flamme deckt nicht): Pechkopf glimmt am Stielende
-	var glut := MeshInstance3D.new()
-	var gm := SphereMesh.new()
-	gm.radius = 0.03; gm.height = 0.05
-	glut.mesh = gm
-	var glm := StandardMaterial3D.new()
-	glm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	glm.albedo_color = Color(0.85, 0.32, 0.08)
-	glut.material_override = glm
-	glut.position = Vector3(0, 0.27, 0)
-	glut.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	t.add_child(glut)
-	# Helfer: Flamme „wie Papier“ (ein blassgelber Kegel, flackert kaum): aussen orange, innen hell, beide flackern verschieden
-	# Runde 5 (Helfer Runde 3: noch mattes Dreieck mit schwarzer Kontur): additiv leuchtend ohne Tusche (flamme.gdshader), mit Schein
-	flamme = MeshInstance3D.new()
-	flamme.position = Vector3(0, 0.36, 0)
-	t.add_child(flamme)
-	var fl: Shader = load("res://shader/flamme.gdshader")
-	# Runde 5b (Helfer: glattes Dreieck „wie ein Papierwimpel“): Kern, Mantel und drei Zungen mit eigenem Takt; ueber dem Gras
-	# (Gras ist durchsichtig und wurde davor gezeichnet), unter der Tusche
-	var form := [[0.055, 0.24, 0.0, 0.0], [0.03, 0.14, 0.0, -0.04], [0.022, 0.15, 0.022, 0.05], [0.02, 0.13, -0.024, 0.04], [0.016, 0.11, 0.0, 0.07]]
-	for k in 6:
-		var kegel := MeshInstance3D.new()
-		var m := ShaderMaterial.new()
-		m.shader = fl
-		m.render_priority = 100
-		if k < 5:
-			# Runde 5c (Helfer: „Eistuete“, harte Unterkante, breiteste Stelle unten): Tropfen aus einer Kugel, unten rund, oben spitz
-			var fm := SphereMesh.new()
-			fm.radius = form[k][0]; fm.height = form[k][1]
-			fm.radial_segments = 14; fm.rings = 10
-			kegel.mesh = fm
-			m.set_shader_parameter("hoehe", fm.height)
-			m.set_shader_parameter("saat", 2.3 * k)
-			if k == 1: m.set_shader_parameter("aussen", Color(1.0, 0.7, 0.25))
-			m.set_shader_parameter("kraft", 0.75 if k < 2 else 0.6)   # Runde 5b (Helfer: fast weiss, ueberbelichtet)
-			kegel.position = Vector3(form[k][2], form[k][3], 0.01 * (k - 3) if k >= 2 else 0.0)
-		else:
-			var qm := QuadMesh.new()
-			qm.size = Vector2(0.7, 0.7)
-			kegel.mesh = qm
-			m.set_shader_parameter("glanz", 1.0)
-			kegel.position = Vector3(0, -0.02, 0)
-		kegel.material_override = m
-		kegel.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		flamme.add_child(kegel)
-	fackel = OmniLight3D.new()
-	fackel.position = Vector3(0, 0.45, 0)
-	fackel.light_color = Color(1.0, 0.72, 0.38)
-	fackel.omni_range = 8.0
-	fackel.omni_attenuation = 2.0
-	fackel.light_cull_mask = 0xFFFFF & ~2
-	t.add_child(fackel)
-	fackel.set_meta("reich", 4.0)   # 348.13b: Tusche nach der Fackel (am Tag unsichtbar, zaehlt dann nicht)
-	fackel.set_meta("kraft", 1.0)
-	fackel.add_to_group("tuschelicht")
+	fackel_teil = Fackel.an(sk, faust_knochen, faust_griff, faust_achse, self)
+	flamme = fackel_teil.flamme
+	fackel = fackel_teil.licht
 	nacht(0.0)
 
 func richte_fackel() -> void:
-	# Fackel in der linken Faust (Bewegungen _Fackel: Arm vor der Schulter), halb aufgerichtet, folgt der Faust
-	var t := find_child("Fackel", true, false) as Node3D
-	if t == null: return
-	var ba := t.get_parent() as BoneAttachment3D
-	var sk := ba.get_parent() as Skeleton3D
-	# Runde 5b (Helfer: Stiel hinter dem Unterarm, starr senkrecht, „aufgespiesst“): der Knochen foL-wrL endet am Handgelenk,
-	# 7 cm ab seinem Anfang lagen mitten im Unterarm; dazu kam die Haltung vom Bild davor. Jetzt Griff in der Faust (rig.py:
-	# Handmitte 6,6 cm hinter dem Handgelenk, zur Handflaeche), Stiel quer durch die Faust, zu zwei Dritteln aufgerichtet
-	var pose := sk.global_transform * sk.get_bone_global_pose(sk.find_bone(ba.bone_name))
-	var achse := (pose.basis * faust_achse).normalized()
-	if achse.y < 0.0: achse = -achse
-	var y := achse.lerp(Vector3.UP, 0.65).normalized()
-	var x := (global_basis.x - y * global_basis.x.dot(y)).normalized()
-	t.global_basis = Basis(x, y, x.cross(y))
-	t.global_position = pose * faust_griff
-	# Flamme steht unabhaengig vom Stiel aufrecht und weht beim Laufen nach hinten (Runde 5b, gemessen: +X kippt nach vorn)
-	var b := Basis(Vector3.UP, rotation.y)
-	b = b.rotated(global_basis.x.normalized(), -minf(0.6, tempo_jetzt * 0.12) + 0.1 * sin(zeit * 6.1))
-	b = b.rotated(global_basis.z.normalized(), 0.1 * sin(zeit * 8.3))
-	# Licht 25 cm vor der Flamme in Blickrichtung (blind 3 von 3 besser: Gesicht lesbar statt Maske; den Stiel beleuchtet es nicht, light_cull_mask)
-	fackel.global_position = flamme.global_position + global_basis.z.normalized() * FACKEL_VOR
-	flamme.global_basis = b * Basis.from_scale(Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7)))
+	# Fackel in der linken Faust (Bewegungen _Fackel: Arm vor der Schulter); Haltung und Flamme in fackel.gd richte()
+	if fackel_teil == null: return
+	fackel_teil.tempo = tempo_jetzt
+	fackel_teil.zeit = zeit
+	fackel_teil.richte()
 const FACKEL_VOR := 0.25
 var faust_knochen := "foL-wrL"
 var faust_griff := Vector3(-0.0187, 0.187, 0.0072)     # Knochenraum foL-wrL in Ruhelage (aus held3.py hand(): pc + d·3, 2 cm zur Handinnenseite)

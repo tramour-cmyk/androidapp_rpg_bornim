@@ -17,6 +17,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
   vorgang.py fertig NR                 Stand „erledigt“ (ins Archiv schiebt lauf.py --aufraeumen); nennt Absätze „Zu NR“
   vorgang.py greift NR LAUF            Diogenes nach „greift“ im Bereich B: „erledigt, greift Lauf N“ (724 A, 755)
+  vorgang.py bautest NR LAUF           Diogenes bestätigt „ohne dich“ am Lauf der APK (Laufnachweis, grün): „erledigt, Bautest Lauf N“ (1128 A)
   vorgang.py build N --mit NR,NR …     Testbuild N trägt diese Vorgänge: Build N, Stand „zu testen“
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“;
@@ -142,6 +143,16 @@ def greift(nr, lauf, rolle=None):
     fertig(nr, rolle)
     d = finden(nr, rolle)
     ersetzen(d, dict(d, stand="erledigt, greift Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
+
+def bautest(nr, lauf, rolle=None):
+    """1128.2 (1128 A, Chef 13.11., 13:36): Diogenes bestätigt einen Punkt „ohne dich“ am Lauf der APK: Test steht dort ohne `|| true`,
+    ohne continue-on-error und ohne Bedingung (`tools/laufnachweis.py`) und war grün. Dann zählt er nicht mehr in die Sperre 620.1 B."""
+    d = finden(nr, rolle)
+    if not (d["wort"] == "gebaut" or d["wort"].startswith("zu")):
+        print("vorgang.py: %s steht auf „%s“; „bautest“ gilt nur für gebaute oder zu testende Vorgänge" % (nr, d["stand"])); sys.exit(1)
+    fertig(nr, rolle)
+    d = finden(nr, rolle)
+    ersetzen(d, dict(d, stand="erledigt, Bautest Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
 
 def gruppe(L, besitzer):
     """Zeilenindizes der Zeilen eines Besitzers und Einfügestelle für einen neuen Besitzer (Reihenfolge wie die Liste)."""
@@ -503,6 +514,7 @@ def haupt(a):
     if b == "klasse" and len(a) == 3: return klasse(a[1], a[2], rolle)
     if b == "fertig" and len(a) == 2: return fertig(a[1], rolle)
     if b == "greift" and len(a) == 3: return greift(a[1], a[2], rolle)
+    if b == "bautest" and len(a) == 3: return bautest(a[1], a[2], rolle)
     if b == "rang" and len(a) in (3, 4): return rang(a[1], a[2], a[3] if len(a) == 4 else None, rolle)
     if b == "neu" and len(a) >= 5:
         nr = a[a.index("--nr") + 1] if "--nr" in a else None
@@ -513,7 +525,7 @@ def haupt(a):
         if "--mit" in a:
             return build_mit(n, [x for x in re.split(r"[,\s]+", " ".join(a[a.index("--mit") + 1:])) if x])
         return build_abschluss(n, a[a.index("--datei") + 1] if "--datei" in a else None, "--probe" in a)
-    if b in ("stand", "warte", "setze", "klasse", "fertig", "greift", "rang", "neu", "build"): print(__doc__); sys.exit(2)
+    if b in ("stand", "warte", "setze", "klasse", "fertig", "greift", "bautest", "rang", "neu", "build"): print(__doc__); sys.exit(2)
     for nr in a:
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")

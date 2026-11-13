@@ -12,6 +12,7 @@ Für `entscheiden/` und `billigen/`. Chef 09.11., 20:45 zu 758: „Ich verstehe 
 Kurz: <ein Satz für die Übersicht>
 
 Geprüft an: <Link, Commit oder Lauf>
+Beim Chef, weil: <Code auf main, Geld, Lizenz, Story, Aussehen, neue Richtung im Spielgefühl, Release, Rollen und Accounts> (nur `entscheiden/`, 1129 A 1; sonst entscheidet das Team, Perikles oder Sokrates per Vorentscheid)
 
 **Frage:** <ausführlich, so dass der Chef sie ohne Vorwissen versteht>
 

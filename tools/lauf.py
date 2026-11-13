@@ -344,7 +344,7 @@ def nummer_aus_titel(t):
     s = re.sub(r"\b\d\d\.\d\d\.(\d{2,4})?", " ", s)  # D52.1
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)  # „Tom – Umzug Godot 12“ buchte auf Vorgang 12 (Ford 25.10.)
-    m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)
+    m = re.search(r"(?<![\d.:])(\d{2,4}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)  # 1134: vierstellig auch mitten im Titel
     return m.group(1).rstrip(".") if m else ""
 
 def nummern_aus_titel(t):
@@ -355,7 +355,7 @@ def nummern_aus_titel(t):
     s = re.sub(r"\b\d\d\.\d\d\.(\d{2,4})?", " ", s)  # D52.1
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
     s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)
-    alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)]
+    alle = [erste] + [m.rstrip(".") for m in re.findall(r"(?<![\d.:\w])(\d{2,4}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?!\d|:\d)", s)]
     return ",".join(dict.fromkeys(alle))
 
 PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
@@ -974,8 +974,11 @@ def ohne_ueberholt(ausschluss, leb):
         if d is None: aus.append("OHNE-ÜBERHOLT %s: nicht mehr offen (Archiv oder erledigt)" % nr); continue
         if d["wort"] == "ruht": aus.append("OHNE-ÜBERHOLT %s: ruht, startet ohnehin nicht" % nr); continue
         if "in Arbeit" in grund:
-            tätig = [s for s in leb if nr in (nummer_aus_titel(s.get("title", "")) or "").split(",")
-                     and (JETZT - z(s["updated_at"])).total_seconds() < OHNE_ARBEIT_H * 3600]
+            # 1134 (D198.1): alle Nummern im Titel; tätig auch, wer gerade läuft (updated_at bleibt im langen Zug stehen)
+            tätig = [s for s in leb if nr in nummern_aus_titel(s.get("title", "")).split(",")
+                     and ((JETZT - z(s["updated_at"])).total_seconds() < OHNE_ARBEIT_H * 3600
+                          or s.get("session_status") == "SESSION_STATUS_RUNNING"
+                          or any(w in s.get("status_bucket", "") for w in ("WORKING", "BLOCKED")))]
             if not tätig: aus.append("OHNE-ÜBERHOLT %s: „in Arbeit“, aber keine Sitzung mit %s im Titel seit %d h" % (nr, nr, OHNE_ARBEIT_H))
     return aus
 

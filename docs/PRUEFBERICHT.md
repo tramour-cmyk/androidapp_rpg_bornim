@@ -52,6 +52,56 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 204 · 632 Truhe der Höhle am Rechner nachgestellt, Bautests aus Lauf 203 geschlossen (13.11., 14:1x)
+
+- **632 greift.** `truhe_632` auf `main` (`50eb3fd84`) am Rechner mit den Daten wie im Lauf (`werte.json`, `gegenstaende.json` kopiert, Schritt „Karten und Texte“): „TRUHE632 0 Fehler“, Ende 0; ohne die kopierten Daten 14 Fehler (nur Rechner, kein Befund). Im Lauf der APK mit `pipefail`, kann rot werden; Lauf 427 grün (Lauf 203). `spiel.gd:847` löst „@class_weapon“ in `oeffne_kiste` über `truhen_waffe` auf (gelesen). Lücke ohne Befund: der Test prüft diese Zeile als Text, nicht durch Öffnen der Truhe.
+- `vorgang.py bautest … 427` (1128.2): 632, 1009, 900, 1018, 910, 909 erledigt (Bestätigungen aus Lauf 203).
+- Nicht geprüft: Anzeige der Waffe im Spiel (Name, Bild); fährt mit der Höhle (492) zum Chef.
+
+## Lauf 203 · 1128.3 Bautests der 30 am Lauf der APK von Build 283 (Lauf 427, `a1765242c`, Job 131848837921; 13.11., 13:5x)
+
+Maßstab 1128 A: Test steht im Lauf der APK ohne `|| true` und ohne `continue-on-error`, kann rot werden (Ende `quit(1)` bzw. `grep -q` auf „0 Fehler“), und war grün; Kaufmodelle waren da (kein früher Ausstieg „ohne Kauf“). `rot.txt` leer, keine Zeile „SCRIPT ERROR“ in der Ausgabe.
+
+- **Bestätigt (7):** 1009 `spielstand_test` „SPIELSTAND 0 Fehler“ · 900 `wolf_mess_438` (nebenher, Kaufwolf da) „Befunde: 0“, Ende 0 nach 134 s · 1018 `bewegung_997` ok, `wechsel_950` 0, `held_kampf_403` 0 (Bewegungen aller vier Klassen da), `arkan_993` 0 (Paket R2 da), `wolf_mess_438` 0 · 910 `atem_4531` 0 Fehler (mit Kauf) · 632 `truhe_632` 0 Fehler · 909 vier Messungen laufen nebenher auf 4 Kernen (`zustaende_563` 54 s, `schild_406` 262 s, `wolf_mess_438` 134 s, `strahl_mess_415` 55 s, zusammen 505 s), alle Ende 0, Ausgabe gesammelt; Schritt „Skripte pruefen“ 1644 s (Lauf 353: 1405 s, seither viele Tests dazu, ohne Messung je Test nicht vergleichbar).
+- **Nicht bestätigt (4, Vorgang 1136 an Jerry):** 1013, 1014 `schild_406` läuft mit `|| true` (Ausgabe „SCHILD 406 gut“, CLERIC ohne Schild, ParryLow −0,077 m, 0 Messbilder; wird aber nie rot) · 1054 `mars_regeln` nur in `godot-kampf.yml` (Zweige `claude/jerry-348-**`), letzter Lauf 10.11. (rot), vor 1054 · 904 `sim444_870` steht in keinem Bauablauf.
+- **Nicht prüfbar an 283 (2):** 1060: `klassen` und `kampf` bauen neu mit gutem Grund (`held3.py`, `held_klassen.py`, `kaufgrabhund.py` geändert); die Zeile „leute.json“ ohne „:felder“ unter „geändert“ heißt nur, dass der letzte abgelegte Block noch vor 1060 entstand. Bestätigt erst ein Lauf, in dem sich nur Dorffelder von `leute.json` ändern und `klassen` „treffer“ ist. 1126 ist nicht in 283 (Zweig `claude/jerry-1111-cache`, 284).
+- **Dazu, Prüfliste 283 „Im Bau geprüft“ (8 von 8 grün, alle ohne `|| true`):** `zoom_1118`, `effekte_814`, `pim_verband_842` („PIM842 gut“), `zustaende_764`, `nebel_505`, `sperre_756`, `schirm_833`, `ring_halt_1094`; Bauserver: „ZIEGE 0 Fehler“ (1079), „PRUEFLISTE1020 im Bau: Build 283, 9 Zeilen“ (1122, erste Hälfte), „KAUF-CACHE abgelegt dorf … 263 MB (7 Teile)“ (1101).
+- **Zählung ab 283 (Rückweg 1128):** Prüfliste 283 entstand 12:55, vor 1128 A (13:36): 18 Punkte, alle Handy; 8 Bautests „Im Bau geprüft“ mit Laufnachweis. Funde je Art und Rückschritte nach dem Test des Chefs an 283 (Quelle: Prüfliste in Git, Fund-Vorgänge „t283.x“); 284, 285 ebenso; nach 285 Zahlen an Perikles und den Chef.
+
+## Lauf 202 · 790.1 Zwischenzahl Kosten nach 383 A (09.11., 18:07 bis 13.11., 13:23; 13.11., 13:2x)
+
+405 Sitzungen (`list_sessions` mine), 392 abgeschlossen mit `usage` (13 laufend oder ohne Feld), zusammen 3.053 $; je Sitzung `get_session` über acht Helfer, Rechnung wie Lauf 113. Aufwand: `effort_level` fehlt bei 210 Sitzungen (meist vor 11.11.), darum zusätzlich nach Zeit getrennt.
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 61 | 669 | 8,30 | 0,055 | 293 | 742 | 0,160 | 14 |
+| Jerry | 53 | 592 | 9,50 | 0,059 | 317 | 595 | 0,150 | 13 |
+| Sokrates | 67 | 576 | 7,08 | 0,056 | 263 | 478 | 0,135 | 17 |
+| Tuffy | 31 | 317 | 8,05 | 0,055 | 289 | 612 | 0,138 | 15 |
+| Spike | 38 | 215 | 4,61 | 0,051 | 218 | 404 | 0,131 | 20 |
+| Ford | 23 | 209 | 6,99 | 0,030 | 381 | 889 | 0,119 | 26 |
+| Perikles | 45 | 198 | 4,23 | 0,050 | 206 | 315 | 0,117 | 20 |
+| Homer | 30 | 152 | 3,92 | 0,060 | 186 | 307 | 0,101 | 28 |
+| Diogenes | 43 | 124 | 1,76 | 0,051 | 152 | 392 | 0,118 | 27 |
+| alle | 392 | 3053 | 6,10 | 0,054 | 247 | 889 | 0,137 | 17 |
+| vor 11.11., 07:18 | 129 | 850 | 5,75 | 0,052 | 234 | 742 | 0,134 | 19 |
+| ab 11.11., 07:18 (alle Hoch) | 263 | 2203 | 6,39 | 0,055 | 260 | 889 | 0,138 | 17 |
+| Aufwand hoch | 178 | 1534 | 6,43 | 0,056 | 266 | 889 | 0,139 | 17 |
+
+Gegen Lauf 113 (alle, Woche davor): $ je 1000 Ausgabe 0,137 statt 0,144; je Aufruf 0,054 statt 0,074; Median je Sitzung 6,10 statt 13,41 $; Median Länge 247 statt 391 Tsd. Kosten 3.053 $ in 3,8 Tagen statt 3.083 $ in 7 Tagen. Ohne Bewertung; ganze Woche in 790 am 16.11.
+
+## Lauf 201 · 1134 OHNE-ÜBERHOLT mit allen Nummern und laufenden Sitzungen (Perikles `5fbb88a3a`; 13.11., 13:2x)
+
+- **Greift:** gestellte Sitzungen: „Jerry – 1111, 1112, 1113“ laufend mit `updated_at` vor 5 h → keine Meldung für alle drei; „Tom – Kauf-Cache 1114“ erkannt; archivierte 882.1 vor 5 h und 1101 ohne Sitzung → OHNE-ÜBERHOLT. `nummer_aus_titel` alt gegen neu an 629 echten Titeln seit 02.11.: eine Abweichung („Tom – Sammelbuild 1022, 842, …“: 842 → 1022, richtiger). Echter Ford-Lauf mit `--ohne` bleibt in 1133.
+
+## Lauf 200 · 1133 Werkzeugpunkte P1–P4 der Systemprüfung 1129.1 (Perikles `d92d2caed`, `e2652d81d`, `e466b8d45`, `c660c954e`; 13.11., 13:2x)
+
+- **Pflegehinweis (Auftrag 1):** `gleich_bis_auf_zahlen` ersetzt nur Zahlen vor „Bytes“, „Zeichen“, „KB“; gleiche Zeile desselben Besitzers bleibt stehen. Einziger Pflege-Commit danach (13:15) war eine echte Änderung (Tom weg, Diogenes neu). 13.11. bis 13:15: 41 Commits; Tageszahl erst 14.11. Im Auftrag stand `279416a1f` (ein Zusammenführen), der Bau ist `d92d2caed`.
+- **Protokoll kürzen (Auftrag 2) greift:** Lauf 13:14 (`cdc712588`): `ARBEIT-BETRIEB.md` 58.106 → 43.684 Bytes, Startsperren 134 → 30, „Start-fehlt“ 39 → 12; gestrichen nur diese beiden Arten. `startmarken` vorher wie nachher gleich, abgesehen von den drei neuen Sperren 13:14. „Start-fehlt“ liest `lauf.py` nur für Sperren unter 3 h, Streichen ab 6 h also folgenlos.
+- **OHNE-ÜBERHOLT (Auftrag 3):** Probe mit gestellten Sitzungen: Archiv, „ruht“, „in Arbeit“ ohne Sitzung richtig erkannt, Sonderzeilen übersprungen. **Befund D198.1 → 1134 (Perikles):** Titel mit mehreren Nummern („Jerry – 1111, 1112, 1113“) liefert nur die erste, vierstellige Nummer nur direkt nach „–“; „tätig“ nur über `updated_at`, das bei laufenden Sitzungen stehen bleibt (13:18: Tuffy, Diogenes `updated_at` = `created_at`). Echter Lauf steht aus: Lauf 13:14 lief ohne `--ohne`.
+- **Haltezählung (Auftrag 4):** Probe gegen eigenes leeres Repo: drei gleichzeitige Halte (probelauf, commit-pruefung, startsperre) → drei Zeilen, drei Commits, Zählung fasst Nummern zusammen, `--ab` richtig. Haken rufen die Dateien als Skript, `import hakenzahl` findet sich. **Greift:** echte Halte 13:19–13:21 aus mehreren Sitzungen (2 commit-pruefung, 2 probelauf) stehen im Zweig `haken`, `hakenzahl.py` zählt sie; startsperre noch ohne echten Halt (gleicher Weg).
+- 1133 wartet auf 14.11.
+
 ## Lauf 199 · 1125 Sammelbilligungen in `abgleich.py` (Perikles `377a1a533`; 13.11., 11:5x)
 
 - **Vorläufig:** `abgleich.py` auf `main` gibt keine Vorentscheid-Warnung mehr, nur Zeilen „ohne Build“ (in `lauf.py` eine Zahlzeile, zählt als Leerlauf). Ob ein Uhrlauf ohne Startbares jetzt nach einem Schritt endet und billiger wird, zeigt erst der nächste echte Lauf; 1125 wartet bis 13:15.

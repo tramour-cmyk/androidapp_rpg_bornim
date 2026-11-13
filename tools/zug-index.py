@@ -215,7 +215,7 @@ def formfehler():
         kopf, meta = (z + ["", ""])[:2]
         if any(re.sub(r" \d+$", "", t.strip()) not in TEAMS for t in re.split(r" und | \+ |/|, ", kopf.lstrip("# ").split(" · ")[0])): fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
         if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
-        if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*(?:Passt|Richtig)\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Passt | Falsch` fehlt")
+        if not re.search(r"^\|\s*#\s*\|(\s*Team\s*\|)?\s*Nr\.\s*\|(\s*Art\s*\|)?\s*Wo und wie\s*\|\s*(?:Passt|Richtig)\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Art | Wo und wie | Passt | Falsch` fehlt (Art ab 284, 1128 A)")
         else:  # 317: gemeinsamer Build bündelt mindestens 3 Vorgänge, keine Obergrenze (Chef 07.11., 20:5x), weniger nur auf „jetzt“ des Chefs
             zeilen = [[c.strip() for c in x.strip("|").split("|")] for x in z if x.startswith("|") and not re.match(r"\|[\s|:-]*$", x)]
             sp = zeilen[0].index("Nr.") if zeilen and "Nr." in zeilen[0] else 1
@@ -281,7 +281,14 @@ def luecken():
     return "\n".join(teile)
 
 def offen_je_rolle():
-    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt."""
+    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt.
+    1129 A 6 (Chef 13.11., 13:59): neu gerechnet nur stündlich (ZUG_ROLLEN=1 aus dem Zeitplan oder von Hand); sonst bleibt der
+    Abschnitt aus der bisherigen Übersicht stehen, damit ein Push unter docs/chefsache/ nicht jedes Mal Vorrang und Zahlen neu schreibt."""
+    if os.environ.get("ZUG_ROLLEN") != "1" and os.path.exists(os.path.join(ZUG, "README.md")):
+        alt = open(os.path.join(ZUG, "README.md"), encoding="utf-8").read()
+        m = re.search(r"^## Offen je Rolle\n.*?(?=^## |\Z)", alt, re.S | re.M)
+        if m:
+            return m.group(0).strip()
     try:
         import subprocess, sys as _s
         r = subprocess.run([_s.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "startbar.py"), "--md"], capture_output=True, text=True, timeout=60)
