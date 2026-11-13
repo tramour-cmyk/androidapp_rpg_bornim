@@ -8,3 +8,4 @@
 2026-11-13 13:54:25	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	claude/build-284
 2026-11-13 13:56:22	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	claude/tom-882-1-ohne-gradle
 2026-11-13 13:56:32	startsperre	Startsperre fehlt (750 A): für Spike steht in den letzten 10 Minuten keine „Startsperre … Start Spike“ auf main (letzte 13.11., 13:06). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen,	HEAD
+2026-11-13 13:56:34	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	claude/tom-882-1-ohne-gradle
