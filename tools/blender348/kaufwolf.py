@@ -13,6 +13,7 @@
 # toon.gdshader glut) -> <OUT>/dire_wolf-<fell>.glb, dire_wolf-info.json; Narbe und eingerissenes Ohr fehlen hier noch
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 T0 = time.time()
 import bpy
 import numpy as np
@@ -72,7 +73,7 @@ IRIS, LID = 0.010, 0.019
 def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
-    t = sorted(glob.glob(os.path.join(KAUF, '**', 'Wolf_Rig.fbx'), recursive=True))
+    t = kaufquelle.alle(KAUF, 'Wolf_Rig.fbx', 'WOLF')
     if not t:
         sys.exit('Wolf_Rig.fbx nicht gefunden unter %s' % KAUF)
     d = os.path.dirname(os.path.dirname(t[0]))     # .../Animal pack deluxe

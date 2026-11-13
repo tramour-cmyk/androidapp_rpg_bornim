@@ -15,6 +15,7 @@
 # Aufruf: KAUF=<ordner> OUT=<ordner> [FELL=fahl] python -I kaufgrabhund.py  ->  <OUT>/ghoul-<haut>.glb, ghoul-info.json
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 T0 = time.time()
 import bpy
 import bmesh
@@ -73,7 +74,7 @@ AUSWEICHEN_BILDER = 12
 def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
-    t = sorted(glob.glob(os.path.join(KAUF, '**', 'BARGHEST_AllMeshes.FBX'), recursive=True))
+    t = kaufquelle.alle(KAUF, 'BARGHEST_AllMeshes.FBX', 'GRABHUND')
     if not t:
         sys.exit('BARGHEST_AllMeshes.FBX nicht gefunden unter %s' % KAUF)
     d = os.path.dirname(t[0])
