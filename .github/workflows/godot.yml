@@ -478,11 +478,14 @@ jobs:
           ende=0; python3 tools/godot/kauf_cache.py ablegen > $RUNNER_TEMP/ablegen.log 2>&1 || ende=$?; cat $RUNNER_TEMP/ablegen.log
           # 910, 1111: nach vollem Bau trotz Treffer (cache=neu) zeigen, welche vorher abgelegte Datei vom frisch gebauten Stand abweicht;
           # eine Abweichung macht den Schritt rot (dann deckt die Kennung eine Eingabe nicht)
+          # 1127 (Diogenes D196.2): die Gegenprobe hat ihr eigenes Rot; „Ablegen misslungen“ nur, wenn das Ablegen selbst scheiterte
+          probe=0
           if [ -n "${KAUF_GEGENPROBE:-}" ]; then
-            python3 tools/godot/kauf_cache.py vergleich > $RUNNER_TEMP/vergleich.log 2>&1 || { echo "::error::Kauf-Cache: Gegenprobe weicht ab (1111)"; ende=1; }
+            python3 tools/godot/kauf_cache.py vergleich > $RUNNER_TEMP/vergleich.log 2>&1 || { echo "::error::Kauf-Cache: Gegenprobe weicht ab (1111)"; probe=1; }
             cat $RUNNER_TEMP/vergleich.log
             { echo "### Kauf-Cache: Gegenprobe (1111)"; grep -E "^KAUF-CACHE" $RUNNER_TEMP/vergleich.log | tail -25; } >> $GITHUB_STEP_SUMMARY
           fi
+          [ $ende = 0 ] && [ $probe != 0 ] && exit 1
           if [ $ende != 0 ]; then
             echo "::error::Kauf-Cache: Ablegen misslungen, der nächste Lauf baut diese Blöcke wieder neu (Zeilen KAUF-CACHE oben)"
             { echo "### Kauf-Cache: Ablegen misslungen (1101)"; grep -E "^(::warning::)?KAUF-CACHE" $RUNNER_TEMP/ablegen.log | sed 's/^::warning:://'; } >> $GITHUB_STEP_SUMMARY
