@@ -275,6 +275,9 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
 	if gebiet: gebiet.nacht(k)
+	# 492/505: DorfEffekte.nacht zuendet abends die Fackeln (Licht und Flamme sichtbar), auch auf nie gesehenen Kacheln; der Nebel
+	# schaltet sie dort gleich wieder aus (dinge_zeigen, Chef 03.11., 16:12: nichts scheint durch)
+	if nebel and nebel.an: nebel.dinge_zeigen()
 	if held: held.nacht(k)
 	if leute:
 		for l in leute.get_children(): l.nacht(k)

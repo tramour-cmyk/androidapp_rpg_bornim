@@ -64,6 +64,13 @@ func _lauf() -> void:
 	fx.federn(g.karte.kachel_pos(Vector2i(10, 28)))
 	await warte(2)
 	pruefe(fx.get_child_count() == vor + 1, "Federn beim Huhn")
+	# 492/505: Abend nach dem Tag ueber spiel._nacht (wie die Uhr): Fackeln auf nie gesehenen Kacheln bleiben unter dem Nebel aus
+	if nb and nb.an:
+		spiel._nacht(0.0)
+		spiel._nacht(0.75)
+		var soll := fx.fackeln.map(func(f): return (f["licht"] as OmniLight3D).visible)
+		nb.dinge_zeigen()
+		pruefe(soll == fx.fackeln.map(func(f): return (f["licht"] as OmniLight3D).visible), "Abend: Fackeln unter dem Nebel bleiben aus (505) %s" % [soll])
 	# Tag: Fackeln kalt
 	g.nacht(0.0)
 	pruefe(fx.fackeln.all(func(f): return not f["brennt"] and not (f["fx"] as Node3D).visible), "am Tag brennen die Fackeln nicht")
