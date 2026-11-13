@@ -55,3 +55,4 @@
 2026-11-13 15:40:48	commit-pruefung	docs/ROLLE-ENTWICKLUNG.md: 13114 Bytes, Obergrenze 13100, Commit fügt 19 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-13 15:48:57	commit-pruefung	docs/LISTE-VORGAENGE.md: Uhrzeit 18:30 liegt nach jetzt (15:48)	main
 2026-11-13 15:48:57	commit-pruefung	docs/PRUEFBERICHT.md: Uhrzeit 18:46 liegt nach jetzt (15:48)	main
+2026-11-13 15:50:44	commit-pruefung	docs/entwurf/t999-probe.md: Zeile 999.1 Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link „[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkra	main
