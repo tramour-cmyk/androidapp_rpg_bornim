@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 193 · 1121 Commit-Prüfung 774 und „ohne Rückmeldung tN“ (Perikles, `f31ce0409`; 13.11., 11:0x)
+
+- **Greift:** nachgestellt auf `94621abe7^` mit `vorgang.py build 282`: alte Bedingung meldet 1040.1 als lose (Halt), neue keine; ausgenommen wird nur der Stand, den `vorgang.py` Zeile 409 selbst schreibt („zu testen, ohne Rückmeldung tN“), jede andere lose Zeile hält weiter an.
+
 ## Lauf 192 · 1099, 1103, 1110 Repos und Archivieren in den Rollendateien (Perikles, Doppelpack 421; `cc52ea528`, `e70cb24f3`, `6f970b4a2`; 13.11., 10:08)
 
 - **Greift:** Bitte-Zeile 642 in `ARBEIT-BETRIEB.md` weg; Archiv 1099 und 1110 mit Wortlaut 07:12, 09:55–09:59; Repo-Satz in allen sechs Rollendateien gleich dem Archiv; Ford archiviert ohne Satz nur ARCHIVIERE, nie laufende (Wortlaut 09:59); keine Regel „nur auf Wort/Satz des Chefs“ zu Repos oder Archiv mehr (Rollendateien, `LISTE-*`, `CLAUDE.md`). Beleg 1099: diese von Ford gestartete Sitzung band `bornim-kaufmodelle` um 09:50 ohne Chefwort ein. Gestrichene Dubletten (Uhr-Lehre, drei Homer-Lehren, Beispiel D3.10, „kein Eingang für Teams“ steht weiter in `ARBEIT-BERATUNG.md`) ohne Widerspruch.
