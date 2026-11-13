@@ -2,7 +2,7 @@
 
 Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystems, mit der das Spiel heute rechnet, je Block die Regel als Satz (`DESIGN-BRS.md`), Formel und Erläuterung, die heutige Zahl und wo sie im Spiel gelesen wird. Aus `tools/sim444/werte.json` mit `python3 tools/regelwerte.py`.
 
-**Stand:** `werte.json` aus Commit `a94a9efb2` auf `main`; 27 Blöcke.
+**Stand:** `werte.json` aus Commit `096ac8149` auf `main`; 27 Blöcke.
 
 - **Ändern:** nur in `werte.json` auf einem Arbeitszweig (das Spiel liest die Datei, also testet der Chef); nach dem Mischen auf `main` das Werkzeug laufen lassen und die Seite committen. Wer Einfluss nehmen will, nennt Block und Wert (z. B. `ueben.bedarf_teiler`).
 - **Herkunft** je Block: N = Nachschlagewerk DESIGN-BRS.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).
@@ -81,24 +81,36 @@ Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystem
 
 - **Regel** (`DESIGN-BRS.md` „7. Kampf“): (5) Proben als Prozent wie die Trefferchance: Initiative und Flucht nach Gewandtheit, Abwehrprobe mit Zähigkeit (Gift, Krankheit), Wille (Furcht, Zauber), Gewandtheit (Flächen)
 - **Herkunft der Zahlen:** 870.5 (870a 5 A, DESIGN-BRS.md 7): Proben als Prozent wie die Trefferchance; alle Zahlen vorlaeufig (A, Jerry), die Simulation kennt sie noch nicht; Werte-Vorlage an den Chef vor B1
-- **Gelesen von:** `regeln/mars.gd`
+- **Gelesen von:** `regeln/mars.gd`, `tools/sim444/sim.py`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `basis` | 50 | – | `regeln/mars.gd:581`, `regeln/mars.gd:611` |
 | `je_punkt` | 5 | – | `regeln/brs_held.gd:363`, `regeln/mars.gd:581`, +2 |
-| `je_stufe` | 5 | – | `regeln/mars.gd:582`, `regeln/mars.gd:601`, +1 |
-| `min` | 5 | – | `regeln/mars.gd:583`, `regeln/mars.gd:1176` |
-| `max` | 95 | – | `regeln/mars.gd:583`, `regeln/mars.gd:1176` |
+| `je_stufe` | 5 | – | `regeln/mars.gd:582`, `regeln/mars.gd:601`, +1, Sim. |
+| `min` | 5 | – | `regeln/mars.gd:583`, `regeln/mars.gd:1176`, Sim. |
+| `max` | 95 | – | `regeln/mars.gd:583`, `regeln/mars.gd:1176`, Sim. |
 | `gegner_grundwert` | 5 | – | `regeln/mars.gd:575` |
-| `einschuechtern_basis` | 35 | 841 (807 A, Goblin-Spaeher verjagen; vorlaeufig A, Jerry, wie Ueberreden 1037): Einschuechtern hat keinen Grundwert, also Chance = einschuechtern_basis + einschuechtern_je_punkt x Fertigkeitswert Einschuechtern + je_stufe x (eigene Stufe - Stufe des Spaehers), begrenzt auf min bis max; ohne Fertigkeit gleich stark 35 %, Startwert 10 = 45 %; Uebung je Versuch, gelungen oder nicht, gegen die Stufe des Spaehers | `regeln/mars.gd:1174` |
-| `einschuechtern_je_punkt` | 1 | – | `regeln/mars.gd:1174` |
 | `abwehr_mitte` | 11 | Abwehrprobe gegen einen Zustand mit Zaehigkeit (Gift, Betaeubung, Blindheit), Wille oder Gewandtheit gegen den staerksten stehenden Gegner; je Punkt Schwere des alten Rettungswurfs ueber abwehr_mitte ein Grundwertpunkt mehr dagegen | `regeln/mars.gd:1606` |
 | `initiative_streuung` | 100 | Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos | `regeln/mars.gd:602` |
 | `initiative_atemlos` | 25 | – | `regeln/mars.gd:604` |
+| `einschuechtern_basis` | 30 | – | `regeln/mars.gd:1174` |
+| `einschuechtern_je_punkt` | 0,6 | – | `regeln/mars.gd:1174` |
+| `ueberreden_basis` | 30 | – | – |
+| `ueberreden_je_punkt` | 0,6 | – | – |
+| `tiere_beruhigen_basis` | 30 | – | Sim. |
+| `tiere_beruhigen_je_punkt` | 0,6 | – | Sim. |
+| `handeln_basis` | 30 | – | – |
+| `handeln_je_punkt` | 0,6 | – | `skripte/laden.gd:14`, `skripte/laden.gd:15` |
 
 - **formel:** Chance = basis + je_punkt x (eigener Grundwert - Grundwert dagegen) + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; Gegner ohne Grundwerte zaehlen mit gegner_grundwert
 - **flucht:** Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)
+- **ohne_grundwert:** 1084 (1051 A, Chef 12.11., 22:18; DESIGN-BRS.md 3): Proben mit einer Fertigkeit ohne Grundwert (Ueberreden, Einschuechtern, Handeln, Tiere beruhigen), je Fertigkeit <name>_basis und <name>_je_punkt (Name klein, Umlaute als ae, oe, ue): Chance = basis + je_punkt x Fertigkeitswert + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; auf gleicher Stufe 30 / 44 / 59 / 74 / 90 % bei 0 / 24 / 49 / 74 / 100 Punkten; Uebung je Versuch, gelungen oder nicht. Einschuechtern: gegen die Stufe des Goblin-Spaehers (841, mars.gd); Ueberreden: gegen die Stufe der Figur aus ueberreden_stufe (Pim 1, Vorentscheid Sokrates 1084, 23:08), dazu minus <name>_gegen der Figur (1037, Pim 0; geschichte.gd probe_chance, Stufe dort noch nicht gerechnet); Tiere beruhigen: gegen die Stufe des Tiers, Ranggrenze wirtschaft tiere_beruhigen (sim.py, im Spiel noch nicht gebaut); Handeln: noch keine Probe im Spiel, die Preise rechnen mit welt handeln_je_punkt
+
+| Eintrag | Pim |
+|---|---|
+| ueberreden_gegen | 0 |
+| ueberreden_stufe | 1 |
 
 ## gegenwirkung
 
@@ -569,7 +581,7 @@ Gelesen in: Sim.
 | `schaden` | 7 | – | `regeln/brs.gd:55`, `regeln/brs.gd:118`, Sim. |
 | `angriff` | 25 | – | `regeln/brs.gd:54`, `regeln/brs.gd:118`, Sim. |
 | `abwehr` | 38 | – | Sim. |
-| `wachsamkeit` | 90 | – | Sim. |
+| `wachsamkeit` | 90 | – | – |
 | `art` | nah | – | `regeln/brs.gd:38`, Sim. |
 | `gebiet` | Höhle | – | `regeln/brs.gd:161` |
 | `boss` | ja | – | `regeln/brs.gd:51`, `regeln/brs.gd:62`, +2, Sim. |
@@ -659,7 +671,7 @@ Gelesen in: `regeln/mars.gd:487`, `regeln/mars.gd:2505`, +1, Sim.
 
 ### wirtschaft.preise
 
-Herkunft: Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A
+Herkunft: Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A; Verband 1037 A
 
 Gelesen in: Sim.
 
@@ -667,6 +679,7 @@ Gelesen in: Sim.
 |---|---|---|---|
 | `Heiltrank` | 25 | – | Sim. |
 | `Großer Heiltrank` | 75 | – | Sim. |
+| `Verband` | 8 | – | – |
 | `Alchemistenfeuer` | 30 | – | Sim. |
 | `Weihwasser` | 25 | – | – |
 | `Fleisch` | 6 | – | – |
@@ -724,17 +737,13 @@ Gelesen in: Sim.
 
 ### wirtschaft.tiere_beruhigen
 
-Herkunft: N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere. Zahlen A: Chance wie Trefferchance mit Basis 50 gegen die Wachsamkeit des Tiers; misslingt es, schlaegt das Tier zuerst
+Herkunft: N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere; misslingt es, schlaegt das Tier zuerst. Chance wie alle Proben ohne Grundwert (proben tiere_beruhigen_basis, 1084, 1051 A; vorher 50 + 0,5 je Punkt gegen die Wachsamkeit des Tiers)
 
 Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `arten` | Riesenratte, Wolf, Wildschwein, Riesenfledermaus | – | Sim. |
-| `chance_basis` | 50 | – | Sim. |
-| `chance_je_punkt` | 0,5 | – | Sim. |
-| `chance_min` | 5 | – | Sim. |
-| `chance_max` | 95 | – | Sim. |
 | `rang_bis_tierstufe` | (24, 2), (49, 4) | Anfaenger (bis 24) beruhigt Tiere bis Stufe 2, Geselle (bis 49) bis Stufe 4 | Sim. |
 
 ### wirtschaft.abnutzung
@@ -1093,6 +1102,14 @@ Gelesen in: `regeln/mars.gd:1577`, Sim.
 | `remedy` | 5 | – | – |
 | `roast_meat` | 14 | – | – |
 
+### welt.verband
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `grund` | 5 | – | – |
+| `je_heilkunde` | 0,2 | – | – |
+| `uebung` | 1 | – | – |
+
 ### welt.ausdauer
 
 Gelesen in: `regeln/brs_held.gd:362`, `regeln/brs_held.gd:369`, +2
@@ -1103,7 +1120,7 @@ Gelesen in: `regeln/brs_held.gd:362`, `regeln/brs_held.gd:369`, +2
 | `je_punkt` | 0,5 | – | `regeln/brs_held.gd:363`, `regeln/mars.gd:581`, +2 |
 | `mitte` | 10 | – | `regeln/brs_held.gd:363` |
 | `je_zwei_stufen` | 1 | – | `regeln/brs_held.gd:364` |
-| `min` | 2 | – | `regeln/brs_held.gd:365`, `regeln/mars.gd:583`, +1 |
+| `min` | 2 | – | `regeln/brs_held.gd:365`, `regeln/mars.gd:583`, +1, Sim. |
 | `schwer_kraft` | 7 | – | `regeln/brs_held.gd:369` |
 
 ### welt.gebiet

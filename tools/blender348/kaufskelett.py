@@ -15,6 +15,7 @@
 #         -> <OUT>/skeleton-<kit>.glb, skeleton-info.json
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 T0 = time.time()
 import bpy
 import numpy as np
@@ -67,8 +68,7 @@ WAFFEN = ('SM_Sword', 'SM_Shield', 'SPEER')
 
 
 def finde(name):
-    t = sorted(glob.glob(os.path.join(KAUF, '**', name), recursive=True))
-    return t[0] if t else None
+    return kaufquelle.finde(KAUF, name, 'SKELETT')
 
 
 def quelle():

@@ -1,0 +1,91 @@
+extends SceneTree
+# 867 Probebild (Chef 10.11., 13:48; Zu 867 „Erst Bild vorlegen (welche Helden, Völker, Ausrüstung), dann bauen“): das Hauptmenü wie
+# im Spiel, einmal mit dem alten Bild der vier Kotlin-Figuren (vorher), einmal mit HauptmenueHelden an derselben Stelle (nachher).
+# Nur mit Fenster (godot.yml „Hauptmenübild (867)“), im Ordner godot:
+#   PROBE=867 xvfb-run -a godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+#     -s res://tests/hauptmenue_bild_867.gd -- --aus=<ordner>
+
+var aus := ""
+
+
+func _initialize() -> void:
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--aus="): aus = a.substr(6)
+	_lauf.call_deferred()
+
+
+func knips(n: String) -> void:
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png(aus + "/" + n + ".png")
+	print("BILD ", aus + "/" + n + ".png")
+
+
+func _lauf() -> void:
+	DirAccess.make_dir_recursive_absolute(aus)
+	Hauptmenue.vorspann_gezeigt = true
+	var hm := Hauptmenue.new(null)
+	root.add_child(hm)
+	for i in 10: await process_frame
+	# seit dem Einbau (Sokrates 03:14) zeigt das Hauptmenue die Helden selbst, wenn es die Figuren gibt; vorher das alte Bild zum Vergleich
+	var neu: HauptmenueHelden = null
+	for c in hm.find_children("*", "HauptmenueHelden", true, false): neu = c
+	var alt_bild := hm.bild(Hauptmenue.BILD, 330) if neu else null
+	if neu and alt_bild:
+		var eltern0 := neu.get_parent()
+		eltern0.move_child(alt_bild, neu.get_index())
+		neu.visible = false
+		for k in 3: await process_frame
+		await knips("867_vorher")
+		alt_bild.queue_free()
+		neu.visible = true
+		neu._bilder = 0
+		neu._v.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+	else:
+		var alt: TextureRect = null
+		for r in hm.find_children("*", "TextureRect", true, false):
+			if alt == null and (r as TextureRect).texture is ImageTexture and (r as TextureRect).custom_minimum_size.x > 200: alt = r
+		if alt == null:
+			print("MENU867 altes Bild nicht gefunden"); quit(1); return
+		await knips("867_vorher")
+		neu = HauptmenueHelden.new(alt.custom_minimum_size.x / AktionsKnopf.DP)
+		neu.size_flags_horizontal = alt.size_flags_horizontal
+		var eltern := alt.get_parent()
+		var i := alt.get_index()
+		eltern.add_child(neu)
+		eltern.move_child(neu, i)
+		alt.visible = false
+	for k in 15: await process_frame
+	print("MENU867 Figuren %d: %s" % [neu.figuren.size(), HauptmenueHelden.HELDEN.map(func(h): return "%s %s %s" % [h["herkunft"], h["volk"], h["geschlecht"]])])
+	for h in HauptmenueHelden.HELDEN:
+		var w := HauptmenueHelden.wahl(h)
+		print("MENU867 %s: Ausruestung %s" % [h["herkunft"], (w["ausruestung"] as Dictionary).keys().map(func(p): return "%s=%s" % [p, str(w["ausruestung"][p].get("base", "?")) if w["ausruestung"][p] is Dictionary else str(w["ausruestung"][p])])])
+	for st in neu.find_children("*", "SkeletonModifier3D", true, false):
+		if st is HauptmenueHelden.SchwertStuetzen:
+			print("MENU867 Stuetzen: Faust rechts %.1f cm neben dem Ziel, links %.1f cm, Spitze %.1f cm ueber dem Boden, %d-mal zur Schulter gerueckt" % [st.fehl_r * 100.0, st.fehl_l * 100.0, st.spitze_hoehe * 100.0, st.gerueckt])
+	await knips("867_nachher")
+	await ausschnitt(neu, "867_helden")
+	# 867 Haltungen A (Sokrates: „Haltungen in allen Blickrichtungen prüfen“): jeder Held um sich selbst gedreht, die Waffe bleibt in
+	# der Hand, nichts schwebt oder steckt im Koerper
+	for g in [90, 180, 270]:
+		for f in neu.figuren: f.rotation.y += deg_to_rad(90.0)
+		neu._bilder = 0
+		neu._v.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		for k in 10: await process_frame
+		await ausschnitt(neu, "867_helden_%d" % g)
+	for f in neu.figuren: print("MENU867 %s: Haltung %s" % [f.get_child(0).name, f.get_meta("haltung", "")])
+	quit()
+
+
+## die Helden allein, doppelt so gross (Gesichter, Haende, Waffen)
+func ausschnitt(neu: Control, n: String) -> void:
+	await RenderingServer.frame_post_draw
+	# Lauf 403: get_global_rect ist im Mass der Leinwand (Fensterstreckung), das Bild im Mass des Fensters: umrechnen
+	var bild := root.get_texture().get_image()
+	var mass := Vector2(bild.get_size()) / root.get_visible_rect().size
+	var g := neu.get_global_rect()
+	var r := Rect2i(Vector2i(g.position * mass), Vector2i(g.size * mass)).intersection(Rect2i(Vector2i.ZERO, bild.get_size()))
+	print("MENU867 Ausschnitt %s (Mass %s)" % [r, mass])
+	var img := bild.get_region(r)
+	img.resize(img.get_width() * 2, img.get_height() * 2, Image.INTERPOLATE_LANCZOS)
+	img.save_png(aus + "/" + n + ".png")
+	print("BILD ", aus + "/" + n + ".png")

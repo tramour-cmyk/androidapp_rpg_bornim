@@ -100,7 +100,7 @@ func _lauf() -> void:
 	h.leben = 1
 	var m0 := z.minuten
 	Rast.rasten(z, h, "kurz", "feuer", {"karte": "forest", "x": 1, "y": 1, "blick": "DOWN"})
-	pruefe("Kurze Erholung 2 Stunden, ein Viertel Leben", [z.minuten - m0, h.leben], [120, 1 + (h.max_leben() + 3) / 4])
+	pruefe("Kurze Erholung 2 Stunden, kein Leben (1038 R1, 1046)", [z.minuten - m0, h.leben], [120, 1])
 	m0 = z.minuten
 	Rast.rasten(z, h, "lang", "feuer", {"karte": "forest", "x": 1, "y": 1, "blick": "DOWN"})
 	pruefe("Langes Ausruhen 9 Stunden, voll", [(z.minuten - m0 + 24 * 60) % (24 * 60), h.leben, h.mana], [540, h.max_leben(), h.max_mana()])

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Startbares je Rolle (166) aus der einen Vorgangsliste `docs/LISTE-VORGAENGE.md` (275.2, Chef 07.11., 21:5x).
 
-Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen] [--liegt]   (--liegt: startbares Muss je Rolle nach Pause, 891)   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
+Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen] [--liegt] [--leichen [TAGE]] [--urteile [STUNDEN]]   (--urteile: Chefurteile der letzten Stunden gegen die Zeile, 1192; --liegt: startbares Muss je Rolle nach Pause, 891; --leichen: Funde 1188 je Besitzer)   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
 Eine Tabelle, je Vorgang eine Zeile: Nr. · Titel · Besitzer · Kl. · Stand · wartet auf · Zweig · Build · Bereich · Kosten.
 Reihenfolge der Zeilen eines Besitzers = Vorrang. Vorräte `ARBEIT-*.md` haben keine Tabelle mehr, nur Übergabe, Pause und „Zu <Nr>“.
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür), dazu, warum andere Zeilen nicht startbar sind
@@ -177,7 +177,160 @@ def wochentermine_faellig(jetzt):
     tag = jetzt.strftime("%d.%m.")
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
-            if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da]
+            if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
+            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da)
+
+# 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen
+# veralten still (99 ruhte seit 17.10. überholt; Chefurteil nie nachgezogen, Arbeit unter Unternummern erledigt, Richtungswechsel).
+# Montags ab 8 Uhr legt lauf.py --sperre je Besitzer eine Zeile an, die ihm einmal zum Urteil vorlegt: Mütter, deren Unternummern alle
+# erledigt sind, und Zeilen jeder Klasse ohne Bewegung seit URTEIL_TAGE: je Nummer gilt (neuer Termin im Feld „wartet auf“) oder
+# schließen. Jedes Urteil ändert die Zeile, damit beginnen die Tage neu.
+URTEIL_TAGE = 14
+URTEIL_MAX = 15  # Nummern je Zeile (Titel höchstens 400 Zeichen); der Rest kommt am nächsten Montag
+SAMMEL = 25  # Commits, die mehr Zeilen der Liste ändern (Wochenziel, Klassen, Umschaltung), sind keine Bewegung der Zeile
+RUHIG = (None, "in Arbeit", "Dauer", "Idee", "erledigt", "aufgeteilt")  # wird nicht vorgelegt
+
+def _vorlegbar(d, jetzt):
+    """1188: offene Zeile, die ein Urteil braucht: nicht in Arbeit oder fertig, nicht Ideen (Homer sonntags), nicht Pflege/Spiegel,
+    kein Datum in der Zukunft im Feld „wartet auf“ (schon geurteilt). „gebaut“ und „zu testen“ nur ohne Build (Sokrates 16:55: (d)
+    gebaut außerhalb von Bereich B, „greift“ schließt nur B, 866, 896; (e) „zu testen“ ohne Build schließt keiner, 1079, 1122);
+    mit Build wartet die Zeile auf den Test (test_vorbei, wenn er im Archiv steht)."""
+    if d["besitzer"] == "Ideen" or d["nr"] in SONDER or d["wort"] in RUHIG: return False
+    if d["wort"] in ("gebaut", "zu testen") and str(d.get("build") or "").strip().isdigit(): return False
+    return not any(art(w) == "datum" and datum_von(w) > jetzt for w in d.get("warte") or [])
+
+def ohne_bewegung(zs=None, jetzt=None):
+    """1188: [(Tage, dict)] vorlegbare Zeilen jeder Klasse ohne Bewegung seit URTEIL_TAGE, älteste zuerst. Bewegung = letzte
+    Änderung der Zeile nach git blame -M (verschobene Zeilen zählen nicht), ohne Sammel-Commits."""
+    jetzt = jetzt or JETZT
+    zs = zeilen_liste() if zs is None else zs
+    pfad = os.path.join(DOCS, LISTE)
+    seit = (jetzt - datetime.timedelta(days=60)).strftime("%Y-%m-%d")
+    gross = []; c = None
+    for z in _git("log", "--since=" + seit, "--format=@%H", "--numstat", "--", pfad).stdout.splitlines():
+        if z.startswith("@"): c = z[1:]
+        elif c and z.split("\t")[0].isdigit() and int(z.split("\t")[0]) > SAMMEL: gross.append(c)
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
+        f.write("\n".join(gross) + "\n"); ign = f.name
+    try:
+        out = _git("blame", "-M", "--ignore-revs-file", ign, "--line-porcelain", "--", pfad).stdout
+    finally:
+        os.unlink(ign)
+    zeit, cur = [], None
+    for z in out.splitlines():
+        if z.startswith("committer-time "): cur = int(z.split()[1])
+        elif z.startswith("\t"): zeit.append(cur)
+    if not zeit: return []  # kein Git: lieber nichts vorlegen als alles
+    aus = []
+    for d in zs:
+        if not _vorlegbar(d, jetzt) or d["i"] >= len(zeit) or zeit[d["i"]] is None: continue
+        tage = (jetzt - datetime.datetime.fromtimestamp(zeit[d["i"]])).days
+        if tage >= URTEIL_TAGE: aus.append((tage, d))
+    return sorted(aus, key=lambda x: -x[0])
+
+def mutter_fertig(zs=None, jetzt=None):
+    """1188 (b): vorlegbare Zeilen, deren Unternummern (Nr.k, eine Stufe tiefer) es gibt und alle erledigt sind (Archiv oder Liste)."""
+    jetzt = jetzt or JETZT
+    zs = zeilen_liste() if zs is None else zs
+    offen = {d["nr"] for d in zs if d["wort"] not in ("erledigt", "aufgeteilt")}
+    alle = set(archiv()) | {d["nr"] for d in zs}
+    aus = []
+    for d in zs:
+        if not _vorlegbar(d, jetzt): continue
+        kinder = [k for k in alle if k.startswith(d["nr"] + ".") and k.count(".") == d["nr"].count(".") + 1]
+        if kinder and not any(k in offen for k in kinder): aus.append(d)
+    return aus
+
+def test_vorbei(zs=None):
+    """1188 (zu 1189): Zeilen „gebaut“ oder „zu testen“ mit Build, dessen Test im Vorgangsarchiv steht („- **tN, Build N getestet“);
+    Automatik B hätte sie schließen oder zurückgeben sollen."""
+    zs = zeilen_liste() if zs is None else zs
+    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    return [d for d in zs if d["wort"] in ("gebaut", "zu testen") and str(d.get("build") or "").strip() in getestet]
+
+LEICHEN_ARTEN = ("Build getestet, Zeile offen", "Unternummern alle erledigt", "ohne Bewegung seit %d Tagen")
+
+def leichen(jetzt=None, tage=URTEIL_TAGE):
+    """1188: {Besitzer: {Art: [Nr]}} in der Folge LEICHEN_ARTEN, jede Nummer einmal (startbar.py --leichen [TAGE], Montagszeile)."""
+    jetzt = jetzt or JETZT
+    global URTEIL_TAGE
+    alt_tage, URTEIL_TAGE = URTEIL_TAGE, tage
+    try:
+        funde = [(LEICHEN_ARTEN[0], test_vorbei()), (LEICHEN_ARTEN[1], mutter_fertig(jetzt=jetzt)),
+                 (LEICHEN_ARTEN[2] % tage, [d for _, d in ohne_bewegung(jetzt=jetzt)])]
+    finally:
+        URTEIL_TAGE = alt_tage
+    aus, schon = {}, set()
+    for art_, ds in funde:
+        for d in ds:
+            if d["nr"] in schon or d["besitzer"] == "Ideen": continue
+            schon.add(d["nr"]); aus.setdefault(d["besitzer"], {}).setdefault(art_, []).append(d["nr"])
+    return aus
+
+def urteil_faellig(jetzt, da=None):
+    """1188: montags ab 8 Uhr je Besitzer mit Funden (leichen) eine Zeile (Titel, Bereich, Besitzer), noch ohne Zeile in Liste
+    oder Archiv; höchstens URTEIL_MAX Nummern, der Rest am nächsten Montag."""
+    if jetzt.weekday() != 0 or jetzt.hour < 8 or jetzt.date() < datetime.date(2026, 11, 16): return []
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
+    tag = jetzt.strftime("%d.%m.")
+    aus = []
+    for wer, je in leichen(jetzt).items():
+        kopf = "Wochentermin %s: Urteil alte Zeilen %s" % (tag, wer)
+        if kopf in da: continue
+        teile, frei = [], URTEIL_MAX
+        for art_, nrn in je.items():
+            if frei > 0: teile.append("%s: %s" % (art_, ", ".join(nrn[:frei]))); frei -= len(nrn[:frei])
+        rest = sum(len(n) for n in je.values()) - (URTEIL_MAX - frei)
+        aus.append(("%s, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; %s%s (1188)"
+                    % (kopf, "; ".join(teile), " (+%d am nächsten Montag)" % rest if rest > 0 else ""), "B Abläufe", wer))
+    return aus
+
+# 1192 (1189 A, Chef 13.11., 17:09): Diogenes prüft alle 48 h auf Leichen. lauf.py --sperre legt die Zeile ab 17.11., 8 Uhr an,
+# wenn die letzte „Leichenprüfung TT.MM.“ (Liste oder Archiv) mindestens zwei Tage alt ist und keine offen ist; fällt ein Tag aus,
+# kommt sie am nächsten, der Abstand bleibt mindestens 48 h. Rückstufung auf montags prüft Sokrates am 27.11.
+LEICHEN_AB = datetime.date(2026, 11, 17)
+LEICHEN_ABSTAND = 2  # Tage
+
+def leichenpruefung_faellig(jetzt, da=None):
+    """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
+    if jetzt.date() < LEICHEN_AB or jetzt.hour < 8: return []
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
+    if any(re.match(r"Leichenprüfung \d", d.get("titel", "")) and d["wort"] not in ("erledigt", "verworfen", "aufgeteilt") for d in zeilen_liste()):
+        return []
+    tage = []
+    for t, m in re.findall(r"\| Leichenprüfung (\d{1,2})\.(\d{1,2})\.", da):
+        try: tage.append(jahr_von(int(t), int(m)))
+        except ValueError: pass
+    if tage and (jetzt.date() - max(tage)).days < LEICHEN_ABSTAND: return []
+    return [("Leichenprüfung %s (1189 A): startbar.py --leichen 7 und --urteile 48 gegen Archiv und Code, Funde als Vorgang beim "
+             "Besitzer, höchstens 10 $ (ROLLE-PRUEFUNG.md, 1192)" % jetzt.strftime("%d.%m."), "Q QM", "Diogenes")]
+
+def urteile(stunden=48, jetzt=None, text=None):
+    """1192: Antworten des Chefs im Vorgangsarchiv der letzten n Stunden (ohne Vorentscheide und Laufzusagen) mit jeder Nummer
+    aus dem fetten Kopf und deren Stand jetzt: [(Zeit, Kopf, [(Nr, Ort, Stand)])]; Ort „Liste <Besitzer>“, „Archiv“ oder „ohne Zeile“."""
+    jetzt = jetzt or JETZT
+    aus = []
+    for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
+        m = re.match(r"- \*\*(.+?)\*\*", z)
+        t = ZEIT.search(z)
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**") or laufzusage(z) or not re.search(r"Chef|Nutzer", z): continue
+        try: w = _zeit(t)
+        except ValueError: continue
+        if not (jetzt - datetime.timedelta(hours=stunden) <= w <= jetzt): continue
+        kopf = m.group(1)
+        nrn = []
+        for nr in re.findall(r"(?<![\w.])(\d{2,4}(?:\.\d+[a-z]?)*[a-z]?)(?![\w.]| ?(?:h|Uhr|\$|%|px|KB|Tage|Stunden|Minuten)\b)", kopf):
+            if nr in nrn or not (nr in VORG or int(re.match(r"\d+", nr).group()) >= 100): continue
+            nrn.append(nr)
+        je = []
+        for nr in nrn:
+            d = next((d for d in zeilen_liste() if d["nr"] == nr), None)
+            if d: je.append((nr, "Liste " + d["besitzer"], d["stand"]))
+            elif nr in archiv(): je.append((nr, "Archiv", archiv()[nr]))
+            else: je.append((nr, "ohne Zeile", ""))
+        aus.append((w, kopf, je))
+    return aus
 
 def sammelbuild_faellig():
     """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
@@ -857,8 +1010,10 @@ def vollzug_offen(archiv_text=None, jetzt=None):
                     folge.append(n)
                 continue
             # 1137.2 (b): ein Elternvorgang („zuerst 1128, 1129 bis …“) steht für seine Unternummern, auch erledigte; eine
-            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist noch nicht fällig
+            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist bis dahin nicht fällig
             kinder = sorted(k for k in nummern if k.startswith(n + ".") and not (k in termin and termin[k] > stichtag)) if n in eltern else []
+            if not kinder and n in termin and termin[n] > jetzt:
+                continue   # 1137.2 (e, Sokrates 16:04): direkt genannt mit eigenem späterem Termin (1172 Mo 16.11.) ist bis dahin nicht fällig
             folge += kinder or [n]
         folge = [n for n in dict.fromkeys(folge) if n not in verworfen]
         if not folge:
@@ -894,6 +1049,17 @@ def main():
     info = {}
     if "--liegt" in sys.argv:  # 891: startbares Muss je Rolle; „liegt“, wenn keine Sitzung der Rolle läuft (das weiß nur list_sessions)
         for r, nr in sorted(startbares_muss()): print("LIEGT %s %s (wenn keine Sitzung %s läuft)" % (r, nr, r))
+        return
+    if "--leichen" in sys.argv:  # 1188 (zu 1189): Funde je Besitzer; Zahl dahinter = Tage ohne Bewegung (Vorgabe URTEIL_TAGE)
+        i = sys.argv.index("--leichen"); n = sys.argv[i + 1] if len(sys.argv) > i + 1 and sys.argv[i + 1].isdigit() else URTEIL_TAGE
+        for wer, je in leichen(tage=int(n)).items():
+            for art_, nrn in je.items(): print("LEICHE %s · %s (%d): %s" % (wer, art_, len(nrn), ", ".join(nrn)))
+        return
+    if "--urteile" in sys.argv:  # 1192 (1189 A): Chefurteile der letzten n Stunden (Vorgabe 48) gegen die Zeile derselben Nummer
+        i = sys.argv.index("--urteile"); n = sys.argv[i + 1] if len(sys.argv) > i + 1 and sys.argv[i + 1].isdigit() else 48
+        for w, kopf, je in urteile(int(n)):
+            print("URTEIL %s · %s → %s" % (w.strftime("%d.%m., %H:%M"), kopf[:90],
+                  "; ".join("%s %s%s" % (nr, ort, (": " + st) if st else "") for nr, ort, st in je) or "keine Nummer"))
         return
     if "--loesen" in sys.argv:
         for nr, wer, weg, st in loesen(True): print("GELÖST %s (%s): wartet auf %s erfüllt%s" % (nr, wer, ", ".join(weg), (" → " + st) if st else ""))
