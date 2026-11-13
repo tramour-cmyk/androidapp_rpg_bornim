@@ -38,6 +38,10 @@ func _lauf() -> void:
 	pruefe(String(mund.get("ziel", {}).get("karte", "")) == "cave" and spiel.karte.tuer(Vector2i(10, 0)), "Hoehlenmund (10, 0) im Wald fuehrt in die Hoehle")
 	await spiel.geh_hinaus(mund)
 	for i in 5: await process_frame
+	# 1195 (Läufe 441, 442 rot, 437 auf demselben Stand grün): der Held wartet hier bis 30 s neben den Monstern der Höhle; griff eines
+	# an (Herde, Hinterhalt), lief schon ein Kampf, der eigene Kampf unten bekam von der Sperre 1025 „NONE“ und die Welt war noch in
+	# der Blende des fremden. Die Monster lassen den Helden hier in Ruhe (herde.aus wie die Bildläufe); den Kampf startet nur der Test
+	if spiel.herde: spiel.herde.aus = true
 	pruefe(spiel.karte.id == "cave" and spiel.held.kachel == Vector2i(10, 18), "in der Hoehle am Eingang (10, 18): %s %s" % [spiel.karte.id, spiel.held.kachel])
 	pruefe(spiel.gebiet.raumlicht != null and spiel.licht.innen and spiel.licht.hoehle, "Grundriss mit Raumlicht, Licht der Hoehle")
 	pruefe(spiel.ui.spricht(), "beim ersten Betreten spricht die Hoehle")
@@ -102,6 +106,7 @@ func _lauf() -> void:
 	pruefe(h != null and h.liste.size() >= 1 and h.liste.size() <= 6, "Monster der Hoehle (alt 6, ohne Modell weniger): %d" % (h.liste.size() if h else -1))
 	# 1104 (Chef 13.11., 09:09, t281.11): ein Kampf in der Hoehle endet, danach ist die Welt wieder zu sehen (vorher brach
 	# kampf_im_wald an lage["platz"] ab, die Welt blieb schwarz)
+	pruefe(not spiel.kampf_laeuft, "vor dem Kampf laeuft kein anderer (1195)")
 	var fertig := [false, "?"]
 	var kf := func():
 		fertig[1] = await spiel.kampf_im_wald(spiel.held.kachel, "WOLF")
