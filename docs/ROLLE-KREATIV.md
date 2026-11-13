@@ -48,6 +48,8 @@ Die Teams über ihren Vorrat (Antworten, fehlende Texte); den Chef über die Che
 
 Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Homer`), `tools/story.sh <Gelesen bis>` (geänderte Texte gegen `STORY-REGELN.md` und Storyplan), alle Punkte zu eigenen Vorgängen in der Chefsache; `DESIGN-…` und `STORY-…` nur für den Punkt, den du bearbeitest. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Homer – <Thema>“, pushen.
 
+**Repos** (1110, Chef 13.11., 09:57: „Jeder, der das Ding braucht, soll es einbinden können. Punkt.“): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
+
 ## Handwerk
 
 - Storyplan `STORY-PLAN.md` (mit `-K1`, `-K2`), `STORY-REGELN.md` (Marken `[Thema.kurz]`); Entwürfe gleich als `docs/STORY-…` (99g).
@@ -68,7 +70,4 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.
 
 - **Regeltexte gegen den Code lesen, nicht gegen den Plan** (19.10., 225: „Platz“, Ring und Reihen stimmten nicht mit dem Spiel).
 - **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a).
-- **Vor einer Oberflächen-Empfehlung den Code ansehen** (15.10., 72o.1).
-- **Bildvorschläge an der Karte nachrechnen** (15.10., 70.6).
-- **Beim Start alle Punkte zu eigenen Vorgängen in der Chefsache lesen** (14.10., 69e).
 - **Fertiges Muster sofort als Muster festschreiben** (16.10., 112).
