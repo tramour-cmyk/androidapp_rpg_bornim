@@ -254,7 +254,6 @@
 | 1102 | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den Schirm nicht ganz: links und rechts schmale Streifen Wald sichtbar, Fenster endet am oberen Bildteil, darunter der untere Kampfschirm schwarz mit „‹ ZURÜCK“ | Jerry | M | gebaut, Geprüft an: 0fc77d333 (schirm_833 lokal) | – | claude/jerry-1093-siegrand | – | E Kampf | – |
 | 1114 | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); jede Änderung an held3 oder leute.json baut alle Monster neu (11–21 min); prüfen, ob kampf ohne figur geht | Jerry | M | startbar | 1111 | – | – | B Werkzeuge | – |
 | 1123 | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter Lauf holt Modelle aus der Vorberechnung, Hälfte der Prüfungen daneben, etwa 12–15 min je Lauf), nach 1114 und 1115 | Jerry | M | startbar | 1115 | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 17094 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 1098 | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–889 Tsd.), Ziel nicht: Tiefe 4 nach 22 h (Handstart 12.11., 07:26), bei 400 Tsd. etwa alle 3–5 h ein Neustart, Tiefe 6 etwa 13.11. nachmittags; Handstart bleibt täglich | Perikles | M | startbar, Probe D gescheitert (Ford 11:07), jetzt A Starter | – | – | – | B Abläufe | 9,53 $ |
@@ -276,7 +275,7 @@
 | 1100 | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf.py, notiz.sh und gelesene Dateien messen und kürzen | Perikles | K | gebaut, Geprüft an: 70a4467fe | – | – | – | B Abläufe | 9,86 $ |
 | 1116 | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Repo), Ersparnis ist Wartezeit; was kostet eine Stunde Warten auf einen Lauf in Sitzungen | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
 | 1117 | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitzung wirkt (22:47)“, seit 1099/1110 überholt; Stand und Titel nachziehen oder schließen | Perikles | M? | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 15210 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 16221 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
@@ -339,7 +338,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 54,69 $ (darin 13.11. 05:09 `session_01Hmoj78SjLo9HXycxxu7G2K` 7,38 $, 13.11. 05:09 `session_01Hmoj78Qg516rLn1yGt11hL` 9,93 $), Perikles Vorratsdurchsicht 1,90 $, Perikles Spiegel 13.11. 1,52 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +1069,86 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 56463 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 56877 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
