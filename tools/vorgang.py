@@ -126,8 +126,48 @@ def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
     setzen(nr, ["kl=" + kl], rolle)
 
+# 1143 (Perikles, Vorschlag Sokrates 13.11., 14:38; Fund des Chefs 1141): 596 ging „erledigt“, obwohl sein Commit sagte „Goblins …
+# kippen steif, das braucht einen Bau mit Bild“; den Rest fand der Chef eine Woche später wieder. Nennt der letzte Commit der
+# Nummer („<Nr>: …“ auf irgendeinem Zweig) oder die Übergabe im Vorrat des Besitzers einen Rest, hält fertig an, bis es einen
+# Folgevorgang gibt (offene Unternummer <Nr>.x oder eine Zeile, die „aus <Nr>“ oder „(<Nr>)“ nennt) oder der Commit den Grund sagt
+# („Kein Folgevorgang, weil: …“).
+REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist))|braucht noch|später|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
+
+def rest_offen(nr, d=None):
+    """[(Quelle, Satz)] der Reste ohne Folgevorgang, leer = fertig darf."""
+    funde = []
+    try:
+        r = subprocess.run(["git", "-C", DOCS, "log", "--all", "-1", "-E", "--format=%h%n%B", "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"],
+                           capture_output=True, text=True, timeout=30).stdout
+    except (OSError, subprocess.SubprocessError):
+        r = ""
+    if r.strip():
+        kopf, _, text = r.partition("\n")
+        if re.search(r"Kein Folgevorgang, weil:\s*\S", text):
+            text = ""
+        for z in text.splitlines():
+            if REST.search(z) and not z.startswith(("Co-Authored-By", "Claude-Session")):
+                funde.append(("Commit " + kopf.strip(), z.strip()[:160]))
+    d = d or finden(nr)
+    vorrat = startbar.lesen(startbar.VORRAT.get(d["besitzer"], ""))
+    for z in vorrat.splitlines():
+        if z.startswith("**Übergabe") and re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", z):
+            for satz in re.split(r"(?<=[.;])\s+", z):
+                if re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", satz) and REST.search(satz):
+                    funde.append(("Übergabe " + d["besitzer"], satz.strip()[:160]))
+    if not funde:
+        return []
+    folge = [x for x in startbar.zeilen_liste() if x["nr"] != nr and x["wort"] not in ("erledigt", "verworfen") and
+             (x["nr"].startswith(nr + ".") or re.search(r"\baus " + re.escape(nr) + r"(?![\w.]|\.\d)|\(" + re.escape(nr) + r"[,;)]", x["titel"]))]
+    return [] if folge else funde
+
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
+    rest = rest_offen(nr, d)
+    if rest and os.environ.get("VORGANG_REST_OK") != nr:
+        print("vorgang.py: %s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
+              "oder im Commit „Kein Folgevorgang, weil: …“ schreiben." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr))
+        sys.exit(1)
     ersetzen(d, dict(d, stand="erledigt", warte=[]))
     wer = [x for x in startbar.zeilen_liste() if nr in x["warte"]]
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
