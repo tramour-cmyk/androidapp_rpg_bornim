@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 204 · 632 Truhe der Höhle am Rechner nachgestellt, Bautests aus Lauf 203 geschlossen (13.11., 14:1x)
+
+- **632 greift.** `truhe_632` auf `main` (`50eb3fd84`) am Rechner mit den Daten wie im Lauf (`werte.json`, `gegenstaende.json` kopiert, Schritt „Karten und Texte“): „TRUHE632 0 Fehler“, Ende 0; ohne die kopierten Daten 14 Fehler (nur Rechner, kein Befund). Im Lauf der APK mit `pipefail`, kann rot werden; Lauf 427 grün (Lauf 203). `spiel.gd:847` löst „@class_weapon“ in `oeffne_kiste` über `truhen_waffe` auf (gelesen). Lücke ohne Befund: der Test prüft diese Zeile als Text, nicht durch Öffnen der Truhe.
+- `vorgang.py bautest … 427` (1128.2): 632, 1009, 900, 1018, 910, 909 erledigt (Bestätigungen aus Lauf 203).
+- Nicht geprüft: Anzeige der Waffe im Spiel (Name, Bild); fährt mit der Höhle (492) zum Chef.
+
 ## Lauf 203 · 1128.3 Bautests der 30 am Lauf der APK von Build 283 (Lauf 427, `a1765242c`, Job 131848837921; 13.11., 13:5x)
 
 Maßstab 1128 A: Test steht im Lauf der APK ohne `|| true` und ohne `continue-on-error`, kann rot werden (Ende `quit(1)` bzw. `grep -q` auf „0 Fehler“), und war grün; Kaufmodelle waren da (kein früher Ausstieg „ohne Kauf“). `rot.txt` leer, keine Zeile „SCRIPT ERROR“ in der Ausgabe.
