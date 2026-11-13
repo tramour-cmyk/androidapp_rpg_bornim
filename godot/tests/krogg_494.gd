@@ -105,9 +105,11 @@ func _rauch(tab: Dictionary, rauch: int) -> void:
 	var wirft := gehoert.filter(func(e): return "Rauchbündel" in String(e.text)).size()
 	var schlag: Array = gehoert.filter(func(e): return e.actor == "krogg" and e.roll != null)
 	var trifft: bool = not schlag.is_empty() and bool(schlag[0].roll[4])
-	var soll := [1 if rauch > 0 else 0, rauch == 0, maxi(rauch - 1, 0)]
-	var ist := [wirft, trifft, m.smoke]
-	print("Krogg 494 Rauch %d: geworfen %d, erster Schlag %s, übrig %d" % [rauch, wirft, "trifft" if trifft else "fehl", m.smoke])
+	# 1222 ([1232.rauch.krogg]): der verrauchte Schlag meldet sich mit eigener Zeile, genau einmal, nicht als „verfehlt“
+	var zeile: int = schlag.filter(func(e): return "Rauch in den Augen" in String(e.text)).size()
+	var soll := [1 if rauch > 0 else 0, rauch == 0, maxi(rauch - 1, 0), 1 if rauch > 0 else 0]
+	var ist := [wirft, trifft, m.smoke, zeile]
+	print("Krogg 494 Rauch %d: geworfen %d, erster Schlag %s, übrig %d, Rauchzeile %d" % [rauch, wirft, "trifft" if trifft else "fehl", m.smoke, zeile])
 	if schlag.is_empty() or ist != soll:
 		fehler += 1
 		print("FEHLER Rauch %d: %s statt %s" % [rauch, ist, soll])

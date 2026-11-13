@@ -422,6 +422,7 @@ const KROGG := "bugbear"
 const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
 const MSG532_CURED := ["{0} ist von allen Leiden befreit!", "{0} is cured of all ailments!"]     # Battle.kt Msg.cured
 const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
+const MSG1232_RAUCH := ["{0} hat beißenden Rauch in den Augen. Sein Schlag geht ins Leere.", "{0} has stinging smoke in his eyes. His blow goes astray."]     # [1232.rauch.krogg]
 var aim_spot := {}
 var retargeted := {}
 var chosen := false
@@ -1152,6 +1153,11 @@ func _smoke_bundle() -> void:
 	_say(fmt(THROWS, lang, [lead().name(lang), SMOKE_BUNDLE[lang]]), lead().id, foes_of_kind(KROGG)[0].id, 0, null, false, false, "THROW")
 
 
+## 1222: geht der nächste Schlag von [foe] in Morwens Rauch fehl (Krogg, Bündel geworfen, Rauch noch nicht verbraucht)?
+func _verraucht(foe: Fighter) -> bool:
+	return foe.monster != null and str(foe.monster.id) == KROGG and smoke_thrown and not smoke_spent
+
+
 func foes_of_kind(id: String) -> Array:
 	return fighters().filter(func(f): return f.side == "FOES" and f.monster != null and str(f.monster.id) == id)
 
@@ -1770,7 +1776,9 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 			_say(fmt(pick("MSG130_DUCKS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "DUCKED")
 			continue
 		var re := NONE
-		if not intent.ring and not (foe.id in t.cover_from):
+		if _verraucht(foe):     # 1222 ([1232.rauch.krogg], Homer): der verrauchte Schlag geht ohnehin ins Leere, kein Ring
+			re = NONE
+		elif not intent.ring and not (foe.id in t.cover_from):
 			re = NONE
 		elif _piloted(t) or t.auto:
 			re = GOOD
@@ -1797,7 +1805,7 @@ func _lineup_attack(foe: Fighter, intent: Dictionary, aimed: Array, react: Calla
 			_strike(foe, r[0], I_STAB, NONE)
 		return
 	if foe.id in t.cover_from:
-		var re := GOOD if _piloted(t) or t.auto else _ring(react, t, intent)
+		var re := NONE if _verraucht(foe) else (GOOD if _piloted(t) or t.auto else _ring(react, t, intent))     # 1222: kein Ring
 		_strike(foe, t, intent, re, false)
 		return
 	if intent.effect == "FLANK":
@@ -1849,7 +1857,8 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		test_erzwungen.append("ausweichen")
 		success = false
 		info[4] = false
-	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
+	var verraucht := _verraucht(foe)
+	if verraucht:
 		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
 		smoke_spent = true
 		foe.has_hit = true
@@ -1860,6 +1869,9 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	# Anspringen (285) mit dem vorderen, statt nach vorn und wieder ganz zurück zu laufen; Fernkampf und Zauber bleiben hinten
 	if intent.effect == "POUNCE" or (foe.side == "FOES" and String(foe.b.get("art", "nah")) == "nah"):
 		_leap_forward(foe)
+	if verraucht:     # 1222 (Chef 13.11., 20:39: Rauchbündel „ohne sichtbare Wirkung“): eigene Zeile statt „verfehlt“ ([1232.rauch.krogg])
+		_say(fmt(MSG1232_RAUCH, lang, [foe.name(lang)]), foe.id, t.id, 0, info)
+		return
 	if re == PERFECT:
 		_perfect_answer(t, foe, info)
 		return
