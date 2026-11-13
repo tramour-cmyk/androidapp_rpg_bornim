@@ -137,14 +137,38 @@ def klasse(nr, kl, rolle=None):
 # („Kein Folgevorgang, weil: …“).
 REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist))|braucht noch|später|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
 
+# 1175 (D207.1 Diogenes): nur der jüngste Commit der Nummer verdeckte den Rest, sobald ein Notizcommit wie „1143: in Arbeit bei
+# Spike“ (nur docs/) danach kam. Gelesen wird jetzt der jüngste Commit der Nummer, der mehr als Notizen ändert (Code, Werkzeuge,
+# Abläufe); gibt es keinen, der jüngste überhaupt.
+NOTIZ = re.compile(r"^(docs/|CHANGELOG\.md$|CLAUDE\.md$)")
+
+def bau_commit(nr):
+    """„<Kurzhash>\n<Nachricht>“ des maßgeblichen Commits der Nummer (1175), "" ohne Commit."""
+    try:
+        r = subprocess.run(["git", "-C", DOCS, "log", "--all", "-n", "40", "-E", "--format=%x1e%h%n%B%x1f", "--name-only",
+                            "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"], capture_output=True, text=True, timeout=30).stdout
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    stuecke = []
+    for teil in r.split("\x1e")[1:]:
+        text, _, namen = teil.partition("\x1f")
+        dateien = [n for n in namen.split("\n") if n.strip()]
+        text = text.strip("\n")
+        betreff = (text.split("\n") + [""])[1]
+        if not re.match(re.escape(nr) + r"([:, ]|$)", betreff):   # nur Commits mit der Nummer vorn im Betreff (--grep trifft jede Zeile)
+            continue
+        stuecke.append((text, dateien))
+    if not stuecke:
+        return ""
+    for text, dateien in stuecke:
+        if any(not NOTIZ.match(n) for n in dateien):
+            return text
+    return stuecke[0][0]
+
 def rest_offen(nr, d=None):
     """[(Quelle, Satz)] der Reste ohne Folgevorgang, leer = fertig darf."""
     funde = []
-    try:
-        r = subprocess.run(["git", "-C", DOCS, "log", "--all", "-1", "-E", "--format=%h%n%B", "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"],
-                           capture_output=True, text=True, timeout=30).stdout
-    except (OSError, subprocess.SubprocessError):
-        r = ""
+    r = bau_commit(nr)
     if r.strip():
         kopf, _, text = r.partition("\n")
         if re.search(r"Kein Folgevorgang, weil:\s*\S", text):
