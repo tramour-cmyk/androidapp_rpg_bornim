@@ -337,7 +337,10 @@ def nachfolger(rolle):
         if m:
             try: zeit = datetime.datetime(JETZT.year, int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4) + ("9" if m.group(5) == "x" else m.group(5))), tzinfo=BERLIN)
             except ValueError: pass
-        roh = NACHFOLGER.search(l).group(1).strip().lstrip("*").strip()
+        # 1239: die letzte Angabe zählt; „Nachfolger: …“ in Anführungszeichen ist ein Beispielsatz (Regeltext 827.1), kein Nachfolger
+        stellen = [m.start() for m in re.finditer(r"Nachfolger:", l)]
+        echte = [i for i in stellen if l[max(0, i - 1):i] not in ("„", '"', "‚")] or stellen
+        roh = NACHFOLGER.match(l, echte[-1]).group(1).strip().lstrip("*").strip()
         q = re.match(r"[„\"]([^“\"]+)[“\"]", roh)  # 375: Titel in Anführungszeichen endet beim schließenden („…“; schickt zuerst …)
         satzende = r"(?<!\d\.\d\d)\.(?=\s+[A-ZÄÖÜ„*]|\s*$)|;"  # nicht am Datum: „Wochenziel 09.11.“ verlor sonst den Punkt, titel_datum sah keins (Perikles 08.11.)
         if q:
