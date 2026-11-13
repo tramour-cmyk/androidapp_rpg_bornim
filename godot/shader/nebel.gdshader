@@ -52,7 +52,12 @@ void fragment() {
 	float licht = 1.0 - smoothstep(rand_hell, rand_schwarz, aus);
 	if (hoehle > 0.5) {
 		licht = 1.0 - smoothstep(0.0, rand_hell, aus);
-		if (licht_gang.w > 0.5 && w.z > licht_gang.y && abs(w.x - licht_gang.x) < licht_gang.z + 0.3) licht = 1.0;
+		// zu 505 (Sokrates 13.11., 03:34: harter heller Fleck am Eingang): der Gang hatte seitlich eine harte Kante (if), jetzt laeuft
+		// er wie der uebrige Rand weich aus, ueber eine halbe Kachel (0,58 m) hinter 0,3 m Zugabe neben der Oeffnung
+		if (licht_gang.w > 0.5 && w.z > licht_gang.y) {
+			float seite = abs(w.x - licht_gang.x) - licht_gang.z;
+			licht = max(licht, 1.0 - smoothstep(0.3, 0.88, seite));
+		}
 	}
 	a = max(a, 1.0 - licht);
 	ALBEDO = farbe * licht;
