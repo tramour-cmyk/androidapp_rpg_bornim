@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 285 · 0.348.— · Aufträge, Brücke, Randwege, Höhlenausgang, Metall sperrt Zauber, Messen · PR —
-E Welt · Tom (542, 964, 1022.1, 1040.1, 1091, 1119, 1145, 1168, 1180, 1190, 1212, 1218, 1030), Jerry (644b.1, 1141, 1162, 1166, 1194, 1206; Messungen 932, 1141.1) · 13.11., 21:23 · APK folgt
+E Welt · Tom (542, 964, 1022.1, 1040.1, 1091, 1119, 1145, 1168, 1180, 1190, 1212, 1218, 1030), Jerry (644b.1, 904, 987, 1013, 1014, 1025, 1049, 1054, 1136, 1141, 1162, 1166, 1194, 1206; Messungen 932, 1141.1) · 13.11., 21:23 · APK folgt
 
 Entwurf Tom; Teil Jerry von Tom aus Jerrys Vorrat eingetragen, Jerry prüft und ergänzt; gegenlesen: Sokrates (Punkte beider Teams).
 
@@ -29,6 +29,7 @@ Im Bau geprüft: Tageslicht des Höhlenausgangs reicht drei Kacheln in den Gang,
 | 285.10 | Tom | 964 | Handy | Zeile 285.10 → „Lage herstellen“ (Probekampf gegen Wölfe, Zauberlehrling im Kettenhemd); im Kampf die Zauberliste öffnen | Zauber der Schulen Evokation, Illusion und Beschwörung sind matt und sagen, dass Metall sie sperrt; Zauber anderer Schulen gehen | gesperrte Zauber wirken trotzdem; keine Begründung am matten Zauber; kein Kettenhemd an |
 | 285.11 | Tom | 1180, 1190, 1212, 1030 | ohne dich (Diogenes bestätigt am Lauf) | `lage_modell_1180`, `gegenstaende_870`, `ziege_4162`, `rollstand_1030` im Lauf der APK | grün | rot |
 | 285.12 | Jerry | 644b.1, 1194, 1206 | ohne dich (Diogenes bestätigt am Lauf) | `gegenstaende_870`, `brs_held_870`, `obergrenze_701` (kein Deckel, Schutzwert halb so oft), `eingebung_840`; Kauf-Cache baut nicht doppelt (Protokoll des Laufs) | grün | rot |
+| 285.13 | Jerry | 904, 987, 1013, 1014, 1025, 1049, 1054, 1136 | ohne dich (Diogenes bestätigt am Lauf) | aus 280, 281, 284 ohne Rückmeldung, Code schon in 284: `sim444_870` (904), `krogg_494` (987, jeder Wurf 20 hält), `schild_406` (1013, 1014), `zweikampf_1025` (1025), `absicht_1049` (1049), `mars_regeln` (1054), alle im Lauf der APK ohne „oder true“ (1136) | grün | rot |
 
 ## Lagen
 
