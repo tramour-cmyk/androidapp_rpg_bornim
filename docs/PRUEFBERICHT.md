@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 236 · 1133 Werkzeugpunkte P1–P4 nachgeprüft (Perikles `279416a1f`, `e466b8d45`, 1134; 14.11., 00:2x)
+
+- **Greift:** P1 (OHNE-ÜBERHOLT): `lauf.ohne_ueberholt` meldet 831 „nicht mehr offen“ und 882.1 „in Arbeit ohne Sitzung“ richtig; Fords Ausschlussliste (Übergabe 14.11., 00:14) hat 3 Nummern (506.2, 1068, 1235), keine überholt (vorher 8 von 12). P3 und P4 (a) greifen seit Lauf 200.
+- **Greift nicht:** P2 (a) (`pflegehinweis.py` schreibt nur bei geänderter Menge): Commits „Pflegehinweise“ 10.–13.11.: 58, 93, 78, 79; am 13.11. vor dem Fix (00–13:09) 34, danach (13:10–00:05) 45. Von den 45 Commits: 23 nur eine Zeile weg oder dazu; je Rolle kommt und geht dieselbe Zeile (Jerry 13-mal, Tom 8–9, Sokrates 4, Ford 4), meist „Übergabe über 700 Zeichen“ beim Übergeben und Nachfolgerstart; dazu täglicher Neustempel des Datums (`0f721848b`: nur 13.11. → 14.11.). Befund D236.1 → 1244 (Perikles); 1133 wartet auf 1244.
+
 ## Lauf 235 · 1233 Projektplan fürs ganze Projekt (Perikles `2b0481176`; 13.11., 23:1x)
 
 - **Greift:** Meilensteine Kapitel 1, Marktstart, SRD, Kapitel 2, Kapitel 3–7 oben in `PROJEKTPLAN.md`, Teilprojekte mit Vorgängen und Stand; Belege nachgesehen (1235, 168.1, 956, 142, 109, 622, 870.13 in der Liste, 870.11 im Archiv, `kapitel2/STORY-PLAN-K2.md`, `STORY-PLAN.md` „Überblick“); `projektplan.py` läuft, Zahlen 23:15 nahe am Plan (319/111 gegen 321/113 um 22:2x); Schätzung mit genannter Grundlage (Median je Bereich).
