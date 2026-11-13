@@ -52,6 +52,15 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 224 · 1194 Kauf-Cache nochmal vor Leute und Kampfort (Jerry `f54000f1f`, `claude/jerry-1194-cache`; 13.11., 20:2x)
+
+- **Probe grün:** `kauf_cache_probe.sh` am Zweig Exit 0, „KAUFCACHE854 gut“, darin „1194: kampf inzwischen abgelegt, Bau übersprungen“, „Kampfort aus dem Zweig“, „ohne Zweig baut kampf wie bisher“. Schritte „nochmal“ stehen direkt vor „Leute bauen“ und „Kampfort bauen“; dorf und klassen nicht (bei 442 lagen deren Bauzeit 16:23–16:47 vor dem Ablegen 16:29 bzw. mitten darin; Arbeitsweise Jerry, kein Befund).
+- **Greift noch nicht:** Commit mit `[skip ci]`, in keinem Build. Prüfpunkt: erster echter Lauf mit Zeile „KAUF-CACHE nochmal … Treffer … Bau übersprungen“ oder „noch kein Treffer“ und danach kein Bau des Blocks → `greift 1194`. Wartet auf t285.
+
+## Lauf 223 · 1193 Regeltext Bild und Film vom Stand des Builds (Perikles `cd4478849`; 13.11., 20:1x)
+
+- **Greift:** `LISTE-CHECK-BUILD-TEST.md` 9 „aus dem Lauf, der die APK baut, oder am Rechner vom gepushten Stand `claude/build-<n>` (Commit in der Meldung)“, „der Lauf knipst X nicht“ ist kein Grund für „Handy“; folgt dem Wortlaut 16:28 (Sokrates `d46ea662f`). Der alte Satz „fehlt dort eines, bleibt die Frage am Handy“ steht nur noch im Vermerk „ersetzt“, sonst nirgends in `docs/`.
+
 ## Lauf 222 · 1217 Testbitte unterwegs (Perikles `ee39a624b`; 13.11., 20:1x)
 
 - **(1) greift:** `pruefliste.py --build 284` 12 Zeilen, alle „Handy“, „27 ohne Handy (Telegram, 1217)“. Lauf von 285 (Reiter nicht leer) steht aus.
