@@ -323,3 +323,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 13.11.: Marke Archiv-Warnung session_01Hmoj79qGhEdjuvdUYbpj3h (lauf.py)
 - 07:04 13.11.: Marke Archiv session_01Hmoj7A1dnZnLGSEWvQkYYP (lauf.py)
 - 07:04 13.11.: Marke Start-fehlt Jerry 13.11.-06:04 (lauf.py)
+- 07:14 13.11.: Startsperre 07:14 Start Jerry (lauf.py)
+- 07:14 13.11.: Marke Archiv session_01Hmoj79zmT5JwNzRZrw7FW2 (lauf.py)
+- 07:14 13.11.: Marke Start-fehlt Jerry 13.11.-07:04 (lauf.py)
