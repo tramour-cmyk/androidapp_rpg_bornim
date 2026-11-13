@@ -1,6 +1,8 @@
 # Tom und Jerry · Build 284 · 0.348.450 · Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein · PR #203
 E Welt · Tom (1022, 1040.1, 1119, 1086, 1092, 1118, 1081, 1156, 1178, 1160, 542, 495, 964, 967, 1140, 1115, 505, 1144), Jerry (947, 993, 1003, 709, 616, 784, 1041, 958, 1094, 949, 705, 1102, 1093, 1025, 1136, 980, 987, 1126, 1127, 1114, 1142 von Tom übernommen) · 13.11., 17:00 · [APK (Lauf 450)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43471160263/artifacts/14063726222)
 
+[Bild von 13.11., 19:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-1920-t284-Tom-2.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 13.11., 19:20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-1920-t284-Tom.png) (eingetragen von meldung.sh, Tom)
 
 Rot, bekannt, nicht melden: ziege_4162 – die Ziege machte einmal zufällig einen eigenen Schritt, bevor der Held sie erreichte (im Lauf davor grün), Ursache wird behoben; die APK heißt darum „-rot“.
