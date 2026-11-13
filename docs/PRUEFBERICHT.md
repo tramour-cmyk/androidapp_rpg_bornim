@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 231 · 1236 Gespräch vor großem Vorhaben (Doppelpack 421, Perikles `97ffbfaa4`; 13.11., 23:1x)
+
+- **Werkzeug greift** (Wegwerfkopie): `setze 1240 warte="Chef Gespräch"` → Sperrgrund „Chef Gespräch (…, 1236)“, `--rolle Sokrates` zeigt „GESPRÄCH 1240 (Tom)“; nach Archivzeile „- **1240, Chef Gespräch: los**“ startbar, keine GESPRÄCH-Zeile mehr. Regel gegen Chefwort 21:41 und Archiv: deckt sich; Regelbilanz (Zusammenarbeit 3 ersetzt) eingehalten; die in `ROLLE-ENTWICKLUNG.md` gestrichenen Sätze stehen anderswo (Blatt: Begriffe; Film: Melden; Klartext: `MUSTER.md` 9).
+- **Lücke, D231.1 → 1241 (Perikles):** `ROLLE-ENTWICKLUNG.md` verweist für Einzelheiten auf `billigen/1236-gespraech.md`; die Datei wird beim Billigen gelöscht (`chefsache/README.md` Zeile 410). Ausnahmen (Fehlerbehebung, Tests ohne Spielcode, Chefwort binnen 3 Tagen) und „auch längst Beschlossenes“ stehen dann nirgends. 1236 wartet auf 1241.
+
 ## Lauf 230 · 1237 Wächter Rest liest Code-Klon und jeden Code-Commit (Jerry für Tom, `78e06a17e`, `a9700a9c6`; 13.11., 23:0x)
 
 - **Greift, damit auch 1175:** `_repos` = `bornim-main/docs` und `androidapp_rpg_bornim` (976 entfernte Zweige, 63 `build`); `bau_commits` 505: 22 Commits samt `c999dc014`, 1084: 3 samt `096ac8149`; `rest_offen` 1084 → Rest aus `096ac8149` („im Spiel noch nicht gebaut“); 1143, 1180 leer (Fehlalarm „noch nicht im Build“ weg); `pruefen` Exit 0, 0,04 s. 505 steht nicht mehr in der Liste, nur am Commit belegt.
