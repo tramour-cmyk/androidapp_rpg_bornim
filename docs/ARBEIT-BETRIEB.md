@@ -91,3 +91,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:47 13.11.: Startsperre 16:47 Start Tom (Ford, Neustart-Meldung 015ad14f9, Nachfolger „Tom – 284: Neulauf, Bilder und Testbitte“; Hoch, effort high)
 - 17:22 13.11.: Startsperre 17:22 Start Sokrates (Ford, Neustart-Meldung d94b25a41, Nachfolger „Sokrates – 284: Gegenlesen Prüfliste, 1137 Vollzug (15.11.)“; Hoch, effort high)
 - 16:44 13.11.: Marke Archiv session_01Hmoj78YTNmdHaUXiVES2DE (lauf.py)
+- 17:22 13.11.: Startsperre 17:22 Start Diogenes, Perikles (lauf.py)
+- 17:22 13.11.: Marke Archiv session_01Hmoj79YQw7rUyf676pfGn7 (lauf.py)
+- 17:22 13.11.: Marke Archiv session_01Hmoj75PSZY6iXgzp3SbFdQ (lauf.py)
+- 17:22 13.11.: Marke Archiv session_01Hmoj7893iyxgChrYTygzXL (lauf.py)
