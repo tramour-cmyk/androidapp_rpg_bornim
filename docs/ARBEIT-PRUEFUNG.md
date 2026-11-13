@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (13.11., 13:00, `session_01Hmoj79VVZowWdN4VDhUTeW`):** 1130 erledigt: Stellungnahme in `chefsache/entscheiden/1128-pruefumfang.md` (53 ungetestete Muss, 30 hängend, auch Tom bleibt gesperrt, Bereich B zählt mit, die 30 nach Prüfart). Nächste Nummer D197. Nachfolger: keiner
+**Übergabe (13.11., 13:00, `session_01Hmoj79VVZowWdN4VDhUTeW`):** 1130 erledigt: Stellungnahme in `chefsache/entscheiden/1128-pruefumfang.md` (53 ungetestete Muss, 30 hängend, auch Tom bleibt gesperrt, Bereich B zählt mit, die 30 nach Prüfart); D197.1 → 1132 (Jerry). Nächste Nummer D198. Nachfolger: keiner
 - **Zu 1128:** nach der Antwort des Chefs: bei A die Bautests der 30 (1009, 900, 1018, 910, 1013, 1014, 1054, 904, 909, 1060) am Lauf von 283 bestätigen; ab 283 Funde je Prüfart und Rückschritte zählen (Rückweg Perikles, 283 bis 285).
 - **Zu 1122:** am ersten Lauf auf `claude/build-283` Zeile „PRUEFLISTE1020 im Bau: Build 283“; nach `main` ein Lauf auf einem Teamzweig `…-348-…` mit „PRUEFLISTE1020 aus“; beides → `greift 1122 194`.
 - **Zu 1019:** wenn 1098 gebaut: erneut Selbstneustarts gegen `used_tokens` und Tiefe (Elternkette) prüfen.
