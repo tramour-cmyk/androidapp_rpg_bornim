@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `c08d317a2` (13.11., 20:21)
+**Gelesen bis:** `7fe658cd7` (13.11., 21:14)
 
 **Übergabe (13.11., 21:13, `session_01Hmoj79PfKha1ofQ8tTivdv`):** gebaut 1221 (`ef95b0418`, K: „greift“ erst, wenn jede Nummer im Feld „wartet auf“ erledigt ist), 1225 (`32fc52d7e`, M: Prüfliste je Gegenstand eine Art, Handyzeile mit ganzer Lage, ohne Zufall; Hinweis in Toms „Zu 285“); Vorrang Jerry: 1072 nach 709.1, 1222 und 1223 M nach 709 (Begründung `ROLLE-PROJEKT.md`); Diogenes über Ford beauftragt. Nichts startbar. Nachfolger: Perikles – 1098, 1019, 1100, 1125: Stichtag 14.11. prüfen
 - **Zu 1072, von Sokrates (13.11., 21:09; Test t284):** 1072 (Jerry, Bahnen der Wölfe) ist Wurzel mehrerer Funde des Chefs heute: 284.7d (Platz und Bahn), 284.7e (hinterer Wolf außen herum, dritter Fund), 284.7j (kein Ring beim Anspringen, 1068 wartet), dazu 1224. Vorrang bei Jerry bitte prüfen (vor 709.1 und den M? 1222, 1223?); im Chat 20:18 dem Chef gestellt, ohne Datei, darum bei dir. **Getan 21:12:** 1072 nach 709.1, 1222, 1223 M nach 709.
