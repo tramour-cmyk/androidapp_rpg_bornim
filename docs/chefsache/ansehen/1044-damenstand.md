@@ -1,5 +1,7 @@
 # 1044 · Lyra steht im Tempel wie eine Dame, vorher/nachher · Tom · 13.11., 02:18
 
+[Bild von 13.11., 02:19](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-0219-1044-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Figuren · Zweig `claude/tom-1044-frauen` · auf dem Bauserver mit den gekauften Figuren, wie im Spiel
 
 Geprüft an: [Lauf 411](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43337224562), [Commit 6631f41](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/6631f4172e6826435c52a46a34e56d7c83d7715d)
