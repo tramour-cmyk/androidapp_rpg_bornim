@@ -6,7 +6,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 
 **Frage:** Heute bekommt jeder fertige Vorgang eine Prüffrage, und du gehst sie alle am Handy ab. Das kostet dich Zeit für Dinge, die ein Bild genauso zeigt oder die ohnehin passen. Soll „vom Chef getestet“ künftig jede Form von Test sein: frei am Handy spielen, Bild oder Film ansehen, im Gespräch klären?
 
-**Votum:** „1128 A“, mit den beiden Änderungen von Perikles und einem Laufnachweis (unten, Abgleich 12:11). Zweite Meinung: Perikles (unten, auf deinen Zuruf 12:02).
+**Votum:** „1128 A“, dazu die beiden Änderungen von Perikles und der Laufnachweis, der auch verlangt, dass der Test rot werden kann (Diogenes). Für den Muss-Stau werden die 30 ungetesteten Muss ohne Build einmal nach der Liste von Diogenes abgeschlossen (unten, Abgleich 13:12). Meinungen haben Perikles, Tom und Diogenes geschrieben.
 
 **Berührt:** Tom, Jerry, Spike, Tuffy (Prüflisten), Perikles (Abläufe), Diogenes (prüft Bautests, zählt Funde), Werkzeuge `startbar.py`, Commit-Prüfung, Test `pruefliste_1020`.
 
@@ -85,5 +85,16 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 - **Ergebnis:** Zwingend am Handy 4 von 30, ohne Film 8, dazu der Verbandkauf. 20 gehen ohne Gerät (Bautest, Zahlen, Verwaltung; 958 erst mit Test im Bau), davon 7 als Gespräch über Balance.
 - **Stärkstes Gegenargument:** Schließen wir die 20 nachträglich ohne dich, gilt Ungesehenes als getestet (Gefahr 3). Dagegen: 26 der 30 sind schon auf `main`; ein Nein ändert nichts am Code, nur an der Sperre.
 - **Was noch fehlt:** Wer die 30 abschließt, steht nirgends. Vorschlag: nach deiner Antwort ein Vorgang an Perikles, der sie einmal nach dieser Liste abschließt; Handyfragen in die Prüfliste 284, die Bautests bestätige ich am Lauf von 283.
+
+**Abgleich Sokrates** (13.11., 13:12; im Bauablauf von `claude/build-283` nachgesehen: `schild_406`, `sollbild_784`, `fussstaub_814` und `dame_1044` laufen mit `|| true` und werden nie rot). Zu deiner Frage 12:51 („alles bedacht … Muss-Stau … zwingend in eine APK?“):
+- **Alle haben sich geäußert:** Perikles 12:09, Tom 12:56, Diogenes 12:59 und 13:10. Alle drei sind für A.
+- **Laufnachweis, berichtigt:** Ein Punkt gilt nur dann als „ohne dich“ geprüft, wenn sein Test im Lauf der APK steht, ohne `|| true` und ohne `continue-on-error`, und dort grün war. Das prüft Toms Werkzeug, Diogenes bestätigt es am Lauf.
+- **Muss-Stau, die 30 ungetesteten Muss ohne Build:**
+  - Etwa 11 kommen als Fragen am Handy in Build 284. Davon sind 4 zwingend: Aufträge von Jorin, Gwenna und Aldric; Arkanpfeil; Keuchen; Metall sperrt Zauber. 4 zeigt eigentlich nur ein Film, aber der Bau der APK macht noch keine Filme. Dazu kommen der Schild im Körper und 958, für die kein Bautest im Lauf steht, und der Verbandkauf.
+  - 6 sind Zahlen zur Balance. Die klären wir in einem Gespräch über die Zahlen, ohne Gerät.
+  - 12 bestätigt Diogenes am Lauf: Bautests, Laufzeit des Bauservers, Werkzeuge.
+  - Die Zeile des Sammelbuilds 274 wird geschlossen.
+- **Dazu:** Werkzeuge im Bereich B zählen nicht mehr zur Sperre. Das sind 7 Zeilen, die du nie testest; den Bau macht Perikles. Dass die Sperre nur zählt, was in einem Build auf dich wartet, steht in [1129](1129-blinde-flecken.md) als Punkt 2.
+- **Rückweg:** Diogenes zählt ab 283 die Funde und die Rückschritte je Prüfart. Nach 285 legt er die Zahlen vor, dann entscheidest du, ob A bleibt.
 
 Antwort: …
