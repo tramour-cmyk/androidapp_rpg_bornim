@@ -378,3 +378,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:08 13.11.: Probe D gescheitert (Sitzung ohne Repo, ohne create_session und list_sessions; Zu 1098 bei Perikles); Startsperre 11:08 Start Ford (selbst, Neustart-Haken 407 Tsd.)
 - 11:11 13.11.: Startsperre 11:11 Start Spike (lauf.py; Tuffy 1112 nicht gestartet, Jerry arbeitet 1111–1113 laut Titel)
 - 11:11 13.11.: Marke Start-fehlt Spike 13.11.-10:58 (lauf.py)
+- 11:15 13.11.: Lauf nach Start-Meldung Jerry (Diogenes 1111–1113): Diogenes Startmarke 10:58 unter 20 Minuten, nichts gestartet; Tuffy 1068 nicht gestartet (Überschneidung mit Jerry 1094, wie 11:05)
