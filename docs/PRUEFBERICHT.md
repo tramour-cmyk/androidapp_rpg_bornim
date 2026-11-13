@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 233 · 1196 Filmwache liest godot.yml (Tuffy `6a29d4e71`, `claude/tuffy-1196-wache`; 13.11., 23:1x)
+
+- **Greift am Zweig:** `logik.py film_wache_1062` grün (12 s); Gegenprobe ohne „-- --film=10401“ in `godot.yml` Zeile 889 → „FALSCH film_wenden_10401 …“, Exit 1. Zweig baut auf `claude/tuffy-1062`. Nebenbei: zweite Fassung desselben auf `claude/jerry-1196-filmwache` (`690e923fc`), nicht in der Liste; Leiche, wenn sie nicht gelöscht wird.
+
 ## Lauf 232 · 827.1 Aufwand hoch je Aufgabe (Doppelpack 421, Perikles `30a4cb2c4`; 13.11., 23:1x)
 
 - **Greift:** `modell` mit Nachfolger „(Aufwand hoch, weil …)“ → hoch, `aufwand` „ | effort high“, Umgebung HOCH; ohne → Mittel, leer; `HOCH_BIS` 13.11., 22:04 (901); `STARK_AB` 2099 (aus). Keine Regelstelle nennt noch stärkstes Modell oder 827 A außer `LISTE-BETRIEB.md` 45 (neu). Gegen Chefwort 22:08 („setzt er den Aufwand für die Aufgabe auf hoch … und dann wieder zurück“) und 22:04 („Mittel für alle“): deckt sich; abweichend vom Titel schaltet „festgefahren“ nicht selbst hoch, nur Hinweis (begründet im Commit, näher am Wortlaut). Klein, ohne Vorgang: „weil“ wird nicht verlangt, „(aufwand hoch)“ allein genügt.
