@@ -300,7 +300,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1136 | M | D203.1 von Diogenes (1128.3, Lauf 427 Build 283): 4 Bautests der 30 ohne Laufnachweis: 101 | Sperre 620.1 B: 31 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 904 |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15108 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 17, startbar 2
+**Perikles** – offen 20, Muss 17, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -323,8 +323,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Termin 14.11. |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 14.11. |
 | 1137.1 | M | Von Sokrates (1137, Chef 13.11., 14:03): Regel Vollzugsmeldung je Entscheid: Folgeauftrag | startbar |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 15448 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 23, Muss 22, startbar 12
+**Diogenes** – offen 24, Muss 22, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -351,8 +352,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | Termin 14.11. |
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | wartet auf Test t285 (Chef) |
 | 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | wartet auf 1129.2 (startbar) |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 15893 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Sokrates** – offen 52, Muss 38, startbar 27
+**Sokrates** – offen 53, Muss 38, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -408,6 +410,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 1135 | M | Von Perikles (1128 A, Liste Diogenes): Gespräch mit dem Chef über die Zahlen zur Balance d | startbar |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 15.11. 20:00 |
+| Pflege | K | von Werkzeug (340.3, 13.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
