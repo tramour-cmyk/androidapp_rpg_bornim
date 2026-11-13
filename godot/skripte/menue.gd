@@ -221,6 +221,7 @@ func held() -> void:
 		KAMPFWERT["krit"][0 if de else 1], hw.krit_prozent()], 15, Stil.TEXT, true)   # 584: MenuScreen.kt 605
 	if hw.waffe() != null: zeile(Beute.name(hw.waffe()), 14, Stil.DIM)
 	luecke(10)
+	zustaende_kurz()
 	zeile("Tippe auf einen Grundwert, um zu sehen, was er bringt." if de else "Tap an attribute to see what it does.", 12, Stil.DIM)
 	for g in BrsHeld.grundwerte():
 		var r := HBoxContainer.new()
@@ -240,6 +241,37 @@ func held() -> void:
 	luecke(10)
 	fertigkeiten_kurz()
 	if hw.merkmal() != "": zeile(hw.merkmal(), 14, Stil.GOLD)
+
+# 764 (Chef 09.11., 14:49: „wenn ich ins Menü gehe auf mein Held, sollte das da auch angezeigt werden und vor allem auch gegebenenfalls
+# mit Erklärung“): die Zustände, die gerade in der Leiste stehen, mit dem Schild wie dort und dem Satz, was sie bewirken
+# ([870.14.zustand.*], Mars.STATUS_DESC, derselbe Satz wie beim Tipp auf das Schild im Kampf); ohne Zustand nichts
+func zustaende_kurz() -> void:
+	var de := Sprache.aktiv() == "de"
+	var zd: Dictionary = BrsHeld.daten().get("zustaende", {})
+	var Mars = load("res://regeln/mars.gd")
+	var welche := []
+	for st in zd:   # wie Leiste: Reihenfolge Status.entries, betrunken bis zur Rast
+		if int(z.leiden.get(st, 0)) > 0 or (st == "DRUNK" and z.betrunken()): welche.append(st)
+	if welche.is_empty(): return
+	gruppe("Zustände" if de else "Conditions")   # [870.15.zustaende]
+	for st in welche:
+		var r := HBoxContainer.new()
+		r.add_theme_constant_override("separation", int(8 * DP))
+		var k := PanelContainer.new()
+		var s := StyleBoxFlat.new()
+		s.bg_color = Color(String(zd[st]["farbe"])); s.set_corner_radius_all(int(3 * DP))
+		s.content_margin_left = 4 * DP; s.content_margin_right = 4 * DP
+		k.add_theme_stylebox_override("panel", s)
+		k.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		k.add_child(Stil.txt(Sprache.t(zd[st]["kurz"]), 13, Color.WHITE))
+		r.add_child(k)
+		var d: Array = Mars.STATUS_DESC.get(st, ["", ""])
+		var t := Stil.txt(String(d[0 if de else 1]), 14, Stil.TEXT)
+		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		r.add_child(t)
+		inhalt.add_child(r)
+		luecke(4)
+	luecke(6)
 
 # 870.14 (STORY-BRS-HELD.md „Kampfwerte“): Woerter der Kampfwerte, deutsch und englisch
 const KAMPFWERT := {"leben": ["Leben", "Life"], "mana": ["Mana", "Mana"], "ausdauer": ["Ausdauer", "Stamina"], "schutz": ["Schutzwert", "Protection"],
