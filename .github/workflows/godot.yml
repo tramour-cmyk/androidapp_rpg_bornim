@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1036 (Zustände an den Figuren), 1039 (Zielring), 1040 (Grimmzahn wendet mit Tritten) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1036 (Zustände an den Figuren), 10361 (alle Zustände, alle Effekte der Pakete, je Zustand ein Film), 1039 (Zielring), 1040 (Grimmzahn wendet mit Tritten) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja; 10401 = Lyra in der Höhle schaut dem gehenden Helden nach (Wendeschritte, Spike)"
@@ -159,7 +159,7 @@ jobs:
           s=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Status_Effects_VFX_v1*/addons/reeboo_vfx' 2>/dev/null | head -1)
           if [ -n "$s" ]; then mkdir -p $d && cp -rn "$s/." $d/ && rm -f $d/README.md $d/LICENSE.txt
             echo "Zustände: $(ls $d/status_effects 2>/dev/null | grep -E '\.tscn$' | tr '\n' ' ')"; else echo "Zustände: Status Effects nicht da"; fi
-          if [ "${{ github.event.inputs.kampf }}" = "1036" ]; then
+          if [ "${{ github.event.inputs.kampf }}" = "1036" ] || [ "${{ github.event.inputs.kampf }}" = "10361" ]; then
             s=$(find "$KAUF/anhang/stufe1" -maxdepth 4 -type d -path '*Combat_VFX_Mega*/addons/reeboo_combat' 2>/dev/null | head -1)
             [ -n "$s" ] && { cp -r "$s" godot/addons/ && rm -rf godot/addons/reeboo_combat/demo* && echo "R1: $(find godot/addons/reeboo_combat -name '*.tscn' | wc -l) Szenen"; } || echo "R1: nicht da"
           fi
@@ -1054,6 +1054,17 @@ jobs:
             film 1036-zustaende zustand_1036
             grep -E "^(Zustand|Paket|Aufflackern|Tafel|ZUSTAND1036|FEHLER)|SCRIPT ERROR" $B/1036-zustaende.log || true
             ls -l $B; exit 0
+          fi
+          # 1036.1 (Jerry; Chef 12.11., 20:52 „mehr vorlegen bezüglich, welche Zustände wir haben“): kampf=10361 je Zustand ohne festen
+          # Effekt alle passenden Effekte der Pakete nacheinander an Held und Wolf, Brennen in drei Größen; je Zustand ein Film bis 15 s
+          # (1076), geschnitten nach den Zeilen „SCHNITT <name> <von s> <bis s>“ des Tests
+          if [ "${{ github.event.inputs.kampf }}" = "10361" ]; then
+            film 1036-1-alle zustand_10361
+            grep -E "^(Paket|Eintrag|fehlt|Abschnitt|SCHNITT|ZUSTAND10361|FEHLER)|SCRIPT ERROR" $B/1036-1-alle.log | cut -c1-2000 || true
+            grep "^SCHNITT" $B/1036-1-alle.log | while read -r _ n a z; do
+              ffmpeg -loglevel error -y -nostdin -i $B/1036-1-alle.mp4 -ss "$a" -to "$z" -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -an $B/1036-1-$n.mp4 || true
+            done
+            rm -f $B/1036-1-alle.mp4; ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "4531" ]; then
             film held-feld2 film_403 ATEM_FELD2=1 DAUER_MS=40000
