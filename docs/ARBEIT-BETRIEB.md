@@ -118,3 +118,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:27 13.11.: Startsperre 19:27 Start Sokrates (Neustart 0a4b6e613; Ford)
 - 19:55 13.11.: Startsperre 19:55 Start Sokrates (Neustart b8939f05e; Ford)
 - 20:04 13.11.: Startsperre 20:04 Start Diogenes (lauf.py)
+- 20:08 13.11.: Lauf 20:03: Diogenes (1199) `…77QFVKxHtWXK1ztLCC` gestartet; sonst NICHTS (Tom, Jerry, Perikles, Spike, Tuffy belegt; Homer nichts Startbares; Ford)
