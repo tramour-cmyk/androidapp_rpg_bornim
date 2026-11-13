@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `31e551e90` (13.11., 09:46)
+**Gelesen bis:** `e16799005` (13.11., 15:53)
 
-**Übergabe (13.11., 09:46, `session_01Hmoj76BKbEukF8GbYUvKn5`):** erledigt: 1108.1 (Pim einmalig: `[1108.pim.nein.letzt]`, `[1108.pim.huette]`, `[1108.tuer.pim.daheim]`, `[1085.pim.gold]` 2 neu, `STORY-K1-FERTIGKEITEN.md`, fremd geprüft, an Tom zu 1108). Nachfolger: keiner, Vorrat leer.
+**Übergabe (13.11., 15:53, `session_01Hmoj75UMzRVVnYKUQ5sxF5`):** erledigt: 1176 (Kapitel 1: knackbar nur die Tür zur Beutekammer der Goblins in der Höhle, nach 954a.4; Dorfhäuser, Morwens Hütte, Südausgang bleiben zu; Zeile Zu 515 an Tom). Nachfolger: keiner, Vorrat leer.
 
 ## Zeilen
 
