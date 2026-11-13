@@ -1119,6 +1119,23 @@ jobs:
           # 453.1 Feld 2 (Tuffy; Chef 02.11., 11:07 „steigert sich … und dann wieder normalisiert … einen Tick schneller“): kampf=4531
           # derselbe Kampf (SEED 7) wie Feld 2 links, neu rechts
           # 784 (Tuffy, 654 A): kampf=784 eine Runde Wolfsrudel im Handyformat, Uhr oben links; das Protokoll misst gegen das Sollbild
+          # 284 (Jerry; Chef 13.11., 16:28: Bewegung als Film aus dem Lauf): kampf=284 die Filme zu Jerrys Zeilen der Prüfliste 284, roh;
+          # geschnitten wird nach den Zeilen im Log (ZEILEN=1, Filmversatz) am Rechner
+          if [ "${{ github.event.inputs.kampf }}" = "284" ]; then
+            film 284-7a-arkan sollbild_784 KLASSE=WIZARD AKTION=Z_ARKAN RUNDEN=2 ZEILEN=1
+            film 284-7c-woelfe sollbild_784 RUNDEN=2 ZEILEN=1
+            film 284-7p-ratten sollbild_784 GEGNER=RATS RUNDEN=2 ZEILEN=1
+            film 284-7q-grak sollbild_784 GEGNER=GRAK RUNDEN=2 ZEILEN=1
+            film 284-7f-tausch tausch_1041
+            # 7b mit Ton (der Film schreibt den Ton mit); ein Argument hinter „--“, sonst legt spiel.gd das Hauptmenü darüber (1062)
+            timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/284-7b-keuchen.avi --fixed-fps 30 -s res://tests/film_keuchen_1003.gd -- --film1003=1 > $B/284-7b-keuchen.log 2>&1 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/284-7b-keuchen.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast -c:a aac -b:a 128k $B/284-7b-keuchen.mp4 || true
+            for n in 284-7a-arkan 284-7c-woelfe 284-7p-ratten 284-7q-grak; do grep -E "^Filmversatz|^==|^  |SCRIPT ERROR" $B/$n.log | head -60 || true; done
+            grep -E "^(FEHLER|TAUSCH1041|Held)|SCRIPT ERROR" $B/284-7f-tausch.log || true
+            grep -E "^(FILM1003|FEHLER)|SCRIPT ERROR" $B/284-7b-keuchen.log || true
+            ls -l $B; exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true

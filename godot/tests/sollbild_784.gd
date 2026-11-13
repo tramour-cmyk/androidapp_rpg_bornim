@@ -123,7 +123,12 @@ func _lauf() -> void:
 				zuletzt_am_zug = "hero"
 				zug_wechsel.append([t, "hero"])
 				var ts: Array = kf.mars.targets(c)
-				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
+				# 284.7a (Jerry): AKTION=Z_ARKAN wirkt den Zauber auf das erste Ziel statt anzugreifen (Film Arkanpfeil)
+				var akt := _env("AKTION", "")
+				if akt != "" and not ts.is_empty():
+					kf.order(["use", akt, ts[0].id])
+				else:
+					kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 	for id in wege.keys():
 		_weg_ende(id, zuletzt_am_zug)
 	_bericht(runden)
