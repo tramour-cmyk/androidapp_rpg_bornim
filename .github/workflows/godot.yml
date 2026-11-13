@@ -1213,30 +1213,19 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --wendebild=$GITHUB_WORKSPACE/bilder/wende4168/probebild.png 2>&1 | grep -E "SCRIPT ERROR|^WENDE|^BILD|^LEUTE" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/wende4168
-      # 1044 (Chef 12.11., 16:08 über Sokrates: Lyra steht wie eine Dame, keine Kampfpose): Kandidatenblatt, nur von Hand auf claude/tom-1044-…;
-      # Lyra in jeder Stehbewegung der Pakete (UAL Pro und Standard, Protofactor ohne Waffe über zauber385.py), je von vorn und schräg
-      - name: Frauenstand (1044)
+      # 1044 Weg 2 (Vorentscheid Sokrates 13.11., 00:09): Lyra im Tempel vorher/nachher (Damenstand, heldfigur.gd Haltung.dame), Spielansicht
+      # und nah; nur von Hand auf claude/tom-1044-… (das Kandidatenblatt der Sichtung: Commit 21b662236, tests/frauenstand_1044.gd)
+      - name: Damenstand (1044)
         if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-1044') }}
         continue-on-error: true
         run: |
-          A=$GITHUB_WORKSPACE/bilder/frauen1044; mkdir -p $A; K=godot/daten/k1044; mkdir -p $K
-          { find ${KAUF:-/kein} -path '*Unreal-Godot*' -name 'UAL*.glb' 2>/dev/null; find ~/cc0 -name 'UAL*_Standard.glb' 2>/dev/null; } | sort -u | while read -r u; do
-            n=$(basename "$(dirname "$(dirname "$u")")" | tr -c 'A-Za-z0-9\n' '_')_$(basename "$u" .glb); cp "$u" $K/$n.bin; echo "FRAUEN1044 UAL $n"
-          done
-          P=$(find ${KAUF:-/kein} -path '*Unreal-Godot*' -name UAL1.glb 2>/dev/null | sort | head -1)
-          echo "FRAUEN1044 Protofactor-Stehen:"; find ${KAUF:-/kein} -name 'Humanoid@*.fbx' 2>/dev/null | sed 's|.*/||' | grep -iE 'idle|stand' | grep -v '_RM' | sort -u | tr '\n' ' '; echo
-          find ${KAUF:-/kein} -name 'Humanoid@*.fbx' 2>/dev/null | grep -v '_RM' | awk '{ n=$0; sub(/.*\//, "", n); l=tolower(n); if ((l ~ /idleunarmed/ || (l ~ /injur/ && l ~ /stand|idle/)) && l !~ /crouch|kneel|sit/) print }' | sort -u | head -8 | while read -r f; do
-            n=$(basename "$f" .fbx | sed 's/Humanoid@//' | tr -c 'A-Za-z0-9\n' '_')
-            [ -n "$P" ] && QUELLE="$f" ZIEL="$P" NAME="Kandidat" OUT=$RUNNER_TEMP/pf_$n.glb BECKEN=bein bl/bin/python -I tools/blender348/v3/zauber385.py > pf_$n.log 2>&1 \
-              && cp $RUNNER_TEMP/pf_$n.glb $K/pf_$n.bin && echo "FRAUEN1044 Protofactor $n" || { echo "FRAUEN1044 FEHLER $n"; tail -5 pf_$n.log; }
-          done
+          A=$GITHUB_WORKSPACE/bilder/dame1044; mkdir -p $A
           cd godot
-          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1440x1800x24" \
-            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 720x900 \
-            -s res://tests/frauenstand_1044.gd -- --aus=$A 2>&1 | grep -E "SCRIPT ERROR|^FRAUEN1044" | cut -c1-600 || true
-          cd $A && ls *_vorn.png > /dev/null 2>&1 && for f in *_vorn.png; do b=${f%_vorn.png}; convert "$f" "${b}_schraeg.png" -crop 400x860+160+20 +repage +append -resize 50% \
-            -gravity South -background black -splice 0x26 -fill '#d8c08a' -pointsize 15 -annotate +0+4 "$b" "blatt_$b.png"; done \
-            && montage blatt_*.png -tile 4x -geometry +4+4 -background black frauen1044_blatt.png && rm -f blatt_*.png; ls -l $A | tail -5
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/dame_1044.gd -- --aus=$A 2>&1 | grep -E "SCRIPT ERROR|^DAME1044|^BILD" | cut -c1-400 || true
+          cd $A && [ -f nah_vorher.png ] && [ -f nah_nachher.png ] && montage spiel_vorher.png spiel_nachher.png -tile 2x -geometry 405x878+6+6 -background black spiel.png \
+            && montage nah_vorher.png nah_nachher.png -tile 2x -geometry +6+6 -background black nah.png; ls -l $A
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
