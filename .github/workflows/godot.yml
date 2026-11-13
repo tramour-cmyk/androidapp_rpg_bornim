@@ -1173,7 +1173,7 @@ jobs:
           # 709 (Chef 13.11., 20:13 zu 284.7p Ratten: „berührt hier irgendwer irgendwas? … sieht man ja nicht im Film“): kampf=709r nur Treffer
           # der Ratten, von der Seite, um den Biss verlangsamt (wie 7091), erst die Messung
           if [ "${{ github.event.inputs.kampf }}" = "709r" ]; then
-            MESS=1 NUR_TREFFER=1 GEGNER=RATS timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wolfsbiss_7091.gd 2>&1 | grep -vE "^(Godot|$)" | head -40 || true
+            SCHAU_709=1 MESS=1 NUR_TREFFER=1 GEGNER=RATS timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wolfsbiss_7091.gd 2>&1 | grep -vE "^(Godot|$)" | head -200 || true
             film 709-ratten film_wolfsbiss_7091 GEGNER=RATS NUR_TREFFER=1
             ls -l $B; exit 0
           fi
