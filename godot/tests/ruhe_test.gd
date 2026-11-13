@@ -37,7 +37,9 @@ func _init() -> void:
 	var mengen := {}
 	for id in HeldFigur.RUHE_JE:
 		var l: Array = HeldFigur.ruhe_von(id)
-		var sortiert: Array = l.slice(1); sortiert.sort()
+		var sortiert: Array = []
+		for x in l.slice(1): if not sortiert.has(x): sortiert.append(x)
+		sortiert.sort()
 		var k := ",".join(PackedStringArray(sortiert))
 		if mengen.has(k): fehler += 1; print("FEHLER %s und %s haben dieselben Ruhebewegungen %s" % [id, mengen[k], k])
 		mengen[k] = id
@@ -49,7 +51,7 @@ func _init() -> void:
 			jetzt = String(r[0]); seen[jetzt] = true
 		for n in l:
 			if not seen.has(n): fehler += 1; print("FEHLER %s: %s kommt nie" % [id, n])
-		if seen.size() != l.size(): fehler += 1; print("FEHLER %s: fremde Ruhe %s" % [id, seen.keys()])
+		if seen.size() != sortiert.size() + 1: fehler += 1; print("FEHLER %s: fremde Ruhe %s" % [id, seen.keys()])
 	ap.free(); nur.free(); alle.free()
 	print("RUHE %d Fehler" % fehler)
 	quit(1 if fehler else 0)

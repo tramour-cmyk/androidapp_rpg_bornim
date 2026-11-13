@@ -927,9 +927,11 @@ const DAMEN := ["lyra"]
 # geschaeftstuechtig: Tresen, reden, greifen. Borin Becher: trinken. Garrick wortkarg am Feuer: umsehen, greifen, trinken. Morwen
 # verschlossen, Kraeuter: greifen. Gwenna trauernd: weinen, umsehen. Pim neugierig: greifen, reden, umsehen. Bram bodenstaendig:
 # greifen, trinken. Liska klatschfreudig: reden. Lyra (Damenstand) wie bisher
+# Gwenna weint nur gelegentlich (Sokrates 13.11., 09:48: „nicht in Dauerschleife“): ein Eintrag mehrfach zaehlt mehrfach, bei ihr jede
+# vierte Ruhebewegung, sonst umsehen
 const RUHE_JE := {"aldric": ["Stehen_2", "Gesten"], "rowena": ["Ruhe_Tresen", "Gesten"], "osric": ["Ruhe_Greifen", "Stehen_2"],
 	"jorin": ["Stehen_2"], "thessa": ["Ruhe_Tresen", "Gesten", "Ruhe_Greifen"], "borin": ["Ruhe_Trinken"],
-	"garrick": ["Stehen_2", "Ruhe_Greifen", "Ruhe_Trinken"], "morwen": ["Ruhe_Greifen"], "gwenna": ["Ruhe_Weinen", "Stehen_2"],
+	"garrick": ["Stehen_2", "Ruhe_Greifen", "Ruhe_Trinken"], "morwen": ["Ruhe_Greifen"], "gwenna": ["Stehen_2", "Stehen_2", "Stehen_2", "Ruhe_Weinen"],
 	"pim": ["Ruhe_Greifen", "Gesten", "Stehen_2"], "bram": ["Ruhe_Greifen", "Ruhe_Trinken"], "liska": ["Gesten"]}
 static func ruhe_von(id: String) -> Array:
 	return ["Stehen"] + RUHE_JE.get(id, Gebiet.RUHE.slice(1))
