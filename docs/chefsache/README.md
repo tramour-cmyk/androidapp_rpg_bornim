@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [949a](entscheiden/949a.md) | **Muss** | E Kampf | 13.11., 18:37 | Der Film aus Lauf 438 zeigte keinen perfekten Ring, die Ursache ist behoben; die eine Probe ist verbraucht, ein neuer Film braucht dein Wort. | Tuffy |
 
 ## Zu billigen
 
