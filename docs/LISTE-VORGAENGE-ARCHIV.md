@@ -514,7 +514,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
 | 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
-| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 55,44 $ | Sokrates | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 62,25 $ | Sokrates | erledigt |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | E Figuren | M | – | Sokrates | erledigt |
@@ -1211,3 +1211,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 768 | Wochentermin 13.11.: Rollenspiegel Diogenes (rollenspiegel.sh Diogenes) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | B Abläufe | M | – | Diogenes | erledigt |
 | 1089 | Von Jerry (621 A, 1043, nach 1043a B): 1043 Lauf frei? Sichtbares Ausweichen gebaut a2b2cb6c8 (Schritt 0,7 m schräg zurück, dann vorwärts an den Platz; am Rechner Fuß 0,59 statt 0,00 m); Haken 621 A braucht Archiveintrag „1043, Läufe frei“ für den einen Filmlauf kampf=1043 | E Kampf | M | – | Sokrates | erledigt |
 | 1043a | Von Jerry (1043, Sokrates 22:03, Nacht nach 1077): Lauf 404 ohne Ausweichen (Testfehler), vierter Filmlauf oder anderer Weg? | E Kampf | M | 0,90 $ | Sokrates | erledigt |
+| 770 | Wochentermin 13.11.: Rollenspiegel Jerry (rollenspiegel.sh Jerry) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | B Abläufe | M | – | Jerry | erledigt |
+| 1097 | Wochentermin 13.11.: Rollenspiegel Perikles (rollenspiegel.sh Perikles) (719) | B Abläufe | M | – | Perikles | erledigt |
+| 765 | Wochentermin 13.11.: Rollenspiegel Sokrates (rollenspiegel.sh Sokrates) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | B Abläufe | M | – | Sokrates | erledigt |
+| 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | B Abläufe | M | – | Ford | erledigt |
