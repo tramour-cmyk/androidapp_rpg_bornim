@@ -860,18 +860,6 @@ func _naechster_eigener():
 	return k.mars.lead()
 
 
-## 751 A: „<Name> ist dran“ über den Knöpfen, wer in der Zugleiste das ▶ trägt; Gruppe golden, Gegner rot wie dort.
-func _dran_zeile() -> Label:
-	var l := Label.new()
-	var wer = _vorn()
-	l.text = t("%s ist dran", "%s's turn") % wer.name(lang) if wer != null else " "
-	l.add_theme_font_size_override("font_size", sp(14))
-	l.add_theme_color_override("font_color", (GOLD if wer.side == "PARTY" else WARN) if wer != null else DIM)
-	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	l.clip_text = true
-	return l
-
-
 func _target_label(f) -> String:
 	var hp: int = kampfort.shown.hp.get(f.id, f.hp)
 	return "%s  %d/%d" % [f.name(lang), maxi(0, hp), f.max_hp]
@@ -930,8 +918,8 @@ func _build_orders() -> void:
 		return
 	# 751 A (Chef 09.11., 17:46; t271–t273: „überhaupt keine Knöpfe mehr“, statt dessen „…“) und 833 A (10.11., 10:07: „Man kann es
 	# ja auch ausgrauen“): solange ein anderer zieht (der Kampfort spielt, busy), stehen die Befehlsknöpfe matt an ihrem Platz, darüber
-	# „<Name> ist dran“ nach der gezeigten Zugleiste, nie nach dem, was MARS schon vorausgerechnet hat. Die Zeile steht auch im eigenen
-	# Zug, so bleibt der Kasten gleich hoch (709: sonst passt die Kamera neu). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
+	# keine Zeile „<Name> ist dran“ mehr (1095, Chef 13.11., 07:55: „Ja, Zeile weg“; ▶ in der Zugleiste, Rahmen am Kasten und der Tipp
+	# auf den matten Knopf 833 sagen es schon), der Kasten bleibt in jedem Zug gleich hoch (709). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
 	# gerade weiter. Söldner und Held Auto bleiben schaltbar, sie gelten ab der nächsten Wahl (mit dem Autopiloten ist der Kampfort
 	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
 	# 841 (807a A, STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Beginn „Kämpfen“ oder den Späher verjagen; der Knopf
@@ -947,7 +935,6 @@ func _build_orders() -> void:
 	var back := _button(t("Zurück", "Back"), true, func(): _set_pick("main"))
 	match "main" if matt else pick:
 		"main":
-			orders.add_child(_dran_zeile())
 			var reach: Array = [] if matt else m.targets(f)
 			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
