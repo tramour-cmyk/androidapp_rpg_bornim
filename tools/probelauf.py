@@ -322,7 +322,11 @@ def push_lauf(befehl, cwd):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
     if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
-        oben = git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+        # 1213 (Jerry 13.11.: claude/jerry-1162-… von build-284 zählte, kein Ablauf lief): GitHub prüft „paths“ beim neuen Zweig nur an
+        # den Commits, die noch auf keinem Zweig liegen; darum ab dem Elternteil des ältesten Commits, der auf keinem origin-Zweig liegt
+        neue = git("rev-list", "--topo-order", "--reverse", "HEAD", "--not", "--remotes=origin", cwd=wo).stdout.split()
+        eltern = git("rev-parse", "-q", "--verify", neue[0] + "^", cwd=wo).stdout.strip() if neue else ""
+        oben = (eltern if neue else git("rev-parse", "HEAD", cwd=wo).stdout.strip()) or git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
     neu_f = COMMIT_F.search(befehl[:m.start()])  # 627 (Tuffy 07.11., 21:15): Nachricht aus dem Heredoc, nicht die des alten HEAD
     neu = neu_f or COMMIT.search(befehl[:m.start()])
