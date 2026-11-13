@@ -33,3 +33,4 @@
 2026-11-13 14:46:29	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tuffy-1025-zweikaempfe ändert Spielcode (godot/skripte/spi	claude/tuffy-1025-zweikaempfe
 2026-11-13 14:48:41	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 20890 Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 14:49:07	commit-pruefung	docs/chefsache/billigen/1143-rest.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-13 14:52:19	commit-pruefung	docs/chefsache/ansehen/t282-hoehle.md: Chef hat t282 beantwortet (13.11., 14:51), die Vorlage bleibt stehen; im selben Commit löschen (383.3), bleibt die Frage offen: Zeit in Zeile 1 oder 2 der Datei 	main
