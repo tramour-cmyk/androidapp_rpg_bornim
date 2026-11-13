@@ -34,7 +34,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
              Steht statt NR ein Rollenname (auch Spike, Tuffy), fällt die Rolle ganz aus dem Lauf: kein START, keine Zusatzentwickler-Zeile, kein ARCHIVIERE, keine Warnung „Start nicht angekommen“ (1148).
-             Dasselbe tut die Marke „Lauf läuft bis HH:MM“ oben im Vorrat, solange die Zeit nicht vorbei ist (Hintergrundlauf in der Sitzung; bei Spike und Tuffy mit Namen in Klammern).
+             Dasselbe tut die Marke „Lauf läuft bis TT.MM., HH:MM“ oben im Vorrat (höchstens 12 h voraus), solange die Zeit nicht vorbei ist (Hintergrundlauf in der Sitzung; bei Spike und Tuffy mit Namen in Klammern).
 --wecker ID[,ID]  (mehrfach) Sitzungen mit offenem eigenem Weckruf (list_triggers: enabled, next_run_at in der Zukunft, persistent_session_id) gelten als laufend:
              belegen ihre Rolle (auch Spike/Tuffy), werden nicht archiviert und bekommen kein WEITER, auch nach 20 oder 60 Minuten Ruhe (916, Tuffy 784 am 11.11.).
 --ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
@@ -265,20 +265,19 @@ NACHFOLGER = re.compile(r"Nachfolger:\*{0,2}\s*(.+)")
 UEBERGABE = re.compile(r"Übergabe \((\d\d)\.(\d\d)\.,? (\d\d):(\d)([\dx])")
 
 def lauf_laeuft(rolle):
-    """1148 (von Ford): Marke „Lauf läuft bis HH:MM“ oben im Vorrat — ein Hintergrundlauf (Render, Messung) hält die Sitzung
-    belegt, obwohl sie idle aussieht; bis zu dieser Uhrzeit heute startet und archiviert Ford die Rolle nicht.
-    Die Sitzung setzt die Marke selbst und streicht sie, wenn der Lauf fertig ist; abgelaufen gilt sie nicht."""
+    """1148 (von Ford), 1154 (Diogenes D205.5): Marke „Lauf läuft bis TT.MM., HH:MM“ oben im Vorrat — ein Hintergrundlauf
+    (Render, Messung) hält die Sitzung belegt, obwohl sie idle aussieht; bis dahin startet und archiviert Ford die Rolle nicht.
+    Nur mit Datum (ohne Datum blieb eine vergessene Marke bis zu 24 h stehen) und höchstens 12 h voraus; abgelaufen gilt sie nicht.
+    Spike und Tuffy teilen den Vorrat des Teams: ohne Namen gilt die Marke für das Team, mit „(Spike)“ nur für ihn."""
     if rolle not in VORRAT: return None
-    for m in re.finditer(r"Lauf läuft bis (\d\d):(\d\d)(?:\s*\((\w+)\))?", startbar.lesen(VORRAT[rolle])[:4000]):
-        wer = m.group(3)  # Spike und Tom teilen den Vorrat: ohne Namen gilt die Marke für das Team, mit Namen für ihn
+    for m in re.finditer(r"Lauf läuft bis (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?:\s*\((\w+)\))?", startbar.lesen(VORRAT[rolle])[:4000]):
+        wer = m.group(5)
         if wer and wer != rolle: continue
         if not wer and rolle in startbar.ZUSATZ: continue
-        try: bis = JETZT.replace(hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0)
+        try: bis = JETZT.replace(day=int(m.group(1)), month=int(m.group(2)), hour=int(m.group(3)), minute=int(m.group(4)), second=0, microsecond=0)
         except ValueError: continue
-        if (JETZT - bis).total_seconds() > 12 * 3600: bis += datetime.timedelta(days=1)  # 1151: „bis 00:45“ um 23:04 heißt morgen
-        if bis >= JETZT: return m.group(0)
+        if JETZT <= bis <= JETZT + datetime.timedelta(hours=12): return m.group(0)
     return None
-
 
 def nachfolger(rolle):
     """(Titel, Übergabezeit, Rohtext) aus der Übergabe im Vorrat, sonst (None, None, Grund); Titel None + Grund „bedingt“ lässt die Zeilenregel gelten."""
