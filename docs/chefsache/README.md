@@ -164,7 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | Sperre 620.1 B: 20 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 |
 | 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | startbar |
 
-**Jerry** – offen 132, Muss 118, startbar 1
+**Jerry** – offen 133, Muss 118, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -300,6 +300,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 | 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | wartet auf Test t284 (Chef) |
 | 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | wartet auf Test t284 (Chef) |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 15785 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Perikles** – offen 18, Muss 16, startbar 1
 
