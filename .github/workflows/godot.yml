@@ -1163,6 +1163,14 @@ jobs:
           # 453.1 Feld 2 (Tuffy; Chef 02.11., 11:07 „steigert sich … und dann wieder normalisiert … einen Tick schneller“): kampf=4531
           # derselbe Kampf (SEED 7) wie Feld 2 links, neu rechts
           # 784 (Tuffy, 654 A): kampf=784 eine Runde Wolfsrudel im Handyformat, Uhr oben links; das Protokoll misst gegen das Sollbild
+          # 1072 (Jerry; Chef 12.11., 20:09 „hinterer Wolf läuft außen herum“, 334: erst Ursache nachstellen): kampf=1072m ohne Film,
+          # drei Runden Wolfsrudel wie 284.7e mit SCHAU_MESS (Anlauf, Umweg, Bissplatz je Wolf, Lagen der anderen) und tausch_1041
+          if [ "${{ github.event.inputs.kampf }}" = "1072m" ]; then
+            for s in 7 3 11; do SEED=$s RUNDEN=3 ZEILEN=1 SCHAU_MESS=1 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/sollbild_784.gd 2>&1 \
+              | grep -E "^(==|Anlauf|Umweg|Bissplatz|Biss |ÜBER|SOLLBILD)|SCRIPT ERROR" | head -300 || true; done
+            timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/tausch_1041.gd 2>&1 | grep -vE "^(Godot|$|   at:|WARNING|ERROR: [0-9]+ (RID|res))" | head -120 || true
+            exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
