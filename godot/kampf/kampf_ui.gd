@@ -1117,12 +1117,13 @@ func _ende_833() -> void:
 		v.add_child(Stil.luecke(12))
 		v.add_child(_mittig(satz, Ortsblende.SATZ_SP, TEXT, 0.6, breit))
 	var lohn: Array = k.reward.get("lines", []).duplicate()
+	var grau: Array = k.reward.get("grau", [])     # 1096: „Ein echter Kampf brächte …“ grau
 	if m.knockouts > 0:
 		lohn.append(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts))
 	if not lohn.is_empty():
 		v.add_child(Stil.luecke(10))
-		for z in lohn:
-			v.add_child(_mittig(String(z), 15, TEXT, 0.0, breit))
+		for i in lohn.size():
+			v.add_child(_mittig(String(lohn[i]), 15, DIM if grau.has(i) else TEXT, 0.0, breit))
 	v.add_child(Stil.luecke(12))
 	v.add_child(Spielstaende.linie())
 	var zurueck := Spielstaende.knopf("neben", t("Zurück", "Back"), func(): k.finish(), true)
