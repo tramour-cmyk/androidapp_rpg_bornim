@@ -525,7 +525,17 @@ func zeilen(liste: Array) -> Array:
 	return r
 
 # Ziel gebaut: hinein; sonst Name des Grundrisses zeigen und vor der Tuer wieder herauskommen
+# 495 (Lauf 259, Zufallsspieler Saat 4: Held im Haus des Aeltesten auf (5, 21), ausserhalb des Grundrisses, 481 Spielminuten fest):
+# zweimal der Knopf an der Tuer waehrend der Blende, beide gingen hinaus; der zweite fand die Karte schon gewechselt (id == karte.id)
+# und setzte den Helden auf das Feld vor der Dorftuer, nun im Grundriss. Ein Weg hinaus zur Zeit, jeder weitere wartet nicht, er entfaellt
+var geht_hinaus := false
 func geh_hinaus(a: Dictionary) -> void:
+	if geht_hinaus: return
+	geht_hinaus = true
+	await _geh_hinaus(a)
+	geht_hinaus = false
+
+func _geh_hinaus(a: Dictionary) -> void:
 	var z: Dictionary = a["ziel"]
 	var id := String(z["karte"])
 	ui.biete_an("")
