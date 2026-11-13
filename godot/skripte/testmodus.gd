@@ -99,6 +99,34 @@ static var probe_stufe := 3
 static var merker_auf := false
 static var bericht_auf := false
 static var alles_sichtbar := false      # 555 wie alt Game.seeAll; wirkt mit dem Nebel (505, nebel.gd)
+# 1145 (Chef 13.11., 14:35: Hoehle „fühlt sich ein bisschen hackelig an“, Bilder/s 45 bei 90 Hz): am Geraet messen, was die Zeit
+# frisst; je Teil einzeln aus, nicht gespeichert (nach dem Neustart wieder alles an)
+static var ohne_tusche := false
+static var ohne_tuschelampen := false
+static var ohne_nebel := false
+static var ohne_schatten := false
+static var _leistung_war := false
+
+## 1145: die Schalter „Messen ohne …“ auf Kamera (Tusche, Tuschelampen, Nebel) und alle Lichter (Schatten) anwenden; laeuft nur,
+## solange einer aus ist, und einmal danach zum Zuruecksetzen
+static func leistung_anwenden(tree: SceneTree) -> void:
+	var aus := ohne_tusche or ohne_tuschelampen or ohne_nebel or ohne_schatten
+	if not aus and not _leistung_war: return
+	_leistung_war = aus
+	var args := OS.get_cmdline_user_args()
+	var kam := tree.root.get_viewport().get_camera_3d()
+	if kam is Kamera:
+		var k := kam as Kamera
+		k.lampen_an = not ohne_tuschelampen and not "--tuschelampen=0" in args
+		for c in k.get_children():
+			if not (c is MeshInstance3D and (c as MeshInstance3D).material_override is ShaderMaterial): continue
+			var m := (c as MeshInstance3D).material_override as ShaderMaterial
+			if m in k.tusche_mats: (c as MeshInstance3D).visible = not ohne_tusche and not "--ohnetusche" in args
+			elif m.shader and m.shader.resource_path.ends_with("nebel.gdshader"): (c as MeshInstance3D).visible = not ohne_nebel
+	for n in tree.root.find_children("*", "Light3D", true, false):
+		var l := n as Light3D
+		if not l.has_meta("schatten_1145"): l.set_meta("schatten_1145", l.shadow_enabled)
+		l.shadow_enabled = bool(l.get_meta("schatten_1145")) and not ohne_schatten
 const ZOOM_KACHELN := [0.0, 5.6, 6.75, 8.4, 10.5]   # 555 wie alt MapZoom.levels (Kacheln quer); 0 = wie unter Bedienung „Karte“
 
 # 555 Merker der Geschichte in der Folge von Kapitel 1 (Geschichte.gd), mit kurzem Namen zum Ansehen und Setzen
@@ -328,6 +356,13 @@ static func reiter(m: Menue) -> void:
 			func(): standort = not standort, "PIN", "", standort),
 		zk.call(t.call("Klang", "Sound"), an_aus.call(klang), t.call("Zeigt über der Welt die letzten Geräusche: spielt, verklungen, abgebrochen oder nicht gestartet.", "Shows the latest sounds over the world: playing, finished, cut off or not started."),
 			func(): klang = not klang, "SOUND", "", klang)])
+	# 1145: messen, was die Bildzeit frisst; mit „Bildrate“ zeigt die Welt dazu Grafik- und Rechenzeit je Bild und den Bildschirmtakt
+	var mess_satz: String = t.call("Nur zum Messen mit „Bildrate“: schaltet diesen Teil des Bildes ab, bis du ihn wieder anschaltest oder das Spiel neu startest.",
+		"For measuring with “Frame rate” only: turns this part of the picture off until you turn it on again or restart the game.")
+	m.zeichenreihe([zk.call(t.call("Tusche", "Ink"), an_aus.call(not ohne_tusche), mess_satz, func(): ohne_tusche = not ohne_tusche, "", "✒", not ohne_tusche),
+		zk.call(t.call("Tusche nach Lampen", "Ink by lamps"), an_aus.call(not ohne_tuschelampen), mess_satz, func(): ohne_tuschelampen = not ohne_tuschelampen, "", "✒", not ohne_tuschelampen),
+		zk.call(t.call("Nebel", "Fog"), an_aus.call(not ohne_nebel), mess_satz, func(): ohne_nebel = not ohne_nebel, "", "▒", not ohne_nebel),
+		zk.call(t.call("Schatten", "Shadows"), an_aus.call(not ohne_schatten), mess_satz, func(): ohne_schatten = not ohne_schatten, "", "◐", not ohne_schatten)])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
