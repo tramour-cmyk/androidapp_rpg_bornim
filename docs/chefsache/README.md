@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1189](entscheiden/1189-leichen.md) | **Muss** | B Abläufe | 13.11., 16:50 | Leichenprüfung alle 48 h durch Diogenes (Prüfer), Werkzeug-Hinweise vorweg, höchstens 10 $ je Lauf, nach zwei Wochen Rückstufung, wenn kaum noch Funde. | Sokrates |
 
 ## Zu billigen
 
