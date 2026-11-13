@@ -24,9 +24,14 @@ Geprüft an: [Lauf 43310392064](https://github.com/tramour-cmyk/androidapp_rpg_b
 
 **Folgerungen:** Tom (Spike) dunkelt Weg und Wellenlinien mit ab und legt nur diese zwei Stellen als Bildpaar vor; passt es, fährt 1022 im nächsten Build. Sagst du „zurück“, fährt der Stand 23:42 ohne die zwei Änderungen.
 
-**Umgesetzt:** noch nichts, Auftrag an Tom (Spike).
+**Umgesetzt:** Commit 6c56b43, Bildpaar Tom 13.11., 01:05 ([Lauf 43326236234](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43326236234)); Sokrates 01:07: passt, fährt im nächsten Build.
 
-**Rückbau:** sagst du „1022 passt“, fährt der Stand vom 23:42 ohne die Reste.
+![Oben Schlagbaum, Mitte Fluss West, unten Fluss Ost; links vorher (23:42), rechts nachher](../bilder/1022-rest.jpg)
+
+- Schlagbaum: die Wegstücke laufen jetzt vor den Bäumen ins Gras aus, statt als helles Rechteck an der Baumreihe zu enden.
+- Fluss: die Wellenlinien verlöschen mit dem Wasser; das Wasser ist am oberen Rand so dunkel wie die Kronen daneben (gemessen, Tom hatte es heller gesehen).
+
+**Rückbau:** sagst du „zurück“, fährt der Stand vom 23:42 ohne die Reste.
 
 **Kosten:** ein kleiner Bau und ein Bilderlauf.
 
