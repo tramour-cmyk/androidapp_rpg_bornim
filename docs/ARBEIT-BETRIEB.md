@@ -138,3 +138,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:39 13.11.: Startsperre 21:39 Start Tuffy (Neustart 5a311f2f6, Nachfolger „Tuffy – 844: Film aus Lauf 458 schneiden und senden“; Ford)
 - 21:39 13.11.: Neustart Tuffy (5a311f2f6): neue Sitzung `…79ZApqezAzombu1DWK` 21:40, Vorgängerin `…79CJCy8HRzLSWKT81C` archiviert (20,40 $ auf 844; nur 47 s Ruhe statt 60, Übergabe stand, nichts verloren; Ford)
 - 21:42 13.11.: Startsperre 21:42 Start Tom (Neustart 949045da8, Nachfolger „Tom – 285: Bilder, Filme und Testbitte“; PR-ABO #204 geht nach dem Archivieren an die neue Sitzung; Ford)
+- 21:44 13.11.: Neustart Tom (949045da8): neue Sitzung `…78jYddD6WmJoPRmjVB` 21:43, Vorgängerin `…79V5GMGr3APPAiYHqT` archiviert (17,06 $ auf 285, 1092); PR-ABO #204 an die neue Sitzung (Ford)
