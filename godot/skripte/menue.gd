@@ -527,7 +527,9 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 	var de := de_()
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
-	r.add_child(Menue.stueck_rahmen(g, 42))
+	var rahmen_ := Menue.stueck_rahmen(g, 42)
+	if merkmale and not hw.kann_tragen(g): rahmen_.modulate.a = 0.5   # 756: wie die Wechselliste
+	r.add_child(rahmen_)
 	var s := VBoxContainer.new()
 	s.add_theme_constant_override("separation", 0)
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -855,6 +857,10 @@ static func tragen_hinweise(hw: BrsHeld, g: Dictionary) -> Array:
 	var de := Sprache.aktiv() == "de"
 	var b := Beute.grundform(String(g["base"]))
 	var r: Array = []
+	# 756 A (Chef 09.11., 17:46: Sperren zeigen): warum „Anlegen“ matt ist, zuerst und hervorgehoben ([870.14.ding.stufe], 644a A);
+	# nicht an Getragenem, das bleibt angelegt (644a A)
+	if not hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])):
+		r.append([("Erst ab Heldenstufe %d." if de else "Only from Hero Level %d.") % int(g.get("ilvl", 1)), true])
 	if BrsHeld.metall(String(g["base"])):
 		r.append(["Metall: Evokation, Illusion und Beschwörung wirken darin nicht." if de else "Metal: Evocation, Illusion and Summoning will not work in it.", false])
 	# [870.14.ding.klirrt] „Schwere Rüstung: darin kannst du nicht schleichen.“ ruht, bis Schleichen im Spiel wirkt (Homer, 963)
@@ -921,6 +927,7 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	elif hat_kennwert(g):
 		z_.append(fett.call(Stil.txt(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16)))
 	if hat_kennwert(g): z_.append(Stil.txt(guete_text(g, de), 14, Stil.TEXT))
+	if merkmale and zustand_von(g) > 0: z_.append(Stil.txt(zustand_text(g, de), 14, zustand_farbe(g)))   # 756
 	if fertigkeit_text(g, de) != "": z_.append(Stil.txt(fertigkeit_text(g, de), 13, Stil.DIM))
 	# Zusatzeigenschaften (870.7: Wortlaut Beute.zusatz_text, STORY-BRS-HELD.md), blau wie alt
 	for r in g["rolls"]:
@@ -1406,6 +1413,7 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	elif hat_kennwert(g):
 		z_.append(fett.call(satz.call(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16, Stil.TEXT)))
 	if hat_kennwert(g): z_.append(satz.call(guete_text(g, de), 14, Stil.TEXT))
+	if merkmale and zustand_von(g) > 0: z_.append(satz.call(zustand_text(g, de), 14, zustand_farbe(g)))   # 756
 	if fertigkeit_text(g, de) != "": z_.append(satz.call(fertigkeit_text(g, de), 13, Stil.DIM))
 	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
 	if not g.get("rolls", []).is_empty():
@@ -1514,7 +1522,83 @@ static func stueck_rahmen(g: Dictionary, dp: float) -> Control:
 		t.size_flags_horizontal = Control.SIZE_SHRINK_END
 		t.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		p.add_child(t)
+	if merkmale: Menue.merkmal_ecken(p, g, c.get_child(0))
 	return p
+
+# ---------------------------------------------------------------- 756 Merkmale am Bild
+# 756 A (Chef 09.11., 17:46: „Probebild Merkmale jetzt“; Vorschlag Sokrates 14:28): feste Stellen am Bild eines Stuecks, hoechstens drei
+# Zeichen zugleich: Rahmenfarbe = Seltenheit (wie bisher), oben rechts „2H“ (wie bisher), oben links die Guete (Normal nichts, Gut ein
+# Goldpunkt, Meisterhaft zwei, Schlecht ein eigenes Zeichen nach SCHLECHT; Schlecht kommt mit 976), unten der Zustand als Balken nur bei
+# Abnutzung (Beschaedigt gelb, Defekt rot, das Bild entsaettigt; Benutzt ohne Balken); nicht Tragbares abgedunkelt. Zustand gibt es im
+# Spiel noch nicht (DESIGN-BRS.md 11: eigener Vorgang nach dem Umzug), gelesen wird „zustand“ 0–3 am Stueck.
+# An seit dem „passt“ des Chefs (12.11., 20:14: „Einer wäre gut und 2 wären dann das Beste“).
+static var merkmale := true
+## Zeichen fuer Schlecht (Chef 12.11., 20:23: „Vorlage … mit rostbraun oder dunkelrot oder halbvoll oder voll oder Ring“): [Form, Farbe];
+## gilt SCHLECHT[schlecht_art], bis der Chef in der Vorlage waehlt; ein Stueck mit „schlecht_art“ zeigt seine eigene (nur die Vorlage)
+const SCHLECHT := [["ring", Color("9a5530")], ["ring", Color("9c2c24")], ["halb", Color("9c2c24")], ["voll", Color("9c2c24")]]
+static var schlecht_art := 0
+const ZUSTAND := [["Makellos", "Pristine"], ["Benutzt", "Worn"], ["Beschädigt", "Damaged"], ["Defekt", "Broken"]]   # DESIGN-BRS.md 11
+const ZUSTAND_GELB := Color("d9b24a")
+const ZUSTAND_ROT := Color("c4523c")
+
+static func zustand_von(g) -> int: return clampi(int(g.get("zustand", 0)), 0, 3) if g is Dictionary else 0
+static func zustand_text(g: Dictionary, de: bool) -> String:
+	return ("Zustand: %s" if de else "Condition: %s") % ZUSTAND[zustand_von(g)][0 if de else 1]
+static func zustand_farbe(g: Dictionary) -> Color:
+	return [Stil.TEXT, Stil.TEXT, ZUSTAND_GELB, ZUSTAND_ROT][zustand_von(g)]
+
+## Guete fuers Zeichen: -1 Schlecht (mit 976), 0 Normal, 1 Gut, 2 Meisterhaft
+static func guete_zeichen_von(g: Dictionary) -> int: return clampi(int(g.get("guete", 0)), -1, 2)
+
+## legt die Zeichen ueber [p] (Rahmen eines Stuecks); [bild] wird bei Defekt entsaettigt; mit [balken_am_bild] sitzt der Balken unten
+## am Bild statt unten im Rahmen (Platz der Ausruestung: darunter steht der Name, eigenes Einzelbild 14:14)
+static func merkmal_ecken(p: Control, g: Dictionary, bild: Control = null, balken_am_bild := false) -> void:
+	var gu := guete_zeichen_von(g)
+	var zu := zustand_von(g)
+	if zu == 3 and bild is CanvasItem:
+		var m := ShaderMaterial.new()
+		m.shader = Shader.new()
+		m.shader.code = "shader_type canvas_item;\nvoid fragment() { vec4 c = texture(TEXTURE, UV); float l = dot(c.rgb, vec3(0.299, 0.587, 0.114)); COLOR = vec4(vec3(l) * 0.75, c.a * COLOR.a); }"
+		(bild as CanvasItem).material = m
+	if gu == 0 and zu < 2: return
+	var o := Control.new()
+	o.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	o.size_flags_horizontal = Control.SIZE_FILL
+	o.size_flags_vertical = Control.SIZE_FILL
+	o.draw.connect(func():
+		var s := o.size
+		var r := clampf(minf(s.x, s.y) / 17.0, 2.0 * DP, 3.2 * DP)
+		var rand := 3.5 * DP + r
+		if gu == -1:
+			# so gross und deutlich wie ein Goldpunkt (Chef 12.11., 20:14: „So ein hohler wäre schlecht“), auf schwarzem Hof wie die Punkte
+			var sz: Array = SCHLECHT[clampi(int(g.get("schlecht_art", schlecht_art)), 0, SCHLECHT.size() - 1)]
+			var mi := Vector2(rand, rand)
+			var fa: Color = sz[1]
+			o.draw_circle(mi, r + 1.0 * DP, Color(0, 0, 0, 0.85))
+			match String(sz[0]):
+				"voll": o.draw_circle(mi, r, fa)
+				"halb":
+					var w := 0.32 * r
+					o.draw_arc(mi, r - w * 0.5, 0.0, TAU, 32, fa, w, true)
+					var pk := PackedVector2Array()
+					for i in 17: pk.append(mi + Vector2.from_angle(PI * i / 16.0) * (r - w * 0.5))   # untere Haelfte voll
+					o.draw_colored_polygon(pk, fa)
+				_:
+					var w := 0.45 * r
+					o.draw_arc(mi, r - w * 0.5, 0.0, TAU, 32, fa, w, true)
+		for i in maxi(gu, 0):
+			var m_ := Vector2(rand + i * (2.0 * r + 2.0 * DP), rand)
+			o.draw_circle(m_, r + 1.0 * DP, Color(0, 0, 0, 0.85))
+			o.draw_circle(m_, r, Stil.BRIGHT)
+		if zu >= 2:
+			var h := maxf(3.0 * DP, s.y / 16.0)
+			var x0 := 4.0 * DP
+			var w := s.x - 2.0 * x0
+			var y := s.y - 4.0 * DP - h
+			if balken_am_bild and is_instance_valid(bild): y = bild.get_global_rect().end.y - o.get_global_rect().position.y - h
+			o.draw_rect(Rect2(x0 - DP, y - DP, w + 2.0 * DP, h + 2.0 * DP), Color(0, 0, 0, 0.85))
+			o.draw_rect(Rect2(x0, y, w * (0.45 if zu == 2 else 0.12), h), ZUSTAND_GELB if zu == 2 else ZUSTAND_ROT))
+	p.add_child(o)
 
 # ein Platz: Rahmen mit Bild und Namen des Getragenen in seiner Farbe, darunter der Platz; eine Zweihandwaffe
 # fuellt auch die Nebenhand
@@ -1551,6 +1635,7 @@ func fach(platz: String) -> Control:
 		sp.add_child(n)
 		rahmen.add_child(sp)
 	else: rahmen.add_child(n)
+	if merkmale and g != null: Menue.merkmal_ecken(rahmen, g, rahmen.get_child(0).get_child(0), true)   # 756
 	v.add_child(rahmen)
 	var p := Stil.txt(platzname(platz), 11, Stil.DIM)
 	p.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

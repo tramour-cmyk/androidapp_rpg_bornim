@@ -651,6 +651,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/truhe_632.gd 2>&1 | grep -E "^FALSCH|TRUHE632|SCRIPT ERROR"   # 632 Truhe cave_3 gibt die Waffe der Klasse (Tom)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/hoehle_492.gd 2>&1 | tee hoehle492.log | grep -E "^FEHLER|HOEHLE492|SCRIPT ERROR"; grep -q "^HOEHLE492 0 Fehler" hoehle492.log   # 492 Höhle begehbar, 1104 Kampf in der Höhle endet, die Welt ist wieder zu sehen (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tragen_644a.gd 2>&1 | grep -E "^FALSCH|TRAGEN644A|SCRIPT ERROR"   # 644a.2 Mindeststufe, Gaben, Laden ohne Grundwert, Meldung (Spike)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sperre_756.gd 2>&1 | grep -E "^FEHLER|SPERRE756|SCRIPT ERROR"   # 756 Sperre im Fenster, Güte und Zustand am Bild, Schlecht in vier Varianten (Spike)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wende_4168.gd 2>&1 | grep -E "FEHLER|WENDE|RUTSCHEN|ohne gebaute|SCRIPT ERROR"   # 416.8 Wenden mit Schritten
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wendeschritt_10401.gd 2>&1 | grep -E "FEHLER|WENDESCHRITT|SCRIPT ERROR"   # 1040.1 Leute folgen dem gehenden Helden mit Wendeschritten (Spike)
