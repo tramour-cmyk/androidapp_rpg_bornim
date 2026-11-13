@@ -43,6 +43,9 @@ on:
       cache:
         description: "Kauf-Cache (854, 910): neu = Treffer übergehen, voll bauen, dann Gegenprobe gegen den abgelegten Stand"
         default: ""
+      bilder:
+        description: "Bilder und Filme der Prüfliste von Hand (285: ein späterer Push ohne die Wörter verlor sie), Nummern mit Komma: 1022,1091,1119,1040.1,697"
+        default: ""
 
 # 894: mehrere Pushes auf einen Testbuild hintereinander, es baut nur der neueste (von Hand gestartete Läufe bleiben)
 concurrency:
@@ -980,7 +983,7 @@ jobs:
       # 697 (Chef 08.11., 15:23 „das Modell ist halbtransparent“): Alpha des echten Helden im Drehteller, Renderer wie am Handy (mobile)
       # und zum Vergleich opengl3; nur Zahlen, Bilder vor Weiss nur zum Ansehen (Messlauf, drehteller=697 oder Sammelbuild mit 697)
       - name: Alpha 697 (drehteller=697 oder Commit mit 697)
-        if: ${{ !cancelled() && (github.event.inputs.drehteller == '697' || contains(github.event.head_commit.message, '697')) }}   # auch im Sammelbuild (Merge-Nachricht mit 697)
+        if: ${{ !cancelled() && (github.event.inputs.drehteller == '697' || contains(github.event.inputs.bilder, '697') || contains(github.event.head_commit.message, '697')) }}   # auch im Sammelbuild (Merge-Nachricht mit 697)
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/alpha697; mkdir -p $B/mobile $B/gl
@@ -1490,7 +1493,7 @@ jobs:
       # dieser Stand, vorher = Stand von claude/build-280 (dessen Shader, gebiet.gd und die drei Gebietskarten aus dessen dorf.py, alles
       # andere gleich). Nur bei „1022 Randbilder“ im Commit oder von Hand auf einem Zweig mit 1022
       - name: Randbilder (1022)
-        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1022 Randbilder') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '1022'))) }}
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1022 Randbilder') || contains(github.event.inputs.bilder, '1022') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '1022'))) }}
         continue-on-error: true
         run: |
           R=$GITHUB_WORKSPACE/bilder/rand1022; mkdir -p $R/nachher $R/vorher
@@ -1613,7 +1616,7 @@ jobs:
       # 1091 (Chef 13.11., 15:53, 15:57): Höhlengang zum Ausgang, mittags und 22 Uhr nebeneinander (tests/ausgang_bild_1091.gd),
       # bei „1091 Bild“ im Commit; ImageMagick aus „Bildwerkzeuge (1212)“, sonst nur die beiden Einzelbilder
       - name: Ausgangsbild (1091)
-        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1091 Bild') }}
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1091 Bild') || contains(github.event.inputs.bilder, '1091')) }}
         continue-on-error: true
         run: |
           A=$GITHUB_WORKSPACE/bilder/ausgang1091; mkdir -p $A
@@ -1625,7 +1628,7 @@ jobs:
       # 1119 (283.1 ungetestet; Chef 13.11., 16:28 Aussehen als Film statt Handy): Fußstaub am Mittag, gehen und rennen
       # (tests/film_staub_1119.gd), bei „1119 Film“ im Commit
       - name: Staubfilm (1119)
-        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1119 Film') }}
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1119 Film') || contains(github.event.inputs.bilder, '1119')) }}
         continue-on-error: true
         run: |
           A=$GITHUB_WORKSPACE/bilder/staub1119; mkdir -p $A
@@ -1638,7 +1641,7 @@ jobs:
       # 1040.1 (Fund t282.23: „da es etwas ruckelig ist, kann ich es nicht sicher sagen“; Sokrates: nach 1128 A als Film): Lyra wendet
       # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit
       - name: Wendefilm (1040.1)
-        if: ${{ !cancelled() && contains(github.event.head_commit.message, '1040.1 Film') }}
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1040.1 Film') || contains(github.event.inputs.bilder, '1040.1')) }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/wenden10401; mkdir -p $B
