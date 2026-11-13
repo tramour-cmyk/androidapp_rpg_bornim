@@ -65,4 +65,21 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe
 - **Nur am Handy:** Pim rennt heim, bleibt an der Hütte, drei Fehlschläge an drei Tagen (1086, 1108), Ring perfekt tippen (1094), Fingerzoom ganz hinein und hinaus (1118, 1081).
 - **Gefährlich wäre:** Leute und Bewegung am Standbild abnehmen (Klone, Arme durch den Körper sieht man erst in Bewegung), Bedienung am Bild, und jeder Bautest, der nicht im Lauf steht (in 283 fand Sokrates `rand_505`, gestrichen). Den Laufnachweis baue ich als Werkzeug.
 
+**Stellungnahme Diogenes** (13.11., 12:59, Vorgang 1130; nachgezählt mit `startbar.py` und Git an `main` 3d32473da, Zweige gegen `main`, `godot.yml` und `godot-kampf.yml`):
+- **Zählung stimmt fast.** Heute 53 ungetestete Muss (Tom 20, Jerry 33; dazu kam 1126). Davon hängen 30 an keinem offenen Build, Stand „gebaut“ oder „zu testen, ohne Rückmeldung“ (Tom 6, Jerry 24; Sokrates zählte 28). Auf `main` sind davon nur 26: 1037 und 1084 stecken in Build 282 und kommen erst mit dem Nachtest der Höhle auf `main`, 1126 liegt auf dem Zweig von 1111, 825 ist die Zeile des Sammelbuilds 274.
+- **Übersehen: auch Tom bleibt gesperrt.** Nach Test 283 hat Jerry 24 (Sokrates: 23, ohne 1126), Tom 9; besteht dazu der Nachtest 282, hat Tom 6. Die Sperre greift ab 6, also bleiben beide Teams gesperrt.
+- **Kein Test löst die 30.** Sie stehen in keiner Prüfliste, und beim Test bleibt „ohne Rückmeldung“ einfach „zu testen“. Die Sperre geht damit durch Testen nie auf, ob mit A oder C. Das muss mit 1128 geregelt werden, sonst ändert A an der Sperre wenig.
+- **7 davon brauchst du nie.** Werkzeuge des Bauservers (Bereich B: Tom 1122, 1079; Jerry 1111, 1112, 1113, 1101, 1126) zählen in die Sperre. Ich schließe sie mit „greift“ (724, 755), du testest sie nie. Vorschlag: Bereich B zählt nicht zur Sperre (Bau Perikles).
+- **Die 30 nach Art (A mit Perikles' Änderungen):**
+  - Handy zwingend, 4: 542 Aufträge Jorin, Gwenna, Aldric (Ablauf); 993 Arkanpfeil „hakelig“ (Gefühl); 1003 Keuchen der Heldin (Klang); 964 Metall sperrt Zauber (Regel, aber kein Test im Bau gefunden).
+  - Film, 4: 709 Treffer sichtbar, 616 Rückweichen, 784 Wolfsrudel, 1041 Platztausch. Der Bau einer APK macht keine Filme (nur ein Handstart mit Eingabe „film“), also nach Perikles' Änderung 2 vorerst Handyfragen.
+  - Bild, 2: 967 Schild im Körper (`halt_653` läuft in keinem Bau); 632 Waffe aus der Truhe (`truhe_632` läuft im Bau, geht also auch ohne dich).
+  - Ohne dich, Test läuft im Bau, 8: 1009, 900, 1018, 910, 1013, 1014, 1054, 904. Ohne Laufnachweis, 1: 958 (`kampfzustand_532` steht in keinem Bauablauf).
+  - Ohne dich, Lauf des Bauservers, 2: 909, 1060 (Laufzeit; ich bestätige es am Lauf).
+  - Zahlen und Balance, 7: 923, 1049, 876, 971, 644a.1, 1037, 1084. Die Rechnung prüft die Simulation 444; Balance gehört dir, also klärt sie ein Gespräch über die Zahlen, kein Gerät. Nur „Verband kaufen bei Osric und Thessa“ (1037) ist ein Ablauf am Handy.
+  - Ohne Test, 2: 825 (Sammelbuild 274, längst getestet, Zeile schließen), 1126 (Werkzeug, „greift“ bei mir).
+- **Ergebnis:** Zwingend am Handy 4 von 30, ohne Film 8, dazu der Verbandkauf. 20 gehen ohne Gerät (Bautest, Zahlen, Verwaltung; 958 erst mit Test im Bau), davon 7 als Gespräch über Balance.
+- **Stärkstes Gegenargument:** Schließen wir die 20 nachträglich ohne dich, gilt Ungesehenes als getestet (Gefahr 3). Dagegen: 26 der 30 sind schon auf `main`; ein Nein ändert nichts am Code, nur an der Sperre.
+- **Was noch fehlt:** Wer die 30 abschließt, steht nirgends. Vorschlag: nach deiner Antwort ein Vorgang an Perikles, der sie einmal nach dieser Liste abschließt; Handyfragen in die Prüfliste 284, die Bautests bestätige ich am Lauf von 283.
+
 Antwort: …

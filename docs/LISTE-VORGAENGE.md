@@ -282,7 +282,7 @@
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
 | 905 | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zählen, wie viele wegen der Form zurückkommen (Liste „Vorlage an den Chef“), nicht je Build | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
 | 1098.1 | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe D bzw. Starter Tiefe, Elternkette, Modell, Umgebung der neuen Sitzung prüfen (Zu 1098) | Diogenes | M | startbar | 14.11. | – | – | B Abläufe | – |
-| 1130 | Von Sokrates (Chef 12:51, 1128): Stellungnahme Prüfumfang in entscheiden/1128-pruefumfang.md, Zählung der 52 ungetesteten Muss prüfen | Diogenes | M | startbar | – | – | – | Q QM | – |
+| 1130 | Von Sokrates (Chef 12:51, 1128): Stellungnahme Prüfumfang in entscheiden/1128-pruefumfang.md, Zählung der 52 ungetesteten Muss prüfen | Diogenes | M | erledigt | – | – | – | Q QM | – |
 | Pflege | von Werkzeug (340.3, 13.11.): 15762 Bytes (Grenze 15000), Erledigtes streichen | Diogenes | K | startbar | – | – | – | B Abläufe | – |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust gingen (Art 1110 Rechte, 1128 Prüffragen; Chef 13.11., 12:53) · „jetzt“ 13.11., 12:53 | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1128 | Prüfliste nur, wo der Gerätetest etwas finden kann: je Vorgang Gerät, Bild/Film oder ohne Chef (Chef 13.11., 11:49: „Warum muss ich denn das immer testen?“) | Sokrates | M | startbar | – | – | – | B Abläufe | 2,25 $ |
