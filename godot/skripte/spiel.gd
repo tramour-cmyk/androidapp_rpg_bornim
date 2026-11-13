@@ -217,7 +217,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	licht_nach_uhr(true)   # 555: auch nach dem Laden eines Spielstands um Mitternacht gleich Nacht
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
-	held = Held.new(karte, HeldFigur.wahl(werte, zustand))   # 376.1 Klasse, Aussehen, Ausruestung
+	held = Held.new(karte, figur_wahl())   # 376.1 Klasse, Aussehen, Ausruestung; 1168 innen ohne Waffe
 	add_child(held)
 	held.setze(t, blick)
 	fackel_neu()   # 399.1 Light.burns
@@ -1320,7 +1320,7 @@ func oeffne_menue(reiter := "") -> void:
 	ebene.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(ebene)
 	var m := Menue.new(held_werte(), zustand)
-	var figur_vorher := JSON.stringify(HeldFigur.wahl(held_werte(), zustand))   # 522: Ausruestung vorher
+	var figur_vorher := JSON.stringify(figur_wahl())   # 522: Ausruestung vorher
 	m.ort = platz()
 	m.dunkel = im_dunkeln()
 	if reiter != "":
@@ -1621,9 +1621,23 @@ func im_dunkeln() -> bool:
 	var art := String(karte.daten.get("art", ""))
 	return (licht.ist_nacht() and art != "INTERIOR") or art == "CAVE"   # 539 Game.isNight
 
+## 1168 (410, Chef 31.10., 21:17: Waffen „innen ausgeblendet“, nach 417 geblieben): in Schenke, Laden und Haus traegt die Figur keine
+## Waffe, weder in der Haupthand noch eine Waffe in der Nebenhand (Dolch); Schild und Fackel bleiben. Die Ausruestung im Spielstand bleibt,
+## nur die Figur der Welt zeigt sie nicht; draussen (Blende an der Tuer, betrete) ist sie wieder da
+func figur_wahl() -> Dictionary:
+	var w := HeldFigur.wahl(held_werte(), zustand)
+	if karte == null or String(karte.daten.get("art", "")) != "INTERIOR": return w
+	var aus: Dictionary = (w.get("ausruestung", {}) as Dictionary).duplicate()
+	aus.erase("MAIN_HAND")
+	var neben = aus.get("OFF_HAND")
+	var nb := String(neben.get("base", "")) if neben is Dictionary else ""
+	if nb != "" and Beute.grundformen().has(nb) and Beute.ist_waffe(Beute.grundform(nb)): aus.erase("OFF_HAND")
+	w["ausruestung"] = aus
+	return w
+
 # 522 (Chef 03.11., 23:33): Schild, Waffe, Kleidung aus Testmenue oder Ausruestungsschirm gleich am Helden, nicht erst nach Kartenwechsel
 func held_figur_neu(vorher: String) -> void:
-	var w := HeldFigur.wahl(held_werte(), zustand)
+	var w := figur_wahl()
 	if held == null or JSON.stringify(w) == vorher: return
 	held.neu_figur(w)
 
