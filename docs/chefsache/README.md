@@ -297,10 +297,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | wartet auf Diogenes (greift?) |
 | 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | wartet auf Diogenes (greift?) |
 
-**Perikles** – offen 16, Muss 14, startbar 0
+**Perikles** – offen 17, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1129.1 | M | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufe | startbar |
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | Termin 14.11. |
 | 870.12 | M | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.13 (wartet) |
 | 882.2 | M | 882 Werkzeuge ohne Kotlin: tools/t logik auf Godot-Logiksatz samt Kerntest-Marke, check-en | wartet auf 882.1 (in Arbeit) |
