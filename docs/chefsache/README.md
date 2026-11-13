@@ -152,7 +152,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1091 | M? | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | wartet auf Test (Build 283) |
 | 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | wartet auf Test (Build 283) |
 | 1108 | M | Von Sokrates (Chef 13.11., 09:38, 1108 A): Pim nur einmal heimschicken, Überreden höchsten | wartet auf Test (Build 283) |
-| 1115 | M | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | wartet auf 1114 (startbar) |
+| 1115 | M | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | wartet auf 1114 (in Arbeit) |
 | 1118 | M | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksa | wartet auf Test (Build 283) |
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | wartet auf Test (Build 283) |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | wartet auf Test (Build 283) |
@@ -160,7 +160,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | wartet auf Test/Build (gebaut) |
 | 1137.2 | M | Von Sokrates (1137, Chef 13.11., 14:03): Wächter Vollzug: Archiveintrag mit Folgevorgängen | startbar |
 
-**Jerry** – offen 135, Muss 120, startbar 2
+**Jerry** – offen 135, Muss 120, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -293,7 +293,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1096 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld | wartet auf Test (Build 283) |
 | 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Test t283 (Chef) |
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | wartet auf Test (Build 283) |
-| 1114 | M | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | startbar |
+| 1114 | M | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | in Arbeit bei Tuffy |
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 | 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | wartet auf Test t284 (Chef) |
 | 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | wartet auf Test t284 (Chef) |
