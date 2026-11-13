@@ -2303,7 +2303,7 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	f.naechster = 0.0
 	f.geschlagen = true
 	grund *= float(mod.get("schaden", 1.0))
-	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
+	var e := BrsKampf.schlag(dice, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
 			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, BrsKampf.krit_prozent(f.b.werte, gruppe, float(f.b.fert.get(gruppe, 0)))
 			+ float(f.b.get("zusatz", {}).get("krit", 0)))     # 870.6: kritisch der Zusatzeigenschaften
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
@@ -2345,7 +2345,7 @@ func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 	var grund := (float(z["schaden"]) + float(f.b.werte.get(BrsKampf.zauber_grundwert(schule), 0))) * _zauber_faktor(f)     # 870.6: Zauberschaden der Ausrüstung; 952 D
 	var e := {}
 	for i in 30:     # Testmenü „Rettung nie“: Gegner wehren keinen Zauber ab
-		e = BrsKampf.schlag(dice.rng, fert, float(t.b.abwehr), grund,
+		e = BrsKampf.schlag(dice, fert, float(t.b.abwehr), grund,
 				float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _treffer_mod(f, true)) + _beistand(f),
 				BrsKampf.krit_prozent(f.b.werte, schule, fert))     # 952 D
 		if e.treffer or not (gegner_ohne_rettung and t.side == "FOES"):
@@ -2516,5 +2516,5 @@ func _brs_auf_held(foe: Fighter, t: Fighter, intent: Dictionary, mode: int) -> D
 		faktor += float(BrsKampf.w().get("absicht_zusatz", {}).get(String(intent.id), 0.0))
 	if bool(foe.b.get("ueberfall", false)) and not foe.has_hit:     # 870.5: der erste Treffer des Überfalls mit Wucht (444 „erster_treffer_faktor“)
 		faktor *= float(_ueberfall().get("erster_treffer_faktor", 1.0))
-	return BrsKampf.schlag(dice.rng, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,
+	return BrsKampf.schlag(dice, float(foe.b.angriff), float(abw[1]), float(foe.b.schaden) * faktor,
 			float(int(foe.b.stufe) - int(t.b.stufe)), BrsKampf.held_abzug(t.b, in_hand) + t.schutz, _brs_bonus(mode, _treffer_mod(foe)))     # 870.5: Bannschild, Arkanhaut

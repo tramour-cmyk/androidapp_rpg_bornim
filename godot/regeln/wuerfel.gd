@@ -8,6 +8,8 @@ var tape = null
 var pos := 0
 ## The first number the tape could not give as asked, for the test's report.
 var fault := ""
+## 987: auch die BRS-Würfe (randf) vom Band, nicht aus rng
+var band_brs := false
 
 
 func _init(seed_or_tape = null) -> void:
@@ -37,6 +39,16 @@ func next_int(from: int, until: int) -> int:
 			fault = "tape %d: %d not in [%d, %d)" % [pos - 1, v, from, until]
 		return clampi(v, from, until - 1)
 	return v
+
+
+## 987 (von Spike, Lauf 354: krogg_494 schwankte, „jeder Wurf 20“ galt für die BRS-Schläge nicht): eine Zahl in [0, 1) für die
+## BRS-Würfe (BrsKampf.schlag: Treffer, Glück, kritisch, Streuung). Wie bisher aus der eigenen Quelle (Tests setzen deren seed und
+## das Band nur für die übrigen Würfe, mars_regeln); nur mit [band_brs] vom Band, ein Wert von 1 bis 20 (20 gut, 1 schlecht) als
+## (20 − Wert) / 20: 20 gibt 0 (trifft immer, Glück und kritisch, wo möglich), 1 gibt 0,95.
+func randf() -> float:
+	if tape == null or not band_brs:
+		return rng.randf()
+	return (20.0 - float(next_int(1, 21))) / 20.0
 
 
 func d(sides: int) -> int:
