@@ -264,6 +264,7 @@
 | 1094 | Von Sokrates (Chef 13.11., 07:23, Test 281, zu 1039): Ring bleibt beim Tippen nicht mehr stehen, läuft durch, obwohl „perfekt“ gemeldet wird: „ein bisschen komisch“ | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1095 | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 751): Zeile „<Name> ist dran“ über den Knöpfen weglassen (doppelt zu ▶ in der Zugleiste, Rahmen am Balken, Tipp auf matten Knopf 833); Platz für die untere Knopfreihe | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1096 | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld kürzen: erste Zeile bleibt, grau „Ein echter Kampf brächte: <EP> EP, <Gold> Gold“ und Beute; Heldenstufen, Grenze Kapitel 1, „Leben und Mana wieder voll“ weg; Spielheld unverändert | Jerry | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 15348 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
@@ -343,7 +344,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 767 | Wochentermin 13.11.: Rollenspiegel Ford (rollenspiegel.sh Ford) (719); deckt 02.–13.11., Woche 06.11. fiel aus (759) | Ford | M | erledigt | – | – | – | B Abläufe | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 55740 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 56184 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
