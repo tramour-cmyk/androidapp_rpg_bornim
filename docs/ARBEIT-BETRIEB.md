@@ -125,3 +125,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:06 13.11.: Startsperre 21:06 Start Perikles (lauf.py)
 - 21:07 13.11.: Lauf 21:03: Perikles (1221) `…79PfKha1ofQ8tTivdv` gestartet; sonst NICHTS (Tom, Jerry, Tuffy belegt; Diogenes, Homer nichts Startbares; Spike kein zweites Muss bei Tom; Ford)
 - 21:07 13.11.: Startsperre 21:07 Start Tom (Neustart d95c5f814, Test t284 fertig 21:02, Ergebnis eingetragen; Nachfolger „Tom – 285: Build 285 und Prüfliste, dann 1092“; Ford)
+- 21:09 13.11.: Neustart Tom (d95c5f814): neue Sitzung `…79V5GMGr3APPAiYHqT` 21:08, Vorgängerin `…7845pb9Xd1sUtoWyjh` archiviert (38,20 $ auf 284, 1149; Ford)
