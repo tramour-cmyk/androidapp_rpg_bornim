@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1143](billigen/1143-rest.md) | **Muss** | B Abläufe | 13.11., 14:49 | Rest im Commit heißt Folgevorgang im selben Schritt, Wächter in vorgang.py fertig (1143 Tom) | Perikles |
 
 ## Anzusehen
 
