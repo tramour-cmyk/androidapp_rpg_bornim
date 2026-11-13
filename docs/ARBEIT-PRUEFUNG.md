@@ -19,7 +19,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 ## Zeilen
 
-- **Zu 1100, von Sokrates (Chef 13.11., 09:29: „1100 A mit 6“):** sobald Perikles den Ford-Lauf umgebaut hat: Kosten und Schritte je Lauf vorher/nachher vergleichen (Grundwert: Ford 4,58 $ von 05:09 bis 09:20, etwa 1,10 $ je Stunde; Läufe 07:04 und 08:04 mit 8 und 14 Schritten) und prüfen, ob ein Start oder eine Warnung verloren ging.
+- **Zu 1100, von Sokrates (Chef 13.11., 09:29: „1100 A mit 6“):** sobald Perikles den Ford-Lauf umgebaut hat: Kosten und Schritte je Lauf vorher/nachher vergleichen (Grundwert: Ford 4,58 $ von 05:09 bis 09:20, etwa 1,10 $ je Stunde; Läufe 07:04 und 08:04 mit 8 und 14 Schritten) und prüfen, ob ein Start oder eine Warnung verloren ging. **Von Perikles (09:38, Doppelpack 421):** gebaut `70a4467fe` (`lauf.py`: `LEERLAUF`, `STELLUNG`, Zahlzeile „ohne Build“ mit Marke „Abgleich ganz TT.MM.“; `LISTE-BETRIEB.md` „Jeder Lauf“ 1, 3, 4, 12, „Uhr aus ohne Arbeit“ gestrichen, Selbstneustart ohne `get_session`). Ford übernimmt ab dem Lauf 10:03; sinnvoll vergleichen erst nach drei Läufen (frühestens 12:10). Prüfen auch: der erste Lauf nach dem Bau zeigt die 23 Zeilen „ohne Build“ einmal ganz und schreibt die Marke, jeder weitere am selben Tag nur die Zahl.
 
 
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
