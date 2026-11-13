@@ -30,3 +30,4 @@
 2026-11-13 14:44:41	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	claude/tuffy-1025-zweikaempfe
 2026-11-13 14:46:06	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 15265 Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-13 14:46:27	commit-pruefung	CLAUDE.md: 15019 Bytes, Obergrenze 15000, Commit fügt 27 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-13 14:46:29	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tuffy-1025-zweikaempfe ändert Spielcode (godot/skripte/spi	claude/tuffy-1025-zweikaempfe
