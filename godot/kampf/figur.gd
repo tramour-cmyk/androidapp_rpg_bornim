@@ -4516,10 +4516,105 @@ func dodge(after_ms: int, nm := "") -> void:
 ## der Rumpf frei bleibt und die Figur im Bild; nach der Bewegung kurz stehen, dann zurück an den Platz (_walk_home); false, wenn
 ## nirgends Platz ist (dann wie bisher auf der Stelle)
 const AUSWEICH_SCHRITT_M := 0.7    # Modellmeter (× Größe): ein großer Schritt, deutlich mehr als die Neigung am Ort
-const AUSWEICH_SCHRITT_S := 0.28   # s für den Schritt: rasch los, sanft auslaufen
+const AUSWEICH_SCHRITT_S := 0.34   # s für den Schritt: sanft los, sanft auslaufen (1043 (3): vorher 0,28 s, rasch los)
 const AUSWEICH_STEHEN_S := 0.35    # s stehen bleiben, bevor er zurückgeht (sonst wirkt es wie ein Zucken)
+# 1043 (3) (Sokrates 13.11., 03:00, Film Lauf 409: „bei 2,03 s springt Alrik in einem einzigen Bild in die Ausfallpose“): unser
+# „Ausweichen“ (kampf.py) erreicht die volle Haltung nach 0,12 s, mit 0,05 s Blende in einem bis zwei Bildern bei 16 Bildern/s.
+# Jetzt 0,2 s Blende aus dem Stehen und die Bewegung so langsam, dass die Haltung frühestens nach AUSWEICH_AUFBAU_S steht
+const AUSWEICH_BLENDE := 0.2
+const AUSWEICH_AUFBAU_S := 0.25
+# 1043 (4) (ebenda: „Stab waagerecht zum Wolf, vorderes Bein lang … liest sich wie getroffen, dann zurückgewichen“; Haltung weg vom
+# Wolf, wie entscheidet Jerry): je Figur einmal die Kandidaten abgetastet (Kopf, Hände, Becken im eigenen Maß, + z = zum Gegner);
+# genommen wird die Bewegung, in der Hände und Kopf nicht zum Gegner gehen und der Kopf am weitesten weg kommt; der Schritt geht
+# zur Seite, zu der sie den Kopf neigt. UAL Pro Dodge_Left und Dodge_Right (held_kampf.py, Kandidaten 408) vor unserem Ausweichen
+const AUSWEICH_KANDIDATEN := ["Pro_Dodge_Left", "Pro_Dodge_Right", "Ausweichen"]
+const AUSWEICH_VOR_MAX := 0.10     # m (× Größe): so weit dürfen Hand und Kopf zum Gegner gehen (Neigung, kein Ausfall)
+var _ausweich_mass := {}           # Bewegung -> {"vor": m, "weg": m, "seite": Vector3 im eigenen Maß, "ende": Vector3 Becken}
+
+
+## 1043 (4): Kopf, Hände, Becken der Bewegung [nm] in BILDER Proben im eigenen Maß der Figur, gegen das erste Bild
+func _ausweich_messen(nm: String) -> Dictionary:
+	if _ausweich_mass.has(nm):
+		return _ausweich_mass[nm]
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null or anim == null or not anim.has_animation(nm):
+		return {}
+	var ib := {}
+	for b in ["Head", "hand_l", "hand_r", "pelvis", "spine_03"]:
+		ib[b] = sk.find_bone(b)
+		if int(ib[b]) < 0:
+			return {}
+	var vor := String(anim.current_animation)
+	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
+	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
+	var l: float = anim.get_animation(nm).length
+	var inv := global_transform.affine_inverse() * sk.global_transform
+	var s := 1.0 / maxf(_scale(), 0.01)
+	var lage := func(b: String) -> Vector3: return inv * sk.get_bone_global_pose(int(ib[b])).origin * s
+	var erst := {}
+	var vor_max := -INF
+	var weg_max := 0.0
+	var seite := Vector3.ZERO
+	var ende := Vector3.ZERO
+	anim.play(nm, 0.0)
+	for i in REICHWEITE_PROBEN + 1:
+		anim.seek(l * i / float(REICHWEITE_PROBEN), true)
+		sk.force_update_all_bone_transforms()
+		var p := {}
+		for b in ib:
+			p[b] = lage.call(b)
+		if i == 0:
+			erst = p
+			continue
+		var kopf: Vector3 = p["Head"] - erst["Head"]
+		vor_max = maxf(vor_max, kopf.z)
+		for h in ["hand_l", "hand_r"]:     # die Hand gegen den Rumpf: ein Stoß nach vorn, nicht das Mitgehen des Körpers
+			vor_max = maxf(vor_max, (p[h] - p["spine_03"]).z - (erst[h] - erst["spine_03"]).z)
+		var k2 := Vector3(kopf.x, 0.0, minf(kopf.z, 0.0))
+		if k2.length() > weg_max:
+			weg_max = k2.length()
+			seite = Vector3(kopf.x, 0.0, 0.0)
+		if i == REICHWEITE_PROBEN:
+			ende = p["pelvis"] - erst["pelvis"]
+	if vor != "":
+		anim.play(vor, 0.0, vor_v)
+		anim.seek(vor_t, true)
+	else:
+		anim.stop()
+	sk.force_update_all_bone_transforms()
+	var m := {"vor": vor_max, "weg": weg_max, "seite": seite, "ende": Vector3(ende.x, 0.0, ende.z)}
+	_ausweich_mass[nm] = m
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("Ausweichhaltung %s %s: vor %.2f m, weg %.2f m, Seite %.2f m, Becken am Ende %.2f m" % [fighter.id, nm, vor_max, weg_max, seite.x, m["ende"].length()])
+	return m
+
+
+## 1043 (4): die Bewegung fürs Ausweichen (siehe oben); reihum zwischen gleich guten (Dodge links, rechts), damit nicht jedes
+## Ausweichen gleich aussieht (DESIGN-LEITBILD 2)
+func _ausweich_haltung() -> String:
+	var gut: Array = []
+	var notfall := ""
+	var notfall_vor := INF
+	for nm in AUSWEICH_KANDIDATEN:
+		var m := _ausweich_messen(nm)
+		if m.is_empty():
+			continue
+		if float(m["vor"]) <= AUSWEICH_VOR_MAX and float(m["weg"]) > 0.03:
+			gut.append(nm)
+		if float(m["vor"]) < notfall_vor:
+			notfall_vor = float(m["vor"])
+			notfall = nm
+	if not gut.is_empty():
+		var beste: float = gut.map(func(n): return float(_ausweich_mass[n]["weg"])).max()
+		gut = gut.filter(func(n): return float(_ausweich_mass[n]["weg"]) >= 0.6 * beste)
+		return gut[(ausweich_nr + hash(String(fighter.id))) % gut.size()]
+	if notfall != "":
+		return notfall
+	return "Ausweichen" if anim and anim.has_animation("Ausweichen") else String(ALIAS.get("Ausweichen", ""))
+
+
 func _ausweichen_schritt() -> bool:
-	var nm := "Ausweichen" if anim and anim.has_animation("Ausweichen") else String(ALIAS.get("Ausweichen", ""))
+	var nm := _ausweich_haltung()
 	if nm == "" or anim == null or not anim.has_animation(nm):
 		return false
 	var g0 := minf(_rumpf_luft(position, rotation.y), PLATZ_LUFT)
@@ -4528,6 +4623,12 @@ func _ausweichen_schritt() -> bool:
 	var weit := AUSWEICH_SCHRITT_M * _scale()
 	# reihum schräg links, schräg rechts zurück (mindestens drei Varianten, DESIGN-LEITBILD 2), gerade nur, wenn beide nicht gehen
 	var seiten: Array = [35.0, -35.0, 0.0, 60.0, -60.0] if (ausweich_nr + hash(String(fighter.id))) % 2 == 0 else [-35.0, 35.0, 0.0, -60.0, 60.0]
+	# 1043 (4): neigt die Bewegung den Kopf zu einer Seite, zuerst die Schritte zu dieser Seite (im Raum gerechnet, nicht nach Vorzeichen)
+	var m := _ausweich_messen(nm)
+	if not m.is_empty() and absf(float(m["seite"].x)) > 0.03:
+		var lehne: Vector3 = (global_transform.basis * (m["seite"] as Vector3)).normalized()
+		lehne.y = 0.0
+		seiten.sort_custom(func(a, b): return (-fz.rotated(Vector3.UP, deg_to_rad(a))).dot(lehne) > (-fz.rotated(Vector3.UP, deg_to_rad(b))).dot(lehne) + 0.01)
 	# Held und Söldner stehen am Rand des Bilds (der Kasten aus _im_bild war schon am Platz draußen): der Schritt darf nur nicht
 	# weiter hinaus führen als jetzt (Mitte der Figur, Rand 8 % der Breite) und nicht in einen anderen (Luft ≥ 0 oder nicht enger)
 	var sr: Rect2 = kampfort.scene_rect()
@@ -4547,16 +4648,27 @@ func _ausweichen_schritt() -> bool:
 		if not frei:
 			continue
 		bahn = [ziel]
-		_play(nm, 0.05)
-		var l: float = anim.get_animation(nm).length
+		# 1043 (3): weich hinein und nicht schneller, als dass die Haltung AUSWEICH_AUFBAU_S braucht (unser Ausweichen: 0,12 s)
+		var v: float = float(tempo.get(nm, 1.0))
+		if nm == "Ausweichen":
+			v = minf(v, 0.12 / AUSWEICH_AUFBAU_S)
+		anim.clear_queue()
+		anim.play(nm, AUSWEICH_BLENDE, v)
+		var l: float = anim.get_animation(nm).length / maxf(v, 0.05)
+		# Bewegungen, deren Becken am Ende woanders steht (Dodge der UAL Pro), nehmen den Platz mit, sonst ruckt er beim Stehen zurück
+		var ende: Vector3 = global_transform.basis * (m["ende"] as Vector3) * _scale() if not m.is_empty() else Vector3.ZERO
+		ende.y = 0.0
+		var schritt_s := minf(AUSWEICH_SCHRITT_S, l)
 		tween = create_tween()
-		tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		tween.tween_interval(maxf(0.0, l - AUSWEICH_SCHRITT_S))
+		tween.tween_property(self, "position", ziel, schritt_s).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_interval(maxf(0.0, l - schritt_s))
 		tween.tween_callback(_idle)     # sonst stand er in der letzten Haltung des Ausweichens still
+		if ende.length() > 0.05:     # im Takt der Blende ins Stehen, so bleibt der Körper, wo er ist
+			tween.tween_property(self, "position", ende, 0.15).as_relative()
 		tween.tween_interval(AUSWEICH_STEHEN_S)
 		tween.tween_callback(_schritt_heim)
 		if OS.get_environment("SCHAU_MESS") != "":
-			print("Ausweichen %s Schritt %.0f°, %.2f m" % [fighter.id, w, weit])
+			print("Ausweichen %s Schritt %.0f°, %.2f m, Haltung %s, %.2f s" % [fighter.id, w, weit, nm, l])
 		return true
 	return false
 
