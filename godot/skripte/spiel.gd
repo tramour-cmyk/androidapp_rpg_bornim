@@ -727,7 +727,9 @@ func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeff
 	# Einzelstueck (Beute.kampfbeute). [m]: der MARS des Kampfs (kampfort.gd _done)
 	var beute := func(m) -> Array:
 		var w := KotlinZufall.new(randi())
-		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt")).map(func(f): return String(f.monster.get("id", "")))
+		var besiegt: Array = m.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt") and not f.get("vor_feuer")).map(func(f): return String(f.monster.get("id", "")))
+		if besiegt.is_empty() or m.kein_lohn:     # 915: das Rudel floh vor dem Feuer, keiner erlegt: keine Beute
+			return []
 		var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 		return Beute.kampfbeute(hw, w, besiegt, zustand.neue_uid).map(func(g): return {"gear": g, "name": Beute.name(g), "rarity": Sprache.t(st[String(g["rarity"])]["name"])})
 	var k0 := Time.get_ticks_msec()
