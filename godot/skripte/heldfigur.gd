@@ -214,12 +214,29 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	m.set_meta("rennen_m_je_s", TAKT_RENNEN if float(info.get("rennen_m_je_s", 0.0)) > 0.01 else 0.0)
 	m.set_meta("faust_L", faust(sk, "l"))
 	bewaffne(m, sk, w.get("ausruestung", {}))
+	# 1140 (Chef 13.11., 14:26: Fackel ausgerüstet, im Menü nicht am Helden): mit „fackel_zeigen“ (Ausrüstung, Drehteller) hält die
+	# Figur eine Fackel aus der Nebenhand in der linken Faust wie in der Welt (fackel.gd), steht in „Stehen_Fackel“; die Welt (held.gd)
+	# baut ihre eigene, darum nur auf Wunsch. Ohne Licht: die Szene des Menüs bleibt, wie sie ist, die Flamme leuchtet selbst
+	if fackel_in_hand(w):
+		var fa: Dictionary = m.get_meta("faust_L")
+		if fa.has("knochen"):
+			var fk := Fackel.an(sk, String(fa["knochen"]), fa["griff"], fa["achse"], m)
+			fk.selbst = true
+			fk.kraft = 0.0
+			fk.licht.visible = false
+			m.set_meta("stehen", "Stehen_Fackel")
 	# 417 Runde 4: mit Paketbewegung („gang“) Tempo ohne Gleiten aus held-klassen.json gang.<art> (held_klassen.py)
 	var g: Dictionary = info.get("gang", {}).get(String(m.get_meta("gang", "")), {})
 	if not g.is_empty():
 		m.set_meta("gang_gehen_m_je_s", TAKT_GEHEN if float(g.get("gehen_m_je_s", 0.0)) > 0.01 else 0.0)
 		m.set_meta("gang_rennen_m_je_s", TAKT_RENNEN if float(g.get("rennen_m_je_s", 0.0)) > 0.01 else 0.0)
 	return m
+
+## 1140: zeigt die Figur eine Fackel? Nur mit „fackel_zeigen“ und einer Fackel (Grundform der Art LIGHT) in der Nebenhand
+static func fackel_in_hand(w: Dictionary) -> bool:
+	var neben = w.get("ausruestung", {}).get("OFF_HAND")
+	return bool(w.get("fackel_zeigen", false)) and neben is Dictionary \
+		and String(Beute.grundform(String(neben.get("base", ""))).get("art", "")) == "LIGHT"
 
 # Transform des Knotens n im Raum der Wurzel m (ohne Baum: Figur noch nicht eingehaengt)
 static func im_raum(m: Node, n: Node) -> Transform3D:
