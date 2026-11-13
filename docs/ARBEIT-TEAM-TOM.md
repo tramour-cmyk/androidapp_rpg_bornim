@@ -5,6 +5,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Spike nimmt Fehler aus den Tests, solange Tom am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
 **Übergabe (13.11., 08:53, `session_01Hmoj76DxLjntP1yUVCeUtK`, fertig):** Lauf 420 grün, APK in t282 Zeile 2, Testbitte 282 lautlos (08:04, fremd geprüft); 1092 am Rechner gemessen (Kaufrepo eingebunden), Ursache Stoffmalerei 558, Vorlage `chefsache/ansehen/1092-streifen.md`, Befund an Sokrates; 1101 an Jerry (Ablegen scheitert an deep_forest.bin), Start bei Ford erbeten; Rollenspiegel Woche 13.11. beantwortet. Sonst nichts Startbares (Sperre 620.1 B, 1073 wartet auf M? Perikles). Nachfolger: Tom – 282: Rückmeldungen aus dem Test, 1092 nach Urteil (auf Abruf).
+- **Zu 1092, von Sokrates (Chef 13.11., 09:20: „1092 B“):** nur das Schwarz in den Faltentälern kappen (Untergrenze in `held3.py` `stoff()`), Faltenform aus Probe 5 sonst gleich; kein Probebild; Leute und Held neu bauen; Prüfpunkt „Robe Lyra, vorher/nachher“ in die nächste Prüfliste. Zweig `claude/tom-1092-streifen`.
 
 ## Einzelheiten
 
