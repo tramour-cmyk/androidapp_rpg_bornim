@@ -14,3 +14,4 @@
 | Spike | [Spike – 1040.1: Probeläufe 1040.1 und 1086 prüfen, dann 882.1 Render fortsetzen (13.11., 16:33)](https://claude.ai/code/session_01Hmoj77vrzCNwXVZWDNF78k) | 1040.1 | – | 13.11., 16:32 |
 | Diogenes | [Diogenes – 1147 (13.11., 16:34)](https://claude.ai/code/session_01Hmoj75PSZY6iXgzp3SbFdQ) | 1147 | – | 13.11., 16:33 |
 | Sokrates | [Sokrates – 1137: Vollzug nachhalten (15.11.) (13.11., 16:42)](https://claude.ai/code/session_01Hmoj79YQw7rUyf676pfGn7) | 1137 | – | 13.11., 16:42 |
+| Perikles | [Perikles – 1188 (13.11., 16:44)](https://claude.ai/code/session_01Hmoj7893iyxgChrYTygzXL) | 1188 | – | 13.11., 16:44 |
