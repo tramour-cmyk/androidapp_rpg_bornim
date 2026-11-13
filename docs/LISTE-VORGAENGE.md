@@ -335,8 +335,8 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 14.11.): startbar.py: Jerry: PAUSE bis **Pause bis Entscheid des Chefs** (Halt  (Datum nicht lesbar) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 1245 | D236.2 von Diogenes (1098.1): Ford-Starter fehlt; ARBEIT-BETRIEB.md „Ford-Starter: keiner; ruht bis zur Antwort des Chefs auf 1098 … kein Starter anlegen“ steht seit Chef 13.11., 09:18 „1098 A“ falsch, Handstart-Ford 18:22 legte darum keinen an, Zu 1245 in ARBEIT-BETRIEB.md | Ford | M | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 14.11.): startbar.py: Jerry: PAUSE bis **Pause bis Entscheid des Chefs** (Halt  (Datum nicht lesbar) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
