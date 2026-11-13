@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1129.3 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1, 2, 6; Wächter für MUSTER-Checkliste 2, 7, 9; Vollzug auf Telegram (1137), Stichtag 15.11., 20:00 (Zu 1129.3) | Tom | M | startbar | – | – | – | E Technik | – |
+| 1129.3 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1 und 6 (Punkt 2 macht Perikles, 1129.5); Wächter für MUSTER-Checkliste 2, 7, 9; Vollzug auf Telegram (1137), Stichtag 15.11., 20:00 (Zu 1129.3) | Tom | M | startbar | – | – | – | E Technik | – |
 | 756.1 | Zeichen für Schlecht: Chef 13.11., 13:45 „756.1 voller Punkt wie in 3, aber etwas heller (wie vorgeschlagen)“: Variante 3 einstellen, Rot etwa wie die Leiste (Kontrast 4,6), übrige drei entfernen, ohne neue Vorlage, fährt im nächsten Build · „jetzt“ 13.11., 13:09 | Tom | M | zu testen | – | claude/build-284 | 284 | E Oberfläche | – |
 | 1122 | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf claude/build-…, auf Teamzweigen aus (falsches Rot aus älterem Code gegen neueste Prüfliste) | Tom | M | zu testen | t283 | claude/tom-1122-pruefliste | 283 | B Werkzeuge | 7,04 $ |
 | 1104 | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station „Höhle“ im Reiter „Test“ geht auch nicht; zuerst nachstellen, ob Build 282 (282.17 bis 282.22 Wald, Höhle, Lyra) dasselbe hat, bevor der Chef 282 testet | Tom | M | zu testen | – | claude/tom-1104-hoehlenkampf | 282 | E Welt | 4,53 $ |
@@ -263,6 +263,7 @@
 | Pflege | von Werkzeug (340.3, 13.11.): 15108 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
+| 1129.5 | Von Sokrates (1129 Punkt 2, Chef 13.11., 14:11: Teams gesperrt): Sperre 620.1 B in startbar.py zählt nur, was in einem Build auf den Test wartet; fertig ohne Build älter als 2 Tage → nächster Sammelbuild; aus 1129.3 vorgezogen, heute | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 1129.2 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Regeln zu Punkten 1, 3, 4, 5, 7, 8; Pflichtzeile „Beim Chef, weil:“ im Muster; Vollzug auf Telegram (1137), Stichtag 15.11., 20:00 (Zu 1129.2) | Perikles | M | startbar | – | – | – | B Abläufe | – |
 | 1129.1 | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufen prüfen: Build und Test, Sperren, wartet auf, Startsperren, Commit-Prüfung, Vorräte, Kosten; Funde mit Messzahl in Vorlage 1129 · „jetzt“ 13.11., 12:53 | Perikles | M | gebaut, Geprüft an: cd2cdc1cc | – | – | – | B Abläufe | 2,20 $ |
 | 1098 | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–889 Tsd.), Ziel nicht: Tiefe 4 nach 22 h (Handstart 12.11., 07:26), bei 400 Tsd. etwa alle 3–5 h ein Neustart, Tiefe 6 etwa 13.11. nachmittags; Handstart bleibt täglich | Perikles | M | gebaut, Geprüft an: 80d123de8 | 14.11. | – | – | B Abläufe | 20,05 $ |
