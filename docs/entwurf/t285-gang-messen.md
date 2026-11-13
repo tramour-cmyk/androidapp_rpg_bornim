@@ -3,6 +3,8 @@ E Welt · Tom (542, 964, 1022.1, 1040.1, 1091, 1119, 1145, 1168, 1180, 1190, 121
 
 Entwurf Tom; Teil Jerry von Tom aus Jerrys Vorrat eingetragen, Jerry prüft und ergänzt; gegenlesen: Sokrates (Punkte beider Teams).
 
+Gegengelesen: Sokrates 13.11., 21:32 (mit drei Hinweisen an Tom, vor dem Bau beheben: 285.9 Wert des Rings, 285.10 Zauber anderer Schulen, 1190 als Bild zur Kenntnis)
+
 Ein Weg: über Build 284 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand ins Dorf (285.1); Bilder und Filme 285.2 bis 285.6 kommen je als eigene Nachricht auf Telegram (👍 passt, 👎 falsch); dann Reiter „Test“, je Zeile 285.7 bis 285.10 „Lage herstellen“.
 
 Schon gebilligt, fährt unverändert mit (kein neuer Prüfpunkt): 1162 Steinkreis im Kampfort (Bild, 👍 20:28), 1166 Atmen aller Tiere (Film, 👍 20:34), 1141 Goblins sterben verschieden (Film r4, Chef 19:41 „passt es jetzt erstmal“).
