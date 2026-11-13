@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Startbares je Rolle (166) aus der einen Vorgangsliste `docs/LISTE-VORGAENGE.md` (275.2, Chef 07.11., 21:5x).
 
-Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen] [--liegt] [--leichen [TAGE]]   (--liegt: startbares Muss je Rolle nach Pause, 891; --leichen: Funde 1188 je Besitzer)   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
+Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen] [--liegt] [--leichen [TAGE]] [--urteile [STUNDEN]]   (--urteile: Chefurteile der letzten Stunden gegen die Zeile, 1192; --liegt: startbares Muss je Rolle nach Pause, 891; --leichen: Funde 1188 je Besitzer)   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
 Eine Tabelle, je Vorgang eine Zeile: Nr. · Titel · Besitzer · Kl. · Stand · wartet auf · Zweig · Build · Bereich · Kosten.
 Reihenfolge der Zeilen eines Besitzers = Vorrang. Vorräte `ARBEIT-*.md` haben keine Tabelle mehr, nur Übergabe, Pause und „Zu <Nr>“.
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür), dazu, warum andere Zeilen nicht startbar sind
@@ -178,7 +178,7 @@ def wochentermine_faellig(jetzt):
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
             if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
-            ] + urteil_faellig(jetzt, da)
+            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da)
 
 # 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen
 # veralten still (99 ruhte seit 17.10. überholt; Chefurteil nie nachgezogen, Arbeit unter Unternummern erledigt, Richtungswechsel).
@@ -284,6 +284,52 @@ def urteil_faellig(jetzt, da=None):
         rest = sum(len(n) for n in je.values()) - (URTEIL_MAX - frei)
         aus.append(("%s, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; %s%s (1188)"
                     % (kopf, "; ".join(teile), " (+%d am nächsten Montag)" % rest if rest > 0 else ""), "B Abläufe", wer))
+    return aus
+
+# 1192 (1189 A, Chef 13.11., 17:09): Diogenes prüft alle 48 h auf Leichen. lauf.py --sperre legt die Zeile ab 17.11., 8 Uhr an,
+# wenn die letzte „Leichenprüfung TT.MM.“ (Liste oder Archiv) mindestens zwei Tage alt ist und keine offen ist; fällt ein Tag aus,
+# kommt sie am nächsten, der Abstand bleibt mindestens 48 h. Rückstufung auf montags prüft Sokrates am 27.11.
+LEICHEN_AB = datetime.date(2026, 11, 17)
+LEICHEN_ABSTAND = 2  # Tage
+
+def leichenpruefung_faellig(jetzt, da=None):
+    """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
+    if jetzt.date() < LEICHEN_AB or jetzt.hour < 8: return []
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
+    if any(re.match(r"Leichenprüfung \d", d.get("titel", "")) and d["wort"] not in ("erledigt", "verworfen", "aufgeteilt") for d in zeilen_liste()):
+        return []
+    tage = []
+    for t, m in re.findall(r"\| Leichenprüfung (\d{1,2})\.(\d{1,2})\.", da):
+        try: tage.append(jahr_von(int(t), int(m)))
+        except ValueError: pass
+    if tage and (jetzt.date() - max(tage)).days < LEICHEN_ABSTAND: return []
+    return [("Leichenprüfung %s (1189 A): startbar.py --leichen 7 und --urteile 48 gegen Archiv und Code, Funde als Vorgang beim "
+             "Besitzer, höchstens 10 $ (ROLLE-PRUEFUNG.md, 1192)" % jetzt.strftime("%d.%m."), "Q QM", "Diogenes")]
+
+def urteile(stunden=48, jetzt=None, text=None):
+    """1192: Antworten des Chefs im Vorgangsarchiv der letzten n Stunden (ohne Vorentscheide und Laufzusagen) mit jeder Nummer
+    aus dem fetten Kopf und deren Stand jetzt: [(Zeit, Kopf, [(Nr, Ort, Stand)])]; Ort „Liste <Besitzer>“, „Archiv“ oder „ohne Zeile“."""
+    jetzt = jetzt or JETZT
+    aus = []
+    for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
+        m = re.match(r"- \*\*(.+?)\*\*", z)
+        t = ZEIT.search(z)
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**") or laufzusage(z) or not re.search(r"Chef|Nutzer", z): continue
+        try: w = _zeit(t)
+        except ValueError: continue
+        if not (jetzt - datetime.timedelta(hours=stunden) <= w <= jetzt): continue
+        kopf = m.group(1)
+        nrn = []
+        for nr in re.findall(r"(?<![\w.])(\d{2,4}(?:\.\d+[a-z]?)*[a-z]?)(?![\w.]| ?(?:h|Uhr|\$|%|px|KB|Tage|Stunden|Minuten)\b)", kopf):
+            if nr in nrn or not (nr in VORG or int(re.match(r"\d+", nr).group()) >= 100): continue
+            nrn.append(nr)
+        je = []
+        for nr in nrn:
+            d = next((d for d in zeilen_liste() if d["nr"] == nr), None)
+            if d: je.append((nr, "Liste " + d["besitzer"], d["stand"]))
+            elif nr in archiv(): je.append((nr, "Archiv", archiv()[nr]))
+            else: je.append((nr, "ohne Zeile", ""))
+        aus.append((w, kopf, je))
     return aus
 
 def sammelbuild_faellig():
@@ -1008,6 +1054,12 @@ def main():
         i = sys.argv.index("--leichen"); n = sys.argv[i + 1] if len(sys.argv) > i + 1 and sys.argv[i + 1].isdigit() else URTEIL_TAGE
         for wer, je in leichen(tage=int(n)).items():
             for art_, nrn in je.items(): print("LEICHE %s · %s (%d): %s" % (wer, art_, len(nrn), ", ".join(nrn)))
+        return
+    if "--urteile" in sys.argv:  # 1192 (1189 A): Chefurteile der letzten n Stunden (Vorgabe 48) gegen die Zeile derselben Nummer
+        i = sys.argv.index("--urteile"); n = sys.argv[i + 1] if len(sys.argv) > i + 1 and sys.argv[i + 1].isdigit() else 48
+        for w, kopf, je in urteile(int(n)):
+            print("URTEIL %s · %s → %s" % (w.strftime("%d.%m., %H:%M"), kopf[:90],
+                  "; ".join("%s %s%s" % (nr, ort, (": " + st) if st else "") for nr, ort, st in je) or "keine Nummer"))
         return
     if "--loesen" in sys.argv:
         for nr, wer, weg, st in loesen(True): print("GELÖST %s (%s): wartet auf %s erfüllt%s" % (nr, wer, ", ".join(weg), (" → " + st) if st else ""))
