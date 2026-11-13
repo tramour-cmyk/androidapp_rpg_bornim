@@ -53,6 +53,18 @@ static var still := false              # 390: waehrend eines Gespraechs bleiben 
 const ZUGEWANDT := 10.0
 var zugewandt_bis := 0                  # ms (Time.get_ticks_msec); 0: niemandem zugewandt
 var blick_vorher := 0.0
+# 1040.1 (Spike; Tuffy aus 1040, Chef 12.11., 15:13, Lyra: „dreht sich ja genauso bescheuert, ohne Schritte … wie auf dem Drehteller“):
+# wer dem gehenden Helden mit dem Blick folgt, holte ihn je Bild ein, der Rest blieb unter WENDE_AB, sie drehte stetig ohne Schritte.
+# Jetzt: wandert das Ziel (blick schneller als FOLGE_RATE), haelt sie still und wendet mit Schritten, sobald es WENDE_FOLGE voraus
+# ist; bleibt es stehen, holt ein letzter Wendeschritt den Rest ueber WENDE_FEIN nach. Ein ruhendes Ziel unter WENDE_AB wie bisher
+const FOLGE_RATE := 0.15                # rad/s (gut 8 Grad je Sekunde, wie Streuner bei Tuffy 1040)
+const FOLGE_NACH := 0.4                 # s, so lange gilt das Ziel nach der letzten Bewegung noch als wandernd
+const FOLGE_SPRUNG := 4.0              # rad/s: schneller springt blick (blick_vorher, Teleport), das ist kein Folgen
+const WENDE_FOLGE := 0.26               # rad (15 Grad): so weit laesst sie das wandernde Ziel voraus, dann ein Wendeschritt
+const WENDE_FEIN := 0.1                 # rad (6 Grad): kleinerer Rest nach dem Folgen ohne Schritt
+var blick_letzt := 0.0
+var folgt := 0.0                        # s: das Ziel wandert noch (FOLGE_NACH nach der letzten Bewegung)
+var nachholen := false                  # nach dem Folgen: den Rest ueber WENDE_FEIN mit einem Schritt
 # 416.8 (Chef 03.11., 07:44: „völlig ohne irgendeine Form der Bewegung … auf der Stelle drehen … wie eine Schachfigur“): im Stehen
 # wendet die Person mit Schritten (Drehen_L/R aus Turn90 der UAL Pro, geruest.py ohne die Drehung des Beckens gebacken); der Knoten
 # dreht nach der gemessenen Kurve der Bewegung (held-info.json gier), so bleibt der Standfuss stehen; Tempo wie bisher (rate)
@@ -62,6 +74,7 @@ var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in
 var wende := ""                         # laufende Wende
 var wende_start := 0.0                  # rotation.y beim Beginn der Wende
 var monster := false                   # 560 (Jerry): ein Monster der Geschichte (Grimmzahn, aussehen „monster:…“)
+var tritt_bis := 0                      # 1040: bis wann es beim Wenden tritt (Streuner.tritt_bis)
 const MONSTER_SIEHT := 4               # 560: Kacheln, ab denen es sich dem Helden zuwendet (herde.gd Lauerer 9i.2)
 var da := true                         # 390: nach der Geschichte zu sehen (Story.kt visible: besiegt, befreit)
 
@@ -510,7 +523,7 @@ func _process(dt: float) -> void:
 	stehen(dt)
 	if ziel.x >= 0: return
 	tempo_jetzt = 0.0
-	if monster and anim and anim.has_animation("Gehen") and absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT:
+	if monster and anim and anim.has_animation("Gehen") and (absf(angle_difference(rotation.y, blick)) > Streuner.DREH_TRITT or Time.get_ticks_msec() < tritt_bis):
 		if anim.current_animation != "Gehen": anim.play("Gehen", 0.2)     # 560: wendet mit Tritten
 		anim.speed_scale = Streuner.TRITT_TEMPO
 		return
@@ -543,7 +556,9 @@ func stehen(dt: float) -> void:
 	if monster and held and zugewandt_bis == 0 and held_abstand() <= MONSTER_SIEHT:
 		blick = atan2(held.global_position.x - global_position.x, held.global_position.z - global_position.z)
 	if monster:
+		var vorher := rotation.y
 		rotation.y = drehe(rotation.y, blick, Streuner.DREH * dt)
+		tritt_bis = Streuner.tritt_bis(tritt_bis, angle_difference(vorher, rotation.y), dt, Time.get_ticks_msec())     # 1040
 	else:
 		drehe_stehend(dt, DREH_ZU if zugewandt_bis > 0 or schaut else DREH_STEH)     # 416.8 (Tom): Wende mit Schritten
 	if still or not da: return
@@ -734,6 +749,11 @@ func laufe(dt: float) -> void:
 # 416.8: im Stehen zu blick drehen; ab WENDE_AB mit Schritten (Drehen_L/R), der Knoten folgt der Kurve der Bewegung; Ziel erreicht
 # oder Bewegung zu Ende: zurueck ins Stehen, ist noch viel uebrig, gleich die naechste Wende (180 Grad = zwei)
 func drehe_stehend(dt: float, rate: float) -> void:
+	var db := absf(angle_difference(blick_letzt, blick))     # 1040.1: wandert das Ziel? (Spruenge zaehlen nicht)
+	blick_letzt = blick
+	folgt = FOLGE_NACH if db > FOLGE_RATE * dt and db < FOLGE_SPRUNG * dt else maxf(0.0, folgt - dt)
+	if folgt > 0.0: nachholen = true
+	var ab := WENDE_FOLGE if folgt > 0.0 else (WENDE_FEIN if nachholen else WENDE_AB)
 	if wende != "":
 		var k: PackedFloat32Array = wende_kurve[wende]
 		var spielt := anim != null and anim.current_animation == wende
@@ -743,23 +763,35 @@ func drehe_stehend(dt: float, rate: float) -> void:
 		if not vorbei: rotation.y = soll   # ueberholt: stehen lassen, den Rest dreht drehe (der Held kann auch die Seite gewechselt haben)
 		if spielt and not vorbei and t < anim.current_animation_length - 0.02: return
 		wende = ""
-		if absf(angle_difference(rotation.y, blick)) <= WENDE_AB:
+		if absf(angle_difference(rotation.y, blick)) <= ab:
 			anim.play(pause, 0.3)
 			anim.speed_scale = 1.0
 			return
 	var rest := angle_difference(rotation.y, blick)
-	if absf(rest) > WENDE_AB and anim and not drinnen and visible:
-		for n in wende_kurve:
-			var k: PackedFloat32Array = wende_kurve[n]
-			if signf(k[k.size() - 1]) != signf(rest) or not anim.has_animation(n): continue
-			var gleich: bool = anim.current_animation == n   # zweite Wende derselben Seite: play liefe nur weiter
-			wende = n
-			wende_start = rotation.y
-			anim.play(n, WENDE_BLEND)
-			if gleich: anim.seek(0.0, true)
-			anim.speed_scale = clampf(rate * anim.get_animation(n).length / absf(k[k.size() - 1]), 0.7, 2.0)
-			return
+	var n := wende_von(rest)
+	if absf(rest) > ab and n != "":
+		var k: PackedFloat32Array = wende_kurve[n]
+		var gleich: bool = anim.current_animation == n   # zweite Wende derselben Seite: play liefe nur weiter
+		wende = n
+		wende_start = rotation.y
+		anim.play(n, WENDE_BLEND)
+		if gleich: anim.seek(0.0, true)
+		# 1040.1: dem wandernden Ziel im eigenen Tempo der Bewegung (der Schritt soll als Schritt lesbar sein), sonst nach rate
+		var tempo := 1.0 if nachholen else rate * anim.get_animation(n).length / absf(k[k.size() - 1])
+		anim.speed_scale = clampf(tempo, 0.7, 2.0)
+		nachholen = folgt > 0.0
+		return
+	if folgt > 0.0 and n != "": return     # 1040.1: haelt still, bis das Ziel WENDE_FOLGE voraus ist
+	nachholen = false
 	rotation.y = drehe(rotation.y, blick, rate * dt)
+
+# 416.8: Wende zur Seite von rest (Drehen_L/R), "" ohne passende Bewegung oder wenn sie nicht zu sehen ist
+func wende_von(rest: float) -> String:
+	if anim == null or drinnen or not visible or rest == 0.0: return ""
+	for n in wende_kurve:
+		var k: PackedFloat32Array = wende_kurve[n]
+		if signf(k[k.size() - 1]) == signf(rest) and anim.has_animation(n): return n
+	return ""
 
 # Drehung der Kurve k (je Bild, 30 Bilder/s) nach t Sekunden, zwischen den Bildern linear; nach dem Ende der letzte Wert
 static func kurve(k: PackedFloat32Array, t: float) -> float:

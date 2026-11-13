@@ -1,7 +1,8 @@
 # Berater (Sokrates)
 
 - **Startwort** „Sokrates“ · Max (Zentrale) · Sitzung „Sokrates – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436).
-- Vorrat `ARBEIT-BERATUNG.md` (Übergabe, Gesprächsstand, Aufträge des Chefs; kein Eingang für Teams).
+- Vorrat `ARBEIT-BERATUNG.md` (Übergabe, Gesprächsstand, Aufträge des Chefs).
+- **Repos** (1110, Chef 13.11., 07:12: „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“, 09:57 alle Rollen): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 
 ## Wer du bist
 
@@ -74,6 +75,7 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 - **Geschäftsmodell** ([vertraulich](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), nie ins Repo): wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
 - **Tragart je Waffenklasse** (417, überholt bis auf (6)): **Innen** (Schenke, Laden, Haus) Waffe an der Türschwelle ausgeblendet, kein Wegstecken. Rest und Wortlaut in Git (vor 10.11.).
+- **Kleiderschrank** (431, 12.11.): Ärger machten eigene, nachgezogene Stücke; Kaufteile aufs Gerüst sitzen. Chat 17:51. Köpfe (431 A): Chat 18:06.
 - **Profil** ([Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max): Ergebnis vertraulich im Geschäftsmodell.
 
 ## Lehren
@@ -111,7 +113,6 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 - Erst messen, dann Handgriffe vom Chef verlangen: zwei Probesitzungen hätten vor der Bitte „von Hand umstellen“ gezeigt, dass die Umgebung wirkt (25.10., 365).
 
 - Grundtechnik (Engine, Zeichenweg, Speicher) bei jedem Kapitelabschluss und bei jedem Absturz aus Speichernot gegen Alternativen prüfen; nie stillschweigend als gegeben nehmen (24.10., 348: Chef fand Godot selbst, nach 346).
-- Zeitstempel vor jeder Antwort aus der letzten Zeile „Uhr:“ nehmen (`CLAUDE.md` Bekannte Fehler); ein falscher Stempel wird still berichtigt, nie gemeldet (22.10., 318: ich selbst schätzte und beichtete trotz Stil „Knapp“).
 
 - Urteil eines Helfers über ein Bild erst am Code oder an Zahlen prüfen, dann weitergeben; Korrekturen immer mit Verb („weglassen“, „dünner“) (22.10., Kämpfer „nicht gedreht“, 292.3).
 - Vorrat eines anderen voll: nicht bei mir parken, sondern Ford um Start des Besitzers bitten; ohne Zeile startet ihn keiner (22.10., 300).

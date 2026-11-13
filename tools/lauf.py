@@ -15,6 +15,9 @@ Ausgabe, Zeile für Zeile auszuführen:
   ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
   WEITER <session_id> | <Rolle> | <Vorgang> | <Nachricht>          → send_message „Weiter: <Vorgang>…“ an die alte Sitzung statt START (unter 200 Tsd. Token, 383 A; unter 60 Minuten Ruhe; abgelehnt → START, 261.5)
   NICHTS <Rolle>: Grund                                             → nichts tun
+  LEERLAUF: …                                                       → (1100 A 6) nichts zu starten, melden, pushen: Ford endet sofort, nur Chatzeile, kein Telegram, kein Push
+  STELLUNG aus | Co-Pilot: …                                        → (1100 A 1) aus: Ford endet; Co-Pilot: START nicht ausführen (LISTE-BETRIEB.md „Stellung“)
+  WARNUNG Abgleich: n Zeilen „gebaut“ oder „zu testen“ ohne Build   → (1100 A 5) Zahl statt der Einzelzeilen; ganz einmal am Tag im ersten Lauf ab 8 Uhr (Marke „Abgleich ganz TT.MM.“)
   WARNUNG …                                                         → Ford meldet es lautlos
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
   STILLSTAND <Rolle>: …                                             → Ford schreibt die Protokollzeile „Stillstand <Rolle> seit HH:MM“ (Schritt 5, 192.2)
@@ -397,6 +400,7 @@ def noch_offen(ausgabe, rolle, nrn):
         if zeile and zeile[0]["wort"] == "in Arbeit":
             ausgabe.append("WARNUNG %s %s: Sitzung endet, Stand noch „in Arbeit“; Besitzer setzt ihn mit tools/vorgang.py stand (275)" % (rolle, nr))
 
+NOTIZ_WARNUNG = []  # 1100 A (6): ein Lauf mit dieser Warnung ist nicht leer
 def notizen_frisch():
     """380: Ford zog den Arbeitsbaum, lauf.py las aber die alten Notizen in bornim-main (Zeile 275 von Diogenes fehlte, NICHTS statt START).
     Vor jedem Lauf die Notizen auf origin/main bringen (nur vorspulen); geht das nicht, Lauf abbrechen statt mit altem Stand rechnen."""
@@ -406,7 +410,7 @@ def notizen_frisch():
         r = subprocess.run(["git", "-C", d, "rev-list", "--count", "HEAD..origin/main"], capture_output=True, text=True, timeout=20)
         hinten = int(r.stdout.strip() or 0)
     except Exception as e:
-        print("WARNUNG Notizen nicht geprüft (%s); Lauf mit Stand %s" % (e, d)); return True
+        print("WARNUNG Notizen nicht geprüft (%s); Lauf mit Stand %s" % (e, d)); NOTIZ_WARNUNG.append(e); return True
     if hinten:
         print("WARNUNG-LAUT Notizen in %s %d Commits hinter origin/main und nicht vorspulbar (eigene Commits?): erst git -C %s pull --no-rebase, dann lauf.py erneut (380)" % (os.path.abspath(d), hinten, os.path.abspath(d)))
         return False
@@ -423,6 +427,14 @@ def main():
             print("lauf.py --kosten NR USD session_…: Kennung fehlt (384); ohne Sitzung nur mit „ohne:<Grund>“", file=sys.stderr); sys.exit(2)
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if a[3].startswith("session_") else None)
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
+    # 1100 A (1): Ford liest die Stellung nicht mehr selbst (notiz.sh entfällt im Lauf); lauf.py nennt sie, wenn sie nicht „Pilot“ ist (81g)
+    stellung = re.search(r"\*\*Ford: (aus|Co-Pilot|Pilot)\*\*", lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))
+    if stellung and stellung.group(1) == "aus":
+        return print("STELLUNG aus: Ford endet hier, nichts schreiben, nichts melden (81g)")
+    vorab = []
+    if stellung and stellung.group(1) == "Co-Pilot":
+        vorab.append("STELLUNG Co-Pilot: START nicht ausführen; nur Neustart-Meldungen, „Auftrag Diogenes“ und Push-Meldungen (LISTE-BETRIEB.md „Stellung“, 81g)")
+    if not stellung: vorab.append("WARNUNG Stellung „**Ford: …**“ oben in ARBEIT-BETRIEB.md nicht gefunden; Lauf wie Pilot (81g)")
     nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
     liegt = "--liegt" in a  # 891: Lauf auf „Start <Rolle> <Nr>“; eine ruhende Sitzung unter 20 Minuten belegt dann nicht, sie bekommt WEITER
@@ -438,7 +450,7 @@ def main():
     offen = []; alle = {}
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
-    ausgabe = []; archiviert = set()
+    ausgabe = vorab; archiviert = set()
     if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite holen" % ", ".join(offen))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
     for t, ber, wer in startbar.wochentermine_faellig(JETZT):  # 719 A: vor dem Plan, damit der neue Vorgang im selben Lauf startet
@@ -715,7 +727,16 @@ def main():
         import abgleich
         # 191: Notizen gegeneinander, nur WARNUNG; Vorentscheid-Warnungen (194.1, D33.2) einmal, beim zweiten Lauf WARNUNG-LAUT (Marke im Protokoll)
         bisher = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md"))
-        for l in abgleich.pruefen():
+        # 1100 A (5), Chefwort 13.11., 09:29: Warnzeilen „gebaut“/„zu testen“ ohne Build einmal am Tag ganz (erster Lauf ab 8 Uhr, Marke im Protokoll), sonst eine Zeile mit der Zahl
+        zeilen_ab = abgleich.pruefen()
+        ohne_build = [l for l in zeilen_ab if re.search(r"„(gebaut|zu testen)“ ohne Build", l)]
+        ganz_marke = "Abgleich ganz %s" % JETZT.strftime("%d.%m.")
+        ganz = bool(ohne_build) and JETZT.hour >= 8 and ("Marke " + ganz_marke) not in bisher
+        if ganz: vorentscheid_marken.append(ganz_marke)
+        elif ohne_build:
+            ausgabe.append("WARNUNG Abgleich: %d Zeilen „gebaut“ oder „zu testen“ ohne Build (ganz einmal am Tag ab 8 Uhr; python3 tools/abgleich.py zeigt sie; 1100 A)" % len(ohne_build))
+        for l in zeilen_ab:
+            if l in ohne_build and not ganz: continue
             if "Vorentscheid" in l:
                 schluessel = re.sub(r"\s+", " ", l[len("WARNUNG Abgleich: "):][:60])
                 if ("Marke Abgleich " + schluessel) in bisher: l = l.replace("WARNUNG ", "WARNUNG-LAUT ", 1)
@@ -836,6 +857,18 @@ def main():
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
+    # 1100 A (6), Chef 13.11., 09:29: nichts zu starten, nichts zu melden und nichts zu pushen → Ford endet nach diesem Schritt (kein Telegram, kein Push)
+    zahl_zeile = lambda l: l.startswith("WARNUNG Abgleich: ") and "ohne Build (ganz einmal am Tag" in l
+    if all(l.startswith("NICHTS") or zahl_zeile(l) for l in ausgabe) and not geaendert() and not NOTIZ_WARNUNG:
+        print("LEERLAUF: nichts zu starten, nichts zu melden, nichts zu pushen; Ford endet hier mit der Chatzeile „Ford HH:MM ok“ (1100 A 6)")
+
+def geaendert():
+    """1100 A (6): hat dieser Lauf Notizen geschrieben (Protokoll, Besetzung, Vorgangsliste)? Dann ist er nicht leer, Ford pusht."""
+    try:
+        r = subprocess.run(["git", "-C", os.path.join(DOCS, ".."), "status", "--porcelain", "--", "docs"], capture_output=True, text=True, timeout=20)
+        return bool(r.stdout.strip()) or r.returncode != 0
+    except Exception:
+        return True
 
 WAECHTER_STUNDEN = 3  # 383 (Chef 27.10., 17:53): Chef sagt „jetzt“ und bekommt drei Stunden lang keine Vorlage → laut an Chef und Sitzung
 WAECHTER_AB = datetime.datetime(2026, 10, 27, 19, 0, tzinfo=BERLIN)  # Protokoll der Meldungen gibt es erst ab hier; ältere „jetzt“ zählen nicht
