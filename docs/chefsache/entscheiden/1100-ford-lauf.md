@@ -2,7 +2,7 @@
 Perikles · 13.11., 08:36 · B Abläufe · aus 1098 (Ford verbraucht 400 Tsd. Token in 3 bis 5 Stunden)
 Kurz: Ford kostet gemessen etwa 0,90 $ je Stunde (rund 22 $ am Tag); fünf Änderungen am Lauf sparen geschätzt ein Drittel bis die Hälfte
 
-Geprüft an: [Ford-Sitzung](https://claude.ai/code/session_01Hmoj78Qg516rLn1yGt11hL), Ereignisse der Läufe 07:04 und 08:04, Kosten bis 08:29), `tools/lauf.py` am Rechner (Ausgabe 6.853 Zeichen), `LISTE-BETRIEB.md` „Jeder Lauf“
+Geprüft an: [Ford-Sitzung](https://claude.ai/code/session_01Hmoj78Qg516rLn1yGt11hL), Ereignisse der Läufe 07:04 und 08:04, Kosten bis 08:29, `tools/lauf.py` am Rechner (Ausgabe 6.853 Zeichen), `LISTE-BETRIEB.md` „Jeder Lauf“
 
 **Frage:** Darf Perikles Fords Stundenlauf so umbauen, dass er weniger Schritte braucht und weniger liest? Es ist ein Vorentscheid-Fall, aber die Vorentscheid-Bremse steht, darum liegt es bei dir.
 

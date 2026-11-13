@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `767f137cb` (13.11., 08:27)
+**Gelesen bis:** `116bb7b10` (13.11., 08:38)
 
 **Übergabe (13.11., 08:38, `session_01Hmoj7A2m1LWvmMLQ1syZx9`):** 1098 unter der Bremse: Vorlage `entscheiden/1098-ford-starter.md` statt Vorentscheid, Starter ruht (Telegram laut). 1100 gemessen (Ford etwa 0,90 $ je Stunde), Vorlage `entscheiden/1100-ford-lauf.md` mit fünf Änderungen, nichts gebaut. Nachfolger: Perikles – Pflege: Tagesbericht-Zeilen kürzen
 - **Zu 1100, Messung 08:36:** Läufe 07:04 und 08:04 (8 und 14 Schritte, Verlauf plus 9 und 21 Tsd.); Verlauf wächst von 137 Tsd. (05:03) auf 242 Tsd. (08:29), jeder Schritt liest ihn ganz; größte Posten Sitzungs-JSON (je etwa 3.000 Zeichen), `lauf.py` mit 22 gleichen Warnzeilen, Nachschlagen im Lauf, PR-Liste stündlich, mehrfaches `git pull`. Bei „1100 A“ bauen wie in der Vorlage; `abgleich.py` und Warnausgabe nur mit Chefwort ändern (Werkzeugänderung an einer Warnung wurde 08:34 vom Wächter als Aufsicht-Umgehung abgelehnt).
