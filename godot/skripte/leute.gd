@@ -414,6 +414,18 @@ class KopfDreher extends SkeletonModifier3D:
 			sk.set_bone_pose_rotation(i, (pg.basis.orthonormalized().inverse() * n).get_rotation_quaternion())
 
 # 475: die Person auf dem Kaufkoerper mit eigenem Gesicht (heldfigur.gd person); false ohne Kaufdateien
+# 1040.1 (Chef 13.11., 15:58, t283: „alle wie auf dem Drehteller“): Wenden mit Schritten auch auf dem Kaufkoerper. Vorher blieb
+# wende_kurve hier leer (nur der Weg ueber -info.json fuellte sie), wende_von fand nichts und drehte stetig. Kurven aus
+# held-klassen.json wende (held_klassen.py), Bewegungen Drehen_L/R aus bewegungen.bin
+static func kauf_wende(ap: AnimationPlayer) -> Dictionary:
+	var aus := {}
+	var wi: Dictionary = HeldFigur.lade_info().get("wende", {})
+	for n in ["Drehen_L", "Drehen_R"]:
+		var g: Array = (wi.get(n, {}) as Dictionary).get("gier", [])
+		if ap and ap.has_animation(n) and g.size() > 1 and absf(float(g[g.size() - 1])) > 30.0:
+			aus[n] = PackedFloat32Array(g.map(func(x): return deg_to_rad(float(x))))
+	return aus
+
 func baue_kauf(info_datei: String) -> bool:
 	var m := HeldFigur.person(String(daten.get("person", daten["id"])), mats)
 	if m == null: return false
@@ -421,6 +433,7 @@ func baue_kauf(info_datei: String) -> bool:
 	add_child(modell)
 	anim = modell.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	ruhe_liste = HeldFigur.ruhe_von(String(daten.get("person", daten["id"])))   # 1044 zurueck
+	wende_kurve = kauf_wende(anim)   # 1040.1
 	gang = float(modell.get_meta("gehen_m_je_s", HeldFigur.TAKT_GEHEN))
 	var alt := 1.08
 	if FileAccess.file_exists(info_datei):
