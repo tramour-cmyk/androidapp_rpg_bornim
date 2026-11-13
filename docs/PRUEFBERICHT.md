@@ -52,6 +52,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 200 · 1133 Werkzeugpunkte P1–P4 der Systemprüfung 1129.1 (Perikles `d92d2caed`, `e2652d81d`, `e466b8d45`, `c660c954e`; 13.11., 13:2x)
+
+- **Pflegehinweis (Auftrag 1):** `gleich_bis_auf_zahlen` ersetzt nur Zahlen vor „Bytes“, „Zeichen“, „KB“; gleiche Zeile desselben Besitzers bleibt stehen. Einziger Pflege-Commit danach (13:15) war eine echte Änderung (Tom weg, Diogenes neu). 13.11. bis 13:15: 41 Commits; Tageszahl erst 14.11. Im Auftrag stand `279416a1f` (ein Zusammenführen), der Bau ist `d92d2caed`.
+- **Protokoll kürzen (Auftrag 2) greift:** Lauf 13:14 (`cdc712588`): `ARBEIT-BETRIEB.md` 58.106 → 43.684 Bytes, Startsperren 134 → 30, „Start-fehlt“ 39 → 12; gestrichen nur diese beiden Arten. `startmarken` vorher wie nachher gleich, abgesehen von den drei neuen Sperren 13:14. „Start-fehlt“ liest `lauf.py` nur für Sperren unter 3 h, Streichen ab 6 h also folgenlos.
+- **OHNE-ÜBERHOLT (Auftrag 3):** Probe mit gestellten Sitzungen: Archiv, „ruht“, „in Arbeit“ ohne Sitzung richtig erkannt, Sonderzeilen übersprungen. **Befund D198.1 → 1134 (Perikles):** Titel mit mehreren Nummern („Jerry – 1111, 1112, 1113“) liefert nur die erste, vierstellige Nummer nur direkt nach „–“; „tätig“ nur über `updated_at`, das bei laufenden Sitzungen stehen bleibt (13:18: Tuffy, Diogenes `updated_at` = `created_at`). Echter Lauf steht aus: Lauf 13:14 lief ohne `--ohne`.
+- **Haltezählung (Auftrag 4):** Probe gegen eigenes leeres Repo: drei gleichzeitige Halte (probelauf, commit-pruefung, startsperre) → drei Zeilen, drei Commits, Zählung fasst Nummern zusammen, `--ab` richtig. Haken rufen die Dateien als Skript, `import hakenzahl` findet sich. Zweig `haken` auf `origin` gibt es noch nicht (kein echter Halt seit 13:13).
+- 1133 wartet auf 14.11.
+
 ## Lauf 199 · 1125 Sammelbilligungen in `abgleich.py` (Perikles `377a1a533`; 13.11., 11:5x)
 
 - **Vorläufig:** `abgleich.py` auf `main` gibt keine Vorentscheid-Warnung mehr, nur Zeilen „ohne Build“ (in `lauf.py` eine Zahlzeile, zählt als Leerlauf). Ob ein Uhrlauf ohne Startbares jetzt nach einem Schritt endet und billiger wird, zeigt erst der nächste echte Lauf; 1125 wartet bis 13:15.
