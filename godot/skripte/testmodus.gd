@@ -194,6 +194,9 @@ static var probe_herkunft := "Wachsoldat"
 static var probe_volk := "Mensch"
 static var probe_waffe := "*"           # Grundform, "" ohne Waffe, "*" wie die Herkunft
 static var probe_neben := "*"           # NEBENHAND oder "*"
+# 964 (Fund t284.5, Chef 13.11., 20:47: „Beute erzeugen“ gab 30–40 Mal kein Kettenhemd): Brustrüstung der Lage („ruestung=chain_shirt“),
+# "*" wie die Herkunft, "" ohne; nur über die Prüfliste, im Reiter kein eigener Knopf
+static var probe_ruestung := "*"
 static var probe_soeldner := ""         # "*" wie der Held, "" keiner, sonst Herkunft; 947 (Chef 11.11., t276.12): keiner wie in Kapitel 1 (168 D: Söldner ab K3)
 static var probe_tasche := "zwei"
 static var probe_leben := "voll"
@@ -251,7 +254,14 @@ static func probe_ausstatten(h: BrsHeld) -> void:
 			var g: Dictionary = neu.call(probe_neben)
 			if Beute.ist_waffe(Beute.grundform(probe_neben)): h.anlegen_nebenhand(g)
 			else: h.anlegen(g)
+	if probe_ruestung != "*":
+		h.ablegen("CHEST")
+		if probe_ruestung != "": h.anlegen(neu.call(probe_ruestung))
 	h.voll()
+
+## 964: Grundformen, die als Brustrüstung angelegt werden (für „ruestung=“ der Lage)
+static func brustruestungen() -> Array:
+	return Beute.grundformen().filter(func(id): var b := Beute.grundform(String(id)); return String(b["art"]) == "ARMOR" and String(b["slot"]) == "CHEST")
 
 static func probe_waffen() -> Array:
 	var alle: Array = ["*", ""]
@@ -626,7 +636,7 @@ const LAGE_TASCHEN := ["zwei", "keine", "voll"]
 const LAGE_LEBEN := ["voll", "halb", "knapp"]
 const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
 const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
-	"waffe", "neben", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort"]
+	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort"]
 
 ## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
 static func lage_uhr(s: String) -> int:
@@ -666,6 +676,7 @@ static func lage_fehler(l: Dictionary) -> Array:
 	in_.call("volk", BrsHeld.voelker())
 	in_.call("waffe", probe_waffen())
 	in_.call("neben", ["*"] + NEBENHAND)
+	in_.call("ruestung", ["*", ""] + brustruestungen())
 	in_.call("soeldner", ["*", ""] + BrsHeld.herkuenfte())
 	in_.call("tasche", LAGE_TASCHEN)
 	in_.call("leben", LAGE_LEBEN)
@@ -685,6 +696,7 @@ static func lage_probe(l: Dictionary) -> Array:
 	if l.has("pstufe"): probe_stufe = int(l["pstufe"])
 	probe_waffe = String(l.get("waffe", "*"))
 	probe_neben = String(l.get("neben", "*"))
+	probe_ruestung = String(l.get("ruestung", "*"))
 	probe_soeldner = String(l.get("soeldner", ""))
 	probe_tasche = String(l.get("tasche", "zwei"))
 	probe_leben = String(l.get("leben", "voll"))

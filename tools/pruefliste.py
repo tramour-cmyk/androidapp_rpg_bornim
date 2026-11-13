@@ -13,7 +13,7 @@
 # 1156 (Vorlage 1020 D Stufe 2): ein Abschnitt „## Lagen“ (nach der Tabelle, vor „## Ergebnis“) gibt je Zeile die Lage, die der Knopf
 # „Lage herstellen“ im Reiter „Test“ herstellt: „- 284.3: station=Garrick uhr=20:30 probe=WOLF_PACK“. Schlüssel (LAGE_SCHLUESSEL):
 #   station=<Station aus Testmodus.STATIONEN oder Kapitelende>  ort=<karte>:<x>:<y>[:<blick>]  uhr=HH:MM  merker=+flag,-flag
-#   stufe=<n>  vorraete  einmaliges  probe=<Gegner>  held=test|spiel  herkunft=  volk=  pstufe=  waffe=  neben=  soeldner=
+#   stufe=<n>  vorraete  einmaliges  probe=<Gegner>  held=test|spiel  herkunft=  volk=  pstufe=  waffe=  neben=  ruestung=  soeldner=
 #   tasche=zwei|keine|voll  leben=voll|halb|knapp  zeit=tag|abend|nacht  zug=pounce|heavy|reihe|flucht  ausweichen
 #   eroeffnung=NORMAL|AMBUSHED|HERO_FIRST  kampfort=<Ort>
 # Reihenfolge im Spiel: Geschichte und Held, dann Ort (Station oder ort), dann Probekampf. Ob Station, Gegner und Werte stimmen, prüft
@@ -90,7 +90,7 @@ def zellen(z):
 
 
 LAGE_SCHLUESSEL = {'station', 'ort', 'uhr', 'merker', 'stufe', 'vorraete', 'einmaliges', 'probe', 'held', 'herkunft', 'volk', 'pstufe',
-                   'waffe', 'neben', 'soeldner', 'tasche', 'leben', 'zeit', 'zug', 'ausweichen', 'eroeffnung', 'kampfort'}
+                   'waffe', 'neben', 'ruestung', 'soeldner', 'tasche', 'leben', 'zeit', 'zug', 'ausweichen', 'eroeffnung', 'kampfort'}
 
 
 def lage(text):
