@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 205 · 1114 Kampfort ohne Block figur (Tuffy `ede19193b`), 483 Film-Links (13.11., 15:0x)
+
+- **483 greift.** Sechs echte Filme 1036.1 (13.11., 13:35–13:36, Jerry): je Film ein eigener Zweig `film/20261113-1335xx-1036.1` mit nur der Datei; alle sechs Links in `ansehen/10361-zustaende.md`, jeder eigen, jsDelivr liefert je 200 `video/mp4` (5,5–11 MB, 11,4 s gelesen). Film 1043 (02:56) ebenso abgelegt, Datei nach Entscheid weg (`8487ed7a9`).
+- **1114, am Rechner:** Probe `kauf_cache_probe.sh` 46 gut (wie Tuffy). Eingaben kampf vorher 29, nachher 25: weg `v3/held3.py`, `v3/rig.py`, `v3/geruest.py`, `v3/leute.json`, `v3/kampf.py` (nur über geruest, das goblin nur mit GERUEST=cc0 kopiert), neu `v3/tex.py`; `v3_kampf/held3.py`, `rig.py` bleiben drin. `$OUT/tex` gibt es auch bei figur-Treffer (tex.py läuft in „Modelle bauen“ immer, wenn nicht alles trifft). Held je Klasse schreibt `daten/held.bin` nicht um. Kein Befund. Offen: Lauf 434 (`claude/build-284`, trägt `ede19193b` über 1115), läuft seit 14:56.
+
 ## Lauf 204 · 632 Truhe der Höhle am Rechner nachgestellt, Bautests aus Lauf 203 geschlossen (13.11., 14:1x)
 
 - **632 greift.** `truhe_632` auf `main` (`50eb3fd84`) am Rechner mit den Daten wie im Lauf (`werte.json`, `gegenstaende.json` kopiert, Schritt „Karten und Texte“): „TRUHE632 0 Fehler“, Ende 0; ohne die kopierten Daten 14 Fehler (nur Rechner, kein Befund). Im Lauf der APK mit `pipefail`, kann rot werden; Lauf 427 grün (Lauf 203). `spiel.gd:847` löst „@class_weapon“ in `oeffne_kiste` über `truhen_waffe` auf (gelesen). Lücke ohne Befund: der Test prüft diese Zeile als Text, nicht durch Öffnen der Truhe.
