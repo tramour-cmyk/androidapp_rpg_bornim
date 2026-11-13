@@ -121,3 +121,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:08 13.11.: Lauf 20:03: Diogenes (1199) `…77QFVKxHtWXK1ztLCC` gestartet; sonst NICHTS (Tom, Jerry, Perikles, Spike, Tuffy belegt; Homer nichts Startbares; Ford)
 - 20:06 13.11.: Startsperre 20:06 Start Perikles (Neustart e53c8c12b, Nachfolger „Perikles – 1217: Testbitte unterwegs“; Ford)
 - 20:09 13.11.: Neustart Perikles (e53c8c12b): neue Sitzung `…79eigjcZiNVgt6FmRD` 20:07, Vorgängerin `…77NmwkQgV4yHakA4mG` archiviert (5,86 $ auf 1184, 1193; Ford)
+- 20:25 13.11.: Neustart Perikles (374faeafe): Nachfolger „Perikles – 1098, 1019, 1100, 1125: Stichtag 14.11. prüfen“ erst ab 14.11., kein Start; Sitzung `…79eigjcZiNVgt6FmRD` archiviert (7,51 $ auf 1217, 1213; 1220-Zeile schon über 400 Zeichen, Kostenfeld dort nicht beschreibbar; Ford)
