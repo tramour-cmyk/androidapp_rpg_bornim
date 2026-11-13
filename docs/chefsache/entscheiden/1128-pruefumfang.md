@@ -1,28 +1,49 @@
-# 1128 · Prüfst du am Handy künftig nur noch, was nur das Handy zeigen kann, und den Rest am Bild oder Film?
-Sokrates · 13.11., 11:52 · B Abläufe · aus deinem Wort 11:49
-Kurz: je Vorgang in der Prüfliste eine Art: Handy (Ablauf, Bedienung), Bild/Film (Aussehen) oder ohne dich (Regeln und Technik mit grünem Bautest)
+# 1128 · Was heißt „vom Chef getestet“ künftig: am Handy frei spielen und Bilder ansehen statt jede Prüffrage abgehen?
+Sokrates · 13.11., 12:03 · B Abläufe · aus deinem Wort 11:49, 11:58, 12:02
+Kurz: Prüffragen nur noch für Neues, und zwar als Bild oder Film; am Handy spielst du frei; was du nicht bemängelst, gilt als getestet
 
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe7%5E/docs/chefsache/ansehen/t282-dorf.md (Prüfliste Build 282), Vorgangsarchiv 201a.1, `CLAUDE.md` Feste Regeln
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/94621abe7%5E/docs/chefsache/ansehen/t282-dorf.md (Prüfliste 282) und die Ergebnisse der Prüflisten 277, 278, 280 in Git; Vorgangsarchiv 201a.1; `tools/startbar.py` (Sperre 620.1 B)
 
-**Frage:** Heute bekommt jeder fertige Muss-Vorgang eine Zeile in der Prüfliste, und du gehst jede am Handy ab: Build 282 hatte 21 Punkte, in Build 283 warten 55 fertige Vorgänge (Tom 17, Jerry 38). Die meisten davon sind Aussehen, das ein Bild oder Film genauso zeigt. Sollen wir die Prüfliste je Vorgang einer von drei Arten zuordnen, so dass du am Handy nur noch einen kurzen Spielweg gehst?
+**Frage:** Heute bekommt jeder fertige Vorgang eine Prüffrage, und du gehst sie alle am Handy ab. Das kostet dich Zeit für Dinge, die ein Bild genauso zeigt oder die ohnehin passen. Soll „vom Chef getestet“ künftig jede Form von Test sein: frei am Handy spielen, Bild oder Film ansehen, im Gespräch klären?
 
-**Votum:** „1128 A“: ab Build 283 drei Arten je Vorgang, am Handy höchstens etwa sechs Punkte als ein zusammenhängender Weg.
+**Votum:** „1128 B“. Zweite Meinung: Perikles (unten, auf deinen Zuruf 12:02).
 
-**Berührt:** Tom und Jerry (Prüflisten ab 283), Perikles (Ablauf, Muster der Prüfliste), Diogenes (prüft „ohne dich“), Werkzeug `startbar.py` (die Sperre 620.1 zählt ein Urteil am Bild als getestet), Regel „kein Code auf main ohne Test des Chefs“.
+**Berührt:** Tom, Jerry, Spike, Tuffy (Prüflisten), Perikles (Abläufe), Diogenes (prüft Bautests, zählt Funde), Werkzeuge `startbar.py`, Commit-Prüfung, Test `pruefliste_1020`.
 
-**Begründung:** Dein Wort 11:49: „Warum muss ich denn das immer testen? … vieles … hätte man auch mit einem Bild oder mit einem Film klären können … wenn es mir auffällt als Fehler, dann fällt es mir halt auf. Aber das sind so viele Kleinigkeiten.“ Den Grundsatz hast du schon am 19.10. gesetzt (201a.1): „Gerätetest nur, wo er etwas finden kann“. Er steht im Archiv, die Prüflisten wenden ihn nicht an: dort bekommt jeder Vorgang einen Handypunkt.
+**Begründung:** Dein Wort 11:58: „Da gibt es verschiedene Möglichkeiten des Tests und da muss das halt gelten … Für Pillepalle.“ 12:02: „Ich will nicht 1000 sinnlose Prüffragen haben, was man im Bild auch sehen kann.“ Den Grundsatz hast du am 19.10. schon gesetzt (201a.1): „Gerätetest nur, wo er etwas finden kann.“ Die Prüflisten wenden ihn nicht an.
 
-**Sachverhalt:**
-- Build 282, 21 Punkte, nach Art sortiert: **nur am Handy** 5 (Pim: Knöpfe und Gold, Met bis „Betrunken“ und Leiste antippen, Höhle: Krogg, Schlüssel, Gitter, Lyra); **Bild oder Film reicht** 15 (Startbild, Hauptmenü, Sicht im Dorf, Staub, Kartenrand, Röcke, Tische, Borin sitzt, Chronik, Osric, Nacht, Höhle ansehen, Lyras Stand, Lyra wendet sich, Wechselschirm); **ohne dich** 1 (Kurze Erholung gibt kein Leben: das prüft der Bautest `brs_held_870` schon genau).
-- Deine 6 Funde in 282: 4 hätte ein Bild gezeigt (Weg am Schlagbaum, „Betrunken“ senkrecht, Damenstand, Karte), 1 nur das Handy (Pim bleibt stehen), 1 war Technik (Höhle nicht begehbar; der Bautest `hoehle_492` läuft seit heute im Bau mit).
-- Bilder und Filme macht jeder Bau schon (Schritt „Standbilder“ im selben Lauf wie die APK). Damit ist es dasselbe Spiel, keine Probe nach anderer Methode.
+**Sachverhalt** (Prüflisten 277, 278, 280, 282, ausgezählt):
+- Etwa 100 Prüffragen, davon rund 80 mit „passt“, ohne dass du etwas gefunden hast. Am deutlichsten war Build 280 mit 41 Fragen, 39 davon passten.
+- Deine Funde: rund 19 an einer Prüffrage, rund 12 außer der Reihe (277: 4, 278: 5, 282: 1, dazu Beifunde wie das Dauer-„hand scratch“). Etwa vier von zehn Funden kommen also ohnehin, ohne dass wir danach fragen.
+- Von den Funden an Prüffragen hätte die Mehrheit auch ein Bild oder Film gezeigt: Staub nicht zu sehen (dreimal), Weg am Schlagbaum, „Betrunken“ senkrecht, Damenstand, Flasche so groß wie ein Ölfass. Nur das Handy zeigt Bildrate, Ruckeln, Klang, Bedienung, Abläufe.
+- Pim war allerdings eine Prüffrage (282.9: „Pim geht heim“). Er wäre auch beim freien Spielen aufgefallen.
+- Jeder Bau macht schon Bilder im selben Lauf wie die APK. Für einzelne Vorgänge gibt es eigene Bildschritte (Kartenrand, Rock, Damenstand, Höhle).
 
 **Auswertung:**
-- **A (Empfehlung):** Der Entwickler ordnet beim Schreiben der Prüfliste jedem Vorgang eine Art zu. **Handy:** Ablauf, Bedienung, Kampfgefühl, Klang. Das wird ein zusammenhängender Weg mit höchstens etwa sechs Punkten, auf dem du frei spielst; was dir dabei auffällt, meldest du. **Bild/Film:** alles Aussehen und jede Bewegung, aus demselben Lauf, auf einer Seite in der Chefsache. Du sagst je Bild „passt“ oder „falsch“, das zählt als getestet. **Ohne dich:** Regeln, Zahlen, Technik, die ein Bautest prüft. Diogenes bestätigt, dass der Test genau das prüft, dann geht es mit auf `main`. Aufwand: Prüflisten wie bisher, ein Bildschritt je Bau schon vorhanden; die Seite mit den Bildern schreibt der Entwickler. Für 282 hätte das 5 Handypunkte statt 21 bedeutet.
-- **B:** wie A, zusätzlich bekommen Kleinigkeiten am Aussehen (Nachbesserungen an schon gebilligten Stellen) gar kein Bild mehr. Sie gehen mit grünem Bautest auf `main`, und du findest sie beim Spielen, wenn etwas nicht stimmt. Das ist schneller, aber Rückschritte gegen alt sind unsere größte Schwäche (620), und die findest dann wieder du.
-- **C:** alles bleibt am Handy wie heute.
-- **Stärkstes Gegenargument gegen A:** Ein Bild zeigt nur, was wir zeigen wollen. Am Handy findest du, woran keiner gedacht hat (Pim bleibt stehen, Höhle nicht begehbar). Entkräftet so: Jeder Bau hat trotzdem einen Handyweg durch sein Thema, auf dem du frei spielst. Technisches Versagen fängt der Bautest, der den Ort durchspielt (`hoehle_492`). Was sich bewegt, kommt als Film, nicht als Standbild.
+- **A:** Jeder Vorgang bekommt eine von drei Arten. Handy: Ablauf, Bedienung, Gefühl, Klang. Bild oder Film: alles Aussehen. Ohne dich: Regeln und Technik, die ein Bautest prüft. Für 282 wären das 5 Handyfragen und 15 Bilder statt 21 Fragen gewesen.
+- **B (Empfehlung):** wie A, aber mit drei Unterschieden. Ein Bild gibt es nur für Neues und für Vorentscheide, die du billigen sollst. Kleinigkeiten und Nachbesserungen bekommen weder Frage noch Bild. Am Handy bekommst du statt Fragen einen Weg: welche Stationen der Build berührt, und dort spielst du frei. Was du in einem Build nicht bemängelst, gilt als getestet. Für 282 wären das etwa 6 Bilder und ein Weg über 5 Stationen gewesen.
+- **C:** wie heute.
 
-**Folgerungen:** Bei A: ich trage es beim Besitzer ein. Perikles setzt die Regel (ersetzt in `CLAUDE.md` Feste Regeln „kein Code auf main ohne Test des Chefs“ durch „ohne Urteil des Chefs am Handy oder am Bild; Regeln und Technik mit grünem Bautest und Diogenes“, 201a.1 geht darin auf) und das Muster der Prüfliste. Tom und Jerry wenden es ab der Prüfliste von 283 an. `startbar.py` zählt ein Bildurteil für die Sperre 620.1 als getestet. Ich lese die erste Prüfliste gegen. Bei B ebenso, ohne Bilder für Nachbesserungen. Bei C bleibt alles, wie es ist.
+**Rundum: Gefahren, was wir nicht haben, was wir in Kauf nehmen (bei B):**
+1. **Rückschritte gegen alt** bleiben länger unbemerkt. Das ist unsere größte Schwäche (620). Was du nicht ansiehst, findest du vielleicht erst zwei Builds später, und dann ist es teurer. Abhilfe: Der Abgleich mit der alten Fassung je Ort bleibt Pflicht des Teams vor der Testbitte. Diogenes zählt, wie viele Funde Rückschritte sind. Steigt die Zahl, zurück zu A.
+2. **Ein Bild zeigt nur, was wir zeigen wollen.** Abhilfe: Die Bilder kommen aus demselben Lauf wie die APK, nie aus einer Probe. Was sich bewegt, kommt als Film.
+3. **Was du nie besuchst, gilt trotzdem als getestet.** Ungeprüftes kommt so auf `main`. Abhilfe: Die Prüfliste nennt den Weg, also welche Stationen der Build berührt (das Testmenü macht das schnell). Wir nehmen es in Kauf: Was du findest, wird ein neuer Vorgang.
+4. **Herausnehmen geht nicht mehr.** Heute fliegt ein durchgefallener Punkt per `git revert` heraus, ohne Prüffragen gibt es nichts herauszunehmen. Ein Fund wird dann ein Rückläufer, der im nächsten Build behoben wird. Ein schwerer Fehler (Absturz, Spielstand kaputt) hält wie heute den ganzen Build auf.
+5. **Bilderflut statt Fragenflut** (du hast „12 Vorlagen“ schon einmal beklagt). Abhilfe: Alle Bilder eines Builds kommen auf eine Seite, höchstens etwa zehn, nur Neues.
+6. **Die Sperre für die Teams löst sich schneller.** Dann wird wieder mehr parallel gebaut, und Funde könnten sich wiederholen (Schwäche 2). Abhilfe: Die Regel „wiederholte Funde vor allem anderen“ (620.1 A) bleibt.
+7. **Was uns fehlt:** Es gibt kein Werkzeug, das die Bilder je Vorgang auf eine Seite legt. Heute baut jedes Team Bildschritte von Hand, dafür braucht es einen allgemeinen Schritt „Bilder je Vorgang“ im Bau. Der Test `pruefliste_1020` und die Commit-Prüfung kennen die neuen Arten noch nicht.
+8. **Was wir gewinnen:** Deine Zeit je Build sinkt von 20 bis 40 Fragen auf etwa 5 bis 10 Bilder und einen Weg. Die Teams warten weniger auf den Test, weil 55 Vorgänge nicht mehr einzeln auf dich warten.
+- **Stärkstes Gegenargument gegen B:** Du bist bisher unser bester Prüfer. Weniger gezielte Fragen heißen weniger gefundene Fehler je Build. Dagegen spricht: Vier von fünf Fragen finden nichts, vier von zehn Funden kommen ohne Frage. Und bei Gefahr 1 ist der Rückweg zu A festgelegt.
+
+**Zu ändern bei B** (Bau Perikles, Werkzeuge Tom):
+- `CLAUDE.md` Feste Regeln: „kein Code auf `main` ohne Test des Chefs“ wird zu „ohne Test des Chefs: frei am Handy, Bild oder Film, Gespräch; nicht Bemängeltes gilt als getestet“. 201a.1 geht darin auf (Regelbilanz).
+- `LISTE-CHECK-BUILD-TEST.md`: Aufbau der Prüfliste (Weg, Bilder für Neues, „Ohne dich“ mit Bautest), Regel 12 (Rückläufer statt Herausnehmen), Regel 13.
+- `ROLLE-ENTWICKLUNG.md` (Testbitte), `DESIGN-ABNAHME.md` (Vorlage nur für Neues).
+- `tools/startbar.py`: Die Sperre 620.1 B zählt nach dem Test eines Builds alle Vorgänge darin als getestet.
+- Test `pruefliste_1020`, Commit-Prüfung, `godot.yml`: ein Schritt „Bilder je Vorgang“.
+
+**Folgerungen:** Bei B: Perikles baut die Regeln, Tom die Werkzeuge. Schon die Prüfliste für 283 schreibt Tom nach B. Ich lese sie gegen, Diogenes zählt ab 283 die Rückschritte. Bei A ebenso, nur mit einem Bild je Vorgang. Bei C bleibt alles, wie es ist.
+
+**Zweite Meinung Perikles:** …
 
 Antwort: …
