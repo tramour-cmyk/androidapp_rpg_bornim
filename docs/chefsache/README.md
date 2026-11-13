@@ -141,13 +141,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1091 | M? | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | startbar |
 | 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | wartet auf Test/Build (gebaut) |
 | 1108 | M | Von Sokrates (Chef 13.11., 09:38, 1108 A): Pim nur einmal heimschicken, Überreden höchsten | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 15616 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 | 1115 | M | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | wartet auf 1114 (startbar) |
 | 1118 | M | Von Sokrates (Chef 13.11., 10:06, Test 282): Zoom nach innen geht zu weit (Bild nur Rocksa | startbar |
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | startbar |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | startbar |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 20960 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
-**Jerry** – offen 130, Muss 117, startbar 5
+**Jerry** – offen 131, Muss 117, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -277,12 +277,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1094 | M | Von Sokrates (Chef 13.11., 07:23, Test 281, zu 1039): Ring bleibt beim Tippen nicht mehr s | wartet auf Test/Build (gebaut) |
 | 1095 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 751): Zeile „<Name> ist dran“ über den Knöp | wartet auf Test/Build (gebaut) |
 | 1096 | M | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld | wartet auf Test/Build (gebaut) |
-| 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Diogenes (greift?) |
+| 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Test t283 (Chef) |
 | 1102 | M | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den | wartet auf Test/Build (gebaut) |
 | 1114 | M | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | wartet auf 1111 (startbar) |
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 17094 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Perikles** – offen 19, Muss 15, startbar 3
+**Perikles** – offen 20, Muss 15, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -304,9 +305,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
 | 1116 | M? | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Rep | startbar |
 | 1117 | M? | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitz | startbar |
-| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | startbar |
+| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | wartet auf Diogenes (greift?) |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 15334 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
-**Diogenes** – offen 13, Muss 10, startbar 5
+**Diogenes** – offen 12, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -317,12 +319,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
 | 905 | M | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Termin 16.11. |
 | 1100.1 | M | Von Sokrates (Chef 13.11., 09:29, 1100 A mit 6): Ford-Lauf nach Perikles' Umbau gegenprüfe | startbar |
-| 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | startbar |
 | 483 | M | Film-Links: jsDelivr liefert aus Zweig „bilder“ nichts mehr (über 50 MB), je Film eine Mar | wartet auf D75 (Dauer) |
 | 1070 | M | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., | startbar |
+| 1121 | M | Von Sokrates (t282, 13.11., 10:44): Commit-Prüfung 774 hält t<N> an, wenn Automatik B eine | startbar |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | startbar |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | wartet auf 1098 (wartet) |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 16272 Bytes (Grenze 15000), Erledigtes streichen | startbar |
 
 **Sokrates** – offen 50, Muss 36, startbar 27
 
