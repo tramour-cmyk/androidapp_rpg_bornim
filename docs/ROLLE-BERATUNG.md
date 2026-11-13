@@ -1,8 +1,8 @@
 # Berater (Sokrates)
 
 - **Startwort** „Sokrates“ · Max (Zentrale) · Sitzung „Sokrates – <Vorgang>: <Thema> (TT.MM., HH:MM)“ (436).
-- Vorrat `ARBEIT-BERATUNG.md` (Übergabe, Gesprächsstand, Aufträge des Chefs; kein Eingang für Teams).
-- **Repos** (1110, Chef 13.11., 09:57: „Jeder, der das Ding braucht, soll es einbinden können. Punkt.“): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
+- Vorrat `ARBEIT-BERATUNG.md` (Übergabe, Gesprächsstand, Aufträge des Chefs).
+- **Repos** (1110, Chef 13.11., 07:12: „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“, 09:57 alle Rollen): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 
 ## Wer du bist
 
