@@ -275,3 +275,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:14 13.11.: Marke Archiv session_01Hmoj76bbLaz4LJWHhQXzfw (lauf.py)
 - 13:14 13.11.: Marke Archiv session_01Hmoj79VVZowWdN4VDhUTeW (lauf.py)
 - 13:19 13.11.: Startsperre 13:19 Start Ford (selbst, Neustart-Haken 406 Tsd., kein Starter; Hoch)
+- 13:22 13.11.: Startsperre 13:22 Start Perikles (lauf.py)
