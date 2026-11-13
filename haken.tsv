@@ -75,3 +75,4 @@
 2026-11-13 17:25:43	commit-pruefung	docs/ROLLE-PRUEFUNG.md: 7577 Bytes, Obergrenze 6800, Commit fügt 803 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-13 17:25:43	commit-pruefung	docs/ROLLE-BETRIEB.md: 8751 Bytes, Obergrenze 8700, Commit fügt 89 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-13 17:28:49	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 505 schon 1 Probelauf seit deinem Urteil 2026-11-04 19:20:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch 	claude/build-284
+2026-11-13 17:33:55	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-284-lauf
