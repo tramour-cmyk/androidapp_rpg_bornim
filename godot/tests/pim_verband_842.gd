@@ -112,13 +112,24 @@ func _lauf() -> void:
 	w.setze(Geschichte.PIM_HEIM)
 	var p1: Array = pim.plan_jetzt()
 	pruefe(not bool(p1[4]) and Vector2i(int(p1[1]), int(p1[2])) == Vector2i(17, 24) and dorf.begehbar(Vector2i(17, 24)), "heimgeschickt: tagsüber bei der Hütte %s" % [p1])
+	# 1086 (Chef 13.11., 10:22, t282.9: „er rennt heim. Fakt ist, er steht ja bei mir“): gleich nach dem Heimschicken rennt er dorthin,
+	# schneller als der rennende Held, wendet sich nicht mehr zu; angekommen ist es vorbei
+	pruefe(pim.eilt and not pim.schaut, "heimgeschickt: Pim rennt heim")
+	pruefe(pim.laufe_soll() > dorf.laufen, "rennt schneller als der Held: %.2f > %.2f m/s" % [pim.laufe_soll(), dorf.laufen])
+	pim.zugewandt_bis = Time.get_ticks_msec() + 9000; Leute.still = false; pim.warte = 99.0; pim.stehen(0.016)
+	pruefe(pim.zugewandt_bis == 0, "nach dem Gespräch wendet er sich nicht mehr zu")
+	var eltern := Node3D.new(); eltern.add_child(pim)   # frei_fuer_mich sieht die anderen Leute der Karte
+	pim.kachel = Vector2i(17, 23); pim.tagesplan()
+	pruefe(not pim.eilt, "bei der Hütte angekommen: rennt nicht mehr")
+	pim.plan_jetzt()
+	pruefe(not pim.eilt, "rennt danach nicht jeden Tag neu los")
 	w.tag = 9; w.minuten = 17 * 60 + 30
 	pruefe(Vector2i(int(pim.plan_jetzt()[1]), int(pim.plan_jetzt()[2])) == Vector2i(17, 24), "Tage später, nachmittags: noch bei der Hütte %s" % [pim.plan_jetzt()])
 	w.minuten = 22 * 60
 	pruefe(bool(pim.plan_jetzt()[4]), "nachts drinnen wie sonst")
 	w.minuten = 10 * 60; w.setze("chapter1_done")
 	pruefe(Vector2i(int(pim.plan_jetzt()[1]), int(pim.plan_jetzt()[2])) == Vector2i(15, 14), "nach Kapitel 1 wie vorher")
-	pim.free(); h3.free()
+	eltern.free(); h3.free()
 	Leute.uhr = Callable(); Leute.daheim = Callable()
 
 	# die Mutter dankt einmal, nur am Tag, statt [504.tuer.pim]
