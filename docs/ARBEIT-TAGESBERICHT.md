@@ -57,7 +57,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Wo du Prioritäten setzen kannst (13.11., 08:10)
 
 1. Build 281: getestet und freigegeben (09:09, 09:12; Archiv t281).
-2. **Build 282 testen** ([t282](chefsache/ansehen/t282-dorf.md), 22 Zeilen, Testbitte seit 08:04): er bringt zum ersten Mal die Blutzahnhöhle (2.14), dazu Hauptmenü, Kartenrand und Frauen; danach ist Tom mit 6 ungetesteten Muss fast frei.
+2. **Build 282 testen** (t282, Prüfliste in Git, 22 Zeilen, Testbitte seit 08:04): er bringt zum ersten Mal die Blutzahnhöhle (2.14), dazu Hauptmenü, Kartenrand und Frauen; danach ist Tom mit 6 ungetesteten Muss fast frei.
 3. **Bild der Nutzung schicken** (Woche in Prozent; zuletzt 48 % am 12.11., 16:42; Zurücksetzung Sa 14.11., 19:59): gestern 861 $ Rechenwert, davon 80 % fürs Spiel; ohne Bild sehe ich nicht, ob die Woche bis Samstag reicht.
 
 *Stärkstes Gegenargument zu 1:* Build 282 ist schneller durchgetestet, bringt die Höhle und löst Toms Sperre fast ganz. *Wie es zu entkräften ist:* 281 trägt das Wochenziel; außerdem muss 281 vor 282 installiert werden, weil Android nur höhere Versionen über niedrigere installiert.
