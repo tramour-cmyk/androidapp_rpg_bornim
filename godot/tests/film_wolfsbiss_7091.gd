@@ -16,6 +16,8 @@ const BLENDE_BILDER := 6
 const FOLGE := [["FIGHTER", true], ["FIGHTER", false], ["CLERIC", true], ["CLERIC", false], ["WIZARD", true]]
 
 var mess := OS.get_environment("MESS") != ""
+const LUECKE_M := 0.05     # 709.1: so weit vor dem Ziel zählt die Schnauze beim Biss als dran (Abwehr: SCHILD_ABWEHR, der Schildstoß schließt sie)
+const TIEF_M := 0.03       # wie wolf_mess_438 (KOERPER_M)
 var schwarz: ColorRect
 var lb: Label
 var lz: Label
@@ -140,6 +142,12 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 	var n := 0
 	var nah := INF     # Lauf 451: nächste Annäherung der Schnauze an den Helden, sie muss mit dem Biss zusammenfallen
 	var nah_ms := 0
+	# 709.1 (Messlauf 43489820768: der Vorsprung der Schnauze nahm den vordersten Punkt aller Kopfkapseln samt Radius, waagerecht zum
+	# Ursprung des Helden, der Plan die räumliche Lücke von Kopf, Kiefer, Zunge zum Ziel; Grimmzahn: am weitesten vorn 0,25 s nach der
+	# geplanten Berührung): dieselbe Lücke wie der Plan (hieb_plan), zum Schild, wenn der Held mit Schild kämpft, sonst zum Körper
+	var luecke := INF
+	var luecke_ms := 0
+	var luecke_biss := INF
 	# Chef 13.11., 20:13 (t284.7p „sieht man ja nicht im Film“): um den Biss (±0,5 s) läuft der Film auf ZEITLUPE (0,35) verlangsamt;
 	# die Uhr des Skripts zählt Spielzeit (t), nicht Bilder, damit Biss, Messung und Abschnitte gleich bleiben
 	var t := 0.0
@@ -154,6 +162,12 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 		if dn < nah:
 			nah = dn
 			nah_ms = int(t)
+		var lk := _luecke(wolf, held)
+		if lk < luecke:
+			luecke = lk
+			luecke_ms = int(t)
+		if absf(t - ms) <= 17.0:
+			luecke_biss = minf(luecke_biss, lk)
 		if mess and OS.get_environment("KURVE") != "" and n % 3 == 0 and t <= ms + 900:     # 709.1 Messlauf: Verlauf je 0,1 s
 			print("KURVE 7091 %s %s %s: %4d ms Rumpf %.2f m, Schnauze vor dem Rumpf %s, Bewegung %s %.2f s, Tempo %.2f" % [g, klasse,
 					"T" if treffer else "A", int(t), dn + (sv if is_finite(sv) else 0.0), "%.2f" % sv if is_finite(sv) else "keine Kapsel",
@@ -162,9 +176,15 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 		if mess and absf(t - ms) <= 17.0:
 			print("MESS 7091 %s %s %s: Schnauze %s, Biss bei %d ms" % [g, klasse, "Treffer" if treffer else "Abwehr", wolf.position, ms])
 	if mess:
-		print("MESS 7091 %s %s %s: am nächsten %.2f m bei %d ms, Biss bei %d ms, Versatz %d ms%s" % [g, klasse, "Treffer" if treffer else "Abwehr",
-				nah, nah_ms, ms, nah_ms - ms, "" if absi(nah_ms - ms) <= 250 else " FALSCH"])
-		if absi(nah_ms - ms) > 250:
+		print("MESS 7091 %s %s %s: am nächsten %.2f m bei %d ms, Biss bei %d ms, Versatz %d ms (nur Auskunft)" % [g, klasse, "Treffer" if treffer else "Abwehr",
+				nah, nah_ms, ms, nah_ms - ms])
+		# Berührung: beim Biss höchstens LUECKE_M vor dem Ziel, nie tiefer als TIEF_M darin, die kleinste Lücke höchstens 250 ms neben dem Biss
+		# (ohne Schild weicht der Held aus, der Biss geht mit Absicht VERFEHLT_M daneben: nur die Tiefe zählt)
+		var gut: bool = luecke >= -TIEF_M and (not treffer and not held.blockt() or luecke_biss <= LUECKE_M and absi(luecke_ms - ms) <= 250)
+		print("MESS3D 7091 %s %s %s (%s): Lücke beim Biss %.3f m, kleinste %.3f m bei %d ms, Biss bei %d ms, Versatz %d ms%s" % [g, klasse,
+				"Treffer" if treffer else "Abwehr", "Schild" if held.blockt() else "Körper", luecke_biss, luecke, luecke_ms, ms, luecke_ms - ms,
+				"" if gut else " FALSCH"])
+		if not gut:
 			fehler += 1
 	Engine.time_scale = 1.0
 	await _blende(1.0)
@@ -172,3 +192,25 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 	p.queue_free()
 	await process_frame
 	await process_frame
+
+
+## 709.1: kleinste räumliche Lücke (m, < 0: darin) von Kopf, Kiefer, Zunge des Wolfs (Figur.BISS_TEILE) zum Schild des Helden, wenn
+## er mit Schild kämpft (Figur.schild_kapseln), sonst zu seinem Körper (Figur.koerper), wie Figur.hieb_plan sie misst
+func _luecke(wolf, held) -> float:
+	var ziel: Array = held.schild_kapseln() if held.blockt() else held.koerper()
+	if ziel.is_empty():
+		ziel = held.koerper()
+	var best := INF
+	for c in wolf.kapseln():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		var kopf := false
+		for w in wolf.BISS_TEILE:
+			if nm.contains(w):
+				kopf = true
+				break
+		if not kopf:
+			continue
+		for z in ziel:
+			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(c[0], c[1], z[0], z[1])
+			best = minf(best, pq[0].distance_to(pq[1]) - float(c[2]) - float(z[2]))
+	return best

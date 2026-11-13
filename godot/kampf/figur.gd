@@ -2449,11 +2449,17 @@ func _bite(other, leap: bool, weiter := 0.0, treffer := true) -> int:
 ## 709.1 (709c A, Chef 11.11., 07:56): Wolf und Grimmzahn gegen einen Helden mit Schild kommen gerade von vorn und beißen in die
 ## Unterkante des Schilds; trifft der Biss, zerren sie zweimal daran (der Held taumelt, kampfort.gd), hält der Schild, stößt der Held
 ## sie weg und sie prallen zurück. Ohne Schild beißen sie von vorn (höchstens 20° versetzt) in Unterarm oder Oberschenkel
-const ZERR_WEG := 0.09      # m (mal Größe): so weit reißt der Wolf je Zerren den Kopf zurück
-const ZERR_T := 0.11        # s je Ruck zurück (wieder vor: 1,4-mal so lang)
-const PRALL_WEG := 0.28     # m (mal Größe): so weit prallt er vom Schildstoß zurück
-const PRALL_T := 0.16
-const SCHILD_TIEF := 0.02   # so tief fassen die Zähne in den Schildrand
+# 709.1 (Messlauf 43489820768, wolf_mess_438 „Gleiten Biss 2,98 m“: Zerren 0,09 m in 0,11 s und Prall 0,28 m in 0,16 s schoben den
+# Rumpf ohne Schritte, bis 0,14 m je Bild): Zerren nur so weit und so langsam, dass die Pfoten stehen bleiben (unter GLEIT 1,2 cm je
+# Bild), beide mal Größe; der Prall ist kein Schieben mehr, sondern das Absetzen mit Schritten gleich nach dem Schildstoß
+const ZERR_WEG := 0.03      # m (mal Größe): so weit reißt der Wolf je Zerren den Kopf zurück
+const ZERR_T := 0.14        # s (mal Größe) je Ruck zurück (wieder vor: 1,4-mal so lang)
+const PRALL_HALT := 0.12    # s: so lange bleiben die Zähne nach dem Schildstoß am Schild, dann setzt er rückwärts ab
+# 709.1 (wolf_mess_438: bei der Parade SS_ParryLeft, ParryHigh1, ParryHigh2 fuhr der Schild 0,055–0,096 m über die Ruhelage vor,
+# Kiefer und Kopf 0,075–0,116 m im Schild; SS_IdleCombat beim Treffer 0,032): beim Treffer fassen die Zähne SCHILD_TIEF in den
+# Schildrand, wird abgewehrt, enden sie SCHILD_ABWEHR davor und der Schildstoß schließt die Lücke
+const SCHILD_TIEF := 0.01
+const SCHILD_ABWEHR := 0.07
 func _bite_plan(other, leap: bool, weiter: float, t_warte: float, treffer := true) -> int:
 	var bleib717 := _bleib_717()
 	var wolf_art: bool = fighter.monster != null and Mars.wolfig(fighter.monster) and other.fighter.monster == null
@@ -2503,7 +2509,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float, treffer := tru
 			var winkel: Array = [0.0] if schild_biss else ([0.0, 20.0, -20.0] if wolf_art else [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0])
 			for w in winkel:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -SCHILD_TIEF if schild_biss else -BISS_TIEF, BISS_LUFT, hind)
+				var pl: Array = hieb_plan(bb, ziel, other.position, d2, ((-SCHILD_TIEF if treffer else SCHILD_ABWEHR) if schild_biss else -BISS_TIEF), BISS_LUFT, hind)
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
 				if pl[2] <= 0.0:
@@ -2689,20 +2695,22 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float, treffer := tru
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
 	tween.tween_callback(func(): _play(nm, 0.08))
 	var ende := start + dir * jump
+	var t_biss := bl     # so lange dauert der Biss bis zum Absetzen
 	if nm == "Sprungbiss":
 		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
 	elif schild_biss and biss_von != Vector3.INF:
 		var t0: float = clampf(biss_t, 0.0, bl)
 		tween.tween_interval(t0)
 		if treffer:     # 709.1: die Zähne im Schildrand, zweimal ruckartig zurück gezerrt
+			var zt: float = ZERR_T * _scale()
 			for i in 2:
-				tween.tween_property(self, "position", start - dir * ZERR_WEG * _scale(), ZERR_T).set_trans(Tween.TRANS_SINE)
-				tween.tween_property(self, "position", start, ZERR_T * 1.4).set_trans(Tween.TRANS_SINE)
-			tween.tween_interval(maxf(0.0, bl - t0 - ZERR_T * 4.8))
-		else:     # 709.1: der Schildstoß des Helden wirft ihn zurück
-			ende = start - dir * PRALL_WEG * _scale()
-			tween.tween_property(self, "position", ende, PRALL_T).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-			tween.tween_interval(maxf(0.0, bl - t0 - PRALL_T))
+				tween.tween_property(self, "position", start - dir * ZERR_WEG * _scale(), zt).set_trans(Tween.TRANS_SINE)
+				tween.tween_property(self, "position", start, zt * 1.4).set_trans(Tween.TRANS_SINE)
+			tween.tween_interval(maxf(0.0, bl - t0 - zt * 4.8))
+			t_biss = maxf(bl, t0 + zt * 4.8)
+		else:     # 709.1: nach dem Schildstoß des Helden setzt er gleich rückwärts ab (unten), ohne zu gleiten
+			t_biss = minf(bl, t0 + PRALL_HALT)
+			tween.tween_interval(t_biss - t0)
 	else:
 		tween.tween_interval(bl)
 	var t_back := 0.0
@@ -2747,7 +2755,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float, treffer := tru
 		# kennen den Platz, an dem er abgesetzt stehen wird
 		bahn = bahn.slice(0, bahn.size() - 1) + [ende] if not bahn.is_empty() else [start, ende]     # statt heim: der Platz des Absetzens
 		tween.tween_callback(func(): gang = ""; bahn = []; _turn_home())
-		busy_ms = int((t_run + bl + t_back + 0.3) * 1000.0)
+		busy_ms = int((t_run + t_biss + t_back + 0.3) * 1000.0)
 		anlauf_ms = int(t_run * 1000.0)
 		return int((t_run + biss_t) * 1000.0 / 0.42)
 	tween.tween_callback(func(): gang = "heim"; _walk_home(other))
@@ -2760,7 +2768,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float, treffer := tru
 		t_heim = heim / (_mps("Gehen") * RUECK_TEMPO) + RAMPE_S + 40.0 / _turn_dps()
 	else:
 		t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / _turn_dps()
-	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
+	busy_ms = int((t_run + t_biss + t_back + t_heim) * 1000.0)
 	anlauf_ms = int(t_run * 1000.0)
 	return int((t_run + biss_t) * 1000.0 / 0.42)
 
