@@ -1895,29 +1895,34 @@ class Regler extends VBoxContainer:
 		linie.draw_rect(r, Stil.BRIGHT, false, 1.5 * dp)
 
 # ---------------------------------------------------------------- Chronik (ChronicleTab)
+# 860 (Chef 10.11., 13:07, t274.10 „Ja“; 549a „Listen als Zeilen zwischen schlichten Linien, keine Kästen um Zeilen“): ein Eintrag der
+# Chronik zwischen zwei schlichten Linien; folgt einer dem anderen, teilen sie sich die Linie
 func kaestchen(zeilen: Array) -> void:
+	var n := inhalt.get_child_count()
+	if n == 0 or not inhalt.get_child(n - 1).has_meta("linie"):
+		inhalt.add_child(Spielstaende.linie())
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 0)
 	for c in zeilen: v.add_child(c)
-	var p := PanelContainer.new()
-	var st := Stil.kasten(Color.BLACK, Stil.RIM, 1.0)
-	st.content_margin_left = 12 * DP; st.content_margin_right = 12 * DP; st.content_margin_top = 8 * DP; st.content_margin_bottom = 8 * DP
-	p.add_theme_stylebox_override("panel", st)
-	p.add_child(v)
-	inhalt.add_child(p)
+	var m := MarginContainer.new()
+	m.add_theme_constant_override("margin_top", int(8 * DP))
+	m.add_theme_constant_override("margin_bottom", int(8 * DP))
+	m.add_child(v)
+	inhalt.add_child(m)
+	var l := Spielstaende.linie()
+	l.set_meta("linie", true)
+	inhalt.add_child(l)
 
 # 528 (ChronicleTab.kt 100): „Auf der Karte“, nur wo die Karte ein Zeichen des Auftraggebers hat; oeffnet die Karte auf ihm
 func auf_der_karte(wer: String) -> Array:
 	if not Kartenreiter.hat_geber(z, wer): return []
-	var b := Stil.knopf("Auf der Karte" if de_() else "On the map", func():
+	# 860 (549a „Wahlen in einer Listenzeile stehen rechtsbündig in der Zeile, Schrift wie Knöpfe“): ohne Kasten, „AUF DER KARTE ›“
+	var b := Spielstaende.knopf("neben", "Auf der Karte" if de_() else "On the map", func():
 		Kartenreiter.fokus_wer = wer
 		karte_direkt = false
 		reiter = "karte"; baue())
 	b.name = "AufDerKarte"
-	b.custom_minimum_size = Vector2(0, 32 * DP)
-	b.add_theme_font_size_override("font_size", int(round(13 * Stil.SP)))
-	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	b.clip_text = false   # 503: mit clip_text und SHRINK 0 breit
+	b.size_flags_horizontal = Control.SIZE_SHRINK_END
 	return [b]
 
 func chronik() -> void:
@@ -1925,8 +1930,8 @@ func chronik() -> void:
 	Chronik.gelesen(z)
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(6 * DP))
-	r.add_child(Stil.knopf("Aufträge" if de else "Quests", func(): bisher = false; baue(), not bisher))
-	r.add_child(Stil.knopf("Bisher geschehen" if de else "Story so far", func(): bisher = true; baue(), bisher))
+	r.add_child(Spielstaende.wahl("Aufträge" if de else "Quests", func(): bisher = false; baue(), not bisher))   # 860: ohne Kasten
+	r.add_child(Spielstaende.wahl("Bisher geschehen" if de else "Story so far", func(): bisher = true; baue(), bisher))
 	inhalt.add_child(r)
 	luecke(10)
 	if bisher:
@@ -1938,21 +1943,14 @@ func chronik() -> void:
 		# 68: die Morgenandacht am Ende von Kapitel 1 kann man wieder ansehen, sobald das Kapitel vorbei ist (ChronicleTab onTemple)
 		if Zwischenbild.da() and z.has(Geschichte.CHAPTER1_DONE):
 			luecke(12)
-			var t := Stil.knopf("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit())
-			t.custom_minimum_size.y = 36 * DP
-			t.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
-			inhalt.add_child(t)
+			inhalt.add_child(Spielstaende.zeile_mit_pfeil("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit(), Stil.GOLD))   # 860
 		# 69d: die Ankunft bei Nacht gehoert vor den ersten Eintrag; man kann sie wieder ansehen (ChronicleTab onIntro)
 		if Zwischenbild.da():
 			luecke(12)
-			var b := Stil.knopf("Die Ankunft ansehen" if de else "Watch the arrival", func(): ankunft.emit())
-			b.custom_minimum_size.y = 36 * DP
-			b.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
-			inhalt.add_child(b)
+			inhalt.add_child(Spielstaende.zeile_mit_pfeil("Die Ankunft ansehen" if de else "Watch the arrival", func(): ankunft.emit(), Stil.GOLD))   # 860
 		return
 	kaestchen([Stil.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Stil.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT, true)])   # 584: ChronicleTab.kt 72, 78, 92 halbfett
 	for t in Chronik.offen(z):
-		luecke(8)
 		kaestchen([Stil.txt(Sprache.t(t["titel"]), 16, Stil.TEXT, true), Stil.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
 	# 399.1 Nebenauftraege vom Anschlagbrett (ChronicleTab): Titel, von wem, Aushang, Stand oder „Bereit zur Abgabe“, Lohn
 	var getragen := Auftraege.getragen(z)
@@ -1960,7 +1958,6 @@ func chronik() -> void:
 		luecke(12)
 		zeile("Nebenaufträge" if de else "Side quests", 15, Stil.GOLD)
 	for j in getragen:
-		luecke(8)
 		var hat := Auftraege.stand(z, j)
 		var bereit := hat >= int(j["anzahl"])
 		var wer := Sprache.t(j["geber_name"])
@@ -1973,7 +1970,10 @@ func chronik() -> void:
 	var fertig_j := Auftraege.alle().filter(func(j): return Auftraege.erledigt(z, j))
 	if not fertig.is_empty() or not fertig_j.is_empty():
 		luecke(12)
-		inhalt.add_child(Stil.knopf(("Erledigt (%d)" if de else "Done (%d)") % (fertig.size() + fertig_j.size()) + (" ▴" if erledigt_auf else " ▾"), func(): erledigt_auf = not erledigt_auf; baue()))
+		# 860: aufklappbare Zeile ohne Kasten, „›“ nach unten gedreht, wenn offen
+		var ez := Spielstaende.zeile_mit_pfeil(("Erledigt (%d)" if de else "Done (%d)") % (fertig.size() + fertig_j.size()), func(): erledigt_auf = not erledigt_auf; baue(), Stil.GOLD)
+		if erledigt_auf: (ez.get_child(0).get_child(1) as Control).rotation = PI / 2
+		inhalt.add_child(ez)
 		if erledigt_auf:
 			for t in fertig: zeile("✓ " + Sprache.t(t["titel"]), 14, Stil.DIM)
 			for j in fertig_j: zeile("✓ " + Sprache.t(j["titel"]) + " · " + Sprache.t(j["geber_name"]), 14, Stil.DIM)

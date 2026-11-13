@@ -111,8 +111,8 @@ func baue() -> void:
 		add_child(reihe)
 		for g in [["QUESTS", "auftraege"], ["PEOPLE", "leute"], ["SERVICES", "dienste"]]:
 			var gruppe: String = g[0]
-			var s := Stil.knopf(wort(g[1]), func(): schalter[gruppe] = not schalter[gruppe]; baue(), schalter[gruppe])
-			s.custom_minimum_size = Vector2(0, 34 * DP)
+			# 860 (Chef 10.11., 13:07, t274.10; 549a): Filter ohne Kasten, an hell auf RAISED, aus gedämpftes Gold
+			var s := Spielstaende.wahl(wort(g[1]), func(): schalter[gruppe] = not schalter[gruppe]; baue(), schalter[gruppe], 40.0)
 			reihe.add_child(s)
 	var rahmen := Control.new()
 	rahmen.size_flags_vertical = Control.SIZE_EXPAND_FILL
