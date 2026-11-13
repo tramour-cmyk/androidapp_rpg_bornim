@@ -1,5 +1,7 @@
 # 1120 · Knöpfe im Gespräch: Beschriftung rechtsbündig am Pfeil · Team Tom · 13.11., 17:03
 
+[Bild von 13.11., 17:04](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-1704-1120-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt
 
 Geprüft an: [Commit c0f835c04](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c0f835c04) (Zweig `claude/tom-1120-rechts`, Bild am Rechner mit `tests/knoepfe_bild_1120.gd`), gemischt in `claude/build-284`
