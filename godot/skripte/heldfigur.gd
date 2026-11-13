@@ -897,8 +897,11 @@ static func person_modell(id: String) -> String:
 	return mo
 
 # 1044: Personen mit Damenstand (Haltung.dame); Lyra (Vorentscheid Sokrates 13.11., 00:09), nach „Lyra passt“ (02:30) alle Frauen
-# ausserhalb des Kampfs aus leute.json (sex w): die Heldin nicht
-const DAMEN := ["lyra", "liska", "gwenna", "rowena", "thessa", "morwen"]
+# ausserhalb des Kampfs aus leute.json (sex w): die Heldin nicht. Rowena nicht (Sokrates 03:34 „Rowena passt nicht … greift es nicht,
+# behaelt Rowena ihre alte Haltung“): kraeftig mit Bauch, die Unterarme und Ellbogen gehen beim Zusammenlegen der Haende durch Bauch
+# und Kittel, der dunkle Stoff sticht durch die Aermel; am Rechner mit Haenden weiter vorn und Rock ohne Handgewichte nachgestellt,
+# es blieb (Probebilder 03:46, 03:52)
+const DAMEN := ["lyra", "liska", "gwenna", "thessa", "morwen"]
 
 static func person(id: String, mats: Array) -> Node3D:
 	var mo := person_modell(id)
