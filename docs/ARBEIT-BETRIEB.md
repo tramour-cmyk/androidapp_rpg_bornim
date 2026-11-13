@@ -366,3 +366,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:40 13.11.: Marke Abgleich Vorentscheid 1085 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
 - 09:40 13.11.: Marke Start-fehlt Diogenes 13.11.-08:51 (lauf.py)
 - 09:40 13.11.: Marke Archiv session_01Hmoj75T84v7wSUd4hP2WrG (lauf.py)
+- 10:04 13.11.: Startsperre 10:04 Start Tuffy (lauf.py)
+- 10:04 13.11.: Marke Start-fehlt Homer 13.11.-09:41 (lauf.py)
+- 10:04 13.11.: Marke Start-fehlt Spike 13.11.-09:40 (lauf.py)
+- 10:04 13.11.: Marke Start-fehlt Tuffy 13.11.-09:40 (lauf.py)
