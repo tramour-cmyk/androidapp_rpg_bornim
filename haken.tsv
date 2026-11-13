@@ -168,3 +168,4 @@
 2026-11-14 00:24:45	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30222 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-14 00:41:19	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30330 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-14 00:53:06	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1092.md: fehlt fertiger Text statt „folg	claude/spike-1092-falten
+2026-11-14 00:53:14	commit-pruefung	docs/chefsache/entscheiden/1092.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
