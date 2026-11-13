@@ -25,7 +25,7 @@ Geprüft an: [Lauf 43318704869](https://github.com/tramour-cmyk/androidapp_rpg_b
 
 **Folgerungen:** ein Bildlauf frei (Archiv „1044, Läufe frei“); das Bild geht nachts an Sokrates, sonst an dich. Erst nach „passt“ für alle Frauen.
 
-**Umgesetzt:** noch nichts.
+**Umgesetzt:** Lyra (Lauf 411, Bild Tom 13.11., 02:19; `ansehen/1044-damenstand.md` und Bild `bilder/1044-damenstand.jpg`, in Git): Füße 0,5 statt 2,6 Hüftbreiten, Gewicht rechts, Hände vorn übereinander; Knieflecken weg. **Sokrates 02:30: passt.** Alle Damen (Liska, Gwenna, Rowena, Thessa, Morwen) bekommen die Haltung, ein Bildlauf aller fünf nah, dann nächster Build. Die Heldin nicht (du sagtest „die Damen“; sie kann Wachsoldatin sein). Ein kleiner dunkler Fleck zwischen den Schienbeinen bleibt: die Beine stoßen durch das Rockmodell, auch bei geschlossenen Füßen; eigener Vorgang 1090 (Tom).
 
 **Rückbau:** sagst du „zurück“, wählst du eine Nummer aus dem Bild der Sichtung.
 
