@@ -127,6 +127,13 @@ func rand_oben() -> float:
 	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
 
 
+## 946 (Chef 11.11., 13:29, Bild t276: „! Anspringen“ des dritten Wolfs unter der Zugleiste, nur „!ger“ sichtbar): höchste Lage
+## für Ansagen und Zustände, 4 dp unter der Zugleiste (_draw_turns: Rand oben und Schriftgröße des Handys); vorher fest 34 dp,
+## mit Rand 110 und Schrift 1,3 lag die Leiste bis 198 px, die Ansage bei 185 (ansage_946)
+func oben_frei() -> float:
+	return 6 * dp + rand_oben() + sp(13) * 1.35 + 4 * dp + 4 * dp
+
+
 ## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp. 544 (Chef 04.11., 16:58: „relativ klein,
 ## aber die Schriftart müsste passen“): wie alt und wie die übrigen Schirme seit 498 mit der Schriftgröße des Handys (Compose sp =
 ## dp × fontScale; Stil.schriftfaktor), der Kampf rechnete fest mit 1
@@ -2269,7 +2276,7 @@ func _draw_statuses(sr: Rect2) -> void:
 			spots.push_front(Vector2(sg.get_center().x - width / 2, sg.end.y + gap if under else sg.position.y - gap - h))
 		# Prüfer Runde 3: ging nichts davon, fiel es auf die Lage unter den Füßen zurück; dann höher über den Kopf, bis frei
 		var row := Rect2(clampf(x, 4 * dp, sr.size.x - width - 4 * dp), spots[3].y, width, h)
-		while _status_clash(row, id) and row.position.y - 26 * dp >= 34 * dp:
+		while _status_clash(row, id) and row.position.y - 26 * dp >= oben_frei():
 			row.position.y -= 26 * dp
 		for q in spots:
 			var r := Rect2(clampf(q.x, 4 * dp, sr.size.x - width - 4 * dp), q.y, width, h)
@@ -2394,6 +2401,7 @@ func _draw_intents(sr: Rect2) -> void:
 			bodies[id] = Rect2(of.x - half, of.y - ot - 12 * dp, half * 2.0, ot + 12 * dp)
 	var placed := []
 	var step := 26 * dp
+	var oben := oben_frei()
 	for s in signs:
 		# Prüfstufe: 2 frei von fremden Körpern samt Strich, 1 nur der Schild frei von Körpern, 0 wie alt (SkirmishScreen layOut):
 		# nur nie auf einer anderen Ansage, einem Namen oder einer Leiste
@@ -2424,7 +2432,7 @@ func _draw_intents(sr: Rect2) -> void:
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
 		var frei := func(q: Vector2, mode: int) -> bool:
-			return q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
+			return q.y >= oben and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
 		# 536 t270.10 (Chef 08.11., 20:54, Foto Wolfsrudel: „Klappt wohl nicht so, oder????“, wiederholt nach t268.20): die Ansagen
 		# hingen seitlich mit langer Linie statt dicht über dem Kopf (Messung ansage_536: mit Namen jede zweite). Wie alt zuerst über
 		# dem eigenen Kopf (über dem Namen), auch wenn dahinter ein anderer steht; deckt sie eine andere Ansage, einen Namen oder eine
@@ -2469,8 +2477,9 @@ func _draw_intents(sr: Rect2) -> void:
 		if not done:
 			# höher über dem eigenen Kopf, bis frei
 			var yy: float = s.y
-			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= 34 * dp:
+			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= oben:
 				yy -= step
+			yy = clampf(yy, oben, maxf(oben, sr.size.y - s.h - 4 * dp))     # 946: nie unter der Zugleiste oder dem Bildrand
 			x = s.x
 			y = yy
 			sign_wahl[s.id] = [-1, 0, yy - s.y]
@@ -2485,7 +2494,7 @@ func _draw_intents(sr: Rect2) -> void:
 				glatt["ansage:" + String(s.id)] = [ziel - fuss, kampfort.clock_ms]
 				break
 		s.x = ziel.x
-		s.y = ziel.y
+		s.y = clampf(ziel.y, oben, maxf(oben, sr.size.y - s.h - 4 * dp))     # 946: auch beim Gleiten nie unter der Zugleiste
 		placed.append(s)
 	sign_rects.clear()
 	sign_of.clear()
