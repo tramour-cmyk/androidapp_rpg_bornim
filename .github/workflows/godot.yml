@@ -1008,7 +1008,7 @@ jobs:
           if [ "${{ github.event.inputs.dorf }}" = "1086" ]; then
             timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
               ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
-              -s res://tests/film_pim_1086.gd > $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log 2>&1 || true
+              -s res://tests/film_pim_1086.gd -- --film=1086 > $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log 2>&1 || true
             grep -E "SCRIPT ERROR|^FILM1086" $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log | cut -c1-300 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/pim1086.mp4 || true
             ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
@@ -1016,7 +1016,7 @@ jobs:
           if [ "${{ github.event.inputs.dorf }}" = "10401" ]; then
             timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
               ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
-              -s res://tests/film_wenden_10401.gd > $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log 2>&1 || true
+              -s res://tests/film_wenden_10401.gd -- --film=10401 > $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log 2>&1 || true
             grep -E "SCRIPT ERROR|^FILM10401" $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log | cut -c1-300 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.mp4 || true
             ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
@@ -1584,7 +1584,7 @@ jobs:
           A=$GITHUB_WORKSPACE/bilder/staub1119; mkdir -p $A
           cd godot
           timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
-            --write-movie $RUNNER_TEMP/staub1119.avi --fixed-fps 30 -s res://tests/film_staub_1119.gd > $A/staub1119.log 2>&1 || true
+            --write-movie $RUNNER_TEMP/staub1119.avi --fixed-fps 30 -s res://tests/film_staub_1119.gd -- --film=1119 > $A/staub1119.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1119|^BEGINN" $A/staub1119.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/staub1119.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $A/staub1119.mp4 || true
           ls -l $A
@@ -1600,7 +1600,7 @@ jobs:
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
           timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
             ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
-            -s res://tests/film_wenden_10401.gd > $B/wenden10401.log 2>&1 || true
+            -s res://tests/film_wenden_10401.gd -- --film=10401 > $B/wenden10401.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM10401" $B/wenden10401.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wenden10401.mp4 || true
           ls -l $B
@@ -1616,7 +1616,7 @@ jobs:
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
           timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
             ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
-            -s res://tests/film_pim_1086.gd > $B/pim1086.log 2>&1 || true
+            -s res://tests/film_pim_1086.gd -- --film=1086 > $B/pim1086.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1086" $B/pim1086.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/pim1086.mp4 || true
           ls -l $B
@@ -1632,7 +1632,7 @@ jobs:
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
-            --write-movie $RUNNER_TEMP/robe1092.avi --fixed-fps 30 -s res://tests/film_robe_1092.gd > $B/robe1092.log 2>&1 || true
+            --write-movie $RUNNER_TEMP/robe1092.avi --fixed-fps 30 -s res://tests/film_robe_1092.gd -- --film=1092 > $B/robe1092.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1092" $B/robe1092.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/robe1092.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/robe1092.mp4 || true
           ls -l $B
@@ -1648,7 +1648,7 @@ jobs:
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
           timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
             ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ketten1144.avi --fixed-fps 30 \
-            -s res://tests/film_ketten_1144.gd > $B/ketten1144.log 2>&1 || true
+            -s res://tests/film_ketten_1144.gd -- --film=1144 > $B/ketten1144.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true
           ls -l $B
