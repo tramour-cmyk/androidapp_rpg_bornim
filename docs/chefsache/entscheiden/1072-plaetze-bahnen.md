@@ -37,4 +37,11 @@ Großbild: Telegram 13.11. 22:42
 
 **Folgerungen:** Bei A baut Jerry die Routine auf einem Zweig von `main`, misst mit `tausch_1041`, `sollbild_784` und `wolf_mess_438`, dann ein Film an dich; danach 760 und 1068. Bei B ändert Jerry nur die Abstände vorn, 1072 bleibt für später offen. Das Bild ist ein Schema: belegt sind Wolfslänge 2,3 m und Luft 0,3 m, die übrigen Maße sind Beispiele.
 
+**Stellungnahme Sokrates (13.11., 23:17):** „1072 A“, mit drei Bedingungen.
+- **Warum A:** B behebt nur den Fund mit dem Wolf und wird beim nächsten großen Gegner wieder fällig; dein Wort vom 12.11. war „wenn wir es einmal machen, dann haben wir es“. Der stärkste Beleg steht im Sachverhalt: Der Umweg verdoppelt die Runde (30,8 s statt 14,6 s). Das ist nicht nur ein Bildfehler, es macht den Kampf langsam.
+- **Bedingung 1, in zwei Schritten mit Messung:** erst Umriss und Plätze (behebt den hinteren Wolf, Messung `sollbild_784`), dann die Bahnen für den Tausch (`tausch_1041`). Nach jedem Schritt ein Lauf, kein Film dazwischen. „2 Arbeitstage“ ist eine Schätzung; 709.1 steht heute schon bei über 70 $. Läuft Schritt 1 über 30 $, meldet Jerry das, bevor Schritt 2 beginnt.
+- **Bedingung 2, auch den engsten Kampfort prüfen:** Das Gegenargument im Votum betrifft nur die Handybreite. Ob die Aufstellung in der Höhle (Krogg) oder an anderen engen Orten noch passt, ist nicht belegt; den Film darum auch dort.
+- **Bedingung 3, Bahnen nicht auf zwei festlegen:** Das Votum nennt zwei gespiegelte Bögen je Tauschart. Dein Wort war „nagel nicht immer alles auf 3 fest … vier oder fünf“, also so viele, wie Platz ist, mindestens zwei.
+- **Antwortvorschlag:** „1072 A mit den drei Bedingungen“.
+
 Antwort: …
