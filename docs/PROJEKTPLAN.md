@@ -19,7 +19,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
 - [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26). · Stand: in Arbeit
-- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. Umzug BRS (870): Held, Kampf, Beute mit Build 277 auf `main`, Laden und Kotlin-Ausstieg in Build 278. · Stand: in Arbeit
+- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. Umzug BRS (870): Held, Kampf, Beute mit Build 277 auf `main`, Laden (870.7) und Kotlin-Ausstieg (870.9) mit Build 280 (12.11.); Behebungen der Kampf-Funde aus t280 in Build 281. · Stand: in Arbeit
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 - [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
@@ -38,7 +38,7 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
 - [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
   - [x] Zum Schlafenden Greif (Schänke) · [x] Thessas Kramladen · [x] Haus des Ältesten · [x] Tempel des Morgenlichts: Haken 720 (Chef 09.11., 14:49)
-  - [ ] **Blutzahnhöhle:** fehlt im Build (492 seit 08.11. wieder in Arbeit; neu nach Signatur)
+  - [ ] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492 passt, Vorentscheid 13.11., 03:33; 505), wartet auf den Test des Chefs
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
   - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
@@ -137,7 +137,7 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-ABGLEICH-AL
 | Reihenfolge | Vorgang | Wer | fertig, wenn |
 |---|---|---|---|
 | 1 | Build 280 auf `main`: 1029 schalter_1024 grün, PR #199 zusammenführen (deine Freigabe 15:55) | Jerry | PR #199 gemischt; an 280 hängen alle neuen Zweige beider Teams |
-| 2 | **Sammelbuild 281** gleich danach (1055): alle fertigen Zweige beider Teams (45 Punkte warten: Tom 14, Jerry 31); Prüfliste als Kampfweg, Kampf zuerst, jede Zeile ohne Vorwissen prüfbar, gegengelesen vor dem Baustart (1020.1) | Jerry stellt zusammen; du testest | dein Test von t281, danach `vorgang.py build 281`; löst die Sperre 620.1 B beider Teams |
+| 2 | **Sammelbuild 281** gleich danach (1055): alle fertigen Zweige beider Teams (45 Punkte warten: Tom 14, Jerry 31); Prüfliste als Kampfweg, Kampf zuerst, jede Zeile ohne Vorwissen prüfbar, gegengelesen vor dem Baustart (1020.1) | Jerry stellt zusammen; du testest | dein Test von t281, danach `vorgang.py build 281`; senkt die Sperre 620.1 B (Stand 13.11.: Jerry 34 → 20, Tom 23 → 20; mit 282 Jerry 17, Tom 6) |
 | 3 | **Der Kampf zeigt, was geschieht** (ein Paket, am Kotlin-Bild gemessen): 1039 Ring lesbar, 1043 Ausweichen sichtbar, 1025 und 1032 Angriff mit Bewegung, 1036 Zustände an Figuren, 1031 Bericht in Farbe; was davon gebaut ist, fährt in 281 | Jerry | dein Probekampf in 281: jede Handlung ist zu sehen |
 | 4 | Drehen mit Schritten: 1040 Grimmzahn, 1040.1 Leute (Wiederholfund t268) | Jerry, Tom | keine Figur dreht sich mehr wie eine Puppe auf der Stelle |
 | 5 | danach Jerry: 1041 Platztausch im selben Takt, 1034 ein Probekampf für alles; Ring öfter (1048, Vorlage bei dir) wird erst nach 1039 gebaut | Jerry | wie in der Zeile |
