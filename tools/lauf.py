@@ -275,6 +275,7 @@ def lauf_laeuft(rolle):
         if not wer and rolle in startbar.ZUSATZ: continue
         try: bis = JETZT.replace(hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0)
         except ValueError: continue
+        if (JETZT - bis).total_seconds() > 12 * 3600: bis += datetime.timedelta(days=1)  # 1151: „bis 00:45“ um 23:04 heißt morgen
         if bis >= JETZT: return m.group(0)
     return None
 
