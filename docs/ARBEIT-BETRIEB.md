@@ -82,4 +82,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:33 13.11.: Startsperre 16:33 Start Spike (Ford, Neustart-Meldung e3a88c1b4, Nachfolger „Spike – 1040.1: Probeläufe 1040.1 und 1086 prüfen, dann 882.1 Render fortsetzen“; Hoch, effort high)
 - 15:54 13.11.: Marke Start-fehlt Perikles 13.11.-15:34 (lauf.py)
 - 16:33 13.11.: Startsperre 16:33 Start Diogenes (lauf.py)
+- 16:42 13.11.: Startsperre 16:42 Start Sokrates (Ford, Neustart-Meldung 03c99286f, Nachfolger „Sokrates – 1137: Vollzug nachhalten (15.11.)“; Hoch, effort high)
 - 16:33 13.11.: Marke Archiv session_01Hmoj78d3xW6CgXNSZfHUY6 (lauf.py)
