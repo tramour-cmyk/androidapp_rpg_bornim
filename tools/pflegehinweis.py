@@ -90,6 +90,12 @@ def setzen_liste(text, rolle, nr, zeile, unten=False):
     return "\n".join(L)
 
 
+def gleich_bis_auf_zahlen(a, b):
+    """1129.1 P2 (a): zwei Pflegezeilen sind gleich, wenn sie sich nur in Mengenangaben unterscheiden („57611 Bytes“, „712 Zeichen“)."""
+    n = lambda z: re.sub(r"\d+(?=\s*(Bytes|Zeichen|KB)\b)", "N", z)
+    return n(a) == n(b)
+
+
 def berechnen(basis, je, tag):
     sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
     spiegel = spiegel_faellig(git("show", f"{basis}:docs/LISTE-ROLLENSPIEGEL.md").stdout)
@@ -107,6 +113,12 @@ def berechnen(basis, je, tag):
             text = text if len(text) <= 200 else text[:197] + " …"
             pflege = startbar.zeile_text(dict(nr="Pflege", titel="von Werkzeug (340.3, %s): %s" % (tag, text.replace("|", "/")), besitzer=besitzer, kl="K",
                                               stand="startbar", warte=[], bereich="B Abläufe"))
+            # 1129.1 P2 (a): ändert sich nur eine Zahl (Bytes, Zeichen) am selben Tag, bleibt die alte Zeile; sonst je Start ein Commit
+            # (309 in 7 Tagen) und dazu je ein Lauf „Chefsache: Übersicht“
+            vorher = next((z for z in alt.split("\n") if z.startswith("| Pflege |") and len(z.split("|")) > 3
+                           and z.split("|")[3].strip() == besitzer), None)
+            if vorher and gleich_bis_auf_zahlen(vorher, pflege):
+                pflege = vorher
         s = spiegel.get(rolle)
         sp = startbar.zeile_text(dict(nr="Spiegel", titel="von Werkzeug (340.3, Rollenspiegel Woche %s): `tools/rollenspiegel.sh %s` zeigt die Fragen; "
                                       "Antwort mit `--antwort` anhängen, committen, pushen" % (s, besitzer), besitzer=besitzer, kl="M", stand="startbar",
