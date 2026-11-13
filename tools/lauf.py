@@ -270,7 +270,7 @@ def lauf_laeuft(rolle):
     Nur mit Datum (ohne Datum blieb eine vergessene Marke bis zu 24 h stehen) und höchstens 12 h voraus; abgelaufen gilt sie nicht.
     Spike und Tuffy teilen den Vorrat des Teams: ohne Namen gilt die Marke für das Team, mit „(Spike)“ nur für ihn."""
     if rolle not in VORRAT: return None
-    for m in re.finditer(r"Lauf läuft bis (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?:\s*\((\w+)\))?", startbar.lesen(VORRAT[rolle])[:4000]):
+    for m in re.finditer(LAUF_MARKE, startbar.lesen(VORRAT[rolle])[:4000]):
         wer = m.group(5)
         if wer and wer != rolle: continue
         if not wer and rolle in startbar.ZUSATZ: continue
@@ -278,6 +278,24 @@ def lauf_laeuft(rolle):
         except ValueError: continue
         if JETZT <= bis <= JETZT + datetime.timedelta(hours=12): return m.group(0)
     return None
+
+# 1161 (D206.1): „Uhr“ nach der Zeit ist erlaubt, sonst galt „(Spike)“ nicht und die Marke traf das Team
+LAUF_MARKE = r"Lauf läuft bis (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?: Uhr)?(?:\s*\((\w+)\))?"
+
+def lauf_marke_falsch(rolle):
+    """1161 (D206.1): Marke, die nicht zählt (ohne Datum, Zeit unlesbar, über 12 h voraus), als Warnung statt still;
+    Zitate der Regel („Lauf läuft bis …“ in Anführungszeichen) zählen nicht als Marke. Abgelaufen schweigt (gilt nach Regel nicht mehr)."""
+    if rolle not in VORRAT or rolle in startbar.ZUSATZ: return []  # Zusatzentwickler teilen den Vorrat des Teams: einmal je Datei
+    kopf, falsch = startbar.lesen(VORRAT[rolle])[:4000], []
+    for a in re.finditer(r"Lauf läuft bis", kopf):
+        if a.start() and kopf[a.start() - 1] in "„\"“": continue
+        m = re.match(LAUF_MARKE, kopf[a.start():])
+        stueck = kopf[a.start():a.start() + 40].split("\n")[0]
+        if not m: falsch.append((stueck, "ohne Datum oder Zeit in der Form TT.MM., HH:MM")); continue
+        try: bis = JETZT.replace(day=int(m.group(1)), month=int(m.group(2)), hour=int(m.group(3)), minute=int(m.group(4)), second=0, microsecond=0)
+        except ValueError: falsch.append((stueck, "Datum oder Zeit unmöglich")); continue
+        if bis > JETZT + datetime.timedelta(hours=12): falsch.append((m.group(0), "über 12 h voraus"))
+    return falsch
 
 def nachfolger(rolle):
     """(Titel, Übergabezeit, Rohtext) aus der Übergabe im Vorrat, sonst (None, None, Grund); Titel None + Grund „bedingt“ lässt die Zeilenregel gelten."""
@@ -659,6 +677,9 @@ def main():
             noch_offen(ausgabe, r, nummern_aus_titel(s.get("title", "")))
             if not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
     for r in START_REIHE:
+        for stueck, grund in lauf_marke_falsch(r):  # 1161: sonst archiviert der Lauf die Sitzung mitten im Hintergrundlauf
+            ausgabe.append("%s Marke „%s“ in %s zählt nicht (%s): Sitzung gilt als fertig; richtig „Lauf läuft bis TT.MM., HH:MM“, höchstens 12 h, "
+                           "bei Spike und Tuffy „(Name)“ dahinter (1148)" % (laut_nachts(), stueck, VORRAT[r], grund))
         if r in ohne_rollen:  # 1148
             ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r, r, ausschluss[r])); continue
         if (lm := lauf_laeuft(r)):  # 1148: Hintergrundlauf in der Sitzung
