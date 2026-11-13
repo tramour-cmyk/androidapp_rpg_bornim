@@ -69,6 +69,8 @@ def lies(text, quelle=''):
             nr = d.get('#', c[0])
             if not re.fullmatch(r'\d+\.\d+', nr):
                 continue
+            if d.get('art', '').strip().lower().startswith('kleinkram'):   # 1171 (1173 A, Chef 13.11., 15:40): nur Bild auf Telegram, nicht im Reiter „Test“
+                continue
             if abschnitt is None:
                 abschnitt = {'titel': '', 'zeilen': []}
                 aus['abschnitte'].append(abschnitt)

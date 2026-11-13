@@ -14,6 +14,9 @@ Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
+# 1171: Link aufs Bild im Zweig bilder (meldung.sh, 450)
+KLEIN_LINK = re.compile(r"\]\((?:\.\./bilder/|bilder:|https://github\.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/|https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/)")
+
 def git(*a):
     return subprocess.run(["git"] + list(a), capture_output=True, text=True).stdout
 
@@ -377,6 +380,14 @@ def main():
                 rf = re.sub(r"(?i)Lizenzen der Engine", "", rf)  # 847 (D128.1): Menüeintrag als Bedienelement ist kein Lizenzlesen
                 if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Passt/Falsch (1033, alt Richtig), der Weg darf über „Lizenzen“ führen
                     stop.append("%s: Prüfzeile verlangt Lizenzlesen (%s); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)" % (p, zl.split("|")[1].strip()))
+    for s, p in dat:  # 1171 (1173 A, Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“): Zeile mit Art Kleinkram nur mit Link aufs Bild
+        if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
+            tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in git("show", ":" + p).splitlines() if zl.startswith("|")]
+            sa = next((r.index("Art") for r in tab if "Art" in r), -1)
+            for r in tab:
+                if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram") and not KLEIN_LINK.search("|".join(r)):
+                    stop.append("%s: Zeile %s Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link "
+                                "„[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkram fragt der Reiter „Test“ nicht ab" % (p, r[0]))
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
         inhalt = git("show", ":" + p)
