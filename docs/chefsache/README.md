@@ -310,7 +310,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1099 | M | Von Tuffy (Chef 13.11., 07:12): jede Sitzung bindet benötigte Repos selbst mit add_repo ei | wartet auf 1103 (startbar) |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf Diogenes (greift?) |
 | 1103 | M | D190.1 von Diogenes (zu 1099): alte Bitte-Regel steht noch (ARBEIT-BETRIEB Zeile 44: Chef | startbar |
-| 1110 | M | Von Sokrates (Chef 13.11., 09:51: „Können das die anderen auch mal so machen wie er?“): Re | startbar |
+| 1110 | M | Von Sokrates (Chef 13.11., 09:51/09:55): Chef-Erlaubnisse wörtlich in die Rollendateien, w | startbar |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 15744 Bytes (Grenze 15000), Erledigtes streichen; Tabellenze | startbar |
 
 **Diogenes** – offen 14, Muss 11, startbar 6
