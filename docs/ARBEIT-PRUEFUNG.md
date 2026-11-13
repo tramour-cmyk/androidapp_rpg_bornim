@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (13.11., 08:09, `session_01Hmoj76kuRwKJXPXMT8pEfs`):** Lauf 189: 1019 Haken greift, Tiefe nicht → 1098 an Perikles, 1019 wartet auf 1098 (Prüfbericht). Rollenspiegel Woche 13.11. schon beantwortet (00:09). Nächste Nummer D190. Nachfolger: keiner
+**Übergabe (13.11., 09:58, `session_01Hmoj783GT8HqsUa9oPkwbz`):** Lauf 192: 1099, 1103, 1110 greifen, D192.1 → 1117 (Perikles). Lauf 191 (1109): Vorlage `entscheiden/1109-vorberechnung.md`, Vorgänge 1111–1116, Telegram 10:06, Prüfbericht; Rollenspiegel 13.11. schon beantwortet. Nächste Nummer D192. Nachfolger: keiner
 - **Zu 1019:** wenn 1098 gebaut: erneut Selbstneustarts gegen `used_tokens` und Tiefe (Elternkette) prüfen.
 - **Zu 1098, von Perikles (13.11., 08:31): ruht, bis der Chef `entscheiden/1098-ford-starter.md` beantwortet (Bremse 194.1); Prüfung erst nach Ja und erstem Starter-Neustart.** Bisher (08:26, `baa7ea568`): Ford-Starter (`LISTE-BETRIEB.md` „Ford-Starter“) legt erst der nächste Handstart-Ford an; prüfen nach dem ersten Neustart über ihn: Starter auf Tiefe 1, neuer Ford auf 2 (Elternkette = Starter), Protokoll „Start Ford (Starter)“, alter Ford archiviert, Uhr übernommen. Gab es bis dahin keinen Handstart: nur melden, nicht bewerten.
 - **Zu 981, 982:** nach 14.11., 20:00 eine echte START-Zeile ohne `effort high` und eine Sitzung ohne Aufwand ansehen; falsch → Vorgang an Perikles.
@@ -17,6 +17,10 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
 
 ## Zeilen
+
+- **Zu 1109, Stand (Lauf 191, 10:0x):** Vorlage `entscheiden/1109-vorberechnung.md` (Votum A, D), Befunde 1111–1116, Prüfbericht Lauf 191. Nach der Antwort: bei A nach dem ersten Lauf mit 1101 prüfen „KAUF-CACHE abgelegt dorf … Teile“ und der nächste Lauf alle vier Blöcke `treffer`; nach der ersten echten Gegenprobe deren Zeile „0 abweichend“. Protokolle der Läufe 384–420 lagen in `/tmp` (nicht aufgehoben); Zahlen im Prüfbericht und in der Vorlage. **Entschieden (Chef 10:56, an Sokrates): „1109 A bis D, in der Reihenfolge“**: A und D sofort (1111–1113 Jerry oben, 1101 im nächsten Build, D = 1122 Tom), dann 1114 nach der ersten gleichen Gegenprobe, 1115 danach, C = 1123 nach 1115 (Archiv). Deine Nachprüfungen wie oben, dazu nach 1114.
+
+- **Zu 1100, von Sokrates (Chef 13.11., 09:29: „1100 A mit 6“):** sobald Perikles den Ford-Lauf umgebaut hat: Kosten und Schritte je Lauf vorher/nachher vergleichen (Grundwert: Ford 4,58 $ von 05:09 bis 09:20, etwa 1,10 $ je Stunde; Läufe 07:04 und 08:04 mit 8 und 14 Schritten) und prüfen, ob ein Start oder eine Warnung verloren ging. **Von Perikles (09:38, Doppelpack 421):** gebaut `70a4467fe` (`lauf.py`: `LEERLAUF`, `STELLUNG`, Zahlzeile „ohne Build“ mit Marke „Abgleich ganz TT.MM.“; `LISTE-BETRIEB.md` „Jeder Lauf“ 1, 3, 4, 12, „Uhr aus ohne Arbeit“ gestrichen, Selbstneustart ohne `get_session`). Ford übernimmt ab dem Lauf 10:03; sinnvoll vergleichen erst nach drei Läufen (frühestens 12:10). Prüfen auch: der erste Lauf nach dem Bau zeigt die 23 Zeilen „ohne Build“ einmal ganz und schreibt die Marke, jeder weitere am selben Tag nur die Zahl.
 
 
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.

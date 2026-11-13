@@ -136,6 +136,8 @@ def _verweise(rel):
         kand.add(m.group(1))
     out = []
     for k in kand:
+        if k.startswith('/') and ('/' + BL + '/') in k:   # 1060: ROOT + '/tools/blender348/v3/leute.json' (raum.py, 758)
+            k = k[k.index(BL):]
         if k.startswith('/') or '..' in k:
             continue
         for b in basis + ['']:
@@ -197,9 +199,13 @@ def _liste_eingaben(block):
     # Zeilen „name hash“: alles, was in die Kennung geht (auch als Datei EINGABEN im Zweig, für den Vergleich in Schritt 7)
     b = BLOECKE[block]
     z = []
-    for p in eingaben(block):
-        z.append('%s %s' % (p, hashlib.sha256(open(os.path.join(REPO, p), 'rb').read()).hexdigest()[:16]))
     st = _schritt(b['schritt'])
+    ein = eingaben(block)
+    for p in ein:
+        if block in NUR_FELDER and os.path.basename(p) == 'leute.json':
+            z.append('%s:felder %s' % (p, _leute_felder_hash(p, ein, (st or {}).get('run', ''))))
+            continue
+        z.append('%s %s' % (p, hashlib.sha256(open(os.path.join(REPO, p), 'rb').read()).hexdigest()[:16]))
     z.append('schritt:%s %s' % (b['schritt'], hashlib.sha256(((st or {}).get('run', 'FEHLT')).encode()).hexdigest()[:16]))
     caches = [json.dumps(s.get('with', {}), sort_keys=True) for s in _schritte() if 'actions/cache' in str(s.get('uses', ''))
               and str(s.get('with', {}).get('path', '')) in ('bl', '~/cc0')]
@@ -214,6 +220,27 @@ def _liste_eingaben(block):
     for vor in b['braucht']:
         z.append('block:%s %s' % (vor, kennung(vor)))
     return z
+
+
+# 1060 (Tom 12.11., 17:35; Chef 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“): klassen und kampf lesen leute.json nur
+# für Gestalt, Kleidung und Bewegung; ein Feld nur fürs Dorf oder für Godot (758 Borin „sitz_cm“, Lauf 43246170504: Held je Klasse
+# und Kampfort neu, 80 statt 50 Minuten) baut sie nicht neu. In die Kennung gehen je Person nur die Felder, deren Name als Wort in
+# einem Skript des Blocks oder im Text seines Schritts steht, dazu alle Personen (auch ohne solches Feld); Felder mit „_“ vorn sind
+# Vermerke. Gilt für jeden Block: figur (held3.py liest die Person) geht in klassen und kampf ein, dorf liest mit 758 sitz_cm (raum.py).
+NUR_FELDER = ('figur', 'dorf', 'klassen', 'kampf')
+
+
+def _leute_felder_hash(rel, ein, run):
+    text = run + '\n'.join(open(os.path.join(REPO, q), encoding='utf-8', errors='replace').read()
+                           for q in ein if q.endswith(('.py', '.sh')))
+    worte = set(re.findall(r'\w+', text))
+    daten = json.load(open(os.path.join(REPO, rel), encoding='utf-8'))
+    aus = {}
+    for pid, f in daten.items():
+        if pid.startswith('_'):
+            continue
+        aus[pid] = {k: v for k, v in f.items() if not k.startswith('_') and k in worte} if isinstance(f, dict) else f
+    return hashlib.sha256(json.dumps(aus, sort_keys=True, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()[:16]
 
 
 _kennungen = {}

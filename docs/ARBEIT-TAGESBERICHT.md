@@ -36,13 +36,14 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 |---|---|---|---|
 | **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | 1.1 und 1.4 abgenommen (720, 09.11., 14:49); 1.2 Fertigkeiten gebaut (471 in t274 bestanden); 1.3 gebaut |
 | **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 17 | in Arbeit; Build 280 seit 12.11. auf `main` (Laden nach BRS, Godot ohne Kotlin); Build 281 (Kampf) und Build 282 (Dorf, Blutzahnhöhle, Hauptmenü) bei dir |
-| **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458); Fertigkeiten ohne Kampf entschieden (807 A); Güte in vier Stufen und Schneidern statt Lederarbeit entschieden (976a, 975a, 11.11.); Proben mit Fertigkeit ohne Grundwert (1051 A) und Verband stillt Blutung (1038 A) entschieden (12.11.); Rest offen |
+| **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458); entschieden: 807 A, 976a, 975a, 1051 A, 1038 A (unten); Rest offen |
 | **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | in Arbeit (unten); 4.8 keine SRD-Namen in Arbeit (870) |
 | **5 marktreif** | Kapitel 1 im Play Store | 1 | Vorlauf: D-U-N-S beantragt, wartet auf die Bearbeitung bis etwa 08.12. (142.4); AAB des Godot-Builds ruht bis „Kampf passt“ (622) |
 | **6 SRD im Code abgelöst** | nach dem Marktstart, für dich unsichtbar | 1 | – |
 
 - **Stufe 1:** 1.2 und 1.3 sind gebaut; der Held nach dem BRS (870.4) ist seit Build 277 auf `main`; abhaken, wenn du beide im Spiel mit diesem Helden gesehen hast.
 - **Stufe 2:** Build 280 hast du freigegeben (12.11., 15:55); seit 20:48 ist er auf `main`, mit Laden nach BRS (870.7) und Godot ganz ohne Kotlin (870.9). Build 281 (Kampf: Zielring, ein Probekampf für alles, fünf Zustände aus dem Paket, Grimmzahn tritt beim Wenden) testest du seit 07:23. Build 282 bringt die Blutzahnhöhle in Fassung B mit Nebel (492, 505; Vorentscheid 13.11., 03:33); hast du sie begangen, ist die Höhle in 2.14 abhakbar. Durchspiel-Build (496) und Kampforte Höhle (507) ruhen bis „Kampf passt“.
+- **Stufe 3:** entschieden sind Fertigkeiten ohne Kampf (807 A), Güte in vier Stufen und Schneidern statt Lederarbeit (976a, 975a, 11.11.), Proben mit Fertigkeit ohne Grundwert (1051 A) und Verband stillt Blutung (1038 A, 12.11.).
 - **Stufe 4:** der Umhang ruht nach deinem Stopp (12.11., 07:10, 862). In Build 282: Kartenrand weich ins Dunkel (1022), vier Helden im Hauptmenü (867), Frauen außer Rowena in ruhiger Standpose (1044), jeder Schenkentisch mit eigenem Gedeck (757), Startbildschirm mit eigenem Zeichen (1035).
 
 ## Wer hinkt (13.11., 08:10)
@@ -55,7 +56,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 ## Wo du Prioritäten setzen kannst (13.11., 08:10)
 
-1. **Build 281 zu Ende testen** ([t281](chefsache/ansehen/t281-kampf.md), 14 Zeilen, seit 07:23 dabei): trägt das Wochenziel „Der Kampf funktioniert“ und senkt Jerrys Sperre von 34 auf 20 ungetestete Muss.
+1. Build 281: getestet und freigegeben (09:09, 09:12; Archiv t281).
 2. **Build 282 testen** ([t282](chefsache/ansehen/t282-dorf.md), 22 Zeilen, Testbitte seit 08:04): er bringt zum ersten Mal die Blutzahnhöhle (2.14), dazu Hauptmenü, Kartenrand und Frauen; danach ist Tom mit 6 ungetesteten Muss fast frei.
 3. **Bild der Nutzung schicken** (Woche in Prozent; zuletzt 48 % am 12.11., 16:42; Zurücksetzung Sa 14.11., 19:59): gestern 861 $ Rechenwert, davon 80 % fürs Spiel; ohne Bild sehe ich nicht, ob die Woche bis Samstag reicht.
 

@@ -15,6 +15,7 @@ uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera w
 uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float weg = 0.0;           // 348.7: Ausblenden des Toten (0 da, 1 weg), als Raster, damit Tiefe und Tusche bleiben
 uniform float schnitt = 0.0;       // 506 Grabhund: Haarkarten (glTF MASK) unter diesem Alpha ausgeschnitten, auch im Schatten
+uniform float glow_tex = 0.0;      // 995 Grabhund: Augen leuchten in ihrer gemalten Farbe (Pupille bleibt schwarz), im Schatten lesbar
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -68,7 +69,7 @@ void fragment() {
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
-	EMISSION = glow_col * glow + COLOR.rgb * (1.0 - COLOR.a) * glut;
+	EMISSION = glow_col * glow + COLOR.rgb * (1.0 - COLOR.a) * glut + t.rgb * glow_tex;
 }
 void light() {
 	float ndl = clamp(dot(NORMAL, LIGHT), 0.0, 1.0);

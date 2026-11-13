@@ -52,6 +52,24 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 192 · 1099, 1103, 1110 Repos und Archivieren in den Rollendateien (Perikles, Doppelpack 421; `cc52ea528`, `e70cb24f3`, `6f970b4a2`; 13.11., 10:08)
+
+- **Greift:** Bitte-Zeile 642 in `ARBEIT-BETRIEB.md` weg; Archiv 1099 und 1110 mit Wortlaut 07:12, 09:55–09:59; Repo-Satz in allen sechs Rollendateien gleich dem Archiv; Ford archiviert ohne Satz nur ARCHIVIERE, nie laufende (Wortlaut 09:59); keine Regel „nur auf Wort/Satz des Chefs“ zu Repos oder Archiv mehr (Rollendateien, `LISTE-*`, `CLAUDE.md`). Beleg 1099: diese von Ford gestartete Sitzung band `bornim-kaufmodelle` um 09:50 ohne Chefwort ein. Gestrichene Dubletten (Uhr-Lehre, drei Homer-Lehren, Beispiel D3.10, „kein Eingang für Teams“ steht weiter in `ARBEIT-BERATUNG.md`) ohne Widerspruch.
+- **Befund:** D192.1 → 1117 (Perikles): Zeile 391 trägt noch Stand „Chefwort in der Sitzung wirkt“.
+- **Nicht geprüft:** Archivieren durch Ford ohne Satz am echten Lauf (nächster ARCHIVIERE).
+
+## Lauf 191 · 1109 Querprüfung Vorberechnung 854 mit 1101 (Chef 13.11., 09:44; `jerry-1101-teile` `f52d5dc23`, `build-282` `1cbb7e575`; 13.11., 09:5x)
+
+- **Greift:** in 24 von 34 Läufen (12.–13.11., Protokolle) trafen klassen und kampf; Lauf mit allen Treffern etwa 49 min, voller Bau 115 min (420). Seit Lauf 387 scheiterte das Ablegen an dorf (deep_forest 122 MB), der alte Code brach ab, klassen und kampf wurden nie mehr abgelegt (409–420 sechsmal neu). 1101 behebt beides; Probe am gemischten Stand `build-282` + 1101: 15 mal gut, ohne Konflikt.
+- **Schlüssel:** alle 36 Skripte der Blöcke gefunden; held3 und rig in `held_klassen.py` nur über `block:figur` gedeckt (Name zusammengesetzt); 60 übrige Dateien unter `tools/blender348` in keinem Block benutzt (nur Wortgleichheit); bpy-, CC0- und Kaufstand in der Kennung.
+- **Befunde:** D191.1 → 1111 (`cache=neu` wirkt nicht, Gegenprobe leer), D191.2 → 1112 (halber Block wird abgelegt und ausgeliefert), D191.3 → 1113 (Kaufrepo 524 MB, wächst ohne Löschen), alle Jerry; Sparvorschläge D191.4 → 1114 (Jerry), D191.5 → 1115 (Tom); Geldwert → 1116 (Perikles).
+- **Nicht geprüft:** ob Blender-Ausgaben Byte für Byte gleich bleiben (ohne Gegenprobe nicht messbar); Laufzeit der Prüfungen (30 min, 909).
+
+## Lauf 190 · 1099 Repos selbst einbinden (Perikles, Doppelpack 421, `c9d1aa05d`; 13.11., 08:5x)
+
+- **D190.1 = 1103 (Perikles), 1099 wartet darauf:** Regel passt zum Wortlaut 07:12 und zu 376.1, 513, 708, 506, 797; aber alte Bitte-Regel in `ARBEIT-BETRIEB.md` Zeile 44 (391) steht noch, Wortlaut 07:12 nicht im Archiv, `add_repo` trotz 797 abgelehnt (Jerry 03:15) und „wartet auf Kaufrepo“ ohne Löser.
+- Nicht geprüft: ob `add_repo` jetzt in einer frisch gestarteten Sitzung ohne Chefwort durchgeht (kein Fall seit 08:12).
+
 ## Lauf 189 · 1019 Ford-Neustart erst ab 400 Tsd., Wirkung (Perikles, `57f798597`; 13.11., 08:0x)
 
 - **Haken greift, Ziel nicht → D189.1 = 1098 (Perikles), 1019 wartet darauf.** Vier Selbstneustarts seit 12.11., 08:12, `used_tokens` des alten Ford: 888.569 · 415.734 · 424.993 · 434.089 (alle über 400 Tsd.). Tiefe über `parent_session_id`: Handstart 12.11., 07:26 (Tiefe 0) → laufender Ford Tiefe 4 nach 22 h (vorher 6 in 21 h); Handstart bleibt etwa täglich.
