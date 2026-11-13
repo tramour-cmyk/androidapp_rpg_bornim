@@ -12,6 +12,29 @@ const DP := AktionsKnopf.DP
 static var _liste = null          # Dictionary, {} wenn keine im Bau
 static var offen := ""            # Nummer der aufgeklappten Zeile
 static var kopf_auf := false
+# 1030 (Chef 12.11., 13:53, Build 280: „muss ich ewig scrollen, das kann ich ja nicht einklappen“): Kopf „Prüfliste · Build n“
+# antippen klappt die Liste ein (nur Kopf und Zähler) und wieder auf; der Zustand bleibt über einen Neustart (user://pruefliste.cfg)
+static var zu = null               # null: noch nicht geladen
+# 1030 („wenn ich jetzt Bildrate schalte, dann bin ich wieder ganz oben“): nur eine gerade aufgeklappte Zeile rollt ins Bild,
+# nicht jede, die beim Neuaufbau des Reiters nach einem Schalter offen steht
+static var _neu_offen := false
+
+static func eingeklappt() -> bool:
+	if zu == null:
+		var c := ConfigFile.new()
+		zu = c.load(ERGEBNIS) == OK and bool(c.get_value("anzeige", "zu", false))
+	return bool(zu)
+
+static func klappe() -> void:
+	zu = not eingeklappt()
+	var c := ConfigFile.new()
+	c.load(ERGEBNIS)
+	c.set_value("anzeige", "zu", zu)
+	c.save(ERGEBNIS)
+
+static func _oeffne(nr: String) -> void:
+	offen = nr
+	_neu_offen = nr != ""
 
 static func liste() -> Dictionary:
 	if _liste == null:
@@ -87,9 +110,14 @@ static func zeige(m: Menue, t: Callable) -> void:
 		m.luecke(8)
 		return
 	var z3 := zaehle()
-	m.gruppe(t.call("Prüfliste · Build %d", "Checklist · build %d") % int(l.get("build", 0)))
+	var auf := not eingeklappt()
+	m.inhalt.add_child(_kopf(m, t.call("Prüfliste · Build %d", "Checklist · build %d") % int(l.get("build", 0)), auf))
+	m.luecke(10)
 	m.zeile(t.call("%d von %d geprüft, %d nicht in Ordnung", "%d of %d checked, %d not right") % [z3[0], z3[2], z3[1]], 15, Stil.TEXT)
 	m.luecke(6)
+	if not auf:
+		m.luecke(4)
+		return
 	var kopf: Array = l.get("kopf", [])
 	if not kopf.is_empty():
 		m.inhalt.add_child(_zeilenknopf(m, t.call("Weg und Bekanntes", "Route and known issues"), "", kopf_auf, func(): kopf_auf = not kopf_auf))
@@ -100,7 +128,7 @@ static func zeige(m: Menue, t: Callable) -> void:
 		Spielstaende.knopf("haupt", t.call("Ergebnis kopieren", "Copy result"), func():
 			DisplayServer.clipboard_set(ergebnis_text())
 			m.meldung(t.call("Ergebnis in der Zwischenablage.", "Result copied.")), true),
-		Spielstaende.knopf("neben", t.call("Nächste", "Next"), func(): m._tue(func(): offen = naechste_offene(offen)))))
+		Spielstaende.knopf("neben", t.call("Nächste", "Next"), func(): m._tue(func(): _oeffne(naechste_offene(offen))))))
 	for a in l.get("abschnitte", []):
 		if String(a.get("titel", "")) != "":
 			m.luecke(8)
@@ -146,20 +174,21 @@ static func _zeile(m: Menue, t: Callable, z: Dictionary) -> void:
 	var auf := offen == nr
 	var wo := String(z.get("wo", ""))
 	var kurz := wo if wo.length() <= 44 or auf else wo.left(42).strip_edges() + " …"
-	m.inhalt.add_child(_zeilenknopf(m, "%s  %s" % [nr, kurz], e, auf, func(): offen = "" if auf else nr))
+	m.inhalt.add_child(_zeilenknopf(m, "%s  %s" % [nr, kurz], e, auf, func(): _oeffne("" if auf else nr)))
 	if not auf: return
 	var kopf := []
 	if String(z.get("team", "")) != "": kopf.append(String(z["team"]))
 	if String(z.get("vorgang", "")) != "": kopf.append(t.call("Vorgang ", "Item ") + String(z["vorgang"]))
 	if not kopf.is_empty(): m.zeile(" · ".join(kopf), 13, Stil.DIM)
-	m.zeile(t.call("Richtig: ", "Right: ") + String(z.get("richtig", "")), 15, Stil.TEXT)
+	# 1030 (Chef 14:20: „Es gibt ja kein richtig, sondern passt“): wie der Knopf
+	m.zeile(t.call("Passt: ", "Right: ") + String(z.get("richtig", "")), 15, Stil.TEXT)
 	m.zeile(t.call("Falsch: ", "Wrong: ") + String(z.get("falsch", "")), 15, Stil.DIM)
 	m.luecke(6)
 	# „Passt“ springt zur nächsten offenen Zeile; „Falsch“ bleibt hier und öffnet das Feld für ein Wort
 	m.inhalt.add_child(Spielstaende.knopfzeile(
 		Spielstaende.knopf("haupt" if e == "✓" else "neben", t.call("Passt", "Right"), func():
 			setze(nr, "✓")
-			m._tue(func(): offen = naechste_offene(nr)), true),
+			m._tue(func(): _oeffne(naechste_offene(nr))), true),
 		Spielstaende.knopf("gefahr", t.call("Falsch", "Wrong"), func():
 			setze(nr, ("✗ " + wort(nr)).strip_edges())
 			m._tue(func(): pass))))
@@ -182,7 +211,26 @@ static func _zeile(m: Menue, t: Callable, z: Dictionary) -> void:
 		m.inhalt.add_child(f)
 	var ende := Stil.luecke(8)
 	m.inhalt.add_child(ende)
-	_ins_bild(m, ende)
+	if _neu_offen:
+		_neu_offen = false
+		_ins_bild(m, ende)
+
+## Kopf der Prüfliste wie m.gruppe (Goldversalien), antippbar über die ganze Breite, rechts „›“ (offen nach unten gedreht)
+static func _kopf(m: Menue, w: String, auf: bool) -> Control:
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", int(8 * DP))
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.custom_minimum_size.y = 40 * DP
+	var a := Stil.txt(w.to_upper(), 14, Stil.GOLD)
+	a.add_theme_font_override("font", Stil.variante(3.0))
+	a.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	a.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	a.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(a)
+	var p := Spielstaende.pfeil(Stil.GOLD, false)
+	p.rotation = PI / 2 if auf else 0.0
+	h.add_child(p)
+	return Spielstaende.tippbar(h, func(): m._tue(klappe))
 
 ## die aufgeklappte Zeile ganz ins Bild rollen (baue() stellt erst die alte Stelle wieder her)
 static func _ins_bild(m: Menue, c: Control) -> void:

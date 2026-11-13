@@ -10,6 +10,7 @@ const Mars = preload("res://regeln/mars.gd")
 const Figur = preload("res://kampf/figur.gd")     # 494: Figur.vier
 const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
+const Zustandsbild = preload("res://kampf/zustandsbild.gd")     # 1036: Zustände an der Figur
 const Tips = preload("res://kampf/marstips.gd")     # 536: Texte für langes Drücken (MarsTips.kt)
 const HINWEIS_REIHE := "kampf_hinweis_reihe"     # 836: Flagge im Spielstand, der Reihenhinweis ist gezeigt
 
@@ -19,6 +20,7 @@ const DIM := Color("#948A78")
 const GOLD := Color("#B59A6A")
 const BRIGHT := Color("#D9BC82")
 const RIM := Color(0.710, 0.604, 0.416, 0.67)
+const RING_LEUCHT := Color("#FFF2C8")     # 1039: der Zielring im Fenster für „Perfekt“
 const LINE := Color("#9A8155")
 const WARN := Color("#D9785A")
 const RAISED := Color("#17140F")
@@ -68,6 +70,9 @@ var bleeding := {}
 ## 348.7 (Rest aus 249): laufende Zauber und Pfeile {kind, by, on, crit, missed, seed, t0}, je Treffer einer (BattleFxLayer)
 var spells: Array = []
 var zauber := Zauber.new()
+## 1036: was die Zustände an den Figuren zeigen (zustandsbild.gd), dazu das Aufflackern je Runde {on, st, seed, t0}
+var zustandsbild := Zustandsbild.new()
+var flares: Array = []
 var tafel     # 348.7a: Pinsel in der 3D-Szene (tafel.gd), beim ersten Zauber
 ## Leistung (Probe-Log „Tafeln“): Ecken und Mikrosekunden des letzten Bilds mit Zaubern
 var tafel_ecken := 0
@@ -88,6 +93,9 @@ func t(de: String, en: String) -> String:
 ## 551: Halbmesser der unteren Bildschirmecken in dp wie alt DeviceInfo.cornerDp() (Display.getRoundedCorner, unten links
 ## und rechts, das größere), über das Plugin AndroidRuntime; ohne Gerät, vor Android 12 oder ohne Antwort 13 dp wie bisher.
 static var ecke := -1.0
+# 1039 (Lauf 383): Uhr für Ring und Würfelzeile; im Spiel die echte Zeit. Im Film (--write-movie, 6 % Echtzeit) setzt der Film eine
+# Uhr nach Bildern, sonst lief der große Ring in 4 Bildern zu und die Würfelzeile stand 0,3 s statt 2,5 s
+var uhr: Callable = Time.get_ticks_msec
 static func ecke_dp(_vp: Viewport) -> float:
 	if ecke >= 0.0:
 		return ecke
@@ -162,7 +170,7 @@ func _ready() -> void:
 	panel.offset_left = m
 	panel.offset_right = -m
 	panel.offset_bottom = -m
-	panel.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 10, 10, 1.0))
+	# 833: Stil des Kastens in _stil_833 (heute Goldrand; A ohne Rahmen)
 	# below the scene the screen is black (SkirmishScreen: the box stands under the scene, not over it)
 	backdrop = ColorRect.new()
 	backdrop.color = Color.BLACK
@@ -174,8 +182,9 @@ func _ready() -> void:
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", int(6 * dp))
 	panel.add_child(col)
+	zier_833 = Spielstaende.zier()     # 833 A: oben die Zierlinie der Schirme statt des Rahmens
+	col.add_child(zier_833)
 	log_box = PanelContainer.new()
-	log_box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, RIM.a * 0.35), 6, 2, 1.0))
 	log_box.custom_minimum_size = Vector2(0, 116 * dp)
 	log_box.mouse_filter = Control.MOUSE_FILTER_STOP
 	log_box.gui_input.connect(func(ev):
@@ -187,13 +196,18 @@ func _ready() -> void:
 	log_area.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	log_area.draw.connect(_draw_log)
 	log_box.add_child(log_area)
+	linie_833.append(Spielstaende.linie())     # 833 A: schlichte Linien zwischen Bericht, Gruppe und Befehlen
+	col.add_child(linie_833[0])
 	party_row = HBoxContainer.new()
 	party_row.add_theme_constant_override("separation", int(8 * dp))
 	col.add_child(party_row)
+	linie_833.append(Spielstaende.linie())
+	col.add_child(linie_833[1])
 	orders = VBoxContainer.new()
 	orders.add_theme_constant_override("separation", int(6 * dp))
 	orders.custom_minimum_size = Vector2(0, 106 * dp)
 	col.add_child(orders)
+	_stil_833()
 	tip = Label.new()
 	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	tip.visible = false
@@ -216,7 +230,9 @@ func _ready() -> void:
 	full_log.visible = false
 	full_log.mouse_filter = Control.MOUSE_FILTER_STOP
 	full_log.gui_input.connect(_full_log_input)
+	Zurueck.melde(full_log, func(): _show_full_log(false))     # 833 A, 549a: Android-Zurück schließt den Bericht (nur offen)
 	root.add_child(full_log)
+	_stil_833()
 	# 836 (Homer 830): einmal je Spielstand, nicht in jedem Kampf (seen_rows setzte niemand); Proben ohne Spielstand je Kampf
 	if not kampfort.flaggen.has(HINWEIS_REIHE):
 		log_line(t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row."))
@@ -324,6 +340,30 @@ func _words(s: String, newest: bool) -> Array:
 	return out
 
 
+## 1031 (Chef 12.11., 14:08, Build 280: im ganzen Bericht „ist alles nur weiß“): der ganze Bericht in denselben Farben wie die
+## Zeilen über dem Kampfort, jede Zeile hell wie die neueste (alt SkirmishScreen.kt 1365 LogLine(l, true)): Eingebung in Gold,
+## „n Schaden“ hervorgehoben. Ein Farbwechsel nur, wo die Farbe wechselt; „[“ im Text als [lb].
+func bericht_bbcode() -> String:
+	var out := PackedStringArray()
+	for s in lines:
+		var teile := PackedStringArray()
+		var offen := ""
+		for w in _words(s, true):
+			if offen != "":
+				teile.append(" ")
+			var c: String = (w[1] as Color).to_html(false)
+			if c != offen:
+				if offen != "":
+					teile.append("[/color]")
+				teile.append("[color=#%s]" % c)
+				offen = c
+			teile.append((w[0] as String).replace("[", "[lb]"))
+		if offen != "":
+			teile.append("[/color]")
+		out.append("".join(teile))
+	return "\n".join(out)
+
+
 func _wrap(words: Array, width: float, fs: int) -> Array:
 	var rows := [[]]
 	var x := 0.0
@@ -385,6 +425,9 @@ func _show_full_log(on: bool) -> void:
 	if not on:
 		return
 	full_log_opened_ms = Time.get_ticks_msec()
+	if _a833():
+		_bericht_833()
+		return
 	var v := VBoxContainer.new()
 	v.mouse_filter = Control.MOUSE_FILTER_PASS
 	full_log.add_child(v)
@@ -406,13 +449,65 @@ func _show_full_log(on: bool) -> void:
 	r.add_theme_color_override("default_color", TEXT)
 	r.add_theme_font_override("normal_font", font)
 	r.add_theme_font_size_override("normal_font_size", sp(15 * 0.95))
-	r.text = "\n".join(lines)
+	r.bbcode_enabled = true
+	r.text = bericht_bbcode()
 	sc.add_child(r)
 	var close := Label.new()
 	close.text = t("Tippen schließt", "Tap to close")
 	close.add_theme_color_override("font_color", DIM)
 	close.add_theme_font_size_override("font_size", sp(13))
 	v.add_child(close)
+	# newest at the bottom, as in the small log
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if is_instance_valid(sc):
+		sc.scroll_vertical = int(sc.get_v_scroll_bar().max_value)
+
+
+## 833 A (Chef 12.11., 07:32: „833 passt“, mit dem ganzen Bericht ohne Goldrand): der ganze Bericht als Fenster ohne Kasten (549a):
+## schwarz und deckend, Seitenrand 24 dp, oben „KAMPFBERICHT“ (Titel der Schirme) mit der Zierlinie, die Zeilen in den Farben der
+## Kampfzeilen (1031), rollend, darunter eine schlichte Linie und links „‹ ZURÜCK“; Android-Zurück und Tippen neben die Spalte schließen
+## auch, Tippen in den Bericht nicht (526), Wischen blättert
+const BERICHT_RAND_DP := 24.0
+
+func _bericht_833() -> void:
+	var rand := MarginContainer.new()
+	rand.mouse_filter = Control.MOUSE_FILTER_PASS
+	for s in ["left", "right"]:
+		rand.add_theme_constant_override("margin_" + s, int(BERICHT_RAND_DP * dp))
+	rand.add_theme_constant_override("margin_top", int(12 * dp))
+	rand.add_theme_constant_override("margin_bottom", int(12 * dp))
+	full_log.add_child(rand)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", int(10 * dp))
+	v.mouse_filter = Control.MOUSE_FILTER_PASS
+	rand.add_child(v)
+	var h := Stil.zeile(t("Kampfbericht", "Battle log").to_upper(), Stil.TITEL_SP, GOLD, 3.0)
+	h.name = "Titel"
+	h.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	h.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	v.add_child(h)
+	v.add_child(Spielstaende.zier())
+	var sc := ScrollContainer.new()
+	sc.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
+	sc.mouse_filter = Control.MOUSE_FILTER_PASS
+	v.add_child(sc)
+	var r := RichTextLabel.new()
+	r.fit_content = true
+	r.scroll_active = false
+	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	r.mouse_filter = Control.MOUSE_FILTER_PASS
+	r.add_theme_color_override("default_color", TEXT)
+	r.add_theme_font_override("normal_font", font)
+	r.add_theme_font_size_override("normal_font_size", sp(15 * 0.95))
+	r.bbcode_enabled = true
+	r.text = bericht_bbcode()
+	sc.add_child(r)
+	v.add_child(Spielstaende.linie())
+	v.add_child(Spielstaende.knopfzeile(Spielstaende.knopf("neben", t("Zurück", "Back"), func(): _show_full_log(false), true), null))
 	# newest at the bottom, as in the small log
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -433,8 +528,12 @@ func _full_log_input(ev) -> void:
 	elif up and full_log_press != Vector2.INF:
 		var far: bool = ev.position.distance_to(full_log_press) > 12.0 * dp
 		full_log_press = Vector2.INF
-		if not far:
+		if not far and (not _a833() or _neben_spalte(ev.position.x)):
 			_show_full_log(false)
+
+## 833 A: x (im Bericht) liegt neben der Spalte, im Seitenrand
+func _neben_spalte(x: float) -> bool:
+	return x < BERICHT_RAND_DP * dp or x > full_log.size.x - BERICHT_RAND_DP * dp
 
 
 # ---------------------------------------------------------------- party boxes and orders
@@ -448,10 +547,52 @@ func _friend_color(f) -> Color:
 	return TEXT
 
 
+## 833 (Chef 10.11., 10:05–10:17, über Sokrates: „warum habe ich da 3 Punkte stehen … Man kann es ja auch ausgrauen“; „833 erweitern
+## wie vorgeschlagen“): nur Vorschlag, aus: "" wie heute (Kasten mit Goldrand um Bericht, Gruppenkästen und Knöpfe mit Rahmen, „…“,
+## solange ein anderer zieht); "A" der untere Kampfschirm wie die Schirme ohne Kasten (549a, 630): kein Rahmen um Kasten, Bericht und
+## Knöpfe, oben die Zierlinie, schlichte Linien dazwischen, Knöpfe ohne Rahmen in gesperrten Versalien (Hauptbefehle hell, die übrigen
+## gedämpft, gewählt hell auf erhabenem Grund); Rahmen nur noch um den Kasten dessen, der am Zug ist (565 A). Zieht ein anderer, stehen
+## die Knöpfe ausgegraut an ihrem Platz (Söldner und Held Auto bleiben schaltbar wie alt), ein Tipp darauf sagt „Wolf 3 ist am Zug“ und
+## lässt ihn in der Zugleiste aufleuchten. Sieg und Niederlage wie die Blenden (661): Titel gesperrt, Zierlinie, Zeilen mittig.
+## Die Höhe des Kastens bleibt beim Zugwechsel gleich (709: mit „…“ sprang sie, die Kamera passte neu).
+var schirm_833 := OS.get_environment("KAMPF833") if OS.get_environment("KAMPF833") != "" else "A"     # A abgenommen (Chef 12.11., 07:32: „833 passt“); KAMPF833=heute zeigt den alten Kasten
+var zier_833: Control
+var linie_833: Array = []
+var aufleuchten_bis := 0     # 833 A: bis dahin leuchtet der, der am Zug ist, in der Zugleiste auf
+const AUFLEUCHTEN_MS := 1500
+
+func _a833() -> bool:
+	return schirm_833 == "A"
+
+## Kasten, Bericht und Linien nach dem Schalter 833
+func _stil_833() -> void:
+	var a := _a833()
+	panel.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(0, 0, 0, 0) if a else RIM, 10, 4 if a else 10, 1.0))
+	log_box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(0, 0, 0, 0) if a else Color(RIM, RIM.a * 0.35), 6 if not a else 0, 2, 1.0))
+	var ende: bool = kampfort.mars.outcome != "ONGOING" and not kampfort.busy
+	zier_833.visible = a and not ende     # eine Zierlinie je Schirm: am Ende steht sie unter dem Titel
+	for l in linie_833:
+		l.visible = a
+	# 833 A (Chef 12.11., 07:32): das kleine Erklärfenster und der ganze Bericht ohne Goldrand (549a)
+	if tip:
+		tip.add_theme_stylebox_override("normal", _box(Color.BLACK, Color(0, 0, 0, 0) if a else GOLD, 8 if not a else 10, 6 if not a else 8, 1.0))
+	if full_log:
+		full_log.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(0, 0, 0, 0) if a else GOLD, 0 if a else 10, 0 if a else 10, 1.0))
+
+## 833 A: Tipp auf einen ausgegrauten Knopf, während ein anderer zieht
+func _wer_zieht() -> void:
+	var v = _vorn()
+	if v == null:
+		return
+	show_tip(t("%s ist am Zug", "%s is up") % v.name(lang))     # Chef 10.11., 10:07 (833): „Wolf 3 ist am Zug“
+	aufleuchten_bis = Time.get_ticks_msec() + AUFLEUCHTEN_MS
+
+
 func refresh() -> void:
 	if not is_inside_tree():
 		return
 	var m = kampfort.mars
+	_stil_833()
 	# 988 (wolf_mess_438, Build 277: Wolf 3,6 m in einem Bild, Ansagen bis 156 dp): nur queue_free ließ die alten Kästen und Knöpfe bis
 	# zum Ende des Bilds stehen, der Kasten war mit alten und neuen ein Bild lang 1207 statt 849 px hoch, die Kamera passte neu und alle
 	# rückten mit dem Boden; seit 945 baut jeder Zug im Kampf die matten Knöpfe neu. Jetzt gleich heraus, dann frei
@@ -504,6 +645,8 @@ func _party_box(f) -> Control:
 		box.add_theme_stylebox_override("panel", _box(RAISED, GOLD, 6, 3, 1.5))
 	elif am_zug_565 == "B" and laeuft() and _vorn() != null and _vorn().side == "PARTY":
 		box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(RIM, 0.3), 6, 3, 1.0))
+	elif _a833():
+		box.add_theme_stylebox_override("panel", _box(Color.BLACK, Color(0, 0, 0, 0), 6, 3, 1.5))     # 833 A: Rahmen nur am Zug
 	else:
 		box.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 6, 3, 1.0))
 	var v := VBoxContainer.new()
@@ -565,19 +708,37 @@ func _button(label: String, enabled := true, go: Callable = Callable(), selected
 	b.custom_minimum_size = Vector2(0, (48 if small else 52) * dp)
 	var fv := FontVariation.new()
 	fv.base_font = font
-	fv.spacing_glyph = int(1.2 * dp)
+	fv.spacing_glyph = int((2.0 if _a833() else 1.2) * dp)     # 833 A: Sperrung 2 sp wie die Knöpfe der Schirme
 	b.add_theme_font_override("font", fv)
 	b.add_theme_font_size_override("font_size", sp(13))
+	if _a833():
+		# ohne Rahmen; gedrückt und gewählt erhaben (RAISED), Schrift hell; gesperrt gedämpft lesbar (549a „Knöpfe“)
+		var leer := _box(Color(0, 0, 0, 0), Color(0, 0, 0, 0), 4, 0, 1.0)
+		var erhaben := _box(RAISED, Color(0, 0, 0, 0), 4, 0, 1.0)
+		var farbe: Color = BRIGHT if selected or not small else GOLD
+		b.add_theme_stylebox_override("normal", erhaben if selected else leer)
+		b.add_theme_stylebox_override("hover", erhaben if selected else leer)
+		b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+		b.add_theme_stylebox_override("pressed", erhaben)
+		b.add_theme_stylebox_override("disabled", leer)
+		b.add_theme_color_override("font_color", farbe)
+		b.add_theme_color_override("font_hover_color", farbe)
+		b.add_theme_color_override("font_pressed_color", BRIGHT)
+		b.add_theme_color_override("font_disabled_color", Color(DIM, 0.75))
+		b.gui_input.connect(func(ev):
+			if b.disabled and kampfort.busy and _pressed(ev):
+				_wer_zieht())
 	var n := _box(RAISED if selected else Color.BLACK, BRIGHT if selected else LINE, 6, 0, 1.5 if selected else 1.0)
-	b.add_theme_stylebox_override("normal", n)
-	b.add_theme_stylebox_override("hover", n)
-	b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	b.add_theme_stylebox_override("pressed", _box(RAISED, BRIGHT, 6, 0, 1.5))
-	b.add_theme_stylebox_override("disabled", _box(Color.BLACK, Color(DIM, 0.4), 6, 0, 1.0))
-	b.add_theme_color_override("font_color", BRIGHT if selected else TEXT)
-	b.add_theme_color_override("font_hover_color", BRIGHT if selected else TEXT)
-	b.add_theme_color_override("font_pressed_color", BRIGHT)
-	b.add_theme_color_override("font_disabled_color", Color(DIM, 0.6))
+	if not _a833():
+		b.add_theme_stylebox_override("normal", n)
+		b.add_theme_stylebox_override("hover", n)
+		b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+		b.add_theme_stylebox_override("pressed", _box(RAISED, BRIGHT, 6, 0, 1.5))
+		b.add_theme_stylebox_override("disabled", _box(Color.BLACK, Color(DIM, 0.4), 6, 0, 1.0))
+		b.add_theme_color_override("font_color", BRIGHT if selected else TEXT)
+		b.add_theme_color_override("font_hover_color", BRIGHT if selected else TEXT)
+		b.add_theme_color_override("font_pressed_color", BRIGHT)
+		b.add_theme_color_override("font_disabled_color", Color(DIM, 0.6))
 	if not tip.is_empty():     # 536: langes Drücken zeigt, was der Knopf tut; losgelassen danach tut er nichts
 		# 564 (Chef 04.11., 17:06: „Lambda capture at index 0 was freed“): ein kurzer Druck baut die Knöpfe neu, bevor der Zeitgeber
 		# abläuft; der Zeitgeber hält den Knopf darum nur schwach (weakref), ein freigegebener Knopf ist dann einfach null
@@ -606,10 +767,25 @@ func _row(items: Array, fs_cap := 0, even := false) -> HBoxContainer:
 	r.add_theme_constant_override("separation", int(6 * dp))
 	var fs := mini(_row_size(items), fs_cap) if fs_cap > 0 else _row_size(items)
 	var ws := _text_widths(items, fs)
+	if _a833():
+		# 833 A: passt die Zeile mit 13 sp nicht, wird erst die Sperrung enger (2 sp bis 0,6 sp), dann erst die Schrift kleiner (_row_size)
+		var sperr := 2.0
+		while sperr > 0.6 and _summe_833(items, fs, sperr) > _innen_833(items.size()):
+			sperr -= 0.2
+		for b in items:
+			(b.get_theme_font("font") as FontVariation).spacing_glyph = int(sperr * dp)
+		ws = _breiten_833(items, fs, sperr)
 	for i in items.size():
 		var b: Button = items[i]
 		b.add_theme_font_size_override("font_size", fs)
 		b.size_flags_stretch_ratio = 1.0 if even else maxf(ws[i], 1.0)
+		if i > 0 and _a833():     # 833 A: ohne Rahmen trennt eine feine senkrechte Linie die Knöpfe
+			var st := ColorRect.new()
+			st.color = RIM
+			st.custom_minimum_size = Vector2(maxf(1.0, round(0.6 * dp)), 22 * dp)
+			st.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+			st.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			r.add_child(st)
 		r.add_child(b)
 	return r
 
@@ -622,8 +798,35 @@ func _text_widths(items: Array, fs: int) -> Array:
 	return ws
 
 
+## 833 A: Breite je Knopf nach Aufschrift mit [sperr] sp Sperrung; Platz der Zeile im Kasten ohne Rahmen (je Trennlinie zweimal Abstand)
+func _breiten_833(items: Array, fs: int, sperr: float) -> Array:
+	var ws := []
+	for b in items:
+		ws.append(font.get_string_size(b.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + b.text.length() * sperr * dp + 8 * dp)
+	return ws
+
+func _summe_833(items: Array, fs: int, sperr: float) -> float:
+	var sum := 0.0
+	for w in _breiten_833(items, fs, sperr):
+		sum += w
+	return sum
+
+func _innen_833(n: int) -> float:
+	return get_viewport().get_visible_rect().size.x - 2 * 10 * dp - 2 * 6 * dp * (n - 1)
+
+
 ## Die größte Schrift (höchstens 13 sp), mit der alle Aufschriften der Zeile passen, wenn jeder Knopf nach seiner Aufschrift breit ist.
 func _row_size(items: Array) -> int:
+	if _a833():     # 833 A: 15 sp wie die Knöpfe der Schirme, bis 13 sp (549a „Schrift“); dann wird in _row die Sperrung enger
+		var innen := _innen_833(items.size())
+		var f := sp(15)
+		while f > sp(13) and _summe_833(items, f, 2.0) > innen:
+			f -= 1
+		# fünf Knöpfe unten (Söldner oder Held Krieger mit „Decken“) passen auf 1080 px auch mit der engsten Sperrung nicht in
+		# 13 sp: erst dann kleiner, wie heute bis 9 dp, sonst wird der Kasten breiter als der Bildschirm (Bild am Rechner 12.11.)
+		while f > int(9 * dp) and _summe_833(items, f, 0.6) > innen:
+			f -= 1
+		return f
 	var inner := get_viewport().get_visible_rect().size.x - 2 * (8 + 10) * dp - 6 * dp * (items.size() - 1)
 	var fs := sp(13)
 	while fs > int(9 * dp):
@@ -687,6 +890,9 @@ func _build_orders() -> void:
 		c.queue_free()
 	var k = kampfort
 	var m = k.mars
+	if m.outcome != "ONGOING" and not k.busy and _a833():
+		_ende_833()
+		return
 	if m.outcome != "ONGOING" and not k.busy:
 		var won: bool = m.outcome == "WON"
 		var fled: bool = m.outcome == "FLED"
@@ -716,7 +922,7 @@ func _build_orders() -> void:
 			orders.add_child(ko)
 		# SkirmishScreen: beide gleich breit (Prüfer: „Nochmal“ breiter als „Zurück“)
 		# 399.2: aus dem Spiel (aufruf.gd) gibt es kein „Nochmal“, nur zurück in die Welt
-		if k.again_fn.is_valid():
+		if k.again_fn.is_valid() and not (k.again_nicht_nach_niederlage and m.outcome == "LOST"):     # 1034: Spielheld verloren
 			var zt: Array = k.zurueck_text if k.zurueck_text.size() == 2 else ["Zurück", "Back"]     # 1020.2 B: „Zurück zum Testmenü“
 			orders.add_child(_row([_button(t("Nochmal", "Again"), true, func(): k.again()), _button(t(String(zt[0]), String(zt[1])), true, func(): k.finish())], 0, true))
 		else:
@@ -728,6 +934,12 @@ func _build_orders() -> void:
 	# Zug, so bleibt der Kasten gleich hoch (709: sonst passt die Kamera neu). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
 	# gerade weiter. Söldner und Held Auto bleiben schaltbar, sie gelten ab der nächsten Wahl (mit dem Autopiloten ist der Kampfort
 	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
+	# 841 (807a A, STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Beginn „Kämpfen“ oder den Späher verjagen; der Knopf
+	# nennt die Fertigkeit in Klammern ([807.spaeher.wahl])
+	if k.tor == "einschuechtern":
+		orders.add_child(_row([_button(t("Kämpfen", "Fight"), true, func(): k.tor_wahl(false)),
+			_button(t("Verjag den Späher (Einschüchtern)", "Scare off the scout (Intimidation)"), true, func(): k.tor_wahl(true))], 0, true))
+		return
 	var matt: bool = k.busy
 	var f = _naechster_eigener() if matt else m.current()
 	if f == null:
@@ -897,6 +1109,49 @@ func _build_orders() -> void:
 			_choices(items)
 
 
+## 833 A: Sieg, Flucht und Niederlage wie die Blenden (661): Titel gesperrt in Gold, Zierlinie, Satz und Lohn mittig; darunter eine
+## schlichte Linie und die Knöpfe der Schirme (‹ ZURÜCK links, NOCHMAL › rechts im Probekampf)
+func _ende_833() -> void:
+	var k = kampfort
+	var m = k.mars
+	var won: bool = m.outcome == "WON"
+	var fled: bool = m.outcome == "FLED"
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 0)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var breit := get_viewport().get_visible_rect().size.x - 2 * 10 * dp
+	if won:
+		# [296.2.flucht] „Sieg.“ als Titel ohne Punkt
+		v.add_child(_mittig(t("Sieg", "Victory").to_upper(), Ortsblende.NAME_SP, GOLD, 3.0, breit))
+		v.add_child(Stil.luecke(8))
+	v.add_child(Ortsblende.zier())
+	var satz := t("Du bist entkommen.", "You got away.") if fled else ("" if won else t("Der Kampf ist verloren.", "The fight is lost."))
+	if satz != "":
+		v.add_child(Stil.luecke(12))
+		v.add_child(_mittig(satz, Ortsblende.SATZ_SP, TEXT, 0.6, breit))
+	var lohn: Array = k.reward.get("lines", []).duplicate()
+	if m.knockouts > 0:
+		lohn.append(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts))
+	if not lohn.is_empty():
+		v.add_child(Stil.luecke(10))
+		for z in lohn:
+			v.add_child(_mittig(String(z), 15, TEXT, 0.0, breit))
+	v.add_child(Stil.luecke(12))
+	v.add_child(Spielstaende.linie())
+	var zurueck := Spielstaende.knopf("neben", t("Zurück", "Back"), func(): k.finish(), true)
+	var nochmal = Spielstaende.knopf("haupt", t("Nochmal", "Again"), func(): k.again()) if k.again_fn.is_valid() else null
+	v.add_child(Spielstaende.knopfzeile(zurueck, nochmal))
+	orders.add_child(v)
+
+func _mittig(text: String, groesse_sp: float, farbe: Color, sperrung_sp: float, breit: float) -> Label:
+	var l := Stil.zeile(text, groesse_sp, farbe, sperrung_sp)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	l.custom_minimum_size.x = breit
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return l
+
+
 func _set_pick(p: String, arg = null) -> void:
 	pick = p
 	pick_arg = arg
@@ -912,6 +1167,8 @@ func show_tip(text: String) -> void:
 	tip.visible = true
 	tip.position = Vector2(8 * dp, kampfort.scene_rect().size.y - 70 * dp)
 	tip.size = Vector2(vs.x - 16 * dp, 0)
+	if _a833():     # 833 A: über den Schaltern Würfel und Raster (40 dp), nicht auf ihnen
+		tip.position.y = kampfort.scene_rect().size.y - 56 * dp - tip.get_combined_minimum_size().y
 	tip_nr += 1
 	var nr := tip_nr     # die Uhr eines früheren Fensters schließt nicht das neue
 	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip.visible = false)
@@ -921,7 +1178,7 @@ var tip_nr := 0
 # ---------------------------------------------------------------- ring, rolls, verdict
 func ring_open(target_id: String, _intent: Dictionary) -> void:
 	ring_target = target_id
-	ring_t0 = Time.get_ticks_msec()
+	ring_t0 = uhr.call()
 	pick = "main"
 
 
@@ -942,7 +1199,7 @@ func ring_verdict(r: String) -> void:
 func show_roll(e: Dictionary) -> void:
 	if e.roll != null and e.target != null:
 		roll_shown = [e.target, e.roll, e.actor]
-		roll_at = Time.get_ticks_msec()
+		roll_at = uhr.call()
 
 
 # ---------------------------------------------------------------- drawing over the scene
@@ -1199,7 +1456,7 @@ func _draw_overlay() -> void:
 		_draw_bewegungen()
 		_draw_switches(sr)
 	# the roll over the one struck (RollTag)
-	var age := Time.get_ticks_msec() - roll_at
+	var age := int(uhr.call()) - roll_at
 	if dice_on and roll_shown != null and age < ROLL_MS + ROLL_FADE_MS and k.figures.has(roll_shown[0]):
 		_roll_tag(sr, k.figures[roll_shown[0]], roll_shown[1], roll_shown[2], 1.0 - clampf(float(age - ROLL_MS) / ROLL_FADE_MS, 0, 1))
 	# the ring: a large ring closing on a small one round the one attacked (RingAround)
@@ -1207,10 +1464,23 @@ func _draw_overlay() -> void:
 		var fig = k.figures[ring_target]
 		var h := _tall(fig)
 		var c2 := _foot(fig) - Vector2(0, h * 0.45)
-		var p3 := clampf(float(Time.get_ticks_msec() - ring_t0) / k.RING_MS, 0.0, 1.3)
+		var p3 := clampf(float(uhr.call() - ring_t0) / k.RING_MS, 0.0, 1.3)
 		var r0 := h * 0.55
-		overlay.draw_arc(c2, r0, 0, TAU, 48, Color(GOLD, 0.55), 1.5 * dp, true)
-		overlay.draw_arc(c2, r0 * (1.0 + 1.6 * maxf(0.0, 1.0 - p3)), 0, TAU, 64, BRIGHT, 4.0 * dp, true)
+		# 1039 (Chef 12.11., 15:04, Build 280: „tat ich mich ganz schwer, den inneren Ring zu sehen. Also wann ich überhaupt den Ring
+		# drücken muss“): der Zielring kräftig in Gold mit schwarzem Rand (alt 1,5 dp, Gold 55 %, ging vor Gras und Figur unter);
+		# im Fenster für „Gut“ leuchtet er auf, am hellsten im Fenster für „Perfekt“ (kampfort.gd GOOD_MS, PERFECT_MS)
+		var off_ms := absf(float(uhr.call() - ring_t0) - k.RING_MS)
+		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS) / float(k.GOOD_MS - k.PERFECT_MS), 0.0, 1.0)
+		var wi := (3.0 + 1.5 * jetzt) * dp
+		overlay.draw_arc(c2, r0, 0, TAU, 64, Color(0, 0, 0, 0.6), wi + 2.5 * dp, true)
+		overlay.draw_arc(c2, r0, 0, TAU, 64, BRIGHT.lerp(RING_LEUCHT, jetzt), wi, true)
+		# der große Ring zieht sich zusammen und läuft wie alt (RingAround) noch etwas über den kleinen hinaus, blasser werdend
+		var k1 := maxf(1.0 - p3, -0.25)
+		var now := r0 * (1.0 + 1.6 * k1)
+		if now > 0.0:
+			var a := clampf(1.0 - absf(k1) * 0.4, 0.3, 1.0)
+			overlay.draw_arc(c2, now, 0, TAU, 64, Color(0, 0, 0, 0.5 * a), 6.0 * dp, true)
+			overlay.draw_arc(c2, now, 0, TAU, 64, Color(GOLD, a), 4.0 * dp, true)
 		var hint := t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one")
 		overlay.draw_string(font, Vector2(0, sr.size.y - 12 * dp), hint, HORIZONTAL_ALIGNMENT_CENTER, sr.size.x, sp(14), DIM)
 
@@ -1442,7 +1712,7 @@ func _line_blocker(a: Vector3, b: Vector3, figs: Array):
 ## (Figur.cast_point, beim Loslassen festgehalten) zur Brust des Getroffenen, über alles hinweg, was dazwischen steht
 func _draw_spells() -> void:
 	var k = kampfort
-	if spells.is_empty() and tafel == null:
+	if spells.is_empty() and tafel == null and not _zustaende_da():
 		return
 	var t0 := Time.get_ticks_usec()
 	if tafel == null:
@@ -1493,10 +1763,217 @@ func _draw_spells() -> void:
 		if Zauber.pruef and flying:
 			_bahn_pruef(sp, by, on, p)
 	spells = still
+	_draw_zustaende()
 	tafel.end()
 	if tafel.verts > 0:
 		tafel_ecken = tafel.verts
 		tafel_us = Time.get_ticks_usec() - t0
+
+
+## 1036: trägt eine Figur einen Zustand oder flackert einer auf (sonst braucht es keine Tafel)
+func _zustaende_da() -> bool:
+	return not flares.is_empty() or not (kampfort.shown.get("status", {}) as Dictionary).is_empty() or not _paket_fx.is_empty()
+
+
+## 1036 (Chef 12.11., 20:52, Film 18:22): diese Zustände zeigt der gekaufte Effekt (Status Effects VFX und Stylized VFX, REEBOO;
+## nur im Bau unter addons/reeboo_vfx, Lizenz: nie ins Repo); fehlt das Paket, malt zustandsbild.gd wie bisher. Brennend „gefällt
+## mir gut“, Vergiftet, Blutend (die Lache bringt der Effekt mit), Betäubt („besser als diese Vögelchen“, also nicht stun_stars),
+## Verlangsamt; Geschwächt, Geblendet, Betrunken bleiben eigen (neue Vorlage)
+const ZUSTAND_PAKET := {"BURN": "res://addons/reeboo_vfx/effects/burning.tscn",
+		"POISON": "res://addons/reeboo_vfx/status_effects/poisoned.tscn", "BLEED": "res://addons/reeboo_vfx/status_effects/bleeding.tscn",
+		"STUN": "res://addons/reeboo_vfx/status_effects/shocked.tscn", "SLOW": "res://addons/reeboo_vfx/status_effects/chilled.tscn"}
+## laufende Effekte aus dem Paket: "<id>|<Zustand>" -> Knoten an der Figur
+var _paket_fx := {}
+static var _paket_szene := {}
+
+
+## 1036: die Szene des Pakets zum Zustand st, oder null ohne Paket (einmal geladen)
+static func zustand_szene(st: String):
+	if not ZUSTAND_PAKET.has(st):
+		return null
+	if not _paket_szene.has(st):
+		var pfad: String = ZUSTAND_PAKET[st]
+		var r = load(pfad) if ResourceLoader.exists(pfad) else null
+		_paket_szene[st] = r if r is PackedScene else null
+	return _paket_szene[st]
+
+
+## 1036: hängt den Effekt des Pakets an die Figur, solange der Zustand hält, und lässt ihn danach auslaufen; true, wenn das
+## Paket den Zustand zeigt (dann malt zustandsbild.gd ihn nicht). Größe wie im Film 18:22: Tiere nach ihrem Körper (das Paket
+## misst für 1,8 m), Menschen wie geliefert
+func _paket_an(id: String, st: String, fig, aktiv: Dictionary) -> bool:
+	var sz = zustand_szene(st)
+	if sz == null:
+		return false
+	var key := id + "|" + st
+	aktiv[key] = true
+	if _paket_fx.has(key) and is_instance_valid(_paket_fx[key]):
+		return true
+	var fx: Node = (sz as PackedScene).instantiate()
+	if "loop" in fx:
+		fx.set("loop", true)
+	fig.add_child(fx)
+	if fx is Node3D:
+		(fx as Node3D).position = Vector3.ZERO
+		if fig.fighter.monster != null:
+			var box: AABB = _koerper_kasten(fig)
+			var gr := maxf(box.size.y, maxf(box.size.x, box.size.z) * 0.8)
+			(fx as Node3D).scale = Vector3.ONE * clampf(gr / 1.8, 0.7, 2.0)
+	_paket_fx[key] = fx
+	return true
+
+
+## 1036: Effekte, deren Zustand vorbei ist (oder deren Figur fiel), laufen aus und gehen nach einer halben Sekunde
+func _paket_aus(aktiv: Dictionary) -> void:
+	for key in _paket_fx.keys():
+		if aktiv.has(key):
+			continue
+		var fx = _paket_fx[key]
+		_paket_fx.erase(key)
+		if not is_instance_valid(fx):
+			continue
+		if fx.has_method("stop"):
+			fx.call("stop")
+		get_tree().create_timer(0.5).timeout.connect(func(): if is_instance_valid(fx): fx.queue_free())
+
+
+## 1036 (Chef 12.11., 14:48: „da sieht man kein Brennen. Das hatten wir alles schon unter Kotlin“): die Zustände an jeder
+## Figur, solange sie halten (alt BattleScreen drawStatus, je Figur im eigenen Takt), die Blutlache am Platz, das Aufflackern
+## beim Schaden je Runde; als Tafel vor der Figur (Figuren davor verdecken es)
+func _draw_zustaende() -> void:
+	var k = kampfort
+	zustandsbild.ci = tafel
+	_flare_merken()
+	var st_of: Dictionary = k.shown.get("status", {})
+	var blood: int = k.blood_level()
+	var t: float = k.clock_ms / 1000.0
+	var aktiv := {}     # 1036: Effekte aus dem Paket, die bleiben
+	for id in st_of:
+		if not k.figures.has(id) or (st_of[id] as Dictionary).is_empty():
+			continue
+		var fig = k.figures[id]
+		if not fig.visible or fig.down or k.shown.hp.get(id, fig.fighter.hp) <= 0:
+			continue
+		var paket := {}
+		for st in st_of[id]:
+			if _paket_an(String(id), String(st), fig, aktiv):
+				paket[st] = true
+		if paket.size() == (st_of[id] as Dictionary).size():
+			continue
+		var body := _koerper(fig)
+		# nicht im Gleichtakt (alt: Held 0,7 s versetzt)
+		var ts: float = t + (0.7 if fig.fighter.side == "PARTY" else 0.0) + float(absi(hash(String(id))) % 97) * 0.031
+		if (st_of[id] as Dictionary).has("BLEED") and not paket.has("BLEED") and blood > 0:
+			var heim: Vector2 = k.screen_of(fig.home)
+			tafel.depth = _depth(fig.home)
+			zustandsbild.pool(ts, heim.x, heim.y, body.u, blood)
+		tafel.depth = _front_depth(fig)
+		for st in st_of[id]:
+			if not paket.has(st):
+				zustandsbild.draw_status(String(st), ts, body, body.u, blood)
+	_paket_aus(aktiv)
+	var still := []
+	for fl in flares:
+		var p: float = (k.clock_ms - float(fl.t0)) / Zustandsbild.FLARE_MS
+		if p >= 1.0 or not k.figures.has(fl.on):
+			continue
+		still.append(fl)
+		if p < 0.0:
+			continue
+		var fig = k.figures[fl.on]
+		tafel.depth = _front_depth(fig)
+		zustandsbild.flare(String(fl.st), int(fl.seed), p, _koerper(fig).chest, _tall(fig) / 40.0)
+	flares = still
+
+
+## 1036: Schaden eines Zustands zu Beginn des Zugs (mars.gd _tick: ohne Täter, Zeile nach ST_HURTS) flackert einmal auf
+var _flare_seen = null
+func _flare_merken() -> void:
+	var k = kampfort
+	var e = k.shown
+	if is_same(e, _flare_seen):
+		return
+	_flare_seen = e
+	if not (e is Dictionary) or e.get("actor") != null or e.get("target") == null or int(e.get("damage", 0)) <= 0:
+		return
+	var f = k.mars.find(e.target)
+	if f == null:
+		return
+	var txt := String(e.get("text", ""))
+	for st in Mars.ST_HURTS:
+		if txt.begins_with(String(Mars.ST_HURTS[st][lang]).format([f.name(lang)])):
+			spell_seed += 1
+			flares.append({"on": String(e.target), "st": st, "seed": spell_seed * 7919, "t0": k.clock_ms})
+			return
+
+
+## 1036 (alt BodyFit): wo der Körper einer Figur am Schirm liegt: Umriss ihrer Netze (ohne Bodenschatten) als Rechteck, Mitte
+## und halbe Breite des Rumpfs, Brust, Boden, Kopf (Knochen, sonst oben in der Mitte), u wie alt (Held: Brusthöhe / 70,
+## Gegner: Breite / 90)
+var _zk_box := {}
+var _zk_kopf := {}
+func _koerper(fig) -> Dictionary:
+	var k = kampfort
+	var id := String(fig.fighter.id)
+	if not _zk_box.has(id):
+		_zk_box[id] = _koerper_kasten(fig)
+	var box: AABB = _zk_box[id]
+	var foot := _foot(fig)
+	var r := Rect2(k.screen_of(fig.global_transform * box.get_endpoint(0)), Vector2.ZERO)
+	for i in range(1, 8):
+		r = r.expand(k.screen_of(fig.global_transform * box.get_endpoint(i)))
+	if r.size.y < 4 * dp:     # ohne Netze: die Höhe der Figur
+		r = Rect2(foot.x - _tall(fig) * 0.2, foot.y - _tall(fig), _tall(fig) * 0.4, _tall(fig))
+	var vier: bool = Figur.vier(fig.fighter)
+	var unten := minf(foot.y, r.end.y)
+	var chest := Vector2(0, lerpf(unten, r.position.y, 0.55))
+	var cx: float = r.get_center().x if vier else foot.x
+	var half: float = r.size.x * 0.5 * 0.85 if vier else minf(r.size.x * 0.5, (unten - r.position.y) * 0.17)
+	chest.x = cx
+	var h := maxf(foot.y - chest.y, 4 * dp)
+	var u: float = maxf(r.size.x / 90.0 if vier else h / 70.0, 0.5 * dp)
+	var head := Vector2(cx, chest.y - h * 0.8 + h * 0.12)
+	var kopf = _kopf_punkt(fig)
+	if kopf != null:
+		head = kopf
+	return {"rect": r, "cx": cx, "half": half, "chest": chest, "ground": foot.y, "head": head, "u": u}
+
+
+## Kasten der Netze einer Figur in ihrem eigenen Raum (einmal je Figur, in Ruhe); Bodenschatten und Pfotenflecken nicht
+func _koerper_kasten(fig) -> AABB:
+	var inv: Transform3D = fig.global_transform.affine_inverse()
+	var box := AABB()
+	var first := true
+	for m in fig.find_children("*", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		if mi.name == "Bodenschatten" or mi.has_meta("pfotenschatten") or mi.mesh == null or not mi.visible:
+			continue
+		var b: AABB = (inv * mi.global_transform) * mi.get_aabb()
+		box = b if first else box.merge(b)
+		first = false
+	return box
+
+
+## Kopf am Schirm aus dem Kopfknochen (Kaufheld „Head“, Tiere „kopf“), eine Handbreit darüber (Augen); null ohne Knochen
+func _kopf_punkt(fig):
+	var id := String(fig.fighter.id)
+	if not _zk_kopf.has(id):
+		var sk: Skeleton3D = null
+		for n in fig.find_children("*", "Skeleton3D", true, false):
+			sk = n as Skeleton3D
+			break
+		var bi := -1
+		if sk != null:
+			for nm in ["Head", "head", "kopf", "Kopf", "neck_01", "hals"]:
+				bi = sk.find_bone(nm)
+				if bi >= 0:
+					break
+		_zk_kopf[id] = [sk, bi]
+	var e: Array = _zk_kopf[id]
+	if e[0] == null or not is_instance_valid(e[0]) or int(e[1]) < 0:
+		return null
+	var sk: Skeleton3D = e[0]
+	return kampfort.screen_of(sk.global_transform * sk.get_bone_global_pose(int(e[1])).origin + Vector3.UP * 0.08)
 
 
 var _umriss := {}
@@ -2145,7 +2622,10 @@ func _draw_turns(sr: Rect2) -> void:
 			x = 6 * dp
 			y += h + 3 * dp
 		var r := Rect2(x, y, w, h)
-		if now:
+		var hell := now and Time.get_ticks_msec() < aufleuchten_bis     # 833 A: nach einem Tipp auf einen ausgegrauten Knopf
+		if hell:
+			_chip(r, RAISED, BRIGHT, 2.5)
+		elif now:
 			_chip(r, RAISED, GOLD if hero else WARN, 1.5)
 		elif next:
 			_chip(r, Color.BLACK, Color(DIM, 0.4), 1.0)

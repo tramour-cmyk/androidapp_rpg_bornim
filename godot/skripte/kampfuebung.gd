@@ -44,6 +44,8 @@ static func benutzt(e: Dictionary, b: Dictionary, lage: Dictionary) -> Array:
 	var wurf: bool = roll is Array and (roll as Array).size() > 4 and str(roll[0]) in ["ATTACK", "BRS"]
 	var schaden := int(e.get("damage", 0))
 	var spell = e.get("spell")
+	if str(e.get("cue")) == "INTIMIDATE":     # 841: den Späher verjagen, gelungen oder nicht (Mars._einschuechtern)
+		return ["Einschüchtern"] if e.get("actor") == "hero" else []
 	if str(e.get("cue")) == "HEAL":
 		return ["Heilmagie"] if e.get("actor") == "hero" and bool(lage.get("heiler", false)) and spell == "HEAL" else []
 	if e.get("actor") == "hero" and e.get("target") != null and e.get("target") != "hero":

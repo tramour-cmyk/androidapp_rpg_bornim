@@ -57,6 +57,7 @@ DATEI = "probelaeufe.tsv"
 NR = r"[A-Za-z]?\d+[a-z]?(?:\.\d+[a-z]?)*"
 PROBE = re.compile(r"\bPROBE=(" + NR + r")\b")
 PROBEBILD = re.compile(r"\bPROBEBILD=(" + NR + r")\b")
+MESS = re.compile(r"\bMESS=(" + NR + r")\b")  # 1129 A 3b: eigener Mess- oder Testlauf, zählt nicht gegen die Grenze
 FILM = re.compile(r"--write-movie|\.mp4\b|\bffmpeg\b|\b(?:WALK|IDLE|FOE)?FILM(?:BATCH)?=|\btools/t\s+film\b|[\w./-]*film[\w-]*\.(?:sh|py)\b", re.I)
 GODOT_LAUF = re.compile(r"xvfb-run[^\n|;&]*godot[^\n|;&]*|\bgodot(?:\.\S+)?\s[^\n|;&]*--path[^\n|;&]*")
 SKRIPT = re.compile(r"tools/pruef348/(?!rechner\.sh)[\w.-]+\.sh|\b\w+_lauf\.sh")
@@ -137,12 +138,16 @@ def cd_befehle(befehl):
 
 
 def cd_ziel(befehl, cwd, erstes=False):
-    """Ordner nach dem ersten (erstes=True) oder letzten `cd` in befehl, sonst cwd; Unaufloesbar wie cd_pfad."""
+    """Ordner nach dem ersten (erstes=True) oder letzten `cd` in befehl, sonst cwd; Unaufloesbar wie cd_pfad.
+    1042 (Spike 12.11.): jedes cd gilt relativ zum Ordner des vorigen (`cd …/godot && …; cd .. && git push`), nicht zu cwd;
+    sonst lag die Arbeitskopie außerhalb des Repos, loest_aus fand keine Abläufe und zählte den Push als Filmlauf."""
     ms = cd_befehle(befehl)
     if not ms:
         return cwd
-    m = ms[0] if erstes else ms[-1]
-    return cd_pfad(m.group(1), cwd, befehl[:m.start()])
+    wo = cwd
+    for m in ms[:1] if erstes else ms:
+        wo = os.path.normpath(cd_pfad(m.group(1), wo, befehl[:m.start()]))
+    return wo
 
 
 def wo_von(befehl, m, cwd):
@@ -159,10 +164,11 @@ def wo_von(befehl, m, cwd):
 
 def cd_ordner(befehl, cwd):
     """Alle auflösbaren cd-Ziele (Suche nach Dateien; Unauflösbares fällt weg)."""
-    aus = []
+    aus, wo = [], cwd
     for m in cd_befehle(befehl):
         try:
-            aus.append(cd_pfad(m.group(1), cwd, befehl[:m.start()]))
+            wo = os.path.normpath(cd_pfad(m.group(1), wo, befehl[:m.start()]))  # 1042: relativ zum vorigen cd
+            aus.append(wo)
         except Unaufloesbar:
             pass
     return aus
@@ -180,10 +186,12 @@ def jetzt():
 
 
 def testlauf(lauf, befehl, cwd):
-    """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn eng: `--headless`, kein xvfb-run,
-    `-s res://tests/….gd`, und die Testdatei enthält keinen Bildbefehl. Datei nicht gefunden: zählt als Bildlauf."""
+    """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn `-s res://tests/….gd` läuft, kein Film
+    geschrieben wird und die Testdatei keinen Bildbefehl enthält. Datei nicht gefunden: zählt als Bildlauf.
+    1146 (von Jerry, 1025): `xvfb-run` zählt nicht mehr dagegen — ein Test, der nur einen Bildschirm braucht, aber kein Bild
+    ablegt, zeigt dem Chef nichts (zweikampf_1025 und welt_548 verbrauchten je die eine Probe aus 621 A)."""
     s = TEST_SKRIPT.search(lauf)
-    if "--headless" not in lauf or "xvfb-run" in lauf or "--write-movie" in lauf or not s:
+    if "--write-movie" in lauf or not s:
         return False
     p = re.search(r"--path[=\s]+(\S+)", lauf)
     pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
@@ -270,7 +278,7 @@ def stand(nr):
     frei = urteil(nr)
     gesehen = set()
     for z in zeilen(laeufe) + zeilen(lokal):
-        if z[1] == nr and (frei is None or z[0] > frei):
+        if z[1] == nr and z[3] != "mess" and (frei is None or z[0] > frei):  # 1129 A 3b: Messläufe sind frei
             gesehen.add(tuple(z[:5]))
     return len(gesehen), frei
 
@@ -880,9 +888,15 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     if d is not None:
         e = d.get("tool_input") or {}
         dateien = [f for f in (e.get("files") or []) if isinstance(f, dict)] + ([e] if e.get("path") else [])
+        wurzel = git("rev-parse", "--show-toplevel", cwd=cwd).stdout.strip() or cwd
         for f in dateien:
             o = vp.ordner_von(str(f.get("path", "")))
-            if o and (fehlt := vp.luecken(str(f.get("content") or ""), o)):
+            inhalt = str(f.get("content") or "")
+            fehlt = vp.luecken(inhalt, o) if o else []
+            if o and git("cat-file", "-e", "origin/main:" + str(f["path"]), cwd=wurzel).returncode != 0:  # 1129 A 1: neue Datei
+                fehlt += vp.tor(inhalt, str(f["path"]), wurzel)
+                _abk_warnung(f["path"], vp.warnungen(inhalt))
+            if fehlt:
                 befunde.append((f["path"], fehlt))
         return vp.meldung(befunde) if befunde else None
     m = GIT_SCHREIBT.search(befehl)
@@ -900,13 +914,34 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
     for p in sorted(set(pfade)):
         datei = os.path.join(wurzel, p)
         o = vp.ordner_von(p)
-        if o and os.path.isfile(datei) and (fehlt := vp.luecken(open(datei, encoding="utf-8").read(), o)):
+        if not (o and os.path.isfile(datei)):
+            continue
+        inhalt = open(datei, encoding="utf-8").read()
+        fehlt = vp.luecken(inhalt, o)
+        if git("cat-file", "-e", "origin/main:" + p, cwd=wurzel).returncode != 0:  # 1129 A 1: neue Datei
+            fehlt += vp.tor(inhalt, p, wurzel)
+            _abk_warnung(p, vp.warnungen(inhalt))
+        if fehlt:
             befunde.append((p, fehlt))
     return vp.meldung(befunde) if befunde else None
 
 
+WARNUNG = {"text": ""}
+
+
+def _abk_warnung(pfad, woerter):
+    """MUSTER.md Checkliste 9 (1129.3): Abkürzungen in einer neuen Vorlage nur als Hinweis, hält nicht an."""
+    if woerter:
+        WARNUNG["text"] += (f"Checkliste 9 (MUSTER.md): {pfad} enthält Abkürzungen ({', '.join(woerter)}); "
+                            "im Text an den Chef ausschreiben (Wortliste vorlage_pruefen.ABKUERZUNGEN). ")
+
+
 def anhalten(text):
     print(text, file=sys.stderr)
+    try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“)
+        import hakenzahl; hakenzahl.vermerk("probelauf", text)
+    except Exception:
+        pass
     sys.exit(2)
 
 
@@ -1000,11 +1035,20 @@ def main():
                          f"`PROBE={pb.group(1)}`.")
             return hinweis_geben(f"783 W1: Einzelbild zu {pb.group(1)}, zählt nicht als Probelauf. Selbst ansehen, ob Inhalt da "
                                  "ist (kein Weißbild, richtiger Ort), dann gleich Film; nicht an den Chef, kein Helfer.")
+        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
+            if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl):
+                anhalten("1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. "
+                         "Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.")
+            if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
+                anhalten(fs)
+            zaehlen(ms.group(1), wer, "mess")
+            return hinweis_geben(f"1129 A 3b: Messlauf zu {ms.group(1)}, frei und ohne Grenze; Kosten beim Vorgang vermerken. "
+                                 "Bild oder Film an den Chef nur mit `PROBE=<Nr>`.")
         if bildlauf(befehl, cwd):
             m = PROBE.search(befehl)
             if not m:
                 anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
-                         "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.")
+                         "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).")
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
             STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
         elif (hand := handlauf_bash(befehl)):
@@ -1061,7 +1105,7 @@ def bereich_merken(pfade, befehl, sitzung, cwd="."):
 
 def hinweis_geben(text=""):
     """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389, falls nötig Ungeprüftes 464.1, Liste je Bereich 822."""
-    text = " ".join(t for t in (text, ungeprueft_hinweis(), BEREICH["text"]) if t)
+    text = " ".join(t for t in (text, WARNUNG["text"].strip(), ungeprueft_hinweis(), BEREICH["text"]) if t)
     if text:
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}, ensure_ascii=False))
 

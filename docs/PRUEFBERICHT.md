@@ -52,6 +52,218 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 214 · 1187 Startsperren über Mitternacht (Perikles `9594965dc`), 1191 Übersicht „Offen je Rolle“ (Tom `31f9f4088`; 13.11., 17:2x)
+
+- **1187 greift, damit 1147:** Kopie mit gestellter Uhr, Zeilen „23:58 13.11. Startsperre Tom“, „23:59 13.11. Marke Start-fehlt Jerry“, „20:40 13.11. Startsperre Homer“, „22:10 13.11. Marke Archiv“. `aufraeumen()` 14.11., 00:02: Tom und Jerry bleiben, Homer (über 3 h) und Archiv-Merker fallen; 00:08 und 00:15 Startmarke Tom unter 20 Minuten (Sperre hält); 02:50 beide noch da, 03:05 beide weg (lauf.py liest höchstens 3 h). `--help`, Docstring und Kommentar `START_PRUEF_STD` stimmen jetzt.
+- **1191 am ersten Lauf belegt:** `zug-index.yml` rechnet „Offen je Rolle“ jetzt auch bei Push auf `ARBEIT-*.md` und `LISTE-VORGAENGE.md`, höchstens alle 55 Minuten; Lauf 11729 (17:09) „Chefsache: Übersicht mit Rollen“ (`6a905d9e4`), 756.1 steht dort nicht mehr als Muss; Lauf 11757 (17:24) „Offen je Rolle neu: 0 (zuletzt 14 min vorher)“, „unverändert“. Zeitplan `17 * * * *`: weiterhin 0 Läufe „schedule“ (Ursache offen, die Behebung hängt nicht mehr daran). Zweiter Lauf mit Rollen nach 18:04 steht aus.
+- **1192 Doppelpack 421 ohne Befund** (Perikles `6095f4225`): `LISTE-PRUEFUNG.md` „Leichenprüfung“, `ROLLE-PRUEFUNG.md`, `ROLLE-BETRIEB.md` folgen dem Wortlaut 1189 A (48 h, `--leichen 7`, jedes Chefurteil der letzten 48 h, höchstens 10 $, Besitzer schließen, Rückstufung 27.11.). Gestellte Uhr: 16.11. und 17.11., 7 Uhr nichts, 17.11., 8 Uhr Zeile „Leichenprüfung 17.11.“; mit erledigter Zeile vom 17.: 18.11. nichts, 19.11. wieder. `--urteile 48` jetzt: 100 Urteile, je mit Ort und Stand. Greift an der ersten echten Zeile am 17.11.
+- **Zu 1186 (Sokrates: „greift“ fehlt zu 1101, 1111, 1112):** noch nicht belegt. 1101: Teilablage am Lauf 427 (Build 283) da, „nächster Lauf alle vier Blöcke Treffer“ steht aus; die drei sind nicht auf `main` (zu testen t283). Teamzweige von `main` bauen darum weiter alles neu: Lauf 440 (`claude/tom-495-zufallsspieler-2`, 15:43–16:15): alle vier Blöcke „bauen“, Ablegen dorf viermal GH001 (`deep_forest.bin` 116 MB), „Ablegen misslungen“, 92 Minuten. 1111, 1112: echter Lauf mit `cache=neu` und einer mit geduldetem Fehler steht aus. Schließen nach dem ersten Lauf von `main` mit den dreien.
+- Nicht geprüft: ohne Push (Nacht) bleibt „Offen je Rolle“ stehen, auch wenn ein Termin („wartet auf 14.11.“) fällig wird; bis zum ersten Push nach Mitternacht.
+
+## Lauf 213 · 1147 Protokollkürzung `lauf.py` (Perikles `0102a9594`, Stand `55076515d`; 13.11., 16:3x)
+
+- **1147 greift am Werkzeug, live:** Lauf 15:28 (`ed2249ef1`): Zeilen „- HH:MM 12.11.“ 81 → 2 (die zwei übrigen sind Taten), Merker „Marke Archiv“ 91 → 20, Datei 46,3 → 39,4 KB; 15:32 kürzte Ford seinen Kopf von Hand (10,6 KB). Jetzt 12,6 KB, 46 Technikzeilen, alle vom 13.11., 3 Archiv-Merker.
+- **Lücke D213.1 → 1187 (Perikles):** der Filter „nur heute“ läuft vor der Ausnahme „jüngste Startsperre je Rolle“ (P4a) und hebt sie über Mitternacht auf. Kopie mit gestellter Uhr: „- 23:58 13.11.: Startsperre 23:58 Start Tom“, `aufraeumen()` um 14.11., 00:02 → `startsperren()` um 00:08 leer. Damit sieht die Startprüfung 837 (5 Minuten bis 3 Stunden) einen gescheiterten Start kurz vor Mitternacht nicht, wenn der erste Lauf mit `--sperre` nach 0 Uhr weniger als 5 Minuten nach der Sperre kommt; die 20-Minuten-Sperre endet ebenso vorzeitig. Dazu stehen `--help` (Zeile 43), Docstring von `aufraeumen` und Kommentar `START_PRUEF_STD` noch auf „heute und gestern“. 1147 wartet auf 1187.
+- Nicht geprüft: Nachfolger-Warnung über Mitternacht (laut Kommentar schlimmstenfalls doppelt, nicht nachgestellt); Leser von „Marke Archiv“ (Merker nur je Sitzung, D40.2).
+
+## Lauf 212 · Behebungen 1183, 1177 (Perikles `46f2469a3`, `55076515d`; 13.11., 16:0x)
+
+- **1183 greift:** `LISTE-CHECK-BUILD-TEST.md` 10 „`## Lagen` … Pflicht für jede Zeile, deren Weg nicht mit „Weiter“ und dem Spielstand des Chefs beginnt (1020 D, 1183)“; die Warnung im Prüfschritt ist 1185 (Tom).
+- **1177 greift.** `lauf_laeuft`/`lauf_marke_falsch` mit untergeschobenem Vorrat, Marke heute +3 h: „(Spike, Render)“, „(Render, Spike)“, „(Spike)“ sperren Spike, nicht Tom, ohne Warnung; „(Render)“, „(Tuffy, Render)“, „(Spike, Tom)“ sperren das Team und warnen; ohne Klammer Team, ohne Warnung. Commit-Prüfung (1159) streicht nur Datum und Zeit, die Klammer stört dort nicht.
+
+## Lauf 211 · 1178 Prüfliste im Bau nur `ansehen/t<n>` (Tom `7d89c654d`, `6ac308364`, `3e6676425` auf `claude/tom-1178-pruefliste`; 13.11., 16:0x)
+
+- **Am Werkzeug ohne Befund.** `--build 282/283/284` (heute keine `ansehen/t28…` auf `main`): „fehlt“, `--pruefe` Exit 1; Klon mit eigenem `main` und `ansehen/t999-a.md`: `GITHUB_HEAD_REF=claude/build-999` nimmt genau diese (11 Zeilen), `--pruefe` Exit 0; Build 1000 nur mit `entwurf/t1000-b.md`: fehlt, Exit 1 (kein Entwurf mehr im Bau); Teamzweig wie bisher die neueste. Arbeitskopie bleibt ungeflacht. Prüfschritt steht in „Skripte pruefen“ unter `set +e` mit Falle 918: rot, die übrigen Tests laufen weiter. Regel 8/9 (1179) verlangt die Liste in `ansehen/` vor dem Push, passt.
+- Greift erst am ersten Lauf auf `claude/build-…` mit 1178: Zeile „PRUEFLISTE Build n aus docs/chefsache/ansehen/t<n>-…“ → `greift 1178 <Lauf>`; 1178 wartet auf t285.
+- **1179 (Perikles `7d2cf4a2b`, Doppelpack 421) ohne Befund:** 8 „vor dem Push, der baut“, 9 „liegt gegengelesen in `ansehen/`, bevor der Push baut … Testbitte auf Telegram erst mit der APK“, 10 Zeile 2 „APK folgt“; „Testbitte nur mit Build“ (Chef 17.10.) bleibt für die Testbitte auf Telegram gewahrt; `zug-index` meldet „APK folgt“ nicht als Formfehler (Probeliste t997, Lauf 210). Prüfpunkt: erste Liste, die vor dem bauenden Push in `ansehen/` liegt; 1179 wartet auf t285.
+- **1181 greift:** `LISTE-GLOSSAR.md` 12 „testet Code vor `main` je Punkt in seiner Art, Kleinkram nicht (1173)“ (`93854efa8`); „jeden Code vor“ steht in keiner Regeldatei mehr.
+
+## Lauf 210 · 1171 Art Kleinkram in den Werkzeugen (Tom `83335228d`; 13.11., 16:0x)
+
+- **Greift am Werkzeug.** Klon von `main`, Probeliste t997 (t284 plus 997.80 Kleinkram ohne Link, 997.81 mit Link auf den Zweig `bilder`): `pruefliste.py` 11 Zeilen (beide Kleinkram aus dem Reiter), Commit-Prüfung hält nur an 997.80, `zug-index` meldet nur 997.80 als Formfehler.
+- **D210.1 → 1184 (Tom, Klasse 1):** das Werkzeug verlangt die Kleinkram-Zeile in der Prüfliste in `ansehen/`; `LISTE-CHECK-BUILD-TEST.md` 9 „nicht in die Prüfliste … je Punkt ein Bild auf Telegram zur Kenntnis (Link in der Zeile)“. Der Chef liest so jede Zeile weiter mit (Anlass 1173: „auch jeden Popelfurz“), 1172 zählt Punkte je Prüfliste. Stärkstes Gegenargument: in der Datei bleibt nachvollziehbar, was ohne Test auf `main` ging; dann gehört der Regelsatz geändert, nicht das Werkzeug (Perikles).
+- 1171 wartet auf 1184.
+
+## Lauf 209 · 1156 Lage herstellen (Spike `14070d8ca`), Doppelpack 1170, 1173 (Perikles `47dc3ce54`, `3eb8bf088`; 13.11., 15:5x)
+
+- **1156 am Rechner grün, greift noch nicht.** Arbeitskopie auf `14070d8ca`: `lage_1156` ohne die Kopien des Baus rot (3 Fehler: Herkünfte nur „Wanderer“, Stufe 0, falsche Lage ändert etwas), weil `daten/werte.json` fehlt; nach den Kopien aus Schritt „Karten und Texte“ (`werte.json`, `gegenstaende.json`, `pruefliste.py`) `lage_1156` und `pruefliste_1020` 0 Fehler, Exit 0. Station nicht geprüft („ohne Karte forest“), die echte Prüfliste t284 hat 0 Lagen. Prüfpunkt bleibt: erster Lauf auf `claude/build-…` mit 1156 („LAGE1156 im Bau: n Zeilen mit Lage“, n > 0 an der ersten Prüfliste mit `## Lagen`).
+- **D209.1 → 1183 (Perikles, Klasse 2):** `LISTE-CHECK-BUILD-TEST.md` 10 „nach der Tabelle wahlweise `## Lagen`“; Vorlage 1020 D (Chef 12.11., 08:09 „A–E“): „jede Zeile der Testbitte als Knopf im Reiter, der die Lage herstellt … Die Teams liefern je Build eine kleine Datei der Aufbauten“, Folgerungen „Ab dann nennt jede Prüfliste je Zeile den Weg über den Reiter“. Mit „wahlweise“ und ohne Warnung in `pruefliste.py` kommt der Hebel nur, wenn ein Team daran denkt. Stärkstes Gegenargument: Zeilen „ganzer Weg“ (Weiter mit dem Spielstand) brauchen keine Lage; Pflicht also nur für Zeilen, deren Weg mit einer Abkürzung beginnt.
+- **D209.2 → 1180 (Tom, Klasse 1):** `testmodus.gd` 624 prüft `probe=` gegen `feinde(true)` (auch Gruppen ohne Modell), der Reiter bietet nur `feinde()` (462; 555: ohne Modell kam ein zweiter Wolf); `test_tat("probe")` (spiel.gd 1449) fängt es nicht ab. Eine Lage mit Gruppe ohne Modell gilt in `lage_1156` als herstellbar und zeigt das falsche Monster.
+- **1170 Wortlaut passt** zum Chef (15:37) und Archiv; Handy behält Klang nur am Bedienen; `meldung.sh --datei` sendet jede Datei (`sendDocument`). Hinweis ohne Vorgang: „Klang nie in eine APK“ steht unter „Art je Punkt“, gemeint ist die Prüfart, nicht der Klang des Spiels.
+- **1173 Wortlaut passt** zu 1173 A (15:40, Archiv): Textkorrektur, abgenommenes Teil, Bild zur Kenntnis, erster Rückschritt beendet die Art. **D209.3 → 1181 (Perikles, Klasse 2):** `LISTE-GLOSSAR.md` 12 „Chef … testet jeden Code vor `main`“ überholt, im Vollzug nicht mitgeändert (461b). Kein Werkzeug geprüft (1171 Tom, gebaut).
+- Nicht geprüft: 1156 am Handy, 1171.
+
+## Lauf 208 · 1159, 1161, 1163 Marke „Lauf läuft bis“, Wortlaut ROLLE-ENTWICKLUNG (Perikles `49c8f4e08`, `66ea6e95d`, `9fa556184`; 13.11., 15:4x)
+
+- **1159 greift.** Klon, Zeile in `ARBEIT-TEAM-TOM.md`, Marke heute +3 h: „bis TT.MM., HH:MM“, „… HH:MM Uhr (Spike)“, „bis TT.MM. HH:MM“ je Exit 0; „Render fertig gegen TT.MM., HH:MM“ und dieselbe Zeit als zweite Angabe in der Markenzeile halten weiter (Exit 1).
+- **1161 greift.** `lauf_laeuft`/`lauf_marke_falsch` mit untergeschobenem Vorrat: „18:30 Uhr (Spike)“ gilt für Spike, nicht Tom; ohne Datum, „etwa 18:30“, 32.11., über 12 h warnen; Zitat in „…“ und abgelaufene Marke schweigen; Fettdruck zählt. Heutige Vorräte: keine Warnung. Jahreswechsel (1163): 31.12., 23:00 mit „bis 01.01., 02:00“ zählt, „01.01., 12:30“ warnt über 12 h.
+- **1163 greift.** Wortvergleich `7d44e0f23~1` gegen jetzt: nur „TT.MM.,“ und „danach streichen“ (1148) dazu, „wirklich“, „alle eigenen“→„ihre“, „erst“ weg, wie im Commit genannt.
+- **D208.1 → 1177 (Perikles):** „Lauf läuft bis TT.MM. HH:MM (Spike, Render)“, heute +3 h: die Klammer nimmt nur einen Namen, also gilt die Marke still fürs Team: `lauf_laeuft("Tom")` sperrt, `lauf_laeuft("Spike")` None, keine Warnung. Spike würde mitten im Lauf gestartet oder archiviert (Fall 1148). Stärkstes Gegenargument: die Regel schreibt „Namen in Klammern“, die Form ist bisher nicht vorgekommen.
+- 1148 wartet auf 882.1: der Prüfpunkt „nächste echte Marke von Spike ohne Halt, keine Warnung, kein ARCHIVIERE bis zur Zeit“ ist erst am Lauf zu sehen; heute steht keine Marke.
+
+## Lauf 207 · 1153 Wächter Rest auf allen Wegen, 1143 (Tom `e4170b4d5`, `b9cb52a73`; 13.11., 15:4x)
+
+- **1153 greift.** Am Klon, Probevorgang 9901 (Bereich B, „gebaut“) mit Baucommit „Rest: … braucht noch einen Bau“: `stand … erledigt`, `stand „erledigt, greift Lauf 5“`, `setze stand=erledigt`, `setze „stand=erledigt, Bautest Lauf 5“`, `fertig`, `greift`, `bautest` halten je mit Exit 1, die Liste bleibt gleich (Prüfsumme); `build 9990` mit Prüfliste „9990.1 ✓“ hält mit „nichts geschrieben“ (Exit 1), `--probe` nennt „PROBE gesperrt“. Mit „Kein Folgevorgang, weil: …“ im Commit geht `build` durch („erledigt, t9990 bestanden“), mit Folgevorgang „(aus 9901)“ geht `greift` durch. Andere Schreiber der Liste setzen kein „erledigt“ (`startbar.loesen` nur „startbar, gelöst“, `lauf.py --aufraeumen` verschiebt nur). Der Sammelbuild („erledigt, tN getestet“) bleibt mit Absicht frei. Nicht abgedeckt, weil gegen 275.2: Handänderung der Liste (Commit-Prüfung warnt nur).
+- **D207.1 → 1175 (Tom):** `rest_offen` liest nur den jüngsten Commit mit der Nummer (`git log --all -1`). Am Klon: nach dem Baucommit mit Rest ein leerer Commit „9901: in Arbeit bei Spike“, dann `fertig` → „erledigt“. So liegt es bei 1143 selbst (jüngster Commit `49a85026c` „1143: in Arbeit bei Spike“, Baucommit `9acb42063` davor). Heute bis 10 offene Vorgänge, deren älterer Commit einen Rest nennt und deren jüngster nicht, darunter 505 (`c999dc014` „Höhle noch nicht“) und 1084 (`096ac8149` „im Spiel noch nicht gebaut“) auf „zu testen“; bei `build N` gingen sie still zu. Unter den 10 auch Fehlalarme der Regel (709: „0,7 s später“). Stärkstes Gegenargument: alle Commits zu lesen weckt alte, längst behobene Reste (505 kann die Höhle inzwischen haben); daher etwa die Commits seit dem Wechsel auf „gebaut“ lesen oder alle Funde nennen und je einen Grund verlangen.
+- Klein, ohne Vorgang: `b9cb52a73` beschreibt im „Geprüft an:“ die Probesätze („gibt es noch nicht“) und sperrt damit 1153 selbst; geschlossen mit `VORGANG_REST_OK=1153`. `build N` druckt vor dem Halt „BUILD 9901 (Tom): erledigt“, erst die letzte Zeile sagt „nichts geschrieben“.
+- 1143 wartet auf 1175.
+
+## Lauf 206 · 1154, 1151, 1148 Marke „Lauf läuft bis“ und `--ohne <Rolle>` (Perikles `7d44e0f23`; 13.11., 15:3x)
+
+- **1154 greift, 1151 greift.** `lauf_laeuft` am Klon, 16 Fälle mit gesetzter Uhr: „bis TT.MM., HH:MM (Spike)“ gilt nur für Spike, ohne Namen nur für Tom, ebenso Tuffy; 23:04 mit „bis 14.11., 00:45“ gilt (1151); 00:30 mit „bis“ 23:50 des Vortags gilt nicht, eine vergessene Marke gilt höchstens 12 h (1154); „ohne Komma“ und fett gelten. Ganzer Lauf am Klon (Kurzform, Spike idle seit 13:57 auf 882.1, ältere Spike-Sitzung 882): ohne Marke START Spike und ARCHIVIERE beider, mit Marke „NICHTS Spike: … Hintergrundlauf“, kein ARCHIVIERE. „danach streichen“ steht wieder in `ROLLE-ENTWICKLUNG.md`.
+- **1148 im echten Betrieb:** `--ohne "Spike:Render-Lauf …"` wirkt (Fords Lauf 15:28: Marken Archiv nur für Tom und Diogenes, Spike `…78LUomV3gY1qNRdSe2` steht). Die Marke selbst ist nicht setzbar: seit 1154 verlangt sie das Datum, und die Commit-Prüfung (`commit-pruefung.py` 295) hält jede Uhrzeit von heute nach jetzt an; Ford hat das als 1159 (Perikles) eingetragen, Spike 15:29.
+- **D206.1 → 1161 (Perikles):** eine Marke in falscher Form zählt still nicht: ohne Datum (so vorgeschrieben bis `7d44e0f23`), „HH:MM Uhr (Spike)“ (der Name gilt dann nicht, die Marke hält Tom statt Spike), mehr als 12 h voraus, mit Jahr. Im Messlauf mit „Lauf läuft bis 23:00 (Spike)“: START Spike und ARCHIVIERE der rendernden Sitzung, also genau der Schaden aus 1148. Vorschlag: lauf.py warnt bei jeder Zeile „Lauf läuft bis“, die nicht zählt. Stärkstes Gegenargument: die Form steht in der Regel, eine Warnung mehr ist Lärm; dagegen kostet ein Archivieren den ganzen Lauf (882.1: über 2 h, 98 Bilder).
+- **D206.2 → 1163 (Perikles):** `7d44e0f23` ändert in `ROLLE-ENTWICKLUNG.md` ungenannt „Kleines im Bereich (Farbe, Busch, Einzelheiten) entscheidest du selbst“ zu „(Farbe, Busch)“ (Wortlaut seit `b37fff95b`) und „zu einem Eigenbau“ zu „zum Eigenbau“; die Commit-Nachricht nennt nur die Marke. Zweites Mal an einem Tag (D205.3, 1152). Das Streichen engt ein, was das Team selbst entscheidet (Doppelpack 421).
+- Klein, ohne Vorgang: über den Jahreswechsel gilt die Marke nicht (31.12., 23:00 mit „bis 01.01., 02:00“ → nicht, `replace` behält das Jahr).
+- 1148 wartet auf 1159, 1161. Nicht geprüft: 1153 (Tom `e4170b4d5`), 1143.
+
+## Lauf 205 · 1114 Kampfort ohne Block figur (Tuffy `ede19193b`), 483 Film-Links (13.11., 15:0x)
+
+- **483 greift.** Sechs echte Filme 1036.1 (13.11., 13:35–13:36, Jerry): je Film ein eigener Zweig `film/20261113-1335xx-1036.1` mit nur der Datei; alle sechs Links in `ansehen/10361-zustaende.md`, jeder eigen, jsDelivr liefert je 200 `video/mp4` (5,5–11 MB, 11,4 s gelesen). Film 1043 (02:56) ebenso abgelegt, Datei nach Entscheid weg (`8487ed7a9`).
+- **1114, am Rechner:** Probe `kauf_cache_probe.sh` 46 gut (wie Tuffy). Eingaben kampf vorher 29, nachher 25: weg `v3/held3.py`, `v3/rig.py`, `v3/geruest.py`, `v3/leute.json`, `v3/kampf.py` (nur über geruest, das goblin nur mit GERUEST=cc0 kopiert), neu `v3/tex.py`; `v3_kampf/held3.py`, `rig.py` bleiben drin. `$OUT/tex` gibt es auch bei figur-Treffer (tex.py läuft in „Modelle bauen“ immer, wenn nicht alles trifft). Held je Klasse schreibt `daten/held.bin` nicht um. Kein Befund. Offen: Lauf 434 (`claude/build-284`, trägt `ede19193b` über 1115), läuft seit 14:56.
+- **1146 (Perikles `7138a739c`) greift technisch, mit Befund.** `bildlauf()` am Rechner (Messlauf): `xvfb-run … -s res://tests/welt_548.gd` zählt nicht, ebenso mit `--headless`; ohne Testprogramm, mit `--write-movie`, fehlende Testdatei und `am_zug_565_bild.gd` (Bildbefehl) zählen weiter. **D205.1 → 1150 (Perikles):** Archiv 390a (Chef 28.10., 10:26, „390a A“) legt fest „eng: nur `--headless`, nur `-s res://tests/…`, kein Bildbefehl“; 1146 streicht „nur `--headless`“ ohne Vorentscheid im Archiv und ohne Datei in `billigen/` (Rolle Perikles „Entscheidet selbst“: nur im Rahmen des Archivs). Stärkstes Gegenargument: ohne `--headless` und ohne Bildbefehl sieht der Chef ebenfalls nichts, die Sache ist vertretbar; die Form nicht. 1146 wartet auf 1150.
+- **1147 (Perikles `0102a9594`), am Klon:** `lauf.py --aufraeumen` 46,1 → 39,7 KB, 96 Zeilen weg, davon 71 „Marke Archiv“ (92 → 21). Gelesen: die Prüfung „Start fehlt“ (837) läuft im Lauf vor dem Aufräumen, eine Startsperre von vor Mitternacht wird also im nächsten Lauf noch geprüft; Sperre 20 Minuten unberührt. Wegfallende „Archiv-Warnung“ von gestern kann einmal am Tag wiederkommen (Perikles nennt es). Kein Befund. Offen: Größe nach Fords nächstem echten Lauf (bisher 46 KB, weil seit `0102a9594` kein Lauf mit `--sperre`).
+- **1148 (Perikles `304660d8e`) greift mit Lücke.** Am Klon (Messlauf): `lauf_laeuft` mit „Lauf läuft bis <+1 h>“ ohne Namen gilt für Tom, nicht Spike; mit „(Spike)“ nur für Spike; abgelaufen für keinen; `--ohne Spike:Grund` trifft `ROLLEN_NAMEN`, `--ohne 882.1` nicht. **D205.2 → 1151:** über Mitternacht wirkt die Marke nicht (JETZT 23:04, „bis 00:45 (Spike)“ → None), Ford startet und archiviert dann wie vor 1148; Spike rendert nachts. **D205.3 → 1152:** derselbe Commit kürzt in `ROLLE-ENTWICKLUNG.md` „Alt zuerst“ das Chefzitat 647 (08.11., 12:44) in Anführungszeichen: „die guten Sachen, die schon da sind, übernehmen“ → „die guten Sachen übernehmen“ (Wortlaut `ca95b872f`); Quelle „Chef 29.10., 11:19–11:26“ bei 408 gestrichen. 1148 wartet auf 1151, 1152.
+- **1143 (Tom `9acb42063`) greift nur auf einem Weg.** `rest_offen` am Rechner: 1140 mit 1149 leer, ohne 1149 (Zeile ausgeblendet) hält es mit „Offen in 1140: Dolch …“ (`fa0144fe8`); 1131, 1115, 1114, 1146 leer. **D205.4 → 1153 (Tom):** die Prüfung steht nur in `fertig`. Der Anlass 596 ging nicht über `fertig` zu, sondern über die Testauswertung t268 (`24d874a52`, „bestandene Vorgänge erledigt“; heute `vorgang.py build N` → „erledigt, tN bestanden“); auch `greift`, `bautest` und `setze stand=erledigt` schließen ohne sie. Toms Probe „596 hielte an“ prüft nur `rest_offen`, nicht den Weg. 1143 wartet auf 1153.
+- **Nachbau Perikles `c4c326120`:** 1152 greift (647 „Alter Code, neuer Code. … die schon da sind, übernehmen …“, 377 „Oder was downgeloadet haben“ wie `9d09e87fa`, Quelle 408 zurück). 1151 behebt Mitternacht (23:04 „bis 00:45“ gilt), **D205.5 → 1154:** die 12-Stunden-Regel lässt eine stehengebliebene Marke bis zu 24 h gelten (Messlauf: 00:30 mit „bis 23:50“ → gilt, 15:30 mit „bis 03:00“ → gilt bis morgen 03:00; 10:00 mit „bis 09:00“ → nicht); Ford startet die Rolle so lange nicht, und „danach streichen“ fehlt seit `c4c326120` in `ROLLE-ENTWICKLUNG.md`. 1151 wartet auf 1154; 1148 wartet auf 1154.
+- **1150 greift** (Perikles, 15:05): Vorentscheid im Archiv, Datei `billigen/1150-xvfb.md` mit Frage, Wortlaut 390a und Gegenprobe; damit **1146 greift**. Klein: „Umgesetzt in `6ec507093`“ ist der Merge, der Code steht in `7138a739c`.
+
+## Lauf 204 · 632 Truhe der Höhle am Rechner nachgestellt, Bautests aus Lauf 203 geschlossen (13.11., 14:1x)
+
+- **632 greift.** `truhe_632` auf `main` (`50eb3fd84`) am Rechner mit den Daten wie im Lauf (`werte.json`, `gegenstaende.json` kopiert, Schritt „Karten und Texte“): „TRUHE632 0 Fehler“, Ende 0; ohne die kopierten Daten 14 Fehler (nur Rechner, kein Befund). Im Lauf der APK mit `pipefail`, kann rot werden; Lauf 427 grün (Lauf 203). `spiel.gd:847` löst „@class_weapon“ in `oeffne_kiste` über `truhen_waffe` auf (gelesen). Lücke ohne Befund: der Test prüft diese Zeile als Text, nicht durch Öffnen der Truhe.
+- `vorgang.py bautest … 427` (1128.2): 632, 1009, 900, 1018, 910, 909 erledigt (Bestätigungen aus Lauf 203).
+- Nicht geprüft: Anzeige der Waffe im Spiel (Name, Bild); fährt mit der Höhle (492) zum Chef.
+
+## Lauf 203 · 1128.3 Bautests der 30 am Lauf der APK von Build 283 (Lauf 427, `a1765242c`, Job 131848837921; 13.11., 13:5x)
+
+Maßstab 1128 A: Test steht im Lauf der APK ohne `|| true` und ohne `continue-on-error`, kann rot werden (Ende `quit(1)` bzw. `grep -q` auf „0 Fehler“), und war grün; Kaufmodelle waren da (kein früher Ausstieg „ohne Kauf“). `rot.txt` leer, keine Zeile „SCRIPT ERROR“ in der Ausgabe.
+
+- **Bestätigt (7):** 1009 `spielstand_test` „SPIELSTAND 0 Fehler“ · 900 `wolf_mess_438` (nebenher, Kaufwolf da) „Befunde: 0“, Ende 0 nach 134 s · 1018 `bewegung_997` ok, `wechsel_950` 0, `held_kampf_403` 0 (Bewegungen aller vier Klassen da), `arkan_993` 0 (Paket R2 da), `wolf_mess_438` 0 · 910 `atem_4531` 0 Fehler (mit Kauf) · 632 `truhe_632` 0 Fehler · 909 vier Messungen laufen nebenher auf 4 Kernen (`zustaende_563` 54 s, `schild_406` 262 s, `wolf_mess_438` 134 s, `strahl_mess_415` 55 s, zusammen 505 s), alle Ende 0, Ausgabe gesammelt; Schritt „Skripte pruefen“ 1644 s (Lauf 353: 1405 s, seither viele Tests dazu, ohne Messung je Test nicht vergleichbar).
+- **Nicht bestätigt (4, Vorgang 1136 an Jerry):** 1013, 1014 `schild_406` läuft mit `|| true` (Ausgabe „SCHILD 406 gut“, CLERIC ohne Schild, ParryLow −0,077 m, 0 Messbilder; wird aber nie rot) · 1054 `mars_regeln` nur in `godot-kampf.yml` (Zweige `claude/jerry-348-**`), letzter Lauf 10.11. (rot), vor 1054 · 904 `sim444_870` steht in keinem Bauablauf.
+- **Nicht prüfbar an 283 (2):** 1060: `klassen` und `kampf` bauen neu mit gutem Grund (`held3.py`, `held_klassen.py`, `kaufgrabhund.py` geändert); die Zeile „leute.json“ ohne „:felder“ unter „geändert“ heißt nur, dass der letzte abgelegte Block noch vor 1060 entstand. Bestätigt erst ein Lauf, in dem sich nur Dorffelder von `leute.json` ändern und `klassen` „treffer“ ist. 1126 ist nicht in 283 (Zweig `claude/jerry-1111-cache`, 284).
+- **Dazu, Prüfliste 283 „Im Bau geprüft“ (8 von 8 grün, alle ohne `|| true`):** `zoom_1118`, `effekte_814`, `pim_verband_842` („PIM842 gut“), `zustaende_764`, `nebel_505`, `sperre_756`, `schirm_833`, `ring_halt_1094`; Bauserver: „ZIEGE 0 Fehler“ (1079), „PRUEFLISTE1020 im Bau: Build 283, 9 Zeilen“ (1122, erste Hälfte), „KAUF-CACHE abgelegt dorf … 263 MB (7 Teile)“ (1101).
+- **Zählung ab 283 (Rückweg 1128):** Prüfliste 283 entstand 12:55, vor 1128 A (13:36): 18 Punkte, alle Handy; 8 Bautests „Im Bau geprüft“ mit Laufnachweis. Funde je Art und Rückschritte nach dem Test des Chefs an 283 (Quelle: Prüfliste in Git, Fund-Vorgänge „t283.x“); 284, 285 ebenso; nach 285 Zahlen an Perikles und den Chef.
+
+## Lauf 202 · 790.1 Zwischenzahl Kosten nach 383 A (09.11., 18:07 bis 13.11., 13:23; 13.11., 13:2x)
+
+405 Sitzungen (`list_sessions` mine), 392 abgeschlossen mit `usage` (13 laufend oder ohne Feld), zusammen 3.053 $; je Sitzung `get_session` über acht Helfer, Rechnung wie Lauf 113. Aufwand: `effort_level` fehlt bei 210 Sitzungen (meist vor 11.11.), darum zusätzlich nach Zeit getrennt.
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 61 | 669 | 8,30 | 0,055 | 293 | 742 | 0,160 | 14 |
+| Jerry | 53 | 592 | 9,50 | 0,059 | 317 | 595 | 0,150 | 13 |
+| Sokrates | 67 | 576 | 7,08 | 0,056 | 263 | 478 | 0,135 | 17 |
+| Tuffy | 31 | 317 | 8,05 | 0,055 | 289 | 612 | 0,138 | 15 |
+| Spike | 38 | 215 | 4,61 | 0,051 | 218 | 404 | 0,131 | 20 |
+| Ford | 23 | 209 | 6,99 | 0,030 | 381 | 889 | 0,119 | 26 |
+| Perikles | 45 | 198 | 4,23 | 0,050 | 206 | 315 | 0,117 | 20 |
+| Homer | 30 | 152 | 3,92 | 0,060 | 186 | 307 | 0,101 | 28 |
+| Diogenes | 43 | 124 | 1,76 | 0,051 | 152 | 392 | 0,118 | 27 |
+| alle | 392 | 3053 | 6,10 | 0,054 | 247 | 889 | 0,137 | 17 |
+| vor 11.11., 07:18 | 129 | 850 | 5,75 | 0,052 | 234 | 742 | 0,134 | 19 |
+| ab 11.11., 07:18 (alle Hoch) | 263 | 2203 | 6,39 | 0,055 | 260 | 889 | 0,138 | 17 |
+| Aufwand hoch | 178 | 1534 | 6,43 | 0,056 | 266 | 889 | 0,139 | 17 |
+
+Gegen Lauf 113 (alle, Woche davor): $ je 1000 Ausgabe 0,137 statt 0,144; je Aufruf 0,054 statt 0,074; Median je Sitzung 6,10 statt 13,41 $; Median Länge 247 statt 391 Tsd. Kosten 3.053 $ in 3,8 Tagen statt 3.083 $ in 7 Tagen. Ohne Bewertung; ganze Woche in 790 am 16.11.
+
+## Lauf 201 · 1134 OHNE-ÜBERHOLT mit allen Nummern und laufenden Sitzungen (Perikles `5fbb88a3a`; 13.11., 13:2x)
+
+- **Greift:** gestellte Sitzungen: „Jerry – 1111, 1112, 1113“ laufend mit `updated_at` vor 5 h → keine Meldung für alle drei; „Tom – Kauf-Cache 1114“ erkannt; archivierte 882.1 vor 5 h und 1101 ohne Sitzung → OHNE-ÜBERHOLT. `nummer_aus_titel` alt gegen neu an 629 echten Titeln seit 02.11.: eine Abweichung („Tom – Sammelbuild 1022, 842, …“: 842 → 1022, richtiger). Echter Ford-Lauf mit `--ohne` bleibt in 1133.
+
+## Lauf 200 · 1133 Werkzeugpunkte P1–P4 der Systemprüfung 1129.1 (Perikles `d92d2caed`, `e2652d81d`, `e466b8d45`, `c660c954e`; 13.11., 13:2x)
+
+- **Pflegehinweis (Auftrag 1):** `gleich_bis_auf_zahlen` ersetzt nur Zahlen vor „Bytes“, „Zeichen“, „KB“; gleiche Zeile desselben Besitzers bleibt stehen. Einziger Pflege-Commit danach (13:15) war eine echte Änderung (Tom weg, Diogenes neu). 13.11. bis 13:15: 41 Commits; Tageszahl erst 14.11. Im Auftrag stand `279416a1f` (ein Zusammenführen), der Bau ist `d92d2caed`.
+- **Protokoll kürzen (Auftrag 2) greift:** Lauf 13:14 (`cdc712588`): `ARBEIT-BETRIEB.md` 58.106 → 43.684 Bytes, Startsperren 134 → 30, „Start-fehlt“ 39 → 12; gestrichen nur diese beiden Arten. `startmarken` vorher wie nachher gleich, abgesehen von den drei neuen Sperren 13:14. „Start-fehlt“ liest `lauf.py` nur für Sperren unter 3 h, Streichen ab 6 h also folgenlos.
+- **OHNE-ÜBERHOLT (Auftrag 3):** Probe mit gestellten Sitzungen: Archiv, „ruht“, „in Arbeit“ ohne Sitzung richtig erkannt, Sonderzeilen übersprungen. **Befund D198.1 → 1134 (Perikles):** Titel mit mehreren Nummern („Jerry – 1111, 1112, 1113“) liefert nur die erste, vierstellige Nummer nur direkt nach „–“; „tätig“ nur über `updated_at`, das bei laufenden Sitzungen stehen bleibt (13:18: Tuffy, Diogenes `updated_at` = `created_at`). Echter Lauf steht aus: Lauf 13:14 lief ohne `--ohne`.
+- **Haltezählung (Auftrag 4):** Probe gegen eigenes leeres Repo: drei gleichzeitige Halte (probelauf, commit-pruefung, startsperre) → drei Zeilen, drei Commits, Zählung fasst Nummern zusammen, `--ab` richtig. Haken rufen die Dateien als Skript, `import hakenzahl` findet sich. **Greift:** echte Halte 13:19–13:21 aus mehreren Sitzungen (2 commit-pruefung, 2 probelauf) stehen im Zweig `haken`, `hakenzahl.py` zählt sie; startsperre noch ohne echten Halt (gleicher Weg).
+- 1133 wartet auf 14.11.
+
+## Lauf 199 · 1125 Sammelbilligungen in `abgleich.py` (Perikles `377a1a533`; 13.11., 11:5x)
+
+- **Vorläufig:** `abgleich.py` auf `main` gibt keine Vorentscheid-Warnung mehr, nur Zeilen „ohne Build“ (in `lauf.py` eine Zahlzeile, zählt als Leerlauf). Ob ein Uhrlauf ohne Startbares jetzt nach einem Schritt endet und billiger wird, zeigt erst der nächste echte Lauf; 1125 wartet bis 13:15.
+
+## Lauf 198 · 1070 getestete Prüfliste im selben Commit wie „tN“ aus der Chefsache (Perikles `95e4f4bef`; 13.11., 11:5x)
+
+- **Greift:** beide Tests seit dem Bau: t281 (`67b8504be`, 09:10) und t282 (`94621abe7`, 10:44) löschen `ansehen/t28n-…` im selben Commit wie den Archiveintrag „tN getestet“; `chefsache/ansehen/` hält heute keine getestete Prüfliste mehr.
+
+## Lauf 197 · 1124 Rolle im Wartefeld: Commit-Prüfung hält „Zu <Nr> … von <Rolle>“ an (Perikles `cf704c3ea`; 13.11., 11:5x)
+
+- **Greift:** in einer Kopie von `main` neue Zeile „Zu 483, von Diogenes“ in einem Vorrat → HÄLT AN mit Vorschlag `warte 483 D75`; nach dem `warte` im selben Stand durch; „von Sokrates“ geht durch. Fords Originalzeile (`5380d2eb1`, „Zu 1098, Ergebnis Probe D von Ford …“) passt auf beide Muster (Nummer und „von Ford“ im fetten Kopf), wäre also angehalten worden. Der Haken läuft in der Notizkopie (diese Sitzung hielt heute dreimal an der 15-KB-Grenze).
+- **Grenzen:** erkennt nur eine Lieferung mit „von <Rolle>“ im fetten Kopf; eine geänderte alte Kopfzeile zählt als neu (Ausweg `BORNIM_WARTET=1`). Zurzeit trägt nur 483 eine Rolle im Wartefeld.
+
+## Lauf 196 · 1111, 1112, 1113 Kauf-Cache: Gegenprobe, halbe Blöcke, Aufräumen (Jerry `826974d2e` auf `claude/jerry-1111-cache`; 13.11., 11:4x)
+
+- **1111 richtig gebaut:** `pruefen --neu` setzt jeden Block auf bauen, `KAUF_HOLEN` nein, `KAUF_GEGENPROBE` nennt nur Blöcke mit vorher abgelegtem Zweig; `ablegen` überschreibt keinen, `vergleich` prüft damit den alten Zweig gegen den frischen Bau, nicht sich selbst. Abweichung macht den Schritt rot (continue-on-error, Bau geht weiter).
+- **1112 richtig gebaut:** alle geduldeten Fehler in Blöcken setzen `halb` (Block klassen: LEUTE KAUF; Block kampf: Grimmzahn, vier Kauftiere, Skelett, Wiedergänger, Grabhund); figur und dorf dulden keinen Fehler (`exit 1`); Waffen, Dorftiere, Leute liegen außerhalb der Blockmarken. Die erste Marke des Blocks löscht alte `halb`-Dateien.
+- **1113 mit Lücke:** D196.1 → 1126 (Jerry, M): Aufräumen kann einem gleichzeitigen Lauf auf einem anderen Zweig den gewählten Treffer zwischen Prüfen und Holen wegnehmen; `holen` baut dann nicht nach, Lauf rot. 1113 wartet darauf.
+- **Nebenbefund:** D196.2 → 1127 (Jerry, K): rote Gegenprobe meldet zusätzlich „Ablegen misslungen“.
+- **Nicht geprüft (wartet auf t283):** echter Lauf mit `cache=neu`, mit geduldetem Fehler, Löschen per KAUF_TOKEN.
+
+## Lauf 195 · 1100.1 Ford-Lauf vorher/nachher (Perikles `70a4467fe`, Ford ab 10:03; 13.11., 11:4x)
+
+- **Grundlage:** alle 41 Züge der Ford-Sitzungen `…78Qg516rLn1yGt11hL` (05:11–11:08) und `…799ZkNaijAJMrQQjx9` (11:12–11:43), je Zug Kosten, Schritte, Verlauf (result-Ereignisse).
+- **Kosten:** 05:09–09:20 4,57 $ in 18 Zügen, 165 Schritte (1,09 $/h, deckt sich mit Sokrates 4,58 $); 10:03–11:43 5,38 $ in 13 Zügen, 164 Schritte (3,2 $/h). Darin Probe D 11:01 (0,70 $), Ford-Neustart 11:08 und 11:12 (1,61 $), fünf Starts 11:40 (0,69 $).
+- **Schritte je Uhrlauf:** vorher 07:04 8, 08:06 18, 09:04 8; nachher 10:05 9, 11:15 9 (11:40 32 mit fünf Starts und Archivierungen). Kein Uhrlauf endete nach einem Schritt (LEERLAUF), die Bremse-Warnung kommt jede Stunde. Kosten je Schritt: 0,02 $ bei 160 Tsd. Verlauf (07:04, 11:15), 0,04 $ bei 390 Tsd. (10:05).
+- **Marke:** „Abgleich ganz 13.11.“ einmal, 09:40; danach keine weitere.
+- **Starts:** nach 10:03 jede Startsperre mit Sitzung oder WEITER, außer Spike 10:58 (Warnung 11:11, gestartet 11:12) und Tuffy 10:04 (Ford ließ ihn aus, Sperre stand, Warnung 10:58; derselbe Ablauf wie Hinweis Lauf 127). Keine Warnung verloren: jeder fehlende Start hat seine Marke „Start-fehlt“. Nebenbei: 09:40 schrieb `lauf.py` Vorentscheid-Marken doppelt (1044, 1022 je dreimal, 1090 zweimal).
+- **Befund:** D195.1 → 1125 (Perikles): 1100 spart messbar nichts; 1100 wartet darauf.
+- **Nicht geprüft:** Telegram-Warnungen selbst (nur die Marken im Protokoll).
+
+## Lauf 194 · 1122 Prüflisten-Test nur auf claude/build-… (Tom, `3ff3626be` auf `claude/tom-1122-pruefliste`; 13.11., 11:4x)
+
+- **Richtig gebaut:** einzige Stelle mit `pruefliste_1020` in allen 16 Workflows ist `godot.yml` Zeile 705; Bedingung unter `bash -e` nachgestellt: `claude/build-283` führt den Test aus, ein Fehlschlag bricht den Schritt weiter ab (Exit 1); `claude/tom-348-x` schreibt „aus“ und läuft weiter. `pruefliste.py` (Daten fürs Spiel) läuft weiter auf jedem Zweig, nur der Test ist aus; `workflow_dispatch` auf einem Buildzweig führt ihn aus.
+- **Nicht geprüft (wartet auf t283):** kein echter Lauf, der Zweig löst `godot.yml` nicht aus und steckt in keinem Build. Prüfen: Lauf auf `claude/build-283` mit Zeile „PRUEFLISTE1020 im Bau: Build 283“; nach `main` ein Lauf auf `claude/tom-348-…`/`jerry-348-…` mit „PRUEFLISTE1020 aus“.
+- **Rest, kein Befund:** ein Neubau von Build n, wenn schon `entwurf/t<n+1>` auf `main` liegt, prüft gegen die neuere Liste; der Test vergleicht keine Buildnummer, rot nur bei geändertem Listenaufbau.
+
+## Lauf 193 · 1121 Commit-Prüfung 774 und „ohne Rückmeldung tN“ (Perikles, `f31ce0409`; 13.11., 11:0x)
+
+- **Greift:** nachgestellt auf `94621abe7^` mit `vorgang.py build 282`: alte Bedingung meldet 1040.1 als lose (Halt), neue keine; ausgenommen wird nur der Stand, den `vorgang.py` Zeile 409 selbst schreibt („zu testen, ohne Rückmeldung tN“), jede andere lose Zeile hält weiter an.
+
+## Lauf 192 · 1099, 1103, 1110 Repos und Archivieren in den Rollendateien (Perikles, Doppelpack 421; `cc52ea528`, `e70cb24f3`, `6f970b4a2`; 13.11., 10:08)
+
+- **Greift:** Bitte-Zeile 642 in `ARBEIT-BETRIEB.md` weg; Archiv 1099 und 1110 mit Wortlaut 07:12, 09:55–09:59; Repo-Satz in allen sechs Rollendateien gleich dem Archiv; Ford archiviert ohne Satz nur ARCHIVIERE, nie laufende (Wortlaut 09:59); keine Regel „nur auf Wort/Satz des Chefs“ zu Repos oder Archiv mehr (Rollendateien, `LISTE-*`, `CLAUDE.md`). Beleg 1099: diese von Ford gestartete Sitzung band `bornim-kaufmodelle` um 09:50 ohne Chefwort ein. Gestrichene Dubletten (Uhr-Lehre, drei Homer-Lehren, Beispiel D3.10, „kein Eingang für Teams“ steht weiter in `ARBEIT-BERATUNG.md`) ohne Widerspruch.
+- **Befund:** D192.1 → 1117 (Perikles): Zeile 391 trägt noch Stand „Chefwort in der Sitzung wirkt“.
+- **Nicht geprüft:** Archivieren durch Ford ohne Satz am echten Lauf (nächster ARCHIVIERE).
+
+## Lauf 191 · 1109 Querprüfung Vorberechnung 854 mit 1101 (Chef 13.11., 09:44; `jerry-1101-teile` `f52d5dc23`, `build-282` `1cbb7e575`; 13.11., 09:5x)
+
+- **Greift:** in 24 von 34 Läufen (12.–13.11., Protokolle) trafen klassen und kampf; Lauf mit allen Treffern etwa 49 min, voller Bau 115 min (420). Seit Lauf 387 scheiterte das Ablegen an dorf (deep_forest 122 MB), der alte Code brach ab, klassen und kampf wurden nie mehr abgelegt (409–420 sechsmal neu). 1101 behebt beides; Probe am gemischten Stand `build-282` + 1101: 15 mal gut, ohne Konflikt.
+- **Schlüssel:** alle 36 Skripte der Blöcke gefunden; held3 und rig in `held_klassen.py` nur über `block:figur` gedeckt (Name zusammengesetzt); 60 übrige Dateien unter `tools/blender348` in keinem Block benutzt (nur Wortgleichheit); bpy-, CC0- und Kaufstand in der Kennung.
+- **Befunde:** D191.1 → 1111 (`cache=neu` wirkt nicht, Gegenprobe leer), D191.2 → 1112 (halber Block wird abgelegt und ausgeliefert), D191.3 → 1113 (Kaufrepo 524 MB, wächst ohne Löschen), alle Jerry; Sparvorschläge D191.4 → 1114 (Jerry), D191.5 → 1115 (Tom); Geldwert → 1116 (Perikles).
+- **Nicht geprüft:** ob Blender-Ausgaben Byte für Byte gleich bleiben (ohne Gegenprobe nicht messbar); Laufzeit der Prüfungen (30 min, 909).
+
+## Lauf 190 · 1099 Repos selbst einbinden (Perikles, Doppelpack 421, `c9d1aa05d`; 13.11., 08:5x)
+
+- **D190.1 = 1103 (Perikles), 1099 wartet darauf:** Regel passt zum Wortlaut 07:12 und zu 376.1, 513, 708, 506, 797; aber alte Bitte-Regel in `ARBEIT-BETRIEB.md` Zeile 44 (391) steht noch, Wortlaut 07:12 nicht im Archiv, `add_repo` trotz 797 abgelehnt (Jerry 03:15) und „wartet auf Kaufrepo“ ohne Löser.
+- Nicht geprüft: ob `add_repo` jetzt in einer frisch gestarteten Sitzung ohne Chefwort durchgeht (kein Fall seit 08:12).
+
+## Lauf 189 · 1019 Ford-Neustart erst ab 400 Tsd., Wirkung (Perikles, `57f798597`; 13.11., 08:0x)
+
+- **Haken greift, Ziel nicht → D189.1 = 1098 (Perikles), 1019 wartet darauf.** Vier Selbstneustarts seit 12.11., 08:12, `used_tokens` des alten Ford: 888.569 · 415.734 · 424.993 · 434.089 (alle über 400 Tsd.). Tiefe über `parent_session_id`: Handstart 12.11., 07:26 (Tiefe 0) → laufender Ford Tiefe 4 nach 22 h (vorher 6 in 21 h); Handstart bleibt etwa täglich.
+- Nebenbei: Selbstneustart 16:30 ohne Protokollzeile „Start Ford (selbst)“ (nur Commit `ef757fc01` „Übergabe Ford (Selbstneustart, Kontext 831 Tsd.)“).
+- Nicht geprüft: Tiefe von der Schnittstelle selbst (`lineage.depth` zeigt `get_session` nicht; aus der Elternkette gezählt).
+
+## Lauf 188 · 1087 Prüfliste „Passt“ (Tom, `47fd0c177` auf `claude/tom-1087-pruefliste`; 13.11., 00:0x)
+
+- **1087 greift.** Ursache im Spiel, nicht nur alter Zweig: `tools/pruefliste.py` von `main` liest `t281-kampf.md` mit 14 Zeilen, davon 0 mit „Passt“ (Spalte heißt seit 1033 „Passt“, Parser las nur „Richtig“); Build 281 zeigte im Reiter Test also leere Sollzeilen. Mit dem Zweig: t281 14 von 14, t280 (`docs/entwurf/t280-nachtrag.md`, Git) 48 von 48 wie vorher. `pruefliste_1020.gd` auf dem Zweig mit dem JSON aus t281: „Build 281, 14 Zeilen“, „PRUEFLISTE1020 0 Fehler“, Exit 0. Die übrigen Skriptfehler (`leben_basis`) nur am Rechner: `werte.json` kopiert erst die Action (`godot.yml` 71). `zug-index.py` nimmt beide Spaltennamen.
+- Nicht geprüft: Reiter Test im nächsten Build (Fix nur auf dem Zweig).
+
+## Lauf 187 · 1078 G4, Abschluss 1076 (Perikles, `9fa7b2211`; 12.11., 21:29)
+
+- **1078 greift, 1076 greift.** G4 in `DESIGN-ABNAHME.md` G, „Prüfer: ja“, damit Teil der Prüfung vor dem Versand (783 W1): deckt Chef 20:42 (nur der Prüfgegenstand, Rest geschnitten) und 20:54 (Kamera, nicht die Standardsicht); „etwa dreimal, bis 15 s“ bleibt Vorschlag Sokrates (Herkunft 1076). `LISTE-BAUEN-TESTEN.md` 3 verweist auf G4, kein eigener Wortlaut mehr. Zweiter Ort gesucht (`dreimal`, `15 s`, `Standardsicht`, `Kurzvideo`, `Grundansicht` in docs, tools): nur CLAUDE.md 9 (Kurzfassung) und `meldung.sh` (Wächter); „Kurzvideo 5–15 s … Grundansicht“ steht nur noch in `alt/LISTE-UMZUG-348.md` (seit 10.11. Archiv), „Grundansicht“ in `LISTE-UMZUG-348.md` gilt für Vergleichsbilder, nicht für Filme.
+- Nicht geprüft: ein echter Film nach G4 (keiner seit 21:13).
+
+## Lauf 186 · 1076 Filmlänge (Perikles, Doppelpack 421, `54289ed83`, `c523f37c4`; 12.11., 21:0x)
+
+- **1076 greift beim Wächter, Lücke 1078** (`warte 1076 1078`): `meldung.sh --probe --film` mit Probefilmen: 21 s und 25 s halten an mit Hinweis 1076; 10 s und 20,6 s laufen weiter (ganze Sekunden, „über 20 s“); 25 s mit „Chef will langen Film“ läuft. `ffprobe` liegt in der Sitzung. Regeltext CLAUDE.md 9 und `LISTE-BAUEN-TESTEN.md` 3 gegen Chef 20:42 und 20:54 (`ARBEIT-PROJEKT.md` Zu 1076): beide Chefworte haben einen Ort; „etwa dreimal, bis 15 s“ ist Vorschlag Sokrates, so gekennzeichnet. Keine widersprechende Längenangabe in ROLLE-, LISTE-, DESIGN-ABNAHME; „bis 50 MB“ aus CLAUDE.md gestrichen, hält weiter im Werkzeug.
+- **D186.1 → 1078 (Perikles, Klasse 2):** die Prüfung vor dem Versand (783 W1, `DESIGN-ABNAHME.md` 11) prüft nur Punkte mit „Prüfer: ja“ und Auflagen zu derselben Vorlage; die Kamera (Chef 20:54) und „nur der Prüfgegenstand“ gelten für jeden Film, stehen aber nur in `LISTE-BAUEN-TESTEN.md` 3, nicht in G. Ohne Punkt G4 wiederholt sich der Fund des Chefs beim nächsten Film eines anderen Vorgangs.
+- Nicht geprüft: ein echter Film über 20 s (keiner seit 20:58); Filmzweig mit `main` zusammengeführt erst am nächsten Film.
+
+## Lauf 185 · 1042 `probelauf.py` cd-Kette (Perikles, `6c3a1513c`; 12.11., 16:0x)
+
+- **1042 greift** (`greift 1042 185`): Spikes Push 15:45 (`5b6906b79` auf `claude/tom-1040-1-wendeschritt`, ändert `godot.yml`) im Klon nachgestellt, `push_lauf` alt gegen neu: `cd …/godot && …; cd .. && git push` alt „Film“ (Arbeitskopie außerhalb des Repos), neu keine Probe (Arbeitskopie richtig); ebenso relatives `cd godot; cd ..` und drei cd nacheinander. Gegenprobe gleicher Befehl auf `claude/tom-348-x`: neu Probe 1040.1 mit Film, zählt also weiter. Zweigfilter `godot.yml` (`tom-348-**`, `jerry-348-**`, `build-**`) im Commit unverändert; GitHub: 0 Läufe auf dem Zweig, die gestrichene Zeile war falsch.
+- Grenze (kein Vorgang, selten): ein `cd` in einer Unterschale gilt jetzt weiter; `(cd godot && …); cd tools && git push` ergibt `godot/tools` statt `tools` (alt richtig), dann zählt der Haken wie vor 1042 einen Film zu viel.
+
 ## Lauf 184 · 1019 Neustart-Haken nimmt Ford aus (Perikles, Doppelpack 421, `57f798597`; 12.11., 08:1x)
 
 - **1019 greift im Haken, Wirkung offen** (`warte 1019 13.11. 08:00`): `neustart-haken.py prompt` mit Probeprotokollen: erste Nachricht „Ford“ 250 Tsd. still, 450 Tsd. Erinnerung; „Tom“ 250 Tsd. Erinnerung; „Ford 2“ und „Ford-Wache“ wie Ford (Wortgrenze am Bindestrich, unschädlich). Der Prompt-Haken liest `/home/user/bornim-main/tools/`, wirkt also nach dem nächsten `notiz.sh` des laufenden Ford ohne Neustart. Fords Sitzung `…765JvmMM81VAZ94ovn` (von Hand 07:26): erste Nachricht „Ford“, `name()` erkennt sie; 264 Tsd. `used_tokens` um 08:15. Sie bindet zudem `bornim-kaufmodelle` ein, dort galt 400 Tsd. schon nach 818. `LISTE-BETRIEB.md` 61 nennt das Wort „Ford“ als erste Nachricht beim Selbstneustart.

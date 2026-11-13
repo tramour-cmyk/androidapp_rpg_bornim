@@ -9,6 +9,7 @@ Gilt für jede Probe, jedes Bild und jeden Film zu Figuren, Bewegung und Kampfor
 **Wie geprüft wird** (373, 396 gelten weiter, außer wo hier anders):
 - Wer vorlegt, prüft vor dem Versand jeden Punkt, der im Bild vorkommt; die Vorlage nennt „Geprüft an: <Link auf Film, Bild oder Lauf>“ (340.4, ersetzt „461 geprüft“), ein Verstoß steht dabei als „Punkt X verletzt, weil …“.
 - **Prüfung vor dem Versand (783 W1, Chef 09.11., 20:12; ersetzt 461a, 480, 511):** Punkte mit „Prüfer: ja“ **und jede Auflage aus dem letzten Urteil des Chefs zu dieser Vorlage** (576, Vorentscheid Sokrates 04.11., 20:5x; Chef 20:49: „wieso wird mir so eine Grütze nochmal vorgelegt?“) prüft der Ersteller selbst **vor** dem Versand am Einzelbild (`PROBEBILD=`), nur ja/nein oder gemessen, nie die Wirkung (373), ohne Helfer; einen Verstoß behebt er vorher. Bewegung geht dann gleich als Film an den Chef, ohne Probebild. Je Aussehen-Thema eine Probe vor dem Chef (621 A, Chef 07.11., 16:4x); offene Punkte als Vermerk in einfachen Worten (646); keine Frage „neue Läufe?“ an ihn (480). Passt die Probe nicht: Rückfrage mit Wegen und Kosten; weitere Läufe gibt sein Urteil oder Sokrates frei (407, 480.1). Alle anderen Befunde kommen wie bisher nach dem Versand als Text (396).
+- **Bild oder Film als Test** (1128 A, Chef 13.11., 13:36): ein Prüfpunkt der Art Bild oder Film ist eine Vorlage wie hier, aus dem Lauf, der die APK baut (`LISTE-CHECK-BUILD-TEST.md` 9); je Gegenstand ein Bild, Vergleich alt gegen neu in einem Bild (`CLAUDE.md` 9).
 - „Maß“ = Zahl von uns, nur Richtwert, hält nicht an; „–“ = Wirkung, nur Selbstprüfung.
 - Abweichen darf nur der Chef; dann die Zeile an ihrem Ort ändern, mit Wortlaut und Zeit, am alten Archiveintrag „→ ersetzt durch …“ (461b). Perikles gleicht montags mit dem Wochenziel gegen das Archiv ab, Diogenes zählt Widersprüche (461b).
 
@@ -22,6 +23,7 @@ Gilt für jede Probe, jedes Bild und jeden Film zu Figuren, Bewegung und Kampfor
 | G1 | Ausschnitt so, dass jede Figur ganz im Bild ist | 385.1 (28.10.) | ja |
 | G2 | Keine fremden Bilder an den Schnitten | Prüferbefund (d) zu 406, kein Chefwort | Maß |
 | G3 | Text der Vorlage im generischen Maskulinum („Held“, nie „Heldin“) | 348.12f (28.10.), 408 (29.10.) | ja |
+| G4 | Film zeigt nur den Prüfgegenstand, etwa dreimal hintereinander, bis 15 s; Kamera so, dass man ihn gut sieht, nicht die Standardsicht | 1076 (Chef 12.11., 20:42 zu 1039, 20:54 zu 758); 1078 | ja |
 
 ## Ansicht
 

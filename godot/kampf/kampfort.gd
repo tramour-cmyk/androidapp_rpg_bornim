@@ -68,6 +68,11 @@ var on_end: Callable
 ## Starts the same fight anew ("Nochmal").
 var again_fn: Callable
 var zurueck_text: Array = []     # 1020.2 B: Text des Knopfs „Zurück“ [de, en], leer: „Zurück“
+## 1034 (Chef 12.11., 15:04): Probekampf mit dem Testhelden, nichts geht in den Spielstand; das Siegfenster sagt es, Geschichtsgegenstände
+## (Schlüsseldinge wie Graks Schlüssel, der versiegelte Brief) sind keine Probebeute
+var ohne_folgen := false
+## 1034: Probekampf mit dem Spielhelden: nach einer Niederlage kein „Nochmal“ (sie zählt wie im Spiel)
+var again_nicht_nach_niederlage := false
 var cam: Camera3D
 var ui
 var figures := {}          # id -> Figur
@@ -210,7 +215,22 @@ func _ready() -> void:
 	else:
 		_geheul_beim_erscheinen()
 		_tempo_setzen()
+	# 841: mit einem Goblin-Späher wartet der Kampf auf „Kämpfen“ oder „Verjag den Späher (Einschüchtern)“ (kampf_ui.gd); nur aus dem
+	# Spiel (progress „verjagen“, spiel.gd), nicht in kampf/probe.gd und dessen Tests
+	if bool(progress.get("verjagen", false)) and mars.spaeher_zum_verjagen() != null:
+		tor = "einschuechtern"
+		ui.refresh()
+		return
 	_run(func(): mars.start(_react))
+
+
+## 841: die Wahl zu Kampfbeginn; [verjagen] wahr: erst die Probe auf Einschüchtern (Mars.start), sonst gleich der Kampf
+var tor := ""
+func tor_wahl(verjagen: bool) -> void:
+	if tor == "":
+		return
+	tor = ""
+	_run(func(): mars.start(_react, verjagen))
 
 
 ## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht
@@ -1054,6 +1074,9 @@ func order(o: Array) -> void:
 
 
 func go_on() -> void:
+	if tor != "":     # 841: weiter (Autopilot, Tests) heißt an der Wahl zu Beginn „Kämpfen“
+		tor_wahl(false)
+		return
 	if busy or mars.outcome != "ONGOING":
 		return
 	_run(func(): mars.proceed(_react))
@@ -1471,7 +1494,7 @@ func _done() -> void:
 		var beute: Callable = progress.get("beute", Callable())
 		# 870.5: Heldenstufe nach BRS (progress „stand“, Brs.neuer_stand) und Gebiet für den Erfahrungstopf (progress „gebiet“)
 		reward = Lohn.reward(mars, progress.get("stand", {}), mars.dice, String(progress.get("gebiet", "")),
-			beute.call(mars) if beute.is_valid() else [])     # 644a A, 633: die Welt liest Stufe und Boss der besiegten Gegner
+			beute.call(mars) if beute.is_valid() else [], ohne_folgen)     # 644a A, 633: die Welt liest Stufe und Boss der besiegten Gegner
 		_sieg_klang()
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()

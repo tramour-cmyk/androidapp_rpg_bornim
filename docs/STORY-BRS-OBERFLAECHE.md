@@ -17,12 +17,12 @@ Entfallen mit `erschaffung.gd`, `heldwerte.gd` und den Klassen (Schritt 4), ohne
 
 - `short`: Kurze Erholung · 2 Stunden / Short Respite · 2 hours
 - `long`: Langes Ausruhen · 9 Stunden / Long Rest · 9 hours
-- `shortDoes`: Ausdauer voll, ein Teil des Lebens zurück / Full stamina, some of your life back
+- `shortDoes` (1038 R1, Homer 12.11., 1047): Ausdauer voll, kein Leben zurück / Full stamina, no life back
 - `longDoes`: Leben, Mana und Ausdauer voll, Zustände geheilt / Life, mana and stamina full, conditions cured
 - `longDone`: Das Lange Ausruhen hattest du heute schon. / You have already had your Long Rest today.
 - `roomDoes`: Ein Bett oben unter dem Dach: Langes Ausruhen / A bed upstairs under the roof: Long Rest
 - `hourGone`: Zwei Stunden vergehen. / Two hours pass. · `hoursGone`: Neun Stunden vergehen. / Nine hours pass.
-- `shortRested`: Zwei Stunden Ruhe. Die Ausdauer ist voll, +{0} TP. / Two hours of rest. Your stamina is full, +{0} HP.
+- `shortRested` (1038 R1, ohne `{0}`): Zwei Stunden Ruhe. Die Ausdauer ist voll. / Two hours of rest. Your stamina is full.
 - `longRested`: Neun Stunden Schlaf. Leben, Mana und Ausdauer sind voll. / Nine hours of sleep. Life, mana and stamina are full.
 - `roomRested`: Du steigst die Treppe hinauf und schläfst neun Stunden. Leben, Mana und Ausdauer sind voll. / You climb the stairs and sleep for nine hours. Life, mana and stamina are full.
 - „bis zur nächsten Rast“ (Met, Ausdauertrank, Leuchtfunke) bleibt: **Rast** ist der Oberbegriff für beide, englisch „rest“; „Kurze Erholung“ und „Langes Ausruhen“ nur, wo genau eine gemeint ist.

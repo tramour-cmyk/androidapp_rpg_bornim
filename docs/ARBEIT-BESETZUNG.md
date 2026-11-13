@@ -2,14 +2,17 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 12.11., 12:06 (lauf.py)
+**Stand:** 13.11., 17:26 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford](https://claude.ai/code/session_01Hmoj765JvmMM81VAZ94ovn) | Betrieb | – | 12.11., 07:26 |
-| Diogenes | [Diogenes – 1019 (12.11., 08:13)](https://claude.ai/code/session_01Hmoj75ZfDj3Zzs82FM18nF) | 1019 | – | 12.11., 08:14 |
-| Tuffy | [Tuffy – 644a.1 (12.11., 10:05)](https://claude.ai/code/session_01Hmoj79xewvr4yXDaxRRApX) | 644a.1 | – | 12.11., 10:06 |
-| Tom | [Tom – 814: Fußstaub sichtbar (12.11., 11:06)](https://claude.ai/code/session_01Hmoj76RSQPRph1aFEc31hY) | 814 | – | 12.11., 11:05 |
-| Spike | [Spike – 644a.2 (12.11., 11:04)](https://claude.ai/code/session_01Hmoj77hd1skjBoRKtk6Sz7) | 644a.2 | – | 12.11., 11:05 |
-| Sokrates | [Sokrates – Stellungnahme (12.11., 11:04)](https://claude.ai/code/session_01Hmoj76oRjGDjaHKeRYBhmv) | Betrieb | – | 12.11., 11:05 |
-| Homer | [Homer – 1026 (12.11., 11:26)](https://claude.ai/code/session_01Hmoj75wdp9JocYHDDCfdun) | 1026 | – | 12.11., 11:26 |
+| Jerry | [Jerry – 1141: Sterbebewegung je Körper (13.11., 15:00)](https://claude.ai/code/session_01Hmoj76yx1KYooNscLWY7La) | 1141 | – | 13.11., 14:59 |
+| Ford | [Ford – Betriebsleiter (13.11., 15:37)](https://claude.ai/code/session_01Hmoj78u5NKKaaKVcUMPhcT) | Betrieb | – | 13.11., 15:36 |
+| Homer | [Homer – 1176 (13.11., 15:49)](https://claude.ai/code/session_01Hmoj75UMzRVVnYKUQ5sxF5) | 1176 | – | 13.11., 15:50 |
+| Spike | [Spike – 1040.1: Probeläufe 1040.1 und 1086 prüfen (13.11., 16:33)](https://claude.ai/code/session_01Hmoj77vrzCNwXVZWDNF78k) | 1040.1 | – | 13.11., 16:32 |
+| Tom | [Tom – 284: Neulauf, Bilder und Testbitte (13.11., 16:47)](https://claude.ai/code/session_01Hmoj79sYrmYbTvSQwANhiT) | 284 | – | 13.11., 16:46 |
+| Sokrates | [Sokrates – 284: Gegenlesen Prüfliste, 1137 Vollzug (15.11.) (13.11., 17:22)](https://claude.ai/code/session_01Hmoj79Zj3seKZK2Aa4SGeC) | 284 | – | 13.11., 17:21 |
+| Diogenes | [Diogenes – 1191 (13.11., 17:22)](https://claude.ai/code/session_01Hmoj75jL9b9DF5Kf8a99Zk) | 1191 | – | 13.11., 17:22 |
+| Perikles | [Perikles – 1192 (13.11., 17:22)](https://claude.ai/code/session_01Hmoj76K5AsxSSKgmX5MEC4) | 1192 | – | 13.11., 17:22 |
+| Jerry | [Jerry – 284: Filme und Bilder der Prüfliste, dann 1141 r3 (13.11., 17:24)](https://claude.ai/code/session_01Hmoj76LaTS3jY9wUdbYVmp) | 284 | – | 13.11., 17:23 |
+| Tuffy | [Tuffy – 949: perfekter Ring im Lauf mit Kaufmodellen (13.11., 17:26)](https://claude.ai/code/session_01Hmoj775LSuDcmmCzsqUie1) | 949 | – | 13.11., 17:25 |

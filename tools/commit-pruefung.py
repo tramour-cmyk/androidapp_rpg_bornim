@@ -3,16 +3,19 @@
 Hält an (Exit 1): Uhrzeit von heute mehr als 5 Minuten nach jetzt in einer neuen Zeile; gelöschte Chefsache-Datei ohne
 Änderung an VORGANGSARCHIV.md (Ausweg: BORNIM_ZURUECK=1 für zurückgezogene Fragen des Absenders); neue Tabellenzeile in einem Vorrat
 (275.2: Vorgänge nur in LISTE-VORGAENGE.md); neuer Formfehler der Liste (startbar.pruefen_liste); Archiveintrag „tN“ (Test des Chefs), solange
-Zeilen mit Build N „zu testen“ sind (Automatik B: erst vorgang.py build N); Vorrat über 15000 Bytes, den der Commit vergrößert
+Zeilen mit Build N „zu testen“ sind (Automatik B: erst vorgang.py build N); Vorrat über 30000 Bytes (1129 A 7), den der Commit vergrößert
 (Hinweis eines anderen mit „von <Absender>“ in jeder neuen Zeile ausgenommen, 400; ARBEIT-BETRIEB.md ausgenommen: Fords Startsperre muss dorthin, kürzen ist Fords Zeile); neue Antwort im Vorgangsarchiv, deren Vorlage
 in entscheiden/, ansehen/ oder billigen/ stehen bleibt (383.3: wer die Antwort einträgt, löscht die Datei im selben Commit; bleibt die
 Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). Eine beantwortete Vorlage darf ohne Archivänderung weg.
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
 Gelöschte Vorlage mit „Was du tust: …“ ohne neue Datei in chefsache/tun/ (890; Ausweg BORNIM_GETAN=1); Datei in ansehen/ (außer t<Build>-…) ohne Bild, Film oder Frage (890).
-Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+# 1171: Link aufs Bild im Zweig bilder (meldung.sh, 450)
+KLEIN_LINK = re.compile(r"\]\((?:\.\./bilder/|bilder:|https://github\.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/|https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/)")
 
 def git(*a):
     return subprocess.run(["git"] + list(a), capture_output=True, text=True).stdout
@@ -25,6 +28,9 @@ def fremd_hinweis(p):
     kürzen bleibt Sache des Besitzers (regelcheck meldet die Größe weiter). Sonst blieb der Hinweis beim Absender liegen."""
     eig = BESITZER.get(re.match(r"docs/ARBEIT-(.*)\.md$", p).group(1))
     zeilen = [z[1:] for z in git("diff", "--cached", "-U0", "--", p).splitlines() if z.startswith("+") and not z.startswith("+++") and z[1:].strip()]
+    if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():  # Zusammenführen (Diogenes 13.11.): Zeilen der anderen Seite sind nicht neu
+        drueben = set(git("show", "MERGE_HEAD:" + p).splitlines()); zeilen = [z for z in zeilen if z not in drueben]
+        if not zeilen: return True  # nur beide Seiten vereint, nichts Eigenes hinzugefügt
     andere = "|".join(n for n in NAMEN if n != eig)
     # D80.2: Fund aus dem Test des Chefs, von Automatik B geschrieben („Zu NR, von Chef (Fund tN.k, …)“), ist ebenso ein fremder Hinweis
     return bool(zeilen) and all(re.search(r"\bvon (Team |Chef über )?(%s)\b|\bvon Chef \(Fund t\d+" % andere, z) for z in zeilen)
@@ -289,6 +295,9 @@ def main():
         if datei == "docs/LISTE-VORGAENGE.md" and t.startswith("| ") and t.count("|") >= 8:
             # 264.1: Feld „wartet auf“ darf eine spätere Uhrzeit von heute tragen (vorgang.py warte NR "TT.MM. HH:MM", Automatik A)
             zellen = t.split("|"); tz = "|".join(zellen[:6] + zellen[7:])
+        if datei.startswith("docs/ARBEIT-"):
+            # 1159 (von Ford, zu 1148): Marke „Lauf läuft bis TT.MM., HH:MM“ im Vorrat trägt eine Zeit nach jetzt; Form und 12 h prüft lauf.py (1161)
+            tz = re.sub(r"Lauf läuft bis \d\d\.\d\d\.,? \d\d:\d\d", "", tz)
         for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
@@ -345,9 +354,14 @@ def main():
             n = m.group(1)
             wege = {x for x in git("ls-tree", "-r", "--name-only", "HEAD", "docs/chefsache/ansehen/").split()} | {p for s, p in dat}
             pl = "".join(git("show", "HEAD:" + x) + git("show", ":" + x) for x in wege if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x))
+            # 1070 (Chef 12.11., 20:06 „warum steht der … 280er immer noch drin“): getestet heißt weg, im selben Commit wie „tN“ (Git behält sie)
+            noch = [x for x in git("ls-files", "--full-name", ":/docs/chefsache/ansehen/").split() if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x)]
+            if noch: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, Prüfliste noch in der Chefsache (%s); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)" % (n, ", ".join(noch)))
             import vorgang  # 775: dieselbe Lesart wie vorgang.py build (mehrere Nummern, Haken in Spalte 1)
             genannt = {x for nrs, _, _ in vorgang.ergebnisse(n, pl).values() for x in nrs}
-            lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")]
+            # 1121 (t282, 1040.1): „zu testen, ohne Rückmeldung tN“ setzt vorgang.py build N selbst (Build „–“), das ist gebucht, nicht lose
+            lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")
+                    and ("ohne Rückmeldung t%s" % n) not in d["stand"]]
             if lose: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber %s aus der Prüfliste ohne Build %s; erst `vorgang.py build %s --mit %s`, dann `vorgang.py build %s` (774)" % (n, ", ".join(lose[:8]), n, n, ",".join(lose), n))
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
@@ -364,8 +378,16 @@ def main():
             for zl in re.findall(r"(?m)^\|\s*\d+\.\d+[a-z]?\s*\|.*$", git("show", ":" + p)):
                 rf = " ".join(zl.rstrip().rstrip("|").split("|")[-2:])
                 rf = re.sub(r"(?i)Lizenzen der Engine", "", rf)  # 847 (D128.1): Menüeintrag als Bedienelement ist kein Lizenzlesen
-                if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Richtig/Falsch, der Weg darf über „Lizenzen“ führen
+                if re.search(r"(?i:Lizenz|Urheber)|\bMIT\b|\bCC0\b|\bCC BY\b", rf):  # 846 (D127.1): nur Passt/Falsch (1033, alt Richtig), der Weg darf über „Lizenzen“ führen
                     stop.append("%s: Prüfzeile verlangt Lizenzlesen (%s); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)" % (p, zl.split("|")[1].strip()))
+    for s, p in dat:  # 1171 (1173 A, Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“): Zeile mit Art Kleinkram nur mit Link aufs Bild
+        if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
+            tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in git("show", ":" + p).splitlines() if zl.startswith("|")]
+            sa = next((r.index("Art") for r in tab if "Art" in r), -1)
+            for r in tab:
+                if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram") and not KLEIN_LINK.search("|".join(r)):
+                    stop.append("%s: Zeile %s Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link "
+                                "„[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkram fragt der Reiter „Test“ nicht ab" % (p, r[0]))
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
         inhalt = git("show", ":" + p)
@@ -379,6 +401,21 @@ def main():
         kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
         if team in ("Tom", "Jerry") and re.search(r"\b(%s|%s)\b" % (team, {"Tom": "Spike", "Jerry": "Tuffy"}[team]), kopf):
             stop.append("%s: gegengelesen vom eigenen Team (%s, Zeile 1: %s); eine Sitzung außerhalb des Teams liest gegen (881)" % (p, gl.group(1), kopf.strip("# ").strip()))
+    for s, p in dat:  # 1128.2 (1128 A, Chef 13.11., 13:36): Laufnachweis; jeder Test unter „Im Bau geprüft“/„Ohne dich“ steht im Lauf
+        # der APK (godot.yml von claude/build-<n>) und kann dort rot werden (ohne `|| true`, continue-on-error, Bedingung; Diogenes 12:59)
+        m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
+        if not (s == "A" and m): continue
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as f:
+            f.write(git("show", ":" + p)); tmp = f.name
+        r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", "origin/claude/build-" + m.group(1)], capture_output=True, text=True)
+        os.unlink(tmp)
+        nein = [re.sub(r"\s+", " ", z.strip()[5:]) for z in r.stdout.splitlines() if z.strip().startswith("NEIN ")]
+        if r.returncode == 1:
+            stop.append("%s: Laufnachweis fehlt (1128 A): %s; als Prüffrage am Handy oder Test ohne `|| true` in den Lauf der APK "
+                        "(`python3 tools/laufnachweis.py %s`)" % (p, "; ".join(nein), p))
+        elif r.returncode:
+            warn.append("%s: Laufnachweis nicht geprüft (%s)" % (p, (r.stderr or r.stdout).strip()[:200]))
     for s, p in dat:  # 512.1 (Chef 03.11., 23:28, „Kümmer du dich um 512.“): neue Prüfliste nennt, was alt gegen neu verglichen ist
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)):
             continue
@@ -401,9 +438,11 @@ def main():
             neu_b = len(git("show", ":" + p).encode()); alt = git("show", "HEAD:" + p)
             # Zusammenführen (559, 04.11.): gewachsen ist die Datei beim anderen, nicht in diesem Commit; Maß ist die größere Seite
             if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip(): alt = max(alt, git("show", "MERGE_HEAD:" + p), key=lambda x: len(x.encode()))
-            if neu_b > 15000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):
-                stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
+            if neu_b > 30000 and neu_b > len(alt.encode()) and not fremd_hinweis(p):  # 30000: 1129 A 7 (Probe bis 20.11.), vorher 15000
+                stop.append("%s hat %d Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)" % (p, neu_b))
     for w in tun_und_inhalt(dat): stop.append(w)  # 890
+    if os.environ.get("BORNIM_WARTET") != "1" and not git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():
+        for w in rolle_geliefert(neu): stop.append(w)  # 1124
     if any(p in ("tools/gegenstaende/gegenstaende.json", "docs/LISTE-GEGENSTAENDE.md", "tools/gegenstaende.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/gegenstaende.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Gegenstandskatalog (458, D56.4): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
@@ -412,7 +451,37 @@ def main():
         if r.returncode: stop.append("Regelwerte (969): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
+    if stop:
+        try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“), je Grund eine Zeile
+            import hakenzahl
+            for s in stop: hakenzahl.vermerk("commit-pruefung", s)
+        except Exception:
+            pass
     return 1 if stop else 0
+
+def rolle_geliefert(neu):
+    """1124 (Chef 13.11., 11:36): eine Rolle im Feld „wartet auf“ löst sich nie von selbst. Neue Kopfzeile „- **Zu <Nr> … von <Rolle>**“
+    in einem Vorrat, und Vorgang <Nr> wartet auf eben diese Rolle: hält an, bis der Liefernde das Feld nachzieht
+    (`vorgang.py warte <Nr> <Rest|–>` im selben Commit); liefert er noch nicht, BORNIM_WARTET=1."""
+    import startbar
+    aus, datei = [], ""
+    for z in neu:
+        if z.startswith("+++ b/"): datei = z[6:]; continue
+        if not z.startswith("+") or z.startswith("+++") or not re.match(r"docs/ARBEIT-[A-Z-]+\.md$", datei): continue
+        kopf = re.match(r"\s*- \*\*(.+?)\*\*", z[1:])
+        if not kopf: continue
+        k = kopf.group(1)
+        zu = re.match(r"Zu ((?:D?\d[\w.]*(?:, |,? und )?)+)", k)
+        if not zu: continue
+        von = set(re.findall(r"\bvon (?:Team )?(%s)\b" % "|".join(map(re.escape, startbar.WARTE_ROLLEN)), k))
+        for nr in re.findall(r"D?\d[\w.]*\w|D?\d", zu.group(1)):
+            for d in startbar.zeilen_liste():
+                if d["nr"] == nr and von & set(d["warte"]):
+                    rest = [t for t in d["warte"] if t not in von]
+                    aus.append("%s: „Zu %s … von %s“ liefert, aber %s wartet noch auf %s; Feld nachziehen: `vorgang.py warte %s %s` "
+                               "(Rolle löst sich nie von selbst, 1124; liefert noch nicht: BORNIM_WARTET=1)"
+                               % (datei, nr, "/".join(sorted(von)), nr, ", ".join(d["warte"]), nr, ", ".join(rest) or "–"))
+    return aus
 
 WAS_DU_TUST = re.compile(r"(?m)^\W*Was du tust:?\**\s*(.*)$")
 INHALT_BILD = re.compile(r"!\[|<img|<video|\.(?:png|webp|jpe?g|gif|mp4|webm)\b|bilder/|\bFilm:|\bBild:", re.I)

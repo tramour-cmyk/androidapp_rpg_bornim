@@ -17,6 +17,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
   vorgang.py fertig NR                 Stand „erledigt“ (ins Archiv schiebt lauf.py --aufraeumen); nennt Absätze „Zu NR“
   vorgang.py greift NR LAUF            Diogenes nach „greift“ im Bereich B: „erledigt, greift Lauf N“ (724 A, 755)
+  vorgang.py bautest NR LAUF           Diogenes bestätigt „ohne dich“ am Lauf der APK (Laufnachweis, grün): „erledigt, Bautest Lauf N“ (1128 A)
   vorgang.py build N --mit NR,NR …     Testbuild N trägt diese Vorgänge: Build N, Stand „zu testen“
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“;
@@ -90,7 +91,8 @@ def stand_setzen(nr, stand, rolle=None):
     m = re.match(r"\s*wartet auf\s+(.+?)(?::\s*(.*))?$", stand)
     if m and not startbar.art(m.group(1).split(",")[0].strip()) is None:  # alte Gewohnheit „wartet auf 625: …“
         n["warte"] = warte_aus(m.group(1)); stand = "wartet" + ((", " + m.group(2)) if m.group(2) else "")
-    stand_pruefen(stand, nr)
+    if stand_pruefen(stand, nr) == "erledigt" and (sp := rest_sperre(nr, d)):   # 1153
+        sys.exit("vorgang.py: " + sp)
     n["stand"] = stand
     ersetzen(d, n)
     print("vorgang.py: %s (%s) Stand „%s“%s" % (nr, d["besitzer"], stand, (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else ""))
@@ -111,7 +113,9 @@ def setzen(nr, paare, rolle=None):
         if k not in FELDER: sys.exit("vorgang.py: Feld „%s“ unbekannt (%s)" % (k, ", ".join(sorted(set(FELDER)))))
         k = FELDER[k]
         if k == "warte": n[k] = warte_aus(v)
-        elif k == "stand": stand_pruefen(v, nr); n[k] = v
+        elif k == "stand":
+            if stand_pruefen(v, nr) == "erledigt" and (sp := rest_sperre(nr, d)): sys.exit("vorgang.py: " + sp)   # 1153
+            n[k] = v
         elif k == "build": n[k] = v.lstrip("t") or "–"
         elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
@@ -125,8 +129,57 @@ def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
     setzen(nr, ["kl=" + kl], rolle)
 
+# 1143 (Perikles, Vorschlag Sokrates 13.11., 14:38; Fund des Chefs 1141): 596 ging „erledigt“, obwohl sein Commit sagte „Goblins …
+# kippen steif, das braucht einen Bau mit Bild“; den Rest fand der Chef eine Woche später wieder. Nennt der letzte Commit der
+# Nummer („<Nr>: …“ auf irgendeinem Zweig) oder die Übergabe im Vorrat des Besitzers einen Rest, hält fertig an, bis es einen
+# Folgevorgang gibt (offene Unternummer <Nr>.x oder eine Zeile, die „aus <Nr>“ oder „(<Nr>)“ nennt) oder der Commit den Grund sagt
+# („Kein Folgevorgang, weil: …“).
+REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist))|braucht noch|später|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
+
+def rest_offen(nr, d=None):
+    """[(Quelle, Satz)] der Reste ohne Folgevorgang, leer = fertig darf."""
+    funde = []
+    try:
+        r = subprocess.run(["git", "-C", DOCS, "log", "--all", "-1", "-E", "--format=%h%n%B", "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"],
+                           capture_output=True, text=True, timeout=30).stdout
+    except (OSError, subprocess.SubprocessError):
+        r = ""
+    if r.strip():
+        kopf, _, text = r.partition("\n")
+        if re.search(r"Kein Folgevorgang, weil:\s*\S", text):
+            text = ""
+        for z in text.splitlines():
+            z = re.sub(r"\[[\w.]+\]", "", z)   # Textmarken wie [954.1.spaeter] (Spike 15:05: Fehlalarm in 1015, 1017)
+            if REST.search(z) and not z.startswith(("Co-Authored-By", "Claude-Session")):
+                funde.append(("Commit " + kopf.strip(), z.strip()[:160]))
+    d = d or finden(nr)
+    vorrat = startbar.lesen(startbar.VORRAT.get(d["besitzer"], ""))
+    for z in vorrat.splitlines():
+        if z.startswith("**Übergabe") and re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", z):
+            for satz in re.split(r"(?<=[.;])\s+", z):
+                if re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", satz) and REST.search(satz):
+                    funde.append(("Übergabe " + d["besitzer"], satz.strip()[:160]))
+    if not funde:
+        return []
+    folge = [x for x in startbar.zeilen_liste() if x["nr"] != nr and x["wort"] not in ("erledigt", "verworfen") and
+             (x["nr"].startswith(nr + ".") or re.search(r"\baus " + re.escape(nr) + r"(?![\w.]|\.\d)|\(" + re.escape(nr) + r"[,;)]", x["titel"]))]
+    return [] if folge else funde
+
+def rest_sperre(nr, d=None):
+    """1143, 1153 (D205.4): Meldung, wenn nr wegen eines Rests ohne Folgevorgang nicht erledigt werden darf, sonst None. Gilt für
+    fertig, greift, bautest, stand/setze mit „erledigt“ und die Testauswertung build N."""
+    rest = rest_offen(nr, d)
+    if not rest or os.environ.get("VORGANG_REST_OK") == nr:
+        return None
+    return ("%s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
+            "oder im Commit „Kein Folgevorgang, weil: …“ schreiben." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr))
+
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
+    sperre = rest_sperre(nr, d)
+    if sperre:
+        print("vorgang.py: " + sperre)
+        sys.exit(1)
     ersetzen(d, dict(d, stand="erledigt", warte=[]))
     wer = [x for x in startbar.zeilen_liste() if nr in x["warte"]]
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
@@ -138,10 +191,22 @@ def greift(nr, lauf, rolle=None):
     greift er nicht, bleibt die Zeile und die Lücke wird ein eigener Vorgang, auf den sie wartet (`warte NR NEU`)."""
     d = finden(nr, rolle)
     if not d.get("bereich", "").startswith("B "):
-        print("vorgang.py: %s ist nicht im Bereich B; „greift“ gilt nur für Werkzeug und Abläufe (724 A)" % nr); sys.exit(1)
+        # 1188 (d): 866, 896 waren Werkzeug unter „E Technik“, „greift“ prallte ab und die Zeile blieb offen
+        print("vorgang.py: %s ist nicht im Bereich B; „greift“ gilt nur für Werkzeug und Abläufe (724 A). Ist es Werkzeug oder Ablauf, "
+              "Vorgang an den Besitzer: Bereich auf B setzen (`vorgang.py setze %s bereich=B Werkzeuge`), dann greift; sonst wartet er auf den Test." % (nr, nr)); sys.exit(1)
     fertig(nr, rolle)
     d = finden(nr, rolle)
     ersetzen(d, dict(d, stand="erledigt, greift Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
+
+def bautest(nr, lauf, rolle=None):
+    """1128.2 (1128 A, Chef 13.11., 13:36): Diogenes bestätigt einen Punkt „ohne dich“ am Lauf der APK: Test steht dort ohne `|| true`,
+    ohne continue-on-error und ohne Bedingung (`tools/laufnachweis.py`) und war grün. Dann zählt er nicht mehr in die Sperre 620.1 B."""
+    d = finden(nr, rolle)
+    if not (d["wort"] == "gebaut" or d["wort"].startswith("zu")):
+        print("vorgang.py: %s steht auf „%s“; „bautest“ gilt nur für gebaute oder zu testende Vorgänge" % (nr, d["stand"])); sys.exit(1)
+    fertig(nr, rolle)
+    d = finden(nr, rolle)
+    ersetzen(d, dict(d, stand="erledigt, Bautest Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
 
 def gruppe(L, besitzer):
     """Zeilenindizes der Zeilen eines Besitzers und Einfügestelle für einen neuen Besitzer (Reihenfolge wie die Liste)."""
@@ -408,8 +473,14 @@ def build_abschluss(n, datei=None, probe=False):
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
+    # 1153 (D205.4: 596 ging über die Testauswertung t268 zu, obwohl sein Commit einen Rest nannte): wer bestanden hat, aber einen
+    # Rest ohne Folgevorgang trägt, hält die Auswertung an (der Sammelbuild selbst nicht), bevor etwas geschrieben wird
+    sperren = [sp for d, neu_d, _, _ in aus if neu_d["stand"].startswith("erledigt, t%s bestanden" % n) and (sp := rest_sperre(d["nr"], d))]
     for d, neu_d, durch, was in aus:
         print("%s %s (%s): %s" % ("PROBE" if probe else "BUILD", d["nr"], d["besitzer"], was))
+    if sperren and not probe:
+        sys.exit("vorgang.py build %s: nichts geschrieben – %s" % (n, " | ".join(sperren)))
+    for sp in (sperren if probe else []): print("PROBE gesperrt: " + sp)
     if fremd: print("%s genannt, nicht in Build %s, bleibt: %s" % ("PROBE" if probe else "BUILD", n, ", ".join(fremd)))
     if probe: return
     for d, neu_d, durch, was in aus:
@@ -503,6 +574,7 @@ def haupt(a):
     if b == "klasse" and len(a) == 3: return klasse(a[1], a[2], rolle)
     if b == "fertig" and len(a) == 2: return fertig(a[1], rolle)
     if b == "greift" and len(a) == 3: return greift(a[1], a[2], rolle)
+    if b == "bautest" and len(a) == 3: return bautest(a[1], a[2], rolle)
     if b == "rang" and len(a) in (3, 4): return rang(a[1], a[2], a[3] if len(a) == 4 else None, rolle)
     if b == "neu" and len(a) >= 5:
         nr = a[a.index("--nr") + 1] if "--nr" in a else None
@@ -513,7 +585,7 @@ def haupt(a):
         if "--mit" in a:
             return build_mit(n, [x for x in re.split(r"[,\s]+", " ".join(a[a.index("--mit") + 1:])) if x])
         return build_abschluss(n, a[a.index("--datei") + 1] if "--datei" in a else None, "--probe" in a)
-    if b in ("stand", "warte", "setze", "klasse", "fertig", "greift", "rang", "neu", "build"): print(__doc__); sys.exit(2)
+    if b in ("stand", "warte", "setze", "klasse", "fertig", "greift", "bautest", "rang", "neu", "build"): print(__doc__); sys.exit(2)
     for nr in a:
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")

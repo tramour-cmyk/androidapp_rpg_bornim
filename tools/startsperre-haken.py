@@ -95,7 +95,12 @@ def main():
     if not rolle: sys.exit(0)
     f = aufwand(rolle, (daten.get("tool_input") or {}).get("effort")) or pruefen(rolle)
     if f:
-        print(f, file=sys.stderr); sys.exit(2)
+        print(f, file=sys.stderr)
+        try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“)
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hakenzahl; hakenzahl.vermerk("startsperre", f)
+        except Exception:
+            pass
+        sys.exit(2)
 
 
 if __name__ == "__main__":

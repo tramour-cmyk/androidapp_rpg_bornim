@@ -493,7 +493,7 @@ EN: 8d6 fire damage, DEX save for half. Drives off the foe's pack and scouts tha
 
 ## Rast, Met, Zimmer (86)
 
-`Resting.kt`; Platzhalter, die hier nicht stehen, bleiben wortgleich.
+`Resting.kt` (alte Fassung); Platzhalter, die hier nicht stehen, bleiben wortgleich. In Godot gelten die Rasttexte aus `STORY-BRS-OBERFLAECHE.md` „rast“ (870.15; kurze Rast ohne Leben nach 1038 R1).
 
 `[86.kurzwirkt]` Ausdauer voll, ein Viertel der TP zurück / EN: Stamina full, a quarter of HP back
 

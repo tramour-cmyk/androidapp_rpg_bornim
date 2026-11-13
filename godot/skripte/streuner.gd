@@ -52,6 +52,13 @@ const SITZ_KARTE := {"wolf": ["HockeUmsehenL", "HockeUmsehenR", "HockeHecheln", 
 const GESTE_BLENDE := 0.4
 const GESTE_ABSTAND_MS := 900     # C3 kein Gleichtakt: zwei Monster beginnen nie zugleich eine Ruhebewegung
 static var geste_zuletzt_ms := -100000
+## 1040 (Chef 12.11., 15:12, Grimmzahn: „wenn ich um den rumlaufe, dann dreht er sich … wie als ob er ein Playmobil-Männchen wäre“):
+## wer dem gehenden Helden mit dem Blick folgt, holt ihn je Bild ein, der Rest blieb unter 1 Grad und nie über DREH_TRITT, es drehte
+## ohne Tritt wie auf dem Drehteller; jetzt tritt es, sobald es sich merklich dreht (über TRITT_RATE), und noch TRITT_NACH_MS danach
+const TRITT_RATE := 0.15          # rad/s, gut 8 Grad je Sekunde
+const TRITT_NACH_MS := 400        # ein halber Schritt, damit die Pfoten nicht mitten im Tritt stehen bleiben
+static func tritt_bis(bis: int, gedreht: float, dt: float, jetzt: int) -> int:
+	return jetzt + TRITT_NACH_MS if absf(gedreht) > TRITT_RATE * dt else bis
 
 # ---------------------------------------------------------------- Daten eines Monsters (bleiben je Karte, solange das Spiel laeuft)
 var art := ""

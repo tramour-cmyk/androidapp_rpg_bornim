@@ -91,7 +91,7 @@ Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber und sind bei d
 | Wille | Mana, Heil- und Schutzmagie, kritische Treffer der Umgebungsmagie, Konzentration, Furchtresistenz, Überzeugungskraft |
 | Wahrnehmung | verstärkt Spähen beim Entdecken von Verstecktem und Fallen (Entscheidung 83), Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
 
-Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten.
+Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten. **Proben mit einer Fertigkeit ohne Grundwert** (Überreden, Einschüchtern, Handeln, Tiere beruhigen; 1051 A, Chef 12.11., 22:18): 30 % + 0,6 % je Punkt + 5 % je Stufe über dem Gegner (darunter weniger), 5 bis 95 %; auf gleicher Stufe Ende Anfänger 44 %, Geselle 59 %, Meister 74 %, Großmeister 90 %. Wer keine Stufe hat (Kind), zählt als Stufe 1 (1084, gebilligt 13.11.). **Proben auf Leute** (Überreden, Einschüchtern, Handeln an einer Person; 1108 A, Chef 13.11., 09:38): jede Szene ist einmalig, ist ihr Ziel erreicht (auch auf anderem Weg, etwa mit Gold), kommt die Wahl nie wieder; höchstens drei Versuche, einer je Tag, danach fällt die Probe weg, andere Wege bleiben.
 
 ### Heldenerschaffung
 
@@ -109,7 +109,7 @@ Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wil
 
   Das Volk darf einen Wert auf 9 heben und auf 2 senken (933 A, ersetzt Entscheidung 78), damit sein Abzug immer greift. Leute in der Welt reagieren auf das Volk (Entscheidung 71).
   **Sechstes Volk: Aschgeborene** (432, Chef 01.11., 09:41; Werte 432.2, 02.11., 16:34): Mensch mit aschgrauer Strähne und goldenem Ring um die Iris; wählbar ab dem Bau nach dem Meilenstein Kapitel 1; vor dem Bau in Simulation 444 mit Völkern messen.
-- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag).
+- **Herkunft, freiwillig** (Entscheidung 68, 69): Sie verteilt die Punkte vor, gibt zwei bis drei Startfertigkeiten und passende Ausrüstung; ein Satz bei der Erschaffung sagt, wohin sie lenkt. Die Punkte kann man ändern. Wer keine will, ist **Wanderer** und verteilt selbst; er wählt zwei Startfertigkeiten. Jede Startfertigkeit beginnt bei **10** (Startwert, Vorschlag). Zauberlehrling: vorverteilt Verstand +3, Wille +3 (1050a A, Chef 12.11., 20:02; vorher Wille +5, Verstand +1; Bau Jerry 1066, Satz der Erschaffung Homer 1067).
 
 | Herkunft | Startfertigkeiten | führt meist zu |
 | --- | --- | --- |
@@ -251,7 +251,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 | Runenmeister | Runenkunde | Bergbau | Verzauberungen, Runen auf Ausrüstung |
 | Feldkoch | Kochen | Angeln oder Jagd | Mahlzeiten mit kleinem Bonus |
 
-**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler.
+**Heilkunde** steht in der Gruppe Handwerk (Entscheidung 59: Verbände, Wunden versorgen), ist aber keine eigene Meisterschaft; über Meister hinaus steigt sie nur im Pfad Heiler. **Verband** (1038 A, Chef 12.11., 16:24, „fürs Erste“): stillt Blutung, gibt nach Heilkunde etwas Leben, nur außerhalb des Kampfs; kaufen bei Osric und Thessa; herstellen mit dem Rezeptbuch aus Heilkräutern und Leinen am Lagerfeuer ab Anfänger, mit Spinnseide stärker; später schließt er Wunden (72c). **Kurze Rast** gibt nur Ausdauer, kein Leben (1038 R1).
 
 ## 7. Kampf
 
@@ -320,7 +320,7 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 | **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
 | Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
 
-Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die Güte sagt, wie etwas gemacht ist (Rang setzt die Spanne, Ring und Material entscheiden darin, „Alle Stufen auf einen Blick“), die Seltenheit, woraus (Zutaten, Rezept); bessere Güte nutzt sich langsamer ab (Chef 11.11., 17:53–18:01). Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08).
+Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die Güte sagt, wie etwas gemacht ist (Rang setzt die Spanne, Ring und Material entscheiden darin, „Alle Stufen auf einen Blick“), die Seltenheit, woraus (Zutaten, Rezept); bessere Güte nutzt sich langsamer ab (Chef 11.11., 17:53–18:01). Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08). **Anzeige** (1190, Chef 13.11., 16:50): in der Kurzzeile jeder Übersicht nur das Zeichen der Güte, nie das Wort; das Wort steht im Fenster des Stücks.
 
 **Zusatzeigenschaften** (870a 6 A): nur aus dieser Liste: Grundwert +1, Schutzwert +1 oder +2, Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %; Fertigkeit +1/+2 nur ab episch (644 C1). Namensfarbe je Seltenheit bleibt. Zahlen 444; Abnutzung und Zustand kommen nach dem Umzug als eigener Vorgang.
 
@@ -328,7 +328,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 - **Mindeststufe:** ein Stück der Stufe n legt erst ein Held der Stufe n an; Getragenes bleibt angelegt (alte Spielstände, Testmenü). Gewöhnliche Stücke haben die Stufe ihrer Grundform aus dem Katalog.
 - **Stärke:** die Stufe hebt nur die Zusatzeigenschaften, in Schritten von drei Stufen, als **Spanne**; gewürfelt beim Fund, am Stück steht die Zahl, die wirkt. Startwerte (Rechnung 644.2): Stufe 1–3 Leben und Mana +4 bis +6, kritisch +2 bis +4 %, Zauberschaden +8 bis +12 %, Abwehrprobe +4 bis +6 %, Schutzwert +1; Stufe 4–6 doppelt (Leben +8 bis +12 …, Schutzwert +2), 7–9 dreifach, 10–12 vierfach, danach alle drei Stufen ein Schritt. Grundwert je Stück immer +1; Schaden und Schutz der Grundform hebt nur die Güte.
 - **Funde:** Beute in der Stufe des stärksten Gegners, höchstens Heldenstufe +1; Gaben ebenso; Händler nur, was der Held tragen kann; Einzelstücke mit Stufe aus dem Katalog (Homer prüft gegen die Geschichte).
-- **Kein Deckel:** was am Stück steht, wirkt. Grundwerte würfeln als Zusatzeigenschaft mit halbem Gewicht; Händler verkaufen in Kapitel 1 keine Stücke mit Grundwert; vorher rechnet Jerry den schlimmsten und üblichen Fall (über +3 üblich: Zahlen an den Chef).
+- **Kein Deckel:** was am Stück steht, wirkt. Grundwerte und Schutzwert würfeln als Zusatzeigenschaft mit halbem Gewicht (Schutzwert 644b A, Chef 12.11., 13:40, nach Rechnung 644a.1: üblich Grundwert +3 bis +4, Schutzwert +1 bis +2); Händler verkaufen in Kapitel 1 keine Stücke mit Grundwert.
 
 **Seltenheit:**
 
@@ -356,6 +356,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 - **Drei Wege:** beim NPC-Handwerker reparieren lassen (Gold, mit gutem Ruf günstiger; er kann nur bis zu seiner eigenen Stufe), selbst reparieren (Material, Werkort, Rang), Notreparatur unterwegs mit Reparaturset (nur teilweise).
 - **Vier Ränge** bestimmen, was der Held selbst reparieren kann: Anfänger (Werkzeug, einfache Waffen, Leder, Stoff), Geselle (Metallwaffen, mittlere Rüstung, Schilde, Bögen), Meister (schwere Rüstung, Meisterwerke), Großmeister (magische Gegenstände, mit Runenkunde).
 - **„Alles reparieren“** mit einem Tippen.
+- **Aussehen:** Spuren an Trachten (Schmutz, Abnutzung) folgen dem Zustand; bis die Abnutzung gebaut ist (Projektplan 3.5), fest „Benutzt“; Falten und Schatten immer voll (558, Chef 04.11., 15:46). Stoff wie Probe 5, keine Vorlage mehr zu Roben oder Stoff (558, 22:21).
 
 ## 12. Namen
 
