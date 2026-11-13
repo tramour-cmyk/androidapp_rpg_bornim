@@ -4,20 +4,15 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
-
-## Zu billigen
-
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [492](billigen/492-hoehle.md) | **Muss** | E Technik | 13.11., 03:33 | Die Höhle in Fassung B ist jetzt auch im Spiel der Standard (vorher nur im Bildlauf). Das Lager zeigt die Kamera von unten mittig. Die Höhle fährt im nächsten Build, dann spielst du sie durch. | Sokrates |
-| [867](billigen/867-menuehelden.md) | **Muss** | G Stil | 13.11., 03:14 | Vorlage 6: die Wachsoldatin hält das Schwert gesenkt in der rechten Hand, der Schild sitzt am linken Arm mit der Fläche schräg zum Spieler; die drei anderen wie in Vorlage 5. Die Fäuste auf dem Knauf erreicht die gekaufte Figur nicht (nachgestellt), darum der Ersatz, den Sokrates dafür bestimmt hat. | Sokrates |
-| [1044](billigen/1044-frauenstand.md) | **Muss** | E Figuren | 13.11., 00:09 | keine gekaufte Bewegung steht mit geschlossenen Beinen; Tom passt die heutige an (Füße zusammen, Hände vorn), zuerst Lyra, Bild vorher/nachher | Sokrates |
-| [842](billigen/842-knopf.md) | **Muss** | E Welt | 13.11., 00:03 | Pim hat drei Knöpfe, Osric „Kaufen“ und „Nicht jetzt“, der Verband steht in Tasche und Laden; Osric bekommt noch einen Satz, der sagt, was er verkauft | Sokrates |
-| [1022](billigen/1022-kartenrand.md) | **Muss** | E Welt | 12.11., 23:50 | der weiche Rand ins Dunkel passt; Weg am Schlagbaum und Fluss sollen noch mit ins Dunkel laufen, dann fährt er im nächsten Build | Sokrates |
-| [1090](billigen/1090-rockfleck.md) | M? | E Figuren | 13.11., 02:46 | unter der Robe steckt bei den Leuten noch eine Hose dicht am Bein, die durch den Stoff stößt; sie fällt weg wie beim Helden im Zaubergewand | Sokrates |
+| [1108](entscheiden/1108-pim-versuche.md) | **Muss** | G Balance | 13.11., 09:35 | heute geht ein Versuch je Tag, aber an jedem neuen Tag wieder, ohne Ende, und jeder Versuch übt Überreden; Vorschlag: Pim wird nur einmal heimgeschickt, höchstens drei Versuche | Sokrates |
+
+## Zu billigen
+
+Nichts offen.
 
 ## Anzusehen
 
@@ -335,7 +330,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1100.1 | M | Von Sokrates (Chef 13.11., 09:29, 1100 A mit 6): Ford-Lauf nach Perikles' Umbau gegenprüfe | wartet auf 1100 (in Arbeit) |
 | 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | wartet auf 1098 (wartet) |
 
-**Sokrates** – offen 51, Muss 36, startbar 28
+**Sokrates** – offen 52, Muss 37, startbar 28
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -390,6 +385,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 985 | K | Systemlösung? Nebel: 2 frühere Vorgänge (505, 502), neu 785.7; einmal grundsätzlich lösen? | startbar |
 | 644a.5 | M | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | Pflege | K | von Werkzeug (340.3, 13.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| 1108 | M | Von Sokrates (Chef 13.11., 09:33, zu 842/1085): Pim lässt sich jeden Tag neu überreden, je | Chef (Datei in der Chefsache) |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
