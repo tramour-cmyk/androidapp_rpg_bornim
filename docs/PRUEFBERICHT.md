@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 227 · 1221 „greift“ erst nach erledigten Nummern im Feld (Perikles `ef95b0418`; 13.11., 21:1x)
+
+- **Greift:** echt `startbar.py --rolle Diogenes`: kein Muss, 882.2 „wartet auf 882.1 (gebaut), dann Diogenes (greift?)“; `lauf.py --nur-muss` ohne `--ohne 882.2` in einer Kopie ohne Startmarken Diogenes: „NICHTS Diogenes: nichts Startbares“. Kopie mit 882.1 „erledigt“ in der Liste und Kopie mit 882.1 nur im Archiv („erledigt, Bautest …“): 882.2 Muss startbar, `START Diogenes … 882.2`. `sperre()` alt gegen neu über alle 20 Zeilen B gebaut: nur 882.2 weicht ab.
+
 ## Lauf 226 · 1213 neuer Zweig zählt nur eigene Commits (Perikles `cdc91693b`; 13.11., 20:2x)
 
 - **Greift** (Wegwerfzweig `claude/jerry-9999-probe` von `origin/claude/build-284`, `push_lauf` aus `main`): ohne neuen Commit `None`; neuer Commit nur `docs/` `None` (Stand vor 1213 an demselben Zweig: Probelauf „9999“, der Fehler aus 1213 nachgestellt); neuer Commit an `vorschau.yml` → Probelauf „9999“.
