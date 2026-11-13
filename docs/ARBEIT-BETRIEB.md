@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1207** (zuletzt 1206 Jerry 13.11. 18:53:43 7323) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1208** (zuletzt 1207 Perikles 13.11. 19:01:15 8dfd) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -109,3 +109,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:54 13.11.: Startsperre 18:54 Start Diogenes (Auftrag Diogenes 882.2 von Perikles, 471d99e2c; Ford)
 - 18:56 13.11.: Auftrag Diogenes 882.2 (Perikles): neue Sitzung `…7A3E2PMHWuw7NAvVF5`, Vorgängerin `…75jL9b9DF5Kf8a99Zk` archiviert (4,37 $ auf 1191; Ford)
 - 18:57 13.11.: Startsperre 18:57 Start Jerry (Neustart 9e7dfd4a6, Nachfolger „Jerry – 284: Filme aus Lauf 444 schneiden und senden, dann 709.1“; Ford)
+- 19:00 13.11.: Neustart Jerry (9e7dfd4a6): neue Sitzung `…7972hfEsxURwGCfPMq` 18:58, Vorgängerin `…76LaTS3jY9wUdbYVmp` archiviert (16,20 $ auf 284, 1141; Ford)
