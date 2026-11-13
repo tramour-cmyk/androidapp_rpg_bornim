@@ -11,7 +11,6 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 13.11.): `tools/rollenspiegel.sh Tom` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Tom | M | startbar | – | – | – | B Abläufe | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, nach dem Umzug erster großer Punkt Tom (1061): erst Aufwand vorlegen | 870.10 | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
 | 1030 | Von Sokrates (Chef 12.11., 13:53, Build 280, Rückläufer zu 1020.1): Reiter „Test“ springt nach jedem Schalter (Bildrate, Uhrzeit) ganz nach oben; Prüfliste nicht einklappbar, ewig scrollen bis zu den Schaltern | Tom | M | zu testen | – | claude/tom-1030-testreiter | 281 | E Technik | 25,76 $ |
 | 825 | Sammelbuild: alle fertigen Zweige beider Teams (Tom 610, 522, 506, 670, 583, 540, 617, 635, 542, 543, 632; Jerry 593, 547, 597), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774) | Tom | M | gebaut, Geprüft an: Lauf 42793721837, t274 beim Chef | – | – | – | E Technik | 8,33 $ |
@@ -265,6 +264,7 @@
 | 1096 | Von Sokrates (Chef 13.11., 07:55, Test 281, zu 1034): Siegfenster Probekampf mit Testheld kürzen: erste Zeile bleibt, grau „Ein echter Kampf brächte: <EP> EP, <Gold> Gold“ und Beute; Heldenstufen, Grenze Kapitel 1, „Leben und Mana wieder voll“ weg; Spielheld unverändert | Jerry | M | gebaut, Geprüft an: e5ada354f | – | claude/jerry-1095-siegfenster | – | E Kampf | – |
 | 1101 | Von Tom (854, Lauf 420 und Rechner 13.11., 08:40): kauf_cache.py ablegen scheitert am Block dorf: godot/daten/deep_forest.bin 122 MB über der GitHub-Grenze 100 MB (GH001); danach bricht ablegen ab, klassen und kampf werden auch nicht abgelegt, jede Sitzung baut 45 Min. neu; Schritt bleibt grün | Jerry | M | startbar | – | – | – | B Werkzeuge | – |
 | 1102 | Von Sokrates (Chef 13.11., 08:49, Test 281.14, zu 833, vgl. 1093): Kampfbericht deckt den Schirm nicht ganz: links und rechts schmale Streifen Wald sichtbar, Fenster endet am oberen Bildteil, darunter der untere Kampfschirm schwarz mit „‹ ZURÜCK“ | Jerry | M | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 15639 Bytes (Grenze 15000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | Homer | K | ruht | – | – | – | G Story | 4,27 $ |
 | 870.12 | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 schließen; LISTE-UMZUG-BRS.md 4 Schritt 9 | Perikles | M | wartet, 2.3 und 2.17 neu gefasst, Schließen nach Abnahme | 870.13 | – | – | B Abläufe | – |
@@ -345,7 +345,7 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 44,76 $ (darin 13.11. 05:09 `session_01Hmoj78SjLo9HXycxxu7G2K` 7,38 $), Perikles Vorratsdurchsicht 1,90 $, Perikles Spiegel 13.11. 1,52 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +1069,86 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 13.11.): 56491 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 13.11.): 56881 Bytes (Grenze 15000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
