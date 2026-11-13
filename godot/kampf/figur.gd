@@ -1076,7 +1076,6 @@ func _play(name: String, blend := 0.15) -> void:
 ## 01.11.), beide Helden im Gleichtakt: in den Ruhebewegungen des Kampfs bleibt darum ihr erstes Bild stehen (_ohne_atem), das auch
 ## Anfang und Ende jeder Kampfbewegung ist, und nur die Schicht atmet.
 const ATEM_RUHE := ["Kampfstehen", "Stehen", "SS_IdleCombat"]
-const ATEM_WOLF_HOCH_M := 0.8     # 1166: Maß des Atems der Tiere (atem_tier.gd, am Kaufwolf abgenommen)
 var atem = null
 
 func _atem_an() -> void:
@@ -1091,8 +1090,8 @@ func _atem_an() -> void:
 			atem = Tier.new()
 			atem.name = "Atem"
 			atem.knochen_setzen(sk)
-			if atem.halten_name != Tier.HALTEN:     # nicht der Wolf: Heben nach der Größe (Wolf etwa 0,8 m hoch)
-				atem.groesse = clampf(float(mass.hoehe_m) / ATEM_WOLF_HOCH_M, 0.15, 2.0) if mass.has("hoehe_m") else clampf(_scale(), 0.15, 2.0)
+			if atem.halten_name != Tier.HALTEN:     # nicht der Wolf: Heben nach der Länge des Rückens (atem_tier.gd, beim ersten Bild)
+				atem.groesse = -1.0     # Lauf 43483231093: hoehe_m gab der Ratte 2,0 (doppelt so tief wie der Wolf), dem Grabhund 1,5–1,7
 			atem.eigen(hash(String(fighter.id)))
 			sk.add_child(atem)
 			if OS.get_environment("SCHAU_1166") != "":

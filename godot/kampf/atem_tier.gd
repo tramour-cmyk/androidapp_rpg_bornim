@@ -28,8 +28,10 @@ var _halten := -1
 var rippen_def: Array = RIPPEN
 var halten_name: String = HALTEN
 var von_name: String = VON
-## 1166: Größe gegen den Wolf (Rücken heben in Metern; die Ratte hebt nicht 22 mm), beim Wolf 1
+## 1166: Größe gegen den Wolf (Rücken heben in Metern; die Ratte hebt nicht 22 mm), beim Wolf 1; unter 0: beim ersten Bild aus der
+## Länge des Rückens (Von bis Halten) gegen die des Wolfs (WOLF_RUECKEN_M)
 var groesse := 1.0
+const WOLF_RUECKEN_M := 0.37     # 453 r3: Rücken des Kaufwolfs, 37 cm
 ## 453 r3 (gemessen tests/atem_netz_453.gd): Spine_04 und alles darunter (Schultern, Vorderläufe, Hals, Kopf) der Reihe nach von oben
 ## zurück auf die Pose vor dem Atem. Nur Spine_04 genügte nicht: die Weitung quer zum Rumpf liegt nicht genau in den Achsen der
 ## Knochen, set_bone_pose zerlegt sie in Drehung und Maßstab und verliert die Scherung; der Rest ging bis in die Vorderpfoten (5 mm je
@@ -135,6 +137,11 @@ func _process_modification_with_delta(delta: float) -> void:
 	var quer := laengs.cross(oben).normalized()
 	oben = quer.cross(laengs).normalized()
 	var m_je_einheit: float = sk.global_basis.get_scale().y
+	if groesse < 0.0:
+		var lang_m: float = (sk.get_bone_global_pose(_halten).origin - sk.get_bone_global_pose(_von).origin).length() * m_je_einheit
+		groesse = clampf(lang_m / WOLF_RUECKEN_M, 0.15, 2.0)
+		if OS.get_environment("SCHAU_1166") != "":
+			print("1166 Atem Größe %.2f (Rücken %.2f m)" % [groesse, lang_m])
 	var heben: Vector3 = oben * (HEBEN_M * groesse * tiefe / maxf(m_je_einheit, 1e-6))
 	var halten := sk.get_bone_global_pose(_halten)
 	var kinder := []
