@@ -9,6 +9,6 @@
 | Teil | Aufruf in `tools/preview` | Inhalt | Stand |
 |---|---|---|---|
 | `leute` | `LEUTEALT=1` | die dreizehn Leute des Dorfs von vorn und hinten (26 Bilder) | da |
-| `screens` | Standardlauf | Schirme, Kampf, Karten | angefangen: 171 Bilder unter `alt/screens_teil` (Lauf 13.11., 13:59–16:29 beim Neustart der Sitzung beendet, nicht fertig); weiter mit `VORHER=<ordner>` (`<ordner>/screens` = `alt/screens_teil`, `d64b3559f`) |
-| `karte` | `KARTENZOOM=1 ONLY=zoom_nah_p HELDORT=<Liste>` | Dorf, Wald, Höhle, Grundrisse | fehlt (noch nicht gelaufen) |
-| `512b` | `MENUE512B=1` | Menüschirme mit Fenstern | fehlt (Lauf vom Speicher abgebrochen, nicht geprüft) |
+| `screens` | Standardlauf | Schirme, Kampf, Karten | da (181 Bilder; 13.11. in zwei Läufen, Rest mit `VORHER=`, `d64b3559f`). Bekannt: Schirme nach einem Ortswechsel zeigen die Ortskarte (Name, Satz) statt der Welt, wie die alte Vorschau sie knipste |
+| `karte` | `KARTENZOOM=1 ONLY=zoom_nah_p HELDORT=<Liste>` | Dorf, Wald, Höhle, Grundrisse | da (28 Bilder, 13.11.) |
+| `512b` | `MENUE512B=1` | Menüschirme mit Fenstern | fehlt (läuft 13.11. ab 17:25 bei Spike; bricht er ab: neu mit `alt_bilder_rendern.sh <ablage> 512b`) |
