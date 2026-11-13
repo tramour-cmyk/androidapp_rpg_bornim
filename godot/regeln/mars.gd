@@ -1167,11 +1167,11 @@ func spaeher_zum_verjagen():
 	return null
 
 
-## 841: Chance in Prozent (werte.json „proben“ „_einschuechtern“): einschuechtern_basis + einschuechtern_je_punkt × Einschüchtern
-## + je_stufe × (eigene Stufe − Stufe des Spähers), begrenzt auf min bis max
+## 841, 1084 (1051 A): Chance in Prozent wie alle Proben ohne Grundwert (werte.json „proben“ „_ohne_grundwert“): einschuechtern_basis
+## + einschuechtern_je_punkt × Einschüchtern + je_stufe × (eigene Stufe − Stufe des Spähers), begrenzt auf min bis max
 func einschuechtern_chance(h: Fighter, s: Fighter) -> float:
 	var P := _proben()
-	var c := float(P.get("einschuechtern_basis", 35)) + float(P.get("einschuechtern_je_punkt", 1.0)) * float(h.b.get("fert", {}).get("Einschüchtern", 0)) \
+	var c := float(P.get("einschuechtern_basis", 30)) + float(P.get("einschuechtern_je_punkt", 0.6)) * float(h.b.get("fert", {}).get("Einschüchtern", 0)) \
 			+ float(P.get("je_stufe", 5)) * float(int(h.b.get("stufe", 1)) - int(s.b.get("stufe", 1)))
 	return clampf(c, float(P.get("min", 5)), float(P.get("max", 95)))
 

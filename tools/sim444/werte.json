@@ -62,15 +62,23 @@
     "min": 5,
     "max": 95,
     "gegner_grundwert": 5,
-    "_einschuechtern": "841 (807 A, Goblin-Spaeher verjagen; vorlaeufig A, Jerry, wie Ueberreden 1037): Einschuechtern hat keinen Grundwert, also Chance = einschuechtern_basis + einschuechtern_je_punkt x Fertigkeitswert Einschuechtern + je_stufe x (eigene Stufe - Stufe des Spaehers), begrenzt auf min bis max; ohne Fertigkeit gleich stark 35 %, Startwert 10 = 45 %; Uebung je Versuch, gelungen oder nicht, gegen die Stufe des Spaehers",
-    "einschuechtern_basis": 35,
-    "einschuechtern_je_punkt": 1.0,
     "_abwehr": "Abwehrprobe gegen einen Zustand mit Zaehigkeit (Gift, Betaeubung, Blindheit), Wille oder Gewandtheit gegen den staerksten stehenden Gegner; je Punkt Schwere des alten Rettungswurfs ueber abwehr_mitte ein Grundwertpunkt mehr dagegen",
     "abwehr_mitte": 11,
     "_initiative": "Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos",
     "initiative_streuung": 100,
     "initiative_atemlos": 25,
-    "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)"
+    "_flucht": "Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)",
+    "_ohne_grundwert": "1084 (1051 A, Chef 12.11., 22:18; DESIGN-BRS.md 3): Proben mit einer Fertigkeit ohne Grundwert (Ueberreden, Einschuechtern, Handeln, Tiere beruhigen), je Fertigkeit <name>_basis und <name>_je_punkt (Name klein, Umlaute als ae, oe, ue): Chance = basis + je_punkt x Fertigkeitswert + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; auf gleicher Stufe 30 / 44 / 59 / 74 / 90 % bei 0 / 24 / 49 / 74 / 100 Punkten; Uebung je Versuch, gelungen oder nicht. Einschuechtern: gegen die Stufe des Goblin-Spaehers (841, mars.gd); Ueberreden: gegen die Stufe der Figur aus ueberreden_stufe (Pim 1, Vorentscheid Sokrates 1084, 23:08), dazu minus <name>_gegen der Figur (1037, Pim 0; geschichte.gd probe_chance, Stufe dort noch nicht gerechnet); Tiere beruhigen: gegen die Stufe des Tiers, Ranggrenze wirtschaft tiere_beruhigen (sim.py, im Spiel noch nicht gebaut); Handeln: noch keine Probe im Spiel, die Preise rechnen mit welt handeln_je_punkt",
+    "einschuechtern_basis": 30,
+    "einschuechtern_je_punkt": 0.6,
+    "ueberreden_basis": 30,
+    "ueberreden_je_punkt": 0.6,
+    "tiere_beruhigen_basis": 30,
+    "tiere_beruhigen_je_punkt": 0.6,
+    "handeln_basis": 30,
+    "handeln_je_punkt": 0.6,
+    "ueberreden_gegen": {"Pim": 0},
+    "ueberreden_stufe": {"Pim": 1}
   },
 
   "gegenwirkung": {
@@ -278,8 +286,8 @@
     "_dorf": "A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen",
 
     "preise": {
-      "_quelle": "Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A",
-      "Heiltrank": 25, "Großer Heiltrank": 75, "Alchemistenfeuer": 30, "Weihwasser": 25,
+      "_quelle": "Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A; Verband 1037 A",
+      "Heiltrank": 25, "Großer Heiltrank": 75, "Verband": 8, "Alchemistenfeuer": 30, "Weihwasser": 25,
       "Fleisch": 6, "Wolfsfell": 24, "Hauer": 20, "Spinnendrüse": 30, "Fledermausflügel": 16,
       "Fell klein": 8, "Zähne": 10, "Schwarte": 12, "Giftdrüse": 20, "Panzerplatten": 10,
       "Spinnseide": 20, "Knochen": 4, "Säure": 20
@@ -321,12 +329,8 @@
     },
 
     "tiere_beruhigen": {
-      "_quelle": "N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere. Zahlen A: Chance wie Trefferchance mit Basis 50 gegen die Wachsamkeit des Tiers; misslingt es, schlaegt das Tier zuerst",
+      "_quelle": "N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere; misslingt es, schlaegt das Tier zuerst. Chance wie alle Proben ohne Grundwert (proben tiere_beruhigen_basis, 1084, 1051 A; vorher 50 + 0,5 je Punkt gegen die Wachsamkeit des Tiers)",
       "arten": ["Riesenratte", "Wolf", "Wildschwein", "Riesenfledermaus"],
-      "chance_basis": 50,
-      "chance_je_punkt": 0.5,
-      "chance_min": 5,
-      "chance_max": 95,
       "rang_bis_tierstufe": [[24, 2], [49, 4]],
       "_rang": "Anfaenger (bis 24) beruhigt Tiere bis Stufe 2, Geselle (bis 49) bis Stufe 4"
     },
@@ -470,6 +474,8 @@
     "_quelle": "870.4 (Tom 11.11., LISTE-UMZUG-BRS.md Schritt 4): die Welt nach dem BRS statt nach dem SRD (Heldwerte entfallen). Alle Zahlen A als Uebergang, so gewaehlt, dass sich wenig aendert (Leben nach BRS sind auf Stufe 1 etwa doppelt so gross wie die alten TP); Vorentscheid Sokrates erbeten (783 W5), Messung 444, Vorlage an den Chef vor B1",
     "heilung": {"potion": 14, "greater_potion": 28, "superior_potion": 56, "remedy": 5, "roast_meat": 14},
     "_heilung": "A: Leben fest statt Wuerfel, je das Doppelte des alten Mittels (Heiltrank alt 2W4+2 = 7); gilt in der Welt und im Kampf",
+    "verband": {"grund": 5, "je_heilkunde": 0.2, "uebung": 1},
+    "_verband": "1037 (807 A, Verband aus der Tasche nur ausserhalb des Kampfs; vorlaeufig A, Jerry, Vorentscheid Sokrates): heilt grund + je_heilkunde x Heilkunde Leben, gerundet (ohne Heilkunde 5, Startwert 10 = 7, Decke Kapitel 1 24 = 10, Geselle 49 = 15, Grossmeister 100 = 25; Heiltrank 14 fuer 25 Gold); Uebung je Anlegen, nur wenn Leben fehlen; Preis wirtschaft preise Verband",
     "essen_je_kochen": 0.2,
     "_essen": "A: eine Mahlzeit heilt dazu 0,2 Leben je Punkt Kochen (alt: Modifikator Konstitution)",
     "ausdauer": {"sekunden": 6, "je_punkt": 0.5, "mitte": 10, "je_zwei_stufen": 1, "min": 2, "schwer_kraft": 7},

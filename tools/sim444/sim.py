@@ -733,8 +733,16 @@ def ausbeute(W, jagd):
     return z["ausbeute_min"] + (1 - z["ausbeute_min"]) * min(1.0, jagd / z["jagd_voll"])
 
 
-def beruhigen_chance(W, wert, mon):
-    """None, wenn der Rang fuer dieses Tier nicht reicht; sonst Chance 0..1."""
+def probe_ohne_grundwert(W, fert, wert, stufe, gegen_stufe):
+    """1084 (1051 A): Probe mit einer Fertigkeit ohne Grundwert in Prozent (werte.json proben <name>_basis, <name>_je_punkt, je_stufe)."""
+    p = W["proben"]
+    n = fert.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss").replace(" ", "_")
+    c = p[n + "_basis"] + p[n + "_je_punkt"] * wert + p["je_stufe"] * (stufe - gegen_stufe)
+    return max(p["min"], min(p["max"], c))
+
+
+def beruhigen_chance(W, wert, mon, stufe):
+    """None, wenn der Rang fuer dieses Tier nicht reicht; sonst Chance 0..1 (Probe ohne Grundwert gegen die Stufe des Tiers)."""
     t = W["wirtschaft"]["tiere_beruhigen"]
     grenze = 0
     for bis, tierstufe in t["rang_bis_tierstufe"]:
@@ -743,8 +751,7 @@ def beruhigen_chance(W, wert, mon):
             break
     if mon["stufe"] > grenze:
         return None
-    c = t["chance_basis"] + (wert - mon["wachsamkeit"]) * t["chance_je_punkt"]
-    return max(t["chance_min"], min(t["chance_max"], c)) / 100.0
+    return probe_ohne_grundwert(W, "Tiere beruhigen", wert, stufe, mon["stufe"]) / 100.0
 
 
 def reparatur_kosten(W, held, slot_art, fehlend):
@@ -902,7 +909,7 @@ def fortschritt_wirtschaft(W, herkunft, rng, beruhigen=False):
         begegnungen += 1
         tier_zuerst = False
         if beruhigen and ist_tier(W, name):
-            c = beruhigen_chance(W, held.f("Tiere beruhigen"), mon)
+            c = beruhigen_chance(W, held.f("Tiere beruhigen"), mon, held.stufe)
             if c is not None:
                 versuche += 1
                 held.uebe("Tiere beruhigen", mon["stufe"])
@@ -1022,9 +1029,16 @@ def pruefen(W):
         mon = W["monster"]
         ist("Ausbeute Jagd 0", ausbeute(W, 0), 0.4, tol=0.001)
         ist("Ausbeute Jagd 49", ausbeute(W, 49), 1.0, tol=0.001)
-        ist("Beruhigen Wolf, Fertigkeit 0 (%)", beruhigen_chance(W, 0, mon["Wolf"]) * 100, 35, tol=0.01)
-        ist("Beruhigen Fledermaus Stufe 3 als Anfaenger gesperrt", 1 if beruhigen_chance(W, 24, mon["Riesenfledermaus"]) is None else 0, 1, tol=0)
-        ist("Beruhigen Fledermaus als Geselle (%)", beruhigen_chance(W, 30, mon["Riesenfledermaus"]) * 100, 45, tol=0.01)
+        ist("Beruhigen Wolf (Stufe 2), Fertigkeit 0, Held Stufe 2 (%)", beruhigen_chance(W, 0, mon["Wolf"], 2) * 100, 30, tol=0.01)
+        ist("Beruhigen Wolf, Fertigkeit 24, Held Stufe 5 (%)", beruhigen_chance(W, 24, mon["Wolf"], 5) * 100, 59.4, tol=0.01)
+        ist("Beruhigen Fledermaus Stufe 3 als Anfaenger gesperrt", 1 if beruhigen_chance(W, 24, mon["Riesenfledermaus"], 3) is None else 0, 1, tol=0)
+        ist("Beruhigen Fledermaus als Geselle, Held Stufe 2 (%)", beruhigen_chance(W, 30, mon["Riesenfledermaus"], 2) * 100, 43, tol=0.01)
+        # 1084 (1051 A): alle Proben ohne Grundwert, auf gleicher Stufe 30 / 44 / 59 / 74 / 90 % bei 0 / 24 / 49 / 74 / 100
+        for f in ["Überreden", "Einschüchtern", "Handeln", "Tiere beruhigen"]:
+            for wert, soll in [(0, 30), (24, 44.4), (49, 59.4), (74, 74.4), (100, 90)]:
+                ist("%s %d gleiche Stufe (%%)" % (f, wert), probe_ohne_grundwert(W, f, wert, 3, 3), soll, tol=0.01)
+        ist("Einschüchtern 0, fünf Stufen unter dem Gegner (Untergrenze)", probe_ohne_grundwert(W, "Einschüchtern", 0, 1, 6), 5, tol=0.01)
+        ist("Einschüchtern 100, zwei Stufen darüber (Obergrenze)", probe_ohne_grundwert(W, "Einschüchtern", 100, 5, 3), 95, tol=0.01)
         hw = Held(W, "Wachsoldat")
         ist("Reparatur Kettenhemd 40 Punkte beim Handwerker", reparatur_kosten(W, hw, "Mittlere Rüstung", 40)[0], 10, tol=0.001)
         hs = Held(W, "Schmiedelehrling")
@@ -1215,9 +1229,9 @@ def bericht_wirtschaft(W, we, laeufe):
     z = wi["zerlegen"]
     a(f"- **Zerlegen** nach jedem Sieg über Tier, Kriechtier, Skelett, Schleim (Teile nach Bestiarium): erstes Teil immer, weitere mit Chance = Ausbeute, "
       f"Erlös × Ausbeute; Ausbeute = {zahl(z['ausbeute_min'])} + {zahl(1 - z['ausbeute_min'])} × Jagd/{z['jagd_voll']}; übt Jagd (Start 0 bei allen Herkünften).")
-    t = wi["tiere_beruhigen"]
-    a(f"- **Tiere beruhigen:** Chance = {t['chance_basis']} % + (Fertigkeit − Wachsamkeit des Tiers) × {zahl(t['chance_je_punkt'])}, "
-      f"{t['chance_min']} bis {t['chance_max']} %; Anfänger bis Tierstufe 2, Geselle bis 4; gelungen: Erfahrung wie Sieg, keine Beute, kein Zerlegen, keine Abnutzung; "
+    pr = W["proben"]
+    a(f"- **Tiere beruhigen** (Probe ohne Grundwert, 1084): Chance = {zahl(pr['tiere_beruhigen_basis'])} % + {zahl(pr['tiere_beruhigen_je_punkt'])} je Punkt "
+      f"+ {pr['je_stufe']} je Heldenstufe über dem Tier, {pr['min']} bis {pr['max']} %; Anfänger bis Tierstufe 2, Geselle bis 4; gelungen: Erfahrung wie Sieg, keine Beute, kein Zerlegen, keine Abnutzung; "
       "übt bei jedem Versuch.")
     ab = wi["abnutzung"]
     a(f"- **Abnutzung:** Zustand 100; −{zahl(ab['waffe_je_treffer'])} je eigenem Waffentreffer, −{zahl(ab['ruestung_je_treffer'])} je erlittenem Treffer (Rüstung und Schild), "
