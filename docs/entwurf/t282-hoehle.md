@@ -1,6 +1,6 @@
 # Tom · Build 282 · 0.348.425 · Nachtest Höhle: Blutzahnhöhle, Krogg, Gitter, Lyra · PR #201
 E Welt · Tom (492, 1104, 1040.1) · 13.11., 11:43 · [APK (Lauf 425)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43394728258/artifacts/14029055635)
-Rot, bekannt, nicht melden: ziege_4162 – ein Prüfschritt der Ziege im Dorf schwankt im Bau (einmal rot, einmal grün), das Spiel ist davon nicht berührt (1079).
+Rot, bekannt, nicht melden: ziege_4162 – ein Prüfschritt der Ziege im Dorf schwankt im Bau (einmal rot, einmal grün), das Spiel ist davon nicht berührt (1079); tausch_1041 – Messung beim Platztausch im Kampf, nicht sperrend; alle Höhlentests grün.
 Weniger als 4 Vorgänge: Chef 13.11., 11:04 „A“ (neue APK 282 nur mit 282.19 bis 282.21 und 282.23; passt die Höhle, geht 282 auf `main`, alles Übrige in Build 283).
 
 Ein Weg: über Build 282 (Lauf 420) installieren, App starten, Hauptmenü, „Weiter“ mit deinem Spielstand; den Reiter „Test“ öffnen (im Hauptmenü siebenmal aufs Firmenzeichen tippen) und die Stationen der Reihe nach wählen: „Höhle“ (282.19), „Krogg“ (282.20), „Lyra“ (282.23 vor 282.21, erst an Lyra vorbeigehen, dann ansprechen). Die Stationen setzen den Stand der Geschichte.
