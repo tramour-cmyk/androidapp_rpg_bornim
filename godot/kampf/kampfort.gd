@@ -856,13 +856,34 @@ func _stand(foe: bool, back: bool, slot: int, alone: bool) -> Vector2:
 	return Vector2(row, b) if foe else Vector2(-row - NEAR_M, b)
 
 
+## 973 (930a A, Chef 11.11., 16:09, F3: „Angriff, Treffer, Tod; die Übrigen bleiben stehen“): die Stelle jeder Figur je Platz der
+## Regeln, einmal gerechnet; ein Tod ändert sie nicht mehr (vorher rechnete _spot_ab mit den Lebenden neu: „allein vorn“, „Paar
+## hinten“, und die Übrigen rückten nach, stehen_973). Neu gerechnet wird nur, wenn der eigene Platz wechselt (Platztausch, Sprung
+## nach vorn) und einmal, wenn die Umrisse gemessen sind (_umriss_messen); id → [Platz, Stelle (a, b)]. Wer den Platz wechselt,
+## geht an die Stelle, die dieser Platz schon hat (beim Tausch die des anderen, nach vorn die des Gefallenen; stelle_platz,
+## Seite|Platz → Stelle), sonst lagen zwei auf einer Stelle (umweg_399)
+var stelle_fest := {}
+var stelle_platz := {}
 func _spot_pos(f, spot: Vector2i) -> Vector3:
-	var ab := _spot_ab(f, spot)
+	var fest: Array = stelle_fest.get(f.id, [])
+	if not fest.is_empty() and fest[0] == spot:
+		return _ground(fest[1].x, fest[1].y)
+	var schluessel := "%s|%d|%d" % [f.side, spot.x, spot.y]
+	var ab: Vector2 = stelle_platz[schluessel] if stelle_platz.has(schluessel) else _spot_ab(f, spot)
 	# 587 (Läufe 275/276, groesse_587: mit 1,3-fach stand die Riesenspinne hinten 0,22 m im Wolf vorn; Grimmzahn 0,84 m im Wolf
 	# hinten): wer hinten steht, weicht den Umrissen der vorderen aus (Wölfe des Rudels reichen schon, bleiben wie 438)
 	if f.side == "FOES" and spot.x == Mars.BACK:
 		ab = _ausweichen(f, ab)
+	stelle_fest[f.id] = [spot, ab]
+	if not stelle_platz.has(schluessel):
+		stelle_platz[schluessel] = ab
 	return _ground(ab.x, ab.y)
+
+
+## 973: wo ein anderer wirklich steht (seine festgehaltene Stelle), nicht wo er nach den Lebenden stünde
+func _stelle_ab(o, spot: Vector2i) -> Vector2:
+	var fo: Array = stelle_fest.get(o.id, [])
+	return fo[1] if not fo.is_empty() and fo[0] == spot else _spot_ab(o, spot)
 
 
 const AUSWEICH_LUFT := 0.08     # 587: Meter zwischen den Umrissen
@@ -877,7 +898,7 @@ func _ausweichen(f, ab: Vector2) -> Vector2:
 		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
 			var a := _umriss(o)
 			if a.size != Vector2.ZERO:
-				var ao := _spot_ab(o, shown.places[o.id])
+				var ao := _stelle_ab(o, shown.places[o.id])
 				var g := _ground(ao.x, ao.y)
 				vorn.append(Rect2(a.position + Vector2(g.x, g.z), a.size).grow(AUSWEICH_LUFT / 2.0))
 	if vorn.is_empty():
@@ -911,6 +932,8 @@ func _umriss_messen() -> void:
 	for fig in figures.values():
 		if fig.fighter.side == "FOES" and fig.visible:
 			fig.footprint()
+	stelle_fest.clear()     # 973: mit den Umrissen einmal neu (vor dem ersten Zug)
+	stelle_platz.clear()
 	for fig in figures.values():
 		var f = fig.fighter
 		if f.side == "FOES" and shown.places.has(f.id) and shown.places[f.id].x == Mars.BACK and fig.position.distance_to(fig.home) < 0.01:
@@ -979,7 +1002,7 @@ func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
 	var vorn := []
 	for o in mars.fighters():
 		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
-			vorn.append(_spot_ab(o, shown.places[o.id]))
+			vorn.append(_stelle_ab(o, shown.places[o.id]))
 	if vorn.size() == 2 and _alone(f, Mars.BACK):
 		var mitte: Vector2 = (vorn[0] + vorn[1]) / 2.0
 		return Vector2(a, mitte.y + NAH_SCHRAEG * (a - mitte.x))

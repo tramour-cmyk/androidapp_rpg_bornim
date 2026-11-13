@@ -32,6 +32,9 @@ var heim := {}        # id -> letzter Platz (home)
 var held_anim := {}   # id -> letzte Bewegung des Helden/Söldners
 var reihe := []       # 439: [Bild, Text] Verstöße gegen Angriff, Treffer, Tod, Neuformation
 var tote := {}        # k -> [Bild bis Ende des Liegens]
+var platz_vor := {}   # 973: id -> letzter Platz nach den Regeln (shown.places)
+var platz_offen := {} # 973: id -> Platz gewechselt, neue Stelle noch nicht angefahren
+var heim_boden := {}  # 973: id -> letzter Platz (home) gegen den Boden (die Kamera nimmt den Boden mit)
 ## 438 Prüfer Film 08:18: Drehsprünge in jeder Bewegung, Kopf im Helden, Würfelzeile vor dem Treffer
 const DREH_BILD_GRAD := 16.0     # TURN_DPS 450°/s bei 30 Bildern: 15° je Bild
 # 988 (Lauf 369, CLERIC ohne Schild nach BRS, Bild 281 und 588: Kiefer beim Biss −0,040 m an Becken–Brust): seit 709 (Chef 08.11.,
@@ -166,6 +169,18 @@ func _bild(kf, n: int, k: String) -> void:
 					if t.begins_with(k + "/") and n < tote[t]:
 						reihe.append([n, "%s rückt auf, bevor %s gestorben ist und gelegen hat" % [fid, t]])
 			heim[fid] = f.home
+			# 973 (930a A, F3: „Angriff, Treffer, Tod; die Übrigen bleiben stehen“): nach einem Tod rückt keiner ohne neuen Platz
+			var pl = kf.shown.places.get(f.fighter.id)
+			if platz_vor.has(fid) and platz_vor[fid] != pl:
+				platz_offen[fid] = true
+			var rel: Vector3 = f.home - kf._ground(0, 0)
+			var rueckt: bool = heim_boden.has(fid) and rel.distance_to(heim_boden[fid]) > 0.05
+			if rueckt and platz_offen.get(fid, false):
+				platz_offen[fid] = false
+			elif rueckt and not f.fighter.fled and tote.keys().any(func(t): return t.begins_with(k + "/")):
+				reihe.append([n, "%s rückt %.2f m nach einem Tod ohne neuen Platz (F3, 973)" % [fid, rel.distance_to(heim_boden[fid])]])
+			heim_boden[fid] = rel
+			platz_vor[fid] = pl
 		elif not _wolf(f) and f.anim:
 			var a := String(f.anim.current_animation)
 			if a in ["Treffer", "Sturz"] and held_anim.get(fid, "") != a:
@@ -670,7 +685,7 @@ func _bilanz() -> void:
 	if frueh > 0:
 		befund += 1
 		print("    Befund: Würfelzeile vor oder nach dem Treffer")
-	print("— 439 Reihenfolge (Angriff, Treffer, Tod, Neuformation): %d Verstöße" % reihe.size())
+	print("— 439 Reihenfolge (Angriff, Treffer, Tod; 973: danach keine Neuformation): %d Verstöße" % reihe.size())
 	for r in reihe:
 		print("  Bild %d: %s" % [r[0], r[1]])
 	if not reihe.is_empty():
