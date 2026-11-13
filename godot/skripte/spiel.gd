@@ -1468,6 +1468,8 @@ func test_tat(was: String, mit: Array) -> void:
 				speichere()
 				neu_brs = w
 				get_tree().reload_current_scene())
+		"lage":   # 1156: Lage einer Zeile der Prüfliste (Knopf „Lage herstellen“)
+			await lage_herstellen(mit[0])
 		"kampf", "probe":
 			if not ResourceLoader.exists("res://kampf/kampfort.gd"): return
 			await abblenden(1.0)
@@ -1481,6 +1483,37 @@ func test_tat(was: String, mit: Array) -> void:
 			if was == "probe" and mit.size() > 3 and bool(mit[3]) and ende != "NONE": oeffne_menue("test")
 
 # 399.1 Schwarzblende mit Worten wie alt (Ortsblende, 24.1): auf der stehenden Blende Name und Satz, dann steigt der Ort auf;
+# 1156 (Vorlage 1020 D Stufe 2): stellt die Lage einer Zeile der Prüfliste her (Testmodus.LAGE_SCHLUESSEL): erst Held und Uhr,
+# dann der Ort (Station mit ihrem Stand der Geschichte, Kapitelende oder ort=), dann die Merker der Lage, zuletzt der Probekampf mit
+# der Wahl der Lage („Zurück zum Testmenü“ führt wieder in den Reiter). Fehlerhafte Lage: eine Meldung, nichts geändert.
+func lage_herstellen(l: Dictionary) -> void:
+	var fehler := Testmodus.lage_fehler(l)
+	if not fehler.is_empty():
+		ui.kurz(Sprache.t({"de": "Lage nicht herstellbar: ", "en": "Cannot set up: "}) + String(fehler[0]))
+		return
+	if l.has("stufe"): Testmodus.stufe_setzen(werte, zustand, int(l["stufe"]))
+	if l.has("vorraete"): Testmodus.vorraete(werte, zustand)
+	if l.has("einmaliges"): await test_tat("einmaliges", [])
+	if l.has("uhr"): zustand.minuten = Testmodus.lage_uhr(String(l["uhr"]))
+	var merker := func() -> void:
+		for w in String(l.get("merker", "")).split(",", false):
+			if w.begins_with("-"): zustand.flaggen.erase(w.substr(1))
+			else: zustand.setze(w.trim_prefix("+"))
+	if l.has("station"):
+		await test_tat("kapitelende" if String(l["station"]) == "Kapitelende" else "station", [String(l["station"])])
+		if l.has("merker"):
+			merker.call()
+			await test_tat("ort_neu", [])
+	else:
+		merker.call()
+		if l.has("ort"):
+			var o := String(l["ort"]).split(":")
+			await test_tat("teleport", [o[0], int(o[1]), int(o[2]), o[3] if o.size() > 3 else held.blick()])
+		elif l.has("merker") or l.has("uhr"):
+			await test_tat("ort_neu", [])
+	var pr := Testmodus.lage_probe(l)
+	if not pr.is_empty(): await test_tat("probe", pr)
+
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
 func ortsworte(von: String, erster: bool) -> void:
 	if not Zwischenbild.da():

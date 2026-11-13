@@ -184,6 +184,14 @@ static func _zeile(m: Menue, t: Callable, z: Dictionary) -> void:
 	m.zeile(t.call("Passt: ", "Right: ") + String(z.get("richtig", "")), 15, Stil.TEXT)
 	m.zeile(t.call("Falsch: ", "Wrong: ") + String(z.get("falsch", "")), 15, Stil.DIM)
 	m.luecke(6)
+	# 1156 (Vorlage 1020 D Stufe 2): stellt Ort, Uhrzeit, Held und Kampf der Zeile her (Abschnitt „## Lagen“ der Prüfliste)
+	var lage: Dictionary = z.get("lage", {}) if z.get("lage", {}) is Dictionary else {}
+	if not lage.is_empty():
+		m.zeile(t.call("Lage: ", "Setup: ") + Testmodus.lage_text(lage, Sprache.aktiv() == "de"), 14, Stil.DIM)
+		m.luecke(4)
+		m.inhalt.add_child(Spielstaende.knopfzeile(
+			Spielstaende.knopf("neben", t.call("Lage herstellen", "Set up"), func(): m.test.emit("lage", [lage]), true), null))
+		m.luecke(6)
 	# „Passt“ springt zur nächsten offenen Zeile; „Falsch“ bleibt hier und öffnet das Feld für ein Wort
 	m.inhalt.add_child(Spielstaende.knopfzeile(
 		Spielstaende.knopf("haupt" if e == "✓" else "neben", t.call("Passt", "Right"), func():

@@ -10,6 +10,14 @@
 #   claude/build-<n> (GITHUB_REF_NAME, GITHUB_HEAD_REF oder --build N) nur ansehen/t<n>-….md von origin/main, nie ein Entwurf und nie
 #   eine andere Nummer; fehlt sie, JSON mit „fehlt“ und leeren Abschnitten, Ende 0 (der Bau läuft weiter);
 #   `pruefliste.py --pruefe JSON` endet dann 1 (Zeile im Prüfschritt, der Bau wird rot, die APK entsteht trotzdem, 918).
+# 1156 (Vorlage 1020 D Stufe 2): ein Abschnitt „## Lagen“ (nach der Tabelle, vor „## Ergebnis“) gibt je Zeile die Lage, die der Knopf
+# „Lage herstellen“ im Reiter „Test“ herstellt: „- 284.3: station=Garrick uhr=20:30 probe=WOLF_PACK“. Schlüssel (LAGE_SCHLUESSEL):
+#   station=<Station aus Testmodus.STATIONEN oder Kapitelende>  ort=<karte>:<x>:<y>[:<blick>]  uhr=HH:MM  merker=+flag,-flag
+#   stufe=<n>  vorraete  einmaliges  probe=<Gegner>  held=test|spiel  herkunft=  volk=  pstufe=  waffe=  neben=  soeldner=
+#   tasche=zwei|keine|voll  leben=voll|halb|knapp  zeit=tag|abend|nacht  zug=pounce|heavy|reihe|flucht  ausweichen
+#   eroeffnung=NORMAL|AMBUSHED|HERO_FIRST  kampfort=<Ort>
+# Reihenfolge im Spiel: Geschichte und Held, dann Ort (Station oder ort), dann Probekampf. Ob Station, Gegner und Werte stimmen, prüft
+# der Bau (tests/lage_1156.gd mit der Liste des Baus); hier nur unbekannte Schlüssel als Warnung.
 import json, os, re, subprocess, sys
 
 
@@ -71,6 +79,22 @@ def zellen(z):
     return [schlicht(c) for c in z.split('|')]
 
 
+LAGE_SCHLUESSEL = {'station', 'ort', 'uhr', 'merker', 'stufe', 'vorraete', 'einmaliges', 'probe', 'held', 'herkunft', 'volk', 'pstufe',
+                   'waffe', 'neben', 'soeldner', 'tasche', 'leben', 'zeit', 'zug', 'ausweichen', 'eroeffnung', 'kampfort'}
+
+
+def lage(text):
+    """„station=Garrick uhr=20:30 vorraete“ -> {'station': 'Garrick', 'uhr': '20:30', 'vorraete': ''}; Werte ohne Leerzeichen"""
+    aus = {}
+    for w in schlicht(text).split():
+        k, _, v = w.partition('=')
+        if k not in LAGE_SCHLUESSEL:
+            print('WARNUNG Prüfliste, Lage: Schlüssel „%s“ unbekannt (%s)' % (k, ', '.join(sorted(LAGE_SCHLUESSEL))), file=sys.stderr)
+            continue
+        aus[k] = v
+    return aus
+
+
 def lies(text, quelle=''):
     zeilen = text.splitlines()
     titel = schlicht(zeilen[0].lstrip('# ')) if zeilen else ''
@@ -78,9 +102,22 @@ def lies(text, quelle=''):
     aus = {'build': int(m.group(1)) if m else 0, 'titel': titel, 'quelle': quelle, 'kopf': [], 'abschnitte': []}
     abschnitt = None
     spalten = None
+    lagen = {}
+    in_lagen = False
     for z in zeilen[1:]:
         if z.startswith('## Ergebnis'):
             break
+        if z.startswith('## Lagen'):   # 1156: nicht als Abschnitt, sondern je Zeile „lage“
+            in_lagen = True
+            continue
+        if in_lagen:
+            m = re.match(r'\s*[-*]\s*(\d+\.\d+)\s*:?\s+(.*)$', z)
+            if m:
+                lagen[m.group(1)] = lage(m.group(2))
+                continue
+            if not z.startswith('## '):
+                continue
+            in_lagen = False
         if z.startswith('## '):
             abschnitt = {'titel': schlicht(z[3:]), 'zeilen': []}
             aus['abschnitte'].append(abschnitt)
@@ -108,6 +145,15 @@ def lies(text, quelle=''):
         # im Spiel nur, was beim Prüfen hilft: der Weg und was bekannt ist (nicht Teamliste, „Verglichen“, „Im Bau geprüft“)
         if not aus['abschnitte'] and re.match(r'(Rot|Bekannt|Ein Weg|Dazu bekannt)', z.strip()):
             aus['kopf'].append(schlicht(z))
+    alle = {}
+    for a in aus['abschnitte']:
+        for zeile in a['zeilen']:
+            alle[zeile['nr']] = zeile
+            if zeile['nr'] in lagen:
+                zeile['lage'] = lagen[zeile['nr']]
+    for nr in lagen:
+        if nr not in alle:
+            print('WARNUNG Prüfliste, Lage: %s steht nicht in der Tabelle' % nr, file=sys.stderr)
     return aus
 
 
@@ -138,7 +184,8 @@ def main():
     with open(sys.argv[1], 'w', encoding='utf-8') as f:
         json.dump(aus, f, ensure_ascii=False, indent=1)
     n = sum(len(a['zeilen']) for a in aus['abschnitte'])
-    print('Prüfliste: %s, Build %d, %d Zeilen in %d Abschnitten' % (quelle or 'keine', aus['build'], n, len(aus['abschnitte'])))
+    nl = sum(1 for a in aus['abschnitte'] for z in a['zeilen'] if z.get('lage'))
+    print('Prüfliste: %s, Build %d, %d Zeilen in %d Abschnitten, %d mit Lage' % (quelle or 'keine', aus['build'], n, len(aus['abschnitte']), nl))
 
 
 if __name__ == '__main__':

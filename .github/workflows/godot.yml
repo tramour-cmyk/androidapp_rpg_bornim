@@ -761,6 +761,7 @@ jobs:
           # 1122 (1109 D, Chef 13.11., 10:56): nur auf claude/build-…; ein Teamzweig hat älteren Code als die neueste Prüfliste von main (falsches Rot)
           if [[ "$GITHUB_REF_NAME" == claude/build-* ]]; then set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/pruefliste_1020.gd 2>&1 | grep -E "FEHLER|PRUEFLISTE1020|SCRIPT ERROR"; else echo "PRUEFLISTE1020 aus (Teamzweig $GITHUB_REF_NAME, 1122)"; fi   # 1020.1 Prüfliste im Reiter „Test“
           python3 ../tools/pruefliste.py --pruefe daten/pruefliste.json   # 1178 der Bau trägt seine gegengelesene Prüfliste ansehen/t<n> (Tom)
+          if [[ "$GITHUB_REF_NAME" == claude/build-* ]]; then set -o pipefail; timeout 240 ~/godot/godot --headless --path . -s res://tests/lage_1156.gd 2>&1 | grep -E "FEHLER|LAGE1156|SCRIPT ERROR"; else echo "LAGE1156 aus (Teamzweig $GITHUB_REF_NAME, 1122)"; fi   # 1156 Knopf „Lage herstellen“, jede Lage der Prüfliste herstellbar
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/breite_1027.gd 2>&1 | grep -E "FALSCH|BREITE1027|SCRIPT ERROR"   # 1027 jeder Reiter passt auf den Schirm
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/rollstand_1030.gd 2>&1 | grep -E "FALSCH|ROLL1030|SCRIPT ERROR"   # 1030 Reiter „Test“ behält die Stelle, Prüfliste einklappbar
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/zustaende_764.gd 2>&1 | grep -E "FEHLER|ZUSTAENDE764|SCRIPT ERROR"   # 764 Zustände im Heldenreiter mit Erklärung
