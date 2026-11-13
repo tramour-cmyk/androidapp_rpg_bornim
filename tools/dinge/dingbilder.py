@@ -143,7 +143,8 @@ def schatte(t):
     farb = t.grund * (KALT * t.matt + WARM * lam * 1.18)
     if t.glanz:
         hv = LICHT + np.array([0, 0, 1.0]); hv /= np.linalg.norm(hv)
-        sp = np.clip((n * hv).sum(axis=2), 0, 1) ** 26
+        nh = np.clip((n * hv).sum(axis=2), 0, 1)
+        sp = nh ** 26 + 0.22 * nh ** 5
         farb = farb + (sp * t.glanz)[..., None] * np.array([255, 232, 176])
     if t.leucht is not None:
         farb = farb + t.leucht
@@ -202,21 +203,25 @@ def stoff(grund, k, saat, zelle=24):
 # ------------------------------------------------------------------ Steine der Seltenheit
 
 def steine(r):
-    """Ein Stein je Stufe über gewöhnlich, in einer Reihe unten von rechts (ItemArt.pips), geschliffen, mit Tusche."""
+    """Ein Stein je Stufe über gewöhnlich, in einer Reihe unten von rechts (ItemArt.pips): geschliffene Raute in voller Farbe
+    der Seltenheit (Magie, leuchtet aus sich), Facette zum Licht hell, abgewandt dunkel, kräftige Tusche, so lesbar wie die alten Rauten."""
     n = SELTENHEIT.index(r)
     if n == 0:
         return []
     col = farbe(SELTEN[r])
-    rad = 0.078; abst = rad * 2 + 0.014
+    rad = 0.088; abst = rad * 2 + 0.006
     teile = []
     for k in range(n):
-        cx = 1 - 0.02 - rad - k * abst; cy = 1 - 0.02 - rad
-        m = np.abs(UX - cx) + np.abs(UY - cy) <= rad
-        # vier Facetten: zum Licht hell, abgewandt dunkel, dazu ein Funke (Magie)
-        h = (rad - np.abs(UX - cx) - np.abs(UY - cy)) * S * 0.9
-        f = np.where(((UX - cx) <= 0) & ((UY - cy) <= 0), 1.0, 0.0)
-        leucht = (f[..., None] * 0.25 + 0.12) * col
-        teile.append(Teil(m, h, col * 0.75, glanz=0.9, leucht=leucht, linie=1.2, matt=0.55))
+        cx = 1 - 0.012 - rad - k * abst; cy = 1 - 0.012 - rad
+        dx, dy = UX - cx, UY - cy
+        m = np.abs(dx) + np.abs(dy) <= rad
+        hell = col + (255 - col) * 0.6
+        dunkel = col * 0.62
+        f = np.where((dx <= 0) & (dy <= 0), 0, np.where((dx > 0) & (dy > 0), 2, 1))
+        leucht = np.where((f == 0)[..., None], hell, np.where((f == 2)[..., None], dunkel, col))
+        funke = (np.hypot(dx + rad * 0.32, dy + rad * 0.32) < rad * 0.13)[..., None]
+        leucht = np.where(funke, np.array([255.0, 252, 240]), leucht)
+        teile.append(Teil(m, np.zeros((S, S)), np.zeros(3), leucht=leucht, linie=2.0, matt=0.0))
     return teile
 
 
@@ -289,7 +294,7 @@ def langschwert(r="COMMON"):
 # ------------------------------------------------------------------ Lederkappe
 
 def lederkappe(r="COMMON"):
-    cx, cy, rx, ry, rb = 0.5, 0.66, 0.36, 0.44, 0.09
+    cx, cy, rx, ry, rb = 0.5, 0.56, 0.34, 0.40, 0.08
     x = (UX - cx) / rx
     kuppel = ellipse(cx, cy, rx, ry) & (UY <= cy)
     unten = ellipse(cx, cy, rx, rb) & (UY > cy)
@@ -297,17 +302,23 @@ def lederkappe(r="COMMON"):
     vorn = cy + rb * np.sqrt(np.clip(1 - x ** 2, 0, 1))          # Unterkante vorn
     saum = kappe & (UY > vorn - 0.075)
     knopf = ellipse(cx, cy - ry + 0.014, 0.036, 0.022)
+    # Ohrenklappen links und rechts, darunter Riemen
+    klappen = np.zeros((S, S), bool)
+    for sx in (-1, 1):
+        kx = cx + sx * (rx - 0.075)
+        klappen |= (ellipse(kx, cy + 0.13, 0.085, 0.15) & (UY > cy - 0.02))
 
     # Kuppel als Halbkugel, der Saum steht senkrecht und zeigt nach vorn
     yk = np.clip((UY - cy) / ry, -1, 0)
     hk = np.sqrt(np.clip(1 - x ** 2 - yk ** 2, 0, 1)) * ry * S
     hs = np.sqrt(np.clip(1 - x ** 2, 0, 1)) * rb * S * 2.2
     h = np.where(UY <= cy, hk, hs)
-    leder = stoff(0x8a5c3c, 0.22, 51, 16) * (0.92 + 0.08 * rauschen(5, 52, 1))[..., None]
+    leder = stoff(0xb08a58, 0.22, 51, 16) * (0.92 + 0.08 * rauschen(5, 52, 1))[..., None]
+    t_klappen = Teil(klappen & ~kappe, aufblasen(klappen, 0.05), leder * 0.9, matt=0.34, linie=1.0)
     t_kappe = Teil(kappe, h, leder, matt=0.32, k=0.8)
     hsaum = hs + aufblasen(saum, 0.025) * 0.5
-    t_saum = Teil(saum, hsaum, stoff(0x6a452c, 0.2, 53, 12), matt=0.36, linie=0.9, k=0.8)
-    t_knopf = Teil(knopf, aufblasen(knopf, 0.022) + ry * S, stoff(0x6a452c, 0.2, 54, 8), matt=0.32)
+    t_saum = Teil(saum, hsaum, stoff(0x8a6a40, 0.2, 53, 12), matt=0.36, linie=0.9, k=0.8)
+    t_knopf = Teil(knopf, aufblasen(knopf, 0.022) + ry * S, stoff(0x8a6a40, 0.2, 54, 8), matt=0.32)
     striche = []
     for phi in (-1.05, -0.38, 0.38, 1.05):     # Nähte vom Knopf zum Saum
         pts = []
@@ -322,7 +333,13 @@ def lederkappe(r="COMMON"):
         striche.append(punkte(stiche, 0.5, 0.75))
     stiche = [(cx + rx * 0.97 * math.sin(a), cy + rb * math.cos(a) - 0.03) for a in np.linspace(-1.35, 1.35, 15)]
     striche.append(punkte(stiche, 0.55, 0.85))
-    return male([t_kappe, t_saum, t_knopf] + steine(r), striche, saat=61)
+    riemen = np.zeros((S, S), bool)
+    for sx in (-1, 1):
+        kx = cx + sx * (rx - 0.075)
+        pts = [(kx + sx * 0.004 * t, cy + 0.27 + t * 0.012) for t in range(13)]
+        riemen |= strich(pts, 2.6) > 0.5
+    t_riemen = Teil(riemen, aufblasen(riemen, 0.01), farbe(0x6a4a2c), matt=0.34, linie=0.6)
+    return male([t_klappen, t_riemen, t_kappe, t_saum, t_knopf] + steine(r), striche, saat=61)
 
 
 # ------------------------------------------------------------------ Rundschild
@@ -338,8 +355,12 @@ def rundschild(r="COMMON"):
     ton = 0.86 + 0.14 * ((bretter * 7919) % 5) / 4
     maser = 0.82 + 0.18 * gestreckt(3, 30, 71)
     holzfarbe = farbe(0x7c5634)[None, None, :] * (ton * maser)[..., None]
+    # geviertelt bemalt, zwei Viertel in stumpfem Ochsenblut, abgeschabt (Farbe ist matt)
+    viertel = ((UX - cx) * (UY - cy)) > 0
+    farbe_ab = viertel & (rauschen(10, 74, 2) > 0.22)
+    holzfarbe = np.where(farbe_ab[..., None], farbe(0x8c3024)[None, None, :] * (0.85 + 0.15 * maser)[..., None], holzfarbe)
     t_holz = Teil(holz, h0, holzfarbe, matt=0.30)
-    eisen = stoff(0x66625e, 0.14, 72, 16)
+    eisen = stoff(0x8a8682, 0.14, 72, 16)
     t_rand = Teil(rand, h0 + aufblasen(rand, 0.022) * 1.3, eisen, matt=0.32)
     t_buckel = Teil(buckel, h0 + aufblasen(buckel, 0.115) * 0.9, eisen, matt=0.32, k=1.1)
     nieten = []
@@ -364,8 +385,8 @@ def heilkraeuter():
     teile, striche = [], []
     # ein Bund: fünf Stiele, unten abgeschnitten, oben gefächert, mit Schnur gebunden
     stiele = []
-    for k in range(5):
-        u = (k - 2) / 2
+    for k in range(7):
+        u = (k - 3) / 3
         unten = (0.46 + u * 0.035, 0.92 + abs(u) * 0.01)
         bund = (0.48 + u * 0.022, 0.70)
         oben = (0.48 + u * 0.34 + rng.uniform(-0.02, 0.02), 0.14 + abs(u) * 0.10 + rng.uniform(-0.02, 0.02))
@@ -375,30 +396,30 @@ def heilkraeuter():
     stielmaske = np.zeros((S, S), bool)
     for pts in stiele:
         stielmaske |= strich(pts, 3.2) > 0.5
-    teile.append(Teil(stielmaske, aufblasen(stielmaske, 0.012), farbe(0x6c7440), matt=0.34, linie=0.6))
+    teile.append(Teil(stielmaske, aufblasen(stielmaske, 0.012), farbe(0x5c7a30), matt=0.36, linie=0.6))
     # Blätter wie Salbei: breit-länglich, matt graugrün, je mit Mittelrippe; hintere dunkler
     blaetter = []
     for i, pts in enumerate(stiele):
-        for j, t in enumerate((0.50, 0.63, 0.76, 0.88, 1.0)):
+        for j, t in enumerate((0.46, 0.57, 0.68, 0.79, 0.90, 1.0)):
             idx = min(int(t * (len(pts) - 1)), len(pts) - 1)
             px, py = pts[idx]
             a0, a1 = pts[max(idx - 2, 0)], pts[idx]
             richt = math.atan2(a1[1] - a0[1], a1[0] - a0[0])
             seite = 1 if (i + j) % 2 else -1
             ang = richt + (0 if t == 1.0 else seite * rng.uniform(0.55, 0.85))
-            ln = rng.uniform(0.18, 0.22) * (1.15 - 0.3 * t)
+            ln = rng.uniform(0.19, 0.24) * (1.15 - 0.3 * t)
             bx, by = px + math.cos(ang) * ln * 0.5, py + math.sin(ang) * ln * 0.5
             blaetter.append((rng.uniform(0.0, 1.0), bx, by, ln, ang))
     blaetter.sort()
     for z, bx, by, ln, ang in blaetter:
-        m = ellipse(bx, by, ln * 0.5, ln * 0.23, ang)
-        ton = 0.72 + 0.34 * z
-        teile.append(Teil(m, aufblasen(m, 0.025) + z * 6, stoff(0x87a468, 0.16, int(z * 1000), 10) * ton, matt=0.32, linie=0.8))
+        m = ellipse(bx, by, ln * 0.5, ln * 0.26, ang)
+        ton = 0.80 + 0.30 * z
+        teile.append(Teil(m, aufblasen(m, 0.025) + z * 6, stoff(0x6fae45, 0.14, int(z * 1000), 10) * ton, matt=0.40, linie=0.8))
         a = (bx - math.cos(ang) * ln * 0.46, by - math.sin(ang) * ln * 0.46)
         b = (bx + math.cos(ang) * ln * 0.38, by + math.sin(ang) * ln * 0.38)
         striche.append(strich([a, b], 0.6, 0.6))
     # kleine blasse Blüten an drei Spitzen
-    for pts in (stiele[0], stiele[2], stiele[4]):
+    for pts in (stiele[0], stiele[3], stiele[6]):
         ex, ey = pts[-1]
         for k in range(5):
             m = kreis(ex + rng.uniform(-0.03, 0.03), ey + rng.uniform(-0.045, 0.0), 0.017)
@@ -414,10 +435,10 @@ def heilkraeuter():
 def muenze(cx, cy, rx, ry, dicke, saat):
     oben = ellipse(cx, cy, rx, ry)
     seite = (ellipse(cx, cy + dicke, rx, ry) | ((np.abs(UX - cx) <= rx) & (UY >= cy) & (UY <= cy + dicke))) & ~oben
-    gold = stoff(0xc89a3c, 0.12, saat, 14)
+    gold = stoff(0xe9bb48, 0.10, saat, 14)
     rillen = 0.78 + 0.22 * (np.sin(UX * 420) > 0)
     hs = aufblasen(seite | oben, 0.03)
-    t_seite = Teil(seite, hs, gold * 0.70 * rillen[..., None], glanz=0.55, matt=0.40, linie=0.8)
+    t_seite = Teil(seite, hs, gold * 0.80 * rillen[..., None], glanz=0.9, matt=0.50, linie=0.8, leucht=np.array([34.0, 22, 4]))
     # Gesicht: erhabener Rand und eine Sonne in der Mitte (geprägt)
     e = ((UX - cx) / rx) ** 2 + ((UY - cy) / ry) ** 2
     praeg = np.where(e > 0.70, 1.0, 0.0) * np.clip((1 - e) * 8, 0, 1)
@@ -425,7 +446,7 @@ def muenze(cx, cy, rx, ry, dicke, saat):
     w = np.arctan2((UY - cy) / ry, (UX - cx) / rx)
     sonne = (sonne_r < 0.25) | ((sonne_r < 0.48) & (np.cos(w * 8) > 0.55) & (sonne_r > 0.25))
     hf = aufblasen(oben, 0.05) * 0.4 + praeg * 5 + sonne * 4
-    t_oben = Teil(oben, hf, gold, glanz=1.0, matt=0.42, k=1.3)
+    t_oben = Teil(oben, hf, gold, glanz=1.8, matt=0.52, k=1.3, leucht=np.array([40.0, 28, 6]))
     return [t_seite, t_oben]
 
 
