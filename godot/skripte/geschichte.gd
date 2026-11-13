@@ -78,9 +78,11 @@ static func gespraech(id: String, s: Zustand) -> Array:
 			else:
 				k.variante(s, "504.jorin.danach", jorin, [["Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak, I've been sleeping soundly again. Thanks, {name}!"]])
 		"pim":
-			if not s.has(CHAPTER1_DONE):
+			if not s.has(CHAPTER1_DONE) and not pim_daheim(s):
 				k.variante(s, "504.pim.vor", pim, [["Papa sagt, Goblins haben Angst vor Feuer! Stimmt das?", "Dad says goblins are scared of fire! Is that true?"], ["Thessa verkauft Brandflaschen. Damit kann man sogar zaubern, ohne Magier zu sein!", "Thessa sells firebottles. You can do magic with them without even being a wizard!"]])
 				if pim_fragbar(s): pim_probe(k, s)
+			elif pim_daheim(s) and not s.has(CHAPTER1_DONE):   # 1108 [1108.pim.huette]: daheim bei seiner Huette statt [504.pim.vor]
+				k.variante(s, "1108.pim.huette", pim, PIM_HUETTE[0], PIM_HUETTE.slice(1))
 			else:
 				k.variante(s, "504.pim.danach", pim, [["Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "When I grow up I'll be a hero too! Just like you!"]])
 		"bram":
@@ -212,7 +214,7 @@ static func counter(k: Skript, s: Zustand) -> void:
 # wer zu sehen ist (Npc.visible in Story.kt); Lyras Abgang aus der Halle (Leave 10/7 -> LYRA_GONE) folgt mit der Hoehle
 # ---------------------------------------------------------------- 842 Pim heimschicken (807 A, STORY-K1-FERTIGKEITEN.md „Überreden“)
 # tagsueber im Gespraech nach [504.pim.vor] ein Knopf mit Probe auf Ueberreden, ein Versuch je Tag; gelingt es, geht Pim fuer den Rest
-# des Tages heim (Leute.frueh_heim) und die Mutter dankt beim naechsten Klopfen am Tag einmal ([807.pim.dank], Flagge PIM_DANK fuer
+# des Tages heim (1108: fuer immer, Leute.daheim) und die Mutter dankt beim naechsten Klopfen am Tag einmal ([807.pim.dank], Flagge PIM_DANK fuer
 # den Ruf je Person, DESIGN-BRS 9, sobald es ihn gibt: 447.4.1)
 const PIM_HEIM := "pim_sent_home"          # einmal gelungen
 const PIM_DANK := "pim_mother_thanked"     # die Mutter hat gedankt
@@ -235,37 +237,64 @@ const PIM_GOLD_DANK := "pim_mother_gold"      # die Mutter hat dafuer gedankt
 const PIM_GOLD_WAHL := {"de": "Gib Pim {0} Gold", "en": "Give Pim {0} gold"}   # [1085.pim.wahl]
 const PIM_GOLD := [   # [1085.pim.gold]
 	[["Echtes Gold? Für mich?", "Real gold? For me?"], ["Pim beißt auf jede Münze, wie er es bei Thessa gesehen hat, und rennt heim.", "Pim bites every coin, the way he's seen it done at Thessa's, and runs home.", true]],
-	[["Dafür geh ich heim. Aber morgen komm ich wieder!", "Okay, for that I'll go home. But I'm coming back tomorrow!"], ["Sag's nicht Mama.", "Don't tell Mom."]],
+	[["Für so viel Gold bleib ich sogar daheim.", "For that much gold I'll even stay home."], ["Sag's nicht Mama.", "Don't tell Mom."]],   # 1108.1 Wortlaut 2
 	[["Davon spar ich auf eine Brandflasche!", "I'm saving this for a firebottle!"], ["Er rennt los, die Faust fest um die Münzen.", "He runs off, his fist clenched tight around the coins.", true]]]
 const PIM_GOLD_DANK_TEXT := [   # [1085.pim.dank], zwei Zeilen
 	{"de": "„Pim kam heim, Gold in der Faust. Woher, sagt er nicht, aber ich kann es mir denken.“", "en": "“Pim came home with gold in his fist. He won't say where it's from, but I can guess.”"},
 	{"de": "„Danke, {name}. Nur lernt er so nie, wann man heimkommt.“", "en": "“Thank you, {name}. But this way he'll never learn when to come home.”"}]
 
-static func pim_heute(s: Zustand) -> String: return "pim_home_%d" % s.tag          # heute heimgeschickt
+# 1108 A (Chef 13.11., 09:38): Pim wird nur einmal heimgeschickt (PIM_HEIM oder PIM_GOLD_HEIM, fest statt der Tagesflagge
+# pim_home_<Tag>), danach weder Ueberreden noch Gold, tagsueber bei seiner Huette bis zum Ende von Kapitel 1 (Leute.daheim, PIM_DAHEIM);
+# misslungenes Ueberreden zaehlt (pim_fail_1 bis 3, einer je Tag), nach dem dritten ([1108.pim.nein.letzt]) fehlt der Knopf, Gold bleibt
+const PIM_FEHL_MAX := 3
+const PIM_DAHEIM := [17, 24, 2]   # Kachel und Streifen bei der Huette (wie der Tagesablauf mittags, karten.json „tagesablauf“ pim)
+const PIM_NEIN_LETZT := [["Red, so viel du willst. Ich geh nicht heim. Nie!", "Talk all you like. I'm not going home. Never!"], ["Pim dreht dir den Rücken zu. Mit Worten erreichst du bei ihm nichts mehr.", "Pim turns his back on you. Words won't get through to him anymore.", true]]   # [1108.pim.nein.letzt]
+const PIM_HUETTE := [   # [1108.pim.huette]
+	[["Mama lässt mich nicht mehr zum Schlagbaum. Also bau ich mir hier einen.", "Mom won't let me go to the barrier anymore. So I'm building my own right here."], ["Papa sagt, Goblins fürchten Feuer. Geh zu Thessa, die hat Brandflaschen!", "Dad says goblins fear fire. Go see Thessa, she has firebottles!"]],
+	[["Der Stein da ist ein Goblin, und der Sand ist Feuer!", "That stone's a goblin, and the sand is fire!"], ["Goblins fürchten Feuer, sagt Papa. Thessa verkauft echte Brandflaschen.", "Goblins fear fire, Dad says. Thessa sells real firebottles."], ["Pim wirft eine Handvoll Sand nach dem Stein.", "Pim throws a handful of sand at the stone.", true]],
+	[["Hast du heute einen Goblin gesehen? Ich darf ja nicht mehr hin.", "Did you see a goblin today? I'm not allowed out there anymore."], ["Papa sagt, Feuer macht ihnen Angst. Ich würd Thessas Brandflaschen nehmen.", "Dad says fire scares them. I'd take Thessa's firebottles."]]]
+const PIM_TUER_DAHEIM := [   # [1108.tuer.pim.daheim]
+	{"de": "„Pim ist da, er spielt am Haus. Solange ich ihn höre, ist alles gut.“", "en": "“Pim's here, playing by the house. As long as I can hear him, all's well.”"},
+	{"de": "„Er bleibt jetzt in Rufweite. Meistens jedenfalls.“", "en": "“He stays within earshot now. Mostly, anyway.”"},
+	{"de": "„Hörst du das? Er kämpft wieder gegen Goblins aus Stöcken. Besser die als echte.“", "en": "“Hear that? He's fighting stick goblins again. Better those than real ones.”"}]
+
+static func pim_daheim(s: Zustand) -> bool: return s.has(PIM_HEIM) or s.has(PIM_GOLD_HEIM)
 static func pim_versucht(s: Zustand) -> String: return "pim_tried_%d" % s.tag      # heute vergeblich versucht
+static func pim_fehl(s: Zustand) -> int:
+	var n := 0
+	for i in range(1, PIM_FEHL_MAX + 1): if s.has("pim_fail_%d" % i): n = i
+	return n
 static func pim_fragbar(s: Zustand) -> bool:
-	return Licht.nacht_um(s.minuten) <= Licht.NACHT_AB and not s.has(pim_heute(s)) and not s.has(pim_versucht(s))
+	return Licht.nacht_um(s.minuten) <= Licht.NACHT_AB and not pim_daheim(s) and not s.has(pim_versucht(s)) \
+		and (pim_fehl(s) < PIM_FEHL_MAX or s.gold >= PIM_GOLD_PREIS)
 
 static func pim_probe(k: Skript, s: Zustand) -> void:
-	var ja := Skript.new()
-	ja.flag(pim_heute(s))
-	ja.flag(PIM_HEIM)
-	ja.variante(s, "807.pim.ja", pim, PIM_JA[0], PIM_JA.slice(1))
-	var nein := Skript.new()
-	nein.flag(pim_versucht(s))
-	nein.variante(s, "807.pim.nein", pim, PIM_NEIN[0], PIM_NEIN.slice(1))
-	k.probe("Überreden", "Pim", PIM_WAHL, ja.befehle, nein.befehle)
+	var fehl := pim_fehl(s)
+	if fehl < PIM_FEHL_MAX:   # 1108: nach dem dritten Fehlschlag kein Ueberreden mehr
+		var ja := Skript.new()
+		ja.flag(PIM_HEIM)
+		ja.variante(s, "807.pim.ja", pim, PIM_JA[0], PIM_JA.slice(1))
+		var nein := Skript.new()
+		nein.flag(pim_versucht(s))
+		nein.flag("pim_fail_%d" % (fehl + 1))
+		if fehl + 1 == PIM_FEHL_MAX: nein.variante(s, "1108.pim.nein.letzt", pim, PIM_NEIN_LETZT)
+		else: nein.variante(s, "807.pim.nein", pim, PIM_NEIN[0], PIM_NEIN.slice(1))
+		k.probe("Überreden", "Pim", PIM_WAHL, ja.befehle, nein.befehle)
 	if s.gold >= PIM_GOLD_PREIS:   # 1086: Gold, nur wer es hat (sonst fehlt der Knopf)
 		var gold := Skript.new()
 		gold.zahlen(PIM_GOLD_PREIS)
-		gold.flag(pim_heute(s))
 		gold.flag(PIM_GOLD_HEIM)
 		gold.variante(s, "1085.pim.gold", pim, PIM_GOLD[0], PIM_GOLD.slice(1))
 		var w := {"de": String(PIM_GOLD_WAHL["de"]).replace("{0}", str(PIM_GOLD_PREIS)), "en": String(PIM_GOLD_WAHL["en"]).replace("{0}", str(PIM_GOLD_PREIS))}
 		k.knopf(w, gold.befehle)
 
-## wer heute frueher heimgeht und drinnen bleibt (Leute.plan_jetzt)
-static func frueh_heim(id: String, s: Zustand) -> bool: return id == "pim" and s.has(pim_heute(s))
+## 1108: wo eine Person tagsueber daheim bleibt, [x, y, streifen] (Leute.plan_jetzt), [] sonst: Pim nach dem Heimschicken bis Kapitelende
+static func daheim(id: String, s: Zustand) -> Array: return PIM_DAHEIM if id == "pim" and pim_daheim(s) and not s.has(CHAPTER1_DONE) else []
+
+## 1108 [1108.tuer.pim.daheim]: tagsueber bei Pims Mutter, wenn Pim daheim ist und kein Dank mehr ansteht (auch nach Kapitelende)
+static func pim_tuer_daheim(karte_id: String, t: Vector2i, s: Zustand) -> bool:
+	return karte_id == "village" and t == PIMS_TUER and pim_daheim(s) and not pim_dankt(s) and not pim_gold_dankt(s) \
+		and Licht.nacht_um(s.minuten) <= Licht.NACHT_AB
 
 ## Chance einer Probe im Gespraech in Prozent (werte.json „proben“ <fert>_basis, _je_punkt, _gegen; begrenzt auf min bis max)
 ## 1084 (Vorentscheid Sokrates 12.11., 23:08; 1051 A): + je_stufe x (Heldenstufe - Stufe der Figur, werte.json „<fert>_stufe“); ohne Eintrag

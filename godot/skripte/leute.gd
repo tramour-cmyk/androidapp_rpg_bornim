@@ -46,7 +46,7 @@ var ruhe_bis := -1.0                   # 397: Wechsel der Ruhebewegung (Gebiet.r
 var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesplan der des Orts)
 var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
 static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
-static var frueh_heim := Callable()    # 842: (id) -> true, wer heute schon heimgegangen ist und drinnen bleibt (Geschichte.frueh_heim)
+static var daheim := Callable()        # 1108: (id) -> [x, y, streifen] wo die Person tagsueber daheim bleibt, [] sonst (Geschichte.daheim)
 static var still := false              # 390: waehrend eines Gespraechs bleiben alle stehen (Mode.Dialog)
 # 416.8 (Chef 31.10., 20:5x: „NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf“;
 # alt Game.talk npcFacing): angesprochen wendet sich die Person dem Helden zu und folgt ihm mit dem Blick; ZUGEWANDT s nach dem
@@ -271,11 +271,11 @@ func plan_jetzt() -> Array:
 	if p.is_empty() or not uhr.is_valid(): return []
 	var m := int(uhr.call())
 	var st: Array = p[p.size() - 1]
-	if frueh_heim.is_valid() and bool(frueh_heim.call(String(daten["id"]))):   # 842: heim und hinein wie zur Nacht
-		for e in p:
-			if bool(e[4]): return e
 	for e in p:
 		if int(e[0]) <= m: st = e
+	# 1108 (Chef 13.11., 09:38): Pim nach dem Heimschicken tagsueber bei seiner Huette statt am Schlagbaum, nachts drinnen wie sonst
+	var dh: Array = daheim.call(String(daten["id"])) if daheim.is_valid() else []
+	if not dh.is_empty() and not bool(st[4]): return [st[0], int(dh[0]), int(dh[1]), int(dh[2]), false]
 	return st
 
 func _ready() -> void:
