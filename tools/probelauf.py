@@ -17,7 +17,7 @@ Probelauf heißt:
   sonst Nummer in Klammern im Namen des Ablaufs; auch ein Messlauf mit bild=nein (646, ersetzt 390a für den Bauserver),
   nur ein Sammelbuild `claude/build-<n>` für den Gerätetest nicht; Neustart eines Laufs (rerun) hält der Haken an;
 - ein Push auf einen Zweig `claude/…`, der einen Ablauf auslöst (letzter Commit ohne „[skip ci]“, Änderung
-  unter godot/, tools/blender348/, core/src/main/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
+  unter godot/, tools/blender348/ oder am Workflow); der Vorgang ist die erste Nummer der Commit-Nachricht.
 Vorlage heißt: eine Meldung mit Bild, Film oder Datei zu dem Vorgang (Zeile im Zweig „meldungen“, schreibt `meldung.sh`, 383).
 Jeder Lauf wird gezählt, auch einer, der abbricht. Die Zählung steht im Zweig „probelaeufe“ in `probelaeufe.tsv` (überlebt den
 Neustart) und hilfsweise in ~/.bornim-probelaeufe.tsv. Bei eigenem Fehler (kein Git, kein Netz) lässt der Haken durch.
@@ -178,7 +178,7 @@ GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
 GH_RERUN = re.compile(BEFEHL_ANFANG + r"(?:gh\s+run\s+rerun\b|(?:curl|gh\s+api)\b[^\n|;&]*/actions/(?:runs|jobs)/\d+/rerun)", re.M)
 API_LAUF = re.compile(BEFEHL_ANFANG + r"(?:curl|gh\s+api)\b[^\n|;&]*/actions/workflows/([\w.-]+)/dispatches[^\n|;&]*", re.M)
 ARCHIV_KOPF = re.compile(r"^- \*\*([^*]+)\*\*\s*\((\d\d)\.(\d\d)\.,\s*(\d\d):(\d)([\dx])", re.M)
-CI_PFADE = ("godot/", "tools/blender348/", "core/src/main/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe
+CI_PFADE = ("godot/", "tools/blender348/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe; 882.2: core/ baut nicht mehr
 
 
 def jetzt():
@@ -394,10 +394,6 @@ def loest_aus(wo, zweig, pfade, nachricht):
         wege = push.get("paths")
         if wege and pfade is not None and not any(_glob(m, p) for m in wege for p in pfade):
             continue
-        # 858 (D129.1): in der Wurzel suchen, nicht im Ordner des Aufrufs; im Paket (push_files) genügt der Pfad
-        if datei == "vorschau.yml" and not os.path.exists(os.path.join(wurzel, "tools", "preview", "vorschau.env")) \
-                and "tools/preview/vorschau.env" not in (pfade or []):
-            continue  # 848 (Tom 10.11., 506a): Kotlin-Vorschau ohne vorschau.env bricht ohne Bild ab, keine Probe
         bed = re.findall(r"startsWith\(\s*github\.event\.head_commit\.message\s*,\s*'([^']+)'\s*\)", text)
         jobs = d.get("jobs") or {}
         if bed and jobs and all("startsWith(github.event.head_commit.message" in str((j or {}).get("if", "")) for j in jobs.values()) \
@@ -733,7 +729,7 @@ def spielcode(pfade):
 def alt_meldung(zweig, spiel):
     return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
             f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
-            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in app/ oder core/ lesen, dann eine Zeile "
+            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in der Kotlin-Fassung lesen (app/, core/; nach 870.10 im Zweit-Repo), dann eine Zeile "
             "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
             "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
 
