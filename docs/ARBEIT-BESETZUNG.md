@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 13.11., 15:51 (lauf.py)
+**Stand:** 13.11., 15:55 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -14,3 +14,4 @@
 | Tuffy | [Tuffy – 949 Film an den Chef, dann nächstes startbares Muss (13.11., 15:41)](https://claude.ai/code/session_01Hmoj75v1qC3rUmYgUpwKzj) | 949 | – | 13.11., 15:41 |
 | Homer | [Homer – 1176 (13.11., 15:49)](https://claude.ai/code/session_01Hmoj75UMzRVVnYKUQ5sxF5) | 1176 | – | 13.11., 15:50 |
 | Diogenes | [Diogenes – 1156: Lage herstellen in der Prüfliste (Spike 14070d8ca) (13.11., 15:51)](https://claude.ai/code/session_01Hmoj78d3xW6CgXNSZfHUY6) | 1156 | – | 13.11., 15:50 |
+| Perikles | [Perikles – 1177 (13.11., 15:54)](https://claude.ai/code/session_01Hmoj78YTNmdHaUXiVES2DE) | 1177 | – | 13.11., 15:55 |
