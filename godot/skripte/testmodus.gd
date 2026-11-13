@@ -622,6 +622,10 @@ static func lage_fehler(l: Dictionary) -> Array:
 	for k in ["stufe", "pstufe"]:
 		if l.has(k) and not String(l[k]).is_valid_int(): f.append("%s=%s keine Zahl" % [k, l[k]])
 	in_.call("probe", feinde(true).keys())
+	# 1180 (D209.2 Diogenes): der Reiter Probekampf bietet nur Gruppen mit Modell (feinde(), 555); ohne Modell startete die Lage den
+	# Kampf mit einem falschen Monster und galt doch als herstellbar
+	if l.has("probe") and feinde(true).has(String(l["probe"])) and not gruppe_da(String(l["probe"])):
+		f.append("probe=%s: Gruppe ohne Modell (%s), im Reiter Probekampf nicht wählbar" % [l["probe"], feinde(true)[String(l["probe"])]])
 	in_.call("held", PROBE_HELDEN)
 	in_.call("herkunft", BrsHeld.herkuenfte())
 	in_.call("volk", BrsHeld.voelker())
