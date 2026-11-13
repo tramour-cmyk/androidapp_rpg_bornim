@@ -1039,10 +1039,11 @@ jobs:
           # Messung (Bewegung, Weg von Fuß und Kopf) im Protokoll
           if [ "${{ github.event.inputs.kampf }}" = "1043" ]; then
             # Lauf 389: ohne Argument hinter „--“ legt spiel.gd das Hauptmenü über alles (399), held fehlte (spiel.gd test_tat), kein Kampf; wie 1040
-            SEED=7 FILM=1 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            # 1043 (4): SCHAU_MESS druckt die abgetastete Ausweichhaltung je Figur (Kopf, Hände zum Gegner, Becken)
+            SCHAU_MESS=1 SEED=7 FILM=1 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/ausweichen1043.avi --fixed-fps 30 -s res://tests/ausweichen_1043.gd -- --film1043 > $B/ausweichen1043.log 2>&1 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/ausweichen1043.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ausweichen1043.mp4 || true
-            grep -E "SCRIPT ERROR|^[0-9.]+ s|^Held|^Ausweichen|^AUSWEICHEN|^SCHNITT" $B/ausweichen1043.log || true
+            grep -E "SCRIPT ERROR|^[0-9.]+ s|^Held|^Ausweich|^AUSWEICHEN|^SCHNITT" $B/ausweichen1043.log || true
             # 1076 (Chef 12.11., 20:42): nur der Prüfgegenstand, etwa dreimal, bis 15 s: je Ausweichen 2 s davor bis 2 s danach
             i=0; : > $RUNNER_TEMP/s1043.txt
             for t in $(grep -oP '^SCHNITT1043 \K[0-9.]+' $B/ausweichen1043.log); do
