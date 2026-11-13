@@ -22,7 +22,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“,
                                        dazu 👍/👎 des Chefs auf „tN.k:“-Meldungen für Punkte ohne Ergebnis (1217; „Rest ✓“ gilt danach);
-                                       je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar mit dem Fund (Absatz „Zu NR, von Chef
+                                       je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar (schlägt jedes ✓ und den Zweig claude/build-N, 1230) mit dem Fund (Absatz „Zu NR, von Chef
                                        (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste).
                                        Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
                                        committen; sonst hält die Commit-Prüfung an.
@@ -522,12 +522,14 @@ def build_abschluss(n, datei=None, probe=False):
     for d in betroffen:
         p = je.get(d["nr"], [])
         durch = [x for x in p if x[1] == "✗"]
-        if d.get("zweig") == "claude/build-%s" % n and any(v[1] for v in punkte.values()):  # der Sammelbuild selbst: getestet
+        # 1230 (t284: 1022 trug den Zweig claude/build-284, ging trotz „284.2 ✗“ als Sammelbuild „getestet“ ins Archiv): ein ✗ schlägt
+        # jedes ✓ derselben Nummer und auch die Sammelbuild-Regel; erledigt heißt dann nie, Rückläufer statt Wiedereröffnen
+        if durch:
+            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–", titel=startbar.rueck_marke(d["titel"], n)); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
+        elif not p and d.get("zweig") == "claude/build-%s" % n and any(v[1] for v in punkte.values()):  # der Sammelbuild selbst (ohne eigene Punkte): getestet
             neu_d = dict(d, stand="erledigt, t%s getestet" % n, warte=[], build=str(n)); was = "erledigt (Sammelbuild)"
         elif p and all(x[1] == "✓" for x in p):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
-        elif durch:
-            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–", titel=startbar.rueck_marke(d["titel"], n)); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
