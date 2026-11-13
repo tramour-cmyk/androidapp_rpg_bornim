@@ -43,7 +43,9 @@ static func bild(name: String) -> Texture2D:
 	if not _bilder.has(name):
 		var img := Image.new()
 		var roh := FileAccess.get_file_as_bytes("res://daten/%s.bild" % name)
-		_bilder[name] = ImageTexture.create_from_image(img) if not roh.is_empty() and img.load_png_from_buffer(roh) == OK else null
+		var ok := not roh.is_empty() and img.load_png_from_buffer(roh) == OK
+		if ok and img.get_width() > 32 and (name.begins_with("ding-") or name.begins_with("stueck-")): img.generate_mipmaps()   # 1073: gemalte Dinge glatt verkleinert
+		_bilder[name] = ImageTexture.create_from_image(img) if ok else null
 	return _bilder[name]
 
 # 62g: Handschrift der Ortsnamen auf der Landkarte (Fondamento, OFL; daten/fondamento.ttf, eingecheckt, 870.9)

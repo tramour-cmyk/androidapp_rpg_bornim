@@ -1404,7 +1404,8 @@ static func bild_feld(name: String, dp: float) -> Control:
 	t.texture = Kartenreiter.bild(name)
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	t.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	# 1073: die gemalten Dinge (128 px, Signatur) glatt, die alten Pixelbilder (32 px) scharf
+	t.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if t.texture != null and t.texture.get_width() > 32 else CanvasItem.TEXTURE_FILTER_NEAREST
 	t.custom_minimum_size = Vector2(dp, dp) * DP
 	t.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
