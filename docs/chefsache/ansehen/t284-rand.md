@@ -31,7 +31,7 @@ Aus dem Lauf nicht gekommen, folgt im nächsten Build: Bild Wald Ost (284.2, bli
 
 Aus 283 ungetestet und hier wieder dabei: 283.1, .2, .14 bis .16, .18 (284.2b, 284.2c, 284.7j bis 284.7m); aus 283.5 und 283.10 als Film statt am Handy: 284.2d (Pim), 284.2f (Lyras Robe). Am Bild abgenommen, nicht in dieser Liste: 756.1 Tasche mit vier Güten (Chef 16:50, darin auch 283.9), 764 „Betrunken“ im Heldenreiter (16:50, statt 283.8), 1120 Knöpfe bei Pim und Osric (16:52, Beschriftung rechts am Pfeil 17:13; statt 283.4 und 283.7).
 
-**Stand 13.11., 20:23 (Sokrates, aus Telegram und Chat):** Bilder und Filme erledigt: ✓ 284.1, 2d, 2g, 3a, 6, 6b, 7a, 7b, 7d, 7e, 7f, 7k, 7l, 7m, 7q · ✗ 284.2, 2f, 7c, 7p (Einzelheiten unten unter „Ergebnis“). Noch offen für dich: **Film 284.7n** (Grak, auf Telegram 20:08) und **am Handy** 284.2c, 2e, 3b, 4a, 4b, 4, 5, 6a, 7, 7g, 7j, 7o. Nicht von dir: 284.2a und 2b (Filme fehlen, kommen mit Build 285), 284.7i bis 284.11 (Diogenes).
+**Stand 13.11., 21:02 (Sokrates, aus Telegram und Chat): Test des Chefs fertig.** ✓ 284.1, 2c, 2d, 2e, 2g, 3a, 3b, 4a, 4b, 6, 6a, 6b, 7, 7a, 7b, 7d, 7e, 7f, 7g, 7j, 7k, 7l, 7m, 7n, 7o, 7q · ✗ 284.2, 2f, 7c, 7p · nicht prüfbar (Fehler der Liste, nach 285): 284.4, 284.5 (Einzelheiten unten unter „Ergebnis“). Nicht vom Chef: 284.2a und 2b (Filme fehlen, Build 285), 284.7i bis 284.11 (Diogenes).
 
 Ein Weg: die APK aus dem Lauf über Build 283 installieren, App starten, Hauptmenü, „Weiter“ mit deinem Spielstand; Reiter „Test“ wie in 283. Bilder und Filme einzeln auf Telegram, je Stück „t284.<Punkt>:“, 👍 passt oder 👎 falsch. Dann am Handy: der Zoom im Dorf (284.2c), zweimal auf eine Tür (284.2e), der Knopf „Lage herstellen“ (284.3b), Krogg und der Rauch (284.4a, 284.4b), die Aufträge im Dorf (284.4), Zauber unter Metall (284.5), Grak einmal (284.6a), Probekampf allein (284.7), Met in der Schenke (284.7g), Ring bei den Wölfen (284.7j), zuletzt Feuer gegen Wölfe (284.7o); der Rest ohne dich.
 
@@ -121,7 +121,8 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 - 284.7 ✓ (Chef 20:55: „hat gepasst“)
 - 284.7g ✓ (Chef 20:57)
 - 284.7j ✓ Ring an sich (Chef 21:00: „der Ring per se funktioniert so, wie es sein soll“); aber beim Anspringen der Wölfe gibt es keinen Ring: „Geht nicht, weil bei Wölfen gibt es keinen Ring“ (= 1068, wartet auf 1072; Zeile der Liste war so nicht prüfbar)
-- 284.7o: Leitwolf nicht erkennbar, „Wolf 1, Wolf 2, Wolf 3“ (Chef 20:59), neu 1223 Jerry; Ergebnis offen
+- 284.7n ✓ (👍 Telegram)
+- 284.7o ✓ (Chef 21:02: „das hat alles gepasst inhaltlich“); Leitwolf nicht erkennbar, „Wolf 1, Wolf 2, Wolf 3“, gleiche Lebenspunkte: „ein Leitwolf sollte vielleicht auch einen Ticken mehr Lebenspunkte haben“ (Chef 20:59, 21:02), neu 1223 Jerry
 - 284.2d ✓ (Chef 20:06: „Vom Inhalt her ist alles richtig“; Rest: Pim läuft im Halbbogen in Zeitlupe an, Zu 1086)
 - 284.2f ✗ Rock wirkt gestreift statt gefaltet (Chef 20:06, Zu 1092); Drehen im Stand gehört zu 1040.1
 - 284.2g ✓ (👍 Telegram 20:02 auf 3979)
