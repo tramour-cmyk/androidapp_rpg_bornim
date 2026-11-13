@@ -353,7 +353,10 @@ func _steht_auf(t: Vector2i) -> void:
 func _betritt(t: Vector2i) -> void:
 	zustand.schritte += 1   # 399.1: GameState.steps, je betretene Kachel (System „Schritte“)
 	_steht_auf(t)
-	if not ui.spricht(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
+	# 1142 (Chef 13.11., 14:44: nach dem Sieg über Grak „nochmal der Kampf“): kampf_im_wald stellt den Helden am Ende mit held.setze
+	# zurück (steht_auf), bevor _szenenkampf die Flagge setzt; ohne offenen Text hing ausloeser dann ein zweites grak_talk an.
+	# Kein Auslöser, solange ein Kampf läuft oder eine Szene noch Befehle hat.
+	if not ui.spricht() and not im_kampf and szene.is_empty(): spiele(Geschichte.ausloeser(karte.id, t, zustand))
 	pfluecke(t)   # 490 Game.pickHerbs
 	if herde and not im_kampf and not ui.spricht(): herde.betreten(t)   # 490 respawnRoamers, Ueberfall im hohen Gras
 
@@ -1020,6 +1023,8 @@ func weiter() -> void:
 				oeffne_laden(c["waren"], bool(c.get("brauen", false)))
 				return
 			"kampf":   # 491 Cmd.Fight (Game.startBattle aus der Szene): Sieg setzt die Flagge, die Szene geht weiter; sonst endet sie
+				if String(c.get("flagge", "")) != "" and zustand.has(String(c["flagge"])):   # 1142: schon besiegt, kein zweiter Kampf
+					continue
 				if Streuner.GRUPPE.has(String(c["monster"])) and ResourceLoader.exists("res://kampf/kampfort.gd"):
 					_szenenkampf(String(c["monster"]), String(c.get("flagge", "")))
 					return
