@@ -153,3 +153,4 @@
 2026-11-13 23:34:52	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/build-285
 2026-11-13 23:38:55	commit-pruefung	docs/chefsache/entscheiden/1072-plaetze-am-gegner.md gelöscht ohne Eintrag im Vorgangsarchiv (zurückgezogen: BORNIM_ZURUECK=1)	main
 2026-11-13 23:38:55	commit-pruefung	docs/chefsache/entscheiden/1072-gesamtbild.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-13 23:38:55	commit-pruefung	docs/chefsache/entscheiden/1072-gesamtbild.md: Uhrzeit 23:45 liegt nach jetzt (23:38)	main
