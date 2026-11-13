@@ -1,5 +1,7 @@
 # 1036.1 · Zustände: alle Effekte der Pakete je Zustand · Team Jerry · 13.11., 13:34
 
+[Film von 13.11., 13:35](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261113-133521-1036.1/2026-11/13-1335-1036.1-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 
 Geprüft an: [Lauf 426](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43412495971) (Zweig `claude/jerry-1036-1-zustaende`, Film `kampf=10361`, Test `zustand_10361`)
