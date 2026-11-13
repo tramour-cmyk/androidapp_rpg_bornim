@@ -151,3 +151,4 @@
 2026-11-13 23:32:43	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/build-285
 2026-11-13 23:32:44	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md: „Zu 709 … von Sokrates“ liefert, aber 709 wartet noch auf Sokrates; Feld nachziehen: `vorgang.py warte 709 –` (Rolle löst sich nie von selbst, 1124; liefert noch nicht: BORN	main
 2026-11-13 23:34:52	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/build-285
+2026-11-13 23:38:55	commit-pruefung	docs/chefsache/entscheiden/1072-plaetze-am-gegner.md gelöscht ohne Eintrag im Vorgangsarchiv (zurückgezogen: BORNIM_ZURUECK=1)	main
