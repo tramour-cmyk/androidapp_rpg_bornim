@@ -83,3 +83,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:46 14.11.: Marke Archiv session_01Hmoj76xVCXk2y824rYD6Rk (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
 - 00:47 14.11.: Startsperre 00:47 Start Sokrates (Neustart d96ed38cc, Ford)
+- 00:48 14.11.: Gestartet Perikles 1244 `…75S17HaS9xkgwwowAA`, Spike 1092 `…781eUCpQ5SKa8cCpQV`, Sokrates 930 `…75kLBATHVTa9eEViaE` (Neustart); archiviert Spike 1040.1 (5,71 $), Sokrates alt (6,08 $). Ford-Lauf-Uhr 00:03 und 00:46 nicht gefeuert (Uhr verspätet); Läufe nach Meldungen.
