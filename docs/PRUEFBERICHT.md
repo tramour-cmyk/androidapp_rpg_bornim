@@ -52,6 +52,51 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 200 · 1133 Werkzeugpunkte P1–P4 der Systemprüfung 1129.1 (Perikles `d92d2caed`, `e2652d81d`, `e466b8d45`, `c660c954e`; 13.11., 13:2x)
+
+- **Pflegehinweis (Auftrag 1):** `gleich_bis_auf_zahlen` ersetzt nur Zahlen vor „Bytes“, „Zeichen“, „KB“; gleiche Zeile desselben Besitzers bleibt stehen. Einziger Pflege-Commit danach (13:15) war eine echte Änderung (Tom weg, Diogenes neu). 13.11. bis 13:15: 41 Commits; Tageszahl erst 14.11. Im Auftrag stand `279416a1f` (ein Zusammenführen), der Bau ist `d92d2caed`.
+- **Protokoll kürzen (Auftrag 2) greift:** Lauf 13:14 (`cdc712588`): `ARBEIT-BETRIEB.md` 58.106 → 43.684 Bytes, Startsperren 134 → 30, „Start-fehlt“ 39 → 12; gestrichen nur diese beiden Arten. `startmarken` vorher wie nachher gleich, abgesehen von den drei neuen Sperren 13:14. „Start-fehlt“ liest `lauf.py` nur für Sperren unter 3 h, Streichen ab 6 h also folgenlos.
+- **OHNE-ÜBERHOLT (Auftrag 3):** Probe mit gestellten Sitzungen: Archiv, „ruht“, „in Arbeit“ ohne Sitzung richtig erkannt, Sonderzeilen übersprungen. **Befund D198.1 → 1134 (Perikles):** Titel mit mehreren Nummern („Jerry – 1111, 1112, 1113“) liefert nur die erste, vierstellige Nummer nur direkt nach „–“; „tätig“ nur über `updated_at`, das bei laufenden Sitzungen stehen bleibt (13:18: Tuffy, Diogenes `updated_at` = `created_at`). Echter Lauf steht aus: Lauf 13:14 lief ohne `--ohne`.
+- **Haltezählung (Auftrag 4):** Probe gegen eigenes leeres Repo: drei gleichzeitige Halte (probelauf, commit-pruefung, startsperre) → drei Zeilen, drei Commits, Zählung fasst Nummern zusammen, `--ab` richtig. Haken rufen die Dateien als Skript, `import hakenzahl` findet sich. **Greift:** echte Halte 13:19–13:21 aus mehreren Sitzungen (2 commit-pruefung, 2 probelauf) stehen im Zweig `haken`, `hakenzahl.py` zählt sie; startsperre noch ohne echten Halt (gleicher Weg).
+- 1133 wartet auf 14.11.
+
+## Lauf 199 · 1125 Sammelbilligungen in `abgleich.py` (Perikles `377a1a533`; 13.11., 11:5x)
+
+- **Vorläufig:** `abgleich.py` auf `main` gibt keine Vorentscheid-Warnung mehr, nur Zeilen „ohne Build“ (in `lauf.py` eine Zahlzeile, zählt als Leerlauf). Ob ein Uhrlauf ohne Startbares jetzt nach einem Schritt endet und billiger wird, zeigt erst der nächste echte Lauf; 1125 wartet bis 13:15.
+
+## Lauf 198 · 1070 getestete Prüfliste im selben Commit wie „tN“ aus der Chefsache (Perikles `95e4f4bef`; 13.11., 11:5x)
+
+- **Greift:** beide Tests seit dem Bau: t281 (`67b8504be`, 09:10) und t282 (`94621abe7`, 10:44) löschen `ansehen/t28n-…` im selben Commit wie den Archiveintrag „tN getestet“; `chefsache/ansehen/` hält heute keine getestete Prüfliste mehr.
+
+## Lauf 197 · 1124 Rolle im Wartefeld: Commit-Prüfung hält „Zu <Nr> … von <Rolle>“ an (Perikles `cf704c3ea`; 13.11., 11:5x)
+
+- **Greift:** in einer Kopie von `main` neue Zeile „Zu 483, von Diogenes“ in einem Vorrat → HÄLT AN mit Vorschlag `warte 483 D75`; nach dem `warte` im selben Stand durch; „von Sokrates“ geht durch. Fords Originalzeile (`5380d2eb1`, „Zu 1098, Ergebnis Probe D von Ford …“) passt auf beide Muster (Nummer und „von Ford“ im fetten Kopf), wäre also angehalten worden. Der Haken läuft in der Notizkopie (diese Sitzung hielt heute dreimal an der 15-KB-Grenze).
+- **Grenzen:** erkennt nur eine Lieferung mit „von <Rolle>“ im fetten Kopf; eine geänderte alte Kopfzeile zählt als neu (Ausweg `BORNIM_WARTET=1`). Zurzeit trägt nur 483 eine Rolle im Wartefeld.
+
+## Lauf 196 · 1111, 1112, 1113 Kauf-Cache: Gegenprobe, halbe Blöcke, Aufräumen (Jerry `826974d2e` auf `claude/jerry-1111-cache`; 13.11., 11:4x)
+
+- **1111 richtig gebaut:** `pruefen --neu` setzt jeden Block auf bauen, `KAUF_HOLEN` nein, `KAUF_GEGENPROBE` nennt nur Blöcke mit vorher abgelegtem Zweig; `ablegen` überschreibt keinen, `vergleich` prüft damit den alten Zweig gegen den frischen Bau, nicht sich selbst. Abweichung macht den Schritt rot (continue-on-error, Bau geht weiter).
+- **1112 richtig gebaut:** alle geduldeten Fehler in Blöcken setzen `halb` (Block klassen: LEUTE KAUF; Block kampf: Grimmzahn, vier Kauftiere, Skelett, Wiedergänger, Grabhund); figur und dorf dulden keinen Fehler (`exit 1`); Waffen, Dorftiere, Leute liegen außerhalb der Blockmarken. Die erste Marke des Blocks löscht alte `halb`-Dateien.
+- **1113 mit Lücke:** D196.1 → 1126 (Jerry, M): Aufräumen kann einem gleichzeitigen Lauf auf einem anderen Zweig den gewählten Treffer zwischen Prüfen und Holen wegnehmen; `holen` baut dann nicht nach, Lauf rot. 1113 wartet darauf.
+- **Nebenbefund:** D196.2 → 1127 (Jerry, K): rote Gegenprobe meldet zusätzlich „Ablegen misslungen“.
+- **Nicht geprüft (wartet auf t283):** echter Lauf mit `cache=neu`, mit geduldetem Fehler, Löschen per KAUF_TOKEN.
+
+## Lauf 195 · 1100.1 Ford-Lauf vorher/nachher (Perikles `70a4467fe`, Ford ab 10:03; 13.11., 11:4x)
+
+- **Grundlage:** alle 41 Züge der Ford-Sitzungen `…78Qg516rLn1yGt11hL` (05:11–11:08) und `…799ZkNaijAJMrQQjx9` (11:12–11:43), je Zug Kosten, Schritte, Verlauf (result-Ereignisse).
+- **Kosten:** 05:09–09:20 4,57 $ in 18 Zügen, 165 Schritte (1,09 $/h, deckt sich mit Sokrates 4,58 $); 10:03–11:43 5,38 $ in 13 Zügen, 164 Schritte (3,2 $/h). Darin Probe D 11:01 (0,70 $), Ford-Neustart 11:08 und 11:12 (1,61 $), fünf Starts 11:40 (0,69 $).
+- **Schritte je Uhrlauf:** vorher 07:04 8, 08:06 18, 09:04 8; nachher 10:05 9, 11:15 9 (11:40 32 mit fünf Starts und Archivierungen). Kein Uhrlauf endete nach einem Schritt (LEERLAUF), die Bremse-Warnung kommt jede Stunde. Kosten je Schritt: 0,02 $ bei 160 Tsd. Verlauf (07:04, 11:15), 0,04 $ bei 390 Tsd. (10:05).
+- **Marke:** „Abgleich ganz 13.11.“ einmal, 09:40; danach keine weitere.
+- **Starts:** nach 10:03 jede Startsperre mit Sitzung oder WEITER, außer Spike 10:58 (Warnung 11:11, gestartet 11:12) und Tuffy 10:04 (Ford ließ ihn aus, Sperre stand, Warnung 10:58; derselbe Ablauf wie Hinweis Lauf 127). Keine Warnung verloren: jeder fehlende Start hat seine Marke „Start-fehlt“. Nebenbei: 09:40 schrieb `lauf.py` Vorentscheid-Marken doppelt (1044, 1022 je dreimal, 1090 zweimal).
+- **Befund:** D195.1 → 1125 (Perikles): 1100 spart messbar nichts; 1100 wartet darauf.
+- **Nicht geprüft:** Telegram-Warnungen selbst (nur die Marken im Protokoll).
+
+## Lauf 194 · 1122 Prüflisten-Test nur auf claude/build-… (Tom, `3ff3626be` auf `claude/tom-1122-pruefliste`; 13.11., 11:4x)
+
+- **Richtig gebaut:** einzige Stelle mit `pruefliste_1020` in allen 16 Workflows ist `godot.yml` Zeile 705; Bedingung unter `bash -e` nachgestellt: `claude/build-283` führt den Test aus, ein Fehlschlag bricht den Schritt weiter ab (Exit 1); `claude/tom-348-x` schreibt „aus“ und läuft weiter. `pruefliste.py` (Daten fürs Spiel) läuft weiter auf jedem Zweig, nur der Test ist aus; `workflow_dispatch` auf einem Buildzweig führt ihn aus.
+- **Nicht geprüft (wartet auf t283):** kein echter Lauf, der Zweig löst `godot.yml` nicht aus und steckt in keinem Build. Prüfen: Lauf auf `claude/build-283` mit Zeile „PRUEFLISTE1020 im Bau: Build 283“; nach `main` ein Lauf auf `claude/tom-348-…`/`jerry-348-…` mit „PRUEFLISTE1020 aus“.
+- **Rest, kein Befund:** ein Neubau von Build n, wenn schon `entwurf/t<n+1>` auf `main` liegt, prüft gegen die neuere Liste; der Test vergleicht keine Buildnummer, rot nur bei geändertem Listenaufbau.
+
 ## Lauf 193 · 1121 Commit-Prüfung 774 und „ohne Rückmeldung tN“ (Perikles, `f31ce0409`; 13.11., 11:0x)
 
 - **Greift:** nachgestellt auf `94621abe7^` mit `vorgang.py build 282`: alte Bedingung meldet 1040.1 als lose (Halt), neue keine; ausgenommen wird nur der Stand, den `vorgang.py` Zeile 409 selbst schreibt („zu testen, ohne Rückmeldung tN“), jede andere lose Zeile hält weiter an.
