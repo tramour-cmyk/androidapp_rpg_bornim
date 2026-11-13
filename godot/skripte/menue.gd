@@ -2109,6 +2109,7 @@ static func schaden_text(g: Dictionary, de: bool) -> String:
 
 # 870.7 ([870.14.ding.guete], statt „Angriff +%d“): Guete jedes Stuecks, dessen Zahl sie aendert (Waffe, Brustruestung, Schild)
 static func guete_text(g: Dictionary, de: bool) -> String:
+	if guete_zeichen_von(g) == -1: return "Güte: Schlecht" if de else "Quality: Poor"   # 756.1: Schlecht kommt mit 976 (DESIGN-BRS.md 10)
 	return ("Güte: %s" if de else "Quality: %s") % Beute.guete_name(Beute.guete_von(g), "de" if de else "en")
 
 # 870.7 ([870.14.ding.fertigkeit]): die Fertigkeit, die das Stueck braucht (Waffe, Ruestung, Schild), "" sonst

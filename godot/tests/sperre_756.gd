@@ -56,6 +56,19 @@ func _lauf() -> void:
 	sl["guete"] = -1
 	var rs := Menue.stueck_rahmen(sl, 46)
 	pruefe(rs.get_child_count() == 2, "Schlecht: kein Zeichen am Bild")
+	pruefe(Menue.guete_text(sl, true) == "Güte: Schlecht", "Schlecht im Fenster: %s" % Menue.guete_text(sl, true))
+	pruefe(Menue.guete_text(tief, true) == "Güte: Normal", "Normal im Fenster: %s" % Menue.guete_text(tief, true))
 	rs.free()
+	# Reiter „Test“ → „Vier Güten“: dieselbe Waffe in allen vier Güten in der Tasche, Zeichen am Bild 1, 0, 1, 2 (756.1)
+	var vier := Testmodus.vier_gueten(z, hw)
+	pruefe(vier.size() == 4 and vier.all(func(g): return Beute.ist_waffe(Beute.grundform(String(g["base"])))), "Vier Güten: keine vier Waffen")
+	pruefe(vier.map(func(g): return Menue.guete_zeichen_von(g)) == [-1, 0, 1, 2], "Vier Güten: Güten %s" % [vier.map(func(g): return g.get("guete"))])
+	pruefe(vier.all(func(g): return String(g["base"]) == String(vier[0]["base"])), "Vier Güten: verschiedene Waffen")
+	var kinder: Array = []   # je nach gewürfelter Waffe kommt „2H“ dazu; Normal ohne Gütezeichen, die drei anderen eins mehr
+	for g in vier:
+		var rv := Menue.stueck_rahmen(g, 46)
+		kinder.append(rv.get_child_count())
+		rv.free()
+	pruefe(kinder[0] == kinder[1] + 1 and kinder[2] == kinder[1] + 1 and kinder[3] == kinder[1] + 1, "Vier Güten: Zeichen am Bild %s" % [kinder])
 	print("SPERRE756 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
