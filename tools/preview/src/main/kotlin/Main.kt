@@ -46,10 +46,17 @@ internal fun Game.skipDialogs() {
     while (mode is Mode.Dialog && guard++ < 50) advance()
 }
 
+internal fun weiterVoll() = System.getenv("WEITER_MB")?.toLongOrNull()?.let { mb ->
+    val rss = File("/proc/self/status").readLines().first { it.startsWith("VmRSS") }.filter(Char::isDigit).toLong() / 1024
+    if (rss > mb) { println("weiter: $rss MB, Neustart"); System.exit(3) }
+}
+
 @OptIn(ExperimentalComposeUiApi::class)
 private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyList(), lastFrames: Int = 30,
                  over: (@androidx.compose.runtime.Composable () -> Unit)? = null, settle: Int = 10, setup: (GameViewModel) -> Unit) {
     System.getenv("ONLY")?.let { if (!name.startsWith(it)) return }
+    // 882.1: WEITER=1 überspringt Bilder, die schon in build/screens liegen (Neustart nach WEITER_MB, unten)
+    if (System.getenv("WEITER") != null && File(out, "$name.png").exists()) return
     val vm = GameViewModel(Application())
     vm.ensureLang(lang)
     setup(vm)
@@ -78,6 +85,9 @@ private fun shot(name: String, lang: Lang = Lang.DE, taps: List<Offset> = emptyL
     File(out, "$name.png").writeBytes(img!!.encodeToData(EncodedImageFormat.PNG)!!.bytes)
     scene.close()
     println("wrote $name")
+    // 882.1: Skia gibt den Speicher der Szenen nicht frei (je Bild etwa 250 MB, auch nach GC); über WEITER_MB endet der Lauf mit 3,
+    // tools/alt_bilder_rendern.sh startet ihn mit WEITER=1 neu
+    weiterVoll()
 }
 
 fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
