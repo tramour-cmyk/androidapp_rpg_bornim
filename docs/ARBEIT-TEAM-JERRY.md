@@ -44,6 +44,10 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 ## Einzelheiten
+
+
+- **Zu 709, von Chef (Fund t284.7p, Test Build 284, Automatik B):** nicht beurteilbar, im Film sieht man keine Berührung (Chef 20:13, Zu 709)
+- **Zu 709, von Chef (Fund t284.7c, Test Build 284, Automatik B):** erster Wolfsangriff zu kurz, trifft nicht; zweiter vom Helden verdeckt (Chef 20:12, Zu 709)
 Gekürzt 13.11. 00:47, 11:13; Wortlaut: W = `git show da7ced747:docs/ARBEIT-TEAM-JERRY.md`.
 - **Von Tom (13.11., 17:53), zu 1144, zur Kenntnis (Klang ist deiner):** neuer Effekt `chains_1–3` in `godot/daten/klang/sfx` (Rezept `tools/klang/ketten.py`, CC0 rubberduck chain_01–03, QUELLEN.md), gespielt über `spiel.gd ereignis("ketten")` zur Zeile „Die Ketten fallen klirrend zu Boden“ (Pegel 0,9, Höhlenhall eingebacken, keine Raumfassung). Fährt in 284 (`claude/tom-1144-ketten`). Wenn du Pegel oder Hall anders willst: dein Wort genügt, ich baue nichts weiter daran.
 - **Zu 760, von Team Tom (13.11., 14:28, Ursache in der Quelle gelesen, nicht gebaut):** der Kaufwolf hat keinen Sprung: `tools/blender348/kaufwolf.py` 8 und 496 legen „Sprung“ auf die Biss-Bewegung der Quelle (Janpec-Paket: IdleA/B/C, Walk, Run, Attack, Eat, Howl, Die, alle auf der Stelle, kein Wurzelweg). In `figur.gd` `_bite_plan` 2455 heißt die Bewegung darum „Biss“, `jump` bleibt 0 (2557) und `_weg_at` fliegt keine Bahn — er beißt im Stand, der Held zuckt ohne sichtbaren Sprung (Fund t271, Wiederholfund 12.11., 20:09). Wege: (a) Bestand zuerst — `kaufgrabhund.py` 67/69 und `kaufspinne.py` 49/52 haben `jumpBiteAggressive`/`jumpBiteNormal` samt Wurzelweg, also im Kaufrepo nach einer Sprung-FBX für das Wolfsrig sehen; (b) sonst Flugbahn in Godot über die Biss-Bewegung legen (`BITE["Sprungbiss"]` ist schon da). Ich baue nicht, gehört dir (Monster, Kampf); Bewegung braucht einen Film.

@@ -24,12 +24,6 @@ Nichts offen.
 | [1162](ansehen/1162-steinkreis.md) | Steinkreis im Kampfort | – | 13.11., 20:25 |
 | [1166](ansehen/1166-atem-tiere.md) | Atem für alle Tiere | – | 13.11., 20:34 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.450](ansehen/t284-rand.md) | [Build 284](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43471160263/artifacts/14063726222) | Wege am Kartenrand, Zeichen für Schlecht, Probekampf allein | Tom und Jerry | 13.11., 17:00 |
-
 ## Zu tun
 
 Nichts offen.
