@@ -324,35 +324,27 @@
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | K | startbar | – | – | – | G Stil | 33,44 $ |
 | 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | Sokrates | K | ruht | 23.11. | – | – | B Werkzeuge | – |
-| 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | Sokrates | K | erledigt | – | – | – | B Abläufe | 17,69 $ |
-| 348 | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) · „jetzt“ 24.10., 16:54 | Sokrates | M | erledigt | – | – | – | E Technik | –; +115,14 $ |
 | 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | Sokrates | K | ruht | 23.11. | – | – | Q QS | – |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | Sokrates | K | nach Meilenstein | – | – | – | M Markt | –; +1,26 $ |
 | 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | Sokrates | K | startbar | – | – | – | B Abläufe | –; +15,42 $ |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | Sokrates | K | startbar | – | – | – | B Abläufe | –; +45,66 $ |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Sokrates | K | nach Meilenstein | – | – | – | Q QM | – |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | Sokrates | K | ruht | 23.11. | – | – | B Abläufe | –; +2,98 $ |
-| 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | Sokrates | K | erledigt | – | – | – | B Steuerung | – |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | K | startbar | – | – | – | M Markt | –; +25,65 $ |
 | 365 | Aufwand „Hoch“ statt „Mittel“ für einzelne Rollen? (Chef 25.10., 12:36) | Sokrates | K | startbar | – | – | – | B Abläufe | –; +4,65 $ |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | B Abläufe | – |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | M Markt | – |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | Sokrates | K | nach Meilenstein | – | – | – | E Kampf | – |
-| 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | Sokrates | K | erledigt, überholt durch 448 Tagesbericht (1186) | – | – | – | B Steuerung | 2,29 $ |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | Sokrates | K | ruht | 23.11. | – | – | M Veröffentlichung | – |
 | 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | K | wartet, D-U-N-S beantragt über Apple (Chef 08.11., 14:33), Bearbeitung bis etwa 30 Tage; Chef sagt „D-U-N-S da“ | 08.12. | – | – | M Veröffentlichung | – |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | K | startbar | – | – | – | M Veröffentlichung | 19,96 $ |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | startbar | – | – | – | M Veröffentlichung | 4,68 $ |
 | 109 | Repo öffentlich | Sokrates | K | startbar | – | – | – | M Veröffentlichung | – |
-| 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Sokrates | K | erledigt | – | – | – | Q QM | –; +7,03 $ |
-| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | Sokrates | K | erledigt, aufgegangen in 488 Durchspielregel (1186) | 23.11. | – | – | B Abläufe | 54,63 $ |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | K | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | 23.11. | – | – | B Abläufe | –; +3,54 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | K | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | 23.11. | – | – | E Welt | – |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | K | wartet, entschieden A B C (Chef 14:28) | 644.1, 644.2, 644.4 | – | – | E Kampf | 32,25 $ |
 | 649 | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium geht darin auf; mehr als eine Handlung je Monsterart (Chef 08.11., 13:19, 13:24) | Sokrates | M | in Arbeit, Prüfung, vorziehen (Chef 10.11., 10:56) | 870 | – | – | E Kampf | 5,35 $ |
-| 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | Sokrates | K | erledigt | – | – | – | B Abläufe | – |
 | 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | K | startbar, 654 A (Chef 17:46): Querschnitte angelegt | – | – | – | B Abläufe | 48,77 $ |
-| 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | Sokrates | K | erledigt | – | – | – | B Abläufe | 7,02 $ |
 | 739 | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; bisher keine Zeile) (von Diogenes, Lauf 84) | Sokrates | K | ruht, Kampffolge 08.11. geht vor (Wochenziel 16.11.) | 23.11. | – | – | B Abläufe | – |
 | 740 | D63.7 Vorlage entscheiden/3761-kettenhemd-heldin.md (01.11., 20:55) ohne Zeile „Bestand geprüft“ (434); nicht nachtragbar, schließen mit erledigt oder verworfen (von Diogenes, Lauf 61) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 745 | Regelwerk konsolidieren: Widersprüche listen (Diogenes), Chef entscheidet, jede Regel an einem Ort, Wachstumsstopp per Haken; parallel zur Probe 657 D (Chef 09.11., 12:00) | Sokrates | K | startbar, gelöst 10.11.: 822 | – | – | – | B Abläufe | – |

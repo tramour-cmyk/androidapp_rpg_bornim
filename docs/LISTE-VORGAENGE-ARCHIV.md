@@ -1291,3 +1291,11 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1181 | D209.3 von Diogenes (1173, Doppelpack 421): LISTE-GLOSSAR Zeile Chef „testet jeden Code vor main“ seit 1173 überholt (Kleinkram nicht), im Vollzug 3eb8bf088 nicht mitgeändert (461b); Lauf 209 | B Werkzeuge | K | – | Perikles | erledigt, greift Lauf 211 |
 | 1182 | D209.1 von Diogenes (1156, 1020 D): Prüfliste macht „## Lagen“ wahlweise (LISTE-CHECK-BUILD-TEST 10); Chef wählte 1020 D „jede Zeile als Knopf, der die Lage herstellt“, Folgerung „jede Prüfliste nennt je Zeile den Weg über den Reiter“; kein Werkzeug warnt (t284: 0 von 11 mit Lage); Lauf 209 | B Werkzeuge | M? | – | Perikles | erledigt, doppelt zu 1183 |
 | 1183 | D209.1 von Diogenes (1156, 1020 D): Prüfliste macht „## Lagen“ wahlweise (LISTE-CHECK-BUILD-TEST 10); Chef wählte 1020 D, Vorlage „jede Zeile der Testbitte stellt die Lage her“, Folgerung „jede Prüfliste nennt je Zeile den Weg über den Reiter“; kein Werkzeug warnt (t284: 0 von 11 mit Lage); Lauf 209 | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 212 |
+| 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | B Abläufe | K | 17,69 $ | Sokrates | erledigt |
+| 348 | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) · „jetzt“ 24.10., 16:54 | E Technik | M | –; +115,14 $ | Sokrates | erledigt |
+| 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Steuerung | K | – | Sokrates | erledigt |
+| 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | K | 2,29 $ | Sokrates | erledigt, überholt durch 448 Tagesbericht (1186) |
+| 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q QM | K | –; +7,03 $ | Sokrates | erledigt |
+| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Abläufe | K | 54,63 $ | Sokrates | erledigt, aufgegangen in 488 Durchspielregel (1186) |
+| 650 | docs aufräumen: 88 Dateien, Erledigtes nach docs/alt/, Zusammenlegen, Inhaltsverzeichnis neu (Chef 08.11., 13:24) | B Abläufe | K | – | Sokrates | erledigt |
+| 655 | Bilder: Ersteller sieht sein Bild selbst an, Regel 300 streichen statt neuer Vorprüfung (Chef 08.11., 14:51: „warum entsteht überhaupt das Falsche?“) | B Abläufe | K | 7,02 $ | Sokrates | erledigt |

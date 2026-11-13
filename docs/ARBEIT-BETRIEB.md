@@ -84,3 +84,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:33 13.11.: Startsperre 16:33 Start Diogenes (lauf.py)
 - 16:42 13.11.: Startsperre 16:42 Start Sokrates (Ford, Neustart-Meldung 03c99286f, Nachfolger „Sokrates – 1137: Vollzug nachhalten (15.11.)“; Hoch, effort high)
 - 16:33 13.11.: Marke Archiv session_01Hmoj78d3xW6CgXNSZfHUY6 (lauf.py)
+- 16:44 13.11.: Startsperre 16:44 Start Perikles (lauf.py)
+- 16:44 13.11.: Marke Archiv session_01Hmoj78YTNmdHaUXiVES2DE (lauf.py)
