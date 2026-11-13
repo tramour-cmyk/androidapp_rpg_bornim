@@ -56,6 +56,8 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 
 - **Am Werkzeug ohne Befund.** `--build 282/283/284` (heute keine `ansehen/t28…` auf `main`): „fehlt“, `--pruefe` Exit 1; Klon mit eigenem `main` und `ansehen/t999-a.md`: `GITHUB_HEAD_REF=claude/build-999` nimmt genau diese (11 Zeilen), `--pruefe` Exit 0; Build 1000 nur mit `entwurf/t1000-b.md`: fehlt, Exit 1 (kein Entwurf mehr im Bau); Teamzweig wie bisher die neueste. Arbeitskopie bleibt ungeflacht. Prüfschritt steht in „Skripte pruefen“ unter `set +e` mit Falle 918: rot, die übrigen Tests laufen weiter. Regel 8/9 (1179) verlangt die Liste in `ansehen/` vor dem Push, passt.
 - Greift erst am ersten Lauf auf `claude/build-…` mit 1178: Zeile „PRUEFLISTE Build n aus docs/chefsache/ansehen/t<n>-…“ → `greift 1178 <Lauf>`; 1178 wartet auf t285.
+- **1179 (Perikles `7d2cf4a2b`, Doppelpack 421) ohne Befund:** 8 „vor dem Push, der baut“, 9 „liegt gegengelesen in `ansehen/`, bevor der Push baut … Testbitte auf Telegram erst mit der APK“, 10 Zeile 2 „APK folgt“; „Testbitte nur mit Build“ (Chef 17.10.) bleibt für die Testbitte auf Telegram gewahrt; `zug-index` meldet „APK folgt“ nicht als Formfehler (Probeliste t997, Lauf 210). Prüfpunkt: erste Liste, die vor dem bauenden Push in `ansehen/` liegt; 1179 wartet auf t285.
+- **1181 greift:** `LISTE-GLOSSAR.md` 12 „testet Code vor `main` je Punkt in seiner Art, Kleinkram nicht (1173)“ (`93854efa8`); „jeden Code vor“ steht in keiner Regeldatei mehr.
 
 ## Lauf 210 · 1171 Art Kleinkram in den Werkzeugen (Tom `83335228d`; 13.11., 16:0x)
 
