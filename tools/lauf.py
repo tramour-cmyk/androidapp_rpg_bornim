@@ -81,7 +81,7 @@ JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
 HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
 UMGEBUNG = {}  # alle MITTEL (Chef 09.11., 07:23: „Der Aufwand ist auf Mittel“); Probe 365 endete 31.10.; HOCH nur auf Wort des Chefs
-HOCH_BIS = datetime.datetime(2026, 11, 14, 20, 0, tzinfo=BERLIN)  # 901: 365a B (Chef 11.11., 07:18), alle Rollen HOCH bis Sa 14.11., 20:00, danach von selbst MITTEL
+HOCH_BIS = datetime.datetime(2026, 11, 13, 22, 4, tzinfo=BERLIN)  # 901: 365a B (Chef 11.11., 07:18), alle Rollen HOCH; vorgezogen (Chef 13.11., 22:04: „Aufwand, Mittel für alle ab sofort“), seitdem MITTEL
 def aufwand():
     """981 (Chef 11.11., 18:04): bis HOCH_BIS Feld „ | effort high“ hinter dem Modell (create_session effort: "high"), danach leer (Feld weglassen)."""
     return " | effort high" if JETZT < HOCH_BIS else ""
