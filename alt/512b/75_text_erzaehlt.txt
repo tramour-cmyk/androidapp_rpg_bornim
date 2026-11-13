@@ -1,0 +1,8 @@
+28,17,78,55	TP
+243,14,359,57	32/32
+28,60,78,98	EP
+243,57,359,100	St. 3
+426,8,595,55	Tag 3 · 12:00
+72,1988,1008,2204	Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.
+72,1988,1008,2204	Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.
+982,2236,1008,2274	▼

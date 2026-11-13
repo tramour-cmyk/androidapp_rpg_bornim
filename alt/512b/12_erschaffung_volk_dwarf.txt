@@ -1,0 +1,86 @@
+361,89,510,143	ALRIK
+361,143,758,198	Zwerg · Kämpfer · Stufe 1
+361,198,663,252	TP 17   RK 17
+361,263,647,317	STÄ 16 (+3)
+647,263,933,317	GES 12 (+1)
+361,317,647,371	KON 16 (+3)
+647,317,933,371	INT 8 (-1)
+361,371,647,425	WEI 10 (+0)
+647,371,933,425	CHA 10 (+0)
+33,509,541,556	NAME DEINES HELDEN
+66,617,1014,710	Alrik
+33,771,448,818	WÄHLE DEIN VOLK
+111,887,282,938	MENSCH
+505,887,574,938	ELF
+813,887,955,938	ZWERG
+96,1036,296,1087	HALBLING
+447,1036,632,1087	HALBORK
+72,1183,959,1242	Zäh wie der Fels, aus dem ihre Hallen gehauen sind.
+72,1253,439,1307	KON +2  STÄ +1
+72,1307,936,1366	Zwergische Widerstandskraft: halber Giftschaden.
+33,1422,270,1469	AUSSEHEN
+88,1538,304,1589	MÄNNLICH
+439,1538,641,1589	WEIBLICH
+103,1698,289,1749	SCHLANK
+456,1698,623,1749	NORMAL
+799,1698,968,1749	KRÄFTIG
+33,1864,176,1919	Haut
+249,1911,337,1965	Rosig
+436,1911,585,1965	Gebräunt
+680,1911,777,1965	Braun
+890,1911,1004,1965	Dunkel
+33,2040,176,2095	Haar
+266,2087,321,2141	Rot
+462,2087,559,2141	Braun
+662,2087,795,2141	Schwarz
+908,2087,986,2141	Grau
+0,0,0,0	WÄHLE DEINE KLASSE
+0,0,0,0	KÄMPFER
+0,0,0,0	MAGIER
+0,0,0,0	SCHURKE
+0,0,0,0	KLERIKER
+0,0,0,0	Meister von Waffe und Rüstung. Robust, verlässlich und schwer zu Fall zu bringen.
+0,0,0,0	TREFFERWÜRFEL: W10 · HAUPTATTRIBUT: STÄRKE
+0,0,0,0	Rüstung: leicht, mittel, schwer + Schild
+0,0,0,0	• KAMPFSTIL: VERTEIDIGUNG
+0,0,0,0	+1 RK, solange du Rüstung trägst.
+0,0,0,0	• ZWEITER ATEM
+0,0,0,0	Heilt 1W10 + Stufe TP. Einmal pro Kampf.
+0,0,0,0	ATTRIBUTE VERTEILEN
+0,0,0,0	VORSCHLAG
+0,0,0,0	PUNKTE ÜBRIG: 0 / 24
+0,0,0,0	Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte).
+0,0,0,0	Stärke ★
+0,0,0,0	16
+0,0,0,0	+1
+0,0,0,0	(+3)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Geschicklichkeit
+0,0,0,0	12
+0,0,0,0	(+1)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Konstitution
+0,0,0,0	16
+0,0,0,0	+2
+0,0,0,0	(+3)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Intelligenz
+0,0,0,0	8
+0,0,0,0	(-1)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Weisheit
+0,0,0,0	10
+0,0,0,0	(+0)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Charisma
+0,0,0,0	10
+0,0,0,0	(+0)
+0,0,0,0	−
+0,0,0,0	+
+117,2216,278,2267	ZURÜCK
+491,2216,946,2267	ABENTEUER BEGINNEN

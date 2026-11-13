@@ -1,0 +1,17 @@
+28,34,1052,112	CHRONIK
+28,134,184,261	Held
+201,134,357,261	Tasche
+374,134,530,261	Ausrüstung
+547,134,704,261	Karte
+721,134,878,261	Chronik
+895,134,1052,261	System
+197,335,401,386	AUFTRÄGE
+578,335,983,386	BISHER GESCHEHEN
+67,438,575,504	Der Schlagbaum hebt sich
+67,504,1013,740	Auf Weisung des Ältesten löste Wache Jorin das Seil, und der Schlagbaum am Nordweg schwang nach oben. Seit dem Überfall hatte er niemanden mehr nach Norden gelassen.
+67,773,301,839	Der Auftrag
+67,839,1013,1193	Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Hobgoblin namens Grak an. Aldric bat Thora, Lyra und das Amulett zurückzubringen, und gab Tränke und Gold mit auf den Weg.
+67,1226,485,1292	Ein Fremder im Greif
+67,1292,1013,1646	In der Nacht, in der Thora im Gasthaus »Zum Schlafenden Greif« schlief, kamen die Goblins bis in den Tempel. Sie verschleppten Schwester Lyra und raubten das Sonnenamulett, das Bornim seit hundert Jahren vor der Finsternis schützt. Am Morgen schickte die Wirtin Rowena den Fremden zum Ältesten.
+306,1703,775,1754	DIE ANKUNFT ANSEHEN
+417,2221,663,2272	SCHLIESSEN

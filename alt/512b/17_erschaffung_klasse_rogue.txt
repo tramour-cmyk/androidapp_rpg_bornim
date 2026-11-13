@@ -1,0 +1,90 @@
+361,89,510,143	ALRIK
+361,143,771,198	Mensch · Schurke · Stufe 1
+361,198,666,252	TP 14   RK 14
+361,263,647,317	STÄ 9 (-1)
+647,263,933,317	GES 16 (+3)
+361,317,647,371	KON 15 (+2)
+647,317,933,371	INT 11 (+0)
+361,371,647,425	WEI 13 (+1)
+647,371,933,425	CHA 11 (+0)
+0,0,0,0	NAME DEINES HELDEN
+0,0,0,0	Alrik
+0,0,0,0	WÄHLE DEIN VOLK
+0,0,0,0	MENSCH
+0,0,0,0	ELF
+0,0,0,0	ZWERG
+0,0,0,0	HALBLING
+0,0,0,0	HALBORK
+0,0,0,0	Anpassungsfähig und ehrgeizig. Menschen sind in allem ein wenig begabt.
+0,0,0,0	STÄ +1  GES +1  KON +1  INT +1  WEI +1  CHA +1
+0,0,0,0	Vielseitig: +1 auf alle Attribute.
+0,0,0,0	AUSSEHEN
+0,0,0,0	MÄNNLICH
+0,0,0,0	WEIBLICH
+0,0,0,0	SCHLANK
+0,0,0,0	NORMAL
+0,0,0,0	KRÄFTIG
+0,0,0,0	Haut
+0,0,0,0	Hell
+0,0,0,0	Warm
+0,0,0,0	Oliv
+0,0,0,0	Dunkel
+0,0,0,0	Haar
+0,0,0,0	Braun
+0,0,0,0	Blond
+0,0,0,0	Schwarz
+0,0,0,0	Rot
+33,517,527,564	WÄHLE DEINE KLASSE
+104,633,288,684	KÄMPFER
+462,633,618,684	MAGIER
+790,633,978,684	SCHURKE
+99,782,293,833	KLERIKER
+72,929,1008,1047	Flink und gerissen. Trifft dort, wo es am meisten wehtut.
+72,1058,1008,1220	TREFFERWÜRFEL: W8 · HAUPTATTRIBUT: GESCHICKLICHKEIT
+72,1220,331,1279	Rüstung: leicht
+72,1296,783,1350	• HINTERHÄLTIGER ANGRIFF
+72,1350,1008,1460	Dein erster Treffer im Kampf und Treffer mit Vorteil verursachen zusätzlich (Stufe/2)W6 Schaden.
+72,1460,259,1514	• FINTE
+72,1514,1008,1624	Angriff mit Vorteil – löst Hinterhältigen Angriff aus. Zweimal pro Kampf.
+33,1706,776,1753	ATTRIBUTE VERTEILEN
+793,1704,1030,1755	VORSCHLAG
+72,1835,616,1889	PUNKTE ÜBRIG: 0 / 24
+72,1900,1008,2008	Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte).
+72,2041,473,2096	Stärke
+473,2042,556,2096	9
+556,2042,639,2096	+1
+639,2042,749,2096	(-1)
+798,2043,821,2094	−
+936,2043,959,2094	+
+0,0,0,0	Geschicklichkeit ★
+0,0,0,0	16
+0,0,0,0	+1
+0,0,0,0	(+3)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Konstitution
+0,0,0,0	15
+0,0,0,0	+1
+0,0,0,0	(+2)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Intelligenz
+0,0,0,0	11
+0,0,0,0	+1
+0,0,0,0	(+0)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Weisheit
+0,0,0,0	13
+0,0,0,0	+1
+0,0,0,0	(+1)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Charisma
+0,0,0,0	11
+0,0,0,0	+1
+0,0,0,0	(+0)
+0,0,0,0	−
+0,0,0,0	+
+117,2216,278,2267	ZURÜCK
+491,2216,946,2267	ABENTEUER BEGINNEN

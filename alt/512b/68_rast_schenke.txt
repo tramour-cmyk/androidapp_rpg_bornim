@@ -1,0 +1,13 @@
+28,17,78,55	TP
+243,14,359,57	32/32
+28,60,78,98	EP
+243,57,359,100	St. 3
+426,8,601,55	Tag 3 · 20:00
+67,1377,279,1463	Schänke
+67,1485,218,1544	Gold: 137
+67,1566,1013,1684	Rowena: „Ein Met wärmt die Beine. Nach dem vierten findest du die Tür aber nicht mehr.“
+412,1747,668,1798	MET · 2 GOLD
+67,1838,688,1893	Ausdauer voll; zu viel macht betrunken
+374,1956,706,2007	ZIMMER · 5 GOLD
+67,2047,732,2102	Ein Bett oben unter dem Dach: lange Rast
+463,2193,618,2244	WEITER

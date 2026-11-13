@@ -1,0 +1,81 @@
+67,72,898,119	LADEN
+898,56,1013,134	137 G
+200,225,357,276	KAUFEN
+684,225,919,276	VERKAUFEN
+67,383,269,430	VORRÄTE
+188,458,368,521	Heiltrank
+188,521,376,575	heilt 2W4+2
+188,575,372,629	Im Besitz: 3
+815,517,1013,571	25 G
+188,662,511,725	Großer Heiltrank
+188,725,374,779	heilt 4W4+4
+188,779,369,833	Im Besitz: 1
+815,721,1013,775	75 G
+188,866,636,929	Überragender Heiltrank
+188,929,377,983	heilt 8W4+8
+815,898,1013,952	200 G
+188,1016,435,1079	Kräutertrank
+188,1079,334,1133	heilt 1W4
+815,1048,1013,1102	20 G
+188,1166,467,1229	Ausdauertrank
+815,1198,1013,1252	25 G
+188,1316,421,1379	Leuchtfunke
+815,1348,1013,1402	25 G
+188,1466,517,1529	Alchemistenfeuer
+188,1529,355,1583	2W6 Feuer
+815,1498,1013,1552	30 G
+188,1616,412,1679	Weihwasser
+188,1679,406,1733	2W6 gleißend
+815,1648,1013,1702	25 G
+67,1805,456,1852	AUSRÜSTUNG (15)
+67,1880,589,1934	Neue Ware nach jeweils 8 Siegen.
+205,1956,307,2019	Helm
+205,2019,280,2073	Kopf
+804,1988,1013,2042	40 G
+205,2106,426,2108	Nietenleder
+0,0,0,0	Oberkörper · RK 12
+0,0,0,0	▼
+0,0,0,0	88 G
+0,0,0,0	Lederhandschuhe
+0,0,0,0	Arme
+0,0,0,0	24 G
+0,0,0,0	Lederstiefel
+0,0,0,0	Beine
+0,0,0,0	24 G
+0,0,0,0	Umhang
+0,0,0,0	24 G
+0,0,0,0	Talisman
+0,0,0,0	Amulett
+0,0,0,0	112 G
+0,0,0,0	Siegelring
+0,0,0,0	112 G
+0,0,0,0	Streitaxt
+0,0,0,0	Waffe · 1W8/1W10 Hieb
+0,0,0,0	32 G
+0,0,0,0	Rundschild
+0,0,0,0	Nebenhand · RK +2
+0,0,0,0	32 G
+0,0,0,0	Fackel
+0,0,0,0	Nebenhand
+0,0,0,0	▼
+0,0,0,0	14 G
+0,0,0,0	Kräftiger Helm
+0,0,0,0	Kopf
+0,0,0,0	▲
+0,0,0,0	120 G
+0,0,0,0	Tödliches Rapier
+0,0,0,0	Waffe · 1W8 Stich
+0,0,0,0	▲
+0,0,0,0	168 G
+0,0,0,0	Flinke Lederrüstung
+0,0,0,0	Oberkörper · RK 11
+0,0,0,0	96 G
+0,0,0,0	Lederkappe der Bärenkraft
+0,0,0,0	Kopf
+0,0,0,0	▲
+0,0,0,0	72 G
+0,0,0,0	Dolch des Gemetzels
+0,0,0,0	Waffe · 1W4 Stich
+0,0,0,0	▼
+0,0,0,0	57 G
+417,2221,663,2272	SCHLIESSEN

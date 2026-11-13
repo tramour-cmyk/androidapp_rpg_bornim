@@ -1,0 +1,9 @@
+28,17,78,55	TP
+243,14,359,57	32/32
+28,60,78,98	EP
+243,57,359,100	St. 3
+426,8,595,55	Tag 3 · 12:00
+72,1922,422,1969	JÄGER GARRICK
+72,1986,1008,2274	Und ehrlich, Thora: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald, dann reden wir weiter.
+72,1986,1008,2274	Und ehrlich, Thora: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald, dann reden wir weiter.
+982,2236,1008,2274	▼

@@ -1,0 +1,37 @@
+83,72,341,119	ANLEITUNG
+83,147,997,324	Die Regeln folgen dem System Reference Document 5.1 (SRD 5.1), vereinfacht. Hier steht, was du zum Spielen brauchst; den Rest findest du beim Spielen.
+83,352,295,415	Unterwegs.
+83,415,997,1300	Laufen, Ansprechen und Untersuchen erklärt der Hinweis beim Erwachen; einstellen kannst du es unter System, Bedienung. Der Aktionsknopf zeigt, was vor dir zu tun ist: sprechen, öffnen, lesen, rasten, betreten. Im hohen Gras und in der Höhle lauern Monster, die dich aus dem Hinterhalt anfallen; auf den Wegen bist du sicherer. Andere Monster siehst du: manche wandern nur umher, manche lauern still an ihrem Platz, und Jäger folgen dir, bis du ihnen davonläufst oder einen sicheren Ort wie Garricks Feuer erreichst. Wer von hinten auf ein Monster trifft, schlägt zuerst; wen ein Monster von hinten erwischt, der wird überrascht. Wer rennt, wird früher gehört. Besiegte Monster kommen nach einer Weile wieder.
+83,1328,379,1391	Die Leiste oben.
+83,1391,997,2040	TP sind deine Trefferpunkte: grün, gelb, dann rot. ZP sind Zauberpunkte, nur bei Magier und Kleriker. EP sind Erfahrungspunkte bis zur nächsten Stufe. Rechts stehen Tag und Uhrzeit. Darunter kleine Zeichen: Zustände wie Gift oder Blut, „Satt“ nach einer Mahlzeit, „Schutz“ für die Magierrüstung und ★, wenn du Punkte verteilen kannst. Der goldene Balken am rechten Rand ist deine Ausdauer beim Rennen; er erscheint nur, wenn sie nicht voll ist. Ein Tipp auf die Leiste öffnet das Menü, das Kartenzeichen die Karte.
+83,2068,221,2103	Kampf.
+0,0,0,0	Du und der Gegner ziehen abwechselnd; wer zuerst dran ist, entscheidet ein Wurf, in den deine Geschicklichkeit eingeht. In deinem Zug wählst du eins: Angriff mit der Waffe. Fähigkeiten: Zauber und Künste deiner Klasse. Tasche: Tränke und Wurfgeschosse. Abwehr: Angriffe auf dich haben Nachteil, und verfehlt dich der Gegner, hat dein nächster Angriff Vorteil. Flucht: gelingt nicht immer und kostet dann den Zug; vor Bossen gibt es keine. Zug beenden: du wartest ab.
+0,0,0,0	Würfe.
+0,0,0,0	Ein Angriff würfelt mit dem zwanzigseitigen Würfel und zählt deinen Bonus dazu; erreicht die Summe die Rüstungsklasse (RK) des Gegners, trifft der Angriff. Vorteil heißt: zwei Würfel, der bessere zählt; Nachteil: der schlechtere. Eine 20 ist ein kritischer Treffer mit doppelten Schadenswürfeln; Hiebwaffen lassen dann bluten, Wuchtwaffen können betäuben. Eine 1 geht immer daneben. Das Würfelzeichen unten links schaltet die Anzeige der Würfe ein und aus.
+0,0,0,0	Zwei Waffen.
+0,0,0,0	Trägst du in der Nebenhand eine Waffe statt Schild oder Fackel, schlägt sie bei jedem Angriff von selbst mit, ohne deinen Attributsbonus auf den Schaden. Du gibst dafür die RK des Schildes auf.
+0,0,0,0	Zustände.
+0,0,0,0	Gift, Brand und Blutung kosten jede Runde TP; Blutung halbiert dazu die Heilung. Betäubt verliert eine Runde. Verlangsamt und Geschwächt senken Treffen, RK oder Schaden; Geblendet und Betrunken geben Nachteil. Gift, Blutung und Schwäche bleiben nach dem Kampf; Gift und Blutung kosten auf dem Weg weiter TP, aber nie bis unter 1. Ein Kräutertrank, eine lange Rast oder Bruder Osric heilen sie. Betrunken vergeht mit jeder Rast.
+0,0,0,0	Rudel.
+0,0,0,0	Manche Gegner kommen nicht allein; die anderen kämpfen mit. Fällt der Anführer, fliehen sie.
+0,0,0,0	Wenn du fällst.
+0,0,0,0	Sinken deine TP auf null, ist es nicht vorbei: du erwachst Stunden später dort, wo du zuletzt gerastet hast oder geheilt wurdest, ganz geheilt, ohne Gold zu verlieren. Nur der Kampf ist verloren, und die Zeit.
+0,0,0,0	Rasten.
+0,0,0,0	Am Lagerfeuer wählst du: kurze Rast (eine Stunde): Ausdauer voll und ein Viertel der TP zurück. Lange Rast (acht Stunden, einmal am Tag): TP, ZP und Ausdauer voll, Zustände geheilt, alle Fähigkeiten wieder bereit. Ein Zimmer in der Schänke ist eine lange Rast für 5 Gold; Bruder Osric im Tempel heilt umsonst. In der Höhle kannst du nicht rasten.
+0,0,0,0	Dunkel.
+0,0,0,0	Nachts und in der Höhle siehst du weniger weit. Eine Fackel in der Nebenhand leuchtet weiter, nimmt aber den Platz des Schildes. Ein Leuchtfunke leuchtet bis zur nächsten Rast, macht dich im Dunkeln aber früher sichtbar. Die Fackel verrät dich nicht, der Leuchtfunke schon. Wald und Höhle decken sich erst auf, wenn du hinsiehst.
+0,0,0,0	Dein Held.
+0,0,0,0	Sechs Attribute: Stärke für Nahkampf, Geschicklichkeit für RK, Fernkampf, Flucht und leises Gehen, Konstitution für TP und Ausdauer, Intelligenz für Magierzauber, Weisheit für Klerikerzauber und Sicht, Charisma für Preise und Gegner, die zögern. Im Reiter Held erklärt jedes Attribut beim Antippen, was es bringt. EP gibt es für Kämpfe. Jede Stufe bringt mehr TP und füllt TP und ZP auf; auf Stufe 2, 3 und 5 kommen Fähigkeiten dazu, auf Stufe 5 auch Treffsicherheit; auf Stufe 4 verteilst du zwei Attributspunkte. In Kapitel 1 ist Stufe 6 das Höchste.
+0,0,0,0	Fähigkeiten.
+0,0,0,0	Manche gelten immer (passiv), manche einmal je Kampf, manche einmal je langer Rast, Zauber kosten ZP. Zaubertricks kosten nichts (∞). In der Liste im Kampf steht hinter jeder Fähigkeit, was sie kostet; Gesperrtes ist grau, Passives steht nicht darin.
+0,0,0,0	Kämpfer.
+0,0,0,0	Kampfstil: Verteidigung: +1 RK in Rüstung. Zweiter Atem: heilt dich einmal je Kampf. Ab Stufe 2 Tatendrang: zwei volle Angriffe in einem Zug, einmal je langer Rast. Ab Stufe 3 kritisch schon bei 19. Ab Stufe 5 zwei Angriffe bei jedem Angriff.
+0,0,0,0	Tränke und Wurfgeschosse.
+0,0,0,0	Ein Trank im Kampf kostet den Zug. Heiltränke heilen, die großen mehr; Kräutertränke heilen wenig, nehmen aber Gift und andere Zustände. Alchemistenfeuer trifft immer und setzt in Brand; Weihwasser trifft nur Untote, die dafür hart.
+0,0,0,0	Das Menü.
+0,0,0,0	Held: Werte, Attribute, Fähigkeiten; hier verteilst du Punkte. Tasche: Vorräte benutzen, Ausrüstung anlegen, eine Waffe in die Nebenhand nehmen, Dinge wegwerfen. Ausrüstung: was du trägst, Platz für Platz, und deine Kampfwerte. Karte: Landkarte, Gebietskarte und Grundriss; Aufträge, Leute und Dienste lassen sich einblenden. Chronik: deine Aufträge mit Stand und was bisher geschah. System: Speichern, Sprache und Einstellungen; ein langer Druck erklärt jedes Zeichen.
+0,0,0,0	Handel und Aufträge.
+0,0,0,0	Bei Thessa im Laden kaufst und verkaufst du; nach einigen Siegen hat sie neue Ware. Morwen braut dir aus Kräutern Tränke; Kräuter pflückst du, wenn du über Blumenwiesen im Wald läufst. Mit Charisma kaufst du billiger und verkaufst teurer. Am Anschlagbrett vor der Schänke hängen Aufträge; nimm an, was dir gefällt, und bring dem Auftraggeber, was er sucht.
+0,0,0,0	Speichern.
+0,0,0,0	Das Spiel speichert von selbst, wenn du einen Ort betrittst oder verlässt, rastest, fällst, einen Auftrag annimmst oder das Spiel verlässt. Unter System kannst du jederzeit selbst speichern. Im Hauptmenü gibt es vier Plätze für Helden.
+460,2205,621,2256	ZURÜCK

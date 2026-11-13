@@ -1,0 +1,14 @@
+28,17,78,55	TP
+243,14,359,57	32/32
+28,60,78,98	EP
+243,57,359,100	St. 3
+426,8,601,55	Tag 3 · 20:00
+67,1296,279,1382	Schänke
+67,1404,218,1463	Gold: 135
+67,1485,1013,1603	Rowena: „Oben ist ein Zimmer frei. Frische Laken, und keiner schnarcht durch die Wand. Meistens.“
+412,1666,668,1717	MET · 2 GOLD
+67,1757,688,1812	Ausdauer voll; zu viel macht betrunken
+374,1875,706,1926	ZIMMER · 5 GOLD
+67,1966,732,2021	Ein Bett oben unter dem Dach: lange Rast
+67,2043,714,2102	Der Met wärmt. Die Ausdauer ist voll.
+463,2193,618,2244	WEITER

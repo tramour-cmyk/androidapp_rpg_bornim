@@ -1,0 +1,10 @@
+173,110,908,219	Chroniken von Bornim
+83,291,997,1131	Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.
+
+Doch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?
+
+ENDE VON KAPITEL 1
+
+Du kannst weiterspielen, Monster jagen und deinen Helden verbessern.
+83,1164,997,1272	THORA · MENSCH · KÄMPFER · STUFE 3
+463,2205,618,2256	WEITER

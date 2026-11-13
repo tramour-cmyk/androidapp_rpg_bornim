@@ -1,0 +1,48 @@
+28,34,1052,112	HELD
+28,134,184,261	Held
+201,134,357,261	Tasche
+374,134,530,261	Ausrüstung
+547,134,704,261	Karte
+721,134,878,261	Chronik
+895,134,1052,261	System
+0,0,0,0	THORA
+0,0,0,0	Mensch · Kämpfer
+351,311,838,355	STUFE 3   GOLD: 137
+67,495,166,550	TP
+749,495,1013,550	32 / 32
+67,562,166,617	EP
+749,562,1013,617	450 / 1350
+67,645,983,699	RK 17   ANGRIFF +5   SCHADEN 1W8+3
+67,699,565,754	Übungsbonus +2 · Langschwert
+67,782,861,836	Tippe auf ein Attribut, um zu sehen, was es bringt.
+67,842,655,905	Stärke
+655,847,809,901	16
+892,844,1013,903	(+3)
+67,917,655,980	Geschicklichkeit
+655,922,809,976	13
+892,919,1013,978	(+1)
+67,992,655,1055	Konstitution
+655,997,809,1051	15
+892,994,1013,1053	(+2)
+67,1067,655,1130	Intelligenz
+655,1072,809,1126	9
+892,1069,1013,1128	(-1)
+67,1142,655,1205	Weisheit
+655,1147,809,1201	11
+892,1144,1013,1203	(+0)
+67,1217,655,1280	Charisma
+655,1222,809,1276	11
+892,1219,1013,1278	(+0)
+67,1314,410,1368	FÄHIGKEITEN
+67,1368,559,1423	Vielseitig: +1 auf alle Attribute.
+67,1423,1007,1477	KAMPFSTIL: VERTEIDIGUNG  (PASSIV)
+67,1477,596,1531	+1 RK, solange du Rüstung trägst.
+67,1531,444,1585	ZWEITER ATEM
+67,1585,718,1639	Heilt 1W10 + Stufe TP. Einmal pro Kampf.
+67,1639,399,1693	TATENDRANG
+67,1693,1013,1855	Eine zusätzliche Angriffsaktion: Du greifst gleich noch einmal an, ab Stufe 5 (Zusätzlicher Angriff) mit zwei weiteren Schlägen. Einmal je langer Rast.
+67,1855,1013,1963	VERBESSERTER KRITISCHER TREFFER  (PASSIV)
+67,1963,749,2017	Kritische Treffer schon bei einer 19 oder 20.
+67,2017,627,2076	Zusätzlicher Angriff  (ab Stufe 5)
+67,2076,834,2130	Deine Angriffsaktion besteht aus zwei Angriffen.
+417,2221,663,2272	SCHLIESSEN

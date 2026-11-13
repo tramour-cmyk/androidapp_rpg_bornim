@@ -1,0 +1,54 @@
+28,34,1052,112	HELD
+28,134,184,261	Held
+201,134,357,261	Tasche
+374,134,530,261	Ausrüstung
+547,134,704,261	Karte
+721,134,878,261	Chronik
+895,134,1052,261	System
+351,424,520,478	THORA
+351,478,660,537	Mensch · Kämpfer
+351,537,838,591	STUFE 3   GOLD: 137
+67,731,166,786	TP
+749,731,1013,786	32 / 32
+67,798,166,853	EP
+749,798,1013,853	450 / 1350
+67,881,983,935	RK 17   ANGRIFF +5   SCHADEN 1W8+3
+67,935,565,990	Übungsbonus +2 · Langschwert
+67,1018,861,1072	Tippe auf ein Attribut, um zu sehen, was es bringt.
+67,1078,655,1141	Stärke
+655,1083,809,1137	16
+892,1080,1013,1139	(+3)
+67,1153,655,1216	Geschicklichkeit
+655,1158,809,1212	13
+892,1155,1013,1214	(+1)
+67,1228,655,1291	Konstitution
+655,1233,809,1287	15
+892,1230,1013,1289	(+2)
+67,1303,655,1366	Intelligenz
+655,1308,809,1362	9
+892,1305,1013,1364	(-1)
+67,1378,655,1441	Weisheit
+655,1383,809,1437	11
+892,1380,1013,1439	(+0)
+67,1453,655,1516	Charisma
+655,1458,809,1512	11
+892,1455,1013,1514	(+0)
+67,1550,410,1604	FÄHIGKEITEN
+67,1604,559,1659	Vielseitig: +1 auf alle Attribute.
+67,1659,1007,1713	KAMPFSTIL: VERTEIDIGUNG  (PASSIV)
+67,1713,596,1767	+1 RK, solange du Rüstung trägst.
+67,1767,444,1821	ZWEITER ATEM
+67,1821,718,1875	Heilt 1W10 + Stufe TP. Einmal pro Kampf.
+67,1875,399,1929	TATENDRANG
+67,1929,1013,2091	Eine zusätzliche Angriffsaktion: Du greifst gleich noch einmal an, ab Stufe 5 (Zusätzlicher Angriff) mit zwei weiteren Schlägen. Einmal je langer Rast.
+67,2091,1013,2130	VERBESSERTER KRITISCHER TREFFER  (PASSIV)
+0,0,0,0	Kritische Treffer schon bei einer 19 oder 20.
+0,0,0,0	Zusätzlicher Angriff  (ab Stufe 5)
+0,0,0,0	Deine Angriffsaktion besteht aus zwei Angriffen.
+417,2221,663,2272	SCHLIESSEN
+83,869,272,923	STÄRKE
+83,945,744,999	WERT 16, MODIFIKATOR +3
+83,1010,997,1120	• Treffer und Schaden mit Nahkampfwaffen (außer Finesse-Waffen, wenn GES höher ist).
+83,1131,909,1186	• Rettungswurf gegen Umwerfen, z. B. durch Wölfe.
+83,1197,997,1307	• Wurfgeschosse (Alchemistenfeuer, Weihwasser): +3 Schaden.
+512,1381,568,1432	OK

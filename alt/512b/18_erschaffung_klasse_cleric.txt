@@ -1,0 +1,92 @@
+361,89,510,143	ALRIK
+361,143,771,198	Mensch · Kleriker · Stufe 1
+361,198,816,252	TP 13   RK 15   ZP 4
+361,263,647,317	STÄ 15 (+2)
+647,263,933,317	GES 11 (+0)
+361,317,647,371	KON 13 (+1)
+647,317,933,371	INT 9 (-1)
+361,371,647,425	WEI 16 (+3)
+647,371,933,425	CHA 11 (+0)
+0,0,0,0	NAME DEINES HELDEN
+0,0,0,0	Alrik
+0,0,0,0	WÄHLE DEIN VOLK
+0,0,0,0	MENSCH
+0,0,0,0	ELF
+0,0,0,0	ZWERG
+0,0,0,0	HALBLING
+0,0,0,0	HALBORK
+0,0,0,0	Anpassungsfähig und ehrgeizig. Menschen sind in allem ein wenig begabt.
+0,0,0,0	STÄ +1  GES +1  KON +1  INT +1  WEI +1  CHA +1
+0,0,0,0	Vielseitig: +1 auf alle Attribute.
+0,0,0,0	AUSSEHEN
+0,0,0,0	MÄNNLICH
+0,0,0,0	WEIBLICH
+0,0,0,0	SCHLANK
+0,0,0,0	NORMAL
+0,0,0,0	KRÄFTIG
+0,0,0,0	Haut
+0,0,0,0	Hell
+0,0,0,0	Warm
+0,0,0,0	Oliv
+0,0,0,0	Dunkel
+0,0,0,0	Haar
+0,0,0,0	Braun
+0,0,0,0	Blond
+0,0,0,0	Schwarz
+0,0,0,0	Rot
+33,516,527,563	WÄHLE DEINE KLASSE
+104,632,288,683	KÄMPFER
+462,632,618,683	MAGIER
+790,632,978,683	SCHURKE
+99,781,293,832	KLERIKER
+72,928,1008,1046	Diener der Götter. Heilt Verbündete und straft Untote mit heiligem Licht.
+72,1057,1008,1165	TREFFERWÜRFEL: W8 · HAUPTATTRIBUT: WEISHEIT
+72,1165,600,1224	Rüstung: leicht, mittel + Schild
+72,1241,542,1295	• HEILIGE FLAMME
+72,1295,1008,1405	Zaubertrick. GES-Rettungswurf oder 1W8 gleißender Schaden (+1W8 auf Stufe 5, 11 und 17).
+72,1405,539,1459	• WUNDEN HEILEN
+72,1459,810,1514	Heilt 1W8 + WEI-Mod TP (+1W8 pro 2 Stufen).
+72,1514,311,1568	• SEGNEN
+72,1568,855,1623	Für diesen Kampf +1W4 auf deine Angriffswürfe.
+33,1705,776,1752	ATTRIBUTE VERTEILEN
+793,1703,1030,1754	VORSCHLAG
+72,1834,616,1888	PUNKTE ÜBRIG: 0 / 24
+72,1899,1008,2007	Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte).
+72,2040,473,2095	Stärke
+473,2041,556,2095	15
+556,2041,639,2095	+1
+639,2041,749,2095	(+2)
+798,2042,821,2093	−
+936,2042,959,2093	+
+0,0,0,0	Geschicklichkeit
+0,0,0,0	11
+0,0,0,0	+1
+0,0,0,0	(+0)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Konstitution
+0,0,0,0	13
+0,0,0,0	+1
+0,0,0,0	(+1)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Intelligenz
+0,0,0,0	9
+0,0,0,0	+1
+0,0,0,0	(-1)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Weisheit ★
+0,0,0,0	16
+0,0,0,0	+1
+0,0,0,0	(+3)
+0,0,0,0	−
+0,0,0,0	+
+0,0,0,0	Charisma
+0,0,0,0	11
+0,0,0,0	+1
+0,0,0,0	(+0)
+0,0,0,0	−
+0,0,0,0	+
+117,2216,278,2267	ZURÜCK
+491,2216,946,2267	ABENTEUER BEGINNEN

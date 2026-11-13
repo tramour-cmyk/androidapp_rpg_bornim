@@ -11,4 +11,4 @@
 | `leute` | `LEUTEALT=1` | die dreizehn Leute des Dorfs von vorn und hinten (26 Bilder) | da |
 | `screens` | Standardlauf | Schirme, Kampf, Karten | da (181 Bilder; 13.11. in zwei Läufen, Rest mit `VORHER=`, `d64b3559f`). Bekannt: Schirme nach einem Ortswechsel zeigen die Ortskarte (Name, Satz) statt der Welt, wie die alte Vorschau sie knipste |
 | `karte` | `KARTENZOOM=1 ONLY=zoom_nah_p HELDORT=<Liste>` | Dorf, Wald, Höhle, Grundrisse | da (28 Bilder, 13.11.) |
-| `512b` | `MENUE512B=1` | Menüschirme mit Fenstern | fehlt (läuft 13.11. ab 17:25 bei Spike; bricht er ab: neu mit `alt_bilder_rendern.sh <ablage> 512b`) |
+| `512b` | `MENUE512B=1` | Menüschirme mit Fenstern | da (72 Bilder mit je einer Textdatei, 13.11.) |

@@ -1,0 +1,10 @@
+67,56,421,142	Anschlagbrett
+67,220,666,274	FELLE FÜR DEN WINTER
+67,274,1013,451	Suche drei Wolfsfelle, dicht und ohne Löcher. Der Winter kommt früh dieses Jahr. Bezahlung bei Thessa im Kramladen.
+67,462,599,521	Lohn: 60 Gold, ein Pelzumhang
+394,579,687,630	ANGENOMMEN
+67,748,458,802	GWENNAS RING
+67,802,1013,979	Mein Mann trug meinen Ring, als die Goblins ihn in ihre Höhle schleppten. Er kam nicht zurück. Bringt mir wenigstens den Ring. – Gwenna, am Fluss
+67,990,551,1049	Lohn: 40 Gold, ein Heiltrank
+424,1107,656,1158	ANNEHMEN
+460,2221,621,2272	ZURÜCK

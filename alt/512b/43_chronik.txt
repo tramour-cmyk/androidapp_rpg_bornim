@@ -1,0 +1,21 @@
+28,34,1052,112	CHRONIK
+28,134,184,261	Held
+201,134,357,261	Tasche
+374,134,530,261	Ausrüstung
+547,134,704,261	Karte
+721,134,878,261	Chronik
+895,134,1052,261	System
+197,335,401,386	AUFTRÄGE
+578,335,983,386	BISHER GESCHEHEN
+100,460,316,514	Hauptauftrag
+100,514,980,640	Durchquere den Flüsterwald nach Norden und finde die Blutzahnhöhle.
+100,706,458,769	Rauch gegen Krogg
+100,769,980,989	Garrick riet Thora, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.
+67,1044,323,1103	Nebenaufträge
+100,1147,469,1210	Felle für den Winter
+100,1210,272,1264	von Thessa
+100,1264,980,1429	Suche drei Wolfsfelle, dicht und ohne Löcher. Der Winter kommt früh dieses Jahr. Bezahlung bei Thessa im Kramladen.
+100,1429,375,1484	2 von 3 · Wolfsfell
+100,1484,588,1538	Lohn: 60 Gold, ein Pelzumhang
+399,1612,682,1663	ERLEDIGT (1) ▾
+417,2221,663,2272	SCHLIESSEN

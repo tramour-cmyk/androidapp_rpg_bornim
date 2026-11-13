@@ -1,0 +1,59 @@
+28,34,1052,112	SYSTEM
+28,134,184,261	Held
+201,134,357,261	Tasche
+374,134,530,261	Ausrüstung
+547,134,704,261	Karte
+721,134,878,261	Chronik
+895,134,1052,261	System
+67,328,568,379	Version 0.1.x (Vorschau) (Build 0)
+67,407,210,461	SPIEL
+172,632,326,683	Speichern
+510,526,571,584	DE
+479,632,602,683	Sprache
+740,632,925,683	Hauptmenü
+175,854,324,905	Anleitung
+512,734,569,820	M
+492,854,588,905	MARS
+794,854,870,905	Über
+67,972,233,1026	KAMPF
+158,1197,222,1248	Blut
+135,1248,245,1299	Dezent
+371,1197,475,1248	Tempo
+365,1248,482,1299	Normal
+577,1197,738,1248	Kampftext
+587,1248,728,1299	Antippen
+877,1077,903,1163	?
+802,1197,978,1248	Rückfragen
+869,1248,911,1299	An
+67,1366,367,1420	BEDIENUNG
+111,1591,270,1642	Steuerung
+124,1642,256,1693	Wischen
+364,1591,482,1642	Joystick
+365,1642,482,1693	Normal
+599,1591,716,1642	Rennen
+621,1642,693,1693	Ring
+839,1591,941,1642	Aktion
+839,1642,941,1693	Rechts
+207,1864,291,1915	Karte
+191,1915,308,1966	Normal
+484,1864,597,1915	Rütteln
+519,1915,561,1966	An
+772,1864,893,1915	Schritte
+811,1915,853,1966	An
+67,2033,382,2087	LAUTSTÄRKE
+67,2098,923,2130	Gesamt
+923,2098,1013,2130	100 %
+0,0,0,0	Musik
+0,0,0,0	100 %
+0,0,0,0	Effekte und Ortsklang
+0,0,0,0	100 %
+0,0,0,0	HELLIGKEIT
+0,0,0,0	Dunkle Töne
+0,0,0,0	Aus
+0,0,0,0	So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel.
+0,0,0,0	Schritte: 0 · Siege: 0
+0,0,0,0	GERÄT ZEIGEN …
+417,2221,663,2272	SCHLIESSEN
+78,1923,249,1977	TEMPO
+78,1988,1002,2100	Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell.
+109,72,972,135	Halte ein Zeichen gedrückt, und es erklärt sich.

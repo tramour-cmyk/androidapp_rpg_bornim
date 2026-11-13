@@ -1,0 +1,56 @@
+28,34,1052,112	SYSTEM
+28,134,184,261	Held
+201,134,357,261	Tasche
+374,134,530,261	Ausrüstung
+547,134,704,261	Karte
+721,134,878,261	Chronik
+895,134,1052,261	System
+0,0,0,0	Version 0.1.x (Vorschau) (Build 0)
+0,0,0,0	SPIEL
+0,0,0,0	Speichern
+0,0,0,0	DE
+0,0,0,0	Sprache
+0,0,0,0	Hauptmenü
+0,0,0,0	Anleitung
+0,0,0,0	M
+0,0,0,0	MARS
+0,0,0,0	Über
+0,0,0,0	KAMPF
+0,0,0,0	Blut
+0,0,0,0	Dezent
+0,0,0,0	Tempo
+0,0,0,0	Normal
+0,0,0,0	Kampftext
+0,0,0,0	Antippen
+0,0,0,0	?
+0,0,0,0	Rückfragen
+0,0,0,0	An
+0,0,0,0	BEDIENUNG
+0,0,0,0	Steuerung
+124,311,256,359	Wischen
+0,0,0,0	Joystick
+365,311,482,359	Normal
+0,0,0,0	Rennen
+621,311,693,359	Ring
+0,0,0,0	Aktion
+839,311,941,359	Rechts
+207,530,291,581	Karte
+191,581,308,632	Normal
+484,530,597,581	Rütteln
+519,581,561,632	An
+772,530,893,581	Schritte
+811,581,853,632	An
+67,699,382,753	LAUTSTÄRKE
+67,764,923,819	Gesamt
+923,764,1013,819	100 %
+67,929,923,984	Musik
+923,929,1013,984	100 %
+67,1094,923,1149	Effekte und Ortsklang
+923,1094,1013,1149	100 %
+67,1259,368,1313	HELLIGKEIT
+67,1324,952,1379	Dunkle Töne
+952,1324,1013,1379	Aus
+67,1764,1013,1872	So einstellen, dass das Zeichen gerade noch zu sehen ist. Die Höhle bleibt dunkel.
+67,1916,363,1967	Schritte: 0 · Siege: 0
+377,2036,703,2087	GERÄT ZEIGEN …
+417,2221,663,2272	SCHLIESSEN

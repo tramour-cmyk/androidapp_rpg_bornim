@@ -1,0 +1,3 @@
+67,56,421,142	Anschlagbrett
+67,220,1013,346	Nur verblichene Nägel und Papierfetzen. Kein Aushang.
+460,2221,621,2272	ZURÜCK
