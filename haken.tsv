@@ -6,3 +6,4 @@
 2026-11-13 13:32:29	probelauf	725 (D72): Ziel `cd ../$w` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home/user/…`) 	HEAD
 2026-11-13 13:50:25	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1036.1 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf	claude/jerry-1036-1-zustaende
 2026-11-13 13:54:25	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	claude/build-284
+2026-11-13 13:56:22	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>`; der Haken zählt je Vorgang.	claude/tom-882-1-ohne-gradle
