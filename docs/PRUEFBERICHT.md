@@ -52,6 +52,12 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 210 · 1171 Art Kleinkram in den Werkzeugen (Tom `83335228d`; 13.11., 16:0x)
+
+- **Greift am Werkzeug.** Klon von `main`, Probeliste t997 (t284 plus 997.80 Kleinkram ohne Link, 997.81 mit Link auf den Zweig `bilder`): `pruefliste.py` 11 Zeilen (beide Kleinkram aus dem Reiter), Commit-Prüfung hält nur an 997.80, `zug-index` meldet nur 997.80 als Formfehler.
+- **D210.1 → 1184 (Tom, Klasse 1):** das Werkzeug verlangt die Kleinkram-Zeile in der Prüfliste in `ansehen/`; `LISTE-CHECK-BUILD-TEST.md` 9 „nicht in die Prüfliste … je Punkt ein Bild auf Telegram zur Kenntnis (Link in der Zeile)“. Der Chef liest so jede Zeile weiter mit (Anlass 1173: „auch jeden Popelfurz“), 1172 zählt Punkte je Prüfliste. Stärkstes Gegenargument: in der Datei bleibt nachvollziehbar, was ohne Test auf `main` ging; dann gehört der Regelsatz geändert, nicht das Werkzeug (Perikles).
+- 1171 wartet auf 1184.
+
 ## Lauf 209 · 1156 Lage herstellen (Spike `14070d8ca`), Doppelpack 1170, 1173 (Perikles `47dc3ce54`, `3eb8bf088`; 13.11., 15:5x)
 
 - **1156 am Rechner grün, greift noch nicht.** Arbeitskopie auf `14070d8ca`: `lage_1156` ohne die Kopien des Baus rot (3 Fehler: Herkünfte nur „Wanderer“, Stufe 0, falsche Lage ändert etwas), weil `daten/werte.json` fehlt; nach den Kopien aus Schritt „Karten und Texte“ (`werte.json`, `gegenstaende.json`, `pruefliste.py`) `lage_1156` und `pruefliste_1020` 0 Fehler, Exit 0. Station nicht geprüft („ohne Karte forest“), die echte Prüfliste t284 hat 0 Lagen. Prüfpunkt bleibt: erster Lauf auf `claude/build-…` mit 1156 („LAGE1156 im Bau: n Zeilen mit Lage“, n > 0 an der ersten Prüfliste mit `## Lagen`).
