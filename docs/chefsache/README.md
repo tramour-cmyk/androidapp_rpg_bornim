@@ -43,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 756.1 | M | Zeichen für Schlecht, neue Vorlage (Chef 13.11., 13:09 an Ford: „756 ist keine vernünftige | startbar |
+| 756.1 | M | Zeichen für Schlecht, neue Vorlage (Chef 13.11., 13:09 an Ford: „756 ist keine vernünftige | in Arbeit bei Spike |
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | wartet auf Test t283 (Chef) |
 | 1104 | M | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station | wartet auf Test (Build 282) |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 870.10 (wartet) |
@@ -111,13 +111,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 613.2 | M | Zwischensequenzen: Bewegung sichtbar wie alt (Kerzenflackern, atmendes Licht, Staub im Str | ruht |
 | 713 | K | Von Homer (586.1): Erklärfenster beim Gedrückthalten (menue.gd:1561) noch mit Goldrand und | ruht |
 | 764 | M | Heldenreiter zeigt aktive Zustände (betrunken usw.) mit Erklärung; Tippen auf die Leiste ö | wartet auf Test (Build 283) |
-| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | wartet auf 756.1 (startbar) |
+| 756 | M | Gegenstände: wie Seltenheit, Abnutzung und übrige Merkmale bei anlegbarer Ausrüstung angez | wartet auf 756.1 (in Arbeit) |
 | 698 | M | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstes | wartet auf 623 (startbar) |
 | 816 | M | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht |
 | 861 | M | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | ruht |
-| 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | in Arbeit bei Spike |
+| 882.1 | M | Von Perikles (882, Umzug BRS Schritt 8): mit 870.9 auch godot-kampf.yml 41 (exportIntro) a | startbar |
 | 964 | M | Von Tom (Zu 870.4, Homer 14:15): Metall sperrt Evokation, Illusion, Beschwörung im Kampf; | wartet auf Test (Build) |
 | 966.2 | M | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
 | 967 | M | Von Tuffy (948): halt_653 am Rechner 8 Fehler, Schild im Körper bei KLOSTER_M (bis 1,4 cm) | wartet auf Test (Build) |
