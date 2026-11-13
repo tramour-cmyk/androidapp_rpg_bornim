@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 285 · 0.348.— · Höhlenausgang, Messen in der Höhle, innen ohne Waffe · PR —
-E Welt · Tom (1091, 1145, 1149, 1168, 1180, 1190, 1212), Jerry (…) · 13.11., 19:33 · APK folgt
+E Welt · Tom (1091, 1145, 1149, 1168, 1218, 1180, 1190, 1212), Jerry (…) · 13.11., 19:33 · APK folgt
 
 Entwurf Tom (Teil Tom); Jerry trägt seine Zeilen ein; gegenlesen: das andere Team, bei Punkten beider Teams Sokrates.
 
@@ -18,6 +18,7 @@ Im Bau geprüft: Tageslicht des Höhlenausgangs reicht drei Kacheln in den Gang,
 | 285.7 | Tom | 1168 | Handy | Weiter mit deinem Spielstand, mit Waffe in der Hand in die Schenke gehen, dann wieder hinaus | drinnen keine Waffe am Helden, draußen wieder in der Hand | Waffe auch drinnen; draußen fehlt sie |
 | 285.8 | Tom | 1190 | Handy | Menü → Tasche, ein Stück mit Güte „Gut“ oder „Meisterhaft“ ansehen (Reiter „Test“ → „Beute erzeugen“), dann antippen | in der Zeile unter dem Namen kein Wort zur Güte, nur das Zeichen am Bild; im Fenster „Güte: …“ | „Gut“ oder „Meisterhaft“ in der Zeile |
 | 285.8a | Tom | 1149 | Bild (aus dem Lauf, kommt per Telegram) | Herumtreiber mit Kurzschwert und Dolch, je vorn, von der Seite, von hinten (Dolchbild, nur Gürtel) | der zweite Dolch hängt links an der Hüfte, Klinge schräg nach hinten unten, nichts steckt im Körper | Dolch fehlt, steckt im Bein oder schwebt |
+| 285.8b | Tom | 1218 | Bild (aus dem Lauf, kommt per Telegram) | Dorf Süd, der Steg über den Bach, Blick quer zum Wasser (Randbild Dorf Süd), links 284, rechts 285 | der Steg liegt an beiden Enden auf dem Weg auf | der Steg endet über dem Wasser und schwebt |
 | 285.9 | Tom | 1180, 1212 | ohne dich (Diogenes bestätigt am Lauf) | `lage_modell_1180` und `ziege_4162` im Lauf der APK | grün | rot |
 
 ## Lagen
