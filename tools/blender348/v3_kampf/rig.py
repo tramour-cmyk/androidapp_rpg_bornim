@@ -369,7 +369,7 @@ def tod_rueck():
 # fallen nach vorn, kurz hält der Körper; dann kippt er über die Knie (Anker: die Knie bleiben, wo sie aufkamen) auf die Seite, die
 # Beine bleiben gebeugt beieinander, der obere Arm fällt vor den Leib auf den Boden
 def tod_seite():
-    """sackt auf die Knie zusammen, dann über die Knie zur Seite (nach links; tod_seite_r gespiegelt)"""
+    """sackt auf die Knie zusammen, dann über die Knie zur Seite (nach links; spiegel(tod_seite()) ergibt Tod4)"""
     k1 = {'root': (0, -3, 0), 'pelvis-waist': (-6, 0, 12), 'neck-neckTop': (-12, 0, 18)}
     beine = {**beide('hipS-thighS', (-50, 0, 0)), **beide('kneeS-calfS', (78, 0, 0)), **beide('ankleS-heelS', (35, 0, 0)), **beide('ankleS-ballS', (35, 0, 0))}
     k2 = {'root': (2, -4, 6), 'pelvis-waist': (14, -4, 8), 'belly-chest': (8, 0, 0), 'neck-neckTop': (22, 0, 8), **beine}

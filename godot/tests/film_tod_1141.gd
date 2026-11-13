@@ -1,7 +1,7 @@
 # 1141 (Chef 13.11., 14:36: Goblins, Schamane fallen „wie Playmobil-Figuren … alle auf die gleiche Seite“): Film je Körper ohne
 # Sterbebewegung bis 1141 (GEGNER=GOBLINS, SCOUTS, SHAMANS, KOBOLDS wie probe.gd FOES): ein Gegner nach dem anderen stirbt im Kampfort
-# durch die echte Figur.die() (wie im Spiel: fällt, liegt, vergeht), dreimal je Körper mit den drei Sterbebewegungen, mal gespiegelt,
-# mal nicht (596); Kamera von vorn halb seitlich und von oben auf den Toten (G4), Spiellicht (Signatur), Kampfschirm aus, Helden aus.
+# durch die echte Figur.die() (wie im Spiel: fällt, liegt, vergeht), dreimal je Körper (FOLGE; r3 vier Bewegungen, ohne Spiegelung,
+# Bewaffnete ungespiegelt, Tiere mal gespiegelt, 596); Kamera von vorn halb seitlich und von oben auf den Toten (G4), Spiellicht (Signatur), Kampfschirm aus, Helden aus.
 # Aufruf (Film, Probelauf): PROBE=1141 GEGNER=GOBLINS xvfb-run godot --path godot --rendering-driver opengl3 --resolution 540x1170
 #   --write-movie <datei>.avi --fixed-fps 30 -s res://tests/film_tod_1141.gd
 # Probebild: PROBEBILD=1141 BILDER=<ordner> GEGNER=… derselbe Aufruf ohne --write-movie
