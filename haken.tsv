@@ -138,3 +138,4 @@
 2026-11-13 21:52:14	probelauf	407 (Chef 02.11., 07:18: „die ganze Nacht über jetzt 1000 Filmchen gedreht“): einen Lauf neu starten zählt der Haken nicht nach Vorgang; neu starten nur mit run_workflow (`mcp__github__actions_run_tri	claude/build-285
 2026-11-13 22:12:16	commit-pruefung	docs/ROLLE-ENTWICKLUNG.md: 13951 Bytes, Obergrenze 13100, Commit fügt 859 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-13 22:12:16	commit-pruefung	CLAUDE.md: 15278 Bytes, Obergrenze 15000, Commit fügt 283 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-13 22:17:40	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/jerry-709-1-film
