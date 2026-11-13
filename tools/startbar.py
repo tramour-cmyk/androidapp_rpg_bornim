@@ -576,6 +576,11 @@ def b_gebaut(d):
     """724 A (Chef 09.11., 11:27): Vorgang im Bereich B ist mit dem „greift“ von Diogenes erledigt; „gebaut“ wartet auf Diogenes, nicht auf Test."""
     return d["wort"] == "gebaut" and d.get("bereich", "").startswith("B ")
 
+def b_offen_streng(d):
+    """1221 (Diogenes 13.11., 20:27): „greift“ prüft erst, wenn jede Nummer im Feld „wartet auf“ erledigt ist; „gebaut“ oder
+    „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
+    return [t for t in d["warte"] if not erfuellt(t, d["nr"], streng=art(t) == "nr")]
+
 def sperre(d):
     """Grund, warum die Zeile für ihren Besitzer nicht startbar ist, sonst None."""
     w = d["wort"]
@@ -595,7 +600,11 @@ def sperre(d):
         if a == "datum": return ("ruht bis " if w == "ruht" else "Termin ") + t
         if a == "build": return "wartet auf Test %s (Chef)" % t
         if a is None: return "wartet auf „%s“ (ungültig)" % t
-    if b_gebaut(d): return "wartet auf Diogenes (greift?)"
+    if b_gebaut(d):
+        for t in b_offen_streng(d):
+            n, st = stand_von(t)
+            return "wartet auf %s (%s), dann Diogenes (greift?)" % (t, wort_von(st) or st or "Nummer unbekannt")
+        return "wartet auf Diogenes (greift?)"
     if w == "gebaut": return "wartet auf Test/Build (gebaut)"  # 190.1
     if w == "zu testen": return "wartet auf Test (Build%s)" % ((" " + d["build"]) if d.get("build") not in ("", "–", "-", None) else "")
     if w == "ruht" and not d["warte"]: return "ruht" + ((" (" + d["zusatz"][:60] + ")") if d["zusatz"].startswith("424") else "")
@@ -646,7 +655,7 @@ def plan(rolle):
         if d["besitzer"] == rolle:
             kl = "M" if d["nr"] in f and d["kl"] != "–" else d["kl"]
             eigen.append((d["nr"], kl, d["titel"], d, sperre(d)))
-        elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not offen_warte(d):  # 724 A
+        elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d):  # 724 A, 1221
             # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269);
             # ruht die Zeile (ruht, Dauer, nach Meilenstein, aufgeteilt, Idee), ruht sie auch für die Rolle (D80.5)
             rest = [t for t in offen_warte(d) if art(t) != "rolle"]
