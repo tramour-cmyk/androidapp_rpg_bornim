@@ -376,3 +376,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:58 13.11.: Marke Archiv session_01Hmoj78DdYVvVkuejug4vVj (lauf.py)
 - 11:05 13.11.: Startsperre 11:05 Start Ford (Probe D: Routine mit create_new_session_on_fire, 1098 A; Neustart-Haken 407 Tsd.; Umgebung Hoch)
 - 11:08 13.11.: Probe D gescheitert (Sitzung ohne Repo, ohne create_session und list_sessions; Zu 1098 bei Perikles); Startsperre 11:08 Start Ford (selbst, Neustart-Haken 407 Tsd.)
+- 11:11 13.11.: Startsperre 11:11 Start Spike (lauf.py; Tuffy 1112 nicht gestartet, Jerry arbeitet 1111–1113 laut Titel)
+- 11:11 13.11.: Marke Start-fehlt Spike 13.11.-10:58 (lauf.py)
