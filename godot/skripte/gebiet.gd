@@ -187,8 +187,9 @@ static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
 # 592 (Chef 05.11., 22:0x: „592 so“): Stehen_3 (Idle_Tired, vornueber gebeugt) ist keine Ruhebewegung mehr, nur noch atemlos
 # (held.gd ATEM_HALT); es bleiben Stehen und Umsehen
 const RUHE := ["Stehen", "Stehen_2"]
-static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator) -> Array:
-	var da := RUHE.filter(func(n): return anim.has_animation(n))
+# 1044 zurueck (Chef 13.11., 09:35): [liste] die Ruhebewegungen dieser Person (HeldFigur.ruhe_von), Stehen zuerst; ohne wie RUHE
+static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator, liste: Array = RUHE) -> Array:
+	var da := liste.filter(func(n): return anim.has_animation(n))
 	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
 	var n: String = da[z.randi_range(1, da.size() - 1)]
 	return [n, anim.get_animation(n).length]

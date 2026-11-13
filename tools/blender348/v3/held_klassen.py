@@ -942,7 +942,10 @@ def haare(g):
 # Bewegungen fuer held.gd (Namen wie held.bin): aus der UAL (gekauft Pro, sonst Standard), nur Geruest und diese Bewegungen. Die von
 # rig.py (held.bin) passen nicht: sie sind auf unsere Ruhelage (Arme haengend) umgerechnet, der Kaufkoerper ruht in der T-Pose
 BEWEGUNGEN = [('Stehen', 'Idle_Loop'), ('Gehen', 'Walk_Loop'), ('Rennen', 'Jog_Fwd_Loop'), ('Stehen_2', 'Idle_LookAround_Loop'),
-              ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop')]
+              ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop'),
+              # 1044 zurueck (Chef 13.11., 09:35): Ruhebewegungen je Person (heldfigur.gd RUHE_JE), alle aus der UAL Pro
+              ('Ruhe_Tresen', 'Counter_Idle_Loop'), ('Ruhe_Trinken', 'Drink'), ('Ruhe_Weinen', 'Crying'),
+              ('Ruhe_Greifen', 'Interact')]
 
 
 def schritt_tempo(arm, a, fuesse=('foot_l', 'foot_r'), toleranz=0.02):

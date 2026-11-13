@@ -43,6 +43,7 @@ var leib := LEIB
 var pause := "Stehen"                  # Dorftiere: Stehen oder Fressen in der Pause
 var zufall := RandomNumberGenerator.new()
 var ruhe_bis := -1.0                   # 397: Wechsel der Ruhebewegung (Gebiet.ruhe_naechste), nur bei pause Stehen
+var ruhe_liste: Array = Gebiet.RUHE     # 1044 zurueck: eigene Ruhebewegungen je Person (HeldFigur.ruhe_von)
 var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesplan der des Orts)
 var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
 static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
@@ -419,6 +420,7 @@ func baue_kauf(info_datei: String) -> bool:
 	modell = m
 	add_child(modell)
 	anim = modell.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	ruhe_liste = HeldFigur.ruhe_von(String(daten.get("person", daten["id"])))   # 1044 zurueck
 	gang = float(modell.get_meta("gehen_m_je_s", HeldFigur.TAKT_GEHEN))
 	var alt := 1.08
 	if FileAccess.file_exists(info_datei):
@@ -613,7 +615,7 @@ func _process(dt: float) -> void:
 		if ruhe_bis < 0.0: ruhe_bis = anim.get_animation("Stehen").length * zufall.randi_range(2, 4)
 		ruhe_bis -= dt
 		if ruhe_bis <= 0.0:
-			var r := Gebiet.ruhe_naechste(anim, pause, zufall)
+			var r := Gebiet.ruhe_naechste(anim, pause, zufall, ruhe_liste)
 			pause = r[0]; ruhe_bis = float(r[1])
 	stehen(dt)
 	if ziel.x >= 0: return
