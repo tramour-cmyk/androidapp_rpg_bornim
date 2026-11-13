@@ -42,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 124, Muss 31, startbar 4
+**Tom** – offen 126, Muss 32, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -158,7 +158,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1167 | K | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11.): Atmen für die Dorftiere (g | ruht |
 | 1168 | K | Von Sokrates (Archivprüfung, 410 Chef 31.10.; 417a 02.11.; DESIGN-KAMPF E1): Waffe innen ( | wartet auf Test (Build 285) |
 | 1174 | M? | Von Sokrates (Archivprüfung, 348.10 Chef 25.10., 16:36 „brauchen wir auf jeden Fall“; Zwec | wartet auf 431 (wartet) |
-| 1175 | M | D207.1 von Diogenes (1143): Wächter Rest liest nur den jüngsten Commit mit der Nummer (git | wartet auf Diogenes (greift?) |
+| 1175 | M | D207.1 von Diogenes (1143): Wächter Rest liest nur den jüngsten Commit mit der Nummer (git | wartet auf 1237 (gebaut), dann Diogenes (greift?) |
 | 1180 | M | D209.2 von Diogenes (1156, Lauf 209): Lage nahm Gegnergruppen ohne Modell an (testmodus.gd | wartet auf Test t285 (Chef) |
 | 1185 | M | Von Perikles (1183, 1020 D): pruefliste.py warnt im Prüfschritt bei jeder Zeile ohne Eintr | wartet auf Test (Build) |
 | 1190 | M | Von Sokrates (Chef 13.11., 16:50, zu 756.1): Kurzzeile jeder Übersicht ohne Gütewort, nur | wartet auf Test (Build 285) |
@@ -170,8 +170,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1218 | M? | Von Chef (13.11., 20:07, Test t284, Kartenrand Süd): die kleine Brücke im Dorf Süd schwebt | wartet auf Test (Build 285) |
 | 1226 | M | Von Jerry (709.1, 13.11., 21:11): Test rollstand_1030 rot in tools/t logik (FALSCH „Neu au | wartet auf Test (Build 285) |
 | 1234 | M? | Von Homer (Fremdprüfung 1232): Reste nach 870.15 auf main: „Grottenschrat“/„bugbear“ statt | startbar |
+| 1237 | M | D228.1 von Diogenes (1175): Wächter Rest sieht keine Arbeitszweige (bornim-main kennt nur | wartet auf Diogenes (greift?) |
+| Pflege | K | von Werkzeug (340.3, 13.11.): 30391 Bytes (Grenze 30000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 116, Muss 49, startbar 12
+**Jerry** – offen 115, Muss 49, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -179,15 +181,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | wartet auf Test (Build) |
 | 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | wartet auf Test (Build) |
 | 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | wartet auf Test (Build) |
-| 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | wartet auf 1072 (in Arbeit) |
+| 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | wartet auf 1072 (wartet) |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Build 278): zwei Kämpfe zugleich (Probekampf, dann | wartet auf Test (Build 285) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 760 (startbar) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Termin 13.11. 22:10 |
-| 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | Termin 13.11. 22:30 |
-| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (in Arbeit) |
+| 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | Chef (Datei in der Chefsache) |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | wartet auf Sokrates |
+| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (wartet) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Termin 13.11. 23:00 |
-| 1222 | M | Von Chef (13.11., 20:40, Test t284.4b): Rauchbündel gegen Krogg ohne sichtbare Wirkung im | startbar |
+| 1222 | M | Von Chef (13.11., 20:40, Test t284.4b): Rauchbündel gegen Krogg ohne sichtbare Wirkung im | Termin 14.11. 07:00 |
 | 1223 | M | Von Chef (13.11., 20:59, Test t284.7o): Leitwolf im Kampf nicht erkennbar, alle heißen Wol | wartet auf Test/Build (gebaut) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht bis 23.11. |
 | 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | wartet auf Test t278 (Chef) |
@@ -223,21 +225,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 644.1 | K | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | ruht bis 16.11. |
 | 644.2 | K | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 S | ruht bis 16.11. |
 | 681 | K | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht bis 16.11. |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | startbar |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | wartet auf 1072 (wartet) |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht bis 23.11. |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test (Build) |
-| 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | in Arbeit bei Tuffy |
+| 844 | M | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im St | wartet auf Test/Build (gebaut) |
 | 845 | M | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 987 (krogg) |
 | 876 | M | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Tran | wartet auf 1135 (startbar) |
 | 904 | M | Von Tom (870.4, B1): sim444_870 am Rechner (97a32cfe2): SCRIPT ERROR mars.gd:903 _erwartet | wartet auf Test (Build 285) |
-| 918 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, sa | startbar |
+| 918 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): godot.yml lässt alle Tests durchlaufen, AP | ruht |
 | 923 | M | Von Tom/Sokrates (t276 gegengelesen): Heiltrank in tools/sim444/werte.json doppelt, welt.h | wartet auf 1135 (startbar) |
-| 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | startbar |
+| 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | wartet auf 760 (startbar) |
 | 932 | M | Von 784 A (Chef 11.11., 12:15/12:09): Angriff des Helden höchstens 2,4 s – rennt zum Ziel, | wartet auf Test t285 (Chef) |
 | 938 | K | Von Tom (786): Klang bei Handel, Rast und Gaben wie alt: Münzen beim Kaufen, Verkaufen, Zu | ruht bis 16.11. |
 | 936 | K | Von Tom (786): Musik an der Bemerkgrenze wie alt: nahe einem Monster leiser und dunkler mi | ruht bis 16.11. |
 | 937 | K | Von Tom (786): Ruhelaute der Monster auf der Karte wie alt: schnüffeln, grunzen, klappern, | ruht bis 16.11. |
-| 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | startbar |
+| 946 | M | Fund t276 (Chef-Bild 11.11., 13:29): Ansage „! Anspringen“ des dritten Wolfs liegt oben un | wartet auf Test/Build (gebaut) |
 | 956 | M | Von 870.6a A (Chef 11.11., 13:55): Gift, Brand, Blutung als Anteil am vollen Leben mit dem | wartet auf Test t278 (Chef) |
 | 930.3 | K | Von Sokrates (930): Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgeme | wartet auf 931 (startbar) |
 | 954a.6 | K | Von Perikles (954a.2): Hinterhalt aus dem Schleichen: unbemerkt bis zum Angriff, Kampf beg | wartet auf 870 (wartet) |
@@ -246,7 +248,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 954a.11 | K | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Auftr | wartet auf 870 (wartet) |
 | 954a.13 | K | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
 | 971 | M | Von Sokrates (966, Chef 11.11., 15:58): werte.json ueben.leicht_min 0,2 → 0,1 (leichte Zie | wartet auf 1135 (startbar) |
-| 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | startbar |
+| 973 | M | Von Sokrates (930a A, Chef 11.11., 16:09): nach einem Tod bleiben die übrigen Gegner stehe | wartet auf Test/Build (gebaut) |
 | 980 | M | Von Tom (968, Lauf 43051633587): Kaufskripte unter tools/blender348 nehmen glob()[0]; lieg | wartet auf Test (Build) |
 | 785.9 | K | Von Spike (785): MARS-Probekampf im Systemmenü mit Regelseite (Reihen, Ansagen, Ring, Perf | wartet auf 870.13 (wartet) |
 | 785.10 | K | Von Spike (785): Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber | wartet auf 870.13 (wartet) |
@@ -276,23 +278,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1084 | M | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden | wartet auf 1135 (startbar) |
 | 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Test (Build) |
 | 1114 | M | D191.4 von Diogenes (1109): Kampfort hängt am Block figur (nur held.glb, Gras, rig.log); j | wartet auf Test (Build) |
-| 1123 | K | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | startbar |
+| 1123 | K | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf Test t285 (Chef) |
 | 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | wartet auf Test (Build) |
 | 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | wartet auf Test (Build) |
 | 1136 | M | D203.1 von Diogenes (1128.3, Lauf 427): 4 Bautests ohne Laufnachweis (1013, 1014 schild_40 | wartet auf Test (Build 285) |
 | 1162 | M | Von Sokrates (Archivprüfung, 493 Chef 03.11., 15:59): Steinkreis im Kampfort nachbessern ( | wartet auf Test (Build 285) |
-| 1165 | K | Von Sokrates (Archivprüfung, 490/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefunde K | startbar |
+| 1165 | K | Von Sokrates (Archivprüfung, 490/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefunde K | wartet auf 496 (ruht) |
 | 1166 | M | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11. „gilt für alle Vierbeiner“): | wartet auf Test (Build 285) |
 | 1141.1 | M | Aus 1141 (Sokrates zu Chef 16:17, Punkt 3): Körper mit Bibliothekstod (Grak, Krogg, Skelet | wartet auf Test t285 (Chef) |
 | 1194 | K | Von Sokrates (1113, Lauf 437/442): Kauf-Cache: Läufe mit demselben Schlüssel bauen paralle | wartet auf Test t285 (Chef) |
-| 1196 | K | Von Spike (Lauf 442, 1062): Wache 1062 greift erst im Lauf; fünf Filme in build-284 (1086, | startbar |
+| 1196 | K | Von Spike (Lauf 442, 1062): Wache 1062 greift erst im Lauf; Filme in build-284 riefen spie | wartet auf Diogenes (greift?) |
 | 1206 | K | Von Perikles (882.2): Test eingebung_840 kippt in tools/t logik nebeneinander unter Last ( | wartet auf Test (Build 285) |
 | 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | wartet auf 1141.1 (wartet) |
-| 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | startbar |
-| 1227 | K | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche i | startbar |
-| Pflege | K | von Werkzeug (340.3, 13.11.): 30209 Bytes (Grenze 30000), Erledigtes streichen | startbar |
+| 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | wartet auf 1072 (wartet) |
+| 1227 | K | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche i | wartet auf 1073 (startbar) |
 
-**Perikles** – offen 27, Muss 18, startbar 4
+**Perikles** – offen 27, Muss 19, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -309,7 +310,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 347.2 | K | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | wartet auf 347 (startbar) |
 | 341 | K | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 16.11. |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
-| 919 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (startbar) |
+| 919 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (ruht) |
 | 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | Termin 14.11. |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | Termin 14.11. |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 14.11. |
@@ -319,16 +320,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 16.11. |
 | 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | Termin 16.11. |
 | 1225 | M | Von Sokrates (t284 mit Chef, 21:04 „wieder doppelt“): Prüfliste je Prüfgegenstand eine Art | wartet auf Test t285 (Chef) |
-| 1228 | K | Von Sokrates (Chef 13.11., 21:22, Archiv „1228“): Telegram-Urteile des Chefs erledigt jede | startbar |
-| 1230 | M | Von Tom (t284): vorgang.py build 284 schob 1022 als „erledigt, t284 getestet“ ins Archiv, | startbar |
-| 1233 | K | Von Sokrates (Chef 13.11., 21:27, 21:34 „Der Projektplan ist der Projektplan“): PROJEKTPLA | startbar |
-| 1236 | M? | Von Sokrates (Chef 13.11., 21:41): vor jedem großen Vorhaben, neuem Themenkomplex erst Ges | startbar |
+| 1228 | K | Von Sokrates (Chef 13.11., 21:22, Archiv „1228“): Telegram-Urteile des Chefs erledigt jede | wartet auf Diogenes (greift?) |
+| 1233 | K | Von Sokrates (Chef 13.11., 21:27, 21:34 „Der Projektplan ist der Projektplan“): PROJEKTPLA | wartet auf Diogenes (greift?) |
+| 1236 | M | Von Sokrates (Chef 13.11., 21:41): vor jedem großen Vorhaben, neuem Themenkomplex erst Ges | wartet auf Diogenes (greift?) |
+| 827.1 | M | Von Sokrates (Chef 13.11., 22:08, ersetzt 827 A): kein stärkstes Modell; festgefahrener od | wartet auf Diogenes (greift?) |
 
-**Diogenes** – offen 11, Muss 6, startbar 1
+**Diogenes** – offen 16, Muss 8, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1175 | M | D207.1 von Diogenes (1143): Wächter Rest liest nur den jüngsten Commit mit der Nummer (git | startbar |
+| 1237 | M | D228.1 von Diogenes (1175): Wächter Rest sieht keine Arbeitszweige (bornim-main kennt nur | startbar |
+| 1236 | M | Von Sokrates (Chef 13.11., 21:41): vor jedem großen Vorhaben, neuem Themenkomplex erst Ges | startbar |
+| 827.1 | M | Von Sokrates (Chef 13.11., 22:08, ersetzt 827 A): kein stärkstes Modell; festgefahrener od | startbar |
+| 1196 | K | Von Spike (Lauf 442, 1062): Wache 1062 greift erst im Lauf; Filme in build-284 riefen spie | startbar |
+| 1228 | K | Von Sokrates (Chef 13.11., 21:22, Archiv „1228“): Telegram-Urteile des Chefs erledigt jede | startbar |
+| 1233 | K | Von Sokrates (Chef 13.11., 21:27, 21:34 „Der Projektplan ist der Projektplan“): PROJEKTPLA | startbar |
 | 1133 | M | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, | Termin 14.11. |
 | 461b | K | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
@@ -340,7 +346,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | Termin 16.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 16.11. |
 
-**Sokrates** – offen 42, Muss 9, startbar 17
+**Sokrates** – offen 43, Muss 10, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -377,11 +383,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 870 (wartet) |
 | 654 | K | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | startbar |
 | 739 | K | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; | ruht bis 23.11. |
-| 827 | K | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | Termin 17.11. |
+| 827 | K | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11 | startbar |
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | ruht bis 23.11. |
 | 930 | K | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 644a.5 | K | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und | startbar |
 | 1135 | M | Von Perikles (1128 A, Liste Diogenes): Gespräch mit dem Chef über die Zahlen zur Balance d | startbar |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | startbar |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 15.11. 20:00 |
 | 1169 | K | Systemlösung? Tür: 9 frühere Vorgänge (629, 611, 629.1, 636, 1063 …), neu 1168; einmal gru | startbar |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
