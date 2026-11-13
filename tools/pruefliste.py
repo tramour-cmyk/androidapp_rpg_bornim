@@ -111,7 +111,7 @@ def lies(text, quelle=''):
             in_lagen = True
             continue
         if in_lagen:
-            m = re.match(r'\s*[-*]\s*(\d+\.\d+)\s*:?\s+(.*)$', z)
+            m = re.match(r'\s*[-*]\s*(\d+\.\d+[a-z]?)\s*:?\s+(.*)$', z)   # wie die Tabelle (1178): auch 284.3b
             if m:
                 lagen[m.group(1)] = lage(m.group(2))
                 continue
