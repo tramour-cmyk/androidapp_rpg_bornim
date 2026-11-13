@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1129](entscheiden/1129-blinde-flecken.md) | **Muss** | B Abläufe | 13.11., 13:12 | acht Änderungen nach Gewinn: Torprüfung vor jeder Vorlage, Sperre zählt nur Gebautes, formale Chefbindungen weg, Muss umstufen, Widersprüche bereinigen, weniger Werkzeug-Commits, Vorratsgrenze, Gegenlesen | Sokrates und Perikles |
 | [1128](entscheiden/1128-pruefumfang.md) | **Muss** | B Abläufe | 13.11., 12:03 | je Vorgang die passende Prüfart: Handy-Prüffrage nur für Ablauf, Bedienung, Gefühl, Klang; Aussehen als Bild oder Film; Regeln und Technik über den Bautest | Sokrates |
 
 ## Zu billigen
@@ -162,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1131 | M | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … | Sperre 620.1 B: 21 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 825 |
 | Pflege | K | von Werkzeug (340.3, 13.11.): 17013 Bytes (Grenze 15000), Erledigtes streichen; Übergabe ü | startbar |
 
-**Jerry** – offen 132, Muss 118, startbar 1
+**Jerry** – offen 133, Muss 119, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -298,6 +299,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf 1115 (startbar) |
 | 1126 | M | D196.1 von Diogenes (1113): aufraeumen löscht Blockzweige, die ein gleichzeitiger Lauf ein | wartet auf Test t284 (Chef) |
 | 1127 | K | D196.2 von Diogenes (1111): weicht die Gegenprobe ab, meldet der Schritt zusätzlich „Ableg | wartet auf Test t284 (Chef) |
+| 1132 | M | D197.1 von Diogenes (1130): 947, 980, 987 stehen „gebaut“ mit Zweig claude/build-277, aber | startbar |
 
 **Perikles** – offen 18, Muss 15, startbar 2
 
