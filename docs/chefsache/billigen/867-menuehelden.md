@@ -1,5 +1,5 @@
-# 867 · Hauptmenü: passen die vier Helden in Vorlage 6?
-Tom · 13.11., 03:11 · G Stil · aus Sokrates 13.11., 02:06 („867, Vorlage 5 B“, Nacht 1077)
+# 867 · Vorentscheid „Vorlage 6 der Menühelden passt“ billigen?
+Sokrates · 13.11., 03:14 · G Stil · Vorentscheid in der Nacht (Archiv 1077), Vorlage Tom 03:11 aus Sokrates 02:06 („867, Vorlage 5 B“)
 Kurz: Vorlage 6: die Wachsoldatin hält das Schwert gesenkt in der rechten Hand, der Schild sitzt am linken Arm mit der Fläche schräg zum Spieler; die drei anderen wie in Vorlage 5. Die Fäuste auf dem Knauf erreicht die gekaufte Figur nicht (nachgestellt), darum der Ersatz, den Sokrates dafür bestimmt hat.
 
 Geprüft an: [Lauf 413](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43343150706), [Commit e7b740a](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/e7b740ab18f1ffeff56945f48558b87526ec9399) (Zweig `claude/tom-867-vorlage5`), Hauptmenü am Bauserver mit den gekauften Figuren wie im Spiel; oben von vorn (wie im Menü), unten um 270 Grad gedreht; 90 und 180 Grad im Lauf ebenfalls angesehen
@@ -8,7 +8,7 @@ Geprüft an: [Lauf 413](https://github.com/tramour-cmyk/androidapp_rpg_bornim/ac
 
 **Frage:** Passt Vorlage 6 so?
 
-**Votum:** „867 passt“: Einbau im nächsten Sammelbuild.
+**Entschieden:** passt (Votum Tom A). Jede der vier hat eine eigene Haltung, Waffe und Schild sind von vorn zu sehen; die Wachsoldatin hält das Schwert in der Hand (dein Wort 21:55 „Waffe in der Hand“), der Schild sitzt am Arm. Einbau im nächsten Sammelbuild; im Menü am Feuer nicht so dicht, dass der Schild den Zauberlehrling verdeckt.
 
 **Berührt:** 431 (Körperbau je Volk, nach dem Umzug); 870.13 (Fußzeile „SRD 5.1 · CC BY 4.0“, Umzug).
 
@@ -21,8 +21,15 @@ Geprüft an: [Lauf 413](https://github.com/tramour-cmyk/androidapp_rpg_bornim/ac
 - **Mir ist aufgefallen:** der Schild liegt von vorn nah am Zauberlehrling, berührt ihn aber nicht. Rot im Lauf waren `pruefliste_1020` (Spalte „Passt“, 1087) und `ziege_4162` (1079), beide nicht 867; dazu `menuehelden_867`, der noch das Aufstützen verlangte: angepasst (83bc870).
 
 **Auswertung:**
-- **A (Empfehlung):** passt, Einbau im nächsten Sammelbuild. Gegen A: das Muster 292.3 („stützt beide Hände auf das Schwert“) ist nicht erreicht. Antwort: mit der gekauften Figur geht es nicht ohne Bücken; der Ersatz ist der von Sokrates bestimmte.
-- **B:** die Wachsoldatin beugt sich leicht vor, um den Knauf zu erreichen. Gegen B: eine dritte Bastelrunde, die Sokrates ausgeschlossen hat, und gebückt wirkt sie nicht wie eine Wache.
+- **A (entschieden):** passt, Einbau im nächsten Sammelbuild.
+- **Stärkstes Gegenargument gegen A:** das Muster 292.3 („stützt beide Hände auf das Schwert“) ist nicht erreicht, und die gesenkte Klinge ist von vorn schmal vor dem dunklen Mantel. Dagegen: mit der gekauften Figur geht das Aufstützen nicht ohne Bücken (nachgestellt); dein Wort 21:55 war „Waffe in der Hand“, und der Schild ist groß und deutlich.
+- **B (verworfen):** die Wachsoldatin beugt sich leicht vor, um den Knauf zu erreichen. Gegen B: eine dritte Bastelrunde, die Sokrates ausgeschlossen hat, und gebückt wirkt sie nicht wie eine Wache.
+
+**Umgesetzt:** Vorlage auf `claude/tom-867-vorlage5` (e7b740a, 83bc870); Einbau ins Hauptmenü folgt.
+
+**Rückbau:** sagst du „zurück“, bleibt das alte Menübild, und du sagst, was an Vorlage 6 nicht passt.
+
+**Kosten:** Einbau (Haltungen, `hauptmenue.gd`), Test im Build.
 
 **Folgerungen:** A: Tom baut ein (Haltungen in den Block „Held je Klasse“, `hauptmenue.gd` statt des alten Bilds), 867 wird im Build getestet. B: neue Vorlage, ein Lauf.
 
