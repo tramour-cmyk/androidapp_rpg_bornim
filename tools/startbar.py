@@ -519,14 +519,15 @@ def plan(rolle):
 GRENZE_UNGETESTET = 6
 
 def ungetestet(rolle):
-    """620.1 B: eigene Muss-Zeilen eines Teams, gebaut oder zu testen; der Sammelbuild selbst (Zweig claude/build-…) zählt nicht."""
+    """620.1 B: eigene Muss-Zeilen eines Teams, gebaut oder zu testen; der Sammelbuild selbst (Zweig claude/build-…) zählt nicht,
+    Bereich B auch nicht (1128 A, Chef 13.11., 13:36: Werkzeuge schließt Diogenes mit „greift“, der Chef testet sie nie)."""
     if rolle not in UEBERNAHME: return 0
-    return sum(1 for d in zeilen_liste() if d["besitzer"] == rolle and d["kl"] == "M" and d["wort"] in ("gebaut", "zu testen")
-               and not (d.get("zweig") or "").startswith("claude/build-"))
+    return len(ungetestet_zeilen(rolle))
 
 def ungetestet_zeilen(rolle):
     return [d for d in zeilen_liste() if d["besitzer"] == rolle and d["kl"] == "M" and d["wort"] in ("gebaut", "zu testen")
-            and not (d.get("zweig") or "").startswith("claude/build-")]
+            and not (d.get("zweig") or "").startswith("claude/build-")
+            and not (d.get("bereich") or "").startswith("B ")]
 
 # 779: Wörter, die in fast jedem Titel eines Teams stehen und allein keine Überschneidung machen (Dorf, Höhle: ganzes Gebiet eines Teams)
 ALLGEMEIN = {"kampf", "mars", "chef", "build", "held", "helden", "gegner", "alt", "neu", "spiel", "test", "idee", "werte", "regel",

@@ -31,7 +31,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 | Rolle | Aufgabe | Rollendatei |
 |---|---|---|
-| **Chef** (Nutzer) | entscheidet Grundsätzliches und schwer Umkehrbares; testet jeden Code vor `main` | – |
+| **Chef** (Nutzer) | entscheidet Grundsätzliches und schwer Umkehrbares; testet jeden Code vor `main`, je Punkt in einer Art (1128 A) | – |
 | **Sokrates** | Stab des Chefs: Strategie, Markt, Geschäftsmodell, Chefrunde; auf Zuruf oder von `lauf.py` für eine Chefsache-Datei gestartet | `ROLLE-BERATUNG.md` |
 | **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen | `ROLLE-KREATIV.md` |
 | **Perikles** | Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe | `ROLLE-PROJEKT.md` |
@@ -66,7 +66,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 8. **Rückfragen sind Holschuld des Chefs:** **eine Rückfrage gilt nur mit Datei in `docs/chefsache/entscheiden/`** (Nummer = Dateiname); ohne Datei wartet keiner. Im Chat einmal die Nummer, beim Start der Satz aus 2, sonst nie wiederholen (außer „Vorrat leer, auf Chefsache n offen von mir“). Auf „Hast du Rückfragen?“ alle eigenen im Wortlaut. Aufträge anderer Sitzungen einmal mit Stellungnahme einbringen. „Kritisch: <Nr.>, weil …“ nur, wenn die Arbeit steht, einmal je Gespräch.
 9. **Melden:** Telegram ist das Protokoll: `/home/user/bornim-main/tools/meldung.sh <Name> "<Nr>: <Stand>"` (nie die Kopie im Arbeitszweig).
    - so ausführlich wie nötig, Inhalt nach Haltung 5; je Thema ein Absatz (`\n`); höchstens 4096 Zeichen, mit `--bild` 1024; Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
-   - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), Bewegung und Animiertes nur als Film mit `--film` (MP4, ohne Standbild; 381), nur der Prüfgegenstand, etwa dreimal, bis 15 s (1076); vor dem Senden selbst ansehen (Film: ein Standbild, nur für dich), dann sofort an den Chef, ohne Helfer und Probebild (655, 783 W1); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
+   - Standbilder als PNG mit `--bild`, Bewegung und Animiertes nur als Film mit `--film` (MP4, ohne Standbild; 381), nur der Prüfgegenstand, etwa dreimal, bis 15 s (1076); je Gegenstand ein Bild, Einzelheit als Ausschnitt, Großbild und Pixelprüfung `--datei`; Vergleich alt gegen neu in einem Bild, nie viele Gegenstände in einer Montage (1128 A); vor dem Senden selbst ansehen (Film: ein Standbild, nur für dich), dann sofort an den Chef, ohne Helfer und Probebild (655, 783 W1); Text vorher fremd prüfen (338.2); etwa alle 5 Minuten eine Standzeile;
    - im Chat erst Rückmeldungen beantworten, auch „Telegram, offen“ (658); Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
 
 ## Notizen nur auf `main`
@@ -77,7 +77,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 ## Feste Regeln
 
-- **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs (Kleinigkeit ohne Spiellogik: Push ohne Gerätetest vorschlagen, nur nach seinem Ja) · nie APK oder Hörprobe in den Chat.
+- **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs in der Art des Punkts (Handy, Bild oder Film, Gespräch, ohne ihn nur Bautest mit Laufnachweis; 1128 A, `LISTE-CHECK-BUILD-TEST.md` 9) · nie APK oder Hörprobe in den Chat.
 - **Umgang:** Deutsch, Berliner Zeit. Generisches Maskulinum, nie gegenderte Formen.
 - **Nummern:** je Thema ein Vorgang, nie Fremdes unter eine Nummer (412); jeder Vorgang über `vorgang.py neu` (Nummer aus dem Zähler in `ARBEIT-BETRIEB.md`, Zeile in der Vorgangsliste); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
 - **Jeder Text an einem Ort:** Stand in der Vorgangsliste; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text zu einem Vorgang wandert mit seiner Zeile.
@@ -87,7 +87,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
   - eine Übergabe je Rolle: nur Getanes, Nachfolger, ggf. „Letzte Antwort:“ (849), kein Stand; vor Pause oder Neustart pushen.
 - **Story und Dialoge:** Plot und Texte legen Chef und Homer fest; Verzeichnis `STORY-REGELN.md`, über die Marke `[Thema.kurz]` suchen, wortgetreu übernehmen, Englisch selbst übersetzen. Fehlt ein Text: Vorgang an Homer, nie erfinden. Tippfehler direkt korrigieren (Commit „Text:“).
 - **Chefsache:** je Punkt eine Datei, anlegen nur seine (Sokrates auch fremde); beantwortet heißt weg, samt Folgeauftrag im selben Commit (383.3, 783 W8; Regeln `docs/chefsache/README.md`, Bilder höchstens 60 KB). Entschieden wird in der Chefrunde mit Sokrates (`ROLLE-BERATUNG.md`).
-- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nicht „Thema“, nicht „Nummer“, nie „Blatt“; was beim Chef liegt: „Vorgang beim Chef“, 480). **Landkarte** → **Gebietskarte** (unter freiem Himmel) → **Grundriss** (hinter einem Eingang); übereinanderliegende Teile eines Grundrisses: **Ebene** (nie „Stockwerk“, nie für Kartenstufen). Kampfsystem **MARS**; wo gekämpft wird: **Kampfort** (nie „Bühne“). Menschen an der Seite des Helden: **Gefährte** oder **Söldner**, sonst **Begleiter**. Erster Schirm mit Auswahl: **Hauptmenü** (nie „Titelbild“; 292). Alle Begriffe mit Ober- und Unterbegriff: `LISTE-GLOSSAR.md` (648).
+- **Begriffe** (auch im Spiel): **Vorgang** („Vorgang 72s.1“, in Meldungen „72s.1:“; nie „Thema“, „Nummer“, „Blatt“; 480) · **Landkarte** → **Gebietskarte** → **Grundriss** → **Ebene** (nie „Stockwerk“, nie für Kartenstufen) · **MARS**, **Kampfort** (nie „Bühne“) · **Gefährte**, **Söldner**, sonst **Begleiter** · **Hauptmenü** (nie „Titelbild“; 292). Alle Begriffe: `LISTE-GLOSSAR.md` (648).
 ## Technik und Sicherheit
 
 - Nie committen: Keystore, Signatur-Passwort (nur GitHub-Secrets), `local.properties`, SDK-Pfad. App-Kennung `de.bornim.game` nie ändern.
