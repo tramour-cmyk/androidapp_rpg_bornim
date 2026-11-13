@@ -348,6 +348,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:04 13.11.: Marke Start-fehlt Tom 13.11.-07:14 (lauf.py)
 - 09:40 13.11.: Startsperre 09:40 Start Diogenes, Spike, Tuffy (lauf.py)
 - 09:45 13.11.: Startsperre 09:45 Start Diogenes (Ford, Auftrag Sokrates 09:45, Chef „Bitte, das ist wichtig“, Commit 9716c0200; Hoch, effort high)
+- 09:55 13.11.: Startsperre 09:55 Start Tom (Ford, Neustart-Meldung ce0c788bf, Nachfolger „Tom – 282: neue APK ausliefern“; Hoch, effort high)
+- 09:55 13.11.: Startsperre 09:55 Start Perikles (Ford, Nachfolger „Perikles – 1103: alte Bitte-Regel Kaufrepo streichen“ aus Übergabe 09:40, Neustart-Meldung 2330b0a6c; Hoch, effort high)
 - 09:40 13.11.: Marke Abgleich ganz 13.11. (lauf.py)
 - 09:40 13.11.: Marke Abgleich Vorentscheid 1090 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
 - 09:40 13.11.: Marke Abgleich Vorentscheid 492 ohne Datei in chefsache/billigen/ und ohne  (lauf.py)
