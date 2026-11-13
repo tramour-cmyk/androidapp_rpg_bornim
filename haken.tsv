@@ -108,3 +108,4 @@
 2026-11-13 20:22:11	commit-pruefung	docs/ROLLE-PROJEKT.md: 13341 Bytes, Obergrenze 13200, Commit fügt 159 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-13 20:24:20	commit-pruefung	LISTE-VORGAENGE.md: 1220: Zeile über 400 Zeichen (Einzelheiten als „Zu 1220“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-13 20:25:15	commit-pruefung	docs/chefsache/ansehen/1162-steinkreis.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
+2026-11-13 20:30:52	commit-pruefung	docs/ARBEIT-PROJEKT.md: Uhrzeit 20:36 liegt nach jetzt (20:30)	main
