@@ -10,6 +10,7 @@ Für `entscheiden/` und `billigen/`. Chef 09.11., 20:45 zu 758: „Ich verstehe 
 # <Nr.> · <die Frage an den Chef, als Frage>?
 <Absender> · <TT.MM.>, <HH:MM> · <Bereich, z. B. E Welt> · <Anlass, z. B. aus deinem Wort 14:29>
 Kurz: <ein Satz für die Übersicht>
+Beim Chef, weil: <Code auf `main` | Geld | Lizenz | Story | Aussehen | neue Richtung im Spielgefühl | Release | Rollen und Accounts>
 
 Geprüft an: <Link, Commit oder Lauf>
 
@@ -40,7 +41,7 @@ Bei `billigen/` (Vorentscheid, 194.1) statt **Votum** die Marke **Entschieden:**
 
 Probe 903 B (Chef 11.11., 07:46) über etwa zehn Vorlagen; Diogenes zählt, wie viele wegen der Form zurückkommen (905). Gesammelt, nicht neu: je Punkt die Quelle, dort gilt der Wortlaut. `probelauf.py` zeigt die Liste einmal je Sitzung, sobald ein Commit oder Push eine Datei in `entscheiden/`, `billigen/`, `tun/` oder `ansehen/` (außer Prüflisten `t<n>-…`, dafür `LISTE-CHECK-BUILD-TEST.md`) anlegt oder löscht.
 
-1. **Nur Chefsache:** was der Chef entscheiden, tun oder ansehen soll; was du nach deiner Rollendatei selbst entscheidest, entscheidest du (`CLAUDE.md` Zusammenarbeit 3, 8; Lehre 715).
+1. **Nur Chefsache:** in `entscheiden/` nur mit der Zeile „Beim Chef, weil:“ (oben, ein Punkt der Liste); passt keiner, entscheidet ein anderer: Arbeitsweise das Team, Vorrang Perikles, Abläufe Sokrates per Vorentscheid in `billigen/` (1129 A Punkt 1; `CLAUDE.md` Zusammenarbeit 3, 4).
 2. **Nummer zuerst:** `vorgang.py neu`, pushen, dann nennen; Dateiname die Nummer ohne Punkt (`CLAUDE.md` „Nummern“, „So geht's“).
 3. **Probe wie der spätere Bau** (Bekannte Fehler, 302.3); Bild mit Signatur, sonst in derselben Zeile der Vergleich „mit Tusche“ (457, Commit-Prüfung hält an). Eigenbau mit Zeile „Bestand geprüft: <Datei, Teil> genommen“ oder „… fehlt im Bestand“ (434).
 4. **Aufbau** nach „Zum Kopieren“ oben, ohne Vorwissen verständlich; Sachverhalt mit Quelle; in der Auswertung das stärkste Gegenargument (Haltung 1); das Votum sagt, was der Chef sagen oder tun soll (364, 799).
