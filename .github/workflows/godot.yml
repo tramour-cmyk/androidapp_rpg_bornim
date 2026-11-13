@@ -570,6 +570,7 @@ jobs:
           # 536 t268.20 (Jerry): Abstand der Ansagen der Wölfe zum Kopf, ohne und mit Namen, Schrift 1,0 und 1,3; meldet nur
           for f in 1.0 1.3; do SCHRIFT=$f timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/abstand_536.gd 2>&1 | grep -E "ABSTAND536|FEHLER|SCRIPT ERROR" || true; done
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ring_597.gd 2>&1 | grep -E "RING597|SCRIPT ERROR"   # 597 kein Ring ohne Ansage
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/ring_halt_1094.gd 2>&1 | grep -E "RINGHALT1094|FEHLER|SCRIPT ERROR"   # 1094 Ring steht nach dem Tippen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/ruhe_1007.gd 2>&1 | grep -E "RUHE1007|SCRIPT ERROR"   # 1007 Monster der Karte mit Ruhebewegung, Ruhelaut nur nah
           set -o pipefail; SEEDS=1,2 timeout 300 ~/godot/godot --headless --path . -s res://tests/schalter_1024.gd 2>&1 | grep -E "^(gut|FALSCH)|SCHALTER1024|SCRIPT ERROR"   # 1024 t278.8 Schalter nie unter dem Kasten, auch wenn er im Zug wächst
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/ruhe_977.gd 2>&1 | grep -E "RUHE977|SCRIPT ERROR"   # 977 Grimmzahn mit Ruhebewegung
@@ -587,7 +588,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/schirm_833.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug)|SCRIPT ERROR"   # 833 Vorschlag A unterer Kampfschirm
-          set -o pipefail; SEEDS=4 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/leiste_751.gd 2>&1 | grep -E "^  |LEISTE751"   # 751 A Knöpfe matt, „<Name> ist dran“, Zugleiste, kein verratener Ausgang (Jerry)
+          set -o pipefail; SEEDS=4 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/leiste_751.gd 2>&1 | grep -E "^  |LEISTE751"   # 751 A Knöpfe matt, keine Zeile „ist dran“ (1095), Zugleiste, kein verratener Ausgang (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/auto_945.gd 2>&1 | grep -E "^  Seed|AUTO945|SCRIPT ERROR"   # 945 Held und Söldner Auto bleiben abschaltbar (Jerry)
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wechsel_950.gd 2>&1 | grep -E "^(FEHLER|WECHSEL950|hero|merc|Abstand|Mira)|SCRIPT ERROR"   # 950 Platztausch mit Schritten
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/tausch_1041.gd 2>&1 | grep -E "^(FEHLER|TAUSCH1041|hero:|merc:|Abstand)|SCRIPT ERROR"   # 1041 Platztausch im selben Takt (Jägerkind/Wachsoldat); Umriss und Paar des Chefs mit 1072 (Bahnen), 1106

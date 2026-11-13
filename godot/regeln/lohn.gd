@@ -19,6 +19,11 @@ const TOPF := ["Hier hast du gelernt, was es zu lernen gab. Die Gegner dieser Ge
 # 1034 (Chef 12.11., 15:04, Siegfenster des Probekampfs: „Probe erhält 1404 EP … erreicht Heldenstufe 4, 5, 6“, obwohl nichts in den
 # Spielstand geht): mit dem Testhelden steht das zuerst da (Testmenü, kein Spieltext)
 const PROBE := ["Probekampf ohne Folgen: nichts davon geht in den Spielstand.", "Trial fight without consequences: none of this goes into the save."]
+# 1096 (Chef 13.11., 07:55: „Siegfenster so kürzen“): mit dem Testhelden statt EP, Gold, Stufen, Grenze und Heilsatz nur grau, was ein
+# echter Kampf brächte; die Beute bleibt (Testmenü, kein Spieltext)
+const ECHT := ["Ein echter Kampf brächte: {0}", "A real fight would bring: {0}"]
+const ECHT_EP := ["{0} EP", "{0} XP"]
+const ECHT_GOLD := ["{0} Gold", "{0} gold"]
 const RESTORED := ["Leben und Mana von {0} sind wieder voll.", "{0}'s life and mana are full again."]     # [870.14.lohn.voll]
 
 
@@ -47,7 +52,8 @@ static func erfahrung_des_siegs(mars, stufe: int) -> Dictionary:
 ## (Brs.neuer_stand: stufe, ep, ep_fert, toepfe), [gebiet] das Gebiet des Kampfs nach werte.json („Wald“, „Tiefer Wald“,
 ## „Höhle“; "" ohne Topf). [gear]: Ausrüstung, die die Welt für diesen Sieg gewürfelt hat (skripte/beute.gd), je {gear, name,
 ## rarity}, nach den Gegenständen genannt. [probe] (1034, Testheld): zuerst die Zeile PROBE, keine Schlüsseldinge (texte.json
-## „dinge“ art KEY) als Beute. Zurück {xp, gold, items, gear, level, levels, stand, lines}; [stand] selbst bleibt
+## „dinge“ art KEY) als Beute; 1096: dann grau ECHT mit EP und Gold, die Beute, sonst nichts (keine Stufen, Grenze, Heilsatz).
+## Zurück {xp, gold, items, gear, level, levels, stand, lines, grau}; grau: Nummern der Zeilen, die grau stehen; [stand] selbst bleibt
 ## unverändert, der neue Stand steht in „stand“, die Welt schreibt ihn gut. Leerer [stand]: Anfang der Stufe des Kämpfers.
 static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], probe := false) -> Dictionary:
 	assert(mars.outcome == "WON")
@@ -86,8 +92,23 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 				items.append(e.item)
 	var earned := roundi(float(r.gegeben))
 	var lines: Array = []
+	var grau: Array = []
 	if probe:
 		lines.append(PROBE[lang])
+		var was: Array = []
+		if earned > 0:
+			was.append(_f(ECHT_EP, lang, [earned]))
+		if gold > 0:
+			was.append(_f(ECHT_GOLD, lang, [gold]))
+		if not was.is_empty():
+			grau.append(lines.size())
+			lines.append(_f(ECHT, lang, [", ".join(was)]))
+		for it in items:
+			lines.append(_f(LOOT, lang, [[mars.items[it].de, mars.items[it].en][lang]]))
+		for g in gear:
+			lines.append(_f(GEAR_LOOT, lang, [g.name, g.rarity]))
+		return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": nachher,
+			"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau}
 	if earned > 0:
 		lines.append(_f(GAIN_XP, lang, [name, earned]))
 	if roh > 0.0 and vorher >= Brs.hoechste_stufe():
@@ -109,7 +130,7 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 	if nachher > vorher:
 		lines.append(_f(RESTORED, lang, [name]))
 	return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": nachher,
-		"levels": nachher - vorher, "stand": h, "lines": lines}
+		"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau}
 
 
 ## 1034: Geschichtsgegenstand (Schlüsselding), nie Beute eines Probekampfs mit dem Testhelden

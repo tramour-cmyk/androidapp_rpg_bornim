@@ -277,7 +277,10 @@ func _box(bg: Color, border: Color, pad_x: float, pad_y: float, rim_dp: float) -
 	var s := StyleBoxFlat.new()
 	s.bg_color = bg
 	s.border_color = border
-	s.set_border_width_all(maxi(1, int(round(rim_dp * dp))))
+	# 1102 (Chef 13.11., 281.14: Streifen Wald links und rechts neben dem Kampfbericht): StyleBoxFlat malt den Grund nur innerhalb des
+	# Rands; ein durchsichtiger Rand (833 A ohne Rahmen) ließ 1 dp Szene durchscheinen. Ohne Farbe kein Rand; die Ränder innen
+	# (content_margin) stehen fest, die Maße bleiben
+	s.set_border_width_all(0 if border.a <= 0.0 else maxi(1, int(round(rim_dp * dp))))
 	s.content_margin_left = pad_x * dp
 	s.content_margin_right = pad_x * dp
 	s.content_margin_top = pad_y * dp
@@ -812,7 +815,12 @@ func _summe_833(items: Array, fs: int, sperr: float) -> float:
 	return sum
 
 func _innen_833(n: int) -> float:
-	return get_viewport().get_visible_rect().size.x - 2 * 10 * dp - 2 * 6 * dp * (n - 1)
+	return _kasten_innen() - 2 * 6 * dp * (n - 1)
+
+## 1093: Breite im Kasten: Bildschirm ohne den Einzug um die Ecke (am Handy, panel.offset) und ohne die Ränder innen
+func _kasten_innen() -> float:
+	var sb := panel.get_theme_stylebox("panel")
+	return get_viewport().get_visible_rect().size.x - panel.offset_left + panel.offset_right - sb.get_margin(SIDE_LEFT) - sb.get_margin(SIDE_RIGHT)
 
 
 ## Die größte Schrift (höchstens 13 sp), mit der alle Aufschriften der Zeile passen, wenn jeder Knopf nach seiner Aufschrift breit ist.
@@ -858,18 +866,6 @@ func _naechster_eigener():
 		if o != null and o.side == "PARTY" and k.shown.hp.get(id, o.hp) > 0:
 			return o
 	return k.mars.lead()
-
-
-## 751 A: „<Name> ist dran“ über den Knöpfen, wer in der Zugleiste das ▶ trägt; Gruppe golden, Gegner rot wie dort.
-func _dran_zeile() -> Label:
-	var l := Label.new()
-	var wer = _vorn()
-	l.text = t("%s ist dran", "%s's turn") % wer.name(lang) if wer != null else " "
-	l.add_theme_font_size_override("font_size", sp(14))
-	l.add_theme_color_override("font_color", (GOLD if wer.side == "PARTY" else WARN) if wer != null else DIM)
-	l.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-	l.clip_text = true
-	return l
 
 
 func _target_label(f) -> String:
@@ -930,8 +926,8 @@ func _build_orders() -> void:
 		return
 	# 751 A (Chef 09.11., 17:46; t271–t273: „überhaupt keine Knöpfe mehr“, statt dessen „…“) und 833 A (10.11., 10:07: „Man kann es
 	# ja auch ausgrauen“): solange ein anderer zieht (der Kampfort spielt, busy), stehen die Befehlsknöpfe matt an ihrem Platz, darüber
-	# „<Name> ist dran“ nach der gezeigten Zugleiste, nie nach dem, was MARS schon vorausgerechnet hat. Die Zeile steht auch im eigenen
-	# Zug, so bleibt der Kasten gleich hoch (709: sonst passt die Kamera neu). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
+	# keine Zeile „<Name> ist dran“ mehr (1095, Chef 13.11., 07:55: „Ja, Zeile weg“; ▶ in der Zugleiste, Rahmen am Kasten und der Tipp
+	# auf den matten Knopf 833 sagen es schon), der Kasten bleibt in jedem Zug gleich hoch (709). Gefragt wird MARS dabei nicht: der Regelfaden rechnet
 	# gerade weiter. Söldner und Held Auto bleiben schaltbar, sie gelten ab der nächsten Wahl (mit dem Autopiloten ist der Kampfort
 	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
 	# 841 (807a A, STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Beginn „Kämpfen“ oder den Späher verjagen; der Knopf
@@ -947,7 +943,6 @@ func _build_orders() -> void:
 	var back := _button(t("Zurück", "Back"), true, func(): _set_pick("main"))
 	match "main" if matt else pick:
 		"main":
-			orders.add_child(_dran_zeile())
 			var reach: Array = [] if matt else m.targets(f)
 			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
@@ -1119,7 +1114,9 @@ func _ende_833() -> void:
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 0)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var breit := get_viewport().get_visible_rect().size.x - 2 * 10 * dp
+	# 1093 (Chef 13.11., Test 281: Siegschirm nach rechts gerutscht, rechts abgeschnitten): so breit wie das Innere des Kastens; am
+	# Handy steht er um die Bildschirmecke eingerückt (offset), die ganze Breite schob ihn um beide Einzüge nach rechts hinaus
+	var breit := _kasten_innen()
 	if won:
 		# [296.2.flucht] „Sieg.“ als Titel ohne Punkt
 		v.add_child(_mittig(t("Sieg", "Victory").to_upper(), Ortsblende.NAME_SP, GOLD, 3.0, breit))
@@ -1130,12 +1127,13 @@ func _ende_833() -> void:
 		v.add_child(Stil.luecke(12))
 		v.add_child(_mittig(satz, Ortsblende.SATZ_SP, TEXT, 0.6, breit))
 	var lohn: Array = k.reward.get("lines", []).duplicate()
+	var grau: Array = k.reward.get("grau", [])     # 1096: „Ein echter Kampf brächte …“ grau
 	if m.knockouts > 0:
 		lohn.append(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts))
 	if not lohn.is_empty():
 		v.add_child(Stil.luecke(10))
-		for z in lohn:
-			v.add_child(_mittig(String(z), 15, TEXT, 0.0, breit))
+		for i in lohn.size():
+			v.add_child(_mittig(String(lohn[i]), 15, DIM if grau.has(i) else TEXT, 0.0, breit))
 	v.add_child(Stil.luecke(12))
 	v.add_child(Spielstaende.linie())
 	var zurueck := Spielstaende.knopf("neben", t("Zurück", "Back"), func(): k.finish(), true)
@@ -1179,6 +1177,7 @@ var tip_nr := 0
 func ring_open(target_id: String, _intent: Dictionary) -> void:
 	ring_target = target_id
 	ring_t0 = uhr.call()
+	ring_stand = -1
 	pick = "main"
 
 
@@ -1186,7 +1185,22 @@ func ring_close() -> void:
 	ring_target = ""
 
 
+## 1094 (Chef 13.11., Test 281: „der bleibt nicht mehr stehen, der läuft durch, wenn ich drücke … er sagt dann zwar, dass ich perfekt
+## gedrückt habe, aber er lief durch“): nach der Antwort zeichnet kampfort den Ring noch 0,3 s (_play_ring); seit 1039 läuft der große
+## Ring über den kleinen hinaus weiter. Beim Tippen (und wenn die Zeit um ist) bleibt er jetzt stehen, wo er war.
+var ring_stand := -1
+
+func ring_halt() -> void:
+	if ring_stand < 0:
+		ring_stand = int(uhr.call())
+
+## ms seit dem Aufgehen des Rings, wie gezeichnet: nach der Antwort fest
+func ring_ms_bild() -> float:
+	return float((ring_stand if ring_stand >= 0 else int(uhr.call())) - ring_t0)
+
+
 func ring_verdict(r: String) -> void:
+	ring_halt()
 	verdict.text = {"PERFECT": t("Perfekt: ausgewichen", "Perfect: dodged"), "GOOD": t("Gut: halber Schaden", "Good: half damage"),
 		"NONE": t("Verpasst", "Missed")}[r]
 	verdict.visible = true
@@ -1464,12 +1478,12 @@ func _draw_overlay() -> void:
 		var fig = k.figures[ring_target]
 		var h := _tall(fig)
 		var c2 := _foot(fig) - Vector2(0, h * 0.45)
-		var p3 := clampf(float(uhr.call() - ring_t0) / k.RING_MS, 0.0, 1.3)
+		var p3 := clampf(ring_ms_bild() / k.RING_MS, 0.0, 1.3)
 		var r0 := h * 0.55
 		# 1039 (Chef 12.11., 15:04, Build 280: „tat ich mich ganz schwer, den inneren Ring zu sehen. Also wann ich überhaupt den Ring
 		# drücken muss“): der Zielring kräftig in Gold mit schwarzem Rand (alt 1,5 dp, Gold 55 %, ging vor Gras und Figur unter);
 		# im Fenster für „Gut“ leuchtet er auf, am hellsten im Fenster für „Perfekt“ (kampfort.gd GOOD_MS, PERFECT_MS)
-		var off_ms := absf(float(uhr.call() - ring_t0) - k.RING_MS)
+		var off_ms := absf(ring_ms_bild() - k.RING_MS)
 		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS) / float(k.GOOD_MS - k.PERFECT_MS), 0.0, 1.0)
 		var wi := (3.0 + 1.5 * jetzt) * dp
 		overlay.draw_arc(c2, r0, 0, TAU, 64, Color(0, 0, 0, 0.6), wi + 2.5 * dp, true)
