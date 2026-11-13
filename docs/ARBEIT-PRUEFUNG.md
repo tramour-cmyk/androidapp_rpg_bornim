@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (13.11., 11:43, `session_01Hmoj78EvBobSYTXdaNQzkv`):** Lauf 194: 1122 richtig gebaut, wartet auf t283. Lauf 195: 1100.1 erledigt, D195.1 → 1125 (Perikles), 1100 wartet darauf (Prüfbericht; Zugtabelle nur in dieser Sitzung). Rollenspiegel 13.11. schon beantwortet. Nächste Nummer D196. Nachfolger: keiner
+**Übergabe (13.11., 11:43, `session_01Hmoj78EvBobSYTXdaNQzkv`):** Läufe 194–196 (Prüfbericht): 1122, 1111, 1112 warten auf t283 (dann Prüfpunkte aus Jerrys bzw. meinem „Zu“); 1100.1 erledigt, D195.1 → 1125; D196.1 → 1126, D196.2 → 1127. Rollenspiegel 13.11. beantwortet. Nächste Nummer D197. Nachfolger: keiner
 - **Zu 1122:** am ersten Lauf auf `claude/build-283` Zeile „PRUEFLISTE1020 im Bau: Build 283“; nach `main` ein Lauf auf einem Teamzweig `…-348-…` mit „PRUEFLISTE1020 aus“; beides → `greift 1122 194`.
 - **Zu 1019:** wenn 1098 gebaut: erneut Selbstneustarts gegen `used_tokens` und Tiefe (Elternkette) prüfen.
 - **Zu 1098, 1098.1, 1019, von Perikles (13.11., 11:43, `80d123de8`): Chef 09:18 „1098 A, vorher D prüfen“; Probe D gescheitert (11:05), A gilt.** Alle drei warten bis 14.11. (Ford lief 11:09 auf Tiefe 5, der nächste Selbstneustart führt zum Handstart, erst dieser legt den Starter an). Prüfen: Ford-Starter (`LISTE-BETRIEB.md` „Ford-Starter“) legt erst der nächste Handstart-Ford an; prüfen nach dem ersten Neustart über ihn: Starter auf Tiefe 1, neuer Ford auf 2 (Elternkette = Starter), Protokoll „Start Ford (Starter)“, alter Ford archiviert, Uhr übernommen. Gab es bis dahin keinen Handstart: nur melden, nicht bewerten.
@@ -29,7 +29,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
-- **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
+- **Zu 719:** Wochenzählung kommt montags als Vorgang „Wochentermin …“; danach erledigt setzen.
 - **Zu 724, 755:** Bereich B mit „gebaut“ kommt als „wartet auf Diogenes“ zu mir; greift → `vorgang.py greift NR LAUF`, Lücke → eigener Vorgang und `warte NR <Lücke>`.
 
 - **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** in der Wochenzählung neben „ganze Punkte x von 41“ die Teilhaken je Punkt nennen („2.13: 6 von 19“); ganze Punkte bleiben daneben stehen.
