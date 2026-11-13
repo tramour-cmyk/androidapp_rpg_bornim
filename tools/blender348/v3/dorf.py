@@ -1950,7 +1950,15 @@ for r in range(R0, R1 + 1):
                 def zu(): B(-1.0, -0.55, -0.16, -0.45, 54, 66, oak, 'holz'); B(-0.26, -0.56, -0.2, -0.44, 53.3, 66.7, iron, 'weiss')
             eigenes('Schlagbaum_zu_%d_%d' % (c, r), zu)
         elif t == 'h':
-            with use('bretter'): box(DORF, (p.x - TS / 2 - 1, p.y - TS / 2 - 1, -6), (p.x + TS / 2 + 1, p.y + TS / 2 + 1, 4), W1)
+            # 1218 (Chef 13.11., 20:07: „die Brücke … geht eigentlich gar nicht richtig bis zum Weg … die Brücke schwebt. Über dem
+            # Wasser“): das Ufer reicht in die Wegkachel, der Steg endete genau an der Kachelkante über dem Wasser; jetzt liegt er an jedem
+            # Ende, an dem kein Steg weitergeht, ein Stück auf dem Weg auf (STEG_AUF cm; der Steg liegt mit -6 bis 4 cm ohnehin auf Bodenhoehe)
+            STEG_AUF = 34
+            nord = STEG_AUF if ch(c, r - 1) not in 'h' else 1
+            sued = STEG_AUF if ch(c, r + 1) not in 'h' else 1
+            with use('bretter'):
+                box(DORF, (p.x - TS / 2 - 1, p.y - TS / 2 - sued, -6), (p.x + TS / 2 + 1, p.y + TS / 2 + nord, 4), W1)
+
             with use('holz'):
                 for s in (-1, 1):
                     if ch(c + s, r) != 'h':
