@@ -425,6 +425,23 @@ const V := {
 			]
 		]
 	},
+	"504.osric.verband": {
+		"w": false,
+		"v": [
+			[
+				[
+					"Wenn du draußen blutest, bin ich nicht bei dir. Nimm Verbände mit, für ein paar Münzen.",
+					"Out there, if you bleed, I won't be with you. Take some bandages, for a few coins."
+				]
+			],
+			[
+				[
+					"Saubere Leinen, fest gerollt: Verbände für unterwegs. Der Tempel gibt sie für ein paar Münzen.",
+					"Clean linen, tightly rolled: bandages for the road. The temple sells them for a few coins."
+				]
+			]
+		]
+	},
 	"504.osric.bitte": {
 		"w": false,
 		"v": [

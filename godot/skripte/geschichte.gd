@@ -127,6 +127,8 @@ static func gespraech(id: String, s: Zustand) -> Array:
 				k.variante(s, "504.osric.gruss.danach", osric, [["Gesegnet seist du, {name}. Lass mich deine Wunden versorgen.", "Blessings upon you, {name}. Let me tend to your wounds."]])
 			k.rest()
 			k.variante(s, "504.osric.heilung", {}, [["Ein warmes Licht umhüllt dich. Leben und Mana sind wieder voll.", "A warm light surrounds you. Life and mana are full again."]])
+			# 842/1088 (Homer 13.11.): Osric bietet die Verbände an, vor und nach Lyras Rettung, unmittelbar vor „Kaufen ›“
+			k.variante(s, "504.osric.verband", osric, [["Mein Licht reicht nicht bis in den Wald. Aber für den Weg habe ich Verbände.", "My light doesn't reach into the forest. But for the road, I have bandages."]])
 			var laden := Skript.new()   # 842: Verbände kaufen, nur auf den Knopf (Heilen bleibt ein Tippen)
 			laden.shop_nur(OSRIC_STOCK)
 			Sprache.lade()
