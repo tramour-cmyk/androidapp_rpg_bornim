@@ -295,3 +295,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 13.11.: Marke Start-fehlt Diogenes 13.11.-00:04 (lauf.py)
 - 01:04 13.11.: Marke Start-fehlt Homer 13.11.-00:04 (lauf.py)
 - 01:04 13.11.: Marke Start-fehlt Spike 13.11.-00:04 (lauf.py)
+- 01:05 13.11.: Lauf 01:04: Perikles …75rgvDKLnLFNBy5fwU „Perikles – Spiegel“ gestartet (Rollenspiegel Woche 13.11., Hoch, effort high). Spike-Start für Tom-Spiegel nicht ausgeführt (den Spiegel beantwortet Tom selbst am Ende seiner Sitzung, nicht Spike). Homer …78hsRUK9YPNgLSCKor (3,08 $ auf 1088) und Diogenes …78w2wPxieifiNqTSWc (1,98 $ auf 1087) archiviert. Tuffy 1055 wartet auf Chef-Test (Build 281).
