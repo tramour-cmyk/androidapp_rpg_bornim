@@ -702,6 +702,8 @@ jobs:
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/krogg_494.gd 2>&1 | grep -E "Krogg|KROGG|FEHLER|SCRIPT ERROR"   # 494 Krogg, Morwens Rauch
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/halt_872.gd 2>&1 | grep -E "^(gut|FALSCH)|HALT872|SCRIPT ERROR"   # 872 Klinge im Hiebplan nach Halt (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/absicht_1049.gd 2>&1 | grep -E "^FALSCH|ABSICHT1049|SCRIPT ERROR"   # 1049 Absichten je Art aus werte.json gleich der alten Wahl (Jerry)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/zweikampf_1025.gd 2>&1 | grep -E "^(ok|FALSCH)|ZWEIKAMPF1025|SCRIPT ERROR"   # 1025 ein Kampf zur Zeit, Kampfort danach abgebaut (Jerry)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/welt_548.gd 2>&1 | grep -E "^(gut|FEHLER)|WELT_548|SCRIPT ERROR"   # 548, 1025: Kampf aus der Welt, Bedienung; lief in keinem Bauablauf (Laufnachweis 1128 A)
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/spinne_494.gd 2>&1 | grep -E "Spinne|SPINNE|FEHLER|SCRIPT ERROR"   # 494 Riesenspinne, drei Häute
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/skelett_506.gd 2>&1 | grep -E "Skelett 506|SKELETT506|FEHLER|RUHE|SCRIPT ERROR"   # 506 Skelette: Regeln, drei Kits; 1006: RUHE (Stellen der Schleife)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/versatz_1006.gd 2>&1 | grep -E "^(FEHLER|VERSATZ1006)|SCRIPT ERROR"   # 1006 Grundschleife nie im Gleichklang (ohne Kauf)

@@ -586,7 +586,32 @@ const KAMPF_TASCHE := ["potion", "greater_potion", "superior_potion", "remedy", 
 
 ## 1034: [spielprobe] Probekampf aus dem Reiter Test mit dem Spielhelden: alles zählt wie im Spiel (ohne [probe]), dazu der Söldner
 ## der Wahl, Gegnerzug, Ausweichen und „Nochmal“; nach „Nochmal“ ist der Lohn gutgeschrieben und es kommt "AGAIN" zurück
+## 1025 (Chef 12.11., 10:25–10:28, Build 278): ein Kampf zur Zeit. Der Weg in den Wald und der Probekampf aus dem Reiter „Test“ setzten
+## `im_kampf` nie, darum zog die Herde weiter (`_process` → `herde.schritt`) und ihr Angriff begann mitten im laufenden Kampf einen
+## zweiten: zwei Kampforte übereinander (schwarzes Bild, wenige Bilder/s), nach dem Ende blieb die Kampfoberfläche über der Karte, weil
+## der zweite Kampf Welt und Umgebung erst wieder einschaltete, als der erste sie schon abgebaut hatte. Jetzt sperrt der laufende Kampf
+## jeden weiteren Aufruf (Ergebnis „NONE“) und hält die Welt an; danach lassen die Monster den Helden kurz in Ruhe wie nach einem Kampf
+## auf der Karte (herde.gd nach_kampf, alt Game.peaceUntil).
+var kampf_laeuft := false
+
 func kampf_im_wald(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0, spielprobe := false) -> String:
+	if kampf_laeuft:
+		push_warning("1025: ein Kampf läuft schon, %s beginnt nicht" % gegner)
+		return "NONE"
+	kampf_laeuft = true
+	var kampf_vorher := im_kampf
+	im_kampf = true
+	var ergebnis: String = await _kampf_lauf(zurueck, gegner, probe, eroeffnung, nr, spielprobe)
+	kampf_laeuft = false
+	im_kampf = kampf_vorher
+	# Schonzeit wie nach einem Kampf auf der Karte, auch nach Probekampf und Waldkampf; sie deckt auch die wenigen Bilder, in denen
+	# „Nochmal“ (Ergebnis AGAIN) denselben Probekampf wieder aufbaut
+	if herde:
+		herde.frieden_bis = herde.jetzt + 2500
+		herde.schonzeit = 3
+	return ergebnis
+
+func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeffnung := "", nr := 0, spielprobe := false) -> String:
 	# 1020.2 B: Held, Söldner, Leben, Tasche und Tageszeit des Probekampfs nach der Wahl im Reiter Test (Testmodus.probe_aufbau)
 	var pa: Dictionary = {} if probe.is_empty() else Testmodus.probe_aufbau(String(probe[0]), int(probe[1]), zustand.name)
 	var hw: BrsHeld = held_werte() if probe.is_empty() else pa["held"]
