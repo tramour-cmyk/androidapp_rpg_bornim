@@ -390,3 +390,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 13.11.: Lauf 12:04: Start Diogenes „Pflege“ (nur Kür) ausgelassen
 - 12:04 13.11.: Marke Archiv session_01Hmoj76bi2dhnXLC43LUzuG (lauf.py)
 - 12:04 13.11.: Marke Archiv session_01Hmoj78EvBobSYTXdaNQzkv (lauf.py)
+- 12:08 13.11.: Startsperre 12:08 Start Sokrates (Neustart-Meldung 9a9f062bf, Nachfolger „Sokrates – 1128: Prüfumfang, zweite Meinung Perikles“; Hoch)
