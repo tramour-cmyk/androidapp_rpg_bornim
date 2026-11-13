@@ -83,7 +83,7 @@ func _ready() -> void:
 	ui.gewaehlt.connect(_rast_wahl)
 	licht.nacht_geaendert.connect(_nacht)
 	Leute.uhr = func(): return zustand.minuten   # 390 Tagesablauf
-	Leute.frueh_heim = func(id: String) -> bool: return Geschichte.frueh_heim(id, zustand)   # 842: Pim nach dem Heimschicken
+	Leute.daheim = func(id: String) -> Array: return Geschichte.daheim(id, zustand)   # 1108: Pim nach dem Heimschicken bei seiner Huette
 	Rand.beim_start = Rand.oben(get_viewport())
 	add_child(Rand.band(Rand.beim_start))   # 399.4: schwarz, was die Kamera des Handys verdeckt
 	# 399: Hauptmenue und Erschaffung zuerst, ausser bei Probelaeufen am Rechner (--bilder, --figuren …, Tests ohne Fenster)
@@ -289,7 +289,7 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
 	# Funktion auf dieses Spiel, Godot raeumt statische Variablen erst nach den Knoten ab; beim Verlassen des Baums loesen
-	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable(); Leute.frueh_heim = Callable()
+	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable(); Leute.daheim = Callable()
 
 func _nacht(k: float) -> void:
 	kamera.nacht = k   # 348.13b: Tusche nach Laterne, Fenster, Fackel
@@ -466,16 +466,25 @@ func _aktion() -> void:
 			# 611 (Chef 07.11., 268.8: „Klopfen sollte deutlicher sein“): man hoert es klopfen wie alt (Game.kt 1024: Sound.KNOCK, 215.1,
 			# drei Aufnahmen knock_1–3); in Godot fehlte der Klang ganz
 			klang("effekt", ["knock"])
-			var dankt := karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_dankt(zustand)   # 842 [807.pim.dank], einmal
-			var anders := Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
+			# 1086 (Chef 13.11., 10:23: „Pim ist ja noch zu sehen, also er kann nicht zu Hause sein“): gedankt wird erst, wenn Pim angekommen
+			# ist; rennt er noch, ist er nicht da ([504.tuer.pim]), der Dank kommt beim naechsten Klopfen
+			var pim_unterwegs := karte.id == "village" and z == Geschichte.PIMS_TUER and pim_rennt_heim()
+			var dankt := karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_dankt(zustand) and not pim_unterwegs   # 842 [807.pim.dank], einmal
+			var anders := {} if pim_unterwegs else Geschichte.klopfen(karte.id, z, zustand)   # 540: nach Kapitel 1 sagt 12/5 etwas anderes
 			if dankt:
 				zustand.setze(Geschichte.PIM_DANK)
 				anders = {"de": String(anders["de"]).replace("{name}", zustand.name), "en": String(anders["en"]).replace("{name}", zustand.name)}
 			var gesagt: Array = [{"text": anders}] if not anders.is_empty() else variiere(a["klopfen"]["nacht" if nachts else "tag"])   # 504.1 Varianten
 			# 1086 [1085.pim.dank]: nach dem ersten Heimschicken fuer Gold dankt die Mutter einmal, ohne Ruf; nach [807.pim.dank], wenn beide anliegen
-			if not dankt and karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_gold_dankt(zustand):
+			if pim_unterwegs: pass
+			elif not dankt and karte.id == "village" and z == Geschichte.PIMS_TUER and Geschichte.pim_gold_dankt(zustand):
 				zustand.setze(Geschichte.PIM_GOLD_DANK)
 				gesagt = Geschichte.PIM_GOLD_DANK_TEXT.map(func(t): return {"text": {"de": String(t["de"]).replace("{name}", zustand.name), "en": String(t["en"]).replace("{name}", zustand.name)}})
+			elif not dankt and Geschichte.pim_tuer_daheim(karte.id, z, zustand):   # 1108 [1108.tuer.pim.daheim] statt [504.tuer.pim]
+				var mk := "1108.tuer.pim.daheim"
+				var i := Skript.wahl(zustand, mk, Geschichte.PIM_TUER_DAHEIM.size())
+				zustand.varianten[mk] = [int((zustand.varianten.get(mk, [0, -1]) as Array)[0]) + 1, i]
+				gesagt = [{"text": Geschichte.PIM_TUER_DAHEIM[i]}]
 			ui.sage(zeilen(Geschichte.klopf_sprecher(karte.id, z, gesagt)))   # 629.1 mit dem Namen der Stimme
 			zustand.setze("heard_%d_%d" % [z.x, z.y])   # 399.1 Karte: wer hier wohnt (MapPeople.heard)
 		return
@@ -483,6 +492,13 @@ func _aktion() -> void:
 		ui.sage(zeilen(a.get("abgewiesen", [])))
 		return
 	geh_hinaus(a)
+
+## 1086: Pim ist heimgeschickt und rennt noch zu seiner Huette (leute.gd eilt)
+func pim_rennt_heim() -> bool:
+	if leute == null: return false
+	for l in leute.get_children():
+		if l is Leute and String(l.daten.get("id", "")) == "pim" and l.eilt: return true
+	return false
 
 func _stoesst(t: Vector2i) -> void:
 	if await _schiebt(t): return

@@ -46,7 +46,7 @@ var ruhe_bis := -1.0                   # 397: Wechsel der Ruhebewegung (Gebiet.r
 var streifen_n := 0                    # Kacheln um heim (alt wander; mit Tagesplan der des Orts)
 var drinnen := false                   # 390 (5la): an der Tuer fuer die Nacht hineingegangen: nicht zu sehen, nicht im Weg
 static var uhr := Callable()           # 390: Minute des Tages (spiel.gd, Zustand.minuten)
-static var frueh_heim := Callable()    # 842: (id) -> true, wer heute schon heimgegangen ist und drinnen bleibt (Geschichte.frueh_heim)
+static var daheim := Callable()        # 1108: (id) -> [x, y, streifen] wo die Person tagsueber daheim bleibt, [] sonst (Geschichte.daheim)
 static var still := false              # 390: waehrend eines Gespraechs bleiben alle stehen (Mode.Dialog)
 # 416.8 (Chef 31.10., 20:5x: „NPC dreht sich bei Interaktion zum Helden, nach etwa 10 s ignoriert er ihn wieder und spielt Leerlauf“;
 # alt Game.talk npcFacing): angesprochen wendet sich die Person dem Helden zu und folgt ihm mit dem Blick; ZUGEWANDT s nach dem
@@ -151,6 +151,12 @@ const FLUCHT_LEINE := 4                # Kacheln um heim (MapHen.LEASH)
 const WACHSAM := 2.5                   # s (MapHen: WARY 2500 ms)
 const FLUCHT_TEMPO := 1.3              # Rennen etwas schneller als gebacken
 var flucht := false                    # rennt gerade vor dem Helden weg (klang.gd: Gackern, Flügel)
+# 1086 (Chef 13.11., 10:22, t282.9: „sagt der Text, er … rennt heim. Fakt ist, er steht ja bei mir“): wer eben heimgeschickt wurde
+# (Leute.daheim wird nicht leer), rennt gleich nach dem Gespraech sichtbar dorthin, ohne sich dem Helden noch zuzuwenden; angekommen
+# (innerhalb des Streifens) bleibt er dort wie 1108. Schneller als der rennende Held (3,68 m/s), damit er vor ihm an der Tuer ist
+var eilt := false
+var war_daheim := false
+var eil_m := 0.0                       # m/s der Bewegung Rennen der Person (heldfigur.gd rennen_m_je_s), 0: keine
 var renn := 0.0                        # m/s der Bewegung Rennen bei Tempo 1 (0: keine, dann Gehen doppelt)
 var renn_soll := 0.0                   # m/s, wie kauftier.py es meint (Weg mal Tempo)
 
@@ -271,11 +277,13 @@ func plan_jetzt() -> Array:
 	if p.is_empty() or not uhr.is_valid(): return []
 	var m := int(uhr.call())
 	var st: Array = p[p.size() - 1]
-	if frueh_heim.is_valid() and bool(frueh_heim.call(String(daten["id"]))):   # 842: heim und hinein wie zur Nacht
-		for e in p:
-			if bool(e[4]): return e
 	for e in p:
 		if int(e[0]) <= m: st = e
+	# 1108 (Chef 13.11., 09:38): Pim nach dem Heimschicken tagsueber bei seiner Huette statt am Schlagbaum, nachts drinnen wie sonst
+	var dh: Array = daheim.call(String(daten["id"])) if daheim.is_valid() else []
+	if not dh.is_empty() and not war_daheim and not bool(st[4]): eilt = absi(kachel.x - int(dh[0])) + absi(kachel.y - int(dh[1])) > int(dh[2])   # 1086
+	war_daheim = not dh.is_empty()
+	if not dh.is_empty() and not bool(st[4]): return [st[0], int(dh[0]), int(dh[1]), int(dh[2]), false]
 	return st
 
 func _ready() -> void:
@@ -421,6 +429,7 @@ func baue_kauf(info_datei: String) -> bool:
 	if wg != "" and anim and anim.has_animation("Gehen_" + wg) and float(modell.get_meta("gang_gehen_m_je_s", 0.0)) > 0.01:
 		geh_anim = "Gehen_" + wg
 		gang = float(modell.get_meta("gang_gehen_m_je_s"))
+	eil_m = float(modell.get_meta("rennen_m_je_s", 0.0))   # 1086
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)
@@ -431,6 +440,11 @@ func baue_kauf(info_datei: String) -> bool:
 	return true
 
 func tempo_soll() -> float: return gehen if gehen > 0.0 else gang
+# m/s, die die Figur jetzt anstrebt: Flucht (591), Heimrennen (1086) oder Gehen
+func laufe_soll() -> float:
+	if flucht: return flucht_tempo()
+	if eilt: return eil_m if eil_m > 0.0 else karte.laufen * 1.15   # ohne Rennen der Figur etwas schneller als der rennende Held
+	return tempo_soll() * TEMPO
 
 # 348.6 Leute Runde 4b (Chef 25.10., 21:33: „Wieso tragen die … NPC nicht Objekte“): Stab, Speer, Hammer als eigene .glb aus
 # Jerrys waffen.py (Modellregel 4, daten/waffen/<kennung>.bin, Griff = Ursprung, Schaft nach +Y) in der rechten Faust; die Haltung
@@ -613,8 +627,8 @@ func _process(dt: float) -> void:
 		anim.speed_scale = 1.0
 
 func stehen(dt: float) -> void:
-	if fort_nach.x >= 0 and not still: zugewandt_bis = 0   # 492: wer fortgeht, geht gleich nach dem Gespraech (Game.leave)
-	var s := schaut_her(dt) and fort_nach.x < 0   # zaehlt den Stillstand des Helden auch waehrend des Gespraechs und danach; wer fortgeht (492), schaut nicht her
+	if (fort_nach.x >= 0 or eilt) and not still: zugewandt_bis = 0   # 492: wer fortgeht, geht gleich nach dem Gespraech (Game.leave); 1086 wer heimrennt
+	var s := schaut_her(dt) and fort_nach.x < 0 and not eilt   # zaehlt den Stillstand des Helden auch waehrend des Gespraechs und danach; wer fortgeht (492), schaut nicht her
 	if zugewandt_bis > 0:
 		if still: zugewandt_bis = Time.get_ticks_msec() + int(ZUGEWANDT * 1000)   # waehrend des Gespraechs zaehlt die Zeit nicht
 		if Time.get_ticks_msec() < zugewandt_bis and held:
@@ -767,7 +781,9 @@ func tagesplan() -> bool:
 	if drinnen:
 		warte = 5.0
 		return true
-	if absi(kachel.x - ort.x) + absi(kachel.y - ort.y) <= streifen_n: return false
+	if absi(kachel.x - ort.x) + absi(kachel.y - ort.y) <= streifen_n:
+		eilt = false   # 1086: daheim angekommen
+		return false
 	gehe_nach(ort)
 	if absi(ziel.x - ort.x) + absi(ziel.y - ort.y) <= streifen_n and ziel.x >= 0: warte = zufall.randf_range(5.0, 10.0)
 	return true
@@ -803,14 +819,14 @@ func laufe(dt: float) -> void:
 	var zp := karte.kachel_pos(ziel)
 	var to := zp - position
 	to.y = 0
-	var tempo := (flucht_tempo() if flucht else tempo_soll() * TEMPO) / karte.schritt(ziel)
+	var tempo := laufe_soll() / karte.schritt(ziel)
 	var soll := atan2(to.x, to.z)
 	rotation.y = drehe(rotation.y, soll, DREH * (2.0 if flucht else 1.0) * dt)   # 591: rennend schnell herum (MapHen.TURN_RUN)
 	var ab := absf(angle_difference(rotation.y, soll))
 	tempo *= lerpf(BOGEN_TEMPO, 1.0, (cos(ab) + 1.0) * 0.5)
 	# 416.4: anlaufen und vor dem letzten Schritt langsamer werden wie der Held (Held.tempo_schritt, Held.bremse)
-	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), tempo_soll() * TEMPO)   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
-	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, flucht_tempo() if flucht else tempo_soll() * TEMPO, dt)
+	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), laufe_soll())   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
+	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, laufe_soll(), dt)
 	tempo = tempo_jetzt
 	var s := tempo * dt
 	if ab < BOGEN and to.length() <= s:
@@ -828,12 +844,14 @@ func laufe(dt: float) -> void:
 	if anim:
 		# 591: auf der Flucht das Rennen (Huhn, Kaninchen aus kauftier.py), sonst Gehen (mit getragenem Ding geh_anim, 417)
 		var gangart := "Rennen" if flucht and renn > 0.0 and anim.has_animation("Rennen") else geh_anim
+		var rennt := eilt and eil_m > 0.0 and anim.has_animation("Rennen")   # 1086
+		if rennt: gangart = "Rennen"
 		if anim.current_animation != gangart:   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
 			# 416.4: aus dem Stand weich (Held.ueberblendung, 0,5 s statt 0,18 s); der Schritt beginnt an zufaelliger Stelle, nur
 			# beim Anlaufen (die Pause steht noch voll im Bild, der Sprung im Gang faellt nicht auf)
 			anim.play(gangart, 0.15 if flucht else Held.ueberblendung(anim.current_animation, true))
 			anim.seek(zufall.randf() * anim.current_animation_length)
-		anim.speed_scale = tempo / (renn if gangart == "Rennen" else gang)
+		anim.speed_scale = tempo / (eil_m if rennt else (renn if gangart == "Rennen" else gang))
 
 # 416.8: im Stehen zu blick drehen; ab WENDE_AB mit Schritten (Drehen_L/R), der Knoten folgt der Kurve der Bewegung; Ziel erreicht
 # oder Bewegung zu Ende: zurueck ins Stehen, ist noch viel uebrig, gleich die naechste Wende (180 Grad = zwei)

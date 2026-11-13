@@ -54,11 +54,11 @@ func _lauf() -> void:
 	pruefe(i_vor >= 0 and i_kn > i_vor, "Knopf nach der Zeile [504.pim.vor]")
 	var ja: Array = kn["probe"]["ja"]; var nein: Array = kn["probe"]["nein"]
 	var ja_fl := ja.filter(func(c): return String(c["art"]) == "flagge").map(func(c): return String(c["flagge"]))
-	pruefe(ja_fl.has("pim_home_3") and ja_fl.has(Geschichte.PIM_HEIM), "gelingt: heute heim und einmal gelungen (%s)" % [ja_fl])
+	pruefe(not ja_fl.has("pim_home_3") and ja_fl.has(Geschichte.PIM_HEIM), "gelingt: einmal und für immer heim, keine Tagesflagge (1108; %s)" % [ja_fl])
 	pruefe(texte(ja)[0] == "Na gut. Aber nur, weil du es bist." and texte(ja)[1] == "Pim trottet heim, mit einem letzten Blick zum Schlagbaum.", "gelingt, Wortlaut 1: %s" % [texte(ja)])
 	var erz := ja.filter(func(c): return String(c["art"]) == "sagen")
 	pruefe(erz[0].has("wer") and not erz[1].has("wer"), "Pim spricht, dann erzählt ohne Namen")
-	pruefe(nein.any(func(c): return String(c["art"]) == "flagge" and String(c["flagge"]) == "pim_tried_3") and texte(nein)[0] == "Ich bin doch schon groß! Und Jorin hält eh Wache.", "misslingt: heute versucht, [807.pim.nein]")
+	pruefe(nein.any(func(c): return String(c["art"]) == "flagge" and String(c["flagge"]) == "pim_tried_3") and nein.any(func(c): return String(c["art"]) == "flagge" and String(c["flagge"]) == "pim_fail_1") and texte(nein)[0] == "Ich bin doch schon groß! Und Jorin hält eh Wache.", "misslingt: heute versucht, erster Fehlschlag gezählt, [807.pim.nein]")
 	# alle drei Wortlaute je Marke, nie derselbe zweimal hintereinander
 	var gesehen := {}
 	var zz := Zustand.new(); zz.minuten = 10 * 60
@@ -80,21 +80,57 @@ func _lauf() -> void:
 	pruefe(not knopf_in(Geschichte.gespraech("pim", z)).is_empty(), "am nächsten Tag wieder")
 	z.setze("chapter1_done")
 	pruefe(knopf_in(Geschichte.gespraech("pim", z)).is_empty(), "nach Kapitel 1 kein Knopf")
+	# 1108 A (Chef 13.11., 09:38): höchstens drei Fehlschläge, einer je Tag; beim dritten [1108.pim.nein.letzt], danach nur noch Gold
+	var f := Zustand.new(); f.minuten = 10 * 60; f.tag = 20; f.gold = 0
+	f.setze("pim_fail_1"); f.setze("pim_fail_2")
+	var n3: Array = knopf_in(Geschichte.gespraech("pim", f))["probe"]["nein"]
+	pruefe(n3.any(func(c): return String(c["art"]) == "flagge" and String(c["flagge"]) == "pim_fail_3") and texte(n3) == ["Red, so viel du willst. Ich geh nicht heim. Nie!", "Pim dreht dir den Rücken zu. Mit Worten erreichst du bei ihm nichts mehr."], "dritter Fehlschlag: [1108.pim.nein.letzt] %s" % [texte(n3)])
+	var n3s := n3.filter(func(c): return String(c["art"]) == "sagen")
+	pruefe(n3s[0].has("wer") and not n3s[1].has("wer"), "Pim spricht, dann erzählt")
+	f.setze("pim_fail_3"); f.tag = 21
+	pruefe(knopf_in(Geschichte.gespraech("pim", f)).is_empty(), "nach drei Fehlschlägen ohne Gold kein Knopf")
+	f.gold = 7
+	var kg := knopf_in(Geschichte.gespraech("pim", f))
+	pruefe(not kg.is_empty() and not kg.has("probe") and String(kg["knopf"]["de"]) == "Gib Pim 5 Gold", "nach drei Fehlschlägen bleibt nur Gold: %s" % [kg.get("knopf", {})])
+	# einmal heim (Überreden oder Gold): danach keine Wahl mehr, tagsüber bei der Hütte [1108.pim.huette] statt [504.pim.vor]
+	for fl in [Geschichte.PIM_HEIM, Geschichte.PIM_GOLD_HEIM]:
+		var hz := Zustand.new(); hz.minuten = 10 * 60; hz.tag = 30; hz.gold = 50; hz.setze(fl)
+		var hb := Geschichte.gespraech("pim", hz)
+		pruefe(knopf_in(hb).is_empty() and texte(hb)[0] == "Mama lässt mich nicht mehr zum Schlagbaum. Also bau ich mir hier einen.", "%s: keine Wahl mehr, [1108.pim.huette] %s" % [fl, texte(hb)])
+		hz.setze("chapter1_done")
+		pruefe(texte(Geschichte.gespraech("pim", hz))[0] == "Wenn ich groß bin, werde ich auch ein Held! Genau wie du!", "%s: nach Kapitel 1 [504.pim.danach]" % fl)
 
-	# Pim geht heim und bleibt drinnen, nur heute
+	# 1108: Pim nach dem Heimschicken tagsüber bei seiner Hütte (17, 24), nachts drinnen, nach Kapitel 1 wie vorher
 	var w := Zustand.new(); w.tag = 5; w.minuten = 10 * 60
 	var dorf := Karte.lade("village")
 	Leute.uhr = func(): return w.minuten
-	Leute.frueh_heim = func(id: String) -> bool: return Geschichte.frueh_heim(id, w)
+	Leute.daheim = func(id: String) -> Array: return Geschichte.daheim(id, w)
 	var h3 := Node3D.new()
 	var pim := Leute.new(dorf, {"id": "pim", "x": 15, "y": 14, "streifen": 3}, h3)
-	pruefe(not bool(pim.plan_jetzt()[4]), "vorher draußen: %s" % [pim.plan_jetzt()])
-	w.setze("pim_home_5")
-	pruefe(bool(pim.plan_jetzt()[4]) and Vector2i(int(pim.plan_jetzt()[1]), int(pim.plan_jetzt()[2])) == Vector2i(13, 23), "heimgeschickt: an seiner Tür hinein %s" % [pim.plan_jetzt()])
-	w.tag = 6
-	pruefe(not bool(pim.plan_jetzt()[4]), "am nächsten Tag wieder draußen")
-	pim.free(); h3.free()
-	Leute.uhr = Callable(); Leute.frueh_heim = Callable()
+	var vorher: Array = pim.plan_jetzt()
+	pruefe(not bool(vorher[4]) and Vector2i(int(vorher[1]), int(vorher[2])) == Vector2i(15, 14), "vorher am Schlagbaum: %s" % [vorher])
+	w.setze(Geschichte.PIM_HEIM)
+	var p1: Array = pim.plan_jetzt()
+	pruefe(not bool(p1[4]) and Vector2i(int(p1[1]), int(p1[2])) == Vector2i(17, 24) and dorf.begehbar(Vector2i(17, 24)), "heimgeschickt: tagsüber bei der Hütte %s" % [p1])
+	# 1086 (Chef 13.11., 10:22, t282.9: „er rennt heim. Fakt ist, er steht ja bei mir“): gleich nach dem Heimschicken rennt er dorthin,
+	# schneller als der rennende Held, wendet sich nicht mehr zu; angekommen ist es vorbei
+	pruefe(pim.eilt and not pim.schaut, "heimgeschickt: Pim rennt heim")
+	pruefe(pim.laufe_soll() > dorf.laufen, "rennt schneller als der Held: %.2f > %.2f m/s" % [pim.laufe_soll(), dorf.laufen])
+	pim.zugewandt_bis = Time.get_ticks_msec() + 9000; Leute.still = false; pim.warte = 99.0; pim.stehen(0.016)
+	pruefe(pim.zugewandt_bis == 0, "nach dem Gespräch wendet er sich nicht mehr zu")
+	var eltern := Node3D.new(); eltern.add_child(pim)   # frei_fuer_mich sieht die anderen Leute der Karte
+	pim.kachel = Vector2i(17, 23); pim.tagesplan()
+	pruefe(not pim.eilt, "bei der Hütte angekommen: rennt nicht mehr")
+	pim.plan_jetzt()
+	pruefe(not pim.eilt, "rennt danach nicht jeden Tag neu los")
+	w.tag = 9; w.minuten = 17 * 60 + 30
+	pruefe(Vector2i(int(pim.plan_jetzt()[1]), int(pim.plan_jetzt()[2])) == Vector2i(17, 24), "Tage später, nachmittags: noch bei der Hütte %s" % [pim.plan_jetzt()])
+	w.minuten = 22 * 60
+	pruefe(bool(pim.plan_jetzt()[4]), "nachts drinnen wie sonst")
+	w.minuten = 10 * 60; w.setze("chapter1_done")
+	pruefe(Vector2i(int(pim.plan_jetzt()[1]), int(pim.plan_jetzt()[2])) == Vector2i(15, 14), "nach Kapitel 1 wie vorher")
+	eltern.free(); h3.free()
+	Leute.uhr = Callable(); Leute.daheim = Callable()
 
 	# die Mutter dankt einmal, nur am Tag, statt [504.tuer.pim]
 	var m := Zustand.new(); m.minuten = 11 * 60
@@ -108,6 +144,14 @@ func _lauf() -> void:
 	m.minuten = 11 * 60
 	m.setze(Geschichte.PIM_DANK)
 	pruefe(Geschichte.klopfen("village", Vector2i(13, 22), m).is_empty(), "danach nicht noch einmal")
+	# 1108 [1108.tuer.pim.daheim]: nach dem Dank tagsüber statt [504.tuer.pim], auch nach Kapitel 1; nachts nicht
+	pruefe(Geschichte.pim_tuer_daheim("village", Vector2i(13, 22), m), "nach dem Dank: Pim ist daheim")
+	m.setze("chapter1_done")
+	pruefe(Geschichte.pim_tuer_daheim("village", Vector2i(13, 22), m), "auch nach Kapitel 1")
+	m.minuten = 2 * 60
+	pruefe(not Geschichte.pim_tuer_daheim("village", Vector2i(13, 22), m), "nachts [504.tuer.pim.nacht]")
+	m.minuten = 11 * 60
+	pruefe(Geschichte.PIM_TUER_DAHEIM.size() == 3 and String(Geschichte.PIM_TUER_DAHEIM[1]["de"]) == "„Er bleibt jetzt in Rufweite. Meistens jedenfalls.“", "drei Wortlaute [1108.tuer.pim.daheim]")
 
 	# Osric: „Kaufen“ als Knopf unter der Heilung, oeffnet nur Verbaende
 	var o := Geschichte.gespraech("osric", Zustand.new())
@@ -229,10 +273,11 @@ func _lauf() -> void:
 	spiel.probe_wurf = func(): return 0.0
 	spiel.ui.knopf_im_text.emit(0)
 	await process_frame
-	pruefe(sz.has("pim_home_%d" % sz.tag) and sz.has(Geschichte.PIM_HEIM), "Spiel: gelungen, Pim geht heute heim")
+	pruefe(sz.has(Geschichte.PIM_HEIM), "Spiel: gelungen, Pim geht heim")
 	pruefe(spiel.ui.spricht() and ["Na gut. Aber nur, weil du es bist.", "Mama schimpft bestimmt …", "Wenn du es sagst, Mira."].has(spiel.ui.text.text), "Spiel: Pims Antwort %s" % spiel.ui.text.text)
 	var nach_u := float(sz.fertigkeiten_stand()["uebung"].get("Überreden", 0.0)) + BrsFertigkeit.wert(sz.fertigkeiten_stand(), "Überreden") * 1000.0
 	pruefe(nach_u > vor_u, "Spiel: Versuch übt Überreden")
+	sz.flaggen.erase(Geschichte.PIM_HEIM)   # 1108: einmal heim ist fuer immer; fuer die naechsten Faelle wieder draussen
 	# „Nicht jetzt“ laesst die Wahl aus (842 zurueck, Homer [1074.zweit]); das Gespraech laeuft weiter wie frueher beim Weitertippen
 	spiel.ui.schliesse_text(); await process_frame
 	while spiel.ui.spricht(): spiel.ui.weiter(); spiel.ui.weiter(); await process_frame
@@ -247,9 +292,9 @@ func _lauf() -> void:
 		else: spiel.ui.weiter()
 		await process_frame
 		n += 1
-	pruefe(nicht_jetzt == 1 and not spiel.ui.spricht() and not sz.has("pim_home_%d" % sz.tag) and not sz.has("pim_tried_%d" % sz.tag), "Spiel: Nicht jetzt, keine Probe (%d)" % nicht_jetzt)
+	pruefe(nicht_jetzt == 1 and not spiel.ui.spricht() and not sz.has(Geschichte.PIM_HEIM) and not sz.has("pim_tried_%d" % sz.tag), "Spiel: Nicht jetzt, keine Probe (%d)" % nicht_jetzt)
 	# 1086 (Homer 1085): mit 5 Gold eine zweite Wahl „Gib Pim 5 Gold“ unter Ueberreden; gelingt immer, kostet 5 Gold, uebt nichts
-	for gold in [12, 3]:
+	for gold in [3, 12]:   # 1108: nach dem Gold ist Pim fuer immer daheim, darum zuerst ohne Gold
 		sz.tag += 1
 		sz.gold = gold
 		spiel.spiele(Geschichte.gespraech("pim", sz))
@@ -269,8 +314,8 @@ func _lauf() -> void:
 		spiel.ui.knopf_im_text.emit(1)
 		await process_frame
 		var u1 := float(sz.fertigkeiten_stand()["uebung"].get("Überreden", 0.0)) + BrsFertigkeit.wert(sz.fertigkeiten_stand(), "Überreden") * 1000.0
-		pruefe(sz.gold == gold - 5 and sz.has("pim_home_%d" % sz.tag) and sz.has(Geschichte.PIM_GOLD_HEIM) and u1 == u0, "Gold: 5 weg (%d), Pim heim, keine Übung" % sz.gold)
-		pruefe(["Echtes Gold? Für mich?", "Dafür geh ich heim. Aber morgen komm ich wieder!", "Davon spar ich auf eine Brandflasche!"].has(spiel.ui.text.text), "Gold: Pims Zeile %s" % spiel.ui.text.text)
+		pruefe(sz.gold == gold - 5 and sz.has(Geschichte.PIM_GOLD_HEIM) and u1 == u0, "Gold: 5 weg (%d), Pim heim, keine Übung" % sz.gold)
+		pruefe(["Echtes Gold? Für mich?", "Für so viel Gold bleib ich sogar daheim.", "Davon spar ich auf eine Brandflasche!"].has(spiel.ui.text.text), "Gold: Pims Zeile %s" % spiel.ui.text.text)
 		while spiel.ui.spricht(): spiel.ui.weiter(); spiel.ui.weiter(); await process_frame
 	sz.setze(Geschichte.PIM_DANK)
 	pruefe(Geschichte.pim_gold_dankt(sz), "Mutter dankt nach Gold einmal ([1085.pim.dank])")
