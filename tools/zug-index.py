@@ -281,7 +281,14 @@ def luecken():
     return "\n".join(teile)
 
 def offen_je_rolle():
-    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt."""
+    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt.
+    1129 A 6 (Chef 13.11., 13:59): neu gerechnet nur stündlich (ZUG_ROLLEN=1 aus dem Zeitplan oder von Hand); sonst bleibt der
+    Abschnitt aus der bisherigen Übersicht stehen, damit ein Push unter docs/chefsache/ nicht jedes Mal Vorrang und Zahlen neu schreibt."""
+    if os.environ.get("ZUG_ROLLEN") != "1" and os.path.exists(os.path.join(ZUG, "README.md")):
+        alt = open(os.path.join(ZUG, "README.md"), encoding="utf-8").read()
+        m = re.search(r"^## Offen je Rolle\n.*?(?=^## |\Z)", alt, re.S | re.M)
+        if m:
+            return m.group(0).strip()
     try:
         import subprocess, sys as _s
         r = subprocess.run([_s.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "startbar.py"), "--md"], capture_output=True, text=True, timeout=60)
