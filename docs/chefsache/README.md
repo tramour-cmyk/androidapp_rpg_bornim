@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 41 | K | Storyplan je Kapitel, Plot Kapitel 2 | ruht |
 
-**Tom** – offen 112, Muss 87, startbar 11
+**Tom** – offen 112, Muss 87, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -135,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1009 | M | Von Tom (831, Lauf 366): spielstand_test rot „FEHLER Plaetze 1 2“ (letzter() gab Platz 1 s | wartet auf Test (Build) |
 | 1022 | M | Von Sokrates (Chef 12.11., 08:26; Wiederholfund t268): Kartenrand aller Gebietskarten wie | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (gebiet.gd) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht |
-| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (leute.gd) |
+| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | startbar |
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | Sperre 620.1 B: 9 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1092 (gebiet.gd) |
 | 1073 | M? | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | startbar |
 | 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | Termin 13.11. 12:00 |
@@ -150,12 +150,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1119 | M | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach | startbar |
 | 1120 | M | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht je | startbar |
 
-**Jerry** – offen 131, Muss 114, startbar 7
+**Jerry** – offen 129, Muss 112, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1106 | M | Von Sokrates (Chef 13.11., 09:12 „freigegeben mit meinen Anmerkungen“, t281): PR #200 (Bui | startbar |
-| 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | wartet auf Test (Build) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1025 | M | Von Sokrates (Chef 12.11., 10:25–10:28, Bilder Probekampf Wölfe, Build 278): zwei Kämpfe z | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolf) |
@@ -163,7 +161,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1041 | M | Von Sokrates (Chef 12.11., 15:16, Build 280, 278.24 bestanden): Platztausch ungleich, der | wartet auf Test (Build) |
 | 1018 | M | Von Tom (1012, Lauf 373 Build 278, PR #197): rote Tests nach dem Mischen: bewegung_997 (FE | wartet auf Test/Build (gebaut) |
 | 900 | M | Von Tom (870.4, B1; „jetzt“ 10.11., 22:24, Nachtauftrag Chef): Lauf 335 rot an wolf_mess_4 | wartet auf Test/Build (gebaut) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1041 (figur.gd) |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 29 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1018 (wolf) |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (startbar) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Test (Build) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht |
