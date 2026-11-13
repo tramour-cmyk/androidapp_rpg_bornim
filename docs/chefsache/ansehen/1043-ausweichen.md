@@ -11,6 +11,6 @@ Zu deinem Fund t278.33 („Da weicht nichts“) und zum Vorentscheid von Sokrate
 ![Drei Bilder nebeneinander: links steht der Held links neben dem braunen Wolf, Mitte macht er einen Schritt schräg nach links hinten, rechts steht er wieder an seinem Platz](../bilder/1043-ausweichen.jpg)
 
 - **Ausweichen:** der Wolf springt an, der Held tritt einen Schritt schräg zurück (bis 0,57 m von seinem Platz, eine halbe Sekunde), der Wolf verfehlt („daneben“), dann geht der Held an seinen Platz zurück. In allen drei Fällen gleich.
-- **Offen:** kurz vor dem Ausweichen steht das Bild etwa 0,4 Sekunden fast still; noch nicht geklärt, ob das so gewollt ist (Halt für den Ring) oder ein Fehler.
+- **Offen (eigene Nachprüfung 02:58):** den Sprung des Wolfs sieht man nicht. Der braune Wolf duckt sich etwa 0,4 Sekunden neben dem Helden (daher das fast stehende Bild), dann weicht der Held aus, aber kein Wolf springt sichtbar auf ihn zu; der Bericht sagt „Wolf 3 schnappt nach Alrik und verfehlt“. Das ist derselbe Fehler wie 760 (Held zuckt, „aber man sieht nichts“); 760 muss vor dem Ausweichen sitzen, sonst weicht der Held einem unsichtbaren Sprung aus.
 
 **Was du sagen sollst:** „1043 passt“ (dann fährt das Ausweichen im nächsten Build); oder dein Urteil zum Film. Heute Nacht urteilt Sokrates an deiner Stelle (1077).
