@@ -455,15 +455,24 @@ jobs:
       # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
       # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
       # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)
+      # 1101 (Sokrates 13.11., 09:43; Chef 09:41 „warum dauern die Läufe wieder so lange“): misslingt das Ablegen eines Blocks, wird der
+      # Schritt rot (der Bau geht weiter, continue-on-error) und die Übersicht des Laufs sagt es; Lauf 420 blieb grün und der nächste
+      # baute wieder alles neu
       - name: Gebaute Kaufmodelle ablegen (854)
         if: env.KAUF_ALLES == 'bauen'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
           python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # 854 (Lauf 335: No module named 'yaml', nie abgelegt)
-          python3 tools/godot/kauf_cache.py ablegen || echo "::warning::Ablegen misslungen (Zeilen KAUF-CACHE oben), Bau geht weiter"   # 1101: als Warnung sichtbar
+          ende=0; python3 tools/godot/kauf_cache.py ablegen > $RUNNER_TEMP/ablegen.log 2>&1 || ende=$?; cat $RUNNER_TEMP/ablegen.log
           # 910: nach vollem Bau trotz Treffer zeigen, welche abgelegte Datei vom frisch gebauten Stand abweicht
           if [ "${{ github.event.inputs.cache }}" = "neu" ]; then python3 tools/godot/kauf_cache.py vergleich || true; fi
+          if [ $ende != 0 ]; then
+            echo "::error::Kauf-Cache: Ablegen misslungen, der nächste Lauf baut diese Blöcke wieder neu (Zeilen KAUF-CACHE oben)"
+            { echo "### Kauf-Cache: Ablegen misslungen (1101)"; grep -E "^(::warning::)?KAUF-CACHE" $RUNNER_TEMP/ablegen.log | sed 's/^::warning:://'; } >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
       - name: Kaufmodelle verschluesseln (348.12i)
         run: |
           K=$(openssl rand -hex 32)
