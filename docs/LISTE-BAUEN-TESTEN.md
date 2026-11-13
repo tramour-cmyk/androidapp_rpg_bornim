@@ -8,14 +8,14 @@ Handwerk der Entwickler (`ROLLE-ENTWICKLUNG.md`) und Werkzeuge der Sitzung. „H
 
 Jede Änderung auf der niedrigsten Stufe prüfen, die die Frage beantwortet; höher nur, wenn die Frage es verlangt.
 
-1. **Logik** (Zeiten, Regeln, Abläufe): Kerntest, Sekunden. `./gradlew -p core test`, Ergebnis am Exit-Code prüfen (`set -o pipefail`), nicht nur an gefilterter Ausgabe.
+1. **Logik** (Zeiten, Regeln, Abläufe): Kerntest = Godot-Logiksatz (`tools/t logik`, etwa 2 Minuten, mit Muster Sekunden; 882.2), Ergebnis am Exit-Code prüfen (`set -o pipefail`), nicht nur an gefilterter Ausgabe.
    Messungen mit Kaufmodellen (`wolf_mess_438`, `groesse_587` …) am Rechner statt auf dem Bauserver: `add_repo` bornim-kaufmodelle, Blender als Modul, dann `python3 tools/godot/bau_am_rechner.py --cache --laden` (854: holt die gebauten Modelle aus dem Kaufrepo, Zweig `bau/<Kennung>`, in unter einer Minute; nur wenn sich `tools/blender348`, die Bauschritte oder die Kaufdateien geändert haben: Laden 7 und Bau 39 Minuten, danach abgelegt; Ergebnis gleich dem Bauserver; 562, 854; bis zum Mischen auf `claude/jerry-854-kaufcache`).
 2. **Sichtbar ohne Bewegung:** ein Standbild, nur der Ausschnitt (`CROP=`).
 3. **Bewegung:** Film nach G4 (`DESIGN-ABNAHME.md`: nur der Prüfgegenstand, Länge, Kamera; `meldung.sh` hält über 20 s an); ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM`, `FILM=`). Filmzweig vorher mit `main` und dem laufenden `claude/build-<n>` zusammenführen, sonst sieht der Chef Behobenes wieder (758, 1039). Kampf, Bewegung, Effekte durch die echte Oberfläche filmen (`DESIGN-ABNAHME.md` „Selbst prüfen“). Dem Chef Bewegung nur als Film, nie als Bildfolge; Nachstellen am Rechner nur zur Ursache eines Fehlers, den der Chef gemeldet hat (646; `ROLLE-ENTWICKLUNG.md` „Zeigen statt messen“).
-4. **Fremde Prüfung nur bei Text, vor dem Versand** (338.2, Chef 23.10., 09:23; 396a). Bild und Film sieht der Ersteller vor dem Senden selbst an und schickt sie dann sofort, ohne Helfer danach (655, Chef 08.11., 15:04; ersetzt 300); seine Fragen: zuerst „Was fällt einem Spieler im ganzen Bild als Erstes auf?“ (340.1), dann Hand an der Waffe, Ausrichtung (Blatt, Spitze, Blick), Größe, Verdeckung, Text im Bild; was er sieht, behebt er oder vermerkt es in der Vorlage, über die Wirkung urteilt nur der Chef. Text prüft vorher ein Helfer, der nicht erstellt hat, mit Auftrag „Fehler finden“. **Bewegung gleich als Film** (783 W1, Chef 09.11., 20:12; ersetzt 511, 511a, 578 und die Ausnahme 461a, 480): Animation, Ablauf, Kampf gehen ohne Probebild an den Chef. Vorher macht der Ersteller für sich ein Einzelbild am Rechner (`PROBEBILD=<Nr> <Befehl ohne Film>`, kein Probelauf) und sieht selbst nach, ob Inhalt da ist (kein Weißbild, richtiger Ort, Punkte mit „Prüfer: ja“ aus „Vor jeder Vorlage“, `DESIGN-ABNAHME.md`); kein Helfer, keine Freigabe. Aussehen eines Standes (Farbe, Form, Licht): Standbild als Vorlage, kein Film. Unklar: eine Zeile „Probebild oder gleich Film?“ in der Vorlage an den Chef. Die Zahl der Läufe begrenzt weiter 621 A (`probelauf.py`). Ein kaputter Film geht als eine Zeile an den Chef, als Film nur auf sein Wort (13:54); die Läufe zählen.
+4. **Fremde Prüfung nur bei Text, vor dem Versand** (338.2, Chef 23.10., 09:23; 396a). Bild und Film sieht der Ersteller vor dem Senden selbst an und schickt sie dann sofort, ohne Helfer danach (655, Chef 08.11., 15:04; ersetzt 300); seine Fragen: zuerst „Was fällt einem Spieler im ganzen Bild als Erstes auf?“ (340.1), dann Hand an der Waffe, Ausrichtung (Blatt, Spitze, Blick), Größe, Verdeckung, Text im Bild; was er sieht, behebt er oder vermerkt es in der Vorlage, über die Wirkung urteilt nur der Chef. Text prüft vorher ein Helfer, der nicht erstellt hat, mit Auftrag „Fehler finden“. **Bewegung gleich als Film** (783 W1, Chef 09.11., 20:12; ersetzt 511, 511a, 578 und die Ausnahme 461a, 480): Animation, Ablauf, Kampf gehen ohne Probebild an den Chef. Vorher macht der Ersteller für sich ein Einzelbild am Rechner (`PROBEBILD=<Nr> <Befehl ohne Film>`, kein Probelauf) und sieht selbst nach, ob Inhalt da ist (kein Weißbild, richtiger Ort, Punkte mit „Prüfer: ja“ aus „Vor jeder Vorlage“, `DESIGN-ABNAHME.md`); kein Helfer, keine Freigabe. Aussehen eines Standes (Farbe, Form, Licht): Standbild als Vorlage, kein Film. Unklar: eine Zeile „Probebild oder gleich Film?“ in der Vorlage an den Chef. Die Zahl der Läufe begrenzt weiter 621 A (`probelauf.py`). Ein kaputter Film geht als eine Zeile an den Chef, zur Kenntnis, ohne Frage; als Film nur, wenn er ihn von sich aus sehen will (13:54); die Läufe zählen. Einen neuen Lauf über 621 A hinaus gibt Sokrates frei (Leitlinie 595), nie der Chef; wer ihn braucht, schreibt Sokrates in den Vorrat, keine Rückfrage an den Chef (Zusammenarbeit 8, 1200).
 5. **Spielgefühl:** nur der Chef, mit guter Prüfliste.
 
-**Kleine, sichere Schritte:** nach jedem fertigen Schritt Kerntests, Commit, Push auf den eigenen Zweig. App-Code: vor dem Push auch die Vorschau bauen (32.5). Befund mit Wirkung „hoch“ (Absturz, Festhängen, Quest unlösbar, falscher Text) behoben: einen Kerntest schreiben, der ihn künftig fängt (75h). Token sind knapp: Dateien gezielt lesen (`grep`, Marken, `sed -n`).
+**Kleine, sichere Schritte:** nach jedem fertigen Schritt Kerntests, Commit, Push auf den eigenen Zweig. Befund mit Wirkung „hoch“ (Absturz, Festhängen, Quest unlösbar, falscher Text) behoben: einen Kerntest schreiben, der ihn künftig fängt (75h). Token sind knapp: Dateien gezielt lesen (`grep`, Marken, `sed -n`).
 
 ### Vor dem Bauen: Stil-Abgleich (88)
 
@@ -45,23 +45,24 @@ Nur auf Zuruf (`CLAUDE.md`); wann vorschlagen (65.6) und Ablauf: `LISTE-RELEASE-
 
 ### Schnellprüfung
 
-`tools/check-env.sh` (Programme, Repository, Netz, Sekunden); `--full` dazu Kerntests und ein Vorschaubild. Am Ende „Ergebnis: … in Ordnung, 0 fehlen.“ Die Umgebung bringt alles mit (JDK 21, ImageMagick, Python 3, git); ein Android-SDK ist nicht nötig, die APK baut GitHub Actions.
+`tools/check-env.sh` (Programme, Repository, Sekunden); `--full` dazu der Logiksatz. Am Ende „Ergebnis: … in Ordnung, 0 fehlen.“ Die Umgebung bringt alles mit (Godot wie `godot.yml`, ImageMagick, Python 3 mit yaml, git); ein Android-SDK ist nicht nötig, die APK baut GitHub Actions.
 
 ### Testen nach Anlass: `tools/t`
 
 `tools/t` ohne Befehl zeigt die Übersicht. Grundsatz: das schnellste Werkzeug, das den Anlass abdeckt.
 
-| Anlass | Befehl | Dauer (warm) |
+| Anlass | Befehl | Dauer |
 |---|---|---|
-| Regel, Wert, Ablauf | `tools/t logik [Muster]` (Kerntests) | 2–11 s |
-| Bedienung, Spielfluss, Abstürze | `tools/t spieler [Eingaben]` (Zufallsspieler `PlayerSimTest`: tippt, redet, kauft, kämpft mit festem Seed; prüft Absturz, Hängen, Speichern/Laden) | 3–5 s |
-| Aussehen, Kollision | `tools/t bild SCHALTER=…` | 5 s |
-| Fluss einer Bewegung | `tools/t film FILM…=…` | Echtzeit |
-| Umgebung in Ordnung? | `tools/t pruef` | ~10 s |
+| Regel, Wert, Ablauf, Bedienung | `tools/t logik [Muster]` (Godot-Logiksatz `godot/tests/logik.txt`: Tests aus `godot.yml` „Skripte pruefen“ ohne Kaufmodelle, Befehl und Kriterium von dort, 4 nebeneinander; rote einmal allein wiederholt, „WACKELIG“ heißt allein grün) | etwa 2 min, mit Muster Sekunden |
+| Umgebung in Ordnung? | `tools/t pruef` | etwa 2 min |
+| Messung mit Kaufmodellen | `tools/godot/bau_am_rechner.py` (Prüftreppe 1) | Minuten |
+| Bild, Film | Zweig pushen, `godot.yml` (Prüftreppe 2, 3) | Minuten |
+
+Neuer Godot-Test: sperrend in `godot.yml` „Skripte pruefen“; prüft er ohne Kaufmodelle in wenigen Sekunden, auch in `godot/tests/logik.txt`.
 
 ### Sitzungsstart
 
-`.claude/settings.json` startet `tools/setup-session.sh --warm`: legt den Gradle-Spiegel (`tools/gradle-mirror.gradle`, Google-Spiegel statt Maven Central, das aus der Cloud oft 429 meldet) nach `~/.gradle/init.d` und übersetzt `core` im Hintergrund (`/tmp/bornim-warm.log`). **Kerntests mit `./gradlew -p core test`**, nicht `:core:test` (lädt das Android-Plugin). Spiegel aus dem Tritt: `tools/setup-session.sh` von Hand, dann `tools/t pruef`.
+`.claude/settings.json` startet `tools/setup-session.sh --warm`: holt Godot, falls es fehlt (`~/godot/godot`, Fassung aus `godot.yml`), und bereitet im Hintergrund Daten und Import für `tools/t logik` vor (`/tmp/bornim-warm.log`). Fehlt etwas: `tools/setup-session.sh` von Hand, dann `tools/t pruef`.
 
 ### Bauen (GitHub)
 
@@ -93,4 +94,4 @@ Workflow `.github/workflows/android.yml` („Build APK“, Version `0.1.<Laufnum
 | `SOUNDS=NAME,…`, `KLANGPROBEN=…` | Hörproben |
 | `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*'` | Kapitelsimulation (Balance) |
 
-Kerntests mit eigenem Zweck: `JumpTest`/`BattleJumpTest` (Sprünge), `InnCornerTest`, `FireFlickerTest`, `HitWeightTest`, `MissStreakTest`, `RoamerTest`, `PlayerSimTest`.
+Kotlin-Tests der alten Fassung (kein Kerntest mehr seit 882.2, Abschnitt fällt mit 870.10): `JumpTest`/`BattleJumpTest` (Sprünge), `InnCornerTest`, `FireFlickerTest`, `HitWeightTest`, `MissStreakTest`, `RoamerTest`, `PlayerSimTest`.
