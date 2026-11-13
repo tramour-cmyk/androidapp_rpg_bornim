@@ -168,11 +168,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 13.11.; „star
 | 1091 | M? | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | startbar |
 | 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | startbar |
 
-**Jerry** – offen 128, Muss 115, startbar 2
+**Jerry** – offen 128, Muss 115, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1106 | M | Von Sokrates (Chef 13.11., 09:12 „freigegeben mit meinen Anmerkungen“, t281): PR #200 (Bui | Sperre 620.1 B: 30 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1041 |
+| 1106 | M | Von Sokrates (Chef 13.11., 09:12 „freigegeben mit meinen Anmerkungen“, t281): PR #200 (Bui | startbar |
 | 1055 | M | Von Perikles (1052, Sokrates 16:47): Sammelbuild 281 gleich nach PR #199 auf main: alle fe | wartet auf Test (Build) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | startbar |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
