@@ -7,8 +7,8 @@
 #   ohne DATEI: die Prüfliste mit der höchsten Nummer auf origin/main (docs/chefsache/ansehen, sonst docs/entwurf); holt main
 #   flach, wenn es fehlt. Keine Prüfliste: JSON mit leeren Abschnitten, das Spiel zeigt dann „keine Prüfliste im Bau“.
 # 1178 (Chef 13.11., 15:49, Test 283: im Spiel stand der alte Entwurf t283-leute, nicht die gegengelesene t283-dorf): auf
-#   claude/build-<n> (GITHUB_REF_NAME, GITHUB_HEAD_REF oder --build N) nur ansehen/t<n>-….md von origin/main, nie ein Entwurf und nie
-#   eine andere Nummer; fehlt sie, JSON mit „fehlt“ und leeren Abschnitten, Ende 0 (der Bau läuft weiter);
+#   claude/build-<n> (GITHUB_REF_NAME, GITHUB_HEAD_REF oder --build N) nur t<n>-….md von origin/main, ansehen/ oder ein Entwurf mit
+#   „Gegengelesen:“ (1199), nie ein ungelesener Entwurf und nie eine andere Nummer; fehlt sie, JSON mit „fehlt“ und leeren Abschnitten, Ende 0 (der Bau läuft weiter);
 #   `pruefliste.py --pruefe JSON` endet dann 1 (Zeile im Prüfschritt, der Bau wird rot, die APK entsteht trotzdem, 918).
 import json, os, re, subprocess, sys
 
@@ -45,17 +45,27 @@ def eigene_nummer():
     return None
 
 
+GEGENGELESEN = re.compile(r'^Gegengelesen:\s*\S', re.M)
+
+
 def eigene_von_main(n):
-    """1178: nur docs/chefsache/ansehen/t<n>-….md auf origin/main (frisch geholt); zwei Dateien derselben Nummer: die zuletzt geänderte."""
+    """1178: t<n>-….md auf origin/main (frisch geholt), nie eine andere Nummer; zwei Dateien derselben Nummer: die zuletzt geänderte.
+    1199 (Chef 13.11., 18:30: „Wenn etwas zu tun ist durch mich, dann bitte den Eintrag, aber doch nicht vorher“): die Liste liegt
+    bis zur Testbitte gegengelesen in docs/entwurf/ (Zeile „Gegengelesen:“ Pflicht, sonst zählt der Entwurf nicht, 1178), nach
+    docs/chefsache/ansehen/ erst mit APK und gesendeten Bildern; liegt sie schon dort, gilt sie vor dem Entwurf."""
     # flach nur in einem flachen Klon (Bauserver); ein voller Klon bliebe sonst ab origin/main flach (am Rechner 13.11., 15:52)
     flach = _git('rev-parse', '--is-shallow-repository').stdout.strip() == 'true'
     _git('fetch', '-q', *(['--depth=1'] if flach else []), 'origin', 'main:refs/remotes/origin/main')
-    r = _git('ls-tree', '--name-only', 'origin/main', 'docs/chefsache/ansehen/')
-    wege = [p for p in r.stdout.split() if re.match(r't%d-.*\.md$' % n, os.path.basename(p))]
-    if not wege:
-        return None, ''
-    wege.sort(key=lambda p: int(_git('log', '-1', '--format=%ct', 'origin/main', '--', p).stdout.strip() or 0))
-    return wege[-1], _git('show', 'origin/main:' + wege[-1]).stdout
+    for ordner, nur_gegengelesen in (('docs/chefsache/ansehen/', False), ('docs/entwurf/', True)):
+        r = _git('ls-tree', '--name-only', 'origin/main', ordner)
+        wege = [p for p in r.stdout.split() if re.match(r't%d-.*\.md$' % n, os.path.basename(p))]
+        texte = {p: _git('show', 'origin/main:' + p).stdout for p in wege}
+        if nur_gegengelesen:
+            wege = [p for p in wege if GEGENGELESEN.search(texte[p])]
+        if wege:
+            wege.sort(key=lambda p: int(_git('log', '-1', '--format=%ct', 'origin/main', '--', p).stdout.strip() or 0))
+            return wege[-1], texte[wege[-1]]
+    return None, ''
 
 
 def schlicht(s):
@@ -128,7 +138,8 @@ def main():
     elif n is not None:
         quelle, text = eigene_von_main(n)
         if not text:
-            fehlt = 'Build %d ohne docs/chefsache/ansehen/t%d-….md auf main; erst gegenlesen und verschieben, dann bauen' % (n, n)
+            fehlt = ('Build %d ohne gegengelesene Prüfliste t%d-….md auf main (docs/entwurf/ mit Zeile „Gegengelesen:“); erst '
+                     'gegenlesen, dann bauen (1199)' % (n, n))
     else:
         quelle, text = neueste_von_main()
     aus = lies(text, quelle or '') if text else {'build': n or 0, 'titel': '', 'quelle': '', 'kopf': [], 'abschnitte': []}

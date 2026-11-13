@@ -401,6 +401,12 @@ def main():
         kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
         if team in ("Tom", "Jerry") and re.search(r"\b(%s|%s)\b" % (team, {"Tom": "Spike", "Jerry": "Tuffy"}[team]), kopf):
             stop.append("%s: gegengelesen vom eigenen Team (%s, Zeile 1: %s); eine Sitzung außerhalb des Teams liest gegen (881)" % (p, gl.group(1), kopf.strip("# ").strip()))
+        # 1199 (Chef 13.11., 18:30: „Wenn etwas zu tun ist durch mich, dann bitte den Eintrag, aber doch nicht vorher“): nach ansehen/
+        # erst mit APK-Link in Zeile 2; bis dahin liegt die gegengelesene Liste in docs/entwurf/, der Bau liest sie dort (pruefliste.py)
+        z2 = (inhalt.splitlines() + ["", ""])[1]
+        if not re.search(r"https?://", z2):
+            stop.append("%s: Zeile 2 ohne APK-Link (%s); die Prüfliste kommt erst mit der Testbitte in die Chefsache, wenn APK, Bilder und "
+                        "Filme da sind; bis dahin gegengelesen in docs/entwurf/, der Bau liest sie dort (1199)" % (p, z2.strip()[:60] or "leer"))
     for s, p in dat:  # 1128.2 (1128 A, Chef 13.11., 13:36): Laufnachweis; jeder Test unter „Im Bau geprüft“/„Ohne dich“ steht im Lauf
         # der APK (godot.yml von claude/build-<n>) und kann dort rot werden (ohne `|| true`, continue-on-error, Bedingung; Diogenes 12:59)
         m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
