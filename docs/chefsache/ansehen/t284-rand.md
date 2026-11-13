@@ -115,6 +115,9 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 - 284.4a ✓ (Chef 20:37: „steht hier irgendwie Morwen bindet dir ein neues Bündel … nicht nur du erwachst“)
 - 284.3b ✓ (Chef 20:35: Lage 284.4a stellt Krogg her, „Ich stehe vor ihm“; „Zurück zum Testmenü“ nicht bestätigt)
 - 284.4b ✓ (Chef 20:41: „vom Morwen habe ich auf jeden Fall jetzt ein neues Bündel bekommen“); Fund: Rauchbündel ohne sichtbare Wirkung im Kampfbericht, neu 1222 Jerry
+- 284.4 ✗ nicht prüfbar, Fehler der Liste: Station „Krogg“ liegt vor Kroggs Kampf, Jorins Aushang hängt erst danach; weder „Krogg besiegen“ noch „alle Aufträge annehmen“ stand da (Chef 20:44–20:46, Zu 542); nach 285
+- 284.5 ✗ nicht prüfbar, Fehler der Liste: „Beute erzeugen“ ist zufällig, 30–40 Mal kein Kettenhemd (Chef 20:47); jede Metallrüstung zählt (Kettenpanzer), Ergebnis offen
+- 284.6a ✓ (Chef 20:53: „Bei Lyra … passt“); dazu: Graks beschworener Goblin gleitet statt zu laufen (= 844, Tuffy); Brennend vom Brandsatz wirkt laut Bericht (Chef 20:53 „das hat gepasst“), fällt kaum auf
 - 284.2d ✓ (Chef 20:06: „Vom Inhalt her ist alles richtig“; Rest: Pim läuft im Halbbogen in Zeitlupe an, Zu 1086)
 - 284.2f ✗ Rock wirkt gestreift statt gefaltet (Chef 20:06, Zu 1092); Drehen im Stand gehört zu 1040.1
 - 284.2g ✓ (👍 Telegram 20:02 auf 3979)
