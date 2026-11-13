@@ -7,6 +7,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
 **Übergabe (13.11., 13:52, `session_01Hmoj76XW2S2RSWpmgfQiue`, Neustart-Haken):** 1036.1 sechs Filme an den Chef (`ansehen/10361-zustaende.md`), übrige vier geteilt (`2b757817d`), neuer Lauf erst nach Urteil (621 A). 1126 gebaut (`4c4a1ec5a`). Nachfolger: Jerry – nächstes startbares Muss
+- **Zu 999.1, von Sokrates (13.11., 14:28):** Tom legt mit 1140 die Fackel als Teil von `HeldFigur` an (Menü Ausrüstung, Chef 14:26); das Fackelmodell für den Kampfort von dort nehmen, nicht ein zweites bauen.
 
 **Übergabe Tuffy (12.11., 23:50, `session_01Hmoj75T84v7wSUd4hP2WrG`):** Testbitte 281 gestellt (Lauf 401); 1084 gebaut (`claude/tuffy-1084` `76d175451`). Nachfolger: Tuffy – nächstes startbares Muss
 
