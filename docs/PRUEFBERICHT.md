@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 219 · 1180 Lage nur mit Gruppe mit Modell (Tom `711d4ff2e`, `claude/tom-1180-lage-modell`; 13.11., 20:1x)
+
+- **Am Code ohne Befund:** `lage_fehler` nennt `probe=` mit Gruppe aus `feinde(true)` ohne `gruppe_da` als Fehler; der Reiter nimmt `feinde()` = dieselbe Bedingung `gruppe_da`, unbekannte Gruppe bleibt Fehler. Test `lage_modell_1180` steht in „Skripte pruefen“ nach den Kaufmodellen, ohne `|| true`.
+- **Greift noch nicht:** am Rechner fehlen die Kaufmodelle (alle 23 ohne Modell), der Fall „mit Modell → herstellbar“ läuft nur im Bau; Zweig in keinem Build (nicht in 284). Prüfpunkt: Lauf von 285 „1180 Gruppen mit Modell n von 23“, n > 0, „LAGEMODELL1180 gut“ → `greift 1180`. Wartet auf t285.
+
 ## Lauf 218 · 1184 Regel Kleinkram folgt Werkzeug (Perikles `5739b6920`), 1171 nach 1199/1208 (13.11., 20:1x)
 
 - **1184 greift:** `LISTE-CHECK-BUILD-TEST.md` 9 jetzt „in der Prüfliste nur als Zeile zur Kenntnis mit Art „Kleinkram“ und Link aufs Bild, nicht im Reiter „Test“ und nicht in der Zahl der Vorgänge“; deckt sich mit `pruefliste.py` 110 und `zug-index.py` 223 (Kleinkram aus `nrn`).
