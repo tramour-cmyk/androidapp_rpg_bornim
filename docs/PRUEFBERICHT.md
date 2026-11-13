@@ -52,6 +52,15 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 226 · 1213 neuer Zweig zählt nur eigene Commits (Perikles `cdc91693b`; 13.11., 20:2x)
+
+- **Greift** (Wegwerfzweig `claude/jerry-9999-probe` von `origin/claude/build-284`, `push_lauf` aus `main`): ohne neuen Commit `None`; neuer Commit nur `docs/` `None` (Stand vor 1213 an demselben Zweig: Probelauf „9999“, der Fehler aus 1213 nachgestellt); neuer Commit an `vorschau.yml` → Probelauf „9999“.
+- Nebenbei: `vorschau.yml` (nur noch auf Zweigen von 284) löst bei `core/**` aus, `CI_PFADE` kennt `core/` seit 882.2 nicht mehr; endet mit 882.1 auf `main`, nicht befundet.
+
+## Lauf 225 · 1220 genannte Vorgänge ohne Build zählen mit (Perikles `e27838ad4`; 13.11., 20:2x)
+
+- **Greift:** `build 284 --probe`: „nachgezogen in Build 284: 542, 964, 1081, 1118, 1119, 1041, 709, 616, 784, 958, 993, 1003, 1093, 1094, 1102“; 709 „startbar (✗ 284.7c, 284.7p)“, 993 erledigt aus 👍 284.7a; Fund „nicht bestanden (…); Zeile „Falsch“: …; was der Chef dazu schrieb, geht vor“ (Gegenargument 284.7p aufgenommen). 1217 wartet nur noch auf den Lauf von 285.
+
 ## Lauf 224 · 1194 Kauf-Cache nochmal vor Leute und Kampfort (Jerry `f54000f1f`, `claude/jerry-1194-cache`; 13.11., 20:2x)
 
 - **Probe grün:** `kauf_cache_probe.sh` am Zweig Exit 0, „KAUFCACHE854 gut“, darin „1194: kampf inzwischen abgelegt, Bau übersprungen“, „Kampfort aus dem Zweig“, „ohne Zweig baut kampf wie bisher“. Schritte „nochmal“ stehen direkt vor „Leute bauen“ und „Kampfort bauen“; dorf und klassen nicht (bei 442 lagen deren Bauzeit 16:23–16:47 vor dem Ablegen 16:29 bzw. mitten darin; Arbeitsweise Jerry, kein Befund).
