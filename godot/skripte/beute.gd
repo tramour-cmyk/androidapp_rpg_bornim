@@ -401,7 +401,8 @@ static func listen_zeile(g: Dictionary, sprache: String = "") -> String:
 	var gezeigt := name(g, sprache)
 	var teile: Array = []
 	if not gezeigt.containsn(art): teile.append(art)
-	if guete_von(g) > 0: teile.append(guete_name(guete_von(g), sprache))
+	# 1190 (Chef 13.11., 16:50: „in dieser Kurzzeile … soll die Güte gar nicht auftauchen … die Symbole sehen wir ja trotzdem“): kein
+	# Gütewort in der Kurzzeile; das Zeichen am Bild bleibt, das Fenster des Stücks nennt „Güte: …“ (menue.gd guete_text)
 	var wo := ""
 	if ist_waffe(b) and bool(b["fern"]): wo = "Fernwaffe" if de else "Ranged weapon"
 	elif ist_waffe(b): wo = "Waffe" if de else "Weapon"
