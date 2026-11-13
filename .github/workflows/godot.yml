@@ -287,6 +287,14 @@ jobs:
             ls -l $RUNNER_TEMP/klassen_alt/held_*.glb || true
           fi
           python3 tools/godot/kauf_cache.py merke klassen
+      - name: Kauf-Cache leute nochmal (1194)
+        if: env.KAUF_LEUTE != 'treffer'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          # 1194: legte ein gleichzeitiger Lauf den Block inzwischen ab, holen statt bauen (Lauf 442 baute 43 min, was 438 schon abgelegt hatte)
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml
+          python3 tools/godot/kauf_cache.py nochmal leute --env $GITHUB_ENV || true
       - name: Leute bauen (Dorf)
         run: |
           # 1115 (Diogenes D191.5: 9–11 min in jedem Lauf, nie abgelegt): Block leute (Leute und Waffen, kauf_cache.py); ein Treffer
@@ -358,6 +366,14 @@ jobs:
         run: |
           python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml   # 854: nach setup-python ohne yaml (Lauf 335)
           python3 tools/godot/kauf_cache.py holen
+      - name: Kauf-Cache kampf nochmal (1194)
+        if: env.KAUF_KAMPF != 'treffer'
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          # 1194: legte ein gleichzeitiger Lauf den Block inzwischen ab, holen statt bauen (Lauf 442 baute 43 min, was 438 schon abgelegt hatte)
+          python3 -c "import yaml" 2> /dev/null || python3 -m pip install -q pyyaml
+          python3 tools/godot/kauf_cache.py nochmal kampf --env $GITHUB_ENV || true
       - name: Kampfort bauen (Jerry 348.7, 399.1)
         if: env.KAUF_KAMPF != 'treffer'
         run: |

@@ -47,6 +47,7 @@ lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, h
     $KC merke vor_klassen; echo "klassen $1" > $R/godot/daten/held_WACHE_M.bin; echo daten/held_WACHE_M.bin >> $R/godot/daten/kauf.txt
     $KC merke klassen
   fi
+  if [ "$KAUF_LEUTE" != treffer ]; then $KC nochmal leute --env $E > $RUNNER_TEMP/nochmal-leute.log; set -a; . $E; set +a; fi   # 1194
   $KC merke vor_leute   # 1115: Block leute wie godot.yml „Leute bauen“
   if [ "$KAUF_LEUTE" != treffer ]; then
     mkdir -p $R/godot/daten/leute $R/godot/daten/waffen; echo "leute $1" > $R/godot/daten/leute/garrick.bin
@@ -57,6 +58,10 @@ lauf() {   # ein Lauf wie godot.yml: pruefen, Teile nach den Schaltern, Leute, h
   HOLEN=-; if [ "$KAUF_HOLEN" = ja ]; then
     for b in ${WEG:-}; do git --git-dir=$T/kauf.git update-ref -d refs/heads/bau/$b-$($KC kennung $b | cut -d' ' -f2); done   # 1126
     $KC holen > $RUNNER_TEMP/holen.log && HOLEN=0 || HOLEN=$?
+  fi
+  if [ "$KAUF_KAMPF" != treffer ]; then   # 1194: ZWISCHEN=<Commit> legt ihn „ein anderer Lauf“ zwischen pruefen und Kampfort ab
+    [ -n "${ZWISCHEN:-}" ] && git --git-dir=$T/kauf.git update-ref refs/heads/bau/kampf-$($KC kennung kampf | cut -d' ' -f2) $ZWISCHEN
+    $KC nochmal kampf --env $E > $RUNNER_TEMP/nochmal-kampf.log; set -a; . $E; set +a
   fi
   if [ "$KAUF_KAMPF" != treffer ]; then
     $KC merke vor_kampf; echo "kampf $1" > $R/godot/kampf/daten/wolf.bin
@@ -221,6 +226,17 @@ WEG=kampf lauf vierzehn
 pruefe '[ "$KAUF_KAMPF" = treffer ] && [ $HOLEN = 0 ] && grep -q "geholt kampf" $RUNNER_TEMP/holen.log && [ "$(inhalt)" = "$vorher" ]' "1126: Treffer gelöscht nach pruefen, trotzdem geholt (Ende $HOLEN, $(grep -c gesichert $RUNNER_TEMP/pruefen.log) gesichert)"
 lauf fuenfzehn
 pruefe '[ "$KAUF_KAMPF" = bauen ] && [ "$KAUF_DORF" = treffer ]' "1126: danach baut kampf neu"
+
+# 1194: ein gleichzeitiger Lauf mit demselben Schlüssel legt kampf ab, während dieser noch vor dem Kampfort steht: holen statt bauen
+kk=$($KC kennung kampf | cut -d' ' -f2); alt=$(git --git-dir=$T/kauf.git rev-parse refs/heads/bau/kampf-$kk)
+echo "# 1194 Probe" >> $R/tools/blender348/kauftier.py
+ZWISCHEN=$alt lauf sechzehn
+pruefe '[ "$KAUF_KAMPF" = treffer ] && [ "${KAUF_KAMPF_GEHOLT:-}" = ja ] && grep -q "nochmal kampf .*Treffer" $RUNNER_TEMP/nochmal-kampf.log' "1194: kampf inzwischen abgelegt, Bau übersprungen ($(tail -1 $RUNNER_TEMP/nochmal-kampf.log | cut -c1-90))"
+pruefe 'grep -q "^kampf " $R/godot/kampf/daten/wolf.bin && ! grep -q sechzehn $R/godot/kampf/daten/wolf.bin && [ $ABLEGEN = 0 ]' "1194: Kampfort aus dem Zweig, nicht gebaut ($(cat $R/godot/kampf/daten/wolf.bin))"
+unset KAUF_KAMPF_GEHOLT
+echo "# 1194 Probe 2" >> $R/tools/blender348/kauftier.py
+lauf siebzehn
+pruefe '[ "$KAUF_KAMPF" = bauen ] && grep -q "noch kein Treffer" $RUNNER_TEMP/nochmal-kampf.log && grep -q siebzehn $R/godot/kampf/daten/wolf.bin' "1194: ohne Zweig baut kampf wie bisher"
 
 echo "KAUFCACHE854 $([ $fehler = 0 ] && echo gut || echo "$fehler Fehler")"
 exit $fehler
