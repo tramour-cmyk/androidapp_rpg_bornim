@@ -18,12 +18,6 @@ Nichts offen.
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.427](ansehen/t283-dorf.md) | [Build 283](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43414494780/artifacts/14036878281) | Dorf und Kampf: Pim heim, Staub, Zoom, Leute in Ruhe, Zustände, Siegschirm | Tom und Jerry | 13.11., 13:45 |
-
 ## Zu tun
 
 Nichts offen.
