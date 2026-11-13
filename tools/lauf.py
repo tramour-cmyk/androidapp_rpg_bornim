@@ -40,7 +40,7 @@ Ausgabe, Zeile für Zeile auszuführen:
 --ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
---aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute und gestern) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
+--aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute, Startsperren auch von gestern, solange lauf.py sie prüft, 1187) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --liegt     Lauf auf eine Meldung „Start <Rolle> <Nr>, <Commit>“ (891): ruhende Sitzungen (nicht working/blocked) unter 20 Minuten belegen die Rolle nicht;
              neue Arbeit geht per WEITER in sie (unter 200 Tsd. Token), sonst START. Startmarke und laufende Sitzungen gelten wie sonst.
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
@@ -198,7 +198,7 @@ def startsperren():
     return aus
 
 START_PRUEF_MIN = 5  # 837: so lange nach der Startsperre muss eine Sitzung der Rolle da sein
-START_PRUEF_STD = 3  # ältere Startsperren prüft lauf.py nicht mehr (Protokoll reicht bis gestern)
+START_PRUEF_STD = 3  # ältere Startsperren prüft lauf.py nicht mehr (aufraeumen behält Startsperren so lange, auch über Mitternacht, 1187)
 
 def start_angekommen(rolle, d, alle):
     """837: nach der Startsperre um d gibt es eine Sitzung der Rolle, neu angelegt (START) oder,
@@ -420,7 +420,7 @@ ZEILE = re.compile(r"- (\d\d):(\d[\dx]) (\d\d)\.(\d\d)\.")
 
 def aufraeumen():
     """270: hält Notizen unter den Grenzen, die Ford von Hand nie kürzte. Protokoll: die 20 neuesten Zeilen mit Tat (neueste oben),
-    dazu Marken, Startsperren und Nachfolger-Warnungen von heute und gestern (liest lauf.py); älteres steht in Git.
+    dazu Marken und Warnungen von heute, Startsperren und „Start-fehlt“ bis START_PRUEF_STD alt (liest lauf.py, 1147, 1187); älteres steht in Git.
     LISTE-VORGAENGE.md: Zeilen mit Stand „erledigt …“ unverändert ans Ende von LISTE-VORGAENGE-ARCHIV.md (169). Gibt die Zahl der Änderungen zurück."""
     n = 0
     p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p)
@@ -433,14 +433,19 @@ def aufraeumen():
             m = ZEILE.match(l); return (m.group(4), m.group(3), m.group(1), m.group(2).replace("x", "9"))
         # 1147: Technikzeilen nur von heute (vorher heute und gestern): die Marken prüfen auf „heute“ oder je Sitzung einmal,
         # und 182 von 205 Zeilen waren Technik (22 KB im Protokoll, Datei 45 KB). Schlimmster Fall: eine Warnung über Mitternacht doppelt.
-        technik = [l for l in zeilen if TECHNIK.search(l) and ZEILE.match(l).group(3) + "." + ZEILE.match(l).group(4) + "." == JETZT.strftime("%d.%m.")]
         # 1129.1 P4 (a): Startsperren und „Start-fehlt“ liest lauf.py nur 20 Minuten (SPERRE_MIN) bis 3 Stunden (START_PRUEF_STD) weit;
         # älter als 6 Stunden fallen sie weg, außer der jüngsten Startsperre je Rolle (startmarken). 13.11.: 174 von 296 Zeilen, 58 KB Datei
         def alter_h(l):
             m = ZEILE.match(l)
             try: d = JETZT.replace(day=int(m.group(3)), month=int(m.group(4)), hour=int(m.group(1)), minute=int(m.group(2).replace("x", "0")), second=0, microsecond=0)
             except ValueError: return 0
+            if d > JETZT + datetime.timedelta(hours=1): d = d.replace(year=d.year - 1)  # 31.12. im Januar
             return (JETZT - d).total_seconds() / 3600
+        # 1187 (D213.1): Startsperren und „Start-fehlt“ von gestern bleiben, solange lauf.py sie liest (START_PRUEF_STD); sonst strich der
+        # Filter „nur heute“ eine Sperre von 23:58 im ersten Lauf nach Mitternacht, und Startprüfung 837 und 20-Minuten-Sperre sahen sie nicht
+        sperrzeile = lambda l: re.search(r"Startsperre \d|Marke Start-fehlt", l)
+        technik = [l for l in zeilen if TECHNIK.search(l) and (ZEILE.match(l).group(3) + "." + ZEILE.match(l).group(4) + "." == JETZT.strftime("%d.%m.")
+                                                            or (sperrzeile(l) and alter_h(l) <= START_PRUEF_STD))]
         juengste = {}
         for l in technik:
             m = re.search(r"Startsperre \d\d:\d\d Start (\w+(?:, \w+)*)", l)
