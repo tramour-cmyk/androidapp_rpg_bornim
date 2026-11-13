@@ -178,8 +178,8 @@ def wachstum(dat):
     return aus
 
 def kerntest_warn(dat):
-    """192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code."""
-    code = [p for s, p in dat if s != "D" and re.match(r"(core|app|tools/preview)/.*\.(kt|kts)$", p)]
+    """192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code (882.2: Godot statt Kotlin)."""
+    code = [p for s, p in dat if s != "D" and re.match(r"godot/.*\.gd$", p)]
     if not code: return []
     marke = os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")
     try: neuster = max(os.path.getmtime(p) for p in code if os.path.exists(p))
@@ -388,19 +388,48 @@ def main():
                 if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram") and not KLEIN_LINK.search("|".join(r)):
                     stop.append("%s: Zeile %s Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link "
                                 "„[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkram fragt der Reiter „Test“ nicht ab" % (p, r[0]))
+    for s, p in dat:  # 1217 (Chef 13.11., 20:13 zu t284.7p: „da gibt es gar kein P … Ah, das ist in der falschen Reihenfolge“): ab Build 285
+        m = re.match(r"docs/(?:chefsache/ansehen|entwurf)/t(\d+)-[^/]+\.md$", p)   # die Zeilen jeder Tabelle in Nummernfolge
+        if s == "D" or not m or int(m.group(1)) < 285: continue
+        def schluessel(nr): return [(int(x), "") if x.isdigit() else (int(re.match(r"\d+", x).group(0)), x.lstrip("0123456789")) for x in nr.split(".")]
+        vorher = None
+        for zl in git("show", ":" + p).splitlines():
+            nr = (zl.strip().strip("|").split("|") or [""])[0].strip().strip("*") if zl.startswith("|") else ""
+            if not re.fullmatch(r"%s\.\d+[a-z]?(\.\d+[a-z]?)*" % m.group(1), nr):
+                if not zl.startswith("|"): vorher = None
+                continue
+            if vorher and schluessel(nr) < schluessel(vorher):
+                stop.append("%s: Zeile %s nach %s; Nummern in der Reihenfolge des Wegs vergeben, aufsteigend (1217)" % (p, nr, vorher)); break
+            vorher = nr
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
         inhalt = git("show", ":" + p)
         gl = re.search(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(Sokrates|Perikles|Homer|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)\b.*\d\d?:\d\d", inhalt)
         if not gl:
             stop.append("%s: Zeile „Gegengelesen: <Rolle> <TT.MM., HH:MM>“ fehlt; Entwurf zuerst nach docs/entwurf/, eine Sitzung außerhalb des Teams prüft je Punkt "
-                        "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll), trägt die Zeile ein und verschiebt (866, 881)" % p)
+                        "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll) und trägt die Zeile im Entwurf ein; nach ansehen/ "
+                        "erst mit APK, Bildern und Filmen (866, 881, 1199)" % p)
             continue
         # 881 (D139.1): nie das eigene Team; Team aus Zeile 1 („# <Team oder „Tom und Jerry“> · Build …“), Spike zählt zu Tom, Tuffy zu Jerry
         team = {"Spike": "Tom", "Tuffy": "Jerry"}.get(gl.group(1), gl.group(1))
         kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
         if team in ("Tom", "Jerry") and re.search(r"\b(%s|%s)\b" % (team, {"Tom": "Spike", "Jerry": "Tuffy"}[team]), kopf):
             stop.append("%s: gegengelesen vom eigenen Team (%s, Zeile 1: %s); eine Sitzung außerhalb des Teams liest gegen (881)" % (p, gl.group(1), kopf.strip("# ").strip()))
+        # 1199 (Chef 13.11., 18:30: „Wenn etwas zu tun ist durch mich, dann bitte den Eintrag, aber doch nicht vorher“): nach ansehen/
+        # erst mit APK-Link in Zeile 2; bis dahin liegt die gegengelesene Liste in docs/entwurf/, der Bau liest sie dort (pruefliste.py)
+        z2 = (inhalt.splitlines() + ["", ""])[1]
+        if not re.search(r"https?://", z2):
+            stop.append("%s: Zeile 2 ohne APK-Link (%s); die Prüfliste kommt erst mit der Testbitte in die Chefsache, wenn APK, Bilder und "
+                        "Filme da sind; bis dahin gegengelesen in docs/entwurf/, der Bau liest sie dort (1199)" % (p, z2.strip()[:60] or "leer"))
+        # 1208 (D216.1): auch jedes Bild und jeder Film gesendet; meldung.sh mit Text „t<n>.<Punkt>: …“ trägt den Link in die Zeile ein
+        tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in inhalt.splitlines() if zl.startswith("|")]
+        sa = next((r.index("Art") for r in tab if "Art" in r), -1)
+        for r in tab:
+            if sa >= 0 and len(r) > sa and re.match(r"(?i)(bild|film)\b", r[sa]) and not (KLEIN_LINK.search("|".join(r))
+                    or re.search(r"\]\(https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/", "|".join(r))):
+                w = r[sa].split()[0]
+                stop.append("%s: Zeile %s Art %s ohne Link aufs Gesendete; erst `meldung.sh --%s <datei> <Name> \"t%s: …\"` (trägt den Link "
+                            "in die Zeile des Entwurfs ein), dann verschieben (1199, 1208)" % (p, r[0], w, w.lower(), r[0]))
     for s, p in dat:  # 1128.2 (1128 A, Chef 13.11., 13:36): Laufnachweis; jeder Test unter „Im Bau geprüft“/„Ohne dich“ steht im Lauf
         # der APK (godot.yml von claude/build-<n>) und kann dort rot werden (ohne `|| true`, continue-on-error, Bedingung; Diogenes 12:59)
         m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
@@ -408,7 +437,19 @@ def main():
         import tempfile
         with tempfile.NamedTemporaryFile("w", suffix=".md", delete=False, encoding="utf-8") as f:
             f.write(git("show", ":" + p)); tmp = f.name
-        r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", "origin/claude/build-" + m.group(1)], capture_output=True, text=True)
+        # 1178 × 1128.2 (Sokrates 13.11., 17:44, Sperre im Kreis): der Lauf auf build-<n> braucht ansehen/t<n> schon auf main, die neuen
+        # Tests stehen bis zum Push aber nur auf dem Laufzweig, der danach vorgespult nach build-<n> geht. Darum gilt auch
+        # claude/tom-<n>-lauf, claude/jerry-<n>-lauf oder ein in der Liste genannter „Laufzweig: claude/…“; zuerst build-<n>
+        refs = ["origin/claude/build-" + m.group(1), "origin/claude/tom-%s-lauf" % m.group(1), "origin/claude/jerry-%s-lauf" % m.group(1)]
+        lz = re.search(r"^Laufzweig:\s*`?(claude/[\w./-]+)`?", git("show", ":" + p), re.M)
+        if lz: refs.insert(1, "origin/" + lz.group(1))
+        r0 = None
+        for ref in refs:
+            r = subprocess.run([sys.executable, "tools/laufnachweis.py", tmp, "--ref", ref], capture_output=True, text=True)
+            if r.returncode == 0: break
+            if r0 is None or (r0.returncode != 1 and r.returncode == 1): r0 = r   # ein fehlender Test zählt vor „nicht lesbar“
+        else:
+            r = r0
         os.unlink(tmp)
         nein = [re.sub(r"\s+", " ", z.strip()[5:]) for z in r.stdout.splitlines() if z.strip().startswith("NEIN ")]
         if r.returncode == 1:
