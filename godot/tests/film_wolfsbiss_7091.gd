@@ -113,7 +113,8 @@ func _biss(g: String, klasse: String, treffer: bool) -> void:
 	var hfov := 2.0 * atan(tan(deg_to_rad(cam.fov) / 2.0) * FORMAT.x / FORMAT.y)
 	var d: float = (zu.length() * 0.5 + 1.2) / tan(hfov / 2.0)
 	var z := mitte + Vector3(0, 0.6, 0)
-	cam.position = z + (quer * 0.85 - zu.normalized() * 0.5).normalized() * d * cos(deg_to_rad(28.0)) + Vector3(0, d * sin(deg_to_rad(28.0)), 0)
+	# Chef 13.11., 20:12 (t284.7c: zweiter Biss vom Helden verdeckt): genau von der Seite, flach (15°), kein Biss hinter einem Körper
+	cam.position = z + quer * d * cos(deg_to_rad(15.0)) + Vector3(0, d * sin(deg_to_rad(15.0)), 0)
 	cam.look_at(z)
 	cam.make_current()
 	kf.ink_ziel = z
