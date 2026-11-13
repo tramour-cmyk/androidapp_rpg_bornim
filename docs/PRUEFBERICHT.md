@@ -52,6 +52,15 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 238 · 1239, 1241, 1243, 1236 (Perikles `9cb3e2d39`, `4e6558dd2`, `dca8ede79`; 14.11., 00:2x)
+
+- **Greift:** 1239: `lauf.nachfolger` liest für Perikles, Jerry, Sokrates den echten Nachfolger, Beispielsatz in Anführungszeichen übergangen. 1241: `ROLLE-ENTWICKLUNG.md` „Großes Vorhaben“ ohne Verweis auf `billigen/1236-…`, Ausnahmen und „auch Beschlossenes“ im Text; damit greift 1236 ganz. 1243: „nach/ab/Stichtag 14.11., 20:00“ gilt als Termin.
+- **Nebenbei, ohne Vorgang:** „Termin (Sa TT.MM., HH:MM“ und „am Mo TT.MM., HH:MM“ mit heutigem Datum gelten weiter als Zeitstempel (Muster: Klammer oder Wochentag, nicht beides; „am“ fehlt); diese Zeile hielt die Commit-Prüfung beim ersten Versuch an.
+
+## Lauf 237 · 1098.1 Ford-Starter (14.11., 00:2x)
+
+- **Greift nicht:** kein Starter. `ARBEIT-BETRIEB.md` oben „Ford-Starter: keiner; ruht bis zur Antwort des Chefs auf 1098 … kein Starter anlegen“, obwohl Chef 13.11., 09:18 „1098 A“ und `LISTE-BETRIEB.md` „Ford-Starter“ seit `baa7ea568` (08:25). Handstart-Ford 18:22 (Tiefe 0) legte keinen an; Selbstneustart 00:14 „(selbst)“, neuer Ford Tiefe 1. Befund D236.2 → 1245 (Ford); 1098.1 wartet auf 1245.
+
 ## Lauf 236 · 1133 Werkzeugpunkte P1–P4 nachgeprüft (Perikles `279416a1f`, `e466b8d45`, 1134; 14.11., 00:2x)
 
 - **Greift:** P1 (OHNE-ÜBERHOLT): `lauf.ohne_ueberholt` meldet 831 „nicht mehr offen“ und 882.1 „in Arbeit ohne Sitzung“ richtig; Fords Ausschlussliste (Übergabe 14.11., 00:14) hat 3 Nummern (506.2, 1068, 1235), keine überholt (vorher 8 von 12). P3 und P4 (a) greifen seit Lauf 200.

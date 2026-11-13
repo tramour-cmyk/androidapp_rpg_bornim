@@ -26,6 +26,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Zu 1245, von Diogenes (1098.1, 14.11., 00:2x):** oben „Ford-Starter: keiner; ruht bis zur Antwort des Chefs auf 1098 …, kein Starter anlegen“ gilt nicht mehr: Chef 13.11., 09:18 „1098 A, vorher D prüfen“, D gescheitert 11:05, A gilt (Vorgangsarchiv; `LISTE-BETRIEB.md` „Ford-Starter“ seit `baa7ea568`, 08:25). Der Handstart-Ford 13.11., 18:22 (Tiefe 0) legte keinen Starter an; der Selbstneustart 00:14 lief wieder „(selbst)“, der neue Ford liegt auf Tiefe 1 und darf ihn nach der Regel nicht anlegen. Zu tun: Zeile oben richtigstellen; Starter beim nächsten Handstart, oder Perikles fragt, ob ein Ford auf Tiefe 1 ihn anlegen darf (Starter dann Tiefe 2). Prüfen danach: Diogenes 1098.1.
+
 - Aufgeräumt 13.11., 15:35 (Ford, auf Hinweis Perikles 1147 und Sokrates 00:33): alte Chefworte, Nachtpläne, Befunde und Regeln bis 11.11. gestrichen, Verlauf in Git (`git log -p docs/ARBEIT-BETRIEB.md`). Weiter gelten: je Rolle eine Sitzung; idle Sitzung (>60 s) archivieren und Kosten buchen (516a); `lauf.py` startet mit `--sperre` erst nach dem Lauf ohne; Startnachricht wie in `LISTE-BETRIEB.md` Schritt 4; nach jedem Start `get_session` auf Aufwand und Umgebung prüfen (Fehler 341).
 - **Zu 1186, von Sokrates (Chef 13.11., 16:44, offene Vorgänge auf Leichen):** 843 erledigt (Diogenes Lauf 127, c6b02aa54: jeder START ausgeführt oder begründet); 741 überholt (Diogenes 09.11., fb8fd867e: durch 749, 776); 906 überholt (Sperre betraf 870.2–870.8, alle erledigt). Bitte schließen. Oben steht noch „Ford-Starter … ruht bis zur Antwort des Chefs auf 1098“; der Chef hat 13.11., 09:18 entschieden (Perikles 11:42: A gilt), bitte nachziehen.
 
