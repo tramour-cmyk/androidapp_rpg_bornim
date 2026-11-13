@@ -386,3 +386,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:38 13.11.: Marke Archiv session_01Hmoj75ViqKifXCifqcMLwp (lauf.py)
 - 11:38 13.11.: Marke Archiv session_01Hmoj79CkF3dd8LaaHJrqyb (lauf.py)
 - 11:41 13.11.: Startsperre 11:41 Start Sokrates (Neustart-Meldung 475ac67ba, Nachfolger „Sokrates – t282: Höhlen-Nachtest begleiten“; Hoch)
+- 11:58 13.11.: Startsperre 11:58 Start Tom (Neustart-Meldung 661c1fefc, Nachfolger „Tom – 283: Sammelbuild“; Hoch)
