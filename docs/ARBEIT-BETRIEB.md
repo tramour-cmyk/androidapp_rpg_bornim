@@ -130,3 +130,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:07 13.11.: Lauf 23:03: Diogenes (1237) `…783kjRUn2ac4Ks2Yhg` gestartet (Umgebung Mittel), Vorgängerin `…75tnffFfTRAMHuhTAy` archiviert (2,13 $ auf 1175); Starts Homer 1235 und Perikles (Parserfehler) mit --ohne verhindert, Vorgänge 1238, 1239 an Perikles; Ausschlussliste zusätzlich `--ohne "1235:…"` und `--ohne "Perikles:…"` bis dahin (Ford)
 - 23:20 13.11.: Startsperre 23:20 Start Jerry (Neustart 56ee4e9ba, Nachfolger „Jerry – 709.1: Grimmzahn reicht nicht an den Schild“, Mittel; Ford)
 - 23:28 13.11.: Neustart Jerry (56ee4e9ba): neue Sitzung `…78sHDY7SBKAQW8Re2t` 23:21 (Mittel), Vorgängerin `…79cBeV1g9SXzdarjgt` archiviert (7,63 $ auf 709.1, 1072); sie schrieb nach dem Neustart noch 6 Minuten weiter im Vorrat, Hinweis geschickt, dann beendet (Ford)
+- 23:29 13.11.: Startsperre 23:29 Start Sokrates (Neustart 28d978c49, Mittel; Ford)
