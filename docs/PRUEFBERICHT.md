@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 235 · 1233 Projektplan fürs ganze Projekt (Perikles `2b0481176`; 13.11., 23:1x)
+
+- **Greift:** Meilensteine Kapitel 1, Marktstart, SRD, Kapitel 2, Kapitel 3–7 oben in `PROJEKTPLAN.md`, Teilprojekte mit Vorgängen und Stand; Belege nachgesehen (1235, 168.1, 956, 142, 109, 622, 870.13 in der Liste, 870.11 im Archiv, `kapitel2/STORY-PLAN-K2.md`, `STORY-PLAN.md` „Überblick“); `projektplan.py` läuft, Zahlen 23:15 nahe am Plan (319/111 gegen 321/113 um 22:2x); Schätzung mit genannter Grundlage (Median je Bereich).
+- **Nebenbei, ohne Vorgang:** Auftrag „K2–K7 je eine Zeile“, gebaut Kapitel 3–7 in einer Zeile (alle ohne Plan); Schätzung steht in der Meilensteintafel des Plans nicht, nur im Werkzeug (~700 $ Kapitel 1).
+
 ## Lauf 234 · 1228 Telegram-Urteile erledigt, wer sie sieht (Doppelpack 421, Perikles `06fd18d59`; 13.11., 23:1x)
 
 - **Greift:** `offene_urteile()` heute 0 (alle im Archiv); Wegwerfkopie: neuer Archiveintrag mit 👍 und „Nachricht 4030“ (steht schon, Zeile 13) → Commit-Prüfung „HÄLT AN … (1228)“, mit „Nachricht 4999“ kein Halt. Regeltext in `reaktionen.py` und `lauf.py` deckt sich mit dem Chefwort 21:22 („jeder, der sieht, das erledigt“); Vollzugszeile in `f2b09fc31`. Nicht gesehen: eine echte URTEIL-Zeile in Fords Stundenlauf (heute keine offene).
