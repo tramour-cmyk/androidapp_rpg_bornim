@@ -195,6 +195,7 @@ static func gespraech(id: String, s: Zustand) -> Array:
 			else:
 				# [356.ketten]; a game saved between Grak and Lyra has no key: the chains open all the same
 				if s.anzahl("grak_key") > 0: k.take("grak_key")
+				k.ereignis("ketten")   # 1144: mit der Zeile klirren die Ketten, Lyra reibt die Handgelenke, die Arme sinken
 				k.narrate("Der Schlüssel dreht sich schwer. Die Ketten fallen klirrend zu Boden.", "The key turns stiffly. The chains fall clattering to the floor.")
 				k.say(lyra, "Du hast Grak besiegt! Ich bin Lyra, Priesterin des Morgenlichts.", "You defeated Grak! I'm Lyra, priestess of the Dawnlight.")
 				k.say(lyra, "Sie wollten mich und das Amulett zu jemandem bringen … zum »Grauen Propheten«.", "They were going to take me and the amulet to someone… to the “Gray Prophet”.")

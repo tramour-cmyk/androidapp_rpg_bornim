@@ -1017,6 +1017,18 @@ class Haltung extends SkeletonModifier3D:
 	var dame_w := -1.0
 	var dame_mass := Vector2.ZERO   # Fuesse, Handgelenke auseinander in Hueftbreiten nach dem letzten _dame (dame_1044; ausserhalb der Modifikation zeigt das Skelett wieder die Bewegung)
 	var _dame_t := 0
+	# 1144 (Chef 13.11., 14:49, Lyra in Graks Halle: „Die steht aber noch da, ob es angekettet wäre“): mit den Händen vorn wirkt der
+	# Damenstand in der Halle wie gefesselt. Bei „Die Ketten fallen klirrend zu Boden“ (befreie) reibt sie die Handgelenke, erst die
+	# rechte Hand über das linke, dann umgekehrt (REIB_S), dann sinken die Arme und sie steht frei (SINK_S); danach ohne Damenstand
+	var frei_seit := -1
+	const REIB_S := 2.0
+	const SINK_S := 0.8
+	func befreie() -> void:
+		if dame and frei_seit < 0: frei_seit = Time.get_ticks_msec()
+	## 1144: [Reiben 0–1 (welche Hand reibt: 0 rechte, 1 linke), Gewicht des Damenstands] t s nach befreie
+	static func frei_phase(t: float) -> Vector2:
+		if t < REIB_S: return Vector2(0.0 if t < REIB_S * 0.5 else 1.0, 1.0)
+		return Vector2(-1.0, 1.0 - smoothstep(0.0, 1.0, (t - REIB_S) / SINK_S))
 	func _drehe(sk: Skeleton3D, i: int, r: Basis) -> void:
 		var g := sk.get_bone_global_pose(i)
 		var pa := sk.get_bone_parent(i)
@@ -1047,6 +1059,15 @@ class Haltung extends SkeletonModifier3D:
 		if dame_w < 0.0: dame_w = soll
 		else: dame_w = move_toward(dame_w, soll, clampf((jetzt - _dame_t) / 1000.0, 0.0, 0.1) / DAME_BLENDE)
 		_dame_t = jetzt
+		var reib := -1.0   # 1144: welche Hand reibt (befreie), -1 keine
+		var t_frei := (jetzt - frei_seit) / 1000.0 if frei_seit >= 0 else 0.0
+		if frei_seit >= 0:
+			var ph := frei_phase(t_frei)
+			reib = ph.x
+			dame_w = minf(dame_w, ph.y)
+			if ph.y <= 0.0:
+				dame = false
+				return
 		if dame_w < 0.01: return
 		var w := smoothstep(0.0, 1.0, dame_w)
 		var b := {}
@@ -1099,6 +1120,13 @@ class Haltung extends SkeletonModifier3D:
 		var rumpf := maxf(0.05, oben.y - ziel_p.y)
 		var bauch := ziel_p + Vector3.UP * (0.08 * rumpf)
 		var zh := [bauch + links * (0.42 * breite) + vorn * (0.75 * breite), bauch - links * (0.36 * breite) + vorn * (0.85 * breite) + Vector3.UP * (0.06 * rumpf)]
+		if reib >= 0.0:
+			# 1144: die reibende Hand kreist über dem Handgelenk der anderen (etwa zwei Kreise je Hand), die gehaltene liegt etwas höher
+			var r := 0 if reib < 0.5 else 1
+			var o := 1 - r
+			var ph := TAU * 2.2 * t_frei
+			zh[o] = bauch + vorn * (0.8 * breite) + Vector3.UP * (0.12 * rumpf) + (links if o == 0 else -links) * (0.08 * breite)
+			zh[r] = zh[o] + (links if o == 0 else -links) * (0.1 * breite + 0.06 * breite * cos(ph)) + Vector3.UP * (0.05 * rumpf + 0.04 * rumpf * sin(ph)) + vorn * (0.05 * breite)
 		for s in 2:
 			var e := "_l" if s == 0 else "_r"
 			var aussen := links if s == 0 else -links
