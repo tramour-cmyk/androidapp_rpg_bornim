@@ -1,5 +1,7 @@
 # 1044 · Alle Frauen stehen wie eine Dame, vorher/nachher · Tom · 13.11., 03:26
 
+[Bild von 13.11., 03:27](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-0327-1044-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Figuren · Zweig `claude/tom-1044-frauen` · auf dem Bauserver mit den gekauften Figuren, wie im Spiel
 
 Geprüft an: [Lauf 414](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43346874615), [Commit 13c6c20](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/13c6c20d6a54de6758bc3a5915a495618c55e08e)
