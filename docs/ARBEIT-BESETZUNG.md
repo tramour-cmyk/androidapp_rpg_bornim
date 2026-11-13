@@ -2,12 +2,14 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 13.11., 04:04 (lauf.py)
+**Stand:** 13.11., 11:47 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Tuffy | [Tuffy – 1055: Testbitte Build 281 (12.11., 21:59)](https://claude.ai/code/session_01Hmoj75T84v7wSUd4hP2WrG) | 1055 | – | 12.11., 21:58 |
-| Ford | [Ford – Betriebsleiter (12.11., 23:51)](https://claude.ai/code/session_01Hmoj78SjLo9HXycxxu7G2K) | Betrieb | – | 12.11., 23:50 |
-| Tom | [Tom – 1022, 492, 1044, 867: Läufe (13.11., 00:49)](https://claude.ai/code/session_01Hmoj76h3kQK3RzBGphx1PP) | 1022 | – | 13.11., 00:49 |
-| Jerry | [Jerry – 1043: Ausweichen im Sprung (13.11., 03:01)](https://claude.ai/code/session_01Hmoj79qGhEdjuvdUYbpj3h) | 1043 | – | 13.11., 03:01 |
-| Sokrates | [Sokrates – 1077: Nachtführung und Chefrunde Build 281 (13.11., 03:16)](https://claude.ai/code/session_01Hmoj76u5Yu31JvukatFmxM) | 1077 | – | 13.11., 03:15 |
+| Ford | [Ford – Betriebsleiter (13.11., 11:09)](https://claude.ai/code/session_01Hmoj799ZkNaijAJMrQQjx9) | Betrieb | – | 13.11., 11:08 |
+| Tom | [Tom – 1040.1 (13.11., 11:38)](https://claude.ai/code/session_01Hmoj76bi2dhnXLC43LUzuG) | 1040.1 | – | 13.11., 11:39 |
+| Jerry | [Jerry – 1036.1 (13.11., 11:38)](https://claude.ai/code/session_01Hmoj776UuCBT9zDUv51f75) | 1036.1 | – | 13.11., 11:39 |
+| Diogenes | [Diogenes – 1122 (13.11., 11:38)](https://claude.ai/code/session_01Hmoj78EvBobSYTXdaNQzkv) | 1122 | – | 13.11., 11:39 |
+| Perikles | [Perikles – 1098: Ford-Starter nach Probe D (13.11., 11:41)](https://claude.ai/code/session_01Hmoj77qhBTDyiHKVfoKnXo) | 1098 | – | 13.11., 11:39 |
+| Spike | [Spike – 756 (13.11., 11:38)](https://claude.ai/code/session_01Hmoj78Rf6zNyPd2bCm6EA8) | 756 | – | 13.11., 11:39 |
+| Sokrates | [Sokrates – t282: Höhlen-Nachtest begleiten (13.11., 11:41)](https://claude.ai/code/session_01Hmoj76iVKhkuRnEy4uReda) | 282 | – | 13.11., 11:41 |

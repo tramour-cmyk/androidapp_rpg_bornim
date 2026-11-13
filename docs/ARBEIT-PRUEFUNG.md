@@ -4,24 +4,32 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (13.11., 00:09, `session_01Hmoj78w2wPxieifiNqTSWc`):** Lauf 188: 1087 greift (Prüfbericht). Nächste Nummer D189. Nachfolger: keiner
-- **Zu 1019:** am 13.11. ab 08:00 (kommt als Zeile zurück, mit 768): Protokoll `ARBEIT-BETRIEB.md` seit 12.11., 08:12 je „Start Ford (selbst)“ `used_tokens` des alten Ford (`get_session`); alle über 400 Tsd. und Tiefe höchstens 2 → `greift 1019 <Lauf>`; sonst Vorgang an Perikles.
+**Übergabe (13.11., 11:43, `session_01Hmoj78EvBobSYTXdaNQzkv`):** Läufe 194–196 (Prüfbericht): 1122, 1111, 1112 warten auf t283 (dann Prüfpunkte aus Jerrys bzw. meinem „Zu“); 1100.1 erledigt, D195.1 → 1125; D196.1 → 1126, D196.2 → 1127. Rollenspiegel 13.11. beantwortet. Nächste Nummer D197. Nachfolger: keiner
+- **Zu 1122:** am ersten Lauf auf `claude/build-283` Zeile „PRUEFLISTE1020 im Bau: Build 283“; nach `main` ein Lauf auf einem Teamzweig `…-348-…` mit „PRUEFLISTE1020 aus“; beides → `greift 1122 194`.
+- **Zu 1019:** wenn 1098 gebaut: erneut Selbstneustarts gegen `used_tokens` und Tiefe (Elternkette) prüfen.
+- **Zu 1098, 1098.1, 1019, von Perikles (13.11., 11:43, `80d123de8`): Chef 09:18 „1098 A, vorher D prüfen“; Probe D gescheitert (11:05), A gilt.** Alle drei warten bis 14.11. (Ford lief 11:09 auf Tiefe 5, der nächste Selbstneustart führt zum Handstart, erst dieser legt den Starter an). Prüfen: Ford-Starter (`LISTE-BETRIEB.md` „Ford-Starter“) legt erst der nächste Handstart-Ford an; prüfen nach dem ersten Neustart über ihn: Starter auf Tiefe 1, neuer Ford auf 2 (Elternkette = Starter), Protokoll „Start Ford (Starter)“, alter Ford archiviert, Uhr übernommen. Gab es bis dahin keinen Handstart: nur melden, nicht bewerten.
+- **Zu deinem Hinweis Commit-Prüfung (10:06), von Perikles (13.11., 11:48, `582dceea5`):** `fremd_hinweis` zählt beim Zusammenführen Zeilen, die schon auf der anderen Seite stehen, nicht mehr als neu; nichts Eigenes hinzugefügt → geht durch. Probe im Klon: dein Fall (eigene Zeile drüben, „von Diogenes“ hier, Datei über 15000) alt hält an, neu durch.
+- **Zu 1125, von Perikles (13.11., 11:50, `377a1a533`):** `abgleich.py` erkennt Sammelbilligungen des Chefs (Archivzeile „(Nutzer“ mit gebilligt/Billigung/zurück, Nummern im Kopf, gilt für ältere Vorentscheid-Zeilen); die 13 Warnungen 1090, 492, 1044, 867, 1022, 842, 1084, 1085 sind weg, ein neuer Vorentscheid warnt weiter (Probe mit gestellten Zeilen). Prüfen: endet ein Uhrlauf ohne Startbares jetzt mit LEERLAUF, und sinken die Kosten je Uhrlauf? **Lauf 199 (11:53):** `abgleich.py` auf `main` nur noch „ohne Build“ (Zahlzeile), keine Vorentscheid-Warnung; nach 13:15 Uhrläufe ~12:0x/13:0x im Ford (`…799ZkNaijAJMrQQjx9`, result-Ereignisse) gegen Lauf 195 → greift 1125 und 1100, sonst Befund.
 - **Zu 981, 982:** nach 14.11., 20:00 eine echte START-Zeile ohne `effort high` und eine Sitzung ohne Aufwand ansehen; falsch → Vorgang an Perikles.
 - **Zu 940:** bei der ersten echten Doppelziehung zweier Sitzungen auf GitHub: zwei Nummern, kein Konflikt im Zähler.
 - **Zu 927:** beim nächsten echten Lauf mit „Sitzung hängt“ oder „Jetzt installieren“ die Zeile ansehen.
 
-- **Zu 853 (Lauf 133, 134; Lauf 154: Spike 492 meldet sich als Spike, ohne Rückfrage; Lauf 156: Jerry 806, 09:10, erste Antwort nennt Rolle und Vorgang, ohne Rückfrage; Lauf 180: Homer 975a, 17:18, arbeitet ab 17:20 ohne Rückfrage, erster Text „Homer [11.11., 17:21] 975a: …“):** Diese von Ford gestartete Sitzung (870.1) hat die Rolle ohne Rückfrage übernommen, und `notiz.sh` nennt Jerry. Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
+- **Zu 853 (Läufe 133, 134, 154, 156, 180, 194: Spike, Jerry, Homer, Diogenes ohne Rückfrage; Einzelheiten Prüfbericht):** Beim nächsten Lauf noch eine fremde Rolle ansehen (`list_events`, `kinds` user/assistant, erste Seite). Fragt sie nach der Rolle → Vorgang an Perikles. Auf Abruf (768 am 13.11., 790 und 461b am 16.11.).
 
 - **Zu 790:** Vorher-Werte Lauf 113 im Prüfbericht. Am 16.11. ab 18:07: `list_sessions` (mine, alle Seiten) und je abgeschlossene Sitzung mit created_at ab 09.11., 17:07Z `get_session` → `external_metadata.usage` (cost_usd, cache_read_tokens, cache_write_tokens, output_tokens) und `context_usage.used_tokens`; Helfer schreibt TSV, dann je Rolle wie Lauf 113 rechnen (je Aufruf = Kosten / (cache_read / ((Länge + 60 Tsd.) / 2))); Ergebnis an Perikles und den Chef, nicht bewerten.
 - **Zu 783:** nach der Antwort des Chefs Datei löschen, Wortlaut ins Archiv; dann Schritt 3 (Perikles, 791) prüfen: jede Entscheidung behält einen Ort.
 
 ## Zeilen
 
+- **Zu 1109, Stand (Lauf 191, 10:0x):** Vorlage `entscheiden/1109-vorberechnung.md` (Votum A, D), Befunde 1111–1116, Prüfbericht Lauf 191. Nach der Antwort: bei A nach dem ersten Lauf mit 1101 prüfen „KAUF-CACHE abgelegt dorf … Teile“ und der nächste Lauf alle vier Blöcke `treffer`; nach der ersten echten Gegenprobe deren Zeile „0 abweichend“. **Entschieden (Chef 10:56, an Sokrates): „1109 A bis D, in der Reihenfolge“**: A und D sofort (1111–1113 Jerry oben, 1101 im nächsten Build, D = 1122 Tom), dann 1114 nach der ersten gleichen Gegenprobe, 1115 danach, C = 1123 nach 1115 (Archiv). Deine Nachprüfungen wie oben, dazu nach 1114. **Zu 1101 (10:59):** „greift“ erst am ersten Lauf mit 1101 (noch in keinem Build), wartet auf t283.
+
+- **Zu 1100:** nach 1125 (Perikles) erneut Uhrläufe gegen Lauf 195 messen (Schritte, $ je Lauf); spart es → `greift 1100 <Lauf>`.
+
 
 - **Zu 911, 912, 920 (Lauf 156–160, alle greifen):** beim nächsten echten Handlauf mit Merge oben die Zeile im Zweig `probelaeufe` ansehen (Vorgang des eigenen Verlaufs, bei fremder Rolle der aus dem Zweignamen); falsch → Vorgang an Perikles.
 
 - **Zu 464 (Lauf 110):** Haken (748) und Zählung (749) greifen, Lücken 776, 777 geschlossen; 464 wartet auf 16.11.: Wirkung in der Wochenzählung 16.11.: rote Bauläufe der Woche gegen 52 von 185 (28 %) der Vorwoche, dann `greift 464` oder Befund.
-- **Zu 719 (Perikles, „719 A“):** Wochenzählung kommt montags ab 8 Uhr als Vorgang „Wochentermin TT.MM.: Wochenzählung …“; nach der Zählung erledigt setzen. Zeile „Woche“ erledigt 09.11.
+- **Zu 719:** Wochenzählung kommt montags als Vorgang „Wochentermin …“; danach erledigt setzen.
 - **Zu 724, 755:** Bereich B mit „gebaut“ kommt als „wartet auf Diogenes“ zu mir; greift → `vorgang.py greift NR LAUF`, Lücke → eigener Vorgang und `warte NR <Lücke>`.
 
 - **Zu 720, von Sokrates (Chef 09.11., 11:26, „720 A“; Archiv):** in der Wochenzählung neben „ganze Punkte x von 41“ die Teilhaken je Punkt nennen („2.13: 6 von 19“); ganze Punkte bleiben daneben stehen.

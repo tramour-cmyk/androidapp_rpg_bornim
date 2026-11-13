@@ -44,7 +44,16 @@ def vorentscheide():
     w = []; heute = datetime.date.today()
     d = os.path.join(startbar.DOCS, "chefsache", "billigen")
     dateien = sorted(n for n in os.listdir(d) if n.endswith(".md")) if os.path.isdir(d) else []
-    for z in startbar.lesen("VORGANGSARCHIV.md").splitlines()[:80]:
+    oben = startbar.lesen("VORGANGSARCHIV.md").splitlines()[:80]
+    # 1125: der Chef billigt oft mehrere in einer eigenen, neueren Zeile („- **867, 1022 …: Billigung …** … (Nutzer“); jede dort genannte
+    # Nummer gilt für alle älteren Vorentscheid-Zeilen (das Archiv steht neu oben)
+    gebilligt = {}
+    for i, z in enumerate(oben):
+        kopf = re.match(r"- \*\*([^*]+)\*\*", z)
+        if kopf and re.search(r"→ \*\*[^*]*\(Nutzer", z) and re.search(r"gebillig|Billigung|zurück", z):
+            for n in re.findall(r"(?<![\d.])(\d+[a-z]?(?:\.\d+[a-z]?)*)\b", kopf.group(1)): gebilligt.setdefault(n, i)
+    gesehen = set()
+    for j, z in enumerate(oben):
         m = re.match(r"- \*\*(\d+[a-zA-Z]*(?:\.\d+[a-zA-Z]*)*)\b", z)
         dm = re.search(r"\((\d\d)\.(\d\d)\.", z)
         if not m or not dm or "Vorentscheid" not in z: continue
@@ -52,6 +61,8 @@ def vorentscheide():
         if (int(dm.group(2)), int(dm.group(1))) < (10, 19): continue
         if re.search(r"(gebilligt|zurück) \d\d\.\d\d\.", z): continue
         nr = m.group(1); kurz = nr.replace(".", "").lower()
+        if gebilligt.get(nr, j) < j or nr in gesehen: continue
+        gesehen.add(nr)
         if any(n.lower().startswith(kurz + "-") for n in dateien): continue
         w.append("WARNUNG Abgleich: Vorentscheid %s ohne Datei in chefsache/billigen/ und ohne Vermerk „gebilligt“ oder „zurück“ in der Archivzeile (194.1)" % nr)
     alt = []
