@@ -687,6 +687,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/schreib_78519.gd 2>&1 | grep -E "^FEHLER|SCHREIB78519|SCRIPT ERROR"   # 785.19 Text Zeichen für Zeichen (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/klopfen_629.gd 2>&1 | grep -E "^FALSCH|KLOPFEN629|SCRIPT ERROR"   # 629.1 Sprechernamen beim Klopfen (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pim_verband_842.gd 2>&1 | grep -E "^FALSCH|PIM842|SCRIPT ERROR"   # 842 Pim überreden, Knopf im Gespräch, Verband (Tom)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pim_rennt_1086.gd 2>&1 | grep -E "FEHLER|PIMRENNT1086|SCRIPT ERROR"   # 1086 Pim rennt nach dem Gold wirklich heim, die Mutter dankt (echter Ablauf, Spike)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/karten_regeln.gd 2>&1 | grep -E "FALSCH|KARTENREGELN|SCRIPT ERROR"   # 870.9 Kartenregeln der alten Kotlin-Tests (Karten von Hand, tools/karten)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/starttexte_540.gd 2>&1 | grep -E "FEHLER|STARTTEXTE|SCRIPT ERROR"   # 540 Suedrand, Schlagbaum, 12/5, Tipp
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/suedrand_540.gd 2>&1 | grep -E "FEHLER|SUEDRAND540|SCRIPT ERROR"   # 540 t274.12: auch schräg an den Südrand stoßen
@@ -972,6 +973,15 @@ jobs:
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
           # 1040.1 (Spike; Chef 12.11., 15:13 Lyra „dreht sich … wie auf dem Drehteller“): dorf=10401 nur der Film Lyra in der Höhle
+          # 1086 (Spike; Chef 13.11., 15:47 t283.5 „er rennt heim, steht aber neben mir“): dorf=1086 nur der Film Pim, Gold, heim, Dank
+          if [ "${{ github.event.inputs.dorf }}" = "1086" ]; then
+            timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
+              -s res://tests/film_pim_1086.gd > $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^FILM1086" $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log | cut -c1-300 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/pim1086.mp4 || true
+            ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
+          fi
           if [ "${{ github.event.inputs.dorf }}" = "10401" ]; then
             timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
               ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \

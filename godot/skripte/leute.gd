@@ -629,6 +629,12 @@ func _process(dt: float) -> void:
 		anim.speed_scale = 1.0
 
 func stehen(dt: float) -> void:
+	# 1086 (Chef 13.11., 15:47, t283.5: „Text sagt, er rennt heim, steht aber neben mir, passiert nichts“; nachgestellt in pim_rennt_1086):
+	# eilt setzte erst plan_jetzt im Tagesplan, und den erreichte Pim erst nach der Zuwendung (10 s) und nur, wenn der Held nicht mehr
+	# bei ihm stand (schaut). Jetzt gleich nach dem Gespraech, in dem er heimgeschickt wurde
+	if not war_daheim and not still and daheim.is_valid() and not (daheim.call(String(daten["id"])) as Array).is_empty():
+		plan_jetzt()
+		if eilt: warte = 0.0
 	if (fort_nach.x >= 0 or eilt) and not still: zugewandt_bis = 0   # 492: wer fortgeht, geht gleich nach dem Gespraech (Game.leave); 1086 wer heimrennt
 	var s := schaut_her(dt) and fort_nach.x < 0 and not eilt   # zaehlt den Stillstand des Helden auch waehrend des Gespraechs und danach; wer fortgeht (492), schaut nicht her
 	if zugewandt_bis > 0:
@@ -799,9 +805,28 @@ func gehe_nach(p: Vector2i) -> void:
 		warte = 1.0
 		return
 	if not frei_fuer_mich(weg[0]):
+		# 1086 (pim_rennt_1086): steht der Held auf dem Weg, aussen herum; vorher wartete die Person, bis er ging (Pim blieb neben ihm)
+		var um := umweg(p) if weg[0] == held_kachel() else Vector2i(-1, -1)
+		if um.x >= 0:
+			weg.clear()
+			ziel = um
+			return
 		warte = 0.5
 		return
 	ziel = weg.pop_front()
+
+# 1086: freie Nachbarkachel, von der der Weg nach p am kuerzesten ist (nicht die des Helden); (-1, -1) ohne
+func umweg(p: Vector2i) -> Vector2i:
+	var best := Vector2i(-1, -1)
+	var best_n := 1 << 30
+	for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+		var n: Vector2i = kachel + d
+		if not frei_fuer_mich(n): continue
+		var w := karte.weg(n, p)
+		if (not w.is_empty() or n == p) and w.size() < best_n:
+			best_n = w.size()
+			best = n
+	return best
 
 func runde() -> void:
 	var r: Array = daten["runde"]
@@ -826,6 +851,9 @@ func laufe(dt: float) -> void:
 	rotation.y = drehe(rotation.y, soll, DREH * (2.0 if flucht else 1.0) * dt)   # 591: rennend schnell herum (MapHen.TURN_RUN)
 	var ab := absf(angle_difference(rotation.y, soll))
 	tempo *= lerpf(BOGEN_TEMPO, 1.0, (cos(ab) + 1.0) * 0.5)
+	# 1086 (pim_rennt_1086: Pim rannte nach dem Ausweichen um die Nachbarkachel im Kreis): liegt das Ziel quer und nah, nur so schnell,
+	# dass der Bogen (Tempo / DREH) hineinpasst; sonst umkreist die Person es, ohne anzukommen
+	if ab > BOGEN: tempo = minf(tempo, DREH * to.length() * 0.5)
 	# 416.4: anlaufen und vor dem letzten Schritt langsamer werden wie der Held (Held.tempo_schritt, Held.bremse)
 	if weg.is_empty() and not flucht: tempo = Held.bremse(tempo, to.length(), laufe_soll())   # letzte Kachel des Wegs (Runde, Tagesplan) oder Streifen
 	tempo_jetzt = Held.tempo_schritt(tempo_jetzt, tempo, laufe_soll(), dt)
@@ -836,6 +864,9 @@ func laufe(dt: float) -> void:
 		kachel = ziel
 		ziel = Vector2i(-1, -1)
 		blick = rotation.y
+		# 1086 (film_pim_1086: Pim stand 6 s vor der Huette noch als „rennt heim“, die Mutter dankte so lange nicht): angekommen ist
+		# er, sobald er in seinem Streifen steht, nicht erst nach der Pause dort
+		if eilt and absi(kachel.x - heim.x) + absi(kachel.y - heim.y) <= streifen_n: eilt = false
 		# auf der Runde ohne Halt zur naechsten Kachel
 		if daten.has("runde"): warte = 0.0
 		return
