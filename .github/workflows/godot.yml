@@ -1493,7 +1493,7 @@ jobs:
         continue-on-error: true
         run: |
           R=$GITHUB_WORKSPACE/bilder/rand1022; mkdir -p $R/nachher $R/vorher
-          # 284 (Fund t282.5, Wege enden): nur die Stellen mit einem Weg über den Rand; vorher = Build 283
+          # 284 (Fund t282.5, Wege enden): nur die Stellen mit einem Weg über den Rand; vorher = Build 284 (seit 285)
           export RAND_NUR=1,2,7,10,11
           knipse() {
             (cd $1 && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
@@ -1501,8 +1501,8 @@ jobs:
           }
           knipse godot $R/nachher
           A=$RUNNER_TEMP/vorher1022; mkdir -p $A
-          # vorher = Stand von Build 283 (a1765242c, vor 4eb527972); bis 283: Stand der Bilder 23:42 (519704595)
-          git fetch -q --depth=1 origin a1765242cb1dae1f69c23670d731bbfc3b52f9c8 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
+          # vorher = Stand von Build 284 (985649df3, getestet t284; 285: 1022.1 Randwege, 1218 Steg); 284: Build 283 (a1765242c)
+          git fetch -q --depth=1 origin 985649df3fbf524f585cfd445f0dc3671e1918f2 && git archive FETCH_HEAD tools/blender348 godot/shader godot/skripte/gebiet.gd | tar -x -C $A
           export OUT=$A/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
           bl/bin/python -I $A/tools/blender348/v3/tex.py > $A/tex.log 2>&1 || { tail -20 $A/tex.log; exit 1; }
           for g in village forest deep_forest; do KARTE=$g bl/bin/python -I $A/tools/blender348/v3/dorf.py > $A/dorf-$g.log 2>&1 || { tail -20 $A/dorf-$g.log; exit 1; }; grep -h "GLB OK" $A/dorf-$g.log || true; done
