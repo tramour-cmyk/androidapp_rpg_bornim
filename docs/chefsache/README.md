@@ -12,6 +12,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1150](billigen/1150-xvfb.md) | **Muss** | B Abläufe | 13.11., 15:05 | 390a bleibt eng, nur „kein xvfb-run“ fällt weg; Test ohne Bildbefehl zählt nicht gegen die eine Probe | Perikles |
 | [1143](billigen/1143-rest.md) | **Muss** | B Abläufe | 13.11., 14:49 | Rest im Commit heißt Folgevorgang im selben Schritt, Wächter in vorgang.py fertig (1143 Tom) | Perikles |
 
 ## Anzusehen
