@@ -103,3 +103,8 @@ Im Bau geprüft: kein Baum auf einem Weg am Rand, Wald daneben (`rand_1022`, all
 - 284.7k: probe=WOLVES
 - 284.7l: probe=WOLVES
 - 284.7m: station=Garrick
+
+## Ergebnis
+
+- 284.2d ✓ (Chef 20:06: „Vom Inhalt her ist alles richtig“; Rest: Pim läuft im Halbbogen in Zeitlupe an, Zu 1086)
+- 284.2f ✗ Rock wirkt gestreift statt gefaltet (Chef 20:06, Zu 1092); Drehen im Stand gehört zu 1040.1
