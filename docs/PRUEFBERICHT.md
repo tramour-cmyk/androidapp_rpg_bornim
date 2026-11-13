@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 197 · 1124 Rolle im Wartefeld: Commit-Prüfung hält „Zu <Nr> … von <Rolle>“ an (Perikles `cf704c3ea`; 13.11., 11:5x)
+
+- **Greift:** in einer Kopie von `main` neue Zeile „Zu 483, von Diogenes“ in einem Vorrat → HÄLT AN mit Vorschlag `warte 483 D75`; nach dem `warte` im selben Stand durch; „von Sokrates“ geht durch. Fords Originalzeile (`5380d2eb1`, „Zu 1098, Ergebnis Probe D von Ford …“) passt auf beide Muster (Nummer und „von Ford“ im fetten Kopf), wäre also angehalten worden. Der Haken läuft in der Notizkopie (diese Sitzung hielt heute dreimal an der 15-KB-Grenze).
+- **Grenzen:** erkennt nur eine Lieferung mit „von <Rolle>“ im fetten Kopf; eine geänderte alte Kopfzeile zählt als neu (Ausweg `BORNIM_WARTET=1`). Zurzeit trägt nur 483 eine Rolle im Wartefeld.
+
 ## Lauf 196 · 1111, 1112, 1113 Kauf-Cache: Gegenprobe, halbe Blöcke, Aufräumen (Jerry `826974d2e` auf `claude/jerry-1111-cache`; 13.11., 11:4x)
 
 - **1111 richtig gebaut:** `pruefen --neu` setzt jeden Block auf bauen, `KAUF_HOLEN` nein, `KAUF_GEGENPROBE` nennt nur Blöcke mit vorher abgelegtem Zweig; `ablegen` überschreibt keinen, `vergleich` prüft damit den alten Zweig gegen den frischen Bau, nicht sich selbst. Abweichung macht den Schritt rot (continue-on-error, Bau geht weiter).
