@@ -488,14 +488,27 @@ func naechste() -> void:
 		var spalten := VBoxContainer.new()
 		spalten.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		spalten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		# 1086 (Homer 1085): mehrere Wahlen rechts untereinander, die erste oben, „‹ Nicht jetzt“ links darunter
+		# 1086 (Homer 1085): mehrere Wahlen rechts untereinander, die erste oben
+		# 1120 (Chef 13.11., 10:32, Osric: „Kann man die Auswahl nicht auf gleiche Höhe stellen? Warum ist das unterschiedlich hoch?“):
+		# „‹ Nicht jetzt“ links auf derselben Höhe wie die (untere) Wahl rechts, wie Abbrechen und Benutzen in der Tasche (1074)
 		for i in knoepfe.size():
 			var nr := i
 			var kn := Spielstaende.knopf("haupt", String(knoepfe[i]), func(): if knopf_bereit(): knopf_im_text.emit(nr))
 			kn.size_flags_horizontal = Control.SIZE_SHRINK_END
-			spalten.add_child(kn)
-		nein.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		spalten.add_child(nein)
+			if i < knoepfe.size() - 1:
+				spalten.add_child(kn)
+				continue
+			var reihe := Spielstaende.knopfzeile(nein, kn)   # je die halbe Breite wie in der Tasche
+			reihe.name = "Reihe"
+			nein.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			kn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			# lange Aufschriften (Pims „Schick Pim heim (Überreden)“) schoben den Kasten aus dem Bild (Vorlage 22:43): in der Reihe
+			# bricht die Aufschrift um, statt die halbe Breite zu sprengen
+			for l2 in kn.find_children("Text", "Label", true, false):
+				(l2 as Label).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+				(l2 as Label).custom_minimum_size.x = 0.0
+				(l2 as Label).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			spalten.add_child(reihe)
 		text_knopf.add_child(spalten)
 	text_knopf.visible = knopf_text != ""
 	text_knopf.modulate.a = 0.0
