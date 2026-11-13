@@ -39,6 +39,10 @@ func _lauf() -> void:
 		if nur != "" and not (String(o[3]).get_slice("_", 0) in nur.split(",")): continue
 		if spiel.karte.id != o[0]:
 			spiel.betrete(o[0], o[1], o[2])
+			# 1212 (Lauf 450: Wald Ost schwarz, Knopf FIGHT): gleich nach dem Betreten kein Angriff, nicht erst nach 1,5 s
+			if spiel.herde:
+				spiel.herde.aus = true
+				spiel.herde.process_mode = Node.PROCESS_MODE_DISABLED
 			await create_timer(1.5).timeout
 		if spiel.herde: spiel.herde.process_mode = Node.PROCESS_MODE_DISABLED   # kein Kampf während der Aufnahme
 		spiel.held.setze(o[1], o[2])
