@@ -1528,18 +1528,17 @@ static func stueck_rahmen(g: Dictionary, dp: float) -> Control:
 # ---------------------------------------------------------------- 756 Merkmale am Bild
 # 756 A (Chef 09.11., 17:46: „Probebild Merkmale jetzt“; Vorschlag Sokrates 14:28): feste Stellen am Bild eines Stuecks, hoechstens drei
 # Zeichen zugleich: Rahmenfarbe = Seltenheit (wie bisher), oben rechts „2H“ (wie bisher), oben links die Guete (Normal nichts, Gut ein
-# Goldpunkt, Meisterhaft zwei, Schlecht ein eigenes Zeichen nach SCHLECHT; Schlecht kommt mit 976), unten der Zustand als Balken nur bei
+# Goldpunkt, Meisterhaft zwei, Schlecht ein roter Punkt (756.1); Schlecht kommt mit 976), unten der Zustand als Balken nur bei
 # Abnutzung (Beschaedigt gelb, Defekt rot, das Bild entsaettigt; Benutzt ohne Balken); nicht Tragbares abgedunkelt. Zustand gibt es im
 # Spiel noch nicht (DESIGN-BRS.md 11: eigener Vorgang nach dem Umzug), gelesen wird „zustand“ 0–3 am Stueck.
 # An seit dem „passt“ des Chefs (12.11., 20:14: „Einer wäre gut und 2 wären dann das Beste“).
 static var merkmale := true
-## Zeichen fuer Schlecht (Chef 12.11., 20:23: „Vorlage … mit rostbraun oder dunkelrot oder halbvoll oder voll oder Ring“): [Form, Farbe];
-## gilt SCHLECHT[schlecht_art], bis der Chef in der Vorlage waehlt; ein Stueck mit „schlecht_art“ zeigt seine eigene (nur die Vorlage)
-const SCHLECHT := [["ring", Color("9a5530")], ["ring", Color("9c2c24")], ["halb", Color("9c2c24")], ["voll", Color("9c2c24")]]
-static var schlecht_art := 0
 const ZUSTAND := [["Makellos", "Pristine"], ["Benutzt", "Worn"], ["Beschädigt", "Damaged"], ["Defekt", "Broken"]]   # DESIGN-BRS.md 11
 const ZUSTAND_GELB := Color("d9b24a")
 const ZUSTAND_ROT := Color("c4523c")
+## 756.1 Zeichen fuer Schlecht (Chef 13.11., 13:45: „voller Punkt wie in 3, aber etwas heller (wie vorgeschlagen)“): ein voller Punkt
+## so gross wie ein Goldpunkt, im Rot der Leiste fuer Defekt (Kontrast auf Schwarz 4,6 statt 2,8 des Dunkelrots der Vorlage)
+const SCHLECHT_FARBE := ZUSTAND_ROT
 
 static func zustand_von(g) -> int: return clampi(int(g.get("zustand", 0)), 0, 3) if g is Dictionary else 0
 static func zustand_text(g: Dictionary, de: bool) -> String:
@@ -1571,21 +1570,9 @@ static func merkmal_ecken(p: Control, g: Dictionary, bild: Control = null, balke
 		var rand := 3.5 * DP + r
 		if gu == -1:
 			# so gross und deutlich wie ein Goldpunkt (Chef 12.11., 20:14: „So ein hohler wäre schlecht“), auf schwarzem Hof wie die Punkte
-			var sz: Array = SCHLECHT[clampi(int(g.get("schlecht_art", schlecht_art)), 0, SCHLECHT.size() - 1)]
 			var mi := Vector2(rand, rand)
-			var fa: Color = sz[1]
 			o.draw_circle(mi, r + 1.0 * DP, Color(0, 0, 0, 0.85))
-			match String(sz[0]):
-				"voll": o.draw_circle(mi, r, fa)
-				"halb":
-					var w := 0.32 * r
-					o.draw_arc(mi, r - w * 0.5, 0.0, TAU, 32, fa, w, true)
-					var pk := PackedVector2Array()
-					for i in 17: pk.append(mi + Vector2.from_angle(PI * i / 16.0) * (r - w * 0.5))   # untere Haelfte voll
-					o.draw_colored_polygon(pk, fa)
-				_:
-					var w := 0.45 * r
-					o.draw_arc(mi, r - w * 0.5, 0.0, TAU, 32, fa, w, true)
+			o.draw_circle(mi, r, SCHLECHT_FARBE)
 		for i in maxi(gu, 0):
 			var m_ := Vector2(rand + i * (2.0 * r + 2.0 * DP), rand)
 			o.draw_circle(m_, r + 1.0 * DP, Color(0, 0, 0, 0.85))

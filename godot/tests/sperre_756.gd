@@ -51,12 +51,11 @@ func _lauf() -> void:
 	var schlicht := Menue.stueck_rahmen(tief, 46)
 	pruefe(schlicht.get_child_count() == 1, "Zeichen an normalem, makellosem Stück")
 	r.free(); schlicht.free()
-	# Schlecht (mit 976): jede Variante legt ein Zeichen ans Bild
-	for art in Menue.SCHLECHT.size():
-		var sl := tief.duplicate()
-		sl["guete"] = -1; sl["schlecht_art"] = art
-		var rs := Menue.stueck_rahmen(sl, 46)
-		pruefe(rs.get_child_count() == 2, "Schlecht, Variante %d: kein Zeichen am Bild" % art)
-		rs.free()
+	# Schlecht (mit 976): ein Zeichen am Bild, der rote Punkt (756.1)
+	var sl := tief.duplicate()
+	sl["guete"] = -1
+	var rs := Menue.stueck_rahmen(sl, 46)
+	pruefe(rs.get_child_count() == 2, "Schlecht: kein Zeichen am Bild")
+	rs.free()
 	print("SPERRE756 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
