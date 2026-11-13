@@ -48,6 +48,8 @@ var kraut_netz: MeshInstance3D        # 490 Vorlage des Heilkrauts (dorf.py „K
 var kraeuter := {}                    # Vector2i -> MeshInstance3D
 var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, basis}
 var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
+var strahl_basis := 0.035   # 492: der Lichtstrahl atmet (alt WorldScreen 2315: Fleck am Boden atmet)
+var himmel: Array[StandardMaterial3D] = []   # 492 Ausblick, Spalt und Lichtstrahl der Hoehle
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -93,7 +95,6 @@ func _ready() -> void:
 		add_child(raumlicht)
 	else: baue_lampen()
 	baue_leben()
-	if String(karte.daten.get("art", "")) == "FOREST": baue_dunkel()
 	insel_ohne = insel_liste
 	bereit = true
 	effekte_neu()
@@ -125,34 +126,22 @@ func inseln_setzen(inseln: PackedVector4Array) -> void:
 			m.set_shader_parameter("inseln", inseln)
 			m.set_shader_parameter("inseln_n", inseln.size())
 
-# 490 Kartenrand (Orte und Welt W19, alt MapEdge): hinter dem Waldring laeuft der Wald ins Dunkel; ab 3 Kacheln vor dem Rand
-# weich dunkler, ab 12 schwarz (liegt knapp ueber dem Boden, Baeume des Rings stehen darin)
-func baue_dunkel() -> void:
-	var ts := Karte.TS
-	var w := karte.breite * ts; var h := karte.hoehe * ts
-	var st := SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var lagen := [[3.0, 0.0], [7.0, 0.7], [12.0, 1.0], [70.0, 1.0]]   # Kacheln ausserhalb, Deckung
-	for i in lagen.size() - 1:
-		var a: float = lagen[i][0] * ts; var b: float = lagen[i + 1][0] * ts
-		var ca := Color(0, 0, 0, lagen[i][1]); var cb := Color(0, 0, 0, lagen[i + 1][1])
-		var innen := [Vector3(-a, 0, -a), Vector3(w + a, 0, -a), Vector3(w + a, 0, h + a), Vector3(-a, 0, h + a)]
-		var aussen := [Vector3(-b, 0, -b), Vector3(w + b, 0, -b), Vector3(w + b, 0, h + b), Vector3(-b, 0, h + b)]
-		for k in 4:
-			var p0: Vector3 = innen[k]; var p1: Vector3 = innen[(k + 1) % 4]; var q0: Vector3 = aussen[k]; var q1: Vector3 = aussen[(k + 1) % 4]
-			for e in [[p0, ca], [q0, cb], [q1, cb], [p0, ca], [q1, cb], [p1, ca]]:
-				st.set_color(e[1]); st.add_vertex(e[0] + Vector3(0, 0.04, 0))
-	var mi := MeshInstance3D.new()
-	mi.mesh = st.commit()
-	var m := StandardMaterial3D.new()
-	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.vertex_color_use_as_albedo = true
-	m.cull_mode = BaseMaterial3D.CULL_DISABLED
-	mi.material_override = m
-	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	mi.name = "Dunkel"
-	add_child(mi)
+# 1022 Kartenrand (Chef 12.11., 08:26; alt MapEdge, 27m; ersetzt 490 baue_dunkel, das nur den Waldboden abdunkelte und nur im Wald):
+# hinter dem Waldring (dorf.py, sechs Reihen auf jeder Seite) laeuft alles ins Dunkel, Boden, Wasser, Baeume, im Dorf wie im Wald
+# (toon, boden, wasser, halm: rand_licht, im Bild gemessen). Grundrisse haben keinen Rand (ringsum schwarz)
+func rand_karte() -> Vector3:
+	if info.get("innen", false): return Vector3.ZERO
+	return Vector3(karte.breite * Karte.TS, karte.hoehe * Karte.TS, 1.0)
+
+# 505c (Zu 505 (Rand)): Bodenmaske samt Rand (dorf.py <maske>-rand: Waldboden, gebogene Wege, Baeche), sonst die der Karte
+func rand_maske(m: ShaderMaterial) -> void:
+	var rk := int(info.get("rand_kacheln", 0)) if info else 0
+	if rk > 0 and FileAccess.file_exists("res://daten/%s-rand.bild" % maske(karte.id).trim_suffix("-maske")):
+		m.set_shader_parameter("maske", bild(maske(karte.id).trim_suffix("-maske") + "-rand"))
+		m.set_shader_parameter("rand_m", rk * Karte.TS)
+	else:
+		m.set_shader_parameter("maske", bild(maske(karte.id)))
+		m.set_shader_parameter("rand_m", 0.0)
 
 # Blender-Datei je Karte; weitere Gebietskarten kommen nach der Bestandsliste (348.8)
 static func datei(id: String) -> String:
@@ -198,8 +187,9 @@ static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
 # 592 (Chef 05.11., 22:0x: „592 so“): Stehen_3 (Idle_Tired, vornueber gebeugt) ist keine Ruhebewegung mehr, nur noch atemlos
 # (held.gd ATEM_HALT); es bleiben Stehen und Umsehen
 const RUHE := ["Stehen", "Stehen_2"]
-static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator) -> Array:
-	var da := RUHE.filter(func(n): return anim.has_animation(n))
+# 1044 zurueck (Chef 13.11., 09:35): [liste] die Ruhebewegungen dieser Person (HeldFigur.ruhe_von), Stehen zuerst; ohne wie RUHE
+static func ruhe_naechste(anim: AnimationPlayer, jetzt: String, z: RandomNumberGenerator, liste: Array = RUHE) -> Array:
+	var da := liste.filter(func(n): return anim.has_animation(n))
 	if jetzt != "Stehen" or da.size() < 2: return ["Stehen", anim.get_animation("Stehen").length * z.randi_range(2, 4)]
 	var n: String = da[z.randi_range(1, da.size() - 1)]
 	return [n, anim.get_animation(n).length]
@@ -318,18 +308,23 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 		for i in mi.mesh.get_surface_count():
 			var src := mi.mesh.surface_get_material(i)
 			var m := ShaderMaterial.new()
+			if g: m.set_shader_parameter("rand_karte", g.rand_karte())   # 1022: vor durchsicht (kette nimmt ihn mit)
 			if g and nm.contains("Boden"):
 				m.shader = load("res://shader/boden.gdshader")
-				m.set_shader_parameter("maske", bild(maske(g.karte.id)))
+				g.rand_maske(m)
 				for k in ["gras", "erde", "pflaster"]: m.set_shader_parameter(k, bild(k))
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.boden = m
 				mi.layers = BODEN_SCHICHT
 			elif g and nm.contains("Wasser"):
 				m.shader = load("res://shader/wasser.gdshader")
-				m.set_shader_parameter("maske", bild(maske(g.karte.id)))   # Alpha: Wassertiefe (dorf.py)
+				g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py)
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
+				if g.info.get("hoehle", false):   # 492 Abgleich (Pruefer 03.11.: Teich hell tuerkis, heller als ringsum, glaenzt): alt MapCave POOL_S, POOL_D, GLINT, tief und schwarz
+					m.set_shader_parameter("rim", Color.html("1E2A2C"))
+					m.set_shader_parameter("deep", Color.html("06090A"))
+					m.set_shader_parameter("glint_c", Color.html("5E8A88"))
 			else:
 				var rn := String(src.resource_name) if src else ""
 				var busch := rn.begins_with("laub_busch")   # Tusche im Zeichner (toon kontur), nicht als Bildschirmlinie
@@ -345,18 +340,38 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
+				# 831: Blattkarten der Bausatz-Baeume (glTF MASK) wie dort ausgeschnitten, vor der Durchsicht (kette nimmt schnitt mit)
+				if src is BaseMaterial3D and (src as BaseMaterial3D).transparency == BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR:
+					m.set_shader_parameter("schnitt", (src as BaseMaterial3D).alpha_scissor_threshold)
 				if src and String(src.resource_name).begins_with("laub"):
-					m.set_shader_parameter("sway", 1.0)
+					m.set_shader_parameter("sway", 0.0 if nm.begins_with("Randwald") else 1.0)   # 505c: aeussere Reihen ohne Wind
 					if g and not busch: g.durchsicht(m, 2 if nadel else (1 if krone else 0))   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
 				elif g and src and String(src.resource_name).begins_with("rinde"):
 					m.set_shader_parameter("cut_ab", 1.4)
 					g.durchsicht(m)
 				if g and nm.contains("Glas"): g.glas.append(m)
+				if rn.begins_with("leucht"):   # 492 Hoehle: Kristalle violett, Leuchtpilze tuerkis (alt MapCave crystal, cap), Tag und Nacht
+					m.set_shader_parameter("glow", 0.18)   # Lauf 1 (Pruefer: Kristalle weiss statt violett): 0,55 war zu viel; 492 Abgleich: Hoehle ×2,1 heller, 0,3 -> 0,18
+					m.set_shader_parameter("glow_col", Vector3(0.69, 0.53, 1.0) if rn.contains("kristall") else Vector3(0.38, 0.91, 0.85))
 				if rn.begins_with("glut"):   # 490 Glut im Lagerfeuer: leuchtet von selbst, nachts staerker (nacht())
 					m.set_shader_parameter("glow", 0.6)
 					m.set_shader_parameter("glow_col", Vector3(1.0, 0.45, 0.15))
 					if g: g.glut.append(m)
 			mi.set_surface_override_material(i, m)
+		# 492 Hoehle (Lauf 1, Pruefer: Ausgang und Lichtschacht ohne sichtbare Quelle): Ausblick und Spalt leuchten (Himmel_…), der
+		# Lichtstrahl ist durchscheinend (Strahl_…); beide tags hell, nachts schwach (nacht())
+		if g and (nm.begins_with("Himmel") or nm.begins_with("Strahl")):
+			var sm := StandardMaterial3D.new()
+			sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			sm.vertex_color_use_as_albedo = true
+			if nm.begins_with("Strahl"):
+				sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+				sm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+				sm.cull_mode = BaseMaterial3D.CULL_DISABLED
+				sm.albedo_color = Color(1, 1, 1, 0.05)
+			mi.material_override = sm
+			mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			g.himmel.append(sm)
 	for c in n.get_children(): male(c, g, mark, aus)
 
 var nacht_jetzt := 0.0
@@ -366,7 +381,11 @@ func nacht(k: float) -> void:
 	if raumlicht: raumlicht.nacht(k)
 	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
 	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
-	for m in glut: m.set_shader_parameter("glow", 0.35 + 0.65 * k)
+	for m in glut: m.set_shader_parameter("glow", 1.0 if info.get("hoehle", false) else 0.35 + 0.65 * k)   # 492: in der Hoehle ist immer Nacht
+	for m in himmel:   # 492: tags hell, nachts Mond (alt SKYLIGHT, CAVE_EXIT: When.SUN / When.MOON)
+		var hell := lerpf(1.0, 0.18, k)
+		if m.transparency == BaseMaterial3D.TRANSPARENCY_DISABLED: m.albedo_color = Color(hell, hell, hell * lerpf(1.0, 1.4, k))
+		else: m.albedo_color = Color(1, 1, 1, lerpf(0.035, 0.01, k)); strahl_basis = m.albedo_color.a   # 492: Hoehle jetzt ×2,1 heller (licht.gd)
 	for f in feuer: f["basis"] = 0.5 + 1.6 * k   # 490: Garricks Feuer, nachts die einzige warme Insel (LISTE-UMZUG-348 Stimmung)
 	for m in glas:
 		m.set_shader_parameter("glow", 0.5 * k)
@@ -407,7 +426,7 @@ static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 		var d := ShaderMaterial.new()
 		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col"]:
+		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "rand_karte", "schnitt"]:
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
@@ -651,8 +670,27 @@ func baue_leben() -> void:
 	for l in info["lichter"]:
 		var at := gpos(l["pos"])
 		if l["art"] == "rauch": rauch.append(baue_rauch(at))
+		# 492 (Abgleich, alt WorldScreen 2192-2202, 2315-2380): Staub im Lichtstrahl, Sporen ueber den Leuchtpilzen, immer
+		elif l["art"] == "staub": baue_schweben(at, Color(1.0, 0.97, 0.88), Vector3(0.3, 2.2, 0.3), 10, 0.025, 0.25)
+		elif l["art"] == "sporen": baue_schweben(at, Color(0.38, 0.95, 0.88), Vector3(0.45, 0.35, 0.45), 6, 0.03, 0.5)
 	gluehwuermchen = Gluehwuermchen.new(karte)   # 514: statt Teilchen nur an den Blumenbeeten („blumen“)
 	add_child(gluehwuermchen)
+
+func baue_schweben(at: Vector3, farbe: Color, feld: Vector3, n: int, gross: float, hell: float) -> CPUParticles3D:
+	var ff := CPUParticles3D.new()
+	ff.amount = n; ff.lifetime = 5.0; ff.preprocess = 5.0
+	ff.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX; ff.emission_box_extents = feld
+	ff.gravity = Vector3(0, -0.01, 0); ff.direction = Vector3(1, 0.2, 0.3); ff.spread = 180.0
+	ff.initial_velocity_min = 0.01; ff.initial_velocity_max = 0.05
+	var gr := Gradient.new(); var aus := farbe; aus.a = 0.0; var an := farbe; an.a = hell
+	gr.set_color(0, aus); gr.add_point(0.5, an); gr.set_color(gr.get_point_count() - 1, aus)
+	ff.color_ramp = gr
+	var qm := QuadMesh.new(); qm.size = Vector2(gross, gross)
+	qm.material = punkt_mat(true)
+	ff.mesh = qm
+	ff.position = at
+	add_child(ff)
+	return ff
 
 func baue_rauch(at: Vector3) -> CPUParticles3D:
 	var pr := CPUParticles3D.new()
@@ -683,9 +721,10 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	var mmi := MultiMeshInstance3D.new()
 	mmi.multimesh = mm
 	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var m := ShaderMaterial.new(); m.shader = load("res://shader/halm.gdshader")
+	var m := ShaderMaterial.new(); m.shader = korn_shader() if korn > 0.5 else load("res://shader/halm.gdshader")
 	m.set_shader_parameter("tex", bild(tex))
 	m.set_shader_parameter("korn", korn)
+	m.set_shader_parameter("rand_karte", rand_karte())   # 1022: Halme hinter dem Rand ins Dunkel wie der Boden
 	m.set_shader_parameter("inseln", insel_liste)
 	m.set_shader_parameter("inseln_n", insel_liste.size())
 	mmi.material_override = m
@@ -693,6 +732,17 @@ func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: floa
 	add_child(mmi)
 	letztes_netz = mmi
 	return m
+
+# 612 (Chef 07.11., t268: „Im Weizenfeld wächst sehr viel Wackelgras durch“): Gras und Korn schrieben keine Tiefe (halm.gdshader,
+# sonst Tusche an jedem Halm); das Gras der Wiese hinter dem Feld, in der Schraegsicht vom Korn verdeckt, malte sich je nach
+# Reihenfolge ueber das Korn. Das Korn schreibt jetzt Tiefe (Gras dahinter faellt im Tiefentest weg, auch das Gras-Kit) und
+# markiert Schablone 1 wie die Blueten: keine Tusche auf dem Korn, hinter dem Umriss ohnehin keine (tusche.gdshader hinten_ab)
+static var _korn: Shader
+static func korn_shader() -> Shader:
+	if _korn == null:
+		_korn = Shader.new()
+		_korn.code = (load("res://shader/halm.gdshader") as Shader).code.replace("depth_draw_never;", "depth_draw_opaque;\nstencil_mode write, compare_always, 1;")
+	return _korn
 
 static var _punkt: ImageTexture
 static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
@@ -716,6 +766,8 @@ static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
 func _process(dt: float) -> void:
 	zeit += dt
 	blende_gruppen(dt)
+	for m in himmel:
+		if m.transparency != BaseMaterial3D.TRANSPARENCY_DISABLED: m.albedo_color.a = strahl_basis * (0.82 + 0.18 * sin(zeit / 1.4))
 	for f in feuer:   # 490: Flackern wie MapLight FIRE (zwei Wellen und Rauschen)
 		var o: OmniLight3D = f["licht"]
 		o.light_energy = float(f["basis"]) * (0.85 + 0.1 * sin(zeit * 9.0) + 0.07 * sin(zeit * 23.0 + 1.3) + 0.05 * randf())

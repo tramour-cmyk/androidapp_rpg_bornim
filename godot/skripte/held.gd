@@ -540,22 +540,23 @@ var im_raum := false         # Light.burns (344.1, Chef 23.10.): in Haeusern, Sc
 var nacht_k := 0.0
 
 # 344.1: die Fackel brennt ueberall ausser in einem Raum, Tag und Nacht; ihr Licht zaehlt nur im Dunkeln (Staerke nach der Nacht)
-func fackel_neu(traegt: bool, raum: bool) -> void:
-	traegt_fackel = traegt; im_raum = raum
+var in_hoehle := false   # 492: alt MapLight „dark = if (map.kind == CAVE) 1.0“: die Fackel brennt dort wie nachts
+func fackel_neu(traegt: bool, raum: bool, hoehle := false) -> void:
+	traegt_fackel = traegt; im_raum = raum; in_hoehle = hoehle
 	nacht(nacht_k)
 
 var mats: Array = []   # Held im Schatten nicht nur Umriss (Probe Build 11), nachts nicht (sonst leuchtet er)
 
 func nacht(k: float) -> void:
 	nacht_k = k
-	fackel_kraft = 2.2 * k
+	fackel_kraft = 2.2 * (1.0 if in_hoehle else k)
 	for m in mats:
 		(m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
 		(m as ShaderMaterial).set_shader_parameter("kette_umgebung", lerpf(1.0, 0.7, k))
 	if fackel:
 		(fackel.get_parent() as Node3D).visible = traegt_fackel
 		flamme.visible = traegt_fackel and not im_raum
-		fackel.visible = traegt_fackel and not im_raum and k > 0.02
+		fackel.visible = traegt_fackel and not im_raum and (k > 0.02 or in_hoehle)
 
 func baue_fackel() -> void:
 	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D

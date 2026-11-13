@@ -14,6 +14,12 @@ const BrsKampf = preload("res://regeln/brs_kampf.gd")
 static var held_immer_krit := false
 static var gegner_ohne_rettung := false
 static var held_unsterblich := false
+## 1020.2 C (Chef 12.11., 08:09; Vorlage 1020 C, nur Reiter Test): der nächste passende Gegnerzug wird erzwungen, dann gilt wieder
+## der Zufall: „pounce“ Anspringen (Wölfe), „heavy“ Schwerer Hieb (Grak), „reihe“ ein Gegner der hinteren Reihe tauscht nach vorn,
+## „flucht“ alle Gegner fliehen; [test_ausweichen]: der nächste Angriff auf den Helden geht fehl, er weicht aus (mit Schild: Abwehr)
+static var test_gegnerzug := ""
+static var test_ausweichen := false
+static var test_erzwungen: Array = []     # was davon wirklich kam (tests/probekampf_1020.gd)
 ## The lines by name, for the ones picked in several wordings.
 ## 399.2b (Homer [399.2b.knurrt]): die Zeile im Zug, wenn ein Jungwolf nur knurrt; gibt es im alten MARS nicht, darum nicht in mars_texte.gd
 ## Battle.kt Msg.fed (399.2, satt)
@@ -35,6 +41,41 @@ const MSG870_GEGEN_ZOMBIE := ["{0} zerfällt. Diesmal steht er nicht wieder auf.
 const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in two."]
 ## [870.14.kraft.schoepfen]
 const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
+## 840 (830 A, Chef 10.11., 11:00; 210 B): Eingebung des Helden beim ersten Auftreten einer Ansage, einmal je Spielstand (gesehen),
+## im Kampfbericht direkt nach der Ansage; Wolfssprung [830.sprung]. 986 (Homer, STORY-BRS-KAMPF.md „Eingebungen der Ansagen (986)“):
+## heavy, call, shadow im Wortlaut [210T.*.eingebung] (STORY-SPIEL.md), die übrigen [986.*]; bite und claw ohne Eingebung.
+## Knurren hat keine Ansage (_say_announce): seine Eingebung steht nach der ersten Zeile MSG399_GROWLS (_foe_turn)
+const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, wohin er springt, schnappt er ins Leere. Wechsel, und mir bleibt noch ein halber Zug.",
+	"It means to leap. If I no longer stand where it leaps, it snaps at nothing. Switch, and I still have half a turn."],
+	"heavy": ["Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.",     # [210T.heavy.eingebung]
+		"He winds up too far. If I hit him hard now, he loses his footing."],
+	"call": ["Er ruft Hilfe. Die halte ich nicht auf, aber ihn kann ich treffen, solange er brüllt.",     # [210T.call.eingebung]
+		"He calls for help. That I cannot stop, but I can hit him while he roars."],
+	"shadow": ["Er sucht das Dunkel. Ein Kratzer jetzt, und er bleibt sichtbar.",     # [210T.shadow.eingebung]
+		"He seeks the dark. A scratch now, and he stays in sight."],
+	"stab": ["Nur ein Stich. Meist lohnt mein eigener Schlag mehr als die Abwehr.",     # [986.stab]
+		"Just a stab. My own blow is usually worth more than a Defend."],
+	"slash": ["Nur ein Hieb. Meist lohnt mein eigener Schlag mehr als die Abwehr.",     # [986.hieb]
+		"Just a slash. My own blow is usually worth more than a Defend."],
+	"flank": ["Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.",     # [986.flank]
+		"He means to go around. A scratch stops him, and so does switching rows."],
+	"circle": ["Der da ruft das Rudel zusammen. Den treffen, egal wie leicht.",     # [986.circle]
+		"That one calls the pack together. Hit it, however lightly."],
+	"growl": ["Der hier hält sich zurück. Erst den Leitwolf treffen.",     # [986.growl]
+		"This one holds back. Hit the lead wolf first."],
+	"web": ["Das Netz fliegt langsam. Nur wer den Moment genau trifft, bleibt frei.",     # [986.web]
+		"The web flies slowly. Only perfect timing keeps you free."],
+	"gather": ["Er holt Luft. Jetzt nachsetzen, sonst kommt er wieder zu Kräften.",     # [986.gather]
+		"He is catching his breath. Press now, or he regains his strength."],
+	"breakthrough": ["Er will durch die Reihe. Tritt der Bedrohte vorher selbst nach vorn, bleibt Grak nur ein einfacher Schlag.",     # [986.breakthrough]
+		"He means to break the line. If the threatened one steps forward first, Grak is left with a plain blow."],
+	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
+		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
+	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
+		"He takes aim. If the one in his sights Defends, the arrow flies past."]}
+const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
+## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
+var gesehen := {}
 const MSG399_GROWLS := [["{0} knurrt, wagt aber keinen Biss.", "{0} snarls but dares no bite."],
 	["{0} duckt sich und fletscht die Zähne, kommt aber nicht heran.", "{0} crouches and bares its teeth, but does not come in."],
 	["{0} knurrt und hält Abstand.", "{0} growls and keeps its distance."]]
@@ -216,7 +257,7 @@ var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false,
 var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
 var I_CIRCLE := _intent("circle", "Einkreisen", "Circle", "GATHER", null, false, false, false, "CIRCLE", true)
 var I_VENOM := _intent("venom", "Gift sammeln", "Gather venom", "STRIKE", [2, 6, 0], true, false, true)
-var I_WEB := _intent("web", "Netz werfen", "Cast web", "STRIKE", null, false, true, false, "WEB")
+var I_WEB := _intent("web", "Netz werfen", "Throw web", "STRIKE", null, false, true, false, "WEB")     # 986 (4): EN wie [870.14.ansage.web]
 var I_AIM := _intent("aim", "Anlegen", "Take aim", "STRIKE", [1, 6, 0], false, false, false, "AIM")
 var I_SHADOW := _intent("shadow", "In den Schatten", "Into the shadows", "GATHER", null, false, false, false, "SHADOW", true)
 var I_BREAKTHROUGH := _intent("breakthrough", "Durchbrechen", "Break through", "STRIKE", [1, 6, 0], false, true, true, "BREAKTHROUGH")
@@ -283,6 +324,7 @@ class Fighter:
 	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
 	var follows := ""
 	var fled := false
+	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
@@ -929,7 +971,7 @@ func _auto_order(f: Fighter) -> Array:
 func _erwartet_zauber(f: Fighter, t: Fighter, id: String) -> float:
 	var z: Dictionary = BrsKampf.w()["zauber"][ZAUBER[id]]
 	var fert := float(f.b.fert.get(String(z["schule"]), 0))
-	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0) * _zauber_faktor(f)
+	var grund := (float(z["schaden"]) + float(f.b.werte.get(BrsKampf.zauber_grundwert(String(z["schule"])), 0))) * (1.0 + fert / 100.0) * _zauber_faktor(f)     # 952 D
 	var schw := float(t.b.get("schwaeche", {}).get(_typ(z), 1.0))
 	return BrsKampf.Brs.trefferchance(fert, float(t.b.abwehr)) * maxf(0.0, grund * schw - float(t.b.ruestung))
 
@@ -1073,12 +1115,17 @@ static func can_fight(party: Array) -> bool:
 	return not party.is_empty() and party[0].hp > 0
 
 
-func start(react: Callable = Callable()) -> Array:
+func start(react: Callable = Callable(), verjagen := false) -> Array:
 	# never play a fight without its hero: the foes would wait for a target forever (the old game ran out of memory)
 	if not lead().standing():
 		started = true
 		outcome = "LOST"
 		return _take_log()
+	if verjagen and spaeher_zum_verjagen() != null:
+		_einschuechtern()
+		if outcome != "ONGOING":
+			started = true
+			return _take_log()
 	_opening()
 	_skip_to_choice(react)
 	return _take_log()
@@ -1107,6 +1154,51 @@ func _smoke_bundle() -> void:
 
 func foes_of_kind(id: String) -> Array:
 	return fighters().filter(func(f): return f.side == "FOES" and f.monster != null and str(f.monster.id) == id)
+
+
+## 841 (807 A, 807a A; STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Kampfbeginn steht neben „Kämpfen“ die Wahl,
+## den Späher zu verjagen, wenn unter den Gegnern ein Goblin-Späher ist, nie gegen Krogg, Grak. Der erste stehende Späher, sonst null.
+func spaeher_zum_verjagen():
+	if started or outcome != "ONGOING" or not foes_of_kind(KROGG).is_empty() or not foes_of_kind(GRAK).is_empty():
+		return null
+	for f in all:
+		if f.side == "FOES" and f.standing() and f.monster != null and str(f.monster.id) == SCOUT and not f.called_in:
+			return f
+	return null
+
+
+## 841, 1084 (1051 A): Chance in Prozent wie alle Proben ohne Grundwert (werte.json „proben“ „_ohne_grundwert“): einschuechtern_basis
+## + einschuechtern_je_punkt × Einschüchtern + je_stufe × (eigene Stufe − Stufe des Spähers), begrenzt auf min bis max
+func einschuechtern_chance(h: Fighter, s: Fighter) -> float:
+	var P := _proben()
+	var c := float(P.get("einschuechtern_basis", 30)) + float(P.get("einschuechtern_je_punkt", 0.6)) * float(h.b.get("fert", {}).get("Einschüchtern", 0)) \
+			+ float(P.get("je_stufe", 5)) * float(int(h.b.get("stufe", 1)) - int(s.b.get("stufe", 1)))
+	return clampf(c, float(P.get("min", 5)), float(P.get("max", 95)))
+
+
+## 841: gelingt es, flieht der Späher (Erfahrung wie für einen Sieg über ihn, lohn.gd zählt ihn mit; keine Beute von ihm); war er allein,
+## ist der Kampf gewonnen, sonst beginnt er ohne ihn. Misslingt es, beginnt der Kampf mit allen. Der Versuch übt Einschüchtern
+## (Kampfuebung hört „INTIMIDATE“), gelungen oder nicht.
+const MSG841_JA := [["Der Späher starrt dich an. Dann reißt er aus und ist fort.", "The scout stares at you. Then he bolts and is gone."],     # [807.spaeher.ja]
+	["Der Späher weicht zurück, Schritt um Schritt, und rennt.", "The scout backs away, step by step, and runs."],
+	["Ein Blick in dein Gesicht genügt. Der Späher lässt den Bogen sinken und flieht.", "One look at your face is enough. The scout lowers his bow and flees."]]
+const MSG841_NEIN := [["Der Späher bleckt die Zähne. Er bleibt.", "The scout bares his teeth. He stays."],     # [807.spaeher.nein]
+	["Ein kehliges Lachen. Der Goblin legt einen Pfeil auf.", "A throaty laugh. The goblin nocks an arrow."],
+	["Er duckt sich, aber er flieht nicht.", "He crouches, but he doesn't run."]]
+func _einschuechtern() -> void:
+	var h := lead()
+	var s = spaeher_zum_verjagen()
+	var gelingt: bool = dice.next_int(0, 100) < roundi(einschuechtern_chance(h, s))
+	_say("", h.id, s.id, 0, null, false, false, "INTIMIDATE")
+	if not gelingt:
+		_say(words.pick(MSG841_NEIN)[lang], s.id, h.id)
+		return
+	s.fled = true
+	s.verjagt = true
+	intents.erase(s.id)
+	_say(words.pick(MSG841_JA)[lang], null, s.id, 0, null, false, false, "FOE_FLEES")
+	if not all.any(func(x): return x.side == "FOES" and x.standing()):
+		outcome = "WON"
 
 
 ## 534 (alt Battle.init, Perks.cowChance): wer Charisma hat, schüchtert zu Kampfbeginn einen gewöhnlichen Gegner ein (8 % je
@@ -1453,9 +1545,9 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 
 
 ## 935 (alt Battle.useItem BOMB; gegenstaende.json: „ein Wurfgeschoss, das immer trifft“): der Wurf trifft immer; Schaden nach dem
-## BRS aus werte.json „kampftraenke“ (Grundschaden × Wirkung nach Kräuterkunde des Werfers, Schwäche nach der Schadensart, Rüstung
+## BRS aus werte.json „kampftraenke“ (Grundschaden × Wirkung nach Alchemie des Werfers, Schwäche nach der Schadensart, Rüstung
 ## ab), Gegenwirkung wie bei Zaubern (Wölfe fliehen vor Feuer, 915); Alchemistenfeuer setzt zwei Züge in Brand. Fliegt sichtbar wie
-## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md)
+## Funkenpfeil bzw. Gleißstrahl (vorhandene Effekte, LISTE-EFFEKTE.md); 935 (Chef 11.11., 20:34): seitdem als Flasche im Bogen
 func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	assert(potions.get(item, 0) > 0 and t in throw_targets(item))
 	potions[item] -= 1
@@ -1463,13 +1555,15 @@ func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	_say(fmt(THROWS, lang, [f.name(lang), [def.de, def.en][lang]]), f.id, t.id, 0, null, false, false, "THROW")
 	var kt: Dictionary = BrsKampf.w().get("kampftraenke", {})
 	var d: Dictionary = kt.get(String(def.get("brs", "")), {})
-	var kk := float(f.b.get("fert", {}).get("Kräuterkunde", 0)) if f.b is Dictionary else 0.0
-	var wirkung := clampf(float(kt.get("wirkung_grund", 1.0)) + float(kt.get("wirkung_je_kraeuterkunde", 0.0)) * kk, 0.0, float(kt.get("wirkung_max", 2.0)))
+	# 935: Wirkung nach Alchemie wie in der Simulation 444 (sim.py wirkung, 857a A, 876); „Kräuterkunde“ gibt es seit 875 nicht mehr,
+	# so blieb jeder Wurf bei der halben Wirkung (wirkung_grund 0,5)
+	var alch := float(f.b.get("fert", {}).get("Alchemie", 0)) if f.b is Dictionary else 0.0
+	var wirkung := clampf(float(kt.get("wirkung_grund", 1.0)) + float(kt.get("wirkung_je_alchemie", 0.0)) * alch, 0.0, float(kt.get("wirkung_max", 2.0)))
 	var info := ["BRS", 0, 0, 100.0, true, 0, false, false]
 	var typ = d.get("typ")
 	var schw := _schwaeche(f, t, typ, info)
 	var n := maxi(0, roundi(float(d.get("schaden", 0)) * wirkung * schw) - int(roundf(float(t.b.get("ruestung", 0)))))
-	casting = "SACRED_FLAME" if String(typ) == "licht" else "FIRE_BOLT"
+	casting = "BOMB_HOLY" if String(typ) == "licht" else "BOMB_FIRE"     # 935: fliegt als Flasche im Bogen (zauber.gd _flask), wie alt
 	_vor_treffer(t, typ)
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
 	casting = null
@@ -1614,8 +1708,11 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	var intent: Dictionary = plan[0]
 	var aimed: Array = plan[1]
 	foe.hidden = false
+	if _test_zug(foe):     # 1020.2 C
+		return
 	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
 		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
+		_eingebung("growl")     # 986 (1): Knurren hat keine Ansage im Bericht
 		announce(foe)
 		_say_announce(foe)
 		return
@@ -1747,6 +1844,11 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	var e := _brs_auf_held(foe, t, intent, mode)     # 870.5: nur nach dem BRS
 	var success: bool = e.treffer
 	var info := ["BRS", e.wurf, 0, e.chance, success, mode, cover and from_back(foe), bool(e.kritisch)]
+	if test_ausweichen and t.id == "hero":     # 1020.2 C: der Held weicht aus
+		test_ausweichen = false
+		test_erzwungen.append("ausweichen")
+		success = false
+		info[4] = false
 	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
 		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
 		smoke_spent = true
@@ -1837,6 +1939,34 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 			_say(fmt(pick("MSG72_EVADES"), lang, [t.name(lang)]), foe.id, t.id, 0, info)
 
 
+## 1020.2 C: erzwungene Gegnerzüge aus dem Reiter Test, die nicht über die Ansage gehen. „reihe“: ein Nahkämpfer der hinteren Reihe
+## tauscht vor diesem Zug nach vorn (wie 863 _leap_forward; der Kampfort lässt ihn im Zug der Gegner hinübergehen); „flucht“: alle
+## Gegner fliehen wie das Rudel vor dem Feuer (870c 3 A), ohne Lohn. Gibt true zurück, wenn der Zug damit zu Ende ist.
+func _test_zug(foe: Fighter) -> bool:
+	if test_gegnerzug == "reihe":
+		var hinten := all.filter(func(x): return x.side == "FOES" and x.standing() and x.place.x == BACK and x.gegriffen_von == "" and String(x.b.get("art", "nah")) == "nah")
+		if not hinten.is_empty() and all.any(func(x): return x.side == "FOES" and x.standing() and x.place.x == FRONT):
+			test_gegnerzug = ""
+			var vorher: Vector2i = hinten[0].place
+			_leap_forward(hinten[0])
+			if hinten[0].place != vorher:
+				test_erzwungen.append("reihe")
+	elif test_gegnerzug == "flucht":
+		test_gegnerzug = ""
+		var erst := true
+		for x in all.filter(func(x): return x.side == "FOES" and x.standing()):
+			x.fled = true
+			intents.erase(x.id)
+			_say(MSG1020_FLIEHEN[lang] if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
+			erst = false
+		kein_lohn = true
+		outcome = "WON"
+		test_erzwungen.append("flucht")
+		return true
+	return false
+
+const MSG1020_FLIEHEN := ["Test: alle Gegner fliehen.", "Test: every foe flees."]     # Zeile des Testmodus, kein Spieltext
+
 ## The foe picks its next move and its target (72.11).
 func announce(foe: Fighter) -> void:
 	if not foe.standing() or outcome != "ONGOING":
@@ -1916,42 +2046,55 @@ func _free_foe_spot(back := false):
 	return free[0] if not free.is_empty() else null
 
 
+## 1049 (Sokrates 12.11.: jede Art ohne eigenen Zweig fiel auf „Stich“ zurück): die Absichten je Art stehen in werte.json
+## „absichten“ „je_art“ als Liste [Kennung, Anzahl, Bedingung?] (Kennung = I_<KENNUNG>), eine Zeichenkette verweist auf eine andere
+## Art, „_sonst“ gilt für den Rest. Gewürfelt wird nur, wenn mehr als eine Absicht in Frage kommt (wie bisher). Die erzwungenen Züge
+## des Probekampfs (1020.2 C) bleiben hier.
 func _pick_intent(foe: Fighter) -> Dictionary:
 	var id := art_of(foe.monster)
-	if id == RAT or id == BAT or id == "ghoul":     # 535; 506 Grabhund
-		return I_BITE
-	if id == "zombie":     # 506 Wiedergänger
-		return I_CLAW
-	if id == SHAMAN:     # 535: Heilen, Fluch, Feuerstoß des Schamanen fehlen noch (Ansagen über Homer); bis dahin kämpft er wie ein Goblin
-		id = CALLED
-	if id == WOLF or id == DIRE_WOLF:
-		var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
-		var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
-		var can := [I_POUNCE, I_POUNCE]
-		if others >= 2 and not circling and chosen:
-			can.append(I_CIRCLE)
-		return dice.pick(can)
-	if id == SPIDER:
-		return dice.pick([I_VENOM, I_WEB])
-	if id == SCOUT:
-		return I_AIM if foe.hidden else dice.pick([I_AIM, I_AIM, I_SHADOW])
-	var lineup := not _covered().is_empty()
-	var plain: Dictionary = I_SLASH if id == CALLED else I_STAB
-	if id == CALLED:
-		var can2 := [plain, plain]
-		if lineup:
-			can2.append(I_FLANK)
-		return dice.pick(can2)
-	if id != GRAK:
-		return plain
-	var can3 := [I_HEAVY, I_HEAVY]
-	if lineup:
-		can3.append(I_BREAKTHROUGH)
-	if called < CALL_MAX and _free_foe_spot() != null:
-		can3.append(I_CALL)
-	if foe.hp * 2 < foe.max_hp:
-		can3.append(I_GATHER)
-	return dice.pick(can3)
+	if (id == WOLF or id == DIRE_WOLF) and test_gegnerzug == "pounce":     # 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("pounce")
+		return I_POUNCE
+	if id == GRAK and test_gegnerzug == "heavy":     # 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("heavy")
+		return I_HEAVY
+	var T: Dictionary = BrsKampf.w().get("absichten", {}).get("je_art", {})
+	var e = T.get(id, T.get("_sonst", [["stab", 1]]))
+	for i in 4:     # Verweis auf eine andere Art (Schamane wie Goblin)
+		if e is String:
+			e = T.get(e, T.get("_sonst", [["stab", 1]]))
+	var can := []
+	for x in e:
+		if (x as Array).size() > 2 and not _absicht_gilt(foe, String(x[2])):
+			continue
+		var a = get("I_" + String(x[0]).to_upper())
+		if a == null:
+			continue
+		for n in int(x[1]):
+			can.append(a)
+	if can.is_empty():
+		return I_STAB
+	return can[0] if can.size() == 1 else dice.pick(can)
+
+
+## 1049: Bedingungen der Absichtstabelle (werte.json „absichten“ „_bedingungen“)
+func _absicht_gilt(foe: Fighter, b: String) -> bool:
+	match b:
+		"rudel":     # zwei Wölfe stehen, keiner kreist schon, der Held hat gewählt; die Leibwache (nicht angreifbar) kreist nicht (986 (3))
+			var others := all.filter(func(x): return x.side == "FOES" and x.standing() and wolfig(x.monster)).size()
+			var circling := intents.values().any(func(p): return p[0].effect == "CIRCLE")
+			return others >= 2 and not circling and chosen and foe.angreifbar()
+		"reihe":
+			return not _covered().is_empty()
+		"nicht_versteckt":
+			return not foe.hidden
+		"ruf":
+			return called < CALL_MAX and _free_foe_spot() != null
+		"halbes_leben":
+			return foe.hp * 2 < foe.max_hp
+	return false
 
 
 func _say_announce(foe: Fighter) -> void:
@@ -1969,6 +2112,15 @@ func _say_announce(foe: Fighter) -> void:
 	var key := "MSG130_SIGN_" + str(intent.id).to_upper()
 	if TX.has(key):
 		_say(fmt(pick(key), lang, [foe.name(lang), "", target]), foe.id)
+	_eingebung(str(intent.id))
+
+
+## 840, 986: Eingebung des Helden zu einer Ansage, einmal je Spielstand, gleich nach ihrer ersten Zeile im Bericht
+func _eingebung(id: String) -> void:
+	var nr := GESEHEN_EINGEBUNG + id
+	if EINGEBUNG.has(id) and not gesehen.has(nr):
+		gesehen[nr] = true
+		_say(EINGEBUNG[id][lang], null, null, 0, null, false, false, "EINGEBUNG")
 
 
 func _summon(by: Fighter) -> void:
@@ -2003,6 +2155,7 @@ func _summon(by: Fighter) -> void:
 	order.insert(order.find(by) + 1, g)
 	_say(fmt(X.MSG72_ANSWERS, lang, [[m.de, m.en][lang]]), g.id)
 	announce(g)
+	_say_announce(g)     # 986 (2): auch der Gerufene sagt im Bericht an (und bringt so seine Eingebung)
 
 
 func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound := false) -> void:
@@ -2131,7 +2284,7 @@ func _schaden_faktor(f: Fighter) -> float:
 
 
 ## Held oder Söldner schlägt mit der Waffe: Fertigkeit der Waffengruppe gegen die Abwehr des Gegners, Schaden (Waffe + Grundwert)
-## × (1 + Fertigkeit/100) × Stufenfaktor, kritisch nach Gewandtheit, minus Rüstung (sim.py kampf, Held handelt)
+## × (1 + Fertigkeit/100) × Stufenfaktor, kritisch nach zweitem Grundwert und Fertigkeit (952 D), minus Rüstung (sim.py kampf, Held handelt)
 func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapon, mod := {}) -> void:
 	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
 	var w = with_weapon if with_weapon != null else f.weapon()
@@ -2151,7 +2304,7 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	f.geschlagen = true
 	grund *= float(mod.get("schaden", 1.0))
 	var e := BrsKampf.schlag(dice.rng, float(f.b.fert.get(gruppe, 0)), float(t.b.abwehr), grund, float(int(f.b.stufe) - int(t.b.stufe)),
-			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, float(k["kritisch_prozent_je_gewandtheit"]) * float(f.b.werte.get("gewandtheit", 0))
+			float(t.b.ruestung) * float(mod.get("ruestung", 1.0)), bonus, BrsKampf.krit_prozent(f.b.werte, gruppe, float(f.b.fert.get(gruppe, 0)))
 			+ float(f.b.get("zusatz", {}).get("krit", 0)))     # 870.6: kritisch der Zusatzeigenschaften
 	if held_immer_krit and f == lead() and e.treffer and not e.kritisch:     # Testmenü „Kritisch“
 		e.kritisch = true
@@ -2182,18 +2335,22 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 		_inflict(t, "STUN", 1)
 
 
-## 870.5: Zauber mit Angriff nach dem BRS: Fertigkeit der Schule gegen die Abwehr des Ziels, Grundschaden des Zaubers + Wille,
+## 870.5: Zauber mit Angriff nach dem BRS: Fertigkeit der Schule gegen die Abwehr des Ziels, Grundschaden des Zaubers + Grundwert
+## der Schule (952 D: Evokation Verstand, Heilmagie Wille), kritisch nach Wille und Schule (Heil- und Schutzmagie nie),
 ## Schwäche nach der Schadensart (ohne Art keine), Beistand und Sättigung dazu (sim.py, handlungen.py schlag)
 func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 	var mode := _row_mode(f, t, false)
-	var grund := (float(z["schaden"]) + float(f.b.werte.get("wille", 0))) * _zauber_faktor(f)     # 870.6: Zauberschaden der Ausrüstung
+	var schule := String(z["schule"])
+	var fert := float(f.b.fert.get(schule, 0))
+	var grund := (float(z["schaden"]) + float(f.b.werte.get(BrsKampf.zauber_grundwert(schule), 0))) * _zauber_faktor(f)     # 870.6: Zauberschaden der Ausrüstung; 952 D
 	var e := {}
 	for i in 30:     # Testmenü „Rettung nie“: Gegner wehren keinen Zauber ab
-		e = BrsKampf.schlag(dice.rng, float(f.b.fert.get(String(z["schule"]), 0)), float(t.b.abwehr), grund,
-				float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _treffer_mod(f, true)) + _beistand(f))
+		e = BrsKampf.schlag(dice.rng, fert, float(t.b.abwehr), grund,
+				float(int(f.b.stufe) - int(t.b.stufe)), float(t.b.ruestung), _brs_bonus(mode, _treffer_mod(f, true)) + _beistand(f),
+				BrsKampf.krit_prozent(f.b.werte, schule, fert))     # 952 D
 		if e.treffer or not (gegner_ohne_rettung and t.side == "FOES"):
 			break
-	var info := ["BRS", e.wurf, 0, e.chance, e.treffer, mode, false, false]
+	var info := ["BRS", e.wurf, 0, e.chance, e.treffer, mode, false, bool(e.kritisch)]
 	if not e.treffer:
 		_say(fmt(wolf(f, "MSG279_WOLFMISSES", "MSG72_MISSES"), lang, [f.name(lang), t.name(lang)]), f.id, t.id, 0, info)
 		return
@@ -2220,6 +2377,52 @@ func _schwaeche(f: Fighter, t: Fighter, typ, info: Array) -> float:
 		var satz: Array = MSG870_SCHWACH if x > 1.0 else (MSG870_STARK if x > 0.0 else MSG870_IMMUN)
 		_say(fmt(satz, lang, [t.name(lang), name[lang]]), f.id, t.id)
 	return x
+
+
+## 960 (Homer 954.1; 870d gebilligt 11.11., 07:51: ab Verstand 6 sieht der Held Schwäche, Stärke und Gegenwirkung vorher): die Zeile
+## des Ziel-Tipps (langes Drücken auf einen Gegner) nach [870.14.wissen], [870.14.wissen.gegen], [870.14.wissen.unbekannt]
+## (STORY-BRS-HELD.md); ohne Verstand 6 erst, wenn in diesem Kampf eine Schwäche oder Stärke der Art genannt wurde. Ein Bestiarium über
+## Kämpfe hinweg gibt es noch nicht.
+const MSG960_WISSEN := ["Verwundbar: %s. Widersteht: %s.", "Vulnerable: %s. Resists: %s."]
+const MSG960_GEGEN := ["Vorsicht: %s.", "Beware: %s."]
+const MSG960_UNBEKANNT := ["Schwächen: unbekannt.", "Weaknesses: unknown."]
+const WISSEN_GEGEN := {
+	"wolf": ["Feuer vertreibt das Rudel samt Beute und Erfahrung, sobald sein Leitwolf halb tot ist", "fire drives off the pack, loot, experience and all, once its leader is half dead"],
+	"boar": ["Feuer macht es rasend", "fire sends it into a frenzy"],
+	"giant_spider": ["Feuer verbrennt die Seide", "fire burns the silk"],
+	"stirge": ["Blut lockt ihn", "blood draws it"],
+	"zombie": ["Feuer und Licht halten ihn liegen", "fire and light keep it down"],
+	"ochre_jelly": ["Schnitt und Wucht teilen ihn", "slash and crush split it"],
+}
+
+
+func kennt_schwaechen() -> bool:
+	var h: Fighter = find("hero")
+	if h == null or not (h.b.get("werte") is Dictionary):
+		return false
+	return int(h.b["werte"].get("verstand", 0)) >= int(BrsKampf.w().get("welt", {}).get("wissen_verstand_ab", 6))
+
+
+func wissen(t: Fighter, sprache: int) -> String:
+	if t == null or t.monster == null:
+		return ""
+	var art := art_of(t.monster)
+	var gesehen := schwaeche_gesagt.keys().any(func(k): return String(k).begins_with(art + "|"))
+	if not kennt_schwaechen() and not gesehen:
+		return MSG960_UNBEKANNT[sprache]
+	var schwach := []
+	var stark := []
+	var sw: Dictionary = t.b.get("schwaeche", {}) if t.b.get("schwaeche") is Dictionary else {}
+	for ty in sw:
+		var n: String = SCHADENSART.get(String(ty), [String(ty), String(ty)])[sprache]
+		if float(sw[ty]) > 1.0:
+			schwach.append(n)
+		elif float(sw[ty]) < 1.0:
+			stark.append(n)
+	var s: String = MSG960_WISSEN[sprache] % [", ".join(schwach) if not schwach.is_empty() else "–", ", ".join(stark) if not stark.is_empty() else "–"]
+	if WISSEN_GEGEN.has(art):
+		s += " " + MSG960_GEGEN[sprache] % WISSEN_GEGEN[art][sprache]
+	return s
 
 
 ## 870.5 Gegenwirkung, die vor dem Schaden greift: Zombie nach Feuer oder Licht steht nicht wieder auf
@@ -2285,6 +2488,7 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 		order.insert(order.find(t) + 1, g)
 		_say(MSG870_GEGEN_SCHLEIM[lang], t.id, g.id)
 		announce(g)
+		_say_announce(g)     # 986 (2): auch der abgespaltene Schleim sagt im Bericht an
 
 
 ## 870.5: Beistand: Prozentpunkte auf die eigene Trefferchance, solange er wirkt

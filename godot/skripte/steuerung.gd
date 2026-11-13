@@ -12,6 +12,8 @@ signal laufen(an: bool)
 signal knopf(was: String)
 signal gelesen                          # 390: Textfeld zu, die Szene geht weiter (Game.advance)
 signal gewaehlt(id: String)             # 390 (Rast): Knopf im Wahlfeld, "" = Weiter
+signal knopf_im_text(nr: int)           # 842: Knopf unter der Zeile im Textkasten (spiel.gd _knopf_gewaehlt); 1086: welcher, ab 0
+signal knopf_aus                        # 842: „Nicht jetzt“ neben der Wahl (spiel.gd _knopf_ausgelassen)
 
 const GOLD := Color(0.86, 0.68, 0.32)
 var JOY := 94.0 * AktionsKnopf.DP            # 131 (alt StickFeel.runAt): im Ring gehen, darueber hinaus laufen; 399.1 nach Bedienung.ring
@@ -33,6 +35,8 @@ var mess: Label
 var textfeld: PanelContainer
 var sprecher: Label                     # 399.1: Name im Kasten, gesperrte Versalien in Gold
 var weiter_zeichen: Label               # ▼, blinkt wie alt alle 400 ms
+var text_knopf: HBoxContainer           # 842: Knopf im Gespraech unter der Zeile
+var knopf_text := ""
 var text: Label
 var zeilen: Array = []
 var lauf_an := false
@@ -88,7 +92,7 @@ func _ready() -> void:
 	aktion_knopf.visible = false
 	# kurz ruetteln, wenn vor dir etwas zu tun ist (WorldScreen buzz)
 	aktion_knopf.pressed.connect(func():
-		if textfeld.visible: naechste(); return
+		if textfeld.visible: weiter(); return
 		if angebot != "": Bedienung.ruettle()
 		aktion.emit())
 	add_child(aktion_knopf)
@@ -165,6 +169,13 @@ func _ready() -> void:
 	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	text.add_theme_constant_override("line_spacing", int(4 * Stil.SP))   # Zeilenhoehe 24 sp bei 17 sp
 	spalte.add_child(text)
+	# 842 (807a A): Knopf im Gespraech (Probe, Kaufen) unter der Zeile, rechts, wie die Knoepfe ohne Kasten (549a: Versalien, hell golden,
+	# „›“); erst, wenn die Zeile ganz steht (wie ▼)
+	text_knopf = HBoxContainer.new()
+	text_knopf.alignment = BoxContainer.ALIGNMENT_END
+	text_knopf.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	text_knopf.visible = false
+	spalte.add_child(text_knopf)
 	# 583 (Abgleich 512b, „Sammel▼“): das ▼ lag unten rechts im Textbereich und damit auf der letzten Zeile; jetzt steht es unter
 	# dem Text im unteren Rand des Kastens (16 dp), rechts in den Seitenrand geschoben, und deckt nie ein Wort
 	var ecke := Control.new()
@@ -406,6 +417,39 @@ func schliesse_wahl() -> void:
 	zeige_knoepfe()
 func waehlt() -> bool: return wahl_grund.visible
 
+# 785.19 (alt WorldScreen.kt 123-130, 382-388): der Text erscheint Zeichen für Zeichen, ein Zeichen je 18 ms; ein Tippen, solange er
+# noch läuft, zeigt ihn ganz, erst das nächste geht weiter. naechste() selbst (Spiel, Tests) geht immer weiter
+const ZEICHEN_MS := 18.0
+var schreib_ms := 0.0
+
+func schreibt() -> bool:
+	return textfeld.visible and text.visible_characters >= 0 and text.visible_characters < text.get_total_character_count()
+
+# 842: der Knopf steht und laesst sich tippen (Zeile ganz geschrieben)
+func knopf_bereit() -> bool: return textfeld.visible and text_knopf.visible and knopf_text != "" and not schreibt()
+
+# 842: Zeile zu ohne weitere Zeilen; die Szene geht weiter (gelesen)
+func schliesse_text() -> void:
+	zeilen.clear()
+	knopf_text = ""
+	naechste()
+
+func weiter() -> void:
+	if knopf_bereit(): return   # 842: Wahl und „Nicht jetzt“ stehen, einer von beiden schaltet weiter
+	if schreibt():
+		text.visible_characters = -1
+		return
+	naechste()
+
+func _process(dt: float) -> void:
+	# ▼ erst, wenn der Text ganz steht (alt DialogDraft.kt 65); 842: nicht, solange Wahl und „Nicht jetzt“ stehen (Tippen schaltet dann nicht weiter)
+	if weiter_zeichen != null: weiter_zeichen.visible = not schreibt() and not knopf_bereit()
+	if text_knopf != null: text_knopf.modulate.a = 0.0 if schreibt() else 1.0   # 842: Platz von Anfang an, nichts springt
+	if not schreibt(): return
+	schreib_ms += dt * 1000.0
+	var n := int(schreib_ms / ZEICHEN_MS)
+	text.visible_characters = -1 if n >= text.get_total_character_count() else n
+
 func naechste() -> void:
 	if zeilen.is_empty():
 		var war := textfeld.visible
@@ -424,7 +468,50 @@ func naechste() -> void:
 	sprecher.text = String(z["wer"]).to_upper() if z.has("wer") else ""
 	sprecher.visible = z.has("wer")
 	text.text = String(z["text"])
+	text.visible_characters_behavior = TextServer.VC_CHARS_AFTER_SHAPING   # Umbruch und Kastenhöhe gleich vom ganzen Text, nichts springt
+	text.visible_characters = 0   # 785.19: Zeichen für Zeichen wie alt
+	schreib_ms = 0.0
 	text.add_theme_font_override("font", Stil.variante(0.3, not z.has("wer")))   # Erzaehltes schraeg wie alt
+	var kz = z.get("knopf", "")   # 842; 1086: auch mehrere (Pim: Ueberreden, Gold)
+	var knoepfe: Array = kz if kz is Array else ([kz] if String(kz) != "" else [])
+	knopf_text = " / ".join(knoepfe.map(func(x): return String(x)))
+	for c in text_knopf.get_children():
+		text_knopf.remove_child(c)
+		c.queue_free()
+	if knopf_text != "":
+		# 842 zurueck (Chef 12.11., 20:31 „weder ein Abbrechen … sondern es gibt genau eins“; 20:33 „wo ist denn hier weiter?“): neben der
+		# Wahl rechts ein zweiter Knopf links, fuer jede Wahl derselbe (Homer [1074.zweit]); er laesst die Wahl aus, das Gespraech laeuft
+		# weiter wie beim Weitertippen. Solange beide stehen, schaltet Tippen auf den Text nicht weiter (_tipp_text)
+		var nein := Spielstaende.knopf("neben", Sprache.t({"de": "Nicht jetzt", "en": "Not now"}), func(): if knopf_bereit(): knopf_aus.emit(), true)
+		# die Wahl rechts, „Nicht jetzt“ links darunter: nebeneinander passen sie nicht immer (Vorlage 22:43: Pims Wahl und „Nicht
+		# jetzt“ in einer Reihe schoben den Kasten rechts aus dem Bild); immer gleich, damit jede Wahl gleich aussieht
+		var spalten := VBoxContainer.new()
+		spalten.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		spalten.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		# 1086 (Homer 1085): mehrere Wahlen rechts untereinander, die erste oben
+		# 1120 (Chef 13.11., 10:32, Osric: „Kann man die Auswahl nicht auf gleiche Höhe stellen? Warum ist das unterschiedlich hoch?“):
+		# „‹ Nicht jetzt“ links auf derselben Höhe wie die (untere) Wahl rechts, wie Abbrechen und Benutzen in der Tasche (1074)
+		for i in knoepfe.size():
+			var nr := i
+			var kn := Spielstaende.knopf("haupt", String(knoepfe[i]), func(): if knopf_bereit(): knopf_im_text.emit(nr))
+			kn.size_flags_horizontal = Control.SIZE_SHRINK_END
+			if i < knoepfe.size() - 1:
+				spalten.add_child(kn)
+				continue
+			var reihe := Spielstaende.knopfzeile(nein, kn)   # je die halbe Breite wie in der Tasche
+			reihe.name = "Reihe"
+			nein.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			kn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			# lange Aufschriften (Pims „Schick Pim heim (Überreden)“) schoben den Kasten aus dem Bild (Vorlage 22:43): in der Reihe
+			# bricht die Aufschrift um, statt die halbe Breite zu sprengen
+			for l2 in kn.find_children("Text", "Label", true, false):
+				(l2 as Label).autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+				(l2 as Label).custom_minimum_size.x = 0.0
+				(l2 as Label).size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			spalten.add_child(reihe)
+		text_knopf.add_child(spalten)
+	text_knopf.visible = knopf_text != ""
+	text_knopf.modulate.a = 0.0
 	textfeld.visible = true
 	zeige_knoepfe()   # Renntaste schien durch das Textfeld (Helferbefund 348.6)
 
@@ -437,13 +524,16 @@ func _text_tippen(e: InputEvent) -> void:
 	if e is InputEventScreenTouch: _tipp_text(e as InputEventScreenTouch)
 
 func _tipp_text(t: InputEventScreenTouch) -> void:
+	if knopf_bereit():   # 842: Wahl und „Nicht jetzt“ stehen: nur die Knoepfe, Tippen auf den Text schaltet nicht weiter
+		druck_im_text = false
+		return
 	if t.pressed:
 		druck_im_text = true
 		return
 	if not druck_im_text or Engine.get_process_frames() == letzter_tipp: return
 	druck_im_text = false
 	letzter_tipp = Engine.get_process_frames()
-	naechste()
+	weiter()
 
 # 390: Aufschriften neu nach dem Sprachwechsel
 func sprache_neu() -> void:

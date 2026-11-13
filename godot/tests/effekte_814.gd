@@ -42,17 +42,56 @@ func _lauf() -> void:
 		pruefe(k.find_child("Embers", true, false) == null, "Kaminrauch ohne Glut")
 		break
 	pruefe(fx.fackeln.size() == 3, "drei Fackeln (Schlagbaum 2, Schenke 1): %d" % fx.fackeln.size())
-	pruefe(fx.fackeln.all(func(f): return f["brennt"] and (f["licht"] as OmniLight3D).visible), "Fackeln brennen am Abend (nacht %.2f)" % fx.nacht_k)
+	var nb: Nebel = spiel.nebel
+	for f in fx.fackeln:
+		var o: OmniLight3D = f["licht"]
+		var t: Vector2i = g.karte.pos_kachel(o.global_position)
+		print("        Fackel %s brennt %s, Licht sichtbar %s, Nebel %s" % [t, f["brennt"], o.visible, str(nb.nebel(t.x, t.y)) if nb and nb.an else "aus"])
+	pruefe(fx.fackeln.all(func(f): return f["brennt"]), "Fackeln brennen am Abend (nacht %.2f)" % fx.nacht_k)
+	# 505: ein Licht auf nie gesehener Kachel bleibt aus, bis der Held dort war (nebel.gd dinge_zeigen); mit „alles sichtbar“ alle
+	Testmodus.alles_sichtbar = true
+	if nb: nb.dinge_zeigen()
+	pruefe(fx.fackeln.all(func(f): return (f["licht"] as OmniLight3D).visible), "Fackeln leuchten (alles sichtbar)")
+	Testmodus.alles_sichtbar = false
+	if nb: nb.dinge_zeigen()
 	pruefe(fx.stoffe.size() == 1, "eine Fahne: %d" % fx.stoffe.size())
 	pruefe(g.insel_liste.size() == g.insel_ohne.size() + 1, "Lichtinsel der Schenkenfackel: %d -> %d" % [g.insel_ohne.size(), g.insel_liste.size()])
 	pruefe(fx.laub.size() > 0, "Laub im Wind: %d Materialien" % fx.laub.size())
 	# Fussstaub: Erde vor dem Schlagbaum (Strasse „==“ ist Erde in der Bodenmaske)
 	pruefe(fx.erde(g.karte.kachel_pos(Vector2i(17, 6))), "Erdweg bei (17, 6) ist Erde")
 	pruefe(not fx.erde(g.karte.kachel_pos(Vector2i(16, 14))), "Dorfplatz (16, 14) ist keine Erde (Pflaster)")
+	# dritter Fund t278.2 (unsichtbar): Ausblendung am Boden hoechstens 5 cm, ohne Funken, Puffs gross, deckend und lang genug
+	var fs := fx.fussstaub(g.karte.kachel_pos(Vector2i(17, 6)) + Vector3(0, 0.02, 0), true)   # 1119: die volle Wolke nur noch beim Rennen
+	pruefe(fs != null, "Fussstaub gesetzt")
+	if fs:
+		var puffs := fs.get_node_or_null("Puffs") as GPUParticles3D
+		var mat := puffs.material_override as ShaderMaterial if puffs else null
+		pruefe(fs.get_node_or_null("Specks") == null, "Fussstaub ohne Funken")
+		pruefe(mat != null and float(mat.get_shader_parameter("proximity_fade")) <= 0.05, "Fussstaub: Ausblendung am Boden hoechstens 5 cm")
+		pruefe(puffs != null and puffs.lifetime >= 1.0, "Fussstaub lebt mindestens 1 s: %.2f" % (puffs.lifetime if puffs else 0.0))
+		var pm := puffs.process_material as ParticleProcessMaterial if puffs else null
+		pruefe(pm != null and pm.scale_max >= 0.8, "Fussstaub: Puffs bis mindestens 0,8 m: %.2f" % (pm.scale_max if pm else 0.0))
+		var hoch := 0.0
+		if pm: for i in pm.color_ramp.gradient.get_point_count(): hoch = maxf(hoch, pm.color_ramp.gradient.get_color(i).a)
+		pruefe(hoch >= 0.8, "Fussstaub: am dichtesten mindestens 80 %% deckend: %.2f" % hoch)
+		# 1119 (Chef 13.11., 10:20: „bei normalen Gehen müsste es ja fast gar nicht stauben“): Gehen nur ein Hauch, nicht null
+		var fg := fx.fussstaub(g.karte.kachel_pos(Vector2i(17, 6)) + Vector3(0, 0.02, 0), false)
+		var pg := fg.get_node_or_null("Puffs") as GPUParticles3D if fg else null
+		var pmg := pg.process_material as ParticleProcessMaterial if pg else null
+		var hg := 0.0
+		if pmg: for i in pmg.color_ramp.gradient.get_point_count(): hg = maxf(hg, pmg.color_ramp.gradient.get_color(i).a)
+		pruefe(pmg != null and pmg.scale_max <= pm.scale_max * 0.5 and hg > 0.2 and hg <= hoch * 0.6 and pg.lifetime < puffs.lifetime, "Gehen: ein Hauch (Größe %.2f statt %.2f, Deckung %.2f statt %.2f)" % [pmg.scale_max if pmg else 0.0, pm.scale_max, hg, hoch])
 	var vor := fx.get_child_count()
 	fx.federn(g.karte.kachel_pos(Vector2i(10, 28)))
 	await warte(2)
 	pruefe(fx.get_child_count() == vor + 1, "Federn beim Huhn")
+	# 492/505: Abend nach dem Tag ueber spiel._nacht (wie die Uhr): Fackeln auf nie gesehenen Kacheln bleiben unter dem Nebel aus
+	if nb and nb.an:
+		spiel._nacht(0.0)
+		spiel._nacht(0.75)
+		var soll := fx.fackeln.map(func(f): return (f["licht"] as OmniLight3D).visible)
+		nb.dinge_zeigen()
+		pruefe(soll == fx.fackeln.map(func(f): return (f["licht"] as OmniLight3D).visible), "Abend: Fackeln unter dem Nebel bleiben aus (505) %s" % [soll])
 	# Tag: Fackeln kalt
 	g.nacht(0.0)
 	pruefe(fx.fackeln.all(func(f): return not f["brennt"] and not (f["fx"] as Node3D).visible), "am Tag brennen die Fackeln nicht")
@@ -68,13 +107,13 @@ func _lauf() -> void:
 	g.gras_neu()
 	await warte(3)
 	pruefe(g.effekte != null, "wieder an")
-	# Schenke und Laden: Staub im Licht
+	# Schenke und Laden: kein Staub im Licht (990)
 	for ort in ["inn", "shop"]:
 		spiel.betrete(ort, Vector2i(4, 6), "UP")
 		await warte(10)
 		var e: DorfEffekte = spiel.gebiet.effekte
 		var staub := 0
 		if e: staub = e.get_children().filter(func(c): return String(c.scene_file_path).ends_with("dust_motes.tscn")).size()
-		pruefe(staub >= 1 and staub <= 3, "%s: Staub im Licht, %d Schwaerme" % [ort, staub])
+		pruefe(staub == 0, "%s: Staub im Licht in Innenräumen (990: entfällt), %d Schwaerme" % [ort, staub])
 	print("EFFEKTE814 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

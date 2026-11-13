@@ -12,7 +12,7 @@ extends Control
 signal fertig(wahl: Dictionary)
 
 const DP := AktionsKnopf.DP
-const BILD := "res://daten/hauptmenue.bild"   # JPEG aus app/src/main/assets/menu, im Bau kopiert (godot.yml)
+const BILD := "res://daten/hauptmenue.bild"   # JPEG (einst app/src/main/assets/menu), eingecheckt (870.9)
 const LOGO := "res://bilder/logo-quer.svg"
 const LOGO_SVG := "res://daten/logo.bild"       # 292 Vorspann: dasselbe SVG roh, im Bau kopiert
 var st: Steuerung
@@ -278,7 +278,10 @@ func titel() -> void:
 	zeile(Sprache.u("subtitle").replace(": ", " · "), 15, Stil.DIM, 1.0)
 	name_bis = box.get_child_count()
 	abstand(18)
-	bild(BILD, 330)
+	# 867 (Vorentscheid Sokrates 13.11., 03:14, Vorlage 6 passt): die vier Helden des Spiels statt des alten Bilds der Kotlin-Figuren;
+	# ohne gekaufte Figuren (am Rechner) das alte Bild
+	if HauptmenueHelden.da(): mittig(HauptmenueHelden.new(330.0))
+	else: bild(BILD, 330)
 	abstand(22)
 	var stand := Spielstand.lade()   # 399.1: der zuletzt gespeicherte der vier Plaetze
 	if not stand.is_empty():
@@ -298,6 +301,14 @@ func titel() -> void:
 	if Spielstand.gibt_es(): reihe.add_child(Stil.knopf("Spielstände" if Sprache.aktiv() == "de" else "Saved games", spielstaende))   # 870.8: auch, wenn nur alte da sind (Loeschen)
 	mittig(reihe)
 	abstand(12)
+	# 1020.1 A (Chef 12.11., 08:09): im Testmodus ein neues Spiel ohne Intro und Erschaffung, nie auf einem der vier Plaetze
+	if Testmodus.ist_an():
+		var sn := Stil.knopf("Schnellstart · " + ErschaffungBrs.herkunft_name(Testmodus.schnell_herkunft) if Sprache.aktiv() == "de"
+			else "Quick start · " + ErschaffungBrs.herkunft_name(Testmodus.schnell_herkunft),
+			func(): fertig.emit(Testmodus.schnellstart()))
+		sn.custom_minimum_size.x = 280 * DP
+		mittig(sn)
+		abstand(12)
 	var ue := Stil.knopf(Sprache.u("about"), ueber)   # wie alt: „Über das Spiel“ unter der Reihe, 280 dp
 	ue.custom_minimum_size.x = 280 * DP
 	mittig(ue)

@@ -34,7 +34,11 @@ var reihe := []       # 439: [Bild, Text] Verstöße gegen Angriff, Treffer, Tod
 var tote := {}        # k -> [Bild bis Ende des Liegens]
 ## 438 Prüfer Film 08:18: Drehsprünge in jeder Bewegung, Kopf im Helden, Würfelzeile vor dem Treffer
 const DREH_BILD_GRAD := 16.0     # TURN_DPS 450°/s bei 30 Bildern: 15° je Bild
-const KOPF_M := -0.04
+# 988 (Lauf 369, CLERIC ohne Schild nach BRS, Bild 281 und 588: Kiefer beim Biss −0,040 m an Becken–Brust): seit 709 (Chef 08.11.,
+# 21:36: Angriffe treffen) fasst die Kieferkapsel (Jaw 0,04 m) BISS_TIEF (0,01 m) in den Körper; die Grenze −0,04 (01.11., vor 709)
+# verbot jede Berührung, mit Schild fiel das nie auf (der Biss trifft dort den Schild). Jetzt die Knochen des Kopfs so weit draußen,
+# wie die Kieferkapsel abzüglich BISS_TIEF reicht; tiefer misst weiter r2 (KOERPER_M, Kapsel gegen Kapsel)
+const KOPF_M := -0.03     # = figur.gd BISS_TIEF − Kieferkapsel 0,04
 const WOLF_KOPF := ["kopf", "Wolf_Head_TopSHJnt", "Wolf_Head_JawEndSHJnt"]
 const KOERPER := [["pelvis", "spine_03", 0.17], ["spine_03", "neck_01", 0.14], ["neck_01", "Head", 0.08], ["Head", "Head", 0.11],
 	["thigh_l", "calf_l", 0.08], ["thigh_r", "calf_r", 0.08]]
@@ -57,6 +61,8 @@ var anim_vor := {}
 var tief_y := {}       # Sterbender -> [[Bild, Höhe des Rumpfs]]
 var still := 0
 var diag_n := 0              # 562: Zeilen „438 DIAG“
+var diag_kopf_n := 0         # 988: Zeilen „438 DIAG Kopf“
+var diag_rand_n := 0         # 988: Zeilen „438 DIAG Rand“
 var gleit_n := 0             # 900: Zeilen „438 GLEIT“
 var still_spannen := []    # [ab Bild, Bilder, Zeile]
 var still_ab := -1
@@ -182,7 +188,11 @@ func _bild(kf, n: int, k: String) -> void:
 		if vor.has(id) and not f.down:
 			var d: float = Vector2(p.x - vor[id][0].x, p.z - vor[id][0].z).length()
 			var dg: float = absf(wrapf(f.rotation.y - vor[id][1], -PI, PI))
-			if d > GLEIT_M and not (nm in SCHRITTE):
+			# 1018 (Läufe 370, 373, 380, 387: „Biss“ 7 Bilder, je bei 0,00 s mit gang=anlauf und laufendem Tween, größte 0,165 m = ein Bild
+			# Rennen bei 30 Bildern/s): im Bild, in dem der Anlauf endet, geht der Rumpf den letzten Schritt mit der Laufbewegung, und erst am
+			# Ende des Bilds schaltet der Tween auf „Biss“. Der Weg dieses Bilds gehört der Bewegung des Vorbilds, nicht der neuen
+			var schritt_vorher: bool = String(vor[id][2]) in SCHRITTE if vor[id].size() > 2 else false
+			if d > GLEIT_M and not (nm in SCHRITTE) and not schritt_vorher:
 				var g: Array = gleiten.get(nm, [0, 0.0, 0.0])
 				gleiten[nm] = [g[0] + 1, g[1] + d, maxf(g[2], d)]
 				# 900 (Lauf 335: Biss 7 Bilder 0,56 m, ohne Kaufdaten am Rechner nicht nachstellbar): wer gleitet, wobei, je Bild
@@ -207,7 +217,7 @@ func _bild(kf, n: int, k: String) -> void:
 				var g3: Array = gleiten.get("dreht auf der Stelle in " + nm, [0, 0.0, 0.0])
 				gleiten["dreht auf der Stelle in " + nm] = [g3[0] + 1, g3[1] + rad_to_deg(dg), maxf(g3[2], rad_to_deg(dg))]
 		_pfoten(f, id, nm)
-		vor[id] = [p, f.rotation.y]
+		vor[id] = [p, f.rotation.y, nm]
 		if log_an:
 			print("Bild %d %s %s %.2f x%.2f Ort %.2f,%.2f Gier %.0f tween %s unten %s" % [n, id, nm, f.anim.current_animation_position if nm != "" else 0.0, f.anim.get_playing_speed() if f.anim else 0.0,
 				p.x, p.z, rad_to_deg(f.rotation.y), f.tween != null and f.tween.is_running(), f.down])
@@ -250,6 +260,14 @@ func _bild(kf, n: int, k: String) -> void:
 			var t := -INF
 			for q in pts:
 				t = maxf(t, _im_koerper(b, q))
+			# 988 (Lauf 355/365 auf Build 277, CLERIC ohne Schild nach BRS): wer, in welcher Bewegung, welcher Knochen an welcher Kapsel
+			if t > KOPF_M - 0.02 and diag_kopf_n < 24:
+				diag_kopf_n += 1
+				print("438 DIAG Kopf Bild %d %s: %s %s gang=%s auf %s rot %.0f | %s %s auf %s rot %.0f ss=%s hurt=%s | t %.3f %s | Abstand %.2f busy=%s hit=%s Zeile %s" % [n, k,
+					a.fighter.id, a.anim.current_animation if a.anim else "", a.gang, a.global_position, rad_to_deg(a.rotation.y),
+					b.fighter.id, b.anim.current_animation if b.anim else "", b.global_position, rad_to_deg(b.rotation.y),
+					b._ss(), b.hurt_at >= 0.0, t, _kopf_wo(b, sk), Vector2(a.global_position.x - b.global_position.x,
+					a.global_position.z - b.global_position.z).length(), kf.busy, not kf.hit.is_empty(), str(kf.shown.get("text", ""))])
 			if t > KOPF_M:
 				var key := "%s/%s→%s/%s" % [k, a.fighter.id, k, b.fighter.id]
 				var e: Array = kopf.get(key, [0, -INF, n])
@@ -455,6 +473,12 @@ func _r2(kf, n: int, k: String, figs: Array) -> void:
 			print("Rand %s: %s bis %s, Szene %s, Fenster %s" % [f.fighter.id, lo, hi, sr, kf.get_viewport().get_visible_rect()])
 		if raus > 6.0 and OS.get_environment("SCHAU_RAND") != "":
 			print("Rand Bild %d %s %.0f px: %s bei %s, Zoom %.2f rand_z %.3f gang %s rot %.0f heim %s platz %s, Zeile %s" % [n, f.fighter.id, raus, f.anim.current_animation if f.anim else "", f.global_position, kf.cam_z, kf.rand_z, f.gang, rad_to_deg(f.rotation.y), f.home, str(kf.shown.places), str(kf.shown.get("text", ""))])
+		if raus > 6.0 and diag_rand_n < 16:     # 988 (Lauf 355/365: Kleriker 44,3 s bis 11 px draußen): wo, wie gezoomt, welche Bewegung
+			diag_rand_n += 1
+			print("438 DIAG Rand Bild %d %s/%s %.0f px: %s auf %s rot %.0f gang %s tween %s unterwegs %s | %s | Szene %s, cam_z %.2f rand_z %.3f size %.3f off %s hit %s | Zeile %s" % [n, k,
+				f.fighter.id, raus, f.anim.current_animation if f.anim else "", f.global_position, rad_to_deg(f.rotation.y), f.gang,
+				f.tween != null and f.tween.is_running(), f.unterwegs(), _rand_wo(kf, f, sr), sr, kf.cam_z, kf.rand_z, kf.cam.size,
+				kf.cam.frustum_offset, not kf.hit.is_empty(), str(kf.shown.get("text", ""))])
 		if raus > 6.0:
 			var id := "%s/%s" % [k, f.fighter.id]
 			var e: Array = rand.get(id, [0, n, 0.0])
@@ -479,6 +503,53 @@ func _r2(kf, n: int, k: String, figs: Array) -> void:
 
 
 ## 438: wie tief [q] (Welt) in einer Kapsel um die Knochen von [f] liegt (m, < 0: so weit draußen)
+## 988: welcher Wolfsknochen welcher Kapsel des Getroffenen am nächsten ist
+func _kopf_wo(f, wsk: Skeleton3D) -> String:
+	var sk := f._find(f.model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return "-"
+	var best := -INF
+	var wo := ""
+	for bn in WOLF_KOPF:
+		var bi := wsk.find_bone(bn)
+		if bi < 0:
+			continue
+		var q: Vector3 = wsk.global_transform * wsk.get_bone_global_pose(bi).origin
+		for c in KOERPER:
+			var i0 := sk.find_bone(c[0])
+			var i1 := sk.find_bone(c[1])
+			if i0 < 0 or i1 < 0:
+				continue
+			var a: Vector3 = sk.global_transform * sk.get_bone_global_pose(i0).origin
+			var b: Vector3 = sk.global_transform * sk.get_bone_global_pose(i1).origin
+			if c[0] == "Head":
+				a += sk.global_basis.y.normalized() * 0.1
+				b = a
+			var p := Geometry3D.get_closest_point_to_segment(q, a, b)
+			var t: float = float(c[2]) - q.distance_to(p)
+			if t > best:
+				best = t
+				wo = "%s an %s-%s (Höhe %.2f)" % [bn, c[0], c[1], q.y]
+	return wo
+
+
+## 988: welche Seite, welche Kapsel über den Rand ragt
+func _rand_wo(kf, f, sr: Rect2) -> String:
+	var best := -INF
+	var wo := ""
+	var i := 0
+	for c in f.kapseln():
+		for q in [c[0], c[1]]:
+			var sp: Vector2 = kf.screen_of(q)
+			var rpx: float = c[2] / kf.m_per_dp(q) * (sr.size.x / 412.0)
+			for s in [["links", -(sp.x - rpx)], ["rechts", sp.x + rpx - sr.size.x], ["oben", -(sp.y - rpx)]]:
+				if float(s[1]) > best:
+					best = float(s[1])
+					wo = "%s Kapsel %d bei %s (r %.0f px, Höhe %.2f)" % [s[0], i, sp, rpx, q.y]
+		i += 1
+	return wo
+
+
 func _im_koerper(f, q: Vector3) -> float:
 	var sk := f._find(f.model, "Skeleton3D") as Skeleton3D
 	if sk == null:

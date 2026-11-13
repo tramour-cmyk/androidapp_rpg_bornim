@@ -7,7 +7,7 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
   `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -) | created_at | used_tokens (context_usage, für WEITER, 261.5)`
   Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
 Ausgabe, Zeile für Zeile auszuführen:
-  START <Rolle> | model | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
+  START <Rolle> | model | [effort high] | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
   GEBUCHT <session_id> | <Rolle> | <Kosten $> | <Vorgang>           → lauf.py hat selbst gebucht (nur mit --sperre); Ford pusht die Notizen, sonst nichts
   BUCHE <session_id> | <Rolle> | <Kosten $> | <Vorgang>             → nur `--kosten <Vorgang> <Kosten> <session_id>` (ruhende oder schon archivierte Sitzung von heute, Differenz zum Verzeichnis, 261.2)
@@ -15,12 +15,15 @@ Ausgabe, Zeile für Zeile auszuführen:
   ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
   WEITER <session_id> | <Rolle> | <Vorgang> | <Nachricht>          → send_message „Weiter: <Vorgang>…“ an die alte Sitzung statt START (unter 200 Tsd. Token, 383 A; unter 60 Minuten Ruhe; abgelehnt → START, 261.5)
   NICHTS <Rolle>: Grund                                             → nichts tun
+  LEERLAUF: …                                                       → (1100 A 6) nichts zu starten, melden, pushen: Ford endet sofort, nur Chatzeile, kein Telegram, kein Push
+  STELLUNG aus | Co-Pilot: …                                        → (1100 A 1) aus: Ford endet; Co-Pilot: START nicht ausführen (LISTE-BETRIEB.md „Stellung“)
+  WARNUNG Abgleich: n Zeilen „gebaut“ oder „zu testen“ ohne Build   → (1100 A 5) Zahl statt der Einzelzeilen; ganz einmal am Tag im ersten Lauf ab 8 Uhr (Marke „Abgleich ganz TT.MM.“)
   WARNUNG …                                                         → Ford meldet es lautlos
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
   STILLSTAND <Rolle>: …                                             → Ford schreibt die Protokollzeile „Stillstand <Rolle> seit HH:MM“ (Schritt 5, 192.2)
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
-  TAGESBERICHT TT.MM. | Perikles | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
+  TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
   WARNUNG(-LAUT) Sitzung hängt / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
@@ -76,6 +79,9 @@ MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
 HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
 UMGEBUNG = {}  # alle MITTEL (Chef 09.11., 07:23: „Der Aufwand ist auf Mittel“); Probe 365 endete 31.10.; HOCH nur auf Wort des Chefs
 HOCH_BIS = datetime.datetime(2026, 11, 14, 20, 0, tzinfo=BERLIN)  # 901: 365a B (Chef 11.11., 07:18), alle Rollen HOCH bis Sa 14.11., 20:00, danach von selbst MITTEL
+def aufwand():
+    """981 (Chef 11.11., 18:04): bis HOCH_BIS Feld „ | effort high“ hinter dem Modell (create_session effort: "high"), danach leer (Feld weglassen)."""
+    return " | effort high" if JETZT < HOCH_BIS else ""
 def umgebung(r):
     """901: Umgebung für den Start einer Rolle; bis HOCH_BIS alle HOCH, sonst UMGEBUNG/MITTEL."""
     if JETZT < HOCH_BIS:
@@ -394,6 +400,7 @@ def noch_offen(ausgabe, rolle, nrn):
         if zeile and zeile[0]["wort"] == "in Arbeit":
             ausgabe.append("WARNUNG %s %s: Sitzung endet, Stand noch „in Arbeit“; Besitzer setzt ihn mit tools/vorgang.py stand (275)" % (rolle, nr))
 
+NOTIZ_WARNUNG = []  # 1100 A (6): ein Lauf mit dieser Warnung ist nicht leer
 def notizen_frisch():
     """380: Ford zog den Arbeitsbaum, lauf.py las aber die alten Notizen in bornim-main (Zeile 275 von Diogenes fehlte, NICHTS statt START).
     Vor jedem Lauf die Notizen auf origin/main bringen (nur vorspulen); geht das nicht, Lauf abbrechen statt mit altem Stand rechnen."""
@@ -403,7 +410,7 @@ def notizen_frisch():
         r = subprocess.run(["git", "-C", d, "rev-list", "--count", "HEAD..origin/main"], capture_output=True, text=True, timeout=20)
         hinten = int(r.stdout.strip() or 0)
     except Exception as e:
-        print("WARNUNG Notizen nicht geprüft (%s); Lauf mit Stand %s" % (e, d)); return True
+        print("WARNUNG Notizen nicht geprüft (%s); Lauf mit Stand %s" % (e, d)); NOTIZ_WARNUNG.append(e); return True
     if hinten:
         print("WARNUNG-LAUT Notizen in %s %d Commits hinter origin/main und nicht vorspulbar (eigene Commits?): erst git -C %s pull --no-rebase, dann lauf.py erneut (380)" % (os.path.abspath(d), hinten, os.path.abspath(d)))
         return False
@@ -420,6 +427,14 @@ def main():
             print("lauf.py --kosten NR USD session_…: Kennung fehlt (384); ohne Sitzung nur mit „ohne:<Grund>“", file=sys.stderr); sys.exit(2)
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if a[3].startswith("session_") else None)
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
+    # 1100 A (1): Ford liest die Stellung nicht mehr selbst (notiz.sh entfällt im Lauf); lauf.py nennt sie, wenn sie nicht „Pilot“ ist (81g)
+    stellung = re.search(r"\*\*Ford: (aus|Co-Pilot|Pilot)\*\*", lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))
+    if stellung and stellung.group(1) == "aus":
+        return print("STELLUNG aus: Ford endet hier, nichts schreiben, nichts melden (81g)")
+    vorab = []
+    if stellung and stellung.group(1) == "Co-Pilot":
+        vorab.append("STELLUNG Co-Pilot: START nicht ausführen; nur Neustart-Meldungen, „Auftrag Diogenes“ und Push-Meldungen (LISTE-BETRIEB.md „Stellung“, 81g)")
+    if not stellung: vorab.append("WARNUNG Stellung „**Ford: …**“ oben in ARBEIT-BETRIEB.md nicht gefunden; Lauf wie Pilot (81g)")
     nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
     liegt = "--liegt" in a  # 891: Lauf auf „Start <Rolle> <Nr>“; eine ruhende Sitzung unter 20 Minuten belegt dann nicht, sie bekommt WEITER
@@ -435,7 +450,7 @@ def main():
     offen = []; alle = {}
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
-    ausgabe = []; archiviert = set()
+    ausgabe = vorab; archiviert = set()
     if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite holen" % ", ".join(offen))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
     for t, ber, wer in startbar.wochentermine_faellig(JETZT):  # 719 A: vor dem Plan, damit der neue Vorgang im selben Lauf startet
@@ -639,7 +654,7 @@ def main():
             titel = "%s (%s)" % (thema, berlin(JETZT))
             mo, satz = modell(r, nf_nr.group(1) if nf_nr else None)
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
-            ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+            ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(), umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
@@ -668,7 +683,7 @@ def main():
             msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann die Übergabe in %s beachten." % (r, thema, VORRAT[r])
         msg += satz
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
-        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (r, mo, umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+        ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(), umgebung(r), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
     # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
     # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
@@ -705,14 +720,23 @@ def main():
                "Zuerst Start nach der Rollendatei, dann sofort `python3 tools/vorgang.py stand %s 'in Arbeit, bei %s'` und pushen (sonst nimmt %s die Zeile auch), dann den Vorgang lesen; eigener Zweig; fertig: Stand setzen, keine Übergabe im Vorrat, kein Nachfolger."
                % (zusatz, nr, team, nr, team, ", ".join(sorted(besetzt - {"Nachfolger"})) or "Betrieb", nr, zusatz, team))
         mo, satz = modell(zusatz, nr); msg += satz
-        ausgabe.append("START %s | %s | %s | %s | %s | %s | %s" % (zusatz, mo, umgebung(team), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+        ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (zusatz, mo, aufwand(), umgebung(team), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(zusatz); sperren.append(zusatz)
     vorentscheid_marken = []
     try:
         import abgleich
         # 191: Notizen gegeneinander, nur WARNUNG; Vorentscheid-Warnungen (194.1, D33.2) einmal, beim zweiten Lauf WARNUNG-LAUT (Marke im Protokoll)
         bisher = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md"))
-        for l in abgleich.pruefen():
+        # 1100 A (5), Chefwort 13.11., 09:29: Warnzeilen „gebaut“/„zu testen“ ohne Build einmal am Tag ganz (erster Lauf ab 8 Uhr, Marke im Protokoll), sonst eine Zeile mit der Zahl
+        zeilen_ab = abgleich.pruefen()
+        ohne_build = [l for l in zeilen_ab if re.search(r"„(gebaut|zu testen)“ ohne Build", l)]
+        ganz_marke = "Abgleich ganz %s" % JETZT.strftime("%d.%m.")
+        ganz = bool(ohne_build) and JETZT.hour >= 8 and ("Marke " + ganz_marke) not in bisher
+        if ganz: vorentscheid_marken.append(ganz_marke)
+        elif ohne_build:
+            ausgabe.append("WARNUNG Abgleich: %d Zeilen „gebaut“ oder „zu testen“ ohne Build (ganz einmal am Tag ab 8 Uhr; python3 tools/abgleich.py zeigt sie; 1100 A)" % len(ohne_build))
+        for l in zeilen_ab:
+            if l in ohne_build and not ganz: continue
             if "Vorentscheid" in l:
                 schluessel = re.sub(r"\s+", " ", l[len("WARNUNG Abgleich: "):][:60])
                 if ("Marke Abgleich " + schluessel) in bisher: l = l.replace("WARNUNG ", "WARNUNG-LAUT ", 1)
@@ -748,7 +772,7 @@ def main():
         ausgabe.append(zeile); wochen.append(marke)
     # 247.1: Tagesbericht täglich ab 7:30 (Sa, So 9:30), ersetzt Morgenbericht und Tagesrückblick (90)
     if per_start(*((9, 30) if JETZT.weekday() >= 5 else (7, 30))):
-        einmal("Tagesbericht %s" % heute, "TAGESBERICHT %s | Perikles | Perikles – 448: Tagesbericht %s | Perikles Tagesbericht (448)" % (heute, heute))
+        einmal("Tagesbericht %s" % heute, "TAGESBERICHT %s | Perikles%s | Perikles – 448: Tagesbericht %s | Perikles Tagesbericht (448)" % (heute, aufwand(), heute))
     # 927 (D162.1): Anlässe, die Ford sonst nur unter „Bei Anlass“ fände, als Ausgabezeile
     if per_start(8, 0):  # Schritt 8 Nachhalten, im ersten Lauf ab 8 Uhr
         einmal("Nachhalten %s" % heute, "NACHHALTEN %s: LISTE-BETRIEB.md Schritt 8 (Zeilen „von …“, Freigaben)" % heute)
@@ -761,7 +785,7 @@ def main():
         ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Ford meldet laut „448: Tagesbericht fehlt, %s“" % (heute, JETZT.strftime("%H:%M"), wie))
         wochen.append("Tagesbericht fehlt %s" % heute)
         if "Tagesbericht %s" % heute in marke_text and not per_belegt:  # sonst startet ihn die Zeile oben schon
-            ausgabe.append("TAGESBERICHT %s | Perikles | Perikles – 448: Tagesbericht %s | Perikles Tagesbericht (448), fehlte um 10 Uhr (Sa, So 12 Uhr)" % (heute, heute))
+            ausgabe.append("TAGESBERICHT %s | Perikles%s | Perikles – 448: Tagesbericht %s | Perikles Tagesbericht (448), fehlte um 10 Uhr (Sa, So 12 Uhr)" % (heute, aufwand(), heute))
     # Wochenziel und Wochenzählung (früher WOCHENSTART) sind seit 719 Vorgänge aus startbar.WOCHENTERMINE, angelegt oben vor dem Plan
     # 194.2: Datei eines anderen in der Chefsache ohne „Stellungnahme Sokrates“ → Sokrates starten, höchstens zweimal am Tag (Marke im Protokoll)
     d = os.path.join(DOCS, "chefsache", "entscheiden"); ohne = []
@@ -785,7 +809,7 @@ def main():
             elif so_laeuft:
                 ausgabe.append("NICHTS Sokrates: Stellungnahme zu %s wartet, Sokrates läuft (Token über %d Tsd. oder unbekannt)" % (", ".join(ohne[:3]), WEITER_TOKEN // 1000)); msg = None
             else:
-                ausgabe.append("START Sokrates | opus | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
+                ausgabe.append("START Sokrates | opus%s | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
                 vorgaenger("Sokrates")  # 261.5 (2): die ruhende alte Sitzung gleich danach archivieren, nicht zwei Sokrates nebeneinander
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
     try:  # 383: Wartewächter
@@ -833,6 +857,18 @@ def main():
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
+    # 1100 A (6), Chef 13.11., 09:29: nichts zu starten, nichts zu melden und nichts zu pushen → Ford endet nach diesem Schritt (kein Telegram, kein Push)
+    zahl_zeile = lambda l: l.startswith("WARNUNG Abgleich: ") and "ohne Build (ganz einmal am Tag" in l
+    if all(l.startswith("NICHTS") or zahl_zeile(l) for l in ausgabe) and not geaendert() and not NOTIZ_WARNUNG:
+        print("LEERLAUF: nichts zu starten, nichts zu melden, nichts zu pushen; Ford endet hier mit der Chatzeile „Ford HH:MM ok“ (1100 A 6)")
+
+def geaendert():
+    """1100 A (6): hat dieser Lauf Notizen geschrieben (Protokoll, Besetzung, Vorgangsliste)? Dann ist er nicht leer, Ford pusht."""
+    try:
+        r = subprocess.run(["git", "-C", os.path.join(DOCS, ".."), "status", "--porcelain", "--", "docs"], capture_output=True, text=True, timeout=20)
+        return bool(r.stdout.strip()) or r.returncode != 0
+    except Exception:
+        return True
 
 WAECHTER_STUNDEN = 3  # 383 (Chef 27.10., 17:53): Chef sagt „jetzt“ und bekommt drei Stunden lang keine Vorlage → laut an Chef und Sitzung
 WAECHTER_AB = datetime.datetime(2026, 10, 27, 19, 0, tzinfo=BERLIN)  # Protokoll der Meldungen gibt es erst ab hier; ältere „jetzt“ zählen nicht

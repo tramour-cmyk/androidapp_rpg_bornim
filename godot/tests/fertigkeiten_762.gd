@@ -77,6 +77,7 @@ func _lauf() -> void:
 			m.klappe_gruppe("Waffen", false)
 			for i in 6: await process_frame
 			pruefe("kein Bergbau", not matt.contains("Bergbau"), "")
+			pruefe("keine Illusion, keine Beschwörung (984.1)", not matt.contains("Illusion") and not matt.contains("Beschwörung"), matt.left(200))
 			for zl in r2:
 				if String(zl).begins_with("Zweihänder"): pruefe("Einhänder nicht matt", not String(zl).contains("Einhänder"), zl)
 			for l in m.inhalt.find_children("*", "Label", true, false):

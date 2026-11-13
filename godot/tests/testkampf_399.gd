@@ -50,7 +50,9 @@ func _lauf() -> void:
 	var vor := [hw.leben, hw.stufe, spiel.zustand.gold, spiel.zustand.siege]
 	r = await kampf(spiel, "probe", ["GRAK", "WIZARD", 5])
 	if not r.is_empty() and r[0] != 1: fehler += 1; print("FEHLER Probe nicht allein (947: Söldner nur zugeschaltet)")
-	r = await kampf(spiel, "probe", ["GRAK", "WIZARD", 5, true])
+	Testmodus.probe_soeldner = "*"
+	r = await kampf(spiel, "probe", ["GRAK", "WIZARD", 5])
+	Testmodus.probe_soeldner = ""
 	if not r.is_empty() and r[0] != 2: fehler += 1; print("FEHLER Probe mit Söldner ohne Söldner")
 	if [hw.leben, hw.stufe, spiel.zustand.gold, spiel.zustand.siege] != vor: fehler += 1; print("FEHLER Probe aendert den Helden: ", vor)
 	print("TESTKAMPF %d Fehler" % fehler)

@@ -475,3 +475,94 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | **398:** Sprungtest je Übergang Bild für Bild, Ziel 0 (`DESIGN-ABNAHME.md`) | `JumpTest` | Tom, Jerry | – |
 
 Gegenprobe 398 (Sokrates mit zwei Prüfern, 28.10., 11:2x): die Zeilen „398“ fehlten zuvor; sie gehören zur Checkliste (Jerrys in Block K, Klang in H, Toms in D und R). Neu, kein Umzugsverlust: Schwierigkeitsgrade (39, nie im alten Spiel); 39 bleibt Muss für den Marktstart, aber nicht in dieser Liste: baut auf der Balance-Messung (38) im neuen Kampf auf; PR #107 (alter Code) dient nur als Vorlage.
+
+---
+
+## 7. Kampffunde der Kotlin-Zeit gegen Godot (620.2c, Tuffy, 11.11., 22:3x; drei Helfer am Code von `main` 5731960d1, nur gelesen)
+
+Quelle: `LISTE-VORGAENGE-ARCHIV.md`, Bereich E Kampf, erledigt, Nummern unter 360, ohne Doppelte und ohne Rückfragen (82). Urteil: **gilt** (im Code belegt) · **Test** (angelegt, wirkt nur am Gerät sichtbar, oder Abhilfe auf einem Zweig) · **fehlt** · **entfällt** (kein Kampffund oder durch Beschluss überholt, meist 870a 2: nur MARS).
+
+**Zahlen:** gilt 40, Test 11, fehlt 16, entfällt 15. **Wiederholquote** (fehlt unter den 67 geltenden): 16 = 24 %; davon schon wieder offen 10 (785.9–785.16, 836, 840/986, 551), neu 6 (997–1002). Dazu 241, 241.2: Abhilfe 945 nur auf `claude/build-277` (PR #196 wartet auf 988). Nebenbei gefunden: 1003, 1004; 290: Eröffnungssätze kommen aus dem Kotlin-Export (`Interlude.kt` → `intro.json`), mit 870.9 umziehen; `LISTE-MARS.md` veraltet (Todesschrei ○, gebaut `klang.gd` 371).
+
+- 16 | gilt | kampfort.gd:545 Halt nach Wucht (trefferwucht.gd), Ruck nur bei kritisch/tödlich (561, 578); Test mars_regeln.gd:297
+- 34 | entfällt | klassischer Kampf entfällt (870a 2); im MARS beendet jede Aktion den Zug (kampf_ui.gd:694)
+- 35 | Test | Weihwasser auf main nicht benutzbar (aufruf.gd:254 nur „potion“); gebaut in 935 (`claude/tuffy-935-wurf`, nur Untote)
+- 72.10a | fehlt | Zugleiste, Tränke, Zauber da (kampf_ui.gd:1922); Reihensatz in jedem Kampf (seen_rows nie gesetzt; offen 836, 785.13); Zauberziele nicht hervorgehoben (offen 785.11)
+- 72.10a.T | gilt | Meldungen aus Skirmish.kt (mars_texte.gd:1); Wurfzeile mit Abzug entfällt (868/870.14)
+- 53 | entfällt | Flammen am Umriss gibt es im 3D-Kampfort nicht; Zustandsschild 563
+- 95 | gilt | Keuchen bei atemlos (spiel.gd:1502 → klang.gd:523), Balken (spiel.gd:1501); Heldin mit Männerstimme → 1003
+- 130.3 | gilt | eigene Ansagen je Gegner (mars.gd:207–226)
+- 72.10a.7 | gilt | Deckung hinten, Nachteil von hinten (mars.gd:1337, 1343, 1359); Späher (1931); Betrunken (107, 1353)
+- 72.10a.8 | gilt | Durchbrechen/Flanke (mars.gd:225–226); Platztausch halber Zug (mars.gd:1006)
+- 72.10a.9 | entfällt | Klassen entfallen (870a 3 A); „Decken“ nie beim BRS-Helden → 1004
+- 72.10a.11 | fehlt | Wechsel ohne Zugverlust da (mars.gd:1006), Waffe in der Hand wechselt im Bild nicht (figur.gd:588, 621) → 999
+- 72.10b | gilt | Probekampf Stufe 3 (testmodus.gd:51), Gegner wählbar, Treffer und Chance abschaltbar (kampf_ui.gd:2075, 236)
+- 174 | gilt | vordere Reihe näher an der Mitte (kampfort.gd:24–25, 723–732)
+- 181 | gilt | ausdauer.gd:20
+- 182 | gilt | „vorn/hinten“ (kampf_ui.gd:629), Platzwahl nennt Besetzer oder „(frei)“ (:741)
+- 183 | fehlt | Zauber ohne Ziel grau (kampf_ui.gd:766); „Kein Ziel in Sicht“ nie gezeigt; offen 785.10
+- 174.1 | gilt | kampf_ui.gd:629, „Wechsel“ :692
+- 172 | gilt | ein Ziel: „Angriff“ mit einem Tipp (kampf_ui.gd:684–688); Abwehr, Flucht im ersten Menü
+- 198 | gilt | 12 s Ruhe nach Flucht (herde.gd:258, streuner.gd:29)
+- 199 | gilt | kampf_ui.gd:684
+- 200 | gilt | 3D-Kampfort mit Perspektive (kampfort.gd:278)
+- 201 | fehlt | Probekampf nur im Testreiter, nicht im Systemmenü (menue.gd:1516 „folgt“), keine Regelseite; offen 785.9
+- 203 | gilt | „Abwehr“ (kampf_ui.gd:694), Nachteil bis zum nächsten Befehl (mars.gd:1179, 1345)
+- 204 | fehlt | langer Druck nur auf Hauptknöpfen; Flucht, einzelne Zauber, Tränke ohne Erklärung; offen 785.10
+- 205 | gilt | figur.gd:4141–4177; Grak, Krogg bleiben liegen
+- 207 | entfällt | SRD-Zauber entfallen (870.5); Reihenzauber jetzt Flammenfächer (mars.gd:188)
+- 208 | gilt | mars.gd:1347 Nachteil auf Verborgene; 1588, 1893 kein zweites Mal Schatten; blass kampfort.gd:1051
+- 210 | fehlt | Ansage erklärt (marstips.gd:22) gilt; Eingebung beim ersten Auftreten fehlt auf main: offen 840 (Zweig), 986
+- 211 | Test | Bericht, Zugleiste, Knöpfe da (kampf_ui.gd:328, 1923, 538); Lesbarkeit nur am Gerät
+- 219 | fehlt | Ring, Urteil mit Wirkung, Gegenschlag da (kampf_ui.gd:1728, 839; mars.gd:1760); Ersthinweis zum Ring fehlt, offen 785.12
+- 226 | entfällt | Absturz nur im Kotlin-MarsTips.kt
+- 223 | fehlt | Regel gilt (mars.gd:1343, 1358); Eingebung beim ersten Schlag von hinten fehlt, offen 785.13
+- 229 | gilt | kampf_ui.gd:237, 986–991, 1973 Raster für jeden Spieler
+- 231 | gilt | mars.gd:1966 Schonfrist, 1887 Einkreisen erst nach erster Wahl
+- 232 | gilt | kampf_ui.gd:486–501 Name eigene Zeile; höchstens 12 Zeichen (erschaffung_brs.gd:330)
+- 233 | fehlt | Name der laufenden Bewegung im Testkampf (alt SkirmishScreen.kt:629) → 997
+- 211.15 | fehlt | goldene Zeile weg, Namen bei Zielwahl (kampf_ui.gd:1016–1031); langer Druck auf eigene Figur fehlt, offen 785.14
+- 211.16 | gilt | kampf_ui.gd:1724–1727, 1013, 489
+- 211.17 | Test | Bissplatz figur.gd:2165–2190, Tests treffen_709, biss_achse_454; klassisch entfällt
+- 240 | gilt | mars.gd:330–333 Nummer am Namen; Reihe in der Zielliste offen 785.11
+- 241 | Test | Abbruch der Automatik auf main fehlt (kampf_ui.gd:671–676); Abhilfe 945 auf `claude/build-277` (t277 frei, PR #196)
+- 242 | gilt | kampf_ui.gd:1719–1720, 981–984, 1006–1013; mars.gd:1597
+- 242.1 | Test | Ring Vierbeiner 0,75 m (kampf_ui.gd:982), Bodenschatten figur.gd:202–245
+- 229.3 | fehlt | Raster schwächer als beschlossen (kampf_ui.gd:991) → 998
+- 241.1 | gilt | mars.gd:976–977 nur lead(); Söldner über merc.auto (kampf_ui.gd:702–706)
+- 242.3 | gilt | kampfort.gd:812–820 allein vorn/hinten versetzt (438)
+- 242.4 | gilt | kampfort.gd:22 MID 0.64
+- 242.2 | Test | Kontaktschatten figur.gd:202–274; im Ring nur am Gerät
+- 240.1 | gilt | kampf_ui.gd:1022–1029
+- 241.2 | Test | wie 241: Knopf da (kampf_ui.gd:707–717), Abhilfe 945 auf build-277
+- 260 | fehlt | Knopf, 2,5 s + 0,4 s gilt (kampf_ui.gd:62, 1101); nicht gemerkt (offen 785.16); Schalter bleiben beim Ring stehen → 1001
+- 268 | fehlt | Fackel nie, Fernwaffe nie in der Hand, Schild bleibt beim Zweihänder (figur.gd:588–592) → 999
+- 272 | gilt | kampf_ui.gd:2009–2016, kampfort.gd:962–971
+- 288 | entfällt | klassischer Kampf; im MARS fehlt die Testzeile ebenso → 997
+- 280.2 | gilt | Grak-Axt marstips.gd:24, EN „mercenary“ marstips.gd:18
+- 279 | gilt | pick() nie zweimal dieselbe Fassung (mars.gd:693), Wolf 3–5 Fassungen (mars_texte.gd:70)
+- 285 | gilt | _leap_forward mars.gd:1827 vor der Trefferprüfung (1715)
+- 290 | gilt | kampfblende.gd:51 aus intro.json (core Interlude.kt:100, godot.yml:70); mit 870.9 umziehen
+- 295 | entfällt | klassischer Kampf; im MARS Sturz/Aufstehen mars.gd:1147–1151
+- 301.1 | gilt | MSG301_REAIMS 5 Fassungen (mars_texte.gd:66, mars.gd:1211)
+- 303 | entfällt | klassischer Kampf
+- 305 | entfällt | klassischer Kampf; MARS-Lohn kampf_ui.gd:646
+- 309 | entfällt | klassischer Kampf
+- 310 | fehlt | „holt weit aus“ da (mars.gd:1924), Ausholhaltung bis zum Hieb fehlt (figur.gd:2657 nur POUNCE) → 1000
+- 313 | Test | Schrift, Kästen schwarz-gold, Zugleiste (kampf_ui.gd:135, 198, 1959); Regelseite fehlt (785.9)
+- 323 | gilt | kein Wischstrich; Ausweichen als Bewegung figur.gd:3937
+- 311 | entfällt | klassischer Kampf
+- 321.1 | Test | Richtwerte DESIGN-ABNAHME.md:54; gekaufte Bewegungen (figur.gd:6, 2558); nur im Film
+- 328 | entfällt | klassischer Kampf
+- 335 | fehlt | Knopfzeilen 6 dp wie alt (kampf_ui.gd:190); Rahmen unterbrochen: offen 551 (ruht)
+- 336 | gilt | perfekter Ring mit Dolch: Angriff mit Schaden (mars.gd:1778–1780); verwandt offen 949
+- 337 | Test | Grak schreitet zum Hieb und zurück (figur.gd:1450, 2536–2609)
+- 351 | gilt | Rudel flieht beim Fall des Führers (mars.gd:2013, kampfort.gd:1103)
+- 86 | entfällt | kein Kampffund (Welt)
+- 217 | Test | Biss zielt auf den Körper (figur.gd:2155–2216); offen 709, 709.1, 900
+- 19 | entfällt | gestrichen mit 626 (steht in 562, 595)
+- 249 | gilt | Zoom/Ruck kampfort.gd:535–563, Blut menue.gd:1549, Zustände kampf_ui.gd:1602
+- 296.1 | entfällt | Pflege `LISTE-MARS.md`, kein Kampffund
+- 296.3 | fehlt | Siegerpose fehlt im Spiel (Probe 08.11. verworfen, erst Umhang 656); Todesschrei, Zustände da → 1002 (Kür)
+- 211.14 | gilt | messung.gd:25, Test kampf_leistung_21114.gd
+- 296.2 | gilt | Lohn, Flucht, Eröffnung, Zustände, eigene Ausrüstung da; Boss-Beute offen 633

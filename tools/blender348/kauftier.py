@@ -88,7 +88,9 @@ TIERE = {
                         'ocker': ('SK_MobileLeech_04.FBX', 'T_MobileLeech_04_Skin2_a')},
              'namen': {'Stehen': 'Idle_01', 'Umsehen': 'Idle_02', 'Drohen': 'Idle_03', 'Gehen': 'Move', 'Biss': 'AttackEat_01',
                        'Treffer': 'Gethit', 'Tod': 'Death'},
-             'kopf': 'Bone006', 'laenge': 1.0, 'weg_tempo': 0.4, 'rennen_aus_gehen': 1.6,
+             # 595 (Chef 05.11., 19:2x, Build 266: „Riesenegel schneller in den Angriff und beim Ausweichen“): Kriechen 0,4 → 0,6 m/s,
+             # die Bewegung im selben Maß schneller (1,5-fach, wie der Rattenkauf mit tempo_ziel); Rennen 1,6 × 1,5 = 2,4-fach, 0,96 m/s
+             'kopf': 'Bone006', 'laenge': 1.0, 'weg_tempo': 0.4, 'tempo_ziel': {'Gehen': 0.6}, 'rennen_aus_gehen': 1.6,
              # Liste 4: nur dunkle Häute, braun, grau, ocker; nie türkis, nie glühend rot
              'felle': {'braun': (0x4A3424, 0x1E140E, 0x6A5038), 'grau': (0x4E4C48, 0x201E1C, 0x6E6A64), 'ocker': (0x6E5026, 0x2A1C0E, 0x8C6C3A)}},
     # 494 (Kauf 348.12c; LISTE-FIGUREN „Säureschnecke“, ersetzt die Ockergallerte): Protofactor Giant Slug, Netz nur in AllAnimations,
@@ -99,6 +101,10 @@ TIERE = {
                  'namen': {'Stehen': 'IdleBreathe', 'Umsehen': 'IdleLookAround', 'Gehen': 'CrawlForward', 'Biss': 'TongueAttackStraight',
                            'Spucken': 'SpittersAttack', 'Treffer': 'GetHitFront', 'Tod': 'Death'},
                  'laenge': 2.4, 'laenge_ohne': 'GiantSlug_Tongue', 'dreiecke': 5800, 'weg_tempo': 0.6, 'rennen_aus_gehen': 1.4,
+                 # 595 (Chef 05.11., 19:2x, Build 266: „Angriff geht etwas daneben am Ziel“; nachgestellt 10.11., Bilder je 0,1 s: die Zunge
+                 # rollt sich bis 1,3 s über dem Kopf ein, der größte Satz nach vorn, 1,40 s, ist der Beginn des Stoßes, ganz draußen ist sie
+                 # erst danach): Treffpunkt und Zeit dort, wo die Zunge nach dem Satz am weitesten vorn ist
+                 'biss_weitest': True,
                  # Liste 4: schlammbraun, kränklich gelbgrau, dunkel ocker; nirgends rosa
                  'felle': {'schlamm': (0x4E3E2C, 0x221A12, 0x6E5A42), 'gelbgrau': (0x7E7A5E, 0x3A3628, 0x9C9678), 'ocker': (0x664624, 0x281A0C, 0x86663A)}},
 }
@@ -540,6 +546,9 @@ def baue(fell):
                 aus.append(float(np.linalg.norm(kk - k0)))
             satz = np.diff([v[1] for v in vorn])
             j = int(satz.argmin()) + 1 if satz.min() < -0.05 else int(np.argmax(aus))
+            if T.get('biss_weitest'):     # 595 Säureschnecke: nach dem größten Satz (die Zunge löst sich aus der Rolle über dem Kopf) der
+                # Augenblick, in dem sie am weitesten vorn ist, höchstens 0,3 s später (vorher liegt die Rolle vorn, 0,33 s, kein Stoß)
+                j = j + int(np.argmin([v[1] for v in vorn[j:j + int(0.3 * FPS) + 1]]))
             best = vorn[j]
             INFO['biss'] = [round(float(-best[1] - 0.07), 3), round((best[0] - a0) / FPS, 3), round(-math.degrees(math.atan2(best[2], -best[1])), 1)]
             print('BISS %s %s: vorn %.2f m bei %.2f s, seitlich %.2f m -> %s' % (TIER, nm, -best[1], (best[0] - a0) / FPS, best[2], INFO['biss']))

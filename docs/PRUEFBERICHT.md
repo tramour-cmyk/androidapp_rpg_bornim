@@ -52,6 +52,126 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 199 · 1125 Sammelbilligungen in `abgleich.py` (Perikles `377a1a533`; 13.11., 11:5x)
+
+- **Vorläufig:** `abgleich.py` auf `main` gibt keine Vorentscheid-Warnung mehr, nur Zeilen „ohne Build“ (in `lauf.py` eine Zahlzeile, zählt als Leerlauf). Ob ein Uhrlauf ohne Startbares jetzt nach einem Schritt endet und billiger wird, zeigt erst der nächste echte Lauf; 1125 wartet bis 13:15.
+
+## Lauf 198 · 1070 getestete Prüfliste im selben Commit wie „tN“ aus der Chefsache (Perikles `95e4f4bef`; 13.11., 11:5x)
+
+- **Greift:** beide Tests seit dem Bau: t281 (`67b8504be`, 09:10) und t282 (`94621abe7`, 10:44) löschen `ansehen/t28n-…` im selben Commit wie den Archiveintrag „tN getestet“; `chefsache/ansehen/` hält heute keine getestete Prüfliste mehr.
+
+## Lauf 197 · 1124 Rolle im Wartefeld: Commit-Prüfung hält „Zu <Nr> … von <Rolle>“ an (Perikles `cf704c3ea`; 13.11., 11:5x)
+
+- **Greift:** in einer Kopie von `main` neue Zeile „Zu 483, von Diogenes“ in einem Vorrat → HÄLT AN mit Vorschlag `warte 483 D75`; nach dem `warte` im selben Stand durch; „von Sokrates“ geht durch. Fords Originalzeile (`5380d2eb1`, „Zu 1098, Ergebnis Probe D von Ford …“) passt auf beide Muster (Nummer und „von Ford“ im fetten Kopf), wäre also angehalten worden. Der Haken läuft in der Notizkopie (diese Sitzung hielt heute dreimal an der 15-KB-Grenze).
+- **Grenzen:** erkennt nur eine Lieferung mit „von <Rolle>“ im fetten Kopf; eine geänderte alte Kopfzeile zählt als neu (Ausweg `BORNIM_WARTET=1`). Zurzeit trägt nur 483 eine Rolle im Wartefeld.
+
+## Lauf 196 · 1111, 1112, 1113 Kauf-Cache: Gegenprobe, halbe Blöcke, Aufräumen (Jerry `826974d2e` auf `claude/jerry-1111-cache`; 13.11., 11:4x)
+
+- **1111 richtig gebaut:** `pruefen --neu` setzt jeden Block auf bauen, `KAUF_HOLEN` nein, `KAUF_GEGENPROBE` nennt nur Blöcke mit vorher abgelegtem Zweig; `ablegen` überschreibt keinen, `vergleich` prüft damit den alten Zweig gegen den frischen Bau, nicht sich selbst. Abweichung macht den Schritt rot (continue-on-error, Bau geht weiter).
+- **1112 richtig gebaut:** alle geduldeten Fehler in Blöcken setzen `halb` (Block klassen: LEUTE KAUF; Block kampf: Grimmzahn, vier Kauftiere, Skelett, Wiedergänger, Grabhund); figur und dorf dulden keinen Fehler (`exit 1`); Waffen, Dorftiere, Leute liegen außerhalb der Blockmarken. Die erste Marke des Blocks löscht alte `halb`-Dateien.
+- **1113 mit Lücke:** D196.1 → 1126 (Jerry, M): Aufräumen kann einem gleichzeitigen Lauf auf einem anderen Zweig den gewählten Treffer zwischen Prüfen und Holen wegnehmen; `holen` baut dann nicht nach, Lauf rot. 1113 wartet darauf.
+- **Nebenbefund:** D196.2 → 1127 (Jerry, K): rote Gegenprobe meldet zusätzlich „Ablegen misslungen“.
+- **Nicht geprüft (wartet auf t283):** echter Lauf mit `cache=neu`, mit geduldetem Fehler, Löschen per KAUF_TOKEN.
+
+## Lauf 195 · 1100.1 Ford-Lauf vorher/nachher (Perikles `70a4467fe`, Ford ab 10:03; 13.11., 11:4x)
+
+- **Grundlage:** alle 41 Züge der Ford-Sitzungen `…78Qg516rLn1yGt11hL` (05:11–11:08) und `…799ZkNaijAJMrQQjx9` (11:12–11:43), je Zug Kosten, Schritte, Verlauf (result-Ereignisse).
+- **Kosten:** 05:09–09:20 4,57 $ in 18 Zügen, 165 Schritte (1,09 $/h, deckt sich mit Sokrates 4,58 $); 10:03–11:43 5,38 $ in 13 Zügen, 164 Schritte (3,2 $/h). Darin Probe D 11:01 (0,70 $), Ford-Neustart 11:08 und 11:12 (1,61 $), fünf Starts 11:40 (0,69 $).
+- **Schritte je Uhrlauf:** vorher 07:04 8, 08:06 18, 09:04 8; nachher 10:05 9, 11:15 9 (11:40 32 mit fünf Starts und Archivierungen). Kein Uhrlauf endete nach einem Schritt (LEERLAUF), die Bremse-Warnung kommt jede Stunde. Kosten je Schritt: 0,02 $ bei 160 Tsd. Verlauf (07:04, 11:15), 0,04 $ bei 390 Tsd. (10:05).
+- **Marke:** „Abgleich ganz 13.11.“ einmal, 09:40; danach keine weitere.
+- **Starts:** nach 10:03 jede Startsperre mit Sitzung oder WEITER, außer Spike 10:58 (Warnung 11:11, gestartet 11:12) und Tuffy 10:04 (Ford ließ ihn aus, Sperre stand, Warnung 10:58; derselbe Ablauf wie Hinweis Lauf 127). Keine Warnung verloren: jeder fehlende Start hat seine Marke „Start-fehlt“. Nebenbei: 09:40 schrieb `lauf.py` Vorentscheid-Marken doppelt (1044, 1022 je dreimal, 1090 zweimal).
+- **Befund:** D195.1 → 1125 (Perikles): 1100 spart messbar nichts; 1100 wartet darauf.
+- **Nicht geprüft:** Telegram-Warnungen selbst (nur die Marken im Protokoll).
+
+## Lauf 194 · 1122 Prüflisten-Test nur auf claude/build-… (Tom, `3ff3626be` auf `claude/tom-1122-pruefliste`; 13.11., 11:4x)
+
+- **Richtig gebaut:** einzige Stelle mit `pruefliste_1020` in allen 16 Workflows ist `godot.yml` Zeile 705; Bedingung unter `bash -e` nachgestellt: `claude/build-283` führt den Test aus, ein Fehlschlag bricht den Schritt weiter ab (Exit 1); `claude/tom-348-x` schreibt „aus“ und läuft weiter. `pruefliste.py` (Daten fürs Spiel) läuft weiter auf jedem Zweig, nur der Test ist aus; `workflow_dispatch` auf einem Buildzweig führt ihn aus.
+- **Nicht geprüft (wartet auf t283):** kein echter Lauf, der Zweig löst `godot.yml` nicht aus und steckt in keinem Build. Prüfen: Lauf auf `claude/build-283` mit Zeile „PRUEFLISTE1020 im Bau: Build 283“; nach `main` ein Lauf auf `claude/tom-348-…`/`jerry-348-…` mit „PRUEFLISTE1020 aus“.
+- **Rest, kein Befund:** ein Neubau von Build n, wenn schon `entwurf/t<n+1>` auf `main` liegt, prüft gegen die neuere Liste; der Test vergleicht keine Buildnummer, rot nur bei geändertem Listenaufbau.
+
+## Lauf 193 · 1121 Commit-Prüfung 774 und „ohne Rückmeldung tN“ (Perikles, `f31ce0409`; 13.11., 11:0x)
+
+- **Greift:** nachgestellt auf `94621abe7^` mit `vorgang.py build 282`: alte Bedingung meldet 1040.1 als lose (Halt), neue keine; ausgenommen wird nur der Stand, den `vorgang.py` Zeile 409 selbst schreibt („zu testen, ohne Rückmeldung tN“), jede andere lose Zeile hält weiter an.
+
+## Lauf 192 · 1099, 1103, 1110 Repos und Archivieren in den Rollendateien (Perikles, Doppelpack 421; `cc52ea528`, `e70cb24f3`, `6f970b4a2`; 13.11., 10:08)
+
+- **Greift:** Bitte-Zeile 642 in `ARBEIT-BETRIEB.md` weg; Archiv 1099 und 1110 mit Wortlaut 07:12, 09:55–09:59; Repo-Satz in allen sechs Rollendateien gleich dem Archiv; Ford archiviert ohne Satz nur ARCHIVIERE, nie laufende (Wortlaut 09:59); keine Regel „nur auf Wort/Satz des Chefs“ zu Repos oder Archiv mehr (Rollendateien, `LISTE-*`, `CLAUDE.md`). Beleg 1099: diese von Ford gestartete Sitzung band `bornim-kaufmodelle` um 09:50 ohne Chefwort ein. Gestrichene Dubletten (Uhr-Lehre, drei Homer-Lehren, Beispiel D3.10, „kein Eingang für Teams“ steht weiter in `ARBEIT-BERATUNG.md`) ohne Widerspruch.
+- **Befund:** D192.1 → 1117 (Perikles): Zeile 391 trägt noch Stand „Chefwort in der Sitzung wirkt“.
+- **Nicht geprüft:** Archivieren durch Ford ohne Satz am echten Lauf (nächster ARCHIVIERE).
+
+## Lauf 191 · 1109 Querprüfung Vorberechnung 854 mit 1101 (Chef 13.11., 09:44; `jerry-1101-teile` `f52d5dc23`, `build-282` `1cbb7e575`; 13.11., 09:5x)
+
+- **Greift:** in 24 von 34 Läufen (12.–13.11., Protokolle) trafen klassen und kampf; Lauf mit allen Treffern etwa 49 min, voller Bau 115 min (420). Seit Lauf 387 scheiterte das Ablegen an dorf (deep_forest 122 MB), der alte Code brach ab, klassen und kampf wurden nie mehr abgelegt (409–420 sechsmal neu). 1101 behebt beides; Probe am gemischten Stand `build-282` + 1101: 15 mal gut, ohne Konflikt.
+- **Schlüssel:** alle 36 Skripte der Blöcke gefunden; held3 und rig in `held_klassen.py` nur über `block:figur` gedeckt (Name zusammengesetzt); 60 übrige Dateien unter `tools/blender348` in keinem Block benutzt (nur Wortgleichheit); bpy-, CC0- und Kaufstand in der Kennung.
+- **Befunde:** D191.1 → 1111 (`cache=neu` wirkt nicht, Gegenprobe leer), D191.2 → 1112 (halber Block wird abgelegt und ausgeliefert), D191.3 → 1113 (Kaufrepo 524 MB, wächst ohne Löschen), alle Jerry; Sparvorschläge D191.4 → 1114 (Jerry), D191.5 → 1115 (Tom); Geldwert → 1116 (Perikles).
+- **Nicht geprüft:** ob Blender-Ausgaben Byte für Byte gleich bleiben (ohne Gegenprobe nicht messbar); Laufzeit der Prüfungen (30 min, 909).
+
+## Lauf 190 · 1099 Repos selbst einbinden (Perikles, Doppelpack 421, `c9d1aa05d`; 13.11., 08:5x)
+
+- **D190.1 = 1103 (Perikles), 1099 wartet darauf:** Regel passt zum Wortlaut 07:12 und zu 376.1, 513, 708, 506, 797; aber alte Bitte-Regel in `ARBEIT-BETRIEB.md` Zeile 44 (391) steht noch, Wortlaut 07:12 nicht im Archiv, `add_repo` trotz 797 abgelehnt (Jerry 03:15) und „wartet auf Kaufrepo“ ohne Löser.
+- Nicht geprüft: ob `add_repo` jetzt in einer frisch gestarteten Sitzung ohne Chefwort durchgeht (kein Fall seit 08:12).
+
+## Lauf 189 · 1019 Ford-Neustart erst ab 400 Tsd., Wirkung (Perikles, `57f798597`; 13.11., 08:0x)
+
+- **Haken greift, Ziel nicht → D189.1 = 1098 (Perikles), 1019 wartet darauf.** Vier Selbstneustarts seit 12.11., 08:12, `used_tokens` des alten Ford: 888.569 · 415.734 · 424.993 · 434.089 (alle über 400 Tsd.). Tiefe über `parent_session_id`: Handstart 12.11., 07:26 (Tiefe 0) → laufender Ford Tiefe 4 nach 22 h (vorher 6 in 21 h); Handstart bleibt etwa täglich.
+- Nebenbei: Selbstneustart 16:30 ohne Protokollzeile „Start Ford (selbst)“ (nur Commit `ef757fc01` „Übergabe Ford (Selbstneustart, Kontext 831 Tsd.)“).
+- Nicht geprüft: Tiefe von der Schnittstelle selbst (`lineage.depth` zeigt `get_session` nicht; aus der Elternkette gezählt).
+
+## Lauf 188 · 1087 Prüfliste „Passt“ (Tom, `47fd0c177` auf `claude/tom-1087-pruefliste`; 13.11., 00:0x)
+
+- **1087 greift.** Ursache im Spiel, nicht nur alter Zweig: `tools/pruefliste.py` von `main` liest `t281-kampf.md` mit 14 Zeilen, davon 0 mit „Passt“ (Spalte heißt seit 1033 „Passt“, Parser las nur „Richtig“); Build 281 zeigte im Reiter Test also leere Sollzeilen. Mit dem Zweig: t281 14 von 14, t280 (`docs/entwurf/t280-nachtrag.md`, Git) 48 von 48 wie vorher. `pruefliste_1020.gd` auf dem Zweig mit dem JSON aus t281: „Build 281, 14 Zeilen“, „PRUEFLISTE1020 0 Fehler“, Exit 0. Die übrigen Skriptfehler (`leben_basis`) nur am Rechner: `werte.json` kopiert erst die Action (`godot.yml` 71). `zug-index.py` nimmt beide Spaltennamen.
+- Nicht geprüft: Reiter Test im nächsten Build (Fix nur auf dem Zweig).
+
+## Lauf 187 · 1078 G4, Abschluss 1076 (Perikles, `9fa7b2211`; 12.11., 21:29)
+
+- **1078 greift, 1076 greift.** G4 in `DESIGN-ABNAHME.md` G, „Prüfer: ja“, damit Teil der Prüfung vor dem Versand (783 W1): deckt Chef 20:42 (nur der Prüfgegenstand, Rest geschnitten) und 20:54 (Kamera, nicht die Standardsicht); „etwa dreimal, bis 15 s“ bleibt Vorschlag Sokrates (Herkunft 1076). `LISTE-BAUEN-TESTEN.md` 3 verweist auf G4, kein eigener Wortlaut mehr. Zweiter Ort gesucht (`dreimal`, `15 s`, `Standardsicht`, `Kurzvideo`, `Grundansicht` in docs, tools): nur CLAUDE.md 9 (Kurzfassung) und `meldung.sh` (Wächter); „Kurzvideo 5–15 s … Grundansicht“ steht nur noch in `alt/LISTE-UMZUG-348.md` (seit 10.11. Archiv), „Grundansicht“ in `LISTE-UMZUG-348.md` gilt für Vergleichsbilder, nicht für Filme.
+- Nicht geprüft: ein echter Film nach G4 (keiner seit 21:13).
+
+## Lauf 186 · 1076 Filmlänge (Perikles, Doppelpack 421, `54289ed83`, `c523f37c4`; 12.11., 21:0x)
+
+- **1076 greift beim Wächter, Lücke 1078** (`warte 1076 1078`): `meldung.sh --probe --film` mit Probefilmen: 21 s und 25 s halten an mit Hinweis 1076; 10 s und 20,6 s laufen weiter (ganze Sekunden, „über 20 s“); 25 s mit „Chef will langen Film“ läuft. `ffprobe` liegt in der Sitzung. Regeltext CLAUDE.md 9 und `LISTE-BAUEN-TESTEN.md` 3 gegen Chef 20:42 und 20:54 (`ARBEIT-PROJEKT.md` Zu 1076): beide Chefworte haben einen Ort; „etwa dreimal, bis 15 s“ ist Vorschlag Sokrates, so gekennzeichnet. Keine widersprechende Längenangabe in ROLLE-, LISTE-, DESIGN-ABNAHME; „bis 50 MB“ aus CLAUDE.md gestrichen, hält weiter im Werkzeug.
+- **D186.1 → 1078 (Perikles, Klasse 2):** die Prüfung vor dem Versand (783 W1, `DESIGN-ABNAHME.md` 11) prüft nur Punkte mit „Prüfer: ja“ und Auflagen zu derselben Vorlage; die Kamera (Chef 20:54) und „nur der Prüfgegenstand“ gelten für jeden Film, stehen aber nur in `LISTE-BAUEN-TESTEN.md` 3, nicht in G. Ohne Punkt G4 wiederholt sich der Fund des Chefs beim nächsten Film eines anderen Vorgangs.
+- Nicht geprüft: ein echter Film über 20 s (keiner seit 20:58); Filmzweig mit `main` zusammengeführt erst am nächsten Film.
+
+## Lauf 185 · 1042 `probelauf.py` cd-Kette (Perikles, `6c3a1513c`; 12.11., 16:0x)
+
+- **1042 greift** (`greift 1042 185`): Spikes Push 15:45 (`5b6906b79` auf `claude/tom-1040-1-wendeschritt`, ändert `godot.yml`) im Klon nachgestellt, `push_lauf` alt gegen neu: `cd …/godot && …; cd .. && git push` alt „Film“ (Arbeitskopie außerhalb des Repos), neu keine Probe (Arbeitskopie richtig); ebenso relatives `cd godot; cd ..` und drei cd nacheinander. Gegenprobe gleicher Befehl auf `claude/tom-348-x`: neu Probe 1040.1 mit Film, zählt also weiter. Zweigfilter `godot.yml` (`tom-348-**`, `jerry-348-**`, `build-**`) im Commit unverändert; GitHub: 0 Läufe auf dem Zweig, die gestrichene Zeile war falsch.
+- Grenze (kein Vorgang, selten): ein `cd` in einer Unterschale gilt jetzt weiter; `(cd godot && …); cd tools && git push` ergibt `godot/tools` statt `tools` (alt richtig), dann zählt der Haken wie vor 1042 einen Film zu viel.
+
+## Lauf 184 · 1019 Neustart-Haken nimmt Ford aus (Perikles, Doppelpack 421, `57f798597`; 12.11., 08:1x)
+
+- **1019 greift im Haken, Wirkung offen** (`warte 1019 13.11. 08:00`): `neustart-haken.py prompt` mit Probeprotokollen: erste Nachricht „Ford“ 250 Tsd. still, 450 Tsd. Erinnerung; „Tom“ 250 Tsd. Erinnerung; „Ford 2“ und „Ford-Wache“ wie Ford (Wortgrenze am Bindestrich, unschädlich). Der Prompt-Haken liest `/home/user/bornim-main/tools/`, wirkt also nach dem nächsten `notiz.sh` des laufenden Ford ohne Neustart. Fords Sitzung `…765JvmMM81VAZ94ovn` (von Hand 07:26): erste Nachricht „Ford“, `name()` erkennt sie; 264 Tsd. `used_tokens` um 08:15. Sie bindet zudem `bornim-kaufmodelle` ein, dort galt 400 Tsd. schon nach 818. `LISTE-BETRIEB.md` 61 nennt das Wort „Ford“ als erste Nachricht beim Selbstneustart.
+- Nicht geprüft: echter Selbstneustart; am 13.11. ab 08:00 im Protokoll `ARBEIT-BETRIEB.md` jeden „Start Ford (selbst)“ seit 08:12 gegen `used_tokens` (unter 400 Tsd. → Vorgang an Perikles) und die Tiefe des dann laufenden Ford (12.11. Tiefe 0 um 07:26).
+
+## Lauf 183 · 1011 Nachprüfung 1010: nur Laufzusagen von Sokrates überspringen (Perikles, Doppelpack 421, `afa2141f4`; 12.11., 04:1x)
+
+- **1011 greift, 1010 greift** (`greift 1011 183`, `greift 1010 183`): `laufzusage()` gegen alle 46 Köpfe „<Nr>, Läufe frei“ im echten Archiv: 40 von Sokrates nach 480.1 übersprungen, 6 Chefantworten zählen (264.1 ×5 „Chef an Perikles/Sokrates … → **ja (Nutzer)**“, 510a 03.11., 13:02 „Chef an Sokrates“); `antworten()` liefert 510a und 264.1, 861 und 988 nicht; `beantwortet()` leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
+- Nicht geprüft: echter Commit mit neuer Laufzusage zu einer offenen Vorlage. Restfall ohne Beleg: eine Laufzusage von Sokrates, deren Anlass „Chef an …“ wörtlich nennt, zählte als Chefantwort (im Archiv kein Fall).
+
+## Lauf 182 · 1010 `startbar.antworten()` ohne „Läufe frei“-Köpfe (Perikles, Doppelpack 421, `8da3952f4`; 12.11., 03:0x)
+
+- **1010 greift mit Lücke** (`warte 1010 1011`): Laufzusage „- **861, Läufe frei** (12.11., 03:00, Sokrates nach 480.1)“ zählt nicht mehr, `beantwortet()` auf dem echten Archiv leer, `--stand` läuft; Commit-Prüfung nutzt dieselbe Funktion (`commit-pruefung.py` 307).
+- **D182.1 (Klasse 2, Perikles, Vorgang 1011):** die Regel überspringt jeden Kopf „<Nr>, Läufe frei“, gleich wer antwortet. Von 22 solchen Köpfen mit Schlusswort enden 6 auf „→ **ja (Nutzer)**“ (Chef an Sokrates oder Perikles: 264.1 ×5, 510a); 510a (03.11., 13:02) beantwortete `entscheiden/510a-zweiter-lauf.md`. Probe: derselbe Kopf mit „Chef an Sokrates … → **ja (Nutzer)**“ ergibt `{}`, 383.3 hielte nicht an. Vorschlag: nur Köpfe mit Schlusswort „(Sokrates)**“ überspringen.
+- Nicht geprüft: echter Commit mit neuer Laufzusage zu einer offenen Vorlage (nur Funktion im Klon).
+
+## Lauf 181 · 982 Startsperre-Haken Aufwand, Nachprüfung 981 (Perikles, Doppelpack 421, `7431ee44c`; 11.11., 19:0x)
+
+- **982 greift** (`greift 982 181`): Haken im Klon mit echtem Eingabe-JSON: Tom ohne `effort` und mit „medium“ Exit 2 „Aufwand fehlt (982)“, mit „high“ weiter zur Startsperre (750 A, Exit 2 wie vorher), Helfer ohne Rolle Exit 0; `aufwand()` 14.11., 19:59 hält an, 20:00 und 15.11. frei. Stichtag liest er aus `lauf.py` (ein Ort). Alle 8 Sitzungen seit 18:18 zeigen in `get_session` `effort_level` „high“: Selbstneustart Ford 18:26 (vorher „medium“, Lauf 180), Neustarts über Ford Sokrates 18:22, Spike 18:22 und 18:48, Tuffy 18:25, Jerry 18:28, START Homer und Diogenes 19:04. Regeltexte `LISTE-BETRIEB.md` 13, 45, 61 und `LISTE-RELEASE-NEUSTART.md` 2 nennen den Aufwand.
+- **981 greift** (`greift 981 181`): Lücke D180.1 durch 982 geschlossen; START 19:04 kam mit „high“ an.
+- Nicht geprüft: START-Zeile nach 14.11., 20:00 in echt (nur im Klon); kein Notfall-Neustart seit 18:18.
+
+## Lauf 180 · 981 Aufwand Hoch in START (Perikles, Doppelpack 421, `aff3a9af1`; 11.11., 18:1x)
+
+- **981 greift in `lauf.py`, mit Lücke außerhalb:** diese Sitzung (von Ford 18:10 gestartet) zeigt in `get_session` `effort_level` „high“. `aufwand()` im Klon: 14.11., 19:59 „ | effort high“ und Umgebung Hoch; 14.11., 20:00 leer und Umgebung Mittel. Alle vier START-Stellen und beide TAGESBERICHT-Stellen tragen das Feld; kein anderes Werkzeug zerlegt START-Zeilen nach Feldposition (`lauf.py` 683, 691, 729 suchen nur Anfang und Muster). Wortlaut 365a B (Archiv 11.11., 07:18: „starten alle Rollen mit Hoch“) und Chef 18:04 („alle auf hoch“) gedeckt.
+- **D180.1 (Klasse 2, Perikles, Vorgang 982):** Starts ohne START-Zeile bekommen kein `effort`: Neustart über Ford (`LISTE-BETRIEB.md` 38 → `LISTE-RELEASE-NEUSTART.md` „Neustart“ 2), Notfall-Neustart (dort 2: „Umgebung und `model` nach Startzuordnung“) und Selbstneustart Ford (`LISTE-BETRIEB.md` 61). Startzuordnung (45) sagt „Aufwand aus der START-Zeile“, die es dort nicht gibt. Ford gibt es seit 18:07 von Hand mit, laut Protokoll aber nur, „bis lauf.py es selbst ausgibt“. Fords eigene Sitzung (Chef 09:32) läuft auf `effort_level` „medium“ bei Umgebung Hoch. 981 wartet auf 982.
+- Nicht geprüft: Lauf nach 14.11., 20:00 in echt (nur im Klon); TAGESBERICHT-Start in echt (nächster 12.11., 7:30).
+
+## Lauf 179 · 978 und 979 Wächter 870.11 (Perikles, Doppelpack 421, `8983b9977`, `a14598da6`; 11.11., 17:2x)
+
+- **978 greift** (`greift 978 179`): Hash der kompakten Form (gleich `karten.py kanon`) beider Dateien in Spikes echtem Commit `33f22e953` gleich `BESTAND_870_9`. Probe im Klon: beide neu angelegt Exit 0; andere Einrückung, gleicher Inhalt Exit 0; neu angelegt mit Zusatzzeile hält an; nach dem Einchecken eine Zeile „RK 14“ dazu hält an (nur „RK“), Zeile ohne SRD Exit 0.
+- **979 greift** (`greift 979 179`): Merge mit Konflikt in `docs/`, SRD-Zeile aus dem anderen Elternteil Exit 0; neue SRD-Zeile beim Auflösen hält an (nur „ZP“); Konflikt in der Godot-Datei selbst, Lösung nimmt die Zeilen beider Seiten, Exit 0; gewöhnlicher Commit hält wie bisher an.
+- Grenze ohne Folge: ein Merge ohne Konflikt läuft über `pre-merge-commit`, den `notiz.sh` nicht anlegt; den prüfte der Wächter auch vorher nie. Kein Vorgang.
+
 ## Lauf 178 · 970 mit 965 Sperre 779 (Perikles, Doppelpack 421, `4d1486e9f`; 11.11., 16:4x)
 
 - **970 greift** (`greift 970 178`): eigene Dateien je Zweig gegen `git branch -r --contains` je Commit nachgerechnet: 705 nur `mars.gd` (2 eigene Commits, `kampf_ui.gd` weg), 709.1 nur `figur.gd` (Commit `8bbafbcb6` liegt auch auf `jerry-709a-tiefbiss`, zählt richtig nicht), 945 `kampf_ui.gd`. Namen: „greift“, „greifen“, „Lage“ keine, „Lager“, „Wolfes“, „Aldrics“, „Greifs“ ja. `--stand` 1,7 s (vorher 8,2 s).

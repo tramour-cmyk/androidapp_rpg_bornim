@@ -185,7 +185,7 @@ Danach:
 
 ### Freiwillig: Morwen und Grimmzahn
 
-**Auslöser:** Tiefer Flüsterwald, östlich vom Flüsterwald. **Belohnung:** 1 Gegengift, danach Laden und Tränkebrauen.
+**Auslöser:** Tiefer Flüsterwald, östlich vom Flüsterwald. **Belohnung:** 1 Gegengift, danach Laden und Tränkebrauen; nach dem Umzug für den Sieg über Grimmzahn das Rezept Großer Heiltrank (975, `STORY-K1-FERTIGKEITEN.md` „Rezeptwege“).
 
 **Kräuterfrau Morwen:** Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Morwen, ich sammle hier Kräuter.
 
@@ -227,7 +227,7 @@ Das Brett steht vor der Schänke. Fünf Aushänge in zwei Wellen, abgegeben wird
 | Felle für den Winter | Thessa | Start | 5 Wolfsfelle | 60 Gold |
 | Gwennas Ring | Gwenna | Start | Ring aus der Höhlentruhe | 40 Gold, 1 Heiltrank |
 | Hauer für den Schmied | Borin | Start | 3 Keilerhauer | 50 Gold |
-| Gift gegen Gift | Morwen | nach Krogg | 3 Giftdrüsen von Riesenspinnen | 50 Gold, 2 Kräutertränke |
+| Gift gegen Gift | Morwen | nach Krogg | 3 Giftdrüsen von Riesenspinnen | 50 Gold, 2 Kräutertränke; nach dem Umzug 50 Gold, Rezept Brandflasche (975) |
 | Feuer am Steinkreis | Wache Jorin | nach Krogg | was am Steinkreis liegt | Kopfschutz |
 
 ### Felle für den Winter
@@ -255,6 +255,8 @@ Der Ring liegt in der Höhlentruhe im Südwesten, sobald der Auftrag angenommen 
 *Aushang:* Drei Giftdrüsen von Riesenspinnen, ganz, nicht zerquetscht. Ich zahle in Gold und Tränken. Wer mich sucht, findet mich tief im Wald am Feuer. – Morwen
 
 **Kräuterfrau Morwen:** Drei, und keine geplatzt. Du hast ruhige Hände. Hier – und trink nicht alles auf einmal.
+
+(Nach dem Umzug gelten Aushang und Abgabe `[975.gift.aushang]`, `[975.gift.abgabe]` in `STORY-K1-FERTIGKEITEN.md` „Rezeptwege“.)
 
 ### Feuer am Steinkreis
 

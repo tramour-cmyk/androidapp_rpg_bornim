@@ -2042,7 +2042,7 @@
    },
    "art": "einzelstueck",
    "platz": "haupthand",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": null,
    "material": null,
@@ -2073,7 +2073,7 @@
    },
    "art": "einzelstueck",
    "platz": "beide_haende",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": null,
    "material": null,
@@ -2104,7 +2104,7 @@
    },
    "art": "einzelstueck",
    "platz": "haupthand",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": "waffen.py dagger",
    "material": null,
@@ -2135,7 +2135,7 @@
    },
    "art": "einzelstueck",
    "platz": "haupthand",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": null,
    "material": null,
@@ -2166,7 +2166,7 @@
    },
    "art": "einzelstueck",
    "platz": "beide_haende",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": null,
    "material": null,
@@ -2193,7 +2193,7 @@
    },
    "art": "einzelstueck",
    "platz": "haupthand",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": null,
    "material": null,
@@ -2220,7 +2220,7 @@
    },
    "art": "einzelstueck",
    "platz": "beide_haende",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": null,
    "material": null,
@@ -2247,7 +2247,7 @@
    },
    "art": "einzelstueck",
    "platz": "beide_haende",
-   "stufe": 4,
+   "stufe": 3,
    "preis": 0,
    "netz": null,
    "material": null,
@@ -2605,6 +2605,36 @@
     "preis": 20,
     "stufe": null,
     "quelle": "Kotlin"
+   }
+  },
+  {
+   "id": "bandage",
+   "name": {
+    "de": "Verband",
+    "en": "Bandage"
+   },
+   "art": "werkzeug",
+   "platz": null,
+   "stufe": 1,
+   "preis": 8,
+   "netz": null,
+   "material": null,
+   "zeichen": null,
+   "modell": null,
+   "bezug": [
+    {
+     "weg": "laden",
+     "wo": "Osric"
+    },
+    {
+     "weg": "laden",
+     "wo": "Thessa"
+    }
+   ],
+   "zustand": false,
+   "text": {
+    "de": "Saubere Leinenstreifen, fest gerollt. Stillt Blutung; wer Heilkunde versteht, holt mehr heraus. Nur außerhalb des Kampfs.",
+    "en": "Clean strips of linen, tightly rolled. Stops bleeding; the more you know of Medicine, the more it mends. Outside of combat only."
    }
   },
   {
