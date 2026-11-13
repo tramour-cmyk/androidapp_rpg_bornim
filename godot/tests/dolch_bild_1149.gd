@@ -19,7 +19,7 @@ func _lauf() -> void:
 	var aus := OS.get_environment("BILD1149_AUS")
 	if aus == "": aus = OS.get_user_data_dir()
 	var reihen: Array[Image] = []
-	for platz in ["guertel", "kreuz"]:
+	for platz in (["guertel", "kreuz"] if OS.get_environment("DOLCH_BEIDE") == "1" else ["guertel"]):   # 1149 A (Chef 19:44): nur noch Gürtel
 		HeldFigur.dolch_platz = platz
 		var z := Zustand.new()
 		var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Herumtreiber", z.neue_uid)
