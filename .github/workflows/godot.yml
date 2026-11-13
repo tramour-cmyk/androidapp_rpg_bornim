@@ -1180,7 +1180,8 @@ jobs:
           # 709.1 Messlauf ohne Film (Sokrates 20:08): Verlauf von Rumpf, Schnauze und Bewegung je 0,1 s um den Biss, Grimm und Wolf;
           # dazu wolf_mess_438 mit SCHAU_709 (Wolf im Rundschild)
           if [ "${{ github.event.inputs.kampf }}" = "7091m" ]; then
-            for g in WOLVES GRIMM; do KURVE=1 MESS=1 GEGNER=$g timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wolfsbiss_7091.gd 2>&1 | grep -E "^(MESS|KURVE|ABWEHR|Film)|SCRIPT ERROR" | head -400 || true; done
+            # 709.1 (Lauf 459: Grimm beim Biss 0,52 m vor dem Schild): mit SCHAU_709 Stand, Schnauze, Körper und Bissplatz je Winkel
+            for g in WOLVES GRIMM; do SCHAU_709=1 KURVE=1 MESS=1 GEGNER=$g timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wolfsbiss_7091.gd 2>&1 | grep -E "^(MESS|KURVE|ABWEHR|Film|709 (Biss|Bissplatz|Ziel))|SCRIPT ERROR" | head -500 || true; done
             SCHAU_SCHILD=1 SCHAU_709=1 timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|709 (Biss|Ziel|Bissplatz))|SCRIPT ERROR" | head -300 || true
             exit 0
           fi
