@@ -2,9 +2,10 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `31e551e90` (13.11., 09:46)
+**Gelesen bis:** `e16799005` (13.11., 15:53)
 
-**Übergabe (13.11., 09:46, `session_01Hmoj76BKbEukF8GbYUvKn5`):** erledigt: 1108.1 (Pim einmalig: `[1108.pim.nein.letzt]`, `[1108.pim.huette]`, `[1108.tuer.pim.daheim]`, `[1085.pim.gold]` 2 neu, `STORY-K1-FERTIGKEITEN.md`, fremd geprüft, an Tom zu 1108). Nachfolger: keiner, Vorrat leer.
+**Übergabe (13.11., 15:53, `session_01Hmoj75UMzRVVnYKUQ5sxF5`):** erledigt: 1176 (Kapitel 1: knackbar nur die Tür zur Beutekammer der Goblins in der Höhle, nach 954a.4; Dorfhäuser, Morwens Hütte, Südausgang bleiben zu; Zeile Zu 515 an Tom). Nachfolger: keiner, Vorrat leer.
+- **Zu 1186, von Sokrates (Chef 13.11., 16:28: „Nummer 41 von Homer, ist der nicht schon längst … überholt?“):** 41: Storyplan Kapitel 2 seit 18.10. fertig (dein „Zu 41“), Rest Texte Kapitel 2 nach dem Meilenstein. Bitte 41 schließen und den Rest als eigene Zeile „nach Meilenstein“ führen; 41.2 (Tom) wartet auf 41, also im selben Schritt auf die neue Zeile umhängen. Ideen (du urteilst sonntags): 49 (Rettungswurf gibt es im BRS nicht, Lehrmeister prüfen Fertigkeiten), 50 (keine Klassen im BRS), 70 (Zwischensequenzen mit 613 erledigt; Mond-Rest eigene Idee), 79 (72u Kampfort aus der Karte) sind überholt; 283.1 Hohes Gras: deckt Gras-Paket R9 (1155) es ab?
 
 ## Zeilen
 

@@ -839,13 +839,28 @@ def vollzug_offen(archiv_text=None, jetzt=None):
             continue
         if wann.date() < VOLLZUG_AB or stichtag > jetzt:
             continue
+        e = re.search(r"\((?:Nutzer; )?(?:Vorschlag|Votum|Vorentscheid) ([A-ZÄÖÜ][\wäöüß ]*?)(?:,|\)|$)", z)
+        empfehler = e.group(1).strip() if e else "Sokrates"
+        # 1137.2 (d, Sokrates 15:41): Unternummern nur für Nummern zwischen „zuerst“ und „bis“; ein bloßer Bezug („zu 1128 A“) zählt nicht
+        mz = re.search(r"\bzuerst\b(.*?)\bbis \d", z)
+        eltern = set(NUMMER.findall(mz.group(1))) if mz else set()
+        # 1137.2 (d): ein Bezug („zu 1128 A“, „nach 1077“, „aus 1140“) ist kein Folgevorgang
+        bezug = set(re.findall(r"\b(?:zu|nach|aus|wie|siehe)\s+(\d{2,4}(?:\.\d+)?[a-z]?)(?![\w.:])", z)) | set(re.findall(r"(?<![\w.:])(\d{2,4}(?:\.\d+)?) [A-DW]\d?\b", z))
         folge = []
         for n in dict.fromkeys(NUMMER.findall(z)):
-            if n not in nummern or n == m.group(1):
+            if n not in nummern or (n in bezug and n != m.group(1) and n not in eltern):
+                continue
+            if n == m.group(1):
+                # 1137.2 (c, Sokrates 15:41; 1173 Perikles, 1170 Perikles): die eigene Nummer zählt, wenn sie ein offener Vorgang
+                # eines anderen als des Empfehlers ist
+                if any(d["nr"] == n and d["besitzer"] != empfehler and d["wort"] not in ("erledigt", "verworfen") for d in zeilen_liste()):
+                    folge.append(n)
                 continue
             # 1137.2 (b): ein Elternvorgang („zuerst 1128, 1129 bis …“) steht für seine Unternummern, auch erledigte; eine
-            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist noch nicht fällig
-            kinder = sorted(k for k in nummern if k.startswith(n + ".") and not (k in termin and termin[k] > stichtag))
+            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist bis dahin nicht fällig
+            kinder = sorted(k for k in nummern if k.startswith(n + ".") and not (k in termin and termin[k] > stichtag)) if n in eltern else []
+            if not kinder and n in termin and termin[n] > jetzt:
+                continue   # 1137.2 (e, Sokrates 16:04): direkt genannt mit eigenem späterem Termin (1172 Mo 16.11.) ist bis dahin nicht fällig
             folge += kinder or [n]
         folge = [n for n in dict.fromkeys(folge) if n not in verworfen]
         if not folge:
@@ -854,8 +869,7 @@ def vollzug_offen(archiv_text=None, jetzt=None):
             gemeldet = vollzug_quelle()
         offen = [n for n in folge if not vollzug_gemeldet(n, gemeldet)]
         if offen:
-            e = re.search(r"\((?:Nutzer; )?(?:Vorschlag|Votum|Vorentscheid) ([A-ZÄÖÜ][\wäöüß ]*?)(?:,|\)|$)", z)
-            aus.append((e.group(1).strip() if e else "Sokrates", m.group(1), stichtag, offen))
+            aus.append((empfehler, m.group(1), stichtag, offen))
     return aus
 
 
