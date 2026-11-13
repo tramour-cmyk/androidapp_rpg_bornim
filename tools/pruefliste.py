@@ -95,7 +95,7 @@ def lies(text, quelle=''):
                 continue
             d = dict(zip(spalten, c))
             nr = d.get('#', c[0])
-            if not re.fullmatch(r'\d+\.\d+', nr):
+            if not re.fullmatch(r'\d+\.\d+[a-z]?', nr):   # 1178: auch 284.2a (fehlten im Reiter „Test“)
                 continue
             if d.get('art', '').strip().lower().startswith('kleinkram'):   # 1171 (1173 A, Chef 13.11., 15:40): nur Bild auf Telegram, nicht im Reiter „Test“
                 continue
