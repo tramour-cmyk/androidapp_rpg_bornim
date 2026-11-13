@@ -274,7 +274,7 @@
 | 1070 | Getestete Prüfliste sofort aus der Chefsache, nicht erst beim Zusammenführen (Chef 12.11., 20:06; von Sokrates) | Perikles | M | gebaut, Geprüft an: 95e4f4bef | – | – | – | B Steuerung | 3,36 $ |
 | 1100 | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf.py, notiz.sh und gelesene Dateien messen und kürzen | Perikles | K | gebaut, Geprüft an: 70a4467fe | – | – | – | B Abläufe | 9,86 $ |
 | 1116 | Von Diogenes (1109): Geldwert der Vorberechnung: Bauserver kostet nichts (öffentliches Repo), Ersparnis ist Wartezeit; was kostet eine Stunde Warten auf einen Lauf in Sitzungen | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
-| 1117 | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitzung wirkt (22:47)“, seit 1099/1110 überholt; Stand und Titel nachziehen oder schließen | Perikles | M? | startbar | – | – | – | B Abläufe | – |
+| 1117 | D192.1 von Diogenes (zu 1110): Zeile 391 (Sokrates) trägt noch Stand „Chefwort in der Sitzung wirkt (22:47)“, seit 1099/1110 überholt; Stand und Titel nachziehen oder schließen | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 13.11.): 16221 Bytes (Grenze 15000), Erledigtes streichen | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
@@ -292,7 +292,7 @@
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | M | startbar | – | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | M | startbar | – | – | – | G Stil | 33,44 $ |
 | 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | M | startbar | – | – | – | E Kampf | – |
-| 391 | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | Sokrates | M | startbar, Chefwort in der Sitzung wirkt (22:47); Regel bei Perikles 818 | – | – | – | B Werkzeuge | 2,75 $ |
+| 391 | Zweit-Repo dauerhaft in den Sitzungen, ohne Ablehnung (Chef 28.10., 09:21) | Sokrates | M | erledigt, ersetzt durch 1110 (Archiv 13.11., 09:59) | – | – | – | B Werkzeuge | 2,75 $ |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | Sokrates | M | ruht | – | – | – | B Werkzeuge | – |
 | 374 | Wer prüft regelmäßig, dass alle 373 einhalten? (Chef 27.10., 11:54) | Sokrates | M | startbar | – | – | – | B Abläufe | 17,69 $ |
 | 348 | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) · „jetzt“ 24.10., 16:54 | Sokrates | M | ruht | – | – | – | E Technik | –; +115,14 $ |
