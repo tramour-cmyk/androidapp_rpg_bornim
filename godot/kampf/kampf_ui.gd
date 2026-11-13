@@ -815,7 +815,12 @@ func _summe_833(items: Array, fs: int, sperr: float) -> float:
 	return sum
 
 func _innen_833(n: int) -> float:
-	return get_viewport().get_visible_rect().size.x - 2 * 10 * dp - 2 * 6 * dp * (n - 1)
+	return _kasten_innen() - 2 * 6 * dp * (n - 1)
+
+## 1093: Breite im Kasten: Bildschirm ohne den Einzug um die Ecke (am Handy, panel.offset) und ohne die Ränder innen
+func _kasten_innen() -> float:
+	var sb := panel.get_theme_stylebox("panel")
+	return get_viewport().get_visible_rect().size.x - panel.offset_left + panel.offset_right - sb.get_margin(SIDE_LEFT) - sb.get_margin(SIDE_RIGHT)
 
 
 ## Die größte Schrift (höchstens 13 sp), mit der alle Aufschriften der Zeile passen, wenn jeder Knopf nach seiner Aufschrift breit ist.
@@ -1109,7 +1114,9 @@ func _ende_833() -> void:
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 0)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var breit := get_viewport().get_visible_rect().size.x - 2 * 10 * dp
+	# 1093 (Chef 13.11., Test 281: Siegschirm nach rechts gerutscht, rechts abgeschnitten): so breit wie das Innere des Kastens; am
+	# Handy steht er um die Bildschirmecke eingerückt (offset), die ganze Breite schob ihn um beide Einzüge nach rechts hinaus
+	var breit := _kasten_innen()
 	if won:
 		# [296.2.flucht] „Sieg.“ als Titel ohne Punkt
 		v.add_child(_mittig(t("Sieg", "Victory").to_upper(), Ortsblende.NAME_SP, GOLD, 3.0, breit))

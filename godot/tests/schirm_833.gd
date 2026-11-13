@@ -5,6 +5,8 @@ extends "res://tests/am_zug_565.gd"
 # nennt den, der am Zug ist, und lässt ihn aufleuchten; am Ende Titel, Zierlinie und Knöpfe der Schirme.
 # Aufruf: im Ordner godot --headless -s res://tests/schirm_833.gd (braucht daten/ und kampf/daten/ wie im Bau). Exit 0 = richtig.
 # Die Bilder dazu macht tests/schirm_833_bild.gd (gleicher Ablauf).
+# 1093 (Chef 13.11., Test 281: Siegschirm nach rechts gerutscht, rechts abgeschnitten): am Handy steht der Kasten um die Bildschirmecke
+# eingerückt (ecke_dp), am Rechner nicht; der Sieg rechnete seine Zeilen auf die ganze Breite. Darum hier eingerückt wie am Handy.
 # 1102 (Chef 13.11., 281.14: links und rechts schmale Streifen Wald neben dem Kampfbericht): kein durchsichtiger Rand um Fenster.
 
 func _schalte(ui, art: String) -> void:
@@ -58,6 +60,8 @@ func _lauf() -> void:
 	if not await _warte(k, "PARTY", "hero"):
 		print("FEHLER Kampf vorbei, bevor Mira dran war"); quit(1); return
 	var ui = k.ui
+	ui.panel.offset_left = 22 * ui.dp     # 1093: eingerückt wie am Handy um die Bildschirmecke
+	ui.panel.offset_right = -22 * ui.dp
 	await _schalte(ui, "")
 	await _bild("833_1_held_heute")
 	await _schalte(ui, "A")
@@ -163,6 +167,13 @@ func _lauf() -> void:
 	_pruefe_a(ui, "Sieg")
 	if ui.zier_833.visible:
 		print("FEHLER Sieg: zwei Zierlinien"); fehler += 1
+	var pr: Rect2 = ui.panel.get_global_rect()
+	if absf(pr.position.x - 22 * ui.dp) > 1.0 or absf(root.size.x - pr.end.x - 22 * ui.dp) > 1.0:
+		print("FEHLER Sieg: Kasten %.0f bis %.0f statt %.0f bis %.0f (1093)" % [pr.position.x, pr.end.x, 22 * ui.dp, root.size.x - 22 * ui.dp]); fehler += 1
+	for l in ui.orders.find_children("*", "Label", true, false):
+		var lr: Rect2 = l.get_global_rect()
+		if l.is_visible_in_tree() and (lr.position.x < pr.position.x - 0.5 or lr.end.x > pr.end.x + 0.5):
+			print("FEHLER Sieg: Zeile „%s“ %.0f bis %.0f über den Kasten (1093)" % [l.text, lr.position.x, lr.end.x]); fehler += 1
 	await _bild("833_3_sieg_a")
 	print("SCHIRM833 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
