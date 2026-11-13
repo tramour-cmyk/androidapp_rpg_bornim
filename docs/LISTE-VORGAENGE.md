@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 756.1 | Zeichen für Schlecht, neue Vorlage (Chef 13.11., 13:09 an Ford: „756 ist keine vernünftige Vorlage. Kümmere dich.“) · „jetzt“ 13.11., 13:09 | Tom | M | wartet | 756.1a | – | – | E Oberfläche | – |
+| 756.1 | Zeichen für Schlecht, neue Vorlage (Chef 13.11., 13:09 an Ford: „756 ist keine vernünftige Vorlage. Kümmere dich.“) · „jetzt“ 13.11., 13:09 | Tom | M | in Arbeit, bei Spike | 756.1a | – | – | E Oberfläche | – |
 | 1122 | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf claude/build-…, auf Teamzweigen aus (falsches Rot aus älterem Code gegen neueste Prüfliste) | Tom | M | zu testen | t283 | claude/tom-1122-pruefliste | 283 | B Werkzeuge | 7,04 $ |
 | 1104 | Von Sokrates (Chef 13.11., 09:09, Fund t281.11): Höhle lässt sich nicht betreten, Station „Höhle“ im Reiter „Test“ geht auch nicht; zuerst nachstellen, ob Build 282 (282.17 bis 282.22 Wald, Höhle, Lyra) dasselbe hat, bevor der Chef 282 testet | Tom | M | zu testen | – | claude/tom-1104-hoehlenkampf | 282 | E Welt | 4,53 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, nach dem Umzug erster großer Punkt Tom (1061): erst Aufwand vorlegen | 870.10 | claude/tom-431-voelker | – | E Figuren | 50,10 $ |
@@ -124,7 +124,7 @@
 | 1119 | Von Sokrates (Chef 13.11., 10:14 und 10:20, t282.4 ✓): Fußstaub einen Tick zurück und nach Gang staffeln, Gehen nur ein Hauch, Rennen die Wolke von heute etwas kleiner | Tom | M | zu testen | – | claude/tom-1119-staub | 283 | E Welt | 1,68 $ |
 | 1120 | Von Sokrates (Chef 13.11., 10:32, t282.15 ✓): Knöpfe im Gespräch auf eine Höhe, ‹ Nicht jetzt links neben der Wahl rechts (1074), bei Pim neben der unteren | Tom | M | zu testen | – | claude/tom-1120-knoepfe | 283 | E Oberfläche | 1,68 $ |
 | 1131 | Von Sokrates (1129): Sammelbuild-Automatik 774 seit 10.11. stumm, weil 825 „Sammelbuild … t274“ noch „gebaut“ steht (t274 getestet 10.11., 13:34); 825 abschließen, sammelbuild_faellig() soll Sammelbuild-Zeilen mit getestetem Build nicht zählen | Tom | M | startbar | – | – | – | E Technik | – |
-| 756.1a | Rückfrage zu 756.1: was an der Vorlage Schlecht nicht vernünftig war, Weg für die neue (Spike) | Tom | M | Chef | Chef 756.1a | – | – | E Oberfläche | – |
+| 756.1a | Rückfrage zu 756.1: was an der Vorlage Schlecht nicht vernünftig war, Weg für die neue (Spike) | Tom | M | erledigt | – | – | – | E Oberfläche | – |
 | 1111 | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen keine Treffer, vergleich prüft nur Geholtes gegen sich selbst; keine Gegenprobe in 34 Läufen | Jerry | M | zu testen | t283 | claude/jerry-1111-cache | 283 | B Werkzeuge | 5,95 $ |
 | 1112 | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEUTE KAUF abgebrochen), danach als Treffer ausgeliefert, bis sich eine Eingabe ändert | Jerry | M | zu testen | t283 | claude/jerry-1111-cache | 283 | B Werkzeuge | – |
 | 1113 | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; je Änderung an Leuten oder Held etwa 300 MB dazu; Aufräumen (z. B. je Block die neuesten 3) über den Bauserver | Jerry | M | zu testen | 1126 | claude/jerry-1111-cache | 283 | B Werkzeuge | – |
@@ -277,7 +277,8 @@
 | 1019 | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt bei 400 Tsd. (185, LISTE-BETRIEB); Tiefe 0 bis 6 in 21 h, Handstart täglich; Ford im Haken auf 400 Tsd. ausnehmen | Perikles | M | gebaut, Geprüft an: 57f798597 | 14.11. | – | – | B Abläufe | 4,13 $ |
 | 1100 | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf.py, notiz.sh und gelesene Dateien messen und kürzen | Perikles | K | gebaut, Geprüft an: 70a4467fe | 1125, 13.11. 13:15 | – | – | B Abläufe | 9,86 $ |
 | 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie erreicht (Bremse-Warnung jede Stunde); Kosten je Schritt wachsen mit dem Verlauf (0,02 $ bei 160 Tsd., 0,04 $ bei 390 Tsd.) | Perikles | M | gebaut, Geprüft an: 377a1a533 | 13.11. 13:15 | – | – | B Abläufe | – |
-| 1133 | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, Zu 1129.1 in ARBEIT-PRUEFUNG.md · „jetzt“ 13.11., 12:53 | Diogenes | M | startbar | – | – | – | Q QM | – |
+| 1134 | D198.1 von Diogenes (1133, 1129.1 P1): OHNE-ÜBERHOLT meldet „in Arbeit“ falsch bei Titeln mit mehreren Nummern und ohne Blick auf session_status, Zu 1134 in ARBEIT-PROJEKT.md | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 1133 | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, Zu 1129.1 in ARBEIT-PRUEFUNG.md · „jetzt“ 13.11., 12:53 | Diogenes | M | startbar | 14.11. | – | – | Q QM | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | M | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | Diogenes | M | ruht | – | – | – | B Abläufe | 119,56 $ |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | – | – | – | Q QS | – |
