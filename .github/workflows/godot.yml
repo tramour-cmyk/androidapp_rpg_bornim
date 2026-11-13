@@ -1549,6 +1549,19 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 \
             -s res://tests/ausruestung_bild_1140.gd 2>&1 | grep -E "SCRIPT ERROR|^AUSRUESTUNG1140|^BILD" | cut -c1-400 || true
           cd $A && [ -f 1140_mit.png ] && [ -f 1140_ohne.png ] && convert 1140_mit.png 1140_ohne.png +append -resize 50% 1140_mit_ohne.png; ls -l $A
+      # 967 (284.6/.6b; Sokrates 13.11., 17:25 Aussehen als Bild statt Handy): Schild am linken Unterarm der Körper Kloster und Wald
+      # (Korrektur je Körpertyp, halt.gd KORREKTUR), vorn, Seite der Hand, hinten (tests/halt_bild_653.gd); je Herkunft ein Bild,
+      # oben männlich, unten weiblich; bei „967 Bild“ im Commit
+      - name: Schildbild (967)
+        if: ${{ !cancelled() && contains(github.event.head_commit.message, '967 Bild') }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/schild967; mkdir -p $A
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 360x540 \
+            -s res://tests/halt_bild_653.gd -- --aus=$A --koerper=KLOSTER_M,KLOSTER_W,WALD_M,WALD_W --art=schild --hinten=ja 2>&1 | grep -E "SCRIPT ERROR|^BILD|^FEHLT|^OHNE" | cut -c1-400 || true
+          cd $A && for t in KLOSTER WALD; do [ -f 653_${t}_M.png ] && [ -f 653_${t}_W.png ] && convert 653_${t}_M.png 653_${t}_W.png -append 967_${t}.png; done; ls -l $A
       # 1119 (283.1 ungetestet; Chef 13.11., 16:28 Aussehen als Film statt Handy): Fußstaub am Mittag, gehen und rennen
       # (tests/film_staub_1119.gd), bei „1119 Film“ im Commit
       - name: Staubfilm (1119)
