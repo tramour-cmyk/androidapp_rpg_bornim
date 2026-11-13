@@ -178,8 +178,8 @@ def wachstum(dat):
     return aus
 
 def kerntest_warn(dat):
-    """192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code."""
-    code = [p for s, p in dat if s != "D" and re.match(r"(core|app|tools/preview)/.*\.(kt|kts)$", p)]
+    """192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code (882.2: Godot statt Kotlin)."""
+    code = [p for s, p in dat if s != "D" and re.match(r"godot/.*\.gd$", p)]
     if not code: return []
     marke = os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")
     try: neuster = max(os.path.getmtime(p) for p in code if os.path.exists(p))
