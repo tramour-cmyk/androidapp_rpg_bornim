@@ -162,8 +162,8 @@
 | 616 | Kampf: Gegner weichen nach dem Angriff rückwärts zurück statt vorwärts zu laufen (Chef 07.11., t268) | Jerry | M | gebaut, Geprüft an: e85bf8e03 (717 C, Absetzen rückwärts, gemessen sollbild_784 16:07) | t284 | – | – | E Kampf | – |
 | 551 | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | Jerry | K | ruht | 23.11. | – | – | E Kampf | – |
 | 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… · zurück t269 | Jerry | K | ruht, 424: altes SRD-System | 23.11. | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
-| 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
-| 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | Jerry | K | ruht | 23.11. | – | – | E Kampf | 47,52 $ |
+| 467 | Ausdauer nach BRS statt SRD (ausdauer.gd: Konstitution, Stärke 13), Formel aus 427 (Chef 01.11., 21:52) | Jerry | K | erledigt, Ausdauer aus Zähigkeit, Wille, Stufe in 870.4, Zahl je Stufe misst 444 (1186) | – | – | – | E Kampf | – |
+| 453 | Wölfe im Kampfort: Ruhebewegungen (atmen, scharren, umblicken, knurren) (Chef 01.11., 11:05) | Jerry | K | erledigt, 453a B passt, Rest 1166 (1186) | – | – | – | E Kampf | 47,52 $ |
 | 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | Jerry | K | ruht | 23.11. | claude/jerry-438a-sturz-2 | – | E Kampf | 24,62 $ |
 | 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | Jerry | K | ruht | 23.11. | claude/jerry-416-6-blut | – | E Technik | – |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | Jerry | M | wartet | 623 | – | – | E Kampf | 49,16 $ |
@@ -175,17 +175,17 @@
 | 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) · zurück t269 | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | claude/jerry-517-waldklang | – | E Oberfläche | 2,32 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | claude/jerry-507-hoehle | – | E Kampf | 61,39 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Technik | – |
-| 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | Jerry | K | ruht | 23.11. | – | – | E Figuren | 98,99 $ |
+| 387 | Gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau (Chef 27.10., 21:27) | Jerry | K | erledigt, Tiere abgenommen, Archiv 28.10. (1186) | – | – | – | E Figuren | 98,99 $ |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | wartet | 623.2 | – | – | E Kampf | 9,99 $ |
-| 397 | Ruhebewegungen wie im alten Spiel, mindestens drei je Figur, für alle (Chef 28.10., 11:15) | Jerry | K | ruht | 23.11. | – | – | E Figuren | 19,54 $ |
-| 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | G Balance | 52,94 $ |
-| 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
-| 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | Jerry | M | ruht | 23.11. | – | – | E Technik | – |
+| 397 | Ruhebewegungen wie im alten Spiel, mindestens drei je Figur, für alle (Chef 28.10., 11:15) | Jerry | K | erledigt, Ruhebewegungen auf main, Rest 1167, 1044 (1186) | – | – | – | E Figuren | 19,54 $ |
+| 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | Jerry | K | erledigt, im Archiv entschieden (1186) | – | – | – | G Balance | 52,94 $ |
+| 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | Jerry | K | erledigt, überholt, nur MARS (870a) (1186) | – | – | – | E Kampf | – |
+| 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | Jerry | M | erledigt, überholt, Kotlin-Build 46 (1186) | – | – | – | E Technik | – |
 | 628 | Lohn: EP und Gold steigen nicht mit der Monsterstufe über der Gebietsstufe (over fehlt, alt Battle.finishWin) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | Jerry | K | ruht | 23.11. | – | – | E Kampf | – |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | 23.11. | claude/jerry-344-2-fackel | – | E Kampf | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | wartet | 38 | – | – | G Story | – |
-| 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | Jerry | K | ruht | 23.11. | claude/jerry-72u-standbild-2 | – | E Kampf | 2,38 $ |
+| 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | Jerry | K | erledigt, überholt, Kotlin-Vorschau, jetzt 3D-Kampforte (1186) | – | claude/jerry-72u-standbild-2 | – | E Kampf | 2,38 $ |
 | 38 | Balance-Langzeitplan (alt/DESIGN-BALANCE.md, Zielkurve überholt durch das BRS, 650.2) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | G Balance | 11,51 $ |
 | 39 | Schwierigkeitsgrad im Menü | Jerry | K | ruht | 23.11. | claude/jerry-39-schwierigkeit | – | E Kampf | 3,80 $ |
 | 59e | Händler: Vorrat je Laden | Jerry | K | ruht | 23.11. | claude/jerry-59e-haendlervorrat | – | G Balance | – |
@@ -193,11 +193,11 @@
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | Jerry | M | wartet, Pfeil R3 Arrow Streak (LISTE-EFFEKTE), Schussbewegung mit Film | 623 | claude/jerry-601-spaeher | – | E Kampf | 2,88 $ |
 | 623.2 | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher 623 A, 07.11.), Datenfeld fx in LISTE-EFFEKTE.md | Jerry | K | startbar, Szene 2 frei (272.7 bestanden) | 623 | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Klang | – |
-| 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | K | ruht, ohne Vorratszeile, Liste „in Arbeit“ (275.2) | 23.11. | – | – | E Technik | 58,17 $ |
-| 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | Jerry | K | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | 23.11. | – | – | E Kampf | – |
+| 348.7a | Rückfrage: Geschosse flach oder in 3D | Jerry | K | erledigt, 3D, Effekte als Tafeln (1186) | – | – | – | E Technik | 58,17 $ |
+| 399.2d | Godot am Rechner freigeben (Auto-Modus lehnte Download ab), Tests ohne CI-Lauf (aus 399.2) | Jerry | K | erledigt, Godot am Rechner läuft (1186) | – | – | – | E Kampf | – |
 | 634 | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im Takt ihrer Bewegung (PlaceSound.folk, MapFolk.sounds; Aufnahmen da); von Jerry, Abgleich 620.2b | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Welt | – |
 | 643 | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft +Y) für Garrick auf dem Rücken, wie alt (MapFolk.kt: longbow over the quiver; von Tom zu 531) | Jerry | M | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Welt | – |
-| 649.1 | Figurenkatalog Schritt 1: eine Kennung je Monsterart, werte.json und tabellen.json zu BRS zusammenführen (aus 649, Bauplan LISTE-FIGURENKATALOG-649.md) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
+| 649.1 | Figurenkatalog Schritt 1: eine Kennung je Monsterart, werte.json und tabellen.json zu BRS zusammenführen (aus 649, Bauplan LISTE-FIGURENKATALOG-649.md) | Jerry | K | erledigt, werte.json einzige Quelle (1186) | – | – | – | E Kampf | – |
 | 649.2 | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auftritt, Klänge, Bewegungen, Gruppen erzeugt), Seite LISTE-FIGUREN.md; Monster füllen (aus 649) | Jerry | K | ruht, Kampf zuerst (338.1) | 649.1, 16.11. | – | – | E Kampf | – |
 | 649.4 | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo eine Bewegung da ist (649 B, Chef 13:28) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2; Ablösung held.json, tabellen.json items, beute.gd | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
@@ -205,7 +205,7 @@
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Klang | – |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, 760 A (Chef 17:46) | – | – | – | E Kampf | – |
 | 784 | Kampf-Sollbild „Wolfsrudel, eine Runde“: wer geht wohin, Höchstdauer je Handlung, Ausweichen bleibt; selbst am Handybild nachspielen, dann Maß für jeden Kampffund (654 A, Chef 09.11., 17:46) | Jerry | M | zu testen, ohne Rückmeldung t277 | t284 | claude/tuffy-784-sollbild | – | E Kampf | 26,72 $ |
-| 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | ruht, bis Test 825 (620, Perikles) | 23.11. | – | – | E Kampf | – |
+| 802 | Rest 211.14 (Kür, Tuffy): Held und Söldner gehen beim Wechsel statt 0,4 s zu gleiten (figur.gd glide_to ohne Wurzelweg) | Jerry | K | erledigt, 950 Platztausch, t280 bestanden (1186) | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | ruht, Vorrang 11.11.: kein Neues bis Umzug und Testfehler (Chef 10.11., 14:08) | 23.11. | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | zu testen, ohne Rückmeldung t277 | – | claude/tuffy-870-6-beute | – | E Kampf | – |
 | 844 | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im Stehen 60 % des Wegs vor, Treffer ohne Schlag (treffen_709, aus 709) | Jerry | M | startbar | – | – | – | E Kampf | – |
