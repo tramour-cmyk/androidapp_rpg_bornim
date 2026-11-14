@@ -234,3 +234,4 @@
 2026-11-14 21:33:12	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/jerry-601-spaeher
 2026-11-14 21:33:23	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/jerry-601-spaeher
 2026-11-14 21:45:00	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 31243 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-14 21:59:33	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-601-spaeher ändert Spielcode (godot/kampf/figur.gd, 	claude/jerry-601-spaeher
