@@ -44,6 +44,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 00:01 15.11.: Sokrates `…76zXUTypnQhewTvAHH` (1259) archiviert (4,13 $ auf 1259)
+- 23:50 14.11.: Tuffy neu `…76d3QcJwbDH1YGUuPR` (930.7 Film), Tuffy `…79v4vLh86CTewmRzZ9` archiviert (12,95 $ auf 930.7); Sokrates neu `…75rZTuiGj1QA448MLH` (930.7), alter `…76zXUTypnQhewTvAHH` Archivierung 00:00
+- 23:45 14.11.: Homer neu `…794ME3Gg3ydHeNmxum` (1260), Homer `…76baqPiDLHo7r3hvWz` archiviert (4,22 $ auf 1260)
+- 23:37 14.11.: Jerry neu `…78yH84MdzrJ74grhR6` (1215 Film), Jerry `…77eC8wuMDzUxc2ekY9` archiviert (10,02 $ auf 1215)
 - 23:03 14.11.: Tom neu `…78AmAJeR5X7Ghv9VBH` (286), Jerry neu `…77eC8wuMDzUxc2ekY9` (1215); Tom `…77L1zKAAbcvm31GJBc` (5,62 $ auf 286) und Jerry `…75ZWJGSXdqrpx7xyzH` (29,98 $ auf 1222, Hinweis: Jerry-Kosten gehören auch zu 601 und 1215) archiviert
 - 22:59 14.11.: Sokrates `…78nk7o9i84YZwfHK2i` (1256) archiviert (6,04 $ gesamt); Sokrates neu `…76zXUTypnQhewTvAHH` (1259); Weiter Homer 1258, 1260
 - 22:33 14.11.: Tuffy neu `…79v4vLh86CTewmRzZ9` (930.7, Mittel), Tuffy 930.6 `…76p5RvSmi2JWfwFcxN` archiviert (11,01 $)
@@ -60,58 +64,17 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:05 14.11.: Stillstand 10:51 bis 20:00 Ursache Guthaben (Wochengrenze Max erreicht, „resets 8pm“: Perikles 1249, Diogenes, Jerry 1222 um 10:51, Tom 1145 um 18:59 abgebrochen; Fords Wecker 11:03 bis 19:03 kamen gestaut an, Lauf erst 20:02). Lauf 20:02: Tom `…79Q6N8cjLh3SuVwvkR` (1040.1), Jerry `…76teWqNfwVbcvW5sEf` (1000), Diogenes `…77nnorNYpWaTbXpHjz` (1128.3), Perikles `…76U3AHkZNkpmHLQ9ge` (1249) gestartet; alte Sitzungen archiviert (Tom 4,05 $, Jerry 7,71 $, Diogenes 1,09 $, Perikles 0,56 $); Tuffy 845 und Spike 1092 laufen
 - 11:40 14.11.: Diogenes neu `…765bJQPbYhQ8FuqyJ1` (1179, 1173, 1217, dazu 1248 von Jerry) und Perikles neu `…78yCAANefHPCi2xGt1` (1249) gestartet; Diogenes 1199 (3,67 $) und Perikles 1246 (2,31 $) archiviert; Sokrates von Jerrys Anstoß (1222 Filmlauf frei?) unterrichtet
 - 11:28 14.11.: Tom alt `…77znPDfxf4G6yvCC6Q` archiviert (29,95 $ auf 1091, 285.3, 285.6); Tom neu `…7A2FjxowG848V9Mtai` (1145, Kür: Sammelbuild-Nachfolger nicht startbar vor Termin 12:00, lauf.py nahm 1145); Weckrufe 1149/1091 für Tom neu `trig_01Fax1rNuDLgiYjCJ6X6ZZE6`, `trig_011AMTZHHgDMEo1NzUdUr5ZM`, alte abgeschaltet; Jerry von Sokrates-Bitte „Teamzweige holen main“ unterrichtet
-- 11:16 14.11.: Lauf: Jerry 1222 `…77szqvXvBkJvZBkmuy`, Diogenes 1199 `…75bBG6VbZqHX9qRxWD`, Tuffy 845 `…76Y5kiqYvgg6Qxph9d` gestartet (Build 285 getestet, Wartezeilen frei); Jerry 1227 (1,37 $), Diogenes 1098.1 (0,94 $), Tuffy 844 (11,84 $) archiviert; Tom meldet Neustart 35305028b, Nachfolger nach Ende der alten Tom-Sitzung starten, Weckrufe `trig_01EYxQH3RacTkPEeKT8suzHc`, `trig_01KkuwTUnUG9NwK58hecGc6b` hängen an der alten Tom-Sitzung
-- 10:47 14.11.: Sokrates alt `…79rZagJLmbFEy4HZhU` archiviert (11,52 $ auf 930)
-- 10:39 14.11.: Lauf: Perikles 1246 gestartet `…79pM8NWGy8bpNGog85`, Tagesbericht-Sitzung archiviert (4,96 $ auf 448); Sokrates alt `…79rZagJLmbFEy4HZhU` ab 10:41 archivieren
-- 10:37 14.11.: Selbstneustart Ford abgeschlossen: neue Uhr trig_01LkfXvhcQ873nArQjFWNhGh, alte abgeschaltet, alter Ford archiviert (7,73 $ auf 1019)
-- 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
-- 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
-- 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
-- 02:04 14.11.: Marke Stellungnahme Sokrates 14.11. (lauf.py)
-- 08:04 14.11.: Marke Nachhalten 14.11. (lauf.py)
-- 08:04 14.11.: Marke Abgleich ganz 14.11. (lauf.py)
-- 10:04 14.11.: Marke Tagesbericht 14.11. (lauf.py)
-- 10:38 14.11.: Marke Mehrfach Sokrates (lauf.py)
-- 11:15 14.11.: Marke Archiv session_01Hmoj77Q6K2jkHmLkqGiwNz (lauf.py)
-- 11:15 14.11.: Marke Archiv session_01Hmoj7935pyQLrQDwBaDdQ9 (lauf.py)
-- 11:27 14.11.: Marke Archiv session_01Hmoj77znPDfxf4G6yvCC6Q (lauf.py)
-- 11:27 14.11.: Nachfolger-Warnung Tom (Übergabe 14.11., 11:14) (lauf.py)
-- 11:39 14.11.: Marke Archiv session_01Hmoj75bBG6VbZqHX9qRxWD (lauf.py)
-- 11:39 14.11.: Marke Archiv session_01Hmoj79pM8NWGy8bpNGog85 (lauf.py)
-- 20:03 14.11.: Startsperre 20:03 Start Tom, Jerry, Diogenes, Perikles (lauf.py)
-- 20:03 14.11.: Marke Archiv session_01Hmoj7A2FjxowG848V9Mtai (lauf.py)
-- 20:03 14.11.: Marke Archiv session_01Hmoj77szqvXvBkJvZBkmuy (lauf.py)
-- 20:03 14.11.: Marke Archiv session_01Hmoj765bJQPbYhQ8FuqyJ1 (lauf.py)
-- 20:03 14.11.: Marke Archiv session_01Hmoj78yCAANefHPCi2xGt1 (lauf.py)
-- 20:25 14.11.: Startsperre 20:25 Start Tom, Diogenes (lauf.py)
-- 20:25 14.11.: Marke Archiv session_01Hmoj79Q6N8cjLh3SuVwvkR (lauf.py)
-- 20:25 14.11.: Marke Archiv session_01Hmoj77nnorNYpWaTbXpHjz (lauf.py)
-- 20:29 14.11.: Startsperre 20:29 Start Tuffy (Neustart 278f94b0b, von Hand, lauf.py plant Tuffy-Nachfolger nicht)
-- 20:42 14.11.: Startsperre 20:42 Start Jerry, Perikles (lauf.py)
-- 20:42 14.11.: Marke Archiv session_01Hmoj76teWqNfwVbcvW5sEf (lauf.py)
-- 20:42 14.11.: Marke Archiv session_01Hmoj76U3AHkZNkpmHLQ9ge (lauf.py)
-- 20:45 14.11.: Startsperre 20:45 Start Ford (selbst, Tiefe 2, Selbstneustart nach Haken 1019 Erinnerung 1)
-- 20:46 14.11.: Startsperre 20:46 Start Tuffy (930.6, Aufwand hoch, WireStorm Hoch, Signal Sokrates 20:45, von Hand)
-- 20:47 14.11.: Startsperre 20:47 Start Spike (lauf.py)
-- 20:47 14.11.: Marke Archiv session_01Hmoj7A4LFiFy7nygExKGnU (lauf.py)
 - 21:07 14.11.: Startsperre 21:07 Start Diogenes (lauf.py)
-- 21:07 14.11.: Marke Archiv session_01Hmoj77WqsAmL86DZSZvSXs (lauf.py)
 - 21:14 14.11.: Startsperre 21:14 Start Tom (lauf.py)
-- 21:14 14.11.: Marke Archiv session_01Hmoj79AQ79uafPgaVpiHEJ (lauf.py)
 - 21:32 14.11.: Startsperre 21:32 Start Sokrates (Neustart-Meldung 21:30, 5a5b155a6, von Hand)
 - 21:35 14.11.: Startsperre 21:35 Start Homer (lauf.py)
-- 21:35 14.11.: Marke Archiv session_01Hmoj775ze3dz5eLhqTBs67 (lauf.py)
-- 21:35 14.11.: Marke Archiv session_01Hmoj77L1zKAAbcvm31GJBc (lauf.py)
-- 21:35 14.11.: Marke Archiv session_01Hmoj79TDPJJvAZwbQx6fLi (lauf.py)
-- 21:35 14.11.: Marke Archiv session_01Hmoj7A7BuC683wt2MBEacm (lauf.py)
 - 22:03 14.11.: Marke Start-fehlt Tom 14.11.-21:35 (lauf.py)
 - 22:32 14.11.: Startsperre 22:32 Start Tuffy (930.7, Signal Sokrates 22:31, f76eb9cd2, von Hand, WireStorm Mittel); Weiter Spike 1040.1 (Spike `…7A7BuC683wt2MBEacm`)
 - 22:43 14.11.: Startsperre 22:43 Start Sokrates (Neustart-Meldung 22:42, 834495b12, von Hand)
 - 23:02 14.11.: Startsperre 23:02 Start Tom, Jerry (Neustart-Meldungen 22:58 und 22:56, von Hand)
 - 23:36 14.11.: Startsperre 23:36 Start Jerry (Neustart-Meldung 23:30, 4b19ab871, von Hand)
-- 23:37 14.11.: Jerry neu `…78yH84MdzrJ74grhR6` (1215 Film), Jerry `…77eC8wuMDzUxc2ekY9` archiviert (10,02 $ auf 1215)
 - 23:44 14.11.: Startsperre 23:44 Start Homer (Neustart-Meldung 23:39, 3ef5def90, von Hand)
-- 23:45 14.11.: Homer neu `…794ME3Gg3ydHeNmxum` (1260), Homer `…76baqPiDLHo7r3hvWz` archiviert (4,22 $ auf 1260)
 - 23:49 14.11.: Startsperre 23:49 Start Tuffy, Sokrates (Neustart-Meldungen 23:44, 23:45, von Hand)
-- 23:50 14.11.: Tuffy neu `…76d3QcJwbDH1YGUuPR` (930.7 Film), Tuffy `…79v4vLh86CTewmRzZ9` archiviert (12,95 $ auf 930.7); Sokrates neu `…75rZTuiGj1QA448MLH` (930.7), alter `…76zXUTypnQhewTvAHH` Archivierung 00:00
-- 00:01 15.11.: Sokrates `…76zXUTypnQhewTvAHH` (1259) archiviert (4,13 $ auf 1259)
+- 00:04 15.11.: Startsperre 00:04 Start Diogenes (lauf.py)
+- 00:04 15.11.: Marke Archiv session_01Hmoj78sXbc6SZHTKCgXXZ3 (lauf.py)
+- 00:05 15.11.: Diogenes neu `…75edsFFzfEQPxCoWxq` (1019), Diogenes 1079 `…78sXbc6SZHTKCgXXZ3` archiviert (1,60 $)
