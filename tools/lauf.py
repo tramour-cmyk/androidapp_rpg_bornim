@@ -50,6 +50,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   (384: 3,13 statt 6,31 $ aus einer alten Abfrage gebucht).
   Mit Kennung gilt das Buchungsverzeichnis docs/KOSTEN-GEBUCHT.tsv (191): gebucht wird nur die Differenz zu früher Gebuchtem, damit wieder geöffnete oder doppelt archivierte Sitzungen nichts doppelt kosten.
 Offene „M?“ aller Vorräte erscheinen als eine Muss-Zeile „M? entscheiden: …“ im Plan für Perikles (190.8).
+Stillstand (1246): keine Rolle mit startbarem Muss, keine Sitzung arbeitet, Muss-Zeilen warten auf eine startbare Zeile einer Rolle, die lauf.py nicht startet → Muss-Zeile „Stillstand lösen: …“ für Perikles (Titel „Perikles – 1246: Stillstand lösen“), Marke „Stillstand“, höchstens alle 3 Stunden.
 Jeder Lauf hängt die WARNUNG-Zeilen von abgleich.py an (191).
 Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes, Homer, Perikles: Muss vor Kür, Kür vor Leerlauf (196), danach Zeilen „nach dem Meilenstein“ (190.10); Sokrates, Ford nie.
 Nachfolger (190.7): nennt die Übergabe im Vorrat „Nachfolger: <Titel>“ und gibt es seither keine Sitzung der Rolle, startet lauf.py diese (vor Muss und Kür,
@@ -254,6 +255,24 @@ def stand():
         z = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund, vorgang.py klasse)", {})
         aus["Perikles"][0].insert(0, z)
     return aus
+
+def stillstand(st, je_rolle, archiviert, ausschluss):
+    """1246: Text der Ursachen, wenn keine Rolle aus START_REIHE startbares Muss hat und keine ihrer Sitzungen arbeitet, aber Muss-Zeilen
+    an einer startbaren Zeile einer nicht gestarteten Rolle hängen; sonst None. Warten auf Test, Chef oder Termin ist
+    kein Stillstand."""
+    rollen = [r for r in START_REIHE if r != "Perikles"]
+    if any([x for x in st.get(r, ([],))[0] if x[0] not in ausschluss] for r in rollen): return None
+    if any(s["_info"][1] for r in rollen for s in je_rolle.get(r, []) if s["id"] not in archiviert): return None
+    eigner = {d["nr"]: d for d in startbar.zeilen_liste()}
+    ursachen = {}
+    for r in rollen:
+        for nr, kl, _, d, grund in startbar.plan(r):
+            if kl != "M" or not grund or nr in ausschluss or "fuer" in d: continue
+            m = re.match(r"wartet auf ([0-9][\w.]*) \(startbar\)", grund)
+            if m and eigner.get(m.group(1), {}).get("besitzer") not in START_REIHE + [None]:
+                ursachen.setdefault("%s %s" % (eigner[m.group(1)]["besitzer"], m.group(1)), []).append("%s %s" % (r, nr))
+    if not ursachen: return None
+    return "; ".join("%s startbar, nicht gestartet, darauf warten %s" % (k, ", ".join(v)) for k, v in list(ursachen.items())[:6])
 
 def gleich(a, b):
     """Gleicher Vorgang oder Unterpunkt (72u.1 ~ 72u ~ 72), Punkte egal; 7 ist nicht 72."""
@@ -714,6 +733,13 @@ def main():
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummern_aus_titel(s.get("title", "")) or "Betrieb"))
             noch_offen(ausgabe, r, nummern_aus_titel(s.get("title", "")))
             if not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
+    # 1246 (Chef 14.11., 10:28: „wenn ich nachts schlafe und ihr alle aufeinander wartet …“): keine Rolle hat startbares Muss, keine
+    # Sitzung arbeitet, aber Muss-Zeilen hängen an einer startbaren Zeile einer Rolle, die lauf.py nicht startet (Sokrates; Halt und
+    # Pause mit Datum sind gewollt, Pause ohne Datum sperrt nur die Kür, startbar.halt) → Perikles bekommt eine Muss-Zeile „Stillstand lösen“, höchstens alle 3 Stunden (Marke „Stillstand“).
+    still = stillstand(st, je_rolle, archiviert, ausschluss)
+    if still and "Perikles" in st and not [d for d in marke_zeit("Stillstand") if (JETZT - d).total_seconds() < 3 * 3600]:
+        st["Perikles"][0].insert(0, ("Stillstand", "M", "Stillstand lösen (1246): " + still + "; je Ursache lösen (Zeile freigeben, Besitzer anstoßen, Chefsache), nicht nur melden", {}))
+        neue_marken.append("Stillstand")
     for r in START_REIHE:
         for stueck, grund in lauf_marke_falsch(r):  # 1161: sonst archiviert der Lauf die Sitzung mitten im Hintergrundlauf
             ausgabe.append("%s Marke „%s“ in %s zählt nicht (%s): Sitzung gilt als fertig; richtig „Lauf läuft bis TT.MM., HH:MM“, höchstens 12 h, "
@@ -779,15 +805,15 @@ def main():
             s = max(alte, key=lambda x: z(x["updated_at"]))
             ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus der Vorgangsliste (vorgang.py --rolle %s)%s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r,
                 ", Freitag: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)" if JETZT.weekday() == 4 else ""))
-            if nr == "M?": ausgabe[-1] = "WEITER %s | %s | M? | Weiter: %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, thema)  # 921
+            if nr in ("M?", "Stillstand"): ausgabe[-1] = "WEITER %s | %s | %s | Weiter: %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, thema)  # 921, 1246
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         fuer = wahl[3].get("fuer") if isinstance(wahl[3], dict) else None
         msg = "%s\n\nArbeite Vorgang %s (%s) aus der Vorgangsliste (`python3 tools/vorgang.py --rolle %s`, Einzelheiten `vorgang.py %s`)%s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe in %s beachten." % (
             r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r, nr,
             (", Zeile von %s, die auf dich wartet; fertig: `vorgang.py warte %s –` oder das Feld kürzen" % (fuer, nr)) if fuer else "", VORRAT[r])
-        if nr == "M?":  # 921: die M?-Zeile hat keine Nummer in der Liste; Auftrag steht im Thema
-            titel = "%s – M? entscheiden (%s)" % (r, berlin(JETZT))
+        if nr in ("M?", "Stillstand"):  # 921, 1246: die Zeile hat keine Nummer in der Liste; Auftrag steht im Thema
+            titel = "%s – %s (%s)" % (r, "M? entscheiden" if nr == "M?" else "1246: Stillstand lösen", berlin(JETZT))
             msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann die Übergabe in %s beachten." % (r, thema, VORRAT[r])
         msg += satz
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
