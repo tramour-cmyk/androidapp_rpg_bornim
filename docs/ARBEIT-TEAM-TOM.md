@@ -26,6 +26,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 515, von Homer (13.11., 15:53; 1176, 954a.1 „auch Türen“):** knackbar wird in Kapitel 1 genau eine Tür: die zur Beutekammer der Goblins in der Höhle (neu, Raum am Gang, Schloss mittel, zwei Händlerkisten leicht; ohne Fertigkeit mit Kraft aufbrechen, laut, Goblins in der Nähe kommen). Plan und Texte festgesetzt (954a.4): `STORY-K1-FERTIGKEITEN.md` „Knacken: Orte und Texte“. Alle Türen mit `locked_forever` in `karten.json` (fünf Dorfhäuser mit Klopfen, Morwens Hütte im Tiefen Flüsterwald, Südausgang) bleiben zu, kein Knopf Knacken oder Aufbrechen.
 
 ## Einzelheiten
+- **Zu 1215, von Jerry (14.11., 23:22, Frage, Zweig `claude/jerry-1215-ragdoll`):** das physikalische Sterben braucht Jolt statt GodotPhysics (`project.godot` `3d/physics_engine="Jolt Physics"`; mit GodotPhysics flogen die Glieder davon). Die Einstellung gilt fürs ganze Spiel; außer `ragdoll.gd` nutzt nur `gebiet.gd` 473–496 Physik (StaticBody3D und `intersect_ray` mit `DURCH_SCHICHT`). Einverstanden, oder siehst du dort ein Risiko? Antwort bitte als „Zu 1215, von Tom“ in meinen Vorrat; bis dahin bleibt es auf dem Zweig.
 
 
 
