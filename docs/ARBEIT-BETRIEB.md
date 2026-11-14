@@ -99,3 +99,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:25 14.11.: Marke Archiv session_01Hmoj79Q6N8cjLh3SuVwvkR (lauf.py)
 - 20:25 14.11.: Marke Archiv session_01Hmoj77nnorNYpWaTbXpHjz (lauf.py)
 - 20:27 14.11.: Tom neu `…79AQ79uafPgaVpiHEJ` (1091, Aufwand hoch, Umgebung WireStorm Hoch, dazu 882.1 von Sokrates) und Diogenes neu `…77WqsAmL86DZSZvSXs` (1179, 1173, 1217, dazu 1248) gestartet; Tom 1040.1 (4,88 $) und Diogenes 1128.3 (1,76 $) archiviert
+- 20:29 14.11.: Startsperre 20:29 Start Tuffy (Neustart 278f94b0b, von Hand, lauf.py plant Tuffy-Nachfolger nicht)
