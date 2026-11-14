@@ -22,7 +22,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“,
                                        dazu 👍/👎 des Chefs auf „tN.k:“-Meldungen für Punkte ohne Ergebnis (1217; „Rest ✓“ gilt danach);
-                                       je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar mit dem Fund (Absatz „Zu NR, von Chef
+                                       je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar (schlägt jedes ✓ und den Zweig claude/build-N, 1230) mit dem Fund (Absatz „Zu NR, von Chef
                                        (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste).
                                        Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
                                        committen; sonst hält die Commit-Prüfung an.
@@ -135,48 +135,80 @@ def klasse(nr, kl, rolle=None):
 # Nummer („<Nr>: …“ auf irgendeinem Zweig) oder die Übergabe im Vorrat des Besitzers einen Rest, hält fertig an, bis es einen
 # Folgevorgang gibt (offene Unternummer <Nr>.x oder eine Zeile, die „aus <Nr>“ oder „(<Nr>)“ nennt) oder der Commit den Grund sagt
 # („Kein Folgevorgang, weil: …“).
-REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist))|braucht noch|später|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
+# 1237: seit jeder Code-Commit zählt, weckten „späterer“, „späterem“ (1137.2, 1237 selbst) und „<andere Nr> noch nicht im Build“
+# (1180) Fehlalarme; „später“ nur als ganzes Wort, „noch nicht im Build/auf main“ ist ein Stand, kein Rest
+REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist|im Build|auf main))|braucht noch|später\b|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
 
 # 1175 (D207.1 Diogenes): nur der jüngste Commit der Nummer verdeckte den Rest, sobald ein Notizcommit wie „1143: in Arbeit bei
 # Spike“ (nur docs/) danach kam. Gelesen wird jetzt der jüngste Commit der Nummer, der mehr als Notizen ändert (Code, Werkzeuge,
 # Abläufe); gibt es keinen, der jüngste überhaupt.
 NOTIZ = re.compile(r"^(docs/|CHANGELOG\.md$|CLAUDE\.md$)")
 
+# 1237 (D228.1, Diogenes): DOCS (bornim-main) kennt nur main, meldungen, reaktionen; Baucommits auf claude/build-<n> und den
+# Teamzweigen liegen im Code-Klon daneben (androidapp_rpg_bornim, BORNIM_CODE), darum beide lesen
+def _repos():
+    haupt = os.path.dirname(os.path.dirname(os.path.abspath(DOCS)))
+    out = [DOCS]
+    for c in [os.environ.get("BORNIM_CODE", ""), os.path.join(haupt, "androidapp_rpg_bornim")]:
+        if c and os.path.isdir(os.path.join(c, ".git")) and os.path.realpath(c) != os.path.realpath(os.path.dirname(os.path.abspath(DOCS))):
+            out.append(c)
+    return out
+
+def _commits(nr):
+    """[(Kurzhash, „<Kurzhash>\n<Nachricht>“, Dateien)] der Commits mit der Nummer vorn im Betreff, neueste zuerst, ohne Doppelte."""
+    stuecke, gesehen = [], set()
+    for repo in _repos():
+        try:
+            r = subprocess.run(["git", "-C", repo, "log", "--all", "-n", "40", "-E", "--format=%x1e%h%x1d%ct%n%B%x1f", "--name-only",
+                                "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"], capture_output=True, text=True, timeout=30).stdout
+        except (OSError, subprocess.SubprocessError):
+            continue
+        for teil in r.split("\x1e")[1:]:
+            text, _, namen = teil.partition("\x1f")
+            kopf, _, rest = text.partition("\n")
+            h, _, zeit = kopf.partition("\x1d")
+            betreff = (rest.split("\n") + [""])[0]
+            if h in gesehen or not re.match(re.escape(nr) + r"([:, ]|$)", betreff):   # nur Commits mit der Nummer vorn im Betreff
+                continue
+            gesehen.add(h)
+            stuecke.append((int(zeit or 0), h, (h + "\n" + rest).strip("\n"), [n for n in namen.split("\n") if n.strip()]))
+    stuecke.sort(key=lambda x: -x[0])
+    return [(h, t, d) for _, h, t, d in stuecke]
+
+def bau_commits(nr):
+    """Alle Commits der Nummer, die mehr als Notizen ändern (1237: ein späterer ohne Rest verdeckt den früheren mit Rest nicht)."""
+    return [t for _, t, d in _commits(nr) if any(not NOTIZ.match(n) for n in d)]
+
 def bau_commit(nr):
     """„<Kurzhash>\n<Nachricht>“ des maßgeblichen Commits der Nummer (1175), "" ohne Commit."""
-    try:
-        r = subprocess.run(["git", "-C", DOCS, "log", "--all", "-n", "40", "-E", "--format=%x1e%h%n%B%x1f", "--name-only",
-                            "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"], capture_output=True, text=True, timeout=30).stdout
-    except (OSError, subprocess.SubprocessError):
+    alle = _commits(nr)
+    if not alle:
         return ""
-    stuecke = []
-    for teil in r.split("\x1e")[1:]:
-        text, _, namen = teil.partition("\x1f")
-        dateien = [n for n in namen.split("\n") if n.strip()]
-        text = text.strip("\n")
-        betreff = (text.split("\n") + [""])[1]
-        if not re.match(re.escape(nr) + r"([:, ]|$)", betreff):   # nur Commits mit der Nummer vorn im Betreff (--grep trifft jede Zeile)
-            continue
-        stuecke.append((text, dateien))
-    if not stuecke:
-        return ""
-    for text, dateien in stuecke:
-        if any(not NOTIZ.match(n) for n in dateien):
-            return text
-    return stuecke[0][0]
+    code = bau_commits(nr)
+    return code[0] if code else alle[0][1]
+
+# 1240 (D230.1, Diogenes): „Kein Folgevorgang, weil:“ hob nur den eigenen Commit auf; ein Rest in einem älteren Code-Commit
+# sperrte für immer (1237 durch ein Zitat). Jetzt gilt der Grund für seinen Commit und alle älteren der Nummer, auch als reiner
+# Notizcommit; Reste in jüngeren Commits zählen weiter. Nur am Zeilenanfang (nach „<Nr>: “), nie als Zitat „„Kein …““.
+KEIN_FOLGE = re.compile(r"^(?:[\w.]+: )?Kein Folgevorgang, weil:[ \t]*[^\s…]", re.M)
 
 def rest_offen(nr, d=None):
     """[(Quelle, Satz)] der Reste ohne Folgevorgang, leer = fertig darf."""
     funde = []
-    r = bau_commit(nr)
-    if r.strip():
+    alle = _commits(nr)
+    code = {t for t in bau_commits(nr)}
+    for _, r, _ in alle:   # neueste zuerst
         kopf, _, text = r.partition("\n")
-        if re.search(r"Kein Folgevorgang, weil:\s*\S", text):
-            text = ""
+        if KEIN_FOLGE.search(text):
+            break   # 1240: Grund deckt diesen und alle älteren Commits
+        if code and r not in code:   # 1237: jeder Code-Commit der Nummer; ohne Code-Commit nur der jüngste
+            continue
         for z in text.splitlines():
             z = re.sub(r"\[[\w.]+\]", "", z)   # Textmarken wie [954.1.spaeter] (Spike 15:05: Fehlalarm in 1015, 1017)
             if REST.search(z) and not z.startswith(("Co-Authored-By", "Claude-Session")):
                 funde.append(("Commit " + kopf.strip(), z.strip()[:160]))
+        if not code:
+            break
     d = d or finden(nr)
     vorrat = startbar.lesen(startbar.VORRAT.get(d["besitzer"], ""))
     for z in vorrat.splitlines():
@@ -197,7 +229,7 @@ def rest_sperre(nr, d=None):
     if not rest or os.environ.get("VORGANG_REST_OK") == nr:
         return None
     return ("%s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
-            "oder im Commit „Kein Folgevorgang, weil: …“ schreiben." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr))
+            "oder einen Commit „%s: Kein Folgevorgang, weil: …“ schreiben (deckt auch alle älteren, 1240)." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr, nr))
 
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
@@ -522,12 +554,14 @@ def build_abschluss(n, datei=None, probe=False):
     for d in betroffen:
         p = je.get(d["nr"], [])
         durch = [x for x in p if x[1] == "✗"]
-        if d.get("zweig") == "claude/build-%s" % n and any(v[1] for v in punkte.values()):  # der Sammelbuild selbst: getestet
+        # 1230 (t284: 1022 trug den Zweig claude/build-284, ging trotz „284.2 ✗“ als Sammelbuild „getestet“ ins Archiv): ein ✗ schlägt
+        # jedes ✓ derselben Nummer und auch die Sammelbuild-Regel; erledigt heißt dann nie, Rückläufer statt Wiedereröffnen
+        if durch:
+            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–", titel=startbar.rueck_marke(d["titel"], n)); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
+        elif not p and d.get("zweig") == "claude/build-%s" % n and any(v[1] for v in punkte.values()):  # der Sammelbuild selbst (ohne eigene Punkte): getestet
             neu_d = dict(d, stand="erledigt, t%s getestet" % n, warte=[], build=str(n)); was = "erledigt (Sammelbuild)"
         elif p and all(x[1] == "✓" for x in p):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
-        elif durch:
-            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–", titel=startbar.rueck_marke(d["titel"], n)); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
@@ -584,6 +618,9 @@ def ansicht(rolle, nur_startbar=False):
         if nur_startbar and g: continue
         print("%s | %s | %s%s | %s | %s" % (nr, kl, d["stand"][:60], (" | wartet auf " + ", ".join(d["warte"])) if d["warte"] else "",
                                          re.sub(r"\*\*|`", "", titel)[:110], g or "startbar"))
+    if rolle == "Sokrates":  # 1236: große Vorhaben vor dem ersten Code-Commit, gebündelt in der Chefrunde
+        for d in startbar.zeilen_liste():
+            if "Chef Gespräch" in startbar.offen_warte(d): print("GESPRÄCH %s (%s): %s" % (d["nr"], d["besitzer"], re.sub(r"\*\*|`", "", d["titel"])[:110]))
     gel = [x for x in startbar.loesen(False) if x[1] == rolle]
     for nr, wer, weg, st in gel: print("GELÖST %s: wartet auf %s erfüllt (setzt lauf.py)" % (nr, ", ".join(weg)))
 

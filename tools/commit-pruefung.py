@@ -107,6 +107,11 @@ def gueltig_pruefen(dat, stop, warn):
     for alt in minus:  # geänderte alte Zeile: alter Text muss vorn stehen bleiben
         if alt.strip() and not any(neu.startswith(alt.rstrip()) for neu in plus):
             warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
+    for neu in plus:  # 1228: jede Sitzung trägt Telegram-Urteile ein; dieselbe Kennung zweimal ist ein Doppel
+        if neu in minus or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
+        for mid in (re.findall(r"Nachricht (\d{3,})\b", neu) if re.search("[👍👎✅]", neu) else []):
+            if re.search(r"(Nachricht|Telegram)\s+%s\b" % mid, alt_archiv):
+                stop.append("VORGANGSARCHIV.md: Telegram-Nachricht %s steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)" % mid)
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
         if re.search(r"\b461 unverändert\b", neu): continue
@@ -299,6 +304,8 @@ def main():
             # 1159 (von Ford, zu 1148): Marke „Lauf läuft bis TT.MM., HH:MM“ im Vorrat trägt eine Zeit nach jetzt; Form und 12 h prüft lauf.py (1161)
             tz = re.sub(r"Lauf läuft bis \d\d\.\d\d\.,? \d\d:\d\d", "", tz)
         for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
+            if re.search(r"\b(ab|bis|um|vor|nach|Termin|Stichtag|frühestens|spätestens|Zurücksetzung)\s*(\(|(Mo|Di|Mi|Do|Fr|Sa|So)\.?\s+)?$", tz[max(0, m.start() - 20):m.start()], re.I):
+                continue  # 1243 (Ford, Lauf 00:03): „ab 14.11., 20:00“ ist ein Termin, kein Zeitstempel
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
         mm = re.match(r"\| ([^|]+?) \| (M\?|M|K|–|-) \|", t)

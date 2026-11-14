@@ -5,7 +5,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 ## Für den Chef
 
 - [Chefsache](chefsache/): alles, was du entscheiden, ansehen oder testen sollst; jeder Punkt eine Datei, beantwortet heißt weg.
-- [Projektplan](PROJEKTPLAN.md): der Fahrplan bis Kapitel 1 fertig ist, Schritt für Schritt, und wie weit jeder Schritt ist; ganz oben das Ziel dieser Woche.
+- [Projektplan](PROJEKTPLAN.md): oben die Meilensteine des ganzen Projekts (Kapitel 1 bis 7, Marktstart) mit offenen Vorgängen und die Teilprojekte bis Kapitel 1 fertig; darunter die Abnahmeliste und das Ziel dieser Woche.
 - [Abnahme](DESIGN-ABNAHME.md): die Liste zum Schluss, woran wir Kapitel 1 als fertig erkennen. Der Projektplan sagt, wie weit wir sind; die Abnahme sagt, wann es reicht.
 - [Tagesbericht](ARBEIT-TAGESBERICHT.md): jeden Morgen zehn Zeilen, was sich getan hat, wer hinterherhinkt und was als Nächstes kommt.
 - [Vorgangsarchiv](VORGANGSARCHIV.md): alles, was du entschieden hast, neueste oben; zum Nachschlagen, nicht zum Lesen von vorn.
@@ -18,6 +18,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 ## Das Spiel
 
 - [Stil](DESIGN-STIL.md): wie das Spiel aussieht, klingt und sich anfühlt.
+- [Aktionspunkte](DESIGN-AKTIONSPUNKTE.md): Gespräch Chef und Sokrates zu Aktionspunkten im Kampf, Entscheidung für Entscheidung (930).
 - [Kampf](DESIGN-KAMPF.md): wie der Kampf ablaufen soll; [Blende](DESIGN-BLENDE.md): die Übergangsbilder zwischen Orten, bei Rast und Tod.
 - [Entscheidungen zum BRS](DESIGN-BRS-ENTSCHEIDUNGEN.md): jede Regelfrage, die du schon entschieden hast, als nummerierte Liste; Verlauf und alte Ideen liegen in `alt/DESIGN-SPIELSYSTEM-2-0.md`.
 - [Spielerhandbuch](STORY-HANDBUCH-1.md), ein Buch in drei Dateien (Teil [2](STORY-HANDBUCH-2.md), Teil [3](STORY-HANDBUCH-3.md)): die Regeln aus dem BRS so erklärt, wie der Spieler sie liest (Entwurf).

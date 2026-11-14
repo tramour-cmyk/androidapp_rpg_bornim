@@ -1,10 +1,67 @@
-# Projektplan Kapitel 1
+# Projektplan Chroniken von Bornim
 
-Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 479, Chef 02.11., 18:34).
+Oben die Meilensteine des ganzen Projekts mit offenen Vorgängen, darunter der nächste Meilenstein im Einzelnen (Abnahmeliste Kapitel 1), dann das Wochenziel. Zahlen montags mit dem Wochenziel neu (Perikles, `python3 tools/projektplan.py`; 1233, Chef 13.11., 21:34: „Der Projektplan ist der Projektplan … da müssten ganz theoretisch auch Kapitel 2 bis 7 schon drinstehen“).
 
 **Oberste Direktive (Chef 31.10., Archiv 418):** Kapitel 1 in der Godot-Fassung mit dem Bornimer Rollenspielsystem (BRS, 451) fertigstellen: ohne technische Fehler, gut aussehend, nach unserer Signatur, düster, professionell und immersiv durch Klang, Musik, Kampfsystem und die Möglichkeiten des Spielers. Qualität vor Quantität und vor Eile; es gibt keinen Termin. Fertig ist, was die Abnahmeliste erfüllt. Geht jeder Kür und jedem Neuen vor.
 
 **Stufen statt eines Meilensteins** (447, Chef 01.11.: „447 ja, mit K2b, aber nummeriere das Ganze doch neu und vernünftig durch“): sechs Stufen ohne Datum, jede ein spielbarer Build mit einer Prüfung. **„Kapitel 1 fertig“** = Stufen 1–4 abgehakt; **„marktreif“** (338) = Stufe 5; Stufe 6 nach dem Marktstart. Punkte heißen „Stufe.Punkt“ (z. B. „3.2“), der Buchstabe danach ist der Bereich (T Technik, A Aussehen, K Klang, M Kampf, G Regelwerk BRS, W Möglichkeiten des Spielers, S Store). Ein Punkt wird erst abgehakt, wenn er ganz fertig ist, nicht „gut genug für die Stufe“. Was unter die Abnahmeliste fällt, ist Muss; Kapitel 2, Berufungen, Gruppenkämpfe, Dungeons, Bergbau erst danach. Abhaken darf nur, wer in der Zeile als Prüfer steht; „Chef“ heißt: erst nach seinem Wort. **Stand je Punkt** (448): ohne Marke offen; am Zeilenende „· Stand: in Arbeit“ oder „· Stand: gebaut“ (setzt Perikles nach den Vorräten); abgehakt = abgenommen; der Tagesbericht zählt je Stufe (`tools/tagesbericht.py`). Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+
+## Meilensteine des Projekts (1233)
+
+| Nr. | Meilenstein | fertig, wenn | offene Vorgänge (Muss) | Stand 13.11. | vorher zu entscheiden |
+|---|---|---|---|---|---|
+| 1 | **Kapitel 1 fertig** | Stufen 1–4 der Abnahmeliste abgehakt, du sagst „gut“ (4.10) | 321 (113) | Stufe 1: 2 von 4; Stufen 2–4: 0 von 35 abgehakt; Wochenziel „Kampf passt“ | Reihenfolge der Teilprojekte unten |
+| 2 | **Marktstart** | Stufe 5: Kapitel 1 öffentlich im Play Store | 14 (1) | Gewerbeschein, privates Repo, 12 Tester offen (142, 109); Godot-Release erst mit 622 | Preis, Zeitpunkt des geschlossenen Tests |
+| 3 | **SRD im Code abgelöst** | Stufe 6: Lizenzhinweis entfällt, `regelcheck` ohne Treffer | in 870.13, 4.8 | Wächter 870.11 greift | – |
+| 4 | **Kapitel 2 · Das Graumoor** | durchspielbar wie Kapitel 1 | 3 (Texte 1235, Garrick 168.1, Zustände 956), alle nach dem Meilenstein | Storyplan und Texte als Entwurf (`kapitel2/STORY-PLAN-K2.md`) | Plot mit Homer abstimmen; Umfang; Gespräch vor dem Bau (1236) |
+| 5–8 | **Kapitel 3 bis 7** | je Kapitel durchspielbar | keine | kein Plan; roter Faden (Grauer Prophet, Tag der Asche) ist offen (`STORY-PLAN.md` „Überblick“) | Handlung je Kapitel (du, Homer); vorher nichts zu bauen |
+
+Zugeordnet ohne Raten: Marktstart = Bereich M Veröffentlichung und M Markt und „nach dem Meilenstein“; alles andere Offene gehört zu Kapitel 1 (Oberste Direktive). Kapitel 2 bis 7 bekommen Vorgänge erst, wenn ihre Handlung steht.
+
+### Teilprojekte bis „Kapitel 1 fertig“ (Reihenfolge aus 1061, Perikles 12.11., nach Chef 17:42; du legst die Priorität fest)
+
+1. **Umzug BRS fertig** (Stufe 2.3): 882.1, 882.2, 870.10, 870.13 · Stand: 882.1 und 882.2 gebaut, 870.10 und 870.13 warten darauf.
+2. **Kampf passt** (Stufe 2.3, 2.4; Wochenziel): 709, 1072, 1068, 1222, 1223, 1224, 931, 760 · Stand: Jerry an 709.1 und 1072 (Bahnen der Wölfe), 1223 gebaut; dazu alle offenen im Bereich E Kampf (Tafel unten).
+3. **Körper je Volk im Helden** (Stufe 4.4): 431 · Stand: wartet auf 1, Aufwand legt Tom dir vor dem Bau vor.
+4. **Kapitel 1 durchspielbar** (Stufe 2.13–2.15): 494, 507, 496 · Stand: Höhle 492, Nebel 505, Untote 506, Zufallsspieler 495 erledigt; übrige Gegner, Kampforte Höhle und Durchspiel-Build ruhen (Kampf zuerst).
+5. **Was der Spieler tun kann nach BRS** (Stufe 2.6–2.9): 515, 568 · Stand: ruhen; Lehrmeister, Handlung je Herkunft, Schleichen, Rast ohne eigenen Vorgang.
+6. **Welt lebendig wie alt** (Stufe 2.11): 614, 637, 638, 639, 640, 665, 509, 598, 517, 936, 937, 938 · Stand: alle ruhen (Kampf zuerst).
+7. **Ausgleich gemessen** (Stufe 2.5): 38 · Stand: Kapitelsimulation 1050 erledigt, Zielwert mit dir (38) ruht.
+8. **Aussehen fertig** (Stufe 4.3–4.5): 348.13, 302.1, 372 · Stand: ruhen; Ruhebewegungen 397 erledigt (Rest 1167, 1044).
+
+Zahlen je Teilprojekt (nur die genannten Vorgänge) und je Bereich: `python3 tools/projektplan.py`. Stand 13.11., 22:2x:
+
+| Teilprojekt | genannte Vorgänge offen | davon Muss | gebaut oder zu testen | ruht |
+|---|---|---|---|---|
+| 1 Umzug BRS fertig | 4 | 4 | 2 | 0 |
+| 2 Kampf passt | 9 | 8 | 1 | 0 |
+| 3 Körper je Volk im Helden | 1 | 1 | 0 | 0 |
+| 4 Kapitel 1 durchspielbar | 3 | 0 | 0 | 3 |
+| 5 Was der Spieler tun kann nach BRS | 2 | 0 | 0 | 2 |
+| 6 Welt lebendig wie alt | 12 | 0 | 0 | 12 |
+| 7 Ausgleich gemessen | 1 | 0 | 0 | 1 |
+| 8 Aussehen fertig | 3 | 0 | 0 | 3 |
+
+**Befund:** nur 1 bis 3 sind Muss und laufen; 4 bis 8 ruhen ganz als Kür („Kampf zuerst“, 338.1), obwohl sie Teil der Abnahmeliste sind. Nach „Kampf passt“ brauchen sie deine Reihenfolge.
+
+| Teilprojekt (Bereich) | offen | Muss | startbar oder in Arbeit | gebaut oder zu testen | ruht | Schätzung |
+|---|---|---|---|---|---|---|
+| E Kampf | 89 | 40 | 35 | 19 | 22 | ~260 $ |
+| B Abläufe | 40 | 20 | 12 | 19 | 6 | ~50 $ |
+| B Werkzeuge | 26 | 17 | 3 | 17 | 5 | ~10 $ |
+| E Technik | 24 | 10 | 2 | 10 | 11 | ~60 $ |
+| E Figuren | 24 | 8 | 3 | 3 | 15 | ~100 $ |
+| E Oberfläche | 29 | 5 | 13 | 4 | 9 | ~80 $ |
+| Q QM | 7 | 5 | 7 | 0 | 0 | ~30 $ |
+| E Welt | 36 | 3 | 5 | 4 | 25 | ~40 $ |
+| G Balance | 11 | 3 | 2 | 3 | 6 | ~10 $ |
+| Q QS | 6 | 2 | 0 | 3 | 3 | – |
+| G Stil | 13 | 0 | 3 | 0 | 8 | ~30 $ |
+| B Steuerung | 6 | 0 | 4 | 0 | 1 | ~20 $ |
+| E Klang | 5 | 0 | 0 | 0 | 5 | – |
+| G Story | 5 | 0 | 1 | 0 | 1 | ~10 $ |
+
+Schätzung = offene, nicht ruhende, nicht gebaute Vorgänge × Median der Kosten erledigter Vorgänge desselben Bereichs; grob, nur als Größenordnung. „ruht“ zählt auch Idee und Dauer. **Stärkstes Gegenargument gegen diese Tafel:** Bereich ist nicht Teilprojekt; ein Vorgang „E Kampf“ kann zu 2 oder 4 gehören. **Antwort:** die Teilprojekte nennen ihre Vorgänge selbst, die Bereichstafel zeigt nur, wo die Masse liegt; eine Zuordnung aller 335 Vorgänge wäre Raten.
 
 ## Abnahmeliste Kapitel 1 (418, abgenommen vom Chef 01.11., 09:43; in Stufen seit 447, 01.11.; 418 Umfang A gilt nicht mehr)
 
@@ -35,10 +92,10 @@ Bis 02.11. „Abnahme Kapitel 1“ (`LISTE-ABNAHME-KAPITEL1.md`, umbenannt mit 4
   - [x] Wildschwein · [x] Riesenhundertfüßer · [x] Riesenspinne · [x] Riesenegel (für Stirge) · [x] Säureschnecke (für Ockergallerte): Haken 720 (Chef 09.11., 14:49, im Probekampf gesehen); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492)
   - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
   - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
-- [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
+- [x] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand: abgenommen (Höhle t282, Chef 13.11., 14:51):
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
   - [x] Zum Schlafenden Greif (Schänke) · [x] Thessas Kramladen · [x] Haus des Ältesten · [x] Tempel des Morgenlichts: Haken 720 (Chef 09.11., 14:49)
-  - [ ] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492 passt, Vorentscheid 13.11., 03:33; 505), wartet auf den Test des Chefs
+  - [x] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492, 505); Test t282 Höhle bestanden, 282.19–.21 (Chef 13.11., 14:51, Archiv); auf `main` mit PR #201
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
   - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
@@ -145,17 +202,9 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-ABGLEICH-AL
 
 **Stärkstes Gegenargument zur neuen Ordnung:** Ein Sammelbuild mit 45 Punkten ist schwer zu testen, und die Funde aus t280 kämen mit einem kleineren Build schneller. **Entkräftet:** beide Teams stehen unter Sperre, bis getestet ist; ein Build löst beide, die Prüfliste stellt den Kampf nach oben, du kannst nach dem Kampfteil abbrechen und den Rest später prüfen.
 
-**Große Punkte danach, in dieser Reihenfolge** (1061, Perikles 12.11., 17:4x, auf Chef 17:42 „erst einen Umzug fertig machen, dass wir 431 wieder als Thema grundsätzlich anfassen“):
-1. **Umzug BRS fertig** (läuft neben dem Kampf): 882.1 Tom, 882.2 und 870.10 Perikles (Kotlin-Bau aus), 870.13 Tom (Aufräumen, SRD-Hinweis raus).
-2. **Kampf passt** (Wochenziel oben, t281).
-3. **431 Körper je Volk im Helden** (Tom, gleich nach 870.10): zuerst Aufwand vorlegen (Kleidung und Rüstung auf fünf Körpern, Völker im Umriss deutlich verschieden), bauen erst nach deinem Ja. Vor jedem weiteren Figurenfeinschliff (372, 397, 513, 1044 ausgenommen), weil Kleidung und Rüstung sonst zweimal angepasst werden.
-4. **Kapitel 1 durchspielbar** (Stufe 2): 492 Höhle, 505 Nebel und Sichtfeld, 494 übrige Gegner, 507 Kampforte Höhle, 506 Untote, 495 Zufallsspieler, 496 Durchspiel-Build. Läuft mit 3 nebeneinander (Spike und Jerry), sobald der Kampf passt.
-5. **Was der Spieler tun kann nach BRS** (2.6–2.9): Lehrmeister, Handlung je Herkunft, Schleichen, Spähen, Truhen (515), Rast und Tragkraft, Ernten (568).
-6. **Welt lebendig wie alt** (2.11): Leute, Dinge, Innenräume, Nacht, Kleinleben (614, 637–640, 665, 509), Klang je Ort und Monster (598, 517, 936–938).
-7. **Ausgleich gemessen** (2.5): Kapitelsimulation, jede Herkunft schafft die Bosse (1050, 38).
-8. **Aussehen fertig:** Tusche nach Licht (348.13, 348.13b, 302.1), Held im Feinschliff (372), Ruhebewegungen (397); danach Store (622 AAB, 142).
+**Große Punkte danach** (1061): stehen seit 1233 oben als „Teilprojekte bis Kapitel 1 fertig“, mit Zahlen. Aus 1061 bleibt: 431 vor jedem weiteren Figurenfeinschliff (372, 397, 513, 1044 ausgenommen), weil Kleidung und Rüstung sonst zweimal angepasst werden; „Kapitel 1 durchspielbar“ läuft neben 3 (Spike und Jerry), sobald der Kampf passt.
 
-**Stärkstes Gegenargument:** 431 vor dem Durchspielen schiebt Höhle und Nebel weiter, Ziel seit 03.11. **Entkräftet:** 431 ist Figurenarbeit bei Tom, Höhle und Nebel laufen bei Spike und Jerry daneben; der Held ist, womit sich der Spieler identifiziert (Chef 17:38), und jeder Figurenfeinschliff vor 431 wäre doppelte Arbeit.
+**Stärkstes Gegenargument (1061):** 431 vor dem Durchspielen schiebt Höhle und Nebel weiter, Ziel seit 03.11. **Entkräftet:** 431 ist Figurenarbeit bei Tom, Höhle und Nebel laufen bei Spike und Jerry daneben; der Held ist, womit sich der Spieler identifiziert (Chef 17:38), und jeder Figurenfeinschliff vor 431 wäre doppelte Arbeit.
 
 **Mit diesem Wochenziel entschieden (Perikles):** M? der Prüferbefunde 725–742 → K, meine ruhen; 515 Truhen und 568 Ernten → M (Abnahme 2.8, 3.4), ruhen bis „Kampf passt“; Reifes aus `LISTE-IDEEN.md` holt diese Woche keiner (nichts Neues); „Verwerfen?“ als eine Chefsache (743).
 

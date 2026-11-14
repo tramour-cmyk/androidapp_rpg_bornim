@@ -52,6 +52,68 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 241 · 1098.1 Ford-Starter nach 1245 (14.11., 08:0x)
+
+- **Noch nicht prüfbar, kein Befund:** 1245 hat nur die Zeile oben in `ARBEIT-BETRIEB.md` richtiggestellt (`3c95502e8`); einen Starter legt erst ein Handstart-Ford (Tiefe 0) an. Laufender Ford `…7AAPsuvPwPbE7HCYeV` liegt auf Tiefe 1 (Elternkette: meine Sitzung Tiefe 2, Eltern = Ford), 328 Tsd. `used_tokens` um 08:05; Selbstneustarts „(selbst)“ bis Tiefe 5, dann Handstart. Bei der Rate vom 12./13.11. (Tiefe 4 nach 22 h) frühestens etwa 16.11. 1098.1 wartet auf 16.11.; vorher nur der Chef mit einem Handstart.
+- **Ford startete 1098.1 zu früh:** Bedingung war der erste Neustart über den Starter, nicht 1245 erledigt; Kosten ein Lauf, kein Vorgang.
+
+## Lauf 240 · 1240 „Kein Folgevorgang, weil:“ deckt ältere Commits (Spike für Tom, `d23ce6137`; 14.11., 07:1x)
+
+- **Greift:** `vorgang_rest_test.py` 6 von 6, Exit 0. Echte Nummern: 1041 (Grund im Betreff `6603e5236`) leer; 1240, 1180 leer; 1084, 946, 505, 1143 melden ihre Reste wie vorher. Wegwerfkopie: 1137.2 meldet `dd33d57dd` („noch nicht getesteten“), nach Leercommit „1137.2: Kein Folgevorgang, weil: …“ leer. Ein Zitat „„Kein …““ hebt nicht auf; Platzhalter „…“ zählt nicht.
+- **Nebenbei, ohne Vorgang:** das Muster nimmt jedes Wort mit Doppelpunkt davor („Prüfung: Kein Folgevorgang, weil: X“ deckt auch); Reste in Notizcommits nach einem Code-Commit zählen weiter nicht (so seit 1237). 1137.2 bleibt gesperrt, bis ihr Besitzer den Grund schreibt.
+
+## Lauf 238 · 1239, 1241, 1243, 1236 (Perikles `9cb3e2d39`, `4e6558dd2`, `dca8ede79`; 14.11., 00:2x)
+
+- **Greift:** 1239: `lauf.nachfolger` liest für Perikles, Jerry, Sokrates den echten Nachfolger, Beispielsatz in Anführungszeichen übergangen. 1241: `ROLLE-ENTWICKLUNG.md` „Großes Vorhaben“ ohne Verweis auf `billigen/1236-…`, Ausnahmen und „auch Beschlossenes“ im Text; damit greift 1236 ganz. 1243: „nach/ab/Stichtag 14.11., 20:00“ gilt als Termin.
+- **Nebenbei, ohne Vorgang:** „Termin (Sa TT.MM., HH:MM“ und „am Mo TT.MM., HH:MM“ mit heutigem Datum gelten weiter als Zeitstempel (Muster: Klammer oder Wochentag, nicht beides; „am“ fehlt); diese Zeile hielt die Commit-Prüfung beim ersten Versuch an.
+
+## Lauf 237 · 1098.1 Ford-Starter (14.11., 00:2x)
+
+- **Greift nicht:** kein Starter. `ARBEIT-BETRIEB.md` oben „Ford-Starter: keiner; ruht bis zur Antwort des Chefs auf 1098 … kein Starter anlegen“, obwohl Chef 13.11., 09:18 „1098 A“ und `LISTE-BETRIEB.md` „Ford-Starter“ seit `baa7ea568` (08:25). Handstart-Ford 18:22 (Tiefe 0) legte keinen an; Selbstneustart 00:14 „(selbst)“, neuer Ford Tiefe 1. Befund D236.2 → 1245 (Ford); 1098.1 wartet auf 1245.
+
+## Lauf 236 · 1133 Werkzeugpunkte P1–P4 nachgeprüft (Perikles `279416a1f`, `e466b8d45`, 1134; 14.11., 00:2x)
+
+- **Greift:** P1 (OHNE-ÜBERHOLT): `lauf.ohne_ueberholt` meldet 831 „nicht mehr offen“ und 882.1 „in Arbeit ohne Sitzung“ richtig; Fords Ausschlussliste (Übergabe 14.11., 00:14) hat 3 Nummern (506.2, 1068, 1235), keine überholt (vorher 8 von 12). P3 und P4 (a) greifen seit Lauf 200.
+- **Greift nicht:** P2 (a) (`pflegehinweis.py` schreibt nur bei geänderter Menge): Commits „Pflegehinweise“ 10.–13.11.: 58, 93, 78, 79; am 13.11. vor dem Fix (00–13:09) 34, danach (13:10–00:05) 45. Von den 45 Commits: 23 nur eine Zeile weg oder dazu; je Rolle kommt und geht dieselbe Zeile (Jerry 13-mal, Tom 8–9, Sokrates 4, Ford 4), meist „Übergabe über 700 Zeichen“ beim Übergeben und Nachfolgerstart; dazu täglicher Neustempel des Datums (`0f721848b`: nur 13.11. → 14.11.). Befund D236.1 → 1244 (Perikles); 1133 wartet auf 1244.
+
+## Lauf 235 · 1233 Projektplan fürs ganze Projekt (Perikles `2b0481176`; 13.11., 23:1x)
+
+- **Greift:** Meilensteine Kapitel 1, Marktstart, SRD, Kapitel 2, Kapitel 3–7 oben in `PROJEKTPLAN.md`, Teilprojekte mit Vorgängen und Stand; Belege nachgesehen (1235, 168.1, 956, 142, 109, 622, 870.13 in der Liste, 870.11 im Archiv, `kapitel2/STORY-PLAN-K2.md`, `STORY-PLAN.md` „Überblick“); `projektplan.py` läuft, Zahlen 23:15 nahe am Plan (319/111 gegen 321/113 um 22:2x); Schätzung mit genannter Grundlage (Median je Bereich).
+- **Nebenbei, ohne Vorgang:** Auftrag „K2–K7 je eine Zeile“, gebaut Kapitel 3–7 in einer Zeile (alle ohne Plan); Schätzung steht in der Meilensteintafel des Plans nicht, nur im Werkzeug (~700 $ Kapitel 1).
+
+## Lauf 234 · 1228 Telegram-Urteile erledigt, wer sie sieht (Doppelpack 421, Perikles `06fd18d59`; 13.11., 23:1x)
+
+- **Greift:** `offene_urteile()` heute 0 (alle im Archiv); Wegwerfkopie: neuer Archiveintrag mit 👍 und „Nachricht 4030“ (steht schon, Zeile 13) → Commit-Prüfung „HÄLT AN … (1228)“, mit „Nachricht 4999“ kein Halt. Regeltext in `reaktionen.py` und `lauf.py` deckt sich mit dem Chefwort 21:22 („jeder, der sieht, das erledigt“); Vollzugszeile in `f2b09fc31`. Nicht gesehen: eine echte URTEIL-Zeile in Fords Stundenlauf (heute keine offene).
+
+## Lauf 233 · 1196 Filmwache liest godot.yml (Tuffy `6a29d4e71`, `claude/tuffy-1196-wache`; 13.11., 23:1x)
+
+- **Greift am Zweig:** `logik.py film_wache_1062` grün (12 s); Gegenprobe ohne „-- --film=10401“ in `godot.yml` Zeile 889 → „FALSCH film_wenden_10401 …“, Exit 1. Zweig baut auf `claude/tuffy-1062`. Nebenbei: zweite Fassung desselben auf `claude/jerry-1196-filmwache` (`690e923fc`), nicht in der Liste; Leiche, wenn sie nicht gelöscht wird.
+
+## Lauf 232 · 827.1 Aufwand hoch je Aufgabe (Doppelpack 421, Perikles `30a4cb2c4`; 13.11., 23:1x)
+
+- **Greift:** `modell` mit Nachfolger „(Aufwand hoch, weil …)“ → hoch, `aufwand` „ | effort high“, Umgebung HOCH; ohne → Mittel, leer; `HOCH_BIS` 13.11., 22:04 (901); `STARK_AB` 2099 (aus). Keine Regelstelle nennt noch stärkstes Modell oder 827 A außer `LISTE-BETRIEB.md` 45 (neu). Gegen Chefwort 22:08 („setzt er den Aufwand für die Aufgabe auf hoch … und dann wieder zurück“) und 22:04 („Mittel für alle“): deckt sich; abweichend vom Titel schaltet „festgefahren“ nicht selbst hoch, nur Hinweis (begründet im Commit, näher am Wortlaut). Klein, ohne Vorgang: „weil“ wird nicht verlangt, „(aufwand hoch)“ allein genügt.
+
+## Lauf 231 · 1236 Gespräch vor großem Vorhaben (Doppelpack 421, Perikles `97ffbfaa4`; 13.11., 23:1x)
+
+- **Werkzeug greift** (Wegwerfkopie): `setze 1240 warte="Chef Gespräch"` → Sperrgrund „Chef Gespräch (…, 1236)“, `--rolle Sokrates` zeigt „GESPRÄCH 1240 (Tom)“; nach Archivzeile „- **1240, Chef Gespräch: los**“ startbar, keine GESPRÄCH-Zeile mehr. Regel gegen Chefwort 21:41 und Archiv: deckt sich; Regelbilanz (Zusammenarbeit 3 ersetzt) eingehalten; die in `ROLLE-ENTWICKLUNG.md` gestrichenen Sätze stehen anderswo (Blatt: Begriffe; Film: Melden; Klartext: `MUSTER.md` 9).
+- **Lücke, D231.1 → 1241 (Perikles):** `ROLLE-ENTWICKLUNG.md` verweist für Einzelheiten auf `billigen/1236-gespraech.md`; die Datei wird beim Billigen gelöscht (`chefsache/README.md` Zeile 410). Ausnahmen (Fehlerbehebung, Tests ohne Spielcode, Chefwort binnen 3 Tagen) und „auch längst Beschlossenes“ stehen dann nirgends. 1236 wartet auf 1241.
+
+## Lauf 230 · 1237 Wächter Rest liest Code-Klon und jeden Code-Commit (Jerry für Tom, `78e06a17e`, `a9700a9c6`; 13.11., 23:0x)
+
+- **Greift, damit auch 1175:** `_repos` = `bornim-main/docs` und `androidapp_rpg_bornim` (976 entfernte Zweige, 63 `build`); `bau_commits` 505: 22 Commits samt `c999dc014`, 1084: 3 samt `096ac8149`; `rest_offen` 1084 → Rest aus `096ac8149` („im Spiel noch nicht gebaut“); 1143, 1180 leer (Fehlalarm „noch nicht im Build“ weg); `pruefen` Exit 0, 0,04 s. 505 steht nicht mehr in der Liste, nur am Commit belegt.
+- **Damit greift 1143 ganz** (Lücken D205.4 → 1153, D207.1 → 1175, D228.1 → 1237 geschlossen): `rest_sperre` in `fertig`, `stand`/`setze` mit „erledigt“ und `build N`; 1084, 946 gesperrt, 1180 frei.
+- **Lücke, D230.1 → 1240 (Tom):** `greift 1237` hielt an: Rest aus dem eigenen Zitat in `78e06a17e` („Höhle noch nicht“); „Kein Folgevorgang, weil:“ wirkt nur im selben Commit, ein späterer hebt einen älteren nicht auf; Ausweg nur Folgevorgang oder `VORGANG_REST_OK`. 1237 geschlossen über 1240 als Folgevorgang.
+- **Nebenbei, ohne Vorgang:** 946 nennt denselben Rest zweimal (`8f24b3339`, `eb1e6dec2`, gleicher Text, übertragener Commit); 1137.2 meldet „noch nicht getesteten Builds“ als Rest (Fehlalarm; löst „Kein Folgevorgang, weil:“, wie im Commit gesagt).
+
+## Lauf 229 · 1230 ein ✗ schlägt Sammelbuild und ✓ (Perikles `94be68e5c`; 13.11., 22:1x)
+
+- **Greift:** `build 284 --probe` an `bc73ae6a3^`, Fassung vor 1230 (`94be68e5c^`) gegen 1230: nur 1022 weicht ab, „erledigt (Sammelbuild)“ → „startbar (✗ 284.2)“; 42 übrige gleich. Nebenbei, gewollt: ein Sammelbuild mit eigenen Punkten geht jetzt über „bestanden“ (mit Restsperre) oder bleibt ohne Rückmeldung „zu testen“.
+
+## Lauf 228 · 1175 Wächter Rest liest den jüngsten Code-Commit (Tom `0befe2a24`; 13.11., 22:0x)
+
+- **Greift für 1143:** `bau_commit` 1143 → `9acb42063` (vorher Notizcommit `49a85026c`), 1131 → `42e107815`, 1175 → `0befe2a24` (vorher `f66b86535` „gebaut“); 1084, 1115, 1199, 1212, 1217 alt gleich neu.
+- **Mit Lücke, D228.1 → 1237 (Tom):** (a) DOCS = `bornim-main` kennt nur `main`, `meldungen`, `reaktionen`, Baucommits auf `claude/build-<n>` unsichtbar (bei `build N` vor `main`); (b) mit sichtbarem Zweig (Klon mit `origin/claude/build-284`) nur der jüngste Code-Commit: 505 → `7aaf25d49` statt `c999dc014`, 1084 → `57ef59f40` statt `096ac8149`; beide Beispiele aus D207.1 bleiben verdeckt. 1175 wartet auf 1237.
+
 ## Lauf 227 · 1221 „greift“ erst nach erledigten Nummern im Feld (Perikles `ef95b0418`; 13.11., 21:1x)
 
 - **Greift:** echt `startbar.py --rolle Diogenes`: kein Muss, 882.2 „wartet auf 882.1 (gebaut), dann Diogenes (greift?)“; `lauf.py --nur-muss` ohne `--ohne 882.2` in einer Kopie ohne Startmarken Diogenes: „NICHTS Diogenes: nichts Startbares“. Kopie mit 882.1 „erledigt“ in der Liste und Kopie mit 882.1 nur im Archiv („erledigt, Bautest …“): 882.2 Muss startbar, `START Diogenes … 882.2`. `sperre()` alt gegen neu über alle 20 Zeilen B gebaut: nur 882.2 weicht ab.
