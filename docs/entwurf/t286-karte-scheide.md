@@ -16,7 +16,7 @@ Im Bau geprüft: Scheide aus der Klinge jedes Dolchs gerechnet, keine Ecke der K
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
-| 286.1 | Tom | 1119 | Film | Dorf, Erdweg am Mittag: der Held geht und rennt quer durchs Bild, nah | beim Rennen kleine Staubwölkchen an den Füßen, beim Gehen weniger, sie verwehen | kein Staub zu sehen; Staub auch im Stehen oder als Klumpen |
+| 286.1 | Tom | 1119 | Film | Dorf, Erdweg am Mittag: der Held geht und rennt quer durchs Bild, nah [Film von 14.11., 22:57](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261114-225703-t286.1/2026-11/14-2256-t286.1-Tom.mp4) | beim Rennen kleine Staubwölkchen an den Füßen, beim Gehen weniger, sie verwehen | kein Staub zu sehen; Staub auch im Stehen oder als Klumpen |
 | 286.2 | Tom | 1091 | Bild | Blutzahnhöhle, Gang zum Ausgang, links 12 Uhr mittags, rechts 22 Uhr | mittags fällt helles Tageslicht weich in den Gang, nachts nur ein schwacher kühler Schein | beide gleich; harte Kante zwischen Licht und Schwarz |
 | 286.3 | Tom | 1092 | Film | Lyra im Tempel, sie steht und dreht sich einmal rundum, Kerzenlicht auf dem Rock | der Rock wirft echte Falten, Licht und Schatten wandern mit der Drehung | Längsstreifen wie aufgemalt; dunkle Flecken |
 | 286.4 | Tom | 1149 | Bild | Herumtreiber mit Dolch in der zweiten Hand, vorn, links, rechts, hinten | der Dolch steckt in einer Lederscheide links an der Hüfte, Griff vorn oben, Scheide schräg nach hinten unten, Mundblech und Spitze in Metall | Klinge schaut aus der Scheide; Scheide im Bein; kein Dolch am Körper |
