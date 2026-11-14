@@ -77,3 +77,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:49 14.11.: Startsperre 23:49 Start Tuffy, Sokrates (Neustart-Meldungen 23:44, 23:45, von Hand)
 - 00:04 15.11.: Startsperre 00:04 Start Diogenes (lauf.py)
 - 00:04 15.11.: Marke Archiv session_01Hmoj78sXbc6SZHTKCgXXZ3 (lauf.py)
+- 00:05 15.11.: Diogenes neu `…75edsFFzfEQPxCoWxq` (1019), Diogenes 1079 `…78sXbc6SZHTKCgXXZ3` archiviert (1,60 $)
