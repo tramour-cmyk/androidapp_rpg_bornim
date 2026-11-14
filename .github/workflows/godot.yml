@@ -262,6 +262,13 @@ jobs:
             for f in $RUNNER_TEMP/leutekauf/held_L_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
             cp $RUNNER_TEMP/leutekauf/leute-kauf.json $D/
           fi
+          # 1092 A (Chef 14.11., 10:11): Lyra, Osric, Rowena noch einmal wie vorher (FALTE_TIEFE=0: glatter Rock, Falten nur gemalt) fuer
+          # das Standbild vorher/nachher im Schritt „Robe 1092“; nur von Hand auf claude/tom-1092-…
+          if [ "${{ github.event_name }}" = workflow_dispatch ] && [[ "${{ github.ref }}" == *tom-1092* ]]; then
+            FALTE_TIEFE=0 LEUTE_KAUF=lyra,osric,rowena OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leute_alt Q=~/cc0 timeout 1500 bl/bin/python -I tools/blender348/v3/held_klassen.py > leute_alt.log 2>&1 || tail -20 leute_alt.log
+            grep -E "^LEUTE|^FEHLT" leute_alt.log | cut -c1-200 || true
+            ls -l $RUNNER_TEMP/leute_alt/held_L_*.glb || true
+          fi
           # 403 (Jerry): Kampfbewegungen fuer den Kaufkoerper (unsere aus held.glb umgerechnet, Kandidaten aus der UAL Pro), gekauft
           SRC=$RUNNER_TEMP/out/held.glb ZIEL=$RUNNER_TEMP/klassen bl/bin/python -I tools/blender348/v3/held_kampf.py > held_kampf.log 2>&1 || { tail -30 held_kampf.log; exit 1; }
           grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword" held_kampf.log
@@ -492,6 +499,7 @@ jobs:
           touch godot/daten/kauf.txt
           cd godot && cat daten/kauf.txt kampf/daten/kauf.txt 2>/dev/null | sort -u | xargs -r bash ../tools/blender348/verschluesseln.sh $K   # 399.1: auch Jerrys Kampfort
           ls $RUNNER_TEMP/klassen_alt/held_*.glb > /dev/null 2>&1 && bash ../tools/blender348/verschluesseln.sh $K $RUNNER_TEMP/klassen_alt/held_*.glb || true   # 656: Held vorher
+          ls $RUNNER_TEMP/leute_alt/held_L_*.glb > /dev/null 2>&1 && bash ../tools/blender348/verschluesseln.sh $K $RUNNER_TEMP/leute_alt/held_L_*.glb || true   # 1092: Roben vorher
       - uses: actions/cache@v4
         with:
           path: ~/godot
@@ -1423,6 +1431,28 @@ jobs:
             -s res://tests/dame_1044.gd -- --aus=$A 2>&1 | grep -E "SCRIPT ERROR|^DAME1044|^BILD" | cut -c1-400 || true
           cd $A && for n in liska gwenna rowena thessa morwen lyra_temple; do [ -f ${n}_nachher.png ] && montage ${n}_vorher.png ${n}_nachher.png -tile 2x -geometry +2+2 -background black p_$n.png; done; \
             ls p_*.png > /dev/null 2>&1 && montage p_*.png -tile 3x -geometry +4+4 -background black alle.png; ls -l $A
+      # 1092 A (Chef 14.11., 10:11 „a. mit den Ergaenzungen“): genau ein Standbild vorher/nachher bei seitlichem Licht; je Figur ein Bild,
+      # links vorher, rechts nachher, oben Licht des Raums, unten mit Lampe links (tests/robe_1092.gd); nur von Hand auf claude/tom-1092-…
+      - name: Robe 1092 vorher/nachher
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-1092') }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/robe1092; mkdir -p $A
+          ls $RUNNER_TEMP/leute_alt/held_L_*.glb || { echo "ROBE1092 vorher fehlt"; exit 0; }
+          cd godot
+          bilder() {
+            VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+              -s res://tests/robe_1092.gd -- --aus=$A --stand=$1 2>&1 | grep -E "SCRIPT ERROR|^ROBE1092|^BILD" | cut -c1-400 || true
+          }
+          bilder nachher
+          mkdir -p $RUNNER_TEMP/neu1092 && cp daten/held_L_*.bin $RUNNER_TEMP/neu1092/
+          for f in $RUNNER_TEMP/leute_alt/held_L_*.glb; do cp $f daten/$(basename $f .glb).bin; echo "vorher: daten/$(basename $f .glb).bin"; done
+          bilder vorher
+          cp $RUNNER_TEMP/neu1092/held_L_*.bin daten/
+          cd $A && for n in lyra_temple osric rowena; do [ -f ${n}_nachher_seite.png ] && [ -f ${n}_vorher_seite.png ] && \
+            montage -label '%t' ${n}_vorher_spiel.png ${n}_nachher_spiel.png ${n}_vorher_seite.png ${n}_nachher_seite.png \
+              -tile 2x -geometry +3+3 -background black -fill '#e8dcc0' -pointsize 16 1092-$n.png; done; ls -l $A
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:

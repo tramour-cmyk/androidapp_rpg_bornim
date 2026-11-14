@@ -161,6 +161,9 @@ ZUSTAENDE = {'MAKELLOS': 0.0, 'BENUTZT': 0.6, 'BESCHAEDIGT': 1.0, 'DEFEKT': 1.35
 ZUSTAND = os.environ.get('ZUSTAND', 'BENUTZT').upper()
 SPUREN = ZUSTAENDE.get(ZUSTAND, 0.6)
 FALTE_BODEN = 0.3   # 1092 B: ein Faltental hoechstens 70 % dunkler als der Stoff, nie schwarz (vorher bis unter 0)
+FALTE_MALEREI = float(os.environ.get('FALTE_MALEREI', '0.25'))   # 1092 A: Malerei im tiefsten Tal eines Rocks mit echten Falten
+FALTE_TIEFE = float(os.environ.get('FALTE_TIEFE', '3.5'))         # 1092 A: Falte am Saum, cm nach aussen (0: glatter Rock wie vorher);
+# vorgeschlagen etwa 2,5 cm, am Rechner (Lyra, Seitenlicht) las sich das kaum als Falte, darum 3,5
 def _noise_v(nt, vec, scale, detail=2.0, rough=0.5):
     no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = scale; no.inputs['Detail'].default_value = detail
     no.inputs['Roughness'].default_value = rough; nt.links.new(vec, no.inputs['Vector'])
@@ -200,6 +203,13 @@ def stoff(nt, col, name):
         # 1092 B (Chef 13.11., 09:20 „1092 B“): Tal 0,85 mal Tiefe bis etwa 1,45 lief ohne Untergrenze unter 0 (schwarze Augen, dunkle
         # Laengsstreifen in hellen Roben, gemessen: 7,8 % der Robe Lyras unter 25/255); nur das Schwarz kappen, die Form bleibt
         f = _m(nt, 'MAXIMUM', f, FALTE_BODEN)
+        # 1092 A (Chef 14.11., 10:11 „a. mit den Ergaenzungen“): Roecke aus skirt() tragen die Falte als Form (Ecke 'falte_an' = 1); dort
+        # liegt die Malerei genau auf deren Taelern ('falte' 0 Grat bis 1 tiefstes Tal) und ist hoechstens 25 % dunkler, ohne flachen
+        # Boden; Licht und Schatten der Falte kommen vom Licht. Wappenrock und Umhang (ohne 'falte_an') bleiben gemalt wie bisher
+        fa = nt.nodes.new('ShaderNodeAttribute'); fa.attribute_name = 'falte'
+        fan = nt.nodes.new('ShaderNodeAttribute'); fan.attribute_name = 'falte_an'
+        fg = _m(nt, 'SUBTRACT', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'POWER', _sat(nt, fa.outputs['Fac']), 1.3), FALTE_MALEREI * F))
+        f = _m(nt, 'ADD', f, _m(nt, 'MULTIPLY', _sat(nt, fan.outputs['Fac']), _m(nt, 'SUBTRACT', fg, f)))
         col = _scale(nt, col, f)
         # unter dem Guertel staut sich der Stoff: dunkles Band 2 bis 10 cm darunter
         gb = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, beltY - 6.0), 6.0))))
@@ -1324,7 +1334,7 @@ def tabard_leute():
 # 348.6 Leute: langer Rock (Kleid, Robe) vom Guertel bis ueber die Knoechel, nach unten weiter (A-Linie)
 def skirt(top=None, bot=None, flare=0.06, name='robe', mat='tabard', span=None, objs=None, off=1.0):
     """Runde 2: auch kurzer Kittel (Pim) und Schuerze vorn (span = halber Winkel um die Front, Grad)."""
-    nz, n = 50, 72
+    nz, n = 50, (144 if FALTE_TIEFE > 0 else 72)   # 1092 A: rig.py GITTER halbiert rundum, je Falte bleiben so 8 bis 10 Ecken
     zs = np.linspace(top or beltY + 3, bot or ankleY + 3.5, nz)
     sk_bvh = bvh_core(objs or [body, chain, pants])
     if span is None: AS = [2 * math.pi * k / n for k in range(n + 1)]
@@ -1343,13 +1353,33 @@ def skirt(top=None, bot=None, flare=0.06, name='robe', mat='tabard', span=None, 
             prev[k] = r; R[i, k] = r
     R = np.maximum(R, R[:, ::-1])   # Runde 2 (Helfer: Saum links schief): links und rechts gleich weit
     G = np.zeros((nz, n + 1, 3))
+    z0, z1 = zs[0], zs[-1]
     for i, z in enumerate(zs):
         c = Vector((0, 0.5, z))
         for k, a in enumerate(AS):
             d = Vector((math.sin(a), math.cos(a), 0))
-            fold = 0.5 * min(1, max(0, (hipY - z) / 40)) * math.sin(a * 9)
+            # 1092 A: neun echte Falten statt 0,5-cm-Wellen (unsichtbar bei 20 cm Halbmesser); nur nach aussen (Beine stossen nicht durch)
+            fold = falte_form(a, (z0 - z) / (z0 - z1))[0] if FALTE_TIEFE > 0 else 0.5 * min(1, max(0, (hipY - z) / 40)) * math.sin(a * 9)
             G[i, k] = tuple(c + d * (R[i, k] + fold))
-    return grid_obj(name, G, mat, 0.5, closed_u=span is None and FIGUR != 'held')
+    o = grid_obj(name, G, mat, 0.5, closed_u=span is None and FIGUR != 'held')
+    if FALTE_TIEFE > 0:
+        # Malerei der Falte (stoff(): 'falte', 'falte_an') aus derselben Form, je Ecke aus Winkel und Hoehe (nach Naht und Schale)
+        tal = [falte_form(math.atan2(v.co.x, v.co.y - 0.5), (z0 - v.co.z) / (z0 - z1))[1] for v in o.data.vertices]
+        o.data.attributes.new('falte', 'FLOAT', 'POINT').data.foreach_set('value', tal)
+        o.data.attributes.new('falte_an', 'FLOAT', 'POINT').data.foreach_set('value', [1.0] * len(tal))
+    return o
+def falte_form(a, t):
+    """1092 A (Chef 14.11., 10:11): Falte eines Rocks am Winkel a (Bogen um die Koerperachse) und in der Hoehe t (0 Bund, 1 Saum).
+    Neun Falten rundum, unregelmaessig wie die gemalten (Lage wandert bis etwa einen Viertelabstand, Tiefe 60 bis 100 % von Falte zu
+    Falte, Falten laufen nach unten leicht auseinander), vom Bund bis zum Saum auf FALTE_TIEFE wachsend; Grat breit und rund, Tal
+    schmaler. Rundum geschlossen (nur ganze Vielfache von a). Gibt (Weg nach aussen in cm, Tal 0 bis 1 fuer die Malerei)."""
+    t = min(1.0, max(0.0, t))
+    ph = 9 * a + 0.55 * math.sin(2 * a + 1.3) + 0.35 * math.sin(3 * a + 4.1) + 0.25 * t * math.sin(5 * a + 0.7)
+    s = 0.5 + 0.5 * math.cos(ph)              # 1 Grat, 0 Tal
+    g = 1 - (1 - s) ** 1.6                    # Grat breit, Tal schmaler
+    amp = 0.8 + 0.2 * math.sin(4 * a + 2.2) * math.cos(7 * a + 0.4) + 0.12 * math.sin(a + 5.0)
+    w = amp * t ** 0.85
+    return FALTE_TIEFE * w * g, w * (1 - g)
 robe = skirt(flare=0.06 if FIGUR == 'held' else 0.10) if FG['rock'] == 'robe' else None   # Runde 4 (Helfer: Bein durch den Rock im Gang): weiter
 if FG['rock'] == 'kittel':   # Pim: Kittel zu gross, bis ueber die Knie, weit
     robe = skirt(beltY + 3, kneeY + 5, 0.16, off=2.2)
