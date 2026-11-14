@@ -330,7 +330,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | B Steuerung | M | –; +0,57 $ | Perikles | erledigt |
 | 281 | E-Gitarre aus der Kampfmusik entfernen, nur Orchester (Chef 21.10.; 18:19 „es war keine E-Gitarre im Kampf zu hören“) | E Klang | – | 1,35 $ | Jerry | erledigt |
 | 280 | Durchgang aller Spieltexte Kapitel 1: Tippfehler, Ton, Text passt zum Bild (Vorschlag Sokrates) | G Story | K | 4,46 $ | Homer | erledigt |
-| 286 | Anzusehen ohne Versionsnummer: `zug-index.py` meldet fehlende Version unter „Lücken“ (Chef 21.10., 19:42; Version nach dem Lauf: t62 Tom, t63 Jerry nachtragen) | B Werkzeuge | M | – | Perikles | erledigt |
+| 286 | Anzusehen ohne Versionsnummer: `zug-index.py` meldet fehlende Version unter „Lücken“ (Chef 21.10., 19:42; Version nach dem Lauf: t62 Tom, t63 Jerry nachtragen) | B Werkzeuge | M | 5,62 $ | Perikles | erledigt |
 | 251.2 | Markenprüfung Logo B (Quelle): Verwechslung mit fremden Bildmarken? (Chef 21.10.) | M Markt | K | – | Sokrates | erledigt 21.10. (→ 251.3) |
 | 251.3 | Logo B abheben: drei Varianten ohne offenes C, goldener Kern bleibt (Chef 21.10., 20:03; an Sokrates 20:29) | M Markt | M | –; +4,83 $ | Sokrates | erledigt |
 | 90 | Tagesrückblick (ersetzt durch Tagesbericht 247) | B Steuerung | K |  | Perikles | ersetzt |
@@ -1424,5 +1424,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 930.5 | Von Sokrates (930 A, Chef 14.11., 20:19 „jetzt“ 14.11., 20:19): Glutsystem Stufe 0, Rechnung ergänzen (glut2.py: Kobold, Spinne, Fledermaus, gemischte Begegnungen, Ansage lesen, Täuschen; Zahlen Gegenwert, Nachlegen); Maß DESIGN-GLUT.md 10 | E Kampf | M | 3,23 $ | Jerry | erledigt |
 | 1252 | Von Tom (286): Prüfliste docs/entwurf/t286-karte-scheide.md gegenlesen (Punkte beider Teams), Zeile „Gegengelesen:“; danach pusht Tom claude/build-286 (Stand claude/tom-286-sammel 05b25afec, Kerntests 158 gut) und bittet den Chef | B Abläufe | M | 0,52 $ | Sokrates | erledigt |
 | 644a.5 | Von Tuffy (644a.1): an welchem Grundwert hängen Rüstung, Ausweichen, Schild, Armbrust und die übrigen Fertigkeiten beim Wachsen durch Üben? Gebaut: nur Waffengruppen und Schulen, 10 Punkte je +1; Regelwerk 2 und 13 nachziehen | E Kampf | K | – | Sokrates | erledigt |
-| 1256 | Systemlösung? Rüstung: 6 frühere Vorgänge (644a.5, 49, 817, 917, 868 …), neu 1255; einmal grundsätzlich lösen? (654) | G Balance | M | 1,32 $ | Sokrates | erledigt |
+| 1256 | Systemlösung? Rüstung: 6 frühere Vorgänge (644a.5, 49, 817, 917, 868 …), neu 1255; einmal grundsätzlich lösen? (654) | G Balance | M | 6,04 $ | Sokrates | erledigt |
 | 1257 | Von Sokrates (1255, Chef 14.11., 21:29): Zuordnung jeder Fertigkeit zu genau einem Grundwert gegenlesen, Namen und Stimmigkeit mit der Welt (Liste ARBEIT-BERATUNG.md „Zu 1255“), Befund in den Vorrat Sokrates | G Balance | M | – | Homer | erledigt |
+| 1258 | Von Sokrates (1255 A, Chef 14.11., 22:09): Handbuch nachziehen, fünfter Rang „Vollendeter“ (Paragon) bei 100, Grundwert wächst bei 15, 25, 50, 75, 100 (644a.1 B), Satz zu Proben ohne Grundwert: [423.rang], [423.pruefung], [423.namen] | G Balance | M | – | Homer | erledigt |
+| 1255 | Von Chef (644a.1, 14.11., 21:16–21:29): Zuordnung jeder Fertigkeit zu genau einem Grundwert (Spähen, Kräutersammeln, Alchemie, Schleichen, Ausweichen, Rüstung, Überreden, Einschüchtern …) mit Homer, Vorlage an den Chef, dann Bau 644a.1 | G Balance | M | – | Sokrates | erledigt |
