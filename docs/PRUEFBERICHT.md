@@ -55,7 +55,8 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 ## Lauf 245 · 1019 Ford-Selbstneustart ab 400 Tsd. (Perikles `80773642e`; 15.11., 00:0x)
 
 - **1019 greift:** seit `80773642e` zwei Selbstneustarts, `used_tokens` beim Archivieren 424.840 (`…7AAPsuvPwPbE7HCYeV`, 14.11., 00:15–10:36) und 421.437 (`…76dYAn9Jmk5yYyU3HQ`, 10:35–20:45), keiner unter 400 Tsd. Tiefe 0 (Handstart `…772q8aDimJ7oU9STTH`, 13.11., 18:22) → 3 in 30 h (vorher 6 in 21 h). Kosten je Stunde 0,75 $ und 0,81 $ (vorher 3,1 $/h bei 654 Tsd.).
-- **Zur Kenntnis, kein Befund zu 1019:** laufender Ford `…793a6GGZhUhAzGSphs` 7,06 $ in 3,3 h (≈ 2,1 $/h) bei 388 Tsd.; fällt in den Weckruf-Stau nach der Wochengrenze 20:00 (Protokoll Ford 20:05). Nicht geprüft: 1125 (Kosten je Schritt), Ford-Starter (1098.1, Termin 16.11.).
+- **Zur Kenntnis, kein Befund zu 1019:** laufender Ford `…793a6GGZhUhAzGSphs` 7,06 $ in 3,3 h (≈ 2,1 $/h) bei 388 Tsd.; fällt in den Weckruf-Stau nach der Wochengrenze 20:00 (Protokoll Ford 20:05). Nicht geprüft: Ford-Starter (1098.1, Termin 16.11.).
+- **1125 nicht prüfbar:** seit 13.11., 13:19 kein Uhrlauf mit `LEERLAUF`; jede Stunde mit Uhrlauf hat einen Ford-Commit zwischen :03 und :15 (Lücken nur 13.11., 16–17 Uhr, Uhr feuerte nicht, und 14.11., 12–19 Uhr, Wochengrenze). Uhrlauf 00:03: 9 Schritte, 0,36 $ (0,04 $ je Schritt bei 388 Tsd., wie Lauf 195), mit START Diogenes. → `warte 1125 16.11.`, dann erneut.
 
 ## Lauf 244 · 1079 `ziege_4162` (Tom `bc2dd1ea0`, Spike `e347e68d8`; 14.11., 21:1x)
 
