@@ -1639,7 +1639,8 @@ jobs:
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/staub1119.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $A/staub1119.mp4 || true
           ls -l $A
       # 1040.1 (Fund t282.23: „da es etwas ruckelig ist, kann ich es nicht sicher sagen“; Sokrates: nach 1128 A als Film): Lyra wendet
-      # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit
+      # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit.
+      # 1040.1 (Tom 14.11.: Lauf 467 zeigte Lyra fern, dunkel, Füße unter der Robe): dazu Bram am Markt bei Tag, nah (film_wenden_dorf_10401.gd)
       - name: Wendefilm (1040.1)
         if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1040.1 Film') || contains(github.event.inputs.bilder, '1040.1')) }}
         continue-on-error: true
@@ -1653,6 +1654,11 @@ jobs:
             -s res://tests/film_wenden_10401.gd -- --film=10401 > $B/wenden10401.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM10401" $B/wenden10401.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wenden10401.mp4 || true
+          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wendendorf.avi --fixed-fps 30 \
+            -s res://tests/film_wenden_dorf_10401.gd -- --film=10401 > $B/wendendorf.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^FILM10401D" $B/wendendorf.log | cut -c1-300 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/wendendorf.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wendendorf.mp4 || true
           ls -l $B
       # 1086 (Chef 13.11., 15:47 t283.5 „er rennt heim, steht aber neben mir“; Prüfart Film): Pim bekommt das Gold, rennt heim, die
       # Mutter dankt (tests/film_pim_1086.gd wie dorf=1086), im Lauf der APK bei „1086 Film“ im Commit
