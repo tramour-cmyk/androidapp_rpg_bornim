@@ -17,7 +17,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
-| [1149](ansehen/1149-scheide.md) | Dolch der zweiten Hand in der Lederscheide links an der Hüfte | – | 14.11., 05:06 |
 | [844](ansehen/844-schlagen.md) | Goblins, Kobolde, Schamanen schlagen zu | – | 13.11., 22:47 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
