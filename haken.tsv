@@ -212,3 +212,4 @@
 2026-11-14 20:03:58	commit-pruefung	LISTE-VORGAENGE.md: 1145: Zeile über 400 Zeichen (Einzelheiten als „Zu 1145“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-14 20:08:04	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30710 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-14 20:09:06	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
+2026-11-14 20:13:00	commit-pruefung	docs/chefsache/entscheiden/930-glutsystem.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
