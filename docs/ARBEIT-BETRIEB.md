@@ -105,3 +105,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:39 14.11.: Startsperre 11:39 Start Diogenes, Perikles (lauf.py)
 - 11:39 14.11.: Marke Archiv session_01Hmoj75bBG6VbZqHX9qRxWD (lauf.py)
 - 11:39 14.11.: Marke Archiv session_01Hmoj79pM8NWGy8bpNGog85 (lauf.py)
+- 11:40 14.11.: Diogenes neu `…765bJQPbYhQ8FuqyJ1` (1179, 1173, 1217, dazu 1248 von Jerry) und Perikles neu `…78yCAANefHPCi2xGt1` (1249) gestartet; Diogenes 1199 (3,67 $) und Perikles 1246 (2,31 $) archiviert; Sokrates von Jerrys Anstoß (1222 Filmlauf frei?) unterrichtet
