@@ -517,3 +517,10 @@ func _schalter() -> void:
 	ok("Schalter", m.gk == null and m._auto_order(m.current())[0] != "GLUT", "alter Kampf ohne Regelkern")
 	var m2 := _kampf(_held(), ["goblin"])
 	ok("Schalter", m2.gk != null and m2.current() == m2.all[0] and int(m2.all[0].gl.glut) == 3 and m2.gk.runde == 1, "an: Runde 1, der Held wählt mit drei Glut")
+	var log1: Array = m2.act(["attack", "g0"], _react())
+	ok("Schalter", not log1.is_empty() and m2.gk.runde == 2,
+		"an: der Befehl „Angriff“ des alten Kampfs wird ein Plan, dann Gegnerzug, Runde 2")
+	m2.set_autopilot(true)
+	var r0: int = m2.gk.runde
+	m2.proceed(_react())
+	ok("Schalter", m2.gk.runde == r0 + 1 or m2.outcome != "ONGOING", "an: Autopilot spielt über proceed den Vorschlag")

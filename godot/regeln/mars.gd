@@ -1140,8 +1140,8 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 	var f := current()
 	assert(f.side == "PARTY" and f.standing())
 	chosen = true
-	if glut:     # 930.6: ["GLUT", Plan] (glut.gd held_zug), sonst der Vorschlag
-		gk.handeln(f, o[1] if o[0] == "GLUT" else gk.vorschlag(f))
+	if glut:     # 930.6: ["GLUT", Plan] (glut.gd held_zug); die Befehle des alten Kampfs übersetzt glut.gd plan_aus
+		gk.handeln(f, o[1] if o[0] == "GLUT" else gk.plan_aus(f, o))
 		return _take_log()
 	_perform(f, o)
 	if o[0] == "swap" or o[0] == "draw":
@@ -1153,7 +1153,9 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 
 func proceed(react: Callable = Callable()) -> Array:
 	assert(outcome == "ONGOING")
-	if glut:     # 930.6: der Regelkern hält erst an der nächsten Wahl der Gruppe
+	if glut:     # 930.6: der Regelkern hält an jeder Wahl der Gruppe; Autopilot und Söldner spielen den Vorschlag
+		if pilot_next():
+			return act(_auto_order(current()), react)
 		return _take_log()
 	_skip_to_choice(react)
 	return _take_log()

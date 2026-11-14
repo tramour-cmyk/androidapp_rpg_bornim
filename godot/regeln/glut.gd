@@ -420,6 +420,26 @@ func vorschlag(f, politik := "S") -> Dictionary:
 	return {"tun": WAFFE, "ziel": t.id, "nachlegen": nl, "haltung": AUTO}
 
 
+## Ein Befehl der Knopfzeile des alten Kampfs als Plan, bis Stufe 2 die Bedienung baut (7.5: Angriff, Können, Tasche bleiben, Abwehr
+## wird Wehr, Flucht bleibt): der Rest geht in die vorgeschlagene Haltung
+func plan_aus(f, o: Array) -> Dictionary:
+	match String(o[0]):
+		"attack":
+			return {"tun": WAFFE, "ziel": String(o[1]), "haltung": AUTO}
+		"use":
+			var t = o[2] if o.size() > 2 and o[2] != null else f.id
+			return {"tun": String(o[1]), "ziel": String(t), "haltung": AUTO}
+		"drink":
+			return {"tun": WARTEN, "trank": String(o[1]), "trank_ziel": String(o[2]), "haltung": AUTO}
+		"flee":
+			return {"tun": FLIEHEN}
+		"guard", "wait":
+			return {"tun": WARTEN, "haltung": WEHR}
+		"swap":
+			return {"tun": WARTEN, "tausch": o[1], "haltung": AUTO}
+	return vorschlag(f)
+
+
 ## Was der Held in seinem Zug als Haltung wählen kann (Regel 7: Gegenschlag mit Nahkampfwaffe, Wachschuss mit Fernwaffe oder
 ## Angriffszauber mit Mana, Wehr immer)
 func haltungen(f) -> Array:
@@ -489,7 +509,7 @@ func held_zug(f, p: Dictionary) -> void:
 	if t == null or not t.standing():
 		_setze_haltung(f, glut, h)
 		return
-	var fern: bool = tun == "Z_FUNKEN" or (tun == WAFFE and _waffe(f).art == "fern")
+	var fern: bool = m.ZAUBER.has(tun) or _waffe(f).art == "fern"
 	if not fern and int(t.gl.ab) > NAH:
 		while int(t.gl.ab) > NAH and frei_ > 0:     # Regel 2
 			t.gl.ab -= 1
@@ -508,6 +528,14 @@ func held_zug(f, p: Dictionary) -> void:
 			if not f.standing() or m.outcome != "ONGOING":
 				return
 	var kosten := tun_kosten(String(m.ZAUBER.get(tun, m.HANDLUNG.get(tun, ""))))
+	if glut < kosten:     # zu wenig Glut für dieses Tun: der Rest geht in die Haltung
+		_setze_haltung(f, glut, h)
+		return
+	if tun != WAFFE and tun != "Z_FUNKEN":     # übrige Zauber und Kampfhandlungen rechnet der alte Kampf (Stufe 1: ohne Nachlegen)
+		m._use_skill(f, tun, t)
+		if m.outcome == "ONGOING":
+			_setze_haltung(f, glut - kosten, h)
+		return
 	var nd := mini(maxi(0, int(p.get("nachlegen", 0))), glut - kosten)     # Regel 7: Nachlegen
 	if nd > 0:
 		zaehler.nachgelegt += nd
