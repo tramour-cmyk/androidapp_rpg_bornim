@@ -110,3 +110,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:43 14.11.: Startsperre 22:43 Start Sokrates (Neustart-Meldung 22:42, 834495b12, von Hand)
 - 22:59 14.11.: Sokrates `…78nk7o9i84YZwfHK2i` (1256) archiviert (6,04 $ gesamt); Sokrates neu `…76zXUTypnQhewTvAHH` (1259); Weiter Homer 1258, 1260
 - 23:02 14.11.: Startsperre 23:02 Start Tom, Jerry (Neustart-Meldungen 22:58 und 22:56, von Hand)
+- 23:03 14.11.: Tom neu `…78AmAJeR5X7Ghv9VBH` (286), Jerry neu `…77eC8wuMDzUxc2ekY9` (1215); Tom `…77L1zKAAbcvm31GJBc` (5,62 $ auf 286) und Jerry `…75ZWJGSXdqrpx7xyzH` (29,98 $ auf 1222, Hinweis: Jerry-Kosten gehören auch zu 601 und 1215) archiviert
