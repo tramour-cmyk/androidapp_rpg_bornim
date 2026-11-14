@@ -43,6 +43,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 02:06 14.11.: Lauf 02:03: Spike 1119 `…7A5LHhpS9zYpLe4fcH`, Sokrates Stellungnahme 1092 `…79rZagJLmbFEy4HZhU` gestartet (erste Sperre fehlte für Sokrates, nachgetragen); archiviert Spike 1092 (2,92 $), Sokrates 930 (1,51 $; Frage 7 zu 930 wartet beim Chef).
 - 01:05 14.11.: Lauf 01:03 (Uhr 00:03 feuerte erst 01:03): Diogenes 1133 `…76bc5kiW8nS95txbzS` gestartet, alte Diogenes archiviert (2,46 $); Jerry Nachfolger nicht startbar (wartet auf Sokrates/Chef-Entscheid).
 - 00:48 14.11.: Gestartet Perikles 1244 `…75S17HaS9xkgwwowAA`, Spike 1092 `…781eUCpQ5SKa8cCpQV`, Sokrates 930 `…75kLBATHVTa9eEViaE` (Neustart); archiviert Spike 1040.1 (5,71 $), Sokrates alt (6,08 $). Ford-Lauf-Uhr 00:03 und 00:46 nicht gefeuert (Uhr verspätet); Läufe nach Meldungen.
 - 00:18 14.11.: Selbstneustart Ford abgeschlossen: neue Uhr trig_01GFLziADVCTDvXcdVsK1YTL, alte abgeschaltet, alter Ford archiviert (18,48 $ auf 1019); Diogenes 1133 gestartet `…79Lqfbd3HfnYzQhK8H`; Diogenes 1237 archiviert (3,67 $); Warnung Abgleich 6 Zeilen ohne Build; Wächter 1036.1 (Jerry, Stand nachziehen).
@@ -62,12 +63,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:11 13.11.: Lauf 21:11: Diogenes (1221) `…793z8sMWYVXpXFxWN6` und Spike (542) `…79QJ2L8FTAiLRqDERR` gestartet; Spike-Sitzung 1073 `…75Ua972r7RW38NGDkm` archiviert (9,90 $ auf 1073, Frage liegt als entscheiden/1073.md); Auftrag Diogenes 1221 (Perikles, ef95b0418); Ausschluss 882.2 entfällt (Ford)
 - 21:09 13.11.: Neustart Tom (d95c5f814): neue Sitzung `…79V5GMGr3APPAiYHqT` 21:08, Vorgängerin `…7845pb9Xd1sUtoWyjh` archiviert (38,20 $ auf 284, 1149; Ford)
 - 21:07 13.11.: Lauf 21:03: Perikles (1221) `…79PfKha1ofQ8tTivdv` gestartet; sonst NICHTS (Tom, Jerry, Tuffy belegt; Diogenes, Homer nichts Startbares; Spike kein zweites Muss bei Tom; Ford)
-- 21:05 13.11.: Neustart Sokrates (09def5d11): neue Sitzung `…79ojfheg8dzo9KaZF9` 21:04, Vorgängerin `…786drvmMKdc5ZKSe8v` archiviert (11,49 $ auf 1216, 1217, 1218, 1222, 1223; Ford)
-- 23:05 13.11.: Startsperre 23:05 Start Diogenes (lauf.py)
-- 23:20 13.11.: Startsperre 23:20 Start Jerry (Neustart 56ee4e9ba, Nachfolger „Jerry – 709.1: Grimmzahn reicht nicht an den Schild“, Mittel; Ford)
-- 23:29 13.11.: Startsperre 23:29 Start Sokrates (Neustart 28d978c49, Mittel; Ford)
-- 23:34 13.11.: Startsperre 23:34 Start Jerry (Neustart 207af913c, Nachfolger „Jerry – 709.1: Messlauf 465 auswerten“, Mittel; Jerrys Punkte in t285 sind „ohne dich“, kein Test des Chefs an einem Jerry-Build; Ford)
-- 23:50 13.11.: Startsperre 23:50 Start Sokrates (Neustart 1dc3da5d9, Mittel; Jerry ruht auf Wort des Chefs 23:35, nicht dafür starten, bis der Chef zu 930 entschieden hat; Ford)
 - 00:04 14.11.: Startsperre 00:04 Start Perikles, Spike (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
@@ -88,4 +83,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 14.11.: Marke Archiv session_01Hmoj781eUCpQ5SKa8cCpQV (lauf.py)
 - 02:04 14.11.: Marke Archiv session_01Hmoj75kLBATHVTa9eEViaE (lauf.py)
 - 02:05 14.11.: Startsperre 02:05 Start Sokrates (lauf.py, Stellungnahme 1092)
-- 02:06 14.11.: Lauf 02:03: Spike 1119 `…7A5LHhpS9zYpLe4fcH`, Sokrates Stellungnahme 1092 `…79rZagJLmbFEy4HZhU` gestartet (erste Sperre fehlte für Sokrates, nachgetragen); archiviert Spike 1092 (2,92 $), Sokrates 930 (1,51 $; Frage 7 zu 930 wartet beim Chef).
+- 03:04 14.11.: Startsperre 03:04 Start Spike (lauf.py)
+- 03:04 14.11.: Marke Archiv session_01Hmoj7A5LHhpS9zYpLe4fcH (lauf.py)
