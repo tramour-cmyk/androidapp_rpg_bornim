@@ -265,7 +265,59 @@ func alle_zeichen() -> Array:
 	# Schaenke, Laden, Tempel an ihren Tueren: Raeume gelten als bekannt (MapMarks.visited: INTERIOR immer)
 	for d in blatt().get("dienste", []):
 		alle.append({"karte": d["karte"], "x": d["x"], "y": d["y"], "art": d["art"], "text": d["name"]})
+	# 785.8 (MapMarks.of 76–80, MapPeople.services 130–131): das Ziel eines angenommenen Aushangs, sobald der Held die Stelle sah
+	# (Gwennas Ring in der Truhe der Höhle, Jorins Fetzen in der Mitte des Steinkreises), verblasst, wenn erledigt; jedes gesehene Lagerfeuer
+	for j in Auftraege.alle():
+		var fertig := Auftraege.erledigt(z, j)
+		if not (fertig or Auftraege.angenommen(z, j)): continue
+		var zl := ziel_von(String(j["id"]))
+		if not zl.is_empty() and gesehen(z, String(zl["karte"]), int(zl["x"]), int(zl["y"])):
+			alle.append({"karte": zl["karte"], "x": zl["x"], "y": zl["y"], "art": "GOAL", "text": j["titel"], "fertig": fertig})
+	for f in feuer():
+		if gesehen(z, String(f["karte"]), int(f["x"]), int(f["y"])):
+			alle.append({"karte": f["karte"], "x": f["x"], "y": f["y"], "art": "FIRE", "text": {"de": "Lagerfeuer", "en": "Campfire"}})
 	return alle
+
+static var _kj := {}
+static func _karten() -> Dictionary:
+	if _kj.is_empty() and FileAccess.file_exists("res://daten/karten.json"):
+		var j = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
+		if j is Dictionary: _kj = j["karten"]
+	return _kj
+
+## 785.8 (MapMarks.seen): Wald und Höhle kennt der Held je Kachel (Zustand.erkundet), Dorf und Räume ganz
+static func gesehen(z_: Zustand, id: String, x: int, y: int) -> bool:
+	var k: Dictionary = _karten().get(id, {})
+	if not String(k.get("art", "")) in ["FOREST", "CAVE"]: return true
+	var w := int(k["breite"])
+	var hex: String = String(z_.erkundet.get(id, ""))
+	var i := y * w + x
+	return i / 4 < hex.length() and (hex[i / 4].hex_to_int() >> (i % 4)) & 1 == 1
+
+## 785.8 (MapMarks.goal): wohin ein Aushang führt, wenn an eine Stelle; sonst leer
+static func ziel_von(job: String) -> Dictionary:
+	if job == "ring":
+		for t in _karten().get("cave", {}).get("kisten", []):
+			if String(t["id"]) == Auftraege.RING_CHEST: return {"karte": "cave", "x": int(t["x"]), "y": int(t["y"])}
+	elif job == "stones":
+		var zl: Array = _karten().get(Auftraege.RAG_MAP, {}).get("zeilen", [])
+		var sx := 0; var sy := 0; var n := 0
+		for y in zl.size():
+			for x in String(zl[y]).length():
+				if String(zl[y])[x] == "I": sx += x; sy += y; n += 1
+		if n > 0: return {"karte": Auftraege.RAG_MAP, "x": sx / n, "y": sy / n}
+	return {}
+
+## 785.8: die Lagerfeuer (Tile.CAMPFIRE „F“) aller Karten
+static func feuer() -> Array:
+	if not _bretter.has("@feuer"):
+		var out := []
+		for id in _karten():
+			var zl: Array = _karten()[id].get("zeilen", [])
+			for y in zl.size():
+				for x in String(zl[y]).length(): if String(zl[y])[x] == "F": out.append({"karte": id, "x": x, "y": y})
+		_bretter["@feuer"] = out
+	return _bretter["@feuer"]
 
 func _gefiltert(alle: Array) -> Array:
 	var gruppe := {"GIVER": "QUESTS", "GOAL": "QUESTS", "BOARD": "SERVICES", "PERSON": "PEOPLE", "INN": "SERVICES", "SHOP": "SERVICES", "TEMPLE": "SERVICES", "FIRE": "SERVICES"}
@@ -324,6 +376,20 @@ static func zeichne_dienst(c: CanvasItem, art: String, p: Vector2, r: float) -> 
 			for k in 8:
 				var a := k * PI / 4
 				c.draw_line(p + Vector2(cos(a), sin(a)) * r * 0.45, p + Vector2(cos(a), sin(a)) * r * 0.78, TINTE, 1.4 * dp, true)
+		"FIRE":   # 785.8 (MenuScreen.kt 558–566): eine rote Flamme aus drei Bögen über einem Scheit
+			var fl := []   # Array, nicht Packed: das Lambda füllt dieselbe Liste
+			var b3 := func(a: Vector2, b: Vector2, c2: Vector2, d: Vector2):
+				for i in range(1, 9):
+					var t := i / 8.0
+					fl.append(a * pow(1 - t, 3) + b * 3 * pow(1 - t, 2) * t + c2 * 3 * (1 - t) * t * t + d * pow(t, 3))
+			var q := func(x: float, y: float) -> Vector2: return p + Vector2(x, y) * r
+			fl.append(q.call(0, -0.75))
+			b3.call(q.call(0, -0.75), q.call(0.55, -0.2), q.call(0.5, 0.45), q.call(0, 0.45))
+			b3.call(q.call(0, 0.45), q.call(-0.5, 0.45), q.call(-0.55, -0.1), q.call(-0.15, -0.35))
+			b3.call(q.call(-0.15, -0.35), q.call(-0.1, -0.1), q.call(0.05, -0.25), q.call(0, -0.75))
+			fl.pop_back()
+			c.draw_colored_polygon(PackedVector2Array(fl), Color("a8452a"))
+			c.draw_line(q.call(-0.55, 0.6), q.call(0.55, 0.6), TINTE, 1.8 * dp, true)
 
 # 62n: ein Schild ueber der Tuer: Ausleger, zwei kurze Ketten, das Brett, darauf, was das Haus ist
 static func zeichne_schild(c: CanvasItem, name: String, p: Vector2, r: float) -> void:
@@ -525,6 +591,11 @@ class Kartenblatt extends Flaeche:
 				draw_rect(rr, Color("e8dcc0"))
 				draw_rect(rr, Kartenreiter.TINTE, false, 2 * dp)
 				for k in range(1, 4): draw_line(rr.position + Vector2(r * 0.35, r * 0.5 * k), rr.position + Vector2(rr.size.x - r * 0.35, r * 0.5 * k), Color(Kartenreiter.TINTE, 0.6), 1.2 * dp)
+			elif m["art"] == "GOAL":   # 785.8 (MenuScreen.kt 432–437): eine Raute in Gold mit Tusche
+				var raute := PackedVector2Array([c + Vector2(0, -r * 1.5), c + Vector2(r * 1.1, 0), c + Vector2(0, r * 1.5), c + Vector2(-r * 1.1, 0)])
+				draw_colored_polygon(raute, Color(Color("d9bc82"), a))
+				raute.append(raute[0])
+				draw_polyline(raute, Color(Kartenreiter.TINTE, a), 2 * Kartenreiter.DP, true)
 			else: Kartenreiter.zeichne_dienst(self, String(m["art"]), c, r)
 		if hier: Kartenreiter.zeichne_held(self, an(int(reiter.ort["x"]), int(reiter.ort["y"])), String(reiter.ort.get("blick", "DOWN")))
 
