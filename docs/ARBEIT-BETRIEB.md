@@ -42,6 +42,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 08:06 14.11.: 1245 erledigt: Zeile Ford-Starter oben richtiggestellt (Geprüft an: Commit nach Push).
+- 08:05 14.11.: Lauf 08:03: Tom alt archiviert (21,01 $ auf 285), Spike 1240 (1,41 $), Diogenes 1240 (1,06 $) archiviert; nichts zu starten; Nachhalten: Eingang leer, 6 Abgleich-Zeilen Jerry (811, 876, 923, 971, 644a.1, 1060) ohne Build, lautlos.
 - 07:49 14.11.: Neustart Tom: `…77znPDfxf4G6yvCC6Q` gestartet (Commit 919bb6cb0); alter Tom `…78jYddD6WmJoPRmjVB` (20,74 $ auf 285 zu buchen) noch aktiv, archivieren im nächsten Lauf, sobald idle und 60 s ruhig. Diogenes/Spike 1240 fertig.
 - 07:12 14.11.: Lauf nach Spike-Meldung: Diogenes 1240 `…77ehu4FbYQdvND3s1N` gestartet; Diogenes 1133 archiviert (0,69 $). Spike 1240 fertig, endet selbst.
 - 07:05 14.11.: Lauf 07:04: Spike 1240 `…77uoFJEbXdzXu8YKzd` gestartet; Spike 1234 archiviert (1,66 $, fertig).
@@ -60,8 +62,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:28 13.11.: Neustart Jerry (56ee4e9ba): neue Sitzung `…78sHDY7SBKAQW8Re2t` 23:21 (Mittel), Vorgängerin `…79cBeV1g9SXzdarjgt` archiviert (7,63 $ auf 709.1, 1072); sie schrieb nach dem Neustart noch 6 Minuten weiter im Vorrat, Hinweis geschickt, dann beendet (Ford)
 - 23:07 13.11.: Lauf 23:03: Diogenes (1237) `…783kjRUn2ac4Ks2Yhg` gestartet (Umgebung Mittel), Vorgängerin `…75tnffFfTRAMHuhTAy` archiviert (2,13 $ auf 1175); Starts Homer 1235 und Perikles (Parserfehler) mit --ohne verhindert, Vorgänge 1238, 1239 an Perikles; Ausschlussliste zusätzlich `--ohne "1235:…"` und `--ohne "Perikles:…"` bis dahin (Ford)
 - 22:31 13.11.: Neustart Jerry (a1a10e156): neue Sitzung `…79cBeV1g9SXzdarjgt` 22:30 (Umgebung Mittel), Vorgängerin `…76yF68cGVE8dBiecQT` archiviert (42,35 $ auf 709.1, 1072; Ford)
-- 22:05 13.11.: Lauf 22:03: Diogenes (1175) `…75tnffFfTRAMHuhTAy`, Homer (1235) `…79TDPJJvAZwbQx6fLi`, Perikles (1230) `…78AKcmYZYcEtyFxx5V` gestartet; Vorgänger `…793z8s…` (1,97 $ auf 1221), `…79opda…` (6,80 $ auf 1229, 1232), `…79PfKh…` (3,40 $ auf 1221) archiviert; Listenstatus „pending“ der Sokrates-Sitzung war veraltet, get_session zeigte idle (Ford)
-- 21:44 13.11.: Neustart Tom (949045da8): neue Sitzung `…78jYddD6WmJoPRmjVB` 21:43, Vorgängerin `…79V5GMGr3APPAiYHqT` archiviert (17,06 $ auf 285, 1092); PR-ABO #204 an die neue Sitzung (Ford)
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
@@ -87,5 +87,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:48 14.11.: Startsperre 07:48 Start Tom (Neustart 919bb6cb0, Tom 07:46, Chef seit 23:30 ohne Rückmeldung zu t285; Nachfolger übernimmt PR-Abo #204)
 - 08:04 14.11.: Marke Nachhalten 14.11. (lauf.py)
 - 08:04 14.11.: Marke Abgleich ganz 14.11. (lauf.py)
-- 08:05 14.11.: Lauf 08:03: Tom alt archiviert (21,01 $ auf 285), Spike 1240 (1,41 $), Diogenes 1240 (1,06 $) archiviert; nichts zu starten; Nachhalten: Eingang leer, 6 Abgleich-Zeilen Jerry (811, 876, 923, 971, 644a.1, 1060) ohne Build, lautlos.
-- 08:06 14.11.: 1245 erledigt: Zeile Ford-Starter oben richtiggestellt (Geprüft an: Commit nach Push).
+- 08:05 14.11.: Startsperre 08:05 Start Diogenes (lauf.py)
