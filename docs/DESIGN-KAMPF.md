@@ -301,6 +301,8 @@ Ob der Kampf abwechslungsreich, zu schwer oder langweilig ist, zeigt erst das Sp
 
 ## Entwurf zur Entscheidung: Handgemenge und Abstand (930)
 
+**Abgelöst als Bauvorschlag durch [Glutsystem](DESIGN-GLUT.md) (14.11.); dieser Abschnitt bleibt als Verlauf.**
+
 Regelseite Sokrates, 11.11. Sie gilt erst, wenn der Chef entschieden hat. Der Weg dahin: gegenlesen (Perikles 930.2 und 930.4, Homer 930.1 und 962, eingearbeitet), dann Rechnung und Film von Jerry (930.3), dann die Datei in `entscheiden/`. Quellen sind die Wortlaute des Chefs vom 11.11. (12:17–14:46; bis 12:56 in `LISTE-IDEEN.md` unter „Handgemenge“, danach hier), Homers Ideen (ebenda) sowie der Code auf `claude/tom-870-4-held` (`9a34fec2a`). Die Fassung vor 930.4 steht in Git (`04ecc9223`).
 
 **Heute:** Die Regeln kennen keinen Abstand. Es gibt nur zwei Reihen je Seite (72.11). Nahkampf trifft die vordere Reihe, solange dort jemand steht; Fernkampf trifft jeden (`mars.gd` 939–945). Dass die Figuren vorlaufen und wieder zurückgehen, passiert nur im Bild (F7, `figur.gd` 1963–1998). „Auf Abstand“ ist nur eine Haltung mit Gegenstoß, Tempo je Gegner gibt es nicht, und die Simulation 444 rechnet ohne Reihen und ohne Abstand. Das Hin und Her kostet heute die meiste Zeit einer Runde (F9: Held 2,4 s, Wolf 3,4 s), ohne dass dabei etwas entschieden wird.

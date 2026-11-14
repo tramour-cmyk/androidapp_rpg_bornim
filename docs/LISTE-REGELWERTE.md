@@ -2,13 +2,13 @@
 
 Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystems, mit der das Spiel heute rechnet, je Block die Regel als Satz (`DESIGN-BRS.md`), Formel und Erläuterung, die heutige Zahl und wo sie im Spiel gelesen wird. Aus `tools/sim444/werte.json` mit `python3 tools/regelwerte.py`.
 
-**Stand:** `werte.json` aus Commit `a94a9efb2` auf `main`; 27 Blöcke.
+**Stand:** `werte.json` aus Commit `080f151e8` auf `main`; 28 Blöcke.
 
 - **Ändern:** nur in `werte.json` auf einem Arbeitszweig (das Spiel liest die Datei, also testet der Chef); nach dem Mischen auf `main` das Werkzeug laufen lassen und die Seite committen. Wer Einfluss nehmen will, nennt Block und Wert (z. B. `ueben.bedarf_teiler`).
 - **Herkunft** je Block: N = Nachschlagewerk DESIGN-BRS.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).
 - **wirkt in:** Fundstellen des Schlüssels in Dateien, die den Block lesen (Spielcode ohne Tests, dazu die Simulation `tools/sim444`); Pfade unter `godot/`, „Sim.“ = die Simulation `tools/sim444` liest den Wert auch; „–“ heißt: im Code nicht unter diesem Namen gefunden (oft nur Simulation, über eine Hilfsfunktion gelesen oder noch nicht gebaut).
 
-**Blöcke:** [lauf](#lauf), [held](#held), [kampf](#kampf), [proben](#proben), [gegenwirkung](#gegenwirkung), [erfahrung](#erfahrung), [ueben](#ueben), [waffen](#waffen), [schulen](#schulen), [zauber](#zauber), [handlungen](#handlungen), [ruestungen](#ruestungen), [herkuenfte](#herkuenfte), [monster](#monster), [merkmale](#merkmale), [wirtschaft](#wirtschaft), [fortschritt](#fortschritt), [erschaffung](#erschaffung), [absichten](#absichten), [kampftraenke](#kampftraenke), [kampftasche](#kampftasche), [welt](#welt), [zustaende](#zustaende), [gegenstaende](#gegenstaende), [monsterregeln](#monsterregeln), [absicht_zusatz](#absicht_zusatz), [kennungen](#kennungen)
+**Blöcke:** [lauf](#lauf), [held](#held), [kampf](#kampf), [proben](#proben), [gegenwirkung](#gegenwirkung), [erfahrung](#erfahrung), [ueben](#ueben), [waffen](#waffen), [schulen](#schulen), [zauber](#zauber), [handlungen](#handlungen), [ruestungen](#ruestungen), [herkuenfte](#herkuenfte), [monster](#monster), [merkmale](#merkmale), [wirtschaft](#wirtschaft), [fortschritt](#fortschritt), [erschaffung](#erschaffung), [absichten](#absichten), [rast_1046](#rast_1046), [kampftraenke](#kampftraenke), [kampftasche](#kampftasche), [welt](#welt), [zustaende](#zustaende), [gegenstaende](#gegenstaende), [monsterregeln](#monsterregeln), [absicht_zusatz](#absicht_zusatz), [kennungen](#kennungen)
 
 ## lauf
 
@@ -40,8 +40,8 @@ Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystem
 | `leben_basis` | 10 | – | `regeln/brs_held.gd:271`, `regeln/brs_kampf.gd:107`, Sim. |
 | `leben_je_stufe` | 5 | – | `regeln/brs_held.gd:271`, `regeln/brs_kampf.gd:107`, Sim. |
 | `leben_je_zaehigkeit` | 2 | – | `regeln/brs_held.gd:271`, `regeln/brs_kampf.gd:107`, +1, Sim. |
-| `mana_basis` | 10 | – | `regeln/brs_held.gd:272`, `regeln/mars.gd:636`, Sim. |
-| `mana_je_wille` | 5 | – | `regeln/brs_held.gd:272`, `regeln/mars.gd:636`, +1, Sim. |
+| `mana_basis` | 10 | – | `regeln/brs_held.gd:272`, `regeln/mars.gd:643`, Sim. |
+| `mana_je_wille` | 5 | – | `regeln/brs_held.gd:272`, `regeln/mars.gd:643`, +1, Sim. |
 | `kapitelgrenze` | 6 | – | `regeln/brs.gd:147`, Sim. |
 | `rangdecken_kapitel` | 24, 49 | Kapitel 1: Anfaenger bis 24, Bewaehrungsprobe, dann Geselle bis 49 (N 3, N 5 Tabelle 'Kapitel als Takt') | `regeln/brs_fertigkeit.gd:18`, Sim. |
 
@@ -61,19 +61,19 @@ Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystem
 | `stufenfaktor_je_stufe` | 0,1 | – | `regeln/brs.gd:74`, Sim. |
 | `fertigkeit_im_schaden_je_punkt` | 0,01 | – | `regeln/brs.gd:90`, `regeln/brs_held.gd:307`, Sim. |
 | `ruestungsfertigkeit_im_abzug_je_punkt` | 0,01 | – | `regeln/brs_held.gd:354`, `regeln/brs_kampf.gd:149`, +1, Sim. |
-| `glueckstreffer_anteil` | 0,01 | – | `regeln/brs.gd:88`, `regeln/brs_kampf.gd:169`, Sim. |
-| `kritisch_faktor` | 1,5 | 952 D (Chef 11.11., 20:03): kritisch in Prozent = zweiter Grundwert x Fertigkeit / 50, nie der Grundwert des Schadens; welcher Grundwert: 'kritisch' je Waffengruppe und Schule (null = nie kritisch) | `regeln/brs.gd:92`, `regeln/mars.gd:2311`, Sim. |
+| `glueckstreffer_anteil` | 0,01 | – | `regeln/brs.gd:88`, `regeln/brs_kampf.gd:170`, Sim. |
+| `kritisch_faktor` | 1,5 | 952 D (Chef 11.11., 20:03): kritisch in Prozent = zweiter Grundwert x Fertigkeit / 50, nie der Grundwert des Schadens; welcher Grundwert: 'kritisch' je Waffengruppe und Schule (null = nie kritisch) | `regeln/brs.gd:92`, `regeln/mars.gd:2373`, Sim. |
 | `kritisch_je_punkt` | 1 | – | `regeln/brs_held.gd:298`, Sim. |
 | `kritisch_fertigkeit_teiler` | 50 | – | `regeln/brs_held.gd:298`, Sim. |
-| `ausweichen_je_gewandtheit` | 2 | – | `regeln/brs_kampf.gd:130`, `skripte/menue.gd:412`, Sim. |
-| `fernkampf_treffer_je_wahrnehmung` | 1 | – | `regeln/mars.gd:2301`, `skripte/menue.gd:413`, Sim. |
+| `ausweichen_je_gewandtheit` | 2 | – | `regeln/brs_kampf.gd:130`, `skripte/menue.gd:452`, Sim. |
+| `fernkampf_treffer_je_wahrnehmung` | 1 | – | `regeln/mars.gd:2363`, `skripte/menue.gd:453`, Sim. |
 | `parieren_anteil_waffenfertigkeit` | 0,5 | – | `regeln/brs_kampf.gd:135`, Sim. |
 | `streuung` | 0,2 | A: Schaden x gleichverteilt 0,8 bis 1,2 ('kleine Streuung') | `regeln/brs.gd:93`, Sim. |
 | `held_schlaegt_zuerst` | ja | – | – |
 | `schaden_runden` | ja | – | `regeln/brs.gd:101`, Sim. |
-| `leicht_ab` | 4 | 870.6 (LISTE-UMZUG-BRS.md 5: leichter Gegner nach Stufenunterschied statt Herausforderungsgrad): ab so vielen Heldenstufen ueber dem staerksten Gegner (kein Boss) ist der Kampf leicht; der Held verliert dann nur die Haelfte, ab 'leicht_null_ab' nichts (alt EASY_GAP 4, 7, 10 nach CR, A) | `regeln/mars.gd:465` |
-| `leicht_halb_ab` | 7 | – | `regeln/mars.gd:731` |
-| `leicht_null_ab` | 10 | – | `regeln/mars.gd:731` |
+| `leicht_ab` | 4 | 870.6 (LISTE-UMZUG-BRS.md 5: leichter Gegner nach Stufenunterschied statt Herausforderungsgrad): ab so vielen Heldenstufen ueber dem staerksten Gegner (kein Boss) ist der Kampf leicht; der Held verliert dann nur die Haelfte, ab 'leicht_null_ab' nichts (alt EASY_GAP 4, 7, 10 nach CR, A) | `regeln/mars.gd:472` |
+| `leicht_halb_ab` | 7 | – | `regeln/mars.gd:738` |
+| `leicht_null_ab` | 10 | – | `regeln/mars.gd:738` |
 
 - **erstschlag:** A: Held beginnt jede Runde; Hinterhalt (Schleichen) nicht gerechnet
 
@@ -81,24 +81,36 @@ Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystem
 
 - **Regel** (`DESIGN-BRS.md` „7. Kampf“): (5) Proben als Prozent wie die Trefferchance: Initiative und Flucht nach Gewandtheit, Abwehrprobe mit Zähigkeit (Gift, Krankheit), Wille (Furcht, Zauber), Gewandtheit (Flächen)
 - **Herkunft der Zahlen:** 870.5 (870a 5 A, DESIGN-BRS.md 7): Proben als Prozent wie die Trefferchance; alle Zahlen vorlaeufig (A, Jerry), die Simulation kennt sie noch nicht; Werte-Vorlage an den Chef vor B1
-- **Gelesen von:** `regeln/mars.gd`
+- **Gelesen von:** `regeln/mars.gd`, `skripte/geschichte.gd`, `tools/sim444/sim.py`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `basis` | 50 | – | `regeln/mars.gd:581`, `regeln/mars.gd:611` |
-| `je_punkt` | 5 | – | `regeln/brs_held.gd:363`, `regeln/mars.gd:581`, +2 |
-| `je_stufe` | 5 | – | `regeln/mars.gd:582`, `regeln/mars.gd:601`, +1 |
-| `min` | 5 | – | `regeln/mars.gd:583`, `regeln/mars.gd:1176` |
-| `max` | 95 | – | `regeln/mars.gd:583`, `regeln/mars.gd:1176` |
-| `gegner_grundwert` | 5 | – | `regeln/mars.gd:575` |
-| `einschuechtern_basis` | 35 | 841 (807 A, Goblin-Spaeher verjagen; vorlaeufig A, Jerry, wie Ueberreden 1037): Einschuechtern hat keinen Grundwert, also Chance = einschuechtern_basis + einschuechtern_je_punkt x Fertigkeitswert Einschuechtern + je_stufe x (eigene Stufe - Stufe des Spaehers), begrenzt auf min bis max; ohne Fertigkeit gleich stark 35 %, Startwert 10 = 45 %; Uebung je Versuch, gelungen oder nicht, gegen die Stufe des Spaehers | `regeln/mars.gd:1174` |
-| `einschuechtern_je_punkt` | 1 | – | `regeln/mars.gd:1174` |
-| `abwehr_mitte` | 11 | Abwehrprobe gegen einen Zustand mit Zaehigkeit (Gift, Betaeubung, Blindheit), Wille oder Gewandtheit gegen den staerksten stehenden Gegner; je Punkt Schwere des alten Rettungswurfs ueber abwehr_mitte ein Grundwertpunkt mehr dagegen | `regeln/mars.gd:1606` |
-| `initiative_streuung` | 100 | Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos | `regeln/mars.gd:602` |
-| `initiative_atemlos` | 25 | – | `regeln/mars.gd:604` |
+| `basis` | 50 | – | `regeln/mars.gd:588`, `regeln/mars.gd:618` |
+| `je_punkt` | 5 | – | `regeln/brs_held.gd:363`, `regeln/mars.gd:588`, +2 |
+| `je_stufe` | 5 | – | `regeln/mars.gd:589`, `regeln/mars.gd:608`, +2, Sim. |
+| `min` | 5 | – | `regeln/mars.gd:590`, `regeln/mars.gd:1227`, +1, Sim. |
+| `max` | 95 | – | `regeln/mars.gd:590`, `regeln/mars.gd:1227`, +1, Sim. |
+| `gegner_grundwert` | 5 | – | `regeln/mars.gd:582` |
+| `abwehr_mitte` | 11 | Abwehrprobe gegen einen Zustand mit Zaehigkeit (Gift, Betaeubung, Blindheit), Wille oder Gewandtheit gegen den staerksten stehenden Gegner; je Punkt Schwere des alten Rettungswurfs ueber abwehr_mitte ein Grundwertpunkt mehr dagegen | `regeln/mars.gd:1657` |
+| `initiative_streuung` | 100 | Reihenfolge nach je_punkt x Gewandtheit + je_stufe x Stufe + Zufall 0 bis initiative_streuung; ausser Atem minus initiative_atemlos | `regeln/mars.gd:609` |
+| `initiative_atemlos` | 25 | – | `regeln/mars.gd:611` |
+| `einschuechtern_basis` | 30 | – | `regeln/mars.gd:1225` |
+| `einschuechtern_je_punkt` | 0,6 | – | `regeln/mars.gd:1225` |
+| `ueberreden_basis` | 30 | – | – |
+| `ueberreden_je_punkt` | 0,6 | – | – |
+| `tiere_beruhigen_basis` | 30 | – | Sim. |
+| `tiere_beruhigen_je_punkt` | 0,6 | – | Sim. |
+| `handeln_basis` | 30 | – | – |
+| `handeln_je_punkt` | 0,6 | – | `skripte/laden.gd:14`, `skripte/laden.gd:15` |
 
 - **formel:** Chance = basis + je_punkt x (eigener Grundwert - Grundwert dagegen) + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; Gegner ohne Grundwerte zaehlen mit gegner_grundwert
 - **flucht:** Gewandtheit des Helden gegen die des schnellsten stehenden Gegners (Stufe dazu); betrunken mit Ungunst (merkmale umreissen)
+- **ohne_grundwert:** 1084 (1051 A, Chef 12.11., 22:18; DESIGN-BRS.md 3): Proben mit einer Fertigkeit ohne Grundwert (Ueberreden, Einschuechtern, Handeln, Tiere beruhigen), je Fertigkeit <name>_basis und <name>_je_punkt (Name klein, Umlaute als ae, oe, ue): Chance = basis + je_punkt x Fertigkeitswert + je_stufe x (eigene Stufe - Stufe dagegen), begrenzt auf min bis max; auf gleicher Stufe 30 / 44 / 59 / 74 / 90 % bei 0 / 24 / 49 / 74 / 100 Punkten; Uebung je Versuch, gelungen oder nicht. Einschuechtern: gegen die Stufe des Goblin-Spaehers (841, mars.gd); Ueberreden: gegen die Stufe der Figur aus ueberreden_stufe (Pim 1, Vorentscheid Sokrates 1084, 23:08), dazu minus <name>_gegen der Figur (1037, Pim 0; geschichte.gd probe_chance, Stufe dort noch nicht gerechnet); Tiere beruhigen: gegen die Stufe des Tiers, Ranggrenze wirtschaft tiere_beruhigen (sim.py, im Spiel noch nicht gebaut); Handeln: noch keine Probe im Spiel, die Preise rechnen mit welt handeln_je_punkt
+
+| Eintrag | Pim |
+|---|---|
+| ueberreden_gegen | 0 |
+| ueberreden_stufe | 1 |
 
 ## gegenwirkung
 
@@ -107,9 +119,9 @@ Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystem
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `rasend_schaden` | 1,5 | – | `regeln/mars.gd:1872` |
-| `blut_schaden` | 1,5 | – | `regeln/mars.gd:1874` |
-| `teilen_leben` | 0,5 | – | `regeln/mars.gd:2476` |
+| `rasend_schaden` | 1,5 | – | `regeln/mars.gd:1923` |
+| `blut_schaden` | 1,5 | – | `regeln/mars.gd:1925` |
+| `teilen_leben` | 0,5 | – | `regeln/mars.gd:2545` |
 
 ## erfahrung
 
@@ -205,38 +217,38 @@ Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystem
 
 ### zauber.Wundsegen
 
-Gelesen in: `regeln/mars.gd:218`, `regeln/mars.gd:223`, +1, Sim.
+Gelesen in: `regeln/mars.gd:224`, `regeln/mars.gd:229`, +1, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `schule` | Heilmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:630`, +3, Sim. |
-| `heilung` | 6 | Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte | `regeln/mars.gd:1577`, Sim. |
-| `kosten` | 5 | – | `regeln/mars.gd:557`, Sim. |
+| `schule` | Heilmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:637`, +3, Sim. |
+| `heilung` | 6 | Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte | `regeln/mars.gd:1628`, Sim. |
+| `kosten` | 5 | – | `regeln/mars.gd:564`, Sim. |
 | `heilen_unter` | 0,5 | – | Sim. |
 
 ### zauber.Bannschild
 
-Gelesen in: `regeln/mars.gd:218`, `regeln/mars.gd:223`, Sim.
+Gelesen in: `regeln/mars.gd:224`, `regeln/mars.gd:229`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `schule` | Schutzmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:630`, +3, Sim. |
+| `schule` | Schutzmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:637`, +3, Sim. |
 | `ruestung` | 2 | – | `regeln/brs_held.gd:509`, `regeln/brs_held.gd:514`, +10, Sim. |
-| `kosten` | 4 | – | `regeln/mars.gd:557`, Sim. |
+| `kosten` | 4 | – | `regeln/mars.gd:564`, Sim. |
 
 - **bannschild:** A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit
 
 ### zauber.Arkanpfeil
 
-Gelesen in: `regeln/mars.gd:217`, `regeln/mars.gd:221`, Sim.
+Gelesen in: `regeln/mars.gd:223`, `regeln/mars.gd:227`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `schule` | Evokation | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:630`, +3, Sim. |
+| `schule` | Evokation | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:637`, +3, Sim. |
 | `schaden` | 5 | – | `regeln/brs_held.gd:306`, `regeln/brs_held.gd:543`, +12, Sim. |
-| `kosten` | 3 | – | `regeln/mars.gd:557`, Sim. |
+| `kosten` | 3 | – | `regeln/mars.gd:564`, Sim. |
 | `art` | zauber | – | `regeln/brs_held.gd:326`, `regeln/brs_held.gd:338`, +13, Sim. |
-| `typ` | – | – | `regeln/mars.gd:987`, `regeln/mars.gd:1563`, +6, Sim. |
+| `typ` | – | – | `regeln/mars.gd:1038`, `regeln/mars.gd:1614`, +6, Sim. |
 | `ab` | 10 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
 | `ziele` | eins | – | – |
 
@@ -244,27 +256,27 @@ Gelesen in: `regeln/mars.gd:217`, `regeln/mars.gd:221`, Sim.
 
 ### zauber.Arkanhaut
 
-Gelesen in: `regeln/mars.gd:218`, `regeln/mars.gd:222`, Sim.
+Gelesen in: `regeln/mars.gd:224`, `regeln/mars.gd:228`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `schule` | Schutzmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:630`, +3, Sim. |
+| `schule` | Schutzmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:637`, +3, Sim. |
 | `ruestung` | 2 | – | `regeln/brs_held.gd:509`, `regeln/brs_held.gd:514`, +10, Sim. |
-| `kosten` | 5 | – | `regeln/mars.gd:557`, Sim. |
+| `kosten` | 5 | – | `regeln/mars.gd:564`, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
 
 - **arkanhaut:** A: bis Kampfende Ruestung +2 (mit Schutzmagie wie Bannschild), zusammen mit Bannschild
 
 ### zauber.Beistand
 
-Gelesen in: `regeln/mars.gd:218`, `regeln/mars.gd:223`, +1, Sim.
+Gelesen in: `regeln/mars.gd:224`, `regeln/mars.gd:229`, +1, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `schule` | Heilmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:630`, +3, Sim. |
-| `treffer` | 25 | – | `regeln/brs_kampf.gd:162`, `regeln/mars.gd:1441`, +5, Sim. |
-| `runden` | 4 | – | `regeln/mars.gd:1422`, Sim. |
-| `kosten` | 4 | – | `regeln/mars.gd:557`, Sim. |
+| `schule` | Heilmagie | – | `regeln/brs_held.gd:501`, `regeln/mars.gd:637`, +3, Sim. |
+| `treffer` | 25 | – | `regeln/brs_kampf.gd:163`, `regeln/mars.gd:1492`, +5, Sim. |
+| `runden` | 4 | – | `regeln/mars.gd:1473`, Sim. |
+| `kosten` | 4 | – | `regeln/mars.gd:564`, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
 
 - **beistand:** A: eigene Trefferchance +25 Prozentpunkte fuer 4 Runden
@@ -277,104 +289,104 @@ Gelesen in: `regeln/mars.gd:218`, `regeln/mars.gd:223`, +1, Sim.
 
 ### handlungen.Wuchtschlag
 
-Gelesen in: `regeln/mars.gd:203`, `regeln/mars.gd:209`, Sim.
+Gelesen in: `regeln/mars.gd:209`, `regeln/mars.gd:215`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Zweihänder | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `schaden_faktor` | 1,5 | – | `regeln/mars.gd:1439`, `regeln/mars.gd:1441`, +2, Sim. |
-| `treffer` | -15 | – | `regeln/mars.gd:1441`, `regeln/mars.gd:1444`, +4, Sim. |
+| `schaden_faktor` | 1,5 | – | `regeln/mars.gd:1490`, `regeln/mars.gd:1492`, +2, Sim. |
+| `treffer` | -15 | – | `regeln/mars.gd:1492`, `regeln/mars.gd:1495`, +4, Sim. |
 
 ### handlungen.Schädelstoß
 
-Gelesen in: `regeln/mars.gd:204`, `regeln/mars.gd:209`, Sim.
+Gelesen in: `regeln/mars.gd:210`, `regeln/mars.gd:215`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Stumpfe Waffen | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `treffer` | -10 | – | `regeln/mars.gd:1441`, `regeln/mars.gd:1444`, +4, Sim. |
-| `betaeubt_chance` | 0,3 | – | `regeln/mars.gd:1448`, Sim. |
-| `betaeubt_zuege` | 1 | – | `regeln/mars.gd:1449`, Sim. |
+| `treffer` | -10 | – | `regeln/mars.gd:1492`, `regeln/mars.gd:1495`, +4, Sim. |
+| `betaeubt_chance` | 0,3 | – | `regeln/mars.gd:1499`, Sim. |
+| `betaeubt_zuege` | 1 | – | `regeln/mars.gd:1500`, Sim. |
 
 ### handlungen.Durchschlag
 
-Gelesen in: `regeln/mars.gd:205`, `regeln/mars.gd:211`, Sim.
+Gelesen in: `regeln/mars.gd:211`, `regeln/mars.gd:217`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Armbrust | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `ruestung_anteil` | 0,5 | – | `regeln/mars.gd:1454`, Sim. |
+| `ruestung_anteil` | 0,5 | – | `regeln/mars.gd:1505`, Sim. |
 
 ### handlungen.Zwei auf einmal
 
-Gelesen in: `regeln/mars.gd:205`, `regeln/mars.gd:211`, Sim.
+Gelesen in: `regeln/mars.gd:211`, `regeln/mars.gd:217`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Wurfwaffen | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `wuerfe` | 2 | – | `regeln/mars.gd:1457`, Sim. |
-| `schaden_faktor` | 0,6 | – | `regeln/mars.gd:1439`, `regeln/mars.gd:1441`, +2, Sim. |
+| `wuerfe` | 2 | – | `regeln/mars.gd:1508`, Sim. |
+| `schaden_faktor` | 0,6 | – | `regeln/mars.gd:1490`, `regeln/mars.gd:1492`, +2, Sim. |
 
 ### handlungen.Kraft schöpfen
 
-Gelesen in: `regeln/mars.gd:203`, `regeln/mars.gd:208`, Sim.
+Gelesen in: `regeln/mars.gd:209`, `regeln/mars.gd:214`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | – | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
-| `alle` | ja | – | `regeln/brs_held.gd:496`, `regeln/mars.gd:549`, Sim. |
+| `alle` | ja | – | `regeln/brs_held.gd:496`, `regeln/mars.gd:556`, Sim. |
 | `ab` | 0 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `je_kampf` | 1 | – | `regeln/mars.gd:552`, Sim. |
-| `heilung_anteil` | 0,25 | – | `regeln/mars.gd:1431`, Sim. |
-| `unter` | 0,5 | – | `regeln/mars.gd:946`, Sim. |
+| `je_kampf` | 1 | – | `regeln/mars.gd:559`, Sim. |
+| `heilung_anteil` | 0,25 | – | `regeln/mars.gd:1482`, Sim. |
+| `unter` | 0,5 | – | `regeln/mars.gd:953`, Sim. |
 
 - **kraft:** einmal je Kampf, ganzer Zug: Leben + 25 % des Hoechstwerts, wenn unter der Haelfte
 
 ### handlungen.Finte
 
-Gelesen in: `regeln/mars.gd:203`, `regeln/mars.gd:208`, Sim.
+Gelesen in: `regeln/mars.gd:209`, `regeln/mars.gd:214`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Einhänder | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `naechster_treffer` | 30 | – | `regeln/mars.gd:1435`, Sim. |
+| `naechster_treffer` | 30 | – | `regeln/mars.gd:1486`, Sim. |
 
 - **finte:** ganzer Zug ohne Schaden, der naechste Schlag +30 Prozentpunkte
 
 ### handlungen.Stich aus dem Hinterhalt
 
-Gelesen in: `regeln/mars.gd:203`, `regeln/mars.gd:208`, Sim.
+Gelesen in: `regeln/mars.gd:209`, `regeln/mars.gd:214`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Dolche | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `schaden_faktor` | 1,5 | – | `regeln/mars.gd:1439`, `regeln/mars.gd:1441`, +2, Sim. |
+| `schaden_faktor` | 1,5 | – | `regeln/mars.gd:1490`, `regeln/mars.gd:1492`, +2, Sim. |
 | `nur_erster` | ja | – | – |
 
 - **hinterhalt:** der erste eigene Schlag im Kampf (oder gegen einen Ueberraschten) x 1,5
 
 ### handlungen.Auf Abstand
 
-Gelesen in: `regeln/mars.gd:204`, `regeln/mars.gd:209`, Sim.
+Gelesen in: `regeln/mars.gd:210`, `regeln/mars.gd:215`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Stangenwaffen | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `treffer` | -10 | – | `regeln/mars.gd:1441`, `regeln/mars.gd:1444`, +4, Sim. |
-| `gegenstoss_faktor` | 0,5 | – | `regeln/mars.gd:1840`, Sim. |
+| `treffer` | -10 | – | `regeln/mars.gd:1492`, `regeln/mars.gd:1495`, +4, Sim. |
+| `gegenstoss_faktor` | 0,5 | – | `regeln/mars.gd:1891`, Sim. |
 
 - **abstand:** Schlag mit -10 Prozentpunkten, dazu Haltung bis zum naechsten Zug: wer den Helden im Nahkampf angreift, laeuft zuerst in die Spitze (Schlag x 0,5)
 
 ### handlungen.Griff
 
-Gelesen in: `regeln/mars.gd:204`, `regeln/mars.gd:210`, Sim.
+Gelesen in: `regeln/mars.gd:210`, `regeln/mars.gd:216`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
@@ -385,7 +397,7 @@ Gelesen in: `regeln/mars.gd:204`, `regeln/mars.gd:210`, Sim.
 
 ### handlungen.Schildwall
 
-Gelesen in: `regeln/mars.gd:204`, `regeln/mars.gd:210`, Sim.
+Gelesen in: `regeln/mars.gd:210`, `regeln/mars.gd:216`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
@@ -396,13 +408,13 @@ Gelesen in: `regeln/mars.gd:204`, `regeln/mars.gd:210`, Sim.
 
 ### handlungen.Ruhige Hand
 
-Gelesen in: `regeln/mars.gd:205`, `regeln/mars.gd:210`, Sim.
+Gelesen in: `regeln/mars.gd:211`, `regeln/mars.gd:216`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `fertigkeit` | Bogen | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 25 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `naechster_treffer` | 30 | – | `regeln/mars.gd:1435`, Sim. |
+| `naechster_treffer` | 30 | – | `regeln/mars.gd:1486`, Sim. |
 
 - **ruhig:** Vorform von Zielschuss (Scharfschuetze): ganzer Zug, der naechste Schuss +30 Prozentpunkte
 
@@ -414,8 +426,8 @@ Gelesen in: Sim.
 |---|---|---|---|
 | `fertigkeit` | – | – | `regeln/brs_held.gd:331`, `regeln/brs_held.gd:355`, +4, Sim. |
 | `ab` | 0 | – | `regeln/brs_held.gd:496`, `regeln/brs_held.gd:501`, +2 |
-| `abwehr` | 15 | Haltung bis zum naechsten Zug: Abwehr +15, eigener Treffer -15 (alte 'Kampfstil Verteidigung'; Homer: nur wenn behalten); 444 Teil 7: ohne Wirkung, darum nicht frei (kein 'alle'), Chef entscheidet | `regeln/brs_held.gd:511`, `regeln/mars.gd:1607`, +1, Sim. |
-| `treffer` | -15 | – | `regeln/mars.gd:1441`, `regeln/mars.gd:1444`, +4, Sim. |
+| `abwehr` | 15 | Haltung bis zum naechsten Zug: Abwehr +15, eigener Treffer -15 (alte 'Kampfstil Verteidigung'; Homer: nur wenn behalten); 444 Teil 7: ohne Wirkung, darum nicht frei (kein 'alle'), Chef entscheidet | `regeln/brs_held.gd:511`, `regeln/mars.gd:1658`, +1, Sim. |
+| `treffer` | -15 | – | `regeln/mars.gd:1492`, `regeln/mars.gd:1495`, +4, Sim. |
 
 ## ruestungen
 
@@ -569,7 +581,7 @@ Gelesen in: Sim.
 | `schaden` | 7 | – | `regeln/brs.gd:55`, `regeln/brs.gd:118`, Sim. |
 | `angriff` | 25 | – | `regeln/brs.gd:54`, `regeln/brs.gd:118`, Sim. |
 | `abwehr` | 38 | – | Sim. |
-| `wachsamkeit` | 90 | – | Sim. |
+| `wachsamkeit` | 90 | – | – |
 | `art` | nah | – | `regeln/brs.gd:38`, Sim. |
 | `gebiet` | Höhle | – | `regeln/brs.gd:161` |
 | `boss` | ja | – | `regeln/brs.gd:51`, `regeln/brs.gd:62`, +2, Sim. |
@@ -592,13 +604,13 @@ Herkunft: Packs.kt guard: 2 Woelfe, 55 %, -1 auf W20, 1W4 gegen 2W6+1 des Leitwo
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `anzahl` | 2 | – | Sim. |
-| `chance` | 0,55 | – | `regeln/brs.gd:57`, `regeln/brs_kampf.gd:162`, +1, Sim. |
+| `chance` | 0,55 | – | `regeln/brs.gd:57`, `regeln/brs_kampf.gd:163`, +1, Sim. |
 | `angriff_verschiebung` | -10 | – | `regeln/brs.gd:54`, Sim. |
-| `schaden_anteil` | 0,31 | – | `regeln/brs.gd:55`, `regeln/mars.gd:1657`, Sim. |
-| `koerper` | Wolf | – | `regeln/brs.gd:49`, `regeln/mars.gd:764` |
+| `schaden_anteil` | 0,31 | – | `regeln/brs.gd:55`, `regeln/mars.gd:1708`, Sim. |
+| `koerper` | Wolf | – | `regeln/brs.gd:49`, `regeln/mars.gd:771` |
 | `leben_anteil` | 1 | – | `regeln/brs.gd:56` |
-| `angreifbar` | nein | – | `regeln/brs.gd:58`, `regeln/mars.gd:361` |
-| `erfahrung_anteil` | 0,25 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,25 je Wolf der Leibwache; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:37` |
+| `angreifbar` | nein | – | `regeln/brs.gd:58`, `regeln/mars.gd:368` |
+| `erfahrung_anteil` | 0,25 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,25 je Wolf der Leibwache; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:44` |
 
 #### merkmale.rudel.Jungwolf
 
@@ -609,13 +621,13 @@ Gelesen in: Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `anzahl` | 1, 2 | – | Sim. |
-| `chance` | 0,5 | – | `regeln/brs.gd:57`, `regeln/brs_kampf.gd:162`, +1, Sim. |
+| `chance` | 0,5 | – | `regeln/brs.gd:57`, `regeln/brs_kampf.gd:163`, +1, Sim. |
 | `angriff_verschiebung` | -10 | – | `regeln/brs.gd:54`, Sim. |
-| `schaden_anteil` | 0,29 | – | `regeln/brs.gd:55`, `regeln/mars.gd:1657`, Sim. |
-| `koerper` | Wolf | – | `regeln/brs.gd:49`, `regeln/mars.gd:764` |
+| `schaden_anteil` | 0,29 | – | `regeln/brs.gd:55`, `regeln/mars.gd:1708`, Sim. |
+| `koerper` | Wolf | – | `regeln/brs.gd:49`, `regeln/mars.gd:771` |
 | `leben_anteil` | 0,5 | – | `regeln/brs.gd:56` |
-| `angreifbar` | ja | – | `regeln/brs.gd:58`, `regeln/mars.gd:361` |
-| `erfahrung_anteil` | 0,3 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,3 je Jungwolf; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:37` |
+| `angreifbar` | ja | – | `regeln/brs.gd:58`, `regeln/mars.gd:368` |
+| `erfahrung_anteil` | 0,3 | vorlaeufig (870.5): wie alt Packs.kt xpShare 0,3 je Jungwolf; Werte-Vorlage an den Chef vor B1 | `regeln/lohn.gd:44` |
 
 ### merkmale.umreissen
 
@@ -632,14 +644,14 @@ Gelesen in: `regeln/brs.gd:53`, `regeln/brs_kampf.gd:38`, Sim.
 
 Herkunft: Monsters.kt SURPRISE_ATTACK, Battle.kt: erster Treffer +2W6 (zu 2W8+2 also x1,6) und betaeubt (Konstitution 12, etwa die Haelfte) fuer einen Zug; Sokrates 02.11., 19:0x: Held beginnt im Nachteil (Gegner zuerst); Morwens Rauch (D4.1): der erste Hieb geht fehl
 
-Gelesen in: `regeln/mars.gd:487`, `regeln/mars.gd:2505`, +1, Sim.
+Gelesen in: `regeln/mars.gd:494`, `regeln/mars.gd:2574`, +1, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `gegner_zuerst` | ja | – | `regeln/mars.gd:486`, Sim. |
-| `erster_treffer_faktor` | 1,6 | – | `regeln/mars.gd:2518`, Sim. |
-| `betaeubt_chance` | 0,5 | – | `regeln/mars.gd:1448`, Sim. |
-| `betaeubt_zuege` | 1 | – | `regeln/mars.gd:1449`, Sim. |
+| `gegner_zuerst` | ja | – | `regeln/mars.gd:493`, Sim. |
+| `erster_treffer_faktor` | 1,6 | – | `regeln/mars.gd:2587`, Sim. |
+| `betaeubt_chance` | 0,5 | – | `regeln/mars.gd:1499`, Sim. |
+| `betaeubt_zuege` | 1 | – | `regeln/mars.gd:1500`, Sim. |
 
 ## wirtschaft
 
@@ -652,14 +664,14 @@ Gelesen in: `regeln/mars.gd:487`, `regeln/mars.gd:2505`, +1, Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `punkte_variante` | ja | gerechnet mit 21 Punkten (Entscheidung 77), also den Herkuenften mit plus_variante | Sim. |
-| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1430`, Sim. |
-| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1431`, Sim. |
+| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1662`, Sim. |
+| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1663`, Sim. |
 | `verkauf_anteil` | 0,5 | alt: Haendler zahlt den halben Ladenpreis (Game.kt sellPrice) | Sim. |
 | `dorf_alle_kaempfe` | 8 | A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen | Sim. |
 
 ### wirtschaft.preise
 
-Herkunft: Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A
+Herkunft: Ladenpreise alt (Katalog 458 'alt'); Teile ohne alten Preis A; Verband 1037 A
 
 Gelesen in: Sim.
 
@@ -667,9 +679,10 @@ Gelesen in: Sim.
 |---|---|---|---|
 | `Heiltrank` | 25 | – | Sim. |
 | `Großer Heiltrank` | 75 | – | Sim. |
+| `Verband` | 8 | – | Sim. |
 | `Alchemistenfeuer` | 30 | – | Sim. |
 | `Weihwasser` | 25 | – | – |
-| `Fleisch` | 6 | – | – |
+| `Fleisch` | 6 | – | Sim. |
 | `Wolfsfell` | 24 | – | – |
 | `Hauer` | 20 | – | – |
 | `Spinnendrüse` | 30 | – | – |
@@ -724,17 +737,13 @@ Gelesen in: Sim.
 
 ### wirtschaft.tiere_beruhigen
 
-Herkunft: N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere. Zahlen A: Chance wie Trefferchance mit Basis 50 gegen die Wachsamkeit des Tiers; misslingt es, schlaegt das Tier zuerst
+Herkunft: N 8 und Entscheidung 58: vor dem Kampf, gelingt es, dreht das Tier ab, Erfahrung wie fuer einen Sieg; je hoeher der Rang, desto staerkere Tiere; misslingt es, schlaegt das Tier zuerst. Chance wie alle Proben ohne Grundwert (proben tiere_beruhigen_basis, 1084, 1051 A; vorher 50 + 0,5 je Punkt gegen die Wachsamkeit des Tiers)
 
 Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `arten` | Riesenratte, Wolf, Wildschwein, Riesenfledermaus | – | Sim. |
-| `chance_basis` | 50 | – | Sim. |
-| `chance_je_punkt` | 0,5 | – | Sim. |
-| `chance_min` | 5 | – | Sim. |
-| `chance_max` | 95 | – | Sim. |
 | `rang_bis_tierstufe` | (24, 2), (49, 4) | Anfaenger (bis 24) beruhigt Tiere bis Stufe 2, Geselle (bis 49) bis Stufe 4 | Sim. |
 
 ### wirtschaft.abnutzung
@@ -776,7 +785,7 @@ Gelesen in: Sim.
 
 Herkunft: Startausruestung je Waffen- und Ruestungsart: Gegenstand, Ladenpreis alt (Katalog 458), Material und Reparaturrang nach N 11 (A)
 
-Gelesen in: Sim.
+Gelesen in: `skripte/spiel.gd:1630`, `skripte/spiel.gd:1635`, Sim.
 
 - **holz:** A: Boegen repariert der Schmied (Geselle), N 11 nennt Boegen beim Gesellen ohne Werkstoff
 
@@ -786,7 +795,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Langschwert | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
+| `ding` | Langschwert | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
 | `preis` | 15 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -797,7 +806,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kurzbogen | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
+| `ding` | Kurzbogen | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
 | `preis` | 25 | – | Sim. |
 | `material` | Holz | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -808,7 +817,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Dolch | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
+| `ding` | Dolch | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
 | `preis` | 2 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -819,7 +828,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Streitkolben | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
+| `ding` | Streitkolben | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
 | `preis` | 5 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -830,7 +839,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kettenhemd | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
+| `ding` | Kettenhemd | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
 | `preis` | 50 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -839,7 +848,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Lederrüstung | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
+| `ding` | Lederrüstung | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Leder | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -850,7 +859,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Schild | – | `skripte/spiel.gd:837`, `skripte/spiel.gd:845`, +9, Sim. |
+| `ding` | Schild | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -948,21 +957,38 @@ Gelesen in: `regeln/brs_fertigkeit.gd:127`, `regeln/brs_held.gd:217`, +4
 
 ### absichten.je_art
 
-Gelesen in: `regeln/mars.gd:2063`
+Gelesen in: `regeln/mars.gd:2125`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `giant_rat` | (bite, 1) | – | `regeln/mars.gd:115` |
-| `giant_bat` | (bite, 1) | – | `regeln/mars.gd:116` |
+| `giant_rat` | (bite, 1) | – | `regeln/mars.gd:121` |
+| `giant_bat` | (bite, 1) | – | `regeln/mars.gd:122` |
 | `ghoul` | (bite, 1) | – | – |
-| `zombie` | (claw, 1) | – | `regeln/mars.gd:2394`, `regeln/mars.gd:2430` |
-| `wolf` | (pounce, 2), (circle, 1, rudel) | – | `regeln/mars.gd:109`, `regeln/mars.gd:2390` |
-| `dire_wolf` | wolf | – | `regeln/mars.gd:110` |
-| `giant_spider` | (venom, 1), (web, 1) | – | `regeln/mars.gd:111`, `regeln/mars.gd:350`, +2 |
-| `goblin_archer` | (aim, 1), (aim, 1, nicht_versteckt), (shadow, 1, nicht_versteckt) | – | `regeln/mars.gd:108`, `regeln/mars.gd:350` |
-| `goblin` | (slash, 2), (flank, 1, reihe) | – | `regeln/mars.gd:107` |
-| `goblin_shaman` | goblin | – | `regeln/mars.gd:118` |
-| `hobgoblin_captain` | (heavy, 2), (breakthrough, 1, reihe), (call, 1, ruf), (gather, 1, halbes_leben) | – | `regeln/mars.gd:106` |
+| `zombie` | (claw, 1) | – | `regeln/mars.gd:2456`, `regeln/mars.gd:2492` |
+| `wolf` | (pounce, 2), (circle, 1, rudel) | – | `regeln/mars.gd:115`, `regeln/mars.gd:2452` |
+| `dire_wolf` | wolf | – | `regeln/mars.gd:116` |
+| `giant_spider` | (venom, 1), (web, 1) | – | `regeln/mars.gd:117`, `regeln/mars.gd:357`, +2 |
+| `goblin_archer` | (aim, 1), (aim, 1, nicht_versteckt), (shadow, 1, nicht_versteckt) | – | `regeln/mars.gd:114`, `regeln/mars.gd:357` |
+| `goblin` | (slash, 2), (flank, 1, reihe) | – | `regeln/mars.gd:113` |
+| `goblin_shaman` | goblin | – | `regeln/mars.gd:124` |
+| `hobgoblin_captain` | (heavy, 2), (breakthrough, 1, reihe), (call, 1, ruf), (gather, 1, halbes_leben) | – | `regeln/mars.gd:112` |
+
+## rast_1046
+
+- **Herkunft der Zahlen:** 1046 (1038 A, R1, Chef 12.11., 16:24): Simulation, ob Kapitel 1 ohne Grinden durchspielbar bleibt, wenn die Kurze Erholung kein Leben mehr gibt. Zahlen der Rast aus godot/skripte/rast.gd (KURZ_MIN, LANG_MIN, ZIMMER_PREIS, kurz_heilung alt = Viertel aufgerundet) und spiel.gd (Niederlage: Leben und Mana voll, 4 Stunden); Verhalten des Spielers A
+- **Gelesen von:** – (im Code nicht unter dem Blocknamen gefunden)
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `kurz_minuten` | 120 | – | Sim. |
+| `lang_minuten` | 540 | – | Sim. |
+| `niederlage_minuten` | 240 | – | Sim. |
+| `zimmer_preis` | 5 | – | Sim. |
+| `start_minuten` | 480 | Spielbeginn 8 Uhr am Tag 1; Langes Ausruhen geht einmal je Spieltag (rast.gd lange_erlaubt), am Feuer frei, im Zimmer 5 Gold | Sim. |
+| `kaempfe_je_tag` | 4, 8, 12 | A: Kaempfe je Spieltag (eine Spielminute je Sekunde auf der Karte, zustand.gd uhr: ein Tag sind 24 Minuten Spiel); jede Zahl ein eigener Fall | Sim. |
+| `heilen_unter` | 0,5 | A: vor einem Kampf heilt der Held, wenn Leben oder Mana unter der Haelfte: R1 erst Verband, dann Braten, dann Langes Ausruhen, wenn heute noch nicht; alt Kurze Erholungen bis Leben voll | Sim. |
+| `verband_vorrat` | 3 | A: im Dorf nach den Heiltraenken Verbaende bis 3 im Beutel (Preis wirtschaft preise Verband, Wirkung welt verband) | Sim. |
+| `fleisch_essen` | ja | A: das erste Teil von Ratte, Wolf, Wildschwein ist Fleisch; der Held behaelt es als Braten (heilt welt heilung roast_meat) statt es zu verkaufen; der Erloes von 1 bis 2 Gold je Stueck bleibt in der Rechnung | Sim. |
 
 ## kampftraenke
 
@@ -971,9 +997,9 @@ Gelesen in: `regeln/mars.gd:2063`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `wirkung_grund` | 0,5 | A: Wirkung = 0,5 + 0,05 x Alchemie (857a A), hoechstens 2: ohne Alchemie 0,5 (halbe Wirkung statt Gift), Startwert 10 = 1, Decke Kapitel 1 (24) = 1,7, ab 30 = 2 | `regeln/mars.gd:1561`, Sim. |
-| `wirkung_je_alchemie` | 0,05 | – | `regeln/mars.gd:1561`, Sim. |
-| `wirkung_max` | 2 | – | `regeln/mars.gd:1561`, Sim. |
+| `wirkung_grund` | 0,5 | A: Wirkung = 0,5 + 0,05 x Alchemie (857a A), hoechstens 2: ohne Alchemie 0,5 (halbe Wirkung statt Gift), Startwert 10 = 1, Decke Kapitel 1 (24) = 1,7, ab 30 = 2 | `regeln/mars.gd:1612`, Sim. |
+| `wirkung_je_alchemie` | 0,05 | – | `regeln/mars.gd:1612`, Sim. |
+| `wirkung_max` | 2 | – | `regeln/mars.gd:1612`, Sim. |
 | `heiltraenke` | 2 | – | Sim. |
 | `proben_alchemie` | 10, 24, 30 | – | Sim. |
 | `alchemie_decke` | 24 | Spalte 'Alch. 24': wer mit Alchemie beginnt, hat sie bis zur Decke von Kapitel 1 geuebt (Sammeln ist nicht gerechnet) | Sim. |
@@ -990,7 +1016,7 @@ Gelesen in: Sim.
 
 ### kampftraenke.proben
 
-Gelesen in: `regeln/mars.gd:567`, Sim.
+Gelesen in: `regeln/mars.gd:574`, Sim.
 
 | Eintrag | Steinhaut | Berserkertrank | Alchemistenfeuer |
 |---|---|---|---|
@@ -1005,7 +1031,7 @@ Gelesen in: Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `preis` | 40 | – | Sim. |
-| `runden` | 2 | – | `regeln/mars.gd:1422`, Sim. |
+| `runden` | 2 | – | `regeln/mars.gd:1473`, Sim. |
 | `schutz` | 0,5 | – | Sim. |
 
 - **steinhaut:** A: zwei Runden kommt Schaden x (1 - 0,5 x Wirkung) an; Wirkung 2 = unverwundbar (Chef 18:55)
@@ -1017,7 +1043,7 @@ Gelesen in: Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `preis` | 40 | – | Sim. |
-| `runden` | 3 | – | `regeln/mars.gd:1422`, Sim. |
+| `runden` | 3 | – | `regeln/mars.gd:1473`, Sim. |
 | `schaden_plus` | 0,5 | – | Sim. |
 
 - **berserker:** A: drei Runden Waffenschaden x (1 + 0,5 x Wirkung); nicht fuer Zauber
@@ -1028,9 +1054,9 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `schaden` | 10 | – | `regeln/mars.gd:974`, `regeln/mars.gd:998`, +9, Sim. |
-| `fertigkeit` | Wurfwaffen | – | `regeln/mars.gd:549`, `regeln/mars.gd:675`, Sim. |
-| `typ` | feuer | – | `regeln/mars.gd:987`, `regeln/mars.gd:1563`, +6, Sim. |
+| `schaden` | 10 | – | `regeln/mars.gd:1025`, `regeln/mars.gd:1049`, +9, Sim. |
+| `fertigkeit` | Wurfwaffen | – | `regeln/mars.gd:556`, `regeln/mars.gd:682`, Sim. |
+| `typ` | feuer | – | `regeln/mars.gd:1038`, `regeln/mars.gd:1614`, +6, Sim. |
 
 - **feuer:** A: geworfen (Treffer mit Wurfwaffen und Wahrnehmung), Grundschaden 10 x Wirkung, Feuer; Preis aus 'wirtschaft'; geworfen, wenn sein Grundschaden den der Waffe oder des Zaubers uebersteigt
 
@@ -1038,10 +1064,10 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `schaden` | 10 | – | `regeln/mars.gd:974`, `regeln/mars.gd:998`, +9, Sim. |
-| `fertigkeit` | Wurfwaffen | – | `regeln/mars.gd:549`, `regeln/mars.gd:675`, Sim. |
-| `typ` | licht | – | `regeln/mars.gd:987`, `regeln/mars.gd:1563`, +6, Sim. |
-| `nur_untote` | ja | – | `regeln/mars.gd:928` |
+| `schaden` | 10 | – | `regeln/mars.gd:1025`, `regeln/mars.gd:1049`, +9, Sim. |
+| `fertigkeit` | Wurfwaffen | – | `regeln/mars.gd:556`, `regeln/mars.gd:682`, Sim. |
+| `typ` | licht | – | `regeln/mars.gd:1038`, `regeln/mars.gd:1614`, +6, Sim. |
+| `nur_untote` | ja | – | `regeln/mars.gd:935` |
 
 - **weih:** 870.6 A: wie Alchemistenfeuer (alt beide 2W6), Licht, wirkt nur gegen Untote (Homer 870.15); Preis aus 'wirtschaft'
 
@@ -1077,13 +1103,13 @@ Gelesen in: Sim.
 | `bemerken_min` | 2 | – | `regeln/brs_held.gd:378` |
 | `hinterhalt_je_wahrnehmung` | 0,075 | – | `regeln/brs_held.gd:383` |
 | `hinterhalt_min` | 0,4 | – | `regeln/brs_held.gd:383` |
-| `sinne_ab` | 3 | A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 %; unter sinne_ab (Volk senkt bis 2, 933) je Punkt 7,5 % haeufiger, Bemerken bleibt durch das Abrunden gleich (alt 15 % je Punkt Mod(WEI)) | `regeln/brs_held.gd:377`, `regeln/brs_held.gd:383` |
-| `wissen_verstand_ab` | 6 | 870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12) | `regeln/brs_held.gd:372`, `regeln/mars.gd:2403` |
-| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:710` |
+| `sinne_ab` | 3 | A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 %; unter sinne_ab (Volk senkt bis 2, 933) je Punkt 7,5 % haeufiger, Bemerken bleibt durch das Abrunden gleich (alt 15 % je Punkt Mod(WEI)) | `regeln/brs_held.gd:377`, `regeln/brs_held.gd:383`, +1 |
+| `wissen_verstand_ab` | 6 | 870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12) | `regeln/brs_held.gd:372`, `regeln/mars.gd:2465` |
+| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:837` |
 
 ### welt.heilung
 
-Gelesen in: `regeln/mars.gd:1577`, Sim.
+Gelesen in: `regeln/mars.gd:1628`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
@@ -1091,7 +1117,17 @@ Gelesen in: `regeln/mars.gd:1577`, Sim.
 | `greater_potion` | 28 | – | Sim. |
 | `superior_potion` | 56 | – | – |
 | `remedy` | 5 | – | – |
-| `roast_meat` | 14 | – | – |
+| `roast_meat` | 14 | – | Sim. |
+
+### welt.verband
+
+Gelesen in: Sim.
+
+| Wert | heute | Formel, Erläuterung | wirkt in |
+|---|---|---|---|
+| `grund` | 5 | – | Sim. |
+| `je_heilkunde` | 0,2 | – | Sim. |
+| `uebung` | 1 | – | Sim. |
 
 ### welt.ausdauer
 
@@ -1100,10 +1136,10 @@ Gelesen in: `regeln/brs_held.gd:362`, `regeln/brs_held.gd:369`, +2
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `sekunden` | 6 | – | `regeln/brs_held.gd:363` |
-| `je_punkt` | 0,5 | – | `regeln/brs_held.gd:363`, `regeln/mars.gd:581`, +2 |
+| `je_punkt` | 0,5 | – | `regeln/brs_held.gd:363`, `regeln/mars.gd:588`, +2 |
 | `mitte` | 10 | – | `regeln/brs_held.gd:363` |
 | `je_zwei_stufen` | 1 | – | `regeln/brs_held.gd:364` |
-| `min` | 2 | – | `regeln/brs_held.gd:365`, `regeln/mars.gd:583`, +1 |
+| `min` | 2 | – | `regeln/brs_held.gd:365`, `regeln/mars.gd:590`, +1, Sim. |
 | `schwer_kraft` | 7 | – | `regeln/brs_held.gd:369` |
 
 ### welt.gebiet
@@ -1136,45 +1172,45 @@ Gelesen in: `regeln/brs_held.gd:107`, `regeln/brs_held.gd:468`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `sammeln_anteil` | 0,28 | A: Grak heilt sich beim Sammeln um diesen Anteil seines vollen Lebens (alt 2W10 gegen 6W10+6 Trefferpunkte, im Mittel 11 von 39 = 28 %; 0,5 nahm 444 bis 11 Punkte bei Stufe 5, 870.6 Tuffy 11.11.) | `regeln/mars.gd:1736` |
+| `sammeln_anteil` | 0,28 | A: Grak heilt sich beim Sammeln um diesen Anteil seines vollen Lebens (alt 2W10 gegen 6W10+6 Trefferpunkte, im Mittel 11 von 39 = 28 %; 0,5 nahm 444 bis 11 Punkte bei Stufe 5, 870.6 Tuffy 11.11.) | `regeln/mars.gd:1787` |
 
 ### zustaende.schaden_anteil
 
-Gelesen in: `regeln/mars.gd:1657`
+Gelesen in: `regeln/mars.gd:1708`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `POISON` | 0,08 | – | `regeln/mars.gd:139`, `regeln/mars.gd:151`, +8 |
-| `BURN` | 0,1 | – | `regeln/mars.gd:140`, `regeln/mars.gd:152`, +4 |
-| `BLEED` | 0,06 | – | `regeln/mars.gd:141`, `regeln/mars.gd:153`, +6 |
+| `POISON` | 0,08 | – | `regeln/mars.gd:145`, `regeln/mars.gd:157`, +8 |
+| `BURN` | 0,1 | – | `regeln/mars.gd:146`, `regeln/mars.gd:158`, +4 |
+| `BLEED` | 0,06 | – | `regeln/mars.gd:147`, `regeln/mars.gd:159`, +6 |
 
 ### zustaende.treffer
 
-Gelesen in: `regeln/mars.gd:1441`, `regeln/mars.gd:1444`, +4
+Gelesen in: `regeln/mars.gd:1492`, `regeln/mars.gd:1495`, +4
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `SLOW` | -10 | – | `regeln/mars.gd:143`, `regeln/mars.gd:155`, +2 |
-| `WEAK` | -10 | – | `regeln/mars.gd:144`, `regeln/mars.gd:156`, +4 |
-| `satt` | 5 | – | `regeln/mars.gd:2267`, `regeln/mars.gd:2282` |
+| `SLOW` | -10 | – | `regeln/mars.gd:149`, `regeln/mars.gd:161`, +2 |
+| `WEAK` | -10 | – | `regeln/mars.gd:150`, `regeln/mars.gd:162`, +4 |
+| `satt` | 5 | – | `regeln/mars.gd:2329`, `regeln/mars.gd:2344` |
 
 ### zustaende.schaden_faktor
 
-Gelesen in: `regeln/mars.gd:1439`, `regeln/mars.gd:1441`, +2
+Gelesen in: `regeln/mars.gd:1490`, `regeln/mars.gd:1492`, +2
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `WEAK` | 0,8 | – | `regeln/mars.gd:144`, `regeln/mars.gd:156`, +4 |
-| `satt` | 1,1 | – | `regeln/mars.gd:2267`, `regeln/mars.gd:2282` |
+| `WEAK` | 0,8 | – | `regeln/mars.gd:150`, `regeln/mars.gd:162`, +4 |
+| `satt` | 1,1 | – | `regeln/mars.gd:2329`, `regeln/mars.gd:2344` |
 
 ### zustaende.untot_zaeh
 
-Gelesen in: `regeln/mars.gd:610`
+Gelesen in: `regeln/mars.gd:617`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `basis` | 95 | – | `regeln/mars.gd:581`, `regeln/mars.gd:611` |
-| `je_prozent` | 1,1 | – | `regeln/mars.gd:611` |
+| `basis` | 95 | – | `regeln/mars.gd:588`, `regeln/mars.gd:618` |
+| `je_prozent` | 1,1 | – | `regeln/mars.gd:618` |
 
 ## gegenstaende
 
@@ -1187,21 +1223,21 @@ Gelesen in: `regeln/mars.gd:610`
 | `seltenheiten` | COMMON, UNCOMMON, RARE, VERY_RARE, EPIC, DIVINE | – | – |
 | `kapitel1_ungewoehnlich_ab_stufe` | 2 | – | `skripte/beute.gd:56` |
 | `kapitel1_ungewoehnlich_promille` | 150 | – | `skripte/beute.gd:57` |
-| `beute_chance` | 0,38 | Chance, dass ein gewoehnlicher Gegner ein Stueck fallen laesst (Loot.drops); Bosse eins der Decke 'besonders' ab selten und 0 bis 2 weitere, Elite eins ab ungewoehnlich | `skripte/beute.gd:190` |
-| `preis_grund_plus` | 10 | – | `skripte/beute.gd:316` |
-| `preis_je_stufe` | 0,2 | – | `skripte/beute.gd:316` |
+| `beute_chance` | 0,38 | Chance, dass ein gewoehnlicher Gegner ein Stueck fallen laesst (Loot.drops); Bosse eins der Decke 'besonders' ab selten und 0 bis 2 weitere, Elite eins ab ungewoehnlich | `skripte/beute.gd:194` |
+| `preis_grund_plus` | 10 | – | `skripte/beute.gd:320` |
+| `preis_je_stufe` | 0,2 | – | `skripte/beute.gd:320` |
 | `guete` | Normal, Gut, Meisterhaft | A: Guete beim Fund (gewoehnliche Beute, Bosse und besondere Funde); in Kapitel 1 als gewoehnliche Beute hoechstens Gut; Haendler verkaufen Normal; Einzelstuecke fest. Alt 'plus' (+1 ab selten) geht in Guete auf (870a 6 A) | `regeln/brs_held.gd:470`, `regeln/brs_held.gd:510`, +8 |
 | `guete_faktor` | 1, 1,15, 1,3 | A: Faktor auf den Grundschaden der Waffe und den Schutzwert von Ruestung und Schild (N 11 'hebt die Werte der Grundform') | `regeln/brs_held.gd:526`, `regeln/brs_held.gd:534`, +5 |
-| `guete_preis` | 1, 1,5, 2,5 | – | `skripte/beute.gd:315` |
+| `guete_preis` | 1, 1,5, 2,5 | – | `skripte/beute.gd:319` |
 | `guete_gewicht_beute` | 85, 12, 3 | – | `skripte/beute.gd:70` |
 | `guete_gewicht_besonders` | 50, 35, 15 | – | `skripte/beute.gd:70` |
 | `guete_decke_kapitel1` | Gut | – | `skripte/beute.gd:72` |
 | `zusatz_schritt_stufen` | 3 | – | `skripte/beute.gd:95` |
-| `zusatz_gewicht` | 2 | 644a D: beim Fund wuerfeln Grundwerte als Zusatzeigenschaft mit halbem Gewicht (zusatz_gewicht x grundwert_gewicht) gegenueber den uebrigen (zusatz_gewicht) | `skripte/beute.gd:118` |
-| `grundwert_gewicht` | 0,5 | – | `skripte/beute.gd:119` |
-| `beute_stufe_ueber_held` | 1 | 644a A: Beute eines Kampfs in der Stufe des staerksten Gegners, hoechstens Heldenstufe + beute_stufe_ueber_held (beute.gd beute_stufe); Gaben ebenso (beute.gd gabe_stufe) | `skripte/beute.gd:204`, `skripte/beute.gd:224` |
-| `laden_grundwert_ab_kapitel` | 2 | 644a D (N 11 'Kein Deckel'): Haendler verkaufen erst ab diesem Kapitel Stuecke mit einem Grundwert als Zusatzeigenschaft (beute.gd laden_ohne_grundwert) | `skripte/beute.gd:247` |
-| `fertigkeit_grund` | 10 | A (870a 6, kein Klassenfilter): Beute nach den Fertigkeiten des Helden gewichtet: Gewicht je Grundform = fertigkeit_grund + Wert der Fertigkeit, die sie braucht (Waffengruppe, Ruestung, Schild); ohne Fertigkeit fertigkeit_grund + fertigkeit_grund | `skripte/beute.gd:147` |
+| `zusatz_gewicht` | 2 | 644a D: beim Fund wuerfeln Grundwerte als Zusatzeigenschaft mit halbem Gewicht (zusatz_gewicht x grundwert_gewicht) gegenueber den uebrigen (zusatz_gewicht) | `skripte/beute.gd:119` |
+| `grundwert_gewicht` | 0,5 | – | `skripte/beute.gd:123` |
+| `beute_stufe_ueber_held` | 1 | 644a A: Beute eines Kampfs in der Stufe des staerksten Gegners, hoechstens Heldenstufe + beute_stufe_ueber_held (beute.gd beute_stufe); Gaben ebenso (beute.gd gabe_stufe) | `skripte/beute.gd:208`, `skripte/beute.gd:228` |
+| `laden_grundwert_ab_kapitel` | 2 | 644a D (N 11 'Kein Deckel'): Haendler verkaufen erst ab diesem Kapitel Stuecke mit einem Grundwert als Zusatzeigenschaft (beute.gd laden_ohne_grundwert) | `skripte/beute.gd:251` |
+| `fertigkeit_grund` | 10 | A (870a 6, kein Klassenfilter): Beute nach den Fertigkeiten des Helden gewichtet: Gewicht je Grundform = fertigkeit_grund + Wert der Fertigkeit, die sie braucht (Waffengruppe, Ruestung, Schild); ohne Fertigkeit fertigkeit_grund + fertigkeit_grund | `skripte/beute.gd:151` |
 
 - **spanne:** 644a A mit Spanne (Chef 12.11., 08:21; DESIGN-BRS.md 11 'Gegenstandsstufe'): die Gegenstandsstufe hebt die Zusatzeigenschaften in Schritten von zusatz_schritt_stufen Stufen (1-3 einmal, 4-6 doppelt, 7-9 dreifach ...); 'spanne' [von, bis] mal Schritt, beim Fund gewuerfelt, am Stueck steht die Zahl, die wirkt; Schutzwert 'wert' mal Schritt; Grundwert je Stueck immer +1; Fertigkeit (episch) +1, ab Stufe 6 +2. Rechnung tools/sim444/stufe644a.py
 
@@ -1213,22 +1249,22 @@ Gelesen in: `skripte/beute.gd:22`
 |---|---|---|---|
 | `COMMON` | 0 | – | `regeln/brs_held.gd:470`, `skripte/beute.gd:12`, +9 |
 | `UNCOMMON` | 1 | – | `skripte/beute.gd:12`, `skripte/beute.gd:58`, +4 |
-| `RARE` | 2 | – | `skripte/beute.gd:12`, `skripte/beute.gd:186` |
+| `RARE` | 2 | – | `skripte/beute.gd:12`, `skripte/beute.gd:190` |
 | `VERY_RARE` | 3 | – | `skripte/beute.gd:12` |
-| `EPIC` | 4 | – | `skripte/beute.gd:12`, `skripte/beute.gd:335` |
+| `EPIC` | 4 | – | `skripte/beute.gd:12`, `skripte/beute.gd:339` |
 | `DIVINE` | 5 | – | `skripte/beute.gd:12`, `skripte/beute.gd:40`, +1 |
 
 ### gegenstaende.gewicht
 
-Gelesen in: `regeln/brs_held.gd:320`, `skripte/beute.gd:43`
+Gelesen in: `regeln/brs_held.gd:320`, `skripte/beute.gd:43`, +1
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `COMMON` | 560 | – | `regeln/brs_held.gd:470`, `skripte/beute.gd:12`, +9 |
 | `UNCOMMON` | 270 | – | `skripte/beute.gd:12`, `skripte/beute.gd:58`, +4 |
-| `RARE` | 115 | – | `skripte/beute.gd:12`, `skripte/beute.gd:186` |
+| `RARE` | 115 | – | `skripte/beute.gd:12`, `skripte/beute.gd:190` |
 | `VERY_RARE` | 40 | – | `skripte/beute.gd:12` |
-| `EPIC` | 12 | – | `skripte/beute.gd:12`, `skripte/beute.gd:335` |
+| `EPIC` | 12 | – | `skripte/beute.gd:12`, `skripte/beute.gd:339` |
 | `DIVINE` | 3 | – | `skripte/beute.gd:12`, `skripte/beute.gd:40`, +1 |
 
 ### gegenstaende.mindeststufe
@@ -1237,7 +1273,7 @@ Gelesen in: `skripte/beute.gd:30`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `EPIC` | 3 | – | `skripte/beute.gd:12`, `skripte/beute.gd:335` |
+| `EPIC` | 3 | – | `skripte/beute.gd:12`, `skripte/beute.gd:339` |
 | `DIVINE` | 5 | – | `skripte/beute.gd:12`, `skripte/beute.gd:40`, +1 |
 
 ### gegenstaende.decke_beute
@@ -1265,15 +1301,15 @@ Gelesen in: `skripte/beute.gd:37`
 
 ### gegenstaende.preis_faktor
 
-Gelesen in: `skripte/beute.gd:315`
+Gelesen in: `skripte/beute.gd:319`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `COMMON` | 1 | – | `regeln/brs_held.gd:470`, `skripte/beute.gd:12`, +9 |
 | `UNCOMMON` | 3 | – | `skripte/beute.gd:12`, `skripte/beute.gd:58`, +4 |
-| `RARE` | 8 | – | `skripte/beute.gd:12`, `skripte/beute.gd:186` |
+| `RARE` | 8 | – | `skripte/beute.gd:12`, `skripte/beute.gd:190` |
 | `VERY_RARE` | 20 | – | `skripte/beute.gd:12` |
-| `EPIC` | 50 | – | `skripte/beute.gd:12`, `skripte/beute.gd:335` |
+| `EPIC` | 50 | – | `skripte/beute.gd:12`, `skripte/beute.gd:339` |
 | `DIVINE` | 150 | – | `skripte/beute.gd:12`, `skripte/beute.gd:40`, +1 |
 
 ### gegenstaende.zusatz
@@ -1342,6 +1378,7 @@ Gelesen in: `regeln/brs_held.gd:66`, `regeln/brs_held.gd:358`, +1
 |---|---|---|---|
 | `wert` | 1 | – | `regeln/brs_held.gd:339`, `regeln/brs_held.gd:356`, +2 |
 | `je_schritt` | ja | – | `skripte/beute.gd:104` |
+| `gewicht` | 0,5 | – | `regeln/brs_held.gd:320`, `skripte/beute.gd:43`, +1 |
 
 #### gegenstaende.zusatz.HP
 
@@ -1400,16 +1437,6 @@ Gelesen in: `regeln/brs_held.gd:78`, `regeln/brs_held.gd:79`, +5
 
 Gelesen in: `regeln/brs_held.gd:399`
 
-| Wert | heute | Formel, Erläuterung | wirkt in |
-|---|---|---|---|
-| `STR` | 1, 0 | – | `regeln/brs_held.gd:63`, `regeln/brs_held.gd:70`, +1 |
-| `DEX` | 1, 0 | – | `regeln/brs_held.gd:63`, `regeln/brs_held.gd:70`, +1 |
-| `CON` | 1, 0 | – | `regeln/brs_held.gd:64`, `regeln/brs_held.gd:70`, +1 |
-| `INT` | 1, 0 | – | `regeln/brs_held.gd:64`, `regeln/brs_held.gd:71`, +1 |
-| `WIS` | 1, 0 | – | `regeln/brs_held.gd:64`, `regeln/brs_held.gd:71`, +1 |
-| `CHA` | 1, 0 | – | `regeln/brs_held.gd:65`, `regeln/brs_held.gd:71`, +1 |
-| `AC` | 1, 1 | – | `regeln/brs_held.gd:66`, `regeln/brs_held.gd:358`, +1 |
-
 ### gegenstaende.erlaubt
 
 Gelesen in: `skripte/beute.gd:81`
@@ -1430,7 +1457,7 @@ Gelesen in: `skripte/beute.gd:81`
 
 ### gegenstaende.einzelstuecke
 
-Gelesen in: `skripte/beute.gd:233`, `skripte/beute.gd:326`
+Gelesen in: `skripte/beute.gd:237`, `skripte/beute.gd:330`
 
 | Eintrag | grundform | seltenheit | guete | zusatz |
 |---|---|---|---|---|
@@ -1483,10 +1510,10 @@ Gelesen in: `skripte/beute.gd:233`, `skripte/beute.gd:326`
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `heavy` | 0,82 | – | `regeln/mars.gd:50`, `regeln/mars.gd:245`, +2 |
-| `breakthrough` | 0,41 | – | `regeln/mars.gd:70`, `regeln/mars.gd:263` |
-| `venom` | 0,93 | – | `regeln/mars.gd:72`, `regeln/mars.gd:259`, +1 |
-| `aim` | 0,64 | – | `regeln/mars.gd:74`, `regeln/mars.gd:261` |
+| `heavy` | 0,82 | – | `regeln/mars.gd:56`, `regeln/mars.gd:251`, +2 |
+| `breakthrough` | 0,41 | – | `regeln/mars.gd:76`, `regeln/mars.gd:269` |
+| `venom` | 0,93 | – | `regeln/mars.gd:78`, `regeln/mars.gd:265`, +1 |
+| `aim` | 0,64 | – | `regeln/mars.gd:80`, `regeln/mars.gd:267` |
 
 ## kennungen
 

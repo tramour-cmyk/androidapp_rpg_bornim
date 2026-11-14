@@ -67,8 +67,13 @@ func _lauf() -> void:
 			lyra = l
 	if lyra == null and OS.get_environment("OHNE_MODELL") == "1":
 		lyra = _probe()     # am Rechner ohne Kaufmodelle: nur der Weg und die Zeiten, ohne Bild
+	# 1212 (Lauf 450: „keine Lyra in der Höhle“): der Nebel (505) blendet Leute auf nie gesehenen Kacheln aus; der Held steht erst
+	# seit wenigen Bildern dort. Bis 3 s warten, bis sie in Sicht ist; sonst den Grund nennen
+	for i in 90:
+		if lyra == null or lyra.visible: break
+		await process_frame
 	if lyra == null or not lyra.visible:
-		print("FILM10401 keine Lyra in der Höhle")
+		print("FILM10401 keine Lyra in der Höhle (%s)" % ("nicht auf der Karte" if lyra == null else "unsichtbar auf %s, da %s, Nebel %s" % [lyra.kachel, lyra.da, spiel.nebel.zeigt(lyra.kachel) if spiel.nebel else "-"]))
 		quit(1)
 		return
 	print("FILM10401 Lyra mit Wenden %s, Bewegung %s" % [str(lyra.wende_kurve.keys()), str(lyra.anim != null)])

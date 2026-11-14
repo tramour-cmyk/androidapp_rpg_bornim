@@ -5,7 +5,7 @@ Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen] [--liegt]
 Eine Tabelle, je Vorgang eine Zeile: Nr. · Titel · Besitzer · Kl. · Stand · wartet auf · Zweig · Build · Bereich · Kosten.
 Reihenfolge der Zeilen eines Besitzers = Vorrang. Vorräte `ARBEIT-*.md` haben keine Tabelle mehr, nur Übergabe, Pause und „Zu <Nr>“.
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür), dazu, warum andere Zeilen nicht startbar sind
-(--alle: jede Zeile); --stand: „offen n, Muss m, startbar s, gesperrt g“. „Pause bis <Zeit>“ oben im Vorrat sperrt die Rolle.
+(--alle: jede Zeile); --stand: „offen n, Muss m, startbar s, gesperrt g“. „Pause bis <Zeit>“ oben im Vorrat sperrt die Rolle; „Halt nur für <Nr>, …“ oder eine Pause ohne Datum mit Nummern nur diese Zeilen, eine Pause ohne Datum und Nummern nur die Kür (1246).
 Stand = ein Wort der Liste WORTE, dahinter nach Komma oder Doppelpunkt höchstens ein kurzer Zusatz; gerechnet wird nur mit dem Wort
 (und „in Arbeit bei Spike|Tuffy“, 433).
 **Automatik A „wartet auf“** (275.2): Feld mit Nummern, Rollen, Daten (TT.MM.[ HH:MM]) oder „Chef[ <Dateinummer>]“, mit Komma getrennt; „Chef Gespräch“ (1236) löst der Archiveintrag „- **<Nr>, Chef Gespräch …“.
@@ -692,6 +692,10 @@ def plan(rolle):
             mit = ueberschneidung(z[3], offen)
             return "%s; überschneidet sich mit %s" % (g, mit) if mit else None
         zs = [z[:4] + (sperre_779(z),) if sperre_779(z) else z for z in zs]
+    inhalt = lesen(VORRAT.get(rolle, ""))  # 1246: Halt nur für genannte Nummern; Pause ohne Datum und Nummern nur für die Kür
+    h = halt(inhalt)
+    if h: zs = [z[:4] + ("Halt (Vorrat oben)",) if z[4] is None and "fuer" not in z[3] and ist_frei(z[0], h) else z for z in zs]
+    if pause_ohne_datum(inhalt): zs = [z[:4] + ("Pause ohne Datum, nur Muss",) if z[4] is None and z[1] != "M" else z for z in zs]
     return [z for z in zs if z[1] not in ("–", "-")]
 
 GRENZE_UNGETESTET = 6
@@ -853,9 +857,33 @@ def pause(inhalt):
                 bis = datetime.datetime(JETZT.year, int(m.group(2)), int(m.group(1)), int(m.group(3) or 0), int(m.group(4) or 0))
             except ValueError: return m.group(0)[10:] + " (nicht lesbar)"
             if bis > JETZT: return m.group(0)[10:]
-        elif "Pause bis" in z and not re.search(r"Pause bis (?:\w{1,3},? )?\d\d\.\d\d\.", z) and z.lstrip().startswith(("**Pause", "Pause")):
-            return z.strip()[:40] + " (Datum nicht lesbar)"
+    return None  # 1246: Pause ohne Datum sperrt nicht mehr die ganze Rolle, sondern nur die genannten Nummern (halt), ohne Nummern nur die Kür
+
+def _kopf_pause_ohne_datum(inhalt):
+    for z in inhalt.splitlines()[:14]:
+        if "Pause bis" in z and not re.search(r"Pause bis (?:\w{1,3},? )?\d\d\.\d\d\.", z) and z.lstrip().startswith(("**Pause", "Pause")):
+            return z
     return None
+
+NUMMER = re.compile(r"(?<![\w.])(\d{2,4}(?:\.\d+)?[a-z]?(?:\.\d+)?)(?![\w:])")
+
+def halt(inhalt):
+    """1246 (Chef 14.11., 10:28: „wenn ich nachts schlafe und ihr alle aufeinander wartet …“): Nummern, die angehalten sind:
+    „Halt nur für 1072, 709, …“ oben im Vorrat (bis zur ersten Klammer) oder eine Pause ohne lesbares Datum, die Nummern nennt
+    (Datum und Uhrzeit zählen nicht). Nur diese Zeilen sind gesperrt, alles andere bleibt startbar."""
+    for z in inhalt.splitlines()[:14]:
+        m = re.match(r"\s*\**Halt(?: nur)? für:?\s*([^(]*)", z)
+        if m: return NUMMER.findall(m.group(1).split("**")[0])
+    z = _kopf_pause_ohne_datum(inhalt)
+    if z:
+        rein = re.sub(r"\d\d\.\d\d\.(?:\d{2,4})?|\d\d?:\d\d", " ", z)
+        return NUMMER.findall(rein)
+    return []
+
+def pause_ohne_datum(inhalt):
+    """1246: Pause ohne lesbares Datum und ohne Nummern: Text; sperrt nur die Kür, Muss bleibt startbar (sonst Stillstand über Nacht)."""
+    z = _kopf_pause_ohne_datum(inhalt)
+    return z.strip()[:60] if z and not halt(inhalt) else None
 
 def pause_frei(inhalt):
     """870.17 (870b A, Chef 10.11., 16:08): „frei für: 870.x, 709, …“ in der Pause-Zeile; diese Nummern bleiben trotz Pause
@@ -1101,6 +1129,8 @@ def main():
             print()
             continue
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn))  # Zahlen und Testzählung laufen weiter
+        elif pause_ohne_datum(inhalt): print("  %s: PAUSE ohne Datum (nicht lesbar), sperrt nur die Kür; Datum oder „Halt nur für <Nr>“ setzen (1246)" % rolle)
+        elif halt(inhalt): print("  %s: Halt nur für %s (1246)" % (rolle, ", ".join(halt(inhalt))))
         erstes = {"M": None, "K": None, "N": None}
         sperren = []
         for nr, kl, thema, d, b in zs:

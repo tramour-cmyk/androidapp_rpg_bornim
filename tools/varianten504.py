@@ -24,7 +24,7 @@ def lies(datei, alle):
         z = z.rstrip('\n')
         if KOPF.match(z):
             marken = MARKE.findall(z.split(' (')[0] if ' (`[' not in z else z)
-            marken = [m for m in MARKE.findall(z) if m.startswith('504.')]
+            marken = [m for m in MARKE.findall(re.sub(r'\([^()]*\)', '', z)) if m.startswith('504.')]   # 842: Marken in einer Bedingung (Klammer) zaehlen nicht
             w = bool(re.search(r'\(W[;)]', z))
             for m in marken: alle[m] = {'w': w, 'v': []}
             continue

@@ -43,7 +43,7 @@ def neu_werte(h):
         h.werte[g] = h._basis[g] + gewinn.get(g, 0) // n
 
 
-def init(self, W, herkunft, variante=False):
+def init(self, W, herkunft, variante=True):     # 1058: wie im Spiel 9 Punkte (plus und plus_variante)
     _orig_init(self, W, herkunft, variante)
     self._basis = dict(self.werte)
     self._start = dict(self.fert)
@@ -61,7 +61,7 @@ def grund(W, held, zb):
     return zb["schaden"] + ZAUBER_K[0] * held.werte["verstand"]
 
 
-def auf_stufe(W, herkunft, stufe, fert, variante=False):
+def auf_stufe(W, herkunft, stufe, fert, variante=True):     # 1058
     h = sim.Held(W, herkunft, variante)
     h.stufe = stufe
     h.fert = dict(fert)

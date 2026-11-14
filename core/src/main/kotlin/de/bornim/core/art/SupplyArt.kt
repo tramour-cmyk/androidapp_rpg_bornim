@@ -242,6 +242,18 @@ object SupplyArt {
                 ball(p(0.0, 1.0, 2.6), 2.6, 2.6, 0.5, mat(0x7A1414, shine = 0.4), Doll.TRIM)
                 pitch = 12.0; yaw = 12.0
             }
+            // 842 (807 A, Verband): a roll of clean linen lying on its side, the loose end run out in front, the wraps showing at the face
+            "bandage" -> {
+                val linen = mat(0xE6DDC8, grain = 0.35)
+                val fold = mat(0xBFB295, grain = 0.3)
+                val along = Frame.along(P3(1.0, 0.0, 0.0))
+                for (k in 0 until 13) ball(p(-8.0 + 1.33 * k, 3.0), 10.0, 1.8, 10.0, linen, Doll.CLOTH, along,
+                    paint = { q -> if (abs(sin((q.x - c.x) * 0.8)) < 0.08) fold else linen })
+                val ring = mat(0x8C7C5C)
+                for ((r, m) in listOf(8.4 to ring, 7.2 to linen, 5.2 to ring, 4.0 to linen, 2.0 to mat(0x5A4C36))) for (e in listOf(-1.0, 1.0)) ball(p(e * (10.4 + (8.4 - r) * 0.05), 3.0), r, 0.6, r, m, Doll.ITEM, along)
+                box(p(1.0, -7.2, 7.0), 5.6, 0.6, 7.0, linen, round = 0.3, paint = { q -> if (abs(q.x - c.x - 1.0) > 4.9) fold else linen })
+                pitch = 24.0; yaw = 62.0
+            }
             // 171 the hero's gold: a stack of coins, slightly askew, two more lying before it, each with a raised rim
             GOLD -> {
                 val worn = mat(0xB88A28, shine = 0.6, grain = 0.2)

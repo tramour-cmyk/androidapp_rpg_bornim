@@ -24,13 +24,19 @@ func _ansagen(flaggen: Dictionary, erst: bool) -> Array:
 	var wolf = null
 	for f in m.all:
 		if f.side == "FOES": wolf = f; break
+	# 1206 (Perikles 882.2: unter Last kippte der zweite Kampf, 2 von 5 Läufen): nur was die beiden Ansagen selbst melden, nicht was
+	# der Kampf daneben noch aus dem Start nachreicht (Eröffnung, Ansagen des Starts, die unter Last erst nach dem ersten Bild kommen)
+	var eigene := []
 	for i in 2:
+		var vor := aus.size()
 		m.intents[wolf.id] = [m.I_POUNCE, [m.lead().id]]
 		m._say_announce(wolf)
+		eigene.append_array(aus.slice(vor))
+	m.listener = func(_e): pass
 	a.kampf.queue_free()
 	a.queue_free()
 	await process_frame
-	return aus
+	return eigene
 
 func _lauf() -> void:
 	var f := 0

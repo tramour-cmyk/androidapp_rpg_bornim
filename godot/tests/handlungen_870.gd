@@ -387,6 +387,41 @@ func _gegenwirkungen() -> void:
 	w.by_id("f0").hp = 49000
 	w._brs_zauber(w.by_id("hero"), w.by_id("f0"), Z)
 	pruefe("Wolf und Feuer, Leitwolf unter halbem Leben: Rudel fort, Kampf vorbei, kein Lohn", w.outcome == "WON" and w.kein_lohn and w.by_id("f1").fled, "%s %s" % [w.outcome, w.kein_lohn])
+	# 915 (Homer, 705a B): Fluchtzeile jedes Mal (Mehrzahl), Lehrzeile einmal je Spielstand, die Geflohenen tragen vor_feuer
+	var texte: Array = w._log.map(func(e): return String(e.text)).filter(func(t): return t != "")
+	pruefe("915 Fluchtzeile Mehrzahl und Lehrzeile", texte.has(Mars.MSG915_FLUCHT[0][0]) and texte.has(Mars.MSG915_ERSTMALS[0])
+		and w.by_id("f0").vor_feuer and w.by_id("f1").vor_feuer, str(texte.slice(-3)))
+	var w2 = _kampf("Einhänder", {"Evokation": 25}, ["wolf"])
+	w2.gesehen = w.gesehen     # derselbe Spielstand
+	w2.start()
+	w2.by_id("f0").hp = 1000
+	w2._brs_zauber(w2.by_id("hero"), w2.by_id("f0"), Z)
+	var texte2: Array = w2._log.map(func(e): return String(e.text))
+	pruefe("915 zweites Mal: Einzahl, keine Lehrzeile", w2.outcome != "WON" or (texte2.has(Mars.MSG915_FLUCHT[1][0]) and not texte2.has(Mars.MSG915_ERSTMALS[0])),
+		str(texte2.slice(-3)))
+	# 915 (Prüfer zu 705): fällt der Leitwolf am Feuer, flieht sein Gefolge nach 399.2a; wer im Griff steht, bleibt; der Leitwolf zählt
+	var g = _kampf("Einhänder", {"Evokation": 25}, ["wolf", "wolf"])
+	g.by_id("f1").follows = "f0"
+	g.start()
+	g.by_id("f1").gegriffen_von = "hero"
+	g.by_id("f0").hp = 1
+	g._brs_zauber(g.by_id("hero"), g.by_id("f0"), Z)
+	pruefe("915 Leitwolf fällt am Feuer: Gegriffener bleibt, kein vor_feuer", not g.by_id("f0").standing() and g.by_id("f1").standing()
+		and not g.by_id("f1").vor_feuer and not g.kein_lohn, "%s %s %s" % [g.outcome, g.by_id("f1").vor_feuer, g.kein_lohn])
+	# 705a B: der Autopilot nimmt gegen Wölfe kein Feuer, solange der Held über halbem Leben ist (Arkanpfeil auf den Leitwolf), in Not schon
+	var auf = load("res://kampf/aufruf.gd").new()
+	var held = auf._kaempfer("hero", BrsHeld.fuer_spiel("Alrik", "Mensch", "Zauberlehrling"), -1, Vector2i(Mars.FRONT, 0), skills)
+	auf.free()
+	var wf := [Mars.monster_fighter("f0", Mars.SPOTS[0], monsters["wolf"], 999), Mars.monster_fighter("f1", Mars.SPOTS[1], monsters["wolf"], 999)]
+	var a = Mars.new([held], wf, tab, Wuerfel.new(3), Wuerfel.new(7), 0, false)
+	a.by_id("f1").follows = "f0"
+	a.start(func(_t, _i): return Mars.NONE)
+	var voll: Array = a._auto_order(held)
+	held.hp = held.max_hp / 3
+	held.uses["H_KRAFT"] = 0     # schon geschöpft
+	var not_: Array = a._auto_order(held)
+	pruefe("705a B Autopilot: voll ohne Feuer auf den Leitwolf, in Not Feuer", voll.size() == 3 and voll[1] == "Z_ARKAN" and voll[2] == "f0"
+		and not_.size() == 3 and a._feuer(String(not_[1])), "%s %s" % [voll, not_])
 	# Jungwolf folgt dem Leitwolf: Feuer auf ihn zählt das Leben des Leitwolfs
 	var j = _kampf("Einhänder", {"Evokation": 25}, ["wolf", "wolf"])
 	j.by_id("f1").follows = "f0"

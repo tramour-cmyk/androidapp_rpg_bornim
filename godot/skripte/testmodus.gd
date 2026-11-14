@@ -99,6 +99,34 @@ static var probe_stufe := 3
 static var merker_auf := false
 static var bericht_auf := false
 static var alles_sichtbar := false      # 555 wie alt Game.seeAll; wirkt mit dem Nebel (505, nebel.gd)
+# 1145 (Chef 13.11., 14:35: Hoehle „fühlt sich ein bisschen hackelig an“, Bilder/s 45 bei 90 Hz): am Geraet messen, was die Zeit
+# frisst; je Teil einzeln aus, nicht gespeichert (nach dem Neustart wieder alles an)
+static var ohne_tusche := false
+static var ohne_tuschelampen := false
+static var ohne_nebel := false
+static var ohne_schatten := false
+static var _leistung_war := false
+
+## 1145: die Schalter „Messen ohne …“ auf Kamera (Tusche, Tuschelampen, Nebel) und alle Lichter (Schatten) anwenden; laeuft nur,
+## solange einer aus ist, und einmal danach zum Zuruecksetzen
+static func leistung_anwenden(tree: SceneTree) -> void:
+	var aus := ohne_tusche or ohne_tuschelampen or ohne_nebel or ohne_schatten
+	if not aus and not _leistung_war: return
+	_leistung_war = aus
+	var args := OS.get_cmdline_user_args()
+	var kam := tree.root.get_viewport().get_camera_3d()
+	if kam is Kamera:
+		var k := kam as Kamera
+		k.lampen_an = not ohne_tuschelampen and not "--tuschelampen=0" in args
+		for c in k.get_children():
+			if not (c is MeshInstance3D and (c as MeshInstance3D).material_override is ShaderMaterial): continue
+			var m := (c as MeshInstance3D).material_override as ShaderMaterial
+			if m in k.tusche_mats: (c as MeshInstance3D).visible = not ohne_tusche and not "--ohnetusche" in args
+			elif m.shader and m.shader.resource_path.ends_with("nebel.gdshader"): (c as MeshInstance3D).visible = not ohne_nebel
+	for n in tree.root.find_children("*", "Light3D", true, false):
+		var l := n as Light3D
+		if not l.has_meta("schatten_1145"): l.set_meta("schatten_1145", l.shadow_enabled)
+		l.shadow_enabled = bool(l.get_meta("schatten_1145")) and not ohne_schatten
 const ZOOM_KACHELN := [0.0, 5.6, 6.75, 8.4, 10.5]   # 555 wie alt MapZoom.levels (Kacheln quer); 0 = wie unter Bedienung „Karte“
 
 # 555 Merker der Geschichte in der Folge von Kapitel 1 (Geschichte.gd), mit kurzem Namen zum Ansehen und Setzen
@@ -166,7 +194,10 @@ static var probe_herkunft := "Wachsoldat"
 static var probe_volk := "Mensch"
 static var probe_waffe := "*"           # Grundform, "" ohne Waffe, "*" wie die Herkunft
 static var probe_neben := "*"           # NEBENHAND oder "*"
-static var probe_soeldner := "*"        # "*" wie der Held, "" keiner, sonst Herkunft
+# 964 (Fund t284.5, Chef 13.11., 20:47: „Beute erzeugen“ gab 30–40 Mal kein Kettenhemd): Brustrüstung der Lage („ruestung=chain_shirt“),
+# "*" wie die Herkunft, "" ohne; nur über die Prüfliste, im Reiter kein eigener Knopf
+static var probe_ruestung := "*"
+static var probe_soeldner := ""         # "*" wie der Held, "" keiner, sonst Herkunft; 947 (Chef 11.11., t276.12): keiner wie in Kapitel 1 (168 D: Söldner ab K3)
 static var probe_tasche := "zwei"
 static var probe_leben := "voll"
 static var probe_zeit := ""             # "" nach der Spieluhr
@@ -223,7 +254,14 @@ static func probe_ausstatten(h: BrsHeld) -> void:
 			var g: Dictionary = neu.call(probe_neben)
 			if Beute.ist_waffe(Beute.grundform(probe_neben)): h.anlegen_nebenhand(g)
 			else: h.anlegen(g)
+	if probe_ruestung != "*":
+		h.ablegen("CHEST")
+		if probe_ruestung != "": h.anlegen(neu.call(probe_ruestung))
 	h.voll()
+
+## 964: Grundformen, die als Brustrüstung angelegt werden (für „ruestung=“ der Lage)
+static func brustruestungen() -> Array:
+	return Beute.grundformen().filter(func(id): var b := Beute.grundform(String(id)); return String(b["art"]) == "ARMOR" and String(b["slot"]) == "CHEST")
 
 static func probe_waffen() -> Array:
 	var alle: Array = ["*", ""]
@@ -328,6 +366,13 @@ static func reiter(m: Menue) -> void:
 			func(): standort = not standort, "PIN", "", standort),
 		zk.call(t.call("Klang", "Sound"), an_aus.call(klang), t.call("Zeigt über der Welt die letzten Geräusche: spielt, verklungen, abgebrochen oder nicht gestartet.", "Shows the latest sounds over the world: playing, finished, cut off or not started."),
 			func(): klang = not klang, "SOUND", "", klang)])
+	# 1145: messen, was die Bildzeit frisst; mit „Bildrate“ zeigt die Welt dazu Grafik- und Rechenzeit je Bild und den Bildschirmtakt
+	var mess_satz: String = t.call("Nur zum Messen mit „Bildrate“: schaltet diesen Teil des Bildes ab, bis du ihn wieder anschaltest oder das Spiel neu startest.",
+		"For measuring with “Frame rate” only: turns this part of the picture off until you turn it on again or restart the game.")
+	m.zeichenreihe([zk.call(t.call("Tusche", "Ink"), an_aus.call(not ohne_tusche), mess_satz, func(): ohne_tusche = not ohne_tusche, "", "✒", not ohne_tusche),
+		zk.call(t.call("Tusche nach Lampen", "Ink by lamps"), an_aus.call(not ohne_tuschelampen), mess_satz, func(): ohne_tuschelampen = not ohne_tuschelampen, "", "✒", not ohne_tuschelampen),
+		zk.call(t.call("Nebel", "Fog"), an_aus.call(not ohne_nebel), mess_satz, func(): ohne_nebel = not ohne_nebel, "", "▒", not ohne_nebel),
+		zk.call(t.call("Schatten", "Shadows"), an_aus.call(not ohne_schatten), mess_satz, func(): ohne_schatten = not ohne_schatten, "", "◐", not ohne_schatten)])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
@@ -481,6 +526,25 @@ static func reiter(m: Menue) -> void:
 			func():   # Game.cheatLoot
 				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw))   # 870.6: nach seinen Fertigkeiten
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
+	# 756.1: Schlecht gibt es im Spiel erst mit 976 (Herstellen); fuer die Prüfliste je Güte ein Stück, damit alle vier Zeichen
+	# nebeneinander in der Tasche liegen (Schlecht roter Punkt, Normal keins, Gut ein Goldpunkt, Meisterhaft zwei)
+	m.zeichenreihe([zk.call(t.call("Vier Güten", "Four qualities"), null,
+		t.call("Legt je ein Stück Schlecht, Normal, Gut und Meisterhaft auf der Stufe des Helden in die Tasche.",
+			"Puts one item each of Poor, Common, Fine and Masterwork at the hero's level into the bag."),
+		func():
+			vier_gueten(z, hw)
+			m.meldung(t.call("Erhalten: vier Stücke, je Güte eins", "Received: four items, one per quality")), "GEM")])
+
+## 756.1: dieselbe Waffe viermal, Güte Schlecht, Normal, Gut, Meisterhaft (-1 bis 2), in die Tasche; gibt die vier Stücke zurück
+static func vier_gueten(z: Zustand, hw: BrsHeld) -> Array:
+	var b0 := Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, "COMMON", hw, "MAIN_HAND")
+	var aus: Array = []
+	for gu in [-1, 0, 1, 2]:
+		var b: Dictionary = b0.duplicate(true)
+		b["uid"] = z.neue_uid()
+		b["guete"] = gu
+		aus.append(z.ausruestung_dazu(b))
+	return aus
 
 # 1020.2 B (Chef 12.11., 08:09): der Probekampf als Baukasten. 1034 (Chef 12.11., 14:34–14:38): ein Probekampf für alles, mit dem
 # Spielhelden (zählt im Spielstand) oder dem Testhelden (Spielstand unberührt; Herkunft, Volk, Stufe, Waffe, Leben, Tasche nur für ihn);
@@ -564,7 +628,100 @@ static func probekampf(m: Menue, t: Callable, zk: Callable, reihe: Callable, fs:
 		zk.call(t.call("Ausweichen", "Dodge"), t.call("erzwingen", "forced") if probe_ausweichen else t.call("Zufall", "random"),
 			t.call("Der erste Angriff auf den Helden im Probekampf geht fehl: er weicht aus, mit Schild wehrt er ab.", "The first attack on the hero in the trial fight misses: he dodges, with a shield he blocks."),
 			func(): probe_ausweichen = not probe_ausweichen, "", "↷", probe_ausweichen)])
-	reihe.call([[t.call("Probekampf starten", "Start trial fight"), func(): m.test.emit("probe", [probe_gegner, probe_herkunft, probe_stufe, true, probe_held])]])
+	# 964: die Rüstung einer Lage gilt nur für deren Kampf; von Hand gestartet wieder wie die Herkunft
+	reihe.call([[t.call("Probekampf starten", "Start trial fight"), func(): probe_ruestung = "*"; m.test.emit("probe", [probe_gegner, probe_herkunft, probe_stufe, true, probe_held])]])
+
+# 1156 (Vorlage 1020 D Stufe 2): die Lage einer Zeile der Prüfliste (Abschnitt „## Lagen“, tools/pruefliste.py), die der Knopf
+# „Lage herstellen“ herstellt (spiel.gd lage_herstellen). Werte wie die Knöpfe dieses Reiters.
+const LAGE_TASCHEN := ["zwei", "keine", "voll"]
+const LAGE_LEBEN := ["voll", "halb", "knapp"]
+const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
+const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
+	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig"]   # 542: ruhig = Monster beachten nicht
+
+## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
+static func lage_uhr(s: String) -> int:
+	var t := s.split(":")
+	if t.size() > 2 or not t[0].is_valid_int() or (t.size() == 2 and not t[1].is_valid_int()): return -1
+	var h := int(t[0])
+	var mi := int(t[1]) if t.size() == 2 else 0
+	return h * 60 + mi if h >= 0 and h < 24 and mi >= 0 and mi < 60 else -1
+
+## was an der Lage nicht stimmt, je Fehler ein Satz; leer: herstellbar
+static func lage_fehler(l: Dictionary) -> Array:
+	var f := []
+	var in_ := func(k: String, liste: Array) -> void:
+		if l.has(k) and not liste.has(String(l[k])):
+			f.append("%s=%s unbekannt (%s)" % [k, l[k], ", ".join(PackedStringArray(liste.map(func(x): return String(x))))])
+	for k in l:
+		if not LAGE_SCHLUESSEL.has(String(k)): f.append("Schlüssel %s unbekannt" % k)
+	in_.call("station", STATIONEN.map(func(s_): return String(s_[0])) + ["Kapitelende"])
+	if l.has("ort"):
+		var o := String(l["ort"]).split(":")
+		if o.size() < 3 or not o[1].is_valid_int() or not o[2].is_valid_int() or not da(o[0]): f.append("ort=%s: Karte:x:y[:Blick], Karte im Spiel" % l["ort"])
+		elif o.size() > 3 and not ["UP", "DOWN", "LEFT", "RIGHT"].has(o[3]): f.append("ort=%s: Blick UP, DOWN, LEFT oder RIGHT" % l["ort"])
+		if String(l.get("station", "")) == "Kapitelende": f.append("ort= nicht mit station=Kapitelende (Aldrics Haus ist der Ort)")   # 542
+	if l.has("uhr") and lage_uhr(String(l["uhr"])) < 0: f.append("uhr=%s: HH:MM" % l["uhr"])
+	if l.has("merker"):
+		var ids := MERKER.map(func(m_): return String(m_[0]))
+		for w in String(l["merker"]).split(",", false):
+			if not ids.has(w.trim_prefix("+").trim_prefix("-")): f.append("merker %s unbekannt" % w)
+	for k in ["stufe", "pstufe"]:
+		if l.has(k) and not String(l[k]).is_valid_int(): f.append("%s=%s keine Zahl" % [k, l[k]])
+	in_.call("probe", feinde(true).keys())
+	# 1180 (D209.2 Diogenes): der Reiter Probekampf bietet nur Gruppen mit Modell (feinde(), 555); ohne Modell startete die Lage den
+	# Kampf mit einem falschen Monster und galt doch als herstellbar
+	if l.has("probe") and feinde(true).has(String(l["probe"])) and not gruppe_da(String(l["probe"])):
+		f.append("probe=%s: Gruppe ohne Modell (%s), im Reiter Probekampf nicht wählbar" % [l["probe"], feinde(true)[String(l["probe"])]])
+	in_.call("held", PROBE_HELDEN)
+	in_.call("herkunft", BrsHeld.herkuenfte())
+	in_.call("volk", BrsHeld.voelker())
+	in_.call("waffe", probe_waffen())
+	in_.call("neben", ["*"] + NEBENHAND)
+	in_.call("ruestung", ["*", ""] + brustruestungen())
+	in_.call("soeldner", ["*", ""] + BrsHeld.herkuenfte())
+	in_.call("tasche", LAGE_TASCHEN)
+	in_.call("leben", LAGE_LEBEN)
+	in_.call("zeit", PROBE_ZEITEN)
+	in_.call("zug", PROBE_ZUEGE)
+	in_.call("eroeffnung", LAGE_EROEFFNUNGEN)
+	in_.call("kampfort", kampforte().keys())
+	return f
+
+## setzt die Wahl des Probekampfs aus der Lage und gibt die Angaben für „probe“ zurück (wie „Probekampf starten“); [] ohne probe
+static func lage_probe(l: Dictionary) -> Array:
+	if not l.has("probe"): return []
+	probe_gegner = String(l["probe"])
+	probe_held = String(l.get("held", "test"))
+	if l.has("herkunft"): probe_herkunft = String(l["herkunft"])
+	if l.has("volk"): probe_volk = String(l["volk"])
+	if l.has("pstufe"): probe_stufe = int(l["pstufe"])
+	probe_waffe = String(l.get("waffe", "*"))
+	probe_neben = String(l.get("neben", "*"))
+	probe_ruestung = String(l.get("ruestung", "*"))
+	probe_soeldner = String(l.get("soeldner", ""))
+	probe_tasche = String(l.get("tasche", "zwei"))
+	probe_leben = String(l.get("leben", "voll"))
+	probe_zeit = String(l.get("zeit", ""))
+	probe_zug = String(l.get("zug", ""))
+	probe_ausweichen = l.has("ausweichen")
+	if l.has("eroeffnung"): eroeffnung = String(l["eroeffnung"])
+	if l.has("kampfort"): kampfort = String(l["kampfort"])
+	return [probe_gegner, probe_herkunft, probe_stufe, true, probe_held]
+
+## kurz, was der Knopf herstellt („Station Garrick · 20:30 Uhr · Probekampf Grak“)
+static func lage_text(l: Dictionary, de: bool) -> String:
+	var t := []
+	if l.has("station"): t.append("Station " + String(l["station"]))
+	if l.has("ort"): t.append(String(l["ort"]).split(":")[0])   # 542: auch Station mit Ort
+	if l.has("uhr"): t.append(String(l["uhr"]) + (" Uhr" if de else ""))
+	if l.has("stufe"): t.append(("Stufe " if de else "Level ") + String(l["stufe"]))
+	if l.has("merker"): t.append(("Geschichte " if de else "Story ") + String(l["merker"]))
+	if l.has("vorraete"): t.append("Vorräte" if de else "Supplies")
+	if l.has("einmaliges"): t.append("Einmaliges" if de else "One-time")
+	if l.has("ruhig"): t.append("Monster beachten nicht" if de else "Monsters ignore")
+	if l.has("probe"): t.append(("Probekampf " if de else "Trial fight ") + String(feinde(true).get(String(l["probe"]), l["probe"])))
+	return " · ".join(PackedStringArray(t))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric
 static func vor_aldric() -> Array: return vor_person("elder", "aldric")
