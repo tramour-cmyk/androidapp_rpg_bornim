@@ -43,6 +43,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 20:30 14.11.: Tuffy neu `…791GBXxySF9nvEcVCd` (930.5, Mittel; 930.5 bis 930.7 komplett an Tuffy, Chef 20:25 über Sokrates), Tuffy 845 archiviert (7,52 $); 930.6 später mit Aufwand hoch und WireStorm Hoch nach Sokrates-Prüfung von 930.5
+- 20:27 14.11.: Tom neu `…79AQ79uafPgaVpiHEJ` (1091, Aufwand hoch, Umgebung WireStorm Hoch, dazu 882.1 von Sokrates) und Diogenes neu `…77WqsAmL86DZSZvSXs` (1179, 1173, 1217, dazu 1248) gestartet; Tom 1040.1 (4,88 $) und Diogenes 1128.3 (1,76 $) archiviert
 - 20:05 14.11.: Stillstand 10:51 bis 20:00 Ursache Guthaben (Wochengrenze Max erreicht, „resets 8pm“: Perikles 1249, Diogenes, Jerry 1222 um 10:51, Tom 1145 um 18:59 abgebrochen; Fords Wecker 11:03 bis 19:03 kamen gestaut an, Lauf erst 20:02). Lauf 20:02: Tom `…79Q6N8cjLh3SuVwvkR` (1040.1), Jerry `…76teWqNfwVbcvW5sEf` (1000), Diogenes `…77nnorNYpWaTbXpHjz` (1128.3), Perikles `…76U3AHkZNkpmHLQ9ge` (1249) gestartet; alte Sitzungen archiviert (Tom 4,05 $, Jerry 7,71 $, Diogenes 1,09 $, Perikles 0,56 $); Tuffy 845 und Spike 1092 laufen
 - 11:40 14.11.: Diogenes neu `…765bJQPbYhQ8FuqyJ1` (1179, 1173, 1217, dazu 1248 von Jerry) und Perikles neu `…78yCAANefHPCi2xGt1` (1249) gestartet; Diogenes 1199 (3,67 $) und Perikles 1246 (2,31 $) archiviert; Sokrates von Jerrys Anstoß (1222 Filmlauf frei?) unterrichtet
 - 11:28 14.11.: Tom alt `…77znPDfxf4G6yvCC6Q` archiviert (29,95 $ auf 1091, 285.3, 285.6); Tom neu `…7A2FjxowG848V9Mtai` (1145, Kür: Sammelbuild-Nachfolger nicht startbar vor Termin 12:00, lauf.py nahm 1145); Weckrufe 1149/1091 für Tom neu `trig_01Fax1rNuDLgiYjCJ6X6ZZE6`, `trig_011AMTZHHgDMEo1NzUdUr5ZM`, alte abgeschaltet; Jerry von Sokrates-Bitte „Teamzweige holen main“ unterrichtet
@@ -61,14 +63,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:05 14.11.: Lauf 07:04: Spike 1240 `…77uoFJEbXdzXu8YKzd` gestartet; Spike 1234 archiviert (1,66 $, fertig).
 - 06:05 14.11.: Lauf 06:04: Spike 1234 `…7AC9YkKwtpBTa4hv6G` gestartet; Spike 1149 archiviert (5,74 $; Bildurteil in chefsache/ansehen/1149-scheide.md).
 - 04:05 14.11.: Lauf 04:03: nichts gestartet; Spike 1149 `…75RUbW5ZmdoiqPRgSc` bleibt (eigener Weckruf 04:06, Probelauf), Hinweis: ohne --wecker Spike plant lauf.py START/ARCHIVIERE.
-- 03:05 14.11.: Lauf 03:03: Spike 1149 `…75RUbW5ZmdoiqPRgSc` gestartet; Spike 1119 archiviert (1,27 $).
-- 02:06 14.11.: Lauf 02:03: Spike 1119 `…7A5LHhpS9zYpLe4fcH`, Sokrates Stellungnahme 1092 `…79rZagJLmbFEy4HZhU` gestartet (erste Sperre fehlte für Sokrates, nachgetragen); archiviert Spike 1092 (2,92 $), Sokrates 930 (1,51 $; Frage 7 zu 930 wartet beim Chef).
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
 - 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
 - 02:04 14.11.: Marke Stellungnahme Sokrates 14.11. (lauf.py)
-- 02:04 14.11.: Marke Archiv session_01Hmoj781eUCpQ5SKa8cCpQV (lauf.py)
-- 02:04 14.11.: Marke Archiv session_01Hmoj75kLBATHVTa9eEViaE (lauf.py)
 - 03:04 14.11.: Marke Archiv session_01Hmoj7A5LHhpS9zYpLe4fcH (lauf.py)
 - 06:04 14.11.: Marke Archiv session_01Hmoj75RUbW5ZmdoiqPRgSc (lauf.py)
 - 07:04 14.11.: Marke Archiv session_01Hmoj7AC9YkKwtpBTa4hv6G (lauf.py)
@@ -82,7 +80,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:35 14.11.: Startsperre 10:35 Start Ford (selbst, Tiefe 1, Selbstneustart nach Haken 1019 Erinnerung 1; Sokrates-Neustart ad8d42ded ausgeführt)
 - 10:38 14.11.: Marke Mehrfach Sokrates (lauf.py)
 - 10:38 14.11.: Marke Archiv session_01Hmoj79x9S7PcZtZSXrN3we (lauf.py)
-- 11:15 14.11.: Startsperre 11:15 Start Jerry, Diogenes, Tuffy (lauf.py)
 - 11:15 14.11.: Marke Archiv session_01Hmoj77Q6K2jkHmLkqGiwNz (lauf.py)
 - 11:15 14.11.: Marke Archiv session_01Hmoj7935pyQLrQDwBaDdQ9 (lauf.py)
 - 11:15 14.11.: Marke Archiv session_01Hmoj79ZApqezAzombu1DWK (lauf.py)
@@ -98,6 +95,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:25 14.11.: Startsperre 20:25 Start Tom, Diogenes (lauf.py)
 - 20:25 14.11.: Marke Archiv session_01Hmoj79Q6N8cjLh3SuVwvkR (lauf.py)
 - 20:25 14.11.: Marke Archiv session_01Hmoj77nnorNYpWaTbXpHjz (lauf.py)
-- 20:27 14.11.: Tom neu `…79AQ79uafPgaVpiHEJ` (1091, Aufwand hoch, Umgebung WireStorm Hoch, dazu 882.1 von Sokrates) und Diogenes neu `…77WqsAmL86DZSZvSXs` (1179, 1173, 1217, dazu 1248) gestartet; Tom 1040.1 (4,88 $) und Diogenes 1128.3 (1,76 $) archiviert
 - 20:29 14.11.: Startsperre 20:29 Start Tuffy (Neustart 278f94b0b, von Hand, lauf.py plant Tuffy-Nachfolger nicht)
-- 20:30 14.11.: Tuffy neu `…791GBXxySF9nvEcVCd` (930.5, Mittel; 930.5 bis 930.7 komplett an Tuffy, Chef 20:25 über Sokrates), Tuffy 845 archiviert (7,52 $); 930.6 später mit Aufwand hoch und WireStorm Hoch nach Sokrates-Prüfung von 930.5
+- 20:42 14.11.: Startsperre 20:42 Start Jerry, Perikles (lauf.py)
+- 20:42 14.11.: Marke Archiv session_01Hmoj76teWqNfwVbcvW5sEf (lauf.py)
+- 20:42 14.11.: Marke Archiv session_01Hmoj76U3AHkZNkpmHLQ9ge (lauf.py)
