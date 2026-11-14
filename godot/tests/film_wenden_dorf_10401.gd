@@ -74,6 +74,12 @@ func _lauf() -> void:
 	for l in spiel.leute.get_children():
 		if String(l.get("daten").get("id", "")) == "bram":
 			p = l
+	# 1040.1 (Lauf 471: „kein Bram am Markt (unsichtbar auf (14, 15))“): vom Helden auf (19, 13) aus liegt Bram hinter der Sichtlinie;
+	# wie im Lyra-Film (879725138) Sichtlinie aus (Testmenü 555), Prüfgegenstand sind seine Schritte
+	Testmodus.alles_sichtbar = true
+	for i in 30:
+		if p == null or p.visible: break
+		await process_frame
 	if p == null or not p.visible:
 		print("FILM10401D kein Bram am Markt (%s)" % ("nicht auf der Karte" if p == null else "unsichtbar auf %s" % str(p.kachel)))
 		quit(1)
