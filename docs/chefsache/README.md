@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1255](entscheiden/1255.md) | **Muss** | G Balance | 14.11., 22:05 | Zuordnung aller 37 Fertigkeiten zu je einem Grundwert und Name des fünften Rangs; danach baut Jerry. | Sokrates |
 
 ## Zu billigen
 
