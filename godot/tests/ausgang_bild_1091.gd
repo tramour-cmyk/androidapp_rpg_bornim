@@ -31,6 +31,9 @@ func _lauf() -> void:
 	spiel.kamera.gieren_ziel = 180.0
 	for z in [["mittag", 0.0, 12 * 60], ["nacht", 1.0, 22 * 60]]:
 		spiel.zustand.minuten = int(z[2])
+		# Lauf 467: mittags und nachts gleich, weil licht.gd in _process zum Ziel (0 = Tag) zurückläuft; mit Argumenten folgt das Ziel
+		# nicht der Uhr (spiel.gd licht_nach_uhr), darum das Ziel selbst setzen
+		spiel.licht.ziel = z[1]
 		spiel.licht.stelle(z[1]); spiel._nacht(z[1])
 		spiel.kamera.springe()
 		await create_timer(1.2).timeout
