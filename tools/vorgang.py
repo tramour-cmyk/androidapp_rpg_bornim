@@ -187,19 +187,28 @@ def bau_commit(nr):
     code = bau_commits(nr)
     return code[0] if code else alle[0][1]
 
+# 1240 (D230.1, Diogenes): „Kein Folgevorgang, weil:“ hob nur den eigenen Commit auf; ein Rest in einem älteren Code-Commit
+# sperrte für immer (1237 durch ein Zitat). Jetzt gilt der Grund für seinen Commit und alle älteren der Nummer, auch als reiner
+# Notizcommit; Reste in jüngeren Commits zählen weiter. Nur am Zeilenanfang (nach „<Nr>: “), nie als Zitat „„Kein …““.
+KEIN_FOLGE = re.compile(r"^(?:[\w.]+: )?Kein Folgevorgang, weil:[ \t]*[^\s…]", re.M)
+
 def rest_offen(nr, d=None):
     """[(Quelle, Satz)] der Reste ohne Folgevorgang, leer = fertig darf."""
     funde = []
-    for r in (bau_commits(nr) or [bau_commit(nr)]):   # 1237: jeder Code-Commit der Nummer, nicht nur der jüngste
-        if not r.strip():
-            continue
+    alle = _commits(nr)
+    code = {t for t in bau_commits(nr)}
+    for _, r, _ in alle:   # neueste zuerst
         kopf, _, text = r.partition("\n")
-        if re.search(r"Kein Folgevorgang, weil:\s*\S", text):
-            text = ""
+        if KEIN_FOLGE.search(text):
+            break   # 1240: Grund deckt diesen und alle älteren Commits
+        if code and r not in code:   # 1237: jeder Code-Commit der Nummer; ohne Code-Commit nur der jüngste
+            continue
         for z in text.splitlines():
             z = re.sub(r"\[[\w.]+\]", "", z)   # Textmarken wie [954.1.spaeter] (Spike 15:05: Fehlalarm in 1015, 1017)
             if REST.search(z) and not z.startswith(("Co-Authored-By", "Claude-Session")):
                 funde.append(("Commit " + kopf.strip(), z.strip()[:160]))
+        if not code:
+            break
     d = d or finden(nr)
     vorrat = startbar.lesen(startbar.VORRAT.get(d["besitzer"], ""))
     for z in vorrat.splitlines():
@@ -220,7 +229,7 @@ def rest_sperre(nr, d=None):
     if not rest or os.environ.get("VORGANG_REST_OK") == nr:
         return None
     return ("%s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
-            "oder im Commit „Kein Folgevorgang, weil: …“ schreiben." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr))
+            "oder einen Commit „%s: Kein Folgevorgang, weil: …“ schreiben (deckt auch alle älteren, 1240)." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr, nr))
 
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
