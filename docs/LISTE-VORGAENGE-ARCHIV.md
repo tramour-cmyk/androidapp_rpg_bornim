@@ -347,7 +347,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Steuerung | M | –; +6,16 $ | Perikles | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | – | – | Team Jerry | erledigt |
 | 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +7,38 $ | Team Jerry | erledigt |
-| 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | 8,53 $ | Jerry | erledigt |
+| 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | 29,54 $ | Jerry | erledigt |
 | 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Steuerung | M | –; +11,14 $ | Perikles | erledigt |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | –; +0,96 $ | Team Jerry | erledigt |
 | 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M | –; +10,29 $ | Team Tom | erledigt |
@@ -1387,3 +1387,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1239 | Von Ford (Lauf 23:05): lauf.py liest den Beispielsatz „… (Aufwand hoch, weil …)“ in der Perikles-Übergabe als echten Nachfolger mit hoch und zerschneidet den Titel; Einzelheiten Zu 1239 | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 238 |
 | 1241 | D231.1 von Diogenes (aus 1236): ROLLE-ENTWICKLUNG „Großes Vorhaben“ verweist für Einzelheiten auf billigen/1236-gespraech.md, die beim Billigen gelöscht wird (chefsache/README „Zu billigen“); Ausnahmen (Fehlerbehebung, Tests ohne Spielcode, Chefwort binnen 3 Tagen) und „auch längst Beschlossenes“ stehen nur dort | B Abläufe | M | – | Perikles | erledigt, greift Lauf 238 |
 | 1243 | Von Ford (Lauf 00:03): commit-pruefung.py hält an, wenn im Diff ein Termin mit heutigem Datum und späterer Uhrzeit steht (Zeile 827, Termin heute 20 Uhr); Termine sind keine Zeitstempel; Ausnahme wie bei „wartet auf“ | B Werkzeuge | M | – | Perikles | erledigt, greift Lauf 238 |
+| 1240 | D230.1 von Diogenes (aus 1237): seit jeder Code-Commit zählt, hebt „Kein Folgevorgang, weil:“ nur den eigenen Commit auf; ein Rest-Wort in einem älteren Code-Commit sperrt für immer (1237 selbst durch Zitat in 78e06a17e; 1137.2 „noch nicht getesteten“), Ausweg nur VORGANG_REST_OK | B Werkzeuge | M | 2,47 $ | Tom | erledigt, greift Lauf 240 |

@@ -43,6 +43,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 07:49 14.11.: Neustart Tom: `…77znPDfxf4G6yvCC6Q` gestartet (Commit 919bb6cb0); alter Tom `…78jYddD6WmJoPRmjVB` (20,74 $ auf 285 zu buchen) noch aktiv, archivieren im nächsten Lauf, sobald idle und 60 s ruhig. Diogenes/Spike 1240 fertig.
+- 07:12 14.11.: Lauf nach Spike-Meldung: Diogenes 1240 `…77ehu4FbYQdvND3s1N` gestartet; Diogenes 1133 archiviert (0,69 $). Spike 1240 fertig, endet selbst.
 - 07:05 14.11.: Lauf 07:04: Spike 1240 `…77uoFJEbXdzXu8YKzd` gestartet; Spike 1234 archiviert (1,66 $, fertig).
 - 06:05 14.11.: Lauf 06:04: Spike 1234 `…7AC9YkKwtpBTa4hv6G` gestartet; Spike 1149 archiviert (5,74 $; Bildurteil in chefsache/ansehen/1149-scheide.md).
 - 04:05 14.11.: Lauf 04:03: nichts gestartet; Spike 1149 `…75RUbW5ZmdoiqPRgSc` bleibt (eigener Weckruf 04:06, Probelauf), Hinweis: ohne --wecker Spike plant lauf.py START/ARCHIVIERE.
@@ -61,8 +63,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:31 13.11.: Neustart Jerry (a1a10e156): neue Sitzung `…79cBeV1g9SXzdarjgt` 22:30 (Umgebung Mittel), Vorgängerin `…76yF68cGVE8dBiecQT` archiviert (42,35 $ auf 709.1, 1072; Ford)
 - 22:05 13.11.: Lauf 22:03: Diogenes (1175) `…75tnffFfTRAMHuhTAy`, Homer (1235) `…79TDPJJvAZwbQx6fLi`, Perikles (1230) `…78AKcmYZYcEtyFxx5V` gestartet; Vorgänger `…793z8s…` (1,97 $ auf 1221), `…79opda…` (6,80 $ auf 1229, 1232), `…79PfKh…` (3,40 $ auf 1221) archiviert; Listenstatus „pending“ der Sokrates-Sitzung war veraltet, get_session zeigte idle (Ford)
 - 21:44 13.11.: Neustart Tom (949045da8): neue Sitzung `…78jYddD6WmJoPRmjVB` 21:43, Vorgängerin `…79V5GMGr3APPAiYHqT` archiviert (17,06 $ auf 285, 1092); PR-ABO #204 an die neue Sitzung (Ford)
-- 21:39 13.11.: Neustart Tuffy (5a311f2f6): neue Sitzung `…79ZApqezAzombu1DWK` 21:40, Vorgängerin `…79CJCy8HRzLSWKT81C` archiviert (20,40 $ auf 844; nur 47 s Ruhe statt 60, Übergabe stand, nichts verloren; Ford)
-- 21:38 13.11.: Neustart Sokrates (f0933cd29): neue Sitzung `…797jN7dteYW35dpYLZ` 21:37, Vorgängerin `…79ojfheg8dzo9KaZF9` archiviert (8,08 $ auf 1228, 1233, 1231, 1227; Ford)
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
@@ -73,7 +73,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:46 14.11.: Marke Archiv session_01Hmoj76xVCXk2y824rYD6Rk (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
 - 01:04 14.11.: Marke Archiv session_01Hmoj79Lqfbd3HfnYzQhK8H (lauf.py)
-- 02:04 14.11.: Startsperre 02:04 Start Spike (lauf.py)
 - 02:04 14.11.: Marke Stellungnahme Sokrates 14.11. (lauf.py)
 - 02:04 14.11.: Marke Archiv session_01Hmoj781eUCpQ5SKa8cCpQV (lauf.py)
 - 02:04 14.11.: Marke Archiv session_01Hmoj75kLBATHVTa9eEViaE (lauf.py)
@@ -86,6 +85,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 14.11.: Marke Archiv session_01Hmoj7AC9YkKwtpBTa4hv6G (lauf.py)
 - 07:11 14.11.: Startsperre 07:11 Start Diogenes (lauf.py)
 - 07:11 14.11.: Marke Archiv session_01Hmoj76bc5kiW8nS95txbzS (lauf.py)
-- 07:12 14.11.: Lauf nach Spike-Meldung: Diogenes 1240 `…77ehu4FbYQdvND3s1N` gestartet; Diogenes 1133 archiviert (0,69 $). Spike 1240 fertig, endet selbst.
 - 07:48 14.11.: Startsperre 07:48 Start Tom (Neustart 919bb6cb0, Tom 07:46, Chef seit 23:30 ohne Rückmeldung zu t285; Nachfolger übernimmt PR-Abo #204)
-- 07:49 14.11.: Neustart Tom: `…77znPDfxf4G6yvCC6Q` gestartet (Commit 919bb6cb0); alter Tom `…78jYddD6WmJoPRmjVB` (20,74 $ auf 285 zu buchen) noch aktiv, archivieren im nächsten Lauf, sobald idle und 60 s ruhig. Diogenes/Spike 1240 fertig.
+- 08:04 14.11.: Marke Nachhalten 14.11. (lauf.py)
+- 08:04 14.11.: Marke Abgleich ganz 14.11. (lauf.py)
+- 08:05 14.11.: Lauf 08:03: Tom alt archiviert (21,01 $ auf 285), Spike 1240 (1,41 $), Diogenes 1240 (1,06 $) archiviert; nichts zu starten; Nachhalten: Eingang leer, 6 Abgleich-Zeilen Jerry (811, 876, 923, 971, 644a.1, 1060) ohne Build, lautlos.
