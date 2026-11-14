@@ -311,6 +311,52 @@ Zu zweit ab Kapitel 2 (Garrick fest an der Seite, 168 D; Söldner ab Kapitel 3).
 4. Tränke wie heute, dazu höchstens Eiltrank.
 5. Alles andere ist Regelwerk für später, steht hier, damit es nicht verloren geht.
 
+## Arbeitsplan Wochenende (Sokrates, 14.11., 10:28)
+
+Auftrag Chef 10:25: „Du bist Entwickler und Spieledesigner. … Und weißt, welche Reihenfolge am erfolgsversprechendsten ist für ein gutes Gesamtergebnis. … Du kannst dir auch gerne einen dazu nehmen noch, um dich zu ergänzen. An dem System weiter und in welcher Reihenfolge ihr das machen wollt und so. Das musst du wissen, weil du bist der Profi.“
+
+**Reihenfolge und Grund** (erst die Regeln, die alles andere tragen, dann die Probe, dann das Bild; Bild und Klang zuletzt, weil sie gebaut werden, nicht gedacht):
+
+1. **Gegner im Glutsystem** – ohne sie lässt sich nichts rechnen; jede Art soll dem Spieler eine eigene Frage stellen.
+2. **Rechnung** mit einem Glut-Rechner (Ableger von `handgemenge.py`, nur Werkzeug, kein Spielcode): Siege, Runden, wie oft Bereitschaft die beste Wahl ist, ob ein Zug immer richtig ist.
+3. **Gegenprüfung durch einen zweiten Designer** (Helfer ohne meine Vorannahmen): sucht die Taste, die immer gewinnt, Lesbarkeit auf dem Handy, Lücken.
+4. **Nachschärfen** nach 2 und 3.
+5. **Bild und Klang:** wie Glut, Bereitschaft, Antworten, Funken aussehen und klingen; was davon heute schon da ist.
+6. **Schnitt für Kapitel 1 und Bauplan** mit Kosten, Reihenfolge, wer baut; als Vorlage in `chefsache/entscheiden/` für die Rückkehr des Chefs.
+
+Kein Spielcode, kein Lauf auf dem Bauserver, kein Auftrag an die Teams vor dem Entscheid (1236).
+
+## Gegner im Glutsystem (Sokrates, 14.11., 10:28)
+
+**Grundregel, die alles verbindet: Was ein Gegner mit 2 Glut tut, ist ein großer Schlag, und jeder große Schlag hat den Ring der Abwehr** (1048 A: große Schläge mit Ring, kleine ohne). Der Spieler lernt eine Regel: „Zwei Glutmarken in der Ansage, Finger bereit.“ Gegner zeigen ihre Glut in der Ansage (kleine Marken unter dem Symbol), damit das Rätsel offen liegt wie in Into the Breach.
+
+**Gewöhnliche Gegner 2 Glut, Bosse 3.** Tempo wie in Regel 2 (frei: schnell 2 Felder, normal 1, langsam 0). Werte aus `LISTE-BESTIARIUM.md` (Werte 2.0) bleiben, bis die Rechnung anderes zeigt.
+
+| Art | Tempo | Typischer Zug | Ansage mit 2 Glut (großer Schlag, Ring) | Frage an den Spieler |
+|---|---|---|---|---|
+| **Riesenratte** | normal | heran, Biss | – (nur kleine Bisse; zu dritt Gunst) | Wehr oder einfach zuschlagen? viele kleine Treffer |
+| **Wolf** | schnell | heran (frei, aus weit), Biss, 1 Bereitschaft (setzt nach, wenn du dich löst) | **Anspringen**: Biss, der umreißt (Ziel verliert 1 Glut im nächsten Zug) | Wachschuss nützt wenig, er ist sofort da; Gegenschlag lohnt |
+| **Grimmzahn** (Boss, 3) | schnell | Wölfe brauchen für Felder keine Glut (hetzt); Biss 1, Umreißen 2 | **Umreißen**; **Einkreisen** (die Wölfe stellen sich um dich) | erst er oder erst das Rudel? fällt er unter die Hälfte, flieht das Rudel vor Feuer (915) |
+| **Wildschwein** | schnell | **Ansturm** aus fern oder weit: 2 Glut, doppelter Schaden; verfehlt, steht es offen | Ansturm | Ausweichschritt oder Gegenschlag in den Ansturm? |
+| **Riesen-Hundertfüßer** | normal | Giftklauen 1, 1 Wehr (Panzer) | – | Wucht bricht den Panzer: Waffe wechseln (frei) |
+| **Riesenspinne** | normal | Biss 1 aus Distanz unmöglich, darum **Netz** | **Netz** (2): trifft es, hast du im nächsten Zug nur 1 Glut und wirst ein Feld herangezogen; **Gift sammeln** (2) | perfekter Ring hält dich frei; Feuer verbrennt Netz und Seide (Beute) |
+| **Riesenfledermaus** | schnell, fliegt | Biss 1, dann löst sie sich (1): zuschlagen und weg | – | nur Gegenschlag oder Wachschuss treffen sie sicher; Zuschlagen in deinem Zug geht oft ins Leere (flattert, 535) |
+| **Blutflügler / Riesenegel** | normal | saugt sich fest (Griff): du brauchst 1 Glut zum Abreißen | – | Abreißen oder ihn erst töten? |
+| **Goblin** | normal | heran, Krummsäbel 1, 1 Wehr | **Schwerer Hieb** (2) nur in Graks Nähe | Kanonenfutter; zeigt, wie Grundzug und Wehr gehen |
+| **Goblin-Späher** | normal, bleibt weit | Schuss 1, Schritt zurück 1 | **Anlegen** (2): Schuss härter; wer in Wehr geht, duckt sich | heranrücken kostet zwei Felder; Bollwerk (Team) oder ducken |
+| **Kobold** | normal | Speer, **lauert** (1 Bereitschaft: wer heranrückt, läuft in die Spitze), Stich 1 | – | zuerst kommen lassen, nicht anrennen; zu mehreren stärker |
+| **Goblin-Schamane** | normal, hinten | Wundsegen für einen anderen (1), Stab 1 | **Kraft sammeln** (2) für einen anderen | ihn zuerst, mit Schuss oder Zauber; Nahkämpfer müssen an der Reihe vorbei |
+| **Skelett** | normal | Kurzschwert 1, 1 Wehr | – | Wucht schlägt durch; Stich prallt ab |
+| **Wiedergänger** (Zombie) | langsam | ein Feld (1), Hieb 1; nie müde, nicht zurückzudrängen | **Packen** (2): hält dich fest, Lösen kostet 2 | Abstand halten und beschießen; nah wird es zäh; steht einmal wieder auf, außer bei Feuer oder Licht |
+| **Grabhund** (Ghul) | schnell | Klauen 1; **Lähmung** bei Treffer | **Anspringen** (2) | Wehr ist Pflicht; Licht |
+| **Säureschnecke** (Schleim) | langsam | Zunge 1 aus nah | **Säure** (2): greift Ausrüstung an | nicht nah kommen; teilt sich bei Schnitt oder Wucht |
+| **Krogg** (Boss, 3) | normal | Morgenstern 1, **Überfall** zu Beginn (Kampf beginnt nah) | **Prankenhieb** (3): schleudert dich auf fern, ausweichen statt abfangen (zweite Ringfarbe, 930 R6) | die eine Runde, in der man nicht blocken darf; danach ist er offen |
+| **Grak** (Boss, 3) | normal | Kriegsaxt 1, **lauert** (1), Kampfgeschick (Gunst neben Verbündeten) | **Schwerer Hieb** (2), **Durchbrechen** (2), **Hilfe rufen** (2, einmal) | erst die Helfer oder erst Grak? ein Fünftel seines Lebens vor dem Schweren Hieb, dann taumelt er (Ansage heute) |
+
+**Was diese Tabelle leisten soll:** jede Art eine andere Antwort. Wölfe: Gegenschlag. Wiedergänger: Abstand und Wachschuss. Kobold: nicht anrennen. Späher: Weg kostet. Spinne: Ring. Fledermaus: Bereitschaft statt Zuschlagen. Krogg: Ausweichen statt Abfangen. Grak: Reihenfolge. So wird kein Kampf zum vorigen, über alle Gebiete von Kapitel 1.
+
+**Stärkstes Gegenargument:** achtzehn Arten mit je einer eigenen Regel sind viel zu bauen und zu erklären. **Antwort:** die meisten Regeln gibt es heute schon als Ansage oder Merkmal (Anspringen, Netz, Gift, Flattern, Hilfe rufen, Durchbrechen, Kraft sammeln, Überfall, Zäher Tod, Teilen); neu sind nur Tempo, „lauert“, „saugt fest“, „Packen“ und die Glut in der Ansage.
+
 ## Bilder Jerry zu 1072: Plätze und Laufwege von oben (13.11., 22:42 und 23:33)
 
 Auftrag Chef 14.11., 10:22: „Die Bilder von [Jerry] zu 1072, die er gemacht hat in der Nacht 23:33 bezüglich Kampfrotation und so und von 22:42, die müssen auf jeden Fall auch in die Unterlagen“. Beide Vorlagen wurden in der Nacht zurückgezogen (Gesamtbild 23:39, dann „erst Aktionspunkte“ 23:48), die Bilder liegen jetzt hier. Volltext der Vorlagen samt Stellungnahmen Sokrates in Git: `git show d4da59e9d^:docs/chefsache/entscheiden/1072-plaetze-bahnen.md` (22:42) und `git show 5816581f3^:docs/chefsache/entscheiden/1072-plaetze-am-gegner.md` (23:33). Beide Bilder sind Schemas (matplotlib), keine Spielbilder; belegt sind Wolf 2,3 m lang, Luft 0,3 m (`figur.gd` AIR), Absetzen 0,6 m; alle anderen Maße sind Beispiele.
