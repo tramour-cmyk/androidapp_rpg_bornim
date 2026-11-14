@@ -54,7 +54,7 @@ func _lauf() -> void:
 				for v in vs:
 					var q := tr * v
 					for p in haut: am = minf(am, p.distance_to(q))
-				print("DOLCH1149 %s: Scheide %d Ecken, nächste Haut %.3f m, Mund bei %s" % [platz, vs.size(), am, tr * Vector3(0, HeldFigur.SCHEIDE_MUND, 0)])
+				print("DOLCH1149 %s: Scheide %d Ecken, nächste Haut %.3f m, Mund bei %s" % [platz, vs.size(), am, tr * Vector3(0, float(HeldFigur.scheide_ringe[0][0]) if HeldFigur.scheide_ringe.size() > 0 else 0.0, 0)])
 				# Lauf 466: Klinge ragte seitlich aus der Scheide. Jede Ecke der Klinge (Modellraum, unter dem Mundblech) muss im Querschnitt
 				# der Scheide liegen: Ringe der Scheide auf derselben Höhe (größte |x| und |z| der Scheide dort)
 				var wd := sc.get_parent() as Node3D
