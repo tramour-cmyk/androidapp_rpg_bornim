@@ -102,3 +102,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:27 14.11.: Startsperre 11:27 Start Tom (lauf.py)
 - 11:27 14.11.: Marke Archiv session_01Hmoj77znPDfxf4G6yvCC6Q (lauf.py)
 - 11:27 14.11.: Nachfolger-Warnung Tom (Übergabe 14.11., 11:14) (lauf.py)
+- 11:28 14.11.: Tom alt `…77znPDfxf4G6yvCC6Q` archiviert (29,95 $ auf 1091, 285.3, 285.6); Tom neu `…7A2FjxowG848V9Mtai` (1145, Kür: Sammelbuild-Nachfolger nicht startbar vor Termin 12:00, lauf.py nahm 1145); Weckrufe 1149/1091 für Tom neu `trig_01Fax1rNuDLgiYjCJ6X6ZZE6`, `trig_011AMTZHHgDMEo1NzUdUr5ZM`, alte abgeschaltet; Jerry von Sokrates-Bitte „Teamzweige holen main“ unterrichtet
