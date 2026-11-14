@@ -102,3 +102,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:42 14.11.: Marke Archiv session_01Hmoj76U3AHkZNkpmHLQ9ge (lauf.py)
 - 20:43 14.11.: Jerry neu `…75ZWJGSXdqrpx7xyzH` (1215, dazu 601 und 1222 laut Sokrates 20:38) und Perikles neu `…75sJsPiamKXFvCq7Bf` (1251) gestartet; Jerry 1000 (10,20 $) und Perikles 1249 (1,39 $) archiviert
 - 20:45 14.11.: Startsperre 20:45 Start Ford (selbst, Tiefe 2, Selbstneustart nach Haken 1019 Erinnerung 1)
+- 20:46 14.11.: Startsperre 20:46 Start Tuffy (930.6, Aufwand hoch, WireStorm Hoch, Signal Sokrates 20:45, von Hand)
