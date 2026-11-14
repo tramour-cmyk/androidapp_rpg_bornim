@@ -20,6 +20,15 @@ func _pruef(name: String, gut: bool, wert: String) -> void:
 		fehler += 1
 
 
+## Knochennamen je Gerüst (wie ragdoll.gd): Brust, je Seite Hüfte, Knie, Knöchel, Ballen; tiefste Punkte
+const NAMEN := {
+	"ual": {"brust": "spine_03", "l": ["thigh_l", "calf_l", "foot_l", "ball_l"], "r": ["thigh_r", "calf_r", "foot_r", "ball_r"],
+		"tief": ["pelvis", "spine_01", "spine_02", "spine_03", "Head", "calf_l", "calf_r", "foot_l", "foot_r", "hand_l", "hand_r"]},
+	"strecke": {"brust": "belly-chest", "l": ["hipL-thighL", "kneeL-calfL", "ankleL-heelL", "ballL-toeL"], "r": ["hipR-thighR", "kneeR-calfR", "ankleR-heelR", "ballR-toeR"],
+		"tief": ["pelvis-waist", "belly-chest", "chestTop-neck", "neck-neckTop", "kneeL-calfL", "kneeR-calfR", "ankleL-heelL", "ankleR-heelR", "foL-wrL", "foR-wrR"]},
+}
+
+
 func _pos(sk: Skeleton3D, n: String) -> Vector3:
 	return sk.global_transform * sk.get_bone_global_pose(sk.find_bone(n)).origin
 
@@ -45,9 +54,11 @@ func _run() -> void:
 			for b in sk.get_bone_count():
 				nn.append(sk.get_bone_name(b))
 			print("TODRAGDOLL1215 Knochen: ", nn)
+		var nm: Dictionary = NAMEN["ual" if sk.find_bone("spine_03") >= 0 else "strecke"]
+		var vorn0: Vector3 = ((_pos(sk, nm.l[3]) - _pos(sk, nm.l[2])) * Vector3(1, 0, 1)).normalized()
 		var quer: Vector3 = (kf.facing(true).cross(Vector3.UP)).normalized() * (1.0 if k == 0 else -1.0)
 		fig.tod_stoss = quer * 1.4
-		var brust0 := _pos(sk, "spine_03")
+		var brust0 := _pos(sk, nm.brust)
 		var boden: float = fig.global_position.y
 		seed(3 + k)
 		fig.die()
@@ -61,18 +72,28 @@ func _run() -> void:
 			n += 1
 			if fig.ragdoll.phase == "physik":
 				for b in sk.get_bone_count():
-					if sk.get_bone_name(b).begins_with("spine") or sk.get_bone_name(b) in ["pelvis", "Head", "calf_l", "calf_r", "foot_l", "foot_r", "hand_l", "hand_r"]:
+					if sk.get_bone_name(b) in nm.tief:
 						tiefste = minf(tiefste, (sk.global_transform * sk.get_bone_global_pose(b).origin).y - boden)
 		await process_frame
 		var id: String = fig.fighter.id
 		_pruef("%s liegt" % id, fig.ragdoll.phase == "liegt", "nach %.2f s, %d Bilder Physik, %s" % [n / 60.0, fig.ragdoll.bilder_physik, fig.tod_name])
+		var knick := 0.0
 		for sd in ["l", "r"]:
-			var h := _pos(sk, "thigh_" + sd)
-			var kn := _pos(sk, "calf_" + sd)
-			var f := _pos(sk, "foot_" + sd)
-			print("TODRAGDOLL1215 %s Knie %s: %.0f°" % [id, sd, rad_to_deg((kn - h).angle_to(f - kn))])
+			var h := _pos(sk, nm[sd][0])
+			var kn := _pos(sk, nm[sd][1])
+			var f := _pos(sk, nm[sd][2])
+			# Knie nach hinten: der Unterschenkel weicht zur Seite der Ferse aus (gegen die Zehen, im Raum des Oberschenkels)
+			var th := sk.get_bone_global_pose(sk.find_bone(nm[sd][0])).basis.orthonormalized()
+			var th0 := sk.get_bone_global_rest(sk.find_bone(nm[sd][0])).basis.orthonormalized()
+			var v := sk.global_transform.basis.orthonormalized() * (th * (th0.inverse() * (sk.global_transform.basis.orthonormalized().inverse() * vorn0)))
+			var w := rad_to_deg((kn - h).angle_to(f - kn))
+			var seite := -1.0 if (f - kn).dot(v) > (kn - h).normalized().dot(v) * (f - kn).length() + 0.005 and w > 5.0 else 1.0
+			print("TODRAGDOLL1215 %s Knie %s: %.0f° %s" % [id, sd, w, "nach hinten" if seite > 0 else "NACH VORN"])
+			knick = maxf(knick, w * seite)
+			_pruef("%s Knie %s nicht nach vorn" % [id, sd], seite > 0 or w < 5.0, "%.0f°" % w)
+		_pruef("%s Knie knicken" % id, knick > 10.0, "%.0f°" % knick)
 		_pruef("%s nicht im Boden" % id, tiefste > -0.08, "tiefster %.3f m" % tiefste)
-		var weg := (_pos(sk, "spine_03") - brust0).dot(quer)
+		var weg := (_pos(sk, nm.brust) - brust0).dot(quer)
 		_pruef("%s fällt mit dem Stoß" % id, weg > 0.05, "Brust %+.2f m quer" % weg)
 		var vorher := []
 		for b in sk.get_bone_count():

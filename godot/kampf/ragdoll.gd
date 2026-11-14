@@ -14,22 +14,44 @@ const LIEGEN_S := 2.2
 ## still: alle Glieder langsamer als das (m/s), so lange (s)
 const STILL_MPS := 0.08
 const STILL_S := 0.35
-## Glieder: Knochen, Kind (für Länge und Richtung), Radius (Anteil der Größe), Masse (Anteil), Gelenk, Grenzen in Grad
-## Gelenk: "kegel" [Schwung, Drehung], "scharnier" [unten, oben] um die x-Achse des Knochens
-const GLIEDER := [
-	["pelvis", "spine_01", 0.085, 0.16, "", []],
-	["spine_02", "spine_03", 0.08, 0.14, "kegel", [25.0, 15.0]],
-	["spine_03", "neck_01", 0.085, 0.14, "kegel", [20.0, 15.0]],
-	["Head", "", 0.065, 0.07, "kegel", [35.0, 30.0]],
-	["upperarm_l", "lowerarm_l", 0.035, 0.035, "kegel", [70.0, 30.0]],
-	["lowerarm_l", "hand_l", 0.03, 0.025, "scharnier", [-140.0, 0.0]],
-	["upperarm_r", "lowerarm_r", 0.035, 0.035, "kegel", [70.0, 30.0]],
-	["lowerarm_r", "hand_r", 0.03, 0.025, "scharnier", [-140.0, 0.0]],
-	["thigh_l", "calf_l", 0.05, 0.1, "kegel", [50.0, 20.0]],
-	["calf_l", "foot_l", 0.04, 0.05, "scharnier", [0.0, 140.0]],
-	["thigh_r", "calf_r", 0.05, 0.1, "kegel", [50.0, 20.0]],
-	["calf_r", "foot_r", 0.04, 0.05, "scharnier", [0.0, 140.0]],
+## Glieder je Gerüst: Knochen, Ende (Knochen, dessen Ursprung das Ende des Glieds ist; "" = aus der Größe), Verlängerung (Ende mal so
+## weit wie bis zum Ende-Knochen), Radius (Anteil der Größe), Masse (Anteil), Gelenk, Grenzen in Grad. Länge und Richtung des Körpers
+## aus den Ursprüngen (nicht aus der Achse des Knochens); Gelenk: "kegel" [Schwung, Drehung], "knie"/"ellbogen" [Grenze]: Scharnier quer
+## zu Glied und Blickrichtung, Knie knicken den Fuß nach hinten, Ellbogen die Hand nach vorn
+## UAL (Quaternius, GERUEST=cc0)
+const GLIEDER_UAL := [
+	["pelvis", "spine_01", 1.0, 0.085, 0.16, "", []],
+	["spine_02", "spine_03", 1.0, 0.08, 0.14, "kegel", [25.0, 15.0]],
+	["spine_03", "neck_01", 1.0, 0.085, 0.14, "kegel", [20.0, 15.0]],
+	["Head", "", 1.0, 0.065, 0.07, "kegel", [35.0, 30.0]],
+	["upperarm_l", "lowerarm_l", 1.0, 0.035, 0.035, "kegel", [70.0, 30.0]],
+	["lowerarm_l", "hand_l", 1.0, 0.03, 0.025, "ellbogen", [140.0]],
+	["upperarm_r", "lowerarm_r", 1.0, 0.035, 0.035, "kegel", [70.0, 30.0]],
+	["lowerarm_r", "hand_r", 1.0, 0.03, 0.025, "ellbogen", [140.0]],
+	["thigh_l", "calf_l", 1.0, 0.05, 0.1, "kegel", [50.0, 20.0]],
+	["calf_l", "foot_l", 1.0, 0.04, 0.05, "knie", [140.0]],
+	["thigh_r", "calf_r", 1.0, 0.05, 0.1, "kegel", [50.0, 20.0]],
+	["calf_r", "foot_r", 1.0, 0.04, 0.05, "knie", [140.0]],
 ]
+## eigenes Gerüst (v3/rig.py: je Strecke zwischen zwei Gelenkpunkten ein Knochen „a-b“; Goblin, Späher, Schamane, Kobold); der Unterarm
+## endet am Handgelenk wr, das keinen eigenen Knochen hat: zweimal so weit wie bis fo (Mitte)
+const GLIEDER_STRECKE := [
+	["pelvis-waist", "belly-chest", 1.0, 0.085, 0.16, "", []],
+	["belly-chest", "chestTop-neck", 1.0, 0.085, 0.2, "kegel", [25.0, 15.0]],
+	["neck-neckTop", "", 1.0, 0.065, 0.07, "kegel", [35.0, 30.0]],
+	["upL-elL", "elL-foL", 1.0, 0.035, 0.035, "kegel", [70.0, 30.0]],
+	["elL-foL", "foL-wrL", 2.0, 0.03, 0.025, "ellbogen", [140.0]],
+	["upR-elR", "elR-foR", 1.0, 0.035, 0.035, "kegel", [70.0, 30.0]],
+	["elR-foR", "foR-wrR", 2.0, 0.03, 0.025, "ellbogen", [140.0]],
+	["hipL-thighL", "kneeL-calfL", 1.0, 0.05, 0.1, "kegel", [50.0, 20.0]],
+	["kneeL-calfL", "ankleL-heelL", 1.0, 0.04, 0.05, "knie", [140.0]],
+	["hipR-thighR", "kneeR-calfR", 1.0, 0.05, 0.1, "kegel", [50.0, 20.0]],
+	["kneeR-calfR", "ankleR-heelR", 1.0, 0.04, 0.05, "knie", [140.0]],
+]
+## Ferse und Ballen (für vorn), Brust (Ziel des Stoßes) je Gerüst
+const MARKEN := {"ual": ["foot_l", "ball_l", "spine_03"], "strecke": ["ankleL-heelL", "ballL-toeL", "belly-chest"]}
+var geruest := ""
+
 ## Stoß: Grundstärke (m/s auf den Rumpf), mal Waffe (schwer 1,5), kritisch 1,6
 const STOSS_MPS := 1.4
 ## er sackt in sich zusammen: Becken und Rumpf beginnen mit so viel Fallgeschwindigkeit (m/s je m Größe), so knicken die Knie
@@ -53,59 +75,84 @@ var stoss_knochen := "spine_03"
 var bilder_physik := 0       # Messung: so viele Bilder lief die Physik
 
 
-## Gerüst prüfen und Glieder anlegen (noch ohne Physik); false: kein UAL-Zweibeiner
+## Gerüst erkennen (UAL oder eigenes) und Glieder anlegen (noch ohne Physik); false: kein bekanntes Zweibeiner-Gerüst
 func einrichten(s: Skeleton3D, a: AnimationPlayer, groesse_m: float) -> bool:
 	sk = s
 	anim = a
 	gross = maxf(groesse_m, 0.3)
-	for g in GLIEDER:
-		if sk.find_bone(g[0]) < 0:
-			return false
+	var glieder := []
+	for kand in [["ual", GLIEDER_UAL], ["strecke", GLIEDER_STRECKE]]:
+		var da := true
+		for g in kand[1]:
+			if sk.find_bone(g[0]) < 0 or (String(g[1]) != "" and sk.find_bone(g[1]) < 0): da = false
+		for n in MARKEN[kand[0]]:
+			if sk.find_bone(n) < 0: da = false
+		if da:
+			geruest = kand[0]
+			glieder = kand[1]
+			break
+	if glieder.is_empty():
+		return false
+	stoss_knochen = String(MARKEN[geruest][2])
 	sim = PhysicalBoneSimulator3D.new()
 	sim.name = "Ragdoll"
 	sim.active = false
 	sk.add_child(sim)
 	var welt_skala := sk.global_transform.basis.get_scale().x
-	for g in GLIEDER:
+	var vorn := _vorn()
+	for g in glieder:
 		var b := sk.find_bone(g[0])
+		var rest := sk.get_bone_global_rest(b)
+		var rb := rest.basis.orthonormalized()
 		var pb := PhysicalBone3D.new()
 		pb.name = "R_" + String(g[0])
 		pb.bone_name = g[0]
 		pb.collision_layer = SCHICHT
 		pb.collision_mask = SCHICHT
-		pb.mass = maxf(float(g[3]) * 30.0, 0.3)
+		pb.mass = maxf(float(g[4]) * 30.0, 0.3)
 		pb.friction = 0.9
 		pb.bounce = 0.0
 		pb.linear_damp = 0.6
 		pb.angular_damp = 2.5
-		var lang := 0.12 * gross / maxf(welt_skala, 0.01)
-		if String(g[1]) != "" and sk.find_bone(g[1]) >= 0:
-			lang = (sk.get_bone_global_rest(sk.find_bone(g[1])).origin - sk.get_bone_global_rest(b).origin).length()
-		var r := float(g[2]) * gross / maxf(welt_skala, 0.01)
+		# Richtung und Länge im Raum des Knochens: zum Ursprung des Ende-Knochens; ohne Ende längs y des Knochens
+		var d := Vector3(0, 0.12 * gross / maxf(welt_skala, 0.01), 0)
+		if String(g[1]) != "":
+			var dg: Vector3 = (sk.get_bone_global_rest(sk.find_bone(g[1])).origin - rest.origin) * float(g[2])
+			d = rb.inverse() * dg / maxf(rest.basis.get_scale().x, 0.0001)
+		var lang := d.length()
+		var r := float(g[3]) * gross / maxf(welt_skala, 0.01)
 		var cs := CollisionShape3D.new()
 		var kap := CapsuleShape3D.new()
 		kap.radius = clampf(r, 0.01, lang * 0.5 if lang > 0.02 else r)
 		kap.height = maxf(lang, kap.radius * 2.0 + 0.001)
 		cs.shape = kap
 		pb.add_child(cs)
-		# die Kapsel längs des Knochens (y), Mitte auf halber Länge (body_offset: Körper im Raum des Knochens)
-		pb.body_offset = Transform3D(Basis.IDENTITY, Vector3(0, lang * 0.5, 0))
-		match String(g[4]):
+		# der Körper (Kapsel längs seiner y) von Ursprung zu Ende: y auf d, z quer zu Glied und Blick, Mitte auf halber Strecke
+		var by := d.normalized()
+		var bz := by.cross(rb.inverse() * vorn)
+		if bz.length() < 0.01:
+			bz = by.cross(Vector3.RIGHT if absf(by.x) < 0.9 else Vector3.UP)
+		bz = bz.normalized()
+		var bx := by.cross(bz).normalized()     # ≈ −vorn (hinten)
+		pb.body_offset = Transform3D(Basis(bx, by, bz), d * 0.5)
+		match String(g[5]):
 			"kegel":
 				pb.joint_type = PhysicalBone3D.JOINT_TYPE_CONE
-				pb.set("joint_constraints/swing_span", float(g[5][0]))
-				pb.set("joint_constraints/twist_span", float(g[5][1]))
-			"scharnier":
-				# Knie und Ellbogen knicken nur in eine Richtung: die Seite aus dem Gerüst (Fuß nach hinten, Hand nach vorn), nicht
-				# aus der Tabelle (die Achsen der Knochen sind je Gerüst anders)
+				pb.set("joint_constraints/swing_span", float(g[6][0]))
+				pb.set("joint_constraints/twist_span", float(g[6][1]))
+			"knie", "ellbogen":
+				# Scharnier um z des Körpers (aus der Geometrie, nicht aus den Achsen der Knochen, die je Gerüst anders liegen):
+				# Ellbogen nur nach vorn, Knie nur nach hinten
 				pb.joint_type = PhysicalBone3D.JOINT_TYPE_HINGE
-				pb.joint_rotation = Vector3(0, PI / 2.0, 0)     # das Scharnier dreht um z des Gelenks: z auf x des Knochens
-				var grenze: float = maxf(absf(float(g[5][0])), absf(float(g[5][1])))
-				var vor := _knickt_vor(b, String(g[0]).begins_with("lower"))
+				pb.joint_rotation = Vector3.ZERO
+				# Godots Scharnierwinkel: positiv dreht das Kind gegen den Uhrzeigersinn um die Achse (gemessen 13.11. mit ragdoll_1215:
+				# positiv bringt y nach −z bei Achse x), hier also y nach +x = hinten
+				var grenze := float(g[6][0])
+				var hinten_pos: bool = String(g[5]) == "knie"
 				pb.set("joint_constraints/angular_limit_enabled", true)
-				pb.set("joint_constraints/angular_limit_lower", 0.0 if vor else -grenze)
-				pb.set("joint_constraints/angular_limit_upper", grenze if vor else 0.0)
-				pb.set_meta("knick", 1.0 if vor else -1.0)
+				pb.set("joint_constraints/angular_limit_lower", 0.0 if hinten_pos else -grenze)
+				pb.set("joint_constraints/angular_limit_upper", grenze if hinten_pos else 0.0)
+				pb.set_meta("knick", 1.0 if hinten_pos else -1.0)     # Seite, auf der der Winkel erlaubt ist
 			_:
 				pb.joint_type = PhysicalBone3D.JOINT_TYPE_NONE
 		pb.joint_offset = Transform3D(Basis.IDENTITY, Vector3(0, -lang * 0.5, 0))     # Gelenk am Ursprung des Knochens
@@ -114,25 +161,16 @@ func einrichten(s: Skeleton3D, a: AnimationPlayer, groesse_m: float) -> bool:
 	return true
 
 
-## vorn der Figur im Raum des Skeletts: von der Ferse zu den Zehen (UAL ball_l), sonst +z (glTF schaut nach +z)
+## vorn der Figur im Raum des Skeletts: von der Ferse zu den Zehen, sonst +z (glTF schaut nach +z)
 func _vorn() -> Vector3:
-	var f := sk.find_bone("foot_l")
-	var z := sk.find_bone("ball_l")
+	var f := sk.find_bone(String(MARKEN[geruest][0]))
+	var z := sk.find_bone(String(MARKEN[geruest][1]))
 	if f >= 0 and z >= 0:
 		var d := sk.get_bone_global_rest(z).origin - sk.get_bone_global_rest(f).origin
 		d.y = 0.0
 		if d.length() > 0.001:
 			return d.normalized()
 	return Vector3.BACK
-
-
-## ob eine positive Drehung um die x-Achse des Knochens [b] sein Kind (längs y) dorthin bringt, wohin das Gelenk knicken soll:
-## Ellbogen ([hand]) bringen die Hand nach vorn, Knie den Fuß nach hinten
-func _knickt_vor(b: int, hand: bool) -> bool:
-	var bas := sk.get_bone_global_rest(b).basis.orthonormalized()
-	var hin := bas * Vector3(0, 0, -1)     # Godots Scharniergrenze: positiv bringt y nach −z des Knochens (gemessen, ragdoll_1215)
-	var soll := _vorn() * (1.0 if hand else -1.0)
-	return hin.dot(soll) >= 0.0
 
 
 ## im Tod nach [nach_s] die Physik übernehmen lassen; [fuss] Welt-Höhe des Bodens
@@ -187,7 +225,7 @@ func _los() -> void:
 		var anteil := 1.0 if n == stoss_knochen else (0.6 if rumpf else 0.25)
 		pb.linear_velocity = stoss * anteil + Vector3.DOWN * (SACKEN_MPS * gross * (1.0 if rumpf else 0.4))
 		if pb.has_meta("knick"):     # Knie und Ellbogen anknicken, in die Richtung, in die sie dürfen (gestreckt fällt er sonst steif)
-			pb.angular_velocity = pb.global_transform.basis.x.normalized() * (-float(pb.get_meta("knick")) * KNICK_RAD_S)
+			pb.angular_velocity = pb.global_transform.basis.z.normalized() * (-float(pb.get_meta("knick")) * KNICK_RAD_S)     # erlaubte Seite: Drehung gegen die Achse
 
 
 ## die Lage, wie die Physik sie hinterlassen hat, bleibt; die Physik geht aus

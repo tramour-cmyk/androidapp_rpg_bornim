@@ -18,7 +18,7 @@ const KNOCHEN := [
 	["clavicle_r", "spine_03", Vector3(-0.04, 0.1, 0), false], ["upperarm_r", "clavicle_r", Vector3(-0.1, 0, 0), true],
 	["lowerarm_r", "upperarm_r", Vector3(0, 0.2, 0), false], ["hand_r", "lowerarm_r", Vector3(0, 0.18, 0), false],
 	["thigh_l", "pelvis", Vector3(0.08, -0.03, 0), true], ["calf_l", "thigh_l", Vector3(0, 0.26, 0), false],
-	["foot_l", "calf_l", Vector3(0, 0.24, 0), false], ["ball_l", "foot_l", Vector3(0, 0.03, 0.1), false],
+	["foot_l", "calf_l", Vector3(0, 0.24, 0), false], ["ball_l", "foot_l", Vector3(0, 0.03, -0.1), false],
 	["thigh_r", "pelvis", Vector3(-0.08, -0.03, 0), true], ["calf_r", "thigh_r", Vector3(0, 0.26, 0), false],
 	["foot_r", "calf_r", Vector3(0, 0.24, 0), false],
 ]
