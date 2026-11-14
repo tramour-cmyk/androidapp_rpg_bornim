@@ -236,3 +236,4 @@
 2026-11-14 21:45:00	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 31243 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-14 21:59:33	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-601-spaeher ändert Spielcode (godot/kampf/figur.gd, 	claude/jerry-601-spaeher
 2026-11-14 22:03:27	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1255.md: fehlt fertiger Text statt „folg	HEAD
+2026-11-14 22:03:37	commit-pruefung	docs/chefsache/entscheiden/1255.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
