@@ -18,6 +18,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 ## Das Spiel
 
 - [Stil](DESIGN-STIL.md): wie das Spiel aussieht, klingt und sich anfühlt.
+- [Glutsystem](DESIGN-GLUT.md): Kampfregeln zum Bauen, Bauplan, Schnittstellen im Code (930, Entwurf).
 - [Aktionspunkte](DESIGN-AKTIONSPUNKTE.md): Gespräch Chef und Sokrates zu Aktionspunkten im Kampf, Entscheidung für Entscheidung (930).
 - [Kampf](DESIGN-KAMPF.md): wie der Kampf ablaufen soll; [Blende](DESIGN-BLENDE.md): die Übergangsbilder zwischen Orten, bei Rast und Tod.
 - [Entscheidungen zum BRS](DESIGN-BRS-ENTSCHEIDUNGEN.md): jede Regelfrage, die du schon entschieden hast, als nummerierte Liste; Verlauf und alte Ideen liegen in `alt/DESIGN-SPIELSYSTEM-2-0.md`.
