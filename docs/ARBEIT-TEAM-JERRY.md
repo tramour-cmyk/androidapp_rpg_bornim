@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-**Zu Bildtest, von Ford (Chef 14.11., 10:40, nur Bild „Zum Bildtest“):** Blutzahnhöhle, 94 Bilder/s, Mittel 10,7 ms, Speicher 161 MB, Grafik 424 MB, 251 Zeichenaufrufe, 108k Dreiecke; aus: Tusche, Nebel, Schatten. Ford fragt nach; nichts ändern ohne Auftrag.
+**Zu Bildtest, von Ford (Chef 14.11., 10:40, nur Bild „Zum Bildtest“):** Blutzahnhöhle, 94 Bilder/s, Mittel 10,7 ms, Speicher 161 MB, Grafik 424 MB, 251 Zeichenaufrufe, 108k Dreiecke; aus: Tusche, Nebel, Schatten. Zweites Bild 10:41, gleiche Höhle, Effekte an (keine „aus“-Zeile): 40 Bilder/s, Mittel 24,1 ms, 666 Zeichenaufrufe, 391k Dreiecke, Rechenzeit 8,8 ms; also Vergleich Effekte aus gegen an. Ford fragt nach; nichts ändern ohne Auftrag.
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
