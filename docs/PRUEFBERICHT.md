@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 240 · 1240 „Kein Folgevorgang, weil:“ deckt ältere Commits (Spike für Tom, `d23ce6137`; 14.11., 07:1x)
+
+- **Greift:** `vorgang_rest_test.py` 6 von 6, Exit 0. Echte Nummern: 1041 (Grund im Betreff `6603e5236`) leer; 1240, 1180 leer; 1084, 946, 505, 1143 melden ihre Reste wie vorher. Wegwerfkopie: 1137.2 meldet `dd33d57dd` („noch nicht getesteten“), nach Leercommit „1137.2: Kein Folgevorgang, weil: …“ leer. Ein Zitat „„Kein …““ hebt nicht auf; Platzhalter „…“ zählt nicht.
+- **Nebenbei, ohne Vorgang:** das Muster nimmt jedes Wort mit Doppelpunkt davor („Prüfung: Kein Folgevorgang, weil: X“ deckt auch); Reste in Notizcommits nach einem Code-Commit zählen weiter nicht (so seit 1237). 1137.2 bleibt gesperrt, bis ihr Besitzer den Grund schreibt.
+
 ## Lauf 238 · 1239, 1241, 1243, 1236 (Perikles `9cb3e2d39`, `4e6558dd2`, `dca8ede79`; 14.11., 00:2x)
 
 - **Greift:** 1239: `lauf.nachfolger` liest für Perikles, Jerry, Sokrates den echten Nachfolger, Beispielsatz in Anführungszeichen übergangen. 1241: `ROLLE-ENTWICKLUNG.md` „Großes Vorhaben“ ohne Verweis auf `billigen/1236-…`, Ausnahmen und „auch Beschlossenes“ im Text; damit greift 1236 ganz. 1243: „nach/ab/Stichtag 14.11., 20:00“ gilt als Termin.
