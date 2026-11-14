@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 14.11., 20:02 (lauf.py)
+**Stand:** 14.11., 20:25 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -11,3 +11,5 @@
 | Sokrates | [Sokrates – 930: Glutsystem Fassung 2, Bild und Klang, Vorlage (14.11., 10:35)](https://claude.ai/code/session_01Hmoj775ze3dz5eLhqTBs67) | 930 | – | 14.11., 10:34 |
 | Ford | [Ford – Betriebsleiter (14.11., 10:35)](https://claude.ai/code/session_01Hmoj76dYAn9Jmk5yYyU3HQ) | Betrieb | – | 14.11., 10:35 |
 | Tuffy | [Tuffy – 845 (14.11., 11:14)](https://claude.ai/code/session_01Hmoj76Y5kiqYvgg6Qxph9d) | 845 | – | 14.11., 11:15 |
+| Jerry | [Jerry – 1000: Grak hält die Ausholhaltung bis zum Hieb (14.11., 20:04)](https://claude.ai/code/session_01Hmoj76teWqNfwVbcvW5sEf) | 1000 | – | 14.11., 20:03 |
+| Perikles | [Perikles – 1249 (14.11., 20:02)](https://claude.ai/code/session_01Hmoj76U3AHkZNkpmHLQ9ge) | 1249 | – | 14.11., 20:03 |
