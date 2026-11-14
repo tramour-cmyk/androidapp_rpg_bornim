@@ -195,3 +195,4 @@
 2026-11-14 10:34:59	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1227-tasche ändert Spielcode (godot/kampf/kampf_ui.g	claude/jerry-1227-tasche
 2026-11-14 10:37:18	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30022 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-14 10:40:06	commit-pruefung	docs/chefsache/ansehen/1092-falten.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
+2026-11-14 10:40:13	commit-pruefung	docs/chefsache/ansehen/1092-falten.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
