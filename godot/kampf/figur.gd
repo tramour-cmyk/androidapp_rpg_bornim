@@ -4698,6 +4698,7 @@ func die() -> void:
 			if randf() < 0.5 and not _haelt_etwas(): sterbe_spiegeln()
 			_waffe_faellt()
 		anim.play(nm, TOD_BLEND)
+		_ragdoll_tod()
 	else:
 		# 1141 (Chef 13.11., 14:36: „wie Playmobil-Figuren umfallen. Und zwar alle auf die gleiche Seite“): ohne „Tod“ (Ersatz, seit
 		# 1141 hat jeder Gegnerkörper einen, tod_1141) wenigstens zufällig zur einen oder anderen Seite, beschleunigt wie ein Fall
@@ -4780,6 +4781,39 @@ func _waffe_zu_boden(w: Node3D) -> void:
 	# Drehung und Weg getrennt (gespiegelte Tote, 596: ihre Basis ist gespiegelt, interpolate_with verlöre das Vorzeichen)
 	var t := create_tween()
 	t.tween_method(func(x: float): w.global_transform = Transform3D(Basis(Quaternion.IDENTITY.slerp(q, x * x)) * g.basis, g.origin.lerp(unten, x * x)), 0.0, 1.0, WAFFE_FALL)
+
+
+## 1215 (Probe, Chef 13.11., 16:17–19:43): physikalisches Sterben (ragdoll.gd) nur mit RAGDOLL=1 oder ragdoll_probe, bis der Chef
+## die Filme gesehen hat; sonst wie bisher die gebackene Bewegung
+static var ragdoll_probe := OS.get_environment("RAGDOLL") != ""
+## Stoß beim Tod (Welt, m/s); Vector3.INF: vom nächsten lebenden Gegner weg (wer zuletzt traf, weiß die Figur nicht)
+var tod_stoss := Vector3.INF
+var ragdoll = null
+
+func _ragdoll_tod() -> void:
+	if not ragdoll_probe or fighter.side != "FOES" or gespiegelt:
+		return
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	var r = preload("res://kampf/ragdoll.gd").new()
+	add_child(r)
+	if not r.einrichten(sk, anim, maxf(head().y - position.y, 0.3)):
+		r.queue_free()
+		return
+	ragdoll = r
+	var st := tod_stoss
+	if st == Vector3.INF:
+		st = Vector3.ZERO
+		var naechster := INF
+		for id in kampfort.figures:
+			var o = kampfort.figures[id]
+			if o.fighter.side != fighter.side and not o.down and o.position.distance_to(position) < naechster:
+				naechster = o.position.distance_to(position)
+				st = ((position - o.position) * Vector3(1, 0, 1)).normalized() * r.STOSS_MPS
+	r.stoss = st
+	r.sterben(sterbe_ms() * r.UEBERGABE / 1000.0, global_position.y)
+	print("1215 Ragdoll %s: %s, Stoß %s" % [fighter.id, tod_name, st])
 
 
 ## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)
