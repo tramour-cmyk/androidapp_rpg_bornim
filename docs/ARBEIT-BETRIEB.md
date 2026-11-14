@@ -107,3 +107,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:03 14.11.: Marke Start-fehlt Tom 14.11.-21:35 (lauf.py)
 - 22:32 14.11.: Startsperre 22:32 Start Tuffy (930.7, Signal Sokrates 22:31, f76eb9cd2, von Hand, WireStorm Mittel); Weiter Spike 1040.1 (Spike `…7A7BuC683wt2MBEacm`)
 - 22:33 14.11.: Tuffy neu `…79v4vLh86CTewmRzZ9` (930.7, Mittel), Tuffy 930.6 `…76p5RvSmi2JWfwFcxN` archiviert (11,01 $)
+- 22:43 14.11.: Startsperre 22:43 Start Sokrates (Neustart-Meldung 22:42, 834495b12, von Hand)
