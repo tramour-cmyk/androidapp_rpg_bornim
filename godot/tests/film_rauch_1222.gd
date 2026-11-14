@@ -38,6 +38,10 @@ func _run() -> void:
 	root.add_child(p)
 	await process_frame
 	p._start(5)
+	# Lauf 470: der Wurf kam mit der ersten Meldung, noch unter der schwarzen Blende; die Meldungen warten jetzt (messpause, 806), bis
+	# aufgeblendet ist
+	if p.fight != null:
+		p.fight.messpause = true
 	for i in 12:
 		await process_frame
 	var kf = p.fight
@@ -51,6 +55,8 @@ func _run() -> void:
 	if not mess and not Signatur.wache(kf, self, "Film 1222"):
 		return
 	await _blende(0.0)
+	await create_timer(0.4).timeout
+	kf.messpause = false
 	if not kf.busy:
 		kf.go_on()
 	var flog := false

@@ -1724,18 +1724,43 @@ func _rauch_r7(on, at: Vector3) -> bool:
 		var sz = load(pfad)
 		if not sz is PackedScene:
 			continue
-		var fx: Node = (sz as PackedScene).instantiate()
-		kampfort.add_child(fx)
-		if fx is Node3D:
-			(fx as Node3D).global_position = at
-			(fx as Node3D).scale = Vector3.ONE * clampf((on.head().y - on.position.y) / 1.8, 0.7, 2.0)
-		if fx.has_method("play"):
-			fx.call("play")
-		print("1222 Rauch R7: %s" % pfad)
-		get_tree().create_timer(Zauber.SMOKE_MS / 1000.0 + 1.0).timeout.connect(func(): if is_instance_valid(fx): fx.queue_free())
+		# Lauf 470: ein smoke_poof verpufft in gut einer Sekunde, der Rauch muss aber an Kroggs Augen hängen, bis sein Schlag ins Leere
+		# geht: das Bündel platzt vor den Füßen, dann quillt alle RAUCH_TAKT s ein neuer Ballen vor dem Kopf, bis SMOKE_MS um ist
+		_rauch_ballen(sz, on, at, 1.0)
+		var n := int((Zauber.SMOKE_MS - Zauber.SMOKE_FLUG_MS) / (RAUCH_TAKT * 1000.0))
+		for i in range(1, n + 1):
+			get_tree().create_timer(RAUCH_TAKT * i).timeout.connect(func():
+				if is_instance_valid(on) and not on.down:
+					var dir: Vector3 = (kampfort.cam.global_position - on.global_position) * Vector3(1, 0, 1)
+					dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
+					var kopf: Vector3 = on.position + Vector3.UP * (on.head().y - on.position.y) * 0.82 + dir * _girth(on) * 0.4
+					_rauch_ballen(sz, on, kopf + Vector3((randf() - 0.5) * 0.25, 0.0, (randf() - 0.5) * 0.25), 0.75))
+		print("1222 Rauch R7: %s, %d Ballen vor dem Kopf" % [pfad, n])
 		return true
 	print("1222 Rauch R7: nicht da, eigene Wolke")
 	return false
+
+
+## 1222: Takt der Rauchballen vor Kroggs Kopf (s); ein smoke_poof läuft gut 1 s
+const RAUCH_TAKT := 0.4
+
+func _rauch_ballen(sz: PackedScene, on, at: Vector3, groesse: float) -> void:
+	var fx: Node = sz.instantiate()
+	# nur der Rauch: der weiße Bodenring und die Sternchen des Pakets sind zu bunt für unseren Kampfort (düster), das Aufblitzen nur beim
+	# Platzen vor den Füßen
+	for weg in ["Ring", "Stars"] + ([] if groesse >= 1.0 else ["Flash"]):
+		var n := fx.get_node_or_null(weg)
+		if n != null:
+			fx.remove_child(n)
+			n.free()
+	kampfort.add_child(fx)
+	if fx is Node3D:
+		(fx as Node3D).global_position = at
+		(fx as Node3D).scale = Vector3.ONE * clampf((on.head().y - on.position.y) / 1.8, 0.7, 2.0) * groesse
+	if fx.has_method("play"):
+		fx.call("play")
+	var w: WeakRef = weakref(fx)     # das Paket gibt seine Effekte selbst frei (auto_free); sonst nach 3 s
+	get_tree().create_timer(3.0).timeout.connect(func(): if w.get_ref() != null: w.get_ref().queue_free())
 
 
 ## Die erste der Figuren figs, durch deren Umriss (eine Handbreit darum) die Strecke a → b läuft; sonst null
