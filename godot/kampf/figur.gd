@@ -1314,7 +1314,7 @@ func _ruhe_uhr() -> int:
 
 
 func _ruhebewegung() -> void:
-	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen") or anim.has_animation("Lauern")) or bedroht():
+	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen") or anim.has_animation("Lauern")) or bedroht() or ausgeholt():     # 1000: mit erhobener Axt keine Ruhegeste
 		return
 	var grund: String = anim.current_animation
 	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
@@ -2934,7 +2934,22 @@ func _hieb(other, weiter := 0.0) -> int:
 	var d2: Array = _dreh(tween, yaw, schlag, "Stehen")
 	t_run += d2[0]
 	var bl: float = anim.get_animation("Hieb").length if anim and anim.has_animation("Hieb") else 0.9
-	tween.tween_callback(func(): gang = "hieb"; _play("Hieb", 0.08))
+	# 1000: aus der gehaltenen Lage beginnt der Hieb an der Stelle, die sie zeigt (die Axt ist schon oben), ohne zweites Ausholen
+	var oben := ausgeholt()
+	var t0: float = ausholer.stelle() if oben else 0.0
+	if oben:
+		ausholer.fest = true
+		auf = maxf(0.0, auf - t0 / maxf(float(tempo.get("Hieb", 1.0)), 0.1))
+		bl -= t0
+	tween.tween_callback(func():
+		gang = "hieb"
+		if oben and ausholer != null and ausholer.an:
+			_play("Hieb", 0.0)
+			anim.seek(t0, true)
+			ausholer.aus_sofort()
+			schlag_kommt = false
+		else:
+			_play("Hieb", 0.08))
 	tween.tween_interval(bl)
 	# zurück, das Gesicht zum Ziel, um die anderen herum
 	var vh := _detour(start, home, other)
@@ -3016,6 +3031,42 @@ func announce(intent, at = null) -> void:
 		_idle_wenn_frei()     # 438 (wolf_mess_438: kauerte unterwegs heim und glitt 4,8 m in Hocke): unterwegs erst daheim
 
 
+## 1000 (Tuffy 620.2c, wie 310): nach der Ansage „Schwerer Hieb“ hält Grak die Axt oben bis zu seinem Hieb (ausholen.gd); kommt
+## er aus dem Tritt, senkt er sie. [schlag_kommt]: „Schwerer Hieb!“ (FOE_STRIKES) ist gefallen, die Ansage ist weg, der Hieb folgt
+var ausholer = null
+var schlag_kommt := false
+
+func kann_ausholen() -> bool:
+	return anim != null and anim.has_animation("Hieb") and _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3
+
+func ausgeholt() -> bool:
+	return ausholer != null and ausholer.an
+
+func ausholen(an: bool) -> void:
+	if not an:
+		schlag_kommt = false
+		if ausholer != null:
+			ausholer.an = false
+			ausholer.fest = false
+		return
+	if down or not kann_ausholen():
+		return
+	if ausholer == null:
+		var sk := _find(model, "Skeleton3D") as Skeleton3D
+		if sk == null:
+			return
+		var a = preload("res://kampf/ausholen.gd").new()
+		a.name = "Ausholen"
+		if not a.einrichten(anim.get_animation("Hieb"), anim, sk):
+			a.free()
+			return
+		sk.add_child(a)
+		ausholer = a
+	if not ausholer.an:
+		ausholer.phase = 0.0
+	ausholer.an = true
+
+
 ## 494 Riesenspinne: zuletzt angesagte Absicht (announce); „Netz werfen“ spielt den Netzwurf, wann das Netz losfliegt (ms)
 var angesagt = null
 var netz_los_ms := -1
@@ -3031,8 +3082,13 @@ const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY"]     # wie Zauber.BOMBS
 ## danach richtet der Angegriffene die Parade aus. INF: gerade aus dem Stand (dann zählt, wo der Angreifer steht)
 var angriff_von := Vector3.INF
 
+func spell_oder_fern(e: Dictionary) -> bool:
+	return e.spell != null or fighter.ranged()
+
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
+	if ausgeholt() and (spell_oder_fern(e) or kauf or not kann_ausholen()):
+		ausholen(false)     # 1000: nur der Axthieb (_hieb) schlägt aus der gehaltenen Lage
 	angriff_von = Vector3.INF
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
@@ -4678,6 +4734,7 @@ const AUSWEICHEN := [1.0, 0.0, 0.5, 0.9, 90.0, 120.0]     # r3c: mit Blick gerad
 func die() -> void:
 	_dreh_ab()
 	down = true
+	ausholen(false)     # 1000: die Axt sinkt mit dem Fall (die Schicht gibt dem Tod nach)
 	if atem != null:
 		atem.active = false     # 453.1: der Tote atmet nicht
 	if not weg.is_empty() and tween and tween.is_running():
