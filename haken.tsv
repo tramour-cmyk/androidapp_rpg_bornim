@@ -238,3 +238,4 @@
 2026-11-14 22:03:27	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1255.md: fehlt fertiger Text statt „folg	HEAD
 2026-11-14 22:03:37	commit-pruefung	docs/chefsache/entscheiden/1255.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-14 22:32:14	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1040.1 schon 1 Probelauf seit deinem Urteil 2026-11-14 20:20:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, au	claude/tom-1040-1-dorffilm
+2026-11-14 22:32:26	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30192 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
