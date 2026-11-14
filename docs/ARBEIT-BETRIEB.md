@@ -108,3 +108,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:32 14.11.: Startsperre 22:32 Start Tuffy (930.7, Signal Sokrates 22:31, f76eb9cd2, von Hand, WireStorm Mittel); Weiter Spike 1040.1 (Spike `…7A7BuC683wt2MBEacm`)
 - 22:43 14.11.: Startsperre 22:43 Start Sokrates (Neustart-Meldung 22:42, 834495b12, von Hand)
 - 23:02 14.11.: Startsperre 23:02 Start Tom, Jerry (Neustart-Meldungen 22:58 und 22:56, von Hand)
+- 23:36 14.11.: Startsperre 23:36 Start Jerry (Neustart-Meldung 23:30, 4b19ab871, von Hand)
