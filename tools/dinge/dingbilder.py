@@ -1346,15 +1346,17 @@ def tierteil(art):
         teile.append(Teil(m, aufblasen(m, 0.05), alt, matt=0.42))
         for f in range(3):
             striche.append(strich([(0.40 + f * 0.06, 0.58 - f * 0.06), (0.44 + f * 0.06, 0.55 - f * 0.06)], 0.6, 0.5))
-    elif art == "teeth":          # Wolfszähne an einer Schnur
-        sch = [(0.12 + 0.76 * t, 0.30 + 0.30 * math.sin(t * math.pi)) for t in np.linspace(0, 1, 30)]
-        m = strich(sch, 2.6) > 0.4
-        teile.append(Teil(m, np.zeros((S, S)), farbe(0x4a3020), matt=0.32, linie=0.4))
-        for kk, t in enumerate(np.linspace(0.18, 0.82, 5)):
-            x, y = 0.12 + 0.76 * t, 0.30 + 0.30 * math.sin(t * math.pi)
-            ln = 0.20 if kk == 2 else 0.15
-            z = vieleck([(x - 0.035, y), (x + 0.035, y), (x + 0.01, y + ln * 0.7), (x, y + ln)])
-            teile.append(Teil(z, aufblasen(z, 0.02) + 6, stoff(0xece2c8, 0.1, 166 + kk, 6), matt=0.44))
+    elif art == "teeth":          # Wolfszähne: drei lose Zähne, ein großer Fangzahn und zwei kleinere (Chef 14.11., 10:00: einzeln, keine Kette)
+        for kk, (x, y, ln, w, a) in enumerate(((0.34, 0.14, 0.62, 0.09, 0.12), (0.66, 0.18, 0.36, 0.062, -0.30), (0.66, 0.60, 0.28, 0.055, 0.45))):
+            c, sn = math.cos(a), math.sin(a)
+            def P(u, v): return (x + u * c - v * sn, y + u * sn + v * c)
+            # Wurzel oben (dunkler), Krone gebogen zur Spitze unten
+            pts = [P(-w * 0.8, 0), P(w * 0.8, 0), P(w * 1.0, ln * 0.30), P(w * 1.05, ln * 0.62), P(w * 0.9, ln), P(w * 0.2, ln * 0.62), P(-w * 0.55, ln * 0.30)]
+            z = vieleck(pts)
+            t = np.clip(((UX - x) * -sn + (UY - y) * c) / ln, 0, 1)
+            ton = farbe(0xb89a70)[None, None, :] * (1 - t[..., None]) ** 2 + farbe(0xf0e8d4)[None, None, :] * (1 - (1 - t[..., None]) ** 2)
+            teile.append(Teil(z, aufblasen(z, w * 0.9) + kk * 6, ton * (0.94 + 0.06 * rauschen(6, 166 + kk, 1))[..., None], matt=0.44))
+            striche.append(strich([P(-w * 0.7, ln * 0.22), P(w * 0.7, ln * 0.22)], 0.6, 0.6))
     elif art == "hide":           # Schwarte: ein Stück borstige Wildschweinhaut, Rand eingerollt
         pts = [(0.14, 0.30), (0.42, 0.18), (0.74, 0.20), (0.88, 0.42), (0.82, 0.72), (0.56, 0.84), (0.26, 0.80), (0.12, 0.58)]
         m = vieleck(pts)
