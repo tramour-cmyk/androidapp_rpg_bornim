@@ -112,3 +112,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:37 14.11.: Jerry neu `…78yH84MdzrJ74grhR6` (1215 Film), Jerry `…77eC8wuMDzUxc2ekY9` archiviert (10,02 $ auf 1215)
 - 23:44 14.11.: Startsperre 23:44 Start Homer (Neustart-Meldung 23:39, 3ef5def90, von Hand)
 - 23:45 14.11.: Homer neu `…794ME3Gg3ydHeNmxum` (1260), Homer `…76baqPiDLHo7r3hvWz` archiviert (4,22 $ auf 1260)
+- 23:49 14.11.: Startsperre 23:49 Start Tuffy, Sokrates (Neustart-Meldungen 23:44, 23:45, von Hand)
