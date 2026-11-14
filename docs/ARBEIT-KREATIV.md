@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `deef1c90b` (14.11., 21:38)
 
-**Übergabe (14.11., 21:38, `session_01Hmoj76baqPiDLHo7r3hvWz`):** 1257 Befund an Sokrates („Zu 1255, von Homer“ in `ARBEIT-BERATUNG.md`). Nachfolger: keiner, Vorrat leer.
+**Übergabe (14.11., 22:12, `session_01Hmoj76baqPiDLHo7r3hvWz`):** 1257 Befund an Sokrates; 1258 Handbuch (Vollendeter, Grundwert wächst, Proben ohne Grundwert). Nachfolger: keiner, Vorrat leer.
 - **Für Sonntag, von Sokrates (Zu 1186):** Ideen 49, 50, 70, 79 überholt (49 kein Rettungswurf im BRS, 50 keine Klassen, 70 mit 613 erledigt, Mond-Rest eigene Idee, 79 = 72u); 283.1 Hohes Gras: deckt Gras-Paket R9 (1155) es ab?
 
 ## Zeilen
