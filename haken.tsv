@@ -253,3 +253,4 @@
 2026-11-15 00:03:35	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30746 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 00:06:49	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tuffy-930-7-bedienung ändert Spielcode (godot/kampf/glutbi	HEAD
 2026-11-15 00:08:54	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 31472 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-15 00:47:35	commit-pruefung	docs/chefsache/ansehen/t286-karte-scheide.md: Laufnachweis fehlt (1128 A): laden_test steht nicht im Bauablauf; als Prüffrage am Handy oder Test ohne `|| true` in den Lauf der APK (`python3 tools/lauf	main
