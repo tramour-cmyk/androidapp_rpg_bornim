@@ -43,7 +43,7 @@ Vom Chef schon gesagt: Aktionspunkte ja (14.11., 00:25); Richtung „Lesen, Plan
 5. **Platztausch** in der eigenen Reihe kostet den freien Schritt (wie heute der Wechsel).
 6. **Ein Tun je Zug für 1 Glut.** Schwere Handlungen kosten 2 (Tun mit festem Nachlegen, ohne dessen Schadensplus): Glutstrahlen, Flammenfächer, Glutkugel, Wuchtschlag, Schädelstoß, Durchschlag, Zwei auf einmal, Schildstoß.
 7. **Übrige Glut frei teilen:**
-   - **Nachlegen:** je Glut +20 % Schaden auf das Tun dieses Zugs.
+   - **Nachlegen:** je Glut +25 % Schaden auf das Tun dieses Zugs (930.5: 15 % zu schwach, 20 und 25 % erfüllen das Maß, 25 % am ausgeglichensten).
    - **Haltung**, eine Art je Zug, Zahl = übrige Glut, beim Planen gewählt, löst von selbst aus:
      - **Gegenschlag** (Nahkampfwaffe): kommt ein Gegner nah heran oder schlägt ein naher Gegner zu, schlägt der Held vorher.
      - **Wachschuss** (Fernwaffe, Angriffszauber mit Mana): rückt ein Gegner ein Feld vor, schießt der Held vorher.
@@ -66,7 +66,7 @@ Vom Chef schon gesagt: Aktionspunkte ja (14.11., 00:25); Richtung „Lesen, Plan
 18. **Langsame Gegner haben ein Mittel auf Abstand** (Wiedergänger ruft Nachschub, Schnecke spuckt Säure aus fern), damit Abstand halten nie endlos geht.
 19. **Brechen:** Zurückdrängen, Netz verbrennen und Taumeln lassen einen angesagten großen Schlag ins Leere gehen. Das Feld `breakable` der Ansage gibt es schon (`mars.gd` `_intent`).
 20. **Täuschen:** einzelne Arten (Goblin-Späher, Grimmzahn, Grak) sagen einen großen Schlag an und führen einen kleinen, oder umgekehrt; erkennbar erst mit Ansage lesen Stufe 3.
-21. **Je Art eine eigene Frage** an den Spieler: Tabelle „Gegner im Glutsystem“ in [Aktionspunkte](DESIGN-AKTIONSPUNKTE.md). Kurz: Wölfe Gegenschlag, Wiedergänger Abstand und Wachschuss, Kobold nicht anrennen, Späher Weg kostet, Spinne Ring, Fledermaus Haltung statt Zuschlagen, Krogg ausweichen statt abfangen, Grak Reihenfolge.
+21. **Je Art eine eigene Frage** an den Spieler: Tabelle „Gegner im Glutsystem“ in [Aktionspunkte](DESIGN-AKTIONSPUNKTE.md). Kurz: Wölfe Gegenschlag, Wiedergänger Abstand und Wachschuss, Kobold nicht anrennen, Späher Weg kostet, Spinne Ring, Fledermaus Schlag und Gegenschlag (nicht reines Warten: 930.5, Kräutersammler 39 statt 98 Siege je 100), Krogg ausweichen statt abfangen, Grak Reihenfolge.
 22. **Gemischte Begegnungen** (Wolf mit Späher, Kobold mit Schamane): zwei Rezepte, die sich widersprechen.
 
 ## 5. Ansage lesen (neu, Chef 11:18)
@@ -80,10 +80,10 @@ Die Ansage zeigt nicht immer alles. Vier Stufen:
 | 2 | Art und **Ziel** | Rand in der Farbe des Angezielten (heute so gebaut) |
 | 3 | dazu die **Glut** des Gegners und **Täuschung** | rote Glutpunkte, durchgestrichenes Zeichen bei Täuschung |
 
-- **Lesewert des Helden** = Wahrnehmung (Grundwert) und Spähen (Fertigkeit); `DESIGN-BRS.md` sagt schon: „Wahrnehmung verstärkt Spähen beim Entdecken“. **Gegenwert** je Art („undurchschaubar“): Tiere niedrig, Goblins mittel, Bosse hoch. Die Stufe folgt aus dem Abstand der beiden; Zahlen rechnet Stufe 0 (Vorschlag: auf gleicher Stufe ohne Spähen gegen Tiere Stufe 2, gegen Grak Stufe 1).
+- **Lesewert des Helden** = Wahrnehmung (Grundwert) und Spähen (Fertigkeit); `DESIGN-BRS.md` sagt schon: „Wahrnehmung verstärkt Spähen beim Entdecken“. **Gegenwert** je Art („undurchschaubar“): Tiere niedrig, Goblins mittel, Bosse hoch. Gerechnet in 930.5: **Lesewert** = Wahrnehmung + Spähen/5; **Gegenwert** Tiere 1, Säureschnecke 2, Goblins und Kobold 3, Untote 4, Krogg und Grimmzahn 6, Grak 8; **Stufe** = 2 + ⌊(Lesewert − Gegenwert)/4⌋, begrenzt auf 0 bis 3, Spähen ab Geselle +1, Bosse mindestens 1.
 - **Bosse und große Schläge** zeigen immer mindestens Stufe 1, damit der Ring nie unfair kommt.
 - **Wirkung:** wer mehr sieht, spart Glut gezielt; wer wenig sieht, legt sie als Versicherung in Wehr. Die Rechnung von Fassung 2 zeigt, dass beides trägt (keine Spielweise immer vorn).
-- **Gewinn für die Herkünfte:** Jägerkind und Kräutersammler (Wahrnehmung und Spähen) sind im Schlagen schwächer, lesen aber besser; das hilft der Herkunftsbalance (444, 481), ohne Schaden zu verteilen.
+- **Gewinn für die Herkünfte:** Jägerkind und Kräutersammler (Wahrnehmung und Spähen) lesen besser. **Aber (930.5):** im Autopiloten bringt Lesen nur 2 bis 5 Siege je 100, weil die Ansage allein zwischen Wehr und Gegenschlag entscheidet und die nah beieinander liegen. Damit Lesen spürbar wird, muss die falsche Haltung mehr kosten oder die Ansage mehr verraten; offen für das Gespräch nach dem Film (930.7), Regelkern baut die Stufen trotzdem.
 - **Wachsen:** Spähen bis Geselle in Kapitel 1 erreichbar (Kräutersammler, Jägerkind beginnen damit); später Ausrüstung (Späherhaube) und Pfad (Waldläufer liest Tiere immer auf 3).
 - **Stärkstes Gegenargument:** Stufe 0 fühlt sich wie Strafe an, der Spieler sieht weniger als heute. **Antwort:** Stufe 2 ist heute; der Durchschnittsheld beginnt dort gegen Tiere, nur gegen Bosse und Täuscher sieht er weniger, und genau dort ist das Nicht-Wissen Spannung.
 
@@ -105,7 +105,7 @@ Die Ansage zeigt nicht immer alles. Vier Stufen:
 
 ## 7. Bedienung (Hochformat)
 
-1. **Ein Tipp auf den Gegner** = Weg und Tun; die übrige Glut geht in die vorgeschlagene Haltung: nah Gegenschlag, fern Wachschuss, gegen einen angesagten großen Schlag Wehr. Wer nichts plant, spielt wie heute mit einem Tipp.
+1. **Ein Tipp auf den Gegner** = Weg und Tun; die übrige Glut geht in die vorgeschlagene Haltung: nah Gegenschlag, fern Wachschuss, gegen einen angesagten großen Schlag **oder einen Gegner, der aus fern oder weit schießt**, Wehr (930.5: gegen Wolf mit Späher war Gegenschlag der falsche Vorschlag, Kräutersammler 42 statt 66 Siege je 100 mit Wehr). Wer nichts plant, spielt wie heute mit einem Tipp.
 2. **Zweiter Tipp** (auf den Helden oder lang drücken): drei Symbole am Daumen (Gegenschlag oder Wachschuss, Wehr, Nachlegen), der Vorschlag vorgewählt; je Tipp auf ein Symbol wandert eine Glut dorthin.
 3. **Vorschau** vor dem Bestätigen: Ziffern „1“, „2“ über den Figuren in Schlagfolge.
 4. **Immer sichtbar:** großer Schlag (goldener Rahmen), „lauert“ (Speerspitze); Gegnerglut nur auf Stufe 3 und beim Antippen.
@@ -159,3 +159,4 @@ Je Stufe ein Prüfpunkt; die nächste beginnt erst, wenn der vorige geprüft ist
 1. **Los für Stufe 0 bis 2** (Rechnung, Regelkern hinter Schalter, Film der Bedienung), danach Gespräch über den Film, bevor 3 bis 6 beginnen.
 2. Zahlen sind Vorschläge (Nachlegen 20 %, halbe Antworten, zwei Ringe); sie kommen aus Stufe 0 und am Ende aus seinem Test.
 3. Funke ab Heldenstufe 4 und nur einmal je Kampf.
+4. **Aus 930.5 fürs Gespräch nach dem Film** (Prüfung Sokrates 14.11., 20:45, nachgerechnet, gleiche Zahlen): Kräutersammler gegen Skelett fällt von 76 auf 39 Siege je 100 (Dolch sticht, Skelett halbiert Stich; dazu gibt Fassung 2 den Ring nur noch auf großen Schlägen, 1048 A); Wolf mit Späher für schwache Herkünfte zu hart (Kräutersammler 42, eine Stufe darunter 4). Beides Balance, nicht Regelkern; Zahlen kommen in `werte.json`, damit sie ohne Umbau zu ändern sind.
