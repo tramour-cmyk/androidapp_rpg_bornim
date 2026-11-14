@@ -86,3 +86,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 14.11.: Marke Archiv session_01Hmoj7AC9YkKwtpBTa4hv6G (lauf.py)
 - 07:11 14.11.: Startsperre 07:11 Start Diogenes (lauf.py)
 - 07:11 14.11.: Marke Archiv session_01Hmoj76bc5kiW8nS95txbzS (lauf.py)
+- 07:12 14.11.: Lauf nach Spike-Meldung: Diogenes 1240 `…77ehu4FbYQdvND3s1N` gestartet; Diogenes 1133 archiviert (0,69 $). Spike 1240 fertig, endet selbst.
