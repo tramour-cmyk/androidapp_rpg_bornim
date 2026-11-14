@@ -251,3 +251,4 @@
 2026-11-14 23:45:36	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1215 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (	claude/jerry-1215-ragdoll
 2026-11-14 23:53:17	commit-pruefung	docs/chefsache/ansehen/601-spaeher.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
 2026-11-15 00:03:35	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30746 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-15 00:06:49	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tuffy-930-7-bedienung ändert Spielcode (godot/kampf/glutbi	HEAD
