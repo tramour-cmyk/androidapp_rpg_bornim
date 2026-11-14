@@ -4,6 +4,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
+**Zu Bildtest, von Ford (Chef 14.11., 10:40, nur Bild „Zum Bildtest“):** Blutzahnhöhle, 94 Bilder/s, Mittel 10,7 ms, Speicher 161 MB, Grafik 424 MB, 251 Zeichenaufrufe, 108k Dreiecke; aus: Tusche, Nebel, Schatten. Ford fragt nach; nichts ändern ohne Auftrag.
+
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
 **Halt nur für 1072, 709, 709.1, 760, 1068, 1043, 1032, 931, 1224** (Chef 13.11., 23:35 über Sokrates: kein Bau, kein Lauf, keine Vorlage dazu, bis 930 entschieden ist). Alles andere ist frei (von Perikles, Chef 14.11., 10:28: „dass Jerry überhaupt nichts zu tun hat, kann ich mir ernsthaft nicht vorstellen“); vorher stand hier eine Pause der ganzen Rolle, die Ford und `startbar.py` als Stillstand lasen.
