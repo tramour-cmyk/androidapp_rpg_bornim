@@ -106,6 +106,17 @@ static var ohne_tuschelampen := false
 static var ohne_nebel := false
 static var ohne_schatten := false
 static var _leistung_war := false
+# 1145 Test 285 (Chef 14.11., 10:44: „es ist egal, ob ich alles ausschalte oder nicht. Sobald ich mich bewege, ja, schaut es hakelig
+# aus“; ohne Effekte 94 Bilder/s bei 120 Hz): bei 94 Bildern auf 120 Hz steht jedes Bild ungleich lang (eins, dann zwei Takte des
+# Bildschirms), die Bewegung ruckelt auch bei hoher Rate. Zum Messen am Gerät: Bilder je Sekunde fest begrenzen (0 = frei). Alt (WorldScreen.kt
+# 190: withFrameMillis) bewegte je Takt des Bildschirms, schrieb ein Bild je Takt (Compose), nie ein ungleich langes
+const TAKTE := [0, 60, 40, 30]
+static var takt_i := 0
+
+## 1145: Takt reihum (frei, 60, 40, 30); Engine.max_fps gilt sofort, nicht gespeichert
+static func takt_setzen(i: int) -> void:
+	takt_i = posmod(i, TAKTE.size())
+	Engine.max_fps = int(TAKTE[takt_i])
 
 ## 1145: die Schalter „Messen ohne …“ auf Kamera (Tusche, Tuschelampen, Nebel) und alle Lichter (Schatten) anwenden; laeuft nur,
 ## solange einer aus ist, und einmal danach zum Zuruecksetzen
@@ -373,6 +384,10 @@ static func reiter(m: Menue) -> void:
 		zk.call(t.call("Tusche nach Lampen", "Ink by lamps"), an_aus.call(not ohne_tuschelampen), mess_satz, func(): ohne_tuschelampen = not ohne_tuschelampen, "", "✒", not ohne_tuschelampen),
 		zk.call(t.call("Nebel", "Fog"), an_aus.call(not ohne_nebel), mess_satz, func(): ohne_nebel = not ohne_nebel, "", "▒", not ohne_nebel),
 		zk.call(t.call("Schatten", "Shadows"), an_aus.call(not ohne_schatten), mess_satz, func(): ohne_schatten = not ohne_schatten, "", "◐", not ohne_schatten)])
+	m.zeichenreihe([zk.call(t.call("Takt", "Frame cap"), (t.call("frei", "free") if TAKTE[takt_i] == 0 else "%d" % TAKTE[takt_i]),
+		t.call("Nur zum Messen: begrenzt die Bilder je Sekunde (frei, 60, 40, 30), bis zum Neustart. Läuft die Bewegung mit festem Takt ruhig, kommt das Hakeln vom ungleichen Takt.",
+			"For measuring only: caps the frames per second (free, 60, 40, 30) until restart. If movement runs smoothly with a fixed cap, the stutter comes from uneven pacing."),
+		func(): takt_setzen(takt_i + 1), "FPS", "", TAKTE[takt_i] != 0)])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“

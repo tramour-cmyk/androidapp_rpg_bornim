@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 286 · Version folgt · Karte, Scheide, Höhlenlicht, Wolfskampf · PR folgt
-E Welt · Tom (785.7, 785.8, 1073, 1091, 1092, 1119, 1149; ohne dich 882.1, 1214, 1234, 1122, 1129.3, 1131, 1128.2, 1137.2), Jerry (845, 946, 973, 1223, 1227; ohne dich 980, 1060, 1248) · 14.11., 20:50 · APK folgt
+E Welt · Tom (785.7, 785.8, 1073, 1091, 1092, 1119, 1149; ohne dich 882.1, 1214, 1234, 1079, 1122, 1129.3, 1131, 1128.2, 1137.2), Jerry (845, 946, 973, 1223, 1227; ohne dich 980, 1060, 1248) · 14.11., 20:50 · APK folgt
 
 Entwurf Tom; Teil Jerry von Tom aus Jerrys Vorrat und den Commits eingetragen; gegenlesen: Sokrates (Punkte beider Teams).
 
@@ -25,7 +25,7 @@ Im Bau geprüft: Scheide aus der Klinge jedes Dolchs gerechnet, keine Ecke der K
 | 286.10 | Jerry | 973 | Handy | Zeile 286.10 → „Lage herstellen“ (Probekampf Wolfsrudel); einen Wolf töten | die anderen bleiben stehen, wo sie sind, und gehen nur zum eigenen Angriff | sie rücken nach dem Tod auf neue Plätze |
 | 286.11 | Jerry | 1223 | Handy | Zeile 286.11 → „Lage herstellen“ (Probekampf Wolf mit Jungwölfen) | der Anführer heißt im Kampf „Leitwolf“ (über dem Kopf, in der Zugleiste, im Bericht) | er heißt „Wolf“ wie die anderen |
 | 286.12 | Jerry | 1227 | Handy | Zeile 286.12 → „Lage herstellen“ (Probekampf Wolfsrudel mit Vorräten); im Kampf „Tasche“ öffnen | die Bilder der Tränke glatt wie in Tasche und Laden | pixelig, treppig |
-| 286.13 | Tom | 882.1, 1214, 1234 | ohne dich (Diogenes bestätigt am Lauf) | Bau ohne Gradle (`tools/godot/wald_daten.sh`, `godot-kampf.yml`, `mars_texte.py` weg; Vergleichsbilder alt im Zweig `bilder`), `laden_test` (1214), `namen_1234` im Lauf der APK | grün | rot |
+| 286.13 | Tom | 882.1, 1214, 1234, 1079 | ohne dich (Diogenes bestätigt am Lauf) | Bau ohne Gradle (`tools/godot/wald_daten.sh`, `godot-kampf.yml`, `mars_texte.py` weg; Vergleichsbilder alt im Zweig `bilder`), `laden_test` (1214), `namen_1234`, `ziege_4162` ohne andere Tiere (1079) im Lauf der APK | grün | rot |
 | 286.14 | Tom | 1122, 1129.3, 1131, 1128.2, 1137.2 | ohne dich (Diogenes am Werkzeug) | Werkzeuge auf `main`, prüft Diogenes am laufenden Werkzeug | greift | greift nicht |
 | 286.15 | Jerry | 980, 1060, 1248 | ohne dich (Diogenes am Lauf und Werkzeug) | Kaufskripte mit fester Quelle (980), Kennung des Laufs (1060), `laufnachweis.py` (1248) | grün, greift | rot |
 
