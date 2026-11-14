@@ -97,3 +97,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:03 14.11.: Marke Archiv session_01Hmoj77szqvXvBkJvZBkmuy (lauf.py)
 - 20:03 14.11.: Marke Archiv session_01Hmoj765bJQPbYhQ8FuqyJ1 (lauf.py)
 - 20:03 14.11.: Marke Archiv session_01Hmoj78yCAANefHPCi2xGt1 (lauf.py)
+- 20:05 14.11.: Stillstand 10:51 bis 20:00 Ursache Guthaben (Wochengrenze Max erreicht, „resets 8pm“: Perikles 1249, Diogenes, Jerry 1222 um 10:51, Tom 1145 um 18:59 abgebrochen; Fords Wecker 11:03 bis 19:03 kamen gestaut an, Lauf erst 20:02). Lauf 20:02: Tom `…79Q6N8cjLh3SuVwvkR` (1040.1), Jerry `…76teWqNfwVbcvW5sEf` (1000), Diogenes `…77nnorNYpWaTbXpHjz` (1128.3), Perikles `…76U3AHkZNkpmHLQ9ge` (1249) gestartet; alte Sitzungen archiviert (Tom 4,05 $, Jerry 7,71 $, Diogenes 1,09 $, Perikles 0,56 $); Tuffy 845 und Spike 1092 laufen
