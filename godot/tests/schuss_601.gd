@@ -48,25 +48,37 @@ func _initialize() -> void:
 	_run.call_deferred()
 
 
+## Kampfgerüst aus goblin.py: Strecken „von-bis“ (die Hand am Ende von foL-wrL)
+const STRECKEN := {"spine_01": "pelvis-waist", "spine_02": "waist-belly", "spine_03": "belly-chest", "neck_01": "chestTop-neck",
+	"Head": "neck-neckTop", "clavicle_l": "chestTop-shL", "upperarm_l": "upL-elL", "lowerarm_l": "elL-foL", "hand_l": "foL-wrL",
+	"clavicle_r": "chestTop-shR", "upperarm_r": "upR-elR", "lowerarm_r": "elR-foR", "hand_r": "foR-wrR"}
+var art := "ual"
+
+
+func _n(n: String) -> String:
+	return String(STRECKEN.get(n, n)) if art == "strecken" else n
+
+
 func _gerust() -> Skeleton3D:
 	var s := Skeleton3D.new()
 	for k in KNOCHEN:
-		var b := s.add_bone(k[0])
+		var b := s.add_bone(_n(k[0]))
 		if k[1] != "":
-			s.set_bone_parent(b, s.find_bone(k[1]))
+			s.set_bone_parent(b, s.find_bone(_n(k[1])))
 		s.set_bone_rest(b, Transform3D(Basis.IDENTITY, k[2]))
 	s.reset_bone_poses()
 	return s
 
 
 func _p(n: String) -> Vector3:
-	return sk.get_bone_global_pose(sk.find_bone(n)).origin
+	return sk.get_bone_global_pose(sk.find_bone(_n(n))).origin
 
 
 func _gemessen() -> void:
 	var sl := _p("upperarm_l")
 	var sr := _p("upperarm_r")
-	messung = {"t": sch.t, "sl": sl, "sr": sr, "ell_l": _p("lowerarm_l"), "hl": _p("hand_l"), "hr": _p("hand_r"), "hals": _p("neck_01")}
+	messung = {"t": sch.t, "sl": sl, "sr": sr, "ell_l": _p("lowerarm_l"), "hl": sch.hand(sk, "arm_l"), "hr": sch.hand(sk, "arm_r"),
+		"hals": _p("neck_01")}
 
 
 func _schritt() -> void:
@@ -91,12 +103,23 @@ func _pruef(name: String, gut: bool, wert: String) -> void:
 
 
 func _run() -> void:
+	for a in ["ual", "strecken"]:
+		art = a
+		fertig = 0
+		print("SCHUSS601 Gerüst %s" % a)
+		await _arm()
+		sk.queue_free()
+	await _pfeile()
+	print("SCHUSS601 %s" % ("alles gut" if fehler == 0 else "%d Fehler" % fehler))
+	quit(1 if fehler > 0 else 0)
+
+
+func _arm() -> void:
 	sk = _gerust()
 	root.add_child(sk)
 	sch = Schuss.new()
 	if not sch.einrichten(sk):
 		_pruef("Knochen", false, "einrichten() fand die Arme nicht")
-		quit(1)
 		return
 	sch.active = false     # der Test führt die Schritte selbst (sonst rechnete der Skeleton3D zusätzlich)
 	sk.add_child(sch)
@@ -139,9 +162,6 @@ func _run() -> void:
 		_schritt()
 	var still: float = (messung.hl - ruhe_hl).length()
 	_pruef("verschoben: wartet", still < 0.01 and sch.an(), "%.3f m bewegt" % still)
-	await _pfeile()
-	print("SCHUSS601 %s" % ("alles gut" if fehler == 0 else "%d Fehler" % fehler))
-	quit(1 if fehler > 0 else 0)
 
 
 ## der Pfeil (kampf_ui.gd Pfeil): Körper Nocke im Ursprung, Spitze vorn; Treffer: Spitze ein Fünftel im Ziel, hängt dann am Ziel;

@@ -1730,6 +1730,7 @@ class Pfeil extends Node3D:
 	var hub := 0.0
 	var steckt := -1.0
 	var phase := "warten"     # warten, sehne, flug, steckt
+	var _skala := -1.0
 
 	func _process(delta: float) -> void:
 		t += delta
@@ -1753,7 +1754,9 @@ class Pfeil extends Node3D:
 			"steckt":
 				steckt -= delta
 				if steckt < 0.4:
-					koerper.scale = Vector3.ONE * maxf(steckt / 0.4, 0.01)
+					koerper.scale = Vector3.ONE * maxf(steckt / 0.4, 0.01) * _skala
+				elif _skala < 0.0:
+					_skala = koerper.scale.x
 				if steckt <= 0.0:
 					queue_free()
 
@@ -1774,6 +1777,10 @@ class Pfeil extends Node3D:
 			return
 		visible = true
 		var d: Vector3 = ui._aim_point(on, (on.position - by.position).normalized()) - hand
+		# so lang wie der Auszug: von der Sehne an der Wange bis eine Handbreit über den Bogen hinaus
+		var auszug: float = (bogen - hand).length() * 1.15
+		if auszug > lang * 0.4 and absf(auszug - lang) > 0.01:
+			koerper.scale = Vector3.ONE * (auszug / lang)
 		_stelle(hand, d)
 
 	func _los() -> void:
@@ -1781,7 +1788,7 @@ class Pfeil extends Node3D:
 		var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
 		dir = dir.normalized() if dir.length() > 0.01 else Vector3.FORWARD
 		von = bogen if bogen != null else by.position + Vector3.UP * lang
-		von -= dir * lang * 0.5     # die Mitte des Pfeils am Bogen
+		von -= dir * lang * koerper.scale.x * 0.85     # die Nocke an der Sehne, die Spitze knapp vor dem Bogen
 		ziel = ui._miss_point(by, on, true) if missed else ui._aim_point(on, dir)
 		# daneben: fliegt am Ziel vorbei weiter, bis er im Boden steckt
 		ende = ziel
@@ -1791,6 +1798,8 @@ class Pfeil extends Node3D:
 			var fl := (ziel - von) * Vector3(1, 0, 1)
 			ende = ziel + fl.normalized() * minf(1.5, weit * 0.5)
 			ende.y = on.position.y
+		lang *= koerper.scale.x     # Länge aus dem Auszug (_auf_sehne)
+		koerper.scale = Vector3.ONE * koerper.scale.x
 		ende -= (ende - von).normalized() * lang * 0.8     # Weg der Nocke: die Spitze steckt ein Fünftel tief
 		flug_s *= von.distance_to(ende) / maxf(weit, 0.1)
 		hub = weit * 0.04

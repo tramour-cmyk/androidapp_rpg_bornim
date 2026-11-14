@@ -3040,6 +3040,8 @@ var schuss = null
 ## 601: Lage eines Knochens in der Welt (der Pfeil auf der Sehne an der Zughand), null ohne Gerüst
 func hand_welt(knochen: String):
 	var sk := _find(model, "Skeleton3D") as Skeleton3D if model != null else null
+	if sk != null and schuss != null and knochen in ["hand_l", "hand_r"]:     # Kampfgerüst: die Hand ohne eigenen Knochen
+		return schuss.hand_welt(sk, "arm_l" if knochen == "hand_l" else "arm_r")
 	if sk == null or sk.find_bone(knochen) < 0:
 		return null
 	return sk.global_transform * sk.get_bone_global_pose(sk.find_bone(knochen)).origin
