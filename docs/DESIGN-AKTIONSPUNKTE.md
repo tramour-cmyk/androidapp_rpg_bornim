@@ -149,6 +149,75 @@ Auftrag Chef 10:02: „Kennst du die Spiele XCOM oder Jagged Alliance? Die arbei
 - Descent: [Regelzusammenfassung 2. Edition](https://lehi-innovation.github.io/boardgame-rules/rules/descent-journeys-in-the-dark-second-edition/), [Community-Regelreferenz](https://descent-community.org/wp-content/uploads/2017/10/CRRG_1_8_1.pdf)
 - Into the Breach, Pandemie: eigene Kenntnis, nicht nachgeschlagen.
 
+## Entwurf aus einem Guss: Lesen, Planen, Antworten (Sokrates, 14.11., 10:15)
+
+**Auftrag Chef 10:10:** „die Anzahl der Punkte per se richtet sich halt immer noch danach, was denn alle Tätigkeiten, die wir erfassen, kosten sollen. Oder ob gewisse Sachen grundsätzlich frei sind, wie ein normales Feld sich bewegen. Genau, oder sich Aktionspunkte aufsparen, damit man sozusagen, wenn man sieht, der Gegner stürmt heran, dass man sozusagen da abwehrbereit ist oder kontern kann. Also ich weiß nicht, ob wir 3 Punkte brauchen, aber andererseits, wenn wir mit halben Punkten rechnen, ist ja genauso sinnlos. … Stell dir einfach mal vor, du bist ein Spieledesigner und du willst jetzt eben das Kampfsystem unseres Rollenspiels mal richtig interessant machen und abwechslungsreich. … Weil du willst letztendlich mit diesem Spiel einen Preis gewinnen als Newcomer des Jahres. Und das muss dann einfach passen.“
+
+### Der Kern in einem Satz
+
+**Jede Runde ist ein kleines Rätsel in drei Schritten: der Gegner sagt an, was er vorhat (Lesen), du verteilst drei Glutmarken auf Tun und Bereitschaft (Planen), und im Zug des Gegners setzt du die aufgesparte Glut ein, mit dem Ring als Geschick (Antworten).**
+
+Warum das preiswürdig sein kann: Ansage (Into the Breach), aufgesparte Punkte für den Gegnerzug (Jagged Alliance), Ring als Geschick (eigen) gibt es so zusammen in keinem Handy-Rollenspiel. Zwei der drei Teile sind schon gebaut (Ansage, Ring). Der Gegnerzug wird nie Zuschauen, und jede Ansage stellt eine echte Frage: „angreifen oder bereit sein?“
+
+### Die Regeln
+
+1. **Drei Glutmarken je Zug**, ganze Zahlen, nie halbe.
+2. **Der erste Schritt ist frei** und löst die halben Punkte: das Tempo sagt, wie viele Felder frei sind, nicht was ein Feld kostet. **Schnell** (Wolf, Grimmzahn, Wildschwein; Held mit Freischritt ab Geselle) 2 Felder frei, **normal** (Held, Goblin, Grak) 1, **langsam** (Wiedergänger, Schleim) 0. Jedes weitere Feld kostet 1.
+3. **Ein Tun je Zug** (Schlag, Schuss, Wurf, Zauber, Kampfhandlung). Es kostet 1 oder 2. Damit gibt es keinen Doppelschlag (870a 3), und der dritte Punkt ist keine dritte Attacke.
+4. **Was übrig bleibt, ist Bereitschaft.** Sie gilt im nächsten Gegnerzug und verfällt mit dem eigenen nächsten Zug (kein Ansparen über Runden). Je Glutmarke eine Antwort:
+   - **Gegenschlag:** kommt ein Gegner in den Nahkampf oder schlägt er dich, schlägst du zuerst (Nahkampfwaffe). Mit dem Ring beim eigenen Schlag (1048 D).
+   - **Wachschuss:** rückt ein Gegner heran, schießt der Schütze oder Magier, bevor er da ist (wie die Wache in XCOM, aber nur mit aufgesparter Glut).
+   - **Wehr:** der Ring der Abwehr läuft langsamer, perfekt wird leichter.
+   - **Ausweichschritt:** nach perfekter Abwehr ein Feld zurück, ohne dass er nachsetzt.
+5. **Gegner haben zwei Glutmarken** plus freie Schritte nach Tempo (Befund der Rechnung 00:50: mit drei Punkten verliert der Abstand gegen Gegner seinen Preis). Sie zeigen ihre Bereitschaft in der Ansage, etwa **„lauert“** (Goblin mit Speer, Grak): wer heranrückt, läuft in den Schlag. Damit wird das Heranrücken selbst eine Entscheidung.
+6. **Wachsen nach dem BRS** („du wirst, was du tust“, Weg C von 00:25): mehr Punkte gibt es nie in Kapitel 1; die Fertigkeit macht Dinge billiger oder schaltet Antworten frei (Geselle Alchemie: Trank 0 einmal je Kampf; Geselle Ausweichen: Freischritt; Geselle Schild: Wehr gilt auch für den Nachbarn).
+
+### Was was kostet (alle Punkte der Liste aus Schritt 1)
+
+| Gruppe | Handlung | Glut |
+|---|---|---|
+| Bewegen | Felder nach Tempo | 0 |
+| | jedes weitere Feld | 1 |
+| | aus dem Handgemenge lösen (Rückzug), dann gilt der freie Schritt | 1 |
+| | Platz tauschen vorn ↔ hinten | der freie Schritt |
+| | Fliehen | 3 (ganzer Zug, Probe wie heute) |
+| Tun, klein | Schlag, Schuss, Wurf | 1 |
+| | leichter Zauber (Funkenpfeil, Arkanpfeil, Gleißstrahl, Wundsegen, Arkanhaut, Bannschild, Beistand) | 1 |
+| | leichte Kampfhandlung (Finte, Ruhige Hand, Griff, Stich aus dem Hinterhalt) | 1 |
+| Tun, schwer | schwerer Zauber (Glutstrahlen, Flammenfächer, Glutkugel; später Feuerwand) | 2 |
+| | schwere Kampfhandlung (Wuchtschlag, Schädelstoß, Durchschlag, Zwei auf einmal, Schildstoß) | 2 |
+| Kleines | Waffe wechseln, Pfeilart wählen (einmal je Zug) | 0 |
+| | Trank trinken oder geben | 1 |
+| Haltung | Decken (Schläge auf einen Freund auf sich ziehen) | 1 |
+| | Auf Abstand (Stangenwaffe): Bereitschaft wird Gegenstoß | wie Bereitschaft |
+| | Abwehr (heute) entfällt als eigene Taste: alles aufsparen ist Abwehr | – |
+| Einmalig | Kraft schöpfen | 1 |
+| | Einschüchtern, Hinterhalt zu Beginn | 0 |
+| Gegnerzug | Ring der Abwehr, Ausweichen | 0 |
+| | Gegenschlag, Wachschuss, Wehr, Ausweichschritt | je 1 aufgesparte |
+
+### So spielt sich eine Runde
+
+- **Wachsoldat gegen zwei Wölfe, beide fern; Ansage „Anspringen“ auf ihn.** (a) Heran (frei), Schlag (1), 2 Bereitschaft: der zweite Wolf springt, Gegenschlag mit Ring. (b) Stehen bleiben, 3 Bereitschaft: beide Wölfe laufen in Gegenschläge, aber er hat selbst nichts getan. (c) Trank (1), Schlag (1), 1 Wehr. Drei echte Wege, keiner immer richtig.
+- **Jägerkind gegen Wiedergänger, weit.** Der Wiedergänger hat keinen freien Schritt: er braucht beide Glutmarken für zwei Felder. Das Jägerkind schießt (1) und hält 2 Wachschüsse: er kommt nie unbeschossen heran. Gegen Wölfe geht das nicht, die sind in einem Zug da: Abstand zählt, Tempo zählt.
+- **Zauberlehrling, Goblin nah.** Lösen (1), frei ein Feld zurück, Funkenpfeil (1), 1 Wehr. Oder Flammenfächer (2) mitten im Handgemenge, 1 Wehr. „Zurückweichen und dann zaubern“ (Chef 12:28) geht.
+
+### Wo das kippen kann (stärkste Gegenargumente)
+
+1. **Bereitschaft wird die immer richtige Taste** (Kritik an XCOMs Wache). Gegenmittel: Gegner mit Ansage „wartet“ oder „ruft Hilfe“ greifen nicht an, dann verfällt die Glut ungenutzt; Antworten sind schwächer als ein eigener Schlag (Gegenschlag ohne Kampfhandlung). Das muss die Rechnung zeigen.
+2. **Zu viel zum Lesen auf dem Handy.** Gegenmittel: wer einfach „Angriff“ tippt, spart den Rest automatisch als passende Bereitschaft (Nahkämpfer Gegenschlag, Schütze Wachschuss); Planen ist Kür, nie Pflicht. Ein Tipp macht den Zug wie heute.
+3. **Längere Gegnerzüge** durch Antworten (F9). Gegenmittel: höchstens eine Antwort je Gegnerhandlung, Antwort ohne eigenen Weg im Bild.
+4. **Balance verschiebt sich** wie schon mit Schwung (Rechnung 00:50). Darum gibt es hier keinen Schwung; neu rechnen.
+
+### Was der Entwurf ersetzt und was bleibt
+
+- Ersetzt: „Deckung aus übrigen Punkten“ (930 Regel 2) durch Bereitschaft; Schwung (930 I.4) entfällt; Abwehr-Taste geht in Bereitschaft auf.
+- Bleibt: Abstand nah, fern, weit und Eröffnung (930 Regel 1, 8), Ring (1048 A, D), Ausweichen kostet nichts (704 A), Gegnerregeln Krogg, Grimmzahn, Spinne (930 Regel 9), Ausdauer (930 Regel 3) nur als Grenze des Rennens, nicht als dritte Rechnung je Handlung.
+
+### Nächster Schritt, wenn der Chef die Richtung will
+
+Rechnung mit `handgemenge.py` (freie Schritte nach Tempo, Bereitschaft mit vier Antworten, Gegner 2 Glutmarken, Lauern), gleiche Fälle wie 00:50; Maß: keine Herkunft unter 15 Siegen je 100 gegen Krogg, Bereitschaft in höchstens der Hälfte der Züge die beste Wahl, Runde nicht länger als heute. Kosten etwa 5–10 $ (Jerry oder Sokrates), kein Spielcode, bis der Chef entschieden hat.
+
 ## Was zusammenhängt (Gesamtbild 13.11., 23:39)
 
 - **1072 Plätze und Laufwege** (29,94 $): wo eine Figur steht, wie sie dorthin kommt; hinterer Wolf läuft außen herum (0,3 m Luftzuschlag, frei wären 0,18–0,26 m), Runde 30,8 s statt 14,6 s.
