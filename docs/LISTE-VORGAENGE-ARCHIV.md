@@ -514,7 +514,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
 | 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
-| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 62,25 $ | Sokrates | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 67,21 $ | Sokrates | erledigt |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | E Figuren | M | – | Sokrates | erledigt |
@@ -1390,3 +1390,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1240 | D230.1 von Diogenes (aus 1237): seit jeder Code-Commit zählt, hebt „Kein Folgevorgang, weil:“ nur den eigenen Commit auf; ein Rest-Wort in einem älteren Code-Commit sperrt für immer (1237 selbst durch Zitat in 78e06a17e; 1137.2 „noch nicht getesteten“), Ausweg nur VORGANG_REST_OK | B Werkzeuge | M | 2,47 $ | Tom | erledigt, greift Lauf 240 |
 | 1245 | D236.2 von Diogenes (1098.1): Ford-Starter fehlt; ARBEIT-BETRIEB.md „Ford-Starter: keiner; ruht bis zur Antwort des Chefs auf 1098 … kein Starter anlegen“ steht seit Chef 13.11., 09:18 „1098 A“ falsch, Handstart-Ford 18:22 legte darum keinen an, Zu 1245 in ARBEIT-BETRIEB.md | B Abläufe | M | – | Ford | erledigt |
 | 844 | Kampf: Goblins und Kobolde haben keine Angriffsbewegung (nur Gehen, Stehen), gleiten im Stehen 60 % des Wegs vor, Treffer ohne Schlag (treffen_709, aus 709) | E Kampf | M | 20,40 $ | Jerry | erledigt |
+| 1242 | Von Tom (1091, 1119, 1040.1): „Läufe frei“ für einen Lauf mit neuen Aufnahmen 285.3, 285.5, 285.6; Lauf 464 zeigte Hauptmenü, fernen Schlagbaum, schwarze Höhle (Skriptfehler, Ursache nachgestellt, 879725138 auf claude/tom-1091-aufnahmen); 621 A sperrt | B Abläufe | M | – | Sokrates | erledigt |
