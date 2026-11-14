@@ -192,3 +192,4 @@
 2026-11-14 10:27:56	commit-pruefung	VORGANGSARCHIV.md: Telegram-Nachricht 4054 steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)	main
 2026-11-14 10:28:09	commit-pruefung	docs/DESIGN-AKTIONSPUNKTE.md: Uhrzeit 10:40 liegt nach jetzt (10:28)	main
 2026-11-14 10:35:00	startsperre	Startsperre fehlt (750 A): für Ford steht in den letzten 10 Minuten keine „Startsperre … Start Ford“ auf main (letzte 14.11., 10:37). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen, d	HEAD
+2026-11-14 10:34:59	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1227-tasche ändert Spielcode (godot/kampf/kampf_ui.g	claude/jerry-1227-tasche
