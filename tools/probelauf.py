@@ -185,7 +185,7 @@ def jetzt():
     return datetime.datetime.now(BERLIN).strftime("%Y-%m-%d %H:%M:%S")  # Sekunden: Läufe derselben Minute zählen einzeln
 
 
-def testlauf(lauf, befehl, cwd):
+def testlauf(lauf, befehl, cwd, roh=None):
     """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn `-s res://tests/….gd` läuft, kein Film
     geschrieben wird und die Testdatei keinen Bildbefehl enthält. Datei nicht gefunden: zählt als Bildlauf.
     1146 (von Jerry, 1025): `xvfb-run` zählt nicht mehr dagegen — ein Test, der nur einen Bildschirm braucht, aber kein Bild
@@ -199,13 +199,45 @@ def testlauf(lauf, befehl, cwd):
         datei = os.path.join(basis, pfad, "tests", s.group(1))
         if os.path.isfile(datei):
             return not BILDBEFEHL.search(open(datei, encoding="utf-8", errors="replace").read())
+    inhalt = neue_testdatei(roh or befehl, s.group(1))  # 1249: im selben Befehl angelegt, Haken läuft vorher
+    return inhalt is not None and not BILDBEFEHL.search(inhalt)
+
+
+def bild_im_test(befehl, cwd, roh):
+    """1249: legt ein gestartetes Testprogramm (Datei oder Heredoc im selben Befehl) ein Bild ab?"""
+    for m in GODOT_LAUF.finditer(befehl):
+        s = TEST_SKRIPT.search(m.group(0))
+        if not s:
+            continue
+        p = re.search(r"--path[=\s]+(\S+)", m.group(0))
+        pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
+        inhalt = neue_testdatei(roh or befehl, s.group(1))
+        for basis in [cwd] + cd_ordner(befehl, cwd):
+            datei = os.path.join(basis, pfad, "tests", s.group(1))
+            if inhalt is None and os.path.isfile(datei):
+                inhalt = open(datei, encoding="utf-8", errors="replace").read()
+        if inhalt and BILDBEFEHL.search(inhalt):
+            return True
     return False
 
 
-def bildlauf(befehl, cwd="."):
+def neue_testdatei(roh, name):
+    """1249 (von Jerry, 1222): Inhalt einer Testdatei, die derselbe Befehl per Heredoc (`cat > …/tests/<name> <<EOF`,
+    `tee`) erst anlegt; sonst None. Der letzte solche Heredoc gilt."""
+    inhalt = None
+    for m in HEREDOC.finditer(roh):
+        if not re.search(r"(?:>>?|\btee(?:\s+-a)?)\s*[\"']?[^\s\"']*tests/" + re.escape(name) + r"[\"']?(?=[\s;&|<]|$)", m.group("kopf")):
+            continue
+        schluss = re.compile(r"^\s*" + re.escape(m.group("ende")) + r"\s*$", re.M).search(roh, m.end())
+        if schluss:
+            inhalt = roh[m.end():schluss.start()]
+    return inhalt
+
+
+def bildlauf(befehl, cwd=".", roh=None):
     # 464: `--check-only` liest nur den Quelltext (Parsefehler), führt nichts aus, zeigt kein Bild
     return SKRIPT.search(befehl) or any("--import" not in m.group(0) and "--check-only" not in m.group(0)
-                                        and not testlauf(m.group(0), befehl, cwd) for m in GODOT_LAUF.finditer(befehl))
+                                        and not testlauf(m.group(0), befehl, cwd, roh) for m in GODOT_LAUF.finditer(befehl))
 
 
 def git(*args, cwd=REPO, timeout=8):
@@ -831,7 +863,8 @@ def ohne_heredoc(befehl):
         schluss = re.compile(r"^\s*" + re.escape(m.group("ende")) + r"\s*$", re.M).search(befehl, m.end())
         if not schluss:
             continue
-        if re.search(r"(?<![\w.-])(?:bash|sh|zsh|xvfb-run|godot\S*|ssh|env)(?![\w.])[^|;&]*$", m.group("kopf")):
+        # 1249: `godot` nur als Befehl (`~/godot/godot`, `godot.x86_64`), nicht als Ordner im Ziel (`cat > godot/tests/x.gd`)
+        if re.search(r"(?<![\w.-])(?:bash|sh|zsh|xvfb-run|godot(?:\.[\w.-]+)?|ssh|env)(?![\w./-])[^|;&]*$", m.group("kopf")):
             continue
         aus.append(befehl[pos:m.end()])
         pos = schluss.start()
@@ -1027,7 +1060,7 @@ def main():
         anhalten(grund)
     film = False
     try:
-        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
+        if bildlauf(befehl, cwd, roh) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
             if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
                 anhalten(fs)
             if filmlauf_rechner(befehl, cwd):  # 783 W1: Probebild ist ein Einzelbild, kein Film
@@ -1035,8 +1068,8 @@ def main():
                          f"`PROBE={pb.group(1)}`.")
             return hinweis_geben(f"783 W1: Einzelbild zu {pb.group(1)}, zählt nicht als Probelauf. Selbst ansehen, ob Inhalt da "
                                  "ist (kein Weißbild, richtiger Ort), dann gleich Film; nicht an den Chef, kein Helfer.")
-        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
-            if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl):
+        if bildlauf(befehl, cwd, roh) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
+            if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl) or bild_im_test(befehl, cwd, roh):
                 anhalten("1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. "
                          "Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.")
             if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
@@ -1044,7 +1077,7 @@ def main():
             zaehlen(ms.group(1), wer, "mess")
             return hinweis_geben(f"1129 A 3b: Messlauf zu {ms.group(1)}, frei und ohne Grenze; Kosten beim Vorgang vermerken. "
                                  "Bild oder Film an den Chef nur mit `PROBE=<Nr>`.")
-        if bildlauf(befehl, cwd):
+        if bildlauf(befehl, cwd, roh):
             m = PROBE.search(befehl)
             if not m:
                 anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
