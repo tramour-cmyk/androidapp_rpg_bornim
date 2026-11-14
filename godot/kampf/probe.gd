@@ -17,6 +17,7 @@ var tables: Dictionary
 var hero_cls := "FIGHTER"
 var merc_cls := "WIZARD"
 var foe := "WOLVES"
+var rauch := 0     # 1222: Morwens Rauchbündel in der Lage (kampfort.gd setup „rauch“), für den Film gegen Krogg
 var box: VBoxContainer
 var fight: Node
 ## the hero's name on the comparison picture (MarsShot: "Mira")
@@ -1170,7 +1171,7 @@ func _start(seed := -1) -> void:
 	if OS.get_environment("PLATZ") != "":     # 493: Standbild je Kampfort im Wald (PLATZ=teich …)
 		fight.platz = OS.get_environment("PLATZ")
 	# 296.2: der Held der Probe steht am Anfang seiner Stufe (870.5: lohn.gd ohne Stand); ohne LP kein Kampf
-	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {}):
+	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {"rauch": rauch} if rauch > 0 else {}):
 		visible = true
 		fight.free()
 		fight = null

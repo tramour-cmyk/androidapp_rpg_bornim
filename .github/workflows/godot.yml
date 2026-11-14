@@ -1008,7 +1008,7 @@ jobs:
           fi
           ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '1222' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
@@ -1196,6 +1196,21 @@ jobs:
             --write-movie $RUNNER_TEMP/wurf935.avi --fixed-fps 30 -s res://tests/film_wurf_935.gd > $B/wurf935.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/wurf935.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wurf935.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/935-wurf.mp4 || true
+          ls -l $B
+      # 1222 (Chef 13.11., 20:39, t284.4b: Rauchbündel „ohne sichtbare Wirkung“): Wurf, Rauch an Kroggs Kopf (R7 smoke_poof, sonst
+      # eigene Wolke; RAUCH_EIGEN=1 erzwingt die eigene), Zeile [1232.rauch.krogg]; nur von Hand mit kampf=1222
+      - name: Rauchfilm 1222 (nur von Hand mit kampf=1222)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '1222' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/rauch1222; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_rauch_1222.gd 2>&1 | grep -E "^Film|1222|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/rauch1222.avi --fixed-fps 30 -s res://tests/film_rauch_1222.gd > $B/rauch1222.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|1222|^Signatur|FEHLER" $B/rauch1222.log | head -16 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/rauch1222.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1222-rauch.mp4 || true
           ls -l $B
       # 510 (Chef 03.11., 10:28–10:57, aus 494): freie Fledermaus (OGA „Vampire Bat (Animated)“, rubberduck, CC0) mit unseren Fellen neben
       # der eigenen (fledermaus.py), je vorhandene Bewegung, beide drehen sich; nur von Hand mit gegner=FLEDERMAUS. Quelle und Lizenz:

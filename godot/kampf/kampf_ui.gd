@@ -1696,6 +1696,34 @@ func _aim_point(on, dir: Vector3) -> Vector3:
 	return on.position + Vector3.UP * (on.head().y - on.position.y) * 0.55 - dir * _girth(on)
 
 
+## 1222: der gekaufte Rauch aus R7 (Stylized VFX v2.0, smoke_poof; LISTE-EFFEKTE Krogg „R7“, 1036 im Film „Geblendet“), nur im Bau
+## (Lizenz: nie ins Repo); er platzt an Kroggs Kopf und läuft aus. Fehlt das Paket (am Rechner, in den Tests), malt zauber.gd die
+## eigene Wolke. true, wenn der gekaufte Rauch steht
+const RAUCH_R7 := ["res://addons/reeboo_vfx/effects/smoke_poof.tscn", "res://addons/reeboo_vfx/pack3_effects/smoke_poof.tscn"]
+
+func _rauch_r7(on, at: Vector3) -> bool:
+	if OS.get_environment("RAUCH_EIGEN") != "":     # Vergleich im Film: eigene Wolke auch mit Paket
+		return false
+	for pfad in RAUCH_R7:
+		if not ResourceLoader.exists(pfad):
+			continue
+		var sz = load(pfad)
+		if not sz is PackedScene:
+			continue
+		var fx: Node = (sz as PackedScene).instantiate()
+		kampfort.add_child(fx)
+		if fx is Node3D:
+			(fx as Node3D).global_position = at
+			(fx as Node3D).scale = Vector3.ONE * clampf((on.head().y - on.position.y) / 1.8, 0.7, 2.0)
+		if fx.has_method("play"):
+			fx.call("play")
+		print("1222 Rauch R7: %s" % pfad)
+		get_tree().create_timer(Zauber.SMOKE_MS / 1000.0 + 1.0).timeout.connect(func(): if is_instance_valid(fx): fx.queue_free())
+		return true
+	print("1222 Rauch R7: nicht da, eigene Wolke")
+	return false
+
+
 ## Die erste der Figuren figs, durch deren Umriss (eine Handbreit darum) die Strecke a → b läuft; sonst null
 func _line_blocker(a: Vector3, b: Vector3, figs: Array):
 	for o in figs:
@@ -1733,7 +1761,7 @@ func _draw_spells() -> void:
 		var by = k.figures.get(sp.by, on)
 		var to := _foot(on)
 		var tall := _tall(on)
-		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS", "BURNING_HANDS", "WEB", "BOMB_FIRE", "BOMB_HOLY"]
+		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS", "BURNING_HANDS", "WEB", "BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]
 		var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
 		dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
 		var h_by: float = by.head().y - by.position.y
@@ -1742,6 +1770,10 @@ func _draw_spells() -> void:
 			sp["from"] = hand if hand != null else by.position + Vector3.UP * h_by * (START_UP if flying else 0.55) + dir * (_girth(by) + 0.1 if flying else 0.0)
 		var a3: Vector3 = sp["from"]
 		var b3: Vector3 = _aim_point(on, dir)
+		if sp.kind == "BOMB_SMOKE":     # 1222: das Bündel landet vor den Füßen (zauber.gd), der gekaufte Rauch steht davor
+			if not sp.has("r7") and p >= Zauber.SMOKE_FLUG_MS / Zauber.SMOKE_MS:
+				sp["r7"] = _rauch_r7(on, on.position - dir * _girth(on))
+			Zauber.nur_flug = sp.get("r7", false)
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
 		Zauber.d_to = _depth(b3)
 		# 348.7a Prüfer 1b (Feuerpfeil, Feuerball, Heilige Flamme brannten hinter Kopf und Brust des Wolfs): der Einschlag liegt
@@ -1763,6 +1795,7 @@ func _draw_spells() -> void:
 		if Zauber.pruef and flying:
 			_bahn_pruef(sp, by, on, p)
 	spells = still
+	Zauber.nur_flug = false
 	_draw_zustaende()
 	tafel.end()
 	if tafel.verts > 0:

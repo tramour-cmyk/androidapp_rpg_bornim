@@ -1150,7 +1150,9 @@ func _smoke_bundle() -> void:
 		return
 	smoke -= 1
 	smoke_thrown = true
+	casting = "BOMB_SMOKE"     # 1222: am Kampfort fliegt das Bündel und platzt an Krogg (zauber.gd _smoke_bundle)
 	_say(fmt(THROWS, lang, [lead().name(lang), SMOKE_BUNDLE[lang]]), lead().id, foes_of_kind(KROGG)[0].id, 0, null, false, false, "THROW")
+	casting = null
 
 
 ## 1222: geht der nächste Schlag von [foe] in Morwens Rauch fehl (Krogg, Bündel geworfen, Rauch noch nicht verbraucht)?

@@ -3011,7 +3011,7 @@ const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterl
 ## Schulter aus und lässt sie los, wenn der Arm über dem Kopf nach vorn geht (Hieb: oben bei 0,35, Mitte bei 0,41 der Bewegung)
 var wurf_los_ms := -1
 const WURF_LOS := 0.38
-const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY"]     # wie Zauber.BOMBS
+const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]     # wie Zauber.BOMBS
 
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 ## 662 (Chef t270.9: „keine Seite erkennbar“): wo der Angriff ankommt (Platz vor dem Biss oder Hieb, im Raum des Kampforts);
