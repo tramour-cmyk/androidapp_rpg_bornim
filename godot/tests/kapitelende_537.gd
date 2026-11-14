@@ -115,10 +115,11 @@ func _lauf() -> void:
 	m.bisher = true
 	m.baue()
 	await process_frame
-	var b: Button = null
-	for k in m.find_children("*", "Button", true, false):
-		if String(k.text) == "DIE MORGENANDACHT ANSEHEN": b = k
-	pruefe("Chronik: Morgenandacht ansehen", b != null, true)
+	# 860: Zeile mit „›“ ohne Kasten (Spielstaende.zeile_mit_pfeil, tippbar) statt Knopf in Versalien
+	var b: Label = null
+	for k in m.find_children("*", "Label", true, false):
+		if String(k.text) == "Die Morgenandacht ansehen": b = k
+	pruefe("Chronik: Morgenandacht ansehen", b != null and b.get_parent().get_parent() is PanelContainer, true)
 	m.queue_free()
 	print("KAPITELENDE %d Fehler" % fehler)
 	quit(1 if fehler else 0)

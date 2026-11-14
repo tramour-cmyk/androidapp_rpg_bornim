@@ -22,6 +22,7 @@ func _initialize() -> void:
 	_spanne_644a()
 	_beute_stufe_644a()
 	_ueben_644a()
+	_ohne_deckel_644b()
 	print("GEGENSTAENDE870 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -73,10 +74,11 @@ func _funde() -> void:
 	pruefe(Beute.zusatz_text(["TENACITY", 5], "de") == "+5 % Abwehrprobe", "Abwehrprobe: %s" % Beute.zusatz_text(["TENACITY", 5], "de"))
 	pruefe(Beute.zusatz_text(["STR", 1], "de") == "+1 Kraft", "Kraft: %s" % Beute.zusatz_text(["STR", 1], "de"))
 	pruefe(Beute.zusatz_text(["HP", 5], "de") == "+5 Leben", "Leben: %s" % Beute.zusatz_text(["HP", 5], "de"))
-	# Anzeige ohne Würfel: Schaden als Zahl mit Schadensart, Güte in der Listenzeile
+	# Anzeige ohne Würfel: Schaden als Zahl mit Schadensart; 1190 (Chef 13.11., 16:50): Güte nicht in der Listenzeile, nur im Fenster
 	var schwert := {"uid": 1, "base": "longsword", "rarity": "COMMON", "ilvl": 1, "guete": 2, "rolls": [], "unique": null, "name_seed": 0}
 	pruefe(Beute.kennwert(schwert, "de") == "Schaden 8 · Schnitt", "Kennwert meisterhaftes Langschwert: %s" % Beute.kennwert(schwert, "de"))
-	pruefe(Beute.listen_zeile(schwert, "de").contains("Meisterhaft"), "Listenzeile nennt die Güte: %s" % Beute.listen_zeile(schwert, "de"))
+	pruefe(not Beute.listen_zeile(schwert, "de").contains("Meisterhaft") and not Beute.listen_zeile(schwert, "en").contains("Masterwork"), "Listenzeile ohne Gütewort: %s" % Beute.listen_zeile(schwert, "de"))
+	pruefe(Menue.guete_text(schwert, true) == "Güte: Meisterhaft", "Fenster nennt die Güte: %s" % Menue.guete_text(schwert, true))
 
 func _held(stufe := 1) -> BrsHeld:
 	var h := BrsHeld.fuer_spiel("Probe", "Mensch", "Wachsoldat")
@@ -245,3 +247,13 @@ func _ueben_644a() -> void:
 	pruefe(BrsHeld.grundwerte().all(func(g): return h.uebungs_plus(String(g)) == 0), "Rüstung und Schild heben keinen Grundwert")
 	h.geuebt = {"Einhänder": 10 + n}
 	pruefe(int(h.mein_kampfblatt()["werte"]["kraft"]) == kraft + 1, "Kampfblatt mit gewachsenem Grundwert")
+
+
+## 644b.1 (644b A, Chef 12.11., 13:40): kein Deckel für Grundwerte und Schutzwert; der Schutzwert würfelt mit halbem Gewicht wie die
+## Grundwerte, Leben mit vollem
+func _ohne_deckel_644b() -> void:
+	var w := BrsHeld.neu()
+	for a in ["STR", "DEX", "CON", "INT", "WIS", "CHA", "AC"]:
+		pruefe(w.deckel(a) >= 1 << 20, "644b: Deckel für %s ist %d" % [a, w.deckel(a)])
+	pruefe(Beute.zusatz_gewicht("AC") * 2 == Beute.zusatz_gewicht("HP"), "644b: Schutzwert %d gegen Leben %d" % [Beute.zusatz_gewicht("AC"), Beute.zusatz_gewicht("HP")])
+	pruefe(Beute.zusatz_gewicht("STR") == Beute.zusatz_gewicht("AC"), "644b: Grundwert %d gegen Schutzwert %d" % [Beute.zusatz_gewicht("STR"), Beute.zusatz_gewicht("AC")])

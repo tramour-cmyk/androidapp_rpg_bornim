@@ -178,7 +178,7 @@ var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punkte bauen die 
 func _init() -> void:
 	name = "Erschaffung"
 	b = BrsHeld.neu("Mensch", BrsHeld.herkuenfte()[0] if not BrsHeld.herkuenfte().is_empty() else BrsHeld.WANDERER)
-	aussehen = HeldFigur.vorgabe(b.herkunft)
+	aussehen = HeldFigur.vorgabe(b.herkunft, "m", b.volk)
 
 func _process(dt: float) -> void: Messung.bild(dt, "Erschaffung")   # 416.1: laengste Bildpause auch hier
 
@@ -309,7 +309,7 @@ func baue() -> void:
 func volk_waehlen(v: String) -> void:
 	b.volk = v
 	b.waehle_herkunft(b.herkunft)   # Wahl der Fertigkeiten an die Zahl des Volks anpassen (Mensch eine mehr); Punkte bleiben
-	var vg := HeldFigur.vorgabe(b.herkunft, String(aussehen.get("geschlecht", "m")))
+	var vg := HeldFigur.vorgabe(b.herkunft, String(aussehen.get("geschlecht", "m")), b.volk)
 	aussehen["haut"] = int(vg["haut"])
 	aussehen["haarfarbe"] = int(vg["haarfarbe"])
 	baue()
@@ -319,7 +319,7 @@ func herkunft_waehlen(h: String) -> void:
 	if not aussehen_eigen:   # Beispielkopf der Herkunft, solange der Spieler nichts gewaehlt hat; Geschlecht und Statur bleiben
 		var g := String(aussehen.get("geschlecht", "m"))
 		var st := String(aussehen.get("statur", "normal"))
-		aussehen = HeldFigur.vorgabe(b.herkunft, g)
+		aussehen = HeldFigur.vorgabe(b.herkunft, g, b.volk)
 		aussehen["statur"] = st
 	baue()
 

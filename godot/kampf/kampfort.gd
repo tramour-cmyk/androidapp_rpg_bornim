@@ -1117,8 +1117,14 @@ func _skip_beats() -> void:
 func tap() -> void:
 	if not ring_open:
 		return
-	var off := absi(Time.get_ticks_msec() - (ring_start + RING_MS))
+	var off := absi(_ring_uhr() - (ring_start + RING_MS))
 	_answer_ring(Mars.PERFECT if off <= PERFECT_MS else (Mars.GOOD if off <= GOOD_MS else Mars.NONE))
+
+
+## 949 (Lauf 438): der Ring läuft nach derselben Uhr wie sein Bild (kampf_ui.uhr, 1039; im Spiel die echte Zeit). Im Film
+## (--write-movie, 6 % Echtzeit) schloss er sonst nach echter Zeit nach 3 Bildern als verpasst, nie perfekt
+func _ring_uhr() -> int:
+	return int(ui.uhr.call()) if ui != null else Time.get_ticks_msec()
 
 
 func _answer_ring(r: String) -> void:
@@ -1162,7 +1168,7 @@ func _process(_dt: float) -> void:
 	_hit_camera()
 	_rand_kamera()
 	_grass_spots()
-	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
+	if ring_open and _ring_uhr() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
 	if playing or verhuellt or messpause:     # 402: unter der Blende warten Worte und Züge; 806: ebenso beim Messen
 		return
@@ -1291,7 +1297,7 @@ func _play_say(e: Dictionary) -> void:
 		if e.hp[id] < was:
 			var mx: int = mars.find(id).max_hp if mars.find(id) != null else 1
 			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)
-		elif target == id and _missed(e) and across and figures[id].blockt():
+		elif target == id and _missed(e) and across and figures[id].blockt() and e.cue != "EVADED":     # 949: perfekter Ring weicht aus
 			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
 			var af = figures.get(actor)
 			var von := Vector3.INF     # 662: vom Platz, an dem der Angriff ankommt, nicht von dort, wo er losläuft
@@ -1462,7 +1468,7 @@ func _fx_of(e: Dictionary, by, tg, across: bool):
 
 func _play_ring(target_id: String, intent: Dictionary) -> void:
 	ring_for = target_id
-	ring_start = Time.get_ticks_msec()
+	ring_start = _ring_uhr()
 	ring_open = true
 	ui.ring_open(target_id, intent)
 	var klang = get_node_or_null("/root/Klang")

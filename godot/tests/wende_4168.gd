@@ -108,13 +108,25 @@ func _lauf() -> void:
 	p.queue_free()
 	# 5) echte Figur (nur mit gebauten Leuten): Standfuss in der Welt waehrend einer Wende
 	var echt: Leute = null
+	var ohne := []   # 1040.1 (Lauf 427: Kaufleute ohne Drehen_L/R, hier still uebergangen): mit gebautem Kaufkoerper muss jede Person wenden koennen
 	for l in spiel.leute_liste():
-		if l is Leute and l.visible and not l.daten.has("tier") and l.wende_kurve.size() == 2 and l.anim: echt = l; break
+		if not (l is Leute and l.visible and not l.daten.has("tier") and not l.monster and l.anim): continue
+		if l.wende_kurve.size() == 2:
+			if echt == null: echt = l
+		else: ohne.append(String(l.daten.get("id", "?")))
+	if FileAccess.file_exists("res://daten/bewegungen.bin"):
+		pruefe(ohne.is_empty(), "Kaufkoerper gebaut, aber ohne Wende mit Schritten (Drehen_L/R, held-klassen.json wende): %s" % ", ".join(PackedStringArray(ohne)))
 	if echt == null:
 		print("ohne gebaute Leute mit Drehen_L/R (Bau ohne Kaufmodelle): echte Figur nicht geprueft")
 	else:
 		echt.warte = 999.0
 		echt.ziel = Vector2i(-1, -1)
+		# 1040.1 (Lauf 441: „liska: Wende mit Schritten gemessen (3 Bilder)“): seit die Kaufleute wenden, ist echt die erste Person
+		# des Dorfs, Liska (8, 10), keine 3 Kacheln vom Helden (11, 7); sie schaute ihn an (schaut_her, wie oben bei der Probe), stehen()
+		# setzte blick jedes Bild auf ihn zurück, die gesetzte Viertelwende kam nie an. Für die Messung schaut sie niemanden an
+		echt.held = null
+		echt.schaut = false
+		echt.zugewandt_bis = 0
 		var sk := Gebiet.finde(echt.modell, "Skeleton3D") as Skeleton3D
 		var fuesse := [sk.find_bone("ball_l"), sk.find_bone("ball_r")]
 		await create_timer(1.0).timeout
@@ -136,6 +148,6 @@ func _lauf() -> void:
 		var med: float = v[v.size() / 2] if v.size() else 0.0
 		print("RUTSCHEN %s: Standfuss %.1f cm/s im Mittel, hoechstens %.1f (%d Bilder)" % [echt.daten["id"], med, v.back() if v.size() else 0.0, spur.size()])
 		# erst messen (416.8: „Füße ohne Rutschen (messen)“), die Grenze setzt der erste Lauf; Gehen: gehen_m_je_s ohne Gleiten
-		pruefe(spur.size() > 10, "%s: Wende mit Schritten gemessen (%d Bilder)" % [echt.daten["id"], spur.size()])
+		pruefe(spur.size() > 10, "%s: Wende mit Schritten gemessen (%d Bilder; Bewegung %s, %.0f Grad vom Ziel)" % [echt.daten["id"], spur.size(), echt.anim.current_animation, grad(angle_difference(echt.rotation.y, echt.blick))])
 	print("WENDE %d Fehler" % fehler)
 	quit(1 if fehler else 0)

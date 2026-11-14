@@ -104,6 +104,8 @@ func _lauf() -> void:
 	await druecke(m, "Gegner")   # klappt die Liste zu
 	pruefe("Gegnerliste zu", m.find_children("*", "Button", true, false).any(func(b): return b.is_visible_in_tree() and String(b.text) == "WOLFSRUDEL"), false)
 	Testmodus.probe_held = "test"; Testmodus.gegner_auf = true; Testmodus.probe_gegner = "GRAK"
+	pruefe("947: Söldner zu Beginn keiner", [Testmodus.probe_soeldner, Testmodus.probe_soeldner_fuer(hw)], ["", null])
+	Testmodus.probe_soeldner = "*"
 	var a := Testmodus.probe_aufbau("Wachsoldat", 3, "Bertram")
 	pruefe("Namen Held und Söldner", [(a["held"] as BrsHeld).name, (a["soeldner"] as BrsHeld).name], ["Bertram", "Hagen"])
 	var sh := BrsHeld.fuer_spiel("Mira", "Mensch", "Klosterschüler", z.neue_uid)

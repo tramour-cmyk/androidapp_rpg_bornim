@@ -636,6 +636,34 @@ static func zier() -> Control:
 		c.draw_polyline(PackedVector2Array([mi + Vector2(0, -r), mi + Vector2(r, 0), mi + Vector2(0, r), mi + Vector2(-r, 0), mi + Vector2(0, -r)]), Stil.GOLD, w, true))
 	return c
 
+## 860 (549a: „Gewählte Zeile oder gewählter Wert: Schrift BRIGHT auf RAISED, kein Rahmen“; Chef 10.11., 13:07, t274.10): Umschalter ohne
+## Kasten (Chronik „Aufträge“ / „Bisher geschehen“, Filter der Karte); nicht gewählt gedämpftes Gold auf Schwarz, Schrift wie Knöpfe
+static func wahl(text: String, tat: Callable, gewaehlt: bool, hoehe_dp := 48.0) -> PanelContainer:
+	var l := Stil.zeile(text.to_upper().replace("ß", "SS"), 13, Stil.BRIGHT if gewaehlt else Stil.GOLD, 2.0)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	l.custom_minimum_size.y = hoehe_dp * DP
+	l.clip_text = true
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var p := tippbar(l, tat)
+	p.name = "Wahl"
+	p.set_meta("gewaehlt", gewaehlt)
+	if gewaehlt: p.add_theme_stylebox_override("panel", Stil.kasten(Stil.RAISED, Color(0, 0, 0, 0), 0.0))
+	return p
+
+## 860: eine antippbare Zeile über die ganze Breite ohne Kasten (549a): links der Text, rechts das goldene „›“
+static func zeile_mit_pfeil(text: String, tat: Callable, farbe := Stil.TEXT) -> PanelContainer:
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", int(8 * DP))
+	h.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	h.custom_minimum_size.y = 48 * DP
+	var l := Stil.txt(text, 15, farbe)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(l)
+	h.add_child(pfeil(Stil.GOLD, false))
+	return tippbar(h, tat)
+
 # eine Flaeche zum Antippen ueber die ganze Breite (wie Rastfeld._tippbar): gedrueckt der erhabene Grund, ausgeloest beim Loslassen darauf
 static func tippbar(inhalt: Control, was: Callable) -> PanelContainer:
 	var p := PanelContainer.new()
