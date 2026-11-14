@@ -3,6 +3,8 @@ E Welt · Tom (785.7, 785.8, 1073, 1091, 1092, 1119, 1145, 1149; ohne dich 882.1
 
 Entwurf Tom; Teil Jerry von Tom aus Jerrys Vorrat und den Commits eingetragen; gegenlesen: Sokrates (Punkte beider Teams).
 
+Gegengelesen: Sokrates 14.11., 21:09. Jeder Punkt aus frischem Spielstand über „Lage herstellen“ oder Telegram erreichbar, Weg genannt, sinnvoll. Befunde an Tom vor dem Bau: (1) **1000 fehlt** (Jerry, gebaut 20:32, `c7bb77ea3` auf `claude/jerry-1000-ausholen`, Prüfpunkt Film in „Zu 1000“: Grak hält die Axt nach „Schwerer Hieb“ oben bis zum Hieb); mischen und als Filmzeile 286.5a aufnehmen oder hier „nicht drin, weil …“. (2) **`grak_348` ist schon auf `main` rot** (1250, Jerry): im Lauf von 286 als „Rot, bekannt (1250)“ führen, sonst hält er den Merge auf. (3) 286.8 „über der Welt fallen die Bilder/s auf 60“ klarer: „die Anzeige der Bilder/s zeigt bei Takt 60 höchstens 60“.
+
 Ein Weg: über Build 285 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand; die Bilder und Filme 286.1 bis 286.5 kommen vorher je als eigene Nachricht auf Telegram (👍 passt, 👎 falsch); dann Reiter „Test“, je Zeile 286.6 bis 286.13 „Lage herstellen“.
 
 Schon gebilligt, fährt unverändert mit (kein neuer Prüfpunkt): 756.1 und 764 (Bild, Chef 13.11., 16:50 „passt“).
