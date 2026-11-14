@@ -44,6 +44,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 21:51 14.11.: Sokrates alt `…775ze3dz5eLhqTBs67` archiviert (24,55 $ gesamt)
+- 21:37 14.11.: Hinweis Ford: erste Planung 21:35 lief ohne Weckruf von Tom 286 (`…77L1zKAAbcvm31GJBc`, Lauf 473 um 22:09) und mit veralteter Kurzzeile Spike (arbeitet): START Tom 1247, ARCHIVIERE Tom 286, START Spike nicht ausgeführt, Startsperren Tom und Spike 21:35 stehen irrtümlich; nur Homer 1257 gestartet
+- 21:37 14.11.: Homer neu `…76baqPiDLHo7r3hvWz` (1257, Start-Meldung Sokrates 21:35), Homer 1235 archiviert (1,19 $); alter Sokrates `…775ze3dz5eLhqTBs67` Archivierung 21:45 (Chefantwort A/B)
 - 21:16 14.11.: Tom neu `…77L1zKAAbcvm31GJBc` (286, Neustart-Meldung 21:09), Tom `…79AQ79uafPgaVpiHEJ` archiviert (16,92 $ auf 1091); Weitergabe Sokrates 1252 an Tom 21:08
 - 21:09 14.11.: Diogenes neu `…78sXbc6SZHTKCgXXZ3` (1079), Diogenes `…77WqsAmL86DZSZvSXs` archiviert (2,06 $); Sokrates `…775ze3dz5eLhqTBs67` auf Tom-Bitte 21:07 „Weiter: 1252“ (kein Neustart); Hinweis: Kurzzeile mit Kosten 20,13 $ löste GEBUCHT auf 930, 285, 1222, 1040.1 aus (je 5,03 $, Sokrates läuft noch, Fehler von Ford, Kurzzeile künftig ohne Kosten für laufende)
 - 20:48 14.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_014BcfzRMLG6Fa8bDwFVGeaY` (:03), alte `trig_01LkfXvhcQ873nArQjFWNhGh` aus, alter Ford `…76dYAn9Jmk5yYyU3HQ` archiviert (1019, 8,26 $); Spike neu `…7A7BuC683wt2MBEacm` (1040.1), Spike 1092 archiviert (9,73 $)
@@ -61,9 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:33 14.11.: Lauf nach Perikles-Meldung: Jerry 1227 `…77Q6K2jkHmLkqGiwNz` (Chef 10:28: Jerry soll arbeiten; Halt nur noch für 1072, 709, 709.1, 760, 1068, 1043, 1032, 931, 1224), Spike 1092 `…7A4LFiFy7nygExKGnU` gestartet (Tom bleibt 1091/t285); Jerry alt archiviert (2,40 $); Perikles-Neustart (b7275a65f, Nachfolger 1246) folgt, sobald Tagesbericht-Sitzung ruht; Chef 👍 Telegram 844 eingetragen.
 - 10:14 14.11.: Chef 10:11 zu 1092: „a. mit den Ergänzungen“ (Sokrates: A mit Deckel) eingetragen (Archiv, Zu 1092 Tom, Datei weg); Tom `…77znPDfxf4G6yvCC6Q` per „Weiter: 1092“ angestoßen (kein zweiter Tom, Chef testet t285 dort; lauf.py plante START Tom + ARCHIVIERE Tom, nicht ausgeführt); Perikles 1244 archiviert (1,19 $).
 - 10:05 14.11.: Tagesbericht: Perikles `…79x9S7PcZtZSXrN3we` gestartet.
-- 09:05 14.11.: Lauf 09:03: nichts zu starten (Diogenes 1098.1 vorerst nicht prüfbar, Sokrates wartet auf Chef). Morgen 14.11.: regelcheck --kurz: 2 Pflegehinweise (Pause-Felder Jerry und Sokrates ohne lesbares Datum, Besitzer setzen); kosten.py nicht gelaufen (Seiten nicht geholt, Guthaben tragbar laut Zeile oben), Zählung nachholen im nächsten Lauf mit Zeit.
-- 08:06 14.11.: 1245 erledigt: Zeile Ford-Starter oben richtiggestellt (Geprüft an: Commit nach Push).
-- 08:05 14.11.: Lauf 08:03: Tom alt archiviert (21,01 $ auf 285), Spike 1240 (1,41 $), Diogenes 1240 (1,06 $) archiviert; nichts zu starten; Nachhalten: Eingang leer, 6 Abgleich-Zeilen Jerry (811, 876, 923, 971, 644a.1, 1060) ohne Build, lautlos.
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
 - 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
@@ -99,12 +99,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:14 14.11.: Startsperre 21:14 Start Tom (lauf.py)
 - 21:14 14.11.: Marke Archiv session_01Hmoj79AQ79uafPgaVpiHEJ (lauf.py)
 - 21:32 14.11.: Startsperre 21:32 Start Sokrates (Neustart-Meldung 21:30, 5a5b155a6, von Hand)
-- 21:35 14.11.: Startsperre 21:35 Start Tom, Homer (lauf.py)
+- 21:35 14.11.: Startsperre 21:35 Start Homer (lauf.py)
 - 21:35 14.11.: Marke Archiv session_01Hmoj775ze3dz5eLhqTBs67 (lauf.py)
 - 21:35 14.11.: Marke Archiv session_01Hmoj77L1zKAAbcvm31GJBc (lauf.py)
 - 21:35 14.11.: Marke Archiv session_01Hmoj79TDPJJvAZwbQx6fLi (lauf.py)
-- 21:35 14.11.: Startsperre 21:35 Start Spike (lauf.py)
 - 21:35 14.11.: Marke Archiv session_01Hmoj7A7BuC683wt2MBEacm (lauf.py)
-- 21:37 14.11.: Hinweis Ford: erste Planung 21:35 lief ohne Weckruf von Tom 286 (`…77L1zKAAbcvm31GJBc`, Lauf 473 um 22:09) und mit veralteter Kurzzeile Spike (arbeitet): START Tom 1247, ARCHIVIERE Tom 286, START Spike nicht ausgeführt, Startsperren Tom und Spike 21:35 stehen irrtümlich; nur Homer 1257 gestartet
-- 21:37 14.11.: Homer neu `…76baqPiDLHo7r3hvWz` (1257, Start-Meldung Sokrates 21:35), Homer 1235 archiviert (1,19 $); alter Sokrates `…775ze3dz5eLhqTBs67` Archivierung 21:45 (Chefantwort A/B)
-- 21:51 14.11.: Sokrates alt `…775ze3dz5eLhqTBs67` archiviert (24,55 $ gesamt)
+- 22:03 14.11.: Marke Start-fehlt Tom 14.11.-21:35 (lauf.py)
