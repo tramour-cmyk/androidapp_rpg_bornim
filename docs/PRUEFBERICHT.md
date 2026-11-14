@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 242 · 1199 Prüfliste erst mit APK in die Chefsache (Perikles `aefe62940`; 14.11., 11:1x)
+
+- **Greift:** Lauf 464 (`claude/build-285`, `d34cecf64`), Schritt „Skripte pruefen“: „PRUEFLISTE Build 285 aus docs/entwurf/t285-gang-messen.md“, „PRUEFLISTE1020 im Bau: Build 285, 6 Zeilen, 0 Fehler“. Entwurf trug „Gegengelesen: Sokrates 13.11., 21:32“. APK fertig 23:03, Bild 285.2 gesendet 23:28 (`ce125336e`, Datei noch in `entwurf/`), Verschiebung nach `ansehen/` erst 23:30 mit APK-Link in Zeile 2 (`906a81451`); vorher keine t285 in `ansehen/`. Bilder 285.4a/b (Spike 00:24) erst gesendet, dann eingetragen. Wächter `commit-pruefung.py` 425–430 vorhanden.
+- **Nicht geprüft:** Wächter an einer gestellten Datei ohne APK-Link; 1200.
+
 ## Lauf 241 · 1098.1 Ford-Starter nach 1245 (14.11., 08:0x)
 
 - **Noch nicht prüfbar, kein Befund:** 1245 hat nur die Zeile oben in `ARBEIT-BETRIEB.md` richtiggestellt (`3c95502e8`); einen Starter legt erst ein Handstart-Ford (Tiefe 0) an. Laufender Ford `…7AAPsuvPwPbE7HCYeV` liegt auf Tiefe 1 (Elternkette: meine Sitzung Tiefe 2, Eltern = Ford), 328 Tsd. `used_tokens` um 08:05; Selbstneustarts „(selbst)“ bis Tiefe 5, dann Handstart. Bei der Rate vom 12./13.11. (Tiefe 4 nach 22 h) frühestens etwa 16.11. 1098.1 wartet auf 16.11.; vorher nur der Chef mit einem Handstart.
