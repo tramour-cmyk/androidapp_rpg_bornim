@@ -8,6 +8,72 @@ Arbeitsstand des Gesprächs ab 13.11., 23:35, damit der Chef es nachlesen kann (
 - **23:48, Chef:** „Ja, ich denke, wir müssen uns vorneweg schon mal einen Kopf machen, ob wir das mit Aktionspunkten machen wollen und was wie viel kostet.“
 - **23:50, Chef:** „Weil davon hängt ab, inwieweit Leute wieder zurückweichen können oder nicht, weil was es kostet, zum Beispiel. Was kostet Gehen, was kostet Rennen, was kostet ein Tank nehmen, was kostet ein Waffenwechsel, was kostet ein leichter Zauber, was kostet ein schwerer Zauber. Fragen über Fragen, die man da stellen kann.“ Und: „hör auf, jetzt jedes Mal schon wieder 1000 Dinge im Hintergrund zu machen. Ich bin doch noch am Ideen sammeln mit dir zusammen.“
 - **00:03, Chef** (Nachricht brach ab): „So, und jetzt machen wir wieder eins nach dem anderen. Jetzt hast du mir gezeigt, was deine Regelseite heute vorschlägt. … Und daran arbeiten wir jetzt mal und stecken Hirnschmalz rein. … jede einzelne Entscheidung, jede einzelne“. Gelesen als: Entscheidung für Entscheidung durchgehen.
+- **14.11., 08:47, Chef (Neuanfang):** „Nee, wir fangen nochmal ganz anders an, sondern wir schauen jetzt erstmal, was für mögliche Aktionen gibt es denn überhaupt, die man machen kann. Dann schauen wir, was soll das kosten. … Und dann können wir uns auch überlegen, keine Ahnung, ob es immer sein soll, einmal was tun und einmal bewegen. Und ob Bewegen zum Beispiel auch umsonst sein kann. Also normales Bewegen. Aber erstmal brauchen wir eine Liste von Sachen, die überhaupt machbar sind im Kampf. Und dann schauen wir, wie wir die kategorisieren, und dann schauen wir, was die kosten oder ob sie mal nichts kosten oder ob es nur zwei gibt.“ Damit gilt die Reihenfolge: (1) Liste, (2) Gruppen, (3) Preise, (4) Zahl der Punkte oder „ein Tun, ein Bewegen“. Alles darunter (Abschnitte ab „Erster Wurf“) ist Vorarbeit, nicht der Weg.
+
+## Schritt 1: Was man im Kampf tun kann (Sokrates, 14.11., 08:50)
+
+Ohne Preise. Quellen: Code auf `main` (`424334472`: `mars.gd` `_perform`, `kampf_ui.gd` `_build_orders`), `DESIGN-BRS.md` 7, `STORY-BRS-KOENNEN.md`, `STORY-BRS-KAMPF.md` (Ansagen), Regelseite 930 in `DESIGN-KAMPF.md`. Zeichen: **●** heute im Spiel, **◐** beschlossen, noch nicht gebaut, **○** nur Vorschlag.
+
+**Heute auf dem Bildschirm:** Angriff, Können, Tasche, Wechsel; darunter Abwehr, Flucht, (Decken), Söldner Auto, Held Auto. Heute ist jede Wahl der ganze Zug, außer **Wechsel**: Platztausch und Waffe ziehen kosten nur den Schritt, danach darf man noch handeln (`mars.gd` `act`). „Einmal bewegen, einmal tun“ gibt es also schon, aber nur für den Wechsel.
+
+**A. Bewegen**
+1. Heran an einen Gegner (Schritt) ○ – heute nur Bild, kostet nichts
+2. Zurück, aus dem Handgemenge (Rückzug) ○
+3. Rennen, mehrere Felder ○
+4. Platz tauschen in der eigenen Reihe, vorn ↔ hinten ●
+5. Fliehen, ganzer Kampf ● (nie vor einem Boss)
+
+**B. Angreifen**
+6. Nahkampfschlag ●
+7. Schuss (Bogen, Armbrust) ●
+8. Wurf (Wurfwaffe, Kampftrank, Wurfmittel) ●
+9. Schwung: zweiter Schlag nach einem Treffer ○ (930)
+10. Kampfhandlungen der Fertigkeit ab Geselle ● (Liste in Jerrys Code, wirken teils noch nicht): Finte, Stich aus dem Hinterhalt, Wuchtschlag, Schädelstoß, Griff, Ruhige Hand, Durchschlag, Zwei auf einmal
+11. Zurückdrängen: Schildstoß, Wuchtschlag drängt ○ (930 Regel 5)
+
+**C. Zaubern** (nach Schule, Mana)
+12. Angriff auf einen: Funkenpfeil, Arkanpfeil, Gleißstrahl ●; Glutstrahlen (drei Ziele) ●
+13. Fläche, eine Reihe: Flammenfächer, Glutkugel ●
+14. Schutz für sich: Arkanhaut, Bannschild ●
+15. Heilen eines Freunds: Wundsegen ●
+16. Stärken: Beistand ●
+
+**D. Gegenstände**
+17. Trank trinken ●
+18. Trank einem Freund geben ● (Ziel wählbar)
+19. Waffe wechseln, Zweitwaffe ziehen ●
+20. Schild ablegen oder aufnehmen, Fackel ziehen ○ (Fackelstoß, Tiere verscheuchen: `LISTE-MARS.md`, ○)
+
+**E. Abwehr und Haltung** (wirkt bis zum eigenen nächsten Zug)
+21. Abwehr (heute „warten“, gibt Gegnern Ungunst) ●
+22. Decken: Schläge auf einen Freund auf sich ziehen ● (nur alte Klasse Kämpfer; im BRS Fähigkeit des Wächters)
+23. Schildwall ● (wirkt in Kapitel 1 nicht, Held allein)
+24. Auf Abstand (Stangenwaffe, Gegenstoß) ●
+25. Wehrhaltung ○ (nur, wenn Jerry sie behält)
+26. Deckung aus übrigen Punkten ○ (930)
+27. Atem holen, Ausdauer zurück ○ (930 Regel 3)
+
+**F. Im Zug des Gegners** (kein eigener Zug, aber eine Wahl)
+28. Ring der Abwehr bei großen Schlägen ● (1048 A)
+29. Ausweichen ● (704 A: kostet nichts)
+30. Ring beim eigenen Schlag ◐ (1048 D, Bau 1068)
+
+**G. Einmalig und Sonderfälle**
+31. Kraft schöpfen, Leben zurück, einmal je Kampf ●
+32. Einschüchtern zu Beginn (Späher verjagen) ●
+33. Hinterhalt zu Beginn (nach Schleichen) ●; Abstand selbst wählen ○ (930 Regel 8)
+34. Die Kulisse benutzen (Feuer, Fass, Wasser) ○ (Baustein 3, nie gebaut)
+35. Bedienung, keine Handlung: Held Auto, Söldner Auto, Schnell
+
+**H. Gegner** (für die Frage, ob für sie dieselben Preise gelten)
+- einfacher Schlag oder Biss je Art ● · Schwerer Hieb ● · Anspringen ● · Flanke ● · Einkreisen ● · Durchbrechen ● · Hilfe rufen ● · Kraft sammeln ● · Gift sammeln ● · Netz werfen ● · Anlegen (Schuss) ● · In den Schatten ● · Heilen (Schamane) ● · Fliehen ● · Kroggs Prankenhieb ○ (930 Regel 9)
+
+**Was auffällt:**
+- Gut die Hälfte gibt es schon; neu für die Punktefrage sind vor allem A1–A3 (der Weg) und E26, E27.
+- „Bewegen umsonst“ (Chef) hieße: A1 und A2 kosten nichts, dann zählt Abstand nur noch, wenn das Tempo begrenzt, wie weit man frei kommt (etwa ein Feld frei, jedes weitere kostet). Sonst wäre der Fernkämpfer ohne Vorteil, und der Rückzug wäre gratis.
+- Mehrere Dinge sind keine eigene Wahl im Zug (F), andere nur einmal je Kampf (G31, G32); die brauchen vielleicht gar keinen Preis.
+
+**Nächster Schritt (2):** Gruppen festlegen. Vorschlag zur Prüfung: **Bewegen** (A) · **Tun** (B, C, Angriffe und Zauber) · **Kleines Tun** (D, Tränke und Waffen) · **Haltung** (E) · **frei** (F, G). Dann liest sich die Frage des Chefs so: je Zug ein Bewegen und ein Tun, Kleines Tun statt Bewegen, Haltung statt Tun, Freies immer.
 
 ## Was zusammenhängt (Gesamtbild 13.11., 23:39)
 
