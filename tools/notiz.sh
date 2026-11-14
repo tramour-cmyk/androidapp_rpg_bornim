@@ -82,13 +82,18 @@ else
     echo "Notizen auf main, neu seit dem letzten Aufruf:"
     TZ=Europe/Berlin git log --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
 fi
-# Größenwarnung (65.4c, 98): jeder Vorrat ARBEIT-*.md höchstens etwa 15 KB (außer dem eingefrorenen Archiv, 117).
-for d in $(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E '^docs/ARBEIT-.*\.md$' | grep -v -E 'ARBEIT-ARCHIV\.md'); do
-    n=$(git show "origin/main:$d" 2>/dev/null | wc -c)
-    [ "$n" -gt 15000 ] && echo "Warnung: $d hat $((n/100))00 Bytes (Grenze etwa 15000), kürzen (CLAUDE.md „Vorräte klein halten“)."
-done
-# Pflegefehler der Vorräte (167.9): erledigte Zeilen, Größe, lange Zeilen; nur melden, wenn etwas da ist
-if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
+# Größenwarnung (65.4c, 98; Grenze 30 KB seit 1129 A 7): jeder Vorrat ARBEIT-*.md (außer dem eingefrorenen Archiv, 117).
+# 1129 A 7: Größe und Pflegefehler nur einmal am Tag, sonst stehen sie bei jedem Start und keiner reagiert; sie stehen auch im Tagesbericht.
+pw="$HOME/.bornim-pflegewarnung-$(TZ=Europe/Berlin date +%Y%m%d)"
+if [ ! -f "$pw" ]; then
+    touch "$pw"
+    for d in $(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E '^docs/ARBEIT-.*\.md$' | grep -v -E 'ARBEIT-ARCHIV\.md'); do
+        n=$(git show "origin/main:$d" 2>/dev/null | wc -c)
+        [ "$n" -gt 30000 ] && echo "Warnung: $d hat $((n/100))00 Bytes (Grenze etwa 30000), kürzen (CLAUDE.md „Vorräte klein halten“)."
+    done
+    # Pflegefehler der Vorräte (167.9): erledigte Zeilen, Größe, lange Zeilen; nur melden, wenn etwas da ist
+    if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
+fi
 if [ -f "$wt/tools/inhalt.py" ]; then ih=$(python3 "$wt/tools/inhalt.py" --kurz 2>/dev/null); [ -n "$ih" ] && printf "Inhaltsverzeichnis docs/README.md (650.2):\n%s\n" "$ih"; fi
 # 340.3: dieselben Hinweise einmal am Tag als Zeile „Pflege“ des Besitzers in der Vorgangsliste (275.2), Rollenspiegel ab Freitag als Zeile „Spiegel“;
 # im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie (tools/pflegehinweis.py)
@@ -102,7 +107,7 @@ if [ ! -f "$hk" ] || ! grep -q "commit-pruefung (D55.4)" "$hk" 2>/dev/null; then
     printf '#!/bin/sh\n# commit-pruefung (D55.4)\nf=/home/user/bornim-main/tools/commit-pruefung.py; [ -f "$f" ] || f=tools/commit-pruefung.py\nif [ -f "$f" ]; then python3 "$f" || exit 1; fi\nexit 0\n' > "$hk" && chmod +x "$hk"
 fi
 echo "$neu" > "$mark"
-# 658: Reaktionen und Nachrichten des Chefs auf Telegram (👍 gebilligt, ✅ erledigt), letzte 120 Minuten; nur Text, still ohne Schlüssel
+# 658: Reaktionen und Nachrichten des Chefs auf Telegram (👍 gebilligt, 👎 falsch, ✅ erledigt; Prüfpunkte t<n>.<k> je Build eine Zeile, 1217), letzte 120 Minuten; nur Text, still ohne Schlüssel
 [ -f "$wt/tools/reaktionen.py" ] && timeout 40 python3 "$wt/tools/reaktionen.py" 2>/dev/null
 echo "Arbeitskopie für Notizen: $wt"
 schluss

@@ -9,7 +9,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | Begriff | Bedeutung | gehört zu → darunter | nicht | steht in |
 |---|---|---|---|---|
 | **BornWire TCS** | unsere Firma; baut „Chroniken von Bornim“ | – → Chef, Rollen | – | `CLAUDE.md` „Wer wir sind“, `FIRMA.md` |
-| **Chef** | der Nutzer; entscheidet Grundsätzliches, testet jeden Code vor `main` | BornWire TCS | – | `CLAUDE.md` „Rollen“ |
+| **Chef** | der Nutzer; entscheidet Grundsätzliches, testet Code vor `main` je Punkt in seiner Art, Kleinkram nicht (1173) | BornWire TCS | – | `CLAUDE.md` „Rollen“ |
 | **Rolle** | feste Aufgabe einer Sitzung: Sokrates, Homer, Perikles, Diogenes, Ford, Team Tom, Team Jerry | BornWire TCS → Sitzung | – | `CLAUDE.md` „Rollen“ |
 | **Team Tom**, **Team Jerry** | die zwei Entwicklerrollen; Spike und Tuffy arbeiten als Zusatzentwickler in ihrem Team | Rolle | – | `ROLLE-ENTWICKLUNG.md` |
 | **Sitzung** | eine laufende Claude-Code-Sitzung mit einer Rolle; jede Rolle gibt es genau einmal | Rolle → Übergabe, Nachfolger | Klon | `CLAUDE.md` „Wer wir sind“, `LISTE-RELEASE-NEUSTART.md` |

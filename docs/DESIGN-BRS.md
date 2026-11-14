@@ -91,7 +91,7 @@ Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber und sind bei d
 | Wille | Mana, Heil- und Schutzmagie, kritische Treffer der Umgebungsmagie, Konzentration, Furchtresistenz, Überzeugungskraft |
 | Wahrnehmung | verstärkt Spähen beim Entdecken von Verstecktem und Fallen (Entscheidung 83), Fernkampf-Treffgenauigkeit, Hinterhalte bemerken, Fährten |
 
-Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten. **Proben mit einer Fertigkeit ohne Grundwert** (Überreden, Einschüchtern, Handeln, Tiere beruhigen; 1051 A, Chef 12.11., 22:18): 30 % + 0,6 % je Punkt + 5 % je Stufe über dem Gegner (darunter weniger), 5 bis 95 %; auf gleicher Stufe Ende Anfänger 44 %, Geselle 59 %, Meister 74 %, Großmeister 90 %.
+Abgeleitet: **Leben** aus Zähigkeit und Stufe, **Ausdauer** aus Zähigkeit, Wille und Stufe, je Stufe langsamer steigend als das Leben (930 Frage 10, Chef 11.11., 14:45; Zahlen Jerry mit 444), **Mana** aus Wille. Charisma gibt es nicht; die soziale Wirkung kommt aus Ruf und Gesellschaftsfertigkeiten. **Proben mit einer Fertigkeit ohne Grundwert** (Überreden, Einschüchtern, Handeln, Tiere beruhigen; 1051 A, Chef 12.11., 22:18): 30 % + 0,6 % je Punkt + 5 % je Stufe über dem Gegner (darunter weniger), 5 bis 95 %; auf gleicher Stufe Ende Anfänger 44 %, Geselle 59 %, Meister 74 %, Großmeister 90 %. Wer keine Stufe hat (Kind), zählt als Stufe 1 (1084, gebilligt 13.11.). **Proben auf Leute** (Überreden, Einschüchtern, Handeln an einer Person; 1108 A, Chef 13.11., 09:38): jede Szene ist einmalig, ist ihr Ziel erreicht (auch auf anderem Weg, etwa mit Gold), kommt die Wahl nie wieder; höchstens drei Versuche, einer je Tag, danach fällt die Probe weg, andere Wege bleiben.
 
 ### Heldenerschaffung
 
@@ -320,7 +320,7 @@ Ernten ist eine kurze Tätigkeit ohne Minispiel. Fundorte wachsen nach einer Zei
 | **Seltenheit** | wie viel Besonderes darin steckt: Zahl der Zusatzeigenschaften, Preis, Zeichen | sechs, unten |
 | Zustand | wie gut es noch wirkt | Makellos, Benutzt, Beschädigt, Defekt (unten) |
 
-Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die Güte sagt, wie etwas gemacht ist (Rang setzt die Spanne, Ring und Material entscheiden darin, „Alle Stufen auf einen Blick“), die Seltenheit, woraus (Zutaten, Rezept); bessere Güte nutzt sich langsamer ab (Chef 11.11., 17:53–18:01). Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08).
+Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft geschmiedet sein, ein sehr seltenes nur normal. Die Güte sagt, wie etwas gemacht ist (Rang setzt die Spanne, Ring und Material entscheiden darin, „Alle Stufen auf einen Blick“), die Seltenheit, woraus (Zutaten, Rezept); bessere Güte nutzt sich langsamer ab (Chef 11.11., 17:53–18:01). Die „Verbesserung +1“ der alten Fassung entfällt; sie geht in Güte und Runenkunde auf. Das „+1“ der Einzelstücke (Graks Kriegsaxt, Klinge von Bornim) wird Güte Meisterhaft (870a 6 A, Chef 10.11., 15:08). **Anzeige** (1190, Chef 13.11., 16:50): in der Kurzzeile jeder Übersicht nur das Zeichen der Güte, nie das Wort; das Wort steht im Fenster des Stücks.
 
 **Zusatzeigenschaften** (870a 6 A): nur aus dieser Liste: Grundwert +1, Schutzwert +1 oder +2, Leben +5, Mana +5, kritisch +3 %, Zauberschaden +10 %, Abwehrprobe +5 %; Fertigkeit +1/+2 nur ab episch (644 C1). Namensfarbe je Seltenheit bleibt. Zahlen 444; Abnutzung und Zustand kommen nach dem Umzug als eigener Vorgang.
 
@@ -356,6 +356,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 - **Drei Wege:** beim NPC-Handwerker reparieren lassen (Gold, mit gutem Ruf günstiger; er kann nur bis zu seiner eigenen Stufe), selbst reparieren (Material, Werkort, Rang), Notreparatur unterwegs mit Reparaturset (nur teilweise).
 - **Vier Ränge** bestimmen, was der Held selbst reparieren kann: Anfänger (Werkzeug, einfache Waffen, Leder, Stoff), Geselle (Metallwaffen, mittlere Rüstung, Schilde, Bögen), Meister (schwere Rüstung, Meisterwerke), Großmeister (magische Gegenstände, mit Runenkunde).
 - **„Alles reparieren“** mit einem Tippen.
+- **Aussehen:** Spuren an Trachten (Schmutz, Abnutzung) folgen dem Zustand; bis die Abnutzung gebaut ist (Projektplan 3.5), fest „Benutzt“; Falten und Schatten immer voll (558, Chef 04.11., 15:46). Stoff wie Probe 5, keine Vorlage mehr zu Roben oder Stoff (558, 22:21).
 
 ## 12. Namen
 
