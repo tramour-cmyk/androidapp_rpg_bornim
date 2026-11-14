@@ -103,3 +103,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:43 14.11.: Jerry neu `…75ZWJGSXdqrpx7xyzH` (1215, dazu 601 und 1222 laut Sokrates 20:38) und Perikles neu `…75sJsPiamKXFvCq7Bf` (1251) gestartet; Jerry 1000 (10,20 $) und Perikles 1249 (1,39 $) archiviert
 - 20:45 14.11.: Startsperre 20:45 Start Ford (selbst, Tiefe 2, Selbstneustart nach Haken 1019 Erinnerung 1)
 - 20:46 14.11.: Startsperre 20:46 Start Tuffy (930.6, Aufwand hoch, WireStorm Hoch, Signal Sokrates 20:45, von Hand)
+- 20:47 14.11.: Tuffy neu `…76p5RvSmi2JWfwFcxN` (930.6, Aufwand hoch, WireStorm Hoch, Signal Sokrates 20:45 „930.5 geprüft“), Tuffy 930.5 archiviert (3,23 $); Tuffy soll 930.5 mit Commit „930.5: Kein Folgevorgang, weil …“ auf erledigt setzen; Übergabe Ford 20:45: Tuffy-Stand dort ist damit überholt
