@@ -68,7 +68,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
 - 02:04 14.11.: Marke Stellungnahme Sokrates 14.11. (lauf.py)
-- 06:04 14.11.: Marke Archiv session_01Hmoj75RUbW5ZmdoiqPRgSc (lauf.py)
 - 07:04 14.11.: Marke Archiv session_01Hmoj7AC9YkKwtpBTa4hv6G (lauf.py)
 - 07:11 14.11.: Marke Archiv session_01Hmoj76bc5kiW8nS95txbzS (lauf.py)
 - 08:04 14.11.: Marke Nachhalten 14.11. (lauf.py)
@@ -101,3 +100,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:46 14.11.: Startsperre 20:46 Start Tuffy (930.6, Aufwand hoch, WireStorm Hoch, Signal Sokrates 20:45, von Hand)
 - 20:47 14.11.: Startsperre 20:47 Start Spike (lauf.py)
 - 20:47 14.11.: Marke Archiv session_01Hmoj7A4LFiFy7nygExKGnU (lauf.py)
+- 21:07 14.11.: Startsperre 21:07 Start Diogenes (lauf.py)
+- 21:07 14.11.: Marke Archiv session_01Hmoj77WqsAmL86DZSZvSXs (lauf.py)
