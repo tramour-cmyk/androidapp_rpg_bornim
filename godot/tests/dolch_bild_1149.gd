@@ -55,6 +55,19 @@ func _lauf() -> void:
 					var q := tr * v
 					for p in haut: am = minf(am, p.distance_to(q))
 				print("DOLCH1149 %s: Scheide %d Ecken, nächste Haut %.3f m, Mund bei %s" % [platz, vs.size(), am, tr * Vector3(0, HeldFigur.SCHEIDE_MUND, 0)])
+				# Lauf 466: Klinge ragte seitlich aus der Scheide. Jede Ecke der Klinge (Modellraum, unter dem Mundblech) muss im Querschnitt
+				# der Scheide liegen: Ringe der Scheide auf derselben Höhe (größte |x| und |z| der Scheide dort)
+				var wd := sc.get_parent() as Node3D
+				var drau := 0
+				for mi2 in wd.find_children("*", "MeshInstance3D", true, false):
+					if mi2 == sc: continue
+					var t2 := HeldFigur.im_raum(wd, mi2)
+					for v2 in (mi2 as MeshInstance3D).mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]:
+						var q2: Vector3 = t2 * v2
+						if q2.y < 0.06: continue
+						var w2 := HeldFigur.scheide_quer(q2.y)
+						if w2 == Vector2.ZERO or pow(q2.x / w2.x, 2) + pow(q2.z / w2.y, 2) > 1.0: drau += 1
+				print("DOLCH1149 %s: Klinge außerhalb der Scheide %d Ecken (soll 0)" % [platz, drau])
 		var teile: Array[Image] = []
 		for w in [0.0, -90.0, 90.0, 180.0]: teile.append(await ansicht(dt, w))   # vorn, beide Seiten, hinten
 		var b := teile[0].get_width(); var h := teile[0].get_height()

@@ -650,12 +650,27 @@ static func dolch_anlegen(m: Node3D, sk: Skeleton3D, was: String, pts: PackedVec
 
 # 1149: Lederscheide des Dolchs im Raum des Waffenmodells (waffen.py: Griff im Ursprung, Klinge +Y, Schneide ±X, Fläche ±Z), nach
 # Dress.kt (SCABBARD dagger 23 × 1,6 cm, Rand 0,6 cm; Mundblech 2,6 cm, Ortband 3,5 cm in Metall): Klinge hier 25 cm ab 5,6 cm,
-# 3 cm breit, 1 cm dick (948 B); die Scheide umschließt sie ganz, die Parierstange sitzt auf dem Mundblech. Farben aus dem Modell
+# an der Wurzel ±3 cm breit und ±1 cm dick (waffen.py blade: w0, t0 sind halbe Maße; Lauf 466: mit ganzen Maßen gebaut ragte die
+# Klinge seitlich heraus), nach 17 cm ±1,8/±0,7, dann Spitze; die Scheide umschließt sie mit 3–4 mm, die Parierstange sitzt auf dem Mundblech. Farben aus dem Modell
 # selbst (Leder des Griffs, Stahl der Klinge), damit sie im selben Farbraum stehen
 const SCHEIDE_MUND := 0.054
 const SCHEIDE_ENDE := 0.322
-const SCHEIDE_BREIT := 0.021   # halbe Breite am Mund (Schneide)
-const SCHEIDE_DICK := 0.011    # halbe Dicke am Mund (Fläche)
+const SCHEIDE_BREIT := 0.038   # halbe Breite am Mundblech (Schneide)
+const SCHEIDE_DICK := 0.016    # halbe Dicke am Mundblech (Fläche)
+# Ringe: y, halbe Breite (x), halbe Dicke (z), Metall; Mundblech, Leder, Ortband, Spitze
+const SCHEIDE_RINGE := [[0.052, SCHEIDE_BREIT, SCHEIDE_DICK, true], [0.080, SCHEIDE_BREIT, SCHEIDE_DICK, true], [0.080, 0.0330, 0.0130, false],
+	[0.150, 0.0275, 0.0115, false], [0.226, 0.0220, 0.0105, false], [0.287, 0.0130, 0.0085, false], [0.287, 0.0145, 0.0095, true],
+	[0.312, 0.0080, 0.0060, true], [SCHEIDE_ENDE, 0.0035, 0.0030, true]]
+## halbe Breite und Dicke der Scheide auf Höhe y (Modellraum), innen (Leder vor Blech); Vector2.ZERO außerhalb
+static func scheide_quer(y: float) -> Vector2:
+	var q := Vector2.ZERO
+	for j in SCHEIDE_RINGE.size() - 1:
+		var a: Array = SCHEIDE_RINGE[j]; var b: Array = SCHEIDE_RINGE[j + 1]
+		if float(a[0]) == float(b[0]) or y < float(a[0]) or y > float(b[0]): continue
+		var f := (y - float(a[0])) / (float(b[0]) - float(a[0]))
+		var w := Vector2(lerpf(a[1], b[1], f), lerpf(a[2], b[2], f))
+		q = w if q == Vector2.ZERO else Vector2(minf(q.x, w.x), minf(q.y, w.y))
+	return q
 static func scheide(d: Node3D) -> MeshInstance3D:
 	var leder := Color.html("3E2C22").srgb_to_linear()
 	var stahl := Color.html("868E98").srgb_to_linear()
@@ -677,10 +692,8 @@ static func scheide(d: Node3D) -> MeshInstance3D:
 				if kl < bs: bs = kl; stahl = cs[i]
 	leder = Color(leder.r * 0.9, leder.g * 0.9, leder.b * 0.9, 1.0)   # Scheide etwas dunkler als der Griff (alt darkLeather)
 	stahl.a = 1.0
-	# Ringe: y, halbe Breite (x), halbe Dicke (z), Farbe; Mundblech, Leder, Ortband, Spitze
-	var ringe := [[0.052, 0.0245, 0.0145, stahl], [0.080, 0.0245, 0.0145, stahl], [0.080, SCHEIDE_BREIT, SCHEIDE_DICK, leder],
-		[0.200, 0.0185, 0.0100, leder], [0.287, 0.0160, 0.0090, leder], [0.287, 0.0175, 0.0100, stahl], [0.312, 0.0110, 0.0075, stahl],
-		[SCHEIDE_ENDE, 0.0045, 0.0040, stahl]]
+	var ringe := []
+	for r in SCHEIDE_RINGE: ringe.append([r[0], r[1], r[2], stahl if r[3] else leder])
 	var n := 12
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
