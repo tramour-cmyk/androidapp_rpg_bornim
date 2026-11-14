@@ -26,6 +26,6 @@ Beim Chef, weil: Story
 - **D Kerbe / Notch:** „drei Kerben“, wie auf dem Kerbholz einer Chronik, schwarz mit Goldrand (unsere Signatur: Tuschelinie, Gold als einziger Glanz). Folgewörter: **Vertiefen** / Deepen, **Verblassen** / Fade, **Goldkerbe** / Gold Notch. Am meisten Bornim im Bild, aber eine Kerbe ruht, sie treibt nichts an; als Währung des Handelns klingt sie träge.
 - **Stärkstes Gegenargument gegen A:** „Takt“ ist abstrakt und klingt eher nach Musik als nach Mittelalter; man spürt nicht, dass man etwas ausgibt. Antwort: Man gibt Zeit aus, und genau das ist ein Zug; das Bild (pulsierendes Gold, Herzschlag) macht es spürbar, und ein Musikwort passt zur geplanten Musik in zwei Ebenen.
 
-**Folgerungen:** Sokrates trägt den Namen in `DESIGN-GLUT.md` (Begriffe, Regeln, Bild und Klang) und ins Glossar ein und benennt das System; Homer schreibt die Handbuchtexte zum Kampf damit; Jerry baut Anzeige und Klang danach.
+**Folgerungen:** Sokrates trägt den Namen in `DESIGN-GLUT.md` (Begriffe, Regeln, Bild und Klang) und ins Glossar ein und benennt das System; Homer schreibt die Handbuchtexte zum Kampf damit, ohne das Wort „Aktionspunkte“, sondern sagt, wofür die Punkte da sind (dein Wort 22:49); Jerry baut Anzeige und Klang danach.
 
 Antwort: …
