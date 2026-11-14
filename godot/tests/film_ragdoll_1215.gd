@@ -97,6 +97,12 @@ func _run() -> void:
 		print("FILM1215 %s im Bild: %s, Kamera in: %s" % [fig.fighter.id, cam.is_position_in_frustum(fig.global_position + Vector3.UP * 0.4), _in_netz(cam.global_position)])
 		var rechts: Vector3 = (cam.global_transform.basis.x * Vector3(1, 0, 1)).normalized()
 		await _bilder(int(FPS * 0.8))
+		if OS.get_environment("STANDBILD") != "":     # Sokrates 15.11., 00:24: je Goblin erst ein Standbild ansehen (Büsche, Netze)
+			root.get_texture().get_image().save_png(OS.get_environment("STANDBILD").replace(".png", "-%s.png" % fig.fighter.id))
+			if k == 1:
+				quit(0)
+				return
+			continue
 		schild.text = ("mit Physik am Ende" if physik else "nur Schlüsselbilder") + (" · Schlag von links" if k == 0 else " · Schlag von rechts")
 		fig.tod_stoss = rechts * (1.4 if k == 0 else -1.4)
 		seed(3 + k)
