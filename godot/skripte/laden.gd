@@ -54,6 +54,7 @@ static func gewoehnliche_text(n: int) -> String:
 
 var waren: Array = []                  # Kennungen der Dinge im Angebot (Story.shopStock, HERBALIST_STOCK)
 var brauen := false                    # Morwen braut (Mode.Shop.brewing)
+var nur_vorraete := false              # 842: nur Vorraete kaufen, keine Ausruestung, kein Verkauf (Osric, Verband)
 var rueckkauf: Array = []              # {ding, anzahl, preis}, neueste zuerst (Game.buyback)
 
 func _init(waren_: Array = [], brauen_: bool = false) -> void:

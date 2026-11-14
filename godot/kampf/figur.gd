@@ -1085,11 +1085,19 @@ func _atem_an() -> void:
 	if fighter.monster != null:
 		# 453 r2: der Kaufwolf atmet als Schicht unter jeder Bewegung, je Wolf eigener Takt (atem_tier.gd)
 		var Tier = preload("res://kampf/atem_tier.gd")
+		# 1166 (453a B, Chef 02.11.: „gilt für alle Vierbeiner“): jedes Tier mit erkennbarem Rücken, nicht nur Wolfsknochen
 		if sk != null and Tier.passt(sk):
 			atem = Tier.new()
 			atem.name = "Atem"
+			atem.knochen_setzen(sk)
+			if atem.halten_name != Tier.HALTEN:     # nicht der Wolf: Heben nach der Länge des Rückens (atem_tier.gd, beim ersten Bild)
+				atem.groesse = -1.0     # Lauf 43483231093: hoehe_m gab der Ratte 2,0 (doppelt so tief wie der Wolf), dem Grabhund 1,5–1,7
 			atem.eigen(hash(String(fighter.id)))
 			sk.add_child(atem)
+			if OS.get_environment("SCHAU_1166") != "":
+				print("1166 Atem %s: Rippen %s, halten %s, von %s, Größe %.2f" % [fighter.id, atem.rippen_def, atem.halten_name, atem.von_name, atem.groesse])
+		elif OS.get_environment("SCHAU_1166") != "":
+			print("1166 Atem %s: kein Rücken (%s)" % [fighter.id, "kein Skelett" if sk == null else "%d Knochen" % sk.get_bone_count()])
 		return
 	if not kauf:
 		return
@@ -3361,6 +3369,8 @@ func _held_schlag(other, weiter := 0.0) -> int:
 	if other.has_method("halt_fuer_hieb"):
 		other.halt_fuer_hieb(int((t_run + bl + 0.2) * 1000.0))     # 900: bis zum Ende des Hiebs (im selben Bild wie der Plan)
 	busy_ms = int((t_run + bl + back) * 1000.0)
+	if OS.get_environment("SCHAU_932") != "":     # 932 (784 A, F9: Held höchstens 2,4 s): woraus sein Zug besteht, gemessen im Bau (sollbild_784)
+		print("932 Held %s: hin %.2f m in %.2f s, Hieb %s %.2f s, heim %.2f m in %.2f s, zusammen %.2f s" % [fighter.id, position.distance_to(start), t_run, hn, bl, heim, back, t_run + bl + back])
 	anlauf_ms = 0
 	return int((t_run + auf) * 1000.0 / 0.42)
 
@@ -4682,11 +4692,20 @@ func die() -> void:
 				if anim.has_animation("Tod%d" % i): alle.append("Tod%d" % i)
 			nm = alle[randi() % alle.size()]
 			tod_name = nm
-			if randf() < 0.5: sterbe_spiegeln()
+			# 1141 r3 (Chef 13.11., 17:16: „Speer links, dann beginnt das Sterben und dann ist der Speer aber rechts“): die Spiegelung
+			# tauscht links und rechts, also auch die Hand mit Waffe oder Schild; wer etwas hält, wird nicht gespiegelt (die Goblins
+			# fallen dafür mit Tod3 und Tod4 zu beiden Seiten)
+			if randf() < 0.5 and not _haelt_etwas(): sterbe_spiegeln()
+			_waffe_faellt()
 		anim.play(nm, TOD_BLEND)
 	else:
+		# 1141 (Chef 13.11., 14:36: „wie Playmobil-Figuren umfallen. Und zwar alle auf die gleiche Seite“): ohne „Tod“ (Ersatz, seit
+		# 1141 hat jeder Gegnerkörper einen, tod_1141) wenigstens zufällig zur einen oder anderen Seite, beschleunigt wie ein Fall
+		# und am Boden kurz nachgebend statt mit gleichem Tempo steif um 80°
+		var seite := 1.0 if randf() < 0.5 else -1.0
 		var t := create_tween()
-		t.tween_property(model, "rotation:z", deg_to_rad(80), FALL_MS / 1000.0)
+		t.tween_property(model, "rotation:z", deg_to_rad(84) * seite, FALL_MS * 0.8 / 1000.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+		t.tween_property(model, "rotation:z", deg_to_rad(80) * seite, FALL_MS * 0.2 / 1000.0).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	# 348.12 (Chef 28.10., 15:23: „Krag ist ein Hauptheld, der muss fulminant sterben am Schluss. Nicht einfach ausgeblendet werden,
 	# wir brauchen einen Zusammenbruch“): Grak bricht zusammen (Tod aus Death02: in die Knie, dann vornüber) und bleibt liegen
 	if fighter.side == "FOES" and Mars.koerper_of(fighter.monster) not in [Mars.GRAK, Mars.KROGG]:     # 494: Krogg bricht zusammen wie Grak
@@ -4697,6 +4716,70 @@ func die() -> void:
 		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+
+
+## 1141 r3: trägt die Figur etwas an einem Knochen (Waffe, Schild, im Modell gebackene Waffe von Grak und Krogg)
+func _haelt_etwas() -> bool:
+	if model == null:
+		return false
+	for at in model.find_children("*", "BoneAttachment3D", true, false):
+		if String(at.get_meta("was", "")) != "":
+			return true
+	return false
+
+
+## 1141 r2 (Chef 13.11., 16:17: „Waffen sonst wo“): im Fall lässt der Tote los; die Waffe (nicht der Schild am Arm, nicht die im
+## Modell gebackene von Grak und Krogg) fällt beschleunigt zu Boden und liegt flach, wo sie aufkommt; sie vergeht mit dem Toten
+const WAFFE_LOS := 0.4      # Anteil der Sterbebewegung, ab dem die Hand loslässt
+const WAFFE_FALL := 0.32    # s bis zum Boden
+func _waffe_faellt() -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null:
+		return
+	var los: float = sterbe_ms() * WAFFE_LOS / 1000.0
+	for at in sk.get_children():
+		if not at is BoneAttachment3D:
+			continue
+		var was := String(at.get_meta("was", ""))
+		if was == "" or was == "waffe-im-modell" or was.contains("shield"):
+			continue
+		for w in at.get_children():
+			if w is Node3D:
+				get_tree().create_timer(los).timeout.connect(_waffe_zu_boden.bind(w))
+
+
+func _waffe_zu_boden(w: Node3D) -> void:
+	if not is_instance_valid(w) or not visible:
+		return
+	var g := w.global_transform
+	w.get_parent().remove_child(w)
+	add_child(w)
+	w.global_transform = g
+	# längste Achse des Netzes waagerecht, in ihrer Richtung über dem Boden; dann so tief, dass die tiefste Ecke aufliegt
+	var box := AABB()
+	var erst := true
+	for mi in w.find_children("*", "MeshInstance3D", true, false) + ([w] if w is MeshInstance3D else []):
+		var bb: AABB = (w.global_transform.affine_inverse() * (mi as MeshInstance3D).global_transform) * (mi as MeshInstance3D).get_aabb()
+		box = bb if erst else box.merge(bb)
+		erst = false
+	if erst:
+		return
+	var achse := Vector3.RIGHT if box.size.x >= maxf(box.size.y, box.size.z) else (Vector3.UP if box.size.y >= box.size.z else Vector3.BACK)
+	var d: Vector3 = (g.basis * achse).normalized()
+	var flach := Vector3(d.x, 0.0, d.z)
+	if flach.length() < 0.2:
+		flach = global_transform.basis.z
+	var q := Quaternion(d, flach.normalized())
+	var zb := Basis(q) * g.basis
+	var tief := INF
+	for i in 8:
+		var ecke := box.position + box.size * Vector3(i & 1, (i >> 1) & 1, (i >> 2) & 1)
+		tief = minf(tief, (zb * ecke).y)
+	var boden: float = global_position.y + 0.01
+	var unten := Vector3(g.origin.x, boden - tief, g.origin.z)
+	# Drehung und Weg getrennt (gespiegelte Tote, 596: ihre Basis ist gespiegelt, interpolate_with verlöre das Vorzeichen)
+	var t := create_tween()
+	t.tween_method(func(x: float): w.global_transform = Transform3D(Basis(Quaternion.IDENTITY.slerp(q, x * x)) * g.basis, g.origin.lerp(unten, x * x)), 0.0, 1.0, WAFFE_FALL)
 
 
 ## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)

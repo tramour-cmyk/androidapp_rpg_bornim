@@ -160,6 +160,7 @@ STOFF_TEILE = ('tabard', 'sleeve', 'pants', 'cloak', 'apron', 'tuch')
 ZUSTAENDE = {'MAKELLOS': 0.0, 'BENUTZT': 0.6, 'BESCHAEDIGT': 1.0, 'DEFEKT': 1.35}   # Probe 4 (Pruefer 17:26: Beschaedigt und Defekt kaum zu trennen): Defekt noch abgenutzter
 ZUSTAND = os.environ.get('ZUSTAND', 'BENUTZT').upper()
 SPUREN = ZUSTAENDE.get(ZUSTAND, 0.6)
+FALTE_BODEN = 0.3   # 1092 B: ein Faltental hoechstens 70 % dunkler als der Stoff, nie schwarz (vorher bis unter 0)
 def _noise_v(nt, vec, scale, detail=2.0, rough=0.5):
     no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = scale; no.inputs['Detail'].default_value = detail
     no.inputs['Roughness'].default_value = rough; nt.links.new(vec, no.inputs['Vector'])
@@ -196,6 +197,9 @@ def stoff(nt, col, name):
         tal = _m(nt, 'POWER', _sat(nt, _m(nt, 'SUBTRACT', 1.0, w1)), _m(nt, 'SUBTRACT', 3.2, _m(nt, 'MULTIPLY', unten, 1.9)))
         grat = _m(nt, 'POWER', w1, 4.0)
         f = _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', tief, _m(nt, 'SUBTRACT', _m(nt, 'MULTIPLY', grat, 0.14 * F), _m(nt, 'MULTIPLY', tal, 0.85 * F))))
+        # 1092 B (Chef 13.11., 09:20 „1092 B“): Tal 0,85 mal Tiefe bis etwa 1,45 lief ohne Untergrenze unter 0 (schwarze Augen, dunkle
+        # Laengsstreifen in hellen Roben, gemessen: 7,8 % der Robe Lyras unter 25/255); nur das Schwarz kappen, die Form bleibt
+        f = _m(nt, 'MAXIMUM', f, FALTE_BODEN)
         col = _scale(nt, col, f)
         # unter dem Guertel staut sich der Stoff: dunkles Band 2 bis 10 cm darunter
         gb = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, beltY - 6.0), 6.0))))

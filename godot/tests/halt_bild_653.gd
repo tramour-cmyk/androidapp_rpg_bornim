@@ -2,6 +2,7 @@ extends SceneTree
 # 653 Prüfbild aller Kombinationen: je Körpertyp ein Blatt, darauf jeder Gegenstand des Katalogs mit Modell, angelegt mit der einen
 # Anlegefunktion (Halt.anlegen: Waffe rechte Faust, Schild linker Unterarm), Haltung „Stehen“, von vorn und von der Seite der Hand.
 # Nur mit Fenster: im Ordner godot, xvfb-run, --resolution 360x540, -s res://tests/halt_bild_653.gd -- --aus=<ordner> [--koerper=WACHE_M,…] [--nur=shield,…]
+#   [--art=schild] (nur diese Art) [--hinten=ja] (dritte Ansicht von hinten; 967 Schildbild im Lauf der APK, godot.yml „967 Bild“)
 # -> <ordner>/653_<Körper>.png, Zeilen „BILD“
 
 var SPALTEN := 4
@@ -21,6 +22,8 @@ func _lauf() -> void:
 		if String(Katalog.eintrag(id).get("art", "")) in ["waffe", "schild"] and Halt.datei(id) != "": ids.append(id)
 	var nur := arg("nur")   # nur diese Gegenstände (Komma), z. B. nach einem Befund des Chefs
 	if nur != "": ids = ids.filter(func(i): return i in nur.split(","))
+	var art := arg("art")   # 967: nur Schilde
+	if art != "": ids = ids.filter(func(i): return String(Katalog.eintrag(i).get("art", "")) == art)
 	for k in arg("koerper", "WACHE_M,WACHE_W").split(","):
 		await blatt(String(k), ids, aus)
 	quit()
@@ -68,10 +71,12 @@ func blatt(k: String, ids: Array, aus: String) -> void:
 		schild_l.text = String(Katalog.eintrag(id).get("name", {}).get("de", id))
 		var a := await ansicht(dt, 0.0)
 		var b := await ansicht(dt, -90.0 if schild else 90.0)   # Seite der haltenden Hand
-		var z := Image.create(a.get_width() * 2, a.get_height(), false, Image.FORMAT_RGBA8)
+		var reihe: Array[Image] = [a, b]
+		if arg("hinten") == "ja": reihe.append(await ansicht(dt, 180.0))   # 967: auch von hinten (Umhang, Rücken)
+		var z := Image.create(a.get_width() * reihe.size(), a.get_height(), false, Image.FORMAT_RGBA8)
 		z.fill(Color(0.07, 0.06, 0.05))
-		z.blend_rect(a, Rect2i(Vector2i.ZERO, a.get_size()), Vector2i.ZERO)
-		z.blend_rect(b, Rect2i(Vector2i.ZERO, b.get_size()), Vector2i(a.get_width(), 0))
+		for i in reihe.size():
+			z.blend_rect(reihe[i], Rect2i(Vector2i.ZERO, reihe[i].get_size()), Vector2i(a.get_width() * i, 0))
 		z.resize(z.get_width() / 2, z.get_height() / 2, Image.INTERPOLATE_LANCZOS)
 		zellen.append(z)
 		(d.get_parent() as Node).free()

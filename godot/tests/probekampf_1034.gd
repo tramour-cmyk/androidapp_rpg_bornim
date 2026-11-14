@@ -72,6 +72,16 @@ func _lauf() -> void:
 	pruefe("Testheld gewinnt gegen Grak", k.mars.outcome == "WON", String(k.mars.outcome))
 	var zeilen: Array = k.reward.get("lines", [])
 	pruefe("Siegfenster sagt zuerst „ohne Folgen“", not zeilen.is_empty() and String(zeilen[0]) == String(Lohn.PROBE[0]), str(zeilen))
+	# 1096: zweite Zeile grau „Ein echter Kampf brächte: … EP, … Gold“, dann nur Beute; keine Stufen, Grenze, Heilsatz
+	var echt: String = String(Lohn.ECHT[0]).replace("{0}", "")
+	var zweite: String = String(zeilen[1]) if zeilen.size() > 1 else ""
+	pruefe("1096: zweite Zeile „Ein echter Kampf brächte“, grau", zweite.begins_with(echt) and k.reward.get("grau", []) == [1], str(zeilen))
+	var verboten: Array = []
+	for z in zeilen:
+		var zz := String(z)
+		if " erreicht Heldenstufe " in zz or zz == String(Lohn.GRENZE[0]) or "wieder voll" in zz or " erhält " in zz or zz.begins_with("Du erbeutest"):
+			verboten.append(zz)
+	pruefe("1096: keine Stufen, Grenze, Heilsatz, EP- oder Goldzeile", verboten.is_empty(), str(verboten))
 	var schluessel: Array = (k.reward.get("items", []) as Array).filter(func(it): return Lohn._schluessel(String(it)))
 	pruefe("keine Geschichtsgegenstände als Probebeute", schluessel.is_empty(), str(k.reward.get("items", [])))
 	k.finish()
@@ -96,6 +106,7 @@ func _lauf() -> void:
 		pruefe("Runde %d: gewonnen" % (runde + 1), k2.mars.outcome == "WON", String(k2.mars.outcome))
 		var z2: Array = k2.reward.get("lines", [])
 		pruefe("Runde %d: kein „ohne Folgen“" % (runde + 1), z2.is_empty() or String(z2[0]) != String(Lohn.PROBE[0]), str(z2))
+		pruefe("Runde %d: Spielheld ohne „Ein echter Kampf“ (1096)" % (runde + 1), not z2.any(func(z): return String(z).begins_with("Ein echter Kampf")), str(z2))
 		if runde == 0:
 			k2.again()
 			for i in 5: await process_frame

@@ -24,6 +24,7 @@
 # Hinterfuß über dem Rücken: im Raum unter dem Rücken (Ursprung höchstens 0,32 m), am Schirm Sicht von vorn oben (Quelle).
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import kaufquelle     # 980: von doppelten Kaufdateien nur, was Blender liest (Binär-FBX)
 T0 = time.time()
 import bpy
 import numpy as np
@@ -124,7 +125,7 @@ def srgb(c):
 def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
-    t = sorted(glob.glob(os.path.join(KAUF, '**', 'GIANT_RAT.FBX'), recursive=True))
+    t = kaufquelle.alle(KAUF, 'GIANT_RAT.FBX', 'RATTE')
     if not t:
         sys.exit('GIANT_RAT.FBX nicht gefunden unter %s' % KAUF)
     fbx = t[0]; d = os.path.dirname(fbx)

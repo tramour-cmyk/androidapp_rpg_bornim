@@ -1,0 +1,301 @@
+name: Tom Probe Nebel (505)
+
+# 505 (Chef 16:13/16:15, Archiv „505 passt nicht“): Bildlauf Lauf 2 ohne Film und ohne APK: Bau wie godot.yml (Held, Dorf, Wald,
+# Leute, Kampfort, Kaufmodelle), Skripte und Tests (nebel_505), dann --nebel (Fassung A und B, Stufen beschriftet, Karte im Menue).
+# Nur bei Commits, die mit „505 Nebelbilder“ beginnen (der Haken probelauf.py zaehlt den Push); Kaufmodelle nur ueber diesen Ablauf, Lauf 41681959813 verlor den Rechner nach 4 min (ohne Protokoll), Lauf nach Freigabe 20:20 ohne Codeaenderung.
+# ins Artefakt nur Bilder (348.12c a). Lauf 41673918432 brach beim CC0-Download ab (curl 18), Laden jetzt mit Wiederholung.
+# Lauf 41704330009 (Prüfer 21:28): Wald ohne Bäume, Ursache 518 (toon.gdshader setzte POSITION nur am Helden), behoben 1b8dca04e.
+# 505c (Chef 04.11., 14:06): Zweig claude/tom-505-rand; dazu die Hoehle (hoehle.py, Lyra), Tests rand_505 und hoehle_492; --nebel
+# knipst Wald, Dorf, Hoehle mit Rand und Ausgaengen, misst die Nebelstufen (NEBELMASS) und die Dreiecke des Randwalds (NEBELRAND).
+# Lauf 1 nach dem Urteil 14:06 (505c): Tests lokal gruen (nebel_505, rand_505, wald_490, hoehle_492, skripte_pruefen).
+# Lauf 2 nach Chef 16:04/16:12 und 17:18 (Nordausgang): Tests lokal gruen (nebel_505, rand_505, wald_490, hoehle_492, kartennebel_505,
+# skripte_pruefen, core); NEBELMASS zusaetzlich „streng“ (Fels und Baeume rundum dieselbe Stufe), Gasse mit Straeuchern (GASSE).
+on:
+  push:
+    branches: ["claude/spike-505-**", "claude/tom-505-**"]
+    paths: [".github/workflows/tom-probe-505.yml"]
+
+jobs:
+  probe:
+    if: startsWith(github.event.head_commit.message, '505 Nebelbilder')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Karten und Texte aus core
+        run: |
+          ./gradlew -p core test --tests '*MapExportTest*' --tests '*TextExportTest*' --tests '*HeroExportTest*' --tests '*MapSheetExportTest*' --tests '*IntroExportTest*' -q
+          ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
+          ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
+          ./gradlew -p core exportHero -Pout=$GITHUB_WORKSPACE/godot/daten/held.json -q
+          # 399.1 Intro wie alt (IntroExport): Saetze, Uhr, Klang, Fackelzug; die Bilder aus app/src/main/assets
+          ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
+          # als .bild wie hauptmenue.bild: Godot soll sie nicht importieren, zwischenbild.gd liest die Bytes
+          mkdir -p godot/daten/intro && for f in app/src/main/assets/intro/*.jpg app/src/main/assets/intro/*.png app/src/main/assets/tempel/*.jpg; do b=$(basename $f); cp $f godot/daten/intro/${b%.*}.bild; done
+          cp godot/bilder/logo-quer.svg godot/daten/logo.bild   # 292 Vorspann: Firmenzeichen scharf in jeder Groesse (hauptmenue.gd logo)
+          # 399.1 Reiter Karte: Kartenblaetter aus core (MapSheetExport), Handschrift der Landkarte (Fondamento, OFL)
+          ./gradlew -p core exportMapSheets -Pout=$GITHUB_WORKSPACE/godot/daten -q
+          # 399.1 Bilder der Dinge (ThingArtExport): Vorraete und Ausruestung je Seltenheit wie im alten Spiel
+          ./gradlew -p core exportThingArt -Pout=$GITHUB_WORKSPACE/godot/daten -q
+          cp app/src/main/res/font/fondamento_regular.ttf godot/daten/fondamento.ttf
+      # 348.12e gekaufte Modelle aus dem privaten Repo bornim-kaufmodelle (348.12c a), danach unter $KAUF;
+      # nie hierher committen, nie als Artefakt; ohne Geheimnis KAUF_TOKEN baut alles ohne Kaufmodelle
+      - name: Gekaufte Modelle (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
+          bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
+      - uses: actions/setup-python@v5
+        id: py
+        with:
+          python-version: "3.13"
+      # Lauf 124 (28.10.): der Runner hatte ein neues Python (3.13.17), die zwischengespeicherte Umgebung zeigte ins alte; Schluessel mit der Fassung
+      - uses: actions/cache@v4
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}-py${{ steps.py.outputs.python-version }}
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+      # 348.6 Held und Leute auf dem CC0-Geruest (348.12): Knochen und Bewegungen aus Quaternius' Universal Animation Library (CC0 1.0)
+      - uses: actions/cache@v4
+        with:
+          path: ~/cc0
+          key: cc0-quaternius-4
+      - name: CC0-Pakete (Quaternius)
+        run: |
+          [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          # 376 (Chef 22:14, 22:16 „376 A2“): Gwennas Haus aus dem Dorfbausatz (dorf.py PROBEHAUS, Vorgabe 3,12)
+          [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          # 348.6 (Chef 28.10., 00:07 „weitere Objekte platzieren“; 376: Felsen, Pilze ja): Naturbausatz fuer dorf.py dinge_mehr
+          [ -d ~/cc0/stylized-nature-megakit ] || PAKETE=stylized-nature-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          # 399.5 (Chef 28.10., 21:5x): Einrichtung der Grundrisse aus dem freien Moebelbausatz (raum.py)
+          [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+      - name: Modelle bauen (Held, Dorf)
+        run: |
+          export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
+          for s in tex held3 rig dorf; do
+            bl/bin/python -I tools/blender348/v3/$s.py > $s.log 2>&1 || { tail -40 $s.log; exit 1; }
+          done
+          grep -h "GLB OK\|ANIM\|DREIECKE\|ANTEIL\|NETZ" rig.log dorf.log
+          D=godot/daten
+          cp $OUT/held.glb $D/held.bin && cp $OUT/held-info.json $D/
+          # 397: Ruhebewegungen aus der gekauften UAL Pro im Helden, dann ist er ein Kaufmodell (348.12i)
+          grep -q '^RUHE aus' rig.log && echo daten/held.bin >> $D/kauf.txt || true
+          cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
+          # 399.1 Grundrisse (raum.py): Schenke, Laden, Aeltester, Tempel
+          for g in inn shop elder temple; do KARTE=$g bl/bin/python -I tools/blender348/v3/raum.py > raum-$g.log 2>&1 || { tail -30 raum-$g.log; exit 1; }; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/; done
+          for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
+          cp $OUT/boden-maske.png $D/boden-maske.bild; cp $OUT/boden-rand.png $D/boden-rand.bild
+          # 505 Lauf 2: auch der Tiefe Wald (Ausgang West im Bild)
+          # 490 Gebietskarten des Walds (dorf.py KARTE=<karte>): <karte>.bin, -info.json, -boden-maske.bild (gebiet.gd datei, maske)
+          for g in forest deep_forest; do KARTE=$g bl/bin/python -I tools/blender348/v3/dorf.py > dorf-$g.log 2>&1 || { tail -30 dorf-$g.log; exit 1; }
+            grep -h "GLB OK\|NETZ\|RANDWALD\|AUSGAENGE\|RANDMASKE\|GASSE" dorf-$g.log; cp $OUT/$g.glb $D/$g.bin && cp $OUT/$g-info.json $D/ && cp $OUT/$g-boden-maske.png $D/$g-boden-maske.bild && cp $OUT/$g-boden-rand.png $D/$g-boden-rand.bild; done
+          grep -h "RANDWALD\|AUSGAENGE\|RANDMASKE\|GASSE" dorf.log
+          # 505c, 492: die Blutzahnhoehle (hoehle.py KARTE=cave) wie godot.yml
+          KARTE=cave bl/bin/python -I tools/blender348/v3/hoehle.py > hoehle.log 2>&1 || { tail -30 hoehle.log; exit 1; }
+          grep -h "GLB OK\|^NETZE" hoehle.log; cp $OUT/cave.glb $D/cave.bin && cp $OUT/cave-info.json $D/ && cp $OUT/cave-boden-maske.png $D/cave-boden-maske.bild
+          ls -l $D
+      # 376.1 (Chef 28.10., 22:0x): der Held je Klasse auf Kaufkoerper und Kaufkopf (held_klassen.py), Haare, Bewegungen aus der UAL;
+      # seit 01.11. je Tracht der Herkunft und Geschlecht (held_<TRACHT>_<M|W>), mit Statur;
+      # gekauft, also verschluesselt (kauf.txt). Ohne Kaufpakete (KAUF_TOKEN) bleibt der bisherige Held (held.bin)
+      - name: Held je Klasse (376.1, gekauft)
+        run: |
+          if [ -z "$(find ${KAUF:-/kein} -name 'Regular_Male_OnlyHead.gltf' 2>/dev/null | head -1)" ]; then echo "ohne Kauf kein Held je Klasse"; exit 0; fi
+          # 417a (Pruefer Dorf-Film 23:0x: Schwert blieb auf dem Ruecken, „Waffengang ''“): die Waffenpakete (waffengang.py) fehlten im
+          # Spielbau, nur tom-probe-417.yml baute sie; ohne Gehen_<gang> haengt bewaffne() die Waffe auf den Ruecken
+          U=$(find $KAUF -path '*Unreal-Godot*' -name UAL1.glb | sort | head -1); [ -n "$U" ] || U=$(find ~/cc0 -name UAL1_Standard.glb | sort | head -1)
+          KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
+          grep -E "^(GANG|FEHLT|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-200
+          GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
+          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT" klassen.log
+          D=godot/daten
+          for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
+          cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
+          cp $RUNNER_TEMP/klassen/haare_w.glb $D/haare_w.bin   # 376.1 Heldin
+          printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
+          # 403 (Jerry): Kampfbewegungen fuer den Kaufkoerper (unsere aus held.glb umgerechnet, Kandidaten aus der UAL Pro), gekauft
+          SRC=$RUNNER_TEMP/out/held.glb ZIEL=$RUNNER_TEMP/klassen bl/bin/python -I tools/blender348/v3/held_kampf.py > held_kampf.log 2>&1 || { tail -30 held_kampf.log; exit 1; }
+          grep -E "^KAMPF|^SS (GRIFF|TEMPO)|^ohne Sword" held_kampf.log
+          cp $RUNNER_TEMP/klassen/kampf-bewegungen.glb $D/kampf-bewegungen.bin && echo daten/kampf-bewegungen.bin >> $D/kauf.txt
+          # 406 (Tuffy): Tempo, Griff und Kontaktzeiten der Bewegungen aus Sword & Shield (figur.gd kampf_info); nur Zahlen
+          cp $RUNNER_TEMP/klassen/kampf-bewegungen.json $D/
+          ls -l $D/held_*.bin $D/haare.bin $D/haare_w.bin $D/bewegungen.bin $D/kampf-bewegungen.bin
+      - name: Leute bauen (Dorf)
+        run: |
+          # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
+          ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] if n['id'] in l else n['aussehen'] for m in ('village', 'inn', 'shop', 'elder', 'temple', 'forest', 'deep_forest', 'cave') for n in k[m]['leute'] if n['id'] in l or n.get('aussehen') in l})))")   # 399.1: auch die Leute der Grundrisse; 492 Lyra (lyra_temple, lyra_cave) als Figur „lyra“ (leute.gd)
+          echo "Leute: $ids"
+          bau() { o=$RUNNER_TEMP/leute/$1; mkdir -p $o
+            for s in held3 rig; do OUT=$o FIGUR=$1 bl/bin/python -I tools/blender348/v3/$s.py > $o/$s.log 2>&1 || { echo "$1 $s"; tail -30 $o/$s.log; return 1; }; done; }
+          export -f bau
+          echo $ids | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
+          D=godot/daten/leute; mkdir -p $D
+          for i in $ids; do cp $RUNNER_TEMP/leute/$i/held.glb $D/$i.bin && cp $RUNNER_TEMP/leute/$i/held-info.json $D/$i-info.json; done
+          cp tools/blender348/v3/leute.json $D/   # 134.3 Ruf: Mann, Frau, Kind (ruf.gd stimme)
+          for i in $ids; do grep -q '^RUHE aus' $RUNNER_TEMP/leute/$i/rig.log && echo daten/leute/$i.bin >> godot/daten/kauf.txt || true; done   # 397
+          ls -l $D
+          # 348.6 Leute Runde 4b: was die Leute tragen (leute.json "traegt"), aus Jerrys waffen.py (Waffen = Bereich Jerry);
+          # liegt das Skript noch nicht in diesem Zweig, von seinem Zweig claude/jerry-348-kampf; fehlt eine Waffe, traegt sie keiner
+          W=tools/blender348/waffen.py
+          [ -f $W ] || { git fetch -q --depth 1 origin claude/jerry-348-kampf && git show FETCH_HEAD:$W > $RUNNER_TEMP/waffen.py && W=$RUNNER_TEMP/waffen.py; } || true
+          dinge=$(python3 -c "import json; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({v['traegt'] for k, v in l.items() if k != '_liesmich' and v.get('traegt')})))")
+          dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
+          mkdir -p godot/daten/waffen
+          for w in $dinge; do
+            OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
+          done
+          ls -l godot/daten/waffen
+          # 348.6 Tiere zum Anschauen (Chef 16:52): Jerrys Modelle godot/tiere/<name>.glb (+ <name>-info.json), Knopf „Tiere“
+          if ls godot/tiere/*.glb > /dev/null 2>&1; then
+            mkdir -p godot/daten/tiere
+            for f in godot/tiere/*.glb; do n=$(basename $f .glb); cp $f godot/daten/tiere/$n.bin; [ -f godot/tiere/$n-info.json ] && cp godot/tiere/$n-info.json godot/daten/tiere/; done
+            ls -l godot/daten/tiere
+          fi
+      # 348.6 Dorftiere (Chefrunde 28.10., 08:09: „lieber ein paar Tiere zuerst ‚Platzieren‘“): die gekauften Tiere aus 387, gebaut mit
+      # Jerrys kauftier.py (Tiere = 387 Bereich Jerry; liegt das Skript noch nicht in diesem Zweig, von seinem Zweig wie waffen.py);
+      # Huhn, Rind, Ziege, Kaninchen (Leute.dorftiere stellt sie auf); ohne Kauf (KAUF_TOKEN) keine Dorftiere
+      - name: Dorftiere bauen (387, gekauft)
+        run: |
+          [ -n "$(find $KAUF -name '*_Rig.fbx' 2>/dev/null | head -1)" ] || { echo "ohne Kauf keine Dorftiere"; exit 0; }
+          S=tools/blender348
+          if [ ! -f $S/kauftier.py ]; then
+            git fetch -q --depth 1 origin claude/jerry-348-kampf
+            S=$RUNNER_TEMP/jerry; mkdir -p $S
+            for f in kauftier kaufratte glbquat; do git show FETCH_HEAD:tools/blender348/$f.py > $S/$f.py; done
+          fi
+          export S
+          bau() { OUT=$RUNNER_TEMP/dorftiere TIER=$1 timeout 900 bl/bin/python -I $S/kauftier.py > $RUNNER_TEMP/dorftier-$1.log 2>&1 || { echo "$1 fehlt"; tail -20 $RUNNER_TEMP/dorftier-$1.log; }
+            grep -E "MASS|TEMPO|FEHLT|FERTIG" $RUNNER_TEMP/dorftier-$1.log | cut -c1-200; }
+          export -f bau
+          echo huhn rind ziege kaninchen | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
+          D=godot/daten/dorftiere; mkdir -p $D
+          for f in $RUNNER_TEMP/dorftiere/kauf_*.glb; do [ -f "$f" ] && cp $f $D/$(basename $f .glb).bin; done
+          cp $RUNNER_TEMP/dorftiere/kauf_*-info.json $D/ 2>/dev/null || true
+          ls -l $D
+          # 348.12i: gekauft, also nur verschluesselt ins APK
+          (cd godot && ls daten/dorftiere/*.bin 2>/dev/null >> daten/kauf.txt) || true
+      - name: Kampfort bauen (Jerry 348.7, 399.1)
+        run: |
+          # 399.1 (Chef 28.10., 12:34): Kampf im selben Spiel wie das Dorf; Modelle wie godot-kampf.yml (Jerry), Held und Gras aus „Modelle bauen“
+          export OUT=$RUNNER_TEMP/out
+          bau() { n=$1; shift; l=$RUNNER_TEMP/k-$n-$(echo "$@" | tr -c "a-z_\n" -).log; env "$@" bl/bin/python -I tools/blender348/$n > $l 2>&1 || { tail -40 $l; exit 1; }; }
+          bau wolf.py; bau wolf.py ART=dire_wolf; bau kampfort_wald.py; bau waffen.py; bau ratte.py
+          for a in goblin goblin_archer goblin_shaman kobold; do bau goblin.py ART=$a V3=tools/blender348/v3_kampf; done   # v3_kampf/LIESMICH.md
+          D=godot/kampf/daten; mkdir -p $D
+          cp $OUT/held.glb $D/held.bin
+          for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb $D/wolf-$f.bin; done; cp $OUT/wolf-info.json $D/
+          for f in schwarz schimmer; do cp $OUT/dire_wolf-$f.glb $D/dire_wolf-$f.bin; done; cp $OUT/dire_wolf-info.json $D/
+          for f in braun grau schwarz; do cp $OUT/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $OUT/giant_rat-info.json $D/
+          cp $OUT/kampfort-wald.glb $D/kampfort-wald.bin; cp $OUT/wald-maske.png $D/wald-maske.bild
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb $D/$w.bin; done
+          for k in leder kappe helm; do cp $OUT/goblin-$k.glb $D/goblin-$k.bin; done; cp $OUT/goblin-info.json $D/
+          for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb $D/goblin_archer-$k.bin; done; cp $OUT/goblin_archer-info.json $D/
+          for k in robe fell beides; do cp $OUT/goblin_shaman-$k.glb $D/goblin_shaman-$k.bin; done; cp $OUT/goblin_shaman-info.json $D/
+          for k in kappe schild fell; do cp $OUT/kobold-$k.glb $D/kobold-$k.bin; done; cp $OUT/kobold-info.json $D/
+          for t in gras erde halme; do cp $OUT/tex/$t.png $D/$t.bild; done
+          : > $D/kauf.txt
+          if [ -n "${KAUF:-}" ] && [ -d "$KAUF" ]; then
+            KAUF=$KAUF OUT=$RUNNER_TEMP/kr timeout 1200 bl/bin/python -I tools/blender348/kaufratte.py > kaufratte.log 2>&1 || { tail -60 kaufratte.log; exit 1; }
+            for f in braun grau schwarz; do cp $RUNNER_TEMP/kr/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $RUNNER_TEMP/kr/giant_rat-info.json $D/
+            KAUF=$KAUF OUT=$RUNNER_TEMP/kw timeout 1200 bl/bin/python -I tools/blender348/kaufwolf.py > kaufwolf.log 2>&1 || { tail -60 kaufwolf.log; exit 1; }
+            for f in grau dunkel rost asche; do cp $RUNNER_TEMP/kw/kaufwolf-$f.glb $D/kaufwolf-$f.bin; done; cp $RUNNER_TEMP/kw/kaufwolf-info.json $D/
+            (cd godot && ls kampf/daten/giant_rat-*.bin kampf/daten/kaufwolf-*.bin > kampf/daten/kauf.txt)
+            # 406 (Chef 31.10., 23:22): Kaufschilde 2 (Kleriker, „shield“) und 15 (Kaempfer, „round_shield“) statt der eigenen aus
+            # waffen.py, im Kampf und unterwegs auf dem Ruecken (daten/waffen); gekauft, also verschluesselt
+            KAUF=$KAUF OUT=$RUNNER_TEMP/ks timeout 600 bl/bin/python -I tools/blender348/kaufschild.py > kaufschild.log 2>&1 || { tail -40 kaufschild.log; exit 1; }
+            grep '^SCHILD' kaufschild.log
+            mkdir -p godot/daten/waffen
+            for w in shield round_shield; do cp $RUNNER_TEMP/ks/$w.glb $D/$w.bin; echo kampf/daten/$w.bin >> $D/kauf.txt
+              cp $RUNNER_TEMP/ks/$w.glb godot/daten/waffen/$w.bin; echo daten/waffen/$w.bin >> godot/daten/kauf.txt; done
+          fi
+          grep -q '^RUHE aus' rig.log && echo kampf/daten/held.bin >> $D/kauf.txt || true   # 397: Held mit Pro-Ruhe
+          ls -l $D | wc -l
+      # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
+      # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
+      # Erste Kaufmodelle im Spiel: die Dorftiere (Geraetetest, sonst fehlen sie)
+      - name: Kaufmodelle verschluesseln (348.12i)
+        run: |
+          K=$(openssl rand -hex 32)
+          echo "::add-mask::$K"
+          sed -i "s/^const KAUF := \"\"/const KAUF := \"$K\"/" godot/skripte/schluessel.gd
+          grep -q "$K" godot/skripte/schluessel.gd || { echo "Schluessel nicht gesetzt"; exit 1; }
+          touch godot/daten/kauf.txt
+          cd godot && cat daten/kauf.txt kampf/daten/kauf.txt 2>/dev/null | sort -u | xargs -r bash ../tools/blender348/verschluesseln.sh $K   # 399.1: auch Jerrys Kampfort
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      # 399.3 (Jerry; 398, Chef 28.10., 11:38: Klang wiederverwenden): Musik und Effekte des alten Spiels unverändert nach
+      # daten/klang, liste.json mit den Namen je Ordner für klang.gd
+      - name: Klang (399.3)
+        run: |
+          D=godot/daten/klang; mkdir -p $D
+          cp -r app/src/main/assets/music app/src/main/assets/sfx app/src/main/assets/raum $D/
+          # was das alte Spiel synthetisiert (Hiebe, Bisse, Pfeile, Schwung), aus demselben Kotlin-Code als .wav, dazu kampfklang.json
+          ./gradlew -p core exportKlang -Pout=$GITHUB_WORKSPACE/$D/sfx -q && mv $D/sfx/kampfklang.json $D/
+          # Raumfassungen (Room.kt) je Ort: raum/cave, hall, room, tavern
+          python3 -c "import json, os; d='$D'; n=lambda p: sorted(f[:-4] for f in os.listdir(p) if f.endswith(('.ogg', '.wav'))); j={o: n(os.path.join(d, o)) for o in ('music', 'sfx')}; j['raum']={r: n(os.path.join(d, 'raum', r)) for r in sorted(os.listdir(os.path.join(d, 'raum')))}; json.dump(j, open(os.path.join(d, 'liste.json'), 'w'))"
+          python3 -c "import json; j=json.load(open('$D/liste.json')); print('Klang:', {k: len(v) for k, v in j.items()}, {r: len(v) for r, v in j['raum'].items()})"
+      - name: Godot und Exportvorlagen
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
+          cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
+      - name: Skripte pruefen
+        run: |
+          cd godot
+          ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
+          timeout 120 ~/godot/godot --headless --path . --quit-after 300 2>&1 | tee check.log | tail -20
+          ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
+          set -o pipefail; timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wolf_mess_438.gd 2>&1 | grep -E "^(— |  |Befunde|Wolf 438|Kampf )|SCRIPT ERROR"   # 438, 439, 440 (Jerry): Wölfe ohne Gleiten, Reihenfolge, Tod
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/tresen_4167.gd 2>&1 | grep -E "FEHLER|TRESEN|SCRIPT ERROR"   # 416.7
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/zeichen_425.gd 2>&1 | grep -E "FEHLER|ZEICHEN|SCRIPT ERROR"   # 425
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/nebel_505.gd 2>&1 | tee nebel505.log | grep -E "FEHLER|NEBEL505|SCRIPT ERROR"; grep -q "^NEBEL505 0 Fehler" nebel505.log   # 505
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/rand_505.gd 2>&1 | tee rand505.log | grep -E "FEHLER|RAND505|kleinster|weitester|SCRIPT ERROR"; grep -q "^RAND505 0 Fehler" rand505.log   # 505c Kamera am Rand
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/hoehle_492.gd 2>&1 | tail -3   # 492
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/kartennebel_505.gd 2>&1 | tee kartennebel505.log | grep -E "FEHLER|KARTENNEBEL505|SCRIPT ERROR"; grep -q "^KARTENNEBEL505 0 Fehler" kartennebel505.log   # 505 Karte im Menü
+          timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
+      # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9). 399.1a (Chef 28.10., 14:41): der Cache
+      # eines Zweigs galt nur dort (Build 130 bekam einen neuen); jetzt nur lesen, angelegt wird er auf main (godot-schluessel.yml)
+      - name: Nebelbilder (505)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
+          mkdir -p $GITHUB_WORKSPACE/bilder/nebel505
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --nebel=$GITHUB_WORKSPACE/bilder/nebel505 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^NEBELBILDER|^NEBELMASS|^NEBELRAND|^ZEICHNEN" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/nebel505
+      # 461.1 Grundstand (Chef 01.11., 20:3x): Film des Helden im Dorf wie im Spiel (Kämpfer, Klerikerin: Stehen, Gehen, Rennen,
+      # Loslassen, Rennen zum Ziel, Gehen bei den Tieren), gegen LISTE-GRUNDSTAND-461.md
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: bornim-probe-505
+          path: bilder/
+          if-no-files-found: ignore

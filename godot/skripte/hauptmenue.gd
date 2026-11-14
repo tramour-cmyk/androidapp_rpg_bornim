@@ -278,7 +278,10 @@ func titel() -> void:
 	zeile(Sprache.u("subtitle").replace(": ", " · "), 15, Stil.DIM, 1.0)
 	name_bis = box.get_child_count()
 	abstand(18)
-	bild(BILD, 330)
+	# 867 (Vorentscheid Sokrates 13.11., 03:14, Vorlage 6 passt): die vier Helden des Spiels statt des alten Bilds der Kotlin-Figuren;
+	# ohne gekaufte Figuren (am Rechner) das alte Bild
+	if HauptmenueHelden.da(): mittig(HauptmenueHelden.new(330.0))
+	else: bild(BILD, 330)
 	abstand(22)
 	var stand := Spielstand.lade()   # 399.1: der zuletzt gespeicherte der vier Plaetze
 	if not stand.is_empty():

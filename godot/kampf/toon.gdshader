@@ -66,6 +66,9 @@ void fragment() {
 	vec4 t = texture(tex, UV);
 	if (schnitt > 0.0 && t.a < schnitt) discard;
 	ALBEDO = t.rgb * COLOR.rgb;
+	// 1141 (Probebild 13.11.: gespiegelte Tote aus 596 fast schwarz): der Renderer Compatibility hält bei gespiegeltem Modell (scale.z < 0)
+	// die Vorderseiten für Rückseiten und dreht ihre Normale nach innen; dann zeigt sie von der Kamera weg und wird zurückgedreht
+	if (determinant(mat3(MODEL_MATRIX)) < 0.0 && dot(NORMAL, VIEW) < 0.0) NORMAL = -NORMAL;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;

@@ -15,7 +15,10 @@ class MapSheetExportTest {
     @Test
     fun townsAndRoomsWithTheirLevelUp() {
         val karten = j["karten"]!!.jsonObject
-        assertTrue("village" in karten && "inn" in karten && "forest" !in karten)
+        // 505: der Wald als Blatt mit Nebel (62c), die Höhle noch nicht (492)
+        assertTrue("village" in karten && "inn" in karten && "forest" in karten && "cave" !in karten)
+        assertEquals("true", karten["forest"]!!.jsonObject["nebel"]!!.jsonPrimitive.content)
+        assertTrue("nebel" !in karten["village"]!!.jsonObject)
         assertEquals("village", karten["inn"]!!.jsonObject["oben"]!!.jsonPrimitive.content)
         assertEquals("", karten["village"]!!.jsonObject["oben"]!!.jsonPrimitive.content)
     }
