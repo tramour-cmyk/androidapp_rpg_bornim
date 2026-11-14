@@ -7,7 +7,7 @@
 # Ohne Bild (--headless) misst er die Zeit von Wahl zu Wahl je Runde; GLUT=0 spielt dieselben Runden im alten Kampf (Vergleich F9:
 # Rundenzeit nicht länger als heute). Zeilen „GLUT9307 …“; Exit 1, wenn der Kampf hängt oder ein Tipp nichts tat.
 # Aufruf im Ordner godot: --headless --fixed-fps 30 -s res://tests/film_glut_9307.gd  (SEED=7, RUNDEN=3, GLUT=0, ZEILEN=1;
-# BILDER=<Ordner>: mit Bild je Schritt ein Einzelbild zur eigenen Durchsicht, PROBEBILD)
+# BILDER=<Ordner>: mit Bild je Schritt ein Einzelbild zur eigenen Durchsicht, PROBEBILD; LAHM=<ms>: jedes Bild so lange wie im Filmlauf, Lauf 476)
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -35,6 +35,7 @@ func _env(k: String, d: String) -> String:
 func _warte(bilder: int) -> void:
 	for i in bilder:
 		await process_frame
+		if OS.get_environment("LAHM") != "": OS.delay_msec(int(OS.get_environment("LAHM")))
 		n += 1
 		if deck != null:
 			deck.queue_redraw()

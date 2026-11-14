@@ -275,7 +275,7 @@ func _scene_input(ev) -> void:
 		show_tip(_status_tip(p))     # 536: ein Tipp auf ein Zustandsschild erklärt es
 	else:
 		kampfort.tap()
-		druck_t0 = Time.get_ticks_msec()     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
+		druck_t0 = int(uhr.call())     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
 		druck_pos = p
 
 
@@ -308,7 +308,7 @@ var druck_pos := Vector2.ZERO
 
 
 func _process(_dt: float) -> void:
-	if druck_t0 > 0 and Time.get_ticks_msec() - druck_t0 >= int(LANG_S * 1000.0):
+	if druck_t0 > 0 and int(uhr.call()) - druck_t0 >= int(LANG_S * 1000.0):
 		druck_t0 = 0
 		var was := scene_tip(druck_pos)
 		if was != "":

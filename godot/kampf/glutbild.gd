@@ -431,13 +431,13 @@ func _vorschau(f) -> void:
 # ---------------------------------------------------------------- Tippen (kampf_ui._scene_input)
 
 func gedrueckt(p: Vector2) -> void:
-	druck_t0 = Time.get_ticks_msec()
+	druck_t0 = int(ui.uhr.call())     # Uhr des Kampforts: im Film die Bildzeit (ein langsam gerechnetes Bild ist kein langes Drücken)
 	druck_p = p
 
 
 ## Losgelassen an [p]: war es ein kurzer Tipp (kein langes Drücken, 536), wirkt er; true, wenn er etwas tat
 func losgelassen(p: Vector2) -> bool:
-	var kurz: bool = druck_t0 > 0 and Time.get_ticks_msec() - druck_t0 < int(ui.LANG_S * 1000.0) and p.distance_to(druck_p) < 24 * ui.dp
+	var kurz: bool = druck_t0 > 0 and int(ui.uhr.call()) - druck_t0 < int(ui.LANG_S * 1000.0) and p.distance_to(druck_p) < 24 * ui.dp
 	druck_t0 = 0
 	return kurz and tippen(p)
 
