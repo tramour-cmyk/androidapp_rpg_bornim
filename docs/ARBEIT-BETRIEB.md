@@ -44,6 +44,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 23:03 14.11.: Tom neu `…78AmAJeR5X7Ghv9VBH` (286), Jerry neu `…77eC8wuMDzUxc2ekY9` (1215); Tom `…77L1zKAAbcvm31GJBc` (5,62 $ auf 286) und Jerry `…75ZWJGSXdqrpx7xyzH` (29,98 $ auf 1222, Hinweis: Jerry-Kosten gehören auch zu 601 und 1215) archiviert
+- 22:59 14.11.: Sokrates `…78nk7o9i84YZwfHK2i` (1256) archiviert (6,04 $ gesamt); Sokrates neu `…76zXUTypnQhewTvAHH` (1259); Weiter Homer 1258, 1260
+- 22:33 14.11.: Tuffy neu `…79v4vLh86CTewmRzZ9` (930.7, Mittel), Tuffy 930.6 `…76p5RvSmi2JWfwFcxN` archiviert (11,01 $)
 - 21:51 14.11.: Sokrates alt `…775ze3dz5eLhqTBs67` archiviert (24,55 $ gesamt)
 - 21:37 14.11.: Hinweis Ford: erste Planung 21:35 lief ohne Weckruf von Tom 286 (`…77L1zKAAbcvm31GJBc`, Lauf 473 um 22:09) und mit veralteter Kurzzeile Spike (arbeitet): START Tom 1247, ARCHIVIERE Tom 286, START Spike nicht ausgeführt, Startsperren Tom und Spike 21:35 stehen irrtümlich; nur Homer 1257 gestartet
 - 21:37 14.11.: Homer neu `…76baqPiDLHo7r3hvWz` (1257, Start-Meldung Sokrates 21:35), Homer 1235 archiviert (1,19 $); alter Sokrates `…775ze3dz5eLhqTBs67` Archivierung 21:45 (Chefantwort A/B)
@@ -61,9 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:47 14.11.: Sokrates alt `…79rZagJLmbFEy4HZhU` archiviert (11,52 $ auf 930)
 - 10:39 14.11.: Lauf: Perikles 1246 gestartet `…79pM8NWGy8bpNGog85`, Tagesbericht-Sitzung archiviert (4,96 $ auf 448); Sokrates alt `…79rZagJLmbFEy4HZhU` ab 10:41 archivieren
 - 10:37 14.11.: Selbstneustart Ford abgeschlossen: neue Uhr trig_01LkfXvhcQ873nArQjFWNhGh, alte abgeschaltet, alter Ford archiviert (7,73 $ auf 1019)
-- 10:33 14.11.: Lauf nach Perikles-Meldung: Jerry 1227 `…77Q6K2jkHmLkqGiwNz` (Chef 10:28: Jerry soll arbeiten; Halt nur noch für 1072, 709, 709.1, 760, 1068, 1043, 1032, 931, 1224), Spike 1092 `…7A4LFiFy7nygExKGnU` gestartet (Tom bleibt 1091/t285); Jerry alt archiviert (2,40 $); Perikles-Neustart (b7275a65f, Nachfolger 1246) folgt, sobald Tagesbericht-Sitzung ruht; Chef 👍 Telegram 844 eingetragen.
-- 10:14 14.11.: Chef 10:11 zu 1092: „a. mit den Ergänzungen“ (Sokrates: A mit Deckel) eingetragen (Archiv, Zu 1092 Tom, Datei weg); Tom `…77znPDfxf4G6yvCC6Q` per „Weiter: 1092“ angestoßen (kein zweiter Tom, Chef testet t285 dort; lauf.py plante START Tom + ARCHIVIERE Tom, nicht ausgeführt); Perikles 1244 archiviert (1,19 $).
-- 10:05 14.11.: Tagesbericht: Perikles `…79x9S7PcZtZSXrN3we` gestartet.
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
 - 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
@@ -106,8 +106,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:35 14.11.: Marke Archiv session_01Hmoj7A7BuC683wt2MBEacm (lauf.py)
 - 22:03 14.11.: Marke Start-fehlt Tom 14.11.-21:35 (lauf.py)
 - 22:32 14.11.: Startsperre 22:32 Start Tuffy (930.7, Signal Sokrates 22:31, f76eb9cd2, von Hand, WireStorm Mittel); Weiter Spike 1040.1 (Spike `…7A7BuC683wt2MBEacm`)
-- 22:33 14.11.: Tuffy neu `…79v4vLh86CTewmRzZ9` (930.7, Mittel), Tuffy 930.6 `…76p5RvSmi2JWfwFcxN` archiviert (11,01 $)
 - 22:43 14.11.: Startsperre 22:43 Start Sokrates (Neustart-Meldung 22:42, 834495b12, von Hand)
-- 22:59 14.11.: Sokrates `…78nk7o9i84YZwfHK2i` (1256) archiviert (6,04 $ gesamt); Sokrates neu `…76zXUTypnQhewTvAHH` (1259); Weiter Homer 1258, 1260
 - 23:02 14.11.: Startsperre 23:02 Start Tom, Jerry (Neustart-Meldungen 22:58 und 22:56, von Hand)
-- 23:03 14.11.: Tom neu `…78AmAJeR5X7Ghv9VBH` (286), Jerry neu `…77eC8wuMDzUxc2ekY9` (1215); Tom `…77L1zKAAbcvm31GJBc` (5,62 $ auf 286) und Jerry `…75ZWJGSXdqrpx7xyzH` (29,98 $ auf 1222, Hinweis: Jerry-Kosten gehören auch zu 601 und 1215) archiviert
