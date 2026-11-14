@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 14.11., 01:04 (lauf.py)
+**Stand:** 14.11., 02:03 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -12,5 +12,4 @@
 | Jerry | [Jerry – 709.1: Messlauf 465 auswerten (13.11., 23:35)](https://claude.ai/code/session_01Hmoj76T6cjjcpvFiQSkmub) | 709.1 | – | 13.11., 23:34 |
 | Ford | [Ford – Betriebsleiter (14.11., 00:15)](https://claude.ai/code/session_01Hmoj7AAPsuvPwPbE7HCYeV) | Betrieb | – | 14.11., 00:15 |
 | Perikles | [Perikles – 1244 (14.11., 00:46)](https://claude.ai/code/session_01Hmoj75S17HaS9xkgwwowAA) | 1244 | – | 14.11., 00:46 |
-| Spike | [Spike – 1092 (14.11., 00:46)](https://claude.ai/code/session_01Hmoj781eUCpQ5SKa8cCpQV) | 1092 | – | 14.11., 00:46 |
-| Sokrates | [Sokrates – 930: Aktionspunkte, Rechnung 3 Punkte über Nacht (14.11., 00:47)](https://claude.ai/code/session_01Hmoj75kLBATHVTa9eEViaE) | 930 | – | 14.11., 00:46 |
+| Diogenes | [Diogenes – 1133 (14.11., 01:04)](https://claude.ai/code/session_01Hmoj76bc5kiW8nS95txbzS) | 1133 | – | 14.11., 01:04 |
