@@ -120,6 +120,26 @@ Auftrag Chef 10:02: „Kennst du die Spiele XCOM oder Jagged Alliance? Die arbei
 
 **Votum Sokrates (vorläufig):** I1 mit I2, I3, I6 ist für uns die beste Grundform: einfacher als Punkte zählen, beantwortet „einmal tun, einmal bewegen“ und braucht keine Glutmarken. Punkte (3 je Zug) bleiben der Vergleich.
 
+**Nachtrag zur Liste (Schritt 1):** fehlte **B12 Helfen**: der Gefährte greift im Vorteil an (Idee Chef 12.10., `LISTE-IDEEN.md`, reif zu 72.10a.9), und **A6 Freischritt** ab Geselle Ausweichen oder Leichte Rüstung, ein Schritt je Zug frei (Idee A8, Chef 11.11., 14:33, ebenda) – das ist schon eine Form von „Bewegen umsonst“.
+
+### Idee des Chefs 10:04: Grundzauber, Pfeilarten, Munition
+
+**Wortlaut:** „Dann so grundsätzliche Zauber oder wie auch immer, die es halt immer geben könnte, wäre eine Art Schutzfeld, eine Steinhaut, eine Feuerwand, Blitze, dann kann man auch für die Fernschützen, also wie Bogenschützen oder Armbrustschützen, verschiedene Pfeilarten mit Gift, mit, keine Ahnung, schwarzer Magie, mit brennende Pfeile und so. Auch da Variation oder auch, dass die Pfeile an sich unterschiedlichen Schaden verursachen, weil sie halt besser hergestellt sind oder halt einfach aus besserem Holz gemacht worden sind. … Weil bei den Schwertern haben wir ja schon unterschiedliche Stufen. Also dass nicht nur die Art des Bogens bestimmt, wie stark was ist, sondern natürlich auch die Pfeile einen Einfluss darauf haben. Das hat jetzt noch nicht 100% was gerade mit dem zu tun, was wir hier tun, aber spielt halt alles in die Optionsmöglichkeiten mit rein. Erstens in das, was die Leute herstellen können sollen, was sie dafür sammeln können müssten. Nämlich dann vielleicht auch sozusagen verschiedene Holzsachen im Wald finden. Und daraus kann man ja dann Teile herstellen. Ich habe bloß wieder so eine Idee.“
+
+**Abgleich mit dem Bestand (nachgesehen):**
+- **Zauber:** heute zehn (Liste C). Schutzfeld ≈ Bannschild, Steinhaut ≈ Arkanhaut (beide nur für sich selbst). **Feuerwand** und **Blitz** gibt es nicht; Blitz bräuchte eine neue Schadensart (heute Schnitt, Stich, Wucht, Feuer, Gift, Säure, Licht; 870a 8). Feuerwand ist die erste Handlung, die einen **Ort** im Kampf verändert (Abstand!), passt zu 930 Regel 5 („Glutring“) und Baustein 3.
+- **Pfeile:** heute keine Munition; der Schuss hängt nur an Bogen und Fertigkeit. Kampftränke und Wurfmittel tragen schon eine Schadensart (870a 8); Pfeilarten wären derselbe Gedanke am Bogen. „Schwarze Magie“ gibt es als Schadensart nicht.
+- **Güte** (Schlecht bis Meisterhaft, `DESIGN-BRS.md` 11) gilt für jedes Stück; Pfeile mit Güte passen ohne neue Regel.
+- **Holz:** Die Sammeltabelle (`DESIGN-BRS.md` 10) kennt Kräuter, Erz, Fisch, Tierteile, **kein Holz** und kein Handwerk für Bogen und Pfeil (Bogner, Pfeilmacher). Federn und Sehnen kämen aus der Jagd, Spitzen aus Erz über den Schmied.
+
+**Was es für die Aktionspunkte heißt:** Pfeilart wählen ist ein **Kleines Tun** oder frei (wie Waffe wechseln, D19); ein Zauber wie Feuerwand ist ein großes Tun (I3: kostet Tun und Bewegen). Die Liste wächst also, ohne neue Gruppe.
+
+**Stärkstes Gegenargument:** Munition heißt Zählen, Nachkaufen, Tasche voll; viele Spieler empfinden Pfeile zählen als Pflicht ohne Spaß (darum haben viele Spiele unendliche Grundpfeile). Und jede neue Schadensart braucht Schwächen, Stärken und Bilder je Monster. **Antwort:** Grundpfeile unbegrenzt, nur besondere Pfeile gezählt (wie Kampftränke heute); Gift und Feuer nutzen vorhandene Schadensarten.
+
+**Kosten (grob):** Pfeilarten mit vorhandenen Schadensarten klein bis mittel (Datensätze, Wahl im Kampf, ein Bild je Art); Holz und Bogner ein neues Handwerk (mittel, Rezepte, Fundorte, Bilder); Feuerwand und Blitz je ein neuer Zauber mit Bild und Klang, Blitz dazu eine Schadensart (groß).
+
+**Votum Sokrates:** Ja als Richtung, aber nicht für Kapitel 1 (Oberste Direktive: erst Kapitel 1 fertig; 488). Jetzt nur: in Liste und Gruppen mitdenken (Pfeilart = Kleines Tun). Vorschlag für später: (1) Grundpfeile unbegrenzt, besondere Pfeile (Feuer, Gift) gezählt, aus Jagd, Kräutern und Holz; (2) Pfeile mit Güte; (3) Holz als Rohstoff mit neuer Fertigkeit oder unter Kräutersammeln; (4) Feuerwand als erster Zauber, der den Abstand verändert, mit 930.
+
 **Quellen:**
 - XCOM: [Incentives and Intent: XCOM's Creeping Forward Problem](https://evizaer.github.io/Incentives-and-Intent/), [A Deep Dive Into XCOM and XCOM 2](https://www.gamedeveloper.com/design/a-deep-dive-into-xcom-and-xcom-2), [XCOM 2 Wiki: Combat](https://xcom2.wiki.fextralife.com/Combat), [Zero Company vs. XCOM](https://hacktheminotaur.com/swzc/star-wars-zero-company-vs-xcom-explained/)
 - Jagged Alliance: [Jagged Alliance Wiki](https://jaggedalliance.fandom.com/wiki/Jagged_Alliance_2), [PC Games: Taktik-Klassiker](https://www.pcgames.de/Jagged-Alliance-Spiel-8152/Specials/Taktik-rundenbasiert-Klassiker-1293711/galerie/3052551/), [GOG-Forum](https://gog.com/forum/jagged_alliance_series/ja2_mercy_questions_for_mercy_people), [1.13 Play Guide](https://1dot13.github.io/documentation/play-guide.html)
