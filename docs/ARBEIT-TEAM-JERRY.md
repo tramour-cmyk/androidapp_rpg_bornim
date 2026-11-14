@@ -42,7 +42,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 
-**Übergabe Tuffy (13.11., 22:49, `session_01Hmoj79ZApqezAzombu1DWK`, Vorrat leer):** 844 Filme aus Lauf 458 (je Art Treffer und Abwehr, dritter Angriff außerhalb des Bilds herausgeschnitten) beim Chef (`ansehen/844-schlagen.md`); gebaut für den nächsten Build: 1223 (`claude/tuffy-1223-leitwolf`), 946 (`claude/tuffy-946-ansage`), 973 (`claude/tuffy-973-stehen`), 1196 (`claude/tuffy-1196-wache`, nur mit `claude/tuffy-1062`), 844 (`claude/tuffy-844-goblinhieb`); 1227 wartet auf 1073, 1224 auf 1072. Nachfolger: keiner
+**Übergabe Tuffy (14.11., 20:28, `session_01Hmoj76Y5kiqYvgg6Qxph9d`, Neustart nach Haken 14):** 845 gebaut (`claude/tuffy-845-krogg-platz`, `7be838598`, Ursache aus Messlauf 469, Prüfpunkt im Commit); 930.5 übernommen (Ford 20:27, Chef 20:25 über Sokrates: 930.5–930.7 an Tuffy), noch nichts angefangen. Nachfolger: Tuffy – 930.5: Glutsystem Stufe 0, Rechnung (14.11., 20:28)
 
 ## Einzelheiten
 
