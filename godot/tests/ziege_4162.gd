@@ -30,6 +30,14 @@ func _lauf() -> void:
 		z.leib = 0.65
 		spiel.held.leute = spiel.leute.get_children()
 		print("Ziege selbst gestellt (ohne Modell)")
+	# 1079 (Lauf 450 und 467, nur auf dem Bauserver mit allen Dorftieren und Leuten rot: von (-1, 0) trat die Ziege erst ohne Tausch
+	# voran): weiche() tauscht nur, wenn kein anderer auf der Kachel des Helden steht oder sie als Ziel hat (frei_fuer_mich), sonst
+	# tritt sie zur Seite oder voran wie alt. Ein Tier oder Bewohner, das gerade dort vorbeistreift, machte den Ausgang zufällig.
+	# Der Test misst nur den Tausch: alle anderen Leute und Tiere raus
+	for l in spiel.leute_liste():
+		if l != z: l.queue_free()
+	await process_frame
+	spiel.held.leute = spiel.leute.get_children().filter(func(l): return is_instance_valid(l) and not l.is_queued_for_deletion())
 	Leute.still = false
 	var start := z.kachel
 	print("Ziege auf ", start, " Daten ", z.daten)
