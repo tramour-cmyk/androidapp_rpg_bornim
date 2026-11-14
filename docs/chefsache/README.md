@@ -21,7 +21,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
-| [1073](ansehen/1073-alle-dinge.md) | Bilder der Dinge: alle Gegenstände | – | 14.11., 08:46 |
 | [1149](ansehen/1149-scheide.md) | Dolch der zweiten Hand in der Lederscheide links an der Hüfte | – | 14.11., 05:06 |
 | [844](ansehen/844-schlagen.md) | Goblins, Kobolde, Schamanen schlagen zu | – | 13.11., 22:47 |
 
@@ -144,7 +143,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 785.24 | K | Von Spike (785): Laden: Vorräte mit Wirkungszeile in der Liste wie alt (ShopScreen.kt 226– | wartet auf 870.13 (wartet) |
 | 1023 | K | Hühner wie alt: fliehen verlässlich, Federn sichtbar, auffliegen (aus 814, t278.3; Chef 12 | ruht bis 23.11. |
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08): Frauen stehen außerhalb des Kampfs wie eine Dame, Beine | ruht |
-| 1073 | K | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | Chef (Datei in der Chefsache) |
+| 1073 | K | Von Sokrates (Chef 12.11., 20:38): Bilder der Dinge in Tasche und Laden nach unserer Signa | wartet auf Test/Build (gebaut) |
 | 1079 | M | Prüfschritt ziege_4162 einmal rot: „von (-1, 0) tauscht die Ziege mit dem Helden den Platz | wartet auf Test (Build) |
 | 1092 | M | Von Sokrates (zu 1090, Nacht 1077): dunkle, fleckige Längsstreifen in hellen Roben und Röc | Chef (Datei in der Chefsache) |
 | 1115 | K | D191.5 von Diogenes (1109): Leute bauen 9–11 min in jedem Lauf, nie abgelegt; prüfen, ob d | wartet auf Test (Build) |
@@ -168,7 +167,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1205 | K | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | ruht |
 | 1211 | M? | Von Sokrates (Prüfauftrag Chef 13.11., 19:10): Leuchtfunke mit R7 rocket_trail als Schweif | ruht |
 | 1210 | K | Von Sokrates: Regen wie alt (D3.10) fehlt in Godot; Bild ohne Vorgang (R8 Weather FX statt | ruht |
-| 1214 | K | Von Spike (1073): Bild ding-spider_silk fehlt in godot/daten; godot/tests/laden_test.gd da | wartet auf 1073 (wartet) |
+| 1214 | K | Von Spike (1073): Bild ding-spider_silk fehlt in godot/daten; godot/tests/laden_test.gd da | wartet auf Test/Build (gebaut) |
 | 1218 | M? | Von Chef (13.11., 20:07, Test t284, Kartenrand Süd): die kleine Brücke im Dorf Süd schwebt | wartet auf Test (Build 285) |
 | 1226 | M | Von Jerry (709.1, 13.11., 21:11): Test rollstand_1030 rot in tools/t logik (FALSCH „Neu au | wartet auf Test (Build 285) |
 | 1234 | M | Von Homer (Fremdprüfung 1232): Reste nach 870.15 auf main: „Grottenschrat“/„bugbear“ statt | wartet auf Test (Build) |
@@ -290,7 +289,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1206 | K | Von Perikles (882.2): Test eingebung_840 kippt in tools/t logik nebeneinander unter Last ( | wartet auf Test (Build 285) |
 | 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | wartet auf 1141.1 (wartet) |
 | 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | wartet auf 1072 (ruht) |
-| 1227 | K | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche i | wartet auf 1073 (wartet) |
+| 1227 | K | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche i | Pause |
 
 **Perikles** – offen 24, Muss 18, startbar 0
 
