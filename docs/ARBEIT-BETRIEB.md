@@ -103,3 +103,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:07 14.11.: Marke Archiv session_01Hmoj77WqsAmL86DZSZvSXs (lauf.py)
 - 21:14 14.11.: Startsperre 21:14 Start Tom (lauf.py)
 - 21:14 14.11.: Marke Archiv session_01Hmoj79AQ79uafPgaVpiHEJ (lauf.py)
+- 21:16 14.11.: Tom neu `…77L1zKAAbcvm31GJBc` (286, Neustart-Meldung 21:09), Tom `…79AQ79uafPgaVpiHEJ` archiviert (16,92 $ auf 1091); Weitergabe Sokrates 1252 an Tom 21:08
