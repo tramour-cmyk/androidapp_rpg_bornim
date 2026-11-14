@@ -90,3 +90,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:04 14.11.: Marke Tagesbericht 14.11. (lauf.py)
 - 10:04 14.11.: Startsperre 10:04 Start Perikles (Tagesbericht 14.11., lauf.py)
 - 10:05 14.11.: Tagesbericht: Perikles `…79x9S7PcZtZSXrN3we` gestartet.
+- 10:14 14.11.: Chef 10:11 zu 1092: „a. mit den Ergänzungen“ (Sokrates: A mit Deckel) eingetragen (Archiv, Zu 1092 Tom, Datei weg); Tom `…77znPDfxf4G6yvCC6Q` per „Weiter: 1092“ angestoßen (kein zweiter Tom, Chef testet t285 dort; lauf.py plante START Tom + ARCHIVIERE Tom, nicht ausgeführt); Perikles 1244 archiviert (1,19 $).
