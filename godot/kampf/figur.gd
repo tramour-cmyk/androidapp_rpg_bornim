@@ -1280,6 +1280,11 @@ func koerper_ruhe() -> Array:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
 	if sk == null or not anim.has_animation(grund):
 		return ks
+	# 845 (Messlauf 469, treffen_709 Krogg): geht das Ziel noch heim, zählt die Haltung im Gehen nicht (das Bein vorn lag 0,3–0,4 m
+	# vor dem Körper, der Söldner blieb 0,84–0,88 m zu kurz, und der Plan galt danach im Speicher auch für den stehenden Krogg);
+	# gezählt wird nur die Grundschleife, in der es ankommt
+	if unterwegs():
+		ks = []
 	var vor := String(anim.current_animation)
 	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
 	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
