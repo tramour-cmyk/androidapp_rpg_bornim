@@ -43,6 +43,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 07:05 14.11.: Lauf 07:04: Spike 1240 `…77uoFJEbXdzXu8YKzd` gestartet; Spike 1234 archiviert (1,66 $, fertig).
 - 06:05 14.11.: Lauf 06:04: Spike 1234 `…7AC9YkKwtpBTa4hv6G` gestartet; Spike 1149 archiviert (5,74 $; Bildurteil in chefsache/ansehen/1149-scheide.md).
 - 04:05 14.11.: Lauf 04:03: nichts gestartet; Spike 1149 `…75RUbW5ZmdoiqPRgSc` bleibt (eigener Weckruf 04:06, Probelauf), Hinweis: ohne --wecker Spike plant lauf.py START/ARCHIVIERE.
 - 03:05 14.11.: Lauf 03:03: Spike 1149 `…75RUbW5ZmdoiqPRgSc` gestartet; Spike 1119 archiviert (1,27 $).
@@ -62,7 +63,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:44 13.11.: Neustart Tom (949045da8): neue Sitzung `…78jYddD6WmJoPRmjVB` 21:43, Vorgängerin `…79V5GMGr3APPAiYHqT` archiviert (17,06 $ auf 285, 1092); PR-ABO #204 an die neue Sitzung (Ford)
 - 21:39 13.11.: Neustart Tuffy (5a311f2f6): neue Sitzung `…79ZApqezAzombu1DWK` 21:40, Vorgängerin `…79CJCy8HRzLSWKT81C` archiviert (20,40 $ auf 844; nur 47 s Ruhe statt 60, Übergabe stand, nichts verloren; Ford)
 - 21:38 13.11.: Neustart Sokrates (f0933cd29): neue Sitzung `…797jN7dteYW35dpYLZ` 21:37, Vorgängerin `…79ojfheg8dzo9KaZF9` archiviert (8,08 $ auf 1228, 1233, 1231, 1227; Ford)
-- 21:26 13.11.: Start Homer 1229 (Jerry, c64477860): neue Sitzung `…79opdaF8aU7sFWvj1X` 21:25, alte `…75UMzRVVnYKUQ5sxF5` archiviert (1,22 $ auf 1176; Ford)
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
@@ -72,7 +72,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:46 14.11.: Startsperre 00:46 Start Perikles, Spike (lauf.py)
 - 00:46 14.11.: Marke Archiv session_01Hmoj76xVCXk2y824rYD6Rk (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
-- 01:04 14.11.: Startsperre 01:04 Start Diogenes (lauf.py)
 - 01:04 14.11.: Marke Archiv session_01Hmoj79Lqfbd3HfnYzQhK8H (lauf.py)
 - 02:04 14.11.: Startsperre 02:04 Start Spike (lauf.py)
 - 02:04 14.11.: Marke Stellungnahme Sokrates 14.11. (lauf.py)
@@ -85,4 +84,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 14.11.: Marke Archiv session_01Hmoj75RUbW5ZmdoiqPRgSc (lauf.py)
 - 07:04 14.11.: Startsperre 07:04 Start Spike (lauf.py)
 - 07:04 14.11.: Marke Archiv session_01Hmoj7AC9YkKwtpBTa4hv6G (lauf.py)
-- 07:05 14.11.: Lauf 07:04: Spike 1240 `…77uoFJEbXdzXu8YKzd` gestartet; Spike 1234 archiviert (1,66 $, fertig).
+- 07:11 14.11.: Startsperre 07:11 Start Diogenes (lauf.py)
+- 07:11 14.11.: Marke Archiv session_01Hmoj76bc5kiW8nS95txbzS (lauf.py)
