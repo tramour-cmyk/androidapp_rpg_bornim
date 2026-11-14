@@ -9,6 +9,11 @@ uniform sampler2D bekannt : filter_nearest;   // je Kachel 1 gesehen (nebel.gd e
 uniform vec2 kacheln = vec2(1.0);             // Karte in Kacheln
 uniform float kachel = 8.0;                   // MapSheet.C
 uniform float rahmen = 10.0;                  // MapSheet.PAD
+// 785.7 Höhle (62o): das Blatt ist größer als die Karte (beginnt bei Kachel ab, blatt Kacheln groß); gezeigt wird nur der
+// Ausschnitt (UV des ganzen Blatts: Anfang xy, Größe zw), der Rest des Blatts bleibt verborgen. Wald: alles 0 bzw. ganz.
+uniform vec2 ab = vec2(0.0);
+uniform vec2 blatt = vec2(0.0);               // 0: so groß wie die Karte
+uniform vec4 ausschnitt = vec4(0.0, 0.0, 1.0, 1.0);
 
 float kenne(int x, int y) {
 	if (x < 0 || y < 0 || x >= int(kacheln.x) || y >= int(kacheln.y)) return 0.0;
@@ -16,9 +21,11 @@ float kenne(int x, int y) {
 }
 
 void fragment() {
-	vec2 einheit = kacheln * kachel + 2.0 * rahmen;      // Blatt in Einheiten (ein Drittel der Bildpunkte)
-	vec2 m = UV * einheit;
-	vec2 uv = (m - rahmen) / kachel;
+	vec2 b = blatt.x > 0.0 ? blatt : kacheln;
+	vec2 einheit = b * kachel + 2.0 * rahmen;           // Blatt in Einheiten (ein Drittel der Bildpunkte)
+	vec2 fuv = ausschnitt.xy + UV * ausschnitt.zw;      // Punkt auf dem ganzen Blatt
+	vec2 m = fuv * einheit;
+	vec2 uv = (m - rahmen) / kachel + ab;
 	float k = 0.0;
 	if (uv.x >= 0.0 && uv.y >= 0.0 && uv.x < kacheln.x && uv.y < kacheln.y) {
 		vec2 f = uv - 0.5;
@@ -27,8 +34,8 @@ void fragment() {
 		a = a * a * (3.0 - 2.0 * a);
 		int ix = int(i.x); int iy = int(i.y);
 		float kf = mix(mix(kenne(ix, iy), kenne(ix + 1, iy), a.x), mix(kenne(ix, iy + 1), kenne(ix + 1, iy + 1), a.x), a.y);
-		float n = texture(rand, UV).r;
+		float n = texture(rand, fuv).r;
 		k = clamp((kf - 0.5 + (n - 0.5) * 0.5) * 4.0 + 0.5, 0.0, 1.0);
 	}
-	COLOR = mix(texture(leer, UV), texture(TEXTURE, UV), k);
+	COLOR = mix(texture(leer, fuv), texture(TEXTURE, fuv), k);
 }
