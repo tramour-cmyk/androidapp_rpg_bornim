@@ -110,3 +110,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:02 14.11.: Startsperre 23:02 Start Tom, Jerry (Neustart-Meldungen 22:58 und 22:56, von Hand)
 - 23:36 14.11.: Startsperre 23:36 Start Jerry (Neustart-Meldung 23:30, 4b19ab871, von Hand)
 - 23:37 14.11.: Jerry neu `…78yH84MdzrJ74grhR6` (1215 Film), Jerry `…77eC8wuMDzUxc2ekY9` archiviert (10,02 $ auf 1215)
+- 23:44 14.11.: Startsperre 23:44 Start Homer (Neustart-Meldung 23:39, 3ef5def90, von Hand)
