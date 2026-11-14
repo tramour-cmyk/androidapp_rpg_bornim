@@ -66,6 +66,21 @@
       "bild_hoehe": 972,
       "oben": "",
       "nebel": true
+    },
+    "cave": {
+      "name": {"de":"Blutzahnhöhle","en":"Bloodfang Cave"},
+      "art": "CAVE",
+      "breite": 22,
+      "hoehe": 20,
+      "bild_breite": 1308,
+      "bild_hoehe": 1260,
+      "oben": "forest",
+      "nebel": true,
+      "ab_x": -15,
+      "ab_y": -15,
+      "blatt_breite": 52,
+      "blatt_hoehe": 50,
+      "fenster": 30
     }
   },
   "land": {

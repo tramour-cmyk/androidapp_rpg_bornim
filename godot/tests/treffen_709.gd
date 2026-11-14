@@ -217,6 +217,15 @@ func _bild(kf, n: int, kampf: String) -> void:
 						teile += ", %s %.2f" % [g[2], m]
 					print("DIAG709 vorne je Teil (beim Aufschlag): " + teile)
 					print("DIAG709 Abstand Ursprung %.2f, body_r Ziel %.2f, Ziel vorne %.2f" % [Vector2(af.position.x - b.position.x, af.position.z - b.position.z).length(), b.body_r(), b.vorne(af.position - b.position)])
+					# 845 (Krogg 0,65 m hinter seinem Platz?): Mitte der Kapseln gegen Ursprung und Platz (home), waagerecht
+					var mitte := Vector3.ZERO
+					var nk := 0
+					for c in b.kapseln():
+						mitte += (c[0] + c[1]) * 0.5
+						nk += 1
+					if nk > 0:
+						mitte /= float(nk)
+						print("DIAG709 Mitte %s: %.2f m vom Ursprung (zum Angreifer %+.2f), Ursprung %.2f m vom Platz, %s" % [id, Vector2(mitte.x - b.position.x, mitte.z - b.position.z).length(), dz.dot(Vector3(mitte.x - b.position.x, 0, mitte.z - b.position.z)), Vector2(b.home.x - b.position.x, b.home.z - b.position.z).length(), String(b.anim.current_animation) if b.anim else ""])
 		hurt_vor[id] = b.hurt_at
 	# Fenster voll: auswerten
 	var rest := []

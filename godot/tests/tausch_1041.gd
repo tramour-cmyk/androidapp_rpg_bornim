@@ -50,6 +50,8 @@ func _lauf() -> void:
 	for o in m.fighters():     # die Anzeige (shown) kennt die neuen Plätze, sonst stünde jeder wie neben einem zweiten in der Reihe
 		if k.shown.places.has(o.id):
 			k.shown.places[o.id] = o.place
+	k.stelle_fest.clear()     # 973: Plätze von Hand gesetzt, die festgehaltenen Stellen neu rechnen
+	k.stelle_platz.clear()
 	var figs := {"hero": k.figures["hero"], "merc": k.figures["merc"]}
 	var mp: Vector3 = k._spot_pos(merc, hinter)
 	figs.merc.position = mp

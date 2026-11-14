@@ -89,6 +89,9 @@ func _aufstellung(art: String, name_: String, plaetze: Array, langsam: bool) -> 
 			fig.weg_fps = 1.0
 			fig.tempo = {}
 			probe = true
+	# 973: der Kampfort hält die Stellen fest (stelle_fest); Plätze und Probetempo sind hier von Hand gesetzt, also neu rechnen
+	kf.stelle_fest.clear()
+	kf.stelle_platz.clear()
 	var held: Vector3 = kf.figures["hero"].position
 	var dp: float = root.size.x / 412.0
 	var koerper := {}
