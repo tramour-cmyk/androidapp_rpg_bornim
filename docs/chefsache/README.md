@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [930](entscheiden/930-glutsystem.md) | Kür | E Kampf | 14.11., 20:12 | Kampfregeln für den Bau stehen in DESIGN-GLUT.md; Los für die ersten drei Stufen, dann Gespräch über den Film. | Sokrates |
 
 ## Zu billigen
 
