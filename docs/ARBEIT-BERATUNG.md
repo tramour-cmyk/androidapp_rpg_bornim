@@ -2,6 +2,7 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
+- **Zu 1242, von Perikles (Chef 14.11., 10:28, „jetzt“):** „sag Sokrates mal, dass er die Freigabe für 1242 auch mal ganz kurz nebenbei machen kann. Ist doch Logo.“ Tom wartet damit auf 1091, 1119, 1040.1; sofort neben 930 entscheiden.
 - **Zu 930, Wochenende (Chef 14.11., 10:25):** „Du bist Entwickler und Spieledesigner. Du hast dich umfangreich eingearbeitet in alles. Und weißt, welche Reihenfolge am erfolgsversprechendsten ist für ein gutes Gesamtergebnis. … Du kannst dir auch gerne einen dazu nehmen noch, um dich zu ergänzen. An dem System weiter und in welcher Reihenfolge ihr das machen wollt und so. Das musst du wissen, weil du bist der Profi.“ Arbeitsplan und Stand in `DESIGN-AKTIONSPUNKTE.md` („Arbeitsplan Wochenende“). Kein Spielcode, Entscheid beim Chef.
 
 **Übergabe (14.11., 00:51, `session_01Hmoj75kLBATHVTa9eEViaE`):** Rechnung 3 gegen 2 Punkte in `DESIGN-AKTIONSPUNKTE.md` („Rechnung: 3 Punkte gegen 2“); kein Bau. Kosten auf: 930. Nachfolger: Sokrates – 930: Aktionspunkte, Gespräch mit dem Chef. Letzte Antwort (00:44): „Stimmt die Liste der Wunschzüge? … drei Punkte die kleinste Zahl, bei der alle gehen und Abstand trotzdem kostet.“
