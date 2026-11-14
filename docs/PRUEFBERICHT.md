@@ -52,6 +52,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 243 · 1179, 1173, 1217, 1248 an t285 (14.11., 20:2x)
+
+- **1248 greift** (`dc1ee764f`): `laufnachweis.py` an t285 (Stand vor `312befa8e`) gegen `d34cecf64`: 20 von 20 tragen, davon die 6 aus 285.14 (`sim444_870`, `krogg_494`, `schild_406`, `zweikampf_1025`, `absicht_1049`, `mars_regeln`); Stand vor `dc1ee764f`: 14 von 14.
+- **1179 greift** (`7d2cf4a2b`): Entwurf gegengelesen 21:31/21:33 (`a3a0f144e`, `ea6ec9ae5`), Lagenänderung 21:51, Bau-Push Lauf 464 ab 21:53; `ansehen/` erst 23:30 mit APK-Link in Zeile 2 (`906a81451`).
+- **1217 mit Lücke:** (1) Lauf 464 „6 Zeilen in 1 Abschnitten, 4 mit Lage, 8 ohne Handy (Telegram, 1217)“, Reiter „Test“ trug 285.7–285.10 (Chef bestand sie); (3)/(4) 👍 zu 285.2, 285.4a/b als ✓ in `vorgang.py build 285` (`312befa8e`; 1218, 1022.1 erledigt). Offen: kein 👎 in t285, also Rückläufer aus 👎 (1220) und „Falsch“-Text nicht belegt → `warte 1217 t286`.
+- **1173 mit Lücke:** t285 ohne Klang- und ohne Kleinkram-Zeile; seit 13.11., 15:45 keine Kleinkram-Zeile in einer Prüfliste → `warte 1173 t286`.
+- **1249 greift** (`03f83b9f2`): Jerrys Befehl (`cat > godot/tests/film_rauch_1222.gd <<EOF … EOF; cd godot && MESS=1 ~/godot/godot --headless … -s res://tests/film_rauch_1222.gd`) als Haken-Eingabe in leerer Kopie: Exit 0, nichts gezählt. Gegenproben über `bildlauf`/`bild_im_test`: Heredoc mit `save_png` zählt und hält bei `MESS=` an, fehlende Datei ohne Heredoc zählt weiter, Fensterlauf zählt, `tee`-Heredoc ohne Bild zählt nicht.
+
 ## Lauf 242 · 1199 Prüfliste erst mit APK in die Chefsache (Perikles `aefe62940`; 14.11., 11:1x)
 
 - **Greift:** Lauf 464 (`claude/build-285`, `d34cecf64`), Schritt „Skripte pruefen“: „PRUEFLISTE Build 285 aus docs/entwurf/t285-gang-messen.md“, „PRUEFLISTE1020 im Bau: Build 285, 6 Zeilen, 0 Fehler“. Entwurf trug „Gegengelesen: Sokrates 13.11., 21:32“. APK fertig 23:03, Bild 285.2 gesendet 23:28 (`ce125336e`, Datei noch in `entwurf/`), Verschiebung nach `ansehen/` erst 23:30 mit APK-Link in Zeile 2 (`906a81451`); vorher keine t285 in `ansehen/`. Bilder 285.4a/b (Spike 00:24) erst gesendet, dann eingetragen. Wächter `commit-pruefung.py` 425–430 vorhanden.
