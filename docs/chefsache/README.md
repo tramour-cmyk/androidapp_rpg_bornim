@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1092](entscheiden/1092.md) | **Muss** | E Figuren | 14.11., 00:52 | Roben wirken gestreift, weil die Falten nur als dunkle Bänder auf einem glatten Rock gemalt sind; Vorschlag: echte Falten in der Form, Malerei schwächer. | Spike (Zusatzentwickler Team Tom) |
+Nichts offen.
 
 ## Zu billigen
 
