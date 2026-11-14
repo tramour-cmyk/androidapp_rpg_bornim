@@ -22,6 +22,7 @@ Nichts offen.
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
 | [1040.1](ansehen/10401-wenden.md) | Bram wendet sich dem vorbeigehenden Helden zu: mit Schritten oder wie auf dem Drehteller? | – | 14.11., 23:46 |
+| [1222](ansehen/1222-rauch.md) | Rauchbündel gegen Krogg: Wurf, Rauch am Kopf, Schlag ins Leere | – | 15.11., 00:47 |
 | [601](ansehen/601-spaeher.md) | Goblin-Späher: Schussbewegung, Pfeil, Spur | – | 14.11., 23:53 |
 
 ## Zu tun
@@ -363,7 +364,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/10401-wenden.md, ansehen/601-spaeher.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/10401-wenden.md, ansehen/1222-rauch.md, ansehen/601-spaeher.md
 
 ## So geht's
 
