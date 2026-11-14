@@ -1229,9 +1229,18 @@ func _play_say(e: Dictionary) -> void:
 	for id in e.intents:
 		var aimed: Array = e.intents[id][1]
 		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
+		if String(e.intents[id][0].get("id", "")) == "heavy":
+			figures[id].ausholen(true)     # 1000: ab der Ansage holt er aus und hält die Axt oben
 	for id in figures:
 		if not e.intents.has(id):
 			figures[id].announce(null)
+			# 1000: „Schwerer Hieb!“ nimmt die Ansage weg, die Axt bleibt oben bis zum Hieb (auch über den Ring); ist die Ansage
+			# ohne Hieb weg (aus dem Tritt), senkt er sie
+			if figures[id].ausgeholt():
+				if e.cue == "FOE_STRIKES" and e.actor == id:
+					figures[id].schlag_kommt = true
+				elif not figures[id].schlag_kommt:
+					figures[id].ausholen(false)
 	# 439 (Chef 31.10., 23:31: „beim Helden einmal die Treffer-Animation, bevor der Angriff richtig da war“; tests/wolf_mess_438.gd):
 	# „wirft sich auf …“ (POUNCED) kommt als eigene Meldung nach dem Sprungbiss, wenn der Wolf schon wieder daheim steht; der Held fiel
 	# dann ohne Wolf. Jetzt fällt er beim Aufprall des Sprungs (mars.gd: ein Sprung, der trifft und ihn stehen lässt, wirft ihn um),
