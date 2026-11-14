@@ -42,6 +42,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 10:14 14.11.: Chef 10:11 zu 1092: „a. mit den Ergänzungen“ (Sokrates: A mit Deckel) eingetragen (Archiv, Zu 1092 Tom, Datei weg); Tom `…77znPDfxf4G6yvCC6Q` per „Weiter: 1092“ angestoßen (kein zweiter Tom, Chef testet t285 dort; lauf.py plante START Tom + ARCHIVIERE Tom, nicht ausgeführt); Perikles 1244 archiviert (1,19 $).
+- 10:05 14.11.: Tagesbericht: Perikles `…79x9S7PcZtZSXrN3we` gestartet.
 - 09:05 14.11.: Lauf 09:03: nichts zu starten (Diogenes 1098.1 vorerst nicht prüfbar, Sokrates wartet auf Chef). Morgen 14.11.: regelcheck --kurz: 2 Pflegehinweise (Pause-Felder Jerry und Sokrates ohne lesbares Datum, Besitzer setzen); kosten.py nicht gelaufen (Seiten nicht geholt, Guthaben tragbar laut Zeile oben), Zählung nachholen im nächsten Lauf mit Zeit.
 - 08:06 14.11.: 1245 erledigt: Zeile Ford-Starter oben richtiggestellt (Geprüft an: Commit nach Push).
 - 08:05 14.11.: Lauf 08:03: Tom alt archiviert (21,01 $ auf 285), Spike 1240 (1,41 $), Diogenes 1240 (1,06 $) archiviert; nichts zu starten; Nachhalten: Eingang leer, 6 Abgleich-Zeilen Jerry (811, 876, 923, 971, 644a.1, 1060) ohne Build, lautlos.
@@ -60,15 +62,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:39 13.11.: Neustart Jerry (207af913c): neue Sitzung `…76T6cjjcpvFiQSkmub` (Mittel), Vorgängerin `…78sHDY7SBKAQW8Re2t` archiviert (6,03 $ auf 709.1); Halt 23:35 über Sokrates (709, 709.1, 1072 u. a.) steht in Jerrys Vorrat; Beobachtung: Jerry-Neustarts 22:30, 23:21, 23:34 binnen einer Stunde, Haken feuert früh (Ford)
 - 23:32 13.11.: „Neustart Tom, 919bb6cb0“ nicht ausgeführt: Chef testet t285 (Testbitte 906a81451), Neustart während seines Tests nie (812, 865); Tom bleibt, meldet nach dem Ergebnis neu (Ford)
 - 23:31 13.11.: Neustart Sokrates (28d978c49): neue Sitzung `…7A5LHnTB8QgSgxTD8M` 23:30 (Mittel), Vorgängerin `…797jN7dteYW35dpYLZ` archiviert (10,28 $ auf 1236, 1072, 827; Ford)
-- 23:28 13.11.: Neustart Jerry (56ee4e9ba): neue Sitzung `…78sHDY7SBKAQW8Re2t` 23:21 (Mittel), Vorgängerin `…79cBeV1g9SXzdarjgt` archiviert (7,63 $ auf 709.1, 1072); sie schrieb nach dem Neustart noch 6 Minuten weiter im Vorrat, Hinweis geschickt, dann beendet (Ford)
-- 23:07 13.11.: Lauf 23:03: Diogenes (1237) `…783kjRUn2ac4Ks2Yhg` gestartet (Umgebung Mittel), Vorgängerin `…75tnffFfTRAMHuhTAy` archiviert (2,13 $ auf 1175); Starts Homer 1235 und Perikles (Parserfehler) mit --ohne verhindert, Vorgänge 1238, 1239 an Perikles; Ausschlussliste zusätzlich `--ohne "1235:…"` und `--ohne "Perikles:…"` bis dahin (Ford)
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
 - 00:15 14.11.: Startsperre 00:15 Start Ford (selbst, Tiefe 0, Selbstneustart nach Haken 1019, Neustart Perikles 3c83e9ce6 ohne Start, Nachfolger erst 15.11., Sitzung `…76yL3LGXZZZ4orHsL5` archiviert, 3,32 $ auf 1019, 1098; Ford)
 - 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 00:17 14.11.: Marke Archiv session_01Hmoj783kjRUn2ac4Ks2Yhg (lauf.py)
-- 00:46 14.11.: Startsperre 00:46 Start Perikles, Spike (lauf.py)
 - 00:46 14.11.: Marke Archiv session_01Hmoj76xVCXk2y824rYD6Rk (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
 - 01:04 14.11.: Marke Archiv session_01Hmoj79Lqfbd3HfnYzQhK8H (lauf.py)
@@ -89,5 +88,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:05 14.11.: Startsperre 08:05 Start Diogenes (lauf.py)
 - 10:04 14.11.: Marke Tagesbericht 14.11. (lauf.py)
 - 10:04 14.11.: Startsperre 10:04 Start Perikles (Tagesbericht 14.11., lauf.py)
-- 10:05 14.11.: Tagesbericht: Perikles `…79x9S7PcZtZSXrN3we` gestartet.
-- 10:14 14.11.: Chef 10:11 zu 1092: „a. mit den Ergänzungen“ (Sokrates: A mit Deckel) eingetragen (Archiv, Zu 1092 Tom, Datei weg); Tom `…77znPDfxf4G6yvCC6Q` per „Weiter: 1092“ angestoßen (kein zweiter Tom, Chef testet t285 dort; lauf.py plante START Tom + ARCHIVIERE Tom, nicht ausgeführt); Perikles 1244 archiviert (1,19 $).
+- 10:31 14.11.: Startsperre 10:31 Start Jerry, Spike (lauf.py)
+- 10:31 14.11.: Marke Archiv session_01Hmoj76T6cjjcpvFiQSkmub (lauf.py)
