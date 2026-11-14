@@ -37,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | wartet auf Sokrates |
+| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | in Arbeit bei Spike |
 | 1091 | M | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | wartet auf Test (Build 286) |
 | 1129.3 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1 und 6 (Punkt 2 mac | wartet auf Test/Build (gebaut) |
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | wartet auf Test (Build) |
@@ -152,7 +152,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1247 | K | Von Tom (1242): Haken 621 A erkennt Freigabe „<Nr>, Lauf frei“ (Einzahl) und Freigaben unt | startbar |
 | Pflege | K | von Werkzeug (340.3, 14.11.): 30675 Bytes (Grenze 30000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 104, Muss 43, startbar 8
+**Jerry** – offen 104, Muss 43, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -163,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | wartet auf 1072 (wartet) |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 760 (startbar) |
-| 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | wartet auf 930.6 (in Arbeit) |
+| 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | startbar |
 | 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | wartet auf Sokrates |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (ruht) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Sokrates |
@@ -193,7 +193,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 39 | K | Schwierigkeitsgrad im Menü | ruht bis 23.11. |
 | 59e | K | Händler: Vorrat je Laden | ruht bis 23.11. |
 | 469 | K | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | ruht bis 16.11. |
-| 601 | M | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer t | wartet auf Test/Build (gebaut) |
+| 601 | M | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer t | startbar |
 | 623.2 | K | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher | wartet auf 623 (startbar) |
 | 598 | K | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahm | ruht bis 16.11. |
 | 634 | K | Schenkenklang wie alt: Rowena wischt, gießt, stellt Becher ab, Borin Flasche und Stuhl, im | ruht bis 16.11. |
@@ -240,7 +240,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 999.2 | M? | Von 999: Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow); | ruht bis 23.11. |
 | 1000 | M | Von Tuffy (620.2c, wie 310): Grak hält nach der Ansage „Schwerer Hieb“ die ausholende Halt | wartet auf Test (Build 286) |
 | 1002 | K | Von Tuffy (620.2c, wie 296.3): Siegerpose im Kampf fehlt (nur Film film_sieger_2963.gd; Pr | ruht bis 23.11. |
-| 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | wartet auf 1255 (startbar) |
+| 644a.1 | M | Von Sokrates (644a A mit Spanne, D, F; Chef 12.11., 08:21): erst Rechnung (Spannen je Stuf | startbar |
 | 1058 | M? | Von Sokrates (1050a): Simulation 444 rechnet Herkünfte ohne plus_variante (6 statt 9 Punkt | wartet auf Test (Build) |
 | 1060 | M | Von Tom (Chef 12.11., 17:34 „Wieso dauern denn jetzt die Runs wieder so lange?“, Lauf 4324 | wartet auf Test (Build) |
 | 1062 | M? | Von Sokrates (654, aus 1059): Filmlauf zeigt nur das Hauptmenü, dritter Fund gleicher Ursa | wartet auf Test (Build) |
@@ -255,8 +255,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | startbar |
 | 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | wartet auf 1072 (wartet) |
 | 1227 | K | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche i | wartet auf Test (Build 286) |
-| 930.6 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 1, Regelkern in mars.gd hint | in Arbeit bei Tuffy |
-| 930.7 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken | wartet auf 930.6 (in Arbeit) |
+| 930.6 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 1, Regelkern in mars.gd hint | wartet auf Test/Build (gebaut) |
+| 930.7 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken | in Arbeit bei Tuffy |
 | 1250 | K | Von Jerry (1000): grak_348 (godot-kampf.yml) rot schon auf main aeb8e0eb0, 11 FEHLER: Plat | startbar |
 | 1253 | M | Von Sokrates (Chef 14.11., 21:03, ersetzt 1051 A): Proben ohne Grundwert 5 % + 1 je Punkt | startbar |
 | Pflege | K | von Werkzeug (340.3, 14.11.): 30612 Bytes (Grenze 30000), Erledigtes streichen | startbar |
@@ -305,14 +305,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | Termin 16.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 16.11. |
 
-**Sokrates** – offen 47, Muss 14, startbar 20
+**Sokrates** – offen 45, Muss 12, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1259 | M | Von Chef (14.11., 22:32, zu 930): Name der Punkte im Kampf, „Glut“ nie vorgelegt; A „Aktio | startbar |
 | 1186 | M | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitzer zum Schli | Termin 16.11. |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1129.4 (startbar) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht bis 23.11. |
-| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | startbar |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 870.13 (wartet) |
 | 780 | K | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | K | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | startbar |
@@ -347,14 +347,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 862 | K | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal gru | ruht bis 23.11. |
 | 930 | K | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 1135 | M | Von Perikles (1128 A, Liste Diogenes): Gespräch mit dem Chef über die Zahlen zur Balance d | startbar |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | ruht |
+| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | ruht |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 15.11. 20:00 |
 | 1169 | K | Systemlösung? Tür: 9 frühere Vorgänge (629, 611, 629.1, 636, 1063 …), neu 1168; einmal gru | startbar |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
 | 1209 | K | Systemlösung? Halt: 10 frühere Vorgänge (793, 662, 849, 653, 872 …), neu 1208; einmal grun | startbar |
-| 1255 | M | Von Chef (644a.1, 14.11., 21:16–21:29): Zuordnung jeder Fertigkeit zu genau einem Grundwer | startbar |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | ruht |
-| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | ruht |
-| 930.7 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken | wartet auf 930.6 (in Arbeit) |
 | Pflege | K | von Werkzeug (340.3, 14.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 ## Lücken
 
