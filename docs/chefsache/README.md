@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1260](entscheiden/1260-kampfpunkte.md) | **Muss** | E Kampf | 14.11., 22:52 | Name der drei Kampfpunkte je Zug samt Folgewörtern; Votum Takt / Beat. | Homer |
+| [1260](entscheiden/1260-kampfpunkte.md) | **Muss** | E Kampf | 14.11., 23:40 | Name der drei Kampfpunkte je Zug samt Folgewörtern; Votum Takt / Beat, Lohe behielte das schon gebaute Glutbild. | Homer |
 
 ## Zu billigen
 
