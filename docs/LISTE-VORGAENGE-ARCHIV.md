@@ -347,7 +347,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Steuerung | M | –; +6,16 $ | Perikles | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | – | – | Team Jerry | erledigt |
 | 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +7,38 $ | Team Jerry | erledigt |
-| 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | 34,57 $ | Jerry | erledigt |
+| 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | 35,09 $ | Jerry | erledigt |
 | 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Steuerung | M | –; +11,14 $ | Perikles | erledigt |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | –; +0,96 $ | Team Jerry | erledigt |
 | 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M | –; +10,29 $ | Team Tom | erledigt |
@@ -1422,4 +1422,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1249 | Von Jerry (1222): probelauf.py zählt einen Testlauf -s res://tests/<neu>.gd als Probelauf, wenn die Testdatei im selben Befehl erst angelegt wird (Haken liest sie vorher, „nicht gefunden“ = Bildlauf); film_rauch_1222 MESS=1 verbrauchte so die eine Probe | B Werkzeuge | K | 1,95 $ | Perikles | erledigt, greift Lauf 243 |
 | 1251 | Von Sokrates (Chef 14.11., 20:35 „Abhängigkeiten … leicht auflösen, damit alle wieder arbeiten können“): Wartefelder auf alte Testbuilds (t278 bei 806, 956, 999.1; t277, t280, t282 bei 876, 923, 971, 644a.1, 1084) prüfen und lösen, wo der Build längst getestet ist | B Abläufe | M | – | Perikles | erledigt |
 | 930.5 | Von Sokrates (930 A, Chef 14.11., 20:19 „jetzt“ 14.11., 20:19): Glutsystem Stufe 0, Rechnung ergänzen (glut2.py: Kobold, Spinne, Fledermaus, gemischte Begegnungen, Ansage lesen, Täuschen; Zahlen Gegenwert, Nachlegen); Maß DESIGN-GLUT.md 10 | E Kampf | M | 3,23 $ | Jerry | erledigt |
-| 1252 | Von Tom (286): Prüfliste docs/entwurf/t286-karte-scheide.md gegenlesen (Punkte beider Teams), Zeile „Gegengelesen:“; danach pusht Tom claude/build-286 (Stand claude/tom-286-sammel 05b25afec, Kerntests 158 gut) und bittet den Chef | B Abläufe | M | – | Sokrates | erledigt |
+| 1252 | Von Tom (286): Prüfliste docs/entwurf/t286-karte-scheide.md gegenlesen (Punkte beider Teams), Zeile „Gegengelesen:“; danach pusht Tom claude/build-286 (Stand claude/tom-286-sammel 05b25afec, Kerntests 158 gut) und bittet den Chef | B Abläufe | M | 0,52 $ | Sokrates | erledigt |

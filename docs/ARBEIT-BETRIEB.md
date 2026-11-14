@@ -44,6 +44,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 21:16 14.11.: Tom neu `…77L1zKAAbcvm31GJBc` (286, Neustart-Meldung 21:09), Tom `…79AQ79uafPgaVpiHEJ` archiviert (16,92 $ auf 1091); Weitergabe Sokrates 1252 an Tom 21:08
 - 21:09 14.11.: Diogenes neu `…78sXbc6SZHTKCgXXZ3` (1079), Diogenes `…77WqsAmL86DZSZvSXs` archiviert (2,06 $); Sokrates `…775ze3dz5eLhqTBs67` auf Tom-Bitte 21:07 „Weiter: 1252“ (kein Neustart); Hinweis: Kurzzeile mit Kosten 20,13 $ löste GEBUCHT auf 930, 285, 1222, 1040.1 aus (je 5,03 $, Sokrates läuft noch, Fehler von Ford, Kurzzeile künftig ohne Kosten für laufende)
 - 20:48 14.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_014BcfzRMLG6Fa8bDwFVGeaY` (:03), alte `trig_01LkfXvhcQ873nArQjFWNhGh` aus, alter Ford `…76dYAn9Jmk5yYyU3HQ` archiviert (1019, 8,26 $); Spike neu `…7A7BuC683wt2MBEacm` (1040.1), Spike 1092 archiviert (9,73 $)
 - 20:47 14.11.: Tuffy neu `…76p5RvSmi2JWfwFcxN` (930.6, Aufwand hoch, WireStorm Hoch, Signal Sokrates 20:45 „930.5 geprüft“), Tuffy 930.5 archiviert (3,23 $); Tuffy soll 930.5 mit Commit „930.5: Kein Folgevorgang, weil …“ auf erledigt setzen; Übergabe Ford 20:45: Tuffy-Stand dort ist damit überholt
@@ -63,7 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:05 14.11.: Lauf 09:03: nichts zu starten (Diogenes 1098.1 vorerst nicht prüfbar, Sokrates wartet auf Chef). Morgen 14.11.: regelcheck --kurz: 2 Pflegehinweise (Pause-Felder Jerry und Sokrates ohne lesbares Datum, Besitzer setzen); kosten.py nicht gelaufen (Seiten nicht geholt, Guthaben tragbar laut Zeile oben), Zählung nachholen im nächsten Lauf mit Zeit.
 - 08:06 14.11.: 1245 erledigt: Zeile Ford-Starter oben richtiggestellt (Geprüft an: Commit nach Push).
 - 08:05 14.11.: Lauf 08:03: Tom alt archiviert (21,01 $ auf 285), Spike 1240 (1,41 $), Diogenes 1240 (1,06 $) archiviert; nichts zu starten; Nachhalten: Eingang leer, 6 Abgleich-Zeilen Jerry (811, 876, 923, 971, 644a.1, 1060) ohne Build, lautlos.
-- 07:49 14.11.: Neustart Tom: `…77znPDfxf4G6yvCC6Q` gestartet (Commit 919bb6cb0); alter Tom `…78jYddD6WmJoPRmjVB` (20,74 $ auf 285 zu buchen) noch aktiv, archivieren im nächsten Lauf, sobald idle und 60 s ruhig. Diogenes/Spike 1240 fertig.
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
 - 00:17 14.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 00:46 14.11.: Nachfolger-Warnung Jerry (Übergabe 14.11., 00:42) (lauf.py)
@@ -103,4 +103,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:07 14.11.: Marke Archiv session_01Hmoj77WqsAmL86DZSZvSXs (lauf.py)
 - 21:14 14.11.: Startsperre 21:14 Start Tom (lauf.py)
 - 21:14 14.11.: Marke Archiv session_01Hmoj79AQ79uafPgaVpiHEJ (lauf.py)
-- 21:16 14.11.: Tom neu `…77L1zKAAbcvm31GJBc` (286, Neustart-Meldung 21:09), Tom `…79AQ79uafPgaVpiHEJ` archiviert (16,92 $ auf 1091); Weitergabe Sokrates 1252 an Tom 21:08
+- 21:32 14.11.: Startsperre 21:32 Start Sokrates (Neustart-Meldung 21:30, 5a5b155a6, von Hand)

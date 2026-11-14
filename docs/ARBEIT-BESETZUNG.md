@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 14.11., 21:14 (lauf.py)
+**Stand:** 14.11., 21:31 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -14,3 +14,4 @@
 | Tuffy | [Tuffy – 930.6: Glutsystem Stufe 1, Regelkern (14.11., 20:46)](https://claude.ai/code/session_01Hmoj76p5RvSmi2JWfwFcxN) | 930.6 | – | 14.11., 20:45 |
 | Spike | [Spike – 1040.1 (14.11., 20:47)](https://claude.ai/code/session_01Hmoj7A7BuC683wt2MBEacm) | 1040.1 | – | 14.11., 20:47 |
 | Diogenes | [Diogenes – 1079 (14.11., 21:07)](https://claude.ai/code/session_01Hmoj78sXbc6SZHTKCgXXZ3) | 1079 | – | 14.11., 21:07 |
+| Tom | [Tom – 286: Befunde Sokrates einarbeiten, Build 286 bauen, Bilder und Filme senden, Testbitte (14.11., 21:14)](https://claude.ai/code/session_01Hmoj77L1zKAAbcvm31GJBc) | 286 | – | 14.11., 21:14 |
