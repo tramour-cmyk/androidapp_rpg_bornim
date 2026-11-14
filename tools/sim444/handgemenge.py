@@ -157,7 +157,7 @@ def kampf(W, H, held, mon_name, rng, modus, opt=None):
         if aktion == "Funkenpfeil":
             zb = z["Funkenpfeil"]
             s["mana"] -= zb["kosten"]
-            fert_name, grund, typ = zb["schule"], zb["schaden"] + held.werte["wille"], zb["typ"]
+            fert_name, grund, typ = zb["schule"], sim.zauber_grund(W, held, zb), zb["typ"]
         else:
             fert_name = waffe_name
             gw = waffe["grundwert"]
@@ -173,7 +173,7 @@ def kampf(W, H, held, mon_name, rng, modus, opt=None):
             bonus += ung
         if rng.random() < sim.trefferchance(W, fw, ziel.abwehr, bonus):
             sch = sim.schaden_roh(W, grund, fw, held.stufe - ziel.stufe, rng,
-                                  k["kritisch_prozent_je_gewandtheit"] * held.werte["gewandtheit"])
+                                  sim.krit_prozent(W, held, fert_name, fw))
             sch *= ziel.schwaeche.get(typ, 1.0)
             ziel.leben -= sim.endschaden(W, sch, ziel.ruestung)
             return True
@@ -189,7 +189,7 @@ def kampf(W, H, held, mon_name, rng, modus, opt=None):
         if "Wundsegen" in held.zauber and s["leben"] < lmax * z["Wundsegen"]["heilen_unter"] and s["mana"] >= z["Wundsegen"]["kosten"]:
             zb = z["Wundsegen"]
             s["mana"] -= zb["kosten"]
-            s["leben"] = min(lmax, s["leben"] + round((zb["heilung"] + held.werte["wille"]) * (1 + held.f(zb["schule"]) / 100.0)))
+            s["leben"] = min(lmax, s["leben"] + round(sim.zauber_grund(W, held, zb) * (1 + held.f(zb["schule"]) / 100.0)))
             return "Wundsegen"
         return None
 
