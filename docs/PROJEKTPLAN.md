@@ -92,10 +92,10 @@ Schätzung = offene, nicht ruhende, nicht gebaute Vorgänge × Median der Kosten
   - [x] Wildschwein · [x] Riesenhundertfüßer · [x] Riesenspinne · [x] Riesenegel (für Stirge) · [x] Säureschnecke (für Ockergallerte): Haken 720 (Chef 09.11., 14:49, im Probekampf gesehen); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492)
   - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
   - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
-- [ ] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand 05.11.:
+- [x] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand: abgenommen (Höhle t282, Chef 13.11., 14:51):
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
   - [x] Zum Schlafenden Greif (Schänke) · [x] Thessas Kramladen · [x] Haus des Ältesten · [x] Tempel des Morgenlichts: Haken 720 (Chef 09.11., 14:49)
-  - [ ] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492 passt, Vorentscheid 13.11., 03:33; 505), wartet auf den Test des Chefs
+  - [x] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492, 505); Test t282 Höhle bestanden, 282.19–.21 (Chef 13.11., 14:51, Archiv); auf `main` mit PR #201
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
   - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
