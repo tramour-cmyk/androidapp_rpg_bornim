@@ -228,7 +228,7 @@
 | 930.7 | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken im Kampfort (Fußring, Daumenmenü, Vorschau, Verglimmen), Film am Rechner an den Chef, dann Gespräch (DESIGN-GLUT.md 7, 8, 10) | Jerry | M | gebaut, Geprüft an: 773b89549 | 930.6 | – | – | E Kampf | 12,95 $ |
 | 1250 | Von Jerry (1000): grak_348 (godot-kampf.yml) rot schon auf main aeb8e0eb0, 11 FEHLER: Platzwechsel 0 Bilder unterwegs (glide_to bewegt Grak im angehaltenen Kampfort nicht), Test oder Ursache klären | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1253 | Von Sokrates (Chef 14.11., 21:03, ersetzt 1051 A): Proben ohne Grundwert 5 % + 1 je Punkt + 5 je Stufe, 5 bis 95 (Überreden, Einschüchtern, Handeln, Tiere beruhigen); werte.json proben basis 5, je_punkt 1; Tests und Simulation 444 nachziehen | Jerry | M | gebaut, Geprüft an: e03fee10e | – | claude/jerry-1253-proben | – | G Balance | 0,52 $ |
-| Pflege | von Werkzeug (340.3, 14.11.): 30612 Bytes (Grenze 30000), Erledigtes streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1260 | Von Sokrates (1259 B, Chef 14.11., 22:47): sprechender Name der drei Kampfpunkte je Zug, einige Vorschläge, dazu Nachlegen, Verglimmen, Funke; nicht Glut, Funke, kein Grundwert; Vorschlag Sokrates Herzschlag | Homer | M | startbar | Chef | – | – | E Kampf | 4,22 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
@@ -255,7 +255,6 @@
 | 1188 | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende oder alte Kür ohne Bewegung einmal dem Besitzer zum Urteil gilt/schließen vorlegen (Zu 1186) | Perikles | K | gebaut, Geprüft an: 24b01a1d5 | 16.11. | – | – | B Abläufe | 6,25 $ |
 | 1200 | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter Film eine Zeile, Film nur auf sein Wort“ erzeugt eine Rückfrage ohne Chefsache-Datei; mit Regel 8 (Rückfrage nur mit Datei) zusammenführen | Perikles | M | gebaut, Geprüft an: f33f53ee5 | 16.11. | – | – | B Abläufe | 1,71 $ |
 | 1244 | D236.1 von Diogenes (1133, 1129.1 P2a): Pflegehinweis-Commits sinken nicht (13.11. nach 279416a1f 45 in 11 h, vorher 34 in 13 h): Zeilen kommen und gehen je Übergabe (über 700 Zeichen, Jerry 13-mal), Datum wird täglich neu gestempelt, Zu 1244 in ARBEIT-PROJEKT.md | Perikles | M | gebaut, Geprüft an: bf3c1a4a7 | 16.11. | – | – | B Abläufe | 1,19 $ |
-| Pflege | von Werkzeug (340.3, 14.11.): LISTE-VORGAENGE.md: Build 285 getestet (Archiv t285), aber 1145 noch „zu testen“: `vorgang.py build 285` (Automatik B, 275.2) | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 1133 | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, Zu 1129.1 in ARBEIT-PRUEFUNG.md · „jetzt“ 13.11., 12:53 | Diogenes | M | startbar | 15.11. 00:50 | – | – | Q QM | 14,14 $ |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
@@ -308,12 +307,11 @@
 | 1169 | Systemlösung? Tür: 9 frühere Vorgänge (629, 611, 629.1, 636, 1063 …), neu 1168; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten (Chef 13.11., 16:48, aus 1186) | Sokrates | M | startbar | 27.11. | – | – | B Abläufe | – |
 | 1209 | Systemlösung? Halt: 10 frühere Vorgänge (793, 662, 849, 653, 872 …), neu 1208; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 14.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | K | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 14.11.): startbar.py: Jerry: PAUSE bis **Pause bis Entscheid des Chefs** (Halt  (Datum nicht lesbar) | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
 | 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
