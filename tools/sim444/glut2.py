@@ -75,6 +75,12 @@ def kampf(W, H, held, mon_name, rng, opt):
             n = rng.randint(*rud["anzahl"]) if isinstance(rud["anzahl"], list) else rud["anzahl"]
             for _ in range(n):
                 g = hg.Gegner(W, H, mon, rud["koerper"], rud); g.herr = g0; g.boss = False; feld.append(g)
+                # 930.6: wie das Spiel (brs.gd begleiter, werte.json „rudel“ _info): Stufe, Abwehr, Rüstung, Schwäche und Leben
+                # nach dem Körper, nicht nach dem Anführer (vorher trug die Leibwache Grimmzahns Stufe 5 und Abwehr 29)
+                kp = W["monster"][rud["koerper"]]
+                g.stufe, g.abwehr, g.ruestung = kp["stufe"], kp["abwehr"], kp["ruestung"]
+                g.schwaeche = kp.get("schwaeche", {})
+                g.leben = max(1, round(kp["leben"] * rud.get("leben_anteil", 1.0)))
     haupt = [g for g in feld if g.herr is None]
     leit = feld[0]
     start = 0 if leit.ueb else 1
@@ -465,7 +471,7 @@ def json_ausgabe(W, H, held, herk, n, rng, a):
     out = {"kaempfe": n, "unterstufe": a.unterstufe, "nachlegen": nl,
            "zahlen": {"frei": FREI, "ring": list(RING), "ring_wehr": list(RING_WEHR), "gross_faktor": GROSS_FAKTOR, "geselle": GESELLE,
                       "taeuschen": P_TAEUSCH, "taeuscher": sorted(TAEUSCHER), "gegenwert": {k: v for k, v in GEGENWERT.items() if k != "Rudel"},
-                      "tempo_gegner": {k: v for k, v in H["tempo_gegner"].items() if not k.startswith("_")}, "ungunst": H["ungunst"],
+                      "tempo_gegner": {k: v for k, v in H["tempo_gegner"].items() if not k.startswith("_") and k != "Rudel"}, "ungunst": H["ungunst"],
                       "held_tempo": {k: v for k, v in H["held_tempo"].items() if not k.startswith("_")}},
            "faelle": []}
     for hk in herk:
@@ -506,6 +512,7 @@ if __name__ == "__main__":
     H = sim.lade(os.path.join(HIER, "handgemenge.json"))
     W["monster"]["Rudel"] = dict(W["monster"]["Wolf"], rudel="Jungwolf")
     GEGENWERT["Rudel"] = GEGENWERT["Wolf"]
+    H["tempo_gegner"]["Rudel"] = H["tempo_gegner"]["Wolf"]        # 930.6: der Wolf des Rudels ist schnell wie im Spiel
     rng = random.Random(1411)
     n = a.kaempfe
     herk = list(sim.ohne_info(W["herkuenfte"]))
