@@ -218,6 +218,97 @@ Warum das preiswürdig sein kann: Ansage (Into the Breach), aufgesparte Punkte f
 
 Rechnung mit `handgemenge.py` (freie Schritte nach Tempo, Bereitschaft mit vier Antworten, Gegner 2 Glutmarken, Lauern), gleiche Fälle wie 00:50; Maß: keine Herkunft unter 15 Siegen je 100 gegen Krogg, Bereitschaft in höchstens der Hälfte der Züge die beste Wahl, Runde nicht länger als heute. Kosten etwa 5–10 $ (Jerry oder Sokrates), kein Spielcode, bis der Chef entschieden hat.
 
+**Chef 10:20:** „Also deine Richtung gefällt mir sehr gut. Denk da mal, also geh in die Richtung weiter.“ (Richtung, noch keine Entscheidung über Regeln und Zahlen; Rechnung nicht beauftragt.)
+
+## Wachsen: wie der Kampf des Helden besser wird (Sokrates, 14.11., 10:25)
+
+**Auftrag Chef 10:20:** „wie kann der Held, wenn er aufsteigt, also wenn seine Fertigkeiten besser werden oder er andere Tränke bekommt oder seine Heldenstufe steigt sozusagen, wie wird da sein Kampf besser? Was bekommt er denn dann sozusagen? Kriegt er dann Freebies einmal im Spiel oder wie? … das ist ja eine Entwicklung eines Charakters, der am Anfang schwach ist und im Laufe des Spiels aufsteigt und besser wird, weil er seine Fertigkeiten entwickelt, weil er Stufen bekommt dadurch, weil er einen Pfad wählt. … Und da müssen wir halt auch schauen, … gerade als Taktik im Zweierteam dann, wenn man nicht alleine kämpft, … Ob wir dann noch Tätigkeiten brauchen, sozusagen, die auch im Team sinnvoll sind.“ Dazu 10:20: „Einer von ist sozusagen, der verwendet seine Glut für Bollwerk sozusagen und der hinten, der kann dann besser schießen oder irgend sowas. Also es gibt ja ganz viele Möglichkeiten.“
+
+### Grundsatz: die drei Glutmarken bleiben, was sie wert sind, wächst
+
+Mehr Punkte wären ein großer Zahlensprung (ein Drittel mehr Zug) und gegen das BRS („keine großen Zahlenaufschläge, die Kraft bleibt in den Fertigkeiten“, Abschnitt 5). Stattdessen wächst der Held auf **fünf Wegen**, jeder an einer anderen Stelle der Runde, damit man jeden Aufstieg im Kampf **spürt**:
+
+| Quelle | Was sie im Kampf ändert | Spürbar als |
+|---|---|---|
+| **Fertigkeit** (Rang) | macht Dinge möglich und billiger | „Wuchtschlag kostet nur noch 1“ |
+| **Heldenstufe** | Größenordnung (Modell D: Treffer, Schaden, Leben) und **Funken** | „einmal im Kampf eine vierte Glut“ |
+| **Pfad** (ab Kapitel 2) | bricht genau eine Grundregel | „ich darf, was sonst keiner darf“ |
+| **Ausrüstung, Tränke** | kleine Ausnahmen für eine Zeit | „mit dem Eiltrank zwei freie Felder“ |
+| **Team** (ab Kapitel 2) | Glut wirkt für den anderen | „er hält, ich schieße“ |
+
+### 1. Fertigkeit: jeder Rang schaltet eine Stufe frei
+
+Für jede Kampffertigkeit dieselbe Leiter (Ränge nach `DESIGN-BRS.md` 3), damit der Spieler sie einmal lernt:
+
+| Rang | Was dazukommt | Beispiel Einhänder | Beispiel Bogen | Beispiel Evokation |
+|---|---|---|---|---|
+| Anfänger (0–24) | Grundtun: Schlag, Schuss, leichter Zauber | Schlag 1 | Schuss 1 | Funkenpfeil 1 |
+| Geselle (25–49, Kapitel 1) | **Handlung** (heute schon, 870a 3) und **eine Antwort** der Bereitschaft | Finte 1; Gegenschlag | Ruhige Hand 1; Wachschuss | Glutstrahlen 2; Zauber als Wachschuss |
+| Meister (50–74, ab Kapitel 2 im Pfad) | **schwere Handlung kostet 1 weniger** | Finte trifft und öffnet für den Partner | Ruhige Hand gilt auch für den Wachschuss | Glutkugel 1 statt 2 |
+| Großmeister (75–100, Pfad) | **Meisterzug, einmal je Kampf**: Tun kostet 0 | Hieb, der nicht abgewehrt wird | Schuss durch zwei Gegner | Zauber ohne Mana |
+
+Auch Nicht-Waffen wachsen im Kampf: **Ausweichen** Geselle Freischritt (ein Feld mehr frei), **Schild** Geselle Schildstoß und Wehr für den Nachbarn, **Alchemie** Geselle ein Trank je Kampf für 0, **Leichte Rüstung** Geselle Lösen aus dem Handgemenge für 0, **Schleichen** Geselle Hinterhalt mit eigener Wahl des Abstands.
+
+**Folge:** Antworten der Bereitschaft muss man **lernen**. In Kapitel 1 hat der Anfänger nur „Wehr“; Gegenschlag und Wachschuss kommen mit Geselle. So ist der Held am Anfang schwach, ohne dass er weniger Punkte hat, und die erste Bereitschaftsantwort ist ein Ereignis.
+
+### 2. Heldenstufe: Größenordnung und Funken
+
+- **Größenordnung** wie heute (Modell D, Entscheidung 73): Leben, Treffer und Schaden gegen niedrigere Gegner.
+- **Funken** (Antwort auf „Freebies einmal im Spiel?“): **einmal je Kampf eine vierte Glut**, sichtbar als goldener Funke neben den drei Marken. Vorschlag: der erste Funke mit Heldenstufe 4 (Mitte Kapitel 1), der zweite am Ende von Kapitel 3, der dritte in Kapitel 6; höchstens drei. Ein Funke ist selten genug, um die Balance nicht zu kippen, und groß genug, um ihn zu feiern („Jetzt!“). Gegenargument: wieder etwas zum Merken; dagegen: es ist nur ein Leuchten, das man antippt oder nicht.
+
+### 3. Pfad: jeder Pfad bricht genau eine Regel
+
+Statt Zahlen eine Ausnahme, die den Pfad im Kampf unverwechselbar macht (Fähigkeiten aus `DESIGN-BRS.md` 5, hier in Glut übersetzt; ab Weihe, Kapitel 2):
+
+| Pfad | Regel, die er bricht |
+|---|---|
+| Wächter | Bereitschaft wirkt für jeden neben ihm (Gegner binden, Gefährten decken) |
+| Paladin | Wehr heilt: jede perfekte Abwehr gibt ihm oder dem Nachbarn etwas Leben |
+| Berserker | ein Treffer gibt eine Glut zurück (Raserei), dafür keine Bereitschaft |
+| Duellant | Gegenschlag kostet nach perfektem Ring keine Glut (Riposte) |
+| Mönch | zwei Felder frei und Schlag ohne Waffe auch beim Lösen |
+| Assassine | erster Schlag aus dem Schatten kostet 0 und ist kritisch (Meucheln) |
+| Schatzjäger | Fallen im Kampfort legen und entschärfen als Tun |
+| Waldläufer | das Tier hat eigene zwei Glut |
+| Scharfschütze | aufgesparte Glut darf über die Runde bleiben, nur für den Zielschuss |
+| Magier | aufgesparte Glut lädt den nächsten Zauber auf (stärker statt Antwort) |
+| Kriegsmagier | Schlag und leichter Zauber in einem Tun (Waffenzauber) |
+| Beschwörer | der Diener hat eigene Glut, er selbst eine weniger |
+| Heiler | Heilen als Antwort: wird ein Freund getroffen, heilt er sofort |
+
+### 4. Ausrüstung und Tränke: Ausnahmen auf Zeit
+
+Selten und an der Seltenheit (`DESIGN-BRS.md` 11), nie als Grundzahl: Stiefel des Läufers (ein Feld mehr frei), Köcher mit Schnellgriff (Pfeilart und Nachladen frei), Schild „Bollwerk“ (Wehr kostet 0 einmal je Runde). Tränke: **Eiltrank** (drei Runden ein Feld mehr frei), **Trank der Wachheit** (nächste Runde eine Bereitschaft mehr), **Kampftränke** mit Schadensart (870a 8). Pfeilarten der Idee 10:04 gehören hierher: Grundpfeil unbegrenzt, besondere Pfeile gezählt, mit Güte.
+
+### 5. Team: Glut für den anderen
+
+Zu zweit ab Kapitel 2 (Garrick fest an der Seite, 168 D; Söldner ab Kapitel 3). Jeder hat eigene drei Glut; neu sind Handlungen, die **für den anderen** wirken. Die Idee des Chefs als erste:
+
+| Handlung | Glut | Wirkung |
+|---|---|---|
+| **Bollwerk** (Idee Chef 10:20) | 2, vorn | Die vordere Figur hält die Linie: kein Gegner kommt an ihr vorbei nach hinten, und die hintere Figur schießt oder zaubert in dieser Runde mit Gunst („gedeckt zielen“). Mit Schild Geselle 1. |
+| **Helfen** (Idee Chef 12.10.) | 1 | Der nächste Schlag des Partners auf dieses Ziel hat Gunst. |
+| **Herausziehen** | 1 | Den Partner aus dem Handgemenge nach hinten holen, ohne dass einer nachsetzt (Platztausch unter Druck). |
+| **Decken** | 1 | Schläge auf den Partner auf sich ziehen (heute schon). |
+| **Trank geben** | 1 | heute schon. |
+| **Zange** | 0 | Schlagen beide dasselbe Ziel in einer Runde, trifft der Zweite leichter. Belohnt Absprache, ohne Taste. |
+| **Wache für den Partner** | Bereitschaft | Gegenschlag oder Wachschuss auch, wenn der Gegner den Partner angreift. |
+| **Zusammenspiel**, einmal je Kampf | je 2 | Ein gemeinsamer Zug je Paar, der nur zu zweit geht (Schildstoß von vorn, im selben Augenblick Schuss von hinten in den Taumelnden). Bild und Klang als Höhepunkt. |
+
+**Warum das Team so stark sein kann:** Rollen entstehen von selbst (vorn halten, hinten wirken), ohne Klassen; wer Schild übt, wird zum Bollwerk, wer Bogen übt, zum Schützen dahinter. Das ist „du wirst, was du tust“ zu zweit.
+
+### Stärkstes Gegenargument und Antwort
+
+**Zu viele Sonderregeln:** fünf Quellen, dreizehn Pfadregeln, acht Teamhandlungen; der Spieler verliert den Überblick, und jede Ausnahme muss gebaut, gezeigt und abgestimmt werden. **Antwort:** in Kapitel 1 kommt nur Fertigkeit bis Geselle und ein Funke vor (der Held ist allein); Team ab Kapitel 2, Pfadregeln je Pfad erst mit seiner Weihe. Jede Ausnahme erscheint einmal mit Eingebung, wie heute die Ansagen. Was Kapitel 1 braucht, ist also klein: die Leiter bis Geselle und der erste Funke.
+
+### Was für Kapitel 1 daraus folgt
+
+1. Anfänger: Grundtun, Bereitschaft nur als Wehr.
+2. Geselle je Fertigkeit: Handlung (wie heute) und eine Antwort.
+3. Erster Funke mit Heldenstufe 4.
+4. Tränke wie heute, dazu höchstens Eiltrank.
+5. Alles andere ist Regelwerk für später, steht hier, damit es nicht verloren geht.
+
 ## Was zusammenhängt (Gesamtbild 13.11., 23:39)
 
 - **1072 Plätze und Laufwege** (29,94 $): wo eine Figur steht, wie sie dorthin kommt; hinterer Wolf läuft außen herum (0,3 m Luftzuschlag, frei wären 0,18–0,26 m), Runde 30,8 s statt 14,6 s.
