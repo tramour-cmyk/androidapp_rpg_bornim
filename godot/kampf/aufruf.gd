@@ -130,6 +130,9 @@ const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMA
 ## (Packs.kt cubs): vorn der Wolf, dazu 1–2 Jungwölfe, halb so groß (scale 0,55), Biss 1W3, Angriff −1; neu, weil MARS
 ## Trefferpunkte braucht: halb so viele wie ein Wolf; sie folgen dem Wolf und fliehen, wenn er fällt (mars.gd follows);
 ## Erfahrung nach BRS über lohn.gd (Wolf, je Jungwolf werte.json „erfahrung_anteil“)
+## 1223 (Chef 13.11., 20:59 „Leitwolf nicht erkennbar“; [1229.leitwolf] STORY-BRS-KAMPF.md): der Anführer des Rudels heißt im Kampf
+## „Leitwolf“, ohne Nummer; die Art bleibt „wolf“ (Blendentext, Lohn, Klang, Wissen nach der id)
+const LEITWOLF := {"de": "Leitwolf", "en": "Pack leader"}
 const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "hp_share": 0.5, "chance": 0.5,
 	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
 
@@ -140,7 +143,10 @@ const LEIBWACHE := {"chance": 0.55,
 
 static func rudel(monsters: Dictionary, dice) -> Array:
 	var wolf: Dictionary = monsters[Mars.WOLF]
-	var foes := [Mars.monster_fighter("wolf1", Vector2i(0, 0), wolf, dice.roll_expr(wolf.hp))]
+	var leit: Dictionary = wolf.duplicate(true)
+	leit.de = LEITWOLF.de
+	leit.en = LEITWOLF.en
+	var foes := [Mars.monster_fighter("wolf1", Vector2i(0, 0), leit, dice.roll_expr(wolf.hp))]
 	var jung: Dictionary = wolf.duplicate(true)
 	jung.de = JUNGWOLF.de
 	jung.en = JUNGWOLF.en
