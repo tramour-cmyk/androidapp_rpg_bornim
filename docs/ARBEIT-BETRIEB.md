@@ -102,3 +102,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:47 14.11.: Marke Archiv session_01Hmoj7A4LFiFy7nygExKGnU (lauf.py)
 - 21:07 14.11.: Startsperre 21:07 Start Diogenes (lauf.py)
 - 21:07 14.11.: Marke Archiv session_01Hmoj77WqsAmL86DZSZvSXs (lauf.py)
+- 21:09 14.11.: Diogenes neu `…78sXbc6SZHTKCgXXZ3` (1079), Diogenes `…77WqsAmL86DZSZvSXs` archiviert (2,06 $); Sokrates `…775ze3dz5eLhqTBs67` auf Tom-Bitte 21:07 „Weiter: 1252“ (kein Neustart); Hinweis: Kurzzeile mit Kosten 20,13 $ löste GEBUCHT auf 930, 285, 1222, 1040.1 aus (je 5,03 $, Sokrates läuft noch, Fehler von Ford, Kurzzeile künftig ohne Kosten für laufende)
