@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1135](entscheiden/1135.md) | **Muss** | G Balance | 14.11., 20:47 | fünf ungetestete Zahlen aus Jerrys Bau, je Zeile die Zahl und was sie im Spiel ändert; du sagst je Zeile gilt oder nein. | Sokrates |
 
 ## Zu billigen
 
