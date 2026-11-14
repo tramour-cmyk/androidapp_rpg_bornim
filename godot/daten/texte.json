@@ -260,8 +260,8 @@
       "neben": false,
       "titel": {"de":"Kroggs Schlüssel","en":"Krogg's Key"},
       "text": {
-        "de": "Im Ostflügel der Höhle bewachte der Grottenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.",
-        "en": "In the east wing of the cave the bugbear Krogg guarded the key to Grak's hall. {name} defeated him and took the rusty key from his belt."
+        "de": "Im Ostflügel der Höhle bewachte der Bärenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.",
+        "en": "In the east wing of the cave the bearbrute Krogg guarded the key to Grak's hall. {name} defeated him and took the rusty key from his belt."
       }
     },
     {
@@ -324,8 +324,8 @@
       "id": "rauch",
       "titel": {"de":"Rauch gegen Krogg","en":"Smoke against Krogg"},
       "text": {
-        "de": "Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.",
-        "en": "Garrick advised {name} to seek out Morwen the Herbalist in the Deep Whisperwood before fighting Krogg. He said she knew a way to blunt a bugbear's first blow."
+        "de": "Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Bärenschrats.",
+        "en": "Garrick advised {name} to seek out Morwen the Herbalist in the Deep Whisperwood before fighting Krogg. He said she knew a way to blunt a bearbrute's first blow."
       }
     },
     {

@@ -391,14 +391,14 @@ static func grak_talk(k: Skript, s: Zustand) -> void:
 
 static func krogg_tip(k: Skript, s: Zustand) -> void:
 	# D4.1: the way to Krogg leads past Morwen
-	k.variante(s, "504.garrick.krogg", garrick, [["Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bugbear Krogg carries the key to Grak's hall."], ["Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!"], ["Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.", "Don't go to him empty-handed. Morwen, the herbalist in the Deep Whisperwood, knows how to rob one like him of his first strike."]])
+	k.variante(s, "504.garrick.krogg", garrick, [["Ich habe Goblins belauscht. Ihr Bärenschrat Krogg trägt den Schlüssel zu Graks Halle.", "I overheard some goblins. Their bearbrute Krogg carries the key to Grak's hall."], ["Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!"], ["Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.", "Don't go to him empty-handed. Morwen, the herbalist in the Deep Whisperwood, knows how to rob one like him of his first strike."]])
 	if s.stufe() < KROGG_WARN_BELOW:
 		k.variante(s, "504.garrick.warnung", garrick, [["Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.", "And honestly, {name}: the way you look now, Krogg will knock you down with a single blow. Gather a few scars in the Deep Whisperwood first."]])
 	k.flag(KROGG_HINT)
 
 static func smoke_against_krogg(k: Skript, s: Zustand) -> void:
 	if not wants_smoke(s): return
-	k.say(morwen, "Krogg? Grottenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.", "Krogg? Bugbears strike from the dark, and the first blow is the worst. But their noses are keen.")
+	k.say(morwen, "Krogg? Bärenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.", "Krogg? Bearbrutes strike from the dark, and the first blow is the worst. But their noses are keen.")
 	k.say(morwen, "Wirf ihm das hier vor die Füße, sobald er auftaucht. Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.", "Throw this at his feet as soon as he shows up. The smoke stings the eyes, and his blow goes astray.")
 	k.give(SMOKE_BUNDLE, 1)
 	k.flag(SMOKE_GIVEN)
