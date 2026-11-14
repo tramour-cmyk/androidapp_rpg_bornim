@@ -160,6 +160,20 @@ STOFF_TEILE = ('tabard', 'sleeve', 'pants', 'cloak', 'apron', 'tuch')
 ZUSTAENDE = {'MAKELLOS': 0.0, 'BENUTZT': 0.6, 'BESCHAEDIGT': 1.0, 'DEFEKT': 1.35}   # Probe 4 (Pruefer 17:26: Beschaedigt und Defekt kaum zu trennen): Defekt noch abgenutzter
 ZUSTAND = os.environ.get('ZUSTAND', 'BENUTZT').upper()
 SPUREN = ZUSTAENDE.get(ZUSTAND, 0.6)
+# 1092 A (Chef 14.11., 10:11 „a. mit den Ergänzungen“): Falten als echte Form im Rock statt nur gemalt. Ein Profil fuer Form
+# und Malerei: neun Falten rundum, unregelmaessig (Lage wandert mit dem Winkel, Tiefe wechselt von Falte zu Falte), vom Guertel
+# bis 40 cm darunter auf FALTE_TIEF wachsend, nur nach aussen (Taeler liegen auf dem alten Rock, die Beine stossen nicht durch).
+# Die Malerei liest das Tal aus dem Attribut „falte“ der Ecken (skirt) und dunkelt dort hoechstens FALTE_MAL, ohne flachen Boden.
+FALTE_TIEF = 2.5
+FALTE_MAL = 0.25
+def falte_profil(a, z):
+    t = min(1.0, max(0.0, (beltY + 4.0 - z) / 40.0))
+    phase = 9 * a + 1.4 * math.sin(2 * a + 0.7) + 0.6 * math.sin(5 * a + 2.1) + 0.012 * z
+    amp = 0.62 + 0.38 * math.sin(4 * a + 1.9) * math.cos(3 * a + 0.4)
+    w1 = 0.5 + 0.5 * math.sin(phase)
+    form = FALTE_TIEF * t ** 0.8 * amp * (1 - (1 - w1) ** 2.5)   # cm nach aussen: Grat breit und rund, Tal schmal und scharf
+    tal = t * amp * (1 - w1) ** 1.6                      # 0..1 fuer die Malerei
+    return form, tal
 FALTE_BODEN = 0.3   # 1092 B: ein Faltental hoechstens 70 % dunkler als der Stoff, nie schwarz (vorher bis unter 0)
 def _noise_v(nt, vec, scale, detail=2.0, rough=0.5):
     no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = scale; no.inputs['Detail'].default_value = detail
@@ -200,6 +214,12 @@ def stoff(nt, col, name):
         # 1092 B (Chef 13.11., 09:20 „1092 B“): Tal 0,85 mal Tiefe bis etwa 1,45 lief ohne Untergrenze unter 0 (schwarze Augen, dunkle
         # Laengsstreifen in hellen Roben, gemessen: 7,8 % der Robe Lyras unter 25/255); nur das Schwarz kappen, die Form bleibt
         f = _m(nt, 'MAXIMUM', f, FALTE_BODEN)
+        # 1092 A: auf Roecken mit Formfalten (Attribut „falte_an“) liegt die Malerei genau auf der Form: Tal hoechstens FALTE_MAL
+        # dunkler, weich auslaufend; Wappenrock und Umhang (ohne Attribut) bleiben wie bisher gemalt
+        fa = nt.nodes.new('ShaderNodeAttribute'); fa.attribute_name = 'falte'; fa.attribute_type = 'GEOMETRY'
+        fn = nt.nodes.new('ShaderNodeAttribute'); fn.attribute_name = 'falte_an'; fn.attribute_type = 'GEOMETRY'
+        neu = _m(nt, 'SUBTRACT', 1.0, _m(nt, 'MULTIPLY', fa.outputs['Fac'], FALTE_MAL * F))
+        f = _m(nt, 'ADD', f, _m(nt, 'MULTIPLY', fn.outputs['Fac'], _m(nt, 'SUBTRACT', neu, f)))
         col = _scale(nt, col, f)
         # unter dem Guertel staut sich der Stoff: dunkles Band 2 bis 10 cm darunter
         gb = _sat(nt, _m(nt, 'SUBTRACT', 1.0, _m(nt, 'ABSOLUTE', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', Z, beltY - 6.0), 6.0))))
@@ -1347,9 +1367,15 @@ def skirt(top=None, bot=None, flare=0.06, name='robe', mat='tabard', span=None, 
         c = Vector((0, 0.5, z))
         for k, a in enumerate(AS):
             d = Vector((math.sin(a), math.cos(a), 0))
-            fold = 0.5 * min(1, max(0, (hipY - z) / 40)) * math.sin(a * 9)
+            fold = falte_profil(a, z)[0]   # 1092 A: echte Falten (vorher 0,5 cm, unsichtbar)
             G[i, k] = tuple(c + d * (R[i, k] + fold))
-    return grid_obj(name, G, mat, 0.5, closed_u=span is None and FIGUR != 'held')
+    o = grid_obj(name, G, mat, 0.5, closed_u=span is None and FIGUR != 'held')
+    # 1092 A: das Tal je Ecke fuer die Malerei (stoff liest „falte“, „falte_an“ = 1 heisst: Rock mit Formfalten)
+    at = o.data.attributes.new('falte', 'FLOAT', 'POINT'); an = o.data.attributes.new('falte_an', 'FLOAT', 'POINT')
+    for v in o.data.vertices:
+        at.data[v.index].value = falte_profil(math.atan2(v.co.x, v.co.y - 0.5), v.co.z)[1]
+        an.data[v.index].value = 1.0
+    return o
 robe = skirt(flare=0.06 if FIGUR == 'held' else 0.10) if FG['rock'] == 'robe' else None   # Runde 4 (Helfer: Bein durch den Rock im Gang): weiter
 if FG['rock'] == 'kittel':   # Pim: Kittel zu gross, bis ueber die Knie, weit
     robe = skirt(beltY + 3, kneeY + 5, 0.16, off=2.2)
