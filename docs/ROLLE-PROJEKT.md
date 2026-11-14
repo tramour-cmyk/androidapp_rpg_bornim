@@ -77,12 +77,11 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 ## Begründungen
 
 - **1129 A 4, Muss umgestuft (13.11., 14:2x):** 277 offene Muss gegen das Wochenziel 09.–15.11. geprüft; Muss bleibt, was im Wochenziel steht, „jetzt“ oder „bitte machen“ trägt, ein Kampffund oder Absturz ist, einen Stichtag bis 15.11. hat oder in einem Build auf den Test wartet, dazu jede Zeile, auf die eine bleibende wartet. Übrig 134 (Jerry 61, Tom 34). Statt „M?“ direkt **K**, weil „M?“ je Zeile einen Start „M? entscheiden“ auslöst (921) und die Entscheidung bei mir liegt; nichts gelöscht, wieder M, sobald eine Zeile ins Wochenziel kommt oder der Chef „jetzt“ sagt. Ruhende Zeilen haben jetzt Termine (16.11. bei „Kampf zuerst“, sonst 23.11.).
-- **M?-Entscheide 08.–11.11.** (614 ff., 477, 474, 476, 568, 593; 648, 651, 677, 698–700, 704, 705; 824, 844, 845, 836, 909; 965–967, 969; 997–1004; 935–942, 957): Begründungen in Git, Commits „Perikles: M?-Entscheid …“.
-- **Wochenziel 09.11., 10:1x (338.1, 190.8):** Kampf zuerst (Chef 08.11., 21:36); Begründung samt Gegenargument: Git, Stand vor „Perikles: M?-Entscheid 1073 → K“.
-- **759 (09.11., 15:08), 818 (09.11., 23:08):** Git, Stand vor „Perikles: zweite Meinung zu 1128“.
-- **M?-Entscheide 12.11., 20:53 und 20:57** (1070 M, 1076 M): Begründungen in Git, Commits „Perikles: 1070 M“ und „Perikles: 1076 M“.
-- **1128, zweite Meinung 13.11., 12:09** (Zuruf Chef 12:02, Klarstellung 12:06; erst B 12:05, zurückgezogen): A mit Änderungen 1 und 2, Probe 283–285. Belege: 282 hatte 23 Zeilen, davon 2 entfallen, 12 ✓; die ✗ waren eine falsch gestellte Prüffrage (282.3), Funde, die auch ein Bild zeigt (282.5, 282.12, 282.6/18), Pim (282.9, Ablauf) und die Höhle (282.19–21), die in der APK nicht begehbar war (`hoehle_492` stand in der Liste, lief aber nicht, Sokrates 12:11), also der einzige Fund, den nur das Handy zeigen konnte. Daraus Änderung 1 (Ablauf und Begehen bleiben Handy). Änderung 2: festgefahrene Bildläufe (`startbar.py`, 827 A). Gegenargument: Bilder finden Nebenbei-Fehler seltener; dagegen Handyfragen für Ablauf, Zählung, Rückweg.
+- **Klassen aus der Archivprüfung (13.11., 15:45, Maß 1129 A 4):** 698 M, weil 623.8 A „jetzt Muss“ sagt; 816, 1155 warten darauf, Klasse im Wochenziel. 1162 (Steinkreis), 1166 (Atmen der Monster) M: Fund des Chefs im Kampf. K: 1158, 1164, 1165 (Chef „nach dem Durchspielen“), 1157, 1167, 1168 (weder Kampf noch Wochenziel). Gegenargument: Jerry hat Stau; dagegen zählt die Reihenfolge, beide stehen hinter „zeigt, was geschieht“.
+- **Ältere Begründungen** (M?-Entscheide 08.–11.11., Wochenziel 09.11., 759, 818, 1070, 1076, zweite Meinung 1128 vom 13.11., 12:09): Git, Stand vor „Perikles: 1225 Prüfzeile, Vorrang Jerry“.
 - **M?-Entscheid 13.11., 14:0x (1073):** K. Die Kotlin-Zeichnungen der Dinge sind da, die Abnahmeliste verlangt nur „mindestens so gut wie alt“ (2.11); eigener Stil der Dinge gehört unter „Aussehen fertig“ (großer Punkt 8), Chef 12.11., 20:40: „Ist nicht wichtig.“ Gegenargument: der Stilbruch fällt in jeder Tasche auf; dagegen Kampf zuerst, Kür wird startbar, sobald Tom kein Muss hat.
+- **Vorrang Jerry 13.11., 21:1x (Zu 1072, Sokrates 21:09):** 1072 von Platz 97 direkt nach 709.1: Chef 12.11., 20:27 „Bau vor 760 und 1068“, 1068 stand schon auf Platz 6 und wartet darauf; t284 brachte drei Funde mit Wurzel 1072 (7d, 7e als dritter Wiederholfund, 7j). 709.1 bleibt vorn, weil in Arbeit mit fertigem Plan. 1222, 1223 M (Kampffund des Chefs, Maß 1129 A 4) nach 709. Gegenargument: 709 ist seit 08.11. oberster Kampfpunkt und hat neue Funde (7c, 7p); dagegen zählt die Wiederholquote, und 1072 macht drei Zeilen frei. 1223 nur „erkennbar“; Lebenspunkte des Leitwolfs bleiben Idee (Balance, Chef).
+- **1221 K (13.11., 21:10):** Werkzeugfehler ohne Kampfbezug, Ford hatte eine Abhilfe (`--ohne`); gebaut gleich mit. **1225 M:** Fund des Chefs am Test (21:04), Tom schreibt t285 jetzt.
 
 - **Ein Text an einem Ort:** Doppelungen kosten Token und laufen auseinander; nichts Aufgabenrelevantes verlieren.
 - **Rückfragen als Holschuld:** wiederholte Fragen verdeckten das Neue; die Chefsache ist der eine Ort.
@@ -91,6 +90,10 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - **Ford-2-Lauf wie Fords Lauf** (Ford 2 entfällt, 650.1): eine Regel mit Kriterium. Eine offene Frage des Chefs darf beim Archivieren nicht verloren gehen; seit 261.5 überträgt Ford sie vorher an die neuere Sitzung (ÜBERTRAGE), statt die alte offen zu lassen.
 
 ## Lehren
+
+- Eine Abhängigkeit erst mit ihrem letzten Nutzer entfernen, nie mit dem Plan „danach“ (13.11., 1207: Gradle-Spiegel vor 882.1 entfernt, fand Diogenes).
+
+- Eine Regelzeile nur an der Stelle ändern, die der Vorgang nennt (Edit mit kurzem Ausschnitt), nie die ganze Zeile neu schreiben (13.11., D205.3, D206.2: zweimal an einem Tag ungenannt Wörter gestrichen).
 
 - Einstellung und Freigabe am Ergebnis prüfen (`get_session`, App), auf jedem Weg (16.10., 99g; 11.11., Fehler 341: Hoch nur als Variable, App „Mittel“; 982).
 

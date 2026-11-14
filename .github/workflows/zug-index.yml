@@ -11,6 +11,11 @@ on:
     paths:
       - "docs/chefsache/**"
       - "tools/zug-index.py"
+      # 1191 (Fund Chef 13.11., 17:03: „Offen je Rolle“ seit 14:19 eingefroren): der Zeitplan lief nie (0 Läufe „schedule“ in drei
+      # Stunden, GitHub verwirft oder verzögert Zeitpläne ohne Gewähr); darum rechnet auch ein Push auf Vorrat oder Vorgangsliste
+      # „Offen je Rolle“ neu, höchstens einmal in 55 Minuten (Commit „Chefsache: Übersicht mit Rollen“), sonst endet der Lauf ohne Commit
+      - "docs/LISTE-VORGAENGE.md"
+      - "docs/ARBEIT-*.md"
   schedule:  # 1129 A 6: Offen je Rolle, Lücken (D21.3), Vorrang und Bereich (124, 126, 136) stündlich
     - cron: "17 * * * *"
   workflow_run:  # 298: Version 0.348.<Laufnummer> in Prüflisten nachtragen, sobald der Godot-Lauf beginnt (894)
@@ -43,9 +48,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           for versuch in 1 2 3 4; do
             git pull -q --rebase origin main
-            ZUG_ROLLEN=$([ "${{ github.event_name }}" = schedule ] || [ "${{ github.event_name }}" = workflow_dispatch ] && echo 1 || echo 0) python3 tools/zug-index.py
+            ROLLEN=0; [ "${{ github.event_name }}" = schedule ] || [ "${{ github.event_name }}" = workflow_dispatch ] && ROLLEN=1
+            ZULETZT=$(git log -1 --format=%ct --grep='^Chefsache: Übersicht mit Rollen' -- docs/chefsache/README.md)
+            [ -z "$ZULETZT" ] || [ $(( $(date +%s) - ZULETZT )) -ge 3300 ] && ROLLEN=1   # 1191: stündlich auch ohne Zeitplan
+            echo "1191: Offen je Rolle neu: $ROLLEN (zuletzt ${ZULETZT:+$(( ($(date +%s) - ZULETZT) / 60 )) min vorher})"
+            ZUG_ROLLEN=$ROLLEN python3 tools/zug-index.py
             git diff --quiet docs/chefsache/ && exit 0
-            git commit -qm "Chefsache: Übersicht" docs/chefsache/
+            git commit -qm "Chefsache: Übersicht$([ $ROLLEN = 1 ] && echo ' mit Rollen')" docs/chefsache/
             git push -q origin HEAD:main && exit 0
             git reset -q --hard origin/main
             sleep $((versuch * 3))

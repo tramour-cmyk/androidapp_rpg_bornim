@@ -14,7 +14,7 @@ Vor jeder Arbeit an `godot/kampf/` und `godot/regeln/` (823, aus 745 A2; der Hak
 5. Ändert sich, wie oft gewürfelt wird, verschiebt sich der Zufall: erst prüfen, ob nur das den Unterschied macht (870.6a, Rudel).
 6. Die alte Fassung lesen (`core/…/Battle.kt`), im Commit „Alt: …, übernommen: …, besser: …“ (647).
 7. Spieltexte nur von Homer, Namen nach `DESIGN-BRS.md` 12.
-8. Vor dem Commit Kerntests (`./gradlew -p core test`, Exit-Code) und die berührten Kampftests (`godot --headless -s res://tests/<datei>.gd`).
+8. Vor dem Commit Kerntests (`tools/t logik`, Exit-Code; 882.2) und die berührten Kampftests (`godot --headless -s res://tests/<datei>.gd`).
 
 ## Was MARS kann
 

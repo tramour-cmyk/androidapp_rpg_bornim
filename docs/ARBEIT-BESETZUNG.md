@@ -2,13 +2,15 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 13.11., 14:50 (lauf.py)
+**Stand:** 14.11., 03:03 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (13.11., 13:19)](https://claude.ai/code/session_01Hmoj79VeEbfi8Yk1Y2Eb6y) | Betrieb | – | 13.11., 13:19 |
-| Jerry | [Jerry – nächstes startbares Muss (13.11., 13:55)](https://claude.ai/code/session_01Hmoj76V89RK78reuYrWsK3) | Betrieb | – | 13.11., 13:56 |
-| Tom | [Tom – 284: Prüfliste und Testbitte nach Test 283 (13.11., 13:59)](https://claude.ai/code/session_01Hmoj76QGCyum1TR8XXZHN7) | 284 | – | 13.11., 13:58 |
-| Perikles | [Perikles – 1129.2 (13.11., 14:09)](https://claude.ai/code/session_01Hmoj77SjZb1gmYXPgTr429) | 1129.2 | – | 13.11., 14:10 |
-| Tuffy | [Tuffy – 1114 (13.11., 14:09)](https://claude.ai/code/session_01Hmoj78i7ZB3tWNz6MEwbTh) | 1114 | – | 13.11., 14:10 |
-| Sokrates | [Sokrates – 1137: Vollzug nachhalten (13.11., 14:30)](https://claude.ai/code/session_01Hmoj769t2FmdXy5uubf2Av) | 1137 | – | 13.11., 14:30 |
+| Tuffy | [Tuffy – 844: Film aus Lauf 458 schneiden und senden (13.11., 21:40)](https://claude.ai/code/session_01Hmoj79ZApqezAzombu1DWK) | 844 | – | 13.11., 21:39 |
+| Tom | [Tom – 285: Bilder, Filme und Testbitte (13.11., 21:43)](https://claude.ai/code/session_01Hmoj78jYddD6WmJoPRmjVB) | 285 | – | 13.11., 21:42 |
+| Homer | [Homer – 1235 (13.11., 22:04)](https://claude.ai/code/session_01Hmoj79TDPJJvAZwbQx6fLi) | 1235 | – | 13.11., 22:05 |
+| Jerry | [Jerry – 709.1: Messlauf 465 auswerten (13.11., 23:35)](https://claude.ai/code/session_01Hmoj76T6cjjcpvFiQSkmub) | 709.1 | – | 13.11., 23:34 |
+| Ford | [Ford – Betriebsleiter (14.11., 00:15)](https://claude.ai/code/session_01Hmoj7AAPsuvPwPbE7HCYeV) | Betrieb | – | 14.11., 00:15 |
+| Perikles | [Perikles – 1244 (14.11., 00:46)](https://claude.ai/code/session_01Hmoj75S17HaS9xkgwwowAA) | 1244 | – | 14.11., 00:46 |
+| Diogenes | [Diogenes – 1133 (14.11., 01:04)](https://claude.ai/code/session_01Hmoj76bc5kiW8nS95txbzS) | 1133 | – | 14.11., 01:04 |
+| Sokrates | [Sokrates – Stellungnahme (14.11., 02:04)](https://claude.ai/code/session_01Hmoj79rZagJLmbFEy4HZhU) | Betrieb | – | 14.11., 02:04 |
