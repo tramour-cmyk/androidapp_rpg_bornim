@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 241 · 1098.1 Ford-Starter nach 1245 (14.11., 08:0x)
+
+- **Noch nicht prüfbar, kein Befund:** 1245 hat nur die Zeile oben in `ARBEIT-BETRIEB.md` richtiggestellt (`3c95502e8`); einen Starter legt erst ein Handstart-Ford (Tiefe 0) an. Laufender Ford `…7AAPsuvPwPbE7HCYeV` liegt auf Tiefe 1 (Elternkette: meine Sitzung Tiefe 2, Eltern = Ford), 328 Tsd. `used_tokens` um 08:05; Selbstneustarts „(selbst)“ bis Tiefe 5, dann Handstart. Bei der Rate vom 12./13.11. (Tiefe 4 nach 22 h) frühestens etwa 16.11. 1098.1 wartet auf 16.11.; vorher nur der Chef mit einem Handstart.
+- **Ford startete 1098.1 zu früh:** Bedingung war der erste Neustart über den Starter, nicht 1245 erledigt; Kosten ein Lauf, kein Vorgang.
+
 ## Lauf 240 · 1240 „Kein Folgevorgang, weil:“ deckt ältere Commits (Spike für Tom, `d23ce6137`; 14.11., 07:1x)
 
 - **Greift:** `vorgang_rest_test.py` 6 von 6, Exit 0. Echte Nummern: 1041 (Grund im Betreff `6603e5236`) leer; 1240, 1180 leer; 1084, 946, 505, 1143 melden ihre Reste wie vorher. Wegwerfkopie: 1137.2 meldet `dd33d57dd` („noch nicht getesteten“), nach Leercommit „1137.2: Kein Folgevorgang, weil: …“ leer. Ein Zitat „„Kein …““ hebt nicht auf; Platzhalter „…“ zählt nicht.
