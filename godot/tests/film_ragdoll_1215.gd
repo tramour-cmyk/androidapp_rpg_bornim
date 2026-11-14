@@ -18,6 +18,39 @@ func _bilder(n: int) -> void:
 		await process_frame
 
 
+## Netze des Kampforts (ohne Figuren), deren Kasten den Punkt enthält
+func _in_netz(q: Vector3) -> Array:
+	var r := []
+	for m in root.find_children("*", "MeshInstance3D", true, false):
+		var bb: AABB = (m as MeshInstance3D).global_transform * (m as MeshInstance3D).get_aabb()
+		if bb.has_point(q) and bb.size.length() < 200.0:
+			r.append("%s %s" % [m.name, bb.size])
+	return r
+
+
+## Probe 2 (23:56): 5 m quer zum Blick stand die Kamera im Söldner (gob1) und hinter dem Helden (gob2). Jetzt reihum Richtungen um
+## den Goblin, 4,5 m weit, 1,3 m hoch; genommen wird die erste, deren Sichtlinie keiner anderen Figur näher als 0,9 m kommt
+func _kamera_platz(kf, fig) -> Vector3:
+	var ziel: Vector3 = fig.global_position + Vector3.UP * 0.4
+	var zu_held: Vector3 = ((kf.figures["hero"].global_position - fig.global_position) * Vector3(1, 0, 1)).normalized()
+	for grad in [90.0, -90.0, 135.0, -135.0, 180.0, 60.0, -60.0]:
+		var q: Vector3 = fig.global_position + zu_held.rotated(Vector3.UP, deg_to_rad(grad)) * 4.5 + Vector3.UP * 1.3
+		var frei := true
+		for o in kf.figures.values():
+			if o == fig:
+				continue
+			var p: Vector3 = o.global_position + Vector3.UP * 0.6
+			var t := clampf((p - q).dot(ziel - q) / (ziel - q).length_squared(), 0.0, 1.0)
+			if (q + (ziel - q) * t).distance_to(p) < 0.9:
+				frei = false
+				break
+		if frei and _in_netz(q).filter(func(n): return not (String(n).begins_with("Rahmen") or String(n).begins_with("Wald"))).is_empty():
+			print("FILM1215 %s Kamera aus %+.0f°" % [fig.fighter.id, grad])
+			return q
+	print("FILM1215 %s OHNE freie Sicht" % fig.fighter.id)
+	return fig.global_position + zu_held.rotated(Vector3.UP, PI / 2) * 4.5 + Vector3.UP * 1.3
+
+
 func _run() -> void:
 	var physik := OS.get_environment("PHYSIK") == "1"
 	Figur.ragdoll_probe = physik
@@ -59,10 +92,9 @@ func _run() -> void:
 	# Bild), beim zweiten von rechts
 	for k in 2:
 		var fig = a if k == 0 else b
-		var blick: Vector3 = ((kf.figures["hero"].global_position - fig.global_position) * Vector3(1, 0, 1)).normalized()
-		cam.global_position = fig.global_position + blick * 5.0 + Vector3.UP * 1.3
+		cam.global_position = _kamera_platz(kf, fig)
 		cam.look_at(fig.global_position + Vector3.UP * 0.4, Vector3.UP)
-		print("FILM1215 %s im Bild: %s" % [fig.fighter.id, cam.is_position_in_frustum(fig.global_position + Vector3.UP * 0.4)])
+		print("FILM1215 %s im Bild: %s, Kamera in: %s" % [fig.fighter.id, cam.is_position_in_frustum(fig.global_position + Vector3.UP * 0.4), _in_netz(cam.global_position)])
 		var rechts: Vector3 = (cam.global_transform.basis.x * Vector3(1, 0, 1)).normalized()
 		await _bilder(int(FPS * 0.8))
 		schild.text = ("mit Physik am Ende" if physik else "nur Schlüsselbilder") + (" · Schlag von links" if k == 0 else " · Schlag von rechts")
