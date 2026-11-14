@@ -87,3 +87,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 14.11.: Marke Stellungnahme Sokrates 14.11. (lauf.py)
 - 02:04 14.11.: Marke Archiv session_01Hmoj781eUCpQ5SKa8cCpQV (lauf.py)
 - 02:04 14.11.: Marke Archiv session_01Hmoj75kLBATHVTa9eEViaE (lauf.py)
+- 02:05 14.11.: Startsperre 02:05 Start Sokrates (lauf.py, Stellungnahme 1092)
