@@ -1069,7 +1069,8 @@ func _build_orders() -> void:
 				bild.texture = Kartenreiter.bild("ding-" + id)
 				bild.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				bild.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-				bild.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+				# 1227: die gemalten Dinge (128 px, 1073) glatt wie in Tasche und Laden (menue.gd bild_feld), alte Pixelbilder (32 px) scharf
+				bild.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if bild.texture != null and bild.texture.get_width() > 32 else CanvasItem.TEXTURE_FILTER_NEAREST
 				bild.custom_minimum_size = Vector2(32, 32) * dp
 				bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 				zeile.add_child(bild)
