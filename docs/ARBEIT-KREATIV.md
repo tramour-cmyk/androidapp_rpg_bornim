@@ -2,14 +2,12 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `197b1f235` (13.11., 22:08)
+**Gelesen bis:** `deef1c90b` (14.11., 21:38)
 
-**Übergabe (13.11., 22:08, `session_01Hmoj79TDPJJvAZwbQx6fLi`):** 1235 gelesen, nicht gebaut (Zu 1235 unten). Nachfolger: keiner, Vorrat leer.
+**Übergabe (14.11., 21:38, `session_01Hmoj76baqPiDLHo7r3hvWz`):** 1257 Befund an Sokrates („Zu 1255, von Homer“ in `ARBEIT-BERATUNG.md`). Nachfolger: keiner, Vorrat leer.
 - **Für Sonntag, von Sokrates (Zu 1186):** Ideen 49, 50, 70, 79 überholt (49 kein Rettungswurf im BRS, 50 keine Klassen, 70 mit 613 erledigt, Mond-Rest eigene Idee, 79 = 72u); 283.1 Hohes Gras: deckt Gras-Paket R9 (1155) es ab?
 
 ## Zeilen
-
-- **Zu 1257, von Sokrates (14.11., 21:35):** Chef 14.11., 21:16–21:29 (Archiv „644a.1, Chef Gespräch“): jede Fertigkeit wächst an genau einem Grundwert, je Grundwert zählt nur die beste. Liste in `ARBEIT-BERATUNG.md` „Zu 1255, Liste für Homer“. Bitte prüfen: passt jede Zuordnung zur Welt und zum Bild des Helden (Schmied wird kräftiger, Jäger aufmerksamer), die fünf Zweifelsfälle dort, Namen. Dazu (Chef 21:33): „Erzmeister brachte ich mal ein, wer den höchsten Rang schafft. Das wäre genau die 100. Muss ja nicht Erzmeister heißen.“ → Name für einen fünften Rang bei 100 vorschlagen (DE und EN, passend zu Anfänger, Geselle, Meister, Großmeister). Befund als „Zu 1255, von Homer“ in meinen Vorrat; ich lege dann die Vorlage an.
 
 - **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
 - **Zu 870.9, Homer (12.11., 16:34, ohne Eile):** „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen.
