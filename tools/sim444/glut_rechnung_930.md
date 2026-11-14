@@ -2,6 +2,18 @@
 
 Tuffy, 14.11. `python3 tools/sim444/glut2.py --kaempfe 5000 --json …`, dann `GLUT=… N=3000 godot --headless -s res://tests/glut_rechnung_930.gd` (Stand `f10cb7f0c`). Zelle: Spiel (Rechnung) Sieg % · Runden; S = Vorschlag der Bedienung 7.1, N = alle übrige Glut nachgelegt (25 %). Grenze: Sieg ±3 Punkte, Runden ±0,3.
 
+## Befund an glut2.py (behoben, `f10cb7f0c`)
+
+Die Leibwache Grimmzahns rechnete mit seiner Stufe 5, Abwehr 29 und 55 Leben statt mit denen des Wolfs (Spiel: `brs.gd begleiter`, werte.json „rudel“ _info); der Wolf des Rudels war normal statt schnell. Erste Gegenprobe dadurch 6 Zellen über der Grenze (Kräutersammler gegen Grimmzahn Spiel 77, Rechnung 68); nach der Behebung alle in der Grenze. Der Prüfpunkt von Stufe 0 bleibt mit dem behobenen Rechner erfüllt (`glut2.py` wie 930.5: Krogg kleinste 60; Dominanz bei Nachlegen 15/20/25 % höchstens 23/17/14 von 96 Zellen).
+
+## Abweichungen und Lesarten (Rückfrage an Sokrates)
+
+1. Vorschlag 7.1 „Wehr gegen einen Gegner, der aus fern oder weit schießt“: Gegner mit Fernkampf auf fern oder weit; der Schamane zählt nicht. In `glut2.py` als Option `wehr_gegen_schuetzen`, nur für `--json` an; S der Tabelle 930.5 bleibt ohne.
+2. Ein Trank oder ein Zauber ohne Ziel (Bannschild, Wundsegen) lässt die übrige Glut in die Haltung; Nachlegen nur auf Waffe und Funkenpfeil; die übrigen Zauber und Kampfhandlungen rechnet der alte Kampf (`_use_skill`), schwere kosten 2.
+3. Ereignisse ohne Spieltext (Haltung, Gegenschlag, Wachschuss, Wehr, Lauern, Netz, Funke, Verglimmen) tragen nur ein Stichwort `cue` GLUT_…; Texte kommen mit Stufe 5 (Homer). Die Ansage zeigt bis Stufe 3 die Bilder der alten Absichten.
+4. Umreißen und Netz stapeln (nie unter 1 Glut, Regel 1); `glut2.py` setzt nur eins.
+5. Regel 18 (Mittel der Langsamen) und das Bild von Brechen baut Stufe 3 (Bauplan 10); `brechen()` als Regel ist da.
+
 ```
 Rechnung je Zelle 5000 Kämpfe, Spiel je Zelle 3000; Zelle Spiel (Rechnung) Sieg % · Runden, S = Vorschlag, N = Nachlegen 25 %
 Wachsoldat         Rudel                    St 1   S 100 (100) ·  3.0 (3.0)   N 100 (100) ·  2.9 (2.9)
