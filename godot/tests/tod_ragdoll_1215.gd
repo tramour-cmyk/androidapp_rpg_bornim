@@ -71,9 +71,13 @@ func _run() -> void:
 			await physics_frame
 			n += 1
 			if fig.ragdoll.phase == "physik":
-				for b in sk.get_bone_count():
-					if sk.get_bone_name(b) in nm.tief:
-						tiefste = minf(tiefste, (sk.global_transform * sk.get_bone_global_pose(b).origin).y - boden)
+				# in der Physik aus den Körpern (die Haltung im Skelett zeigt dann noch den Stand vor der Übernahme)
+				for bn in fig.ragdoll.knochen:
+					if bn in nm.tief:
+						var pb: PhysicalBone3D = fig.ragdoll.knochen[bn]
+						tiefste = minf(tiefste, (pb.global_transform * pb.body_offset.affine_inverse()).origin.y - boden)
+		for bn in nm.tief:
+			tiefste = minf(tiefste, _pos(sk, bn).y - boden)
 		await process_frame
 		var id: String = fig.fighter.id
 		_pruef("%s liegt" % id, fig.ragdoll.phase == "liegt", "nach %.2f s, %d Bilder Physik, %s" % [n / 60.0, fig.ragdoll.bilder_physik, fig.tod_name])
@@ -93,6 +97,10 @@ func _run() -> void:
 			_pruef("%s Knie %s nicht nach vorn" % [id, sd], seite > 0 or w < 5.0, "%.0f°" % w)
 		_pruef("%s Knie knicken" % id, knick > 10.0, "%.0f°" % knick)
 		_pruef("%s nicht im Boden" % id, tiefste > -0.08, "tiefster %.3f m" % tiefste)
+		var lage := []
+		for bn in nm.tief:
+			lage.append("%s %.2f" % [bn, _pos(sk, bn).y - boden])
+		print("TODRAGDOLL1215 %s Lage am Ende (Höhe über Boden): %s" % [id, ", ".join(lage)])
 		var weg := (_pos(sk, nm.brust) - brust0).dot(quer)
 		_pruef("%s fällt mit dem Stoß" % id, weg > 0.05, "Brust %+.2f m quer" % weg)
 		var vorher := []
