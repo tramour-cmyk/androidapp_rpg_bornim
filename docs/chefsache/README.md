@@ -21,6 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
+| [1149](ansehen/1149-scheide.md) | Dolch der zweiten Hand in der Lederscheide links an der Hüfte | – | 14.11., 05:06 |
 | [844](ansehen/844-schlagen.md) | Goblins, Kobolde, Schamanen schlagen zu | – | 13.11., 22:47 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -151,7 +152,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1128.2 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): Werkzeuge nach 1128 A: Laufnachweis ohne Testau | wartet auf Test/Build (gebaut) |
 | 1137.2 | M | Von Sokrates (1137, Chef 13.11., 14:03): Wächter Vollzug: Archiveintrag mit Folgevorgängen | wartet auf Test/Build (gebaut) |
 | 1145 | K | Von Sokrates (Chef 13.11., 14:35/14:45, Build 282): Höhle fühlt sich hakelig an, Bilder/s | wartet auf Test (Build 285) |
-| 1149 | M | Dolch in der Nebenhand am Körper zeigen (aus 1140, 522): Platz am Gürtel oder Rücken, Prob | in Arbeit bei Spike |
+| 1149 | M | Dolch in der Nebenhand am Körper zeigen (aus 1140, 522): Platz am Gürtel oder Rücken, Prob | Chef (Datei in der Chefsache) |
 | 1155 | K | Von Sokrates (623.8 A, Chef 09.11., 22:23; Lücke, Chef 13.11., 15:12 „wann kommt … Teich u | ruht |
 | 1157 | K | Von Sokrates (Archivprüfung, 1038 A R1, Chef 12.11., 16:24): Verband herstellen mit dem Re | wartet auf 976 (startbar) |
 | 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | ruht |
@@ -335,7 +336,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | Termin 16.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 16.11. |
 
-**Sokrates** – offen 47, Muss 13, startbar 0, PAUSE bis **Pause bis Antwort des Chefs** (Gespräc (Datum nicht lesbar)
+**Sokrates** – offen 48, Muss 14, startbar 0, PAUSE bis **Pause bis Antwort des Chefs** (Gespräc (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -382,6 +383,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
 | 1209 | K | Systemlösung? Halt: 10 frühere Vorgänge (793, 662, 849, 653, 872 …), neu 1208; einmal grun | Pause |
 | 1242 | M | Von Tom (1091, 1119, 1040.1): „Läufe frei“ für einen Lauf mit neuen Aufnahmen 285.3, 285.5 | Pause |
+| 1149 | M | Dolch in der Nebenhand am Körper zeigen (aus 1140, 522): Platz am Gürtel oder Rücken, Prob | Chef (Datei in der Chefsache) |
 | 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | ruht |
 | 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | ruht |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | ruht |
