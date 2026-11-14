@@ -60,8 +60,10 @@ def namen_aus_pruefliste(text):
     return namen
 
 
-def schritte(yml):
-    """Liste der Schritte: dict(name, zeile, if, coe, run=[(zeilennr, logische Zeile)]). Zeilenweise, ohne YAML-Bibliothek."""
+def schritte(yml, skript=None):
+    """Liste der Schritte: dict(name, zeile, if, coe, run=[(zeilennr, logische Zeile)]). Zeilenweise, ohne YAML-Bibliothek.
+    1123: ein Schritt, der tools/godot/pruefen.sh aufruft, bekommt dessen Zeilen ([skript], Zeilennummern der Datei); Schritte mit
+    YAML-Anker („- &name“, Schlüssel in den Zeilen darunter) und Verweise („- *name“, zweiter Bauserver) zählen als eigene Schritte."""
     out, akt, im_run, run_einzug = [], None, False, 0
     zeilen = yml.splitlines()
     i = 0
@@ -73,7 +75,7 @@ def schritte(yml):
             i += 1
             z = z.rstrip()[:-1] + ' ' + zeilen[i].strip()
         i += 1
-        m = re.match(r'^(\s*)- (?:name|uses|run|id):', z)
+        m = re.match(r'^(\s*)- (?:name|uses|run|id):', z) or re.match(r'^(\s*)- [&*]\S+\s*$', z)
         if m and (akt is None or len(m.group(1)) <= akt['einzug']):
             akt = {'name': '', 'zeile': nr, 'if': '', 'coe': False, 'shell': '', 'run': [], 'einzug': len(m.group(1))}
             out.append(akt)
@@ -103,6 +105,10 @@ def schritte(yml):
                     im_run, run_einzug = True, einzug + 2
                 else:
                     akt['run'].append((nr, rest))
+    if skript is not None:
+        for st in out:
+            if any('tools/godot/pruefen.sh' in z for _, z in st['run']):
+                st['run'] = [(k + 1, z.strip()) for k, z in enumerate(skript.splitlines())]
     return out
 
 
@@ -196,6 +202,8 @@ def main(argv):
     if yml_datei:
         yml = open(yml_datei, encoding='utf-8').read()
         quelle = yml_datei
+        sp = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(yml_datei)))), 'tools', 'godot', 'pruefen.sh')
+        skript = open(sp, encoding='utf-8').read() if os.path.isfile(sp) else None
         tests_ordner = tests_ordner or os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(yml_datei)))), 'godot', 'tests')
 
         def lies_gd(n):
@@ -216,6 +224,8 @@ def main(argv):
             print('laufnachweis: %s nicht lesbar (%s)' % (ref, r.stderr.strip()), file=sys.stderr)
             return 2
         yml, quelle = r.stdout, '%s:.github/workflows/godot.yml' % ref
+        r = git('show', '%s:tools/godot/pruefen.sh' % ref)     # 1123
+        skript = r.stdout if r.returncode == 0 else None
 
         def lies_gd(n):
             r = git('show', '%s:godot/tests/%s.gd' % (ref, n))
@@ -224,7 +234,7 @@ def main(argv):
     if not namen:
         print('  keine Testnamen unter „Im Bau geprüft“ oder „Ohne dich“')
         return 0
-    steps = schritte(yml)
+    steps = schritte(yml, skript)
     schlecht = 0
     for n in namen:
         ok, befund, _ = pruefe(n, steps, lies_gd(n))

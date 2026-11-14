@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # 882.2 (Umzug BRS Schritt 8): Kerntest = Godot-Logiksatz, ohne Kaufmodelle, am Rechner unter 2 Minuten (4 Kerne).
 # Aufruf über tools/t logik [Muster]. Liste: godot/tests/logik.txt (eine Testdatei je Zeile, # Kommentar). Jede Zeile läuft mit
-# genau dem Befehl und Prüfkriterium aus godot.yml „Skripte pruefen“ (eine Quelle; Zeilen mit „|| true“ sperren dort nicht und
+# genau dem Befehl und Prüfkriterium aus dem Prüfschritt (tools/godot/pruefen.sh, 1123) (eine Quelle; Zeilen mit „|| true“ sperren dort nicht und
 # gehören nicht in die Liste). Vorher wie auf dem Bauserver „Karten und Texte“ und „Klang“, Import nur, wenn sich unter godot/
 # etwas geändert hat. Jeder Test bekommt ein eigenes user:// (XDG_DATA_HOME), darum laufen sie nebeneinander.
 # Der Rest (Messungen mit Kaufmodellen, Bilder, Filme) bleibt in godot.yml und 918.
@@ -21,9 +21,9 @@ def liste():
 
 
 def zeilen():
-    """Befehl je Testdatei aus godot.yml „Skripte pruefen“; nebenher-Zeilen ausgepackt."""
-    st = yaml.safe_load(open(os.path.join(REPO, '.github/workflows/godot.yml'), encoding='utf-8'))['jobs']['apk']['steps']
-    run = [s for s in st if s.get('name') == 'Skripte pruefen'][0]['run']
+    """Befehl je Testdatei aus dem Prüfschritt (tools/godot/pruefen.sh, 1123); nebenher-Zeilen ausgepackt."""
+    # 1123: die Zeilen stehen seit dem zweiten Bauserver in tools/godot/pruefen.sh (beide Teile), der Schritt ruft sie nur auf
+    run = open(os.path.join(REPO, 'tools/godot/pruefen.sh'), encoding='utf-8').read()
     aus = {}
     for z in run.splitlines():
         m = re.search(r'res://tests/([a-z0-9_]+)\.gd', z)
