@@ -1656,6 +1656,18 @@ jobs:
           grep -E "SCRIPT ERROR|^FILM1119|^BEGINN" $A/staub1119.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/staub1119.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $A/staub1119.mp4 || true
           ls -l $A
+      # 1149 (aus 1140, 522): Dolch der Nebenhand am Körper, zwei Plätze zur Wahl (Gürtel, Kreuz), je vorn, links, hinten
+      # (tests/dolch_bild_1149.gd); bei „1149 Bild“ im Commit
+      - name: Dolchbild (1149)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1149 Bild') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-1149'))) }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/dolch1149; mkdir -p $A
+          cd godot
+          BILD1149_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/dolch_bild_1149.gd 2>&1 | grep -E "SCRIPT ERROR|^DOLCH1149|^BILD" | cut -c1-400 || true
+          ls -l $A
       # 1040.1 (Fund t282.23: „da es etwas ruckelig ist, kann ich es nicht sicher sagen“; Sokrates: nach 1128 A als Film): Lyra wendet
       # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit
       - name: Wendefilm (1040.1)
