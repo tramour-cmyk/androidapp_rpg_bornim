@@ -190,3 +190,4 @@
 2026-11-14 10:26:26	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30861 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-14 10:26:37	commit-pruefung	docs/ARBEIT-TEAM-TOM.md: „Zu 1149 … von Sokrates“ liefert, aber 1149 wartet noch auf Sokrates; Feld nachziehen: `vorgang.py warte 1149 –` (Rolle löst sich nie von selbst, 1124; liefert noch nicht: BOR	main
 2026-11-14 10:27:56	commit-pruefung	VORGANGSARCHIV.md: Telegram-Nachricht 4054 steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)	main
+2026-11-14 10:28:09	commit-pruefung	docs/DESIGN-AKTIONSPUNKTE.md: Uhrzeit 10:40 liegt nach jetzt (10:28)	main
