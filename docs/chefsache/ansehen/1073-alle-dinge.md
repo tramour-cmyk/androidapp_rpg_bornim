@@ -1,5 +1,7 @@
 # 1073 · Bilder der Dinge: alle Gegenstände · Team Tom · 14.11., 08:46
 
+[Bild von 14.11., 09:10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/14-0910-1073-Tom.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 14.11., 08:45](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/14-0845-1073-Tom.png) (eingetragen von Hand, Tom)
 
 G Stil
