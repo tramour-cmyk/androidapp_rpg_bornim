@@ -594,6 +594,7 @@ jobs:
           grep -E "SCRIPT ERROR|Parse Error|Failed to load" check.log | head -20 || :; [ "$(grep -cE "SCRIPT ERROR|Parse Error|Failed to load" check.log || :)" -eq 0 ]
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/fackel_1140.gd 2>&1 | grep -E "^FEHLER|FACKEL1140|SCRIPT ERROR"   # 1140 eine Fackel für Welt, Ausrüstung, Kampfort
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/fackel_9991.gd 2>&1 | grep -E "^FEHLER|FACKEL9991|SCRIPT ERROR"   # 999.1 Fackel im Kampf
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/grak_1142.gd 2>&1 | grep -E "^FEHLER|GRAK1142|SCRIPT ERROR"   # 1142 Grak nur einmal
           STUFE=test
           # 909 (Chef 11.11., 08:52): die vier längsten Messungen laufen nebenher (Lauf 353: schild_406 491 s, wolf_mess_438 138 s,
@@ -1177,7 +1178,7 @@ jobs:
           fi
           ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '9991' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
@@ -1377,6 +1378,18 @@ jobs:
             --write-movie $RUNNER_TEMP/wurf935.avi --fixed-fps 30 -s res://tests/film_wurf_935.gd > $B/wurf935.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/wurf935.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wurf935.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/935-wurf.mp4 || true
+          ls -l $B
+      # 999.1 (wie alt 268): Standbild Kampfort bei Nacht, der Held hält die Fackel in der linken Faust; nur von Hand mit kampf=9991
+      - name: Fackelbild 999.1 (nur von Hand mit kampf=9991)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '9991' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/fackel9991; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          FACKEL=1 TAGESZEIT=nacht BILD=$B/9991-fackel.png timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 \
+            --path . --resolution 540x1170 -s res://tests/bild_fackel_9991.gd > $B/fackel9991.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^BILD9991|^Signatur" $B/fackel9991.log | head -10 || true
           ls -l $B
       # 510 (Chef 03.11., 10:28–10:57, aus 494): freie Fledermaus (OGA „Vampire Bat (Animated)“, rubberduck, CC0) mit unseren Fellen neben
       # der eigenen (fledermaus.py), je vorhandene Bewegung, beide drehen sich; nur von Hand mit gegner=FLEDERMAUS. Quelle und Lizenz:
