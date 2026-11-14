@@ -88,3 +88,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 14.11.: Marke Archiv session_01Hmoj781eUCpQ5SKa8cCpQV (lauf.py)
 - 02:04 14.11.: Marke Archiv session_01Hmoj75kLBATHVTa9eEViaE (lauf.py)
 - 02:05 14.11.: Startsperre 02:05 Start Sokrates (lauf.py, Stellungnahme 1092)
+- 02:06 14.11.: Lauf 02:03: Spike 1119 `…7A5LHhpS9zYpLe4fcH`, Sokrates Stellungnahme 1092 `…79rZagJLmbFEy4HZhU` gestartet (erste Sperre fehlte für Sokrates, nachgetragen); archiviert Spike 1092 (2,92 $), Sokrates 930 (1,51 $; Frage 7 zu 930 wartet beim Chef).
