@@ -248,6 +248,8 @@ def kampf(W, H, held, mon_name, rng, opt):
                 droht = True
         if droht:
             return "wehr"
+        if opt.get("wehr_gegen_schuetzen") and any(g.art == "fern" and g.ab > 0 for g in lebend()):
+            return "wehr"                                          # 930.6: DESIGN-GLUT.md 7.1 nach 930.5 (Schütze aus fern oder weit)
         if aktion_fern():
             return "wachschuss" if any(g.ab > 0 for g in lebend()) else "wehr"
         return "gegenschlag"
@@ -455,6 +457,31 @@ FAELLE = [("Rudel", 1), ("Kobold", 1), ("Zombie", 2), ("Goblin-Späher", 2), ("S
           ("Grak", 6)]
 
 
+def json_ausgabe(W, H, held, herk, n, rng, a):
+    """930.6: je Herkunft und Fall der Held (wie hg.held_bei) und die Ergebnisse von S und N (Nachlegen aus werte.json „glut“), dazu
+    die Zahlen, mit denen dieser Rechner rechnet. S ist der Vorschlag der Bedienung nach DESIGN-GLUT.md 7.1 (mit Wehr gegen Schützen), damit das Spiel sie gegen werte.json „glut“ prüfen kann."""
+    import json
+    nl = W.get("glut", {}).get("nachlegen", NACHLEGEN_SCHADEN)
+    out = {"kaempfe": n, "unterstufe": a.unterstufe, "nachlegen": nl,
+           "zahlen": {"frei": FREI, "ring": list(RING), "ring_wehr": list(RING_WEHR), "gross_faktor": GROSS_FAKTOR, "geselle": GESELLE,
+                      "taeuschen": P_TAEUSCH, "taeuscher": sorted(TAEUSCHER), "gegenwert": {k: v for k, v in GEGENWERT.items() if k != "Rudel"},
+                      "tempo_gegner": {k: v for k, v in H["tempo_gegner"].items() if not k.startswith("_")}, "ungunst": H["ungunst"],
+                      "held_tempo": {k: v for k, v in H["held_tempo"].items() if not k.startswith("_")}},
+           "faelle": []}
+    for hk in herk:
+        for gg, sf in FAELLE:
+            h = held[(hk, sf)]
+            zelle = {"herkunft": hk, "gegner": gg, "stufe": h.stufe, "fall_stufe": sf,
+                     "held": {"werte": h.werte, "fert": h.fert, "waffe": h.waffe, "ruestung": h.ruestung, "schild": bool(h.schild),
+                              "zauber": list(h.zauber), "leben": h.leben_max(), "mana": h.mana_max(), "tempo": hg.held_tempo(H, h)}}
+            for name, o in (("S", {"politik": "schlag_haltung", "wehr_gegen_schuetzen": True}),
+                            ("N", {"politik": "nachlegen", "nachlegen_schaden": nl, "wehr_gegen_schuetzen": True})):
+                zelle[name] = messe(W, H, h, gg, n, rng, o)
+            out["faelle"].append(zelle)
+    json.dump(out, open(a.json, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"{len(out['faelle'])} Zellen, je {n} Kämpfe -> {a.json}")
+
+
 def tabelle(titel, faelle, herk, zelle):
     print(f"## {titel}\n")
     print("| Herkunft | " + " | ".join(f"{g} {s_}" for g, s_ in faelle) + " |")
@@ -471,6 +498,8 @@ if __name__ == "__main__":
     p.add_argument("--laeufe", type=int, default=25)
     p.add_argument("--unterstufe", type=int, default=0, help="Held so viele Stufen unter dem Gegner (härtere Aufstellung)")
     p.add_argument("--nachlegen", default="0.15,0.20,0.25", help="Prozentsätze für die Dominanzprüfung je Glut")
+    p.add_argument("--json", default="", help="930.6: nur S und Nachlegen nach werte.json „glut“ je Zelle mit dem Helden als JSON "
+                   "(Gegenprobe des Spiels: godot/tests/glut_rechnung_930.gd)")
     a = p.parse_args()
     HIER = os.path.dirname(os.path.abspath(__file__))
     W = sim.lade(os.path.join(HIER, "werte.json"))
@@ -482,6 +511,9 @@ if __name__ == "__main__":
     herk = list(sim.ohne_info(W["herkuenfte"]))
     fb = {hk: sim.fortschritt_alle(W, hk, a.laeufe, rng, True)["fert_bei"] for hk in herk}
     held = {(hk, sf): hg.held_bei(W, hk, max(1, sf - a.unterstufe), fb[hk]) for hk in herk for _, sf in FAELLE}
+    if a.json:
+        json_ausgabe(W, H, held, herk, n, rng, a)
+        sys.exit(0)
     nl = [float(x) for x in a.nachlegen.split(",")]
     V = [("S", {"politik": "schlag_haltung"}), ("W", {"politik": "warten"}), ("Wehr", {"politik": "nur_wehr"})] + \
         [(f"N{round(x * 100)}", {"politik": "nachlegen", "nachlegen_schaden": x}) for x in nl]

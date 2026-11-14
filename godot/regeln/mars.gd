@@ -9,6 +9,7 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 const BrsKampf = preload("res://regeln/brs_kampf.gd")
+const Glut = preload("res://regeln/glut.gd")
 ## 555 Testmenue „Kampfhilfen“ wie alt (Battle.heroCritsAlways, foesFailSaves), dazu „unsterblich“: der Held faellt nie unter 1 TP;
 ## von Hand an, sonst immer aus (die Gegenproben laufen ohne sie)
 static var held_immer_krit := false
@@ -334,6 +335,8 @@ class Fighter:
 	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
+	## 930.6: sein Stand im Glutsystem (glut.gd: Glut, Haltung, Abstand, Ansage …), leer im alten Kampf
+	var gl := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
 
 	func standing() -> bool:
@@ -513,6 +516,11 @@ var anspringen := "handeln"
 ## 478, 870.5: der Kampf rechnet nur nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach
 ## dem Bestiarium (daten/werte.json); true, sobald der Kampf eingerichtet ist (aufruf.gd liest es)
 var brs := false
+
+## 930.6 (DESIGN-GLUT.md, Bauplan 10 Stufe 1): Schalter des Glutsystems (werte.json „glut“ „an“, Tests setzen ihn vor start); aus:
+## der alte Kampf bis zur Abnahme. An: start, act, _auto_order gehen an den Regelkern glut.gd (gk); act nimmt ["GLUT", Plan]
+var glut: bool = Glut.an()
+var gk = null
 
 func brs_einrichten() -> void:
 	assert(BrsKampf.an(), "870.5: daten/werte.json fehlt (tools/sim444/werte.json)")
@@ -943,6 +951,8 @@ func drink_helps(item: String, t: Fighter) -> bool:
 
 # 72.13: heal a friend below half, else a cantrip, else the weapon.
 func _auto_order(f: Fighter) -> Array:
+	if glut and gk != null:     # 930.6: Vorschlag der Bedienung (DESIGN-GLUT.md 7.1, 7.6)
+		return ["GLUT", gk.vorschlag(f)]
 	var friend = null
 	for x in all:
 		if x.side == f.side and x.standing() and x.hp * 2 < x.max_hp:
@@ -1130,6 +1140,9 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 	var f := current()
 	assert(f.side == "PARTY" and f.standing())
 	chosen = true
+	if glut:     # 930.6: ["GLUT", Plan] (glut.gd held_zug), sonst der Vorschlag
+		gk.handeln(f, o[1] if o[0] == "GLUT" else gk.vorschlag(f))
+		return _take_log()
 	_perform(f, o)
 	if o[0] == "swap" or o[0] == "draw":
 		f.moved = true
@@ -1140,6 +1153,8 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 
 func proceed(react: Callable = Callable()) -> Array:
 	assert(outcome == "ONGOING")
+	if glut:     # 930.6: der Regelkern hält erst an der nächsten Wahl der Gruppe
+		return _take_log()
 	_skip_to_choice(react)
 	return _take_log()
 
@@ -1177,6 +1192,10 @@ func start(react: Callable = Callable(), verjagen := false) -> Array:
 		if outcome != "ONGOING":
 			started = true
 			return _take_log()
+	if glut:     # 930.6
+		gk = Glut.new(self)
+		gk.beginnen(react)
+		return _take_log()
 	_opening()
 	_skip_to_choice(react)
 	return _take_log()
