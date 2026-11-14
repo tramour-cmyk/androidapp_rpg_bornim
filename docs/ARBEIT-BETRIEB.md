@@ -42,6 +42,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 09:05 14.11.: Lauf 09:03: nichts zu starten (Diogenes 1098.1 vorerst nicht prüfbar, Sokrates wartet auf Chef). Morgen 14.11.: regelcheck --kurz: 2 Pflegehinweise (Pause-Felder Jerry und Sokrates ohne lesbares Datum, Besitzer setzen); kosten.py nicht gelaufen (Seiten nicht geholt, Guthaben tragbar laut Zeile oben), Zählung nachholen im nächsten Lauf mit Zeit.
 - 08:06 14.11.: 1245 erledigt: Zeile Ford-Starter oben richtiggestellt (Geprüft an: Commit nach Push).
 - 08:05 14.11.: Lauf 08:03: Tom alt archiviert (21,01 $ auf 285), Spike 1240 (1,41 $), Diogenes 1240 (1,06 $) archiviert; nichts zu starten; Nachhalten: Eingang leer, 6 Abgleich-Zeilen Jerry (811, 876, 923, 971, 644a.1, 1060) ohne Build, lautlos.
 - 07:49 14.11.: Neustart Tom: `…77znPDfxf4G6yvCC6Q` gestartet (Commit 919bb6cb0); alter Tom `…78jYddD6WmJoPRmjVB` (20,74 $ auf 285 zu buchen) noch aktiv, archivieren im nächsten Lauf, sobald idle und 60 s ruhig. Diogenes/Spike 1240 fertig.
@@ -61,7 +62,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:31 13.11.: Neustart Sokrates (28d978c49): neue Sitzung `…7A5LHnTB8QgSgxTD8M` 23:30 (Mittel), Vorgängerin `…797jN7dteYW35dpYLZ` archiviert (10,28 $ auf 1236, 1072, 827; Ford)
 - 23:28 13.11.: Neustart Jerry (56ee4e9ba): neue Sitzung `…78sHDY7SBKAQW8Re2t` 23:21 (Mittel), Vorgängerin `…79cBeV1g9SXzdarjgt` archiviert (7,63 $ auf 709.1, 1072); sie schrieb nach dem Neustart noch 6 Minuten weiter im Vorrat, Hinweis geschickt, dann beendet (Ford)
 - 23:07 13.11.: Lauf 23:03: Diogenes (1237) `…783kjRUn2ac4Ks2Yhg` gestartet (Umgebung Mittel), Vorgängerin `…75tnffFfTRAMHuhTAy` archiviert (2,13 $ auf 1175); Starts Homer 1235 und Perikles (Parserfehler) mit --ohne verhindert, Vorgänge 1238, 1239 an Perikles; Ausschlussliste zusätzlich `--ohne "1235:…"` und `--ohne "Perikles:…"` bis dahin (Ford)
-- 22:31 13.11.: Neustart Jerry (a1a10e156): neue Sitzung `…79cBeV1g9SXzdarjgt` 22:30 (Umgebung Mittel), Vorgängerin `…76yF68cGVE8dBiecQT` archiviert (42,35 $ auf 709.1, 1072; Ford)
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
@@ -76,7 +76,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 14.11.: Marke Archiv session_01Hmoj781eUCpQ5SKa8cCpQV (lauf.py)
 - 02:04 14.11.: Marke Archiv session_01Hmoj75kLBATHVTa9eEViaE (lauf.py)
 - 02:05 14.11.: Startsperre 02:05 Start Sokrates (lauf.py, Stellungnahme 1092)
-- 03:04 14.11.: Startsperre 03:04 Start Spike (lauf.py)
 - 03:04 14.11.: Marke Archiv session_01Hmoj7A5LHhpS9zYpLe4fcH (lauf.py)
 - 06:04 14.11.: Startsperre 06:04 Start Spike (lauf.py)
 - 06:04 14.11.: Marke Archiv session_01Hmoj75RUbW5ZmdoiqPRgSc (lauf.py)
@@ -88,4 +87,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:04 14.11.: Marke Nachhalten 14.11. (lauf.py)
 - 08:04 14.11.: Marke Abgleich ganz 14.11. (lauf.py)
 - 08:05 14.11.: Startsperre 08:05 Start Diogenes (lauf.py)
-- 09:05 14.11.: Lauf 09:03: nichts zu starten (Diogenes 1098.1 vorerst nicht prüfbar, Sokrates wartet auf Chef). Morgen 14.11.: regelcheck --kurz: 2 Pflegehinweise (Pause-Felder Jerry und Sokrates ohne lesbares Datum, Besitzer setzen); kosten.py nicht gelaufen (Seiten nicht geholt, Guthaben tragbar laut Zeile oben), Zählung nachholen im nächsten Lauf mit Zeit.
+- 10:04 14.11.: Marke Tagesbericht 14.11. (lauf.py)
+- 10:04 14.11.: Startsperre 10:04 Start Perikles (Tagesbericht 14.11., lauf.py)
