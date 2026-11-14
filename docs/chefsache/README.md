@@ -25,6 +25,12 @@ Nichts offen.
 | [1222](ansehen/1222-rauch.md) | Rauchbündel gegen Krogg: Wurf, Rauch am Kopf, Schlag ins Leere | – | 15.11., 00:47 |
 | [601](ansehen/601-spaeher.md) | Goblin-Späher: Schussbewegung, Pfeil, Spur | – | 14.11., 23:53 |
 
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.473](ansehen/t286-karte-scheide.md) | [Build 286](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43637577563/artifacts/14133442612) | Karte, Scheide, Höhlenlicht, Wolfskampf | Tom und Jerry | 14.11., 20:50 |
+
 ## Zu tun
 
 Nichts offen.
