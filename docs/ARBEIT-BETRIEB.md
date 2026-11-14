@@ -107,3 +107,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:35 14.11.: Marke Archiv session_01Hmoj7A7BuC683wt2MBEacm (lauf.py)
 - 21:37 14.11.: Hinweis Ford: erste Planung 21:35 lief ohne Weckruf von Tom 286 (`…77L1zKAAbcvm31GJBc`, Lauf 473 um 22:09) und mit veralteter Kurzzeile Spike (arbeitet): START Tom 1247, ARCHIVIERE Tom 286, START Spike nicht ausgeführt, Startsperren Tom und Spike 21:35 stehen irrtümlich; nur Homer 1257 gestartet
 - 21:37 14.11.: Homer neu `…76baqPiDLHo7r3hvWz` (1257, Start-Meldung Sokrates 21:35), Homer 1235 archiviert (1,19 $); alter Sokrates `…775ze3dz5eLhqTBs67` Archivierung 21:45 (Chefantwort A/B)
+- 21:51 14.11.: Sokrates alt `…775ze3dz5eLhqTBs67` archiviert (24,55 $ gesamt)
