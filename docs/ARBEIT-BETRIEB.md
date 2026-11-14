@@ -90,3 +90,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:04 14.11.: Startsperre 10:04 Start Perikles (Tagesbericht 14.11., lauf.py)
 - 10:31 14.11.: Startsperre 10:31 Start Jerry, Spike (lauf.py)
 - 10:31 14.11.: Marke Archiv session_01Hmoj76T6cjjcpvFiQSkmub (lauf.py)
+- 10:33 14.11.: Lauf nach Perikles-Meldung: Jerry 1227 `…77Q6K2jkHmLkqGiwNz` (Chef 10:28: Jerry soll arbeiten; Halt nur noch für 1072, 709, 709.1, 760, 1068, 1043, 1032, 931, 1224), Spike 1092 `…7A4LFiFy7nygExKGnU` gestartet (Tom bleibt 1091/t285); Jerry alt archiviert (2,40 $); Perikles-Neustart (b7275a65f, Nachfolger 1246) folgt, sobald Tagesbericht-Sitzung ruht; Chef 👍 Telegram 844 eingetragen.
