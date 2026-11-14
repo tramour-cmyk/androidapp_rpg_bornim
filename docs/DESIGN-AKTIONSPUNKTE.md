@@ -311,6 +311,41 @@ Zu zweit ab Kapitel 2 (Garrick fest an der Seite, 168 D; Söldner ab Kapitel 3).
 4. Tränke wie heute, dazu höchstens Eiltrank.
 5. Alles andere ist Regelwerk für später, steht hier, damit es nicht verloren geht.
 
+## Bilder Jerry zu 1072: Plätze und Laufwege von oben (13.11., 22:42 und 23:33)
+
+Auftrag Chef 14.11., 10:22: „Die Bilder von [Jerry] zu 1072, die er gemacht hat in der Nacht 23:33 bezüglich Kampfrotation und so und von 22:42, die müssen auf jeden Fall auch in die Unterlagen“. Beide Vorlagen wurden in der Nacht zurückgezogen (Gesamtbild 23:39, dann „erst Aktionspunkte“ 23:48), die Bilder liegen jetzt hier. Volltext der Vorlagen samt Stellungnahmen Sokrates in Git: `git show d4da59e9d^:docs/chefsache/entscheiden/1072-plaetze-bahnen.md` (22:42) und `git show 5816581f3^:docs/chefsache/entscheiden/1072-plaetze-am-gegner.md` (23:33). Beide Bilder sind Schemas (matplotlib), keine Spielbilder; belegt sind Wolf 2,3 m lang, Luft 0,3 m (`figur.gd` AIR), Absetzen 0,6 m; alle anderen Maße sind Beispiele.
+
+### 22:42: Sechs Plätze je Seite und Bahnen für den Tausch
+
+![Plätze und Bahnen von oben, 22:42](bilder/1072-plaetze-bahnen-2242.webp)
+
+Großbild: [Telegram 13.11., 22:42](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-2242-1072-Jerry.png)
+
+- **Feld 1:** sechs Plätze je Seite (vorn und hinten, je links, Mitte, rechts); Abstand aus dem Umriss von oben, Gasse so breit wie der Breiteste dahinter plus Luft.
+- **Feld 2–4:** Tausch im Heldenteam gerade (vorn ↔ hinten), schräg und nebeneinander, je zwei gespiegelte Bögen in der Breite der Bewegungshülle, Blick bleibt beim Gegner.
+- **Feld 5:** Monster zu eins, zwei, drei (Wölfe); rot der heutige Umweg des hinteren Wolfs außen herum (Lauf 462).
+- **Feld 6:** klein neben groß (Ratte neben Grimmzahn): jede Gasse nach dem, der durch muss.
+- Befund dazu: der Umweg verdoppelt die Runde (30,8 s statt 14,6 s im Sollbild 784), weil das Programm 0,3 m Luft verlangt und durch die Mitte nur 0,18–0,26 m frei sind.
+
+### 23:33: Plätze am Gegner und Bahnen von jedem Stand
+
+![Plätze am Gegner, 23:33](bilder/1072-plaetze-am-gegner-2333.webp)
+
+Großbild: [Telegram 13.11., 23:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/13-2333-1072-Jerry.png)
+
+- **Feld 1:** Plätze am Gegner: um den Helden fünf Kontaktplätze (vorn, schräg, Flanke) für Wölfe, je einer einen Hops (0,6 m) dahinter; beide zählen als **nah**.
+- **Feld 2:** die Zahl der Plätze folgt aus beiden Umrissen: sieben Ratten am Helden, sieben Helden um Grimmzahn.
+- **Feld 3:** Bahnen von jedem Stand: der hintere Wolf gerade durch die Mitte, sonst über Bögen; oder ein Vorderer macht mit einem Gehschritt Platz (grün, Idee Chef 23:23).
+- **Feld 4:** Heldentausch, während Wölfe am Helden stehen: Held 1 löst sich (Rückzug, nach 930 ein Punkt), Held 2 nimmt den Platz am Wolf.
+- Offen geblieben aus der Stellungnahme 23:36: Zweierstellung (hinterer Fernkämpfer tritt zur Seite, bis die Linie frei ist; hinterer Nahkämpfer nimmt eine Bahn am Vorderen vorbei; Chef 23:28) und ob der Held nach dem Schlag am Gegner bleibt.
+
+### Wie das zum Glutsystem passt
+
+- Die Abstände **nah** (Kontakt- und Hopsplatz, 23:33) und **fern** (Startplatz, 22:42) sind genau die Felder, in denen der freie Schritt und die weiteren Felder gezählt werden.
+- „Aus dem Handgemenge lösen“ (1 Glut) ist Feld 4 von 23:33; „Platz tauschen“ (der freie Schritt) sind Feld 2–4 von 22:42.
+- Das **Bollwerk** (Team) braucht die Plätze am Gegner: solange es steht, ist die Bahn nach hinten zu (Feld 3 von 23:33 gesperrt).
+- Bleibt der Held nach dem Schlag am Gegner (Votum Sokrates 23:36), steht er auf einem Kontaktplatz; dann kostet Wegkommen eine Glut, und Bereitschaft (Gegenschlag) hat einen klaren Ort.
+
 ## Was zusammenhängt (Gesamtbild 13.11., 23:39)
 
 - **1072 Plätze und Laufwege** (29,94 $): wo eine Figur steht, wie sie dorthin kommt; hinterer Wolf läuft außen herum (0,3 m Luftzuschlag, frei wären 0,18–0,26 m), Runde 30,8 s statt 14,6 s.
