@@ -49,7 +49,8 @@ def namen_aus_pruefliste(text):
             continue
         nimm = im_abschnitt or KOPF.match(z)
         if not nimm and z.lstrip().startswith('|'):
-            nimm = any(c.strip().strip('*').lower() == 'ohne dich' for c in z.split('|'))
+            # 1248 (Diogenes D237.1): jede Prüfliste schreibt „ohne dich (Diogenes bestätigt am Lauf)“, die Zelle beginnt nur damit
+            nimm = any(re.match(r'ohne dich\b', c.strip().strip('*').lower()) for c in z.split('|'))
         if not nimm:
             continue
         for tok in re.findall(r'`([^`]+)`', z):
