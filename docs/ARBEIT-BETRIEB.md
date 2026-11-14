@@ -113,3 +113,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:44 14.11.: Startsperre 23:44 Start Homer (Neustart-Meldung 23:39, 3ef5def90, von Hand)
 - 23:45 14.11.: Homer neu `…794ME3Gg3ydHeNmxum` (1260), Homer `…76baqPiDLHo7r3hvWz` archiviert (4,22 $ auf 1260)
 - 23:49 14.11.: Startsperre 23:49 Start Tuffy, Sokrates (Neustart-Meldungen 23:44, 23:45, von Hand)
+- 23:50 14.11.: Tuffy neu `…76d3QcJwbDH1YGUuPR` (930.7 Film), Tuffy `…79v4vLh86CTewmRzZ9` archiviert (12,95 $ auf 930.7); Sokrates neu `…75rZTuiGj1QA448MLH` (930.7), alter `…76zXUTypnQhewTvAHH` Archivierung 00:00
