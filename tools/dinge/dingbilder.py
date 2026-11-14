@@ -1189,15 +1189,7 @@ def schluessel(art):
 
 def beute(art):
     teile, striche = [], []
-    if art == "wolf_pelt":
-        pts = [(0.20, 0.30), (0.34, 0.22), (0.30, 0.10), (0.42, 0.18), (0.58, 0.18), (0.70, 0.10), (0.66, 0.22), (0.80, 0.30),
-               (0.92, 0.26), (0.84, 0.42), (0.80, 0.70), (0.92, 0.82), (0.74, 0.80), (0.56, 0.84), (0.52, 0.96), (0.46, 0.84),
-               (0.26, 0.80), (0.08, 0.82), (0.20, 0.70), (0.16, 0.42), (0.08, 0.26)]
-        m = vieleck(pts)
-        fell = farbe(0x8a8a86)[None, None, :] * (0.80 + 0.20 * gestreckt(2, 10, 151, 80))[..., None]
-        sattel = np.clip(1 - np.abs(UX - 0.5) / 0.16, 0, 1)[..., None]
-        teile.append(Teil(m, nd.gaussian_filter(aufblasen(m, 0.1) * 0.4, 4), fell * (1 - 0.45 * sattel), matt=0.38))
-    elif art == "boar_tusk":
+    if art == "boar_tusk":
         pts = []
         for t in np.linspace(0, 1, 30):
             a = -0.3 + t * 2.4
@@ -1209,24 +1201,6 @@ def beute(art):
             m |= strich([pts[i][:2], pts[i + 1][:2]], pts[i][2] * OUT * 2) > 0.5
         wurzel = np.clip((UX - 0.55) / 0.3, 0, 1)[..., None]
         teile.append(Teil(m, aufblasen(m, 0.05), farbe(0xe8dcbc) * (1 - 0.3 * wurzel) + farbe(0x8a6a3a) * 0.3 * wurzel, matt=0.42))
-    elif art == "spider_gland":
-        sack = ellipse(0.48, 0.56, 0.26, 0.22, 0.3)
-        teile.append(Teil(sack, aufblasen(sack, 0.2), stoff(0x7a9a2a, 0.2, 152, 12), glanz=0.6, matt=0.40, leucht=np.array([10.0, 20, 0])))
-        for k in range(5):
-            a = k * 1.2 + 0.4
-            striche.append(strich([(0.48, 0.56), (0.48 + 0.12 * math.cos(a), 0.56 + 0.10 * math.sin(a)), (0.48 + 0.22 * math.cos(a + 0.2), 0.56 + 0.18 * math.sin(a + 0.2))], 0.8, 0.6))
-        gang = strich([(0.70, 0.40), (0.80, 0.28), (0.84, 0.22)], 7.0) > 0.5
-        teile.append(Teil(gang & ~sack, aufblasen(gang, 0.02) + 4, farbe(0x5a6a20), matt=0.36))
-    elif art == "bat_wing":
-        handgelenk = (0.24, 0.62)
-        spitzen = [(0.46, 0.14), (0.70, 0.18), (0.88, 0.34), (0.90, 0.58)]
-        haut = vieleck([handgelenk] + spitzen + [(0.70, 0.66), (0.50, 0.72), (0.34, 0.74)])
-        teile.append(Teil(haut, nd.gaussian_filter(aufblasen(haut, 0.1) * 0.3, 3), stoff(0x4a3a3a, 0.2, 153, 12), matt=0.36))
-        for sp in spitzen:
-            k = strich([handgelenk, sp], 3.2) > 0.5
-            teile.append(Teil(k & haut, aufblasen(haut, 0.1) * 0.3 + 4, farbe(0x2a2020), matt=0.34, linie=0.3))
-        kralle = kreis(0.22, 0.64, 0.03)
-        teile.append(Teil(kralle, aufblasen(kralle, 0.02) + 6, farbe(0x2a2020), matt=0.34))
     elif art == "grey_rag":     # grauer Fetzen, ein offenes Auge eingestickt
         pts = [(0.18, 0.24), (0.40, 0.18), (0.62, 0.22), (0.84, 0.16), (0.80, 0.40), (0.86, 0.62), (0.76, 0.84), (0.60, 0.78),
                (0.44, 0.86), (0.30, 0.78), (0.14, 0.82), (0.20, 0.56)]
@@ -1257,16 +1231,6 @@ def beute(art):
         siegel = kreis(0.56, 0.72, 0.08)
         teile.append(Teil(siegel, aufblasen(siegel, 0.05) + 6, farbe(0x8a1a1a), glanz=0.3, matt=0.40))
         striche.append(strich([(0.53, 0.70), (0.56, 0.74), (0.59, 0.70)], 0.9, 0.9))
-    elif art == "bandage":
-        rolle = ellipse(0.42, 0.52, 0.22, 0.26)
-        stirn = ellipse(0.42, 0.52, 0.10, 0.12)
-        lauf = vieleck([(0.50, 0.70), (0.86, 0.62), (0.90, 0.74), (0.52, 0.78)])
-        binde = farbe(0xe8e0cc)[None, None, :] * (0.88 + 0.12 * gestreckt(20, 2, 160))[..., None]
-        teile.append(Teil(lauf, aufblasen(lauf, 0.03), binde * 0.95, matt=0.42))
-        teile.append(Teil(rolle, aufblasen(rolle, 0.2) * 0.6, binde, matt=0.42))
-        teile.append(Teil(stirn, aufblasen(rolle, 0.2) * 0.6 + 2, binde * 0.85, matt=0.40, linie=0.8))
-        for rr in (0.15, 0.19):
-            striche.append(((np.abs(np.hypot((UX - 0.42) / rr, (UY - 0.52) / (rr * 1.18)) - 1) < 0.02) & rolle).astype(float) * 0.7)
     elif art == "smoke_bundle":
         bund = vieleck([(0.36, 0.40), (0.56, 0.36), (0.66, 0.84), (0.44, 0.88)])
         teile.append(Teil(bund, aufblasen(bund, 0.06), stoff(0x7a7a4a, 0.25, 161, 8) * (0.85 + 0.15 * gestreckt(2, 20, 162, 10))[..., None], matt=0.36))
@@ -1277,15 +1241,140 @@ def beute(art):
         teile.append(Teil(rauch, np.zeros((S, S)), farbe(0xb0aca4), matt=0.6, linie=0.3, deckung=0.75))
         glut = kreis(0.46, 0.38, 0.03)
         teile.append(Teil(glut, np.zeros((S, S)) + 8, farbe(0xd85a10), leucht=np.array([90.0, 40, 4]), matt=0.5, linie=0.3))
-    elif art == "spider_silk":  # ein Strang Spinnseide, um ein Hölzchen gewickelt, ein Faden hängt
-        stab = strich([(0.22, 0.70), (0.80, 0.34)], 6.0) > 0.5
-        knaeuel = ellipse(0.50, 0.53, 0.20, 0.15, -0.55)
-        faeden = 0.80 + 0.20 * (np.sin((UX * 0.55 - UY) * 260) > 0)
-        teile.append(Teil(stab & ~knaeuel, aufblasen(stab, 0.02), _holz(164, 0x6a4a2c), matt=0.32))
-        teile.append(Teil(knaeuel, aufblasen(knaeuel, 0.12), farbe(0xe8e8e4)[None, None, :] * faeden[..., None], glanz=0.3, matt=0.50))
-        faden = strich([(0.62, 0.62), (0.66, 0.72), (0.62, 0.82), (0.66, 0.90)], 1.6) > 0.4
-        teile.append(Teil(faden & ~knaeuel, np.zeros((S, S)) + 2, farbe(0xe8e8e4), matt=0.5, linie=0.3))
     return male(teile, striche, saat=163)
+
+
+# ------------------------------------------------------------------ Tierteile (1073, zweiter Anlauf; Zerlegen nach werte.json)
+
+def _fell(ton, saat, dunkel=0.0):
+    f = farbe(ton)[None, None, :] * (0.78 + 0.22 * gestreckt(2, 9, saat, 70))[..., None]
+    return f * (1 - dunkel * np.clip(1 - np.abs(UX - 0.5) / 0.18, 0, 1))[..., None]
+
+
+def tierteil(art):
+    teile, striche = [], []
+    if art in ("wolf_pelt", "small_pelt"):
+        k = 1.0 if art == "wolf_pelt" else 0.72
+        o = (1 - k) / 2
+        P = lambda x, y: (o + x * k, o * 0.6 + y * k)
+        # Kopf mit Ohren und Schnauze oben, Vorderläufe, Leib, Hinterläufe, Schwanz
+        pts = [P(0.44, 0.06), P(0.40, 0.14), P(0.34, 0.08), P(0.36, 0.22), P(0.28, 0.26), P(0.10, 0.24), P(0.12, 0.32), P(0.30, 0.36),
+               P(0.30, 0.60), P(0.12, 0.70), P(0.10, 0.80), P(0.30, 0.74), P(0.42, 0.80), P(0.46, 0.97), P(0.54, 0.97), P(0.58, 0.80),
+               P(0.70, 0.74), P(0.90, 0.80), P(0.88, 0.70), P(0.70, 0.60), P(0.70, 0.36), P(0.88, 0.32), P(0.90, 0.24), P(0.72, 0.26),
+               P(0.64, 0.22), P(0.66, 0.08), P(0.60, 0.14), P(0.56, 0.06), P(0.50, 0.02)]
+        m = vieleck(pts)
+        ton = 0x707470 if art == "wolf_pelt" else 0x6a5a48
+        teile.append(Teil(m, nd.gaussian_filter(aufblasen(m, 0.08) * 0.5, 3), _fell(ton, 151, 0.45), matt=0.36))
+        for sx in (-1, 1):            # Augenlöcher
+            teile.append(Teil(ellipse(0.5 + sx * 0.04 * k, o * 0.6 + 0.15 * k, 0.018 * k, 0.012 * k), np.zeros((S, S)) + 6, np.full(3, 20.0), matt=0.1, linie=0.4))
+        striche.append(strich([P(0.5, 0.30), P(0.5, 0.86)], 0.7, 0.5))
+        for y in np.linspace(0.36, 0.80, 6):
+            striche.append(strich([P(0.30, y), P(0.33, y + 0.02)], 0.6, 0.6)); striche.append(strich([P(0.70, y), P(0.67, y + 0.02)], 0.6, 0.6))
+    elif art == "bat_wing":       # Flügel aufgespannt: Arm zum Handgelenk, vier Finger gefächert, Haut dazwischen gebuchtet
+        basis, hand = (0.10, 0.56), (0.30, 0.20)
+        spitzen = [(0.92, 0.16), (0.90, 0.46), (0.72, 0.74), (0.42, 0.86)]
+        pts = [basis, hand, spitzen[0]]
+        for a, b in zip(spitzen, spitzen[1:]):
+            mx, my = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
+            pts += [(mx + (hand[0] - mx) * 0.30, my + (hand[1] - my) * 0.30), b]
+        pts += [(0.24, 0.72)]
+        haut = vieleck(pts)
+        teile.append(Teil(haut, nd.gaussian_filter(aufblasen(haut, 0.12) * 0.3, 3), stoff(0x6a4c40, 0.18, 153, 10), matt=0.40))
+        knochen = strich([basis, hand], 8.0) > 0.5
+        for sp in spitzen:
+            knochen |= strich([hand, sp], 3.0) > 0.5
+        teile.append(Teil(knochen & (haut | (strich([basis, hand], 8.0) > 0.5)), aufblasen(knochen, 0.02) + 6, farbe(0x3a2a26), matt=0.34, linie=0.4))
+        kralle = vieleck([(hand[0] - 0.02, hand[1] + 0.01), (hand[0] - 0.05, hand[1] - 0.09), (hand[0] + 0.03, hand[1] - 0.02)])
+        teile.append(Teil(kralle, aufblasen(kralle, 0.01) + 8, farbe(0x1e1614), matt=0.3))
+    elif art in ("spider_gland", "venom_gland"):
+        spinne = art == "spider_gland"
+        sack = ellipse(0.46, 0.58, 0.24, 0.20, 0.35)
+        ton = 0x6a8a2a if spinne else 0x8a7a2a
+        teile.append(Teil(sack, aufblasen(sack, 0.2), stoff(ton, 0.2, 152, 12), glanz=0.7, matt=0.40, leucht=np.array([8.0, 16, 0])))
+        for kk in range(6):
+            a = kk * 1.05 + 0.3
+            striche.append(strich([(0.46 + 0.05 * math.cos(a), 0.58 + 0.04 * math.sin(a)), (0.46 + 0.14 * math.cos(a + 0.25), 0.58 + 0.12 * math.sin(a + 0.25)),
+                                   (0.46 + 0.21 * math.cos(a + 0.1), 0.58 + 0.17 * math.sin(a + 0.1))], 0.8, 0.55))
+        if spinne:                    # zwei schwarze Klauen am Gang: daran erkennt man die Spinne
+            for dx in (-0.05, 0.06):
+                kl = vieleck([(0.56 + dx, 0.44), (0.66 + dx, 0.38), (0.74 + dx, 0.24), (0.80 + dx, 0.12), (0.74 + dx, 0.30), (0.72 + dx, 0.44), (0.62 + dx, 0.50)])
+                teile.append(Teil(kl, aufblasen(kl, 0.02) + 10, farbe(0x1e1a1c), glanz=0.3, matt=0.34))
+        else:                         # Hundertfüßer: Gang mit Zange
+            kl = strich([(0.64, 0.44), (0.76, 0.30), (0.82, 0.30), (0.84, 0.36)], 6.0) > 0.5
+            teile.append(Teil(kl & ~sack, aufblasen(kl, 0.02) + 6, farbe(0x6a3a1a), matt=0.34))
+        tropfen = ellipse(0.88 if spinne else 0.86, 0.18 if spinne else 0.48, 0.022, 0.032)
+        teile.append(Teil(tropfen, aufblasen(tropfen, 0.02) + 12, farbe(0x9ad040), glanz=0.8, leucht=np.array([30.0, 60, 6]), matt=0.5, linie=0.5))
+    elif art == "spider_silk":    # Spinnseide: ein Netz in einer Astgabel, daran ein dicker weißer Strang aufgewickelt
+        ast = (strich([(0.12, 0.92), (0.44, 0.52), (0.40, 0.10)], 7.0) > 0.5) | (strich([(0.44, 0.52), (0.88, 0.30)], 6.0) > 0.5)
+        teile.append(Teil(ast, aufblasen(ast, 0.02), _holz(164, 0x5a3e28), matt=0.32))
+        mitte = (0.62, 0.30)
+        netz = np.zeros((S, S))
+        for a in np.linspace(0, math.pi * 2, 9)[:-1]:
+            netz = np.maximum(netz, strich([mitte, (mitte[0] + 0.22 * math.cos(a), mitte[1] + 0.20 * math.sin(a))], 1.5, 1.0))
+        for rr in (0.06, 0.11, 0.16, 0.20):
+            pts = [(mitte[0] + rr * math.cos(a), mitte[1] + rr * 0.9 * math.sin(a)) for a in np.linspace(0, math.pi * 2, 9)]
+            netz = np.maximum(netz, strich(pts, 1.4, 1.0))
+        nm = (netz > 0.3) & ~ast & (UY < 0.52) & (UX > 0.42)
+        teile.append(Teil(nm, np.zeros((S, S)) + 4, farbe(0xeeeee8), matt=0.6, linie=0.0))
+        knaeuel = ellipse(0.40, 0.70, 0.16, 0.13, -0.5)
+        faeden = 0.78 + 0.22 * (np.sin((UX * 0.6 - UY) * 280) > 0)
+        teile.append(Teil(knaeuel, aufblasen(knaeuel, 0.11), farbe(0xf0f0ea)[None, None, :] * faeden[..., None], glanz=0.3, matt=0.55))
+    elif art == "bandage":        # Verband: Rolle Leinen von der Seite, das Ende läuft lose aus
+        s_, q, d, lang = achse((0.18, 0.40), (0.62, 0.40))
+        rolle = (UX >= 0.22) & (UX <= 0.62) & (np.abs(UY - 0.42) <= 0.16)
+        rolle |= ellipse(0.62, 0.42, 0.07, 0.16)
+        stirn = ellipse(0.22, 0.42, 0.07, 0.16)
+        binde = farbe(0xe8e0cc)[None, None, :] * (0.86 + 0.14 * (np.sin(UX * 300) > 0.6) + 0.06 * rauschen(8, 160, 1))[..., None]
+        lauf = vieleck([(0.50, 0.56), (0.62, 0.56), (0.80, 0.70), (0.90, 0.86), (0.76, 0.90), (0.64, 0.74), (0.48, 0.60)])
+        teile.append(Teil(lauf, aufblasen(lauf, 0.02) + 3 * np.sin(UX * 20), binde * 0.95, matt=0.42))
+        hr = np.clip(1 - ((UY - 0.42) / 0.16) ** 2, 0, 1) ** 0.5 * 0.05 * S
+        teile.append(Teil(rolle, hr, binde, matt=0.42, k=0.8))
+        teile.append(Teil(stirn, hr + 4, binde * 0.92, matt=0.40, linie=0.8))
+        for rr in (0.4, 0.7):
+            striche.append(((np.abs(np.hypot((UX - 0.22) / (0.07 * rr), (UY - 0.42) / (0.16 * rr)) - 1) < 0.08) & stirn).astype(float) * 0.7)
+        striche.append(strich([(0.22, 0.42), (0.225, 0.42)], 1.4, 1.0))
+    elif art == "bone":           # Knochen eines Skeletts: Röhrenknochen mit zwei Gelenkköpfen
+        s_, q, d, lang = achse((0.20, 0.78), (0.80, 0.22))
+        schaft = (s_ >= 0.08) & (s_ <= lang - 0.08) & (np.abs(q) <= 0.045 + 0.01 * np.cos((s_ / lang) * math.pi * 2))
+        m = schaft.copy()
+        for t in (0.0, 1.0):
+            c = (0.20 + d[0] * lang * (0.06 + 0.88 * t), 0.78 + d[1] * lang * (0.06 + 0.88 * t))
+            n = (-d[1], d[0])
+            for sx in (-1, 1):
+                m |= kreis(c[0] + n[0] * 0.045 * sx, c[1] + n[1] * 0.045 * sx, 0.065)
+        alt = stoff(0xe0d4b4, 0.18, 165, 10)
+        teile.append(Teil(m, aufblasen(m, 0.05), alt, matt=0.42))
+        for f in range(3):
+            striche.append(strich([(0.40 + f * 0.06, 0.58 - f * 0.06), (0.44 + f * 0.06, 0.55 - f * 0.06)], 0.6, 0.5))
+    elif art == "teeth":          # Wolfszähne an einer Schnur
+        sch = [(0.12 + 0.76 * t, 0.30 + 0.30 * math.sin(t * math.pi)) for t in np.linspace(0, 1, 30)]
+        m = strich(sch, 2.6) > 0.4
+        teile.append(Teil(m, np.zeros((S, S)), farbe(0x4a3020), matt=0.32, linie=0.4))
+        for kk, t in enumerate(np.linspace(0.18, 0.82, 5)):
+            x, y = 0.12 + 0.76 * t, 0.30 + 0.30 * math.sin(t * math.pi)
+            ln = 0.20 if kk == 2 else 0.15
+            z = vieleck([(x - 0.035, y), (x + 0.035, y), (x + 0.01, y + ln * 0.7), (x, y + ln)])
+            teile.append(Teil(z, aufblasen(z, 0.02) + 6, stoff(0xece2c8, 0.1, 166 + kk, 6), matt=0.44))
+    elif art == "hide":           # Schwarte: ein Stück borstige Wildschweinhaut, Rand eingerollt
+        pts = [(0.14, 0.30), (0.42, 0.18), (0.74, 0.20), (0.88, 0.42), (0.82, 0.72), (0.56, 0.84), (0.26, 0.80), (0.12, 0.58)]
+        m = vieleck(pts)
+        teile.append(Teil(m, nd.gaussian_filter(aufblasen(m, 0.08) * 0.5, 3), _fell(0x5a4232, 167), matt=0.34))
+        innen = nd.binary_erosion(m, iterations=int(0.05 * S))
+        rand = m & ~innen & (UY > 0.6)
+        teile.append(Teil(rand, aufblasen(m, 0.08) * 0.5 + 4, farbe(0xc8a890), matt=0.40))
+        rng = np.random.default_rng(168)
+        for _ in range(40):
+            x, y = rng.uniform(0.2, 0.8), rng.uniform(0.25, 0.7)
+            striche.append(strich([(x, y), (x + 0.01, y - 0.03)], 0.5, 0.7))
+    elif art == "chitin_plates":  # Panzerplatten: drei gewölbte Glieder, rotbraun glänzend
+        for kk in range(3):
+            cx_, cy_ = 0.30 + kk * 0.18, 0.36 + kk * 0.16
+            pl = vieleck([(cx_ - 0.17, cy_ - 0.02), (cx_ - 0.08, cy_ - 0.11), (cx_ + 0.12, cy_ - 0.09), (cx_ + 0.18, cy_ + 0.02), (cx_ + 0.07, cy_ + 0.10), (cx_ - 0.12, cy_ + 0.08)])
+            teile.append(Teil(pl, aufblasen(pl, 0.06) + kk * 10, stoff(0x7a3a1a, 0.15, 169 + kk, 10), glanz=0.5, matt=0.40, k=1.0))
+            striche.append(strich([(cx_ - 0.12, cy_ + 0.02), (cx_ + 0.13, cy_ - 0.01)], 0.7, 0.7))
+    elif art == "acid":           # Säure: Phiole mit grünlich-gelber, rauchender Flüssigkeit
+        return flasche(0xb8d020, form="schlank", leucht=0.9, schnur=False)
+    return male(teile, striche, saat=170)
 
 
 # ------------------------------------------------------------------ Gold
@@ -1325,8 +1414,13 @@ DINGE["ding-raw_meat"] = lambda: fleisch("raw_meat")
 DINGE["ding-roast_meat"] = lambda: fleisch("roast_meat")
 DINGE["ding-rusty_key"] = lambda: schluessel("rusty_key")
 DINGE["ding-grak_key"] = lambda: schluessel("grak_key")
-for _n in ("wolf_pelt", "boar_tusk", "spider_gland", "bat_wing", "grey_rag", "gwenna_ring", "sun_amulet", "prophet_letter", "bandage", "smoke_bundle", "spider_silk"):
+for _n in ("boar_tusk", "grey_rag", "gwenna_ring", "sun_amulet", "prophet_letter", "smoke_bundle"):
     DINGE["ding-" + _n] = (lambda _n=_n: beute(_n))
+for _n in ("wolf_pelt", "spider_gland", "bat_wing", "bandage", "spider_silk"):
+    DINGE["ding-" + _n] = (lambda _n=_n: tierteil(_n))
+# Zerlegen (werte.json „zerlegen“): noch ohne Kennung im Spiel, Bilder liegen bereit; Kennung = Dateiname
+for _n in ("bone", "teeth", "hide", "small_pelt", "venom_gland", "chitin_plates", "acid"):
+    DINGE["ding-" + _n] = (lambda _n=_n: tierteil(_n))
 STUECKE = {"leather_cap": lederkappe, "round_shield": rundschild}
 for _art in ("handaxe", "battleaxe", "greataxe", "halberd", "spear", "mace", "morningstar", "warhammer", "maul", "quarterstaff", "staff", "wand"):
     STUECKE[_art] = (lambda r="COMMON", _a=_art: schaftwaffe(_a, r))
