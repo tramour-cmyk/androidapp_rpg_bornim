@@ -618,16 +618,97 @@ static func dolch_anlegen(m: Node3D, sk: Skeleton3D, was: String, pts: PackedVec
 		var quer := (Vector3.UP - achse * achse.dot(Vector3.UP)).normalized()   # Schneide nach oben, flach am Rücken
 		t = Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), Vector3(-0.11, yp + 0.09, hinten - 0.025))
 	else:
-		var aussen := 0.0   # äußerste Stelle der linken Hüfte (x), Arme ausgenommen (über 0,3 m)
-		for p in haut_punkte(m, sk, false, null, [], INF):
-			if p.x > 0.0 and p.x < 0.3 and absf(p.y - yp) < 0.05: aussen = maxf(aussen, p.x)
-		if aussen <= 0.0: aussen = 0.17
-		var achse := Vector3(0.08, -1.0, -0.35).normalized()   # Klinge nach unten, schräg nach hinten
-		var quer := (Vector3.BACK - achse * achse.dot(Vector3.BACK)).normalized()   # Schneide nach vorn, Klinge flach am Bein
-		t = Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), Vector3(aussen + 0.02, yp + 0.03, 0.05))
+		# 1149 A mit Scheide (Chef 13.11., 19:45 „Ja, einen Ort zum Wegstecken.“): wie die alte Fassung (Dress.kt stowed, „10.10., 2“):
+		# Mundblech knapp unter dem Gürtel (held3.py beltY = Hüfte + 0,22 Rumpf), Griff vorn oben, Scheide schräg nach hinten unten
+		# (alt P3(0,1; -0,9; -0,4)), flach am Bein; seitlich so weit hinaus, dass die ganze Scheide 8 mm vor der Haut bleibt
+		var achse := Vector3(0.1, -0.9, -0.4).normalized()
+		var quer := (Vector3.BACK - achse * achse.dot(Vector3.BACK)).normalized()   # Schneide nach vorn, Fläche am Bein
+		var hu := sk.find_bone("thigh_l"); var sh := sk.find_bone("upperarm_l")
+		var hy := (im_raum(m, sk) * sk.get_bone_global_rest(hu).origin).y if hu >= 0 else yp
+		var sy := (im_raum(m, sk) * sk.get_bone_global_rest(sh).origin).y if sh >= 0 else yp + 0.5
+		var mund := Vector3(0.0, hy + 0.22 * (sy - hy) - 0.01, becken.origin.z + 0.035)
+		var o := mund - achse * SCHEIDE_MUND
+		var haut := haut_punkte(m, sk, false, null, [], INF)
+		var x0 := 0.12
+		for i in 15:
+			var c := o + achse * lerpf(SCHEIDE_MUND, SCHEIDE_ENDE, i / 14.0)
+			for p in haut:
+				if p.x > 0.0 and p.x < 0.26 and absf(p.y - c.y) < 0.02 and absf(p.z - c.z) < SCHEIDE_BREIT + 0.01:
+					x0 = maxf(x0, p.x + SCHEIDE_DICK + 0.008 - achse.x * lerpf(SCHEIDE_MUND, SCHEIDE_ENDE, i / 14.0))
+		o.x = x0
+		t = Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), o)
 	var h := Halt.gegenstand(was)   # 653: Griff, Achse und Schneide des Modells (Dolch: Schneide +X), t gilt für den Griffrahmen
 	if not h.is_empty(): t = t * Halt.griff_rahmen(h).affine_inverse()
 	_haenge(m, sk, pi, becken, was, t, "RueckenDolch")
+	if dolch_platz == "kreuz": return
+	var ba := sk.get_node_or_null("RueckenDolch")
+	if ba == null or ba.get_child_count() == 0: return
+	var d := ba.get_child(0) as Node3D
+	var sc := scheide(d)
+	d.add_child(sc)
+	Gebiet.male(sc, null, 2, [])
+
+# 1149: Lederscheide des Dolchs im Raum des Waffenmodells (waffen.py: Griff im Ursprung, Klinge +Y, Schneide ±X, Fläche ±Z), nach
+# Dress.kt (SCABBARD dagger 23 × 1,6 cm, Rand 0,6 cm; Mundblech 2,6 cm, Ortband 3,5 cm in Metall): Klinge hier 25 cm ab 5,6 cm,
+# 3 cm breit, 1 cm dick (948 B); die Scheide umschließt sie ganz, die Parierstange sitzt auf dem Mundblech. Farben aus dem Modell
+# selbst (Leder des Griffs, Stahl der Klinge), damit sie im selben Farbraum stehen
+const SCHEIDE_MUND := 0.054
+const SCHEIDE_ENDE := 0.322
+const SCHEIDE_BREIT := 0.021   # halbe Breite am Mund (Schneide)
+const SCHEIDE_DICK := 0.011    # halbe Dicke am Mund (Fläche)
+static func scheide(d: Node3D) -> MeshInstance3D:
+	var leder := Color.html("3E2C22").srgb_to_linear()
+	var stahl := Color.html("868E98").srgb_to_linear()
+	var bl := INF; var bs := INF
+	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		if me == null: continue
+		var tr := im_raum(d, mi)
+		for s in me.get_surface_count():
+			var arr := me.surface_get_arrays(s)
+			var cs = arr[Mesh.ARRAY_COLOR]
+			if cs == null or (cs as PackedColorArray).is_empty(): continue
+			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+			for i in vs.size():
+				var p := tr * vs[i]
+				var gl := p.distance_to(Vector3(0.0135, 0.0, 0.0))   # Griff (Leder, r 1,35 cm)
+				var kl := p.distance_to(Vector3(0.0, 0.18, 0.005))   # Mitte der Klingenfläche (Stahl)
+				if gl < bl: bl = gl; leder = cs[i]
+				if kl < bs: bs = kl; stahl = cs[i]
+	leder = Color(leder.r * 0.9, leder.g * 0.9, leder.b * 0.9, 1.0)   # Scheide etwas dunkler als der Griff (alt darkLeather)
+	stahl.a = 1.0
+	# Ringe: y, halbe Breite (x), halbe Dicke (z), Farbe; Mundblech, Leder, Ortband, Spitze
+	var ringe := [[0.052, 0.0245, 0.0145, stahl], [0.080, 0.0245, 0.0145, stahl], [0.080, SCHEIDE_BREIT, SCHEIDE_DICK, leder],
+		[0.200, 0.0185, 0.0100, leder], [0.287, 0.0160, 0.0090, leder], [0.287, 0.0175, 0.0100, stahl], [0.312, 0.0110, 0.0075, stahl],
+		[SCHEIDE_ENDE, 0.0045, 0.0040, stahl]]
+	var n := 12
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var ring := func(r: Array, k: int) -> Vector3:
+		var w := TAU * k / n
+		return Vector3(cos(w) * float(r[1]), float(r[0]), sin(w) * float(r[2]))
+	for j in ringe.size() - 1:
+		var a: Array = ringe[j]; var b: Array = ringe[j + 1]
+		var col: Color = stahl if is_equal_approx(float(a[0]), float(b[0])) else b[3]   # Stufe zwischen Leder und Metall: Rand des Blechs
+		for k in n:
+			var p0: Vector3 = ring.call(a, k); var p1: Vector3 = ring.call(a, k + 1)
+			var q0: Vector3 = ring.call(b, k); var q1: Vector3 = ring.call(b, k + 1)
+			for v in [p0, q1, q0, p0, p1, q1]:   # Godot: Vorderseite im Uhrzeigersinn
+				st.set_color(col); st.add_vertex(v)
+	# Deckel am Mund (unter der Parierstange) und an der Spitze
+	for e in [[ringe[0], false], [ringe[ringe.size() - 1], true]]:
+		var r: Array = e[0]
+		var mi := Vector3(0, float(r[0]), 0)
+		for k in n:
+			var p0: Vector3 = ring.call(r, k); var p1: Vector3 = ring.call(r, k + 1)
+			for v in ([mi, p0, p1] if e[1] else [mi, p1, p0]):
+				st.set_color(stahl); st.add_vertex(v)
+	st.index()
+	st.generate_normals()
+	var x := MeshInstance3D.new()
+	x.name = "Scheide"
+	x.mesh = st.commit()
+	return x
 
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
