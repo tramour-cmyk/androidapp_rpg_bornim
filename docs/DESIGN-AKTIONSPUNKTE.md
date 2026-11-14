@@ -357,6 +357,51 @@ Kein Spielcode, kein Lauf auf dem Bauserver, kein Auftrag an die Teams vor dem E
 
 **Stärkstes Gegenargument:** achtzehn Arten mit je einer eigenen Regel sind viel zu bauen und zu erklären. **Antwort:** die meisten Regeln gibt es heute schon als Ansage oder Merkmal (Anspringen, Netz, Gift, Flattern, Hilfe rufen, Durchbrechen, Kraft sammeln, Überfall, Zäher Tod, Teilen); neu sind nur Tempo, „lauert“, „saugt fest“, „Packen“ und die Glut in der Ansage.
 
+## Rechnung und Gegenprüfung (Schritt 2 und 3, Sokrates, 14.11., 10:31)
+
+### Rechnung mit dem Glut-Rechner
+
+Werkzeug `tools/sim444/glut.py` auf Zweig `claude/sokrates-930-glut` (`693960a24`, nur Werkzeug), Ergebnis `tools/sim444/glut_ergebnis.md` dort; Formeln und Werte aus 444 und 930.3, je Zelle 300 Kämpfe, Ring eines mittleren Spielers auf großen Schlägen, Autopilot. **Vorsicht:** In dieser Aufstellung (Held auf der Stufe des Gegners, mittlere Fertigkeit aus 444) gewinnen mit Ring schon heute fast alle fast immer; die Zahlen taugen zum **Vergleich der Regeln**, nicht zur Balance.
+
+| Fall | heute | A Antworten frei | B eine Schadensantwort je Gegnerrunde | C Rest ins Tun (Nachdruck) | D nur Wehr |
+|---|---|---|---|---|---|
+| Kräutersammler gegen Grimmzahn, Sieg % | 56 | 96 | 93 | 93 | 71 |
+| Kräutersammler gegen Krogg, Sieg % | 60 | 90 | 92 | 87 | 74 |
+| Wachsoldat gegen Krogg, Runden | 8,0 | 4,2 | 4,3 | 3,9 | 7,7 |
+| Jägerkind gegen Krogg, Runden | 7,4 | 6,7 | 6,9 | 3,6 | 7,0 |
+| Klosterschüler gegen Grimmzahn, Runden | 12,9 | 4,9 | 5,1 | 5,1 | 11,3 |
+
+**Befunde:**
+1. **In Kapitel 1 erreicht niemand Geselle.** Höchste Waffenfertigkeit auf Heldenstufe 6 nach 444: 14 bis 21 (Geselle ab 25). Eine Leiter „Antworten ab Geselle“ hieße: in Kapitel 1 gibt es keine Antwort außer Wehr, das Herzstück fehlt im ersten Kapitel. **Folge:** Gegenschlag und Wachschuss ab Anfänger, Geselle verstärkt sie.
+2. **Ein voller Gegenschlag ist ein Doppelschlag durch die Hintertür.** Mit Antworten halbieren sich die Kämpfe (Wachsoldat gegen Krogg 8,0 → 4,2 Runden), schwache Herkünfte gewinnen fast immer. Die Grenze „eine je Gegnerrunde“ ändert fast nichts (B ≈ A), weil meist nur einer angreift. **Folge:** Gegenschlag halber Schaden, nie kritisch; voll erst mit Geselle oder Pfad.
+3. **Fernkämpfer verschenken Glut:** Jägerkind gegen Skelett 10,5 verfallene Glut je Kampf; der Wachschuss greift nur beim Heranrücken, danach hat der Schütze nichts mehr für seine Glut. **Folge:** Nachlegen im Tun (Glut ins Zielen) gibt ihm die Wahl.
+4. **Nachdruck mit +25 % Schaden und Gunst je Glut ist zu stark** für Fernkämpfer (Jägerkind gegen Krogg 7,4 → 3,6 Runden). **Folge:** Nachlegen kleiner (je Glut nur Gunst beim Treffen oder nur +15 % Schaden), Zahl später.
+5. **Wehr nur gegen große Schläge wirkt kaum** (D ≈ heute): in Kapitel 1 wäre Aufsparen wertlos. **Folge:** Wehr senkt den Schaden aller Treffer bis zum eigenen Zug, gegen große Schläge zusätzlich langsamer Ring.
+
+### Gegenprüfung durch einen zweiten Designer (Helfer, ohne meine Vorannahmen; Bericht gekürzt)
+
+Stärkste Funde, mit Bewertung:
+- **„Schlag und zwei Bereitschaft“ ist immer richtig**, weil die übrige Glut sonst keinen Zweck hat; das Rätsel fällt zusammen. → **übernehmen:** Glut darf ins Tun nachgelegt werden (Befund 3, 4); schwere Handlung = Tun mit Nachlegen, keine feste 2.
+- **Doppelschlag durch Gegenschläge** → **übernehmen** (Befund 2).
+- **Offene Ansage schaltet „verfällt“ ab**: wer die Ansage sieht, spart nur, wenn ein Angriff kommt. → **offen, beim Chef:** Ansagen nennen die Art, nicht immer das Ziel; manche Gegner täuschen an. Berührt die Ansage (210, gebaut) und den Ton (Eingebungen).
+- **Langsame Gegner endlos auf Abstand halten** (kein Ende des Rückzugs, Chef 12:56) → **übernehmen mit Rücksicht auf das Chefwort:** „weit“ ist die letzte Stufe; wer aus weit weiter zurück will, flieht; langsame Gegner bekommen ein Mittel auf Abstand (Wiedergänger rufen Nachschub, Schnecke spuckt).
+- **Patt beim Lauern** → **übernehmen:** Lauern hält einen Zug; gegen Fernkampf duckt sich der Lauernde (Wehr).
+- **Funke wird immer sofort benutzt** → **übernehmen:** Funke entsteht durch perfekten Ring oder unter der Hälfte des Lebens, nicht als fester Aufschlag.
+- **Wachsen schließt Wahlen** (Meister verbilligt die schwere Handlung, Berserker kann mit Glut nichts anfangen, Scharfschütze hebelt Verfall aus) → **übernehmen:** Meister wertet die leichte Handlung auf; Berserker: zweites Tun nach einem Treffer; Scharfschütze: Nachlegen über zwei Züge nur für den Zielschuss bleibt als bewusste Ausnahme, wird aber gerechnet.
+- **Ungeklärt, wann die Antwort gewählt wird** → **übernehmen:** eine Haltung je Zug mit Zahl („Gegenschlag ×2“), gewählt beim Planen, löst von selbst aus.
+- **Antwort gegen Antwort, mehrere Antworten, Glutentzug stapelt sich, Bosse, Fliehen, freier Schritt nach Lösen** → **übernehmen als Regelzeilen:** Antworten lösen keine Antworten aus; ein Gegenschlag, der tötet oder taumeln lässt, bricht den Angriff ab; Wehr gilt dauerhaft, Gegenschlag als Auslöser; mindestens 1 Glut je Zug; Bosse ein Tun und eine Sonderregel, die dritte Glut offen als „holt aus“; ein freier Schritt je Zug, Lösen schaltet ihn nicht neu frei; Fliehen 3, ein schneller naher Gegner setzt nach, kein Funke.
+- **Zu viele Ringe** (bis fünf je Gegnerzug gegen drei Wölfe) → **übernehmen:** höchstens zwei Ringe je Gegnerzug, der Rest ohne Ring.
+- **Neuheit unsichtbar, wenn die Maschine die Haltung wählt** → **übernehmen:** zweiter Tap, drei Symbole am Daumen, Vorschlag vorgewählt.
+- **Zu viele Marken im Hochformat** → **übernehmen:** Gegnerglut nur beim Antippen; immer sichtbar „großer Schlag“ (goldener Rahmen) und „lauert“.
+- **Jede Gegnerfrage einmal gelöst** → **übernehmen:** gemischte Begegnungen (Wolf mit Späher, Kobold mit Schamane), zwei Rezepte gegeneinander.
+- **Kampfort tut nichts** → **übernehmen für später:** je Gebiet ein Merkmal mit Glut-Handlung (Baustein 3).
+- **Into the Breach: Ansagen umlenken statt nur abfangen; Vorschau vor dem Bestätigen** → **übernehmen:** Zurückdrängen, Netz verbrennen, Taumeln lenken einen angesagten Angriff ins Leere; Vorschau zeigt vor dem Bestätigen, wer zuerst trifft und wie viel.
+- **Begriffe stoßen zusammen** (Ausweichen, Ausweichschritt, Freischritt, freier Schritt) → **übernehmen:** „Rückschritt“ für die Antwort, „Eilschritt“ für die Fertigkeit; ins Glossar nach Entscheid.
+
+### Nächster Schritt (4): Fassung 2
+
+Die übernommenen Punkte in eine Fassung 2 der Regeln schreiben (Kern bleibt: 3 Glut, freier Schritt nach Tempo, ein Tun, Rest Bereitschaft oder Nachlegen), dann mit dem Rechner gegenprüfen (Nachlegen, halber Gegenschlag ab Anfänger, Wehr gegen alle Treffer), dann Bild und Klang (5), dann Schnitt Kapitel 1 und Vorlage (6).
+
 ## Bilder Jerry zu 1072: Plätze und Laufwege von oben (13.11., 22:42 und 23:33)
 
 Auftrag Chef 14.11., 10:22: „Die Bilder von [Jerry] zu 1072, die er gemacht hat in der Nacht 23:33 bezüglich Kampfrotation und so und von 22:42, die müssen auf jeden Fall auch in die Unterlagen“. Beide Vorlagen wurden in der Nacht zurückgezogen (Gesamtbild 23:39, dann „erst Aktionspunkte“ 23:48), die Bilder liegen jetzt hier. Volltext der Vorlagen samt Stellungnahmen Sokrates in Git: `git show d4da59e9d^:docs/chefsache/entscheiden/1072-plaetze-bahnen.md` (22:42) und `git show 5816581f3^:docs/chefsache/entscheiden/1072-plaetze-am-gegner.md` (23:33). Beide Bilder sind Schemas (matplotlib), keine Spielbilder; belegt sind Wolf 2,3 m lang, Luft 0,3 m (`figur.gd` AIR), Absetzen 0,6 m; alle anderen Maße sind Beispiele.
