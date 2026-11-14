@@ -467,6 +467,7 @@ Werkzeug `tools/sim444/glut2.py` auf `claude/sokrates-930-glut`, Ergebnis `glut2
 ### Beim Chef offen (für die Vorlage)
 
 - **Ansage mit oder ohne Ziel.** Zeigt die Ansage immer, wen der Gegner trifft, spart der Spieler nur, wenn ein Angriff sicher kommt (Gegenprüfung). Vorschlag: die Art immer, das Ziel nur bei Bossen und großen Schlägen; einzelne Gegner (Goblin-Späher, Grimmzahn) täuschen an. Berührt die gebaute Ansage (210) und den Ton der Eingebungen.
+  - **Chef (14.11., 11:18):** „Nee, die Ansage muss es nicht immer zeigen. Das könnte ja auch etwas sein, was wir steigern mit einer unserer Grundfertigkeiten oder tatsächlich grundfähig nach Grundwerten oder eben Fähigkeiten oder Fertigkeiten. Das kann man ja da ein bisschen dran koppeln auch.“ → **Ansage nicht immer mit Ziel; wie viel sie zeigt, wächst mit Grundwerten, Fertigkeiten oder Fähigkeiten.** Welche (etwa Wahrnehmung als Grundwert, Spähen als Fertigkeit) und in welchen Stufen, schlägt die Vorlage vor.
 
 ## Bild und Klang zum Glutsystem (Schritt 5, Sokrates, 14.11., 10:41)
 
