@@ -4,7 +4,9 @@ extends RefCounted
 ## Gegenprobe tests/glut_rechnung_930.gd (Sieg und Runden je Fall ±3), je Regelnummer ein Kerntest in tests/glut_930.gd. Alle
 ## Zahlen aus werte.json „glut“, keine im Code.
 ## Abstand je Gegner zur Gruppe (Regel 4): 0 nah, 1 fern, 2 weit. Der Zustand jedes Kämpfers steht in Fighter.gl.
-## Noch nicht hier (Bauplan 10): Bedienung und Glutmarken (Stufe 2), Bild der Ansage, Mittel der Langsamen (Regel 18), Texte
+## 930.7 (Stufe 2): für jeden der Gruppe die Glutstücke für das Bild (marken, bild()), der Vorschlag für das Daumenmenü und die
+## Vorschau der Schlagfolge (vorschau()); gezeichnet in kampf/glutbild.gd.
+## Noch nicht hier (Bauplan 10): Bild der Ansage, Mittel der Langsamen (Regel 18), Texte
 ## (Stufe 3, 5: Ereignisse ohne Spieltext tragen nur ihr Stichwort „cue“, GLUT_…). Ein Ring kommt über react wie im alten Kampf;
 ## die Absicht trägt „wehr“ (true: langsamer Ring, Fenster mal „wehr_ring_faktor“).
 
@@ -26,6 +28,12 @@ const WAFFE := "waffe"
 const FLIEHEN := "fliehen"
 ## Ringausgang wie im alten Kampf (Mars.NONE, GOOD, PERFECT) -> Anteil des Schadens
 const ANTEIL := {"NONE": 1.0, "GOOD": 0.5, "PERFECT": 0.0}
+## 930.7 (DESIGN-GLUT.md 8): Zustand eines Glutstücks im Bild: glimmt, ins Tun gelegt, nachgelegt, Haltung, verbraucht
+const M_GLUT := "glut"
+const M_TUN := "tun"
+const M_NACH := "nach"
+const M_HALT := "halt"
+const M_ASCHE := "asche"
 
 
 static func w() -> Dictionary:
@@ -165,7 +173,7 @@ func _einrichten() -> void:
 	for f in m.all:
 		if f.side == "PARTY":
 			f.gl = {"glut": 0, "frei": 0, "bereit": 0, "haltung": "", "minus": 0, "funke_da": int(f.b.get("stufe", 1)) >= _i("funke_ab_stufe"),
-				"funke_jetzt": false, "liegt": false, "betaeubt": 0}
+				"funke_jetzt": false, "liegt": false, "betaeubt": 0, "marken": [], "funke_marke": false, "haltung_plan": ""}
 			continue
 		var herr = m.find(f.follows) if f.follows != "" else null
 		var art := art_von(f)
@@ -224,21 +232,83 @@ func _naechster() -> bool:
 func zug_beginnen(f) -> bool:
 	zaehler.verfallen += int(f.gl.bereit)
 	if int(f.gl.bereit) > 0:
+		_marke(f, M_HALT, M_ASCHE, 99)     # 930.7: die Haltung zerfällt in Funken (Bild: glutbild.gd beim Stichwort)
 		m._say("", f.id, null, 0, null, false, false, "GLUT_VERGLIMMT")
 	f.gl.bereit = 0
 	f.gl.haltung = ""
+	f.gl.haltung_plan = ""
 	zaehler.zuege += 1
 	if int(f.gl.betaeubt) > 0:
 		f.gl.betaeubt -= 1
+		_marke(f, "", M_ASCHE, 99)
 		m._say(m.fmt(m.ST_STUNNED, m.lang, [f.name(m.lang)]), f.id)
 		return false
 	f.gl.glut = zug_glut(int(f.gl.minus), bool(f.gl.funke_jetzt))
+	f.gl.marken = []
+	for i in int(f.gl.glut):
+		f.gl.marken.append(M_GLUT)
+	f.gl.funke_marke = bool(f.gl.funke_jetzt)
 	if f.gl.funke_jetzt:
 		f.gl.funke_jetzt = false
 		m._say("", f.id, null, 0, null, false, false, "GLUT_FUNKE")
 	f.gl.minus = 0
 	f.gl.frei = frei(tempo_held(f.b))
 	return true
+
+
+## 930.7: die ersten [n] Glutstücke der Art [von] ("" jede, die nicht schon Asche ist) werden [zu]
+func _marke(f, von: String, zu: String, n: int) -> void:
+	var mk: Array = f.gl.get("marken", [])
+	for i in mk.size():
+		if n <= 0:
+			return
+		if (von == "" and mk[i] != M_ASCHE) or mk[i] == von:
+			mk[i] = zu
+			n -= 1
+
+
+## 930.7: was der Kampfort von der Glut zeigt, für jeden der Gruppe (mars.gd _say legt es jeder Meldung bei): Glutstücke [m],
+## Art der Haltung [h], das vierte ist der Funke [f]
+func bild() -> Dictionary:
+	var out := {}
+	for x in m.all:
+		if x.side == "PARTY" and not (x.gl as Dictionary).is_empty():
+			var h := String(x.gl.haltung) if String(x.gl.haltung) != "" else String(x.gl.get("haltung_plan", ""))
+			out[x.id] = {"m": (x.gl.get("marken", []) as Array).duplicate(), "h": h, "f": bool(x.gl.get("funke_marke", false))}
+	return out
+
+
+## 930.7 (DESIGN-GLUT.md 7.3): Vorschau vor dem Bestätigen: wer in dieser Runde nacheinander zuschlägt, wenn [f] nach [p] spielt
+## (Kennungen in Schlagfolge, ohne Würfel): erst der Held, dann je Gegner seine Antwort davor (Gegenschlag gegen jeden, der nah
+## heran- oder zuschlägt; Wachschuss gegen jeden, der aus fern vorrückt), dann der Gegner; wer lauert, heilt oder Kraft gibt, schlägt nicht
+func vorschau(f, p: Dictionary) -> Array:
+	var out := []
+	var tun := String(p.get("tun", WAFFE))
+	var t = m.by_id(String(p.get("ziel", ""))) if p.has("ziel") else null
+	if tun != WARTEN and tun != FLIEHEN and t != null and t.standing():
+		out.append(f.id)
+	var h := String(p.get("haltung", AUTO))
+	if h == AUTO:
+		h = vorschlag_haltung(f)
+	var k := maxi(0, int(f.gl.glut) - (0 if tun == WARTEN else _i("tun")) - maxi(0, int(p.get("nachlegen", 0))))
+	for g in gegner():
+		var gp: Dictionary = g.gl.plan if not (g.gl.plan as Dictionary).is_empty() else {"art": "schlag"}
+		if String(gp.get("art", "")) in ["lauern", "heilen", "kraft"]:
+			continue
+		var nahkampf: bool = String(g.b.get("art", "nah")) == "nah"
+		var ab := int(g.gl.ab)
+		if g == t and tun != WARTEN and not (m.ZAUBER.has(tun) or _waffe(f).art == "fern"):
+			ab = NAH     # der Held geht zu ihm
+		if k > 0 and nahkampf and ((h == GEGENSCHLAG) or (h == WACHSCHUSS and ab > NAH)):
+			out.append(f.id)
+			k -= 1
+		out.append(g.id)
+	return out
+
+
+## 930.7 (DESIGN-GLUT.md 7.2): Rest nach dem Tun, den das Daumenmenü verteilt (Nachlegen oder Haltung)
+func rest_nach_tun(f) -> int:
+	return maxi(0, int(f.gl.glut) - _i("tun"))
 
 
 ## Mars.act im Glutsystem: [plan] des Zugs von [f] (vorschlag), dann weiter bis zur nächsten Wahl der Gruppe
@@ -457,6 +527,13 @@ func haltungen(f) -> Array:
 func _setze_haltung(f, rest: int, h: String) -> void:
 	f.gl.bereit = maxi(0, rest)
 	f.gl.haltung = vorschlag_haltung(f) if h == AUTO else h
+	var mk: Array = f.gl.get("marken", [])     # 930.7: was nicht in der Haltung wartet, ist verbraucht
+	var n := int(f.gl.bereit)
+	for i in range(mk.size() - 1, -1, -1):
+		if mk[i] == M_ASCHE:
+			continue
+		mk[i] = M_HALT if n > 0 else M_ASCHE
+		n -= 1
 	if f.gl.bereit > 0 and f.gl.haltung != "":
 		m._say("", f.id, null, 0, null, false, false, "GLUT_HALTUNG_" + String(f.gl.haltung).to_upper())
 
@@ -470,12 +547,14 @@ func held_zug(f, p: Dictionary) -> void:
 	if tun == FLIEHEN:     # Regel 13: alle Glut, Probe wie heute, nie vor einem Boss; ein schneller naher Gegner setzt nach
 		assert(m.can_flee(f))
 		f.gl.glut = 0
+		_marke(f, "", M_ASCHE, 99)
 		m._flee(f)
 		if m.outcome == "ONGOING":
 			_setzt_nach(f, false)
 		return
 	if bool(p.get("loesen", false)) and glut > _i("loesen"):     # Regel 3
 		glut -= _i("loesen")
+		_marke(f, M_GLUT, M_ASCHE, _i("loesen"))
 		var nahe := gegner().filter(func(g): return int(g.gl.ab) == NAH)
 		for g in nahe:
 			g.gl.ab = FERN
@@ -495,13 +574,16 @@ func held_zug(f, p: Dictionary) -> void:
 		m._say(m.fmt(m.pick("MSG72_SWAPS"), m.lang, [f.name(m.lang)]), f.id)
 	if String(p.get("trank", "")) != "" and glut >= _i("trank"):     # Regel 10: Trank kostet 1, ist kein Tun
 		glut -= _i("trank")
+		_marke(f, M_GLUT, M_ASCHE, _i("trank"))
 		m._drink(f, String(p.trank), m.by_id(String(p.get("trank_ziel", f.id))))
 	if tun == WARTEN:
 		_setze_haltung(f, glut, h)
 		return
 	if tun == "H_KRAFT" or tun == "Z_BANN" or tun == "Z_WUND" or tun == "Z_HAUT" or tun == "Z_BEISTAND":     # Regel 11, Zauber ohne Ziel
 		var name := String(m.HANDLUNG.get(tun, m.ZAUBER.get(tun, tun)))
-		glut -= (_i("kraft_schoepfen") if tun == "H_KRAFT" else tun_kosten(name))
+		var kk := (_i("kraft_schoepfen") if tun == "H_KRAFT" else tun_kosten(name))
+		glut -= kk
+		_marke(f, M_GLUT, M_TUN, kk)
 		m._use_skill(f, tun, m.by_id(String(p.get("ziel", f.id))))
 		_setze_haltung(f, glut, h)
 		return
@@ -517,6 +599,7 @@ func held_zug(f, p: Dictionary) -> void:
 		while int(t.gl.ab) > NAH and glut > 1:
 			t.gl.ab -= 1
 			glut -= _i("schritt")
+			_marke(f, M_GLUT, M_ASCHE, _i("schritt"))
 		f.gl.frei = frei_
 		if int(t.gl.ab) > NAH:     # nicht heran: der Rest geht in Wehr
 			_setze_haltung(f, glut, WEHR)
@@ -531,12 +614,17 @@ func held_zug(f, p: Dictionary) -> void:
 	if glut < kosten:     # zu wenig Glut für dieses Tun: der Rest geht in die Haltung
 		_setze_haltung(f, glut, h)
 		return
+	_marke(f, M_GLUT, M_TUN, kosten)
 	if tun != WAFFE and tun != "Z_FUNKEN":     # übrige Zauber und Kampfhandlungen rechnet der alte Kampf (Stufe 1: ohne Nachlegen)
 		m._use_skill(f, tun, t)
 		if m.outcome == "ONGOING":
 			_setze_haltung(f, glut - kosten, h)
 		return
 	var nd := mini(maxi(0, int(p.get("nachlegen", 0))), glut - kosten)     # Regel 7: Nachlegen
+	_marke(f, M_GLUT, M_NACH, nd)
+	if glut - kosten - nd > 0:     # 930.7: im Bild liegt der Rest schon während des Schlags in der geplanten Haltung
+		f.gl.haltung_plan = vorschlag_haltung(f) if h == AUTO else h
+		_marke(f, M_GLUT, M_HALT, glut - kosten - nd)
 	if nd > 0:
 		zaehler.nachgelegt += nd
 		m._say("", f.id, t.id, 0, null, false, false, "GLUT_NACHLEGEN")
@@ -624,6 +712,7 @@ func auf_held(g, t, faktor := 1.0, gross := false, bonus := 0.0, wehr_hilft := t
 	var wehr := false
 	if wehr_hilft and int(t.gl.bereit) > 0 and t.gl.haltung == WEHR:     # Regel 7: Wehr
 		t.gl.bereit -= 1
+		_marke(t, M_HALT, M_ASCHE, 1)
 		zaehler.wehr += 1
 		wehr = true
 		bonus += _f("wehr_ungunst")
@@ -669,6 +758,7 @@ func auf_held(g, t, faktor := 1.0, gross := false, bonus := 0.0, wehr_hilft := t
 func _wachschuss(f, g) -> void:
 	if int(f.gl.bereit) > 0 and f.gl.haltung == WACHSCHUSS and aktion_fern(f) != "":
 		f.gl.bereit -= 1
+		_marke(f, M_HALT, M_ASCHE, 1)
 		zaehler.wachschuss += 1
 		m._say("", f.id, g.id, 0, null, true, false, "GLUT_WACHSCHUSS")
 		var fa := aktion_fern(f)
@@ -679,6 +769,7 @@ func _wachschuss(f, g) -> void:
 func _gegenschlag(f, g) -> void:
 	if int(f.gl.bereit) > 0 and f.gl.haltung == GEGENSCHLAG and aktion_fern(f) == "":
 		f.gl.bereit -= 1
+		_marke(f, M_HALT, M_ASCHE, 1)
 		zaehler.gegenschlag += 1
 		m._say("", f.id, g.id, 0, null, true, false, "GLUT_GEGENSCHLAG")
 		held_schlag(f, g, WAFFE, 0.0, antwort_faktor(float(f.b.fert.get(_fert_von(f, WAFFE), 0))), true)

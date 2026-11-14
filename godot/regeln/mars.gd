@@ -2314,6 +2314,8 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"spell": casting, "cue": cue if cue != "" else null,
 		"status": _statuses(), "hidden": _hidden(),
 	}
+	if glut and gk != null:     # 930.7: die Glutstücke der Gruppe, wie sie mit dieser Meldung stehen (kampf/glutbild.gd)
+		e["gl"] = gk.bild()
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)

@@ -53,12 +53,19 @@ const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
+## 930.7: so lange zeigt sich ein Stichwort des Glutsystems ohne Zeile (Haltung gesetzt, Verglimmen, Nachlegen, Antwort); die Antwort
+## flammt im Augenblick des Schlags auf, ohne eigenen Weg (DESIGN-AKTIONSPUNKTE.md „Bild“ 3)
+const GLUT_MS := {"GLUT_HALTUNG_GEGENSCHLAG": 350, "GLUT_HALTUNG_WACHSCHUSS": 350, "GLUT_HALTUNG_WEHR": 350, "GLUT_VERGLIMMT": 450,
+	"GLUT_NACHLEGEN": 400, "GLUT_GEGENSCHLAG": 120, "GLUT_WACHSCHUSS": 120, "GLUT_WEHR": 120, "GLUT_FUNKE": 500, "GLUT_LOESEN": 300}
 const AUSWEICH_VOR_MS := 250     # 438: Ausweichen beginnt so viel vor dem Aufschlag
 const TODESZEILE_ANTEIL := 0.6     # 438: Todeszeile nach diesem Anteil der Sterbebewegung
 const NACHTRAG_MS := 150     # 438: Meldung, deren Zeile schon mit der Bewegung stand
 const RING_MS := 1100
 const PERFECT_MS := 90
 const GOOD_MS := 260
+## 930.7 (DESIGN-GLUT.md 3 Regel 7): in Wehr läuft der Ring gegen große Schläge langsamer, die Fenster wachsen mit (werte.json „glut“
+## „wehr_ring_faktor“, die Absicht trägt ihn: glut.gd auf_held); sonst 1
+var ring_faktor := 1.0
 ## 249: Blut wie im alten Spiel, Stufe 1 (wenige kleine Tropfen) ist dort die Vorgabe; 0 aus, 2 mehr mit Flecken am Boden.
 ## Der Schalter im Menü kommt mit Toms Systemmenü.
 
@@ -1117,8 +1124,8 @@ func _skip_beats() -> void:
 func tap() -> void:
 	if not ring_open:
 		return
-	var off := absi(_ring_uhr() - (ring_start + RING_MS))
-	_answer_ring(Mars.PERFECT if off <= PERFECT_MS else (Mars.GOOD if off <= GOOD_MS else Mars.NONE))
+	var off := absi(_ring_uhr() - (ring_start + int(RING_MS * ring_faktor)))
+	_answer_ring(Mars.PERFECT if off <= PERFECT_MS * ring_faktor else (Mars.GOOD if off <= GOOD_MS * ring_faktor else Mars.NONE))
 
 
 ## 949 (Lauf 438): der Ring läuft nach derselben Uhr wie sein Bild (kampf_ui.uhr, 1039; im Spiel die echte Zeit). Im Film
@@ -1158,7 +1165,10 @@ func _state_now() -> Dictionary:
 		hp[f.id] = f.hp
 		places[f.id] = f.place
 		sp[f.id] = f.sp
-	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
+	var st := {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
+	if mars.glut and mars.gk != null:     # 930.7
+		st["gl"] = mars.gk.bild()
+	return st
 
 
 # ---------------------------------------------------------------- playing the beats one after another
@@ -1168,7 +1178,7 @@ func _process(_dt: float) -> void:
 	_hit_camera()
 	_rand_kamera()
 	_grass_spots()
-	if ring_open and _ring_uhr() > ring_start + RING_MS + GOOD_MS + 60:
+	if ring_open and _ring_uhr() > ring_start + int((RING_MS + GOOD_MS) * ring_faktor) + 60:
 		_answer_ring(Mars.NONE)
 	if playing or verhuellt or messpause:     # 402: unter der Blende warten Worte und Züge; 806: ebenso beim Messen
 		return
@@ -1194,7 +1204,16 @@ func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
 	if OS.get_environment("DBGPL") != "" and absf(clock_ms / 1000.0 - float(OS.get_environment("DBGPL"))) < 4.0:
 		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
+	var vor_gl: Dictionary = shown.get("gl", {}) if shown is Dictionary else {}
 	shown = e
+	# 930.7 (DESIGN-GLUT.md 8): Glutstücke der Meldung (Aufflammen, Verglimmen, Nachlegen); die Stichworte des Glutsystems ohne Zeile
+	# halten den Kampf nur so lange an, wie ihr Bild dauert (F9: Rundenzeit nicht länger als heute), nicht SAY_MS
+	if ui != null and ui.glut != null:
+		ui.glut.meldung(vor_gl, e)
+	if e.text == "" and e.cue != null and String(e.cue).begins_with("GLUT_"):
+		ui.refresh()
+		await get_tree().create_timer(GLUT_MS.get(String(e.cue), 150) / 1000.0).timeout
+		return
 	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
 	var im_schatten: Dictionary = e.get("hidden", {})
 	for id in figures:
@@ -1468,6 +1487,7 @@ func _fx_of(e: Dictionary, by, tg, across: bool):
 
 func _play_ring(target_id: String, intent: Dictionary) -> void:
 	ring_for = target_id
+	ring_faktor = float(intent.get("ring_faktor", 1.0))
 	ring_start = _ring_uhr()
 	ring_open = true
 	ui.ring_open(target_id, intent)
