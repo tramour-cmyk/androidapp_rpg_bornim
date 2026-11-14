@@ -56,6 +56,13 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 
 - **Greift:** Lauf 464 (`claude/build-285`, `d34cecf64`), Schritt „Skripte pruefen“: „PRUEFLISTE Build 285 aus docs/entwurf/t285-gang-messen.md“, „PRUEFLISTE1020 im Bau: Build 285, 6 Zeilen, 0 Fehler“. Entwurf trug „Gegengelesen: Sokrates 13.11., 21:32“. APK fertig 23:03, Bild 285.2 gesendet 23:28 (`ce125336e`, Datei noch in `entwurf/`), Verschiebung nach `ansehen/` erst 23:30 mit APK-Link in Zeile 2 (`906a81451`); vorher keine t285 in `ansehen/`. Bilder 285.4a/b (Spike 00:24) erst gesendet, dann eingetragen. Wächter `commit-pruefung.py` 425–430 vorhanden.
 - **Nicht geprüft:** Wächter an einer gestellten Datei ohne APK-Link; 1200.
+- **1225 greift** an t285: keine Zeile doppelt in zwei Arten, keine Handyzeile „nicht prüfbar“ (0 von 6).
+- **1128.3, Zahlen je Test (ohne Wertung):**
+  - 283: 18 Punkte, alle Handy (Prüfliste vor 1128 A): ✗ 4, ✓ 2, ungetestet 12 (Archiv sagt „übrige zehn“); Rückschritte „wiederholt“ 2 (1040.1, 1086/1108).
+  - 284: 39 Punkte. Bild 8: ✓ 7, ✗ 1. Film 14: ✓ 9, ✗ 2, nicht beurteilbar 1 (7p), fehlten 2 (2a, 2b). Handy 12: ✓ 10, nicht prüfbar (Fehler der Liste) 2 (284.4, 284.5). Ohne dich 5: 4 bestätigt am Lauf 464 (Lauf 450 rot, Kampfblock übersprungen), 284.9 (980, „Spinne aus der Binär-FBX“) im Protokoll nicht belegbar, offen. Funde außer der Reihe 5, je in der Art des Punkts gefunden: 1218 (Bild), 1222, 1223, 844 bekannt (Handy), 1224 (Film). Rückschritt „wiederholt“ 0.
+  - 285: 12 Punkte. Handy 6: ✓ 6. Bild 3: ✓ 3. Film 0 (3 vor der Testbitte zurück, Aufnahme zeigte den Gegenstand nicht). Ohne dich 3: ✓ 3 am Lauf 464 (14 Bautests). Funde außer der Reihe 0, Rückschritte 0; Messung 1145 ergab Hakeln auch ohne Effekte (Messergebnis, zurück an Tom).
+  - Funde an „ohne dich“, die erst das Handy zeigte: 0 in 284 und 285.
+- **Bautests Lauf 464:** 1180, 1212, 1226, 644b.1, 1194, 1206, 904, 987, 1013, 1014, 1025, 1049, 1054, 1136, dazu aus 284 1126, 1127, 1114, 1115 (Kauf-Cache gesichert und geholt, `kampf` baute bei Treffer `figur` allein, `leute` Treffer). Laufnachweis 14 von 14; die 6 Tests aus 285.14 von Hand (Befund D237.1 → 1248 Jerry: Werkzeug liest die Zeile nicht).
 
 ## Lauf 241 · 1098.1 Ford-Starter nach 1245 (14.11., 08:0x)
 
