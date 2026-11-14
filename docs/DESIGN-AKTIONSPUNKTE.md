@@ -326,6 +326,8 @@ Auftrag Chef 10:25: „Du bist Entwickler und Spieledesigner. … Und weißt, we
 
 Kein Spielcode, kein Lauf auf dem Bauserver, kein Auftrag an die Teams vor dem Entscheid (1236).
 
+**Stand 10:42:** Schritte 1 bis 5 stehen unten (Gegner, Rechnung, Gegenprüfung, Fassung 2 mit Rechnung, Bild und Klang); offen Schritt 6.
+
 ## Gegner im Glutsystem (Sokrates, 14.11., 10:28)
 
 **Grundregel, die alles verbindet: Was ein Gegner mit 2 Glut tut, ist ein großer Schlag, und jeder große Schlag hat den Ring der Abwehr** (1048 A: große Schläge mit Ring, kleine ohne). Der Spieler lernt eine Regel: „Zwei Glutmarken in der Ansage, Finger bereit.“ Gegner zeigen ihre Glut in der Ansage (kleine Marken unter dem Symbol), damit das Rätsel offen liegt wie in Into the Breach.
@@ -398,9 +400,125 @@ Stärkste Funde, mit Bewertung:
 - **Into the Breach: Ansagen umlenken statt nur abfangen; Vorschau vor dem Bestätigen** → **übernehmen:** Zurückdrängen, Netz verbrennen, Taumeln lenken einen angesagten Angriff ins Leere; Vorschau zeigt vor dem Bestätigen, wer zuerst trifft und wie viel.
 - **Begriffe stoßen zusammen** (Ausweichen, Ausweichschritt, Freischritt, freier Schritt) → **übernehmen:** „Rückschritt“ für die Antwort, „Eilschritt“ für die Fertigkeit; ins Glossar nach Entscheid.
 
-### Nächster Schritt (4): Fassung 2
+## Fassung 2: Lesen, Planen, Antworten (Schritt 4, Sokrates, 14.11., 10:41)
 
-Die übernommenen Punkte in eine Fassung 2 der Regeln schreiben (Kern bleibt: 3 Glut, freier Schritt nach Tempo, ein Tun, Rest Bereitschaft oder Nachlegen), dann mit dem Rechner gegenprüfen (Nachlegen, halber Gegenschlag ab Anfänger, Wehr gegen alle Treffer), dann Bild und Klang (5), dann Schnitt Kapitel 1 und Vorlage (6).
+Fassung 1 (10:15) mit den Befunden der Rechnung und der Gegenprüfung. Der Kern bleibt: drei Glut, freier Schritt nach Tempo, ein Tun, der Rest wird Nachlegen oder Haltung. Nichts davon ist entschieden.
+
+### Der Zug des Helden
+
+1. **Drei Glut je Zug**, ganze Zahlen. Nie weniger als 1: Umreißen und Netz nehmen je 1, stapeln aber nicht darunter.
+2. **Freier Schritt nach Tempo**, einmal je Zug: schnell 2 Felder, normal 1, langsam 0. Jedes weitere Feld 1 Glut. **Lösen** aus dem Handgemenge kostet 1 und gibt keinen neuen freien Schritt (man nutzt den, der noch übrig ist). Abstand nah, fern, weit; **weit ist die letzte Stufe**, wer von dort weiter zurück will, flieht.
+3. **Ein Tun je Zug** für 1 Glut (Schlag, Schuss, Wurf, leichter Zauber, leichte Kampfhandlung). **Schwere Handlungen** (schwerer Zauber, Wuchtschlag, Schildstoß …) kosten 2: ein Tun mit festem Nachlegen.
+4. **Die übrige Glut teilt der Spieler frei auf:**
+   - **Nachlegen** ins Tun: je Glut **+20 % Schaden** (gerechnet: +15 % ist nie besser als Haltung, +35 % fast immer; die Zahl liegt dazwischen).
+   - **Haltung**, eine Art je Zug, mit Zahl („Gegenschlag ×2“), gewählt beim Planen, löst von selbst aus: **Gegenschlag** (Nahkampf: schlägt ein naher Gegner zu oder kommt er heran, schlägst du zuerst), **Wachschuss** (Fernkampf, Angriffszauber: rückt ein Gegner ein Feld vor, schießt du vorher), **Wehr** (je Glut ein Schlag gegen dich mit Ungunst bis zu deinem nächsten Zug; gegen große Schläge läuft dazu der Ring langsamer).
+   - Gegenschlag und Wachschuss gibt es **ab Anfänger mit halbem Schaden, nie kritisch**; voll ab Geselle.
+   - Haltung verfällt mit dem eigenen nächsten Zug, ansparen geht nicht.
+5. **Antworten lösen keine Antworten aus.** Ein Gegenschlag, der tötet oder taumeln lässt, bricht den Angriff ab.
+6. **Höchstens zwei Ringe je Gegnerzug**; weitere große Schläge in derselben Runde treffen ohne Ring.
+7. **Funke** ab Heldenstufe 4, einmal je Kampf: entsteht durch einen perfekten Ring oder wenn das Leben unter die Hälfte fällt, und gibt im nächsten Zug eine vierte Glut. Kein fester Aufschlag, darum wird er nicht in Runde 1 verschossen.
+8. **Fliehen** kostet alle 3 Glut (Probe wie heute); ein schneller naher Gegner setzt nach; kein Funke.
+
+### Die Gegner
+
+9. **Gewöhnliche 2 Glut, Bosse 3.** Bosse haben ein Tun und eine Sonderregel; ihre dritte Glut zeigen sie offen als **„holt aus“**.
+10. **Großer Schlag = 2 Glut = Ring** (1048 A). Arten oben („Gegner im Glutsystem“).
+11. **Lauern hält einen Zug:** wer in dieser Zeit heranrückt, läuft in den Schlag, danach greift der Lauernde selbst an. **Fernkampf ist die Antwort auf Lauern**; kein Ducken (gerechnet: mit Ducken fällt das Jägerkind gegen Grak von 99 auf 84 Siege je 100, der Zauberlehrling von 98 auf 66).
+12. **Langsame Gegner haben ein Mittel auf Abstand** (Wiedergänger ruft Nachschub, Schnecke spuckt), damit Abstand halten nie endlos geht.
+13. **Umlenken statt nur abfangen:** Zurückdrängen, Netz verbrennen und Taumeln lassen einen angesagten Angriff ins Leere gehen (Into the Breach).
+14. **Gemischte Begegnungen:** Wolf mit Späher, Kobold mit Schamane; zwei Rezepte, die sich widersprechen, damit keine Frage zweimal gleich gelöst wird.
+
+### Bedienung auf dem Handy (Hochformat)
+
+15. **Ein Tipp auf den Gegner** = Weg und Tun; die übrige Glut geht in die vorgeschlagene Haltung (nah Gegenschlag, fern Wachschuss, gegen einen angesagten großen Schlag Wehr). Wer nichts plant, spielt wie heute.
+16. **Zweiter Tipp** am Daumen: drei Symbole (Gegenschlag oder Wachschuss, Wehr, Nachlegen), der Vorschlag ist vorgewählt.
+17. **Vorschau** vor dem Bestätigen: wer zuerst trifft und wie viel.
+18. **Immer sichtbar** sind nur „großer Schlag“ und „lauert“; die Glut der Gegner erst beim Antippen.
+
+### Wachsen (ändert die Leiter von 10:25 in drei Punkten)
+
+- **Anfänger:** Tun und alle drei Haltungen, Antworten halb (vorher nur Wehr; in Kapitel 1 erreicht niemand Geselle, Befund 1).
+- **Geselle:** Kampfhandlung wie heute und Antworten voll.
+- **Meister:** die **leichte** Handlung wird stärker (vorher: schwere billiger; das hätte Nachlegen und Haltung entwertet).
+- **Berserker:** nach einem Treffer ein zweites Tun (vorher Glut zurück; damit hätte er mit Glut nichts anzufangen). **Scharfschütze:** Nachlegen über zwei Züge nur für den Zielschuss bleibt bewusste Ausnahme und wird vor dem Bau gerechnet.
+
+### Rechnung Fassung 2
+
+Werkzeug `tools/sim444/glut2.py` auf `claude/sokrates-930-glut`, Ergebnis `glut2_ergebnis.md` dort; je Fall 400 Kämpfe, Autopilot mit festen Spielweisen, Werte 444. Nachgezogen: kritisch und Zaubergrund nach 952 D auch in den Rechnern von 930.3 und Fassung 1 (deren Zahlen bleiben gleich). Zwei Aufstellungen: Held auf der Stufe des Gegners und eine Stufe darunter (härter, damit die Zahlen nicht an 100 kleben).
+
+| Fall | heute | Schlag und Haltung | alles Nachlegen | nur Wehr |
+|---|---|---|---|---|
+| Wachsoldat gegen Krogg, Runden | 8,1 | 6,5 | 5,1 | 7,9 |
+| Klosterschüler gegen Grimmzahn, Runden | 12,8 | 9,4 | 8,3 | 11,1 |
+| Kräutersammler gegen Krogg, Sieg % | 65 | 55 | 60 | 72 |
+| dasselbe eine Stufe darunter, Sieg % | 20 | 19 | 22 | 33 |
+| Jägerkind gegen Grak, Sieg % | 100 | 98 | 98 | 99 |
+| Fassung 1: Wachsoldat gegen Krogg, Runden | 8,0 | 4,2 | – | – |
+
+**Befunde:**
+1. **Kämpfe werden um ein Fünftel kürzer, nicht um die Hälfte** (Fassung 1: −48 %). Das trägt der halbe Gegenschlag.
+2. **Die Balance der Herkünfte bleibt nah an heute.** Dass der Kräutersammler gegen Krogg etwas verliert (65 → 55), kommt zum Teil aus 1048 A: „heute“ im Rechner gibt dem Anführer auf jedem Schlag einen Ring, Fassung 2 nur auf großen. Die Schwäche der schwachen Herkünfte bleibt Sache von 444 und 481, nicht des Glutsystems.
+3. **Keine Taste ist immer richtig.** Von 56 Fällen je Aufstellung liegt eine feste Spielweise nur in 5 (gleiche Stufe) bzw. 12 (eine darunter) mehr als 3 Punkte vorn, und jedes Mal eine andere: Nachlegen gegen Skelett und Späher, Schlag und Haltung gegen Grimmzahn, nur Wehr für schwache Herkünfte gegen Bosse, Warten gegen Krogg. Gleichauf im Mittel heißt: der Vorschlag am Daumen verliert nichts, und wer die Ansage liest, gewinnt. Wie viel, zeigt die Rechnung nicht (kein Spieler, der liest); das zeigt erst eine Probe am Gerät.
+4. **Warten gegen Fernkämpfer verliert immer** (Späher: 0 Siege je 100): richtig so; die Eingebung muss es beim ersten Mal sagen.
+5. **Viel Glut verfällt** (Wachsoldat gegen Krogg 5,8 je Kampf): Haltung ist eine Versicherung, die oft nicht gebraucht wird. Gewollt, aber das Bild muss das Verglimmen zeigen, damit es nicht wie Verlust aussieht.
+
+**Nicht gerechnet:** Team, Zurückdrängen, Netz, Spinne, Kobold, Fledermaus, Umlenken; Rundenzeit auf dem Bildschirm (F9).
+
+### Beim Chef offen (für die Vorlage)
+
+- **Ansage mit oder ohne Ziel.** Zeigt die Ansage immer, wen der Gegner trifft, spart der Spieler nur, wenn ein Angriff sicher kommt (Gegenprüfung). Vorschlag: die Art immer, das Ziel nur bei Bossen und großen Schlägen; einzelne Gegner (Goblin-Späher, Grimmzahn) täuschen an. Berührt die gebaute Ansage (210) und den Ton der Eingebungen.
+
+## Bild und Klang zum Glutsystem (Schritt 5, Sokrates, 14.11., 10:41)
+
+Bestand nachgesehen (Helfer, nur gelesen; Zeilen auf `main`). Maß: `DESIGN-STIL.md` 48 „Gold ist der einzige Glanz: nur Gold, Feuer und Magie glänzen oder leuchten“, 16 „Held golden, Gegner rot“, 261 Kampfklänge mit mindestens drei Varianten, Systemklänge in einer Fassung, 262 echte Aufnahmen, 267 Musik orchestral und düster; Leitbild „Nie niedlich, nie quietschbunt“.
+
+### Was es heute schon gibt
+
+- **Ansage:** schwarzer Chip über dem Kopf (`kampf_ui.gd` 2333–2540), Zeichen `!`, `!!`, `»`, `+`, `…`; ein Goldkreis im Chip, wenn der Schlag einen Ring hat; starke Ansagen mit rotbraunem Rand (`#D9785A`); Farbe nach dem Angezielten; langes Drücken zeigt die Erklärung (`marstips.gd`). 17 Ansagen in `mars.gd` 239–264.
+- **Ring der Abwehr:** gezeichnet, kein Shader (`kampf_ui.gd` 1462–1485), 1,1 s, perfekt 90 ms, gut 260 ms (`kampfort.gd` 59–61); Klang `swing_heavy` beim Öffnen, `block` bei perfekt und gut, **bei daneben kein Klang**.
+- **Fußring** unter dem, der dran ist (`kampfort.gd` 1337), goldene Rasterringe am Boden.
+- **Glut und Funken:** aufsteigende blassgoldene Glut (`zauber.gd` 300), runde Funken mit Schein (134), weiche Glutpunkte per Shader (`tafel.gd` 87), Flammenshader, Glutaugen der Figuren, Leuchtfunke über dem Kopf des Helden (`held.gd` 73).
+- **Klang:** 396 Kampf- und Weltklänge, darunter `crackle`, `fire`, `brand`, `block`, `swing_heavy`, `heartbeat`; Musik sechs Kampf- und vier Bossstücke; **keine Steigerung im Kampf** (`klang.gd` 490 wählt nur Kampf oder Boss).
+- **Effektpakete** (`LISTE-EFFEKTE.md`): R7 `parry_block` (Funken am Schild), `critical_hit`, `campfire`, `torch_flame`, R11 Runen.
+- **Nicht da:** Glutmarken, eine Punktanzeige überhaupt, Ring beim eigenen Schlag (1068), Haltungen.
+
+### Bild
+
+1. **Drei Glutstücke am Fußring des Helden**, golden-orange glimmend, ein leiser Schein auf dem Boden. Verbrauchte Glut wird grau wie Asche, sie verschwindet nicht: man sieht, was man ausgegeben hat. Nur Feuer leuchtet, damit gilt Stil 48 ohne Ausnahme.
+2. **Planen sieht man an der Glut:** Nachlegen lässt das Glutstück zur Waffe ziehen, die Klinge oder Sehne glimmt nach (je Glut stärker). Haltung lässt es am Fuß liegen und gibt ihm ein Zeichen: Klinge (Gegenschlag), Pfeilspitze (Wachschuss), Schild (Wehr).
+3. **Antwort im Gegnerzug:** das Glutstück flammt auf und erlischt, im selben Augenblick der Hieb oder Schuss, ohne eigenen Weg (Rundenzeit F9). Wehr gibt die Schildfunken aus R7 `parry_block`.
+4. **Verglimmen statt Verlust:** ungenutzte Haltung zerfällt am Zugbeginn in ein paar aufsteigende Funken (vorhandene Glut aus `zauber.gd`); das liest sich wie Ausatmen, nicht wie Strafe (Befund 5).
+5. **Gegner:** ihre Glut rot (Stil 16), nur beim Antippen als Punkte im Ansage-Chip. Großer Schlag: der vorhandene Goldkreis bleibt das Zeichen, der Chip bekommt den goldenen Rahmen. „Holt aus“: beim Boss glimmt eine dritte rote Glut sichtbar am Körper (Faust, Waffe). „Lauert“: neues Zeichen, eine Speerspitze statt `…`.
+6. **Funke:** der vorhandene Leuchtfunke über dem Kopf sinkt nach einem perfekten Ring zum Fußring und wird das vierte Glutstück, heller als die drei.
+7. **Vorschau:** kleine Ziffern „1“, „2“ über den Figuren in Schlagfolge, gebrochenes Weiß; keine Linien, keine Pfeile im Hochformat.
+
+### Klang
+
+1. **Glut setzen:** leises Knistern (`crackle`, drei Varianten vorhanden).
+2. **Nachlegen:** Feuer faucht auf, mit jeder Glut eine Stufe tiefer und voller (aus `fire`, neu geschnitten).
+3. **Haltung setzen:** Klinge in Stellung, Sehne gespannt, Schild angehoben; neu, echte Aufnahmen, je drei Varianten.
+4. **Antwort löst aus:** kurzes Auflodern, dann Hieb oder Schuss wie heute.
+5. **Verglimmen:** sehr leises Zischen, unter der Musik.
+6. **Funke:** ein Systemklang in einer Fassung: tiefer, warmer Schlag mit hellem Nachklang, nie Glöckchen.
+7. **Ring daneben:** heute stumm; ein dumpfer Treffer (aus `hit_smash`, leise), damit jedes Ringergebnis hörbar ist.
+8. **Musik:** zwei Ebenen je Kampfstück; die zweite kommt dazu, wenn ein Boss „holt aus“ oder das Leben des Helden unter die Hälfte fällt (heute gibt es keine Steigerung). Größter Einzelposten, nicht Bedingung für das Glutsystem; als eigener Vorgang nach Entscheid.
+
+### Neu zu bauen, grob
+
+| Stück | Größe | wer |
+|---|---|---|
+| Glutmarken am Fuß, Asche, Verglimmen | mittel | Jerry |
+| Haltungszeichen, Daumenmenü, Vorschau | mittel | Jerry, Wortlaut der Erklärungen Homer |
+| Gegnerglut im Chip, Zeichen „lauert“, „holt aus“ | klein | Jerry |
+| Funke ans Glutsystem | klein | Jerry |
+| Klänge 1–7 (Schnitt aus Vorhandenem, drei Haltungsklänge neu) | klein bis mittel | Jerry |
+| Musik in zwei Ebenen | groß | später, eigener Vorgang |
+
+**Stärkstes Gegenargument:** noch mehr am Fuß des Helden, wo schon Fußring, Blut und Ring liegen; im Hochformat ist die Figur klein. **Antwort:** die Glut ersetzt die heutige Abwehr-Taste und die Mana-Zeile nicht, sie liegt im Fußring, der heute schon da ist, und ist nur drei Punkte; zuerst als Probe in der Vorschau am Rechner, im Bild, wie es gebaut wird (Bekannte Fehler: „nie eine Probe anders bauen“).
+
+### Nächster Schritt (6)
+
+Schnitt für Kapitel 1 (was davon Kapitel 1 braucht, was später), Bauplan mit Kosten, Reihenfolge und wer baut, Vorlage in `chefsache/entscheiden/930-glutsystem.md` mit den offenen Fragen (Ansage mit Ziel; Fassung 2 als Richtung; Rechnung für Team und Gegner, die noch fehlen; Probe in der Vorschau vor jedem Spielcode).
 
 ## Bilder Jerry zu 1072: Plätze und Laufwege von oben (13.11., 22:42 und 23:33)
 
