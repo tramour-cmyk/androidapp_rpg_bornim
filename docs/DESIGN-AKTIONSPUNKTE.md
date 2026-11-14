@@ -75,6 +75,60 @@ Ohne Preise. Quellen: Code auf `main` (`424334472`: `mars.gd` `_perform`, `kampf
 
 **Nächster Schritt (2):** Gruppen festlegen. Vorschlag zur Prüfung: **Bewegen** (A) · **Tun** (B, C, Angriffe und Zauber) · **Kleines Tun** (D, Tränke und Waffen) · **Haltung** (E) · **frei** (F, G). Dann liest sich die Frage des Chefs so: je Zug ein Bewegen und ein Tun, Kleines Tun statt Bewegen, Haltung statt Tun, Freies immer.
 
+## Vorbilder: wie andere Spiele den Zug einteilen (Sokrates, 14.11., 10:05)
+
+Auftrag Chef 10:02: „Kennst du die Spiele XCOM oder Jagged Alliance? Die arbeiten ja zum Beispiel auch mit Aktionspunkten. Ja, recherchier doch mal ein bisschen … Oder schau dir mal auch normale Brettspiele an, wie da normalerweise Züge eingeteilt sind und so. Was da gut ankommt, was da Ideen wären. Und pack das alles schön immer in unsere Datei rein.“ Quellen unten; wo keine steht, aus eigener Kenntnis der Spiele.
+
+### Die Grundformen
+
+| Form | Beispiel | So geht der Zug | Gut daran | Schwäche |
+|---|---|---|---|---|
+| **Viele kleine Punkte** | Jagged Alliance 2 (bis 25 je Söldner, nach Werten), Battle Brothers (9) | Jeder Schritt, jedes Drehen, Hinknien, Zielen kostet; übrige Punkte erlauben, den Gegner in seinem Zug zu unterbrechen | sehr fein, Werte spürbar (flinke Figur hat mehr Punkte), Zielen als Wahl | viel Rechnen und Tippen; „lohnt sich ein Schritt mehr?“ ist eine Rechenfrage, keine Spielfrage |
+| **Zwei Halbzüge** | XCOM 1 und 2 | Zwei Aktionen: bewegen + schießen oder zweimal bewegen; **Schießen beendet den Zug**; Scharfschuss kostet beide; „Wache“ (Overwatch) schießt im Gegnerzug auf den, der sich bewegt | sofort verständlich, schnell, aufs Handy übertragbar (XCOM gibt es dort) | „Schießen beendet den Zug“ verbietet „schießen, dann zurück“; Kritik: Spieler kriechen vorsichtig vor, Wache wird zur Standardtaste |
+| **Drei gleiche Aktionen** | Pathfinder 2 (Tischrollenspiel), Star Wars Zero Company (Nachfolger der XCOM-Macher, 3 Punkte, Wache beendet den Zug) | Drei Aktionen in beliebiger Folge, große Dinge kosten zwei oder drei; dazu eine Reaktion im Gegnerzug | einfach und doch abgestuft; „schwerer Zauber 2, dann noch ein Schritt“ | Kritik: man bleibt lieber stehen und schlägt dreimal; ständige Frage „ist das eine Aktion?“ |
+| **Getrennte Töpfe** | Baldur's Gate 3 (D&D 5): Bewegung als eigener Balken (9 m), eine Aktion, eine Bonusaktion, eine Reaktion | Bewegen kostet nicht die Aktion; Trank, Waffe ziehen, kleine Dinge sind Bonusaktion | **„einmal bewegen, einmal tun“** genau so; Bewegen ist praktisch frei bis zur Grenze | wenig Wahl je Zug (eine Aktion), darum viel Lähmen und Betäuben als stärkstes Mittel |
+| **Ein Topf für alles** | Divinity: Original Sin 2 (Punkte für alles, auch Laufen) | Alles in Laufen oder alles in Angriffe | viel Freiheit, Einfälle | Durcheinander, schwer abzustimmen; Laufen und Schlagen konkurrieren |
+| **Bewegen, dann tun, Gegner sagt an** | Into the Breach | Jede Figur: einmal bewegen, einmal handeln; alle Gegner zeigen vorher, was sie tun | glasklar, jede Runde ein kleines Rätsel; ideal fürs Handy | wenig Raum für Haltung, Tränke, Kleinkram |
+| **Brettspiel: zwei Aktionen aus einer Liste** | Descent (Fantasy Flight) | Zwei Aktionen: Bewegen, Angriff, Rasten, Fähigkeit, Aufstehen, Tür …; dieselbe darf zweimal, nur Rasten nicht; **Erschöpfung gegen Extraschritte**; Bewegen darf man unterbrechen, handeln, weitergehen | einfach, Erschöpfung als zweite Währung | zwei Angriffe je Zug sind oft die beste Wahl |
+| **Brettspiel: Karten oben, unten** | Gloomhaven | Zwei Karten, je eine obere (meist Angriff) und eine untere (meist Bewegung) Hälfte; vorher wählen, Karten werden mit der Zeit weniger (Erschöpfung) | jede Wahl ein echtes Abwägen, Ermüden ist eingebaut | zu viel Planung für einen schnellen Handykampf |
+| **Brettspiel: feste Zahl gleicher Aktionen** | Pandemie (4 Aktionen), viele Eurospiele | Vier Aktionen aus einer kurzen Liste, jede gleich teuer | leicht zu lernen | keine Abstufung (Trank = Schlag) |
+
+### Was gut ankommt (Lob, das sich wiederholt)
+
+1. **Wenige, große Punkte** werden auf dem Handy und für Neulinge besser verstanden als viele kleine (XCOM, Into the Breach gegen Jagged Alliance).
+2. **Bewegen und Tun getrennt** (Baldur's Gate 3, Into the Breach, Descent mit Bewegen im Angriff): der Spieler muss nie zwischen „hingehen“ und „zuschlagen“ wählen, nur wohin und was.
+3. **Eine Reaktion im Gegnerzug** gilt überall als das, was den Gegnerzug spannend macht (Jagged Alliance Unterbrechen, XCOM Wache, Pathfinder Reaktion). Bei uns: der Ring (F28, F30).
+4. **Ansage der Gegner** (Into the Breach, bei uns Baustein 1 schon gebaut) macht jeden Zug zum Rätsel statt zum Würfeln.
+5. **Erschöpfung als zweite Währung** (Battle Brothers, Descent, Gloomhaven): Punkte füllen sich jede Runde, Ermüdung nicht; das verhindert „jede Runde dasselbe“. Battle Brothers: jeder kann auch erschöpft noch einen Grundschlag.
+
+### Was oft kritisiert wird
+
+- „Schießen beendet den Zug“ (XCOM) fühlt sich starr an; der Chef will ausdrücklich „zurückweichen und dann schießen“ (930, 12:28).
+- Viele kleine Punkte machen Kämpfe langsam (Jagged Alliance), bei uns gegen F9 (Rundenzeit).
+- Eine Taste, die immer richtig ist (XCOM Wache, Pathfinder dreimal schlagen), macht den Kampf eintönig. Gegenmittel: der dritte Schlag schwächer (Pathfinder macht das genau so: jeder weitere Angriff im Zug mit Abzug).
+
+### Ideen für uns (zum Prüfen, nichts entschieden)
+
+- **I1 Getrennte Töpfe statt einer Zahl:** je Zug **ein Bewegen** (frei bis zum Tempo, etwa ein Feld; schnell zwei) und **ein Tun**; dazu **ein Kleines** (Trank, Waffe wechseln, wie die Bonusaktion). Das beantwortet die Chefsfrage „einmal tun, einmal bewegen, Bewegen umsonst“ direkt, und es passt zu heute: der Wechsel kostet schon nur den Schritt.
+- **I2 Tausch der Töpfe:** das Tun gegen ein zweites Bewegen tauschen (Rennen = zweimal bewegen, wie XCOM und Descent), nie umgekehrt; damit kein Doppelschlag (870a 3).
+- **I3 Schwere Dinge kosten Bewegen mit:** schwerer Zauber, Wuchtschlag, gezielter Schuss = Tun und Bewegen (wie XCOMs Scharfschuss mit zwei Aktionen). So entsteht Abstufung ohne Punktezählen.
+- **I4 Unverbrauchtes Bewegen wird Deckung** oder Reaktion (Jagged Alliance: gesparte Punkte zum Unterbrechen). Wer stehen bleibt, wehrt besser ab.
+- **I5 Ausdauer als zweite Währung** (930 Regel 3; Battle Brothers, Descent): Extraschritt gegen Ausdauer, erschöpft nur Grundschlag.
+- **I6 Gegner nach demselben Muster,** aber mit eigenem Tempo und Ansage (Into the Breach); der Wolf „springt und beißt“ ist dann ein Bewegen und ein Tun. Löst den Befund aus der Rechnung (Gegner mit 3 Punkten nehmen dem Abstand den Preis), weil Bewegen begrenzt ist.
+
+**Stärkstes Gegenargument gegen I1:** getrennte Töpfe machen Abstand billig; ist Bewegen frei, kommt jeder Nahkämpfer in jedem Zug heran, der Fernkämpfer gewinnt kaum Zeit. Antwort: das Bewegen hat eine Weite (Tempo) und kostet nur bis dorthin nichts; der Wiedergänger schafft ein Feld nicht in einem Zug (Schlurfen), der Wolf zwei. Gegenprobe nötig: Rechnung mit `handgemenge.py`, sobald der Chef eine Form gewählt hat.
+
+**Votum Sokrates (vorläufig):** I1 mit I2, I3, I6 ist für uns die beste Grundform: einfacher als Punkte zählen, beantwortet „einmal tun, einmal bewegen“ und braucht keine Glutmarken. Punkte (3 je Zug) bleiben der Vergleich.
+
+**Quellen:**
+- XCOM: [Incentives and Intent: XCOM's Creeping Forward Problem](https://evizaer.github.io/Incentives-and-Intent/), [A Deep Dive Into XCOM and XCOM 2](https://www.gamedeveloper.com/design/a-deep-dive-into-xcom-and-xcom-2), [XCOM 2 Wiki: Combat](https://xcom2.wiki.fextralife.com/Combat), [Zero Company vs. XCOM](https://hacktheminotaur.com/swzc/star-wars-zero-company-vs-xcom-explained/)
+- Jagged Alliance: [Jagged Alliance Wiki](https://jaggedalliance.fandom.com/wiki/Jagged_Alliance_2), [PC Games: Taktik-Klassiker](https://www.pcgames.de/Jagged-Alliance-Spiel-8152/Specials/Taktik-rundenbasiert-Klassiker-1293711/galerie/3052551/), [GOG-Forum](https://gog.com/forum/jagged_alliance_series/ja2_mercy_questions_for_mercy_people), [1.13 Play Guide](https://1dot13.github.io/documentation/play-guide.html)
+- Battle Brothers: [Dev-Blog Kampfmechanik](https://indiedb.com/news/dev-blog-on-tactical-combat-mechanics), [Character Stats](https://battlebrothersgame.com/character-stats)
+- Pathfinder 2, Gloomhaven: [EN World: Pathfinder 2's 3 Action Economy](https://www.enworld.org/threads/from-7-action-types-to-pathfinder-2s-new-3-action-economy.665200/page-6), [Nerdist: PF2 Action Economy](https://nerdist.com/article/pathfinder-2e-action-economy-guide-beginner/), [Black Gate: Gloomhaven](https://www.blackgate.com/?p=422989), [The Giant Brain: Gloomhaven](https://giantbrain.co.uk/2022/03/09/gloomhaven-in-focus/?amp=1)
+- Baldur's Gate 3, Divinity 2: [Divinity Wiki: Action points](https://www.divinitywiki.com/index.php/DOS2:Action_points), [WePC: BG3 vs. Divinity](https://www.wepc.com/gaming/baldurs-gate-3-divinity-original-sin-comparison/)
+- Descent: [Regelzusammenfassung 2. Edition](https://lehi-innovation.github.io/boardgame-rules/rules/descent-journeys-in-the-dark-second-edition/), [Community-Regelreferenz](https://descent-community.org/wp-content/uploads/2017/10/CRRG_1_8_1.pdf)
+- Into the Breach, Pandemie: eigene Kenntnis, nicht nachgeschlagen.
+
 ## Was zusammenhängt (Gesamtbild 13.11., 23:39)
 
 - **1072 Plätze und Laufwege** (29,94 $): wo eine Figur steht, wie sie dorthin kommt; hinterer Wolf läuft außen herum (0,3 m Luftzuschlag, frei wären 0,18–0,26 m), Runde 30,8 s statt 14,6 s.
