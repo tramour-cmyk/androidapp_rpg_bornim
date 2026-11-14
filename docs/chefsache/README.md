@@ -19,12 +19,6 @@ Nichts offen.
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
 | [1092](ansehen/1092-falten.md) | Falten der Roben als Form: Standbild vorher/nachher | – | 14.11., 10:40 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.464](ansehen/t285-gang-messen.md) | [Build 285](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43505629901/artifacts/14079389845) | Aufträge, Brücke, Metall sperrt Zauber, Messen | Tom und Jerry | 13.11., 23:30 |
-
 ## Zu tun
 
 Nichts offen.
