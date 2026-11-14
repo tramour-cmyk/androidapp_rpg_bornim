@@ -99,3 +99,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:15 14.11.: Marke Archiv session_01Hmoj77Q6K2jkHmLkqGiwNz (lauf.py)
 - 11:15 14.11.: Marke Archiv session_01Hmoj7935pyQLrQDwBaDdQ9 (lauf.py)
 - 11:15 14.11.: Marke Archiv session_01Hmoj79ZApqezAzombu1DWK (lauf.py)
+- 11:16 14.11.: Lauf: Jerry 1222 `…77szqvXvBkJvZBkmuy`, Diogenes 1199 `…75bBG6VbZqHX9qRxWD`, Tuffy 845 `…76Y5kiqYvgg6Qxph9d` gestartet (Build 285 getestet, Wartezeilen frei); Jerry 1227 (1,37 $), Diogenes 1098.1 (0,94 $), Tuffy 844 (11,84 $) archiviert; Tom meldet Neustart 35305028b, Nachfolger nach Ende der alten Tom-Sitzung starten, Weckrufe `trig_01EYxQH3RacTkPEeKT8suzHc`, `trig_01KkuwTUnUG9NwK58hecGc6b` hängen an der alten Tom-Sitzung
