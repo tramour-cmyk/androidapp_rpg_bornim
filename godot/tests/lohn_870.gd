@@ -117,6 +117,13 @@ func _lohn() -> void:
 	m.kein_lohn = true
 	var kl := Lohn.reward(m, {}, Wuerfel.new([4, 0, 0, 0]))
 	_soll("kein Lohn", "%d %d %s" % [kl.xp, kl.gold, kl.items], "0 0 []")
+	# 915 (Homer [915.lohn.vertrieben]): Lohnzeile, wenn das Rudel vor dem Feuer floh und keiner erlegt war
+	m.all[1].vor_feuer = true
+	_soll("915 Lohnzeile vertrieben", Lohn.reward(m, {}, Wuerfel.new([4, 0, 0, 0])).lines, [Lohn.VERTRIEBEN[0]])
+	# 915: neben anderen Gegnern bringen vor dem Feuer geflohene Wölfe nichts, der Rest zählt
+	m = _kampf(["hobgoblin_captain", "wolf"])
+	m.all[2].vor_feuer = true
+	_soll("915 Geflohene zählen nicht", Lohn.erfahrung_des_siegs(m, 3).menge, Lohn.erfahrung_des_siegs(_kampf(["hobgoblin_captain"]), 3).menge)
 
 
 func _rudel() -> void:

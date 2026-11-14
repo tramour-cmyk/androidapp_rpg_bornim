@@ -93,7 +93,9 @@ func _rauch(tab: Dictionary, rauch: int) -> void:
 	var held = Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
 	var krogg: Dictionary = tab.monsters.filter(func(m): return m.id == "bugbear")[0]
 	var foe = Mars.monster_fighter("krogg", Mars.SPOTS[0], krogg, 999)
-	var m = Mars.new([held], [foe], tab, Wuerfel.new(range(400).map(func(_i): return 20)), Wuerfel.new(7), 0, false, "AMBUSHED")
+	var band = Wuerfel.new(range(400).map(func(_i): return 20))
+	band.band_brs = true     # 987: „jeder Wurf 20“ auch für die BRS-Schläge (sonst Zufall, 2 von 5 rot)
+	var m = Mars.new([held], [foe], tab, band, Wuerfel.new(7), 0, false, "AMBUSHED")
 	m.smoke = rauch
 	var gehoert := []
 	m.listener = func(e): gehoert.append(e)

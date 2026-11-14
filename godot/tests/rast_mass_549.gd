@@ -30,7 +30,7 @@ func _lauf() -> void:
 	for e in ["A", "B"]:
 		for ort in ["feuer", "theke"]:
 			var f: Rastfeld
-			if ort == "feuer": f = Rastfeld.neu(e, Sprache.r("ask"), "Tag 2 · 21:40 · TP 9 / 22", feuer, Sprache.r("leave"), Sprache.r("shortRested", [5]))
+			if ort == "feuer": f = Rastfeld.neu(e, Sprache.r("ask"), "Tag 2 · 21:40 · TP 9 / 22", feuer, Sprache.r("leave"), Sprache.r("shortRested"))
 			else: f = Rastfeld.neu(e, Sprache.r("tavern"), "Gold: 42", theke, Sprache.r("leave"), "", [Rast.rowena_sagt(z, "Alrik", false)], "SCHENKE")
 			root.add_child(f)
 			for i in 6: await process_frame

@@ -17,18 +17,17 @@ func _init() -> void:
 		quit(1)
 		return
 	var hier := {"karte": "forest", "x": 10, "y": 12, "blick": "UP"}
-	# Kurze Erholung am Feuer (870.4): zwei Stunden, ein Viertel des Lebens aufgerundet, Ausdauer voll, Trank, Funke, Met enden
+	# Kurze Erholung am Feuer (870.4, 1038 R1): zwei Stunden, kein Leben, Ausdauer voll, Trank, Funke, Met enden
 	var z := Zustand.new()
 	var h := BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat")
 	h.leben = 1
 	z.minuten = 23 * 60 + 30; z.tag = 3; z.ausdauer = 0.2; z.atemlos = true; z.ausdauer_trank = true; z.funke = true; z.met = 3
 	z.dazu("raw_meat", 2)
 	var r := Rast.rasten(z, h, "kurz", "feuer", hier)
-	var viertel := (h.max_leben() + 3) / 4
-	pruefe("kurz TP", h.leben, mini(h.max_leben(), 1 + viertel))
+	pruefe("kurz TP", h.leben, 1)
 	pruefe("kurz Uhr", [z.tag, z.minuten], [4, 90])
 	pruefe("kurz endet", [z.ausdauer, z.atemlos, z.ausdauer_trank, z.funke, z.met], [1.0, false, false, false, 0])
-	pruefe("kurz Zeilen", r["zeilen"], ["Zwei Stunden Ruhe. Die Ausdauer ist voll, +%d TP." % viertel, "Dein Funke ist verglommen.",
+	pruefe("kurz Zeilen", r["zeilen"], ["Zwei Stunden Ruhe. Die Ausdauer ist voll.", "Dein Funke ist verglommen.",
 		"Du brätst 2× Fleisch über dem Feuer. Es duftet herrlich!"])
 	pruefe("Fleisch", [z.anzahl("raw_meat"), z.anzahl("roast_meat")], [0, 2])
 	pruefe("kurz Wiederkehr", z.wiederkehr, hier)

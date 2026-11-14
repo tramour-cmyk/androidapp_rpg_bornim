@@ -221,6 +221,7 @@ func held() -> void:
 		KAMPFWERT["krit"][0 if de else 1], hw.krit_prozent()], 15, Stil.TEXT, true)   # 584: MenuScreen.kt 605
 	if hw.waffe() != null: zeile(Beute.name(hw.waffe()), 14, Stil.DIM)
 	luecke(10)
+	zustaende_kurz()
 	zeile("Tippe auf einen Grundwert, um zu sehen, was er bringt." if de else "Tap an attribute to see what it does.", 12, Stil.DIM)
 	for g in BrsHeld.grundwerte():
 		var r := HBoxContainer.new()
@@ -240,6 +241,45 @@ func held() -> void:
 	luecke(10)
 	fertigkeiten_kurz()
 	if hw.merkmal() != "": zeile(hw.merkmal(), 14, Stil.GOLD)
+
+# 764 (Chef 09.11., 14:49: „wenn ich ins Menü gehe auf mein Held, sollte das da auch angezeigt werden und vor allem auch gegebenenfalls
+# mit Erklärung“): die Zustände, die gerade in der Leiste stehen, mit dem Schild wie dort und dem Satz, was sie bewirken
+# ([870.14.zustand.*], Mars.STATUS_DESC, derselbe Satz wie beim Tipp auf das Schild im Kampf); ohne Zustand nichts
+func zustaende_kurz() -> void:
+	var de := Sprache.aktiv() == "de"
+	var zd: Dictionary = BrsHeld.daten().get("zustaende", {})
+	var Mars = load("res://regeln/mars.gd")
+	var welche := []
+	for st in zd:   # wie Leiste: Reihenfolge Status.entries, betrunken bis zur Rast
+		if int(z.leiden.get(st, 0)) > 0 or (st == "DRUNK" and z.betrunken()): welche.append(st)
+	if welche.is_empty(): return
+	gruppe("Zustände" if de else "Conditions")   # [870.15.zustaende]
+	for st in welche:
+		var r := HBoxContainer.new()
+		r.add_theme_constant_override("separation", int(8 * DP))
+		var k := PanelContainer.new()
+		var s := StyleBoxFlat.new()
+		s.bg_color = Color(String(zd[st]["farbe"])); s.set_corner_radius_all(int(3 * DP))
+		s.content_margin_left = 4 * DP; s.content_margin_right = 4 * DP
+		k.add_theme_stylebox_override("panel", s)
+		k.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+		# t282.12 (Chef 13.11., 10:25, Bild: „Betrunken“ senkrecht, ein Buchstabe je Zeile): Stil.txt bricht um und dehnt sich, neben dem
+		# ebenso dehnbaren Satz blieb dem Schild nur die Mindestbreite eines Buchstabens. Das Wort steht jetzt in einer Zeile, das Schild
+		# so breit wie das Wort, der Satz nimmt den Rest und bricht dort um
+		var kw := Stil.txt(Sprache.t(zd[st]["kurz"]), 13, Color.WHITE)
+		kw.autowrap_mode = TextServer.AUTOWRAP_OFF
+		kw.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		kw.name = "Schild_" + String(st)
+		k.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		k.add_child(kw)
+		r.add_child(k)
+		var d: Array = Mars.STATUS_DESC.get(st, ["", ""])
+		var t := Stil.txt(String(d[0 if de else 1]), 14, Stil.TEXT)
+		t.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		r.add_child(t)
+		inhalt.add_child(r)
+		luecke(4)
+	luecke(6)
 
 # 870.14 (STORY-BRS-HELD.md „Kampfwerte“): Woerter der Kampfwerte, deutsch und englisch
 const KAMPFWERT := {"leben": ["Leben", "Life"], "mana": ["Mana", "Mana"], "ausdauer": ["Ausdauer", "Stamina"], "schutz": ["Schutzwert", "Protection"],
@@ -487,7 +527,9 @@ func ausruestungszeile(g: Dictionary) -> HBoxContainer:
 	var de := de_()
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
-	r.add_child(Menue.stueck_rahmen(g, 42))
+	var rahmen_ := Menue.stueck_rahmen(g, 42)
+	if merkmale and not hw.kann_tragen(g): rahmen_.modulate.a = 0.5   # 756: wie die Wechselliste
+	r.add_child(rahmen_)
 	var s := VBoxContainer.new()
 	s.add_theme_constant_override("separation", 0)
 	s.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -716,6 +758,7 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 		if z.ausdauer_trank: return Sprache.r("staminaAlready")
 		z.weg(id); z.ausdauer_trank = true
 		return Sprache.r("staminaDrunk", [hw.name])
+	if art == "BANDAGE": return verband(z, hw, id)   # 842
 	var h: Array = dd.get("heilt", [])
 	if art == "FOOD" and not h.is_empty():
 		if z.satt and hw.leben >= hw.max_leben(): return sag.call("alreadyFed", [hw.name])
@@ -734,14 +777,51 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 	var geheilt: String = sag.call("healed", [hw.name, hw.leben - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
 
+# 842 (807 A, 1038 A, STORY-K1-FERTIGKEITEN.md „Heilkunde: Verband“): nur ausserhalb des Kampfs (hier immer); stillt zuerst die
+# Blutung (z.leiden „BLEED“, darum halbiert sie die Heilung nicht), dann grund + je_heilkunde x Heilkunde Leben (werte.json „welt“
+# „verband“, gerundet), uebt Heilkunde; ohne Blutung und mit vollem Leben nichts verbraucht ([807.verband.voll])
+const VERBAND_AN := [   # [807.verband.an] (der Held blutete nicht)
+	["Du ziehst den Verband fest. +{0} TP.", "You pull the bandage tight. +{0} HP."],
+	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP.", "You wash out the wound and wrap the bandage around it. +{0} HP."],
+	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP.", "You bind the wound and check that the bandage holds. +{0} HP."]]
+const VERBAND_BLUT := [   # [807.verband.blut] (die Blutung ist gestillt)
+	["Ein fester Knoten, und das Blut steht. +{0} TP.", "One firm knot, and the blood stops. +{0} HP."],
+	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP.", "You press the bandage onto the wound. It bleeds no more. +{0} HP."],
+	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP.", "Layer on layer, wrapped tight. The bleeding stops. +{0} HP."]]
+const VERBAND_KAMPF := {"de": "Im Kampf bleibt keine Zeit für einen Verband.", "en": "There's no time for a bandage in combat."}   # [807.verband.kampf]
+const VERBAND_VOLL := {"de": "Du bist unverletzt.", "en": "You are unhurt."}   # [807.verband.voll]
+
+static func verband_heilung(hw: BrsHeld) -> int:
+	var v: Dictionary = BrsHeld.welt().get("verband", {})
+	return roundi(float(v.get("grund", 5)) + float(v.get("je_heilkunde", 0.2)) * hw.fertigkeit("Heilkunde"))
+
+static func verband(z: Zustand, hw: BrsHeld, id: String) -> String:
+	var blutet := int(z.leiden.get("BLEED", 0)) > 0
+	if not blutet and hw.leben >= hw.max_leben(): return Sprache.t(VERBAND_VOLL)
+	z.weg(id)
+	z.leiden.erase("BLEED")
+	var vor := hw.leben
+	hw.leben = mini(hw.max_leben(), hw.leben + verband_heilung(hw))
+	z.uebe("Heilkunde", float(BrsHeld.welt().get("verband", {}).get("uebung", 1.0)))
+	var marke := "807.verband.blut" if blutet else "807.verband.an"
+	var liste: Array = VERBAND_BLUT if blutet else VERBAND_AN
+	var i := Skript.wahl(z, marke, liste.size())
+	var vv: Array = z.varianten.get(marke, [0, -1])
+	z.varianten[marke] = [int(vv[0]) + 1, i]
+	var t := String(liste[i][0 if Sprache.aktiv() == "de" else 1])
+	var plus := hw.leben - vor
+	t = t.replace(" +{0} TP.", "").replace(" +{0} HP.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
+	var auf := z.fert_notiz()
+	return t + ("\n" + auf if auf != "" else "")
+
 # 523 (Abgleich 512, Game.kt useItemOutside): wie alt ein Klang, wenn etwas wirklich benutzt wurde: Essen „heal“, Traenke und Funke
 # „potion“; nichts, wenn der Held schon voll ist oder der Funke schon brennt
 func benutze_mit_klang(id: String, art: String) -> void:
 	var vor := z.anzahl(id)
 	meldung(Menue.benutze(z, hw, id, wuerfel))
 	var k := get_node_or_null("/root/Klang")
-	if k and z.anzahl(id) < vor: k.effekt("heal" if art == "FOOD" else "potion")
-	letzter_klang = ("heal" if art == "FOOD" else "potion") if z.anzahl(id) < vor else ""
+	if k and z.anzahl(id) < vor: k.effekt("heal" if art in ["FOOD", "BANDAGE"] else "potion")   # 842: Verband wie Essen
+	letzter_klang = ("heal" if art in ["FOOD", "BANDAGE"] else "potion") if z.anzahl(id) < vor else ""
 
 var letzter_klang := ""   # 523: fuer den Test ohne Klangknoten
 
@@ -749,7 +829,7 @@ func frage_ding(id: String) -> void:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
 	var de := Sprache.aktiv() == "de"
-	var trinkbar := art in ["POTION", "FOOD", "TONIC"]
+	var trinkbar := art in ["POTION", "FOOD", "TONIC", "BANDAGE"]   # 842: Verband anlegen
 	var zeilen: Array = []
 	var bild := Menue.bild_feld("ding-" + id, 48)   # Dialogs.kt: SupplyPicture 48 dp
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
@@ -777,6 +857,10 @@ static func tragen_hinweise(hw: BrsHeld, g: Dictionary) -> Array:
 	var de := Sprache.aktiv() == "de"
 	var b := Beute.grundform(String(g["base"]))
 	var r: Array = []
+	# 756 A (Chef 09.11., 17:46: Sperren zeigen): warum „Anlegen“ matt ist, zuerst und hervorgehoben ([870.14.ding.stufe], 644a A);
+	# nicht an Getragenem, das bleibt angelegt (644a A)
+	if not hw.kann_tragen(g) and not hw.ausruestung.values().any(func(x): return x != null and int(x["uid"]) == int(g["uid"])):
+		r.append([("Erst ab Heldenstufe %d." if de else "Only from Hero Level %d.") % int(g.get("ilvl", 1)), true])
 	if BrsHeld.metall(String(g["base"])):
 		r.append(["Metall: Evokation, Illusion und Beschwörung wirken darin nicht." if de else "Metal: Evocation, Illusion and Summoning will not work in it.", false])
 	# [870.14.ding.klirrt] „Schwere Rüstung: darin kannst du nicht schleichen.“ ruht, bis Schleichen im Spiel wirkt (Homer, 963)
@@ -843,6 +927,7 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	elif hat_kennwert(g):
 		z_.append(fett.call(Stil.txt(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16)))
 	if hat_kennwert(g): z_.append(Stil.txt(guete_text(g, de), 14, Stil.TEXT))
+	if merkmale and zustand_von(g) > 0: z_.append(Stil.txt(zustand_text(g, de), 14, zustand_farbe(g)))   # 756
 	if fertigkeit_text(g, de) != "": z_.append(Stil.txt(fertigkeit_text(g, de), 13, Stil.DIM))
 	# Zusatzeigenschaften (870.7: Wortlaut Beute.zusatz_text, STORY-BRS-HELD.md), blau wie alt
 	for r in g["rolls"]:
@@ -1113,6 +1198,8 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	elif u == -1: wort = "schlechter" if de else "worse"
 	elif u == 0: wort = "gemischt" if de else "mixed"
 	if wort != "": unten += " · " + wort
+	# 521 (Chef 03.11., 23:23, „nicht tragbar“ matt mit dem Grund; seit 644a A die Mindeststufe): wie die Zeile der Tasche
+	if not ok: unten += " · " + ("nicht tragbar" if de else "can't wear")
 	var ul := Stil.zeile(unten, 13, Stil.DIM if ok else Color(Stil.DIM, 0.6))
 	ul.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	ul.custom_minimum_size.x = 60 * DP
@@ -1326,6 +1413,7 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	elif hat_kennwert(g):
 		z_.append(fett.call(satz.call(("Schutzwert %d" if de else "Protection %d") % Beute.schutzwert(g), 16, Stil.TEXT)))
 	if hat_kennwert(g): z_.append(satz.call(guete_text(g, de), 14, Stil.TEXT))
+	if merkmale and zustand_von(g) > 0: z_.append(satz.call(zustand_text(g, de), 14, zustand_farbe(g)))   # 756
 	if fertigkeit_text(g, de) != "": z_.append(satz.call(fertigkeit_text(g, de), 13, Stil.DIM))
 	# Boni: wirksam in Gold; was die Obergrenze ganz oder zum Teil schluckt, matt mit dem, was wirkt
 	if not g.get("rolls", []).is_empty():
@@ -1434,7 +1522,70 @@ static func stueck_rahmen(g: Dictionary, dp: float) -> Control:
 		t.size_flags_horizontal = Control.SIZE_SHRINK_END
 		t.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 		p.add_child(t)
+	if merkmale: Menue.merkmal_ecken(p, g, c.get_child(0))
 	return p
+
+# ---------------------------------------------------------------- 756 Merkmale am Bild
+# 756 A (Chef 09.11., 17:46: „Probebild Merkmale jetzt“; Vorschlag Sokrates 14:28): feste Stellen am Bild eines Stuecks, hoechstens drei
+# Zeichen zugleich: Rahmenfarbe = Seltenheit (wie bisher), oben rechts „2H“ (wie bisher), oben links die Guete (Normal nichts, Gut ein
+# Goldpunkt, Meisterhaft zwei, Schlecht ein roter Punkt (756.1); Schlecht kommt mit 976), unten der Zustand als Balken nur bei
+# Abnutzung (Beschaedigt gelb, Defekt rot, das Bild entsaettigt; Benutzt ohne Balken); nicht Tragbares abgedunkelt. Zustand gibt es im
+# Spiel noch nicht (DESIGN-BRS.md 11: eigener Vorgang nach dem Umzug), gelesen wird „zustand“ 0–3 am Stueck.
+# An seit dem „passt“ des Chefs (12.11., 20:14: „Einer wäre gut und 2 wären dann das Beste“).
+static var merkmale := true
+const ZUSTAND := [["Makellos", "Pristine"], ["Benutzt", "Worn"], ["Beschädigt", "Damaged"], ["Defekt", "Broken"]]   # DESIGN-BRS.md 11
+const ZUSTAND_GELB := Color("d9b24a")
+const ZUSTAND_ROT := Color("c4523c")
+## 756.1 Zeichen fuer Schlecht (Chef 13.11., 13:45: „voller Punkt wie in 3, aber etwas heller (wie vorgeschlagen)“): ein voller Punkt
+## so gross wie ein Goldpunkt, im Rot der Leiste fuer Defekt (Kontrast auf Schwarz 4,6 statt 2,8 des Dunkelrots der Vorlage)
+const SCHLECHT_FARBE := ZUSTAND_ROT
+
+static func zustand_von(g) -> int: return clampi(int(g.get("zustand", 0)), 0, 3) if g is Dictionary else 0
+static func zustand_text(g: Dictionary, de: bool) -> String:
+	return ("Zustand: %s" if de else "Condition: %s") % ZUSTAND[zustand_von(g)][0 if de else 1]
+static func zustand_farbe(g: Dictionary) -> Color:
+	return [Stil.TEXT, Stil.TEXT, ZUSTAND_GELB, ZUSTAND_ROT][zustand_von(g)]
+
+## Guete fuers Zeichen: -1 Schlecht (mit 976), 0 Normal, 1 Gut, 2 Meisterhaft
+static func guete_zeichen_von(g: Dictionary) -> int: return clampi(int(g.get("guete", 0)), -1, 2)
+
+## legt die Zeichen ueber [p] (Rahmen eines Stuecks); [bild] wird bei Defekt entsaettigt; mit [balken_am_bild] sitzt der Balken unten
+## am Bild statt unten im Rahmen (Platz der Ausruestung: darunter steht der Name, eigenes Einzelbild 14:14)
+static func merkmal_ecken(p: Control, g: Dictionary, bild: Control = null, balken_am_bild := false) -> void:
+	var gu := guete_zeichen_von(g)
+	var zu := zustand_von(g)
+	if zu == 3 and bild is CanvasItem:
+		var m := ShaderMaterial.new()
+		m.shader = Shader.new()
+		m.shader.code = "shader_type canvas_item;\nvoid fragment() { vec4 c = texture(TEXTURE, UV); float l = dot(c.rgb, vec3(0.299, 0.587, 0.114)); COLOR = vec4(vec3(l) * 0.75, c.a * COLOR.a); }"
+		(bild as CanvasItem).material = m
+	if gu == 0 and zu < 2: return
+	var o := Control.new()
+	o.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	o.size_flags_horizontal = Control.SIZE_FILL
+	o.size_flags_vertical = Control.SIZE_FILL
+	o.draw.connect(func():
+		var s := o.size
+		var r := clampf(minf(s.x, s.y) / 17.0, 2.0 * DP, 3.2 * DP)
+		var rand := 3.5 * DP + r
+		if gu == -1:
+			# so gross und deutlich wie ein Goldpunkt (Chef 12.11., 20:14: „So ein hohler wäre schlecht“), auf schwarzem Hof wie die Punkte
+			var mi := Vector2(rand, rand)
+			o.draw_circle(mi, r + 1.0 * DP, Color(0, 0, 0, 0.85))
+			o.draw_circle(mi, r, SCHLECHT_FARBE)
+		for i in maxi(gu, 0):
+			var m_ := Vector2(rand + i * (2.0 * r + 2.0 * DP), rand)
+			o.draw_circle(m_, r + 1.0 * DP, Color(0, 0, 0, 0.85))
+			o.draw_circle(m_, r, Stil.BRIGHT)
+		if zu >= 2:
+			var h := maxf(3.0 * DP, s.y / 16.0)
+			var x0 := 4.0 * DP
+			var w := s.x - 2.0 * x0
+			var y := s.y - 4.0 * DP - h
+			if balken_am_bild and is_instance_valid(bild): y = bild.get_global_rect().end.y - o.get_global_rect().position.y - h
+			o.draw_rect(Rect2(x0 - DP, y - DP, w + 2.0 * DP, h + 2.0 * DP), Color(0, 0, 0, 0.85))
+			o.draw_rect(Rect2(x0, y, w * (0.45 if zu == 2 else 0.12), h), ZUSTAND_GELB if zu == 2 else ZUSTAND_ROT))
+	p.add_child(o)
 
 # ein Platz: Rahmen mit Bild und Namen des Getragenen in seiner Farbe, darunter der Platz; eine Zweihandwaffe
 # fuellt auch die Nebenhand
@@ -1471,6 +1622,7 @@ func fach(platz: String) -> Control:
 		sp.add_child(n)
 		rahmen.add_child(sp)
 	else: rahmen.add_child(n)
+	if merkmale and g != null: Menue.merkmal_ecken(rahmen, g, rahmen.get_child(0).get_child(0), true)   # 756
 	v.add_child(rahmen)
 	var p := Stil.txt(platzname(platz), 11, Stil.DIM)
 	p.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -1861,29 +2013,34 @@ class Regler extends VBoxContainer:
 		linie.draw_rect(r, Stil.BRIGHT, false, 1.5 * dp)
 
 # ---------------------------------------------------------------- Chronik (ChronicleTab)
+# 860 (Chef 10.11., 13:07, t274.10 „Ja“; 549a „Listen als Zeilen zwischen schlichten Linien, keine Kästen um Zeilen“): ein Eintrag der
+# Chronik zwischen zwei schlichten Linien; folgt einer dem anderen, teilen sie sich die Linie
 func kaestchen(zeilen: Array) -> void:
+	var n := inhalt.get_child_count()
+	if n == 0 or not inhalt.get_child(n - 1).has_meta("linie"):
+		inhalt.add_child(Spielstaende.linie())
 	var v := VBoxContainer.new()
 	v.add_theme_constant_override("separation", 0)
 	for c in zeilen: v.add_child(c)
-	var p := PanelContainer.new()
-	var st := Stil.kasten(Color.BLACK, Stil.RIM, 1.0)
-	st.content_margin_left = 12 * DP; st.content_margin_right = 12 * DP; st.content_margin_top = 8 * DP; st.content_margin_bottom = 8 * DP
-	p.add_theme_stylebox_override("panel", st)
-	p.add_child(v)
-	inhalt.add_child(p)
+	var m := MarginContainer.new()
+	m.add_theme_constant_override("margin_top", int(8 * DP))
+	m.add_theme_constant_override("margin_bottom", int(8 * DP))
+	m.add_child(v)
+	inhalt.add_child(m)
+	var l := Spielstaende.linie()
+	l.set_meta("linie", true)
+	inhalt.add_child(l)
 
 # 528 (ChronicleTab.kt 100): „Auf der Karte“, nur wo die Karte ein Zeichen des Auftraggebers hat; oeffnet die Karte auf ihm
 func auf_der_karte(wer: String) -> Array:
 	if not Kartenreiter.hat_geber(z, wer): return []
-	var b := Stil.knopf("Auf der Karte" if de_() else "On the map", func():
+	# 860 (549a „Wahlen in einer Listenzeile stehen rechtsbündig in der Zeile, Schrift wie Knöpfe“): ohne Kasten, „AUF DER KARTE ›“
+	var b := Spielstaende.knopf("neben", "Auf der Karte" if de_() else "On the map", func():
 		Kartenreiter.fokus_wer = wer
 		karte_direkt = false
 		reiter = "karte"; baue())
 	b.name = "AufDerKarte"
-	b.custom_minimum_size = Vector2(0, 32 * DP)
-	b.add_theme_font_size_override("font_size", int(round(13 * Stil.SP)))
-	b.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	b.clip_text = false   # 503: mit clip_text und SHRINK 0 breit
+	b.size_flags_horizontal = Control.SIZE_SHRINK_END
 	return [b]
 
 func chronik() -> void:
@@ -1891,8 +2048,8 @@ func chronik() -> void:
 	Chronik.gelesen(z)
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(6 * DP))
-	r.add_child(Stil.knopf("Aufträge" if de else "Quests", func(): bisher = false; baue(), not bisher))
-	r.add_child(Stil.knopf("Bisher geschehen" if de else "Story so far", func(): bisher = true; baue(), bisher))
+	r.add_child(Spielstaende.wahl("Aufträge" if de else "Quests", func(): bisher = false; baue(), not bisher))   # 860: ohne Kasten
+	r.add_child(Spielstaende.wahl("Bisher geschehen" if de else "Story so far", func(): bisher = true; baue(), bisher))
 	inhalt.add_child(r)
 	luecke(10)
 	if bisher:
@@ -1904,21 +2061,14 @@ func chronik() -> void:
 		# 68: die Morgenandacht am Ende von Kapitel 1 kann man wieder ansehen, sobald das Kapitel vorbei ist (ChronicleTab onTemple)
 		if Zwischenbild.da() and z.has(Geschichte.CHAPTER1_DONE):
 			luecke(12)
-			var t := Stil.knopf("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit())
-			t.custom_minimum_size.y = 36 * DP
-			t.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
-			inhalt.add_child(t)
+			inhalt.add_child(Spielstaende.zeile_mit_pfeil("Die Morgenandacht ansehen" if de else "Watch the dawn service", func(): andacht.emit(), Stil.GOLD))   # 860
 		# 69d: die Ankunft bei Nacht gehoert vor den ersten Eintrag; man kann sie wieder ansehen (ChronicleTab onIntro)
 		if Zwischenbild.da():
 			luecke(12)
-			var b := Stil.knopf("Die Ankunft ansehen" if de else "Watch the arrival", func(): ankunft.emit())
-			b.custom_minimum_size.y = 36 * DP
-			b.add_theme_font_size_override("font_size", int(round(14 * Stil.SP)))
-			inhalt.add_child(b)
+			inhalt.add_child(Spielstaende.zeile_mit_pfeil("Die Ankunft ansehen" if de else "Watch the arrival", func(): ankunft.emit(), Stil.GOLD))   # 860
 		return
 	kaestchen([Stil.txt("Hauptauftrag" if de else "Main quest", 13, Stil.GOLD), Stil.txt(Sprache.t(Geschichte.ziel(z)), 16, Stil.BRIGHT, true)])   # 584: ChronicleTab.kt 72, 78, 92 halbfett
 	for t in Chronik.offen(z):
-		luecke(8)
 		kaestchen([Stil.txt(Sprache.t(t["titel"]), 16, Stil.TEXT, true), Stil.txt(Sprache.t(t["text"]).replace("{name}", hw.name), 14)])
 	# 399.1 Nebenauftraege vom Anschlagbrett (ChronicleTab): Titel, von wem, Aushang, Stand oder „Bereit zur Abgabe“, Lohn
 	var getragen := Auftraege.getragen(z)
@@ -1926,7 +2076,6 @@ func chronik() -> void:
 		luecke(12)
 		zeile("Nebenaufträge" if de else "Side quests", 15, Stil.GOLD)
 	for j in getragen:
-		luecke(8)
 		var hat := Auftraege.stand(z, j)
 		var bereit := hat >= int(j["anzahl"])
 		var wer := Sprache.t(j["geber_name"])
@@ -1939,7 +2088,10 @@ func chronik() -> void:
 	var fertig_j := Auftraege.alle().filter(func(j): return Auftraege.erledigt(z, j))
 	if not fertig.is_empty() or not fertig_j.is_empty():
 		luecke(12)
-		inhalt.add_child(Stil.knopf(("Erledigt (%d)" if de else "Done (%d)") % (fertig.size() + fertig_j.size()) + (" ▴" if erledigt_auf else " ▾"), func(): erledigt_auf = not erledigt_auf; baue()))
+		# 860: aufklappbare Zeile ohne Kasten, „›“ nach unten gedreht, wenn offen
+		var ez := Spielstaende.zeile_mit_pfeil(("Erledigt (%d)" if de else "Done (%d)") % (fertig.size() + fertig_j.size()), func(): erledigt_auf = not erledigt_auf; baue(), Stil.GOLD)
+		if erledigt_auf: (ez.get_child(0).get_child(1) as Control).rotation = PI / 2
+		inhalt.add_child(ez)
 		if erledigt_auf:
 			for t in fertig: zeile("✓ " + Sprache.t(t["titel"]), 14, Stil.DIM)
 			for j in fertig_j: zeile("✓ " + Sprache.t(j["titel"]) + " · " + Sprache.t(j["geber_name"]), 14, Stil.DIM)
@@ -1957,6 +2109,7 @@ static func schaden_text(g: Dictionary, de: bool) -> String:
 
 # 870.7 ([870.14.ding.guete], statt „Angriff +%d“): Guete jedes Stuecks, dessen Zahl sie aendert (Waffe, Brustruestung, Schild)
 static func guete_text(g: Dictionary, de: bool) -> String:
+	if guete_zeichen_von(g) == -1: return "Güte: Schlecht" if de else "Quality: Poor"   # 756.1: Schlecht kommt mit 976 (DESIGN-BRS.md 10)
 	return ("Güte: %s" if de else "Quality: %s") % Beute.guete_name(Beute.guete_von(g), "de" if de else "en")
 
 # 870.7 ([870.14.ding.fertigkeit]): die Fertigkeit, die das Stueck braucht (Waffe, Ruestung, Schild), "" sonst

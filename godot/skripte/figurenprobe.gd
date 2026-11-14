@@ -365,7 +365,7 @@ func reihe() -> void:
 	spiel.kamera.ziel = z
 	for k in REIHE: spiel_bew(k, "Stehen")
 	stelle(REIHE, 0.9, mitte)   # Helfer Runde 2: Laterne verdeckte das Bein der Elfe
-	for st in [[Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
+	for st in [[Kamera.FERN, "grund"], [Kamera.WEIT, "weit"]]:
 		zoom(st[0])
 		spiel.kamera.springe()
 		await get_tree().create_timer(0.6).timeout

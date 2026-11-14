@@ -73,9 +73,16 @@ func _lauf() -> void:
 		# eine gerade aufgeklappte Zeile weit unten rollt weiter ins Bild
 		m.rolle.scroll_vertical = 0
 		await process_frame
-		m._tue(func(): Pruefliste._oeffne(String(Pruefliste.zeilen()[-1]["nr"])))
+		var nr_l := String(Pruefliste.zeilen()[-1]["nr"])
+		m._tue(func(): Pruefliste._oeffne(nr_l))
 		for i in 6: await process_frame
-		_pruefe("Neu aufgeklappte Zeile ins Bild", m.rolle.scroll_vertical > 500, "Rollstand %d" % m.rolle.scroll_vertical)
+		# Rot im Build 285 (fünf Handy-Zeilen): die letzte Zeile stand schon ohne Rollen im Bild, „Rollstand > 500“ galt nur für lange
+		# Listen; geprüft wird jetzt, was gemeint ist: der Kopf der aufgeklappten Zeile steht ganz im sichtbaren Teil der Rolle
+		var kopf: Array = m.inhalt.find_children("*", "Label", true, false).filter(func(l): return String(l.text).begins_with(nr_l + "  "))
+		var sicht := m.rolle.get_global_rect()
+		var drin: bool = not kopf.is_empty() and sicht.encloses((kopf[0] as Control).get_global_rect())
+		_pruefe("Neu aufgeklappte Zeile ins Bild", drin, "Rollstand %d, Kopf %s, Rolle %s" % [m.rolle.scroll_vertical,
+			(kopf[0] as Control).get_global_rect() if not kopf.is_empty() else "fehlt", sicht])
 		Pruefliste.offen = ""
 	print("ROLL1030 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

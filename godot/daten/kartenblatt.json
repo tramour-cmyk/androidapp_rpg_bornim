@@ -46,6 +46,26 @@
       "bild_breite": 276,
       "bild_hoehe": 228,
       "oben": "village"
+    },
+    "forest": {
+      "name": {"de":"Flüsterwald","en":"Whisperwood"},
+      "art": "FOREST",
+      "breite": 20,
+      "hoehe": 32,
+      "bild_breite": 540,
+      "bild_hoehe": 828,
+      "oben": "",
+      "nebel": true
+    },
+    "deep_forest": {
+      "name": {"de":"Tiefer Flüsterwald","en":"Deep Whisperwood"},
+      "art": "FOREST",
+      "breite": 44,
+      "hoehe": 38,
+      "bild_breite": 1116,
+      "bild_hoehe": 972,
+      "oben": "",
+      "nebel": true
     }
   },
   "land": {

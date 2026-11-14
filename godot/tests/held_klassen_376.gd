@@ -98,7 +98,7 @@ func _init() -> void:
 			m.free()
 	var v := {}
 	for k in HeldFigur.HERKUNFT_VORGABE: v[str(HeldFigur.HERKUNFT_VORGABE[k])] = k
-	pruefe(v.size() == 4, "Vorgaben der Herkuenfte: %d verschiedene statt 4" % v.size())
+	pruefe(v.size() == 5, "Vorgaben der Herkuenfte: %d verschiedene statt 5" % v.size())   # 867: Jaegerkind dunkelhaarig, eigene Vorgabe
 	print("HELDKLASSEN gut" if falsch == 0 else "HELDKLASSEN %d FALSCH" % falsch)
 	quit(0 if falsch == 0 else 1)
 

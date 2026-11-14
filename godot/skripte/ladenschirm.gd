@@ -86,7 +86,7 @@ func baue() -> void:
 	for c in leiste.get_children():
 		leiste.remove_child(c)
 		c.queue_free()
-	var seiten := [["kaufen", Sprache.u("buy")], ["verkaufen", Sprache.u("sell")]]
+	var seiten := [["kaufen", Sprache.u("buy")]] if laden.nur_vorraete else [["kaufen", Sprache.u("buy")], ["verkaufen", Sprache.u("sell")]]   # 842 Osric
 	if laden.brauen: seiten.append(["brauen", "Brauen" if de else "Brew"])
 	for s in seiten:
 		var w: String = s[0]
@@ -128,7 +128,7 @@ func kaufen() -> void:
 		var unter := LadenSchirm.kurz(id)   # 582: Kurzangabe wie alt (ShopScreen.kt 244), der Langtext erst im Kasten
 		if z.anzahl(id) > 0: unter.append(("Im Besitz: " if de else "Owned: ") + str(z.anzahl(id)))
 		reihe(Menue.vorrat_bild(id), Laden.name(id), farbe_ding(id) if z.gold >= p else Stil.DIM, unter, preis_text(p), func(): menge(id, true, 1))
-	if laden.brauen: return   # Morwen handelt nur mit Kraeutern und Traenken
+	if laden.brauen or laden.nur_vorraete: return   # Morwen handelt nur mit Kraeutern und Traenken, Osric nur mit Verbänden (842)
 	luecke(8)
 	var ware := Laden.ware(z, hw)
 	kopfzeile("%s (%d)" % [Sprache.t(Laden.AUSRUESTUNG), ware.size()])

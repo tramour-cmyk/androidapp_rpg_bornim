@@ -47,7 +47,7 @@
       ],
       "haar": [
         {"name":{"de":"Braun","en":"Brown"},"rgb":"5e3c26"},
-        {"name":{"de":"Blond","en":"Blond"},"rgb":"b8975e"},
+        {"name":{"de":"Blond","en":"Blond"},"rgb":"ab9673"},
         {"name":{"de":"Schwarz","en":"Black"},"rgb":"262220"},
         {"name":{"de":"Rot","en":"Red"},"rgb":"8a3e22"}
       ]
@@ -119,7 +119,7 @@
       ],
       "haar": [
         {"name":{"de":"Braun","en":"Brown"},"rgb":"5e3c26"},
-        {"name":{"de":"Blond","en":"Blond"},"rgb":"b8975e"},
+        {"name":{"de":"Blond","en":"Blond"},"rgb":"ab9673"},
         {"name":{"de":"Schwarz","en":"Black"},"rgb":"262220"},
         {"name":{"de":"Rot","en":"Red"},"rgb":"8a3e22"}
       ]

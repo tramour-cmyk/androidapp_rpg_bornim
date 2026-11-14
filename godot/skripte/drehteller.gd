@@ -53,7 +53,9 @@ func zeige(w: Dictionary) -> void:
 	if teller == null: return
 	for c in teller.get_children(): c.free()
 	var mats := []
-	var modell: Node3D = HeldFigur.baue(w, mats) if not w.is_empty() else null
+	var mit := w.duplicate()
+	mit["fackel_zeigen"] = true   # 1140: Fackel in der Nebenhand am Helden der Ausrüstung
+	var modell: Node3D = HeldFigur.baue(mit, mats) if not w.is_empty() else null
 	if modell == null:
 		modell = Gebiet.lade_glb(HELD)
 		if modell == null: return
@@ -69,15 +71,17 @@ func zeige(w: Dictionary) -> void:
 		(m as ShaderMaterial).set_shader_parameter("licht_dir", Basis.from_euler(sonne.rotation).z)   # zur Sonne wie Licht.richtung
 	var anim := Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if anim:
-		Gebiet.bewegungen(anim, ["Stehen"])
-		if anim.has_animation("Stehen"): anim.play("Stehen")
+		var st := String(modell.get_meta("stehen", "Stehen"))   # 1140: mit Fackel „Stehen_Fackel“ wie in der Welt
+		Gebiet.bewegungen(anim, ["Stehen", st])
+		if anim.has_animation(st): anim.play(st)
+		elif anim.has_animation("Stehen"): anim.play("Stehen")
 
 # Umriss aller Netze im Raum von n (Ruhehaltung). 499: ohne Waffe und Schild (getragen: top_level, steht erst nach dem ersten Bild an
 # der Faust; Ruecken*: BoneAttachment ohne Knochenlage) - mit ihnen war der Held 2,0-2,7 m „hoch“ und im Teller zu klein (Massstab 0,68)
 func huelle(n: Node, t: Transform3D) -> AABB:
 	var box := AABB()
 	var leer := true
-	if (n is Node3D and (n as Node3D).top_level) or String(n.name).begins_with("Ruecken"): return box
+	if (n is Node3D and (n as Node3D).top_level) or String(n.name).begins_with("Ruecken") or n is Fackel: return box   # 1140: Fackel zählt nicht
 	var tt := t * (n as Node3D).transform if n is Node3D else t
 	if n is MeshInstance3D and (n as MeshInstance3D).mesh:
 		box = tt * (n as MeshInstance3D).get_aabb(); leer = false

@@ -52,6 +52,26 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 243 · 1179, 1173, 1217, 1248 an t285 (14.11., 20:2x)
+
+- **1248 greift** (`dc1ee764f`): `laufnachweis.py` an t285 (Stand vor `312befa8e`) gegen `d34cecf64`: 20 von 20 tragen, davon die 6 aus 285.14 (`sim444_870`, `krogg_494`, `schild_406`, `zweikampf_1025`, `absicht_1049`, `mars_regeln`); Stand vor `dc1ee764f`: 14 von 14.
+- **1179 greift** (`7d2cf4a2b`): Entwurf gegengelesen 21:31/21:33 (`a3a0f144e`, `ea6ec9ae5`), Lagenänderung 21:51, Bau-Push Lauf 464 ab 21:53; `ansehen/` erst 23:30 mit APK-Link in Zeile 2 (`906a81451`).
+- **1217 mit Lücke:** (1) Lauf 464 „6 Zeilen in 1 Abschnitten, 4 mit Lage, 8 ohne Handy (Telegram, 1217)“, Reiter „Test“ trug 285.7–285.10 (Chef bestand sie); (3)/(4) 👍 zu 285.2, 285.4a/b als ✓ in `vorgang.py build 285` (`312befa8e`; 1218, 1022.1 erledigt). Offen: kein 👎 in t285, also Rückläufer aus 👎 (1220) und „Falsch“-Text nicht belegt → `warte 1217 t286`.
+- **1173 mit Lücke:** t285 ohne Klang- und ohne Kleinkram-Zeile; seit 13.11., 15:45 keine Kleinkram-Zeile in einer Prüfliste → `warte 1173 t286`.
+- **1249 greift** (`03f83b9f2`): Jerrys Befehl (`cat > godot/tests/film_rauch_1222.gd <<EOF … EOF; cd godot && MESS=1 ~/godot/godot --headless … -s res://tests/film_rauch_1222.gd`) als Haken-Eingabe in leerer Kopie: Exit 0, nichts gezählt. Gegenproben über `bildlauf`/`bild_im_test`: Heredoc mit `save_png` zählt und hält bei `MESS=` an, fehlende Datei ohne Heredoc zählt weiter, Fensterlauf zählt, `tee`-Heredoc ohne Bild zählt nicht.
+
+## Lauf 242 · 1199 Prüfliste erst mit APK in die Chefsache (Perikles `aefe62940`; 14.11., 11:1x)
+
+- **Greift:** Lauf 464 (`claude/build-285`, `d34cecf64`), Schritt „Skripte pruefen“: „PRUEFLISTE Build 285 aus docs/entwurf/t285-gang-messen.md“, „PRUEFLISTE1020 im Bau: Build 285, 6 Zeilen, 0 Fehler“. Entwurf trug „Gegengelesen: Sokrates 13.11., 21:32“. APK fertig 23:03, Bild 285.2 gesendet 23:28 (`ce125336e`, Datei noch in `entwurf/`), Verschiebung nach `ansehen/` erst 23:30 mit APK-Link in Zeile 2 (`906a81451`); vorher keine t285 in `ansehen/`. Bilder 285.4a/b (Spike 00:24) erst gesendet, dann eingetragen. Wächter `commit-pruefung.py` 425–430 vorhanden.
+- **Nicht geprüft:** Wächter an einer gestellten Datei ohne APK-Link; 1200.
+- **1225 greift** an t285: keine Zeile doppelt in zwei Arten, keine Handyzeile „nicht prüfbar“ (0 von 6).
+- **1128.3, Zahlen je Test (ohne Wertung):**
+  - 283: 18 Punkte, alle Handy (Prüfliste vor 1128 A): ✗ 4, ✓ 2, ungetestet 12 (Archiv sagt „übrige zehn“); Rückschritte „wiederholt“ 2 (1040.1, 1086/1108).
+  - 284: 39 Punkte. Bild 8: ✓ 7, ✗ 1. Film 14: ✓ 9, ✗ 2, nicht beurteilbar 1 (7p), fehlten 2 (2a, 2b). Handy 12: ✓ 10, nicht prüfbar (Fehler der Liste) 2 (284.4, 284.5). Ohne dich 5: 4 bestätigt am Lauf 464 (Lauf 450 rot, Kampfblock übersprungen), 284.9 (980, „Spinne aus der Binär-FBX“) im Protokoll nicht belegbar, offen. Funde außer der Reihe 5, je in der Art des Punkts gefunden: 1218 (Bild), 1222, 1223, 844 bekannt (Handy), 1224 (Film). Rückschritt „wiederholt“ 0.
+  - 285: 12 Punkte. Handy 6: ✓ 6. Bild 3: ✓ 3. Film 0 (3 vor der Testbitte zurück, Aufnahme zeigte den Gegenstand nicht). Ohne dich 3: ✓ 3 am Lauf 464 (14 Bautests). Funde außer der Reihe 0, Rückschritte 0; Messung 1145 ergab Hakeln auch ohne Effekte (Messergebnis, zurück an Tom).
+  - Funde an „ohne dich“, die erst das Handy zeigte: 0 in 284 und 285.
+- **Bautests Lauf 464:** 1180, 1212, 1226, 644b.1, 1194, 1206, 904, 987, 1013, 1014, 1025, 1049, 1054, 1136, dazu aus 284 1126, 1127, 1114, 1115 (Kauf-Cache gesichert und geholt, `kampf` baute bei Treffer `figur` allein, `leute` Treffer). Laufnachweis 14 von 14; die 6 Tests aus 285.14 von Hand (Befund D237.1 → 1248 Jerry: Werkzeug liest die Zeile nicht).
+
 ## Lauf 241 · 1098.1 Ford-Starter nach 1245 (14.11., 08:0x)
 
 - **Noch nicht prüfbar, kein Befund:** 1245 hat nur die Zeile oben in `ARBEIT-BETRIEB.md` richtiggestellt (`3c95502e8`); einen Starter legt erst ein Handstart-Ford (Tiefe 0) an. Laufender Ford `…7AAPsuvPwPbE7HCYeV` liegt auf Tiefe 1 (Elternkette: meine Sitzung Tiefe 2, Eltern = Ford), 328 Tsd. `used_tokens` um 08:05; Selbstneustarts „(selbst)“ bis Tiefe 5, dann Handstart. Bei der Rate vom 12./13.11. (Tiefe 4 nach 22 h) frühestens etwa 16.11. 1098.1 wartet auf 16.11.; vorher nur der Chef mit einem Handstart.
