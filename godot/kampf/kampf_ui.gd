@@ -1517,6 +1517,14 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	# 993: der Arkanpfeil aus R2 fliegt gerade wie Funkenpfeil und Pfeil, darum mit Seitenschritt (348.7b (1)); die Ausnahme (5) galt
 	# den gefächerten Geschossen
 	var r2: bool = kind == "MISSILES" and by != on and arkan_r2() != null and k.figures.has(by) and k.figures.has(on)
+	# 601: der Späher mit Schussbewegung tritt zuerst zur Seite, dann hebt er den Bogen (schuss.gd wartet so lange); der Pfeil ist
+	# ein Körper im Raum mit Spur (R3 Arrow Streak), kein gemalter Strich
+	var schuetze = k.figures[by].schuss if kind == "ARROW" and by != on and k.figures.has(by) and k.figures.has(on) else null
+	if schuetze != null:
+		step_ms = _step_aside(kind, k.figures[by], k.figures[on], 0.0, after_ms + Zauber.arrives(kind))
+		schuetze.verschieben(step_ms / 1000.0)
+		_pfeil_flug(k.figures[by], k.figures[on], missed, after_ms + step_ms, step_ms)
+		return step_ms
 	if (kind in STEP_KINDS or r2) and by != on and k.figures.has(by) and k.figures.has(on):
 		step_ms = _step_aside(kind, k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind))
 	after_ms += step_ms
@@ -1579,6 +1587,230 @@ func _arkan_los(by, on, missed: bool) -> void:
 	if p.has_method("launch"):
 		p.call("launch", von, ziel - von, -1.0, true)
 	arkan_fluege.append([p, von, ziel, Time.get_ticks_msec() + s * 1000.0])
+
+
+## 601 (Chef 05.11., Build 266, t266.5: „Pfeil passt nicht“; 13.11., 17:06: „Der ominöse, selbstgebaute Pfeil. Haben wir da nicht
+## auch irgendwas in unserem Kaufbibliothek“): Pfeil aus Avramania Weapons & Shields Free (mdvl_weapons_arrow_01, CC0, im Bau aus
+## dem Kaufrepo, godot.yml), sonst ein eigener aus Schaft, Spitze und Federn; dahinter die Spur R3 Arrow Streak (Weapon & Motion
+## Trails, gekauft 09.11. für die Pfeilspur des Spähers), Farben gedämpft (623.8 A). Vom Ziehen bis zum Lösen liegt er auf der Sehne,
+## beim Lösen fliegt er zum Ziel oder daneben, steckt im Getroffenen (geht mit ihm) oder im Boden und vergeht.
+const PFEIL_AVR := "res://addons/pfeil_avr/mdvl_weapons_arrow_01.glb"
+const PFEIL_AVR_LANG := 0.776     # m, Nocke bis Spitze längs +Y (Ursprung an der Nocke)
+const SPUR_R3 := "res://addons/reeboo_trails/presets/arrow_streak.tres"
+const SPUR_R3_SKRIPT := "res://addons/reeboo_trails/trail_3d.gd"
+## Länge des Pfeils als Anteil der Größe des Schützen (der Kurzbogen hat 0,48, figur.gd GOB_BOGEN)
+const PFEIL_ANTEIL := 0.5
+## gedämpft: grauweiß, halb durchsichtig, wenig Leuchten (Vorgabe hell weißblau, Energie 1,8)
+const SPUR_FARBE := Color(0.80, 0.77, 0.70, 0.55)
+const SPUR_ENERGIE := 0.55
+const STECKT_S := 1.6
+## 601, für den Test schuss_601: je Pfeil der Knoten
+var pfeile: Array = []
+static var _spur_stil = null
+
+static func spur_r3():
+	if _spur_stil == null:
+		_spur_stil = false
+		if ResourceLoader.exists(SPUR_R3) and ResourceLoader.exists(SPUR_R3_SKRIPT):
+			var st = load(SPUR_R3)
+			if st != null:
+				st = st.duplicate(true)
+				if "energy" in st:
+					st.energy = SPUR_ENERGIE
+				if "color_ramp" in st and st.color_ramp is Gradient:
+					var g := st.color_ramp as Gradient
+					for i in g.get_point_count():
+						var c := g.get_color(i)
+						g.set_color(i, Color(SPUR_FARBE.r, SPUR_FARBE.g, SPUR_FARBE.b, c.a * SPUR_FARBE.a))
+				if "core_color" in st:
+					st.core_color = SPUR_FARBE
+				_spur_stil = st
+	return _spur_stil if not (_spur_stil is bool) else null
+
+
+## der Pfeil als Körper: Nocke im Ursprung, Spitze nach −Z, [lang] m
+static func pfeil_koerper(lang: float) -> Node3D:
+	var n := Node3D.new()
+	n.name = "Pfeil"
+	if ResourceLoader.exists(PFEIL_AVR):
+		var sz = load(PFEIL_AVR)
+		if sz is PackedScene:
+			var m: Node3D = (sz as PackedScene).instantiate()
+			var f := lang / PFEIL_AVR_LANG
+			m.transform = Transform3D(Basis(Vector3.RIGHT, -PI / 2.0).scaled(Vector3(f, f, f)), Vector3.ZERO)
+			n.add_child(m)
+			n.set_meta("quelle", "avr")
+			return n
+	# eigener: dunkler Schaft, Eisenspitze, drei graubraune Federn (wie zauber.gd _arrow)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color("6a5038")
+	var schaft := MeshInstance3D.new()
+	var zy := CylinderMesh.new()
+	zy.top_radius = lang * 0.012
+	zy.bottom_radius = lang * 0.012
+	zy.height = lang * 0.9
+	zy.radial_segments = 6
+	schaft.mesh = zy
+	schaft.material_override = mat
+	schaft.transform = Transform3D(Basis(Vector3.RIGHT, -PI / 2.0), Vector3(0, 0, -lang * 0.45))
+	n.add_child(schaft)
+	var eisen := StandardMaterial3D.new()
+	eisen.albedo_color = Color("3a3a3c")
+	var sp := MeshInstance3D.new()
+	var ke := CylinderMesh.new()
+	ke.top_radius = 0.0
+	ke.bottom_radius = lang * 0.03
+	ke.height = lang * 0.1
+	ke.radial_segments = 6
+	sp.mesh = ke
+	sp.material_override = eisen
+	sp.transform = Transform3D(Basis(Vector3.RIGHT, -PI / 2.0), Vector3(0, 0, -lang * 0.95))
+	n.add_child(sp)
+	var feder := StandardMaterial3D.new()
+	feder.albedo_color = Color("a08c6c")
+	feder.cull_mode = BaseMaterial3D.CULL_DISABLED
+	for i in 3:
+		var fe := MeshInstance3D.new()
+		var q := QuadMesh.new()
+		q.size = Vector2(lang * 0.05, lang * 0.16)
+		fe.mesh = q
+		fe.material_override = feder
+		fe.transform = Transform3D(Basis(Vector3.BACK, TAU * i / 3.0) * Basis(Vector3.RIGHT, -PI / 2.0),
+			Vector3(0, 0, -lang * 0.1)) * Transform3D(Basis.IDENTITY, Vector3(lang * 0.025, 0, 0))
+		n.add_child(fe)
+	n.set_meta("quelle", "eigen")
+	return n
+
+
+## Pfeil von [by] auf [on]: legt ihn nach [auf_ms] (Seitenschritt) auf die Sehne, fliegt nach [los_ms] (ab jetzt) los
+func _pfeil_flug(by, on, missed: bool, los_ms: float, auf_ms: float) -> void:
+	var k = kampfort
+	var h: float = maxf(by.head().y - by.position.y, 0.3)
+	var p := Pfeil.new()
+	p.lang = h * PFEIL_ANTEIL
+	p.koerper = pfeil_koerper(p.lang)
+	p.add_child(p.koerper)
+	p.ui = self
+	p.by = by
+	p.on = on
+	p.missed = missed
+	p.auf_s = auf_ms / 1000.0
+	p.los_s = los_ms / 1000.0
+	p.flug_s = maxf(Zauber.arrives("ARROW") / 1000.0, 0.05)
+	p.visible = false
+	k.add_child(p)
+	var st = spur_r3()
+	if st != null:
+		var tr = load(SPUR_R3_SKRIPT).new()
+		tr.style = st
+		tr.emitting = false
+		if "width_scale" in tr:
+			tr.width_scale = clampf(p.lang / 0.75, 0.3, 1.5)
+		p.add_child(tr)
+		p.spur = tr
+	pfeile.append(p)
+	print("601 Pfeil: %s, Spur %s, %s" % [p.koerper.get_meta("quelle"), "R3" if st != null else "ohne", "daneben" if missed else "Treffer"])
+
+
+class Pfeil extends Node3D:
+	var ui
+	var by
+	var on
+	var missed := false
+	var lang := 0.5
+	var auf_s := 0.0
+	var los_s := 0.7
+	var flug_s := 0.45
+	var koerper: Node3D
+	var spur = null
+	var t := 0.0
+	var von := Vector3.ZERO
+	var ziel := Vector3.ZERO
+	var ende := Vector3.ZERO
+	var hub := 0.0
+	var steckt := -1.0
+	var phase := "warten"     # warten, sehne, flug, steckt
+
+	func _process(delta: float) -> void:
+		t += delta
+		if not is_instance_valid(by) or not is_instance_valid(on):
+			queue_free()
+			return
+		match phase:
+			"warten", "sehne":
+				if t >= los_s:
+					_los()
+				elif t >= auf_s + 0.25:
+					phase = "sehne"
+					_auf_sehne()
+			"flug":
+				var x := clampf((t - los_s) / flug_s, 0.0, 1.0)
+				var p := _bahn(x)
+				var q := _bahn(minf(x + 0.02, 1.0)) if x < 0.98 else p + (p - _bahn(x - 0.02))
+				_stelle(p, q - p)
+				if x >= 1.0:
+					_landet()
+			"steckt":
+				steckt -= delta
+				if steckt < 0.4:
+					koerper.scale = Vector3.ONE * maxf(steckt / 0.4, 0.01)
+				if steckt <= 0.0:
+					queue_free()
+
+	func _bahn(x: float) -> Vector3:
+		return von.lerp(ende, x) + Vector3.UP * (4.0 * hub * x * (1.0 - x))
+
+	func _stelle(p: Vector3, d: Vector3) -> void:
+		global_position = p
+		if d.length() > 0.0001:
+			var up := Vector3.UP if absf(d.normalized().dot(Vector3.UP)) < 0.98 else Vector3.RIGHT
+			look_at(p + d, up)
+
+	## Nocke an der Zughand, Spitze am Bogen vorbei zum Ziel
+	func _auf_sehne() -> void:
+		var hand = by.hand_welt("hand_r")
+		var bogen = by.cast_point()
+		if hand == null or bogen == null:
+			return
+		visible = true
+		var d: Vector3 = ui._aim_point(on, (on.position - by.position).normalized()) - hand
+		_stelle(hand, d)
+
+	func _los() -> void:
+		var bogen = by.cast_point()
+		var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
+		dir = dir.normalized() if dir.length() > 0.01 else Vector3.FORWARD
+		von = bogen if bogen != null else by.position + Vector3.UP * lang
+		von -= dir * lang * 0.5     # die Mitte des Pfeils am Bogen
+		ziel = ui._miss_point(by, on, true) if missed else ui._aim_point(on, dir)
+		# daneben: fliegt am Ziel vorbei weiter, bis er im Boden steckt
+		ende = ziel
+		var weit := von.distance_to(ziel)
+		if missed:     # _miss_point liegt am Boden neben dem Ziel: in Brusthöhe dort vorbei, dahinter in den Boden
+			ziel.y = ui._aim_point(on, dir).y
+			var fl := (ziel - von) * Vector3(1, 0, 1)
+			ende = ziel + fl.normalized() * minf(1.5, weit * 0.5)
+			ende.y = on.position.y
+		ende -= (ende - von).normalized() * lang * 0.8     # Weg der Nocke: die Spitze steckt ein Fünftel tief
+		flug_s *= von.distance_to(ende) / maxf(weit, 0.1)
+		hub = weit * 0.04
+		phase = "flug"
+		visible = true
+		_stelle(von, ende - von)
+		if spur != null:
+			spur.clear()
+			spur.emitting = true
+
+	func _landet() -> void:
+		phase = "steckt"
+		steckt = STECKT_S
+		if spur != null:
+			spur.emitting = false
+		if not missed and is_instance_valid(on):
+			var g := global_transform
+			get_parent().remove_child(self)
+			on.add_child(self)
+			global_transform = g
 
 
 ## 348.7b (Chef 27.10., 19:49): wer einen eigenen Mann in der geraden Linie von Hand oder Stabspitze zum Ziel hat, tritt einen

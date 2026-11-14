@@ -177,6 +177,18 @@ jobs:
             echo "R2: $(ls $d | tr '\n' ' ') | Elemente: $(ls $d/elements 2>/dev/null | tr '\n' ' ') | arcane: $(ls $d/elements/arcane 2>/dev/null | tr '\n' ' ')"
             [ -f $d/elements/arcane/arcane_projectile.tscn ] && echo "ARKAN_R2=1" >> "$GITHUB_ENV"
           else echo "R2: nicht da ($(find "$KAUF/anhang/stufe1" -maxdepth 2 -iname '*projectile*' 2>/dev/null | head -3 | tr '\n' ' '))"; fi
+      # 601 (Chef 05.11., t266.5; 13.11., 17:06 „Haben wir da nicht auch irgendwas in unserem Kaufbibliothek“): Pfeil des Spähers aus
+      # Avramania Weapons & Shields Free (mdvl_weapons_arrow_01.glb, CC0) und die Spur R3 Weapon & Motion Trails (REEBOO, gekauft 09.11.,
+      # 21:05 für die Pfeilspur des Spähers; Lizenz verbietet die Weitergabe: nie ins Repo, godot/.gitignore). Fehlt eines, nimmt
+      # kampf_ui.gd den eigenen Pfeil bzw. fliegt ohne Spur.
+      - name: Pfeil und Spur (601, privat)
+        run: |
+          a=$(find "$KAUF/anhang/stufe1" -maxdepth 6 -name 'mdvl_weapons_arrow_01.glb' -path '*glTF*' 2>/dev/null | head -1)
+          if [ -n "$a" ]; then mkdir -p godot/addons/pfeil_avr && cp "$a" godot/addons/pfeil_avr/ && echo "Pfeil: $a"; else echo "Pfeil: nicht da"; fi
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 5 -type d -path '*Weapon_Motion_Trails*/addons/reeboo_trails' 2>/dev/null | head -1)
+          if [ -n "$s" ]; then mkdir -p godot/addons && cp -r "$s" godot/addons/ && rm -f godot/addons/reeboo_trails/README* godot/addons/reeboo_trails/LICENSE*
+            echo "R3: $(ls godot/addons/reeboo_trails/presets | grep -c tres) Spuren, arrow_streak $(ls godot/addons/reeboo_trails/presets/arrow_streak.tres 2>/dev/null)"
+          else echo "R3: nicht da"; fi
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -634,6 +646,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/tod_1141.gd 2>&1 | grep -E "TOD1141|SCRIPT ERROR"   # 1141 jeder Gegnerkörper hat „Tod“, Goblins drei, liegend und verschieden
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/schirm_833.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug)|SCRIPT ERROR"   # 833 Vorschlag A unterer Kampfschirm
           set -o pipefail; SEEDS=4 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/leiste_751.gd 2>&1 | grep -E "^  |LEISTE751"   # 751 A Knöpfe matt, keine Zeile „ist dran“ (1095), Zugleiste, kein verratener Ausgang (Jerry)
@@ -1177,7 +1190,7 @@ jobs:
           fi
           ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '601' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
@@ -1377,6 +1390,21 @@ jobs:
             --write-movie $RUNNER_TEMP/wurf935.avi --fixed-fps 30 -s res://tests/film_wurf_935.gd > $B/wurf935.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/wurf935.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wurf935.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/935-wurf.mp4 || true
+          ls -l $B
+      # 601 (Chef 05.11., t266.5: Goblin-Späher ohne Schussbewegung, Pfeil passt nicht, kein Pfeil beim Fehlschuss): nur die Schüsse des
+      # Spähers von der Seite (schuss.gd, Pfeil aus dem Kaufrepo mit Spur R3); nur von Hand mit kampf=601
+      - name: Pfeilfilm 601 (nur von Hand mit kampf=601)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '601' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/pfeil601; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_pfeil_601.gd 2>&1 | grep -E "^Film|601|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/pfeil601.avi --fixed-fps 30 -s res://tests/film_pfeil_601.gd > $B/pfeil601.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|601|^Signatur|FEHLER" $B/pfeil601.log | head -20 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/pfeil601.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/601-pfeil.mp4 || true
           ls -l $B
       # 510 (Chef 03.11., 10:28–10:57, aus 494): freie Fledermaus (OGA „Vampire Bat (Animated)“, rubberduck, CC0) mit unseren Fellen neben
       # der eigenen (fledermaus.py), je vorhandene Bewegung, beide drehen sich; nur von Hand mit gegner=FLEDERMAUS. Quelle und Lizenz:

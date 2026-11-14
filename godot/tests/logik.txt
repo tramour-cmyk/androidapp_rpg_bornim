@@ -111,6 +111,7 @@ fortsetzen_1021
 versatz_1006
 titel_585
 pfeil_601
+schuss_601
 tritt_1040
 atem_4531
 atem_rechnung_4531
