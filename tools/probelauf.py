@@ -379,8 +379,34 @@ def push_lauf(befehl, cwd):
     los = loest_aus(wo, zweig, pfade, nachricht)
     if not los:  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
         return None
+    if (alt := modellbau_alt(wo, "HEAD")):  # 1254
+        anhalten(alt)
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
     return (nr.group(1) if nr else (nr_aus_verlauf(wo, "HEAD", zweig) or zweig)), los == FILMT  # 911; 924: Rolle aus dem Push-Ziel
+
+
+# 1254 (Chef 14.11., 21:08 „Runs … mit den vorgerenderten … Modellen, dass es schneller geht“): die Kennung der Vorberechnung 854
+# (tools/godot/kauf_cache.py) hängt an Modellbau und Schritttexten. Läufe 469, 470 standen auf Zweigen von vor Build 285, kein Block
+# außer figur traf, Held je Klasse, Leute, Kampfort bauten neu (≈ 50 min, Lauf 86 min; mit Treffern 1 min). Hat main dort seit dem
+# Abzweig etwas geändert, erst main einmischen.
+MODELLBAU = ("tools/blender348", "tools/godot/kauf_cache.py")  # godot.yml nicht: ändert sich oft außerhalb der Bauschritte
+
+
+def modellbau_alt(wo, rev):
+    """Haltetext, wenn origin/main den Modellbau seit dem Abzweig von <rev> geändert hat, sonst None."""
+    try:
+        git("fetch", "-q", "origin", "main", cwd=wo, timeout=20)
+    except subprocess.TimeoutExpired:
+        return None
+    basis = git("merge-base", "origin/main", rev, cwd=wo).stdout.strip()
+    if not basis:
+        return None
+    anders = git("diff", "--name-only", basis, "origin/main", "--", *MODELLBAU, cwd=wo).stdout.split()
+    if not anders:
+        return None
+    return (f"1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert ({len(anders)} Dateien, etwa {anders[0]}). "
+            "Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je Klasse, Leute und Kampfort neu (≈ 50 min statt 1). "
+            "Erst `git fetch origin main && git merge origin/main`, Kerntests, dann pushen bzw. den Lauf starten.")
 
 
 FILMT = 2
@@ -1006,6 +1032,15 @@ def main():
             anhalten(RERUN)
         if hand:
             nr, art, film = hand
+            ref = str((d.get("tool_input") or {}).get("ref") or "")
+            try:  # 1254: Zweig des Laufs gegen main
+                alt = None
+                if ref and ref != "main" and git("fetch", "-q", "origin", ref, cwd=cwd, timeout=20).returncode == 0:
+                    alt = modellbau_alt(cwd, git("rev-parse", "FETCH_HEAD", cwd=cwd).stdout.strip())  # vor dem Holen von main
+            except (OSError, subprocess.SubprocessError, ValueError):
+                alt = None
+            if alt:
+                anhalten(alt)
             pruefen_und_zaehlen(nr, art, wer, film=film)
         return
     if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push

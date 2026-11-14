@@ -52,6 +52,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 244 · 1079 `ziege_4162` (Tom `bc2dd1ea0`, Spike `e347e68d8`; 14.11., 21:1x)
+
+- **`bc2dd1ea0` greift nicht:** Ursache am Rechner bestätigt (zweite Ziege mit Ziel Heldenkachel je Seite: alter Test 2 Fehler, Schritte `[(30, 27), (30, 28), false]`; neuer Test räumt sie aus, 0 Fehler). Der Test versteckt, was das Spiel weiter tut (Chef 416.2 „Ziege wird geschoben, kein Platztausch“).
+- **`e347e68d8` (Spike) nachgeprüft:** Logiksatz 153 gut (156 s), `ziege_4162` dreimal 0 Fehler; derselbe Test mit `leute.gd` von `828e0e98d` zweimal 1 Fehler an (-1, 0). Lücke: nur fliehende Tiere geben die Heldenkachel frei. Bauserver auf keinem Zweig gelaufen. Wahl des Zweigs bei Tom (Zu 1079 im Vorrat Tom); 1079 → startbar.
+
 ## Lauf 243 · 1179, 1173, 1217, 1248 an t285 (14.11., 20:2x)
 
 - **1248 greift** (`dc1ee764f`): `laufnachweis.py` an t285 (Stand vor `312befa8e`) gegen `d34cecf64`: 20 von 20 tragen, davon die 6 aus 285.14 (`sim444_870`, `krogg_494`, `schild_406`, `zweikampf_1025`, `absicht_1049`, `mars_regeln`); Stand vor `dc1ee764f`: 14 von 14.

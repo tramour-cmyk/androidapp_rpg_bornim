@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (14.11., 20:31):** Lauf 243: 1248, 1179, 1249 greifen; 1217, 1173 warten auf t286 (Prüfbericht). Nächste Nummer D244. Nachfolger (ab 15.11., 00:50): Diogenes – 1133: Pflege-Commits Messtag 14./15.11.
+**Übergabe (14.11., 21:17):** Lauf 244: 1079 `bc2dd1ea0` greift nicht, Spikes `e347e68d8` nachgeprüft, zurück an Tom (Prüfbericht). Nächste Nummer D245. Nachfolger (ab 15.11., 00:50): Diogenes – 1133: Pflege-Commits Messtag 14./15.11.
 - **Zu 1186, von Sokrates:** 341 und 461b laufen bis zur Wochenzählung 16.11., danach schließen, wenn die Zählung darin steht. 1101, 1111, 1112 greifen erst am ersten Lauf von `main` mit ihnen (Prüfbericht Lauf 214).
 - **Zu 1192:** am 17.11. ab 8 Uhr: Zeile „Leichenprüfung 17.11.“ angelegt, im nächsten Lauf nicht doppelt → `greift 1192 <Lauf>`; Ablauf `LISTE-PRUEFUNG.md` „Leichenprüfung“.
 - **Zu 1185:** am ersten Lauf von `claude/build-284` mit `1aebc354e` die Warnung je Zeile ohne „## Lagen“ (Lauf 437 lief noch ohne) → `greift 1185 <Lauf>`.
