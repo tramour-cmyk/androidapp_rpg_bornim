@@ -1029,6 +1029,19 @@ jobs:
           # 453.1 Feld 2 (Tuffy; Chef 02.11., 11:07 „steigert sich … und dann wieder normalisiert … einen Tick schneller“): kampf=4531
           # derselbe Kampf (SEED 7) wie Feld 2 links, neu rechts
           # 784 (Tuffy, 654 A): kampf=784 eine Runde Wolfsrudel im Handyformat, Uhr oben links; das Protokoll misst gegen das Sollbild
+          # 845 (Tuffy; 334: erst Ursache nachstellen, am Rechner ohne Kaufmodelle Lücke inf): kampf=845m ohne Film, Krogg gegen jede
+          # Klasse und drei Saaten: Lücke der Klinge beim Aufschlag, Kroggs Körpermitte gegen Ursprung und Platz (DIAG709), Plan des
+          # Helden (SCHAU_709), Sprünge über 5 cm in einem Bild außerhalb der Wege (ZUG709 krogg), dazu beam_864 und kamera_992 mit Krogg
+          if [ "${{ github.event.inputs.kampf }}" = "845m" ]; then
+            for s in 7 1 2; do SEED=$s GEGNER=KROGG KLASSEN=FIGHTER,CLERIC,WIZARD,ROGUE TREFF_LOG=1 DIAG709=1 SCHAU_709=1 ZUG709=1 timeout 900 \
+              ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/treffen_709.gd > $RUNNER_TEMP/t845_$s.log 2>&1 || true
+              echo "== Saat $s"
+              grep -E "^(Treffer|Kampf|Angreifer|TREFFEN709|DIAG709|709 (Ziel|Hieb))|SCRIPT ERROR" $RUNNER_TEMP/t845_$s.log | cut -c1-400 | head -400 || true
+              grep -E "^ZUG709 .* krogg " $RUNNER_TEMP/t845_$s.log | grep -vE " gang (hin|zurück|anlauf) " | awk '$NF+0 >= 0.05' | head -80 || true; done
+            GEGNER=KROGG BEAM_LOG=1 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/beam_864.gd 2>&1 | grep -E "^(  Sprung|Kampf |BEAM864)|SCRIPT ERROR" | head -80 || true
+            GEGNER=KROGG timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/kamera_992.gd 2>&1 | grep -E "^(  Sprung|  Boden|KAMERA992)|SCRIPT ERROR" | head -80 || true
+            exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
