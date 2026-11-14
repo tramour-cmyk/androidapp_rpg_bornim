@@ -63,7 +63,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:38 13.11.: Neustart Sokrates (f0933cd29): neue Sitzung `…797jN7dteYW35dpYLZ` 21:37, Vorgängerin `…79ojfheg8dzo9KaZF9` archiviert (8,08 $ auf 1228, 1233, 1231, 1227; Ford)
 - 21:26 13.11.: Start Homer 1229 (Jerry, c64477860): neue Sitzung `…79opdaF8aU7sFWvj1X` 21:25, alte `…75UMzRVVnYKUQ5sxF5` archiviert (1,22 $ auf 1176; Ford)
 - 21:11 13.11.: Lauf 21:11: Diogenes (1221) `…793z8sMWYVXpXFxWN6` und Spike (542) `…79QJ2L8FTAiLRqDERR` gestartet; Spike-Sitzung 1073 `…75Ua972r7RW38NGDkm` archiviert (9,90 $ auf 1073, Frage liegt als entscheiden/1073.md); Auftrag Diogenes 1221 (Perikles, ef95b0418); Ausschluss 882.2 entfällt (Ford)
-- 00:04 14.11.: Startsperre 00:04 Start Perikles, Spike (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj78AKcmYZYcEtyFxx5V (lauf.py)
 - 00:04 14.11.: Marke Archiv session_01Hmoj79QJ2L8FTAiLRqDERR (lauf.py)
 - 00:04 14.11.: Nachfolger-Warnung Diogenes (Übergabe 13.11., 23:19) (lauf.py)
@@ -85,3 +84,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:05 14.11.: Startsperre 02:05 Start Sokrates (lauf.py, Stellungnahme 1092)
 - 03:04 14.11.: Startsperre 03:04 Start Spike (lauf.py)
 - 03:04 14.11.: Marke Archiv session_01Hmoj7A5LHhpS9zYpLe4fcH (lauf.py)
+- 06:04 14.11.: Startsperre 06:04 Start Spike (lauf.py)
+- 06:04 14.11.: Marke Archiv session_01Hmoj75RUbW5ZmdoiqPRgSc (lauf.py)
