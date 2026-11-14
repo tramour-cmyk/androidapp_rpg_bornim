@@ -31,15 +31,10 @@ jobs:
           [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
           [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
           ~/godot/godot --version
-      # 348.12 Lauf 173 (aufruf_399 „Blende: AMBUSH, [WOLF]“): ohne intro.json fehlen die Sätze der Kampfblende (402, IntroExport
-      # „kampfblende“); godot/daten/ ist nicht im Repository, godot.yml exportiert sie, dieser Lauf bisher nicht
-      - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 17
-      - name: Sätze der Kampfblende aus core (402)
+      # 348.12 Lauf 173 (aufruf_399 „Blende: AMBUSH, [WOLF]“): die Sätze der Kampfblende (402) stehen in godot/daten/intro.json,
+      # seit 870.9 eingecheckt (882.1: kein Gradle, kein Java mehr in diesem Teil)
+      - name: Regelwerte BRS
         run: |
-          ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
           cp tools/sim444/werte.json godot/daten/     # 870.5: Kampf nur nach dem BRS
       - name: Regeln über Kotlin hinaus (SRD, Test 89.2)
         run: |
