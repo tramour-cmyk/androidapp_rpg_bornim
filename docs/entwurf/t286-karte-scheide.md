@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 286 · Version folgt · Karte, Scheide, Höhlenlicht, Wolfskampf · PR folgt
+# Tom und Jerry · Build 286 · Version folgt · Karte, Scheide, Höhlenlicht, Wolfskampf · [PR #205](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/205)
 E Welt · Tom (785.7, 785.8, 1073, 1091, 1092, 1119, 1145, 1149; ohne dich 882.1, 1214, 1234, 1079, 1122, 1129.3, 1131, 1128.2, 1137.2), Jerry (845, 946, 973, 1000, 1223, 1227; ohne dich 980, 1060, 1248) · 14.11., 20:50 · APK folgt
 Rot, bekannt, nicht melden: grak_348 – schon auf `main` rot (1250, Jerry), nicht aus diesem Build.
 
