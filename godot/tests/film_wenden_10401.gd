@@ -56,8 +56,7 @@ func _lauf() -> void:
 	ebene.add_child(titel)
 	spiel.zustand.minuten = 12 * 60
 	spiel.betrete("cave", Vector2i(12, 3), "LEFT")
-	for i in 10:
-		await process_frame
+	await create_timer(1.5).timeout   # 285 (Lauf 464: Film fast schwarz): die Blende nach dem Betreten läuft in Sekunden
 	for n in ["mess", "oben", "leiste", "textfeld"]:
 		var k = spiel.ui.get(n)
 		if k:
@@ -72,11 +71,20 @@ func _lauf() -> void:
 	for i in 90:
 		if lyra == null or lyra.visible: break
 		await process_frame
+	# 285 (Lauf 464: „unsichtbar auf (8, 1), da true, Nebel false“, Film 3,5 s schwarz): bleibt sie im Nebel, Sichtlinie aus wie der
+	# Schalter im Testmenü (555), damit der Film Lyra zeigt; Prüfgegenstand sind ihre Schritte, nicht der Nebel
+	if lyra != null and not lyra.visible:
+		print("FILM10401 Lyra im Nebel (%s), Sichtlinie aus" % str(lyra.kachel))
+		Testmodus.alles_sichtbar = true
+		for i in 30:
+			if lyra.visible: break
+			await process_frame
 	if lyra == null or not lyra.visible:
 		print("FILM10401 keine Lyra in der Höhle (%s)" % ("nicht auf der Karte" if lyra == null else "unsichtbar auf %s, da %s, Nebel %s" % [lyra.kachel, lyra.da, spiel.nebel.zeigt(lyra.kachel) if spiel.nebel else "-"]))
 		quit(1)
 		return
 	print("FILM10401 Lyra mit Wenden %s, Bewegung %s" % [str(lyra.wende_kurve.keys()), str(lyra.anim != null)])
+	spiel.kamera.zoom = 5.0   # 285: näher (5 m Bildbreite statt 9), damit die Füße zu sehen sind
 	spiel.kamera.springe()
 	titel.text = "1040.1 · Lyra, der Held geht vorbei"
 	await _warte(1.5)
