@@ -10,9 +10,9 @@ extends RefCounted
 const SPALTEN := ["l2", "l1", "m", "r1", "r2"]
 const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03", "thigh_l", "thigh_r", "calf_l", "calf_r"]
 # Federwerte (Godot-Einheiten): steif genug, dass der Umhang im Stehen haengt wie gebaut, weich genug, dass er beim Gehen nachschwingt
-const STEIF := 1.6
-const ZUG := 0.45
-const SCHWERE := 1.2
+static var STEIF := float(OS.get_environment("UMHANG_STEIF")) if OS.get_environment("UMHANG_STEIF") != "" else 1.6
+static var ZUG := float(OS.get_environment("UMHANG_ZUG")) if OS.get_environment("UMHANG_ZUG") != "" else 0.45
+static var SCHWERE := float(OS.get_environment("UMHANG_SCHWERE")) if OS.get_environment("UMHANG_SCHWERE") != "" else 1.2
 const GLIED_RADIUS := 0.035
 
 static func ketten(sk: Skeleton3D) -> Array:
@@ -49,7 +49,13 @@ static func an(m: Node3D, sk: Skeleton3D) -> SpringBoneSimulator3D:
 		sim.set_radius(i, GLIED_RADIUS)
 		sim.set_center_from(i, SpringBoneSimulator3D.CENTER_FROM_WORLD_ORIGIN)
 		sim.set_enable_all_child_collisions(i, true)
-	for b in ([] if OS.get_environment("UMHANG_OHNE_KAPSEL") != "" else kapseln(m, sk)):
+	var glieder := PackedVector3Array()   # Gelenke der Kette in der Ruhelage (Raum des Skeletts), dazu die Enden
+	for e in k:
+		for j in range(1, int(e[1]) + 1):
+			var t := sk.get_bone_global_rest(sk.find_bone("umhang_%s_%d" % [e[0], j]))
+			glieder.append(t.origin)
+			if j == int(e[1]): glieder.append(t * Vector3(0, sk.get_bone_rest(sk.find_bone("umhang_%s_%d" % [e[0], j])).origin.length(), 0))
+	for b in ([] if OS.get_environment("UMHANG_OHNE_KAPSEL") != "" else frei(kapseln(m, sk), sk, glieder)):
 		var c := SpringBoneCollisionCapsule3D.new()
 		c.name = "Kapsel_" + String(b["knochen"])
 		sim.add_child(c)
@@ -105,6 +111,25 @@ static func kapseln(m: Node3D, sk: Skeleton3D) -> Array:
 		var rad: float = r[int(r.size() * 0.85)]
 		aus.append({"knochen": n, "radius": rad, "hoehe": maxf(y1 - y0 + 2.0 * rad, 2.0 * rad + 0.01), "mitte": Vector3(0, (y0 + y1) * 0.5, 0)})
 	return aus
+
+
+## Kapseln so schmal, dass die Kette in der Ruhelage frei liegt (sonst drueckt die Federung den Umhang gleich vom Koerper weg):
+## Radius hoechstens Abstand des naechsten Glieds zur Achse minus Gliedradius und 5 mm
+static func frei(liste: Array, sk: Skeleton3D, glieder: PackedVector3Array) -> Array:
+	for b in liste:
+		var t := sk.get_bone_global_rest(sk.find_bone(String(b["knochen"])))
+		var r: float = b["radius"]
+		var h: float = b["hoehe"]
+		var c: Vector3 = t * (b["mitte"] as Vector3)
+		var ax := t.basis.y.normalized() * maxf(h * 0.5 - r, 0.0)
+		var naechst := INF
+		for g in glieder:
+			naechst = minf(naechst, g.distance_to(Geometry3D.get_closest_point_to_segment(g, c - ax, c + ax)))
+		var rmax := naechst - GLIED_RADIUS - 0.005
+		if r > rmax:
+			b["radius"] = maxf(rmax, 0.02)
+			b["hoehe"] = maxf(h - 2.0 * (r - float(b["radius"])), 2.0 * float(b["radius"]) + 0.01)
+	return liste
 
 
 ## Schild oder Rueckenwaffe (Knoten unter einem BoneAttachment3D des Skeletts) als Kapsel um seine Begrenzung
