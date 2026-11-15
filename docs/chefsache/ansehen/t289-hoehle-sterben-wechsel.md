@@ -1,5 +1,6 @@
-# Jerry · Build 289 · Höhle, Sterben, Wechsel · [PR #208](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/208)
-E Kampf · Jerry (1289, 1215, 1296; fährt mit 1000; Test berichtigt 1250, läuft in godot-kampf.yml), Spike (ohne dich 1268.1, 1268.3), Tom (ohne dich 697) · 15.11., 18:25 · APK folgt
+# Jerry · Build 289 · 0.348.497 · Höhle, Sterben, Wechsel · [PR #208](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/208)
+E Kampf · Jerry (1289, 1215, 1296; fährt mit 1000; Test berichtigt 1250, läuft in godot-kampf.yml), Spike (ohne dich 1268.1, 1268.3), Tom (ohne dich 697) · 15.11., 19:43 · [APK (Lauf 497)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43742178182/artifacts/14174916531)
+Rot, bekannt, nicht melden: Typen-Sperrklinke (1268.3) – Dateien aus den gemischten Zweigen haben mehr Stellen ohne Typ als die Grenze von `main`; Sterben mit Physik (1215) – ein Schamane liegt mit der Hüfte 0,3 m im Boden, Grak fällt nicht mit dem Stoß (betrifft 289.2 nicht, dort nur Goblins); Graks Axt (1000) – beim Gehen bis 9 cm aus der Faust. Jerry behebt sie vor dem nächsten Build.
 Gegengelesen: Tom 15.11., 18:33 (Lagen gegen `testmodus.gd`, `kampf/aufruf.gd` auf `main`: station=Krogg, probe=WOLVES zug=pounce gültig, 289.1 und 289.3 erreichbar und sinnvoll; **289.2 so nicht prüfbar:** probe=GRAK ist auf `main` Grak allein (`aufruf.gd` Zeile 30), „Goblins besiegen“ gibt es dort nicht; probe=GOBLINS nehmen oder GRAK im Zweig 289 mit Goblins, dann gilt die Zeile; 289.1 und 289.2 sind Aussehen und Bewegung, als Handy nur wegen Renderer und Ruckeln am Gerät (1290), so lassen)
 
 Sammelbuild auf Build 288 aufgesetzt (enthält alles aus 288 und `main`); die Punkte der Liste 288 kommen hier nicht noch einmal.
@@ -10,7 +11,7 @@ Schon vorgelegt, fährt unverändert mit (kein neuer Prüfpunkt): 1000 Grak häl
 
 Nicht in dieser Liste: 760 (Wolf springt an) wartet auf deinen Blick auf den neuen Film; 1284 (Rattenbiss) neuer Anlauf noch nicht fertig.
 
-Im Bau geprüft: Wächtertests je Fehlerart (1268.1), fehlende Typen als Fehler in `regeln/` und `kampf/` (1268.3), Held im Drehteller deckend (Messung 697).
+Im Bau geprüft: Wächtertests je Fehlerart (1268.1), Held im Drehteller deckend (Messung 697); fehlende Typen (1268.3) rot, siehe oben.
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
