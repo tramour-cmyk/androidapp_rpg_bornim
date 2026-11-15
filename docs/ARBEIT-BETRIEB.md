@@ -123,3 +123,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:46 15.11.: Startsperre 18:46 Start Tom (Neustart, Übergabe 5fe7e7511); alte Sitzung …79tpm29pyY1Mnf81xG nach Ruhe archivieren, Kosten auf 431, 1145
 - 19:04 15.11.: Startsperre 19:04 Start Homer, Perikles (lauf.py)
 - 19:16 15.11.: Startsperre 19:16 Start Perikles 1311 (Sokrates, Chef „jetzt“, per Weiter an …771BApBUDEspEuKUsR)
+- 19:19 15.11.: Startsperre 19:19 Start Sokrates (Neustart, 2d599c93c, eilig Stichtag 20:00); alte Sitzung …75TxvxMneSiDEAtRjE nach Ruhe archivieren, Kosten auf 1137, 1268.2, 1247
