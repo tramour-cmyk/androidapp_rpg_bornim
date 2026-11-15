@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 23:33, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 23:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,7 +12,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 73 | 28 | 3 | 3 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
+| ↳ Kampf passt | 73 | 28 | 3 | 3 | 17 | 1288 (Sokrates) Kerben: Verstreichen lassen oder eine Kerbe in de… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 20 | 7 | 0 | 1 | 14 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 64 | 12 | 2 | 8 | 33 | 1300 (Spike) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 6 | 0 | 1 | 8 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
@@ -23,28 +23,28 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
-| 2 | 1288 | Sokrates | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lück… | M | Kampf passt | startbar |
-| 3 | 1349 | Sokrates | Schritt 1 gemessen, kürzt allein wenig, 1072 bei 42,87 $; Schritt 2 freigeben?… | M | Kampf passt | startbar |
-| 4 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
-| 5 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
-| 6 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
-| 7 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
-| 8 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
-| 9 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
-| 10 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
-| 11 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
-| 12 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
-| 13 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
-| 14 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 15 | 1300 | Spike | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 16 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 1286 | Spike | Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf… | K | Kampf passt | startbar |
+| 1 | 1288 | Sokrates | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lück… | M | Kampf passt | startbar |
+| 2 | 1349 | Sokrates | Schritt 1 gemessen, kürzt allein wenig, 1072 bei 42,87 $; Schritt 2 freigeben?… | M | Kampf passt | startbar |
+| 3 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
+| 4 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
+| 5 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
+| 6 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
+| 7 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
+| 8 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
+| 9 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
+| 10 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
+| 11 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
+| 12 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
+| 13 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 14 | 1300 | Spike | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
+| 15 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 18 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 1286 | Spike | Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf… | K | Kampf passt | startbar |
+| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 
-Danach 86 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 90.
+Danach 85 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 90.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
