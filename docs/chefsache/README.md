@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1278](billigen/1278-kuer-schliessen.md) | **Muss** | B Abläufe | 15.11., 11:28 | Von 32 angefangenen Kür haben nur 5 keinen Plan mehr; die schließe ich nach deinem „gebilligt“, Zweig und Kosten bleiben in Git. | Perikles |
 
 ## Anzusehen
 
