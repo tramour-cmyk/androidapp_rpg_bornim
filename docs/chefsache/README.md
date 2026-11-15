@@ -14,7 +14,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 74 | 29 | 3 | 1 | 11 | 1314 (Jerry) Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ra… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 21 | 7 | 0 | 0 | 14 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 1 | 5 | 29 | 1300 (Spike) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 1 | 5 | 29 | 1325 (Tom) Rot: ziege_4162 auf dem Bauserver in Lauf 499 und… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 6 | 0 | 1 | 6 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
 | Werkzeuge und Abläufe der Firma | 60 | 35 | 0 | 0 | 9 | 1186 (Sokrates) Altbestand: offene Vorgänge unter 700 auf überhol… |
 | Marktstart | 10 | 0 | 0 | 0 | 7 | 622 (Tom) Godot-Build als AAB für Play: dieselbe App `de.bo… |
@@ -37,14 +37,14 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 12 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
 | 13 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
 | 14 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 15 | 1300 | Spike | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1325 | Tom | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500: von Westen tritt die Zie… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1309 | Tom | Feld „Kopf“ rutscht oben unter die Reiterleiste; lange Namen abgeschnitten, gan… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 15 | 1325 | Tom | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500: von Westen tritt die Zie… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1309 | Tom | Feld „Kopf“ rutscht oben unter die Reiterleiste; lange Namen abgeschnitten, gan… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 20 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 106 weitere offen. Bei dir zum Testen (vorgelegt): 7. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
+Danach 105 weitere offen. Bei dir zum Testen (vorgelegt): 7. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
