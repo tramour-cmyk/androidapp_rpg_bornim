@@ -792,6 +792,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/lage_modell_1180.gd 2>&1 | tee lagemodell1180.log | grep -E "FEHLER|^1180|LAGEMODELL1180|SCRIPT ERROR"; grep -q "^LAGEMODELL1180 gut" lagemodell1180.log   # 1180 Lage nur mit Gruppe, die ein Modell hat (Tom)
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/breite_1027.gd 2>&1 | grep -E "FALSCH|BREITE1027|SCRIPT ERROR"   # 1027 jeder Reiter passt auf den Schirm
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/rollstand_1030.gd 2>&1 | grep -E "FALSCH|ROLL1030|SCRIPT ERROR"   # 1030 Reiter „Test“ behält die Stelle, Prüfliste einklappbar
+          set -o pipefail; timeout 240 ~/godot/godot --headless --path . -s res://tests/kartenhoehe_1295.gd 2>&1 | grep -E "^(gut|FEHLER)|KARTENHOEHE1295|SCRIPT ERROR"   # 1295 Karte füllt den Platz, auch gleich beim Öffnen
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/zustaende_764.gd 2>&1 | grep -E "FEHLER|ZUSTAENDE764|SCRIPT ERROR"   # 764 Zustände im Heldenreiter mit Erklärung
           set -o pipefail; timeout 180 ~/godot/godot --headless --path . -s res://tests/kasten_860.gd 2>&1 | grep -E "FEHLER|KASTEN860|SCRIPT ERROR"   # 860 Chronik und Kartenfilter ohne Kasten
           set -o pipefail; timeout 200 ~/godot/godot --headless --path . -s res://tests/schnellstart_1020.gd 2>&1 | grep -E "FEHLER|SCHNELLSTART1020|SCRIPT ERROR"   # 1020.1 A Schnellstart, Lage merken/zurück

@@ -148,7 +148,18 @@ static func hat_geber(z_: Zustand, wer: String) -> bool:
 	r.free()
 	return ja
 
-func _ready() -> void: baue()
+func _ready() -> void:
+	baue()
+	# 1295 (Chef 15.11., 13:41, Build 286: „nicht mehr so richtig formatfüllend … unten an der Karte sind sie abgeschnitten“): öffnet
+	# das Menü gleich auf der Karte, hat der Rollkasten beim Bau noch keine Höhe (0), das Blatt blieb bei 300 dp, ein Drittel des
+	# Schirms. Darum folgt die Höhe dem Rollkasten, sobald er seine hat (auch nach Drehen oder Schriftgröße)
+	var p := get_parent()
+	while p != null and not p is ScrollContainer: p = p.get_parent()
+	if p != null:
+		var rolle := p as ScrollContainer
+		var folge := func(): custom_minimum_size.y = maxf(rolle.size.y, 300 * DP)
+		rolle.resized.connect(folge)
+		folge.call()
 
 func karte_daten() -> Dictionary: return blatt().get("karten", {}).get(gezeigt, {})
 
@@ -456,6 +467,7 @@ class Flaeche extends Control:
 	var start := Vector2.ZERO
 	var bewegt := false
 	var abstand := 0.0
+	var beruehrt := false      # 1295: geschoben oder gezoomt; vorher folgt die Anfangslage der Größe des Rahmens
 
 	func _init(r: Kartenreiter) -> void:
 		reiter = r
@@ -468,6 +480,7 @@ class Flaeche extends Control:
 		versatz.y = (size.y - g.y) / 2 if g.y <= size.y else clampf(versatz.y, size.y - g.y, 0)
 
 	func zoome(mitte: Vector2, k: float) -> void:
+		beruehrt = true
 		var neu := clampf(mass * k, passt, passt * 6.0)
 		versatz = mitte - (mitte - versatz) * (neu / mass)
 		mass = neu
@@ -495,7 +508,7 @@ class Flaeche extends Control:
 			else:
 				finger[e.index] = e.position
 				if e.position.distance_to(start) > 10 * Kartenreiter.DP: bewegt = true
-				if bewegt: versatz += e.relative; klemme(); queue_redraw()
+				if bewegt: beruehrt = true; versatz += e.relative; klemme(); queue_redraw()
 			accept_event()
 		elif e is InputEventMouseButton and e.pressed and e.button_index in [MOUSE_BUTTON_WHEEL_UP, MOUSE_BUTTON_WHEEL_DOWN]:
 			zoome(e.position, 1.15 if e.button_index == MOUSE_BUTTON_WHEEL_UP else 1 / 1.15)
@@ -510,6 +523,7 @@ class Kartenblatt extends Flaeche:
 	var marken: Array
 	var haus: Array
 	var anfang := true
+	var fokus := {}            # 528, 1295: der Auftraggeber, auf dem die Karte öffnet (auch nach dem Wachsen des Rahmens)
 	var unten: TextureRect     # 505: Wald mit Nebel (62c): das Blatt darunter, gemischt nach dem Erkundeten (kartennebel.gdshader)
 	var win := Rect2i()        # 785.7: gezeigter Ausschnitt in Kacheln der Karte (Höhle 62o), sonst die ganze Karte
 	var muender: Array         # 785.7 (62p): Höhlenmünder, deren Höhle der Held kennt
@@ -541,19 +555,22 @@ class Kartenblatt extends Flaeche:
 	func _passe() -> void:
 		if tex == null or size.x <= 0: return
 		passt = minf(size.x / tex.get_width(), size.y / tex.get_height())
-		if anfang:   # oeffnet vergroessert auf dem Helden, mindestens so, dass die Karte den Rahmen fuellt
+		# 1295: der Rahmen wächst nach dem ersten Bild noch (Menü gleich auf der Karte); bis der Spieler schiebt oder zoomt, gilt die
+		# Anfangslage für die neue Größe
+		if anfang or not beruehrt:   # oeffnet vergroessert auf dem Helden, mindestens so, dass die Karte den Rahmen fuellt
+			var zuerst := anfang
 			anfang = false
 			mass = maxf(passt * 2.5, maxf(size.x / tex.get_width(), size.y / tex.get_height())) if hier and String(k["art"]) != "INTERIOR" else passt
 			versatz = size / 2 - Vector2(cx(int(reiter.ort["x"])), cy(int(reiter.ort["y"]))) * mass if hier else Vector2.ZERO
-			var f: Dictionary = reiter.fokus
+			if zuerst: fokus = reiter.fokus; reiter.fokus = {}
+			var f: Dictionary = fokus
 			if not f.is_empty() and String(f["karte"]) == reiter.gezeigt:   # 528: auf dem Auftraggeber, sein Name unten
 				if String(k["art"]) != "INTERIOR": mass = maxf(passt * 2.5, maxf(size.x / tex.get_width(), size.y / tex.get_height()))
 				versatz = size / 2 - Vector2(cx(int(f["x"])), cy(int(f["y"]))) * mass
 				var m = null
 				for mm in marken:
 					if int(mm["x"]) == int(f["x"]) and int(mm["y"]) == int(f["y"]): m = mm
-				reiter.call_deferred("tipp", Sprache.t((m if m else f)["text"]), true)
-				reiter.fokus = {}
+				if zuerst: reiter.call_deferred("tipp", Sprache.t((m if m else f)["text"]), true)
 		mass = maxf(mass, passt)
 		klemme(); queue_redraw()
 
