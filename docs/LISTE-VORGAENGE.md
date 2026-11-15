@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | 1339 | Von Werkzeug (1334): Wiederholrot wende_4168: 3× rot in 48 h (Läufe 465, 460, 459); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
 | 1337 | Von Jerry (1331): t290 Toms Zeilen 290.1–290.7 am Stand claude/build-290 gegengehen, Bilder 290.3, 290.6 und Film 290.5 machen | Tom | M | erledigt | – | – | – | E Technik | – |
 | 1329 | Von Sokrates: 6 Zeilen „zu testen, ohne Rückmeldung“ (697, 1040.1, 1185, 1268.1, 1268.3, 1290) selbst am Build prüfen und schließen oder als Test mit Schritten vorlegen (Chef 15.11., 21:03) · „jetzt“ 15.11., 21:07 | Tom | M | startbar | – | – | – | B Abläufe | – |
