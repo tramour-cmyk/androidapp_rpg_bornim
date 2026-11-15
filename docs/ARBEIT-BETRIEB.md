@@ -94,3 +94,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 15.11.: Marke Archiv session_01Hmoj79UDfkXFpM3zk1WmjM (lauf.py)
 - 10:53 15.11.: Startsperre 10:53 Start Tom, Diogenes (lauf.py)
 - 10:55 15.11.: Diogenes neu `…78yhg3iMnC4caCkmRB` (1272); 1270.1 per Weiter an Spike `…7A7BuC683wt2MBEacm` (Chef: nicht Tom und Jerry), Tom 286 bleibt (wartet auf Chef-Test)
+- 10:56 15.11.: Startsperre 10:56 Start Spike (Neustart, 1a316e011)
+- 10:57 15.11.: Spike neu `…77N7FwEA8GY6oPzSUA` (1270.1, Neustart 1a316e011), alt archiviert (10,98 $)
