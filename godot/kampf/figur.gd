@@ -770,6 +770,15 @@ func _arm_goblin() -> void:
 		for at in model.find_children("*", "BoneAttachment3D", true, false):
 			if not at.has_meta("was") and at.find_children("Waffe*", "MeshInstance3D", true, false).size() > 0:
 				at.set_meta("was", "waffe-im-modell")
+	if Mars.koerper_of(fighter.monster) == Mars.SCOUT:     # 601: der Späher schießt sichtbar (schuss.gd)
+		var sch = preload("res://kampf/schuss.gd").new()
+		sch.name = "Schuss"
+		if sch.einrichten(sk):
+			sk.add_child(sch)
+			schuss = sch
+		else:
+			sch.free()
+			print("601 Schuss %s: Gerüst ohne Arme" % fighter.id)
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -3081,6 +3090,22 @@ const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]     # wie Zauber.BO
 ## 662 (Chef t270.9: „keine Seite erkennbar“): wo der Angriff ankommt (Platz vor dem Biss oder Hieb, im Raum des Kampforts);
 ## danach richtet der Angegriffene die Parade aus. INF: gerade aus dem Stand (dann zählt, wo der Angreifer steht)
 var angriff_von := Vector3.INF
+## 601: Schussbewegung des Spähers (schuss.gd), sonst null
+var schuss = null
+
+## 601: Lage eines Knochens in der Welt (der Pfeil auf der Sehne an der Zughand), null ohne Gerüst
+func hand_welt(knochen: String):
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model != null else null
+	if sk != null and schuss != null and knochen in ["hand_l", "hand_r"]:     # Kampfgerüst: die Hand ohne eigenen Knochen
+		return schuss.hand_welt(sk, "arm_l" if knochen == "hand_l" else "arm_r")
+	if sk == null or sk.find_bone(knochen) < 0:
+		return null
+	return sk.global_transform * sk.get_bone_global_pose(sk.find_bone(knochen)).origin
+
+
+func _schuss_fertig() -> void:
+	_face()
+	_idle_wenn_frei()
 
 func spell_oder_fern(e: Dictionary) -> bool:
 	return e.spell != null or fighter.ranged()
@@ -3119,6 +3144,17 @@ func strike(other, e: Dictionary) -> int:
 		get_tree().create_timer(lw).timeout.connect(func(): _face(); _idle())
 		busy_ms = int(lw * 1000.0)
 		return wurf_los_ms
+	if ranged and not spell and schuss != null:
+		# 601 (Chef 05.11., t266.5: „Schussanimation nicht vorhanden“): heben, Sehne ziehen, zielen, lösen (schuss.gd); der Pfeil
+		# fliegt beim Lösen (kampf_ui.gd _pfeil_flug)
+		_schnaufen(0.6)
+		_face(other.position - position)
+		_play("Stehen", 0.1)
+		schuss.schiessen(other.position + Vector3.UP * (other.head().y - other.position.y) * 0.7)
+		if not schuss.fertig.is_connected(_schuss_fertig):
+			schuss.fertig.connect(_schuss_fertig)
+		busy_ms = int(schuss.DAUER * 1000.0)
+		return int(schuss.LOS * 1000.0)
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)
@@ -3540,6 +3576,8 @@ func cast_point():
 			return tip / n
 	if w != null:
 		return w.global_position
+	if schuss != null and off != null:     # 601: der Pfeil geht vom Bogen des Spähers aus, nicht aus der Zughand
+		return off.global_position
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
 	if sk == null:
 		return null
