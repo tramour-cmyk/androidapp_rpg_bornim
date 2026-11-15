@@ -1653,12 +1653,16 @@ func fach(platz: String) -> Control:
 		var sp := VBoxContainer.new()
 		sp.add_theme_constant_override("separation", 0)
 		sp.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var b := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 40)
+		# 1309 (Chef 15.11., 17:12/18:20: „Göttliche Beinschienen…“ abgeschnitten, Feld „Kopf“ unter der Reiterleiste): wie alt
+		# (GearUi.kt slotCell: GearIcon 48 dp, darunter nur der Platz) ohne Namen im Fach; der Name steht beim Antippen. Mit Namen
+		# brauchten göttliche Stücke 4 Zeilen (2 sichtbar) und die Seite war 47 px höher als der Rollkasten, sie rollte
+		var b := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 48)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		if zwei: b.modulate.a = 0.5
+		sp.alignment = BoxContainer.ALIGNMENT_CENTER
 		sp.add_child(b)
-		n.max_lines_visible = 2
-		sp.add_child(n)
+		n.free()
 		rahmen.add_child(sp)
 	else: rahmen.add_child(n)
 	if merkmale and g != null: Menue.merkmal_ecken(rahmen, g, rahmen.get_child(0).get_child(0), true)   # 756
