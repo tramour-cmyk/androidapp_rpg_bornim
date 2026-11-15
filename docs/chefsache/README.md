@@ -29,7 +29,11 @@ Nichts offen.
 
 ## Zu tun
 
-Nichts offen.
+Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1270.1](tun/12701-messung.md) | **Muss** | E Technik | 15.11., 11:00 | zwei Kämpfe hintereinander, nach jedem „Gerät zeigen“ kopieren und schicken; kein neuer Build nötig. | Spike |
 
 ## Offen je Rolle
 
