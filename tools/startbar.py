@@ -618,6 +618,61 @@ def b_nicht_auf_main(d):
         if _git("fetch", "-q", "origin", "%s:refs/remotes/origin/%s" % (z, z)).returncode != 0: return False
     return _git("merge-base", "--is-ancestor", "origin/" + z, "origin/main").returncode != 0
 
+# 1312 (Chef 15.11., 19:28: „Einspielen ist das Beste, aber wenn das auch nicht passiert, dann doch wenigstens vorlegen und nicht
+# irgendwo rumliegen lassen.“): Spielcode „gebaut“ ohne Build und ohne Vorlage ist nach VORLAGE_STUNDEN für den Besitzer startbar.
+# Vorlage = Build-Nummer im Feld Build, t<n> im Feld „wartet auf“ (Test oder Film zu t<n>) oder ein Termin dort (Sammelbuild,
+# Antwort auf einen Film). Ersetzt „fährt im nächsten Build“ ohne Termin und die zwei Tage aus 1129 A 3a.
+VORLAGE_STUNDEN = 6
+VORLAGE_FENSTER = 14  # Tage Git-Verlauf; länger „gebaut“ zählt als so alt
+_GEBAUT_SEIT = None
+
+def gebaut_seit():
+    """Nummer → Zeitpunkt (Unix), an dem der Stand zuletzt auf „gebaut“ wechselte (Git-Verlauf der Liste; Kostenbuchung, Rang und
+    Titeländerung ohne Wechsel zählen nicht). Fehlt eine Nummer, war sie im Fenster schon „gebaut“ oder Git fehlt."""
+    global _GEBAUT_SEIT
+    if _GEBAUT_SEIT is not None: return _GEBAUT_SEIT
+    _GEBAUT_SEIT = {}
+    out = _git("log", "--since=%d.days" % VORLAGE_FENSTER, "--format=ZEIT %ct", "-U0", "--", os.path.join(DOCS, LISTE)).stdout
+    def auswerten(t, minus, plus):
+        for nr, w in plus.items():
+            if w == "gebaut" and minus.get(nr) != "gebaut" and nr not in _GEBAUT_SEIT: _GEBAUT_SEIT[nr] = t
+    t, minus, plus = None, {}, {}
+    for z in out.splitlines():
+        if z.startswith("ZEIT "):
+            if t is not None: auswerten(t, minus, plus)
+            t, minus, plus = int(z[5:]), {}, {}
+        elif z[:3] in ("-| ", "+| "):
+            c = zellen(z[1:])
+            if len(c) >= 5: (minus if z[0] == "-" else plus)[c[0]] = wort_von(c[4])
+    if t is not None: auswerten(t, minus, plus)
+    return _GEBAUT_SEIT
+
+def liegt_ohne_vorlage(d):
+    """1312: Stunden, seit die Spielcode-Zeile „gebaut“ ohne Build und ohne Vorlage liegt (nur ab VORLAGE_STUNDEN), sonst None.
+    Spielcode = Tom oder Jerry, nicht Bereich B (Werkzeug mischt der Besitzer selbst, 1311), nicht der Sammelbuild-Zweig."""
+    if d["wort"] != "gebaut" or d["besitzer"] not in WEITERBAUEN or (d.get("bereich") or "").startswith("B "): return None
+    if (d.get("zweig") or "").startswith("claude/build-") or str(d.get("build") or "").strip() not in ("", "–", "-"): return None
+    if offen_warte(d): return None
+    seit = gebaut_seit()
+    if _git("rev-parse", "-q", "--verify", "HEAD").returncode != 0: return None  # ohne Git lieber nichts melden als alles
+    t = seit.get(d["nr"])
+    h = (JETZT - datetime.datetime.fromtimestamp(t)).total_seconds() / 3600 if t else VORLAGE_FENSTER * 24
+    return int(h) if h >= VORLAGE_STUNDEN else None
+
+def offener_build():
+    """Nummer des jüngsten Builds mit Zeilen „zu testen“ ohne Test im Archiv (dort kommt ein fertiger Punkt hinein, 1139), sonst None."""
+    arch = lesen("VORGANGSARCHIV.md")
+    nrn = {str(d.get("build") or "").strip() for d in zeilen_liste() if d["wort"] == "zu testen"}
+    offen = [int(n) for n in nrn if n.isdigit() and not re.search(r"(?m)^- \*\*(?:t\d+, )*t%s\b" % n, arch)]
+    return max(offen) if offen else None
+
+def vorlage_auftrag(d, h):
+    b = offener_build()
+    weg = ("in den offenen Build %d mischen (`vorgang.py build %d --mit %s`)" % (b, b, d["nr"]) if b
+           else "Sammelbuild anlegen (LISTE-CHECK-BUILD-TEST 3, auch unter 4 Punkten)")
+    return (" (1312: Spielcode gebaut seit %d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
+            "ins Feld „wartet auf“; nie „fährt im nächsten Build“ ohne Termin)" % (h, weg))
+
 def b_offen_streng(d):
     """1221 (Diogenes 13.11., 20:27): „greift“ prüft erst, wenn jede Nummer im Feld „wartet auf“ erledigt ist; „gebaut“ oder
     „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
@@ -650,7 +705,9 @@ def sperre(d):
             n, st = stand_von(t)
             return "wartet auf %s (%s), dann Diogenes (greift?)" % (t, wort_von(st) or st or "Nummer unbekannt")
         return "wartet auf Diogenes (greift?)"
-    if w == "gebaut": return "wartet auf Test/Build (gebaut)"  # 190.1
+    if w == "gebaut":
+        if liegt_ohne_vorlage(d) is not None: return None  # 1312: vorlegen (Auftrag im Titel, plan)
+        return "wartet auf Test/Build (gebaut)"  # 190.1
     if w == "zu testen": return "wartet auf Test (Build%s)" % ((" " + d["build"]) if d.get("build") not in ("", "–", "-", None) else "")
     if w == "ruht" and not d["warte"]: return "ruht" + ((" (" + d["zusatz"][:60] + ")") if d["zusatz"].startswith("424") else "")
     if w == "Dauer" and not d["warte"]: return "Dauerzeile"
@@ -700,6 +757,8 @@ def plan(rolle):
         if d["besitzer"] == rolle:
             kl = "M" if d["nr"] in f and d["kl"] != "–" else d["kl"]
             mischen = " (1311: Werkzeug gebaut auf %s, nicht auf main: nach grünem Lauf jetzt mischen, ohne Test des Chefs; dann Diogenes „greift“)" % d["zweig"] if b_nicht_auf_main(d) else ""
+            h = liegt_ohne_vorlage(d)
+            if h is not None: mischen = vorlage_auftrag(d, h)
             eigen.append((d["nr"], kl, d["titel"] + mischen, d, sperre(d)))
         elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d) and not b_nicht_auf_main(d):  # 724 A, 1221
             # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269);
