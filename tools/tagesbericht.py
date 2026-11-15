@@ -136,16 +136,24 @@ def rote_laeufe():
     for name, ls in (("24h", [l for l in laeufe if l.get("created_at", "") >= grenze]), ("7d", laeufe)):
         gezaehlt = [l for l in ls if l.get("conclusion") in ("success", "failure")]
         rot = [l for l in gezaehlt if l["conclusion"] == "failure"]
-        team = collections.Counter(next((t for v, t in (("tom", "tom"), ("spike", "tom"), ("jerry", "jerry"), ("tuffy", "jerry"), ("build", "build"))
-                                         if (l.get("head_branch") or "").startswith("claude/" + v)), "sonst") for l in rot)  # 777: spike → Tom, tuffy → Jerry
+        team = collections.Counter(next((t for v, t in (("tom", "tom"), ("spike", "spike"), ("jerry", "jerry"), ("tuffy", "jerry"), ("build", "build"))
+                                         if (l.get("head_branch") or "").startswith("claude/" + v)), "sonst") for l in rot)  # 777: tuffy → Jerry; 1328: spike eigene Rolle
         erg[name] = (len(rot), len(gezaehlt), team)
     return erg
 
 def rot_text(r):
     if not r: return "rote Läufe unbekannt (Netz)"
     n, g, t = r["24h"]; n7, g7, _ = r["7d"]
-    teams = ", ".join("%s %d" % (k.capitalize(), t[k]) for k in ("tom", "jerry", "build", "sonst") if t[k])
-    return "rote Läufe 24 h **%d von %d**%s, 7 Tage %d von %d" % (n, g, " (%s)" % teams if teams else "", n7, g7)
+    teams = ", ".join("%s %d" % (k.capitalize(), t[k]) for k in ("tom", "jerry", "spike", "build", "sonst") if t[k])
+    return "rote Läufe 24 h **%d von %d**%s, 7 Tage %d von %d%s" % (n, g, " (%s)" % teams if teams else "", n7, g7, rotbuch_kurz())
+
+def rotbuch_kurz():
+    """1334: Zahl je roten Test der letzten 48 h (tools/rotbuch.py --kurz)."""
+    try:
+        r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "rotbuch.py"), "--kurz"], capture_output=True, text=True, timeout=120)
+        return "; " + r.stdout.strip() if r.stdout.startswith("rote Tests") else ""
+    except Exception:
+        return ""
 
 def zeilen(d):
     p = d["punkte"]; z = collections.Counter(p.values())

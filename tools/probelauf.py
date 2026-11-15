@@ -177,6 +177,7 @@ BEFEHL_ANFANG = r"(?:^|[;&|(`]|\$\()\s*(?:\w+=\S*\s+)*"  # nur als Befehl, nicht
 GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
 GH_RERUN = re.compile(BEFEHL_ANFANG + r"(?:gh\s+run\s+rerun\b|(?:curl|gh\s+api)\b[^\n|;&]*/actions/(?:runs|jobs)/\d+/rerun)", re.M)
 API_LAUF = re.compile(BEFEHL_ANFANG + r"(?:curl|gh\s+api)\b[^\n|;&]*/actions/workflows/([\w.-]+)/dispatches[^\n|;&]*", re.M)
+FREIGABE = re.compile(r"(?<!\w)L(?:auf|äufe) frei(?!\w)")  # 1247: Einzahl wie Mehrzahl
 ARCHIV_KOPF = re.compile(r"^- \*\*([^*]+)\*\*\s*\((\d\d)\.(\d\d)\.,\s*(\d\d):(\d)([\dx])", re.M)
 CI_PFADE = ("godot/", "tools/blender348/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe; 882.2: core/ baut nicht mehr
 
@@ -204,8 +205,12 @@ def testlauf(lauf, befehl, cwd, roh=None):
 
 
 def bild_im_test(befehl, cwd, roh):
-    """1249: legt ein gestartetes Testprogramm (Datei oder Heredoc im selben Befehl) ein Bild ab?"""
+    """1249: legt ein gestartetes Testprogramm (Datei oder Heredoc im selben Befehl) ein Bild ab?
+    1317 (von Jerry, 1314): ein Lauf mit `--headless` ohne `--write-movie` rendert nichts und legt kein Bild ab, auch wenn
+    der Test `save_png` enthält (ausholen_1000 nur hinter BILD_1000 und nicht headless)."""
     for m in GODOT_LAUF.finditer(befehl):
+        if re.search(r"(?:^|\s)--headless(?=\s|$)", m.group(0)) and "--write-movie" not in m.group(0):
+            continue
         s = TEST_SKRIPT.search(m.group(0))
         if not s:
             continue
@@ -275,15 +280,20 @@ def urteil(nr):
         ende = archiv.find("\n- **", m.end())
         eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
         # D68.1: „453b und 463a … zwei Läufe frei (Sokrates)“ im Text eines Eintrags gibt frei, ab dessen Zeit
-        if any("Läufe frei" in teil and re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", teil)
-               for teil in re.split(r"[;:]\s", eintrag)):
+        nr_da = re.compile(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)")
+        if any(FREIGABE.search(teil) and nr_da.search(teil) for teil in re.split(r"[;:]\s", eintrag)):
             beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
             continue
         klammer = eintrag[:eintrag.find(")")] if ")" in eintrag else ""
+        # 1247: „1242, Lauf frei** (…, Bitte Tom zu 1091, 1119, 1040.1; …)“ gibt auch die Nummern der Klammer frei
+        if FREIGABE.search(m.group(1)) and re.search(r"(?<!\w)zu\s+(?:[\d.]+[a-z]?(?:,\s*|\s+und\s+))*"
+                                                    + re.escape(nr) + r"(?![\w]|\.\d)", klammer):
+            beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+            continue
         vorentscheid = "Vorentscheid" in m.group(1) or "Vorentscheid" in klammer or "→ **Vorentscheid" in eintrag
         if "Probebild passt" in m.group(1):  # 511: Freigabe des Probebilds gibt nur den Film frei, keine zwei neuen Läufe
             continue
-        if "Läufe frei" in m.group(1):  # 480.1 (Chef 02.11., 18:46): weitere Läufe gibt Sokrates frei, Kopf „<Nr>, Läufe frei“
+        if FREIGABE.search(m.group(1)):  # 480.1, 1247 auch Einzahl „Lauf frei“ (Chef 02.11., 18:46): weitere Läufe gibt Sokrates frei, Kopf „<Nr>, Läufe frei“
             vorentscheid = False
         if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
             continue
@@ -515,8 +525,8 @@ def vorgang_aus_ref(ref, ablauf):
     return nr.group(1) if nr and not eigen else (eigen or ref or ablauf or "?")
 
 
-BESITZER = ("Homer", "Tom", "Jerry", "Perikles", "Diogenes", "Sokrates", "Ford")
-ZUSATZ_TEAM = {"Spike": "Tom", "Tuffy": "Jerry"}  # Zusatzentwickler (433)
+BESITZER = ("Homer", "Tom", "Jerry", "Spike", "Perikles", "Diogenes", "Sokrates", "Ford")
+ZUSATZ_TEAM = {"Tuffy": "Jerry"}  # Zusatzentwickler (433); 1328: Spike eigene Rolle
 
 
 def vorgaenge():

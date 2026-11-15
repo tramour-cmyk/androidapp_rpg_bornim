@@ -1,0 +1,50 @@
+{
+  "herkunft": "Lauf 498 (8e7703d9d), Bauserver, 15.11.2026; neu ablegen mit tools/bildrate.py <messung.json> --neu",
+  "renderer": "mobile",
+  "grafik": "llvmpipe (LLVM 20.1.2, 256 bits)",
+  "cpu": "AMD EPYC 9V45 96-Core Processor",
+  "kerne": 4,
+  "fenster": "(540.0, 1170.0)",
+  "orte": {
+    "dorf": {
+      "bilder": 11,
+      "dreiecke": 2743616,
+      "eins_ms": 534.0,
+      "fps": 2.5,
+      "laden_ms": 4654.0,
+      "laengste_ms": 534.0,
+      "ueber50": 11,
+      "zeichen": 214
+    },
+    "wald": {
+      "bilder": 9,
+      "dreiecke": 2938687,
+      "eins_ms": 671.0,
+      "fps": 2.1,
+      "laden_ms": 1482.0,
+      "laengste_ms": 671.0,
+      "ueber50": 9,
+      "zeichen": 193
+    },
+    "hoehle": {
+      "bilder": 36,
+      "dreiecke": 147706,
+      "eins_ms": 191.0,
+      "fps": 8.9,
+      "laden_ms": 1154.0,
+      "laengste_ms": 191.0,
+      "ueber50": 36,
+      "zeichen": 206
+    },
+    "kampf": {
+      "bilder": 17,
+      "dreiecke": 337450,
+      "eins_ms": 407.0,
+      "fps": 4.2,
+      "laden_ms": 3175.0,
+      "laengste_ms": 407.0,
+      "ueber50": 17,
+      "zeichen": 142
+    }
+  }
+}
