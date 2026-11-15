@@ -255,7 +255,7 @@
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Ideen | K | Idee | – | – | – | E Oberfläche | – |
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Ideen | K | Idee | – | – | – | E Kampf | – |
-| 1300 | Von Tom (Build 288): atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ (Lauf 492 rot: 1,80 und 2,57 s; Lauf 493 am selben Stand 865be6265 grün) | Spike | M | startbar, ein Lauf frei (Archiv 23:55) | – | – | – | Q QS | 0,90 $ |
+| 1300 | Von Tom (Build 288): atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ (Lauf 492 rot: 1,80 und 2,57 s; Lauf 493 am selben Stand 865be6265 grün) | Spike | M | gebaut, auf main f98aa373c, Geprüft an: Lauf 509 | Diogenes | – | – | Q QS | 0,90 $ |
 | 1270.4 | Von Sokrates (1270 A, Chef 15.11., 10:51; 22:43 Film statt Bild), Bau Spike: Vergleichsfilm alt gegen neu Glühen (Gold, Fackel, Zauber) und vorberechnetes Höhlenlicht, Homer sieht vorher auf Stil; danach Laden im Hintergrund und Abziehbilder | Spike | K | startbar | – | – | – | E Technik | – |
 | 1303 | Von Jerry (zu 1289): Stufen (Banding) im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Verlauf (Helligkeit ×2,1 nach dem Bild hebt die groben Stufen); Ursache nachstellen, Weg ohne neues Aussehen | Spike | M | startbar | – | – | – | G Stil | 0,90 $ |
 | 698 | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstest; LISTE-IDEEN „Grafik-Einstellungen“, Chef 28.10., 08:31; 08.11., 19:46, zu 623) | Spike | M | startbar | – | – | – | E Technik | – |
