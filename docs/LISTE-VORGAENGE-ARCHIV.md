@@ -1433,3 +1433,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1133 | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, Zu 1129.1 in ARBEIT-PRUEFUNG.md · „jetzt“ 13.11., 12:53 | Q QM | M | 15,24 $ | Diogenes | erledigt |
 | 1262 | Von Ford (15.11., 02:05): Zirkel 1261 wartet auf Lauf von Tom (1e85cfbfd), 1123 wartet auf 1261, Tom wartet auf Test des Chefs, Diogenes meldete leer; lauf.py startet Diogenes sonst im Kreis; Zirkel lösen | B Abläufe | M | – | Perikles | erledigt |
 | 1261 | Von Jerry (1123, Lauf 480 pruefen2): hoehle_492 zufällig rot, Streuner neben (10, 6) macht aus UNLOCK FIGHT | B Werkzeuge | M | 1,07 $ | Tom | erledigt, greift Lauf 483 |
+| 1263 | Von Jerry (1215, Lauf 484 mit Jolt): ziege_4162 rot, von (-1,0) trat die Ziege erst voran, dann Tausch | E Welt | M | – | Tom | erledigt, doppelt zu 1079 (e347e68d8 in Build 286, nicht auf main) |
