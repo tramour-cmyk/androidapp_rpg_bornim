@@ -75,6 +75,8 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **980 Bautest Lauf 473:** `kaufquelle_test.py` steht im Schritt „Blender als Python-Modul“ jedes Laufs (zweiter Aufruf entscheidet, kann rot werden), in 473 grün; Kampfblock in 469 und 470 echt gebaut mit `kaufquelle.py` unter „geändert“ (Spinne, Skelett, Wolf gebaut), 473 holt ihn aus dem Cache, dessen Kennung `kaufquelle.py` enthält. Richtigstellung zu 14.11., 20:06: 469 trug 980.
 - **1060 offen:** Läufe 471–484 alle Blöcke Treffer, 473 klassen wegen `block:figur`; kein Lauf, in dem sich nur Dorffelder von `leute.json` ändern.
 - **870.10 greift** (`5916f43ab` auf `main`): `android.yml` weg; kein Ablauf und kein Werkzeug ruft ihn noch (`grep` „Kotlin alt“, `workflows/android`); `gradlew` nur noch in `alt_bilder_rendern.sh` (1279) und zwei Kommentaren (1282). 431 und 870.13 (Tom) frei.
+- **1283 greift** (`25fbfa6c8`): Wegwerfbaum von `main`, Archivzeile 499 (👍, Nachricht 2980): dieselbe Zeile berichtigt → kein Halt; neue Zeile mit 2980 → Halt; Liste „Nachricht 99991, 2980“ und „2980, 99991“ → Halt.
+- **1128.3** wartet auf 1060 (`warte`), keine Arbeit vor einem Lauf mit reiner Dorffeld-Änderung.
 - **Nicht geprüft:** Rest aus 1272.
 
 ## Lauf 243 · 1179, 1173, 1217, 1248 an t285 (14.11., 20:2x)
