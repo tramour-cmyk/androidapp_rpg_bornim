@@ -177,6 +177,7 @@ BEFEHL_ANFANG = r"(?:^|[;&|(`]|\$\()\s*(?:\w+=\S*\s+)*"  # nur als Befehl, nicht
 GH_LAUF = re.compile(BEFEHL_ANFANG + r"gh\s+workflow\s+run\s+([^\n|;&]*)", re.M)
 GH_RERUN = re.compile(BEFEHL_ANFANG + r"(?:gh\s+run\s+rerun\b|(?:curl|gh\s+api)\b[^\n|;&]*/actions/(?:runs|jobs)/\d+/rerun)", re.M)
 API_LAUF = re.compile(BEFEHL_ANFANG + r"(?:curl|gh\s+api)\b[^\n|;&]*/actions/workflows/([\w.-]+)/dispatches[^\n|;&]*", re.M)
+FREIGABE = re.compile(r"(?<!\w)L(?:auf|äufe) frei(?!\w)")  # 1247: Einzahl wie Mehrzahl
 ARCHIV_KOPF = re.compile(r"^- \*\*([^*]+)\*\*\s*\((\d\d)\.(\d\d)\.,\s*(\d\d):(\d)([\dx])", re.M)
 CI_PFADE = ("godot/", "tools/blender348/", ".github/workflows/")  # 407: auch eigene Probe-Abläufe; 882.2: core/ baut nicht mehr
 
@@ -275,15 +276,20 @@ def urteil(nr):
         ende = archiv.find("\n- **", m.end())
         eintrag = archiv[m.end():ende if ende >= 0 else len(archiv)]
         # D68.1: „453b und 463a … zwei Läufe frei (Sokrates)“ im Text eines Eintrags gibt frei, ab dessen Zeit
-        if any("Läufe frei" in teil and re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", teil)
-               for teil in re.split(r"[;:]\s", eintrag)):
+        nr_da = re.compile(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)")
+        if any(FREIGABE.search(teil) and nr_da.search(teil) for teil in re.split(r"[;:]\s", eintrag)):
             beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
             continue
         klammer = eintrag[:eintrag.find(")")] if ")" in eintrag else ""
+        # 1247: „1242, Lauf frei** (…, Bitte Tom zu 1091, 1119, 1040.1; …)“ gibt auch die Nummern der Klammer frei
+        if FREIGABE.search(m.group(1)) and re.search(r"(?<!\w)zu\s+(?:[\d.]+[a-z]?(?:,\s*|\s+und\s+))*"
+                                                    + re.escape(nr) + r"(?![\w]|\.\d)", klammer):
+            beste = max(beste or "", zeit(m.group(2), m.group(3), m.group(4), m.group(5), m.group(6)))
+            continue
         vorentscheid = "Vorentscheid" in m.group(1) or "Vorentscheid" in klammer or "→ **Vorentscheid" in eintrag
         if "Probebild passt" in m.group(1):  # 511: Freigabe des Probebilds gibt nur den Film frei, keine zwei neuen Läufe
             continue
-        if "Läufe frei" in m.group(1):  # 480.1 (Chef 02.11., 18:46): weitere Läufe gibt Sokrates frei, Kopf „<Nr>, Läufe frei“
+        if FREIGABE.search(m.group(1)):  # 480.1, 1247 auch Einzahl „Lauf frei“ (Chef 02.11., 18:46): weitere Läufe gibt Sokrates frei, Kopf „<Nr>, Läufe frei“
             vorentscheid = False
         if not re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", m.group(1)):
             continue
