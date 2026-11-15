@@ -23,7 +23,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“,
                                        dazu 👍/👎 des Chefs auf „tN.k:“-Meldungen für Punkte ohne Ergebnis (1217; „Rest ✓“ gilt danach);
                                        je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar (schlägt jedes ✓ und den Zweig claude/build-N, 1230) mit dem Fund (Absatz „Zu NR, von Chef
-                                       (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste).
+                                       (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste);
+                                       Handypunkt ohne Ergebnis → bleibt „zu testen“ mit Build N, Liste bleibt in ansehen/ (1277).
                                        Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
                                        committen; sonst hält die Commit-Prüfung an.
   vorgang.py archivbereich [NR=Bereich …]   Bereichsfeld im Archiv (LISTE-VORGAENGE-ARCHIV.md): jedes ungültige nach
@@ -504,6 +505,25 @@ def zu_absatz(besitzer, nr, kopf, text):
     else: t += "\n\n" + zeile
     schreiben(datei, t + "\n")
 
+def arten(n, text):
+    """{Testnummer: Art} aus der Spalte „Art“ (Handy, Bild, Film, ohne dich …)."""
+    aus = {}
+    for kopf, zs in startbar.tabellen(text):
+        if "Art" not in kopf: continue
+        i = kopf.index("Art")
+        for _, t in zs:
+            m0 = re.match(r"(%s\.\d+[a-z]?)(?![0-9a-z.])" % n, t[0])
+            if m0 and i < len(t): aus[m0.group(1)] = re.sub(r"\*\*|`", "", t[i]).strip()
+    return aus
+
+def handy_offen(n, text, punkte=None):
+    """1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“, t286 nach 👍 auf 286.1–.5 gelöscht): Handypunkte ohne Ergebnis;
+    solange einer offen ist, bleibt die Prüfliste in ansehen/ und seine Vorgänge bleiben „zu testen“ mit Build n."""
+    punkte = punkte if punkte is not None else ergebnisse(n, text, telegram=True)
+    a = arten(n, text)
+    return sorted((k for k, v in punkte.items() if a.get(k, "").lower().startswith("handy") and v[1] is None),
+                  key=lambda k: [int(x) if x.isdigit() else x for x in re.findall(r"\d+|[a-z]", k)])
+
 def falsch_spalte(n, text):
     """1217: {Testnummer: Text der Spalte „Falsch“} für den Fund aus einem 👎."""
     aus = {}
@@ -550,6 +570,7 @@ def build_abschluss(n, datei=None, probe=False):
     betroffen += nach
     fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d not in betroffen and d["wort"] != "erledigt"})
     if not betroffen: sys.exit("vorgang.py: kein Vorgang mit Build %s in der Liste; erst vorgang.py build %s --mit <Nr,…>%s" % (n, n, ("; in der Prüfliste genannt: " + ", ".join(fremd)) if fremd else ""))
+    offen_h = handy_offen(n, text, punkte)
     aus = []
     for d in betroffen:
         p = je.get(d["nr"], [])
@@ -562,6 +583,8 @@ def build_abschluss(n, datei=None, probe=False):
             neu_d = dict(d, stand="erledigt, t%s getestet" % n, warte=[], build=str(n)); was = "erledigt (Sammelbuild)"
         elif p and all(x[1] == "✓" for x in p):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
+        elif any(x[0] in offen_h for x in p):  # 1277: Handypunkt ohne Ergebnis, der Chef testet noch
+            neu_d = d; was = "zu testen (Handy offen: %s)" % ", ".join(x[0] for x in p if x[0] in offen_h)
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
@@ -574,8 +597,10 @@ def build_abschluss(n, datei=None, probe=False):
         sys.exit("vorgang.py build %s: nichts geschrieben – %s" % (n, " | ".join(sperren)))
     for sp in (sperren if probe else []): print("PROBE gesperrt: " + sp)
     if fremd: print("%s genannt, nicht in Build %s, bleibt: %s" % ("PROBE" if probe else "BUILD", n, ", ".join(fremd)))
+    if offen_h: print("%s Handy ohne Ergebnis: %s – Prüfliste bleibt in ansehen/, kein Archiveintrag t%s bis dahin (1277)" % ("PROBE" if probe else "BUILD", ", ".join(offen_h), n))
     if probe: return
     for d, neu_d, durch, was in aus:
+        if neu_d is d: continue
         alt = finden(d["nr"], d["besitzer"] if d["nr"] in startbar.SONDER else None)
         ersetzen(alt, neu_d)
         for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)

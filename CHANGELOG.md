@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **882.1 auf `main`: Bau ohne Gradle** (Tom 15.11., 11:09, auf Weisung Sokrates über Ford, Bautest Lauf 473 nach 1272): `godot-kampf.yml`, `wald_daten.sh` und die Prüfwerkzeuge 348 lesen Karten, Texte, Held und Kartenblätter aus `godot/daten`; `mars_texte.py` gestrichen; Vergleichsbilder alt aus dem Zweig `bilder`. Zweig `claude/tom-882-1-ohne-gradle` allein gemischt (`192e7dd3d`), ohne den Rest von Build 286.
+
 - **Builds 282 bis 285 auf `main`** (Sokrates, Chef 14.11., 11:18–11:20: „Wir müssen jetzt mal die Sachen auf Main pushen.“): PR #204 (Build 285, trägt 282–284) zusammengeführt, Lauf grün (43505629901), `aa45f3507`. Ohne Test des Chefs mitgekommen: 1119 Fußstaub, 1040.1 Lyra wendet, 1091 Höhlenausgang (285.3, 285.5, 285.6, Aufnahmen neu im nächsten Build).
 
 - **Prüfzeilen für Jorins, Gwennas und Aldrics Auftrag mit fertiger Lage** (Spike, 542; Fund t284.4, Chef 13.11., 20:44, Rückläufer: 1): „Lage herstellen“ stellt den Stand einer Station her und den Helden zugleich an einen anderen Ort (etwa nach Krogg vor das Anschlagbrett, 10 Uhr) und kann die Monster ruhig stellen; ein Test geht den ganzen Weg der Prüfzeilen im Spiel durch (Brett, Stein, Truhe, Abgabe, Aldrics Ring).

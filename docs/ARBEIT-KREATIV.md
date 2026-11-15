@@ -2,10 +2,10 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `197b1f235` (13.11., 22:08)
+**Gelesen bis:** `8aa74c625` (15.11., 10:58)
 
-**Übergabe (13.11., 22:08, `session_01Hmoj79TDPJJvAZwbQx6fLi`):** 1235 gelesen, nicht gebaut (Zu 1235 unten). Nachfolger: keiner, Vorrat leer.
-- **Für Sonntag, von Sokrates (Zu 1186):** Ideen 49, 50, 70, 79 überholt (49 kein Rettungswurf im BRS, 50 keine Klassen, 70 mit 613 erledigt, Mond-Rest eigene Idee, 79 = 72u); 283.1 Hohes Gras: deckt Gras-Paket R9 (1155) es ab?
+**Übergabe (15.11., 11:00, `session_01Hmoj75SXMEBRLJdiSsv5Xd`):** 1267 Handbuch- und Hilfetexte zum Kampf mit Kerben (`[1267.*]` in `STORY-BRS-ANLEITUNG.md` und `STORY-BRS-KAMPF.md`, fremd geprüft gegen `ce3dda066`, 14 Befunde eingearbeitet); Abweichungen des Codes vom Regelwerk an Jerry (1275); Texte per Telegram an den Chef. Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
+- **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
 ## Zeilen
 

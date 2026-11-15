@@ -87,6 +87,10 @@ def kennungen():
                     if m: tafel.setdefault(m.group(1), set()).add(t[1])
     return tafel
 
+def kennungen_tg(text):
+    """1283: alle Telegram-Kennungen hinter „Nachricht“, auch Listen („Nachricht 4146, 4147, 4148“)."""
+    return [k for g in re.findall(r"Nachricht(?:en)?\s+(\d{3,}(?:\s*(?:,|und)\s*\d{3,})*)", text) for k in re.findall(r"\d{3,}", g)]
+
 def gueltig_pruefen(dat, stop, warn):
     """461b (Chef 01.11., 22:26, „461b ja“): neuer Archiveintrag zu einer Nummer, aus der eine Kennung A–G stammt (Spalte „Woher“), oder
     mit „Grundstand X1“/„461 X1“: im selben Commit die Zeile in DESIGN-STIL, -KAMPF oder -ABNAHME ändern; ändert der Entscheid
@@ -109,8 +113,11 @@ def gueltig_pruefen(dat, stop, warn):
             warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
     for neu in plus:  # 1228: jede Sitzung trägt Telegram-Urteile ein; dieselbe Kennung zweimal ist ein Doppel
         if neu in minus or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
-        for mid in (re.findall(r"Nachricht (\d{3,})\b", neu) if re.search("[👍👎✅]", neu) else []):
-            if re.search(r"(Nachricht|Telegram)\s+%s\b" % mid, alt_archiv):
+        for mid in (kennungen_tg(neu) if re.search("[👍👎✅]", neu) else []):
+            rest = alt_archiv  # 1283 (Sokrates 15.11., 11:31): Berichtigung ersetzt die Zeile mit derselben Kennung, das ist kein Doppel
+            for a in minus:
+                if a.strip(): rest = rest.replace(a, "")
+            if mid in kennungen_tg(rest) or re.search(r"Telegram\s+%s\b" % mid, rest):
                 stop.append("VORGANGSARCHIV.md: Telegram-Nachricht %s steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)" % mid)
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
@@ -351,6 +358,16 @@ def main():
             for f in sorted(fehler(":") - alt_f): stop.append("LISTE-VORGAENGE.md: " + f + " (Form 275.2; vorgang.py schreibt nur Gültiges)")
             if not startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")): stop.append("LISTE-VORGAENGE.md: keine Tabelle mit Kopf " + startbar.KOPF)
         except Exception as e: warn.append("Formprüfung Liste übersprungen: %s" % e)
+    for s, p in dat:  # 1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“): t286 ging nach 👍 auf 286.1–.5 weg, 286.6–.13 offen
+        m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
+        if s != "D" or not m or os.environ.get("BORNIM_HANDY_WEG") == "1": continue
+        try:
+            import vorgang
+            offen_h = vorgang.handy_offen(m.group(1), git("show", "HEAD:" + p))
+        except Exception as e:
+            warn.append("1277-Prüfung übersprungen: %s" % e); continue
+        if offen_h: stop.append("%s: Handypunkte ohne Ergebnis (%s); die Prüfliste bleibt in ansehen/, bis der Chef jeden zurückgemeldet hat, "
+                                "auch kein Archiveintrag t%s vorher (1277; nur auf Wort des Chefs BORNIM_HANDY_WEG=1)" % (p, ", ".join(offen_h), m.group(1)))
     if arch:  # 275.2 Automatik B: Testergebnis tN im Archiv nur, wenn vorgang.py build N die Liste abgeschlossen hat
         for z in git("diff", "--cached", "-U0", "--", "docs/VORGANGSARCHIV.md").splitlines():
             m = re.match(r"\+- \*\*t(\d+)\b", z)
@@ -361,6 +378,13 @@ def main():
             n = m.group(1)
             wege = {x for x in git("ls-tree", "-r", "--name-only", "HEAD", "docs/chefsache/ansehen/").split()} | {p for s, p in dat}
             pl = "".join(git("show", "HEAD:" + x) + git("show", ":" + x) for x in wege if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x))
+            try:
+                import vorgang
+                offen_h = vorgang.handy_offen(n, pl) if pl else []
+            except Exception: offen_h = []
+            if offen_h and os.environ.get("BORNIM_HANDY_WEG") != "1":  # 1277: vor dem letzten Handypunkt kein „tN“, die Liste bleibt
+                stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber Handypunkte ohne Ergebnis (%s); erst, wenn der Chef jeden zurückgemeldet hat (1277)" % (n, ", ".join(offen_h)))
+                continue
             # 1070 (Chef 12.11., 20:06 „warum steht der … 280er immer noch drin“): getestet heißt weg, im selben Commit wie „tN“ (Git behält sie)
             noch = [x for x in git("ls-files", "--full-name", ":/docs/chefsache/ansehen/").split() if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x)]
             if noch: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, Prüfliste noch in der Chefsache (%s); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)" % (n, ", ".join(noch)))

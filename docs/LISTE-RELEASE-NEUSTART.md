@@ -9,7 +9,7 @@ Einmal „Zeit für ein Release?“ fragen (Rückfrage auf „Chefsache“), sob
 ## Release (nur wenn der Nutzer „Release“ sagt, Thema 21)
 
 0. **Prüfung zuerst** (75i, 163): Zeile in `ARBEIT-PRUEFUNG.md` „Release“, dann `send_message` an Ford „Auftrag Diogenes Release“; weiter erst nach seinem Prüfbericht (Befunde, die das Release aufhalten, nennt er dort). Ohne Prüfbericht kein Release.
-1. `gh workflow run android.yml -R tramour-cmyk/androidapp_rpg_bornim --ref main -f release=true` (Version 0.1.<Laufnummer>, Notizen aus „## Unveröffentlicht“ in `CHANGELOG.md`).
+1. **Bis 622 (Godot-AAB für Play) gibt es keinen Release-Weg:** der Kotlin-Bau `android.yml` ist mit 870.10 gestrichen (870a 7 B, Chef 10.11., 15:25; in Git, `git log --diff-filter=D -- .github/workflows/android.yml`). Sagt der Chef vorher „Release“: Rückfrage, ob 622 vorgezogen wird.
 2. Danach in `CHANGELOG.md` „## Unveröffentlicht“ umbenennen in „## v0.1.X – TT.MM.JJJJ, HH:MM“ (X = Nummer des Release-Laufs).
 3. Den Link nennen.
 
