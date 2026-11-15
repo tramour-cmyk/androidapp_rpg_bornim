@@ -112,6 +112,8 @@ Vorher (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monst
 - **Zeichen der Absicht als eigene Zeile** (Rest 130.3, Jerry 18.10.): Zeichen des Gegners heute nur im MARS-Protokoll; eigene Zeile über dem Gegner, Ringtext für die Spinne. Pro: Absicht schneller lesbar; Contra: mehr Text am Kampfort, Chef zu Build 22 „alles passt“. → **später:** erst wenn der Chef im Godot-MARS eine Absicht übersieht; dann mit 296 (Checkliste MARS).
 - **Decken von hinten mit Ausfallschritt** (Chef 19.10., 16:09, zu 72.10a.9: „Das macht dann nur Sinn, wenn hinten ein Tank oder einer mit Schild steht und der "Decken" nimmt, um sich mit einem Ausfallschritt vor die erste Reihe zu stellen...“): Decken auch aus der hinteren Reihe. Pro: Schild hinten wird eine Wahl; Contra: verwischt vorn/hinten, Decken zieht schon Durchbrechen, Flanke, Anspringen. → **später:** reizvoll erst mit mehreren Gefährten in einer Reihe (Gruppenkampf, nach Kapitel 1); heute kämpft hinten höchstens ein Söldner, der Schild hinten ist selten.
 - **Rauchbündel allgemein** (Sokrates 15.10., D4.1): bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb. → **später:** erst wenn „Normal“ eingestellt ist (38, Wochenziel); sonst verschiebt es die Messung.
+- **460 Kamerafahrten im Kampfort** (Chef 01.11., 20:2x; aus der Vorgangsliste, 1271): Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm. Chef 11.11., 20:11 (zu 595): „Mich würde mal eine andere Kameraperspektive interessieren … Darüber über Kamera-Perspektivwechsel haben wir ja auch schon öfter gesprochen. Um den Kampf etwas aufzupeppen.“ (zweite Kamera im Film 595, Zu 460 im Vorrat Sokrates). Kamera grundsätzlich gehört zur Referenzszene 620.4 (674). Bau Jerry.
+- **803 Gegner durch Antippen der Figur als Ziel wählen** (Rest 211.14, Tuffy; aus der Vorgangsliste, 1271). Bau Jerry.
 
 ### Klang
 
@@ -129,6 +131,7 @@ Vorher (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monst
 - **59.6 Händler: Filter** „nur tragbare“, Sortierung nach Platz (Chef 12.10., 22:49). → **später:** wenn es mehr Ware gibt (Kapitel 2).
 - **59.7 Händler mit Gesicht:** Name, Bild, Begrüßungssatz statt „Laden“; Texte Chef und Homer (41) (Chef 12.10., 22:49). → **später:** nach dem Meilenstein; neue Bilder je Händler.
 - **292.3 Hauptmenü B: Helden am Feuer** (Chef 22.10., 15:10 zurückgestellt; 15:12: „die Entwürfe 1 bis 5 halten wir irgendwo nach, damit wir vielleicht da wieder ansetzen können“). Ansetzen hier: Entwurf B Fassung 1 im Sammelbild `4349ad22`, Fassungen 2–4 `612727d5`, `69f865f0`, `5516e9fa` (`docs/chefsache/bilder/2923-hauptmenue*.webp`); Kopfprobe Zweig `entwurf-2923-kopfprobe`; Entwurf 5 `9630f7a7` (`2923-entwurf5*.webp`), Titelmodus Zweig `claude/tom-2923-titelmodus`; Befund zu 5 und drei Punkte (Feuerlicht, Blick und Gruppe, Tuschelinie) im Commit „292.3 Entwurf 6“ (`ARBEIT-BERATUNG.md`). → **später:** nach dem Meilenstein.
+- **470.1 Erschaffung: Held auf Antippen bildschirmgroß** (Idee Chef 02.11., 18:37; aus der Vorgangsliste, 1271). → **später** (Homer 09.11.): nach der Referenzszene (Erschaffung muss erst ganz fertig sein). Bau Tom.
 
 ## G Gestaltung
 
@@ -199,6 +202,5 @@ Vorher (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monst
 Ruhende Kür ohne Zweig (`LISTE-VORGAENGE.md`); die Zeilen bleiben beim Besitzer, Perikles entscheidet montags.
 - **515 Truhen** (Tom): **reif, zu 2.8** (Truhen mit Dietrich): steht in der Abnahmeliste, also Muss statt Kür.
 - **568 Ernten als Handlung, Angeln** (Tom, Chef „ja, A“): **reif, zu 3.4** (Kräuter, Fisch): ebenso Muss.
-- **470.1 Held auf Antippen bildschirmgroß** (Tom): **später:** nach der Referenzszene (Erschaffung muss erst ganz fertig sein).
 - **423.1 Spielerhandbuch im Spiel** (Tom): **später:** erst wenn die BRS-Texte für Kapitel 1 fest sind (Stufe 3).
 - **289 MARS „halber Zug“** (Jerry): **später:** mit 296 (Checkliste MARS), dort alle Anzeigen zusammen.

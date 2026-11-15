@@ -25,7 +25,6 @@
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | K | ruht | 23.11. | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 570 | Theke: Wahl „Fleisch verkaufen · 12 Gold“ liest sich wie ein Preis (Prüfer 557 Runde 4) | Tom | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Oberfläche | – |
-| 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Tom | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | wartet | 458.3 | – | – | E Oberfläche | – |
 | 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | Tom | K | ruht, kein Lauf (Chef 03.11. „Genug Zeit verschwendet“; Sokrates 09.11.) | 23.11. | claude/tom-477-mumu | – | E Technik | – |
@@ -145,7 +144,6 @@
 | 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | Jerry | K | ruht | 23.11. | claude/jerry-438a-sturz-2 | – | E Kampf | 24,62 $ |
 | 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | Jerry | K | ruht | 23.11. | claude/jerry-416-6-blut | – | E Technik | – |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | Jerry | M | wartet | 623 | – | – | E Kampf | 49,16 $ |
-| 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | Jerry | K | ruht | 23.11. | – | – | E Kampf | – |
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | Jerry | K | wartet, Abzug und Block nach BRS, dann Teil 7 neu | 469 | – | – | E Kampf | – |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | K | ruht | 23.11. | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | K | ruht | 23.11. | claude/jerry-509-teich | – | E Welt | – |
@@ -173,7 +171,6 @@
 | 644.2 | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in die Regelwerte (644 C); Zahlen nach 644a (Spanne, D, F) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
 | 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Klang | – |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, 760 A (Chef 17:46) | 1072 | – | – | E Kampf | – |
-| 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Jerry | K | ruht, Vorrang 11.11.: kein Neues bis Umzug und Testfehler (Chef 10.11., 14:08) | 23.11. | – | – | E Kampf | – |
 | 811 | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN-SPIELSYSTEM-2-0-ENTWURF.md, Datei heißt seit 09.11. DESIGN-BRS.md; beim nächsten Commit dort mitziehen | Jerry | K | zu testen, ohne Rückmeldung t277 | – | claude/tuffy-870-6-beute | – | E Kampf | – |
 | 845 | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den Platz (Held schlägt 0,5 m zu kurz), Sprung 0,5 m im Stehen (treffen_709, aus 709) | Jerry | M | zu testen | – | – | 286 | E Kampf | 7,52 $ |
 | 876 | Von Homer (857a A, Chef 10.11., 13:35): Simulation 444 Kräuterkunde → Kräutersammeln, Trankwirkung nach Alchemie statt Kräuterkunde, Abschnitt 6 neu rechnen | Jerry | M | zu testen, 1135 A gilt (Chef 20:54), schließen | – | claude/tuffy-876-kraeutersammeln | – | E Kampf | – |
@@ -233,7 +230,7 @@
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
 | 1267 | Von Homer (aus 1265, Chef 14.11., 22:49): Handbuch- und Hilfetexte zum Kampf mit Kerben, umschrieben statt „Aktionspunkte“ (Kerben schlagen, Vertiefen, Verstreichen, Goldkerbe), nach den umbenannten Dokumenten | Homer | M | startbar | – | – | – | G Story | – |
-| 1271 | Von Sokrates (Chefrunde, Chef 15.11., 10:43 „Berg abbauen“): ruhende Kür Tom (57) und Jerry (31) ohne Zweig und angefangene Arbeit nach LISTE-IDEEN.md mit Wortlaut (CLAUDE.md „Idee“; „ruht bis 23.11.“ ist Wiedervorlage, kein Termin); je Zeile prüfen, Rest bleibt | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 1271 | Von Sokrates (Chefrunde, Chef 15.11., 10:43 „Berg abbauen“): ruhende Kür Tom (57) und Jerry (31) ohne Zweig und angefangene Arbeit nach LISTE-IDEEN.md mit Wortlaut (CLAUDE.md „Idee“; „ruht bis 23.11.“ ist Wiedervorlage, kein Termin); je Zeile prüfen, Rest bleibt | Perikles | M | erledigt | – | – | – | B Abläufe | – |
 | 1254 | Von Chef (14.11., 21:08 „Runs … mit den vorgerenderten Modellen schneller“): Läufe auf Zweigen mit altem Modellbau bauen alle Modelle neu (469, 470: 86 min); Haken vor Lauf und Push: erst main einmischen | Perikles | M | gebaut, Geprüft an: 40aa2a93f | 17.11. | – | – | B Werkzeuge | – |
 | 1246 | Von Chef (14.11., 10:28, Fehler): nachts warten alle aufeinander; Pause ohne Datum sperrte Jerry ganz, 1242 lag startbar bei Sokrates in Pause. Werkzeug: Halt nur für genannte Nummern, startbarer Muss einer Rolle in Pause wird gestartet, alle 0 startbar = Meldung statt Leerlauf | Perikles | M | gebaut, Geprüft an: 4cd150d68 | 17.11. | – | – | B Abläufe | 2,31 $ |
 | 1217 | Von Sokrates (Chef „jetzt“ 13.11., 19:58/20:01): Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen (pruefliste.py), Bild und Film je Prüfpunkt eine Telegram-Nachricht, 👍 passt, 👎 falsch (reaktionen.py, notiz.sh zeigen 👎 offen), Regel LISTE-CHECK-BUILD-TEST.md, Regelbilanz | Perikles | M | gebaut, Geprüft an: ee39a624b | t286 | – | – | B Abläufe | 6,42 $ |
@@ -318,3 +315,6 @@
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
 | 102 | Dokumente BornWire TCS nachziehen | Ideen | K | Idee | – | – | – | B Abläufe | – |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | Ideen | K | Idee | – | – | – | B Abläufe | – |
+| 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Ideen | K | Idee | – | – | – | E Oberfläche | – |
+| 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | Ideen | K | Idee | – | – | – | E Kampf | – |
+| 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Ideen | K | Idee | – | – | – | E Kampf | – |
