@@ -44,3 +44,7 @@ Im Bau geprüft: Scheide aus der Klinge jedes Dolchs gerechnet, keine Ecke der K
 - 286.11: probe=WOLVES
 - 286.12: probe=RUDEL
 - 286.13: probe=WOLVES vorraete
+
+## Ergebnis
+
+- 286.5a ✗ Chef 15.11., 12:55: „kann ich so definitiv nicht abnehmen, weil im Film reißt er die Arme hoch, aber die Axt bleibt in dem Film genau an der Stelle, wie er sie vorher vom Körper trug … die Axt bewegt sich nicht mit, die schwebt jetzt vor ihm. Wie Telekinese.“
