@@ -307,7 +307,7 @@
 | 481a | Rückfrage: Wachsoldat gewinnt in der Glut-Rechnung 100 % gegen alles, Wolf 0 Schaden; ausgleichen wie? (aus 930.7, Chef 15.11.) | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | 1269 | Godot-Möglichkeiten nutzen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder, vorberechnetes Licht; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | – |
-| 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | – |
+| 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | 1,11 $ |
 | 1270a | Rückfrage Sokrates (Chef 15.11., 11:10): 1270 ohne Warten auf 870.13 bauen? | Sokrates | K | startbar | Chef 1270a | – | – | E Technik | – |
 | 1271a | Rückfrage Sokrates (Chef 15.11., 11:10, aus 1271 Perikles): angefangene Kür ohne Plan schließen, Funde und Abgleich alt bündeln? | Sokrates | K | startbar | Chef 1271a | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
