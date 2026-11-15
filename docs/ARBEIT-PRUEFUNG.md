@@ -4,6 +4,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
+Pause bis 16.11., 08:00.
+
 **Übergabe (15.11., 17:03):** Lauf 253: 1301 wirkt am Werkzeug, wartet auf 17.11. (echter Fall); D253.1 → 1302 (Perikles). Nächste Nummer D254. Nachfolger: Diogenes – Wochenzählung 16.11. (ab 16.11., 08:00): 1129.4, 1172, 905, 461b, 1098.1, 1188, 1125
 - **Zu 1301 (Lauf 253):** am 17.11. jedes 👎 ohne Wort vom 15.–16.11. (`reaktionen.py`, Archiv) mit Nachfrage per `meldung.sh --frage` und „nachgefragt“ oder Wortlaut im Eintrag → `greift 1301 <Lauf>`, sonst Befund an Perikles.
 - **Zu 1272 (Rest, Art „ohne dich“, am Lauf oder Werkzeug, je mit `bautest` oder `greift`):** Tom 1128.2, 1129.3, 1131, 1137.2, 1122, 1185, 1195; Jerry 1111–1113, 1101, 1060, 1062, 1058, 930.6, 956, 1253 (Bedingungen in den Absätzen unten; 956, 1253, 1058, 930.6: grüner Lauf mit ihrem Test suchen). `godot-kampf.yml` lief auf `claude/build-286` nicht (nur Push auf `claude/jerry-348-**`); am ersten Lauf nachsehen, sonst Befund an Tom.
