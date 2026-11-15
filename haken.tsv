@@ -519,3 +519,4 @@
 2026-11-16 00:06:13	commit-pruefung	VORGANGSARCHIV.md: neuer Entscheid zu 431 berührt B1, B2; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts	main
 2026-11-16 00:08:28	commit-pruefung	docs/ARBEIT-TEAM-TOM.md: Uhrzeit 00:20 liegt nach jetzt (00:08)	main
 2026-11-16 00:08:28	commit-pruefung	docs/ARBEIT-TEAM-TOM.md: Uhrzeit 00:20 liegt nach jetzt (00:08)	main
+2026-11-16 00:10:06	commit-pruefung	docs/chefsache/entscheiden/1351-rechtepruefung-bildlauf.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
