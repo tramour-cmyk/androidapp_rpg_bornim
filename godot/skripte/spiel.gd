@@ -286,7 +286,8 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 		Fortsetzen.vergiss()   # 1021: die App lief weiter, nichts fortzusetzen
 		if spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
-	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
+	# 785.21 (WorldScreen.kt 139): ohne Fenster öffnet sie in der Welt das Menü (oeffne_menue prüft Gespräch, Rast, Kampf, Pause)
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST and not Zurueck.taste(get_tree()) and held and karte: oeffne_menue()
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
 	# Funktion auf dieses Spiel, Godot raeumt statische Variablen erst nach den Knoten ab; beim Verlassen des Baums loesen
 	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable(); Leute.daheim = Callable()

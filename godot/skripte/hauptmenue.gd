@@ -37,6 +37,8 @@ func _init(s: Steuerung) -> void:
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
+	# 785.21 (alt: Android-Vorgabe auf dem Hauptmenü, die App schliesst): Zurück verlässt das Spiel; Seiten darüber melden sich selbst
+	Zurueck.melde(self, func(): get_tree().quit())
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -367,11 +369,14 @@ func hinweis(t: String) -> void:
 
 # 399.1 Erschaffung: eine Seite ueber dem Menue; Zurueck fuehrt ins Hauptmenue. ziel: Platz aus den Spielstaenden, sonst der erste
 # freie. 470 (Chef 10.11., 12:58): die Erschaffung nach BRS (erschaffung_brs.gd) statt der alten Klassenwahl
-func erschaffung(ziel: int = 0) -> void:
+func erschaffung(ziel: int = 0, aus_staenden := false) -> void:
 	var e := ErschaffungBrs.new()
 	e.ziel = ziel
 	add_child(e)
 	e.zurueck.connect(func(): e.queue_free(); titel())
+	# 785.21 (CreateScreen.kt 74): aus den Spielständen geöffnet führt die Android-Taste dorthin zurück, der Knopf „Zurück“ wie alt
+	# (Zeile 166) ins Hauptmenü
+	if aus_staenden: Zurueck.melde(e, func(): e.queue_free(); spielstaende())
 	e.fertig.connect(func(w): fertig.emit(w))
 
 # 399.1 Spielstaende wie alt (spielstaende.gd)
@@ -380,7 +385,7 @@ func spielstaende() -> void:
 	add_child(s)
 	s.zurueck.connect(func(): s.queue_free(); titel())
 	s.laden.connect(func(p): fertig.emit({"laden": true, "platz": p}))
-	s.neu.connect(func(p): s.queue_free(); erschaffung(p))
+	s.neu.connect(func(p): s.queue_free(); erschaffung(p, true))
 
 # 399.1 Ueber das Spiel wie alt (App.kt AboutScreen): ein Kasten mit Titel, Text ([312.ueber], [312.srd], [312.eigen]), Schrift,
 # Firmenzeichen, Jahr und Version; unten Zurueck. Schriften: nur noch Alegreya (DESIGN-STIL.md „Oberfläche“)
