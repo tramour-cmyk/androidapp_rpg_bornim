@@ -1506,6 +1506,11 @@ func ausruestung() -> void:
 	wert_zeile(KAMPFWERT["schutz"][i], str(hw.schutzwert()))
 	wert_zeile(KAMPFWERT["schaden"][i], str(hw.schaden()))
 	wert_zeile(KAMPFWERT["krit"][i], ("%d %%" if de else "%d%%") % hw.krit_prozent())
+	# 785.6 (MenuScreen.kt 882–887): wie alt die Boni der getragenen Stuecke, die nicht schon in einem Wert stecken; Lebensraub,
+	# Widerstand, Goldfund, EP entfallen im BRS (870.6), an ihrer Stelle Zauberschaden und Abwehrprobe (Wort wie Beute.zusatz_text)
+	var boni := {"SPELL": ["Zauberschaden", "Spell damage"], "TENACITY": ["Abwehrprobe", "Resistance roll"]}
+	for a in boni:
+		if hw.bonus(a) > 0: wert_zeile(boni[a][i], ("+%d %%" if de else "+%d%%") % hw.bonus(a))
 	var ad: Dictionary = BrsHeld.daten()["affixdaten"]
 	if hw.bonus("MAGIC_FIND") > 0: wert_zeile(Sprache.t(ad["MAGIC_FIND"]["name"]), "+%d%%" % hw.bonus("MAGIC_FIND"))
 
