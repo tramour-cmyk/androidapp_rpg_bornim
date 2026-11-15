@@ -312,3 +312,4 @@
 2026-11-15 11:24:14	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-15 11:24:18	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-15 11:30:17	commit-pruefung	VORGANGSARCHIV.md: Telegram-Nachricht 4146 steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)	main
+2026-11-15 11:39:27	commit-pruefung	docs/chefsache/ansehen/1266-kerbe.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
