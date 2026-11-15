@@ -431,3 +431,4 @@
 2026-11-15 19:07:52	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30809 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 19:08:59	commit-pruefung	docs/ROLLE-KREATIV.md: 6341 Bytes, Obergrenze 6000, Commit fügt 371 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-15 19:09:12	commit-pruefung	docs/ROLLE-KREATIV.md: 6082 Bytes, Obergrenze 6000, Commit fügt 112 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-15 19:09:22	commit-pruefung	docs/ROLLE-KREATIV.md: 6001 Bytes, Obergrenze 6000, Commit fügt 31 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
