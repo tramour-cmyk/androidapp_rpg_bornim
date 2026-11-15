@@ -100,3 +100,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:10 15.11.: Marke Archiv session_01Hmoj78w1wTxyTuS8uf2tzM (lauf.py)
 - 11:10 15.11.: Marke Archiv session_01Hmoj75SXMEBRLJdiSsv5Xd (lauf.py)
 - 11:10 15.11.: Marke Archiv session_01Hmoj77RmWp9S7BfJZLPzKq (lauf.py)
+- 11:11 15.11.: Homer neu `…787mL9tKD6xvJpNakw` (1267), alte `…75SXMEBRLJdiSsv5Xd` bleibt bis Push der Texte (Rebase hing, Notizen gepusht?); Perikles neu `…77DVasqzk8UQ6BuvGG` (1277), alt archiviert (3,22 $); Wächter 1270.1 und Neustart Sokrates (Prüfung 11:13) offen
