@@ -1165,9 +1165,15 @@ func _start(seed := -1) -> void:
 	if still_name != "":
 		party[0].hero = party[0].hero.duplicate()
 		party[0].hero.name = still_name
+	if OS.get_environment("FACKEL") != "":     # 999.1: Held mit Fackel statt Schild in der Nebenhand (Bild bild_fackel_9991)
+		party[0].hero = party[0].hero.duplicate()
+		party[0].hero["fackel"] = true
+		party[0].hero["schild"] = ""
 	var foes: Array = Aufruf.gegner(foe, monsters, dice)
 	visible = false
 	fight = Kampfort.new()
+	if OS.get_environment("TAGESZEIT") != "":     # 999.1: „abend“, „nacht“ wie aufruf.gd starte
+		fight.tageszeit = OS.get_environment("TAGESZEIT")
 	if OS.get_environment("PLATZ") != "":     # 493: Standbild je Kampfort im Wald (PLATZ=teich …)
 		fight.platz = OS.get_environment("PLATZ")
 	# 296.2: der Held der Probe steht am Anfang seiner Stufe (870.5: lohn.gd ohne Stand); ohne LP kein Kampf

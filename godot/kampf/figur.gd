@@ -691,8 +691,51 @@ func _arm_kauf(gleich := false) -> void:
 			schild_faust.anim = anim
 			if OS.get_environment("TIEF1014") != "":
 				schild_faust.tief_grad = float(OS.get_environment("TIEF1014"))
+	_fackel_kauf(sk)
 	if anim:
 		_idle()
+
+
+## 999.1 (wie alt 268, HeroFigure.kt torch; Fackel aus fackel.gd, Tom 1140): mit einer Fackel in der Nebenhand hält der Held sie
+## im Kampf in der linken Faust; bei zweihändiger Waffe und beim Bogen (linke Hand) ist sie weg, nach dem Wechsel wieder da. Licht
+## nur im Dunkeln (Nacht, Höhle) wie in der Welt (held.gd fackel_kraft 2,2), am Abend halb, am Tag leuchtet nur die Flamme
+var fackel: Fackel = null
+const FACKEL_KRAFT := 2.2
+
+func fackel_frei() -> bool:
+	if fighter.hero == null or not bool(fighter.hero.get("fackel", false)):
+		return false
+	var w = _in_hand()
+	if w != null and bool(w.get("two", false)):
+		return false
+	return _waffe_id() == "" or _waffenhand() != "L"
+
+
+func _fackel_kauf(sk: Skeleton3D) -> void:
+	if fackel != null and is_instance_valid(fackel):
+		fackel.get_parent().queue_free()     # BoneAttachment3D samt Fackel (Fackel.an)
+	fackel = null
+	if not fackel_frei():
+		return
+	var fa := HeldFigur.faust(sk, "l")
+	if not fa.has("knochen"):
+		return
+	fackel = Fackel.an(sk, String(fa["knochen"]), fa["griff"], fa["achse"], model if model != null else self)
+	fackel.selbst = true
+	fackel_toon(fackel)
+	var dunkel: bool = kampfort != null and (kampfort.tageszeit == "nacht" or String(kampfort.ort).begins_with("hoehle"))
+	var abend: bool = kampfort != null and kampfort.tageszeit == "abend"
+	fackel.kraft = FACKEL_KRAFT if dunkel else (FACKEL_KRAFT * 0.5 if abend else 0.0)
+	fackel.licht.visible = fackel.kraft > 0.0
+
+
+## Lauf 479 (Signatur 457): der Stiel aus fackel.gd ist in der Welt beleuchtetes StandardMaterial3D; im Kampfort Toon wie die Waffen
+func fackel_toon(f: Node) -> void:
+	for n in f.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
+		var sm := mi.material_override as BaseMaterial3D
+		if sm != null and sm.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED:
+			mi.material_override = _toon(sm.albedo_color)
 
 
 func _schild() -> String:
