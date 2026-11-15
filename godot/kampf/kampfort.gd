@@ -371,10 +371,8 @@ func _build_forest() -> void:
 	add_child(forest)
 	var p := _platz_datei("kampfort-wald", "bin")     # 493
 	if FileAccess.file_exists(p):
-		var doc := GLTFDocument.new()
-		var st := GLTFState.new()
-		if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) == OK:
-			var n := doc.generate_scene(st) as Node3D
+		var n := ModellSpeicher.kopie(p)     # 1270.2: einmal je Spielstart gebaut, danach Kopie
+		if n != null:
 			_toon_all(n)
 			# die nahe Eiche vorn links (kampfort_wald.py „Rahmen“) wirft keinen Schlagschatten: ihre Krone liegt außerhalb des
 			# Schattenausschnitts, der Schatten kam abgeschnitten mit geraden Kanten (Prüfer Boden 2); die Maske malt ihn weich.

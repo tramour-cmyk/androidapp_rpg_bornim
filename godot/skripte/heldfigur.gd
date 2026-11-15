@@ -197,7 +197,7 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var a := aussehen_voll(w.get("aussehen", {}), k, String(w.get("volk", "HUMAN")))
 	var t := tracht({"herkunft": k, "aussehen": a, "modell": w.get("modell", ""), "kapuze": w.get("kapuze", false)})
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return null
-	var m := Gebiet.lade_glb("res://daten/held_%s.bin" % t["modell"])
+	var m := ModellSpeicher.kopie("res://daten/held_%s.bin" % t["modell"])   # 1270.2: einmal je Spielstart gebaut, danach Kopie
 	if m == null: return null
 	m.name = "Held_" + herkunft(w)
 	m.set_meta("tracht", t["modell"])
