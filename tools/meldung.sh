@@ -4,6 +4,7 @@
 #   tools/meldung.sh --laut <Name> "<Nummer> <Stand>"   mit Ton und ⚠ (der Nutzer ist dran; nicht 22–7 Uhr)
 #   tools/meldung.sh --bild <datei> <Name> "<Text>"     Standbild mit der Zeile als Unterschrift (Telegram verkleinert)
 #   tools/meldung.sh --datei <datei> <Name> "<Text>"    Bild in voller Auflösung als Datei (Pixelprüfung)
+#   tools/meldung.sh --frage <Kennung> <Name> "<Nr>: …?"   Nachfrage als Antwort auf die Meldung mit dieser Telegram-Kennung (1301: 👎 ohne Wort)
 #   tools/meldung.sh --film <datei.mp4> <Name> "<Text>" Film (MP4, bis 50 MB) mit der Zeile als Unterschrift; Bewegung nur als Film vorlegen (381, Chef 27.10., 17:19)
 # Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, an jeder Stelle.
 # Kopf: Name verlinkt automatisch auf die eigene Sitzung. Pflicht für alle (Nutzer 15.10.): jede Nummer mit Datei auf „Chefsache“ als Sprungmarke.
@@ -17,7 +18,7 @@ if [ -z "$MELDUNG_WEITER" ] && [ -f "$haupt" ] && [ "$(realpath "$0")" != "$(rea
   MELDUNG_WEITER=1 exec "$haupt" "$@"
 fi
 laut=0; probe=0
-bild=""; art=""
+bild=""; art=""; frage=""
 # Optionen an jeder Stelle (244: „--bild“ hinter dem Text wurde still übergangen, nur der Text ging raus)
 rest=()
 while [ $# -gt 0 ]; do
@@ -27,11 +28,16 @@ while [ $# -gt 0 ]; do
     --bild) art=photo; bild="$2"; shift ;;
     --datei) art=document; bild="$2"; shift ;;
     --film) art=video; bild="$2"; shift ;;
+    --frage) frage="$2"; shift
+      case "$frage" in ''|*[!0-9]*) echo "meldung: --frage braucht die Telegram-Kennung (Zahl, „Nachricht <Kennung>“ aus notiz.sh), nichts gesendet (1301)" >&2; exit 2 ;; esac ;;
     --*) echo "meldung: unbekannte Option $1, nichts gesendet" >&2; exit 2 ;;
     *) rest+=("$1") ;;
   esac
   shift
 done
+if [ -n "$frage" ] && ! printf '%s' "${rest[*]}" | grep -q '?'; then echo "meldung: --frage ohne Frage (kein „?“ im Text), nichts gesendet (1301)" >&2; exit 2; fi
+if [ -n "$frage" ] && [ -n "$art" ]; then echo "meldung: --frage nur als Text, ohne Bild oder Film (1301)" >&2; exit 2; fi
+antw=(); [ -n "$frage" ] && antw=(--data-urlencode "reply_parameters={\"message_id\":$frage,\"allow_sending_without_reply\":true}")
 if [ -n "$art" ] && [ ! -f "$bild" ]; then echo "meldung: Bild $bild fehlt" >&2; exit 2; fi
 if [ "$art" = video ]; then  # 381: Telegram nimmt über die Bot-Schnittstelle höchstens 50 MB
   case "${bild,,}" in *.mp4) ;; *) echo "meldung: Film als MP4 (H.264), nichts gesendet (381)" >&2; exit 2 ;; esac
@@ -278,7 +284,7 @@ else
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
     --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=$still" \
     --data-urlencode "text=$zeile" --data-urlencode "parse_mode=HTML" \
-    --data-urlencode "link_preview_options={\"is_disabled\":true}" 2>&1)  # keine Vorschaukarten (Nutzer 15.10.)
+    --data-urlencode "link_preview_options={\"is_disabled\":true}" "${antw[@]}" 2>&1)  # keine Vorschaukarten (Nutzer 15.10.)
 fi
 case "$antwort" in *'"ok":true'*) echo "meldung: gesendet" ;; *) echo "meldung: Fehler: ${antwort:0:200}" >&2; exit 1 ;; esac
 # 658: Telegram-Kennung der Nachricht als fünfte Spalte, damit tools/reaktionen.py eine Reaktion des Chefs dem Vorgang zuordnet

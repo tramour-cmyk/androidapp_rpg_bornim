@@ -68,6 +68,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **`bc2dd1ea0` greift nicht:** Ursache am Rechner bestätigt (zweite Ziege mit Ziel Heldenkachel je Seite: alter Test 2 Fehler, Schritte `[(30, 27), (30, 28), false]`; neuer Test räumt sie aus, 0 Fehler). Der Test versteckt, was das Spiel weiter tut (Chef 416.2 „Ziege wird geschoben, kein Platztausch“).
 - **`e347e68d8` (Spike) nachgeprüft:** Logiksatz 153 gut (156 s), `ziege_4162` dreimal 0 Fehler; derselbe Test mit `leute.gd` von `828e0e98d` zweimal 1 Fehler an (-1, 0). Lücke: nur fliehende Tiere geben die Heldenkachel frei. Bauserver auf keinem Zweig gelaufen. Wahl des Zweigs bei Tom (Zu 1079 im Vorrat Tom); 1079 → startbar.
 
+## Lauf 253 · 1301 (15.11., 17:0x)
+
+- **1301 wirkt am Werkzeug, greift noch nicht** (`a5e00783f`): `reaktionen.ohne_wort` gestellt: 👎 ohne Nachricht → Hinweis; Nachricht binnen 15 min ohne Bezug oder als Antwort darauf → kein Hinweis; Antwort auf andere Meldung oder nach 16 min → Hinweis. `meldung.sh --probe --frage`: Kennung keine Zahl und Text ohne „?“ halten an. Commit-Prüfung: Eintrag mit 👎 und Kennung ohne Nachfrage hält an, `t<n>` frei. Lücke D253.1 → 1302: jedes Zitat ab 8 Zeichen und jedes „fragt … nach“ (auch als Absicht) lassen durch; der Anlass 760 ginge durch. Echter Fall fehlt: 760 (4224) war vor dem Bau eingetragen → `warte 1301 17.11.`, dann jedes 👎 ohne Wort 15.–16.11. mit Nachfrage → `greift`.
+
 ## Lauf 252 · 1294 (15.11., 13:0x)
 
 - **1294 greift** (`0c2ad5a65`): `startbar.py --rolle Diogenes`: 1128.3 „wartet auf 1060 (zu testen)“, 1129.4 „wartet auf 1129.3 (zu testen)“, kein Muss mehr startbar außer 1294 selbst; Tom und Jerry zeigen weiter ihr Muss (431, 1274). Strenge nur für Besitzer außer Tom, Jerry und nur für Nummern.
