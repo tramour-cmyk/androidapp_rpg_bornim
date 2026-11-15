@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,7 +14,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Umzug BRS, SRD ablösen | 3 | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 81 | 37 | 3 | 18 | 17 | 1314 (Jerry) Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ra… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 23 | 9 | 0 | 2 | 15 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 61 | 8 | 1 | 1 | 33 | 1300 (Jerry) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 62 | 9 | 1 | 1 | 33 | 1320 (Homer) „Leben“ statt „Trefferpunkte“ in DESIGN-BRS.md un… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 6 | 1 | 4 | 8 | 1268 (Sokrates) Code robuster, schneller, weniger fehleranfällig:… |
 | Werkzeuge und Abläufe der Firma | 63 | 33 | 0 | 7 | 10 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 4 | 366 (Sokrates) bornwire.de: Abschnitt „Stand“ und „Tester gesuch… |
@@ -35,16 +35,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 10 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
 | 11 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
 | 12 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 13 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | Kampf passt | startbar |
-| 17 | 1315 | Sokrates | Systemlösung? Axt: 2 frühere Vorgänge, neu 1314; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
-| 18 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
-| 19 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
-| 20 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
+| 13 | 1320 | Homer | „Leben“ statt „Trefferpunkte“ in DESIGN-BRS.md und wo sonst in Notizen und Spie… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | Kampf passt | startbar |
+| 18 | 1315 | Sokrates | Systemlösung? Axt: 2 frühere Vorgänge, neu 1314; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
+| 19 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 20 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
 
-Danach 91 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 88.
+Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 88.
 ## Zu entscheiden
 
 Nichts offen.
