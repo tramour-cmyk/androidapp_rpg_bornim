@@ -105,3 +105,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:20 15.11.: Startsperre 11:20 Start Diogenes (lauf.py)
 - 11:20 15.11.: Marke Archiv session_01Hmoj78yhg3iMnC4caCkmRB (lauf.py)
 - 11:21 15.11.: Diogenes neu `…75f6u3gFfiQ22M2H7J` (1128.3, 1276, 882.2), alt archiviert (2,71 $ auf 1272)
+- 11:37 15.11.: Startsperre 11:37 Start Jerry (Neustart 0ae5feb3d, 1266/1274) und Startsperre 11:37 Start Jerry 1215 (fable, 1215a A, Chef 11:21; von Hand)
