@@ -87,6 +87,10 @@ def kennungen():
                     if m: tafel.setdefault(m.group(1), set()).add(t[1])
     return tafel
 
+def kennungen_tg(text):
+    """1283: alle Telegram-Kennungen hinter „Nachricht“, auch Listen („Nachricht 4146, 4147, 4148“)."""
+    return [k for g in re.findall(r"Nachricht(?:en)?\s+(\d{3,}(?:\s*(?:,|und)\s*\d{3,})*)", text) for k in re.findall(r"\d{3,}", g)]
+
 def gueltig_pruefen(dat, stop, warn):
     """461b (Chef 01.11., 22:26, „461b ja“): neuer Archiveintrag zu einer Nummer, aus der eine Kennung A–G stammt (Spalte „Woher“), oder
     mit „Grundstand X1“/„461 X1“: im selben Commit die Zeile in DESIGN-STIL, -KAMPF oder -ABNAHME ändern; ändert der Entscheid
@@ -109,8 +113,11 @@ def gueltig_pruefen(dat, stop, warn):
             warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
     for neu in plus:  # 1228: jede Sitzung trägt Telegram-Urteile ein; dieselbe Kennung zweimal ist ein Doppel
         if neu in minus or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
-        for mid in (re.findall(r"Nachricht (\d{3,})\b", neu) if re.search("[👍👎✅]", neu) else []):
-            if re.search(r"(Nachricht|Telegram)\s+%s\b" % mid, alt_archiv):
+        for mid in (kennungen_tg(neu) if re.search("[👍👎✅]", neu) else []):
+            rest = alt_archiv  # 1283 (Sokrates 15.11., 11:31): Berichtigung ersetzt die Zeile mit derselben Kennung, das ist kein Doppel
+            for a in minus:
+                if a.strip(): rest = rest.replace(a, "")
+            if mid in kennungen_tg(rest) or re.search(r"Telegram\s+%s\b" % mid, rest):
                 stop.append("VORGANGSARCHIV.md: Telegram-Nachricht %s steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)" % mid)
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
