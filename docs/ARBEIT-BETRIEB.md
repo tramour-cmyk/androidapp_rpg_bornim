@@ -77,3 +77,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:03 15.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 01:03 15.11.: Marke Archiv session_01Hmoj75edsFFzfEQPxCoWxq (lauf.py)
 - 01:06 15.11.: Diogenes neu `…78jTfdpL8avRWiFR1x` (1133), Diogenes 1019 `…75edsFFzfEQPxCoWxq` archiviert (2,14 $); Startsperre 01:06 Start Ford (selbst, Tiefe 3, Selbstneustart nach Haken 1019 Erinnerung 1)
+- 01:06 15.11.: Startsperre 01:06 Start Tom (lauf.py)
+- 01:06 15.11.: Marke Wächter 1133 13.11. 12:53 (lauf.py)
+- 01:06 15.11.: Marke Archiv session_01Hmoj78AmAJeR5X7Ghv9VBH (lauf.py)
+- 01:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01BpBNHHosCmPVkVh7ZdEqz5` (:03), alte `trig_014BcfzRMLG6Fa8bDwFVGeaY` aus, alter Ford `…793a6GGZhUhAzGSphs` archiviert (1019, 8,33 $); Tom neu (286, Prüfliste 👍), Tom alt `…78AmAJeR5X7Ghv9VBH` wird archiviert
