@@ -1296,6 +1296,15 @@ func _play_say(e: Dictionary) -> void:
 			art = "sprung" if figures[actor].letzter_sprung and lunge_ms > 0 else ("fern" if fx != null else "nah")
 		if e.hp[id] < was:
 			var mx: int = mars.find(id).max_hp if mars.find(id) != null else 1
+			if e.hp[id] <= 0:
+				# 1215: der tödliche Treffer für das physikalische Sterben: woher, womit, wie stark. Ohne Angreifer (Gift, Blutung,
+				# Feuer über Zeit) kein Stoß; Pfeil klein und punktuell, Zauber als Druck, Anspringen wirft um
+				var tt := {"art": "still", "anteil": float(was - e.hp[id]) / maxf(mx, 1), "kritisch": _crit(e)}
+				var taeter = figures.get(actor) if actor != null else null
+				if target == id and across and taeter != null:
+					tt.art = "sprung" if art == "sprung" else ("pfeil" if fx == "ARROW" else ("zauber" if fx != null else "nah"))
+					tt.von = to_global(taeter.angriff_von) if taeter.angriff_von != Vector3.INF else taeter.global_position
+				figures[id].tod_treffer = tt
 			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)
 		elif target == id and _missed(e) and across and figures[id].blockt() and e.cue != "EVADED":     # 949: perfekter Ring weicht aus
 			# 406.2: gelungene Abwehr nach der Seite des Angreifers, gegen tiefe Gegner tief
