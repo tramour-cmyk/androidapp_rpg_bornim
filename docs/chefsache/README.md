@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [340.6](entscheiden/3406-rollenspiegel.md) | **Muss** | B Abläufe | 15.11., 18:26 | Alle sieben Rollen haben am Freitag 13.11. geantwortet; meine Auswertung fehlte. Drei Muster, vier Änderungen zur Wahl. | Sokrates |
 
 ## Zu billigen
 
