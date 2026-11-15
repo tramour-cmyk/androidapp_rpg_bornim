@@ -44,6 +44,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 10:51 15.11.: Homer neu `…75SXMEBRLJdiSsv5Xd` (1267), Homer 1264 archiviert (4,18 $); Perikles neu `…77RmWp9S7BfJZLPzKq` (1271 auf Meldung Sokrates), Perikles Tagesbericht archiviert (4,76 $)
 - 10:47 15.11.: Sokrates neu `…77APonFpNDWGs4JfMc` (Chefrunde Berg abbauen, Chef wartet), alt archiviert (3,92 $ auf 1186)
 - 10:17 15.11.: Sokrates neu `…78RskfRt4STVuE8msj` (Neustart e0527fb49), alt archiviert (6,72 $ auf 1260); Tuffy 1266 ausgenommen (Jerry nimmt es)
 - 10:09 15.11.: Jerry neu `…79c2xTDZMPma5iiDXB` (1266 Kerbe, auf Meldung Sokrates 10:08), Jerry alt archiviert (1,07 $); Homer 1264 bekommt Weiter 1265
@@ -63,7 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:45 14.11.: Homer neu `…794ME3Gg3ydHeNmxum` (1260), Homer `…76baqPiDLHo7r3hvWz` archiviert (4,22 $ auf 1260)
 - 23:37 14.11.: Jerry neu `…78yH84MdzrJ74grhR6` (1215 Film), Jerry `…77eC8wuMDzUxc2ekY9` archiviert (10,02 $ auf 1215)
 - 23:03 14.11.: Tom neu `…78AmAJeR5X7Ghv9VBH` (286), Jerry neu `…77eC8wuMDzUxc2ekY9` (1215); Tom `…77L1zKAAbcvm31GJBc` (5,62 $ auf 286) und Jerry `…75ZWJGSXdqrpx7xyzH` (29,98 $ auf 1222, Hinweis: Jerry-Kosten gehören auch zu 601 und 1215) archiviert
-- 22:59 14.11.: Sokrates `…78nk7o9i84YZwfHK2i` (1256) archiviert (6,04 $ gesamt); Sokrates neu `…76zXUTypnQhewTvAHH` (1259); Weiter Homer 1258, 1260
 - 00:04 15.11.: Marke Archiv session_01Hmoj78sXbc6SZHTKCgXXZ3 (lauf.py)
 - 01:03 15.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 01:03 15.11.: Marke Archiv session_01Hmoj75edsFFzfEQPxCoWxq (lauf.py)
@@ -75,9 +75,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 15.11.: Marke Mehrfach Diogenes (lauf.py)
 - 02:04 15.11.: Marke Archiv session_01Hmoj75rZTuiGj1QA448MLH (lauf.py)
 - 02:05 15.11.: Marke Archiv session_01Hmoj75sJsPiamKXFvCq7Bf (lauf.py)
-- 03:03 15.11.: Startsperre 03:03 Start Diogenes (lauf.py)
 - 03:03 15.11.: Marke Archiv session_01Hmoj795CKQ5Pf7crAxZoTU (lauf.py)
-- 03:11 15.11.: Startsperre 03:11 Start Tom, Jerry (lauf.py)
 - 03:11 15.11.: Marke Archiv session_01Hmoj762Xztj8QLqEa23Rjp (lauf.py)
 - 03:11 15.11.: Marke Archiv session_01Hmoj76MSnYWiTvsA1DfTZG (lauf.py)
 - 10:03 15.11.: Startsperre 10:03 Start Homer (lauf.py)
@@ -94,4 +92,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 15.11.: Startsperre 10:50 Start Homer, Perikles (lauf.py)
 - 10:50 15.11.: Marke Archiv session_01Hmoj7A9BD9js7ioHpGovGR (lauf.py)
 - 10:50 15.11.: Marke Archiv session_01Hmoj79UDfkXFpM3zk1WmjM (lauf.py)
-- 10:51 15.11.: Homer neu `…75SXMEBRLJdiSsv5Xd` (1267), Homer 1264 archiviert (4,18 $); Perikles neu `…77RmWp9S7BfJZLPzKq` (1271 auf Meldung Sokrates), Perikles Tagesbericht archiviert (4,76 $)
+- 10:53 15.11.: Startsperre 10:53 Start Tom, Diogenes (lauf.py)
