@@ -9,8 +9,8 @@ Geprüft an: [Vorgangsliste `main`](https://github.com/tramour-cmyk/androidapp_r
 **Entschieden:** schließen, je mit Grund:
 - **477** Godot-APKs im MuMu Player: dein Wort 03.11. „Genug Zeit verschwendet“, seitdem kein Lauf; Zweig `claude/tom-477-mumu`.
 - **461.1** Grundstand für Tom und Jerry zusammenführen: überholt durch den gemeinsamen Build `claude/build-<n>` von `main` (317, 324), der genau das tut; Zweig `claude/grundstand-461`, 30,19 $.
-- **534** Zauber und Fähigkeiten fehlen in „Können“: die Zeile selbst sagt „altes SRD-System“ (424); im BRS hängen Fähigkeiten an Fertigkeiten (870a 3, 870.5), die alten Zauber gibt es nicht mehr.
-- **38** Balance-Langzeitplan: die Zielkurve ist laut Zeile durch das BRS überholt; Balance richtet sich nach den Regelwerten (444).
+- **534** Zauber und Fähigkeiten fehlen in „Können“: die Zeile selbst sagt „altes System“ (424, die alten Regeln vor unserem Bornimer Rollenspielsystem); dort hängen Fähigkeiten an Fertigkeiten (870a 3, 870.5), die alten Zauber gibt es nicht mehr.
+- **38** Balance-Langzeitplan: die Zielkurve ist laut Zeile durch unser Bornimer Rollenspielsystem überholt; Balance richtet sich nach den Regelwerten (444).
 - **267** Spiel ruckelt auf dem Tablet: gemeldet zu Build 48, der Kotlin-Fassung; für Godot misst 1270.1 Ladezeit und Bildrate, 1145 (t286.8) den Takt.
 
 **Berührt:** Tom (477, 461.1, 267), Jerry (534, 38); Zählung Diogenes.
