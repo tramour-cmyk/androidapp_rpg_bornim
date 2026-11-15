@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Seltenheit im Vorratsfenster, Zauberschaden und Abwehrprobe in den Kampfwerten** (Tom, 785.3, 785.6, Zweig `claude/tom-785-1-anteil` `a4d832406`, noch ohne Build): Antippen eines Vorrats in der Tasche nennt seine Seltenheit wie früher; die Kampfwerte im Reiter Ausrüstung zeigen, was die getragenen Stücke an Zauberschaden und Abwehrprobe geben.
+
 - **Fertigkeiten erklären sich beim Antippen** (Tom, 785.2, Zweig `claude/tom-785-1-anteil` `05621952c`, noch ohne Build): im Heldenreiter und im Reiter Fertigkeiten zeigt Antippen einer Fertigkeit, auch einer noch nicht geübten, was sie tut, mit dem Satz aus der Erschaffung.
 
 - **Anteil der Ausrüstung im Reiter Held** (Tom, 785.1, Zweig `claude/tom-785-1-anteil` `93b21a278`, noch ohne Build): neben jedem Grundwert blau, was die getragenen Stücke beitragen, darunter der Satz zur Farbe wie in der alten Fassung; ohne Obergrenze (644b A).
