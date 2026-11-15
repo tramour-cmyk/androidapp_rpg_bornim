@@ -13,6 +13,8 @@ const Mars = preload("res://regeln/mars.gd")
 const Aus = preload("res://kampf/ausholen.gd")
 const FPS := 30.0
 const RUNDEN := 3
+## so weit (m, am Griff und 1 m weiter an Stiel und Schneide) darf die Axt in der gehaltenen Lage von ihrer Lage in der Faust abweichen
+const AXT_LUFT := 0.08
 
 var fehler := 0
 
@@ -34,11 +36,38 @@ func _hoch(_sk: Skeleton3D, nm: String) -> float:
 	return float(hoehe.get(nm, NAN))
 
 
+## 1000 (Fund t286.5a, Chef 15.11., 12:55: „die Axt … schwebt jetzt vor ihm. Wie Telekinese.“): Lage der Axt (Knochen „axt“) im
+## Raum der rechten Faust, im Bild (nach den Schichten); [axt_ab] = Abstand (m) von der Lage aus Stehen vor der ersten Ansage,
+## [axt_links] = Abstand (m) der linken Faust von ihrer Stelle am Stiel
+var axt_halt = null
+var axt_ab := 0.0
+var axt_links := 0.0
+var axt_links0 = null
+var mit_axt := false
+
 func _merke(sk: Skeleton3D) -> void:
 	for nm in ["hand_r", "Head"]:
 		var b := sk.find_bone(nm)
 		if b >= 0:
 			hoehe[nm] = (sk.global_transform * sk.get_bone_global_pose(b)).origin.y
+	var a := sk.find_bone("axt")
+	var h := sk.find_bone("hand_r")
+	var l := sk.find_bone("hand_l")
+	if a < 0 or h < 0:
+		return
+	mit_axt = true
+	var m: float = sk.global_transform.basis.get_scale().x
+	var halt := sk.get_bone_global_pose(h).affine_inverse() * sk.get_bone_global_pose(a)
+	var links: Vector3 = sk.get_bone_global_pose(a).affine_inverse() * sk.get_bone_global_pose(l).origin if l >= 0 else Vector3.ZERO
+	if axt_halt == null:
+		axt_halt = halt
+		axt_links0 = links
+	# der Griff und ein Punkt 1 m weiter am Stiel: Ort und Richtung der Axt gegen die Faust
+	var g: Transform3D = sk.get_bone_global_pose(h)
+	axt_ab = 0.0
+	for p in [Vector3.ZERO, Vector3(0, 1.0 / m, 0), Vector3(1.0 / m, 0, 0)]:
+		axt_ab = maxf(axt_ab, ((g * halt * p) - (g * (axt_halt as Transform3D) * p)).length() * m)
+	axt_links = (links - (axt_links0 as Vector3)).length() * m
 
 
 func _lauf() -> void:
@@ -89,6 +118,9 @@ func _lauf() -> void:
 	var vereitelt := 0
 	var vereitelt_t := -1.0
 	var oben_nach_vereitelt := 0   # Bilder ab 0,6 s nach dem Aus-dem-Tritt-Kommen noch mit Haltung, ohne neue Ansage
+	var axt_weg := 0.0             # größter Abstand der Axt von ihrer Lage in der rechten Faust, solange Grak steht (m)
+	var axt_weg_bei := ""
+	var links_weg := 0.0           # größter Abstand der linken Faust von ihrer Stelle am Stiel bei ganzer Haltung (m)
 	Mars.test_gegnerzug = "heavy"
 	while n < int(FPS) * 240:
 		await process_frame
@@ -130,6 +162,15 @@ func _lauf() -> void:
 		if cur == "Hieb" and not war_hieb and grak.ausholer != null and geschlagen:
 			hieb_von.append(grak.anim.current_animation_position)
 		war_hieb = cur == "Hieb"
+		# 1000 (t286.5a): die Axt liegt in jedem Bild in der rechten Faust (im Tod lässt er sie fallen)
+		# (gemessen, solange die Schicht wirkt: im Hieb selbst führt die Bewegung die Axt, abgenommen; ohne Schicht weicht die Axt beim
+		# Überblenden Stehen/Gehen bis 0,11 m ab, das ist der Stand vor 1000)
+		if mit_axt and not grak.down and cur != "Tod" and cur != "Hieb" and grak.ausholer != null and grak.ausholer.gewicht > 0.02:
+			if axt_ab > axt_weg:
+				axt_weg = axt_ab
+				axt_weg_bei = "%.2f s %s, Haltung %.2f" % [t, cur, grak.ausholer.gewicht if grak.ausholer != null else 0.0]
+			if grak.ausgeholt() and grak.ausholer.gewicht > 0.95:
+				links_weg = maxf(links_weg, axt_links)
 		if geschlagen and cur == "Hieb":
 			gehauen = true
 		# Einzelbild für die eigene Prüfung (BILD_1000=<Ordner>, nur mit Bild): daheim ganz ausgeholt, dann unterwegs
@@ -176,6 +217,9 @@ func _lauf() -> void:
 	_gut(ansagen > 0 and schlaege > 0, "Ansagen %d, Schläge daraus %d" % [ansagen, schlaege])
 	_gut(ohne_haltung == 0, "von der Ansage bis zum Schlag immer ausgeholt (%d Bilder ohne)" % ohne_haltung)
 	_gut(faust_bilder > 0 and faust_unten == 0, "Axt oben: rechte Faust über dem Kopf in %d von %d Bildern mit ganzer Haltung" % [faust_bilder - faust_unten, faust_bilder])
+	if mit_axt:
+		_gut(axt_weg_bei != "" and axt_weg <= AXT_LUFT, "Axt in der rechten Faust: höchstens %.3f m von ihrer Lage in der Faust (%s)" % [axt_weg, axt_weg_bei])
+		_gut(links_weg <= 0.05, "linke Faust am Stiel bei ganzer Haltung: höchstens %.3f m daneben" % links_weg)
 	_gut(unterwegs > 0, "auf dem Weg zum Ziel ausgeholt: %d Bilder" % unterwegs)
 	var tief: float = hieb_von.reduce(func(a, b): return minf(a, b), INF) if not hieb_von.is_empty() else -1.0
 	_gut(not hieb_von.is_empty() and tief >= Aus.OBEN_VON - 0.05, "Hieb beginnt oben: erste Stelle in „Hieb“ %s" % [hieb_von])

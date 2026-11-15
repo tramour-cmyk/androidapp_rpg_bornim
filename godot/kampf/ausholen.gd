@@ -29,6 +29,15 @@ var gewicht := 0.0         # 0 = nur die Grundbewegung, 1 = ganz in der Lage
 var phase := 0.0
 var fest := false         # unterwegs zum Hieb: die Stelle bleibt, damit der Aufschlag zur Zeit kommt, die _hieb gerechnet hat
 var _spuren := []          # [Knochen, Drehspur, Ortsspur]
+# 1000 (Chef 15.11., 12:55, Fund t286.5a: „die Axt bewegt sich nicht mit, die schwebt jetzt vor ihm. Wie Telekinese.“): Graks Axt
+# hängt nicht an der Hand, sondern an einem eigenen Knochen „axt“ unter root (grak_gestalt.py: je Bild dorthin gestellt, wo die
+# rechte Faust sie hält). Die Schicht nahm nur Knochen ab spine_01, die Axt blieb also in der Grundbewegung (Stehen) stehen, während
+# die Arme hochgingen. Jetzt folgt der Knochen „axt“ der rechten Faust, wie sie nach der Schicht steht: Lage der Axt im Raum der
+# Faust aus der Grundbewegung, mit dem Gewicht hin zu der aus „Hieb“ an der gezeigten Stelle.
+var _axt := -1
+var _hand := -1
+var _kette_hand := []      # je Knochen von der Wurzel bis hand_r: [Knochen, Drehspur, Ortsspur, Maßspur] in „Hieb“
+var _kette_axt := []
 
 
 ## [h] die Bewegung „Hieb“ der Figur, [sk] ihr Skelett: Rumpf ab spine_01 aufwärts samt Armen, ohne Becken und Beine
@@ -58,7 +67,34 @@ func einrichten(h: Animation, ap: AnimationPlayer, sk: Skeleton3D) -> bool:
 			k = sk.get_bone_parent(k)
 		if k == wurzel and dreh.has(b):
 			_spuren.append([b, dreh[b], ort.get(b, -1)])
+	_axt = sk.find_bone("axt")
+	_hand = sk.find_bone("hand_r")
+	_kette_hand.clear()
+	_kette_axt.clear()
+	if _axt >= 0 and _hand >= 0:
+		var mass := {}
+		for t in h.get_track_count():
+			var p := h.track_get_path(t)
+			if p.get_subname_count() >= 1 and h.track_get_type(t) == Animation.TYPE_SCALE_3D:
+				mass[sk.find_bone(String(p.get_subname(0)))] = t
+		for paar in [[_hand, _kette_hand], [_axt, _kette_axt]]:
+			var k: int = paar[0]
+			while k >= 0:
+				(paar[1] as Array).push_front([k, dreh.get(k, -1), ort.get(k, -1), mass.get(k, -1)])
+				k = sk.get_bone_parent(k)
 	return not _spuren.is_empty()
+
+
+## Lage des letzten Knochens der [kette] im Skelett, wie „Hieb“ ihn an der Stelle [t] stellt (ohne Spur: Ruhelage)
+func _in_hieb(sk: Skeleton3D, kette: Array, t: float) -> Transform3D:
+	var g := Transform3D()
+	for e in kette:
+		var b: int = e[0]
+		var q: Quaternion = hieb.rotation_track_interpolate(e[1], t) if e[1] >= 0 else sk.get_bone_rest(b).basis.get_rotation_quaternion()
+		var o: Vector3 = hieb.position_track_interpolate(e[2], t) if e[2] >= 0 else sk.get_bone_rest(b).origin
+		var m: Vector3 = hieb.scale_track_interpolate(e[3], t) if e[3] >= 0 else sk.get_bone_rest(b).basis.get_scale()
+		g = g * Transform3D(Basis(q).scaled(m), o)
+	return g
 
 
 ## Stelle in „Hieb“, die die Schicht gerade zeigt (s)
@@ -90,9 +126,19 @@ func _process_modification_with_delta(delta: float) -> void:
 		gewicht = 0.0 if ziel == 0.0 else gewicht
 		return
 	var t := stelle()
+	# 1000: Axt im Raum der rechten Faust, wie die Grundbewegung sie gerade hält (vor der Schicht)
+	var mit_axt := _axt >= 0 and _hand >= 0
+	var halt_grund := sk.get_bone_global_pose(_hand).affine_inverse() * sk.get_bone_global_pose(_axt) if mit_axt else Transform3D()
 	for s in _spuren:
 		var b: int = s[0]
 		var q := hieb.rotation_track_interpolate(s[1], t)
 		sk.set_bone_pose_rotation(b, sk.get_bone_pose_rotation(b).slerp(q, gewicht))
 		if s[2] >= 0:
 			sk.set_bone_pose_position(b, sk.get_bone_pose_position(b).lerp(hieb.position_track_interpolate(s[2], t), gewicht))
+	if mit_axt:
+		var halt_hieb := _in_hieb(sk, _kette_hand, t).affine_inverse() * _in_hieb(sk, _kette_axt, t)
+		var soll := sk.get_bone_global_pose(_hand) * halt_grund.interpolate_with(halt_hieb, gewicht)
+		var pa := sk.get_bone_parent(_axt)
+		var lokal := (sk.get_bone_global_pose(pa).affine_inverse() if pa >= 0 else Transform3D()) * soll
+		sk.set_bone_pose_position(_axt, lokal.origin)
+		sk.set_bone_pose_rotation(_axt, lokal.basis.get_rotation_quaternion())
