@@ -88,3 +88,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:03 15.11.: Marke Rückmeldung 1260 15.11. 09:57 (lauf.py)
 - 10:03 15.11.: Marke Abgleich ganz 15.11. (lauf.py)
 - 10:03 15.11.: Marke Archiv session_01Hmoj794ME3Gg3ydHeNmxum (lauf.py)
+- 10:05 15.11.: Startsperre 10:05 Start Perikles (lauf.py)
