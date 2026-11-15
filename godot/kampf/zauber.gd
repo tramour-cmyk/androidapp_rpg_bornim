@@ -58,6 +58,8 @@ const FLASK_HOEHE_U := 23.0
 const FLASK_M := 0.22     # 935: Höhe der Flasche (m), wie ein Krug in der Hand des Helden
 ## Fehlschuss: Bodenpunkt am Schirm, den kampf_ui.gd frei von Figuren wählt (INF: wie bisher neben dem Ziel)
 static var miss_at := Vector2.INF
+## 601.1: das Ziel am Schirm ist die Stelle am Rumpf (kampf_ui._aim_point mit Gerüst): Geschosse treffen genau dort, ohne Streuung
+static var ziel_genau := false
 ## 348.7a Runde 3, Probe BAHN_PRUEF: jeder Bahnpunkt im Raum (kampf_ui.gd prüft, ob er in einer Figur steckt oder hinter ihr liegt)
 static var bahn: Array = []
 static var pruef := OS.get_environment("BAHN_PRUEF") != ""
@@ -723,16 +725,22 @@ func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	_burst(hit, s / 0.3, u * 0.6, [DUST, Color("6a5a44")], 8, 14.0)     # Runde 3b: helle Scheiben „wie Flecken“
 
 
-## Ein Effekt bei p (0..1) von source nach target; ground: Boden unter dem Ziel (drawFx)
-func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: float, ground: float, exact := false) -> void:
+## Wo der Effekt kind am Schirm einschlägt (setzt den Zufall auf sd, wie draw_fx); auch für die Messung einschlag_6011
+func treff_bild(kind: String, sd: int, target: Vector2, u: float, exact := false) -> Vector2:
 	rnd.seed = sd
-	on_floor = exact
-	_at_hit()
 	var hit := Vector2(target.x + (_rf() - 0.5) * 14 * u, target.y + (_rf() - 0.5) * 14 * u)
-	if exact:
+	if exact or (ziel_genau and kind in FLYING):
 		hit = target
 	elif kind == "ARROW":
 		hit.y += 9 * u     # Prüfer Runde 3b: steckte im Auge; Hals und Brust
+	return hit
+
+
+## Ein Effekt bei p (0..1) von source nach target; ground: Boden unter dem Ziel (drawFx)
+func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, u: float, ground: float, exact := false) -> void:
+	on_floor = exact
+	_at_hit()
+	var hit := treff_bild(kind, sd, target, u, exact)
 	match kind:
 		"ARROW":
 			_arrow(p, source, hit, u)

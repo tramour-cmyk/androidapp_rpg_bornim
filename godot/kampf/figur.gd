@@ -3752,6 +3752,41 @@ func koerper() -> Array:
 	return out
 
 
+## 601.1 (Chef 15.11., 11:02: der Pfeil „trifft dann unten eher in der Fußspitze, aber er zuckt oben zurück“): wo ein Geschoss
+## (Pfeil, Wurf, Zauber), das trifft, in den Körper geht: die Oberfläche des Rumpfs (Mensch: Becken bis Hals, Brust oberhalb der
+## Mitte; Tier: Rücken, Brust, Hals), die dem Schützen bei [von] am nächsten liegt; dort zuckt der Getroffene zurück
+## (SS_GetHitLightFront, „Treffer“). Vector3.INF ohne Gerüst (dann wie bisher geschätzt)
+const RUMPF_TEILE := ["spine", "chest", "belly", "waist", "body", "torso", "abdomen", "thorax", "neck", "hals", "root", "pelvis"]
+const BRUST_AB := 0.45     # Mensch: von Becken zum Hals erst ab diesem Anteil (Brust, nicht Bauch)
+func treffpunkt_fern(von: Vector3) -> Vector3:
+	var rumpf: Array = []
+	if fighter.monster == null:
+		for c in kapseln():
+			if float(c[2]) >= 0.13:     # MENSCH_KAPSELN: nur Becken–Brust (0,17) und Brust–Hals (0,14)
+				rumpf.append(c)
+		if rumpf.size() == 2:     # eine Strecke ab BRUST_AB von Becken zum Hals
+			var a: Vector3 = rumpf[0][0]
+			var b: Vector3 = rumpf[1][1]
+			rumpf = [[a.lerp(b, BRUST_AB), b.lerp(a, 0.1), float(rumpf[1][2])]]
+	else:
+		for c in koerper():
+			var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+			for w in RUMPF_TEILE:
+				if nm.contains(w):
+					rumpf.append(c)
+					break
+	var best := Vector3.INF
+	var naechst := INF
+	for c in rumpf:
+		var q: Vector3 = Geometry3D.get_closest_point_to_segment(von, c[0], c[1])
+		var d: Vector3 = von - q
+		var p: Vector3 = q + (d.normalized() * float(c[2]) if d.length() > 0.001 else Vector3.ZERO)
+		if von.distance_to(p) < naechst:
+			naechst = von.distance_to(p)
+			best = p
+	return best
+
+
 ## 709: der Weg eines Angriffs [hn] im eigenen Raum (+Z zum Ziel, wie _face; [versatz]: so weit dreht die Figur beim Angriff aus der
 ## Richtung zum Ziel, z. B. die Schnauze im Biss), je 1/30 s: [t (s der Bewegung), Waffe, Körper], beide als Kapseln [[a, b, r] …].
 ## Waffe: was der Held in der Waffenhand trägt (Strecke längs des Kastens), beim Tier Kopf, Kiefer, Zunge; Körper: beim Held Rumpf,
