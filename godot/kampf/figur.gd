@@ -4676,11 +4676,11 @@ func dodge(after_ms: int, nm := "") -> void:
 const AUSWEICH_SCHRITT_M := 0.55
 const AUSWEICH_SCHRITT_S := 0.35
 const AUSWEICH_LUFT_M := 0.15
-func _ausweich_tiefe(o) -> float:
+func _ausweich_tiefe(o, an := Vector3.INF) -> float:
 	var bahn_a: Array = _hieb_bahn("Ausweichen")
 	if bahn_a.is_empty():
 		return -INF
-	var tr := Transform3D(Basis(Vector3.UP, rotation.y), global_position)
+	var tr := Transform3D(Basis(Vector3.UP, rotation.y), global_position if an == Vector3.INF else an)
 	var ks: Array = o.kapseln()
 	var tief := -INF
 	for st in bahn_a:
@@ -4714,8 +4714,23 @@ func _ausweichen_zurueck_held() -> bool:
 	var weg_von := Vector3(position.x - nah.position.x, 0.0, position.z - nah.position.z)
 	if weg_von.length() < 0.01:
 		return false
-	var ziel := position + weg_von.normalized() * AUSWEICH_SCHRITT_M * _scale()
-	if not _stand_frei(ziel, null) or not _im_bild(ziel, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+	# 1321 (Lauf 503, am Rechner nachgestellt: Held mit Stab am linken Rand, der Schritt gerade zurück führte aus dem Bild, er wich am Ort
+	# aus und der Stab fuhr 0,05 m durch Wolf 3): gerade zurück, sonst schräg bis zur Seite, auch kürzer; der Platz frei, im Bild
+	# und das Ding in der Hand dort weit genug vom Gegner
+	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
+	var ziel := Vector3.INF
+	for w in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0]:
+		for k in [1.0, 0.7]:
+			var q: Vector3 = position + weg_von.normalized().rotated(Vector3.UP, deg_to_rad(w)) * AUSWEICH_SCHRITT_M * k * _scale()
+			var ok: bool = _stand_frei(q, null) and _im_bild(q, blick) and _ausweich_tiefe(nah, Vector3(q.x, global_position.y, q.z)) < -AUSWEICH_LUFT_M
+			if OS.get_environment("SCHAU_1321") != "":
+				print("438 DIAG 1321 %s Schritt %.0f° ×%.1f nach %s: %s" % [fighter.id, w, k, q, "ja" if ok else "nein"])
+			if ok:
+				ziel = q
+				break
+		if ziel != Vector3.INF:
+			break
+	if ziel == Vector3.INF:
 		return false
 	if OS.get_environment("SCHAU_1321") != "":
 		print("438 DIAG 1321 %s weicht zurück vor %s" % [fighter.id, nah.fighter.id])
@@ -4726,7 +4741,7 @@ func _ausweichen_zurueck_held() -> bool:
 	var v := maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
 	if anim.has_animation(nm):
 		_guard(true)
-		anim.play(nm, 0.08, clampf(AUSWEICH_SCHRITT_M / AUSWEICH_SCHRITT_S / v, 1.0, WALK_MAX) * (1.0 if nm.begins_with("SS_") else -1.0))
+		anim.play(nm, 0.08, clampf(ziel.distance_to(position) / AUSWEICH_SCHRITT_S / v, 1.0, WALK_MAX) * (1.0 if nm.begins_with("SS_") else -1.0))
 	bahn = [ziel]
 	tween = create_tween()
 	tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
