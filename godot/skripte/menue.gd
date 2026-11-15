@@ -237,7 +237,18 @@ func held() -> void:
 		l.custom_minimum_size.x = 56 * DP
 		l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(l)
+		# 785.1 (MenuScreen.kt 633–637): der Anteil der Ausruestung am Wert blau daneben; ohne Stern, seit 644b A gibt es keinen Deckel
+		var plus := hw.ausruestungs_bonus(g)
+		var b := Stil.txt(("%+d" % plus) if plus != 0 else "", 14, BLAU, true)
+		b.name = "Ausruestung_" + String(g)
+		b.autowrap_mode = TextServer.AUTOWRAP_OFF
+		b.custom_minimum_size.x = 30 * DP
+		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(b)
 		inhalt.add_child(r)
+	# 785.1 (MenuScreen.kt 650–651): Satz zur Farbe wie alt; der Satz zur Obergrenze entfaellt (644b A, Chef 12.11., 13:40: kein Deckel)
+	if BrsHeld.grundwerte().any(func(g): return hw.ausruestungs_bonus(String(g)) != 0):
+		zeile("Blau: Bonus durch Ausrüstung (im Wert enthalten)" if de else "Blue: bonus from gear (included in the score)", 12, BLAU).name = "Ausruestung_Satz"
 	luecke(10)
 	fertigkeiten_kurz()
 	if hw.merkmal() != "": zeile(hw.merkmal(), 14, Stil.GOLD)
@@ -324,6 +335,8 @@ func fertigkeit_zeile(n: String, w: int) -> void:
 	rw.autowrap_mode = TextServer.AUTOWRAP_OFF
 	rw.size_flags_horizontal = Control.SIZE_FILL
 	z1.add_child(rw)
+	z1.name = "Fert_" + n
+	if ErschaffungBrs.erklaerung("fert", n) != "": tippbar(z1, func(): erklaere_fert(n))   # 785.2
 	inhalt.add_child(z1)
 	var b := Leiste.Balken.new()
 	b.custom_minimum_size = Vector2(0, 6 * DP)
@@ -332,6 +345,11 @@ func fertigkeit_zeile(n: String, w: int) -> void:
 	b.farbe = Leiste.GOLD_HELL
 	inhalt.add_child(b)
 	luecke(4)
+
+## 785.2 (alt Satz je Faehigkeit, MenuScreen.kt 692): Antippen einer Fertigkeit zeigt im Erklaerfenster, was sie tut, mit demselben
+## Satz wie in der Erschaffung ([954.1.fert.…], mit [954.1.spaeter], wo sie noch nicht wirkt)
+func erklaere_fert(n: String) -> void:
+	erklaere_zeichen(ErschaffungBrs.fert_name(n), ErschaffungBrs.erklaerung("fert", n))
 
 ## Heldenreiter: die drei hoechsten, darunter der Sprung zum Reiter „Fertigkeiten“
 func fertigkeiten_kurz() -> void:
@@ -364,9 +382,19 @@ func fertigkeiten_reiter() -> void:
 		if not offen: continue
 		luecke(2)
 		for n in _nach_wert(hat): fertigkeit_zeile(String(n), int(hat[n]))
-		if not rest.is_empty():
-			var m := zeile(", ".join(rest.map(func(n): return ErschaffungBrs.fert_name(String(n)))), 14, Stil.DIM)
-			m.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		if not rest.is_empty():   # 785.2: je Name antippbar, sonst wie die Zeile „a, b, c“
+			var fl := HFlowContainer.new()
+			fl.add_theme_constant_override("h_separation", int(5 * DP))
+			fl.add_theme_constant_override("v_separation", 0)
+			for k in rest.size():
+				var rn := String(rest[k])
+				var m := Stil.txt(ErschaffungBrs.fert_name(rn) + ("," if k < rest.size() - 1 else ""), 14, Stil.DIM)
+				m.autowrap_mode = TextServer.AUTOWRAP_OFF
+				m.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+				m.name = "Fert_" + rn
+				if ErschaffungBrs.erklaerung("fert", rn) != "": tippbar(m, func(): erklaere_fert(rn))
+				fl.add_child(m)
+			inhalt.add_child(fl)
 		luecke(6)
 
 ## 762 (Chef 21:25 Idee, 21:33 „Ja.“, Votum Sokrates): Gruppen ein- und aufklappbar; ohne Umklappen offen, wer schon etwas kann,
@@ -834,10 +862,15 @@ func frage_ding(id: String) -> void:
 	var bild := Menue.bild_feld("ding-" + id, 48)   # Dialogs.kt: SupplyPicture 48 dp
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	zeilen.append(bild)
+	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
+	var sk := String(dd.get("seltenheit", "COMMON"))
+	var farbe := Color(SELTEN.get(sk, "e6ddcb"))
+	# 785.3 (Dialogs.kt 116 ItemDetails): die Seltenheit als Wort in ihrer Farbe ueber dem Satz, wie alt (14 sp)
+	var sw := Stil.txt(Testmodus.gross_anfang(Sprache.t(BrsHeld.daten()["seltenheiten"].get(sk, {}).get("name", sk))), 14, farbe)
+	sw.name = "Seltenheit"
+	zeilen.append(sw)
 	var info := Sprache.t(dd.get("info", ""))
 	if info != "": zeilen.append(Stil.txt(info, 15))
-	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
-	var farbe := Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb"))
 	if trinkbar:
 		var wort := ("Essen" if de else "Eat") if art == "FOOD" else Sprache.u("use")
 		dialog(Laden.name(id), farbe, zeilen, [[wort, func(): benutze_mit_klang(id, art); baue()], [abbrechen(), func(): pass]])
@@ -1473,6 +1506,11 @@ func ausruestung() -> void:
 	wert_zeile(KAMPFWERT["schutz"][i], str(hw.schutzwert()))
 	wert_zeile(KAMPFWERT["schaden"][i], str(hw.schaden()))
 	wert_zeile(KAMPFWERT["krit"][i], ("%d %%" if de else "%d%%") % hw.krit_prozent())
+	# 785.6 (MenuScreen.kt 882–887): wie alt die Boni der getragenen Stuecke, die nicht schon in einem Wert stecken; Lebensraub,
+	# Widerstand, Goldfund, EP entfallen im BRS (870.6), an ihrer Stelle Zauberschaden und Abwehrprobe (Wort wie Beute.zusatz_text)
+	var boni := {"SPELL": ["Zauberschaden", "Spell damage"], "TENACITY": ["Abwehrprobe", "Resistance roll"]}
+	for a in boni:
+		if hw.bonus(a) > 0: wert_zeile(boni[a][i], ("+%d %%" if de else "+%d%%") % hw.bonus(a))
 	var ad: Dictionary = BrsHeld.daten()["affixdaten"]
 	if hw.bonus("MAGIC_FIND") > 0: wert_zeile(Sprache.t(ad["MAGIC_FIND"]["name"]), "+%d%%" % hw.bonus("MAGIC_FIND"))
 
