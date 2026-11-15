@@ -70,6 +70,7 @@ blende_619
 gruppen_535
 faehigkeiten_534
 platztausch_863
+meldung_1305
 tempo_600
 arkan_993
 karten_regeln

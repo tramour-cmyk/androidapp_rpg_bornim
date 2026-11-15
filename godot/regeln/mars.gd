@@ -1983,7 +1983,10 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		dmg = roundi(dmg * _schaden_faktor(foe))     # 870.6: Schwächung als Faktor
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
-	if dmg > 0:
+	# 1305 (Chef 15.11., 17:18; reihe_1305 Seed 7): ein Treffer ohne Schaden (Modell D, 478) blieb ohne Meldung; der hintere Wolf
+	# tauschte beim Einkreisen in den Regeln nach vorn (863), im Bild biss er nie und blieb hinten stehen, der Held schlug ihn dort.
+	# Jetzt meldet auch ein Treffer mit 0 Schaden (wie beim Helden); nur nach Ausweichen oder Abwehr am Ring sagt das die Zeile davor
+	if dmg > 0 or re == NONE:
 		_hurt(t, dmg, foe.id, fmt(wolf(foe, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [foe.name(lang), t.name(lang), dmg]), info, true)
 	if outcome != "ONGOING" or not t.standing():
 		return
