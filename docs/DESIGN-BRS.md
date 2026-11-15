@@ -371,7 +371,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | Stirge, Ockergallerte, Grottenschrat (Krogg), Hobgoblin (Grak) | Blutflügler, Ockerschleim, Bärenschrat, Goblin-Hauptmann |
 | Rüstungsklasse, Übungsbonus, Rettungswurf, Vorteil/Nachteil | Schutzwert, Fertigkeitsbonus, Abwehrprobe, Gunst/Ungunst |
 | Zauberpunkte, Zauberplatz | Mana |
-| Aktionspunkte (Entwurf „Glut“), Nachlegen, Funke | Kerbe / Notch, Vertiefen / Deepen, Goldkerbe / Gold Notch (1260 D, Chef 15.11.; Wort fürs Verfallen offen, Homer 1265) |
+| Aktionspunkte (Entwurf „Glut“), Nachlegen, Verglimmen, Funke | Kerbe / Notch, Vertiefen / Deepen, Verstreichen / Lapse, Goldkerbe / Gold Notch (1260 D, Chef 15.11.; Homer 1265) |
 | Kurze Rast, Lange Rast | Kurze Erholung (2 Stunden), Langes Ausruhen (9 Stunden) |
 | Klassen Kämpfer, Schurke, Kleriker (die Klasse Magier ebenso; das Wort bleibt als Pfad, 954.2) | entfallen; dafür Pfade |
 
