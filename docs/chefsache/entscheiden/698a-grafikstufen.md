@@ -5,7 +5,7 @@ Beim Chef, weil: Aussehen (was auf schwächeren Handys fehlt)
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/274ec030b/godot (`main`): `godot/project.godot` (Renderer mobile, Sonnenschatten 4096 px weich, Kantenglättung FXAA), `godot/skripte/testmodus.gd` (Messschalter 1145: Tusche, Tusche nach Lampen, Nebel, Schatten), `grasbausatz.gd` und `dorfeffekte.gd` (Schalter `an`, schon für 698 vorgesehen), `menue.gd` `system()` (Systemmenü); deine Messungen 14.11. (alles aus: 94 Bilder/s bei 120 Hz, hakelt trotzdem) und 15.11., 13:47 (Höhle, Grafikzeit 17,6 ms, Grafikkarte begrenzt)
 
-**Frage:** Du wolltest Grafikstufen im Systemmenü, damit das Spiel auch auf schwächeren Handys flüssig läuft (Maßgerät ist das Galaxy A22 von Tester 1, daneben dein A56). Bevor ich baue, brauche ich dein Wort, was jede Stufe weglässt, denn das ist Aussehen. Mein Vorschlag steht unten in der Tabelle. Grundsatz: Was unsere Signatur ausmacht (Tuschelinie, Licht aus sichtbaren Quellen, Gold als einziger Glanz, Nebel am Rand), bleibt in jeder Stufe. Gespart wird dort, wo es am meisten Rechenzeit kostet und am wenigsten auffällt: Schatten, Schärfe des Spielbilds (Schrift und Menüs bleiben immer scharf), die Effekte aus den Kits.
+**Frage:** Du wolltest Grafikstufen im Systemmenü, damit das Spiel auch auf schwächeren Handys flüssig läuft (Maßgerät ist dein A56, 1270.1). Bevor ich baue, brauche ich dein Wort, was jede Stufe weglässt, denn das ist Aussehen. Mein Vorschlag steht unten in der Tabelle. Grundsatz: Was unsere Signatur ausmacht (Tuschelinie, Licht aus sichtbaren Quellen, Gold als einziger Glanz, Nebel am Rand), bleibt in jeder Stufe. Gespart wird dort, wo es am meisten Rechenzeit kostet und am wenigsten auffällt: Schatten, Schärfe des Spielbilds (Schrift und Menüs bleiben immer scharf), die Effekte aus den Kits.
 
 | | Hoch | Mittel | Niedrig |
 |---|---|---|---|
@@ -35,7 +35,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/274ec030
 - **A (Empfehlung):** Tabelle wie oben, Automatisch als Vorgabe. Bauen etwa eine Sitzung, dazu ein Bild je Stufe am selben Ort (Dorf am Abend, Höhle) zum Vergleich an dich, dann Testbitte.
 - **B:** nur Hoch und Niedrig, ohne Automatisch. Weniger zu prüfen; aber wer ein mittleres Handy hat, muss zwischen hässlich und ruckelig wählen, und du wolltest den Leistungstest.
 - **C:** in Niedrig auch die Tuschelinie aus. Spart am meisten; aber dann sieht das Spiel auf schwachen Handys nicht mehr nach uns aus.
-- **Stärkstes Gegenargument gegen A:** ohne Messung am Gerät ist die Tabelle geschätzt; vielleicht spart „Mittel“ kaum etwas. Darum messe ich jede Stufe bei jedem Bau und am A22, und die Werte passe ich innerhalb der Zeilen an (z. B. 80 statt 85 %), ohne neue Zeilen.
+- **Stärkstes Gegenargument gegen A:** ohne Messung am Gerät ist die Tabelle geschätzt; vielleicht spart „Mittel“ kaum etwas. Darum messe ich jede Stufe bei jedem Bau und an deinem A56, und die Werte passe ich innerhalb der Zeilen an (z. B. 80 statt 85 %), ohne neue Zeilen.
 
 **Folgerungen:** Nach „A“ baut Spike das Zeichen „Grafik“, die drei Stufen und Automatisch auf `claude/spike-698-grafikstufen`, misst je Stufe Grafikzeit in Dorf und Höhle, legt je Ort ein Bild Hoch gegen Niedrig vor und bittet dann zum Test. Bei B oder C ebenso mit der gewählten Tabelle.
 
