@@ -45,7 +45,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 
-**Übergabe Tuffy (14.11., 23:44, `session_01Hmoj79v4vLh86CTewmRzZ9`, Neustart nach Haken 14):** 930.7 gebaut (`773b89549`, Filmzweig `claude/tuffy-930-7-film`); Lauf 476 `43645686471` (`kampf=9307`, Probelauf 1 von 1), Film `bilder/kampf461/9307-glut.mp4` zuerst an Sokrates (23:08). Nachfolger: Tuffy – 930.7: Film Lauf 476 an Sokrates
+**Übergabe Tuffy (15.11., 01:24, `session_01Hmoj76d3QcJwbDH1YGUuPR`):** Lauf 476 gescheitert (Tipp als langes Drücken), behoben `ab6dbac60`; Lauf 481 grün, Film an Sokrates (Zu 930.7 in `ARBEIT-BERATUNG.md`). Nach 930.7: Film an den Chef, dann Gespräch, nicht weiterbauen. Nachfolger: keiner (wartet auf Sokrates und Gespräch).
 
 ## Einzelheiten
 
