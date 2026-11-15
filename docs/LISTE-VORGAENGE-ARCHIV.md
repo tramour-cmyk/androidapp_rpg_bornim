@@ -514,7 +514,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
 | 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
-| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 67,21 $ | Sokrates | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 71,97 $ | Sokrates | erledigt |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | E Figuren | M | – | Sokrates | erledigt |
@@ -1435,3 +1435,12 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1261 | Von Jerry (1123, Lauf 480 pruefen2): hoehle_492 zufällig rot, Streuner neben (10, 6) macht aus UNLOCK FIGHT | B Werkzeuge | M | 1,07 $ | Tom | erledigt, greift Lauf 483 |
 | 1263 | Von Jerry (1215, Lauf 484 mit Jolt): ziege_4162 rot, von (-1,0) trat die Ziege erst voran, dann Tausch | E Welt | M | – | Tom | erledigt, doppelt zu 1079 (e347e68d8 in Build 286, nicht auf main) |
 | 1260 | Von Sokrates (1259 B, Chef 14.11., 22:47): sprechender Name der drei Kampfpunkte je Zug, einige Vorschläge, dazu Nachlegen, Verglimmen, Funke; nicht Glut, Funke, kein Grundwert; Vorschlag Sokrates Herzschlag | E Kampf | M | 11,49 $ | Homer | erledigt |
+| 1265 | Von Sokrates (1260 D, Chef 15.11., 10:07): besseres Folgewort für das Verfallen ungeschlagener Kerben statt Verblassen, deutsch und englisch | E Kampf | M | – | Homer | erledigt |
+| 1264 | Wochentermin 15.11.: Ideenspeicher (719) | B Abläufe | M | – | Homer | erledigt |
+| 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | G Balance | K | – | Homer | erledigt |
+| 50 | Weitere Klassen, ggf. zum Kauf | G Balance | K | – | Homer | erledigt |
+| 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K | 2,30 $ | Homer | erledigt |
+| 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K | – | Homer | erledigt |
+| 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Homer | erledigt |
+| 1259 | Von Chef (14.11., 22:32, zu 930): Name der Punkte im Kampf, „Glut“ nie vorgelegt; A „Aktionspunkte“ überall (Votum), B Spielname über Homer; danach Dokumente und Code umbenennen vor den Texten 930.7 | E Kampf | M | 4,13 $ | Sokrates | erledigt |
+| 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | K | –; +45,66 $ | Sokrates | erledigt |
