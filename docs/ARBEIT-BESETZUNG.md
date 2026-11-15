@@ -10,6 +10,8 @@
 | Homer | [Homer – 1260: Name der Kampfpunkte (14.11., 23:45)](https://claude.ai/code/session_01Hmoj794ME3Gg3ydHeNmxum) | 1260 | – | 14.11., 23:43 |
 | Tuffy | [Tuffy – 930.7: Film Lauf 476 an Sokrates (14.11., 23:49)](https://claude.ai/code/session_01Hmoj76d3QcJwbDH1YGUuPR) | 930.7 | – | 14.11., 23:48 |
 | Ford | [Ford – Betriebsleiter (15.11., 01:06)](https://claude.ai/code/session_01Hmoj76BCecXxLdXLfnEzk9) | Betrieb | – | 15.11., 01:04 |
+| Tom | [Tom – 286: Ergebnis des Tests (15.11., 01:06)](https://claude.ai/code/session_01Hmoj762Xztj8QLqEa23Rjp) | 286 | – | 15.11., 01:06 |
+| Jerry | [Jerry – 806: Lauf 482 auswerten, 1215 Jolt-Test (15.11., 01:30)](https://claude.ai/code/session_01Hmoj76MSnYWiTvsA1DfTZG) | 806 | – | 15.11., 01:30 |
 | Sokrates | [Sokrates – Stellungnahme (15.11., 02:05)](https://claude.ai/code/session_01Hmoj77SZdtkUPt9EJTJgwP) | Betrieb | – | 15.11., 02:04 |
 | Perikles | [Perikles – 1262 (15.11., 02:05)](https://claude.ai/code/session_01Hmoj78JaxFDfPJBEPZts1z) | 1262 | – | 15.11., 02:05 |
 | Diogenes | [Diogenes – 1123 (15.11., 03:03)](https://claude.ai/code/session_01Hmoj78w1wTxyTuS8uf2tzM) | 1123 | – | 15.11., 03:04 |
