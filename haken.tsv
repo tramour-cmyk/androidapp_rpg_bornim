@@ -524,3 +524,4 @@
 2026-11-16 00:16:57	commit-pruefung	docs/chefsache/entscheiden/1352a-taumeln.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-16 00:18:58	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tom-785-24-kurzzeile ändert Spielcode (godot/skripte/laden	claude/tom-431-ausruestung
 2026-11-16 00:27:14	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-1303-stufen ändert Spielcode (godot/skripte/spiel.gd	claude/spike-1303-stufen
+2026-11-16 00:27:46	probelauf	748: Push angehalten, der letzte Lauf auf claude/spike-1303-stufen ist rot (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43770409468, Stand 7058f9d82). Erst das Protokoll lesen (	claude/spike-1303-stufen
