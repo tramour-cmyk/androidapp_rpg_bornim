@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1337 | Von Jerry (1331): t290 Toms Zeilen 290.1–290.7 am Stand claude/build-290 gegengehen, Bilder 290.3, 290.6 und Film 290.5 machen | Tom | M | startbar | – | – | – | E Technik | – |
 | 1335 | Von Sokrates (Chef 15.11., 21:09), für Spike nach 1328.1: wolf_mess_438 ohne Messrauschen (6× rot), Laden der Kaufmodelle mit Wiederholung bei Netzabbruch (Lauf 453); ziege_4162 (9×, 1325) und atem_4531 (2×, 1300) mitnehmen | Tom | M? | startbar | – | – | – | B Werkzeuge | – |
 | 1329 | Von Sokrates: 6 Zeilen „zu testen, ohne Rückmeldung“ (697, 1040.1, 1185, 1268.1, 1268.3, 1290) selbst am Build prüfen und schließen oder als Test mit Schritten vorlegen (Chef 15.11., 21:03) · „jetzt“ 15.11., 21:07 | Tom | M | startbar | – | – | – | B Abläufe | – |
 | 1325 | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode unverändert gegen Lauf 493/497 grün): von Westen tritt die Ziege erst weg (30→29), dann Tausch; am Rechner mit Kaufmodellen auch bei 12 Bildern/s grün | Tom | M | in Arbeit, Ursache nachgestellt, Messlauf auf claude/tom-1325-ziege | 15.11. 21:25 | claude/tom-1325-ziege | – | E Welt | – |
@@ -93,7 +94,7 @@
 | 870.20 | Von Sokrates (870, Schritt 9, auf build-289): SRD-Reste aus den Daten (held.json grundformen schaden/ruestung, attribute alt; texte.json dinge kurz mit Würfeln), Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testerseite; Über-Text 870.19; Abnahme: Chef spielt neues Spiel bis Höhle | Tom | M | startbar | 870.19 | – | – | E Technik | – |
 | 1326 | Von Sokrates (Chef 15.11., 20:33): Build-Name (Nummer des Builds) im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | Tom | M | startbar | – | – | – | E Oberfläche | – |
 | Pflege | von Werkzeug (340.3, 15.11.): 30170 Bytes (Grenze 30000), Erledigtes streichen | Tom | K | erledigt | – | – | – | B Abläufe | – |
-| 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | startbar | – | – | – | E Technik | – |
+| 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | wartet | 1337, 1338 | – | – | E Technik | – |
 | 1330 | Von Sokrates: 21 Zeilen „zu testen, ohne Rückmeldung“ (t277–t289) selbst am Build prüfen und schließen oder als Test mit Schritten vorlegen (Chef 15.11., 21:03) · „jetzt“ 15.11., 21:07 | Jerry | M | erledigt | – | – | – | B Abläufe | – |
 | 1321 | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m nach vorn in einen Wolf, der daneben beißt (wolf_mess_438 Kleriker); Weg wählen, Film an den Chef, dann bauen | Jerry | M | in Arbeit, Zwischenstand fee74cf53 wirkt noch nicht (Kopf im Biss statt Umriss messen) | – | claude/jerry-1321-ausweichen | – | E Kampf | – |
 | 1314 | Von Jerry (t289, Lauf 497 rot): Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ragdoll_1215 (Schamane 0,3 m im Boden, Grak ohne Stoß), ausholen_1000 (Axt 9 cm aus der Faust beim Gehen) beheben, vor Build 290 | Jerry | M | gebaut, Geprüft an: a84216589 | – | claude/jerry-1314-rot | – | E Kampf | – |
@@ -236,6 +237,7 @@
 | 1128.3 | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen (12 aus der Liste in 1128), nach 285 Zahlen an Perikles und Chef ohne Wertung | Diogenes | M | startbar | – | – | – | Q QM | 5,59 $ |
 | 1129.4 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen (Zu 1129.4) | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
+| 1338 | Von Jerry (1331): Prüfliste t290 (Sammelbuild, beide Teams) gegenlesen | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1186 | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitzer zum Schließen (Chef 13.11., 16:28, Anlass 41 Homer) · „jetzt“ 13.11., 16:28 | Sokrates | M | startbar | 16.11. | – | – | B Abläufe | 26,02 $ |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust gingen (Art 1110 Rechte, 1128 Prüffragen; Chef 13.11., 12:53) · „jetzt“ 13.11., 12:53 | Sokrates | M | startbar | 1129.4 | – | – | B Abläufe | 20,09 $ |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | 23.11. | – | – | B Werkzeuge | – |
