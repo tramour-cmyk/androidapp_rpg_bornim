@@ -1,4 +1,5 @@
 # 1303 · Höhle im Renderer mobile: Flecken im Dunkel weg, dafür dunkler · Spike · 16.11., 00:35
+[Bild von 16.11., 00:35](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-0035-1303-Spike.png) (Telegram, Nachricht 4312)
 
 E Technik
 
