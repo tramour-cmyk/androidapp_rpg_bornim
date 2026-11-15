@@ -280,11 +280,11 @@
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten (Chef 13.11., 16:48, aus 1186) | Sokrates | M | startbar | 27.11. | – | – | B Abläufe | – |
 | 1209 | Systemlösung? Halt: 10 frühere Vorgänge (793, 662, 849, 653, 872 …), neu 1208; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | B Werkzeuge | – |
 | 481a | Rückfrage: Wachsoldat gewinnt in der Glut-Rechnung 100 % gegen alles, Wolf 0 Schaden; ausgleichen wie? (aus 930.7, Chef 15.11.) | Sokrates | M | erledigt | – | – | – | E Kampf | – |
-| 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | – | – | – | E Technik | – |
+| 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | 1268.1, 1268.2, 1268.3 | – | – | E Technik | – |
 | 1269 | Godot-Möglichkeiten nutzen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder, vorberechnetes Licht; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | 3,04 $ |
 | 1288 | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lücke 930.5 (falsche Haltung kostet zu wenig) (Chef 15.11., 12:00) | Sokrates | M | wartet, Gespräch am Film 1266 (1288a A) | 1266 | – | – | E Kampf | – |
-| 1315 | Systemlösung? Axt: 2 frühere Vorgänge (280.2, 348.12j), neu 1314; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
+| 1315 | Systemlösung? Axt: 2 frühere Vorgänge (280.2, 348.12j), neu 1314; einmal grundsätzlich lösen? (654) | Sokrates | K | erledigt, Systemlösung ist 1268.1 (halt.gd, halt_1268); Zu 1314 an Jerry | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | K | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
