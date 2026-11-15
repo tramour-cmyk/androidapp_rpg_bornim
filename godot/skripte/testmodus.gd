@@ -397,7 +397,7 @@ static func reiter(m: Menue) -> void:
 			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
 			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
 	var Mars = load("res://regeln/mars.gd")
-	m.zeichenreihe([zk.call(t.call("Unsterblich", "Immortal"), an_aus.call(Mars.held_unsterblich), t.call("Im Kampf fällt der Held nie unter 1 Trefferpunkt; zum Durchspielen.",
+	m.zeichenreihe([zk.call(t.call("Unsterblich", "Immortal"), an_aus.call(Mars.held_unsterblich), t.call("Im Kampf fällt der Held nie unter 1 Leben; zum Durchspielen.",
 			"In a fight the hero never drops below 1 hit point; for playing through."), func(): Mars.held_unsterblich = not Mars.held_unsterblich, "", "∞", Mars.held_unsterblich),
 		zk.call(t.call("Schnell", "Fast"), an_aus.call(Held.schnell > 1.0), t.call("Gehen und Laufen dreimal so schnell, damit der Weg durch Kapitel 1 flott geht.",
 			"Walking and running three times as fast, to cross chapter 1 quickly."), func(): Held.schnell = 1.0 if Held.schnell > 1.0 else 3.0, "RUN", "", Held.schnell > 1.0)])

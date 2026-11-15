@@ -175,7 +175,7 @@ func _lauf() -> void:
 	var t2 := Menue.benutze(v, hw, "bandage", func(a, b): return 1)
 	var ueb_nach := float(v.fertigkeiten_stand()["uebung"].get("Heilkunde", 0.0)) + BrsFertigkeit.wert(v.fertigkeiten_stand(), "Heilkunde") * 1000.0
 	pruefe(hw.leben == 1 + soll and v.anzahl("bandage") == 1, "verletzt: +%d Leben bei Heilkunde %d, einer weniger (Leben %d)" % [soll, hk, hw.leben])
-	pruefe(t2.begins_with("Du ziehst den Verband fest. +%d TP." % soll), "Wortlaut 1 [807.verband.an]: %s" % t2)
+	pruefe(t2.begins_with("Du ziehst den Verband fest. +%d Leben." % soll), "Wortlaut 1 [807.verband.an]: %s" % t2)
 	pruefe(ueb_nach > ueb_vor, "Anlegen übt Heilkunde (%.2f -> %.2f)" % [ueb_vor, ueb_nach])
 	hw.geuebt["Heilkunde"] = 100
 	pruefe(Menue.verband_heilung(hw) == 25, "Großmeister heilt 25 (%d)" % Menue.verband_heilung(hw))
@@ -188,7 +188,7 @@ func _lauf() -> void:
 	v.leiden["POISON"] = 2
 	var t3 := Menue.benutze(v, hw, "bandage", func(a, b): return 1)
 	pruefe(not v.leiden.has("BLEED") and v.leiden.has("POISON") and v.anzahl("bandage") == 0, "Blutung gestillt, Gift bleibt, Verband verbraucht (%s)" % str(v.leiden))
-	pruefe(t3.begins_with("Ein fester Knoten, und das Blut steht.") and not t3.contains("TP"), "Wortlaut 1 [807.verband.blut] ohne „ +0 TP“: %s" % t3)
+	pruefe(t3.begins_with("Ein fester Knoten, und das Blut steht.") and not t3.contains("Leben"), "Wortlaut 1 [807.verband.blut] ohne „ +0 Leben“: %s" % t3)
 	# verletzt und blutend: Blutung weg, volle Heilung (nicht halbiert), zweiter Wortlaut [807.verband.blut]
 	v.dazu("bandage", 1)
 	hw.leben = 1
@@ -196,7 +196,7 @@ func _lauf() -> void:
 	var t4 := Menue.benutze(v, hw, "bandage", func(a, b): return 1)
 	var soll4 := roundi(5 + 0.2 * hw.fertigkeit("Heilkunde"))
 	pruefe(hw.leben == 1 + soll4 and not v.leiden.has("BLEED"), "blutend: Blutung weg, +%d Leben ungeteilt (Leben %d)" % [soll4, hw.leben])
-	pruefe(t4.begins_with("Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +%d TP." % soll4) or t4.begins_with("Lage um Lage, straff gewickelt. Die Blutung hört auf. +%d TP." % soll4), "Wortlaut 2 oder 3 [807.verband.blut]: %s" % t4)
+	pruefe(t4.begins_with("Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +%d Leben." % soll4) or t4.begins_with("Lage um Lage, straff gewickelt. Die Blutung hört auf. +%d Leben." % soll4), "Wortlaut 2 oder 3 [807.verband.blut]: %s" % t4)
 	# ohne Blutung, volles Leben: „Du bist unverletzt.“, bleibt in der Tasche
 	v.dazu("bandage", 1)
 	hw.leben = hw.max_leben()

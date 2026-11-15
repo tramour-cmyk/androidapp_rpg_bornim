@@ -51,7 +51,7 @@
     "quest": {"de":"Auftrag","en":"Quest"},
     "level": {"de":"Stufe","en":"Level"},
     "xp": {"de":"EP","en":"XP"},
-    "hp": {"de":"TP","en":"HP"},
+    "hp": {"de":"Leben","en":"Life"},
     "sp": {"de":"ZP","en":"SP"},
     "ac": {"de":"RK","en":"AC"},
     "gold": {"de":"Gold","en":"Gold"},
@@ -79,7 +79,7 @@
       "en": "You are not proficient with this armor."
     },
     "cannotUseHere": {"de":"Das kannst du hier nicht benutzen.","en":"You can't use that here."},
-    "alreadyFull": {"de":"Deine TP sind bereits voll.","en":"Your HP is already full."},
+    "alreadyFull": {"de":"Dein Leben ist schon voll.","en":"Your life is already full."},
     "onlyUndead": {"de":"nur gegen Untote","en":"undead only"},
     "fight": {"de":"Kampf","en":"Fight"},
     "flee": {"de":"Flucht","en":"Run"},
@@ -188,8 +188,8 @@
   "benutzen": {
     "cured": {"de":"{0} fühlt sich wieder gesund.","en":"{0} feels healthy again."},
     "ate": {
-      "de": "{0} isst {1}, heilt {2} TP und fühlt sich gestärkt für den nächsten Kampf.",
-      "en": "{0} eats {1}, recovers {2} HP and feels fortified for the next fight."
+      "de": "{0} isst {1}, heilt {2} Leben und fühlt sich gestärkt für den nächsten Kampf.",
+      "en": "{0} eats {1}, recovers {2} Life and feels fortified for the next fight."
     },
     "alreadyFed": {
       "de": "{0} ist noch satt von der letzten Mahlzeit.",
@@ -207,7 +207,7 @@
       "de": "Du drückst die Fackel aus. Das Dunkel rückt heran.",
       "en": "You snuff out the torch. The dark closes in."
     },
-    "healed": {"de":"{0} heilt {1} TP.","en":"{0} recovers {1} HP."}
+    "healed": {"de":"{0} heilt {1} Leben.","en":"{0} recovers {1} Life."}
   },
   "chronik": [
     {
@@ -374,8 +374,8 @@
     "remedy": {
       "name": {"de":"Kräutertrank","en":"Herbal Remedy"},
       "info": {
-        "de": "Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.",
-        "en": "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."
+        "de": "Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollem Leben trinkbar.",
+        "en": "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full life."
       },
       "preis": 20,
       "art": "POTION",

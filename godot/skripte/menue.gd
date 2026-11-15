@@ -779,13 +779,13 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, _wuerfel: Callable) -> 
 # Blutung (z.leiden „BLEED“, darum halbiert sie die Heilung nicht), dann grund + je_heilkunde x Heilkunde Leben (werte.json „welt“
 # „verband“, gerundet), uebt Heilkunde; ohne Blutung und mit vollem Leben nichts verbraucht ([807.verband.voll])
 const VERBAND_AN := [   # [807.verband.an] (der Held blutete nicht)
-	["Du ziehst den Verband fest. +{0} TP.", "You pull the bandage tight. +{0} HP."],
-	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP.", "You wash out the wound and wrap the bandage around it. +{0} HP."],
-	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP.", "You bind the wound and check that the bandage holds. +{0} HP."]]
+	["Du ziehst den Verband fest. +{0} Leben.", "You pull the bandage tight. +{0} Life."],
+	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} Leben.", "You wash out the wound and wrap the bandage around it. +{0} Life."],
+	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} Leben.", "You bind the wound and check that the bandage holds. +{0} Life."]]
 const VERBAND_BLUT := [   # [807.verband.blut] (die Blutung ist gestillt)
-	["Ein fester Knoten, und das Blut steht. +{0} TP.", "One firm knot, and the blood stops. +{0} HP."],
-	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP.", "You press the bandage onto the wound. It bleeds no more. +{0} HP."],
-	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP.", "Layer on layer, wrapped tight. The bleeding stops. +{0} HP."]]
+	["Ein fester Knoten, und das Blut steht. +{0} Leben.", "One firm knot, and the blood stops. +{0} Life."],
+	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} Leben.", "You press the bandage onto the wound. It bleeds no more. +{0} Life."],
+	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} Leben.", "Layer on layer, wrapped tight. The bleeding stops. +{0} Life."]]
 const VERBAND_KAMPF := {"de": "Im Kampf bleibt keine Zeit für einen Verband.", "en": "There's no time for a bandage in combat."}   # [807.verband.kampf]
 const VERBAND_VOLL := {"de": "Du bist unverletzt.", "en": "You are unhurt."}   # [807.verband.voll]
 
@@ -808,7 +808,7 @@ static func verband(z: Zustand, hw: BrsHeld, id: String) -> String:
 	z.varianten[marke] = [int(vv[0]) + 1, i]
 	var t := String(liste[i][0 if Sprache.aktiv() == "de" else 1])
 	var plus := hw.leben - vor
-	t = t.replace(" +{0} TP.", "").replace(" +{0} HP.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
+	t = t.replace(" +{0} Leben.", "").replace(" +{0} Life.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
 	var auf := z.fert_notiz()
 	return t + ("\n" + auf if auf != "" else "")
 
