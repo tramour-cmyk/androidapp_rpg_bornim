@@ -130,3 +130,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:04 15.11.: Startsperre 20:04 Start Perikles (Neustart, 8e45c936b, 1317 hält Jerry auf); alte Sitzung …79Xc4rtdmcDF2r7Sz8 sofort archivieren, Kosten auf 1312, 1313
 - 20:06 15.11.: Startsperre 20:06 Start Homer 1318 (lauf.py, per Weiter an …793oj9mKdUggnbqrp3); WARNUNG Start Spike 19:46 war Weiter an …795RUAxwXG56nmWXHR (1247 mischen), Sitzung fertig, archiviert, kein START nötig
 - 20:17 15.11.: Startsperre 20:17 Start Sokrates (Neustart, 7a9652a4e); Start Homer 1320 per Weiter an …793oj9mKdUggnbqrp3 (Chef 20:15); alte Sokrates-Sitzung …77qvabdBBG25tf5poS nach Ruhe archivieren, Kosten auf 1137, 870
+- 20:26 15.11.: Startsperre 20:26 Start Homer 870.19 (Sokrates, per Weiter an …793oj9mKdUggnbqrp3, nach 1320)
