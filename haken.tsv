@@ -522,3 +522,4 @@
 2026-11-16 00:10:06	commit-pruefung	docs/chefsache/entscheiden/1351-rechtepruefung-bildlauf.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-16 00:12:47	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/431h-ausruestung-sichtbar.md: fehlt Numm	claude/tom-431-ausruestung
 2026-11-16 00:16:57	commit-pruefung	docs/chefsache/entscheiden/1352a-taumeln.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-16 00:18:58	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tom-785-24-kurzzeile ändert Spielcode (godot/skripte/laden	claude/tom-431-ausruestung
