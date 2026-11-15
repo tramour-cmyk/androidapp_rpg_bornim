@@ -12,11 +12,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [1222](ansehen/1222-rauch.md) | Rauchbündel gegen Krogg: Wurf, Rauch am Kopf, Schlag ins Leere | – | 15.11., 00:47 |
+Nichts offen.
 
 ## Zu tun
 
@@ -364,12 +360,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1269 | K | Godot-Möglichkeiten nutzen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder, vorbere | startbar |
 | 1270 | K | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vo | startbar |
 | Pflege | K | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | startbar |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1222-rauch.md
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
