@@ -1617,6 +1617,17 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --gluehen=$GITHUB_WORKSPACE/bilder/gluehen514 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^GLUEH" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/gluehen514
+      # 1303 Stufen im Dunkel (Spike, Messlauf): Höhle in mobile je Fassung gemessen und geknipst, nur von Hand auf claude/spike-1303-…
+      - name: Stufenmessung (1303)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-1303') }}     # auch nach rotem Prüfschritt
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/stufen1303
+          sudo apt-get install -y -qq mesa-vulkan-drivers xvfb > /dev/null || true
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --stufen1303=$GITHUB_WORKSPACE/bilder/stufen1303 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^STUFEN1303" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/stufen1303
       # 492 Blutzahnhoehle: Eingang, Gang mit Stuetze, Gitter, Krogg im Ostfluegel, Lager, Teich, Graks Halle mit Lyra; dazu um 180 Grad
       # gedreht (Waende wechseln hoch/niedrig); nur bei „492 Hoehlenbilder“ im Commit oder von Hand auf dem Zweig claude/tom-492-…
       - name: Hoehlenbilder (492)

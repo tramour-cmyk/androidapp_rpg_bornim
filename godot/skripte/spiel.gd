@@ -140,6 +140,7 @@ func _ready() -> void:
 	tiefwald_bilder()
 	gluehen_bilder()
 	hoehle_bilder()
+	stufen_1303()
 	nebel_bilder()
 	robe_bilder()
 	bildrate_lauf()
@@ -2904,6 +2905,86 @@ func hoehle_bilder() -> void:
 	# Bildreihe mit B entfaellt, die erste ist B
 	print("HOEHLENBILDER fertig")
 	get_tree().quit()
+
+# 1303 Stufen im Dunkel (Renderer mobile): --stufen1303=<ordner> misst in Graks Halle und am Lager je Fassung die dunklen Pixel
+# (Helligkeit unter 64): wie viele Stufen belegt sind und wie oft Nachbarn um 3 und mehr springen (Stufe statt Verlauf); dazu je
+# Fassung ein Bild. Fassungen: jetzt (Helligkeit x2,1 nach dem Bild), ohne Hebung, Belichtung x2,1 der Kamera statt Hebung, Licht x3
+# statt Hebung, HDR-2D, Entbänderung
+func stufen_1303() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--stufen1303="): dir = a.substr(13)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	zustand.minuten = 10 * 60
+	zustand.setze("cave_seen")
+	zustand.setze(Geschichte.GATE_OPEN); flaggen_neu()
+	betrete("cave", Vector2i(10, 18), "UP")
+	if herde: herde.aus = true
+	await get_tree().create_timer(1.5).timeout
+	var vp := get_viewport()
+	var cam := vp.get_camera_3d()
+	var hell0: float = licht.env.adjustment_brightness
+	print("STUFEN1303 Renderer %s, Helligkeit %.2f, Tonemap %d, Bildpuffer %s" % [ProjectSettings.get_setting("rendering/renderer/rendering_method"), hell0, licht.env.tonemap_mode, RenderingServer.get_video_adapter_name()])
+	for o in [["halle", Vector2i(10, 3), "UP"], ["lager", Vector2i(16, 16), "UP"], ["gang", Vector2i(11, 14), "UP"]]:
+		held.setze(o[1], o[2]); kamera.springe()
+		await get_tree().create_timer(1.5).timeout
+		ui.textfeld.visible = false
+		for f in ["jetzt", "ohne_hebung", "belichtung", "licht3", "hdr2d", "entbaendern"]:
+			var lampen: Array = []
+			var alt_umgebung: float = licht.env.ambient_light_energy
+			match f:
+				"ohne_hebung": licht.env.adjustment_brightness = 1.0
+				"belichtung":
+					licht.env.adjustment_brightness = 1.0
+					var ca := CameraAttributesPractical.new()
+					ca.exposure_multiplier = hell0
+					cam.attributes = ca
+				"licht3":
+					licht.env.adjustment_brightness = 1.0
+					licht.env.ambient_light_energy = alt_umgebung * 3.0
+					for l in get_tree().root.find_children("*", "Light3D", true, false):
+						lampen.append([l, l.light_energy]); l.light_energy *= 3.0
+				"hdr2d": vp.use_hdr_2d = true
+				"entbaendern": vp.use_debanding = true
+			for i in 6: await get_tree().process_frame
+			await RenderingServer.frame_post_draw
+			var img := vp.get_texture().get_image()
+			img.save_png("%s/%s_%s.png" % [dir, o[0], f])
+			_stufen_mass(img, "%s %s" % [o[0], f])
+			licht.env.adjustment_brightness = hell0
+			licht.env.ambient_light_energy = alt_umgebung
+			cam.attributes = null
+			for l in lampen: l[0].light_energy = l[1]
+			vp.use_hdr_2d = false
+			vp.use_debanding = false
+	print("STUFEN1303 fertig")
+	get_tree().quit()
+
+func _stufen_mass(img: Image, was: String) -> void:
+	img.convert(Image.FORMAT_RGB8)
+	var w := img.get_width(); var h := img.get_height()
+	var d := img.get_data()
+	var stufen := {}
+	var n := 0; var summe := 0.0; var paare := 0; var spruenge := 0; var gleich := 0
+	for y in range(int(h * 0.16), h, 2):     # ohne die Leiste oben (Lebenspunkte, Uhr, Kompass)
+		var vor := -1
+		for x in w:
+			var i := (y * w + x) * 3
+			var l := int(round(0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]))
+			if l < 64 and l > 0:
+				n += 1; summe += l; stufen[l] = true
+				if vor >= 0:
+					paare += 1
+					var dl := absi(l - vor)
+					if dl >= 3: spruenge += 1
+					elif dl == 0: gleich += 1
+				vor = l
+			else:
+				vor = -1
+	print("STUFEN1303 %s: dunkle Pixel %d, Mittel %.1f, belegte Stufen %d, Nachbarn gleich %.0f %%, Sprung >=3 %.1f %%" % [was, n, summe / maxf(1, n), stufen.size(), 100.0 * gleich / maxf(1, paare), 100.0 * spruenge / maxf(1, paare)])
 
 # 505c Nebel, Rand, Ausgaenge am Rechner: --nebel=<ordner> (Chef 04.11., 14:06 „Vorgang 505c“, Zu 505 (Rand)): eine Vorlage fuer
 # Wald, Dorf und Hoehle. Wald: der Weg vom Dorf nach Norden, die drei Stufen beschriftet und gemessen (Fassung B); die Ausgaenge mit
