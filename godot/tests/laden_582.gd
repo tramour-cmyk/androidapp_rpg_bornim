@@ -44,7 +44,13 @@ func _lauf() -> void:
 	await process_frame
 	var t := texte(l.inhalt)
 	var wuerfel := RegEx.create_from_string("\\d+[Wd]\\d+")     # 944 (t276.5): nie ein Würfeltext, die Wirkung sagt die Meldung
-	pruefe(wuerfel.search(" ".join(t)) == null and not " ".join(t).contains("heilt"), "Würfeltext in der Liste: %s" % [t])
+	pruefe(wuerfel.search(" ".join(t)) == null, "Würfeltext in der Liste: %s" % [t])
+	# 785.24 (Homer 1318): Kurzzeile wie alt mit der Zahl aus den Regelwerten
+	var heil: Dictionary = BrsHeld.welt().get("heilung", {})
+	pruefe(("heilt %d Leben" % int(heil["potion"])) in t and ("heilt %d Leben" % int(heil["greater_potion"])) in t, "Kurzzeile Heiltrank fehlt: %s" % [t])
+	pruefe("doppelter Atem bis zur Rast" in t, "Kurzzeile Ausdauertrank fehlt: %s" % [t])
+	pruefe(LadenSchirm.kurz("bandage", hw) == ["stillt Blutung, heilt %d Leben" % Menue.verband_heilung(hw)], "Kurzzeile Verband: %s" % [LadenSchirm.kurz("bandage", hw)])
+	pruefe(LadenSchirm.kurz("wolf_pelt", hw).is_empty() and LadenSchirm.kurz("herbs", hw).is_empty(), "Zutat mit Kurzzeile")
 	pruefe(not Sprache.t(Laden.ding("potion")["info"]) in t, "Langtext steht in der Liste")
 	var gross := label(l.inhalt, Laden.name("greater_potion"))
 	pruefe(gross != null and farbe(gross) == Color(Menue.SELTEN["UNCOMMON"]), "Großer Heiltrank nicht in der Farbe „ungewöhnlich“")

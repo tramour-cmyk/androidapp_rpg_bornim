@@ -125,7 +125,7 @@ func kaufen() -> void:
 	for id_ in laden.waren:
 		var id := String(id_)
 		var p := Laden.kaufpreis(hw, id)
-		var unter := LadenSchirm.kurz(id)   # 582: Kurzangabe wie alt (ShopScreen.kt 244), der Langtext erst im Kasten
+		var unter := LadenSchirm.kurz(id, hw)   # 582: Kurzangabe wie alt (ShopScreen.kt 244), der Langtext erst im Kasten
 		if z.anzahl(id) > 0: unter.append(("Im Besitz: " if de else "Owned: ") + str(z.anzahl(id)))
 		reihe(Menue.vorrat_bild(id), Laden.name(id), farbe_ding(id) if z.gold >= p else Stil.DIM, unter, preis_text(p), func(): menge(id, true, 1))
 	if laden.brauen or laden.nur_vorraete: return   # Morwen handelt nur mit Kraeutern und Traenken, Osric nur mit Verbänden (842)
@@ -245,7 +245,7 @@ func verkaufen() -> void:
 	if verk.is_empty(): zeile(Sprache.u("nothing"), 14, Stil.DIM)
 	for id_ in verk:
 		var id := String(id_)
-		reihe(Menue.vorrat_bild(id), "%s  ×%d" % [Laden.name(id), z.anzahl(id)], farbe_ding(id), LadenSchirm.kurz(id),
+		reihe(Menue.vorrat_bild(id), "%s  ×%d" % [Laden.name(id), z.anzahl(id)], farbe_ding(id), LadenSchirm.kurz(id, hw),
 			preis_text(Laden.verkaufspreis(hw, id)), func(): menge(id, false, 1))
 	# 491: bei Morwen fehlt nur das Kaufen von Ausruestung; verkaufen geht wie alt (ShopScreen.kt 252 `!(brewing && buying)`)
 	luecke(8)
@@ -512,8 +512,24 @@ func stueck(g: Dictionary, kauf: bool) -> void:
 
 # 582: Kurzangabe als Unterzeile. 944 (Chef 11.11., 13:22, t276.5): „kurz“ kommt aus ItemDef.stats (core) und ist immer ein
 # Würfeltext („heilt 2W4+2“); Texte ohne Würfel, die Wirkung steht in der Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
-static func kurz(_id: String) -> Array:
-	return []
+# 785.24 (Homer 1318, STORY-BRS-OBERFLAECHE.md [1318.kurz]): Kurzzeile wie alt, aber ohne Würfel; {0} aus den Regelwerten (werte.json
+# „welt“ „heilung“), beim Verband aus Heilkunde (Menue.verband_heilung), beim Braten mit dem Bonus aus Kochen (Laden.essen_bonus)
+const KURZ := {
+	"potion": ["heilt {0} Leben", "heals {0} Life"], "greater_potion": ["heilt {0} Leben", "heals {0} Life"],
+	"superior_potion": ["heilt {0} Leben", "heals {0} Life"], "roast_meat": ["heilt {0} Leben", "heals {0} Life"],
+	"remedy": ["heilt Zustände und {0} Leben", "cures conditions, heals {0} Life"],
+	"bandage": ["stillt Blutung, heilt {0} Leben", "stops bleeding, heals {0} Life"],
+	"stamina_potion": ["doppelter Atem bis zur Rast", "double stamina until the next rest"],
+	"spark_potion": ["leuchtet bis zur Rast", "glows until the next rest"],
+	"alchemist_fire": ["Feuer", "Fire"], "holy_water": ["Licht, nur gegen Untote", "Light, undead only"]}
+static func kurz(id: String, hw: BrsHeld = null) -> Array:
+	if not KURZ.has(id): return []
+	var n := int(BrsHeld.welt().get("heilung", {}).get(id, 0))
+	if id == "bandage": n = Menue.verband_heilung(hw) if hw != null else 0
+	if id == "roast_meat" and hw != null: n += Laden.essen_bonus(hw)
+	var s: String = KURZ[id][0 if Sprache.aktiv() == "de" else 1]
+	if s.contains("{0}") and n <= 0: return []
+	return [s.replace("{0}", str(n))]
 
 # 582: Dialogs.ItemDetails: Seltenheit in ihrer Farbe, die Wirkung hell, dann der Langtext
 static func details(id: String) -> Array:
