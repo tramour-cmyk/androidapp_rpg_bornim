@@ -32,7 +32,7 @@
 #   kauf_cache.py aufraeumen         je Block nur die neuesten KAUF_CACHE_BEHALTEN Zweige (3) und den der eigenen Kennung, Zwischen-
 #                                    zweige bau/teil/* älter als 3 Stunden weg (1113; nur der Bauserver darf löschen)
 # Zugang: in der Sitzung über den Proxy; auf dem Bauserver GH_TOKEN mit Schreibrecht (Contents) aufs Kaufrepo.
-import hashlib, json, os, re, shutil, subprocess, sys, tempfile, urllib.request
+import hashlib, json, os, re, shutil, subprocess, sys, tempfile, time, urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KAUF = os.environ.get('KAUF', '/home/user/bornim-kaufmodelle')
@@ -302,7 +302,29 @@ def kennung(block):
 def git(*a, cwd=None, check=True, **kw):
     # 854 (Lauf 335: ls-remote Exit 128, nie ein Treffer): im Arbeitsrepo setzt actions/checkout http.https://github.com/.extraheader
     # mit dem GITHUB_TOKEN, der gilt vor dem KAUF_TOKEN in der Adresse und darf das Kaufrepo nicht lesen; darum nie im Arbeitsrepo
+    # 1335 (Lauf 453: „connection reset“ beim Kaufrepo, Lauf rot ohne Fehler im Code): Netzbefehle bei einem Netzfehler bis viermal,
+    # mit Pause; ein fehlender Zweig (Cache-Fehlschlag) oder ein abgelehnter Push wird nicht wiederholt
+    if a and a[0] in NETZ_BEFEHLE:
+        eigen = 'capture_output' not in kw and 'stderr' not in kw
+        for versuch in range(1, 5):
+            r = subprocess.run(['git'] + list(a), cwd=cwd or tempfile.gettempdir(), check=False, text=True,
+                               **(dict(kw, stderr=subprocess.PIPE) if eigen else kw))
+            fehler = r.stderr or ''
+            if eigen and fehler:
+                sys.stderr.write(fehler)
+            if r.returncode == 0 or versuch == 4 or not NETZFEHLER.search(fehler):
+                break
+            print('Netz: git %s Versuch %d von 4 fehlgeschlagen' % (a[0], versuch), file=sys.stderr)
+            time.sleep(versuch * 15)
+        if check and r.returncode:
+            raise subprocess.CalledProcessError(r.returncode, ['git', a[0]], r.stdout, r.stderr)
+        return r
     return subprocess.run(['git'] + list(a), cwd=cwd or tempfile.gettempdir(), check=check, text=True, **kw)
+
+
+NETZ_BEFEHLE = ('fetch', 'ls-remote', 'clone', 'push')
+NETZFEHLER = re.compile(r'connection reset|reset by peer|timed out|could not resolve|unable to access|early eof|rpc failed|'
+                        r'unexpected disconnect|remote end hung up|the requested url returned error: 5\d\d|gnutls|ssl', re.I)
 
 
 def zweig(block, k=None):

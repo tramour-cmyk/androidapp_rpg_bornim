@@ -52,7 +52,7 @@ def blank(t):
 
 def lesen(name):
     p = os.path.join(DOCS, name)
-    return open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+    return open(p, encoding="utf-8").read() if name and os.path.isfile(p) else ""  # Homer 1264: Besitzer ohne Vorrat („Ideen“) gab docs/
 
 def liste_merken(docs=None):
     """275 Stufe 2: nach jedem Schreiben eines Werkzeugs den Inhalt von LISTE-VORGAENGE.md merken (git hash-object, höchstens 200,
@@ -519,7 +519,7 @@ def erfuellt(token, nr="", streng=False):
         teile = token.split(" ", 1)
         return not chef_datei(teile[1] if len(teile) > 1 else nr)
     if a == "build":
-        return re.search(r"(?m)^- \*\*" + token + r"\b", lesen("VORGANGSARCHIV.md")) is not None
+        return build_im_archiv(token[1:], lesen("VORGANGSARCHIV.md"))
     if a == "gespraech":  # 1236: erfüllt mit dem Archiveintrag „- **<Nr>, Chef Gespräch …“ (Chef „los“ oder „anders“)
         return bool(nr) and re.search(r"(?m)^- \*\*" + re.escape(nr) + r", Chef Gespräch\b", lesen("VORGANGSARCHIV.md")) is not None
     if a == "nr":
@@ -662,11 +662,16 @@ def liegt_ohne_vorlage(d):
     h = (JETZT - datetime.datetime.fromtimestamp(t)).total_seconds() / 3600 if t else VORLAGE_FENSTER * 24
     return int(h) if h >= VORLAGE_STUNDEN else None
 
+def build_im_archiv(n, arch):
+    """Test des Builds n im Archiv: fetter Kopf eines Eintrags nennt t<n> („- **t287, Build 287 getestet**“, „- **t286, t287 …**“,
+    1347-Fund Chef 15.11., 22:37: „- **t286 getestet, t287 getestet**“ hielt 1217 und 1173 auf „wartet auf t287“)."""
+    return re.search(r"(?m)^- \*\*[^*\n]*\bt%s\b[^*\n]*\*\*" % re.escape(str(n)), arch) is not None
+
 def offener_build():
     """Nummer des jüngsten Builds mit Zeilen „zu testen“ ohne Test im Archiv (dort kommt ein fertiger Punkt hinein, 1139), sonst None."""
     arch = lesen("VORGANGSARCHIV.md")
     nrn = {str(d.get("build") or "").strip() for d in zeilen_liste() if d["wort"] == "zu testen"}
-    offen = [int(n) for n in nrn if n.isdigit() and not re.search(r"(?m)^- \*\*(?:t\d+, )*t%s\b" % n, arch)]
+    offen = [int(n) for n in nrn if n.isdigit() and not build_im_archiv(n, arch)]
     return max(offen) if offen else None
 
 def vorlage_auftrag(d, h):
