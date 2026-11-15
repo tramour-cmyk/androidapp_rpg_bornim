@@ -4795,9 +4795,10 @@ func _waffe_zu_boden(w: Node3D) -> void:
 	t.tween_method(func(x: float): w.global_transform = Transform3D(Basis(Quaternion.IDENTITY.slerp(q, x * x)) * g.basis, g.origin.lerp(unten, x * x)), 0.0, 1.0, WAFFE_FALL)
 
 
-## 1215 (Chef 13.11., 16:25; 15.11., 11:21, 1215a A): physikalisches Sterben (ragdoll.gd) nur mit RAGDOLL=1 oder ragdoll_probe, bis
-## der Chef den Film gesehen hat; sonst wie bisher die gebackene Bewegung. Gegner auf einem Zweibeiner-Gerüst, das ragdoll.gd kennt
-static var ragdoll_probe := OS.get_environment("RAGDOLL") != ""
+## 1215 (Chef 13.11., 16:25; 15.11., 11:21, 1215a A): physikalisches Sterben (ragdoll.gd) für Gegner auf einem Zweibeiner-Gerüst,
+## das ragdoll.gd kennt; Filme gebilligt (Chef 15.11., 13:32), seitdem fest an (Folgeauftrag); RAGDOLL=0 schaltet es zum Vergleich
+## ab (gebackene Bewegung wie vorher)
+static var ragdoll_probe := OS.get_environment("RAGDOLL") != "0"
 ## der tödliche Treffer (kampfort.gd, vor hurt): von (Welt, wo der Angreifer beim Treffer steht), art (nah, schwer, pfeil, zauber,
 ## schild, sprung, still = Gift, Blutung), anteil (Schaden durch höchste Lebenspunkte), kritisch
 var tod_treffer := {}
