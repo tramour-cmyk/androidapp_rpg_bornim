@@ -525,7 +525,7 @@ def vorgang_aus_ref(ref, ablauf):
     return nr.group(1) if nr and not eigen else (eigen or ref or ablauf or "?")
 
 
-BESITZER = ("Homer", "Tom", "Jerry", "Perikles", "Diogenes", "Sokrates", "Ford")
+BESITZER = ("Homer", "Tom", "Jerry", "Spike", "Perikles", "Diogenes", "Sokrates", "Ford")
 ZUSATZ_TEAM = {"Tuffy": "Jerry"}  # Zusatzentwickler (433); 1328: Spike eigene Rolle
 
 

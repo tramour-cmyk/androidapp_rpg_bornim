@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (15.11., 20:08, `session_01Hmoj793oj9mKdUggnbqrp3`):** 340.11 Handwerksregel „Gegen den Code, nicht gegen den Plan“ (`ROLLE-KREATIV.md`); alle Wahlen auf `main` stimmen mit `STORY-K1-FERTIGKEITEN.md`. 1318 Kurzzeilen der Ladenliste `[1318.kurz]` in `STORY-BRS-OBERFLAECHE.md` (fremd geprüft, an Tom Zu 785.24); Kampfmeldung „von allen Leiden befreit“ an Jerry (1319). 1320 „Leben“ statt TP/HP in `DESIGN-BRS.md` 12, `STORY-REGELN.md` (3), Glossar und allen STORY-/DESIGN-Texten (Englisch „Life“, Mana statt ZP an denselben Stellen); Reste im Code an Tom (1322) und Jerry (1323). 870.19 Über-Text `[870.15.ueber]` ohne SRD, mit „Ein Spiel von BornWire TCS.“ (fremd geprüft; Bau 870.20 Tom, erst wenn kein Wert mehr aus dem SRD rechnet). Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
+**Übergabe (15.11., 23:08, `session_01Hmoj79NReuhLMU6cqsp6GW`):** 1344 Testerseite `tester.de/en.html` Absatz 8 nach BRS: fünf Völker, freiwillige Herkunft, „Du wirst, was du tust“; ohne Klassen und SRD (fremd geprüft). Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
 - **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
