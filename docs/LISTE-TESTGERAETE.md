@@ -40,6 +40,18 @@ Grafik: „ANGLE ((Samsung Xclipse 540) on Vulkan 1.3.304), gl_compatibility“ 
 
 Lesart (Spike): Laden des Kampfs kalt 1,2 s, warm 0,7 s, also kein Engpass; der Kampf läuft mit halb so vielen Zeichenaufrufen und einem Achtel der Dreiecke der Welt bei der halben Bildrate, das spricht für teure Bildpunkte (Shader, Nachbearbeitung, Auflösung), nicht für Geometrie. Vergleich im Renderer „mobile“ folgt.
 
+## Chef, A56, Build 286, Messweg 1270.1, Renderer „mobile“ (15.11., 12:20–)
+
+Nach „Renderer wechseln“ (Strahlprobe 415) und Neustart: „Grafik: Samsung Xclipse 540 (Unknown), mobile“; Ursache des Kompatibilitäts-Renderers war also der Knopf, kein Vulkan-Rückfall.
+
+| Schritt | Bilder/s (langsamstes 1 %) | Laden | Zeichenaufrufe, Dreiecke |
+|---|---|---|---|
+| Höhle 7/16 | 63 (23 ms) | 3390 ms | 394, 188k |
+| Wald 10/27 (Text 12:24) | 18 im Schnitt der letzten 600, samt Kampf (65 ms) | 3665 ms, Blende bereit 12,7 s | 362, 2934k, 570 MB |
+| Kampf 1 (Skelett, Steinkreis), 63 s | 18 (74 ms), 1089 Bilder über 50 ms, längste Pause 137 ms | Kampfort bereit 3,0 s (kalt) | höchstens 200, 337k, 666 MB |
+
+Lesart (Spike): „mobile“ gegen Kompatibilität: Höhle 63 statt 51, Kampf 18 statt 12 Bilder/s, aber kalter Kampfort 3,0 statt 1,2 s und Wald 3,7 statt 2,7 s Laden (Vulkan baut Shader beim ersten Gebrauch, dagegen 1270.3). Kampf bleibt der langsamste Ort: 200 Zeichenaufrufe und 337k Dreiecke bei 18 Bilder/s heißt teure Bildpunkte, nicht Geometrie. Grundwert A56: Kampf 18 Bilder/s, Kampfort kalt 3,0 s. Zweiter Kampf (warm) und A22 des Testers fehlen.
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```
