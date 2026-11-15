@@ -602,7 +602,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 458.2 | Gegenstandskatalog: Werte, Preise, Beute (Chef 01.11., 458) | G Balance | M | 10,87 $ | Team Jerry | erledigt |
 | 447.4 | Texte Lehrmeister-Einladungen und Ruf-Gespräche für Stufe 3 (447) | G Story | M | 28,78 $ | Homer | erledigt |
 | 468d | Rückfrage: Wochenlimit 82 %, bis Sa zusätzlich Nachtpause 23–7 Uhr? | B Abläufe | M | – | Sokrates | erledigt |
-| 479 | Projektplan: Abnahmeliste umbenennen, auf Stand bringen, Orte und Welt einzeln, Flüsterwald einplanen (Chef 02.11., 18:34) | B Abläufe | M | – | Perikles | erledigt |
+| 479 | Projektplan: Abnahmeliste umbenennen, auf Stand bringen, Orte und Welt einzeln, Flüsterwald einplanen (Chef 02.11., 18:34) | B Abläufe | M | 8,86 $ | Perikles | erledigt |
 | 498 | Schriftbild wie in der Kotlin-Fassung: Größe, Sperrung, Halbfett (Chef 03.11., 07:13, „Über das Spiel“ wirkt kleiner) | E Oberfläche | M | – | Team Tom | erledigt |
 | 502 | Nebel des Krieges und Sichtfeld des Helden in der Welt wie alt (Fog.kt), fehlt in Godot und im Plan (Chef 03.11., 07:28) | B Abläufe | M | – | Perikles | erledigt |
 | 530 | Build 249: Schlagbaum am Nordweg öffnet sich nicht sichtbar (Chef 03.11., 23:40) | E Welt | M | – | Team Tom | erledigt |
@@ -1429,3 +1429,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1258 | Von Sokrates (1255 A, Chef 14.11., 22:09): Handbuch nachziehen, fünfter Rang „Vollendeter“ (Paragon) bei 100, Grundwert wächst bei 15, 25, 50, 75, 100 (644a.1 B), Satz zu Proben ohne Grundwert: [423.rang], [423.pruefung], [423.namen] | G Balance | M | – | Homer | erledigt |
 | 1255 | Von Chef (644a.1, 14.11., 21:16–21:29): Zuordnung jeder Fertigkeit zu genau einem Grundwert (Spähen, Kräutersammeln, Alchemie, Schleichen, Ausweichen, Rüstung, Überreden, Einschüchtern …) mit Homer, Vorlage an den Chef, dann Bau 644a.1 | G Balance | M | – | Sokrates | erledigt |
 | 1019 | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt bei 400 Tsd. (185, LISTE-BETRIEB); Tiefe 0 bis 6 in 21 h, Handstart täglich; Ford im Haken auf 400 Tsd. ausnehmen | B Abläufe | M | 50,73 $ | Perikles | erledigt, greift Lauf 245 |
+| 1129.1 | Von Sokrates (1129, Chef 13.11., 12:53 „mit Pericles zusammen“): blinde Flecken in Abläufen prüfen: Build und Test, Sperren, wartet auf, Startsperren, Commit-Prüfung, Vorräte, Kosten; Funde mit Messzahl in Vorlage 1129 · „jetzt“ 13.11., 12:53 | B Abläufe | M | 2,20 $ | Perikles | erledigt, greift Lauf 246 |
+| 1133 | Von Perikles (1129.1, Doppelpack 421): vier Werkzeugpunkte P1–P4 der Systemprüfung prüfen, Zu 1129.1 in ARBEIT-PRUEFUNG.md · „jetzt“ 13.11., 12:53 | Q QM | M | 14,14 $ | Diogenes | erledigt |
