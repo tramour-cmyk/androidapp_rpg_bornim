@@ -100,8 +100,8 @@ func _lauf() -> void:
 	var namen: Array = zk.map(func(b): return b.wort)
 	print("System: ", namen)
 	var de_ := Sprache.aktiv() == "de"
-	var soll_ := (["Speichern", "Sprache", "Hauptmenü", "Anleitung", "Über", "Blut", "Tempo", "Rückfragen", "Joystick"] if de_ else
-		["Save", "Language", "Main menu", "Guide", "About", "Blood", "Pace", "Confirmations", "Joystick"])
+	var soll_ := (["Speichern", "Sprache", "Hauptmenü", "Handbuch", "Über", "Blut", "Tempo", "Rückfragen", "Joystick"] if de_ else
+		["Save", "Language", "Main menu", "Handbook", "About", "Blood", "Pace", "Confirmations", "Joystick"])
 	if namen.slice(0, soll_.size()) != soll_: fehler += 1; print("FEHLER System Zeichen ", namen)
 	var bedienung := 3 + 2   # 663: Joystick, Rennen, Aktion; Karte, Rütteln (die Wahl „Steuerung“ ist weg)
 	if zk.size() != 5 + 3 + bedienung + (1 if root.has_node("Klang") else 0): fehler += 1; print("FEHLER System: %d Zeichen" % zk.size())
@@ -119,11 +119,13 @@ func _lauf() -> void:
 	# 352 Anleitung: Absaetze der eigenen Klasse, fette Eroeffnung als Ueberschrift, keine Sternchen
 	var teile := Menue.anleitung_teile("")
 	var alle: Array = Sprache.texte["anleitung"]["teile"]
-	if teile.size() != alle.filter(func(p): return not p.has("nur") or p["nur"] == "").size() or teile.size() < 10: fehler += 1; print("FEHLER Anleitung %d Absätze" % teile.size())
+	if teile.size() != alle.size() or teile.size() < 10: fehler += 1; print("FEHLER Handbuch %d Absätze" % teile.size())
+	for absatz in teile:   # 870.20: Zahlen eingesetzt, keine Würfel, keine Trefferpunkte, kein SRD
+		if absatz.contains("{") or RegEx.create_from_string("\\d+[Wd]\\d+|\\bTP\\b|\\bHP\\b|SRD|Rüstungsklasse").search(absatz) != null: fehler += 1; print("FEHLER Handbuch: ", absatz.left(80))
 	var ueber_ := [0]
 	m.ueber.connect(func(): ueber_[0] += 1)
 	for b in zk:
-		if b.wort in ["Über", "About", "Anleitung", "Guide"]: b.tat.call()
+		if b.wort in ["Über", "About", "Handbuch", "Handbook"]: b.tat.call()
 	await process_frame
 	if ueber_[0] != 1: fehler += 1; print("FEHLER Über sendet nicht")
 	var rts: Array = m.find_children("*", "RichTextLabel", true, false)

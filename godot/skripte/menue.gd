@@ -1669,7 +1669,7 @@ func system() -> void:
 		z_.call(t.call("Hauptmenü", "Main menu"), null, t.call("Speichert und kehrt zum Hauptmenü zurück.", "Saves and returns to the main menu."), func(): hauptmenue.emit(), true, "MENU")])
 	# 352: was zu lesen ist, in einer eigenen Reihe
 	var a: Dictionary = Sprache.texte.get("anleitung", {})
-	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Anleitung", "en": "Guide"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),
+	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Handbuch", "en": "Handbook"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),
 		z_.call(t.call("Über", "About"), null, t.call("Wer das Spiel macht und worauf seine Regeln beruhen.", "Who makes the game and what its rules are based on."), func(): ueber.emit(), true, "ABOUT")])
 	luecke(4)
 	gruppe(t.call("Kampf", "Combat"))
@@ -1871,11 +1871,23 @@ var geraet_auf := false
 
 # 352 GuideScreen wie alt: schwarz, ein Kasten, oben der Titel, je Absatz die fette Eroeffnung als Ueberschrift in Gold (16 sp),
 # der Rest 15 sp, fette Woerter (Knoepfe) halbfett in Gold; nur die Faehigkeiten der eigenen Klasse; unten „Zurück“
-static func anleitung_teile(klasse: String) -> Array:
+# 870.20 (Homer 870.15, STORY-BRS-ANLEITUNG.md): Handbuch nach dem BRS, kein Absatz hängt an einer Klasse; Zahlen aus den Regelwerten
+static func anleitung_teile(_klasse := "") -> Array:
 	var r := []
 	for p in Sprache.texte.get("anleitung", {}).get("teile", []):
-		if not p.has("nur") or String(p["nur"]) == klasse: r.append(Sprache.t(p))
+		r.append(handbuch_zahlen(Sprache.t(p)))
 	return r
+
+## {held.startfertigkeit}, {held.kapitelgrenze}, {held.grenze_weich_stufen}, {held.grenze_weich_anteil|prozent},
+## {erfahrung.fertigkeit_deckel|prozent} aus werte.json (Stufengrenze: erfahrung weich_stufen, weich_faktor)
+static func handbuch_zahlen(t: String) -> String:
+	var W: Dictionary = BrsHeld.lade()
+	var h: Dictionary = W.get("held", {})
+	var e: Dictionary = W.get("erfahrung", {})
+	var pr := func(x) -> String: return "%d %%" % roundi(float(x) * 100.0)
+	return t.replace("{held.startfertigkeit}", str(int(h.get("startfertigkeit", 10)))).replace("{held.kapitelgrenze}", str(int(h.get("kapitelgrenze", 6)))) \
+		.replace("{held.grenze_weich_stufen}", str(int(e.get("weich_stufen", 2)))).replace("{held.grenze_weich_anteil|prozent}", pr.call(e.get("weich_faktor", 0.25))) \
+		.replace("{erfahrung.fertigkeit_deckel|prozent}", pr.call(e.get("fertigkeit_deckel", 0.4)))
 
 # (Text, fett) der Reihe nach, wie Guide.pieces
 static func stuecke(t: String) -> Array:
