@@ -163,6 +163,17 @@ func _gui_input(e: InputEvent) -> void:
 		accept_event()
 
 # Txt auf Schwarz wie Erschaffung.txt, aber einzeilig
+# Zustand als Plakette (alt WorldScreen.kt 2863–2869: abgerundet 3 dp, 9 sp weiss fett)
+static func chip(text: String, farbe: Color) -> PanelContainer:
+	var k := PanelContainer.new()
+	var s := StyleBoxFlat.new()
+	s.bg_color = farbe; s.set_corner_radius_all(int(3 * DP))
+	s.content_margin_left = 3 * DP; s.content_margin_right = 3 * DP
+	k.add_theme_stylebox_override("panel", s)
+	k.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	k.add_child(wort(text, 9, Color.WHITE))
+	return k
+
 static func wort(t: String, groesse_sp: float, farbe: Color) -> Label:
 	var l := Stil.zeile(t, maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -197,14 +208,8 @@ func zeige(hw: BrsHeld, z: Zustand, nacht: bool) -> void:
 	var welche := []
 	for st in zd:   # Reihenfolge wie Status.entries; betrunken gilt bis zur Rast (86.9)
 		if int(z.leiden.get(st, 0)) > 0 or (st == "DRUNK" and z.betrunken()): welche.append(st)
-	for st in welche:
-		var k := PanelContainer.new()
-		var s := StyleBoxFlat.new()
-		s.bg_color = Color(String(zd[st]["farbe"])); s.set_corner_radius_all(int(3 * DP))
-		s.content_margin_left = 3 * DP; s.content_margin_right = 3 * DP
-		k.add_theme_stylebox_override("panel", s)
-		k.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		k.add_child(wort(Sprache.t(zd[st]["kurz"]), 9, Color.WHITE))
-		chips.add_child(k)
+	for st in welche: chips.add_child(chip(Sprache.t(zd[st]["kurz"]), Color(String(zd[st]["farbe"]))))
+	# 785.22 (WorldScreen.kt 2856–2858): nach dem Essen „Satt“ in Bernstein hinter den Zuständen, bis zum nächsten Kampf (z.satt)
+	if z.satt: chips.add_child(chip("Satt" if de else "Fed", Color(0xB07A30FF)))
 	zustaende_da = not welche.is_empty()   # 764: Antippen der Leiste oeffnet dann den Heldenreiter mit der Erklaerung
-	if welche.is_empty(): chips.add_child(wort(" ", 11, Color.WHITE))   # 870.4: keine Attributspunkte mehr (870a 4)   # die Zeile bleibt, die Leiste springt nie
+	if welche.is_empty() and not z.satt: chips.add_child(wort(" ", 11, Color.WHITE))   # 870.4: keine Attributspunkte mehr (870a 4)   # die Zeile bleibt, die Leiste springt nie
