@@ -38,7 +38,7 @@ Grundregel für Notizen: nur auf `main`, direkt committen und pushen; Code nur a
 | Team Tom | Entwicklung: Leute, Dorf, Innenräume, Technik | fremde Vorgänge | `ROLLE-ENTWICKLUNG.md` | `ARBEIT-TEAM-TOM.md` |
 | Team Jerry | Entwicklung: Monster, Höhle, Kampf, Klang | fremde Vorgänge | `ROLLE-ENTWICKLUNG.md` | `ARBEIT-TEAM-JERRY.md` |
 
-Helfer: Spike (bei Tom) und Tuffy (bei Jerry) sind Leihsitzungen eines Teams, Kosten zählen dort. Die Rolle steht in der ersten Nachricht („Du bist Perikles …“, auch als Systemmeldung von Ford); `notiz.sh` meldet sie, „unbekannt“ heißt: Chef fragen.
+Spike ist eigene Rolle Technik (1328); Helfer Tuffy (bei Jerry) ist Leihsitzung des Teams, Kosten zählen dort. Die Rolle steht in der ersten Nachricht („Du bist Perikles …“, auch als Systemmeldung von Ford); `notiz.sh` meldet sie, „unbekannt“ heißt: Chef fragen.
 
 **Aufbau jeder Rollendatei** (fest, bis „Start“ unter 4 KB): Kopf · Wer du bist · Gutes Ergebnis · Dein Maß · Dein typischer Fehler · Was du tust · Entscheidet selbst (nur Perikles, Homer, Sokrates) · Was du nicht tust · Wen du ansprichst · Start · Begründungen · Lehren (höchstens fünf).
 
@@ -120,7 +120,7 @@ Dazu: Ausgabestil „Knapp“ (`.claude/output-styles/knapp.md`), Zeitzone und A
 ## 8. Bauen und Testen
 
 1. **Bauserver:** `godot.yml` baut bei Push auf `claude/build-**` (und Team-Zweige `claude/<team>-348-**`) die APK, rechnet Kerntests, Bilder und Filme (`workflow_dispatch` mit Schaltern); `godot-kampf.yml`, `tom-probe.yml` für Probefilme; Kaufmodelle über `KAUF_TOKEN`. Nach jedem Push, der baut, ein Weckruf (`subscribe_pr_activity` oder `send_later`).
-2. **Gemeinsamer Build:** ab 4 fertigen Punkten beider Teams (oder wenn der älteste 2 Tage wartet) legt ein Team `claude/build-<n>` von `main` an, mischt alle fertigen Zweige, öffnet einen PR, `vorgang.py build <n> --mit …`. Nummern nur aufsteigend.
+2. **Gemeinsamer Build:** ab 4 fertigen Punkten beider Teams (oder wenn ein Punkt 6 Stunden ohne Build und ohne Vorlage liegt, 1312) legt ein Team `claude/build-<n>` von `main` an, mischt alle fertigen Zweige, öffnet einen PR, `vorgang.py build <n> --mit …`. Nummern nur aufsteigend.
 3. **Prüfliste** `t<n>-….md`: Entwurf in `docs/entwurf/`, das andere Team liest gegen („Gegengelesen: …“); Tabelle `| # | Team | Nr. | Art | Wo und wie | Passt | Falsch |`, je Prüfgegenstand eine Art: **Handy** (Bedienung, Ablauf), **Bild**/**Film** (Aussehen, Bewegung), **Klang** (Hörprobe auf Telegram, nie in die APK), **Gespräch** (Balance), **ohne dich** (Bautest), **Kleinkram**. Danach `## Lagen` je Handyzeile. Regeln: `LISTE-CHECK-BUILD-TEST.md`.
 4. **Reiter „Test“ in der APK** (`godot/skripte/testmodus.gd`, `pruefliste.gd`): der Bau packt nur die Handyzeilen der Prüfliste ins Spiel; Testmodus = 7× auf das Copyright im Hauptmenü. Je Zeile „Lage herstellen“ (Station, Uhr, Probekampf), dann „Passt“ oder „Falsch“ abhaken.
 5. **Bild und Film** gehen je Prüfpunkt als eigene Telegram-Nachricht „t<n>.<Punkt>: …, 👍 passt: …, 👎 falsch: …“; der Chef antwortet mit dem Daumen.

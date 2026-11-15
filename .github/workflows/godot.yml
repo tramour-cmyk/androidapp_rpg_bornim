@@ -596,6 +596,8 @@ jobs:
       - name: Skripte pruefen
         id: pruefen
         run: |
+          # 1268.2: einfache Testzeilen nebeneinander (tools/godot/pruefsatz.py liest dieses Skript), der Rest der Reihe nach
+          [ -n "$PRUEFSATZ" ] || exec env PRUEFSATZ=1 python3 tools/godot/pruefsatz.py "$0"
           set +e
           ROT=$GITHUB_WORKSPACE/rot.txt; : > $ROT; STUFE=start
           trap 'z=$(sed -n "${LINENO}p" "$0"); t=$(echo "$z" | grep -oE "tests/[a-z0-9_]+\.gd" | head -1); echo "$STUFE ${t:-Zeile $LINENO}: ${z:0:160}" >> $ROT; echo "::error::918 rot ($STUFE) ${t:-Zeile $LINENO}"' ERR
@@ -921,6 +923,19 @@ jobs:
         with:
           name: ${{ env.APK_NAME }}
           path: bornim-godot.apk
+      # 1268.5 (1268 A, Chef 15.11., 10:51): Bildrate und Ladezeit je Ort (Dorf, Wald, Hoehle, Wolfskampf) in jedem Lauf, im Renderer des
+      # Handys (mobile, Lavapipe); Vergleich mit godot/tests/bildrate_grundwert.json, Warnung beim Abfall (Tabelle in der Zusammenfassung)
+      - name: Bildrate je Ort (1268.5)
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: |
+          python3 tools/bildrate.py --selbsttest | tail -1
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bildrate=$RUNNER_TEMP/bildrate.json 2>&1 | grep -E "^(BILDRATE|FEHLER)|SCRIPT ERROR" | cut -c1-300 || true
+          cd ..
+          python3 tools/bildrate.py $RUNNER_TEMP/bildrate.json
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
       # 1212 (Lauf 450: „convert: command not found“, „ffmpeg: command not found“, das Abbild des Bauservers hat beide nicht mehr):
       # Bilder zusammensetzen (convert, montage) und Filme umwandeln (ffmpeg) brauchen beide; einmal vor allen Bild- und Filmschritten

@@ -11,7 +11,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **BornWire TCS** | unsere Firma; baut „Chroniken von Bornim“ | – → Chef, Rollen | – | `CLAUDE.md` „Wer wir sind“, `FIRMA.md` |
 | **Chef** | der Nutzer; entscheidet Grundsätzliches, testet Code vor `main` je Punkt in seiner Art, Kleinkram nicht (1173) | BornWire TCS | – | `CLAUDE.md` „Rollen“ |
 | **Rolle** | feste Aufgabe einer Sitzung: Sokrates, Homer, Perikles, Diogenes, Ford, Team Tom, Team Jerry | BornWire TCS → Sitzung | – | `CLAUDE.md` „Rollen“ |
-| **Team Tom**, **Team Jerry** | die zwei Entwicklerrollen; Spike und Tuffy arbeiten als Zusatzentwickler in ihrem Team | Rolle | – | `ROLLE-ENTWICKLUNG.md` |
+| **Team Tom**, **Team Jerry**, **Spike** | die drei Entwicklerrollen (Spike: Technik, 1328); Tuffy arbeitet als Zusatzentwickler bei Jerry | Rolle | – | `ROLLE-ENTWICKLUNG.md` |
 | **Sitzung** | eine laufende Claude-Code-Sitzung mit einer Rolle; jede Rolle gibt es genau einmal | Rolle → Übergabe, Nachfolger | Klon | `CLAUDE.md` „Wer wir sind“, `LISTE-RELEASE-NEUSTART.md` |
 | **Zentrale** | Toms Account (Max), auf dem alle laufen | BornWire TCS | – | `CLAUDE.md` „Rollen“, `FIRMA.md` |
 | **Niederlassung** | zweiter Account (Pro); ruht, nur noch als Gedanke | BornWire TCS | Ford 2 | `FIRMA.md` |
@@ -81,6 +81,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Gefährte**, **Söldner** | Menschen an der Seite des Helden; andere, die mitgehen: **Begleiter** | – | – | `CLAUDE.md` „Begriffe“ |
 | **Hauptmenü** | erster Schirm mit Auswahl | – | Titelbild | `CLAUDE.md` „Begriffe“ (292) |
 | **BRS** | Bornimer Rollenspielsystem, unsere Regeln | – → Glossar des Spielsystems | – | `DESIGN-BRS.md` |
+| **Leben** | was der Held und jede Figur aushält, auch an Zahlen („+5 Leben“; EN Life, „+5 Life“) | BRS | Trefferpunkte, TP, Lebenspunkte, LP, HP | `DESIGN-BRS.md` 12, `STORY-REGELN.md` (3), Vorgangsarchiv 1320 |
 | **Stufen** | jede Stufenleiter im Spiel (Heldenstufe, Ränge, Ruf, Schlossstufe, Gegenstandsstufe, Güte, Seltenheit, Zustand) mit Stufen und wovon sie abhängt | BRS | Klassenstufe | `DESIGN-BRS.md` „Alle Stufen auf einen Blick“ |
 
 ## Abkürzungen
@@ -102,4 +103,4 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 
 ## A–Z
 
-Abgleich (3) · alte Fassung (3) · APK (Abk.) · Begleiter (5) · Bereich (2) · Besetzung (2) · Bestand (3) · BornWire TCS (1) · BRS (5) · Build (3) · Chef (1) · Chefsache (2) · Ebene (5) · Ford-Lauf (4) · Ford-Wache (4) · Gebietskarte (5) · Gefährte (5) · Grundriss (5) · Guthaben (4) · Hauptmenü (5) · Helfer (1) · Idee (2) · Kampfort (5) · Kerntests (3) · Klasse (2) · Landkarte (5) · MARS (5) · Meldung (4) · Neustart (4) · Niederlassung (1) · Probe, Probebild, Probelauf (3) · Prüfliste (3) · Rolle (1) · Rückfrage (2) · Rückläufer (3) · Sammelbuild (3) · Signatur (3) · Sitzung (1) · Söldner (5) · Spielfassung (3) · Stand (2) · Startsperre (4) · Team Tom, Team Jerry (1) · Übergabe (2) · Übernahme (2) · Vorentscheid (2) · Vorgang (2) · Vorgang beim Chef (2) · Vorgangsarchiv (2) · Vorgangsliste (2) · Vorrat (2) · Weckruf (3) · Wochenziel (2) · Zentrale (1)
+Abgleich (3) · alte Fassung (3) · APK (Abk.) · Begleiter (5) · Bereich (2) · Besetzung (2) · Bestand (3) · BornWire TCS (1) · BRS (5) · Build (3) · Chef (1) · Chefsache (2) · Ebene (5) · Ford-Lauf (4) · Ford-Wache (4) · Gebietskarte (5) · Gefährte (5) · Grundriss (5) · Guthaben (4) · Hauptmenü (5) · Helfer (1) · Idee (2) · Kampfort (5) · Kerntests (3) · Klasse (2) · Landkarte (5) · Leben (5) · MARS (5) · Meldung (4) · Neustart (4) · Niederlassung (1) · Probe, Probebild, Probelauf (3) · Prüfliste (3) · Rolle (1) · Rückfrage (2) · Rückläufer (3) · Sammelbuild (3) · Signatur (3) · Sitzung (1) · Söldner (5) · Spielfassung (3) · Stand (2) · Startsperre (4) · Team Tom, Team Jerry (1) · Übergabe (2) · Übernahme (2) · Vorentscheid (2) · Vorgang (2) · Vorgang beim Chef (2) · Vorgangsarchiv (2) · Vorgangsliste (2) · Vorrat (2) · Weckruf (3) · Wochenziel (2) · Zentrale (1)
