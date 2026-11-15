@@ -2473,6 +2473,47 @@ func _turn_home() -> float:
 	return t
 
 
+## 760: Tiere mit Wurzelweg ohne Sprungbiss der Quelle (Kaufwolf) bekommen ihn aus Hocke, Rennen und Biss gebaut (sprung.gd), einmal
+## je Figur beim ersten Sprung. SPRUNG_760=aus: wie vorher (Biss im Stand), SPRUNG_760=immer: auch wenn die Quelle einen hat (Prüflauf)
+const Sprung = preload("res://kampf/sprung.gd")
+var sprung_gebaut := false
+var sprung_fliegt := false
+
+func _sprung_bauen() -> void:
+	var schalter := OS.get_environment("SPRUNG_760")
+	if sprung_gebaut or schalter == "aus" or anim == null or _zweibeiner() or not weg.has("Gehen") or not anim.has_animation("Biss") \
+			or not bite.has("Biss"):
+		return
+	if anim.has_animation("Sprungbiss") and weg.has("Sprungbiss") and schalter != "immer":
+		return
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	var e: Dictionary = Sprung.bauen(anim.get_animation_library(""), sk, float(bite["Biss"][1]), float(tempo.get("Biss", 1.0)), weg_fps, model.scale.x)
+	if e.is_empty():
+		return
+	weg["Sprungbiss"] = e.weg
+	bite = bite.duplicate()
+	bite["Sprungbiss"] = [bite["Biss"][0], e.biss_t, bite["Biss"][2]]
+	sprung_gebaut = true
+
+
+func _sprung_flug(x: float, von: Vector3, b: Basis, k: float, weite: float, rueck: float) -> void:
+	sprung_fliegt = true
+	var p := _weg_at(von, b, "Sprungbiss", x, k) - b.z * rueck * Sprung.zurueck(x)
+	p.y = von.y + Sprung.hoehe(x, weite)
+	position = p
+	model.rotation.x = Sprung.neigung(x, weite)
+
+
+## 760: nach dem Flug (oder wenn er im Flug fällt) steht das Tier wieder am Boden, der Rumpf waagerecht
+func _sprung_ende() -> void:
+	if not sprung_fliegt:
+		return
+	sprung_fliegt = false
+	position.y = home.y
+	if model != null:
+		model.rotation.x = 0.0
+
+
 ## 348.12f (Chef 27.10., 18:01, Archiv: „Biss zum Helden nachjustieren wie bei eigenen“): mit Wurzelweg läuft das Tier bis vor das
 ## Ziel, die Schnauze an dessen Rand, und beißt dort; angesagt (Sprung) springt es aus der Weite des Sprungbisses der Quelle an.
 ## Danach springt es zurück (Ausweichen zurück) und geht heim. Gibt wie strike() die Zeit bis zum Biss / 0,42 zurück (ms).
@@ -2486,6 +2527,7 @@ func _bite(other, leap: bool, weiter := 0.0) -> int:
 	# alten Grenze 4,5 m, und sperrte mit Wolf 3 jeden Weg des hinteren Wolfs 1 zum Söldner; Wolf 1 lief den besten (0,14 m tief) und
 	# ging 0,29 m durch Wolf 2. Jetzt rücken alle Abgesetzten; der Angreifer wartet, bis sie daheim sind, und plant seinen Weg so, als
 	# stünden sie schon dort (stand Wolf 2 daheim, war der Weg 0,12 m frei)
+	_sprung_ende()
 	var rueckt: Array = []     # [Figur, Ort, Bahn] der Abgesetzten, die jetzt in ihre Reihe gehen
 	var t_warte := 0.0
 	if _bleib_717():
@@ -2513,7 +2555,14 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	if flat.length() < 0.01:
 		flat = basis.z
 	var dir := flat.normalized()
+	if leap:
+		_sprung_bauen()     # 760: ohne Sprungbiss der Quelle (Kaufwolf) der gebaute Sprung
 	var nm := "Sprungbiss" if leap and anim and anim.has_animation("Sprungbiss") and weg.has("Sprungbiss") else "Biss"
+	# 760 (Chef 15.11., 13:34): der gebaute Sprung geht aus dem Stand vom eigenen Platz auf das Ziel und danach zurück auf den
+	# eigenen Platz (nicht abgesetzt stehen bleiben wie nach dem Biss, 717 C)
+	var gebaut := nm == "Sprungbiss" and sprung_gebaut
+	if gebaut:
+		bleib717 = false
 	# 595: unangesagt beißt die Spinne reihum einmal oder in einer Kette aus drei Bissen (jeder BISSKETTE_JE-te Biss), Schaden beim
 	# tiefsten der drei (bite["Bisskette"][1])
 	if nm == "Biss" and bite.has("Bisskette") and anim and anim.has_animation("Bisskette"):
@@ -2627,7 +2676,31 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	if jump > 0.0 and gap < jump:     # zu nah für den ganzen Satz: kürzer springen
 		k = maxf(gap, 0.2 * jump) / jump
 		jump *= k
-	var start := position + dir * maxf(0.0, gap - jump)
+	elif gebaut and jump > 0.0:     # 760: die Weite aus dem Abstand, bis K_MAX gedehnt; weiter weg läuft er wie bisher an
+		k = minf(gap / jump, Sprung.K_MAX)
+		jump *= k
+	# 760: steht er näher als ein kleinster Satz (abgesetzt am Ziel, 717 C), weicht er im Ducken so weit zurück, wie hinter ihm frei
+	# ist, und springt von dort; so landet die Schnauze am Rand des Ziels und nicht darin
+	var rueck := 0.0
+	if gebaut:
+		var kleinst := Sprung.KLEINST_M * _scale()
+		if gap < kleinst:
+			rueck = minf(kleinst - maxf(gap, 0.0), Sprung.RUECK_M * _scale())
+			while rueck > 0.05 and _seg_gap(position, position - dir * rueck, other) < 0.0:
+				rueck *= 0.5
+			if rueck <= 0.05:
+				rueck = 0.0
+			jump = maxf(gap, 0.0) + rueck
+			k = jump / _weg_len(nm)
+		if jump < 0.2 * _scale():     # kein Raum für einen Satz: Biss im Stand wie bisher
+			gebaut = false
+			nm = "Biss"
+			jump = 0.0
+			rueck = 0.0
+			k = 1.0
+			bleib717 = _bleib_717()
+			biss_t = bite[nm][1]
+	var start := position + dir * maxf(0.0, gap - (jump - rueck))
 	if biss_von != Vector3.INF:     # 709: seitlich versetzt um das Ziel herum, nicht vom eigenen Ort aus gedreht
 		start = biss_von
 		flat = Vector3(other.position.x - start.x, 0.0, other.position.z - start.z)
@@ -2636,12 +2709,15 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# zum Ziel, um das Ziel herum gedreht (bis 60°), der freieste
 	# 438 (Prüfer Film r2: Wolf 3 sprang 19,4 s durch Bertrams Kopf zu Ansgar): auch die Bahn des Sprungs muss frei sein, nicht nur
 	# der Absprung; geht das in keiner Richtung, beißt er ohne Sprung
-	var luft := minf(_platz_luft(start, dir, other), _seg_gap(start, start + dir * jump, other) if jump > 0.0 else INF)
+	# 760: wer aus dem Stand springt, steht am Absprung schon; dann zählt nur die Bahn des Sprungs
+	var am_ort := gebaut and start.distance_to(position) <= 0.15
+	var luft := minf(INF if am_ort else _platz_luft(start, dir, other), _seg_gap(start - dir * rueck, start + dir * (jump - rueck), other) if jump > 0.0 else INF)
 	# 438 (wolf_mess_438, Kleriker 43 s: Wolf 1 lief zum freien Bissplatz vor Bertram, aber der einzige Weg dorthin führte 0,45 m
 	# durch Wolf 3, der davor kauerte): der Platz zählt nur so frei wie der Weg dorthin
 	var weg0 := _weg_luft(position, start, other) if start.distance_to(position) > 0.15 else INF
 	if OS.get_environment("SCHAU_MESS") != "":
-		print("Bissplatz %s an %s: start %s Luft %.2f Weg %.2f" % [fighter.id, other.fighter.id, start, luft, weg0])
+		print("Bissplatz %s an %s: start %s Luft %.2f Weg %.2f%s" % [fighter.id, other.fighter.id, start, luft, weg0,
+			" Sprung %s Weite %.2f zurück %.2f Abstand %.2f" % [nm, jump, rueck, gap] if leap else ""])
 	if luft < PLATZ_LUFT or weg0 < WEG_LUFT:
 		var tg := Vector3(other.position.x, position.y, other.position.z)
 		var r0 := Vector2(tg.x - start.x, tg.z - start.z).length()
@@ -2670,8 +2746,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var kurz := minf(jump, 0.2 * _weg_len(nm))
 			k = kurz / _weg_len(nm)
 			var rb := Vector2(tg.x - start.x, tg.z - start.z).length()     # 438: Abstand des gewählten Platzes
-			start = tg - dir * (rb - jump + kurz)
+			start = tg - dir * (rb - (jump - rueck) + kurz)
 			jump = kurz
+			rueck = 0.0
 		flat = dir * flat.length()
 	angriff_von = start
 	var r_alt := rotation.y
@@ -2739,12 +2816,16 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
 	tween.tween_callback(func(): _play(nm, 0.08))
-	if nm == "Sprungbiss":
+	if gebaut:
+		# 760: Flugbahn über dem Wurzelweg (Scheitel aus der Weite), der Rumpf folgt der Bahn (Schnauze im Steigen hoch, dann aufs Ziel)
+		tween.tween_method(_sprung_flug.bind(start, b, k, jump, rueck), 0.0, bl, bl)
+		tween.tween_callback(_sprung_ende)
+	elif nm == "Sprungbiss":
 		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
 	else:
 		tween.tween_interval(bl)
 	var t_back := 0.0
-	var ende := start + dir * jump
+	var ende := start + dir * (jump - rueck)
 	# 863: der Rücksprung der Quelle (Ratte: dodgeBackwards, 1,6 m) nur, wenn sein Weg frei ist, sonst rückwärts im Gang (unten, mit
 	# der Prüfung von 717 C)
 	if weg.has("Ausweichen zurück") and anim.has_animation("Ausweichen zurück") and _satz_frei(ende, b, "Ausweichen zurück", other):
@@ -4819,6 +4900,7 @@ const AUSWEICHEN := [1.0, 0.0, 0.5, 0.9, 90.0, 120.0]     # r3c: mit Blick gerad
 func die() -> void:
 	_dreh_ab()
 	down = true
+	_sprung_ende()     # 760: wer im Flug fällt, liegt am Boden
 	ausholen(false)     # 1000: die Axt sinkt mit dem Fall (die Schicht gibt dem Tod nach)
 	if atem != null:
 		atem.active = false     # 453.1: der Tote atmet nicht

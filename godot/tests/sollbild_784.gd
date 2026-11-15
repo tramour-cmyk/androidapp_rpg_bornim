@@ -62,6 +62,8 @@ func _lauf() -> void:
 	p.foe = _env("GEGNER", "WOLVES")
 	root.add_child(p)
 	await process_frame
+	if _env("ZUG", "") != "":     # 760: schon die erste Ansage (der Wolf springt dann vom eigenen Platz)
+		Mars.test_gegnerzug = _env("ZUG", "")
 	p._start(s)
 	for i in 4:
 		await process_frame
@@ -95,6 +97,15 @@ func _lauf() -> void:
 			OS.delay_msec(bremse)
 		if _env("ZUG", "") != "" and Mars.test_gegnerzug == "":     # 949: jede Ansage Graks ein Schwerer Hieb
 			Mars.test_gegnerzug = _env("ZUG", "")
+		# 760 (Film): Zeit jedes Absprungs in der Liste, zum Schneiden (kampf=760)
+		for sf in kf.figures.values():
+			var fl: bool = sf.get("sprung_fliegt") == true
+			if fl and not sf.has_meta("flog"):
+				print("Sprungzeit %.2f %s" % [n / FPS, sf.fighter.id])
+			if fl:
+				sf.set_meta("flog", true)
+			elif sf.has_meta("flog"):
+				sf.remove_meta("flog")
 		t = n / FPS
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break

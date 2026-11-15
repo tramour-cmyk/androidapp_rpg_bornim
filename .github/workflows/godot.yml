@@ -653,6 +653,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/tod_1141.gd 2>&1 | grep -E "TOD1141|SCRIPT ERROR"   # 1141 jeder Gegnerkörper hat „Tod“, Goblins drei, liegend und verschieden
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/ausholen_1000.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|AUSHOLEN1000|SCRIPT ERROR"   # 1000 Grak hält die Axt oben von der Ansage bis zum Hieb
+          set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/sprung_760.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|SPRUNG760|SCRIPT ERROR"   # 760 der Wolf springt bei „Anspringen“ (ducken, Flug, Biss, zurück auf den Platz)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
           set -o pipefail; timeout 400 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/biss_1284.gd 2>&1 | grep -E "^BISS1284 ([0-9]|FEHLER)|SCRIPT ERROR"   # 1284 Ratte beißt auch daneben sichtbar knapp vorbei
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
@@ -1299,6 +1300,27 @@ jobs:
             for s in $(awk '$3=="EVADED"{print $1}' $B/949-ring.log | head -3); do
               ARGS="$ARGS -ss $(awk -v s=$s -v v=${V:-0} 'BEGIN{a=s+v-1.2; printf "%.2f", (a>0?a:0)}') -t 4.5 -i $B/949-ring.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done
             [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/949-ring-kurz.mp4 || true
+            ls -l $B; exit 0
+          fi
+          # 760 und 1000 (Jerry; Chef 15.11., 13:34 „Block 760 und 1000“, ein Filmlauf für beide): der Wolf springt bei „Anspringen“
+          # (ducken, Flug, Biss, zurück auf den Platz), von der Seite; je Sprung 1,5 s davor bis 3,5 s danach, höchstens dreimal, bis 15 s.
+          # Danach Grak wie kampf=1000 (die Axt bleibt beim Ausholen in den Fäusten)
+          if [ "${{ github.event.inputs.kampf }}" = "760" ]; then
+            film 760-sprung sollbild_784 RUNDEN=3 GEGNER=WOLVES ZUG=pounce ZEILEN=1 KAMERA=seite &
+            film 1000-ausholen sollbild_784 RUNDEN=3 GEGNER=GRAK ZUG=heavy ZEILEN=1 KAMERA=seite &
+            wait
+            grep -E "^Filmversatz|^Sprungzeit|SCRIPT ERROR" $B/760-sprung.log | head -30 || true
+            V=$(awk '/^Filmversatz/{print $2}' $B/760-sprung.log | head -1); ARGS=""; FC=""; i=0
+            for z in $(awk '/^Sprungzeit/{print $2}' $B/760-sprung.log | head -3); do
+              st=$(awk -v a=$z -v v=${V:-0} 'BEGIN{ x=a+v-1.5; printf "%.2f", (x>0?x:0) }')
+              ARGS="$ARGS -ss $st -t 5 -i $B/760-sprung.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done
+            [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/760-sprung-kurz.mp4 || true
+            grep -E "^Filmversatz|^==|^  |SCRIPT ERROR" $B/1000-ausholen.log | head -60 || true
+            V=$(awk '/^Filmversatz/{print $2}' $B/1000-ausholen.log | head -1); ARGS=""; FC=""; i=0
+            for z in $(awk '/^ +[0-9.]+ /{ if (a=="" && /kündigt/) {a=$1; w=$2; next} if (a!="" && $2==w && $3=="FOE_STRIKES") {print a":"$1; a=""} }' $B/1000-ausholen.log | head -2); do
+              for st in $(awk -v a=${z%:*} -v e=${z#*:} -v v=${V:-0} 'BEGIN{ if (e-a+2.5 <= 6) { x=a+v-0.5; printf "%.2f,%.2f\n", (x>0?x:0), e-a+2.5 } else printf "%.2f,2.5\n%.2f,3.5\n", a+v-0.5, e+v-1.5 }'); do
+                ARGS="$ARGS -ss ${st%,*} -t ${st#*,} -i $B/1000-ausholen.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done; done
+            [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1000-ausholen-kurz.mp4 || true
             ls -l $B; exit 0
           fi
           # 1000 (Jerry, Film 286.5a): Grak kündigt Schweren Hieb an, hält die Axt oben bis zum Hieb; von der Seite (Ansage verdeckt
