@@ -259,7 +259,7 @@
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | M Markt | – |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | Sokrates | K | nach Meilenstein | – | – | – | E Kampf | – |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | Sokrates | K | ruht | 23.11. | – | – | M Veröffentlichung | – |
-| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | K | wartet, D-U-N-S beantragt über Apple (Chef 08.11., 14:33), Bearbeitung bis etwa 30 Tage; Chef sagt „D-U-N-S da“ | 08.12. | – | – | M Veröffentlichung | – |
+| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | K | wartet, D-U-N-S erteilt 13.11. (317411832) | 08.12. | – | – | M Veröffentlichung | – |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | K | startbar | – | – | – | M Veröffentlichung | 19,96 $ |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | startbar | – | – | – | M Veröffentlichung | 4,68 $ |
 | 109 | Repo öffentlich | Sokrates | K | startbar | – | – | – | M Veröffentlichung | – |
