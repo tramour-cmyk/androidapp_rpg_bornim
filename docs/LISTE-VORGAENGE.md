@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1325 | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode unverändert gegen Lauf 493/497 grün): von Westen tritt die Ziege erst weg (30→29), dann Tausch; am Rechner mit Kaufmodellen auch bei 12 Bildern/s grün | Tom | M | startbar | – | – | – | E Welt | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Tuch-Messung nicht bestanden | Sokrates | claude/tom-431-umhang | – | E Figuren | 93,01 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | zu testen | – | claude/tom-697-drehteller | 289 | E Figuren | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
@@ -228,6 +229,7 @@
 | 1316 | Von Sokrates (1137 Stichtag 15.11., 20:00): reaktionen.py erkennt „Nachricht 4201, 4200“ (zweite Kennung ohne Wort) und „**t286, t287 getestet**“ (zweiter Build) nicht als erledigt; 1266, 1215 standen darum seit 12:48 offen, t287 noch | Perikles | K | gebaut, Geprüft an: 8247c3090 | – | – | – | B Werkzeuge | – |
 | 1317 | Von Jerry (1314): probelauf.py hält MESS= für ausholen_1000 an (Test enthält save_png nur hinter BILD_1000 und ohne --headless); ein --headless-Lauf legt kein Bild ab, darf als Messlauf gelten | Perikles | M | gebaut, Geprüft an: d03c528de | – | – | – | B Werkzeuge | – |
 | Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Perikles | K | erledigt | – | – | – | B Abläufe | – |
+| 1324 | Von Tom (PR #207): pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die Prüfliste nach dem Test archiviert ist; nach den Reverts aus Regel 12 wird der Build so nie grün (Lauf 499, 500). Ausnahme oder Prüfung nach Archiv? | Perikles | M? | startbar | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | K | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
