@@ -104,3 +104,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:14 15.11.: Startsperre 11:14 Start Sokrates (Neustart, 8892bf7e9)
 - 11:20 15.11.: Startsperre 11:20 Start Diogenes (lauf.py)
 - 11:20 15.11.: Marke Archiv session_01Hmoj78yhg3iMnC4caCkmRB (lauf.py)
+- 11:21 15.11.: Diogenes neu `…75f6u3gFfiQ22M2H7J` (1128.3, 1276, 882.2), alt archiviert (2,71 $ auf 1272)
