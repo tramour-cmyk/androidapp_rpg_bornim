@@ -1,5 +1,7 @@
 # 760 · Wolf springt bis an den Helden · Team Jerry · 15.11., 19:48
 
+[Film von 15.11., 19:48](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261115-194800-760/2026-11/15-1947-760-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 
 Geprüft an: `d71443990` (Zweig `claude/jerry-760-1000-sprung-axt`, Lauf 496 `43740163934`, mit dem Kaufwolf)
