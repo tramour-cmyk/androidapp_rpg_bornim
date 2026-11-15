@@ -97,7 +97,8 @@ static func schaden_roh(grund: float, fertigkeit: float, d: float, z_glueck: flo
 
 ## Abzug der Rüstung, nie unter 0, gerundet wie die Simulation.
 static func endschaden(s: float, abzug: float) -> float:
-	var r := maxf(0.0, s - abzug)
+	# 481.2 A (Chef 15.11., 12:44): Rüstung und Schild ziehen höchstens „abzug_deckel“ eines Treffers ab (Helden und Gegner)
+	var r := maxf(0.0, s - minf(abzug, float(kampf().get("abzug_deckel", 1.0)) * s))
 	return float(runde(r)) if bool(kampf().get("schaden_runden", true)) else r
 
 ## Ein Schlag mit Würfeln aus rng in der Reihenfolge der Simulation (Treffer, Glück, kritisch, Streuung); 0 heißt daneben.

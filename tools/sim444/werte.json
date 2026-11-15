@@ -75,6 +75,8 @@
     "stufenfaktor_je_stufe": 0.1,
     "fertigkeit_im_schaden_je_punkt": 0.01,
     "ruestungsfertigkeit_im_abzug_je_punkt": 0.01,
+    "abzug_deckel": 0.5,
+    "_abzug_deckel": "481.2 A (Chef 15.11., 12:44): Rüstung und Schild ziehen höchstens diesen Anteil eines Treffers ab, für Helden und Gegner",
     "glueckstreffer_anteil": 0.01,
     "kritisch_faktor": 1.5,
     "kritisch_je_punkt": 1,
