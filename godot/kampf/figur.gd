@@ -4661,9 +4661,110 @@ func dodge(after_ms: int, nm := "") -> void:
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_nach_ausweichen)
 			return
+	# 1321 (wolf_mess_438 Klosterschüler mit Stab: die Bewegung „Ausweichen“ am Ort schwingt den Stab bis 1,2 m nach vorn, 0,11 m in den Wolf, der
+	# knapp daneben biss): reicht ein Ding in der Hand beim Ausweichen bis an einen nahen Gegner, weicht der Held einen Schritt zurück
+	if fighter.monster == null and _ausweichen_zurueck_held():
+		return
 	_reichweite_merken("Ausweichen")
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 1321: wie weit (m, am Boden vom Ursprung) reicht, was die Figur in der Hand trägt, während der Bewegung „Ausweichen“; einmal je
+## Figur abgetastet wie _reichweite_merken
+var _ausweich_reich := -1.0
+const AUSWEICH_SCHRITT_M := 0.55
+const AUSWEICH_SCHRITT_S := 0.35
+func _ausweich_reichweite() -> float:
+	if _ausweich_reich >= 0.0:
+		return _ausweich_reich
+	_ausweich_reich = 0.0
+	var nm := "Ausweichen"
+	if anim == null or model == null or not anim.has_animation(nm):
+		return 0.0
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return 0.0
+	var vor := String(anim.current_animation)
+	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
+	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
+	var l: float = anim.get_animation(nm).length
+	var inv := global_transform.affine_inverse()
+	anim.play(nm, 0.0)
+	for i in REICHWEITE_PROBEN + 1:
+		anim.seek(l * i / float(REICHWEITE_PROBEN), true)
+		sk.force_update_all_bone_transforms()
+		for g in traegt():
+			var box: AABB = g[1]
+			for k in 8:
+				var q: Vector3 = inv * ((g[0] as Transform3D) * box.get_endpoint(k))
+				_ausweich_reich = maxf(_ausweich_reich, Vector2(q.x, q.z).length())
+	if vor != "":
+		anim.play(vor, 0.0, vor_v)
+		anim.seek(vor_t, true)
+	else:
+		anim.stop()
+	return _ausweich_reich
+
+
+func _ausweichen_zurueck_held() -> bool:
+	if down or anim == null or kampfort == null:
+		return false
+	var nah = null
+	var luft := INF
+	for o in kampfort.figures.values():
+		if o == self or not o.visible or o.down or o.fighter.side == fighter.side:
+			continue
+		var c: float = o.clearance(position)
+		# wer gerade beißt oder schlägt, zählt dort, wo der Angriff ankommt (angriff_von, _bite_plan)
+		if o.angriff_von != Vector3.INF and o.unterwegs():
+			c = minf(c, o.clearance(position, o.angriff_von))
+		if c < luft:
+			luft = c
+			nah = o
+	var reich := _ausweich_reichweite()
+	if OS.get_environment("SCHAU_1321") != "":
+		print("1321 prüft %s: nah %s Luft %.2f Reichweite %.2f" % [fighter.id, nah.fighter.id if nah != null else "-", luft, reich])
+	if nah == null or luft > reich + 0.05:
+		return false
+	var weg_von := Vector3(position.x - nah.position.x, 0.0, position.z - nah.position.z)
+	if weg_von.length() < 0.01:
+		return false
+	var ziel := position + weg_von.normalized() * AUSWEICH_SCHRITT_M * _scale()
+	if not _stand_frei(ziel, null) or not _im_bild(ziel, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
+		return false
+	if OS.get_environment("SCHAU_1321") != "":
+		print("1321 %s weicht zurück: %s %.2f m nah, Reichweite beim Ausweichen %.2f m" % [fighter.id, nah.fighter.id, luft, reich])
+	_dreh_ab()
+	var nm := _gang_ss("Zurück")
+	if nm == "Zurück":
+		nm = "Gehen"
+	var v := maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+	if anim.has_animation(nm):
+		_guard(true)
+		anim.play(nm, 0.08, clampf(AUSWEICH_SCHRITT_M / AUSWEICH_SCHRITT_S / v, 1.0, WALK_MAX) * (1.0 if nm.begins_with("SS_") else -1.0))
+	bahn = [ziel]
+	tween = create_tween()
+	tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(func(): _guard(false); _idle())
+	tween.tween_interval(0.25)
+	tween.tween_callback(func(): _held_heim_vor())
+	return true
+
+
+## 1321: nach dem Schritt zurück wieder vor auf den Platz, das Gesicht zum Gegner
+func _held_heim_vor() -> void:
+	var d := home - position
+	d.y = 0.0
+	if d.length() < 0.05:
+		return
+	var nm := _gang_ss("Gehen")
+	var v := maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+	if anim and anim.has_animation(nm):
+		anim.play(nm, 0.12, 1.0)
+	tween = create_tween()
+	tween.tween_property(self, "position", home, d.length() / v)
+	tween.tween_callback(func(): _face(); _idle())
 
 
 ## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
