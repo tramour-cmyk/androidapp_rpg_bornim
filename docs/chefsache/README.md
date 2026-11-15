@@ -39,11 +39,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 15 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
 | 16 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Kapitel 1 abschließen | startbar |
 | 17 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Kapitel 1 abschließen | startbar |
-| 18 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1317 | Perikles | probelauf.py hält MESS= für ausholen_1000 an; ein --headless-Lauf legt kein Bil… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 1314 | Jerry | Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ragdoll_1215, ausholen_1000 behe… | M | Kampf passt | wartet auf 1317 |
+| 18 | 1313 | Perikles | Überblick in der Chefsache: die nächsten 20 Vorgänge in Reihenfolge, bei jedem… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1317 | Perikles | probelauf.py hält MESS= für ausholen_1000 an; ein --headless-Lauf legt kein Bil… | M | Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 103 weitere offen. Bei dir zum Testen (vorgelegt): 31. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 88.
+Danach 104 weitere offen. Bei dir zum Testen (vorgelegt): 31. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 88.
 ## Zu entscheiden
 
 Nichts offen.
