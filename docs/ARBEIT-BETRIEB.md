@@ -91,3 +91,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:08 15.11.: Startsperre 10:08 Start Jerry (lauf.py)
 - 10:08 15.11.: Marke Archiv session_01Hmoj79uukZoJ96FG4zHcRv (lauf.py)
 - 10:09 15.11.: Jerry neu `…79c2xTDZMPma5iiDXB` (1266 Kerbe, auf Meldung Sokrates 10:08), Jerry alt archiviert (1,07 $); Homer 1264 bekommt Weiter 1265
+- 10:16 15.11.: Startsperre 10:16 Start Sokrates (Neustart, e0527fb49)
+- 10:17 15.11.: Sokrates neu `…78RskfRt4STVuE8msj` (Neustart e0527fb49), alt archiviert (6,72 $ auf 1260); Tuffy 1266 ausgenommen (Jerry nimmt es)
