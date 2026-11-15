@@ -193,6 +193,7 @@
 | 1319 | Von Homer (1318): Kampfmeldung MSG532_CURED (mars.gd 430) „von allen Leiden befreit“ / “cured of all ailments” stimmt nicht (Rausch bleibt, mars.gd 1579) und gegen STORY-REGELN (6); Wortlaut wie draußen benutzen.cured: „{0} fühlt sich wieder gesund.“ / “{0} feels healthy again.” | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1323 | Von Homer (1320, Chef 15.11., 20:15): Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | erledigt | – | – | – | B Abläufe | – |
+| 508.1 | Von Sokrates (508): Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldenstufe erreichen je Herkunft zwei Kernfertigkeiten eines Pfads 15, 20, 25 (Lehrmeister in Kapitel 1) | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
 | 340.11 | Von Sokrates (340.6 A, Chef 15.11., 18:30) V3 Homer: jede Wahl im Gespräch vor „fertig“ gegen den Knopf im Code (skript.gd); erwartet keine Vorlage über zwei Runden; Prüfung 23.11. | Homer | M | erledigt | – | – | – | B Abläufe | – |
@@ -248,7 +249,7 @@
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | K | wartet, Protofactor ja 10.11., 04:48; offen Janpec | 23.11. | – | – | M Veröffentlichung | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | K | startbar | – | – | – | B Abläufe | 76,65 $ |
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | erledigt, A–F umgesetzt; Bau weiter 623.2, 1155 | – | – | – | E Kampf | 10,21 $ |
-| 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | K | startbar | – | – | – | G Stil | – |
+| 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | K | startbar | 508.1 | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | K | erledigt, Rest Bestiarium in 649 | – | – | – | G Stil | 33,44 $ |
 | 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | K | startbar | 481.2 | – | – | E Kampf | 1,30 $ |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | Sokrates | K | ruht | 23.11. | – | – | B Werkzeuge | – |
