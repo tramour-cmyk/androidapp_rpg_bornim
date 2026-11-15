@@ -7,7 +7,7 @@ Homer 10.11.; Teil von `STORY-BRS-ANLEITUNG.md` (Grundsätze dort). Für Schritt
 Entfallen mit `erschaffung.gd`, `heldwerte.gd` und den Klassen (Schritt 4), ohne Ersatz: `chooseClass`, `proficiency`, `hitDie`, `primary`, `armorProf`, `points`, `fromLevel`, `cannotEquipArmor`, `attack` (Angriffsbonus), `passive`, `unlimited` (∞ für Zaubertricks), `ac` (Schutzwert heißt `[870.14.kw.schutz]`). Geändert:
 
 - `sp`: Mana / Mana (Leiste, Kampfkopf)
-- `hp`: TP / HP bleibt (nur an Zahlen)
+- `hp`: Leben / Life (Leiste, Kampfkopf, an Zahlen; nie TP/HP, 1320)
 - `level`: in der Leiste kurz „St.“ / “Lv” wie heute; im Heldenreiter und auf dem Kapitelschirm Heldenstufe / Hero Level
 - `skills`: im Heldenreiter Fertigkeiten / Skills (Überschrift der Fertigkeitenliste); im Kampf heißt der Knopf Können / Abilities (`[870.14.knopf.koennen]`, eigener Schlüssel)
 - `chooseRace`: Wähle dein Volk / Choose your people
@@ -43,19 +43,19 @@ Texte ohne Würfel (Wirkung und Zahl stehen in den Regelwerten und in der Meldun
 - `spider_silk` (934): Fein und zäh wie Draht, aus dem Leib einer Riesenspinne. Feuer frisst sie im Nu. Händler zahlen gut dafür. / EN: Fine and tough as wire, from the body of a giant spider. Fire consumes it in an instant. Traders pay well for it. (Feuer verbrennt die Seide, `lohn.gd` 78)
 - `spider_gland` (934): „… Morwen kann daraus Alchemistenfeuer mischen.“ → Aus einer Riesenspinne. Morwen mischt daraus Brandflaschen. / EN: From a giant spider. Morwen mixes firebottles from it. (Rezept Morwen: Brandflasche aus 1 Giftdrüse, `Recipes.kt` 17)
 
-`[1318.kurz]` Kurzzeile unter dem Namen in der Ladenliste, Kaufen und Verkaufen (Vorschlag Homer 15.11., 1318 für 785.24 Tom; wie alt `ShopScreen.kt` 244, aber ohne Würfel). Zahl {0} aus den Regelwerten, nie fest im Text: Tränke `werte.json` „welt“ „heilung“, Verband `Menue.verband_heilung` des Helden (mit Heilkunde). Klein, ohne Punkt; „TP“/„HP“ nach `STORY-REGELN.md` (3):
+`[1318.kurz]` Kurzzeile unter dem Namen in der Ladenliste, Kaufen und Verkaufen (Vorschlag Homer 15.11., 1318 für 785.24 Tom; wie alt `ShopScreen.kt` 244, aber ohne Würfel). Zahl {0} aus den Regelwerten, nie fest im Text: Tränke `werte.json` „welt“ „heilung“, Verband `Menue.verband_heilung` des Helden (mit Heilkunde). Klein, ohne Punkt; „Leben“/„Life“ nach `STORY-REGELN.md` (3), 1320:
 
 | Ding | Deutsch | Englisch |
 | --- | --- | --- |
-| `potion`, `greater_potion`, `superior_potion` | heilt {0} TP | heals {0} HP |
-| `remedy` | heilt Zustände und {0} TP | cures conditions, heals {0} HP |
-| `bandage` | stillt Blutung, heilt {0} TP | stops bleeding, heals {0} HP |
+| `potion`, `greater_potion`, `superior_potion` | heilt {0} Leben | heals {0} Life |
+| `remedy` | heilt Zustände und {0} Leben | cures conditions, heals {0} Life |
+| `bandage` | stillt Blutung, heilt {0} Leben | stops bleeding, heals {0} Life |
 | `stamina_potion` | doppelter Atem bis zur Rast | double stamina until the next rest |
 | `spark_potion` | leuchtet bis zur Rast | glows until the next rest |
 | `alchemist_fire` | Feuer (wie heute `sprache.gd` „kurz“) | Fire |
 | `holy_water` | Licht, nur gegen Untote | Light, undead only |
 
-Ohne Kurzzeile: Zutaten und Beute (Kräuter, rohes Fleisch, Fell, Hauer, Drüse, Flügel, Seide). `roast_meat` (Tasche und Verkaufen): heilt {0} TP / heals {0} HP, {0} mit dem Bonus aus Kochen (`Laden.essen_bonus`). Kräutertrank ohne „alle“: im Kampf bleibt der Rausch (`mars.gd` 1579).
+Ohne Kurzzeile: Zutaten und Beute (Kräuter, rohes Fleisch, Fell, Hauer, Drüse, Flügel, Seide). `roast_meat` (Tasche und Verkaufen): heilt {0} Leben / heals {0} Life, {0} mit dem Bonus aus Kochen (`Laden.essen_bonus`). Kräutertrank ohne „alle“: im Kampf bleibt der Rausch (`mars.gd` 1579).
 
 Namen mit SRD-Herkunft (Vorschlag Homer; Text und Wirkung bleiben, nur der Name wechselt):
 

@@ -2,7 +2,7 @@
 
 Homer 10.11.; Texte für Schritt 5 des Umzugs (`LISTE-UMZUG-BRS.md`, Vorgänge 870.5, 868). Ersetzt die SRD-Stellen in `regeln/mars_texte.gd`, `regeln/mars.gd` (Zustände, 534, 296), `regeln/lohn.gd`, `kampf/marstips.gd`, `kampf/kampf_ui.gd` (Würfelkasten, Kopf). Was hier nicht steht, bleibt wortgleich (die übrigen Zeilen von `mars_texte.gd` nennen keine SRD-Begriffe). Englisch nach `STORY-REGELN.md` Regeln (1)–(7).
 
-**Grundsätze für den Bau:** (1) **Keine Zahlen in Erklärtexten** (Zustände, Ansagen, Tipps): sie überleben jede Messung 444; Zahlen nur in Meldungen mit Platzhalter. (2) **Kein Würfel im Bild:** kein W20, keine „2W6“, kein Wurf neben der Trefferchance. (3) „TP“ bleibt in Meldungen (`STORY-REGELN.md` (3); `DESIGN-BRS.md` 12: Trefferpunkte bleiben). (4) Wirkt eine Handlung im Bau anders als hier beschrieben: Vorgang an Homer, nicht selbst umschreiben.
+**Grundsätze für den Bau:** (1) **Keine Zahlen in Erklärtexten** (Zustände, Ansagen, Tipps): sie überleben jede Messung 444; Zahlen nur in Meldungen mit Platzhalter. (2) **Kein Würfel im Bild:** kein W20, keine „2W6“, kein Wurf neben der Trefferchance. (3) In Meldungen „Leben“ / “Life” an der Zahl, nie TP/HP (`STORY-REGELN.md` (3); `DESIGN-BRS.md` 12; 1320). (4) Wirkt eine Handlung im Bau anders als hier beschrieben: Vorgang an Homer, nicht selbst umschreiben.
 
 ## Begriffe `[870.14.namen]`
 
@@ -38,10 +38,10 @@ Nur Ergebnis und Trefferchance; der Wurf von 1 bis 100 erscheint nicht (868: „
 - `[870.14.flamesback]` MSG72_FLAMESBACK: {0} weicht aus und schleudert {1} einen Funkenpfeil entgegen. / EN: {0} dodges and hurls a spark bolt back at {1}.
 - `[870.14.blessed]` MSG72_BLESSED (Beistand wirkt): {0} spürt Beistand. / EN: {0} feels a steadying hand.
 - `[870.14.dodges]` MSG72_DODGES unverändert (Abwehrprobe gegen Zauber gehalten): {0} entgeht dem Zauber. / EN: {0} escapes the spell.
-- `[870.14.lebensraub]` MSG534_LIFESTEAL unverändert in Worten, Englisch Präsens: {0} saugt {1} TP ab. / EN: {0} drains {1} HP.
+- `[870.14.lebensraub]` MSG534_LIFESTEAL unverändert in Worten, Englisch Präsens: {0} saugt {1} Leben ab. / EN: {0} drains {1} Life.
 - `[870.14.letzter.atemzug]` MSG534_RELENTLESS (Merkmal Letzter Atemzug der Orkblütigen): Letzter Atemzug: {0} bleibt stehen! / EN: Last Breath: {0} stays standing!
 - `[870.14.steinblut]` ST_DWARF (Merkmal Steinblut der Zwerge, nur wenn es Gift abwehrt): Steinblut: {0} widersteht dem Gift! / EN: Stoneblood: {0} resists the poison!
-- `[870.14.kraft.schoepfen]` neue Konstante für den Helden (Kraft schöpfen; heute MSG72_USES und HEALSSELF): {0} schöpft Kraft: +{1} TP. / EN: {0} draws strength: +{1} HP. MSG72_GATHERS bleibt die Meldung des Gegners zu „Kraft sammeln“.
+- `[870.14.kraft.schoepfen]` neue Konstante für den Helden (Kraft schöpfen; heute MSG72_USES und HEALSSELF): {0} schöpft Kraft: +{1} Leben. / EN: {0} draws strength: +{1} Life. MSG72_GATHERS bleibt die Meldung des Gegners zu „Kraft sammeln“.
 - `[870.14.satt]` MSG399_FED: {0} ist gut gestärkt: trifft leichter und schlägt härter. / EN: {0} is well fed: lands blows more easily and hits harder.
 - `[870.14.flucht]` MSG296_FLED: {0} ist entkommen! / EN: {0} gets away! · MSG296_CANTFLEE: Die Flucht misslingt! / EN: The escape fails! (Ergebnis der Fluchtprobe in Prozent)
 - **Wolf vor dem Feuer (915, 705a B; ersetzt `[870.14.gegen.wolf]` in `STORY-BRS-HELD.md`, MSG870_GEGEN_WOLF; gilt für jedes Feuer, auch aus Wurfmitteln):**

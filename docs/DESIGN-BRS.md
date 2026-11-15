@@ -375,7 +375,7 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | Kurze Rast, Lange Rast | Kurze Erholung (2 Stunden), Langes Ausruhen (9 Stunden) |
 | Klassen Kämpfer, Schurke, Kleriker (die Klasse Magier ebenso; das Wort bleibt als Pfad, 954.2) | entfallen; dafür Pfade |
 
-Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg, Trefferpunkte und kritischer Treffer; der Trefferwürfel entfällt mit dem neuen Kampf. Die Wirkungen der Volksmerkmale und alle Beschreibungstexte werden beim Umbau neu geschrieben (Glossar vom 31.10., E 24, E 27; seit 10.11. nur noch hier, 650.2). Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
+Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg und kritischer Treffer; Trefferpunkte heißen **Leben** (EN Life), auch an Zahlen, nie TP, LP oder HP (1320, Chef 15.11., 20:15); der Trefferwürfel entfällt mit dem neuen Kampf. Die Wirkungen der Volksmerkmale und alle Beschreibungstexte werden beim Umbau neu geschrieben (Glossar vom 31.10., E 24, E 27; seit 10.11. nur noch hier, 650.2). Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
 
 ## 13. Offen
 

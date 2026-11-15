@@ -664,8 +664,8 @@ Gelesen in: `regeln/mars.gd:494`, `regeln/mars.gd:2574`, +1, Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `punkte_variante` | ja | gerechnet mit 21 Punkten (Entscheidung 77), also den Herkuenften mit plus_variante | Sim. |
-| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1670`, Sim. |
-| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1671`, Sim. |
+| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1671`, Sim. |
+| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1672`, Sim. |
 | `verkauf_anteil` | 0,5 | alt: Haendler zahlt den halben Ladenpreis (Game.kt sellPrice) | Sim. |
 | `dorf_alle_kaempfe` | 8 | A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen | Sim. |
 
@@ -785,7 +785,7 @@ Gelesen in: Sim.
 
 Herkunft: Startausruestung je Waffen- und Ruestungsart: Gegenstand, Ladenpreis alt (Katalog 458), Material und Reparaturrang nach N 11 (A)
 
-Gelesen in: `skripte/spiel.gd:1638`, `skripte/spiel.gd:1643`, Sim.
+Gelesen in: `skripte/spiel.gd:1639`, `skripte/spiel.gd:1644`, Sim.
 
 - **holz:** A: Boegen repariert der Schmied (Geselle), N 11 nennt Boegen beim Gesellen ohne Werkstoff
 
@@ -795,7 +795,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Langschwert | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
+| `ding` | Langschwert | – | `skripte/spiel.gd:975`, `skripte/spiel.gd:983`, +9, Sim. |
 | `preis` | 15 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -806,7 +806,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kurzbogen | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
+| `ding` | Kurzbogen | – | `skripte/spiel.gd:975`, `skripte/spiel.gd:983`, +9, Sim. |
 | `preis` | 25 | – | Sim. |
 | `material` | Holz | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -817,7 +817,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Dolch | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
+| `ding` | Dolch | – | `skripte/spiel.gd:975`, `skripte/spiel.gd:983`, +9, Sim. |
 | `preis` | 2 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -828,7 +828,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Streitkolben | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
+| `ding` | Streitkolben | – | `skripte/spiel.gd:975`, `skripte/spiel.gd:983`, +9, Sim. |
 | `preis` | 5 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -839,7 +839,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kettenhemd | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
+| `ding` | Kettenhemd | – | `skripte/spiel.gd:975`, `skripte/spiel.gd:983`, +9, Sim. |
 | `preis` | 50 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -848,7 +848,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Lederrüstung | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
+| `ding` | Lederrüstung | – | `skripte/spiel.gd:975`, `skripte/spiel.gd:983`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Leder | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -859,7 +859,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Schild | – | `skripte/spiel.gd:974`, `skripte/spiel.gd:982`, +9, Sim. |
+| `ding` | Schild | – | `skripte/spiel.gd:975`, `skripte/spiel.gd:983`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -1105,7 +1105,7 @@ Gelesen in: Sim.
 | `hinterhalt_min` | 0,4 | – | `regeln/brs_held.gd:383` |
 | `sinne_ab` | 3 | A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 %; unter sinne_ab (Volk senkt bis 2, 933) je Punkt 7,5 % haeufiger, Bemerken bleibt durch das Abrunden gleich (alt 15 % je Punkt Mod(WEI)) | `regeln/brs_held.gd:377`, `regeln/brs_held.gd:383`, +1 |
 | `wissen_verstand_ab` | 6 | 870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12) | `regeln/brs_held.gd:372`, `regeln/mars.gd:2465` |
-| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:837` |
+| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:838` |
 
 ### welt.heilung
 
@@ -1517,7 +1517,7 @@ Gelesen in: `skripte/beute.gd:237`, `skripte/beute.gd:330`
 
 ## kennungen
 
-- **Regel** (`DESIGN-BRS.md` „12. Namen“): Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg, Trefferpunkte und kritischer Treffer
+- **Regel** (`DESIGN-BRS.md` „12. Namen“): Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg und kritischer Treffer
 - **Herkunft der Zahlen:** 870.3 (649a Schritt 1): Kennung im Spiel -> Art (Zeile in 'monster'), Anzeigename (DESIGN-BRS.md 12, STORY-BRS-OBERFLAECHE.md [870.15.namen.monster]), Gruppe; interne Kennungen bleiben. Modell und Bewegung: Figurenkatalog 649.2
 - **Gelesen von:** `regeln/brs.gd`, `regeln/tabellen.gd`
 

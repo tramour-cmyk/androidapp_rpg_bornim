@@ -51,6 +51,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 ## Einzelheiten
+- **Zu 1323, von Homer (15.11., 20:20, 1320; Chef 20:15 „Ja, auf Leben ändern.“):** Kampfmeldungen „+{1} Leben“ / “+{1} Life”, nie TP/HP (`STORY-REGELN.md` (3)). Reste auf main: `mars.gd` 49 MSG870_KRAFT; `mars_texte.gd` 15, 32–35 (GATHERS, HEALS, HEALSSELF, DRINKS, GIVES); `klassisch.gd` 48, 73, 115, 121, 124 („TP und ZP“ → „Leben und Mana“), 132. Wortlaute: `STORY-SPIEL.md`, `STORY-BRS-KAMPF.md`. Dazu 1319 (MSG532_CURED).
 - **Zu 1289, von Tom (15.11., 12:58, 1290):** die Höhlenbilder aus `godot.yml` (492, 505, 1091) liefen schon in mobile mit lavapipe; Compatibility waren nur Filme und `godot-kampf.yml`. Weicht die Höhle am A56 von diesen Bildern ab, liegt es an lavapipe gegen Xclipse, nicht am Renderer.
 
 - **Zu 1000, von Chef (Fund t286.5a, Test Build 286, Automatik B):** Chef 15.11., 12:55: „kann ich so definitiv nicht abnehmen, weil im Film reißt er die Arme hoch, aber die Axt bleibt in dem Film genau an der Stelle, wie er sie vorher vom Körper trug … die Axt bewegt sich nicht mit, die schwebt jetzt vor ihm. Wie Telekinese.“

@@ -590,16 +590,16 @@ System-Reiter unter „Sprache“. Erklärt jeden Unterschied genau (62m). Die Z
 `[39.2.stufen]` Leicht · Normal · Schwer / Easy · Normal · Hard
 
 `[39.2.leicht]` (Leicht gewählt)
-Gegner haben 20 % weniger Trefferpunkte und richten 20 % weniger Schaden an. Das Ziel eines Auftrags steht gold auf der Karte, sobald du ihn annimmst.
-EN: Foes have 20% fewer hit points and deal 20% less damage. A quest's goal shows in gold on the map as soon as you accept it.
+Gegner haben 20 % weniger Leben und richten 20 % weniger Schaden an. Das Ziel eines Auftrags steht gold auf der Karte, sobald du ihn annimmst.
+EN: Foes have 20% less life and deal 20% less damage. A quest's goal shows in gold on the map as soon as you accept it.
 
 `[39.2.normal]` (Normal gewählt)
 Gegner sind so stark, wie das Spiel sie gedacht hat. Das Ziel eines Auftrags erscheint auf der Karte, sobald du den Ort gesehen hast.
 EN: Foes are as strong as the game intends. A quest's goal appears on the map once you have seen the place.
 
 `[39.2.schwer]` (Schwer gewählt)
-Gegner haben 20 % mehr Trefferpunkte und richten 20 % mehr Schaden an. Das Ziel eines Auftrags erscheint auf der Karte, sobald du den Ort gesehen hast.
-EN: Foes have 20% more hit points and deal 20% more damage. A quest's goal appears on the map once you have seen the place.
+Gegner haben 20 % mehr Leben und richten 20 % mehr Schaden an. Das Ziel eines Auftrags erscheint auf der Karte, sobald du den Ort gesehen hast.
+EN: Foes have 20% more life and deal 20% more damage. A quest's goal appears on the map once you have seen the place.
 
 `[39.2.immer]` (unter der Stufenzeile, immer)
 Erfahrung und Beute bleiben gleich. Gilt für diesen Helden und lässt sich jederzeit umstellen; Gegner ändern sich ab dem nächsten Kampf.
