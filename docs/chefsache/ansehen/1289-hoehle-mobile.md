@@ -1,5 +1,7 @@
 # 1289 · Höhle im Renderer mobile wieder dunkel · Team Jerry · 15.11., 17:10
 
+[Bild von 15.11., 17:09](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/15-1709-1289-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 G Stil
 
 Geprüft an: `d17337dda` (Zweig `claude/jerry-1289-hoehle-mobile`), Bild am Rechner im Renderer des Handys (mobile, Vulkan in Software)
