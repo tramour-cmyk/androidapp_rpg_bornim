@@ -132,3 +132,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:55 15.11.: Startsperre 16:55 Start Perikles 1301 (Sokrates, per Weiter an …75QZ37mBNTLgGWbYsd)
 - 16:58 15.11.: Startsperre 16:58 Start Diogenes 1301 (Perikles, per Weiter an …75f6u3gFfiQ22M2H7J)
 - 17:00 15.11.: Startsperre 17:00 Start Diogenes (Neustart, ab6bc1cbe); alte Sitzung …75f6u3gFfiQ22M2H7J nach Ruhe archivieren, Kosten auf 1301
+- 17:00 15.11.: Startsperre 17:00 Start Sokrates (Neustart, a45818157); alte Sitzung …77VktG9VvggdgMCtAG nach Ruhe archivieren, Kosten auf 1137
