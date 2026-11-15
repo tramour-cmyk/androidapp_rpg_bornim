@@ -117,3 +117,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:21 15.11.: Startsperre 12:21 Start Spike (Neustart, d2d9a63a9)
 - 12:25 15.11.: Startsperre 12:25 Start Tom (Neustart, 10a507cfa)
 - 12:25 15.11.: Spike neu `…79F2ADvX6hyURaqmPK` (1270.1), alt archiviert (8,54 $ auf 1270.1); Tom neu `…76Ra6BZe2iYammL66v` (785.1), alt `…78NR8tcbL1C1FvSd17` archiviert um 12:29 wenn idle
+- 12:29 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` auf Wort des Chefs (12:28) wieder archiviert (Mehrkosten 0,69 $ auf 1288; Frage 1288a liegt in der Chefsache)
