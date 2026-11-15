@@ -87,3 +87,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:10 16.11.: Startsperre 00:10 Start Tom (Neustart, d72ec7214); alte Sitzung …76nRhry7t7BqTpwhBM nach Ruhe archivieren, Kosten auf 1044, 1341
 - 00:14 16.11.: Startsperre 00:14 Start Homer 1352, 1353 (Jerry 00:13, ac6007b4d, per Weiter an …79NReuhLMU6cqsp6GW)
 - 00:24 16.11.: Startsperre 00:24 Start Spike (Neustart, 1f61b76a1); alte Sitzung …76MtqM5JpbkkpJNkAM sofort archivieren, Kosten 7,68 $ auf 1300, 1303
+- 00:38 16.11.: Startsperre 00:38 Start Spike (Neustart, 274ec030b); alte Sitzung …76VdQxk8E6re5azHWe nach Ruhe archivieren, Kosten auf 1303, 698
