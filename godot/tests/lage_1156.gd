@@ -20,6 +20,9 @@ func knoepfe(n: Node, text: String) -> int:
 	return k
 
 func _lauf() -> void:
+	# 1345 (Build 290 rot: „auftrag=stones unbekannt“): Auftraege.alle() liest die Aushänge aus Sprache.texte, im Spiel geladen beim Start
+	Sprache.lade()
+	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var platz1_vorher := FileAccess.file_exists(Spielstand.datei(1))
 	# (1) die Lagen der Prüfliste im Bau
 	if FileAccess.file_exists(Pruefliste.DATEI):

@@ -42,10 +42,13 @@ func _lauf() -> void:
 	var lauf := func():
 		await spiel.lage_herstellen(LAGE)
 		fertig[0] = true
+	# 1345 (Build 290 rot „Lage herstellen endet“ nach 900 Bildern): zwei Blenden (Station Grak in die Höhle mit Satz, etwa 5 s, dann
+	# „ort_neu“ mit Namen, etwa 2,5 s); headless 900 Bilder gemessen 6,2 s (etwa 145 je Sekunde), zu kurz. Nach Uhr warten.
+	var ab := Time.get_ticks_msec()
 	lauf.call()
-	for i in 900:
-		if fertig[0]: break
+	while not fertig[0] and Time.get_ticks_msec() - ab < 30000:
 		await process_frame
+	print("LAGE7858 Lage hergestellt nach %d ms" % [Time.get_ticks_msec() - ab])
 	pruefe(fertig[0], "Lage herstellen endet")
 	var j := Auftraege.von("stones")
 	pruefe(Auftraege.angenommen(z, j), "Aushang angenommen und offen")
