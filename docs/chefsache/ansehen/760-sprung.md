@@ -1,5 +1,7 @@
 # 760 · Wolf springt bei „Anspringen“ · Team Jerry · 15.11., 15:01
 
+[Film von 15.11., 15:01](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261115-150119-760/2026-11/15-1501-760-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 
 Geprüft an: `dc306e529` (Zweig `claude/jerry-760-1000-sprung-axt`, Lauf 489 `43716978001`, mit dem Kaufwolf; Test bestanden: 5 Sprünge, höchster Punkt 0,27 bis 0,43 m, Weite 0,56 bis 2,23 m)
