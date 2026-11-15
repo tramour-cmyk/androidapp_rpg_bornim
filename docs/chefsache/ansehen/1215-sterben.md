@@ -1,5 +1,7 @@
 # 1215 · Sterben mit Physik (Ragdoll), nachgebessert nach 1215a A · Team Jerry · 15.11., 13:16
 
+[Film von 15.11., 13:16](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261115-131625-1215/2026-11/15-1316-1215-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 
 Geprüft an: `8ed72e0e4` (Zweig `claude/jerry-1215-ragdoll`, am Rechner gefilmt, `film_ragdoll_1215.gd`, `PROBE=1215`, Freigabe Sokrates 15.11., 13:09)
