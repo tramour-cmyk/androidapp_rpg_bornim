@@ -5,29 +5,29 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 14.11., 10:11** (Werkzeug `tools/tagesbericht.py`)
+**Stand 15.11., 10:14** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 3 abgenommen, 2 gebaut, 7 in Arbeit, 29 offen |
-| 2 | Seit gestern | abgenommen **1**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 156 / 746, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 78 / 437; neu 142 / 802 |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 53 / 698, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 31 / 399; neu 25 / 768 |
 | 3 | Rest geschätzt | Wochenziel 09.–15.11. „Der Kampf funktioniert“, Stand Samstag: die Schritte 1 und 2 sind erledigt (Build 280 und Build 281 auf `main`, 281 seit 13.11., 10:55). (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **1 entscheiden**, **3 ansehen**, **1 Build** | ältestes: 1036.1 seit 13.11., 13:34; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **62** (Tom 27, Jerry 35); rote Läufe 24 h **17 von 25** (Tom 5, Jerry 11, Build 1), 7 Tage 94 von 182 | bei dir zum Testen: Build 285; ein Build nimmt alle fertigen Zweige (317) |
-| 6 | Fehler | **17** offen, davon 6 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche **66 %** (dein Bild 13.11., 09:46); gestern 1062 $ Rechenwert, Spiel 39 %; **Bitte Bild der Nutzung** (Woche %; ruht die Niederlassung: nur Max; 783 W7) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 4 | Wartet auf dich | **6 ansehen**, **1 Build** | ältestes: 1036.1 seit 13.11., 13:34; [Chefsache](chefsache/README.md) |
+| 5 | Builds | Änderungen warten auf deinen Test: **55** (Tom 21, Jerry 34); rote Läufe 24 h **5 von 17** (Tom 1, Jerry 4), 7 Tage 88 von 178 | bei dir zum Testen: Build 286; ein Build nimmt alle fertigen Zweige (317) |
+| 6 | Fehler | **14** offen, davon 6 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 7 | Geld | Woche unbekannt; gestern 336 $ Rechenwert, Spiel 78 %; **Bitte Bild der Nutzung** (Woche %; ruht die Niederlassung: nur Max; 783 W7) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
 | 8 | Von dir zuerst gefunden | seit dem letzten Bericht (13.11., 08:15) in Build 281 1102 Kampfbericht deckt den Schirm nicht ganz; in Build 282 505 Nebel, 764 Zustände im Heldenreiter ohne Erklärung, 1086 Pim rennt nicht heim, 1142 nach Grak derselbe Kampf noch einmal, 1144 Ketten fallen ohne Klang und Lyra bleibt gefesselt; in Build … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
 | 9 | Größtes Risiko | keine Rolle hat Startbares. Jerry ruht bis zur Entscheidung über die Aktionspunkte (930), Sokrates wartet auf deine Antwort, Tom auf die Freigabe 1242, die Sokrates erteilt; vier Builds (282 bis 285) hängen aneinander und kommen erst mit einem grünen Lauf auf `main` |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 122 | 30 | 0 | 40 | 186 |
-| Jerry | 114 | 49 | 0 | 42 | 170 |
-| Homer | 2 | 0 | 0 | 4 | 61 |
-| Sokrates | 48 | 14 | 0 | 18 | 93 |
-| Perikles | 24 | 18 | 0 | 46 | 219 |
-| Diogenes | 10 | 6 | 0 | 5 | 18 |
+| Tom | 114 | 24 | 1 | 12 | 161 |
+| Jerry | 104 | 44 | 1 | 17 | 153 |
+| Homer | 3 | 1 | 0 | 10 | 68 |
+| Sokrates | 45 | 12 | 19 | 5 | 89 |
+| Perikles | 21 | 15 | 0 | 8 | 203 |
+| Diogenes | 10 | 6 | 1 | 1 | 18 |
 <!-- /zahlen -->
 
 ## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 14.11., 10:1x)
