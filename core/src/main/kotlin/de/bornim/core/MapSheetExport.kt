@@ -30,7 +30,14 @@ object MapSheetExport {
     /** The maps drawn as sheets: towns and rooms, known as soon as the hero is there (MapMarks.seen); 505: the woods too, drawn all
      *  known and bare (`karte-<id>-leer.bild`) with the noise of their frayed edge (`karte-<id>-rand.bild`), Godot shows what the hero
      *  explored (nebel.gd, Zustand.erkundet). The cave follows with 492. */
-    fun sheets(): List<MapDef> = World.maps.values.filter { it.kind != MapKind.CAVE }
+    fun sheets(): List<MapDef> = World.maps.values.toList()
+
+    /** 785.7 (62o, 62p): the cave drawn once on a sheet larger than the cave by half a cave sheet round it, so every window
+     *  Godot cuts from it (MapSheet.window: CAVE_SHEET tiles, the explored part in the middle) lies on the sheet. */
+    fun caveWindow(m: MapDef): MapSheet.Window {
+        val r = MapSheet.CAVE_SHEET / 2
+        return MapSheet.Window(-r, -r, m.width + 2 * r, m.height + 2 * r)
+    }
 
     fun json(sizes: Map<String, Pair<Int, Int>> = emptyMap()): JsonObject = buildJsonObject {
         put("kachel", MapSheet.C)
@@ -43,7 +50,12 @@ object MapSheetExport {
                 sizes[m.id]?.let { (w, h) -> put("bild_breite", w); put("bild_hoehe", h) }
                 // 62r: a room's level up is the area map whose door leads in; an area map's is the land map
                 put("oben", parentOf(m) ?: "")
-                if (m.kind == MapKind.FOREST) put("nebel", true)
+                if (m.kind == MapKind.FOREST || m.kind == MapKind.CAVE) put("nebel", true)
+                // 785.7: a cave's sheet starts at tile (ab_x, ab_y) and is blatt_breite × blatt_hoehe tiles; Godot shows a window of
+                // fenster tiles round the explored part (62o)
+                if (m.kind == MapKind.CAVE) caveWindow(m).let { w ->
+                    put("ab_x", w.x); put("ab_y", w.y); put("blatt_breite", w.w); put("blatt_hoehe", w.h); put("fenster", MapSheet.CAVE_SHEET)
+                }
             }
         }
         putJsonObject("land") {
@@ -122,12 +134,14 @@ object MapSheetExport {
         dir.mkdirs()
         val sizes = HashMap<String, Pair<Int, Int>>()
         for (m in sheets()) {
-            val img = MapSheet.render(m, { _, _ -> true })
+            val cave = m.kind == MapKind.CAVE
+            val win = if (cave) caveWindow(m) else MapSheet.Window(0, 0, m.width, m.height)
+            val img = if (cave) de.bornim.core.art.MapInk.render(m, { _, _ -> true }, win = win) else MapSheet.render(m, { _, _ -> true })
             png(img, File(dir, "karte-${m.id}.bild"))
             sizes[m.id] = img.width to img.height
-            if (m.kind == MapKind.FOREST) {
-                png(MapSheet.render(m, { _, _ -> false }), File(dir, "karte-${m.id}-leer.bild"))
-                png(de.bornim.core.art.MapInk.fray(m), File(dir, "karte-${m.id}-rand.bild"))
+            if (m.kind == MapKind.FOREST || cave) {
+                png(if (cave) de.bornim.core.art.MapInk.render(m, { _, _ -> false }, win = win) else MapSheet.render(m, { _, _ -> false }), File(dir, "karte-${m.id}-leer.bild"))
+                png(de.bornim.core.art.MapInk.fray(m, win), File(dir, "karte-${m.id}-rand.bild"))
             }
         }
         for (bits in 0 until (1 shl wild.size)) {

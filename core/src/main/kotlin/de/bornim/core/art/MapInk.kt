@@ -61,8 +61,8 @@ object MapInk {
      * 505 (Nebel auf der Karte im Menü, 62c): the noise that frays the edge between known and bare parchment in [render], one pixel
      * per sheet unit (a third of the drawn sheet), grey 0..255; Godot mixes the sheet drawn all known with the bare one by it.
      */
-    fun fray(map: MapDef): PixelImage {
-        val mw = map.width * C + 2 * PAD; val mh = map.height * C + 2 * PAD
+    fun fray(map: MapDef, win: MapSheet.Window = MapSheet.Window(0, 0, map.width, map.height)): PixelImage {
+        val mw = win.w * C + 2 * PAD; val mh = win.h * C + 2 * PAD
         val img = PixelImage(mw, mh)
         for (y in 0 until mh) for (x in 0 until mw) {
             val g = (noise(x.toDouble(), y.toDouble(), 3.0, 5) * 255).toInt().coerceIn(0, 255)
@@ -71,8 +71,8 @@ object MapInk {
         return img
     }
 
-    fun render(map: MapDef, seen: (Int, Int) -> Boolean, gateOpen: Boolean = false): PixelImage {
-        val win = MapSheet.window(map, seen)
+    /** 785.7: [win] fixed for the Godot cave (MapSheetExport.caveWindow), else the window of 62o. */
+    fun render(map: MapDef, seen: (Int, Int) -> Boolean, gateOpen: Boolean = false, win: MapSheet.Window = MapSheet.window(map, seen)): PixelImage {
         val mw = win.w * C + 2 * PAD; val mh = win.h * C + 2 * PAD
         val pw = mw * S; val ph = mh * S
         val img = PixelImage(pw, ph)

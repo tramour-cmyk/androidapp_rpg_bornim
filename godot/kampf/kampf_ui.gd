@@ -11,7 +11,8 @@ const Figur = preload("res://kampf/figur.gd")     # 494: Figur.vier
 const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
 const Zustandsbild = preload("res://kampf/zustandsbild.gd")     # 1036: Zustände an der Figur
-const Tips = preload("res://kampf/marstips.gd")     # 536: Texte für langes Drücken (MarsTips.kt)
+const Tips = preload("res://kampf/marstips.gd")
+const Kerbbild = preload("res://kampf/kerbbild.gd")     # 930.7: Bedienung und Kerbmarken des Kerbensystems     # 536: Texte für langes Drücken (MarsTips.kt)
 const HINWEIS_REIHE := "kampf_hinweis_reihe"     # 836: Flagge im Spielstand, der Reihenhinweis ist gezeigt
 
 # Theme.kt, Veil
@@ -70,6 +71,7 @@ var bleeding := {}
 ## 348.7 (Rest aus 249): laufende Zauber und Pfeile {kind, by, on, crit, missed, seed, t0}, je Treffer einer (BattleFxLayer)
 var spells: Array = []
 var zauber := Zauber.new()
+var kerbe     # 930.7 (kerbbild.gd), nur mit dem Schalter Mars.kerbe tätig
 ## 1036: was die Zustände an den Figuren zeigen (zustandsbild.gd), dazu das Aufflackern je Runde {on, st, seed, t0}
 var zustandsbild := Zustandsbild.new()
 var flares: Array = []
@@ -127,6 +129,13 @@ func rand_oben() -> float:
 	return Rand.beim_start if Rand.beim_start >= 0.0 else Rand.oben(get_viewport())
 
 
+## 946 (Chef 11.11., 13:29, Bild t276: „! Anspringen“ des dritten Wolfs unter der Zugleiste, nur „!ger“ sichtbar): höchste Lage
+## für Ansagen und Zustände, 4 dp unter der Zugleiste (_draw_turns: Rand oben und Schriftgröße des Handys); vorher fest 34 dp,
+## mit Rand 110 und Schrift 1,3 lag die Leiste bis 198 px, die Ansage bei 185 (ansage_946)
+func oben_frei() -> float:
+	return 6 * dp + rand_oben() + sp(13) * 1.35 + 4 * dp + 4 * dp
+
+
 ## Schriftgröße wie Theme.kt im schwarzen Stil: sp × 0,95 × 1,04, mindestens 13,7 sp. 544 (Chef 04.11., 16:58: „relativ klein,
 ## aber die Schriftart müsste passen“): wie alt und wie die übrigen Schirme seit 498 mit der Schriftgröße des Handys (Compose sp =
 ## dp × fontScale; Stil.schriftfaktor), der Kampf rechnete fest mit 1
@@ -140,6 +149,7 @@ static func hp_color(frac: float) -> Color:
 
 func _ready() -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
+	kerbe = Kerbbild.new(self)
 	dp = vs.x / 412.0
 	font_px = sp(15)
 	# 544 (Chef 03.11., 23:49 „Stimmt die Schrift?“): load_dynamic_font liest die rohe .ttf, die im APK fehlt (dort steht nur die
@@ -251,9 +261,13 @@ func _pressed(ev) -> bool:
 func _scene_input(ev) -> void:
 	if (ev is InputEventScreenTouch or ev is InputEventMouseButton) and ev.device != InputEvent.DEVICE_ID_EMULATION and not ev.pressed:
 		druck_t0 = 0     # 536: losgelassen vor der halben Sekunde: kein Hinweis
+		if kerbe != null:
+			kerbe.losgelassen(ev.position)     # 930.7: ein kurzer Tipp auf Gegner, Helden oder ein Zeichen am Daumen
 	if not _pressed(ev):
 		return
 	var p: Vector2 = ev.position
+	if kerbe != null:
+		kerbe.gedrueckt(p)
 	if dice_rect.has_point(p):
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
@@ -268,7 +282,7 @@ func _scene_input(ev) -> void:
 		show_tip(_status_tip(p))     # 536: ein Tipp auf ein Zustandsschild erklärt es
 	else:
 		kampfort.tap()
-		druck_t0 = Time.get_ticks_msec()     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
+		druck_t0 = int(uhr.call())     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
 		druck_pos = p
 
 
@@ -301,7 +315,7 @@ var druck_pos := Vector2.ZERO
 
 
 func _process(_dt: float) -> void:
-	if druck_t0 > 0 and Time.get_ticks_msec() - druck_t0 >= int(LANG_S * 1000.0):
+	if druck_t0 > 0 and int(uhr.call()) - druck_t0 >= int(LANG_S * 1000.0):
 		druck_t0 = 0
 		var was := scene_tip(druck_pos)
 		if was != "":
@@ -947,15 +961,17 @@ func _build_orders() -> void:
 			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
 					if reach.size() == 1:
-						k.order(["attack", reach[0].id])
+						_angreifen(f, reach[0].id)
 					else:
 						_set_pick("target"), false, false, Tips.ATTACK),
 				_button(t("Können", "Abilities"),     # [870.14.knopf.koennen]
 						 not matt and not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
-				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty() and (not m.kerbe or m.gk == null or f == null or f.gl.is_empty() or m.gk.kann_trinken(f)), func(): _set_pick("bag"), false, false, Tips.BAG),     # 1266: im Kerbensystem ein Trank je Zug
 				_button(t("Wechsel", "Switch"), not matt and (m.can_swap(f) or m.can_draw(f)), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
 			var low := [_button(t("Abwehr", "Defend"), not matt, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
+			if m.kerbe:     # 930.7 (DESIGN-GLUT.md 7.5): „Abwehr wird Haltung“: alle Kerben in die gewählte Haltung, ohne Wahl Wehr
+				low = [_button(t("Haltung", "Stance"), not matt, func(): k.order(["KERBE", kerbe.plan_haltung(f)]), false, true)]
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
 				low.append(_button(t("Flucht", "Run"), not matt and m.can_flee(f), func(): k.order(["flee"]), false, true))
@@ -987,7 +1003,7 @@ func _build_orders() -> void:
 			var items := []
 			for tg in m.targets(f):
 				var id: String = tg.id
-				items.append(_button(_target_label(tg), true, func(): k.order(["attack", id])))
+				items.append(_button(_target_label(tg), true, func(): _angreifen(f, id)))
 			items.append(back)
 			_choices(items)
 		"place":
@@ -1064,7 +1080,8 @@ func _build_orders() -> void:
 				bild.texture = Kartenreiter.bild("ding-" + id)
 				bild.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 				bild.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-				bild.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+				# 1227: die gemalten Dinge (128 px, 1073) glatt wie in Tasche und Laden (menue.gd bild_feld), alte Pixelbilder (32 px) scharf
+				bild.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if bild.texture != null and bild.texture.get_width() > 32 else CanvasItem.TEXTURE_FILTER_NEAREST
 				bild.custom_minimum_size = Vector2(32, 32) * dp
 				bild.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 				zeile.add_child(bild)
@@ -1102,6 +1119,15 @@ func _build_orders() -> void:
 				items.append(_button(_target_label(tg), true, func(): k.order(["throw", item, id])))
 			items.append(back)
 			_choices(items)
+
+
+## 930.7: Angriff auf [id]; im Kerbensystem mit dem Plan des Daumenmenüs (kerbbild.gd), sonst wie bisher
+func _angreifen(f, id: String) -> void:
+	if kampfort.mars.kerbe and kerbe != null:
+		kerbe.offen = false
+		kampfort.order(["KERBE", kerbe.plan(f, id)])
+	else:
+		kampfort.order(["attack", id])
 
 
 ## 833 A: Sieg, Flucht und Niederlage wie die Blenden (661): Titel gesperrt in Gold, Zierlinie, Satz und Lohn mittig; darunter eine
@@ -1276,6 +1302,10 @@ func _tall(fig) -> float:
 ## 17:00 ebenso die Zielringe): nicht mehr über alles gemalt, sondern als flaches Band am Boden in der Welt (_ringe_bauen), so
 ## verdecken Beine und Körper davor den Ring wie in BattleScene (CamRing); Breite [w] in Bildpunkten wie bisher, mit dunklem Rand
 var _ring_liste := []
+var _scheiben := []     # 930.7: [Welt, Halbmesser, Farbe, Zacken, Zufall] flache Scheiben am Boden (Kerben und ihr Schein)
+## 930.7: eine flache Scheibe am Boden wie die Ringe (Beine davor verdecken sie); [zacken] > 0 macht sie unregelmäßig wie ein Glutstück (vor 1266)
+func _scheibe(p: Vector3, r: float, c: Color, zacken := 0.0, zufall := 0) -> void:
+	_scheiben.append([p, r, c, zacken, zufall])
 const RASTER_GRUND := Color(0, 0, 0, 0.18)     # 998: Fläche im Ring (alt 0,18)
 func _ground_ring(p: Vector3, r: float, c: Color, w: float, grund := Color(0, 0, 0, 0)) -> void:
 	_ring_liste.append([p, r, c, w, grund])
@@ -1299,9 +1329,21 @@ func _ringe_bauen() -> void:
 		_ringe.material_override = mat
 		kampfort.add_child(_ringe)
 	_ring_mesh.clear_surfaces()
-	if _ring_liste.is_empty():
+	if _ring_liste.is_empty() and _scheiben.is_empty():
 		return
 	_ring_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for e in _scheiben:     # 930.7: unter den Ringen, je Scheibe ein Fächer
+		var mitte: Vector3 = e[0] + Vector3(0, RING_HOCH - 0.004, 0)
+		var n := 14
+		for i in n:
+			var a0 := TAU * i / n
+			var a1 := TAU * (i + 1) / n
+			var r0: float = float(e[1]) * (1.0 - float(e[3]) * (0.5 + 0.5 * sin(a0 * 3.0 + float(e[4]) * 1.7)))
+			var r1: float = float(e[1]) * (1.0 - float(e[3]) * (0.5 + 0.5 * sin(a1 * 3.0 + float(e[4]) * 1.7)))
+			for q in [Vector3.ZERO, Vector3(cos(a0) * r0, 0, sin(a0) * r0), Vector3(cos(a1) * r1, 0, sin(a1) * r1)]:
+				_ring_mesh.surface_set_color(e[2])
+				_ring_mesh.surface_add_vertex(mitte + q)
+	_scheiben.clear()
 	for e in _ring_liste:
 		var mdp: float = kampfort.m_per_dp(e[0])
 		var w: float = float(e[3]) / dp * mdp
@@ -1360,6 +1402,8 @@ func _draw_overlay() -> void:
 					# 998 (229.3, Chef 20.10. „Raster schwer erkennbar“; alt SkirmishScreen.kt 1882): dunkler Grund unter einer
 					# kräftigen Goldlinie, auf Gras wie auf Stein zu sehen
 					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.9), 2.0 * dp, RASTER_GRUND)
+	if kerbe != null:
+		kerbe.zeichnen(sr)     # 930.7: Kerben vor dem Bau der Ringe (Boden), Zeichen, Daumenmenü und Vorschau darüber
 	_ringe_bauen()     # 561
 	# triangles before the feet of those a foe aims at (CamAim)
 	var aimed_at := {}
@@ -1384,6 +1428,8 @@ func _draw_overlay() -> void:
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
+	if kerbe != null:
+		kerbe.zeichnen_oben(sr)     # 930.7: Kerben über den Dreiecken, Daumenmenü, Vorschau
 	# names only while choosing a target (NameTag); 536 (Chef 04.11., 16:56: „In der alten Fassung war es so, dass die Bezeichnungen
 	# der Gegner eingeblendet wurden, auch wenn man länger drückt“; 17:00: „Ein Wolfsname steht da, die anderen stehen nicht da“):
 	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den
@@ -1478,13 +1524,14 @@ func _draw_overlay() -> void:
 		var fig = k.figures[ring_target]
 		var h := _tall(fig)
 		var c2 := _foot(fig) - Vector2(0, h * 0.45)
-		var p3 := clampf(ring_ms_bild() / k.RING_MS, 0.0, 1.3)
+		var rf: float = k.ring_faktor     # 930.7: langsamer Ring in Wehr
+		var p3 := clampf(ring_ms_bild() / (k.RING_MS * rf), 0.0, 1.3)
 		var r0 := h * 0.55
 		# 1039 (Chef 12.11., 15:04, Build 280: „tat ich mich ganz schwer, den inneren Ring zu sehen. Also wann ich überhaupt den Ring
 		# drücken muss“): der Zielring kräftig in Gold mit schwarzem Rand (alt 1,5 dp, Gold 55 %, ging vor Gras und Figur unter);
 		# im Fenster für „Gut“ leuchtet er auf, am hellsten im Fenster für „Perfekt“ (kampfort.gd GOOD_MS, PERFECT_MS)
-		var off_ms := absf(ring_ms_bild() - k.RING_MS)
-		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS) / float(k.GOOD_MS - k.PERFECT_MS), 0.0, 1.0)
+		var off_ms := absf(ring_ms_bild() - k.RING_MS * rf)
+		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS * rf) / float((k.GOOD_MS - k.PERFECT_MS) * rf), 0.0, 1.0)
 		var wi := (3.0 + 1.5 * jetzt) * dp
 		overlay.draw_arc(c2, r0, 0, TAU, 64, Color(0, 0, 0, 0.6), wi + 2.5 * dp, true)
 		overlay.draw_arc(c2, r0, 0, TAU, 64, BRIGHT.lerp(RING_LEUCHT, jetzt), wi, true)
@@ -1517,6 +1564,14 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	# 993: der Arkanpfeil aus R2 fliegt gerade wie Funkenpfeil und Pfeil, darum mit Seitenschritt (348.7b (1)); die Ausnahme (5) galt
 	# den gefächerten Geschossen
 	var r2: bool = kind == "MISSILES" and by != on and arkan_r2() != null and k.figures.has(by) and k.figures.has(on)
+	# 601: der Späher mit Schussbewegung tritt zuerst zur Seite, dann hebt er den Bogen (schuss.gd wartet so lange); der Pfeil ist
+	# ein Körper im Raum mit Spur (R3 Arrow Streak), kein gemalter Strich
+	var schuetze = k.figures[by].schuss if kind == "ARROW" and by != on and k.figures.has(by) and k.figures.has(on) else null
+	if schuetze != null:
+		step_ms = _step_aside(kind, k.figures[by], k.figures[on], 0.0, after_ms + Zauber.arrives(kind))
+		schuetze.verschieben(step_ms / 1000.0)
+		_pfeil_flug(k.figures[by], k.figures[on], missed, after_ms + step_ms, step_ms)
+		return step_ms
 	if (kind in STEP_KINDS or r2) and by != on and k.figures.has(by) and k.figures.has(on):
 		step_ms = _step_aside(kind, k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind))
 	after_ms += step_ms
@@ -1579,6 +1634,239 @@ func _arkan_los(by, on, missed: bool) -> void:
 	if p.has_method("launch"):
 		p.call("launch", von, ziel - von, -1.0, true)
 	arkan_fluege.append([p, von, ziel, Time.get_ticks_msec() + s * 1000.0])
+
+
+## 601 (Chef 05.11., Build 266, t266.5: „Pfeil passt nicht“; 13.11., 17:06: „Der ominöse, selbstgebaute Pfeil. Haben wir da nicht
+## auch irgendwas in unserem Kaufbibliothek“): Pfeil aus Avramania Weapons & Shields Free (mdvl_weapons_arrow_01, CC0, im Bau aus
+## dem Kaufrepo, godot.yml), sonst ein eigener aus Schaft, Spitze und Federn; dahinter die Spur R3 Arrow Streak (Weapon & Motion
+## Trails, gekauft 09.11. für die Pfeilspur des Spähers), Farben gedämpft (623.8 A). Vom Ziehen bis zum Lösen liegt er auf der Sehne,
+## beim Lösen fliegt er zum Ziel oder daneben, steckt im Getroffenen (geht mit ihm) oder im Boden und vergeht.
+const PFEIL_AVR := "res://addons/pfeil_avr/mdvl_weapons_arrow_01.glb"
+const PFEIL_AVR_LANG := 0.776     # m, Nocke bis Spitze längs +Y (Ursprung an der Nocke)
+const SPUR_R3 := "res://addons/reeboo_trails/presets/arrow_streak.tres"
+const SPUR_R3_SKRIPT := "res://addons/reeboo_trails/trail_3d.gd"
+## Länge des Pfeils als Anteil der Größe des Schützen (der Kurzbogen hat 0,48, figur.gd GOB_BOGEN)
+const PFEIL_ANTEIL := 0.5
+## gedämpft: grauweiß, halb durchsichtig, wenig Leuchten (Vorgabe hell weißblau, Energie 1,8)
+const SPUR_FARBE := Color(0.80, 0.77, 0.70, 0.55)
+const SPUR_ENERGIE := 0.55
+const STECKT_S := 1.6
+## 601, für den Test schuss_601: je Pfeil der Knoten
+var pfeile: Array = []
+static var _spur_stil = null
+
+static func spur_r3():
+	if _spur_stil == null:
+		_spur_stil = false
+		if ResourceLoader.exists(SPUR_R3) and ResourceLoader.exists(SPUR_R3_SKRIPT):
+			var st = load(SPUR_R3)
+			if st != null:
+				st = st.duplicate(true)
+				if "energy" in st:
+					st.energy = SPUR_ENERGIE
+				if "color_ramp" in st and st.color_ramp is Gradient:
+					var g := st.color_ramp as Gradient
+					for i in g.get_point_count():
+						var c := g.get_color(i)
+						g.set_color(i, Color(SPUR_FARBE.r, SPUR_FARBE.g, SPUR_FARBE.b, c.a * SPUR_FARBE.a))
+				if "core_color" in st:
+					st.core_color = SPUR_FARBE
+				_spur_stil = st
+	return _spur_stil if not (_spur_stil is bool) else null
+
+
+## der Pfeil als Körper: Nocke im Ursprung, Spitze nach −Z, [lang] m
+static func pfeil_koerper(lang: float) -> Node3D:
+	var n := Node3D.new()
+	n.name = "Pfeil"
+	if ResourceLoader.exists(PFEIL_AVR):
+		var sz = load(PFEIL_AVR)
+		if sz is PackedScene:
+			var m: Node3D = (sz as PackedScene).instantiate()
+			var f := lang / PFEIL_AVR_LANG
+			m.transform = Transform3D(Basis(Vector3.RIGHT, -PI / 2.0).scaled(Vector3(f, f, f)), Vector3.ZERO)
+			n.add_child(m)
+			n.set_meta("quelle", "avr")
+			return n
+	# eigener: dunkler Schaft, Eisenspitze, drei graubraune Federn (wie zauber.gd _arrow)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color("6a5038")
+	var schaft := MeshInstance3D.new()
+	var zy := CylinderMesh.new()
+	zy.top_radius = lang * 0.012
+	zy.bottom_radius = lang * 0.012
+	zy.height = lang * 0.9
+	zy.radial_segments = 6
+	schaft.mesh = zy
+	schaft.material_override = mat
+	schaft.transform = Transform3D(Basis(Vector3.RIGHT, -PI / 2.0), Vector3(0, 0, -lang * 0.45))
+	n.add_child(schaft)
+	var eisen := StandardMaterial3D.new()
+	eisen.albedo_color = Color("3a3a3c")
+	var sp := MeshInstance3D.new()
+	var ke := CylinderMesh.new()
+	ke.top_radius = 0.0
+	ke.bottom_radius = lang * 0.03
+	ke.height = lang * 0.1
+	ke.radial_segments = 6
+	sp.mesh = ke
+	sp.material_override = eisen
+	sp.transform = Transform3D(Basis(Vector3.RIGHT, -PI / 2.0), Vector3(0, 0, -lang * 0.95))
+	n.add_child(sp)
+	var feder := StandardMaterial3D.new()
+	feder.albedo_color = Color("a08c6c")
+	feder.cull_mode = BaseMaterial3D.CULL_DISABLED
+	for i in 3:
+		var fe := MeshInstance3D.new()
+		var q := QuadMesh.new()
+		q.size = Vector2(lang * 0.05, lang * 0.16)
+		fe.mesh = q
+		fe.material_override = feder
+		fe.transform = Transform3D(Basis(Vector3.BACK, TAU * i / 3.0) * Basis(Vector3.RIGHT, -PI / 2.0),
+			Vector3(0, 0, -lang * 0.1)) * Transform3D(Basis.IDENTITY, Vector3(lang * 0.025, 0, 0))
+		n.add_child(fe)
+	n.set_meta("quelle", "eigen")
+	return n
+
+
+## Pfeil von [by] auf [on]: legt ihn nach [auf_ms] (Seitenschritt) auf die Sehne, fliegt nach [los_ms] (ab jetzt) los
+func _pfeil_flug(by, on, missed: bool, los_ms: float, auf_ms: float) -> void:
+	var k = kampfort
+	var h: float = maxf(by.head().y - by.position.y, 0.3)
+	var p := Pfeil.new()
+	p.lang = h * PFEIL_ANTEIL
+	p.koerper = pfeil_koerper(p.lang)
+	p.add_child(p.koerper)
+	p.ui = self
+	p.by = by
+	p.on = on
+	p.missed = missed
+	p.auf_s = auf_ms / 1000.0
+	p.los_s = los_ms / 1000.0
+	p.flug_s = maxf(Zauber.arrives("ARROW") / 1000.0, 0.05)
+	p.visible = false
+	k.add_child(p)
+	var st = spur_r3()
+	if st != null:
+		var tr = load(SPUR_R3_SKRIPT).new()
+		tr.style = st
+		tr.emitting = false
+		if "width_scale" in tr:
+			tr.width_scale = clampf(p.lang / 0.75, 0.3, 1.5)
+		p.add_child(tr)
+		p.spur = tr
+	pfeile.append(p)
+	print("601 Pfeil: %s, Spur %s, %s" % [p.koerper.get_meta("quelle"), "R3" if st != null else "ohne", "daneben" if missed else "Treffer"])
+
+
+class Pfeil extends Node3D:
+	var ui
+	var by
+	var on
+	var missed := false
+	var lang := 0.5
+	var auf_s := 0.0
+	var los_s := 0.7
+	var flug_s := 0.45
+	var koerper: Node3D
+	var spur = null
+	var t := 0.0
+	var von := Vector3.ZERO
+	var ziel := Vector3.ZERO
+	var ende := Vector3.ZERO
+	var hub := 0.0
+	var steckt := -1.0
+	var phase := "warten"     # warten, sehne, flug, steckt
+	var _skala := -1.0
+
+	func _process(delta: float) -> void:
+		t += delta
+		if not is_instance_valid(by) or not is_instance_valid(on):
+			queue_free()
+			return
+		match phase:
+			"warten", "sehne":
+				if t >= los_s:
+					_los()
+				elif t >= auf_s + 0.25:
+					phase = "sehne"
+					_auf_sehne()
+			"flug":
+				var x := clampf((t - los_s) / flug_s, 0.0, 1.0)
+				var p := _bahn(x)
+				var q := _bahn(minf(x + 0.02, 1.0)) if x < 0.98 else p + (p - _bahn(x - 0.02))
+				_stelle(p, q - p)
+				if x >= 1.0:
+					_landet()
+			"steckt":
+				steckt -= delta
+				if steckt < 0.4:
+					koerper.scale = Vector3.ONE * maxf(steckt / 0.4, 0.01) * _skala
+				elif _skala < 0.0:
+					_skala = koerper.scale.x
+				if steckt <= 0.0:
+					queue_free()
+
+	func _bahn(x: float) -> Vector3:
+		return von.lerp(ende, x) + Vector3.UP * (4.0 * hub * x * (1.0 - x))
+
+	func _stelle(p: Vector3, d: Vector3) -> void:
+		global_position = p
+		if d.length() > 0.0001:
+			var up := Vector3.UP if absf(d.normalized().dot(Vector3.UP)) < 0.98 else Vector3.RIGHT
+			look_at(p + d, up)
+
+	## Nocke an der Zughand, Spitze am Bogen vorbei zum Ziel
+	func _auf_sehne() -> void:
+		var hand = by.hand_welt("hand_r")
+		var bogen = by.cast_point()
+		if hand == null or bogen == null:
+			return
+		visible = true
+		var d: Vector3 = ui._aim_point(on, (on.position - by.position).normalized()) - hand
+		# so lang wie der Auszug: von der Sehne an der Wange bis eine Handbreit über den Bogen hinaus
+		var auszug: float = (bogen - hand).length() * 1.15
+		if auszug > lang * 0.4 and absf(auszug - lang) > 0.01:
+			koerper.scale = Vector3.ONE * (auszug / lang)
+		_stelle(hand, d)
+
+	func _los() -> void:
+		var bogen = by.cast_point()
+		var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
+		dir = dir.normalized() if dir.length() > 0.01 else Vector3.FORWARD
+		von = bogen if bogen != null else by.position + Vector3.UP * lang
+		von -= dir * lang * koerper.scale.x * 0.85     # die Nocke an der Sehne, die Spitze knapp vor dem Bogen
+		ziel = ui._miss_point(by, on, true) if missed else ui._aim_point(on, dir)
+		# daneben: fliegt am Ziel vorbei weiter, bis er im Boden steckt
+		ende = ziel
+		var weit := von.distance_to(ziel)
+		if missed:     # _miss_point liegt am Boden neben dem Ziel: in Brusthöhe dort vorbei, dahinter in den Boden
+			ziel.y = ui._aim_point(on, dir).y
+			var fl := (ziel - von) * Vector3(1, 0, 1)
+			ende = ziel + fl.normalized() * minf(1.5, weit * 0.5)
+			ende.y = on.position.y
+		lang *= koerper.scale.x     # Länge aus dem Auszug (_auf_sehne)
+		koerper.scale = Vector3.ONE * koerper.scale.x
+		ende -= (ende - von).normalized() * lang * 0.8     # Weg der Nocke: die Spitze steckt ein Fünftel tief
+		flug_s *= von.distance_to(ende) / maxf(weit, 0.1)
+		hub = weit * 0.04
+		phase = "flug"
+		visible = true
+		_stelle(von, ende - von)
+		if spur != null:
+			spur.clear()
+			spur.emitting = true
+
+	func _landet() -> void:
+		phase = "steckt"
+		steckt = STECKT_S
+		if spur != null:
+			spur.emitting = false
+		if not missed and is_instance_valid(on):
+			var g := global_transform
+			get_parent().remove_child(self)
+			on.add_child(self)
+			global_transform = g
 
 
 ## 348.7b (Chef 27.10., 19:49): wer einen eigenen Mann in der geraden Linie von Hand oder Stabspitze zum Ziel hat, tritt einen
@@ -1710,6 +1998,59 @@ func _aim_point(on, dir: Vector3) -> Vector3:
 	return on.position + Vector3.UP * (on.head().y - on.position.y) * 0.55 - dir * _girth(on)
 
 
+## 1222: der gekaufte Rauch aus R7 (Stylized VFX v2.0, smoke_poof; LISTE-EFFEKTE Krogg „R7“, 1036 im Film „Geblendet“), nur im Bau
+## (Lizenz: nie ins Repo); er platzt an Kroggs Kopf und läuft aus. Fehlt das Paket (am Rechner, in den Tests), malt zauber.gd die
+## eigene Wolke. true, wenn der gekaufte Rauch steht
+const RAUCH_R7 := ["res://addons/reeboo_vfx/effects/smoke_poof.tscn", "res://addons/reeboo_vfx/pack3_effects/smoke_poof.tscn"]
+
+func _rauch_r7(on, at: Vector3) -> bool:
+	if OS.get_environment("RAUCH_EIGEN") != "":     # Vergleich im Film: eigene Wolke auch mit Paket
+		return false
+	for pfad in RAUCH_R7:
+		if not ResourceLoader.exists(pfad):
+			continue
+		var sz = load(pfad)
+		if not sz is PackedScene:
+			continue
+		# Lauf 470: ein smoke_poof verpufft in gut einer Sekunde, der Rauch muss aber an Kroggs Augen hängen, bis sein Schlag ins Leere
+		# geht: das Bündel platzt vor den Füßen, dann quillt alle RAUCH_TAKT s ein neuer Ballen vor dem Kopf, bis SMOKE_MS um ist
+		_rauch_ballen(sz, on, at, 1.0)
+		var n := int((Zauber.SMOKE_MS - Zauber.SMOKE_FLUG_MS) / (RAUCH_TAKT * 1000.0))
+		for i in range(1, n + 1):
+			get_tree().create_timer(RAUCH_TAKT * i).timeout.connect(func():
+				if is_instance_valid(on) and not on.down:
+					var dir: Vector3 = (kampfort.cam.global_position - on.global_position) * Vector3(1, 0, 1)
+					dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
+					var kopf: Vector3 = on.position + Vector3.UP * (on.head().y - on.position.y) * 0.82 + dir * _girth(on) * 0.4
+					_rauch_ballen(sz, on, kopf + Vector3((randf() - 0.5) * 0.25, 0.0, (randf() - 0.5) * 0.25), 0.75))
+		print("1222 Rauch R7: %s, %d Ballen vor dem Kopf" % [pfad, n])
+		return true
+	print("1222 Rauch R7: nicht da, eigene Wolke")
+	return false
+
+
+## 1222: Takt der Rauchballen vor Kroggs Kopf (s); ein smoke_poof läuft gut 1 s
+const RAUCH_TAKT := 0.4
+
+func _rauch_ballen(sz: PackedScene, on, at: Vector3, groesse: float) -> void:
+	var fx: Node = sz.instantiate()
+	# nur der Rauch: der weiße Bodenring und die Sternchen des Pakets sind zu bunt für unseren Kampfort (düster), das Aufblitzen nur beim
+	# Platzen vor den Füßen
+	for weg in ["Ring", "Stars"] + ([] if groesse >= 1.0 else ["Flash"]):
+		var n := fx.get_node_or_null(weg)
+		if n != null:
+			fx.remove_child(n)
+			n.free()
+	kampfort.add_child(fx)
+	if fx is Node3D:
+		(fx as Node3D).global_position = at
+		(fx as Node3D).scale = Vector3.ONE * clampf((on.head().y - on.position.y) / 1.8, 0.7, 2.0) * groesse
+	if fx.has_method("play"):
+		fx.call("play")
+	var w: WeakRef = weakref(fx)     # das Paket gibt seine Effekte selbst frei (auto_free); sonst nach 3 s
+	get_tree().create_timer(3.0).timeout.connect(func(): if w.get_ref() != null: w.get_ref().queue_free())
+
+
 ## Die erste der Figuren figs, durch deren Umriss (eine Handbreit darum) die Strecke a → b läuft; sonst null
 func _line_blocker(a: Vector3, b: Vector3, figs: Array):
 	for o in figs:
@@ -1747,7 +2088,7 @@ func _draw_spells() -> void:
 		var by = k.figures.get(sp.by, on)
 		var to := _foot(on)
 		var tall := _tall(on)
-		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS", "BURNING_HANDS", "WEB", "BOMB_FIRE", "BOMB_HOLY"]
+		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS", "BURNING_HANDS", "WEB", "BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]
 		var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
 		dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
 		var h_by: float = by.head().y - by.position.y
@@ -1756,6 +2097,10 @@ func _draw_spells() -> void:
 			sp["from"] = hand if hand != null else by.position + Vector3.UP * h_by * (START_UP if flying else 0.55) + dir * (_girth(by) + 0.1 if flying else 0.0)
 		var a3: Vector3 = sp["from"]
 		var b3: Vector3 = _aim_point(on, dir)
+		if sp.kind == "BOMB_SMOKE":     # 1222: das Bündel landet vor den Füßen (zauber.gd), der gekaufte Rauch steht davor
+			if not sp.has("r7") and p >= Zauber.SMOKE_FLUG_MS / Zauber.SMOKE_MS:
+				sp["r7"] = _rauch_r7(on, on.position - dir * _girth(on))
+			Zauber.nur_flug = sp.get("r7", false)
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
 		Zauber.d_to = _depth(b3)
 		# 348.7a Prüfer 1b (Feuerpfeil, Feuerball, Heilige Flamme brannten hinter Kopf und Brust des Wolfs): der Einschlag liegt
@@ -1777,6 +2122,7 @@ func _draw_spells() -> void:
 		if Zauber.pruef and flying:
 			_bahn_pruef(sp, by, on, p)
 	spells = still
+	Zauber.nur_flug = false
 	_draw_zustaende()
 	tafel.end()
 	if tafel.verts > 0:
@@ -2283,7 +2629,7 @@ func _draw_statuses(sr: Rect2) -> void:
 			spots.push_front(Vector2(sg.get_center().x - width / 2, sg.end.y + gap if under else sg.position.y - gap - h))
 		# Prüfer Runde 3: ging nichts davon, fiel es auf die Lage unter den Füßen zurück; dann höher über den Kopf, bis frei
 		var row := Rect2(clampf(x, 4 * dp, sr.size.x - width - 4 * dp), spots[3].y, width, h)
-		while _status_clash(row, id) and row.position.y - 26 * dp >= 34 * dp:
+		while _status_clash(row, id) and row.position.y - 26 * dp >= oben_frei():
 			row.position.y -= 26 * dp
 		for q in spots:
 			var r := Rect2(clampf(q.x, 4 * dp, sr.size.x - width - 4 * dp), q.y, width, h)
@@ -2408,6 +2754,7 @@ func _draw_intents(sr: Rect2) -> void:
 			bodies[id] = Rect2(of.x - half, of.y - ot - 12 * dp, half * 2.0, ot + 12 * dp)
 	var placed := []
 	var step := 26 * dp
+	var oben := oben_frei()
 	for s in signs:
 		# Prüfstufe: 2 frei von fremden Körpern samt Strich, 1 nur der Schild frei von Körpern, 0 wie alt (SkirmishScreen layOut):
 		# nur nie auf einer anderen Ansage, einem Namen oder einer Leiste
@@ -2438,7 +2785,7 @@ func _draw_intents(sr: Rect2) -> void:
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
 		var frei := func(q: Vector2, mode: int) -> bool:
-			return q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
+			return q.y >= oben and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), mode)
 		# 536 t270.10 (Chef 08.11., 20:54, Foto Wolfsrudel: „Klappt wohl nicht so, oder????“, wiederholt nach t268.20): die Ansagen
 		# hingen seitlich mit langer Linie statt dicht über dem Kopf (Messung ansage_536: mit Namen jede zweite). Wie alt zuerst über
 		# dem eigenen Kopf (über dem Namen), auch wenn dahinter ein anderer steht; deckt sie eine andere Ansage, einen Namen oder eine
@@ -2483,8 +2830,9 @@ func _draw_intents(sr: Rect2) -> void:
 		if not done:
 			# höher über dem eigenen Kopf, bis frei
 			var yy: float = s.y
-			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= 34 * dp:
+			while clash.call(Rect2(s.x, yy, s.w, s.h), 0) and yy - step >= oben:
 				yy -= step
+			yy = clampf(yy, oben, maxf(oben, sr.size.y - s.h - 4 * dp))     # 946: nie unter der Zugleiste oder dem Bildrand
 			x = s.x
 			y = yy
 			sign_wahl[s.id] = [-1, 0, yy - s.y]
@@ -2499,7 +2847,7 @@ func _draw_intents(sr: Rect2) -> void:
 				glatt["ansage:" + String(s.id)] = [ziel - fuss, kampfort.clock_ms]
 				break
 		s.x = ziel.x
-		s.y = ziel.y
+		s.y = clampf(ziel.y, oben, maxf(oben, sr.size.y - s.h - 4 * dp))     # 946: auch beim Gleiten nie unter der Zugleiste
 		placed.append(s)
 	sign_rects.clear()
 	sign_of.clear()

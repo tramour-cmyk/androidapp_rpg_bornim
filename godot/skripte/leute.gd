@@ -571,6 +571,10 @@ func weiche(d: Vector2i) -> bool:
 	var u := h - kachel
 	var nachbar := absi(u.x) + absi(u.y) == 1 or (absi(u.x) == 1 and absi(u.y) == 1 and karte.begehbar(kachel + Vector2i(u.x, 0)) and karte.begehbar(kachel + Vector2i(0, u.y)))
 	if nachbar and frei_fuer_mich(h, true):
+		# 1079 (ziege_4162 rot in Lauf 413, 450, 467; am Rechner mit den Hühnern am Heuhaufen nachgestellt): ein fliehendes Huhn,
+		# dessen Schritt auf die Kachel des Helden zielt, sperrte den Tausch, die Ziege wurde geschoben. Es sucht sich neu einen Weg
+		for l in get_parent().get_children():
+			if l is Leute and l != self and l.flucht and l.ziel == h and l.kachel != h: l.ziel = Vector2i(-1, -1)
 		ziel = h
 		warte = 4.0
 		durch_bis = Time.get_ticks_msec() + DURCH_MS
@@ -598,7 +602,9 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 	if daten.has("tier") and not held_da and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
 	if t == held_kachel() and not held_da: return false
 	for l in get_parent().get_children():
-		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t): return false
+		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t):
+			if held_da and l.flucht and l.kachel != t: continue   # 1079: fliehend nur im Schritt dorthin, es weicht neu aus (weiche)
+			return false
 	return true
 
 # 416.4 (Chef 01.11., 13:1x: „von Stehen zu Gehen oder Laufen muss weich sein. Egal, wer sich bewegt“): wer auf der Runde von Kachel

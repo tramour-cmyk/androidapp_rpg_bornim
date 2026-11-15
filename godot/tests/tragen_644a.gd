@@ -97,13 +97,13 @@ func _gaben() -> void:
 	spiel.einzel_gabe("spear_wolf")
 	g = z.beutel[z.beutel.size() - 1]
 	pruefe(int(g["ilvl"]) == 3 and not hw.kann_tragen(g) and _held(3).kann_tragen(g), "Wolfsspieß Stufe 3: ab Stufe 3 tragbar (%d)" % int(g["ilvl"]))
-	# 644a F: Meldung nach dem Üben (spiel.grundwerte_notiz)
-	var n := int(BrsHeld.lade()["ueben"]["grundwert_punkte"])
+	# 644a.1 B: Meldung nach dem Üben (spiel.grundwerte_notiz), Einhänder erreicht die erste Schwelle
+	var n := int(BrsHeld.lade()["ueben"]["grundwert_schwellen"][0])
 	z.brs = hw.als_daten()
 	var s: Dictionary = z.fertigkeiten_stand()
 	var vorher: Dictionary = (s["werte"] as Dictionary).duplicate()
 	pruefe(spiel.grundwerte_notiz(vorher) == "", "ohne Üben keine Meldung")
-	s["werte"]["Einhänder"] = int(vorher.get("Einhänder", 10)) + n
+	s["werte"]["Einhänder"] = n
 	var t: String = spiel.grundwerte_notiz(vorher)
 	pruefe(t == "Kraft ↑ %d" % spiel.held_werte().wert("kraft"), "Meldung „%s“" % t)
 	spiel.free()

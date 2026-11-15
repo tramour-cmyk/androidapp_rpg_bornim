@@ -61,7 +61,10 @@ def kaufdateien(dat):
     wurzel = git("rev-parse", "--show-toplevel").strip()
     for k in [os.environ.get("BORNIM_KAUF", ""), os.path.join(os.path.dirname(wurzel), "bornim-kaufmodelle"), "/home/user/bornim-kaufmodelle"]:
         if k and os.path.isdir(os.path.join(k, ".git")):
-            r = subprocess.run(["git", "-C", k, "ls-tree", "-r", "HEAD"], capture_output=True, text=True).stdout
+            # 1293 (Jerry): im Haken setzt git GIT_DIR, GIT_INDEX_FILE u. ä. der Arbeitskopie; „git -C Kaufrepo“ las sonst deren HEAD,
+            # und jede verschobene Notiz galt als Kaufdatei
+            umg = {n: w for n, w in os.environ.items() if not n.startswith("GIT_")}
+            r = subprocess.run(["git", "-C", k, "ls-tree", "-r", "HEAD"], capture_output=True, text=True, env=umg).stdout
             gekauft = {z.split()[2] for z in r.splitlines() if len(z.split()) > 2} - {LEER}
             schon = {x.rsplit(" (", 1)[0] for x in raus}
             for z in git("diff", "--cached", "--raw", "--no-renames", "--no-abbrev").splitlines():

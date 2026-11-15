@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1036 (Zustände an den Figuren), 1039 (Zielring), 1040 (Grimmzahn wendet mit Tritten), 949 (perfekter Ring gegen Grak: Schlag, Ausweichen, Gegenschlag) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1036 (Zustände an den Figuren), 1039 (Zielring), 1040 (Grimmzahn wendet mit Tritten), 949 (perfekter Ring gegen Grak: Schlag, Ausweichen, Gegenschlag), 9307 (Kerbbedienung: Wachsoldat gegen zwei Wölfe, drei Runden) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja; 10401 = Lyra in der Höhle schaut dem gehenden Helden nach (Wendeschritte, Spike)"
@@ -57,6 +57,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       GODOT: "4.7.2"
+      VK_ICD_FILENAMES: /usr/share/vulkan/icd.d/lvp_icd.json   # 1290: Bilder und Filme im Renderer des Handys (mobile, Vulkan in Software)
     steps:
       - uses: actions/checkout@v5
       # Java nur fuer den Android-Export (keytool, apksigner), nicht mehr fuer core (870.9)
@@ -177,6 +178,18 @@ jobs:
             echo "R2: $(ls $d | tr '\n' ' ') | Elemente: $(ls $d/elements 2>/dev/null | tr '\n' ' ') | arcane: $(ls $d/elements/arcane 2>/dev/null | tr '\n' ' ')"
             [ -f $d/elements/arcane/arcane_projectile.tscn ] && echo "ARKAN_R2=1" >> "$GITHUB_ENV"
           else echo "R2: nicht da ($(find "$KAUF/anhang/stufe1" -maxdepth 2 -iname '*projectile*' 2>/dev/null | head -3 | tr '\n' ' '))"; fi
+      # 601 (Chef 05.11., t266.5; 13.11., 17:06 „Haben wir da nicht auch irgendwas in unserem Kaufbibliothek“): Pfeil des Spähers aus
+      # Avramania Weapons & Shields Free (mdvl_weapons_arrow_01.glb, CC0) und die Spur R3 Weapon & Motion Trails (REEBOO, gekauft 09.11.,
+      # 21:05 für die Pfeilspur des Spähers; Lizenz verbietet die Weitergabe: nie ins Repo, godot/.gitignore). Fehlt eines, nimmt
+      # kampf_ui.gd den eigenen Pfeil bzw. fliegt ohne Spur.
+      - name: Pfeil und Spur (601, privat)
+        run: |
+          a=$(find "$KAUF/anhang/stufe1" -maxdepth 6 -name 'mdvl_weapons_arrow_01.glb' -path '*glTF*' 2>/dev/null | head -1)
+          if [ -n "$a" ]; then mkdir -p godot/addons/pfeil_avr && cp "$a" godot/addons/pfeil_avr/ && echo "Pfeil: $a"; else echo "Pfeil: nicht da"; fi
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 5 -type d -path '*Weapon_Motion_Trails*/addons/reeboo_trails' 2>/dev/null | head -1)
+          if [ -n "$s" ]; then mkdir -p godot/addons && cp -r "$s" godot/addons/ && rm -f godot/addons/reeboo_trails/README* godot/addons/reeboo_trails/LICENSE*
+            echo "R3: $(ls godot/addons/reeboo_trails/presets | grep -c tres) Spuren, arrow_streak $(ls godot/addons/reeboo_trails/presets/arrow_streak.tres 2>/dev/null)"
+          else echo "R3: nicht da"; fi
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -594,7 +607,10 @@ jobs:
           grep -E "SCRIPT ERROR|Parse Error|Failed to load" check.log | head -20 || :; [ "$(grep -cE "SCRIPT ERROR|Parse Error|Failed to load" check.log || :)" -eq 0 ]
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/skripte_pruefen.gd 2>&1 | grep -E "SKRIPTE|FALSCH"   # 399.1 Test 130
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/fackel_1140.gd 2>&1 | grep -E "^FEHLER|FACKEL1140|SCRIPT ERROR"   # 1140 eine Fackel für Welt, Ausrüstung, Kampfort
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/fackel_9991.gd 2>&1 | grep -E "^FEHLER|FACKEL9991|SCRIPT ERROR"   # 999.1 Fackel im Kampf
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/grak_1142.gd 2>&1 | grep -E "^FEHLER|GRAK1142|SCRIPT ERROR"   # 1142 Grak nur einmal
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/scheide_mass_1149.gd 2>&1 | grep -E "^FEHLER|SCHEIDE1149|SCRIPT ERROR"   # 1149 Scheide aus der Klinge des Dolchs gerechnet (Chef 14.11., 10:12)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/takt_1145.gd 2>&1 | grep -E "^FEHLER|TAKT1145|SCRIPT ERROR"   # 1145 Takt im Testmenü (Test 285)
           STUFE=test
           # 909 (Chef 11.11., 08:52): die vier längsten Messungen laufen nebenher (Lauf 353: schild_406 491 s, wolf_mess_438 138 s,
           # zustaende_563 85 s, strahl_mess_415 66 s von 1405 s); Befehl unverändert, Ausgabe und Ende kommen gesammelt vor „918: Ende“,
@@ -627,6 +643,8 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wurf_935.gd 2>&1 | grep -E "^(gut|FEHLER)|^  [A-Z]|WURF935|SCRIPT ERROR"   # 935 Flasche im Bogen
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/bausteine_806.gd 2>&1 | grep -E "^(gut|FEHLER)|BAUSTEINE806|SCRIPT ERROR"   # 806 Kampf messen, kein Bodennebel
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_597.gd 2>&1 | grep -E "ANSAGE597|FEHLER|SCRIPT ERROR"   # 597 t268.21 Ansage der Wölfe im Bild
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_946.gd 2>&1 | grep -E "ANSAGE946|Rand|SCRIPT ERROR"   # 946 Ansage nie unter der Zugleiste (Rand oben, große Schrift)
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/stehen_973.gd 2>&1 | grep -E "STEHEN973|Seed|SCRIPT ERROR"   # 973 F3: nach einem Tod bleiben die Übrigen stehen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tempo_600.gd 2>&1 | grep -E "TEMPO600|SCRIPT ERROR"   # 600 Tempoknopf im Kampfort
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/bewegung_997.gd 2>&1 | grep -E "BEWEGUNG997|SCRIPT ERROR"   # 997 Testkampf: laufende Bewegung und Fassung je Figur
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/raster_998.gd 2>&1 | grep -E "RASTER998|SCRIPT ERROR"   # 998 Kampfraster kräftiger wie 229.3
@@ -634,6 +652,9 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/tod_1141.gd 2>&1 | grep -E "TOD1141|SCRIPT ERROR"   # 1141 jeder Gegnerkörper hat „Tod“, Goblins drei, liegend und verschieden
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
+          set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/ausholen_1000.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|AUSHOLEN1000|SCRIPT ERROR"   # 1000 Grak hält die Axt oben von der Ansage bis zum Hieb
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
+          set -o pipefail; timeout 400 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/biss_1284.gd 2>&1 | grep -E "^BISS1284 ([0-9]|FEHLER)|SCRIPT ERROR"   # 1284 Ratte beißt auch daneben sichtbar knapp vorbei
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/schirm_833.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug)|SCRIPT ERROR"   # 833 Vorschlag A unterer Kampfschirm
           set -o pipefail; SEEDS=4 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/leiste_751.gd 2>&1 | grep -E "^  |LEISTE751"   # 751 A Knöpfe matt, keine Zeile „ist dran“ (1095), Zugleiste, kein verratener Ausgang (Jerry)
@@ -685,6 +706,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/lohn_870.gd 2>&1 | grep -E "^FALSCH|LOHN870|SCRIPT ERROR"   # 870.5 Lohn nach BRS (Modell D, Topf, Grenze)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_blatt_870.gd 2>&1 | grep -E "FALSCH|BRSBLATT|SCRIPT ERROR"   # 870.2 Kampfblatt nach BRS
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/begriffe_868.gd 2>&1 | grep -E "FALSCH|BEGRIFFE868|SCRIPT ERROR"   # 868 im Kampf keine Rüstungsklasse, kein W20, keine Würfelangabe (Jerry)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/namen_1234.gd 2>&1 | grep -E "FALSCH|NAMEN1234|SCRIPT ERROR"   # 1234 Bärenschrat statt Grottenschrat im Text (Spike)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_held_870.gd 2>&1 | grep -E "FALSCH|BRSHELD870|SCRIPT ERROR"   # 870.4 Held nach BRS (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kraeutersammeln_875.gd 2>&1 | grep -E "FALSCH|KRAEUTERSAMMELN875|SCRIPT ERROR"   # 875 Kräutersammeln statt Kräuterkunde (Tom)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/gegenstaende_870.gd 2>&1 | grep -E "FALSCH|GEGENSTAENDE870|SCRIPT ERROR"   # 870.6 Gegenstände und Beute nach BRS (Tuffy)
@@ -761,6 +783,10 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_525.gd 2>&1 | grep -E "FEHLER|LADEN525|SCRIPT ERROR"   # 525 Brauen, Rueckkauf, Fleisch an der Theke
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_582.gd 2>&1 | grep -E "FEHLER|LADEN582|SCRIPT ERROR"   # 582 Laden wie alt: Kurzangabe, Seltenheit, Platz, ▲/▼
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/held_karte_528.gd 2>&1 | grep -E "FEHLER|HELDKARTE528|SCRIPT ERROR"   # 528 Hoechststufe, Kartenzeichen, Auf der Karte
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/anteil_7851.gd 2>&1 | tee anteil7851.log | grep -E "FEHLER|ANTEIL7851|SCRIPT ERROR"; grep -q "^ANTEIL7851 0 Fehler" anteil7851.log   # 785.1 Anteil der Ausruestung je Grundwert
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/fert_erklaer_7852.gd 2>&1 | tee ferterklaer7852.log | grep -E "FEHLER|FERTERKLAER7852|SCRIPT ERROR"; grep -q "^FERTERKLAER7852 0 Fehler" ferterklaer7852.log   # 785.2 Fertigkeit antippen erklaert sie
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/seltenheit_7853.gd 2>&1 | tee seltenheit7853.log | grep -E "FEHLER|SELTENHEIT7853|SCRIPT ERROR"; grep -q "^SELTENHEIT7853 0 Fehler" seltenheit7853.log   # 785.3 Seltenheit als Wort im Vorratsfenster
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/kampfwerte_7856.gd 2>&1 | tee kampfwerte7856.log | grep -E "FEHLER|KAMPFWERTE7856|SCRIPT ERROR"; grep -q "^KAMPFWERTE7856 0 Fehler" kampfwerte7856.log   # 785.6 Kampfwerte mit Zauberschaden, Abwehrprobe
           timeout 120 ~/godot/godot --headless --path . -s res://tests/schlagbaum_530.gd 2>&1 | tee schlagbaum530.log | grep -E "FEHLER|SCHLAGBAUM530|SCRIPT ERROR"; grep -q "^SCHLAGBAUM530 0 Fehler" schlagbaum530.log   # 530 Schlagbaum offen sichtbar
           timeout 120 ~/godot/godot --headless --path . -s res://tests/dorf_sued_612.gd 2>&1 | tee dorfsued612.log | grep -E "FEHLER|DORFSUED612|SCRIPT ERROR"; grep -q "^DORFSUED612 0 Fehler" dorfsued612.log   # 612 Korn mit Tiefe, Heu, Beet bis zum Zaun
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menue_breite_581.gd 2>&1 | tee breite581.log | grep -E "FEHLER|MENUEBREITE581|SCRIPT ERROR"; grep -q "^MENUEBREITE581 0 Fehler" breite581.log   # 581 Ausruestung nicht breiter als der Schirm
@@ -801,12 +827,16 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_555.gd 2>&1 | tee testmenue555.log | grep -E "FEHLER|TESTMENUE555|SCRIPT ERROR"; grep -q "^TESTMENUE555 0 Fehler" testmenue555.log   # 555, 554 Testmenue wie alt und schneller
           timeout 120 ~/godot/godot --headless --path . -s res://tests/notiz_550.gd 2>&1 | tee notiz550.log | grep -E "FEHLER|NOTIZ550|SCRIPT ERROR"; grep -q "^NOTIZ550 0 Fehler" notiz550.log   # 550 Notiz beim ersten Mal so gross wie danach
           timeout 120 ~/godot/godot --headless --path . -s res://tests/uhr_licht_555.gd 2>&1 | tee uhrlicht555.log | grep -E "FEHLER|UHRLICHT555|SCRIPT ERROR"; grep -q "^UHRLICHT555 0 Fehler" uhrlicht555.log   # 555 Licht folgt der Uhr (Chef 17:20)
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/modellspeicher_1270.gd 2>&1 | tee modell1270.log | grep -E "FEHLER|MODELL1270|SCRIPT ERROR"; grep -q "^MODELL1270 0 Fehler" modell1270.log   # 1270.2 Modelle einmal je Spielstart gebaut, Kopien gleich und eigen
           timeout 300 ~/godot/godot --headless --path . -s res://tests/tasche_532.gd 2>&1 | tee tasche532.log | grep -E "FEHLER|TASCHE532|SCRIPT ERROR"; grep -q "^TASCHE532 ok" tasche532.log   # 532 ganze Tasche im Kampf, rollbare Liste (t273.13)
           timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4532.gd 2>&1 | grep -E "^(ok|FEHLER|ATEM)"   # 453.2 Atmen unterwegs
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/wildschwein_494.gd 2>&1 | grep -E "Wildschwein|WILDSCHWEIN|FEHLER|SCRIPT ERROR"   # 494 Wildschwein
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/krogg_494.gd 2>&1 | grep -E "Krogg|KROGG|FEHLER|SCRIPT ERROR"   # 494 Krogg, Morwens Rauch
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/halt_872.gd 2>&1 | grep -E "^(gut|FALSCH)|HALT872|SCRIPT ERROR"   # 872 Klinge im Hiebplan nach Halt (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/absicht_1049.gd 2>&1 | grep -E "^FALSCH|ABSICHT1049|SCRIPT ERROR"   # 1049 Absichten je Art aus werte.json gleich der alten Wahl (Jerry)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kerbe_930.gd 2>&1 | grep -E "^(FALSCH|offen)|KERBE930|SCRIPT ERROR"   # 930.6 Kerbensystem: je Regel ein Kerntest (Tuffy)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kerbe_bedienung_9307.gd 2>&1 | grep -E "^(FALSCH)|KERBE9307B|SCRIPT ERROR"   # 930.7 Kerbmarken, Vorschau, Daumenmenü ohne Bild (Tuffy)
+          set -o pipefail; timeout 180 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/film_kerbe_9307.gd 2>&1 | grep -E "^KERBE9307 (FEHLER|Runde [0-9]+ [0-9]|Mittel|[0-9]+ Fehler)|SCRIPT ERROR"   # 930.7 Kerbbedienung durch die Oberfläche: Tipps auf Held, Daumen, Wolf spielen den Zug (Tuffy)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/zweikampf_1025.gd 2>&1 | grep -E "^(ok|FALSCH)|ZWEIKAMPF1025|SCRIPT ERROR"   # 1025 ein Kampf zur Zeit, Kampfort danach abgebaut (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/welt_548.gd 2>&1 | grep -E "^(gut|FEHLER)|WELT_548|SCRIPT ERROR"   # 548, 1025: Kampf aus der Welt, Bedienung; lief in keinem Bauablauf (Laufnachweis 1128 A)
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/spinne_494.gd 2>&1 | grep -E "Spinne|SPINNE|FEHLER|SCRIPT ERROR"   # 494 Riesenspinne, drei Häute
@@ -824,6 +854,8 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/rand_1022.gd 2>&1 | tee rand1022.log | grep -E "FEHLER|RAND1022|^  |SCRIPT ERROR"; grep -q "^RAND1022 0 Fehler" rand1022.log   # 1022 Kartenrand: Wald dicht, Wege enden im Wald, ins Dunkel
           timeout 300 ~/godot/godot --headless --path . -s res://tests/nebel_505.gd 2>&1 | tee nebel505.log | grep -E "FEHLER|NEBEL505|SCRIPT ERROR"; grep -q "^NEBEL505 0 Fehler" nebel505.log   # 505
           timeout 120 ~/godot/godot --headless --path . -s res://tests/kartennebel_505.gd 2>&1 | tee kartennebel505.log | grep -E "FEHLER|KARTENNEBEL505|SCRIPT ERROR"; grep -q "^KARTENNEBEL505 0 Fehler" kartennebel505.log   # 505 Karte im Menü
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/hoehlenblatt_7857.gd 2>&1 | tee hoehlenblatt7857.log | grep -E "FEHLER|HOEHLENBLATT7857|SCRIPT ERROR"; grep -q "^HOEHLENBLATT7857 0 Fehler" hoehlenblatt7857.log   # 785.7 Höhle als Kartenblatt, Mund öffnet sie
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/kartenmarken_7858.gd 2>&1 | tee kartenmarken7858.log | grep -E "FEHLER|KARTENMARKEN7858|SCRIPT ERROR"; grep -q "^KARTENMARKEN7858 0 Fehler" kartenmarken7858.log   # 785.8 Lagerfeuer und Ziel auf der Karte
           timeout 120 ~/godot/godot --headless --path . -s res://tests/rauch_1160.gd 2>&1 | tee rauch1160.log | grep -E "FEHLER|RAUCH1160|SCRIPT ERROR"; grep -q "^RAUCH1160 0 Fehler" rauch1160.log   # 1160 Rauch nach Niederlage gegen Krogg (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/tuer_495.gd 2>&1 | tee tuer495.log | grep -E "FEHLER|TUER495|SCRIPT ERROR"; grep -q "^TUER495 0 Fehler" tuer495.log   # 495 zweimal der Knopf an der Tuer
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tageslicht_1091.gd 2>&1 | tee tageslicht1091.log | grep -E "FEHLER|^1091|TAGESLICHT1091|SCRIPT ERROR"; grep -q "^TAGESLICHT1091 gut" tageslicht1091.log   # 1091 Tageslicht des Hoehlenausgangs reicht wie alt in den Gang (Tom)
@@ -888,6 +920,13 @@ jobs:
         run: |
           command -v convert > /dev/null && command -v ffmpeg > /dev/null || { sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq imagemagick ffmpeg > /dev/null; }
           convert -version | head -1; ffmpeg -version | head -1
+          # 1290 (Chef 15.11., 12:34, Höhle am Handy „total hell … Sichtachsen sind weg“): jedes Bild und jeder Film im Renderer des
+          # Handys (mobile, Vulkan in Software, lavapipe), nie Compatibility; fällt Godot auf OpenGL zurück (fallback_to_opengl3), rot
+          sudo apt-get install -y -qq mesa-vulkan-drivers xvfb > /dev/null || true
+          r=$(timeout 60 xvfb-run -a -s "-screen 0 640x480x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --quit 2>&1 | grep -E "Forward Mobile|OpenGL" | head -1); echo "$r"
+          echo "$r" | grep -q "Forward Mobile" || { echo "::error::1290 Bilder nicht im Renderer mobile: $r"; exit 1; }
+          # Wächter: kein neuer Bild- oder Filmschritt mit opengl3 (ausser dem Vergleich in Alpha 697)
+          if grep -rn -- "--rendering-driver opengl3" .github/workflows tools | grep -v "alpha_held_697\|grep -rn"; then echo "::error::1290 Schritt mit opengl3 statt mobile"; exit 1; fi
       - name: Standbilder
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x); 918 auch nach rot
         continue-on-error: true
@@ -935,6 +974,22 @@ jobs:
           NEBEL_806=0 PLATZ=lichtung VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/kampforte/lichtung-ohne-nebel.png 2>&1 | grep -E "SCRIPT ERROR" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/kampforte
+      # 806 (278.19: Schatten und Bäume/Boden sind die Hebel): Lichtung vorher (ALT_806=1: Bäume mit Schlagschatten, Schattenkarte 4096)
+      # und nachher (Baumschatten nur gemalt, Schattenkarte 2048) nebeneinander; nur von Hand mit kampf=806
+      - name: Schattenvergleich 806 (nur von Hand mit kampf=806)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '806' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/schatten806; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          for v in alt neu; do
+            env $([ $v = alt ] && echo ALT_806=1) PLATZ=lichtung VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$B/$v.png 2>&1 | grep -E "SCRIPT ERROR" | cut -c1-300 || true
+          done
+          # links vorher, rechts nachher, 8 px schwarz dazwischen (ImageMagick aus „Bildwerkzeuge“)
+          convert $B/alt.png \( -size 8x1 xc:black \) -gravity center $B/neu.png -background black +append $B/806-schatten-vorher-nachher.png || true
+          ls -l $B
       # 833 (Jerry): unterer Kampfschirm heute und Vorschlag A im Rudelkampf (Mira am Zug, ein Wolf zieht mit Tipp, Sieg), nur bei „833“
       - name: Kampfschirm 833
         if: ${{ !cancelled() && (contains(github.event.head_commit.message, '833') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '833'))) }}
@@ -1013,11 +1068,11 @@ jobs:
           cd godot
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --dorftiere=$GITHUB_WORKSPACE/bilder/dorftiere 2>&1 | grep -E "SCRIPT ERROR|^BILD|^LEUTE|^DORFTIERE" | cut -c1-400 || true
-          # Film wie Jerrys Kampffilme mit opengl3 (lavapipe zu langsam fuer 30 Bilder je Sekunde); ffmpeg statisch aus imageio-ffmpeg
+          # Film im Renderer des Handys (1290; vorher opengl3, lavapipe zu langsam fuer Echtzeit, --write-movie wartet); ffmpeg statisch aus imageio-ffmpeg
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
           ffmpeg -loglevel error -y -ss 1.5 -i $RUNNER_TEMP/dorftiere.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $GITHUB_WORKSPACE/bilder/dorftiere/dorftiere.mp4 || true
           ls -l $GITHUB_WORKSPACE/bilder/dorftiere
       # 505 Sichtfeld zur Wahl: dieselbe Stelle im Wald je Form (alt Kegel, breiter Kegel, rundum), alt nachts; nur bei „505 Nebelbilder“
@@ -1040,27 +1095,27 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/bilder/grundstand
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
           # 1040.1 (Spike; Chef 12.11., 15:13 Lyra „dreht sich … wie auf dem Drehteller“): dorf=10401 nur der Film Lyra in der Höhle
           # 1086 (Spike; Chef 13.11., 15:47 t283.5 „er rennt heim, steht aber neben mir“): dorf=1086 nur der Film Pim, Gold, heim, Dank
           if [ "${{ github.event.inputs.dorf }}" = "1086" ]; then
-            timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
+            timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
               -s res://tests/film_pim_1086.gd -- --film=1086 > $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log 2>&1 || true
             grep -E "SCRIPT ERROR|^FILM1086" $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log | cut -c1-300 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/pim1086.mp4 || true
             ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
           fi
           if [ "${{ github.event.inputs.dorf }}" = "10401" ]; then
-            timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
+            timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
               -s res://tests/film_wenden_10401.gd -- --film=10401 > $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log 2>&1 || true
             grep -E "SCRIPT ERROR|^FILM10401" $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log | cut -c1-300 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.mp4 || true
             ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
           fi
-          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorf461.avi --fixed-fps 30 \
+          timeout 2400 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorf461.avi --fixed-fps 30 \
             -s res://tests/film_dorf_461.gd -- --dorffilm > $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log 2>&1 || true
           grep -E "SCRIPT ERROR|^DORF461 (Held|fertig|.*stoesst)" $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/dorf461.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/dorf461.mp4 || true
@@ -1073,14 +1128,14 @@ jobs:
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/karte744
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
           git fetch -q --depth=1 origin 1dad9bbdce0c044328c1a7b0404c1f604be28d63
           rm -rf $RUNNER_TEMP/vorher && cp -a godot $RUNNER_TEMP/vorher
           for f in herde.gd streuner.gd; do git show FETCH_HEAD:godot/skripte/$f > $RUNNER_TEMP/vorher/skripte/$f; done
           for f in vorher nachher; do
             d=$GITHUB_WORKSPACE/godot; [ $f = vorher ] && d=$RUNNER_TEMP/vorher
-            (cd $d && timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/karte744-$f.avi --fixed-fps 30 \
+            (cd $d && timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/karte744-$f.avi --fixed-fps 30 \
               -s res://tests/film_karte_744.gd -- --kartefilm744=$f > $GITHUB_WORKSPACE/bilder/karte744/$f.log 2>&1) || true
             grep -E "SCRIPT ERROR|FEHLER|^KARTE744 [a-z]+ (Monster|gefilmt|start|fertig)" $GITHUB_WORKSPACE/bilder/karte744/$f.log | cut -c1-400 || true
           done
@@ -1107,13 +1162,13 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/sieger2963 BL=$GITHUB_WORKSPACE/bl/bin/python python3 -I tools/blender348/v3/sieger2963.py > $B/sieger2963-bau.log 2>&1 || true
           grep -E "^SIEGER" $B/sieger2963-bau.log | sed "s|$KAUF/||g" | cut -c1-200 || true
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           if [ "${{ github.event.inputs.film }}" = "nein" ]; then
             B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/2963-probebild.png BILD_S=vorn timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963-bild.log 2>&1 || true
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963-bild.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Probebild|^Signatur|FEHLER|^fehlt" $B/sieger2963-bild.log | head -30 || true
           else
-            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . \
+            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U timeout 3000 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . \
               --resolution 540x1170 --write-movie $RUNNER_TEMP/sieger2963.avi --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER|^fehlt" $B/sieger2963.log | head -30 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/sieger2963.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/2963-siegerposen.mp4 || true
@@ -1133,11 +1188,11 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/sieger2963 BL=$GITHUB_WORKSPACE/bl/bin/python python3 -I tools/blender348/v3/sieger2963.py > $B/sieger-bau.log 2>&1 || true
           grep -E "^SIEGER" $B/sieger-bau.log | sed "s|$KAUF/||g" | cut -c1-200 || true
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           bilder() {
             for d in 0 150; do
               B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/$1-$d.png BILD_S=vorn BILD_DREH=$d BILD_TEXT=$1 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
-                ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/$1-$d.log 2>&1 || true
+                ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/$1-$d.log 2>&1 || true
               grep -E "SCRIPT ERROR|^Film|^Probebild|FEHLER|^fehlt" $B/$1-$d.log | head -20 || true
             done
           }
@@ -1160,9 +1215,9 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/umhang656; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           film() { n=$1; shift
-            env "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            env "$@" timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/film_umhang_656.gd > $B/$n.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Stück|^Signatur|FEHLER" $B/$n.log | head -20 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$n.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/$n.mp4 || true; }
@@ -1177,17 +1232,17 @@ jobs:
           fi
           ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '1222' && github.event.inputs.kampf != '806' && github.event.inputs.kampf != '601' && github.event.inputs.kampf != '9991' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb fonts-dejavu-core ffmpeg > /dev/null || true     # ffprobe für die Längen
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb fonts-dejavu-core ffmpeg > /dev/null || true     # ffprobe für die Längen
           # Lauf 154: das ffmpeg im PATH kannte drawtext nicht, die Montagen fehlten; Titel mit dem ffmpeg aus apt
           FT=ffmpeg; /usr/bin/ffmpeg -hide_banner -filters 2>/dev/null | grep -q drawtext && FT=/usr/bin/ffmpeg
           film() { n=$1; sk=$2; shift 2
-            env SEED=7 "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            env SEED=7 "$@" timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/$sk.gd > $B/$n.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Signatur|OHNE" $B/$n.log | head -8 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$n.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/$n.mp4 || true; }
@@ -1198,9 +1253,34 @@ jobs:
           # 453.1 Feld 2 (Tuffy; Chef 02.11., 11:07 „steigert sich … und dann wieder normalisiert … einen Tick schneller“): kampf=4531
           # derselbe Kampf (SEED 7) wie Feld 2 links, neu rechts
           # 784 (Tuffy, 654 A): kampf=784 eine Runde Wolfsrudel im Handyformat, Uhr oben links; das Protokoll misst gegen das Sollbild
+          # 845 (Tuffy; 334: erst Ursache nachstellen, am Rechner ohne Kaufmodelle Lücke inf): kampf=845m ohne Film, Krogg gegen jede
+          # Klasse und drei Saaten: Lücke der Klinge beim Aufschlag, Kroggs Körpermitte gegen Ursprung und Platz (DIAG709), Plan des
+          # Helden (SCHAU_709), Sprünge über 5 cm in einem Bild außerhalb der Wege (ZUG709 krogg), dazu beam_864 und kamera_992 mit Krogg
+          if [ "${{ github.event.inputs.kampf }}" = "845m" ]; then
+            for s in 7 1 2; do SEED=$s GEGNER=KROGG KLASSEN=FIGHTER,CLERIC,WIZARD,ROGUE TREFF_LOG=1 DIAG709=1 SCHAU_709=1 ZUG709=1 timeout 900 \
+              ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/treffen_709.gd > $RUNNER_TEMP/t845_$s.log 2>&1 || true
+              echo "== Saat $s"
+              grep -E "^(Treffer|Kampf|Angreifer|TREFFEN709|DIAG709|709 (Ziel|Hieb))|SCRIPT ERROR" $RUNNER_TEMP/t845_$s.log | cut -c1-400 | head -400 || true
+              grep -E "^ZUG709 .* krogg " $RUNNER_TEMP/t845_$s.log | grep -vE " gang (hin|zurück|anlauf) " | awk '$NF+0 >= 0.05' | head -80 || true; done
+            GEGNER=KROGG BEAM_LOG=1 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/beam_864.gd 2>&1 | grep -E "^(  Sprung|Kampf |BEAM864)|SCRIPT ERROR" | head -80 || true
+            GEGNER=KROGG timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/kamera_992.gd 2>&1 | grep -E "^(  Sprung|  Boden|KAMERA992)|SCRIPT ERROR" | head -80 || true
+            exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
+            ls -l $B; exit 0
+          fi
+          # 930.7 (Tuffy; DESIGN-GLUT.md 10 Stufe 2): kampf=9307 Kerbbedienung, Wachsoldat gegen zwei Wölfe, drei Runden (Tipps durch die
+          # Oberfläche); G4: je Runde ein Schnitt vom ersten Tipp (Zeilen „KERBE9307 Schnitt“), zusammen 9307-kerbe.mp4; dazu die Rundenzeit
+          # ohne Bild gegen den alten Kampf (F9)
+          if [ "${{ github.event.inputs.kampf }}" = "9307" ]; then
+            film 9307-ganz film_kerbe_9307
+            grep -E "^KERBE9307" $B/9307-ganz.log || true
+            ARGS=""; FC=""; i=0
+            while read -r _ _ _ a d; do ARGS="$ARGS -ss $a -t $d -i $B/9307-ganz.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done < <(grep -E "^KERBE9307 Schnitt" $B/9307-ganz.log)
+            [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/9307-kerbe.mp4 || true
+            for g in 1 0; do KERBE=$g SEED=7 timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/film_kerbe_9307.gd 2>&1 | grep -E "^KERBE9307 (Runde [0-9]+ [0-9]|Mittel)" || true; done
             ls -l $B; exit 0
           fi
           # 1039 (Tuffy; Chef 12.11., 15:04 „den inneren Ring zu sehen“): kampf=1039 zwei Runden gegen Grak wie beim Chef (Schwerer Hieb mit Ring;
@@ -1224,7 +1304,7 @@ jobs:
           # 1040 (Tuffy; Chef 12.11., 15:12 Grimmzahn „wie ein Playmobil-Männchen“): kampf=1040 der Held geht im Tiefen Wald um Grimmzahn herum
           if [ "${{ github.event.inputs.kampf }}" = "1040" ]; then
             # Lauf 384: ohne Argument hinter „--“ legt spiel.gd das Hauptmenü über alles (399), der ganze Film zeigte nur das Menü
-            SEED=7 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            SEED=7 timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/1040-tritt.avi --fixed-fps 30 -s res://tests/film_tritt_1040.gd -- --film1040 > $B/1040-tritt.log 2>&1 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/1040-tritt.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1040-tritt.mp4 || true
             grep -E "^FILM1040" $B/1040-tritt.log || true
@@ -1279,8 +1359,8 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/schild406; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
-          timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          timeout 3000 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/schild406.avi --fixed-fps 30 -s res://tests/film_406.gd > $B/schild406.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Schild|^Signatur" $B/schild406.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/schild406.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/406-schluss.mp4 || true
@@ -1291,8 +1371,8 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/strahlen415; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/strahlen415.avi --fixed-fps 30 -s res://tests/film_415.gd > $B/strahlen415.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/strahlen415.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/strahlen415.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/415-strahlen.mp4 || true
@@ -1308,8 +1388,8 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/gegner494; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          BILDER=$B timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          BILDER=$B timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegnerbilder494.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^BILD|^Signatur|FEHLER" $B/gegnerbilder494.log | head -40 || true
           ls -l $B
@@ -1358,9 +1438,9 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/gegner494; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_gegner_494.gd 2>&1 | grep -E "^Film|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/gegner494.avi --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegner494.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/gegner494.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/gegner494.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/494-gegner.mp4 || true
@@ -1371,12 +1451,52 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/wurf935; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wurf_935.gd 2>&1 | grep -E "^Film|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/wurf935.avi --fixed-fps 30 -s res://tests/film_wurf_935.gd > $B/wurf935.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/wurf935.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wurf935.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/935-wurf.mp4 || true
+          ls -l $B
+      # 1222 (Chef 13.11., 20:39, t284.4b: Rauchbündel „ohne sichtbare Wirkung“): Wurf, Rauch an Kroggs Kopf (R7 smoke_poof, sonst
+      # eigene Wolke; RAUCH_EIGEN=1 erzwingt die eigene), Zeile [1232.rauch.krogg]; nur von Hand mit kampf=1222
+      - name: Rauchfilm 1222 (nur von Hand mit kampf=1222)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '1222' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/rauch1222; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_rauch_1222.gd 2>&1 | grep -E "^Film|1222|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/rauch1222.avi --fixed-fps 30 -s res://tests/film_rauch_1222.gd > $B/rauch1222.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|1222|^Signatur|FEHLER" $B/rauch1222.log | head -16 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/rauch1222.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1222-rauch.mp4 || true
+      # 601 (Chef 05.11., t266.5: Goblin-Späher ohne Schussbewegung, Pfeil passt nicht, kein Pfeil beim Fehlschuss): nur die Schüsse des
+      # Spähers von der Seite (schuss.gd, Pfeil aus dem Kaufrepo mit Spur R3); nur von Hand mit kampf=601
+      - name: Pfeilfilm 601 (nur von Hand mit kampf=601)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '601' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/pfeil601; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_pfeil_601.gd 2>&1 | grep -E "^Film|601|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/pfeil601.avi --fixed-fps 30 -s res://tests/film_pfeil_601.gd > $B/pfeil601.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|601|^Signatur|FEHLER" $B/pfeil601.log | head -20 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/pfeil601.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/601-pfeil.mp4 || true
+      # 999.1 (wie alt 268): Standbild Kampfort bei Nacht, der Held hält die Fackel in der linken Faust; nur von Hand mit kampf=9991
+      - name: Fackelbild 999.1 (nur von Hand mit kampf=9991)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '9991' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/fackel9991; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          FACKEL=1 TAGESZEIT=nacht BILD=$B/9991-fackel.png timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile \
+            --path . --resolution 540x1170 -s res://tests/bild_fackel_9991.gd > $B/fackel9991.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^BILD9991|^Signatur" $B/fackel9991.log | head -10 || true
           ls -l $B
       # 510 (Chef 03.11., 10:28–10:57, aus 494): freie Fledermaus (OGA „Vampire Bat (Animated)“, rubberduck, CC0) mit unseren Fellen neben
       # der eigenen (fledermaus.py), je vorhandene Bewegung, beide drehen sich; nur von Hand mit gegner=FLEDERMAUS. Quelle und Lizenz:
@@ -1398,11 +1518,11 @@ jobs:
           for f in braun schwarz grau; do cp $RUNNER_TEMP/oga_out/oga_bat-$f.glb $D/oga_bat-$f.bin || true; done
           cp $RUNNER_TEMP/oga_out/oga_bat-*.png $B/ 2>/dev/null || true
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           # Lauf 235: die freie kam leer (132 Byte) und ohne Maßstab; erst prüfen, ob sie da ist (Netz, Gerüst, Bewegungen, Größe)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/oga_fledermaus_510.gd 2>&1 | grep -E "FALSCH|OGA510|SCRIPT ERROR" | tee $B/oga-test.log || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_fledermaus_510.gd 2>&1 | grep -E "^(Film|MASS|BEWEGUNGEN|ABSCHNITT)|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1920x1080 \
+          timeout 1800 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 1920x1080 \
             --write-movie $RUNNER_TEMP/fm510.avi --fixed-fps 30 -s res://tests/film_fledermaus_510.gd > $B/film.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/film.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/fm510.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/510-fledermaus.mp4 || true
@@ -1481,9 +1601,9 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/sitzen758; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/sitzen758.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/sitzen758.avi --fixed-fps 30 \
             -s res://tests/film_sitzen_758.gd -- --sitzfilm > $B/sitzen758.log 2>&1 || true
           grep -E "SCRIPT ERROR|^SITZ758 (Borin|kein|Ende)" $B/sitzen758.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/sitzen758.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/sitzen758.mp4 || true
@@ -1623,7 +1743,7 @@ jobs:
           cd godot
           BILD1091_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
-            -s res://tests/ausgang_bild_1091.gd 2>&1 | grep -E "SCRIPT ERROR|^AUSGANGBILD1091|^BILD" | cut -c1-400 || true
+            -s res://tests/ausgang_bild_1091.gd -- --bild=1091 2>&1 | grep -E "SCRIPT ERROR|^AUSGANGBILD1091|^BILD" | cut -c1-400 || true   # 285: ohne „--“ Hauptmenü
           cd $A && [ -f 1091_mittag.png ] && [ -f 1091_nacht.png ] && { convert 1091_mittag.png 1091_nacht.png +append 1091_mittag_nacht.png || true; }; ls -l $A
       # 1119 (283.1 ungetestet; Chef 13.11., 16:28 Aussehen als Film statt Handy): Fußstaub am Mittag, gehen und rennen
       # (tests/film_staub_1119.gd), bei „1119 Film“ im Commit
@@ -1633,13 +1753,26 @@ jobs:
         run: |
           A=$GITHUB_WORKSPACE/bilder/staub1119; mkdir -p $A
           cd godot
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/staub1119.avi --fixed-fps 30 -s res://tests/film_staub_1119.gd -- --film=1119 > $A/staub1119.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1119|^BEGINN" $A/staub1119.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/staub1119.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $A/staub1119.mp4 || true
           ls -l $A
+      # 1149 (aus 1140, 522): Dolch der Nebenhand am Körper, zwei Plätze zur Wahl (Gürtel, Kreuz), je vorn, links, hinten
+      # (tests/dolch_bild_1149.gd); bei „1149 Bild“ im Commit
+      - name: Dolchbild (1149)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1149 Bild') || (github.event_name == 'workflow_dispatch' && contains(github.ref, 'tom-1149'))) }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/dolch1149; mkdir -p $A
+          cd godot
+          BILD1149_AUS=$A VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/dolch_bild_1149.gd 2>&1 | grep -E "SCRIPT ERROR|^DOLCH1149|^BILD" | cut -c1-400 || true
+          ls -l $A
       # 1040.1 (Fund t282.23: „da es etwas ruckelig ist, kann ich es nicht sicher sagen“; Sokrates: nach 1128 A als Film): Lyra wendet
-      # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit
+      # mit Schritten, nah (tests/film_wenden_10401.gd wie dorf=10401), im Lauf der APK bei „1040.1 Film“ im Commit.
+      # 1040.1 (Tom 14.11.: Lauf 467 zeigte Lyra fern, dunkel, Füße unter der Robe): dazu Bram am Markt bei Tag, nah (film_wenden_dorf_10401.gd)
       - name: Wendefilm (1040.1)
         if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1040.1 Film') || contains(github.event.inputs.bilder, '1040.1')) }}
         continue-on-error: true
@@ -1647,12 +1780,17 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/wenden10401; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
             -s res://tests/film_wenden_10401.gd -- --film=10401 > $B/wenden10401.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM10401" $B/wenden10401.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wenden10401.mp4 || true
+          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wendendorf.avi --fixed-fps 30 \
+            -s res://tests/film_wenden_dorf_10401.gd -- --film=10401 > $B/wendendorf.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^FILM10401D" $B/wendendorf.log | cut -c1-300 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/wendendorf.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wendendorf.mp4 || true
           ls -l $B
       # 1086 (Chef 13.11., 15:47 t283.5 „er rennt heim, steht aber neben mir“; Prüfart Film): Pim bekommt das Gold, rennt heim, die
       # Mutter dankt (tests/film_pim_1086.gd wie dorf=1086), im Lauf der APK bei „1086 Film“ im Commit
@@ -1663,9 +1801,9 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/pim1086; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
             -s res://tests/film_pim_1086.gd -- --film=1086 > $B/pim1086.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1086" $B/pim1086.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/pim1086.mp4 || true
@@ -1679,7 +1817,7 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/robe1092; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/robe1092.avi --fixed-fps 30 -s res://tests/film_robe_1092.gd -- --film=1092 > $B/robe1092.log 2>&1 || true
@@ -1695,9 +1833,9 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/ketten1144; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ketten1144.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ketten1144.avi --fixed-fps 30 \
             -s res://tests/film_ketten_1144.gd -- --film=1144 > $B/ketten1144.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true

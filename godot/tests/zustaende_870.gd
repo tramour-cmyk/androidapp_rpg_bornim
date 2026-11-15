@@ -20,6 +20,7 @@ func _initialize() -> void:
 	for s in tab.skills: skills[s.id] = s
 	Sprache.lade()
 	_zustaende()
+	_stufenfaktor_956()
 	_schwach_satt()
 	_spinnseide()
 	_dinge()
@@ -62,6 +63,34 @@ func _zustaende() -> void:
 	var h = m.all[0]
 	h.hp = 1
 	pruefe(m._heilung(m.all[1], "potion", {}) == int(BrsKampf.w()["welt"]["heilung"]["potion"]), "Heiltrank heilt jeden fest (auch Gegner, Söldner)")
+
+## 956 (870.6a 2 A, Chef 11.11., 13:55): der Anteil mit dem Stufenfaktor D des Verursachers wie beim Schaden (Entscheidung 73)
+func _stufenfaktor_956() -> void:
+	var z: Dictionary = BrsKampf.w()["zustaende"]
+	var je := float(BrsKampf.w()["kampf"]["stufenfaktor_je_stufe"])
+	for d in [0, -3, 4, -10, -15]:
+		var m = _kampf(["wolf"], 3)
+		var h = m.all[0]
+		var w = m.all[1]
+		h.b["stufe"] = 5
+		w.b["stufe"] = 5 + d
+		h.hp = h.max_hp
+		m._inflict(h, "BLEED", 3, null, null, w)
+		m._tick(h)
+		var f := maxf(0.0, 1.0 + je * d)
+		var soll := 0 if f <= 0.0 else maxi(1, roundi(float(h.max_hp) * float(z["schaden_anteil"]["BLEED"]) * f))
+		pruefe(h.max_hp - h.hp == soll, "956 Blutung, Verursacher D %+d: %d Schaden statt %d" % [d, h.max_hp - h.hp, soll])
+	# auch auf den Gegner: Brand des Helden mit seinem D
+	var m2 = _kampf(["wolf"], 3)
+	var h2 = m2.all[0]
+	var w2 = m2.all[1]
+	h2.b["stufe"] = 8
+	w2.b["stufe"] = 2
+	w2.hp = w2.max_hp
+	m2._inflict(w2, "BURN", 2, null, null, h2)
+	m2._tick(w2)
+	var soll2 := maxi(1, roundi(float(w2.max_hp) * float(z["schaden_anteil"]["BURN"]) * (1.0 + je * 6)))
+	pruefe(w2.max_hp - w2.hp == soll2, "956 Brand des Helden (D +6): %d Schaden statt %d" % [w2.max_hp - w2.hp, soll2])
 
 func _schwach_satt() -> void:
 	var m = _kampf(["wolf"], 5)

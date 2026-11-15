@@ -53,12 +53,19 @@ const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
+## 930.7: so lange zeigt sich ein Stichwort des Kerbensystems ohne Zeile (Haltung gesetzt, Verstreichen, Vertiefen, Antwort); die Antwort
+## flammt im Augenblick des Schlags auf, ohne eigenen Weg (DESIGN-AKTIONSPUNKTE.md „Bild“ 3)
+const KERBE_MS := {"KERBE_HALTUNG_GEGENSCHLAG": 350, "KERBE_HALTUNG_WACHSCHUSS": 350, "KERBE_HALTUNG_WEHR": 350, "KERBE_VERSTREICHT": 450,
+	"KERBE_VERTIEFEN": 400, "KERBE_GEGENSCHLAG": 120, "KERBE_WACHSCHUSS": 120, "KERBE_WEHR": 120, "KERBE_GOLD": 500, "KERBE_LOESEN": 300}
 const AUSWEICH_VOR_MS := 250     # 438: Ausweichen beginnt so viel vor dem Aufschlag
 const TODESZEILE_ANTEIL := 0.6     # 438: Todeszeile nach diesem Anteil der Sterbebewegung
 const NACHTRAG_MS := 150     # 438: Meldung, deren Zeile schon mit der Bewegung stand
 const RING_MS := 1100
 const PERFECT_MS := 90
 const GOOD_MS := 260
+## 930.7 (DESIGN-GLUT.md 3 Regel 7): in Wehr läuft der Ring gegen große Schläge langsamer, die Fenster wachsen mit (werte.json „kerbe“
+## „wehr_ring_faktor“, die Absicht trägt ihn: kerbe.gd auf_held); sonst 1
+var ring_faktor := 1.0
 ## 249: Blut wie im alten Spiel, Stufe 1 (wenige kleine Tropfen) ist dort die Vorgabe; 0 aus, 2 mehr mit Flecken am Boden.
 ## Der Schalter im Menü kommt mit Toms Systemmenü.
 
@@ -251,7 +258,10 @@ func _tempo_setzen() -> void:
 	_tempo_an = true
 
 
+const SCHATTENKARTE := 2048     # 806; Projekt 4096
+
 func _exit_tree() -> void:
+	RenderingServer.directional_shadow_atlas_set_size(int(ProjectSettings.get_setting("rendering/lights_and_shadows/directional_shadow/size", 4096)), true)     # 806
 	if _tempo_an:
 		Engine.time_scale = 1.0
 		_tempo_an = false
@@ -291,6 +301,10 @@ func _setup_world() -> void:
 	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43); mit Tusche nach Licht −45, 55 (Chef 28.10., 08:09, r9 ja);
 	# Schlagschatten weich, nicht schwarz (Prüfer Stand 7). 457.2: Werte in signatur.gd, damit Proben mit eigener Bühne gleich zeichnen
 	Signatur.sonne_wie_kampf(sun, tusche() == "licht")
+	# 806: im Kampfort werfen nur die Figuren Schatten (wenige Meter), dafür reicht die halbe Schattenkarte (am Rechner etwa so viel
+	# gespart wie ohne Baumschatten); beim Verlassen wieder die des Projekts (Dorf, Tom)
+	if OS.get_environment("ALT_806") == "":
+		RenderingServer.directional_shadow_atlas_set_size(SCHATTENKARTE, true)
 	if tageszeit == "abend":     # 399.2: nur Funktion, Feinschliff auf der Feintuning-Liste
 		sun.light_energy *= 0.75
 		sun.light_color = Color(1.0, 0.74, 0.52)
@@ -357,14 +371,14 @@ func _build_forest() -> void:
 	add_child(forest)
 	var p := _platz_datei("kampfort-wald", "bin")     # 493
 	if FileAccess.file_exists(p):
-		var doc := GLTFDocument.new()
-		var st := GLTFState.new()
-		if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) == OK:
-			var n := doc.generate_scene(st) as Node3D
+		var n := ModellSpeicher.kopie(p)     # 1270.2: einmal je Spielstart gebaut, danach Kopie
+		if n != null:
 			_toon_all(n)
 			# die nahe Eiche vorn links (kampfort_wald.py „Rahmen“) wirft keinen Schlagschatten: ihre Krone liegt außerhalb des
-			# Schattenausschnitts, der Schatten kam abgeschnitten mit geraden Kanten (Prüfer Boden 2); die Maske malt ihn weich
-			for mi in n.find_children("Rahmen*", "MeshInstance3D", true, false):
+			# Schattenausschnitts, der Schatten kam abgeschnitten mit geraden Kanten (Prüfer Boden 2); die Maske malt ihn weich.
+			# 806 (278.19 am Handy: Schatten 27 ms von 61; am Rechner Baumschatten etwa ein Viertel davon): kein Baum wirft einen
+			# Schlagschatten, die Maske (B, kampfort_wald.py) malt die Schatten der Bäume auf den Boden; Figuren werfen weiter
+			for mi in n.find_children("*" if OS.get_environment("ALT_806") == "" else "Rahmen*", "MeshInstance3D", true, false):     # ALT_806=1: wie vorher (Vergleichsbild)
 				(mi as MeshInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			forest.add_child(n)
 	var ground := MeshInstance3D.new()
@@ -856,13 +870,34 @@ func _stand(foe: bool, back: bool, slot: int, alone: bool) -> Vector2:
 	return Vector2(row, b) if foe else Vector2(-row - NEAR_M, b)
 
 
+## 973 (930a A, Chef 11.11., 16:09, F3: „Angriff, Treffer, Tod; die Übrigen bleiben stehen“): die Stelle jeder Figur je Platz der
+## Regeln, einmal gerechnet; ein Tod ändert sie nicht mehr (vorher rechnete _spot_ab mit den Lebenden neu: „allein vorn“, „Paar
+## hinten“, und die Übrigen rückten nach, stehen_973). Neu gerechnet wird nur, wenn der eigene Platz wechselt (Platztausch, Sprung
+## nach vorn) und einmal, wenn die Umrisse gemessen sind (_umriss_messen); id → [Platz, Stelle (a, b)]. Wer den Platz wechselt,
+## geht an die Stelle, die dieser Platz schon hat (beim Tausch die des anderen, nach vorn die des Gefallenen; stelle_platz,
+## Seite|Platz → Stelle), sonst lagen zwei auf einer Stelle (umweg_399)
+var stelle_fest := {}
+var stelle_platz := {}
 func _spot_pos(f, spot: Vector2i) -> Vector3:
-	var ab := _spot_ab(f, spot)
+	var fest: Array = stelle_fest.get(f.id, [])
+	if not fest.is_empty() and fest[0] == spot:
+		return _ground(fest[1].x, fest[1].y)
+	var schluessel := "%s|%d|%d" % [f.side, spot.x, spot.y]
+	var ab: Vector2 = stelle_platz[schluessel] if stelle_platz.has(schluessel) else _spot_ab(f, spot)
 	# 587 (Läufe 275/276, groesse_587: mit 1,3-fach stand die Riesenspinne hinten 0,22 m im Wolf vorn; Grimmzahn 0,84 m im Wolf
 	# hinten): wer hinten steht, weicht den Umrissen der vorderen aus (Wölfe des Rudels reichen schon, bleiben wie 438)
 	if f.side == "FOES" and spot.x == Mars.BACK:
 		ab = _ausweichen(f, ab)
+	stelle_fest[f.id] = [spot, ab]
+	if not stelle_platz.has(schluessel):
+		stelle_platz[schluessel] = ab
 	return _ground(ab.x, ab.y)
+
+
+## 973: wo ein anderer wirklich steht (seine festgehaltene Stelle), nicht wo er nach den Lebenden stünde
+func _stelle_ab(o, spot: Vector2i) -> Vector2:
+	var fo: Array = stelle_fest.get(o.id, [])
+	return fo[1] if not fo.is_empty() and fo[0] == spot else _spot_ab(o, spot)
 
 
 const AUSWEICH_LUFT := 0.08     # 587: Meter zwischen den Umrissen
@@ -877,7 +912,7 @@ func _ausweichen(f, ab: Vector2) -> Vector2:
 		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
 			var a := _umriss(o)
 			if a.size != Vector2.ZERO:
-				var ao := _spot_ab(o, shown.places[o.id])
+				var ao := _stelle_ab(o, shown.places[o.id])
 				var g := _ground(ao.x, ao.y)
 				vorn.append(Rect2(a.position + Vector2(g.x, g.z), a.size).grow(AUSWEICH_LUFT / 2.0))
 	if vorn.is_empty():
@@ -911,6 +946,8 @@ func _umriss_messen() -> void:
 	for fig in figures.values():
 		if fig.fighter.side == "FOES" and fig.visible:
 			fig.footprint()
+	stelle_fest.clear()     # 973: mit den Umrissen einmal neu (vor dem ersten Zug)
+	stelle_platz.clear()
 	for fig in figures.values():
 		var f = fig.fighter
 		if f.side == "FOES" and shown.places.has(f.id) and shown.places[f.id].x == Mars.BACK and fig.position.distance_to(fig.home) < 0.01:
@@ -979,7 +1016,7 @@ func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
 	var vorn := []
 	for o in mars.fighters():
 		if o != f and o.side == "FOES" and shown.places.has(o.id) and shown.places[o.id].x == Mars.FRONT and _present(o):
-			vorn.append(_spot_ab(o, shown.places[o.id]))
+			vorn.append(_stelle_ab(o, shown.places[o.id]))
 	if vorn.size() == 2 and _alone(f, Mars.BACK):
 		var mitte: Vector2 = (vorn[0] + vorn[1]) / 2.0
 		return Vector2(a, mitte.y + NAH_SCHRAEG * (a - mitte.x))
@@ -1117,8 +1154,8 @@ func _skip_beats() -> void:
 func tap() -> void:
 	if not ring_open:
 		return
-	var off := absi(_ring_uhr() - (ring_start + RING_MS))
-	_answer_ring(Mars.PERFECT if off <= PERFECT_MS else (Mars.GOOD if off <= GOOD_MS else Mars.NONE))
+	var off := absi(_ring_uhr() - (ring_start + int(RING_MS * ring_faktor)))
+	_answer_ring(Mars.PERFECT if off <= PERFECT_MS * ring_faktor else (Mars.GOOD if off <= GOOD_MS * ring_faktor else Mars.NONE))
 
 
 ## 949 (Lauf 438): der Ring läuft nach derselben Uhr wie sein Bild (kampf_ui.uhr, 1039; im Spiel die echte Zeit). Im Film
@@ -1136,6 +1173,8 @@ func _answer_ring(r: String) -> void:
 	var klang = get_node_or_null("/root/Klang")
 	if klang != null and r != Mars.NONE:
 		klang.effekt("block", 0.8 if r == Mars.PERFECT else 0.5)     # 939 (alt SkirmishScreen 726): Block bei perfekt, leiser bei gut
+	elif klang != null and mars.kerbe:     # 1266 (DESIGN-GLUT.md 8): im Kerbensystem klingt der Ring daneben dumpf, sonst stumm
+		klang.effekt("ring_daneben", 0.7)
 	ring_sem.post()
 
 
@@ -1158,7 +1197,10 @@ func _state_now() -> Dictionary:
 		hp[f.id] = f.hp
 		places[f.id] = f.place
 		sp[f.id] = f.sp
-	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
+	var st := {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
+	if mars.kerbe and mars.gk != null:     # 930.7
+		st["gl"] = mars.gk.bild()
+	return st
 
 
 # ---------------------------------------------------------------- playing the beats one after another
@@ -1168,7 +1210,7 @@ func _process(_dt: float) -> void:
 	_hit_camera()
 	_rand_kamera()
 	_grass_spots()
-	if ring_open and _ring_uhr() > ring_start + RING_MS + GOOD_MS + 60:
+	if ring_open and _ring_uhr() > ring_start + int((RING_MS + GOOD_MS) * ring_faktor) + 60:
 		_answer_ring(Mars.NONE)
 	if playing or verhuellt or messpause:     # 402: unter der Blende warten Worte und Züge; 806: ebenso beim Messen
 		return
@@ -1194,7 +1236,16 @@ func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
 	if OS.get_environment("DBGPL") != "" and absf(clock_ms / 1000.0 - float(OS.get_environment("DBGPL"))) < 4.0:
 		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
+	var vor_gl: Dictionary = shown.get("gl", {}) if shown is Dictionary else {}
 	shown = e
+	# 930.7 (DESIGN-GLUT.md 8): Kerben der Meldung (Blitz, Verstreichen, Vertiefen); die Stichworte des Kerbensystems ohne Zeile
+	# halten den Kampf nur so lange an, wie ihr Bild dauert (F9: Rundenzeit nicht länger als heute), nicht SAY_MS
+	if ui != null and ui.kerbe != null:
+		ui.kerbe.meldung(vor_gl, e)
+	if e.text == "" and e.cue != null and String(e.cue).begins_with("KERBE_"):
+		ui.refresh()
+		await get_tree().create_timer(KERBE_MS.get(String(e.cue), 150) / 1000.0).timeout
+		return
 	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
 	var im_schatten: Dictionary = e.get("hidden", {})
 	for id in figures:
@@ -1229,9 +1280,18 @@ func _play_say(e: Dictionary) -> void:
 	for id in e.intents:
 		var aimed: Array = e.intents[id][1]
 		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
+		if String(e.intents[id][0].get("id", "")) == "heavy":
+			figures[id].ausholen(true)     # 1000: ab der Ansage holt er aus und hält die Axt oben
 	for id in figures:
 		if not e.intents.has(id):
 			figures[id].announce(null)
+			# 1000: „Schwerer Hieb!“ nimmt die Ansage weg, die Axt bleibt oben bis zum Hieb (auch über den Ring); ist die Ansage
+			# ohne Hieb weg (aus dem Tritt), senkt er sie
+			if figures[id].ausgeholt():
+				if e.cue == "FOE_STRIKES" and e.actor == id:
+					figures[id].schlag_kommt = true
+				elif not figures[id].schlag_kommt:
+					figures[id].ausholen(false)
 	# 439 (Chef 31.10., 23:31: „beim Helden einmal die Treffer-Animation, bevor der Angriff richtig da war“; tests/wolf_mess_438.gd):
 	# „wirft sich auf …“ (POUNCED) kommt als eigene Meldung nach dem Sprungbiss, wenn der Wolf schon wieder daheim steht; der Held fiel
 	# dann ohne Wolf. Jetzt fällt er beim Aufprall des Sprungs (mars.gd: ein Sprung, der trifft und ihn stehen lässt, wirft ihn um),
@@ -1260,6 +1320,8 @@ func _play_say(e: Dictionary) -> void:
 		var los: float = maxf(0.0, float(figures[actor].netz_los_ms)) if fx == "WEB" else 0.0     # 494: das Netz fliegt mitten im Netzwurf los
 		if fx in Zauber.BOMBS:     # 935: die Flasche fliegt los, wenn der Arm über dem Kopf nach vorn geht
 			los = maxf(0.0, float(figures[actor].wurf_los_ms))
+		if fx == "ARROW" and figures[actor].schuss != null:     # 601: der Pfeil fliegt beim Lösen der Sehne (schuss.gd LOS)
+			los = float(lunge_ms)
 		var step: float = ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED", los)
 		lands = int(step + los + Zauber.arrives(fx))
 		busy_ms = maxi(busy_ms, figures[actor].busy_ms)     # 348.7b: Seitenschritt hin und zurück
@@ -1468,6 +1530,7 @@ func _fx_of(e: Dictionary, by, tg, across: bool):
 
 func _play_ring(target_id: String, intent: Dictionary) -> void:
 	ring_for = target_id
+	ring_faktor = float(intent.get("ring_faktor", 1.0))
 	ring_start = _ring_uhr()
 	ring_open = true
 	ui.ring_open(target_id, intent)

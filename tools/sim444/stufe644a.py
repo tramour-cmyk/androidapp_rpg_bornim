@@ -94,6 +94,35 @@ def gewinn(start, ende, zuordnung):
     return g
 
 
+def teil7(W, ergebnisse):
+    """644a.1 B (Chef 14.11., 22:03): Grundwert +1 je Schwelle (ueben grundwert_schwellen), die die beste Fertigkeit an ihm erreicht;
+    Zuordnung ueben grundwert_von (alle 37). Zählt am Ende von Kapitel 1 (Stufe kapitelgrenze) je Kampfstil."""
+    sw = W["ueben"]["grundwert_schwellen"]
+    gv = W["ueben"]["grundwert_von"]
+    z = ["## 7. Grundwert nach Schwellen (644a.1 B): +1 bei %s der besten Fertigkeit, bis Stufe %d\n" % (", ".join(map(str, sw)), W["held"]["kapitelgrenze"]),
+         "Fertigkeiten aus dem Kampffortschritt (Teil 1; Sammeln, Handwerk, Gespräche übt diese Rechnung nicht). Decken Kapitel 1: %s.\n"
+         % " / ".join(map(str, W["held"]["rangdecken_kapitel"])),
+         "| Kampfstil | Hauptwert | Hauptwert +0 / +1 / +2 | Summe aller +1 (Median / 90 %) | beste Fertigkeit am Hauptwert (Median / 90 %) | welche Grundwerte wachsen |",
+         "| --- | --- | --- | --- | --- | --- |"]
+    for name, (hk, haupt, ds) in ergebnisse.items():
+        hp, summe, best, welche = [], [], [], {}
+        for d in ds:
+            b = {g: 0 for g in GW}
+            for f, v in d["ende"].items():
+                g = gv.get(f)
+                if g: b[g] = max(b[g], v)
+            plus = {g: sum(1 for s_ in sw if b[g] >= s_) for g in GW}
+            hp.append(plus[haupt]); summe.append(sum(plus.values())); best.append(b[haupt])
+            for g, n in plus.items():
+                if n: welche[g] = welche.get(g, 0) + 1
+        ant = lambda k: 100.0 * sum(1 for x in hp if x == k) / len(hp)
+        w_ = ", ".join("%s %.0f %%" % (g, 100.0 * n / len(ds)) for g, n in sorted(welche.items(), key=lambda x: -x[1]))
+        z.append("| %s | %s | %.0f / %.0f / %.0f %% | %d / %d | %d / %d | %s |" % (name, haupt, ant(0), ant(1), 100.0 * sum(1 for x in hp if x >= 2) / len(hp),
+                 statistics.median(summe), q(summe, 0.9), statistics.median(best), q(best, 0.9), w_ or "keiner"))
+    z.append("")
+    return z
+
+
 # ---------------------------------------------------------------- Teil 2: Beute ohne Deckel
 
 class Beute:
@@ -239,6 +268,7 @@ def main():
     ap.add_argument("--je", type=int, default=40, help="Kämpfe je Durchgang und Boss in Teil 6")
     ap.add_argument("--schwelle", type=int, help="Punkte je Grundwert +1 (sonst werte.json ueben grundwert_punkte, sonst 10)")
     ap.add_argument("--aus")
+    ap.add_argument("--nur-644a1", action="store_true", help="nur Teil 7: Grundwert nach Schwellen (644a.1 B)")
     a = ap.parse_args()
     W = sim.lade(a.werte)
     formen = sim.lade(a.formen)["grundformen"]
@@ -264,6 +294,14 @@ def main():
     for name, hk, haupt in STILE:
         ds = [durchgang(W, hk, rng) for _ in range(a.laeufe)]
         ergebnisse[name] = (hk, haupt, ds)
+    if a.nur_644a1:
+        z = z[:2] + teil7(W, ergebnisse)
+        text = "\n".join(z)
+        if a.aus:
+            with open(a.aus, "w", encoding="utf-8") as f:
+                f.write(text + "\n")
+        print(text)
+        return
     # 2. Deckel
     z.append("## 2. Ohne Deckel: was ein Held in Kapitel 1 trägt\n")
     z.append("Je Durchgang alle Funde bis Stufe 6 (Modell oben im Skript); der Held legt je Platz das Stück mit seinem Wert an. "
@@ -403,6 +441,7 @@ def main():
             z.append("| %s | %s | %s |" % (name, bn, " | ".join(zellen)))
     z.append("")
     sim.held_abzug = _abzug
+    z += teil7(W, ergebnisse)
     text = "\n".join(z)
     if a.aus:
         with open(a.aus, "w", encoding="utf-8") as f:

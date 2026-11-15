@@ -17,9 +17,10 @@ on:
 jobs:
   film:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 80     # 1290: Film im Renderer mobile (lavapipe) langsamer
     env:
       GODOT: "4.7.2"
+      VK_ICD_FILENAMES: /usr/share/vulkan/icd.d/lvp_icd.json   # 1290: Bilder und Filme im Renderer des Handys (mobile, Vulkan in Software)
     steps:
       - uses: actions/checkout@v5
       - name: Welcher Film
@@ -87,13 +88,13 @@ jobs:
           echo "Ohren, Hauer im Bestand (408):"; find $KAUF ~/cc0 \( -iname '*ear*' -o -iname '*tusk*' -o -iname '*fang*' \) -not -iname '*year*' -not -iname '*gear*' -not -iname '*wear*' 2>/dev/null | grep -v '\.png$' | head -20 || true
       - name: Film
         run: |
-          sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri mesa-vulkan-drivers > /dev/null
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           mkdir -p $GITHUB_WORKSPACE/filme
           cd godot
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           export CC0=$HOME/cc0
-          timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . res://probe/drehfilm.tscn \
+          timeout 1800 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . res://probe/drehfilm.tscn \
             --resolution 1080x2340 --write-movie $RUNNER_TEMP/film.avi --fixed-fps 30 -- --film=$FILM > $GITHUB_WORKSPACE/filme/film-$FILM.log 2>&1 || true
           grep -E "^FILM|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/filme/film-$FILM.log | cut -c1-400 | head -80
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/film.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast -movflags +faststart $GITHUB_WORKSPACE/filme/$FILM-probe.mp4

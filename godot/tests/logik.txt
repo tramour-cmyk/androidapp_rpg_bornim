@@ -101,6 +101,10 @@ spielstaende_529
 laden_525
 laden_582
 held_karte_528
+anteil_7851
+fert_erklaer_7852
+seltenheit_7853
+kampfwerte_7856
 dorf_sued_612
 ring_vergleich_557
 knopf_630
@@ -111,6 +115,7 @@ fortsetzen_1021
 versatz_1006
 titel_585
 pfeil_601
+schuss_601
 tritt_1040
 atem_4531
 atem_rechnung_4531
@@ -155,3 +160,13 @@ klopfen_629
 tasche_521
 obergrenze_701
 atem_4532
+kerbe_930
+kerbe_bedienung_9307
+film_kerbe_9307
+hoehlenblatt_7857
+kartenmarken_7858
+scheide_mass_1149
+namen_1234
+takt_1145
+fackel_9991
+modellspeicher_1270

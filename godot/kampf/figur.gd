@@ -539,12 +539,10 @@ func _load_model() -> Node3D:
 		return kh
 	var p := _model_path()
 	if FileAccess.file_exists(p):
-		var doc := GLTFDocument.new()
-		var st := GLTFState.new()
-		if doc.append_from_buffer(lade_bin(p), "", st) == OK:
-			# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
-			# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
-			var n := doc.generate_scene(st, 30.0, false, false) as Node3D
+		# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
+		# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
+		var n := ModellSpeicher.kopie(p, false)     # 1270.2: einmal je Spielstart gebaut, danach Kopie
+		if n != null:
 			_paint(n)
 			anim = _find(n, "AnimationPlayer") as AnimationPlayer
 			if anim:
@@ -691,8 +689,51 @@ func _arm_kauf(gleich := false) -> void:
 			schild_faust.anim = anim
 			if OS.get_environment("TIEF1014") != "":
 				schild_faust.tief_grad = float(OS.get_environment("TIEF1014"))
+	_fackel_kauf(sk)
 	if anim:
 		_idle()
+
+
+## 999.1 (wie alt 268, HeroFigure.kt torch; Fackel aus fackel.gd, Tom 1140): mit einer Fackel in der Nebenhand hält der Held sie
+## im Kampf in der linken Faust; bei zweihändiger Waffe und beim Bogen (linke Hand) ist sie weg, nach dem Wechsel wieder da. Licht
+## nur im Dunkeln (Nacht, Höhle) wie in der Welt (held.gd fackel_kraft 2,2), am Abend halb, am Tag leuchtet nur die Flamme
+var fackel: Fackel = null
+const FACKEL_KRAFT := 2.2
+
+func fackel_frei() -> bool:
+	if fighter.hero == null or not bool(fighter.hero.get("fackel", false)):
+		return false
+	var w = _in_hand()
+	if w != null and bool(w.get("two", false)):
+		return false
+	return _waffe_id() == "" or _waffenhand() != "L"
+
+
+func _fackel_kauf(sk: Skeleton3D) -> void:
+	if fackel != null and is_instance_valid(fackel):
+		fackel.get_parent().queue_free()     # BoneAttachment3D samt Fackel (Fackel.an)
+	fackel = null
+	if not fackel_frei():
+		return
+	var fa := HeldFigur.faust(sk, "l")
+	if not fa.has("knochen"):
+		return
+	fackel = Fackel.an(sk, String(fa["knochen"]), fa["griff"], fa["achse"], model if model != null else self)
+	fackel.selbst = true
+	fackel_toon(fackel)
+	var dunkel: bool = kampfort != null and (kampfort.tageszeit == "nacht" or String(kampfort.ort).begins_with("hoehle"))
+	var abend: bool = kampfort != null and kampfort.tageszeit == "abend"
+	fackel.kraft = FACKEL_KRAFT if dunkel else (FACKEL_KRAFT * 0.5 if abend else 0.0)
+	fackel.licht.visible = fackel.kraft > 0.0
+
+
+## Lauf 479 (Signatur 457): der Stiel aus fackel.gd ist in der Welt beleuchtetes StandardMaterial3D; im Kampfort Toon wie die Waffen
+func fackel_toon(f: Node) -> void:
+	for n in f.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
+		var sm := mi.material_override as BaseMaterial3D
+		if sm != null and sm.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED:
+			mi.material_override = _toon(sm.albedo_color)
 
 
 func _schild() -> String:
@@ -770,6 +811,15 @@ func _arm_goblin() -> void:
 		for at in model.find_children("*", "BoneAttachment3D", true, false):
 			if not at.has_meta("was") and at.find_children("Waffe*", "MeshInstance3D", true, false).size() > 0:
 				at.set_meta("was", "waffe-im-modell")
+	if Mars.koerper_of(fighter.monster) == Mars.SCOUT:     # 601: der Späher schießt sichtbar (schuss.gd)
+		var sch = preload("res://kampf/schuss.gd").new()
+		sch.name = "Schuss"
+		if sch.einrichten(sk):
+			sk.add_child(sch)
+			schuss = sch
+		else:
+			sch.free()
+			print("601 Schuss %s: Gerüst ohne Arme" % fighter.id)
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -785,11 +835,9 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		bi = sk.find_bone("hand_%s" % side.to_lower())
 	if bi < 0 or not FileAccess.file_exists(p):
 		return
-	var doc := GLTFDocument.new()
-	var st := GLTFState.new()
-	if doc.append_from_buffer(lade_bin(p), "", st) != OK:
+	var w := ModellSpeicher.kopie(p)     # 1270.2
+	if w == null:
 		return
-	var w := doc.generate_scene(st) as Node3D
 	_paint(w)
 	var at := BoneAttachment3D.new()
 	at.bone_name = sk.get_bone_name(bi)
@@ -1288,6 +1336,11 @@ func koerper_ruhe() -> Array:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
 	if sk == null or not anim.has_animation(grund):
 		return ks
+	# 845 (Messlauf 469, treffen_709 Krogg): geht das Ziel noch heim, zählt die Haltung im Gehen nicht (das Bein vorn lag 0,3–0,4 m
+	# vor dem Körper, der Söldner blieb 0,84–0,88 m zu kurz, und der Plan galt danach im Speicher auch für den stehenden Krogg);
+	# gezählt wird nur die Grundschleife, in der es ankommt
+	if unterwegs():
+		ks = []
 	var vor := String(anim.current_animation)
 	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
 	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
@@ -1309,7 +1362,7 @@ func _ruhe_uhr() -> int:
 
 
 func _ruhebewegung() -> void:
-	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen") or anim.has_animation("Lauern")) or bedroht():
+	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen") or anim.has_animation("Lauern")) or bedroht() or ausgeholt():     # 1000: mit erhobener Axt keine Ruhegeste
 		return
 	var grund: String = anim.current_animation
 	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
@@ -2485,7 +2538,13 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# ohne in den Schild zu fahren, und der eigene Körper frei bleibt. Der Aufschlag ist der Augenblick, in dem sie am nächsten ist
 	var biss_t: float = bite[nm][1]
 	var biss_von := Vector3.INF
-	if nm == "Biss" and weiter <= 0.0 and other.fighter.monster == null:
+	# 1284 (Chef 15.11., 12:07, Build 286: „Riesenratte Biss, aber die macht gar keinen Biss … klappt es nur, wenn sie trifft“;
+	# biss_1284 mit Kaufratte: daneben biss sie 0,6–0,8 m weiter weg als beim Treffer, Mitte zu Mitte 2,1 gegen 1,3 m, weil dieser
+	# Weg nur beim Treffer galt und daneben VERFEHLT_M auf den alten Abstand kam; für die kurze Ratte ein Biss in die Luft): daneben
+	# derselbe Weg, die Zähne schnappen BISS_DANEBEN vor Körper oder Schild zu; nur für Tiere unter BISS_KLEIN_M (Ratte, Spinne,
+	# Schnecke): Wolf und Grimmzahn bleiben daneben VERFEHLT_M weiter weg (wolf_mess_438 sonst: Wolf bis 0,14 m in Schild und Stab)
+	if nm == "Biss" and other.fighter.monster == null and (weiter <= 0.0 or hoehe_oben() < BISS_KLEIN_M):
+		var soll: float = -BISS_TIEF if weiter <= 0.0 else BISS_DANEBEN
 		var bb: Array = _hieb_bahn(nm, deg_to_rad(bite[nm][2]))
 		if not bb.is_empty():
 			var ziel: Array = other.koerper()
@@ -2495,7 +2554,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
 			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
+				var pl: Array = hieb_plan(bb, ziel, other.position, d2, soll, BISS_LUFT, hind)
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
 				if pl[2] <= 0.0:
@@ -2929,7 +2988,22 @@ func _hieb(other, weiter := 0.0) -> int:
 	var d2: Array = _dreh(tween, yaw, schlag, "Stehen")
 	t_run += d2[0]
 	var bl: float = anim.get_animation("Hieb").length if anim and anim.has_animation("Hieb") else 0.9
-	tween.tween_callback(func(): gang = "hieb"; _play("Hieb", 0.08))
+	# 1000: aus der gehaltenen Lage beginnt der Hieb an der Stelle, die sie zeigt (die Axt ist schon oben), ohne zweites Ausholen
+	var oben := ausgeholt()
+	var t0: float = ausholer.stelle() if oben else 0.0
+	if oben:
+		ausholer.fest = true
+		auf = maxf(0.0, auf - t0 / maxf(float(tempo.get("Hieb", 1.0)), 0.1))
+		bl -= t0
+	tween.tween_callback(func():
+		gang = "hieb"
+		if oben and ausholer != null and ausholer.an:
+			_play("Hieb", 0.0)
+			anim.seek(t0, true)
+			ausholer.aus_sofort()
+			schlag_kommt = false
+		else:
+			_play("Hieb", 0.08))
 	tween.tween_interval(bl)
 	# zurück, das Gesicht zum Ziel, um die anderen herum
 	var vh := _detour(start, home, other)
@@ -3011,6 +3085,42 @@ func announce(intent, at = null) -> void:
 		_idle_wenn_frei()     # 438 (wolf_mess_438: kauerte unterwegs heim und glitt 4,8 m in Hocke): unterwegs erst daheim
 
 
+## 1000 (Tuffy 620.2c, wie 310): nach der Ansage „Schwerer Hieb“ hält Grak die Axt oben bis zu seinem Hieb (ausholen.gd); kommt
+## er aus dem Tritt, senkt er sie. [schlag_kommt]: „Schwerer Hieb!“ (FOE_STRIKES) ist gefallen, die Ansage ist weg, der Hieb folgt
+var ausholer = null
+var schlag_kommt := false
+
+func kann_ausholen() -> bool:
+	return anim != null and anim.has_animation("Hieb") and _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3
+
+func ausgeholt() -> bool:
+	return ausholer != null and ausholer.an
+
+func ausholen(an: bool) -> void:
+	if not an:
+		schlag_kommt = false
+		if ausholer != null:
+			ausholer.an = false
+			ausholer.fest = false
+		return
+	if down or not kann_ausholen():
+		return
+	if ausholer == null:
+		var sk := _find(model, "Skeleton3D") as Skeleton3D
+		if sk == null:
+			return
+		var a = preload("res://kampf/ausholen.gd").new()
+		a.name = "Ausholen"
+		if not a.einrichten(anim.get_animation("Hieb"), anim, sk):
+			a.free()
+			return
+		sk.add_child(a)
+		ausholer = a
+	if not ausholer.an:
+		ausholer.phase = 0.0
+	ausholer.an = true
+
+
 ## 494 Riesenspinne: zuletzt angesagte Absicht (announce); „Netz werfen“ spielt den Netzwurf, wann das Netz losfliegt (ms)
 var angesagt = null
 var netz_los_ms := -1
@@ -3019,15 +3129,36 @@ const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterl
 ## Schulter aus und lässt sie los, wenn der Arm über dem Kopf nach vorn geht (Hieb: oben bei 0,35, Mitte bei 0,41 der Bewegung)
 var wurf_los_ms := -1
 const WURF_LOS := 0.38
-const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY"]     # wie Zauber.BOMBS
+const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]     # wie Zauber.BOMBS
 
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 ## 662 (Chef t270.9: „keine Seite erkennbar“): wo der Angriff ankommt (Platz vor dem Biss oder Hieb, im Raum des Kampforts);
 ## danach richtet der Angegriffene die Parade aus. INF: gerade aus dem Stand (dann zählt, wo der Angreifer steht)
 var angriff_von := Vector3.INF
+## 601: Schussbewegung des Spähers (schuss.gd), sonst null
+var schuss = null
+
+## 601: Lage eines Knochens in der Welt (der Pfeil auf der Sehne an der Zughand), null ohne Gerüst
+func hand_welt(knochen: String):
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model != null else null
+	if sk != null and schuss != null and knochen in ["hand_l", "hand_r"]:     # Kampfgerüst: die Hand ohne eigenen Knochen
+		return schuss.hand_welt(sk, "arm_l" if knochen == "hand_l" else "arm_r")
+	if sk == null or sk.find_bone(knochen) < 0:
+		return null
+	return sk.global_transform * sk.get_bone_global_pose(sk.find_bone(knochen)).origin
+
+
+func _schuss_fertig() -> void:
+	_face()
+	_idle_wenn_frei()
+
+func spell_oder_fern(e: Dictionary) -> bool:
+	return e.spell != null or fighter.ranged()
 
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
+	if ausgeholt() and (spell_oder_fern(e) or kauf or not kann_ausholen()):
+		ausholen(false)     # 1000: nur der Axthieb (_hieb) schlägt aus der gehaltenen Lage
 	angriff_von = Vector3.INF
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
@@ -3058,6 +3189,17 @@ func strike(other, e: Dictionary) -> int:
 		get_tree().create_timer(lw).timeout.connect(func(): _face(); _idle())
 		busy_ms = int(lw * 1000.0)
 		return wurf_los_ms
+	if ranged and not spell and schuss != null:
+		# 601 (Chef 05.11., t266.5: „Schussanimation nicht vorhanden“): heben, Sehne ziehen, zielen, lösen (schuss.gd); der Pfeil
+		# fliegt beim Lösen (kampf_ui.gd _pfeil_flug)
+		_schnaufen(0.6)
+		_face(other.position - position)
+		_play("Stehen", 0.1)
+		schuss.schiessen(other.position + Vector3.UP * (other.head().y - other.position.y) * 0.7)
+		if not schuss.fertig.is_connected(_schuss_fertig):
+			schuss.fertig.connect(_schuss_fertig)
+		busy_ms = int(schuss.DAUER * 1000.0)
+		return int(schuss.LOS * 1000.0)
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)
@@ -3177,6 +3319,8 @@ const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hi
 const BISS_UMRISS := 0.03         # 709: so viel Luft hält der Umriss des Tiers am Bissplatz zu allen (wolf_mess_438: 5 cm tief erlaubt)
 const BISS_LUFT := 0.05           # 709: Körper und Schnauze bleiben so weit vor Körper und Schild des Ziels (wolf_mess_438: 4 cm im Schild)
 const BISS_TIEF := 0.01           # 709: so tief fasst die Schnauze beim Treffer in den Körper (Kapseln; wolf_mess_438 erlaubt 3 cm)
+const BISS_DANEBEN := 0.12        # 1284: daneben schnappen die Zähne so weit vor Körper oder Schild zu (sichtbar knapp, kein Luftbiss)
+const BISS_KLEIN_M := 0.7         # 1284: kleiner als das (Oberkante; Kaufratte 0,52 m, Wolf Schulter 0,8 m) beißt daneben knapp vorbei
 const NACH_T := 0.2               # 709: so lange nach dem Aufschlag beginnt der „zweite Schwung“ (hieb_plan [4])
 const NACH_LUFT := 0.12           # 709: so weit bleibt die Waffe danach vom Ziel (der Getroffene zuckt bis 0,1 m vor)
 const HIEB_VERZUG := 0.05         # 709: der Hieb beginnt mit Überblendung (0,08 s) ein Bild nach dem Aufruf; so viel später der Aufschlag
@@ -3479,6 +3623,8 @@ func cast_point():
 			return tip / n
 	if w != null:
 		return w.global_position
+	if schuss != null and off != null:     # 601: der Pfeil geht vom Bogen des Spähers aus, nicht aus der Zughand
+		return off.global_position
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
 	if sk == null:
 		return null
@@ -4673,6 +4819,7 @@ const AUSWEICHEN := [1.0, 0.0, 0.5, 0.9, 90.0, 120.0]     # r3c: mit Blick gerad
 func die() -> void:
 	_dreh_ab()
 	down = true
+	ausholen(false)     # 1000: die Axt sinkt mit dem Fall (die Schicht gibt dem Tod nach)
 	if atem != null:
 		atem.active = false     # 453.1: der Tote atmet nicht
 	if not weg.is_empty() and tween and tween.is_running():

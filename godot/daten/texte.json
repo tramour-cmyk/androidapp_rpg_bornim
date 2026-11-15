@@ -34,8 +34,7 @@
     "next": {"de":"Weiter","en":"Next"},
     "start": {"de":"Abenteuer beginnen","en":"Begin adventure"},
     "yourName": {"de":"Name deines Helden","en":"Your hero's name"},
-    "chooseRace": {"de":"Wähle dein Volk","en":"Choose your race"},
-    "chooseClass": {"de":"Wähle deine Klasse","en":"Choose your class"},
+    "chooseRace": {"de":"Wähle dein Volk","en":"Choose your people"},
     "summary": {"de":"Dein Held","en":"Your hero"},
     "defaultName": {"de":"Alrik","en":"Alric"},
     "menu": {"de":"Menü","en":"Menu"},
@@ -52,34 +51,20 @@
     "level": {"de":"Stufe","en":"Level"},
     "xp": {"de":"EP","en":"XP"},
     "hp": {"de":"TP","en":"HP"},
-    "sp": {"de":"ZP","en":"SP"},
-    "ac": {"de":"RK","en":"AC"},
+    "sp": {"de":"Mana","en":"Mana"},
     "gold": {"de":"Gold","en":"Gold"},
-    "proficiency": {"de":"Übungsbonus","en":"Proficiency Bonus"},
-    "attack": {"de":"Angriff","en":"Attack"},
     "damage": {"de":"Schaden","en":"Damage"},
-    "points": {"de":"Attributspunkte: {0}","en":"Ability points: {0}"},
     "raise": {"de":"+","en":"+"},
-    "skills": {"de":"Fähigkeiten","en":"Skills"},
-    "passive": {"de":"passiv","en":"passive"},
-    "unlimited": {"de":"∞","en":"∞"},
-    "fromLevel": {"de":"ab Stufe {0}","en":"from level {0}"},
+    "skills": {"de":"Fertigkeiten","en":"Skills"},
     "traits": {"de":"Merkmal","en":"Trait"},
-    "hitDie": {"de":"Trefferwürfel","en":"Hit Die"},
-    "primary": {"de":"Hauptattribut","en":"Primary ability"},
-    "armorProf": {"de":"Rüstung","en":"Armor"},
     "use": {"de":"Benutzen","en":"Use"},
     "equip": {"de":"Anlegen","en":"Equip"},
     "unequip": {"de":"Ablegen","en":"Unequip"},
     "equipped": {"de":"angelegt","en":"equipped"},
     "empty": {"de":"— leer —","en":"— empty —"},
     "nothing": {"de":"Nichts","en":"Nothing"},
-    "cannotEquipArmor": {
-      "de": "Mit dieser Rüstung bist du nicht vertraut.",
-      "en": "You are not proficient with this armor."
-    },
     "cannotUseHere": {"de":"Das kannst du hier nicht benutzen.","en":"You can't use that here."},
-    "alreadyFull": {"de":"Deine TP sind bereits voll.","en":"Your HP is already full."},
+    "alreadyFull": {"de":"Dein Leben ist schon voll.","en":"Your life is already full."},
     "onlyUndead": {"de":"nur gegen Untote","en":"undead only"},
     "fight": {"de":"Kampf","en":"Fight"},
     "flee": {"de":"Flucht","en":"Run"},
@@ -107,38 +92,38 @@
     "ask": {"de":"Rasten?","en":"Rest?"},
     "tavern": {"de":"Schänke","en":"Inn"},
     "room": {"de":"Zimmer","en":"Room"},
-    "short": {"de":"Kurze Rast · 1 Stunde","en":"Short rest · 1 hour"},
-    "long": {"de":"Lange Rast · 8 Stunden","en":"Long rest · 8 hours"},
-    "shortDoes": {
-      "de": "Ausdauer voll, ein Viertel der TP zurück",
-      "en": "Full stamina, regain a quarter of your HP"
-    },
+    "short": {"de":"Kurze Erholung · 2 Stunden","en":"Short Respite · 2 hours"},
+    "long": {"de":"Langes Ausruhen · 9 Stunden","en":"Long Rest · 9 hours"},
+    "shortDoes": {"de":"Ausdauer voll, kein Leben zurück","en":"Full stamina, no life back"},
     "longDoes": {
-      "de": "TP, ZP und Ausdauer voll, Zustände geheilt",
-      "en": "HP, SP and stamina full, conditions cured"
+      "de": "Leben, Mana und Ausdauer voll, Zustände geheilt",
+      "en": "Life, mana and stamina full, conditions cured"
     },
-    "longDone": {"de":"Heute hast du schon lange gerastet.","en":"You have already had a long rest today."},
+    "longDone": {
+      "de": "Das Lange Ausruhen hattest du heute schon.",
+      "en": "You have already had your Long Rest today."
+    },
     "meadBuy": {"de":"Met · {0} Gold","en":"Mead · {0} gold"},
     "meadDoes": {"de":"Ausdauer voll; zu viel macht betrunken","en":"Stamina full; too much makes you drunk"},
     "roomBuy": {"de":"Zimmer · {0} Gold","en":"Room · {0} gold"},
     "roomDoes": {
-      "de": "Ein Bett oben unter dem Dach: lange Rast",
-      "en": "A bed upstairs under the roof: long rest"
+      "de": "Ein Bett oben unter dem Dach: Langes Ausruhen",
+      "en": "A bed upstairs under the roof: Long Rest"
     },
     "leave": {"de":"Weiter","en":"Continue"},
-    "hourGone": {"de":"Eine Stunde vergeht.","en":"An hour passes."},
-    "hoursGone": {"de":"Acht Stunden vergehen.","en":"Eight hours pass."},
+    "hourGone": {"de":"Zwei Stunden vergehen.","en":"Two hours pass."},
+    "hoursGone": {"de":"Neun Stunden vergehen.","en":"Nine hours pass."},
     "shortRested": {
-      "de": "Eine Stunde Ruhe. Die Ausdauer ist voll, +{0} TP.",
-      "en": "An hour of rest. Your stamina is full, +{0} HP."
+      "de": "Zwei Stunden Ruhe. Die Ausdauer ist voll.",
+      "en": "Two hours of rest. Your stamina is full."
     },
     "longRested": {
-      "de": "Acht Stunden Schlaf. TP, ZP und Ausdauer sind voll.",
-      "en": "Eight hours of sleep. HP, SP and stamina are full."
+      "de": "Neun Stunden Schlaf. Leben, Mana und Ausdauer sind voll.",
+      "en": "Nine hours of sleep. Life, mana and stamina are full."
     },
     "roomRested": {
-      "de": "Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll.",
-      "en": "You climb the stairs and sleep for eight hours. HP, SP and stamina are full."
+      "de": "Du steigst die Treppe hinauf und schläfst neun Stunden. Leben, Mana und Ausdauer sind voll.",
+      "en": "You climb the stairs and sleep for nine hours. Life, mana and stamina are full."
     },
     "meadDrunk": {"de":"Der Met wärmt. Die Ausdauer ist voll.","en":"The mead warms you. Your stamina is full."},
     "drunkNow": {
@@ -224,8 +209,8 @@
       "neben": false,
       "titel": {"de":"Der Auftrag","en":"The Quest"},
       "text": {
-        "de": "Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Hobgoblin namens Grak an. Aldric bat {name}, Lyra und das Amulett zurückzubringen, und gab Tränke und Gold mit auf den Weg.",
-        "en": "Elder Aldric told of the Bloodfang tribe in the cave at the north end of the Whisperwood. These goblins used to be cowards; now a hobgoblin named Grak leads them. Aldric asked {name} to bring back Lyra and the amulet, and gave potions and gold for the road."
+        "de": "Ältester Aldric erzählte vom Blutzahn-Stamm in der Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige, nun führt sie ein Goblin-Hauptmann namens Grak an. Aldric bat {name}, Lyra und das Amulett zurückzubringen, und gab Tränke und Gold mit auf den Weg.",
+        "en": "Elder Aldric told of the Bloodfang tribe in the cave at the north end of the Whisperwood. These goblins used to be cowards; now a goblin captain named Grak leads them. Aldric asked {name} to bring back Lyra and the amulet, and gave potions and gold for the road."
       }
     },
     {
@@ -260,8 +245,8 @@
       "neben": false,
       "titel": {"de":"Kroggs Schlüssel","en":"Krogg's Key"},
       "text": {
-        "de": "Im Ostflügel der Höhle bewachte der Grottenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.",
-        "en": "In the east wing of the cave the bugbear Krogg guarded the key to Grak's hall. {name} defeated him and took the rusty key from his belt."
+        "de": "Im Ostflügel der Höhle bewachte der Bärenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.",
+        "en": "In the east wing of the cave the bearbrute Krogg guarded the key to Grak's hall. {name} defeated him and took the rusty key from his belt."
       }
     },
     {
@@ -278,8 +263,8 @@
       "neben": false,
       "titel": {"de":"Graks Fall","en":"Grak's Fall"},
       "text": {
-        "de": "Grak prahlte, ein Prophet zahle ihm Gold für jede Seele, und die Priesterin gehöre schon ihm. {name} besiegte den Hobgoblin. Bei ihm lagen das Sonnenamulett und ein versiegelter Brief.",
-        "en": "Grak boasted that a prophet paid him gold for every soul, and that the priestess was already his. {name} defeated the hobgoblin. Beside him lay the Sun Amulet and a sealed letter."
+        "de": "Grak prahlte, ein Prophet zahle ihm Gold für jede Seele, und die Priesterin gehöre schon ihm. {name} besiegte den Goblin-Hauptmann. Bei ihm lagen das Sonnenamulett und ein versiegelter Brief.",
+        "en": "Grak boasted that a prophet paid him gold for every soul, and that the priestess was already his. {name} defeated the goblin captain. Beside him lay the Sun Amulet and a sealed letter."
       }
     },
     {
@@ -324,8 +309,8 @@
       "id": "rauch",
       "titel": {"de":"Rauch gegen Krogg","en":"Smoke against Krogg"},
       "text": {
-        "de": "Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.",
-        "en": "Garrick advised {name} to seek out Morwen the Herbalist in the Deep Whisperwood before fighting Krogg. He said she knew a way to blunt a bugbear's first blow."
+        "de": "Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Bärenschrats.",
+        "en": "Garrick advised {name} to seek out Morwen the Herbalist in the Deep Whisperwood before fighting Krogg. He said she knew a way to blunt a bearbrute's first blow."
       }
     },
     {
@@ -792,100 +777,164 @@
     }
   ],
   "anleitung": {
-    "titel": {"de":"Anleitung","en":"Guide"},
-    "zeichen": {"de":"Anleitung","en":"Guide"},
+    "titel": {"de":"Handbuch","en":"Handbook"},
+    "zeichen": {"de":"Handbuch","en":"Handbook"},
     "hinweis": {
-      "de": "Wie das Spiel geht: Regeln, Bildschirme, Fähigkeiten.",
-      "en": "How the game works: rules, screens, abilities."
+      "de": "Wie das Spiel geht: Held, Fertigkeiten, Kampf, Welt.",
+      "en": "How the game works: hero, skills, battle, world."
     },
     "teile": [
       {
-        "de": "Die Regeln folgen dem System Reference Document 5.1 (SRD 5.1), vereinfacht. Hier steht, was du zum Spielen brauchst; den Rest findest du beim Spielen.",
-        "en": "The rules follow the System Reference Document 5.1 (SRD 5.1), simplified. Here is what you need to play; the rest you find by playing."
+        "de": "Niemand sagt dir, wer du wirst. Die Chronik hält fest, was du tust, und daraus wächst dein Held. Hier steht, was du dafür wissen musst; der Rest zeigt sich unterwegs.",
+        "en": "No one tells you who to become. The chronicle records what you do, and your hero grows from it. Here is what you need to know; the rest reveals itself on the road."
+      },
+      {
+        "de": "**Du wirst, was du tust.** Das ist der Leitsatz der Regeln dieses Spiels, des Bornimer Rollenspielsystems, kurz BRS. Es gibt keine Klasse, die du am Anfang wählst. Wer oft den Bogen spannt, trifft besser. Wer zaubert, zaubert stärker. Wer schleicht und Dolche führt, bekommt eines Tages Besuch von jemandem, der ihm einen Pfad anbietet.",
+        "en": "**You become what you do.** That is the guiding line of this game's rules, the Bornim Roleplaying System, BRS for short. There is no class to pick at the start. Draw the bow often and you shoot truer. Cast spells and your spells grow stronger. Creep and wield daggers, and one day someone will come to offer you a path."
+      },
+      {
+        "de": "**Alles geht, nichts muss.** Kampf, Handwerk, Sammeln: jeder Weg bringt dich voran, keiner ist Pflicht. Du darfst dieselben Wälder wieder und wieder durchstreifen; nötig ist es nie. Wiederkehrende Gegner bringen Beute und Übung, aber kaum noch Erfahrung.",
+        "en": "**Everything is possible, nothing is required.** Battle, craft, gathering: every way takes you forward, none is a must. You may roam the same woods again and again; you never have to. Returning foes bring loot and practice, but hardly any experience."
+      },
+      {
+        "de": "**Wenig Zufall.** Es wird nicht gewürfelt. Was zählt, sind Stufe, Fertigkeit, Waffe und Grundwerte; der Zufall streut nur ein wenig.",
+        "en": "**Little chance.** No dice decide. What counts is level, skill, weapon and attributes; chance only scatters the result a little."
       },
       {
         "de": "**Unterwegs.** Laufen, Ansprechen und Untersuchen erklärt der Hinweis beim Erwachen; einstellen kannst du es unter System, Bedienung. Der Aktionsknopf zeigt, was vor dir zu tun ist: sprechen, öffnen, lesen, rasten, betreten. Im hohen Gras und in der Höhle lauern Monster, die dich aus dem Hinterhalt anfallen; auf den Wegen bist du sicherer. Andere Monster siehst du: manche wandern nur umher, manche lauern still an ihrem Platz, und Jäger folgen dir, bis du ihnen davonläufst oder einen sicheren Ort wie Garricks Feuer erreichst. Wer von hinten auf ein Monster trifft, schlägt zuerst; wen ein Monster von hinten erwischt, der wird überrascht. Wer rennt, wird früher gehört. Besiegte Monster kommen nach einer Weile wieder.",
         "en": "**On the road.** Walking, talking and examining are explained by the hint when you wake; you can change them under System, Handling. The action button shows what there is to do ahead of you: talk, open, read, rest, enter. In tall grass and in the cave, monsters lurk and ambush you; on the paths you are safer. Other monsters you can see: some just roam, some lurk still in their place, and hunters follow you until you outrun them or reach a safe place such as Garrick's fire. Whoever comes upon a monster from behind strikes first; whoever a monster catches from behind is taken by surprise. Running makes you heard sooner. Defeated monsters come back after a while."
       },
       {
-        "de": "**Die Leiste oben.** TP sind deine Trefferpunkte: grün, gelb, dann rot. ZP sind Zauberpunkte, nur bei Magier und Kleriker. EP sind Erfahrungspunkte bis zur nächsten Stufe. Rechts stehen Tag und Uhrzeit. Darunter kleine Zeichen: Zustände wie Gift oder Blut, „Satt“ nach einer Mahlzeit, „Schutz“ für die Magierrüstung und ★, wenn du Punkte verteilen kannst. Der goldene Balken am rechten Rand ist deine Ausdauer beim Rennen; er erscheint nur, wenn sie nicht voll ist. Ein Tipp auf die Leiste öffnet das Menü, das Kartenzeichen die Karte.",
-        "en": "**The bar at the top.** HP are your hit points: green, yellow, then red. SP are spell points, for wizard and cleric only. XP are experience points toward the next level. On the right: day and time. Below, small signs: conditions such as Psn or Bld, “Fed” after a meal, “Ward” for mage armor, and ★ when you have points to spend. The golden bar on the right edge is your stamina for running; it shows only when it is not full. A tap on the bar opens the menu, the map sign the map."
+        "de": "**Die Leiste oben.** TP zeigen dein Leben: grün, gelb, dann rot. Mana brauchst du für Zauber. EP zeigen deine Erfahrung bis zur nächsten Heldenstufe. Rechts stehen Tag und Uhrzeit. Darunter kleine Zeichen für Zustände wie Gift oder Blut. Der goldene Balken am rechten Rand ist deine Ausdauer beim Rennen; er erscheint nur, wenn sie nicht voll ist. Ein Tipp auf die Leiste öffnet das Menü, das Kartenzeichen die Karte.",
+        "en": "**The bar at the top.** HP show your life: green, yellow, then red. Mana is what your spells cost. XP show your experience toward your next hero level. On the right: day and time. Below, small signs for conditions such as Psn or Bld. The golden bar on the right edge is your stamina for running; it shows only when it is not full. A tap on the bar opens the menu, the map sign the map."
       },
       {
-        "de": "**Kampf.** Du und der Gegner ziehen abwechselnd; wer zuerst dran ist, entscheidet ein Wurf, in den deine Geschicklichkeit eingeht. In deinem Zug wählst du eins: **Angriff** mit der Waffe. **Fähigkeiten**: Zauber und Künste deiner Klasse. **Tasche**: Tränke und Wurfgeschosse. **Abwehr**: Angriffe auf dich haben Nachteil, und verfehlt dich der Gegner, hat dein nächster Angriff Vorteil. **Flucht**: gelingt nicht immer und kostet dann den Zug; vor Bossen gibt es keine. **Zug beenden**: du wartest ab.",
-        "en": "**Battle.** You and the foe take turns; a roll that counts your dexterity decides who goes first. On your turn you choose one: **Attack** with your weapon. **Abilities**: your class's spells and skills. **Bag**: potions and things to throw. **Defend**: attacks on you have disadvantage, and if the foe misses, your next attack has advantage. **Run**: does not always work and then costs the turn; there is no fleeing from bosses. **End turn**: you wait."
+        "de": "**Kampf.** Gekämpft wird in zwei Reihen, vorn und hinten. Wer zuerst handelt, entscheidet die Gewandtheit. Über jedem Gegner steht, was er als Nächstes vorhat; ein langer Druck auf das Zeichen sagt, was dagegen hilft. In deinem Zug wählst du: **Angriff** mit der Waffe. **Können**: Zauber und Kampfhandlungen deiner Fertigkeiten. **Tasche**: Heiltränke. **Wechsel**: Reihe oder Waffe wechseln, ein halber Zug. **Abwehr**: bis zu deinem nächsten Zug haben Angriffe auf dich Ungunst. **Flucht**: gelingt nicht immer und kostet dann den Zug; vor Bossen gibt es keine. Bei vielen Schlägen gegen dich erscheint ein Ring: tippe, wenn der große auf dem kleinen liegt, dann nimmst du halben Schaden oder weichst ganz aus. Jeder Knopf erklärt sich bei langem Druck.",
+        "en": "**Battle.** You fight in two rows, front and back. Agility decides who acts first. Above each foe you see what it means to do next; a long press on the sign tells you what counters it. On your turn you choose: **Attack** with your weapon. **Abilities**: the spells and combat moves your skills give you. **Bag**: healing potions. **Switch**: change row or weapon, half a turn. **Defend**: until your next turn, attacks on you are at disfavor. **Run**: does not always work and then costs the turn; there is no fleeing from bosses. Many blows against you bring a ring: tap when the large one lies on the small one, and you take half the damage or dodge altogether. Every button explains itself on a long press."
       },
       {
-        "de": "**Würfe.** Ein Angriff würfelt mit dem zwanzigseitigen Würfel und zählt deinen Bonus dazu; erreicht die Summe die Rüstungsklasse (RK) des Gegners, trifft der Angriff. Vorteil heißt: zwei Würfel, der bessere zählt; Nachteil: der schlechtere. Eine 20 ist ein kritischer Treffer mit doppelten Schadenswürfeln; Hiebwaffen lassen dann bluten, Wuchtwaffen können betäuben. Eine 1 geht immer daneben. Das Würfelzeichen unten links schaltet die Anzeige der Würfe ein und aus.",
-        "en": "**Rolls.** An attack rolls the twenty-sided die and adds your bonus; if the total reaches the foe's armor class (AC), the attack hits. Advantage means two dice, the better one counts; disadvantage, the worse. A 20 is a critical hit with double damage dice; slashing weapons then make the foe bleed, bludgeoning weapons may stun. A 1 always misses. The dice sign at the bottom left turns the display of rolls on and off."
+        "de": "**Treffen.** Es wird nicht gewürfelt. Vor jedem Angriff steht fest, wie gut deine Aussicht ist; der Kasten über dem Getroffenen zeigt sie in Prozent. Sie wächst mit deiner Fertigkeit und sinkt mit der Abwehr des Gegners; **Gunst** hebt sie, **Ungunst** senkt sie. Ein kritischer Treffer richtet mehr Schaden an; wie oft er gelingt, hängt an Gewandtheit und Fertigkeit. Manche Gegner sind verwundbar gegen eine Schadensart wie Feuer oder Wucht, andere widerstehen ihr. Das Zeichen unten rechts schaltet den Kasten ein und aus.",
+        "en": "**Hitting.** No dice decide. Before every attack your chance is set; the box above the one struck shows it as a percentage. It grows with your skill and falls with the foe's defense; **favor** raises it, **disfavor** lowers it. A critical hit deals extra damage; how often it happens depends on Agility and skill. Some foes are vulnerable to a kind of damage such as fire or crush, others resist it. The sign at the bottom right turns the box on and off."
       },
       {
-        "de": "**Zwei Waffen.** Trägst du in der Nebenhand eine Waffe statt Schild oder Fackel, schlägt sie bei jedem Angriff von selbst mit, ohne deinen Attributsbonus auf den Schaden. Du gibst dafür die RK des Schildes auf.",
-        "en": "**Two weapons.** If you carry a weapon in your off hand instead of a shield or torch, it strikes along with every attack, without your ability bonus to damage. In return you give up the shield's AC."
-      },
-      {
-        "de": "**Zustände.** Gift, Brand und Blutung kosten jede Runde TP; Blutung halbiert dazu die Heilung. Betäubt verliert eine Runde. Verlangsamt und Geschwächt senken Treffen, RK oder Schaden; Geblendet und Betrunken geben Nachteil. Gift, Blutung und Schwäche bleiben nach dem Kampf; Gift und Blutung kosten auf dem Weg weiter TP, aber nie bis unter 1. Ein Kräutertrank, eine lange Rast oder Bruder Osric heilen sie. Betrunken vergeht mit jeder Rast.",
-        "en": "**Conditions.** Poison, burning and bleeding cost HP every round; bleeding also halves healing. Stunned loses a round. Slowed and weakened lower hitting, AC or damage; blinded and drunk give disadvantage. Poison, bleeding and weakness stay after the fight; poison and bleeding go on costing HP along the way, but never below 1. An herbal remedy, a long rest or Brother Osric cures them. Drunkenness passes with any rest."
+        "de": "**Zustände.** Gift, Brand und Blutung kosten jede Runde Leben; Blutung halbiert dazu die Heilung. Wer betäubt ist, setzt eine Runde aus. Wer verlangsamt ist, trifft und weicht schlechter aus; wer geschwächt ist, trifft schlechter und macht weniger Schaden. Geblendet und Betrunken geben Ungunst. Gegen Gift hilft eine Abwehrprobe mit Zähigkeit. Gift, Blutung und Schwäche bleiben nach dem Kampf; Gift und Blutung kosten auf dem Weg weiter Leben, töten dich aber nicht. Ein Kräutertrank, das Lange Ausruhen oder Bruder Osric heilen sie; Blutung stillt auch ein Verband. Betrunken vergeht mit jeder Rast.",
+        "en": "**Conditions.** Poison, burning and bleeding cost life every round; bleeding also halves healing. Whoever is stunned loses a turn. Whoever is slowed hits and dodges less well; whoever is weakened hits less often and deals less damage. Blinded and drunk put you at disfavor. A resistance roll with Toughness helps against poison. Poison, bleeding and weakness stay after the battle; poison and bleeding go on costing life along the way, but never kill you. An herbal remedy, a Long Rest or Brother Osric cures them; a bandage also stops bleeding. Drunkenness passes with any rest."
       },
       {
         "de": "**Rudel.** Manche Gegner kommen nicht allein; die anderen kämpfen mit. Fällt der Anführer, fliehen sie.",
         "en": "**Packs.** Some foes do not come alone; the others fight along. When the leader falls, they flee."
       },
       {
-        "de": "**Wenn du fällst.** Sinken deine TP auf null, ist es nicht vorbei: du erwachst Stunden später dort, wo du zuletzt gerastet hast oder geheilt wurdest, ganz geheilt, ohne Gold zu verlieren. Nur der Kampf ist verloren, und die Zeit.",
-        "en": "**If you fall.** If your HP drop to zero, it is not over: you wake hours later where you last rested or were healed, fully healed, without losing any gold. Only the fight is lost, and the time."
+        "de": "**Wenn du fällst.** Sinkt dein Leben auf null, ist es nicht vorbei: du erwachst Stunden später dort, wo du zuletzt gerastet hast oder geheilt wurdest, ganz geheilt, ohne Gold zu verlieren. Nur der Kampf ist verloren, und die Zeit.",
+        "en": "**If you fall.** If your life drops to zero, it is not over: you wake hours later where you last rested or were healed, fully healed, without losing any gold. Only the battle is lost, and the time."
       },
       {
-        "de": "**Rasten.** Am Lagerfeuer wählst du: **kurze Rast** (eine Stunde): Ausdauer voll und ein Viertel der TP zurück. **Lange Rast** (acht Stunden, einmal am Tag): TP, ZP und Ausdauer voll, Zustände geheilt, alle Fähigkeiten wieder bereit. Ein Zimmer in der Schänke ist eine lange Rast für 5 Gold; Bruder Osric im Tempel heilt umsonst. In der Höhle kannst du nicht rasten.",
-        "en": "**Resting.** At a campfire you choose: **short rest** (one hour): stamina full and a quarter of your HP back. **Long rest** (eight hours, once a day): HP, SP and stamina full, conditions cured, all abilities ready again. A room at the inn is a long rest for 5 gold; Brother Osric in the temple heals for free. You cannot rest in the cave."
+        "de": "**Rasten.** Am Lagerfeuer wählst du: **Kurze Erholung** (zwei Stunden): Ausdauer voll, aber kein Leben zurück; Leben bringen etwa Langes Ausruhen, Heiltrank, Essen oder Verband. **Langes Ausruhen** (neun Stunden, einmal am Tag): Leben, Mana und Ausdauer voll, Zustände geheilt, alles Können wieder bereit. Ein Zimmer in der Schänke kostet ein wenig Gold und ist ein Langes Ausruhen; Bruder Osric im Tempel heilt umsonst. In der Höhle kannst du nicht rasten.",
+        "en": "**Resting.** At a campfire you choose: **Short Respite** (two hours): stamina full, but no life back; life comes from a Long Rest, a healing potion, food or a bandage, among others. **Long Rest** (nine hours, once a day): life, mana and stamina full, conditions cured, all abilities ready again. A room at the inn costs a little gold and is a Long Rest; Brother Osric in the temple heals for free. You cannot rest in the cave."
       },
       {
         "de": "**Dunkel.** Nachts und in der Höhle siehst du weniger weit. Eine Fackel in der Nebenhand leuchtet weiter, nimmt aber den Platz des Schildes. Ein Leuchtfunke leuchtet bis zur nächsten Rast, macht dich im Dunkeln aber früher sichtbar. Die Fackel verrät dich nicht, der Leuchtfunke schon. Wald und Höhle decken sich erst auf, wenn du hinsiehst.",
         "en": "**Dark.** At night and in the cave you see less far. A torch in your off hand lights farther, but takes the shield's place. A lightspark shines until your next rest, but makes you seen sooner in the dark. The torch does not give you away; the lightspark does. Woods and cave reveal themselves only where you look."
       },
       {
-        "de": "**Dein Held.** Sechs Attribute: Stärke für Nahkampf, Geschicklichkeit für RK, Fernkampf, Flucht und leises Gehen, Konstitution für TP und Ausdauer, Intelligenz für Magierzauber, Weisheit für Klerikerzauber und Sicht, Charisma für Preise und Gegner, die zögern. Im Reiter Held erklärt jedes Attribut beim Antippen, was es bringt. EP gibt es für Kämpfe. Jede Stufe bringt mehr TP und füllt TP und ZP auf; auf Stufe 2, 3 und 5 kommen Fähigkeiten dazu, auf Stufe 5 auch Treffsicherheit; auf Stufe 4 verteilst du zwei Attributspunkte. In Kapitel 1 ist Stufe 6 das Höchste.",
-        "en": "**Your hero.** Six abilities: strength for melee, dexterity for AC, ranged attacks, fleeing and moving quietly, constitution for HP and stamina, intelligence for wizard spells, wisdom for cleric spells and sight, charisma for prices and foes who hesitate. In the Hero tab every ability explains on a tap what it does. XP come from fights. Each level brings more HP and refills HP and SP; levels 2, 3 and 5 bring new abilities, level 5 also accuracy; at level 4 you spend two ability points. In chapter 1, level 6 is the highest."
+        "de": "**Dein Held.** Im Reiter Held stehen Grundwerte, Fertigkeiten und Kampfwerte; jeder Grundwert erklärt beim Antippen, was er bringt. Stärker wirst du durch deine Fertigkeiten und deine Heldenstufe, langsam auch in den Grundwerten: haben deine Waffenfertigkeiten und Magieschulen an einem Grundwert zusammen genug dazugewonnen, steigt er um eins („Kraft ↑“). Jede Heldenstufe bringt mehr Leben und füllt Leben und Mana auf.",
+        "en": "**Your hero.** The Hero tab shows attributes, skills and combat stats; every attribute explains on a tap what it does. You grow stronger through your skills and your hero level, and slowly in your attributes too: once your weapon skills and schools of magic tied to an attribute have gained enough between them, it rises by one (“Strength ↑”). Each hero level brings more life and refills life and mana."
       },
       {
-        "de": "**Fähigkeiten.** Manche gelten immer (passiv), manche einmal je Kampf, manche einmal je langer Rast, Zauber kosten ZP. Zaubertricks kosten nichts (∞). In der Liste im Kampf steht hinter jeder Fähigkeit, was sie kostet; Gesperrtes ist grau, Passives steht nicht darin.",
-        "en": "**Abilities.** Some always apply (passive), some once per fight, some once per long rest; spells cost SP. Cantrips cost nothing (∞). In the battle list each ability shows its cost; what is locked is gray, passive ones are not listed."
+        "de": "**Die sechs Grundwerte.** **Kraft**: Schaden im Nahkampf, Tragkraft, Aufbrechen und Heben. **Gewandtheit**: Tempo, Ausweichen, Fingerfertigkeit, kritische Treffer. **Zähigkeit**: Leben, Rüstung tragen, Widerstand gegen Gift, Krankheit und Kälte. **Verstand**: Wissen, Handwerk, Alchemie, wie schnell du lernst. **Wille**: Mana, Stärke der Zauber, Konzentration, Mut. **Wahrnehmung**: Treffen im Fernkampf, Hinterhalte bemerken, Fährten; sie hilft dem Spähen, Verstecktes und Fallen zu finden.",
+        "en": "**The six attributes.** **Strength**: melee damage, carrying, forcing and lifting. **Agility**: speed, dodging, nimble fingers, critical hits. **Toughness**: life, wearing armor, resisting poison, sickness and cold. **Wits**: knowledge, craft, alchemy, how fast you learn. **Will**: mana, spell power, focus, courage. **Perception**: aim at range, noticing ambushes, tracks; it helps scouting find what is hidden, traps included."
       },
       {
-        "de": "**Kämpfer.** Kampfstil: Verteidigung: +1 RK in Rüstung. Zweiter Atem: heilt dich einmal je Kampf. Ab Stufe 2 Tatendrang: zwei volle Angriffe in einem Zug, einmal je langer Rast. Ab Stufe 3 kritisch schon bei 19. Ab Stufe 5 zwei Angriffe bei jedem Angriff.",
-        "en": "**Fighter.** Fighting Style: Defense: +1 AC in armor. Second Wind: heals you once per fight. From level 2 Action Surge: two full attacks in one turn, once per long rest. From level 3 a critical hit on 19 as well. From level 5 two attacks with every attack.",
-        "nur": "FIGHTER"
+        "de": "**Leben, Ausdauer, Mana.** Leben kommt aus Zähigkeit und Stufe, Ausdauer aus Zähigkeit und Wille, Mana aus Wille. Eine Gabe, andere zu bezaubern, gibt es nicht: wie die Leute dir begegnen, hängt an deinem Ruf und an deinen Worten.",
+        "en": "**Life, stamina, mana.** Life comes from Toughness and level, stamina from Toughness and Will, mana from Will. There is no gift of charm: how people meet you depends on your reputation and your words."
       },
       {
-        "de": "**Magier.** Feuerpfeil, ein Zaubertrick: Feuer, kann in Brand setzen, kostet nichts. Magisches Geschoss trifft immer. Magierrüstung gibt RK 13 plus Geschicklichkeit für acht Stunden, nur ohne Rüstung. Ab Stufe 3 Sengender Strahl: drei Strahlen. Ab Stufe 5 Feuerball, einmal je Kampf: großer Schaden, verjagt oft ein ganzes Rudel.",
-        "en": "**Wizard.** Fire Bolt, a cantrip: fire, may set ablaze, costs nothing. Magic Missile always hits. Mage Armor gives AC 13 plus dexterity for eight hours, only without armor. From level 3 Scorching Ray: three rays. From level 5 Fireball, once per fight: great damage, often drives off a whole pack.",
-        "nur": "WIZARD"
+        "de": "**Dein Volk** gibt einen kleinen Vorteil, meist auch einen kleinen Nachteil, und ein Merkmal, das man merkt. Es kann Werte auf 9 heben oder auf 2 senken. Die Leute in der Welt sehen, wer du bist, und begegnen dir danach.",
+        "en": "**Your people** grant a small boon, usually a small flaw, and a trait you will notice. They may lift values to 9 or lower them to 2. The folk of the world see what you are and meet you accordingly."
       },
       {
-        "de": "**Schurke.** Hinterhältiger Angriff: mehr Schaden beim ersten Treffer im Kampf und bei Vorteil, mit Finesse-Waffe, Fernwaffe oder ohne Waffe. Finte, zweimal je Kampf: ein Angriff mit Vorteil. Ab Stufe 2 Raffinierte Aktion: Flucht gelingt immer, außer vor Bossen. Ab Stufe 3 Unglaubliches Ausweichen: der erste Treffer zählt nur halb, ab Stufe 5 jede Runde.",
-        "en": "**Rogue.** Sneak Attack: more damage on the first hit of a fight and with advantage, with a finesse weapon, a ranged weapon or unarmed. Feint, twice per fight: an attack with advantage. From level 2 Cunning Action: fleeing always works, except from bosses. From level 3 Uncanny Dodge: the first hit counts only half, from level 5 every round.",
-        "nur": "ROGUE"
+        "de": "**Herkunft, wenn du willst.** Eine Herkunft verteilt die Punkte für dich vor, gibt dir zwei oder drei Fertigkeiten mit dem Wert {held.startfertigkeit} und die Ausrüstung dazu. Ein Satz sagt dir, wohin sie meist führt. Die Punkte darfst du danach noch ändern. Wer keine Herkunft will, ist **Wanderer**: er verteilt selbst und wählt zwei Fertigkeiten, ebenfalls mit dem Wert {held.startfertigkeit}.",
+        "en": "**Origin, if you wish.** An origin spends the points for you, gives you two or three skills at {held.startfertigkeit} and the gear to match. One line tells you where it usually leads. You may still move the points afterwards. Whoever wants no origin is a **Wanderer**: he spends his own points and picks two skills, likewise at {held.startfertigkeit}."
       },
       {
-        "de": "**Kleriker.** Heilige Flamme, ein Zaubertrick: Licht, kann blenden, kostet nichts. Wunden heilen. Segnen: Bonus auf Angriffe für den ganzen Kampf. Ab Stufe 2 Untote vertreiben, einmal je Kampf. Ab Stufe 3 Spirituelle Waffe: schlägt jede Runde mit. Ab Stufe 5 Geisterwächter: trifft jede Runde.",
-        "en": "**Cleric.** Sacred Flame, a cantrip: light, may blind, costs nothing. Cure Wounds. Bless: a bonus to attacks for the whole fight. From level 2 Turn Undead, once per fight. From level 3 Spiritual Weapon: strikes along every round. From level 5 Spirit Guardians: hits every round.",
-        "nur": "CLERIC"
+        "de": "**Was du kannst.** Jede Fertigkeit gehört zu einer Handlung, die du im Spiel tust, und sie wirkt, wo du es merkst. Waffen übst du, wenn du triffst; Rüstung, wenn man dich trifft; Ausweichen, wenn du einem Hieb entgehst; Schatten beim Anschleichen, Umsehen, an Truhen und Fallen; Magie beim Zaubern; Tiere beruhigen, wenn du ein feindliches Tier vor dem Kampf besänftigst; Gesellschaft im Gespräch und im Laden; Sammeln beim Ernten, Angeln und Zerlegen; Handwerk beim Herstellen.",
+        "en": "**What you can do.** Every skill belongs to something you do in the game, and it works where you feel it. Weapons you train by hitting; armor by being hit; dodging by escaping a blow; shadow skills by sneaking, looking around, at chests and traps; magic by casting; calming beasts by soothing a hostile beast before the fight; society in talk and in shops; gathering by harvesting, fishing and butchering; craft by making things."
       },
       {
-        "de": "**Tränke und Wurfgeschosse.** Ein Trank im Kampf kostet den Zug. Heiltränke heilen, die großen mehr; Kräutertränke heilen wenig, nehmen aber Gift und andere Zustände. Alchemistenfeuer trifft immer und setzt in Brand; Weihwasser trifft nur Untote, die dafür hart.",
-        "en": "**Potions and things to throw.** A potion in battle costs your turn. Healing potions heal, the greater ones more; herbal remedies heal little but take away poison and other conditions. Alchemist's fire always hits and sets ablaze; holy water hits only the undead, but hard."
+        "de": "**Waffen**: Einhänder, Zweihänder, Stangenwaffen, Stumpfe Waffen, Dolche, Faustkampf, Schild, Bogen, Armbrust, Wurfwaffen. **Rüstung**: Leichte, Mittlere, Schwere Rüstung, Ausweichen. **Schatten**: Schleichen, Spähen, Schlösser knacken, Fallen entschärfen. **Magie**: Evokation, Schutzmagie, Heilmagie, Illusion, Beschwörung (mit Nekromantie). **Wildnis**: Tiere beruhigen. **Gesellschaft**: Überreden (mit Täuschen), Einschüchtern, Handeln. **Sammeln**: Kräutersammeln, Bergbau, Angeln, Jagd (Zerlegen, Fährten). **Handwerk**: Schmieden (Metall, Reparieren, Dietriche), Schneidern (Gerben, Nähen, Reparieren), Alchemie (mit Giften), Kochen, Runenkunde (Verzaubern), Heilkunde.",
+        "en": "**Weapons**: One-handed, Two-handed, Polearms, Blunt Weapons, Daggers, Brawling, Shield, Bow, Crossbow, Throwing. **Armor**: Light, Medium, Heavy Armor, Dodge. **Shadow**: Stealth, Scouting, Lockpicking, Disarming Traps. **Magic**: Evocation, Warding, Healing Magic, Illusion, Summoning (with necromancy). **Wilds**: Calming Beasts. **Society**: Persuasion (with deceit), Intimidation, Haggling. **Gathering**: Foraging, Mining, Fishing, Hunting (butchering, tracking). **Craft**: Smithing (metal, repairs, lockpicks), Tailoring (tanning, sewing, repairs), Alchemy (with poisons), Cooking, Runecraft (enchanting), Medicine."
       },
       {
-        "de": "**Das Menü.** **Held**: Werte, Attribute, Fähigkeiten; hier verteilst du Punkte. **Tasche**: Vorräte benutzen, Ausrüstung anlegen, eine Waffe in die Nebenhand nehmen, Dinge wegwerfen. **Ausrüstung**: was du trägst, Platz für Platz, und deine Kampfwerte. **Karte**: Landkarte, Gebietskarte und Grundriss; Aufträge, Leute und Dienste lassen sich einblenden. **Chronik**: deine Aufträge mit Stand und was bisher geschah. **System**: Speichern, Sprache und Einstellungen; ein langer Druck erklärt jedes Zeichen.",
-        "en": "**The menu.** **Hero**: stats, ability scores, abilities; here you spend points. **Bag**: use supplies, put on gear, take a weapon into your off hand, throw things away. **Equipment**: what you wear, slot by slot, and your battle stats. **Map**: land map, area map and floor plan; quests, people and services can be shown. **Chronicle**: your quests with their progress and what has happened so far. **System**: saving, language and settings; a long press explains each sign."
+        "de": "**Erst wenn du es tust.** Eine Fertigkeit erscheint auf deinem Heldenblatt, sobald du sie zum ersten Mal gebrauchst. Hier im Handbuch stehen alle.",
+        "en": "**Only once you do it.** A skill appears on your hero sheet the first time you use it. This handbook lists them all."
       },
       {
-        "de": "**Handel und Aufträge.** Bei Thessa im Laden kaufst und verkaufst du; nach einigen Siegen hat sie neue Ware. Morwen braut dir aus Kräutern Tränke; Kräuter pflückst du, wenn du über Blumenwiesen im Wald läufst. Mit Charisma kaufst du billiger und verkaufst teurer. Am Anschlagbrett vor der Schänke hängen Aufträge; nimm an, was dir gefällt, und bring dem Auftraggeber, was er sucht.",
-        "en": "**Trade and jobs.** At Thessa's store you buy and sell; after some victories she has new wares. Morwen brews potions from herbs; you pick herbs by walking over flower meadows in the woods. With charisma you buy cheaper and sell for more. The notice board before the inn holds jobs; take what you like and bring the one who asked what they seek."
+        "de": "**Wie sie wachsen.** Jeder Gebrauch gegen ein passendes Ziel bringt Übung. Was zu leicht ist, lehrt dich kaum etwas. Je besser du schon bist, desto mehr Übung braucht der nächste Schritt. Steigt eine Fertigkeit, siehst du es sofort („Bogen ↑“).",
+        "en": "**How they grow.** Every use against a fitting target brings practice. What is too easy teaches you little. The better you already are, the more practice the next step needs. When a skill rises, you see it at once (\"Bow ↑\")."
+      },
+      {
+        "de": "**Ränge.** Jede Fertigkeit hat einen Wert von 0 bis 100 und einen Rang: **Anfänger** bis 24, **Geselle** bis 49, **Meister** bis 74, **Großmeister** bis 99. Bei 100 ist sie vollendet, und du bist darin **Vollendeter**.",
+        "en": "**Ranks.** Every skill has a value from 0 to 100 and a rank: **Novice** up to 24, **Journeyman** up to 49, **Master** up to 74, **Grandmaster** up to 99. At 100 it is complete, and in it you are a **Paragon**."
+      },
+      {
+        "de": "**Die Prüfung am Ende des Rangs.** Am Ende eines Rangs bleibt der Wert stehen, bis du eine Prüfung bestanden hast; was du bis dahin übst, wird ein wenig aufgehoben. Fertigkeiten deines Pfads prüft dein Lehrmeister; eine bestandene Prüfung öffnet den nächsten Rang für alle Kernfertigkeiten des Pfads zugleich. Für alle anderen gibt es eine **Bewährungsprobe** in der Welt; sie steht auf deinem Heldenblatt, etwa „drei Gegner deiner Stufe nur mit dem Schwert, ohne Heiltrank“ oder „einen Fisch über drei Kilo fangen“. Ohne Pfad oder Meisterschaft endet eine Fertigkeit beim Meister; Großmeister und Vollendeter wird man nur auf dem eigenen Weg.",
+        "en": "**The trial at the end of a rank.** At the end of a rank the value stands still until you pass a trial; what you practise meanwhile is kept, a little. Skills of your path are tested by your mentor; a trial passed opens the next rank for all core skills of the path at once. For all others there is a **proving** out in the world; it is written on your hero sheet, such as \"three foes of your level with the sword alone, no healing potion\" or \"catch a fish over three kilos\". Without a path or a mastery a skill ends at Master; only on your own way do you become a Grandmaster, and a Paragon."
+      },
+      {
+        "de": "**Können.** Jeder kann Kraft schöpfen: einmal je Kampf holst du dir Leben zurück. Erreicht eine Waffenfertigkeit den Gesellen, lernst du ihre Kampfhandlung, etwa die Finte mit dem Einhänder oder den Wuchtschlag mit dem Zweihänder. Zauber kommen aus den Magieschulen und kosten Mana. Manches geht nur einmal je Kampf, manches erst nach dem Langen Ausruhen wieder. In der Liste im Kampf steht hinter jedem Eintrag, was er kostet; Gesperrtes ist grau.",
+        "en": "**Abilities.** Anyone can Draw Strength: once per battle you win back some life. When a weapon skill reaches Journeyman, you learn its combat move, such as the Feint with a one-handed blade or the Crushing Swing with a two-hander. Spells come from the schools of magic and cost mana. Some things work only once per battle, some not again until a Long Rest. In the battle list each entry shows its cost; what is locked is gray."
+      },
+      {
+        "de": "**Die Heldenstufe** bestimmt dein Leben, deine Stärke im Kampf und welche Rezepte und Prüfungen dir offenstehen. Sie steigt mit Erfahrung: aus gewonnenen Kämpfen, aus Quests, aus der Geschichte, aus bestandenen Prüfungen und Bewährungsproben und aus jedem Aufstieg einer Fertigkeit. Bloßes Üben bringt keine Erfahrung, erst der Aufstieg.",
+        "en": "**Hero level** decides your life, your strength in battle and which recipes and trials are open to you. It rises with experience: from battles won, from quests, from the story, from trials and provings passed, and from every rise of a skill. Mere practice brings no experience; only the rise does."
+      },
+      {
+        "de": "**Nicht nur durch Üben.** Höchstens {erfahrung.fertigkeit_deckel|prozent} der Erfahrung für die nächste Stufe dürfen aus Fertigkeiten stammen; den Rest holst du dir in Kampf, Quest, Geschichte und Prüfungen. Ist dieser Teil voll, sagt es dir eine Anzeige.",
+        "en": "**Not by practice alone.** At most {erfahrung.fertigkeit_deckel|prozent} of the experience for the next level may come from skills; the rest you earn in battle, quest, story and trials. When that share is full, a sign tells you."
+      },
+      {
+        "de": "**Jedes Kapitel hat seine Grenze,** in diesem Stufe {held.kapitelgrenze}. Bis dahin wächst du frei; bis zu {held.grenze_weich_stufen} Stufen darüber hinaus kommst du nur mühsam, mit {held.grenze_weich_anteil|prozent} der Erfahrung, und das nächste Kapitel hebt die Grenze. Eine höchste Stufe gibt es nicht.",
+        "en": "**Every chapter has its limit,** in this one level {held.kapitelgrenze}. Up to it you grow freely; up to {held.grenze_weich_stufen} levels beyond it you climb only slowly, on {held.grenze_weich_anteil|prozent} of the experience, and the next chapter raises the limit. There is no highest level."
+      },
+      {
+        "de": "**Jedes Gebiet gibt, was es hat.** Hast du jede Quest erledigt und jeden Gegner einmal besiegt, hast du die Erfahrung des Kapitels ausgeschöpft. Wer dann weiterkämpft, findet Beute und Übung, aber kaum noch Erfahrung. Gegner, die 9 Stufen und mehr unter dir stehen, geben gar keine Erfahrung mehr.",
+        "en": "**Every land gives what it has.** Once you have finished every quest and beaten every foe once, you have drawn all the chapter's experience. Fight on and you find loot and practice, but hardly any experience. Foes 9 levels or more below you give no experience at all."
+      },
+      {
+        "de": "**Die Stufe wiegt schwer.** Wie viel Schaden ankommt, entscheidet vor allem der Abstand der Stufen. Ein Gegner weit unter dir kann dir kaum schaden, und umgekehrt. Innerhalb dessen entscheiden Fertigkeit, Waffe und Grundwerte, ob du triffst und wie hart.",
+        "en": "**Level weighs heavy.** How much damage lands is decided above all by the gap in levels. A foe far beneath you can hardly harm you, and the other way round. Within that, skill, weapon and attributes decide whether you hit and how hard."
+      },
+      {
+        "de": "**Glück** streut nur ein wenig. Ein Glückstreffer gegen dich, einmal in hundert, ist ein Kratzer, nie mehr. Kritische Treffer und Ausweichen hängen an Gewandtheit und Fertigkeit.",
+        "en": "**Luck** scatters only a little. A lucky blow against you, one in a hundred, is a scratch, never more. Critical hits and dodging depend on Agility and skill."
+      },
+      {
+        "de": "**Abwehr.** Ob ein Hieb dich trifft, entscheidet die beste deiner Abwehren: Schild, Ausweichen oder, gegen Nahkampf, die eigene Klinge, die halb so viel zählt wie ihre Fertigkeit. Gegen Pfeile und Zauber helfen nur Schild und Ausweichen. Trifft er, nimmt deine Rüstung ihm einen Teil; je besser du Schild und Rüstung führst, desto mehr.",
+        "en": "**Defense.** Whether a blow strikes you is decided by the best of your defenses: shield, dodge or, against melee, your own blade, counting half its skill. Against arrows and spells only shield and dodge help. If it lands, your armor takes part of it; the better you handle shield and armor, the more."
+      },
+      {
+        "de": "**Was sich ausschließt,** schließt sich aus: Zweihänder und Schild nie zugleich, Metall und die Magie der Umgebung nie zugleich, nie zwei Pfade.",
+        "en": "**What excludes itself** stays excluded: never two-hander and shield at once, never metal and the magic of the surroundings at once, never two paths."
+      },
+      {
+        "de": "**Metall und Magie.** Metall stört, wie der Körper die Magie aus der Umgebung aufnimmt. Darum gelingen Evokation, Illusion und Beschwörung nur in Stoff oder Leder, für jeden; einzig der Kriegsmagier wirkt Evokation auch in leichter Rüstung. Heil- und Schutzmagie schöpfen aus dem eigenen Willen; sie gehen auch in Eisen.",
+        "en": "**Metal and magic.** Metal disturbs how the body draws magic from its surroundings. So Evocation, Illusion and Summoning work only in cloth or leather, for everyone; only the Battlemage casts Evocation in light armor too. Healing and Warding draw on one's own will; they work in iron too."
+      },
+      {
+        "de": "**Tränke.** Ein Trank im Kampf kostet den Zug. Heiltränke heilen, die großen mehr; Kräutertränke heilen wenig, nehmen aber Gift und andere Zustände.",
+        "en": "**Potions.** A potion in battle costs your turn. Healing potions heal, the greater ones more; herbal remedies heal little but take away poison and other conditions."
+      },
+      {
+        "de": "**Das Menü.** **Held**: Grundwerte, Fertigkeiten, Kampfwerte. **Tasche**: Vorräte benutzen, Ausrüstung anlegen, Dinge wegwerfen. **Ausrüstung**: was du trägst, Platz für Platz, und deine Kampfwerte. **Karte**: Landkarte, Gebietskarte und Grundriss; Aufträge, Leute und Dienste lassen sich einblenden. **Chronik**: deine Aufträge mit Stand und was bisher geschah. **System**: Speichern, Sprache und Einstellungen; ein langer Druck erklärt jedes Zeichen.",
+        "en": "**The menu.** **Hero**: attributes, skills, combat stats. **Bag**: use supplies, put on gear, throw things away. **Equipment**: what you wear, slot by slot, and your combat stats. **Map**: land map, area map and floor plan; quests, people and services can be shown. **Chronicle**: your quests with their progress and what has happened so far. **System**: saving, language and settings; a long press explains each sign."
+      },
+      {
+        "de": "**Handel und Aufträge.** Bei Thessa im Laden kaufst und verkaufst du; nach einigen Siegen hat sie neue Ware. Wer gut handelt, kauft billiger und verkauft teurer. Morwen braut dir Tränke gegen Münzen oder zeigt dir, wie du sie selbst braust, und am Lagerfeuer brätst du Fleisch; was du gelernt hast, steht im Rezeptbuch. Kräuter pflückst du, wenn du über Blumenwiesen im Wald läufst. Am Anschlagbrett vor der Schänke hängen Aufträge; nimm an, was dir gefällt, und bring dem Auftraggeber, was er sucht.",
+        "en": "**Trade and quests.** At Thessa's store you buy and sell; after some victories she has new wares. Haggle well and you buy cheaper and sell for more. Morwen brews potions for coin, or shows you how to brew them yourself, and at a campfire you roast meat; what you have learned is in your recipe book. You pick herbs by walking over flower meadows in the woods. The notice board in front of the inn holds quests; take what you like and bring them what they seek."
       },
       {
         "de": "**Speichern.** Das Spiel speichert von selbst, wenn du einen Ort betrittst oder verlässt, rastest, fällst, einen Auftrag annimmst oder das Spiel verlässt. Unter System kannst du jederzeit selbst speichern. Im Hauptmenü gibt es vier Plätze für Helden.",
-        "en": "**Saving.** The game saves by itself when you enter or leave a place, rest, fall, take a job or leave the game. Under System you can save yourself at any time. The main menu has four slots for heroes."
+        "en": "**Saving.** The game saves by itself when you enter or leave a place, rest, fall, take a quest or leave the game. Under System you can save yourself at any time. The main menu has four slots for heroes."
       }
     ]
   }

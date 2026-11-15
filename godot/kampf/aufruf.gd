@@ -30,6 +30,8 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 	var lineup: Array = {
 		"WOLVES": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
 		"GRAK": [["grak", Mars.GRAK, Vector2i(0, 0)]],
+		# 930.7 (DESIGN-GLUT.md 10 Stufe 2): zwei Wölfe vorn, für den Film der Kerbbedienung
+		"WOLF2": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)]],
 		"SPIDER": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["spider", Mars.SPIDER, Vector2i(1, 0)]],
 		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],
 		# 348.9: drei Riesenratten im Körper des Wolfs; 535: mit eigenen Regeln (ART)
@@ -80,7 +82,7 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD, "BOARS": "kauf_keiler", "CENTIPEDES": "kauf_hundertfuesser", "LEECHES": "kauf_egel", "SLUGS": "kauf_schnecke", "RATTE": "giant_rat", "FLEDERMAUS": "giant_bat"}.get(foe, "")
 	# 348.12f eingebaut (Chef 28.10., 11:50: Kaufwolf abgenommen, Archiv 27.10., 21:51: „eigener entfällt“): Wölfe sind der gekaufte
 	# Wolf, sobald er gebaut beiliegt (godot-kampf.yml „Modelle bauen“); ERSATZ geht weiter vor
-	if foe in ["WOLVES", "GRIMM", "SPIDER", "RUDEL"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
+	if foe in ["WOLVES", "WOLF2", "GRIMM", "SPIDER", "RUDEL"] and FileAccess.file_exists("res://kampf/daten/kaufwolf-info.json"):
 		Figur.ersatz_art = "kaufwolf"
 	if foe == "RUDEL":
 		return rudel(monsters, dice)
@@ -130,6 +132,9 @@ const ART := {"RATS": Mars.RAT, "BATS": Mars.BAT, "KOBOLDS": Mars.KOBOLD, "SHAMA
 ## (Packs.kt cubs): vorn der Wolf, dazu 1–2 Jungwölfe, halb so groß (scale 0,55), Biss 1W3, Angriff −1; neu, weil MARS
 ## Trefferpunkte braucht: halb so viele wie ein Wolf; sie folgen dem Wolf und fliehen, wenn er fällt (mars.gd follows);
 ## Erfahrung nach BRS über lohn.gd (Wolf, je Jungwolf werte.json „erfahrung_anteil“)
+## 1223 (Chef 13.11., 20:59 „Leitwolf nicht erkennbar“; [1229.leitwolf] STORY-BRS-KAMPF.md): der Anführer des Rudels heißt im Kampf
+## „Leitwolf“, ohne Nummer; die Art bleibt „wolf“ (Blendentext, Lohn, Klang, Wissen nach der id)
+const LEITWOLF := {"de": "Leitwolf", "en": "Pack leader"}
 const JUNGWOLF := {"de": "Jungwolf", "en": "Young wolf", "scale": 0.55, "hp_share": 0.5, "chance": 0.5,
 	"flee": ["Mit eingezogenem Schwanz fliehen die Jungwölfe ins Unterholz!", "Tails tucked, the young wolves flee into the undergrowth!"]}
 
@@ -140,7 +145,10 @@ const LEIBWACHE := {"chance": 0.55,
 
 static func rudel(monsters: Dictionary, dice) -> Array:
 	var wolf: Dictionary = monsters[Mars.WOLF]
-	var foes := [Mars.monster_fighter("wolf1", Vector2i(0, 0), wolf, dice.roll_expr(wolf.hp))]
+	var leit: Dictionary = wolf.duplicate(true)
+	leit.de = LEITWOLF.de
+	leit.en = LEITWOLF.en
+	var foes := [Mars.monster_fighter("wolf1", Vector2i(0, 0), leit, dice.roll_expr(wolf.hp))]
 	var jung: Dictionary = wolf.duplicate(true)
 	jung.de = JUNGWOLF.de
 	jung.en = JUNGWOLF.en
@@ -180,6 +188,8 @@ static func blatt(h, zweite = null) -> Dictionary:
 		"sp": h.mana, "sp_max": h.max_mana(), "skills": [], "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
 		"off": _waffe(h, h.nebenwaffe()) if h.nebenwaffe() != null else null,
 		"schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
+		# 999.1: Fackel in der Nebenhand, im Kampf in der linken Faust (figur.gd _fackel_kauf)
+		"fackel": h.ding("OFF_HAND") != null and String(Beute.grundform(String(h.ding("OFF_HAND")["base"])).get("art", "")) == "LIGHT",
 		# 870.6: Lebensraub, Schadensminderung, Standhaftigkeit, Gift-/Blutungs-/Betäubungschance der alten Ausrüstung entfallen
 		# (nicht in der Liste DESIGN-BRS.md 11); was die Ausrüstung nach BRS gibt, steht im Kampfblatt „brs“ („zusatz“)
 		"brs_ruestung": h.ruestung(), "brs": h.mein_kampfblatt()}

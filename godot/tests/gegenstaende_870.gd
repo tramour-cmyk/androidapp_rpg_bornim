@@ -226,26 +226,37 @@ func _beute_stufe_644a() -> void:
 			pruefe(not ids.has(int(g["uid"])), "jede Beute mit neuer Kennung")
 			ids[int(g["uid"])] = true
 
-## 644a F: Grundwert wächst durch Üben, +1 je „grundwert_punkte“ gewonnene Punkte der Fertigkeiten an ihm
+## 644a.1 B: Grundwert +1, sobald die beste Fertigkeit an ihm 15, 25, 50, 75, 100 erreicht (Wert, nicht Gewinn; nur die beste)
 func _ueben_644a() -> void:
-	var n := int(BrsHeld.lade()["ueben"]["grundwert_punkte"])
-	pruefe(n > 0, "Zahl der Punkte in den Regelwerten: %d" % n)
+	var sw: Array = BrsHeld.lade()["ueben"]["grundwert_schwellen"]
+	pruefe(sw.map(func(x): return int(x)) == [15, 25, 50, 75, 100], "Schwellen in den Regelwerten: %s" % [sw])
+	var n := int(sw[0])
 	pruefe(BrsHeld.grundwert_der_fertigkeit("Einhänder") == "kraft" and BrsHeld.grundwert_der_fertigkeit("Dolche") == "gewandtheit", "Einhänder an Kraft, Dolche an Gewandtheit")
 	pruefe(BrsHeld.grundwert_der_fertigkeit("Evokation") == "verstand" and BrsHeld.grundwert_der_fertigkeit("Heilmagie") == "wille", "Evokation an Verstand, Heilmagie an Wille (952 D)")
+	pruefe(BrsHeld.grundwert_der_fertigkeit("Armbrust") == "wahrnehmung" and BrsHeld.grundwert_der_fertigkeit("Schild") == "zaehigkeit" and BrsHeld.grundwert_der_fertigkeit("Einschüchtern") == "kraft", "Armbrust an Wahrnehmung, Schild an Zähigkeit, Einschüchtern an Kraft (1255 A)")
+	var ohne: Array = []
+	for gr in BrsHeld.e()["fertigkeiten"]:
+		if not String(gr).begins_with("_"):
+			for f in BrsHeld.e()["fertigkeiten"][gr]:
+				if BrsHeld.grundwert_der_fertigkeit(String(f)) == "": ohne.append(f)
+	pruefe(ohne.is_empty(), "alle 37 Fertigkeiten an einem Grundwert (ohne: %s)" % [ohne])
 	var h := _held(1)     # Wachsoldat: Einhänder, Schild, Mittlere Rüstung ab 10
 	var kraft := h.wert("kraft")
-	h.geuebt = {"Einhänder": 10 + n - 1}
-	pruefe(h.wert("kraft") == kraft and h.uebungs_plus("kraft") == 0, "%d Punkte: noch nicht" % (n - 1))
+	h.geuebt = {"Einhänder": n - 1}
+	pruefe(h.wert("kraft") == kraft and h.uebungs_plus("kraft") == 0, "Einhänder %d: noch nicht" % (n - 1))
 	var vorher := h.geuebt.duplicate()
-	h.geuebt = {"Einhänder": 10 + n}
-	pruefe(h.wert("kraft") == kraft + 1, "%d Punkte Einhänder: Kraft +1 (%d statt %d)" % [n, h.wert("kraft"), kraft + 1])
+	h.geuebt = {"Einhänder": n}
+	pruefe(h.wert("kraft") == kraft + 1, "Einhänder %d: Kraft +1 (%d statt %d)" % [n, h.wert("kraft"), kraft + 1])
 	pruefe(h.grundwerte_gestiegen(vorher) == ["kraft"], "Meldung: Kraft gestiegen (%s)" % [h.grundwerte_gestiegen(vorher)])
 	pruefe(h.grundwerte_gestiegen(h.geuebt).is_empty(), "ohne neues Üben keine Meldung")
-	h.geuebt = {"Einhänder": 10 + n, "Stumpfe Waffen": n}     # Stumpfe Waffen ab 0 (nicht Startfertigkeit), auch an Kraft
-	pruefe(h.uebungs_plus("kraft") == 2, "zwei Fertigkeiten an Kraft zählen zusammen: +%d" % h.uebungs_plus("kraft"))
-	h.geuebt = {"Mittlere Rüstung": 10 + 3 * n, "Schild": 10 + 3 * n}     # noch an keinem Grundwert (offen, 644b)
-	pruefe(BrsHeld.grundwerte().all(func(g): return h.uebungs_plus(String(g)) == 0), "Rüstung und Schild heben keinen Grundwert")
-	h.geuebt = {"Einhänder": 10 + n}
+	h.geuebt = {"Einhänder": 24, "Stumpfe Waffen": 24}
+	pruefe(h.uebungs_plus("kraft") == 1, "nur die beste zählt, zwei an Kraft je 24: +%d" % h.uebungs_plus("kraft"))
+	for paar in [[49, 2], [50, 3], [75, 4], [99, 4], [100, 5]]:
+		h.geuebt = {"Einhänder": paar[0]}
+		pruefe(h.uebungs_plus("kraft") == paar[1], "Einhänder %d: +%d (%d)" % [paar[0], paar[1], h.uebungs_plus("kraft")])
+	h.geuebt = {"Schild": 25}
+	pruefe(h.uebungs_plus("zaehigkeit") == 2 and h.uebungs_plus("kraft") == 0, "Schild 25 hebt Zähigkeit um 2, nicht Kraft")
+	h.geuebt = {"Einhänder": n}
 	pruefe(int(h.mein_kampfblatt()["werte"]["kraft"]) == kraft + 1, "Kampfblatt mit gewachsenem Grundwert")
 
 

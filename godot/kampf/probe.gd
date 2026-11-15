@@ -10,13 +10,17 @@ const Figur = preload("res://kampf/figur.gd")
 const Aufruf = preload("res://kampf/aufruf.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
-const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
+const NAMES := {"FIGHTER": "Wachsoldat", "WIZARD": "Zauberlehrling", "ROGUE": "Herumtreiber", "CLERIC": "Klosterschüler"}   # 870.13: Herkunft statt Klasse (held_klassen.py KLASSE_HERKUNFT)
 const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Riesenspinne und Wolf", "SCOUT": "Goblin-Späher und Goblin", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "KROGG": "Krogg", "LEECHES": "Riesenegel", "SLUGS": "Säureschnecke", "RATTE": "Ratte", "FLEDERMAUS": "Fledermaus", "SPINNE": "Spinne allein", "SKELETONS": "Skelette", "WIEDERGAENGER3": "Wiedergänger", "GRABHUNDE": "Grabhunde"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
 var merc_cls := "WIZARD"
 var foe := "WOLVES"
+var rauch := 0     # 1222: Morwens Rauchbündel in der Lage (kampfort.gd setup „rauch“), für den Film gegen Krogg
+## 930.7: Proben im Kerbensystem (tests/film_kerbe_9307.gd): Schalter an, Held allein (DESIGN-GLUT.md 10 Stufe 2: Wachsoldat gegen zwei Wölfe)
+var kerbe_an := false
+var ohne_soeldner := false
 var box: VBoxContainer
 var fight: Node
 ## the hero's name on the comparison picture (MarsShot: "Mira")
@@ -1161,20 +1165,30 @@ func _start(seed := -1) -> void:
 		Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), hs.hero, int(hs.hp), hs.hero.second, skills),
 		Mars.hero_fighter("merc", "PARTY", Vector2i(Mars.BACK, 0) if merc_back else Vector2i(Mars.FRONT, 1), ms.hero, int(ms.hp), ms.hero.second, skills),
 	]
+	if ohne_soeldner:
+		party.pop_back()
 	if still_name != "":
 		party[0].hero = party[0].hero.duplicate()
 		party[0].hero.name = still_name
+	if OS.get_environment("FACKEL") != "":     # 999.1: Held mit Fackel statt Schild in der Nebenhand (Bild bild_fackel_9991)
+		party[0].hero = party[0].hero.duplicate()
+		party[0].hero["fackel"] = true
+		party[0].hero["schild"] = ""
 	var foes: Array = Aufruf.gegner(foe, monsters, dice)
 	visible = false
 	fight = Kampfort.new()
+	if OS.get_environment("TAGESZEIT") != "":     # 999.1: „abend“, „nacht“ wie aufruf.gd starte
+		fight.tageszeit = OS.get_environment("TAGESZEIT")
 	if OS.get_environment("PLATZ") != "":     # 493: Standbild je Kampfort im Wald (PLATZ=teich …)
 		fight.platz = OS.get_environment("PLATZ")
 	# 296.2: der Held der Probe steht am Anfang seiner Stufe (870.5: lohn.gd ohne Stand); ohne LP kein Kampf
-	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {}):
+	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {"rauch": rauch} if rauch > 0 else {}):
 		visible = true
 		fight.free()
 		fight = null
 		return
+	if kerbe_an:
+		fight.mars.kerbe = true
 	if foe == "GRIMM":     # Grimmzahn ohne Nummer, die Wölfe 1 und 2 (die Regeln zählen nach Art)
 		for i in foes.size():
 			foes[i].nr = i

@@ -12,6 +12,16 @@ func pruefe(ok: bool, was: String) -> void:
 	print(("gut " if ok else "FEHLER ") + was)
 	if not ok: fehler += 1
 
+# 1079 (Lauf 413, 450, 467 rot nur auf dem Bauserver, am Rechner ohne Kaufmodelle grün): beim ersten Schritt der Ziege, wer um den
+# Helden steht und ob der Platztausch frei waere (Leute.weiche: Nachbar und frei_fuer_mich), damit ein Rot die Ursache zeigt
+func _umfeld(spiel, z: Leute, h: Vector2i) -> void:
+	var hk: Vector2i = z.held_kachel()
+	var nah := []
+	for l in spiel.leute.get_children():
+		if l is Leute and l != z and (absi(l.kachel.x - hk.x) + absi(l.kachel.y - hk.y) <= 2 or absi(l.ziel.x - hk.x) + absi(l.ziel.y - hk.y) <= 1):
+			nah.append("%s %s -> %s%s%s" % [l.daten.get("id", "?"), l.kachel, l.ziel, "" if l.visible else " unsichtbar", " Flucht" if l.flucht else ""])
+	print("Umfeld Held %s (gestellt %s, Position %s), Ziege Leib %.2f, frei %s; nah: %s" % [hk, h, spiel.held.position, z.leib, z.frei_fuer_mich(hk, true), nah])
+
 func _lauf() -> void:
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
@@ -28,8 +38,11 @@ func _lauf() -> void:
 		z = Leute.new(k, {"id": "ziege1", "x": p[1], "y": p[2], "blick": "DOWN", "streifen": 2, "tier": "ziege"}, spiel.held)
 		spiel.leute.add_child(z)
 		z.leib = 0.65
-		spiel.held.leute = spiel.leute.get_children()
 		print("Ziege selbst gestellt (ohne Modell)")
+		# 1079: die Hühner wie Leute.dorftiere am Heuhaufen (33, 28), (33, 29), sonst fehlen sie am Rechner
+		for hp in [Vector2i(32, 28), Vector2i(33, 27), Vector2i(32, 29), Vector2i(34, 29)]:
+			spiel.leute.add_child(Leute.new(k, {"id": "huhn_%d_%d" % [hp.x, hp.y], "x": hp.x, "y": hp.y, "blick": "DOWN", "streifen": 2, "tier": "huhn"}, spiel.held))
+		spiel.held.leute = spiel.leute.get_children()
 	Leute.still = false
 	var start := z.kachel
 	print("Ziege auf ", start, " Daten ", z.daten)
@@ -46,6 +59,7 @@ func _lauf() -> void:
 			await process_frame
 			if z.ziel.x >= 0 and (tritte.is_empty() or tritte[-1][1] != z.ziel):
 				tritte.append([z.kachel, z.ziel, z.durch_bis > Time.get_ticks_msec()])
+				if tritte.size() == 1: _umfeld(spiel, z, h)
 			var hk := k.pos_kachel(spiel.held.position)
 			if vorbei < 0 and (hk - start) == d: vorbei = (Time.get_ticks_msec() - t0) / 1000.0
 		spiel.held.richtung = Vector3.ZERO
