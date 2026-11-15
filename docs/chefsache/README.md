@@ -19,12 +19,6 @@ Nichts offen.
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
 | [1222](ansehen/1222-rauch.md) | Rauchbündel gegen Krogg: Wurf, Rauch am Kopf, Schlag ins Leere | – | 15.11., 00:47 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.473](ansehen/t286-karte-scheide.md) | [Build 286](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43637577563/artifacts/14133442612) | Karte, Scheide, Höhlenlicht, Wolfskampf | Tom und Jerry | 14.11., 20:50 |
-
 ## Zu tun
 
 Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
