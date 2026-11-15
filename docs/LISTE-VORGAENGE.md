@@ -249,30 +249,30 @@
 | 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | erledigt, A–F umgesetzt; Bau weiter 623.2, 1155 | – | – | – | E Kampf | 6,88 $ |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | K | startbar | – | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | K | startbar | – | – | – | G Stil | 33,44 $ |
-| 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | K | startbar | – | – | – | E Kampf | 1,30 $ |
+| 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | K | startbar | 481.2 | – | – | E Kampf | 1,30 $ |
 | 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | Sokrates | K | ruht | 23.11. | – | – | B Werkzeuge | – |
 | 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | Sokrates | K | ruht | 23.11. | – | – | Q QS | – |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | Sokrates | K | nach Meilenstein | – | – | – | M Markt | –; +1,26 $ |
-| 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | Sokrates | K | startbar | – | – | – | B Abläufe | –; +15,42 $ |
+| 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | Sokrates | K | erledigt, geht in 1129 auf (Systemprüfung Regeln, Abläufe, Kosten) | – | – | – | B Abläufe | –; +15,42 $ |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Sokrates | K | nach Meilenstein | – | – | – | Q QM | – |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | Sokrates | K | ruht | 23.11. | – | – | B Abläufe | –; +2,98 $ |
-| 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | K | startbar | – | – | – | M Markt | –; +25,65 $ |
-| 365 | Aufwand „Hoch“ statt „Mittel“ für einzelne Rollen? (Chef 25.10., 12:36) | Sokrates | K | startbar | – | – | – | B Abläufe | –; +4,65 $ |
+| 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Markt | –; +25,65 $ |
+| 365 | Aufwand „Hoch“ statt „Mittel“ für einzelne Rollen? (Chef 25.10., 12:36) | Sokrates | K | erledigt, entschieden 365 (09.11., 07:23: Mittel für alle), 827.1 (Hoch nur mit Begründung) | – | – | – | B Abläufe | –; +4,65 $ |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | B Abläufe | – |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | M Markt | – |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | Sokrates | K | nach Meilenstein | – | – | – | E Kampf | – |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | Sokrates | K | ruht | 23.11. | – | – | M Veröffentlichung | – |
 | 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | K | wartet, D-U-N-S erteilt 13.11. (317411832) | 08.12. | – | – | M Veröffentlichung | – |
-| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | K | startbar | – | – | – | M Veröffentlichung | 19,96 $ |
-| 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | startbar | – | – | – | M Veröffentlichung | 4,68 $ |
-| 109 | Repo öffentlich | Sokrates | K | startbar | – | – | – | M Veröffentlichung | – |
+| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 19,96 $ |
+| 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 4,68 $ |
+| 109 | Repo öffentlich | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | – |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | K | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | 23.11. | – | – | B Abläufe | –; +3,54 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | K | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | 23.11. | – | – | E Welt | – |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | K | wartet, entschieden A B C (Chef 14:28) | 644.1, 644.2, 644.4 | – | – | E Kampf | 32,25 $ |
 | 649 | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium geht darin auf; mehr als eine Handlung je Monsterart (Chef 08.11., 13:19, 13:24) | Sokrates | M | in Arbeit, Prüfung, vorziehen (Chef 10.11., 10:56) | 870 | – | – | E Kampf | 5,35 $ |
 | 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | K | startbar, 654 A (Chef 17:46): Querschnitte angelegt | – | – | – | B Abläufe | 48,77 $ |
 | 739 | D84.1 die sechs wiederholten Funde aus t268 mit „wiederholt“ im Titel nachziehen (620.1 A; bisher keine Zeile) (von Diogenes, Lauf 84) | Sokrates | K | ruht, Kampffolge 08.11. geht vor (Wochenziel 16.11.) | 23.11. | – | – | B Abläufe | – |
-| 827 | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11., 20:00 (Chef 10.11., 07:05, 07:07) | Sokrates | K | startbar, gelöst 14.11.: 827.1 | – | – | – | B Steuerung | 8,13 $ |
+| 827 | Stärkstes Modell nur für festgefahrene Vorgänge (zwei Rückläufer oder über 30 $), ab 14.11., 20:00 (Chef 10.11., 07:05, 07:07) | Sokrates | K | erledigt, ersetzt durch Chef 13.11., 22:08 (kein fable, Aufwand hoch nur mit Begründung, 827.1) | – | – | – | B Steuerung | 8,13 $ |
 | 862 | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal grundsätzlich lösen? (654) | Sokrates | K | ruht, Umhang gestoppt, Vorlage irgendwann (Chef 12.11., 07:10) | 23.11. | – | – | E Figuren | – |
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | K | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 41,19 $ |
 | 1135 | Von Perikles (1128 A, Liste Diogenes): Gespräch mit dem Chef über die Zahlen zur Balance der ungetesteten Muss 923, 1049, 876, 971, 644a.1, 1084 (Rechnung Simulation 444), Urteil je Zeile eintragen, Zeilen abschließen | Sokrates | M | erledigt, 1135 A außer 4 (14.11., 20:54), 644a.1 B (22:03) | – | – | – | G Balance | 0,52 $ |
