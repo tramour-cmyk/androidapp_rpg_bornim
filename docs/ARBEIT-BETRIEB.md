@@ -83,3 +83,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:30 15.11.: Startsperre 23:30 Start Jerry 1331 (Tom 23:28, 3d9159913; alte Sitzung …78iXbwtRhPMGruEzUC bei 389 Tsd. Token: neu, alte archivieren, Kosten 14,65 $ auf 1331, 1321, 1072; Frage 1284a liegt als Chefsache-Datei, nichts geht verloren)
 - 00:04 16.11.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 16.11.: Marke Start-fehlt Perikles 15.11.-23:04 (lauf.py)
+- 00:07 16.11.: Startsperre 00:07 Start Perikles 1044/1341 (Tom 00:08, Bildläufe von der Rechteprüfung abgelehnt, per Nachricht an die laufende Perikles-Sitzung …79JCQRKsCCgciyGpnJ)
