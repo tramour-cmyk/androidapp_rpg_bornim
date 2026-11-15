@@ -302,6 +302,17 @@ def offen_je_rolle():
     except Exception:
         return ""
 
+def ueberblick():
+    """1313 (Chef 15.11., 19:37: „Das muss auf Chefsache direkt sichtbar stehen.“): Themenblöcke und die nächsten 20, bei jedem Lauf
+    neu (anders als „Offen je Rolle“, 1129 A 6), damit Fertiges nachrückt und Vorgezogenes sofort oben steht; fällt das Werkzeug aus,
+    fehlt nur der Abschnitt."""
+    try:
+        import subprocess, sys as _s
+        r = subprocess.run([_s.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "ueberblick.py")], capture_output=True, text=True, timeout=120)
+        return r.stdout.strip() if r.returncode == 0 else ""
+    except Exception:
+        return ""
+
 def lauf_version(pr, _cache={}):
     """298: Version 0.348.<Laufnummer> des neuesten Godot-Laufs am Zweig des PR (GitHub-API, nur mit GITHUB_TOKEN); 894: vorher Kotlin 0.1.<n>."""
     token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
@@ -364,7 +375,7 @@ def bilderlinks():
 
 versionen_nachtragen()
 bilderlinks()
-neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
+neu = "\n".join([t for t in [KOPF, ueberblick(), tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:
