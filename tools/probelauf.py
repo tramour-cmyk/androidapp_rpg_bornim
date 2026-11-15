@@ -526,7 +526,7 @@ def vorgang_aus_ref(ref, ablauf):
 
 
 BESITZER = ("Homer", "Tom", "Jerry", "Perikles", "Diogenes", "Sokrates", "Ford")
-ZUSATZ_TEAM = {"Spike": "Tom", "Tuffy": "Jerry"}  # Zusatzentwickler (433)
+ZUSATZ_TEAM = {"Tuffy": "Jerry"}  # Zusatzentwickler (433); 1328: Spike eigene Rolle
 
 
 def vorgaenge():

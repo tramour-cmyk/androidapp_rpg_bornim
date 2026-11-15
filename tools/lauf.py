@@ -95,7 +95,7 @@ def umgebung(r, hoch=False):
     return UMGEBUNG.get(startbar.ZUSATZ.get(r, r), UMGEBUNG.get(r, MITTEL))
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
-MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
+MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
 AUFWAND_HOCH = re.compile(r"Aufwand hoch\b", re.I)  # 827.1: „Nachfolger: … (Aufwand hoch, weil …)“ in der Übergabe
 def modell(r, nr, nachfolger=""):
@@ -128,9 +128,9 @@ for _nr, _tafel, _k, _wert, _b in PROBEN:
     else: ABGELAUFEN.append((_nr, _tafel, _k, _b))
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
           "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md",
-          "Spike": "ARBEIT-TEAM-TOM.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: eigene Rolle (belegt Tom nicht), Vorrat des Teams
-START_REIHE = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]
-MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
+          "Spike": "ARBEIT-TEAM-SPIKE.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: Tuffy Vorrat des Teams; 1328: Spike eigener Vorrat
+START_REIHE = ["Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"]
+MIT_KUER = {"Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 SPERRE_MIN = 20
 WEITER_TOKEN = 200000  # 383 A (Chef 09.11., 18:05): günstigste Länge 200 Tsd. (Rechnung Sokrates); vorher 400000 nach 383.1 (Chef 27.10., 19:19 „nicht mal 2 Seiten lang“): Kontext 1 Mio., Kosten je Arbeit bis 500 Tsd. gleich (Messung Sokrates 18:15); Vorentscheid Perikles 27.10. (vorher 150 Tsd., D40.1)
@@ -824,7 +824,7 @@ def main():
     # Nur Muss (Leiharbeiter „notfalls“). Spike setzt zuerst „in Arbeit bei Spike“, dann nimmt das Team die Zeile nicht (startbar.py);
     # endete Spike ohne neuen Stand, startet er auf dieser Zeile wieder, sobald Tom belegt ist.
     def laeuft(rr): return [s for s in je_rolle.get(rr, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
-    for team, zusatz in (("Tom", "Spike"), ("Jerry", "Tuffy")):
+    for team, zusatz in (("Jerry", "Tuffy"),):  # 1328: Spike eigene Rolle, startet wie Tom
         if zusatz in ohne_rollen:  # 1148: --ohne Spike nimmt auch die Zusatzentwickler-Zeile aus
             ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (zusatz, zusatz, ausschluss[zusatz])); continue
         if (lm := lauf_laeuft(zusatz)):  # 1148
@@ -915,7 +915,7 @@ def main():
     # 927 (D162.1): Anlässe, die Ford sonst nur unter „Bei Anlass“ fände, als Ausgabezeile
     if per_start(8, 0):  # Schritt 8 Nachhalten, im ersten Lauf ab 8 Uhr
         einmal("Nachhalten %s" % heute, "NACHHALTEN %s: LISTE-BETRIEB.md Schritt 8 (Zeilen „von …“, Freigaben)" % heute)
-    vorraete = {r: lesen(os.path.join(DOCS, f)) for r, f in VORRAT.items() if r not in ("Spike", "Tuffy") and os.path.exists(os.path.join(DOCS, f))}
+    vorraete = {r: lesen(os.path.join(DOCS, f)) for r, f in VORRAT.items() if r != "Tuffy" and os.path.exists(os.path.join(DOCS, f))}
     for marke, text in neu_fuer_chef(lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")), vorraete):
         einmal(marke, "%s %s (Schritt 9, 927)" % (laut_nachts(), text))
     # 448 (Chef 01.11., 11:09): fehlt der Bericht um 10 Uhr (Sa, So 12 Uhr), meldet Ford dem Chef laut eine Zeile und startet Perikles erneut

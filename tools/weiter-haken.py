@@ -45,7 +45,7 @@ def letzter_text(pfad):
 ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|ford)\b", re.IGNORECASE)
 # 195 (Chef 19.10.): „Solange Arbeit da ist, arbeiten.“ Auch Perikles, Homer, Diogenes, Tom, Jerry: ist laut startbar.py eine Zeile startbar, hält der Haken einmal an
 ROLLE_STARTBAR = re.compile(r"\b(perikles|homer|diogenes|tom|jerry|spike|tuffy)\b", re.IGNORECASE)
-TEAM = {"Spike": "Tom", "Tuffy": "Jerry"}  # 394: Zusatzentwickler arbeiten aus dem Vorrat ihres Teams
+TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigener Vorrat; 394: Zusatzentwickler arbeiten aus dem Vorrat ihres Teams
 
 
 def startbar_nr(rolle):

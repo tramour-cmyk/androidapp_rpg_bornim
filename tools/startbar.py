@@ -28,13 +28,13 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bereiche  # 651: feste Liste der Bereiche
 
 DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs")
-ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEIT-TEAM-JERRY.md", "Jerry"),
+ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEIT-TEAM-JERRY.md", "Jerry"), ("ARBEIT-TEAM-SPIKE.md", "Spike"),
           ("ARBEIT-PROJEKT.md", "Perikles"), ("ARBEIT-PRUEFUNG.md", "Diogenes"), ("ARBEIT-BERATUNG.md", "Sokrates")]
 VORRAT = {r: d for d, r in ROLLEN}
 VORRAT["Ford"] = "ARBEIT-BETRIEB.md"
 BESITZER = [r for _, r in ROLLEN] + ["Ford", "Ideen"]  # „Ideen“: Ideenspeicher, wird nie gestartet (LISTE-IDEEN.md)
 WARTE_ROLLEN = [r for _, r in ROLLEN] + ["Ford"]
-ZUSATZ = {"Spike": "Tom", "Tuffy": "Jerry"}  # 394, 433: Zusatzentwickler arbeiten auf Zeilen ihres Teams
+ZUSATZ = {"Tuffy": "Jerry"}  # 394, 433: Zusatzentwickler arbeiten auf Zeilen ihres Teams; 1328 (Chef 15.11., 21:05): Spike eigene Rolle
 FERTIG = re.compile(r"erledigt|auf main|getestet|gebaut|zu testen", re.I)
 ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Spike|Tuffy|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"  # 394: Spike, Tuffy
 JETZT = datetime.datetime.now()
@@ -533,7 +533,7 @@ def erfuellt(token, nr="", streng=False):
 # 1294 (Befund Diogenes 15.11., 13:05): 190.1 („gebaut“, „zu testen“ lösen) gilt für die Teams, die auf gebautem Code weiterbauen.
 # Wer nicht baut (Perikles, Diogenes, Sokrates, Homer), wartet auf das Ergebnis: 1128.3 auf den Bautest von 1060, 870.12 auf die
 # Abnahme von 870.13; dort löst nur „erledigt“.
-WEITERBAUEN = ("Tom", "Jerry")
+WEITERBAUEN = ("Tom", "Jerry", "Spike")  # 1328: Spike baut eigenen Code
 
 def offen_warte(d):
     streng = d.get("besitzer") not in WEITERBAUEN
@@ -747,7 +747,7 @@ def sperre(d):
     if w == "Dauer" and not d["warte"]: return "Dauerzeile"
     if w in ("wartet", "Chef") and not d["warte"]: return "wartet (ohne Feld „wartet auf“)"
     if w == "nach Meilenstein": return "nach dem Meilenstein"
-    m = re.match(r"bei (Spike|Tuffy)\b", d["zusatz"]) if w == "in Arbeit" else None
+    m = re.match(r"bei (Tuffy)\b", d["zusatz"]) if w == "in Arbeit" else None
     if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
     if w in ("startbar", "offen", "in Arbeit", "wartet", "Chef", "ruht", "Dauer") and altes_system(d["titel"], d["stand"], d["nr"]):
         return "ruht (424: altes SRD-System)"
@@ -1033,7 +1033,7 @@ def pause_frei(inhalt):
 def ist_frei(nr, frei):
     return any(nr == f or (f.endswith(".x") and nr.startswith(f[:-1])) for f in frei)
 
-LIEGT_ROLLEN = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]  # wie lauf.START_REIHE; Sokrates und Ford startet nie der Vorrat
+LIEGT_ROLLEN = ["Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"]  # wie lauf.START_REIHE; Sokrates und Ford startet nie der Vorrat
 
 def startbares_muss():
     """891 (654, Chef 10.11., 17:15): {(Rolle, Nr)} startbarer Muss-Zeilen nach Pause und „frei für“ (wie lauf.stand). Läuft keine
@@ -1088,7 +1088,7 @@ STARK_AB = datetime.datetime(2099, 1, 1, 0, 0)  # Berliner Zeit; aus (Chef 13.11
 STARK_MODELL = "fable"
 STARK_KOSTEN = 30.0
 STARK_RUECK = 2
-STARK_ROLLEN = ("Tom", "Jerry")  # Bauarbeit (Spike, Tuffy auf deren Zeilen); Beratung und Abläufe starten nicht über die Zeilenregel
+STARK_ROLLEN = ("Tom", "Jerry", "Spike")  # Bauarbeit (Spike, Tuffy auf deren Zeilen); Beratung und Abläufe starten nicht über die Zeilenregel
 STARK_MARKE = re.compile(r"stärkstes Modell \d")  # 827 A: eine Sitzung je Vorgang, danach Auswertung
 RUECK = re.compile(r"zurück ((?:t\d+(?:, )?)+)")
 

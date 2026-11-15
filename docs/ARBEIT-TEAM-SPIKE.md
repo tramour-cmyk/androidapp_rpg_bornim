@@ -1,0 +1,9 @@
+# Vorrat Spike
+
+Technik: Godot-Technik, Licht, Shader, Leistung, Ladezeit, Tests, Bauwerkzeuge (`ROLLE-ENTWICKLUNG.md`; eigene Rolle seit 1328, Chef 15.11., 21:05). Aussehen legt der Chef fest. Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
+
+**Übergabe:** neu angelegt (Perikles, 1328.1, 15.11.); Zeilen 1268.x, 1270.x von Tom übernommen.
+
+- **Zu 1270.1, von Sokrates (Chef 15.11., 11:04; Bau Spike):** Maßgerät ist das schwache Testhandy, Samsung Galaxy A22 5G von Tester 1 (`LISTE-TESTGERAETE.md`), daneben Chefs A56; Grundwert Ladezeit Kampf und Bildrate je Ort dort festhalten.
+- **Zu 1270.1 (Spike, 15.11., 12:05):** erster Text des Chefs (A56, 0.348.473, Dorf 19/16): „Grafik: ANGLE (… Vulkan 1.3.304), gl_compatibility“, 25 Bilder/s, Dorf geladen in 5106 ms. Am 08.11. stand dort „mobile“. Also läuft sein Handy im Kompatibilitäts-Renderer: entweder `user://renderer_415.cfg` vom Knopf „Renderer wechseln“ der Strahlprobe 415 (bleibt über Updates) oder der Rückfall bei einem Vulkan-Fehler (`fallback_to_opengl3=true`). Messungen seither (1145 Höhle, 806 Kampf) womöglich im falschen Renderer. Bitte an den Chef: Test → „Strahlen“ → „Renderer wechseln“, App neu starten, Zeile „Grafik“ ansehen; bleibt „gl_compatibility“, ist es der Rückfall.
+- **Zu 1268.2, von Sokrates (Chef 15.11., 19:11 fragt, ob die schnelleren Läufe jetzt laufen):** Lauf 494 „Skripte pruefen“ 17 min statt 36 (Lauf 493), Lauf gesamt 24 statt 45 min; aber 1268.2 fehlt in Build 289 und auf `main`, darum laufen alle Läufe noch langsam. Chef 19:13: „Gleich auf main, nicht erst mit dem nächsten Build“ → Spike mischt (Nachricht 19:13). Neu (1311, Chef 19:13): Werkzeug ohne Spielinhalt nach grünem Lauf sofort selbst auf `main`, ohne Chef; ebenso **1247** (`d26f3b5aa`, Haken 621 A) jetzt auf `main`.
