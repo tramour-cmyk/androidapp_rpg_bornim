@@ -24,4 +24,11 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/822f8e
 
 **Folgerungen:** Nach dem Handstart trägt der neue Ford sich in `ARBEIT-BETRIEB.md` ein, legt Uhr an, archiviert diesen Ford.
 
+**Stellungnahme Sokrates (15.11., 15:45):**
+- **Stärkstes Gegenargument gegen A:** kein akuter Anlass; Ford liegt bei 191 Tsd. von 1 Mio. Token, seine Uhr „Ford-Lauf“ (:03) läuft. Hält nicht ganz: bei seinem Verbrauch (191 Tsd. in 70 min) erinnert der Neustart-Haken (400 Tsd.) gegen 17:30.
+- **Was die Datei nicht sagt:** (1) Der Handstart löst die Tiefe dauerhaft: nur ein Ford auf Tiefe 0 legt den Ford-Starter an (`LISTE-BETRIEB.md` „Ford-Starter“, 1098 A; in `ARBEIT-BETRIEB.md` steht „keiner“). Danach liegt jeder Ford auf 2, jedes Team auf 3, kein Handstart mehr. In die Folgerungen gehört: „legt gleich nach der Uhr den Ford-Starter an“. (2) Bis zum Handstart darf Ford nicht selbst neu starten, auch nicht nach der Erinnerung des Hakens: auf Tiefe 7 lägen die Teams auf 8, dort gehen weder Weckruf noch `send_later` (Pflicht nach jedem Push, der baut). Er läuft über 400 Tsd. weiter; die Sitzung verdichtet erst bei 784 Tsd.
+- **Widerspruch zu Entschiedenem:** keiner.
+- **Kosten:** zwei Minuten des Chefs; der Starter arbeitet nur bei einem Neustart.
+- **Empfehlung:** 1298 A, möglichst vor etwa 17:30; bis dahin kein Selbstneustart Fords.
+
 Antwort: …
