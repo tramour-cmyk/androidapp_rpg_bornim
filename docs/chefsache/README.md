@@ -25,6 +25,7 @@ Nichts offen.
 | [1215](ansehen/1215-sterben.md) | Physikalisches Sterben (Ragdoll), Goblins | – | 15.11., 01:16 |
 | [1222](ansehen/1222-rauch.md) | Rauchbündel gegen Krogg: Wurf, Rauch am Kopf, Schlag ins Leere | – | 15.11., 00:47 |
 | [601](ansehen/601-spaeher.md) | Goblin-Späher: Schussbewegung, Pfeil, Spur | – | 14.11., 23:53 |
+| [930.7](ansehen/9307-glut.md) | Glutsystem Stufe 2: Bedienung im Kampfort | – | 15.11., 01:26 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -371,7 +372,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/10401-wenden.md, ansehen/1215-sterben.md, ansehen/1222-rauch.md, ansehen/601-spaeher.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/10401-wenden.md, ansehen/1215-sterben.md, ansehen/1222-rauch.md, ansehen/601-spaeher.md, ansehen/9307-glut.md
 
 ## So geht's
 
