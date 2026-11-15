@@ -57,6 +57,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       GODOT: "4.7.2"
+      VK_ICD_FILENAMES: /usr/share/vulkan/icd.d/lvp_icd.json   # 1290: Bilder und Filme im Renderer des Handys (mobile, Vulkan in Software)
     steps:
       - uses: actions/checkout@v5
       # Java nur fuer den Android-Export (keytool, apksigner), nicht mehr fuer core (870.9)
@@ -888,6 +889,13 @@ jobs:
         run: |
           command -v convert > /dev/null && command -v ffmpeg > /dev/null || { sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq imagemagick ffmpeg > /dev/null; }
           convert -version | head -1; ffmpeg -version | head -1
+          # 1290 (Chef 15.11., 12:34, Höhle am Handy „total hell … Sichtachsen sind weg“): jedes Bild und jeder Film im Renderer des
+          # Handys (mobile, Vulkan in Software, lavapipe), nie Compatibility; fällt Godot auf OpenGL zurück (fallback_to_opengl3), rot
+          sudo apt-get install -y -qq mesa-vulkan-drivers xvfb > /dev/null || true
+          r=$(timeout 60 xvfb-run -a -s "-screen 0 640x480x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --quit 2>&1 | grep -E "Forward Mobile|OpenGL" | head -1); echo "$r"
+          echo "$r" | grep -q "Forward Mobile" || { echo "::error::1290 Bilder nicht im Renderer mobile: $r"; exit 1; }
+          # Wächter: kein neuer Bild- oder Filmschritt mit opengl3 (ausser dem Vergleich in Alpha 697)
+          if grep -rn -- "--rendering-driver opengl3" .github/workflows tools | grep -v "alpha_held_697\|grep -rn"; then echo "::error::1290 Schritt mit opengl3 statt mobile"; exit 1; fi
       - name: Standbilder
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # Messlauf ohne Bild zählt nicht als Probelauf (Perikles 02.11., 19:5x); 918 auch nach rot
         continue-on-error: true
@@ -1013,11 +1021,11 @@ jobs:
           cd godot
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --dorftiere=$GITHUB_WORKSPACE/bilder/dorftiere 2>&1 | grep -E "SCRIPT ERROR|^BILD|^LEUTE|^DORFTIERE" | cut -c1-400 || true
-          # Film wie Jerrys Kampffilme mit opengl3 (lavapipe zu langsam fuer 30 Bilder je Sekunde); ffmpeg statisch aus imageio-ffmpeg
+          # Film im Renderer des Handys (1290; vorher opengl3, lavapipe zu langsam fuer Echtzeit, --write-movie wartet); ffmpeg statisch aus imageio-ffmpeg
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorftiere.avi --fixed-fps 30 -- --dorftierfilm 2>&1 | grep -E "SCRIPT ERROR|^DORFTIERE" || true
           ffmpeg -loglevel error -y -ss 1.5 -i $RUNNER_TEMP/dorftiere.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $GITHUB_WORKSPACE/bilder/dorftiere/dorftiere.mp4 || true
           ls -l $GITHUB_WORKSPACE/bilder/dorftiere
       # 505 Sichtfeld zur Wahl: dieselbe Stelle im Wald je Form (alt Kegel, breiter Kegel, rundum), alt nachts; nur bei „505 Nebelbilder“
@@ -1040,27 +1048,27 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/bilder/grundstand
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
           # 1040.1 (Spike; Chef 12.11., 15:13 Lyra „dreht sich … wie auf dem Drehteller“): dorf=10401 nur der Film Lyra in der Höhle
           # 1086 (Spike; Chef 13.11., 15:47 t283.5 „er rennt heim, steht aber neben mir“): dorf=1086 nur der Film Pim, Gold, heim, Dank
           if [ "${{ github.event.inputs.dorf }}" = "1086" ]; then
-            timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
+            timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
               -s res://tests/film_pim_1086.gd -- --film=1086 > $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log 2>&1 || true
             grep -E "SCRIPT ERROR|^FILM1086" $GITHUB_WORKSPACE/bilder/grundstand/pim1086.log | cut -c1-300 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/pim1086.mp4 || true
             ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
           fi
           if [ "${{ github.event.inputs.dorf }}" = "10401" ]; then
-            timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
+            timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
               -s res://tests/film_wenden_10401.gd -- --film=10401 > $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log 2>&1 || true
             grep -E "SCRIPT ERROR|^FILM10401" $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.log | cut -c1-300 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/wenden10401.mp4 || true
             ls -l $GITHUB_WORKSPACE/bilder/grundstand; exit 0
           fi
-          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorf461.avi --fixed-fps 30 \
+          timeout 2400 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/dorf461.avi --fixed-fps 30 \
             -s res://tests/film_dorf_461.gd -- --dorffilm > $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log 2>&1 || true
           grep -E "SCRIPT ERROR|^DORF461 (Held|fertig|.*stoesst)" $GITHUB_WORKSPACE/bilder/grundstand/dorf461.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/dorf461.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $GITHUB_WORKSPACE/bilder/grundstand/dorf461.mp4 || true
@@ -1073,14 +1081,14 @@ jobs:
         run: |
           mkdir -p $GITHUB_WORKSPACE/bilder/karte744
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
           git fetch -q --depth=1 origin 1dad9bbdce0c044328c1a7b0404c1f604be28d63
           rm -rf $RUNNER_TEMP/vorher && cp -a godot $RUNNER_TEMP/vorher
           for f in herde.gd streuner.gd; do git show FETCH_HEAD:godot/skripte/$f > $RUNNER_TEMP/vorher/skripte/$f; done
           for f in vorher nachher; do
             d=$GITHUB_WORKSPACE/godot; [ $f = vorher ] && d=$RUNNER_TEMP/vorher
-            (cd $d && timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/karte744-$f.avi --fixed-fps 30 \
+            (cd $d && timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" \
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/karte744-$f.avi --fixed-fps 30 \
               -s res://tests/film_karte_744.gd -- --kartefilm744=$f > $GITHUB_WORKSPACE/bilder/karte744/$f.log 2>&1) || true
             grep -E "SCRIPT ERROR|FEHLER|^KARTE744 [a-z]+ (Monster|gefilmt|start|fertig)" $GITHUB_WORKSPACE/bilder/karte744/$f.log | cut -c1-400 || true
           done
@@ -1107,13 +1115,13 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/sieger2963 BL=$GITHUB_WORKSPACE/bl/bin/python python3 -I tools/blender348/v3/sieger2963.py > $B/sieger2963-bau.log 2>&1 || true
           grep -E "^SIEGER" $B/sieger2963-bau.log | sed "s|$KAUF/||g" | cut -c1-200 || true
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           if [ "${{ github.event.inputs.film }}" = "nein" ]; then
             B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/2963-probebild.png BILD_S=vorn timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
-              ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963-bild.log 2>&1 || true
+              ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963-bild.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Probebild|^Signatur|FEHLER|^fehlt" $B/sieger2963-bild.log | head -30 || true
           else
-            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . \
+            B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U timeout 3000 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . \
               --resolution 540x1170 --write-movie $RUNNER_TEMP/sieger2963.avi --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/sieger2963.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER|^fehlt" $B/sieger2963.log | head -30 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/sieger2963.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/2963-siegerposen.mp4 || true
@@ -1133,11 +1141,11 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/sieger2963 BL=$GITHUB_WORKSPACE/bl/bin/python python3 -I tools/blender348/v3/sieger2963.py > $B/sieger-bau.log 2>&1 || true
           grep -E "^SIEGER" $B/sieger-bau.log | sed "s|$KAUF/||g" | cut -c1-200 || true
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           bilder() {
             for d in 0 150; do
               B2963=$RUNNER_TEMP/sieger2963 UAL_PRO=$U BILD=$B/$1-$d.png BILD_S=vorn BILD_DREH=$d BILD_TEXT=$1 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" \
-                ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/$1-$d.log 2>&1 || true
+                ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --fixed-fps 30 -s res://tests/film_sieger_2963.gd > $B/$1-$d.log 2>&1 || true
               grep -E "SCRIPT ERROR|^Film|^Probebild|FEHLER|^fehlt" $B/$1-$d.log | head -20 || true
             done
           }
@@ -1160,9 +1168,9 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/umhang656; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           film() { n=$1; shift
-            env "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            env "$@" timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/film_umhang_656.gd > $B/$n.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Stück|^Signatur|FEHLER" $B/$n.log | head -20 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$n.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/$n.mp4 || true; }
@@ -1183,11 +1191,11 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb fonts-dejavu-core ffmpeg > /dev/null || true     # ffprobe für die Längen
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb fonts-dejavu-core ffmpeg > /dev/null || true     # ffprobe für die Längen
           # Lauf 154: das ffmpeg im PATH kannte drawtext nicht, die Montagen fehlten; Titel mit dem ffmpeg aus apt
           FT=ffmpeg; /usr/bin/ffmpeg -hide_banner -filters 2>/dev/null | grep -q drawtext && FT=/usr/bin/ffmpeg
           film() { n=$1; sk=$2; shift 2
-            env SEED=7 "$@" timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            env SEED=7 "$@" timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/$n.avi --fixed-fps 30 -s res://tests/$sk.gd > $B/$n.log 2>&1 || true
             grep -E "SCRIPT ERROR|^Film|^Signatur|OHNE" $B/$n.log | head -8 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$n.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/$n.mp4 || true; }
@@ -1224,7 +1232,7 @@ jobs:
           # 1040 (Tuffy; Chef 12.11., 15:12 Grimmzahn „wie ein Playmobil-Männchen“): kampf=1040 der Held geht im Tiefen Wald um Grimmzahn herum
           if [ "${{ github.event.inputs.kampf }}" = "1040" ]; then
             # Lauf 384: ohne Argument hinter „--“ legt spiel.gd das Hauptmenü über alles (399), der ganze Film zeigte nur das Menü
-            SEED=7 timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            SEED=7 timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
               --write-movie $RUNNER_TEMP/1040-tritt.avi --fixed-fps 30 -s res://tests/film_tritt_1040.gd -- --film1040 > $B/1040-tritt.log 2>&1 || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/1040-tritt.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1040-tritt.mp4 || true
             grep -E "^FILM1040" $B/1040-tritt.log || true
@@ -1279,8 +1287,8 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/schild406; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
-          timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          timeout 3000 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/schild406.avi --fixed-fps 30 -s res://tests/film_406.gd > $B/schild406.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Schild|^Signatur" $B/schild406.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/schild406.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/406-schluss.mp4 || true
@@ -1291,8 +1299,8 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/strahlen415; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/strahlen415.avi --fixed-fps 30 -s res://tests/film_415.gd > $B/strahlen415.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/strahlen415.log | head -12 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/strahlen415.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/415-strahlen.mp4 || true
@@ -1308,8 +1316,8 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/gegner494; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          BILDER=$B timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          BILDER=$B timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegnerbilder494.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^BILD|^Signatur|FEHLER" $B/gegnerbilder494.log | head -40 || true
           ls -l $B
@@ -1358,9 +1366,9 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/gegner494; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_gegner_494.gd 2>&1 | grep -E "^Film|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/gegner494.avi --fixed-fps 30 -s res://tests/film_gegner_494.gd > $B/gegner494.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/gegner494.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/gegner494.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/494-gegner.mp4 || true
@@ -1371,9 +1379,9 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/wurf935; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_wurf_935.gd 2>&1 | grep -E "^Film|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 1800 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/wurf935.avi --fixed-fps 30 -s res://tests/film_wurf_935.gd > $B/wurf935.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/wurf935.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wurf935.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/935-wurf.mp4 || true
@@ -1398,11 +1406,11 @@ jobs:
           for f in braun schwarz grau; do cp $RUNNER_TEMP/oga_out/oga_bat-$f.glb $D/oga_bat-$f.bin || true; done
           cp $RUNNER_TEMP/oga_out/oga_bat-*.png $B/ 2>/dev/null || true
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           # Lauf 235: die freie kam leer (132 Byte) und ohne Maßstab; erst prüfen, ob sie da ist (Netz, Gerüst, Bewegungen, Größe)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/oga_fledermaus_510.gd 2>&1 | grep -E "FALSCH|OGA510|SCRIPT ERROR" | tee $B/oga-test.log || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_fledermaus_510.gd 2>&1 | grep -E "^(Film|MASS|BEWEGUNGEN|ABSCHNITT)|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1920x1080 \
+          timeout 1800 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 1920x1080 \
             --write-movie $RUNNER_TEMP/fm510.avi --fixed-fps 30 -s res://tests/film_fledermaus_510.gd > $B/film.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|^Signatur|FEHLER" $B/film.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/fm510.avi -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/510-fledermaus.mp4 || true
@@ -1481,9 +1489,9 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/sitzen758; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/sitzen758.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/sitzen758.avi --fixed-fps 30 \
             -s res://tests/film_sitzen_758.gd -- --sitzfilm > $B/sitzen758.log 2>&1 || true
           grep -E "SCRIPT ERROR|^SITZ758 (Borin|kein|Ende)" $B/sitzen758.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/sitzen758.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/sitzen758.mp4 || true
@@ -1633,7 +1641,7 @@ jobs:
         run: |
           A=$GITHUB_WORKSPACE/bilder/staub1119; mkdir -p $A
           cd godot
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/staub1119.avi --fixed-fps 30 -s res://tests/film_staub_1119.gd -- --film=1119 > $A/staub1119.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1119|^BEGINN" $A/staub1119.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/staub1119.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $A/staub1119.mp4 || true
@@ -1647,9 +1655,9 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/wenden10401; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wenden10401.avi --fixed-fps 30 \
             -s res://tests/film_wenden_10401.gd -- --film=10401 > $B/wenden10401.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM10401" $B/wenden10401.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wenden10401.mp4 || true
@@ -1663,9 +1671,9 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/pim1086; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/pim1086.avi --fixed-fps 30 \
             -s res://tests/film_pim_1086.gd -- --film=1086 > $B/pim1086.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1086" $B/pim1086.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/pim1086.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/pim1086.mp4 || true
@@ -1679,7 +1687,7 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/robe1092; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/robe1092.avi --fixed-fps 30 -s res://tests/film_robe_1092.gd -- --film=1092 > $B/robe1092.log 2>&1 || true
@@ -1695,9 +1703,9 @@ jobs:
           B=$GITHUB_WORKSPACE/bilder/ketten1144; mkdir -p $B
           cd godot
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ketten1144.avi --fixed-fps 30 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          timeout 1200 xvfb-run -a -s "-screen 0 540x1170x24" \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ketten1144.avi --fixed-fps 30 \
             -s res://tests/film_ketten_1144.gd -- --film=1144 > $B/ketten1144.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true

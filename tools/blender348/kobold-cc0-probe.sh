@@ -10,8 +10,8 @@ for w in dagger shortsword longsword quarterstaff shield round_shield scimitar h
 for t in gras erde halme; do cp $B/tex/$t.png $D/$t.bild; done
 export GEGNER=KOBOLDS OHNEUI=1 SCHAU_LISTE=Stehen,Gehen,Hieb
 G=~/godot/godot
-bild() { (cd $R/godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" $G --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
-film() { (cd $R/godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" $G --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie /tmp/$1.avi --fixed-fps 30 -- --bild=/tmp/x.png > $P/$1-film.log 2>&1) || true
+bild() { (cd $R/godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" $G --rendering-driver vulkan --rendering-method mobile --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+film() { (cd $R/godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" $G --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie /tmp/$1.avi --fixed-fps 30 -- --bild=/tmp/x.png > $P/$1-film.log 2>&1) || true
   ffmpeg -loglevel error -y -i /tmp/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; rm -f /tmp/$1.avi; }
 halt() { for h in Stehen= Gehen=Gehen:0.25 ${2:-}; do for g in 1 2 3; do NUR=gob$g HALTUNG=${h#*=} bild st-$1-${h%%=*}-$g; done; done; }
 (cd $R/godot && timeout 300 $G --headless --path . --import > $P/import.log 2>&1) || true
