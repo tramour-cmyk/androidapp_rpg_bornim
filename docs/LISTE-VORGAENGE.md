@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1329 | Von Sokrates: 6 Zeilen „zu testen, ohne Rückmeldung“ (697, 1040.1, 1185, 1268.1, 1268.3, 1290) selbst am Build prüfen und schließen oder als Test mit Schritten vorlegen (Chef 15.11., 21:03) | Tom | M? | startbar | – | – | – | B Abläufe | – |
 | 1325 | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode unverändert gegen Lauf 493/497 grün): von Westen tritt die Ziege erst weg (30→29), dann Tausch; am Rechner mit Kaufmodellen auch bei 12 Bildern/s grün | Tom | M | in Arbeit, Ursache nachgestellt, Messlauf auf claude/tom-1325-ziege | 15.11. 21:25 | claude/tom-1325-ziege | – | E Welt | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | startbar, letzter Lauf Tuch (Sokrates 20:29) | – | claude/tom-431-umhang | – | E Figuren | 93,01 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | zu testen, ohne Rückmeldung t289 | – | claude/tom-697-drehteller | – | E Figuren | – |
@@ -98,6 +99,7 @@
 | 1326 | Von Sokrates (Chef 15.11., 20:33): Build-Name (Nummer des Builds) im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | Tom | M? | startbar | – | – | – | E Oberfläche | – |
 | Pflege | von Werkzeug (340.3, 15.11.): 30170 Bytes (Grenze 30000), Erledigtes streichen | Tom | K | erledigt | – | – | – | B Abläufe | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | startbar | – | – | – | E Technik | – |
+| 1330 | Von Sokrates: 21 Zeilen „zu testen, ohne Rückmeldung“ (t277–t289) selbst am Build prüfen und schließen oder als Test mit Schritten vorlegen (Chef 15.11., 21:03) | Jerry | M? | startbar | – | – | – | B Abläufe | – |
 | 1321 | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m nach vorn in einen Wolf, der daneben beißt (wolf_mess_438 Kleriker); Weg wählen, Film an den Chef, dann bauen | Jerry | M | in Arbeit, Zwischenstand fee74cf53 wirkt noch nicht (Kopf im Biss statt Umriss messen) | – | claude/jerry-1321-ausweichen | – | E Kampf | – |
 | 1314 | Von Jerry (t289, Lauf 497 rot): Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ragdoll_1215 (Schamane 0,3 m im Boden, Grak ohne Stoß), ausholen_1000 (Axt 9 cm aus der Faust beim Gehen) beheben, vor Build 290 | Jerry | M | gebaut, Geprüft an: a84216589 | – | claude/jerry-1314-rot | – | E Kampf | – |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, Sprung passt (Chef 20:33), Blut am Helden offen | – | claude/jerry-760-1000-sprung-axt | – | E Kampf | 17,95 $ |
