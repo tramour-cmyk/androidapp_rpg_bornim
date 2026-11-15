@@ -539,12 +539,10 @@ func _load_model() -> Node3D:
 		return kh
 	var p := _model_path()
 	if FileAccess.file_exists(p):
-		var doc := GLTFDocument.new()
-		var st := GLTFState.new()
-		if doc.append_from_buffer(lade_bin(p), "", st) == OK:
-			# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
-			# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
-			var n := doc.generate_scene(st, 30.0, false, false) as Node3D
+		# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
+		# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
+		var n := ModellSpeicher.kopie(p, false)     # 1270.2: einmal je Spielstart gebaut, danach Kopie
+		if n != null:
 			_paint(n)
 			anim = _find(n, "AnimationPlayer") as AnimationPlayer
 			if anim:
@@ -785,11 +783,9 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		bi = sk.find_bone("hand_%s" % side.to_lower())
 	if bi < 0 or not FileAccess.file_exists(p):
 		return
-	var doc := GLTFDocument.new()
-	var st := GLTFState.new()
-	if doc.append_from_buffer(lade_bin(p), "", st) != OK:
+	var w := ModellSpeicher.kopie(p)     # 1270.2
+	if w == null:
 		return
-	var w := doc.generate_scene(st) as Node3D
 	_paint(w)
 	var at := BoneAttachment3D.new()
 	at.bone_name = sk.get_bone_name(bi)
