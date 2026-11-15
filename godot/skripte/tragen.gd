@@ -53,6 +53,7 @@ var faust_weite := 0.0          # m: Knoechel bis Mittelglieder quer zum Schaft 
 var fehl := 0.0                  # m: so weit liegt die Faust nach dem Stellen neben dem Ziel (Arm zu kurz)
 var axt_griff := AXT_GRIFF        # Probe 417 Runde 3 (tragprobe.gd): Fassungen nebeneinander
 var axt_haengt := true            # Blatt nach unten (Runde 3); false: Schneide oben wie Runde 2
+var mitfuehren := false           # 1304: Drehteller, der Stabfuß folgt der Faust am Boden ohne Umsetzen (sonst zuckt er beim Drehen)
 var zwei_winkel := 0.0            # Messung: Grad zwischen Schaft durch beide Faeuste und der Achse der rechten Hand
 
 static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
@@ -317,6 +318,10 @@ func _stab(G: Transform3D, P: Vector3, vorn: Vector3, ac: Vector3, geht: bool, d
 	# Pruefer 417 Runde 2 (im Film fehlte der Stab im Gehen): nach einem Sprung der Figur (Ortswechsel, Probe) stand der Fuss am alten
 	# Ort, die Faust kam nie mehr ueber ihn hinaus; weiter als einen Meter weg setzt er neu an
 	if stab_fuss == Vector3.INF or Vector2(stab_fuss.x - ruhe.x, stab_fuss.z - ruhe.z).length() > 1.0 * ms:
+		stab_fuss = ruhe; stab_nach = ruhe; stab_t = 1.0
+	# 1304 (Chef 15.11., 17:13, Reiter Ausrüstung: „der Stab … ständig rauf runter zuckt“): im Drehteller dreht sich die Figur ohne zu
+	# gehen, der Fuß stand nach 5 cm neben der Faust und wurde laufend mit Hub umgesetzt; dort gleitet er mit (tests/stab_dreh_1304.gd)
+	if mitfuehren and not geht:
 		stab_fuss = ruhe; stab_nach = ruhe; stab_t = 1.0
 	if stab_t >= 1.0:
 		var neu := Vector3.INF

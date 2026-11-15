@@ -61,6 +61,7 @@ func zeige(w: Dictionary) -> void:
 		if modell == null: return
 		Gebiet.male(modell, null, 2, mats)
 	teller.add_child(modell)
+	for tr in modell.find_children("*", "Tragen", true, false): (tr as Tragen).mitfuehren = true   # 1304: Stab zuckt nicht beim Drehen
 	var box := huelle(modell, Transform3D.IDENTITY)
 	if box.size.y > 0.01:   # auf HOEHE, Fuesse auf 0, Mitte auf der Drehachse
 		var s := HOEHE / box.size.y
