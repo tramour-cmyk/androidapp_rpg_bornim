@@ -352,3 +352,4 @@
 2026-11-15 13:27:39	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30601 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 13:41:38	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-431-umhang
 2026-11-15 13:41:47	probelauf	783 W1: `PROBEBILD=431` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film `PROBE=431`.	claude/tom-431-umhang
+2026-11-15 13:41:58	probelauf	783 W1: `PROBEBILD=431` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film `PROBE=431`.	claude/tom-431-umhang
