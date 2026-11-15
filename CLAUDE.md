@@ -31,7 +31,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 | Rolle | Aufgabe | Rollendatei |
 |---|---|---|
-| **Chef** (Nutzer) | entscheidet Grundsätzliches und schwer Umkehrbares; testet Code vor `main` je Punkt in seiner Art, Kleinkram nicht (1128 A, 1173) | – |
+| **Chef** (Nutzer) | entscheidet Grundsätzliches und schwer Umkehrbares; testet Spielcode vor `main` (Feste Regeln) | – |
 | **Sokrates** | Stab des Chefs: Strategie, Markt, Geschäftsmodell, Chefrunde; auf Zuruf oder von `lauf.py` für eine Chefsache-Datei gestartet | `ROLLE-BERATUNG.md` |
 | **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen | `ROLLE-KREATIV.md` |
 | **Perikles** | Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe | `ROLLE-PROJEKT.md` |
@@ -77,7 +77,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 
 ## Feste Regeln
 
-- **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs in der Art des Punkts (`LISTE-CHECK-BUILD-TEST.md` 9; 1128 A, 1173) · nie APK oder Hörprobe in den Chat.
+- **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Spielcode auf `main` ohne Test des Chefs in der Art des Punkts (`LISTE-CHECK-BUILD-TEST.md` 9), Werkzeug nach grünem Lauf sofort (1311) · nie APK oder Hörprobe in den Chat.
 - **Umgang:** Deutsch, Berliner Zeit, generisches Maskulinum, nie gegenderte Formen.
 - **Nummern:** je Thema ein Vorgang, nie Fremdes unter eine Nummer (412); jeder Vorgang über `vorgang.py neu` (Zähler in `ARBEIT-BETRIEB.md`); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
 - **Jeder Text an einem Ort:** Stand in der Vorgangsliste; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei des Empfehlers; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text wandert mit der Zeile.

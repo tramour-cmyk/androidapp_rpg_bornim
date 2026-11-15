@@ -23,7 +23,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“,
                                        dazu 👍/👎 des Chefs auf „tN.k:“-Meldungen für Punkte ohne Ergebnis (1217; „Rest ✓“ gilt danach);
                                        je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar (schlägt jedes ✓ und den Zweig claude/build-N, 1230) mit dem Fund (Absatz „Zu NR, von Chef
-                                       (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste);
+                                       (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build, startbar für den Besitzer (1332);
                                        Handypunkt ohne Ergebnis → bleibt „zu testen“ mit Build N, Liste bleibt in ansehen/ (1277).
                                        Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
                                        committen; sonst hält die Commit-Prüfung an.

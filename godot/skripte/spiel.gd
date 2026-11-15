@@ -141,6 +141,7 @@ func _ready() -> void:
 	hoehle_bilder()
 	nebel_bilder()
 	robe_bilder()
+	bildrate_lauf()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -3122,6 +3123,66 @@ func nebel_schild(e: CanvasLayer, text: String, p: Vector2, groesse: int) -> voi
 		punkt.position = p - Vector2(5, 5)
 		e.add_child(punkt)
 		l.position.y -= l.size.y * 0.8
+
+# 1268.5 (1268 A, Chef 15.11., 10:51: „Bildrate und Ladezeit je Ort in jedem Lauf melden, Warnung beim Abfall“): --bildrate=<datei.json>
+# geht Dorf, Wald und Höhle ab und beginnt im Wald den Wolfskampf; je Ort Ladezeit (Messung.laden), dann BILDRATE_SEK Sekunden Bildzeiten
+# (Schnitt, langsamstes 1 %, längste, über 50 ms) und die höchsten Zeichenaufrufe und Dreiecke. Monster ruhig, 10 Uhr. Der Lauf ruft es im
+# Renderer des Handys (mobile, Lavapipe) und vergleicht mit tools/bildrate.py gegen godot/tests/bildrate_grundwert.json
+const BILDRATE_RUHE := 1.5
+const BILDRATE_SEK := 4.0
+func bildrate_lauf() -> void:
+	var datei := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--bildrate="): datei = a.substr(11)
+	if datei == "": return
+	zustand.minuten = 10 * 60
+	licht_nach_uhr(true)
+	var orte := {}
+	for o in [["dorf", START, START_KACHEL, "DOWN"], ["wald", "forest", Vector2i(9, 29), "UP"], ["hoehle", "cave", Vector2i(10, 18), "UP"]]:
+		if o[1] != karte.id: betrete(String(o[1]), o[2], String(o[3]))
+		if herde: herde.aus = true
+		await get_tree().create_timer(BILDRATE_RUHE).timeout
+		var w := await _bildrate_fenster()
+		w["laden_ms"] = roundf(float(Messung.laden.get(String(o[1]), -1.0)))
+		orte[o[0]] = w
+		print("BILDRATE %s %s" % [o[0], JSON.stringify(w)])
+	betrete("forest", Vector2i(9, 29), "UP")
+	if herde: herde.aus = true
+	await get_tree().create_timer(BILDRATE_RUHE).timeout
+	kampf_im_wald(Vector2i(9, 29), "RUDEL")   # ohne await: der Kampf wartet auf den Zug des Helden, gemessen wird der stehende Kampfort
+	var bis := Time.get_ticks_msec() + 60000
+	while kampf == null and Time.get_ticks_msec() < bis: await get_tree().process_frame
+	if kampf != null:
+		await get_tree().create_timer(BILDRATE_RUHE).timeout
+		var w := await _bildrate_fenster()
+		w["laden_ms"] = roundf(Messung.kampf_ms)
+		orte["kampf"] = w
+		print("BILDRATE kampf %s" % JSON.stringify(w))
+	else: print("FEHLER BILDRATE kein Kampfort nach 60 s")
+	var f := FileAccess.open(datei, FileAccess.WRITE)
+	f.store_string(JSON.stringify({"renderer": RenderingServer.get_current_rendering_method(), "grafik": RenderingServer.get_video_adapter_name(),
+		"cpu": OS.get_processor_name(), "kerne": OS.get_processor_count(), "fenster": str(get_viewport().get_visible_rect().size), "orte": orte}, "  "))
+	f.close()
+	print("BILDRATE fertig %s" % datei)
+	get_tree().quit()
+
+## BILDRATE_SEK Sekunden Bildzeiten, gemessen von Bild zu Bild (unabhängig von _process der Welt, die im Kampf ruht)
+func _bildrate_fenster() -> Dictionary:
+	var ms: Array = []
+	var zeichen := 0
+	var dreiecke := 0
+	var t := Time.get_ticks_usec()
+	var ende := t + int(BILDRATE_SEK * 1e6)
+	while t < ende:
+		await get_tree().process_frame
+		var n := Time.get_ticks_usec()
+		ms.append((n - t) / 1000.0)
+		t = n
+		zeichen = maxi(zeichen, int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)))
+		dreiecke = maxi(dreiecke, int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)))
+	var w := Messung.werte(ms)
+	return {"fps": snappedf(float(w["fps"]), 0.1), "eins_ms": roundf(float(w["eins"])), "laengste_ms": roundf(float(w["laengste"])),
+		"ueber50": int(w["langsam"]), "bilder": ms.size(), "zeichen": zeichen, "dreiecke": dreiecke}
 
 # 558 Robe am Rechner (Chef 04.11., 11:31, Bild Build 257 im Tiefen Fluesterwald): --robe558=<ordner> knipst den Magier wie im Spiel,
 # zur Kamera gewandt: Tiefer Fluesterwald am Weg Tag und Nacht (wie das Bild des Chefs), Dorfplatz Tag, Nahstufe; der Ablauf

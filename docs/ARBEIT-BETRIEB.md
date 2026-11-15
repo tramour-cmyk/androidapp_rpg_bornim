@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1311** (zuletzt 1310 Tom 15.11. 18:26:24 5462) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1337** (zuletzt 1336 Jerry 15.11. 21:13:55 547f) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -85,32 +85,19 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:10 15.11.: Marke Archiv session_01Hmoj75SXMEBRLJdiSsv5Xd (lauf.py)
 - 11:10 15.11.: Marke Archiv session_01Hmoj77RmWp9S7BfJZLPzKq (lauf.py)
 - 11:20 15.11.: Marke Archiv session_01Hmoj78yhg3iMnC4caCkmRB (lauf.py)
-- 12:04 15.11.: Startsperre 12:04 Start Tom, Diogenes, Homer, Perikles (lauf.py)
 - 12:04 15.11.: Marke Mehrfach Jerry (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj76Nrryek3oSSKfE8CE (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj75f6u3gFfiQ22M2H7J (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj787mL9tKD6xvJpNakw (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj77DVasqzk8UQ6BuvGG (lauf.py)
-- 12:09 15.11.: Startsperre 12:09 Start Sokrates (Neustart, 7d0e0dbcb)
-- 12:21 15.11.: Startsperre 12:21 Start Spike (Neustart, d2d9a63a9)
-- 12:25 15.11.: Startsperre 12:25 Start Tom (Neustart, 10a507cfa)
-- 13:03 15.11.: Startsperre 13:03 Start Tom (Neustart, bf99bb6cc)
-- 13:04 15.11.: Startsperre 13:04 Start Perikles, Spike (lauf.py)
 - 13:04 15.11.: Marke Mehrfach-Warnung Jerry session_01Hmoj77868z8tGPx6d9vJF1 (lauf.py)
 - 13:04 15.11.: Marke Mehrfach Jerry (lauf.py)
 - 13:04 15.11.: Marke Mehrfach Tom (lauf.py)
 - 13:04 15.11.: Marke Archiv session_01Hmoj78dCt3YTef3e1vvp1K (lauf.py)
 - 13:04 15.11.: Marke Archiv session_01Hmoj79F2ADvX6hyURaqmPK (lauf.py)
-- 13:36 15.11.: Startsperre 13:36 Start Jerry 760, 1000 (stärkstes Modell, Chef 13:34 laut Sokrates, 9f301e5db; von Hand)
-- 13:43 15.11.: Startsperre 13:43 Start Sokrates (Neustart, 7f244b96b)
-- 13:47 15.11.: Startsperre 13:47 Start Perikles (Zu 1289, Sokrates 13:45; alte Sitzung hängt am Rebase)
-- 14:05 15.11.: Startsperre 14:05 Start Spike (lauf.py)
 - 14:05 15.11.: Marke Archiv session_01Hmoj77868z8tGPx6d9vJF1 (lauf.py)
 - 14:05 15.11.: Marke Archiv session_01Hmoj78didfhaNLaWruGUVT (lauf.py)
 - 14:05 15.11.: Marke Archiv session_01Hmoj764GvRteLSEAskvbEW (lauf.py)
-- 14:22 15.11.: Startsperre 14:22 Start Tom (Neustart, a6b94bfa8)
-- 14:31 15.11.: Startsperre 14:31 Start Ford (selbst, Tiefe 5, Selbstneustart nach 406 Tsd. Token)
-- 14:29 15.11.: Startsperre 14:29 Start Ford (selbst, Tiefe 5, Selbstneustart nach 406 Tsd. Token)
 - 15:36 15.11.: Startsperre 15:36 Start Jerry (1289 nach Block 760/1000, Übergabe 13:08)
 - 15:40 15.11.: Startsperre 15:40 Start Sokrates (Neustart, Übergabe 15:36, 36f1b0202); neu `…77VktG9VvggdgMCtAG`; alter Ford `…775wuCaHstkrQQKKTC` 15:38 archiviert (9,90 $ auf 1019); alter Sokrates `…79enQhUTdgTcHDC329` archiviert (6,53 $ auf 1215, 1289, 431); Spike `…75sX1mjBfUobAcrzXh` per Weiter auf 1268.2
 - 16:11 15.11.: Startsperre 16:11 Start Ford (Starter, Handstart Tiefe 0, 1298); Ford neu `…76awPjHi5batouXHgC`, Uhr `trig_01PJTr2gPNqwT35yGNqDM5XC`; alter Ford `…76dCpm3kKPJixR9C8w` archiviert (1,71 $ auf 1019), seine Uhr aus; 4224 (👎 760) und 4225 (👍 1000) an Jerry
@@ -124,3 +111,22 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:49 15.11.: Startsperre 17:49 Start Jerry (Neustart, 4afdd5af4); alte Sitzung …78tPSbm17uKXLsanMa nach Ruhe archivieren, Kosten auf 1289, 1296, 1215, 1000
 - 18:04 15.11.: Startsperre 18:04 Start Perikles (lauf.py)
 - 18:04 15.11.: Marke Archiv session_01Hmoj75QZ37mBNTLgGWbYsd (lauf.py)
+- 18:41 15.11.: Startsperre 18:41 Start Jerry (Neustart, c4abd94f6); alte Sitzung …77VewBtn1HtkZH8vsV nach Ruhe archivieren, Kosten auf 760, 289
+- 18:43 15.11.: Startsperre 18:43 Start Spike 1268.5 (Tom 18:42, Spike-Sitzung …75sX1mjBfUobAcrzXh bei 301 Tsd. Token: neuer Start, alte archivieren, Kosten 8,99 $ auf 1268.1-1268.3)
+- 18:46 15.11.: Startsperre 18:46 Start Tom (Neustart, Übergabe 5fe7e7511); alte Sitzung …79tpm29pyY1Mnf81xG nach Ruhe archivieren, Kosten auf 431, 1145
+- 19:04 15.11.: Startsperre 19:04 Start Homer, Perikles (lauf.py)
+- 19:16 15.11.: Startsperre 19:16 Start Perikles 1311 (Sokrates, Chef „jetzt“, per Weiter an …771BApBUDEspEuKUsR)
+- 19:19 15.11.: Startsperre 19:19 Start Sokrates (Neustart, 2d599c93c, eilig Stichtag 20:00); alte Sitzung …75TxvxMneSiDEAtRjE nach Ruhe archivieren, Kosten auf 1137, 1268.2, 1247
+- 19:31 15.11.: Startsperre 19:31 Start Perikles 1312 (Sokrates, Chef „jetzt“ 19:28, 5a420796a; neue Sitzung, keine alte)
+- 19:39 15.11.: Startsperre 19:39 Start Perikles 1313 (Sokrates, Chef 19:37, per Weiter an …79Xc4rtdmcDF2r7Sz8)
+- 19:46 15.11.: Startsperre 19:46 Start Spike 1247 mischen (Sokrates, per Weiter an …795RUAxwXG56nmWXHR, Tom nachrichtlich)
+- 20:04 15.11.: Startsperre 20:04 Start Perikles (Neustart, 8e45c936b, 1317 hält Jerry auf); alte Sitzung …79Xc4rtdmcDF2r7Sz8 sofort archivieren, Kosten auf 1312, 1313
+- 20:06 15.11.: Startsperre 20:06 Start Homer 1318 (lauf.py, per Weiter an …793oj9mKdUggnbqrp3); WARNUNG Start Spike 19:46 war Weiter an …795RUAxwXG56nmWXHR (1247 mischen), Sitzung fertig, archiviert, kein START nötig
+- 20:17 15.11.: Startsperre 20:17 Start Sokrates (Neustart, 7a9652a4e); Start Homer 1320 per Weiter an …793oj9mKdUggnbqrp3 (Chef 20:15); alte Sokrates-Sitzung …77qvabdBBG25tf5poS nach Ruhe archivieren, Kosten auf 1137, 870
+- 20:26 15.11.: Startsperre 20:26 Start Homer 870.19 (Sokrates, per Weiter an …793oj9mKdUggnbqrp3, nach 1320)
+- 20:30 15.11.: Startsperre 20:30 Start Tom (Neustart, 14658a18a); alte Sitzung …78XZJpL15wP4eRaChX nach Ruhe archivieren, Kosten auf 1145, 1295
+- 20:31 15.11.: Startsperre 20:31 Start Spike 1270.3 (Sokrates 20:30, Bau Spike auf Toms Zeile, 257db57c8; neue Sitzung, alte archiviert)
+- 20:35 15.11.: Startsperre 20:35 Start Sokrates (Neustart, 6167dcf7b); alte Sitzung …78f1n3XX1tbxtzBEaX nach Ruhe archivieren, Kosten auf 870, 623, 1135
+- 20:53 15.11.: Startsperre 20:53 Start Sokrates (Neustart, 502c33aaf); alte Sitzung …79vFavPLGRZ3euowMK nach Ruhe archivieren, Kosten auf 1186, 620
+- 21:04 15.11.: Startsperre 21:04 Start Perikles (lauf.py)
+- 21:12 15.11.: Startsperre 21:12 Start Jerry 1330 („jetzt“ Chef 21:07, Sokrates 21:08, 7a2846331; alte Sitzung …79o7xKBkqtEh5WECtD bei 608 Tsd. Token: neu starten, alte archivieren, Kosten 32,27 $ auf 289, 760, 1072); Tom 1329 danach in laufender Tom-Sitzung
