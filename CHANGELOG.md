@@ -4,6 +4,12 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Seltenheit im Vorratsfenster, Zauberschaden und Abwehrprobe in den Kampfwerten** (Tom, 785.3, 785.6, Zweig `claude/tom-785-1-anteil` `a4d832406`, noch ohne Build): Antippen eines Vorrats in der Tasche nennt seine Seltenheit wie früher; die Kampfwerte im Reiter Ausrüstung zeigen, was die getragenen Stücke an Zauberschaden und Abwehrprobe geben.
+
+- **Fertigkeiten erklären sich beim Antippen** (Tom, 785.2, Zweig `claude/tom-785-1-anteil` `05621952c`, noch ohne Build): im Heldenreiter und im Reiter Fertigkeiten zeigt Antippen einer Fertigkeit, auch einer noch nicht geübten, was sie tut, mit dem Satz aus der Erschaffung.
+
+- **Anteil der Ausrüstung im Reiter Held** (Tom, 785.1, Zweig `claude/tom-785-1-anteil` `93b21a278`, noch ohne Build): neben jedem Grundwert blau, was die getragenen Stücke beitragen, darunter der Satz zur Farbe wie in der alten Fassung; ohne Obergrenze (644b A).
+
 - **Handbuch nach dem Regelwerk, Namen ohne SRD** (Tom, 870.13, Zweig `claude/tom-870-13-aufraeumen` `86ba442ab`, noch ohne Build): System → Handbuch zeigt die Absätze aus `STORY-BRS-ANLEITUNG.md` (Homer 870.15) statt der alten Anleitung mit Klassen und SRD-Hinweis, Zahlen aus den Regelwerten; Aldric, Garrick, Morwen und die Chronik sagen Goblin-Hauptmann und Bärenschrat; alter klassischer Kampf und ungenutzte Altdaten entfernt. Wächter `regelcheck.py` zählt keine Kommentare, keine Quellfelder „_…“ und nicht die Umbenennung der Glut-Entwürfe mehr; im Zweig bleiben 3 Namen (Klassennamen in der Kampfprobe `kampf/probe.gd`).
 
 - **882.1 auf `main`: Bau ohne Gradle** (Tom 15.11., 11:09, auf Weisung Sokrates über Ford, Bautest Lauf 473 nach 1272): `godot-kampf.yml`, `wald_daten.sh` und die Prüfwerkzeuge 348 lesen Karten, Texte, Held und Kartenblätter aus `godot/daten`; `mars_texte.py` gestrichen; Vergleichsbilder alt aus dem Zweig `bilder`. Zweig `claude/tom-882-1-ohne-gradle` allein gemischt (`192e7dd3d`), ohne den Rest von Build 286.

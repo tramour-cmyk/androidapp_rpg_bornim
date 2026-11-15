@@ -9,6 +9,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 ## Zeilen
 
+- **Zu 785.1, von Tom (15.11., 12:32):** Reiter Held zeigt wieder den Anteil der Ausrüstung je Grundwert blau, mit dem alten Satz „Blau: Bonus durch Ausrüstung (im Wert enthalten)“ / “Blue: bonus from gear (included in the score)” (MenuScreen.kt 650); in `STORY-BRS-HELD.md` fehlt er. Bitte als Marke aufnehmen oder neu fassen; der alte Satz zur Obergrenze entfällt (644b A).
+
 - **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
 - **Zu 870.9, Homer (12.11., 16:34, ohne Eile):** „Hero Level“ im Handbuch klein, in der Oberfläche groß; beim Bau 870.9 einheitlich klein lassen oder angleichen.
 

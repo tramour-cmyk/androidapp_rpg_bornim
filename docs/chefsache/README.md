@@ -9,16 +9,10 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [1288a](entscheiden/1288a-kerben-verstreichen.md) | **Muss** | E Kampf | 15.11., 12:20 | Keine Lücke; Verstreichen heißt nur „kein Ansparen“. Die echte Lücke ist, dass eine falsche Haltung zu wenig kostet. | Sokrates |
-| [431g](entscheiden/431g-kleiderschrank.md) | **Muss** | E Figuren | 15.11., 12:08 | Kleidung einmal je Stück anpassen und per Skript auf alle zehn Volkskörper übertragen; der Umhang bekommt eigene federnde Knochen statt der Armgewichte. | Tom |
-| [481.2](entscheiden/4812-deckel.md) | **Muss** | G Balance | 15.11., 11:31 | Mit Deckel 50 % tut fast jeder Biss etwas, und der Wachsoldat kann bei falschem Spiel verlieren; mit gutem Spiel gewinnt er weiter fast immer. Der Klosterschüler gewinnt ebenfalls immer, ihn berührt der Deckel nicht. | Jerry |
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1278](billigen/1278-kuer-schliessen.md) | **Muss** | B Abläufe | 15.11., 11:28 | Von 32 angefangenen Kür haben nur 5 keinen Plan mehr; die schließe ich nach deinem „gebilligt“, Zweig und Kosten bleiben in Git. | Perikles |
+Nichts offen.
 
 ## Anzusehen
 
@@ -36,11 +30,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 ## Zu tun
 
-Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1270.1](tun/12701-messung.md) | **Muss** | E Technik | 15.11., 11:14 | Weg für den Tester (und dich): drei Orte je 20 Sekunden, zwei Kämpfe, nach jedem Schritt „Gerät zeigen“ kopieren und schicken; kein neuer Build nötig. | Spike |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -274,7 +264,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 16.11. |
 | 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | Termin 16.11. |
 | 1244 | M | D236.1 von Diogenes (1133, 1129.1 P2a): Pflegehinweis-Commits sinken nicht (13.11. nach 27 | Termin 16.11. |
-| 1278 | M | Von Sokrates (1271a A, Chef 15.11., 11:23): Liste der angefangenen Kür ohne Plan (aus 32) | Chef (Datei in der Chefsache) |
 | 1279 | M | Von Perikles (870.10, 870a 7 B): core/, app/, Kotlin-Vorschauordner unter tools/, Gradle-W | ruht bis 17.11. |
 | Pflege | K | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
