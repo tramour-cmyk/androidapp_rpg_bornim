@@ -115,6 +115,18 @@ func _run() -> void:
 	# erst eine Sekunde einschwingen (Waffe und Haltung kommen ein Bild nach dem Einhängen, _arm_kauf)
 	for i in 30:
 		await process_frame
+	# 1300 (Lauf 507: Abwehr des Helden 3,6 s nach dem Hieb, Sprung 0,47): die Wölfe greifen vor dem ersten Zug des Helden an;
+	# gemessen wird erst, wenn ihre Züge durch sind und die Gruppe am Zug ist, sonst beißt ein Wolf in Ruhe oder Abklingen
+	var warte := 0
+	while warte < 3600 and not (not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.current() != null and kf.mars.current().side == "PARTY"):
+		if not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
+			kf.go_on()
+		await process_frame
+		warte += 1
+	print("Atem 453.1: Gruppe am Zug nach %.1f s" % (warte / 30.0))
+	_check(warte < 3600, "die Gruppe kommt vor der Messung an den Zug")
+	for i in 30:
+		await process_frame
 	var sh := _spur(held)
 	var ss := _spur(sold)
 	# 1) Ruhe: 20 s ohne Kampfzug (Bilder zu 1/30 s)
