@@ -4,18 +4,18 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 22:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 22:25, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
 | Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
-| ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870.20 (Tom) SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Haup… |
+| ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 70 | 26 | 3 | 3 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 20 | 7 | 0 | 1 | 14 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 64 | 12 | 1 | 8 | 33 | 1300 (Jerry) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 6 | 1 | 0 | 8 | 1268.1 (Spike) je Fehlerart eine Stelle im Code und ein Wächtert… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 65 | 12 | 1 | 8 | 33 | 1300 (Jerry) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 0 | 0 | 8 | 1345 (Tom) lage_785_8 „Lage herstellen endet“ und lage_1156… |
 | Werkzeuge und Abläufe der Firma | 59 | 34 | 1 | 2 | 9 | 1335 (Spike) wolf_mess_438 ohne Messrauschen, Laden der Kaufmo… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -25,7 +25,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | 1 | 1335 | Spike | wolf_mess_438 ohne Messrauschen, Laden der Kaufmodelle mit Wiederholung bei Net… | M | Werkzeuge und Abläufe der Firma | in Arbeit |
 | 2 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
-| 3 | 870.20 | Tom | SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testersei… | M | Umzug BRS, SRD ablösen | startbar |
+| 3 | 1321 | Jerry | Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m… | M | Kampf passt | in Arbeit |
 | 4 | 1284 | Jerry | Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, aber kein Biss zu sehen… | M | Kampf passt | startbar |
 | 5 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
 | 6 | 1288 | Sokrates | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lück… | M | Kampf passt | startbar |
@@ -40,11 +40,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 15 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
 | 16 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 17 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1326 | Tom | Build-Name im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1268.1 | Spike | je Fehlerart eine Stelle im Code und ein Wächtertest | M | Godot besser nutzen | startbar |
+| 18 | 1345 | Tom | lage_785_8 „Lage herstellen endet“ und lage_1156 „Lage 290.8: auftrag=stones un… | M | Godot besser nutzen | startbar |
+| 19 | 1268.1 | Spike | je Fehlerart eine Stelle im Code und ein Wächtertest | M | Godot besser nutzen | startbar |
+| 20 | 1268.3 | Spike | Warnungen fehlender Typen als Fehler, zuerst regeln/ und kampf/; Textabfragen g… | M | Godot besser nutzen | startbar |
 
-Danach 91 weitere offen. Bei dir zum Testen (vorgelegt): 14. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 90.
+Danach 90 weitere offen. Bei dir zum Testen (vorgelegt): 14. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 90.
 ## Zu entscheiden
 
 Nichts offen.
