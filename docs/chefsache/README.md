@@ -21,7 +21,6 @@ Nichts offen.
 | [1215](ansehen/1215-sterben.md) | Physikalisches Sterben (Ragdoll), Goblins | – | 15.11., 01:16 |
 | [1222](ansehen/1222-rauch.md) | Rauchbündel gegen Krogg: Wurf, Rauch am Kopf, Schlag ins Leere | – | 15.11., 00:47 |
 | [601](ansehen/601-spaeher.md) | Goblin-Späher: Schussbewegung, Pfeil, Spur | – | 14.11., 23:53 |
-| [806](ansehen/806-schatten.md) | Schatten im Kampfort günstiger | – | 15.11., 01:32 |
 | [930.7](ansehen/9307-glut.md) | Glutsystem Stufe 2: Bedienung im Kampfort | – | 15.11., 01:26 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
