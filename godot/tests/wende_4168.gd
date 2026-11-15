@@ -82,6 +82,11 @@ func _lauf() -> void:
 	for i in 120:
 		await process_frame
 		if p.wende == "": break
+	# 1355: ueberholt die Wende das Ziel zwischen zwei Bildern, bleibt der Knoten davor stehen und drehe() holt den Rest in den
+	# naechsten Bildern nach (bei 20 Bildern/s bis 4,4 Grad); gemessen wird, wenn er nachgeholt hat
+	for i in 10:
+		if absf(angle_difference(p.rotation.y, p.blick)) < deg_to_rad(3.0): break
+		await process_frame
 	pruefe(p.wende == "" and absf(angle_difference(p.rotation.y, p.blick)) < deg_to_rad(3.0), "60 Grad: am Ziel, Wende zu Ende (%.1f Grad daneben)" % grad(angle_difference(p.rotation.y, p.blick)))
 	# 3) 15 Grad: ohne Schritte
 	await process_frame

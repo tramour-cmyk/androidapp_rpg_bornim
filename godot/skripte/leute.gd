@@ -915,7 +915,9 @@ func drehe_stehend(dt: float, rate: float) -> void:
 	if wende != "":
 		var k: PackedFloat32Array = wende_kurve[wende]
 		var spielt := anim != null and anim.current_animation == wende
-		var t := anim.current_animation_position if spielt else INF
+		# 1355 (Lauf 509): die Bewegung laeuft erst nach diesem Knoten weiter (Kind im Baum); ohne Vorgriff stand der Knoten je Bild
+		# um dt dahinter (bei 60 Bildern/s 2 Grad, bei 20 Bildern/s 6 Grad) und der Standfuss rutschte
+		var t := minf(anim.current_animation_position + dt * anim.speed_scale, anim.current_animation_length) if spielt else INF
 		var soll := wende_start + kurve(k, t)
 		var vorbei := signf(angle_difference(soll, blick)) != signf(k[k.size() - 1])   # Ziel erreicht oder ueberholt
 		if not vorbei: rotation.y = soll   # ueberholt: stehen lassen, den Rest dreht drehe (der Held kann auch die Seite gewechselt haben)
