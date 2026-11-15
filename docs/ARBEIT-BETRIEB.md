@@ -123,3 +123,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:05 15.11.: Marke Archiv session_01Hmoj78didfhaNLaWruGUVT (lauf.py)
 - 14:05 15.11.: Marke Archiv session_01Hmoj764GvRteLSEAskvbEW (lauf.py)
 - 14:07 15.11.: Spike neu `…75sX1mjBfUobAcrzXh` (1268.1), Spike alt `…764GvRteLSEAskvbEW` archiviert (2,74 $ auf 1270.2); Jerry 1215 `…77868z8tGPx6d9vJF1` soll Urteil (Chef 13:32, 4217/4218) eintragen, dann archivieren; Jerry 1266 `…78didfhaNLaWruGUVT` soll Stand 1274 setzen; Diogenes und Homer ruhen (Sitzungen offen, Vorrat leer)
+- 14:09 15.11.: Jerry 1266/1274 alt `…78didfhaNLaWruGUVT` archiviert (24,16 $ auf 1266, 1274, 1284); Nachfolger „Jerry – 1289“ startet erst nach Ende des Blocks 760/1000 (15:30; Perikles 13:47: keine zweite Jerry-Sitzung), Erinnerung 15:34
