@@ -49,6 +49,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 ## Einzelheiten
+- **Zu 644.1, von Tom (15.11., 12:22, 870.13):** Am Gegenstandskatalog hängt jetzt der Wegfall des Hinweises „SRD 5.1 · CC BY 4.0“: `godot/daten/held.json` „grundformen“ (57 Stück) trägt noch die Zahlen der SRD-Tabelle (Langschwert Schaden 1W8, vielseitig 1W10; Kettenhemd Rüstung 13, Preis 50), `brs_held.gd` 320–437 liest daraus. Namen sind sauber (Zweig `claude/tom-870-13-aufraeumen`, `regelcheck.py` ohne Fund bis auf die Kampfprobe); ebenda in `kampf/probe.gd` NAMES Herkunft statt Klasse (eine Zeile, deine Datei).
 
 
 
