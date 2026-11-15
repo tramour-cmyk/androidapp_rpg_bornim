@@ -441,3 +441,4 @@
 2026-11-15 19:41:19	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/jerry-1305-reihe
 2026-11-15 19:42:50	commit-pruefung	docs/ARBEIT-PROJEKT.md hat 31882 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 19:46:03	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 33386 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-15 20:01:43	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1314-rot ändert Spielcode (godot/kampf/ragdoll.gd), 	claude/jerry-1314-rot
