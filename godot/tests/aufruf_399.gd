@@ -198,5 +198,6 @@ func _blende(held: Dictionary) -> String:
 	var o: String = k.mars.outcome
 	k.finish()
 	await process_frame
-	var gut: bool = art == "AMBUSH" and worte.size() == 2 and worte[1] == "WOLF" and o != "ONGOING"
+	# 661: alle Blenden ein Aufbau, oben der Name des Gegners gesperrt, darunter der Satz (vorher Satz, dann Name; 882.1 nachgestellt)
+	var gut: bool = art == "AMBUSH" and worte.size() == 2 and worte[0] == "WOLF" and o != "ONGOING"
 	return ("gut " if gut else "") + "%s, %s, %d ms verhüllt (Spielzeit ×30), %s" % [art, worte, unter, o]

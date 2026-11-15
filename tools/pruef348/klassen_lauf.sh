@@ -8,15 +8,15 @@ R=/home/user/androidapp_rpg_bornim; B=~/bl/bin/python
 mkdir -p $S
 for p in medieval-village-megakit stylized-nature-megakit fantasy-props-megakit; do [ -d ~/cc0/$p ] || PAKETE=$p bash $R/tools/blender348/v3/cc0_laden.sh ~/cc0; done
 cd $R
-[ -f $O/karten.json ] || ./gradlew -p core exportMaps -Pout=$O/karten.json -q
+cp godot/daten/karten.json $O/karten.json   # 882.1: seit 870.9 eingecheckt, kein Gradle
 export KARTEN=$O/karten.json
 for s in tex held3 rig dorf; do [ -f $O/.$s ] || { OUT=$O $B -I tools/blender348/v3/$s.py > $O/$s.log 2>&1 && touch $O/.$s; } || { tail -30 $O/$s.log; exit 1; }; done
 OUT=$O ZIEL=$Z Q=~/cc0 KAUF=$K $B -I tools/blender348/v3/held_klassen.py > $A/klassen.log 2>&1 || { tail -40 $A/klassen.log; exit 1; }
 grep -E "^KLASSE|HELD KLASSEN|FEHLT" $A/klassen.log
 [ -f $O/waffen.py ] || { git fetch -q origin claude/jerry-348-kampf && git show FETCH_HEAD:tools/blender348/waffen.py > $O/waffen.py; }
 for w in longsword shield shortsword quarterstaff round_shield; do [ -f $O/waffen/$w.glb ] || OUT=$O/waffen WAFFE=$w $B -I $O/waffen.py > $O/waffe-$w.log 2>&1 || echo "keine Waffe $w"; done
-[ -f $O/held.json ] || { ./gradlew -p core exportTexts -Pout=$O/texte.json -q && ./gradlew -p core exportHero -Pout=$O/held.json -q \
-  && ./gradlew -p core exportThingArt -Pout=$O/dinge -q; }
+# 882.1: Texte, Held und Bilder der Dinge seit 870.9 in godot/daten (kein Gradle)
+mkdir -p $O/dinge && cp godot/daten/texte.json godot/daten/held.json $O/ && cp godot/daten/ding-*.bild $O/dinge/
 rm -rf $G && mkdir -p $G && cp -r $R/godot/. $G/ && D=$G/daten && mkdir -p $D/waffen
 cp $O/texte.json $O/held.json $D/; cp -r $O/dinge/. $D/; cp $R/app/src/main/res/font/fondamento_regular.ttf $D/fondamento.ttf
 cp $O/karten.json $D/; cp $O/held.glb $D/held.bin; cp $O/held-info.json $D/; cp $O/dorf.glb $D/dorf.bin; cp $O/dorf-info.json $D/
