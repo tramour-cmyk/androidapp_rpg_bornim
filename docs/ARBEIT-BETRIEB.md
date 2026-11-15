@@ -110,3 +110,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 15.11.: Marke Archiv session_01Hmoj75f6u3gFfiQ22M2H7J (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj787mL9tKD6xvJpNakw (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj77DVasqzk8UQ6BuvGG (lauf.py)
+- 12:05 15.11.: Tom neu `…78NR8tcbL1C1FvSd17` (431), Perikles neu `…78dCt3YTef3e1vvp1K` (M? 1275), alt archiviert (Tom 2,96 $ auf 1214, Perikles 7,65 $ auf 1277, 1278); START Homer 1235 und Diogenes 1128.3 nicht ausgeführt (Homer: nicht baubar vor Meilenstein, Diogenes wartet auf Bautest/t287), Sitzungen bleiben
