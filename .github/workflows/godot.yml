@@ -583,6 +583,8 @@ jobs:
       - name: Skripte pruefen
         id: pruefen
         run: |
+          # 1268.2: einfache Testzeilen nebeneinander (tools/godot/pruefsatz.py liest dieses Skript), der Rest der Reihe nach
+          [ -n "$PRUEFSATZ" ] || exec env PRUEFSATZ=1 python3 tools/godot/pruefsatz.py "$0"
           set +e
           ROT=$GITHUB_WORKSPACE/rot.txt; : > $ROT; STUFE=start
           trap 'z=$(sed -n "${LINENO}p" "$0"); t=$(echo "$z" | grep -oE "tests/[a-z0-9_]+\.gd" | head -1); echo "$STUFE ${t:-Zeile $LINENO}: ${z:0:160}" >> $ROT; echo "::error::918 rot ($STUFE) ${t:-Zeile $LINENO}"' ERR
