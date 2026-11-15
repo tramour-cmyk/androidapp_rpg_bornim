@@ -140,3 +140,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:04 15.11.: Marke Stellungnahme Sokrates 15.11. (lauf.py)
 - 23:04 15.11.: Marke Rückmeldung 1347 15.11. 22:50 (lauf.py)
 - 23:04 15.11.: Marke Archiv session_01Hmoj793oj9mKdUggnbqrp3 (lauf.py)
+- 23:30 15.11.: Startsperre 23:30 Start Jerry 1331 (Tom 23:28, 3d9159913; alte Sitzung …78iXbwtRhPMGruEzUC bei 389 Tsd. Token: neu, alte archivieren, Kosten 14,65 $ auf 1331, 1321, 1072; Frage 1284a liegt als Chefsache-Datei, nichts geht verloren)
