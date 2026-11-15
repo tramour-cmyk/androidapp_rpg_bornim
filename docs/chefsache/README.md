@@ -42,13 +42,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 1, startbar 0
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1260 | M | Von Sokrates (1259 B, Chef 14.11., 22:47): sprechender Name der drei Kampfpunkte je Zug, e | Chef (Datei in der Chefsache) |
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
+| 1264 | M | Wochentermin 15.11.: Ideenspeicher (719) | startbar |
 
 **Tom** – offen 114, Muss 24, startbar 1
 
