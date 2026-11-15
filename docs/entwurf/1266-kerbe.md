@@ -1,5 +1,7 @@
 # 1266 · Kerbholz statt Glut: Kampffilm und Kerbklänge · Team Jerry · 15.11., 11:50
 
+[Bild von 15.11., 11:52](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/15-1152-1266-Jerry.mp3) (eingetragen von meldung.sh, Jerry)
+
 [Film von 15.11., 11:52](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261115-115209-1266/2026-11/15-1152-1266-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
 
 E Kampf
