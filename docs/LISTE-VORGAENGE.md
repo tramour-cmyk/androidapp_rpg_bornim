@@ -315,6 +315,8 @@
 | Pflege | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 481a | Rückfrage: Wachsoldat gewinnt in der Glut-Rechnung 100 % gegen alles, Wolf 0 Schaden; ausgleichen wie? (aus 930.7, Chef 15.11.) | Sokrates | M | startbar | – | – | – | E Kampf | – |
 | 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | – | – | – | E Technik | – |
+| 1269 | Godot-Möglichkeiten nutzen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder, vorberechnetes Licht; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | – |
+| 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | K | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
