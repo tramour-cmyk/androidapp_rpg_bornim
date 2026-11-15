@@ -738,7 +738,7 @@ def ausbeute(W, jagd):
 
 
 def probe_ohne_grundwert(W, fert, wert, stufe, gegen_stufe):
-    """1084 (1051 A): Probe mit einer Fertigkeit ohne Grundwert in Prozent (werte.json proben <name>_basis, <name>_je_punkt, je_stufe)."""
+    """1253 (ersetzt 1084): Probe mit einer Fertigkeit ohne Grundwert in Prozent (werte.json proben <name>_basis, <name>_je_punkt, je_stufe)."""
     p = W["proben"]
     n = fert.lower().replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss").replace(" ", "_")
     c = p[n + "_basis"] + p[n + "_je_punkt"] * wert + p["je_stufe"] * (stufe - gegen_stufe)
@@ -1182,13 +1182,13 @@ def pruefen(W):
         mon = W["monster"]
         ist("Ausbeute Jagd 0", ausbeute(W, 0), 0.4, tol=0.001)
         ist("Ausbeute Jagd 49", ausbeute(W, 49), 1.0, tol=0.001)
-        ist("Beruhigen Wolf (Stufe 2), Fertigkeit 0, Held Stufe 2 (%)", beruhigen_chance(W, 0, mon["Wolf"], 2) * 100, 30, tol=0.01)
-        ist("Beruhigen Wolf, Fertigkeit 24, Held Stufe 5 (%)", beruhigen_chance(W, 24, mon["Wolf"], 5) * 100, 59.4, tol=0.01)
+        ist("Beruhigen Wolf (Stufe 2), Fertigkeit 0, Held Stufe 2 (%)", beruhigen_chance(W, 0, mon["Wolf"], 2) * 100, 5, tol=0.01)
+        ist("Beruhigen Wolf, Fertigkeit 24, Held Stufe 5 (%)", beruhigen_chance(W, 24, mon["Wolf"], 5) * 100, 44, tol=0.01)
         ist("Beruhigen Fledermaus Stufe 3 als Anfaenger gesperrt", 1 if beruhigen_chance(W, 24, mon["Riesenfledermaus"], 3) is None else 0, 1, tol=0)
-        ist("Beruhigen Fledermaus als Geselle, Held Stufe 2 (%)", beruhigen_chance(W, 30, mon["Riesenfledermaus"], 2) * 100, 43, tol=0.01)
-        # 1084 (1051 A): alle Proben ohne Grundwert, auf gleicher Stufe 30 / 44 / 59 / 74 / 90 % bei 0 / 24 / 49 / 74 / 100
+        ist("Beruhigen Fledermaus als Geselle, Held Stufe 2 (%)", beruhigen_chance(W, 30, mon["Riesenfledermaus"], 2) * 100, 30, tol=0.01)
+        # 1253 (Chef 14.11., 21:03; ersetzt 1084): alle Proben ohne Grundwert, auf gleicher Stufe 5 / 29 / 54 / 79 / 95 % bei 0 / 24 / 49 / 74 / 100
         for f in ["Überreden", "Einschüchtern", "Handeln", "Tiere beruhigen"]:
-            for wert, soll in [(0, 30), (24, 44.4), (49, 59.4), (74, 74.4), (100, 90)]:
+            for wert, soll in [(0, 5), (24, 29), (49, 54), (74, 79), (100, 95)]:
                 ist("%s %d gleiche Stufe (%%)" % (f, wert), probe_ohne_grundwert(W, f, wert, 3, 3), soll, tol=0.01)
         ist("Einschüchtern 0, fünf Stufen unter dem Gegner (Untergrenze)", probe_ohne_grundwert(W, "Einschüchtern", 0, 1, 6), 5, tol=0.01)
         ist("Einschüchtern 100, zwei Stufen darüber (Obergrenze)", probe_ohne_grundwert(W, "Einschüchtern", 100, 5, 3), 95, tol=0.01)
