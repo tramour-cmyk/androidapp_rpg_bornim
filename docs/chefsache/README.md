@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 22:36, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 22:37, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -16,7 +16,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 20 | 7 | 0 | 1 | 14 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 65 | 12 | 1 | 8 | 33 | 1300 (Jerry) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 0 | 1 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
-| Werkzeuge und Abläufe der Firma | 61 | 36 | 0 | 2 | 9 | 1348 (Sokrates) Vorgänge an Spike umschieben, Vorschlag Sokrates |
+| Werkzeuge und Abläufe der Firma | 61 | 36 | 0 | 0 | 9 | 1348 (Sokrates) Vorgänge an Spike umschieben, Vorschlag Sokrates |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Die nächsten 20**
@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 19 | 1348 | Sokrates | Vorgänge an Spike umschieben, Vorschlag Sokrates | M | Werkzeuge und Abläufe der Firma | startbar |
 | 20 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 15. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 26. Ruhend oder nach dem Meilenstein: 90.
+Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 90.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
