@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 302 | K | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja | wartet auf 302.1 (ruht) |
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 114, Muss 25, startbar 0
+**Tom** – offen 115, Muss 25, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,9 +167,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1214 | K | Von Spike (1073): Bild ding-spider_silk fehlt in godot/daten; godot/tests/laden_test.gd da | wartet auf Test (Build 286) |
 | 1234 | M | Von Homer (Fremdprüfung 1232): Reste nach 870.15 auf main: „Grottenschrat“/„bugbear“ statt | wartet auf Test (Build 286) |
 | 1247 | K | Von Tom (1242): Haken 621 A erkennt Freigabe „<Nr>, Lauf frei“ (Einzahl) und Freigaben unt | Termin 16.11. |
-| 1261 | M | Von Jerry (1123, Lauf 480 pruefen2): hoehle_492 zufällig rot, Streuner neben (10, 6) macht | wartet auf Diogenes (greift?) |
+| 1261 | M | Von Jerry (1123, Lauf 480 pruefen2): hoehle_492 zufällig rot, Streuner neben (10, 6) macht | wartet auf 1123 (gebaut), dann Diogenes (greift?) |
+| Pflege | K | von Werkzeug (340.3, 15.11.): 30170 Bytes (Grenze 30000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 104, Muss 43, startbar 1
+**Jerry** – offen 103, Muss 43, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -264,19 +265,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1036.1 | K | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände, jeder Zustand des Codes mit a | Chef (Datei in der Chefsache) |
 | 1084 | M | Von Sokrates (1051 A, Chef 12.11., 22:18): Proben mit Fertigkeit ohne Grundwert (Überreden | wartet auf Test (Build) |
 | 1101 | M | Von Tom (854, Lauf 420): kauf_cache.py ablegen scheitert an godot/daten/deep_forest.bin 12 | wartet auf Test (Build) |
-| 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | wartet auf Sokrates |
+| 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | Termin 15.11. 03:00 |
 | 1162 | M | Von Sokrates (Archivprüfung, 493 Chef 03.11., 15:59): Steinkreis im Kampfort nachbessern ( | wartet auf Test (Build) |
 | 1165 | K | Von Sokrates (Archivprüfung, 490/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefunde K | wartet auf 496 (ruht) |
 | 1166 | M | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11. „gilt für alle Vierbeiner“): | wartet auf Test (Build) |
 | 1141.1 | M | Aus 1141 (Sokrates zu Chef 16:17, Punkt 3): Körper mit Bibliothekstod (Grak, Krogg, Skelet | wartet auf Test (Build) |
-| 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | wartet auf Sokrates |
+| 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | wartet auf Test/Build (gebaut) |
 | 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | wartet auf 1072 (ruht) |
 | 1227 | K | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche i | wartet auf Test (Build 286) |
 | 930.6 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 1, Regelkern in mars.gd hint | wartet auf Test/Build (gebaut) |
 | 930.7 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken | wartet auf Test/Build (gebaut) |
 | 1250 | K | Von Jerry (1000): grak_348 (godot-kampf.yml) rot schon auf main aeb8e0eb0, 11 FEHLER: Plat | wartet auf Test/Build (gebaut) |
 | 1253 | M | Von Sokrates (Chef 14.11., 21:03, ersetzt 1051 A): Proben ohne Grundwert 5 % + 1 je Punkt | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Perikles** – offen 21, Muss 15, startbar 0
 
@@ -304,11 +304,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | Termin 16.11. |
 | 1244 | M | D236.1 von Diogenes (1133, 1129.1 P2a): Pflegehinweis-Commits sinken nicht (13.11. nach 27 | Termin 16.11. |
 
-**Diogenes** – offen 10, Muss 6, startbar 1
+**Diogenes** – offen 9, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1261 | M | Von Jerry (1123, Lauf 480 pruefen2): hoehle_492 zufällig rot, Streuner neben (10, 6) macht | startbar |
 | 461b | K | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Termin 16.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | K | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (ruht) |
@@ -319,7 +318,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | Termin 16.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 16.11. |
 
-**Sokrates** – offen 47, Muss 14, startbar 20
+**Sokrates** – offen 45, Muss 12, startbar 18
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -363,8 +362,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1135 | M | Von Perikles (1128 A, Liste Diogenes): Gespräch mit dem Chef über die Zahlen zur Balance d | startbar |
 | 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | ruht |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | ruht |
-| 1123 | M | Von Sokrates (1109 C, Chef 13.11., 10:56): Prüfungen auf zwei Bauserver teilen (zweiter La | startbar |
-| 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | startbar |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 15.11. 20:00 |
 | 1169 | K | Systemlösung? Tür: 9 frühere Vorgänge (629, 611, 629.1, 636, 1063 …), neu 1168; einmal gru | startbar |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
