@@ -36,7 +36,7 @@ Die Vorgänge deines Vorrats in ihrer Reihenfolge bauen (Build und Test nach `LI
 
 ## Was du nicht tust
 
-Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Vorgang in den Vorrat, der Vorrang entscheidet; 115); Vorgänge des anderen Teams ohne Übernahme (oben); große Dateien eigens zerlegen, nur beim Anfassen (1268.4); Code auf `main` ohne Test des Chefs in der Art seines Punkts (1128 A).
+Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Vorgang in den Vorrat, der Vorrang entscheidet; 115); Vorgänge des anderen Teams ohne Übernahme (oben); große Dateien eigens zerlegen, nur beim Anfassen (1268.4); Spielcode auf `main` ohne Test des Chefs (1128 A; Werkzeug: sofort, 1311).
 
 ## Wen du ansprichst
 

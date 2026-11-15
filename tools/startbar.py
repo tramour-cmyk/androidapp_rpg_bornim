@@ -178,7 +178,7 @@ def wochentermine_faellig(jetzt):
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
             if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
-            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da)
+            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da) + spiegel_auswertung_faellig(jetzt, da)
 
 # 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen
 # veralten still (99 ruhte seit 17.10. überholt; Chefurteil nie nachgezogen, Arbeit unter Unternummern erledigt, Richtungswechsel).
@@ -291,6 +291,29 @@ def urteil_faellig(jetzt, da=None):
 # kommt sie am nächsten, der Abstand bleibt mindestens 48 h. Rückstufung auf montags prüft Sokrates am 27.11.
 LEICHEN_AB = datetime.date(2026, 11, 17)
 LEICHEN_ABSTAND = 2  # Tage
+
+# 340.9 (340.6 A, Chef 15.11., 18:30, V3): liegen Antworten im Rollenspiegel ohne Auswertung, legt lauf.py --sperre am selben Tag
+# eine Muss-Zeile bei Sokrates an: sobald alle sieben geantwortet haben, sonst freitags ab 20 Uhr (oder später) mit dem, was da ist.
+SPIEGEL_AB = datetime.date(2026, 11, 20)
+SPIEGEL_ROLLEN = 7
+
+def spiegel_auswertung_faellig(jetzt, da=None, text=None):
+    """340.9: [(Titel, Bereich, Besitzer)] für Sokrates, wenn die jüngste Woche im Rollenspiegel Antworten hat und keine Auswertung."""
+    if jetzt.date() < SPIEGEL_AB: return []
+    text = lesen("LISTE-ROLLENSPIEGEL.md") if text is None else text
+    wochen = re.findall(r"(?ms)^## Woche (\d{1,2})\.(\d{1,2})\.\n(.*?)(?=^## |\Z)", text)
+    if not wochen: return []
+    t, m, block = wochen[-1]
+    try: freitag = jahr_von(int(t), int(m))
+    except ValueError: return []
+    zahl = len(re.findall(r"(?m)^### ", block))
+    if not zahl or freitag > jetzt.date() or (jetzt.date() - freitag).days > 3: return []  # ältere Wochen: Mo zählt Diogenes
+    if zahl < SPIEGEL_ROLLEN and freitag == jetzt.date() and jetzt.hour < 20: return []
+    tag = "%02d.%02d." % (int(t), int(m))
+    da = (lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da) + lesen("VORGANGSARCHIV.md")
+    if re.search(r"Auswertung Rollenspiegel %s|Rollenspiegel %s ausgewertet" % (re.escape(tag), re.escape(tag)), da): return []
+    return [("Auswertung Rollenspiegel %s (340.9): %d von %d Antworten, Vorlage mit Wegen an den Chef (ROLLE-BERATUNG.md)"
+             % (tag, zahl, SPIEGEL_ROLLEN), "B Abläufe", "Sokrates")]
 
 def leichenpruefung_faellig(jetzt, da=None):
     """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
@@ -585,6 +608,16 @@ def b_gebaut(d):
     """724 A (Chef 09.11., 11:27): Vorgang im Bereich B ist mit dem „greift“ von Diogenes erledigt; „gebaut“ wartet auf Diogenes, nicht auf Test."""
     return d["wort"] == "gebaut" and d.get("bereich", "").startswith("B ")
 
+def b_nicht_auf_main(d):
+    """1311 (Chef 15.11., 19:13: „Da braucht ihr mich doch nicht dafür“): Werkzeug im Bereich B, „gebaut“ auf einem Zweig, der noch
+    nicht in origin/main steckt: der Besitzer mischt sofort nach grünem Lauf, ohne Test des Chefs; Diogenes prüft erst danach „greift“.
+    Zweig fehlt auf origin (nach dem Mischen gelöscht) = auf main."""
+    z = d.get("zweig")
+    if not b_gebaut(d) or z in (None, "", "–", "-") or z.startswith("claude/build-"): return False
+    if _git("rev-parse", "-q", "--verify", "origin/" + z).returncode != 0:
+        if _git("fetch", "-q", "origin", "%s:refs/remotes/origin/%s" % (z, z)).returncode != 0: return False
+    return _git("merge-base", "--is-ancestor", "origin/" + z, "origin/main").returncode != 0
+
 def b_offen_streng(d):
     """1221 (Diogenes 13.11., 20:27): „greift“ prüft erst, wenn jede Nummer im Feld „wartet auf“ erledigt ist; „gebaut“ oder
     „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
@@ -601,6 +634,8 @@ def sperre(d):
         a = art(t)
         if a == "chef": return "Chef (Datei in der Chefsache)"
         if a == "gespraech": return "Chef Gespräch (großes Vorhaben, Sokrates bündelt in der Chefrunde, 1236)"
+    # 1311: ein Termin im Feld ist der Prüftag für „greift“, das Mischen wartet nicht darauf; Auftrag „mischen“ im Titel (plan)
+    if all(art(t) == "datum" for t in offen) and b_nicht_auf_main(d): return None
     for t in offen:
         a = art(t)
         if a == "rolle": return "wartet auf " + t
@@ -664,8 +699,9 @@ def plan(rolle):
         if d["wort"] == "erledigt" or d["nr"] in SONDER and d["besitzer"] != rolle: continue
         if d["besitzer"] == rolle:
             kl = "M" if d["nr"] in f and d["kl"] != "–" else d["kl"]
-            eigen.append((d["nr"], kl, d["titel"], d, sperre(d)))
-        elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d):  # 724 A, 1221
+            mischen = " (1311: Werkzeug gebaut auf %s, nicht auf main: nach grünem Lauf jetzt mischen, ohne Test des Chefs; dann Diogenes „greift“)" % d["zweig"] if b_nicht_auf_main(d) else ""
+            eigen.append((d["nr"], kl, d["titel"] + mischen, d, sperre(d)))
+        elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d) and not b_nicht_auf_main(d):  # 724 A, 1221
             # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269);
             # ruht die Zeile (ruht, Dauer, nach Meilenstein, aufgeteilt, Idee), ruht sie auch für die Rolle (D80.5)
             rest = [t for t in offen_warte(d) if art(t) != "rolle"]

@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Prüflauf halb so lang** (Spike, 1268.2, auf `main` `832a44836` auf Zuruf des Chefs 15.11., 19:13): der Schritt „Skripte pruefen“ startet die einfachen Tests nebeneinander auf allen Kernen (`tools/godot/pruefsatz.py`), ein roter wird einmal allein wiederholt; 17 statt 36 min (Lauf 494).
+
 - **Figuren und Kampfort laden einmal je Spielstart** (Spike, 1270.2, Zweig `claude/spike-1270-2-speicher` `77022480e`, noch ohne Build): Gegner, Waffen, Helden und der Wald des Kampforts werden nur beim ersten Gebrauch gelesen, entschlüsselt und gebaut, danach kopiert; gleiche Gegner teilen sich Netze und Bilder. Am Rechner kostet der zweite Aufruf ein Sechstel des ersten.
 
 - **Bilder und Filme aus dem Bau im Renderer des Handys** (Tom, 1290, Zweig `claude/tom-1290-mobile` `375022004`, in Build 287): alle Film- und Kampfbildschritte zeichnen wie das Handy im Renderer „mobile“ (Vulkan in Software) statt in Compatibility; ein Wächter meldet einen Rückfall und jeden neuen Schritt mit dem alten Renderer.

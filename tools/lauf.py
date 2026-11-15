@@ -661,7 +661,7 @@ def main():
         if r in ohne_rollen or lauf_laeuft(r): continue  # 1148: --ohne <Rolle> und „Lauf läuft bis HH:MM“ nehmen sie ganz aus dem Lauf
         for s in ss:
             _, laufend, ruhig, hinder = s["_info"]
-            if laufend: continue
+            if laufend or ruhig < 1: continue  # 340.10 V4 (c): unter 60 s nach dem letzten Ereignis nicht archivieren (Sokrates 13.11., 03:41)
             # (2) nur mit neuerer Sitzung desselben Bereichs, ohne Wartezeit (261.5, Chef 16:46; ersetzt 60 Minuten aus 238)
             # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
             if s is juengste(ss): continue
@@ -726,7 +726,7 @@ def main():
     def vorgaenger(r):
         # 261.5 (Chef 18:25): startet ein Nachfolger, archiviert Ford die alten Sitzungen der Rolle gleich danach, nicht erst im nächsten Lauf
         for s in je_rolle.get(r, []):
-            if s["id"] in archiviert or s["_info"][1]: continue
+            if s["id"] in archiviert or s["_info"][1] or s["_info"][2] < 1: continue  # 340.10 (c): 60 s Ruhe
             archiviert.add(s["id"])
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
@@ -845,7 +845,8 @@ def main():
         def zweig(x): return x[3].get("zweig", "–")
         zweige = {zweig(x) for x in alle_m if any(gleich(x[0], b) for b in besetzt)} - {"–", "-", ""}
         frei = [x for x in alle_m if x[0] not in ausschluss and not any(gleich(x[0], b) for b in besetzt)
-                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))]
+                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))
+                and x[0] not in startbar.SONDER and "Rollenspiegel" not in x[2]]  # 340.10 V4 (a): den Spiegel schreibt der Besitzer selbst
         if besetzt == {"Nachfolger"} or not besetzt and not team_s:
             ausgabe.append("NICHTS %s: Arbeit von %s unbekannt (Nachfolger oder Titel ohne Nummer)" % (zusatz, team)); continue
         eigen = [n for n, g in GESPERRT.get(team, {}).items() if g == "in Arbeit bei " + zusatz]
@@ -1191,6 +1192,8 @@ def _buchen(nr, usd):
       kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
       if kurz == ziel: break
       ziel = kurz
+    if nr != "Betrieb" and any(d["nr"] == "Betrieb" for d in startbar.vorgangsliste(lesen(os.path.join(DOCS, "LISTE-VORGAENGE.md")))):
+        print("Kosten %s: keine Zeile, auf Betrieb (340.10)" % nr); return _buchen("Betrieb", usd)  # 340.10 V4 (b): feste Zeile statt Handbuchung
     print("WARNUNG Kosten: keine Zeile für %s, bitte von Hand auf Betrieb" % nr)
 
 if __name__ == "__main__":

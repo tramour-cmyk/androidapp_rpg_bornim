@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `8aa74c625` (15.11., 10:58)
+**Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (15.11., 11:00, `session_01Hmoj75SXMEBRLJdiSsv5Xd`):** 1267 Handbuch- und Hilfetexte zum Kampf mit Kerben (`[1267.*]` in `STORY-BRS-ANLEITUNG.md` und `STORY-BRS-KAMPF.md`, fremd geprüft gegen `ce3dda066`, 14 Befunde eingearbeitet); Abweichungen des Codes vom Regelwerk an Jerry (1275); Texte per Telegram an den Chef. Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
+**Übergabe (15.11., 19:10, `session_01Hmoj793oj9mKdUggnbqrp3`):** 340.11 als Handwerksregel „Gegen den Code, nicht gegen den Plan“ in `ROLLE-KREATIV.md` (ersetzt die Lehre aus 225; fremd geprüft); erste Anwendung: alle Wahlen auf `main` (Pim Überreden und Gold, „Nicht jetzt“, Osric „Kaufen“, Späher Einschüchtern und „Kämpfen“) stimmen mit `STORY-K1-FERTIGKEITEN.md`. Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
 ## Zeilen
