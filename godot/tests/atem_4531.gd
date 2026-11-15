@@ -163,10 +163,14 @@ func _run() -> void:
 	sh.zuege.clear()
 	var weit := 0.0     # Atemzüge in den ersten 3 s (Phase ohne Umbruch)
 	var sch_an: Array = []     # Schulterhöhe in den ersten 4 s
+	var fremd: Array = []      # 1300: Anstrengung stieg in der Messung (Biss, Ausweichen), [Zeit s, Sprung]
 	for i in 390:
 		var p0: float = held.atem.phase
+		var a0: float = held.atem.anstrengung
 		await process_frame
 		t += 1.0 / 30.0
+		if held.atem.anstrengung > a0 + 0.001:
+			fremd.append("%.2f@%.1f" % [held.atem.anstrengung - a0, t - t0])
 		_messe(sh, t, false)
 		if i < 90:
 			weit += fposmod(held.atem.phase - p0, 1.0)
@@ -178,6 +182,8 @@ func _run() -> void:
 	var ruhe_s: float = held.atem.takt
 	var spaete: Array = sh.zuege.filter(func(z): return z[0] - t0 >= 8.0).map(func(z): return z[1])
 	print("nach Anstrengung: Atemzüge %s s (Ruhe %.2f)" % [", ".join(sh.zuege.map(func(z): return "%.2f@%.1f" % [z[1], z[0] - t0])), ruhe_s])
+	# 1300: misst nur das Abklingen des einen Hiebs; beißt ein Wolf hinein, ist die Messung falsch, nicht der Atem
+	_check(fremd.is_empty(), "nach Anstrengung kein weiterer Kampfzug in der Messung (%s)" % ", ".join(fremd))
 	var mal: float = weit / (3.0 / ruhe_s)
 	_check(mal >= 1.6, "in den ersten 3 s nach Anstrengung %.2f-mal so schnell wie in Ruhe" % mal)
 	_check(not spaete.is_empty() and spaete.max() < 1.15 * ruhe_s and spaete.max() > 0.85 * ruhe_s, "nach 8 s wieder fast Ruhe (%s)" % str(spaete))
