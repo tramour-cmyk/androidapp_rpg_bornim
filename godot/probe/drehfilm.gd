@@ -5,6 +5,8 @@ extends Node3D
 #   --film=431   Grundkörper, Haare und Bärte der Bibliothek drehend, mit den Größen der Völker (LISTE-FIGUREN.md „Völker“, 430)
 #   --film=431v  Völker Runde 3: Grundkörper je Volk aus tools/blender348/v3/voelker.py (Umgebung VOELKER=<ordner>), Mann und Frau,
 #                Kopf-, Beinanteil, Schulter gemessen gegen Homers Ziele; Hügelvolk neben Goblin; Schattenriss
+#   --film=431u  431 Stufe 1 Kleiderschrank: der Umhang aus kleiderschrank.py auf den zehn Volkskörpern (UMHANG=<ordner>), Federkette
+#                (umhang.gd), Schild auf dem Rücken und Schwert an der Hüfte, drehend im Stehen, dann im Gehen
 #   --film=376.1 Heldin: alle Frauentrachten der Bibliothek (Modular Character Outfits) mit dem Kaufkopf Regulär Frau, drehend
 #   --film=416.4 Rennen: Jog_Fwd wie im Spiel, Jog mit halbem Beckenhub, Sprint; von der Seite und aus der Spielansicht
 # Umgebung: KAUF=<gekaufte Pakete>, CC0=<freie Quaternius-Pakete> (cc0_laden.sh). Ende von selbst; Zeilen „FILM …“ ins Protokoll.
@@ -85,12 +87,14 @@ func _ready() -> void:
 	add_child(ual)    # der Spieler stellt das Gerüst nur im Baum (für _gedaempft)
 	var film := ""
 	for a in OS.get_cmdline_user_args(): if a.begins_with("--film="): film = a.substr(7)
+	if film == "": film = OS.get_environment("DREH")   # 431: Einzelbild am Rechner (tests/bild_431.gd), gleiche Teile
 	print("FILM ", film, " KAUF=", kauf != "", " UAL=", ual_pfad)
 	match film:
 		"431": _film_431()
 		"416.4": _film_4164()
 		"376.1": _film_3761()
 		"431v": _film_431v()
+		"431u": _film_431u()
 		_: print("FILM FEHLER: --film=431, 431v, 416.4 oder 376.1"); get_tree().quit(1)
 
 
@@ -486,10 +490,10 @@ func _film_431v() -> void:
 	ablauf.append([30.0, func(): get_tree().quit()])
 
 
-func _volk_figur(e: Dictionary, wo: Vector3) -> Node3D:
-	var f := _figur(volk_dir.path_join(String(e["datei"])), wo)
+func _volk_figur(e: Dictionary, wo: Vector3, bewegung := "Idle_Loop") -> Node3D:
+	var f := _figur((umhang_dir if e.has("kette_spiegel_cm") else volk_dir).path_join(String(e["datei"])), wo)
 	if f == null: return null
-	_bewegt(f, ["Idle_Loop"])
+	_bewegt(f, [bewegung])
 	return f
 
 
@@ -510,7 +514,7 @@ func _m1(x: float) -> String:
 
 
 # eine Reihe Figuren in einem Feld (gleicher Maßstab), darunter die Zahlen, darüber je eine Goldlinie in Homers Größe
-func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, titel_feld := "", frei := 0) -> Array:
+func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, titel_feld := "", frei := 0, bewegung := "Idle_Loop") -> Array:
 	var abstand := 0.75
 	var breite := abstand * (liste.size() + frei)   # frei: Plaetze rechts fuer Figuren ohne Eintrag (Goblin)
 	var hoch := maxf(breite * r.size.y / r.size.x, 2.6)
@@ -523,7 +527,7 @@ func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, tite
 	for i in liste.size():
 		var e: Dictionary = liste[i]
 		var x := x0 + i * abstand
-		var f := _volk_figur(e, Vector3(x, 0, 0))
+		var f := _volk_figur(e, Vector3(x, 0, 0), bewegung)
 		if f == null: continue
 		f.set_meta("dreh", dreh)
 		figuren.append(f)
@@ -679,3 +683,73 @@ func _gedaempft(a: Animation, k: float) -> Animation:
 	ual_ap.stop()
 	print("FILM 416.4 Beckenhub %.1f cm -> %.1f cm" % [vorher * 100, nachher * 100])
 	return neu
+
+
+# 431u ----------------------------------------------------------------------------------------------------------------------------
+# 431 Stufe 1 (Chef 15.11., 12:43 „431g A“; Prüfstein 11:59: links gleich rechts, von hinten, mit Schild und Waffe, auf jedem Körper):
+# Männer oben, Frauen unten, je fünf Völker; zweimal ganz gedreht (hinten, links, vorn, rechts), erst im Stehen, dann im Gehen
+var umhang_dir := OS.get_environment("UMHANG")
+var _feder := []   # [Figur, Simulator] für das Protokoll
+
+func _film_431u() -> void:
+	var j: Variant = JSON.parse_string(FileAccess.get_file_as_string(umhang_dir.path_join("kleiderschrank.json")))
+	if not j is Dictionary: print("FILM FEHLER kleiderschrank.json fehlt unter UMHANG=", umhang_dir); get_tree().quit(1); return
+	var vj: Variant = JSON.parse_string(FileAccess.get_file_as_string(volk_dir.path_join("voelker.json")))
+	var ziel := {}
+	if vj is Dictionary:
+		for e in vj["voelker"]: ziel["%s/%s" % [e["volk"], e["frau"]]] = e["ziel"]
+	for e in j["koerper"]:
+		e["ziel"] = ziel.get("%s/%s" % [e["volk"], e["frau"]], {"h": float(e["groesse_m"]) / (0.93 if e["frau"] else 1.0)})
+		voelker["%s/%s" % [e["volk"], "frau" if e["frau"] else "mann"]] = e
+		print("FILM 431u %s %s: Kette gespiegelt %.2f cm, Gewichte gespiegelt %.3f (größter %.3f), Arm und Bein %.0f %% (vorher %.0f %%), Abstand %.1f cm (kleinster %.1f)" % [
+			e["volk"], "Frau" if e["frau"] else "Mann", e["kette_spiegel_cm"], e["gewicht_spiegel_mittel"], e["gewicht_spiegel_max"],
+			100.0 * float(e["arm_bein_anteil"]), 100.0 * float(e["arm_bein_anteil_vorher"]), e["abstand_mittel_cm"], e["abstand_min_cm"]])
+	ablauf.append([0.0, _umhang_431u.bind("Idle_Loop", "1 · im Stehen")])
+	ablauf.append([7.5, _umhang_431u.bind("Walk_Loop", "2 · im Gehen")])
+	ablauf.append([15.0, func(): get_tree().quit()])
+
+
+func _umhang_431u(bewegung: String, teil: String) -> void:
+	_neuer_teil("431 · Kleiderschrank Stufe 1: Umhang an eigener Federkette auf jedem Volkskörper, Schild und Schwert · " + teil)
+	var h := (HOEHE - OBEN) / 2.0
+	var dreh := 2.0 / 7.5   # zwei ganze Drehungen je Teil, Rücken zuerst
+	for g in [["mann", "Männer", 0.0], ["frau", "Frauen", 20.0]]:
+		var liste := _liste(String(g[0]))
+		var figs := _reihe(Rect2(Vector2(0, OBEN + (h if g[0] == "frau" else 0.0)), Vector2(BREITE, h)), liste, float(g[2]), dreh, false, String(g[1]), 0, bewegung)
+		for f in figs:
+			(f as Node3D).rotation.y = PI   # Rücken zur Kamera
+			var sk := B.skelett(f)
+			var sim := Umhang.an(f, sk)
+			if sim == null: print("FILM FEHLER 431u ohne Kette"); continue
+			_ruestung(f, sk, sim)
+			print("FILM 431u Feder %s: %d Ketten, %d Kapseln" % [f.name, sim.setting_count, sim.get_child_count()])
+
+
+## Schild auf dem Rücken über dem Umhang, Schwert an der linken Hüfte; beide als Kapsel, damit der Umhang ihnen ausweicht
+func _ruestung(f: Node3D, sk: Skeleton3D, sim: SpringBoneSimulator3D) -> void:
+	var m1 := sk.find_bone("umhang_m_1")
+	var bs := sk.find_bone("spine_03")
+	var bp := sk.find_bone("pelvis")
+	if m1 < 0 or bs < 0 or bp < 0: return
+	var oben := sk.get_bone_global_rest(m1).origin
+	var groesse := _hoehe(f) / 1.75
+	for w in [["shield", bs, Transform3D(Basis(Vector3.LEFT, Vector3.UP, Vector3.LEFT.cross(Vector3.UP)), Vector3(0, oben.y - 0.17 * groesse, oben.z - 0.06))],
+			["longsword", bp, _laengs(Vector3(0.25, -1.0, -0.35), sk.get_bone_global_rest(bp).origin + Vector3(0.19 * groesse, 0.08, -0.02))]]:
+		if not FileAccess.file_exists("res://daten/waffen/%s.bin" % w[0]): print("FILM 431u ohne ", w[0]); continue
+		var ba := BoneAttachment3D.new()
+		ba.name = "Ruecken_" + String(w[0])
+		ba.bone_name = sk.get_bone_name(int(w[1]))
+		sk.add_child(ba)
+		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % w[0])
+		if d == null: continue
+		d.transform = sk.get_bone_global_rest(int(w[1])).affine_inverse() * (w[2] as Transform3D)
+		ba.add_child(d)
+		Gebiet.male(d, null, 2, [])
+		Umhang.ruecken(sim, sk, d)
+
+
+## Lage eines Dings, dessen Längsachse (+Y im Modell) in Richtung achse zeigt, bei wo
+func _laengs(achse: Vector3, wo: Vector3) -> Transform3D:
+	var y := achse.normalized()
+	var x := y.cross(Vector3.FORWARD).normalized()
+	return Transform3D(Basis(x, y, x.cross(y)), wo)

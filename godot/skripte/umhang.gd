@@ -10,9 +10,9 @@ extends RefCounted
 const SPALTEN := ["l2", "l1", "m", "r1", "r2"]
 const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03", "thigh_l", "thigh_r", "calf_l", "calf_r"]
 # Federwerte (Godot-Einheiten): steif genug, dass der Umhang im Stehen haengt wie gebaut, weich genug, dass er beim Gehen nachschwingt
-static var STEIF := float(OS.get_environment("UMHANG_STEIF")) if OS.get_environment("UMHANG_STEIF") != "" else 1.6
+static var STEIF := float(OS.get_environment("UMHANG_STEIF")) if OS.get_environment("UMHANG_STEIF") != "" else 4.0
 static var ZUG := float(OS.get_environment("UMHANG_ZUG")) if OS.get_environment("UMHANG_ZUG") != "" else 0.45
-static var SCHWERE := float(OS.get_environment("UMHANG_SCHWERE")) if OS.get_environment("UMHANG_SCHWERE") != "" else 1.2
+static var SCHWERE := float(OS.get_environment("UMHANG_SCHWERE")) if OS.get_environment("UMHANG_SCHWERE") != "" else 0.3
 const GLIED_RADIUS := 0.035
 
 static func ketten(sk: Skeleton3D) -> Array:
