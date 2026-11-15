@@ -6,7 +6,8 @@ Und wenn einer fertig ist, dann rückt halt das nächste hinten nach. Oder wenn 
 aktualisiert werden. Das muss auf Chefsache direkt sichtbar stehen.“
 
 Steht oben in `docs/chefsache/README.md` (zug-index.py rechnet ihn bei jedem Lauf neu, also bei jedem Push auf die Vorgangsliste).
-Reihenfolge der 20: erst was sofort geht (startbar, in Arbeit), dann was wartet; darin „jetzt“ (älteste zuerst), dann Muss,
+Reihenfolge der 20: erst was sofort geht (startbar, in Arbeit), dann was wartet; darin „jetzt“ (jüngstes zuerst: was der Chef zuletzt
+vorzieht, steht auf Rang 1), dann Muss,
 dann Kür; darin nach Themenblock, dann nach dem Rang beim Besitzer (`startbar.plan`, also `vorgang.py rang`). Nicht in den 20:
 ruht, nach Meilenstein, Idee, Dauer, aufgeteilt, Pflege-Zeilen, „gebaut“ (fährt mit dem nächsten Build oder wartet auf Diogenes)
 und was in einem Build auf deinen Test wartet (Zählzeile darunter; Sokrates 15.11., 20:05). Vorziehen heißt: „jetzt“ oder
@@ -113,7 +114,7 @@ def rechnen():
         j = jetzt_von(d)
         muss = d["kl"] == "M"
         # erst, was sofort geht (startbar, in Arbeit), dann was noch wartet, auch bei „jetzt“ (Sokrates 20:05); darin „jetzt“, Muss, Kür
-        key = (0 if grund is None else 1, 0 if j else 1, 0 if muss else 1, j or datetime.datetime.min, block(d), k)
+        key = (0 if grund is None else 1, 0 if j else 1, 0 if muss else 1, -(j or datetime.datetime.min).timestamp() if j else 0, block(d), k)
         kommt.append((key, d, grund))
     kommt.sort(key=lambda x: x[0])
     return zs, kommt, test, pruef, gebaut
