@@ -150,7 +150,19 @@ static func hat_geber(z_: Zustand, wer: String) -> bool:
 	r.free()
 	return ja
 
-func _ready() -> void: baue()
+func _ready() -> void:
+	baue()
+	# 1295 (Chef 15.11., 13:41): über den Kartenknopf der Leiste entsteht der Reiter, bevor der Rollkasten eine Höhe hat
+	# (hoehe 0, also nur 300 dp, unten schwarz); darum folgt die Höhe dem Rollkasten
+	var p := get_parent()
+	while p != null and not p is ScrollContainer: p = p.get_parent()
+	if p:
+		p.resized.connect(_fuelle.bind(p))
+		_fuelle(p)
+
+func _fuelle(p: Control) -> void:
+	var h := maxf(p.size.y, 300 * DP)
+	if absf(custom_minimum_size.y - h) > 0.5: custom_minimum_size.y = h
 
 func karte_daten() -> Dictionary: return blatt().get("karten", {}).get(gezeigt, {})
 
@@ -392,6 +404,7 @@ class Flaeche extends Control:
 	var start := Vector2.ZERO
 	var bewegt := false
 	var abstand := 0.0
+	var beruehrt := false   # 1295: erst der Finger (oder das Mausrad) übernimmt Mass und Versatz
 
 	func _init(r: Kartenreiter) -> void:
 		reiter = r
@@ -410,6 +423,7 @@ class Flaeche extends Control:
 		klemme(); queue_redraw()
 
 	func _gui_input(e: InputEvent) -> void:
+		if e is InputEventScreenTouch or e is InputEventScreenDrag or (e is InputEventMouseButton and e.pressed): beruehrt = true
 		if e is InputEventScreenTouch:
 			if e.pressed:
 				finger[e.index] = e.position
@@ -446,6 +460,8 @@ class Kartenblatt extends Flaeche:
 	var marken: Array
 	var haus: Array
 	var anfang := true
+	var gross := false         # 1295: Anfangsblick vergrössert (nicht in Innenräumen)
+	var ziel := Vector2(-1, -1)   # 1295: Kachel in der Mitte des Anfangsblicks (Held oder Auftraggeber), sonst keine
 	var unten: TextureRect     # 505: Wald mit Nebel (62c): das Blatt darunter, gemischt nach dem Erkundeten (kartennebel.gdshader)
 	var win := Rect2i()        # 785.7: gezeigter Ausschnitt in Kacheln der Karte (Höhle 62o), sonst die ganze Karte
 	var muender: Array         # 785.7 (62p): Höhlenmünder, deren Höhle der Held kennt
@@ -479,17 +495,21 @@ class Kartenblatt extends Flaeche:
 		passt = minf(size.x / tex.get_width(), size.y / tex.get_height())
 		if anfang:   # oeffnet vergroessert auf dem Helden, mindestens so, dass die Karte den Rahmen fuellt
 			anfang = false
-			mass = maxf(passt * 2.5, maxf(size.x / tex.get_width(), size.y / tex.get_height())) if hier and String(k["art"]) != "INTERIOR" else passt
-			versatz = size / 2 - Vector2(cx(int(reiter.ort["x"])), cy(int(reiter.ort["y"]))) * mass if hier else Vector2.ZERO
+			gross = hier and String(k["art"]) != "INTERIOR"
+			if hier: ziel = Vector2(int(reiter.ort["x"]), int(reiter.ort["y"]))
 			var f: Dictionary = reiter.fokus
 			if not f.is_empty() and String(f["karte"]) == reiter.gezeigt:   # 528: auf dem Auftraggeber, sein Name unten
-				if String(k["art"]) != "INTERIOR": mass = maxf(passt * 2.5, maxf(size.x / tex.get_width(), size.y / tex.get_height()))
-				versatz = size / 2 - Vector2(cx(int(f["x"])), cy(int(f["y"]))) * mass
+				gross = String(k["art"]) != "INTERIOR"
+				ziel = Vector2(int(f["x"]), int(f["y"]))
 				var m = null
 				for mm in marken:
 					if int(mm["x"]) == int(f["x"]) and int(mm["y"]) == int(f["y"]): m = mm
 				reiter.call_deferred("tipp", Sprache.t((m if m else f)["text"]), true)
 				reiter.fokus = {}
+		# 1295: bis zum ersten Finger folgt der Anfangsblick jeder Größenänderung (der Rahmen wächst erst nach dem Öffnen)
+		if not beruehrt:
+			mass = maxf(passt * 2.5, maxf(size.x / tex.get_width(), size.y / tex.get_height())) if gross else passt
+			versatz = size / 2 - Vector2(cx(int(ziel.x)), cy(int(ziel.y))) * mass if ziel.x >= 0 else Vector2.ZERO
 		mass = maxf(mass, passt)
 		klemme(); queue_redraw()
 
