@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 00:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 00:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -13,7 +13,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 74 | 29 | 3 | 1 | 11 | 1314 (Jerry) Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ra… |
-| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 19 | 6 | 1 | 0 | 14 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
+| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 21 | 7 | 0 | 0 | 14 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 62 | 11 | 1 | 5 | 29 | 1300 (Spike) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 6 | 0 | 1 | 6 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
 | Werkzeuge und Abläufe der Firma | 60 | 35 | 0 | 0 | 9 | 1186 (Sokrates) Altbestand: offene Vorgänge unter 700 auf überhol… |
@@ -38,19 +38,20 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 13 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
 | 14 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
 | 15 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
-| 16 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | in Arbeit |
-| 17 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 18 | 1300 | Spike | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1325 | Tom | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500: von Westen tritt die Zie… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 17 | 1300 | Spike | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1325 | Tom | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500: von Westen tritt die Zie… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 103 weitere offen. Bei dir zum Testen (vorgelegt): 7. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
+Danach 105 weitere offen. Bei dir zum Testen (vorgelegt): 7. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [431h](entscheiden/431h-ausruestung-sichtbar.md) | **Muss** | E Figuren | 16.11., 00:12 | Jeder angelegte Kopf-, Brust-, Arm- und Beinschutz tauscht das passende Stück der Tracht gegen ein Teil aus dem gekauften Kleiderpaket; leere Plätze zeigen weiter die Tracht der Herkunft. | Tom |
 | [1351](entscheiden/1351-rechtepruefung-bildlauf.md) | **Muss** | B Abläufe | 16.11., 00:10 | Die Rechteprüfung der Sitzungen hält unseren eigenen, freigegebenen Bildlauf für eine Umgehung; eine Erklärzeile in den Einstellungen würde das beheben. | Perikles |
 | [1284a](entscheiden/1284a-rattenbiss-sicht.md) | **Muss** | E Kampf | 15.11., 23:03 | Die Ratte beißt von hinter dem Helden und ist verdeckt; Platz zur Seite reicht nur, wo er frei ist. | Jerry |
 
