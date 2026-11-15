@@ -28,6 +28,28 @@ func person(spiel, id: String):
 		if l is Leute and String(l.daten.get("id", "")) == id: return l
 	return null
 
+# 1261: jeder Streuner näher als r (Schachbrett) an mitte zieht samt Heim auf ein freies Feld mindestens r + 4 weg (streift 3 ums Heim)
+func raeume(spiel, mitte: Vector2i, r: int) -> void:
+	var h: Herde = spiel.herde
+	if h == null: return
+	var k: Karte = spiel.karte
+	for s in h.liste:
+		var d: Vector2i = s.kachel - mitte
+		if maxi(absi(d.x), absi(d.y)) >= r + 4 and maxi(absi(s.heim.x - mitte.x), absi(s.heim.y - mitte.y)) >= r + 4: continue
+		for y in k.hoehe:
+			var gefunden := false
+			for x in k.breite:
+				var p := Vector2i(x, y)
+				if maxi(absi(p.x - mitte.x), absi(p.y - mitte.y)) < r + 4 or not h.frei(p, s): continue
+				s.kachel = p; s.heim = p; s.von = p
+				s.gang = null; s.jagt = false; s.heimweg = false
+				gefunden = true
+				break
+			if gefunden: break
+	for s in h.liste:
+		var d: Vector2i = s.kachel - mitte
+		pruefe(maxi(absi(d.x), absi(d.y)) >= r, "Streuner fern von Gitter und Lyras Weg (1261): %s %s" % [s.art, s.kachel])
+
 func _lauf() -> void:
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
@@ -42,6 +64,9 @@ func _lauf() -> void:
 	# an (Herde, Hinterhalt), lief schon ein Kampf, der eigene Kampf unten bekam von der Sperre 1025 „NONE“ und die Welt war noch in
 	# der Blende des fremden. Die Monster lassen den Helden hier in Ruhe (herde.aus wie die Bildläufe); den Kampf startet nur der Test
 	if spiel.herde: spiel.herde.aus = true
+	# 1261 (Lauf 480 rot): die Streuner stehen zufällig (herde.gd neu, ohne Seed); einer neben (10, 6) machte aus „Aufschließen“ FIGHT
+	# (spiel.gd monster_vorn). Wer um Gitter und Lyras Weg steht, kommt mit seinem Heim weit weg; die Zahl bleibt
+	raeume(spiel, Vector2i(10, 4), 4)
 	pruefe(spiel.karte.id == "cave" and spiel.held.kachel == Vector2i(10, 18), "in der Hoehle am Eingang (10, 18): %s %s" % [spiel.karte.id, spiel.held.kachel])
 	pruefe(spiel.gebiet.raumlicht != null and spiel.licht.innen and spiel.licht.hoehle, "Grundriss mit Raumlicht, Licht der Hoehle")
 	pruefe(spiel.ui.spricht(), "beim ersten Betreten spricht die Hoehle")
