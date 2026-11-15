@@ -210,13 +210,15 @@ var _schatten_grund := Vector2.ZERO
 func _ground_shadow() -> void:
 	if shadow_shader == null:
 		shadow_shader = Shader.new()
+		# 1289 (Höhle im Renderer mobile, am Rechner nachgestellt): als feste dunkle Farbe (0,02; 0,03; 0,01) mit Deckung war der
+		# Schatten auf dunklem Boden heller als der Boden (Höhle: hellgrüne Scheiben unter Grak und den Goblins); jetzt dunkelt er den
+		# Boden um denselben Anteil ab (multipliziert), bei Tag wie vorher, im Dunkel nie heller als der Boden
 		shadow_shader.code = """shader_type spatial;
-render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabled;
+render_mode unshaded, blend_mul, depth_draw_never, cull_disabled, shadows_disabled, fog_disabled;
 uniform float dichte = 0.78;
 void fragment() {
 	float r = length(UV - 0.5) * 2.0;
-	ALBEDO = vec3(0.02, 0.03, 0.01);
-	ALPHA = dichte * (1.0 - smoothstep(0.45, 1.0, r));     // Prüfer: im alten Bild deutlich dunkler
+	ALBEDO = vec3(1.0 - dichte * (1.0 - smoothstep(0.45, 1.0, r)));     // Prüfer: im alten Bild deutlich dunkler
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()

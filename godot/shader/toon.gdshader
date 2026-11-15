@@ -84,6 +84,18 @@ void vertex() {
 	}
 	POSITION = PROJECTION_MATRIX * vv;
 }
+// 1289 (Chef 15.11., 12:34 und 13:39, Höhle am Handy im Renderer mobile „total hell … Sichtachsen sind weg“): die Eckfarben (COLOR,
+// aus dem glTF) kommen in mobile so an, wie sie gespeichert sind (sRGB), in Compatibility schon linear. Am Rechner nachgestellt
+// (lavapipe, Blutzahnhöhle, Gang): Felswände in mobile hellgrau (Bildmittel 17 gegen 6), mit Umrechnung 6 wie Compatibility.
+// Alles, was der Chef abgenommen hat, kam aus Compatibility; darum rechnet mobile hier um, Compatibility bleibt unverändert.
+// Ebenso das Leuchten (EMISSION): Kristalle in mobile weiß statt violett, mit derselben Umrechnung wie Compatibility (gemessen).
+vec3 eckfarbe(vec3 c) {
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+	return c;
+#else
+	return mix(pow((c + vec3(0.055)) * (1.0 / 1.055), vec3(2.4)), c * (1.0 / 12.92), lessThan(c, vec3(0.04045)));
+#endif
+}
 void fragment() {
 	// Laub zwischen Kamera und Held: innen fast frei, nach aussen weich dicht. Der deckende Durchgang laesst das Loch aus (Schatten bleibt),
 	// die Durchgaenge TIEFE und DURCH (gebiet.gd, nach der Tusche) malen es halbdurchsichtig, je Bildpunkt nur die vorderste Lage, und decken
@@ -111,7 +123,7 @@ void fragment() {
 #endif
 	vec4 bild_px = texture(tex, UV);
 	if (schnitt > 0.0 && bild_px.a < schnitt) discard;
-	ALBEDO = bild_px.rgb * COLOR.rgb;
+	ALBEDO = bild_px.rgb * eckfarbe(COLOR.rgb);
 	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
 		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
 		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
@@ -133,7 +145,7 @@ void fragment() {
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
-	EMISSION = glow_col * glow;
+	EMISSION = eckfarbe(glow_col * glow);
 	float rl = rand_licht(rand_boden(wpos, -INV_VIEW_MATRIX[2].xyz), INV_VIEW_MATRIX);
 	ALBEDO *= rl; EMISSION *= rl;
 	v_hinten = (rueckseite > 1.5 && !FRONT_FACING) ? 1.0 : 0.0;
