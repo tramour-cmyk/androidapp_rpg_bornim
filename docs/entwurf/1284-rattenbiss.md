@@ -1,5 +1,7 @@
 # 1284 · Riesenratte beißt auch daneben sichtbar · Team Jerry · 15.11., 12:54
 
+[Film von 15.11., 12:54](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261115-125406-1284/2026-11/15-1254-1284-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 E Kampf
 
 Geprüft an: [Commit 2bfdab992](https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/2bfdab992) (Zweig `claude/jerry-1284-rattenbiss`, Film am Rechner mit den Kaufmodellen, Probekampf Ratten, Held Kleriker, Seed 7)
