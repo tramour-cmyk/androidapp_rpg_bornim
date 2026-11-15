@@ -16,7 +16,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 22 | 9 | 0 | 2 | 15 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 2 | 0 | 33 | 1289 (Jerry) Höhle im Renderer mobile ganz anders als bisher:… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 7 | 1 | 4 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
-| Werkzeuge und Abläufe der Firma | 61 | 34 | 0 | 7 | 9 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
+| Werkzeuge und Abläufe der Firma | 61 | 36 | 0 | 7 | 9 | 1329 (Tom) 6 Zeilen „zu testen, ohne Rückmeldung“ selbst am… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Die nächsten 20**
@@ -24,25 +24,25 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
-| 2 | 870.20 | Tom | SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testersei… | M | Umzug BRS, SRD ablösen | startbar |
-| 3 | 1321 | Jerry | Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m… | M | Kampf passt | in Arbeit |
-| 4 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
-| 5 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
-| 6 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
-| 7 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
-| 8 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
-| 9 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
-| 10 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
-| 11 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 12 | 1289 | Jerry | Höhle im Renderer mobile ganz anders als bisher: zu hell, Sichtachsen weg; Auss… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 1326 | Tom | Build-Name im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1331 | Jerry | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfli… | M | Godot besser nutzen | startbar |
-| 18 | 698 | Tom | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 2 | 1329 | Tom | 6 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen ode… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 3 | 1330 | Jerry | 21 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen od… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 4 | 870.20 | Tom | SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testersei… | M | Umzug BRS, SRD ablösen | startbar |
+| 5 | 1321 | Jerry | Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m… | M | Kampf passt | in Arbeit |
+| 6 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
+| 7 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
+| 8 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
+| 9 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
+| 10 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
+| 11 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
+| 12 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
+| 13 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 14 | 1289 | Jerry | Höhle im Renderer mobile ganz anders als bisher: zu hell, Sichtachsen weg; Auss… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1326 | Tom | Build-Name im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1331 | Jerry | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfli… | M | Godot besser nutzen | startbar |
+| 20 | 698 | Tom | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
 
 Danach 87 weitere offen. Bei dir zum Testen (vorgelegt): 29. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 91.
 ## Zu entscheiden
