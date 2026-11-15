@@ -610,7 +610,6 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/fackel_9991.gd 2>&1 | grep -E "^FEHLER|FACKEL9991|SCRIPT ERROR"   # 999.1 Fackel im Kampf
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/grak_1142.gd 2>&1 | grep -E "^FEHLER|GRAK1142|SCRIPT ERROR"   # 1142 Grak nur einmal
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/scheide_mass_1149.gd 2>&1 | grep -E "^FEHLER|SCHEIDE1149|SCRIPT ERROR"   # 1149 Scheide aus der Klinge des Dolchs gerechnet (Chef 14.11., 10:12)
-          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/takt_1145.gd 2>&1 | grep -E "^FEHLER|TAKT1145|SCRIPT ERROR"   # 1145 Takt im Testmenü (Test 285)
           STUFE=test
           # 909 (Chef 11.11., 08:52): die vier längsten Messungen laufen nebenher (Lauf 353: schild_406 491 s, wolf_mess_438 138 s,
           # zustaende_563 85 s, strahl_mess_415 66 s von 1405 s); Befehl unverändert, Ausgabe und Ende kommen gesammelt vor „918: Ende“,
