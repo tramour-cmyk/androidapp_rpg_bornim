@@ -16,16 +16,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 22 | 9 | 0 | 2 | 15 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 2 | 0 | 33 | 1289 (Jerry) Höhle im Renderer mobile ganz anders als bisher:… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 7 | 1 | 4 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
-| Werkzeuge und Abläufe der Firma | 62 | 36 | 0 | 7 | 9 | 1329 (Tom) 6 Zeilen „zu testen, ohne Rückmeldung“ selbst am… |
+| Werkzeuge und Abläufe der Firma | 62 | 37 | 1 | 7 | 9 | 1329 (Tom) 6 Zeilen „zu testen, ohne Rückmeldung“ selbst am… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
-| 2 | 1329 | Tom | 6 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen ode… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 3 | 1330 | Jerry | 21 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen od… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 1 | 1329 | Tom | 6 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen ode… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 2 | 1330 | Jerry | 21 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen od… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 3 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
 | 4 | 870.20 | Tom | SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testersei… | M | Umzug BRS, SRD ablösen | startbar |
 | 5 | 1321 | Jerry | Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m… | M | Kampf passt | in Arbeit |
 | 6 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
