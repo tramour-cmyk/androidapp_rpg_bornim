@@ -4,7 +4,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (15.11., 23:08, `session_01Hmoj79NReuhLMU6cqsp6GW`):** 1344 Testerseite `tester.de/en.html` Absatz 8 nach BRS: fünf Völker, freiwillige Herkunft, „Du wirst, was du tust“; ohne Klassen und SRD (fremd geprüft). Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
+**Übergabe (16.11., 00:18, `session_01Hmoj79NReuhLMU6cqsp6GW`):** 1344 Testerseite nach BRS (fünf Völker, Herkunft, ohne Klassen und SRD). 1353 Lösen `[1353.knopf.loesen]`, `[1353.tip.loesen]` (fremd geprüft; an Jerry Zu 1275). 1352 Taumeln: Rückfrage 1352a beim Chef. Nachfolger: keiner (1352a wartet, 302 wartet, 1235 nach dem Meilenstein).
+- **Zu 1352a (Homer 16.11., 00:18):** Antwort A: Schwelle in `DESIGN-GLUT.md` 19, `[1267.tip.gegenschlag]` genauer; B: Regel 8, 19, Gegenschlag und `[870.14.ansage.heavy]` neu; C: Ansage neu. Dann an Jerry (1275), Sokrates misst.
 - **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
