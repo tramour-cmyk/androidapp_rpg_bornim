@@ -232,7 +232,12 @@
 | 1260 | Von Sokrates (1259 B, Chef 14.11., 22:47): sprechender Name der drei Kampfpunkte je Zug, einige Vorschläge, dazu Nachlegen, Verglimmen, Funke; nicht Glut, Funke, kein Grundwert; Vorschlag Sokrates Herzschlag | Homer | M | startbar | Chef | – | – | E Kampf | 4,77 $ |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
-| 1264 | Wochentermin 15.11.: Ideenspeicher (719) | Homer | M | startbar | – | – | – | B Abläufe | – |
+| 1264 | Wochentermin 15.11.: Ideenspeicher (719) | Homer | M | erledigt | – | – | – | B Abläufe | – |
+| 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Homer | K | erledigt | – | – | – | G Balance | – |
+| 50 | Weitere Klassen, ggf. zum Kauf | Homer | K | erledigt | – | – | – | G Balance | – |
+| 70 | Zwischensequenzen einheitlich, Bildsprache | Homer | K | erledigt | – | – | – | G Stil | 2,30 $ |
+| 79 | Kampfhintergründe wie Diagonalwelt | Homer | K | erledigt | – | – | – | E Kampf | – |
+| 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | Homer | K | erledigt | – | – | – | G Stil | – |
 | 1254 | Von Chef (14.11., 21:08 „Runs … mit den vorgerenderten Modellen schneller“): Läufe auf Zweigen mit altem Modellbau bauen alle Modelle neu (469, 470: 86 min); Haken vor Lauf und Push: erst main einmischen | Perikles | M | gebaut, Geprüft an: 40aa2a93f | 17.11. | – | – | B Werkzeuge | – |
 | 1246 | Von Chef (14.11., 10:28, Fehler): nachts warten alle aufeinander; Pause ohne Datum sperrte Jerry ganz, 1242 lag startbar bei Sokrates in Pause. Werkzeug: Halt nur für genannte Nummern, startbarer Muss einer Rolle in Pause wird gestartet, alle 0 startbar = Meldung statt Leerlauf | Perikles | M | gebaut, Geprüft an: 4cd150d68 | 17.11. | – | – | B Abläufe | 2,31 $ |
 | 1217 | Von Sokrates (Chef „jetzt“ 13.11., 19:58/20:01): Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen (pruefliste.py), Bild und Film je Prüfpunkt eine Telegram-Nachricht, 👍 passt, 👎 falsch (reaktionen.py, notiz.sh zeigen 👎 offen), Regel LISTE-CHECK-BUILD-TEST.md, Regelbilanz | Perikles | M | gebaut, Geprüft an: ee39a624b | t286 | – | – | B Abläufe | 6,42 $ |
@@ -311,12 +316,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
-| 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | Ideen | K | Idee | – | – | – | G Balance | – |
-| 50 | Weitere Klassen, ggf. zum Kauf | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
-| 70 | Zwischensequenzen einheitlich, Bildsprache | Ideen | K | Idee | – | – | – | G Stil | 2,30 $ |
-| 79 | Kampfhintergründe wie Diagonalwelt | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
 | 102 | Dokumente BornWire TCS nachziehen | Ideen | K | Idee | – | – | – | B Abläufe | – |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | Ideen | K | Idee | – | – | – | B Abläufe | – |
-| 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | Ideen | K | Idee | – | – | – | G Stil | – |
