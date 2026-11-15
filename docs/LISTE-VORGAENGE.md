@@ -11,9 +11,9 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | startbar | – | – | – | E Oberfläche | – |
+| 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | in Arbeit, Bild fertig, wartet auf t290-Liste (Jerry) | Jerry | – | – | E Oberfläche | – |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | startbar, wiederholt | – | claude/tom-1092-streifen | – | E Figuren | 25,71 $ |
-| 1339 | Von Werkzeug (1334): Wiederholrot wende_4168: 3× rot in 48 h (Läufe 465, 460, 459); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1339 | Von Werkzeug (1334): Wiederholrot wende_4168: 3× rot in 48 h (Läufe 465, 460, 459); Ursache nachstellen, beheben · wiederholt | Tom | M | erledigt, Geprüft an: Lauf 500 grün; rot nur auf altem Zweig (Zu 1339) | – | – | – | E Technik | – |
 | 1337 | Von Jerry (1331): t290 Toms Zeilen 290.1–290.7 am Stand claude/build-290 gegengehen, Bilder 290.3, 290.6 und Film 290.5 machen | Tom | M | erledigt | – | – | – | E Technik | – |
 | 1329 | Von Sokrates: 6 Zeilen „zu testen, ohne Rückmeldung“ (697, 1040.1, 1185, 1268.1, 1268.3, 1290) selbst am Build prüfen und schließen oder als Test mit Schritten vorlegen (Chef 15.11., 21:03) · „jetzt“ 15.11., 21:07 | Tom | M | erledigt | – | – | – | B Abläufe | – |
 | 1325 | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode unverändert gegen Lauf 493/497 grün): von Westen tritt die Ziege erst weg (30→29), dann Tausch; am Rechner mit Kaufmodellen auch bei 12 Bildern/s grün | Tom | M | zu testen | – | claude/tom-1325-ziege | 290 | E Welt | – |
@@ -196,8 +196,8 @@
 | 1333 | Aus 930.6 (Rest 1215, Sokrates t289.2): Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd (930 Regel 5) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1336 | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | erledigt | – | – | – | B Abläufe | – |
 | 1289a | Von Jerry (1289, Chef 15.11., 20:34): Rückfrage Höhle: Gesehenes außer Sicht schwarz statt gedämpft, Wand nur von der Seite des Helden hell; niedrige Wände vorn bleiben? | Jerry | M | startbar | Chef 1289a | – | – | G Stil | – |
+| Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | erledigt | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
 | Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Homer | K | startbar | – | – | – | B Abläufe | – |

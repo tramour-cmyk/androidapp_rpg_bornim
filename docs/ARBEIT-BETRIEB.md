@@ -135,3 +135,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:21 15.11.: Startsperre 21:21 Start Spike 1335 (Sokrates, „jetzt“ Chef 21:19, per Weiter an …787ooK1sXUAdnpxuba; Zeile steht noch bei Tom)
 - 21:22 15.11.: Startsperre 21:22 Start Sokrates (Neustart, b9ed4cac0); alte Sitzung …77W8hSnsZKpf62m65d nach Ruhe archivieren, Kosten 7,07 $ auf 1186, 654
 - 21:24 15.11.: Startsperre 21:24 Start Jerry (Neustart, 1520d763d); alte Sitzung …77dx1JvNrLwSqHwX8v nach Ruhe archivieren, Kosten auf 1330
+- 21:53 15.11.: Startsperre 21:53 Start Perikles 1342 (Spike 21:52, 36957a43e; neue Sitzung, alte archiviert; Nachfolger Wochenziel 16.11. bleibt)
