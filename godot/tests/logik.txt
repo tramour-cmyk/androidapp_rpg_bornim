@@ -156,7 +156,9 @@ brs_blatt_870
 effekte_814
 brs_471
 glas_608
+tuer_1268
 klopfen_629
+halt_1268
 tasche_521
 obergrenze_701
 atem_4532
