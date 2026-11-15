@@ -68,6 +68,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **`bc2dd1ea0` greift nicht:** Ursache am Rechner bestätigt (zweite Ziege mit Ziel Heldenkachel je Seite: alter Test 2 Fehler, Schritte `[(30, 27), (30, 28), false]`; neuer Test räumt sie aus, 0 Fehler). Der Test versteckt, was das Spiel weiter tut (Chef 416.2 „Ziege wird geschoben, kein Platztausch“).
 - **`e347e68d8` (Spike) nachgeprüft:** Logiksatz 153 gut (156 s), `ziege_4162` dreimal 0 Fehler; derselbe Test mit `leute.gd` von `828e0e98d` zweimal 1 Fehler an (-1, 0). Lücke: nur fliehende Tiere geben die Heldenkachel frei. Bauserver auf keinem Zweig gelaufen. Wahl des Zweigs bei Tom (Zu 1079 im Vorrat Tom); 1079 → startbar.
 
+## Lauf 252 · 1294 (15.11., 13:0x)
+
+- **1294 greift** (`0c2ad5a65`): `startbar.py --rolle Diogenes`: 1128.3 „wartet auf 1060 (zu testen)“, 1129.4 „wartet auf 1129.3 (zu testen)“, kein Muss mehr startbar außer 1294 selbst; Tom und Jerry zeigen weiter ihr Muss (431, 1274). Strenge nur für Besitzer außer Tom, Jerry und nur für Nummern.
+
 ## Lauf 251 · 1276, 882.2, Rest 1128.3 (15.11., 11:2x)
 
 - **1276 greift** (`6737cc87c` auf `main`): `tom-probe-505.yml` weg; `grep -rn "gradlew\|core/src" tools .github`: `android.yml` (870.10), `tools/alt_bilder_rendern.sh` (Umfang 870.10), dazu zwei Kommentare (D251.1 → 1282 Perikles, Kür).
