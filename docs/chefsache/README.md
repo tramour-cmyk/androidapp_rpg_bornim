@@ -24,6 +24,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.473](ansehen/t286-karte-scheide.md) | [Build 286](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43637577563/artifacts/14133442612) | Karte, Scheide, Höhlenlicht, Wolfskampf | Tom und Jerry | 14.11., 20:50 |
+| 2 | [0.348.487](ansehen/t287-fackel-takt.md) | [Build 287](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43706683007/artifacts/14160685807) | Fackel, Takt, Schatten, Merkmale | Tom und Jerry | 15.11., 13:02 |
 
 ## Zu tun
 
