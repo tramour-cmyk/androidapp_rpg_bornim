@@ -132,7 +132,10 @@ static func frei(liste: Array, sk: Skeleton3D, glieder: PackedVector3Array) -> A
 	return liste
 
 
-## Schild oder Rueckenwaffe (Knoten unter einem BoneAttachment3D des Skeletts) als Kapsel um seine Begrenzung
+## Schild oder Rueckenwaffe (Knoten unter einem BoneAttachment3D des Skeletts) als Kapsel laengs der laengsten Seite des Modells, so breit wie
+## das Modell, aber nach aussen verschoben: ihre Innenseite liegt auf der Innenseite des Modells. Eine Kapsel drueckt jedes Glied von ihrer
+## Achse weg; lag die Achse in der Mitte des Schilds, wurde der Umhang, der im Stehen unter den Schild schwingt, nach aussen ueber den
+## Schild gedrueckt (am Rechner Mitte 20-44 cm weg statt 4-13), und mit halber Breite um die Mitte drueckte sie ihn vom Ruecken (Lauf 9)
 static func ruecken(sim: SpringBoneSimulator3D, sk: Skeleton3D, knoten: Node3D) -> void:
 	if sim == null or knoten == null: return
 	var ba := knoten.get_parent() as BoneAttachment3D
@@ -140,16 +143,29 @@ static func ruecken(sim: SpringBoneSimulator3D, sk: Skeleton3D, knoten: Node3D) 
 	var box := AABB()
 	var erst := true
 	for mi in knoten.find_children("*", "MeshInstance3D", true, false):
-		var t := ba.global_transform.affine_inverse() * (mi as MeshInstance3D).global_transform   # Raum des Knochens
+		var t := knoten.global_transform.affine_inverse() * (mi as MeshInstance3D).global_transform   # Raum des Modells
 		var a := t * (mi as MeshInstance3D).get_aabb()
 		box = a if erst else box.merge(a)
 		erst = false
 	if erst: return
+	var zum_knochen := ba.global_transform.affine_inverse() * knoten.global_transform
+	var masz := zum_knochen.basis.get_scale()
+	var s := box.size * masz
+	var lang := s.max_axis_index()
+	var dick := s.min_axis_index()
+	var mitte := 3 - lang - dick
+	var e := Vector3.ZERO; e[lang] = 1.0
+	var achse := (zum_knochen.basis * e).normalized()
+	var d := Vector3.ZERO; d[dick] = 1.0
+	var aussen := (zum_knochen.basis * d).normalized()
+	# aussen = vom Ruecken weg: die Figur blickt im Raum des Skeletts nach +Z
+	var hinten := (ba.global_transform.basis.inverse() * (sk.global_transform.basis * Vector3(0, 0, -1))).normalized()
+	if aussen.dot(hinten) < 0.0: aussen = -aussen
 	var c := SpringBoneCollisionCapsule3D.new()
 	c.name = "Kapsel_" + String(knoten.name)
 	sim.add_child(c)
 	c.bone_name = ba.bone_name
-	var s := box.size
-	c.radius = maxf(minf(s.x, s.z) * 0.5, 0.03)
-	c.height = maxf(s.y, 2.0 * c.radius + 0.01)
-	c.position_offset = box.get_center()
+	c.radius = clampf(s[mitte] * 0.5, s[dick] * 0.5 + 0.01, 0.3)
+	c.height = maxf(s[lang], 2.0 * c.radius + 0.01)
+	c.position_offset = zum_knochen * box.get_center() + aussen * (c.radius - s[dick] * 0.5)
+	c.rotation_offset = Quaternion(Vector3.UP, achse)

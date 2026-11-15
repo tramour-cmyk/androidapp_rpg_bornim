@@ -516,7 +516,9 @@ func _m1(x: float) -> String:
 # eine Reihe Figuren in einem Feld (gleicher Maßstab), darunter die Zahlen, darüber je eine Goldlinie in Homers Größe
 func _reihe(r: Rect2, liste: Array, x0: float, dreh: float, zahlen := true, titel_feld := "", frei := 0, bewegung := "Idle_Loop") -> Array:
 	var abstand := 0.75
-	var breite := abstand * (liste.size() + frei)   # frei: Plaetze rechts fuer Figuren ohne Eintrag (Goblin)
+	# frei: Plaetze rechts fuer Figuren ohne Eintrag (Goblin); im Gehen ein halber Platz mehr Rand (Lauf 9, G1: die linke Figur stiess
+	# mit Umhang und Arm an den Rand des Felds)
+	var breite := abstand * (liste.size() + frei) + (abstand * 0.5 if bewegung != "Idle_Loop" else 0.0)
 	var hoch := maxf(breite * r.size.y / r.size.x, 2.6)
 	var feld := _feld(r, hoch)
 	var cam: Camera3D = feld[0]
@@ -704,13 +706,13 @@ func _film_431u() -> void:
 		print("FILM 431u %s %s: Kette gespiegelt %.2f cm, Gewichte gespiegelt %.3f (größter %.3f), Arm und Bein %.0f %% (vorher %.0f %%), Abstand %.1f cm (kleinster %.1f)" % [
 			e["volk"], "Frau" if e["frau"] else "Mann", e["kette_spiegel_cm"], e["gewicht_spiegel_mittel"], e["gewicht_spiegel_max"],
 			100.0 * float(e["arm_bein_anteil"]), 100.0 * float(e["arm_bein_anteil_vorher"]), e["abstand_mittel_cm"], e["abstand_min_cm"]])
-	ablauf.append([0.0, _umhang_431u.bind("Idle_Loop", "1 · im Stehen")])
-	ablauf.append([7.5, _umhang_431u.bind("Walk_Loop", "2 · im Gehen")])
+	ablauf.append([0.0, _umhang_431u.bind("Idle_Loop", "1 · im Stehen, ohne Schild", false)])   # Lauf 9: erst der Umhang allein
+	ablauf.append([7.5, _umhang_431u.bind("Walk_Loop", "2 · im Gehen, mit Schild und Schwert", true)])
 	ablauf.append([15.0, func(): get_tree().quit()])
 
 
-func _umhang_431u(bewegung: String, teil: String) -> void:
-	_neuer_teil("431 · Kleiderschrank Stufe 1: Umhang an eigener Federkette auf jedem Volkskörper, Schild und Schwert · " + teil)
+func _umhang_431u(bewegung: String, teil: String, ruestung: bool) -> void:
+	_neuer_teil("431 · Kleiderschrank Stufe 1: Umhang an eigener Federkette auf jedem Volkskörper · " + teil)
 	var h := (HOEHE - OBEN) / 2.0
 	var dreh := 2.0 / 7.5   # zwei ganze Drehungen je Teil, Rücken zuerst
 	for g in [["mann", "Männer", 0.0], ["frau", "Frauen", 20.0]]:
@@ -721,35 +723,17 @@ func _umhang_431u(bewegung: String, teil: String) -> void:
 			var sk := B.skelett(f)
 			var sim := Umhang.an(f, sk)
 			if sim == null: print("FILM FEHLER 431u ohne Kette"); continue
-			_ruestung(f, sk, sim)
+			if ruestung: _ruestung(f, sk, sim)
 			print("FILM 431u Feder %s: %d Ketten, %d Kapseln" % [f.name, sim.setting_count, sim.get_child_count()])
 
 
-## Schild auf dem Rücken über dem Umhang, Schwert an der linken Hüfte; beide als Kapsel, damit der Umhang ihnen ausweicht
+## Schild und Schwert auf dem Rücken über dem Umhang, so wie das Spiel sie hängt (HeldFigur.bewaffne: Rückenlinie aus der Haut samt
+## Umhang, Schild am spine_02, Schwert über der rechten Schulter; Lauf 9, E8: die eigene Lage hier schwebte eine Handbreit hinter dem
+## Rücken); beide als Kapsel, damit der Umhang nicht durch sie hindurchschwingt
 func _ruestung(f: Node3D, sk: Skeleton3D, sim: SpringBoneSimulator3D) -> void:
-	var m1 := sk.find_bone("umhang_m_1")
-	var bs := sk.find_bone("spine_03")
-	var bp := sk.find_bone("pelvis")
-	if m1 < 0 or bs < 0 or bp < 0: return
-	var oben := sk.get_bone_global_rest(m1).origin
-	var groesse := _hoehe(f) / 1.75
-	for w in [["shield", bs, Transform3D(Basis(Vector3.LEFT, Vector3.UP, Vector3.LEFT.cross(Vector3.UP)), Vector3(0, oben.y - 0.17 * groesse, oben.z - 0.06))],
-			["longsword", bp, _laengs(Vector3(0.25, -1.0, -0.35), sk.get_bone_global_rest(bp).origin + Vector3(0.19 * groesse, 0.08, -0.02))]]:
-		if not FileAccess.file_exists("res://daten/waffen/%s.bin" % w[0]): print("FILM 431u ohne ", w[0]); continue
-		var ba := BoneAttachment3D.new()
-		ba.name = "Ruecken_" + String(w[0])
-		ba.bone_name = sk.get_bone_name(int(w[1]))
-		sk.add_child(ba)
-		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % w[0])
-		if d == null: continue
-		d.transform = sk.get_bone_global_rest(int(w[1])).affine_inverse() * (w[2] as Transform3D)
-		ba.add_child(d)
-		Gebiet.male(d, null, 2, [])
-		Umhang.ruecken(sim, sk, d)
-
-
-## Lage eines Dings, dessen Längsachse (+Y im Modell) in Richtung achse zeigt, bei wo
-func _laengs(achse: Vector3, wo: Vector3) -> Transform3D:
-	var y := achse.normalized()
-	var x := y.cross(Vector3.FORWARD).normalized()
-	return Transform3D(Basis(x, y, x.cross(y)), wo)
+	for w in ["shield", "longsword"]:
+		if not FileAccess.file_exists("res://daten/waffen/%s.bin" % w): print("FILM 431u ohne ", w)
+	HeldFigur.bewaffne(f, sk, {"OFF_HAND": {"base": "shield"}, "MAIN_HAND": {"base": "longsword"}})
+	for ba in sk.find_children("Ruecken*", "BoneAttachment3D", false, false):
+		for d in ba.get_children():
+			if d is Node3D: Umhang.ruecken(sim, sk, d)
