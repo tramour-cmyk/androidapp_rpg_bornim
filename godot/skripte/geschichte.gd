@@ -506,7 +506,7 @@ static func elder_talk(k: Skript, s: Zustand) -> void:
 	if not s.has(QUEST_STARTED):
 		k.say(aldric, "Du bist also {name}. Rowena sagt, du verstehst dich aufs Kämpfen.", "So you're {name}. Rowena tells me you know how to fight.")
 		k.say(aldric, "Der Blutzahn-Stamm haust in einer Höhle am Nordende des Flüsterwalds. Früher waren diese Goblins feige.", "The Bloodfang tribe lives in a cave at the northern end of the Whisperwood. Those goblins used to be cowards.")
-		k.say(aldric, "Doch nun führt sie ein Hobgoblin namens Grak – grausam und gerissen.", "But now they're led by a hobgoblin called Grak, cruel and cunning.")
+		k.say(aldric, "Doch nun führt sie ein Goblin-Hauptmann namens Grak – grausam und gerissen.", "But now they're led by a goblin captain called Grak, cruel and cunning.")
 		k.say(aldric, "Sie haben Schwester Lyra entführt und das Sonnenamulett gestohlen. Seit hundert Jahren schützt es Bornim vor der Finsternis.", "They kidnapped Sister Lyra and stole the Sun Amulet. For a hundred years it has protected Bornim from the darkness.")
 		k.say(aldric, "Bring beide zurück, und Bornim wird es dir nie vergessen. Nimm dies für die Reise.", "Bring them both back, and Bornim will never forget it. Take this for the road.")
 		k.give("potion", 2)

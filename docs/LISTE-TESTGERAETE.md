@@ -26,6 +26,20 @@ Letzte Fehlermeldungen: keine
 
 Dazu (Chef, Fotos 19:32, 19:36, mit allen Proben an): Dorfbach 33 Bilder/s, Grafik 1793 MB; Flüsterwald am Teich 25 Bilder/s (95 % unter 41,7 ms), Grafik 2006 MB. Lesart (Sokrates): ohne Fehler, keine Pause über 50 ms in 10 s; welche Proben bei diesen Angaben an waren, ist offen (Grafik 505 MB statt 2 GB).
 
+## Chef, A56, Build 286 (0.348.473), Messweg 1270.1, Kompatibilitäts-Renderer (15.11., 12:02–12:09)
+
+Grafik: „ANGLE ((Samsung Xclipse 540) on Vulkan 1.3.304), gl_compatibility“ (am 08.11. „mobile“; Ursache Knopf der Strahlprobe oder Vulkan-Rückfall, offen). Fünf Texte des Chefs, Auszug:
+
+| Schritt | Bilder/s (langsamstes 1 %) | Laden | Zeichenaufrufe, Dreiecke |
+|---|---|---|---|
+| Dorf 19/16 | 25 (50 ms) | 5106 ms | 551, 2604k |
+| Wald 9/10 | 24 (45 ms) | 2651 ms, Blende bereit 8,0 s | 425, 2959k |
+| Kampf 1 (Späher, Teich), 106 s | 12 (93 ms), 1244 Bilder über 50 ms | Kampfort bereit 1,2 s | höchstens 222, 351k, 546 MB |
+| Kampf 2 (Ratte, Lichtung), 131 s | 12 (93 ms), 1576 Bilder über 50 ms | Kampfort bereit 0,7 s | höchstens 200, 330k, 533 MB |
+| Höhle 17/14 | 51 (24 ms) | 2160 ms, Blende bereit 7,2 s | 908, 307k |
+
+Lesart (Spike): Laden des Kampfs kalt 1,2 s, warm 0,7 s, also kein Engpass; der Kampf läuft mit halb so vielen Zeichenaufrufen und einem Achtel der Dreiecke der Welt bei der halben Bildrate, das spricht für teure Bildpunkte (Shader, Nachbearbeitung, Auflösung), nicht für Geometrie. Vergleich im Renderer „mobile“ folgt.
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```

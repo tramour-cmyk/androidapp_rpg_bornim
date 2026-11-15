@@ -1873,12 +1873,27 @@ var geraet_auf := false
 
 
 # 352 GuideScreen wie alt: schwarz, ein Kasten, oben der Titel, je Absatz die fette Eroeffnung als Ueberschrift in Gold (16 sp),
-# der Rest 15 sp, fette Woerter (Knoepfe) halbfett in Gold; nur die Faehigkeiten der eigenen Klasse; unten „Zurück“
-static func anleitung_teile(klasse: String) -> Array:
+# der Rest 15 sp, fette Woerter (Knoepfe) halbfett in Gold; unten „Zurück“. 870.13: Handbuch nach dem BRS (Homer 870.15,
+# STORY-BRS-ANLEITUNG.md, STORY-HANDBUCH-1.md), ohne Klassen; Zahlen als Platzhalter aus den Regelwerten (Chef 01.11., 423 2)
+static func anleitung_teile() -> Array:
 	var r := []
-	for p in Sprache.texte.get("anleitung", {}).get("teile", []):
-		if not p.has("nur") or String(p["nur"]) == klasse: r.append(Sprache.t(p))
+	for p in Sprache.texte.get("anleitung", {}).get("teile", []): r.append(platzhalter(Sprache.t(p)))
 	return r
+
+# 423 „Für Tom“: {block.schluessel} aus daten/werte.json, „|prozent“ als ganze Prozentzahl („40 %“, englisch „40%“);
+# Schluessel des Handbuchs, die in den Regelwerten anders heissen, ueber HANDBUCH_WERTE
+const HANDBUCH_WERTE := {"held.grenze_weich_stufen": "erfahrung.weich_stufen", "held.grenze_weich_anteil": "erfahrung.weich_faktor"}
+static func platzhalter(t: String) -> String:
+	var re := RegEx.create_from_string("\\{([a-z_]+\\.[a-z_]+)(\\|prozent)?\\}")
+	for m in re.search_all(t):
+		var pfad := String(HANDBUCH_WERTE.get(m.get_string(1), m.get_string(1))).split(".")
+		var w = BrsHeld.lade().get(pfad[0], {}).get(pfad[1], null)
+		if w == null:
+			push_warning("870.13: Platzhalter %s fehlt in werte.json" % m.get_string(1))
+			continue
+		var s := ("%d" % roundi(float(w) * 100.0) + (" %" if Sprache.aktiv() == "de" else "%")) if m.get_string(2) != "" else ("%d" % int(w) if float(w) == floorf(float(w)) else str(w))
+		t = t.replace(m.get_string(0), s)
+	return t
 
 # (Text, fett) der Reihe nach, wie Guide.pieces
 static func stuecke(t: String) -> Array:
@@ -1894,7 +1909,7 @@ func anleitung() -> void:
 	var v: VBoxContainer = d["inhalt"]
 	var halbfett := Stil.variante(0.2, false, true)   # 584: der echte halbfette Schnitt wie alt (GuideScreen.kt 57, SemiBold) statt kuenstlich verdickt
 	var gerade := Stil.variante(0.2)
-	for t in anleitung_teile(""):   # 870.4: ohne Klasse nur die allgemeinen Teile; Handbuch nach BRS mit 870.9 (Homer 870.15)
+	for t in anleitung_teile():   # 870.13: Handbuch nach dem BRS (Homer 870.15)
 		var st := stuecke(t)
 		var absatz := VBoxContainer.new()
 		absatz.add_theme_constant_override("separation", 0)

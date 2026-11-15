@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1284** (zuletzt 1283 Perikles 15.11. 11:31:24 7bdb) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1286** (zuletzt 1285 Jerry 15.11. 12:09:20 2fca) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -44,6 +44,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 11:38 15.11.: Jerry neu `…78didfhaNLaWruGUVT` (1266, 1274 c), Jerry 1215 (stärkstes Modell) `…77868z8tGPx6d9vJF1`, alt `…7AB8nKRTEe1G152XSQ` archiviert (10,05 $ auf 1266, 481.2)
+- 11:21 15.11.: Diogenes neu `…75f6u3gFfiQ22M2H7J` (1128.3, 1276, 882.2), alt archiviert (2,71 $ auf 1272)
 - 11:17 15.11.: Homer alt `…75SXMEBRLJdiSsv5Xd` archiviert (5,71 $ auf 1267)
 - 11:14 15.11.: Sokrates neu `…7A9M8ZL4AXU31SCCyP` (Chefrunde Rest), alt archiviert (6,65 $ auf 1270, 1268, 481a, 1271, 1272, 1277); Tom neu `…76Nrryek3oSSKfE8CE` (1214), alt archiviert (9,71 $ auf 286); Homer alt noch offen (Archiv 11:16)
 - 11:11 15.11.: Homer neu `…787mL9tKD6xvJpNakw` (1267), alte `…75SXMEBRLJdiSsv5Xd` bleibt bis Push der Texte (Rebase hing, Notizen gepusht?); Perikles neu `…77DVasqzk8UQ6BuvGG` (1277), alt archiviert (3,22 $); Wächter 1270.1 und Neustart Sokrates (Prüfung 11:13) offen
@@ -62,9 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:04 15.11.: Diogenes neu `…78w1wTxyTuS8uf2tzM` (1123), Diogenes 1261 archiviert (1,07 $); GELÖST 1123 an Jerry
 - 02:06 15.11.: Sokrates neu `…77SZdtkUPt9EJTJgwP` (1260 Stellungnahme), alt archiviert (3,73 $ auf 930.7); Perikles neu `…78JaxFDfPJBEPZts1z` (1262 Zirkel 1261/1123), alt archiviert; Diogenes 1133 archiviert (1,10 $); `--ohne` Jerry (806 wartet), Diogenes (1261 wartet auf Lauf Tom)
 - 01:31 15.11.: Jerry neu `…76MSnYWiTvsA1DfTZG` (Lauf 482), Jerry alt archiviert (8,86 $ auf 479); Diogenes neu `…795CKQ5Pf7crAxZoTU` (1261); Wächter 1036.1 von Jerry beantwortet
-- 01:08 15.11.: Tom neu `…762Xztj8QLqEa23Rjp` (286 Ergebnis des Tests), Tom alt archiviert (4,33 $ auf 286)
-- 01:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01BpBNHHosCmPVkVh7ZdEqz5` (:03), alte `trig_014BcfzRMLG6Fa8bDwFVGeaY` aus, alter Ford `…793a6GGZhUhAzGSphs` archiviert (1019, 8,33 $); Tom neu (286, Prüfliste 👍), Tom alt `…78AmAJeR5X7Ghv9VBH` wird archiviert
-- 00:04 15.11.: Marke Archiv session_01Hmoj78sXbc6SZHTKCgXXZ3 (lauf.py)
 - 01:03 15.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 01:03 15.11.: Marke Archiv session_01Hmoj75edsFFzfEQPxCoWxq (lauf.py)
 - 01:06 15.11.: Marke Wächter 1133 13.11. 12:53 (lauf.py)
@@ -104,6 +103,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:14 15.11.: Startsperre 11:14 Start Sokrates (Neustart, 8892bf7e9)
 - 11:20 15.11.: Startsperre 11:20 Start Diogenes (lauf.py)
 - 11:20 15.11.: Marke Archiv session_01Hmoj78yhg3iMnC4caCkmRB (lauf.py)
-- 11:21 15.11.: Diogenes neu `…75f6u3gFfiQ22M2H7J` (1128.3, 1276, 882.2), alt archiviert (2,71 $ auf 1272)
 - 11:37 15.11.: Startsperre 11:37 Start Jerry (Neustart 0ae5feb3d, 1266/1274) und Startsperre 11:37 Start Jerry 1215 (stärkstes Modell, 1215a A, Chef 11:21; von Hand)
-- 11:38 15.11.: Jerry neu `…78didfhaNLaWruGUVT` (1266, 1274 c), Jerry 1215 (stärkstes Modell) `…77868z8tGPx6d9vJF1`, alt `…7AB8nKRTEe1G152XSQ` archiviert (10,05 $ auf 1266, 481.2)
+- 12:04 15.11.: Startsperre 12:04 Start Tom, Diogenes, Homer, Perikles (lauf.py)
+- 12:04 15.11.: Marke Mehrfach Jerry (lauf.py)
+- 12:04 15.11.: Marke Archiv session_01Hmoj76Nrryek3oSSKfE8CE (lauf.py)
+- 12:04 15.11.: Marke Archiv session_01Hmoj75f6u3gFfiQ22M2H7J (lauf.py)
+- 12:04 15.11.: Marke Archiv session_01Hmoj787mL9tKD6xvJpNakw (lauf.py)
+- 12:04 15.11.: Marke Archiv session_01Hmoj77DVasqzk8UQ6BuvGG (lauf.py)
+- 12:05 15.11.: Tom neu `…78NR8tcbL1C1FvSd17` (431), Perikles neu `…78dCt3YTef3e1vvp1K` (M? 1275), alt archiviert (Tom 2,96 $ auf 1214, Perikles 7,65 $ auf 1277, 1278); START Homer 1235 und Diogenes 1128.3 nicht ausgeführt (Homer: nicht baubar vor Meilenstein, Diogenes wartet auf Bautest/t287), Sitzungen bleiben
+- 12:09 15.11.: Startsperre 12:09 Start Sokrates (Neustart, 7d0e0dbcb)
