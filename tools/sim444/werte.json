@@ -122,9 +122,9 @@
     "puffer_uebung": 15,
     "_puffer": "an der Rangdecke werden bis zu 15 Uebung gemerkt",
     "probe_siege": 3,
-    "grundwert_punkte": 10,
-    "_grundwert_punkte": "644a F (Chef 12.11., 08:21): ein Grundwert steigt um 1 je so viele Punkte, die die Fertigkeiten an ihm seit dem Start gewonnen haben (in Kapitel 1 etwa einmal beim Hauptwert; Rechnung tools/sim444/stufe644a.py: Hauptfertigkeit bis Stufe 6 etwa +10). An einem Grundwert haengen die Waffengruppen und Schulen mit ihrem 'grundwert' (waffen, schulen), dazu grundwert_von; die uebrigen Fertigkeiten noch an keinem (offen, 644b)",
-    "grundwert_von": {},
+    "grundwert_schwellen": [15, 25, 50, 75, 100],
+    "_grundwert_schwellen": "644a.1 B (Chef 14.11., 22:03, ersetzt 644a F grundwert_punkte 10): ein Grundwert steigt um 1, sobald die beste Fertigkeit an ihm den Wert 15, 25, 50, 75, 100 erreicht (Wert, nicht Gewinn; hoechstens +5; nur die beste je Grundwert); grundwert_von nach DESIGN-BRS.md Abschnitt 3 (1255 A), Lederarbeit wie Schneidern",
+    "grundwert_von": {"Einhänder": "kraft", "Zweihänder": "kraft", "Stangenwaffen": "kraft", "Stumpfe Waffen": "kraft", "Faustkampf": "kraft", "Einschüchtern": "kraft", "Bergbau": "kraft", "Schmieden": "kraft", "Dolche": "gewandtheit", "Wurfwaffen": "gewandtheit", "Bogen": "gewandtheit", "Ausweichen": "gewandtheit", "Schleichen": "gewandtheit", "Schlösser knacken": "gewandtheit", "Fallen entschärfen": "gewandtheit", "Schneidern": "gewandtheit", "Lederarbeit": "gewandtheit", "Leichte Rüstung": "zaehigkeit", "Mittlere Rüstung": "zaehigkeit", "Schwere Rüstung": "zaehigkeit", "Schild": "zaehigkeit", "Evokation": "verstand", "Illusion": "verstand", "Beschwörung": "verstand", "Handeln": "verstand", "Alchemie": "verstand", "Kochen": "verstand", "Runenkunde": "verstand", "Heilkunde": "verstand", "Heilmagie": "wille", "Schutzmagie": "wille", "Überreden": "wille", "Tiere beruhigen": "wille", "Armbrust": "wahrnehmung", "Spähen": "wahrnehmung", "Kräutersammeln": "wahrnehmung", "Angeln": "wahrnehmung", "Jagd": "wahrnehmung"},
     "_probe_siege": "Bewaehrungsprobe: 3 Siege gegen Gegner mindestens der eigenen Stufe, in denen die Fertigkeit benutzt wurde"
   },
 

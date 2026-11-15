@@ -169,20 +169,24 @@ static func grundwert_der_fertigkeit(f: String) -> String:
 		if d is Dictionary and d.get("grundwert") != null: return String(d["grundwert"])
 	return ""
 
-## 644a F: Punkte, die die Fertigkeiten an [g] seit dem Start gewonnen haben (geuebt ueber dem Startwert; „Fertigkeit +n“ der
-## Ausruestung zaehlt nicht); [geuebt_] statt des Geuebten dieses Helden
-func geuebte_punkte(g: String, geuebt_ = null) -> int:
+## 644a.1 B (Chef 14.11., 22:03): Wert der besten Fertigkeit an [g] (geuebt, sonst Startwert); [geuebt_] statt des Geuebten dieses Helden
+func beste_fertigkeit_an(g: String, geuebt_ = null) -> int:
+	var jetzt := fertigkeiten()
 	var ge: Dictionary = geuebt if geuebt_ == null else geuebt_
-	var start := fertigkeiten()
-	var n := 0
-	for f in ge:
-		if grundwert_der_fertigkeit(String(f)) == g: n += maxi(0, int(ge[f]) - int(start.get(String(f), 0)))
-	return n
+	for f in ge: jetzt[String(f)] = int(ge[f])
+	var best := 0
+	for f in jetzt:
+		if grundwert_der_fertigkeit(String(f)) == g: best = maxi(best, int(jetzt[f]))
+	return best
 
-## 644a F: was Ueben dem Grundwert [g] gibt: +1 je „ueben“ „grundwert_punkte“ gewonnene Punkte
+## 644a.1 B (ersetzt 644a F „+1 je grundwert_punkte“): +1 je Schwelle aus „ueben“ „grundwert_schwellen“ (15, 25, 50, 75, 100),
+## die die beste Fertigkeit an [g] erreicht hat; Wert, nicht Gewinn, hoechstens so viele wie Schwellen
 func uebungs_plus(g: String, geuebt_ = null) -> int:
-	var n := int(lade().get("ueben", {}).get("grundwert_punkte", 0))
-	return geuebte_punkte(g, geuebt_) / n if n > 0 else 0
+	var best := beste_fertigkeit_an(g, geuebt_)
+	var n := 0
+	for s in lade().get("ueben", {}).get("grundwert_schwellen", []):
+		if best >= int(s): n += 1
+	return n
 
 ## 644a F (fuer die Meldung „Grundwert gestiegen“, 644a.2 Tom): die Grundwerte, die durch Ueben hoeher sind als mit [geuebt_vorher]
 func grundwerte_gestiegen(geuebt_vorher: Dictionary) -> Array:
