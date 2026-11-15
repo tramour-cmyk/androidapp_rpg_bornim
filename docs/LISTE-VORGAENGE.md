@@ -247,6 +247,7 @@
 | 1128.3 | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen (12 aus der Liste in 1128), nach 285 Zahlen an Perikles und Chef ohne Wertung | Diogenes | M | startbar | – | – | – | Q QM | 5,59 $ |
 | 1129.4 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen (Zu 1129.4) | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | 16.11. | – | – | Q QM | – |
+| 1348 | Vorgänge an Spike umschieben (Chef 15.11., 22:34), Vorschlag Sokrates | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1338 | Von Jerry (1331): Prüfliste t290 (Sammelbuild, beide Teams) gegenlesen | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1186 | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitzer zum Schließen (Chef 13.11., 16:28, Anlass 41 Homer) · „jetzt“ 13.11., 16:28 | Sokrates | M | startbar | 16.11. | – | – | B Abläufe | 29,64 $ |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust gingen (Art 1110 Rechte, 1128 Prüffragen; Chef 13.11., 12:53) · „jetzt“ 13.11., 12:53 | Sokrates | M | startbar | 1129.4 | – | – | B Abläufe | 20,09 $ |
