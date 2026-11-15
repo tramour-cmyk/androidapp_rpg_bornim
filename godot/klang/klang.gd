@@ -432,6 +432,9 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 			"GATHER": _bald(0, func(): effekt(_fx_klang("ENEMY_HEAL")))
 			"VENOM": _bald(0, func(): effekt("poison"))
 			"WEB": _bald(0, func(): effekt("throw"))
+			"THROW":     # 1222: das Rauchbündel fliegt hörbar los (die Flaschen klingen mit dem Treffer, 935)
+				if e.spell == "BOMB_SMOKE":
+					_bald(0, func(): effekt("throw"))
 			"FOE_FALLS":
 				_bald(0, func(): effekt("enemy_down"))
 				# 296.3 (Todesschrei; alt BattleScreen ENEMY_FAINT „its death cry once, if no blow struck it down“): fiel er durch
