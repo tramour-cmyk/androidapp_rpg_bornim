@@ -12,10 +12,12 @@ const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03", "thigh_l", "thigh_
 # Chef 15.11., 14:32 (Lauf 9: Zwerg und Orkblütiger „katastrophal mit den Armen und dem Umhang“): ohne Kapseln an den Armen griffen
 # Ober- und Unterarm 3-5 cm in die äußeren Ketten (umhang_431, Ersatzkörper, Männer); die Arme schieben den Umhang jetzt beiseite
 const ARME := ["upperarm_l", "upperarm_r", "lowerarm_l", "lowerarm_r"]
-# Federwerte (Godot-Einheiten): steif genug, dass der Umhang im Stehen haengt wie gebaut, weich genug, dass er beim Gehen nachschwingt
-static var STEIF := float(OS.get_environment("UMHANG_STEIF")) if OS.get_environment("UMHANG_STEIF") != "" else 4.0
+# Federwerte (Godot-Einheiten). Lauf 11 (Chef-Vorlage 15.11., 16:18, selbst gesehen): mit Steife 4,0 und Schwere 0,3 stand der Umhang im
+# Stehen 19-25 Grad schräg nach hinten ab wie ein Brett (die Feder hielt ihn in der Richtung des vorgebeugten Oberkörpers, Ruhe 4 Grad); mit
+# 0,5 und 1,0 hängt er 3-5 Grad wie gebaut, seitlich im Gehen 4-5 statt 11-14 cm (Neigung Ende gegen Anfang der Mittelkette, am Rechner, Ersatzkörper)
+static var STEIF := float(OS.get_environment("UMHANG_STEIF")) if OS.get_environment("UMHANG_STEIF") != "" else 0.5
 static var ZUG := float(OS.get_environment("UMHANG_ZUG")) if OS.get_environment("UMHANG_ZUG") != "" else 0.45
-static var SCHWERE := float(OS.get_environment("UMHANG_SCHWERE")) if OS.get_environment("UMHANG_SCHWERE") != "" else 0.3
+static var SCHWERE := float(OS.get_environment("UMHANG_SCHWERE")) if OS.get_environment("UMHANG_SCHWERE") != "" else 1.0
 const GLIED_RADIUS := 0.035
 
 static func ketten(sk: Skeleton3D) -> Array:
