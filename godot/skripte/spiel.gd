@@ -2908,8 +2908,8 @@ func hoehle_bilder() -> void:
 
 # 1303 Stufen im Dunkel (Renderer mobile): --stufen1303=<ordner> misst in Graks Halle und am Lager je Fassung die dunklen Pixel
 # (Helligkeit unter 64): wie viele Stufen belegt sind und wie oft Nachbarn um 3 und mehr springen (Stufe statt Verlauf); dazu je
-# Fassung ein Bild. Fassungen: jetzt (Helligkeit x2,1 nach dem Bild), ohne Hebung, Belichtung x2,1 der Kamera statt Hebung, Licht x3
-# statt Hebung, HDR-2D, Entbänderung
+# Fassung ein Bild. Fassungen: jetzt (Helligkeit x2,1 nach dem Bild), ohne Hebung, Belichtung der Kamera x3, x4, x5, x6 statt Hebung
+# (Lauf 508: x2,1 glatt, aber zu dunkel); dazu Mittel und p90 des ganzen Bilds gegen „jetzt“
 func stufen_1303() -> void:
 	var dir := ""
 	for a in OS.get_cmdline_user_args():
@@ -2932,23 +2932,16 @@ func stufen_1303() -> void:
 		held.setze(o[1], o[2]); kamera.springe()
 		await get_tree().create_timer(1.5).timeout
 		ui.textfeld.visible = false
-		for f in ["jetzt", "ohne_hebung", "belichtung", "licht3", "hdr2d", "entbaendern"]:
+		for f in ["jetzt", "ohne_hebung", "belichtung3", "belichtung4", "belichtung5", "belichtung6"]:
 			var lampen: Array = []
 			var alt_umgebung: float = licht.env.ambient_light_energy
 			match f:
 				"ohne_hebung": licht.env.adjustment_brightness = 1.0
-				"belichtung":
+				"belichtung3", "belichtung4", "belichtung5", "belichtung6":
 					licht.env.adjustment_brightness = 1.0
 					var ca := CameraAttributesPractical.new()
-					ca.exposure_multiplier = hell0
+					ca.exposure_multiplier = float(f.substr(10))
 					cam.attributes = ca
-				"licht3":
-					licht.env.adjustment_brightness = 1.0
-					licht.env.ambient_light_energy = alt_umgebung * 3.0
-					for l in get_tree().root.find_children("*", "Light3D", true, false):
-						lampen.append([l, l.light_energy]); l.light_energy *= 3.0
-				"hdr2d": vp.use_hdr_2d = true
-				"entbaendern": vp.use_debanding = true
 			for i in 6: await get_tree().process_frame
 			await RenderingServer.frame_post_draw
 			var img := vp.get_texture().get_image()
@@ -2968,12 +2961,14 @@ func _stufen_mass(img: Image, was: String) -> void:
 	var w := img.get_width(); var h := img.get_height()
 	var d := img.get_data()
 	var stufen := {}
+	var alle := PackedInt32Array(); alle.resize(256)
 	var n := 0; var summe := 0.0; var paare := 0; var spruenge := 0; var gleich := 0
 	for y in range(int(h * 0.16), h, 2):     # ohne die Leiste oben (Lebenspunkte, Uhr, Kompass)
 		var vor := -1
 		for x in w:
 			var i := (y * w + x) * 3
 			var l := int(round(0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]))
+			alle[l] += 1
 			if l < 64 and l > 0:
 				n += 1; summe += l; stufen[l] = true
 				if vor >= 0:
@@ -2984,7 +2979,13 @@ func _stufen_mass(img: Image, was: String) -> void:
 				vor = l
 			else:
 				vor = -1
-	print("STUFEN1303 %s: dunkle Pixel %d, Mittel %.1f, belegte Stufen %d, Nachbarn gleich %.0f %%, Sprung >=3 %.1f %%" % [was, n, summe / maxf(1, n), stufen.size(), 100.0 * gleich / maxf(1, paare), 100.0 * spruenge / maxf(1, paare)])
+	var ges := 0; var gsum := 0.0
+	for k in 256: ges += alle[k]; gsum += k * alle[k]
+	var p90 := 0; var bis := 0
+	for k in 256:
+		bis += alle[k]
+		if bis >= ges * 0.9: p90 = k; break
+	print("STUFEN1303 %s: dunkle Pixel %d, Mittel %.1f, belegte Stufen %d, Nachbarn gleich %.0f %%, Sprung >=3 %.1f %%; ganzes Bild Mittel %.1f, p90 %d" % [was, n, summe / maxf(1, n), stufen.size(), 100.0 * gleich / maxf(1, paare), 100.0 * spruenge / maxf(1, paare), gsum / maxf(1, ges), p90])
 
 # 505c Nebel, Rand, Ausgaenge am Rechner: --nebel=<ordner> (Chef 04.11., 14:06 „Vorgang 505c“, Zu 505 (Rand)): eine Vorlage fuer
 # Wald, Dorf und Hoehle. Wald: der Weg vom Dorf nach Norden, die drei Stufen beschriftet und gemessen (Fassung B); die Ausgaenge mit
