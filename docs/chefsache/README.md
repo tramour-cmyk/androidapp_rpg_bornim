@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 22:43, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 22:44, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,9 +12,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 70 | 26 | 3 | 3 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
+| ↳ Kampf passt | 70 | 26 | 4 | 3 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 20 | 7 | 0 | 1 | 14 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 65 | 12 | 1 | 8 | 33 | 1300 (Spike) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 64 | 11 | 1 | 8 | 33 | 1303 (Spike) Stufen im Dunkel im Renderer mobile, Höhle: dunkl… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 0 | 1 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
 | Werkzeuge und Abläufe der Firma | 60 | 35 | 0 | 0 | 9 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -25,7 +25,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | 1 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
 | 2 | 1321 | Jerry | Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m… | M | Kampf passt | in Arbeit |
-| 3 | 1284 | Jerry | Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, aber kein Biss zu sehen… | M | Kampf passt | startbar |
+| 3 | 1284 | Jerry | Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, aber kein Biss zu sehen… | M | Kampf passt | in Arbeit |
 | 4 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
 | 5 | 1288 | Sokrates | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lück… | M | Kampf passt | startbar |
 | 6 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
@@ -37,14 +37,14 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 12 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
 | 13 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | Kleiderschrank und Modelle | startbar |
 | 14 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 15 | 1300 | Spike | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1331 | Jerry | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfli… | M | Godot besser nutzen | startbar |
-| 18 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 1286 | Spike | Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf… | K | Kampf passt | startbar |
+| 15 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1331 | Jerry | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfli… | M | Godot besser nutzen | startbar |
+| 17 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 18 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 1286 | Spike | Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf… | K | Kampf passt | startbar |
+| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 
-Danach 87 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 90.
+Danach 86 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 90.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
