@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [481a](entscheiden/481a-wachsoldat.md) | **Muss** | E Kampf | 15.11., 10:19 | Wachsoldat gewinnt 100 % gegen alle Gegner von Kapitel 1; ausgleichen über eine Schadensregel für alle, nicht über den Wolf. | Sokrates |
 
 ## Zu billigen
 
