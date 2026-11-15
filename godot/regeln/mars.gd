@@ -1190,8 +1190,10 @@ func _opening() -> void:
 		_say(fmt(MSG399_FED, lang, [lead().name(lang)]))
 	_smoke_bundle()
 	_cow()
+	eroeffnung = true
 	for foe in intents.keys():
 		_say_announce(by_id(foe))
+	eroeffnung = false
 
 
 ## D4.1 (Battle.smokeBundle): the hero throws Morwen's smoke bundle as soon as Krogg shows up, by itself, before an ambush too.
@@ -2174,7 +2176,34 @@ func _say_announce(foe: Fighter) -> void:
 	var key := "MSG130_SIGN_" + str(intent.id).to_upper()
 	if TX.has(key):
 		_say(fmt(pick(key), lang, [foe.name(lang), "", target]), foe.id)
+	# 1296 (Chef 15.11., 14:48, Build 287: „was der Hinweis soll, wenn ich ja eh nicht wechseln kann“): die Eingebung zu Anspringen
+	# und Flanke rät dem Helden zum Wechsel. Am Rechner nachgestellt: die erste Ansage kam zu Beginn, die Wölfe sprangen, bevor der
+	# Held einen Zug hatte. Jetzt nur, wenn der Held vor dem Ansager noch am Zug ist und wechseln kann (nicht angesprungen am Boden,
+	# nicht im Netz: Aufstehen kostet den halben Zug); sonst wartet sie auf eine Ansage, bei der der Wechsel geht
+	if str(intent.id) in WECHSEL_RAT and not _held_kann_vorher_wechseln(foe):
+		return
 	_eingebung(str(intent.id))
+
+
+## 1296: Eingebungen, die zum Wechsel raten
+const WECHSEL_RAT := ["pounce", "flank"]
+var eroeffnung := false    # 1296: Ansagen zu Beginn, noch niemand hat gezogen
+
+## 1296: kommt der Held vor dem nächsten Zug von [foe] noch dran, und kann er dann wechseln?
+func _held_kann_vorher_wechseln(foe: Fighter) -> bool:
+	var held_f = find("hero")
+	if held_f == null or not held_f.standing() or held_f.held or order.is_empty():
+		return false
+	var n := order.size()
+	# sagt der an, der gerade gezogen hat, kommt er erst nach einer Runde wieder; zu Beginn hat noch niemand gezogen
+	var ab := turn + 1 if order[turn % n] == foe and not eroeffnung else turn
+	for i in n:
+		var f: Fighter = order[(ab + i) % n]
+		if f == foe:
+			return false
+		if f == held_f:
+			return true
+	return false
 
 
 ## 840, 986: Eingebung des Helden zu einer Ansage, einmal je Spielstand, gleich nach ihrer ersten Zeile im Bericht
