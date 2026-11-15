@@ -1436,7 +1436,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1263 | Von Jerry (1215, Lauf 484 mit Jolt): ziege_4162 rot, von (-1,0) trat die Ziege erst voran, dann Tausch | E Welt | M | – | Tom | erledigt, doppelt zu 1079 (e347e68d8 in Build 286, nicht auf main) |
 | 1260 | Von Sokrates (1259 B, Chef 14.11., 22:47): sprechender Name der drei Kampfpunkte je Zug, einige Vorschläge, dazu Nachlegen, Verglimmen, Funke; nicht Glut, Funke, kein Grundwert; Vorschlag Sokrates Herzschlag | E Kampf | M | 11,49 $ | Homer | erledigt |
 | 1265 | Von Sokrates (1260 D, Chef 15.11., 10:07): besseres Folgewort für das Verfallen ungeschlagener Kerben statt Verblassen, deutsch und englisch | E Kampf | M | – | Homer | erledigt |
-| 1264 | Wochentermin 15.11.: Ideenspeicher (719) | B Abläufe | M | – | Homer | erledigt |
+| 1264 | Wochentermin 15.11.: Ideenspeicher (719) | B Abläufe | M | 4,18 $ | Homer | erledigt |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | G Balance | K | – | Homer | erledigt |
 | 50 | Weitere Klassen, ggf. zum Kauf | G Balance | K | – | Homer | erledigt |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K | 2,30 $ | Homer | erledigt |

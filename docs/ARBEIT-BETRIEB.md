@@ -94,3 +94,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 15.11.: Startsperre 10:50 Start Homer, Perikles (lauf.py)
 - 10:50 15.11.: Marke Archiv session_01Hmoj7A9BD9js7ioHpGovGR (lauf.py)
 - 10:50 15.11.: Marke Archiv session_01Hmoj79UDfkXFpM3zk1WmjM (lauf.py)
+- 10:51 15.11.: Homer neu `…75SXMEBRLJdiSsv5Xd` (1267), Homer 1264 archiviert (4,18 $); Perikles neu `…77RmWp9S7BfJZLPzKq` (1271 auf Meldung Sokrates), Perikles Tagesbericht archiviert (4,76 $)
