@@ -165,7 +165,9 @@ func _lauf() -> void:
 		# 1000 (t286.5a): die Axt liegt in jedem Bild in der rechten Faust (im Tod lässt er sie fallen)
 		# (gemessen, solange die Schicht wirkt: im Hieb selbst führt die Bewegung die Axt, abgenommen; ohne Schicht weicht die Axt beim
 		# Überblenden Stehen/Gehen bis 0,11 m ab, das ist der Stand vor 1000)
-		if mit_axt and not grak.down and cur != "Tod" and cur != "Hieb" and grak.ausholer != null and grak.ausholer.gewicht > 0.02:
+		# Lauf 489 (Bauserver): 0,105 m bei „Ausweichen links“ mit Haltung 0,19, also fast ohne Schicht: das ist das Überblenden der
+		# Grundbewegungen (Stand vor 1000). Gemessen wird darum, solange die Schicht überwiegt (Haltung über 0,5)
+		if mit_axt and not grak.down and cur != "Tod" and cur != "Hieb" and grak.ausholer != null and grak.ausholer.gewicht > 0.5:
 			if axt_ab > axt_weg:
 				axt_weg = axt_ab
 				axt_weg_bei = "%.2f s %s, Haltung %.2f" % [t, cur, grak.ausholer.gewicht if grak.ausholer != null else 0.0]
