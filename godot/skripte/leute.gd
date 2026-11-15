@@ -573,8 +573,12 @@ func weiche(d: Vector2i) -> bool:
 	if nachbar and frei_fuer_mich(h, true):
 		# 1079 (ziege_4162 rot in Lauf 413, 450, 467; am Rechner mit den Hühnern am Heuhaufen nachgestellt): ein fliehendes Huhn,
 		# dessen Schritt auf die Kachel des Helden zielt, sperrte den Tausch, die Ziege wurde geschoben. Es sucht sich neu einen Weg
+		# 1325 (Lauf 499, 500; in ziege_4162 nachgestellt): ebenso jeder, der zur Kachel des Helden nur unterwegs ist (sein Schritt
+		# galt, bevor der Held dort stand), etwa eine Person auf ihrem Weg; er plant neu (gehe_nach geht um den Helden herum)
 		for l in get_parent().get_children():
-			if l is Leute and l != self and l.flucht and l.ziel == h and l.kachel != h: l.ziel = Vector2i(-1, -1)
+			if l is Leute and l != self and l.ziel == h and l.kachel != h:
+				l.ziel = Vector2i(-1, -1)
+				l.weg.clear()
 		ziel = h
 		warte = 4.0
 		durch_bis = Time.get_ticks_msec() + DURCH_MS
@@ -603,7 +607,7 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 	if t == held_kachel() and not held_da: return false
 	for l in get_parent().get_children():
 		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t):
-			if held_da and l.flucht and l.kachel != t: continue   # 1079: fliehend nur im Schritt dorthin, es weicht neu aus (weiche)
+			if held_da and l.kachel != t: continue   # 1079, 1325: nur im Schritt dorthin, er plant neu (weiche)
 			return false
 	return true
 
@@ -867,6 +871,13 @@ func runde() -> void:
 
 func laufe(dt: float) -> void:
 	wende = ""
+	# 1325 (Lauf 499, 500; in ziege_4162 nachgestellt): steht der Held auf der Kachel, zu der jemand eben unterwegs ist (der Schritt
+	# galt, bevor er dort stand), bleibt der stehen und plant neu, statt in ihn hineinzulaufen; nur wer mit ihm den Platz tauscht
+	# (weiche, durch_bis), geht hindurch. Vorher sperrte so jemand den Tausch, die Ziege trat voran statt zu tauschen
+	if ziel != kachel and ziel == held_kachel() and Time.get_ticks_msec() >= durch_bis:
+		ziel = Vector2i(-1, -1)
+		weg.clear()
+		return
 	var zp := karte.kachel_pos(ziel)
 	var to := zp - position
 	to.y = 0
