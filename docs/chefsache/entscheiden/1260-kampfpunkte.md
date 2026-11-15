@@ -29,4 +29,10 @@ Beim Chef, weil: Story
 
 **Folgerungen:** Sokrates trägt den Namen in `DESIGN-GLUT.md` (Begriffe, Regeln, Bild und Klang) und ins Glossar ein und benennt das System; bei A, B, D baut Tuffy das Bild von 930.7 um (bei C nichts); Homer schreibt die Handbuchtexte zum Kampf damit, ohne das Wort „Aktionspunkte“, sondern sagt, wofür die Punkte da sind (dein Wort 22:49).
 
+**Stellungnahme Sokrates (15.11., 02:06):**
+- **Stärkstes Gegenargument gegen A:** C kostet nur Texte, A, B und D einen zweiten Durchgang an Bild, Klang und Film von 930.7; und „Takt“ ist abstrakt, im Deutschen zuerst Musik oder Benehmen, nicht Kraft. Hält nicht: die Punkte stehen in jedem Zug jedes Kampfs neben Glutkugel, Glutstrahlen, Funkenpfeil; mit Lohe bliebe genau die Verwechslung, die 1259 beheben sollte.
+- **Widerspruch zu Entschiedenem:** keiner; 1259 B (Homer schlägt vor, ich einen dazu, du wählst) ist erfüllt, B ist mein Vorschlag. Ein Zusammenstoß fehlt in der Liste „vergeben“: **Surge** ist schon „Action Surge“ (Tatendrang, Kämpfer, `held.json` 1484); bei A und B braucht Aufbäumen ein anderes englisches Wort (Homer). „Takt“ steht im Code nur intern (Atem, Gang), in keinem Spieltext.
+- **Kosten:** A, B, D je ein Bau bei Tuffy (rund ein Drittel von `glutbild.gd`, drei Klänge), ein Filmlauf, Texte; C nur Texte. Regeln und Bedienung bleiben bei allen.
+- **Empfehlung:** 1260 A (Takt), mit neuem englischem Wort für Aufbäumen statt Surge.
+
 Antwort: …
