@@ -84,3 +84,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 16.11.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 16.11.: Marke Start-fehlt Perikles 15.11.-23:04 (lauf.py)
 - 00:07 16.11.: Startsperre 00:07 Start Perikles 1044/1341 (Tom 00:08, Bildläufe von der Rechteprüfung abgelehnt, per Nachricht an die laufende Perikles-Sitzung …79JCQRKsCCgciyGpnJ)
+- 00:10 16.11.: Startsperre 00:10 Start Tom (Neustart, d72ec7214); alte Sitzung …76nRhry7t7BqTpwhBM nach Ruhe archivieren, Kosten auf 1044, 1341
