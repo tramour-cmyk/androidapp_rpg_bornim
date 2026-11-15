@@ -17,6 +17,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1000](ansehen/1000-axt.md) | Grak hält die Axt beim Ausholen in den Fäusten | – | 15.11., 15:01 |
+| [431](ansehen/431-umhang.md) | Kleiderschrank Stufe 1, zweiter Lauf: Umhang allein auf jedem Volkskörper | – | 15.11., 16:18 |
 | [760](ansehen/760-sprung.md) | Wolf springt bei „Anspringen“ | – | 15.11., 15:01 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -335,7 +336,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1000-axt.md, ansehen/760-sprung.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1000-axt.md, ansehen/431-umhang.md, ansehen/760-sprung.md
 
 ## So geht's
 
