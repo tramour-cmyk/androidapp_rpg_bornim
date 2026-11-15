@@ -592,6 +592,13 @@ func _unhandled_input(e: InputEvent) -> void:
 			ring(zieht and d.length() > JOY)
 			zeichner.queue_redraw()
 
+# 785.23 (WorldScreen.kt 196 runLatch = false): eingerastete Renntaste aus, Knopf wieder matt
+func renn_aus() -> void:
+	if not lauf_an: return
+	lauf_an = false
+	lauf_knopf.matt = true
+	laufen.emit(false)
+
 func ring(an: bool) -> void:
 	if an == ring_lauf or lauf_an: return
 	ring_lauf = an

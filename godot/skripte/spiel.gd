@@ -29,6 +29,7 @@ var rast_notiz := ""
 var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
 var laden_schirm: LadenSchirm                    # 416.3
+var war_bewegt := false                         # 785.23: ging der Held im letzten Bild (alt wasMoving)
 var laufen_will := false                        # 399.1 Ring oder Renntaste (Stamina.step run)
 var brett_offen := false
 var brett_schirm: BrettSchirm                    # 416.3
@@ -1874,6 +1875,9 @@ func _process(dt: float) -> void:
 		Messung.kampf_bild(dt)
 		_kampf_messe()
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
+	# 785.23 (WorldScreen.kt 196): die eingerastete Renntaste geht von selbst aus, wenn der Held außer Atem ist oder stehen bleibt
+	if ui.lauf_an and (zustand.atemlos or (war_bewegt and not held.geht())): ui.renn_aus()
+	war_bewegt = held.geht()
 	held.atemlos_neu(zustand.atemlos and kampf == null)   # 592: leer kurz stehen, Haende auf den Knien
 	if held.funke_an != zustand.funke: held.funke_neu(zustand.funke)   # 677: getrunken, geloescht, nach der Rast verglommen
 	ui.ausdauer_balken.z = zustand
