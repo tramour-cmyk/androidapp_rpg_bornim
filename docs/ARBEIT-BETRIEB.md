@@ -97,3 +97,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:56 15.11.: Startsperre 10:56 Start Spike (Neustart, 1a316e011)
 - 10:57 15.11.: Spike neu `…77N7FwEA8GY6oPzSUA` (1270.1, Neustart 1a316e011), alt archiviert (10,98 $)
 - 10:59 15.11.: Startsperre 10:59 Start Jerry (Neustart, 0abf2acbf)
+- 10:59 15.11.: Jerry neu `…7AB8nKRTEe1G152XSQ` (1266 Film, dann 1215), alt archiviert (17,36 $)
