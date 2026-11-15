@@ -189,13 +189,23 @@ def tuch(arm, kleid, netze, teilnamen, koerper_glb):
     tt = np.linspace(-1, 1, NT)
     zu = zs - 0.10 * (zs - zk)    # bis hierhin gehen die Ränder von WINKEL_OBEN auf WINKEL_UNTEN
     R = np.zeros((NZ, NT)); TH = np.zeros((NZ, NT))
+    # 431 Tuch, letzter Lauf (Sokrates 20:29: „Schultern runder, kein Kasten“; Standbild 21:05): die oberste Reihe lag überall auf der
+    # Höhe zt (drei Viertel vom Schultergelenk zum Hals), auch außen über der Schulter, wo die Haut viel tiefer liegt: das Tuch stand
+    # dort als Ecke ab. Jetzt fällt der Kragen nach außen wie der Trapezmuskel, außen bis knapp über das Schultergelenk; nach unten bis
+    # zm ausgeblendet
+    fall = float(os.environ.get('TUCH_SCHULTER_FALL', '1.0')) * max(zt - (zs + 0.025), 0.0)
+    ZZ = np.repeat(zz[:, None], NT, 1)
     for i, z in enumerate(zz):
+        a_ = smooth(float(np.clip((z - zm) / max(zt - zm, 1e-3), 0, 1)))
+        ZZ[i] = z - fall * a_ * np.abs(tt) ** 1.6
+    for i, z0 in enumerate(zz):
+        z = z0
         a = smooth(float(np.clip((zt - z) / max(zt - zu, 1e-3), 0, 1)))
         tm = np.radians(WINKEL_OBEN + (WINKEL_UNTEN - WINKEL_OBEN) * a)
         for k, t in enumerate(tt):
             th = t * tm; TH[i, k] = th
             d = Vector((zeichen * math.sin(th), math.cos(th), 0.0))
-            c = Vector((mx, cy, z))
+            c = Vector((mx, cy, ZZ[i, k]))
             # im Stehen hängen die Arme an der Seite: Strahl auch gegen sie (TUCH_STRAHL=rumpf: ohne Arme), sonst laufen die Ränder
             # unterhalb des Kragens durch den Oberarm (Messung 18:04: 3,5 cm)
             h = (bv if STRAHL == 'rumpf' else bvv).ray_cast(c + d * 1.5, -d, 1.5)
@@ -221,7 +231,7 @@ def tuch(arm, kleid, netze, teilnamen, koerper_glb):
     falte = 0.008 * np.clip((zs - zz) / 0.3, 0, 1)[:, None] * np.cos(tt * 7 * math.pi)[None, :]
     r = r + np.maximum(falte, 0) * 1.0 + np.minimum(falte, 0) * 0.5
     G = np.zeros((NZ, NT, 3))
-    G[..., 0] = mx + zeichen * r * np.sin(TH); G[..., 1] = cy + r * np.cos(TH); G[..., 2] = zz[:, None]
+    G[..., 0] = mx + zeichen * r * np.sin(TH); G[..., 1] = cy + r * np.cos(TH); G[..., 2] = ZZ
     # Kragen liegt auf: oben je Ecke KRAGEN über der nächsten Hautstelle (längs ihrer Normale), nach unten bis zm ausgeblendet; dann
     # glätten und spiegeln, dreimal
     wz = smooth(np.clip((zz - (zm - 0.05)) / 0.05, 0, 1))
@@ -373,8 +383,8 @@ def spange(kleid, teilnamen, A_r, B_r):
 
 
 def netz_ersetzen(kleid, ui, A2, B2, teil):
-    # alter Umhang (aus rig.py, ausgedünnt) weg, neuer als Gitter mit zwei Lagen und geschlossenem Rand hinein; Bildkoordinaten und
-    # Farbe (albedo) vom nächsten Punkt des alten Umhangs (gleiche Stelle am Körper, gleicher Stoff im Atlas)
+    # alter Umhang (aus rig.py, ausgedünnt) weg, neuer als Gitter mit zwei Lagen und geschlossenem Rand hinein; Bildkoordinaten auf
+    # der Stoffbahn des alten Umhangs im Atlas (unten)
     me = kleid.data; M = kleid.matrix_world; inv = M.inverted()
     alt_v = [M @ v.co for v in me.vertices]
     alb = me.attributes['albedo']; uvl = me.uv_layers.active.data
@@ -406,22 +416,6 @@ def netz_ersetzen(kleid, ui, A2, B2, teil):
     gross = set(max(inseln, key=lambda g: sum(me.polygons[i].area for i in g)))
     altf = [f for f in altf if f.index in gross]
     print('TUCH Inseln', len(inseln), 'groesste', len(gross), 'Flaechen')
-    bv = BVHTree.FromPolygons(alt_v, [tuple(p.vertices) for p in altf])
-    def probe(p):
-        h = bv.find_nearest(Vector(p))
-        f = altf[h[2]]; q = h[0]
-        pts = [alt_v[i] for i in f.vertices]
-        from mathutils.geometry import barycentric_transform
-        uvs = [Vector(tuple(uvl[li].uv) + (0.0,)) for li in f.loop_indices]
-        # Dreieck (bei Vierecken die Hälfte, in der q liegt)
-        tri = [0, 1, 2]
-        if len(pts) == 4:
-            from mathutils.geometry import intersect_point_tri
-            if intersect_point_tri(q, pts[0], pts[1], pts[2]) is None: tri = [0, 2, 3]
-        a, b, c = tri
-        uv = barycentric_transform(q, pts[a], pts[b], pts[c], uvs[a], uvs[b], uvs[c])
-        col = ALB[list(f.vertices)].mean(0)
-        return Vector((uv.x, uv.y)), col
     bm = bmesh.new(); bm.from_mesh(me)
     bm.verts.ensure_lookup_table()
     bmesh.ops.delete(bm, geom=[bm.verts[int(i)] for i in ui], context='VERTS')
@@ -431,12 +425,24 @@ def netz_ersetzen(kleid, ui, A2, B2, teil):
     for L in (A2, B2):
         g = [[bm.verts.new(inv @ Vector(L[i, k])) for k in range(nt)] for i in range(nz)]
         lagen.append(g)
+    # 431 Tuch, letzter Lauf (Sokrates 20:29: „Atlasflecken im Stoff weg“; Standbild 21:05: Stufen und Flecken, weil jede Ecke die
+    # Bildkoordinate der nächsten Stelle des alten, zerknitterten Umhangs nahm): das Gitter liegt jetzt geordnet auf der Stoffbahn im
+    # Atlas (größte Insel), Spalte k quer über die Bahn, Reihe i von oben (Kragen) nach unten (Saum); oben ohne die schmale Spitze der
+    # Bahn, rundum etwas Rand. Eine Farbe (albedo) für das ganze Tuch, das Mittel der Bahn
+    uvs_i = np.array([uvl[li].uv[:] for f in altf for li in f.loop_indices])
+    u0, v0 = uvs_i.min(0); u1, v1 = uvs_i.max(0)
+    du_, dv_ = u1 - u0, v1 - v0
+    u0, u1 = u0 + 0.06 * du_, u1 - 0.06 * du_
+    v0, v1 = v0 + 0.04 * dv_, v1 - float(os.environ.get('TUCH_UV_OBEN', '0.14')) * dv_
+    col_m = tuple(ALB[sorted({i for f in altf for i in f.vertices})].mean(0))
+    print('TUCH Bahn im Atlas u %.4f..%.4f v %.4f..%.4f' % (u0, u1, v0, v1))
     probe_v = {}
     for L, g in zip((A2, B2), lagen):
         for i in range(nz):
             for k in range(nt):
-                uv, col = probe(L[i, k]); v = g[i][k]
-                v[lt] = teil; v[lc] = tuple(col); probe_v[v] = uv
+                v = g[i][k]
+                v[lt] = teil; v[lc] = col_m
+                probe_v[v] = Vector((u0 + (u1 - u0) * k / (nt - 1), v1 - (v1 - v0) * i / (nz - 1)))
     neu_f = []
     def flaeche(vs):
         f = bm.faces.new(vs); f.material_index = 0; neu_f.append(f)

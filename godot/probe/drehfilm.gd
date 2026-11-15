@@ -706,25 +706,80 @@ func _film_431u() -> void:
 		print("FILM 431u %s %s: Kette gespiegelt %.2f cm, Gewichte gespiegelt %.3f (größter %.3f), Arm und Bein %.0f %% (vorher %.0f %%), Abstand %.1f cm (kleinster %.1f)" % [
 			e["volk"], "Frau" if e["frau"] else "Mann", e["kette_spiegel_cm"], e["gewicht_spiegel_mittel"], e["gewicht_spiegel_max"],
 			100.0 * float(e["arm_bein_anteil"]), 100.0 * float(e["arm_bein_anteil_vorher"]), e["abstand_mittel_cm"], e["abstand_min_cm"]])
-	ablauf.append([0.0, _umhang_431u.bind("Idle_Loop", "1 · im Stehen, ohne Schild", false)])   # Lauf 9: Umhang allein
-	ablauf.append([7.5, _umhang_431u.bind("Walk_Loop", "2 · im Gehen, ohne Schild", false)])   # Chef 14:32: nur der Prüfgegenstand
-	ablauf.append([15.0, func(): get_tree().quit()])
+	# 431 Tuch, letzter Lauf (Sokrates 15.11., 20:29, Bedingung 3): nur der Umhang, ohne Schild; alle Völker Mann und Frau, je Teil erst
+	# von hinten, dann von der Seite; Stehen, Gehen, Hieb; vorweg einmal alt (Lauf 11, UMHANG_ALT) gegen neu nebeneinander. Je Teil 3,5 s
+	# (Film bis 15 s, 1076)
+	var t := 0.0
+	if umhang_alt != "" and FileAccess.file_exists(umhang_alt.path_join("kleiderschrank.json")):
+		ablauf.append([t, _alt_neu_431u]); t += T431
+	else: print("FILM 431u ohne alt (UMHANG_ALT)")
+	for teil in [["Idle_Loop", "im Stehen"], ["Walk_Loop", "im Gehen"], ["Sword_Attack", "beim Hieb"]]:
+		ablauf.append([t, _umhang_431u.bind(String(teil[0]), String(teil[1]))])
+		ablauf.append([t + T431 / 2.0, _seite_431u])
+		t += T431
+	ablauf.append([t, func(): get_tree().quit()])
 
 
-func _umhang_431u(bewegung: String, teil: String, ruestung: bool) -> void:
-	_neuer_teil("431 · Kleiderschrank Stufe 1: Umhang an eigener Federkette auf jedem Volkskörper · " + teil)
+const T431 := 3.5
+var umhang_alt := OS.get_environment("UMHANG_ALT")
+
+
+func _umhang_431u(bewegung: String, teil: String) -> void:
+	_neuer_teil("431 · Umhang aus dem Kleiderschrank auf jedem Volkskörper, %s · erst von hinten, dann von der Seite" % teil)
 	var h := (HOEHE - OBEN) / 2.0
-	var dreh := 2.0 / 7.5   # zwei ganze Drehungen je Teil, Rücken zuerst
 	for g in [["mann", "Männer", 0.0], ["frau", "Frauen", 20.0]]:
 		var liste := _liste(String(g[0]))
-		var figs := _reihe(Rect2(Vector2(0, OBEN + (h if g[0] == "frau" else 0.0)), Vector2(BREITE, h)), liste, float(g[2]), dreh, false, String(g[1]), 0, bewegung)
+		var figs := _reihe(Rect2(Vector2(0, OBEN + (h if g[0] == "frau" else 0.0)), Vector2(BREITE, h)), liste, float(g[2]), 0.0, false, String(g[1]), 0, bewegung)
 		for f in figs:
 			(f as Node3D).rotation.y = PI   # Rücken zur Kamera
-			var sk := B.skelett(f)
-			var sim := Umhang.an(f, sk)
-			if sim == null: print("FILM FEHLER 431u ohne Kette"); continue
-			if ruestung: _ruestung(f, sk, sim)
-			print("FILM 431u Feder %s: %d Ketten, %d Kapseln" % [f.name, sim.setting_count, sim.get_child_count()])
+			_kette_431u(f)
+
+
+func _kette_431u(f: Node3D) -> void:
+	var sim := Umhang.an(f, B.skelett(f))
+	if sim == null: print("FILM FEHLER 431u ohne Kette"); return
+	print("FILM 431u Feder %s: %d Ketten, %d Kapseln" % [f.name, sim.setting_count, sim.get_child_count()])
+
+
+# von hinten zur Seite (linke Schulter zur Kamera), ohne Drehung dazwischen: die Feder schwingt nicht nach
+func _seite_431u() -> void:
+	for r in rahmen:
+		if is_instance_valid(r[1]): (r[1] as Node3D).rotation.y = PI / 2.0
+
+
+# alt (Lauf 11, Umhang aus kauf_kleid.py) gegen neu (Tuch) am Menschen, Mann und Frau, im Stehen
+func _alt_neu_431u() -> void:
+	_neuer_teil("431 · alt (Lauf 11) gegen neu (Tuch): Mensch im Stehen · erst von hinten, dann von der Seite")
+	ablauf.append([zeit + T431 / 2.0, _seite_431u])
+	var h := (HOEHE - OBEN) / 2.0
+	var jalt: Variant = JSON.parse_string(FileAccess.get_file_as_string(umhang_alt.path_join("kleiderschrank.json")))
+	var alt := {}
+	for e in jalt["koerper"]:
+		if e["volk"] == "Mensch": alt["frau" if e["frau"] else "mann"] = e
+	for g in [["mann", "Mann", 60.0], ["frau", "Frau", 80.0]]:
+		var neu: Dictionary = voelker.get("Mensch/" + String(g[0]), {})
+		var a: Dictionary = alt.get(String(g[0]), {})
+		if neu.is_empty() or a.is_empty(): print("FILM FEHLER 431u alt/neu fehlt ", g[0]); continue
+		var r := Rect2(Vector2(0, OBEN + (h if g[0] == "frau" else 0.0)), Vector2(BREITE, h))
+		var hoch := 2.6
+		var feld := _feld(r, hoch)
+		var cam: Camera3D = feld[0]
+		var x0 := float(g[2])
+		cam.position = Vector3(x0 + 0.6, hoch / 2.0 - 0.15, 8.0)
+		_boden(Vector3(x0 + 0.6, 0, 0), 3.0, 1.6)
+		for i in 2:
+			var pfad := (umhang_alt if i == 0 else umhang_dir).path_join(String((a if i == 0 else neu)["datei"]))
+			var f := _figur(pfad, Vector3(x0 + i * 1.2, 0, 0))
+			if f == null: continue
+			_bewegt(f, ["Idle_Loop"])
+			f.rotation.y = PI
+			_kette_431u(f)
+			rahmen.append([cam, f, _hoehe(f), pfad.get_file()])
+			var l := _text(feld[1], "alt" if i == 0 else "neu", Vector2.ZERO, 30, GOLD)
+			l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			l.size = Vector2(r.size.x / 2.0, 40)
+			l.position = Vector2(cam.unproject_position(Vector3(x0 + i * 1.2, 0, 0)).x - l.size.x / 2.0, r.size.y - 60)
+		_text(feld[1], "Mensch " + String(g[1]), Vector2(14, 8), 26, GOLD)
 
 
 ## Schild und Schwert auf dem Rücken über dem Umhang, so wie das Spiel sie hängt (HeldFigur.bewaffne: Rückenlinie aus der Haut samt
