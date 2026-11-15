@@ -39,6 +39,15 @@ float vnoise(vec2 p) {
 	vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
 	return mix(mix(h21(i), h21(i + vec2(1, 0)), f.x), mix(h21(i + vec2(0, 1)), h21(i + vec2(1, 1)), f.x), f.y);
 }
+// 1289: Leuchten (EMISSION) wie im Renderer Compatibility, in dem alles abgenommen wurde (dort wirkt es wie sRGB, in mobile linear,
+// gemessen an den Kristallen der Blutzahnhöhle: ohne Umrechnung in mobile etwa achtmal so hell)
+vec3 eckfarbe(vec3 c) {
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+	return c;
+#else
+	return mix(pow((c + vec3(0.055)) * (1.0 / 1.055), vec3(2.4)), c * (1.0 / 12.92), lessThan(c, vec3(0.04045)));
+#endif
+}
 void fragment() {
 	vec4 m = texture(maske, (wpos.xz + rand_m) / (karte + 2.0 * rand_m));   // 505c: Maske reicht rand_m ueber den Rand (dorf.py RAND_E)
 	// 1022 (Chef: „Weg offen bis an den Bildrand“): die Maske setzt die Randkachel fort, der Boden draussen im Schatten wie unter Baeumen
@@ -73,7 +82,7 @@ void fragment() {
 			vec2 d = (wpos.xz - inseln[i].xy) / inseln[i].z;
 			k += inseln[i].w * exp(-3.5 * dot(d, d));
 		}
-		EMISSION = (col + vec3(0.05, 0.03, 0.008)) * insel_farbe * min(k, 1.6) * insel_kraft * night;   // etwas eigenes Warm, sonst nur Gruen aufgehellt
+		EMISSION = eckfarbe((col + vec3(0.05, 0.03, 0.008)) * insel_farbe * min(k, 1.6) * insel_kraft * night);   // etwas eigenes Warm, sonst nur Gruen aufgehellt
 	}
 	ROUGHNESS = 1.0; SPECULAR = 0.0; METALLIC = 0.0;
 }
