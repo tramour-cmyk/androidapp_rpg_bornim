@@ -124,3 +124,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:37 15.11.: Jerry 760, 1000 (stärkstes Modell) `…78vVh9TarMqMiBZ1pM` gestartet; Jerry 1215 `…77868z8tGPx6d9vJF1` fertig, bleibt offen bis Urteil des Chefs
 - 13:43 15.11.: Startsperre 13:43 Start Sokrates (Neustart, 7f244b96b)
 - 13:43 15.11.: Sokrates neu `…79enQhUTdgTcHDC329`; alt `…76h9DLKywqNeh4ZJF8` bleibt, bis Sokrates abschalten sagt (Wecker 15:35 muss erst umziehen); im Lauf `--ohne` nicht nötig, `--wecker` für beide Sokrates-Kennungen
+- 13:46 15.11.: Sokrates alt `…76h9DLKywqNeh4ZJF8` archiviert (6,48 $ auf 431, 481, 1215, 760, 1000); Wecker 15:35 neu `trig_015fPVKTbEBVXWP8uNFZhhTP` auf `…79enQhUTdgTcHDC329`
