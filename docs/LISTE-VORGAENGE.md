@@ -237,6 +237,7 @@
 | 1328.2 | Von Perikles (1328.1): Spike in Sperre 620.1 B und gemeinsamen Build einbeziehen (startbar.UEBERNAHME, ungetestet, Zählzeile „Gemeinsamer Build“); Übernahme zwischen Teams für Spike klären | Perikles | K | gebaut, Geprüft an: ae0fe0669 | – | – | – | B Werkzeuge | – |
 | Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 1346 | Von Homer (1264, 15.11., 10:10): vorgang.py fertig und stand brechen bei Besitzer „Ideen“ ab (startbar.lesen öffnet docs/ als Datei) | Perikles | K | erledigt | – | – | – | B Werkzeuge | – |
+| 1347 | Spikes Vorrat füllen: 698 (Grafikstufen, M) und 1145 (Höhle 45 statt 90 Bilder/s, K) von Tom an Spike? (Chef 15.11., 22:32 „Spike-Sache geklärt, dass er arbeiten kann?“) | Perikles | M | Chef | Chef | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | K | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
