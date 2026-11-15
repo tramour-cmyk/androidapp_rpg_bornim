@@ -99,7 +99,7 @@
 | 642 | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 Seeds 1, 3 am Rechner; im Bau misst nur Seed 7), auch mit altem Heldentempo; von Jerry zu 438 | Jerry | M | ruht, Kaufrepo da (818), Ursache vermutet | 23.11. | claude/jerry-348-642-wolf-abstand | – | E Kampf | 6,63 $ |
 | 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | Jerry | K | ruht | 23.11. | claude/jerry-438a-sturz-2 | – | E Kampf | 24,62 $ |
 | 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | Jerry | K | ruht | 23.11. | claude/jerry-416-6-blut | – | E Technik | – |
-| 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | Jerry | M | startbar, gelöst 15.11.: 623 | – | – | – | E Kampf | 49,16 $ |
+| 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | Jerry | M | gebaut, Geprüft an: 0c1204f4b (Testmenü „Strahlen“ in jedem Build), Prüfzeile im nächsten Sammelbuild | – | – | – | E Kampf | 49,16 $ |
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann Bau (Chef 01.11., 20:2x) | Jerry | K | wartet, Abzug und Block nach BRS, dann Teil 7 neu | 469 | – | – | E Kampf | – |
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | K | ruht | 23.11. | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | K | ruht | 23.11. | claude/jerry-509-teich | – | E Welt | – |
