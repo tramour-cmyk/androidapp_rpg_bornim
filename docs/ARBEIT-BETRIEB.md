@@ -132,3 +132,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:17 15.11.: Startsperre 20:17 Start Sokrates (Neustart, 7a9652a4e); Start Homer 1320 per Weiter an …793oj9mKdUggnbqrp3 (Chef 20:15); alte Sokrates-Sitzung …77qvabdBBG25tf5poS nach Ruhe archivieren, Kosten auf 1137, 870
 - 20:26 15.11.: Startsperre 20:26 Start Homer 870.19 (Sokrates, per Weiter an …793oj9mKdUggnbqrp3, nach 1320)
 - 20:30 15.11.: Startsperre 20:30 Start Tom (Neustart, 14658a18a); alte Sitzung …78XZJpL15wP4eRaChX nach Ruhe archivieren, Kosten auf 1145, 1295
+- 20:31 15.11.: Startsperre 20:31 Start Spike 1270.3 (Sokrates 20:30, Bau Spike auf Toms Zeile, 257db57c8; neue Sitzung, alte archiviert)
