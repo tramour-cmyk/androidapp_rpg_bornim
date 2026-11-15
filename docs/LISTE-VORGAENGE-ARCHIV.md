@@ -337,7 +337,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 280.1 | Texte Kapitel 1 aus 280: Tipp beim Aufwachen, Chronik Krogg | G Story | M | – | Team Tom | erledigt |
 | 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | 20,35 $ | Tom | erledigt |
 | 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | 3,79 $ | Tom | erledigt |
-| 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
+| 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | 7,97 $ | Jerry | erledigt |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +4,61 $ | Homer | erledigt |
 | 251.4 | Logo auf Leiterbahn mit Lötaugen (Fassung C) umstellen, Papiere `docs/firma/` neu erzeugen (Chef 21.10., 22:08) | M Markt | K | – | Homer | erledigt |
 | 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +10,07 $ | Tom | erledigt |
@@ -1510,3 +1510,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 38 | Balance-Langzeitplan (alt/DESIGN-BALANCE.md, Zielkurve überholt durch das BRS, 650.2) | G Balance | K | 11,51 $ | Jerry | erledigt, geschlossen (1278) |
 | 1278 | Von Sokrates (1271a A, Chef 15.11., 11:23): Liste der angefangenen Kür ohne Plan (aus 32) mit Grund je Vorgang in chefsache/billigen/, dann schließen; Funde (14) und Abgleich alt (11) je Team zu einem Vorgang nach Stufe 4 bündeln | B Abläufe | M | 3,83 $ | Perikles | erledigt |
 | 1288a | Rückfrage Sokrates (Chef 15.11., 12:00): Kerben verstreichen lassen (a) oder eine mitnehmen (b)? | E Kampf | M | – | Sokrates | erledigt |
+| 1293 | Von Jerry: Commit-Prüfung 449 hält jede verschobene Notiz als Kaufdatei an, sobald das Kaufrepo geklont ist (im Haken gilt GIT_DIR der Arbeitskopie, git -C Kaufrepo ls-tree listet main) | B Werkzeuge | K | 1,51 $ | Perikles | erledigt, greift Lauf 252 |
+| 1294 | Werkzeugfehler: startbar.py zeigt 1128.3 startbar, obwohl es auf 1060 wartet, das auf den Bautest von Diogenes wartet (von Ford, Diogenes 15.11., 13:05) | B Werkzeuge | M | 1,51 $ | Perikles | erledigt, greift Lauf 252 |
