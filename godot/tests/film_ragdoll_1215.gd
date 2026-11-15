@@ -4,6 +4,9 @@ extends SceneTree
 # rechte mit Physik (ragdoll.gd). Je Fall ein neuer Probekampf; alle anderen Figuren sind aus dem Bild.
 # GEGNER=GOBLINS (SCOUTS, SHAMANS, KOBOLDS), FAELLE=0,1,2 … (Nummern aus FAELLE unten, ohne Angabe alle); mehrere Arten: PLAN.
 # Aufruf: im Ordner godot mit Bild und --write-movie … --fixed-fps 30 -s res://tests/film_ragdoll_1215.gd (braucht kampf/daten).
+# Der Filmmodus schreibt in der Fenstergröße des Projekts (1080×2340, hoch), --resolution gilt dort nicht: für den Film eine
+# override.cfg mit [display] window/size/viewport_width=1280, viewport_height=720 anlegen und danach löschen (Lauf 15.11., 13:04:
+# Figuren außerhalb des Bilds). Die letzten zwei Bilder je Fall zeigen schon den Abbau: beim Schneiden weglassen.
 # Je Fall meldet das Protokoll „FILM1215 Fall … Bild a bis b“ (zum Schneiden); STANDBILD=<pfad>: je Fall Bilder in acht
 # Augenblicken als PNG (zum eigenen Ansehen, ohne Film)
 
@@ -78,7 +81,7 @@ func _run() -> void:
 		p.foe = art
 		root.add_child(p)
 		ebene.visible = false
-		await process_frame
+		await _bilder(1)
 		p._start(5)
 		await _bilder(12)
 		var kf = p.fight
@@ -143,7 +146,6 @@ func _run() -> void:
 		print("FILM1215 Fall %d %s %s: Bild %d bis %d, Physik %s" % [nr, art, f[0], von_bild, bild, "ja" if (b if b != null else a).ragdoll != null else "NEIN"])
 		kf.queue_free()     # der Kampfort hängt an der Wurzel, nicht am Probekampf (sonst leuchten im nächsten Fall zwei Sonnen)
 		p.queue_free()
-		await process_frame
-		await process_frame
+		await _bilder(2)
 	print("FILM1215 fertig")
 	quit(0)
