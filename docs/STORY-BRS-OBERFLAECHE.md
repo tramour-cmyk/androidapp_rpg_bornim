@@ -43,6 +43,20 @@ Texte ohne Würfel (Wirkung und Zahl stehen in den Regelwerten und in der Meldun
 - `spider_silk` (934): Fein und zäh wie Draht, aus dem Leib einer Riesenspinne. Feuer frisst sie im Nu. Händler zahlen gut dafür. / EN: Fine and tough as wire, from the body of a giant spider. Fire consumes it in an instant. Traders pay well for it. (Feuer verbrennt die Seide, `lohn.gd` 78)
 - `spider_gland` (934): „… Morwen kann daraus Alchemistenfeuer mischen.“ → Aus einer Riesenspinne. Morwen mischt daraus Brandflaschen. / EN: From a giant spider. Morwen mixes firebottles from it. (Rezept Morwen: Brandflasche aus 1 Giftdrüse, `Recipes.kt` 17)
 
+`[1318.kurz]` Kurzzeile unter dem Namen in der Ladenliste, Kaufen und Verkaufen (Vorschlag Homer 15.11., 1318 für 785.24 Tom; wie alt `ShopScreen.kt` 244, aber ohne Würfel). Zahl {0} aus den Regelwerten, nie fest im Text: Tränke `werte.json` „welt“ „heilung“, Verband `Menue.verband_heilung` des Helden (mit Heilkunde). Klein, ohne Punkt; „TP“/„HP“ nach `STORY-REGELN.md` (3):
+
+| Ding | Deutsch | Englisch |
+| --- | --- | --- |
+| `potion`, `greater_potion`, `superior_potion` | heilt {0} TP | heals {0} HP |
+| `remedy` | heilt Zustände und {0} TP | cures conditions, heals {0} HP |
+| `bandage` | stillt Blutung, heilt {0} TP | stops bleeding, heals {0} HP |
+| `stamina_potion` | doppelter Atem bis zur Rast | double stamina until the next rest |
+| `spark_potion` | leuchtet bis zur Rast | glows until the next rest |
+| `alchemist_fire` | Feuer (wie heute `sprache.gd` „kurz“) | Fire |
+| `holy_water` | Licht, nur gegen Untote | Light, undead only |
+
+Ohne Kurzzeile: Zutaten und Beute (Kräuter, rohes Fleisch, Fell, Hauer, Drüse, Flügel, Seide). `roast_meat` (Tasche und Verkaufen): heilt {0} TP / heals {0} HP, {0} mit dem Bonus aus Kochen (`Laden.essen_bonus`). Kräutertrank ohne „alle“: im Kampf bleibt der Rausch (`mars.gd` 1579).
+
 Namen mit SRD-Herkunft (Vorschlag Homer; Text und Wirkung bleiben, nur der Name wechselt):
 
 | heute | neu |

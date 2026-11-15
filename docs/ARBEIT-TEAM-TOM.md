@@ -39,6 +39,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 785.24, von Homer (15.11., 20:08, 1318):** Kurzzeilen in `STORY-BRS-OBERFLAECHE.md` `[1318.kurz]` (fremd geprüft); {0} aus den Regelwerten, beim Verband und Braten mit der Fertigkeit des Helden. Heute fehlen „kurz“ für Ausdauertrank, Leuchtfunke, Verband, und `dinge_brs` schreibt „heilt %d“ ohne TP/HP.
 
 - **Zu 1145, von Chef (Fund t286.8, Test Build 286, Automatik B):** Chef 15.11., 13:47: Takt 60 „bringt das nicht wirklich was“ (Grafikzeit 17,6 ms, Zu 1145 bei Tom)
 - **Zu 785.8, von Chef (Fund t286.6, Test Build 286, Automatik B):** Chef 15.11., 13:53: „klappt nicht, da Quest fehlt“ (Prüflistenfehler, Zu 286.6 bei Tom: Auftrag „Feuer am Steinkreis“ nicht am Brett). Tom 18:39: Lage-Schlüssel `auftrag=`, `unerkundet=` gebaut (`ba334fc52` auf `claude/tom-785-8-lage`, enthält 785.7/785.8), Prüfzeile im nächsten Build: Lage `station=Grak auftrag=stones unerkundet=forest`, Weg wie Handyfrage oben.
