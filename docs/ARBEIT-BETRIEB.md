@@ -129,3 +129,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:35 15.11.: Startsperre 20:35 Start Sokrates (Neustart, 6167dcf7b); alte Sitzung …78f1n3XX1tbxtzBEaX nach Ruhe archivieren, Kosten auf 870, 623, 1135
 - 20:53 15.11.: Startsperre 20:53 Start Sokrates (Neustart, 502c33aaf); alte Sitzung …79vFavPLGRZ3euowMK nach Ruhe archivieren, Kosten auf 1186, 620
 - 21:04 15.11.: Startsperre 21:04 Start Perikles (lauf.py)
+- 21:12 15.11.: Startsperre 21:12 Start Jerry 1330 („jetzt“ Chef 21:07, Sokrates 21:08, 7a2846331; alte Sitzung …79o7xKBkqtEh5WECtD bei 608 Tsd. Token: neu starten, alte archivieren, Kosten 32,27 $ auf 289, 760, 1072); Tom 1329 danach in laufender Tom-Sitzung
