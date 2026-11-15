@@ -47,7 +47,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 
-**Übergabe Tuffy (15.11., 01:24, `session_01Hmoj76d3QcJwbDH1YGUuPR`):** Lauf 476 gescheitert (Tipp als langes Drücken), behoben `ab6dbac60`; Lauf 481 grün, Film an Sokrates (Zu 930.7 in `ARBEIT-BERATUNG.md`). Nach 930.7: Film an den Chef, dann Gespräch, nicht weiterbauen. Nachfolger: keiner (wartet auf Sokrates und Gespräch).
+**Übergabe Tuffy (15.11., 01:24, `session_01Hmoj76d3QcJwbDH1YGUuPR`):** 930.7 behoben `ab6dbac60`, Lauf 481 grün, Film beim Chef; Befund zu Sokrates 01:26 in `ARBEIT-BERATUNG.md`. Nachfolger: keiner (wartet auf Sokrates und Gespräch).
 
 ## Einzelheiten
 
