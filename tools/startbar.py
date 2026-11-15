@@ -52,7 +52,7 @@ def blank(t):
 
 def lesen(name):
     p = os.path.join(DOCS, name)
-    return open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+    return open(p, encoding="utf-8").read() if name and os.path.isfile(p) else ""  # Homer 1264: Besitzer ohne Vorrat („Ideen“) gab docs/
 
 def liste_merken(docs=None):
     """275 Stufe 2: nach jedem Schreiben eines Werkzeugs den Inhalt von LISTE-VORGAENGE.md merken (git hash-object, höchstens 200,
