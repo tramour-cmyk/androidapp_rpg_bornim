@@ -8,9 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1215a](entscheiden/1215a-sterben-weg.md) | **Muss** | E Kampf | 15.11., 11:20 | Vermutliche Ursache des Klumpens gefunden (Beine hängen nicht am Becken), am Nachbau belegt; Ragdoll mit einem Film nachbessern, sonst gezeichnet. | Jerry |
-| [1270a](entscheiden/1270a-ohne-umzug.md) | Kür | E Technik | 15.11., 11:10 | 1270 berührt andere Dateien als der Rest des Umzugs; darum nicht auf ihn warten, nur 1268 wartet. | Sokrates |
-| [1271a](entscheiden/1271a-kuer-schliessen.md) | Kür | B Abläufe | 15.11., 11:10 | Von 88 ruhenden Kür-Vorgängen sind nur 3 Ideen; den Berg verkleinert nur Schließen oder Bündeln. | Sokrates |
 
 ## Zu billigen
 
