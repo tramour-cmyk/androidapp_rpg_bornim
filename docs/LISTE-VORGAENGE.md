@@ -81,7 +81,6 @@
 | 1322 | Von Homer (1320, Chef 15.11., 20:15): Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; Reste siehe Zu-Absatz | Tom | M | gebaut, Geprüft an: 250043936 | – | claude/tom-870-20-srd | – | E Oberfläche | – |
 | 870.20 | Von Sokrates (870, Schritt 9, auf build-289): SRD-Reste aus den Daten (held.json grundformen schaden/ruestung, attribute alt; texte.json dinge kurz mit Würfeln), Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testerseite; Über-Text 870.19; Abnahme: Chef spielt neues Spiel bis Höhle | Tom | M | gebaut, Geprüft an: 93e3ac7a4 | – | claude/tom-870-20-srd | – | E Technik | 4,88 $ |
 | 1326 | Von Sokrates (Chef 15.11., 20:33): Build-Name (Nummer des Builds) im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | Tom | M | gebaut, Geprüft an: 8740bcaaa | – | claude/tom-870-20-srd | – | E Oberfläche | – |
-| Pflege | von Werkzeug (340.3, 15.11.): 30170 Bytes (Grenze 30000), Erledigtes streichen | Tom | K | erledigt | – | – | – | B Abläufe | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | t290 | – | – | E Technik | 9,98 $ |
 | 1321 | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m nach vorn in einen Wolf, der daneben beißt (wolf_mess_438 Kleriker); Weg wählen, Film an den Chef, dann bauen | Jerry | M | gebaut, Geprüft an: 4ce68a119 | – | claude/jerry-1321-ausweichen | – | E Kampf | 9,98 $ |
 | 1314 | Von Jerry (t289, Lauf 497 rot): Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ragdoll_1215 (Schamane 0,3 m im Boden, Grak ohne Stoß), ausholen_1000 (Axt 9 cm aus der Faust beim Gehen) beheben, vor Build 290 | Jerry | M | zu testen | – | claude/jerry-1314-rot | 290 | E Kampf | – |
@@ -159,10 +158,9 @@
 | 1336 | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1284a | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar (Seitenplatz, Kamera oder Seitenplatz wo frei)? | Jerry | M | startbar | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | erledigt | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
-| Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Homer | K | erledigt | – | – | – | B Abläufe | – |
 | 1328.1 | Von Sokrates (1328, Chef 15.11., 21:05): Spike eigene Rolle Technik (Grafiktechnik, Leistung, Programmcode): Vorrat, Zeilen, Start durch Ford ohne Warten auf Tom; Werkzeuge und Regeln umstellen · „jetzt“ 15.11., 21:12 | Perikles | M | gebaut, Geprüft an: 01ebdbde0 | – | – | – | B Abläufe | – |
 | 1334 | Von Sokrates (Chef 15.11., 21:09): Wiederholrot-Wächter: derselbe Test zum zweiten Mal rot binnen 48 h → selbst Vorgang Muss beim Besitzer; rot und grün am selben Commit → „Wackeltest“ Muss vor allem anderen; Zählung je Test im Tagesbericht · „jetzt“ 15.11., 21:19 | Perikles | M | gebaut, Geprüft an: 988fbf9cd | – | – | – | B Werkzeuge | 4,20 $ |
 | 1332 | Von Sokrates (Chef 15.11., 21:07): „zu testen, ohne Rückmeldung“ nie liegen lassen: sofort startbar für den Besitzer (wie 1312), Prüfliste ohne diese Zeilen hält an, Überblick nicht mehr „liegt bei dir“ | Perikles | M | gebaut, Geprüft an: 0ed43e45e | – | – | – | B Abläufe | 4,20 $ |
@@ -192,7 +190,6 @@
 | 1317 | Von Jerry (1314): probelauf.py hält MESS= für ausholen_1000 an (Test enthält save_png nur hinter BILD_1000 und ohne --headless); ein --headless-Lauf legt kein Bild ab, darf als Messlauf gelten | Perikles | M | gebaut, Geprüft an: d03c528de | – | – | – | B Werkzeuge | 4,20 $ |
 | 1324 | Von Tom (PR #207): pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die Prüfliste nach dem Test archiviert ist; nach den Reverts aus Regel 12 wird der Build so nie grün (Lauf 499, 500). Ausnahme oder Prüfung nach Archiv? | Perikles | M | gebaut, Geprüft an: 401c917a8 | – | – | – | B Werkzeuge | – |
 | 1328.2 | Von Perikles (1328.1): Spike in Sperre 620.1 B und gemeinsamen Build einbeziehen (startbar.UEBERNAHME, ungetestet, Zählzeile „Gemeinsamer Build“); Übernahme zwischen Teams für Spike klären | Perikles | K | gebaut, Geprüft an: ae0fe0669 | – | – | – | B Werkzeuge | – |
-| Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | startbar, gelöst 09.11.: 09.11. | – | – | – | B Abläufe | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | K | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
@@ -236,14 +233,13 @@
 | 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | 1268.1, 1268.2, 1268.3 | – | – | E Technik | – |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | 1270.3, 1270.4 | – | – | E Technik | 3,04 $ |
 | 1288 | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lücke 930.5 (falsche Haltung kostet zu wenig) (Chef 15.11., 12:00) | Sokrates | M | startbar, gelöst 15.11.: 1266 | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | erledigt | – | – | – | B Abläufe | – |
 | 1350 | Systemlösung? Halt: 13 frühere Vorgänge (653, 872, 967, 1208, 640 …), neu 1349; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
+| Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | K | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
-| Pflege | von Werkzeug (340.3, 15.11.): 30053 Bytes (Grenze 30000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
