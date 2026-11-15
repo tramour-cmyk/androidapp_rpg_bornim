@@ -237,7 +237,18 @@ func held() -> void:
 		l.custom_minimum_size.x = 56 * DP
 		l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(l)
+		# 785.1 (MenuScreen.kt 633–637): der Anteil der Ausruestung am Wert blau daneben; ohne Stern, seit 644b A gibt es keinen Deckel
+		var plus := hw.ausruestungs_bonus(g)
+		var b := Stil.txt(("%+d" % plus) if plus != 0 else "", 14, BLAU, true)
+		b.name = "Ausruestung_" + String(g)
+		b.autowrap_mode = TextServer.AUTOWRAP_OFF
+		b.custom_minimum_size.x = 30 * DP
+		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(b)
 		inhalt.add_child(r)
+	# 785.1 (MenuScreen.kt 650–651): Satz zur Farbe wie alt; der Satz zur Obergrenze entfaellt (644b A, Chef 12.11., 13:40: kein Deckel)
+	if BrsHeld.grundwerte().any(func(g): return hw.ausruestungs_bonus(String(g)) != 0):
+		zeile("Blau: Bonus durch Ausrüstung (im Wert enthalten)" if de else "Blue: bonus from gear (included in the score)", 12, BLAU).name = "Ausruestung_Satz"
 	luecke(10)
 	fertigkeiten_kurz()
 	if hw.merkmal() != "": zeile(hw.merkmal(), 14, Stil.GOLD)

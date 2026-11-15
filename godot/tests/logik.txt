@@ -101,6 +101,7 @@ spielstaende_529
 laden_525
 laden_582
 held_karte_528
+anteil_7851
 dorf_sued_612
 ring_vergleich_557
 knopf_630
