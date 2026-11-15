@@ -11,7 +11,9 @@ Eine Reaktion auf eine Meldung mit genau einem Vorgang ist eindeutig; mit mehrer
 Bedeutung (Chef 15:00): 👍 = gebilligt, passt; ✅ = erledigt; 👎 = falsch (1217, Chef 13.11., 20:01).
 Prüfpunkte (1217): eine Meldung „t<n>.<Punkt>: …“ (meldung.sh) ist ein Punkt der Prüfliste t<n>; 👍/👎 darauf liest
 vorgang.py build <n> als ✓/✗ (pruefpunkte()); offen stehen sie je Build in einer Zeile, bis das Archiv „t<n> getestet“ trägt. Den Archiveintrag mit Wortlaut „👍 (Telegram, HH:MM)“
-und „Nachricht <Kennung>“ schreibt der Absender der Meldung; bis dahin zeigt notiz.sh die Reaktion als offen,
+und „Nachricht <Kennung>“ schreibt jede Sitzung, die die Reaktion sieht (1228, Chef 13.11., 21:22: „jeder, der sieht, das erledigt“), dazu Datei
+der Chefsache weg und Stand; steht die Kennung schon im Archiv, nichts (Commit-Prüfung hält doppelte an). Fords Stundenlauf zeigt sie als
+URTEIL-Zeilen (offene_urteile()). Bis dahin zeigt notiz.sh die Reaktion als offen,
 ohne Zeitgrenze (Sokrates 17:03: eine Anzeige allein trug 21 Minuten nichts ein). Das Werkzeug schreibt nichts nach docs/.
 Ohne TELEGRAM_BOT_TOKEN oder ohne Netz: still nichts (notiz.sh ruft es bei jedem Aufruf).
 """
@@ -140,14 +142,13 @@ def pruefpunkte(n):
     return aus
 
 
-def zeigen(minuten):
-    """Zuordnung beim Zeigen aus meldungen.tsv (auch für früher ohne Zuordnung abgelegte Zeilen).
-    Offen bleibt ein 👍/✅ auf eine zugeordnete Meldung, bis ein Archiveintrag „Nachricht <Kennung>“ nennt, ohne Zeitgrenze."""
+def offen_liste():
+    """(offen, zeilen, kennung): offen bleibt ein 👍/✅/👎 auf eine zugeordnete Meldung, bis ein Archiveintrag „Nachricht <Kennung>“
+    nennt (Prüfpunkte: bis „t<n> getestet“), ohne Zeitgrenze."""
     import re
     _, alt = zweig_lesen(ZWEIG, "reaktionen.tsv")
     kennung = meldungen_je_kennung()
     archiv = archiv_text()
-    grenze = (datetime.datetime.now(BERLIN) - datetime.timedelta(minutes=minuten)).strftime("%Y-%m-%d %H:%M")
     zeilen = [l.split("\t") for l in alt.splitlines() if l]
     zeilen = [z for z in zeilen if len(z) >= 8]
     letzte = {}
@@ -160,6 +161,38 @@ def zeigen(minuten):
         m = PUNKT.match(kennung[mid][1])
         if m and re.search(r"\*\*t%s\b[^*]*getestet" % m.group(1), archiv): continue   # 1217: Build ausgewertet
         offen.append(z)
+    return offen, zeilen, kennung
+
+
+def ohne_wort(z, zeilen):
+    """1301 (Chef 15.11., 16:54: „vielleicht kommt ja jemand auch auf die Idee noch zu fragen, was an 760 falsch war“): ein 👎 auf eine
+    Meldung ohne Prüfpunkt, nach dem binnen 15 Minuten keine Nachricht des Chefs kam (als Antwort darauf oder ohne Bezug)."""
+    if "👎" not in z[3]: return False
+    bis = (datetime.datetime.strptime(z[1], "%Y-%m-%d %H:%M") + datetime.timedelta(minutes=15)).strftime("%Y-%m-%d %H:%M")
+    return not any(n[2] == "nachricht" and z[1] <= n[1] <= bis and n[4] in ("", z[4]) for n in zeilen)
+
+
+FRAGE = " – ohne Wort: im selben Zug nachfragen, was falsch ist (tools/meldung.sh --frage %s <Name> \"<Nr>: …?\"), Antwort mit in den Eintrag (1301)"
+
+
+def offene_urteile():
+    """1228: offene Urteile ohne Prüfpunkte als Text je Zeile, für Fords Stundenlauf (lauf.py URTEIL)."""
+    offen, zeilen, kennung = offen_liste()
+    aus = []
+    for z in sorted(offen, key=lambda z: z[1]):
+        mwann, nrn, name = kennung[z[4]]
+        if PUNKT.match(nrn): continue
+        sinn = "erledigt" if "✅" in z[3] else "falsch" if "👎" in z[3] else "gebilligt" if "👍" in z[3] else "Reaktion"
+        aus.append("%s.%s., %s %s auf Meldung %s %s zu %s%s = %s, Nachricht %s" % (z[1][8:10], z[1][5:7], z[1][11:], z[3], name, mwann[11:], nrn,
+                                                                         " (mehrdeutig)" if "," in nrn else "", sinn, z[4])
+                   + (FRAGE % z[4] if ohne_wort(z, zeilen) else ""))
+    return aus
+
+
+def zeigen(minuten):
+    """Zuordnung beim Zeigen aus meldungen.tsv (auch für früher ohne Zuordnung abgelegte Zeilen)."""
+    offen, zeilen, kennung = offen_liste()
+    grenze = (datetime.datetime.now(BERLIN) - datetime.timedelta(minutes=minuten)).strftime("%Y-%m-%d %H:%M")
     neu = [z for z in zeilen if z[1] >= grenze and z not in offen]
     if not offen and not neu: return
 
@@ -169,7 +202,7 @@ def zeigen(minuten):
             return "Meldung %s %s zu %s%s" % (name, mwann[11:], nrn, " (mehrdeutig)" if "," in nrn else "")
         return "Nachricht %s, ohne Zuordnung" % mid if mid else ""
     if offen:
-        print("Telegram, offen (658; der Absender der Meldung trägt ins Vorgangsarchiv ein, mit „Nachricht <Kennung>“, dann ist es weg):")
+        print("Telegram, offen (658, 1228: wer es sieht, trägt ins Vorgangsarchiv ein, mit „Nachricht <Kennung>“, Datei der Chefsache weg; dann ist es weg):")
         punkte = {}
         for z in sorted(offen, key=lambda z: z[1]):
             mwann, nrn, name = kennung[z[4]]
@@ -179,7 +212,8 @@ def zeigen(minuten):
                 continue
             sinn = "erledigt" if "✅" in z[3] else "falsch" if "👎" in z[3] else "gebilligt" if "👍" in z[3] else "Reaktion"
             tag = "%s.%s., %s" % (z[1][8:10], z[1][5:7], z[1][11:])
-            print("  → %s: %s %s %s = %s, Nachricht %s" % (name, tag, z[3], bezug(z[4]), sinn, z[4]))
+            print("  → %s: %s %s %s = %s, Nachricht %s%s" % (name, tag, z[3], bezug(z[4]), sinn, z[4],
+                                                           FRAGE % z[4] if ohne_wort(z, zeilen) else ""))
         for (name, n), ps in sorted(punkte.items()):
             print("  → %s: Prüfliste t%s auf Telegram (👍 passt, 👎 falsch; vorgang.py build %s liest sie): %s" % (name, n, n, ", ".join(ps)))
     if neu:

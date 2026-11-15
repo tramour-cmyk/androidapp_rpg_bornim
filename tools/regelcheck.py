@@ -8,7 +8,7 @@ Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), 
 nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
 Inhaltliche Widersprüche sieht das Skript nicht. Exit 1, wenn etwas gefunden wurde.
 """
-import os, re, sys, glob, subprocess, time
+import os, re, sys, glob, json, subprocess, time
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 DOCS = os.path.join(ROOT, "docs")
@@ -193,12 +193,36 @@ for p in quellen:
 # 4b. Lizenzhinweis SRD (446; Chef 01.11., 09:41, 413a): alte Namen aus Nachschlagewerk Abschnitt 12 („Alt“) im Godot-Spiel (ohne tests/).
 # Solange einer steht: Meldezeile (kein Fund); fehlt dann der Hinweis „SRD 5.1 · CC BY 4.0“ im Hauptmenü oder README: Fund (Lizenz).
 # Allgemeine Wörter (Schild, Vorteil, Nachteil) sieht die Suche nicht; Monsterwerte und Zaubertexte auch nicht: die prüft ein Mensch vor dem Wegfall.
+def ohne_kommentar_gd(text):
+    """GDScript ohne Kommentare: ab „#“ ausserhalb einer Zeichenkette bis Zeilenende (870.13)."""
+    aus = []
+    for z in text.split("\n"):
+        q, i = None, 0
+        while i < len(z):
+            c = z[i]
+            if q:
+                if c == "\\": i += 1
+                elif c == q: q = None
+            elif c in "\"'": q = c
+            elif c == "#": z = z[:i]; break
+            i += 1
+        aus.append(z)
+    return "\n".join(aus)
+
+def ohne_info_json(text):
+    """JSON ohne Felder, deren Schlüssel mit „_“ beginnt (870.13); unlesbar: unverändert."""
+    try: d = json.loads(text)
+    except ValueError: return text
+    weg = lambda x: {k: weg(v) for k, v in x.items() if not str(k).startswith("_")} if isinstance(x, dict) else [weg(v) for v in x] if isinstance(x, list) else x
+    return json.dumps(weg(d), ensure_ascii=False)
+
 nw = os.path.join(DOCS, "DESIGN-BRS.md")
-abschnitt = lesen(nw).split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in lesen(nw) else ""
+abschnitt =lesen(nw).split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in lesen(nw) else ""
 srd = []
 for z in abschnitt.splitlines():
     s = [x.strip() for x in z.split("|")]
     if len(s) < 4 or s[1] in ("Alt", "---", ""): continue
+    if "Entwurf" in s[1]: continue   # 870.13: Umbenennung eigener Entwürfe (Glut), nichts aus dem SRD
     for n in re.split(r"[,/]", re.sub(r"\s*\(.*?\)", "", s[1])):
         n = re.sub(r"^Klassen\s+", "", n.strip())
         if n and n not in ("Schild", "Vorteil", "Nachteil"): srd.append(n)
@@ -212,7 +236,10 @@ else:
         if "tests" in os.path.relpath(d, ROOT).split(os.sep): continue
         for f in fs:
             if not f.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")): continue
-            for m in muster.finditer(lesen(os.path.join(d, f))): treffer.setdefault(m.group(1), set()).add(f)
+            text = lesen(os.path.join(d, f))
+            if f.endswith(".gd"): text = ohne_kommentar_gd(text)   # 870.13: Kommentare sieht kein Spieler (Export als Bytecode ohne sie)
+            if f.endswith(".json"): text = ohne_info_json(text)     # 870.13: Felder „_…“ sind Quellenangaben, kein Spieltext
+            for m in muster.finditer(text): treffer.setdefault(m.group(1), set()).add(f)
     if treffer:
         srd_info = "Lizenzhinweis SRD bleibt (446): %d alte Namen aus Nachschlagewerk 12 im Godot-Spiel, z. B. %s" % (
             len(treffer), ", ".join("%s (%d)" % (n, len(fs)) for n, fs in sorted(treffer.items(), key=lambda x: -len(x[1]))[:6]))

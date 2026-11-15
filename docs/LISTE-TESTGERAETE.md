@@ -26,6 +26,33 @@ Letzte Fehlermeldungen: keine
 
 Dazu (Chef, Fotos 19:32, 19:36, mit allen Proben an): Dorfbach 33 Bilder/s, Grafik 1793 MB; Flüsterwald am Teich 25 Bilder/s (95 % unter 41,7 ms), Grafik 2006 MB. Lesart (Sokrates): ohne Fehler, keine Pause über 50 ms in 10 s; welche Proben bei diesen Angaben an waren, ist offen (Grafik 505 MB statt 2 GB).
 
+## Chef, A56, Build 286 (0.348.473), Messweg 1270.1, Kompatibilitäts-Renderer (15.11., 12:02–12:09)
+
+Grafik: „ANGLE ((Samsung Xclipse 540) on Vulkan 1.3.304), gl_compatibility“ (am 08.11. „mobile“; Ursache Knopf der Strahlprobe oder Vulkan-Rückfall, offen). Fünf Texte des Chefs, Auszug:
+
+| Schritt | Bilder/s (langsamstes 1 %) | Laden | Zeichenaufrufe, Dreiecke |
+|---|---|---|---|
+| Dorf 19/16 | 25 (50 ms) | 5106 ms | 551, 2604k |
+| Wald 9/10 | 24 (45 ms) | 2651 ms, Blende bereit 8,0 s | 425, 2959k |
+| Kampf 1 (Späher, Teich), 106 s | 12 (93 ms), 1244 Bilder über 50 ms | Kampfort bereit 1,2 s | höchstens 222, 351k, 546 MB |
+| Kampf 2 (Ratte, Lichtung), 131 s | 12 (93 ms), 1576 Bilder über 50 ms | Kampfort bereit 0,7 s | höchstens 200, 330k, 533 MB |
+| Höhle 17/14 | 51 (24 ms) | 2160 ms, Blende bereit 7,2 s | 908, 307k |
+
+Lesart (Spike): Laden des Kampfs kalt 1,2 s, warm 0,7 s, also kein Engpass; der Kampf läuft mit halb so vielen Zeichenaufrufen und einem Achtel der Dreiecke der Welt bei der halben Bildrate, das spricht für teure Bildpunkte (Shader, Nachbearbeitung, Auflösung), nicht für Geometrie. Vergleich im Renderer „mobile“ folgt.
+
+## Chef, A56, Build 286, Messweg 1270.1, Renderer „mobile“ (15.11., 12:20–)
+
+Nach „Renderer wechseln“ (Strahlprobe 415) und Neustart: „Grafik: Samsung Xclipse 540 (Unknown), mobile“; Ursache des Kompatibilitäts-Renderers war also der Knopf, kein Vulkan-Rückfall.
+
+| Schritt | Bilder/s (langsamstes 1 %) | Laden | Zeichenaufrufe, Dreiecke |
+|---|---|---|---|
+| Höhle 7/16 | 63 (23 ms) | 3390 ms | 394, 188k |
+| Wald 10/27 (Text 12:24) | 18 im Schnitt der letzten 600, samt Kampf (65 ms) | 3665 ms, Blende bereit 12,7 s | 362, 2934k, 570 MB |
+| Kampf 1 (Skelett, Steinkreis), 63 s | 18 (74 ms), 1089 Bilder über 50 ms, längste Pause 137 ms | Kampfort bereit 3,0 s (kalt) | höchstens 200, 337k, 666 MB |
+| Kampf 2 (Fledermaus, Steinkreis), 47 s (Text 12:30) | 20 (66 ms), 588 Bilder über 50 ms, längste Pause 180 ms | Kampfort bereit 0,9 s (warm) | höchstens 184, 2917k (?), 642 MB |
+
+Lesart (Spike): „mobile“ gegen Kompatibilität: Höhle 63 statt 51, Kampf 18 statt 12 Bilder/s, aber kalter Kampfort 3,0 statt 1,2 s und Wald 3,7 statt 2,7 s Laden (Vulkan baut Shader beim ersten Gebrauch, dagegen 1270.3). Kampf bleibt der langsamste Ort: 200 Zeichenaufrufe und 337k Dreiecke bei 18 Bilder/s heißt teure Bildpunkte, nicht Geometrie. Grundwert A56 (A22 entfällt, Chef 12:30): Kampf 18 bis 20 Bilder/s, Kampfort kalt 3,0 s, warm 0,9 s; die 2,1 s Unterschied sind Aufbau beim ersten Gebrauch (Ziel 1270.3), die 0,9 s Laden der Figuren und des Orts (Ziel 1270.2). Offen: Kampf 2 zeigt höchstens 2917k Dreiecke statt 337k, wohl ein Bild mit der Welt dahinter (Blende); nicht nachgestellt.
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```

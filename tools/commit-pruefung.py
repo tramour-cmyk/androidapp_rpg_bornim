@@ -61,7 +61,10 @@ def kaufdateien(dat):
     wurzel = git("rev-parse", "--show-toplevel").strip()
     for k in [os.environ.get("BORNIM_KAUF", ""), os.path.join(os.path.dirname(wurzel), "bornim-kaufmodelle"), "/home/user/bornim-kaufmodelle"]:
         if k and os.path.isdir(os.path.join(k, ".git")):
-            r = subprocess.run(["git", "-C", k, "ls-tree", "-r", "HEAD"], capture_output=True, text=True).stdout
+            # 1293 (Jerry): im Haken setzt git GIT_DIR, GIT_INDEX_FILE u. ä. der Arbeitskopie; „git -C Kaufrepo“ las sonst deren HEAD,
+            # und jede verschobene Notiz galt als Kaufdatei
+            umg = {n: w for n, w in os.environ.items() if not n.startswith("GIT_")}
+            r = subprocess.run(["git", "-C", k, "ls-tree", "-r", "HEAD"], capture_output=True, text=True, env=umg).stdout
             gekauft = {z.split()[2] for z in r.splitlines() if len(z.split()) > 2} - {LEER}
             schon = {x.rsplit(" (", 1)[0] for x in raus}
             for z in git("diff", "--cached", "--raw", "--no-renames", "--no-abbrev").splitlines():
@@ -87,6 +90,10 @@ def kennungen():
                     if m: tafel.setdefault(m.group(1), set()).add(t[1])
     return tafel
 
+def kennungen_tg(text):
+    """1283: alle Telegram-Kennungen hinter „Nachricht“, auch Listen („Nachricht 4146, 4147, 4148“)."""
+    return [k for g in re.findall(r"Nachricht(?:en)?\s+(\d{3,}(?:\s*(?:,|und)\s*\d{3,})*)", text) for k in re.findall(r"\d{3,}", g)]
+
 def gueltig_pruefen(dat, stop, warn):
     """461b (Chef 01.11., 22:26, „461b ja“): neuer Archiveintrag zu einer Nummer, aus der eine Kennung A–G stammt (Spalte „Woher“), oder
     mit „Grundstand X1“/„461 X1“: im selben Commit die Zeile in DESIGN-STIL, -KAMPF oder -ABNAHME ändern; ändert der Entscheid
@@ -107,6 +114,20 @@ def gueltig_pruefen(dat, stop, warn):
     for alt in minus:  # geänderte alte Zeile: alter Text muss vorn stehen bleiben
         if alt.strip() and not any(neu.startswith(alt.rstrip()) for neu in plus):
             warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
+    for neu in plus:  # 1228: jede Sitzung trägt Telegram-Urteile ein; dieselbe Kennung zweimal ist ein Doppel
+        if neu in minus or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
+        for mid in (kennungen_tg(neu) if re.search("[👍👎✅]", neu) else []):
+            rest = alt_archiv  # 1283 (Sokrates 15.11., 11:31): Berichtigung ersetzt die Zeile mit derselben Kennung, das ist kein Doppel
+            for a in minus:
+                if a.strip(): rest = rest.replace(a, "")
+            if mid in kennungen_tg(rest) or re.search(r"Telegram\s+%s\b" % mid, rest):
+                stop.append("VORGANGSARCHIV.md: Telegram-Nachricht %s steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)" % mid)
+    for neu in plus:  # 1301 (Chef 15.11., 16:54): 👎 ohne Wort wird nicht still als „falsch“ verbucht, sondern nachgefragt
+        if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
+        if "👎" in neu and kennungen_tg(neu) and not re.match(r"- \*\*t\d+", neu) \
+                and not re.search(r"nachgefragt \d{1,2}:\d{2}|Chef\b(?:[^„:\n]|(?<=\d):(?=\d)){0,30}:\s*„[^“]{8,}“", neu):  # 1302: nur Vollzug oder Wortlaut des Chefs
+            stop.append("VORGANGSARCHIV.md: 👎 ohne Wort des Chefs; im selben Zug nachfragen (tools/meldung.sh --frage <Kennung> …), dann "
+                        "„nachgefragt HH:MM“ oder seinen Wortlaut „Chef …: „…““ in den Eintrag (1301, 1302)")
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
         if re.search(r"\b461 unverändert\b", neu): continue
@@ -299,6 +320,8 @@ def main():
             # 1159 (von Ford, zu 1148): Marke „Lauf läuft bis TT.MM., HH:MM“ im Vorrat trägt eine Zeit nach jetzt; Form und 12 h prüft lauf.py (1161)
             tz = re.sub(r"Lauf läuft bis \d\d\.\d\d\.,? \d\d:\d\d", "", tz)
         for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
+            if re.search(r"\b(ab|bis|um|vor|nach|Termin|Stichtag|frühestens|spätestens|Zurücksetzung)\s*(\(|(Mo|Di|Mi|Do|Fr|Sa|So)\.?\s+)?$", tz[max(0, m.start() - 20):m.start()], re.I):
+                continue  # 1243 (Ford, Lauf 00:03): „ab 14.11., 20:00“ ist ein Termin, kein Zeitstempel
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
         mm = re.match(r"\| ([^|]+?) \| (M\?|M|K|–|-) \|", t)
@@ -344,6 +367,16 @@ def main():
             for f in sorted(fehler(":") - alt_f): stop.append("LISTE-VORGAENGE.md: " + f + " (Form 275.2; vorgang.py schreibt nur Gültiges)")
             if not startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")): stop.append("LISTE-VORGAENGE.md: keine Tabelle mit Kopf " + startbar.KOPF)
         except Exception as e: warn.append("Formprüfung Liste übersprungen: %s" % e)
+    for s, p in dat:  # 1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“): t286 ging nach 👍 auf 286.1–.5 weg, 286.6–.13 offen
+        m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
+        if s != "D" or not m or os.environ.get("BORNIM_HANDY_WEG") == "1": continue
+        try:
+            import vorgang
+            offen_h = vorgang.handy_offen(m.group(1), git("show", "HEAD:" + p))
+        except Exception as e:
+            warn.append("1277-Prüfung übersprungen: %s" % e); continue
+        if offen_h: stop.append("%s: Handypunkte ohne Ergebnis (%s); die Prüfliste bleibt in ansehen/, bis der Chef jeden zurückgemeldet hat, "
+                                "auch kein Archiveintrag t%s vorher (1277; nur auf Wort des Chefs BORNIM_HANDY_WEG=1)" % (p, ", ".join(offen_h), m.group(1)))
     if arch:  # 275.2 Automatik B: Testergebnis tN im Archiv nur, wenn vorgang.py build N die Liste abgeschlossen hat
         for z in git("diff", "--cached", "-U0", "--", "docs/VORGANGSARCHIV.md").splitlines():
             m = re.match(r"\+- \*\*t(\d+)\b", z)
@@ -354,6 +387,13 @@ def main():
             n = m.group(1)
             wege = {x for x in git("ls-tree", "-r", "--name-only", "HEAD", "docs/chefsache/ansehen/").split()} | {p for s, p in dat}
             pl = "".join(git("show", "HEAD:" + x) + git("show", ":" + x) for x in wege if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x))
+            try:
+                import vorgang
+                offen_h = vorgang.handy_offen(n, pl) if pl else []
+            except Exception: offen_h = []
+            if offen_h and os.environ.get("BORNIM_HANDY_WEG") != "1":  # 1277: vor dem letzten Handypunkt kein „tN“, die Liste bleibt
+                stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber Handypunkte ohne Ergebnis (%s); erst, wenn der Chef jeden zurückgemeldet hat (1277)" % (n, ", ".join(offen_h)))
+                continue
             # 1070 (Chef 12.11., 20:06 „warum steht der … 280er immer noch drin“): getestet heißt weg, im selben Commit wie „tN“ (Git behält sie)
             noch = [x for x in git("ls-files", "--full-name", ":/docs/chefsache/ansehen/").split() if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x)]
             if noch: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, Prüfliste noch in der Chefsache (%s); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)" % (n, ", ".join(noch)))

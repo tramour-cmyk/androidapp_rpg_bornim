@@ -66,8 +66,9 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 1. Diese Datei, dein Vorrat (Übergabe), deine Zeilen (`vorgang.py --rolle Sokrates`), eigene Punkte in der Chefsache, `VORGANGSARCHIV.md` seit dem letzten Stand. Eigenes Modell mit `get_session` gegen die Startzuordnung (`LISTE-BETRIEB.md`) prüfen; weicht es ab, in der Startmeldung sagen (442).
 2. Vor einer Aussage zu Aussehen, Stil und Welt: `DESIGN-LEITBILD.md`.
-3. Entwürfe und Berichte als `.md` im Repo, im Inhaltsverzeichnis verlinkt; als Artefakt nur Geschäftsmodell, Markt, Preise (Geheimhaltung) oder ein Entwurf zum Kommentieren mit Quelle im Repo.
-4. **Ende** („festhalten“): Entscheidungen und Lehren eintragen; Übergabe mit „Kosten auf: <Nummern>“ (Vorgänge der Sitzung; `lauf.py` teilt die Kosten zu gleichen Teilen) und „Nachfolger: Sokrates – <Thema>“; pushen.
+3. **Vor jeder Vorlage und jedem Lauf** (340.6 A, V3): gegen das gebilligte Muster und das Archiv der Nummer prüfen, als drei Prüfpunkte ans Team; zu jeder Idee des Chefs ungefragt, was fehlt, was es schon gibt (auch alte Fassung) und was dagegen spricht (Chef 08.11.: „360 Grad rundum prüfen“); jede Zahl bei 0, 24, 49, 74, 100 gegen BRS; nach jeder Spiegelrunde die Auswertung am selben Tag. Erwartet höchstens 2 Fehler 341 je Woche (Diogenes, 23.11.). Ersetzt die Lehre „Beraten heißt ergänzen“.
+4. Entwürfe und Berichte als `.md` im Repo, im Inhaltsverzeichnis verlinkt; als Artefakt nur Geschäftsmodell, Markt, Preise (Geheimhaltung) oder ein Entwurf zum Kommentieren mit Quelle im Repo.
+5. **Ende** („festhalten“): Entscheidungen und Lehren eintragen; Übergabe mit „Kosten auf: <Nummern>“ (Vorgänge der Sitzung; `lauf.py` teilt die Kosten zu gleichen Teilen) und „Nachfolger: Sokrates – <Thema>“; pushen.
 
 ## Begründungen
 
@@ -87,8 +88,6 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 - Bei „was bleibt von alt“ nicht nur prüfen, ob es noch läuft, sondern ob es noch Quelle für Neues ist (Bauweg in den Workflows, Commits der letzten Woche); und Schadensarten, Schwächen und Ähnliches gegen jede Datei der alten Regeln abzählen, nicht nur gegen die Kampfwege (10.11., 870a: Kotlin als Quelle von Dorf und Quests erst auf Nachfrage des Chefs, Monsterschwächen erst über seine Idee; Chef 15:25: „freut mich, dass ich wieder was gefunden habe“).
 
 - Eine Absprache mit dem Chef zum Ablauf sofort dort eintragen, wo das Werkzeug sie liest (Haken, `LISTE-RELEASE-NEUSTART.md`), sonst gilt sie für den Nachfolger nicht; und solange der Chef testet, keinen Neustart (10.11., 13:27 Neustart bei t274.16; Chef 13:34: „das machen wir nicht mehr … einfach mal wieder ignoriert“; 865).
-
-- Beraten heißt ergänzen, nicht bestätigen: auf jede Idee des Chefs zuerst selbst prüfen, was im Zusammenhang fehlt, was es schon gibt (Datei, Werkzeug, alte Fassung) und was dagegen spricht, und das ungefragt vorlegen; bei Figuren und Abläufen immer zuerst die alte Fassung lesen (08.11., 12:43: Katalog auf alle Gegenstände selbst erweitert, Schildhöhe alt erst auf Zuruf verglichen; Chef: „warum muss ich das jetzt wieder alles entwickeln? … 360 Grad rundum prüfen“, „War schon die Regel“).
 
 - Vor jeder Zusage an den Chef, die ein Werkzeug sperren kann (Probelauf, Filmwächter, Haken), im Werkzeug nachsehen, ob es die Zusage kennt; sonst Archivkopf so schreiben, dass das Werkzeug ihn liest (04.11., 578).
 - Eine Vorlage „zur Kenntnis“ ist auch eine Vorlage: nach „keine Runde mehr“ abschließen statt Bilder schicken lassen (557: Ausbesserung, dann Ausrichtung, dann 557b; Chef 05.11.: „ich kriege wieder 12 Vorlagen“).

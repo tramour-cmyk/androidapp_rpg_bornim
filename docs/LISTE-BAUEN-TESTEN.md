@@ -66,7 +66,7 @@ Neuer Godot-Test: sperrend in `godot.yml` „Skripte pruefen“; prüft er ohne 
 
 ### Bauen (GitHub)
 
-Workflow `.github/workflows/android.yml` („Build APK“, Version `0.1.<Laufnummer>`), nur bei PR, auf `main` und per Knopfdruck (78d); Änderungen nur an `docs/**`, `.md`, `tools/`, `.claude/` bauen nicht. APK aus einem Lauf: `gh api repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip > a.zip && unzip a.zip`. Release nur von Hand (`LISTE-RELEASE-NEUSTART.md`).
+Die APK baut `godot.yml` (Punkt 4 in `LISTE-CHECK-BUILD-TEST.md`); der Kotlin-Bau `android.yml` ist mit 870.10 gestrichen. APK aus einem Lauf: `gh api repos/tramour-cmyk/androidapp_rpg_bornim/actions/artifacts/<id>/zip > a.zip && unzip a.zip`. Release nur von Hand (`LISTE-RELEASE-NEUSTART.md`).
 
 ### Vorschau und Spiel
 

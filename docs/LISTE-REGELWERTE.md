@@ -2,7 +2,7 @@
 
 Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystems, mit der das Spiel heute rechnet, je Block die Regel als Satz (`DESIGN-BRS.md`), Formel und Erläuterung, die heutige Zahl und wo sie im Spiel gelesen wird. Aus `tools/sim444/werte.json` mit `python3 tools/regelwerte.py`.
 
-**Stand:** `werte.json` aus Commit `080f151e8` auf `main`; 28 Blöcke.
+**Stand:** `werte.json` aus Commit `ec69c2ed6` auf `main`; 28 Blöcke.
 
 - **Ändern:** nur in `werte.json` auf einem Arbeitszweig (das Spiel liest die Datei, also testet der Chef); nach dem Mischen auf `main` das Werkzeug laufen lassen und die Seite committen. Wer Einfluss nehmen will, nennt Block und Wert (z. B. `ueben.bedarf_teiler`).
 - **Herkunft** je Block: N = Nachschlagewerk DESIGN-BRS.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).
@@ -664,8 +664,8 @@ Gelesen in: `regeln/mars.gd:494`, `regeln/mars.gd:2574`, +1, Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `punkte_variante` | ja | gerechnet mit 21 Punkten (Entscheidung 77), also den Herkuenften mit plus_variante | Sim. |
-| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1662`, Sim. |
-| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1663`, Sim. |
+| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1670`, Sim. |
+| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1671`, Sim. |
 | `verkauf_anteil` | 0,5 | alt: Haendler zahlt den halben Ladenpreis (Game.kt sellPrice) | Sim. |
 | `dorf_alle_kaempfe` | 8 | A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen | Sim. |
 
@@ -785,7 +785,7 @@ Gelesen in: Sim.
 
 Herkunft: Startausruestung je Waffen- und Ruestungsart: Gegenstand, Ladenpreis alt (Katalog 458), Material und Reparaturrang nach N 11 (A)
 
-Gelesen in: `skripte/spiel.gd:1630`, `skripte/spiel.gd:1635`, Sim.
+Gelesen in: `skripte/spiel.gd:1638`, `skripte/spiel.gd:1643`, Sim.
 
 - **holz:** A: Boegen repariert der Schmied (Geselle), N 11 nennt Boegen beim Gesellen ohne Werkstoff
 
