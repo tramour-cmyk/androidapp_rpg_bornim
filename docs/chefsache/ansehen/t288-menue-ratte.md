@@ -1,7 +1,6 @@
 # Tom und Jerry · Build 288 · 0.348.493 · Menü, Rattenbiss, Kerbe, Modellspeicher · [PR #207](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/207)
 E Kampf · Tom (785.2, 785.3, 870.13; ohne dich 1290), Jerry (1284 abgelehnt, fährt mit), Spike (1270.2) · 15.11., 16:15 · [APK (Lauf 493)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43723535827/artifacts/14167127253)
-Gegengelesen: Jerry 15.11., 13:36 (1266 und 1284 richtig unter „Schon vorgelegt“: 1266 gebilligt, das Kerbensystem bleibt im Spiel aus (`kerbe_an` false), am Handy nichts zu sehen; 1284 Urteil am Film. Hinweis: 288.2 und 288.4 hängen am Zufall von „Beute erzeugen“; wenn möglich ein fester Knopf im Reiter „Test“, sonst so lassen)
-Gegengelesen: Sokrates 15.11., 16:27 (beide Teams; 288.2, 288.4 als Rückläufer mit fester Lage, 288.6 Grundwert 1,4 s aus t287.4 und Grenze 0,7 s; Wege 288.1, 288.3, 288.5, 288.6 erreichbar)
+Gegengelesen: Sokrates 15.11., 16:27 (beide Teams; 288.2, 288.4 als Rückläufer mit fester Lage, 288.6 Grundwert 1,4 s aus t287.4 und Grenze 0,7 s; Wege 288.1, 288.3, 288.5, 288.6 erreichbar); vorher Jerry 15.11., 13:36 (1266 gebilligt, das Kerbensystem bleibt im Spiel aus, am Handy nichts zu sehen)
 
 Sammelbuild auf Build 287 aufgesetzt (enthält alles aus 287); die Punkte der Liste 287 kommen hier nicht noch einmal.
 
