@@ -612,6 +612,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/scheide_mass_1149.gd 2>&1 | grep -E "^FEHLER|SCHEIDE1149|SCRIPT ERROR"   # 1149 Scheide aus der Klinge des Dolchs gerechnet (Chef 14.11., 10:12)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/takt_1145.gd 2>&1 | grep -E "^FEHLER|TAKT1145|SCRIPT ERROR"   # 1145 Takt im Testmenü (Test 285)
           STUFE=test
+          set -o pipefail; python3 ../tools/godot/typen.py 2>&1 | grep -E "^(FEHLER|HINWEIS|TYPEN1268)"   # 1268.3 Sperrklinke Typen in regeln/ und kampf/: je Datei nicht mehr Stellen ohne Typ als in tests/typen_1268.json, neue Dateien 0
           # 909 (Chef 11.11., 08:52): die vier längsten Messungen laufen nebenher (Lauf 353: schild_406 491 s, wolf_mess_438 138 s,
           # zustaende_563 85 s, strahl_mess_415 66 s von 1405 s); Befehl unverändert, Ausgabe und Ende kommen gesammelt vor „918: Ende“,
           # rot wie vorher (Zeile in rot.txt). Keine der vier schreibt nach user://.
