@@ -452,3 +452,4 @@
 2026-11-15 20:07:38	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-481-2-deckel-bau
 2026-11-15 20:16:36	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-481-2-deckel-bau
 2026-11-15 20:22:07	commit-pruefung	Regelwerte (969): regelwerte.py: docs/LISTE-REGELWERTE.md passt nicht zu werte.json oder zum Code; python3 tools/regelwerte.py laufen lassen	main
+2026-11-15 20:26:54	probelauf	407 (Chef 02.11., 07:18: „die ganze Nacht über jetzt 1000 Filmchen gedreht“): einen Lauf neu starten zählt der Haken nicht nach Vorgang; neu starten nur mit run_workflow (`mcp__github__actions_run_tri	claude/tom-785-20-klick
