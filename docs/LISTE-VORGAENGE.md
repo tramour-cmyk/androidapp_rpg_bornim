@@ -131,7 +131,7 @@
 | 59e | Händler: Vorrat je Laden | Jerry | K | ruht | 23.11. | claude/jerry-59e-haendlervorrat | – | G Balance | – |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
 | 601 | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss; Treffer trotz Schatten (Chef 05.11., 19:2x, t266.5) | Jerry | M | zu testen, ohne Rückmeldung t287 | – | claude/jerry-601-spaeher | – | E Kampf | 2,88 $ |
-| 623.2 | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher 623 A, 07.11.), Datenfeld fx in LISTE-EFFEKTE.md | Jerry | K | startbar, Szene 2 frei (272.7 bestanden) | 623 | – | – | E Kampf | – |
+| 623.2 | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher 623 A, 07.11.), Datenfeld fx in LISTE-EFFEKTE.md | Jerry | K | startbar, Szene 2 frei (272.7 bestanden) | – | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Klang | – |
 | 643 | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft +Y) für Garrick auf dem Rücken, wie alt (MapFolk.kt: longbow over the quiver; von Tom zu 531) | Jerry | M | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Welt | – |
 | 649.2 | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auftritt, Klänge, Bewegungen, Gruppen erzeugt), Seite LISTE-FIGUREN.md; Monster füllen (aus 649) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
@@ -243,7 +243,7 @@
 | 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht (Chef 10.11., 14:03) | Sokrates | M | wartet | 870.20 | – | – | E Kampf | 82,94 $ |
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften Protofactor-Animsets und Janpec, die KI-Sitzungen mit Skripten bearbeiten? (aus 623.1) | Sokrates | K | wartet, Protofactor ja 10.11., 04:48; offen Janpec | 23.11. | – | – | M Veröffentlichung | – |
 | 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | Sokrates | K | startbar | – | – | – | B Abläufe | 76,65 $ |
-| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | startbar, 10 Pakete gekauft und erfasst, R5 R6 zurückgestellt | – | – | – | E Kampf | 6,88 $ |
+| 623 | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `LISTE-EFFEKTE.md`, Dank im Spiel (Chef 07.11.) | Sokrates | M | erledigt, A–F umgesetzt; Bau weiter 623.2, 1155 | – | – | – | E Kampf | 6,88 $ |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | Sokrates | K | startbar | – | – | – | G Stil | – |
 | 461b.4 | Widersprüche aus Liste 461b: Köpfe Regelwerk, Bestiarium, DESIGN-KAMPF gegen Entscheidung 84 | Sokrates | K | startbar | – | – | – | G Stil | 33,44 $ |
 | 481 | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewährungsprobe (Chef 02.11., 18:54, aus 427) | Sokrates | K | startbar | – | – | – | E Kampf | 1,30 $ |
