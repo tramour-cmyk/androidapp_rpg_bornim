@@ -386,3 +386,4 @@
 2026-11-15 16:56:08	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 32694 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 16:56:26	commit-pruefung	VORGANGSARCHIV.md: neuer Entscheid zu 431 berührt B1, B2; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts	main
 2026-11-15 17:00:18	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1289-hoehle-mobile ändert Spielcode (godot/kampf/fig	claude/jerry-1289-hoehle-mobile
+2026-11-15 17:00:26	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1289-hoehle-mobile ändert Spielcode (godot/kampf/fig	claude/jerry-1289-hoehle-mobile
