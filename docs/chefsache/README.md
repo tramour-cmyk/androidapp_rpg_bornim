@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -15,7 +15,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Kampf passt | 81 | 36 | 3 | 16 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 22 | 9 | 0 | 2 | 15 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 2 | 0 | 33 | 1289 (Jerry) Höhle im Renderer mobile ganz anders als bisher:… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 6 | 1 | 4 | 8 | 698 (Tom) Grafikstufen im Systemmenü mit Effekten |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 7 | 1 | 4 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
 | Werkzeuge und Abläufe der Firma | 62 | 34 | 0 | 7 | 9 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -39,12 +39,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 14 | 1326 | Tom | Build-Name im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 15 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 16 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 698 | Tom | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 18 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1324 | Perikles | pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die Prüfliste… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 17 | 1331 | Jerry | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfli… | M | Godot besser nutzen | startbar |
+| 18 | 698 | Tom | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1324 | Perikles | pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die Prüfliste… | M | Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 29. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 91.
+Danach 89 weitere offen. Bei dir zum Testen (vorgelegt): 29. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 91.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
