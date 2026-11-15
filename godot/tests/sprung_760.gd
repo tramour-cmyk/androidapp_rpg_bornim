@@ -4,7 +4,10 @@
 #  - es gibt Sprünge, jeder hebt ab (Scheitel mindestens 0,15 m) und legt im Flug Weg zurück (mindestens 0,5 m);
 #  - mindestens einer springt aus dem Stand (Absprung höchstens 0,2 m von dort, wo er zuletzt stand: daheim oder abgesetzt, 717 C);
 #  - der Flug endet am Boden, Rumpf waagerecht (auch wenn er im Flug fällt);
-#  - nach dem Sprung steht er binnen 10 s wieder auf dem eigenen Platz (höchstens 0,15 m daneben).
+#  - nach dem Sprung steht er binnen 10 s wieder auf dem eigenen Platz (höchstens 0,15 m daneben);
+#  - Messung (sperrt nicht, Zeile MESSUNG760): der Biss reicht hin (Chef 15.11., 16:56: „beißt einen Meter zu kurz … bleibt am oder kurz vorm Schild hängen und verursacht aber
+#    Schaden“): beim Treffer kommen die Zähne an den Körper (Lücke höchstens LUECKE_TREFFER), daneben schnappen sie knapp vor Körper
+#    oder Schild zu (höchstens LUECKE_DANEBEN, nicht tiefer als LUECKE_TIEF im Körper; wie biss_1284).
 # Ohne Tier mit Wurzelweg (kampf/daten ohne Kaufwolf): übersprungen (exit 0).
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/sprung_760.gd   (exit 0 = alles erfüllt)
 extends SceneTree
@@ -15,6 +18,11 @@ const FPS := 30.0
 const RUNDEN := 4
 ## so lange nach dem Aufkommen steht er spätestens wieder auf seinem Platz (s)
 const HEIM_S := 10.0
+## Lücke der Zähne zum Ziel (m): beim Treffer am Körper, daneben knapp vor Körper oder Schild (wie biss_1284)
+const LUECKE_TREFFER := 0.06
+const LUECKE_DANEBEN := 0.25
+const LUECKE_TIEF := -0.05
+const KOPF := ["Head", "Jaw", "Tongue", "kopf", "Mouth", "mouth", "Fang", "fang"]
 
 var fehler := 0
 
@@ -31,6 +39,10 @@ func _gut(ok: bool, text: String) -> void:
 
 func _lauf() -> void:
 	seed(760)
+	# Handy hochkant wie biss_1284 (sonst liegt „im Bild“ des Bissplatzes, 438, im Querformat anders als am Gerät)
+	DisplayServer.window_set_size(Vector2i(1080, 2340))
+	root.size = Vector2i(1080, 2340)
+	await process_frame
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
@@ -63,6 +75,9 @@ func _lauf() -> void:
 	var ruhe := {}          # Figur -> Ort, an dem sie zuletzt stand
 	var offen := {}         # Figur -> Zeit des letzten Sprungs, bis sie wieder daheim stand
 	var nicht_heim := 0
+	var biss := {}          # Wolf -> {ziel, ausgang, koerper, schild}: der laufende Sprungbiss
+	var bisse := []         # fertige [Wolf, Ziel, Ausgang, Lücke Körper, Lücke Schild, Zeit]
+	var shown_vor = null
 	Mars.test_gegnerzug = "pounce"
 	while n < int(FPS) * 240:
 		await process_frame
@@ -70,6 +85,22 @@ func _lauf() -> void:
 		if Mars.test_gegnerzug == "":
 			Mars.test_gegnerzug = "pounce"
 		var t := n / FPS
+		# Ausgang des Angriffs aus dem Kampfbericht (wie biss_1284): Treffer oder daneben, und das Ziel
+		var e_sh: Dictionary = kf.shown
+		if e_sh != shown_vor and not e_sh.is_empty():
+			shown_vor = e_sh
+			var ak = e_sh.get("actor")
+			var ro = e_sh.get("roll")
+			# Ausgang aus dem Wurf, sonst (Meldung „schlagen ins Leere“ ohne Wurf) aus dem Schaden
+			if ak != null and kf.figures.has(ak) and e_sh.get("target") != null and (ro is Array and ro.size() > 4 or e_sh.has("damage")):
+				var wf = kf.figures[ak]
+				if not biss.has(wf) or not flug.has(wf) and t - float(biss[wf].t) > 4.0:     # ein alter Ausgang (Biss im Stand) zählt nicht
+					biss[wf] = {"ziel": "", "ausgang": "", "koerper": {}, "schild": {}, "t": t}
+				if biss[wf].ausgang == "":
+					var trifft: bool = bool(ro[4]) if ro is Array and ro.size() > 4 else int(e_sh.get("damage", 0)) > 0
+					biss[wf].ausgang = "Treffer" if trifft else "daneben"
+					biss[wf].ziel = str(e_sh.get("target"))
+					biss[wf].t = t
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break
 		for f in woelfe:
@@ -84,6 +115,15 @@ func _lauf() -> void:
 					if OS.get_environment("SCHAU_760") != "":
 						print("760 %.2f %s springt ab %s (Platz %s)" % [t, f.fighter.id, f.position.snapped(Vector3.ONE * 0.01), f.home.snapped(Vector3.ONE * 0.01)])
 				var e: Dictionary = flug[f]
+				# ein Ausgang aus einem früheren Biss ohne Sprung (im Stand) zählt nicht
+				if not biss.has(f) or not flug[f].has("biss") and t - float(biss[f].t) > 4.0:
+					biss[f] = {"ziel": "", "ausgang": "", "koerper": {}, "schild": {}, "t": t}
+				flug[f]["biss"] = true
+				for z in kf.figures.values():
+					if z.fighter.monster == null and z.visible and not z.down:
+						var lu: Array = _luecke(f, z)
+						biss[f].koerper[z.fighter.id] = minf(float(biss[f].koerper.get(z.fighter.id, INF)), lu[0])
+						biss[f].schild[z.fighter.id] = minf(float(biss[f].schild.get(z.fighter.id, INF)), lu[1])
 				# Einzelbilder für die eigene Prüfung (BILD_760=<Ordner>, nur mit Bild): geduckt, im Scheitel, im Aufkommen
 				var ordner := OS.get_environment("BILD_760")
 				if ordner != "" and DisplayServer.get_name() != "headless":
@@ -103,6 +143,10 @@ func _lauf() -> void:
 				if flug.has(f):
 					var e: Dictionary = flug[f]
 					spruenge.append([f.fighter.id, e.hoch, e.weit, e.platz, t])
+					if biss.has(f):
+						var bz: Dictionary = biss[f]
+						bisse.append([f.fighter.id, bz.ziel, bz.ausgang, float(bz.koerper.get(bz.ziel, INF)), float(bz.schild.get(bz.ziel, INF)), t])
+						biss.erase(f)
 					flug.erase(f)
 					offen[f] = t
 					if OS.get_environment("SCHAU_760") != "":
@@ -153,6 +197,57 @@ func _lauf() -> void:
 	_gut(kurz == 0, "jeder Sprung legt Weg zurück (ab 0,5 m): %d zu kurz; %s" % [kurz, spruenge.map(func(s): return "%.2f" % s[2])])
 	_gut(stand > 0, "aus dem Stand, ohne Anlauf: %d von %d" % [stand, spruenge.size()])
 	_gut(schief == 0, "außerhalb des Flugs am Boden und waagerecht (%d Bilder nicht)" % schief)
+	var kurz_biss := 0
+	for bz in bisse:
+		var gut := true
+		if bz[2] == "Treffer":
+			gut = bz[3] <= LUECKE_TREFFER
+		elif bz[2] == "daneben":
+			gut = minf(bz[3], bz[4]) <= LUECKE_DANEBEN and bz[3] >= LUECKE_TIEF
+		if not gut:
+			kurz_biss += 1
+		print("760 %.2f Biss %s an %s, %s: Lücke der Zähne Körper %.2f, Schild %.2f m%s" % [bz[5], bz[0], bz[1], bz[2] if bz[2] != "" else "ohne Ausgang", bz[3], bz[4], "" if gut else " – FALSCH"])
+	# Messung, sperrt nicht (Sokrates 15.11.: „als Messung im Test“): von der Schildseite kommt die Schnauze beim Treffer noch nicht
+	# an den Körper, ohne dass der Wolf im Helden steckt (709.1, ruht bis 930)
+	print("MESSUNG760 der Biss reicht hin: Treffer am Körper (bis %.2f m), daneben knapp davor (bis %.2f m): %s, %d von %d nicht" % [LUECKE_TREFFER, LUECKE_DANEBEN, "erfüllt" if kurz_biss == 0 else "NICHT erfüllt", kurz_biss, bisse.size()])
 	_gut(nicht_heim == 0, "nach dem Sprung zurück auf dem eigenen Platz (%d nicht)" % nicht_heim)
 	print("SPRUNG760 %s" % ("gut" if fehler == 0 else "FALSCH %d" % fehler))
 	quit(1 if fehler else 0)
+
+
+## Zähne: Kapseln von Kopf und Kiefer (wie biss_1284)
+func _zaehne(f) -> Array:
+	var out: Array = []
+	for c in f.kapseln():
+		if c.size() > 3:
+			for w in KOPF:
+				if String(c[3]).contains(w):
+					out.append(c)
+					break
+	return out
+
+
+## [Lücke zum Körper, Lücke zum Schild] wie biss_1284 _luecke
+func _luecke(a, b) -> Array:
+	var best := INF
+	var schild := INF
+	var ws: Array = _zaehne(a)
+	for w in ws:
+		for c in b.koerper():
+			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
+			best = minf(best, pq[0].distance_to(pq[1]) - float(w[2]) - float(c[2]))
+	for g in b.traegt():
+		if not String(g[2]).to_lower().contains("shield"):
+			continue
+		var inv: Transform3D = (g[0] as Transform3D).affine_inverse()
+		var box: AABB = g[1]
+		var sc: float = absf((g[0] as Transform3D).basis.get_scale().x)
+		for w in ws:
+			for j in 9:
+				var q: Vector3 = inv * (w[0] as Vector3).lerp(w[1], j / 8.0)
+				var dx := maxf(box.position.x - q.x, q.x - box.end.x)
+				var dy := maxf(box.position.y - q.y, q.y - box.end.y)
+				var dz := maxf(box.position.z - q.z, q.z - box.end.z)
+				var d: float = (maxf(dx, maxf(dy, dz)) if dx <= 0 and dy <= 0 and dz <= 0 else Vector3(maxf(dx, 0), maxf(dy, 0), maxf(dz, 0)).length()) * sc
+				schild = minf(schild, d - float(w[2]))
+	return [best, schild]
