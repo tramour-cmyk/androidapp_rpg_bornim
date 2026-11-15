@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:33, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,7 +14,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870.20 (Tom) SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Haup… |
 | ↳ Kampf passt | 80 | 37 | 4 | 18 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 23 | 9 | 0 | 2 | 15 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 10 | 1 | 1 | 33 | 1325 (Tom) Rot: ziege_4162 auf dem Bauserver in Lauf 499 und… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 64 | 10 | 1 | 1 | 33 | 1325 (Tom) Rot: ziege_4162 auf dem Bauserver in Lauf 499 und… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 6 | 1 | 4 | 8 | 698 (Tom) Grafikstufen im Systemmenü mit Effekten |
 | Werkzeuge und Abläufe der Firma | 61 | 33 | 0 | 7 | 10 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 | 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
 
-Danach 85 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 92.
+Danach 87 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 92.
 ## Zu entscheiden
 
 Nichts offen.
@@ -54,12 +54,6 @@ Nichts offen.
 Nichts offen.
 
 ## Anzusehen
-
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [760](ansehen/760-sprung-kurz.md) | Wolf springt bis an den Helden | – | 15.11., 19:48 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -372,12 +366,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 | 1288 | M | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lücke 930.5 (fa | wartet auf 1266 (zu testen) |
 | 1315 | K | Systemlösung? Axt: 2 frühere Vorgänge (280.2, 348.12j), neu 1314; einmal grundsätzlich lös | startbar |
 | Pflege | K | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | startbar |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/760-sprung-kurz.md
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
