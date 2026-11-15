@@ -49,6 +49,13 @@ def vorbereiten():
     open(marke, 'w').close()
 
 
+def zeit(befehl):
+    """1335 (wolf_mess_438 mit Kaufmodellen am Rechner 130–240 s, im Kerntest nach 120 s „Zeit“, allein wieder): je Test die Zeit,
+    die ihm godot.yml gibt (timeout im Befehl), mindestens ZEIT; ohne Kaufmodelle enden solche Messungen sofort."""
+    m = re.findall(r"\btimeout (\d+)", befehl)
+    return max([ZEIT] + [int(x) for x in m])
+
+
 def lauf(name, befehl, ablage):
     d = tempfile.mkdtemp(prefix='logik-')
     env = dict(os.environ, XDG_DATA_HOME=d, GITHUB_WORKSPACE=ablage)
@@ -56,7 +63,7 @@ def lauf(name, befehl, ablage):
     p = subprocess.Popen(['bash', '-c', 'set -o pipefail; ' + befehl], cwd=G, env=env, stdout=subprocess.PIPE,
                          stderr=subprocess.STDOUT, text=True, start_new_session=True)
     try:
-        out, _ = p.communicate(timeout=ZEIT); rc = p.returncode
+        out, _ = p.communicate(timeout=zeit(befehl)); rc = p.returncode
     except subprocess.TimeoutExpired:
         os.killpg(p.pid, signal.SIGKILL); out, _ = p.communicate(); rc = 'Zeit'
     shutil.rmtree(d, ignore_errors=True)

@@ -83,13 +83,16 @@ func _run() -> void:
 		print("Atem 453.1: ohne Kauf, nichts zu prüfen")
 		quit(0)
 		return
+	# 1335 (Lauf 492 rot, 493 am selben Stand grün): Würfel und Zufall der Bewegungen (randf: Ausweichen, Ruhe) fest wie in
+	# wolf_mess_438; sonst beißt in manchem Lauf ein Wolf in die Messung nach der Anstrengung, die Atemzüge nach 8 s werden kurz
+	seed(7)
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
 	p.foe = "WOLVES"
 	root.add_child(p)
 	await process_frame
-	p._start()
+	p._start(7)
 	for i in 4:
 		await process_frame
 	var kf = p.fight
