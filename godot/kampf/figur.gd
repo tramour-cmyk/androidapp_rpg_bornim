@@ -4670,62 +4670,46 @@ func dodge(after_ms: int, nm := "") -> void:
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
 
 
-## 1321: wie weit (m, am Boden vom Ursprung) reicht, was die Figur in der Hand trägt, während der Bewegung „Ausweichen“; einmal je
-## Figur abgetastet wie _reichweite_merken
-var _ausweich_reich := -1.0
+## 1321: Ding in der Hand (Stab, Klinge) während der Bewegung „Ausweichen“ gegen die Kapseln naher Gegner, wie wolf_mess_438 „Klinge
+## durch einen Wolf“; die Strecken einmal je Figur abgetastet (_hieb_bahn, über die Knochen, nicht über BoneAttachment3D, das beim
+## Abtasten nicht nachzieht). Der Wolf steht beim Aufruf AUSWEICH_VOR_MS vor dem Aufschlag, sein Kopf kommt noch näher: AUSWEICH_LUFT_M
 const AUSWEICH_SCHRITT_M := 0.55
 const AUSWEICH_SCHRITT_S := 0.35
-func _ausweich_reichweite() -> float:
-	if _ausweich_reich >= 0.0:
-		return _ausweich_reich
-	_ausweich_reich = 0.0
-	var nm := "Ausweichen"
-	if anim == null or model == null or not anim.has_animation(nm):
-		return 0.0
-	var sk := _find(model, "Skeleton3D") as Skeleton3D
-	if sk == null:
-		return 0.0
-	var vor := String(anim.current_animation)
-	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
-	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
-	var l: float = anim.get_animation(nm).length
-	var inv := global_transform.affine_inverse()
-	anim.play(nm, 0.0)
-	for i in REICHWEITE_PROBEN + 1:
-		anim.seek(l * i / float(REICHWEITE_PROBEN), true)
-		sk.force_update_all_bone_transforms()
-		for g in traegt():
-			var box: AABB = g[1]
-			for k in 8:
-				var q: Vector3 = inv * ((g[0] as Transform3D) * box.get_endpoint(k))
-				_ausweich_reich = maxf(_ausweich_reich, Vector2(q.x, q.z).length())
-	if vor != "":
-		anim.play(vor, 0.0, vor_v)
-		anim.seek(vor_t, true)
-	else:
-		anim.stop()
-	return _ausweich_reich
+const AUSWEICH_LUFT_M := 0.15
+func _ausweich_tiefe(o) -> float:
+	var bahn_a: Array = _hieb_bahn("Ausweichen")
+	if bahn_a.is_empty():
+		return -INF
+	var tr := Transform3D(Basis(Vector3.UP, rotation.y), global_position)
+	var ks: Array = o.kapseln()
+	var tief := -INF
+	for st in bahn_a:
+		for w in st[1]:
+			var a0: Vector3 = tr * (w[0] as Vector3)
+			var a1: Vector3 = tr * (w[1] as Vector3)
+			for c in ks:
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a0, a1, c[0], c[1])
+				tief = maxf(tief, float(c[2]) - pq[0].distance_to(pq[1]))
+	return tief
 
 
 func _ausweichen_zurueck_held() -> bool:
-	if down or anim == null or kampfort == null:
+	if down or anim == null or kampfort == null or not anim.has_animation("Ausweichen"):
 		return false
 	var nah = null
-	var luft := INF
+	var tief := -INF
 	for o in kampfort.figures.values():
 		if o == self or not o.visible or o.down or o.fighter.side == fighter.side:
 			continue
-		var c: float = o.clearance(position)
-		# wer gerade beißt oder schlägt, zählt dort, wo der Angriff ankommt (angriff_von, _bite_plan)
-		if o.angriff_von != Vector3.INF and o.unterwegs():
-			c = minf(c, o.clearance(position, o.angriff_von))
-		if c < luft:
-			luft = c
+		if Vector2(o.position.x - position.x, o.position.z - position.z).length() > 3.0 * _scale():
+			continue
+		var t := _ausweich_tiefe(o)
+		if t > tief:
+			tief = t
 			nah = o
-	var reich := _ausweich_reichweite()
 	if OS.get_environment("SCHAU_1321") != "":
-		print("1321 prüft %s: nah %s Luft %.2f Reichweite %.2f" % [fighter.id, nah.fighter.id if nah != null else "-", luft, reich])
-	if nah == null or luft > reich + 0.05:
+		print("438 DIAG 1321 %s prüft: nah %s, Ding beim Ausweichen %.2f m im Gegner (Grenze −%.2f)" % [fighter.id, nah.fighter.id if nah != null else "-", tief, AUSWEICH_LUFT_M])
+	if nah == null or tief < -AUSWEICH_LUFT_M:
 		return false
 	var weg_von := Vector3(position.x - nah.position.x, 0.0, position.z - nah.position.z)
 	if weg_von.length() < 0.01:
@@ -4734,7 +4718,7 @@ func _ausweichen_zurueck_held() -> bool:
 	if not _stand_frei(ziel, null) or not _im_bild(ziel, Vector3(sin(rotation.y), 0.0, cos(rotation.y))):
 		return false
 	if OS.get_environment("SCHAU_1321") != "":
-		print("1321 %s weicht zurück: %s %.2f m nah, Reichweite beim Ausweichen %.2f m" % [fighter.id, nah.fighter.id, luft, reich])
+		print("438 DIAG 1321 %s weicht zurück vor %s" % [fighter.id, nah.fighter.id])
 	_dreh_ab()
 	var nm := _gang_ss("Zurück")
 	if nm == "Zurück":
