@@ -55,32 +55,34 @@ func _lauf() -> void:
 	var haus: MeshInstance3D = null
 	var gross := 0.0
 	for mi in g.find_children("Gruppe_*", "MeshInstance3D", true, false):
-		if String(mi.name).ends_with("_Glas") or not String(mi.name).begins_with("Gruppe_Haus"): continue
+		if String(mi.name).ends_with("_Glas") or not String(mi.name).to_lower().begins_with("gruppe_haus"): continue
 		var bb: AABB = mi.global_transform * mi.get_aabb()
 		if bb.size.x * bb.size.z > gross: gross = bb.size.x * bb.size.z; haus = mi
-	pruefe(haus != null, "ein Haus (Gruppe_Haus*) im Gebiet")
+	pruefe(haus != null, "ein Haus (Gruppe_haus_*) im Gebiet")
 	if haus == null: return ende(g)
 	var key := String(haus.name).trim_suffix("_Glas")
 	var bb: AABB = haus.global_transform * haus.get_aabb()
 	var c := bb.get_center()
-	var halb := maxf(bb.size.x, bb.size.z) / 2.0
-	var richt := Vector3(0.6, 0, 0.8).normalized()          # Kamera schraeg von oben wie im Spiel, Blick aufs Haus
+	# Blick quer zur schmalen Seite, Neigung 30 Grad wie kamera.gd; der Held 0,4 m hinter der Rueckwand (Lauf 484: schraeg, 38 Grad
+	# und 0,8 m hinter der Ecke stiegen die Strahlen ueber das 5 m hohe Haus)
+	var richt := Vector3(0, 0, 1) if bb.size.z <= bb.size.x else Vector3(1, 0, 0)
+	var halb := minf(bb.size.x, bb.size.z) / 2.0
 	var kam := Camera3D.new()
 	root.add_child(kam)
-	kam.global_position = c + richt * 18.0 + Vector3(0, 14, 0)
+	kam.global_position = c + richt * 20.0 * cos(deg_to_rad(30.0)) + Vector3(0, 20.0 * sin(deg_to_rad(30.0)), 0)
 	kam.look_at(c, Vector3.UP)
 	var held := Node3D.new()
 	root.add_child(held)
 	g.held = held
 	g.kamera = kam
 	var boden := bb.position.y
-	held.global_position = Vector3(c.x, boden, c.z) - richt * (halb + 0.8)
+	held.global_position = Vector3(c.x, boden, c.z) - richt * (halb + 0.4)
 	await physik(5)
 	pruefe(absf(float(g.gruppen[key]["ziel"]) - Gebiet.DURCH_A) < 0.001, "Held hinter %s: ziel %.2f, soll %.2f" % [key, g.gruppen[key]["ziel"], Gebiet.DURCH_A])
 	held.global_position = Vector3(c.x, boden, c.z) + richt * (halb + 1.5)
 	await physik(5)
 	pruefe(absf(float(g.gruppen[key]["ziel"]) - 1.0) < 0.001, "Held vor %s: ziel %.2f, soll 1.0" % [key, g.gruppen[key]["ziel"]])
-	held.global_position = Vector3(c.x, boden, c.z) - richt * (halb + 0.8)
+	held.global_position = Vector3(c.x, boden, c.z) - richt * (halb + 0.4)
 	await physik(5)
 	pruefe(absf(float(g.gruppen[key]["ziel"]) - Gebiet.DURCH_A) < 0.001, "wieder dahinter: ziel %.2f" % g.gruppen[key]["ziel"])
 	ende(g)
