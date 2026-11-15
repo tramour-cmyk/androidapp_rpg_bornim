@@ -60,6 +60,16 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 		if String(e[0]) in ["l2", "r2", "l1", "r1"]:
 			for j in range(2, int(e[1]) + 1): aussen.append(sk.find_bone("umhang_%s_%d" % [e[0], j]))
 	var arm_tief := [0.0]
+	# Chef 15.11., 16:55 („der linke und rechte Saum … nicht gerade … als ob er überall eingerissen wäre“): Knick der Randketten l2, r2
+	# (misst das Fallen der Kette, nicht das Aufreißen des Netzes; das zeigt nur das Standbild von hinten),
+	# größter Abstand eines Gelenks von der Geraden Anfang–Ende (cm)
+	var rand := {}
+	for e in k:
+		if String(e[0]) in ["l2", "r2"]:
+			var g := []
+			for j in range(1, int(e[1]) + 1): g.append(sk.find_bone("umhang_%s_%d" % [e[0], j]))
+			rand[e[0]] = g
+	var knick := [0.0]
 	# Bauform: Enden in der Ruhelage im Raum von spine_03 (dort haengt die Kette); Spiegelebene aus den aeusseren Enden der Ruhelage
 	var bau := {}
 	for s in enden: bau[s] = _ende(sk, enden[s], bi, true)
@@ -70,6 +80,13 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 	var gesehen := {}
 	sk.skeleton_updated.connect(func():
 		for s in enden: gesehen[s] = _ende(sk, enden[s], bi, false)
+		for sp in rand:
+			var g: Array = rand[sp]
+			var p0 := sk.get_bone_global_pose(g[0]).origin
+			var pe := sk.get_bone_global_pose(g[-1]) * Vector3(0, sk.get_bone_rest(g[-1]).origin.length(), 0)
+			for b in g.slice(1):
+				var q := sk.get_bone_global_pose(b).origin
+				knick[0] = maxf(knick[0], q.distance_to(Geometry3D.get_closest_point_to_segment(q, p0, pe)))
 		for a in arme:
 			var p0 := sk.get_bone_global_pose(a[0]).origin; var p1 := sk.get_bone_global_pose(a[1]).origin
 			for g in aussen:
@@ -93,7 +110,7 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 		var seit := 0.0; var spiegel_v := Vector3.ZERO; var n := 0; var sack := 0.0; var sprung := 0.0; var mweg := Vector3.ZERO
 		var vor := {}
 		for i in int(3.0 * FPS):
-			if i == 15: arm_tief[0] = 0.0
+			if i == 15: arm_tief[0] = 0.0; knick[0] = 0.0
 			await process_frame
 			if i < 15: continue   # einschwingen
 			var p := gesehen.duplicate()   # Lage nach den Modifikatoren (skeleton_updated), sonst sieht man die Federung nicht
@@ -108,8 +125,8 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 				if vor.has(s): sprung = maxf(sprung, (p[s] - vor[s]).length())
 			vor = p
 		var sp := (spiegel_v / maxf(n, 1)).length()   # 0: links und rechts gleich
-		print("UMHANG431 %s %s%s: seitlich %.1f cm, Spiegel %.1f cm, Mitte weg %.1f cm %s, Sprung %.1f cm je Bild, Arm im Umhang %.1f cm, Kapseln %d" % [name, bew,
-			" mit Schild" if paar[2] else "", seit * 100, sp * 100, sack * 100, str(mweg * 100).replace(" ", ""), sprung * 100, arm_tief[0] * 100, sim.get_child_count()])
+		print("UMHANG431 %s %s%s: seitlich %.1f cm, Spiegel %.1f cm, Mitte weg %.1f cm %s, Sprung %.1f cm je Bild, Arm im Umhang %.1f cm, Saum Knick %.1f cm, Kapseln %d" % [name, bew,
+			" mit Schild" if paar[2] else "", seit * 100, sp * 100, sack * 100, str(mweg * 100).replace(" ", ""), sprung * 100, arm_tief[0] * 100, knick[0] * 100, sim.get_child_count()])
 		if sprung > 0.25: bad += 1; print("UMHANG431 %s FALSCH: Ende springt %.0f cm" % [name, sprung * 100])
 	m.queue_free()
 	await process_frame
