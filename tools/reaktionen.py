@@ -164,16 +164,28 @@ def offen_liste():
     return offen, zeilen, kennung
 
 
+def ohne_wort(z, zeilen):
+    """1301 (Chef 15.11., 16:54: „vielleicht kommt ja jemand auch auf die Idee noch zu fragen, was an 760 falsch war“): ein 👎 auf eine
+    Meldung ohne Prüfpunkt, nach dem binnen 15 Minuten keine Nachricht des Chefs kam (als Antwort darauf oder ohne Bezug)."""
+    if "👎" not in z[3]: return False
+    bis = (datetime.datetime.strptime(z[1], "%Y-%m-%d %H:%M") + datetime.timedelta(minutes=15)).strftime("%Y-%m-%d %H:%M")
+    return not any(n[2] == "nachricht" and z[1] <= n[1] <= bis and n[4] in ("", z[4]) for n in zeilen)
+
+
+FRAGE = " – ohne Wort: im selben Zug nachfragen, was falsch ist (tools/meldung.sh --frage %s <Name> \"<Nr>: …?\"), Antwort mit in den Eintrag (1301)"
+
+
 def offene_urteile():
     """1228: offene Urteile ohne Prüfpunkte als Text je Zeile, für Fords Stundenlauf (lauf.py URTEIL)."""
-    offen, _, kennung = offen_liste()
+    offen, zeilen, kennung = offen_liste()
     aus = []
     for z in sorted(offen, key=lambda z: z[1]):
         mwann, nrn, name = kennung[z[4]]
         if PUNKT.match(nrn): continue
         sinn = "erledigt" if "✅" in z[3] else "falsch" if "👎" in z[3] else "gebilligt" if "👍" in z[3] else "Reaktion"
         aus.append("%s.%s., %s %s auf Meldung %s %s zu %s%s = %s, Nachricht %s" % (z[1][8:10], z[1][5:7], z[1][11:], z[3], name, mwann[11:], nrn,
-                                                                         " (mehrdeutig)" if "," in nrn else "", sinn, z[4]))
+                                                                         " (mehrdeutig)" if "," in nrn else "", sinn, z[4])
+                   + (FRAGE % z[4] if ohne_wort(z, zeilen) else ""))
     return aus
 
 
@@ -200,7 +212,8 @@ def zeigen(minuten):
                 continue
             sinn = "erledigt" if "✅" in z[3] else "falsch" if "👎" in z[3] else "gebilligt" if "👍" in z[3] else "Reaktion"
             tag = "%s.%s., %s" % (z[1][8:10], z[1][5:7], z[1][11:])
-            print("  → %s: %s %s %s = %s, Nachricht %s" % (name, tag, z[3], bezug(z[4]), sinn, z[4]))
+            print("  → %s: %s %s %s = %s, Nachricht %s%s" % (name, tag, z[3], bezug(z[4]), sinn, z[4],
+                                                           FRAGE % z[4] if ohne_wort(z, zeilen) else ""))
         for (name, n), ps in sorted(punkte.items()):
             print("  → %s: Prüfliste t%s auf Telegram (👍 passt, 👎 falsch; vorgang.py build %s liest sie): %s" % (name, n, n, ", ".join(ps)))
     if neu:
