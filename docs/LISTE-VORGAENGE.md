@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1325 | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode unverändert gegen Lauf 493/497 grün): von Westen tritt die Ziege erst weg (30→29), dann Tausch; am Rechner mit Kaufmodellen auch bei 12 Bildern/s grün | Tom | M | in Arbeit, Ursache nachgestellt, Messlauf auf claude/tom-1325-ziege | – | claude/tom-1325-ziege | – | E Welt | – |
+| 1325 | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode unverändert gegen Lauf 493/497 grün): von Westen tritt die Ziege erst weg (30→29), dann Tausch; am Rechner mit Kaufmodellen auch bei 12 Bildern/s grün | Tom | M | in Arbeit, Ursache nachgestellt, Messlauf auf claude/tom-1325-ziege | 15.11. 21:25 | claude/tom-1325-ziege | – | E Welt | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | startbar, letzter Lauf Tuch (Sokrates 20:29) | – | claude/tom-431-umhang | – | E Figuren | 93,01 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | zu testen | – | claude/tom-697-drehteller | 289 | E Figuren | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
