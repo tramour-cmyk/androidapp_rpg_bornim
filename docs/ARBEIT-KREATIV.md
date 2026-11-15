@@ -5,6 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
 **Übergabe (15.11., 20:08, `session_01Hmoj793oj9mKdUggnbqrp3`):** 340.11 Handwerksregel „Gegen den Code, nicht gegen den Plan“ (`ROLLE-KREATIV.md`); alle Wahlen auf `main` stimmen mit `STORY-K1-FERTIGKEITEN.md`. 1318 Kurzzeilen der Ladenliste `[1318.kurz]` in `STORY-BRS-OBERFLAECHE.md` (fremd geprüft, an Tom Zu 785.24); Kampfmeldung „von allen Leiden befreit“ an Jerry (1319). Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
+- **Zu 1320, von Sokrates (Chef 15.11., 20:15, Archiv „1320“):** „Ja, auf Leben ändern.“ Gefunden: `DESIGN-BRS.md` Satz „Folklore-Wesen … behalten ihre Namen, ebenso Mensch, Elf, Zwerg, Trefferpunkte und kritischer Treffer“ → Trefferpunkte heißen „Leben“. Im Spiel schon „Leben“ (`[870.14.kw.leben]`, `brs_held.gd` HP → „Leben“); Kommentare im Code sind kein Spielertext. Bitte Notizen und STORY-Texte auf Reste (Trefferpunkte, Lebenspunkte, TP, LP, HP für den Spieler) prüfen, Glossar-Eintrag „Leben“ (nie Trefferpunkte).
 - **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
