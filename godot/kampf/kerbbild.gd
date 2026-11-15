@@ -5,8 +5,8 @@ extends RefCounted
 ## Gruppe drei leere Plätze im Fußring an einer feinen Goldlinie (dem Holz); jede Tat schlägt eine Kerbe: schwarzer Schnitt mit
 ## Goldrand (Tuschelinie, Gold als einziger Glanz), dazu ein trockener Schnitt in Holz. Vertiefen: die Kerbe wird tiefer, das Gold
 ## zieht zur Waffe, die kurz golden aufscheint. Haltung: die Kerbe bleibt offen mit ihrem Zeichen (Klinge Gegenschlag, Pfeilspitze
-## Wachschuss, Schild Wehr). Antwort: der Goldrand blitzt im Augenblick des Schlags. Ungeschlagene Kerben verfallen am Zugbeginn:
-## der Platz verblasst und sinkt (Wort dafür offen, 1265). Goldkerbe: ein goldener Punkt sinkt vom Kopf in den Fußring und wird die
+## Wachschuss, Schild Wehr). Antwort: der Goldrand blitzt im Augenblick des Schlags. Ungeschlagene Kerben
+## verstreichen mit dem Zug (1265 Verstreichen / Lapse): der Platz verblasst und sinkt. Goldkerbe: ein goldener Punkt sinkt vom Kopf in den Fußring und wird die
 ## vierte, ganz goldene Kerbe. Gegner zeigen ihre Kerben erst mit Stufe 3 (Bild der Ansage, nach dem Gespräch).
 ## Bedienung: ein Tipp auf den Gegner = Weg und Tun, die übrigen Kerben nach dem Vorschlag (7.1); ein Tipp auf den Helden öffnet am
 ## Daumen drei Zeichen (Gegenschlag oder Wachschuss, Wehr, Vertiefen), der Vorschlag vorgewählt, je Tipp wandert eine Kerbe dorthin
@@ -24,19 +24,19 @@ const RAND := Color(0.710, 0.604, 0.416, 0.67)  # kampf_ui RIM: das Holz, leere 
 const HELL := Color(1.0, 0.95, 0.82)            # Blitz der Antwort, frischer Schnitt
 const SCHNITT := Color(0.035, 0.03, 0.025, 0.96)     # das Schwarz im Schnitt
 const TUSCHE := Color(0, 0, 0, 0.85)            # Umrandung, damit es auf Gras und Stein steht
-const VERBLASST := Color(0.36, 0.34, 0.31)      # verfallend
+const VERBLASST := Color(0.36, 0.34, 0.31)      # verstreichend
 const ZIFFER := Color("#E6DDCB")                # gebrochenes Weiß (DESIGN-AKTIONSPUNKTE.md „Bild“ 7)
 const SPREIZ_GRAD := 17.0                       # Abstand der Kerben vor dem Fußring
 const VOR_RING_M := 0.22                        # so weit vor dem Fußring (vorn steht das Dreieck der Ansage bis 0,5 m)
 const BLITZ_MS := 380.0                         # Antwort: der Goldrand blitzt
 const SCHNITT_MS := 220.0                       # frischer Schnitt: Rand hell, die Kerbe setzt sich
 const SCHNITT_FOLGE_MS := 110.0                 # mehrere Kerben eines Zugs nacheinander geschlagen (tak, tak, tak)
-const VERFALL_MS := 900.0                       # ungeschlagene Kerben verfallen
+const VERSTREICHT_MS := 900.0                       # ungeschlagene Kerben verstreichen
 const ZIEHT_MS := 380.0                         # Vertiefen: das Gold zieht zur Waffe
 const GLANZ_MS := 1200.0                        # danach scheint die Waffe golden auf
 const SINKT_MS := 700.0                         # Goldkerbe: vom Kopf in den Fußring
 const NACH := "tief"                            # Zeichen Vertiefen am Daumen
-const PEGEL := {"kerbe": 0.7, "kerbe_tief": 0.75, "kerbe_antwort": 0.75, "kerbe_verfall": 0.5, "kerbe_gold": 0.7,
+const PEGEL := {"kerbe": 0.7, "kerbe_tief": 0.75, "kerbe_antwort": 0.75, "kerbe_verstreichen": 0.5, "kerbe_gold": 0.7,
 	"haltung_klinge": 0.7, "haltung_sehne": 0.7, "haltung_schild": 0.7}
 const HALTUNG_KLANG := {"GEGENSCHLAG": "haltung_klinge", "WACHSCHUSS": "haltung_sehne", "WEHR": "haltung_schild"}
 
@@ -49,7 +49,7 @@ var gewaehlt := false     # der Spieler hat am Daumen etwas geändert (sonst spi
 var fuer := ""
 var symbol_rects := {}    # Zeichen -> Rect2 des Daumenmenüs in diesem Bild
 var blitze: Array = []    # [Kennung, Platz, Beginn]: Antwort
-var verfall: Array = []   # [Kennung, Platz, Beginn, Zahl der Plätze]
+var verstreichen: Array = []   # [Kennung, Platz, Beginn, Zahl der Plätze]
 var ziehen: Array = []    # [Kennung, Platz, Beginn]
 var glanz: Array = []     # [Figur, Beginn, Stufe, Material]
 var sinken: Array = []    # [Kennung, Beginn]: Goldkerbe
@@ -109,6 +109,9 @@ func plan_haltung(_f) -> Dictionary:
 ## Kerben, wie sie der Spieler beim Planen sieht: das erste ins Tun, dann vertieft, der Rest in der Haltung
 func _plan_marken(f) -> Array:
 	var out := []
+	for mk in f.gl.get("marken", []):     # 1266: schon geschlagen (Trank aus der Tasche) bleibt vorn stehen
+		if mk == Kerbe.M_GESCHLAGEN:
+			out.append(Kerbe.M_GESCHLAGEN)
 	var n := int(f.gl.kerben)
 	var rest: int = _m().gk.rest_nach_tun(f)
 	var nl := mini(nach, rest)
@@ -124,14 +127,14 @@ func _plan_marken(f) -> Array:
 
 # ---------------------------------------------------------------- Meldungen (kampfort.gd _play_say)
 
-## Die Meldung [e] wird gespielt; [vor] die Kerben der vorigen: Antwort blitzt, ungeschlagene verfallen, Vertiefen zieht zur Waffe,
+## Die Meldung [e] wird gespielt; [vor] die Kerben der vorigen: Antwort blitzt, ungeschlagene verstreichen, Vertiefen zieht zur Waffe,
 ## Haltung gesetzt und Goldkerbe klingen
 func meldung(vor: Dictionary, e: Dictionary) -> void:
 	var neu: Dictionary = e.get("gl", {})
 	var cue := String(e.get("cue")) if e.get("cue") != null else ""
 	var t0 := _jetzt()
 	var antwort := false
-	var verfallen := false
+	var verstrichen := false
 	for id in neu:
 		var a: Array = (vor.get(id, {}) as Dictionary).get("m", [])
 		var b: Array = neu[id].get("m", [])
@@ -144,9 +147,9 @@ func meldung(vor: Dictionary, e: Dictionary) -> void:
 			var key := "%s:%d" % [id, i]
 			if a[i] == Kerbe.M_HALT and b[i] == Kerbe.M_GESCHLAGEN:
 				_stand[key] = true     # kein Schnitt: die Haltung antwortet oder verfällt
-				if cue == "KERBE_VERFALLEN":
-					verfall.append([id, i, t0, a.size()])
-					verfallen = true
+				if cue == "KERBE_VERSTREICHT":
+					verstreichen.append([id, i, t0, a.size()])
+					verstrichen = true
 				else:
 					blitze.append([id, i, t0])
 					antwort = true
@@ -156,8 +159,8 @@ func meldung(vor: Dictionary, e: Dictionary) -> void:
 			_glanz(fig, t0 + ZIEHT_MS, b.count(Kerbe.M_TIEF))
 	if antwort:
 		_klang("kerbe_antwort")
-	if verfallen:
-		_klang("kerbe_verfall")
+	if verstrichen:
+		_klang("kerbe_verstreichen")
 	if cue.begins_with("KERBE_HALTUNG_"):
 		_klang(String(HALTUNG_KLANG.get(cue.trim_prefix("KERBE_HALTUNG_"), "")))
 	elif cue == "KERBE_GOLD" and e.get("actor") != null:
@@ -206,7 +209,7 @@ func _stein(fig, i: int, n: int) -> Vector3:
 	return fig.position + d.rotated(Vector3.UP, a) * r
 
 
-var _oben: Array = []     # Plätze dieses Bilds für zeichnen_oben: [Bildpunkt, Art, Zeichen, Goldkerbe, Blitz, tief, Schnitt, Verfall]
+var _oben: Array = []     # Plätze dieses Bilds für zeichnen_oben: [Bildpunkt, Art, Zeichen, Goldkerbe, Blitz, tief, Schnitt, Verstreichen]
 var _holz: Array = []     # je Figur die Bildpunkte ihrer Plätze (die Goldlinie des Kerbholzes)
 
 ## Je Bild aus kampf_ui._draw_overlay vor dem Bau der Ringe: Stand der Plätze, frische Schnitte (mit Klang), Glanz der Waffe
@@ -284,7 +287,7 @@ func _form(c: Vector2, tief: bool, s: float, dp: float) -> PackedVector2Array:
 	return PackedVector2Array([o + Vector2(-w * 0.5, 0), o + Vector2(w * 0.5, 0), o + Vector2(w * 0.12, d)])
 
 
-## e: [Bildpunkt, Art, Zeichen, Goldkerbe, Blitz q oder -1, tief, Schnitt q oder -1, Verfall q oder -1]
+## e: [Bildpunkt, Art, Zeichen, Goldkerbe, Blitz q oder -1, tief, Schnitt q oder -1, Verstreichen q oder -1]
 func _kerbe_zeichnen(o: CanvasItem, dp: float, e: Array) -> void:
 	var s: Vector2 = e[0]
 	var art: String = e[1]
@@ -352,9 +355,9 @@ func _stein_zeichnen(fig, id: String, i: int, n: int, art: String, h: String, go
 		if b[0] == id and b[1] == i and t - float(b[2]) < BLITZ_MS:
 			blitz = (t - float(b[2])) / BLITZ_MS
 	var vf := -1.0
-	for v in verfall:
-		if v[0] == id and v[1] == i and t - float(v[2]) < VERFALL_MS:
-			vf = (t - float(v[2])) / VERFALL_MS
+	for v in verstreichen:
+		if v[0] == id and v[1] == i and t - float(v[2]) < VERSTREICHT_MS:
+			vf = (t - float(v[2])) / VERSTREICHT_MS
 	for s in sinken:     # die Goldkerbe ist erst golden, wenn der Punkt vom Kopf angekommen ist
 		if s[0] == id and t - float(s[1]) < SINKT_MS:
 			gold = false

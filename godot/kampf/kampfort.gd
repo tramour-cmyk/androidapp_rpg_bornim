@@ -53,9 +53,9 @@ const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
-## 930.7: so lange zeigt sich ein Stichwort des Kerbensystems ohne Zeile (Haltung gesetzt, Verfallen, Vertiefen, Antwort); die Antwort
+## 930.7: so lange zeigt sich ein Stichwort des Kerbensystems ohne Zeile (Haltung gesetzt, Verstreichen, Vertiefen, Antwort); die Antwort
 ## flammt im Augenblick des Schlags auf, ohne eigenen Weg (DESIGN-AKTIONSPUNKTE.md „Bild“ 3)
-const KERBE_MS := {"KERBE_HALTUNG_GEGENSCHLAG": 350, "KERBE_HALTUNG_WACHSCHUSS": 350, "KERBE_HALTUNG_WEHR": 350, "KERBE_VERFALLEN": 450,
+const KERBE_MS := {"KERBE_HALTUNG_GEGENSCHLAG": 350, "KERBE_HALTUNG_WACHSCHUSS": 350, "KERBE_HALTUNG_WEHR": 350, "KERBE_VERSTREICHT": 450,
 	"KERBE_VERTIEFEN": 400, "KERBE_GEGENSCHLAG": 120, "KERBE_WACHSCHUSS": 120, "KERBE_WEHR": 120, "KERBE_GOLD": 500, "KERBE_LOESEN": 300}
 const AUSWEICH_VOR_MS := 250     # 438: Ausweichen beginnt so viel vor dem Aufschlag
 const TODESZEILE_ANTEIL := 0.6     # 438: Todeszeile nach diesem Anteil der Sterbebewegung
@@ -1231,7 +1231,7 @@ func _play_say(e: Dictionary) -> void:
 		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	var vor_gl: Dictionary = shown.get("gl", {}) if shown is Dictionary else {}
 	shown = e
-	# 930.7 (DESIGN-GLUT.md 8): Kerben der Meldung (Aufflammen, Verfallen, Vertiefen); die Stichworte des Kerbensystems ohne Zeile
+	# 930.7 (DESIGN-GLUT.md 8): Kerben der Meldung (Blitz, Verstreichen, Vertiefen); die Stichworte des Kerbensystems ohne Zeile
 	# halten den Kampf nur so lange an, wie ihr Bild dauert (F9: Rundenzeit nicht länger als heute), nicht SAY_MS
 	if ui != null and ui.kerbe != null:
 		ui.kerbe.meldung(vor_gl, e)

@@ -1,6 +1,6 @@
 extends SceneTree
 # 930.7 (DESIGN-GLUT.md 7, 8; Bauplan 10 Stufe 2): Logik hinter Bedienung und Kerbmarken ohne Bild: Kerben je Meldung (kerbe.gd
-# marken, bild, mars.gd _say „gl“) durch einen Zug mit Vertiefen und Haltung, Antwort, Verfallen; Vorschau der Schlagfolge
+# marken, bild, mars.gd _say „gl“) durch einen Zug mit Vertiefen und Haltung, Antwort, Verstreichen; Vorschau der Schlagfolge
 # (kerbe.gd vorschau); Daumenmenü (kampf/kerbbild.gd _symbol, plan): je Tipp wandert eine Kerbe, eine Art der Haltung, ohne Wahl der
 # Vorschlag (AUTO). Bild und Tippen durch die Oberfläche zeigt der Film tests/film_kerbe_9307.gd.
 # Run: godot --headless --path godot -s res://tests/kerbe_bedienung_9307.gd   (Exit 0 = alle gut)
@@ -27,7 +27,7 @@ func _initialize() -> void:
 		monsters[mo.id] = mo
 	K0 = (Brs.lade()["kampf"] as Dictionary).duplicate()
 	_marken()
-	_verfallen()
+	_verstreichen()
 	_vorschau()
 	_daumen()
 	_treffer(-1)
@@ -126,17 +126,17 @@ func _marken() -> void:
 	_treffer(-1)
 
 
-func _verfallen() -> void:
+func _verstreichen() -> void:
 	var h := _held()
 	var m := _kampf(h)
 	m.gk.zug_beginnen(h)
 	m.gk.held_zug(h, {"tun": Kerbe.WARTEN, "haltung": Kerbe.GEGENSCHLAG})
 	m._take_log()
-	ok("Verfallen", m.gk.zug_beginnen(h), "neuer Zug")
+	ok("Verstreichen", m.gk.zug_beginnen(h), "neuer Zug")
 	var log := m._take_log()
-	var v := _gl(log, "KERBE_VERFALLEN")
-	ok("Verfallen", v == ["geschlagen", "geschlagen", "geschlagen"], "ungenutzte Haltung zerfällt mit der Meldung %s" % str(v))
-	ok("Verfallen", h.gl.marken == ["frei", "frei", "frei"] and h.gl.haltung == "", "danach drei neue %s" % str(h.gl.marken))
+	var v := _gl(log, "KERBE_VERSTREICHT")
+	ok("Verstreichen", v == ["geschlagen", "geschlagen", "geschlagen"], "ungenutzte Haltung zerfällt mit der Meldung %s" % str(v))
+	ok("Verstreichen", h.gl.marken == ["frei", "frei", "frei"] and h.gl.haltung == "", "danach drei neue %s" % str(h.gl.marken))
 	h.gl.gold_jetzt = true
 	m.gk.zug_beginnen(h)
 	ok("Goldkerbe", h.gl.marken.size() == 4 and bool(m.gk.bild().hero.f), "die Goldkerbe ist die vierte %s" % str(h.gl.marken))

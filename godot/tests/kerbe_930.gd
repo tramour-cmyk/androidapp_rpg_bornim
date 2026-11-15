@@ -243,7 +243,7 @@ func _r7() -> void:
 	m.gk.gegner_zug()
 	ok("Regel 7", int(m.gk.zaehler.wehr) == 1 and int(h.gl.bereit) == 2, "Wehr: eine Kerbe je Schlag")
 	m.gk.zug_beginnen(h)
-	ok("Regel 7", int(h.gl.bereit) == 0 and int(m.gk.zaehler.verfallen) == 2, "Haltung verfällt mit dem eigenen nächsten Zug")
+	ok("Regel 7", int(h.gl.bereit) == 0 and int(m.gk.zaehler.verstrichen) == 2, "Haltung verfällt mit dem eigenen nächsten Zug")
 	# Wehr: Ungunst im Treffer (Trefferchance wie werte.json)
 	_treffer(-1)
 	var ch := []
@@ -309,6 +309,23 @@ func _r10() -> void:
 	_zug(m, h)
 	m.gk.held_zug(h, {"tun": Kerbe.WAFFE, "ziel": g.id, "trank": "potion", "haltung": Kerbe.WEHR})
 	ok("Regel 10", int(m.potions["potion"]) == 0 and h.hp > 100 and int(h.gl.bereit) == 1, "Trank 1, Schlag 1, Wehr 1 in einem Zug")
+	# 1266 (Befund Sokrates 15.11.): Trank über die Tasche (act „drink“) beendet den Zug nicht; Tun und Haltung bleiben, einer je Zug
+	_treffer(0)
+	var h2 := _held()
+	h2.hp = 100
+	var m2 := _kampf(h2, ["goblin"], {"nur_einrichten": true})
+	var g2 = m2.all[1]
+	g2.gl.ab = Kerbe.NAH
+	m2.potions["potion"] = 2
+	m2.turn = 0
+	m2.order = [h2, g2]
+	_zug(m2, h2)
+	m2.act(["drink", "potion", h2.id])
+	var nach_trank := [m2.current() == h2, int(h2.gl.kerben), int(m2.potions["potion"]), h2.hp > 100, m2.gk.kann_trinken(h2)]
+	ok("Regel 10", nach_trank == [true, 2, 1, true, false], "Tasche: Trank wirkt, der Zug geht weiter, kein zweiter %s" % str(nach_trank))
+	m2.gk.held_zug(h2, {"tun": Kerbe.WAFFE, "ziel": g2.id, "haltung": Kerbe.WEHR})
+	ok("Regel 10", int(h2.gl.bereit) == 1 and h2.gl.marken.count(Kerbe.M_GESCHLAGEN) == 2,
+		"Tasche, dann Schlag und Wehr: eine Kerbe bleibt (%d, %s)" % [int(h2.gl.bereit), str(h2.gl.marken)])
 
 
 func _r11() -> void:

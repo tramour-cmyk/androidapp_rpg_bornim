@@ -128,8 +128,8 @@ var react := Callable()
 var runde := 0
 ## Ringe in diesem Gegnerzug (Regel 9)
 var ringe := 0
-## gezählt wie glut2.py (Rechnung): Züge, Antworten, Wehr, verfallene Kerben, vertieft, Goldkerbe, gekappte Ringe, Täuschungen, Netz, Prankenhieb
-var zaehler := {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "vertieft": 0, "gold": 0,
+## gezählt wie glut2.py (Rechnung): Züge, Antworten, Wehr, verstrichene Kerben, vertieft, Goldkerbe, gekappte Ringe, Täuschungen, Netz, Prankenhieb
+var zaehler := {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verstrichen": 0, "vertieft": 0, "gold": 0,
 	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0}
 ## höchstens so viele Runden, dann verloren (werte.json „lauf“ „max_runden“, wie die Rechnung)
 var max_runden := 60
@@ -228,15 +228,16 @@ func _naechster() -> bool:
 	return false
 
 
-## Regel 1, 7, 12: Zugbeginn: Haltung verfällt (ihre Kerben zählen als verfallen), Kerben neu, Goldkerbe dazu. false: der Zug fällt aus (betäubt)
+## Regel 1, 7, 12: Zugbeginn: Haltung verstreicht (ihre Kerben zählen als verstrichen), Kerben neu, Goldkerbe dazu. false: der Zug fällt aus (betäubt)
 func zug_beginnen(f) -> bool:
-	zaehler.verfallen += int(f.gl.bereit)
+	zaehler.verstrichen += int(f.gl.bereit)
 	if int(f.gl.bereit) > 0:
-		_marke(f, M_HALT, M_GESCHLAGEN, 99)     # 930.7: die ungeschlagene Haltung verfällt (Bild: kerbbild.gd beim Stichwort)
-		m._say("", f.id, null, 0, null, false, false, "KERBE_VERFALLEN")
+		_marke(f, M_HALT, M_GESCHLAGEN, 99)     # 930.7: die ungeschlagene Haltung verstreicht (Bild: kerbbild.gd beim Stichwort)
+		m._say("", f.id, null, 0, null, false, false, "KERBE_VERSTREICHT")
 	f.gl.bereit = 0
 	f.gl.haltung = ""
 	f.gl.haltung_plan = ""
+	f.gl.trank_genommen = false
 	zaehler.zuege += 1
 	if int(f.gl.betaeubt) > 0:
 		f.gl.betaeubt -= 1
@@ -510,6 +511,23 @@ func plan_aus(f, o: Array) -> Dictionary:
 	return vorschlag(f)
 
 
+## 1266 (Befund Sokrates 15.11.: Trank über die Tasche beendete den Zug, gegen Regel 10 „Trank, Schlag und eine Haltung gehen in
+## einem Zug“): der Trank aus der Tasche wirkt sofort, kostet seine Kerbe, und der Zug geht weiter (Tun und Haltung bleiben wählbar);
+## einer je Zug. Alt: Battle.kt useItem (576–595) kostete den ganzen Zug. false: kein Trank möglich
+func kann_trinken(f) -> bool:
+	return not bool(f.gl.get("trank_genommen", false)) and int(f.gl.kerben) >= _i("trank")
+
+
+func trank_vorweg(f, item: String, ziel) -> bool:
+	if not kann_trinken(f):
+		return false
+	f.gl.kerben = int(f.gl.kerben) - _i("trank")
+	f.gl.trank_genommen = true
+	_marke(f, M_FREI, M_GESCHLAGEN, _i("trank"))
+	m._drink(f, item, ziel if ziel != null else f)
+	return true
+
+
 ## Was der Held in seinem Zug als Haltung wählen kann (Regel 7: Gegenschlag mit Nahkampfwaffe, Wachschuss mit Fernwaffe oder
 ## Angriffszauber mit Mana, Wehr immer)
 func haltungen(f) -> Array:
@@ -572,7 +590,7 @@ func held_zug(f, p: Dictionary) -> void:
 		frei_ = 0
 		f.gl.frei = 0
 		m._say(m.fmt(m.pick("MSG72_SWAPS"), m.lang, [f.name(m.lang)]), f.id)
-	if String(p.get("trank", "")) != "" and kerbe >= _i("trank"):     # Regel 10: Trank kostet 1, ist kein Tun
+	if String(p.get("trank", "")) != "" and kerbe >= _i("trank") and not bool(f.gl.get("trank_genommen", false)):     # Regel 10: Trank kostet 1, ist kein Tun
 		kerbe -= _i("trank")
 		_marke(f, M_FREI, M_GESCHLAGEN, _i("trank"))
 		m._drink(f, String(p.trank), m.by_id(String(p.get("trank_ziel", f.id))))

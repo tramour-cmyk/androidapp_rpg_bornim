@@ -1140,6 +1140,9 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 	var f := current()
 	assert(f.side == "PARTY" and f.standing())
 	chosen = true
+	if kerbe and o[0] == "drink":     # 1266 (Regel 10): Trank aus der Tasche, der Zug geht weiter (kerbe.gd trank_vorweg)
+		gk.trank_vorweg(f, String(o[1]), by_id(String(o[2])) if o.size() > 2 and o[2] != null else f)
+		return _take_log()
 	if kerbe:     # 930.6: ["KERBE", Plan] (kerbe.gd held_zug); die Befehle des alten Kampfs übersetzt kerbe.gd plan_aus
 		gk.handeln(f, o[1] if o[0] == "KERBE" else gk.plan_aus(f, o))
 		return _take_log()

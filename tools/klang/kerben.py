@@ -14,7 +14,7 @@ Die Pakete: https://opengameart.org/sites/default/files/100-CC0-wood-metal-SFX.z
   harte Holzschlag gleich danach; ohne Hall, kurz.
 - kerbe_tief: Vertiefen: derselbe Schnitt tiefer gestimmt, mit Körper und einem zweiten Nachsetzen.
 - kerbe_antwort: die Haltung antwortet: ein heller Schlag, Holz mit Klingenkante.
-- kerbe_verfall: ungeschlagene Kerben verfallen am Zugbeginn: leise, weich, Holz, das sich setzt.
+- kerbe_verstreichen: ungeschlagene Kerben verstreichen mit dem Zug (1265): leise, weich, Holz, das sich setzt.
 - kerbe_gold: die Goldkerbe entsteht: Systemklang, eine kleine Glocke tief gestimmt über einem weichen Holzschlag.
 - haltung_klinge, haltung_sehne, haltung_schild: Haltung setzen: Klinge in Stellung, Sehne gespannt (Holz knarrt unter Zug),
   Schild hoch (Holz und Leder).
@@ -59,7 +59,7 @@ def antwort(holz, kante, sh, sk, seed=1):
     return norm(reverb(mix((h, 0.0, 1.0), (k, 0.0, 0.55)), 0.1, 0.35, 7000, seed), -1.0, -19)
 
 
-def verfall(name, s, seed=1):
+def verstreichen(name, s, seed=1):
     x = lowpass(kurz(a(name, s), 0.35), 2200)
     x = x * np.linspace(1.0, 0.4, len(x))
     return norm(reverb(x, 0.12, 0.4, 2500, seed), -12.0, -31)
@@ -101,7 +101,7 @@ S = {
                    tief("tools_12", "wood_hit_03", "wood_hit_04", -2, -4, 3)],
     "kerbe_antwort": [antwort("wood_01", "blade_01", 1, 2, 1), antwort("wood_04", "blade_03", 0, 1, 2),
                       antwort("wood_05", "blade_02", 1, 2, 3)],
-    "kerbe_verfall": [verfall("wood_misc_05", -2, 1), verfall("item_wood_03", -3, 2), verfall("wood_misc_08", 0, 3)],
+    "kerbe_verstreichen": [verstreichen("wood_misc_05", -2, 1), verstreichen("item_wood_03", -3, 2), verstreichen("wood_misc_08", 0, 3)],
     "kerbe_gold": [gold()],
     "haltung_klinge": [klinge("blade_01", 0, 1), klinge("blade_02", -1, 2), klinge("blade_03", 0, 3)],
     "haltung_sehne": [sehne("wood_squeak_01", -3, 1.0, 1), sehne("wood_squeak_02", -4, 1.0, 2), sehne("wood_squeak_01", -5, 1.1, 3)],

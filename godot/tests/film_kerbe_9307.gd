@@ -2,8 +2,10 @@
 # drei Runden, Kerbensystem an (probe.gd kerbe_an). Der Spieler tippt durch die Oberfläche (kampf_ui._scene_input, wie ein Finger:
 # drücken, loslassen), ein weißer Kreis zeigt jeden Tipp:
 #   Runde 1: Tipp auf den Helden (Daumenmenü mit Vorschlag, Vorschau der Schlagfolge), Tipp auf Vertiefen, Tipp auf den Wolf
-#   Runde 2: nur ein Tipp auf den Wolf (der Vorschlag spielt, 7.1)
-#   Runde 3: Tipp auf den Helden, zweimal Wehr, Tipp auf den Wolf
+#   Runde 2 (1266, Chef 15.11., 10:10 und 10:12: Leiste und Tasche bleiben): über die Leiste: „Tasche“, Trank, der Held trinkt
+#     (eine Kerbe), der Zug geht weiter (Regel 10), dann „Angriff“ auf den Wolf (die übrige Kerbe nach dem Vorschlag)
+#   Runde 3: über die Leiste „Haltung“ (Abwehr wird Haltung, 7.5): alle Kerben in die Haltung
+#   RUNDEN=4: dazu der alte dritte Zug (Tipp auf den Helden, zweimal Wehr, Tipp auf den Wolf)
 # Ohne Bild (--headless) misst er die Zeit von Wahl zu Wahl je Runde; KERBE=0 spielt dieselben Runden im alten Kampf (Vergleich F9:
 # Rundenzeit nicht länger als heute). Zeilen „KERBE9307 …“; Exit 1, wenn der Kampf hängt oder ein Tipp nichts tat.
 # Aufruf im Ordner godot: --headless --fixed-fps 30 -s res://tests/film_kerbe_9307.gd  (SEED=7, RUNDEN=3, KERBE=0, ZEILEN=1;
@@ -48,6 +50,8 @@ func _lauf() -> void:
 		root.size = Vector2i(1080, 2340)
 	var s := int(_env("SEED", "7"))
 	var runden := int(_env("RUNDEN", "3"))
+	var leiste_runde := 2     # 1266: Tasche und Angriff über die Leiste
+	var haltung_runde := 3
 	var kerbe := _env("KERBE", "1") != "0"
 	seed(s)
 	var p = Probe.new()
@@ -94,7 +98,15 @@ func _lauf() -> void:
 		if ziel == null:
 			kf.order(["KERBE", {"tun": "warten", "haltung": "wehr"}])
 			continue
-		if r == 1 or r == 3:
+		if r == leiste_runde:
+			await _leiste_tasche_angriff(f, film)
+			await _bilder_des_zugs(r)
+			continue
+		if r == haltung_runde:
+			await _knopf("HALTUNG", "Haltung")
+			await _bilder_des_zugs(r)
+			continue
+		if r == 1 or r == 4:
 			await _tipp(_auf(kf.figures[f.id]), "Held")
 			await _warte(int(1.2 * FPS) if film else 2)
 			var art: String = "tief" if r == 1 else "wehr"
@@ -105,12 +117,7 @@ func _lauf() -> void:
 			await _knips("runde%d-plan" % r)
 			print("KERBE9307 Runde %d Plan %s, Vorschau %s" % [r, str(kf.ui.kerbe.plan(f, ziel.id)), str(kf.mars.gk.vorschau(f, kf.ui.kerbe.plan(f, ziel.id)))])
 		await _tipp(_auf(kf.figures[ziel.id]), "Wolf")
-		await _warte(2)
-		for j in 6:     # BILDER: alle 0,5 s des Zugs
-			if _env("BILDER", "") == "":
-				break
-			await _warte(int(0.5 * FPS))
-			await _knips("runde%d-%d" % [r, j])
+		await _bilder_des_zugs(r)
 		if not kf.busy and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
 			print("KERBE9307 FEHLER Runde %d: der Tipp auf den Wolf spielte keinen Zug" % r)
 			fehler += 1
@@ -122,7 +129,7 @@ func _lauf() -> void:
 		print("KERBE9307 Runde %d %.1f s (%s)" % [i, d, "Kerben" if kerbe else "alt"])
 		# G4 (bis 15 s): je Runde ein Schnitt vom ersten Tipp bis zur nächsten Wahl, höchstens 5 s
 		var a: float = (erster_tipp[i - 1] if erster_tipp.size() >= i else wahlen[i - 1]) - 0.4
-		print("KERBE9307 Schnitt %d %.2f %.2f" % [i, a + versatz, minf(5.0, wahlen[i] - a)])
+		print("KERBE9307 Schnitt %d %.2f %.2f" % [i, a + versatz, minf(6.0 if i == leiste_runde else 4.5, wahlen[i] - a)])
 	if wahlen.size() > 1:
 		print("KERBE9307 Mittel %.1f s je Runde (%s), %d Runden, Ausgang %s" % [summe / (wahlen.size() - 1), "Kerben" if kerbe else "alt", wahlen.size() - 1, kf.mars.outcome])
 	if kerbe:
@@ -136,6 +143,68 @@ func _lauf() -> void:
 	print("KERBE9307 %d Fehler" % fehler)
 	await _warte(int(1.5 * FPS) if film else 0)
 	quit(1 if fehler > 0 else 0)
+
+
+func _bilder_des_zugs(r: int) -> void:
+	await _warte(2)
+	for j in 6:     # BILDER: alle 0,5 s des Zugs
+		if _env("BILDER", "") == "":
+			break
+		await _warte(int(0.5 * FPS))
+		await _knips("runde%d-%d" % [r, j])
+
+
+## 1266: über die Leiste: Tasche, Trank, der Held; der Zug geht weiter (Regel 10); dann Angriff auf den Wolf
+func _leiste_tasche_angriff(f, film: bool) -> void:
+	var m = kf.mars
+	if int(m.potions.get("potion", 0)) < 1:
+		m.potions["potion"] = 1
+	if f.hp >= f.max_hp:     # ein Trank hilft nur dem Verwundeten (532)
+		f.hp = f.max_hp - 6
+		kf.ui.refresh()
+	await _knopf("TASCHE", "Tasche")
+	await _warte(int(0.7 * FPS) if film else 2)
+	await _knopf("", "Trank", func(b): return b.text.contains("×"))
+	await _warte(int(0.7 * FPS) if film else 2)
+	await _knopf(String(f.name(0)).to_upper(), "Held trinkt")
+	var t0 := n
+	await _warte(2)
+	while (kf.busy or kf.playing or not kf.beats.is_empty()) and n - t0 < int(10 * FPS):
+		await _warte(1)
+		_ring()
+	var weiter: bool = m.current() == f and m.outcome == "ONGOING"
+	print("KERBE9307 Runde Trank: Zug geht weiter %s, Kerben %d, Leben %d/%d" % [weiter, int(f.gl.kerben), f.hp, f.max_hp])
+	if not weiter:
+		print("KERBE9307 FEHLER: der Trank beendete den Zug")
+		fehler += 1
+		return
+	await _warte(int(0.6 * FPS) if film else 2)
+	await _knopf("ANGRIFF", "Angriff")
+	await _warte(int(0.6 * FPS) if film else 2)
+	if not kf.busy and kf.beats.is_empty():     # mehrere Ziele: die Zeile mit dem Wolf
+		await _knopf("", "Wolf", func(b): return b.text.contains("WOLF"))
+
+
+## Ein Knopf der Leiste, dessen Aufschrift mit [anfang] beginnt (oder [passt] zutrifft): Kreis wie ein Finger, dann gedrückt
+func _knopf(anfang: String, was: String, passt := Callable()) -> void:
+	var b: Button = null
+	for x in kf.ui.find_children("*", "Button", true, false):
+		var bx := x as Button
+		if bx.is_visible_in_tree() and not bx.disabled and (bx.text.begins_with(anfang) if not passt.is_valid() else passt.call(bx)):
+			b = bx
+			break
+	if b == null:
+		print("KERBE9307 FEHLER: Knopf %s nicht da" % was)
+		fehler += 1
+		return
+	if tipp_merken:
+		erster_tipp.append(n / FPS)
+		tipp_merken = false
+	var p: Vector2 = b.get_global_rect().get_center()
+	kreise.append([p, n])
+	await _warte(3)
+	b.pressed.emit()
+	print("KERBE9307 Knopf %s bei %.1f s (%d|%d)" % [was, n / FPS, int(p.x), int(p.y)])
 
 
 func _knips(name: String) -> void:

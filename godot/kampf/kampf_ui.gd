@@ -966,7 +966,7 @@ func _build_orders() -> void:
 						_set_pick("target"), false, false, Tips.ATTACK),
 				_button(t("Können", "Abilities"),     # [870.14.knopf.koennen]
 						 not matt and not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
-				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty() and (not m.kerbe or m.gk == null or f == null or f.gl.is_empty() or m.gk.kann_trinken(f)), func(): _set_pick("bag"), false, false, Tips.BAG),     # 1266: im Kerbensystem ein Trank je Zug
 				_button(t("Wechsel", "Switch"), not matt and (m.can_swap(f) or m.can_draw(f)), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
 			var low := [_button(t("Abwehr", "Defend"), not matt, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
