@@ -178,7 +178,7 @@ def wochentermine_faellig(jetzt):
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
             if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
-            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da)
+            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da) + spiegel_auswertung_faellig(jetzt, da)
 
 # 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen
 # veralten still (99 ruhte seit 17.10. überholt; Chefurteil nie nachgezogen, Arbeit unter Unternummern erledigt, Richtungswechsel).
@@ -291,6 +291,29 @@ def urteil_faellig(jetzt, da=None):
 # kommt sie am nächsten, der Abstand bleibt mindestens 48 h. Rückstufung auf montags prüft Sokrates am 27.11.
 LEICHEN_AB = datetime.date(2026, 11, 17)
 LEICHEN_ABSTAND = 2  # Tage
+
+# 340.9 (340.6 A, Chef 15.11., 18:30, V3): liegen Antworten im Rollenspiegel ohne Auswertung, legt lauf.py --sperre am selben Tag
+# eine Muss-Zeile bei Sokrates an: sobald alle sieben geantwortet haben, sonst freitags ab 20 Uhr (oder später) mit dem, was da ist.
+SPIEGEL_AB = datetime.date(2026, 11, 20)
+SPIEGEL_ROLLEN = 7
+
+def spiegel_auswertung_faellig(jetzt, da=None, text=None):
+    """340.9: [(Titel, Bereich, Besitzer)] für Sokrates, wenn die jüngste Woche im Rollenspiegel Antworten hat und keine Auswertung."""
+    if jetzt.date() < SPIEGEL_AB: return []
+    text = lesen("LISTE-ROLLENSPIEGEL.md") if text is None else text
+    wochen = re.findall(r"(?ms)^## Woche (\d{1,2})\.(\d{1,2})\.\n(.*?)(?=^## |\Z)", text)
+    if not wochen: return []
+    t, m, block = wochen[-1]
+    try: freitag = jahr_von(int(t), int(m))
+    except ValueError: return []
+    zahl = len(re.findall(r"(?m)^### ", block))
+    if not zahl or freitag > jetzt.date() or (jetzt.date() - freitag).days > 3: return []  # ältere Wochen: Mo zählt Diogenes
+    if zahl < SPIEGEL_ROLLEN and freitag == jetzt.date() and jetzt.hour < 20: return []
+    tag = "%02d.%02d." % (int(t), int(m))
+    da = (lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da) + lesen("VORGANGSARCHIV.md")
+    if re.search(r"Auswertung Rollenspiegel %s|Rollenspiegel %s ausgewertet" % (re.escape(tag), re.escape(tag)), da): return []
+    return [("Auswertung Rollenspiegel %s (340.9): %d von %d Antworten, Vorlage mit Wegen an den Chef (ROLLE-BERATUNG.md)"
+             % (tag, zahl, SPIEGEL_ROLLEN), "B Abläufe", "Sokrates")]
 
 def leichenpruefung_faellig(jetzt, da=None):
     """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
