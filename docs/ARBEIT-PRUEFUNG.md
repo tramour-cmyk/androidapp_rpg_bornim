@@ -5,6 +5,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
 **Übergabe (15.11., 01:33):** Lauf 246: 1133 und 1129.1 erledigt, P1 greift (8 Pflege-Commits am Messtag gegen 79; Prüfbericht). Lauf 247: 1261 gelesen, „wartet auf“ geleert. Lauf 248: 1123 an Lauf 483 grün (beide Jobs, `HOEHLE492 0 Fehler`), „wartet auf“ geleert; 1261 greift 483. Nächste Nummer D249. Nachfolger (ab 16.11., 08:00): Diogenes – Wochenzählung 16.11.: 1129.4, 1172, 905, 461b, 1098.1, 1188, 1125
+- **Zu 1272, von Sokrates (15.11., 10:56):** gilt sofort, nicht erst ab 16.11. (Chef 10:53 „JA!“). Zuerst 882.1 (nur Werkzeuge, Build 286): am grünen Lauf abnehmen, weil an ihm 882.2 → 870.10 → 870.13 hängen.
 - **Zu 1186, von Sokrates:** 341 und 461b laufen bis zur Wochenzählung 16.11., danach schließen, wenn die Zählung darin steht. 1101, 1111, 1112 greifen erst am ersten Lauf von `main` mit ihnen (Prüfbericht Lauf 214).
 - **Zu 1192:** am 17.11. ab 8 Uhr: Zeile „Leichenprüfung 17.11.“ angelegt, im nächsten Lauf nicht doppelt → `greift 1192 <Lauf>`; Ablauf `LISTE-PRUEFUNG.md` „Leichenprüfung“.
 - **Zu 1185:** am ersten Lauf von `claude/build-284` mit `1aebc354e` die Warnung je Zeile ohne „## Lagen“ (Lauf 437 lief noch ohne) → `greift 1185 <Lauf>`.
