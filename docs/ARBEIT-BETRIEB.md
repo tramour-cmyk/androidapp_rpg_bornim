@@ -44,6 +44,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 11:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01Bxa9TW7bvnV8cSVBQdf7AU` (:03), alte `trig_01BpBNHHosCmPVkVh7ZdEqz5` aus, alter Ford `…76BCecXxLdXLfnEzk9` archiviert (5,96 $ auf 1019); Diogenes 1123 `…78w1wTxyTuS8uf2tzM` archiviert (1,49 $); Wächter 1270.1 an Tom gesendet
+- 10:59 15.11.: Jerry neu `…7AB8nKRTEe1G152XSQ` (1266 Film, dann 1215), alt archiviert (17,36 $)
+- 10:57 15.11.: Spike neu `…77N7FwEA8GY6oPzSUA` (1270.1, Neustart 1a316e011), alt archiviert (10,98 $)
+- 10:55 15.11.: Diogenes neu `…78yhg3iMnC4caCkmRB` (1272); 1270.1 per Weiter an Spike `…7A7BuC683wt2MBEacm` (Chef: nicht Tom und Jerry), Tom 286 bleibt (wartet auf Chef-Test)
 - 10:51 15.11.: Homer neu `…75SXMEBRLJdiSsv5Xd` (1267), Homer 1264 archiviert (4,18 $); Perikles neu `…77RmWp9S7BfJZLPzKq` (1271 auf Meldung Sokrates), Perikles Tagesbericht archiviert (4,76 $)
 - 10:47 15.11.: Sokrates neu `…77APonFpNDWGs4JfMc` (Chefrunde Berg abbauen, Chef wartet), alt archiviert (3,92 $ auf 1186)
 - 10:17 15.11.: Sokrates neu `…78RskfRt4STVuE8msj` (Neustart e0527fb49), alt archiviert (6,72 $ auf 1260); Tuffy 1266 ausgenommen (Jerry nimmt es)
@@ -60,14 +64,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:01 15.11.: Jerry neu `…78SJHxHKh5akPaP15y` (Läufe 479, 480, 482, 1215 Film), Jerry `…78yH84MdzrJ74grhR6` archiviert (25,96 $ auf 1215)
 - 00:05 15.11.: Diogenes neu `…75edsFFzfEQPxCoWxq` (1019), Diogenes 1079 `…78sXbc6SZHTKCgXXZ3` archiviert (1,60 $)
 - 00:01 15.11.: Sokrates `…76zXUTypnQhewTvAHH` (1259) archiviert (4,13 $ auf 1259)
-- 23:50 14.11.: Tuffy neu `…76d3QcJwbDH1YGUuPR` (930.7 Film), Tuffy `…79v4vLh86CTewmRzZ9` archiviert (12,95 $ auf 930.7); Sokrates neu `…75rZTuiGj1QA448MLH` (930.7), alter `…76zXUTypnQhewTvAHH` Archivierung 00:00
-- 23:45 14.11.: Homer neu `…794ME3Gg3ydHeNmxum` (1260), Homer `…76baqPiDLHo7r3hvWz` archiviert (4,22 $ auf 1260)
-- 23:37 14.11.: Jerry neu `…78yH84MdzrJ74grhR6` (1215 Film), Jerry `…77eC8wuMDzUxc2ekY9` archiviert (10,02 $ auf 1215)
-- 23:03 14.11.: Tom neu `…78AmAJeR5X7Ghv9VBH` (286), Jerry neu `…77eC8wuMDzUxc2ekY9` (1215); Tom `…77L1zKAAbcvm31GJBc` (5,62 $ auf 286) und Jerry `…75ZWJGSXdqrpx7xyzH` (29,98 $ auf 1222, Hinweis: Jerry-Kosten gehören auch zu 601 und 1215) archiviert
 - 00:04 15.11.: Marke Archiv session_01Hmoj78sXbc6SZHTKCgXXZ3 (lauf.py)
 - 01:03 15.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 01:03 15.11.: Marke Archiv session_01Hmoj75edsFFzfEQPxCoWxq (lauf.py)
-- 01:06 15.11.: Diogenes neu `…78jTfdpL8avRWiFR1x` (1133), Diogenes 1019 `…75edsFFzfEQPxCoWxq` archiviert (2,14 $); Startsperre 01:06 Start Ford (selbst, Tiefe 3, Selbstneustart nach Haken 1019 Erinnerung 1)
 - 01:06 15.11.: Marke Wächter 1133 13.11. 12:53 (lauf.py)
 - 01:06 15.11.: Marke Archiv session_01Hmoj78AmAJeR5X7Ghv9VBH (lauf.py)
 - 01:30 15.11.: Marke Archiv session_01Hmoj78SJHxHKh5akPaP15y (lauf.py)
@@ -93,10 +92,11 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 15.11.: Marke Archiv session_01Hmoj7A9BD9js7ioHpGovGR (lauf.py)
 - 10:50 15.11.: Marke Archiv session_01Hmoj79UDfkXFpM3zk1WmjM (lauf.py)
 - 10:53 15.11.: Startsperre 10:53 Start Tom, Diogenes (lauf.py)
-- 10:55 15.11.: Diogenes neu `…78yhg3iMnC4caCkmRB` (1272); 1270.1 per Weiter an Spike `…7A7BuC683wt2MBEacm` (Chef: nicht Tom und Jerry), Tom 286 bleibt (wartet auf Chef-Test)
 - 10:56 15.11.: Startsperre 10:56 Start Spike (Neustart, 1a316e011)
-- 10:57 15.11.: Spike neu `…77N7FwEA8GY6oPzSUA` (1270.1, Neustart 1a316e011), alt archiviert (10,98 $)
 - 10:59 15.11.: Startsperre 10:59 Start Jerry (Neustart, 0abf2acbf)
-- 10:59 15.11.: Jerry neu `…7AB8nKRTEe1G152XSQ` (1266 Film, dann 1215), alt archiviert (17,36 $)
 - 11:06 15.11.: Startsperre 11:06 Start Ford (selbst, Tiefe 4, Selbstneustart nach 420 Tsd. Token)
-- 11:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01Bxa9TW7bvnV8cSVBQdf7AU` (:03), alte `trig_01BpBNHHosCmPVkVh7ZdEqz5` aus, alter Ford `…76BCecXxLdXLfnEzk9` archiviert (5,96 $ auf 1019); Diogenes 1123 `…78w1wTxyTuS8uf2tzM` archiviert (1,49 $); Wächter 1270.1 an Tom gesendet
+- 11:10 15.11.: Startsperre 11:10 Start Homer, Perikles (lauf.py)
+- 11:10 15.11.: Marke Rückmeldung 1270.1 15.11. 11:04 (lauf.py)
+- 11:10 15.11.: Marke Archiv session_01Hmoj78w1wTxyTuS8uf2tzM (lauf.py)
+- 11:10 15.11.: Marke Archiv session_01Hmoj75SXMEBRLJdiSsv5Xd (lauf.py)
+- 11:10 15.11.: Marke Archiv session_01Hmoj77RmWp9S7BfJZLPzKq (lauf.py)
