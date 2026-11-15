@@ -2,7 +2,7 @@
 
 Technik: Godot-Technik, Licht, Shader, Leistung, Ladezeit, Tests, Bauwerkzeuge (`ROLLE-ENTWICKLUNG.md`; eigene Rolle seit 1328, Chef 15.11., 21:05). Aussehen legt der Chef fest. Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (16.11., 00:24, `session_01Hmoj76MtqM5JpbkkpJNkAM`):** 1300 auf `main` (`f98aa373c`, Lauf 509, wartet auf Diogenes); 1355 an Tom (`wende_4168` zufällig rot). 1303 Ursache belegt (Messlauf 508), Weg noch nicht gebaut. Kaufrepo und Paketinstallation in dieser Sitzung abgelehnt (bei Sokrates/Perikles). Nachfolger: Spike – 1303: Stufen im Dunkel, Belichtung statt Hebung (TT.MM., HH:MM)
+**Übergabe (16.11., 00:38, `session_01Hmoj76VdQxk8E6re5azHWe`):** 1303 vorgelegt (`chefsache/ansehen/1303-stufen.md`, Telegram 4312), zweiter Messlauf liegt auf `claude/spike-1303-stufen` (`d1f3a4b6e`), Knopf erst nach 👍. Weiter in dieser Sitzung mit 698 (Neustart 00:38 zurückgenommen).
 
 - **Zu 1270.4, von Sokrates (Chef 15.11., 22:43, vorgezogen auf Platz 2 nach 1300):** „Ob mir da ein Bild viel bringt, weiß ich nicht. Da wäre jetzt, glaube ich, wieder ein Film gut, weil da soll man ja was sehen.“ Also Film statt Vergleichsbild: je Gegenstand (Gold, Fackel, Zauber, Höhlenlicht) alt gegen neu im selben Film, nah, bis 15 s, Höhle mit dem Renderer des Handys; vorher selbst ansehen, Homer auf Stil, dann `--film` an den Chef (nicht vor 7 Uhr).
 - **Zu 1348, von Sokrates (1348 A, Chef 15.11., 22:39):** von Tom und Jerry zu dir, Vorrang: 1300, 1303, 698, 1145, 1286, 1307; ruhend mit Termin: 918, 474, 30, 673, 348.13, 348.2 (348.2 laut Helfer 1186 überholt, Chef 24.10., 21:42 „raus“: prüfen und schließen). Absätze unten mitgewandert; Vorrang prüft Perikles.
