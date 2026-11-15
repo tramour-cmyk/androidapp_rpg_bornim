@@ -1,13 +1,13 @@
 extends RefCounted
-## 930.6 (DESIGN-GLUT.md 3–5, Bauplan 10 Stufe 1; Chef 14.11., 20:19 „930 A, let's go.“): Regelkern des Glutsystems hinter dem
-## Schalter Mars.glut (werte.json „glut“ „an“; aus: der alte Kampf bis zur Abnahme). Rechnet wie tools/sim444/glut2.py (930.5),
-## Gegenprobe tests/glut_rechnung_930.gd (Sieg und Runden je Fall ±3), je Regelnummer ein Kerntest in tests/glut_930.gd. Alle
-## Zahlen aus werte.json „glut“, keine im Code.
+## 930.6 (DESIGN-GLUT.md 3–5, Bauplan 10 Stufe 1; Chef 14.11., 20:19 „930 A, let's go.“): Regelkern des Kerbensystems hinter dem
+## Schalter Mars.kerbe (werte.json „kerbe“ „an“; aus: der alte Kampf bis zur Abnahme). Rechnet wie tools/sim444/glut2.py (930.5),
+## Gegenprobe tests/kerbe_rechnung_930.gd (Sieg und Runden je Fall ±3), je Regelnummer ein Kerntest in tests/kerbe_930.gd. Alle
+## Zahlen aus werte.json „kerbe“, keine im Code.
 ## Abstand je Gegner zur Gruppe (Regel 4): 0 nah, 1 fern, 2 weit. Der Zustand jedes Kämpfers steht in Fighter.gl.
-## 930.7 (Stufe 2): für jeden der Gruppe die Glutstücke für das Bild (marken, bild()), der Vorschlag für das Daumenmenü und die
-## Vorschau der Schlagfolge (vorschau()); gezeichnet in kampf/glutbild.gd.
+## 930.7 (Stufe 2): für jeden der Gruppe die Kerben für das Bild (marken, bild()), der Vorschlag für das Daumenmenü und die
+## Vorschau der Schlagfolge (vorschau()); gezeichnet in kampf/kerbbild.gd.
 ## Noch nicht hier (Bauplan 10): Bild der Ansage, Mittel der Langsamen (Regel 18), Texte
-## (Stufe 3, 5: Ereignisse ohne Spieltext tragen nur ihr Stichwort „cue“, GLUT_…). Ein Ring kommt über react wie im alten Kampf;
+## (Stufe 3, 5: Ereignisse ohne Spieltext tragen nur ihr Stichwort „cue“, KERBE_…). Ein Ring kommt über react wie im alten Kampf;
 ## die Absicht trägt „wehr“ (true: langsamer Ring, Fenster mal „wehr_ring_faktor“).
 
 const Brs = preload("res://regeln/brs.gd")
@@ -22,22 +22,22 @@ const WACHSCHUSS := "wachschuss"
 const WEHR := "wehr"
 ## Haltung nach dem Vorschlag der Bedienung (7.1), gewählt nach dem Tun
 const AUTO := "auto"
-## Tun ohne Handlung: die ganze Glut geht in die Haltung
+## Tun ohne Handlung: die ganze Kerbe geht in die Haltung
 const WARTEN := "warten"
 const WAFFE := "waffe"
 const FLIEHEN := "fliehen"
 ## Ringausgang wie im alten Kampf (Mars.NONE, GOOD, PERFECT) -> Anteil des Schadens
 const ANTEIL := {"NONE": 1.0, "GOOD": 0.5, "PERFECT": 0.0}
-## 930.7 (DESIGN-GLUT.md 8): Zustand eines Glutstücks im Bild: glimmt, ins Tun gelegt, nachgelegt, Haltung, verbraucht
-const M_GLUT := "glut"
+## 930.7 (DESIGN-GLUT.md 8): Zustand eines Platzes im Bild (1266): frei, fürs Tun, vertieft, Haltung, geschlagen
+const M_FREI := "frei"
 const M_TUN := "tun"
-const M_NACH := "nach"
+const M_TIEF := "tief"
 const M_HALT := "halt"
-const M_ASCHE := "asche"
+const M_GESCHLAGEN := "geschlagen"
 
 
 static func w() -> Dictionary:
-	return Brs.lade().get("glut", {})
+	return Brs.lade().get("kerbe", {})
 
 
 static func an() -> bool:
@@ -54,13 +54,13 @@ static func _f(key: String) -> float:
 
 # ---------------------------------------------------------------- Regeln als Rechnung (je Regel ein Kerntest)
 
-## Regel 1, 12: Glut zu Beginn des eigenen Zugs; [minus] aus Umreißen und Netz (stapeln, nie unter „mindestens“), [funke] +1
-static func zug_glut(minus: int, funke := false) -> int:
-	return maxi(_i("mindestens"), _i("held") - maxi(0, minus)) + (1 if funke else 0)
+## Regel 1, 12: Kerben zu Beginn des eigenen Zugs; [minus] aus Umreißen und Netz (stapeln, nie unter „mindestens“), [gold] +1
+static func zug_kerben(minus: int, gold := false) -> int:
+	return maxi(_i("mindestens"), _i("held") - maxi(0, minus)) + (1 if gold else 0)
 
 
-## Regel 15: Glut eines Gegners je Zug
-static func gegner_glut(boss: bool) -> int:
+## Regel 15: Kerben eines Gegners je Zug
+static func gegner_kerben(boss: bool) -> int:
 	return _i("boss") if boss else _i("gegner")
 
 
@@ -85,14 +85,14 @@ static func frei(tempo: String) -> int:
 	return int(w()["frei"].get(tempo, 1))
 
 
-## Regel 6: Glut eines Tuns (Name wie in werte.json „zauber“, „handlungen“); schwere 2
+## Regel 6: Kerben eines Tuns (Name wie in werte.json „zauber“, „handlungen“); schwere 2
 static func tun_kosten(name: String) -> int:
 	return _i("tun_schwer") if name in w()["schwer"] else _i("tun")
 
 
-## Regel 7: Schadensfaktor bei [n] nachgelegter Glut
-static func nachlegen_faktor(n: int) -> float:
-	return 1.0 + _f("nachlegen") * maxi(0, n)
+## Regel 7: Schadensfaktor bei [n] vertiefter Kerben
+static func vertiefen_faktor(n: int) -> float:
+	return 1.0 + _f("vertiefen") * maxi(0, n)
 
 
 ## Regel 7: Anteil des Schadens einer Antwort (Gegenschlag, Wachschuss) bei Waffenfertigkeit [fert]
@@ -119,7 +119,7 @@ static func lesestufe(b: Dictionary, art: String, boss: bool) -> int:
 
 # ---------------------------------------------------------------- Kampf
 
-## der Kampf (mars.gd, Schalter glut an); schwach gehalten, weil der Kampf diesen Kern hält (sonst bliebe beides im Speicher)
+## der Kampf (mars.gd, Schalter kerbe an); schwach gehalten, weil der Kampf diesen Kern hält (sonst bliebe beides im Speicher)
 var _m: WeakRef
 var m:
 	get:
@@ -128,8 +128,8 @@ var react := Callable()
 var runde := 0
 ## Ringe in diesem Gegnerzug (Regel 9)
 var ringe := 0
-## gezählt wie glut2.py (Rechnung): Züge, Antworten, Wehr, verfallene Glut, nachgelegt, Funke, gekappte Ringe, Täuschungen, Netz, Prankenhieb
-var zaehler := {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "nachgelegt": 0, "funke": 0,
+## gezählt wie glut2.py (Rechnung): Züge, Antworten, Wehr, verfallene Kerben, vertieft, Goldkerbe, gekappte Ringe, Täuschungen, Netz, Prankenhieb
+var zaehler := {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "vertieft": 0, "gold": 0,
 	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0}
 ## höchstens so viele Runden, dann verloren (werte.json „lauf“ „max_runden“, wie die Rechnung)
 var max_runden := 60
@@ -172,13 +172,13 @@ func _einrichten() -> void:
 	var start := NAH if ueb_leit or m.opening == "AMBUSHED" else FERN
 	for f in m.all:
 		if f.side == "PARTY":
-			f.gl = {"glut": 0, "frei": 0, "bereit": 0, "haltung": "", "minus": 0, "funke_da": int(f.b.get("stufe", 1)) >= _i("funke_ab_stufe"),
-				"funke_jetzt": false, "liegt": false, "betaeubt": 0, "marken": [], "funke_marke": false, "haltung_plan": ""}
+			f.gl = {"kerben": 0, "frei": 0, "bereit": 0, "haltung": "", "minus": 0, "gold_da": int(f.b.get("stufe", 1)) >= _i("gold_ab_stufe"),
+				"gold_jetzt": false, "liegt": false, "betaeubt": 0, "marken": [], "gold_marke": false, "haltung_plan": ""}
 			continue
 		var herr = m.find(f.follows) if f.follows != "" else null
 		var art := art_von(f)
 		var boss: bool = herr == null and bool(f.b.get("boss", false))
-		f.gl = {"art": art, "herr": herr, "boss": boss, "glut": gegner_glut(boss), "ab": start, "lauert": 0, "glut_bereit": 0,
+		f.gl = {"art": art, "herr": herr, "boss": boss, "kerben": gegner_kerben(boss), "ab": start, "lauert": 0, "kerben_bereit": 0,
 			"lauerte": false, "offen": false, "kraft": false, "plan": {}, "taeuscht": false, "erster": true, "tempo": tempo_gegner(art),
 			"chance": float(f.b.get("chance", 1.0)), "anfuehrer": herr == null,
 			"ueb": herr == null and bool(f.b.get("ueberfall", false)), "umr": herr == null and bool(f.b.get("umreissen", false)),
@@ -188,7 +188,7 @@ func _einrichten() -> void:
 	m.intents.clear()
 
 
-## Beginn des Kampfs (Mars.start im Glutsystem): Überfall zuerst (Regel 4, werte.json „merkmale“ „ueberfall“), dann Runde 1
+## Beginn des Kampfs (Mars.start im Kerbensystem): Überfall zuerst (Regel 4, werte.json „merkmale“ „ueberfall“), dann Runde 1
 func beginnen(r: Callable) -> void:
 	react = r
 	_einrichten()
@@ -228,53 +228,53 @@ func _naechster() -> bool:
 	return false
 
 
-## Regel 1, 7, 12: Zugbeginn: Haltung verfällt (Glut zählt als verfallen), Glut neu, Funke dazu. false: der Zug fällt aus (betäubt)
+## Regel 1, 7, 12: Zugbeginn: Haltung verfällt (ihre Kerben zählen als verfallen), Kerben neu, Goldkerbe dazu. false: der Zug fällt aus (betäubt)
 func zug_beginnen(f) -> bool:
 	zaehler.verfallen += int(f.gl.bereit)
 	if int(f.gl.bereit) > 0:
-		_marke(f, M_HALT, M_ASCHE, 99)     # 930.7: die Haltung zerfällt in Funken (Bild: glutbild.gd beim Stichwort)
-		m._say("", f.id, null, 0, null, false, false, "GLUT_VERGLIMMT")
+		_marke(f, M_HALT, M_GESCHLAGEN, 99)     # 930.7: die ungeschlagene Haltung verfällt (Bild: kerbbild.gd beim Stichwort)
+		m._say("", f.id, null, 0, null, false, false, "KERBE_VERFALLEN")
 	f.gl.bereit = 0
 	f.gl.haltung = ""
 	f.gl.haltung_plan = ""
 	zaehler.zuege += 1
 	if int(f.gl.betaeubt) > 0:
 		f.gl.betaeubt -= 1
-		_marke(f, "", M_ASCHE, 99)
+		_marke(f, "", M_GESCHLAGEN, 99)
 		m._say(m.fmt(m.ST_STUNNED, m.lang, [f.name(m.lang)]), f.id)
 		return false
-	f.gl.glut = zug_glut(int(f.gl.minus), bool(f.gl.funke_jetzt))
+	f.gl.kerben = zug_kerben(int(f.gl.minus), bool(f.gl.gold_jetzt))
 	f.gl.marken = []
-	for i in int(f.gl.glut):
-		f.gl.marken.append(M_GLUT)
-	f.gl.funke_marke = bool(f.gl.funke_jetzt)
-	if f.gl.funke_jetzt:
-		f.gl.funke_jetzt = false
-		m._say("", f.id, null, 0, null, false, false, "GLUT_FUNKE")
+	for i in int(f.gl.kerben):
+		f.gl.marken.append(M_FREI)
+	f.gl.gold_marke = bool(f.gl.gold_jetzt)
+	if f.gl.gold_jetzt:
+		f.gl.gold_jetzt = false
+		m._say("", f.id, null, 0, null, false, false, "KERBE_GOLD")
 	f.gl.minus = 0
 	f.gl.frei = frei(tempo_held(f.b))
 	return true
 
 
-## 930.7: die ersten [n] Glutstücke der Art [von] ("" jede, die nicht schon Asche ist) werden [zu]
+## 930.7: die ersten [n] Kerben der Art [von] ("" jede, die nicht schon Asche ist) werden [zu]
 func _marke(f, von: String, zu: String, n: int) -> void:
 	var mk: Array = f.gl.get("marken", [])
 	for i in mk.size():
 		if n <= 0:
 			return
-		if (von == "" and mk[i] != M_ASCHE) or mk[i] == von:
+		if (von == "" and mk[i] != M_GESCHLAGEN) or mk[i] == von:
 			mk[i] = zu
 			n -= 1
 
 
-## 930.7: was der Kampfort von der Glut zeigt, für jeden der Gruppe (mars.gd _say legt es jeder Meldung bei): Glutstücke [m],
-## Art der Haltung [h], das vierte ist der Funke [f]
+## 930.7: was der Kampfort von der Kerben zeigt, für jeden der Gruppe (mars.gd _say legt es jeder Meldung bei): Kerben [m],
+## Art der Haltung [h], die vierte ist die Goldkerbe [f]
 func bild() -> Dictionary:
 	var out := {}
 	for x in m.all:
 		if x.side == "PARTY" and not (x.gl as Dictionary).is_empty():
 			var h := String(x.gl.haltung) if String(x.gl.haltung) != "" else String(x.gl.get("haltung_plan", ""))
-			out[x.id] = {"m": (x.gl.get("marken", []) as Array).duplicate(), "h": h, "f": bool(x.gl.get("funke_marke", false))}
+			out[x.id] = {"m": (x.gl.get("marken", []) as Array).duplicate(), "h": h, "f": bool(x.gl.get("gold_marke", false))}
 	return out
 
 
@@ -290,7 +290,7 @@ func vorschau(f, p: Dictionary) -> Array:
 	var h := String(p.get("haltung", AUTO))
 	if h == AUTO:
 		h = vorschlag_haltung(f)
-	var k := maxi(0, int(f.gl.glut) - (0 if tun == WARTEN else _i("tun")) - maxi(0, int(p.get("nachlegen", 0))))
+	var k := maxi(0, int(f.gl.kerben) - (0 if tun == WARTEN else _i("tun")) - maxi(0, int(p.get("vertiefen", 0))))
 	for g in gegner():
 		var gp: Dictionary = g.gl.plan if not (g.gl.plan as Dictionary).is_empty() else {"art": "schlag"}
 		if String(gp.get("art", "")) in ["lauern", "heilen", "kraft"]:
@@ -306,12 +306,12 @@ func vorschau(f, p: Dictionary) -> Array:
 	return out
 
 
-## 930.7 (DESIGN-GLUT.md 7.2): Rest nach dem Tun, den das Daumenmenü verteilt (Nachlegen oder Haltung)
+## 930.7 (DESIGN-GLUT.md 7.2): Rest nach dem Tun, den das Daumenmenü verteilt (Vertiefen oder Haltung)
 func rest_nach_tun(f) -> int:
-	return maxi(0, int(f.gl.glut) - _i("tun"))
+	return maxi(0, int(f.gl.kerben) - _i("tun"))
 
 
-## Mars.act im Glutsystem: [plan] des Zugs von [f] (vorschlag), dann weiter bis zur nächsten Wahl der Gruppe
+## Mars.act im Kerbensystem: [plan] des Zugs von [f] (vorschlag), dann weiter bis zur nächsten Wahl der Gruppe
 func handeln(f, plan: Dictionary) -> void:
 	held_zug(f, plan)
 	if not _wartet.is_empty() and _wartet[0] == f:
@@ -333,7 +333,7 @@ func planen() -> void:
 	for g in gegner():
 		g.gl.taeuscht = false
 		var p := {"gross": false, "art": "schlag"}
-		var gl := int(g.gl.glut)
+		var gl := int(g.gl.kerben)
 		var art: String = g.gl.art
 		if art == "Goblin-Schamane":
 			var verl := gegner().filter(func(x): return x != g and x.hp < float(P["schamane_heilen_unter"]) * x.max_hp)
@@ -386,7 +386,7 @@ func _absicht(p: Dictionary) -> Dictionary:
 	a = a.duplicate()
 	a.breakable = false
 	a.break_any = false
-	a.glut = p.duplicate()
+	a.kerbe = p.duplicate()
 	return a
 
 
@@ -471,7 +471,7 @@ static func _vor(a_begl: bool, a_hp: int, b_begl: bool, b_hp: int) -> bool:
 
 
 ## Der Zug, den die Bedienung vorschlägt (ein Tipp auf den Gegner, 7.1) und den der Autopilot spielt; [politik] „N“: alle übrige
-## Glut ins Tun (Rechnung). Plan: {tun, ziel, loesen, nachlegen, haltung}
+## Kerben ins Tun (Rechnung). Plan: {tun, ziel, loesen, vertiefen, haltung}
 func vorschlag(f, politik := "S") -> Dictionary:
 	var z: Dictionary = BrsKampf.w()["zauber"]
 	var t = vorschlag_ziel(f)
@@ -485,9 +485,9 @@ func vorschlag(f, politik := "S") -> Dictionary:
 	var fa := aktion_fern(f)
 	if fa != "":
 		var nahe := gegner().filter(func(g): return int(g.gl.ab) == NAH)
-		var loesen: bool = not nahe.is_empty() and nahe.all(func(g): return g.gl.tempo == "langsam") and int(f.gl.glut) >= 2 and int(f.gl.frei) >= 1
-		return {"tun": fa, "ziel": t.id, "loesen": loesen, "nachlegen": nl, "haltung": AUTO}
-	return {"tun": WAFFE, "ziel": t.id, "nachlegen": nl, "haltung": AUTO}
+		var loesen: bool = not nahe.is_empty() and nahe.all(func(g): return g.gl.tempo == "langsam") and int(f.gl.kerben) >= 2 and int(f.gl.frei) >= 1
+		return {"tun": fa, "ziel": t.id, "loesen": loesen, "vertiefen": nl, "haltung": AUTO}
+	return {"tun": WAFFE, "ziel": t.id, "vertiefen": nl, "haltung": AUTO}
 
 
 ## Ein Befehl der Knopfzeile des alten Kampfs als Plan, bis Stufe 2 die Bedienung baut (7.5: Angriff, Können, Tasche bleiben, Abwehr
@@ -530,35 +530,35 @@ func _setze_haltung(f, rest: int, h: String) -> void:
 	var mk: Array = f.gl.get("marken", [])     # 930.7: was nicht in der Haltung wartet, ist verbraucht
 	var n := int(f.gl.bereit)
 	for i in range(mk.size() - 1, -1, -1):
-		if mk[i] == M_ASCHE:
+		if mk[i] == M_GESCHLAGEN:
 			continue
-		mk[i] = M_HALT if n > 0 else M_ASCHE
+		mk[i] = M_HALT if n > 0 else M_GESCHLAGEN
 		n -= 1
 	if f.gl.bereit > 0 and f.gl.haltung != "":
-		m._say("", f.id, null, 0, null, false, false, "GLUT_HALTUNG_" + String(f.gl.haltung).to_upper())
+		m._say("", f.id, null, 0, null, false, false, "KERBE_HALTUNG_" + String(f.gl.haltung).to_upper())
 
 
-## Ein Zug nach [p]: {tun: waffe | Z_… | H_… | warten | fliehen, ziel, loesen, trank, nachlegen, haltung}
+## Ein Zug nach [p]: {tun: waffe | Z_… | H_… | warten | fliehen, ziel, loesen, trank, vertiefen, haltung}
 func held_zug(f, p: Dictionary) -> void:
-	var glut := int(f.gl.glut)
+	var kerbe := int(f.gl.kerben)
 	var frei_ := int(f.gl.frei)
 	var tun := String(p.get("tun", WAFFE))
 	var h := String(p.get("haltung", AUTO))
-	if tun == FLIEHEN:     # Regel 13: alle Glut, Probe wie heute, nie vor einem Boss; ein schneller naher Gegner setzt nach
+	if tun == FLIEHEN:     # Regel 13: alle Kerben, Probe wie heute, nie vor einem Boss; ein schneller naher Gegner setzt nach
 		assert(m.can_flee(f))
-		f.gl.glut = 0
-		_marke(f, "", M_ASCHE, 99)
+		f.gl.kerben = 0
+		_marke(f, "", M_GESCHLAGEN, 99)
 		m._flee(f)
 		if m.outcome == "ONGOING":
 			_setzt_nach(f, false)
 		return
-	if bool(p.get("loesen", false)) and glut > _i("loesen"):     # Regel 3
-		glut -= _i("loesen")
-		_marke(f, M_GLUT, M_ASCHE, _i("loesen"))
+	if bool(p.get("loesen", false)) and kerbe > _i("loesen"):     # Regel 3
+		kerbe -= _i("loesen")
+		_marke(f, M_FREI, M_GESCHLAGEN, _i("loesen"))
 		var nahe := gegner().filter(func(g): return int(g.gl.ab) == NAH)
 		for g in nahe:
 			g.gl.ab = FERN
-		m._say("", f.id, null, 0, null, false, false, "GLUT_LOESEN")
+		m._say("", f.id, null, 0, null, false, false, "KERBE_LOESEN")
 		_setzt_nach(f, h == WEHR, nahe)
 		if m.outcome != "ONGOING":
 			return     # kein neuer freier Schritt; ein noch nicht genutzter bleibt
@@ -572,66 +572,66 @@ func held_zug(f, p: Dictionary) -> void:
 		frei_ = 0
 		f.gl.frei = 0
 		m._say(m.fmt(m.pick("MSG72_SWAPS"), m.lang, [f.name(m.lang)]), f.id)
-	if String(p.get("trank", "")) != "" and glut >= _i("trank"):     # Regel 10: Trank kostet 1, ist kein Tun
-		glut -= _i("trank")
-		_marke(f, M_GLUT, M_ASCHE, _i("trank"))
+	if String(p.get("trank", "")) != "" and kerbe >= _i("trank"):     # Regel 10: Trank kostet 1, ist kein Tun
+		kerbe -= _i("trank")
+		_marke(f, M_FREI, M_GESCHLAGEN, _i("trank"))
 		m._drink(f, String(p.trank), m.by_id(String(p.get("trank_ziel", f.id))))
 	if tun == WARTEN:
-		_setze_haltung(f, glut, h)
+		_setze_haltung(f, kerbe, h)
 		return
 	if tun == "H_KRAFT" or tun == "Z_BANN" or tun == "Z_WUND" or tun == "Z_HAUT" or tun == "Z_BEISTAND":     # Regel 11, Zauber ohne Ziel
 		var name := String(m.HANDLUNG.get(tun, m.ZAUBER.get(tun, tun)))
 		var kk := (_i("kraft_schoepfen") if tun == "H_KRAFT" else tun_kosten(name))
-		glut -= kk
-		_marke(f, M_GLUT, M_TUN, kk)
+		kerbe -= kk
+		_marke(f, M_FREI, M_TUN, kk)
 		m._use_skill(f, tun, m.by_id(String(p.get("ziel", f.id))))
-		_setze_haltung(f, glut, h)
+		_setze_haltung(f, kerbe, h)
 		return
 	var t = m.by_id(String(p.get("ziel", "")))
 	if t == null or not t.standing():
-		_setze_haltung(f, glut, h)
+		_setze_haltung(f, kerbe, h)
 		return
 	var fern: bool = m.ZAUBER.has(tun) or _waffe(f).art == "fern"
 	if not fern and int(t.gl.ab) > NAH:
 		while int(t.gl.ab) > NAH and frei_ > 0:     # Regel 2
 			t.gl.ab -= 1
 			frei_ -= 1
-		while int(t.gl.ab) > NAH and glut > 1:
+		while int(t.gl.ab) > NAH and kerbe > 1:
 			t.gl.ab -= 1
-			glut -= _i("schritt")
-			_marke(f, M_GLUT, M_ASCHE, _i("schritt"))
+			kerbe -= _i("schritt")
+			_marke(f, M_FREI, M_GESCHLAGEN, _i("schritt"))
 		f.gl.frei = frei_
 		if int(t.gl.ab) > NAH:     # nicht heran: der Rest geht in Wehr
-			_setze_haltung(f, glut, WEHR)
+			_setze_haltung(f, kerbe, WEHR)
 			return
-		if int(t.gl.lauert) > 0 and int(t.gl.glut_bereit) > 0:     # Regel 17: wer heranrückt, läuft in den Schlag
-			t.gl.glut_bereit -= 1
-			m._say("", t.id, f.id, 0, null, true, false, "GLUT_LAUERN")
+		if int(t.gl.lauert) > 0 and int(t.gl.kerben_bereit) > 0:     # Regel 17: wer heranrückt, läuft in den Schlag
+			t.gl.kerben_bereit -= 1
+			m._say("", t.id, f.id, 0, null, true, false, "KERBE_LAUERN")
 			auf_held(t, f)
 			if not f.standing() or m.outcome != "ONGOING":
 				return
 	var kosten := tun_kosten(String(m.ZAUBER.get(tun, m.HANDLUNG.get(tun, ""))))
-	if glut < kosten:     # zu wenig Glut für dieses Tun: der Rest geht in die Haltung
-		_setze_haltung(f, glut, h)
+	if kerbe < kosten:     # zu wenig Kerben für dieses Tun: der Rest geht in die Haltung
+		_setze_haltung(f, kerbe, h)
 		return
-	_marke(f, M_GLUT, M_TUN, kosten)
-	if tun != WAFFE and tun != "Z_FUNKEN":     # übrige Zauber und Kampfhandlungen rechnet der alte Kampf (Stufe 1: ohne Nachlegen)
+	_marke(f, M_FREI, M_TUN, kosten)
+	if tun != WAFFE and tun != "Z_FUNKEN":     # übrige Zauber und Kampfhandlungen rechnet der alte Kampf (Stufe 1: ohne Vertiefen)
 		m._use_skill(f, tun, t)
 		if m.outcome == "ONGOING":
-			_setze_haltung(f, glut - kosten, h)
+			_setze_haltung(f, kerbe - kosten, h)
 		return
-	var nd := mini(maxi(0, int(p.get("nachlegen", 0))), glut - kosten)     # Regel 7: Nachlegen
-	_marke(f, M_GLUT, M_NACH, nd)
-	if glut - kosten - nd > 0:     # 930.7: im Bild liegt der Rest schon während des Schlags in der geplanten Haltung
+	var nd := mini(maxi(0, int(p.get("vertiefen", 0))), kerbe - kosten)     # Regel 7: Vertiefen
+	_marke(f, M_FREI, M_TIEF, nd)
+	if kerbe - kosten - nd > 0:     # 930.7: im Bild liegt der Rest schon während des Schlags in der geplanten Haltung
 		f.gl.haltung_plan = vorschlag_haltung(f) if h == AUTO else h
-		_marke(f, M_GLUT, M_HALT, glut - kosten - nd)
+		_marke(f, M_FREI, M_HALT, kerbe - kosten - nd)
 	if nd > 0:
-		zaehler.nachgelegt += nd
-		m._say("", f.id, t.id, 0, null, false, false, "GLUT_NACHLEGEN")
-	held_schlag(f, t, tun, 0.0, nachlegen_faktor(nd))
+		zaehler.vertieft += nd
+		m._say("", f.id, t.id, 0, null, false, false, "KERBE_VERTIEFEN")
+	held_schlag(f, t, tun, 0.0, vertiefen_faktor(nd))
 	if m.outcome != "ONGOING":
 		return
-	_setze_haltung(f, glut - kosten - nd, h)
+	_setze_haltung(f, kerbe - kosten - nd, h)
 
 
 ## Regel 3, 13: ein schneller naher Gegner setzt nach (Schlag mit Ring), außer die Haltung ist Wehr
@@ -644,7 +644,7 @@ func _setzt_nach(f, wehr: bool, von := []) -> void:
 
 
 ## Schlag des Helden mit [tun] (Waffe oder Funkenpfeil) wie glut2.py held_schlag: Treffer gegen die Abwehr, Schaden mal Schwäche
-## und [faktor] (Nachlegen, Antwort), nach der Rüstung; Antworten nie kritisch und ohne Ungunst des Flatterns (Regel 7)
+## und [faktor] (Vertiefen, Antwort), nach der Rüstung; Antworten nie kritisch und ohne Ungunst des Flatterns (Regel 7)
 func held_schlag(f, t, tun: String, bonus := 0.0, faktor := 1.0, antwort := false) -> bool:
 	var W := BrsKampf.w()
 	var k: Dictionary = W["kampf"]
@@ -698,25 +698,25 @@ func held_schlag(f, t, tun: String, bonus := 0.0, faktor := 1.0, antwort := fals
 
 # ---------------------------------------------------------------- Zug der Gegner (Regel 8, 9, 15–17, 20, 21)
 
-func _funke(f, perfekt := false) -> void:
-	if f.side == "PARTY" and f.gl.funke_da and (perfekt or f.hp < _f("funke_unter_leben") * f.max_hp):
-		f.gl.funke_da = false
-		f.gl.funke_jetzt = true
-		zaehler.funke += 1
+func _gold(f, perfekt := false) -> void:
+	if f.side == "PARTY" and f.gl.gold_da and (perfekt or f.hp < _f("gold_unter_leben") * f.max_hp):
+		f.gl.gold_da = false
+		f.gl.gold_jetzt = true
+		zaehler.gold += 1
 
 
-## Ein Schlag von [g] auf [t] wie glut2.py auf_held: Wehr (eine Glut, Ungunst), Kraft des Schamanen, großer Schlag mit Ring (höchstens
+## Ein Schlag von [g] auf [t] wie glut2.py auf_held: Wehr (eine Kerbe, Ungunst), Kraft des Schamanen, großer Schlag mit Ring (höchstens
 ## zwei je Gegnerzug, Regel 9), Schaden nach Abzug. null: verfehlt; sonst der Anteil des Rings (1 ohne Ring)
 func auf_held(g, t, faktor := 1.0, gross := false, bonus := 0.0, wehr_hilft := true, schaden := true):
 	var W := BrsKampf.w()
 	var wehr := false
 	if wehr_hilft and int(t.gl.bereit) > 0 and t.gl.haltung == WEHR:     # Regel 7: Wehr
 		t.gl.bereit -= 1
-		_marke(t, M_HALT, M_ASCHE, 1)
+		_marke(t, M_HALT, M_GESCHLAGEN, 1)
 		zaehler.wehr += 1
 		wehr = true
 		bonus += _f("wehr_ungunst")
-		m._say("", t.id, g.id, 0, null, true, false, "GLUT_WEHR")
+		m._say("", t.id, g.id, 0, null, true, false, "KERBE_WEHR")
 	if g.gl.kraft:
 		g.gl.kraft = false
 		faktor *= _f("gross_faktor")
@@ -741,7 +741,7 @@ func auf_held(g, t, faktor := 1.0, gross := false, bonus := 0.0, wehr_hilft := t
 			var r := String(m._ring(react, t, intent))
 			anteil = float(ANTEIL.get(r, 1.0))
 			if anteil == 0.0:
-				_funke(t, true)
+				_gold(t, true)
 		else:
 			zaehler.ringe_gekappt += 1
 	if schaden:
@@ -750,17 +750,17 @@ func auf_held(g, t, faktor := 1.0, gross := false, bonus := 0.0, wehr_hilft := t
 		var sch := Brs.schaden_roh(float(g.b.schaden), float(g.b.angriff), float(int(g.b.stufe) - int(t.b.stufe)), zg, 1.0, zs) * faktor * anteil
 		var n := int(Brs.endschaden(sch, BrsKampf.held_abzug(t.b, not t.drawn) + t.schutz))
 		m._hurt(t, n, g.id, m.fmt(m.wolf(g, "MSG279_WOLFHITS", "MSG72_HITS"), m.lang, [g.name(m.lang), t.name(m.lang), n]), info, true)
-	_funke(t)
+	_gold(t)
 	return anteil
 
 
-## Wachschuss (Regel 7): rückt [g] ein Feld vor, schießt der Held vorher, eine Glut, halber Schaden bis Geselle, nie kritisch
+## Wachschuss (Regel 7): rückt [g] ein Feld vor, schießt der Held vorher, eine Kerbe, halber Schaden bis Geselle, nie kritisch
 func _wachschuss(f, g) -> void:
 	if int(f.gl.bereit) > 0 and f.gl.haltung == WACHSCHUSS and aktion_fern(f) != "":
 		f.gl.bereit -= 1
-		_marke(f, M_HALT, M_ASCHE, 1)
+		_marke(f, M_HALT, M_GESCHLAGEN, 1)
 		zaehler.wachschuss += 1
-		m._say("", f.id, g.id, 0, null, true, false, "GLUT_WACHSCHUSS")
+		m._say("", f.id, g.id, 0, null, true, false, "KERBE_WACHSCHUSS")
 		var fa := aktion_fern(f)
 		held_schlag(f, g, fa, 0.0, antwort_faktor(float(f.b.fert.get(_fert_von(f, fa), 0))), true)
 
@@ -769,9 +769,9 @@ func _wachschuss(f, g) -> void:
 func _gegenschlag(f, g) -> void:
 	if int(f.gl.bereit) > 0 and f.gl.haltung == GEGENSCHLAG and aktion_fern(f) == "":
 		f.gl.bereit -= 1
-		_marke(f, M_HALT, M_ASCHE, 1)
+		_marke(f, M_HALT, M_GESCHLAGEN, 1)
 		zaehler.gegenschlag += 1
-		m._say("", f.id, g.id, 0, null, true, false, "GLUT_GEGENSCHLAG")
+		m._say("", f.id, g.id, 0, null, true, false, "KERBE_GEGENSCHLAG")
 		held_schlag(f, g, WAFFE, 0.0, antwort_faktor(float(f.b.fert.get(_fert_von(f, WAFFE), 0))), true)
 
 
@@ -780,21 +780,21 @@ func _fert_von(f, _tun: String) -> String:
 	return String(_waffe(f).gruppe)
 
 
-## Regel 2: [g] rückt heran, freie Felder zuerst, dann Glut (eine bleibt fürs Tun); vor jedem Feld der Wachschuss
-func _heran(g, f, glut: int, frei_: int) -> int:
+## Regel 2: [g] rückt heran, freie Felder zuerst, dann Kerben (eine bleibt fürs Tun); vor jedem Feld der Wachschuss
+func _heran(g, f, kerbe: int, frei_: int) -> int:
 	while int(g.gl.ab) > NAH and frei_ > 0:
 		g.gl.ab -= 1
 		frei_ -= 1
 		_wachschuss(f, g)
 		if not g.standing():
-			return glut
-	while int(g.gl.ab) > NAH and glut > 1:
+			return kerbe
+	while int(g.gl.ab) > NAH and kerbe > 1:
 		g.gl.ab -= 1
-		glut -= _i("schritt")
+		kerbe -= _i("schritt")
 		_wachschuss(f, g)
 		if not g.standing():
-			return glut
-	return glut
+			return kerbe
+	return kerbe
 
 
 func gegner_zug() -> void:
@@ -809,17 +809,17 @@ func gegner_zug() -> void:
 			return
 		if not g.standing():
 			continue
-		var glut := int(g.gl.glut)
+		var kerbe := int(g.gl.kerben)
 		g.gl.lauert = 0
-		g.gl.glut_bereit = 0
+		g.gl.kerben_bereit = 0
 		var p: Dictionary = g.gl.plan if not (g.gl.plan as Dictionary).is_empty() else {"gross": false, "art": "schlag"}
 		if g.gl.taeuscht:
 			zaehler.getaeuscht += 1
 		var art: String = g.gl.art
 		if art == "Goblin-Schamane":
-			if int(g.gl.ab) == NAH and glut >= 2:
+			if int(g.gl.ab) == NAH and kerbe >= 2:
 				g.gl.ab = FERN
-				glut -= _i("schritt")
+				kerbe -= _i("schritt")
 			var andere := gegner().filter(func(x): return x != g)
 			if p.art == "heilen" and not andere.is_empty():
 				var a = andere[0]
@@ -828,51 +828,51 @@ func gegner_zug() -> void:
 						a = x
 				var n := mini(a.max_hp - a.hp, int(P["schamane_heilung"]))
 				a.hp += n
-				glut -= _i("tun")
+				kerbe -= _i("tun")
 				m._say(m.fmt(X.MSG72_HEALS, m.lang, [g.name(m.lang), a.name(m.lang), n]), g.id, a.id, 0, null, false, false, "HEAL")
-			elif p.art == "kraft" and not andere.is_empty() and glut >= 2:
+			elif p.art == "kraft" and not andere.is_empty() and kerbe >= 2:
 				var a = andere[0]
 				for x in andere:
 					if int(x.gl.ab) < int(a.gl.ab):
 						a = x
 				a.gl.kraft = true
-				glut -= _i("gross_kosten")
-				m._say("", g.id, a.id, 0, null, false, false, "GLUT_KRAFT")
-			if glut >= 1 and m.dice.randf() < float(g.gl.chance):
+				kerbe -= _i("gross_kosten")
+				m._say("", g.id, a.id, 0, null, false, false, "KERBE_KRAFT")
+			if kerbe >= 1 and m.dice.randf() < float(g.gl.chance):
 				auf_held(g, f)
 			continue
-		if art == "Riesenspinne" and p.art == "netz" and int(g.gl.ab) > NAH:     # Netz: Ring, Treffer zieht heran und nimmt eine Glut
+		if art == "Riesenspinne" and p.art == "netz" and int(g.gl.ab) > NAH:     # Netz: Ring, Treffer zieht heran und nimmt eine Kerbe
 			zaehler.netz += 1
 			var r = auf_held(g, f, 1.0, true, 0.0, true, false)
 			if r != null and float(r) > 0.0:
 				g.gl.ab -= 1
 				f.gl.minus += 1
-				m._say("", g.id, f.id, 0, null, false, false, "GLUT_NETZ")
+				m._say("", g.id, f.id, 0, null, false, false, "KERBE_NETZ")
 			continue
 		if String(g.b.get("art", "nah")) != "nah":     # Schütze: aus nah zurück, dann Schuss
-			if int(g.gl.ab) == NAH and glut >= 2:
+			if int(g.gl.ab) == NAH and kerbe >= 2:
 				g.gl.ab = FERN
-				glut -= _i("schritt")
-			var gr: bool = p.gross and glut >= _i("gross_kosten")
+				kerbe -= _i("schritt")
+			var gr: bool = p.gross and kerbe >= _i("gross_kosten")
 			if m.dice.randf() < float(g.gl.chance):
 				auf_held(g, f, _f("gross_faktor") if gr else 1.0, gr)
 			continue
 		if p.art == "lauern" and int(g.gl.ab) > NAH:     # Regel 17
 			g.gl.lauert = 1
-			g.gl.glut_bereit = 1
+			g.gl.kerben_bereit = 1
 			g.gl.lauerte = true
-			m._say("", g.id, null, 0, null, false, false, "GLUT_LAUERT")
+			m._say("", g.id, null, 0, null, false, false, "KERBE_LAUERT")
 			continue
 		g.gl.lauerte = false
 		var fr := 99 if (hetzt and g.gl.herr == leit) else frei(String(g.gl.tempo))
-		glut = _heran(g, f, glut, fr)
+		kerbe = _heran(g, f, kerbe, fr)
 		if not g.standing() or int(g.gl.ab) > NAH:
 			continue
 		_gegenschlag(f, g)     # Regel 8: die Antwort löst keine Antwort aus; fällt er, ist der Angriff weg
 		if not g.standing() or m.outcome != "ONGOING":
 			continue
-		if p.art == "prankenhieb" and glut >= int(P["prankenhieb_kosten"]):     # Krogg: Ring zum Ausweichen, Wehr hilft nicht
-			glut -= int(P["prankenhieb_kosten"])
+		if p.art == "prankenhieb" and kerbe >= int(P["prankenhieb_kosten"]):     # Krogg: Ring zum Ausweichen, Wehr hilft nicht
+			kerbe -= int(P["prankenhieb_kosten"])
 			zaehler.prankenhieb += 1
 			if g.gl.ueb and g.gl.erster:
 				g.gl.erster = false
@@ -880,13 +880,13 @@ func gegner_zug() -> void:
 			if r != null and float(r) > 0.0:
 				g.gl.ab = FERN     # schleudert auf fern
 			g.gl.offen = true
-		elif p.gross and glut >= _i("gross_kosten"):     # Regel 16
-			glut -= _i("gross_kosten")
+		elif p.gross and kerbe >= _i("gross_kosten"):     # Regel 16
+			kerbe -= _i("gross_kosten")
 			if g.gl.ueb and g.gl.erster:
 				g.gl.erster = false
 			auf_held(g, f, _f("gross_faktor"), true)
 		else:
-			glut -= _i("tun")
+			kerbe -= _i("tun")
 			var U: Dictionary = m._ueberfall()
 			if g.gl.ueb and g.gl.erster and not m.smoke_thrown:     # Überfall: der erste Treffer mit Wucht und Ring, betäubt
 				if auf_held(g, f, float(U["erster_treffer_faktor"]), true) != null:
@@ -898,12 +898,12 @@ func gegner_zug() -> void:
 				if auf_held(g, f) != null and g.gl.umr and m.dice.randf() < float(UM["chance_bei_treffer"]):
 					f.gl.liegt = true
 					f.gl.minus += 1
-		if art == "Riesenfledermaus" and glut >= 1:     # löst sich
+		if art == "Riesenfledermaus" and kerbe >= 1:     # löst sich
 			g.gl.ab = FERN
-			glut -= _i("schritt")
-		elif glut > 0 and art in w()["lauern_arten"]:     # Regel 17: übrige Glut lauert
+			kerbe -= _i("schritt")
+		elif kerbe > 0 and art in w()["lauern_arten"]:     # Regel 17: übrige Kerben lauert
 			g.gl.lauert = 1
-			g.gl.glut_bereit = glut
+			g.gl.kerben_bereit = kerbe
 
 
 ## Regel 19: Zurückdrängen, Netz verbrennen, Taumeln lassen einen angesagten großen Schlag von [g] ins Leere gehen

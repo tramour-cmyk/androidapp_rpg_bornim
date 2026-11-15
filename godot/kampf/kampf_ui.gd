@@ -12,7 +12,7 @@ const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
 const Zustandsbild = preload("res://kampf/zustandsbild.gd")     # 1036: Zustände an der Figur
 const Tips = preload("res://kampf/marstips.gd")
-const Glutbild = preload("res://kampf/glutbild.gd")     # 930.7: Bedienung und Glutmarken des Glutsystems     # 536: Texte für langes Drücken (MarsTips.kt)
+const Kerbbild = preload("res://kampf/kerbbild.gd")     # 930.7: Bedienung und Kerbmarken des Kerbensystems     # 536: Texte für langes Drücken (MarsTips.kt)
 const HINWEIS_REIHE := "kampf_hinweis_reihe"     # 836: Flagge im Spielstand, der Reihenhinweis ist gezeigt
 
 # Theme.kt, Veil
@@ -71,7 +71,7 @@ var bleeding := {}
 ## 348.7 (Rest aus 249): laufende Zauber und Pfeile {kind, by, on, crit, missed, seed, t0}, je Treffer einer (BattleFxLayer)
 var spells: Array = []
 var zauber := Zauber.new()
-var glut     # 930.7 (glutbild.gd), nur mit dem Schalter Mars.glut tätig
+var kerbe     # 930.7 (kerbbild.gd), nur mit dem Schalter Mars.kerbe tätig
 ## 1036: was die Zustände an den Figuren zeigen (zustandsbild.gd), dazu das Aufflackern je Runde {on, st, seed, t0}
 var zustandsbild := Zustandsbild.new()
 var flares: Array = []
@@ -149,7 +149,7 @@ static func hp_color(frac: float) -> Color:
 
 func _ready() -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
-	glut = Glutbild.new(self)
+	kerbe = Kerbbild.new(self)
 	dp = vs.x / 412.0
 	font_px = sp(15)
 	# 544 (Chef 03.11., 23:49 „Stimmt die Schrift?“): load_dynamic_font liest die rohe .ttf, die im APK fehlt (dort steht nur die
@@ -261,13 +261,13 @@ func _pressed(ev) -> bool:
 func _scene_input(ev) -> void:
 	if (ev is InputEventScreenTouch or ev is InputEventMouseButton) and ev.device != InputEvent.DEVICE_ID_EMULATION and not ev.pressed:
 		druck_t0 = 0     # 536: losgelassen vor der halben Sekunde: kein Hinweis
-		if glut != null:
-			glut.losgelassen(ev.position)     # 930.7: ein kurzer Tipp auf Gegner, Helden oder ein Zeichen am Daumen
+		if kerbe != null:
+			kerbe.losgelassen(ev.position)     # 930.7: ein kurzer Tipp auf Gegner, Helden oder ein Zeichen am Daumen
 	if not _pressed(ev):
 		return
 	var p: Vector2 = ev.position
-	if glut != null:
-		glut.gedrueckt(p)
+	if kerbe != null:
+		kerbe.gedrueckt(p)
 	if dice_rect.has_point(p):
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
@@ -970,8 +970,8 @@ func _build_orders() -> void:
 				_button(t("Wechsel", "Switch"), not matt and (m.can_swap(f) or m.can_draw(f)), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
 			var low := [_button(t("Abwehr", "Defend"), not matt, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
-			if m.glut:     # 930.7 (DESIGN-GLUT.md 7.5): „Abwehr wird Haltung“: alle Glut in die gewählte Haltung, ohne Wahl Wehr
-				low = [_button(t("Haltung", "Stance"), not matt, func(): k.order(["GLUT", glut.plan_haltung(f)]), false, true)]
+			if m.kerbe:     # 930.7 (DESIGN-GLUT.md 7.5): „Abwehr wird Haltung“: alle Kerben in die gewählte Haltung, ohne Wahl Wehr
+				low = [_button(t("Haltung", "Stance"), not matt, func(): k.order(["KERBE", kerbe.plan_haltung(f)]), false, true)]
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
 				low.append(_button(t("Flucht", "Run"), not matt and m.can_flee(f), func(): k.order(["flee"]), false, true))
@@ -1121,11 +1121,11 @@ func _build_orders() -> void:
 			_choices(items)
 
 
-## 930.7: Angriff auf [id]; im Glutsystem mit dem Plan des Daumenmenüs (glutbild.gd), sonst wie bisher
+## 930.7: Angriff auf [id]; im Kerbensystem mit dem Plan des Daumenmenüs (kerbbild.gd), sonst wie bisher
 func _angreifen(f, id: String) -> void:
-	if kampfort.mars.glut and glut != null:
-		glut.offen = false
-		kampfort.order(["GLUT", glut.plan(f, id)])
+	if kampfort.mars.kerbe and kerbe != null:
+		kerbe.offen = false
+		kampfort.order(["KERBE", kerbe.plan(f, id)])
 	else:
 		kampfort.order(["attack", id])
 
@@ -1302,8 +1302,8 @@ func _tall(fig) -> float:
 ## 17:00 ebenso die Zielringe): nicht mehr über alles gemalt, sondern als flaches Band am Boden in der Welt (_ringe_bauen), so
 ## verdecken Beine und Körper davor den Ring wie in BattleScene (CamRing); Breite [w] in Bildpunkten wie bisher, mit dunklem Rand
 var _ring_liste := []
-var _scheiben := []     # 930.7: [Welt, Halbmesser, Farbe, Zacken, Zufall] flache Scheiben am Boden (Glutstücke und ihr Schein)
-## 930.7: eine flache Scheibe am Boden wie die Ringe (Beine davor verdecken sie); [zacken] > 0 macht sie unregelmäßig wie ein Glutstück
+var _scheiben := []     # 930.7: [Welt, Halbmesser, Farbe, Zacken, Zufall] flache Scheiben am Boden (Kerben und ihr Schein)
+## 930.7: eine flache Scheibe am Boden wie die Ringe (Beine davor verdecken sie); [zacken] > 0 macht sie unregelmäßig wie ein Glutstück (vor 1266)
 func _scheibe(p: Vector3, r: float, c: Color, zacken := 0.0, zufall := 0) -> void:
 	_scheiben.append([p, r, c, zacken, zufall])
 const RASTER_GRUND := Color(0, 0, 0, 0.18)     # 998: Fläche im Ring (alt 0,18)
@@ -1402,8 +1402,8 @@ func _draw_overlay() -> void:
 					# 998 (229.3, Chef 20.10. „Raster schwer erkennbar“; alt SkirmishScreen.kt 1882): dunkler Grund unter einer
 					# kräftigen Goldlinie, auf Gras wie auf Stein zu sehen
 					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.9), 2.0 * dp, RASTER_GRUND)
-	if glut != null:
-		glut.zeichnen(sr)     # 930.7: Glutstücke vor dem Bau der Ringe (Boden), Zeichen, Daumenmenü und Vorschau darüber
+	if kerbe != null:
+		kerbe.zeichnen(sr)     # 930.7: Kerben vor dem Bau der Ringe (Boden), Zeichen, Daumenmenü und Vorschau darüber
 	_ringe_bauen()     # 561
 	# triangles before the feet of those a foe aims at (CamAim)
 	var aimed_at := {}
@@ -1428,8 +1428,8 @@ func _draw_overlay() -> void:
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
-	if glut != null:
-		glut.zeichnen_oben(sr)     # 930.7: Glutstücke über den Dreiecken, Daumenmenü, Vorschau
+	if kerbe != null:
+		kerbe.zeichnen_oben(sr)     # 930.7: Kerben über den Dreiecken, Daumenmenü, Vorschau
 	# names only while choosing a target (NameTag); 536 (Chef 04.11., 16:56: „In der alten Fassung war es so, dass die Bezeichnungen
 	# der Gegner eingeblendet wurden, auch wenn man länger drückt“; 17:00: „Ein Wolfsname steht da, die anderen stehen nicht da“):
 	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den

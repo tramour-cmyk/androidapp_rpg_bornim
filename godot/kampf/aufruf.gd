@@ -30,7 +30,7 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 	var lineup: Array = {
 		"WOLVES": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
 		"GRAK": [["grak", Mars.GRAK, Vector2i(0, 0)]],
-		# 930.7 (DESIGN-GLUT.md 10 Stufe 2): zwei Wölfe vorn, für den Film der Glutbedienung
+		# 930.7 (DESIGN-GLUT.md 10 Stufe 2): zwei Wölfe vorn, für den Film der Kerbbedienung
 		"WOLF2": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)]],
 		"SPIDER": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["spider", Mars.SPIDER, Vector2i(1, 0)]],
 		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],

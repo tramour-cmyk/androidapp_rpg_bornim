@@ -1,12 +1,12 @@
-# 930.7 (DESIGN-GLUT.md 10 Stufe 2, Prüfpunkt): Film der Glutbedienung am echten Kampfort: der Wachsoldat allein gegen zwei Wölfe,
-# drei Runden, Glutsystem an (probe.gd glut_an). Der Spieler tippt durch die Oberfläche (kampf_ui._scene_input, wie ein Finger:
+# 930.7 (DESIGN-GLUT.md 10 Stufe 2, Prüfpunkt): Film der Kerbbedienung am echten Kampfort: der Wachsoldat allein gegen zwei Wölfe,
+# drei Runden, Kerbensystem an (probe.gd kerbe_an). Der Spieler tippt durch die Oberfläche (kampf_ui._scene_input, wie ein Finger:
 # drücken, loslassen), ein weißer Kreis zeigt jeden Tipp:
-#   Runde 1: Tipp auf den Helden (Daumenmenü mit Vorschlag, Vorschau der Schlagfolge), Tipp auf Nachlegen, Tipp auf den Wolf
+#   Runde 1: Tipp auf den Helden (Daumenmenü mit Vorschlag, Vorschau der Schlagfolge), Tipp auf Vertiefen, Tipp auf den Wolf
 #   Runde 2: nur ein Tipp auf den Wolf (der Vorschlag spielt, 7.1)
 #   Runde 3: Tipp auf den Helden, zweimal Wehr, Tipp auf den Wolf
-# Ohne Bild (--headless) misst er die Zeit von Wahl zu Wahl je Runde; GLUT=0 spielt dieselben Runden im alten Kampf (Vergleich F9:
-# Rundenzeit nicht länger als heute). Zeilen „GLUT9307 …“; Exit 1, wenn der Kampf hängt oder ein Tipp nichts tat.
-# Aufruf im Ordner godot: --headless --fixed-fps 30 -s res://tests/film_glut_9307.gd  (SEED=7, RUNDEN=3, GLUT=0, ZEILEN=1;
+# Ohne Bild (--headless) misst er die Zeit von Wahl zu Wahl je Runde; KERBE=0 spielt dieselben Runden im alten Kampf (Vergleich F9:
+# Rundenzeit nicht länger als heute). Zeilen „KERBE9307 …“; Exit 1, wenn der Kampf hängt oder ein Tipp nichts tat.
+# Aufruf im Ordner godot: --headless --fixed-fps 30 -s res://tests/film_kerbe_9307.gd  (SEED=7, RUNDEN=3, KERBE=0, ZEILEN=1;
 # BILDER=<Ordner>: mit Bild je Schritt ein Einzelbild zur eigenen Durchsicht, PROBEBILD; LAHM=<ms>: jedes Bild so lange wie im Filmlauf, Lauf 476)
 extends SceneTree
 
@@ -48,20 +48,20 @@ func _lauf() -> void:
 		root.size = Vector2i(1080, 2340)
 	var s := int(_env("SEED", "7"))
 	var runden := int(_env("RUNDEN", "3"))
-	var glut := _env("GLUT", "1") != "0"
+	var kerbe := _env("KERBE", "1") != "0"
 	seed(s)
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"     # Wachsoldat (brs_kampf.gd KLASSE_HERKUNFT)
 	p.foe = "WOLF2"
 	p.ohne_soeldner = true
-	p.glut_an = glut
+	p.kerbe_an = kerbe
 	root.add_child(p)
 	await process_frame
 	p._start(s)
 	for i in 4:
 		await process_frame
 	kf = p.fight
-	if film and not Signatur.wache(kf, self, "Glut 930.7"):
+	if film and not Signatur.wache(kf, self, "Kerben 930.7"):
 		quit(1)
 		return
 	kf.ui.uhr = func() -> int: return int(Engine.get_process_frames() * 1000.0 / FPS)
@@ -85,25 +85,25 @@ func _lauf() -> void:
 		await _warte(denken)
 		var r := wahlen.size()
 		tipp_merken = true
-		if not glut:
+		if not kerbe:
 			var ts: Array = kf.mars.targets(kf.mars.current())
 			kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 			continue
 		var f = kf.mars.current()
 		var ziel = kf.mars.gk.vorschlag_ziel(f)
 		if ziel == null:
-			kf.order(["GLUT", {"tun": "warten", "haltung": "wehr"}])
+			kf.order(["KERBE", {"tun": "warten", "haltung": "wehr"}])
 			continue
 		if r == 1 or r == 3:
 			await _tipp(_auf(kf.figures[f.id]), "Held")
 			await _warte(int(1.2 * FPS) if film else 2)
-			var art: String = "nach" if r == 1 else "wehr"
+			var art: String = "tief" if r == 1 else "wehr"
 			for j in (1 if r == 1 else 2):
 				await _tipp(_zeichen(art), art)
 				await _warte(int(0.8 * FPS) if film else 2)
 			await _warte(int(0.6 * FPS) if film else 0)
 			await _knips("runde%d-plan" % r)
-			print("GLUT9307 Runde %d Plan %s, Vorschau %s" % [r, str(kf.ui.glut.plan(f, ziel.id)), str(kf.mars.gk.vorschau(f, kf.ui.glut.plan(f, ziel.id)))])
+			print("KERBE9307 Runde %d Plan %s, Vorschau %s" % [r, str(kf.ui.kerbe.plan(f, ziel.id)), str(kf.mars.gk.vorschau(f, kf.ui.kerbe.plan(f, ziel.id)))])
 		await _tipp(_auf(kf.figures[ziel.id]), "Wolf")
 		await _warte(2)
 		for j in 6:     # BILDER: alle 0,5 s des Zugs
@@ -112,28 +112,28 @@ func _lauf() -> void:
 			await _warte(int(0.5 * FPS))
 			await _knips("runde%d-%d" % [r, j])
 		if not kf.busy and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
-			print("GLUT9307 FEHLER Runde %d: der Tipp auf den Wolf spielte keinen Zug" % r)
+			print("KERBE9307 FEHLER Runde %d: der Tipp auf den Wolf spielte keinen Zug" % r)
 			fehler += 1
 			break
 	var summe := 0.0
 	for i in range(1, wahlen.size()):
 		var d: float = wahlen[i] - wahlen[i - 1]
 		summe += d
-		print("GLUT9307 Runde %d %.1f s (%s)" % [i, d, "Glut" if glut else "alt"])
+		print("KERBE9307 Runde %d %.1f s (%s)" % [i, d, "Kerben" if kerbe else "alt"])
 		# G4 (bis 15 s): je Runde ein Schnitt vom ersten Tipp bis zur nächsten Wahl, höchstens 5 s
 		var a: float = (erster_tipp[i - 1] if erster_tipp.size() >= i else wahlen[i - 1]) - 0.4
-		print("GLUT9307 Schnitt %d %.2f %.2f" % [i, a + versatz, minf(5.0, wahlen[i] - a)])
+		print("KERBE9307 Schnitt %d %.2f %.2f" % [i, a + versatz, minf(5.0, wahlen[i] - a)])
 	if wahlen.size() > 1:
-		print("GLUT9307 Mittel %.1f s je Runde (%s), %d Runden, Ausgang %s" % [summe / (wahlen.size() - 1), "Glut" if glut else "alt", wahlen.size() - 1, kf.mars.outcome])
-	if glut:
-		print("GLUT9307 Zähler %s" % str(kf.mars.gk.zaehler))
+		print("KERBE9307 Mittel %.1f s je Runde (%s), %d Runden, Ausgang %s" % [summe / (wahlen.size() - 1), "Kerben" if kerbe else "alt", wahlen.size() - 1, kf.mars.outcome])
+	if kerbe:
+		print("KERBE9307 Zähler %s" % str(kf.mars.gk.zaehler))
 	if _env("ZEILEN", "") != "":
 		for e in kf.mars._log:
 			print("  %-10s %-26s %s" % [str(e.actor), str(e.cue), String(e.text).left(60)])
 	if n >= int(FPS) * 240:
 		fehler += 1
-		print("GLUT9307 FEHLER: der Kampf hängt")
-	print("GLUT9307 %d Fehler" % fehler)
+		print("KERBE9307 FEHLER: der Kampf hängt")
+	print("KERBE9307 %d Fehler" % fehler)
 	await _warte(int(1.5 * FPS) if film else 0)
 	quit(1 if fehler > 0 else 0)
 
@@ -163,9 +163,9 @@ func _auf(fig) -> Vector2:
 
 
 func _zeichen(art: String) -> Vector2:
-	var r = kf.ui.glut.symbol_rects.get(art)
+	var r = kf.ui.kerbe.symbol_rects.get(art)
 	if r == null:
-		print("GLUT9307 FEHLER: Zeichen %s nicht im Daumenmenü" % art)
+		print("KERBE9307 FEHLER: Zeichen %s nicht im Daumenmenü" % art)
 		fehler += 1
 		return Vector2(-100, -100)
 	return (r as Rect2).get_center()
@@ -187,7 +187,7 @@ func _tipp(p: Vector2, was: String) -> void:
 	var ev2 := ev.duplicate()
 	ev2.pressed = false
 	kf.ui._scene_input(ev2)
-	print("GLUT9307 Tipp %s bei %.1f s (%d|%d)" % [was, n / FPS, int(p.x), int(p.y)])
+	print("KERBE9307 Tipp %s bei %.1f s (%d|%d)" % [was, n / FPS, int(p.x), int(p.y)])
 
 
 func _deck_anlegen() -> void:

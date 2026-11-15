@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       kampf:
-        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1036 (Zustände an den Figuren), 1039 (Zielring), 1040 (Grimmzahn wendet mit Tritten), 949 (perfekter Ring gegen Grak: Schlag, Ausweichen, Gegenschlag), 9307 (Glutbedienung: Wachsoldat gegen zwei Wölfe, drei Runden) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
+        description: "Kampfort-Filme: ja (453 r3, 453.1 Vergleich), 461 (Grundstand-Film Kampfort), 4531 (Heldenatem Feld 2 gegen neu), 2963 (Siegerposen), 784 (Sollbild Wolfsrudel, eine Runde), 1036 (Zustände an den Figuren), 1039 (Zielring), 1040 (Grimmzahn wendet mit Tritten), 949 (perfekter Ring gegen Grak: Schlag, Ausweichen, Gegenschlag), 9307 (Kerbbedienung: Wachsoldat gegen zwei Wölfe, drei Runden) oder 656 (Umhang: Film; mit film=nein Bilder vorher/nachher), 935 (Wurf Brandflasche und Weihwasser)"
         default: ""
       dorf:
         description: "Dorf-Film Grundstand (461.1): ja; 10401 = Lyra in der Höhle schaut dem gehenden Helden nach (Wendeschritte, Spike)"
@@ -813,9 +813,9 @@ jobs:
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/krogg_494.gd 2>&1 | grep -E "Krogg|KROGG|FEHLER|SCRIPT ERROR"   # 494 Krogg, Morwens Rauch
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/halt_872.gd 2>&1 | grep -E "^(gut|FALSCH)|HALT872|SCRIPT ERROR"   # 872 Klinge im Hiebplan nach Halt (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/absicht_1049.gd 2>&1 | grep -E "^FALSCH|ABSICHT1049|SCRIPT ERROR"   # 1049 Absichten je Art aus werte.json gleich der alten Wahl (Jerry)
-          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/glut_930.gd 2>&1 | grep -E "^(FALSCH|offen)|GLUT930|SCRIPT ERROR"   # 930.6 Glutsystem: je Regel ein Kerntest (Tuffy)
-          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/glut_bedienung_9307.gd 2>&1 | grep -E "^(FALSCH)|GLUT9307B|SCRIPT ERROR"   # 930.7 Glutmarken, Vorschau, Daumenmenü ohne Bild (Tuffy)
-          set -o pipefail; timeout 180 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/film_glut_9307.gd 2>&1 | grep -E "^GLUT9307 (FEHLER|Runde [0-9]+ [0-9]|Mittel|[0-9]+ Fehler)|SCRIPT ERROR"   # 930.7 Glutbedienung durch die Oberfläche: Tipps auf Held, Daumen, Wolf spielen den Zug (Tuffy)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kerbe_930.gd 2>&1 | grep -E "^(FALSCH|offen)|KERBE930|SCRIPT ERROR"   # 930.6 Kerbensystem: je Regel ein Kerntest (Tuffy)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kerbe_bedienung_9307.gd 2>&1 | grep -E "^(FALSCH)|KERBE9307B|SCRIPT ERROR"   # 930.7 Kerbmarken, Vorschau, Daumenmenü ohne Bild (Tuffy)
+          set -o pipefail; timeout 180 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/film_kerbe_9307.gd 2>&1 | grep -E "^KERBE9307 (FEHLER|Runde [0-9]+ [0-9]|Mittel|[0-9]+ Fehler)|SCRIPT ERROR"   # 930.7 Kerbbedienung durch die Oberfläche: Tipps auf Held, Daumen, Wolf spielen den Zug (Tuffy)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/zweikampf_1025.gd 2>&1 | grep -E "^(ok|FALSCH)|ZWEIKAMPF1025|SCRIPT ERROR"   # 1025 ein Kampf zur Zeit, Kampfort danach abgebaut (Jerry)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/welt_548.gd 2>&1 | grep -E "^(gut|FEHLER)|WELT_548|SCRIPT ERROR"   # 548, 1025: Kampf aus der Welt, Bedienung; lief in keinem Bauablauf (Laufnachweis 1128 A)
           set -o pipefail; timeout 400 ~/godot/godot --headless --path . -s res://tests/spinne_494.gd 2>&1 | grep -E "Spinne|SPINNE|FEHLER|SCRIPT ERROR"   # 494 Riesenspinne, drei Häute
@@ -1227,16 +1227,16 @@ jobs:
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
             ls -l $B; exit 0
           fi
-          # 930.7 (Tuffy; DESIGN-GLUT.md 10 Stufe 2): kampf=9307 Glutbedienung, Wachsoldat gegen zwei Wölfe, drei Runden (Tipps durch die
-          # Oberfläche); G4: je Runde ein Schnitt vom ersten Tipp (Zeilen „GLUT9307 Schnitt“), zusammen 9307-glut.mp4; dazu die Rundenzeit
+          # 930.7 (Tuffy; DESIGN-GLUT.md 10 Stufe 2): kampf=9307 Kerbbedienung, Wachsoldat gegen zwei Wölfe, drei Runden (Tipps durch die
+          # Oberfläche); G4: je Runde ein Schnitt vom ersten Tipp (Zeilen „KERBE9307 Schnitt“), zusammen 9307-kerbe.mp4; dazu die Rundenzeit
           # ohne Bild gegen den alten Kampf (F9)
           if [ "${{ github.event.inputs.kampf }}" = "9307" ]; then
-            film 9307-ganz film_glut_9307
-            grep -E "^GLUT9307" $B/9307-ganz.log || true
+            film 9307-ganz film_kerbe_9307
+            grep -E "^KERBE9307" $B/9307-ganz.log || true
             ARGS=""; FC=""; i=0
-            while read -r _ _ _ a d; do ARGS="$ARGS -ss $a -t $d -i $B/9307-ganz.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done < <(grep -E "^GLUT9307 Schnitt" $B/9307-ganz.log)
-            [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/9307-glut.mp4 || true
-            for g in 1 0; do GLUT=$g SEED=7 timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/film_glut_9307.gd 2>&1 | grep -E "^GLUT9307 (Runde [0-9]+ [0-9]|Mittel)" || true; done
+            while read -r _ _ _ a d; do ARGS="$ARGS -ss $a -t $d -i $B/9307-ganz.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done < <(grep -E "^KERBE9307 Schnitt" $B/9307-ganz.log)
+            [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/9307-kerbe.mp4 || true
+            for g in 1 0; do KERBE=$g SEED=7 timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/film_kerbe_9307.gd 2>&1 | grep -E "^KERBE9307 (Runde [0-9]+ [0-9]|Mittel)" || true; done
             ls -l $B; exit 0
           fi
           # 1039 (Tuffy; Chef 12.11., 15:04 „den inneren Ring zu sehen“): kampf=1039 zwei Runden gegen Grak wie beim Chef (Schwerer Hieb mit Ring;

@@ -467,8 +467,8 @@ def json_ausgabe(W, H, held, herk, n, rng, a):
     """930.6: je Herkunft und Fall der Held (wie hg.held_bei) und die Ergebnisse von S und N (Nachlegen aus werte.json „glut“), dazu
     die Zahlen, mit denen dieser Rechner rechnet. S ist der Vorschlag der Bedienung nach DESIGN-GLUT.md 7.1 (mit Wehr gegen Schützen), damit das Spiel sie gegen werte.json „glut“ prüfen kann."""
     import json
-    nl = W.get("glut", {}).get("nachlegen", NACHLEGEN_SCHADEN)
-    out = {"kaempfe": n, "unterstufe": a.unterstufe, "nachlegen": nl,
+    nl = W.get("kerbe", {}).get("vertiefen", NACHLEGEN_SCHADEN)     # 1266: Kerbe, Vertiefen
+    out = {"kaempfe": n, "unterstufe": a.unterstufe, "vertiefen": nl,
            "zahlen": {"frei": FREI, "ring": list(RING), "ring_wehr": list(RING_WEHR), "gross_faktor": GROSS_FAKTOR, "geselle": GESELLE,
                       "taeuschen": P_TAEUSCH, "taeuscher": sorted(TAEUSCHER), "gegenwert": {k: v for k, v in GEGENWERT.items() if k != "Rudel"},
                       "tempo_gegner": {k: v for k, v in H["tempo_gegner"].items() if not k.startswith("_") and k != "Rudel"}, "ungunst": H["ungunst"],

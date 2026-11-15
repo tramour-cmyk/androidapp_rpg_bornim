@@ -53,18 +53,18 @@ const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
-## 930.7: so lange zeigt sich ein Stichwort des Glutsystems ohne Zeile (Haltung gesetzt, Verglimmen, Nachlegen, Antwort); die Antwort
+## 930.7: so lange zeigt sich ein Stichwort des Kerbensystems ohne Zeile (Haltung gesetzt, Verfallen, Vertiefen, Antwort); die Antwort
 ## flammt im Augenblick des Schlags auf, ohne eigenen Weg (DESIGN-AKTIONSPUNKTE.md „Bild“ 3)
-const GLUT_MS := {"GLUT_HALTUNG_GEGENSCHLAG": 350, "GLUT_HALTUNG_WACHSCHUSS": 350, "GLUT_HALTUNG_WEHR": 350, "GLUT_VERGLIMMT": 450,
-	"GLUT_NACHLEGEN": 400, "GLUT_GEGENSCHLAG": 120, "GLUT_WACHSCHUSS": 120, "GLUT_WEHR": 120, "GLUT_FUNKE": 500, "GLUT_LOESEN": 300}
+const KERBE_MS := {"KERBE_HALTUNG_GEGENSCHLAG": 350, "KERBE_HALTUNG_WACHSCHUSS": 350, "KERBE_HALTUNG_WEHR": 350, "KERBE_VERFALLEN": 450,
+	"KERBE_VERTIEFEN": 400, "KERBE_GEGENSCHLAG": 120, "KERBE_WACHSCHUSS": 120, "KERBE_WEHR": 120, "KERBE_GOLD": 500, "KERBE_LOESEN": 300}
 const AUSWEICH_VOR_MS := 250     # 438: Ausweichen beginnt so viel vor dem Aufschlag
 const TODESZEILE_ANTEIL := 0.6     # 438: Todeszeile nach diesem Anteil der Sterbebewegung
 const NACHTRAG_MS := 150     # 438: Meldung, deren Zeile schon mit der Bewegung stand
 const RING_MS := 1100
 const PERFECT_MS := 90
 const GOOD_MS := 260
-## 930.7 (DESIGN-GLUT.md 3 Regel 7): in Wehr läuft der Ring gegen große Schläge langsamer, die Fenster wachsen mit (werte.json „glut“
-## „wehr_ring_faktor“, die Absicht trägt ihn: glut.gd auf_held); sonst 1
+## 930.7 (DESIGN-GLUT.md 3 Regel 7): in Wehr läuft der Ring gegen große Schläge langsamer, die Fenster wachsen mit (werte.json „kerbe“
+## „wehr_ring_faktor“, die Absicht trägt ihn: kerbe.gd auf_held); sonst 1
 var ring_faktor := 1.0
 ## 249: Blut wie im alten Spiel, Stufe 1 (wenige kleine Tropfen) ist dort die Vorgabe; 0 aus, 2 mehr mit Flecken am Boden.
 ## Der Schalter im Menü kommt mit Toms Systemmenü.
@@ -1166,6 +1166,8 @@ func _answer_ring(r: String) -> void:
 	var klang = get_node_or_null("/root/Klang")
 	if klang != null and r != Mars.NONE:
 		klang.effekt("block", 0.8 if r == Mars.PERFECT else 0.5)     # 939 (alt SkirmishScreen 726): Block bei perfekt, leiser bei gut
+	elif klang != null and mars.kerbe:     # 1266 (DESIGN-GLUT.md 8): im Kerbensystem klingt der Ring daneben dumpf, sonst stumm
+		klang.effekt("ring_daneben", 0.7)
 	ring_sem.post()
 
 
@@ -1189,7 +1191,7 @@ func _state_now() -> Dictionary:
 		places[f.id] = f.place
 		sp[f.id] = f.sp
 	var st := {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses(), "hidden": mars._hidden()}
-	if mars.glut and mars.gk != null:     # 930.7
+	if mars.kerbe and mars.gk != null:     # 930.7
 		st["gl"] = mars.gk.bild()
 	return st
 
@@ -1229,13 +1231,13 @@ func _play_say(e: Dictionary) -> void:
 		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	var vor_gl: Dictionary = shown.get("gl", {}) if shown is Dictionary else {}
 	shown = e
-	# 930.7 (DESIGN-GLUT.md 8): Glutstücke der Meldung (Aufflammen, Verglimmen, Nachlegen); die Stichworte des Glutsystems ohne Zeile
+	# 930.7 (DESIGN-GLUT.md 8): Kerben der Meldung (Aufflammen, Verfallen, Vertiefen); die Stichworte des Kerbensystems ohne Zeile
 	# halten den Kampf nur so lange an, wie ihr Bild dauert (F9: Rundenzeit nicht länger als heute), nicht SAY_MS
-	if ui != null and ui.glut != null:
-		ui.glut.meldung(vor_gl, e)
-	if e.text == "" and e.cue != null and String(e.cue).begins_with("GLUT_"):
+	if ui != null and ui.kerbe != null:
+		ui.kerbe.meldung(vor_gl, e)
+	if e.text == "" and e.cue != null and String(e.cue).begins_with("KERBE_"):
 		ui.refresh()
-		await get_tree().create_timer(GLUT_MS.get(String(e.cue), 150) / 1000.0).timeout
+		await get_tree().create_timer(KERBE_MS.get(String(e.cue), 150) / 1000.0).timeout
 		return
 	# 566: wer im Schatten steht, ist nur schwach zu sehen (figur.gd im_schatten)
 	var im_schatten: Dictionary = e.get("hidden", {})

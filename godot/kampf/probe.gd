@@ -17,8 +17,8 @@ var tables: Dictionary
 var hero_cls := "FIGHTER"
 var merc_cls := "WIZARD"
 var foe := "WOLVES"
-## 930.7: Proben im Glutsystem (tests/film_glut_9307.gd): Schalter an, Held allein (DESIGN-GLUT.md 10 Stufe 2: Wachsoldat gegen zwei Wölfe)
-var glut_an := false
+## 930.7: Proben im Kerbensystem (tests/film_kerbe_9307.gd): Schalter an, Held allein (DESIGN-GLUT.md 10 Stufe 2: Wachsoldat gegen zwei Wölfe)
+var kerbe_an := false
 var ohne_soeldner := false
 var box: VBoxContainer
 var fight: Node
@@ -1180,8 +1180,8 @@ func _start(seed := -1) -> void:
 		fight.free()
 		fight = null
 		return
-	if glut_an:
-		fight.mars.glut = true
+	if kerbe_an:
+		fight.mars.kerbe = true
 	if foe == "GRIMM":     # Grimmzahn ohne Nummer, die Wölfe 1 und 2 (die Regeln zählen nach Art)
 		for i in foes.size():
 			foes[i].nr = i

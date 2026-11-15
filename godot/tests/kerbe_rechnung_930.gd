@@ -1,14 +1,14 @@
 extends SceneTree
 # 930.6 (DESIGN-GLUT.md 10 Stufe 1, Prüfpunkt „Rechnung im Spielcode gegen glut2.py: Sieg und Runden je Fall ±3“): dieselben Fälle
-# wie tools/sim444/glut2.py (12 Begegnungen je Herkunft, Held wie dort), gespielt im Spiel: mars.gd mit Schalter glut (Regelkern
-# regeln/glut.gd), der Spieler ist der Autopilot (Vorschlag der Bedienung 7.1, S) bzw. legt alle übrige Glut nach (N, Nachlegen nach
-# werte.json „glut“); am Ring trifft er wie die Rechnung (werte.json „glut“ „rechnung“: perfekt, gut, daneben; langsamer Ring der Wehr).
+# wie tools/sim444/glut2.py (12 Begegnungen je Herkunft, Held wie dort), gespielt im Spiel: mars.gd mit Schalter kerbe (Regelkern
+# regeln/kerbe.gd), der Spieler ist der Autopilot (Vorschlag der Bedienung 7.1, S) bzw. legt alle übrige Kerben nach (N, Vertiefen nach
+# werte.json „kerbe“); am Ring trifft er wie die Rechnung (werte.json „kerbe“ „rechnung“: perfekt, gut, daneben; langsamer Ring der Wehr).
 # Die Rechnung gibt je Zelle den Helden mit (glut2.py --json); die Sonderregeln der alten Arten (Untotenzähigkeit …) kennt die
-# Rechnung nicht, sie sind hier aus. Dazu: die Zahlen, mit denen glut2.py rechnet, gleich werte.json „glut“.
+# Rechnung nicht, sie sind hier aus. Dazu: die Zahlen, mit denen glut2.py rechnet, gleich werte.json „kerbe“.
 # Zelle: Spiel (Rechnung) Sieg % · Runden; Abweichung über 3 Punkte im Sieg oder 0,3 Runden: „FALSCH“.
 # Aufruf im Ordner godot (Rechnung vorher oder von selbst):
-#   python3 ../tools/sim444/glut2.py --kaempfe 3000 --json /tmp/glut.json
-#   GLUT=/tmp/glut.json [N=3000] [NUR=Krogg] godot --headless -s res://tests/glut_rechnung_930.gd   (Exit 0 = alle Zellen ±3)
+#   python3 ../tools/sim444/glut2.py --kaempfe 3000 --json /tmp/kerbe.json
+#   KERBE=/tmp/kerbe.json [N=3000] [NUR=Krogg] godot --headless -s res://tests/kerbe_rechnung_930.gd   (Exit 0 = alle Zellen ±3)
 
 const Mars = preload("res://regeln/mars.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
@@ -33,24 +33,24 @@ func _initialize() -> void:
 
 
 func _lauf() -> void:
-	var pfad := OS.get_environment("GLUT")
+	var pfad := OS.get_environment("KERBE")
 	var n := int(OS.get_environment("N")) if OS.get_environment("N") != "" else 3000
 	if pfad == "":
-		pfad = OS.get_user_data_dir() + "/glut_930.json"
+		pfad = OS.get_user_data_dir() + "/kerbe_930.json"
 		var aus := []
 		var rc := OS.execute("python3", [ProjectSettings.globalize_path("res://../tools/sim444/glut2.py"), "--kaempfe", str(n), "--json", pfad], aus, true)
 		if rc != 0:
-			print("GLUT930 FALSCH: glut2.py lief nicht (%d): %s" % [rc, "".join(aus)])
+			print("KERBE930 FALSCH: glut2.py lief nicht (%d): %s" % [rc, "".join(aus)])
 			quit(1)
 			return
 	var R = JSON.parse_string(FileAccess.get_file_as_string(pfad))
 	if not (R is Dictionary):
-		print("GLUT930 FALSCH: keine Rechnung in %s" % pfad)
+		print("KERBE930 FALSCH: keine Rechnung in %s" % pfad)
 		quit(1)
 		return
 	var fehler := 0
 	fehler += _zahlen(R)
-	var G: Dictionary = Brs.lade()["glut"]
+	var G: Dictionary = Brs.lade()["kerbe"]
 	ring = G["rechnung"]["ring"]
 	ring_wehr = G["rechnung"]["ring_wehr"]
 	tab = Tabellen.lade()
@@ -59,8 +59,8 @@ func _lauf() -> void:
 	for mo in tab.monsters:
 		monsters[mo.id] = mo
 	var nur := OS.get_environment("NUR")
-	print("Rechnung je Zelle %d Kämpfe, Spiel je Zelle %d; Zelle Spiel (Rechnung) Sieg %% · Runden, S = Vorschlag, N = Nachlegen %d %%"
-		% [int(R.kaempfe), n, roundi(float(R.nachlegen) * 100)])
+	print("Rechnung je Zelle %d Kämpfe, Spiel je Zelle %d; Zelle Spiel (Rechnung) Sieg %% · Runden, S = Vorschlag, N = Vertiefen %d %%"
+		% [int(R.kaempfe), n, roundi(float(R.vertiefen) * 100)])
 	var gross := {"S": [0.0, 0.0], "N": [0.0, 0.0]}
 	var zeilen := {}
 	for z in R.faelle:
@@ -81,13 +81,13 @@ func _lauf() -> void:
 				"%.1f" % float(soll.runden) if soll.runden != null else "–", " FALSCH" if falsch else ""]
 		print(text)
 	print("größte Abweichung: S Sieg %.1f Punkte, Runden %.2f; N Sieg %.1f Punkte, Runden %.2f" % [gross.S[0], gross.S[1], gross.N[0], gross.N[1]])
-	print("GLUT930 %s: %d Abweichungen" % ["gut" if fehler == 0 else "FALSCH", fehler])
+	print("KERBE930 %s: %d Abweichungen" % ["gut" if fehler == 0 else "FALSCH", fehler])
 	quit(0 if fehler == 0 else 1)
 
 
-## Die Zahlen der Rechnung gleich werte.json „glut“ (eine Quelle, 1049)
+## Die Zahlen der Rechnung gleich werte.json „kerbe“ (eine Quelle, 1049)
 func _zahlen(R: Dictionary) -> int:
-	var G: Dictionary = Brs.lade()["glut"]
+	var G: Dictionary = Brs.lade()["kerbe"]
 	var Z: Dictionary = R.zahlen
 	var f := 0
 	var paare := [["frei", G.frei, Z.frei], ["ring", G.rechnung.ring, Z.ring], ["ring_wehr", G.rechnung.ring_wehr, Z.ring_wehr],
@@ -166,12 +166,12 @@ func _messe(z: Dictionary, pol: String, n: int) -> Dictionary:
 		var foes := _gegner(String(z.gegner), Wuerfel.new(seed))
 		var hero = Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, int(z.held.leben), null, skills)
 		var mars = Mars.new([hero], foes, tab, Wuerfel.new(seed + 1), Wuerfel.new(seed + 2), 0, false)
-		mars.glut = true
+		mars.kerbe = true
 		mars.start(react)
 		var zuege := 0
 		while mars.outcome == "ONGOING" and zuege < 500:
 			zuege += 1
-			mars.act(["GLUT", mars.gk.vorschlag(mars.current(), pol)], react)
+			mars.act(["KERBE", mars.gk.vorschlag(mars.current(), pol)], react)
 		if mars.outcome == "WON":
 			sieg += 1
 			runden += mars.gk.runde
