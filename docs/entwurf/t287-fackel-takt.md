@@ -12,7 +12,7 @@ Im Bau geprüft: Gift, Brand, Blutung mit dem Stufenfaktor des Verursachers (`zu
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
-| 287.1 | Jerry | 999.1 | Bild | der Held im nächtlichen Kampfort mit Fackel in der linken Hand | er hält die Fackel links, ihr Licht fällt auf ihn und den Boden | keine Fackel; Fackel und Schild zugleich |
+| 287.1 | Jerry | 999.1 | Bild | der Held im nächtlichen Kampfort mit Fackel in der linken Hand [Bild von 15.11., 13:02](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/15-1301-t287.1-Jerry.png) | er hält die Fackel links, ihr Licht fällt auf ihn und den Boden | keine Fackel; Fackel und Schild zugleich |
 | 287.2 | Tom | 756 | Handy | Reiter „Test“ → „Beute erzeugen“ einige Male antippen, dann Menü → Tasche | ein gutes Stück zeigt oben links einen Goldpunkt, ein meisterhaftes zwei, ein schlechtes einen roten Punkt, ein normales keinen | kein Zeichen; Zeichen verdeckt den Namen |
 | 287.3 | Jerry | 932 | Handy | Zeile 287.3 → „Lage herstellen“ (Probekampf Wolfsrudel); dreimal „Angriff“ auf einen Wolf | der Held rennt hin, schlägt, die Zeile kommt beim Aufschlag, er geht zügig zurück; alles in etwa zwei Sekunden | er trödelt auf dem Weg, die Zeile kommt vor oder lange nach dem Schlag |
 | 287.4 | Jerry | 806 | Handy | Zeile 287.4 → „Lage herstellen“ (Probekampf Wolfsrudel); Reiter „Test“ → „Bildrate“ an, den Kampf zu Ende spielen | die Anzeige bleibt im Kampf bei mindestens 17 Bildern je Sekunde (deine Grenze zu 806, 15.11., 09:46) | sie fällt unter 17; Figuren ohne Schatten |
