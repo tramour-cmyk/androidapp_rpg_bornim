@@ -73,6 +73,25 @@ def eigene_von_main(n):
         if wege:
             wege.sort(key=lambda p: int(_git('log', '-1', '--format=%ct', 'origin/main', '--', p).stdout.strip() or 0))
             return wege[-1], texte[wege[-1]]
+    return archivierte_von_main(n, flach)
+
+
+def archivierte_von_main(n, flach):
+    """1324 (von Tom, PR #207): nach dem Test ist ansehen/t<n>-….md archiviert (gelöscht); ein neuer Lauf auf claude/build-<n>
+    (Reverts nach Regel 12) nimmt die Liste aus dem Stand vor dem Löschen. Im flachen Klon erst Verlauf von main nachholen."""
+    muster = [':(glob)docs/chefsache/ansehen/t%d-*.md' % n, ':(glob)docs/entwurf/t%d-*.md' % n]
+    for tiefe in ([None, 300, 3000] if flach else [None]):
+        if tiefe:
+            _git('fetch', '-q', '--deepen=%d' % tiefe, 'origin', 'main:refs/remotes/origin/main')
+        r = _git('log', '-1', '--diff-filter=D', '--format=%H', '--name-only', 'origin/main', '--', *muster)
+        zeilen = [z for z in r.stdout.split() if z]
+        if len(zeilen) >= 2:
+            h = zeilen[0]
+            for p in zeilen[1:]:
+                if re.match(r't%d-.*\.md$' % n, os.path.basename(p)):
+                    text = _git('show', '%s^:%s' % (h, p)).stdout
+                    if text and (p.startswith('docs/chefsache/ansehen/') or GEGENGELESEN.search(text)):
+                        return p + ' (archiviert, Stand vor %s)' % h[:9], text
     return None, ''
 
 
