@@ -982,6 +982,9 @@ static func person(id: String, mats: Array) -> Node3D:
 	h.kopf = Vector3(float(kh[0]), float(kh[1]), float(kh[2]))
 	h.kopf_gross = float(ka.get("kopf", 1.0))
 	h.dame = id in DAMEN   # 1044
+	h.grund = not h.dame   # 1044 Grundstand
+	h.arme = p.get("arme", {}) if p.get("arme", {}) is Dictionary else {}
+	if String(p.get("traegt", "")) != "": h.arme["R"] = "traegt"   # die Faust haelt das Ding (leute.gd baue_ding), nicht stellen
 	h.anim = m.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	sk.add_child(h)
 	return m
@@ -1050,6 +1053,118 @@ class Haltung extends SkeletonModifier3D:
 		var h := sk.find_bone("Head")
 		if h >= 0 and absf(kopf_gross - 1.0) > 0.001: sk.set_bone_pose_scale(h, Vector3.ONE * kopf_gross)
 		if dame: _dame(sk)
+		elif grund: _grund(sk)
+
+	# 1044 wiederholt (Chef 15.11., 21:50, Film 1040.1: „steht in Kampfstellung … dass die Damen und Frauen so stehen, wie es zur Rolle
+	# passt?“; t283.3 Osric): Ursache gemessen (UAL1.glb, erstes Bild): Idle_Loop und alle UAL-Ruhen daraus (Umsehen, Reden, Fackel)
+	# stehen mit den Knoecheln 3,0 Abstaende der Hueftgelenke auseinander, Knie 14-21 Grad gebeugt, Oberarm 26 Grad abgespreizt; eine
+	# ruhige Stehbewegung ohne Kampfstand hat die UAL nicht (Protofactor IdleUnarmed 1,6, IdleWizard 1,4, aber ohne Reden, Tresen,
+	# Trinken auf demselben Stand). Dazu las die Armhaltung je Person (leute.json „arme“: Bram Hand in der Seite, Osric Haende auf dem
+	# Ruecken …) nur das alte Geruest (rig.py arm_ziel), der Kaufkoerper (475) nicht mehr. Darum hier, wie der Damenstand ueber jeder
+	# Bewegung: in der Ruhe (Stehen…, Ruhe_…, Gesten) Fuesse etwa hueftbreit (GRUND_FUSS), Knie fast gestreckt (das Becken hebt sich,
+	# GRUND_STRECK); in Stehen und Stehen_2 dazu die Arme je Person (haengen, huefte, ruecken, guertel, brust; „vorn“ haengt, Chef
+	# 13.11., 09:35: „Hände vorne, Quatsch“), sonst die Arme der Bewegung (Reden, Tresen, Trinken …). Beim Gehen blendet es aus.
+	var grund := false
+	var arme: Dictionary = {}
+	var grund_w := -1.0
+	var arm_w := -1.0
+	var _grund_t := 0
+	var grund_mass := Vector3.ZERO   # Knoechel auseinander in Hueftgelenkabstaenden, Knie links/rechts gebeugt (Grad), nach dem letzten _grund
+	const GRUND_FUSS := 1.25
+	const GRUND_STRECK := 0.997   # Hueftgelenk bis Knoechel in Beinlaengen: Knie etwa 9 Grad gebeugt
+	const ARM_RUHE := ["Stehen", "Stehen_2"]
+	func _grund(sk: Skeleton3D) -> void:
+		var jetzt := Time.get_ticks_msec()
+		var cur := String(anim.current_animation) if anim else "Stehen"
+		var soll := 1.0 if cur.begins_with("Stehen") or cur.begins_with("Ruhe_") or cur == "Gesten" else 0.0
+		var soll_a := 1.0 if cur in ARM_RUHE else 0.0
+		var dt := clampf((jetzt - _grund_t) / 1000.0, 0.0, 0.1) / DAME_BLENDE
+		grund_w = soll if grund_w < 0.0 else move_toward(grund_w, soll, dt)
+		arm_w = soll_a if arm_w < 0.0 else move_toward(arm_w, soll_a, dt)
+		_grund_t = jetzt
+		if grund_w < 0.01: return
+		var b := {}
+		for n in ["pelvis", "thigh_l", "thigh_r", "calf_l", "calf_r", "foot_l", "foot_r", "upperarm_l", "upperarm_r", "lowerarm_l",
+				"lowerarm_r", "hand_l", "hand_r", "spine_03"]:
+			b[n] = sk.find_bone(n)
+			if b[n] < 0: return
+		var g := func(n: String) -> Vector3: return sk.get_bone_global_pose(b[n]).origin
+		var hl: Vector3 = g.call("thigh_l"); var hr: Vector3 = g.call("thigh_r")
+		var links := hl - hr; links.y = 0.0
+		var breite := links.length()
+		if breite < 0.001: return
+		links /= breite
+		var vorn := links.cross(Vector3.UP).normalized()
+		var zehen := Vector3.ZERO
+		for e in ["_l", "_r"]:
+			var ib := sk.find_bone("ball" + e)
+			if ib >= 0: zehen += sk.get_bone_global_pose(ib).origin - sk.get_bone_global_pose(b["foot" + e]).origin
+		zehen.y = 0.0
+		if zehen.length() > 0.001: vorn = zehen.normalized()
+		var w := smoothstep(0.0, 1.0, grund_w)
+		var fuesse := [sk.get_bone_global_pose(b["foot_l"]), sk.get_bone_global_pose(b["foot_r"])]
+		var mitte := (hl + hr) * 0.5
+		# Ziel je Knoechel: seitlich GRUND_FUSS/2 Hueftgelenkabstaende von der Mitte, vor/zurueck halb wie in der Bewegung, Hoehe bleibt
+		var zf := []
+		for s in 2:
+			var f0: Vector3 = fuesse[s].origin
+			var rel := f0 - mitte
+			var seite := (1.0 if s == 0 else -1.0) * GRUND_FUSS * 0.5 * breite
+			var z: Vector3 = mitte + links * seite + vorn * (rel.dot(vorn) * 0.5)
+			z.y = f0.y
+			zf.append(f0.lerp(z, w))
+		# Becken so weit heben, dass das kuerzere Bein auf GRUND_STRECK gestreckt ist (nie senken)
+		var heb := INF
+		for s in 2:
+			var e := "_l" if s == 0 else "_r"
+			var hp: Vector3 = g.call("thigh" + e)
+			var bein: float = hp.distance_to(g.call("calf" + e)) + (g.call("calf" + e) as Vector3).distance_to(g.call("foot" + e))
+			var waag: Vector3 = zf[s] - hp; waag.y = 0.0
+			var d := GRUND_STRECK * bein
+			var senk := sqrt(maxf(0.0, d * d - waag.length_squared()))
+			heb = minf(heb, senk - (hp.y - (zf[s] as Vector3).y))
+		heb = maxf(0.0, heb) * w
+		if heb > 0.0:
+			var pg := sk.get_bone_global_pose(b["pelvis"])
+			var ziel_p := pg.origin + Vector3.UP * heb
+			var pa := sk.get_bone_parent(b["pelvis"])
+			sk.set_bone_pose_position(b["pelvis"], (sk.get_bone_global_pose(pa).affine_inverse() * ziel_p) if pa >= 0 else ziel_p)
+		for s in 2:
+			var e := "_l" if s == 0 else "_r"
+			_zwei(sk, b["thigh" + e], b["calf" + e], b["foot" + e], zf[s], vorn)
+			_setze_global(sk, b["foot" + e], fuesse[s].basis)
+		# Arme je Person
+		var aw := smoothstep(0.0, 1.0, maxf(0.0, arm_w)) * w
+		if aw > 0.01:
+			var pel: Vector3 = g.call("pelvis")
+			var rumpf := maxf(0.05, (g.call("spine_03") as Vector3).y - pel.y)
+			for s in 2:
+				var e := "_l" if s == 0 else "_r"
+				var art := String(arme.get("L" if s == 0 else "R", "haengen"))
+				if art == "traegt": continue
+				var aussen := links if s == 0 else -links
+				var su: Vector3 = g.call("upperarm" + e)
+				var hu: Vector3 = g.call("thigh" + e)
+				var la: float = su.distance_to(g.call("lowerarm" + e)) + (g.call("lowerarm" + e) as Vector3).distance_to(g.call("hand" + e))
+				var ziel: Vector3; var pol: Vector3
+				match art:
+					"huefte":
+						ziel = hu + aussen * (0.75 * breite) + Vector3.UP * (0.32 * rumpf) + vorn * (0.1 * breite); pol = aussen - vorn * 0.4
+					"ruecken":
+						ziel = pel + aussen * (0.2 * breite) + Vector3.UP * (0.3 * rumpf) - vorn * (0.95 * breite); pol = aussen * 0.7 - vorn * 0.3 - Vector3.UP * 0.6
+					"guertel":
+						ziel = hu + aussen * (0.3 * breite) + Vector3.UP * (0.28 * rumpf) + vorn * (0.85 * breite); pol = aussen * 0.9 - vorn * 0.5
+					"brust":
+						ziel = (g.call("spine_03") as Vector3) + aussen * (0.1 * breite) + vorn * (0.9 * breite) - Vector3.UP * (0.25 * rumpf); pol = aussen * 0.5 - Vector3.UP * 0.9
+					_:   # haengen
+						ziel = su - Vector3.UP * (0.95 * la) + aussen * (0.08 * la) + vorn * (0.03 * la); pol = -vorn + aussen * 0.3
+				var h0: Vector3 = g.call("hand" + e)
+				_zwei(sk, b["upperarm" + e], b["lowerarm" + e], b["hand" + e], h0.lerp(ziel, aw), pol)
+		var fl: Vector3 = g.call("foot_l"); var fr: Vector3 = g.call("foot_r")
+		var knie := func(e: String) -> float:
+			var a: Vector3 = g.call("thigh" + e); var m: Vector3 = g.call("calf" + e); var c: Vector3 = g.call("foot" + e)
+			return 180.0 - rad_to_deg((a - m).angle_to(c - m))
+		grund_mass = Vector3(Vector2(fl.x - fr.x, fl.z - fr.z).length() / breite, knie.call("_l"), knie.call("_r"))
 
 	const DAME_BLENDE := 0.25   # s: so schnell wie die Ueberblendung Stehen/Gehen (Held.ueberblendung)
 	const DAME_KIPP := 4.0      # Grad: die freie (linke) Huefte sinkt, der Rumpf richtet sich zur Haelfte dagegen auf
