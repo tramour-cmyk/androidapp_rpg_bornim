@@ -44,6 +44,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 01:01 15.11.: Jerry neu `…78SJHxHKh5akPaP15y` (Läufe 479, 480, 482, 1215 Film), Jerry `…78yH84MdzrJ74grhR6` archiviert (25,96 $ auf 1215)
+- 00:05 15.11.: Diogenes neu `…75edsFFzfEQPxCoWxq` (1019), Diogenes 1079 `…78sXbc6SZHTKCgXXZ3` archiviert (1,60 $)
 - 00:01 15.11.: Sokrates `…76zXUTypnQhewTvAHH` (1259) archiviert (4,13 $ auf 1259)
 - 23:50 14.11.: Tuffy neu `…76d3QcJwbDH1YGUuPR` (930.7 Film), Tuffy `…79v4vLh86CTewmRzZ9` archiviert (12,95 $ auf 930.7); Sokrates neu `…75rZTuiGj1QA448MLH` (930.7), alter `…76zXUTypnQhewTvAHH` Archivierung 00:00
 - 23:45 14.11.: Homer neu `…794ME3Gg3ydHeNmxum` (1260), Homer `…76baqPiDLHo7r3hvWz` archiviert (4,22 $ auf 1260)
@@ -62,13 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:30 14.11.: Tuffy neu `…791GBXxySF9nvEcVCd` (930.5, Mittel; 930.5 bis 930.7 komplett an Tuffy, Chef 20:25 über Sokrates), Tuffy 845 archiviert (7,52 $); 930.6 später mit Aufwand hoch und WireStorm Hoch nach Sokrates-Prüfung von 930.5
 - 20:27 14.11.: Tom neu `…79AQ79uafPgaVpiHEJ` (1091, Aufwand hoch, Umgebung WireStorm Hoch, dazu 882.1 von Sokrates) und Diogenes neu `…77WqsAmL86DZSZvSXs` (1179, 1173, 1217, dazu 1248) gestartet; Tom 1040.1 (4,88 $) und Diogenes 1128.3 (1,76 $) archiviert
 - 20:05 14.11.: Stillstand 10:51 bis 20:00 Ursache Guthaben (Wochengrenze Max erreicht, „resets 8pm“: Perikles 1249, Diogenes, Jerry 1222 um 10:51, Tom 1145 um 18:59 abgebrochen; Fords Wecker 11:03 bis 19:03 kamen gestaut an, Lauf erst 20:02). Lauf 20:02: Tom `…79Q6N8cjLh3SuVwvkR` (1040.1), Jerry `…76teWqNfwVbcvW5sEf` (1000), Diogenes `…77nnorNYpWaTbXpHjz` (1128.3), Perikles `…76U3AHkZNkpmHLQ9ge` (1249) gestartet; alte Sitzungen archiviert (Tom 4,05 $, Jerry 7,71 $, Diogenes 1,09 $, Perikles 0,56 $); Tuffy 845 und Spike 1092 laufen
-- 11:40 14.11.: Diogenes neu `…765bJQPbYhQ8FuqyJ1` (1179, 1173, 1217, dazu 1248 von Jerry) und Perikles neu `…78yCAANefHPCi2xGt1` (1249) gestartet; Diogenes 1199 (3,67 $) und Perikles 1246 (2,31 $) archiviert; Sokrates von Jerrys Anstoß (1222 Filmlauf frei?) unterrichtet
-- 11:28 14.11.: Tom alt `…77znPDfxf4G6yvCC6Q` archiviert (29,95 $ auf 1091, 285.3, 285.6); Tom neu `…7A2FjxowG848V9Mtai` (1145, Kür: Sammelbuild-Nachfolger nicht startbar vor Termin 12:00, lauf.py nahm 1145); Weckrufe 1149/1091 für Tom neu `trig_01Fax1rNuDLgiYjCJ6X6ZZE6`, `trig_011AMTZHHgDMEo1NzUdUr5ZM`, alte abgeschaltet; Jerry von Sokrates-Bitte „Teamzweige holen main“ unterrichtet
-- 21:07 14.11.: Startsperre 21:07 Start Diogenes (lauf.py)
-- 21:14 14.11.: Startsperre 21:14 Start Tom (lauf.py)
-- 21:32 14.11.: Startsperre 21:32 Start Sokrates (Neustart-Meldung 21:30, 5a5b155a6, von Hand)
-- 21:35 14.11.: Startsperre 21:35 Start Homer (lauf.py)
-- 22:03 14.11.: Marke Start-fehlt Tom 14.11.-21:35 (lauf.py)
 - 22:32 14.11.: Startsperre 22:32 Start Tuffy (930.7, Signal Sokrates 22:31, f76eb9cd2, von Hand, WireStorm Mittel); Weiter Spike 1040.1 (Spike `…7A7BuC683wt2MBEacm`)
 - 22:43 14.11.: Startsperre 22:43 Start Sokrates (Neustart-Meldung 22:42, 834495b12, von Hand)
 - 23:02 14.11.: Startsperre 23:02 Start Tom, Jerry (Neustart-Meldungen 22:58 und 22:56, von Hand)
@@ -77,6 +72,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:49 14.11.: Startsperre 23:49 Start Tuffy, Sokrates (Neustart-Meldungen 23:44, 23:45, von Hand)
 - 00:04 15.11.: Startsperre 00:04 Start Diogenes (lauf.py)
 - 00:04 15.11.: Marke Archiv session_01Hmoj78sXbc6SZHTKCgXXZ3 (lauf.py)
-- 00:05 15.11.: Diogenes neu `…75edsFFzfEQPxCoWxq` (1019), Diogenes 1079 `…78sXbc6SZHTKCgXXZ3` archiviert (1,60 $)
 - 01:00 15.11.: Startsperre 01:00 Start Jerry (Neustart-Meldung 00:56, 3fa5b6e49, von Hand)
-- 01:01 15.11.: Jerry neu `…78SJHxHKh5akPaP15y` (Läufe 479, 480, 482, 1215 Film), Jerry `…78yH84MdzrJ74grhR6` archiviert (25,96 $ auf 1215)
+- 01:03 15.11.: Startsperre 01:03 Start Diogenes (lauf.py)
+- 01:03 15.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
+- 01:03 15.11.: Marke Archiv session_01Hmoj75edsFFzfEQPxCoWxq (lauf.py)
