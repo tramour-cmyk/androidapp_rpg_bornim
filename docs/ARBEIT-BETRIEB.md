@@ -85,3 +85,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:05 15.11.: Marke Archiv session_01Hmoj75sJsPiamKXFvCq7Bf (lauf.py)
 - 03:03 15.11.: Startsperre 03:03 Start Diogenes (lauf.py)
 - 03:03 15.11.: Marke Archiv session_01Hmoj795CKQ5Pf7crAxZoTU (lauf.py)
+- 03:04 15.11.: Diogenes neu `…78w1wTxyTuS8uf2tzM` (1123), Diogenes 1261 archiviert (1,07 $); GELÖST 1123 an Jerry
