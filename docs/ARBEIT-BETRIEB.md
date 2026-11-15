@@ -132,3 +132,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:29 15.11.: Startsperre 14:29 Start Ford (selbst, Tiefe 5, Selbstneustart nach 406 Tsd. Token)
 - 15:09 15.11.: Ford-Lauf-Uhr für neuen Ford `…76dCpm3kKPJixR9C8w` vom alten Ford angelegt (`trig_01TXqt99a72vf7tdTLiDAA92`, :03; neuer Ford hat kein create_trigger), alte `trig_01Bxa9TW7bvnV8cSVBQdf7AU` aus; alter Ford `…775wuCaHstkrQQKKTC` bleibt bis zum Start Jerry 1289 (15:35) offen, dann archivieren
 - 15:36 15.11.: Startsperre 15:36 Start Jerry (1289 nach Block 760/1000, Übergabe 13:08)
+- 15:37 15.11.: Jerry neu `…78tPSbm17uKXLsanMa` (1289, dann 1215, 1296); Block-Sitzung 760/1000 `…78vVh9TarMqMiBZ1pM` archiviert (16,92 $ auf 760, 1000)
