@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1345 | Von Jerry (Build 290, Lauf 504 rot): lage_785_8 „Lage herstellen endet“ und lage_1156 „Lage 290.8: auftrag=stones unbekannt ()“ (785.8 lief nur mit [skip ci]; lage_1156 ruft Sprache.lade() nicht, Auftraege.alle() leer); Build 290 wartet auf die Berichtigung | Tom | M | startbar | – | – | – | E Technik | – |
+| 1345 | Von Jerry (Build 290, Lauf 504 rot): lage_785_8 „Lage herstellen endet“ und lage_1156 „Lage 290.8: auftrag=stones unbekannt ()“ (785.8 lief nur mit [skip ci]; lage_1156 ruft Sprache.lade() nicht, Auftraege.alle() leer); Build 290 wartet auf die Berichtigung | Tom | M | gebaut, Geprüft an: 3d9159913 | t290 | claude/build-290 | – | E Technik | – |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bild weg mit Container, Lauf frei bei Sokrates | Sokrates | – | – | E Oberfläche | 4,88 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | startbar, wiederholt | – | claude/tom-1092-streifen | – | E Figuren | 25,71 $ |
 | 1339 | Von Werkzeug (1334): Wiederholrot wende_4168: 3× rot in 48 h (Läufe 465, 460, 459); Ursache nachstellen, beheben · wiederholt | Tom | M | erledigt, Geprüft an: Lauf 500 grün; rot nur auf altem Zweig (Zu 1339) | – | – | – | E Technik | – |
