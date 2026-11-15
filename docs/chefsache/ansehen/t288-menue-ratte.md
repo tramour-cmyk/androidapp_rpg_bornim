@@ -24,3 +24,10 @@ Im Bau geprüft: Bilder und Filme dieses Laufs im Renderer des Handys (1290, Sch
 ## Lagen
 
 - 288.6: probe=WOLVES
+
+## Ergebnis
+
+- 288.6 ✓ Chef 15.11., 17:19: „Kampfort bereit nach: 0.8 s“ (Grenze 0,7 s, Grundwert 1,4 s), als bestanden gegeben; 17:20: „Ja, das war die Zahl nach dem zweiten Kampf. Und waren die Figuren aus wie vorher? Ich gehe davon aus. Die Wölfe halt.“
+- 288.2 ✓ Chef 15.11., 17:21: „Ich habe alles im [Reiter] Test geprüft, was im [Reiter] Test stand.“
+- 288.4 ✓ Chef 15.11., 17:21 (wie 288.2)
+- Rest ✓ Chef 15.11., 17:19
