@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 00:17, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 00:18, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,7 +14,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 74 | 29 | 3 | 1 | 11 | 1314 (Jerry) Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ra… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 21 | 7 | 0 | 0 | 14 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 62 | 11 | 1 | 5 | 29 | 1300 (Spike) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 1 | 5 | 29 | 1300 (Spike) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 6 | 0 | 1 | 6 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
 | Werkzeuge und Abläufe der Firma | 60 | 35 | 0 | 0 | 9 | 1186 (Sokrates) Altbestand: offene Vorgänge unter 700 auf überhol… |
 | Marktstart | 10 | 0 | 0 | 0 | 7 | 622 (Tom) Godot-Build als AAB für Play: dieselbe App `de.bo… |
@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 1309 | Tom | Feld „Kopf“ rutscht oben unter die Reiterleiste; lange Namen abgeschnitten, gan… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 20 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
 
-Danach 105 weitere offen. Bei dir zum Testen (vorgelegt): 7. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
+Danach 106 weitere offen. Bei dir zum Testen (vorgelegt): 7. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
