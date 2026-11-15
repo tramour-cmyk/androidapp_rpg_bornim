@@ -51,6 +51,8 @@ VOLKSNAME = {'mensch': 'Mensch', 'elf': 'Elf', 'zwerg': 'Zwerg', 'huegel': 'Hüg
 
 
 def koerper_datei(art, frau):
+    # 431 Stufe 1 (Tom 15.11.): FREI=1 nur zum Probieren am Rechner ohne Kaufpakete, jedes Volk auf dem freien Superheld-Koerper
+    if os.environ.get('FREI') == '1': art = 'Superhero'
     n = '%s_%s_FullBody' % (art, 'Female' if frau else 'Male')
     kn, kp = QT.datei(n)
     if not kp: raise SystemExit('FEHLT %s (gekauft, KAUF=)' % n)

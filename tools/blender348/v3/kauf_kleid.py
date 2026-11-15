@@ -107,7 +107,8 @@ def importiere(p):
         neu.remove(o); bpy.data.objects.remove(o)
     return neu
 
-kq = importiere(QQ[KOERPER])
+# 431 Stufe 1 (Tom 15.11., Kleiderschrank): KOERPER_DATEI=<glb> nimmt einen fertigen Koerper (Volkskoerper aus voelker.py) statt KOERPER
+kq = importiere(os.environ.get('KOERPER_DATEI') or QQ[KOERPER])
 qa = next(o for o in kq if o.type == 'ARMATURE'); qa.name = 'Armature'
 qnetze = [o for o in kq if o.type == 'MESH']
 qkoerper = max(qnetze, key=lambda o: len(o.data.vertices))
@@ -335,7 +336,9 @@ S = {pb.name: np.array((qa.matrix_world @ pb.matrix) @ (qa.matrix_world @ pb.bon
 SA = np.stack([S[n] for n in Q_KN])                    # Knochen x 4 x 4
 qmi = np.array(qkoerper.matrix_world.inverted().to_3x3())
 rein = 0
-for i, v in enumerate(QV):
+# 431 Stufe 1 (Kleiderschrank): KOERPER_BLEIBT=1 laesst den Koerper ganz (das Stueck schwingt frei, darunter darf kein Loch sein)
+KB = os.environ.get('KOERPER_BLEIBT') == '1'
+for i, v in enumerate([] if KB else QV):
     n = Vector(qn[i]).normalized()
     hit = kbvh.ray_cast(Vector(v) + n * 0.001, n, VERDECKT)
     if hit[0] is not None: verdeckt[i] = True
@@ -352,7 +355,7 @@ print('KOERPER ZURUECK', rein)
 NAH = float(os.environ.get('VERDECKT_NAH', '0.012'))
 RUMPF = ('upperarm', 'clavicle', 'spine', 'pelvis', 'thigh')
 nah = 0
-for i, v in enumerate(QV):
+for i, v in enumerate([] if KB else QV):
     if verdeckt[i] or not any(Q_KN[int(WQ[i].argmax())].lower().startswith(r) for r in RUMPF): continue
     if kbvh.find_nearest(Vector(v), NAH)[0] is not None: verdeckt[i] = True; nah += 1
 print('KOERPER NAH VERDECKT', nah)
