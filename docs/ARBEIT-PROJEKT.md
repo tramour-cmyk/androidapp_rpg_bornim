@@ -47,6 +47,5 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Ältere Einzelheiten** (Zu 433, 424, 407, 412, 408, 418, 421, 436, 384, 383, 275 Stufe 1, 347.2, 378, 338, 381.1, 276, Fehler 341 Woche 19.–25.10., Wortlaute ab 234): Git, Stand vor „Perikles: 461d einsortiert, Vorrat gekürzt“; offen daraus: D51.1, D51.2, D53.1, D53.2, `tools/regeltreue/stufe2/CLAUDE.md` alte Direktive.
 - **Zu 275, offen für Stufe 2** (frühestens 03.11., wenn Diogenes keinen Werkzeugfehler zählt): Commit-Prüfung lehnt Handänderungen an `LISTE-VORGAENGE.md` ab (braucht `vorgang.py neu` und einen Weg für `lauf.py --kosten`).
 
-- **Zu 347.2, offen:** Auswertung bei Sokrates (347 in seinem Vorrat); `tools/regeltreue/stufe2/LISTE-REGELN.md` trägt noch die alte Pause-Regel (bei Stufe 2 nachziehen).
 
 - **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen. **07.11.:** alle sechs gemessen (Z1, Z2 `regelcheck.py`; Z3–Z6 `PRUEFBERICHT.md`), → 341.1.
