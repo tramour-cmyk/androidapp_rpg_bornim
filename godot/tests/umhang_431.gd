@@ -57,8 +57,9 @@ func _messe(pfad: String, name: String) -> int:
 	sk.skeleton_updated.connect(func():
 		for s in enden: gesehen[s] = _ende(sk, enden[s], bi, false))
 	var bad := 0
-	for bew in ["Stehen", "Gehen"]:
-		if not ap.has_animation(bew): continue
+	for paar in [["Stehen", "Idle_Loop"], ["Gehen", "Walk_Loop"]]:   # Namen aus held_klassen.py oder der UAL
+		var bew: String = paar[0] if ap.has_animation(paar[0]) else String(paar[1])
+		if not ap.has_animation(bew): print("UMHANG431 %s FALSCH: ohne %s" % [name, paar[0]]); bad += 1; continue
 		ap.play(bew)
 		var seit := 0.0; var spiegel_v := Vector3.ZERO; var n := 0; var sack := 0.0; var sprung := 0.0; var mweg := Vector3.ZERO
 		var vor := {}
