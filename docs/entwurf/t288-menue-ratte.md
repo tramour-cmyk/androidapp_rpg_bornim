@@ -1,12 +1,12 @@
 # Tom und Jerry · Build 288 · Menü, Rattenbiss, Kerbe, Modellspeicher · [PR #207](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/207)
-E Kampf · Tom (785.1, 785.2, 785.3, 785.6, 870.13; ohne dich 1290), Jerry (1284 Film bei dir), Spike (1270.2) · 15.11., 13:35 · APK folgt
+E Kampf · Tom (785.1, 785.2, 785.3, 785.6, 870.13; ohne dich 1290), Jerry (1284 abgelehnt, fährt mit), Spike (1270.2) · 15.11., 13:35 · APK folgt
 Gegengelesen: Jerry 15.11., 13:36 (1266 und 1284 richtig unter „Schon vorgelegt“: 1266 gebilligt, das Kerbensystem bleibt im Spiel aus (`kerbe_an` false), am Handy nichts zu sehen; 1284 Urteil am Film. Hinweis: 288.2 und 288.4 hängen am Zufall von „Beute erzeugen“; wenn möglich ein fester Knopf im Reiter „Test“, sonst so lassen)
 
 Sammelbuild auf Build 287 aufgesetzt (enthält alles aus 287); die Punkte der Liste 287 kommen hier nicht noch einmal.
 
 Ein Weg: erst die Liste 287 zu Ende testen, dann über Build 287 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand; im Menü 288.1 bis 288.5, dann Reiter „Test“, Zeile 288.6 „Lage herstellen“.
 
-Schon vorgelegt, fährt unverändert mit (kein neuer Prüfpunkt): 1266 Kerbholz (Film und Hörprobe gebilligt 15.11., 12:31 und 12:48), 1284 Rattenbiss (Film bei dir, `ansehen/1284-rattenbiss.md`, Urteil dort).
+Schon vorgelegt, fährt unverändert mit (kein neuer Prüfpunkt): 1266 Kerbholz (Film und Hörprobe gebilligt 15.11., 12:31 und 12:48), 1284 Rattenbiss: dein ✗ am Film (15.11., 14:54) kam nach dem Mischen; der Biss in diesem Build ist der abgelehnte Stand, nicht prüfen, der neue Anlauf liegt bei Jerry.
 
 Bekannt: das Fackelbild 287.1 kam noch aus dem alten Renderer (opengl3); ab diesem Lauf zeichnen Bilder und Filme im Renderer des Handys (1290).
 
