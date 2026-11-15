@@ -205,8 +205,12 @@ def testlauf(lauf, befehl, cwd, roh=None):
 
 
 def bild_im_test(befehl, cwd, roh):
-    """1249: legt ein gestartetes Testprogramm (Datei oder Heredoc im selben Befehl) ein Bild ab?"""
+    """1249: legt ein gestartetes Testprogramm (Datei oder Heredoc im selben Befehl) ein Bild ab?
+    1317 (von Jerry, 1314): ein Lauf mit `--headless` ohne `--write-movie` rendert nichts und legt kein Bild ab, auch wenn
+    der Test `save_png` enthält (ausholen_1000 nur hinter BILD_1000 und nicht headless)."""
     for m in GODOT_LAUF.finditer(befehl):
+        if re.search(r"(?:^|\s)--headless(?=\s|$)", m.group(0)) and "--write-movie" not in m.group(0):
+            continue
         s = TEST_SKRIPT.search(m.group(0))
         if not s:
             continue
