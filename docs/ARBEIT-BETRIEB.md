@@ -99,3 +99,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:59 15.11.: Startsperre 10:59 Start Jerry (Neustart, 0abf2acbf)
 - 10:59 15.11.: Jerry neu `…7AB8nKRTEe1G152XSQ` (1266 Film, dann 1215), alt archiviert (17,36 $)
 - 11:06 15.11.: Startsperre 11:06 Start Ford (selbst, Tiefe 4, Selbstneustart nach 420 Tsd. Token)
+- 11:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01Bxa9TW7bvnV8cSVBQdf7AU` (:03), alte `trig_01BpBNHHosCmPVkVh7ZdEqz5` aus, alter Ford `…76BCecXxLdXLfnEzk9` archiviert (5,96 $ auf 1019); Diogenes 1123 `…78w1wTxyTuS8uf2tzM` archiviert (1,49 $); Wächter 1270.1 an Tom gesendet
