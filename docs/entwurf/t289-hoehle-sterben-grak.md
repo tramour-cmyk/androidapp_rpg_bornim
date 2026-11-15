@@ -1,5 +1,6 @@
 # Jerry · Build 289 · Höhle, Sterben, Grak, Wechsel · PR folgt
 E Kampf · Jerry (1289, 1215, 1296; fährt mit 1000; Test berichtigt 1250, läuft in godot-kampf.yml), Spike (ohne dich 1268.1, 1268.3), Tom (ohne dich 697) · 15.11., 18:25 · APK folgt
+Gegengelesen: Tom 15.11., 18:33 (Lagen gegen `testmodus.gd`, `kampf/aufruf.gd` auf `main`: station=Krogg, probe=WOLVES zug=pounce gültig, 289.1 und 289.3 erreichbar und sinnvoll; **289.2 so nicht prüfbar:** probe=GRAK ist auf `main` Grak allein (`aufruf.gd` Zeile 30), „Goblins besiegen“ gibt es dort nicht; probe=GOBLINS nehmen oder GRAK im Zweig 289 mit Goblins, dann gilt die Zeile; 289.1 und 289.2 sind Aussehen und Bewegung, als Handy nur wegen Renderer und Ruckeln am Gerät (1290), so lassen)
 
 Sammelbuild auf Build 288 aufgesetzt (enthält alles aus 288 und `main`); die Punkte der Liste 288 kommen hier nicht noch einmal.
 

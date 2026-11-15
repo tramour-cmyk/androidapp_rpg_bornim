@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1310 | Von Jerry (1308): Prüfliste docs/entwurf/t289-hoehle-sterben-grak.md gegenlesen (Jerrys Punkte 1289, 1215, 1296), Zeile „Gegengelesen:“; Zweig claude/build-289 liegt lokal bereit, Push erst danach | Tom | M | startbar | – | – | – | E Technik | – |
+| 1310 | Von Jerry (1308): Prüfliste docs/entwurf/t289-hoehle-sterben-grak.md gegenlesen (Jerrys Punkte 1289, 1215, 1296), Zeile „Gegengelesen:“; Zweig claude/build-289 liegt lokal bereit, Push erst danach | Tom | M | erledigt, gegengelesen 18:33, 289.2 Lage falsch (an Jerry) | – | – | – | E Technik | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Tuch-Messung nicht bestanden | Sokrates | claude/tom-431-umhang | – | E Figuren | 81,27 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | gebaut, Messung fährt im nächsten Build, Geprüft an: 35caa9818 | – | claude/tom-697-drehteller | – | E Figuren | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
