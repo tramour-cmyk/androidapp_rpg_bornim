@@ -322,6 +322,7 @@ class Fighter:
 	## stun in which no new one takes hold; the statuses have acted this turn; has landed a blow in this fight.
 	var status := {}
 	var gift := 1.0     # 870.6: Stärke des Gifts, das auf ihm wirkt (werte.json „monsterregeln“ „gift“)
+	var zustand_d := {}     # 956: Zustand -> Stufenunterschied D seines Verursachers zu ihm (Stufenfaktor wie beim Schaden)
 	var stun_guard := 0
 	var ticked := false
 	var has_hit := false
@@ -1620,7 +1621,7 @@ func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	casting = null
 	_gegenwirkung(f, t, typ)
 	if item == "alchemist_fire" and statuses and outcome == "ONGOING" and t.standing():
-		_inflict(t, "BURN", 2)
+		_inflict(t, "BURN", 2, null, null, f)
 
 
 ## 870.4: ein Trank heilt fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS); 870.6: für jeden, ohne Würfel
@@ -1643,7 +1644,7 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 ## 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
 ## a dwarf's toughness against poison; a foe immune to it takes none, a boss shakes off a stun half the time.
 ## [save]: [ability, DC] or null.
-func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bool:
+func _inflict(t: Fighter, st: String, turns: int, save = null, die = null, quelle = null) -> bool:
 	if outcome != "ONGOING" or not t.standing():
 		return false
 	if st == "STUN" and t.stun_guard > 0:
@@ -1672,6 +1673,10 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			_say(fmt(ST_SHAKES, lang, [who]), null, t.id)
 			return false
 	t.status[st] = maxi(int(t.status.get(st, 0)), turns)
+	if quelle != null:     # 956 (870.6a 2 A, Chef 11.11., 13:55): D des Verursachers, der neueste gilt
+		t.zustand_d[st] = float(int(quelle.b.get("stufe", 1)) - int(t.b.get("stufe", 1)))
+	else:
+		t.zustand_d.erase(st)
 	if st == "POISON" and die != null:
 		t.gift = float(die)
 	if st == "STUN":
@@ -1710,7 +1715,12 @@ func _tick(f: Fighter) -> bool:
 			anteil *= f.gift
 			if _volk(f) == "Zwerg":
 				anteil *= 0.5
-		var dmg: int = _anteil(f, anteil)
+		# 956 (870.6a 2 A, Chef 11.11., 13:55; DESIGN-BRS 7, Entscheidung 73): mit dem Stufenfaktor D des Verursachers wie beim
+		# Schaden; ohne Verursacher Faktor 1; Faktor 0 (D bis −10) schadet nicht, sonst mindestens 1
+		var faktor := BrsKampf.Brs.stufenfaktor(float(f.zustand_d.get(st, 0.0)))
+		if faktor <= 0.0:
+			continue
+		var dmg: int = _anteil(f, anteil * faktor)
 		_hurt(f, dmg, "", fmt(ST_HURTS[st], lang, [who]) + " " + fmt(MSG296_DAMAGE, lang, [dmg]))
 	if outcome != "ONGOING" or not f.standing():
 		return false
@@ -1732,7 +1742,7 @@ func _foe_wounds(foe: Fighter, t: Fighter) -> void:
 		return
 	match str(m.get("special", "NONE")):
 		"POISON":
-			_inflict(t, "POISON", 3, ["zaehigkeit", 11], float(m.get("gift", 1.0)))
+			_inflict(t, "POISON", 3, ["zaehigkeit", 11], float(m.get("gift", 1.0)), foe)
 		"SURPRISE_ATTACK":
 			if first:
 				_inflict(t, "STUN", 1, ["zaehigkeit", 12])
@@ -1741,7 +1751,7 @@ func _foe_wounds(foe: Fighter, t: Fighter) -> void:
 				_inflict(t, "BLIND", 2, ["zaehigkeit", 10])
 		"BLOOD_DRAIN":
 			if dice.chance(0.3):
-				_inflict(t, "BLEED", 2)
+				_inflict(t, "BLEED", 2, null, null, foe)
 		"PARALYZE":     # 506: Grabhund
 			if _volk(t) == "Elf":
 				_say(fmt(MSG506_ELF, lang, [t.name(lang)]), t.id)
@@ -2392,7 +2402,7 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 		return
 	var type := str(wsheet.get("type", "BLUDGEONING"))
 	if e.kritisch and type == "SLASHING":
-		_inflict(t, "BLEED", 3)
+		_inflict(t, "BLEED", 3, null, null, f)
 	if e.kritisch and type == "BLUDGEONING" and dice.chance(0.5):
 		_inflict(t, "STUN", 1)
 
