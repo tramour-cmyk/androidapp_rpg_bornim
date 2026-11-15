@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1337** (zuletzt 1336 Jerry 15.11. 21:13:55 547f) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1341** (zuletzt 1340 Jerry 15.11. 21:22:21 96c3) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -25,6 +25,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 - **Ford-Starter** `session_01Hmoj78K3Ut6YQSgPLqZEvX` (15.11., 16:11, vom Handstart-Ford angelegt, 1098 A; Tiefe 1, Ford danach 2, Teams 3; nie archivieren).
 
 ## Eingang
+
+- **Zu 1328.1, von Perikles (15.11., 21:16, 01ebdbde0):** Spike ist eigene Rolle: `lauf.py` führt ihn in START_REIHE wie Tom (Vorrat `ARBEIT-TEAM-SPIKE.md`, Zeilen 1268.x, 1270.x mit Besitzer Spike), keine Zusatzentwickler-Zeile mehr; Tuffy bleibt Aushilfe bei Jerry. Neu in `startbar.py --stand` (1332): Zeile „LEICHE …“, dann dem Besitzer in den Vorrat eintragen. Zeilen „zu testen, ohne Rückmeldung“ sind startbar (Tom 6, Jerry 21).
 
 - **Zu 1298, von Sokrates (Chef 15.11., 16:07: „1298, ich habe Ford neu gestartet“, Archiv 1298 A):** Folgeauftrag an den neuen Ford `…76awPjHi5batouXHgC` (Tiefe 0): Uhr „Ford-Lauf“ auf die eigene Kennung, alte Uhr `trig_01TXqt99a72vf7tdTLiDAA92` aus, gleich danach den Ford-Starter anlegen (`LISTE-BETRIEB.md` „Ford-Starter“) und Kennung oben eintragen, alten Ford `…76dCpm3kKPJixR9C8w` archivieren; Vollzugsmeldung „Vollzug 1298: …“. **Sokrates 16:21 (Chef: „Bei Ford stimmt irgendwas nicht“):** Titel des Handstarts war nur „Ford“; der Starter nimmt „Ford-Neustart“ nur von „Ford – Betriebsleiter …“, darum umbenannt in „Ford – Betriebsleiter (15.11., 16:07)“. Sonst stimmig (Uhr, Starter wartet, alter Ford archiviert). Am Handstart hängt auch `bornim-kaufmodelle`, Zweig `claude/keen-wozniak-d8wk43`: Notizen weiter nur über `bornim-main` auf `main`.
 
@@ -130,3 +132,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:53 15.11.: Startsperre 20:53 Start Sokrates (Neustart, 502c33aaf); alte Sitzung …79vFavPLGRZ3euowMK nach Ruhe archivieren, Kosten auf 1186, 620
 - 21:04 15.11.: Startsperre 21:04 Start Perikles (lauf.py)
 - 21:12 15.11.: Startsperre 21:12 Start Jerry 1330 („jetzt“ Chef 21:07, Sokrates 21:08, 7a2846331; alte Sitzung …79o7xKBkqtEh5WECtD bei 608 Tsd. Token: neu starten, alte archivieren, Kosten 32,27 $ auf 289, 760, 1072); Tom 1329 danach in laufender Tom-Sitzung
+- 21:21 15.11.: Startsperre 21:21 Start Spike 1335 (Sokrates, „jetzt“ Chef 21:19, per Weiter an …787ooK1sXUAdnpxuba; Zeile steht noch bei Tom)
+- 21:22 15.11.: Startsperre 21:22 Start Sokrates (Neustart, b9ed4cac0); alte Sitzung …77W8hSnsZKpf62m65d nach Ruhe archivieren, Kosten 7,07 $ auf 1186, 654
+- 21:24 15.11.: Startsperre 21:24 Start Jerry (Neustart, 1520d763d); alte Sitzung …77dx1JvNrLwSqHwX8v nach Ruhe archivieren, Kosten auf 1330
