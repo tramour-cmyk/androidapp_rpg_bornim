@@ -351,6 +351,16 @@ def main():
             for f in sorted(fehler(":") - alt_f): stop.append("LISTE-VORGAENGE.md: " + f + " (Form 275.2; vorgang.py schreibt nur Gültiges)")
             if not startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")): stop.append("LISTE-VORGAENGE.md: keine Tabelle mit Kopf " + startbar.KOPF)
         except Exception as e: warn.append("Formprüfung Liste übersprungen: %s" % e)
+    for s, p in dat:  # 1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“): t286 ging nach 👍 auf 286.1–.5 weg, 286.6–.13 offen
+        m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
+        if s != "D" or not m or os.environ.get("BORNIM_HANDY_WEG") == "1": continue
+        try:
+            import vorgang
+            offen_h = vorgang.handy_offen(m.group(1), git("show", "HEAD:" + p))
+        except Exception as e:
+            warn.append("1277-Prüfung übersprungen: %s" % e); continue
+        if offen_h: stop.append("%s: Handypunkte ohne Ergebnis (%s); die Prüfliste bleibt in ansehen/, bis der Chef jeden zurückgemeldet hat, "
+                                "auch kein Archiveintrag t%s vorher (1277; nur auf Wort des Chefs BORNIM_HANDY_WEG=1)" % (p, ", ".join(offen_h), m.group(1)))
     if arch:  # 275.2 Automatik B: Testergebnis tN im Archiv nur, wenn vorgang.py build N die Liste abgeschlossen hat
         for z in git("diff", "--cached", "-U0", "--", "docs/VORGANGSARCHIV.md").splitlines():
             m = re.match(r"\+- \*\*t(\d+)\b", z)
@@ -361,6 +371,13 @@ def main():
             n = m.group(1)
             wege = {x for x in git("ls-tree", "-r", "--name-only", "HEAD", "docs/chefsache/ansehen/").split()} | {p for s, p in dat}
             pl = "".join(git("show", "HEAD:" + x) + git("show", ":" + x) for x in wege if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x))
+            try:
+                import vorgang
+                offen_h = vorgang.handy_offen(n, pl) if pl else []
+            except Exception: offen_h = []
+            if offen_h and os.environ.get("BORNIM_HANDY_WEG") != "1":  # 1277: vor dem letzten Handypunkt kein „tN“, die Liste bleibt
+                stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber Handypunkte ohne Ergebnis (%s); erst, wenn der Chef jeden zurückgemeldet hat (1277)" % (n, ", ".join(offen_h)))
+                continue
             # 1070 (Chef 12.11., 20:06 „warum steht der … 280er immer noch drin“): getestet heißt weg, im selben Commit wie „tN“ (Git behält sie)
             noch = [x for x in git("ls-files", "--full-name", ":/docs/chefsache/ansehen/").split() if re.match(r"docs/chefsache/ansehen/t%s-[^/]+\.md$" % n, x)]
             if noch: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, Prüfliste noch in der Chefsache (%s); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)" % (n, ", ".join(noch)))
