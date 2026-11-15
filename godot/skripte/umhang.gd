@@ -17,6 +17,9 @@ const ARME := ["upperarm_l", "upperarm_r", "lowerarm_l", "lowerarm_r"]
 # 0,5 und 1,0 hängt er 3-5 Grad wie gebaut, seitlich im Gehen 4-5 statt 11-14 cm (Neigung Ende gegen Anfang der Mittelkette, am Rechner, Ersatzkörper)
 static var STEIF := float(OS.get_environment("UMHANG_STEIF")) if OS.get_environment("UMHANG_STEIF") != "" else 0.5
 static var ZUG := float(OS.get_environment("UMHANG_ZUG")) if OS.get_environment("UMHANG_ZUG") != "" else 0.45
+# Lauf 11 am Rechner: mit überall weicher Feder sank der Umhang oben unter den Schulterblättern in den Rücken (Haut schien durch); oben
+# steif wie der Oberkörper, nach unten weich: Steife je Gelenk von STEIF_OBEN am Anfang bis STEIF am Saum
+static var STEIF_OBEN := float(OS.get_environment("UMHANG_STEIF_OBEN")) if OS.get_environment("UMHANG_STEIF_OBEN") != "" else 6.0
 static var SCHWERE := float(OS.get_environment("UMHANG_SCHWERE")) if OS.get_environment("UMHANG_SCHWERE") != "" else 1.0
 const GLIED_RADIUS := 0.035
 
@@ -47,7 +50,11 @@ static func an(m: Node3D, sk: Skeleton3D) -> SpringBoneSimulator3D:
 		sim.set_end_bone_direction(i, SpringBoneSimulator3D.BONE_DIRECTION_FROM_PARENT)
 		var e := sk.find_bone("umhang_%s_%d" % [s, n])
 		sim.set_end_bone_length(i, sk.get_bone_rest(e).origin.length())
-		sim.set_stiffness(i, STEIF)
+		sim.set_stiffness(i, STEIF_OBEN)
+		var kurve := Curve.new()
+		kurve.add_point(Vector2(0.0, 1.0))
+		kurve.add_point(Vector2(1.0, STEIF / maxf(STEIF_OBEN, 0.001)))
+		sim.set_stiffness_damping_curve(i, kurve)
 		sim.set_drag(i, ZUG)
 		sim.set_gravity(i, SCHWERE)
 		sim.set_gravity_direction(i, Vector3.DOWN)

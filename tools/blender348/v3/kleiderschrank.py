@@ -138,6 +138,16 @@ def kette(arm, kleid, teilnamen):
     kn = [b.name for b in arm.data.bones]
     W = dicht(kleid, kn)
     alt_arm_bein = float(((W[um][:, [kn.index(n) for n in kn if n.startswith(('upperarm', 'lowerarm', 'hand', 'thigh', 'calf'))]].sum(1)) > 0.01).mean())
+    # Chef 15.11., 16:55 (Lauf 11: „der linke und rechte Saum … schaut halt aus, als ob er überall eingerissen wäre“): über dem
+    # Kettenanfang und im Band folgten Ecken des Umhangs noch Ober- und Unterarm (Gewichte aus kauf_kleid.py), darunter der Kette; wo
+    # beide aneinanderstoßen, riss der Saum auf Achselhöhe auf. Arm und Hand des Umhangs gehen auf das Schlüsselbein derselben Seite
+    arm_auf = {}
+    for j, n in enumerate(kn):
+        if n.startswith(('upperarm', 'lowerarm', 'hand')) and n[-2:] in ('_l', '_r') and 'clavicle' + n[-2:] in kn:
+            arm_auf[j] = kn.index('clavicle' + n[-2:])
+    for i in np.where(um)[0]:
+        for j, k in arm_auf.items():
+            if W[i, j] > 0: W[i, k] += W[i, j]; W[i, j] = 0.0
     for i in np.where(um)[0]:
         x, y, z = V[i]
         if z > z0: a = 0.0
