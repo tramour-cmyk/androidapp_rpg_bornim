@@ -36,7 +36,7 @@
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | Tom | K | ruht | 23.11. | claude/tom-417-tragart | – | E Figuren | – |
 | 558.1 | Prüferrest Robe Probe 5 nachhalten, nicht bauen; Chef sieht es nach dem Durchspielen an (Chef 04.11., 22:23) | Tom | K | ruht | 23.11. | claude/tom-558-robe | – | E Figuren | – |
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | Tom | K | wartet | 508 | – | – | G Story | – |
-| 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | startbar, gelöst 16.11.: 16.11. | – | – | – | M Veröffentlichung | – |
+| 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | wartet, Vorrang und Kennung klären | Perikles | – | – | M Veröffentlichung | – |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | Tom | K | wartet | 1235 | – | – | G Story | – |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | Tom | K | aufgeteilt | – | – | – | E Figuren | 1,06 $ |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | Tom | M | ruht, ohne Vorratszeile, Liste „raus“ (275.2) | 23.11. | – | – | E Technik | – |

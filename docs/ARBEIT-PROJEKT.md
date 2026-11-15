@@ -25,6 +25,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Fehler 341, von Sokrates (11.11., 18:14):** 901 (365a B, „alle Hoch“ seit 07:18) startete in der Umgebung „WireStorm Hoch“, die nur Variablen setzt; die App zeigte „Mittel“, keiner prüfte das Ergebnis, gefunden hat es der Chef (18:04; 18:14 „von euch hat es ja keiner gemerkt … Schwarzbuch“). Behoben 981. Lehre: Einstellung am Ergebnis prüfen (`get_session`, App), nie an der Eingabe.
 
 ## Einzelheiten
+- **Zu 622, von Tom (16.11., 00:29):** einzig startbarer Vorgang Toms, Kür, Veröffentlichung; nicht angefangen. Gegen jetzt: Godot baut heute `de.bornim.game.godot` (`godot/export_presets.cfg` 28) ohne Gradle-Bau (`use_gradle_build=false`); AAB mit `de.bornim.game` braucht Gradle-Vorlage im Bau, den Upload-Schlüssel (`SIGNING_KEYSTORE_B64`, früher `android.yml`) und klärt, ob die Testbuilds die Kotlin-App auf dem Handy des Chefs ersetzen (Kennung, Versionsnummer). Release nur auf Zuruf, Oberste Direktive Kapitel 1 zuerst. Bitte: Vorrang entscheiden (ruht bis nach dem Meilenstein oder jetzt); bei „jetzt“ lege ich vorher die Kennungsfrage dem Chef vor.
 - **Zu 1351, von Tom (16.11., 00:05):** Bildlauf 1044 zweimal von der Rechteprüfung abgelehnt („[Undermining Oversight]“, Befehl `PROBE=1044 … -s res://tests/grundstand_1044.gd`, vorher `PROBEBILD=1044`); Vorlage an den Chef `entscheiden/1351-rechtepruefung-bildlauf.md` (A: Erklärzeile in `autoMode.environment`; B: Bauserver). Nicht umgehen, bis er antwortet; 1044 und 1341 stehen.
 
 
