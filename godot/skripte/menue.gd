@@ -335,6 +335,8 @@ func fertigkeit_zeile(n: String, w: int) -> void:
 	rw.autowrap_mode = TextServer.AUTOWRAP_OFF
 	rw.size_flags_horizontal = Control.SIZE_FILL
 	z1.add_child(rw)
+	z1.name = "Fert_" + n
+	if ErschaffungBrs.erklaerung("fert", n) != "": tippbar(z1, func(): erklaere_fert(n))   # 785.2
 	inhalt.add_child(z1)
 	var b := Leiste.Balken.new()
 	b.custom_minimum_size = Vector2(0, 6 * DP)
@@ -343,6 +345,11 @@ func fertigkeit_zeile(n: String, w: int) -> void:
 	b.farbe = Leiste.GOLD_HELL
 	inhalt.add_child(b)
 	luecke(4)
+
+## 785.2 (alt Satz je Faehigkeit, MenuScreen.kt 692): Antippen einer Fertigkeit zeigt im Erklaerfenster, was sie tut, mit demselben
+## Satz wie in der Erschaffung ([954.1.fert.…], mit [954.1.spaeter], wo sie noch nicht wirkt)
+func erklaere_fert(n: String) -> void:
+	erklaere_zeichen(ErschaffungBrs.fert_name(n), ErschaffungBrs.erklaerung("fert", n))
 
 ## Heldenreiter: die drei hoechsten, darunter der Sprung zum Reiter „Fertigkeiten“
 func fertigkeiten_kurz() -> void:
@@ -375,9 +382,19 @@ func fertigkeiten_reiter() -> void:
 		if not offen: continue
 		luecke(2)
 		for n in _nach_wert(hat): fertigkeit_zeile(String(n), int(hat[n]))
-		if not rest.is_empty():
-			var m := zeile(", ".join(rest.map(func(n): return ErschaffungBrs.fert_name(String(n)))), 14, Stil.DIM)
-			m.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		if not rest.is_empty():   # 785.2: je Name antippbar, sonst wie die Zeile „a, b, c“
+			var fl := HFlowContainer.new()
+			fl.add_theme_constant_override("h_separation", int(5 * DP))
+			fl.add_theme_constant_override("v_separation", 0)
+			for k in rest.size():
+				var rn := String(rest[k])
+				var m := Stil.txt(ErschaffungBrs.fert_name(rn) + ("," if k < rest.size() - 1 else ""), 14, Stil.DIM)
+				m.autowrap_mode = TextServer.AUTOWRAP_OFF
+				m.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+				m.name = "Fert_" + rn
+				if ErschaffungBrs.erklaerung("fert", rn) != "": tippbar(m, func(): erklaere_fert(rn))
+				fl.add_child(m)
+			inhalt.add_child(fl)
 		luecke(6)
 
 ## 762 (Chef 21:25 Idee, 21:33 „Ja.“, Votum Sokrates): Gruppen ein- und aufklappbar; ohne Umklappen offen, wer schon etwas kann,

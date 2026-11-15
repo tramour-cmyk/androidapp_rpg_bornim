@@ -68,7 +68,7 @@ func _lauf() -> void:
 			for i in 6: await process_frame
 			r2 = texte(m.inhalt, [])
 			matt = "\n".join(r2)
-			pruefe("matt Schleichen", matt.contains("Schleichen, Spähen"), matt.left(200))
+			pruefe("matt Schleichen", matt.contains("Schleichen,\nSpähen"), matt.left(200))   # 785.2: je Name ein Feld
 			pruefe("gemerkt", Bedienung.fert_gruppen.get("Schatten", false) == true, str(Bedienung.fert_gruppen))
 			m.klappe_gruppe("Waffen", true)
 			for i in 6: await process_frame
