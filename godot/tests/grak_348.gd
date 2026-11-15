@@ -61,7 +61,9 @@ func _all() -> void:
 	# ---- Platzwechsel hin und zurück, kurz und weit: immer Gehen (348.12, Chef 29.10., 10:55: „Gang schreitend statt kurzer Sprint“)
 	var h0: Vector3 = grak.home
 	for ziel in [h0 + k.facing(true) * -0.9, h0, h0 + k.facing(true) * -2.4, h0]:
-		grak.glide_to(ziel)
+		# 1250: seit 717.1 A (617fe2b2d) rückt ein Gegner nur in seinem eigenen Zug an den neuen Platz (sonst platz_neu, 0 Bilder
+		# unterwegs); der Test bewegt Grak darum wie in seinem Zug
+		grak.glide_to(ziel, true)
 		var bilder := 0
 		var falsch := 0
 		var gleit := 0.0
