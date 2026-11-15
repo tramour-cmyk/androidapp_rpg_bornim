@@ -29,7 +29,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/274ec030
 - Heute gibt es keine Grafikeinstellung für Spieler; die vier Messschalter im Reiter „Test“ (1145) gelten nur bis zum Neustart.
 - Gekauftes Gras (804) und gekaufte Effekte (814) lassen sich schon heute abschalten, gebaut für 698; fehlt das Paket, bleibt es wie bisher.
 - Sonnenschatten 4096 px mit weichem Filter Stufe 2 (`project.godot`) ist für Handys hoch angesetzt; draußen wirft nur die Sonne Schatten (`licht.gd`), drinnen Kamin, Fackel und Tageslicht (`raumlicht.gd`).
-- Wie viel jede Zeile auf deinem A56 und dem A22 spart, ist noch nicht gemessen (1145 wartet auf die Messung am Gerät mit den Schaltern).
+- Wie viel jede Zeile auf deinem A56 spart, ist noch nicht gemessen (1145 wartet auf die Messung am Gerät mit den Schaltern).
 
 **Auswertung:**
 - **A (Empfehlung):** Tabelle wie oben, Automatisch als Vorgabe. Bauen etwa eine Sitzung, dazu ein Bild je Stufe am selben Ort (Dorf am Abend, Höhle) zum Vergleich an dich, dann Testbitte.
