@@ -821,6 +821,26 @@ static func _soft(x: float) -> float:
 	return 0.5 - 0.5 * cos(PI * clampf(x, 0.0, 1.0))
 
 
+## 1284: liegt [q] (Welt) im Bild hinter einer der Kapseln [kapseln] ([a, b, Radius, …], Welt), also von ihr verdeckt? [rand]
+## macht jede Kapsel so viel dicker (Planung: das Ziel bewegt sich noch, getroffen oder abwehrend)
+func verdeckt_von(q: Vector3, kapseln: Array, rand := 0.0) -> bool:
+	var sq: Vector2 = screen_of(q)
+	var dq: float = cam.position.z - q.z
+	var px: float = get_viewport().get_visible_rect().size.x / 412.0
+	for c in kapseln:
+		var a: Vector3 = c[0]
+		var b: Vector3 = c[1]
+		var sa: Vector2 = screen_of(a)
+		var sb: Vector2 = screen_of(b)
+		var k := Geometry2D.get_closest_point_to_segment(sq, sa, sb)
+		var t := clampf((k - sa).length() / maxf((sb - sa).length(), 0.001), 0.0, 1.0)
+		var e: Vector3 = a.lerp(b, t)
+		var rp: float = (float(c[2]) + rand) / maxf(m_per_dp(e), 0.0001) * px
+		if sq.distance_to(k) < rp and dq > cam.position.z - e.z + float(c[2]):
+			return true
+	return false
+
+
 ## Meter je dp an der Stelle [q] ohne Zoom (für das Zittern des Getroffenen).
 func m_per_dp(q: Vector3) -> float:
 	var vs := get_viewport().get_visible_rect().size

@@ -2504,9 +2504,24 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			other.footprint()     # misst schild_unten (ohne Schild INF)
 			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
-			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
+			# 1284 (Chef 15.11., 14:54, Film Rattenbiss: „man sieht nicht, ob sie trifft oder nicht, weil da steht ja genau der Held dann
+			# davor … die steht ja neben ihm, als sie zubeißt“; biss_1284: 10 von 11 Bissen lagen die Zähne ganz hinter dem Ziel, die
+			# Kamera blickt über die Helden auf die Gegner): wer klein ist, nimmt den ersten Platz, an dem seine Zähne im Bild nicht hinter
+			# dem Ziel liegen, notfalls von der Seite (bis 90°); ist keiner frei, der erste wie bisher
+			var klein := hoehe_oben() < BISS_KLEIN_M
+			var verdeckt_bei := []     # erster freier Platz, an dem das Ziel die Zähne verdeckt: [Platz, Richtung, Stand, t]
+			var winkel := [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]
+			if klein:
+				winkel += [75.0, -75.0, 90.0, -90.0]
+			for w in winkel:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
 				var pl: Array = hieb_plan(bb, ziel, other.position, d2, soll, BISS_LUFT, hind)
+				# 1284 (treffen_709 Ratten: der Biss an Osgar fasste 8 cm tief statt 1 cm, er drehte sich beim Biss zur Ratte, der Körper
+				# ging ihr entgegen): wer klein ist, plant auch gegen das zu ihm gedrehte Ziel und steht dann so weit weg wie das verlangt
+				if klein and other.schild_unten == INF:
+					var pl2: Array = hieb_plan(bb, _koerper_zu(other, other.position - d2), other.position, d2, soll, BISS_LUFT, hind)
+					if float(pl2[2]) > 0.0 and float(pl2[0]) > float(pl[0]):
+						pl = pl2
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
 				if pl[2] <= 0.0:
@@ -2533,7 +2548,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				# Kopf und Kiefer gehören beim Biss ans Ziel, hieb_plan prüft sie räumlich gegen Körper und Schild; gegen das Ziel zählt in
 				# Bisshaltung nur der Rumpf hinter dem Kopf (bei der Ratte liegt der Kopf am Boden im Umriss, beim Wolf darüber)
 				# (nur wer unter dem Schild bleibt: Ratte, Spinne, Schnecke; Wolf und Grimmzahn reichen höher, ihr Kopf zählt mit, 709a)
-				var rumpf := _rumpf_ohne_kopf() if unter_schild else footprint()
+				# 1284 (biss_1284, Osgar mit Stab, ohne Schild: an jedem Platz lag der Kopf der Ratte im Umriss, kein Platz galt, sie biss
+				# 1,35 m vom Ziel und blieb 0,39 m davor): wer klein ist, dessen Kopf liegt auch ohne Schild unter dem Körper des Ziels
+				var rumpf := _rumpf_ohne_kopf() if unter_schild or (klein and other.schild_unten == INF) else footprint()
 				# auch beim Drehen zum Heimweg: der Kopf löst sich dabei vom Ziel
 				var r2 := INF
 				for yw in [y0, lerp_angle(y0, y1, 0.5), y1]:
@@ -2560,14 +2577,29 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 					continue
 				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
 				if not voll:     # die Schnauze bliebe pl[0] − pl[2] davor (Schild oder eigener Körper im Weg); näher als bisher
-					if st2 - float(pl[2]) < (teil[0] if not teil.is_empty() else stand - float(pl[2])):
+					if absf(w) <= 60.0 and st2 - float(pl[2]) < (teil[0] if not teil.is_empty() else stand - float(pl[2])):
 						teil = [st2 - float(pl[2]), s2, d2, st2, bt]
+					continue
+				if klein and _zaehne_verdeckt(other, bb, float(pl[1]), s2, d2):
+					if OS.get_environment("SCHAU_709") != "":
+						print("1284 Bissplatz %s, %.0f°: Zähne hinter %s" % [fighter.id, w, other.fighter.id])
+					if verdeckt_bei.is_empty() and absf(w) <= 60.0:
+						verdeckt_bei = [s2, d2, st2, bt]
 					continue
 				biss_von = s2
 				dir = d2
 				stand = st2
 				biss_t = bt
+				if OS.get_environment("SCHAU_1284") != "":
+					print("1284 gewählt %s an %s: %.0f°, Platz %s" % [fighter.id, other.fighter.id, w, s2])
 				break
+			biss_verdeckt = false
+			if biss_von == Vector3.INF and not verdeckt_bei.is_empty():
+				biss_verdeckt = true     # biss_1284: kein freier Platz im Bild, an dem das Ziel die Zähne nicht verdeckt
+				biss_von = verdeckt_bei[0]
+				dir = verdeckt_bei[1]
+				stand = verdeckt_bei[2]
+				biss_t = verdeckt_bei[3]
 			if biss_von == Vector3.INF and not teil.is_empty():
 				biss_von = teil[1]
 				dir = teil[2]
@@ -2626,6 +2658,8 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			jump = kurz
 		flat = dir * flat.length()
 	angriff_von = start
+	if OS.get_environment("SCHAU_1284") != "":
+		print("1284 Start %s an %s: %s" % [fighter.id, other.fighter.id, start])
 	var r_alt := rotation.y
 	_face(flat)
 	rotation.y += deg_to_rad(bite[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
@@ -4327,6 +4361,48 @@ func _im_bild_dreh(p: Vector3, von: Vector3, nach: Vector3) -> bool:
 		if not _im_bild(p, Vector3(sin(w), 0.0, cos(w))):
 			return false
 	return true
+
+
+## 1284: lägen Kopf und Kiefer beim Biss vom Platz [s2] in Richtung [d2] im Aufschlag (t [tk] der Bahn [bb], _hieb_bahn) im Bild
+## zu mehr als VERDECKT_SOLL hinter dem Körper von [other] (Kampfort.verdeckt_von, je Kapsel 5 Punkte wie biss_1284)?
+const VERDECKT_SOLL := 0.0
+const VERDECKT_RAND := 0.0     # 1284: Rand um die Kapseln des Ziels in der Planung (0,08 m probiert: biss_1284 zwei Plätze mehr ohne freie Sicht, schlechter)
+var biss_verdeckt := false     # 1284: der letzte Biss nahm einen Platz, an dem das Ziel die Zähne verdeckt (kein anderer frei)
+func _zaehne_verdeckt(other, bb: Array, tk: float, s2: Vector3, d2: Vector3) -> bool:
+	var s: Array = bb[0]
+	for e in bb:
+		if absf(float(e[0]) - tk) < absf(float(s[0]) - tk):
+			s = e
+	var tr := Transform3D(Basis(Vector3.UP, atan2(d2.x, d2.z)), s2)
+	# das Ziel wie jetzt und zum Tier gedreht (getroffen oder abwehrend dreht es sich zu ihm, _face_sanft; biss_1284: Osgar drehte
+	# sich mit dem Stab vor die Zähne, vorhergesagt 1 von 5 Punkten verdeckt, gemessen 60 %)
+	var kb: Array = other.koerper()
+	var kb2: Array = _koerper_zu(other, s2)
+	var n := 0
+	var drin := 0
+	for w in s[1]:
+		for j in 5:
+			n += 1
+			var q: Vector3 = tr * (w[0] as Vector3).lerp(w[1], j / 4.0)
+			if kampfort.verdeckt_von(q, kb, VERDECKT_RAND) or kampfort.verdeckt_von(q, kb2, VERDECKT_RAND):
+				drin += 1
+	if OS.get_environment("SCHAU_1284") != "":
+		print("1284 Plan %s an %s: %d von %d Punkten verdeckt" % [fighter.id, other.fighter.id, drin, n])
+	return float(drin) > VERDECKT_SOLL * float(n)
+
+
+## 1284: Körperkapseln von [other], zu [zu] gedreht (um seinen Ursprung; so steht es, wenn es sich zum Angreifer dreht, _face_sanft)
+static func _koerper_zu(other, zu: Vector3) -> Array:
+	var v: Vector3 = zu - other.position
+	var gedreht := Basis(Vector3.UP, wrapf(atan2(v.x, v.z) - other.rotation.y, -PI, PI))
+	var o: Vector3 = other.position
+	var out: Array = []
+	for c in other.koerper():
+		var c2: Array = c.duplicate()
+		c2[0] = o + gedreht * ((c[0] as Vector3) - o)
+		c2[1] = o + gedreht * ((c[1] as Vector3) - o)
+		out.append(c2)
+	return out
 
 
 ## 438: steht die Figur an [p] mit Blick [blick] (waagerecht) ganz in der Szene, über dem Bedienfeld, 8 dp Rand?
