@@ -12,11 +12,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870.20 (Tom) SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Haup… |
-| ↳ Kampf passt | 81 | 37 | 3 | 0 | 17 | 930.6 (Jerry) Glutsystem Stufe 1, Regelkern in mars.gd hinter S… |
+| ↳ Kampf passt | 69 | 25 | 3 | 0 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 22 | 9 | 0 | 0 | 15 | 1040.1 (Tom) Leute drehen im Stehen ohne Schritte, wenn sie de… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 2 | 0 | 33 | 1289 (Jerry) Höhle im Renderer mobile ganz anders als bisher:… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 8 | 0 | 0 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
-| Werkzeuge und Abläufe der Firma | 64 | 38 | 1 | 2 | 9 | 1328.1 (Perikles) Spike eigene Rolle Technik: Vorrat, Zeilen, Start… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 0 | 0 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
+| Werkzeuge und Abläufe der Firma | 59 | 33 | 1 | 2 | 9 | 1328.1 (Perikles) Spike eigene Rolle Technik: Vorrat, Zeilen, Start… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Die nächsten 20**
@@ -25,26 +25,26 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | 1 | 1328.1 | Perikles | Spike eigene Rolle Technik: Vorrat, Zeilen, Start durch Ford ohne Warten auf To… | M | Werkzeuge und Abläufe der Firma | in Arbeit |
 | 2 | 1329 | Tom | 6 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen ode… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 3 | 1330 | Jerry | 21 Zeilen „zu testen, ohne Rückmeldung“ selbst am Build prüfen und schließen od… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 4 | 930.6 | Jerry | Glutsystem Stufe 1, Regelkern in mars.gd hinter Schalter, Werte in werte.json,… | M | Kampf passt | startbar |
-| 5 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
-| 6 | 870.20 | Tom | SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testersei… | M | Umzug BRS, SRD ablösen | startbar |
-| 7 | 1141 | Jerry | Goblins, Schamane fallen wie Playmobil, alle zur selben Seite; ohne Sterbebeweg… | M | Kampf passt | startbar |
-| 8 | 1321 | Jerry | Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m… | M | Kampf passt | in Arbeit |
-| 9 | 1000 | Jerry | Grak hält nach der Ansage „Schwerer Hieb“ die ausholende Haltung bis zum Hieb | M | Kampf passt | startbar |
-| 10 | 1284 | Jerry | Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, aber kein Biss zu sehen… | M | Kampf passt | startbar |
-| 11 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
-| 12 | 1222 | Jerry | Rauchbündel gegen Krogg ohne sichtbare Wirkung im Kampfbericht; Wirkung zeigen,… | M | Kampf passt | startbar |
-| 13 | 601 | Jerry | Goblin-Späher: Schuss ohne Bewegung, falscher Pfeil, kein Pfeil beim Fehlschuss… | M | Kampf passt | startbar |
-| 14 | 956 | Jerry | Gift, Brand, Blutung als Anteil am vollen Leben mit dem Stufenfaktor D wie beim… | M | Kampf passt | startbar |
-| 15 | 644a.1 | Jerry | erst Rechnung, dann bauen: Beutestufe mit 633, Stufenschritte als Spanne, Decke… | M | Kampf passt | startbar |
-| 16 | 1058 | Jerry | Simulation 444 rechnet Herkünfte ohne plus_variante; Standard auf 9 Punkte, Rec… | M | Kampf passt | startbar |
-| 17 | 1162 | Jerry | Steinkreis im Kampfort nachbessern; Zu 493 am 04.11. mit dem Abschluss gestrich… | M | Kampf passt | startbar |
-| 18 | 1166 | Jerry | Atmen für alle Monster | M | Kampf passt | startbar |
-| 19 | 1141.1 | Jerry | Aus 1141: Körper mit Bibliothekstod und Niedergeworfen fallen um die Füße? Lage… | M | Kampf passt | startbar |
-| 20 | 1253 | Jerry | Proben ohne Grundwert 5 % + 1 je Punkt + 5 je Stufe, 5 bis 95; werte.json probe… | M | Kampf passt | startbar |
+| 3 | 415 | Jerry | Handyprobe Beams-Free-Sample | M | Kampf passt | startbar |
+| 4 | 870.20 | Tom | SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Hauptmenü, Über, README, Testersei… | M | Umzug BRS, SRD ablösen | startbar |
+| 5 | 1321 | Jerry | Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m… | M | Kampf passt | in Arbeit |
+| 6 | 1284 | Jerry | Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, aber kein Biss zu sehen… | M | Kampf passt | startbar |
+| 7 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
+| 8 | 1288 | Sokrates | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lück… | M | Kampf passt | startbar |
+| 9 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
+| 10 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
+| 11 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
+| 12 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
+| 13 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
+| 14 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
+| 15 | 1040.1 | Tom | Leute drehen im Stehen ohne Schritte, wenn sie dem gehenden Helden folgen | M | Kleiderschrank und Modelle | startbar |
+| 16 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
+| 17 | 697 | Tom | Erschaffung: Held im Drehteller halbtransparent | M | Kleiderschrank und Modelle | startbar |
+| 18 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 19 | 1289 | Jerry | Höhle im Renderer mobile ganz anders als bisher: zu hell, Sichtachsen weg; Auss… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 115 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 13. Werkzeug gebaut, Prüfung Diogenes: 22. Ruhend oder nach dem Meilenstein: 91.
+Danach 96 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 22. Ruhend oder nach dem Meilenstein: 91.
 ## Zu entscheiden
 
 Nichts offen.
