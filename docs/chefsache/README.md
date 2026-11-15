@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 00:40, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 00:41, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,7 +12,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 74 | 29 | 3 | 1 | 11 | 1314 (Jerry) Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ra… |
+| ↳ Kampf passt | 73 | 28 | 3 | 1 | 11 | 1072 (Jerry) Laufwege und Plätze im Kampf für alle Figuren: Zw… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 21 | 7 | 0 | 0 | 14 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 1 | 7 | 29 | 643 (Jerry) Langbogen mit Köcher als Waffenmodell für Garrick… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 0 | 1 | 6 | 1270.4 (Spike) Vergleichsfilm alt gegen neu Glühen und vorberech… |
@@ -24,27 +24,27 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1186 | Sokrates | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitze… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 2 | 1314 | Jerry | Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ragdoll_1215, ausholen_1000 behe… | M | Kampf passt | startbar |
-| 3 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
-| 4 | 1288 | Sokrates | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lück… | M | Kampf passt | startbar |
-| 5 | 481.2 | Jerry | Rechnung glut2.py mit Deckel des Abzugs von Rüstung und Schild auf 50 %, dazu 4… | M | Kampf passt | startbar |
-| 6 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
-| 7 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
-| 8 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
-| 9 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
-| 10 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
-| 11 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
-| 12 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
-| 13 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
-| 14 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 15 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1286 | Spike | Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf… | K | Kampf passt | startbar |
-| 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 2 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
+| 3 | 1288 | Sokrates | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lück… | M | Kampf passt | startbar |
+| 4 | 481.2 | Jerry | Rechnung glut2.py mit Deckel des Abzugs von Rüstung und Schild auf 50 %, dazu 4… | M | Kampf passt | startbar |
+| 5 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
+| 6 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
+| 7 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
+| 8 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
+| 9 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
+| 10 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
+| 11 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
+| 12 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 13 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 1286 | Spike | Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf… | K | Kampf passt | startbar |
+| 18 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 
-Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
+Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
