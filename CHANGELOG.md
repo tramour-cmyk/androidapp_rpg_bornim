@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Figuren und Kampfort laden einmal je Spielstart** (Spike, 1270.2, Zweig `claude/spike-1270-2-speicher` `77022480e`, noch ohne Build): Gegner, Waffen, Helden und der Wald des Kampforts werden nur beim ersten Gebrauch gelesen, entschlüsselt und gebaut, danach kopiert; gleiche Gegner teilen sich Netze und Bilder. Am Rechner kostet der zweite Aufruf ein Sechstel des ersten.
+
 - **Bilder und Filme aus dem Bau im Renderer des Handys** (Tom, 1290, Zweig `claude/tom-1290-mobile` `375022004`, in Build 287): alle Film- und Kampfbildschritte zeichnen wie das Handy im Renderer „mobile“ (Vulkan in Software) statt in Compatibility; ein Wächter meldet einen Rückfall und jeden neuen Schritt mit dem alten Renderer.
 
 - **Seltenheit im Vorratsfenster, Zauberschaden und Abwehrprobe in den Kampfwerten** (Tom, 785.3, 785.6, Zweig `claude/tom-785-1-anteil` `a4d832406`, noch ohne Build): Antippen eines Vorrats in der Tasche nennt seine Seltenheit wie früher; die Kampfwerte im Reiter Ausrüstung zeigen, was die getragenen Stücke an Zauberschaden und Abwehrprobe geben.
