@@ -2,10 +2,10 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `8aa74c625` (15.11., 10:13)
+**Gelesen bis:** `8aa74c625` (15.11., 10:58)
 
-**Übergabe (15.11., 10:11, `session_01Hmoj7A9BD9js7ioHpGovGR`):** 1264 Ideenspeicher aufbereitet (12 Urteile, 6 verworfen, Liste per Telegram); Werkzeugfehler `vorgang.py` bei Besitzer „Ideen“ an Perikles; Vorratsgrenze an Jerry. 1265 Wort fürs Verfallen: Verstreichen / Lapse, Notch bleibt; an Sokrates (1259) und Jerry (1266). Nachfolger: Homer – 1267: Handbuchtexte zum Kampf mit Kerben, nach 1259.
-- **Zu 1267 (aus 1265, Homer 15.11., 10:13):** Begriffe (1260 D, Chef 15.11., 10:07): **Kerbe / Notch** („drei Kerben“), Kerben schlagen, **Vertiefen** / Deepen, **Goldkerbe** / Gold Notch; fürs Verfallen **Verstreichen** / **Lapse** (Homer 1265: „ungenutzt verstreichen lassen“; eine Kerbe ist eine Gelegenheit, die mit dem Zug vergeht). Bild: drei leere Plätze am Kerbholz, jede Tat schlägt eine. **Chef 14.11., 22:49 (Grüße an Homer):** „In der Anleitung … sollten wir sagen, dass es halt die Punkte gibt für das und sie bei uns im Spiel … noch genannt werden. Aktionspunkte würde ich nicht unbedingt sagen. Ich würde es umschreiben.“ Also im Handbuch und in Hilfetexten umschreiben, wofür die Kerben da sind; Regeln `DESIGN-GLUT.md` nach Umbenennung (1259).
+**Übergabe (15.11., 11:00, `session_01Hmoj75SXMEBRLJdiSsv5Xd`):** 1267 Handbuch- und Hilfetexte zum Kampf mit Kerben (`[1267.*]` in `STORY-BRS-ANLEITUNG.md` und `STORY-BRS-KAMPF.md`, fremd geprüft gegen `ce3dda066`, 14 Befunde eingearbeitet); Abweichungen des Codes vom Regelwerk an Jerry (1275); Texte per Telegram an den Chef. Nachfolger: keiner (302 wartet, 1235 nach dem Meilenstein).
+- **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
 ## Zeilen
 
