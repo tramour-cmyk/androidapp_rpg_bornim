@@ -48,3 +48,11 @@ Im Bau geprüft: Scheide aus der Klinge jedes Dolchs gerechnet, keine Ecke der K
 ## Ergebnis
 
 - 286.5a ✗ Chef 15.11., 12:55: „kann ich so definitiv nicht abnehmen, weil im Film reißt er die Arme hoch, aber die Axt bleibt in dem Film genau an der Stelle, wie er sie vorher vom Körper trug … die Axt bewegt sich nicht mit, die schwebt jetzt vor ihm. Wie Telekinese.“
+- 286.6 ✗ Chef 15.11., 13:53: „klappt nicht, da Quest fehlt“ (Prüflistenfehler, Zu 286.6 bei Tom: Auftrag „Feuer am Steinkreis“ nicht am Brett)
+- 286.7 ✓
+- 286.8 ✗ Chef 15.11., 13:47: Takt 60 „bringt das nicht wirklich was“ (Grafikzeit 17,6 ms, Zu 1145 bei Tom)
+- 286.9 ✓
+- 286.10 ✓
+- 286.11 ✓
+- 286.12 ✓
+- 286.13 ✓
