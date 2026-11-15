@@ -8,6 +8,8 @@ Ein Weg: über Build 289 installieren, Hauptmenü, „Weiter“ mit deinem Spiel
 
 Im Bau geprüft: Knöpfe klicken (`klick_78520`), Zurück-Taste (`zurueck_78521`), Plakette „Satt“ (`satt_78522`), Renntaste (`renntaste_78523`), Stab im Drehteller (`stab_teller_1304`), Fächer und Namen (`faecher_1309`), Kartenhöhe (`kartenhoehe_1295`), Lage Aushang (`lage_785_8`), Eingebung nur vor dem eigenen Zug (`eingebung_1296`, 60 Kämpfe); ohne dich: Deckel 50 % für Rüstung und Schild (481.2, `brs_kampf_478`, `brs_473`), Graks Axt in der Faust beim Gehen und Schamane nicht im Boden (1314, `ausholen_1000`, `tod_ragdoll_1215`, `typen.py`), Graks Platzwechsel (1250, `grak_348` im Kampflauf).
 
+Gegengelesen: Sokrates 15.11., 21:24 (vier Befunde „Zu 1331, von Sokrates“ bei Jerry, vor dem Push einarbeiten)
+
 **Offen für Tom (Gegenlesen):** Wege 290.1 bis 290.7 aus den Commits abgeleitet, nicht am Gerät gegangen; Bilder 290.3, 290.6 und Film 290.5 vom Stand `claude/build-290` fehlen noch.
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
