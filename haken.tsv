@@ -303,3 +303,4 @@
 2026-11-15 11:04:51	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 756 schon 1 Probelauf seit deinem Urteil 2026-11-13 11:47:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch 	HEAD
 2026-11-15 11:10:53	commit-pruefung	docs/chefsache/entscheiden/1270a-ohne-umzug.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-15 11:10:53	commit-pruefung	docs/chefsache/entscheiden/1271a-kuer-schliessen.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-15 11:13:40	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1214-laden-logik
