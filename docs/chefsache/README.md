@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -42,16 +42,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 17 | 1331 | Jerry | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfli… | M | Godot besser nutzen | startbar |
 | 18 | 698 | Tom | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
 | 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 1324 | Perikles | pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die Prüfliste… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 
-Danach 89 weitere offen. Bei dir zum Testen (vorgelegt): 29. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 91.
+Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 29. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 91.
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1328](entscheiden/1328-spike-technik.md) | Kür | B Abläufe | 15.11., 21:00 | Spike fest für Godot-Technik, Leistung und Werkzeuge, mit eigenen Zeilen und eigenem Start; GUI bleibt bei Tom. | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
