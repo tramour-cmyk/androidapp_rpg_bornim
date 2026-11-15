@@ -70,11 +70,11 @@ Namen mit SRD-Herkunft (Vorschlag Homer; Text und Wirkung bleiben, nur der Name 
 
 Weihwasser, Kräutertrank und die übrigen Namen bleiben. Kosten: nur Text.
 
-## Über das Spiel (`aboutText`, erst mit 870.13)
+## Über das Spiel (`texte.json` ui `aboutText`, Bau 870.20 Tom)
 
-`[870.15.ueber]` Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug, sammle Beute und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nDie Regeln sind ein eigenes System, das Bornimer Rollenspielsystem: Du wirst, was du tust.\n\nGeschichte, Orte, Figuren und Regeln sind eigene Erfindungen.
-EN: A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot and continue the Chronicles of Bornim with your hero.\n\nThe rules are a system of our own, the Bornim Roleplaying System: you become what you do.\n\nThe story, places, characters and rules are original.
-(Bis 870.13 bleibt der heutige Text mit SRD-Hinweis; der Lizenzschirm für Schrift und Klang bleibt.)
+`[870.15.ueber]` (870.19, Homer 15.11.: ersetzt den Text mit SRD, Klassen und Wizards of the Coast; dritter Absatz neu mit dem Namen der Firma) Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug, sammle Beute und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nDie Regeln sind ein eigenes System, das Bornimer Rollenspielsystem: Du wirst, was du tust.\n\nGeschichte, Orte und Figuren sind eigene Erfindungen. Ein Spiel von BornWire TCS.
+EN: A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot and continue the Chronicles of Bornim with your hero.\n\nThe rules are a system of our own, the Bornim Roleplaying System: you become what you do.\n\nThe story, places and characters are original. A game by BornWire TCS.
+(Der SRD-Absatz entfällt ganz, ebenso „SRD 5.1 · CC BY 4.0“ unter dem Logo im Hauptmenü und auf der Seite, `hauptmenue.gd` 330 und 545, alles mit 870.20 und erst, wenn kein Wert mehr aus dem SRD rechnet (`brs.gd` 7 nennt noch `tabellen.json` bis 2.3; Inventur Sokrates); der Lizenzschirm für Schrift, Klang und Engine und „Mit Dank an“ `[623.dank.*]` bleiben.)
 
 ## Monsternamen
 

@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1324** (zuletzt 1323 Jerry 15.11. 20:20:14 b95b) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1326** (zuletzt 1325 Tom 15.11. 20:27:45 b8c5) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -130,3 +130,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:04 15.11.: Startsperre 20:04 Start Perikles (Neustart, 8e45c936b, 1317 hält Jerry auf); alte Sitzung …79Xc4rtdmcDF2r7Sz8 sofort archivieren, Kosten auf 1312, 1313
 - 20:06 15.11.: Startsperre 20:06 Start Homer 1318 (lauf.py, per Weiter an …793oj9mKdUggnbqrp3); WARNUNG Start Spike 19:46 war Weiter an …795RUAxwXG56nmWXHR (1247 mischen), Sitzung fertig, archiviert, kein START nötig
 - 20:17 15.11.: Startsperre 20:17 Start Sokrates (Neustart, 7a9652a4e); Start Homer 1320 per Weiter an …793oj9mKdUggnbqrp3 (Chef 20:15); alte Sokrates-Sitzung …77qvabdBBG25tf5poS nach Ruhe archivieren, Kosten auf 1137, 870
+- 20:26 15.11.: Startsperre 20:26 Start Homer 870.19 (Sokrates, per Weiter an …793oj9mKdUggnbqrp3, nach 1320)
