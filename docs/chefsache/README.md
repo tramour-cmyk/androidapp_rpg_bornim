@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [431g](entscheiden/431g-kleiderschrank.md) | **Muss** | E Figuren | 15.11., 12:08 | Kleidung einmal je Stück anpassen und per Skript auf alle zehn Volkskörper übertragen; der Umhang bekommt eigene federnde Knochen statt der Armgewichte. | Tom |
 | [481.2](entscheiden/4812-deckel.md) | **Muss** | G Balance | 15.11., 11:31 | Mit Deckel 50 % tut fast jeder Biss etwas, und der Wachsoldat kann bei falschem Spiel verlieren; mit gutem Spiel gewinnt er weiter fast immer. Der Klosterschüler gewinnt ebenfalls immer, ihn berührt der Deckel nicht. | Jerry |
 
 ## Zu billigen
