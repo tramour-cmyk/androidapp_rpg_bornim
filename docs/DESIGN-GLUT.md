@@ -2,7 +2,7 @@
 
 Sokrates, 14.11., 20:12. Ein Regelwerk für Jerry, Tom, Homer und Diogenes: was gebaut wird, in welcher Reihenfolge, woran man es prüft. Der Gesprächsverlauf mit dem Chef, die Vorbilder, beide Rechnungen und alle verworfenen Wege stehen in [Aktionspunkte](DESIGN-AKTIONSPUNKTE.md); was hier steht, ersetzt die Regelseite 930 in [Kampf](DESIGN-KAMPF.md) („Entwurf zur Entscheidung: Handgemenge und Abstand“). **Nichts davon ist entschieden.** Gebaut wird erst nach dem Los des Chefs ([Vorlage 930](chefsache/entscheiden/930-glutsystem.md); 1236); bis dahin nur Rechnung (Stufe 0).
 
-Vom Chef schon gesagt: Aktionspunkte ja (14.11., 00:25); Richtung „Lesen, Planen, Antworten“ gefällt (10:20); Ansage nicht immer mit Ziel, gekoppelt an Werte (11:18). **Name 1260 D** (15.11., 10:07): die Punkte heißen **Kerbe / Notch** (im Entwurf „Glut“); Wort fürs Verfallen ungeschlagener Kerben sucht Homer (1265), bis dahin „Verfallen“. Dateinamen (`DESIGN-GLUT.md`, `glut2.py`, Code `glut`) bleiben, bis Jerry den Code umbenennt (1266). Im Handbuch nie „Aktionspunkte“ (Chef 14.11., 22:49).
+Vom Chef schon gesagt: Aktionspunkte ja (14.11., 00:25); Richtung „Lesen, Planen, Antworten“ gefällt (10:20); Ansage nicht immer mit Ziel, gekoppelt an Werte (11:18). **Name 1260 D** (15.11., 10:07): die Punkte heißen **Kerbe / Notch** (im Entwurf „Glut“); ungeschlagene Kerben **verstreichen** / Lapse (Homer 1265). Dateinamen (`DESIGN-GLUT.md`, `glut2.py`, Code `glut`) bleiben, bis Jerry den Code umbenennt (1266). Im Handbuch nie „Aktionspunkte“ (Chef 14.11., 22:49).
 
 ## 1. Was das System will
 
@@ -26,7 +26,7 @@ Vom Chef schon gesagt: Aktionspunkte ja (14.11., 00:25); Richtung „Lesen, Plan
 | **Vertiefen** / Deepen | übrige Kerben ins Tun, macht es stärker (im Entwurf „Nachlegen“) |
 | **Haltung** | übrige Kerben für den Gegnerzug: Gegenschlag, Wachschuss oder Wehr |
 | **Antwort** | eine Kerbe der Haltung, die auslöst |
-| **Verfallen** (Wort offen, 1265) | ungeschlagene Kerben verfallen am Zugbeginn (im Entwurf „Verglimmen“) |
+| **Verstreichen** / Lapse | ungeschlagene Kerben verstreichen mit dem Zug (im Entwurf „Verglimmen“; Homer 1265) |
 | **Goldkerbe** / Gold Notch | einmal je Kampf eine vierte Kerbe (im Entwurf „Funke“) |
 | **Lauern** | Haltung eines Gegners: wer heranrückt, läuft in seinen Schlag |
 | **Ansage lesen** | wie viel der Held von der Ansage sieht (Stufe 0–3) |
@@ -117,10 +117,10 @@ Die Ansage zeigt nicht immer alles. Vier Stufen:
 
 Nach 1260 D (15.11.): Kerbholz statt Feuer, damit die Punkte sich von Glutkugel, Glutstrahlen, Flammenfächer, Funkenpfeil trennen. Bestand und alte Fassung mit Glut in [Aktionspunkte](DESIGN-AKTIONSPUNKTE.md) („Bild und Klang zum Glutsystem“) und in Git (vor 15.11.). Für den Bau (1266):
 
-- **Kerbmarken:** drei leere Plätze im Fußring (`kampfort.gd` 1337) wie am Kerbholz; jede Tat schlägt eine Kerbe: schwarzer Schnitt mit Goldrand (Tuschelinie, Gold als einziger Glanz). Vertiefen: die Kerbe wird tiefer, das Gold zieht zur Waffe. Haltung: Kerbe bleibt offen mit Zeichen (Klinge, Pfeilspitze, Schild). Antwort: der Goldrand blitzt im Augenblick des Schlags. Ungenutzt: die leeren Plätze verfallen am Zugbeginn (Bild mit dem Wort aus 1265).
+- **Kerbmarken:** drei leere Plätze im Fußring (`kampfort.gd` 1337) wie am Kerbholz; jede Tat schlägt eine Kerbe: schwarzer Schnitt mit Goldrand (Tuschelinie, Gold als einziger Glanz). Vertiefen: die Kerbe wird tiefer, das Gold zieht zur Waffe. Haltung: Kerbe bleibt offen mit Zeichen (Klinge, Pfeilspitze, Schild). Antwort: der Goldrand blitzt im Augenblick des Schlags. Ungenutzt: die leeren Plätze verstreichen am Zugbeginn (vergehen still, ohne Schnitt).
 - **Gegner:** Kerben rot (Stil 16), „holt aus“ als dritte Kerbe an Faust oder Waffe, Täuschung durchgestrichen.
 - **Goldkerbe:** der Leuchtfunke über dem Kopf (`held.gd` 73) sinkt zum Fußring und wird die vierte, ganz goldene Kerbe.
-- **Klang:** Kerbe schlagen ein trockener Schnitt in Holz; Vertiefen ein tieferer Schnitt je Kerbe; Haltung setzen neu (Klinge in Stellung, Sehne gespannt, Schild hoch, echte Aufnahmen, je drei Varianten); Antwort ein heller Schlag; Verfallen leise; Goldkerbe ein Systemklang; **Ring daneben** bekommt einen dumpfen Treffer (heute stumm). Kein Knistern, Fauchen, Zischen.
+- **Klang:** Kerbe schlagen ein trockener Schnitt in Holz; Vertiefen ein tieferer Schnitt je Kerbe; Haltung setzen neu (Klinge in Stellung, Sehne gespannt, Schild hoch, echte Aufnahmen, je drei Varianten); Antwort ein heller Schlag; Verstreichen leise; Goldkerbe ein Systemklang; **Ring daneben** bekommt einen dumpfen Treffer (heute stumm). Kein Knistern, Fauchen, Zischen.
 - **Musik in zwei Ebenen** (Boss holt aus, Leben unter der Hälfte): eigener Vorgang nach Kapitel 1, nicht Bedingung.
 
 ## 9. Was Kapitel 1 braucht
@@ -137,7 +137,7 @@ Je Stufe ein Prüfpunkt; die nächste beginnt erst, wenn der vorige geprüft ist
 |---|---|---|---|---|
 | 0 | **Rechnung ergänzen** (`tools/sim444/glut2.py`): Kobold, Spinne, Fledermaus, gemischte Begegnungen, Ansage-Stufen mit Lesewert, Täuschen; Zahlen für Gegenwert und Vertiefen | Sokrates oder Jerry | keine Herkunft unter 15 Siegen je 100 gegen Krogg (Stufe gleich), keine feste Spielweise in mehr als einem Viertel der Fälle 3 Punkte vorn, Runden höchstens wie heute | 5–10 $ |
 | 1 | **Regelkern** in `mars.gd` hinter einem Schalter (alter Kampf bleibt bis zur Abnahme): Kerben-Haushalt, freier Schritt, Lösen, Tun, Vertiefen, Haltung, Antworten, zwei Ringe, Goldkerbe, Fliehen; Gegner 2/3 Kerben, großer Schlag, Lauern; Werte in `werte.json` statt im Code (wie 1049) | Jerry | Kerntests je Regel (je Regelnummer oben ein Test), Rechnung im Spielcode gegen `glut2.py`: Sieg und Runden je Fall ±3 | 30–50 $ |
-| 2 | **Bedienung und Kerbmarken** im Kampfort: Fußring, Daumenmenü, Vorschau, Zeichen der Haltung, Verfallen | Jerry | Film in der Vorschau am Rechner, so gebaut, wie es ins Spiel kommt (Bekannte Fehler 3): Wachsoldat gegen zwei Wölfe, drei Runden; Rundenzeit nicht länger als heute (F9) | 40–60 $ |
+| 2 | **Bedienung und Kerbmarken** im Kampfort: Fußring, Daumenmenü, Vorschau, Zeichen der Haltung, Verstreichen | Jerry | Film in der Vorschau am Rechner, so gebaut, wie es ins Spiel kommt (Bekannte Fehler 3): Wachsoldat gegen zwei Wölfe, drei Runden; Rundenzeit nicht länger als heute (F9) | 40–60 $ |
 | 3 | **Ansage lesen und Gegner**: Stufen im Chip, rote Kerben, „holt aus“, „lauert“, Täuschen, Brechen; Mittel der Langsamen | Jerry, Wortlaute Homer | Bild je Stufe 0–3 an einem Gegner; Film Krogg „holt aus“ | 20–30 $ |
 | 4 | **Klang und Effekte** nach 8 | Jerry | Film mit Ton, eine Runde mit jeder Antwort und einer Goldkerbe | 20–30 $ |
 | 5 | **Eingebungen und Texte**: erste Haltung, erstes Lauern, erstes Täuschen, Warten gegen Fernkämpfer; Namen im Spiel | Homer, Einbau Jerry | Texte in `STORY-BRS-KAMPF.md`, Marken wie `[930.glut.haltung]` | 5–10 $ |
