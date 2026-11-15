@@ -467,3 +467,4 @@
 2026-11-15 20:50:29	commit-pruefung	docs/chefsache/ansehen/t289-hoehle-sterben-wechsel.md: Handypunkte ohne Ergebnis (289.1, 289.2, 289.3); die Prüfliste bleibt in ansehen/, bis der Chef jeden zurückgemeldet hat, auch kein Archiveintrag	main
 2026-11-15 21:00:53	commit-pruefung	docs/chefsache/entscheiden/1328-spike-technik.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-15 21:04:18	commit-pruefung	LISTE-VORGAENGE.md: 1331: Zeile über 400 Zeichen (Einzelheiten als „Zu 1331“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-15 21:04:28	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-431-umhang
