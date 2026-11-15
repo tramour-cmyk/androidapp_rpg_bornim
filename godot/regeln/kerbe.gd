@@ -238,6 +238,8 @@ func zug_beginnen(f) -> bool:
 	f.gl.haltung = ""
 	f.gl.haltung_plan = ""
 	f.gl.trank_genommen = false
+	f.gl.gewechselt = false
+	f.moved = false     # 1275: Tausch je Zug neu (der alte Kampf setzte das in _advance)
 	zaehler.zuege += 1
 	if int(f.gl.betaeubt) > 0:
 		f.gl.betaeubt -= 1
@@ -508,6 +510,9 @@ func plan_aus(f, o: Array) -> Dictionary:
 			return {"tun": WARTEN, "haltung": WEHR}
 		"swap":
 			return {"tun": WARTEN, "tausch": o[1], "haltung": AUTO}
+		"draw":     # 1275: über mars.act geht der Wechsel vorweg (waffe_vorweg); hier nur, falls ein Plan ihn trägt
+			waffe_vorweg(f)
+			return {"tun": WARTEN, "haltung": AUTO}
 	return vorschlag(f)
 
 
@@ -525,6 +530,40 @@ func trank_vorweg(f, item: String, ziel) -> bool:
 	f.gl.trank_genommen = true
 	_marke(f, M_FREI, M_GESCHLAGEN, _i("trank"))
 	m._drink(f, item, ziel if ziel != null else f)
+	return true
+
+
+## 1275 (Fremdprüfung Homer 15.11., 10:58, Regel 5: „Platztausch in der eigenen Reihe kostet den freien Schritt“): der Tausch über die
+## Knopfzeile beendete den Zug (plan_aus „swap“ → warten). Jetzt sofort, kostet den freien Schritt (frei 0), danach Weg, Tun und
+## Haltung wie sonst; [mit_waffe] wechselt dabei die Waffe (Regel 10). Alt: Skirmish.kt 519, Tausch und Wechsel setzten nur moved, der Zug ging weiter
+func kann_tauschen(f) -> bool:
+	return int(f.gl.get("frei", 0)) > 0
+
+
+func tausch_vorweg(f, to: Vector2i, mit_waffe := false) -> bool:
+	if not kann_tauschen(f) or to == f.place:
+		return false
+	f.gl.frei = 0
+	var w := mit_waffe and kann_wechseln(f)
+	f.moved = false     # _perform prüft wie im alten Kampf, dass noch nicht getauscht ist; der freie Schritt zählt hier
+	m._perform(f, ["swap", to, w])
+	f.moved = true
+	if w:
+		f.gl.gewechselt = true
+	return true
+
+
+## 1275 (Regel 10: „Kleines frei: Waffe wechseln … einmal je Zug“): plan_aus kannte „draw“ nicht, der Wechsel spielte den Vorschlag,
+## also einen Angriff. Jetzt frei, einmal je Zug, der Zug geht weiter
+func kann_wechseln(f) -> bool:
+	return not bool(f.gl.get("gewechselt", false)) and f.spare() != null
+
+
+func waffe_vorweg(f) -> bool:
+	if not kann_wechseln(f):
+		return false
+	f.gl.gewechselt = true
+	m._draw(f)
 	return true
 
 
@@ -577,7 +616,8 @@ func held_zug(f, p: Dictionary) -> void:
 		for g in nahe:
 			g.gl.ab = FERN
 		m._say("", f.id, null, 0, null, false, false, "KERBE_LOESEN")
-		_setzt_nach(f, h == WEHR, nahe)
+		# 1275 (Regel 3: „außer die Haltung ist Wehr“): auch die vorgeschlagene Wehr (AUTO) schützt, nicht nur die ausdrücklich gewählte
+		_setzt_nach(f, (vorschlag_haltung(f) if h == AUTO else h) == WEHR, nahe)
 		if m.outcome != "ONGOING":
 			return     # kein neuer freier Schritt; ein noch nicht genutzter bleibt
 	if p.has("tausch") and frei_ > 0:     # Regel 5: Platztausch in der eigenen Reihe kostet den freien Schritt

@@ -1105,11 +1105,17 @@ func autopilot_blocked(hp = null):
 	return null
 
 
+## 1275 (DESIGN-GLUT Regel 5, 10): im Kerbensystem kostet der Platztausch den freien Schritt, die Waffe wechselt einmal je Zug frei;
+## beides beendet den Zug nicht (kerbe.gd tausch_vorweg, waffe_vorweg)
 func can_swap(f: Fighter) -> bool:
+	if kerbe and gk != null and not f.gl.is_empty():
+		return gk.kann_tauschen(f)
 	return not f.moved
 
 
 func can_draw(f: Fighter) -> bool:
+	if kerbe and gk != null and not f.gl.is_empty():
+		return gk.kann_wechseln(f)
 	return not f.moved and f.spare() != null
 
 
@@ -1144,6 +1150,12 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 	chosen = true
 	if kerbe and o[0] == "drink":     # 1266 (Regel 10): Trank aus der Tasche, der Zug geht weiter (kerbe.gd trank_vorweg)
 		gk.trank_vorweg(f, String(o[1]), by_id(String(o[2])) if o.size() > 2 and o[2] != null else f)
+		return _take_log()
+	if kerbe and (o[0] == "swap" or o[0] == "draw"):     # 1275 (Regel 5, 10): Platztausch und Waffe wechseln, der Zug geht weiter
+		if o[0] == "swap":
+			gk.tausch_vorweg(f, o[1], o.size() > 2 and bool(o[2]))
+		else:
+			gk.waffe_vorweg(f)
 		return _take_log()
 	if kerbe:     # 930.6: ["KERBE", Plan] (kerbe.gd held_zug); die Befehle des alten Kampfs übersetzt kerbe.gd plan_aus
 		gk.handeln(f, o[1] if o[0] == "KERBE" else gk.plan_aus(f, o))
