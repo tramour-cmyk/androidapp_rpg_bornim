@@ -94,3 +94,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:16 15.11.: Startsperre 10:16 Start Sokrates (Neustart, e0527fb49)
 - 10:17 15.11.: Sokrates neu `…78RskfRt4STVuE8msj` (Neustart e0527fb49), alt archiviert (6,72 $ auf 1260); Tuffy 1266 ausgenommen (Jerry nimmt es)
 - 10:46 15.11.: Startsperre 10:46 Start Sokrates (Neustart, ae90abec3)
+- 10:47 15.11.: Sokrates neu `…77APonFpNDWGs4JfMc` (Chefrunde Berg abbauen, Chef wartet), alt archiviert (3,92 $ auf 1186)
