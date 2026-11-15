@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:56, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:58, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,7 +14,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870.20 (Tom) SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Haup… |
 | ↳ Kampf passt | 70 | 26 | 3 | 3 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 20 | 7 | 0 | 1 | 14 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 65 | 13 | 2 | 8 | 33 | 1300 (Jerry) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 65 | 13 | 1 | 8 | 33 | 1300 (Jerry) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 6 | 1 | 0 | 8 | 1268.1 (Spike) je Fehlerart eine Stelle im Code und ein Wächtert… |
 | Werkzeuge und Abläufe der Firma | 59 | 34 | 1 | 2 | 9 | 1335 (Spike) wolf_mess_438 ohne Messrauschen, Laden der Kaufmo… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
