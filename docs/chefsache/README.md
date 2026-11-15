@@ -36,11 +36,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 ## Zu tun
 
-Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1270.1](tun/12701-messung.md) | **Muss** | E Technik | 15.11., 11:14 | Weg für den Tester (und dich): drei Orte je 20 Sekunden, zwei Kämpfe, nach jedem Schritt „Gerät zeigen“ kopieren und schicken; kein neuer Build nötig. | Spike |
+Nichts offen.
 
 ## Offen je Rolle
 
