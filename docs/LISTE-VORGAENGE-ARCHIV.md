@@ -1444,3 +1444,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Homer | erledigt |
 | 1259 | Von Chef (14.11., 22:32, zu 930): Name der Punkte im Kampf, „Glut“ nie vorgelegt; A „Aktionspunkte“ überall (Votum), B Spielname über Homer; danach Dokumente und Code umbenennen vor den Texten 930.7 | E Kampf | M | 4,13 $ | Sokrates | erledigt |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | K | –; +45,66 $ | Sokrates | erledigt |
+| 930.7 | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken im Kampfort (Fußring, Daumenmenü, Vorschau, Verglimmen), Film am Rechner an den Chef, dann Gespräch (DESIGN-GLUT.md 7, 8, 10) | E Kampf | M | 16,68 $ | Jerry | erledigt |
