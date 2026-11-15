@@ -104,3 +104,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:12 15.11.: Startsperre 11:12 Start Tom (Neustart, fa547d370)
 - 11:14 15.11.: Startsperre 11:14 Start Sokrates (Neustart, 8892bf7e9)
 - 11:14 15.11.: Sokrates neu `…7A9M8ZL4AXU31SCCyP` (Chefrunde Rest), alt archiviert (6,65 $ auf 1270, 1268, 481a, 1271, 1272, 1277); Tom neu `…76Nrryek3oSSKfE8CE` (1214), alt archiviert (9,71 $ auf 286); Homer alt noch offen (Archiv 11:16)
+- 11:17 15.11.: Homer alt `…75SXMEBRLJdiSsv5Xd` archiviert (5,71 $ auf 1267)
