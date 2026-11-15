@@ -868,7 +868,12 @@ jobs:
           mkdir -p ~/.config/godot
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-${GODOT%.*}.tres
           cd godot
-          ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/bornim-godot.apk 2>&1 | tail -30
+          # 1270.3: Shader-Vorbau braucht einen Vulkan-Renderer im Editor (headless hat keinen); Lavapipe unter Xvfb, sonst Rueckfall ohne Vorbau
+          sudo apt-get install -y -q mesa-vulkan-drivers > /dev/null 2>&1 || echo "1270.3: Lavapipe fehlt"
+          (timeout 1200 xvfb-run -a -s "-screen 0 1280x720x24" ~/godot/godot --path . --rendering-method mobile --rendering-driver vulkan --export-debug "Android" $GITHUB_WORKSPACE/bornim-godot.apk > $RUNNER_TEMP/export.log 2>&1 || true)
+          grep -i -E "shader|bak|vulkan|renderer|error" $RUNNER_TEMP/export.log | head -30 || true
+          echo "1270.3 Shader vorgebaut: $(find .godot -path '*shader_baker*' -type f 2>/dev/null | wc -l) Dateien, $(du -sh .godot/exported 2>/dev/null | cut -f1)"
+          [ -f $GITHUB_WORKSPACE/bornim-godot.apk ] || { echo "1270.3: Export mit Vulkan fehlgeschlagen, Rueckfall headless"; tail -30 $RUNNER_TEMP/export.log; ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/bornim-godot.apk 2>&1 | tail -30; }
           ls -l $GITHUB_WORKSPACE/bornim-godot.apk
           unzip -l $GITHUB_WORKSPACE/bornim-godot.apk | grep -E "\.pck|daten" || { echo "Daten fehlen im APK"; exit 1; }
       - name: Name des APK (918)
