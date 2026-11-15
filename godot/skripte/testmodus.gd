@@ -652,7 +652,8 @@ const LAGE_TASCHEN := ["zwei", "keine", "voll"]
 const LAGE_LEBEN := ["voll", "halb", "knapp"]
 const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
 const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
-	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig"]   # 542: ruhig = Monster beachten nicht
+	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig",   # 542: ruhig = Monster beachten nicht
+	"auftrag", "unerkundet"]   # 785.8 (Fund t286.6): auftrag=<id> angenommen, nicht erledigt; unerkundet=<karte> ohne Erkundetes
 
 ## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
 static func lage_uhr(s: String) -> int:
@@ -683,6 +684,13 @@ static func lage_fehler(l: Dictionary) -> Array:
 			if not ids.has(w.trim_prefix("+").trim_prefix("-")): f.append("merker %s unbekannt" % w)
 	for k in ["stufe", "pstufe"]:
 		if l.has(k) and not String(l[k]).is_valid_int(): f.append("%s=%s keine Zahl" % [k, l[k]])
+	if l.has("auftrag"):
+		var ids := Auftraege.alle().map(func(j_): return String(j_["id"]))
+		for w in String(l["auftrag"]).split(",", false):
+			if not ids.has(w): f.append("auftrag=%s unbekannt (%s)" % [w, ", ".join(PackedStringArray(ids))])
+	if l.has("unerkundet"):
+		for w in String(l["unerkundet"]).split(",", false):
+			if not karten_ids().has(w): f.append("unerkundet=%s: keine Karte (%s)" % [w, ", ".join(PackedStringArray(karten_ids()))])
 	in_.call("probe", feinde(true).keys())
 	# 1180 (D209.2 Diogenes): der Reiter Probekampf bietet nur Gruppen mit Modell (feinde(), 555); ohne Modell startete die Lage den
 	# Kampf mit einem falschen Monster und galt doch als herstellbar
@@ -732,6 +740,8 @@ static func lage_text(l: Dictionary, de: bool) -> String:
 	if l.has("uhr"): t.append(String(l["uhr"]) + (" Uhr" if de else ""))
 	if l.has("stufe"): t.append(("Stufe " if de else "Level ") + String(l["stufe"]))
 	if l.has("merker"): t.append(("Geschichte " if de else "Story ") + String(l["merker"]))
+	if l.has("auftrag"): t.append(("Auftrag angenommen " if de else "Job taken ") + String(l["auftrag"]))
+	if l.has("unerkundet"): t.append(("unerkundet " if de else "unexplored ") + String(l["unerkundet"]))
 	if l.has("vorraete"): t.append("Vorräte" if de else "Supplies")
 	if l.has("einmaliges"): t.append("Einmaliges" if de else "One-time")
 	if l.has("ruhig"): t.append("Monster beachten nicht" if de else "Monsters ignore")
@@ -754,6 +764,13 @@ static func vor_person(karte_id: String, person: String) -> Array:
 	return []
 
 # 555: gibt es die Karte im Spiel (Modell aus dem Bau)?
+## 785.8: Kennungen der Karten aus daten/karten.json (wie Zustand.erkundet), ohne gebaute Kartendateien
+static func karten_ids() -> Array:
+	var d = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
+	if not (d is Dictionary) or not d.has("karten"): return []
+	var k = d["karten"]
+	return (k as Dictionary).keys() if k is Dictionary else (k as Array).map(func(x): return String(x.get("id", "")))
+
 static func da(karte_id: String) -> bool:
 	return karte_id == "village" or FileAccess.file_exists("res://daten/%s.bin" % Gebiet.datei(karte_id))
 
@@ -833,3 +850,15 @@ static func kampforte() -> Dictionary:
 	return {"": "Wie im Spiel" if de else "As in game", "lichtung": "Lichtung" if de else "Clearing", "waldrand": "Waldrand" if de else "Forest edge",
 		"teich": "Teich" if de else "Pond", "baum": "Baum" if de else "Fallen tree", "felsen": "Felsen" if de else "Rocks",
 		"steinkreis": "Steinkreis" if de else "Stone circle"}
+
+
+## 785.8 (Fund t286.6, Chef 15.11., 11:21: „Am Brett steht nur Felle … Hauer … Gift“; der Aushang war in seinem Spielstand erledigt, der
+## Wald erkundet): Aufträge der Lage angenommen und nicht erledigt (Fund und Ding wieder offen), Karten ohne Erkundetes
+static func lage_auftraege(l: Dictionary, z: Zustand) -> void:
+	for w in String(l.get("auftrag", "")).split(",", false):
+		var j := Auftraege.von(w)
+		z.setze("job_" + w)
+		z.flaggen.erase("job_%s_done" % w)
+		z.flaggen.erase("job_%s_seen" % w)
+		if not j.is_empty() and z.anzahl(String(j["ding"])) > 0: z.weg(String(j["ding"]), z.anzahl(String(j["ding"])))
+	for w in String(l.get("unerkundet", "")).split(",", false): z.erkundet.erase(w)
