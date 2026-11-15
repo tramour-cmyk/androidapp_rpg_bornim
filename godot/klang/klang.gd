@@ -422,7 +422,7 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 	if _tod_kampf != mars:
 		_tod_kampf = mars
 		_tod_gerufen.clear()
-	if e.cue != null:
+	if e.cue != null and e.cue != "EVADED":     # 949: der Schlag vor dem perfekten Ring klingt wie jeder Fehlschlag
 		match String(e.cue):
 			"FOE_STRIKES":
 				if by != null and by.monster != null:

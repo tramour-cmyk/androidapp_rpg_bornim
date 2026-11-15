@@ -78,11 +78,52 @@ still=true; [ $laut = 1 ] && still=false
 if [ -n "$art" ]; then
   nr=$(printf '%s' "${text#⚠ }" | sed -nE '1s/^[[:space:]]*\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\1/p')
   if [ -z "$nr" ]; then echo "meldung: Bild ohne Vorgangsnummer am Textanfang („348.7: …“), nichts gesendet (363)" >&2; exit 2; fi
-  # 374 (373 Punkt 2, 228): Bilder an den Chef nur mit Datei docs/chefsache/ansehen/<Nummer ohne Punkt>-….md
-  ansehen="$(dirname "$(realpath "$0")")/../docs/chefsache/ansehen"
-  k=$(printf '%s' "$nr" | tr -d . | tr 'A-Z' 'a-z')
-  if ! ls "$ansehen" 2>/dev/null | tr 'A-Z' 'a-z' | grep -q "^$k-.*\.md$"; then
-    echo "meldung: zu $nr liegt keine Datei docs/chefsache/ansehen/$k-….md, nichts gesendet (374); erst die Datei anlegen und pushen" >&2; exit 2
+  # 1217 (Chef 13.11., 20:01: „ein Däumchen hoch machen, wenn es passt … Däumchen runter“): Bild und Film zu einer Prüfliste je Punkt
+  # eine Nachricht „t<n>.<Punkt>: …“ mit „👍 passt: …“ und „👎 falsch: …“; eine Reaktion auf „t284“ allein ist mehrdeutig
+  if [ "$art" != document ] && [[ "$nr" =~ ^[tT][0-9]+$ ]]; then
+    echo "meldung: Bild oder Film zu $nr ohne Punkt, nichts gesendet; je Prüfpunkt eine Nachricht „$nr.<Punkt>: …“ (1217)" >&2; exit 2
+  fi
+  # 1217 (Chef 20:13 zu t284.7p: „ist die Frage, was ich sehen soll … War ich mal in der Prüfliste“): die Nachricht trägt die Zeile
+  # ganz, er braucht die Liste nie; fehlt „Zu sehen“, „👍 passt“ oder „👎 falsch“, setzt meldung.sh sie aus der Zeile des Punkts ein
+  if [ "$art" != document ] && [[ "$nr" =~ ^[tT]([0-9]+)\.(.+)$ ]]; then
+    voll=$(TEXT="$text" N="${BASH_REMATCH[1]}" P="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}" DOCS="$(dirname "$(realpath "$0")")/../docs" python3 -c '
+import glob, os, re, sys
+t, n, p, d = os.environ["TEXT"], os.environ["N"], os.environ["P"], os.environ["DOCS"]
+fs = [f for o in ("chefsache/ansehen", "entwurf") for f in sorted(glob.glob(os.path.join(d, o, "t%s-*.md" % n)))]
+if not fs: print("keine Prüfliste t%s-….md in ansehen/ oder entwurf/" % n); sys.exit(1)
+schlicht = lambda s: re.sub(r"\[(?:Bild|Film) von [^\]]*\]\([^)]*\)", "", re.sub(r"\*\*|`", "", s)).strip()
+kopf, zeilen = None, {}
+for z in open(fs[0], encoding="utf-8").read().splitlines():
+    if not z.startswith("|"): kopf = None if z.strip() else kopf; continue
+    c = [x.strip() for x in z.strip().strip("|").split("|")]
+    if kopf is None: kopf = c; continue
+    if c: zeilen[c[0]] = dict(zip(kopf, c))
+def feld(r, *namen, tiefe=0):   # „wie 284.7c“ aus jener Zeile, der Chef soll die Liste nie brauchen
+    w = schlicht(next((r[x] for x in namen if x in r), ""))
+    m = re.fullmatch(r"wie (\d+\.\d+[a-z]?)\.?", w)
+    return feld(zeilen[m.group(1)], *namen, tiefe=tiefe + 1) if m and m.group(1) in zeilen and tiefe < 3 else w
+if p in zeilen:
+    r = zeilen[p]
+    wo, ok, no = feld(r, "Wo und wie"), feld(r, "Passt", "Richtig"), feld(r, "Falsch")
+    zl = t.split("\\n")
+    if wo and wo[:40] not in t:
+        zl.insert(1, "Zu sehen: " + (wo if len(wo) < 500 else wo[:500].rstrip() + "…"))
+    if "👍" not in t: zl.append("👍 passt: " + ok)
+    if "👎" not in t: zl.append("👎 falsch: " + no)
+    print("\\n".join(zl)); sys.exit(0)
+print("Punkt %s steht nicht in %s" % (p, os.path.relpath(fs[0], d))); sys.exit(1)') || {
+      echo "meldung: $nr: $voll; nichts gesendet (1217)" >&2; exit 2; }
+    text="$voll"
+  fi
+  # 374 (373 Punkt 2, 228): Bilder an den Chef nur mit Datei docs/chefsache/ansehen/<Nummer ohne Punkt>-….md; auch die Vorlage
+  # entscheiden/<Nr>.md (Tom 13.11.) und der Entwurf einer Prüfliste docs/entwurf/t<n>-….md, die erst mit den Bildern nach ansehen/ darf (1199, 1208)
+  docs="$(dirname "$(realpath "$0")")/../docs"
+  orte="chefsache/ansehen entwurf chefsache/entscheiden"
+  k=$(printf '%s' "$nr" | tr -d . | tr 'A-Z' 'a-z'); punkt=""
+  # 1208: „t284.2a: …“ = Punkt 284.2a der Prüfliste t284-….md; der Link kommt in seine Zeile (die Commit-Prüfung verlangt ihn dort)
+  if [[ "$nr" =~ ^[tT]([0-9]+)\.([0-9]+[a-z]?(\.[0-9]+[a-z]?)*)$ ]]; then k="t${BASH_REMATCH[1]}"; punkt="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"; fi
+  if ! (for o in $orte; do ls "$docs/$o" 2>/dev/null; done) | tr 'A-Z' 'a-z' | grep -qE "^$k(-.*)?\.md$"; then
+    echo "meldung: zu $nr liegt keine Datei docs/chefsache/ansehen/$k-….md (oder docs/entwurf/, entscheiden/$k.md), nichts gesendet (374); erst die Datei anlegen und pushen" >&2; exit 2
   fi
   if [ $probe = 0 ] && [ "$art" = video ] && [ "$(stat -c %s "$bild")" -gt 20971520 ]; then
     echo "meldung: Film über 20 MB, nicht im Zweig bilder abgelegt (Repo klein halten; 381), nur Telegram" >&2
@@ -135,18 +176,29 @@ if [ -n "$art" ]; then
       for versuch in 1 2 3; do
         git -C "$repo" fetch -q origin main 2>/dev/null || { sleep $versuch; continue; }
         basis=$(git -C "$repo" rev-parse FETCH_HEAD); blatt=""; jung=0
-        for f in $(git -C "$repo" ls-tree --name-only "$basis" docs/chefsache/ansehen/); do
-          b=$(basename "$f" | tr 'A-Z' 'a-z'); case "$b" in "$k"-*.md) ;; *) continue ;; esac
+        for f in $(git -C "$repo" ls-tree --name-only "$basis" $(for o in $orte; do echo "docs/$o/"; done)); do
+          b=$(basename "$f" | tr 'A-Z' 'a-z'); case "$b" in "$k"-*.md|"$k".md) ;; *) continue ;; esac
           t=$(git -C "$repo" log -1 --format=%ct "$basis" -- "$f"); [ "${t:-0}" -ge $jung ] && { jung=${t:-0}; blatt=$f; }
         done
         [ -n "$blatt" ] || { echo "meldung: Datei zu Vorgang $nr in ansehen/ auf main nicht gefunden, Link nicht eingetragen (450)" >&2; break; }
         inhalt=$(git -C "$repo" show "$basis:$blatt"; echo .)
         case "$inhalt" in *"$u"*) eingetragen=1; break ;; esac
-        neu_b=$(printf '%s' "${inhalt%.}" | ZEILE="$zeile_l" python3 -c '
-import os, sys
-t = sys.stdin.read()
-k, _, r = t.partition("\n")
-sys.stdout.write(k + "\n\n" + os.environ["ZEILE"] + "\n\n" + r.lstrip("\n"))' | git -C "$repo" hash-object -w --stdin)
+        # Prüfliste (t<n>-….md): Zeilen 1 und 2 bleiben oben (Zeile 2 trägt den APK-Link, 1199); mit Punkt (1208) in dessen Zeile, Spalte „Wo und wie“
+        neu_b=$(printf '%s' "${inhalt%.}" | ZEILE="$zeile_l" PUNKT="$punkt" PRUEF="$(case "$k" in t[0-9]*) echo 1 ;; esac)" python3 -c '
+import os, re, sys
+t = sys.stdin.read(); z = os.environ["ZEILE"]; p = os.environ["PUNKT"]
+zl = t.split("\n")
+kopf = next((l for l in zl if l.startswith("|") and " Art " in l), "")
+kz = [c.strip() for c in kopf.strip().strip("|").split("|")]
+sp = kz.index("Wo und wie") if "Wo und wie" in kz else 4
+for i, l in enumerate(zl):
+    c = l.strip().strip("|").split("|")
+    if p and l.startswith("|") and c[0].strip() == p and len(c) > sp:
+        c[sp] = " " + c[sp].strip() + " " + z.split(" (eingetragen")[0] + " "
+        zl[i] = "|" + "|".join(c) + "|"
+        sys.stdout.write("\n".join(zl)); sys.exit(0)
+n = 2 if os.environ["PRUEF"] else 1
+sys.stdout.write("\n".join(zl[:n]) + "\n\n" + z + "\n\n" + "\n".join(zl[n:]).lstrip("\n"))' | git -C "$repo" hash-object -w --stdin)
         idx=$(mktemp); rm -f "$idx"
         GIT_INDEX_FILE=$idx git -C "$repo" read-tree "$basis"
         GIT_INDEX_FILE=$idx git -C "$repo" update-index --cacheinfo "100644,$neu_b,$blatt"

@@ -58,7 +58,7 @@ def zuwachs(werte):
     return werte[-1] - basis, werte[-1]
 
 
-def text(stufe, plus, gesamt, ab=AB):
+def text(stufe, plus, gesamt, ab=AB, ford=False):
     k = lambda n: f"{round(n / 1000)} Tsd."
     kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, 383 A{', doppelt: Kaufrepo eingebunden 818 oder Ford 1019' if ab != AB else ''}; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
@@ -66,6 +66,8 @@ def text(stufe, plus, gesamt, ab=AB):
         rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
     else:
         rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über Ford (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
+    if ford:  # 1019 (Stichtag 14.11.): Ford schickt sich kein „Neustart Ford“, er startet sich selbst
+        rest = "Ford: nach diesem Lauf Selbstneustart nach LISTE-BETRIEB.md „Selbstneustart“ (Startsperre ins Protokoll, pushen, create_session aus dieser Sitzung, neue Sitzung übernimmt die Uhr); kein send_message „Neustart Ford“. Im Chat nichts dazu."
     return kopf + " " + rest
 
 
@@ -178,9 +180,10 @@ def prompt(eingabe):
     except (OSError, ValueError):
         z = {}
     ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) else AB  # 818
+    ford = False
     try:  # 1019: Ford startet sich bei 400 Tsd. selbst neu (185, LISTE-BETRIEB „Selbstneustart“), nicht am Haken (Tiefe wuchs sonst täglich bis 6)
         if name(pfad, sitzung).startswith("Ford"):
-            ab = 2 * AB
+            ab, ford = 2 * AB, True
     except Exception:
         pass
     if gesamt < ab:  # 383 A: Gesprächslänge, nicht Zuwachs
@@ -192,15 +195,15 @@ def prompt(eingabe):
     faellig = stufe == 0 or gesamt >= 2 * ab or seit >= ABSTAENDE[min(stufe - 1, len(ABSTAENDE) - 1)]
     if faellig:
         stufe, seit = stufe + 1, 0
-        try:
-            n = pruefliste(pfad, eingabe)
+        try:  # 1019: Ford testet nie; Buildnummern in Meldungen anderer Sitzungen hielten ihn über 600 Tsd. (14.11.)
+            n = None if ford else pruefliste(pfad, eingabe)
         except Exception:
             n = None
         if n:  # 812: kein Neustart mitten im Test
             print(f"Neustart-Haken (Thema 14): Das Gespräch ist {round(gesamt / 1000)} Tsd. Token lang, aber der Chef meldet Prüfliste t{n} in dieser Sitzung: "
                   "weiter, bis er fertig ist; danach Übergabe und Neustart über Ford (812). Im Chat nichts dazu.")
         else:
-            print(text(stufe, plus, gesamt, ab))
+            print(text(stufe, plus, gesamt, ab, ford))
     with open(zpfad, "w") as f:
         json.dump({"stufe": stufe, "seit": seit}, f)
 

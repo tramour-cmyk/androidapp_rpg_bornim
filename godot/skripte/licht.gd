@@ -9,6 +9,9 @@ var env: Environment
 var nacht := 0.0
 var ziel := 0.0
 var herd := true                       # 399.5 Grundriss mit Kamin (alt hasHearth)
+var hoehle := false                    # 492 Hoehle: wie innen, aber fern der Quellen fast schwarz (alt MapLight ambient CAVE)
+var hoehle_umgebung := HOEHLE_UMGEBUNG   # 492 Pruefer 08.11., 19:29 (Waende hell lila ohne Quelle): fuer die Bildreihe B umstellbar
+var hoehle_farbe := Color(0.5, 0.56, 0.62)   # 492 B (Chef 08.11., 21:46 „492b“): kalt, kaum blau wie alt MapGrade CAVE
 var innen := false                     # 399.1 Grundriss: Licht aus Kamin, Kerzen, Fenstern; die Sonne nur als schwacher Rest von oben
 
 # 348.6 Runde 11 (Chef 25.10., 12:12: Sonnenstand und Schatten falsch, neu kurz nach rechts statt alt lang nach links unten):
@@ -25,6 +28,8 @@ const NACHT_UMGEBUNG := 0.75
 const NACHT_KONTRAST := 0.96   # unter 1 hebt das Schwarz an
 const TIEF_UMGEBUNG := 1.1     # Morgen, Abend: Fronten im Schatten, Himmel traegt mehr
 const DAEMMERUNG_UMGEBUNG := 0.18
+const HOEHLE_HELL := 2.1       # 492 Abgleich: Lauf 1 ohne Kontrasthebung halb so hell wie alt (p90 15 gegen 30–43)
+const HOEHLE_UMGEBUNG := 0.12   # 492 B (Chef 08.11., 21:46 „492b“: Fassung B fuer die ganze Hoehle; vorher 0,3 hell lila ohne Quelle); 492: alt CAVE 0,05 gegen Raum mit Herd nachts 0,13; Lauf 1 bei 0,12 (Pruefer: fern der Lichter gar nichts, keine Umrisse)
 const INNEN_TAG := 0.34        # 399.5 Grundriss: Umgebung am Tag und nachts
 const INNEN_NACHT_KONTRAST := 0.93   # Lauf 5 (Nacht in % des Tags, alt 44–64): Kontrast 0,87 → 78–84, 0,96 mit Umgebung 0,16 → 40–56
 const INNEN_TAG_OHNE_HERD := 0.75   # wie alt MapLight ambient: ohne Feuer am Tag doppelt so hell (Tempel Lauf 2: Mittel 34, alt 51; Lauf 8 bei 0,55: 41,5)
@@ -135,6 +140,7 @@ func stelle(k: float) -> void:
 	env.adjustment_contrast = lerpf(TAG_KONTRAST, NACHT_KONTRAST, k)
 	env.adjustment_saturation = lerpf(TAG_SAETTIGUNG, 0.45, k) + 0.1 * daemmerung   # nachts blasser und blau wie alt
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
+	env.adjustment_brightness = 1.0   # 492: nur die Hoehle hebt (unten)
 	if innen:
 		# 399.5 wie alt (MapLight ambient INTERIOR, mit Herd 0,13 nachts bis 0,31 am Tag): kein Himmel ueber dem Raum, nur ein
 		# warmer Rest; hell wird es durch Kamin, Kerzen und das Tageslicht der Fenster (raumlicht.gd)
@@ -151,8 +157,53 @@ func stelle(k: float) -> void:
 		stimmung.set_shader_parameter("toenung", Vector3(f.r, f.g, f.b))
 		stimmung.set_shader_parameter("anteil", 0.45 if herd else 0.35)
 		stimmung.set_shader_parameter("rand", 0.2)
+		if hoehle:
+			# 492 alt MapLight.ambient CAVE (0,05; 0,05; 0,075): „away from visible sources nearly black, only outlines“ (13e.6), Tag und
+			# Nacht gleich; MapGrade CAVE: kalt, etwas gruen (D0ECDC, Anteil 0,5, Rand 0,26)
+			env.ambient_light_color = hoehle_farbe
+			env.ambient_light_energy = hoehle_umgebung
+			# Abgleich 492 (Lauf 1 gemessen: ein Drittel des Bildes genau 15/16/15, alt 0; Kontrast 0,87 hob Schwarz auf 16,6 und
+			# druckte das Licht): Schwarz bleibt schwarz wie alt (alt p50 3–5, neu 16); dafuer heller wie alt (alt p90 30–43, neu
+			# ohne Hebung 13–15): Helligkeit ×HOEHLE_HELL nach dem Tonemapping
+			env.adjustment_contrast = 1.0
+			env.adjustment_brightness = HOEHLE_HELL
+			var g := Color8(0xD0, 0xEC, 0xDC)
+			stimmung.set_shader_parameter("toenung", Vector3(g.r, g.g, g.b))
+			stimmung.set_shader_parameter("anteil", 0.5)
+			stimmung.set_shader_parameter("rand", 0.26)
 	else: toene(1.0 - k)
+	schwarz_fuss()
 	nacht_geaendert.emit(k)
+
+## 505 Lauf 2 (Chef 16:12, Zu 505, zweiter Durchgang (1): „nie gesehen“ wirklich schwarz, Wert 0): Kontrast unter 1 hebt Schwarz
+## nach dem Tonemapping auf 0,5 (1 − Kontrast) (Tag 0,87: 16,6 von 255), auch den Nebel, die Tusche und das Randdunkel.
+## Pruefer 17:21 an der Probe am Rechner: an allen Nebelkanten Saeume in einem Kanal (0, 18, 0): die erste Fassung zog den Fuss je
+## Kanal auf 0 und lief mit Steigung 2,9 zurueck, ein dunkles Gruen (0; 0,03; 0) wurde so (0, 19, 0). Jetzt bleibt der Kontrast der
+## Umgebung 1 und die Farbkorrektur (je Kanal) macht ihn nach: oberhalb KNIE genau wie Kontrast k (0,5 + (v − 0,5) k), darunter
+## gerade auf 0 (Steigung 1,4 bei k 0,87); nichts wird abgeschnitten, Schwarz bleibt 0
+const KNIE := 0.12
+var kontrast := 1.0   # gewollter Kontrast (stelle); die Umgebung selbst steht auf 1, wenn er unter 1 liegt
+var fuss_bei := -1.0
+func schwarz_fuss() -> void:
+	var k := env.adjustment_contrast
+	if k < 1.0: env.adjustment_contrast = 1.0
+	kontrast = k
+	if absf(k - fuss_bei) < 0.002: return
+	fuss_bei = k
+	if k >= 1.0:
+		env.adjustment_color_correction = null
+		return
+	var g := Gradient.new()
+	g.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_LINEAR
+	var knie := 0.5 + (KNIE - 0.5) * k
+	var hell := 0.5 + 0.5 * k
+	g.set_offset(0, 0.0); g.set_color(0, Color(0, 0, 0))
+	g.set_offset(1, 1.0); g.set_color(1, Color(hell, hell, hell))
+	g.add_point(KNIE, Color(knie, knie, knie))
+	var t := GradientTexture1D.new()
+	t.gradient = g
+	t.width = 1024
+	env.adjustment_color_correction = t
 
 # MapGrade.of fuer das Dorf (daylight 1 Tag, 0,5 Daemmerung, 0 Nacht); Wald und Hoehle beim Bau je Ort
 func toene(tag: float) -> void:

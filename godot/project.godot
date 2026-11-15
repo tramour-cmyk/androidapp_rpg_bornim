@@ -6,6 +6,12 @@ config/name="Chroniken von Bornim"
 run/main_scene="res://spiel.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/quit_on_go_back=false
+; 1035 (Chef 12.11., 14:39: „Ja, eigenes Zeichen statt Godot“): beim Start unser Firmenzeichen auf Schwarz, so groß wie im Vorspann
+; (hauptmenue.gd logo, 240 dp), aus bilder/logo-quer.svg gerechnet; Godot bleibt in den Lizenzen genannt
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://bilder/startbild.png"
+boot_splash/stretch_mode=0
+boot_splash/use_filter=true
 ; 415 (Jerry): Testmenü „Strahlen“ schreibt hier den Renderer (Mobile oder Kompatibilität) für den nächsten Start; ohne Datei wie oben
 config/project_settings_override="user://renderer_415.cfg"
 

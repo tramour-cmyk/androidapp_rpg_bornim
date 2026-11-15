@@ -14,6 +14,7 @@ Alle Aufnahmen stehen unter **CC0 1.0** (gemeinfrei, kommerzielle Nutzung erlaub
 | `chest_3` | keyhole-lockbox-unlock-01 + wood_squeak_01 | vehicle, Fantasy Accessory SFX Library; rubberduck, 100 CC0 metal and wood SFX | https://opengameart.org/content/fantasy-accessory-sfx-library , https://opengameart.org/content/100-cc0-metal-and-wood-sfx |
 | `door_1, door_3` | qubodup-DoorOpen03, -07 | qubodup, Door Open, Door Close Set | https://opengameart.org/content/door-open-door-close-set |
 | `door_2` | doorOpen_1 | Kenney, RPG Audio | https://kenney.nl/assets/rpg-audio |
+| `chains_1–3` (1144, `tools/klang/ketten.py`, nach `godot/daten/klang/sfx`; Lizenz geprüft 13.11.2026) | chain_01, chain_02, chain_03 | rubberduck, 80 CC0 RPG SFX | https://opengameart.org/content/80-cc0-rpg-sfx |
 | `knock_1–3` (215.1, `tools/klang/klopfen.py`; Lizenz geprüft 20.10.2026) | impactWood_light_000, _001, _003, impactWood_medium_000–_004 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
 | `brand_1` (292.1, Klanglogo Probe 5, `tools/klang/klanglogo4.py` a5, −19,4 LUFS; Lizenz geprüft 22.10.2026: CC0 1.0) | Strings/Harp KSHarp_C5_mf, _G5_mf, _D6_mf (umgestimmt), Percussion/Glock glock_medium_G4 | Sam Gossner, VS Chamber Orchestra 2 Community Edition | https://github.com/sgossner/VSCO-2-CE |
 | `level_up_1` | gong_01 | rubberduck, 100 CC0 SFX | https://opengameart.org/content/100-cc0-sfx |

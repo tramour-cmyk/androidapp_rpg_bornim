@@ -90,10 +90,17 @@ func _lauf() -> void:
 	z2.setze("met_" + wer)
 	m2.baue()
 	await process_frame
-	var b := finde(m2, "AufDerKarte") as Button
+	var b := finde(m2, "AufDerKarte") as Control   # 860: tippbare Wahl ohne Kasten (Spielstaende.knopf) statt Button
 	pruefe(b != null, "„Auf der Karte“ fehlt bei %s" % wer)
 	if b:
-		b.pressed.emit()
+		var e := InputEventMouseButton.new()
+		e.button_index = MOUSE_BUTTON_LEFT
+		e.position = b.size / 2
+		e.pressed = true
+		b.gui_input.emit(e)
+		var e2 := e.duplicate() as InputEventMouseButton
+		e2.pressed = false
+		b.gui_input.emit(e2)
 		for i in 4: await process_frame
 		pruefe(m2.reiter == "karte", "„Auf der Karte“ oeffnet nicht die Karte")
 		var k := m2.inhalt.get_child(0) as Kartenreiter if m2.inhalt.get_child_count() > 0 else null

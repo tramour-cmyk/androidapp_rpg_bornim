@@ -185,7 +185,7 @@ def jetzt():
     return datetime.datetime.now(BERLIN).strftime("%Y-%m-%d %H:%M:%S")  # Sekunden: Läufe derselben Minute zählen einzeln
 
 
-def testlauf(lauf, befehl, cwd):
+def testlauf(lauf, befehl, cwd, roh=None):
     """390a (Chef 28.10., 10:26): Testprogramm aus godot/tests/ ist kein Probelauf, wenn `-s res://tests/….gd` läuft, kein Film
     geschrieben wird und die Testdatei keinen Bildbefehl enthält. Datei nicht gefunden: zählt als Bildlauf.
     1146 (von Jerry, 1025): `xvfb-run` zählt nicht mehr dagegen — ein Test, der nur einen Bildschirm braucht, aber kein Bild
@@ -199,13 +199,45 @@ def testlauf(lauf, befehl, cwd):
         datei = os.path.join(basis, pfad, "tests", s.group(1))
         if os.path.isfile(datei):
             return not BILDBEFEHL.search(open(datei, encoding="utf-8", errors="replace").read())
+    inhalt = neue_testdatei(roh or befehl, s.group(1))  # 1249: im selben Befehl angelegt, Haken läuft vorher
+    return inhalt is not None and not BILDBEFEHL.search(inhalt)
+
+
+def bild_im_test(befehl, cwd, roh):
+    """1249: legt ein gestartetes Testprogramm (Datei oder Heredoc im selben Befehl) ein Bild ab?"""
+    for m in GODOT_LAUF.finditer(befehl):
+        s = TEST_SKRIPT.search(m.group(0))
+        if not s:
+            continue
+        p = re.search(r"--path[=\s]+(\S+)", m.group(0))
+        pfad = os.path.expanduser(p.group(1).strip("\"'")) if p else "."
+        inhalt = neue_testdatei(roh or befehl, s.group(1))
+        for basis in [cwd] + cd_ordner(befehl, cwd):
+            datei = os.path.join(basis, pfad, "tests", s.group(1))
+            if inhalt is None and os.path.isfile(datei):
+                inhalt = open(datei, encoding="utf-8", errors="replace").read()
+        if inhalt and BILDBEFEHL.search(inhalt):
+            return True
     return False
 
 
-def bildlauf(befehl, cwd="."):
+def neue_testdatei(roh, name):
+    """1249 (von Jerry, 1222): Inhalt einer Testdatei, die derselbe Befehl per Heredoc (`cat > …/tests/<name> <<EOF`,
+    `tee`) erst anlegt; sonst None. Der letzte solche Heredoc gilt."""
+    inhalt = None
+    for m in HEREDOC.finditer(roh):
+        if not re.search(r"(?:>>?|\btee(?:\s+-a)?)\s*[\"']?[^\s\"']*tests/" + re.escape(name) + r"[\"']?(?=[\s;&|<]|$)", m.group("kopf")):
+            continue
+        schluss = re.compile(r"^\s*" + re.escape(m.group("ende")) + r"\s*$", re.M).search(roh, m.end())
+        if schluss:
+            inhalt = roh[m.end():schluss.start()]
+    return inhalt
+
+
+def bildlauf(befehl, cwd=".", roh=None):
     # 464: `--check-only` liest nur den Quelltext (Parsefehler), führt nichts aus, zeigt kein Bild
     return SKRIPT.search(befehl) or any("--import" not in m.group(0) and "--check-only" not in m.group(0)
-                                        and not testlauf(m.group(0), befehl, cwd) for m in GODOT_LAUF.finditer(befehl))
+                                        and not testlauf(m.group(0), befehl, cwd, roh) for m in GODOT_LAUF.finditer(befehl))
 
 
 def git(*args, cwd=REPO, timeout=8):
@@ -322,7 +354,11 @@ def push_lauf(befehl, cwd):
         return None
     oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip()
     if not oben:  # 627 (Jerry 07.11., 21:2x): neuer Zweig, Pfade gegen den Abzweig von origin/main statt „alle Abläufe“
-        oben = git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+        # 1213 (Jerry 13.11.: claude/jerry-1162-… von build-284 zählte, kein Ablauf lief): GitHub prüft „paths“ beim neuen Zweig nur an
+        # den Commits, die noch auf keinem Zweig liegen; darum ab dem Elternteil des ältesten Commits, der auf keinem origin-Zweig liegt
+        neue = git("rev-list", "--topo-order", "--reverse", "HEAD", "--not", "--remotes=origin", cwd=wo).stdout.split()
+        eltern = git("rev-parse", "-q", "--verify", neue[0] + "^", cwd=wo).stdout.strip() if neue else ""
+        oben = (eltern if neue else git("rev-parse", "HEAD", cwd=wo).stdout.strip()) or git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
     # Commit im selben Befehl vor dem Push (PreToolUse sieht ihn noch nicht): Nachricht aus -m, Pfade aus dem Arbeitsbaum
     neu_f = COMMIT_F.search(befehl[:m.start()])  # 627 (Tuffy 07.11., 21:15): Nachricht aus dem Heredoc, nicht die des alten HEAD
     neu = neu_f or COMMIT.search(befehl[:m.start()])
@@ -343,8 +379,34 @@ def push_lauf(befehl, cwd):
     los = loest_aus(wo, zweig, pfade, nachricht)
     if not los:  # Tom 02.11., 16:3x: Push ohne Lauf zählte als Probelauf
         return None
+    if (alt := modellbau_alt(wo, "HEAD")):  # 1254
+        anhalten(alt)
     nr = re.match(r"\s*(?:\w+:\s*)?(" + NR + r")\b", nachricht)
     return (nr.group(1) if nr else (nr_aus_verlauf(wo, "HEAD", zweig) or zweig)), los == FILMT  # 911; 924: Rolle aus dem Push-Ziel
+
+
+# 1254 (Chef 14.11., 21:08 „Runs … mit den vorgerenderten … Modellen, dass es schneller geht“): die Kennung der Vorberechnung 854
+# (tools/godot/kauf_cache.py) hängt an Modellbau und Schritttexten. Läufe 469, 470 standen auf Zweigen von vor Build 285, kein Block
+# außer figur traf, Held je Klasse, Leute, Kampfort bauten neu (≈ 50 min, Lauf 86 min; mit Treffern 1 min). Hat main dort seit dem
+# Abzweig etwas geändert, erst main einmischen.
+MODELLBAU = ("tools/blender348", "tools/godot/kauf_cache.py")  # godot.yml nicht: ändert sich oft außerhalb der Bauschritte
+
+
+def modellbau_alt(wo, rev):
+    """Haltetext, wenn origin/main den Modellbau seit dem Abzweig von <rev> geändert hat, sonst None."""
+    try:
+        git("fetch", "-q", "origin", "main", cwd=wo, timeout=20)
+    except subprocess.TimeoutExpired:
+        return None
+    basis = git("merge-base", "origin/main", rev, cwd=wo).stdout.strip()
+    if not basis:
+        return None
+    anders = git("diff", "--name-only", basis, "origin/main", "--", *MODELLBAU, cwd=wo).stdout.split()
+    if not anders:
+        return None
+    return (f"1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert ({len(anders)} Dateien, etwa {anders[0]}). "
+            "Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je Klasse, Leute und Kampfort neu (≈ 50 min statt 1). "
+            "Erst `git fetch origin main && git merge origin/main`, Kerntests, dann pushen bzw. den Lauf starten.")
 
 
 FILMT = 2
@@ -827,7 +889,8 @@ def ohne_heredoc(befehl):
         schluss = re.compile(r"^\s*" + re.escape(m.group("ende")) + r"\s*$", re.M).search(befehl, m.end())
         if not schluss:
             continue
-        if re.search(r"(?<![\w.-])(?:bash|sh|zsh|xvfb-run|godot\S*|ssh|env)(?![\w.])[^|;&]*$", m.group("kopf")):
+        # 1249: `godot` nur als Befehl (`~/godot/godot`, `godot.x86_64`), nicht als Ordner im Ziel (`cat > godot/tests/x.gd`)
+        if re.search(r"(?<![\w.-])(?:bash|sh|zsh|xvfb-run|godot(?:\.[\w.-]+)?|ssh|env)(?![\w./-])[^|;&]*$", m.group("kopf")):
             continue
         aus.append(befehl[pos:m.end()])
         pos = schluss.start()
@@ -969,6 +1032,15 @@ def main():
             anhalten(RERUN)
         if hand:
             nr, art, film = hand
+            ref = str((d.get("tool_input") or {}).get("ref") or "")
+            try:  # 1254: Zweig des Laufs gegen main
+                alt = None
+                if ref and ref != "main" and git("fetch", "-q", "origin", ref, cwd=cwd, timeout=20).returncode == 0:
+                    alt = modellbau_alt(cwd, git("rev-parse", "FETCH_HEAD", cwd=cwd).stdout.strip())  # vor dem Holen von main
+            except (OSError, subprocess.SubprocessError, ValueError):
+                alt = None
+            if alt:
+                anhalten(alt)
             pruefen_und_zaehlen(nr, art, wer, film=film)
         return
     if re.search(r"(push_files|create_or_update_file)$", d.get("tool_name") or ""):  # D75.1: Push über den GitHub-Server zählt wie git push
@@ -1023,7 +1095,7 @@ def main():
         anhalten(grund)
     film = False
     try:
-        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
+        if bildlauf(befehl, cwd, roh) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
             if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
                 anhalten(fs)
             if filmlauf_rechner(befehl, cwd):  # 783 W1: Probebild ist ein Einzelbild, kein Film
@@ -1031,8 +1103,8 @@ def main():
                          f"`PROBE={pb.group(1)}`.")
             return hinweis_geben(f"783 W1: Einzelbild zu {pb.group(1)}, zählt nicht als Probelauf. Selbst ansehen, ob Inhalt da "
                                  "ist (kein Weißbild, richtiger Ort), dann gleich Film; nicht an den Chef, kein Helfer.")
-        if bildlauf(befehl, cwd) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
-            if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl):
+        if bildlauf(befehl, cwd, roh) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
+            if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl) or bild_im_test(befehl, cwd, roh):
                 anhalten("1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. "
                          "Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.")
             if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
@@ -1040,7 +1112,7 @@ def main():
             zaehlen(ms.group(1), wer, "mess")
             return hinweis_geben(f"1129 A 3b: Messlauf zu {ms.group(1)}, frei und ohne Grenze; Kosten beim Vorgang vermerken. "
                                  "Bild oder Film an den Chef nur mit `PROBE=<Nr>`.")
-        if bildlauf(befehl, cwd):
+        if bildlauf(befehl, cwd, roh):
             m = PROBE.search(befehl)
             if not m:
                 anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "

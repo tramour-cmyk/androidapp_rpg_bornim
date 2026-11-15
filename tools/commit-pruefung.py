@@ -107,6 +107,11 @@ def gueltig_pruefen(dat, stop, warn):
     for alt in minus:  # geänderte alte Zeile: alter Text muss vorn stehen bleiben
         if alt.strip() and not any(neu.startswith(alt.rstrip()) for neu in plus):
             warn.append("VORGANGSARCHIV.md: alte Zeile geändert statt ergänzt („%s …“); am alten Eintrag nur „→ ersetzt durch …“ anhängen (461b)" % alt[:60])
+    for neu in plus:  # 1228: jede Sitzung trägt Telegram-Urteile ein; dieselbe Kennung zweimal ist ein Doppel
+        if neu in minus or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
+        for mid in (re.findall(r"Nachricht (\d{3,})\b", neu) if re.search("[👍👎✅]", neu) else []):
+            if re.search(r"(Nachricht|Telegram)\s+%s\b" % mid, alt_archiv):
+                stop.append("VORGANGSARCHIV.md: Telegram-Nachricht %s steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)" % mid)
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
         if re.search(r"\b461 unverändert\b", neu): continue
@@ -299,6 +304,8 @@ def main():
             # 1159 (von Ford, zu 1148): Marke „Lauf läuft bis TT.MM., HH:MM“ im Vorrat trägt eine Zeit nach jetzt; Form und 12 h prüft lauf.py (1161)
             tz = re.sub(r"Lauf läuft bis \d\d\.\d\d\.,? \d\d:\d\d", "", tz)
         for m in re.finditer(r"(?<!\d)" + re.escape(heute).replace(r"\.", r"\.") + r",? (\d\d):(\d\d)(?!\d)", tz):
+            if re.search(r"\b(ab|bis|um|vor|nach|Termin|Stichtag|frühestens|spätestens|Zurücksetzung)\s*(\(|(Mo|Di|Mi|Do|Fr|Sa|So)\.?\s+)?$", tz[max(0, m.start() - 20):m.start()], re.I):
+                continue  # 1243 (Ford, Lauf 00:03): „ab 14.11., 20:00“ ist ein Termin, kein Zeitstempel
             if jetzt.replace(hour=int(m.group(1)), minute=int(m.group(2))) > jetzt + datetime.timedelta(minutes=5):
                 stop.append("%s: Uhrzeit %s:%s liegt nach jetzt (%s)" % (datei, m.group(1), m.group(2), jetzt.strftime("%H:%M"))); break
         mm = re.match(r"\| ([^|]+?) \| (M\?|M|K|–|-) \|", t)
@@ -388,13 +395,27 @@ def main():
                 if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram") and not KLEIN_LINK.search("|".join(r)):
                     stop.append("%s: Zeile %s Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link "
                                 "„[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkram fragt der Reiter „Test“ nicht ab" % (p, r[0]))
+    for s, p in dat:  # 1217 (Chef 13.11., 20:13 zu t284.7p: „da gibt es gar kein P … Ah, das ist in der falschen Reihenfolge“): ab Build 285
+        m = re.match(r"docs/(?:chefsache/ansehen|entwurf)/t(\d+)-[^/]+\.md$", p)   # die Zeilen jeder Tabelle in Nummernfolge
+        if s == "D" or not m or int(m.group(1)) < 285: continue
+        def schluessel(nr): return [(int(x), "") if x.isdigit() else (int(re.match(r"\d+", x).group(0)), x.lstrip("0123456789")) for x in nr.split(".")]
+        vorher = None
+        for zl in git("show", ":" + p).splitlines():
+            nr = (zl.strip().strip("|").split("|") or [""])[0].strip().strip("*") if zl.startswith("|") else ""
+            if not re.fullmatch(r"%s\.\d+[a-z]?(\.\d+[a-z]?)*" % m.group(1), nr):
+                if not zl.startswith("|"): vorher = None
+                continue
+            if vorher and schluessel(nr) < schluessel(vorher):
+                stop.append("%s: Zeile %s nach %s; Nummern in der Reihenfolge des Wegs vergeben, aufsteigend (1217)" % (p, nr, vorher)); break
+            vorher = nr
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
         inhalt = git("show", ":" + p)
         gl = re.search(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(Sokrates|Perikles|Homer|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)\b.*\d\d?:\d\d", inhalt)
         if not gl:
             stop.append("%s: Zeile „Gegengelesen: <Rolle> <TT.MM., HH:MM>“ fehlt; Entwurf zuerst nach docs/entwurf/, eine Sitzung außerhalb des Teams prüft je Punkt "
-                        "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll), trägt die Zeile ein und verschiebt (866, 881)" % p)
+                        "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll) und trägt die Zeile im Entwurf ein; nach ansehen/ "
+                        "erst mit APK, Bildern und Filmen (866, 881, 1199)" % p)
             continue
         # 881 (D139.1): nie das eigene Team; Team aus Zeile 1 („# <Team oder „Tom und Jerry“> · Build …“), Spike zählt zu Tom, Tuffy zu Jerry
         team = {"Spike": "Tom", "Tuffy": "Jerry"}.get(gl.group(1), gl.group(1))
@@ -407,6 +428,15 @@ def main():
         if not re.search(r"https?://", z2):
             stop.append("%s: Zeile 2 ohne APK-Link (%s); die Prüfliste kommt erst mit der Testbitte in die Chefsache, wenn APK, Bilder und "
                         "Filme da sind; bis dahin gegengelesen in docs/entwurf/, der Bau liest sie dort (1199)" % (p, z2.strip()[:60] or "leer"))
+        # 1208 (D216.1): auch jedes Bild und jeder Film gesendet; meldung.sh mit Text „t<n>.<Punkt>: …“ trägt den Link in die Zeile ein
+        tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in inhalt.splitlines() if zl.startswith("|")]
+        sa = next((r.index("Art") for r in tab if "Art" in r), -1)
+        for r in tab:
+            if sa >= 0 and len(r) > sa and re.match(r"(?i)(bild|film)\b", r[sa]) and not (KLEIN_LINK.search("|".join(r))
+                    or re.search(r"\]\(https://cdn\.jsdelivr\.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/", "|".join(r))):
+                w = r[sa].split()[0]
+                stop.append("%s: Zeile %s Art %s ohne Link aufs Gesendete; erst `meldung.sh --%s <datei> <Name> \"t%s: …\"` (trägt den Link "
+                            "in die Zeile des Entwurfs ein), dann verschieben (1199, 1208)" % (p, r[0], w, w.lower(), r[0]))
     for s, p in dat:  # 1128.2 (1128 A, Chef 13.11., 13:36): Laufnachweis; jeder Test unter „Im Bau geprüft“/„Ohne dich“ steht im Lauf
         # der APK (godot.yml von claude/build-<n>) und kann dort rot werden (ohne `|| true`, continue-on-error, Bedingung; Diogenes 12:59)
         m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)

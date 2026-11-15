@@ -23,6 +23,15 @@ const VON := "Wolf_Spine_01SHJnt"
 
 var _rippen := []
 var _halten := -1
+## 1166 (453a B, Chef 02.11.: „gilt für alle Vierbeiner“): Knochen dieses Gerüsts, [[Name, Anteil] …], Halten, Von; beim Wolf die
+## Konstanten oben, sonst aus den Rückenknochen gesucht (knochen_fuer)
+var rippen_def: Array = RIPPEN
+var halten_name: String = HALTEN
+var von_name: String = VON
+## 1166: Größe gegen den Wolf (Rücken heben in Metern; die Ratte hebt nicht 22 mm), beim Wolf 1; unter 0: beim ersten Bild aus der
+## Länge des Rückens (Von bis Halten) gegen die des Wolfs (WOLF_RUECKEN_M)
+var groesse := 1.0
+const WOLF_RUECKEN_M := 0.37     # 453 r3: Rücken des Kaufwolfs, 37 cm
 ## 453 r3 (gemessen tests/atem_netz_453.gd): Spine_04 und alles darunter (Schultern, Vorderläufe, Hals, Kopf) der Reihe nach von oben
 ## zurück auf die Pose vor dem Atem. Nur Spine_04 genügte nicht: die Weitung quer zum Rumpf liegt nicht genau in den Achsen der
 ## Knochen, set_bone_pose zerlegt sie in Drehung und Maßstab und verliert die Scherung; der Rest ging bis in die Vorderpfoten (5 mm je
@@ -32,7 +41,63 @@ var _von := -1
 
 
 static func passt(sk: Skeleton3D) -> bool:
-	return sk.find_bone(RIPPEN[0][0]) >= 0 and sk.find_bone(HALTEN) >= 0 and sk.find_bone(VON) >= 0
+	return not knochen_fuer(sk).is_empty()
+
+
+## 1166: [Rippen [[Name, Anteil] …], Halten, Von] oder [] (kein Rücken erkennbar). Wolf wie 453 r3; sonst die Kette der Knochen mit
+## „spine“, „chest“, „back“ oder „ruecken“ im Namen, vom Becken zum Hals: die vorderste trägt Schultern und Hals (Halten), die davor
+## weiten sich (die hinterste davon halb), Von ist der erste der Kette oder sein Elternknochen
+static func knochen_fuer(sk: Skeleton3D) -> Array:
+	if sk == null:
+		return []
+	if sk.find_bone(RIPPEN[0][0]) >= 0 and sk.find_bone(HALTEN) >= 0 and sk.find_bone(VON) >= 0:
+		return [RIPPEN, HALTEN, VON]
+	var kette := []
+	for b in sk.get_bone_count():
+		var n := sk.get_bone_name(b).to_lower()
+		if n.contains("spine") or n.contains("chest") or n.contains("ruecken") or (n.contains("back") and not n.contains("backpack")):
+			kette.append(b)
+	# nach der Tiefe im Baum (Becken zuerst); nur die Knochen einer Kette (jeder Kind des vorigen oder darunter)
+	var tiefe := func(b: int) -> int:
+		var t := 0
+		var e := sk.get_bone_parent(b)
+		while e >= 0:
+			t += 1
+			e = sk.get_bone_parent(e)
+		return t
+	kette.sort_custom(func(a, b2): return tiefe.call(a) < tiefe.call(b2))
+	var reihe := []
+	for b in kette:
+		if reihe.is_empty():
+			reihe.append(b)
+			continue
+		var e := sk.get_bone_parent(b)
+		while e >= 0 and e != reihe[reihe.size() - 1]:
+			e = sk.get_bone_parent(e)
+		if e >= 0:
+			reihe.append(b)
+	if reihe.size() < 2:
+		return []
+	var halten: int = reihe[reihe.size() - 1]
+	var weiten: Array = reihe.slice(0, reihe.size() - 1)
+	var von: int = reihe[0]
+	if weiten.size() == 1 and sk.get_bone_parent(reihe[0]) >= 0:
+		von = sk.get_bone_parent(reihe[0])
+	elif weiten.size() > 1:
+		weiten = weiten.slice(1)     # der erste der Kette bleibt Achse (wie Spine_01 beim Wolf)
+	var r := []
+	for i in weiten.size():
+		r.append([sk.get_bone_name(weiten[i]), 1.0 if i == weiten.size() - 1 or weiten.size() == 1 else 0.8])
+	return [r, sk.get_bone_name(halten), sk.get_bone_name(von)]
+
+
+func knochen_setzen(sk: Skeleton3D) -> void:
+	var k := knochen_fuer(sk)
+	if k.is_empty():
+		return
+	rippen_def = k[0]
+	halten_name = k[1]
+	von_name = k[2]
 
 
 func eigen(seed: int) -> void:
@@ -48,10 +113,10 @@ func _process_modification_with_delta(delta: float) -> void:
 		return
 	schritt(maxf(delta, 0.0))
 	if _rippen.is_empty():
-		for r in RIPPEN:
+		for r in rippen_def:
 			_rippen.append(sk.find_bone(r[0]))
-		_halten = sk.find_bone(HALTEN)
-		_von = sk.find_bone(VON)
+		_halten = sk.find_bone(halten_name)
+		_von = sk.find_bone(von_name)
 		if _halten >= 0:
 			var offen := [_halten]
 			while not offen.is_empty():
@@ -72,7 +137,12 @@ func _process_modification_with_delta(delta: float) -> void:
 	var quer := laengs.cross(oben).normalized()
 	oben = quer.cross(laengs).normalized()
 	var m_je_einheit: float = sk.global_basis.get_scale().y
-	var heben: Vector3 = oben * (HEBEN_M * tiefe / maxf(m_je_einheit, 1e-6))
+	if groesse < 0.0:
+		var lang_m: float = (sk.get_bone_global_pose(_halten).origin - sk.get_bone_global_pose(_von).origin).length() * m_je_einheit
+		groesse = clampf(lang_m / WOLF_RUECKEN_M, 0.15, 2.0)
+		if OS.get_environment("SCHAU_1166") != "":
+			print("1166 Atem Größe %.2f (Rücken %.2f m)" % [groesse, lang_m])
+	var heben: Vector3 = oben * (HEBEN_M * groesse * tiefe / maxf(m_je_einheit, 1e-6))
 	var halten := sk.get_bone_global_pose(_halten)
 	var kinder := []
 	for k in _kinder:
@@ -81,15 +151,15 @@ func _process_modification_with_delta(delta: float) -> void:
 	var vorher := []     # erst alle lesen: nach dem Setzen enthielte der Kindknochen die Weitung des Elternknochens schon
 	for b in _rippen:
 		vorher.append(sk.get_bone_global_pose(b) if b >= 0 else Transform3D())
-	for i in RIPPEN.size():
+	for i in rippen_def.size():
 		var b: int = _rippen[i]
 		if b < 0:
 			continue
-		var a: float = RIPPEN[i][1] * tiefe
+		var a: float = float(rippen_def[i][1]) * tiefe
 		var weit := achsen * Basis.from_scale(Vector3(1.0 + BREITER * a, 1.0 + TIEFER_BAUCH * a, 1.0)) * achsen.inverse()
 		var g: Transform3D = vorher[i]
 		g.basis = weit * g.basis
-		g.origin += heben * RIPPEN[i][1]
+		g.origin += heben * float(rippen_def[i][1])
 		sk.set_bone_global_pose(b, g)
 	for i in _kinder.size():
 		sk.set_bone_global_pose(_kinder[i], kinder[i])

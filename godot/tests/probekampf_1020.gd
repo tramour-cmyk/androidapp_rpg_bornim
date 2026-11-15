@@ -139,11 +139,15 @@ func _lauf() -> void:
 	root.size = Vector2i(1080, 2340)
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
-	# wie bisher: Söldner wie der Held, 2 Heiltränke, volles Leben, Ausrüstung der Herkunft
+	# Vorgabe: kein Söldner (947, Kapitel 1 allein), 2 Heiltränke, volles Leben, Ausrüstung der Herkunft
 	var a := Testmodus.probe_aufbau("Wachsoldat", 3)
 	var h: BrsHeld = a["held"]
 	pruefe("Vorgabe Held", h.herkunft == "Wachsoldat" and h.stufe == 3 and h.volk == "Mensch" and h.leben == h.max_leben(), "%s %d %s %d/%d" % [h.herkunft, h.stufe, h.volk, h.leben, h.max_leben()])
-	pruefe("Vorgabe Söldner wie der Held", a["soeldner"] != null and (a["soeldner"] as BrsHeld).herkunft == "Wachsoldat")
+	pruefe("Vorgabe Söldner keiner (947)", a["soeldner"] == null)
+	Testmodus.probe_soeldner = "*"
+	var aw := Testmodus.probe_aufbau("Wachsoldat", 3)
+	pruefe("Söldner wie der Held", aw["soeldner"] != null and (aw["soeldner"] as BrsHeld).herkunft == "Wachsoldat")
+	Testmodus.probe_soeldner = ""
 	pruefe("Vorgabe Tasche", a["tasche"] == {"potion": 2}, str(a["tasche"]))
 	pruefe("Vorgabe Tageszeit Spieluhr", String(a["zeit"]) == "")
 	var start := Testmodus.probeheld("Wachsoldat", 3)

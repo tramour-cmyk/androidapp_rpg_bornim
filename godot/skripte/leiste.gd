@@ -8,6 +8,7 @@ extends PanelContainer
 
 signal menue
 signal karte                       # 528 (86.2): das Kartenzeichen oeffnet gleich die Karte
+var zustaende_da := false           # 764 (Chef 09.11., 14:49): ein Zustand steht in der Leiste
 
 const DP := AktionsKnopf.DP
 const HP_GRUEN := Color("48c858")
@@ -205,4 +206,5 @@ func zeige(hw: BrsHeld, z: Zustand, nacht: bool) -> void:
 		k.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		k.add_child(wort(Sprache.t(zd[st]["kurz"]), 9, Color.WHITE))
 		chips.add_child(k)
+	zustaende_da = not welche.is_empty()   # 764: Antippen der Leiste oeffnet dann den Heldenreiter mit der Erklaerung
 	if welche.is_empty(): chips.add_child(wort(" ", 11, Color.WHITE))   # 870.4: keine Attributspunkte mehr (870a 4)   # die Zeile bleibt, die Leiste springt nie
