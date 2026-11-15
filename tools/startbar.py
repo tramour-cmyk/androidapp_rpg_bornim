@@ -653,6 +653,9 @@ def liegt_ohne_vorlage(d):
     if d["wort"] != "gebaut" or d["besitzer"] not in WEITERBAUEN or (d.get("bereich") or "").startswith("B "): return None
     if (d.get("zweig") or "").startswith("claude/build-") or str(d.get("build") or "").strip() not in ("", "–", "-"): return None
     if offen_warte(d): return None
+    # Teil-Klon (GitHub Action zug-index, checkout filter blob:none): der Verlauf der Liste lädt dort Blob für Blob (über 2 min,
+    # nachgestellt 15.11., 19:50, Lauf 13257 hing); dort keine Frist rechnen, Ford und die Sitzungen haben den vollen Verlauf
+    if _git("config", "--get", "remote.origin.partialclonefilter").stdout.strip(): return None
     seit = gebaut_seit()
     if _git("rev-parse", "-q", "--verify", "HEAD").returncode != 0: return None  # ohne Git lieber nichts melden als alles
     t = seit.get(d["nr"])
