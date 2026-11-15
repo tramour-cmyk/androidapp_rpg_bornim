@@ -120,3 +120,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:29 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` auf Wort des Chefs (12:28) wieder archiviert (Mehrkosten 0,69 $ auf 1288; Frage 1288a liegt in der Chefsache)
 - 12:30 15.11.: Tom alt `…78NR8tcbL1C1FvSd17` archiviert (11,19 $ auf 431, 870.13)
 - 12:51 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` endgültig archiviert (Chef 12:47 laut Sokrates; Gesamt 9,12 $, davon 7,70 gebucht, Rest 1,42 $ nicht buchbar: lauf.py bucht je Sitzung einmal)
+- 13:03 15.11.: Startsperre 13:03 Start Tom (Neustart, bf99bb6cc)
