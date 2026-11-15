@@ -220,6 +220,8 @@ def schaden_roh(W, grund, fertigkeit, d, rng, kritisch_prozent=0.0):
 
 
 def endschaden(W, s, abzug):
+    # 481.2 A (Chef 15.11., 12:44): Rüstung und Schild ziehen höchstens „abzug_deckel“ eines Treffers ab (Helden und Gegner)
+    abzug = min(abzug, W["kampf"].get("abzug_deckel", 1.0) * s)
     s = max(0.0, s - abzug)
     return round(s) if W["kampf"]["schaden_runden"] else s
 
