@@ -278,6 +278,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | M? | startbar | – | – | – | B Steuerung | – |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
+| Pflege | von Werkzeug (340.3, 15.11.): 30053 Bytes (Grenze 30000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
