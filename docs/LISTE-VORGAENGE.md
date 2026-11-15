@@ -24,8 +24,8 @@
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Tom | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | wartet | 458.3 | – | – | E Oberfläche | – |
-| 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | Tom | K | ruht, kein Lauf (Chef 03.11. „Genug Zeit verschwendet“; Sokrates 09.11.) | 23.11. | claude/tom-477-mumu | – | E Technik | – |
-| 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | Tom | K | ruht | 23.11. | claude/grundstand-461 | – | E Technik | 30,19 $ |
+| 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | Tom | K | erledigt, geschlossen (1278) | – | claude/tom-477-mumu | – | E Technik | – |
+| 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | Tom | K | erledigt, geschlossen (1278) | – | claude/grundstand-461 | – | E Technik | 30,19 $ |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | Tom | K | ruht | 23.11. | claude/spike-458-3-staffel | – | E Figuren | 12,15 $ |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | Tom | K | ruht | 23.11. | – | – | B Werkzeuge | – |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | Tom | K | ruht | 23.11. | claude/spike-455-2-groesse | – | E Figuren | – |
@@ -33,7 +33,7 @@
 | 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | Tom | K | ruht | 23.11. | claude/tom-348-fundament | – | E Figuren | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Tom | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
 | 348.13b | Tusche auch nach Fackeln, Feuer, Fenster; zuerst Dorf (Chef 28.10., 08:09 ja) | Tom | K | ruht | 23.11. | claude/tom-34813-kampfprobe | – | G Stil | – |
-| 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | Tom | K | ruht | 23.11. | – | – | E Technik | –; +13,77 $ |
+| 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | Tom | K | erledigt, geschlossen (1278) | – | – | – | E Technik | –; +13,77 $ |
 | 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | Tom | K | ruht | 23.11. | claude/tom-3023-kraeftiger | – | G Stil | –; +6,40 $ |
 | 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | Tom | K | ruht | 23.11. | claude/tom-3022-tuschebild | – | G Stil | – |
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | Tom | K | ruht | 23.11. | claude/tom-3021-tusche | – | G Stil | – |
@@ -126,7 +126,7 @@
 | 1223 | Von Chef (13.11., 20:59, Test t284.7o): Leitwolf im Kampf nicht erkennbar, alle heißen Wolf 1, 2, 3; Feuer und Flucht hängen am Leitwolf (705): Name Leitwolf oder sichtbar größer | Jerry | M | zu testen | – | claude/tuffy-1223-leitwolf | 286 | E Kampf | – |
 | 642 | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 Seeds 1, 3 am Rechner; im Bau misst nur Seed 7), auch mit altem Heldentempo; von Jerry zu 438 | Jerry | M | ruht, Kaufrepo da (818), Ursache vermutet | 23.11. | claude/jerry-348-642-wolf-abstand | – | E Kampf | 6,63 $ |
 | 806 | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s nicht unter heute (Chef 09.11., 21:12, über Sokrates) · „jetzt“ 09.11., 21:12 · zurück t277 | Jerry | M | zu testen | – | claude/jerry-806-bildrate | 287 | E Kampf | 55,50 $ |
-| 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… · zurück t269 | Jerry | K | ruht, 424: altes SRD-System | 23.11. | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
+| 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… · zurück t269 | Jerry | K | erledigt, geschlossen (1278) | – | claude/jerry-534-faehigkeiten | – | E Kampf | 2,32 $ |
 | 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | Jerry | K | ruht | 23.11. | claude/jerry-438a-sturz-2 | – | E Kampf | 24,62 $ |
 | 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | Jerry | K | ruht | 23.11. | claude/jerry-416-6-blut | – | E Technik | – |
 | 415 | Handyprobe Beams-Free-Sample (aus 414, Chef 31.10., 20:3x; „jetzt“ 01.11.) | Jerry | M | wartet | 623 | – | – | E Kampf | 49,16 $ |
@@ -140,7 +140,7 @@
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | wartet | 623.2 | – | – | E Kampf | 9,99 $ |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | 23.11. | claude/jerry-344-2-fackel | – | E Kampf | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | wartet | 38 | – | – | G Story | – |
-| 38 | Balance-Langzeitplan (alt/DESIGN-BALANCE.md, Zielkurve überholt durch das BRS, 650.2) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | G Balance | 11,51 $ |
+| 38 | Balance-Langzeitplan (alt/DESIGN-BALANCE.md, Zielkurve überholt durch das BRS, 650.2) | Jerry | K | erledigt, geschlossen (1278) | – | – | – | G Balance | 11,51 $ |
 | 39 | Schwierigkeitsgrad im Menü | Jerry | K | ruht | 23.11. | claude/jerry-39-schwierigkeit | – | E Kampf | 3,80 $ |
 | 59e | Händler: Vorrat je Laden | Jerry | K | ruht | 23.11. | claude/jerry-59e-haendlervorrat | – | G Balance | – |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | Jerry | K | ruht, Kampf zuerst (338.1) | 16.11. | – | – | E Kampf | – |
@@ -228,7 +228,7 @@
 | 1188 | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende oder alte Kür ohne Bewegung einmal dem Besitzer zum Urteil gilt/schließen vorlegen (Zu 1186) | Perikles | K | gebaut, Geprüft an: 24b01a1d5 | 16.11. | – | – | B Abläufe | 6,25 $ |
 | 1200 | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter Film eine Zeile, Film nur auf sein Wort“ erzeugt eine Rückfrage ohne Chefsache-Datei; mit Regel 8 (Rückfrage nur mit Datei) zusammenführen | Perikles | M | gebaut, Geprüft an: f33f53ee5 | 16.11. | – | – | B Abläufe | 1,71 $ |
 | 1244 | D236.1 von Diogenes (1133, 1129.1 P2a): Pflegehinweis-Commits sinken nicht (13.11. nach 279416a1f 45 in 11 h, vorher 34 in 13 h): Zeilen kommen und gehen je Übergabe (über 700 Zeichen, Jerry 13-mal), Datum wird täglich neu gestempelt, Zu 1244 in ARBEIT-PROJEKT.md | Perikles | M | gebaut, Geprüft an: bf3c1a4a7 | 16.11. | – | – | B Abläufe | 1,19 $ |
-| 1278 | Von Sokrates (1271a A, Chef 15.11., 11:23): Liste der angefangenen Kür ohne Plan (aus 32) mit Grund je Vorgang in chefsache/billigen/, dann schließen; Funde (14) und Abgleich alt (11) je Team zu einem Vorgang nach Stufe 4 bündeln | Perikles | M | wartet | Chef 1278 | – | – | B Abläufe | 3,83 $ |
+| 1278 | Von Sokrates (1271a A, Chef 15.11., 11:23): Liste der angefangenen Kür ohne Plan (aus 32) mit Grund je Vorgang in chefsache/billigen/, dann schließen; Funde (14) und Abgleich alt (11) je Team zu einem Vorgang nach Stufe 4 bündeln | Perikles | M | erledigt | – | – | – | B Abläufe | 3,83 $ |
 | 1279 | Von Perikles (870.10, 870a 7 B): core/, app/, Kotlin-Vorschauordner unter tools/, Gradle-Wurzel und gradle-mirror.gradle ins Zweit-Repo bornim-kaufmodelle, dann hier löschen, samt Gradle-Resten in tools/ (Zu 870.10); nach Merge von build-286 (Konflikte); LISTE-UMZUG-BRS.md 4 | Perikles | M | ruht, bis claude/build-286 auf main | 17.11. | – | – | B Werkzeuge | – |
 | Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
