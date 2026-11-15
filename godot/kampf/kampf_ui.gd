@@ -11,7 +11,8 @@ const Figur = preload("res://kampf/figur.gd")     # 494: Figur.vier
 const Zauber = preload("res://kampf/zauber.gd")
 const Tafel = preload("res://kampf/tafel.gd")
 const Zustandsbild = preload("res://kampf/zustandsbild.gd")     # 1036: Zustände an der Figur
-const Tips = preload("res://kampf/marstips.gd")     # 536: Texte für langes Drücken (MarsTips.kt)
+const Tips = preload("res://kampf/marstips.gd")
+const Kerbbild = preload("res://kampf/kerbbild.gd")     # 930.7: Bedienung und Kerbmarken des Kerbensystems     # 536: Texte für langes Drücken (MarsTips.kt)
 const HINWEIS_REIHE := "kampf_hinweis_reihe"     # 836: Flagge im Spielstand, der Reihenhinweis ist gezeigt
 
 # Theme.kt, Veil
@@ -70,6 +71,7 @@ var bleeding := {}
 ## 348.7 (Rest aus 249): laufende Zauber und Pfeile {kind, by, on, crit, missed, seed, t0}, je Treffer einer (BattleFxLayer)
 var spells: Array = []
 var zauber := Zauber.new()
+var kerbe     # 930.7 (kerbbild.gd), nur mit dem Schalter Mars.kerbe tätig
 ## 1036: was die Zustände an den Figuren zeigen (zustandsbild.gd), dazu das Aufflackern je Runde {on, st, seed, t0}
 var zustandsbild := Zustandsbild.new()
 var flares: Array = []
@@ -147,6 +149,7 @@ static func hp_color(frac: float) -> Color:
 
 func _ready() -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
+	kerbe = Kerbbild.new(self)
 	dp = vs.x / 412.0
 	font_px = sp(15)
 	# 544 (Chef 03.11., 23:49 „Stimmt die Schrift?“): load_dynamic_font liest die rohe .ttf, die im APK fehlt (dort steht nur die
@@ -258,9 +261,13 @@ func _pressed(ev) -> bool:
 func _scene_input(ev) -> void:
 	if (ev is InputEventScreenTouch or ev is InputEventMouseButton) and ev.device != InputEvent.DEVICE_ID_EMULATION and not ev.pressed:
 		druck_t0 = 0     # 536: losgelassen vor der halben Sekunde: kein Hinweis
+		if kerbe != null:
+			kerbe.losgelassen(ev.position)     # 930.7: ein kurzer Tipp auf Gegner, Helden oder ein Zeichen am Daumen
 	if not _pressed(ev):
 		return
 	var p: Vector2 = ev.position
+	if kerbe != null:
+		kerbe.gedrueckt(p)
 	if dice_rect.has_point(p):
 		dice_on = not dice_on
 	elif grid_rect.has_point(p):
@@ -275,7 +282,7 @@ func _scene_input(ev) -> void:
 		show_tip(_status_tip(p))     # 536: ein Tipp auf ein Zustandsschild erklärt es
 	else:
 		kampfort.tap()
-		druck_t0 = Time.get_ticks_msec()     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
+		druck_t0 = int(uhr.call())     # 536: lange gedrückt auf eine Ansage oder einen Gegner sagt, was er vorhat
 		druck_pos = p
 
 
@@ -308,7 +315,7 @@ var druck_pos := Vector2.ZERO
 
 
 func _process(_dt: float) -> void:
-	if druck_t0 > 0 and Time.get_ticks_msec() - druck_t0 >= int(LANG_S * 1000.0):
+	if druck_t0 > 0 and int(uhr.call()) - druck_t0 >= int(LANG_S * 1000.0):
 		druck_t0 = 0
 		var was := scene_tip(druck_pos)
 		if was != "":
@@ -954,15 +961,17 @@ func _build_orders() -> void:
 			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
 					if reach.size() == 1:
-						k.order(["attack", reach[0].id])
+						_angreifen(f, reach[0].id)
 					else:
 						_set_pick("target"), false, false, Tips.ATTACK),
 				_button(t("Können", "Abilities"),     # [870.14.knopf.koennen]
 						 not matt and not m.moves(f).is_empty(), func(): _set_pick("skills"), false, false, Tips.SKILLS),
-				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty(), func(): _set_pick("bag"), false, false, Tips.BAG),
+				_button(t("Tasche", "Bag"), not matt and not m.bag().is_empty() and (not m.kerbe or m.gk == null or f == null or f.gl.is_empty() or m.gk.kann_trinken(f)), func(): _set_pick("bag"), false, false, Tips.BAG),     # 1266: im Kerbensystem ein Trank je Zug
 				_button(t("Wechsel", "Switch"), not matt and (m.can_swap(f) or m.can_draw(f)), func(): _set_pick("place"), false, false, Tips.PLACE),
 			]
 			var low := [_button(t("Abwehr", "Defend"), not matt, func(): k.order(["wait"]), false, true, Tips.DEFEND)]
+			if m.kerbe:     # 930.7 (DESIGN-GLUT.md 7.5): „Abwehr wird Haltung“: alle Kerben in die gewählte Haltung, ohne Wahl Wehr
+				low = [_button(t("Haltung", "Stance"), not matt, func(): k.order(["KERBE", kerbe.plan_haltung(f)]), false, true)]
 			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
 			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
 				low.append(_button(t("Flucht", "Run"), not matt and m.can_flee(f), func(): k.order(["flee"]), false, true))
@@ -994,7 +1003,7 @@ func _build_orders() -> void:
 			var items := []
 			for tg in m.targets(f):
 				var id: String = tg.id
-				items.append(_button(_target_label(tg), true, func(): k.order(["attack", id])))
+				items.append(_button(_target_label(tg), true, func(): _angreifen(f, id)))
 			items.append(back)
 			_choices(items)
 		"place":
@@ -1110,6 +1119,15 @@ func _build_orders() -> void:
 				items.append(_button(_target_label(tg), true, func(): k.order(["throw", item, id])))
 			items.append(back)
 			_choices(items)
+
+
+## 930.7: Angriff auf [id]; im Kerbensystem mit dem Plan des Daumenmenüs (kerbbild.gd), sonst wie bisher
+func _angreifen(f, id: String) -> void:
+	if kampfort.mars.kerbe and kerbe != null:
+		kerbe.offen = false
+		kampfort.order(["KERBE", kerbe.plan(f, id)])
+	else:
+		kampfort.order(["attack", id])
 
 
 ## 833 A: Sieg, Flucht und Niederlage wie die Blenden (661): Titel gesperrt in Gold, Zierlinie, Satz und Lohn mittig; darunter eine
@@ -1284,6 +1302,10 @@ func _tall(fig) -> float:
 ## 17:00 ebenso die Zielringe): nicht mehr über alles gemalt, sondern als flaches Band am Boden in der Welt (_ringe_bauen), so
 ## verdecken Beine und Körper davor den Ring wie in BattleScene (CamRing); Breite [w] in Bildpunkten wie bisher, mit dunklem Rand
 var _ring_liste := []
+var _scheiben := []     # 930.7: [Welt, Halbmesser, Farbe, Zacken, Zufall] flache Scheiben am Boden (Kerben und ihr Schein)
+## 930.7: eine flache Scheibe am Boden wie die Ringe (Beine davor verdecken sie); [zacken] > 0 macht sie unregelmäßig wie ein Glutstück (vor 1266)
+func _scheibe(p: Vector3, r: float, c: Color, zacken := 0.0, zufall := 0) -> void:
+	_scheiben.append([p, r, c, zacken, zufall])
 const RASTER_GRUND := Color(0, 0, 0, 0.18)     # 998: Fläche im Ring (alt 0,18)
 func _ground_ring(p: Vector3, r: float, c: Color, w: float, grund := Color(0, 0, 0, 0)) -> void:
 	_ring_liste.append([p, r, c, w, grund])
@@ -1307,9 +1329,21 @@ func _ringe_bauen() -> void:
 		_ringe.material_override = mat
 		kampfort.add_child(_ringe)
 	_ring_mesh.clear_surfaces()
-	if _ring_liste.is_empty():
+	if _ring_liste.is_empty() and _scheiben.is_empty():
 		return
 	_ring_mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	for e in _scheiben:     # 930.7: unter den Ringen, je Scheibe ein Fächer
+		var mitte: Vector3 = e[0] + Vector3(0, RING_HOCH - 0.004, 0)
+		var n := 14
+		for i in n:
+			var a0 := TAU * i / n
+			var a1 := TAU * (i + 1) / n
+			var r0: float = float(e[1]) * (1.0 - float(e[3]) * (0.5 + 0.5 * sin(a0 * 3.0 + float(e[4]) * 1.7)))
+			var r1: float = float(e[1]) * (1.0 - float(e[3]) * (0.5 + 0.5 * sin(a1 * 3.0 + float(e[4]) * 1.7)))
+			for q in [Vector3.ZERO, Vector3(cos(a0) * r0, 0, sin(a0) * r0), Vector3(cos(a1) * r1, 0, sin(a1) * r1)]:
+				_ring_mesh.surface_set_color(e[2])
+				_ring_mesh.surface_add_vertex(mitte + q)
+	_scheiben.clear()
 	for e in _ring_liste:
 		var mdp: float = kampfort.m_per_dp(e[0])
 		var w: float = float(e[3]) / dp * mdp
@@ -1368,6 +1402,8 @@ func _draw_overlay() -> void:
 					# 998 (229.3, Chef 20.10. „Raster schwer erkennbar“; alt SkirmishScreen.kt 1882): dunkler Grund unter einer
 					# kräftigen Goldlinie, auf Gras wie auf Stein zu sehen
 					_ground_ring(k._ground(ab.x, ab.y), 0.45, Color(GOLD, 0.9), 2.0 * dp, RASTER_GRUND)
+	if kerbe != null:
+		kerbe.zeichnen(sr)     # 930.7: Kerben vor dem Bau der Ringe (Boden), Zeichen, Daumenmenü und Vorschau darüber
 	_ringe_bauen()     # 561
 	# triangles before the feet of those a foe aims at (CamAim)
 	var aimed_at := {}
@@ -1392,6 +1428,8 @@ func _draw_overlay() -> void:
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
+	if kerbe != null:
+		kerbe.zeichnen_oben(sr)     # 930.7: Kerben über den Dreiecken, Daumenmenü, Vorschau
 	# names only while choosing a target (NameTag); 536 (Chef 04.11., 16:56: „In der alten Fassung war es so, dass die Bezeichnungen
 	# der Gegner eingeblendet wurden, auch wenn man länger drückt“; 17:00: „Ein Wolfsname steht da, die anderen stehen nicht da“):
 	# wie alt jeder Wählbare und nach langem Drücken alle drei Sekunden lang (sanft aus, SOFT_MS); die Ansage steigt dann über den
@@ -1486,13 +1524,14 @@ func _draw_overlay() -> void:
 		var fig = k.figures[ring_target]
 		var h := _tall(fig)
 		var c2 := _foot(fig) - Vector2(0, h * 0.45)
-		var p3 := clampf(ring_ms_bild() / k.RING_MS, 0.0, 1.3)
+		var rf: float = k.ring_faktor     # 930.7: langsamer Ring in Wehr
+		var p3 := clampf(ring_ms_bild() / (k.RING_MS * rf), 0.0, 1.3)
 		var r0 := h * 0.55
 		# 1039 (Chef 12.11., 15:04, Build 280: „tat ich mich ganz schwer, den inneren Ring zu sehen. Also wann ich überhaupt den Ring
 		# drücken muss“): der Zielring kräftig in Gold mit schwarzem Rand (alt 1,5 dp, Gold 55 %, ging vor Gras und Figur unter);
 		# im Fenster für „Gut“ leuchtet er auf, am hellsten im Fenster für „Perfekt“ (kampfort.gd GOOD_MS, PERFECT_MS)
-		var off_ms := absf(ring_ms_bild() - k.RING_MS)
-		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS) / float(k.GOOD_MS - k.PERFECT_MS), 0.0, 1.0)
+		var off_ms := absf(ring_ms_bild() - k.RING_MS * rf)
+		var jetzt := clampf(1.0 - (off_ms - k.PERFECT_MS * rf) / float((k.GOOD_MS - k.PERFECT_MS) * rf), 0.0, 1.0)
 		var wi := (3.0 + 1.5 * jetzt) * dp
 		overlay.draw_arc(c2, r0, 0, TAU, 64, Color(0, 0, 0, 0.6), wi + 2.5 * dp, true)
 		overlay.draw_arc(c2, r0, 0, TAU, 64, BRIGHT.lerp(RING_LEUCHT, jetzt), wi, true)

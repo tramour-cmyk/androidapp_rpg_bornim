@@ -9,6 +9,7 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 const BrsKampf = preload("res://regeln/brs_kampf.gd")
+const Kerbe = preload("res://regeln/kerbe.gd")
 ## 555 Testmenue „Kampfhilfen“ wie alt (Battle.heroCritsAlways, foesFailSaves), dazu „unsterblich“: der Held faellt nie unter 1 TP;
 ## von Hand an, sonst immer aus (die Gegenproben laufen ohne sie)
 static var held_immer_krit := false
@@ -335,6 +336,8 @@ class Fighter:
 	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
+	## 930.6: sein Stand im Kerbensystem (kerbe.gd: Kerben, Haltung, Abstand, Ansage …), leer im alten Kampf
+	var gl := {}
 	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
 
 	func standing() -> bool:
@@ -515,6 +518,11 @@ var anspringen := "handeln"
 ## 478, 870.5: der Kampf rechnet nur nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach
 ## dem Bestiarium (daten/werte.json); true, sobald der Kampf eingerichtet ist (aufruf.gd liest es)
 var brs := false
+
+## 930.6 (DESIGN-GLUT.md, Bauplan 10 Stufe 1): Schalter des Kerbensystems (werte.json „kerbe“ „an“, Tests setzen ihn vor start); aus:
+## der alte Kampf bis zur Abnahme. An: start, act, _auto_order gehen an den Regelkern kerbe.gd (gk); act nimmt ["KERBE", Plan]
+var kerbe: bool = Kerbe.an()
+var gk = null
 
 func brs_einrichten() -> void:
 	assert(BrsKampf.an(), "870.5: daten/werte.json fehlt (tools/sim444/werte.json)")
@@ -945,6 +953,8 @@ func drink_helps(item: String, t: Fighter) -> bool:
 
 # 72.13: heal a friend below half, else a cantrip, else the weapon.
 func _auto_order(f: Fighter) -> Array:
+	if kerbe and gk != null:     # 930.6: Vorschlag der Bedienung (DESIGN-GLUT.md 7.1, 7.6)
+		return ["KERBE", gk.vorschlag(f)]
 	var friend = null
 	for x in all:
 		if x.side == f.side and x.standing() and x.hp * 2 < x.max_hp:
@@ -1132,6 +1142,12 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 	var f := current()
 	assert(f.side == "PARTY" and f.standing())
 	chosen = true
+	if kerbe and o[0] == "drink":     # 1266 (Regel 10): Trank aus der Tasche, der Zug geht weiter (kerbe.gd trank_vorweg)
+		gk.trank_vorweg(f, String(o[1]), by_id(String(o[2])) if o.size() > 2 and o[2] != null else f)
+		return _take_log()
+	if kerbe:     # 930.6: ["KERBE", Plan] (kerbe.gd held_zug); die Befehle des alten Kampfs übersetzt kerbe.gd plan_aus
+		gk.handeln(f, o[1] if o[0] == "KERBE" else gk.plan_aus(f, o))
+		return _take_log()
 	_perform(f, o)
 	if o[0] == "swap" or o[0] == "draw":
 		f.moved = true
@@ -1142,6 +1158,10 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 
 func proceed(react: Callable = Callable()) -> Array:
 	assert(outcome == "ONGOING")
+	if kerbe:     # 930.6: der Regelkern hält an jeder Wahl der Gruppe; Autopilot und Söldner spielen den Vorschlag
+		if pilot_next():
+			return act(_auto_order(current()), react)
+		return _take_log()
 	_skip_to_choice(react)
 	return _take_log()
 
@@ -1179,6 +1199,10 @@ func start(react: Callable = Callable(), verjagen := false) -> Array:
 		if outcome != "ONGOING":
 			started = true
 			return _take_log()
+	if kerbe:     # 930.6
+		gk = Kerbe.new(self)
+		gk.beginnen(react)
+		return _take_log()
 	_opening()
 	_skip_to_choice(react)
 	return _take_log()
@@ -2317,6 +2341,8 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"spell": casting, "cue": cue if cue != "" else null,
 		"status": _statuses(), "hidden": _hidden(),
 	}
+	if kerbe and gk != null:     # 930.7: die Kerben der Gruppe, wie sie mit dieser Meldung stehen (kampf/kerbbild.gd)
+		e["gl"] = gk.bild()
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)

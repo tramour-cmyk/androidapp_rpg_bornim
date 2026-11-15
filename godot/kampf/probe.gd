@@ -18,6 +18,9 @@ var hero_cls := "FIGHTER"
 var merc_cls := "WIZARD"
 var foe := "WOLVES"
 var rauch := 0     # 1222: Morwens Rauchbündel in der Lage (kampfort.gd setup „rauch“), für den Film gegen Krogg
+## 930.7: Proben im Kerbensystem (tests/film_kerbe_9307.gd): Schalter an, Held allein (DESIGN-GLUT.md 10 Stufe 2: Wachsoldat gegen zwei Wölfe)
+var kerbe_an := false
+var ohne_soeldner := false
 var box: VBoxContainer
 var fight: Node
 ## the hero's name on the comparison picture (MarsShot: "Mira")
@@ -1162,6 +1165,8 @@ func _start(seed := -1) -> void:
 		Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), hs.hero, int(hs.hp), hs.hero.second, skills),
 		Mars.hero_fighter("merc", "PARTY", Vector2i(Mars.BACK, 0) if merc_back else Vector2i(Mars.FRONT, 1), ms.hero, int(ms.hp), ms.hero.second, skills),
 	]
+	if ohne_soeldner:
+		party.pop_back()
 	if still_name != "":
 		party[0].hero = party[0].hero.duplicate()
 		party[0].hero.name = still_name
@@ -1182,6 +1187,8 @@ func _start(seed := -1) -> void:
 		fight.free()
 		fight = null
 		return
+	if kerbe_an:
+		fight.mars.kerbe = true
 	if foe == "GRIMM":     # Grimmzahn ohne Nummer, die Wölfe 1 und 2 (die Regeln zählen nach Art)
 		for i in foes.size():
 			foes[i].nr = i
