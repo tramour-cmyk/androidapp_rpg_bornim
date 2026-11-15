@@ -409,3 +409,4 @@
 2026-11-15 18:17:58	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 32631 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 18:25:53	commit-pruefung	docs/chefsache/entscheiden/3406-rollenspiegel.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-15 18:26:02	commit-pruefung	docs/chefsache/entscheiden/3406-rollenspiegel.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-15 18:30:57	commit-pruefung	docs/ROLLE-BERATUNG.md: 19666 Bytes, Obergrenze 19300, Commit fügt 368 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
