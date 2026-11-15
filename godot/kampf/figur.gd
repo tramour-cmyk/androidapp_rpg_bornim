@@ -2496,11 +2496,13 @@ func _sprung_bauen() -> void:
 	sprung_gebaut = true
 
 
-func _sprung_flug(x: float, von: Vector3, b: Basis, k: float, weite: float, rueck: float) -> void:
+func _sprung_flug(x: float, von: Vector3, b: Basis, k: float, weite: float, rueck: float, r0: float, r1: float) -> void:
 	sprung_fliegt = true
 	var p := _weg_at(von, b, "Sprungbiss", x, k) - b.z * rueck * Sprung.zurueck(x)
 	p.y = von.y + Sprung.hoehe(x, weite)
 	position = p
+	# 760: in der Luft in die Bissrichtung des Landeplatzes (709), gelandet steht er so
+	rotation.y = r0 + wrapf(r1 - r0, -PI, PI) * smoothstep(0.0, 1.0, Sprung.flug(x))
 	model.rotation.x = Sprung.neigung(x, weite)
 
 
@@ -2592,9 +2594,12 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# Weg nur beim Treffer galt und daneben VERFEHLT_M auf den alten Abstand kam; für die kurze Ratte ein Biss in die Luft): daneben
 	# derselbe Weg, die Zähne schnappen BISS_DANEBEN vor Körper oder Schild zu; nur für Tiere unter BISS_KLEIN_M (Ratte, Spinne,
 	# Schnecke): Wolf und Grimmzahn bleiben daneben VERFEHLT_M weiter weg (wolf_mess_438 sonst: Wolf bis 0,14 m in Schild und Stab)
-	if nm == "Biss" and other.fighter.monster == null and (weiter <= 0.0 or hoehe_oben() < BISS_KLEIN_M):
+	# 760 (Chef 15.11., 16:56: „der erste Wolf … beißt einen Meter zu kurz. Da frage ich mich, was der Held abwehrt. Der zweite Wolf
+	# … bleibt entweder am oder kurz vorm Schild hängen und verursacht aber Schaden“): der gebaute Sprung landet mit der Haltung des
+	# Bisses (sprung.gd), also sucht er den Landeplatz wie der Biss im Stand; bei jedem Ausgang (daneben knapp davor, wie 1284)
+	if (nm == "Biss" or gebaut) and other.fighter.monster == null and (weiter <= 0.0 or hoehe_oben() < BISS_KLEIN_M or gebaut):
 		var soll: float = -BISS_TIEF if weiter <= 0.0 else BISS_DANEBEN
-		var bb: Array = _hieb_bahn(nm, deg_to_rad(bite[nm][2]))
+		var bb: Array = _hieb_bahn("Biss", deg_to_rad(bite[nm][2]))
 		if not bb.is_empty():
 			var ziel: Array = other.koerper()
 			var hind: Array = other.schild_kapseln()
@@ -2644,6 +2649,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 					print("709 Bissplatz %s, %.0f°: Luft %.2f Weg %.2f Umriss %.2f Heim %.2f im Bild %s" % [fighter.id, w, l2, w2, r2, h2, _im_bild(s2, d2)])
 				# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
 				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild else 0.0)
+				# 760: wer trifft, springt den Helden an: Brust an Brust (Umriss bis BISS_UMRISS tief, wie wolf_mess_438 erlaubt)
+				if gebaut and weiter <= 0.0:
+					r_soll = -BISS_UMRISS
 				# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
 				if other.kauf and other._ss():
 					var fb2 := rumpf
@@ -2653,9 +2661,13 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 						for j in 3:
 							var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
 							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
+				if OS.get_environment("SCHAU_709") != "":
+					print("709 Umriss mit Held gedreht %.2f (soll %.2f), voll %s" % [r2, r_soll, voll])
 				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
 					continue
 				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
+				if gebaut:     # 760: im Sprung schnappt der Biss beim Aufkommen zu, sein nächster Punkt danach im Tempo des Bisses
+					bt = float(bite[nm][1]) + maxf(0.0, float(pl[1]) - float(bite["Biss"][1])) / maxf(float(tempo.get("Biss", 1.0)), 0.1)
 				if not voll:     # die Schnauze bliebe pl[0] − pl[2] davor (Schild oder eigener Körper im Weg); näher als bisher
 					if st2 - float(pl[2]) < (teil[0] if not teil.is_empty() else stand - float(pl[2])):
 						teil = [st2 - float(pl[2]), s2, d2, st2, bt]
@@ -2673,37 +2685,46 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	var jump := _weg_len(nm) if nm == "Sprungbiss" else 0.0
 	var k := 1.0
 	var gap := flat.length() - stand
-	if jump > 0.0 and gap < jump:     # zu nah für den ganzen Satz: kürzer springen
-		k = maxf(gap, 0.2 * jump) / jump
-		jump *= k
-	elif gebaut and jump > 0.0:     # 760: die Weite aus dem Abstand, bis K_MAX gedehnt; weiter weg läuft er wie bisher an
-		k = minf(gap / jump, Sprung.K_MAX)
-		jump *= k
-	# 760: steht er näher als ein kleinster Satz (abgesetzt am Ziel, 717 C), weicht er im Ducken so weit zurück, wie hinter ihm frei
-	# ist, und springt von dort; so landet die Schnauze am Rand des Ziels und nicht darin
 	var rueck := 0.0
+	var dir_j := dir     # 760: Richtung des Flugs; gelandet blickt er nach dir (dort trifft die Schnauze, 709)
+	var start := position
 	if gebaut:
-		var kleinst := Sprung.KLEINST_M * _scale()
-		if gap < kleinst:
-			rueck = minf(kleinst - maxf(gap, 0.0), Sprung.RUECK_M * _scale())
-			while rueck > 0.05 and _seg_gap(position, position - dir * rueck, other) < 0.0:
-				rueck *= 0.5
-			if rueck <= 0.05:
-				rueck = 0.0
-			jump = maxf(gap, 0.0) + rueck
-			k = jump / _weg_len(nm)
-		if jump < 0.2 * _scale():     # kein Raum für einen Satz: Biss im Stand wie bisher
-			gebaut = false
-			nm = "Biss"
-			jump = 0.0
-			rueck = 0.0
-			k = 1.0
-			bleib717 = _bleib_717()
-			biss_t = bite[nm][1]
-	var start := position + dir * maxf(0.0, gap - (jump - rueck))
-	if biss_von != Vector3.INF:     # 709: seitlich versetzt um das Ziel herum, nicht vom eigenen Ort aus gedreht
-		start = biss_von
-		flat = Vector3(other.position.x - start.x, 0.0, other.position.z - start.z)
+		# 760: gelandet wird am Platz der Bisssuche (oben), sonst im Abstand stand vor dem Ziel; aus dem Stand fliegt er vom eigenen
+		# Platz dorthin und dreht sich in der Luft in die Bissrichtung; weiter weg als der weiteste Satz läuft er wie bisher an
+		var land: Vector3 = biss_von if biss_von != Vector3.INF else Vector3(other.position.x, position.y, other.position.z) - dir * stand
+		land.y = position.y
+		var zu := Vector3(land.x - position.x, 0.0, land.z - position.z)
+		var weit := zu.length()
+		var lang := _weg_len(nm)
+		if weit > lang * Sprung.K_MAX:
+			k = Sprung.K_MAX
+			jump = lang * k
+			start = land - dir * jump
+		else:
+			dir_j = zu / weit if weit > 0.01 else dir
+			# steht er näher als ein kleinster Satz (abgesetzt am Ziel, 717 C), weicht er im Ducken so weit zurück, wie hinter ihm frei
+			# ist, und springt von dort
+			var kleinst := Sprung.KLEINST_M * _scale()
+			if weit < kleinst:
+				rueck = minf(kleinst - weit, Sprung.RUECK_M * _scale())
+				while rueck > 0.05 and _seg_gap(position, position - dir_j * rueck, other) < 0.0:
+					rueck *= 0.5
+				if rueck <= 0.05:
+					rueck = 0.0
+			jump = weit + rueck
+			k = jump / lang
+			if jump < 0.2 * _scale():     # kein Raum für einen Satz: Biss im Stand wie bisher
+				bleib717 = _bleib_717()
+				return _bite_plan(other, false, weiter, t_warte)
+		flat = Vector3(other.position.x - land.x, 0.0, other.position.z - land.z)
+	else:
+		if jump > 0.0 and gap < jump:     # zu nah für den ganzen Satz: kürzer springen
+			k = maxf(gap, 0.2 * jump) / jump
+			jump *= k
+		start = position + dir * maxf(0.0, gap - jump)
+		if biss_von != Vector3.INF:     # 709: seitlich versetzt um das Ziel herum, nicht vom eigenen Ort aus gedreht
+			start = biss_von
+			flat = Vector3(other.position.x - start.x, 0.0, other.position.z - start.z)
 	# 438 (Prüfer Film 08:18: Wölfe laufen durcheinander; wolf_mess_438: Wolf 3 lief zum Biss an Bertram bis 0,15 m in Wolf 2, der
 	# daneben kauerte): der Platz vor dem Ziel wird nur genommen, wenn dort kein anderer steht oder hinläuft; sonst derselbe Abstand
 	# zum Ziel, um das Ziel herum gedreht (bis 60°), der freieste
@@ -2711,13 +2732,19 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# der Absprung; geht das in keiner Richtung, beißt er ohne Sprung
 	# 760: wer aus dem Stand springt, steht am Absprung schon; dann zählt nur die Bahn des Sprungs
 	var am_ort := gebaut and start.distance_to(position) <= 0.15
-	var luft := minf(INF if am_ort else _platz_luft(start, dir, other), _seg_gap(start - dir * rueck, start + dir * (jump - rueck), other) if jump > 0.0 else INF)
+	var luft := minf(INF if am_ort else _platz_luft(start, dir_j, other), _seg_gap(start - dir_j * rueck, start + dir_j * (jump - rueck), other) if jump > 0.0 else INF)
 	# 438 (wolf_mess_438, Kleriker 43 s: Wolf 1 lief zum freien Bissplatz vor Bertram, aber der einzige Weg dorthin führte 0,45 m
 	# durch Wolf 3, der davor kauerte): der Platz zählt nur so frei wie der Weg dorthin
 	var weg0 := _weg_luft(position, start, other) if start.distance_to(position) > 0.15 else INF
 	if OS.get_environment("SCHAU_MESS") != "":
 		print("Bissplatz %s an %s: start %s Luft %.2f Weg %.2f%s" % [fighter.id, other.fighter.id, start, luft, weg0,
 			" Sprung %s Weite %.2f zurück %.2f Abstand %.2f" % [nm, jump, rueck, gap] if leap else ""])
+	if OS.get_environment("SCHAU_760") != "" and leap:
+		print("760 Plan %s an %s: gebaut %s, Biss an %s, Stand %.2f, Weite %.2f, zurück %.2f, Luft %.2f, Weg %.2f, Ausgang %s" % [fighter.id, other.fighter.id, gebaut, biss_von, stand, jump, rueck, luft, weg0, "daneben" if weiter > 0.0 else "Treffer"])
+	# 760: ist die Bahn des Sprungs nicht frei, beißt er im Stand (dort sucht 438 einen freien Platz um das Ziel)
+	if gebaut and (luft < PLATZ_LUFT or weg0 < WEG_LUFT):
+		bleib717 = _bleib_717()
+		return _bite_plan(other, false, weiter, t_warte)
 	if luft < PLATZ_LUFT or weg0 < WEG_LUFT:
 		var tg := Vector3(other.position.x, position.y, other.position.z)
 		var r0 := Vector2(tg.x - start.x, tg.z - start.z).length()
@@ -2755,6 +2782,8 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	_face(flat)
 	rotation.y += deg_to_rad(bite[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
 	var schnauze := rotation.y
+	# 760: abgesprungen wird in Richtung des Flugs, in der Luft dreht er sich in die Bissrichtung
+	var schnauze_j := schnauze + wrapf(atan2(dir_j.x, dir_j.z) - atan2(dir.x, dir.z), -PI, PI)
 	rotation.y = r_alt     # 438: erst mit Tritten zum Ziel drehen (vorher in einem Bild, gemessen bis 81°)
 	if tween and tween.is_running():
 		tween.kill()
@@ -2811,21 +2840,22 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			else:
 				t_run += _lauf(tween, position, start, gn)
 	else:
-		t_run = _turn(tween, schnauze, true)
+		t_run = _turn(tween, schnauze_j if gebaut else schnauze, true)
 	t_run += t_warte
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
 	tween.tween_callback(func(): _play(nm, 0.08))
 	if gebaut:
 		# 760: Flugbahn über dem Wurzelweg (Scheitel aus der Weite), der Rumpf folgt der Bahn (Schnauze im Steigen hoch, dann aufs Ziel)
-		tween.tween_method(_sprung_flug.bind(start, b, k, jump, rueck), 0.0, bl, bl)
+		var bj := Basis(Vector3.UP, atan2(dir_j.x, dir_j.z))
+		tween.tween_method(_sprung_flug.bind(start, bj, k, jump, rueck, schnauze_j, schnauze), 0.0, bl, bl)
 		tween.tween_callback(_sprung_ende)
 	elif nm == "Sprungbiss":
 		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
 	else:
 		tween.tween_interval(bl)
 	var t_back := 0.0
-	var ende := start + dir * (jump - rueck)
+	var ende := start + dir_j * (jump - rueck)
 	# 863: der Rücksprung der Quelle (Ratte: dodgeBackwards, 1,6 m) nur, wenn sein Weg frei ist, sonst rückwärts im Gang (unten, mit
 	# der Prüfung von 717 C)
 	if weg.has("Ausweichen zurück") and anim.has_animation("Ausweichen zurück") and _satz_frei(ende, b, "Ausweichen zurück", other):
