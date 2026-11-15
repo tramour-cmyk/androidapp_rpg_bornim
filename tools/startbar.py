@@ -507,8 +507,14 @@ def erfuellt(token, nr="", streng=False):
         return bool(st) and bool(FERTIG.search(st) or re.match(r"(fertig|erledigt)\b", blank(st), re.I))
     return False
 
+# 1294 (Befund Diogenes 15.11., 13:05): 190.1 („gebaut“, „zu testen“ lösen) gilt für die Teams, die auf gebautem Code weiterbauen.
+# Wer nicht baut (Perikles, Diogenes, Sokrates, Homer), wartet auf das Ergebnis: 1128.3 auf den Bautest von 1060, 870.12 auf die
+# Abnahme von 870.13; dort löst nur „erledigt“.
+WEITERBAUEN = ("Tom", "Jerry")
+
 def offen_warte(d):
-    return [t for t in d["warte"] if not erfuellt(t, d["nr"])]
+    streng = d.get("besitzer") not in WEITERBAUEN
+    return [t for t in d["warte"] if not erfuellt(t, d["nr"], streng=streng and art(t) == "nr")]
 
 GEPRUEFT = re.compile(r"Geprüft an:?\s*(?:https?://\S+|bilder:\S+|`?[0-9a-f]{7,40}`?|Lauf \d{3,})")  # 340.4
 
