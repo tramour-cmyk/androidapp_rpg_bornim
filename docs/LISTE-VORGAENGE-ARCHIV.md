@@ -1510,3 +1510,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 38 | Balance-Langzeitplan (alt/DESIGN-BALANCE.md, Zielkurve überholt durch das BRS, 650.2) | G Balance | K | 11,51 $ | Jerry | erledigt, geschlossen (1278) |
 | 1278 | Von Sokrates (1271a A, Chef 15.11., 11:23): Liste der angefangenen Kür ohne Plan (aus 32) mit Grund je Vorgang in chefsache/billigen/, dann schließen; Funde (14) und Abgleich alt (11) je Team zu einem Vorgang nach Stufe 4 bündeln | B Abläufe | M | 3,83 $ | Perikles | erledigt |
 | 1288a | Rückfrage Sokrates (Chef 15.11., 12:00): Kerben verstreichen lassen (a) oder eine mitnehmen (b)? | E Kampf | M | – | Sokrates | erledigt |
+| 1293 | Von Jerry: Commit-Prüfung 449 hält jede verschobene Notiz als Kaufdatei an, sobald das Kaufrepo geklont ist (im Haken gilt GIT_DIR der Arbeitskopie, git -C Kaufrepo ls-tree listet main) | B Werkzeuge | K | 1,51 $ | Perikles | erledigt, greift Lauf 252 |
+| 1294 | Werkzeugfehler: startbar.py zeigt 1128.3 startbar, obwohl es auf 1060 wartet, das auf den Bautest von Diogenes wartet (von Ford, Diogenes 15.11., 13:05) | B Werkzeuge | M | 1,51 $ | Perikles | erledigt, greift Lauf 252 |
