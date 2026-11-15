@@ -71,6 +71,7 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 ## Lauf 252 · 1294 (15.11., 13:0x)
 
 - **1294 greift** (`0c2ad5a65`): `startbar.py --rolle Diogenes`: 1128.3 „wartet auf 1060 (zu testen)“, 1129.4 „wartet auf 1129.3 (zu testen)“, kein Muss mehr startbar außer 1294 selbst; Tom und Jerry zeigen weiter ihr Muss (431, 1274). Strenge nur für Besitzer außer Tom, Jerry und nur für Nummern.
+- **1293 wirkt, greift formal noch nicht** (`50eb9226d`): Wegwerfbaum, gestelltes Kaufrepo (`BORNIM_KAUF`), Haken-Umgebung mit `GIT_DIR`/`GIT_INDEX_FILE`: verschobene Notiz alt hält an („Inhalt wie im Kaufrepo“), neu frei; Datei mit Kaufinhalt unter neutralem Namen hält neu weiter an. Bereich steht auf Q QS, `greift` gilt nur für B → Perikles setzt Bereich B, dann `greift 1293 252`.
 
 ## Lauf 251 · 1276, 882.2, Rest 1128.3 (15.11., 11:2x)
 
