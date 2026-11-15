@@ -1498,3 +1498,15 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1283 | Von Sokrates (15.11., 11:31): Commit-Prüfung 1228 hält eine Berichtigung eines Archiveintrags mit 👍 und gleicher Nachricht-Kennung als Doppel an; Berichtigung einer bestehenden Zeile zulassen | B Werkzeuge | K | – | Perikles | erledigt, greift Lauf 251 |
 | 1270a | Rückfrage Sokrates (Chef 15.11., 11:10): 1270 ohne Warten auf 870.13 bauen? | E Technik | K | – | Sokrates | erledigt |
 | 1271a | Rückfrage Sokrates (Chef 15.11., 11:10, aus 1271 Perikles): angefangene Kür ohne Plan schließen, Funde und Abgleich alt bündeln? | B Abläufe | K | – | Sokrates | erledigt |
+| 477 | Godot-APKs laufen nicht im MuMu Player am Rechner (Chef 02.11., 14:59) | E Technik | K | – | Tom | erledigt, geschlossen (1278) |
+| 461.1 | Grundstand zusammenführen: ein Zweig für Tom und Jerry, jede Probe baut darauf (01.11.) | E Technik | K | 30,19 $ | Tom | erledigt, geschlossen (1278) |
+| 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | K | –; +13,77 $ | Tom | erledigt, geschlossen (1278) |
+| 785.4 | Von Spike (785): Gegenstandsfenster nennt bei Fernwaffen „Fernkampf“ wie alt (GearUi.kt 192–196; menue.gd 1343–1346) | E Oberfläche | K | – | Tom | erledigt, überholt: [870.14.ding.grundwert] ersetzt Finesse und Fernkampf (Homer) |
+| 785.5 | Von Spike (785): Kampfwerte im Reiter Ausrüstung mit Zeile für die Nebenhandwaffe wie alt (MenuScreen.kt 879; menue.gd 1399–1410) | E Oberfläche | K | – | Tom | erledigt, überholt: Nebenhandwaffe wirkt im BRS-Kampf nicht (Zu 644 an Jerry) |
+| 1214 | Von Spike (1073): Bild ding-spider_silk fehlt in godot/daten; godot/tests/laden_test.gd darum rot und läuft weder im Logiksatz noch in godot.yml | E Technik | K | 2,96 $ | Tom | erledigt, t286 bestanden |
+| 1270.1 | Von Sokrates (1270 A, Chef 15.11., 10:51), Bau Spike: Ladezeit eines Kampfs und Bildrate am Handy messen (Grundwert vor 1270.2) | E Technik | M | 8,54 $ | Tom | erledigt |
+| 431g | Rückfrage: Kleiderschrank mit Umhang als erstes Stück, Aufwand und Weg (aus 431, Chef 15.11., 11:59) | E Figuren | M | – | Tom | erledigt |
+| 534 | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirituelle Waffe, Geisterwächter) oder wirken nicht (Unglaubliches Ausweichen, Unerbittlichkeit, Lebensraub, Schadensminderung der Aus… · zurück t269 | E Kampf | K | 2,32 $ | Jerry | erledigt, geschlossen (1278) |
+| 38 | Balance-Langzeitplan (alt/DESIGN-BALANCE.md, Zielkurve überholt durch das BRS, 650.2) | G Balance | K | 11,51 $ | Jerry | erledigt, geschlossen (1278) |
+| 1278 | Von Sokrates (1271a A, Chef 15.11., 11:23): Liste der angefangenen Kür ohne Plan (aus 32) mit Grund je Vorgang in chefsache/billigen/, dann schließen; Funde (14) und Abgleich alt (11) je Team zu einem Vorgang nach Stufe 4 bündeln | B Abläufe | M | 3,83 $ | Perikles | erledigt |
+| 1288a | Rückfrage Sokrates (Chef 15.11., 12:00): Kerben verstreichen lassen (a) oder eine mitnehmen (b)? | E Kampf | M | – | Sokrates | erledigt |
