@@ -839,7 +839,7 @@ GRENZE_UNGETESTET = 6
 def ungetestet(rolle):
     """620.1 B: eigene Muss-Zeilen eines Teams, gebaut oder zu testen; der Sammelbuild selbst (Zweig claude/build-…) zählt nicht,
     Bereich B auch nicht (1128 A, Chef 13.11., 13:36: Werkzeuge schließt Diogenes mit „greift“, der Chef testet sie nie)."""
-    if rolle not in UEBERNAHME: return 0
+    if rolle not in BAUTEAMS: return 0
     return len(ungetestet_zeilen(rolle))
 
 def ungetestet_zeilen(rolle):
@@ -1050,6 +1050,7 @@ def startbares_muss():
     return aus
 
 UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
+BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1328.2: Sperre 620.1 B und gemeinsamer Build für alle drei; Übernahme bleibt Tom ↔ Jerry
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
 def uebernahme(rolle, info):
@@ -1277,7 +1278,7 @@ def main():
             if b: sperren.append((nr, b)); continue
             art_ = "M" if kl == "M" else "K"
             if erstes[art_] is None: erstes[art_] = (nr, kl, thema)
-        if rolle in UEBERNAHME:
+        if rolle in BAUTEAMS:
             # wie bisher alle eigenen Zeilen, die auf einen Test warten, auch die schon einem Build zugeordneten (D80.6)
             gebaut = sum(1 for z in zs if "fuer" not in z[3] and (z[4] or "").startswith("wartet auf Test"))
             info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"])  # 783 W3: nur eigenes Muss hält die Übernahme
@@ -1297,9 +1298,10 @@ def main():
         for r in UEBERNAHME:
             u = uebernahme(r, info)
             if u: print("  Übernahme für %s: %s" % (r, u))
-        if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 4:  # 317: ab 4 fertigen Punkten beider Teams bittet der Erste
-            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)%s" % (", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME),
-                  "".join("; Sperre 620.1 B für %s (%d ungetestete Muss)" % (r, ungetestet(r)) for r in UEBERNAHME if ungetestet(r) >= GRENZE_UNGETESTET)))
+        teams = [r for r in BAUTEAMS if r in info]
+        if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in teams) >= 4:  # 317: ab 4 fertigen Punkten aller Teams bittet der Erste
+            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)%s" % (", ".join("%s %d" % (r, info[r][1]) for r in teams),
+                  "".join("; Sperre 620.1 B für %s (%d ungetestete Muss)" % (r, ungetestet(r)) for r in teams if ungetestet(r) >= GRENZE_UNGETESTET)))
         if "--loesen" not in sys.argv:
             for nr, wer, weg, st in loesen(False): print("  GELÖST %s (%s): wartet auf %s erfüllt (schreibt lauf.py --sperre)" % (nr, wer, ", ".join(weg)))
         for wer, nr, stichtag, offen in vollzug_offen():  # 1137.2
