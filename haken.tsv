@@ -279,3 +279,4 @@
 2026-11-15 10:10:27	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30295 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 10:13:26	commit-pruefung	VORGANGSARCHIV.md: Telegram-Nachricht 4173 steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)	main
 2026-11-15 10:15:11	commit-pruefung	docs/ROLLE-BERATUNG.md: 19549 Bytes, Obergrenze 19300, Commit fügt 251 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-15 10:19:54	commit-pruefung	docs/chefsache/entscheiden/481a-wachsoldat.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
