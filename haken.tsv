@@ -298,3 +298,4 @@
 2026-11-15 10:57:56	commit-pruefung	docs/chefsache/ansehen/1270-messung.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-15 11:02:29	commit-pruefung	VORGANGSARCHIV.md: Test t286 eingetragen, aber 1129.3, 1122, 1131, 1128.2, 1137.2, 980, 1060 aus der Prüfliste ohne Build 286; erst `vorgang.py build 286 --mit 1129.3,1122,1131,1128.2,1137.2,980,1060`	main
 2026-11-15 11:02:29	commit-pruefung	VORGANGSARCHIV.md: Test t286 eingetragen, Prüfliste noch in der Chefsache (docs/chefsache/ansehen/t286-karte-scheide.md); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)	main
+2026-11-15 11:02:29	commit-pruefung	VORGANGSARCHIV.md: Test t286 eingetragen, aber 785.7, 785.8, 1145, 1214, 1223, 845, 946, 973 noch „zu testen“ mit Build 286; erst `python3 tools/vorgang.py build 286` (Automatik B, 275.2), dann im sel	main
