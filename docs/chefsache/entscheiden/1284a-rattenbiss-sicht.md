@@ -26,6 +26,8 @@ Geprüft an: [Commit 17736510a](https://github.com/tramour-cmyk/androidapp_rpg_b
 - **C: so lassen, wie gebaut.** Seitenplatz, wo er frei ist, sonst verdeckt wie bisher. Kosten: keine, aber etwa jeder dritte Biss bleibt unsichtbar.
 - **Stärkstes Gegenargument gegen A:** Der Nachbar bewegt sich bei jedem Rattenbiss ein wenig, das kann unruhig wirken, und es greift in die Plätze am Gegner (1072) vor.
 
+**Stellungnahme Sokrates (15.11., 23:06):** Stärkstes Gegenargument: Das „Nachbar rückt“ aus A ist das Platzmachen aus 1072 (Plätze am Gegner, deine Idee 13.11., 23:23 „einer … ein Stück rutscht“). Dort hast du um 23:35 gestoppt, damit nicht jedes Tier einzeln geflickt wird. Seit 930.6 ist 1072 wieder startbar. Das Thema hat schon über 160 $ gekostet (709.1, 709, 1072). Empfehlung: A, aber das Rücken baut Jerry einmal in 1072 für alle Gegner, nicht nur für die Ratte in 1284; der Seitenplatz geht schon jetzt in den nächsten Build.
+
 **Folgerungen:** Nach A oder B baut Jerry, misst mit `biss_1284` auf mehreren Würfen und legt einen Film vor. Nach C geht der Bau so in den nächsten Build.
 
 Antwort: …
