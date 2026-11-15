@@ -46,6 +46,13 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 15:37 15.11.: Jerry neu `…78tPSbm17uKXLsanMa` (1289, dann 1215, 1296); Block-Sitzung 760/1000 `…78vVh9TarMqMiBZ1pM` archiviert (16,92 $ auf 760, 1000)
+- 15:09 15.11.: Ford-Lauf-Uhr für neuen Ford `…76dCpm3kKPJixR9C8w` vom alten Ford angelegt (`trig_01TXqt99a72vf7tdTLiDAA92`, :03; neuer Ford hat kein create_trigger), alte `trig_01Bxa9TW7bvnV8cSVBQdf7AU` aus; alter Ford `…775wuCaHstkrQQKKTC` bleibt bis zum Start Jerry 1289 (15:35) offen, dann archivieren
+- 14:30 15.11.: Tom alt `…78BSaiyTRN5sJLVCBK` archiviert (15,94 $ auf 431, 288)
+- 14:11 15.11.: Kosten 1215 gebucht (34,08 $, Sitzung stärkstes Modell)
+- 14:10 15.11.: Jerry 1215 `…77868z8tGPx6d9vJF1` archiviert (gepusht a7ba28e73); Folgeauftrag 1215 (Physik einschalten, Build) für die nächste normale Jerry-Sitzung; Kosten 1215 aus archive_session nachtragen
+- 14:09 15.11.: Jerry 1266/1274 alt `…78didfhaNLaWruGUVT` archiviert (24,16 $ auf 1266, 1274, 1284); Nachfolger „Jerry – 1289“ startet erst nach Ende des Blocks 760/1000 (15:30; Perikles 13:47: keine zweite Jerry-Sitzung), Erinnerung 15:34
+- 14:07 15.11.: Spike neu `…75sX1mjBfUobAcrzXh` (1268.1), Spike alt `…764GvRteLSEAskvbEW` archiviert (2,74 $ auf 1270.2); Jerry 1215 `…77868z8tGPx6d9vJF1` soll Urteil (Chef 13:32, 4217/4218) eintragen, dann archivieren; Jerry 1266 `…78didfhaNLaWruGUVT` soll Stand 1274 setzen; Diogenes und Homer ruhen (Sitzungen offen, Vorrat leer)
 - 13:48 15.11.: Perikles alt `…78dCt3YTef3e1vvp1K` archiviert (4,53 $ auf 1291, 1294, 1293), Notizen gepusht 061f3db4d
 - 13:47 15.11.: Perikles neu `…75QZ37mBNTLgGWbYsd` (1289); Perikles alt `…78dCt3YTef3e1vvp1K` hängt am Rebase, soll per Merge pushen, dann archivieren (4,53 $ auf 1291, 1294, 1293)
 - 13:46 15.11.: Sokrates alt `…76h9DLKywqNeh4ZJF8` archiviert (6,48 $ auf 431, 481, 1215, 760, 1000); Wecker 15:35 neu `trig_015fPVKTbEBVXWP8uNFZhhTP` auf `…79enQhUTdgTcHDC329`
@@ -59,13 +66,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:25 15.11.: Spike neu `…79F2ADvX6hyURaqmPK` (1270.1), alt archiviert (8,54 $ auf 1270.1); Tom neu `…76Ra6BZe2iYammL66v` (785.1), alt `…78NR8tcbL1C1FvSd17` archiviert um 12:29 wenn idle
 - 12:16 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` wieder aus dem Archiv (Chef will lesen, Sokrates 12:15): nicht archivieren bis der Chef es sagt; im Lauf `--ohne` Sokrates-Zeilen dieser Kennung
 - 12:11 15.11.: Sokrates neu `…76h9DLKywqNeh4ZJF8`, alt `…7A9M8ZL4AXU31SCCyP` archiviert (7,70 $ auf 1270, 1271, 1215, 431), Wecker 1215 neu `trig_01BWeMw65nTWpiAreAcKbAJd`
-- 12:05 15.11.: Tom neu `…78NR8tcbL1C1FvSd17` (431), Perikles neu `…78dCt3YTef3e1vvp1K` (M? 1275), alt archiviert (Tom 2,96 $ auf 1214, Perikles 7,65 $ auf 1277, 1278); START Homer 1235 und Diogenes 1128.3 nicht ausgeführt (Homer: nicht baubar vor Meilenstein, Diogenes wartet auf Bautest/t287), Sitzungen bleiben
-- 11:38 15.11.: Jerry neu `…78didfhaNLaWruGUVT` (1266, 1274 c), Jerry 1215 (stärkstes Modell) `…77868z8tGPx6d9vJF1`, alt `…7AB8nKRTEe1G152XSQ` archiviert (10,05 $ auf 1266, 481.2)
-- 11:21 15.11.: Diogenes neu `…75f6u3gFfiQ22M2H7J` (1128.3, 1276, 882.2), alt archiviert (2,71 $ auf 1272)
-- 11:17 15.11.: Homer alt `…75SXMEBRLJdiSsv5Xd` archiviert (5,71 $ auf 1267)
-- 11:14 15.11.: Sokrates neu `…7A9M8ZL4AXU31SCCyP` (Chefrunde Rest), alt archiviert (6,65 $ auf 1270, 1268, 481a, 1271, 1272, 1277); Tom neu `…76Nrryek3oSSKfE8CE` (1214), alt archiviert (9,71 $ auf 286); Homer alt noch offen (Archiv 11:16)
-- 11:11 15.11.: Homer neu `…787mL9tKD6xvJpNakw` (1267), alte `…75SXMEBRLJdiSsv5Xd` bleibt bis Push der Texte (Rebase hing, Notizen gepusht?); Perikles neu `…77DVasqzk8UQ6BuvGG` (1277), alt archiviert (3,22 $); Wächter 1270.1 und Neustart Sokrates (Prüfung 11:13) offen
-- 11:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01Bxa9TW7bvnV8cSVBQdf7AU` (:03), alte `trig_01BpBNHHosCmPVkVh7ZdEqz5` aus, alter Ford `…76BCecXxLdXLfnEzk9` archiviert (5,96 $ auf 1019); Diogenes 1123 `…78w1wTxyTuS8uf2tzM` archiviert (1,49 $); Wächter 1270.1 an Tom gesendet
 - 01:03 15.11.: Marke Rückmeldung 1036.1 13.11. 18:33 (lauf.py)
 - 01:06 15.11.: Marke Wächter 1133 13.11. 12:53 (lauf.py)
 - 02:04 15.11.: Marke Stellungnahme Sokrates 15.11. (lauf.py)
@@ -73,7 +73,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:03 15.11.: Marke Archiv session_01Hmoj795CKQ5Pf7crAxZoTU (lauf.py)
 - 03:11 15.11.: Marke Archiv session_01Hmoj762Xztj8QLqEa23Rjp (lauf.py)
 - 03:11 15.11.: Marke Archiv session_01Hmoj76MSnYWiTvsA1DfTZG (lauf.py)
-- 10:03 15.11.: Startsperre 10:03 Start Homer (lauf.py)
 - 10:03 15.11.: Marke Tagesbericht 15.11. (lauf.py)
 - 10:03 15.11.: Marke Nachhalten 15.11. (lauf.py)
 - 10:03 15.11.: Marke Rückmeldung 1260 15.11. 09:57 (lauf.py)
@@ -124,15 +123,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:05 15.11.: Marke Archiv session_01Hmoj77868z8tGPx6d9vJF1 (lauf.py)
 - 14:05 15.11.: Marke Archiv session_01Hmoj78didfhaNLaWruGUVT (lauf.py)
 - 14:05 15.11.: Marke Archiv session_01Hmoj764GvRteLSEAskvbEW (lauf.py)
-- 14:07 15.11.: Spike neu `…75sX1mjBfUobAcrzXh` (1268.1), Spike alt `…764GvRteLSEAskvbEW` archiviert (2,74 $ auf 1270.2); Jerry 1215 `…77868z8tGPx6d9vJF1` soll Urteil (Chef 13:32, 4217/4218) eintragen, dann archivieren; Jerry 1266 `…78didfhaNLaWruGUVT` soll Stand 1274 setzen; Diogenes und Homer ruhen (Sitzungen offen, Vorrat leer)
-- 14:09 15.11.: Jerry 1266/1274 alt `…78didfhaNLaWruGUVT` archiviert (24,16 $ auf 1266, 1274, 1284); Nachfolger „Jerry – 1289“ startet erst nach Ende des Blocks 760/1000 (15:30; Perikles 13:47: keine zweite Jerry-Sitzung), Erinnerung 15:34
-- 14:10 15.11.: Jerry 1215 `…77868z8tGPx6d9vJF1` archiviert (gepusht a7ba28e73); Folgeauftrag 1215 (Physik einschalten, Build) für die nächste normale Jerry-Sitzung; Kosten 1215 aus archive_session nachtragen
-- 14:11 15.11.: Kosten 1215 gebucht (34,08 $, Sitzung stärkstes Modell)
 - 14:22 15.11.: Startsperre 14:22 Start Tom (Neustart, a6b94bfa8)
-- 14:30 15.11.: Tom alt `…78BSaiyTRN5sJLVCBK` archiviert (15,94 $ auf 431, 288)
 - 14:31 15.11.: Startsperre 14:31 Start Ford (selbst, Tiefe 5, Selbstneustart nach 406 Tsd. Token)
 - 14:29 15.11.: Startsperre 14:29 Start Ford (selbst, Tiefe 5, Selbstneustart nach 406 Tsd. Token)
-- 15:09 15.11.: Ford-Lauf-Uhr für neuen Ford `…76dCpm3kKPJixR9C8w` vom alten Ford angelegt (`trig_01TXqt99a72vf7tdTLiDAA92`, :03; neuer Ford hat kein create_trigger), alte `trig_01Bxa9TW7bvnV8cSVBQdf7AU` aus; alter Ford `…775wuCaHstkrQQKKTC` bleibt bis zum Start Jerry 1289 (15:35) offen, dann archivieren
 - 15:36 15.11.: Startsperre 15:36 Start Jerry (1289 nach Block 760/1000, Übergabe 13:08)
-- 15:37 15.11.: Jerry neu `…78tPSbm17uKXLsanMa` (1289, dann 1215, 1296); Block-Sitzung 760/1000 `…78vVh9TarMqMiBZ1pM` archiviert (16,92 $ auf 760, 1000)
 - 15:40 15.11.: Startsperre 15:40 Start Sokrates (Neustart, Übergabe 15:36, 36f1b0202); neu `…77VktG9VvggdgMCtAG`; alter Ford `…775wuCaHstkrQQKKTC` 15:38 archiviert (9,90 $ auf 1019); alter Sokrates `…79enQhUTdgTcHDC329` archiviert (6,53 $ auf 1215, 1289, 431); Spike `…75sX1mjBfUobAcrzXh` per Weiter auf 1268.2
