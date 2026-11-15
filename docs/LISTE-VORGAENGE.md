@@ -270,7 +270,7 @@
 | 1169 | Systemlösung? Tür: 9 frühere Vorgänge (629, 611, 629.1, 636, 1063 …), neu 1168; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten (Chef 13.11., 16:48, aus 1186) | Sokrates | M | startbar | 27.11. | – | – | B Abläufe | – |
 | 1209 | Systemlösung? Halt: 10 frühere Vorgänge (793, 662, 849, 653, 872 …), neu 1208; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | B Werkzeuge | – |
-| 481a | Rückfrage: Wachsoldat gewinnt in der Glut-Rechnung 100 % gegen alles, Wolf 0 Schaden; ausgleichen wie? (aus 930.7, Chef 15.11.) | Sokrates | M | startbar | – | – | – | E Kampf | – |
+| 481a | Rückfrage: Wachsoldat gewinnt in der Glut-Rechnung 100 % gegen alles, Wolf 0 Schaden; ausgleichen wie? (aus 930.7, Chef 15.11.) | Sokrates | M | erledigt | – | – | – | E Kampf | – |
 | 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | 1269 | Godot-Möglichkeiten nutzen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder, vorberechnetes Licht; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | – |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | – | – | – | E Technik | 3,04 $ |
