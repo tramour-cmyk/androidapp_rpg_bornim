@@ -1,5 +1,7 @@
 # 806 · Schatten im Kampfort günstiger · Team Jerry · 15.11., 01:32
 
+[Bild von 15.11., 01:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/15-0132-806-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 ![Lichtung links vorher, rechts nachher](../bilder/806-schatten.webp)
 
 E Kampf
