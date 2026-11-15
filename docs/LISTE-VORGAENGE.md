@@ -12,7 +12,7 @@
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
 | 1310 | Von Jerry (1308): Prüfliste docs/entwurf/t289-hoehle-sterben-grak.md gegenlesen (Jerrys Punkte 1289, 1215, 1296), Zeile „Gegengelesen:“; Zweig claude/build-289 liegt lokal bereit, Push erst danach | Tom | M | startbar | – | – | – | E Technik | – |
-| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | in Arbeit, Stufe 1 Umhang | – | claude/tom-431-voelker | – | E Figuren | 81,27 $ |
+| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Tuch-Messung nicht bestanden | Sokrates | claude/tom-431-umhang | – | E Figuren | 81,27 $ |
 | 697 | Erschaffung: Held im Drehteller halbtransparent (Chef 08.11., 15:23, Build 269; aus 499) | Tom | M | gebaut, Messung fährt im nächsten Build, Geprüft an: 35caa9818 | – | claude/tom-697-drehteller | – | E Figuren | – |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Ursachen nachgestellt (Zu 531) | 643 | claude/tom-531-film | – | E Oberfläche | 12,96 $ |
