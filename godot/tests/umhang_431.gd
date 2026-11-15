@@ -48,6 +48,18 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 	var enden := {}
 	for e in k: enden[e[0]] = sk.find_bone("umhang_%s_%d" % [e[0], e[1]])
 	var bi := sk.find_bone("spine_03")
+	# Chef 15.11., 14:32 (Lauf 9, Zwerg und Orkblütiger „katastrophal mit den Armen und dem Umhang“): wie tief Ober- und Unterarm in
+	# die äußeren Ketten greifen (Abstand Glied zu Armachse unter Armdicke + Gliedradius, cm, größter Wert je Bewegung)
+	var arme := []   # [Knochen, Kindknochen, Dicke]
+	var dicke := {}
+	for e in Umhang.kapseln(m, sk, ["upperarm_l", "upperarm_r", "lowerarm_l", "lowerarm_r"]): dicke[e["knochen"]] = float(e["radius"])
+	for a in [["upperarm_l", "lowerarm_l"], ["upperarm_r", "lowerarm_r"], ["lowerarm_l", "hand_l"], ["lowerarm_r", "hand_r"]]:
+		if sk.find_bone(a[0]) >= 0 and sk.find_bone(a[1]) >= 0 and dicke.has(a[0]): arme.append([sk.find_bone(a[0]), sk.find_bone(a[1]), dicke[a[0]]])
+	var aussen := []
+	for e in k:
+		if String(e[0]) in ["l2", "r2", "l1", "r1"]:
+			for j in range(2, int(e[1]) + 1): aussen.append(sk.find_bone("umhang_%s_%d" % [e[0], j]))
+	var arm_tief := [0.0]
 	# Bauform: Enden in der Ruhelage im Raum von spine_03 (dort haengt die Kette); Spiegelebene aus den aeusseren Enden der Ruhelage
 	var bau := {}
 	for s in enden: bau[s] = _ende(sk, enden[s], bi, true)
@@ -57,7 +69,12 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 	var mitte: Vector3 = (bau["l2"] + bau["r2"]) * 0.5
 	var gesehen := {}
 	sk.skeleton_updated.connect(func():
-		for s in enden: gesehen[s] = _ende(sk, enden[s], bi, false))
+		for s in enden: gesehen[s] = _ende(sk, enden[s], bi, false)
+		for a in arme:
+			var p0 := sk.get_bone_global_pose(a[0]).origin; var p1 := sk.get_bone_global_pose(a[1]).origin
+			for g in aussen:
+				var q := sk.get_bone_global_pose(g).origin
+				arm_tief[0] = maxf(arm_tief[0], float(a[2]) + Umhang.GLIED_RADIUS - q.distance_to(Geometry3D.get_closest_point_to_segment(q, p0, p1))))
 	var bad := 0
 	for paar in [["Stehen", "Idle_Loop", schild], ["Gehen", "Walk_Loop", schild]]:   # Namen aus held_klassen.py oder der UAL
 		if paar[2] and sk.find_children("Ruecken*", "BoneAttachment3D", false, false).is_empty():
@@ -76,6 +93,7 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 		var seit := 0.0; var spiegel_v := Vector3.ZERO; var n := 0; var sack := 0.0; var sprung := 0.0; var mweg := Vector3.ZERO
 		var vor := {}
 		for i in int(3.0 * FPS):
+			if i == 15: arm_tief[0] = 0.0
 			await process_frame
 			if i < 15: continue   # einschwingen
 			var p := gesehen.duplicate()   # Lage nach den Modifikatoren (skeleton_updated), sonst sieht man die Federung nicht
@@ -90,8 +108,8 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 				if vor.has(s): sprung = maxf(sprung, (p[s] - vor[s]).length())
 			vor = p
 		var sp := (spiegel_v / maxf(n, 1)).length()   # 0: links und rechts gleich
-		print("UMHANG431 %s %s%s: seitlich %.1f cm, Spiegel %.1f cm, Mitte weg %.1f cm %s, Sprung %.1f cm je Bild, Kapseln %d" % [name, bew,
-			" mit Schild" if paar[2] else "", seit * 100, sp * 100, sack * 100, str(mweg * 100).replace(" ", ""), sprung * 100, sim.get_child_count()])
+		print("UMHANG431 %s %s%s: seitlich %.1f cm, Spiegel %.1f cm, Mitte weg %.1f cm %s, Sprung %.1f cm je Bild, Arm im Umhang %.1f cm, Kapseln %d" % [name, bew,
+			" mit Schild" if paar[2] else "", seit * 100, sp * 100, sack * 100, str(mweg * 100).replace(" ", ""), sprung * 100, arm_tief[0] * 100, sim.get_child_count()])
 		if sprung > 0.25: bad += 1; print("UMHANG431 %s FALSCH: Ende springt %.0f cm" % [name, sprung * 100])
 	m.queue_free()
 	await process_frame

@@ -2,13 +2,16 @@ class_name Umhang
 extends RefCounted
 # 431 Stufe 1 (Chef 15.11., 12:43 „431g A“): der Umhang aus dem Kleiderschrank (tools/blender348/v3/kleiderschrank.py) haengt an einer
 # eigenen Knochenkette am Ruecken (umhang_<l2|l1|m|r1|r2>_<1..n> unter spine_03), nicht mehr an Armen und Beinen (861). Hier federt
-# die Kette (SpringBoneSimulator3D, Godot 4.7) und weicht Rumpf, Becken, Beinen, Schild und Rueckenwaffe aus (Kapseln, aus dem Koerper
+# die Kette (SpringBoneSimulator3D, Godot 4.7) und weicht Rumpf, Becken, Beinen, Armen, Schild und Rueckenwaffe aus (Kapseln, aus dem Koerper
 # gemessen: je Knochen der Abstand der Haut von der Knochenachse).
 # Aufruf: Umhang.an(figur, skelett) nach dem Laden; gibt den Simulator zurueck (null ohne Kette). Umhang.ruecken(sim, sk, knoten) nimmt
 # Schild oder Rueckenwaffe (Knoten unter einem BoneAttachment3D) als weitere Kapsel auf.
 
 const SPALTEN := ["l2", "l1", "m", "r1", "r2"]
 const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03", "thigh_l", "thigh_r", "calf_l", "calf_r"]
+# Chef 15.11., 14:32 (Lauf 9: Zwerg und Orkblütiger „katastrophal mit den Armen und dem Umhang“): ohne Kapseln an den Armen griffen
+# Ober- und Unterarm 3-5 cm in die äußeren Ketten (umhang_431, Ersatzkörper, Männer); die Arme schieben den Umhang jetzt beiseite
+const ARME := ["upperarm_l", "upperarm_r", "lowerarm_l", "lowerarm_r"]
 # Federwerte (Godot-Einheiten): steif genug, dass der Umhang im Stehen haengt wie gebaut, weich genug, dass er beim Gehen nachschwingt
 static var STEIF := float(OS.get_environment("UMHANG_STEIF")) if OS.get_environment("UMHANG_STEIF") != "" else 4.0
 static var ZUG := float(OS.get_environment("UMHANG_ZUG")) if OS.get_environment("UMHANG_ZUG") != "" else 0.45
@@ -55,7 +58,7 @@ static func an(m: Node3D, sk: Skeleton3D) -> SpringBoneSimulator3D:
 			var t := sk.get_bone_global_rest(sk.find_bone("umhang_%s_%d" % [e[0], j]))
 			glieder.append(t.origin)
 			if j == int(e[1]): glieder.append(t * Vector3(0, sk.get_bone_rest(sk.find_bone("umhang_%s_%d" % [e[0], j])).origin.length(), 0))
-	for b in ([] if OS.get_environment("UMHANG_OHNE_KAPSEL") != "" else frei(kapseln(m, sk), sk, glieder)):
+	for b in ([] if OS.get_environment("UMHANG_OHNE_KAPSEL") != "" else frei(kapseln(m, sk, RUMPF + ([] if OS.get_environment("UMHANG_OHNE_ARME") != "" else ARME)), sk, glieder)):
 		var c := SpringBoneCollisionCapsule3D.new()
 		c.name = "Kapsel_" + String(b["knochen"])
 		sim.add_child(c)
@@ -68,9 +71,9 @@ static func an(m: Node3D, sk: Skeleton3D) -> SpringBoneSimulator3D:
 
 ## je Rumpf- und Beinknochen eine Kapsel laengs der Knochenachse: Radius = 85 % der Ecken der Haut (staerkstes Gewicht an diesem
 ## Knochen) liegen naeher an der Achse; Hoehe = Laenge des Bereichs der Ecken laengs der Achse
-static func kapseln(m: Node3D, sk: Skeleton3D) -> Array:
+static func kapseln(m: Node3D, sk: Skeleton3D, knochen: Array = RUMPF) -> Array:
 	var pts := {}     # Knochen -> [Vector3] (im Raum des Knochens, Ruhelage; Array, weil Packed-Felder als Wert kopiert werden)
-	for n in RUMPF: pts[n] = []
+	for n in knochen: pts[n] = []
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var me := (mi as MeshInstance3D).mesh
 		var skin := (mi as MeshInstance3D).skin
@@ -79,7 +82,7 @@ static func kapseln(m: Node3D, sk: Skeleton3D) -> Array:
 		for b in skin.get_bind_count():
 			var bn := String(skin.get_bind_name(b))
 			if bn == "": bn = sk.get_bone_name(skin.get_bind_bone(b))
-			if bn in RUMPF: zu[b] = [bn, skin.get_bind_pose(b)]
+			if bn in knochen: zu[b] = [bn, skin.get_bind_pose(b)]
 		if zu.is_empty(): continue
 		for si in me.get_surface_count():
 			var mat := me.surface_get_material(si)
@@ -99,7 +102,7 @@ static func kapseln(m: Node3D, sk: Skeleton3D) -> Array:
 					var e: Array = zu[best]
 					(pts[e[0]] as Array).append((e[1] as Transform3D) * v[i])
 	var aus := []
-	for n in RUMPF:
+	for n in knochen:
 		var p: Array = pts[n]
 		if p.size() < 12 or sk.find_bone(n) < 0: continue
 		var r := []

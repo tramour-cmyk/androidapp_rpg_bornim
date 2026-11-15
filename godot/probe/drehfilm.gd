@@ -706,8 +706,8 @@ func _film_431u() -> void:
 		print("FILM 431u %s %s: Kette gespiegelt %.2f cm, Gewichte gespiegelt %.3f (größter %.3f), Arm und Bein %.0f %% (vorher %.0f %%), Abstand %.1f cm (kleinster %.1f)" % [
 			e["volk"], "Frau" if e["frau"] else "Mann", e["kette_spiegel_cm"], e["gewicht_spiegel_mittel"], e["gewicht_spiegel_max"],
 			100.0 * float(e["arm_bein_anteil"]), 100.0 * float(e["arm_bein_anteil_vorher"]), e["abstand_mittel_cm"], e["abstand_min_cm"]])
-	ablauf.append([0.0, _umhang_431u.bind("Idle_Loop", "1 · im Stehen, ohne Schild", false)])   # Lauf 9: erst der Umhang allein
-	ablauf.append([7.5, _umhang_431u.bind("Walk_Loop", "2 · im Gehen, mit Schild und Schwert", true)])
+	ablauf.append([0.0, _umhang_431u.bind("Idle_Loop", "1 · im Stehen, ohne Schild", false)])   # Lauf 9: Umhang allein
+	ablauf.append([7.5, _umhang_431u.bind("Walk_Loop", "2 · im Gehen, ohne Schild", false)])   # Chef 14:32: nur der Prüfgegenstand
 	ablauf.append([15.0, func(): get_tree().quit()])
 
 
