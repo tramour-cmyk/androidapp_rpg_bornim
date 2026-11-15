@@ -4,14 +4,14 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:03, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
 | Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |
 |---|---|---|---|---|---|---|
 | Umzug BRS, SRD ablösen | 3 | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| Kampf passt | 82 | 38 | 3 | 17 | 18 | 415 (Jerry) Handyprobe Beams-Free-Sample |
+| Kampf passt | 81 | 37 | 3 | 17 | 18 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | Kleiderschrank und Modelle (Held, Leute, Monster) | 23 | 9 | 0 | 2 | 15 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | Kapitel 1 abschließen: Welt, Karten, Bild, Ton, Bedienung | 61 | 8 | 1 | 1 | 32 | 1300 (Jerry) atem_4531 zufällig rot, „nach 8 s wieder fast Ruh… |
 | Godot besser nutzen (Technik, Build, Leistung) | 19 | 6 | 1 | 4 | 8 | 698 (Tom) Grafikstufen im Systemmenü mit Effekten |
@@ -30,20 +30,20 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 6 | 623 | Sokrates | Effektpakete REEBOO Labs: Kauf, Ressourcenseite `LISTE-QUELLEN.md`, Zuordnung `… | M | Kampf passt | startbar |
 | 7 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
 | 8 | 1135 | Sokrates | Gespräch mit dem Chef über die Zahlen zur Balance der ungetesteten Muss 923, 10… | M | Kampf passt | startbar |
-| 9 | 481a | Sokrates | Rückfrage: Wachsoldat gewinnt in der Glut-Rechnung 100 % gegen alles, Wolf 0 Sc… | M | Kampf passt | startbar |
-| 10 | 481.2 | Jerry | Rechnung glut2.py mit Deckel des Abzugs von Rüstung und Schild auf 50 %, dazu 4… | M | Kampf passt | startbar |
-| 11 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
-| 12 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
-| 13 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
-| 14 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
-| 15 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
-| 16 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 17 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Kapitel 1 abschließen | startbar |
-| 18 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Kapitel 1 abschließen | startbar |
+| 9 | 481.2 | Jerry | Rechnung glut2.py mit Deckel des Abzugs von Rüstung und Schild auf 50 %, dazu 4… | M | Kampf passt | startbar |
+| 10 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | Kampf passt | startbar |
+| 11 | 1275 | Jerry | Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Gegenschl… | M | Kampf passt | startbar |
+| 12 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
+| 13 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
+| 14 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
+| 15 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 16 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Kapitel 1 abschließen | startbar |
+| 17 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Kapitel 1 abschließen | startbar |
+| 18 | 1313 | Perikles | Überblick in der Chefsache: die nächsten 20 Vorgänge in Reihenfolge, bei jedem… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 20 | 1317 | Perikles | probelauf.py hält MESS= für ausholen_1000 an; ein --headless-Lauf legt kein Bil… | M | Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 104 weitere offen. Bei dir zum Testen (vorgelegt): 31. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 88.
+Danach 104 weitere offen. Bei dir zum Testen (vorgelegt): 31. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 88.
 ## Zu entscheiden
 
 Nichts offen.

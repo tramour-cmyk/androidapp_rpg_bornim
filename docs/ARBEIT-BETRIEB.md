@@ -128,3 +128,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:39 15.11.: Startsperre 19:39 Start Perikles 1313 (Sokrates, Chef 19:37, per Weiter an …79Xc4rtdmcDF2r7Sz8)
 - 19:46 15.11.: Startsperre 19:46 Start Spike 1247 mischen (Sokrates, per Weiter an …795RUAxwXG56nmWXHR, Tom nachrichtlich)
 - 20:04 15.11.: Startsperre 20:04 Start Perikles (Neustart, 8e45c936b, 1317 hält Jerry auf); alte Sitzung …79Xc4rtdmcDF2r7Sz8 sofort archivieren, Kosten auf 1312, 1313
+- 20:06 15.11.: Startsperre 20:06 Start Homer 1318 (lauf.py, per Weiter an …793oj9mKdUggnbqrp3); WARNUNG Start Spike 19:46 war Weiter an …795RUAxwXG56nmWXHR (1247 mischen), Sitzung fertig, archiviert, kein START nötig
