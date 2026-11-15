@@ -5,10 +5,17 @@
 set -euo pipefail
 K=${1:?Ziel fehlt} R=tramour-cmyk/bornim-kaufmodelle
 [ -n "${GH_TOKEN:-}" ] || { echo "kein Zugang (GH_TOKEN), ohne Kaufmodelle"; exit 0; }
-[ -d $K/.git ] || git clone -q --depth 1 https://tramour-cmyk:$GH_TOKEN@github.com/$R.git $K
-for t in $(gh release list -R $R --json tagName -q '.[].tagName'); do
+# 1335 (Lauf 453: „connection reset“ beim Holen, Lauf rot ohne Fehler im Code): jeder Netzschritt bis viermal, mit Pause dazwischen
+nochmal() { local i; for i in 1 2 3 4; do "$@" && return 0; echo "Netz: Versuch $i von 4 fehlgeschlagen: ${*%%https*}" >&2; [ $i = 4 ] || sleep $((i * 15)); done; return 1; }
+klonen() { rm -rf $K/.git; git clone -q --depth 1 https://tramour-cmyk:$GH_TOKEN@github.com/$R.git $K.neu && cp -a $K.neu/. $K/ && rm -rf $K.neu || { rm -rf $K.neu; return 1; }; }
+mkdir -p $K
+[ -d $K/.git ] || nochmal klonen
+TAGS=$(nochmal gh release list -R $R --json tagName -q '.[].tagName')
+for t in $TAGS; do
   # 431 (Tom 01.11.): MUSTER="<glob> …" holt nur passende Anhänge (Probefilme brauchen nicht alle 1,5 GB)
-  gh release download $t -R $R -D $K/anhang/$t --skip-existing $(for m in ${MUSTER:-}; do printf -- '-p %s ' "$m"; done) || [ -n "${MUSTER:-}" ]
+  # mit MUSTER passt oft kein Anhang (Fehler ohne Netzbezug): dann ein Versuch wie bisher; ohne MUSTER bis viermal (1335)
+  if [ -n "${MUSTER:-}" ]; then gh release download $t -R $R -D $K/anhang/$t --skip-existing $(for m in $MUSTER; do printf -- '-p %s ' "$m"; done) || true
+  else nochmal gh release download $t -R $R -D $K/anhang/$t --skip-existing; fi
 done
 if [ -d $K/anhang ]; then
   find $K/anhang -name '*.zip' | while read -r z; do [ -d "${z%.zip}" ] || unzip -q -o "$z" -d "${z%.zip}"; done

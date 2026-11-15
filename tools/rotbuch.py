@@ -4,7 +4,7 @@ und es so anzupassen, dass es läuft.“): rote Tests der Godot-Läufe der letzt
 
 Quelle: Anmerkungen „918 rot (<Stufe>) tests/<name>.gd“ der Prüfläufe (öffentliche API ohne Anmeldung; Ergebnis je Lauf im Zwischenspeicher
 ~/.cache/bornim-rotbuch.json, weil die API ohne Anmeldung 60 Abfragen je Stunde erlaubt).
-- **wiederholt:** derselbe Test zweimal oder öfter rot binnen 48 h → Muss beim Besitzer des Tests, Titel „… · wiederholt“ (vor Neuem).
+- **wiederholt:** derselbe Test zweimal oder öfter rot binnen 48 h, auf verschiedenen Zweigen oder zweimal auf main/Sammelbuild → Muss beim Besitzer des Tests, Titel „… · wiederholt“ (vor Neuem).
 - **Wackeltest:** derselbe Test am selben Commit einmal rot und einmal nicht → Muss, Test deterministisch machen (nie abschalten).
 - Steht der Test schon im Titel einer offenen Zeile (etwa 1195 hoehle_492), ist er bekannt: kein neuer Vorgang, die Zweige führen ihn
   dort als bekannt. Besitzer des Tests: Rolle im Betreff des Commits, der die Testdatei anlegte („Tom: …“), sonst Ford.
@@ -101,11 +101,20 @@ def bekannt(test):
     return None
 
 
+GEMEINSAM = re.compile(r"^(main|claude/build-\d+)$")
+
+
+def wiederholt(rs):
+    """Zu 1334 (Tom, 15.11., 21:50): zweimal rot zählt nur auf verschiedenen Zweigen oder zweimal auf einem Stand mit main (main,
+    Sammelbuild claude/build-<n>); dreimal rot auf demselben alten Teamzweig ohne den Fix von main ist kein Wiederholer (1339)."""
+    return len({zw for _, zw, _ in rs}) >= 2 or sum(1 for _, zw, _ in rs if GEMEINSAM.match(zw)) >= 2
+
+
 def kandidaten(zahl=None):
     """[(Test, Besitzer, Titel)] für neue Vorgänge: wiederholt (≥ 2× rot) oder Wackeltest, noch ohne offene Zeile."""
     aus = []
     for t, z in sorted((zahl or {}).items()):
-        if len(z["rot"]) < 2 and not z["wackelt"]: continue
+        if not wiederholt(z["rot"]) and not z["wackelt"]: continue
         if bekannt(t): continue
         stamm = os.path.basename(t)[:-3]
         laeufe_ = ", ".join("%d" % n for n, _, _ in z["rot"][:6])

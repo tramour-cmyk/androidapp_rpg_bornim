@@ -20,8 +20,8 @@ KLEIN_LINK = re.compile(r"\]\((?:\.\./bilder/|bilder:|https://github\.com/tramou
 def git(*a):
     return subprocess.run(["git"] + list(a), capture_output=True, text=True).stdout
 
-BESITZER = {"KREATIV": "Homer", "TEAM-TOM": "Tom", "TEAM-JERRY": "Jerry", "PROJEKT": "Perikles", "PRUEFUNG": "Diogenes", "BERATUNG": "Sokrates"}
-NAMEN = ("Homer", "Tom", "Jerry", "Perikles", "Diogenes", "Sokrates", "Ford")
+BESITZER = {"KREATIV": "Homer", "TEAM-TOM": "Tom", "TEAM-JERRY": "Jerry", "PROJEKT": "Perikles", "PRUEFUNG": "Diogenes", "BERATUNG": "Sokrates", "TEAM-SPIKE": "Spike"}  # 1342: Spike eigene Rolle (1328)
+NAMEN = ("Homer", "Tom", "Jerry", "Spike", "Perikles", "Diogenes", "Sokrates", "Ford")
 
 def fremd_hinweis(p):
     """400: Hinweis eines anderen in einen vollen Vorrat geht durch, wenn jede neue Zeile einen Absender nennt, der nicht der Besitzer ist;
@@ -515,7 +515,7 @@ def main():
         if s == "D" and p.startswith("docs/chefsache/entscheiden/") and not arch and os.environ.get("BORNIM_ZURUECK") != "1" \
                 and not startbar.ueberholt(os.path.basename(p), git("show", "HEAD:" + p), antwort):
             stop.append("%s gelöscht ohne Eintrag im Vorgangsarchiv (zurückgezogen: BORNIM_ZURUECK=1)" % p)
-        if re.match(r"docs/ARBEIT-(KREATIV|TEAM-TOM|TEAM-JERRY|PROJEKT|PRUEFUNG|BERATUNG)\.md$", p) and s != "D":
+        if re.match(r"docs/ARBEIT-(KREATIV|TEAM-TOM|TEAM-JERRY|TEAM-SPIKE|PROJEKT|PRUEFUNG|BERATUNG)\.md$", p) and s != "D":
             neu_b = len(git("show", ":" + p).encode()); alt = git("show", "HEAD:" + p)
             # Zusammenführen (559, 04.11.): gewachsen ist die Datei beim anderen, nicht in diesem Commit; Maß ist die größere Seite
             if git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip(): alt = max(alt, git("show", "MERGE_HEAD:" + p), key=lambda x: len(x.encode()))

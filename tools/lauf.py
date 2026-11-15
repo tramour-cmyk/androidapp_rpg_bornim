@@ -252,8 +252,8 @@ def stand():
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
     if m_fragen and "Perikles" in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
-        z = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund, vorgang.py klasse)", {})
-        aus["Perikles"][0].insert(0, z)
+        m_zeile = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund, vorgang.py klasse)", {})
+        aus["Perikles"][0].insert(0, m_zeile)
     return aus
 
 def stillstand(st, je_rolle, archiviert, ausschluss):
@@ -921,8 +921,8 @@ def main():
     # 1334 (Chef 15.11., 21:09): derselbe Test zweimal rot binnen 48 h oder Wackeltest → Ford legt den Vorgang beim Besitzer an
     try:
         rb = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "rotbuch.py")], capture_output=True, text=True, timeout=150).stdout
-        for z in rb.splitlines():
-            if z.startswith("NEU "): ausgabe.append("ROTBUCH %s (1334: `python3 tools/rotbuch.py --anlegen`, dann pushen)" % z[4:].split(" → ")[0])
+        for rz in rb.splitlines():  # 1343: nie „z“, das überdeckte in main() die Funktion z()
+            if rz.startswith("NEU "): ausgabe.append("ROTBUCH %s (1334: `python3 tools/rotbuch.py --anlegen`, dann pushen)" % rz[4:].split(" → ")[0])
     except (OSError, subprocess.SubprocessError):
         pass
     # 448 (Chef 01.11., 11:09): fehlt der Bericht um 10 Uhr (Sa, So 12 Uhr), meldet Ford dem Chef laut eine Zeile und startet Perikles erneut
