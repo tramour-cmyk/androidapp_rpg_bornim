@@ -6,6 +6,7 @@ extends SceneTree
 
 const Aufruf = preload("res://kampf/aufruf.gd")
 const Probe = preload("res://kampf/probe.gd")
+const Signatur = preload("res://kampf/signatur.gd")
 
 var fehler := 0
 
@@ -49,5 +50,13 @@ func _lauf() -> void:
 	hero.main = {"id": "", "de": "", "en": "", "ranged": false, "reach": false, "two": false, "type": "BLUDGEONING"}
 	pruefe(fig.fackel_frei(), "ohne Waffe: keine Fackel")
 	hero.main = einhand
+	# Lauf 479: Fackel am Kampfort ohne Toon fiel durch die Signatur (457); Stiel muss Toon tragen
+	var sk := Skeleton3D.new()
+	sk.add_bone("hand_l")
+	root.add_child(sk)
+	var fa := Fackel.an(sk, "hand_l", Vector3.ZERO, Vector3.UP, sk)
+	fig.fackel_toon(fa)
+	var sig := Signatur.pruefen(fa)
+	pruefe(not sig.contains("ohne Toon"), "Fackel im Kampfort: " + sig)
 	print("FACKEL9991 %d Fehler" % fehler)
 	quit(1 if fehler > 0 else 0)

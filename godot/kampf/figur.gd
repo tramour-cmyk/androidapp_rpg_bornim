@@ -722,10 +722,20 @@ func _fackel_kauf(sk: Skeleton3D) -> void:
 		return
 	fackel = Fackel.an(sk, String(fa["knochen"]), fa["griff"], fa["achse"], model if model != null else self)
 	fackel.selbst = true
+	fackel_toon(fackel)
 	var dunkel: bool = kampfort != null and (kampfort.tageszeit == "nacht" or String(kampfort.ort).begins_with("hoehle"))
 	var abend: bool = kampfort != null and kampfort.tageszeit == "abend"
 	fackel.kraft = FACKEL_KRAFT if dunkel else (FACKEL_KRAFT * 0.5 if abend else 0.0)
 	fackel.licht.visible = fackel.kraft > 0.0
+
+
+## Lauf 479 (Signatur 457): der Stiel aus fackel.gd ist in der Welt beleuchtetes StandardMaterial3D; im Kampfort Toon wie die Waffen
+func fackel_toon(f: Node) -> void:
+	for n in f.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
+		var sm := mi.material_override as BaseMaterial3D
+		if sm != null and sm.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED:
+			mi.material_override = _toon(sm.albedo_color)
 
 
 func _schild() -> String:
