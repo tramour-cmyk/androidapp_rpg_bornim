@@ -74,7 +74,8 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **882.2 greift:** echter Team-Commit `39b8f42a2` (Jerry 956, `godot/regeln/mars.gd`) in Wegwerfbaum ohne Marke: „Commit-Prüfung Warnung: Code ohne grünen Kerntest …“, Exit 0; nach `tools/t logik` (153 gut, 0 rot, 162 s, Exit 0) keine Warnung.
 - **980 Bautest Lauf 473:** `kaufquelle_test.py` steht im Schritt „Blender als Python-Modul“ jedes Laufs (zweiter Aufruf entscheidet, kann rot werden), in 473 grün; Kampfblock in 469 und 470 echt gebaut mit `kaufquelle.py` unter „geändert“ (Spinne, Skelett, Wolf gebaut), 473 holt ihn aus dem Cache, dessen Kennung `kaufquelle.py` enthält. Richtigstellung zu 14.11., 20:06: 469 trug 980.
 - **1060 offen:** Läufe 471–484 alle Blöcke Treffer, 473 klassen wegen `block:figur`; kein Lauf, in dem sich nur Dorffelder von `leute.json` ändern.
-- **Nicht geprüft:** 870.10 (gebaut `5916f43ab`); Rest aus 1272.
+- **870.10 greift** (`5916f43ab` auf `main`): `android.yml` weg; kein Ablauf und kein Werkzeug ruft ihn noch (`grep` „Kotlin alt“, `workflows/android`); `gradlew` nur noch in `alt_bilder_rendern.sh` (1279) und zwei Kommentaren (1282). 431 und 870.13 (Tom) frei.
+- **Nicht geprüft:** Rest aus 1272.
 
 ## Lauf 243 · 1179, 1173, 1217, 1248 an t285 (14.11., 20:2x)
 
