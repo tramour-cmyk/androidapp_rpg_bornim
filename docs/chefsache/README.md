@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1260](entscheiden/1260-kampfpunkte.md) | **Muss** | E Kampf | 14.11., 23:40 | Name der drei Kampfpunkte je Zug samt Folgewörtern; Votum Takt / Beat, Lohe behielte das schon gebaute Glutbild. | Homer |
+Nichts offen.
 
 ## Zu billigen
 
