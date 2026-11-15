@@ -85,17 +85,11 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:10 15.11.: Marke Archiv session_01Hmoj75SXMEBRLJdiSsv5Xd (lauf.py)
 - 11:10 15.11.: Marke Archiv session_01Hmoj77RmWp9S7BfJZLPzKq (lauf.py)
 - 11:20 15.11.: Marke Archiv session_01Hmoj78yhg3iMnC4caCkmRB (lauf.py)
-- 12:04 15.11.: Startsperre 12:04 Start Tom, Diogenes, Homer, Perikles (lauf.py)
 - 12:04 15.11.: Marke Mehrfach Jerry (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj76Nrryek3oSSKfE8CE (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj75f6u3gFfiQ22M2H7J (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj787mL9tKD6xvJpNakw (lauf.py)
 - 12:04 15.11.: Marke Archiv session_01Hmoj77DVasqzk8UQ6BuvGG (lauf.py)
-- 12:09 15.11.: Startsperre 12:09 Start Sokrates (Neustart, 7d0e0dbcb)
-- 12:21 15.11.: Startsperre 12:21 Start Spike (Neustart, d2d9a63a9)
-- 12:25 15.11.: Startsperre 12:25 Start Tom (Neustart, 10a507cfa)
-- 13:03 15.11.: Startsperre 13:03 Start Tom (Neustart, bf99bb6cc)
-- 13:04 15.11.: Startsperre 13:04 Start Perikles, Spike (lauf.py)
 - 13:04 15.11.: Marke Mehrfach-Warnung Jerry session_01Hmoj77868z8tGPx6d9vJF1 (lauf.py)
 - 13:04 15.11.: Marke Mehrfach Jerry (lauf.py)
 - 13:04 15.11.: Marke Mehrfach Tom (lauf.py)
@@ -127,3 +121,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:41 15.11.: Startsperre 18:41 Start Jerry (Neustart, c4abd94f6); alte Sitzung …77VewBtn1HtkZH8vsV nach Ruhe archivieren, Kosten auf 760, 289
 - 18:43 15.11.: Startsperre 18:43 Start Spike 1268.5 (Tom 18:42, Spike-Sitzung …75sX1mjBfUobAcrzXh bei 301 Tsd. Token: neuer Start, alte archivieren, Kosten 8,99 $ auf 1268.1-1268.3)
 - 18:46 15.11.: Startsperre 18:46 Start Tom (Neustart, Übergabe 5fe7e7511); alte Sitzung …79tpm29pyY1Mnf81xG nach Ruhe archivieren, Kosten auf 431, 1145
+- 19:04 15.11.: Startsperre 19:04 Start Homer, Perikles (lauf.py)
