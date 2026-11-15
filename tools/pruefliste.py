@@ -15,6 +15,7 @@
 #   station=<Station aus Testmodus.STATIONEN oder Kapitelende>  ort=<karte>:<x>:<y>[:<blick>]  uhr=HH:MM  merker=+flag,-flag
 #   stufe=<n>  vorraete  einmaliges  probe=<Gegner>  held=test|spiel  herkunft=  volk=  pstufe=  waffe=  neben=  ruestung=  soeldner=
 #   tasche=zwei|keine|voll  leben=voll|halb|knapp  zeit=tag|abend|nacht  zug=pounce|heavy|reihe|flucht  ausweichen
+#   auftrag=<id>[,<id>] (angenommen, nicht erledigt)  unerkundet=<karte>[,<karte>] (785.8)
 #   eroeffnung=NORMAL|AMBUSHED|HERO_FIRST  kampfort=<Ort>
 # Reihenfolge im Spiel: Geschichte und Held, dann Ort (Station oder ort), dann Probekampf. Ob Station, Gegner und Werte stimmen, prüft
 # der Bau (tests/lage_1156.gd mit der Liste des Baus); hier nur unbekannte Schlüssel als Warnung.
@@ -91,7 +92,7 @@ def zellen(z):
 
 LAGE_SCHLUESSEL = {'station', 'ort', 'uhr', 'merker', 'stufe', 'vorraete', 'einmaliges', 'probe', 'held', 'herkunft', 'volk', 'pstufe',
                    'waffe', 'neben', 'ruestung', 'soeldner', 'tasche', 'leben', 'zeit', 'zug', 'ausweichen', 'eroeffnung', 'kampfort',
-                   'ruhig'}   # 542: ruhig = Monster beachten nicht; station= mit ort= stellt den Helden an den Ort (nicht Kapitelende)
+                   'ruhig', 'auftrag', 'unerkundet'}   # 542: ruhig = Monster beachten nicht; station= mit ort= stellt den Helden an den Ort (nicht Kapitelende)
 
 
 def lage(text):

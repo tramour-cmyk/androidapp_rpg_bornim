@@ -1517,6 +1517,7 @@ func lage_herstellen(l: Dictionary) -> void:
 		for w in String(l.get("merker", "")).split(",", false):
 			if w.begins_with("-"): zustand.flaggen.erase(w.substr(1))
 			else: zustand.setze(w.trim_prefix("+"))
+		Testmodus.lage_auftraege(l, zustand)   # 785.8
 	# 542 (Fund t284.4: Station „Krogg“ lag vor dem Aushang, „Teleport Dorf“ stand nur im Text): Station mit ort= nimmt den Stand
 	# der Station und stellt den Helden an den Ort, eine Blende
 	if l.has("station") and l.has("ort") and String(l["station"]) != "Kapitelende":
@@ -1526,7 +1527,7 @@ func lage_herstellen(l: Dictionary) -> void:
 		await test_tat("teleport", [o[0], int(o[1]), int(o[2]), o[3] if o.size() > 3 else held.blick()])
 	elif l.has("station"):
 		await test_tat("kapitelende" if String(l["station"]) == "Kapitelende" else "station", [String(l["station"])])
-		if l.has("merker"):
+		if l.has("merker") or l.has("auftrag") or l.has("unerkundet"):
 			merker.call()
 			await test_tat("ort_neu", [])
 	else:
@@ -1534,7 +1535,7 @@ func lage_herstellen(l: Dictionary) -> void:
 		if l.has("ort"):
 			var o := String(l["ort"]).split(":")
 			await test_tat("teleport", [o[0], int(o[1]), int(o[2]), o[3] if o.size() > 3 else held.blick()])
-		elif l.has("merker") or l.has("uhr"):
+		elif l.has("merker") or l.has("uhr") or l.has("auftrag") or l.has("unerkundet"):
 			await test_tat("ort_neu", [])
 	var pr := Testmodus.lage_probe(l)
 	if not pr.is_empty(): await test_tat("probe", pr)
