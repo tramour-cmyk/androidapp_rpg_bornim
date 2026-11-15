@@ -862,10 +862,15 @@ func frage_ding(id: String) -> void:
 	var bild := Menue.bild_feld("ding-" + id, 48)   # Dialogs.kt: SupplyPicture 48 dp
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	zeilen.append(bild)
+	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
+	var sk := String(dd.get("seltenheit", "COMMON"))
+	var farbe := Color(SELTEN.get(sk, "e6ddcb"))
+	# 785.3 (Dialogs.kt 116 ItemDetails): die Seltenheit als Wort in ihrer Farbe ueber dem Satz, wie alt (14 sp)
+	var sw := Stil.txt(Testmodus.gross_anfang(Sprache.t(BrsHeld.daten()["seltenheiten"].get(sk, {}).get("name", sk))), 14, farbe)
+	sw.name = "Seltenheit"
+	zeilen.append(sw)
 	var info := Sprache.t(dd.get("info", ""))
 	if info != "": zeilen.append(Stil.txt(info, 15))
-	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
-	var farbe := Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb"))
 	if trinkbar:
 		var wort := ("Essen" if de else "Eat") if art == "FOOD" else Sprache.u("use")
 		dialog(Laden.name(id), farbe, zeilen, [[wort, func(): benutze_mit_klang(id, art); baue()], [abbrechen(), func(): pass]])
