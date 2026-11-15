@@ -89,3 +89,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:11 15.11.: Marke Archiv session_01Hmoj762Xztj8QLqEa23Rjp (lauf.py)
 - 03:11 15.11.: Marke Archiv session_01Hmoj76MSnYWiTvsA1DfTZG (lauf.py)
 - 03:12 15.11.: Jerry neu `…79uukZoJ96FG4zHcRv` (1123 Doku), Jerry alt archiviert (8,45 $ auf 806); Tom bleibt (286 wartet auf Chef-Test), „Weiter: 1263“ per Nachricht statt Neustart
+- 04:04 15.11.: Lauf ohne Start: Jerry (nichts startbar, Sitzung wartet auf Entscheidung 956) und Diogenes (1123 greift erst im nächsten Build) bewusst ausgenommen, sonst Kreis
