@@ -266,3 +266,4 @@
 2026-11-15 01:28:55	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30981 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 01:38:56	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1215 schon 1 Probelauf seit deinem Urteil 2026-11-15 00:50:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch	claude/jerry-1215-ragdoll
 2026-11-15 01:39:35	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30793 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-15 01:40:08	probelauf	748: Push angehalten, der letzte Lauf auf claude/jerry-1123-zwei-server ist rot (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43652956568, Stand f96686e9c). Erst das Protokoll le	claude/jerry-1123-zwei-server
