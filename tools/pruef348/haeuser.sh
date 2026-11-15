@@ -4,7 +4,7 @@ set -e
 S=$1; R=/home/user/androidapp_rpg_bornim; B=~/bl/bin/python
 cd $R
 [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
-[ -f $S/karten.json ] || ./gradlew -p core exportMaps -Pout=$S/karten.json -q
+cp godot/daten/karten.json $S/karten.json   # 882.1: seit 870.9 eingecheckt, kein Gradle
 export KARTEN=$S/karten.json
 mkdir -p $S/out
 for s in tex held3 rig; do [ -f $S/out/.$s ] || { OUT=$S/out $B -I tools/blender348/v3/$s.py > $S/$s.log 2>&1 && touch $S/out/.$s; }; done
