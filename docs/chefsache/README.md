@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [1215](ansehen/1215-sterben.md) | Sterben mit Physik (Ragdoll), nachgebessert nach 1215a A | – | 15.11., 13:16 |
 | [1284](ansehen/1284-rattenbiss.md) | Riesenratte beißt auch daneben sichtbar | – | 15.11., 12:56 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -334,7 +333,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 15.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1215-sterben.md, ansehen/1284-rattenbiss.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1284-rattenbiss.md
 
 ## So geht's
 
