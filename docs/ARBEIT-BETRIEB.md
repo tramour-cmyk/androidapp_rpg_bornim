@@ -136,3 +136,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:05 15.11.: Startsperre 17:05 Start Spike 1268.3 (lauf.py, per Weiter an …75sX1mjBfUobAcrzXh statt neuer Sitzung)
 - 17:25 15.11.: Startsperre 17:25 Start Perikles 1306 (Tom, Chef „jetzt“, per Weiter an …75QZ37mBNTLgGWbYsd)
 - 17:31 15.11.: Startsperre 17:31 Start Tom (Neustart, b535e3bd6, Aufwand hoch); alte Sitzung …76EuPC3nA5MCHtgZWa nach Ruhe archivieren, Kosten 36,21 $ auf 288, 431, 1266
+- 17:49 15.11.: Startsperre 17:49 Start Jerry (Neustart, 4afdd5af4); alte Sitzung …78tPSbm17uKXLsanMa nach Ruhe archivieren, Kosten auf 1289, 1296, 1215, 1000
