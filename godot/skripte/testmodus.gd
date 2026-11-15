@@ -108,8 +108,7 @@ static var ohne_schatten := false
 static var _leistung_war := false
 # 1145 Test 285 (Chef 14.11., 10:44: „es ist egal, ob ich alles ausschalte oder nicht. Sobald ich mich bewege, ja, schaut es hakelig
 # aus“; ohne Effekte 94 Bilder/s bei 120 Hz): bei 94 Bildern auf 120 Hz steht jedes Bild ungleich lang (eins, dann zwei Takte des
-# Bildschirms), die Bewegung ruckelt auch bei hoher Rate. Zum Messen am Gerät: Bilder je Sekunde fest begrenzen (0 = frei). Alt (WorldScreen.kt
-# 190: withFrameMillis) bewegte je Takt des Bildschirms, schrieb ein Bild je Takt (Compose), nie ein ungleich langes
+# Bildschirms), die Bewegung ruckelt auch bei hoher Rate. Zum Messen am Gerät: Bilder je Sekunde fest begrenzen (0 = frei)
 const TAKTE := [0, 60, 40, 30]
 static var takt_i := 0
 
