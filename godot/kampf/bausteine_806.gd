@@ -61,6 +61,26 @@ func _beginne() -> void:
 		schritte.append(["ohne Kantenglättung", func(): vp.screen_space_aa = aa, func(): vp.screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED])
 	schritte.append(["3D in 75 % Auflösung", func(): vp.scaling_3d_scale = aufl, func(): vp.scaling_3d_scale = aufl * 0.75])
 	if not wald.is_empty(): schritte.append(["ohne Bäume und Boden", sicht.bind(wald, true), sicht.bind(wald, false)])
+	# 806 (278.19: ohne Schatten −27 ms, ohne Bäume und Boden −42 ms): beide Hebel aufgeteilt
+	var baeume: Array = wald.filter(func(c): return not (c is MeshInstance3D and (c as MeshInstance3D).mesh is PlaneMesh))
+	var boden: Array = wald.filter(func(c): return c is MeshInstance3D and (c as MeshInstance3D).mesh is PlaneMesh)
+	if not baeume.is_empty() and not boden.is_empty():
+		schritte.append(["ohne Bäume", sicht.bind(baeume, true), sicht.bind(baeume, false)])
+		schritte.append(["ohne Boden", sicht.bind(boden, true), sicht.bind(boden, false)])
+	var netze: Array = []
+	for b in baeume:
+		netze.append_array((b as Node).find_children("*", "MeshInstance3D", true, false).filter(func(m): return (m as MeshInstance3D).cast_shadow != GeometryInstance3D.SHADOW_CASTING_SETTING_OFF))
+	if not netze.is_empty() and kf._sun and kf._sun.shadow_enabled:
+		var wirft := func(an: bool) -> void:
+			for m in netze:
+				if is_instance_valid(m): (m as MeshInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_ON if an else GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		schritte.append(["Bäume ohne Schlagschatten", wirft.bind(true), wirft.bind(false)])
+	if kf._sun and kf._sun.shadow_enabled:
+		var weit: float = kf._sun.directional_shadow_max_distance
+		var karte: int = kf.SCHATTENKARTE
+		schritte.append(["Schattenkarte halb so groß", func(): RenderingServer.directional_shadow_atlas_set_size(karte, true),
+			func(): RenderingServer.directional_shadow_atlas_set_size(karte / 2, true)])
+		schritte.append(["Schatten nur bis 20 m", func(): kf._sun.directional_shadow_max_distance = weit, func(): kf._sun.directional_shadow_max_distance = 20.0])
 	schritte.append(["ohne Figuren", sicht.bind(figuren, true), sicht.bind(figuren, false)])
 	if kf.ui: schritte.append(["ohne Kampfschirm", func(): kf.ui.visible = true, func(): kf.ui.visible = false])
 	var alle_an: Array = schritte.slice(1).map(func(s): return s[1])

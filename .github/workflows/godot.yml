@@ -943,6 +943,22 @@ jobs:
           NEBEL_806=0 PLATZ=lichtung VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$GITHUB_WORKSPACE/bilder/kampforte/lichtung-ohne-nebel.png 2>&1 | grep -E "SCRIPT ERROR" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/kampforte
+      # 806 (278.19: Schatten und Bäume/Boden sind die Hebel): Lichtung vorher (ALT_806=1: Bäume mit Schlagschatten, Schattenkarte 4096)
+      # und nachher (Baumschatten nur gemalt, Schattenkarte 2048) nebeneinander; nur von Hand mit kampf=806
+      - name: Schattenvergleich 806 (nur von Hand mit kampf=806)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '806' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/schatten806; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          for v in alt neu; do
+            env $([ $v = alt ] && echo ALT_806=1) PLATZ=lichtung VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . res://kampf/probe.tscn --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bild=$B/$v.png 2>&1 | grep -E "SCRIPT ERROR" | cut -c1-300 || true
+          done
+          # links vorher, rechts nachher, 8 px schwarz dazwischen (ImageMagick aus „Bildwerkzeuge“)
+          convert $B/alt.png \( -size 8x1 xc:black \) -gravity center $B/neu.png -background black +append $B/806-schatten-vorher-nachher.png || true
+          ls -l $B
       # 833 (Jerry): unterer Kampfschirm heute und Vorschlag A im Rudelkampf (Mira am Zug, ein Wolf zieht mit Tipp, Sieg), nur bei „833“
       - name: Kampfschirm 833
         if: ${{ !cancelled() && (contains(github.event.head_commit.message, '833') || (github.event_name == 'workflow_dispatch' && contains(github.ref, '833'))) }}
@@ -1185,7 +1201,7 @@ jobs:
           fi
           ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '1222' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '1222' && github.event.inputs.kampf != '806' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B

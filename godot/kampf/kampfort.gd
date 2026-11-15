@@ -251,7 +251,10 @@ func _tempo_setzen() -> void:
 	_tempo_an = true
 
 
+const SCHATTENKARTE := 2048     # 806; Projekt 4096
+
 func _exit_tree() -> void:
+	RenderingServer.directional_shadow_atlas_set_size(int(ProjectSettings.get_setting("rendering/lights_and_shadows/directional_shadow/size", 4096)), true)     # 806
 	if _tempo_an:
 		Engine.time_scale = 1.0
 		_tempo_an = false
@@ -291,6 +294,10 @@ func _setup_world() -> void:
 	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43); mit Tusche nach Licht −45, 55 (Chef 28.10., 08:09, r9 ja);
 	# Schlagschatten weich, nicht schwarz (Prüfer Stand 7). 457.2: Werte in signatur.gd, damit Proben mit eigener Bühne gleich zeichnen
 	Signatur.sonne_wie_kampf(sun, tusche() == "licht")
+	# 806: im Kampfort werfen nur die Figuren Schatten (wenige Meter), dafür reicht die halbe Schattenkarte (am Rechner etwa so viel
+	# gespart wie ohne Baumschatten); beim Verlassen wieder die des Projekts (Dorf, Tom)
+	if OS.get_environment("ALT_806") == "":
+		RenderingServer.directional_shadow_atlas_set_size(SCHATTENKARTE, true)
 	if tageszeit == "abend":     # 399.2: nur Funktion, Feinschliff auf der Feintuning-Liste
 		sun.light_energy *= 0.75
 		sun.light_color = Color(1.0, 0.74, 0.52)
@@ -363,8 +370,10 @@ func _build_forest() -> void:
 			var n := doc.generate_scene(st) as Node3D
 			_toon_all(n)
 			# die nahe Eiche vorn links (kampfort_wald.py „Rahmen“) wirft keinen Schlagschatten: ihre Krone liegt außerhalb des
-			# Schattenausschnitts, der Schatten kam abgeschnitten mit geraden Kanten (Prüfer Boden 2); die Maske malt ihn weich
-			for mi in n.find_children("Rahmen*", "MeshInstance3D", true, false):
+			# Schattenausschnitts, der Schatten kam abgeschnitten mit geraden Kanten (Prüfer Boden 2); die Maske malt ihn weich.
+			# 806 (278.19 am Handy: Schatten 27 ms von 61; am Rechner Baumschatten etwa ein Viertel davon): kein Baum wirft einen
+			# Schlagschatten, die Maske (B, kampfort_wald.py) malt die Schatten der Bäume auf den Boden; Figuren werfen weiter
+			for mi in n.find_children("*" if OS.get_environment("ALT_806") == "" else "Rahmen*", "MeshInstance3D", true, false):     # ALT_806=1: wie vorher (Vergleichsbild)
 				(mi as MeshInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			forest.add_child(n)
 	var ground := MeshInstance3D.new()
