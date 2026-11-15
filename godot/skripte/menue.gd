@@ -735,13 +735,11 @@ func abbrechen() -> String: return Sprache.t(ABBRECHEN)
 
 # ---------------------------------------------------------------- Dinge benutzen (Game.useItemOutside)
 # Leuchtfunke, Ausdauertrank, Essen, Heiltrank und Kraeutertrank ausserhalb des Kampfes; Antwort wie alt (Light, Resting, Msgs, Ui)
-# 870.4: Leben fest nach BRS (werte.json „welt“ „heilung“, wie im Kampf), ohne Eintrag wie bisher mit den Wuerfeln des Dings
-static func heilung(id: String, h: Array, wuerfel_: Callable) -> int:
-	var fest = BrsHeld.welt().get("heilung", {}).get(id)
-	if fest != null: return int(fest)
-	return int(wuerfel_.call(int(h[0]), int(h[1]))) + int(h[2])
+# 870.4: Leben fest nach BRS (werte.json „welt“ „heilung“, wie im Kampf); 870.20: nur dort, ohne Würfel im Ding; null heilt nicht
+static func heilung(id: String):
+	return BrsHeld.welt().get("heilung", {}).get(id)
 
-static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> String:
+static func benutze(z: Zustand, hw: BrsHeld, id: String, _wuerfel: Callable) -> String:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
 	var b: Dictionary = Sprache.texte.get("benutzen", {})
@@ -759,20 +757,20 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 		z.weg(id); z.ausdauer_trank = true
 		return Sprache.r("staminaDrunk", [hw.name])
 	if art == "BANDAGE": return verband(z, hw, id)   # 842
-	var h: Array = dd.get("heilt", [])
-	if art == "FOOD" and not h.is_empty():
+	var h = heilung(id)
+	if art == "FOOD" and h != null:
 		if z.satt and hw.leben >= hw.max_leben(): return sag.call("alreadyFed", [hw.name])
 		z.weg(id)
 		var vor := hw.leben
-		hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_) + Laden.essen_bonus(hw))   # Perks.mealBonus (870.4: Kochen)
+		hw.leben = mini(hw.max_leben(), hw.leben + int(h) + Laden.essen_bonus(hw))   # Perks.mealBonus (870.4: Kochen)
 		z.satt = true
 		return sag.call("ate", [hw.name, Laden.name(id), hw.leben - vor])
-	if art != "POTION" or h.is_empty(): return Sprache.u("cannotUseHere")
+	if art != "POTION" or h == null: return Sprache.u("cannotUseHere")
 	var heilt := bool(dd.get("heilt_leiden", false)) and not z.leiden.is_empty()
 	if hw.leben >= hw.max_leben() and not heilt: return Sprache.u("alreadyFull")
 	z.weg(id)
 	var vor := hw.leben
-	hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_))
+	hw.leben = mini(hw.max_leben(), hw.leben + int(h))
 	if heilt: z.leiden.clear()
 	var geheilt: String = sag.call("healed", [hw.name, hw.leben - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
@@ -2127,4 +2125,4 @@ static func grundwert_text(g: Dictionary, de: bool) -> String:
 # 870.7: Stueck mit einer Zahl, die die Guete aendert (Beute.kennwert)
 static func hat_kennwert(g: Dictionary) -> bool:
 	var b := Beute.grundform(String(g["base"]))
-	return Beute.ist_waffe(b) or (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD"
+	return Beute.ist_waffe(b) or BrsHeld.schutzwert_von(String(g["base"])) > 0     # 870.20: Brustrüstung mit Gewicht oder Schild

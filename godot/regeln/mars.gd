@@ -298,7 +298,7 @@ class Fighter:
 	## Zurückrechnen nach dem Kampf; Schutz aus Bannschild und Arkanhaut (Abzug), Runden mit Beistand, Bannschild schon gewirkt
 	var zauber: Array = []
 	var max_sp := 0
-	var srd_sp := -1
+	var mana_vorher := -1
 	var schutz := 0.0
 	var beistand := 0
 	var bann_genutzt := false
@@ -334,7 +334,7 @@ class Fighter:
 	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
-	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
+	## 478: seine Leben vor dem Umrechnen
 
 	func standing() -> bool:
 		return hp > 0 and not fled
@@ -642,7 +642,7 @@ func _brs_zauber_kennen(f: Fighter) -> void:
 	var h: Dictionary = W["held"]
 	f.max_sp = int(f.b.get("mana", 0)) if int(f.b.get("mana", 0)) > 0 else int(h.get("mana_basis", 10)) + int(h.get("mana_je_wille", 5)) * int(f.b.werte.get("wille", 0))     # 870.6: aus dem Kampfblatt (mit Mana der Ausrüstung)
 	var alt_max := int(f.hero.get("sp_max", 0))
-	f.srd_sp = f.sp if alt_max > 0 else -1
+	f.mana_vorher = f.sp if alt_max > 0 else -1
 	f.sp = clampi(roundi(float(f.max_sp) * f.sp / alt_max), 0, f.max_sp) if alt_max > 0 else f.max_sp
 
 
@@ -650,7 +650,7 @@ func _brs_zauber_kennen(f: Fighter) -> void:
 static func sp_nach(f) -> int:
 	var alt_max := int(f.hero.get("sp_max", 0)) if f.hero != null else 0
 	if alt_max <= 0 or f.max_sp <= 0:
-		return f.srd_sp if f.srd_sp >= 0 else f.sp
+		return f.mana_vorher if f.mana_vorher >= 0 else f.sp
 	return clampi(roundi(float(alt_max) * f.sp / f.max_sp), 0, alt_max)
 
 

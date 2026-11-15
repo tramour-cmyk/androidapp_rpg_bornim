@@ -67,9 +67,6 @@ const BRS_AFFIX := {"STR": {"de": "Kraft", "en": "Strength"}, "DEX": {"de": "Gew
 	"CRIT": {"de": "kritisch", "en": "critical"}, "SPELL": {"de": "Zauberschaden", "en": "spell damage"},
 	"TENACITY": {"de": "Abwehrprobe", "en": "resistance roll"}}     # 870.6 (DESIGN-BRS.md 11, STORY-BRS-HELD.md)
 
-const BRS_KURZ := {"STR": {"de": "KRA", "en": "STR"}, "DEX": {"de": "GEW", "en": "AGI"}, "CON": {"de": "ZÄH", "en": "TOU"},
-	"INT": {"de": "VER", "en": "WIT"}, "WIS": {"de": "WAH", "en": "PER"}, "CHA": {"de": "WIL", "en": "WIL"}}
-
 static func brs_woerter(d: Dictionary) -> void:
 	# 870.6, Homer 925 ([925.namen.abwehr]): Namensteile der Abwehrprobe (Kennung TENACITY, alt Standhaftigkeit)
 	if d.get("affixdaten", {}).has("TENACITY"):
@@ -83,9 +80,6 @@ static func brs_woerter(d: Dictionary) -> void:
 		if d.get("affixdaten", {}).has(a):
 			d["affixdaten"][a]["name"] = BRS_AFFIX[a]
 			d["affixdaten"][a]["prozent"] = bool(zusatz.get(a, {}).get("prozent", false))     # 870.6: kritisch, Zauberschaden, Abwehrprobe in %
-		if d.get("attribute", {}).has(a):
-			d["attribute"][a]["name"] = BRS_AFFIX[a]
-			d["attribute"][a]["kurz"] = BRS_KURZ[a]
 
 static func grundform(id: String) -> Dictionary: return daten()["grundformen"][id]
 
@@ -424,7 +418,7 @@ func beide_haende_mit(w_) -> bool:
 	var d := grundform(w_["base"])
 	if bool(d["fern"]): return false
 	var hw = waffe()
-	return bool(d["zweihaendig"]) or (d["vielseitig"] != null and hw != null and int(w_["uid"]) == int(hw["uid"]) and ding("OFF_HAND") == null)
+	return bool(d["zweihaendig"]) or (bool(d["vielseitig"]) and hw != null and int(w_["uid"]) == int(hw["uid"]) and ding("OFF_HAND") == null)
 
 ## jeder darf alles tragen (DESIGN-BRS.md 7), aber erst ab der Stufe des Stuecks (644a A, DESIGN-BRS.md 11 „Mindeststufe“); was
 ## darin nicht geht (Metall und Magie, Schleichen), sagt das Gegenstandsfenster. Nur Anlegen prueft das: Getragenes bleibt angelegt

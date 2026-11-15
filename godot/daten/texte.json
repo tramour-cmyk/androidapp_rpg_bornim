@@ -99,8 +99,8 @@
     "found": {"de":"Erhalten: {0}!","en":"Received: {0}!"},
     "foundGold": {"de":"Erhalten: {0} Gold!","en":"Received: {0} gold!"},
     "aboutText": {
-      "de": "Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im rundenbasierten Kampf, sammle Beute in sechs Seltenheitsstufen und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nRegeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nGeschichte, Orte und Figuren sind eigene Erfindungen.",
-      "en": "A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot of six rarity tiers and continue the Chronicles of Bornim with your hero.\n\nRules, classes, races, spells and monsters are simplified and based on the System Reference Document 5.1 (SRD 5.1) by Wizards of the Coast LLC, available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nThe story, places and characters are original."
+      "de": "Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug, sammle Beute und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nDie Regeln sind ein eigenes System, das Bornimer Rollenspielsystem: Du wirst, was du tust.\n\nGeschichte, Orte und Figuren sind eigene Erfindungen. Ein Spiel von BornWire TCS.",
+      "en": "A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot and continue the Chronicles of Bornim with your hero.\n\nThe rules are a system of our own, the Bornim Roleplaying System: you become what you do.\n\nThe story, places and characters are original. A game by BornWire TCS."
     }
   },
   "rast": {
@@ -339,40 +339,37 @@
   ],
   "dinge": {
     "potion": {
-      "name": {"de":"Heiltrank","en":"Potion of Healing"},
+      "name": {"de":"Heiltrank","en":"Healing Potion"},
       "info": {
         "de": "Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf.",
         "en": "A classic red healing potion. Works at once, also in battle."
       },
       "preis": 25,
       "art": "POTION",
-      "heilt": [2,4,2],
       "seltenheit": "COMMON",
-      "kurz": {"de":"heilt 2W4+2","en":"heals 2d4+2"}
+      "kurz": {"de":"heilt 14","en":"heals 14"}
     },
     "greater_potion": {
-      "name": {"de":"Großer Heiltrank","en":"Potion of Greater Healing"},
+      "name": {"de":"Großer Heiltrank","en":"Great Healing Potion"},
       "info": {
-        "de": "Doppelt so stark wie der einfache Heiltrank. Wirkt sofort, auch im Kampf.",
-        "en": "Twice as strong as the plain healing potion. Works at once, also in battle."
+        "de": "Stärker als der einfache Heiltrank. Wirkt sofort, auch im Kampf.",
+        "en": "Stronger than the plain healing potion. Works at once, also in battle."
       },
       "preis": 75,
       "art": "POTION",
-      "heilt": [4,4,4],
       "seltenheit": "UNCOMMON",
-      "kurz": {"de":"heilt 4W4+4","en":"heals 4d4+4"}
+      "kurz": {"de":"heilt 28","en":"heals 28"}
     },
     "superior_potion": {
-      "name": {"de":"Überragender Heiltrank","en":"Potion of Superior Healing"},
+      "name": {"de":"Kostbarer Heiltrank","en":"Precious Healing Potion"},
       "info": {
         "de": "Ein seltenes Elixier für schwere Wunden. Wirkt sofort, auch im Kampf.",
         "en": "A rare elixir for grave wounds. Works at once, also in battle."
       },
       "preis": 200,
       "art": "POTION",
-      "heilt": [8,4,8],
       "seltenheit": "RARE",
-      "kurz": {"de":"heilt 8W4+8","en":"heals 8d4+8"}
+      "kurz": {"de":"heilt 56","en":"heals 56"}
     },
     "remedy": {
       "name": {"de":"Kräutertrank","en":"Herbal Remedy"},
@@ -382,10 +379,9 @@
       },
       "preis": 20,
       "art": "POTION",
-      "heilt": [1,4,0],
       "heilt_leiden": true,
       "seltenheit": "COMMON",
-      "kurz": {"de":"heilt 1W4","en":"heals 1d4"}
+      "kurz": {"de":"heilt 5","en":"heals 5"}
     },
     "stamina_potion": {
       "name": {"de":"Ausdauertrank","en":"Stamina Draught"},
@@ -408,26 +404,26 @@
       "seltenheit": "COMMON"
     },
     "alchemist_fire": {
-      "name": {"de":"Alchemistenfeuer","en":"Alchemist's Fire"},
+      "name": {"de":"Brandflasche","en":"Firebottle"},
       "info": {
-        "de": "Wurfgeschoss, trifft immer und setzt den Gegner in Brand.",
-        "en": "Thrown, always hits and sets the foe on fire."
+        "de": "Wurfmittel. Feuer, setzt den Gegner in Brand.",
+        "en": "Thrown. Fire; sets the foe ablaze."
       },
       "preis": 30,
       "art": "BOMB",
       "seltenheit": "COMMON",
-      "kurz": {"de":"2W6 Feuer","en":"2d6 fire"}
+      "kurz": {"de":"Feuer","en":"Fire"}
     },
     "holy_water": {
       "name": {"de":"Weihwasser","en":"Holy Water"},
       "info": {
-        "de": "Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.",
-        "en": "Thrown, always hits. Only harms undead: 2d6 radiant damage."
+        "de": "Wurfmittel. Licht; wirkt nur gegen Untote, dort aber hart.",
+        "en": "Thrown. Light; harms only the undead, but hard."
       },
       "preis": 25,
       "art": "BOMB",
       "seltenheit": "COMMON",
-      "kurz": {"de":"2W6 gleißend","en":"2d6 radiant"}
+      "kurz": {"de":"Licht","en":"Light"}
     },
     "raw_meat": {
       "name": {"de":"Rohes Fleisch","en":"Raw Meat"},
@@ -442,14 +438,13 @@
     "roast_meat": {
       "name": {"de":"Gebratenes Fleisch","en":"Roast Meat"},
       "info": {
-        "de": "Stärkt für den nächsten Kampf: +1 auf Angriffe und Schaden.",
-        "en": "Fortifies for the next fight: +1 to attacks and damage."
+        "de": "Stärkt für den nächsten Kampf: du triffst leichter und schlägst härter.",
+        "en": "Fortifies you for the next battle: you land blows more easily and hit harder."
       },
       "preis": 16,
       "art": "FOOD",
-      "heilt": [2,4,2],
       "seltenheit": "COMMON",
-      "kurz": {"de":"heilt 2W4+2","en":"heals 2d4+2"}
+      "kurz": {"de":"heilt 14","en":"heals 14"}
     },
     "herbs": {
       "name": {"de":"Heilkräuter","en":"Healing Herbs"},
@@ -484,8 +479,8 @@
     "spider_gland": {
       "name": {"de":"Giftdrüse","en":"Venom Gland"},
       "info": {
-        "de": "Aus einer Riesenspinne. Morwen kann daraus Alchemistenfeuer mischen.",
-        "en": "From a giant spider. Morwen can mix alchemist's fire from it."
+        "de": "Aus einer Riesenspinne. Morwen mischt daraus Brandflaschen.",
+        "en": "From a giant spider. Morwen mixes firebottles from it."
       },
       "preis": 30,
       "art": "INGREDIENT",
@@ -573,6 +568,13 @@
       },
       "preis": 8,
       "art": "BANDAGE",
+      "seltenheit": "COMMON"
+    },
+    "spider_silk": {
+      "art": "INGREDIENT",
+      "info": {"de":"","en":""},
+      "name": {"de":"Spinnseide","en":"Spider Silk"},
+      "preis": 20,
       "seltenheit": "COMMON"
     }
   },

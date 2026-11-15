@@ -392,7 +392,7 @@ static func kennwert(g: Dictionary, sprache: String = "") -> String:
 	if ist_waffe(b):
 		var art: Array = SCHADENSART.get(schadensart(g), ["", ""])
 		return ("Schaden %d · %s" if de else "Damage %d · %s") % [schaden(g), art[0 if de else 1]]
-	if (String(b["slot"]) == "CHEST" and int(b["ruestung"]) > 0) or String(b["art"]) == "SHIELD":
+	if BrsHeld.schutzwert_von(String(g["base"])) > 0:     # 870.20: Brustrüstung mit Gewicht (nicht Robe) oder Schild
 		return ("Schutzwert %d" if de else "Protection %d") % schutzwert(g)
 	return ""
 

@@ -267,6 +267,13 @@ func bild(pfad: String, breite_dp: float) -> TextureRect:
 	mittig(r)
 	return r
 
+## 1326 (Chef 15.11., 20:33): Fassung und Build unter dem Firmenzeichen und in „Über“, etwa „v0.348.487 · Build 290“; beides setzt
+## der Bau (godot.yml „Android-Export“), am Rechner leer. 870.20: ohne „SRD 5.1 · CC BY 4.0“, kein Wert rechnet mehr nach dem SRD.
+static func fassung() -> String:
+	var v := String(ProjectSettings.get_setting("application/config/version", ""))
+	var b := String(ProjectSettings.get_setting("application/config/build", ""))
+	return " · ".join(PackedStringArray((["v" + v] if v != "" else []) + ([b] if b != "" else [])))
+
 func titel() -> void:
 	leer()
 	var tl := zeile(Sprache.u("title").to_upper(), 33, Stil.BRIGHT, 6.0)
@@ -326,8 +333,7 @@ func titel() -> void:
 	abstand(22)
 	var lg := bild(LOGO, 130)
 	abstand(6)
-	var v := String(ProjectSettings.get_setting("application/config/version", ""))
-	var vz := zeile(("v%s · " % v if v != "" else "") + "SRD 5.1 · CC BY 4.0", 12, Color(Stil.DIM, 0.75), 0.5)
+	var vz := zeile(fassung(), 12, Color(Stil.DIM, 0.75), 0.5)
 	vz.autowrap_mode = TextServer.AUTOWRAP_OFF
 	# 399.1 wie alt (App.kt secretTaps): siebenmal auf das Firmenzeichen oder die Zeile darunter schaltet den Testmodus (Testmodus.gd)
 	for c in [lg, vz]:
@@ -541,7 +547,6 @@ func ueber() -> void:
 		r.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 		v.add_child(r)
 	v.add_child(Stil.luecke(6))
-	var ver := String(ProjectSettings.get_setting("application/config/version", ""))
-	var z := Stil.txt("© 2026 · " + ("v%s · " % ver if ver != "" else "") + "SRD 5.1 · CC BY 4.0", 13.5, Spielstaende.ANGABE)
+	var z := Stil.txt(" · ".join(PackedStringArray(["© 2026"] + ([fassung()] if fassung() != "" else []))), 13.5, Spielstaende.ANGABE)
 	z.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_child(z)
