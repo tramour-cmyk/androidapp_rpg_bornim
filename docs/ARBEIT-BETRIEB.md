@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1352** (zuletzt 1351 Perikles 16.11. 00:09:13 5e1f) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1355** (zuletzt 1354 Sokrates 16.11. 00:12:53 dbd6) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -85,3 +85,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 16.11.: Marke Start-fehlt Perikles 15.11.-23:04 (lauf.py)
 - 00:07 16.11.: Startsperre 00:07 Start Perikles 1044/1341 (Tom 00:08, Bildläufe von der Rechteprüfung abgelehnt, per Nachricht an die laufende Perikles-Sitzung …79JCQRKsCCgciyGpnJ)
 - 00:10 16.11.: Startsperre 00:10 Start Tom (Neustart, d72ec7214); alte Sitzung …76nRhry7t7BqTpwhBM nach Ruhe archivieren, Kosten auf 1044, 1341
+- 00:14 16.11.: Startsperre 00:14 Start Homer 1352, 1353 (Jerry 00:13, ac6007b4d, per Weiter an …79NReuhLMU6cqsp6GW)

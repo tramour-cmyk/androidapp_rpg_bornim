@@ -187,7 +187,25 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-ABGLEICH-AL
 
 „da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
 
-## Wochenziel 09.–15.11.: Der Kampf funktioniert (Perikles, gesetzt 09.11., 10:1x; neu geordnet 12.11., 16:5x nach 1052; ersetzt das vom 03.11.)
+## Wochenziel 16.–22.11.: Kampf passt, mit festen Plätzen (Perikles, gesetzt 16.11., 00:0x; ersetzt das vom 09.11.)
+
+**Du kämpfst im Sammelbuild mit 1072 gegen Wölfe, Ratten und Grimmzahn und sagst „Kampf passt“: jede Figur hat ihren Platz und ihre Bahn, Nahkampf trifft nur, wen er treffen darf, der Wolf duckt sich, springt und beißt sichtbar, und was der Bericht sagt, sieht man.** Das Ziel vom 09.11. ist nicht erreicht (dein „Kampf passt“ fehlt; 1072 stand auf deinen Halt 13.11., 23:35, dann nach 930.6, 14.11., 20:31). Es gilt weiter „Kampf zuerst, nichts Neues“; Muss sind die Zeilen unten, deine „jetzt“, „bitte machen“, Kampffunde und Abstürze, dazu alle offenen Muss im Bereich E Kampf (Tafel oben). Kür baut diese Woche keiner. Termine gibt es keine, die Reihenfolge gilt; Fertiges wird binnen 6 h vorgelegt (1312).
+
+| Reihenfolge | Vorgang | Wer | fertig, wenn |
+|---|---|---|---|
+| 1 | dein Test t290; danach Sammelbuild mit allem Fertigen (ohne Build heute: Tom 4, Jerry 5, Spike 3) | du; wer zuerst 4 hat, bittet (317) | `vorgang.py build`; nichts Gebautes liegt länger als 6 h ohne Vorlage |
+| 2 | **1072 Plätze und Bahnen** auf den Abständen des Glutsystems (Schritt 2 frei, 1349), danach 1068 Ring bei großen Schlägen, 1224 Berührung sperrend | Jerry | dein Probekampf: kein Wolf läuft außen herum, Tausch auf Bahnen |
+| 3 | Kampffunde: 1305 hintere Reihe, 1291 Nebenhand, 1275 Kerben wie `DESIGN-GLUT.md`, 1323 Kampfmeldungen, 1292 Klosterschüler, 1333 Schildstoß, 1340 Sterben Skelett; 1284a entscheidest du | Jerry | wie in der Zeile |
+| 4 | 760 Blut am Helden, dann 1043 Ausweichen im Sprung, 1032 Angriff mit Bewegung, 931 Ducken | Jerry | ein Film je Punkt, dein 👍 |
+| 5 | 1288 Kerben (Verstreichen, Mitnehmen); 709 und 709.1 nach dem Gesamtbild | Sokrates, dann Jerry | Vorlage bei dir; 709 wieder startbar |
+| 6 | Tom: 1341, 1044 (Bildlauf steht, Ablehnung der Rechteprüfung), dann 431 Körper je Volk (Teilprojekt 3); bietet Jerry Übernahme aus 3 an (Jerry 29 Muss, Tom 17) | Tom | wie in der Zeile |
+| 7 | Spike: 1300 atem rot, 1303 Stufen im Dunkel, dann 698 Grafikstufen | Spike | Kerntest stabil grün; Höhle ohne Flecken |
+
+**Stärkstes Gegenargument:** zweite Woche dasselbe Ziel, während Teilprojekte 4–8 der Abnahmeliste ganz ruhen; „Kapitel 1 durchspielbar“ rückt nicht vor. **Entkräftet:** „Kampf zuerst“ ist dein Wort und nicht zurückgenommen; die Gegner und Kampforte der Höhle (494, 507) hängen an Plätzen und Bahnen aus 1072 und würden sonst doppelt gebaut; Tom und Spike arbeiten daneben an 431 und Technik. Sobald du „Kampf passt“ sagst, lege ich dir die Reihenfolge von 4–8 vor.
+
+**Mit diesem Wochenziel entschieden (Perikles):** M? → K: 1174 Körperregler (hängt an 431), 1211 Leuchtfunke (Prüfauftrag ohne „jetzt“), 999.2 Armbrust (ruht, Kauf), 906 (überholt laut Sokrates 1186). Reifes aus `LISTE-IDEEN.md` holt diese Woche keiner („Borin trinkt am Tisch“, Homer 1264, bleibt dort bis nach „Kampf passt“).
+
+## Wochenziel 09.–15.11.: Der Kampf funktioniert (Perikles, gesetzt 09.11., 10:1x; neu geordnet 12.11., 16:5x nach 1052; ersetzt durch das vom 16.11. oben; nicht erreicht)
 
 **Du kämpfst im nächsten gemeinsamen Build (281) gegen Wölfe, Ratten und Grimmzahn und sagst „Kampf passt“: der Held sieht ordentlich aus, jeder Angriff trifft den Gegner sichtbar, der Kampf zeigt, was geschieht (Ring lesbar, Ausweichen, Angriff mit Bewegung, Zustände an den Figuren, Bericht in Farbe), die Gegner laufen frei statt auf Schienen, drehen mit Schritten und zeigen dir nicht den Rücken, der Kampf ist flott.** Der Umhang gehört nicht mehr dazu: gestoppt, Vorlage für irgendwann (861, Chef 12.11., 07:10). Grundlage: „Kampf zuerst, nichts Neues“ (Chef 08.11., 21:36, Archiv). Muss sind nur die Zeilen unten, deine „jetzt“, deine „bitte machen“ und Abstürze. Was ohne Kampfbezug neu gebaut würde, ruht mit dem Stand „ruht, Kampf zuerst (338.1)“; gestrichen wird nichts. Kür baut diese Woche keiner. Termine gibt es keine, die Reihenfolge gilt. Der alte Stand (Build 271, Schritte 1–8 vom 09.11.): Git, Stand vor „Perikles: 1052“.
 
