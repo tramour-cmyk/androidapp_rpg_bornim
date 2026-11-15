@@ -2,12 +2,13 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 15.11., 12:04 (lauf.py)
+**Stand:** 15.11., 17:04 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Spike | [Spike – 1270.1: Ladezeit Kampf und Bildrate messen (15.11., 10:56)](https://claude.ai/code/session_01Hmoj77N7FwEA8GY6oPzSUA) | 1270.1 | – | 15.11., 10:55 |
-| Ford | [Ford – Betriebsleiter (15.11., 11:05)](https://claude.ai/code/session_01Hmoj775wuCaHstkrQQKKTC) | Betrieb | – | 15.11., 11:04 |
-| Sokrates | [Sokrates – Chefrunde: Rest (15.11., 11:14)](https://claude.ai/code/session_01Hmoj7A9M8ZL4AXU31SCCyP) | Betrieb | – | 15.11., 11:13 |
-| Jerry | [Jerry – 1266: Film an den Chef, dann 1274 (c) Sammelbuild (15.11., 11:37)](https://claude.ai/code/session_01Hmoj78didfhaNLaWruGUVT) | 1266 | – | 15.11., 11:36 |
-| Jerry | [Jerry – 1215: Ragdoll für alle Körper und Todesarten (15.11., 11:37)](https://claude.ai/code/session_01Hmoj77868z8tGPx6d9vJF1) | 1215 | – | 15.11., 11:36 |
+| Perikles | [Perikles – 1289: Vorrang nach dem Block 760/1000 (15.11., 13:47)](https://claude.ai/code/session_01Hmoj75QZ37mBNTLgGWbYsd) | 1289 | – | 15.11., 13:45 |
+| Tom | [Tom – 288: Testbitte, dann 431 Schild (15.11., 14:23)](https://claude.ai/code/session_01Hmoj76EuPC3nA5MCHtgZWa) | 288 | – | 15.11., 14:21 |
+| Jerry | [Jerry – 1289: Höhle im Renderer mobile (15.11., 15:38)](https://claude.ai/code/session_01Hmoj78tPSbm17uKXLsanMa) | 1289 | – | 15.11., 15:36 |
+| Ford | [Ford – Betriebsleiter (15.11., 16:07)](https://claude.ai/code/session_01Hmoj76awPjHi5batouXHgC) | Betrieb | – | 15.11., 16:06 |
+| Diogenes | [Diogenes – 1301: 👎 ohne Wort fragt nach (15.11., 17:00)](https://claude.ai/code/session_01Hmoj7ABGDeMZv4YisoVmdh) | 1301 | – | 15.11., 16:59 |
+| Sokrates | [Sokrates – Chefrunde: Rest (15.11., 17:00)](https://claude.ai/code/session_01Hmoj75TxvxMneSiDEAtRjE) | Betrieb | – | 15.11., 16:59 |

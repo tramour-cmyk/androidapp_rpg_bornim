@@ -61,7 +61,10 @@ def kaufdateien(dat):
     wurzel = git("rev-parse", "--show-toplevel").strip()
     for k in [os.environ.get("BORNIM_KAUF", ""), os.path.join(os.path.dirname(wurzel), "bornim-kaufmodelle"), "/home/user/bornim-kaufmodelle"]:
         if k and os.path.isdir(os.path.join(k, ".git")):
-            r = subprocess.run(["git", "-C", k, "ls-tree", "-r", "HEAD"], capture_output=True, text=True).stdout
+            # 1293 (Jerry): im Haken setzt git GIT_DIR, GIT_INDEX_FILE u. ä. der Arbeitskopie; „git -C Kaufrepo“ las sonst deren HEAD,
+            # und jede verschobene Notiz galt als Kaufdatei
+            umg = {n: w for n, w in os.environ.items() if not n.startswith("GIT_")}
+            r = subprocess.run(["git", "-C", k, "ls-tree", "-r", "HEAD"], capture_output=True, text=True, env=umg).stdout
             gekauft = {z.split()[2] for z in r.splitlines() if len(z.split()) > 2} - {LEER}
             schon = {x.rsplit(" (", 1)[0] for x in raus}
             for z in git("diff", "--cached", "--raw", "--no-renames", "--no-abbrev").splitlines():
@@ -119,6 +122,12 @@ def gueltig_pruefen(dat, stop, warn):
                 if a.strip(): rest = rest.replace(a, "")
             if mid in kennungen_tg(rest) or re.search(r"Telegram\s+%s\b" % mid, rest):
                 stop.append("VORGANGSARCHIV.md: Telegram-Nachricht %s steht schon im Archiv; eine andere Sitzung hat das Urteil eingetragen, deinen Eintrag weglassen (1228)" % mid)
+    for neu in plus:  # 1301 (Chef 15.11., 16:54): 👎 ohne Wort wird nicht still als „falsch“ verbucht, sondern nachgefragt
+        if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
+        if "👎" in neu and kennungen_tg(neu) and not re.match(r"- \*\*t\d+", neu) \
+                and not re.search(r"nachgefragt|fragt\b.{0,40}\bnach|„[^“]{8,}“", neu):
+            stop.append("VORGANGSARCHIV.md: 👎 ohne Wort des Chefs; im selben Zug nachfragen (tools/meldung.sh --frage <Kennung> …), dann "
+                        "„nachgefragt HH:MM“ oder seinen Wortlaut „…“ in den Eintrag (1301)")
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
         if re.search(r"\b461 unverändert\b", neu): continue
