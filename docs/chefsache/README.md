@@ -22,7 +22,14 @@ Nichts offen.
 |---|---|---|---|
 | [1036.1](ansehen/10361-zustaende.md) | Zustände: alle Effekte der Pakete je Zustand | – | 13.11., 13:34 |
 | [1040.1](ansehen/10401-wenden.md) | Bram wendet sich dem vorbeigehenden Helden zu: mit Schritten oder wie auf dem Drehteller? | – | 14.11., 23:46 |
+| [1222](ansehen/1222-rauch.md) | Rauchbündel gegen Krogg: Wurf, Rauch am Kopf, Schlag ins Leere | – | 15.11., 00:47 |
 | [601](ansehen/601-spaeher.md) | Goblin-Späher: Schussbewegung, Pfeil, Spur | – | 14.11., 23:53 |
+
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.473](ansehen/t286-karte-scheide.md) | [Build 286](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43637577563/artifacts/14133442612) | Karte, Scheide, Höhlenlicht, Wolfskampf | Tom und Jerry | 14.11., 20:50 |
 
 ## Zu tun
 
@@ -44,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | in Arbeit bei Spike |
+| 1040.1 | M | Von Tuffy (1040, Chef 12.11., 15:13 Lyra „dreht sich genauso bescheuert, ohne Schritte“): | Chef (Datei in der Chefsache) |
 | 1091 | M | Von Sokrates (zu 492, 13.11., 03:34): Höhleneingang, heller Fleck mit scharfer Kante auf S | wartet auf Test (Build 286) |
 | 1129.3 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): Werkzeuge zu Punkten 1 und 6 (Punkt 2 mac | wartet auf Test/Build (gebaut) |
 | 1122 | M | Von Sokrates (1109 D, Chef 13.11., 10:56): Prüfliste-Test pruefliste_1020 nur noch auf cla | wartet auf Test (Build) |
@@ -156,10 +163,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1210 | K | Von Sokrates: Regen wie alt (D3.10) fehlt in Godot; Bild ohne Vorgang (R8 Weather FX statt | ruht |
 | 1214 | K | Von Spike (1073): Bild ding-spider_silk fehlt in godot/daten; godot/tests/laden_test.gd da | wartet auf Test (Build 286) |
 | 1234 | M | Von Homer (Fremdprüfung 1232): Reste nach 870.15 auf main: „Grottenschrat“/„bugbear“ statt | wartet auf Test (Build 286) |
-| 1247 | K | Von Tom (1242): Haken 621 A erkennt Freigabe „<Nr>, Lauf frei“ (Einzahl) und Freigaben unt | wartet auf Diogenes (greift?) |
+| 1247 | K | Von Tom (1242): Haken 621 A erkennt Freigabe „<Nr>, Lauf frei“ (Einzahl) und Freigaben unt | Termin 16.11. |
 | Pflege | K | von Werkzeug (340.3, 14.11.): 30675 Bytes (Grenze 30000), Erledigtes streichen | startbar |
 
-**Jerry** – offen 104, Muss 43, startbar 7
+**Jerry** – offen 104, Muss 43, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,17 +174,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1111 | M | D191.1 von Diogenes (1109): cache=neu wirkt nicht mehr: seit 1f4e21a81 übergeht pruefen ke | wartet auf Test (Build) |
 | 1112 | M | D191.2 von Diogenes (1109): Block mit geduldetem Fehler wird abgelegt (FEHLER 494/506, LEU | wartet auf Test (Build) |
 | 1113 | M | D191.3 von Diogenes (1109): Kaufrepo 524 MB, 21 Zweige bau/* in drei Tagen, nie gelöscht; | wartet auf Test (Build) |
-| 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | wartet auf 1072 (wartet) |
+| 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | wartet auf 1072 (ruht) |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 760 (startbar) |
-| 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | startbar |
+| 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | ruht |
 | 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | wartet auf Sokrates |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (ruht) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf Sokrates |
 | 1222 | M | Von Chef (13.11., 20:40, Test t284.4b): Rauchbündel gegen Krogg ohne sichtbare Wirkung im | wartet auf Test/Build (gebaut) |
 | 1223 | M | Von Chef (13.11., 20:59, Test t284.7o): Leitwolf im Kampf nicht erkennbar, alle heißen Wol | wartet auf Test (Build 286) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht bis 23.11. |
-| 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | startbar |
+| 806 | M | Kampforte mit den Effektpaketen schöner: Gras und Blumen aus R9, Boden, Staub; Bilder/s ni | wartet auf Test/Build (gebaut) |
 | 551 | K | MARS: Rahmen des unteren Kastens links und rechts unterbrochen (Chef 04.11., 00:21) | ruht bis 23.11. |
 | 534 | K | Kampf: Zauber und Fähigkeiten fehlen in „Können“ (Magierrüstung, Untote vertreiben, Spirit | ruht bis 23.11. |
 | 438a | K | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv | ruht bis 23.11. |
@@ -210,7 +217,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 644.1 | K | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | ruht bis 16.11. |
 | 644.2 | K | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 S | ruht bis 16.11. |
 | 681 | K | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht bis 16.11. |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | wartet auf 1072 (wartet) |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | wartet auf 1072 (ruht) |
 | 803 | K | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | ruht bis 23.11. |
 | 811 | K | Von Perikles (800, 650.2 C1): Kommentar in godot/regeln/brs_kampf.gd Zeile 3 nennt DESIGN- | wartet auf Test (Build) |
 | 845 | M | Kampf: Krogg steht 0,65 m hinter seinem Platz, beim Planen des Helden liest seine Lage den | wartet auf Test (Build 286) |
@@ -243,7 +250,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 785.16 | K | Von Spike (785): Raster- und Würfelschalter im Kampf über Kämpfe gemerkt (GameViewModel.kt | wartet auf 870.13 (wartet) |
 | 785.17 | K | Von Spike (785): Zurück-Taste im Kampf schließt das Untermenü (SK 364; zurueck.gd: im Kamp | wartet auf 870.13 (wartet) |
 | 785.18 | K | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | wartet auf 870.13 (wartet) |
-| 999.1 | M | Von 999: Fackel im Kampf in der Nebenhand wie alt (268), Modell aus held.gd baue_fackel (T | startbar |
+| 999.1 | M | Von 999: Fackel im Kampf in der Nebenhand wie alt (268), Modell aus held.gd baue_fackel (T | wartet auf Test/Build (gebaut) |
 | 999.2 | M? | Von 999: Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow); | ruht bis 23.11. |
 | 1000 | M | Von Tuffy (620.2c, wie 310): Grak hält nach der Ansage „Schwerer Hieb“ die ausholende Halt | wartet auf Test (Build 286) |
 | 1002 | K | Von Tuffy (620.2c, wie 296.3): Siegerpose im Kampf fehlt (nur Film film_sieger_2963.gd; Pr | ruht bis 23.11. |
@@ -260,15 +267,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1166 | M | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11. „gilt für alle Vierbeiner“): | wartet auf Test (Build) |
 | 1141.1 | M | Aus 1141 (Sokrates zu Chef 16:17, Punkt 3): Körper mit Bibliothekstod (Grak, Krogg, Skelet | wartet auf Test (Build) |
 | 1215 | M | Physikalisches Sterben (Ragdoll) für alle Körper: letzte Phase des Falls mit Godot-Physik, | startbar |
-| 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | wartet auf 1072 (wartet) |
+| 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | wartet auf 1072 (ruht) |
 | 1227 | K | Von Sokrates (1073, Chef 13.11., 20:20 👍 auf alle fünf Bilder der zweiten Probe): Tasche i | wartet auf Test (Build 286) |
 | 930.6 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 1, Regelkern in mars.gd hint | wartet auf Test/Build (gebaut) |
-| 930.7 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken | in Arbeit bei Tuffy |
+| 930.7 | M | Von Sokrates (930 A, „jetzt“ 14.11., 20:19): Glutsystem Stufe 2, Bedienung und Glutmarken | wartet auf Test/Build (gebaut) |
 | 1250 | K | Von Jerry (1000): grak_348 (godot-kampf.yml) rot schon auf main aeb8e0eb0, 11 FEHLER: Plat | startbar |
 | 1253 | M | Von Sokrates (Chef 14.11., 21:03, ersetzt 1051 A): Proben ohne Grundwert 5 % + 1 je Punkt | wartet auf Test/Build (gebaut) |
-| Pflege | K | von Werkzeug (340.3, 14.11.): 30612 Bytes (Grenze 30000), Erledigtes streichen | startbar |
+| Pflege | K | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Perikles** – offen 24, Muss 17, startbar 1
+**Perikles** – offen 22, Muss 16, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -287,17 +294,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 341 | K | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 16.11. |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
 | 919 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (ruht) |
-| 1019 | M | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt be | Termin 15.11. |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf 1125 (gebaut), dann Diogenes (greift?) |
-| 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | wartet auf 1019 (gebaut), dann Diogenes (greift?) |
+| 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 16.11. |
 | 1170 | M | Von Sokrates (Chef 13.11., 15:37, zu 1128 A): Klang nicht in die APK: Auswahl eines Klangs | Termin 16.11. |
 | 1173 | M | Von Sokrates (Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“, A): Regel Kleinkram o | wartet auf Test t286 (Chef) |
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 16.11. |
 | 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | Termin 16.11. |
 | 1244 | M | D236.1 von Diogenes (1133, 1129.1 P2a): Pflegehinweis-Commits sinken nicht (13.11. nach 27 | Termin 16.11. |
-| Pflege | K | von Werkzeug (340.3, 14.11.): LISTE-VORGAENGE.md: Build 285 getestet (Archiv t285), aber 1 | startbar |
 
-**Diogenes** – offen 11, Muss 6, startbar 1
+**Diogenes** – offen 10, Muss 6, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -311,7 +316,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | wartet auf Test t286 (Chef) |
 | 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | Termin 16.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 16.11. |
-| 1247 | K | Von Tom (1242): Haken 621 A erkennt Freigabe „<Nr>, Lauf frei“ (Einzahl) und Freigaben unt | startbar |
 
 **Sokrates** – offen 45, Muss 12, startbar 18
 
@@ -361,12 +365,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 14.11.; „star
 | 1169 | K | Systemlösung? Tür: 9 frühere Vorgänge (629, 611, 629.1, 636, 1063 …), neu 1168; einmal gru | startbar |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
 | 1209 | K | Systemlösung? Halt: 10 frühere Vorgänge (793, 662, 849, 653, 872 …), neu 1208; einmal grun | startbar |
-| Pflege | K | von Werkzeug (340.3, 14.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
+| Pflege | K | von Werkzeug (340.3, 15.11.): 30764 Bytes (Grenze 30000), Erledigtes streichen | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/10401-wenden.md, ansehen/601-spaeher.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/10361-zustaende.md, ansehen/10401-wenden.md, ansehen/1222-rauch.md, ansehen/601-spaeher.md
 
 ## So geht's
 

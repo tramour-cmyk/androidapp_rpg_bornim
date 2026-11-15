@@ -330,7 +330,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | B Steuerung | M | –; +0,57 $ | Perikles | erledigt |
 | 281 | E-Gitarre aus der Kampfmusik entfernen, nur Orchester (Chef 21.10.; 18:19 „es war keine E-Gitarre im Kampf zu hören“) | E Klang | – | 1,35 $ | Jerry | erledigt |
 | 280 | Durchgang aller Spieltexte Kapitel 1: Tippfehler, Ton, Text passt zum Bild (Vorschlag Sokrates) | G Story | K | 4,46 $ | Homer | erledigt |
-| 286 | Anzusehen ohne Versionsnummer: `zug-index.py` meldet fehlende Version unter „Lücken“ (Chef 21.10., 19:42; Version nach dem Lauf: t62 Tom, t63 Jerry nachtragen) | B Werkzeuge | M | 5,62 $ | Perikles | erledigt |
+| 286 | Anzusehen ohne Versionsnummer: `zug-index.py` meldet fehlende Version unter „Lücken“ (Chef 21.10., 19:42; Version nach dem Lauf: t62 Tom, t63 Jerry nachtragen) | B Werkzeuge | M | 9,95 $ | Perikles | erledigt |
 | 251.2 | Markenprüfung Logo B (Quelle): Verwechslung mit fremden Bildmarken? (Chef 21.10.) | M Markt | K | – | Sokrates | erledigt 21.10. (→ 251.3) |
 | 251.3 | Logo B abheben: drei Varianten ohne offenes C, goldener Kern bleibt (Chef 21.10., 20:03; an Sokrates 20:29) | M Markt | M | –; +4,83 $ | Sokrates | erledigt |
 | 90 | Tagesrückblick (ersetzt durch Tagesbericht 247) | B Steuerung | K |  | Perikles | ersetzt |
@@ -1428,3 +1428,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1257 | Von Sokrates (1255, Chef 14.11., 21:29): Zuordnung jeder Fertigkeit zu genau einem Grundwert gegenlesen, Namen und Stimmigkeit mit der Welt (Liste ARBEIT-BERATUNG.md „Zu 1255“), Befund in den Vorrat Sokrates | G Balance | M | – | Homer | erledigt |
 | 1258 | Von Sokrates (1255 A, Chef 14.11., 22:09): Handbuch nachziehen, fünfter Rang „Vollendeter“ (Paragon) bei 100, Grundwert wächst bei 15, 25, 50, 75, 100 (644a.1 B), Satz zu Proben ohne Grundwert: [423.rang], [423.pruefung], [423.namen] | G Balance | M | – | Homer | erledigt |
 | 1255 | Von Chef (644a.1, 14.11., 21:16–21:29): Zuordnung jeder Fertigkeit zu genau einem Grundwert (Spähen, Kräutersammeln, Alchemie, Schleichen, Ausweichen, Rüstung, Überreden, Einschüchtern …) mit Homer, Vorlage an den Chef, dann Bau 644a.1 | G Balance | M | – | Sokrates | erledigt |
+| 1019 | Von Sokrates (zu 1016): Ford startet sich am Neustart-Haken (200 Tsd., 383 A) neu statt bei 400 Tsd. (185, LISTE-BETRIEB); Tiefe 0 bis 6 in 21 h, Handstart täglich; Ford im Haken auf 400 Tsd. ausnehmen | B Abläufe | M | 50,73 $ | Perikles | erledigt, greift Lauf 245 |

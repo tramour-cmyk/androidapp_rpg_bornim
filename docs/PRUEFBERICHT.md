@@ -52,6 +52,10 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 246 · 1133 Pflege-Commits Messtag (Perikles 1244 `bf3c1a4a7`; 15.11., 01:0x)
+
+- **1133 greift (letzter Punkt P1):** Messtag 14.11., 00:50 bis 15.11., 00:50: 8 Commits „Pflegehinweise“ von 422 (13.11. ganzer Tag: 79 von 2.768); Kalendertag 14.11.: 10. Je Commit nachgesehen: 4 ändern Zeilen (neue Pflegezeile, neues Datum, andere Funde), 4 verschieben eine unveränderte Pflegezeile hinter neu eingetragene Muss desselben Besitzers (Vorrang, z. B. `6d4baf40b` hinter 930.5–930.7), kein Commit nur wegen Bytes oder Zeichen. P2–P4 griffen in Lauf 200 und 236.
+
 ## Lauf 245 · 1019 Ford-Selbstneustart ab 400 Tsd. (Perikles `80773642e`; 15.11., 00:0x)
 
 - **1019 greift:** seit `80773642e` zwei Selbstneustarts, `used_tokens` beim Archivieren 424.840 (`…7AAPsuvPwPbE7HCYeV`, 14.11., 00:15–10:36) und 421.437 (`…76dYAn9Jmk5yYyU3HQ`, 10:35–20:45), keiner unter 400 Tsd. Tiefe 0 (Handstart `…772q8aDimJ7oU9STTH`, 13.11., 18:22) → 3 in 30 h (vorher 6 in 21 h). Kosten je Stunde 0,75 $ und 0,81 $ (vorher 3,1 $/h bei 654 Tsd.).
