@@ -9,6 +9,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [481a](entscheiden/481a-wachsoldat.md) | **Muss** | E Kampf | 15.11., 10:19 | Wachsoldat gewinnt 100 % gegen alle Gegner von Kapitel 1; ausgleichen über eine Schadensregel für alle, nicht über den Wolf. | Sokrates |
+| [1268](entscheiden/1268-code.md) | Kür | E Technik | 15.11., 10:27 | Fünf Hebel für robusteren, schnelleren Code; Messung sofort, Bau erst nach dem Umzug, Fehlerarten zuerst. | Sokrates |
+| [1270](entscheiden/1270-grafik.md) | Kür | E Technik | 15.11., 10:27 | Vier Tempo-Hebel ohne neues Aussehen, drei für das Aussehen als Probe; Bau nach dem Umzug. | Sokrates |
 
 ## Zu billigen
 
