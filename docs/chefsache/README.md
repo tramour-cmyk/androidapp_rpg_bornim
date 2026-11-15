@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:31, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:33, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -15,7 +15,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Kampf passt | 70 | 26 | 3 | 0 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 22 | 9 | 0 | 0 | 15 | 1040.1 (Tom) Leute drehen im Stehen ohne Schritte, wenn sie de… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 2 | 0 | 33 | 1325 (Tom) Rot: ziege_4162 auf dem Bauserver in Lauf 499 und… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 9 | 0 | 0 | 8 | 1339 (Tom) Wiederholrot wende_4168: 3× rot in 48 h; Ursache… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 8 | 0 | 0 | 8 | 1331 (Jerry) Sammelbuild: alle fertigen Zweige beider Teams, N… |
 | Werkzeuge und Abläufe der Firma | 60 | 35 | 1 | 2 | 9 | 1335 (Spike) wolf_mess_438 ohne Messrauschen, Laden der Kaufmo… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 19 | 1325 | Tom | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500: von Westen tritt die Zie… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
 | 20 | 1289 | Jerry | Höhle im Renderer mobile ganz anders als bisher: zu hell, Sichtachsen weg; Auss… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 91.
+Danach 96 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 91.
 ## Zu entscheiden
 
 Nichts offen.
