@@ -296,6 +296,25 @@ static func vorraete(hw: BrsHeld, z: Zustand, n := 10) -> void:
 	for i in maxi(0, 2 - fackeln): z.ausruestung_dazu(Beute.fackel(0))
 	if z.anzahl(Geschichte.SMOKE_BUNDLE) == 0: z.dazu(Geschichte.SMOKE_BUNDLE, 1)
 
+## feste Stücke der Lage „stuecke=“ in die Tasche (LAGE_STUECKE), ohne Zufall; gibt die Stücke zurück
+static func stuecke(hw: BrsHeld, z: Zustand, satz: String) -> Array:
+	var aus := []
+	for e in LAGE_STUECKE.get(satz, []):
+		var rolls := []
+		for r in e[2]: rolls.append([_zusatz_nach_name(String(r[0])), r[1]])
+		aus.append(z.ausruestung_dazu({"uid": z.neue_uid(), "base": String(e[0]), "rarity": String(e[1]), "ilvl": hw.stufe, "guete": 0,
+			"rolls": rolls, "unique": null, "name_seed": 0}))
+	return aus
+
+## Schlüssel einer Zusatzeigenschaft nach ihrem deutschen Namen (sonst der Name selbst, etwa SPELL)
+static func _zusatz_nach_name(n: String) -> String:
+	var a: Dictionary = Beute.d_().get("affixdaten", {})
+	for k in a:
+		var nm = a[k].get("name", "")
+		var de: String = String(nm.get("de", "")) if nm is Dictionary else str(nm)
+		if de == n: return String(k)
+	return n
+
 static func schlicht(z: Zustand, hw: BrsHeld, base: String) -> Dictionary:   # Gear(0, base, COMMON, level)
 	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
 
@@ -637,7 +656,10 @@ const LAGE_TASCHEN := ["zwei", "keine", "voll"]
 const LAGE_LEBEN := ["voll", "halb", "knapp"]
 const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
 const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
-	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig"]   # 542: ruhig = Monster beachten nicht
+	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig", "stuecke"]   # 542: ruhig = Monster beachten nicht
+## Rückläufer t288 (Sokrates 15.11., 16:18: 288.2 und 288.4 hingen am Zufall von „Beute erzeugen“): feste Stücke in die Tasche je Prüfgegenstand
+## (Zusatz „Kraft“ über seinen deutschen Namen, Schlüssel aus den Daten des BRS)
+const LAGE_STUECKE := {"785": [["ring", "RARE", [["Kraft", 1]]], ["amulet", "RARE", [["SPELL", 5]]], ["gloves", "RARE", [["TENACITY", 5]]]]}
 
 ## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
 static func lage_uhr(s: String) -> int:
@@ -668,6 +690,7 @@ static func lage_fehler(l: Dictionary) -> Array:
 			if not ids.has(w.trim_prefix("+").trim_prefix("-")): f.append("merker %s unbekannt" % w)
 	for k in ["stufe", "pstufe"]:
 		if l.has(k) and not String(l[k]).is_valid_int(): f.append("%s=%s keine Zahl" % [k, l[k]])
+	in_.call("stuecke", LAGE_STUECKE.keys())
 	in_.call("probe", feinde(true).keys())
 	# 1180 (D209.2 Diogenes): der Reiter Probekampf bietet nur Gruppen mit Modell (feinde(), 555); ohne Modell startete die Lage den
 	# Kampf mit einem falschen Monster und galt doch als herstellbar
@@ -719,6 +742,7 @@ static func lage_text(l: Dictionary, de: bool) -> String:
 	if l.has("merker"): t.append(("Geschichte " if de else "Story ") + String(l["merker"]))
 	if l.has("vorraete"): t.append("Vorräte" if de else "Supplies")
 	if l.has("einmaliges"): t.append("Einmaliges" if de else "One-time")
+	if l.has("stuecke"): t.append(("Stücke " if de else "Items ") + String(l["stuecke"]))
 	if l.has("ruhig"): t.append("Monster beachten nicht" if de else "Monsters ignore")
 	if l.has("probe"): t.append(("Probekampf " if de else "Trial fight ") + String(feinde(true).get(String(l["probe"]), l["probe"])))
 	return " · ".join(PackedStringArray(t))

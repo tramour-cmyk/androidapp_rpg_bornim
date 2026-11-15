@@ -1510,6 +1510,7 @@ func lage_herstellen(l: Dictionary) -> void:
 		return
 	if l.has("stufe"): Testmodus.stufe_setzen(werte, zustand, int(l["stufe"]))
 	if l.has("vorraete"): Testmodus.vorraete(werte, zustand)
+	if l.has("stuecke"): Testmodus.stuecke(werte, zustand, String(l["stuecke"]))
 	if l.has("einmaliges"): await test_tat("einmaliges", [])
 	if l.has("ruhig"): Herde.beachten_nicht = true   # 542: wie „Monster: beachten nicht“ im Reiter, kein Kampf auf dem Weg
 	if l.has("uhr"): zustand.minuten = Testmodus.lage_uhr(String(l["uhr"]))
