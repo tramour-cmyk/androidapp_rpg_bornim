@@ -122,3 +122,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:08 15.11.: Tom alt `…76Ra6BZe2iYammL66v` archiviert (14,89 $ auf 785.1, 870.13, 1290); Tom neu `…78BSaiyTRN5sJLVCBK` mit Übergabe f3bdce628 (Build 288, dann 431); 1294 Werkzeugfehler (Perikles hat behoben, Diogenes prüft)
 - 13:36 15.11.: Startsperre 13:36 Start Jerry 760, 1000 (stärkstes Modell, Chef 13:34 laut Sokrates, 9f301e5db; von Hand)
 - 13:37 15.11.: Jerry 760, 1000 (stärkstes Modell) `…78vVh9TarMqMiBZ1pM` gestartet; Jerry 1215 `…77868z8tGPx6d9vJF1` fertig, bleibt offen bis Urteil des Chefs
+- 13:43 15.11.: Startsperre 13:43 Start Sokrates (Neustart, 7f244b96b)
