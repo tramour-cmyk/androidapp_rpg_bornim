@@ -32,6 +32,18 @@ func _lauf() -> void:
 		print("Ziege selbst gestellt (ohne Modell)")
 	Leute.still = false
 	var start := z.kachel
+	# 1263 (Lauf 484 rot, Seite (-1, 0): die Ziege trat erst voran nach (29, 27), dann tauschte sie): wer sonst im Dorf geht, kann die
+	# Kachel des Helden zum Ziel haben, während der Test ihn dorthin setzt (setze springt, im Spiel wählt niemand die Kachel des Helden);
+	# dann tauscht die Ziege nicht (frei_fuer_mich), sondern weicht aus. Am Rechner nachgestellt mit einer Person, Ziel (31, 27).
+	# Gemessen wird nur die Ziege: alle anderen bleiben stehen, wer näher als 4 Kacheln steht, ist fort
+	for l in spiel.leute.get_children():
+		if not (l is Leute) or l == z: continue
+		l.set_process(false)
+		l.ziel = Vector2i(-1, -1); l.weg.clear()
+		var ab: Vector2i = l.kachel - start
+		if maxi(absi(ab.x), absi(ab.y)) < 4:
+			print("fort für den Test: ", l.daten.get("id", "?"), " auf ", l.kachel)
+			l.da = false; l.visible = false
 	print("Ziege auf ", start, " Daten ", z.daten)
 	for d in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
 		var h: Vector2i = start - d
