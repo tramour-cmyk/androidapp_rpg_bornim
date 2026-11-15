@@ -167,6 +167,10 @@ func _run() -> void:
 				var weg: Vector3 = ((r.koerper["brust"] as RigidBody3D).global_position - brust0) * Vector3(1, 0, 1)
 				if f[1] == "still":
 					_pruef("%s sackt zusammen, wo er steht" % id, weg.length() < 0.6 * r.gross + 0.3, "Brust %.2f m" % weg.length())
+				elif art == "GRAK":
+					# 1314 (Lauf 497 rot, nachgestellt: schon am Bau von 1215, 8ed72e0e4): Grak stirbt im Spiel gebacken (1215 A, Chef
+					# 15.11., 13:32); gemessen wird nur, ob sein Gerüst hält, die Richtung des Falls nur als Hinweis
+					print("TODRAGDOLL1215 %s fällt mit dem Stoß: Hinweis, im Spiel gebacken (Brust %+.2f m in Stoßrichtung)" % [id, weg.dot(-zum_angreifer)])
 				else:
 					_pruef("%s fällt mit dem Stoß" % id, weg.dot(-zum_angreifer) > 0.1 * r.gross, "Brust %+.2f m in Stoßrichtung, %+.2f m quer" % [weg.dot(-zum_angreifer), weg.dot(zum_angreifer.cross(Vector3.UP))])
 				var hoch: float = (r.koerper["brust"] as RigidBody3D).global_position.y - boden

@@ -340,6 +340,12 @@ func _mass(g: Dictionary, p: PackedVector3Array) -> Array:
 	y0 = maxf(y0, -0.8 * l)
 	y1 = minf(y1, maxf(1.8 * l, 0.28 * gr))
 	var weit := 0.97 if not g.has("ende") else 0.92     # Kopf: die Ohren zählen mit (lagen bis 0,1 m im Boden)
+	# 1314 (Lauf 497 rot, tod_ragdoll_1215 Schamane „Hieb von rechts“: Saum 0,305 m im Boden; gemessen: die Robe hängt am Becken bis
+	# 0,39 m unter dessen Ursprung und steht seitlich bis 0,34 m ab, der Kasten reichte 0,12 m nach unten und 0,15 m zur Seite):
+	# steht am Becken ein weiter Rock ab (äußerste Ecke fast doppelt so weit wie die übrigen), nimmt der Kasten den ganzen Rock auf
+	if g.n == "becken" and q.call(xs, 1.0) > 1.8 * q.call(xs, weit):
+		weit = 1.0
+		y0 = maxf(q.call(ys, 0.0), -2.6 * l)
 	return [minf(q.call(xs, weit), 0.24 * gr), minf(q.call(zs, weit), 0.17 * gr), y0, y1, Vector3(clampf(mitte.x, -0.05 * gr, 0.05 * gr), (y0 + y1) * 0.5, clampf(mitte.z, -0.08 * gr, 0.08 * gr)), 0.0]
 
 
