@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 882.1 (Umzug BRS Schritt 8): Vergleichsbilder „alt“ (Kotlin-Fassung) liegen einmal gerendert im Zweig „bilder“ unter alt/, damit
-# die Werkzeuge ohne Gradle und ohne tools/preview auskommen (core/ geht mit 870.10). Teile:
-#   screens  Standardlauf von tools/preview (gradlew run): Schirme, Kampf, Karten nah/weit (vgl348.py, vorschau-Vergleich)
+# die Werkzeuge ohne Gradle und ohne tools/preview auskommen (core/ geht mit 1279). Teile:
+#   screens  so gerendert wie der Standardlauf der alten Vorschau: Schirme, Kampf, Karten nah/weit (vgl348.py, vorschau-Vergleich)
 #   karte    KARTENZOOM=1 ONLY=zoom_nah_p mit HELDORT: Dorf zu fünf Tageszeiten und an den Prüfstellen, Wald, Tiefer Wald, Höhle,
 #            die vier Grundrisse bei Tag und Nacht (vgl348.py, pruef348/raeume_blatt.py)
 #   512b     MENUE512B=1: jeder Menüschirm mit seinen Fenstern, dazu je Bild <name>.txt (menues_512b_blatt.py)
