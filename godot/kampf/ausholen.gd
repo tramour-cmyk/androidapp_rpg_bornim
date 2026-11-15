@@ -137,7 +137,9 @@ func _process_modification_with_delta(delta: float) -> void:
 			sk.set_bone_pose_position(b, sk.get_bone_pose_position(b).lerp(hieb.position_track_interpolate(s[2], t), gewicht))
 	if mit_axt:
 		var halt_hieb := _in_hieb(sk, _kette_hand, t).affine_inverse() * _in_hieb(sk, _kette_axt, t)
-		var soll := sk.get_bone_global_pose(_hand) * halt_grund.interpolate_with(halt_hieb, gewicht)
+		# 1314 (Lauf 497 rot, ausholen_1000: 0,096 m bei Haltung 0,57 im Gehen; die Grundbewegung hält die Axt beim Überblenden bis
+		# 0,11 m neben der Faust): der Griff aus „Hieb“ gilt schon ab halber Haltung ganz, die Faust führt die Axt
+		var soll := sk.get_bone_global_pose(_hand) * halt_grund.interpolate_with(halt_hieb, smoothstep(0.0, 0.5, gewicht))
 		var pa := sk.get_bone_parent(_axt)
 		var lokal := (sk.get_bone_global_pose(pa).affine_inverse() if pa >= 0 else Transform3D()) * soll
 		sk.set_bone_pose_position(_axt, lokal.origin)
