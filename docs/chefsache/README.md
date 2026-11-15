@@ -14,9 +14,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870.20 (Tom) SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Haup… |
 | ↳ Kampf passt | 83 | 39 | 4 | 18 | 17 | 1321 (Jerry) Held ohne Wurzelweg weicht am Ort aus, die Bewegu… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 23 | 9 | 0 | 2 | 15 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 62 | 9 | 1 | 1 | 33 | 1322 (Tom) Spielertexte der Oberfläche ohne TP/HP, Wert heiß… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 10 | 1 | 1 | 33 | 1325 (Tom) Rot: ziege_4162 auf dem Bauserver in Lauf 499 und… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 6 | 1 | 4 | 8 | 1268 (Sokrates) Code robuster, schneller, weniger fehleranfällig:… |
-| Werkzeuge und Abläufe der Firma | 63 | 33 | 0 | 7 | 10 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
+| Werkzeuge und Abläufe der Firma | 64 | 33 | 0 | 7 | 10 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 4 | 366 (Sokrates) bornwire.de: Abschnitt „Stand“ und „Tester gesuch… |
 
 **Die nächsten 20**
@@ -35,16 +35,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 10 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
 | 11 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
 | 12 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 13 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | Kampf passt | startbar |
-| 18 | 1315 | Sokrates | Systemlösung? Axt: 2 frühere Vorgänge, neu 1314; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
-| 19 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
-| 20 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
+| 13 | 1325 | Tom | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500: von Westen tritt die Zie… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | Kampf passt | startbar |
+| 19 | 1315 | Sokrates | Systemlösung? Axt: 2 frühere Vorgänge, neu 1314; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
+| 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
 
-Danach 93 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 88.
+Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 88.
 ## Zu entscheiden
 
 Nichts offen.
