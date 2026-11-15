@@ -506,7 +506,12 @@ if __name__ == "__main__":
     p.add_argument("--nachlegen", default="0.15,0.20,0.25", help="Prozentsätze für die Dominanzprüfung je Glut")
     p.add_argument("--json", default="", help="930.6: nur S und Nachlegen nach werte.json „glut“ je Zelle mit dem Helden als JSON "
                    "(Gegenprobe des Spiels: godot/tests/glut_rechnung_930.gd)")
+    p.add_argument("--deckel", type=float, default=0.0, help="481.2 (481a A, Chef 15.11., 10:51): Abzug von Rüstung und Schild höchstens "
+                   "dieser Anteil des Treffers, für Helden und Gegner (0 = ohne Deckel, wie heute)")
     a = p.parse_args()
+    if a.deckel > 0:
+        _end = sim.endschaden
+        sim.endschaden = lambda W, s, abzug: _end(W, s, min(abzug, a.deckel * s))
     HIER = os.path.dirname(os.path.abspath(__file__))
     W = sim.lade(os.path.join(HIER, "werte.json"))
     H = sim.lade(os.path.join(HIER, "handgemenge.json"))
