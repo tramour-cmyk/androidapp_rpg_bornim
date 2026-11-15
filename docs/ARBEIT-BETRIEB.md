@@ -139,3 +139,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:55 15.11.: Startsperre 21:55 Start Tom (Neustart, 7a5cb8315); alte Sitzung …75e4tYNpcX1swGKhsa nach Ruhe archivieren, Kosten auf 1325, 1329; Tom-Weckruf der alten Sitzung legt der neue Tom neu an
 - 21:59 15.11.: Startsperre 21:59 Start Jerry (Neustart, f839e001a); alte Sitzung …7A1yNj6BADiZuT2LfB nach Ruhe archivieren, Kosten auf 1321, 1331
 - 22:07 15.11.: Startsperre 22:07 Start Perikles 1343 (Ford, lauf.py Absturz Zeile 255, per Weiter an …77a6aTXti8RcQ9d3iC); Lauf 22:04 von Hand ohne lauf.py (Absturz), Zeilen unten
+- 22:25 15.11.: Startsperre 22:25 Start Tom (Neustart, 17f714137); alte Sitzung …79cPYSXs27H1EtXt8A nach Ruhe archivieren, Kosten auf 1341, 870.20
