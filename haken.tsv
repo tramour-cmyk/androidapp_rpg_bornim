@@ -412,3 +412,4 @@
 2026-11-15 18:30:57	commit-pruefung	docs/ROLLE-BERATUNG.md: 19666 Bytes, Obergrenze 19300, Commit fügt 368 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-15 18:31:08	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 34838 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 18:31:15	commit-pruefung	docs/ROLLE-BERATUNG.md: 19307 Bytes, Obergrenze 19300, Commit fügt 9 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-15 18:35:30	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 32267 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
