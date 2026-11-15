@@ -1,5 +1,6 @@
 # Tom und Jerry · Build 288 · Menü, Rattenbiss, Kerbe, Modellspeicher · [PR #207](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/207)
 E Kampf · Tom (785.1, 785.2, 785.3, 785.6, 870.13; ohne dich 1290), Jerry (1284 Film bei dir), Spike (1270.2) · 15.11., 13:35 · APK folgt
+Gegengelesen: Jerry 15.11., 13:36 (1266 und 1284 richtig unter „Schon vorgelegt“: 1266 gebilligt, das Kerbensystem bleibt im Spiel aus (`kerbe_an` false), am Handy nichts zu sehen; 1284 Urteil am Film. Hinweis: 288.2 und 288.4 hängen am Zufall von „Beute erzeugen“; wenn möglich ein fester Knopf im Reiter „Test“, sonst so lassen)
 
 Sammelbuild auf Build 287 aufgesetzt (enthält alles aus 287); die Punkte der Liste 287 kommen hier nicht noch einmal.
 
