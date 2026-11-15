@@ -12,11 +12,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [1289](ansehen/1289-hoehle-mobile.md) | Höhle im Renderer mobile wieder dunkel | – | 15.11., 17:10 |
+Nichts offen.
 
 ## Zu tun
 
