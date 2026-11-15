@@ -47,11 +47,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 Danach 86 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 90.
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1347](entscheiden/1347-spike-vorrat.md) | **Muss** | B Abläufe | 15.11., 22:33 | Spike arbeitet, hat aber nur noch eine Kür; zwei Technik-Vorgänge von Tom passen zu ihm. | Perikles |
+Nichts offen.
 
 ## Zu billigen
 
