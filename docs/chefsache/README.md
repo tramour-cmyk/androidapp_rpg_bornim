@@ -18,12 +18,6 @@ Nichts offen.
 |---|---|---|---|
 | [1289](ansehen/1289-hoehle-mobile.md) | Höhle im Renderer mobile wieder dunkel | – | 15.11., 17:10 |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.493](ansehen/t288-menue-ratte.md) | [Build 288](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43723535827/artifacts/14167127253) | Menü, Rattenbiss, Kerbe, Modellspeicher | Tom und Jerry | 15.11., 16:15 |
-
 ## Zu tun
 
 Nichts offen.
