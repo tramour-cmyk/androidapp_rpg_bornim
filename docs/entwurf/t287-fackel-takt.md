@@ -1,5 +1,6 @@
 # Tom und Jerry · Build 287 · Fackel, Takt, Schatten, Merkmale · PR folgt
 E Kampf · Jerry (806, 932, 999.1; ohne dich 956, 644a.1, 1253), Tom (756) · 15.11., 12:00 · APK folgt
+Gegengelesen: Sokrates 15.11., 11:59 (mit Auflagen vor dem Verschieben: (1) der Chef testet gerade 286.6–286.13 am Handy; im Weg sagen „erst Liste 286 zu Ende, dann 287 installieren“, oder die Zeilen 286.6–286.13 samt Lagen in die Prüfdaten von 287, sonst fehlt nach dem Einspielen „Lage herstellen“ für 286; (2) 287.2 auch „ein schlechtes einen roten Punkt“ (756.1, Chef 13.11., 13:45); (3) 287.4 Quelle der 17 Bilder/s nennen (806: „nicht unter heute“), sonst ist die Grenze geraten)
 
 Sammelbuild nach 1274 (c), auf Build 286 aufgesetzt (enthält alles aus 286); die Handypunkte 286.9 bis 286.13 (845, 946, 973, 1223, 1227) bleiben in der Liste 286 und kommen hier nicht noch einmal.
 
