@@ -89,3 +89,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:03 15.11.: Marke Abgleich ganz 15.11. (lauf.py)
 - 10:03 15.11.: Marke Archiv session_01Hmoj794ME3Gg3ydHeNmxum (lauf.py)
 - 10:05 15.11.: Startsperre 10:05 Start Perikles (lauf.py)
+- 10:06 15.11.: Homer neu `…7A9BD9js7ioHpGovGR` (1264 Ideenspeicher), Homer 1260 archiviert; Perikles Tagesbericht `…79UDfkXFpM3zk1WmjM`, Perikles 1262 archiviert (1,36 $); Nachhalten ohne Befund; Wächter 1260 nicht gesendet (Sokrates führt Gespräch mit dem Chef)
