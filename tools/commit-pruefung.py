@@ -125,9 +125,9 @@ def gueltig_pruefen(dat, stop, warn):
     for neu in plus:  # 1301 (Chef 15.11., 16:54): 👎 ohne Wort wird nicht still als „falsch“ verbucht, sondern nachgefragt
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
         if "👎" in neu and kennungen_tg(neu) and not re.match(r"- \*\*t\d+", neu) \
-                and not re.search(r"nachgefragt|fragt\b.{0,40}\bnach|„[^“]{8,}“", neu):
+                and not re.search(r"nachgefragt \d{1,2}:\d{2}|Chef\b(?:[^„:\n]|(?<=\d):(?=\d)){0,30}:\s*„[^“]{8,}“", neu):  # 1302: nur Vollzug oder Wortlaut des Chefs
             stop.append("VORGANGSARCHIV.md: 👎 ohne Wort des Chefs; im selben Zug nachfragen (tools/meldung.sh --frage <Kennung> …), dann "
-                        "„nachgefragt HH:MM“ oder seinen Wortlaut „…“ in den Eintrag (1301)")
+                        "„nachgefragt HH:MM“ oder seinen Wortlaut „Chef …: „…““ in den Eintrag (1301, 1302)")
     for neu in plus:
         if neu in minus or not neu.startswith("- **") or any(a.strip() and neu.startswith(a.rstrip()) for a in minus): continue
         if re.search(r"\b461 unverändert\b", neu): continue
