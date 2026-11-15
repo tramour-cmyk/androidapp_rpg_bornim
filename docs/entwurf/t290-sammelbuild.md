@@ -10,7 +10,7 @@ Im Bau geprüft: Knöpfe klicken (`klick_78520`), Zurück-Taste (`zurueck_78521`
 
 Gegengelesen: Sokrates 15.11., 21:24 (vier Befunde „Zu 1331, von Sokrates“ bei Jerry, vor dem Push einarbeiten)
 
-**Offen für Tom (Gegenlesen):** Wege 290.1 bis 290.7 aus den Commits abgeleitet, nicht am Gerät gegangen; Bilder 290.3, 290.6 und Film 290.5 vom Stand `claude/build-290` fehlen noch.
+Tom (1337, 15.11., 21:33): Wege 290.1 bis 290.7 gegen den Code gegangen, 290.1 (Spielstände liegen im Hauptmenü, nicht unter System), 290.3 (wie man isst) und 290.7 (Kartenzeichen der Leiste) berichtigt; Bilder 290.3, 290.6 und Film 290.5 vom Stand `claude/build-290` auf Telegram (21:32).
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
