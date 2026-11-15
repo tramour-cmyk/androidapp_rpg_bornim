@@ -494,3 +494,4 @@
 2026-11-15 22:03:48	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30300 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-15 22:17:10	probelauf	464: Push angehalten, Parsefehler in GDScript (CI würde rot, der Chef bekommt eine E-Mail). Erst beheben, dann erneut pushen:	claude/tom-870-20-srd
 2026-11-15 22:23:16	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-1284-anlauf
+2026-11-15 22:33:23	commit-pruefung	docs/chefsache/entscheiden/1347-spike-vorrat.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
