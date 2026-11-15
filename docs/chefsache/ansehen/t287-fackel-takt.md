@@ -21,3 +21,7 @@ Im Bau geprüft: Gift, Brand, Blutung mit dem Stufenfaktor des Verursachers (`zu
 
 - 287.3: probe=WOLVES
 - 287.4: probe=WOLVES
+
+## Ergebnis
+
+- 287.4 ✓ Messung Chef 15.11., 14:50 (A56, Xclipse 540, mobile): Kampf Wolfsrudel 128 s, 27 Bilder/s im Schnitt (Grenze 17), langsamstes 1 % 53 ms, längste Pause 143 ms, 61 Bilder über 50 ms, höchstens 202 Zeichenaufrufe, 347k Dreiecke, Grafikspeicher 626 MB; Höhle 28 Bilder/s, Laden Höhle 2494 ms, Kampfort bereit 1,4 s; keine Fehlermeldungen (Urteil nach der Grenze der Liste; ein „✗“ des Chefs schlägt es)
