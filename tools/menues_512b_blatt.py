@@ -3,6 +3,7 @@
 # Fehlt eine Seite, steht dort der Grund. Dazu die Pruefung nur mit Zahlen je Bild: einfarbig?, gleich wie der vorige Zustand derselben
 # Seite?, Anteil heller Pixel (Schrift auf Schwarz) – nach <aus>/pruefung.txt und auf den Schirm.
 # Aufruf: python3 tools/menues_512b_blatt.py <alt-Ordner> <neu-Ordner> <aus-Ordner>
+# alt-Ordner (882.1): einmal gerendert im Zweig „bilder“, holen mit `bash tools/alt_bilder.sh 512b <alt-Ordner>` (ohne Gradle)
 import os
 import sys
 

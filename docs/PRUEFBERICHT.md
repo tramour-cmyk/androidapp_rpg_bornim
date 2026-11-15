@@ -52,6 +52,33 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - Hinweis an Ford (Zu 843): die Sperre „11:27 Start Spike“ stand, obwohl 825 ausgeschlossen wurde (`--sperre` vor dem Entschluss zu `--ohne`); sie belegte Spike 20 Minuten und hätte ohne Tätigkeit der alten Sitzung ab 11:32 Fehlalarm gegeben. Erst `--ohne`, dann `--sperre`.
 - 838 erledigt; die Stichprobe läuft künftig in der Wochenzählung (Vorrat).
 
+## Lauf 246 · 1133 Pflege-Commits Messtag (Perikles 1244 `bf3c1a4a7`; 15.11., 01:0x)
+
+- **1133 greift (letzter Punkt P1):** Messtag 14.11., 00:50 bis 15.11., 00:50: 8 Commits „Pflegehinweise“ von 422 (13.11. ganzer Tag: 79 von 2.768); Kalendertag 14.11.: 10. Je Commit nachgesehen: 4 ändern Zeilen (neue Pflegezeile, neues Datum, andere Funde), 4 verschieben eine unveränderte Pflegezeile hinter neu eingetragene Muss desselben Besitzers (Vorrang, z. B. `6d4baf40b` hinter 930.5–930.7), kein Commit nur wegen Bytes oder Zeichen. P2–P4 griffen in Lauf 200 und 236.
+
+## Lauf 245 · 1019 Ford-Selbstneustart ab 400 Tsd. (Perikles `80773642e`; 15.11., 00:0x)
+
+- **1019 greift:** seit `80773642e` zwei Selbstneustarts, `used_tokens` beim Archivieren 424.840 (`…7AAPsuvPwPbE7HCYeV`, 14.11., 00:15–10:36) und 421.437 (`…76dYAn9Jmk5yYyU3HQ`, 10:35–20:45), keiner unter 400 Tsd. Tiefe 0 (Handstart `…772q8aDimJ7oU9STTH`, 13.11., 18:22) → 3 in 30 h (vorher 6 in 21 h). Kosten je Stunde 0,75 $ und 0,81 $ (vorher 3,1 $/h bei 654 Tsd.).
+- **Zur Kenntnis, kein Befund zu 1019:** laufender Ford `…793a6GGZhUhAzGSphs` 7,06 $ in 3,3 h (≈ 2,1 $/h) bei 388 Tsd.; fällt in den Weckruf-Stau nach der Wochengrenze 20:00 (Protokoll Ford 20:05). Nicht geprüft: Ford-Starter (1098.1, Termin 16.11.).
+- **1125 nicht prüfbar:** seit 13.11., 13:19 kein Uhrlauf mit `LEERLAUF`; jede Stunde mit Uhrlauf hat einen Ford-Commit zwischen :03 und :15 (Lücken nur 13.11., 16–17 Uhr, Uhr feuerte nicht, und 14.11., 12–19 Uhr, Wochengrenze). Uhrlauf 00:03: 9 Schritte, 0,36 $ (0,04 $ je Schritt bei 388 Tsd., wie Lauf 195), mit START Diogenes. → `warte 1125 16.11.`, dann erneut.
+- **1247 am Zweig gut, greift noch nicht** (`d26f3b5aa`, nur `claude/tom-1247-lauf-frei`): `probelauf_frei_test.py` 8 von 8; am echten Vorgangsarchiv gibt `urteil()` alt wie neu dieselben Zeiten (1242 10:33, 1091 und 1119 10:42, 1040.1 22:30, 930.6, 1222), kein Rückschritt; der Fall von 10:41 ist dort durch eigene Einträge 10:42 schon gelöst, also nur am Test belegt. Greift am ersten echten Halt mit `main` → `warte 1247 16.11.`.
+
+## Lauf 244 · 1079 `ziege_4162` (Tom `bc2dd1ea0`, Spike `e347e68d8`; 14.11., 21:1x)
+
+- **`bc2dd1ea0` greift nicht:** Ursache am Rechner bestätigt (zweite Ziege mit Ziel Heldenkachel je Seite: alter Test 2 Fehler, Schritte `[(30, 27), (30, 28), false]`; neuer Test räumt sie aus, 0 Fehler). Der Test versteckt, was das Spiel weiter tut (Chef 416.2 „Ziege wird geschoben, kein Platztausch“).
+- **`e347e68d8` (Spike) nachgeprüft:** Logiksatz 153 gut (156 s), `ziege_4162` dreimal 0 Fehler; derselbe Test mit `leute.gd` von `828e0e98d` zweimal 1 Fehler an (-1, 0). Lücke: nur fliehende Tiere geben die Heldenkachel frei. Bauserver auf keinem Zweig gelaufen. Wahl des Zweigs bei Tom (Zu 1079 im Vorrat Tom); 1079 → startbar.
+
+## Lauf 251 · 1276, 882.2, Rest 1128.3 (15.11., 11:2x)
+
+- **1276 greift** (`6737cc87c` auf `main`): `tom-probe-505.yml` weg; `grep -rn "gradlew\|core/src" tools .github`: `android.yml` (870.10), `tools/alt_bilder_rendern.sh` (Umfang 870.10), dazu zwei Kommentare (D251.1 → 1282 Perikles, Kür).
+- **882.2 greift:** echter Team-Commit `39b8f42a2` (Jerry 956, `godot/regeln/mars.gd`) in Wegwerfbaum ohne Marke: „Commit-Prüfung Warnung: Code ohne grünen Kerntest …“, Exit 0; nach `tools/t logik` (153 gut, 0 rot, 162 s, Exit 0) keine Warnung.
+- **980 Bautest Lauf 473:** `kaufquelle_test.py` steht im Schritt „Blender als Python-Modul“ jedes Laufs (zweiter Aufruf entscheidet, kann rot werden), in 473 grün; Kampfblock in 469 und 470 echt gebaut mit `kaufquelle.py` unter „geändert“ (Spinne, Skelett, Wolf gebaut), 473 holt ihn aus dem Cache, dessen Kennung `kaufquelle.py` enthält. Richtigstellung zu 14.11., 20:06: 469 trug 980.
+- **1060 offen:** Läufe 471–484 alle Blöcke Treffer, 473 klassen wegen `block:figur`; kein Lauf, in dem sich nur Dorffelder von `leute.json` ändern.
+- **870.10 greift** (`5916f43ab` auf `main`): `android.yml` weg; kein Ablauf und kein Werkzeug ruft ihn noch (`grep` „Kotlin alt“, `workflows/android`); `gradlew` nur noch in `alt_bilder_rendern.sh` (1279) und zwei Kommentaren (1282). 431 und 870.13 (Tom) frei.
+- **1283 greift** (`25fbfa6c8`): Wegwerfbaum von `main`, Archivzeile 499 (👍, Nachricht 2980): dieselbe Zeile berichtigt → kein Halt; neue Zeile mit 2980 → Halt; Liste „Nachricht 99991, 2980“ und „2980, 99991“ → Halt.
+- **1128.3** wartet auf 1060 (`warte`), keine Arbeit vor einem Lauf mit reiner Dorffeld-Änderung.
+- **Nicht geprüft:** Rest aus 1272.
+
 ## Lauf 243 · 1179, 1173, 1217, 1248 an t285 (14.11., 20:2x)
 
 - **1248 greift** (`dc1ee764f`): `laufnachweis.py` an t285 (Stand vor `312befa8e`) gegen `d34cecf64`: 20 von 20 tragen, davon die 6 aus 285.14 (`sim444_870`, `krogg_494`, `schild_406`, `zweikampf_1025`, `absicht_1049`, `mars_regeln`); Stand vor `dc1ee764f`: 14 von 14.
