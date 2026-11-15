@@ -1449,9 +1449,9 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/rauch1222; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_rauch_1222.gd 2>&1 | grep -E "^Film|1222|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/rauch1222.avi --fixed-fps 30 -s res://tests/film_rauch_1222.gd > $B/rauch1222.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|1222|^Signatur|FEHLER" $B/rauch1222.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/rauch1222.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1222-rauch.mp4 || true
@@ -1463,9 +1463,9 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/pfeil601; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb ffmpeg > /dev/null || true
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
           MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_pfeil_601.gd 2>&1 | grep -E "^Film|601|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/pfeil601.avi --fixed-fps 30 -s res://tests/film_pfeil_601.gd > $B/pfeil601.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|601|^Signatur|FEHLER" $B/pfeil601.log | head -20 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/pfeil601.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/601-pfeil.mp4 || true
@@ -1476,8 +1476,8 @@ jobs:
         run: |
           B=$GITHUB_WORKSPACE/bilder/fackel9991; mkdir -p $B
           cd godot
-          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          FACKEL=1 TAGESZEIT=nacht BILD=$B/9991-fackel.png timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 \
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb > /dev/null || true
+          FACKEL=1 TAGESZEIT=nacht BILD=$B/9991-fackel.png timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile \
             --path . --resolution 540x1170 -s res://tests/bild_fackel_9991.gd > $B/fackel9991.log 2>&1 || true
           grep -E "SCRIPT ERROR|^BILD9991|^Signatur" $B/fackel9991.log | head -10 || true
           ls -l $B
@@ -1770,7 +1770,7 @@ jobs:
           grep -E "SCRIPT ERROR|^FILM10401" $B/wenden10401.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wenden10401.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wenden10401.mp4 || true
           timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" \
-            ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wendendorf.avi --fixed-fps 30 \
+            ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/wendendorf.avi --fixed-fps 30 \
             -s res://tests/film_wenden_dorf_10401.gd -- --film=10401 > $B/wendendorf.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM10401D" $B/wendendorf.log | cut -c1-300 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/wendendorf.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/wendendorf.mp4 || true
