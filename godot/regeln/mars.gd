@@ -2251,6 +2251,11 @@ func _held_kann_vorher_wechseln(foe: Fighter) -> bool:
 			return false
 		if f == held_f:
 			return true
+		# 1296 (t289.3 ✗, Chef 15.11., 20:47: Eingebung nach der Ansage von Wolf 3, dann sprangen Wolf 1 und Wolf 2, bevor der Held
+		# zog): springt vor dem Zug des Helden noch ein anderer Gegner mit angesagtem Sprung oder Flanke, kommt sie erst bei dessen
+		# Ansage, unmittelbar vor dem Zug des Helden
+		if f != foe and f.side != held_f.side and f.standing() and intents.has(f.id) and str(intents[f.id][0].id) in WECHSEL_RAT:
+			return false
 	return false
 
 
