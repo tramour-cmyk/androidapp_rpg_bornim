@@ -5,7 +5,10 @@
 # Abweichung des mittleren Endes von der Bauform),
 # Kapseln (Anzahl); mit Schild (daten/waffen/shield.bin da) ein zweites Mal frisch geladen, Schild und Schwert wie im Spiel (bewaffne),
 # dazu Spalt (cm, kleinster Abstand Innenseite Schild zu Haut samt Umhang in „Stehen“). Hinweis bei Spalt über 4 cm (1297), FALSCH, wenn keine Kette da ist oder ein Ende weiter als 25 cm springt.
-# Aufruf: UMHANG=<ordner mit umhang_*.glb> godot --headless --path godot -s res://tests/umhang_431.gd
+# 431 Tuch (Sokrates 15.11., 17:29): dazu „Arm gehoben“ (Sword_Attack) und Zeilen UMHANG431 TUCH: Kantenecken links/rechts (cm, Höhe und
+# Abstand zur Rumpfachse der unteren Ecken), Sprung im Raum der Figur (FALSCH über 25 cm je Bild), mit Schild: wie weit Tuch außen vor
+# dem Schild liegt (durchstößt). Tuch gegen Haut misst kleiderschrank.py mit Flächen (posen_messen; hier mit Ecken unzuverlässig).
+# Aufruf: UMHANG=<ordner mit umhang_*.glb> [NUR=<teil des namens>] godot --headless --path godot -s res://tests/umhang_431.gd
 extends SceneTree
 
 const FPS := 30.0
@@ -23,7 +26,7 @@ func _run() -> void:
 		return
 	var dateien := []
 	for f in da.get_files():
-		if f.begins_with("umhang_") and f.ends_with(".glb"): dateien.append(f)
+		if f.begins_with("umhang_") and f.ends_with(".glb") and (OS.get_environment("NUR") == "" or f.contains(OS.get_environment("NUR"))): dateien.append(f)
 	dateien.sort()
 	var falsch := 0
 	for f in dateien:
@@ -44,7 +47,7 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 		print("UMHANG431 %s FALSCH: ohne Kette oder Bewegungen" % name)
 		m.free()
 		return 1
-	var sim := Umhang.an(m, sk)
+	var sim: SpringBoneSimulator3D = null if OS.get_environment("TUCH_OHNE_FEDER") != "" else Umhang.an(m, sk)   # nur zur Ursachensuche
 	var enden := {}
 	for e in k: enden[e[0]] = sk.find_bone("umhang_%s_%d" % [e[0], e[1]])
 	var bi := sk.find_bone("spine_03")
@@ -77,9 +80,28 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 		print("UMHANG431 %s FALSCH: ohne aeussere Ketten" % name); m.free(); return 1
 	var nrm: Vector3 = (bau["l2"] - bau["r2"]).normalized()
 	var mitte: Vector3 = (bau["l2"] + bau["r2"]) * 0.5
+	# 431 Tuch (Sokrates 15.11., 17:29, Bedingung 2): Kantenecken von hinten spiegelgleich (±1 cm), Kragen liegt auf (Abstand Netz–Haut
+	# über Schulter und Oberarm ≤ 3 cm), kein Durchstoßen von Haut (Rumpf, Arm) und Schild, auch mit gehobenem Arm (Sword_Attack)
+	var tuch_mi := []
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		if x.skin == null or x.get_parent() is BoneAttachment3D: continue
+		var rn := ""
+		for si in x.mesh.get_surface_count():
+			var mt := x.mesh.surface_get_material(si)
+			if mt: rn += String(mt.resource_name)
+		if String(x.name).contains("Kleid") or rn.contains("held"): tuch_mi.append(x)
+	var ecke := []   # [links, rechts] Index der unteren Ecken, beim ersten Bild im Stehen bestimmt (die Ruhelage ist gegen das Stehen gekippt)
+	var mess := {"an": false, "ecke": 0.0, "n_ecke": 0, "schild": 0.0}
 	var gesehen := {}
+	var gesehen_w := {}   # Enden im Raum der Figur: Sprung dort (im Raum von spine_03 ist ein Nachschwingen beim Drehen des Rumpfs kein Sprung)
 	sk.skeleton_updated.connect(func():
-		for s in enden: gesehen[s] = _ende(sk, enden[s], bi, false)
+		if mess["an"]:
+			mess["an"] = false
+			_tuch_mess(sk, tuch_mi, mess, ecke)
+		for s in enden:
+			gesehen[s] = _ende(sk, enden[s], bi, false)
+			gesehen_w[s] = sk.get_bone_global_pose(enden[s]) * Vector3(0, sk.get_bone_rest(enden[s]).origin.length(), 0)
 		for sp in rand:
 			var g: Array = rand[sp]
 			var p0 := sk.get_bone_global_pose(g[0]).origin
@@ -93,7 +115,7 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 				var q := sk.get_bone_global_pose(g).origin
 				arm_tief[0] = maxf(arm_tief[0], float(a[2]) + Umhang.GLIED_RADIUS - q.distance_to(Geometry3D.get_closest_point_to_segment(q, p0, p1))))
 	var bad := 0
-	for paar in [["Stehen", "Idle_Loop", schild], ["Gehen", "Walk_Loop", schild]]:   # Namen aus held_klassen.py oder der UAL
+	for paar in [["Stehen", "Idle_Loop", schild], ["Gehen", "Walk_Loop", schild], ["Arm gehoben", "Sword_Attack", schild]]:   # Namen aus held_klassen.py oder der UAL
 		if paar[2] and sk.find_children("Ruecken*", "BoneAttachment3D", false, false).is_empty():
 			# Lauf 9 (E8): Schild und Schwert wie im Spiel (HeldFigur.bewaffne) über dem Umhang, als Kapseln; Spalt zum Rücken samt Umhang
 			ap.play(String(paar[0]) if ap.has_animation(String(paar[0])) else String(paar[1])); ap.seek(0.0, true); ap.stop()
@@ -102,18 +124,25 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 				for d in ba.get_children(): if d is Node3D: Umhang.ruecken(sim, sk, d)
 			await process_frame
 			var spalt := _spalt(m, sk)
-			print("UMHANG431 %s Schild: Spalt zum Rücken %.1f cm, Kapseln %d" % [name, spalt * 100, sim.get_child_count()])
+			print("UMHANG431 %s Schild: Spalt zum Rücken %.1f cm, Kapseln %d" % [name, spalt * 100, (sim.get_child_count() if sim else 0)])
 			if spalt > 0.04: print("UMHANG431 %s Hinweis (1297, nicht 431): Schild %.0f cm hinter dem Rücken" % [name, spalt * 100])
 		var bew: String = paar[0] if ap.has_animation(paar[0]) else String(paar[1])
 		if not ap.has_animation(bew): print("UMHANG431 %s FALSCH: ohne %s" % [name, paar[0]]); bad += 1; continue
 		ap.play(bew)
 		var seit := 0.0; var spiegel_v := Vector3.ZERO; var n := 0; var sack := 0.0; var sprung := 0.0; var mweg := Vector3.ZERO
-		var vor := {}
+		var vor := {}; var vor_w := {}; var sprung_w := 0.0
+		mess["ecke"] = 0.0; mess["schild"] = 0.0; mess["n_ecke"] = 0
 		for i in int(3.0 * FPS):
 			if i == 15: arm_tief[0] = 0.0; knick[0] = 0.0
+			if i >= 15 and i % 6 == 0: mess["an"] = true
+			if OS.get_environment("TUCH_T0") != "" and paar[0] == "Stehen": ap.seek(0.0, true)
 			await process_frame
 			if i < 15: continue   # einschwingen
 			var p := gesehen.duplicate()   # Lage nach den Modifikatoren (skeleton_updated), sonst sieht man die Federung nicht
+			var pw := gesehen_w.duplicate()
+			for s in pw:
+				if vor_w.has(s): sprung_w = maxf(sprung_w, (pw[s] - vor_w[s]).length())
+			vor_w = pw
 			if p.is_empty(): continue
 			# seitlich: wie weit ein aeusseres Ende quer ueber seine Ruhelage hinaus nach aussen geht
 			seit = maxf(seit, maxf((p["l2"] - bau["l2"]).dot(nrm), -(p["r2"] - bau["r2"]).dot(nrm)))
@@ -126,8 +155,12 @@ func _messe(pfad: String, name: String, schild: bool) -> int:
 			vor = p
 		var sp := (spiegel_v / maxf(n, 1)).length()   # 0: links und rechts gleich
 		print("UMHANG431 %s %s%s: seitlich %.1f cm, Spiegel %.1f cm, Mitte weg %.1f cm %s, Sprung %.1f cm je Bild, Arm im Umhang %.1f cm, Saum Knick %.1f cm, Kapseln %d" % [name, bew,
-			" mit Schild" if paar[2] else "", seit * 100, sp * 100, sack * 100, str(mweg * 100).replace(" ", ""), sprung * 100, arm_tief[0] * 100, knick[0] * 100, sim.get_child_count()])
-		if sprung > 0.25: bad += 1; print("UMHANG431 %s FALSCH: Ende springt %.0f cm" % [name, sprung * 100])
+			" mit Schild" if paar[2] else "", seit * 100, sp * 100, sack * 100, str(mweg * 100).replace(" ", ""), sprung * 100, arm_tief[0] * 100, knick[0] * 100, (sim.get_child_count() if sim else 0)])
+		# 431 Tuch: Sprung im Raum der Figur (FALSCH über 25 cm je Bild); der Wert im Raum von spine_03 steht oben
+		if sprung_w > 0.25: bad += 1; print("UMHANG431 %s FALSCH: Ende springt %.0f cm" % [name, sprung_w * 100])
+		var ek: float = mess["ecke"] / maxf(mess["n_ecke"], 1)
+		print("UMHANG431 TUCH %s %s%s: Kantenecken links/rechts %.1f cm, Sprung %.1f cm je Bild%s" % [name, bew,
+			" mit Schild" if paar[2] else "", ek * 100, sprung_w * 100, (", durch den Schild %.1f cm" % (mess["schild"] * 100)) if paar[2] else ""])
 	m.queue_free()
 	await process_frame
 	return bad
@@ -156,3 +189,86 @@ func _spalt(m: Node3D, sk: Skeleton3D) -> float:
 					for h in haut:
 						if absf(h.y - v.y) < 0.05: weg = minf(weg, h.distance_to(v))
 	return weg
+
+
+## Netze mit Haut im Raum des Skeletts (Ruhelage oder jetzige Lage), dazu Normalen und je Ecke, ob sie am Arm hängt (stärkstes Gewicht)
+func _skin(mis: Array, sk: Skeleton3D, ruhe: bool) -> Array:
+	var pos := PackedVector3Array(); var nrm := PackedVector3Array(); var arm := PackedByteArray(); var idx := PackedInt32Array()
+	var gl := []
+	for b in sk.get_bone_count(): gl.append(sk.get_bone_global_rest(b) if ruhe else sk.get_bone_global_pose(b))
+	for mi in mis:
+		var x := mi as MeshInstance3D
+		for s in x.mesh.get_surface_count():
+			var ar := x.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var ns: PackedVector3Array = ar[Mesh.ARRAY_NORMAL]
+			var bo: PackedInt32Array = ar[Mesh.ARRAY_BONES]; var we: PackedFloat32Array = ar[Mesh.ARRAY_WEIGHTS]
+			if bo.is_empty(): continue
+			var n := bo.size() / vs.size()
+			var off := pos.size()
+			var ix = ar[Mesh.ARRAY_INDEX]
+			if ix != null:
+				for e in (ix as PackedInt32Array): idx.append(off + e)
+			for i in vs.size():
+				var p := Vector3.ZERO; var q := Vector3.ZERO; var best := 0.0; var bb := -1
+				for j in n:
+					var g: float = we[i * n + j]
+					if g <= 0.0: continue
+					var bind: int = bo[i * n + j]
+					var bone := x.skin.get_bind_bone(bind)
+					if bone < 0: bone = sk.find_bone(x.skin.get_bind_name(bind))
+					var t: Transform3D = gl[bone] * x.skin.get_bind_pose(bind)
+					p += (t * vs[i]) * g; q += (t.basis * ns[i]) * g
+					if g > best: best = g; bb = bone
+				pos.append(p); nrm.append(q.normalized())
+				var bn := sk.get_bone_name(bb) if bb >= 0 else ""
+				arm.append(1 if (bn.begins_with("upperarm") or bn.begins_with("lowerarm") or bn.begins_with("hand")) else 0)
+	return [pos, nrm, arm, idx]
+
+
+## untere Ecken des Tuchs in der Ruhelage: tiefste Reihe, äußerste links und rechts (x > 0 und x < 0)
+func _ecken(p: PackedVector3Array) -> Array:
+	var y0 := INF
+	for v in p: y0 = minf(y0, v.y)
+	var l := -1; var r := -1
+	for i in p.size():
+		if p[i].y > y0 + 0.01: continue
+		if l < 0 or p[i].x > p[l].x: l = i
+		if r < 0 or p[i].x < p[r].x: r = i
+	return [l, r]
+
+
+func _tuch_mess(sk: Skeleton3D, tuch_mi: Array, mess: Dictionary, ecke: Array) -> void:
+	var t := _skin(tuch_mi, sk, false)
+	var tp: PackedVector3Array = t[0]
+	var sh := sk.get_bone_global_pose(sk.find_bone("spine_03")).origin
+	# Kantenecken von hinten: gleich hoch und gleich weit von der Achse des Rumpfs (senkrecht durch spine_03), größerer Unterschied
+	if ecke.is_empty(): ecke.append_array(_ecken(tp))
+	if ecke[0] >= 0 and ecke[1] >= 0:
+		var a := tp[ecke[0]]; var b := tp[ecke[1]]
+		var da := Vector2(a.x - sh.x, a.z - sh.z).length(); var db := Vector2(b.x - sh.x, b.z - sh.z).length()
+		mess["ecke"] += maxf(absf(a.y - b.y), absf(da - db)); mess["n_ecke"] += 1
+	# Schild durchstoßen: eine Tuchecke liegt im Umriss des Schilds weiter außen (vom Rücken weg) als seine Außenseite
+	for ba in sk.find_children("RueckenSchild", "BoneAttachment3D", false, false):
+		var pts := PackedVector3Array()
+		for mi in (ba as Node3D).find_children("*", "MeshInstance3D", true, false):
+			var x := mi as MeshInstance3D
+			var tr := sk.global_transform.affine_inverse() * x.global_transform
+			for si in x.mesh.get_surface_count():
+				for v in (x.mesh.surface_get_arrays(si)[Mesh.ARRAY_VERTEX] as PackedVector3Array): pts.append(tr * v)
+		if pts.size() < 8: continue
+		var c := Vector3.ZERO
+		for q in pts: c += q
+		c /= pts.size()
+		var aus := (c - sh); aus.y = 0.0; aus = aus.normalized()   # vom Rücken weg
+		var u := Vector3.UP.cross(aus).normalized(); var w := Vector3.UP
+		const ZS := 0.02
+		var aussen := {}   # Zelle (u, w) -> größte Höhe längs aus
+		for q in pts:
+			var kz := Vector2i(floori((q - c).dot(u) / ZS), floori((q - c).dot(w) / ZS))
+			aussen[kz] = maxf(aussen.get(kz, -INF), (q - c).dot(aus))
+		for v in tp:
+			var kz := Vector2i(floori((v - c).dot(u) / ZS), floori((v - c).dot(w) / ZS))
+			if aussen.has(kz):
+				mess["schild"] = maxf(mess["schild"], (v - c).dot(aus) - float(aussen[kz]))
+
