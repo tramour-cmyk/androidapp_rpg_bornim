@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:41, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:44, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,7 +12,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870.20 (Tom) SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Haup… |
-| ↳ Kampf passt | 80 | 37 | 3 | 18 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
+| ↳ Kampf passt | 81 | 37 | 3 | 18 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 22 | 9 | 0 | 2 | 15 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 10 | 1 | 0 | 33 | 1325 (Tom) Rot: ziege_4162 auf dem Bauserver in Lauf 499 und… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 6 | 1 | 4 | 8 | 698 (Tom) Grafikstufen im Systemmenü mit Effekten |
@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 | 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
 
-Danach 83 weitere offen. Bei dir zum Testen (vorgelegt): 31. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 91.
+Danach 84 weitere offen. Bei dir zum Testen (vorgelegt): 31. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 91.
 ## Zu entscheiden
 
 Nichts offen.
