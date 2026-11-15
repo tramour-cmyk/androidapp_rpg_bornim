@@ -65,8 +65,9 @@ def worum(titel, n=80):
 
 
 def wartet_auf_test(d):
-    """Liegt bei dir: in einem Build, „zu testen“ (schon vorgelegt, auch „ohne Rückmeldung t<n>“) oder gebaut mit t<n> im Feld."""
-    if d["wort"] == "zu testen": return True
+    """Liegt bei dir: in einem Build, „zu testen“ (schon vorgelegt) oder gebaut mit t<n> im Feld. 1332: „ohne Rückmeldung t<n>“ liegt
+    beim Besitzer (startbar), nicht bei dir."""
+    if d["wort"] == "zu testen": return not s.ohne_rueckmeldung(d)
     return d["wort"] == "gebaut" and (str(d.get("build") or "").strip().isdigit() or any(re.fullmatch(r"t\d+", t) for t in d["warte"]))
 
 

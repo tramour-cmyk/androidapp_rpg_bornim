@@ -676,6 +676,36 @@ def vorlage_auftrag(d, h):
     return (" (1312: Spielcode gebaut seit %d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
             "ins Feld „wartet auf“; nie „fährt im nächsten Build“ ohne Termin)" % (h, weg))
 
+# 1332 (Chef 15.11., 21:07: „Und wieder bin ich bass erstaunt, dass irgendwelche Sachen rumliegen und sich keiner darum kümmert.“):
+# „zu testen, ohne Rückmeldung t<n>“ (vorgang.py build, Punkt ohne Antwort im Test) ist sofort startbar für den Besitzer, bis ein
+# Termin im Feld „wartet auf“ steht (Vorlage) oder die Zeile in einem neuen Build liegt. Ersetzt „in die nächste Prüfliste“.
+OHNE_RUECKMELDUNG = re.compile(r"\bohne Rückmeldung\b")
+
+def ohne_rueckmeldung(d):
+    return d["wort"] == "zu testen" and bool(OHNE_RUECKMELDUNG.search(d.get("stand") or "")) and \
+        str(d.get("build") or "").strip() in ("", "–", "-") and not offen_warte(d)
+
+RUECKMELDUNG_AUFTRAG = (" (1332: im Test ohne Rückmeldung: selbst prüfen und schließen, oder als Bild, Film, Hörprobe an den Chef "
+                        "und den Termin der Antwort ins Feld „wartet auf“, oder in den nächsten Build mit Prüfzeile)")
+
+def haengt(d, tiefe=0):
+    """1332 (3): Leiche = offene Zeile, die weder startbar ist noch auf einen Termin, einen Test, eine Person oder eine Zeile wartet,
+    die selbst vorankommt. Ruhendes (ruht, Dauer, nach Meilenstein, Idee, aufgeteilt) und Gebautes (1312, Diogenes) zählen nicht."""
+    if d["wort"] not in ("startbar", "offen", "wartet", "Chef", "in Arbeit") or d["besitzer"] == "Ideen" or d["nr"] in SONDER: return False
+    g = sperre(d)
+    if g is None or g.startswith(("Pause", "ruht", "nach dem Meilenstein", "Dauerzeile", "in Arbeit bei")): return False
+    offen = offen_warte(d)
+    if not offen: return True  # gesperrt ohne Grund im Feld (etwa „wartet“ ohne Feld)
+    for t in offen:
+        a = art(t)
+        if a in ("datum", "build", "chef", "gespraech", "rolle"): return False
+        if a == "nr":
+            ziel = next((z for z in zeilen_liste() if z["nr"] == t), None)
+            if ziel is None: continue  # Archiv oder unbekannt: kommt nicht voran
+            if ziel["wort"] in ("gebaut", "zu testen", "ruht", "nach Meilenstein", "Dauer"): return False
+            if tiefe < 8 and not haengt(ziel, tiefe + 1) and ziel["wort"] != "erledigt": return False
+    return True
+
 def b_offen_streng(d):
     """1221 (Diogenes 13.11., 20:27): „greift“ prüft erst, wenn jede Nummer im Feld „wartet auf“ erledigt ist; „gebaut“ oder
     „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
@@ -711,6 +741,7 @@ def sperre(d):
     if w == "gebaut":
         if liegt_ohne_vorlage(d) is not None: return None  # 1312: vorlegen (Auftrag im Titel, plan)
         return "wartet auf Test/Build (gebaut)"  # 190.1
+    if w == "zu testen" and ohne_rueckmeldung(d): return None  # 1332: selbst prüfen oder vorlegen (Auftrag im Titel, plan)
     if w == "zu testen": return "wartet auf Test (Build%s)" % ((" " + d["build"]) if d.get("build") not in ("", "–", "-", None) else "")
     if w == "ruht" and not d["warte"]: return "ruht" + ((" (" + d["zusatz"][:60] + ")") if d["zusatz"].startswith("424") else "")
     if w == "Dauer" and not d["warte"]: return "Dauerzeile"
@@ -762,6 +793,7 @@ def plan(rolle):
             mischen = " (1311: Werkzeug gebaut auf %s, nicht auf main: nach grünem Lauf jetzt mischen, ohne Test des Chefs; dann Diogenes „greift“)" % d["zweig"] if b_nicht_auf_main(d) else ""
             h = liegt_ohne_vorlage(d)
             if h is not None: mischen = vorlage_auftrag(d, h)
+            if ohne_rueckmeldung(d): mischen = RUECKMELDUNG_AUFTRAG
             eigen.append((d["nr"], kl, d["titel"] + mischen, d, sperre(d)))
         elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d) and not b_nicht_auf_main(d):  # 724 A, 1221
             # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269);
@@ -825,7 +857,7 @@ def fertig_zeilen(rolle):
 
 def ohne_build_zeilen(rolle):
     """1129 A 2: fertig, aber in keinem Build — Pflicht im nächsten Sammelbuild."""
-    return [d for d in fertig_zeilen(rolle) if (d.get("build") or "").strip() in ("", "–", "-")]
+    return [d for d in fertig_zeilen(rolle) if (d.get("build") or "").strip() in ("", "–", "-") and not ohne_rueckmeldung(d)]  # 1332: die sind startbar
 
 # 779: Wörter, die in fast jedem Titel eines Teams stehen und allein keine Überschneidung machen (Dorf, Höhle: ganzes Gebiet eines Teams)
 ALLGEMEIN = {"kampf", "mars", "chef", "build", "held", "helden", "gegner", "alt", "neu", "spiel", "test", "idee", "werte", "regel",
@@ -1278,6 +1310,9 @@ def main():
             ob = ohne_build_zeilen(r)
             if ob: print("  OHNE BUILD %s (%d, Pflicht im nächsten Sammelbuild, 1129 A 2; sperrt nicht): %s"
                          % (r, len(ob), ", ".join(d["nr"] for d in ob[:12]) + (" …" if len(ob) > 12 else "")))
+        lz = [d for d in zeilen_liste() if haengt(d)]  # 1332 (3): Ford liest --stand jeden Lauf und gibt sie dem Besitzer
+        if lz: print("  LEICHE (1332: weder startbar noch Termin, Test, Person oder Zeile, die vorankommt; Ford: dem Besitzer in den Vorrat): %s"
+                     % "; ".join("%s %s: %s" % (d["nr"], d["besitzer"], sperre(d)) for d in lz[:15]))
         ff = festgefahrene()
         if ff: print("  Festgefahren (827.1: mehr Leistung nur mit „Nachfolger: … (Aufwand hoch, weil …)“): %s" % ("; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))

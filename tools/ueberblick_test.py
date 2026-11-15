@@ -18,7 +18,7 @@ ziel = next((d for _, d, g in reversed(kommt) if g is None), None)
 alt = u.s.zeilen_liste
 liste = alt()
 for d in liste:
-    if ziel and d["nr"] == ziel["nr"]: d["titel"] += " · „jetzt“ 15.11., 20:10"; d["kl"] = "M"  # „jetzt“ ist immer Muss (CLAUDE.md)
+    if ziel and d["nr"] == ziel["nr"]: d["titel"] += " · „jetzt“ " + __import__("datetime").datetime.now().strftime("%d.%m., %H:%M"); d["kl"] = "M"  # „jetzt“ ist immer Muss (CLAUDE.md)
 u.s.zeilen_liste = lambda: liste
 _, kommt2, *_ = u.rechnen()
 u.s.zeilen_liste = alt
