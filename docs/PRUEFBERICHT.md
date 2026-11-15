@@ -68,6 +68,14 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **`bc2dd1ea0` greift nicht:** Ursache am Rechner bestätigt (zweite Ziege mit Ziel Heldenkachel je Seite: alter Test 2 Fehler, Schritte `[(30, 27), (30, 28), false]`; neuer Test räumt sie aus, 0 Fehler). Der Test versteckt, was das Spiel weiter tut (Chef 416.2 „Ziege wird geschoben, kein Platztausch“).
 - **`e347e68d8` (Spike) nachgeprüft:** Logiksatz 153 gut (156 s), `ziege_4162` dreimal 0 Fehler; derselbe Test mit `leute.gd` von `828e0e98d` zweimal 1 Fehler an (-1, 0). Lücke: nur fliehende Tiere geben die Heldenkachel frei. Bauserver auf keinem Zweig gelaufen. Wahl des Zweigs bei Tom (Zu 1079 im Vorrat Tom); 1079 → startbar.
 
+## Lauf 251 · 1276, 882.2, Rest 1128.3 (15.11., 11:2x)
+
+- **1276 greift** (`6737cc87c` auf `main`): `tom-probe-505.yml` weg; `grep -rn "gradlew\|core/src" tools .github`: `android.yml` (870.10), `tools/alt_bilder_rendern.sh` (Umfang 870.10), dazu zwei Kommentare (D251.1 → 1282 Perikles, Kür).
+- **882.2 greift:** echter Team-Commit `39b8f42a2` (Jerry 956, `godot/regeln/mars.gd`) in Wegwerfbaum ohne Marke: „Commit-Prüfung Warnung: Code ohne grünen Kerntest …“, Exit 0; nach `tools/t logik` (153 gut, 0 rot, 162 s, Exit 0) keine Warnung.
+- **980 Bautest Lauf 473:** `kaufquelle_test.py` steht im Schritt „Blender als Python-Modul“ jedes Laufs (zweiter Aufruf entscheidet, kann rot werden), in 473 grün; Kampfblock in 469 und 470 echt gebaut mit `kaufquelle.py` unter „geändert“ (Spinne, Skelett, Wolf gebaut), 473 holt ihn aus dem Cache, dessen Kennung `kaufquelle.py` enthält. Richtigstellung zu 14.11., 20:06: 469 trug 980.
+- **1060 offen:** Läufe 471–484 alle Blöcke Treffer, 473 klassen wegen `block:figur`; kein Lauf, in dem sich nur Dorffelder von `leute.json` ändern.
+- **Nicht geprüft:** 870.10 (gebaut `5916f43ab`); Rest aus 1272.
+
 ## Lauf 243 · 1179, 1173, 1217, 1248 an t285 (14.11., 20:2x)
 
 - **1248 greift** (`dc1ee764f`): `laufnachweis.py` an t285 (Stand vor `312befa8e`) gegen `d34cecf64`: 20 von 20 tragen, davon die 6 aus 285.14 (`sim444_870`, `krogg_494`, `schild_406`, `zweikampf_1025`, `absicht_1049`, `mars_regeln`); Stand vor `dc1ee764f`: 14 von 14.
