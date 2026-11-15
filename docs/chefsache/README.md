@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:21, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 21:23, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,11 +12,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 0 | 1 | 870.20 (Tom) SRD-Reste aus den Daten, Hinweis SRD 5.1 aus Haup… |
-| ↳ Kampf passt | 69 | 25 | 3 | 0 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
+| ↳ Kampf passt | 70 | 26 | 3 | 0 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 22 | 9 | 0 | 0 | 15 | 1040.1 (Tom) Leute drehen im Stehen ohne Schritte, wenn sie de… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 2 | 0 | 33 | 1289 (Jerry) Höhle im Renderer mobile ganz anders als bisher:… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 9 | 0 | 0 | 8 | 1339 (Tom) Wiederholrot wende_4168: 3× rot in 48 h; Ursache… |
-| Werkzeuge und Abläufe der Firma | 60 | 36 | 1 | 2 | 9 | 1335 (Spike) wolf_mess_438 ohne Messrauschen, Laden der Kaufmo… |
+| Werkzeuge und Abläufe der Firma | 61 | 36 | 1 | 2 | 9 | 1335 (Spike) wolf_mess_438 ohne Messrauschen, Laden der Kaufmo… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Die nächsten 20**
@@ -37,14 +37,14 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 12 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
 | 13 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
 | 14 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
-| 15 | 1040.1 | Tom | Leute drehen im Stehen ohne Schritte, wenn sie dem gehenden Helden folgen | M | Kleiderschrank und Modelle | startbar |
-| 16 | 697 | Tom | Erschaffung: Held im Drehteller halbtransparent | M | Kleiderschrank und Modelle | startbar |
-| 17 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 18 | 1289 | Jerry | Höhle im Renderer mobile ganz anders als bisher: zu hell, Sichtachsen weg; Auss… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
+| 16 | 1040.1 | Tom | Leute drehen im Stehen ohne Schritte, wenn sie dem gehenden Helden folgen | M | Kleiderschrank und Modelle | startbar |
+| 17 | 697 | Tom | Erschaffung: Held im Drehteller halbtransparent | M | Kleiderschrank und Modelle | startbar |
+| 18 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 19 | 1289 | Jerry | Höhle im Renderer mobile ganz anders als bisher: zu hell, Sichtachsen weg; Auss… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 91.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 91.
 ## Zu entscheiden
 
 Nichts offen.

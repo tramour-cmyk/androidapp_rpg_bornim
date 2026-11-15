@@ -194,6 +194,7 @@
 | 1327 | Von Sokrates (aus 1215, t289.2 ✓): Regeln melden Schildstoß und schweren Treffer an ragdoll.gd (kennt beide, mars.gd meldet sie noch nicht; Commit 8ed72e0e4 Punkt 4) | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1333 | Aus 930.6 (Rest 1215, Sokrates t289.2): Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd (930 Regel 5) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1336 | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | Jerry | K | startbar | – | – | – | E Kampf | – |
+| 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | startbar | – | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | erledigt | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
@@ -227,6 +228,7 @@
 | 1316 | Von Sokrates (1137 Stichtag 15.11., 20:00): reaktionen.py erkennt „Nachricht 4201, 4200“ (zweite Kennung ohne Wort) und „**t286, t287 getestet**“ (zweiter Build) nicht als erledigt; 1266, 1215 standen darum seit 12:48 offen, t287 noch | Perikles | K | gebaut, Geprüft an: 8247c3090 | – | – | – | B Werkzeuge | – |
 | 1317 | Von Jerry (1314): probelauf.py hält MESS= für ausholen_1000 an (Test enthält save_png nur hinter BILD_1000 und ohne --headless); ein --headless-Lauf legt kein Bild ab, darf als Messlauf gelten | Perikles | M | gebaut, Geprüft an: d03c528de | – | – | – | B Werkzeuge | – |
 | 1324 | Von Tom (PR #207): pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die Prüfliste nach dem Test archiviert ist; nach den Reverts aus Regel 12 wird der Build so nie grün (Lauf 499, 500). Ausnahme oder Prüfung nach Archiv? | Perikles | M | gebaut, Geprüft an: 401c917a8 | – | – | – | B Werkzeuge | – |
+| 1328.2 | Von Perikles (1328.1): Spike in Sperre 620.1 B und gemeinsamen Build einbeziehen (startbar.UEBERNAHME, ungetestet, Zählzeile „Gemeinsamer Build“); Übernahme zwischen Teams für Spike klären | Perikles | K | gebaut, Geprüft an: ae0fe0669 | – | – | – | B Werkzeuge | – |
 | Pflege | von Werkzeug (340.3, 15.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | startbar, gelöst 09.11.: 09.11. | 16.11. | – | – | B Abläufe | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
