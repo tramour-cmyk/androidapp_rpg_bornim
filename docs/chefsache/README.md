@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1288a](entscheiden/1288a-kerben-verstreichen.md) | **Muss** | E Kampf | 15.11., 12:20 | Keine Lücke; Verstreichen heißt nur „kein Ansparen“. Die echte Lücke ist, dass eine falsche Haltung zu wenig kostet. | Sokrates |
 
 ## Zu billigen
 
