@@ -44,6 +44,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 01:08 15.11.: Tom neu `…762Xztj8QLqEa23Rjp` (286 Ergebnis des Tests), Tom alt archiviert (4,33 $ auf 286)
+- 01:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01BpBNHHosCmPVkVh7ZdEqz5` (:03), alte `trig_014BcfzRMLG6Fa8bDwFVGeaY` aus, alter Ford `…793a6GGZhUhAzGSphs` archiviert (1019, 8,33 $); Tom neu (286, Prüfliste 👍), Tom alt `…78AmAJeR5X7Ghv9VBH` wird archiviert
 - 01:01 15.11.: Jerry neu `…78SJHxHKh5akPaP15y` (Läufe 479, 480, 482, 1215 Film), Jerry `…78yH84MdzrJ74grhR6` archiviert (25,96 $ auf 1215)
 - 00:05 15.11.: Diogenes neu `…75edsFFzfEQPxCoWxq` (1019), Diogenes 1079 `…78sXbc6SZHTKCgXXZ3` archiviert (1,60 $)
 - 00:01 15.11.: Sokrates `…76zXUTypnQhewTvAHH` (1259) archiviert (4,13 $ auf 1259)
@@ -62,8 +64,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:47 14.11.: Tuffy neu `…76p5RvSmi2JWfwFcxN` (930.6, Aufwand hoch, WireStorm Hoch, Signal Sokrates 20:45 „930.5 geprüft“), Tuffy 930.5 archiviert (3,23 $); Tuffy soll 930.5 mit Commit „930.5: Kein Folgevorgang, weil …“ auf erledigt setzen; Übergabe Ford 20:45: Tuffy-Stand dort ist damit überholt
 - 20:43 14.11.: Jerry neu `…75ZWJGSXdqrpx7xyzH` (1215, dazu 601 und 1222 laut Sokrates 20:38) und Perikles neu `…75sJsPiamKXFvCq7Bf` (1251) gestartet; Jerry 1000 (10,20 $) und Perikles 1249 (1,39 $) archiviert
 - 20:30 14.11.: Tuffy neu `…791GBXxySF9nvEcVCd` (930.5, Mittel; 930.5 bis 930.7 komplett an Tuffy, Chef 20:25 über Sokrates), Tuffy 845 archiviert (7,52 $); 930.6 später mit Aufwand hoch und WireStorm Hoch nach Sokrates-Prüfung von 930.5
-- 20:27 14.11.: Tom neu `…79AQ79uafPgaVpiHEJ` (1091, Aufwand hoch, Umgebung WireStorm Hoch, dazu 882.1 von Sokrates) und Diogenes neu `…77WqsAmL86DZSZvSXs` (1179, 1173, 1217, dazu 1248) gestartet; Tom 1040.1 (4,88 $) und Diogenes 1128.3 (1,76 $) archiviert
-- 20:05 14.11.: Stillstand 10:51 bis 20:00 Ursache Guthaben (Wochengrenze Max erreicht, „resets 8pm“: Perikles 1249, Diogenes, Jerry 1222 um 10:51, Tom 1145 um 18:59 abgebrochen; Fords Wecker 11:03 bis 19:03 kamen gestaut an, Lauf erst 20:02). Lauf 20:02: Tom `…79Q6N8cjLh3SuVwvkR` (1040.1), Jerry `…76teWqNfwVbcvW5sEf` (1000), Diogenes `…77nnorNYpWaTbXpHjz` (1128.3), Perikles `…76U3AHkZNkpmHLQ9ge` (1249) gestartet; alte Sitzungen archiviert (Tom 4,05 $, Jerry 7,71 $, Diogenes 1,09 $, Perikles 0,56 $); Tuffy 845 und Spike 1092 laufen
 - 22:32 14.11.: Startsperre 22:32 Start Tuffy (930.7, Signal Sokrates 22:31, f76eb9cd2, von Hand, WireStorm Mittel); Weiter Spike 1040.1 (Spike `…7A7BuC683wt2MBEacm`)
 - 22:43 14.11.: Startsperre 22:43 Start Sokrates (Neustart-Meldung 22:42, 834495b12, von Hand)
 - 23:02 14.11.: Startsperre 23:02 Start Tom, Jerry (Neustart-Meldungen 22:58 und 22:56, von Hand)
@@ -80,5 +80,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:06 15.11.: Startsperre 01:06 Start Tom (lauf.py)
 - 01:06 15.11.: Marke Wächter 1133 13.11. 12:53 (lauf.py)
 - 01:06 15.11.: Marke Archiv session_01Hmoj78AmAJeR5X7Ghv9VBH (lauf.py)
-- 01:07 15.11.: Ford-Selbstneustart abgeschlossen: neue Uhr `trig_01BpBNHHosCmPVkVh7ZdEqz5` (:03), alte `trig_014BcfzRMLG6Fa8bDwFVGeaY` aus, alter Ford `…793a6GGZhUhAzGSphs` archiviert (1019, 8,33 $); Tom neu (286, Prüfliste 👍), Tom alt `…78AmAJeR5X7Ghv9VBH` wird archiviert
-- 01:08 15.11.: Tom neu `…762Xztj8QLqEa23Rjp` (286 Ergebnis des Tests), Tom alt archiviert (4,33 $ auf 286)
+- 01:30 15.11.: Startsperre 01:30 Start Jerry, Diogenes (lauf.py)
+- 01:30 15.11.: Marke Start-fehlt Diogenes 15.11.-01:03 (lauf.py)
+- 01:30 15.11.: Marke Archiv session_01Hmoj78SJHxHKh5akPaP15y (lauf.py)
