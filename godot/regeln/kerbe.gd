@@ -536,11 +536,11 @@ func trank_vorweg(f, item: String, ziel) -> bool:
 ## 1275 (Fremdprüfung Homer 15.11., 10:58, Regel 5: „Platztausch in der eigenen Reihe kostet den freien Schritt“): der Tausch über die
 ## Knopfzeile beendete den Zug (plan_aus „swap“ → warten). Jetzt sofort, kostet den freien Schritt (frei 0), danach Weg, Tun und
 ## Haltung wie sonst; [mit_waffe] wechselt dabei die Waffe (Regel 10). Alt: Skirmish.kt 519, Tausch und Wechsel setzten nur moved, der Zug ging weiter
-func kann_tauschen(f) -> bool:
+func kann_tauschen(f: RefCounted) -> bool:
 	return int(f.gl.get("frei", 0)) > 0
 
 
-func tausch_vorweg(f, to: Vector2i, mit_waffe := false) -> bool:
+func tausch_vorweg(f: RefCounted, to: Vector2i, mit_waffe := false) -> bool:
 	if not kann_tauschen(f) or to == f.place:
 		return false
 	f.gl.frei = 0
@@ -555,11 +555,11 @@ func tausch_vorweg(f, to: Vector2i, mit_waffe := false) -> bool:
 
 ## 1275 (Regel 10: „Kleines frei: Waffe wechseln … einmal je Zug“): plan_aus kannte „draw“ nicht, der Wechsel spielte den Vorschlag,
 ## also einen Angriff. Jetzt frei, einmal je Zug, der Zug geht weiter
-func kann_wechseln(f) -> bool:
+func kann_wechseln(f: RefCounted) -> bool:
 	return not bool(f.gl.get("gewechselt", false)) and f.spare() != null
 
 
-func waffe_vorweg(f) -> bool:
+func waffe_vorweg(f: RefCounted) -> bool:
 	if not kann_wechseln(f):
 		return false
 	f.gl.gewechselt = true
