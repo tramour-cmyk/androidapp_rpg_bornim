@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:31, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 20:32, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -15,9 +15,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | ↳ Kampf passt | 80 | 37 | 4 | 18 | 17 | 415 (Jerry) Handyprobe Beams-Free-Sample |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 23 | 9 | 0 | 2 | 15 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 10 | 1 | 1 | 33 | 1325 (Tom) Rot: ziege_4162 auf dem Bauserver in Lauf 499 und… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 6 | 0 | 4 | 8 | 698 (Tom) Grafikstufen im Systemmenü mit Effekten |
-| Werkzeuge und Abläufe der Firma | 64 | 33 | 0 | 7 | 10 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
-| Marktstart | 10 | 0 | 0 | 0 | 4 | 366 (Sokrates) bornwire.de: Abschnitt „Stand“ und „Tester gesuch… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 6 | 1 | 4 | 8 | 698 (Tom) Grafikstufen im Systemmenü mit Effekten |
+| Werkzeuge und Abläufe der Firma | 61 | 33 | 0 | 7 | 10 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
+| Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Die nächsten 20**
 
@@ -40,11 +40,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 15.11., 
 | 15 | 1300 | Jerry | atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 16 | 1303 | Jerry | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 17 | 698 | Tom | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 18 | 1270.3 | Tom | Shader-Vorbau beim Export, vorher prüfen, ob unsere Godot-Fassung es kann | M | Godot besser nutzen | startbar |
-| 19 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | Kampf passt | startbar |
+| 18 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
 
-Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 88.
+Danach 85 weitere offen. Bei dir zum Testen (vorgelegt): 32. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 92.
 ## Zu entscheiden
 
 Nichts offen.
