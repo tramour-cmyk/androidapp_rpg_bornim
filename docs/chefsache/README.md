@@ -16,7 +16,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [1266](ansehen/1266-kerbe.md) | Kerbholz statt Glut: Kampffilm und Kerbklänge | – | 15.11., 11:50 |
 | [1284](ansehen/1284-rattenbiss.md) | Riesenratte beißt auch daneben sichtbar | – | 15.11., 12:56 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
