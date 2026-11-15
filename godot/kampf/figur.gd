@@ -4844,9 +4844,20 @@ func die() -> void:
 			# 1141 r3 (Chef 13.11., 17:16: „Speer links, dann beginnt das Sterben und dann ist der Speer aber rechts“): die Spiegelung
 			# tauscht links und rechts, also auch die Hand mit Waffe oder Schild; wer etwas hält, wird nicht gespiegelt (die Goblins
 			# fallen dafür mit Tod3 und Tod4 zu beiden Seiten)
-			if randf() < 0.5 and not _haelt_etwas(): sterbe_spiegeln()
-			_waffe_faellt()
+			var rd = _ragdoll_bereit()     # 1215: mit Physik fällt er in die Richtung des Treffers, ungespiegelt; die Waffe fällt als Körper
+			if rd != null:
+				nm = _tod_zur_richtung(alle, rd.treffer.richtung)
+				tod_name = nm
+			else:
+				if ragdoll_nie and tod_treffer.has("von"):     # Film 1215: gebacken in dieselbe Richtung wie der mit Physik daneben
+					nm = _tod_zur_richtung(alle, ((global_position - tod_treffer.von) * Vector3(1, 0, 1)).normalized())
+					tod_name = nm
+				elif randf() < 0.5 and not _haelt_etwas(): sterbe_spiegeln()
+				_waffe_faellt()
 		anim.play(nm, TOD_BLEND)
+		if ragdoll != null:
+			ragdoll.sterben(maxf(sterbe_ms() * ragdoll.VORLAUF / 1000.0, ragdoll.VORLAUF_MIN_S), global_position.y, _ragdoll_hindernisse())
+			print("1215 Ragdoll %s: %s, %s" % [fighter.id, tod_name, ragdoll.treffer])
 	else:
 		# 1141 (Chef 13.11., 14:36: „wie Playmobil-Figuren umfallen. Und zwar alle auf die gleiche Seite“): ohne „Tod“ (Ersatz, seit
 		# 1141 hat jeder Gegnerkörper einen, tod_1141) wenigstens zufällig zur einen oder anderen Seite, beschleunigt wie ein Fall
@@ -4865,6 +4876,8 @@ func die() -> void:
 		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+		if ragdoll != null and is_instance_valid(ragdoll):
+			ragdoll.raeumen()     # 1215: Körper und gefallene Waffe vergehen mit dem Toten
 
 
 ## 1141 r3: trägt die Figur etwas an einem Knochen (Waffe, Schild, im Modell gebackene Waffe von Grak und Krogg)
@@ -4929,6 +4942,94 @@ func _waffe_zu_boden(w: Node3D) -> void:
 	# Drehung und Weg getrennt (gespiegelte Tote, 596: ihre Basis ist gespiegelt, interpolate_with verlöre das Vorzeichen)
 	var t := create_tween()
 	t.tween_method(func(x: float): w.global_transform = Transform3D(Basis(Quaternion.IDENTITY.slerp(q, x * x)) * g.basis, g.origin.lerp(unten, x * x)), 0.0, 1.0, WAFFE_FALL)
+
+
+## 1215 (Chef 13.11., 16:25; 15.11., 11:21, 1215a A): physikalisches Sterben (ragdoll.gd) für Gegner auf einem Zweibeiner-Gerüst,
+## das ragdoll.gd kennt; Filme gebilligt (Chef 15.11., 13:32), seitdem fest an (Folgeauftrag); RAGDOLL=0 schaltet es zum Vergleich
+## ab (gebackene Bewegung wie vorher)
+static var ragdoll_probe := OS.get_environment("RAGDOLL") != "0"
+## der tödliche Treffer (kampfort.gd, vor hurt): von (Welt, wo der Angreifer beim Treffer steht), art (nah, schwer, pfeil, zauber,
+## schild, sprung, still = Gift, Blutung), anteil (Schaden durch höchste Lebenspunkte), kritisch
+var tod_treffer := {}
+var ragdoll = null
+static var ragdoll_alle := false
+var ragdoll_nie := false     # Film: dieser stirbt gebacken, der daneben mit Physik
+
+func _ragdoll_bereit():
+	if not ragdoll_probe or ragdoll_nie or fighter.side != "FOES" or gespiegelt or model == null:
+		return null
+	# Grak und Krogg behalten ihren Zusammenbruch (348.12, Chef 28.10., 15:23: „muss fulminant sterben … wir brauchen einen
+	# Zusammenbruch“: in die Knie, dann vornüber; abgenommen), außer im Test der Gliedertafel (ragdoll_alle)
+	if not ragdoll_alle and Mars.koerper_of(fighter.monster) in [Mars.GRAK, Mars.KROGG]:
+		return null
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	var Rd = preload("res://kampf/ragdoll.gd")
+	if sk == null or not Rd.frei():
+		return null
+	var r = Rd.new()
+	add_child(r)
+	if not r.einrichten(sk, anim, maxf(head().y - position.y, 0.3), "%s/%s" % [Mars.koerper_of(fighter.monster), kit_name()]):
+		r.queue_free()
+		return null
+	var t := tod_treffer.duplicate()
+	var von: Vector3 = t.get("von", Vector3.INF)
+	if von == Vector3.INF and String(t.get("art", "")) != "still":
+		# wer traf, ist nicht bekannt (Probekampf, Knopf): vom nächsten lebenden Gegner weg
+		var naechster := INF
+		for id in kampfort.figures:
+			var o = kampfort.figures[id]
+			if o.fighter.side != fighter.side and not o.down and o.global_position.distance_to(global_position) < naechster:
+				naechster = o.global_position.distance_to(global_position)
+				von = o.global_position
+	var richtung := Vector3.ZERO
+	if von != Vector3.INF:
+		richtung = ((global_position - von) * Vector3(1, 0, 1)).normalized()
+	var blick: Vector3 = (global_transform.basis.z * Vector3(1, 0, 1)).normalized()
+	r.treffer = {
+		"art": String(t.get("art", "nah")), "richtung": richtung, "kritisch": bool(t.get("kritisch", false)),
+		"staerke": clampf(0.7 + 0.6 * float(t.get("anteil", 0.5)), 0.7, 1.3),
+		# von welcher Seite: der Treffer von rechts vorn dreht die rechte Schulter weg (Hochachse); dazu etwas Zufall
+		"seite": clampf(blick.cross(richtung).y * 1.5 + randf_range(-0.35, 0.35), -1.0, 1.0),
+		"glied": t.get("glied", "kopf" if t.get("kritisch", false) and randf() < 0.5 else "brust"),
+	}
+	if String(t.get("art", "")) == "pfeil" and not t.has("glied"):
+		r.treffer.glied = ["brust", "oberarm_l", "oberarm_r", "becken", "brust"][randi() % 5]
+	r.schatten = get_node_or_null("Bodenschatten")
+	ragdoll = r
+	return r
+
+
+## die Sterbebewegung, die in die Richtung des Stoßes fällt (Goblins: vornüber, rücklings, zu beiden Seiten; die Wurzel kippt)
+func _tod_zur_richtung(alle: Array, richtung: Vector3) -> String:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	var beste := ""
+	var wert := -INF
+	for nm in alle:
+		var a := anim.get_animation(nm)
+		var fall := Vector3.ZERO
+		for i in a.get_track_count():
+			if a.track_get_type(i) == Animation.TYPE_ROTATION_3D and String(a.track_get_path(i).get_concatenated_subnames()) == "root":
+				fall = sk.global_transform.basis * (a.rotation_track_interpolate(i, a.length).normalized() * (sk.get_bone_rest(sk.find_bone("root")).basis.inverse() * Vector3.UP))
+		fall.y = 0.0
+		var w := fall.normalized().dot(richtung) if fall.length() > 0.2 and richtung.length() > 0.2 else randf() * 0.1
+		if w > wert:
+			wert = w
+			beste = nm
+	return beste
+
+
+## was um den Sterbenden steht (lebende Figuren): [Ort, Halbmesser, Höhe]; an ihnen gleitet der Fallende ab
+func _ragdoll_hindernisse() -> Array:
+	var h := []
+	for id in kampfort.figures:
+		var o = kampfort.figures[id]
+		if o != self and not o.down and o.visible and o.global_position.distance_to(global_position) < 3.0:
+			h.append([o.global_position, 0.2, 1.1])
+	return h
+
+
+func kit_name() -> String:
+	return String(model.get_meta("kit", model.name)) if model != null else ""
 
 
 ## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)
