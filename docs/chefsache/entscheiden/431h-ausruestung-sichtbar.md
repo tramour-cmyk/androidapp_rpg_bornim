@@ -45,4 +45,11 @@ Beim Chef, weil: Aussehen (wie der Held je Herkunft am Anfang, ausgezogen und in
 
 **Folgerungen:** Bei A: Tom baut Stufe 1 auf `claude/tom-431-ausruestung`, Film an dich, dann Testbuild; Startausrüstung als Punkt der Prüfliste (neues Spiel je Herkunft); Stufe 2 als neue Vorlage nach deinem „passt“. Bei B: beides auf demselben Zweig, ein Film. Bei C: 431 ruht, Tom nimmt Fehler aus den Tests.
 
+**Stellungnahme Sokrates (16.11., 08:14):**
+- **Stärkstes Gegenargument zu A:** Stufe 1 behebt deinen Fund vom 15.11., 17:13 („ausgerüstet … aber man sieht ja nichts am Helden“) noch nicht. Sie macht nur die Plätze ehrlich; eine gefundene Rüstung siehst du erst mit Stufe 2. Wer nur Stufe 1 abnimmt, hat 50 bis 70 $ für ein Startbild ausgegeben, das fast gleich aussieht. Ich halte A trotzdem für richtig: Stufe 1 ist der Unterbau (Teile je Platz, Körper mit Unterwäsche), ohne den Stufe 2 nicht geht, und sie trägt das kleinere Nahtrisiko.
+- **Widerspruch in der Vorlage:** „der Held sieht am Anfang aus wie heute“ stimmt nach Frage 1 nicht für vier Herkünfte (Klosterschüler, Kräutersammler, Schmiedelehrling, Wanderer): ihr Oberkörper wird zum Waldläufer-Wams. Besser als Toms Vorschlag: je ein eigenes Stück („Kutte“, „Leinenwams“; Namen Homer) mit **denselben Werten wie die Lederrüstung**, nur mit dem Netz der heutigen Tracht. Dann bleibt das Bild wie heute und die Balance unberührt.
+- **Zu Entschiedenem:** 488 (Aussehen eingefroren bis zum Durchspielen) steht dagegen; du hast 431 mit der sichtbaren Ausrüstung am 15.11., 17:13 aber ausdrücklich weiterlaufen lassen. Mit der Abnahmeliste kein Widerspruch (A6 meint die Tiefe des Schilds, nicht die Sichtbarkeit).
+- **Kosten:** A und B kosten zusammen gleich viel (80 bis 120 $); der Unterschied ist nur, wann du das Nahtrisiko siehst. Maßstab Umhang: etwa 220 $ auf denselben Körpern, ruht. Der Deckel von 70 $ je Stufe und „Messung nicht bestanden, kein Film, ruht“ sind darum nötig.
+- **Empfehlung:** 431h A, Frage 1 mit eigenen Stücken in Lederwerten statt Waldläufer-Wams; Fragen 2 bis 4 wie Tom.
+
 Antwort: …
