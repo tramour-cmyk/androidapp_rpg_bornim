@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 280 · 1481, 1385 auf main (Spike `7dc9e98e8`; 16.11., 19:4x)
+
+- **1481 greift:** `figurenpruefung.py --pruefen` auf `main` 14 bekannt, 0 neu (Exit 0); Schritt „Daten pruefen“ in `godot.yml` und `godot-kampf.yml`, Commit-Haken da; angezeigte Namen auf `main` unverändert (nur Spiegelfelder in „kennungen“).
+- **1385 greift** (Unterbau, Werkzeug); Rest: Namen (`ac454c939`, Spielcode) als **D280.1 → 1482** (Spike, gebaut) in den Sammelbuild; Build 2 ist 649.2 (Jerry).
+
 ## Lauf 279 · 1385 Build 1 Figurenprüfung (Spike `50121c3d3`, `ac454c939`; 16.11., 19:4x)
 
 - **1385 greift auf dem Zweig:** `figurenpruefung.py --pruefen` 11 bekannt, 0 neu (Exit 0); Gegenproben rot wie verlangt: Kopf der Fledermaus in `figur.gd` geändert → 1 neu, Exit 1; `wolf` aus `kampfklang.json` „monster_fx“ entfernt → 1 neu, Exit 1. `gegenstaende.py --daten` 96, 0 Fehler. Kerntests 182 gut (201 s). Namen headless aus `Brs.name` gleich `[1473.namen]` (Riesenegel/Giant Leech, Säureschnecke/Acid Slug, Wiedergänger/Revenant, Grabhund/Grave Hound, „Grimmzahn, der Leitwolf“/„Grimfang, the Pack Leader“). Alte Namen nur noch als Zeilen der Monsterwerte und `gegenstaende.json` „wo“ (nicht angezeigt); bewusst zu Build 2 (Absatz „Zu 649.2, von Spike“). Regelwerteprüfung im Bau nur als Warnung (Seite liegt auf `main`).
