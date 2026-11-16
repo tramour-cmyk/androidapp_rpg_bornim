@@ -608,6 +608,9 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 	for l in get_parent().get_children():
 		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t):
 			if held_da and l.kachel != t: continue   # 1079, 1325: nur im Schritt dorthin, er plant neu (weiche)
+			# 1383 (Lauf 513, in ziege_4162 nachgestellt): ein Tier, das eben von der Kachel des Helden flieht (Schritt fort), steht dort
+			# nur noch im Aufbruch; es sperrte den Tausch, die Ziege trat voran
+			if held_da and l.flucht and l.ziel.x >= 0 and l.ziel != t: continue
 			return false
 	return true
 
