@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 10:50, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 10:52, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -15,7 +15,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kampf passt | 69 | 27 | 2 | 10 | 9 | 1291 (Jerry) Waffe in der Nebenhand wirkt im BRS-Kampf nicht;… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 15 | 6 | 0 | 1 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 57 | 10 | 0 | 12 | 20 | 1401 (Homer) Namen und kurze Texte DE/EN für die Startstücke O… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 | 9 | 0 | 12 | 20 | 1398 (Perikles) Prüfliste mischt wieder Bild/Film mit APK-Wegen;… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 8 | 0 | 10 | 4 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
 | Werkzeuge und Abläufe der Firma | 41 | 24 | 0 | 1 | 9 | 1351 (Perikles) Rechteprüfung lehnt freigegebenen Bildlauf PROBE=… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -29,7 +29,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Jerry | 1291 Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand… (Muss); dann 2 weitere |
 | Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | leer, weil 5 wartet auf Test, 3 ruht bis, 1 wartet auf |
-| Homer | 1401 Namen und kurze Texte DE/EN für die Startstücke Oberkörper… (Muss) |
+| Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | leer, weil 3 Termin, 1 ruht bis, 1 wartet auf |
 | Sokrates | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss); dann 1 weitere |
 | Perikles | M? M? entscheiden: 1406, 1398, 1400 (Muss); dann 1 weitere |
@@ -43,23 +43,23 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 3 | 1291a | Jerry | Rückfrage zu 1291: Nebenhand nur Schild und Fackel oder Dolch als Parierdolch? | M | Kampf passt | startbar |
 | 4 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
 | 5 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
-| 6 | 1401 | Homer | Namen und kurze Texte DE/EN für die Startstücke Oberkörper Klosterschüler, Kräu… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 7 | 1351 | Perikles | Rechteprüfung lehnt freigegebenen Bildlauf PROBE=1044 als „Undermining Oversigh… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 8 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 9 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 10 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 11 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
-| 12 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
-| 13 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
-| 14 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
-| 15 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
-| 16 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
-| 17 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
-| 18 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | Kampf passt | startbar |
-| 19 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | Kampf passt | startbar |
-| 20 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | Kampf passt | startbar |
+| 6 | 1351 | Perikles | Rechteprüfung lehnt freigegebenen Bildlauf PROBE=1044 als „Undermining Oversigh… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 7 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 8 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 9 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 10 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
+| 11 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 12 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
+| 13 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
+| 14 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
+| 15 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
+| 16 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
+| 17 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | Kampf passt | startbar |
+| 18 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | Kampf passt | startbar |
+| 19 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | Kampf passt | startbar |
+| 20 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | Kampf passt | startbar |
 
-Danach 91 weitere offen. Bei dir zum Testen (vorgelegt): 35. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 15. Ruhend oder nach dem Meilenstein: 62.
+Danach 90 weitere offen. Bei dir zum Testen (vorgelegt): 35. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 15. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
