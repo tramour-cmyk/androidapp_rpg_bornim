@@ -262,10 +262,12 @@ def morgen(jetzt=None):
     zahlen = {"heute": _bilanz(staende["heute"], jetzt_st), "gestern": _bilanz(staende["gestern"], staende["heute"]),
               "Woche": _bilanz(staende["Woche"], jetzt_st), "Monat": _bilanz(staende["Monat"], jetzt_st)}
     kopf = ["%s (seit %s)" % (k, seit[k]) if seit[k] else k for k in grenzen]
-    zeilen = ["**Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute)", "",
+    zeilen = ["**Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)", "",
               "| | " + " | ".join(kopf) + " |", "|---|" + "---|" * len(kopf),
               "| erledigt | " + " | ".join(str(zahlen[k][0]) for k in grenzen) + " |",
-              "| neu | " + " | ".join(str(zahlen[k][1]) for k in grenzen) + " |"]
+              "| neu | " + " | ".join(str(zahlen[k][1]) for k in grenzen) + " |",
+              # 1496 (Chef 16.11., 22:17 „die beiden Werte voneinander abziehen … netto, wo man steht“): plus = weniger offen
+              "| **netto** (erledigt − neu) | " + " | ".join(("**%+d**" % (zahlen[k][0] - zahlen[k][1])).replace("-", "−") for k in grenzen) + " |"]
     return staende["heute"][0], "\n".join(zeilen)
 
 
