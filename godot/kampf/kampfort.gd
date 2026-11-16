@@ -172,7 +172,7 @@ func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary,
 	if not Mars.can_fight(party):
 		return false
 	var dice = Wuerfel.new(null if seed < 0 else seed)
-	var words = Wuerfel.new(null if seed < 0 else seed + 279)
+	var words: Wuerfel = Wuerfel.new(null if seed < 0 else seed + 279)
 	# 399.2: aus der Welt atemlos (Skirmish winded: Initiative mit Nachteil), satt (+1 auf Angriffe und Schaden), Eröffnung (Opening:
 	# NORMAL, AMBUSHED Gegner zuerst, HERO_FIRST Held zuerst)
 	mars = Mars.new(party, foes, tables, dice, words, lang, bool(p_progress.get("atemlos", false)), String(p_progress.get("eroeffnung", "NORMAL")))

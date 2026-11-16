@@ -3909,7 +3909,7 @@ const BRUST_AB := 0.45     # Mensch: von Becken zum Hals erst ab diesem Anteil (
 func treffpunkt_fern(von: Vector3) -> Vector3:
 	var rumpf: Array = []
 	if fighter.monster == null:
-		for c in kapseln():
+		for c: Array in kapseln():
 			if float(c[2]) >= 0.13:     # MENSCH_KAPSELN: nur Becken–Brust (0,17) und Brust–Hals (0,14)
 				rumpf.append(c)
 		if rumpf.size() == 2:     # eine Strecke ab BRUST_AB von Becken zum Hals
@@ -3917,15 +3917,15 @@ func treffpunkt_fern(von: Vector3) -> Vector3:
 			var b: Vector3 = rumpf[1][1]
 			rumpf = [[a.lerp(b, BRUST_AB), b.lerp(a, 0.1), float(rumpf[1][2])]]
 	else:
-		for c in koerper():
+		for c: Array in koerper():
 			var nm := String(c[3]).to_lower() if c.size() > 3 else ""
-			for w in RUMPF_TEILE:
+			for w: String in RUMPF_TEILE:
 				if nm.contains(w):
 					rumpf.append(c)
 					break
 	var best := Vector3.INF
 	var naechst := INF
-	for c in rumpf:
+	for c: Array in rumpf:
 		var q: Vector3 = Geometry3D.get_closest_point_to_segment(von, c[0], c[1])
 		var d: Vector3 = von - q
 		var p: Vector3 = q + (d.normalized() * float(c[2]) if d.length() > 0.001 else Vector3.ZERO)
@@ -4711,18 +4711,18 @@ func dodge(after_ms: int, nm := "") -> void:
 const AUSWEICH_SCHRITT_M := 0.55
 const AUSWEICH_SCHRITT_S := 0.35
 const AUSWEICH_LUFT_M := 0.15
-func _ausweich_tiefe(o, an := Vector3.INF) -> float:
+func _ausweich_tiefe(o: Variant, an := Vector3.INF) -> float:
 	var bahn_a: Array = _hieb_bahn("Ausweichen")
 	if bahn_a.is_empty():
 		return -INF
 	var tr := Transform3D(Basis(Vector3.UP, rotation.y), global_position if an == Vector3.INF else an)
 	var ks: Array = o.kapseln()
 	var tief := -INF
-	for st in bahn_a:
-		for w in st[1]:
+	for st: Array in bahn_a:
+		for w: Array in st[1]:
 			var a0: Vector3 = tr * (w[0] as Vector3)
 			var a1: Vector3 = tr * (w[1] as Vector3)
-			for c in ks:
+			for c: Array in ks:
 				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a0, a1, c[0], c[1])
 				tief = maxf(tief, float(c[2]) - pq[0].distance_to(pq[1]))
 	return tief
@@ -4731,9 +4731,9 @@ func _ausweich_tiefe(o, an := Vector3.INF) -> float:
 func _ausweichen_zurueck_held() -> bool:
 	if down or anim == null or kampfort == null or not anim.has_animation("Ausweichen"):
 		return false
-	var nah = null
+	var nah: Variant = null
 	var tief := -INF
-	for o in kampfort.figures.values():
+	for o: Variant in kampfort.figures.values():
 		if o == self or not o.visible or o.down or o.fighter.side == fighter.side:
 			continue
 		if Vector2(o.position.x - position.x, o.position.z - position.z).length() > 3.0 * _scale():
@@ -4754,8 +4754,8 @@ func _ausweichen_zurueck_held() -> bool:
 	# und das Ding in der Hand dort weit genug vom Gegner
 	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
 	var ziel := Vector3.INF
-	for w in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0]:
-		for k in [1.0, 0.7]:
+	for w: float in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0]:
+		for k: float in [1.0, 0.7]:
 			var q: Vector3 = position + weg_von.normalized().rotated(Vector3.UP, deg_to_rad(w)) * AUSWEICH_SCHRITT_M * k * _scale()
 			var ok: bool = _stand_frei(q, null) and _im_bild(q, blick) and _ausweich_tiefe(nah, Vector3(q.x, global_position.y, q.z)) < -AUSWEICH_LUFT_M
 			if OS.get_environment("SCHAU_1321") != "":
@@ -4780,9 +4780,9 @@ func _ausweichen_zurueck_held() -> bool:
 	bahn = [ziel]
 	tween = create_tween()
 	tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_callback(func(): _guard(false); _idle())
+	tween.tween_callback(func() -> void: _guard(false); _idle())
 	tween.tween_interval(0.25)
-	tween.tween_callback(func(): _held_heim_vor())
+	tween.tween_callback(func() -> void: _held_heim_vor())
 	return true
 
 
@@ -4798,7 +4798,7 @@ func _held_heim_vor() -> void:
 		anim.play(nm, 0.12, 1.0)
 	tween = create_tween()
 	tween.tween_property(self, "position", home, d.length() / v)
-	tween.tween_callback(func(): _face(); _idle())
+	tween.tween_callback(func() -> void: _face(); _idle())
 
 
 ## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
