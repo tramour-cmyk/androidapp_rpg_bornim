@@ -79,6 +79,8 @@ def setzen_liste(text, rolle, nr, zeile, unten=False):
     den Anfang; zeile None: entfernen."""
     sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
     L = text.split("\n")
+    if zeile and zeile in L:  # 1389 (D257.2): unveränderte Zeile bleibt, wo sie steht; sonst verschob jeder neue Vorgang des Besitzers sie (32 von 38 Commits)
+        return text
     L = [z for z in L if not (z.startswith(f"| {nr} |") and len(z.split("|")) > 3 and z.split("|")[3].strip() == rolle)]
     if zeile:
         zs = [d for d in startbar.vorgangsliste("\n".join(L)) if d["besitzer"] == rolle]
