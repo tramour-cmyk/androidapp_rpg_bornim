@@ -258,4 +258,4 @@
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Spike | K | zu testen | – | claude/spike-673-maus | 291 | E Technik | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
-| 1379 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
+| 1379 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Spike | M | erledigt, Geprüft an: Lauf 514 (build-291 grün mit 1314) | – | – | – | E Technik | – |
