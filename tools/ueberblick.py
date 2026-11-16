@@ -215,29 +215,58 @@ def offen_filter(d):
 ARCHIV_NR = re.compile(r"(?m)^\|\s*([0-9][0-9A-Za-z.]*)\s*\|")
 
 
-def morgen():
-    """1412 (Chef 16.11., 11:52): Stand der Vorgangsliste um 6:00 Berliner Zeit aus Git. → (offen je Block, Text „Heute: …“) oder None."""
-    import zoneinfo
-    jetzt = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
-    sechs = jetzt.replace(hour=6, minute=0, second=0, microsecond=0)
-    if jetzt < sechs: sechs -= datetime.timedelta(days=1)
-    c = s._git("rev-list", "-1", "--before=" + sechs.isoformat(), "HEAD").stdout.strip()
-    if not c: return None
-    def zeigen(datei): return s._git("show", "%s:docs/%s" % (c, datei)).stdout
-    alt_text = zeigen(s.LISTE)
-    if not alt_text: return None
-    alt = s.vorgangsliste(alt_text)
+def _stand(c):
+    """Stand der Vorgangsliste an Commit c (None = jetzt) → (offen je Block, offene Nummern, alle Nummern mit Archiv) oder None."""
+    if c is None:
+        liste, archiv = s.zeilen_liste(), s.lesen("LISTE-VORGAENGE-ARCHIV.md")
+    else:
+        text = s._git("show", "%s:docs/%s" % (c, s.LISTE)).stdout
+        if not text: return None
+        liste, archiv = s.vorgangsliste(text), s._git("show", "%s:docs/LISTE-VORGAENGE-ARCHIV.md" % c).stdout
     je = {}
-    for d in alt:
+    for d in liste:
         if offen_filter(d): je[block(d)] = je.get(block(d), 0) + 1
-    alt_offen = {d["nr"] for d in alt if offen_filter(d)}
-    alt_alle = {d["nr"] for d in alt} | set(ARCHIV_NR.findall(zeigen("LISTE-VORGAENGE-ARCHIV.md")))
-    jetzt_liste = s.zeilen_liste()
-    jetzt_alle = {d["nr"] for d in jetzt_liste} | set(ARCHIV_NR.findall(s.lesen("LISTE-VORGAENGE-ARCHIV.md")))
-    jetzt_offen = {d["nr"] for d in jetzt_liste if offen_filter(d)}
-    neu = jetzt_alle - alt_alle
-    erledigt = {n for n in (alt_offen | neu) if n not in jetzt_offen and n not in s.SONDER}
-    return je, "Heute (seit 6:00): %d erledigt, %d neu. In Klammern bei „offen“: Stand 6:00." % (len(erledigt), len(neu))
+    return je, {d["nr"] for d in liste if offen_filter(d)}, {d["nr"] for d in liste} | set(ARCHIV_NR.findall(archiv))
+
+
+def _bilanz(alt, neu_st):
+    """erledigt und neu zwischen zwei Ständen, Zählweise 1412 (Archiv mit, SONDER und Ideen aus)."""
+    neu = neu_st[2] - alt[2]
+    return len({n for n in (alt[1] | neu) if n not in neu_st[1] and n not in s.SONDER}), len(neu)
+
+
+def morgen(jetzt=None):
+    """1495 (Chef 16.11., 22:12 „jetzt“, ersetzt 1412 mit 6:00): erledigt und neu auf Kalendertage bis 24 Uhr Berliner Zeit,
+    für heute (seit 0:00), gestern (Stand 0:00 gestern gegen 0:00 heute), Woche (seit Montag 0:00), Monat (seit dem 1., 0:00);
+    fehlt ein Git-Stand so weit zurück, zählt der früheste („seit <Datum>“). → (offen je Block um 0:00, Zeilen) oder None."""
+    import zoneinfo
+    tz = zoneinfo.ZoneInfo("Europe/Berlin")
+    jetzt = jetzt or datetime.datetime.now(tz)
+    null = jetzt.replace(hour=0, minute=0, second=0, microsecond=0)
+    grenzen = {"heute": null, "gestern": null - datetime.timedelta(days=1),
+               "Woche": null - datetime.timedelta(days=null.weekday()), "Monat": null.replace(day=1)}
+    def commit(t):
+        c = s._git("rev-list", "-1", "--before=" + t.isoformat(), "HEAD").stdout.strip()
+        if c: return c, None
+        erst = s._git("rev-list", "--max-parents=0", "HEAD").stdout.split()
+        if not erst: return None, None
+        tag = s._git("-c", "log.showSignature=false", "log", "-1", "--date=format-local:%d.%m.", "--format=%cd", erst[-1]).stdout.strip()
+        return erst[-1], tag
+    staende, seit = {}, {}
+    for k, t in grenzen.items():
+        c, tag = commit(t)
+        st = _stand(c) if c else None
+        if st is None: return None
+        staende[k], seit[k] = st, tag
+    jetzt_st = _stand(None)
+    zahlen = {"heute": _bilanz(staende["heute"], jetzt_st), "gestern": _bilanz(staende["gestern"], staende["heute"]),
+              "Woche": _bilanz(staende["Woche"], jetzt_st), "Monat": _bilanz(staende["Monat"], jetzt_st)}
+    kopf = ["%s (seit %s)" % (k, seit[k]) if seit[k] else k for k in grenzen]
+    zeilen = ["**Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute)", "",
+              "| | " + " | ".join(kopf) + " |", "|---|" + "---|" * len(kopf),
+              "| erledigt | " + " | ".join(str(zahlen[k][0]) for k in grenzen) + " |",
+              "| neu | " + " | ".join(str(zahlen[k][1]) for k in grenzen) + " |"]
+    return staende["heute"][0], "\n".join(zeilen)
 
 
 def md():
@@ -255,7 +284,7 @@ def md():
         erst.setdefault(block(d), d)
     kopf = False
     try: mo = morgen()
-    except Exception: mo = None   # 1412: ohne Git-Verlauf keine Klammer
+    except Exception: mo = None   # 1412, 1495: ohne Git-Verlauf keine Klammer
     for k in list(range(len(BLOECKE))) + [len(BLOECKE)]:
         je = [d for d in zs if block(d) == k]
         if not je: continue
