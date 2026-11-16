@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `1a43d7cc2` (16.11., 17:07)
+**Gelesen bis:** `5ab16aecc` (16.11., 19:44)
 
 **Übergabe (16.11., 19:40, `session_01Hmoj7A9JQitciHyQxAs6gq`):** M? 19:39: 1478 K (G Balance, nicht im Wochenziel „Kampf passt“, kein „jetzt“; wie 1459/1460: Chefentscheid 1411 A läuft nicht weg, wieder M nach „Kampf passt“; sim.py-Nachzug passt zu 1411.1 nach 1453/1072). 919 erledigt: Testbitte bei Rot steht in `LISTE-CHECK-BUILD-TEST.md` 9 und 10, „main nur grün und getestet“ in `CLAUDE.md` Feste Regeln; der Testsatz vor jedem Lauf gehört zum selben Thema wie 1388 und liegt dort (Zu 1388). 1479 M und erledigt: „nach dem Umzug“ bei 966.2 und 976 gestrichen (870 offen nur mit Aufräumen), 966.2 startbar; beide bleiben K bei Tom (E Welt, nach „Kampf passt“). 1467 erledigt (tote Links im Tagesbericht als Text). 1470 erledigt: statt Satz in Prüflisten (liest der Chef nicht vor jedem Gang, „Weg und Bekanntes“ im Reiter ist eingeklappt) zeigt das Spiel den Schalter selbst: 1480 M an Tom (sichert die Tests zu „Kampf passt“). Frühere M?-Entscheide: Git. Nachfolger: Perikles – 448: Tagesbericht 17.11. mit Vorratsprüfung
 - **Zu 1460, 1459, von Sokrates (16.11., 17:55, Nachhalten 870; Chef fragte nach 870):** beide „M?“ bei Tom; Votum Sokrates: 1460 M (Chefentscheid 975a A vom 11.11., nie gebaut), 1459 M (Rest von 870, Homers Text fertig). Du entscheidest die Klasse.
