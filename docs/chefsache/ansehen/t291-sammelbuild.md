@@ -22,7 +22,6 @@ Im Bau geprüft: Kurzzeile der Vorräte im Laden (785.24, `laden_582`), Leben/Li
 
 ## Lagen
 
-- 291.2: station=Morwen
 - 291.3: station=Krogg
 - 291.7: probe=WOLVES
 
