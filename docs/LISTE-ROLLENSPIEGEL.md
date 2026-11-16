@@ -1,12 +1,11 @@
 # Rollenspiegel
 
-Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am Ende einer Sitzung, beim ersten Mal sofort. **Wie:** nur über `tools/rollenspiegel.sh <Rolle>` (zeigt Fragen und eigene Vorwochenantwort; `--antwort <datei>` hängt an), diese Datei nie selbst öffnen (340.2). Jede Antwort höchstens zwei Sätze mit Beleg (Vorgangsnummer, Commit oder Zitat); „nichts“ nur mit Begründung. Sokrates wertet aus (drei Muster, drei Vorschläge), der Chef entscheidet. Aus jedem Durchgang höchstens **eine Änderung je Rolle**: als Vorgang mit erwarteter Zahl und Prüfdatum, möglichst als Werkzeug, sonst als Startfrage, zuletzt als Satz; für jede neue Regel fällt eine alte weg. In der Datei bleiben die letzten zwei Wochen, ältere stehen in Git.
+Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** mittwochs nach dem Tagesbericht am Ende einer Sitzung (1461, Chef 16.11., 16:27; erste Runde 18.11.), beim ersten Mal sofort. **Wie:** nur über `tools/rollenspiegel.sh <Rolle>` (zeigt Fragen und eigene Vorwochenantwort; `--antwort <datei>` hängt an), diese Datei nie selbst öffnen (340.2). Jede Antwort höchstens zwei Sätze mit Beleg (Vorgangsnummer, Commit oder Zitat); „nichts“ nur mit Begründung. Sokrates wertet aus (drei Muster, drei Vorschläge), der Chef entscheidet. Aus jedem Durchgang höchstens **eine Änderung je Rolle**: als Vorgang mit erwarteter Zahl und Prüfdatum, möglichst als Werkzeug, sonst als Startfrage, zuletzt als Satz; für jede neue Regel fällt eine alte weg. In der Datei bleiben die letzten zwei Wochen, ältere stehen in Git.
 
 ## Fragen
 
 0. Was hast du letzte Woche angekündigt, und ist es geschehen? (Zahl)
 1. Lies deine Rollendatei: Welche Pflicht hast du nicht oder nur halb erfüllt?
-2. Für wen hast du gearbeitet: Chef, andere Rollen, Betrieb? Ungefähr in Prozent, und ist das richtig so?
 3. Deine Kennzahl: Ziel, Ist, und was du dafür getan hast. Hast du keine: Schlag ein Ziel vor, das jemand anderes messen kann (Muster: Zielvereinbarung Perikles, 341; ab 06.11. für alle Rollen).
 4. Was hast du dem Chef vorgelegt? Konnte er damit fundiert entscheiden (Wege, Kosten, Gegenargument, fremd geprüft)? Was fehlte?
 5. Welches Ergebnis würde der Chef zurückweisen, wenn er genau hinsieht, oder was hast du ungeprüft als fertig gemeldet?
@@ -15,6 +14,7 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Was hat am meisten gekostet und am wenigsten gebracht?
 9. Welche Regel war unklar, welche würdest du streichen, welche fehlt?
 10. Wärst du ein Mensch in einer Firma: Rauswurf, ernste Ansage oder Lob? Ein Satz, warum. Dann höchstens drei Schritte zur Besserung. Keinen davon beginnen, bevor der Chef Ja sagt.
+11. Vorschlag fürs Spiel: Lies `DESIGN-LEITBILD.md` und die Abnahmeliste, schau auf deine letzten Tage: genau ein Vorschlag, wie Kapitel 1 besser wird (Inhalt, Technik, Grafik, Klang, Kampf, Bedienung, auch außerhalb deines Fachs), mit Auslöser aus den letzten Tagen (Beleg), Leitbildsatz oder Abnahmepunkt, grobem Aufwand, stärkstem Gegenargument; nicht schon in `LISTE-IDEEN.md`. (Ersetzt Frage 2, 1461; das Werkzeug trägt die Antwort in `LISTE-IDEEN.md` ein.)
 
 ## Änderungen
 
