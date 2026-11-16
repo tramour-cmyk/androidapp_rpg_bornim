@@ -1,4 +1,5 @@
 # 531 · Garrick: Langbogen und Köcher auf dem Rücken · Tom · 16.11., 10:18
+[Bild von 16.11., 10:17](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1017-531-Tom.png) (Telegram)
 
 E Figuren
 
