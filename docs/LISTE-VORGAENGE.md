@@ -11,7 +11,6 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1394 | Von Jerry (1393): Entwurf docs/entwurf/t292-sammelbuild.md gegenlesen (Regel 8), Zeile „Gegengelesen: Tom …“ eintragen | Tom | M | erledigt | – | – | – | E Technik | – |
 | 1361 | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 1355, 870.20, 1322, 1326, 1321, 1289, 415, 601.1, 1275, 1270.3, 673) | Tom | M | zu testen | – | claude/build-291 | 291 | E Technik | 17,86 $ |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bildlauf von der Rechteprüfung abgelehnt | 1351 | – | – | E Oberfläche | 8,48 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | wartet | 1351 | claude/tom-1092-streifen | – | E Figuren | 29,31 $ |
@@ -226,6 +225,7 @@
 | 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | wartet, Rest im Build 290, 1268.1/.2/.4/.5 erledigt | 1268.3 | – | – | E Technik | – |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | 1270.3, 1270.4 | – | – | E Technik | 3,04 $ |
 | Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | erledigt | – | – | – | B Abläufe | – |
+| 1394 | Von Jerry (1393): Entwurf docs/entwurf/t292-sammelbuild.md gegenlesen (Regel 8, Punkte Jerry und Spike), Zeile „Gegengelesen: Sokrates …“ eintragen | Sokrates | M | erledigt | – | – | – | E Technik | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1102,71 $ |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
