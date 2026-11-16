@@ -136,3 +136,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:04 16.11.: Marke Archiv session_01Hmoj76kpECV2hfEy8nEtVM (lauf.py)
 - 11:04 16.11.: Marke Archiv session_01Hmoj76nAqQeLfP36ajZFbD (lauf.py)
 - 11:04 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 10:20) (lauf.py)
+- 11:08 16.11.: Lauf 11:04: Start Tom 431 Stufe 1, Jerry (Testbitte 292, dann 1284a A), Perikles (1398, dann 1351); archiviert Tom (18,09 $ auf 531,1383), Jerry (15,28 $ auf 292,1072), Perikles (5,46 $ auf 1392,654.2,1384,1390), gebucht
