@@ -28,3 +28,7 @@ Im Bau geprüft: Kurzzeile der Vorräte im Laden (785.24, `laden_582`), Leben/Li
 Nachtrag 291.10 (Jerry, 1363, Text von Jerry 03:03): Gegengelesen: Tom 16.11., 03:04 (Bewegung, darum Film; erreichbar im Probekampf Wölfe mit Söldner).
 
 Gegengelesen: Sokrates 16.11., 01:22 (drei Befunde, eingearbeitet Tom 01:23, dann frei): (1) 291.6 (1321, Stab beim Ausweichen) und 291.8 (601.1, Pfeil in der Brust, Zucken) sind Bewegung: nach Regel 9 als Film vom Stand `claude/build-291`, nicht als Handy, je Film nur der Gegenstand, „Wo und wie“ = was im Film zu sehen ist; ihre Lagen fallen weg. (2) 291.4 (1289): zusätzlich „Bilder/s oben im Reiter Test nicht unter Build 290“ in „Passt“, weil Schwarz hinter Wänden die Grafikzeit ändert und die Höhle schon hakelt (1145). (3) 291.9 (870.20): nicht „spielen bis in die Höhle“; Texte sichert der Bau (1322 ohne dich), am Handy nur Hauptmenü, „Über das Spiel“ und Handbuch.
+
+## Ergebnis
+
+- 291.8 ✗ Pfeil fliegt auf Schild-/Brusthöhe, aber der Held zuckt nicht; dreimal dieselbe Szene, kein Unterschied erkennbar, ob er trifft (Chef 16.11., 12:24, über Sokrates)
