@@ -121,6 +121,34 @@ def rechnen():
     return zs, kommt, test, pruef, gebaut
 
 
+ROLLEN_REIHE = ["Tom", "Jerry", "Spike", "Homer", "Diogenes", "Sokrates", "Perikles"]
+
+
+def je_rolle():
+    """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand, mit
+    Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
+    import collections, lauf
+    st = lauf.stand()
+    aus = []
+    for r in ROLLEN_REIHE:
+        if r not in st: continue
+        muss, kuer, p, _ = st[r]
+        def zeile(x, art):
+            t = x[2]
+            vor = "Übernahme von %s: " % re.match(r"Übernahme von (\w+)", t).group(1) if t.startswith("Übernahme von") else ""
+            t = re.sub(r"^Übernahme von [^:]*\):\s*", "", t)
+            return "%s %s%s (%s)" % (x[0], vor, worum(t, 60), art)
+        if p:
+            was = "Pause bis %s" % p + ("; lässt liegen: %s" % ", ".join(x[0] for x in muss[:5]) if muss else "")
+        elif muss: was = zeile(muss[0], "Muss") + ("; dann %d weitere" % (len(muss) - 1) if len(muss) > 1 else "")
+        elif kuer: was = zeile(kuer[0], "nach dem Meilenstein" if kuer[0][1] == "N" else "Kür")
+        else:
+            g = collections.Counter(re.sub(r"\s*[(:;].*$|\s+\d.*$", "", z[4]) for z in s.plan(r) if z[4] and "fuer" not in z[3])
+            was = "leer, weil " + (", ".join("%d %s" % (n, w) for w, n in g.most_common(3)) or "keine offene Zeile")
+        aus.append("| %s | %s |" % (r, was.replace("|", "/")))
+    return aus
+
+
 def md():
     zs, kommt, test, pruef, gebaut = rechnen()
     # Stand = letzte Änderung der Vorgangsliste (Berliner Zeit), nicht die Uhr: sonst schriebe jeder Lauf die Übersicht neu
@@ -145,6 +173,7 @@ def md():
             ("↳ " if kap1 else "") + name(k), len(je), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
             sum(wartet_auf_test(d) for d in je), sum(d["wort"] in RUHT for d in je),
             ("%s (%s) %s" % (n["nr"], n["besitzer"], worum(n["titel"], 50))) if n else "–"))
+    aus += ["", "**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"] + je_rolle()
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):
         aus.append("| %d | %s | %s | %s | %s | %s | %s |" % (i, d["nr"], d["besitzer"], worum(d["titel"]).replace("|", "/"),
