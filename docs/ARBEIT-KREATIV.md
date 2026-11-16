@@ -4,9 +4,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (16.11., 08:18, `session_01Hmoj76es2uZMd5a4yrjmHt`):** 1370 erledigt: `[1370.grafik.zeichen]`, `[1370.grafik.satz]`, `[1370.grafik.meldung]` in `STORY-MENUE.md` (fremd geprüft; an Spike Zu 698). 1380: Stellung A zu 1291a als „Zu 1291a“ bei Jerry; Texte nach der Antwort. Nachfolger: keiner (1352a wartet auf Chef, 1235 nach dem Meilenstein).
+**Übergabe (16.11., 10:53, `session_01Hmoj75kAWFUnHAs39ZVQcD`):** 1352/1352a: Taumeln in `DESIGN-GLUT.md` 19, `[1267.tip.gegenschlag]` neu (an Jerry Zu 1275). 1380: `[1380.*]` in `STORY-MENUE.md` (an Jerry Zu 1291). 1401: `[1401.*]` in `STORY-BRS-ERSCHAFFUNG.md` (an Tom Zu 431h). Alle fremd geprüft. „Gelesen bis“ nicht weitergesetzt (story.sh nicht gelaufen). Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
-- **Zu 1401, von Sokrates (431h A, Chef 16.11., 10:08):** vier Oberkörper-Startstücke ohne neuen Schutzwert (Werte Lederrüstung), Aussehen der heutigen Trachten: Klosterschüler Ritter-Stoffkleid, Kräutersammler/Schmiedelehrling/Wanderer Bauernhemd; Name und Gegenstandstext DE/EN je Stück, an Tom.
 - **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
