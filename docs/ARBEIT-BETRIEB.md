@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1384** (zuletzt 1383 Sokrates 16.11. 08:02:22 c8b0) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1385** (zuletzt 1384 Perikles 16.11. 08:03:55 fc28) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -112,3 +112,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:01 16.11.: Marke Start-fehlt Tuffy 16.11.-08:25 (lauf.py)
 - 09:01 16.11.: Marke Archiv session_01Hmoj78PsCC1nMKPN3KaUsi (lauf.py)
 - 09:01 16.11.: Marke Archiv session_01Hmoj76MtaUFLBbEUE3ZMaK (lauf.py)
+- 09:05 16.11.: Lauf 09:01 (lauf.py, von Sokrates-Neustart 09:02 ausgelöst): Start Diogenes (Wochenzählung-Rest), Perikles (Nachfolger + Tagesbericht), Tuffy 1292; Weiter Tom 531, Jerry 1285, Spike 1379 (Übernahme von Jerry) und 698, Homer 1235; archiviert Diogenes 1374 (11,45 $), Perikles (7,09 $), gebucht; Urteil 698 gebilligt (Nachricht 4345/4346) im Archiv; Rotbuch ziege_4162 = 1383; Sokrates Nachfolger 1129.4 folgt im nächsten Lauf

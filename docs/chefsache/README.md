@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:02, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,8 +14,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 75 | 31 | 4 | 6 | 9 | 1292 (Jerry) Klosterschüler gewinnt immer, Ursache rechnen, Vo… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 11 | 25 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 9 | 1 | 6 | 4 | 1379 (Spike) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 11 | 21 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 9 | 1 | 6 | 4 | 1379 (Spike) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
 | Werkzeuge und Abläufe der Firma | 55 | 34 | 0 | 0 | 9 | 1129 (Sokrates) Systemprüfung blinde Flecken mit Perikles: Regeln… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -56,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 1382 | Perikles | Themenblock „Alles an einer Stelle: Figuren, Helden, Gegenstände“ unter Kapitel… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
 
-Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 66.
+Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
