@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 01:18, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 01:20, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -15,7 +15,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kampf passt | 73 | 28 | 3 | 1 | 11 | 1072 (Jerry) Laufwege und Plätze im Kampf für alle Figuren: Zw… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 21 | 7 | 0 | 0 | 14 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 1 | 7 | 29 | 643 (Jerry) Langbogen mit Köcher als Waffenmodell für Garrick… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 | 10 | 0 | 1 | 6 | 1358 (Jerry) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 | 11 | 1 | 1 | 5 | 1358 (Jerry) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
 | Werkzeuge und Abläufe der Firma | 58 | 36 | 0 | 0 | 9 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 7 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -37,14 +37,14 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 12 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 13 | 1358 | Jerry | Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nachstellen, beheben · w… | M | Godot besser nutzen | startbar |
 | 14 | 1357 | Tom | Wiederholrot lage_785_8: 2× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
-| 15 | 1356 | Sokrates | Wiederholrot hoehle_492: 2× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
-| 16 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1359 | Tom | Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 1286 | Spike | Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf… | K | Kampf passt | startbar |
+| 15 | 1361 | Tom | Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 | M | Godot besser nutzen | in Arbeit |
+| 16 | 1356 | Sokrates | Wiederholrot hoehle_492: 2× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
+| 17 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1359 | Tom | Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.… | M | Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 77.
+Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 76.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
