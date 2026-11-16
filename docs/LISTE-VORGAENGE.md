@@ -11,6 +11,8 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1451 | Von Werkzeug (1334): Wiederholrot pruefliste_1020: 3× rot in 48 h (Läufe 500, 499, 470); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1450 | Von Werkzeug (1334): Wiederholrot lage_785_8: 4× rot in 48 h (Läufe 522, 519, 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bild t290.6 neu | Chef | – | – | E Oberfläche | 8,48 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | wartet, Bildlauf Bauserver | 16.11. 15:00 | claude/tom-1044-grundstand | – | E Figuren | 29,31 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Film 431h: Läufe frei | Sokrates | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
@@ -71,6 +73,8 @@
 | 1445 | Von Sokrates (Chef 16.11., 14:36 zu t292.3): Prüfliste im Spiel nimmt ein Wort nur bei „Falsch“; bei „Passt“ kann der Chef keine Anmerkung geben („ich konnte ja bei Passt nicht einen Kommentar abgeben im Handy“), darum kam 292.3 als ✗ mit Vorbehalt; Feld für eine Anmerkung auch bei „Passt“ (pruefliste.gd 195) | Tom | M? | startbar | – | – | – | B Werkzeuge | – |
 | 1447 | Von Sokrates (Chef 16.11., 14:41, Idee, erst denken): Weltleiste links oben unruhig, Wörter Leben/Mana/EP verschieden lang, Balken beginnen versetzt (Build 292: 93/86/58 px); Chef: Wörter weg, nur Balken und Zahl; Bau erst nach Entscheid, auch Menü und Kampf (1439) | Tom | M? | startbar | – | – | – | E Oberfläche | – |
 | 1448 | Von Sokrates (1448 A, Chef 16.11., 14:47): Weltleiste und Heldenmenü ohne Wörter Leben/Mana/EP; alle Balken gleich lang und bündig, dahinter die Zahl, bei Erfahrung die Stufe; Kampfschirm ebenso mit 1439 (Jerry); Anlass: Balken versetzt (Build 292: 93/86/58 px) | Tom | M? | startbar | – | – | – | E Oberfläche | – |
+| 1452 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
+| 1449 | Von Werkzeug (1334): Wiederholrot ausholen_1000: 4× rot in 48 h (Läufe 503, 497, 496, 489); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1408 | Von Jerry (Build 292 rot): typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284 (aus 1275, 1366, 1333); typisieren, dann nächster Build | Jerry | M | zu testen | – | claude/jerry-1408-typen | 293 | E Technik | – |
 | 1393 | Von Jerry (1312): Sammelbuild 292: alle fertigen Zweige nach t291 (698, 1145, 1286, 1285, 643, 1305, 1333, 1366, 1383) | Jerry | M | erledigt, t292 getestet | – | claude/build-292 | 292 | E Technik | 42,00 $ |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | – | – | – | E Technik | 15,96 $ |
