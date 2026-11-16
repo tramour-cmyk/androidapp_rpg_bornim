@@ -72,6 +72,8 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **Echter Fall fehlt:** seit `304660d8e` (13.11., 15:03) keine Marke „Lauf läuft bis …“ von Spike oben im Vorrat (Git aller Team-Vorräte); Jerrys zwei Marken (13.11., 21:19, 21:36) standen in „Zu“-Absätzen, nicht oben. Im Protokoll seit 13.11. kein ARCHIVIERE und keine Warnung „Start Spike nicht angekommen“ mitten in einem Lauf.
 - **Werkzeug (Kopie, Marke „Lauf läuft bis 16.11., 09:00 (Probe Diogenes)“ in `ARBEIT-TEAM-SPIKE.md`):** `lauf_laeuft` hält Spike, Tom und Jerry nicht. Lücke D254.1 → 1369 (Perikles): dieselbe Marke gibt zugleich die laute Warnung „zählt nicht … Sitzung gilt als fertig“ (Klammer ohne Namen), obwohl sie hält; seit 1328.1 hat Spike einen eigenen Vorrat, jede Klammer wie „(Render)“ löst sie aus.
 - 1148 wartet auf 1369 und den echten Fall.
+- **1328.1 greift:** `lauf.START_REIHE` mit Spike, Vorrat `ARBEIT-TEAM-SPIKE.md`, `ZUSATZ` nur Tuffy; Ford startete Spike seit 15.11., 21:21 sechsmal als eigene Rolle, keine Zusatzentwickler-Zeile; 1268.x, 1270.x auf Spike.
+- **1364 mit Lücke:** Übernahme Tom 643, 1285, Übersicht je Rolle, Test grün; Tuffy (Nachtrag Chef 07:02) fehlt → D254.2 = 1371 (Perikles).
 
 ## Lauf 253 · 1301 (15.11., 17:0x)
 
