@@ -2910,12 +2910,14 @@ func hoehle_bilder() -> void:
 # (Helligkeit unter 64): wie viele Stufen belegt sind und wie oft Nachbarn um 3 und mehr springen (Stufe statt Verlauf); dazu je
 # Fassung ein Bild. Fassungen: jetzt (Helligkeit x2,1 nach dem Bild), ohne Hebung, Belichtung der Kamera x3, x4, x5, x6 statt Hebung
 # (Lauf 508: x2,1 glatt, aber zu dunkel); dazu Mittel und p90 des ganzen Bilds gegen „jetzt“
+var _stufen_dir := ""
 func stufen_1303() -> void:
 	var dir := ""
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--stufen1303="): dir = a.substr(13)
 	if dir == "": return
 	DirAccess.make_dir_recursive_absolute(dir)
+	_stufen_dir = dir
 	ui.mess.visible = false
 	ui.oben.visible = false
 	zustand.minuten = 10 * 60
@@ -2928,33 +2930,42 @@ func stufen_1303() -> void:
 	var cam := vp.get_camera_3d()
 	var hell0: float = licht.env.adjustment_brightness
 	print("STUFEN1303 Renderer %s, Helligkeit %.2f, Tonemap %d, Bildpuffer %s" % [ProjectSettings.get_setting("rendering/renderer/rendering_method"), hell0, licht.env.tonemap_mode, RenderingServer.get_video_adapter_name()])
-	for o in [["halle", Vector2i(10, 3), "UP"], ["lager", Vector2i(16, 16), "UP"], ["gang", Vector2i(11, 14), "UP"]]:
-		held.setze(o[1], o[2]); kamera.springe()
-		await get_tree().create_timer(1.5).timeout
-		ui.textfeld.visible = false
-		for f in ["jetzt", "ohne_hebung", "belichtung3", "belichtung4", "belichtung5", "belichtung6"]:
-			var lampen: Array = []
-			var alt_umgebung: float = licht.env.ambient_light_energy
-			match f:
-				"ohne_hebung": licht.env.adjustment_brightness = 1.0
-				"belichtung3", "belichtung4", "belichtung5", "belichtung6":
-					licht.env.adjustment_brightness = 1.0
-					var ca := CameraAttributesPractical.new()
-					ca.exposure_multiplier = float(f.substr(10))
-					cam.attributes = ca
-			for i in 6: await get_tree().process_frame
-			await RenderingServer.frame_post_draw
-			var img := vp.get_texture().get_image()
-			img.save_png("%s/%s_%s.png" % [dir, o[0], f])
-			_stufen_mass(img, "%s %s" % [o[0], f])
-			licht.env.adjustment_brightness = hell0
-			licht.env.ambient_light_energy = alt_umgebung
-			cam.attributes = null
-			for l in lampen: l[0].light_energy = l[1]
-			vp.use_hdr_2d = false
-			vp.use_debanding = false
+	# Frage des Chefs (16.11., 12:12): trägt der Held hier eine Fackel? Erst wie im Spielstand, dann mit brennender Fackel (wie im Spiel)
+	print("STUFEN1303 Fackel des Helden im Spielstand: %s" % held.traegt_fackel)
+	var laeufe: Array = [false, true] if not held.traegt_fackel else [false]
+	for mit in laeufe:
+		if mit: held.fackel_neu(true, false, true)
+		var nf := "_fackel" if mit else ""
+		for o in [["halle", Vector2i(10, 3), "UP"], ["lager", Vector2i(16, 16), "UP"], ["gang", Vector2i(11, 14), "UP"]]:
+			await _stufen_ort(o, nf, vp, cam, hell0)
 	print("STUFEN1303 fertig")
 	get_tree().quit()
+
+func _stufen_ort(o: Array, nf: String, vp: Viewport, cam: Camera3D, hell0: float) -> void:
+	held.setze(o[1], o[2]); kamera.springe()
+	await get_tree().create_timer(1.5).timeout
+	ui.textfeld.visible = false
+	for f in ["jetzt", "ohne_hebung", "belichtung3", "belichtung4", "belichtung5", "belichtung6"]:
+		var lampen: Array = []
+		var alt_umgebung: float = licht.env.ambient_light_energy
+		match f:
+			"ohne_hebung": licht.env.adjustment_brightness = 1.0
+			"belichtung3", "belichtung4", "belichtung5", "belichtung6":
+				licht.env.adjustment_brightness = 1.0
+				var ca := CameraAttributesPractical.new()
+				ca.exposure_multiplier = float(f.substr(10))
+				cam.attributes = ca
+		for i in 6: await get_tree().process_frame
+		await RenderingServer.frame_post_draw
+		var img := vp.get_texture().get_image()
+		img.save_png("%s/%s%s_%s.png" % [_stufen_dir, o[0], nf, f])
+		_stufen_mass(img, "%s%s %s" % [o[0], nf, f])
+		licht.env.adjustment_brightness = hell0
+		licht.env.ambient_light_energy = alt_umgebung
+		cam.attributes = null
+		for l in lampen: l[0].light_energy = l[1]
+		vp.use_hdr_2d = false
+		vp.use_debanding = false
 
 func _stufen_mass(img: Image, was: String) -> void:
 	img.convert(Image.FORMAT_RGB8)
