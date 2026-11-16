@@ -306,6 +306,15 @@
   },
 
   "merkmale": {
+    "exemplar": {"_quelle": "1488 (1411b A, Chef 16.11., 20:59; Werte wie Rechnung 1411.1, merkmale_1411.py): je Exemplar hoechstens ein Merkmal, Bosse fest, Ockerschleim ohne; klein (geringer Schaden) nur das Leben der Tiermerkmale (Annahme 1488)",
+      "gewoehnlich": 0.5,
+      "gruppen": {
+        "tier": {"arten": ["Wolf", "Jungwolf", "Wildschwein", "Riesen-Hundertfüßer", "Riesenspinne", "Blutflügler"],
+          "merkmale": {"jung": {"leben": 0.85, "angriff": 0.90, "abwehr": 1.10}, "alt": {"leben": 0.90, "angriff": 0.90}, "kräftig": {"leben": 1.15, "schaden": 1.15}, "angeschlagen": {"leben": 0.70}}},
+        "klein": {"arten": ["Riesenratte", "Riesenfledermaus"],
+          "merkmale": {"jung": {"leben": 0.85}, "alt": {"leben": 0.90}, "kräftig": {"leben": 1.15}, "angeschlagen": {"leben": 0.70}}},
+        "waffe": {"arten": ["Skelett", "Zombie", "Ghul", "Goblin", "Goblin-Späher", "Goblin-Schamane", "Kobold"],
+          "merkmale": {"rostige Waffe": {"schaden": 0.75}, "gute Waffe": {"schaden": 1.20}, "brüchig": {"leben": 0.80}, "zäh": {"leben": 1.20}}}}},
     "_quelle": "427.1 (Jerry 02.11.): aus dem alten Spiel umgerechnet (core Packs.kt, Battle.kt, Monsters.kt), A; 1 Punkt W20 = 5 % = 10 Punkte Angriff (trefferchance_je_punkt 0,5)",
     "rudel": {
       "_info": "A: Begleiter stehen hinter dem Anfuehrer, jeder greift je Runde nach ihm mit 'chance' an, nicht angreifbar (angreifbar: false; Jungwolf im Spiel angreifbar), fliehen, wenn er faellt (wie im alten Spiel). Angriff = Anfuehrer + angriff_verschiebung, Schaden = Anfuehrer x schaden_anteil",

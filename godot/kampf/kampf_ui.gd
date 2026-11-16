@@ -653,6 +653,38 @@ func laeuft() -> bool:
 	return kampfort.mars.outcome == "ONGOING" or kampfort.busy
 
 
+## 1488 (1411b A, Chef 16.11., 20:59): Name eines Gegners mit seinem Merkmal nach der Lesestufe des Helden: 1 Pfeil (▲ stärker,
+## ▼ schwächer), 2 Name, 3 Name und Wirkung. Arbeitsnamen aus werte.json, bis Homers Texte da sind (1489)
+const MERKMAL_WORT := {"leben": ["Leben", "life"], "angriff": ["Angriff", "attack"], "abwehr": ["Abwehr", "defence"], "schaden": ["Schaden", "damage"]}
+func merkmal_name(f: Variant) -> String:
+	var nm: String = f.name(lang)
+	if f.side != "FOES" or not (f.b is Dictionary) or not f.b.has("merkmal"):
+		return nm
+	var h: Variant = kampfort.mars.find("hero")
+	var st: int = Mars.Kerbe.lesestufe(h.b, kampfort.mars.merkmal_art(f), false) if h != null and h.b is Dictionary and not h.b.is_empty() else 0
+	return nm + merkmal_zusatz(f.b.merkmal, f.b.merkmal_fak, st, lang)
+
+
+## 1488: Zusatz zum Namen für Merkmal [mk] mit Faktoren [fak] auf Lesestufe [st] (leer auf Stufe 0)
+static func merkmal_zusatz(mk: String, fak: Dictionary, st: int, sprache: int) -> String:
+	if st <= 0:
+		return ""
+	var gewicht := {"leben": 1.0, "schaden": 1.0, "angriff": 0.5, "abwehr": 0.5}
+	var s := 0.0
+	for k: String in fak:
+		s += (float(fak[k]) - 1.0) * float(gewicht.get(k, 0.0))
+	if st == 1:
+		return " ▲" if s > 0.0 else " ▼"
+	if st == 2:
+		return " · " + mk
+	var teile: PackedStringArray = []
+	for k: String in ["leben", "angriff", "abwehr", "schaden"]:
+		if fak.has(k):
+			var p := roundi((float(fak[k]) - 1.0) * 100.0)
+			teile.append("%s %s%d %%" % [MERKMAL_WORT[k][mini(sprache, 1)], "+" if p > 0 else "−", absi(p)])
+	return " · %s (%s)" % [mk, ", ".join(teile)]
+
+
 ## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern „ZP sp/max“ (ohne „LP“).
 func _party_box(f) -> Control:
 	var box := PanelContainer.new()
@@ -1446,7 +1478,7 @@ func _draw_overlay() -> void:
 		var a: float = 1.0 if waehlbar.has(f) else weich
 		if a > 0.0:
 			named[id] = true
-			name_rects[id] = _name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
+			name_rects[id] = _name_tag(_foot(fig), _tall(fig), merkmal_name(f), f == current, a, f.side == "FOES")
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
