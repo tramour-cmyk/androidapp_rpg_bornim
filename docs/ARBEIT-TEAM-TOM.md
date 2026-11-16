@@ -47,6 +47,7 @@ Letzte Antwort: Kaufrepo ist eingebunden; 431h-Film folgt nach Freigabe des Lauf
 ## Einzelheiten
 - **Von Spike (1307, 16.11., 14:33):** Sperrklinke Typen auf `main` (`f8a06554f`): in `godot/regeln/` und `godot/kampf/` je Datei nicht mehr Stellen ohne Typ als in `godot/tests/typen_1268.json`, neue Dateien 0, sonst ist der Prüfschritt rot. Grenzen aus `main` und den offenen Zweigen (auch `tom-1341-bild`, `tom-1383-ziege`), heute grün. Prüfen: `python3 tools/godot/typen.py`.
 
+- **Zu 1406, von Spike (Chef 16.11., 15:0x zu 1416):** „den 180-Degree Root Motion Turn, den sowieso, weil der vielleicht endlich unser Problem löst, wie sich Figuren vernünftig auf der Stelle drehen können.“ Also Turn180_L/R aus `UAL2_RM.glb` (mit Wurzelweg). Weitere vorgemerkte UAL2-Bewegungen für Gesten und Handlungen der Leute: `LISTE-BESTAND.md` „Vom Chef vorgemerkt“.
 - **Zu 1406, 568, von Spike (Chef 16.11. zu 1386):** „Drehen auf der Stelle. Das ist was ganz Entscheidendes. Aber vielleicht kriegen wir es da mal hin, dass das jetzt richtig genau gut ausschaut.“ Heute Turn90 (UAL1 Pro), 180 Grad als zwei Wenden; UAL2 hat Turn180_L/R. Zu 568: „wir wollen ja die Fähigkeit Angeln mal haben“; UAL2 Fish_Cast, Fish_Reel, Farm_Harvest, Farm_PickingTree.
 
 - **Zu 1395, von Spike (16.11., 10:23):** Fantasy Props MegaKit Source im Kaufrepo: 96 Teile mehr als die freie Fassung (Schmiede, Marktstände, Schilder, Betten, Teppiche, Leiter, Feuerstelle), abgenutzte Texturen, Godot-Kollision; Liste je Ort in `LISTE-BESTAND.md`. Einbau nur über deinen Vorgang.
