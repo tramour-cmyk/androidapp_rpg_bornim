@@ -89,6 +89,8 @@ def kampf(W, H, held, mon_name, rng, opt):
                 g.stufe, g.abwehr, g.ruestung = kp["stufe"], kp["abwehr"], kp["ruestung"]
                 g.schwaeche = kp.get("schwaeche", {})
                 g.leben = max(1, round(kp["leben"] * rud.get("leben_anteil", 1.0)))
+    if opt.get("exemplar"):
+        opt["exemplar"](feld, rng)                                 # 1411.1: Merkmale je Exemplar (merkmale_1411.py)
     haupt = [g for g in feld if g.herr is None]
     leit = feld[0]
     start = 0 if leit.ueb else 1
@@ -203,6 +205,8 @@ def kampf(W, H, held, mon_name, rng, opt):
         l = lebend()
         if not l:
             return None
+        if opt.get("ziel_wahl"):
+            return opt["ziel_wahl"](l, aktion_fern() is not None)  # 1411.1: Zielwahl nach gelesenem Merkmal
         nah = [g for g in l if g.ab == 0]
         if nah:
             return min(nah, key=lambda g: (g.herr is not None, g.leben))
