@@ -375,6 +375,7 @@ static func _schluessel(m: Node3D, namen: Array, n: String) -> void:
 # „unter_<PLATZ>“ zieht die Haut unter einem gezeigten Teil ein (sticht nicht durch). Stufe 1: das Teil der eigenen Tracht steht fuer
 # jedes Stueck des Platzes (die Startstuecke sind die Teile der Tracht, welt.start); eigene Teile je Ruestung erst mit Stufe 2.
 # Ohne „teile“ (Bau vor 431h), fuer die Leute des Dorfs (modell) und mit „kleid“ null (Kampfproben ohne Spielstand): die ganze Tracht.
+# Alt (Dress.kt, Kotlin): der Held Platz fuer Platz aus den Stuecken, leerer Oberkoerper zeigte das Kleid der Klasse; hier zeigt er den Koerper.
 # Gibt {"kapuze": …} zurueck (Haar darunter weg)
 const KLEID_PLAETZE := ["HEAD", "CHEST", "ARMS", "LEGS", "CLOAK"]
 static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
