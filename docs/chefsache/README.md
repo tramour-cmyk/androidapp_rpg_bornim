@@ -63,7 +63,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [654.2](billigen/6542-messlauf-ohne-freigabe.md) | M? | B Abläufe | 16.11., 01:30 | Messläufe ohne Bild (nur Zahlen, nichts für dich) laufen einmal am Tag je Vorgang ohne mein Wort; Filme und Bilder bleiben wie 621 A. | Sokrates |
+| [654.2](billigen/6542-messlauf-ohne-freigabe.md) | Kür | B Abläufe | 16.11., 01:30 | Messläufe ohne Bild (nur Zahlen, nichts für dich) laufen einmal am Tag je Vorgang ohne mein Wort; Filme und Bilder bleiben wie 621 A. | Sokrates |
 
 ## Anzusehen
 
