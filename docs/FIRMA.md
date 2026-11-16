@@ -38,7 +38,7 @@ Grundregel für Notizen: nur auf `main`, direkt committen und pushen; Code nur a
 | Team Tom | Entwicklung: Leute, Dorf, Innenräume, Technik | fremde Vorgänge | `ROLLE-ENTWICKLUNG.md` | `ARBEIT-TEAM-TOM.md` |
 | Team Jerry | Entwicklung: Monster, Höhle, Kampf, Klang | fremde Vorgänge | `ROLLE-ENTWICKLUNG.md` | `ARBEIT-TEAM-JERRY.md` |
 
-Helfer: Spike (bei Tom) und Tuffy (bei Jerry) sind Leihsitzungen eines Teams, Kosten zählen dort. Die Rolle steht in der ersten Nachricht („Du bist Perikles …“, auch als Systemmeldung von Ford); `notiz.sh` meldet sie, „unbekannt“ heißt: Chef fragen.
+Spike ist eigene Rolle Technik (1328); Helfer Tuffy (bei Jerry) ist Leihsitzung des Teams, Kosten zählen dort. Die Rolle steht in der ersten Nachricht („Du bist Perikles …“, auch als Systemmeldung von Ford); `notiz.sh` meldet sie, „unbekannt“ heißt: Chef fragen.
 
 **Aufbau jeder Rollendatei** (fest, bis „Start“ unter 4 KB): Kopf · Wer du bist · Gutes Ergebnis · Dein Maß · Dein typischer Fehler · Was du tust · Entscheidet selbst (nur Perikles, Homer, Sokrates) · Was du nicht tust · Wen du ansprichst · Start · Begründungen · Lehren (höchstens fünf).
 

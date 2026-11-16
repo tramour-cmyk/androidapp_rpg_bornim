@@ -23,7 +23,7 @@ Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur 
 | `STORY-K1-WELT.md` | Kapitel 1, K1-W: Chronik „Bisher geschehen“ (64d), Hörensagen (62i), Gwenna (41), Stimmen hinter Türen (73b), Südrand (67) | freigegeben 13.10. |
 | `STORY-BLENDE.md` | Zwischenbildschirm (24), alle Kapitel: Orte, Kampfbeginn, je Gegner; Marken `[24.…]`; Einstellung Schwierigkeit `[39.2.…]`; Söldner-Namen `[72.10a.5.…]` | Texte seit 11.10., Marken 13.10. |
 | `kapitel2/STORY-K2-ENTWURF.md` | Kapitel 2, Entwurf aller Texte `[41.…]`, `[24.ort.…]` mit Prüfpunkten; beim Bau nach `STORY-K2-HANDLUNG.md`/`-WELT.md` teilen | frei seit 18.10. (72s.1); 41.1 ja, Zeilen 19.10.; offen 6.4 (41.2) |
-| `STORY-MENUE.md` | Spielermenü, alle Kapitel: Erklärung bei langem Druck `[326.sys.…]`, Hinweis `[326.hinweis]`, Reiternamen; Zeichen Kampfsystem `[296.2.kampfsystem]` | Texte seit 23.10. |
+| `STORY-MENUE.md` | Spielermenü, alle Kapitel: Erklärung bei langem Druck `[326.sys.…]`, Hinweis `[326.hinweis]`, Reiternamen; Zeichen Kampfsystem `[296.2.kampfsystem]`; Nebenhand `[1380.…]`; Beenden im Hauptmenü `[1419.…]` | Texte seit 23.10. |
 | `alt/STORY-ANLEITUNG.md` | Anleitung im Systemmenü der Kotlin-Fassung (352.1): Regeln grob, Bildschirme, Fähigkeiten je Klasse `[352.…]` | in `alt/` seit 09.11. (650.2) |
 | `STORY-HANDBUCH-1.md`, `-2.md`, `-3.md` | Spielerhandbuch Bornimer Rollenspielsystem (BRS, 451; 423), ersetzt 352 mit dem Bau: Held, Fertigkeiten, Stufe; Pfad, Kampf, Welt, Ruf; Herstellen, Abnutzung, feste englische Namen `[423.…]` | Entwurf 01.11., Chefsache 423 |
 | `STORY-LEHRMEISTER-K1.md` | Kapitel 1, Pfade: Einladungen, Anwärter, Hinweise, Grenze der fünf Lehrmeister, Wechsel, Nachfrage, Karte, Varianten `[447.4.…]` | fertig 03.11. (1B 2A), Bau 447.4.1 |

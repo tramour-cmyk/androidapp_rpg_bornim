@@ -23,6 +23,10 @@
     ]
   },
   "autoMode": {
+    "allow": [
+      "$defaults",
+      "Attaching any repository owned by the GitHub account tramour-cmyk (e.g. tramour-cmyk/bornim-kaufmodelle) with mcp__claude-code-remote__add_repo, cloning it and reading it, in any session of this project, without asking: standing permission of the project owner for all sessions (Chef 16.11., 10:44: 'Bitte binde alle Repos ein, die du zum Arbeiten brauchst … ich nicht jedes Mal jede einzelne Sitzung das freigeben kann'; earlier 376.1, 708, 506, 797)."
+    ],
     "environment": [
       "$defaults",
       "Project workflow (Chroniken von Bornim): team sessions routinely fetch origin/main and merge it into their own claude/* working branches, and check for conflicts with git merge-tree or git diff; these are expected and not merges without review. A pull request into main is merged only after the project owner has tested the build; that approval is recorded in docs/VORGANGSARCHIV.md or the team's docs/ARBEIT-*.md file on main. Notes (CLAUDE.md, CHANGELOG.md, docs/) are committed and pushed directly to main by design.",

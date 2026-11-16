@@ -638,3 +638,11 @@ EN: {söldner} ({klasse})
 ## Vorspann (292)
 
 `[292.vorspann.firma]` (klein unter dem Logo „BornWire | TCS“, nur Kaltstart) präsentiert / presents — Homer 21.10.: in Film und Spiel üblich, ein Wort, genau übersetzbar; gilt mit Abnahme t69.2 durch den Chef.
+
+## Einmessen beim ersten Start (1365)
+
+Einmalig, während das Spiel die Grafikstufe misst (698a, Chef 16.11., 06:55: „Dann muss der Spieler nicht dumm sterben.“). Schwarze Blende wie die Ortsblende.
+
+`[1365.einmessen.titel]` Die Feder wird angesetzt. / EN: The quill is put to the page.
+`[1365.einmessen.text]` (darunter, kleiner) Das Spiel misst die Grafik einmalig auf dein Gerät ein. Das dauert nur einige Sekunden. / EN: The game is tuning its graphics to your device. This happens once and takes only a few seconds.
+`[1365.einmessen.wahl]` (dritte Zeile; Zeichen „Grafik“ im Systemmenü nach 698a A, englischer Name wie dort gebaut) Ändern kannst du sie jederzeit im Systemmenü unter „Grafik“. / EN: You can change this at any time under “Graphics” in the system menu.

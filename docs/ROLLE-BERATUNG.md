@@ -75,11 +75,13 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 - **Stärken und Schwächen** (620, Chef 07.11., 14:1x gefragt, 14:3x: „Deine Ausführungen zu Stärken und Schwächen sind gut. Jetzt muss man es nur noch nachhalten“): Stärken: (1) eigene Handschrift (schwarz-gold, gezeichnet, düster, Klang); (2) Kampf mit echter Wahl (MARS, BRS „du wirst, was du tust“); (3) Inhalt liegt in der alten Fassung vor, Umzug statt Erfindung. Schwächen: (1) der Chef findet die Rückschritte gegen alt (512 wirkt nicht; t268: Flattern, Speer, Zeichen, Intro); (2) zu vieles zugleich, Wiederholfunde (Hüttentür 3×, Textkasten 5×, Schild „immer noch“), Kapitel 1 nicht durchspielbar; (3) Welt noch nicht lebendig (Gesichter, Drehen wie Plastik, steifes Sterben, Klone). Gegenmittel: Referenzszene Dorf bis Wolfskampf ganz fertig als Maß (620.4); Abgleich alt einmal je Ort und Figur als Liste (620.2); Wiederholfunde vor Neuem, wenige Muss je Team zugleich (620.1); ich: Lagebild nach jeder Testrückmeldung (was sich wiederholt, größtes Risiko, was weglassen) und jede Testbitte vor dem Versand gegenlesen (620). Stärkstes Gegenargument zu 620.1: neue Funde warten länger; Antwort: Nummer sofort, gebaut der Reihe nach. Maß: Wiederholquote je Build (Funde des Chefs, die schon einmal gemeldet waren; t268 Grundwert: Kartenrand, Markt, Schild der Erschaffung, Gesichter, Pfeil, Drehen auf der Stelle = 6).
 
 - **Geschäftsmodell** ([vertraulich](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), nie ins Repo): wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
-- **Tragart je Waffenklasse** (417, überholt bis auf (6)): **Innen** (Schenke, Laden, Haus) Waffe an der Türschwelle ausgeblendet, kein Wegstecken. Rest und Wortlaut in Git (vor 10.11.).
+- **Tragart** (417 (6)): innen Waffe an der Türschwelle ausgeblendet; Rest in Git.
 - **Kleiderschrank** (431, 12.11.): Ärger machten eigene, nachgezogene Stücke; Kaufteile aufs Gerüst sitzen. Chat 17:51. Köpfe (431 A): Chat 18:06.
-- **Profil** ([Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max): Ergebnis vertraulich im Geschäftsmodell.
+- **Profil** ([Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b)): vertraulich.
 
 ## Lehren
+
+- „Zu testen“ heißt nicht „liegt beim Chef“: vorher `ansehen/`, `tun/` lesen (15.11., 21:03: „ich habe nichts zu testen“, 1332).
 
 - Was ich empfehle, prüfe ich am Ergebnis, sobald es greifen muss (Einstellung an der laufenden Sitzung, nicht an der Variable; 11.11., 365a B wirkte nie, Chef 18:14 „keiner gemerkt“; 981).
 
