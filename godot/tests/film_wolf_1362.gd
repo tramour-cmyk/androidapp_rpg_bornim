@@ -52,8 +52,11 @@ func _run() -> void:
 	var vor := {"hero": "", "merc": ""}
 	var zahl := {"ausweichen": 0, "zucken": 0}
 	var bis := 30 * (int(OS.get_environment("SEKUNDEN")) if OS.get_environment("SEKUNDEN") != "" else 150)
+	# STOP_AUSWEICHEN=<k>: 2 s nach dem k-ten Ausweichen Ende (t291.6, ein Lauf, 621 A)
+	var stop_k := int(OS.get_environment("STOP_AUSWEICHEN")) if OS.get_environment("STOP_AUSWEICHEN") != "" else 0
+	var stop_bei := -1
 	var n := 0
-	while n < bis:
+	while n < bis and (stop_bei < 0 or n < stop_bei):
 		await process_frame
 		n += 1
 		for paar in [["hero", held], ["merc", sold]]:
@@ -65,11 +68,13 @@ func _run() -> void:
 				if paar[0] == "hero" and a.begins_with("Ausweichen"):
 					zahl.ausweichen += 1
 					print("FILM1362 ausweichen %d %.2f %s" % [n, n / 30.0, a])
+					if stop_k > 0 and zahl.ausweichen >= stop_k:
+						stop_bei = n + 60
 				if paar[0] == "merc" and a.begins_with("SS_GetHit"):
 					zahl.zucken += 1
 					print("FILM1362 zucken %d %.2f %s" % [n, n / 30.0, a])
 				vor[paar[0]] = a
-		if m.outcome != "ONGOING":
+		if m.outcome != "ONGOING" and stop_bei < 0:
 			break
 		if kf.busy or kf.playing or not kf.beats.is_empty():
 			continue
