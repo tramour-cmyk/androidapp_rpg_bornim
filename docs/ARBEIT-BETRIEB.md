@@ -87,3 +87,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:03 16.11.: Marke Start-fehlt Tom 16.11.-00:10 (lauf.py)
 - 01:06 16.11.: Startsperre 01:06 Start Tom (Sammelbuild 785.24, 1355, lauf.py; neu …77sUqpvJUtCb4yNz2H); Rotbuch 1356 (Sokrates), 1357 (Tom), 1358 (Jerry) angelegt; Wächter 1186 an Sokrates
 - 01:20 16.11.: Startsperre 01:20 Start Sokrates (Neustart, ddc75c68e); alte Sitzung …78BYXeazUzQG4s3QZE nach Ruhe archivieren, Kosten 5,22 $ auf 1186, 654, 1360; Spike über „1286 Läufe frei“ unterrichtet
+- 01:29 16.11.: Startsperre 01:29 Start Tom (Neustart, bd58fd48d); alte Sitzung …77sUqpvJUtCb4yNz2H nach Ruhe archivieren, Kosten 7,03 $ auf 785.24, 1355, 1361
