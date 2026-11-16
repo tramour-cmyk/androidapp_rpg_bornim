@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 12:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 12:52, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -39,8 +39,8 @@ Heute (seit 6:00): 62 erledigt, 61 neu. In Klammern bei „offen“: Stand 6:00.
 |---|---|
 | **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 4 weitere |
 | Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 6 weitere |
-| Jerry | 1291 Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand… (Muss); dann 4 weitere |
-| Tuffy | 1292 Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kamp… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
+| Jerry | 1292 Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kamp… (Muss); dann 3 weitere |
+| Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
 | Spike | 1303 Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen… (Muss); dann 1 weitere |
 | Homer | 1419 Text der Abfrage beim Beenden im Hauptmenü, Stil Hauptmenü (Muss) |
 | Diogenes | 1407 D262.1 von Diogenes: sitzungszweige liest current_branches,… (Kür) |
@@ -52,27 +52,27 @@ Heute (seit 6:00): 62 erledigt, 61 neu. In Klammern bei „offen“: Stand 6:00.
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | Kampf passt | startbar |
-| 2 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
-| 3 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | Kampf passt | startbar |
-| 4 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | in Arbeit |
-| 5 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | Kampf passt | startbar |
-| 6 | 1415 | Jerry | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6; Wege sind es nicht mehr, Ze… | M | Kampf passt | startbar |
-| 7 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | Kleiderschrank und Modelle | startbar |
-| 8 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
-| 9 | 1416 | Spike | Winken oder ähnliche Geste war im Video des Pakets UAL2; LISTE-BESTAND sagt „Fe… | M | Kleiderschrank und Modelle | startbar |
-| 10 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
-| 11 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | Kleiderschrank und Modelle | startbar |
-| 12 | 1419 | Homer | Text der Abfrage beim Beenden im Hauptmenü, Stil Hauptmenü | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 14 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 18 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 20 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
+| 2 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | Kampf passt | startbar |
+| 3 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | in Arbeit |
+| 4 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | Kampf passt | startbar |
+| 5 | 1415 | Jerry | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6; Wege sind es nicht mehr, Ze… | M | Kampf passt | startbar |
+| 6 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | Kleiderschrank und Modelle | startbar |
+| 7 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
+| 8 | 1416 | Spike | Winken oder ähnliche Geste war im Video des Pakets UAL2; LISTE-BESTAND sagt „Fe… | M | Kleiderschrank und Modelle | startbar |
+| 9 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
+| 10 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | Kleiderschrank und Modelle | startbar |
+| 11 | 1419 | Homer | Text der Abfrage beim Beenden im Hauptmenü, Stil Hauptmenü | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 12 | 1303 | Spike | Stufen im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Ver… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
+| 13 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 17 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 18 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 19 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
+| 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
 
-Danach 93 weitere offen. Bei dir zum Testen (vorgelegt): 36. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
+Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 36. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
