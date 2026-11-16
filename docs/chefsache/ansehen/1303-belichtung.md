@@ -1,5 +1,7 @@
 # 1303 · Höhle mobile: Belichtung statt Hebung, ohne Flecken · Spike · 16.11., 13:04
 
+[Bild von 16.11., 13:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1305-1303-Spike-2.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 16.11., 13:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1305-1303-Spike.png) (eingetragen von meldung.sh, Spike)
 
 [Bild von 16.11., 13:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1304-1303-Spike.png) (eingetragen von meldung.sh, Spike)
