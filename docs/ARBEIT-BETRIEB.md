@@ -132,3 +132,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:45 16.11.: Marke Mehrfach Sokrates (lauf.py)
 - 10:45 16.11.: Marke Archiv session_01Hmoj76es2uZMd5a4yrjmHt (lauf.py)
 - 10:48 16.11.: Lauf 10:45: Start Homer 1352, alte Homer-Sitzung archiviert (2,63 $ auf 1370 gebucht); Weiter Diogenes 1399/1396; Wächter 1072 an Jerry und laut gemeldet; GELÖST an Tom 431h, Jerry 709/709.1/1291a; Neustart Perikles 07c2cf5ac und Neustart Tom 77404ff33 gemeldet, Sitzungen arbeiten noch; neuer Sokrates Chefrunde Rest session_01Hmoj77oLo8quAixJ2CvysQ (Archiv der alten Chefrunde-Sitzung um 10:58)
+- 10:59 16.11.: alte Sokrates-Chefrunde-Sitzung archiviert (5,44 $ auf 1292, 654.2); Nachfolger Chefrunde Rest läuft; ältere Sitzung 75oX bleibt offen (Chef 09:20)
