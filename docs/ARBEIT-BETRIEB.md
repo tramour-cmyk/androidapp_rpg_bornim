@@ -117,3 +117,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:24 16.11.: Startsperre 09:24 Start Jerry, Spike, Diogenes (lauf.py)
 - 09:24 16.11.: Marke Archiv session_01Hmoj7894iHwdcb9yds8JGU (lauf.py)
 - 09:24 16.11.: Marke Archiv session_01Hmoj76h2mPbr2GReddWYJP (lauf.py)
+- 09:27 16.11.: Zwischenlauf: Start Jerry (Sammelbuild 292) und Spike (698, Sammelbuild 292); Weiter Diogenes 1391; archiviert Jerry 1285 (8,33 $) und Spike 1145 (6,88 $), gebucht; Spike 1145 Stand noch „in Arbeit“ (Besitzer setzt, 275)
