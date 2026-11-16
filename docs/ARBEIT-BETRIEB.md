@@ -48,6 +48,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 09:05 16.11.: Lauf 09:01 (lauf.py, von Sokrates-Neustart 09:02 ausgelöst): Start Diogenes (Wochenzählung-Rest), Perikles (Nachfolger + Tagesbericht), Tuffy 1292; Weiter Tom 531, Jerry 1285, Spike 1379 (Übernahme von Jerry) und 698, Homer 1235; archiviert Diogenes 1374 (11,45 $), Perikles (7,09 $), gebucht; Urteil 698 gebilligt (Nachricht 4345/4346) im Archiv; Rotbuch ziege_4162 = 1383; Sokrates Nachfolger 1129.4 folgt im nächsten Lauf
 - 08:40 16.11.: archiviert Tuffy 1291 (1,81 $, gebucht); Homer per Weiter an 1380; 1379 bleibt bei Jerry
 - 08:28 16.11.: archiviert Tuffy 643 (3,08 $, gebucht; Tuffy fertig, Neustart Tom 531 5cb4e49dd, Tom-Sitzung 431h blockiert auf Chef 698); Rotbuch tod_ragdoll_1215 angelegt
 - 08:27 16.11.: Neustart Jerry (d12489ab2): alte Sitzung 1072 archiviert (4,56 $, gebucht); Start Jerry 1285, Tuffy 1291
@@ -67,7 +68,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:37 15.11.: Jerry 760, 1000 (stärkstes Modell) `…78vVh9TarMqMiBZ1pM` gestartet; Jerry 1215 `…77868z8tGPx6d9vJF1` fertig, bleibt offen bis Urteil des Chefs
 - 13:08 15.11.: Tom alt `…76Ra6BZe2iYammL66v` archiviert (14,89 $ auf 785.1, 870.13, 1290); Tom neu `…78BSaiyTRN5sJLVCBK` mit Übergabe f3bdce628 (Build 288, dann 431); 1294 Werkzeugfehler (Perikles hat behoben, Diogenes prüft)
 - 13:05 15.11.: Spike 1270.2 (Zusatzentwickler) `…764GvRteLSEAskvbEW`, Spike alt `…79F2ADvX6hyURaqmPK` archiviert (4,96 $ auf 1270.1); Tom `…78BSaiyTRN5sJLVCBK` (431) läuft, Tom alt `…76Ra6BZe2iYammL66v` archiviert um 13:07; Weiter an Perikles (M? 1291) und Diogenes (1128.3), kein START, weil Sitzungen stehen; GELÖST 1270.4, 168.1 gesendet; WARNUNG-LAUT Jerry zwei Sitzungen: gewollt (1215 stärkstes Modell, Chef 11:21)
-- 12:51 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` endgültig archiviert (Chef 12:47 laut Sokrates; Gesamt 9,12 $, davon 7,70 gebucht, Rest 1,42 $ nicht buchbar: lauf.py bucht je Sitzung einmal)
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
@@ -112,4 +112,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:01 16.11.: Marke Start-fehlt Tuffy 16.11.-08:25 (lauf.py)
 - 09:01 16.11.: Marke Archiv session_01Hmoj78PsCC1nMKPN3KaUsi (lauf.py)
 - 09:01 16.11.: Marke Archiv session_01Hmoj76MtaUFLBbEUE3ZMaK (lauf.py)
-- 09:05 16.11.: Lauf 09:01 (lauf.py, von Sokrates-Neustart 09:02 ausgelöst): Start Diogenes (Wochenzählung-Rest), Perikles (Nachfolger + Tagesbericht), Tuffy 1292; Weiter Tom 531, Jerry 1285, Spike 1379 (Übernahme von Jerry) und 698, Homer 1235; archiviert Diogenes 1374 (11,45 $), Perikles (7,09 $), gebucht; Urteil 698 gebilligt (Nachricht 4345/4346) im Archiv; Rotbuch ziege_4162 = 1383; Sokrates Nachfolger 1129.4 folgt im nächsten Lauf
+- 09:06 16.11.: Marke Wächter 1129 13.11. 12:53 (lauf.py)
