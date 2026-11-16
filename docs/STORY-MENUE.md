@@ -109,3 +109,11 @@ Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` �
 - `[817.wille.handeln.minus]` (Bonus negativ) Handeln: %d %% teurer einkaufen und %d %% billiger verkaufen. / EN: Haggling: buy for %d%% more and sell for %d%% less.
 - Auftreten: %s Aussicht, dass ein gewöhnlicher Gegner eingeschüchtert zögert und seine erste Runde verliert (nie im Hinterhalt, nie ein Boss). / EN: Presence: %s chance that an ordinary foe hesitates, cowed, and loses its first round (never in an ambush, never a boss).
 - (Zauberlehrling, Klosterschüler) zählt statt Verstand bzw. Wahrnehmung, wenn er höher ist. / EN: (Apprentice Mage, Cloister Pupil) counts instead of Wits or Perception respectively, if it is higher.
+
+## Nebenhand (1380)
+
+Homer 16.11.; nach 1291a D (Chef 16.11., 10:37, Vorgangsarchiv): Nebenhand nur Schild und Fackel, neutral, kein Versprechen eines Wegs mit zwei Waffen (den nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie 1404). Gilt mit dem Bau 1291 (Jerry). Fremd geprüft 16.11., 10:50; zwei Punkte eingearbeitet.
+- `[1380.wo.waffe]` (Zeile „wo“ einer Einhandwaffe, `menue.gd` 904 und 1400, statt „Haupt- oder Nebenhand“) Haupthand / EN: Main hand
+- `[1380.hinweis]` (Ausrüstung, Platz Nebenhand gewählt, über der Liste) Die Nebenhand hält einen Schild oder eine Fackel. / EN: The off hand holds a shield or a torch.
+- `[1380.laden]` (einmal beim Laden eines alten Spielstands, Waffe aus der Nebenhand in die Tasche; %s = Name der Waffe) Aus deiner Nebenhand in die Tasche gelegt: %s. / EN: Moved from your off hand to your bag: %s.
+- Kopfkommentar `menue.gd` 12 und 1045 „die Nebenhand nimmt auch Einhandwaffen“ entfällt (kein Spieltext).
