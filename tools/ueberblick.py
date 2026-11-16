@@ -278,6 +278,10 @@ def morgen(jetzt=None):
               "| neu | " + " | ".join(str(zahlen[k][1]) for k in grenzen) + " |",
               # 1496 (Chef 16.11., 22:17 „die beiden Werte voneinander abziehen … netto, wo man steht“): plus = weniger offen
               "| **netto** (erledigt − neu) | " + " | ".join(("**%+d**" % (zahlen[k][0] - zahlen[k][1])).replace("-", "−") for k in grenzen) + " |"]
+    # 1496 (Chef 16.11., 22:20 „damit das sich erklärt“): warum ein Zeitraum später beginnt
+    for k in grenzen:
+        if seit[k]:
+            zeilen += ["", "%s erst ab %s: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar." % (k, seit[k])]
     return staende["heute"][0], "\n".join(zeilen)
 
 
