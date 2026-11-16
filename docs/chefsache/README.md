@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 2 weitere |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 3 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 4 weitere |
 | Jerry | 1488 Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil,… (Muss); dann 4 weitere |
 | Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
@@ -95,6 +95,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [1439](ansehen/1439-mana-balken.md) | Mana als eigener blauer Balken im Kampfschirm | – | 16.11., 23:51 |
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
 | [601.1](ansehen/6011-pfeiltreffer.md) | Pfeiltreffer: warum der Held im Film zum Prüfpunkt 291.8 nicht zuckte | – | 16.11., 23:08 |
 
@@ -359,7 +360,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1439-mana-balken.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/6011-pfeiltreffer.md
 
