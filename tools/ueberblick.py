@@ -30,6 +30,9 @@ BLOECKE = [
     ("Umzug BRS, SRD ablösen", {"nr": ("870", "882", "1279"), "kap1": True}),
     ("Kampf passt", {"bereich": ("E Kampf", "G Balance"), "kap1": True}),
     ("Kleiderschrank und Modelle (Held, Leute, Monster)", {"bereich": ("E Figuren",), "kap1": True}),
+    # 1382 (Chef 16.11., 09:00 „Themenblock bei Pericles anlegen lassen, alles da reinpacken“): Kataloge 649, 644, 458, Unterbau Spike;
+    # über die Nummer, darum vor den Bereichsblöcken gezählt (block() prüft „nr“ zuerst), angezeigt an dieser Stelle
+    ("Alles an einer Stelle: Figuren, Helden, Gegenstände", {"nr": ("649", "644", "458", "1382", "1385", "1386"), "kap1": True}),
     ("Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt)",
      {"nr": ("1280", "1281"), "bereich": ("E Welt", "E Oberfläche", "E Klang", "G Stil", "G Story", "Q QS"), "kap1": True}),
     ("Godot besser nutzen (Technik, Build, Leistung)", {"bereich": ("E Technik",), "kap1": True}),
