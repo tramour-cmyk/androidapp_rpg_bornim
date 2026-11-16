@@ -31,5 +31,9 @@ Tom (1337, 15.11., 21:33): Wege 290.1 bis 290.7 gegen den Code gegangen, 290.1 (
 
 ## Ergebnis
 
+- 290.1 ✓ (Chef 16.11., 13:00, Ergebnis aus dem Reiter Test)
+- 290.2 ✓ (Chef 16.11., 13:00)
+- 290.7 ✓ (Chef 16.11., 13:00)
+- 290.8 ✓ (Chef 16.11., 13:00; Weg ohne ersten Blick auf die Karte, Fehler der Liste an Tom)
 - 290.4 ✓ Renntaste geht bei „außer Atem“ aus; Rückfrage des Chefs zur Logik Rennen/Joystick (Joystick weit = rennt auch ohne Taste, mit Taste rennt er schon bei wenig Ausschlag) bei Sokrates (Chef 16.11., 12:44)
 - 290.9 ✓ nur Gegenprobe: Eingebung kam nicht ohne aktiven Wechsel; „Wechsel“ war im ganzen Kampf nie aktiv, der eigentliche Fall nicht prüfbar (Chef 16.11., 12:57/12:59); Frage zur Stellung der Wölfe an Jerry (1072)
