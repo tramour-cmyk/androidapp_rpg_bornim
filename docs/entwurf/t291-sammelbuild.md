@@ -1,78 +1,28 @@
-{
- "build": 290,
- "titel": "Tom und Jerry · Build 290 · 0.348.506 · Sammelbuild: Menü wie alt, Karte, Ausrüstung, Wechsel · PR #209",
- "quelle": "docs/chefsache/ansehen/t290-sammelbuild.md",
- "kopf": [
-  "Rot, bekannt, nicht melden: wolf_mess_438 – Stab des Helden im Ausweichen am Ort 0,04 m durch Wolf 3 (1321, Jerry, behoben auf eigenem Zweig, kommt mit dem nächsten Build).",
-  "Ein Weg: über Build 289 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand; erst im Dorf 290.1 bis 290.4, dann Menü 290.5 bis 290.7, dann Reiter „Test“, Zeilen 290.8 und 290.9 mit „Lage herstellen“. Die Bilder und Filme kommen vorher je als eigene Nachricht auf Telegram (👍 passt, 👎 falsch)."
- ],
- "abschnitte": [
-  {
-   "titel": "",
-   "zeilen": [
-    {
-     "nr": "290.1",
-     "team": "Tom",
-     "vorgang": "785.20",
-     "art": "Handy",
-     "wo": "Hauptmenü → „Spielstände“, einmal über die Liste wischen, dann unten „‹ Zurück“ antippen",
-     "richtig": "„Zurück“ klickt leise beim Antippen, beim Wischen kein Klick",
-     "falsch": "kein Klick; Klick beim Wischen"
-    },
-    {
-     "nr": "290.2",
-     "team": "Tom",
-     "vorgang": "785.21",
-     "art": "Handy",
-     "wo": "in der Welt die Android-Zurück-Geste; dann Hauptmenü → „Spielstände“ → bei einem leeren Platz „Neues Spiel“, in der Erschaffung die Geste; im Hauptmenü noch einmal",
-     "richtig": "in der Welt öffnet sie das Menü; aus der Erschaffung zurück zu den Spielständen; im Hauptmenü schließt sich das Spiel",
-     "falsch": "nichts geschieht; Spiel schließt sich in der Welt oder in der Erschaffung"
-    },
-    {
-     "nr": "290.4",
-     "team": "Tom",
-     "vorgang": "785.23",
-     "art": "Handy",
-     "wo": "im Dorf Renntaste antippen, rennen, dann stehen bleiben; noch einmal rennen, bis der Held außer Atem ist",
-     "richtig": "die Renntaste geht beim Stehenbleiben und bei „außer Atem“ von selbst aus und wird matt",
-     "falsch": "Held rennt nach dem Stehen weiter; Taste bleibt hell"
-    },
-    {
-     "nr": "290.7",
-     "team": "Tom",
-     "vorgang": "1295",
-     "art": "Handy",
-     "wo": "in der Blutzahnhöhle oben in der Leiste das Kartenzeichen antippen (das Menü öffnet gleich auf „Karte“), zoomen und schieben",
-     "richtig": "das Kartenblatt füllt den Platz bis „Zurück“, die ganze gesehene Höhle ist erreichbar",
-     "falsch": "Blatt nur im oberen Drittel, darunter schwarz"
-    },
-    {
-     "nr": "290.8",
-     "team": "Tom",
-     "vorgang": "785.8",
-     "art": "Handy",
-     "wo": "Zeile 290.8 → „Lage herstellen“ (Aushang „Feuer am Steinkreis“ angenommen, Wald unerkundet), in den Wald zu Lagerfeuer und Steinkreis, dann Menü → Karte",
-     "richtig": "Flamme am Lagerfeuer und goldene Raute am Steinkreis, erst nachdem du dort warst",
-     "falsch": "fehlen; stehen vor dem Hinsehen da",
-     "lage": {
-      "station": "Grak"
-     }
-    },
-    {
-     "nr": "290.9",
-     "team": "Jerry",
-     "vorgang": "1296",
-     "art": "Handy",
-     "wo": "Zeile 290.9 → „Lage herstellen“ (Probekampf Wölfe, jede Ansage ein Anspringen), auf die goldene Eingebung achten",
-     "richtig": "der Satz „Er will springen …“ kommt nur, wenn du danach dran bist und „Wechsel“ aktiv ist; bei zwei Ansagen kommt er erst nach dem letzten Sprung vor deinem Zug, zum Wolf, der dann noch springt",
-     "falsch": "der Satz kommt, und ein Wolf springt, bevor du ziehen kannst",
-     "lage": {
-      "probe": "WOLVES",
-      "zug": "pounce"
-     }
-    }
-   ]
-  }
- ],
- "ohne_handy": 3
-}
+# Tom und Jerry · Build 291 · Version folgt · Sammelbuild: Leben statt TP, Laden, Höhle schwarz, Kerben, Einschlag · PR folgt
+E Technik · Tom (1326, 785.24, 870.20; ohne dich 1322, 1355), Jerry (1289, 415, 1321, 1275, 601.1), Spike (1270.3; ohne dich 673) · 16.11., 01:20 · APK folgt
+
+Sammelbuild 1361 auf Build 290 aufgesetzt (enthält alles aus 290 und `main`); die Punkte der Liste 290 kommen hier nicht noch einmal, 290 bleibt offen, bis du ihn fertig getestet hast.
+
+Ein Weg: über Build 290 installieren, Hauptmenü (291.1), dann „Weiter“ mit deinem Spielstand und im Reiter „Test“ die Zeilen 291.2 bis 291.8 mit „Lage herstellen“; zuletzt ein neues Spiel bis zur Höhle (291.9).
+
+Im Bau geprüft: Kurzzeile der Vorräte im Laden (785.24, `laden_582`), Leben/Life statt TP/HP an Zahlen, Verband und Heilen (1322, `pim_verband_842`, `typen.py`), Wende ohne Nachlauf, nicht mehr zufällig rot (1355, `wende_4168`), Treffer ohne Schaden meldet sich (1321, `meldung_1305`), Einschlag am Rumpf (601.1, `einschlag_6011`), Kerbensystem (1275, `kerbe_930`); ohne dich: Maus am Rechner dreht und zoomt die Kamera, Handy unverändert (673, `maus_673`; nur am Rechner), Leben/Life in allen Spielertexten (1322).
+
+| # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
+|---|---|---|---|---|---|---|
+| 291.1 | Tom | 1326 | Handy | Hauptmenü: unter dem Firmenzeichen lesen, dann „Über das Spiel“ öffnen | an beiden Stellen Fassung und Build, etwa „v0.348.5xx · Build 291“ | nur „v0.1“ oder keine Build-Nummer |
+| 291.2 | Tom | 785.24 | Handy | Zeile 291.2 → „Lage herstellen“ (bei Morwen), mit Morwen reden, ihren Laden öffnen, „Kaufen“ | unter jedem Trank klein und matt, was er tut, etwa „heilt 12 Leben“, wie im alten Spiel | keine Zeile unter dem Namen; Würfel wie „2W4+2“; „TP“ |
+| 291.3 | Spike | 1270.3 | Handy | Reiter „Test“, oben die Zeile „Grafik“ lesen; dann Zeile 291.3 → „Lage herstellen“ (Höhle bei Krogg), auf das Laden achten | „Grafik: mobile“; die Höhle ist nicht langsamer da als in Build 290 | „gl_compatibility“; Laden deutlich länger als in 290 |
+| 291.4 | Jerry | 1289 | Handy | in der Höhle (Lage 291.3) bis zu Krogg und zurück gehen, auf Wände und Gänge hinter Wänden achten | was du gerade nicht siehst (hinter Wänden, außerhalb von Fackel und Licht), ist schwarz; Wände auf deiner Seite stehen hell in voller Höhe | Wände als kniehohe Stummel; Gänge hinter Wänden hell |
+| 291.5 | Jerry | 415 | Handy | Reiter „Test“ → „Strahlen“, drei Strahlen ansehen, oben die Zeile „Bilder/s · Renderer“; „Renderer wechseln“ nicht antippen | Renderer mobile, Bilder/s wie im Kampf, kein Ruckeln | Ruckeln oder Bilder/s deutlich unter dem Kampf |
+| 291.6 | Jerry | 1321 | Handy | Zeile 291.6 → „Lage herstellen“ (Probekampf Wölfe, Held mit Kampfstab, Ausweichen erzwungen), auf den Stab beim Ausweichen achten | der Held weicht nach hinten oder schräg aus, der Stab bleibt vor dem Wolf | der Stab fährt in einen Wolf; der Held weicht am Ort aus |
+| 291.7 | Jerry | 1275 | Handy | Zeile 291.7 → „Lage herstellen“ (Probekampf Wölfe), Knopf „Tausch“, dann angreifen | nach dem Tausch bist du weiter dran | der Zug endet mit dem Tausch |
+| 291.8 | Jerry | 601.1 | Handy | Zeile 291.8 → „Lage herstellen“ (Probekampf Goblin-Späher), warten, bis der Späher schießt | der Pfeil steckt in der Brust, dort zuckt der Held | Pfeil an Bein oder Fuß; Zucken oben, Pfeil unten |
+| 291.9 | Tom | 870.20 | Handy | Hauptmenü → „Spielstände“ → freier Platz → „Neues Spiel“, spielen bis in die Höhle; Hauptmenü und „Über das Spiel“ ansehen | nirgends Würfel, TP/HP oder Rüstungsklasse, der Wert heißt Leben; kein „SRD 5.1 · CC BY 4.0“ mehr | Würfel, TP oder RK in Texten, Laden oder Handbuch; SRD-Hinweis steht noch |
+
+## Lagen
+
+- 291.2: station=Morwen
+- 291.3: station=Krogg
+- 291.6: probe=WOLVES waffe=quarterstaff ausweichen
+- 291.7: probe=WOLVES
+- 291.8: probe=SCOUT
