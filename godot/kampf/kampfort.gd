@@ -1297,8 +1297,14 @@ func _process(_dt: float) -> void:
 		_answer_ring(Mars.NONE)
 	if nachlauf_bis >= 0.0 and clock_ms >= nachlauf_bis:     # 1415: das Tier steht; was im Zug der Gegner vorgemerkt ist, rückt jetzt (F8)
 		nachlauf_bis = -1.0
+		nachlauf_id = null
+		var t_rueck := 0.0
 		for fid in figures:
-			figures[fid].zurueck_in_reihe()
+			t_rueck = maxf(t_rueck, figures[fid].zurueck_in_reihe())
+		# vorher hatten sie dafür die Zeit der Ansage; bis sie stehen, laufen weiter nur Zeilen ohne Bewegung (wolf_mess_438: sonst
+		# schlug der Held nach einem Wolf, der noch in die Reihe ging)
+		if t_rueck > 0.0:
+			nachlauf_bis = clock_ms + t_rueck * 1000.0
 	if playing or verhuellt or messpause:     # 402: unter der Blende warten Worte und Züge; 806: ebenso beim Messen
 		return
 	if end_asked != null:
