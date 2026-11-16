@@ -1,5 +1,7 @@
 # 431h · Sichtbare Ausrüstung Stufe 1: jede Tracht aus Einzelteilen · Tom · 16.11., 18:50
 
+[Film von 16.11., 18:46](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261116-184640-431h/2026-11/16-1846-431h-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 E Leute · Tom · 16.11. · aus deinem Wort „431h A“ (10:08): Stufe 1 wie Vorlage, Film Drehteller alt gegen neu je Tracht, Start und ausgezogen
 
 Geprüft an: Lauf 43903599534 (`claude/tom-431-ausruestung`, `69285b8a3`), Bauserver
