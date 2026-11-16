@@ -536,3 +536,4 @@
 2026-11-16 01:27:29	commit-pruefung	docs/chefsache/billigen/6542-messlauf-ohne-freigabe.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-16 02:07:44	commit-pruefung	docs/ROLLE-PROJEKT.md: 13481 Bytes, Obergrenze 13200, Commit fügt 335 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-16 02:45:47	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31043 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-16 03:02:20	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30217 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
