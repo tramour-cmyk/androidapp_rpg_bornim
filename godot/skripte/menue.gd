@@ -237,7 +237,18 @@ func held() -> void:
 		l.custom_minimum_size.x = 56 * DP
 		l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		r.add_child(l)
+		# 785.1 (MenuScreen.kt 633–637): der Anteil der Ausruestung am Wert blau daneben; ohne Stern, seit 644b A gibt es keinen Deckel
+		var plus := hw.ausruestungs_bonus(g)
+		var b := Stil.txt(("%+d" % plus) if plus != 0 else "", 14, BLAU, true)
+		b.name = "Ausruestung_" + String(g)
+		b.autowrap_mode = TextServer.AUTOWRAP_OFF
+		b.custom_minimum_size.x = 30 * DP
+		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		r.add_child(b)
 		inhalt.add_child(r)
+	# 785.1 (MenuScreen.kt 650–651): Satz zur Farbe wie alt; der Satz zur Obergrenze entfaellt (644b A, Chef 12.11., 13:40: kein Deckel)
+	if BrsHeld.grundwerte().any(func(g): return hw.ausruestungs_bonus(String(g)) != 0):
+		zeile("Blau: Bonus durch Ausrüstung (im Wert enthalten)" if de else "Blue: bonus from gear (included in the score)", 12, BLAU).name = "Ausruestung_Satz"
 	luecke(10)
 	fertigkeiten_kurz()
 	if hw.merkmal() != "": zeile(hw.merkmal(), 14, Stil.GOLD)
@@ -324,6 +335,8 @@ func fertigkeit_zeile(n: String, w: int) -> void:
 	rw.autowrap_mode = TextServer.AUTOWRAP_OFF
 	rw.size_flags_horizontal = Control.SIZE_FILL
 	z1.add_child(rw)
+	z1.name = "Fert_" + n
+	if ErschaffungBrs.erklaerung("fert", n) != "": tippbar(z1, func(): erklaere_fert(n))   # 785.2
 	inhalt.add_child(z1)
 	var b := Leiste.Balken.new()
 	b.custom_minimum_size = Vector2(0, 6 * DP)
@@ -332,6 +345,11 @@ func fertigkeit_zeile(n: String, w: int) -> void:
 	b.farbe = Leiste.GOLD_HELL
 	inhalt.add_child(b)
 	luecke(4)
+
+## 785.2 (alt Satz je Faehigkeit, MenuScreen.kt 692): Antippen einer Fertigkeit zeigt im Erklaerfenster, was sie tut, mit demselben
+## Satz wie in der Erschaffung ([954.1.fert.…], mit [954.1.spaeter], wo sie noch nicht wirkt)
+func erklaere_fert(n: String) -> void:
+	erklaere_zeichen(ErschaffungBrs.fert_name(n), ErschaffungBrs.erklaerung("fert", n))
 
 ## Heldenreiter: die drei hoechsten, darunter der Sprung zum Reiter „Fertigkeiten“
 func fertigkeiten_kurz() -> void:
@@ -364,9 +382,19 @@ func fertigkeiten_reiter() -> void:
 		if not offen: continue
 		luecke(2)
 		for n in _nach_wert(hat): fertigkeit_zeile(String(n), int(hat[n]))
-		if not rest.is_empty():
-			var m := zeile(", ".join(rest.map(func(n): return ErschaffungBrs.fert_name(String(n)))), 14, Stil.DIM)
-			m.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		if not rest.is_empty():   # 785.2: je Name antippbar, sonst wie die Zeile „a, b, c“
+			var fl := HFlowContainer.new()
+			fl.add_theme_constant_override("h_separation", int(5 * DP))
+			fl.add_theme_constant_override("v_separation", 0)
+			for k in rest.size():
+				var rn := String(rest[k])
+				var m := Stil.txt(ErschaffungBrs.fert_name(rn) + ("," if k < rest.size() - 1 else ""), 14, Stil.DIM)
+				m.autowrap_mode = TextServer.AUTOWRAP_OFF
+				m.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+				m.name = "Fert_" + rn
+				if ErschaffungBrs.erklaerung("fert", rn) != "": tippbar(m, func(): erklaere_fert(rn))
+				fl.add_child(m)
+			inhalt.add_child(fl)
 		luecke(6)
 
 ## 762 (Chef 21:25 Idee, 21:33 „Ja.“, Votum Sokrates): Gruppen ein- und aufklappbar; ohne Umklappen offen, wer schon etwas kann,
@@ -735,13 +763,11 @@ func abbrechen() -> String: return Sprache.t(ABBRECHEN)
 
 # ---------------------------------------------------------------- Dinge benutzen (Game.useItemOutside)
 # Leuchtfunke, Ausdauertrank, Essen, Heiltrank und Kraeutertrank ausserhalb des Kampfes; Antwort wie alt (Light, Resting, Msgs, Ui)
-# 870.4: Leben fest nach BRS (werte.json „welt“ „heilung“, wie im Kampf), ohne Eintrag wie bisher mit den Wuerfeln des Dings
-static func heilung(id: String, h: Array, wuerfel_: Callable) -> int:
-	var fest = BrsHeld.welt().get("heilung", {}).get(id)
-	if fest != null: return int(fest)
-	return int(wuerfel_.call(int(h[0]), int(h[1]))) + int(h[2])
+# 870.4: Leben fest nach BRS (werte.json „welt“ „heilung“, wie im Kampf); 870.20: nur dort, ohne Würfel im Ding; null heilt nicht
+static func heilung(id: String):
+	return BrsHeld.welt().get("heilung", {}).get(id)
 
-static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> String:
+static func benutze(z: Zustand, hw: BrsHeld, id: String, _wuerfel: Callable) -> String:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
 	var b: Dictionary = Sprache.texte.get("benutzen", {})
@@ -759,20 +785,20 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 		z.weg(id); z.ausdauer_trank = true
 		return Sprache.r("staminaDrunk", [hw.name])
 	if art == "BANDAGE": return verband(z, hw, id)   # 842
-	var h: Array = dd.get("heilt", [])
-	if art == "FOOD" and not h.is_empty():
+	var h = heilung(id)
+	if art == "FOOD" and h != null:
 		if z.satt and hw.leben >= hw.max_leben(): return sag.call("alreadyFed", [hw.name])
 		z.weg(id)
 		var vor := hw.leben
-		hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_) + Laden.essen_bonus(hw))   # Perks.mealBonus (870.4: Kochen)
+		hw.leben = mini(hw.max_leben(), hw.leben + int(h) + Laden.essen_bonus(hw))   # Perks.mealBonus (870.4: Kochen)
 		z.satt = true
 		return sag.call("ate", [hw.name, Laden.name(id), hw.leben - vor])
-	if art != "POTION" or h.is_empty(): return Sprache.u("cannotUseHere")
+	if art != "POTION" or h == null: return Sprache.u("cannotUseHere")
 	var heilt := bool(dd.get("heilt_leiden", false)) and not z.leiden.is_empty()
 	if hw.leben >= hw.max_leben() and not heilt: return Sprache.u("alreadyFull")
 	z.weg(id)
 	var vor := hw.leben
-	hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_))
+	hw.leben = mini(hw.max_leben(), hw.leben + int(h))
 	if heilt: z.leiden.clear()
 	var geheilt: String = sag.call("healed", [hw.name, hw.leben - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
@@ -781,13 +807,13 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 # Blutung (z.leiden „BLEED“, darum halbiert sie die Heilung nicht), dann grund + je_heilkunde x Heilkunde Leben (werte.json „welt“
 # „verband“, gerundet), uebt Heilkunde; ohne Blutung und mit vollem Leben nichts verbraucht ([807.verband.voll])
 const VERBAND_AN := [   # [807.verband.an] (der Held blutete nicht)
-	["Du ziehst den Verband fest. +{0} TP.", "You pull the bandage tight. +{0} HP."],
-	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP.", "You wash out the wound and wrap the bandage around it. +{0} HP."],
-	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP.", "You bind the wound and check that the bandage holds. +{0} HP."]]
+	["Du ziehst den Verband fest. +{0} Leben.", "You pull the bandage tight. +{0} Life."],
+	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} Leben.", "You wash out the wound and wrap the bandage around it. +{0} Life."],
+	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} Leben.", "You bind the wound and check that the bandage holds. +{0} Life."]]
 const VERBAND_BLUT := [   # [807.verband.blut] (die Blutung ist gestillt)
-	["Ein fester Knoten, und das Blut steht. +{0} TP.", "One firm knot, and the blood stops. +{0} HP."],
-	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP.", "You press the bandage onto the wound. It bleeds no more. +{0} HP."],
-	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP.", "Layer on layer, wrapped tight. The bleeding stops. +{0} HP."]]
+	["Ein fester Knoten, und das Blut steht. +{0} Leben.", "One firm knot, and the blood stops. +{0} Life."],
+	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} Leben.", "You press the bandage onto the wound. It bleeds no more. +{0} Life."],
+	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} Leben.", "Layer on layer, wrapped tight. The bleeding stops. +{0} Life."]]
 const VERBAND_KAMPF := {"de": "Im Kampf bleibt keine Zeit für einen Verband.", "en": "There's no time for a bandage in combat."}   # [807.verband.kampf]
 const VERBAND_VOLL := {"de": "Du bist unverletzt.", "en": "You are unhurt."}   # [807.verband.voll]
 
@@ -810,7 +836,7 @@ static func verband(z: Zustand, hw: BrsHeld, id: String) -> String:
 	z.varianten[marke] = [int(vv[0]) + 1, i]
 	var t := String(liste[i][0 if Sprache.aktiv() == "de" else 1])
 	var plus := hw.leben - vor
-	t = t.replace(" +{0} TP.", "").replace(" +{0} HP.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
+	t = t.replace(" +{0} Leben.", "").replace(" +{0} Life.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
 	var auf := z.fert_notiz()
 	return t + ("\n" + auf if auf != "" else "")
 
@@ -834,10 +860,15 @@ func frage_ding(id: String) -> void:
 	var bild := Menue.bild_feld("ding-" + id, 48)   # Dialogs.kt: SupplyPicture 48 dp
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	zeilen.append(bild)
+	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
+	var sk := String(dd.get("seltenheit", "COMMON"))
+	var farbe := Color(SELTEN.get(sk, "e6ddcb"))
+	# 785.3 (Dialogs.kt 116 ItemDetails): die Seltenheit als Wort in ihrer Farbe ueber dem Satz, wie alt (14 sp)
+	var sw := Stil.txt(Testmodus.gross_anfang(Sprache.t(BrsHeld.daten()["seltenheiten"].get(sk, {}).get("name", sk))), 14, farbe)
+	sw.name = "Seltenheit"
+	zeilen.append(sw)
 	var info := Sprache.t(dd.get("info", ""))
 	if info != "": zeilen.append(Stil.txt(info, 15))
-	# 944 (Chef 11.11., 13:22, t276.5): keine Würfel im Text; was er heilt, sagt die Meldung (STORY-BRS-OBERFLAECHE „Gegenstände“)
-	var farbe := Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb"))
 	if trinkbar:
 		var wort := ("Essen" if de else "Eat") if art == "FOOD" else Sprache.u("use")
 		dialog(Laden.name(id), farbe, zeilen, [[wort, func(): benutze_mit_klang(id, art); baue()], [abbrechen(), func(): pass]])
@@ -1473,6 +1504,11 @@ func ausruestung() -> void:
 	wert_zeile(KAMPFWERT["schutz"][i], str(hw.schutzwert()))
 	wert_zeile(KAMPFWERT["schaden"][i], str(hw.schaden()))
 	wert_zeile(KAMPFWERT["krit"][i], ("%d %%" if de else "%d%%") % hw.krit_prozent())
+	# 785.6 (MenuScreen.kt 882–887): wie alt die Boni der getragenen Stuecke, die nicht schon in einem Wert stecken; Lebensraub,
+	# Widerstand, Goldfund, EP entfallen im BRS (870.6), an ihrer Stelle Zauberschaden und Abwehrprobe (Wort wie Beute.zusatz_text)
+	var boni := {"SPELL": ["Zauberschaden", "Spell damage"], "TENACITY": ["Abwehrprobe", "Resistance roll"]}
+	for a in boni:
+		if hw.bonus(a) > 0: wert_zeile(boni[a][i], ("+%d %%" if de else "+%d%%") % hw.bonus(a))
 	var ad: Dictionary = BrsHeld.daten()["affixdaten"]
 	if hw.bonus("MAGIC_FIND") > 0: wert_zeile(Sprache.t(ad["MAGIC_FIND"]["name"]), "+%d%%" % hw.bonus("MAGIC_FIND"))
 
@@ -1492,7 +1528,8 @@ static func bild_feld(name: String, dp: float) -> Control:
 	t.texture = Kartenreiter.bild(name)
 	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	t.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	# 1073: die gemalten Dinge (128 px, Signatur) glatt, die alten Pixelbilder (32 px) scharf
+	t.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS if t.texture != null and t.texture.get_width() > 32 else CanvasItem.TEXTURE_FILTER_NEAREST
 	t.custom_minimum_size = Vector2(dp, dp) * DP
 	t.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1614,12 +1651,16 @@ func fach(platz: String) -> Control:
 		var sp := VBoxContainer.new()
 		sp.add_theme_constant_override("separation", 0)
 		sp.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var b := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 40)
+		# 1309 (Chef 15.11., 17:12/18:20: „Göttliche Beinschienen…“ abgeschnitten, Feld „Kopf“ unter der Reiterleiste): wie alt
+		# (GearUi.kt slotCell: GearIcon 48 dp, darunter nur der Platz) ohne Namen im Fach; der Name steht beim Antippen. Mit Namen
+		# brauchten göttliche Stücke 4 Zeilen (2 sichtbar) und die Seite war 47 px höher als der Rollkasten, sie rollte
+		var b := Menue.bild_feld("stueck-%s-%s" % [g["base"], g["rarity"]], 48)
 		b.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		if zwei: b.modulate.a = 0.5
+		sp.alignment = BoxContainer.ALIGNMENT_CENTER
 		sp.add_child(b)
-		n.max_lines_visible = 2
-		sp.add_child(n)
+		n.free()
 		rahmen.add_child(sp)
 	else: rahmen.add_child(n)
 	if merkmale and g != null: Menue.merkmal_ecken(rahmen, g, rahmen.get_child(0).get_child(0), true)   # 756
@@ -1671,7 +1712,7 @@ func system() -> void:
 		z_.call(t.call("Hauptmenü", "Main menu"), null, t.call("Speichert und kehrt zum Hauptmenü zurück.", "Saves and returns to the main menu."), func(): hauptmenue.emit(), true, "MENU")])
 	# 352: was zu lesen ist, in einer eigenen Reihe
 	var a: Dictionary = Sprache.texte.get("anleitung", {})
-	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Anleitung", "en": "Guide"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),
+	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Handbuch", "en": "Handbook"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),
 		z_.call(t.call("Über", "About"), null, t.call("Wer das Spiel macht und worauf seine Regeln beruhen.", "Who makes the game and what its rules are based on."), func(): ueber.emit(), true, "ABOUT")])
 	luecke(4)
 	gruppe(t.call("Kampf", "Combat"))
@@ -1872,12 +1913,27 @@ var geraet_auf := false
 
 
 # 352 GuideScreen wie alt: schwarz, ein Kasten, oben der Titel, je Absatz die fette Eroeffnung als Ueberschrift in Gold (16 sp),
-# der Rest 15 sp, fette Woerter (Knoepfe) halbfett in Gold; nur die Faehigkeiten der eigenen Klasse; unten „Zurück“
-static func anleitung_teile(klasse: String) -> Array:
+# der Rest 15 sp, fette Woerter (Knoepfe) halbfett in Gold; unten „Zurück“. 870.13: Handbuch nach dem BRS (Homer 870.15,
+# STORY-BRS-ANLEITUNG.md, STORY-HANDBUCH-1.md), ohne Klassen; Zahlen als Platzhalter aus den Regelwerten (Chef 01.11., 423 2)
+static func anleitung_teile() -> Array:
 	var r := []
-	for p in Sprache.texte.get("anleitung", {}).get("teile", []):
-		if not p.has("nur") or String(p["nur"]) == klasse: r.append(Sprache.t(p))
+	for p in Sprache.texte.get("anleitung", {}).get("teile", []): r.append(platzhalter(Sprache.t(p)))
 	return r
+
+# 423 „Für Tom“: {block.schluessel} aus daten/werte.json, „|prozent“ als ganze Prozentzahl („40 %“, englisch „40%“);
+# Schluessel des Handbuchs, die in den Regelwerten anders heissen, ueber HANDBUCH_WERTE
+const HANDBUCH_WERTE := {"held.grenze_weich_stufen": "erfahrung.weich_stufen", "held.grenze_weich_anteil": "erfahrung.weich_faktor"}
+static func platzhalter(t: String) -> String:
+	var re := RegEx.create_from_string("\\{([a-z_]+\\.[a-z_]+)(\\|prozent)?\\}")
+	for m in re.search_all(t):
+		var pfad := String(HANDBUCH_WERTE.get(m.get_string(1), m.get_string(1))).split(".")
+		var w = BrsHeld.lade().get(pfad[0], {}).get(pfad[1], null)
+		if w == null:
+			push_warning("870.13: Platzhalter %s fehlt in werte.json" % m.get_string(1))
+			continue
+		var s := ("%d" % roundi(float(w) * 100.0) + (" %" if Sprache.aktiv() == "de" else "%")) if m.get_string(2) != "" else ("%d" % int(w) if float(w) == floorf(float(w)) else str(w))
+		t = t.replace(m.get_string(0), s)
+	return t
 
 # (Text, fett) der Reihe nach, wie Guide.pieces
 static func stuecke(t: String) -> Array:
@@ -1893,7 +1949,7 @@ func anleitung() -> void:
 	var v: VBoxContainer = d["inhalt"]
 	var halbfett := Stil.variante(0.2, false, true)   # 584: der echte halbfette Schnitt wie alt (GuideScreen.kt 57, SemiBold) statt kuenstlich verdickt
 	var gerade := Stil.variante(0.2)
-	for t in anleitung_teile(""):   # 870.4: ohne Klasse nur die allgemeinen Teile; Handbuch nach BRS mit 870.9 (Homer 870.15)
+	for t in anleitung_teile():   # 870.13: Handbuch nach dem BRS (Homer 870.15)
 		var st := stuecke(t)
 		var absatz := VBoxContainer.new()
 		absatz.add_theme_constant_override("separation", 0)
@@ -2127,4 +2183,4 @@ static func grundwert_text(g: Dictionary, de: bool) -> String:
 # 870.7: Stueck mit einer Zahl, die die Guete aendert (Beute.kennwert)
 static func hat_kennwert(g: Dictionary) -> bool:
 	var b := Beute.grundform(String(g["base"]))
-	return Beute.ist_waffe(b) or (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD"
+	return Beute.ist_waffe(b) or BrsHeld.schutzwert_von(String(g["base"])) > 0     # 870.20: Brustrüstung mit Gewicht oder Schild

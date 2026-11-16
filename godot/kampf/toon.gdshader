@@ -38,6 +38,18 @@ void vertex() {
 	}
 	POSITION = PROJECTION_MATRIX * vv;
 }
+// 1289 (Chef 15.11., 12:34 und 13:39, Höhle am Handy im Renderer mobile „total hell … Sichtachsen sind weg“): die Eckfarben (COLOR,
+// aus dem glTF) kommen in mobile so an, wie sie gespeichert sind (sRGB), in Compatibility schon linear. Am Rechner nachgestellt
+// (lavapipe, Blutzahnhöhle, Gang): Felswände in mobile hellgrau (Bildmittel 17 gegen 6), mit Umrechnung 6 wie Compatibility.
+// Alles, was der Chef abgenommen hat, kam aus Compatibility; darum rechnet mobile hier um, Compatibility bleibt unverändert.
+// Ebenso das Leuchten (EMISSION): Kristalle in mobile weiß statt violett, mit derselben Umrechnung wie Compatibility (gemessen).
+vec3 eckfarbe(vec3 c) {
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+	return c;
+#else
+	return mix(pow((c + vec3(0.055)) * (1.0 / 1.055), vec3(2.4)), c * (1.0 / 12.92), lessThan(c, vec3(0.04045)));
+#endif
+}
 void fragment() {
 	// Laub zwischen Kamera und Held: innen fast frei, nach aussen weich dicht. Der deckende Durchgang laesst das Loch aus (Schatten bleibt),
 	// die Durchgaenge TIEFE und DURCH (gebiet.gd, nach der Tusche) malen es halbdurchsichtig, je Bildpunkt nur die vorderste Lage, und decken
@@ -65,14 +77,14 @@ void fragment() {
 	if (weg > 0.0 && fract(sin(dot(floor(FRAGCOORD.xy), vec2(12.9898, 78.233))) * 43758.5453) < weg) discard;
 	vec4 t = texture(tex, UV);
 	if (schnitt > 0.0 && t.a < schnitt) discard;
-	ALBEDO = t.rgb * COLOR.rgb;
+	ALBEDO = t.rgb * eckfarbe(COLOR.rgb);
 	// 1141 (Probebild 13.11.: gespiegelte Tote aus 596 fast schwarz): der Renderer Compatibility hält bei gespiegeltem Modell (scale.z < 0)
 	// die Vorderseiten für Rückseiten und dreht ihre Normale nach innen; dann zeigt sie von der Kamera weg und wird zurückgedreht
 	if (determinant(mat3(MODEL_MATRIX)) < 0.0 && dot(NORMAL, VIEW) < 0.0) NORMAL = -NORMAL;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
-	EMISSION = glow_col * glow + COLOR.rgb * (1.0 - COLOR.a) * glut + t.rgb * glow_tex;
+	EMISSION = eckfarbe(glow_col * glow + eckfarbe(COLOR.rgb) * (1.0 - COLOR.a) * glut + t.rgb * glow_tex);   // 1289: wie Compatibility
 }
 void light() {
 	float ndl = clamp(dot(NORMAL, LIGHT), 0.0, 1.0);

@@ -29,6 +29,7 @@ var rast_notiz := ""
 var rast_zweites := false
 var laden: Laden                                 # 390 (Mode.Shop): offen, bis „Schließen“
 var laden_schirm: LadenSchirm                    # 416.3
+var war_bewegt := false                         # 785.23: ging der Held im letzten Bild (alt wasMoving)
 var laufen_will := false                        # 399.1 Ring oder Renntaste (Stamina.step run)
 var brett_offen := false
 var brett_schirm: BrettSchirm                    # 416.3
@@ -287,7 +288,8 @@ func _notification(what: int) -> void:   # 399: auch beim Verlassen der App (alt
 		Fortsetzen.vergiss()   # 1021: die App lief weiter, nichts fortzusetzen
 		if spiel_seit < 0: spiel_seit = Time.get_ticks_msec()
 	# 416.1: Android-Zurück schliesst das oberste Fenster (zurueck.gd); ohne Fenster nichts (vorher beendete es das Spiel)
-	if what == NOTIFICATION_WM_GO_BACK_REQUEST: Zurueck.taste(get_tree())
+	# 785.21 (WorldScreen.kt 139): ohne Fenster öffnet sie in der Welt das Menü (oeffne_menue prüft Gespräch, Rast, Kampf, Pause)
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST and not Zurueck.taste(get_tree()) and held and karte: oeffne_menue()
 	# Build 145 (Tests mit spiel.tscn brachen beim Beenden ab, „corrupted size vs. prev_size“): die statische Uhr der Leute hielt eine
 	# Funktion auf dieses Spiel, Godot raeumt statische Variablen erst nach den Knoten ab; beim Verlassen des Baums loesen
 	if what == NOTIFICATION_EXIT_TREE: Leute.uhr = Callable(); Leute.daheim = Callable()
@@ -1518,6 +1520,7 @@ func lage_herstellen(l: Dictionary) -> void:
 		for w in String(l.get("merker", "")).split(",", false):
 			if w.begins_with("-"): zustand.flaggen.erase(w.substr(1))
 			else: zustand.setze(w.trim_prefix("+"))
+		Testmodus.lage_auftraege(l, zustand)   # 785.8
 	# 542 (Fund t284.4: Station „Krogg“ lag vor dem Aushang, „Teleport Dorf“ stand nur im Text): Station mit ort= nimmt den Stand
 	# der Station und stellt den Helden an den Ort, eine Blende
 	if l.has("station") and l.has("ort") and String(l["station"]) != "Kapitelende":
@@ -1527,7 +1530,7 @@ func lage_herstellen(l: Dictionary) -> void:
 		await test_tat("teleport", [o[0], int(o[1]), int(o[2]), o[3] if o.size() > 3 else held.blick()])
 	elif l.has("station"):
 		await test_tat("kapitelende" if String(l["station"]) == "Kapitelende" else "station", [String(l["station"])])
-		if l.has("merker"):
+		if l.has("merker") or l.has("auftrag") or l.has("unerkundet"):
 			merker.call()
 			await test_tat("ort_neu", [])
 	else:
@@ -1535,7 +1538,7 @@ func lage_herstellen(l: Dictionary) -> void:
 		if l.has("ort"):
 			var o := String(l["ort"]).split(":")
 			await test_tat("teleport", [o[0], int(o[1]), int(o[2]), o[3] if o.size() > 3 else held.blick()])
-		elif l.has("merker") or l.has("uhr"):
+		elif l.has("merker") or l.has("uhr") or l.has("auftrag") or l.has("unerkundet"):
 			await test_tat("ort_neu", [])
 	var pr := Testmodus.lage_probe(l)
 	if not pr.is_empty(): await test_tat("probe", pr)
@@ -1875,6 +1878,9 @@ func _process(dt: float) -> void:
 		Messung.kampf_bild(dt)
 		_kampf_messe()
 	held.laeuft = Ausdauer.schritt(zustand, held_werte(), dt * 1000.0, held.geht(), laufen_will)   # 399.1 Stamina.step
+	# 785.23 (WorldScreen.kt 196): die eingerastete Renntaste geht von selbst aus, wenn der Held außer Atem ist oder stehen bleibt
+	if ui.lauf_an and (zustand.atemlos or (war_bewegt and not held.geht())): ui.renn_aus()
+	war_bewegt = held.geht()
 	held.atemlos_neu(zustand.atemlos and kampf == null)   # 592: leer kurz stehen, Haende auf den Knien
 	if held.funke_an != zustand.funke: held.funke_neu(zustand.funke)   # 677: getrunken, geloescht, nach der Rast verglommen
 	ui.ausdauer_balken.z = zustand
