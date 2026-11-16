@@ -89,3 +89,48 @@ Neuer Wortlaut (Tom, Schritt 8; Texte in `STORY-K1-HANDLUNG.md`, `STORY-K1-WELT.
 - Chronik 6 „Kroggs Schlüssel“: … bewachte der Bärenschrat Krogg … / EN: … the bearbrute Krogg guarded …
 - Chronik 8 „Graks Fall“: … {name} besiegte den Goblin-Hauptmann. … / EN: … {name} defeated the goblin captain. …
 - Chronik-Auftrag Morwen: … ein Mittel gegen den ersten Hieb eines Bärenschrats. / EN: … a way to blunt a bearbrute's first blow.
+
+## README (1459, Homer 16.11., Einbau Tom)
+
+Ersetzt in `README.md` den ersten Absatz und den Abschnitt „Features“ (Kotlin-Fassung mit SRD, W20, Klassen). Nur, was in der Godot-Fassung auf `main` steht (geprüft gegen den Code am 16.11., `fd9c1c7e0`); Kerben, Pfade, Lehrmeister, Meisterschaften, Abnutzung und Söldner kommen erst hinein, wenn sie im Spiel sind. Nur Deutsch.
+
+`[1459.readme.kopf]` Ein düsteres Fantasy-Rollenspiel für Android, erzählt in Kapiteln. Erkunde das Dorf Bornim, den Flüsterwald und die Höhlen darunter in schräger Sicht von oben, sprich mit den Leuten und stell dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug. Die Regeln sind ein eigenes System, das Bornimer Rollenspielsystem (BRS): Du wirst, was du tust. Auf Deutsch und Englisch.
+
+`[1459.readme.features]`
+
+**Geschichte**
+
+- **Kapitel 1: Der Blutzahn-Stamm** – Dorf Bornim, Flüsterwald, Blutzahnhöhle, Krogg der Grobian, Hauptmann Grak, die Rettung von Schwester Lyra und ein Cliffhanger um den „Grauen Propheten“
+- **Aufträge am Aushang** neben der Hauptgeschichte; die Chronik „Bisher geschehen“ hält fest, was war; schwarze Blenden mit kurzem Erzähltext zwischen Orten und vor Kämpfen
+
+**Welt**
+
+- **Tag und Nacht**: dunkle Nächte, Fackelschein um den Helden, erleuchtete Fenster; die Leute im Dorf gehen ihrem Tagwerk nach. Nachts kommen die Untoten in den Wald
+- **Nebel über der Wildnis**: man sieht nur, was der Held sieht; das Land deckt sich beim Gehen auf
+- **Klang und Musik**: Geräusche aus echten Aufnahmen, düstere orchestrale Musik; man hört, was in der Nähe ist
+- **Sichtbare Monster** streifen durch Wald und Höhle. Wer von hinten angreift, schlägt zuerst; wer sich erwischen lässt, gerät in einen Hinterhalt
+- **Rast und Vorrat**: Kräuter sammeln, Fleisch am Lagerfeuer braten, Tränke bei Kräuterfrau Morwen, ein Zimmer im Gasthaus; wer zu tief in den Met schaut, kämpft schlechter
+
+**Held**
+
+- **Keine Klasse**: sechs Grundwerte, fünf Völker (Mensch, Elf, Zwerg, Hügelvolk, Orkblütiger) und eine Herkunft wie Wachsoldat oder Jägerkind, oder keine (Wanderer)
+- **37 Fertigkeiten**: was du im Kampf gebrauchst, wird besser; am Ende jedes Rangs wartet eine Prüfung
+- **Heldenstufe** durch Erfahrung aus Kämpfen und Fertigkeiten; jedes Kapitel setzt eine Grenze
+
+**Kampf**
+
+- **MARS**, unser Kampfsystem: Meisterschaft, Absicht, Reaktion, Stellung. Du siehst, was der Gegner vorhat, und antwortest darauf
+- **Aufstellung in Reihen**; Abwehr durch Ausweichen, Parieren oder Schild; Zauber der Evokation, der Heil- und der Schutzmagie
+- **Monster mit Schwächen und eigenen Fähigkeiten**, Rudel mit Anführer, Bossgegner; Gift, Brand und Blutung
+- **Kampforte in 3D**: Gefallene stürzen, wie es die Wucht will; Blut einstellbar
+
+**Beute**
+
+- **Ausrüstung mit Güte und Seltenheit**: sechs Seltenheitsstufen, je Kapitel gedeckelt; ein Laden mit wechselndem Sortiment
+
+**Bedienung**
+
+- **Für Touch gebaut**: Ziehen lenkt den Helden, Tippen läuft zum Ziel und spricht, öffnet oder liest
+- Vier Spielstände, Sprachwechsel jederzeit im Spiel
+
+Hinweise zum Einbau (Tom, technisch, kein Spieltext): Download-Zeile ohne den Link `alt/DESIGN-BALANCE.md`. „Aufbau“ und „Bauen“ nach der Godot-Fassung (`godot/`, `tools/`, `docs/`; Workflow `godot.yml`); `core/`, `app/`, `tools/preview/` nur noch als „alte Fassung, wird entfernt“, bis 1279 sie streicht. „Lizenzen“: SRD-Absatz bleibt bis 1279 (870); Schrift statt Jersey 10: Alegreya (SIL OFL 1.1, `godot/kampf/schrift/OFL-Alegreya.txt`) und Fondamento (SIL OFL 1.1, `godot/daten/OFL-Fondamento.txt`); Klang-Satz bleibt, Musik ist keine Aufnahme.
