@@ -841,7 +841,7 @@ func verdeckt_von(q: Vector3, kapseln: Array, rand := 0.0) -> bool:
 	var sq: Vector2 = screen_of(q)
 	var dq: float = cam.position.z - q.z
 	var px: float = get_viewport().get_visible_rect().size.x / 412.0
-	for c in kapseln:
+	for c: Array in kapseln:
 		var a: Vector3 = c[0]
 		var b: Vector3 = c[1]
 		var sa: Vector2 = screen_of(a)
@@ -921,8 +921,8 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 const KONTAKT_M := 2.0          # Rand des nächsten Gegners bis zur eigenen Mitte: am Gegner
 const PLATZ_MACHEN_M := 1.3     # so weit tritt ein Vorderer zurück, der nach hinten getauscht wird
 var platz_eigen := {}           # Kennung → Reihe, in der er seinen eigenen Platz (am Gegner, Platz gemacht) hält
-func _platz_am_gegner(f, spot: Vector2i) -> Vector3:
-	var fig = figures[f.id]
+func _platz_am_gegner(f: Variant, spot: Vector2i) -> Vector3:
+	var fig: Variant = figures[f.id]
 	var formation := _spot_pos(f, spot)
 	if f.side != "FOES" or fig.fighter.monster == null or not fig.bleibt_am_gegner():
 		if OS.get_environment("SCHAU_1072") != "" and f.side == "FOES":
@@ -930,15 +930,15 @@ func _platz_am_gegner(f, spot: Vector2i) -> Vector3:
 		platz_eigen.erase(f.id)
 		return formation
 	var p: Vector3 = fig.ort_nach_zug()
-	var nah = null
+	var nah: Variant = null
 	var rand := INF
-	for o in figures.values():
+	for o: Variant in figures.values():
 		if o.fighter.side != f.side and o.visible and not o.down and o.dead_at < 0:
 			var c: float = o.clearance(p)
 			if c < rand:
 				rand = c
 				nah = o
-	var vorher = platz_eigen.get(f.id, null)
+	var vorher: Variant = platz_eigen.get(f.id, null)
 	if OS.get_environment("SCHAU_1072") != "":
 		print("1072 Platz %s Reihe %d: Rand %.2f an %s, vorher %s" % [f.id, spot.x, rand, nah.fighter.id if nah != null else "-", vorher])
 	if nah != null and rand <= KONTAKT_M * fig._scale():
@@ -946,8 +946,8 @@ func _platz_am_gegner(f, spot: Vector2i) -> Vector3:
 			var weg := Vector3(p.x - nah.position.x, 0.0, p.z - nah.position.z)
 			weg = weg.normalized() if weg.length() > 0.01 else -facing(true)
 			var q := Vector3.INF
-			for k in [1.0, 0.6]:     # vom Gegner weg, sonst schräg, sonst kürzer
-				for w in [0.0, 35.0, -35.0, 70.0, -70.0, 100.0, -100.0]:
+			for k: float in [1.0, 0.6]:     # vom Gegner weg, sonst schräg, sonst kürzer
+				for w: float in [0.0, 35.0, -35.0, 70.0, -70.0, 100.0, -100.0]:
 					var d: Vector3 = weg.rotated(Vector3.UP, deg_to_rad(w))
 					var q2: Vector3 = p + d * PLATZ_MACHEN_M * fig._scale() * k
 					if OS.get_environment("SCHAU_1072") != "":
