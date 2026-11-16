@@ -667,3 +667,4 @@
 2026-11-16 18:10:24	commit-pruefung	CLAUDE.md: 15008 Bytes, Obergrenze 15000, Commit fügt 24 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-16 18:13:05	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-1445-anmerkung ändert Spielcode (godot/skripte/pruef	claude/spike-1445-anmerkung
 2026-11-16 18:15:22	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1275-taumeln ändert Spielcode (godot/regeln/kerbe.gd	claude/jerry-1275-taumeln
+2026-11-16 18:19:33	probelauf	1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert (6 Dateien, etwa tools/blender348/grak-cc0-probe.sh). Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je Kl	claude/jerry-1072-t293
