@@ -1,0 +1,16 @@
+# Figurenprüfung (1385): heute bekannte Befunde, machen den Bau nicht rot (Sperrklinke, 649b A).
+# Nie von Hand ergänzen; behoben -> python3 tools/figurenpruefung.py --stand
+absichten: boar ohne eigene Absichten (nimmt „_sonst“)
+absichten: bugbear ohne eigene Absichten (nimmt „_sonst“)
+absichten: giant_centipede ohne eigene Absichten (nimmt „_sonst“)
+absichten: kobold ohne eigene Absichten (nimmt „_sonst“)
+absichten: ochre_jelly ohne eigene Absichten (nimmt „_sonst“)
+absichten: skeleton ohne eigene Absichten (nimmt „_sonst“)
+absichten: stirge ohne eigene Absichten (nimmt „_sonst“)
+name: dire_wolf: Name fest im Code (aufruf.gd gegner), nicht aus der Tabelle
+name: ghoul: Code aufruf.gd NAMEN_494 GRABHUND „Grabhund“/„Grave Hound“, Tabelle „Ghul“/„Ghoul“
+name: ghoul: Code aufruf.gd NAMEN_494 GRABHUNDE „Grabhund“/„Grave Hound“, Tabelle „Ghul“/„Ghoul“
+name: ochre_jelly: Art „Ockerschleim“, Anzeigename „Säureschnecke“
+name: stirge: Art „Blutflügler“, Anzeigename „Riesenegel“
+name: zombie: Code aufruf.gd NAMEN_494 WIEDERGAENGER „Wiedergänger“/„Revenant“, Tabelle „Zombie“/„Zombie“
+name: zombie: Code aufruf.gd NAMEN_494 WIEDERGAENGER3 „Wiedergänger“/„Revenant“, Tabelle „Zombie“/„Zombie“
