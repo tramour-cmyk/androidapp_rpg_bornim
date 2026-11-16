@@ -91,3 +91,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 16.11.: Marke Archiv session_01Hmoj791pfnSs82NQrnpLnf (lauf.py)
 - 02:04 16.11.: Marke Archiv session_01Hmoj79NReuhLMU6cqsp6GW (lauf.py)
 - 02:04 16.11.: Marke Archiv session_01Hmoj79JCQRKsCCgciyGpnJ (lauf.py)
+- 02:08 16.11.: Startsperre 02:08 Start Jerry 1358, Homer 302, Perikles Wochenziel (lauf.py); alte Sitzungen …791pfnSs82NQrnpLnf (Jerry 1072, add_repo-Sperre), …79NReuhLMU6cqsp6GW (Homer, wartet 1352a), …79JCQRKsCCgciyGpnJ (Perikles, wartet 1351) archiviert, Fragen liegen als Chefsache-Dateien; Sokrates-Nachfolger bewusst nicht gestartet (wartet auf Diogenes 1129.4, --ohne Sokrates)
