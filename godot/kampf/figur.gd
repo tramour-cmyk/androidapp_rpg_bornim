@@ -1551,8 +1551,16 @@ func _face_sanft() -> void:
 	elif absf(rad_to_deg(dw)) >= DREH_RUHE:
 		# 438 (wolf_mess_438: Wolf 3 drehte in Ruhe 82° zu seinem Ziel und schwenkte den Rumpf in den Anlauf von Wolf 1): nur, wenn
 		# der Rumpf dabei frei bleibt, auch gegen die Bahnen der Laufenden; sonst blickt nur der Hals (neck.want)
-		if _foot_ok and (_rumpf_luft(position, r0 + dw) < minf(_rumpf_luft(position, r0), PLATZ_LUFT) \
-				or _rumpf_luft(position, r0 + dw * 0.5) < minf(_rumpf_luft(position, r0), PLATZ_LUFT)):
+		# 1453 (dreh_1072 Seed 9, am Rechner mit Kaufwolf: Wolf 1 stand am Gegner 8 cm im Nachbarn, die Drehung zum Ziel machte es 1 cm
+		# enger und unterblieb, der Rumpf blieb 44° neben dem Ziel): wer schon im anderen steht, dreht, solange es höchstens DREH_ENGER
+		# enger wird und nicht tiefer als DREH_TIEF (wolf_mess_438 zählt Wolf in Wolf ab 0,10 m)
+		var jetzt_l := _rumpf_luft(position, r0) if _foot_ok else INF
+		var grenze_d := minf(jetzt_l, PLATZ_LUFT)
+		if jetzt_l < 0.0:
+			grenze_d = maxf(jetzt_l - DREH_ENGER, -DREH_TIEF)
+		if _foot_ok and (_rumpf_luft(position, r0 + dw) < grenze_d or _rumpf_luft(position, r0 + dw * 0.5) < grenze_d):
+			if OS.get_environment("SCHAU_DREH") != "":
+				print("DREH %s verweigert: dw %.0f Luft ziel %.3f halb %.3f jetzt %.3f" % [fighter.id, rad_to_deg(dw), _rumpf_luft(position, r0 + dw), _rumpf_luft(position, r0 + dw * 0.5), _rumpf_luft(position, r0)])
 			return
 		gang = "dreh"
 		dreh_ziel = r0 + dw
@@ -2353,6 +2361,8 @@ var _abgesetzt := false     # 438: auf diesem Heimweg schon einmal rückwärts a
 
 ## 717 C (Chef 09.11., 08:58; F7): Gegner (außer auf der Flucht) bleiben nach dem Angriff abgesetzt stehen und rücken erst mit dem eigenen
 ## Zug in die Reihe; 717.1 A (F8): auch das Zurechtrücken beginnt in ihrem Zug (glide_to merkt den neuen Platz nur vor)
+const DREH_ENGER := 0.03     # 1453: so viel enger darf das Drehen in Ruhe machen, wer schon im anderen steht
+const DREH_TIEF := 0.09      # 1453: … aber nie tiefer als das
 const BISS_LOESEN_S := 0.15     # 1453: so lange vor dem Ende der Bissbewegung löst er sich schon
 const ABSETZ_TEMPO_717 := 1.3      # × Gehen rückwärts: ein bis zwei rasche Schritte, nicht im Schneckentempo
 func _bleib_717() -> bool:
