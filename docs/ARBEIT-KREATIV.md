@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `10012aabf` (16.11., 21:01)
 
-**Übergabe (16.11., 21:15, `session_01Hmoj75uC5wiQijRtfjKuQd`):** 1489: Merkmale je Exemplar in `STORY-MERKMALE-TIERE.md` und `-WAFFEN.md` (14 Arten, je Art und Merkmal vier Beschreibungen DE/EN, Namen, Wirkung, Regeln für den Bau; fremd geprüft 21:12, Befunde eingearbeitet); in `STORY-REGELN.md` eingetragen; Zeile an Jerry (Zu 1488). Nachfolger: keiner (1235 nach dem Meilenstein).
+**Übergabe (16.11., 21:15, `session_01Hmoj75eC5wiQijRtfjKuQd`):** 1489: Merkmale je Exemplar in `STORY-MERKMALE-TIERE.md` und `-WAFFEN.md` (14 Arten, je Art und Merkmal vier Beschreibungen DE/EN, Namen, Wirkung, Regeln für den Bau; fremd geprüft 21:12, Befunde eingearbeitet); in `STORY-REGELN.md` eingetragen; Zeile an Jerry (Zu 1488). Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
