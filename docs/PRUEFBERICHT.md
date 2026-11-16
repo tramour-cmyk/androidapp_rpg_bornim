@@ -44,7 +44,7 @@ Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727
 ## Lauf 281 · 1485 APK-Dateiname (Spike `611030249`; 16.11., 22:0x)
 
 - **1485 greift auf dem Zweig:** Lauf 536 (`claude/spike-1485-apkname`, grün 20:41) lädt `bornim-0.348.536-spike-1485-apkname.apk` ins Artefakt `bornim-godot-apk`; Version = `run_number` wie in `godot.yml`; auf `claude/build-<n>` ergibt dieselbe Zeile `bornim-0.348.<Lauf>-build-<n>.apk`. Keine weitere Stelle liest `bornim-godot.apk` aus dem Artefakt (nur `export_presets.cfg` und der Export davor).
-- **Lücke:** `611030249` nicht auf `main`, obwohl Werkzeug nach grünem Lauf sofort durch den Besitzer auf `main` geht (1311); Wartefeld geleert, 1485 steht wieder startbar bei Spike; nach dem Zusammenführen `greift 1485` am ersten Build-Zweig.
+- **Auf `main` seit 21:47** als Cherry-pick `82efd967e` (meine Prüfung suchte nur `611030249`; Lücke 1311 zurückgenommen, Spike 22:09). Noch kein Lauf eines `claude/build-<n>` ab diesem Stand → `greift 1485` am ersten.
 
 ## Lauf 280 · 1481, 1385 auf main (Spike `7dc9e98e8`; 16.11., 19:4x)
 
