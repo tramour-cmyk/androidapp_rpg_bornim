@@ -1623,7 +1623,7 @@ func _arkan_los(by, on, missed: bool) -> void:
 	dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
 	var hand = by.cast_point()
 	var von: Vector3 = hand if hand != null else by.position + Vector3.UP * (by.head().y - by.position.y) * START_UP + dir * (_girth(by) + 0.1)
-	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir, von)
+	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir)
 	var s := maxf(Zauber.arrives("MISSILES") / 1000.0, 0.05)
 	var p := arkan_r2().instantiate()
 	for kv in [["fly_on_ready", false], ["collision_mask", 0], ["impact_on_expire", true],
@@ -1994,17 +1994,7 @@ func _hidden_by_front(fig, pts: PackedVector2Array, welt := []) -> bool:
 
 
 ## Brust des Ziels, zum Wirkenden hin (Ende der Bahn)
-## 601.1 (Chef 15.11., 11:02: Pfeil in der Fußspitze, Zucken oben): mit [von] (Start des Geschosses) die Stelle am Rumpf, die dem
-## Schützen zugewandt ist (Figur.treffpunkt_fern), dort zuckt der Getroffene; _aim_genau sagt, ob es sie gab. Ohne Gerüst geschätzt
-## wie bisher (Höhe des Namensbalkens × 0,55, vor dem Umriss)
-var _aim_genau := false
-func _aim_point(on, dir: Vector3, von := Vector3.INF) -> Vector3:
-	_aim_genau = false
-	if von != Vector3.INF and on.has_method("treffpunkt_fern"):
-		var p: Vector3 = on.treffpunkt_fern(von)
-		if p != Vector3.INF:
-			_aim_genau = true
-			return p
+func _aim_point(on, dir: Vector3) -> Vector3:
 	return on.position + Vector3.UP * (on.head().y - on.position.y) * 0.55 - dir * _girth(on)
 
 
@@ -2106,8 +2096,7 @@ func _draw_spells() -> void:
 			var hand = by.cast_point() if flying else null
 			sp["from"] = hand if hand != null else by.position + Vector3.UP * h_by * (START_UP if flying else 0.55) + dir * (_girth(by) + 0.1 if flying else 0.0)
 		var a3: Vector3 = sp["from"]
-		var b3: Vector3 = _aim_point(on, dir, a3 if flying else Vector3.INF)
-		Zauber.ziel_genau = _aim_genau and not sp.missed
+		var b3: Vector3 = _aim_point(on, dir)
 		if sp.kind == "BOMB_SMOKE":     # 1222: das Bündel landet vor den Füßen (zauber.gd), der gekaufte Rauch steht davor
 			if not sp.has("r7") and p >= Zauber.SMOKE_FLUG_MS / Zauber.SMOKE_MS:
 				sp["r7"] = _rauch_r7(on, on.position - dir * _girth(on))
