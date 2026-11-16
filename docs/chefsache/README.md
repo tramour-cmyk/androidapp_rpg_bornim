@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 08:15, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 08:17, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,7 +14,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 73 | 29 | 3 | 6 | 9 | 1072 (Jerry) Laufwege und Plätze im Kampf für alle Figuren: Zw… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 60 | 12 | 2 | 12 | 25 | 1375 (Perikles) Wochentermin 16.11.: Haken-Frage Abnahmeliste als… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 59 | 12 | 2 | 12 | 25 | 1375 (Perikles) Wochentermin 16.11.: Haken-Frage Abnahmeliste als… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 7 | 0 | 6 | 4 | 1145 (Spike) Höhle fühlt sich hakelig an, Bilder/s 45 = halbe… |
 | Werkzeuge und Abläufe der Firma | 65 | 42 | 0 | 0 | 9 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Tom | 1285 Übernahme von Jerry: Held rennt schon bei kleinen Joystick-Bewegungen, große Lau… (Muss) |
 | Jerry | 1072 Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch… (Muss); dann 7 weitere |
 | Spike | 1145 Höhle fühlt sich hakelig an, Bilder/s 45 = halbe 90 Hz, Kam… (Kür) |
-| Homer | 1370 Erklärsatz und Meldung zum Zeichen „Grafik“ im Systemmenü p… (Kür) |
+| Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1128.3 ab Build 283 Funde und Rückschritte je Prüfart zählen, Baut… (Muss); dann 24 weitere |
 | Sokrates | 1378 Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gi… (Muss) |
 | Perikles | 1369 D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lau… (Muss); dann 4 weitere |
@@ -56,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 1373 | Perikles | Wochentermin 16.11.: Wochenziel | M | Werkzeuge und Abläufe der Firma | startbar |
 | 20 | 1376 | Perikles | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 99 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
