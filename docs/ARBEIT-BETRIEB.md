@@ -138,3 +138,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:04 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 14:35) (lauf.py)
 - 17:07 16.11.: Lauf 17:03; Start Diogenes 1463 (session_01Hmoj75wrUCWzR6Dt7F3tPc), Homer 1459 (session_01Hmoj75zum6Z1f8NFfzpE4u); alte Diogenes (2,23 $ auf 1427) und Homer (3,58 $ auf 1419) archiviert; Weiter an Jerry 1453, Spike 1458, Perikles M?-Entscheid; Rotbuch nicht erneut angelegt (Doppel 1456/1457)
 - 17:21 16.11.: Startsperre 17:21 Start Tom (selbst), Neustart-Meldung 17:15 (4387a89b1), Nachfolger Tom – 1420, 431h: Filme auswerten, an den Chef
+- 17:22 16.11.: Tom Neustart (session_01Hmoj76RwQwh6oCCpcPppGf), alte archiviert, 6,47 $ auf 531, 1420, 431h gebucht; Perikles-Sitzung (Tagesbericht) archiviert, 6,94 $ auf Betrieb
