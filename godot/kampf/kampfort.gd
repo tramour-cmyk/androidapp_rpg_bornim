@@ -918,7 +918,7 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 ## sollbild_784 Seed 7: nach jedem Biss ging der Wolf 2,5 m zurück auf den vorderen Platz, beim Reihentausch der vordere 3,4–8 m
 ## nach hinten, Runde 19,5 s statt 14,6): wer am Gegner steht, bleibt dort (Platz am Gegner); kommt er dabei in die hintere Reihe,
 ## macht er nur Platz (ein ruhiger Schritt vom Gegner weg); wer so einen eigenen Platz hält, geht nie zurück auf den Platz der Aufstellung
-const KONTAKT_M := 2.0          # Rand des nächsten Gegners bis zur eigenen Mitte: am Gegner
+const KONTAKT_M := 3.0          # Rand des nächsten Gegners bis zur eigenen Mitte: am Gegner (t293.1: der Kaufwolf setzt mit „Ausweichen zurück“ bis 2,9 m ab)
 const PLATZ_MACHEN_M := 1.3     # so weit tritt ein Vorderer zurück, der nach hinten getauscht wird
 var platz_eigen := {}           # Kennung → Reihe, in der er seinen eigenen Platz (am Gegner, Platz gemacht) hält
 func _platz_am_gegner(f: Variant, spot: Vector2i) -> Vector3:

@@ -140,14 +140,18 @@ func _durchgang() -> Array:
 
 
 ## FLANKE=1: der Fall des Chefs ohne Kaufwolf nachgestellt (am Rechner stehen die Ersatzwölfe nach dem Biss fast vorn): Wolf 1 hält
-## seinen Platz am Gegner neben dem Helden, 30° bis 120° neben der Achse des Kampforts, und sagt auf den Helden an
+## seinen Platz am Gegner neben dem Helden (2,4 m Mitte zu Mitte, FLANKE_M; näher verweigert der Kaufwolf die Drehung zu Recht, sein
+## Rumpf schwänge durch den Helden), 30° bis 120° neben der Achse des Kampforts, und sagt auf den Helden an
 func _flanke() -> void:
 	var h = kf.figures["hero"]
 	var f = kf.figures["wolf1"]
 	var achse: Vector3 = kf.facing(false)
+	for id in kf.figures:     # nur Held und Wolf 1: die Drehung soll nur an der Luft zum Helden hängen, nicht an Gedränge
+		if String(id) != "hero" and String(id) != "wolf1":
+			kf.figures[id].visible = false
 	for w in [30.0, 60.0, 90.0, 120.0]:
 		for seite in [1.0, -1.0]:
-			var p: Vector3 = h.position + achse.rotated(Vector3.UP, deg_to_rad(w * seite)) * 1.6
+			var p: Vector3 = h.position + achse.rotated(Vector3.UP, deg_to_rad(w * seite)) * float(_env("FLANKE_M", "2.4"))
 			if f.tween and f.tween.is_running():
 				f.tween.kill()
 			f.position = Vector3(p.x, f.position.y, p.z)
