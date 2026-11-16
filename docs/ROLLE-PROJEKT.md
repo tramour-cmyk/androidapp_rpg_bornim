@@ -47,7 +47,8 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link, eine Zeile je 
 - **Tagesbericht** (448, Chef 01.11., 11:09; ersetzt Stand zum Marktstart 338.1 und Dashboard 339):
   - täglich 7:30 (Sa, So 9:30): Stand je Punkt der Abnahmeliste nach den Vorräten setzen („· Stand: in Arbeit|gebaut“), Abschnitt „Eingaben“ (Schätzung, Funde des Chefs, Risiko) in `ARBEIT-TAGESBERICHT.md`, dann `python3 tools/tagesbericht.py` (zehn Zeilen, je Rolle); Roadmap, Wer hinkt, Prioritäten von Hand mit Uhrzeit; fremd prüfen, pushen; Telegram mit Ton: `python3 tools/tagesbericht.py --telegram` als Text für `meldung.sh --laut`;
   - fehlt er um 10 Uhr (Sa, So 12 Uhr), meldet Ford und startet dich neu (`lauf.py`);
-  - Quellen: Vorräte, jede Zeile gegen `LISTE-VORGAENGE.md` und `-ARCHIV.md`, `startbar.py --stand`, Chefsache, Guthaben in `ARBEIT-BETRIEB.md`, rote Läufe des Vortags aus `tagesbericht.py` (749, 776), `kosten.py`; vor dem Melden den eigenen Vorrat neu lesen und fremd prüfen lassen (338.2);
+  - **zuerst Vorrat auf links** (1425, Chef 16.11., 13:44/13:47: vor jedem Tagesbericht, Daueraufgabe): `python3 tools/vorratspruefung.py` (Arten im Kopf); jeden Fund beheben (Feld mit erfülltem Grund leeren, eigene Zeilen) oder dem Besitzer mit Absender in den Vorrat; J mit `--streichen`; von Hand Sinn und Doppeltes je Muss-Zeile; `tagesbericht.py` hält bis dahin an;
+  - Quellen: Vorräte, `startbar.py --stand`, Chefsache, Guthaben in `ARBEIT-BETRIEB.md`, rote Läufe des Vortags aus `tagesbericht.py` (749, 776), `kosten.py`; vor dem Melden den eigenen Vorrat neu lesen und fremd prüfen lassen (338.2);
   - Schreibregeln: ganze deutsche Sätze, jede Nummer mit Sinn, jede Aussage belegt.
 
 ## Entscheidet selbst

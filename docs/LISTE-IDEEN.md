@@ -190,6 +190,7 @@ Vorher (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monst
 - **Dokumente BornWire TCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen. → **später:** Betrieb vor Spiel wäre gegen die Direktive; nach Stufe 4.
 - **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige. → **später:** wie 102.
 - **389 genauer zählen** (Tom 28.10., 00:1x; an Perikles, Vorrat über 15 KB): `probelauf.py` hält auch `sed -n … tools/pruef348/kampf_modelle.sh` an (Pfad irgendwo im Befehl) und zählt `kampf_modelle.sh` (nur Modelle, kein Bild). Vorschlag: nur mit `bash`, `sh` oder `./` davor zählen, `kampf_modelle.sh` ausnehmen. → **reif** (Perikles), halb erledigt: `probelauf.py` zählt nur noch mit Aufrufer davor; `kampf_modelle.sh` ist nicht ausgenommen (nur `rechner.sh`, Zeile 75).
+- **275 Stufe 2, Handänderung der Vorgangsliste anhalten** (aus Perikles' Vorrat, 16.11. Vorratsprüfung 1425): Commit-Prüfung warnt heute nur und zählt (`warnungen-275.tsv`); Stufe 2 hielte an, braucht einen Weg für `lauf.py --kosten`. → **später:** nur, wenn die Zählung Handänderungen zeigt.
 
 
 ## M Markt
