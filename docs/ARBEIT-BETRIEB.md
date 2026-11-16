@@ -51,6 +51,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 21:21 16.11.: Jerry Neustart (session_01Hmoj79PVQe2i9Ke3oaW9fH), alte …76XQ54YtEhfAGyiZ3Y archiviert, 21,18 $ auf 1453, 1072, 1275 gebucht; alte Sitzung hatte das Kaufrepo (bornim-kaufmodelle) als Quelle eingebunden, add_repo-Probe der neuen offen
+- 21:03 16.11.: Lauf 21:01: Start Homer 1489 (session_01Hmoj75eC5wiQijRtfjKuQd), Start Perikles M? 1484–1487 (session_01Hmoj75bTNPcFHKN9gDnnxw); archiviert und gebucht: Homer alt 5,27 $ auf 1459, Perikles alt 2,57 $ auf 1474, Tuffy 2,67 $ auf 1411.1; 1488 (Jerry, Bau Merkmale) nicht gestartet: Jerry läuft (1453/Build 294), Vorrang Perikles; Spike 1484/1485 warten auf M
 - 20:39 16.11.: Sokrates Neustart (session_01Hmoj794brfP9KD4QDfzDUh), alte …7A8bEWynsHcFDiq9Qy archiviert, 5,84 $ auf 1411 gebucht
 - 20:22 16.11.: Start Tuffy 1411.1 (session_01Hmoj79xmtbHYvY4HJgquQC, erste Nachricht mit Kaufrepo-Satz)
 - 20:21 16.11.: Planabweichung: lauf.py plante Tuffy 1408, Start stattdessen auf 1411.1 (Sokrates 20:20, Chef 20:19 „kann das ein freier Entwickler machen“; 1411.1 laut Vorgangsliste „startbar, Tuffy“)
@@ -69,8 +71,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:46 16.11.: Tom Neustart (session_01Hmoj76uMfoeaLAsF4zd8pt), alte archiviert, 24,87 $ auf 1044, 1341, 531, 1420 gebucht; Weckruf trig_01RxFe51VoQDcXA6Jg2rdXsY hängt an archivierter Sitzung (Nachfolger legt neu an)
 - 16:35 16.11.: Sokrates Neustart (session_01Hmoj78ccfTGs5tcBtqAXFJ), alte archiviert, 8,56 $ auf 870, 340, 1382 gebucht
 - 16:07 16.11.: Lauf 16:03; Sokrates Neustart (session_01Hmoj77JFLKuUy228ktjjNW, 7,87 $ auf 1442, 1448, 1445), Perikles Tagesbericht (session_01Hmoj75mMSKmk3EhLzv7XoP), alte Perikles archiviert, 1,39 $ auf Betrieb; Rotbuch 1455, 1456, 1457
-- 15:21 16.11.: Start Perikles Vorratsprüfung L und O (session_01Hmoj75VUiHfboe6mxez3hv), alte Perikles-Sitzung archiviert, 9,67 $ auf 1440, 1441 gebucht
-- 15:07 16.11.: Lauf 15:03; START/ARCHIVIERE Perikles zurückgestellt (Perikles 14:45: Neustart erst nach Chef-Antwort zu 1441a); Stillstand Jerry 1340 nicht gezählt (Sitzung 293 läuft, Lauf bis 15:20); Rotbuch angelegt; Ford-Starter-Uhr (1444) nicht ausgeführt, Chef bezweifelt Befund
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
@@ -109,7 +109,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:04 16.11.: Marke Archiv session_01Hmoj7A9PrmiGn3Lx1jJSbz (lauf.py)
 - 14:04 16.11.: Marke Archiv session_01Hmoj76GCWwLsp884GDFyfx (lauf.py)
 - 14:27 16.11.: Marke Archiv session_01Hmoj77B6ik7MtVMjSKPLaK (lauf.py)
-- 15:19 16.11.: Startsperre 15:19 Start Perikles (selbst), Neustart-Meldung 14:42/15:08 (ca6816ddf), Nachfolger Perikles – Vorratsprüfung L und O
 - 16:05 16.11.: Startsperre 16:05 Start Sokrates (selbst), Neustart-Meldung 16:00 (c419a34f3), Nachfolger Sokrates – 870: BRS-Umstellung nachhalten, Vorrat kürzen
 - 16:05 16.11.: Startsperre 16:05 Start Perikles (lauf.py)
 - 16:05 16.11.: Marke Archiv session_01Hmoj75VUiHfboe6mxez3hv (lauf.py)
@@ -145,6 +144,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:01 16.11.: Startsperre 21:01 Start Homer, Perikles (lauf.py)
 - 21:01 16.11.: Marke Archiv session_01Hmoj75zum6Z1f8NFfzpE4u (lauf.py)
 - 21:01 16.11.: Marke Archiv session_01Hmoj7A9JQitciHyQxAs6gq (lauf.py)
-- 21:03 16.11.: Lauf 21:01: Start Homer 1489 (session_01Hmoj75eC5wiQijRtfjKuQd), Start Perikles M? 1484–1487 (session_01Hmoj75bTNPcFHKN9gDnnxw); archiviert und gebucht: Homer alt 5,27 $ auf 1459, Perikles alt 2,57 $ auf 1474, Tuffy 2,67 $ auf 1411.1; 1488 (Jerry, Bau Merkmale) nicht gestartet: Jerry läuft (1453/Build 294), Vorrang Perikles; Spike 1484/1485 warten auf M
 - 21:20 16.11.: Startsperre 21:20 Start Jerry (Ford von Hand), Neustart-Meldung 21:13 (a75f9abce, Nachtrag d9570ef88)
-- 21:21 16.11.: Jerry Neustart (session_01Hmoj79PVQe2i9Ke3oaW9fH), alte …76XQ54YtEhfAGyiZ3Y archiviert, 21,18 $ auf 1453, 1072, 1275 gebucht; alte Sitzung hatte das Kaufrepo (bornim-kaufmodelle) als Quelle eingebunden, add_repo-Probe der neuen offen
+- 21:26 16.11.: Startsperre 21:26 Start Tuffy (lauf.py)
+- 21:26 16.11.: Marke Start-fehlt Tuffy 16.11.-20:20 (lauf.py)
