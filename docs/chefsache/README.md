@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 07:26, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 07:28, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -16,7 +16,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 431h (Tom) Rückfrage zu 431: angelegte Rüstung am Helden sic… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 59 | 11 | 1 | 12 | 25 | 643 (Jerry) Langbogen mit Köcher als Waffenmodell für Garrick… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 7 | 1 | 6 | 4 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
-| Werkzeuge und Abläufe der Firma | 60 | 37 | 0 | 0 | 9 | 1368 (Jerry) Zeile „**Abgabe:** …“ oben im Vorrat: je startbar… |
+| Werkzeuge und Abläufe der Firma | 59 | 36 | 0 | 0 | 9 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
@@ -24,7 +24,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Rolle | als Nächstes |
 |---|---|
 | Tom | 431h Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuo… (Muss) |
-| Jerry | 1368 Zeile „**Abgabe:** …“ oben im Vorrat: je startbarem Kampf-M… (Muss); dann 11 weitere |
+| Jerry | 1072 Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch… (Muss); dann 10 weitere |
 | Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1370 Erklärsatz und Meldung zum Zeichen „Grafik“ im Systemmenü p… (Kür) |
 | Diogenes | 1128.3 ab Build 283 Funde und Rückschritte je Prüfart zählen, Baut… (Muss); dann 21 weitere |
@@ -35,28 +35,28 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1368 | Jerry | Zeile „**Abgabe:** …“ oben im Vorrat: je startbarem Kampf-Muss an Tom oder Spik… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 2 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
-| 3 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
-| 4 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
-| 5 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
-| 6 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
-| 7 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
-| 8 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
-| 9 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
-| 10 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | Kampf passt | startbar |
-| 11 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
-| 12 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 13 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | in Arbeit |
-| 15 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1371 | Perikles | D254.2 von Diogenes: Nachtrag Chef 07:02 fehlt im Bau 2c9b7b85a: keine Übernahm… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 1 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
+| 2 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
+| 3 | 1292 | Jerry | Klosterschüler gewinnt immer, Ursache rechnen, Vorlage an den Chef | M | Kampf passt | startbar |
+| 4 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
+| 5 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
+| 6 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
+| 7 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
+| 8 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
+| 9 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | Kampf passt | startbar |
+| 10 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
+| 11 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
+| 12 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 13 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | in Arbeit |
+| 14 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 1371 | Perikles | D254.2 von Diogenes: Nachtrag Chef 07:02 fehlt im Bau 2c9b7b85a: keine Übernahm… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
 
-Danach 96 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 66.
+Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 66.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
