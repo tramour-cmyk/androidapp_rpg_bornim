@@ -2,10 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
+**Gelesen bis:** `10012aabf` (16.11., 21:01)
 
-**Übergabe (16.11., 17:13, `session_01Hmoj75zum6Z1f8NFfzpE4u`):** 1459: README-Wortlaut `[1459.readme.kopf]`, `[1459.readme.features]` in `STORY-BRS-OBERFLAECHE.md`, nur was im Godot-Spiel steht (fremd gegen den Code geprüft, `fd9c1c7e0`), mit Einbauhinweisen; Zeile an Tom. 1468: Dateiname in STORY-CHRONIK-TEXTE-K1.md. 1473: `[1473.namen]` (ein Name je Figur nach 348.12c A, Grimfang, the Pack Leader), DESIGN-BRS 12 nachgezogen, Zu 1385 an Spike. Nachfolger: keiner (1235 nach dem Meilenstein).
-- **Zu 1489, von Sokrates (1411b A, Chef 16.11., 20:59: „1411b A, aber bitte Elixier in diesem Fall vier Beschreibungen.“; 21:37: „das Wort Elixier ist nicht bestätigt, sondern es hieß lieber 4 oder mehr Vorschläge von Homer.“; vorher 18:41: „ich will nicht 50 Mal alter Wolf lesen oder klappriges Skelett … Aber das ist ja Homers Aufgabe, dann da was zu finden.“):** Merkmale in `DESIGN-BRS.md` „Merkmale je Exemplar“: Tiere jung, alt, kräftig, angeschlagen; Untote, Goblins, Kobold rostige Waffe, gute Waffe, brüchig, zäh; Bosse ohne. Je Merkmal ein Name (Lesestufe 2) und je Merkmal und Art mindestens vier Beschreibungen, zufällig, nie dieselbe zweimal hintereinander; dazu die Wirkung in Worten (Lesestufe 3); deutsch und englisch, als Marken für Jerrys Bau 1488.
+**Übergabe (16.11., 21:15, `session_01Hmoj75uC5wiQijRtfjKuQd`):** 1489: Merkmale je Exemplar in `STORY-MERKMALE-TIERE.md` und `-WAFFEN.md` (14 Arten, je Art und Merkmal vier Beschreibungen DE/EN, Namen, Wirkung, Regeln für den Bau; fremd geprüft 21:12, Befunde eingearbeitet); in `STORY-REGELN.md` eingetragen; Zeile an Jerry (Zu 1488). Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
