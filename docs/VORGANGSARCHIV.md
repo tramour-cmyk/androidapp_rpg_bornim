@@ -2,6 +2,12 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **431h, Läufe frei** (16.11., 16:13, Sokrates nach 621 A und 431h A; Bitte Tom 13:56: Messung Stufe 1 bestanden, Skriptfehler Hochformat behoben) → **genau ein Filmlauf Mann und Frau je 15 s am Stand `233c2e058` (`claude/tom-431-ausruestung`), selbst ansehen, dann `--film` an den Chef; scheitert er: kein weiterer, Befund an Sokrates**
+
+- **1044, Grundstand gebilligt** (16.11., 15:48, Chef 👍 auf Meldung Tom 15:34, Nachricht 4416, 4417; `ansehen/1044-grundstand.md` in Git) → **Stand der Leute (Osric, Liska, Bram) passt; Bau `98e126c91` in den nächsten Build (Tom) (Nutzer)**
+
+- **1341, langer Name gebilligt** (16.11., 15:09, Chef 👍 auf Meldung Tom 14:57, Nachricht 4413; `ansehen/1341-namen-faecher.md` in Git) → **t290.6 passt: im Fach nur der Platz, Name beim Antippen ganz lesbar (Nutzer)**
+
 - **1441a A, Erlaubnisblock zurück** (16.11., 15:06, Chef an Perikles im Chat: „1441a A, ja“; `entscheiden/1441a-erlaubnisblock.md` in Git) → **`autoMode.allow` aus 4879b079b entfernt (cc66ac6c7); Probe am nächsten Ford-Neustart ohne Chefwort (Perikles 1441) (Perikles)**
 
 - **1416, kein Winken** (16.11., 15:0x, Chef im Chat: „ich habe das Winken auch nicht mehr gesehen“; Film `ansehen/1416-winken.md` in Git) → **UAL2 ohne Winken; vorgemerkt in `LISTE-BESTAND.md`: Throw, Chest_Open, Harvest/PlantSeed, Surprise, Yes, Idle_No, FoldArms, LayToIdle, IdleToLay, Turn180 mit Wurzelweg (1406) (Spike)**
