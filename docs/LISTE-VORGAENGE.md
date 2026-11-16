@@ -197,6 +197,7 @@
 | 1373 | Wochentermin 16.11.: Wochenziel (719) | Perikles | M | startbar | – | – | – | B Steuerung | – |
 | 1375 | Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-Datei (720) (719) | Perikles | M | startbar | – | – | – | Q QS | – |
 | 1376 | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; Unternummern alle erledigt: 464, 341, 1100 (1188) | Perikles | M | startbar | – | – | – | B Abläufe | – |
+| 1382 | Von Sokrates (Chef 16.11., 09:00): Themenblock „Alles an einer Stelle: Figuren, Helden, Gegenstände“ unter Kapitel 1 in ueberblick.py; hinein 649, 644 mit Unterpunkten, Bewegungspaket UAL2; Spike verantwortlich für den Unterbau | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | Diogenes | K | erledigt | – | – | – | B Abläufe | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | K | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
