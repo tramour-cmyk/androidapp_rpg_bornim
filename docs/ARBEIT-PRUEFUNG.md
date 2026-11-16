@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (16.11., 22:46):** Lauf 281: 1485 greift auf dem Zweig, auf `main` als `82efd967e`, wartet auf einen Build-Zweig. Lauf 282 (1498): Bautest 1333, 1366 (Lauf 517), 1409 (Lauf 524), 1305 → Build 294; 1499 (Jerry, laufnachweis), 1500 (Perikles). Nächste Nummer D283. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.)
+**Übergabe (16.11., 22:46):** Lauf 281: 1485 greift auf dem Zweig, auf `main` als `82efd967e`, wartet auf einen Build-Zweig. Lauf 282 (1498): Bautest 1333, 1366 (Lauf 517), 1409 (Lauf 524), 1305 → Build 294; 1499 (Jerry, laufnachweis), 1500 (Perikles); 1501 (Jerry, build-294 ohne main). Lauf 283: 1500 greift, Bautest 1292, 1323 (Lauf 524), 1355 (Lauf 514). Nächste Nummer D284. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.)
 
 - **Zu 1485 (Lauf 281):** sobald ein `claude/build-<n>`-Lauf die Datei `bornim-0.348.<Lauf>-build-<n>.apk` hochlädt (Protokoll Schritt „Name des APK“) → `greift 1485 <Lauf>`.
 
