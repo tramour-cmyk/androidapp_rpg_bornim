@@ -118,3 +118,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:24 16.11.: Marke Archiv session_01Hmoj7894iHwdcb9yds8JGU (lauf.py)
 - 09:24 16.11.: Marke Archiv session_01Hmoj76h2mPbr2GReddWYJP (lauf.py)
 - 09:25 16.11.: Startsperre 09:25 Start Perikles (lauf.py)
+- 09:28 16.11.: Neustart Perikles cdb4d9327: Start Perikles 1392, alte Sitzung archiviert (8,58 $ auf 1369 gebucht)
