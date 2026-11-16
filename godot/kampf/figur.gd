@@ -2635,8 +2635,12 @@ func _gefaehrte_macht_platz(other: Variant, leap: bool, weiter: float, t_warte: 
 			if n == self or n == other or n.fighter == null or n.fighter.monster == null or n.fighter.side != fighter.side \
 					or not n.visible or n.down or n.dead_at >= 0 or n.unterwegs() or (n.tween and n.tween.is_running() and not n._nur_dreh()) \
 					or not n.weg.has("Gehen"):
+				if OS.get_environment("SCHAU_642") != "" and n != self and n != other and n.fighter != null and n.fighter.monster != null:
+					print("642 %s nicht: unterwegs %s tween %s dreh %s gang %s" % [n.fighter.id, n.unterwegs(), n.tween != null and n.tween.is_running(), n._nur_dreh(), n.gang])
 				continue
 			var ab := Vector3(n.position.x - other.position.x, 0.0, n.position.z - other.position.z)
+			if OS.get_environment("SCHAU_642") != "":
+				print("642 %s Abstand %.2f grenze %.2f" % [n.fighter.id, ab.length(), NACHBAR_M * n._scale()])
 			if ab.length() > NACHBAR_M * n._scale() or ab.length() < 0.05:
 				continue
 			for k: float in [1.0, 0.6]:
@@ -2645,6 +2649,8 @@ func _gefaehrte_macht_platz(other: Variant, leap: bool, weiter: float, t_warte: 
 					var q: Vector3 = n.position + d * PLATZ_MACHEN_642 * n._scale() * k
 					# geht rückwärts, das Gesicht zum Gegner (717): so misst der Weg wie _walk_home, sonst bliebe er stehen
 					if not n.platz_frei(q, -d) or n._rueck_luft(n.position, n.position, q, null) < minf(WEG_LUFT, maxf(n._rumpf_luft(n.position, n.rotation.y) - 0.01, -0.02)):
+						if OS.get_environment("SCHAU_642") != "":
+							print("642   %s %.0f° x%.1f: Luft %.2f Bild %s Weg %.2f Grenze %.2f" % [n.fighter.id, w, k, n._platz_luft(q, -d, null), n._im_bild(q, -d), n._rueck_luft(n.position, n.position, q, null), minf(WEG_LUFT, maxf(n._rumpf_luft(n.position, n.rotation.y) - 0.01, -0.02))])
 						continue
 					var alt: Vector3 = n.position
 					var alt_h: Vector3 = n.home
@@ -2737,13 +2743,13 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# des Ziels zum Wolf hin mit dem, was es trägt, nicht nur der Kreis body_r()
 	# 595 (Chef 05.11., 19:2x: „Säureschnecke – Angriff geht etwas daneben am Ziel“; nachgestellt 10.11.: Rand des Kämpfers mit Schild
 	# und Klinge 0,90 m, Leib 0,30 m, die Zunge endete vor der Klingenspitze): die Zunge schnellt über Schild und Klinge an den Leib
-	var stand: float = other.vorne(-dir, ZUNGE.has(art())) + bite[nm][0] * model.scale.x + weiter     # Ursprung bis Mitte des Ziels beim Biss
+	var stand: float = other.vorne(-dir, ZUNGE.has(art()), hoehe_oben()) + bite[nm][0] * model.scale.x + weiter     # Ursprung bis Mitte des Ziels beim Biss
 	# 438 (wolf_mess_438, Kleriker 9,5 s: Schild 7 cm im Kopf des Wolfs): wer mit dem Schild abwehrt (406), stößt ihn beim Biss
 	# vor; vorne() misst die Ruhehaltung, darum bleibt der Wolf um ABWEHR_VOR weiter weg
 	if other.has_method("blockt") and other.blockt():
 		stand += ABWEHR_VOR
 	if OS.get_environment("SCHAU_MESS") != "":
-		print("Biss %s an %s: Rand %.2f (Kreis %.2f), Abstand %.2f" % [fighter.id, other.fighter.id, other.vorne(-dir), other.body_r(), stand])
+		print("Biss %s an %s: Rand %.2f (unter dem Kopf %.2f, Kreis %.2f), Abstand %.2f" % [fighter.id, other.fighter.id, other.vorne(-dir), other.vorne(-dir, false, hoehe_oben()), other.body_r(), stand])
 	stand -= float(SCHNAUZE_NAEHER.get(art(), 0.0))
 	# 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“; treffen_709: beim Treffer blieb die Schnauze
 	# 0,33–0,45 m vor dem Körper, vor dem Schild 0,1–0,3 m): beim Treffer der Stand nach dem Weg von Kopf und Kiefer durch den Biss
@@ -2910,7 +2916,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
 			# 438 (wolf_mess_438, Kleriker 43,8 s: um das Ziel herum gedreht stand der Wolf 0,31 m im Helden und 4 cm im Schild):
 			# der Rand des Ziels gilt in der neuen Richtung (auf der Schildseite weiter vorn), nicht der alte Abstand
-			var st2: float = stand + other.vorne(-d2, ZUNGE.has(art())) - other.vorne(-dir, ZUNGE.has(art()))
+			var st2: float = stand + other.vorne(-d2, ZUNGE.has(art()), hoehe_oben()) - other.vorne(-dir, ZUNGE.has(art()), hoehe_oben())
 			var s2 := tg - d2 * (st2 + r_satz)
 			var l2 := minf(_platz_luft(s2, d2, other), _seg_gap(s2, s2 + d2 * jump, other) if jump > 0.0 else INF)
 			var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
@@ -4620,7 +4626,10 @@ static func _koerper_luecke(bahn: Array, zl: Array, x: float, schritt := 2, teil
 ## nie weniger als body_r(). Der Kasten um Schild und Waffe mit VORNE_LUFT: im Biss schnellt die Schnauze weiter vor als im
 ## Augenblick, für den bite[] gilt, und der Getroffene hebt den Schild (wolf_mess_438: mit den Ecken des Kastens auf 0,71 noch 9 cm darin)
 const VORNE_LUFT := 0.05
-func vorne(zu: Vector3, ohne_waffen := false) -> float:
+## 1453 [bis]: nur was der Träger unter dieser Höhe (m über dem Boden) hält, zählt (biss_1284 Seed 9, CLERIC, am Rechner mit Kaufmodellen:
+## die Klinge des Söldners in Hüfthöhe zeigte zur Ratte, Rand 0,93 statt 0,54 m; die Ratte biss 0,48 m vor dem Schild in die Luft, ihr
+## Kopf reicht nur bis 0,4 m, unter der Klinge hindurch)
+func vorne(zu: Vector3, ohne_waffen := false, bis := INF) -> float:
 	var d := Vector3(zu.x, 0.0, zu.z).normalized()
 	var m := body_r()
 	if fighter.monster != null or d == Vector3.ZERO:
@@ -4632,6 +4641,12 @@ func vorne(zu: Vector3, ohne_waffen := false) -> float:
 		if String(g[2]) == "" or ohne_waffen:
 			continue
 		var box: AABB = g[1]
+		if bis < INF:
+			var unten := INF
+			for i in 8:
+				unten = minf(unten, ((g[0] as Transform3D) * box.get_endpoint(i)).y - global_position.y)
+			if unten > bis:
+				continue
 		for i in 8:
 			m = maxf(m, d.dot((g[0] as Transform3D) * box.get_endpoint(i) - position) + VORNE_LUFT)
 	return m
