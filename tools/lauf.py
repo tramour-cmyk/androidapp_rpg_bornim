@@ -247,10 +247,19 @@ def stand():
         p = startbar.pause(inhalt); frei = startbar.pause_frei(inhalt) if p else []
         if frei:  # 870.17: Pause mit „frei für: …“ sperrt alles außer diesen Nummern
             muss = [x for x in muss if startbar.ist_frei(x[0], frei)]; kuer = [x for x in kuer if startbar.ist_frei(x[0], frei)]; p = None
+        elif p and muss:  # 1364 (Chef 16.11., 06:52): eine Pause mit Datum hält nur die Kür an, startbares Muss startet (wie 1246 ohne Datum)
+            kuer = []; p = None
         aus[rolle] = (muss, kuer, p, wartet)
         GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
+    # 1364 (Chef 16.11., 06:52): Entwicklerrolle ohne eigenes startbares Muss bekommt die Übernahmen als Muss; der Geber verliert sie
+    # aus seiner Startliste, damit nie zwei Sitzungen dieselbe Zeile anfangen
+    for r in startbar.BAUTEAMS:
+        if r not in aus or aus[r][0]: continue
+        for nr, titel, geber, _ in startbar.uebernahmen(r):
+            aus[r][0].append((nr, "M", "Übernahme von %s (1364, zuerst vorgang.py setze %s besitzer=%s): %s" % (geber, nr, r, titel), {}))
+            if geber in aus: aus[geber][0][:] = [x for x in aus[geber][0] if x[0] != nr]
     if m_fragen and "Perikles" in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
         m_zeile = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund, vorgang.py klasse)", {})
         aus["Perikles"][0].insert(0, m_zeile)
@@ -806,6 +815,7 @@ def main():
             ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus der Vorgangsliste (vorgang.py --rolle %s)%s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r,
                 ", Freitag: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)" if JETZT.weekday() == 4 else ""))
             if nr in ("M?", "Stillstand"): ausgabe[-1] = "WEITER %s | %s | %s | Weiter: %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, thema)  # 921, 1246
+            if thema.startswith("Übernahme von"): ausgabe[-1] = ausgabe[-1].replace("; wird send_message", "; %s; wird send_message" % thema[:120], 1)  # 1364
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         fuer = wahl[3].get("fuer") if isinstance(wahl[3], dict) else None
@@ -815,6 +825,7 @@ def main():
         if nr in ("M?", "Stillstand"):  # 921, 1246: die Zeile hat keine Nummer in der Liste; Auftrag steht im Thema
             titel = "%s – %s (%s)" % (r, "M? entscheiden" if nr == "M?" else "1246: Stillstand lösen", berlin(JETZT))
             msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann die Übergabe in %s beachten." % (r, thema, VORRAT[r])
+        if thema.startswith("Übernahme von"): msg += " " + thema[:160] + "."  # 1364: die Zeile gehört noch dem Geber
         msg += satz
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))

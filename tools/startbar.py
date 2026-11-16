@@ -1048,9 +1048,9 @@ def startbares_muss():
         if rolle not in LIEGT_ROLLEN: continue
         inhalt = lesen(datei)
         m = [z for z in plan(rolle) if z[1] == "M" and not z[4]]
-        if pause(inhalt):
+        if pause(inhalt) and pause_frei(inhalt):  # 1364: Pause ohne „frei für“ hält nur die Kür
             frei = pause_frei(inhalt)
-            m = [z for z in m if frei and ist_frei(z[0], frei)]
+            m = [z for z in m if ist_frei(z[0], frei)]
         aus |= {(rolle, z[0]) for z in m}
     return aus
 
@@ -1058,16 +1058,47 @@ UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
 BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1328.2: Sperre 620.1 B und gemeinsamer Build für alle drei; Übernahme bleibt Tom ↔ Jerry
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
-def uebernahme(rolle, info):
-    """118/202, 783 W3 (Chef 09.11., 20:13): hat das Team kein startbares Muss, das oberste freie Muss des anderen Teams
-    (ohne Gerätetest bevorzugt), vor der eigenen Kür."""
-    a = UEBERNAHME[rolle]
-    if a not in info or rolle not in info or info[rolle][2]: return None
-    frei = [z for z in info[a][0] if "fuer" not in z[3] and z[1] == "M"]
-    if not frei: return None
-    ohne = [z for z in frei if not GERAET.search(z[2])]
-    z = (ohne or frei)[0]
-    return "%s %s (Übernahme 118 von Team %s%s)" % (z[0], re.sub(r"\*\*|`", "", z[2])[:60], a, "" if ohne else ", mit Gerätetest")
+# 1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): jede Entwicklerrolle ohne startbares eigenes Muss nimmt alle freien Muss
+# der anderen, die zu ihrem Fach passen (Bereich) oder die der Besitzer ihr abgibt; nie eine Zeile mit Zweig (in Arbeit beim Besitzer)
+# und keine, die der Besitzer mit „nein“ behält. Zeile oben im Vorrat des Besitzers: „**Abgabe:** 1340 Spike, 1323 Tom; nein: 1305“.
+FACH = {"Tom": ("E Figuren", "E Welt", "E Oberfläche", "G Story", "G Stil"),
+        "Jerry": ("E Kampf", "G Balance", "E Klang"),
+        "Spike": ("E Technik", "B Werkzeuge", "Q QS")}
+ABGABE = re.compile(r"^\s*\**Abgabe:\**\s*(.*)$", re.M)
+
+def abgabe(geber):
+    """({Nr: Rolle} ausdrücklich abgegeben, {Nr} behalten) aus „**Abgabe:** …“ oben im Vorrat des Gebers (1364)."""
+    m = ABGABE.search("\n".join(lesen(VORRAT.get(geber, "")).splitlines()[:30]))
+    if not m: return {}, set()
+    teil = m.group(1).replace("*", "")
+    ja, nein = (re.split(r"(?i)\bnein:", teil, 1) + [""])[:2]
+    gib = {nr: wer for nr, wer in re.findall(r"(\d[\w.]*)\s+(Tom|Jerry|Spike)\b", ja)}
+    return gib, set(NUMMER.findall(nein))
+
+def uebernahmen(rolle):
+    """[(Nr, Titel, Geber, ausdrücklich)] für eine Entwicklerrolle ohne eigenes startbares Muss (1364; vorher nur die oberste
+    Zeile Tom ↔ Jerry, 118, 783 W3), vor der eigenen Kür; ohne Gerätetest zuerst."""
+    if rolle not in BAUTEAMS or any(z[1] == "M" and not z[4] and "fuer" not in z[3] for z in plan(rolle)): return []
+    aus = []
+    for a in BAUTEAMS:
+        if a == rolle: continue
+        gib, nein = abgabe(a)
+        for z in plan(a):
+            d = z[3]
+            if z[4] or z[1] != "M" or "fuer" in d or z[0] in nein: continue
+            if (d.get("zweig") or "–") not in ("–", "-", ""): continue
+            wer = gib.get(z[0])
+            if wer == rolle or wer is None and d.get("bereich") in FACH.get(rolle, ()):
+                aus.append((z[0], re.sub(r"\*\*|`", "", z[2]), a, wer == rolle))
+    aus.sort(key=lambda u: (not u[3], bool(GERAET.search(u[1]))))
+    return aus
+
+def uebernahme(rolle, info=None):
+    """Textzeile für --stand (118, 1364): alle Übernahmen der Rolle."""
+    u = uebernahmen(rolle)
+    if not u: return None
+    return "; ".join("%s %s (von %s%s)" % (nr, t[:50], a, ", abgegeben" if ja else "") for nr, t, a, ja in u[:8]) + (" …" if len(u) > 8 else "") + \
+        " (Übernahme 1364: zuerst vorgang.py setze NR besitzer=%s)" % rolle
 
 def loesen(schreiben=False):
     """Automatik A über die ganze Liste: [(Nr, Besitzer, erfüllte Teile, neuer Stand)]; mit schreiben die Liste ändern."""
@@ -1261,7 +1292,8 @@ def main():
         p = pause(inhalt)
         frei = pause_frei(inhalt) if p else []
         if p:  # 889, 892 (D148.1): Pause sperrt jede Zeile, die nicht unter „frei für“ steht, in jeder Ausgabe (auch --md, --stand)
-            zs = [z if z[4] or (frei and ist_frei(z[0], frei)) else z[:4] + ("Pause, nicht frei" if frei else "Pause",) for z in zs]
+            zs = [z if z[4] or (frei and ist_frei(z[0], frei)) or (not frei and z[1] == "M") else z[:4] + ("Pause, nicht frei" if frei else "Pause, nur Muss",) for z in zs]
+            if not frei and any(z[1] == "M" and not z[4] for z in zs): p += ", nur Kür angehalten (1364)"  # Muss startet trotz Pause
         if frei: p += ", frei für " + ", ".join(frei)  # 870.17
         if md:
             print("**%s** – offen %d, Muss %d, startbar %d%s\n" % (rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), (", PAUSE bis " + p) if p else ""))
@@ -1300,8 +1332,8 @@ def main():
     if not md:
         mf = ["%s (%s)" % (z[0], rolle) for _, rolle in ROLLEN for z in plan(rolle) if z[1] == "M?" and not z[4]]
         if mf: print("  M? für Perikles (190.8; lauf.py startet es als Muss „M? entscheiden“, 921): " + ", ".join(mf))
-        for r in UEBERNAHME:
-            u = uebernahme(r, info)
+        for r in BAUTEAMS:  # 1364: auch Spike
+            u = uebernahme(r)
             if u: print("  Übernahme für %s: %s" % (r, u))
         teams = [r for r in BAUTEAMS if r in info]
         if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in teams) >= 4:  # 317: ab 4 fertigen Punkten aller Teams bittet der Erste
