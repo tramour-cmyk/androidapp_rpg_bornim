@@ -1,5 +1,7 @@
 # 1417 · Schild der Wachsoldatin im Hauptmenü nicht mehr im Rock · Tom · 16.11., 19:40
 
+[Bild von 16.11., 19:38](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1938-1417-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Oberfläche · Tom · 16.11. · aus deinem Wort 12:37/12:38 (über Sokrates): „an mehreren Stellen anscheinend eingekerbt oder kaputt … als ob der Stoff, der dahinter liegt, einen Teil des Schildes überdeckt oder das Schild halt im Körper steckt“
 
 Geprüft an: Lauf 43922320211 (`claude/tom-1417-schild`, `c63a8f1c5`), Bauserver
