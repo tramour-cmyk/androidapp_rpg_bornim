@@ -573,3 +573,4 @@
 2026-11-16 10:07:20	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-16 10:13:37	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1323-leben ändert Spielcode (godot/regeln/klassisch.	claude/jerry-1323-leben
 2026-11-16 10:14:27	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30582 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-16 10:14:47	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 531 schon 1 Probelauf seit deinem Urteil 2026-11-04 20:54:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch 	claude/tom-531-film
