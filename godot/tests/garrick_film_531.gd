@@ -21,7 +21,7 @@ func _initialize() -> void:
 	_lauf.call_deferred()
 
 func warte(s: float) -> void:
-	for i in int(s * 30.0):
+	for i in maxi(1, roundi(s * 30.0)):
 		await process_frame
 		bilder += 1
 		if spiel.ui.textfeld: spiel.ui.textfeld.visible = false
@@ -68,8 +68,8 @@ func knips_ruecken() -> void:
 	root.add_child(cam)
 	var vorn := Vector3(sin(g.rotation.y), 0, cos(g.rotation.y))
 	var links := vorn.cross(Vector3.UP) * -1.0
-	var brust := g.global_position + Vector3.UP * 1.25
-	cam.global_position = brust - vorn * 2.6 + links * 1.2 + Vector3.UP * 0.5
+	var brust := g.global_position + Vector3.UP * 1.0
+	cam.global_position = brust - vorn * 4.0 + links * 1.8 + Vector3.UP * 0.9
 	cam.look_at(brust, Vector3.UP)
 	cam.fov = 40.0
 	cam.make_current()
