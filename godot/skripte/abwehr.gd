@@ -4,7 +4,7 @@ extends SkeletonModifier3D
 # Garrick die Fackel aus dem Feuer, wenn ein Tier am Schutzort aufgibt (herde.gd abgewehrt), dreht sich zu ihm, haelt sie hoch und
 # schwenkt sie links und rechts, dann zurueck ins Feuer. Zeiten wie alt: 0,45 s greifen, bis 0,7 s hoch, bis 2,9 s Schwuenge alle
 # 0,28 s, bis 3,25 s halten, bis 3,7 s zurueck. Als Schicht ueber seiner Ruhebewegung, nur rechter Ober- und Unterarm; die Fackel
-# (Held.fackelkopf) folgt der Hand. Die Bewegung ist neu: Aussehen urteilt der Chef (373).
+# (Fackel.teile, 1140) folgt der Hand. Die Bewegung ist neu: Aussehen urteilt der Chef (373).
 # 531 Film (Chef 04.11., 19:27: „wie er … die wegsteckt ins Feuer oder aus dem Feuer nimmt“): die Fackel erschien bisher in der ruhenden
 # Hand. Jetzt greift die Hand erst zur Flamme vor ihm (feuer), die Fackel kommt dort heraus; am Ende geht sie zurueck in die Flamme,
 # erst dann sinkt der Arm (3,25-3,75 s zurueck zum Feuer, bis 4,1 s Arm ab).
@@ -25,7 +25,7 @@ const AUSSEN := 0.45              # Pruefer Lauf 1 (Bild 2, 3: Fackel 2-5 cm an 
 var t := -1.0                     # s seit Beginn; < 0: aus
 var ziel := Vector3.ZERO          # Welt: wo das Tier stand
 var feuer := Vector3.INF          # Welt: Flamme, aus der er die Fackel nimmt (INF: keine, Hand bleibt am Platz)
-var fackel: Node3D                # Stiel, Flamme, Licht (Held.fackelkopf), Kind der Person
+var fackel: Node3D                # Stiel, Flamme, Licht (Fackel.teile), Kind der Person
 var licht: OmniLight3D
 var nacht_k := 0.0
 var _ob := -1
@@ -133,15 +133,12 @@ static func baue(sk: Skeleton3D, p: Node3D) -> Abwehr:
 	var a := Abwehr.new()
 	a.name = "Abwehr"
 	sk.add_child(a)
-	var f := Node3D.new()
+	var f := Fackel.new()          # dieselbe Fackel wie Held, Ausrüstung und Kampfort (fackel.gd, 1140); die Abwehr führt sie selbst
 	f.name = "AbwehrFackel"
 	f.top_level = true
 	p.add_child(f)
-	var teile := Held.fackelkopf(f)
+	Fackel.teile(f)
 	a.fackel = f
-	a.licht = teile[1]
-	a.licht.set_meta("reich", 4.0)   # 348.13b: Tusche nach der Fackel wie beim Helden
-	a.licht.set_meta("kraft", 1.0)
-	a.licht.add_to_group("tuschelicht")
+	a.licht = f.licht
 	f.visible = false
 	return a
