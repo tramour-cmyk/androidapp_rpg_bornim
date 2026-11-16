@@ -51,6 +51,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 1439, von Tuffy (16.11., 22:44):** Bitte „1439, Läufe frei“ für einen Bildlauf. Der eine Probelauf ging verloren, weil die Umgebungsvariable für den Bildpfad fehlte; es entstand kein Bild. Gebaut ist `claude/jerry-1439-mana` `f424ea23e` (Mana als blauer Balken, wie 1448 A). Der Lauf liefert nur das Bild alt gegen neu für den Chef (`tests/bild_mana_1439.gd`).
 - **Zu 1288b, von Jerry (16.11., 07:57, 1366 `6f2aa465d`):** `glut2_lesen.py` Zeile 128 zieht `ungunst × 0,6` von der Wehr ab, Wehr gegen kleine Schläge hat dort also 10 Punkte Ungunst, die Datei 1288b sagt „15 statt 25“. Gebaut nach dem Wortlaut (15). Mit 15 nachgerechnet (`lesen_1288.py`, 1000 je Zelle): Lesen 0→3 im Mittel +10,5 (mit 10: +9,9), größtes +39, Sieg Mittel 94,6, Krogg kleinste 56; Schluss bleibt. `DESIGN-GLUT.md` 5 beim Nachziehen bitte mit 15.
 - **Zu 1411, Rest aus 481 (geschlossen 16.11., 19:48; Kampftränke nach Alchemie gebaut, `mars.gd` 1669; Klosterschüler 1292; Bewährungsprobe in `DESIGN-BRS.md`):** Fund Jerry (644a.1, 14.11., 23:20): Heiler wächst in Kapitel 1 nie im Grundwert (Heilmagie bleibt bei 12, er übt Stumpfe Waffen); alle anderen Kampfstile genau einmal. Dazu offen aus 481: Wachsoldat gewinnt 100 %. Beides mit der Rechnung 1411.1 nachsehen und in der Vorlage 1411 nennen.
 
