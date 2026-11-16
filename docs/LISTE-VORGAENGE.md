@@ -242,7 +242,7 @@
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | erledigt | – | – | – | B Steuerung | – |
 | 1429 | D264.1 von Diogenes (1098.1): Ford …76awPjHi5batouXHgC 16.11., 14:05 bei 563 Tsd. used_tokens (get_session) ohne Selbstneustart (Schwelle 400 Tsd.); Starter …78K3Ut6YQSgPLqZEvX seit 15.11., 16:11 unbenutzt. Fords Kurzzeilen tragen für jede Sitzung 150000 statt used_tokens, die eigene auch; Haken-Erinnerung nicht nachgestellt | Ford | M? | erledigt | – | – | – | B Abläufe | – |
 | 1435 | D268.1 von Diogenes (1407): ARBEIT-BESETZUNG.md seit 16.11., 08:11 nicht neu geschrieben, obwohl Ford stündlich läuft (Läufe 09:16 bis 14:04 ohne --besetzung); 1407 (Zweig aus der Vorgangszeile) darum im Betrieb nicht prüfbar | Ford | M? | erledigt | – | – | – | B Abläufe | – |
-| 1444 | Von Perikles (1441): Stundenuhr dauerhaft beim Ford-Starter (LISTE-BETRIEB.md Selbstneustart, Ford-Starter); angehalten bis Probe 1441a | Ford | M | startbar | Chef 1441a | – | – | B Abläufe | – |
+| 1444 | Von Perikles (1441): Stundenuhr dauerhaft beim Ford-Starter (LISTE-BETRIEB.md Selbstneustart, Ford-Starter); angehalten bis Probe 1441a | Ford | M | startbar | 1441 | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
