@@ -226,7 +226,7 @@
 | 1405 | Systemlösung? Parade: 3 frühere Vorgänge (219, 662, 406.2), neu 1404; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 1411 | Von Chef (1292 A, 16.11., 11:49): Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei Heilung (Wundsegen, Kraft schöpfen fest, Tränke fest, Güte bei Tränken nur Idee 976); Vorlage nach 1403 | Sokrates | M | startbar | – | – | – | G Balance | – |
 | 1433 | Von Perikles: „Zu“ zu Erledigtem (1048, 1191, 1216, 644a.1) bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen (Chef 16.11., 14:13; Prüfung J, 1425) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1102,71 $ |
+| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1104,10 $ |
 | 1444 | Von Perikles (1441): Stundenuhr dauerhaft beim Ford-Starter (LISTE-BETRIEB.md Selbstneustart, Ford-Starter); angehalten bis Probe 1441a | Ford | M | startbar | 1441 | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
