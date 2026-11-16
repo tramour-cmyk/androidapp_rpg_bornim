@@ -166,8 +166,8 @@
     "_puffer": "an der Rangdecke werden bis zu 15 Uebung gemerkt",
     "probe_siege": 3,
     "grundwert_schwellen": [15, 25, 50, 75, 100],
-    "_grundwert_schwellen": "644a.1 B (Chef 14.11., 22:03, ersetzt 644a F grundwert_punkte 10): ein Grundwert steigt um 1, sobald die beste Fertigkeit an ihm den Wert 15, 25, 50, 75, 100 erreicht (Wert, nicht Gewinn; hoechstens +5; nur die beste je Grundwert); grundwert_von nach DESIGN-BRS.md Abschnitt 3 (1255 A), Lederarbeit wie Schneidern",
-    "grundwert_von": {"Einhänder": "kraft", "Zweihänder": "kraft", "Stangenwaffen": "kraft", "Stumpfe Waffen": "kraft", "Faustkampf": "kraft", "Einschüchtern": "kraft", "Bergbau": "kraft", "Schmieden": "kraft", "Dolche": "gewandtheit", "Wurfwaffen": "gewandtheit", "Bogen": "gewandtheit", "Ausweichen": "gewandtheit", "Schleichen": "gewandtheit", "Schlösser knacken": "gewandtheit", "Fallen entschärfen": "gewandtheit", "Schneidern": "gewandtheit", "Lederarbeit": "gewandtheit", "Leichte Rüstung": "zaehigkeit", "Mittlere Rüstung": "zaehigkeit", "Schwere Rüstung": "zaehigkeit", "Schild": "zaehigkeit", "Evokation": "verstand", "Illusion": "verstand", "Beschwörung": "verstand", "Handeln": "verstand", "Alchemie": "verstand", "Kochen": "verstand", "Runenkunde": "verstand", "Heilkunde": "verstand", "Heilmagie": "wille", "Schutzmagie": "wille", "Überreden": "wille", "Tiere beruhigen": "wille", "Armbrust": "wahrnehmung", "Spähen": "wahrnehmung", "Kräutersammeln": "wahrnehmung", "Angeln": "wahrnehmung", "Jagd": "wahrnehmung"},
+    "_grundwert_schwellen": "644a.1 B (Chef 14.11., 22:03, ersetzt 644a F grundwert_punkte 10): ein Grundwert steigt um 1, sobald die beste Fertigkeit an ihm den Wert 15, 25, 50, 75, 100 erreicht (Wert, nicht Gewinn; hoechstens +5; nur die beste je Grundwert); grundwert_von nach DESIGN-BRS.md Abschnitt 3 (1255 A), Schneidern (975a A, 1460)",
+    "grundwert_von": {"Einhänder": "kraft", "Zweihänder": "kraft", "Stangenwaffen": "kraft", "Stumpfe Waffen": "kraft", "Faustkampf": "kraft", "Einschüchtern": "kraft", "Bergbau": "kraft", "Schmieden": "kraft", "Dolche": "gewandtheit", "Wurfwaffen": "gewandtheit", "Bogen": "gewandtheit", "Ausweichen": "gewandtheit", "Schleichen": "gewandtheit", "Schlösser knacken": "gewandtheit", "Fallen entschärfen": "gewandtheit", "Schneidern": "gewandtheit", "Schneidern": "gewandtheit", "Leichte Rüstung": "zaehigkeit", "Mittlere Rüstung": "zaehigkeit", "Schwere Rüstung": "zaehigkeit", "Schild": "zaehigkeit", "Evokation": "verstand", "Illusion": "verstand", "Beschwörung": "verstand", "Handeln": "verstand", "Alchemie": "verstand", "Kochen": "verstand", "Runenkunde": "verstand", "Heilkunde": "verstand", "Heilmagie": "wille", "Schutzmagie": "wille", "Überreden": "wille", "Tiere beruhigen": "wille", "Armbrust": "wahrnehmung", "Spähen": "wahrnehmung", "Kräutersammeln": "wahrnehmung", "Angeln": "wahrnehmung", "Jagd": "wahrnehmung"},
     "_probe_siege": "Bewaehrungsprobe: 3 Siege gegen Gegner mindestens der eigenen Stufe, in denen die Fertigkeit benutzt wurde"
   },
 
@@ -411,7 +411,7 @@
       "Mittlere Rüstung": {"ding": "Kettenhemd", "preis": 50, "material": "Metall", "rang": "Geselle"},
       "Leichte Rüstung":  {"ding": "Lederrüstung", "preis": 10, "material": "Leder", "rang": "Anfänger"},
       "Schild":           {"ding": "Schild", "preis": 10, "material": "Metall", "rang": "Geselle"},
-      "material_fertigkeit": {"Metall": "Schmieden", "Leder": "Lederarbeit", "Stoff": "Lederarbeit", "Holz": "Schmieden"},
+      "material_fertigkeit": {"Metall": "Schmieden", "Leder": "Schneidern", "Stoff": "Schneidern", "Holz": "Schmieden"},
       "_holz": "A: Boegen repariert der Schmied (Geselle), N 11 nennt Boegen beim Gesellen ohne Werkstoff"
     },
 
@@ -461,7 +461,7 @@
       "Wildnis": ["Tiere beruhigen"],
       "Gesellschaft": ["Überreden", "Einschüchtern", "Handeln"],
       "Sammeln": ["Kräutersammeln", "Bergbau", "Angeln", "Jagd"],
-      "Meisterschaften": ["Schmieden", "Lederarbeit", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
+      "Meisterschaften": ["Schmieden", "Schneidern", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
       "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
     },
     "nicht_waehlbar": ["Bergbau", "Illusion", "Beschwörung"],

@@ -27,7 +27,7 @@ static func rang(wert: int) -> int:
 	return o.size() - 1
 
 ## 875 (857a A, Chef 10.11., 13:35): umbenannte Fertigkeiten; Spielstände aus Build 276 tragen noch den alten Namen
-const UMBENANNT := {"Kräuterkunde": "Kräutersammeln"}
+const UMBENANNT := {"Kräuterkunde": "Kräutersammeln", "Lederarbeit": "Schneidern"}   # 1460 (975a A, Chef 11.11., 17:04)
 static func neuer_name(f: String) -> String: return String(UMBENANNT.get(f, f))
 
 ## den Stand eines älteren Spielstands auf die heutigen Namen bringen (Wert, Übung, Decke, Probe, bekannt)
