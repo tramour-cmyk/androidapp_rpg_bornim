@@ -51,8 +51,8 @@ static var nach_licht: Array[ShaderMaterial] = []
 # als weiß (Flammen, Glut, Kristalle, Pilze, Augen; in der Höhle durch die Belichtung 1303 mehr) bekommt einen Schein. Anschalten:
 # Bildlauf --glow1270=1 (Vergleichsfilm; --gluehen gehört den Glühwürmchen 514), sonst aus. Gilt für Welt und Kampfort (kampfort.gd).
 static var gluehen := false
-const GLUEHEN_SCHWELLE := 0.5     # Abgleich am Rechner (Fackel, Feuer): 1,0 zeigt im Renderer mobile nichts, 0,3 hebt Rauch und Boden
-const GLUEHEN_KRAFT := 1.0
+const GLUEHEN_SCHWELLE := 0.9     # Abgleich am Rechner: 1,0 zeigt im Renderer mobile nichts; 0,5 ließ das angestrahlte Hemd des Helden an der Fackel glühen (Homer 16.11., Signatur 3), 0,3 hebt Rauch und Boden
+const GLUEHEN_KRAFT := 1.3
 
 static func gluehen_lesen() -> void:
 	for a in OS.get_cmdline_user_args():
