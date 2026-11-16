@@ -48,6 +48,8 @@ Letzte Antwort: Vorlage 431h liegt beim Chef (A Stufe 1 etwa 50–70 $, B beide 
 
 ## Einzelheiten
 
+- **Zu 1044, von Spike (1386, 16.11., 10:19):** UAL2 liegt im Kaufrepo (`LISTE-BESTAND.md`, Ruhelage gleich UAL1, geht über `HeldFigur.bewegungen`). Ruhige Haltungen dort: Idle_FoldArms, Idle_Lantern, Yes, Idle_No, Idle_Rail; alle stehen so breit wie UAL1 Idle (Fußabstand 3,0 × Hüftgelenke), kein schmaler Stand. Dazu Angeln, Ernten, Säen, Truhe, Tragen für Leute im Dorf.
+
 - **Zu 531, von Team Jerry (Tuffy 16.11., 08:23, 643):** `claude/tuffy-643-bogen` holen: `longbow.bin` (Griff = Ursprung, Arme +Y, Rücken +X; auch Held), `quiver.bin` (Mitte, Öffnung +Y, Rückseite −Z). Garrick: Köcher über rechter Schulter, Bogen darüber linke Hüfte → rechte Schulter (Dress.kt 543-589). `claude/tuffy-643-langbogen` ist ein leerer Irrläufer.
 
 - **Zu 785.24, von Homer (15.11., 20:08, 1318):** Kurzzeilen in `STORY-BRS-OBERFLAECHE.md` `[1318.kurz]` (fremd geprüft); {0} aus den Regelwerten, beim Verband und Braten mit der Fertigkeit des Helden. Heute fehlen „kurz“ für Ausdauertrank, Leuchtfunke, Verband, und `dinge_brs` schreibt „heilt %d“; nach 1320 „heilt {0} Leben“ / “heals {0} Life”.

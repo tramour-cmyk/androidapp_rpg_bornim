@@ -32,6 +32,28 @@ Namen aus `UAL1.glb` (Pro); `_Loop` weggelassen; **fett** = auch in Standard.
 
 **Fehlt** (Tom 27.10.): Stich, Schildabwehr, gehaltenes Ausholen; je Waffe nur ein Angriff.
 
+### Menschen: Quaternius Universal Animation Library 2 (UAL2, gekauft 16.11., 09:41; geprüft 1386, Spike 16.11.)
+
+| Datei (Asset-Id) | Ort | Lizenz | Format |
+|---|---|---|---|
+| `Universal.Animation.Library.2.Source.zip` (754088289, 53 MB) → `Unreal-Godot/UAL2.glb`, `UAL2_RM.glb` (mit Wurzelweg), `Unity/UAL2(_RM).fbx`, `UAL2.blend`, `root_motion_toggle.py`, `Female Mannequin/…/Mannequin_F.glb` (Frauenkörper ohne Bewegungen) | privat | CC0 (`License.txt` im Paket, 16.11.) | GLB, .blend, FBX |
+
+Gerüst: dieselben 65 Knochen wie UAL1, **Ruhelage gleich UAL1** (Drehung 0,0°, Längen gleich): geht überall, wo UAL1 geht, ohne neue Zuordnung. Probe auf Regular Mann und Frau (Grundkörper Volk Mensch) wie `HeldFigur.bewegungen`: Füße am Boden, Hände und Kopf ohne Verdrehung. Godot kürzt beim Import `_Loop` weg. 134 Bewegungen (Namen aus `UAL2_RM.glb`, `_Loop` weggelassen):
+
+| Gruppe | Bewegungen |
+|---|---|
+| Stehen | Idle_FoldArms (Arme verschränkt), Idle_Lantern (Laterne), Idle_No, Yes (Nicken), Idle_Rail/Idle_Rail_Call (an Geländer lehnen, rufen), Surprise, Idle_TalkingPhone (unbrauchbar), Turn180_L/R |
+| Alltag | Fish_Cast, Fish_Cast_Idle, Fish_OH_Idle, Fish_Reel, Fish_Reel_Failed (Angeln); Farm_Harvest, Farm_PlantSeed, Farm_ScatteringSeeds, Farm_Watering, Farm_PickingTree; Chest_Open; Mining, TreeChopping; Walk_Carry (Tragen); Consume, Bandage; IdleToLay, LayToIdle (Hinlegen, Aufstehen) |
+| Gehen | Walk_Fwd/Bwd/L/R und schräg (8 Richtungen) |
+| Schwert | Sword_Light_A–D, Sword_Regular_A–C, Sword_Heavy_A–D (je mit _Rec), Sword_Light/Regular/Heavy_Combo, Sword_Block, Sword_Dash, Sword_UpperCut, Sword_GroundPound, Sword_Aerial_A/B/Combo/Idle |
+| Schild | Idle_Shield, Idle_Shield_Break, Shield_Dash, Shield_OneShot, Sprint_Shield |
+| Faust, Wurf, Bogen | Melee_Combo, Melee_Hook, Melee_Knee, Melee_Uppercut (je _Rec); OverhandThrow; Bow_Notch, Bow_Aim_Up/Neutral/Down, Bow_Shoot, Bow_RapidShoot |
+| Treffer, Fallen | Hit_Knockback (Zurückstoßen bis zum Boden), KipUp (Aufspringen), LiftAir, LiftAir_Idle, LiftAir_Hit_L/R, LiftAir_Fall, LiftAir_Fall_Air, LiftAir_Fall_Impact (hochgeschleudert, Aufprall) |
+| Untote | Zombie_Idle, Zombie_Walk und Zombie_Run je 8 Richtungen, Zombie_Bite, Zombie_Scratch, Zombie_Spawn (aus dem Boden), MonsterTransformation |
+| Klettern, Springen | ClimbUp_1m/2m, StepUp, SafetyVault, GetOffWall_2m, DoubleJump, JogToFlip, NinjaJump_*, Slide_*, WallRun_* |
+
+**Fehlt:** Winken (nächstes: Idle_Rail_Call, Hand am Mund); schmaler ruhiger Stand: die Stehhaltungen stehen so breit wie UAL1 Idle (Fußabstand 3,0 × Abstand der Hüftgelenke, gemessen), lösen 1044 allein nicht.
+
 ### Menschen: Protofactor Animset Wizard (385, gekauft 27.10., 21:10)
 
 | Datei (Asset-Id) | Ort | Lizenz | Format |
@@ -238,4 +260,3 @@ Dungeon: kein fremder Bausatz im Bestand.
 |---|---|
 | Kenney Survival Kit | Dreiecke laut `LISTE-QUELLEN.md` „aus den OBJ gezählt“; nirgends abgelegt |
 | RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“ (JuanChee, 7 $) | Chef „checken“, Votum offen; nicht im privaten Repo, Kauf nicht belegt |
-| Universal Animation Library 2 | CC0 laut Seite, nicht geladen |
