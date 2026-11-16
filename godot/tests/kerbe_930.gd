@@ -163,6 +163,17 @@ func _r3() -> void:
 		var hp: int = h.hp
 		m.gk.held_zug(h, {"tun": Kerbe.WARTEN, "loesen": true, "haltung": Kerbe.WEHR if wehr else Kerbe.GEGENSCHLAG})
 		ok("Regel 3", (h.hp == hp) == wehr, "schneller Wolf setzt nach: %s (Haltung %s)" % ["nein" if h.hp == hp else "ja", "Wehr" if wehr else "Gegenschlag"])
+	# 1275 (Regel 3 „außer die Haltung ist Wehr“): auch die vorgeschlagene Wehr (Haltung AUTO bei angesagtem großem Schlag) schützt
+	h = _held()
+	m = _kampf(h, ["wolf"], {"nur_einrichten": true})
+	g = m.all[1]
+	g.gl.ab = Kerbe.NAH
+	_plan(g, true)
+	_zug(m, h)
+	var hp2: int = h.hp
+	var vor: String = m.gk.vorschlag_haltung(h)
+	m.gk.held_zug(h, {"tun": Kerbe.WARTEN, "loesen": true, "haltung": Kerbe.AUTO})
+	ok("Regel 3", vor == Kerbe.WEHR and h.hp == hp2 and h.gl.haltung == Kerbe.WEHR, "vorgeschlagene Wehr: der Wolf setzt nicht nach (%s, Leben %d → %d)" % [vor, hp2, h.hp])
 
 
 func _r4() -> void:
@@ -180,6 +191,21 @@ func _r5() -> void:
 	_zug(m, h)
 	m.gk.held_zug(h, {"tun": Kerbe.WARTEN, "tausch": Vector2i(Mars.BACK, 0), "haltung": Kerbe.WEHR})
 	ok("Regel 5", h.place == Vector2i(Mars.BACK, 0) and int(h.gl.frei) == 0 and int(h.gl.bereit) == 3, "Platztausch kostet den freien Schritt, keine Kerbe")
+	# 1275: über die Knopfzeile (act „swap“) beendet der Tausch den Zug nicht; danach Schlag und Haltung, kein zweiter Tausch
+	_treffer(0)
+	var h2 := _held()
+	var m2 := _kampf(h2, ["goblin"], {"nur_einrichten": true})
+	var g2 = m2.all[1]
+	g2.gl.ab = Kerbe.NAH
+	m2.turn = 0
+	m2.order = [h2, g2]
+	_zug(m2, h2)
+	var konnte: bool = m2.can_swap(h2)
+	m2.act(["swap", Vector2i(Mars.BACK, 0), false])
+	var nach := [konnte, m2.current() == h2, h2.place == Vector2i(Mars.BACK, 0), int(h2.gl.frei), int(h2.gl.kerben), m2.can_swap(h2)]
+	ok("Regel 5", nach == [true, true, true, 0, 3, false], "Knopf Tausch: der Zug geht weiter, alle Kerben bleiben, kein zweiter %s" % str(nach))
+	_zug(m2, h2)
+	ok("Regel 5", m2.can_swap(h2), "im nächsten Zug wieder tauschen")
 
 
 func _r6() -> void:
@@ -326,6 +352,21 @@ func _r10() -> void:
 	m2.gk.held_zug(h2, {"tun": Kerbe.WAFFE, "ziel": g2.id, "haltung": Kerbe.WEHR})
 	ok("Regel 10", int(h2.gl.bereit) == 1 and h2.gl.marken.count(Kerbe.M_GESCHLAGEN) == 2,
 		"Tasche, dann Schlag und Wehr: eine Kerbe bleibt (%d, %s)" % [int(h2.gl.bereit), str(h2.gl.marken)])
+	# 1275 (Regel 10 „Waffe wechseln … einmal je Zug“ frei): act „draw“ spielte den Vorschlag, also einen Angriff; jetzt frei, Zug geht weiter
+	_treffer(0)
+	var h3 := _held()
+	h3.second = (h3.hero.main as Dictionary).duplicate()
+	h3.second.id = "y"
+	var m3 := _kampf(h3, ["goblin"], {"nur_einrichten": true})
+	var g3 = m3.all[1]
+	g3.gl.ab = Kerbe.NAH
+	m3.turn = 0
+	m3.order = [h3, g3]
+	_zug(m3, h3)
+	m3.act(["draw"])
+	var cues := _cues(m3)
+	var nach_w := [m3.current() == h3, h3.drawn, int(h3.gl.kerben), m3.can_draw(h3), cues.has("KERBE_HALTUNG_WEHR") or cues.has("KERBE_HALTUNG_GEGENSCHLAG")]
+	ok("Regel 10", nach_w == [true, true, 3, false, false], "Waffe wechseln: frei, kein Angriff, der Zug geht weiter, einmal je Zug %s" % str(nach_w))
 
 
 func _r11() -> void:

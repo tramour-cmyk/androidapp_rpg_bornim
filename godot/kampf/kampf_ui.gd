@@ -1030,7 +1030,7 @@ func _build_orders() -> void:
 				if spare != null:
 					items.append(_button(label + " + " + spare[["de", "en"][lang]], m.can_swap(f), func(): k.order(["swap", spot, true])))
 			if spare != null:
-				items.append(_button(t("Waffe: ", "Weapon: ") + spare[["de", "en"][lang]], true, func(): k.order(["draw"])))
+				items.append(_button(t("Waffe: ", "Weapon: ") + spare[["de", "en"][lang]], m.can_draw(f) if m.kerbe else true, func(): k.order(["draw"])))     # 1275: einmal je Zug
 			items.append(back)
 			_choices(items)
 		"skills":
