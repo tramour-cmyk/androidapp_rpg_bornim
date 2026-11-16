@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 10:09, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 10:11, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,7 +12,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 69 | 30 | 2 | 10 | 9 | 1323 (Jerry) Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} L… |
+| ↳ Kampf passt | 69 | 29 | 2 | 10 | 9 | 1284 (Jerry) Riesenratte sagt „Biss“ an, Bericht „Riesenratte… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 14 | 6 | 0 | 1 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 12 | 2 | 1 | 0 | 3 | 1386 (Spike) Bewegungspaket UAL2 nach dem Kauf prüfen |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 12 | 20 | 1397 (Tom) Prüflisten t290, t291 berichtigen: Bild- und Film… |
@@ -24,10 +24,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 10 weitere |
+| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 9 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 2 weitere |
-| Jerry | 1323 Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Rest… (Muss); dann 2 weitere |
-| Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
+| Jerry | 1284 Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, abe… (Muss); dann 2 weitere |
+| Tuffy | 1323 Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Rest… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | 1397 Übernahme von Tom: Prüflisten t290, t291 berichtigen: Bild- und Filmpunkte nur… (Muss) |
 | Homer | 1401 Namen und kurze Texte DE/EN für die Startstücke Oberkörper… (Muss) |
 | Diogenes | leer, weil 3 Termin, 1 ruht bis, 1 wartet auf |
@@ -39,9 +39,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1397 | Tom | Prüflisten t290, t291 berichtigen: Bild- und Filmpunkte nur Telegram, „Wo und w… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 2 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
-| 3 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
-| 4 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
+| 2 | 1284 | Jerry | Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, aber kein Biss zu sehen… | M | Kampf passt | in Arbeit |
+| 3 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
+| 4 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
 | 5 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
 | 6 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
 | 7 | 1401 | Homer | Namen und kurze Texte DE/EN für die Startstücke Oberkörper Klosterschüler, Kräu… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
@@ -70,7 +70,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [1291a](entscheiden/1291a-nebenhand.md) | **Muss** | E Kampf | 16.11., 08:30 | Eine Waffe in der Nebenhand tut heute nichts, weder im Kampf noch am Helden; Empfehlung: die Nebenhand nimmt nur noch Schild und Fackel. | Tuffy |
 | [1352a](entscheiden/1352a-taumeln.md) | **Muss** | E Kampf | 16.11., 00:20 | Taumeln wie im alten Kampf (ein Fünftel seines Lebens seit seiner Ansage) oder im Kampf mit Kerben streichen? | Homer |
 | [1351](entscheiden/1351-rechtepruefung-bildlauf.md) | **Muss** | B Abläufe | 16.11., 00:10 | Die Rechteprüfung der Sitzungen hält unseren eigenen, freigegebenen Bildlauf für eine Umgehung; eine Erklärzeile in den Einstellungen würde das beheben. | Perikles |
-| [1284a](entscheiden/1284a-rattenbiss-sicht.md) | **Muss** | E Kampf | 15.11., 23:03 | Die Ratte beißt von hinter dem Helden und ist verdeckt; Platz zur Seite reicht nur, wo er frei ist. | Jerry |
 
 ## Zu billigen
 
