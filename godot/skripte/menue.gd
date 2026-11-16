@@ -1645,9 +1645,9 @@ func tippe_fach(platz: String) -> void:
 # Hauptmenü; Anleitung, Über), „Kampf“ (Blut, Tempo, Kampftext, Rückfragen), „Bedienung“ (Steuerung, Joystick und Rennen nur beim
 # Wischen, Aktion; Karte, Rütteln, Schritte). Antippen wechselt, Gedrueckthalten erklaert (erklaere_zeichen); Regler fuer Klang und
 # Licht bleiben; unten Schritte und Siege, Geraet. Die MARS-Probe (alt „M“) folgt mit ihrem Schirm (Jerry).
-# 698: Erklärung des Zeichens „Grafik“ (vorläufig, Wortlaut bei Homer, Vorgang 1370)
-const GRAFIK_SATZ := ["Wie viel das Handy zeichnet. Automatisch wählt selbst und geht herunter, wenn es ruckelt. Niedrig spart Schatten, Schärfe und Effekte; die Tuschelinie bleibt. Gras und Effekte wechseln am nächsten Ort.",
-	"How much the phone draws. Automatic chooses by itself and steps down when the game stutters. Low saves shadows, sharpness and effects; the ink line stays. Grass and effects change at the next place."]
+# 698: Erklärung des Zeichens „Grafik“ ([1370.grafik.satz], STORY-MENUE.md)
+const GRAFIK_SATZ := ["Wie viel das Handy zeichnet. Antippen wechselt: Automatisch, Hoch, Mittel, Niedrig. Automatisch geht eine Stufe herunter, wenn es ruckelt, und nie von selbst herauf. Niedrig spart an Schatten, Schärfe und Effekten; Schrift und Tuschelinie bleiben, wie sie sind. Gras und Effekte wechseln erst beim nächsten Ortswechsel oder Kampf.",
+	"How much the phone draws. Tap to change: automatic, high, medium, low. Automatic steps down one level when the game stutters and never steps back up on its own. Low cuts back on shadows, sharpness and effects; text and the ink line stay as they are. Grass and effects change the next time you enter a place or a fight."]
 const HINWEIS := {"de": "Halte ein Zeichen gedrückt, und es erklärt sich.", "en": "Press and hold a sign to see what it does."}
 
 func system() -> void:
