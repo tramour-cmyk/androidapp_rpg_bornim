@@ -115,7 +115,10 @@ func _run() -> void:
 				im_schuss = true
 				nach = 0
 				Engine.time_scale = 1.0
-				_stelle_kamera(spaeher, _naechster_held(kf, spaeher))
+				# 601.1 (t291.8, Chef 16.11., 12:24: „Held zuckt nicht“): der Schuss galt Hilde außerhalb des Bilds, die Kamera nahm den
+				# nächsten Helden; jetzt das Ziel des Schusses
+				var ziel_id = b0.say.get("target")
+				_stelle_kamera(spaeher, kf.figures[ziel_id] if ziel_id != null and kf.figures.has(ziel_id) else _naechster_held(kf, spaeher))
 				cam.make_current()
 				_schirm(kf, false)     # Ring und Zeilen sind auf die Spielkamera gerechnet; im Film nur der Schuss
 				await _blende(0.0)
@@ -162,9 +165,10 @@ func _stelle_kamera(by, on) -> void:
 	var zur_kamera := (quer * cos(deg_to_rad(30.0)) - vor * sin(deg_to_rad(30.0))).normalized()
 	var vs: Vector2 = root.get_visible_rect().size
 	var hfov := 2.0 * atan(tan(deg_to_rad(cam.fov) / 2.0) * vs.x / maxf(vs.y, 1.0))
-	var d := (weit * 0.5 * cos(deg_to_rad(30.0)) + 0.5) / tan(hfov / 2.0)
+	# 601.1 (Film t291.8 und Rechner: das Ziel stand am linken Rand angeschnitten): mehr Rand, Blick auf die Mitte
+	var d := (weit * 0.5 * cos(deg_to_rad(30.0)) + 1.2) / tan(hfov / 2.0)
 	cam.global_position = mitte + zur_kamera * d + Vector3.UP * (hoch * 0.9 + d * 0.08)
-	cam.look_at(mitte.lerp(a, 0.2) + Vector3.UP * hoch * 0.5)
+	cam.look_at(mitte + Vector3.UP * hoch * 0.5)
 	cam.rotate_object_local(Vector3.RIGHT, -deg_to_rad(cam.fov) / 6.0)
 
 
