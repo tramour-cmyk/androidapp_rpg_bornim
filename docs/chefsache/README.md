@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 06:54, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 06:55, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,7 +14,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 75 | 31 | 4 | 6 | 9 | 1362 (Jerry) Filme t291.6 und t291.8 vom Stand claude/build-29… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 12 | 25 | 643 (Jerry) Langbogen mit Köcher als Waffenmodell für Garrick… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 59 | 12 | 1 | 12 | 25 | 1365 (Homer) Satz für die einmalige Blende beim ersten Start,… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 7 | 0 | 6 | 4 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
 | Werkzeuge und Abläufe der Firma | 58 | 35 | 0 | 0 | 9 | 1364 (Perikles) Arbeit verteilen, keine Rolle leer, solange Jerry… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -34,17 +34,17 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 9 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
 | 10 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
 | 11 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
-| 12 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 14 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 18 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 20 | 649.2 | Jerry | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json, S… | K | Kampf passt | startbar |
+| 12 | 1365 | Homer | Satz für die einmalige Blende beim ersten Start, während das Spiel die Grafik e… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 13 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 15 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 
-Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 66.
+Danach 96 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 66.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
