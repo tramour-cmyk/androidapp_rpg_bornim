@@ -1,4 +1,7 @@
 # 1341 · Reiter Ausrüstung: lange Gegenstandsnamen (t290.6 neu) · Tom · 16.11., 14:57
+
+[Bild von 16.11., 14:57](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1457-1341-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Bild auf Telegram (ersetzt t290.6 vom 15.11., 21:32)
 
 E Oberfläche
