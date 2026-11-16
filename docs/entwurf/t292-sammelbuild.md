@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 292 · · Sammelbuild: Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen · PR folgt
+# Tom und Jerry · Build 292 · · Sammelbuild: Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen · [PR #211](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/211)
 E Technik · Jerry (1285; ohne dich 643, 1305, 1333, 1366), Spike (698, 1286, 1145), Tom (ohne dich 1383) · 16.11., 09:50 · APK folgt
 
 Sammelbuild 1393 auf Build 291 aufgesetzt (enthält alles aus 291, 290 und `main`); die Punkte der Listen 290 und 291 kommen hier nicht noch einmal, beide bleiben offen, bis du sie fertig getestet hast.
