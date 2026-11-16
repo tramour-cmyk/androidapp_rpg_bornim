@@ -101,14 +101,20 @@ def kampf(W, H, held, mon_name, rng, opt):
     s = {"leben": held.leben_max(), "mana": held.mana_max(), "bann": 0.0, "liegt": False, "betaeubt": 0,
          "bereit": 0, "haltung": None, "minus": 0, "funke_da": held.stufe >= 4, "funke_jetzt": False, "ringe": 0}
     lmax = s["leben"]
+    if "start" in opt:                                             # 1292: Kette ohne Rast, Leben und Mana aus dem Kampf davor
+        s["leben"], s["mana"] = opt["start"]
     st = {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "nachgelegt": 0, "funke": 0,
-          "ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0}
+          "ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "wundsegen": 0, "geheilt": 0.0, "gebet": 0}
     pol = opt.get("politik", "schlag_haltung")
 
     def ring(wehr):
         p = RING_WEHR if wehr else RING
         r = rng.random()
         return 0.0 if r < p[0] else (0.5 if r < p[0] + p[1] else 1.0)
+
+    def heilen(zb):
+        n = min(lmax - s["leben"], round(sim.zauber_grund(W, held, zb) * (1 + held.f(zb["schule"]) / 100.0) * opt.get("wundsegen_faktor", 1.0)))
+        s["leben"] += n; st["geheilt"] += n / lmax
 
     def funke_pruefen(perfekt=False):
         if s["funke_da"] and (perfekt or s["leben"] < 0.5 * lmax):
@@ -132,6 +138,8 @@ def kampf(W, H, held, mon_name, rng, opt):
                 f = ring(wehr)
                 if f == 0.0:
                     funke_pruefen(True)
+                    if opt.get("gebet") and "Wundsegen" in held.zauber and waffe_name != "Dolche" and not fern:
+                        heilen(z["Wundsegen"]); st["gebet"] += 1   # 1292: wie das Spiel (mars.gd _perfect_answer GEBET), ohne Mana
             else:
                 st["ringe_gekappt"] += 1
         if schaden:
@@ -285,9 +293,10 @@ def kampf(W, H, held, mon_name, rng, opt):
             zb = z["Bannschild"]; s["mana"] -= zb["kosten"]
             s["bann"] = zb["ruestung"] * (1 + held.f(zb["schule"]) * k["ruestungsfertigkeit_im_abzug_je_punkt"])
             s["bereit"] = glut - 1; s["haltung"] = haltung_waehlen(); return
-        if "Wundsegen" in held.zauber and s["leben"] < lmax * z["Wundsegen"]["heilen_unter"] and s["mana"] >= z["Wundsegen"]["kosten"]:
-            zb = z["Wundsegen"]; s["mana"] -= zb["kosten"]
-            s["leben"] = min(lmax, s["leben"] + round(sim.zauber_grund(W, held, zb) * (1 + held.f(zb["schule"]) / 100.0)))
+        if "Wundsegen" in held.zauber and s["leben"] < lmax * z["Wundsegen"]["heilen_unter"] and s["mana"] >= z["Wundsegen"]["kosten"] \
+                and st["wundsegen"] < opt.get("wundsegen_max", 999):
+            zb = z["Wundsegen"]; s["mana"] -= zb["kosten"]; st["wundsegen"] += 1     # 1292: Zähler und Obergrenze je Kampf (Option)
+            heilen(zb)
             s["bereit"] = glut - 1; s["haltung"] = haltung_waehlen(); return
         nahe = [g for g in lebend() if g.ab == 0]
         if fa:
@@ -426,15 +435,15 @@ def kampf(W, H, held, mon_name, rng, opt):
         planen()
         held_zug(runde)
         if gewonnen():
-            return dict(st, sieg=True, runden=runde, leben=max(0.0, s["leben"]) / lmax)
+            return dict(st, rest=(s["leben"], s["mana"]), sieg=True, runden=runde, leben=max(0.0, s["leben"]) / lmax)
         gegner_zug()
         if gewonnen() and s["leben"] > 0:
-            return dict(st, sieg=True, runden=runde, leben=max(0.0, s["leben"]) / lmax)
-    return dict(st, sieg=False, runden=runde, leben=max(0.0, s["leben"]) / lmax)
+            return dict(st, rest=(s["leben"], s["mana"]), sieg=True, runden=runde, leben=max(0.0, s["leben"]) / lmax)
+    return dict(st, rest=(s["leben"], s["mana"]), sieg=False, runden=runde, leben=max(0.0, s["leben"]) / lmax)
 
 
 KEYS = ("zuege", "gegenschlag", "wachschuss", "wehr", "verfallen", "nachgelegt", "funke", "ringe_gekappt", "getaeuscht",
-        "netz", "prankenhieb")
+        "netz", "prankenhieb", "wundsegen", "geheilt", "gebet")
 
 
 def messe(W, H, held, gegner, n, rng, opt):
