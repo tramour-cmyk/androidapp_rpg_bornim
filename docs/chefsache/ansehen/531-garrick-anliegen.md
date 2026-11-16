@@ -1,5 +1,7 @@
 # 531 · Garrick: Köcher, Bogen, Gurt liegen an, Kapuze kleiner · Tom · 16.11., 21:55
 
+[Bild von 16.11., 21:55](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-2155-531-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Leute · Tom · 16.11. · aus deinem Wort 17:34 (531.2): „Da schwebt ein Gürtel über Schulter und durch die Kapuze und die Kapuze ist größer … der Köcher schwebt auch und der Bogen schwebt auch … Beides fail“
 
 Geprüft an: Lauf 43935087465 (`claude/tom-531-film`, `b6d80be96`), Bauserver; Messung `schweben_531` 0 Fehler
