@@ -282,8 +282,10 @@ MENUEPFAD = re.compile(r"Menü\s*→|\bReiter\b|Lage herstellen")
 HANDY_LESEN = re.compile(r"(?i)\b(lesen|liest|durchblättern|Text\w*|Handbuch\w*)\b")
 # 1427 (Chef 16.11., 13:31 zu t291.3 „nicht langsamer da als in Build 290“: „Völlig sinnlose Frage. Die kann ein Mensch nicht beantworten.“):
 # Vergleich mit einem früheren Build oder „wie vorher“ an einer Handy-Zeile nur mit gemessener Zahl (0,7 s, 30 Bilder/s, 12 %)
+# 1446 (D273.1): auch „wie in 290“ ohne „Build“, „als zuletzt“, „wie gewohnt“; die Messzahl zählt nur im selben Satzteil
 VERGLEICH = re.compile(r"(?i)\b(?:als|wie)\s+(?:in\s+|im\s+|bei\s+|mit\s+)?(?:dem\s+)?(?:Build\s*|t)\d{3}\b"
-                       r"|\b(?:als|wie)\s+(?:vorher|bisher|früher|zuvor|sonst|gestern|beim letzten (?:Mal|Build))\b")
+                       r"|\b(?:als|wie)\s+(?:in|im|bei|mit)\s+(?:dem\s+)?\d{3}\b(?!\s*(?:m|cm|km|Gold|EP)\b)"
+                       r"|\b(?:als|wie)\s+(?:vorher|bisher|früher|zuvor|zuletzt|sonst|gestern|gewohnt|immer|beim letzten (?:Mal|Build))\b")
 GEMESSEN = re.compile(r"\d+(?:,\d+)?\s*(?:s|ms|Sek\w*|Min\w*|fps|Bilder/s|%|Prozent)(?![\wäöü])")
 
 
@@ -308,8 +310,8 @@ def art_weg_befunde(inhalt):
             m = HANDY_LESEN.search(wo)
             if m: out.append(("warn", "Zeile %s Art Handy mit „%s“: nur Lesen ist Bild oder „ohne dich“, nicht Handy (1398)" % (r[0], m.group(0))))
             ganz = re.sub(r"\[[^\]]*\]\([^)]*\)", "", " | ".join(r[sw:])) if sw >= 0 else ""
-            m = VERGLEICH.search(ganz)
-            if m and not GEMESSEN.search(ganz):
+            m = next((v for v in (VERGLEICH.search(teil) for teil in re.split(r"[;|]", ganz) if not GEMESSEN.search(teil)) if v), None)
+            if m:
                 out.append(("vergleich", "Zeile %s Art Handy vergleicht aus dem Gedächtnis („%s“); kein Mensch weiß das noch: gemessene Zahl "
                             "(Reiter „Test“ → „Gerät“) oder Bild/Film alt gegen neu (1427, LISTE-CHECK-BUILD-TEST.md 10)" % (r[0], m.group(0))))
     weg = re.search(r"(?m)^\W*Ein Weg:?\**(.*)$", inhalt)

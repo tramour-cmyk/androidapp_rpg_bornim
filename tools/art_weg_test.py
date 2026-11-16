@@ -28,4 +28,13 @@ B7 = "| 9.7 | Spike | 7 | Bild | links Build 292, rechts neu, gleich hell wie in
 soll("Vergleich aus dem Gedächtnis", arten(liste("Weiter, 9.5.", H5)), ["vergleich"])
 soll("Vergleich mit Messzahl frei", arten(liste("Weiter, 9.6.", H6)), [])
 soll("Bild alt gegen neu frei", arten(liste("Weiter, 9.1.", H1, B7)), [])
+# 1446: Lücken aus D273.1
+H8 = "| 9.8 | Spike | 8 | Handy | Höhle laden | in 2 s da; nicht dunkler als in Build 290 | b |"
+H9 = "| 9.9 | Spike | 9 | Handy | Höhle laden | a | langsamer wie in 290 |"
+H10 = "| 9.10 | Spike | 10 | Handy | Höhle laden | so flüssig wie gewohnt | b |"
+H11 = "| 9.11 | Spike | 11 | Handy | Brücke | Fall wie in 200 m Höhe | b |"
+soll("Zahl in anderem Satzteil gibt nicht frei", arten(liste("Weiter, 9.8.", H8)), ["vergleich"])
+soll("wie in 290 ohne Build", arten(liste("Weiter, 9.9.", H9)), ["vergleich"])
+soll("wie gewohnt", arten(liste("Weiter, 9.10.", H10)), ["vergleich"])
+soll("Meterangabe kein Build", arten(liste("Weiter, 9.11.", H11)), [])
 sys.exit(1 if fehl else 0)
