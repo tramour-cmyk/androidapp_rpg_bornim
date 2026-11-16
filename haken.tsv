@@ -670,3 +670,4 @@
 2026-11-16 18:19:33	probelauf	1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert (6 Dateien, etwa tools/blender348/grak-cc0-probe.sh). Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je Kl	claude/jerry-1072-t293
 2026-11-16 18:23:37	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1072 schon 1 Probelauf seit deinem Urteil 2026-11-14 20:31:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch	claude/jerry-1072-t293
 2026-11-16 18:23:52	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1072 schon 1 Probelauf seit deinem Urteil 2026-11-14 20:31:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch	claude/jerry-1072-t293
+2026-11-16 18:46:05	commit-pruefung	docs/chefsache/ansehen/431h-kleidung-stufe1.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
