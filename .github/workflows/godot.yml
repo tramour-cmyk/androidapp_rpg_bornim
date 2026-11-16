@@ -1929,7 +1929,9 @@ jobs:
           cd godot
           command -v ffmpeg > /dev/null || { sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq ffmpeg > /dev/null; }
           sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
-          timeout 600 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+          # Lauf 529: mit opengl3 (Compatibility) zeigte der Film keinen Staub, auch vorher nicht; das Handy zeichnet mit Mobile (Vulkan),
+          # wie der Staubfilm 1119
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
             --write-movie $RUNNER_TEMP/staub1420.avi --fixed-fps 30 -s res://tests/film_staub_1420.gd -- --film1420 > $A/staub1420.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1420|^BEGINN" $A/staub1420.log | cut -c1-300 || true
           s=$(grep -oE "^FILM1420 village vorher \(Bild [0-9]+" $A/staub1420.log | grep -oE "[0-9]+$" || echo 0)
