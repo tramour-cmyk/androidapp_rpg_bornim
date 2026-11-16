@@ -80,6 +80,18 @@ EN: A fantasy role-playing game told in chapters. Explore the village of Bornim 
 
 `[870.15.namen.monster]` Bärenschrat = **bearbrute** (im Satz klein wie „wolf“; Krogg bleibt „Krogg der Grobian“ / „Krogg the Brute“); Goblin-Hauptmann = **goblin captain** (Grak bleibt „Hauptmann Grak“ / „Captain Grak“). Riesenegel / Giant Leech und Säureschnecke / Acid Slug gelten statt Blutflügler und Ockerschleim (348.12c, `LISTE-BESTIARIUM.md`); `brs.gd` 14, 17 und `tabellen.json` („Stirge“, „Ockergallerte“) ziehen nach (870.3); in `[870.14.gegen.flueger]` und `[870.14.gegen.schleim]` gelten dieselben Wortlaute für Riesenegel und Säureschnecke. Interne Kennungen („bugbear“, „hobgoblin_captain“, „stirge“) dürfen bleiben, solange kein Spieler sie sieht.
 
+`[1473.namen]` (649b A, Homer 16.11.; Grundlage 348.12c A, Chef 03.11., 15:40: „Wiedergänger, Grabhund, Riesenegel, Säureschnecke gelten“) **Ein Name je Figur**, überall gleich: Anzeigename, Zeile der Monsterwerte (`art`), Listen im Kampfcode. Die alten Namen erscheinen nirgends mehr, auch nicht als Zeile der Regelwerte; interne Kennungen bleiben.
+
+| Kennung | Deutsch | Englisch | ersetzt |
+| --- | --- | --- | --- |
+| `stirge` | Riesenegel | Giant Leech | Blutflügler, Stirge |
+| `ochre_jelly` | Säureschnecke | Acid Slug | Ockerschleim, Ockergallerte |
+| `zombie` | Wiedergänger | Revenant | Zombie |
+| `ghoul` | Grabhund | Grave Hound | Ghul |
+| `dire_wolf` | Grimmzahn, der Leitwolf (kurz Grimmzahn) | Grimfang, the Pack Leader (kurz Grimfang) | „Grimfang the Alpha“ (Leitwolf heißt englisch „pack leader“, `[1229.leitwolf]`) |
+
+Mehrzahl für Gruppen: Riesenegel, Säureschnecken, Wiedergänger, Grabhunde / Giant Leeches, Acid Slugs, Revenants, Grave Hounds. Die übrigen Zeilen der Kennungstabelle (`werte.json` „kennungen“, Stand `main` 16.11.) sind widerspruchsfrei und gelten so. Die Hintergrundtexte `[428.egel]`, `[428.wiedergaenger]`, `[428.grabhund]`, `[428.saeureschnecke]` (`LISTE-BESTIARIUM.md`) waren freigegeben unter der Bedingung des Kaufs; der Kauf ist entschieden (348.12c A), sie gelten. Liefert die Prüfung aus 1385 weitere Widersprüche, entscheide ich sie hier nach.
+
 Neuer Wortlaut (Tom, Schritt 8; Texte in `STORY-K1-HANDLUNG.md`, `STORY-K1-WELT.md`, `STORY-CHRONIK-TEXTE-K1.md` nachgezogen):
 
 - `geschichte.gd` 345 Aldric: Doch nun führt sie ein Goblin-Hauptmann namens Grak – grausam und gerissen. / EN: But now they're led by a goblin captain called Grak, cruel and cunning.

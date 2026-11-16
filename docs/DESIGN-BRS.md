@@ -368,14 +368,15 @@ Seltenheit und Güte sind getrennt: ein gewöhnliches Schwert kann meisterhaft g
 | Feuerball, Brennende Hände, Magisches Geschoss, Magierrüstung, Schild (Zauber), Wunden heilen | Glutkugel, Flammenfächer, Arkanpfeil, Arkanhaut, Bannschild, Wundsegen |
 | Zaubertrick, Feuerpfeil, Heilige Flamme, Segnen, Sengender Strahl | Kleinzauber, Funkenpfeil, Gleißstrahl, Beistand, Glutstrahlen (Ember Rays; Homer 870.14) |
 | Zweiter Atem, Tatendrang, Kampfstil Verteidigung | Kraft schöpfen, Doppelzug, Wehrhaltung |
-| Stirge, Ockergallerte, Grottenschrat (Krogg), Hobgoblin (Grak) | Blutflügler, Ockerschleim, Bärenschrat, Goblin-Hauptmann |
+| Stirge, Ockergallerte, Grottenschrat (Krogg), Hobgoblin (Grak) | Riesenegel, Säureschnecke, Bärenschrat, Goblin-Hauptmann (Zwischennamen Blutflügler, Ockerschleim entfallen; 348.12c A, 1473 `[1473.namen]`) |
+| Zombie, Ghul | Wiedergänger, Grabhund (348.12c A, 1473) |
 | Rüstungsklasse, Übungsbonus, Rettungswurf, Vorteil/Nachteil | Schutzwert, Fertigkeitsbonus, Abwehrprobe, Gunst/Ungunst |
 | Zauberpunkte, Zauberplatz | Mana |
 | Aktionspunkte (Entwurf „Glut“), Nachlegen, Verglimmen, Funke | Kerbe / Notch, Vertiefen / Deepen, Verstreichen / Lapse, Goldkerbe / Gold Notch (1260 D, Chef 15.11.; Homer 1265) |
 | Kurze Rast, Lange Rast | Kurze Erholung (2 Stunden), Langes Ausruhen (9 Stunden) |
 | Klassen Kämpfer, Schurke, Kleriker (die Klasse Magier ebenso; das Wort bleibt als Pfad, 954.2) | entfallen; dafür Pfade |
 
-Folklore-Wesen (Goblin, Kobold, Skelett, Zombie, Ghul) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg und kritischer Treffer; Trefferpunkte heißen **Leben** (EN Life), auch an Zahlen, nie TP, LP oder HP (1320, Chef 15.11., 20:15); der Trefferwürfel entfällt mit dem neuen Kampf. Die Wirkungen der Volksmerkmale und alle Beschreibungstexte werden beim Umbau neu geschrieben (Glossar vom 31.10., E 24, E 27; seit 10.11. nur noch hier, 650.2). Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
+Folklore-Wesen (Goblin, Kobold, Skelett) und Tiere behalten ihre Namen, ebenso Mensch, Elf, Zwerg und kritischer Treffer; Trefferpunkte heißen **Leben** (EN Life), auch an Zahlen, nie TP, LP oder HP (1320, Chef 15.11., 20:15); der Trefferwürfel entfällt mit dem neuen Kampf. Die Wirkungen der Volksmerkmale und alle Beschreibungstexte werden beim Umbau neu geschrieben (Glossar vom 31.10., E 24, E 27; seit 10.11. nur noch hier, 650.2). Gestrichen sind Barde, Gaukler, Taschendiebstahl, Reiter, Kaufmann und Hauptmann. Der Hinweis „SRD 5.1 · CC BY 4.0“ bleibt stehen, bis alles SRD-Abgeleitete ersetzt ist, auch die Monsterwerte und Zaubertexte.
 
 ## 13. Offen
 
