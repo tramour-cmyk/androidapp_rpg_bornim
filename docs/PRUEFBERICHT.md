@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 278 · 1477 Build-Zweige mit nur Reverts (Perikles `bb0543ca6`; 16.11., 19:05)
+
+- **1477 greift:** `getestet_nicht_auf_main()` jetzt leer; `_inhalt_auf_main` für build-274 und 286–292 wahr, für build-293 (13 eigene Commits, getestet 17:52) falsch, also wird ein echter liegender Build weiter gezählt. `startbar_zusammen_test.py` gut. Rest ohne Vorgang: ein Build-Zweig, der absichtlich einen Commit von `main` zurücknimmt (nur Revert, nicht auf `main`), gälte als zusammengeführt; bisher kein Fall.
+
 ## Lauf 277 · 1445 Anmerkung bei Passt (Spike `010179304`; 16.11., 18:3x)
 
 - **1445 greift noch nicht:** Spielcode (`pruefliste.gd`, Test `pruefliste_1020.gd`) nur auf `claude/spike-1445-anmerkung`, kein Build; greift erst, wenn der Chef in einer Prüfliste eine ✓-Anmerkung gibt und sie als Absatz beim Besitzer landet.
