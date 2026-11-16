@@ -154,6 +154,7 @@
 | 1284a | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar (Seitenplatz, Kamera oder Seitenplatz wo frei)? | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1366 | Von Sokrates (1288b A, Chef 16.11., 06:56): Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet (Gegenschlag gegen großen Schlag offen, Wehr gegen kleinen 60 %); Werte in werte.json, Kerntests, Rechnung gegen glut2_lesen.py ±3 | Jerry | M | gebaut, Geprüft an: 6f2aa465d | – | claude/jerry-1366-lesen | – | E Kampf | 2,49 $ |
 | Pflege | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
+| 1379 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
 | 1352 | Von Jerry (1275, Regel 8): wann taumelt ein Gegner nach einem Gegenschlag? DESIGN-GLUT.md sagt es nicht, kerbe.gd setzt die Bruchschwelle ab (_absicht breakable false); Text [1267.tip.gegenschlag] und [870.14.ansage.heavy] versprechen es („ein Fünftel seines Lebens“). Regel festlegen, dann baut Jerry | Homer | M | startbar | 1352a | – | – | E Kampf | 1,83 $ |
 | 1352a | Rückfrage zu 1352: wann taumelt ein Gegner im Kerbensystem (Fünftel des Lebens seit der Ansage wie im alten Kampf oder kein Taumeln)? | Homer | M | startbar | Chef | – | – | E Kampf | – |
@@ -239,7 +240,6 @@
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | 1270.3, 1270.4 | – | – | E Technik | 3,04 $ |
 | 1378 | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; Unternummern alle erledigt: 620, 1137 (1188) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | erledigt | – | – | – | B Abläufe | – |
-| 1379 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Ford | M | startbar | – | – | – | E Technik | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
