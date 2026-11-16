@@ -81,8 +81,10 @@ func _run() -> void:
 			p.queue_free()
 			await process_frame
 	if ohne_platz > KEIN_PLATZ:
-		befund += 1
-		print("BISS1284 FEHLER %d Bisse verdeckt (höchstens %d)" % [ohne_platz, KEIN_PLATZ])
+		# 1455 (1284b D, Chef 16.11., 12:23: keine Kamerahebung, verdeckte Bisse bleiben; ob die Reaktion des Helden den Ausgang
+		# lesbar macht, zeigt der Film t293.9, sonst Kampfkamera 1402): verdeckte Bisse sind Auskunft, kein Fehler dieses Tests;
+		# Luftbisse und Bisse ohne Bewegung bleiben Fehler (gut je Angriff oben)
+		print("BISS1284 bekannt %d Bisse verdeckt (über %d, 1284b D, Kamera 1402)" % [ohne_platz, KEIN_PLATZ])
 	if angriffe == 0:     # kein Angriff gesehen (etwa ein Skriptfehler im Kampf): kein Befund heißt dann nichts
 		befund += 1
 	print("BISS1284 %d Angriffe, %d Fehler" % [angriffe, befund])
