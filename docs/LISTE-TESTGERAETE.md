@@ -63,7 +63,7 @@ Bildschirm 1200 × 1920, 240 dpi, Schrift Faktor 1.09, Breite 800 dp, Rand oben 
 | Wald 6/27 | 10 im Schnitt der letzten 600 (124 ms) | Dorf 5750, Ältester 1800, Wald 6554 ms; Blende bereit 14,7 s, danach 10 s: 25 Bilder über 50 ms | 417, 2940k, 594 MB |
 | Kampf (Ratte, Lichtung), 119 s | 10 (117 ms), 1192 Bilder über 50 ms, längste Pause 147 ms | Kampfort bereit 17,8 s | höchstens 146, 359k, 665 MB |
 
-Lesart (Sokrates, nicht nachgestellt): gleicher Build wie A56 am 15.11., dort Dorf 25, Wald 24, Kampf 18–20 („mobile“); das Tablet liegt bei etwa 40 % davon, im Kampf mit 146 Zeichenaufrufen und 359k Dreiecken ebenso langsam wie in der Welt: teure Bildpunkte (Adreno 619 gegen Xclipse 540, ähnlich viele Bildpunkte), wie Spike am A56 las. Kampfort 17,8 s gegen 3,0 s am A56. Build 286 hat noch keine Grafikstufen (698, ab Build 292); erst darauf messen.
+Lesart (Sokrates, nicht nachgestellt): gleicher Build wie A56 am 15.11., dort Dorf 25, Wald 24, Kampf 18–20 („mobile“); das Tablet liegt bei etwa 40 % davon, im Kampf mit 146 Zeichenaufrufen und 359k Dreiecken ebenso langsam wie in der Welt: teure Bildpunkte (Adreno 619 gegen Xclipse 540, ähnlich viele Bildpunkte), wie Spike am A56 las. Kampfort 17,8 s gegen 3,0 s am A56. Build 286 hat noch keine Grafikstufen (698, ab Build 292); erst darauf messen. Der Chef wollte Build 293 installieren (Link Lauf 524, richtig); am Gerät lief trotzdem 286 (1485).
 
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
