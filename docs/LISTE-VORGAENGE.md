@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1394 | Von Jerry (1393): Entwurf docs/entwurf/t292-sammelbuild.md gegenlesen (Regel 8), Zeile „Gegengelesen: Tom …“ eintragen | Tom | M | startbar | – | – | – | E Technik | – |
 | 1361 | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 1355, 870.20, 1322, 1326, 1321, 1289, 415, 601.1, 1275, 1270.3, 673) | Tom | M | zu testen | – | claude/build-291 | 291 | E Technik | 17,86 $ |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bildlauf von der Rechteprüfung abgelehnt | 1351 | – | – | E Oberfläche | 8,48 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | wartet | 1351 | claude/tom-1092-streifen | – | E Figuren | 29,31 $ |
@@ -73,6 +74,7 @@
 | 1357 | Von Werkzeug (1334): Wiederholrot lage_785_8: 2× rot in 48 h (Läufe 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | zu testen | – | claude/build-291 | 291 | E Technik | – |
 | Pflege | von Werkzeug (340.3, 16.11.): 31051 Bytes (Grenze 30000), Erledigtes streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 1383 | Von Werkzeug (1334): Wiederholrot ziege_4162: 6× rot in 48 h (Läufe 513, 500, 499, 484, 470, 467); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1393 | Von Jerry (1312): Sammelbuild 292: alle fertigen Zweige nach t291 (1285, 1286, 643, 1333, 1366) | Jerry | M | in Arbeit, Entwurf t292, Gegenlesen Tom | – | claude/build-292 | – | E Technik | – |
 | 1363 | Von Tom (1361): Rot in Build 291 (Lauf 512): arkan_993 Treffer endet 1,09 m hoch, 0,95 m neben dem Wolf (Test will Brust ±0,6 m; seit 601.1 treffpunkt_fern); wolf_mess_438 Wolf 1 0,04 m im Söldnerschild (1 Bild). Ursache nachstellen, auf claude/build-291 beheben | Jerry | M | zu testen | – | claude/build-291 | 291 | E Kampf | 8,47 $ |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | t290 | – | – | E Technik | 15,96 $ |
 | 1321 | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m nach vorn in einen Wolf, der daneben beißt (wolf_mess_438 Kleriker); Weg wählen, Film an den Chef, dann bauen | Jerry | M | zu testen | – | claude/jerry-1321-ausweichen | 291 | E Kampf | 9,98 $ |
