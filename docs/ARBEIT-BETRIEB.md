@@ -140,3 +140,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:04 16.11.: Marke Archiv session_01Hmoj7A9PrmiGn3Lx1jJSbz (lauf.py)
 - 14:04 16.11.: Marke Archiv session_01Hmoj76GCWwLsp884GDFyfx (lauf.py)
 - 14:07 16.11.: Startsperre 14:07 Start Perikles (lauf.py)
+- 14:10 16.11.: Start Perikles 1424, alte Perikles-Sitzung archiviert (7,32 $ auf 1414,1217,870.12 gebucht)
