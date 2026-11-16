@@ -48,6 +48,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 09:27 16.11.: Zwischenlauf: Start Jerry (Sammelbuild 292) und Spike (698, Sammelbuild 292); Weiter Diogenes 1391; archiviert Jerry 1285 (8,33 $) und Spike 1145 (6,88 $), gebucht; Spike 1145 Stand noch „in Arbeit“ (Besitzer setzt, 275)
 - 09:23 16.11.: Chef 09:20 (laut Sokrates): Sokrates-Sitzung session_01Hmoj75oXevBbggtoW6gYgE bleibt offen, nie archivieren, keinen Nachfolger; lauf.py immer mit --ohne "Sokrates:Chef 09:20 Sitzung bleibt offen"; Sokrates-Nachfolger 78Ga (1129.4, 1,48 $) archiviert und gebucht
 - 09:05 16.11.: Lauf 09:01 (lauf.py, von Sokrates-Neustart 09:02 ausgelöst): Start Diogenes (Wochenzählung-Rest), Perikles (Nachfolger + Tagesbericht), Tuffy 1292; Weiter Tom 531, Jerry 1285, Spike 1379 (Übernahme von Jerry) und 698, Homer 1235; archiviert Diogenes 1374 (11,45 $), Perikles (7,09 $), gebucht; Urteil 698 gebilligt (Nachricht 4345/4346) im Archiv; Rotbuch ziege_4162 = 1383; Sokrates Nachfolger 1129.4 folgt im nächsten Lauf
 - 08:40 16.11.: archiviert Tuffy 1291 (1,81 $, gebucht); Homer per Weiter an 1380; 1379 bleibt bei Jerry
@@ -67,7 +68,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:46 15.11.: Sokrates alt `…76h9DLKywqNeh4ZJF8` archiviert (6,48 $ auf 431, 481, 1215, 760, 1000); Wecker 15:35 neu `trig_015fPVKTbEBVXWP8uNFZhhTP` auf `…79enQhUTdgTcHDC329`
 - 13:43 15.11.: Sokrates neu `…79enQhUTdgTcHDC329`; alt `…76h9DLKywqNeh4ZJF8` bleibt, bis Sokrates abschalten sagt (Wecker 15:35 muss erst umziehen); im Lauf `--ohne` nicht nötig, `--wecker` für beide Sokrates-Kennungen
 - 13:37 15.11.: Jerry 760, 1000 (stärkstes Modell) `…78vVh9TarMqMiBZ1pM` gestartet; Jerry 1215 `…77868z8tGPx6d9vJF1` fertig, bleibt offen bis Urteil des Chefs
-- 13:08 15.11.: Tom alt `…76Ra6BZe2iYammL66v` archiviert (14,89 $ auf 785.1, 870.13, 1290); Tom neu `…78BSaiyTRN5sJLVCBK` mit Übergabe f3bdce628 (Build 288, dann 431); 1294 Werkzeugfehler (Perikles hat behoben, Diogenes prüft)
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
@@ -117,4 +117,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:24 16.11.: Startsperre 09:24 Start Jerry, Spike, Diogenes (lauf.py)
 - 09:24 16.11.: Marke Archiv session_01Hmoj7894iHwdcb9yds8JGU (lauf.py)
 - 09:24 16.11.: Marke Archiv session_01Hmoj76h2mPbr2GReddWYJP (lauf.py)
-- 09:27 16.11.: Zwischenlauf: Start Jerry (Sammelbuild 292) und Spike (698, Sammelbuild 292); Weiter Diogenes 1391; archiviert Jerry 1285 (8,33 $) und Spike 1145 (6,88 $), gebucht; Spike 1145 Stand noch „in Arbeit“ (Besitzer setzt, 275)
+- 09:25 16.11.: Startsperre 09:25 Start Perikles (lauf.py)
