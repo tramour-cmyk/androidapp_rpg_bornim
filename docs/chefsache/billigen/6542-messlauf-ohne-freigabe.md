@@ -8,7 +8,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/71624e48
 
 **Entschieden:** Der erste Messlauf ohne Bild je Vorgang und Tag läuft ohne meine Freigabe, wenn der oberste Commit eine Zeile „Messfrage: <was der Lauf klären soll>“ trägt. Er wird wie jeder Lauf gezählt; nur die Freigabe entfällt. Der zweite am selben Tag braucht wie bisher die Freigabe von Sokrates. Bildläufe und Filme bleiben unverändert (eine Probe vor dir, 621 A).
 
-**Umgesetzt:** 16.11., `probelauf.py` (Perikles, 654.2), Geprüft an: 48bb6c487.
+**Umgesetzt:** 16.11., `probelauf.py` (Perikles, 654.2), Geprüft an: 40b4e09e8.
 
 **Rückbau:** die Ausnahme in `probelauf.py` streichen, ein Commit.
 
