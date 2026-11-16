@@ -68,7 +68,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:29 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` auf Wort des Chefs (12:28) wieder archiviert (Mehrkosten 0,69 $ auf 1288; Frage 1288a liegt in der Chefsache)
 - 12:25 15.11.: Spike neu `…79F2ADvX6hyURaqmPK` (1270.1), alt archiviert (8,54 $ auf 1270.1); Tom neu `…76Ra6BZe2iYammL66v` (785.1), alt `…78NR8tcbL1C1FvSd17` archiviert um 12:29 wenn idle
 - 12:16 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` wieder aus dem Archiv (Chef will lesen, Sokrates 12:15): nicht archivieren bis der Chef es sagt; im Lauf `--ohne` Sokrates-Zeilen dieser Kennung
-- 23:30 15.11.: Startsperre 23:30 Start Jerry 1331 (Tom 23:28, 3d9159913; alte Sitzung …78iXbwtRhPMGruEzUC bei 389 Tsd. Token: neu, alte archivieren, Kosten 14,65 $ auf 1331, 1321, 1072; Frage 1284a liegt als Chefsache-Datei, nichts geht verloren)
 - 00:04 16.11.: Startsperre 00:04 Start Perikles (lauf.py)
 - 00:04 16.11.: Marke Start-fehlt Perikles 15.11.-23:04 (lauf.py)
 - 00:07 16.11.: Startsperre 00:07 Start Perikles 1044/1341 (Tom 00:08, Bildläufe von der Rechteprüfung abgelehnt, per Nachricht an die laufende Perikles-Sitzung …79JCQRKsCCgciyGpnJ)
@@ -93,3 +92,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 16.11.: Marke Archiv session_01Hmoj79JCQRKsCCgciyGpnJ (lauf.py)
 - 02:08 16.11.: Startsperre 02:08 Start Jerry 1358, Homer 302, Perikles Wochenziel (lauf.py); alte Sitzungen …791pfnSs82NQrnpLnf (Jerry 1072, add_repo-Sperre), …79NReuhLMU6cqsp6GW (Homer, wartet 1352a), …79JCQRKsCCgciyGpnJ (Perikles, wartet 1351) archiviert, Fragen liegen als Chefsache-Dateien; Sokrates-Nachfolger bewusst nicht gestartet (wartet auf Diogenes 1129.4, --ohne Sokrates)
 - 02:19 16.11.: Startsperre 02:19 Start Jerry 1363 (Tom 02:17, 29b4172c1, per Weiter an …77q7xhEfYnpURnHgBh)
+- 03:03 16.11.: Marke Übergabe-Chef Homer 16.11. 02:07 (lauf.py)
+- 03:03 16.11.: Marke Hängt session_01Hmoj76VdQxk8E6re5azHWe 2026-11-16T00:54 (lauf.py)
