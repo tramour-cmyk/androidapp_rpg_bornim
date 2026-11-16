@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1476** (zuletzt 1475 Sokrates 16.11. 18:34:00 a323) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1477** (zuletzt 1476 Spike 16.11. 18:35:40 7831) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -141,3 +141,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:25 16.11.: Startsperre 18:25 Start Sokrates (selbst), Neustart-Meldung 18:20 (2b17afc42)
 - 18:33 16.11.: Startsperre 18:33 Start Tom, Spike, Diogenes, Homer, Perikles (lauf.py)
 - 18:33 16.11.: Marke Archiv session_01Hmoj79F8rkiBQBTH4VdjLm (lauf.py)
+- 18:36 16.11.: Lauf 18:33 (Sokrates 18:33: 1385 Spike, 1473 Homer, 1474 Perikles); Start Spike (session_01Hmoj76zAeRQxR3Re8uoBTU, erste Nachricht mit Kaufrepo-Satz), Start Perikles M? (session_01Hmoj77QaqaUitEpoXy4B2K), alte Spike archiviert 4,50 $ auf 1445, 1472; Weiter 1473 Homer, 431 Tom, 1445 Diogenes; Jerry läuft, add_repo-Probe beim nächsten Jerry-Start
