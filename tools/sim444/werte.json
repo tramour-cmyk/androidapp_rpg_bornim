@@ -32,6 +32,8 @@
     "offen_faktor": 1.25, "wehr_klein_anteil": 0.6,
     "_ring": "Regel 9, 16: grosser Schlag kostet gross_kosten und kommt mit Ring, Schaden mal gross_faktor; hoechstens ringe_je_gegnerzug Ringe je Gegnerzug, weitere ohne Ring",
     "gross_kosten": 2, "gross_faktor": 1.6, "ringe_je_gegnerzug": 2,
+    "_taumeln": "Regel 19 (1352a A, Chef 16.11.): verliert ein Gegner seit seiner Ansage eines grossen Schlags diesen Anteil seines Lebens (jeder Schaden), geht der Schlag ins Leere",
+    "taumeln_anteil": 0.2,
     "_gold": "Regel 12: ab Heldenstufe, einmal je Kampf, nach perfektem Ring oder Leben unter dem Anteil; vierte Kerbe im naechsten Zug",
     "gold_ab_stufe": 4, "gold_unter_leben": 0.5,
     "_ungunst": "Fledermaus flattert (Tun des Helden mit Ungunst, Antworten ohne); nach dem Prankenhieb ist Krogg offen (naechstes Tun mit Gunst): 25 Punkte wie Umreissen",

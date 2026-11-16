@@ -475,6 +475,23 @@ func _r19() -> void:
 	ringe = 0
 	m.gk.gegner_zug()
 	ok("Regel 19", b1 and not b2 and ringe == 0, "Brechen: der große Schlag geht ins Leere (kein Ring), ein kleiner nicht")
+	# Taumeln (1352a A): ein Fünftel des Lebens seit der Ansage bricht den großen Schlag, jeder Schaden zählt (auch ohne Urheber);
+	# darunter bleibt er, ein kleiner Schlag taumelt nie
+	m = _kampf(h, ["goblin"], {"nur_einrichten": true, "leben": 100})
+	g = m.all[1]
+	g.gl.ab = Kerbe.NAH
+	_plan(g, true)
+	g.gl.verlust_seit_ansage = 0
+	m._hurt(g, 12, "hero", "x")
+	var bleibt: bool = g.gl.plan.gross
+	m._hurt(g, 8, "", "x")     # Zustand ohne Urheber zählt mit: 20 von 100
+	var taumelt: bool = not g.gl.plan.gross and g.gl.plan.art == "gebrochen" and not m.intents.has(g.id)
+	ringe = 0
+	m.gk.gegner_zug()
+	_plan(g, false)
+	g.gl.verlust_seit_ansage = 0
+	m._hurt(g, 50, "hero", "x")
+	ok("Regel 19", bleibt and taumelt and ringe == 0 and g.gl.plan.art == "schlag", "Taumeln: nach 12 von 100 steht der große Schlag noch, nach 20 geht er ins Leere (kein Ring); ein kleiner taumelt nie")
 
 
 func _r20() -> void:
