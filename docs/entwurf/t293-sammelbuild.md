@@ -1,5 +1,6 @@
 # Jerry · Build 293 · · Sammelbuild: Wölfe bleiben am Helden, Nebenhand nur Schild und Fackel, Rennen mit Renntaste, Leben statt TP, Werkzeugtests · PR folgt
 E Kampf · Jerry (1072, 1291, 1421; ohne dich 1292, 1323, 1408, 1409), Spike (1303) · 16.11., 12:52 · APK folgt
+Gegengelesen: Tom 16.11., 14:00 (alle Wege am Stand `claude/build-293` nachgesehen, Tests der Zeilen „ohne dich“ stehen in `godot.yml`; 293.7: der Schalter heißt in Menü → System → Bedienung „Rennen“ mit den Werten „Ring“/„Taste“, nicht „Renntaste“; Wortlaut bitte so anpassen)
 
 Sammelbuild auf Build 292 aufgesetzt (enthält alles aus 292, 291, 290 und `main`); die Punkte der Listen 290 bis 292 kommen hier nicht noch einmal. Waldklang 517 fährt mit, seine Prüfung ist die Hörprobe auf Telegram ([517](cs:517)), nicht hier.
 
