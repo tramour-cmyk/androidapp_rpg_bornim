@@ -22,22 +22,22 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
-| ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 61 (66) | 20 | 1 | 7 | 8 | 1488 (Jerry) Merkmale je Exemplar bauen, Anzeige nach Lesestuf… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (18) | 7 | 2 | 2 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
+| ↳ **1** Umzug BRS, SRD ablösen | 3 (3) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
+| ↳ **2** Kampf passt | 61 (61) | 20 | 1 | 7 | 8 | 1488 (Jerry) Merkmale je Exemplar bauen, Anzeige nach Lesestuf… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 2 | 2 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (63) | 8 | 1 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (17) | 5 | 0 | 5 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| **7** Werkzeuge und Abläufe der Firma | 43 (58) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (52) | 8 | 1 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (13) | 5 | 0 | 5 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
+| **7** Werkzeuge und Abläufe der Firma | 43 (43) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 202 | 171 | 202 | 1062 |
-| neu | 164 | 119 | 164 | 1054 |
-| **netto** (erledigt − neu) | **+38** | **+52** | **+38** | **+8** |
+| erledigt | 0 | 202 | 202 | 1062 |
+| neu | 0 | 164 | 164 | 1054 |
+| **netto** (erledigt − neu) | **+0** | **+38** | **+38** | **+8** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -51,9 +51,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | leer, weil 3 ruht, 2 wartet auf Test, 2 wartet auf Test/Build |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss) |
+| Diogenes | 1425 täglich vor dem Tagesbericht den ganzen Vorrat auf links dr… (Muss); dann 5 weitere |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
-| Perikles | leer, weil 16 Termin, 5 wartet auf Vorgang (870, 1388, 1125, 1389, 1444), 2 wartet auf Diogenes |
+| Perikles | 1279 core/, app/, Kotlin-Vorschauordner unter tools/, Gradle-Wur… (Muss) |
 
 **Die nächsten 20**
 
