@@ -434,6 +434,11 @@ var retargeted := {}
 var chosen := false
 var called := 0
 var casting = null
+# 1333 (aus 1215, 930 Regel 5): wie der laufende Schlag trifft, fuer das Sterben mit Physik (kampf/ragdoll.gd STOSS): „schwer“ bei
+# Wuchtschlag, Schaedelstoss, Durchschlag und Zweihaender oder stumpfer Waffe, „schild“ beim Schildstoss; steht in der Meldung („wucht“)
+var wucht := ""
+const HANDLUNG_WUCHT := {"H_WUCHT": "schwer", "H_SCHAEDEL": "schwer", "H_DURCH": "schwer", "H_SCHILDSTOSS": "schild"}
+const WAFFEN_SCHWER := ["Zweihänder", "Stumpfe Waffen"]
 
 
 ## [party] and [foes] are Fighters; [tables] the monsters, items and skills (870.6: regeln/tabellen.gd Tabellen.lade(), nach BRS).
@@ -1477,6 +1482,12 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 ## 870.5: eine Kampfhandlung (werte.json „handlungen“, wie tools/sim444/handlungen.py duell)
 func _handlung(f: Fighter, s: String, t) -> void:
 	var h := _hw(s)
+	wucht = String(HANDLUNG_WUCHT.get(s, ""))
+	_handlung_tun(f, s, t, h)
+	wucht = ""
+
+
+func _handlung_tun(f: Fighter, s: String, t, h: Dictionary) -> void:
 	match s:
 		"H_KRAFT":
 			var n := mini(f.max_hp - f.hp, roundi(f.max_hp * float(h.get("heilung_anteil", 0.25))))
@@ -1637,7 +1648,22 @@ func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
 ## 870.5: ein Schlag mit der Waffe nur nach dem BRS (_brs_waffe); [mod] einer Kampfhandlung: treffer (Prozentpunkte), schaden
 ## (Faktor), ruestung (Anteil der Rüstung des Ziels)
 func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null, mod := {}) -> void:
+	var vorher := wucht
+	if wucht == "" and _waffe_schwer(f, with_weapon):
+		wucht = "schwer"
 	_brs_waffe(f, t, advantage, cover, with_weapon, mod)
+	wucht = vorher
+
+
+## 1333: Zweihaender oder stumpfe Waffe (Gruppe wie in _brs_waffe)
+func _waffe_schwer(f: Fighter, with_weapon) -> bool:
+	if f.b.is_empty():
+		return false
+	var w = with_weapon if with_weapon != null else f.weapon()
+	var wsheet = w if w != null else (f.hero.main if f.hero != null else null)
+	if wsheet == null:
+		return false
+	return BrsKampf.waffe_held(f.b, wsheet, w != null and w != f.main_weapon()) in WAFFEN_SCHWER
 
 
 ## 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
@@ -2291,7 +2317,7 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"text": text, "actor": actor, "target": target, "damage": damage, "hp": hp, "places": places,
 		"intents": intents.duplicate(), "roll": roll, "queue": queue(), "sp": sp, "answer": answer, "wound": wound,
 		"spell": casting, "cue": cue if cue != "" else null,
-		"status": _statuses(), "hidden": _hidden(),
+		"status": _statuses(), "hidden": _hidden(), "wucht": wucht if wucht != "" else null,
 	}
 	_log.append(e)
 	if not quick_run and listener.is_valid():
