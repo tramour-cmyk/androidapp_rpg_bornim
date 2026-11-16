@@ -15,7 +15,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kampf passt | 75 | 31 | 4 | 6 | 9 | 1292 (Jerry) Klosterschüler gewinnt immer, Ursache rechnen, Vo… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 11 | 21 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 9 | 1 | 6 | 4 | 1379 (Spike) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 8 | 1 | 6 | 4 | 1383 (Sokrates) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
 | Werkzeuge und Abläufe der Firma | 55 | 34 | 0 | 0 | 9 | 1129 (Sokrates) Systemprüfung blinde Flecken mit Perikles: Regeln… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -25,7 +25,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|
 | Tom | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss) |
 | Jerry | 1285 Held rennt schon bei kleinen Joystick-Bewegungen, große Lau… (Muss); dann 6 weitere |
-| Spike | 1379 Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nach… (Muss); dann 1 weitere |
+| Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1217 Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen… (Muss); dann 11 weitere |
 | Sokrates | 1129 Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe,… (Muss); dann 2 weitere |
@@ -45,18 +45,18 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 8 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
 | 9 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
 | 10 | 1375 | Perikles | Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-Datei | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1379 | Spike | Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nachstellen, beheben · w… | M | Godot besser nutzen | startbar |
-| 12 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
-| 13 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 14 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1371 | Perikles | D254.2 von Diogenes: Nachtrag Chef 07:02 fehlt im Bau 2c9b7b85a: keine Übernahm… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1373 | Perikles | Wochentermin 16.11.: Wochenziel | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1376 | Perikles | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1382 | Perikles | Themenblock „Alles an einer Stelle: Figuren, Helden, Gegenstände“ unter Kapitel… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 11 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
+| 12 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 13 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1371 | Perikles | D254.2 von Diogenes: Nachtrag Chef 07:02 fehlt im Bau 2c9b7b85a: keine Übernahm… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 1373 | Perikles | Wochentermin 16.11.: Wochenziel | M | Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1376 | Perikles | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 1382 | Perikles | Themenblock „Alles an einer Stelle: Figuren, Helden, Gegenstände“ unter Kapitel… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
 
-Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 62.
+Danach 101 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
