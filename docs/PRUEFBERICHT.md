@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 259 · 1391 Zeile Chef in „Je Rolle das Nächste“ (Perikles `1156442d8`; 16.11., 09:2x)
+
+- **1391 greift:** `ueberblick.py` gibt „| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 11 weitere |“ als erste Zeile der Tabelle; die Übersicht von 09:21 trägt sie noch nicht (vor dem Bau), der nächste Push schreibt sie. t290 (offen) steht hinter t291, weil t291 mehr Zeilen hält und 290 enthält.
+
 ## Lauf 258 · 1369, 1371, 1382, 1364, 1148 (Perikles `7c31171c6`, `905a04bb1`; 16.11., 09:1x)
 
 - **1369 greift:** Wegwerfkopie, Marke „Lauf läuft bis 16.11., 14:00 (Render)“ oben in `ARBEIT-TEAM-SPIKE.md` und `ARBEIT-TEAM-JERRY.md`: Spike hält, keine Warnung; Jerry hält, Warnung „Klammer ohne Namen dieses Vorrats (Jerry/Tuffy), gilt für das Team“; Tuffy, Tom unberührt.
