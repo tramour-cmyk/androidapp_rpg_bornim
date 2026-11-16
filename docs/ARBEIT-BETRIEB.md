@@ -149,3 +149,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:36 16.11.: Marke Start-fehlt Diogenes 16.11.-19:04 (lauf.py)
 - 19:36 16.11.: Marke Start-fehlt Tom 16.11.-19:04 (lauf.py)
 - 19:36 16.11.: Marke Archiv session_01Hmoj77QaqaUitEpoXy4B2K (lauf.py)
+- 19:37 16.11.: Lauf 19:35: Start Diogenes 1385 (session_01Hmoj76ZXZhJrxTbHvQ4FiN), Start Perikles M? 1478 (session_01Hmoj7A9JQitciHyQxAs6gq, erste Nachricht mit Kaufrepo-Satz); alte Perikles archiviert, 4,55 $ auf 1474; Neustart Sokrates (cb4a0255a) offen: alte …78yKr84GyQjcDaM636 arbeitet noch, Start nach ihrem Ende; Tom bleibt (Weckrufe 1417/1420)
