@@ -142,3 +142,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 16.11.: Marke Start-fehlt Spike 16.11.-17:04 (lauf.py)
 - 18:04 16.11.: Marke Archiv session_01Hmoj77BPLCjmVvbzkxDtiX (lauf.py)
 - 18:06 16.11.: Lauf 18:03; Start Spike 1445 (session_01Hmoj79F8rkiBQBTH4VdjLm), alte Spike archiviert, 23,60 $ auf 1416, 1270.4; Weiter 1427 an Diogenes; Warnung Start Perikles nicht angekommen: nichts Startbares (Termine), bewusst nicht gestartet
+- 18:25 16.11.: Startsperre 18:25 Start Sokrates (selbst), Neustart-Meldung 18:20 (2b17afc42)
