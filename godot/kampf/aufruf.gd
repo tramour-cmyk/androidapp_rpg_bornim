@@ -213,6 +213,7 @@ func starte(gegner_: String, held, soeldner = null, ort := "wald", tageszeit := 
 			m.en = Brs.name(String(m.id), 1)
 	var party := [_kaempfer("hero", held, held_tp, Vector2i(Mars.FRONT, 0), skills)]
 	party[0].hero["look"] = lage.get("aussehen", {})     # 403: Kopf, Haar, Haut wie im Dorf (Zustand.aussehen, HeldFigur)
+	if held is BrsHeld: party[0].hero["kleid"] = held.ausruestung.duplicate(true)   # 431h: im Kampf traegt er, was in den Plaetzen steht
 	if not (held is Dictionary):
 		# 870.4: der Held nach BRS, wie er ist (Stufe, was er trägt), Geübtes aus zustand.fert (471)
 		party[0].hero["brs"] = held.kampfblatt(held.stufe, held.getragen(), lage.get("brs_fert", held.geuebt))

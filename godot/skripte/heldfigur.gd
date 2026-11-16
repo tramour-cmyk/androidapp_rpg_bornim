@@ -202,6 +202,8 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	m.name = "Held_" + herkunft(w)
 	m.set_meta("tracht", t["modell"])
 	kapuze(m, t["kapuze"])
+	var kl := kleide(m, w, String(t["modell"]))   # 431h: was in den Plaetzen steht; Kapuze nur mit Stueck auf dem Kopf
+	if kl.has("kapuze"): t["kapuze"] = kl["kapuze"]
 	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	if sk == null:   # 680: Datei ohne Skelett (verschluesselt ohne Schluessel, beschaedigt): nichts liegen lassen, alte Figur
@@ -364,6 +366,45 @@ static func _schluessel(m: Node3D, namen: Array, n: String) -> void:
 		for i in me.get_blend_shape_count():
 			var bn := String(me.get_blend_shape_name(i))
 			if bn in namen: (mi as MeshInstance3D).set_blend_shape_value(i, 1.0 if bn == n else 0.0)
+
+# 431h A (Chef 16.11., 10:08, Archiv: „der Held traegt genau das, was in den Ausruestungsplaetzen steht“): je Platz (Kopf, Oberkoerper,
+# Arme, Beine, Umhang) zeigt die Tracht ihr Teil nur, wenn dort ein Stueck liegt. Darunter der Koerper mit Unterwaesche in Stuecken
+# (held_klassen.py leib, held-klassen.json trachten.<T>: „teile“ {PLATZ: [Netze]}, „leib“ {Leib_<STUECK>: [Plaetze, die es decken]},
+# „unter“ {Netz: [Platz, Platz darueber]}): ein Leibstueck ist zu sehen, wenn keiner der Plaetze, die es decken, gezeigt wird; Kleidung
+# unter dem Teil eines anderen Platzes (frueher weggeschnitten) nur, wenn ihr Platz gezeigt wird und der darueber nicht; Formschluessel
+# „unter_<PLATZ>“ zieht die Haut unter einem gezeigten Teil ein (sticht nicht durch). Stufe 1: das Teil der eigenen Tracht steht fuer
+# jedes Stueck des Platzes (die Startstuecke sind die Teile der Tracht, welt.start); eigene Teile je Ruestung erst mit Stufe 2.
+# Ohne „teile“ (Bau vor 431h), fuer die Leute des Dorfs (modell) und mit „kleid“ null (Kampfproben ohne Spielstand): die ganze Tracht.
+# Gibt {"kapuze": …} zurueck (Haar darunter weg)
+const KLEID_PLAETZE := ["HEAD", "CHEST", "ARMS", "LEGS", "CLOAK"]
+static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
+	var tr: Dictionary = lade_info().get("trachten", {}).get(modell, {})
+	var teile: Dictionary = tr.get("teile", {})
+	# „kleid“: Plaetze, nach denen sich die Kleidung richtet, wenn „ausruestung“ etwas anderes traegt (Kampfort: Waffe in der Hand statt
+	# auf dem Ruecken)
+	var aus = w.get("kleid", w.get("ausruestung", {}))
+	if teile.is_empty() or String(w.get("modell", "")) != "" or not (aus is Dictionary): return {}
+	var zeig := {}
+	for p in KLEID_PLAETZE: zeig[p] = aus.get(p) is Dictionary and teile.has(p)
+	var leib: Dictionary = tr.get("leib", {})
+	var unter: Dictionary = tr.get("unter", {})
+	var kap := false
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		var n := String(x.name)
+		for p in teile:
+			if n in Array(teile[p]):
+				x.visible = bool(zeig.get(p, false))
+				if p == "HEAD" and x.visible and n.contains("Hood"): kap = true
+		if unter.has(n): x.visible = bool(zeig.get(String(unter[n][0]), false)) and not bool(zeig.get(String(unter[n][1]), false))
+		if leib.has(n):
+			x.visible = not Array(leib[n]).any(func(p): return bool(zeig.get(String(p), false)))
+			if x.mesh is ArrayMesh:
+				var me := x.mesh as ArrayMesh
+				for i in me.get_blend_shape_count():
+					var bn := String(me.get_blend_shape_name(i))
+					if bn.begins_with("unter_"): x.set_blend_shape_value(i, 1.0 if bool(zeig.get(bn.substr(6), false)) else 0.0)
+	return {"kapuze": kap}
 
 # Kapuze der Waldtracht (Head_Hood) nur, wenn die Herkunft sie traegt (Jaegerkind ja, Herumtreiber nein)
 static func kapuze(m: Node3D, an: bool) -> void:
@@ -643,7 +684,7 @@ static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInst
 	var aus := PackedVector3Array()
 	for mi in ([nur] if nur else m.find_children("*", "MeshInstance3D", true, false)):
 		var x := mi as MeshInstance3D
-		if not x.skin: continue
+		if not x.skin or not x.visible: continue   # 431h: abgelegte Teile und verdeckter Leib zaehlen nicht
 		var t := im_raum(m, x)
 		var sk := x.get_node_or_null(x.skeleton) as Skeleton3D
 		if sk == null: sk = _sk

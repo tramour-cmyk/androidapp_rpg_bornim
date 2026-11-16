@@ -240,6 +240,110 @@
    }
   },
   {
+   "id": "novice_habit",
+   "name": {
+    "de": "Novizenkutte",
+    "en": "Novice's Habit"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "Kutte (Knight_Cloth Body_Cloth)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Startausrüstung Klosterschüler (431h A, Werte wie Lederrüstung)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Grobe Wolle aus dem Kloster, an Brust und Schultern doppelt genäht. Hält mehr ab, als man ihr ansieht.",
+    "en": "Coarse cloister wool, double-stitched at chest and shoulders. It turns more than it seems to."
+   }
+  },
+  {
+   "id": "forager_shirt",
+   "name": {
+    "de": "Sammlerhemd",
+    "en": "Forager's Shirt"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "Hemd (Peasant Body)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Startausrüstung Kräutersammler (431h A, Werte wie Lederrüstung)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Gewachstes Leinen gegen Tau und Dornen, die Taschen riechen nach Kräutern.",
+    "en": "Waxed linen against dew and thorns; the pockets smell of herbs."
+   }
+  },
+  {
+   "id": "smith_shirt",
+   "name": {
+    "de": "Schmiedehemd",
+    "en": "Smith's Shirt"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "Hemd (Peasant Body)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Startausrüstung Schmiedelehrling (431h A, Werte wie Lederrüstung)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Dickes Leinen, von den Funken der Esse durchlöchert und doch nie durchgebrannt.",
+    "en": "Thick linen, pocked by sparks from the forge, yet never burned through."
+   }
+  },
+  {
+   "id": "wayfarer_shirt",
+   "name": {
+    "de": "Wanderhemd",
+    "en": "Wayfarer's Shirt"
+   },
+   "art": "ruestung",
+   "platz": "oberkoerper",
+   "stufe": 1,
+   "preis": 10,
+   "netz": "Hemd (Peasant Body)",
+   "material": "Stoff",
+   "zeichen": "Farbe",
+   "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
+   "bezug": [
+    {
+     "weg": "fund",
+     "wo": "Startausrüstung Wanderer (431h A, Werte wie Lederrüstung)"
+    }
+   ],
+   "zustand": true,
+   "text": {
+    "de": "Doppelt gelegtes Leinen, vom Weg gebleicht und oft geflickt.",
+    "en": "Doubled linen, bleached by the road and patched many times."
+   }
+  },
+  {
    "id": "studded_leather",
    "name": {
     "de": "Nietenleder",

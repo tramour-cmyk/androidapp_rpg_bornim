@@ -361,6 +361,9 @@ bm = bmesh.new(); bm.from_mesh(qkoerper.data); bm.faces.ensure_lookup_table()
 # weg gab Zinnen; am Hals (Kopf- und Halsgewicht) darum nur ganz verdeckte Flaechen weg, sonst WEG_AB
 am_hals = (WQ[:, iH] + WQ[:, iN] + (WQ[:, Q_KN.index('neck_02')] if 'neck_02' in Q_KN else 0)) > 0.3 if f < 1.0 else np.zeros(len(QV), dtype=bool)
 weg = [f_ for f_ in bm.faces if sum(verdeckt[v.index] for v in f_.verts) >= (len(f_.verts) if any(am_hals[v.index] for v in f_.verts) else (WEG_AB or len(f_.verts)))]
+if os.environ.get('UNTER_MARKE') == '1':   # 431h: der Hals bleibt ganz (der Held kann den Oberkoerper ablegen; der Rest des Koerpers kommt
+    _hals = (WQ[:, iH] + WQ[:, iN] + (WQ[:, Q_KN.index('neck_02')] if 'neck_02' in Q_KN else 0)) > 0.3
+    weg = [f_ for f_ in weg if not any(_hals[v.index] for v in f_.verts)]   # aus held_klassen.py leib), Halszacken unten zieht ihn ein
 bmesh.ops.delete(bm, geom=weg, context='FACES')
 bm.to_mesh(qkoerper.data); bm.free()
 print('KOERPER VERDECKT', int(verdeckt.sum()), 'von', len(QV), 'Ecken;', len(weg), 'Flaechen weg')
@@ -590,6 +593,7 @@ if UNTER_WEG:
     LT3 = np.zeros(len(kme.vertices), dtype=int); kme.attributes['teil'].data.foreach_get('value', LT3)
     _W = [kleid.matrix_world @ v.co for v in kme.vertices]; _N = kleid.matrix_world.to_3x3()
     unter_weg = set()
+    unter_von = {}   # 431h UNTER_MARKE=1: Flaeche -> Teil darueber (statt weg; held_klassen.py zeigt sie, wenn das Teil darueber fehlt)
     for _a in [x for x in UNTER_WEG.split('&') if x]:
         _t, _o, _m = _a.split(':')[:3]; _m = float(_m); _beide = _a.endswith(':beide')
         if _t not in TEILNAMEN: continue
@@ -602,10 +606,19 @@ if UNTER_WEG:
             if LT3[p_.vertices[0]] != _ti: continue
             c_ = sum((_W[i] for i in p_.vertices), Vector()) / len(p_.vertices)
             n_ = (_N @ p_.normal).normalized()
-            if _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)[0] is not None or (_beide and _bv.ray_cast(c_ - n_ * 0.0005, -n_, _m)[0] is not None):
+            _h = _bv.ray_cast(c_ + n_ * 0.0005, n_, _m)
+            if _h[0] is None and _beide: _h = _bv.ray_cast(c_ - n_ * 0.0005, -n_, _m)
+            if _h[0] is not None:
                 unter_weg.add(p_.index)
+                unter_von.setdefault(p_.index, int(LT3[_ob[_h[2]].vertices[0]]) + 1)
         print('UNTER WEG', _a, len(unter_weg) - _n0, 'Flaechen')
-    if unter_weg:
+    if unter_weg and os.environ.get('UNTER_MARKE') == '1':
+        at = kme.attributes.new('unter_von', 'INT', 'FACE')
+        uv_ = np.zeros(len(kme.polygons), dtype=np.int32)
+        for i_, t_ in unter_von.items(): uv_[i_] = t_
+        at.data.foreach_set('value', uv_)
+        print('UNTER MARKE', len(unter_von), 'Flaechen')
+    elif unter_weg:
         bm = bmesh.new(); bm.from_mesh(kme); bm.faces.ensure_lookup_table()
         bmesh.ops.delete(bm, geom=[bm.faces[i] for i in sorted(unter_weg)], context='FACES'); bm.to_mesh(kme); bm.free()
 
