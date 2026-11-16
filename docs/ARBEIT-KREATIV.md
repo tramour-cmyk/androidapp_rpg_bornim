@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (16.11., 17:13, `session_01Hmoj75zum6Z1f8NFfzpE4u`):** 1459: README-Wortlaut `[1459.readme.kopf]`, `[1459.readme.features]` in `STORY-BRS-OBERFLAECHE.md`, nur was im Godot-Spiel steht (fremd gegen den Code geprüft, `fd9c1c7e0`), mit Einbauhinweisen; Zeile an Tom. Nachfolger: Homer – 1468 (Dateiname in STORY-CHRONIK-TEXTE-K1.md).
+**Übergabe (16.11., 17:13, `session_01Hmoj75zum6Z1f8NFfzpE4u`):** 1459: README-Wortlaut `[1459.readme.kopf]`, `[1459.readme.features]` in `STORY-BRS-OBERFLAECHE.md`, nur was im Godot-Spiel steht (fremd gegen den Code geprüft, `fd9c1c7e0`), mit Einbauhinweisen; Zeile an Tom. 1468: Dateiname in STORY-CHRONIK-TEXTE-K1.md. Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
