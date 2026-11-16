@@ -280,6 +280,11 @@ def srd_neu(dat):
 
 MENUEPFAD = re.compile(r"Menü\s*→|\bReiter\b|Lage herstellen")
 HANDY_LESEN = re.compile(r"(?i)\b(lesen|liest|durchblättern|Text\w*|Handbuch\w*)\b")
+# 1427 (Chef 16.11., 13:31 zu t291.3 „nicht langsamer da als in Build 290“: „Völlig sinnlose Frage. Die kann ein Mensch nicht beantworten.“):
+# Vergleich mit einem früheren Build oder „wie vorher“ an einer Handy-Zeile nur mit gemessener Zahl (0,7 s, 30 Bilder/s, 12 %)
+VERGLEICH = re.compile(r"(?i)\b(?:als|wie)\s+(?:in\s+|im\s+|bei\s+|mit\s+)?(?:dem\s+)?(?:Build\s*|t)\d{3}\b"
+                       r"|\b(?:als|wie)\s+(?:vorher|bisher|früher|zuvor|sonst|gestern|beim letzten (?:Mal|Build))\b")
+GEMESSEN = re.compile(r"\d+(?:,\d+)?\s*(?:s|ms|Sek\w*|Min\w*|fps|Bilder/s|%|Prozent)(?![\wäöü])")
 
 
 def art_weg_befunde(inhalt):
@@ -302,6 +307,11 @@ def art_weg_befunde(inhalt):
         elif art.startswith("handy"):
             m = HANDY_LESEN.search(wo)
             if m: out.append(("warn", "Zeile %s Art Handy mit „%s“: nur Lesen ist Bild oder „ohne dich“, nicht Handy (1398)" % (r[0], m.group(0))))
+            ganz = re.sub(r"\[[^\]]*\]\([^)]*\)", "", " | ".join(r[sw:])) if sw >= 0 else ""
+            m = VERGLEICH.search(ganz)
+            if m and not GEMESSEN.search(ganz):
+                out.append(("vergleich", "Zeile %s Art Handy vergleicht aus dem Gedächtnis („%s“); kein Mensch weiß das noch: gemessene Zahl "
+                            "(Reiter „Test“ → „Gerät“) oder Bild/Film alt gegen neu (1427, LISTE-CHECK-BUILD-TEST.md 10)" % (r[0], m.group(0))))
     weg = re.search(r"(?m)^\W*Ein Weg:?\**(.*)$", inhalt)
     if weg:
         text = re.split(r"\.\s+(?=[A-ZÄÖÜ„])", weg.group(1))[0]  # nur der Wegsatz; „Bilder und Filme (…) nur auf Telegram“ danach darf sie nennen
@@ -472,8 +482,8 @@ def main():
     for s, p in dat:  # 1398 (Chef 16.11., 10:01: „Wenn da steht Bild und Film, dann verstehe ich nicht ganz, warum ich das hier über Menü,
         # Held, Reiter, Ausrüstung irgendwie testen soll … Telegram schicken, Bilder, Filme, wenig in die APK packen.“)
         if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
-            for f in art_weg_befunde(git("show", ":" + p)):
-                (stop if f[0] == "stop" else warn).append("%s: %s" % (p, f[1]))
+            for f in art_weg_befunde(git("show", ":" + p)):  # 1427: Vergleich hält nur neue Listen an, Nachträge an alten warnen
+                (stop if f[0] == "stop" or (f[0] == "vergleich" and s == "A") else warn).append("%s: %s" % (p, f[1]))
     for s, p in dat:  # 1217 (Chef 13.11., 20:13 zu t284.7p: „da gibt es gar kein P … Ah, das ist in der falschen Reihenfolge“): ab Build 285
         m = re.match(r"docs/(?:chefsache/ansehen|entwurf)/t(\d+)-[^/]+\.md$", p)   # die Zeilen jeder Tabelle in Nummernfolge
         if s == "D" or not m or int(m.group(1)) < 285: continue
