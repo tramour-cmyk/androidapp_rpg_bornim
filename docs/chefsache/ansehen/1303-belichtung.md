@@ -1,5 +1,7 @@
 # 1303 · Höhle mobile: Belichtung statt Hebung, ohne Flecken · Spike · 16.11., 13:04
 
+[Bild von 16.11., 13:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1304-1303-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Geprüft an: [Lauf 519](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43857035128), Commit 108c9b058 (`claude/spike-1303-stufen`), Renderer mobile am Bauserver
 
 ![Halle mit Fackel: jetzt gegen Belichtung ×5](../bilder/1303-belichtung.webp)
