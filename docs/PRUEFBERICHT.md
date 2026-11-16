@@ -41,6 +41,25 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 263 · 1410 Gegengelesen mehrfach (Perikles/Jerry `1cd81304d`; 16.11., 12:0x)
+
+- **1410 greift:** `commit-pruefung.py` liest jede Zeile „Gegengelesen“ (gleiche Regel wie die Pflichtzeile, also nie leer, wenn diese greift); hält nur an, wenn alle vom eigenen Team sind. Nachgestellt: Kopf „Tom und Jerry“ nur Tom → hält an; Tom + Sokrates → frei; „Tom“ mit Jerry → frei; „Jerry“ mit Tuffy → hält an. Im Betrieb: t292 (Tom 09:54, Sokrates 11:24) ging mit `e13ea288a` (11:57) nach `ansehen/`.
+
+## Lauf 262 · 1399, 1392 Rotbuch-Besitzer; 1396 Tuffy auf belegtem Zweig (Perikles `e4639d759`, `fd2637cd5`; 16.11., 10:4x)
+
+- **1399 greift, damit 1392:** `rotbuch_test.py` grün. Klon `--depth 30` ohne Netz (nur Name): 52 von 370 anders als voll, davon 49 an Ford, keiner mehr an Perikles/Sokrates/Homer; übrig anmarsch_506_1 → Tom (voll Jerry), kartennebel_bild_505 → Tom (voll Sokrates). Mit Netz (`anleger_netz`, öffentliche API) ziege_4162, hoehle_492 → Tom, umweg_399, brs_blatt_870, klang_test, anmarsch_506_1, mars_regeln → Jerry, je wie im vollen Klon.
+- **1396 greift nicht (D262.1 → 1407, Perikles):** `lauf_zweige_test.py` grün, aber `sitzungszweige()` liest `external_metadata.current_branches`, und das kommt bei `lauf.py` nie an: `list_sessions` liefert kein `external_metadata` (nur `get_session`, dort `{"": "claude/build-292"}`), Fords Kurzzeilen (`LISTE-BETRIEB.md` 3) haben kein Zweigfeld, `kosten.sitzungen` liest keins. Beleg: Spalte „Zweig“ in `ARBEIT-BESETZUNG.md` (dieselbe Quelle, Zeile 1150) in 306 Commits seit 09.11. nie gefüllt. Der Ausschluss ist damit im Betrieb immer leer.
+
+## Lauf 261 · 654.2 Messlauf ohne Freigabe (Perikles `40b4e09e8`; 16.11., 10:0x)
+
+- **654.2 greift:** `probelauf_messfrage_test.py` 9 von 9 (bild=nein mit „Messfrage:“ frei; Push-Lauf, Film, nur film=nein, leere Messfrage, zweiter am Tag nicht frei; zählt gegen die Grenze). Am Werkzeug: `handlauf_mcp` mit `inputs: {bild: nein}` setzt `bild_nein`; ohne Abholen des Zweigs bleibt die Nachricht leer → nicht frei. Zählung 23.11. (Freigaben je Woche unter 60, Messläufe je Vorgang) in der Wochenzählung.
+- **D261.1 → 1400 (Perikles):** „Geprüft an: 48bb6c487“ (Zeile, Vollzug `72f66d19f`, `billigen/6542`) gibt es nicht, ebenso c28c2e3d9 bei 1392; echt `40b4e09e8`, `23cba5e17`.
+
+## Lauf 260 · 1392 Rotbuch-Besitzer im flachen Klon (Perikles `23cba5e17`; 16.11., 10:0x)
+
+- **1392 greift mit Lücke (D260.1 → 1399, Perikles):** `rotbuch_test.py` grün. Klon `--depth 30`, Grenze erkannt: ziege_4162, platzwechsel_4162, hoehle_492 → Tom wie im vollen Klon (alte Fassung dort: Ford). Über alle 370 Tests weichen aber 58 vom vollen Klon ab: 25 gehen an Perikles/Sokrates/Homer, weil die Nummer im Namen eine Mutter nennt (399 → Perikles, 870/1020/1268 → Sokrates, 629 → Homer), 33 an Ford (ohne Nummer, Endung `_bild`, `_film`, `_1`); `anmarsch_506_1` liest Nr. 1 → Tom (voll: Jerry). Rote Tests landen so weiter bei Rollen, die keinen Spielcode bauen. Vorschlag (nicht bewertet): Nummer aus dem Namen nur, wenn ihr Besitzer Tom/Jerry/Spike ist, sonst Ford; oder im flachen Klon `git fetch --unshallow`.
+- „Geprüft an: c28c2e3d9“ in der Zeile 1392 gibt es nicht; geprüft an `23cba5e17`.
+
 ## Lauf 259 · 1391 Zeile Chef in „Je Rolle das Nächste“ (Perikles `1156442d8`; 16.11., 09:2x)
 
 - **1391 greift:** `ueberblick.py` gibt „| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 11 weitere |“ als erste Zeile der Tabelle; die Übersicht von 09:21 trägt sie noch nicht (vor dem Bau), der nächste Push schreibt sie. t290 (offen) steht hinter t291, weil t291 mehr Zeilen hält und 290 enthält.

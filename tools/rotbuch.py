@@ -22,6 +22,7 @@ API = "https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/"
 STUNDEN = 48
 SPEICHER = os.path.expanduser("~/.cache/bornim-rotbuch.json")
 ROT = re.compile(r"^918 rot \((\w+)\) (tests/[\w./-]+\.gd)")
+BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1399: bauen Spielcode und seine Tests
 ROLLEN = ("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
@@ -91,13 +92,27 @@ def grenzen():
 
 
 def nr_aus_name(test):
-    """Zu 1392: Nummer aus dem Testnamen („ziege_4162“ → 416.2, „pruefliste_1020“ → 1020): erst ganz, dann mit Punkt von rechts."""
-    m = re.search(r"_(\d+)$", os.path.basename(test)[:-3])
-    if not m: return None
-    z = m.group(1)
-    for k in [z] + [z[:i] + "." + z[i:] for i in range(len(z) - 1, 0, -1)]:
-        if wer := besitzer_von_nr(k): return wer
+    """Zu 1392: Nummer aus dem Testnamen („ziege_4162“ → 416.2, „pruefliste_1020“ → 1020): erst ganz, dann mit Punkt von rechts.
+    1399 (D260.1): jede Zahl im Namen von links („anmarsch_506_1“ → 506, nicht 1), Zahlen unter drei Stellen nur als Zusatz; zählt nur ein
+    Besitzer, der Spielcode baut (Tom, Jerry, Spike), sonst nannte die Zahl eine Mutter (399 → Perikles, 870 → Sokrates) und es bleibt Ford."""
+    for z in re.findall(r"_(\d{3,})(?=_|$)", os.path.basename(test)[:-3]):
+        for k in [z] + [z[:i] + "." + z[i:] for i in range(len(z) - 1, 0, -1)]:
+            wer = {"Tuffy": "Jerry"}.get(besitzer_von_nr(k), besitzer_von_nr(k))
+            if wer in BAUTEAMS: return wer
     return None
+
+
+def anleger_netz(test):
+    """1399: im flachen Klon den Betreff des ersten Commits der Datei über die öffentliche API (nur für Wiederholer, wenige Abrufe); sonst „“."""
+    try:
+        alle = []
+        for seite in range(1, 6):
+            teil = holen("commits?path=godot/%s&per_page=100&page=%d" % (test, seite))
+            alle += teil
+            if len(teil) < 100: break
+        return alle[-1]["commit"]["message"].splitlines()[0] if alle else ""
+    except Exception:
+        return ""
 
 
 def besitzer(test):
@@ -107,7 +122,7 @@ def besitzer(test):
     zeilen = [z for z in r.stdout.splitlines() if z]
     erst = zeilen[-1] if zeilen else ""
     sha, _, erst = erst.partition(" ")
-    if sha in grenzen(): erst = ""
+    if sha in grenzen(): erst = anleger_netz(test)
     m = re.match(r"(%s)\b" % "|".join(ROLLEN), erst)
     wer = m.group(1) if m else None
     if not wer and (n := re.match(r"(\d+[a-z]?(?:\.\d+[a-z]?)*)\b", erst)): wer = besitzer_von_nr(n.group(1))

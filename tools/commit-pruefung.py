@@ -278,6 +278,42 @@ def srd_neu(dat):
     return ([], [text + " (hält an, sobald 870.4 erledigt ist)"]) if offen else ([text], [])
 
 
+MENUEPFAD = re.compile(r"Menü\s*→|\bReiter\b|Lage herstellen")
+HANDY_LESEN = re.compile(r"(?i)\b(lesen|liest|durchblättern|Text\w*|Handbuch\w*)\b")
+
+
+def art_weg_befunde(inhalt):
+    """1398: Bild/Film ohne APK-Weg, „Ein Weg“ ohne Bild-/Filmnummer, Handy nur zum Lesen (Warnung). [(stop|warn, Text)]"""
+    tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in inhalt.splitlines() if zl.startswith("|")]
+    kopf = next((r for r in tab if "Art" in r), None)
+    if not kopf: return []
+    sa = kopf.index("Art")
+    sw = next((i for i, c in enumerate(kopf) if c.lower().startswith("wo und wie")), -1)
+    zeilen = [r for r in tab if r and re.fullmatch(r"\*?\d+\.\d+[a-z]?(\.\d+[a-z]?)*\*?", r[0]) and len(r) > sa]
+    nrs = [r[0].strip("*") for r in zeilen]
+    out = []
+    for r in zeilen:
+        art = r[sa].lower()
+        wo = re.sub(r"\[[^\]]*\]\([^)]*\)", "", r[sw]) if 0 <= sw < len(r) else ""
+        if re.match(r"(bild|film)\b", art):
+            m = MENUEPFAD.search(wo)
+            if m: out.append(("stop", "Zeile %s Art %s nennt einen Weg in der APK („%s“); bei Bild und Film ist „Wo und wie“ nur, was zu sehen ist, "
+                              "der Chef sieht es auf Telegram, nie über Menü oder Reiter (1398, LISTE-CHECK-BUILD-TEST.md 9, 10)" % (r[0], r[sa].split()[0], m.group(0))))
+        elif art.startswith("handy"):
+            m = HANDY_LESEN.search(wo)
+            if m: out.append(("warn", "Zeile %s Art Handy mit „%s“: nur Lesen ist Bild oder „ohne dich“, nicht Handy (1398)" % (r[0], m.group(0))))
+    weg = re.search(r"(?m)^\W*Ein Weg:?\**(.*)$", inhalt)
+    if weg:
+        text = re.split(r"\.\s+(?=[A-ZÄÖÜ„])", weg.group(1))[0]  # nur der Wegsatz; „Bilder und Filme (…) nur auf Telegram“ danach darf sie nennen
+        genannt = set(re.findall(r"(?<![\d.])(\d+\.\d+[a-z]?)(?![\d])", text))
+        for a, b in re.findall(r"(?<![\d.])(\d+\.\d+[a-z]?)\s*(?:bis|–|-)\s*(\d+\.\d+[a-z]?)(?![\d])", text):
+            if a in nrs and b in nrs: genannt.update(nrs[nrs.index(a):nrs.index(b) + 1])
+        bf = [r[0].strip("*") for r in zeilen if re.match(r"(bild|film)\b", r[sa].lower()) and r[0].strip("*") in genannt]
+        if bf: out.append(("stop", "„Ein Weg“ nennt Bild/Film %s; der Weg führt nur durch Handy-Zeilen, Bild und Film gehen je als eigene "
+                           "Telegram-Nachricht (1398, LISTE-CHECK-BUILD-TEST.md 10)" % ", ".join(bf)))
+    return out
+
+
 def main():
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
@@ -428,6 +464,11 @@ def main():
                 if sa >= 0 and len(r) > sa and r[sa].lower().startswith("kleinkram") and not KLEIN_LINK.search("|".join(r)):
                     stop.append("%s: Zeile %s Art Kleinkram ohne Link aufs Bild (1173 A): Bild mit `meldung.sh --bild` an den Chef, Link "
                                 "„[Bild …](https://github.com/…/blob/bilder/…)“ in die Zeile; Kleinkram fragt der Reiter „Test“ nicht ab" % (p, r[0]))
+    for s, p in dat:  # 1398 (Chef 16.11., 10:01: „Wenn da steht Bild und Film, dann verstehe ich nicht ganz, warum ich das hier über Menü,
+        # Held, Reiter, Ausrüstung irgendwie testen soll … Telegram schicken, Bilder, Filme, wenig in die APK packen.“)
+        if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
+            for f in art_weg_befunde(git("show", ":" + p)):
+                (stop if f[0] == "stop" else warn).append("%s: %s" % (p, f[1]))
     for s, p in dat:  # 1217 (Chef 13.11., 20:13 zu t284.7p: „da gibt es gar kein P … Ah, das ist in der falschen Reihenfolge“): ab Build 285
         m = re.match(r"docs/(?:chefsache/ansehen|entwurf)/t(\d+)-[^/]+\.md$", p)   # die Zeilen jeder Tabelle in Nummernfolge
         if s == "D" or not m or int(m.group(1)) < 285: continue
@@ -451,9 +492,13 @@ def main():
                         "erst mit APK, Bildern und Filmen (866, 881, 1199)" % p)
             continue
         # 881 (D139.1): nie das eigene Team; Team aus Zeile 1 („# <Team oder „Tom und Jerry“> · Build …“), Spike zählt zu Tom, Tuffy zu Jerry
-        team = {"Tuffy": "Jerry"}.get(gl.group(1), gl.group(1))  # 1328: Spike eigenes Team
         kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
-        if team in ("Tom", "Jerry", "Spike") and re.search(r"\b(%s)\b" % "|".join([team] + (["Tuffy"] if team == "Jerry" else [])), kopf):
+        def eigen(g):
+            team = {"Tuffy": "Jerry"}.get(g.group(1), g.group(1))  # 1328: Spike eigenes Team
+            return team in ("Tom", "Jerry", "Spike") and re.search(r"\b(%s)\b" % "|".join([team] + (["Tuffy"] if team == "Jerry" else [])), kopf)
+        # 1410 (Jerry, t292): jede Zeile „Gegengelesen“ zählt; eine von außerhalb des Teams genügt (Sokrates bei Listen beider Teams)
+        alle = list(re.finditer(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(Sokrates|Perikles|Homer|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)\b.*\d\d?:\d\d", inhalt))
+        if all(eigen(g) for g in alle):
             stop.append("%s: gegengelesen vom eigenen Team (%s, Zeile 1: %s); eine Sitzung außerhalb des Teams liest gegen (881)" % (p, gl.group(1), kopf.strip("# ").strip()))
         # 1199 (Chef 13.11., 18:30: „Wenn etwas zu tun ist durch mich, dann bitte den Eintrag, aber doch nicht vorher“): nach ansehen/
         # erst mit APK-Link in Zeile 2; bis dahin liegt die gegengelesene Liste in docs/entwurf/, der Bau liest sie dort (pruefliste.py)

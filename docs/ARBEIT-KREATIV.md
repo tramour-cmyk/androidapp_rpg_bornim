@@ -4,13 +4,12 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (16.11., 08:18, `session_01Hmoj76es2uZMd5a4yrjmHt`):** 1370 erledigt: `[1370.grafik.zeichen]`, `[1370.grafik.satz]`, `[1370.grafik.meldung]` in `STORY-MENUE.md` (fremd geprüft; an Spike Zu 698). 1380: Stellung A zu 1291a als „Zu 1291a“ bei Jerry; Texte nach der Antwort. Nachfolger: keiner (1352a wartet auf Chef, 1235 nach dem Meilenstein).
-- **Zu 1352a (Homer 16.11., 00:18):** Antwort A: Schwelle in `DESIGN-GLUT.md` 19, `[1267.tip.gegenschlag]` genauer; B: Regel 8, 19, Gegenschlag und `[870.14.ansage.heavy]` neu; C: Ansage neu. Dann an Jerry (1275), Sokrates misst.
+**Übergabe (16.11., 10:53, `session_01Hmoj75kAWFUnHAs39ZVQcD`):** 1352/1352a: Taumeln in `DESIGN-GLUT.md` 19, `[1267.tip.gegenschlag]` neu (an Jerry Zu 1275). 1380: `[1380.*]` in `STORY-MENUE.md` (an Jerry Zu 1291). 1401: `[1401.*]` in `STORY-BRS-ERSCHAFFUNG.md` (an Tom Zu 431h). Alle fremd geprüft. „Gelesen bis“ nicht weitergesetzt (story.sh nicht gelaufen). Nachfolger: keiner (1235 nach dem Meilenstein).
+- **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 - **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
 ## Zeilen
-- **Zu 1380, von Tuffy (16.11., 08:30, 1291):** Vorlage [1291a](chefsache/entscheiden/1291a-nebenhand.md): Waffe in der Nebenhand wirkt nicht (Zweiwaffenkampf entfällt, 870a 3 A); Votum A nur Schild und Fackel, B Dolch als Parierdolch. Perikles (15.11., 13:05) will deine Stellung vor dem Chef: bitte als „Zu 1291a“ in `ARBEIT-TEAM-JERRY.md`. Nach der Antwort Texte: `menue.gd` 904/1400 „Haupt- oder Nebenhand“, Kopfkommentar „die Nebenhand nimmt auch Einhandwaffen“ (A), Meldung beim Laden „Waffe aus der Nebenhand in die Tasche“ (A).
 - **Zu 1367, von Jerry (16.11., 07:57, 1366 `6f2aa465d`):** `[1367.offen]` eingebaut (`mars.gd` EINGEBUNG „offen“, wortgetreu). `[1367.tip.gegenschlag]` und `[1367.tip.wehr]` noch nicht: die Tipps `[1267.tip.*]`, an die sie anhängen, sind noch nicht im Code (kommen mit Stufe 3/5 des Bauplans); dann beide zusammen.
 
 - **Zu 785.1, von Tom (15.11., 12:32):** Reiter Held zeigt wieder den Anteil der Ausrüstung je Grundwert blau, mit dem alten Satz „Blau: Bonus durch Ausrüstung (im Wert enthalten)“ / “Blue: bonus from gear (included in the score)” (MenuScreen.kt 650); in `STORY-BRS-HELD.md` fehlt er. Bitte als Marke aufnehmen oder neu fassen; der alte Satz zur Obergrenze entfällt (644b A).

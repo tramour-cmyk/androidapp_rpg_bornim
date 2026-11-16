@@ -34,6 +34,12 @@ Homer 11.11.; Vorgang 954.1 für den Bau 954 (Tom): Gedrückthalten auf Grundwer
 - `[954.1.herkunft.herumtreiber]` Du hast dich auf der Straße durchgeschlagen: flink, rasch mit dem Dolch und schwer zu fassen. / EN: You scraped by on the streets: nimble, quick with a dagger and hard to pin down.
 - `[954.1.herkunft.wanderer]` Ohne Herkunft: du verteilst die Punkte selbst und wählst deine Fertigkeiten. / EN: No origin: you spend the points yourself and pick your own skills.
 
+## Startstücke Oberkörper `[1401.…]` (431h A; Werte wie Lederrüstung, Aussehen der heutigen Tracht; Name, Geschlecht, Gegenstandstext; Homer 16.11., fremd geprüft 10:52, Namen nach dem Aussehen: Kutte für das lange Stoffkleid, Hemd für das Bauernhemd)
+- `[1401.klosterschueler]` Novizenkutte (F) / EN: Novice's Habit. Grobe Wolle aus dem Kloster, an Brust und Schultern doppelt genäht. Hält mehr ab, als man ihr ansieht. / EN: Coarse cloister wool, double-stitched at chest and shoulders. It turns more than it seems to.
+- `[1401.kraeutersammler]` Sammlerhemd (N) / EN: Forager's Shirt. Gewachstes Leinen gegen Tau und Dornen, die Taschen riechen nach Kräutern. / EN: Waxed linen against dew and thorns; the pockets smell of herbs.
+- `[1401.schmiedelehrling]` Schmiedehemd (N) / EN: Smith's Shirt. Dickes Leinen, von den Funken der Esse durchlöchert und doch nie durchgebrannt. / EN: Thick linen, pocked by sparks from the forge, yet never burned through.
+- `[1401.wanderer]` Wanderhemd (N) / EN: Wayfarer's Shirt. Doppelt gelegtes Leinen, vom Weg gebleicht und oft geflickt. / EN: Doubled linen, bleached by the road and patched many times.
+
 ## Fertigkeiten `[954.1.fert.…]` (Schlüssel = Name im Code; Bergbau nicht wählbar)
 
 Vor dem Doppelpunkt steht der Name: er ist der Kopf der Blase, nicht Teil des Satzes; der Satz beginnt im Bau groß („Große Schwerter, Äxte …“). Bei den Völkern dagegen gehört das Merkmal zum Satz (Kopf ist das Volk).
