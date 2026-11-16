@@ -6,10 +6,10 @@ extends Control
 # - Held (HeroTab, 870.4 nach BRS): der Held auf dem Drehteller, Name, Volk · Herkunft, Heldenstufe und Gold; Leben, Mana, Erfahrung
 #   als Balken; Schutzwert, Schaden, Kritisch; die sechs Grundwerte mit Erklaerung; Fertigkeiten (762) und Volksmerkmal.
 # - Tasche (BagTab): Vorraete mit Gold zuerst, Dinge mit Anzahl; Ausruestung in der Tasche nach Seltenheit.
-#   Antippen (BagTab): Traenke, Essen, Ausdauertrank und Leuchtfunke benutzen (Game.useItemOutside), Ausruestung anlegen, in die
-#   Nebenhand, wegwerfen (mit Rueckfrage und Haendlerpreis).
+#   Antippen (BagTab): Traenke, Essen, Ausdauertrank und Leuchtfunke benutzen (Game.useItemOutside), Ausruestung anlegen,
+#   wegwerfen (mit Rueckfrage und Haendlerpreis).
 # - Ausruestung (GearTab): Plaetze links und rechts des Helden (PaperDoll), Antippen legt ab, wechselt oder waehlt aus der Tasche,
-#   was passt (die Nebenhand nimmt auch Einhandwaffen); darunter die Kampfwerte.
+#   was passt; darunter die Kampfwerte.
 # - System (SystemSigns, 425): Zeichen wie alt, Gedrueckthalten erklaert; Spiel, Kampf, Bedienung; Lautstaerke (399.3.1), Helligkeit;
 #   Siege, Geraet.
 # - Karte (MapTab, 62): kartenreiter.gd.
@@ -932,7 +932,7 @@ static func stueck_zeilen_von(hw: BrsHeld, g: Dictionary) -> Array:
 	var waffe := Beute.ist_waffe(b)
 	var wo := String(d["plaetze"][String(b["slot"])][sp])
 	if waffe and zweihaendig.call(g): wo = "Beide Hände" if de else "Both hands"
-	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
+	elif waffe: wo = "Haupthand" if de else "Main hand"   # [1380.wo.waffe] (1291a D: die Nebenhand hält nur Schild oder Fackel)
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
 	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
@@ -1043,7 +1043,6 @@ func frage_stueck(g: Dictionary) -> void:
 		fenster_b(g)
 		return
 	var k: Array = [[Sprache.u("equip"), func(): meldung(lege_an(g)); baue(), ok]]
-	if ok and einhandwaffe(g): k.append(["Nebenhand" if de else "Off hand", func(): meldung(lege_an(g, true)); baue()])
 	k.append(["Wegwerfen" if de else "Discard", func(): frage_wegwerfen(g)])
 	k.append([abbrechen(), func(): pass])
 	dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), k)
@@ -1073,9 +1072,10 @@ func wirf_weg(g: Dictionary) -> void:
 
 func de_() -> bool: return Sprache.aktiv() == "de"
 
-# 214: was in der Tasche an den Platz passt; die Nebenhand nimmt auch Einhandwaffen; Tragbares zuerst, dann Seltenheit, Stufe
+# 214: was in der Tasche an den Platz passt; Tragbares zuerst, dann Seltenheit, Stufe (1291a D: die Nebenhand nimmt nur Schild und
+# Fackel, keine Einhandwaffe mehr)
 func passend(platz: String) -> Array:
-	var l: Array = z.beutel.filter(func(g): return String(Beute.grundform(String(g["base"]))["slot"]) == platz or (platz == "OFF_HAND" and einhandwaffe(g)))
+	var l: Array = z.beutel.filter(func(g): return String(Beute.grundform(String(g["base"]))["slot"]) == platz)
 	l.sort_custom(func(a, b):
 		if hw.kann_tragen(a) != hw.kann_tragen(b): return hw.kann_tragen(a)
 		return Menue.vor(a, b))
@@ -1101,7 +1101,7 @@ func waehle(platz: String) -> void:
 		var p: Control = ausruestungszeile(g)   # 870.4: jeder darf alles tragen
 		tippbar(p, func():
 			schleier["k"].queue_free()
-			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), hw.kann_tragen(g)],
+			dialog(Beute.name(g), farbe_von(g), stueck_zeilen(g), [[Sprache.u("equip"), func(): meldung(lege_an(g)); baue(), hw.kann_tragen(g)],
 				[Sprache.u("back"), func(): waehle(platz)]]))
 		zeilen.append(p)
 	schleier["k"] = dialog(platzname(platz), Stil.GOLD, zeilen, [[Sprache.u("back"), func(): pass]])   # 618
@@ -1134,6 +1134,11 @@ func _waehle_b(platz: String) -> void:
 	spalte.add_child(Stil.luecke(6))
 	spalte.add_child(Spielstaende.zier())
 	spalte.add_child(Stil.luecke(8))
+	if platz == "OFF_HAND":   # [1380.hinweis] (1291a D, Chef 16.11., 10:37: die Nebenhand nimmt nur Schild und Fackel)
+		var hin := Stil.txt("Die Nebenhand hält einen Schild oder eine Fackel." if de else "The off hand holds a shield or a torch.", 15, Stil.DIM)
+		hin.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		spalte.add_child(hin)
+		spalte.add_child(Stil.luecke(8))
 	var an = hw.ding(platz)
 	var jetzt := HBoxContainer.new()
 	jetzt.add_theme_constant_override("separation", int(14 * DP))
@@ -1255,7 +1260,7 @@ func _wechsel_zeile_b(g: Dictionary, platz: String, zu: Callable, de: bool) -> C
 	rand.add_child(r)
 	return Spielstaende.tippbar(rand, func():
 		zu.call()
-		fenster_b(g, func(): meldung(lege_an(g, platz == "OFF_HAND" and String(Beute.grundform(String(g["base"]))["slot"]) != "OFF_HAND")); baue(), func(): waehle(platz)))
+		fenster_b(g, func(): meldung(lege_an(g)); baue(), func(): waehle(platz)))
 
 # ---------------------------------------------------------------- 557 / 524.1 Gegenstandsfenster im Stil B
 # Chef 04.11., 13:32 („524.1 nach B in 557“): der aeussere Goldrahmen bleibt (Entscheidung, 549a (3)), innen nur Linien und Abstand.
@@ -1299,8 +1304,6 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 		# zu je zwei: oben „× WEGWERFEN“ (Warnfarbe wie in der Rueckfrage, Chef 17:43) links und „NEBENHAND ›“ rechts, unten „‹ ABBRECHEN“
 		# und „ANLEGEN ›“ (Pruefer 17:12: Wegwerfen und Nebenhand standen zu nah beieinander)
 		var oben: Array = [Spielstaende.knopf("gefahr", "Wegwerfen" if de else "Discard", func(): zu.call(); frage_wegwerfen(g), true)]
-		if ok and einhandwaffe(g) and not anlegen.is_valid():
-			oben.append(Spielstaende.knopf("neben", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
 		v.add_child(Spielstaende.fuss(func(): schleier.queue_free(); if zurueck.is_valid(): zurueck.call(), "", Sprache.u("equip"), Stil.BRIGHT, func(): zu.call(); an_c.call(), ok, oben))
 		Menue.wuerfel_lesbar(v)
 		return schleier
@@ -1312,8 +1315,6 @@ func fenster_b(g: Dictionary, anlegen := Callable(), zurueck := Callable()) -> C
 	mitte_.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unten.add_child(mitte_)
 	var an_ := anlegen if anlegen.is_valid() else func(): meldung(lege_an(g)); baue()
-	if ok and einhandwaffe(g) and not anlegen.is_valid():
-		unten.add_child(Spielstaende.nebenwahl("", "Nebenhand" if de else "Off hand", func(): zu.call(); meldung(lege_an(g, true)); baue()))
 	unten.add_child(Spielstaende.hauptwahl(Sprache.u("equip"), func(): zu.call(); an_.call(), ok))
 	v.add_child(unten)
 	return schleier
@@ -1428,7 +1429,7 @@ static func stueck_zeilen_b(hw: BrsHeld, g: Dictionary) -> Array:
 	var zwei := waffe and bool(b["zweihaendig"])
 	var wo := String(d["plaetze"][String(b["slot"])][sp])
 	if zwei: wo = "Beide Hände" if de else "Both hands"
-	elif waffe: wo = "Haupt- oder Nebenhand" if de else "Main or off hand"
+	elif waffe: wo = "Haupthand" if de else "Main hand"   # [1380.wo.waffe] (1291a D: die Nebenhand hält nur Schild oder Fackel)
 	wo += (" · Stufe " if de else " · Level ") + str(int(g["ilvl"]))
 	var gewicht := String(b.get("gewicht", "NONE"))
 	if gewicht != "NONE": wo += " · " + Sprache.t(d["ruestungsarten"].get(gewicht, {"de": "Stoff", "en": "cloth"}))
