@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1361 | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 1355, 870.20, 1322, 1326, 1321, 1289, 415, 601.1, 1275, 1270.3, 673) | Tom | M | zu testen, Lauf von Hand 02:47 (wolf_mess_438 bekannt, 1363) | – | claude/build-291 | 291 | E Technik | 2,34 $ |
+| 1361 | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 1355, 870.20, 1322, 1326, 1321, 1289, 415, 601.1, 1275, 1270.3, 673) | Tom | M | zu testen, Lauf von Hand 02:47 (wolf_mess_438 bekannt, 1363) | – | claude/build-291 | 291 | E Technik | 5,25 $ |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bildlauf von der Rechteprüfung abgelehnt | 1351 | – | – | E Oberfläche | 8,48 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | wartet | 1351 | claude/tom-1092-streifen | – | E Figuren | 29,31 $ |
 | 1325 | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode unverändert gegen Lauf 493/497 grün): von Westen tritt die Ziege erst weg (30→29), dann Tausch; am Rechner mit Kaufmodellen auch bei 12 Bildern/s grün | Tom | M | zu testen, ohne Rückmeldung t290 | Diogenes | claude/tom-1325-ziege | – | E Welt | 14,10 $ |
@@ -30,7 +30,7 @@
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | Tom | K | ruht | 23.11. | claude/tom-417-tragart | – | E Figuren | – |
 | 558.1 | Prüferrest Robe Probe 5 nachhalten, nicht bauen; Chef sieht es nach dem Durchspielen an (Chef 04.11., 22:23) | Tom | K | ruht | 23.11. | claude/tom-558-robe | – | E Figuren | – |
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | Tom | K | wartet | 508 | – | – | G Story | – |
-| 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | nach Meilenstein | – | – | – | M Veröffentlichung | – |
+| 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | nach Meilenstein | – | – | – | M Veröffentlichung | 2,91 $ |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | Tom | K | wartet | 1235 | – | – | G Story | – |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | Tom | K | aufgeteilt | – | – | – | E Figuren | 1,06 $ |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | Tom | K | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | 23.11. | – | – | E Oberfläche | – |
