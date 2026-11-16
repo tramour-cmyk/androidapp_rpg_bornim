@@ -682,3 +682,4 @@
 2026-11-16 20:44:36	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1411b-merkmale.md: fehlt Nummer 1411b in	HEAD
 2026-11-16 20:44:44	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1411b-merkmale.md: fehlt Nummer 1411b in	HEAD
 2026-11-16 20:45:06	commit-pruefung	docs/chefsache/entscheiden/1411b-merkmale.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-16 21:04:05	commit-pruefung	docs/ROLLE-PROJEKT.md: 13285 Bytes, Obergrenze 13200, Commit fügt 194 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
