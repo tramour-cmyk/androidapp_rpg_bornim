@@ -595,3 +595,4 @@
 2026-11-16 11:50:43	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30392 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 11:54:04	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1072-mess ändert Spielcode (godot/kampf/figur.gd, go	claude/jerry-1072-mess
 2026-11-16 11:54:32	probelauf	748: Push angehalten, der letzte Lauf auf claude/jerry-1072-mess ist rot (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43841285440, Stand eea133511). Erst das Protokoll lesen (Gi	claude/jerry-1072-mess
+2026-11-16 11:56:10	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1284b-biss-verdeckt.md: fehlt Nummer 128	claude/jerry-1072-mess
