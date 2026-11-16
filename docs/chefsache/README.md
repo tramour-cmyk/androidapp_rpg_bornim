@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:59, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 12:07, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -28,10 +28,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 (57) | 10 | 0 | 13 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 (18) | 9 | 0 | 10 | 4 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| Werkzeuge und Abläufe der Firma | 42 (56) | 26 | 0 | 1 | 9 | 1409 (Jerry) kauf_cache_probe.sh Zeile 45 auf dem Bauserver FA… |
+| Werkzeuge und Abläufe der Firma | 41 (56) | 25 | 0 | 1 | 9 | 1409 (Jerry) kauf_cache_probe.sh Zeile 45 auf dem Bauserver FA… |
 | Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 61 erledigt, 53 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 62 erledigt, 53 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -43,7 +43,7 @@ Heute (seit 6:00): 61 erledigt, 53 neu. In Klammern bei „offen“: Stand 6:00.
 | Tuffy | 1291 Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | leer, weil 5 wartet auf Test, 3 ruht bis, 1 wartet auf |
 | Homer | leer, weil 1 Chef Gespräch |
-| Diogenes | 1410 Commit-Prüfung 881 liest nur die erste Zeile „Gegengelesen“… (Muss) |
+| Diogenes | 1407 D262.1 von Diogenes: sitzungszweige liest current_branches,… (Kür) |
 | Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss); dann 2 weitere |
 | Perikles | M? M? entscheiden: 1406 (Muss) |
 
@@ -72,7 +72,7 @@ Heute (seit 6:00): 61 erledigt, 53 neu. In Klammern bei „offen“: Stand 6:00.
 | 19 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
 | 20 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
 
-Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 36. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
+Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 36. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
