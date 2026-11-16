@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 275 · 1427 an der ersten echten Prüfliste (16.11., 18:06)
+
+- **1427 greift:** erste neue Prüfliste nach dem Bau, t293 (Jerry `f5b1a47f6`, 15:34; im Archiv seit `0fb38b49f`): neun Zeilen, keine mit Vergleich aus dem Gedächtnis („wie in Build n“, „als vorher“, „wie gewohnt“); Vergleiche nur im Film (293.9, Fehlbiss im selben Film). „wie 293.6“ in 293.7 ist ein Ortsverweis. Nicht geprüft: ob die Commit-Prüfung bei t293 lief (Liste hätte ohnehin nichts zum Anhalten).
+
 ## Lauf 274 · 1446 Lücken der Vergleichsprüfung (Perikles `5d641d279`, `d03601a56`; 16.11., 14:44)
 
 - **1446 greift:** `art_weg_test.py` gut (14 von 14). Meine fünf Proben aus Lauf 273 jetzt alle mit Fund („wie in 290“, „als zuletzt“, „wie gewohnt“, „in 2 s da; nicht dunkler als in Build 290“), Meterangabe („wie in 120 m“) frei. Rest ohne Vorgang: Messzahl im selben Satzteil mit Komma gibt noch frei („in 2 s da, nicht dunkler als in Build 290“). Seit `d03601a56` jede Art außer Bild/Film geprüft (Gespräch mit Fund). Erster echter Fund: Entwurf t293 Zeile 293.6 („so hell wie in Build 292“), an Jerry 14:45. 1427 wartet auf die erste neue Prüfliste.
