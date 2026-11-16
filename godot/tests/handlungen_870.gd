@@ -149,6 +149,24 @@ func _wucht() -> void:
 	var mit := _chance(m, ["use", "H_WUCHT", "f0"])
 	pruefe("Wuchtschlag: Treffer %d" % int(H["Wuchtschlag"]["treffer"]), mit == ohne + int(H["Wuchtschlag"]["treffer"]), "%d, %d" % [ohne, mit])
 	pruefe("Wuchtschlag: Schaden × %s" % H["Wuchtschlag"]["schaden_faktor"], _schaden_faktor("Zweihänder", "H_WUCHT", false) > 1.3)
+	# 1333: die Meldung sagt dem Sterben mit Physik, wie der Schlag trifft (ragdoll.gd STOSS „schwer“)
+	pruefe("1333 Wuchtschlag meldet schwer", _wucht_art("Einhänder", ["use", "H_WUCHT", "f0"]) == "schwer")
+	pruefe("1333 Schädelstoß meldet schwer", _wucht_art("Einhänder", ["use", "H_SCHAEDEL", "f0"]) == "schwer")
+	pruefe("1333 Zweihänder meldet schwer", _wucht_art("Zweihänder", ["attack", "f0"]) == "schwer")
+	pruefe("1333 Stumpfe Waffe meldet schwer", _wucht_art("Stumpfe Waffen", ["attack", "f0"]) == "schwer")
+	pruefe("1333 Einhänder meldet nichts", _wucht_art("Einhänder", ["attack", "f0"]) == "")
+	pruefe("1333 nach dem Schlag leer", m.wucht == "")
+
+
+## 1333: „wucht“ der Angriffsmeldung des Helden ("" ohne)
+func _wucht_art(gruppe: String, o: Array) -> String:
+	var m = _kampf(gruppe, {gruppe: 25}, ["wolf"])
+	m.start()
+	var w := ["?"]
+	m.listener = func(e): if e.actor == "hero" and Mars.ist_angriff(e.roll) and w[0] == "?": w[0] = "" if e.wucht == null else String(e.wucht)
+	m._perform(m.by_id("hero"), o)
+	m.listener = Callable()
+	return w[0] if w[0] != "?" else "keine Meldung"
 
 
 ## mittlerer Schaden je Treffer mit der Handlung geteilt durch ohne (gleiche Würfel)

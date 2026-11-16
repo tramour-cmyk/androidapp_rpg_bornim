@@ -294,8 +294,9 @@ LEICHEN_AB = datetime.date(2026, 11, 17)
 LEICHEN_ABSTAND = 2  # Tage
 
 # 340.9 (340.6 A, Chef 15.11., 18:30, V3): liegen Antworten im Rollenspiegel ohne Auswertung, legt lauf.py --sperre am selben Tag
-# eine Muss-Zeile bei Sokrates an: sobald alle sieben geantwortet haben, sonst freitags ab 20 Uhr (oder später) mit dem, was da ist.
-SPIEGEL_AB = datetime.date(2026, 11, 20)
+# eine Muss-Zeile bei Sokrates an: sobald alle sieben geantwortet haben, sonst am Termintag ab 20 Uhr (oder später) mit dem, was da ist.
+# Termintag seit 1461 mittwochs (Kopf „## Woche <Mittwoch>“), erste Runde 18.11.
+SPIEGEL_AB = datetime.date(2026, 11, 18)
 SPIEGEL_ROLLEN = 7
 
 def spiegel_auswertung_faellig(jetzt, da=None, text=None):

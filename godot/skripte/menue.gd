@@ -1686,6 +1686,9 @@ func tippe_fach(platz: String) -> void:
 # Hauptmenü; Anleitung, Über), „Kampf“ (Blut, Tempo, Kampftext, Rückfragen), „Bedienung“ (Steuerung, Joystick und Rennen nur beim
 # Wischen, Aktion; Karte, Rütteln, Schritte). Antippen wechselt, Gedrueckthalten erklaert (erklaere_zeichen); Regler fuer Klang und
 # Licht bleiben; unten Schritte und Siege, Geraet. Die MARS-Probe (alt „M“) folgt mit ihrem Schirm (Jerry).
+# 698: Erklärung des Zeichens „Grafik“ ([1370.grafik.satz], STORY-MENUE.md)
+const GRAFIK_SATZ := ["Wie viel das Handy zeichnet. Antippen wechselt: Automatisch, Hoch, Mittel, Niedrig. Automatisch geht eine Stufe herunter, wenn es ruckelt, und nie von selbst herauf. Niedrig spart an Schatten, Schärfe und Effekten; Schrift und Tuschelinie bleiben, wie sie sind. Gras und Effekte wechseln erst beim nächsten Ortswechsel oder Kampf.",
+	"How much the phone draws. Tap to change: automatic, high, medium, low. Automatic steps down one level when the game stutters and never steps back up on its own. Low cuts back on shadows, sharpness and effects; text and the ink line stay as they are. Grass and effects change the next time you enter a place or a fight."]
 const HINWEIS := {"de": "Halte ein Zeichen gedrückt, und es erklärt sich.", "en": "Press and hold a sign to see what it does."}
 
 func system() -> void:
@@ -1709,7 +1712,9 @@ func system() -> void:
 			"Saves your progress now. The game also saves when you leave it or go to the main menu."), func(): speichern.emit(); meldung(Sprache.u("saved")), true, "SAVE"),
 		z_.call(t.call("Sprache", "Language"), null, t.call("Wechselt zwischen Deutsch und Englisch.", "Switches between German and English."), func(): sprache.emit(), true, "",
 			"DE" if de else "EN"),
-		z_.call(t.call("Hauptmenü", "Main menu"), null, t.call("Speichert und kehrt zum Hauptmenü zurück.", "Saves and returns to the main menu."), func(): hauptmenue.emit(), true, "MENU")])
+		z_.call(t.call("Hauptmenü", "Main menu"), null, t.call("Speichert und kehrt zum Hauptmenü zurück.", "Saves and returns to the main menu."), func(): hauptmenue.emit(), true, "MENU"),
+		# 698 (698a A): Grafikstufe; Antippen wechselt, Schatten und Schärfe sofort, Gras und Effekte ab dem nächsten Ort
+		z_.call("Grafik" if de else "Graphics", Grafik.name_wahl(de), t.call(GRAFIK_SATZ[0], GRAFIK_SATZ[1]), func(): Grafik.weiter(get_tree()), true, "GFX")])
 	# 352: was zu lesen ist, in einer eigenen Reihe
 	var a: Dictionary = Sprache.texte.get("anleitung", {})
 	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Handbuch", "en": "Handbook"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),

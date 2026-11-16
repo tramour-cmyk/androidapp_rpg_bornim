@@ -415,7 +415,9 @@ func _process(dt: float) -> void:
 		# Runde 4 (5): gegen Schlagbaum oder Wand (Text offen) stand der Held in Gehhaltung: nur gehen, wenn er vorankommt
 		if moving and (position - vorher).length() < tempo * dt * 0.2: moving = false
 		if not moving: tempo_jetzt = 0.0
-		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
+		# 1285 (Chef 15.11., 12:09: „immer im Sprint … ganz kleine Joystick-Bewegungen“, nachgestellt joystick_1285): mit „Schnell“ (555)
+		# zaehlt das Gehtempo dreifach wie oben, sonst lag schon der kleinste Ausschlag (3,2 m/s) ueber 1,45 Gehtempo und er rannte
+		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position)) * schnell
 		var cur := anim.current_animation
 		var paket := waffengang != "" and (cur.begins_with("Rennen_" + waffengang) or cur.begins_with("Gehen_" + waffengang))
 		var rennt := rennt_jetzt(anim, moving and renn > 0.0, tempo, soll_jetzt, geh_t, faellt, abbremsen, renn_w if paket else renn,

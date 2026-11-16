@@ -1365,6 +1365,8 @@ func _play_say(e: Dictionary) -> void:
 				var taeter = figures.get(actor) if actor != null else null
 				if target == id and across and taeter != null:
 					tt.art = "sprung" if art == "sprung" else ("pfeil" if fx == "ARROW" else ("zauber" if fx != null else "nah"))
+					if tt.art == "nah" and e.get("wucht") in ["schwer", "schild"]:     # 1333: Wuchtschlag, Zweihänder, Schildstoß (mars.gd wucht)
+						tt.art = String(e.wucht)
 					tt.von = to_global(taeter.angriff_von) if taeter.angriff_von != Vector3.INF else taeter.global_position
 				figures[id].tod_treffer = tt
 			figures[id].hurt(lands, e.hp[id] <= 0, (was - e.hp[id]) * 4 >= mx, art)

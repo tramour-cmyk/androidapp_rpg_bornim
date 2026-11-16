@@ -644,6 +644,7 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/platztausch_863.gd 2>&1 | grep -E "^(gut|FALSCH|     )|PLATZTAUSCH863|SCRIPT ERROR"   # 863 Nahkämpfer von hinten tauschen den Platz (alle Gegner)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/eingebung_1296.gd 2>&1 | grep -E "^(gut|FALSCH)|EINGEBUNG1296|SCRIPT ERROR"   # 1296 Eingebung zum Wechsel erst, wenn vor dem Helden kein Sprung mehr kommt
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/meldung_1305.gd 2>&1 | grep -E "^(gut|FALSCH)|MELDUNG1305|SCRIPT ERROR"   # 1305 jeder Angriff eines Gegners meldet sich, auch mit 0 Schaden (sonst Platztausch ohne Bild)
+          set -o pipefail; for s in 7 9; do SEED=$s timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/reihe_1305.gd 2>&1 | grep -E "^FEHLER 1305|REIHE1305|SCRIPT ERROR"; done   # 1305 jedes erlaubte Ziel steht auch im Bild vorn (Kaufwolf; vor dem Bau Seed 7 und 9 je 2 Fehler; Jerry)
           set -o pipefail; HERO=CLERIC MERC=FIGHTER GEGNER=RATS SEEDS=1,2,3,4,5,6 timeout 600 ~/godot/godot --headless --path . -s res://tests/ruhe_863.gd 2>&1 | grep -E "^(gut|FALSCH)|RUHE863|SCRIPT ERROR"   # 863 t277.14 keine Ratte weicht in eine andere (Kaufratte; Seed 1 war rot)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wurf_935.gd 2>&1 | grep -E "^(gut|FEHLER)|^  [A-Z]|WURF935|SCRIPT ERROR"   # 935 Flasche im Bogen
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/bausteine_806.gd 2>&1 | grep -E "^(gut|FEHLER)|BAUSTEINE806|SCRIPT ERROR"   # 806 Kampf messen, kein Bodennebel
@@ -701,6 +702,8 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_546.gd 2>&1 | grep -E "^(ok|FEHLER|AUSWEICHEN_546)|SCRIPT ERROR" || true
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
           nebenher strahl_mess_415 'timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true'
+          # 1286 Strahlprobe verlassen: nach „Zurück“ kein Fehler der Probe (Lauf 510: data.tree null, create_timer auf null, Kampfort frei)
+          nebenher strahl_zurueck_1286 'set -o pipefail; timeout 180 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_zurueck_1286.gd 2>&1 | tee sz1286.log | grep -E "ZURUECK1286|SCRIPT ERROR|ERROR: .*(null|freed|previously)|at: .*strahlprobe" | cut -c1-300; ! grep -qE "at: .*strahlprobe|data.tree. is null" sz1286.log'
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_994.gd 2>&1 | grep -E "^FALSCH|KLANG994|SCRIPT ERROR"   # 994 kein stummer Tierlaut, Wiederholung als eine Zeile
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/staub_990.gd 2>&1 | grep -E "^FALSCH|STAUB990|SCRIPT ERROR"   # 990 Staub im Licht bleibt im Raum
@@ -734,6 +737,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/kamera_615.gd 2>&1 | grep -E "^FALSCH|KAMERA615|SCRIPT ERROR"   # 615 Kamera dreht und zoomt um den Helden (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/maus_673.gd 2>&1 | grep -E "^FALSCH|MAUS673|SCRIPT ERROR"   # 673 A am Rechner Mausrad zoomt, rechte Taste ziehen dreht (Spike)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/atemlos_592.gd 2>&1 | grep -E "^(ok|FEHLER|Atemlos 592)|SCRIPT ERROR"   # 592 atemlos kurz stehen (Tom)
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/joystick_1285.gd 2>&1 | grep -E "^(ok|FEHLER|1285 )|SCRIPT ERROR"   # 1285 im Ring gehen, auch mit Schnell (Jerry)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/glas_608.gd 2>&1 | grep -E "^FALSCH|GLAS608|SCRIPT ERROR"   # 608 Fenster durchsichtiger Haeuser nach der Tageszeit (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/ruhe_test.gd 2>&1 | grep -E "RUHE|FEHLER|SCRIPT ERROR"   # 397, 592 Ruhebewegungen ohne Muede
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/ruhe_kauf_595.gd 2>&1 | grep -E "^(ok|FEHLER|RUHE595)|SCRIPT ERROR"   # 595 Ruhebewegungen Egel, Schnecke
@@ -786,6 +790,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testmenue_mass_425.gd 2>&1 | grep -E "FEHLER|TESTMENUE|SCRIPT ERROR"   # 425 Befunde Testmenue
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/probekampf_1020.gd 2>&1 | grep -E "^FALSCH|PROBEKAMPF1020"   # 1020.2 B Probekampf-Baukasten, Nochmal, zurück ins Testmenü (Tuffy)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/einschuechtern_841.gd 2>&1 | grep -E "^FALSCH|EINSCHUECHTERN841|SCRIPT ERROR"   # 841 Goblin-Späher verjagen (Jerry)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/grafik_698.gd 2>&1 | grep -E "^FALSCH|GRAFIK698|SCRIPT ERROR"   # 698 Grafikstufen, Automatisch senkt nur am Ladepunkt (Spike)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/probekampf_1034.gd 2>&1 | grep -E "^FALSCH|PROBEKAMPF1034|SCRIPT ERROR"   # 1034 Spielheld oder Testheld, Söldnernamen, ohne Folgen (Tuffy)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_4169.gd 2>&1 | grep -E "FEHLER|LADEN4169|SCRIPT ERROR"   # 416.9
           timeout 120 ~/godot/godot --headless --path . -s res://tests/laden_503.gd 2>&1 | grep -E "FEHLER|LADEN503|SCRIPT ERROR"   # 503 Knopf und Rueckfrage wie alt
@@ -1628,6 +1633,24 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --gluehen=$GITHUB_WORKSPACE/bilder/gluehen514 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^BILD|^GLUEH" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/gluehen514
+      # 698 Grafikstufen (Spike, Messlauf): Dorf am Abend und Höhle je Stufe gemessen (Zeilen GRAFIK698) und geknipst, Hoch und Niedrig
+      # nebeneinander je Ort; nur von Hand auf claude/spike-698-…
+      - name: Grafikstufen (698)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-698') }}     # auch nach rotem Prüfschritt
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/grafik698
+          mkdir -p $B
+          sudo apt-get install -y -qq mesa-vulkan-drivers xvfb > /dev/null || true
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --grafik698=$B 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^GRAFIK698" | cut -c1-400 || true
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 300 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/grafik_698_bild.gd -- --aus=$B/systemmenue.png 2>&1 | grep -E "SCRIPT ERROR|^GRAFIK698" || true
+          for o in dorf hoehle; do
+            [ -f $B/${o}_hoch.png ] && [ -f $B/${o}_niedrig.png ] && convert $B/${o}_hoch.png $B/${o}_niedrig.png +append -resize 50% $B/vergleich_${o}.png
+          done
+          ls -l $B
       # 492 Blutzahnhoehle: Eingang, Gang mit Stuetze, Gitter, Krogg im Ostfluegel, Lager, Teich, Graks Halle mit Lyra; dazu um 180 Grad
       # gedreht (Waende wechseln hoch/niedrig); nur bei „492 Hoehlenbilder“ im Commit oder von Hand auf dem Zweig claude/tom-492-…
       - name: Hoehlenbilder (492)
