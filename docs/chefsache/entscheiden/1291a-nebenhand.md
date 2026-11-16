@@ -27,6 +27,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/f386da
 - **C:** Zweiwaffenkampf mit zweitem Schlag: widerspricht 870a 3 A, nur der Vollständigkeit halber.
 - **Stärkstes Gegenargument gegen A:** der Spieler verliert eine Möglichkeit, und später (Duellant, Assassine) kommen zwei Klingen vielleicht doch; dann müsste die Nebenhand wieder Waffen nehmen. Dagegen: das wäre dann eine Fähigkeit des Pfads mit eigener Wirkung, die man zu diesem Zeitpunkt baut; heute ist es eine Wahl ohne Folge in Kapitel 1. B bleibt als Idee für diese Pfade (`LISTE-IDEEN.md`).
 
+**Stellungnahme Sokrates (16.11., 10:01):** Stärkstes Gegenargument: Die Fackel in der Nebenhand wirkt im Kampf ebenfalls nicht (344, Kampf mit der Fackel ruht); sie bleibt aber eine echte Wahl, weil sie in der Welt Licht gibt und sichtbar ist. Kein Widerspruch zu Entschiedenem: A vollzieht 870a 3 A („Zweiwaffenkampf entfällt“), B wäre eine neue Regel und damit ein großes Vorhaben (1236). Kosten A etwa 3 $. Empfehlung: A; der Parierdolch als Idee für Duellant und Assassine in `LISTE-IDEEN.md`.
+
 **Folgerungen:** A: Team Jerry baut 1291 (Menü, Laden, Kampfblatt ohne „off“), Homer liefert die Texte (1380), Tom nimmt in 431h nur Schild und Fackel für die Nebenhand. B: 1291 wartet auf „Chef Gespräch“, Jerry rechnet mit 444. Wortlaut ins Vorgangsarchiv, diese Datei weg.
 
 Antwort: …
