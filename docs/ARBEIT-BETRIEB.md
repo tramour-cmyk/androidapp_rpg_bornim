@@ -98,3 +98,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:09 16.11.: Startsperre 07:09 Start Sokrates (Neustart, 4f3b3e668; Chef im Gespräch mit alter Sitzung …784LCeBpTzytFVVak6, nicht archivieren vor 15 min Ruhe nach letzter Chefnachricht)
 - 07:17 16.11.: Startsperre 07:17 Start Tom 431h (Sokrates, Chef 07:15, a0e041709; per Weiter an …75u1oiSjLm3ypdDjwu)
 - 07:29 16.11.: Startsperre 07:29 Start Jerry (Neustart, b7b526127); alte Sitzung …79WJgXnZfYNBT9Sz4M nach Ruhe archivieren (Filmläufe t291 laufen, Weckruf prüfen), Kosten auf 1363, 1362
+- 08:01 16.11.: Startsperre 08:01 Start Jerry (Neustart, 9f208684c); alte Sitzung …75TLTx7miahDpcGVZP nach Ruhe archivieren, Kosten auf 1366, 1072
