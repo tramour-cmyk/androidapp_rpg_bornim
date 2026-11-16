@@ -145,3 +145,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:36 16.11.: Lauf 18:33 (Sokrates 18:33: 1385 Spike, 1473 Homer, 1474 Perikles); Start Spike (session_01Hmoj76zAeRQxR3Re8uoBTU, erste Nachricht mit Kaufrepo-Satz), Start Perikles M? (session_01Hmoj77QaqaUitEpoXy4B2K), alte Spike archiviert 4,50 $ auf 1445, 1472; Weiter 1473 Homer, 431 Tom, 1445 Diogenes; Jerry läuft, add_repo-Probe beim nächsten Jerry-Start
 - 18:47 16.11.: Startsperre 18:47 Start Sokrates (selbst), Neustart-Meldung 18:41 (5be26bcdd)
 - 18:50 16.11.: Sokrates Neustart (session_01Hmoj79fsduXk6Tm4jJEp45), alte archiviert, 4,91 $ auf 1411, 649, 1472 gebucht; Startsperre 18:50 Start Ford (selbst), Selbstneustart bei 403 Tsd. Token (Haken 1019), alter Ford session_01Hmoj77ipw2pXLtZ7APj4LE, Uhr trig_01F9cw92P51YgZM8o1Pwhb3v
+- 18:47 16.11.: Startsperre 18:47 Start Ford (selbst), Selbstneustart bei 403 Tsd. Token (Haken 1019)
