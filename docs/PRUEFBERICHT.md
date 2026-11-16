@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 265 · 1217 Testbitte unterwegs (Perikles `ee39a624b`; 16.11., 14:09)
+
+- **1217 greift:** `pruefliste.py` auf `ansehen/t292-sammelbuild.md`: 10 Zeilen, JSON nur die 5 mit Art „Handy“ (292.1–292.5), 5 „ohne dich“ gezählt, Reiter nicht leer. `vorgang.py build 291` (Sokrates `02f25f30c`): nur Zeilen des Builds geändert (12), Rückläufer 601.1 startbar mit „Fund t291.8“ und Absatz „Zu 601.1, von Chef (Fund t291.8 …)“ im Wortlaut des Chefs; zwei ohne Rückmeldung bleiben „zu testen“. Einen echten 👎 auf einen Prüfpunkt mit Text der Spalte „Falsch“ gab es seit 285 nicht (t291.8 kam als Wort über Sokrates); der Weg ist mit 1220 (Lauf 225) schon geprüft.
+
 ## Lauf 264 · 1098.1 Ford über Starter (16.11., 14:07)
 
 - **Nicht prüfbar, kein Neustart über den Starter:** Starter `…78K3Ut6YQSgPLqZEvX` (15.11., 16:11, Eltern = Handstart-Ford `…76awPjHi5batouXHgC`, idle, 75 Tsd., wartet auf „Ford-Neustart“). Protokoll ohne „Start Ford (Starter)“, Ford-Kennung oben unverändert. Ford selbst 14:05 bei 563.022 `used_tokens` (Schwelle Selbstneustart 400 Tsd.), läuft weiter.
