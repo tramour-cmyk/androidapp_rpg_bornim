@@ -150,3 +150,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:04 16.11.: Marke Start-fehlt Perikles 16.11.-21:01 (lauf.py)
 - 23:04 16.11.: Marke Archiv session_01Hmoj76zAeRQxR3Re8uoBTU (lauf.py)
 - 23:05 16.11.: Lauf 23:03: Start Spike 1499 (session_01Hmoj77pzGpWBZo1H1FppQo, Übernahme von Jerry), Start Perikles M? 1500 (session_01Hmoj76CDuBaNGRkJoRGqaj), alte Spike …76zAeRQxR3Re8uoBTU archiviert, 13,37 $ auf 1385, 1445, 1476, 1481, 1490, 1491 gebucht; beide Starts mit Kaufrepo-Satz und Telegram-Chefwort; Diogenes wartet auf Build 294 (1485 mit --ohne ausgeschlossen); Tom, Jerry, Tuffy, Sokrates laufen
+- 23:21 16.11.: Diogenes (…75vVcD77XixJkEaw7D) nach Neustart-Meldung 120f7ecac archiviert, 6,02 $ auf 1485, 1498, 1500, 1499 gebucht; Nachfolger „1485 APK-Dateiname am Build-Zweig“ startet lauf.py, sobald 1485 startbar (Jerry 1501)
