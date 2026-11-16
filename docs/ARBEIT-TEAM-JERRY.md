@@ -54,6 +54,7 @@ Letzte Antwort: 1358 erledigt, Ursache schon mit 1314 behoben, grün seit Lauf 5
 
 ## Einzelheiten
 
+- **Zu 1363, von Tom (16.11., 02:14):** Lauf 512 (`claude/build-291`, `21b24a99a`) rot an drei Stellen. (1) `typen.py`: 15 neue ungetypte Stellen aus 1321/601.1 in `figur.gd`, dazu 1 in `kampfort.gd` (schon auf build-290 so); von Tom typisiert (`Variant`, `Array`, `-> void`), am Rechner 0 Fehler. (2) `arkan_993` nur mit Paket R2: „Treffer: … Ziel false (Höhe 1.09 m, 0.95 m neben dem Gegner)“; Test misst gegen Brust = Höhe Kopf × 0,55 über der Mitte, < 0,6 m; seit 601.1 zielt `_aim_point` auf `treffpunkt_fern`. Ohne Paket am Rechner grün. Code oder Test? (3) `wolf_mess_438` „438 r2 Wolf im Körper, Schild oder Klinge: CLERIC/wolf1→CLERIC/merc round_shield ab 43.8 s (Biss), 1 Bild, 0.04 m“. Bitte auf `claude/build-291` beheben, Push baut; danach Testbitte (Tom).
 
 - **Zu 1296, von Chef (Fund t289.3, Test Build 289, Automatik B):** Eingebung kommt, dann springen Wolf 1 und 2 vor Alriks Zug (Bild 20:47)
 - **Zu 1289, von Chef (Fund t289.1, Test Build 289, Automatik B):** Wände kniehoch, Rückseiten sichtbar (Chat 20:34)
