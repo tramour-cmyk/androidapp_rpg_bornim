@@ -136,3 +136,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:04 16.11.: Marke Archiv session_01Hmoj77BDutQtbd1rqyBn4z (lauf.py)
 - 17:04 16.11.: Marke Archiv session_01Hmoj79sHVPfozv9DpqvZ3k (lauf.py)
 - 17:04 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 14:35) (lauf.py)
+- 17:07 16.11.: Lauf 17:03; Start Diogenes 1463 (session_01Hmoj75wrUCWzR6Dt7F3tPc), Homer 1459 (session_01Hmoj75zum6Z1f8NFfzpE4u); alte Diogenes (2,23 $ auf 1427) und Homer (3,58 $ auf 1419) archiviert; Weiter an Jerry 1453, Spike 1458, Perikles M?-Entscheid; Rotbuch nicht erneut angelegt (Doppel 1456/1457)
