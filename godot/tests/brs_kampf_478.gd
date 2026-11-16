@@ -16,7 +16,9 @@ const KAEMPFE := 300
 const GRENZE_QUOTE := 0.2
 ## Simulation (sim.py kampf, Held mit 21 Punkten, Stufe 1, Startfertigkeiten), Siegquote je Gruppe des Probekampfs
 const SOLL := {
-	"FIGHTER": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 1.0, "SPINNE": 0.18, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.72},     # 870.5: Schleim widersteht Klingen nicht mehr (Bestiarium 870a 8), sim.py neu 0,72
+	# 481.2 A (Deckel des Abzugs 50 %): sim.py neu gerechnet 15.11. (Wachsoldat Stufe 1, 2000 Kämpfe, Keim 478; ohne Deckel 1,0 / 0,13 /
+	# 0,01 / 0,70, mit Deckel unten)
+	"FIGHTER": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.88, "SPINNE": 0.11, "KROGG": 0.0, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.42},     # 870.5: Schleim widersteht Klingen nicht mehr (Bestiarium 870a 8)
 	"ROGUE": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.41, "SPINNE": 0.02, "KROGG": 0.0, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.07},
 	"WIZARD": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.5, "SPINNE": 0.02, "KROGG": 0.0, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.08},
 	"CLERIC": {"RATTE": 1.0, "BOARS": 1.0, "CENTIPEDES": 1.0, "FLEDERMAUS": 0.99, "SPINNE": 0.1, "KROGG": 0.01, "GRAK": 0.0, "LEECHES": 1.0, "SLUGS": 0.65},
@@ -66,6 +68,10 @@ func _lauf() -> void:
 	pruefe("Held aus dem Spielstand: Herkunft Jägerkind, Bogen 10, Werte wie BrsHeld", bd.herkunft == "Jägerkind" and int(bd.fert.get("Bogen", 0)) == 10 and bd.werte == bh.werte(), "%s %s" % [bd.herkunft, bd.fert])
 	b.ruestung = "Mittlere Rüstung"
 	pruefe("Abzug Mittlere Rüstung und Schild 3 × 1,1 + 2 × 1,1 = 5,5", is_equal_approx(BrsKampf.held_abzug(b, true), 5.5), str(BrsKampf.held_abzug(b, true)))
+	# 481.2 A (Chef 15.11., 12:44): Rüstung und Schild ziehen höchstens die Hälfte eines Treffers ab
+	pruefe("Deckel des Abzugs 50 %: Treffer 6, Abzug 5,5 -> 3; Treffer 20, Abzug 5,5 -> 14,5 (gerundet 14 oder 15)",
+		is_equal_approx(float(Brs.kampf().get("abzug_deckel", 1.0)), 0.5) and Brs.endschaden(6.0, 5.5) == 3.0 and absf(Brs.endschaden(20.0, 5.5) - 14.5) <= 0.5,
+		"%s %s %s" % [Brs.kampf().get("abzug_deckel"), Brs.endschaden(6.0, 5.5), Brs.endschaden(20.0, 5.5)])
 	var abw: Array = BrsKampf.held_abwehr(b, "nah", "Einhänder", true)
 	pruefe("Abwehr gegen Nahkampf: Schild 10 (Ausweichen 0 + 2 × 4 = 8, Parieren 5)", abw[0] == "Schild" and is_equal_approx(float(abw[1]), 10.0), str(abw))
 	var wolf := BrsKampf.gegner(monsters.wolf, monsters.wolf)

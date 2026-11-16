@@ -73,6 +73,8 @@ func _lauf() -> void:
 			quit(1)
 			return
 		_uhr_anlegen()
+		if _env("KAMERA", "") == "seite":
+			_kamera_seite()
 	# 1039: Ring nach Filmzeit; 949 (Lauf 438): auch ohne Bild, damit ein Lauf mit BREMSE_MS den Film (6 % Echtzeit) nachstellt
 	kf.ui.uhr = func() -> int: return int(Engine.get_process_frames() * 1000.0 / FPS)
 	while kf.verhuellt:
@@ -138,6 +140,32 @@ func _lauf() -> void:
 	_bericht(runden)
 	print("SOLLBILD784 %d über dem Maß" % ueber)
 	quit(ueber if _env("STRENG", "") != "" else 0)
+
+
+## 1000 (Film 286.5a): in der Standardsicht verdeckt die Ansage Graks Axtkopf; KAMERA=seite schaut flach (15°) von der Seite
+## auf Gegner und Held, hoch genug für die Axt über dem Kopf. Ansagen und Ring zeichnet der Kampfort weiter nach seiner Linse.
+func _kamera_seite() -> void:
+	var held = kf.figures.get("hero")
+	var gegner = null
+	for id in kf.figures:
+		if kf.figures[id].fighter.monster != null and gegner == null:
+			gegner = kf.figures[id]
+	if held == null or gegner == null:
+		return
+	var vs: Vector2 = root.get_visible_rect().size
+	var cam := Camera3D.new()
+	kf.add_child(cam)
+	cam.fov = 40.0
+	var zu: Vector3 = gegner.position - held.position
+	zu.y = 0.0
+	var quer := zu.normalized().cross(Vector3.UP)
+	var hfov := 2.0 * atan(tan(deg_to_rad(cam.fov) / 2.0) * vs.x / vs.y)
+	var d: float = (zu.length() * 0.5 + 1.0) / tan(hfov / 2.0)
+	var z: Vector3 = (held.position + gegner.position) * 0.5 + Vector3(0, 1.3, 0)
+	cam.position = z + quer * d * cos(deg_to_rad(15.0)) + Vector3(0, d * sin(deg_to_rad(15.0)), 0)
+	cam.look_at(z)
+	cam.make_current()
+	kf.ink_ziel = z
 
 
 func _uhr_anlegen() -> void:

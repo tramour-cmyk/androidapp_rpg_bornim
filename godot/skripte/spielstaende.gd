@@ -497,7 +497,7 @@ static func knopf(art: String, text: String, tat: Callable, links := false, an :
 	l.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	h.add_child(l)
 	if art != "gefahr" and not links: h.add_child(pfeil(farbe, false))
-	var p := tippbar(h, tat if an else func(): pass)
+	var p := tippbar(h, tat if an else func(): pass, an)
 	p.set_meta("knopf", art)
 	p.set_meta("links", links)
 	p.set_meta("an", an)   # 630: Tests erkennen gesperrte Knoepfe
@@ -563,7 +563,7 @@ static func nebenwahl(zeichen: String, text: String, tat: Callable, an := true) 
 	lt.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	lz.add_child(lt)
 	lz.add_child(Stil.luecke(0, 8))
-	var p := tippbar(lz, tat if an else func(): pass)
+	var p := tippbar(lz, tat if an else func(): pass, an)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	return p
 
@@ -577,7 +577,7 @@ static func hauptwahl(text: String, tat: Callable, an := true) -> PanelContainer
 	h.add_child(Stil.luecke(0, 8))
 	h.add_child(wahl_b(text, Stil.BRIGHT if an else Color(Stil.DIM, 0.6)))
 	h.add_child(Stil.luecke(0, 8))
-	var p := tippbar(h, tat if an else func(): pass)
+	var p := tippbar(h, tat if an else func(): pass, an)
 	p.size_flags_horizontal = Control.SIZE_SHRINK_END
 	return p
 
@@ -665,7 +665,8 @@ static func zeile_mit_pfeil(text: String, tat: Callable, farbe := Stil.TEXT) -> 
 	return tippbar(h, tat)
 
 # eine Flaeche zum Antippen ueber die ganze Breite (wie Rastfeld._tippbar): gedrueckt der erhabene Grund, ausgeloest beim Loslassen darauf
-static func tippbar(inhalt: Control, was: Callable) -> PanelContainer:
+# 785.20 (alt jeder PixelButton klickt, Theme.kt 293; LocalClick 35 %): klick = false für abgeschaltete Knöpfe
+static func tippbar(inhalt: Control, was: Callable, klick := true) -> PanelContainer:
 	var p := PanelContainer.new()
 	var leer := StyleBoxEmpty.new()
 	var gedrueckt := Stil.kasten(Stil.RAISED, Color(0, 0, 0, 0), 0.0)
@@ -683,7 +684,10 @@ static func tippbar(inhalt: Control, was: Callable) -> PanelContainer:
 			p.add_theme_stylebox_override("panel", leer)
 			var gewischt: bool = ab[0] == Vector2.INF or (e.global_position as Vector2).distance_to(ab[0]) > WISCH * DP
 			ab[0] = Vector2.INF
-			if not gewischt and Rect2(Vector2.ZERO, p.size).has_point(e.position): was.call())
+			if not gewischt and Rect2(Vector2.ZERO, p.size).has_point(e.position):
+				var k := p.get_node_or_null("/root/Klang") if klick and p.is_inside_tree() else null
+				if k: k.effekt("click", 0.35)
+				was.call())
 	return p
 
 # 605 (Chef 07.11., 268.11: „muss 2x ‚Anlegen‘ gedrückt werden, ebenso 2x bei ‚Wegwerfen‘ und ‚Zurück‘“): auf dem Geraet kommt jede

@@ -1,0 +1,37 @@
+{
+  "_info": "930.3 (Jerry 11.11.): Zahlen für den Entwurf 930 Handgemenge und Abstand (DESIGN-KAMPF.md), gerechnet von handgemenge.py; alles A (Vorschlag Jerry), bis der Chef 930 entscheidet. Übrige Zahlen aus werte.json.",
+  "punkte": 2,
+  "wegkosten": {"schnell": 0.5, "normal": 1, "langsam": 2},
+  "ungunst": -25,
+  "_ungunst": "wie Umreißen (werte.json merkmale umreissen naechster_angriff_treffer, brs_kampf.gd nachteil): 25 Prozentpunkte",
+  "tempo_gegner": {
+    "_quelle": "Entwurf 930 Regel 2: Schleim und Wiedergänger langsam, Goblin und Grak normal, Wolf, Grimmzahn, Wildschwein schnell; übrige A",
+    "Riesenratte": "schnell", "Kobold": "normal", "Blutflügler": "schnell", "Wolf": "schnell", "Wildschwein": "schnell",
+    "Riesen-Hundertfüßer": "normal", "Goblin": "normal", "Goblin-Späher": "normal", "Skelett": "normal", "Zombie": "langsam",
+    "Riesenfledermaus": "schnell", "Goblin-Schamane": "normal", "Riesenspinne": "normal", "Ghul": "normal", "Ockerschleim": "langsam",
+    "Krogg": "normal", "Grimmzahn": "schnell", "Grak": "normal"
+  },
+  "ohne_atem": ["Skelett", "Zombie", "Ghul", "Ockerschleim"],
+  "held_tempo": {
+    "_quelle": "Entwurf 930 I.3: Gewandtheit, Rüstung, Last; A: schnell ab Gewandtheit 6 ohne schwere Rüstung, schwere Rüstung eine Stufe langsamer; Last nicht gerechnet",
+    "schnell_ab_gewandtheit": 6,
+    "stufe_weniger": ["Schwere Rüstung"]
+  },
+  "ausdauer": {
+    "_quelle": "Entwurf 930 Regel 3, Frage 10 (Chef 14:45: mit der Stufe, langsamer als Leben); Leben = 10 + 5 je Stufe + 2 je Zähigkeit",
+    "basis": 4, "je_zaehigkeit": 1, "je_wille": 1, "je_stufe": 2,
+    "kosten": {"Faustkampf": 1, "Dolche": 1, "Wurfwaffen": 1, "Einhänder": 2, "Stumpfe Waffen": 2, "Bogen": 2, "Stangenwaffen": 3, "Zweihänder": 3, "Armbrust": 3, "zauber": 1},
+    "zweiter_rueckzug": 2,
+    "viertel": 0.25,
+    "atem_holen": 0.5,
+    "gegner": {"basis": 8, "je_stufe": 2, "biss": 2}
+  },
+  "deckung": {
+    "_quelle": "Entwurf 930 I.5: ein übriger Punkt ist Deckung, langsamer Ring gegen angesagte Schläge bis zum nächsten Zug; gerechnet als Anteil des Schadens, der durchgeht (1 = ohne Wirkung, 0,5 = jeder Ring gut); in den Haupttabellen 1, weil sie wie 444 ohne Ring rechnen, Wirkung in Abschnitt F",
+    "anteil": 1.0
+  },
+  "ring_spieler": {
+    "_quelle": "A: ein mittlerer Spieler am normalen Ring gegen angesagte Schläge (perfekt, gut, daneben); nur für die Ring-Spalten, die Haupttabellen rechnen wie 444 ohne Ring",
+    "perfekt": 0.2, "gut": 0.5, "daneben": 0.3
+  }
+}

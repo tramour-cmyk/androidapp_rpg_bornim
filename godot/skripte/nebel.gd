@@ -24,6 +24,11 @@ const FADE_MS := 450.0
 ## 505c (Chef 04.11., 14:06, Zu 505 (Rand) (1): „erkundet“ deutlich dunkler als „in Sicht“, aber erkennbar; alt 0,5, gemessen 57
 ## gegen 65 zu hell): Wert der Nebelkarte fuer gesehen, ausser Sicht (Deckung im Shader 0,92 davon), Wald und Hoehle gleich
 const GESEHEN := 0.72
+## 1289 (Chef 15.11., 13:39 „Das siehst du doch nicht hinter den 1000 Wänden. Da muss es doch wieder dunkel sein.“, 20:34 „Rückseite
+## von Wänden, wo ich nicht mal durchgucken kann … Bloß weil ich es theoretisch kenne“): in der Höhle ist Gesehenes außer Sicht fast
+## schwarz (Deckung im Shader 0,92 davon: 0,83), die Gebietskarte zeigt es weiter; Wald bleibt bei GESEHEN (505c)
+const GESEHEN_HOEHLE := 1.0
+const WAND_SICHT := 1
 ## 505c (2): jenseits des Kartenrands kein Nebel; der Randwald laeuft nach aussen ins Dunkel wie alt (MapEdge.fade, 27m): so viele
 ## Kacheln bleibt sein Licht, bis RAND_SCHWARZ ist er schwarz (randwald in dorf.py RING_WEIT, die Kamera haelt davor, kamera.gd)
 const RAND_HELL := 1.0              # 505 Lauf 2 (Chef 16:12 (2): „nach außen dunkler“): ab einer Kachel hinter dem Rand (vorher 2)
@@ -318,8 +323,10 @@ func nebel(x: int, y: int) -> int:
 		for i in naechster.get(y * breite + x, PackedInt32Array()): bb = maxi(bb, roh(i))
 		return bb
 	var best := eigen
-	for dy in range(-2, 3):
-		for dx in range(-2, 3):
+	# 1289 (Chef 15.11., 20:34 „Rückseite von Wänden, wo ich nicht mal durchgucken kann“): Fels nimmt die Sicht nur vom Boden direkt
+	# daneben (alt Fog.kt zwei Kacheln: eine zwei Kacheln dicke Wand war ganz in Sicht, auch ihre abgewandte Seite)
+	for dy in range(-WAND_SICHT, WAND_SICHT + 1):
+		for dx in range(-WAND_SICHT, WAND_SICHT + 1):
 			var nx := x + dx; var ny := y + dy
 			if not innen(nx, ny) or fest(nx, ny): continue
 			best = maxi(best, roh(ny * breite + nx))
@@ -371,8 +378,9 @@ func schritt(dt: float) -> void:
 		# je Kachel 1 nie gesehen, sonst 0,5; die Teile dazwischen weich aus den vier naechsten Kachelmitten (drawFog: weiche Kanten,
 		# Lauf 1 zeigte harte Rautenkanten), in Sicht 0 mit der Kegelkante als Linie (13e)
 		var kw := PackedFloat32Array(); kw.resize(breite * hoehe)
+		var gesehen_wert := GESEHEN_HOEHLE if String(karte.daten.get("art", "")) == "CAVE" else GESEHEN
 		for ty in hoehe:
-			for tx in breite: kw[ty * breite + tx] = 1.0 if nebel(tx, ty) == 0 else GESEHEN
+			for tx in breite: kw[ty * breite + tx] = 1.0 if nebel(tx, ty) == 0 else gesehen_wert
 		var sw := breite * SUB
 		# nur um den Helden aendert sich etwas (Sicht bis reich, die weiche Kante eine Kachel weiter); beim Betreten alles
 		var r := int(reich) + 4

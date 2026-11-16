@@ -602,6 +602,17 @@ def main():
             startbar.neu_laden()
         except SystemExit as e:
             ausgabe.append("WARNUNG Sammelbuild nicht angelegt: %s (774, Perikles)" % e)
+    zf = startbar.zusammenfuehren_faellig()  # 1424: getesteter Build liegt nie neben main
+    if zf and not sperre:
+        ausgabe.append("NICHTS %s: Zusammenführen fällig, der Lauf mit --sperre legt es an (1424)" % zf[2])
+    elif zf:
+        try:
+            import vorgang, io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()): nr = vorgang.neu(zf[0], zf[1], "M", zf[2], None, True)
+            ausgabe.append("NICHTS %s: Zusammenführen %s angelegt (1424; Notizen pushen)" % (zf[2], nr))
+            startbar.neu_laden()
+        except SystemExit as e:
+            ausgabe.append("WARNUNG Zusammenführen nicht angelegt: %s (1424, Perikles)" % e)
     st = stand(); chefd = chefdateien_je_rolle(); marken = startmarken()
     je_rolle = {}
     for s in leb:

@@ -3,7 +3,7 @@ extends RefCounted
 # 416.1 (Hinweis Team Jerry 31.10., 21:4x): die Zurueck-Taste oder -Geste von Android beendete das Spiel (Godot-Vorgabe
 # quit_on_go_back), statt das oberste Fenster zu schliessen. Wie alt (BackHandler je Schirm): jedes Fenster meldet sich mit dem,
 # was sein „Zurück“, „Schließen“ oder „Abbrechen“ tut; die Taste tut das des obersten (zuletzt im Baum, sichtbar). Ohne Fenster
-# (Welt, Kampf) tut sie nichts. spiel.gd ruft taste() bei NOTIFICATION_WM_GO_BACK_REQUEST.
+# öffnet sie in der Welt das Menü, im Kampf nichts (785.21). spiel.gd ruft taste() bei NOTIFICATION_WM_GO_BACK_REQUEST.
 
 const GRUPPE := "zurueck_taste"
 

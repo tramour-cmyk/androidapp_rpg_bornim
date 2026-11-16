@@ -2,14 +2,15 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 16.11., 08:12 (lauf.py)
+**Stand:** 16.11., 15:05 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (15.11., 16:07)](https://claude.ai/code/session_01Hmoj76awPjHi5batouXHgC) | Betrieb | – | 15.11., 16:06 |
-| Homer | [Homer – 302 (16.11., 02:04)](https://claude.ai/code/session_01Hmoj77tuR4inAweJo2KGGk) | 302 | – | 16.11., 02:04 |
-| Perikles | [Perikles – Wochenziel 16.11.: Kennzahlen der Woche (16.11., 02:04)](https://claude.ai/code/session_01Hmoj76MtaUFLBbEUE3ZMaK) | Betrieb | – | 16.11., 02:04 |
-| Tom | [Tom – 1361: Testbitte Build 291 (16.11., 03:08)](https://claude.ai/code/session_01Hmoj75u1oiSjLm3ypdDjwu) | 1361 | – | 16.11., 03:04 |
-| Diogenes | [Diogenes – 1148 (16.11., 07:08)](https://claude.ai/code/session_01Hmoj77EnUfBvqrUL2z7im2) | 1148 | – | 16.11., 07:05 |
-| Sokrates | [Sokrates – 431h: Ausrüstung sichtbar, Gespräch mit dem Chef; dann 1129.4 (16.11., 07:09)](https://claude.ai/code/session_01Hmoj75oXevBbggtoW6gYgE) | 431h | – | 16.11., 07:07 |
-| Jerry | [Jerry – 1072: Plätze am Gegner, Schritt 2 (16.11., 08:01)](https://claude.ai/code/session_01Hmoj777cNCy9x223D8vEtB) | 1072 | – | 16.11., 08:00 |
+| Sonstige | [Ford-Starter (15.11., 16:11)](https://claude.ai/code/session_01Hmoj78K3Ut6YQSgPLqZEvX) | Betrieb | – | 15.11., 16:10 |
+| Homer | [Homer – 1419 (16.11., 13:05)](https://claude.ai/code/session_01Hmoj79sHVPfozv9DpqvZ3k) | 1419 | – | 16.11., 13:06 |
+| Tom | [Tom – 1044: Grundstand Bildlauf (1351 A) (16.11., 14:04)](https://claude.ai/code/session_01Hmoj76hK87fXqN144rwQkt) | 1044 | claude/tom-1044-grundstand | 16.11., 14:04 |
+| Spike | [Spike – 1416: Winken in UAL2 suchen (Kaufrepo beim Start freischalten), dann 1270.4 (16.11., 14:04)](https://claude.ai/code/session_01Hmoj77BPLCjmVvbzkxDtiX) | 1416 | claude/spike-1416-winken | 16.11., 14:04 |
+| Ford | [Ford – Betriebsleiter (16.11., 14:19)](https://claude.ai/code/session_01Hmoj77ipw2pXLtZ7APj4LE) | Betrieb | – | 16.11., 14:18 |
+| Sokrates | [Sokrates – 1424: PR 210 zusammenführen (16.11., 14:29)](https://claude.ai/code/session_01Hmoj78k58JUgc6hYURRcTg) | 1424 | – | 16.11., 14:28 |
+| Jerry | [Jerry – Testbitte 293 (16.11., 14:33)](https://claude.ai/code/session_01Hmoj79Fja9zG9MubrAsDUS) | 293 | – | 16.11., 14:31 |
+| Diogenes | [Diogenes – 1427: Prüflisten ohne Vergleich prüfen (16.11., 14:39)](https://claude.ai/code/session_01Hmoj77BDutQtbd1rqyBn4z) | 1427 | – | 16.11., 14:38 |
