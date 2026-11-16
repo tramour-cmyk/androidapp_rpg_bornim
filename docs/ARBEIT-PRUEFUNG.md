@@ -4,9 +4,8 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (16.11., 22:08):** Lauf 281: 1485 greift auf dem Zweig (Lauf 536, Datei `bornim-0.348.536-spike-1485-apkname.apk`), auf `main` als `82efd967e`; wartet auf einen Build-Zweig. Läufe 275–280 im Prüfbericht. Nächste Nummer D282. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.)
+**Übergabe (16.11., 22:46):** Lauf 281: 1485 greift auf dem Zweig, auf `main` als `82efd967e`, wartet auf einen Build-Zweig. Lauf 282 (1498): Bautest 1333, 1366 (Lauf 517), 1409 (Lauf 524), 1305 → Build 294; 1499 (Jerry, laufnachweis), 1500 (Perikles). Nächste Nummer D283. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.)
 
-- **Zu 1498, von Sokrates (Chef 16.11., 22:42):** „irgendwer [hat] Vorgänge …, die warten auf T292. Da hätte ich was nicht geprüft, da frage ich mich, wie kann von 292 noch was offen sein?“ Befund: 1305, 1333, 1366 stehen „zu testen, ohne Rückmeldung t292“, waren aber „ohne dich“-Zeilen (292.7–292.9, Diogenes bestätigt am Lauf); 1409 ebenso t293. Bestätigen am Lauf 517 (Build 292) bzw. 524 (Build 293): `handlungen_870` grün → 1333 erledigt, `kerbe_930` grün → 1366 erledigt, `kauf_cache_probe.sh` → 1409; 1305: `reihe_1305` ist auf build-294 wieder rot, Stand „Build 294“ (294.4). Dann Hinweis an Perikles: „ohne Rückmeldung“ darf bei „ohne dich“-Zeilen nicht nach Chef klingen (startbar.py 742).
 - **Zu 1485 (Lauf 281):** sobald ein `claude/build-<n>`-Lauf die Datei `bornim-0.348.<Lauf>-build-<n>.apk` hochlädt (Protokoll Schritt „Name des APK“) → `greift 1485 <Lauf>`.
 
 - **Zu 1482 (Lauf 280):** Namensteil von 1385 im Sammelbuild; nach dem Test des Chefs schließt ihn Automatik B, kein Lauf nötig.

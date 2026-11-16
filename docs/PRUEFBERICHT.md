@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 282 · 1498 „ohne dich“-Zeilen von 292/293 (16.11., 22:4x)
+
+- **Bautest bestätigt:** Lauf 517 (Build 292): `handlungen_870` Exit 0 → **1333 erledigt**; `kerbe_930` „KERBE930 gut: 64 gut, 0 falsch“ → **1366 erledigt**; Laufnachweis 6 von 6 tragen; Lauf rot nur durch 918 Zeile 19 und 45 (1408, 1409). Lauf 524 (Build 293): „KAUFCACHE854 gut“, Zeile 643 mit `pipefail`, Skript endet mit `exit $fehler` → **1409 erledigt**.
+- **1305:** `reihe_1305` in Lauf 524 rot, fährt in Build 294 als 294.4 (1453) → Feld Build 294.
+- **D282.1 → 1499 (Jerry):** `laufnachweis.py` übersieht Namen mit Endung (`kauf_cache_probe.sh`, `typen.py`), t293 3 statt 5 erkannt; 1409 von Hand nachgewiesen.
+- **→ 1500 (Perikles, M?):** „zu testen, ohne Rückmeldung t<n>“ bei „ohne dich“-Zeilen klingt nach Chef (startbar.py 742).
+
 ## Lauf 281 · 1485 APK-Dateiname (Spike `611030249`; 16.11., 22:0x)
 
 - **1485 greift auf dem Zweig:** Lauf 536 (`claude/spike-1485-apkname`, grün 20:41) lädt `bornim-0.348.536-spike-1485-apkname.apk` ins Artefakt `bornim-godot-apk`; Version = `run_number` wie in `godot.yml`; auf `claude/build-<n>` ergibt dieselbe Zeile `bornim-0.348.<Lauf>-build-<n>.apk`. Keine weitere Stelle liest `bornim-godot.apk` aus dem Artefakt (nur `export_presets.cfg` und der Export davor).
