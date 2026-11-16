@@ -1301,7 +1301,11 @@ func _process(_dt: float) -> void:
 		_skip_beats()
 		return
 	beats_lock.lock()
-	var b = beats.pop_front() if not beats.is_empty() else null
+	var b = beats.front() if not beats.is_empty() else null
+	if b != null and clock_ms < nachlauf_bis and not _im_nachlauf(b):
+		b = null     # 1415: erst wenn das Tier abgesetzt hat
+	elif b != null:
+		beats.pop_front()
 	beats_lock.unlock()
 	if b == null:
 		return
@@ -1313,6 +1317,23 @@ func _process(_dt: float) -> void:
 	elif b.has("done"):
 		_done()
 	playing = false
+
+
+## 1415 (F9, 784 A: „dabei schon die Ansage seines nächsten Zugs“): während ein Tier nach dem Biss absetzt (nachlauf_bis), laufen nur
+## Zeilen ohne Bewegung weiter, seine Ansage und Beschreibung, Eingebung, vorweg Gezeigtes; jede andere Meldung, Ring und Zugende
+## warten, bis es steht (so läuft keiner in seinen Weg)
+var nachlauf_id = null
+var nachlauf_bis := -1.0
+func _im_nachlauf(b: Dictionary) -> bool:
+	if not b.has("say"):
+		return false
+	var e: Dictionary = b.say
+	if e.get("roll") != null or e.get("spell") != null:
+		return false
+	if e.get("actor") != nachlauf_id and e.get("actor") != null:
+		return false
+	var cue = e.get("cue")
+	return cue == null or cue == "EINGEBUNG" or String(cue).begins_with("KERBE_") or (e.get("vorweg", false) and cue in ["POUNCED", "FOE_FALLS"])
 
 
 func _play_say(e: Dictionary) -> void:
@@ -1527,7 +1548,14 @@ func _play_say(e: Dictionary) -> void:
 	# Treffer geteilt durch 0,42 und wuchs mit dem Anlauf weit über die Bewegung hinaus; ein Gegner meldet seine wirkliche Dauer
 	# (busy_ms, ohne das Zurechtrücken, das in den Zug des Helden auslaufen darf, F8)
 	var dauer := busy_ms if busy_ms > 0 and by != null and by.side == "FOES" else maxi(lunge_ms, busy_ms)
-	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, dauer) / 1000.0).timeout
+	# 1415 (F9): ein Tier setzt nach dem Biss ab; die nächste Zeile (seine Ansage) kommt schon dabei, alles andere wartet (_im_nachlauf)
+	if lunge_ms > 0 and by != null and by.side == "FOES" and figures.has(actor) and figures[actor].frei_ms >= 0 and figures[actor].frei_ms < dauer:
+		nachlauf_id = actor
+		nachlauf_bis = clock_ms + dauer
+		dauer = figures[actor].frei_ms
+	# 1415 (F9: „‚Anspringen!‘ steht, während er sich duckt, keine eigene Pause“): der Angriff folgt gleich, die Zeile bleibt stehen
+	var mindest := NACHTRAG_MS if _nur_nachtrag(e) or (e.cue == "FOE_STRIKES" and lunge_ms == 0) else SAY_MS
+	await get_tree().create_timer(maxi(mindest, dauer) / 1000.0).timeout
 
 
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal

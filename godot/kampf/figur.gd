@@ -24,6 +24,8 @@ const WALK_MPS := 1.4
 const WALK_MAX := 2.5
 ## Wie lange der letzte Schlag samt Rückweg dauert (ms), kampfort.gd wartet darauf
 var busy_ms := 0
+## 1415 (F9, 784 A): ab hier darf die nächste Meldung kommen, während das Tier noch absetzt (Ansage beim Absetzen); -1 = busy_ms
+var frei_ms := -1
 var anlauf_ms := 0          # 399.2: so lange läuft es beim letzten Biss an, bevor es zubeißt (kampfort.gd: wer Platz macht, wartet)
 const FALL_MS := 900
 const FADE_MS := 600
@@ -2968,6 +2970,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		bahn = bahn.slice(0, bahn.size() - 1) + [ende] if not bahn.is_empty() else [start, ende]     # statt heim: der Platz des Absetzens
 		tween.tween_callback(func(): gang = ""; bahn = []; _turn_home())
 		busy_ms = int((t_run + bl + t_back + 0.3) * 1000.0)
+		frei_ms = int((t_run + bl) * 1000.0)     # 1415 (F9): die Ansage des nächsten Zugs steht schon, während er absetzt
+		if OS.get_environment("SCHAU_1415") != "":
+			print("1415 %s %s: Anlauf %.2f, Biss %.2f (Aufschlag %.2f), Absetzen %.2f" % [fighter.id, nm, t_run, bl, biss_t, t_back])
 		anlauf_ms = int(t_run * 1000.0)
 		return int((t_run + biss_t) * 1000.0 / 0.42)
 	tween.tween_callback(func(): gang = "heim"; _walk_home(other))
@@ -3338,6 +3343,7 @@ func spell_oder_fern(e: Dictionary) -> bool:
 
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
+	frei_ms = -1
 	if ausgeholt() and (spell_oder_fern(e) or kauf or not kann_ausholen()):
 		ausholen(false)     # 1000: nur der Axthieb (_hieb) schlägt aus der gehaltenen Lage
 	angriff_von = Vector3.INF
