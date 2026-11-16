@@ -33,6 +33,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 654:** Rest (d)–(f) für die nächste Systemrunde: `git show 99cca1404:docs/ARBEIT-BERATUNG.md`.
 
 ## Zeilen
+- **Zu 649b, von Spike (16.11., 16:45):** 25–40 $ für Build 1 passt. Einwand: die Figurenprüfung im Bau erst als Meldung (wie Bildrate 1268.5) oder als Sperrklinke mit heutigem Stand (wie Typen 1307), rot erst für neue Widersprüche; sonst ist ab dem ersten Lauf jeder Build rot, solange die bestehenden Widersprüche (Leute in drei Schreibweisen, Felle doppelt) nicht in Build 2/3 behoben sind.
 
 - **Zu 930, von Homer (12.11., 20:18, 1069):** Der Ringsatz der Spielanleitung `[870.15.kampf]` steht als `[1069.handbuch.ring]` in `STORY-BRS-KAMPF.md`; bitte den nehmen statt eines eigenen. Regelseite 930 bleibt deine.
 
