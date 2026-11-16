@@ -3147,7 +3147,7 @@ func _rueck_luft(von: Vector3, via: Vector3, nach: Vector3, skip = null) -> floa
 ## 1453: steht er schon in einem anderen (mehr als 2 cm), ein Weg rückwärts nach home, der aus ihm herausführt (jeder Schritt mit mehr
 ## Luft zu ihm als der vorige, bis er frei ist) und keinen dritten berührt: gerade (Rückgabe [position]) oder über einen Umweg zur Seite
 ## im Bild; keiner: Vector3.INF
-func _raus_aus(skip = null) -> Vector3:
+func _raus_aus(skip: Variant = null) -> Vector3:
 	if skip != null:
 		return Vector3.INF
 	var drin: Variant = null
