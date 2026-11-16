@@ -14,9 +14,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 75 | 31 | 4 | 6 | 9 | 1380 (Homer) Stellung zur Vorlage 1291a Nebenhand als Zu 1291a… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 59 | 12 | 1 | 12 | 25 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 11 | 25 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 8 | 0 | 6 | 4 | 1379 (Jerry) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
-| Werkzeuge und Abläufe der Firma | 60 | 39 | 0 | 0 | 9 | 1129 (Sokrates) Systemprüfung blinde Flecken mit Perikles: Regeln… |
+| Werkzeuge und Abläufe der Firma | 61 | 40 | 0 | 0 | 9 | 1129 (Sokrates) Systemprüfung blinde Flecken mit Perikles: Regeln… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
@@ -24,10 +24,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Rolle | als Nächstes |
 |---|---|
 | Tom | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss) |
-| Jerry | 1285 Held rennt schon bei kleinen Joystick-Bewegungen, große Lau… (Muss); dann 6 weitere |
-| Spike | 1379 Übernahme von Jerry: Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nach… (Muss) |
+| Jerry | 1379 Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nach… (Muss); dann 7 weitere |
+| Spike | 1381 D255.1 von Diogenes: wolf_mess_438 rot in Lauf 506, Ende 1… (Muss) |
 | Homer | 1380 Stellung zur Vorlage 1291a Nebenhand als Zu 1291a; nach der… (Muss) |
-| Diogenes | 1128.3 ab Build 283 Funde und Rückschritte je Prüfart zählen, Baut… (Muss); dann 19 weitere |
+| Diogenes | 1185 pruefliste.py warnt im Prüfschritt bei jeder Zeile ohne Ein… (Muss); dann 16 weitere |
 | Sokrates | 1129 Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe,… (Muss); dann 1 weitere |
 | Perikles | 1369 D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lau… (Muss); dann 4 weitere |
 
@@ -47,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 10 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
 | 11 | 1375 | Perikles | Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-Datei | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 12 | 1379 | Jerry | Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nachstellen, beheben · w… | M | Godot besser nutzen | startbar |
-| 13 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 13 | 1381 | Spike | D255.1 von Diogenes: wolf_mess_438 rot in Lauf 506, Ende 1 nach 263 s, „Kampf F… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 14 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 15 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 16 | 1371 | Perikles | D254.2 von Diogenes: Nachtrag Chef 07:02 fehlt im Bau 2c9b7b85a: keine Übernahm… | M | Werkzeuge und Abläufe der Firma | startbar |
@@ -56,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
 | 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
 
-Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
+Danach 96 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
