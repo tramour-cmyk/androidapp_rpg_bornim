@@ -385,8 +385,19 @@ def getestet_nicht_auf_main(jetzt=None, stunden=LIEGT_STUNDEN):
         z = "claude/build-" + n
         if _git("rev-parse", "-q", "--verify", "origin/" + z).returncode != 0: continue  # Zweig weg = zusammengeführt
         if _git("merge-base", "--is-ancestor", "origin/" + z, "origin/main").returncode == 0: continue
+        if _inhalt_auf_main("origin/" + z): continue
         erg.append((n, int(h)))
     return sorted(erg, key=lambda x: int(x[0]))
+
+def _inhalt_auf_main(zweig):
+    """1477 (Sokrates 16.11., 18:53): Inhalt steckt schon in main, wenn `git cherry` außer Gleichem („-“) nur Reverts („+ … Revert "…"“)
+    nennt; die nehmen auf dem Build-Zweig Dinge zurück, die später auf main kamen, Mischen baute main zurück (build-274, -288)."""
+    r = _git("cherry", "-v", "origin/main", zweig)
+    if r.returncode != 0: return False
+    for zeile in r.stdout.splitlines():
+        if zeile.startswith("+") and not zeile.split(" ", 2)[-1].startswith('Revert "'):
+            return False
+    return True
 
 def zusammenfuehren_faellig(jetzt=None):
     """1424: liegt ein getesteter Build länger als LIEGT_STUNDEN neben main und hat keiner eine offene Zeile „Zusammenführen“, legt

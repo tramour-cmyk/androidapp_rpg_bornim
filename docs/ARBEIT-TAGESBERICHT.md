@@ -57,8 +57,8 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 ## Wo du Prioritäten setzen kannst (16.11., 09:1x)
 
-1. **Build 290 und 291 testen** ([t290](chefsache/ansehen/t290-sammelbuild.md) seit 15.11., 22:59; [t291](chefsache/ansehen/t291-sammelbuild.md) seit 07:30, auf 290 aufgesetzt): danach gehen beide auf `main`, die Sperre für neue Arbeit fällt, und Spikes Sammelbuild mit der Höhle ohne Hakeln kann folgen.
-2. **Fünf Entscheidungen, die Arbeit aufhalten:** [1351](chefsache/entscheiden/1351-rechtepruefung-bildlauf.md) (Rechteprüfung lehnt Bildlauf ab; hält Toms 1044 und 1341), [1352a](chefsache/entscheiden/1352a-taumeln.md) (Taumeln; hält Homer), [1284a](chefsache/entscheiden/1284a-rattenbiss-sicht.md) (Rattenbiss), [1291a](chefsache/entscheiden/1291a-nebenhand.md) (Nebenhand), [431h](chefsache/entscheiden/431h-ausruestung-sichtbar.md) (Ausrüstung sichtbar).
+1. **Build 290 und 291 testen** (t290 seit 15.11., 22:59; t291 seit 07:30, auf 290 aufgesetzt; beide inzwischen beantwortet): danach gehen beide auf `main`, die Sperre für neue Arbeit fällt, und Spikes Sammelbuild mit der Höhle ohne Hakeln kann folgen.
+2. **Fünf Entscheidungen, die Arbeit aufhalten** (inzwischen alle beantwortet, Vorgangsarchiv): 1351 (Rechteprüfung lehnt Bildlauf ab; hält Toms 1044 und 1341), 1352a (Taumeln; hält Homer), 1284a (Rattenbiss), 1291a (Nebenhand), 431h (Ausrüstung sichtbar).
 
 *Stärkstes Gegenargument zu 1:* zwei Sammelbuilds hintereinander kosten dich viel Zeit, und keiner von beiden bringt die Plätze und Bahnen (1072), an denen „Kampf passt“ hängt. *Wie es zu entkräften ist:* ohne deinen Test sammeln sich wieder ungetestete Änderungen und sperren neue Arbeit; 291 enthält die Abnahme des Umzugs (870.20) und die Kerben, beides Grundlage für den Kampf.
 
