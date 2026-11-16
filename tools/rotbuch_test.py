@@ -19,9 +19,13 @@ nrs = {"416.2": "Tom", "438": "Jerry"}; r.besitzer_von_nr = lambda n: nrs.get(n)
 soll("Nummer aus Name 4162 → 416.2", r.nr_aus_name("tests/ziege_4162.gd"), "Tom")
 soll("Nummer aus Name ganz", r.nr_aus_name("tests/wolf_mess_438.gd"), "Jerry")
 soll("ohne Nummer im Namen", r.nr_aus_name("tests/ohne.gd"), None)
+nrs.update({"399": "Perikles", "506": "Jerry", "1": "Tom", "870": "Sokrates"})
+soll("1399: Mutter eines Nicht-Bauteams zählt nicht", r.nr_aus_name("tests/regel_399.gd"), None)
+soll("1399: erste Zahl von links, nicht Endung _1", r.nr_aus_name("tests/anmarsch_506_1.gd"), "Jerry")
+soll("1399: Endung _bild", r.nr_aus_name("tests/umzug_870_bild.gd"), None)
 echt = r.subprocess.run
 class A: stdout = "abc123 Sokrates: Inhaltsverzeichnis\n"
-r.subprocess.run = lambda *a, **k: A(); r.grenzen = lambda: {"abc123"}
+r.subprocess.run = lambda *a, **k: A(); r.grenzen = lambda: {"abc123"}; r.anleger_netz = lambda t: ""  # ohne Netz (1399)
 soll("Grenz-Commit im flachen Klon zählt nicht", r.besitzer("tests/ziege_4162.gd"), "Tom")
 r.grenzen = lambda: set()
 soll("voller Verlauf: Anleger im Betreff", r.besitzer("tests/ziege_4162.gd"), "Sokrates")
