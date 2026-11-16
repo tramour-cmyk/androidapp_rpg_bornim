@@ -557,3 +557,4 @@
 2026-11-16 08:30:48	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30454 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 08:30:54	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30459 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 08:32:30	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30774 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-16 08:33:52	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1285-joystick ändert Spielcode (godot/skripte/held.g	claude/jerry-1285-joystick
