@@ -606,27 +606,103 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 const RUECKEN_JE := {"garrick": ["quiver", "longbow"]}
 const KOECHER_HOCH := Vector3(0.26, 1.0, 0.0)    # Ruhelage, +X links: oben über die linke Schulter
 const BOGEN_HOCH := Vector3(-0.55, 1.0, 0.0)     # oben über die rechte Schulter (Dress.kt sk.upper.dir(P3(-0.55, 1.0, 0.0)))
+# 531.2 (Chef 16.11., 17:34 zum Bild im Profil: „Da schwebt ein Gürtel über Schulter … Köcher … und Bogen schwebt auch“): Köcher, Bogen
+# und Gurt lagen nach der Ruhelage (T-Pose des Kaufkörpers) am Brustwirbel; in „Stehen“ kippt spine_03 21,8 Grad vor (wie der Schild,
+# 499), die Teile schwangen nach hinten weg (tests/schweben_531.gd: Köcher 12,4 cm, Bogen 4,7 cm, Gurt 7 cm Luft). Jetzt in „Stehen“
+# gerechnet, wie der Spieler Garrick sieht: Neigung nach der Rückenlinie, dann von hinten an Körper und Kleidung herangeschoben, bis sie
+# anliegen (ANLIEGEN Luft); der Bogen an Köcher und Rücken. Am Brustwirbel in seiner Lage in „Stehen“
+const ANLIEGEN := 0.004
 static func ruecken_tragen(m: Node3D, sk: Skeleton3D, was: Array) -> void:
 	if was.is_empty() or sk == null: return
 	var bi := sk.find_bone("spine_03")
 	if bi < 0: return
-	var brust := im_raum(m, sk) * sk.get_bone_global_rest(bi)
+	var ks := im_raum(m, sk)
+	var lagen := haltung_lagen(m, sk, "Stehen")
+	if lagen.is_empty():
+		for b in sk.get_bone_count(): lagen.append(sk.get_bone_global_rest(b))
+	var brust := ks * (lagen[bi] as Transform3D)
 	var y := brust.origin.y
-	var r := ruecken_aus(haut_punkte(m, sk, false), y - 0.63, y + 0.1)
-	var aussen: float = r[2]
+	var pts := haut_punkte(m, sk, true, null, lagen)   # ohne Arme (Ruhelage |x| > 0,2)
+	var li := ruecken_linie(pts, y - 0.45, y + 0.15)
+	var steig: float = float(li[1]) if not li.is_empty() else 0.0
+	var ruecken := func(yy: float) -> float: return float(li[0]) + steig * yy if not li.is_empty() else -0.15
+	var feld := _feld(pts)
+	var anlage := PackedVector3Array()   # woran der Bogen anliegt: Körper und Köcher
+	anlage.append_array(pts)
 	if "quiver" in was:
-		# Rohr 60 cm, oben 6 cm Halbmesser: Mitte 12 cm unter spine_03, Rückseite am Rücken
-		var hy := KOECHER_HOCH.normalized()
-		var z := Vector3.FORWARD                     # Modell +Z nach hinten (−Z der Figur), seine Rückseite (−Z) an den Körper
-		var t := Transform3D(Basis(hy.cross(z), hy, z), Vector3(0.03, y - 0.12, aussen - 0.065))
+		var ecken := _modell_ecken("quiver")
+		var t := _anlegen(ecken, feld, Vector3(KOECHER_HOCH.x, KOECHER_HOCH.y, 0.0), Vector3.FORWARD, steig, Vector3(0.03, y - 0.12, ruecken.call(y - 0.12) - 0.3))
 		_haenge(m, sk, bi, brust, "quiver", t, "RueckenKoecher")
-		aussen -= 0.12
+		for e in ecken: anlage.append(t * e)
 	if "longbow" in was:
-		var hb := BOGEN_HOCH.normalized()
-		var x := Vector3.FORWARD                     # Modell +X (Rücken des Bogens) nach hinten, die Spitzen (−X) zum Körper
-		var t := Transform3D(Basis(x, hb, x.cross(hb)), Vector3(0.0, y - 0.1, aussen - 0.04))
+		var t := _anlegen(_modell_ecken("longbow"), _feld(anlage), Vector3(BOGEN_HOCH.x, BOGEN_HOCH.y, 0.0), Vector3.FORWARD, steig, Vector3(0.0, y - 0.1, ruecken.call(y - 0.1) - 0.4), true)
 		_haenge(m, sk, bi, brust, "longbow", t, "RueckenBogen")
-	if "quiver" in was: ruecken_gurt(m, sk, bi, brust, r, y)
+	if "quiver" in was: ruecken_gurt(m, sk, bi, brust, lagen, ruecken, y)
+
+## Ecken eines Modells aus daten/waffen (Raum des Modells)
+static func _modell_ecken(was: String) -> PackedVector3Array:
+	var aus := PackedVector3Array()
+	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	if d == null: return aus
+	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
+		var tr := im_raum(d, mi)
+		for s in (mi as MeshInstance3D).mesh.get_surface_count():
+			for v in (mi as MeshInstance3D).mesh.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]: aus.append(tr * v)
+	d.free()
+	return aus
+
+## Punkte nach Spalten von 1,5 cm (x, y): je Spalte die Liste der z
+static func _feld(pts: PackedVector3Array) -> Dictionary:
+	var f := {}
+	for p in pts:
+		var k := Vector2i(floori(p.x / 0.015), floori(p.y / 0.015))
+		if not f.has(k): f[k] = PackedFloat32Array()
+		f[k].append(p.z)
+	return f
+
+## Lage eines starren Teils: Längsachse hoch (x, y in der Ruhelage, z nach der Rückenlinie steig, dazu um die Querachse gekippt), Modell +Z
+## bzw. +X (bogen) zeigt nach vorn_modell; von start (hinten) entlang +z an feld herangeschoben, bis die nächste Ecke ANLIEGEN Luft hat.
+## Gekippt wird so, dass beide Enden möglichst anliegen (kleinste größere Luft an oberem und unterem Viertel)
+static func _anlegen(ecken: PackedVector3Array, feld: Dictionary, hoch: Vector3, vorn_modell: Vector3, steig: float, start: Vector3, bogen := false) -> Transform3D:
+	var bester := Transform3D(Basis(), start); var wert := INF
+	var ylo := INF; var yhi := -INF
+	for e in ecken: ylo = minf(ylo, e.y); yhi = maxf(yhi, e.y)
+	for kipp in range(-14, 15, 2):
+		var hy := Vector3(hoch.x, hoch.y, 0.0).normalized()
+		hy = (hy + Vector3(0, 0, steig * hy.y)).normalized().rotated(Vector3.RIGHT, deg_to_rad(float(kipp)))
+		var zf := (vorn_modell - hy * hy.dot(vorn_modell)).normalized()
+		var b := Basis(zf, hy, zf.cross(hy)) if bogen else Basis(hy.cross(zf), hy, zf)
+		var t := Transform3D(b, start)
+		# Luft je Ecke entlang +z bis zur nächsten Fläche davor (Spalte 1,5 cm, Nachbarn mit)
+		var luft := PackedFloat32Array(); luft.resize(ecken.size())
+		var min_l := INF
+		for i in ecken.size():
+			var p := t * ecken[i]
+			var k := Vector2i(floori(p.x / 0.015), floori(p.y / 0.015))
+			var l := INF
+			for dx in [-1, 0, 1]:
+				for dy in [-1, 0, 1]:
+					var z = feld.get(k + Vector2i(dx, dy))
+					if z == null: continue
+					for zz in z:
+						if zz > p.z: l = minf(l, zz - p.z)
+			luft[i] = l; min_l = minf(min_l, l)
+		if min_l == INF: continue
+		var schub := min_l - ANLIEGEN
+		# je Abschnitt (unteres, mittleres, oberes Viertel) die kleinste Luft; ein Abschnitt ohne Fläche davor (Bogen über der Schulter)
+		# zählt nicht
+		var oben := INF; var unten := INF; var mitte := INF
+		for i in ecken.size():
+			var a := (ecken[i].y - ylo) / maxf(yhi - ylo, 1e-4)
+			if a > 0.75: oben = minf(oben, luft[i] - schub)
+			elif a < 0.25: unten = minf(unten, luft[i] - schub)
+			elif absf(a - 0.5) < 0.12: mitte = minf(mitte, luft[i] - schub)
+		var w := 0.0
+		for x in [oben, unten, mitte]: if x < INF: w = maxf(w, x)
+		if w < wert:
+			wert = w; bester = t; bester.origin.z += schub
+		if OS.get_environment("MESS") == "531": print("ANLEGEN531 %s kipp %d schub %.3f oben %.3f mitte %.3f unten %.3f" % ["bogen" if bogen else "koecher", kipp, schub, oben, mitte, unten])
+	return bester
 
 # 531 (Chef 16.11., 12:26 zum Bild von hinten: „wie ist der Langbogen befestigt? … wahrscheinlich ist er am Köcher befestigt“): der Köcher
 # hängt an einem Gurt (Riemen, GURT_BREIT breit) von seinem oberen Ende über die linke Schulter, schräg über die Brust zur rechten Seite
@@ -636,12 +712,12 @@ static func ruecken_tragen(m: Node3D, sk: Skeleton3D, was: Array) -> void:
 # und Bogen. gurt_punkte gibt die Mittellinie (für den Test gurt_531)
 const GURT_BREIT := 0.038
 const GURT_LUFT := 0.012
-const GURT_SCHULTER := 0.085
+const GURT_SCHULTER := 0.11   # 531.2: 0,085 lief über den Ausschnitt des Kleids (3 cm Luft über der Haut)
 const GURT_UNTEN := 0.34   # rechte Seite über der Hüfte; tiefer stößt der Rumpf an Umhang und Gürtel (gurt_531)
-static func gurt_punkte(pts: PackedVector3Array, hals_y: float, unten_y: float) -> Array:
+static func gurt_punkte(pts: PackedVector3Array, hals_y: float, unten_y: float, breite := 0.21, drunter := 0.2) -> Array:
 	var koerper := PackedVector3Array()
 	for q in pts:
-		if absf(q.x) < 0.21 and q.y < hals_y + 0.1 and q.y > unten_y - 0.2: koerper.append(q)   # ohne Arme (Ruhelage T) und Kopf (Kragen der Kapuze mit)
+		if absf(q.x) < breite and q.y < hals_y + 0.1 and q.y > unten_y - drunter: koerper.append(q)   # ohne Arme (Ruhelage T) und Kopf (Kragen der Kapuze mit)
 	var oben := hals_y - 0.05
 	for q in koerper:
 		if absf(q.x - GURT_SCHULTER) < 0.02 and absf(q.z) < 0.08 and q.y < hals_y + 0.06: oben = maxf(oben, q.y)
@@ -679,33 +755,188 @@ static func gurt_punkte(pts: PackedVector3Array, hals_y: float, unten_y: float) 
 		aus.append(c + (u * cos(f) + w * sin(f)) * (r + GURT_LUFT))
 	return [aus, n]
 
-static func ruecken_gurt(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, _r: Array, y: float) -> void:
+## 531.2: Schnitt der gehäuteten Netze (Haltung lagen, Raum von m) mit der Ebene n·(p − c) = 0: je Dreieck die Punkte, wo seine Kanten
+## die Ebene kreuzen; ohne Netze, deren Name ohne enthält, und ohne Ecken mit Ruhelage |x| > breite (Arme)
+static func haut_schnitt(m: Node3D, sk: Skeleton3D, lagen: Array, c: Vector3, n: Vector3, breite: float, ohne: Array) -> PackedVector3Array:
+	var aus := PackedVector3Array()
+	var ks := im_raum(m, sk)
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		if not x.skin or ohne.any(func(o): return String(x.name).containsn(o)): continue
+		var t := im_raum(m, x)
+		for s in x.mesh.get_surface_count():
+			var arr := x.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+			var bo = arr[Mesh.ARRAY_BONES]; var we = arr[Mesh.ARRAY_WEIGHTS]
+			if bo == null or vs.is_empty(): continue
+			var nn := int(bo.size() / vs.size())
+			var pos := PackedVector3Array(); pos.resize(vs.size())
+			var frei := PackedByteArray(); frei.resize(vs.size())
+			for i in vs.size():
+				frei[i] = 1 if absf((t * vs[i]).x) <= breite else 0
+				if frei[i] == 0: continue
+				var w := Vector3.ZERO
+				for j in nn:
+					var gg: float = we[i * nn + j]
+					if gg <= 0.0: continue
+					var bind: int = bo[i * nn + j]
+					var bone := x.skin.get_bind_bone(bind)
+					if bone < 0: bone = sk.find_bone(x.skin.get_bind_name(bind))
+					w += (ks * (lagen[bone] as Transform3D) * x.skin.get_bind_pose(bind) * vs[i]) * gg
+				pos[i] = w
+			var idx = arr[Mesh.ARRAY_INDEX]
+			var nd: int = (idx.size() if idx != null else vs.size()) / 3
+			for d in nd:
+				var e := [idx[d * 3] if idx != null else d * 3, idx[d * 3 + 1] if idx != null else d * 3 + 1, idx[d * 3 + 2] if idx != null else d * 3 + 2]
+				if frei[e[0]] == 0 or frei[e[1]] == 0 or frei[e[2]] == 0: continue
+				var zwei := PackedVector3Array()
+				for k in 3:
+					var a: Vector3 = pos[e[k]]; var b: Vector3 = pos[e[(k + 1) % 3]]
+					var da := n.dot(a - c); var db := n.dot(b - c)
+					if (da < 0.0) != (db < 0.0): zwei.append(a + (b - a) * (da / (da - db)))
+				if zwei.size() == 2:   # die Schnittstrecke im Dreieck, alle 5 mm ein Punkt
+					var st := maxi(1, ceili(zwei[0].distance_to(zwei[1]) / 0.005))
+					for k in st + 1: aus.append(zwei[0].lerp(zwei[1], float(k) / st))
+	return aus
+
+## 531.2: Gurt als straff gespannter Riemen: der Schnitt des Körpers mit der schrägen Ebene (Schulter GURT_SCHULTER bis rechte Hüfte,
+## Schicht ±1,5 cm), davon die konvexe Hülle (ein Riemen überspannt Mulden), GURT_LUFT nach außen; 72 Punkte gleichen Abstands.
+## Die Ringrechnung gurt_punkte (je Richtung der äußerste Punkt, Lücken aus den Nachbarn) ließ vorn an der Brust 5 cm Luft
+static func gurt_huelle(pts: PackedVector3Array, hals_y: float, unten_y: float, breite := 0.3, m: Node3D = null, sk: Skeleton3D = null, lagen := []) -> Array:
+	var oben := hals_y - 0.05
+	for q in pts:
+		if absf(q.x - GURT_SCHULTER) < 0.02 and absf(q.z) < 0.08 and q.y < hals_y + 0.06 and absf(q.x) < breite: oben = maxf(oben, q.y)
+	var a := Vector3(GURT_SCHULTER, oben, 0.0)
+	# 531.2: das untere Ende neben dem Körper (Hüfte), die Ebene verlässt ihn an der rechten Flanke etwa auf Höhe unten_y und der Schnitt
+	# schließt sich dort von selbst; endete sie in ihm, lief der Riemen unten quer durch die Hüfte (4 cm tief)
+	var b := Vector3(-0.16, unten_y, 0.0) + (Vector3(-0.16, unten_y, 0.0) - a).normalized() * 0.25
+	var c := (a + b) * 0.5
+	var u := (a - b).normalized()
+	var n := u.cross(Vector3.BACK).normalized()
+	var flach := PackedVector2Array()
+	# genau der Schnitt der Flächen mit der Ebene (die Ecken allein liegen am Rumpf 3 bis 5 cm auseinander, die Hülle schnitt innen durch)
+	var schnitt := haut_schnitt(m, sk, lagen, c, n, breite, ["hood", "Gurt"]) if m != null else pts
+	for q in schnitt:
+		if q.y > hals_y + 0.1 or q.y < b.y - 0.1: continue
+		var v := q - c
+		if absf(v.dot(n)) > 0.015: continue
+		flach.append(Vector2(v.dot(u), v.z))
+	if flach.size() < 8: return [[], n]
+	# Umriss: je Grad um die Mitte der äußerste Punkt (Lücken linear dazwischen); dann straff: eine Ecke, die weniger als MULDE hinter der
+	# Strecke ihrer Nachbarn liegt, fällt weg (der Riemen überspannt Falten und flache Mulden, folgt aber dem Körper; die konvexe Hülle
+	# überspannte die Mulde unter der Brust mit 4 cm Luft, der Höchstwert über Nachbarfelder trug die Schulter 5 cm vor die Brust)
+	var mz := Vector2.ZERO
+	for f in flach: mz += f
+	mz /= flach.size()
+	const FELDER := 360
+	var r := []; r.resize(FELDER); r.fill(-1.0)
+	for f in flach:
+		var d := f - mz
+		var i := int(fposmod(d.angle(), TAU) / TAU * FELDER) % FELDER
+		r[i] = maxf(r[i], d.length())
+	var voll := []
+	for i in FELDER: if r[i] >= 0.0: voll.append(i)
+	if voll.size() < 8: return [[], n]
+	for i in FELDER:
+		if r[i] >= 0.0: continue
+		var lo := i; var hi := i
+		while r[(lo + FELDER) % FELDER] < 0.0: lo -= 1
+		while r[hi % FELDER] < 0.0: hi += 1
+		r[i] = lerpf(r[(lo + FELDER) % FELDER], r[hi % FELDER], float(i - lo) / float(hi - lo))
+	var poly := []
+	for i in FELDER:
+		var wi := (i + 0.5) / FELDER * TAU
+		poly.append(mz + Vector2(cos(wi), sin(wi)) * float(r[i]))
+	const MULDE := 0.008
+	for runde in 40:
+		var raus := false
+		var rest := []
+		var kk := poly.size()
+		for i in kk:
+			var pa: Vector2 = poly[(i - 1 + kk) % kk]; var pb: Vector2 = poly[(i + 1) % kk]; var pp: Vector2 = poly[i]
+			var tt := pb - pa
+			var nor := Vector2(tt.y, -tt.x).normalized()
+			if nor.dot((pa + pb) * 0.5 - mz) < 0.0: nor = -nor
+			var hinter := (pa - pp).dot(nor)   # > 0: pp liegt innen hinter der Strecke pa-pb
+			if hinter > 0.0 and hinter < MULDE and i % 2 == runde % 2 and kk > 12: raus = true; continue
+			rest.append(pp)
+		poly = rest
+		if not raus: break
+	var h := PackedVector2Array()
+	for pp in poly: h.append(pp)
+	h.append(poly[0])
+	# Umfang, dann 72 Punkte gleichen Abstands, je um GURT_LUFT entlang der Normale der Hülle nach außen
+	var lang := 0.0
+	for i in h.size() - 1: lang += h[i].distance_to(h[i + 1])
+	var mitte := Vector2.ZERO
+	for i in h.size() - 1: mitte += h[i]
+	mitte /= h.size() - 1
+	var aus := []
+	const N := 72
+	var k := 0; var weg := 0.0
+	for j in N:
+		var ziel := lang * j / N
+		while k < h.size() - 2 and weg + h[k].distance_to(h[k + 1]) < ziel:
+			weg += h[k].distance_to(h[k + 1]); k += 1
+		var seg := h[k + 1] - h[k]
+		var p := h[k] + seg * clampf((ziel - weg) / maxf(seg.length(), 1e-6), 0.0, 1.0)
+		var nor := Vector2(seg.y, -seg.x).normalized()
+		if nor.dot(p - mitte) < 0.0: nor = -nor
+		p += nor * GURT_LUFT
+		aus.append(c + u * p.x + Vector3.BACK * p.y)
+	return [aus, n]
+
+static func ruecken_gurt(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, lagen: Array, ruecken: Callable, y: float) -> void:
 	var hb := sk.find_bone("neck_01")
 	var ks := im_raum(m, sk)
-	var hals_y := (ks * sk.get_bone_global_rest(hb)).origin.y if hb >= 0 else y + 0.2
-	var g := gurt_punkte(haut_punkte(m, sk, false), hals_y, y - GURT_UNTEN)
+	var hals_y := (ks * (lagen[hb] as Transform3D)).origin.y if hb >= 0 else y + 0.2
+	# 531.2: in „Stehen“ hängen die Arme; ohne sie (Ruhelage |x| > 0,3) reicht der Körper bis an die Hüfte (mit 0,2 fehlte die rechte
+	# Hüfte, der Gurt stand dort 6 cm ab)
+	# ohne die Kapuze: der Gurt liegt unter ihr am Körper (Chef 17:34: „Gürtel über Schulter und durch die Kapuze“; ihr Kragen stand
+	# vorn ab, der Gurt spannte darüber 5,7 cm über der Brust)
+	var koerper := PackedVector3Array()
+	for x in m.find_children("*", "MeshInstance3D", true, false):
+		if (x as MeshInstance3D).skin and not String(x.name).containsn("hood") and x.name != "Gurt": koerper.append_array(haut_punkte(m, sk, true, x, lagen, 0.3))
+	var g := gurt_huelle(koerper, hals_y, y - GURT_UNTEN, 0.3, m, sk, lagen)
+	if (g[0] as Array).is_empty(): return
 	var linie: Array = g[0]; var n: Vector3 = g[1]
-	# Gurt mit Haut: jede Ecke folgt den Knochen der nächsten Ecke von Körper und Kleidung (Ruhelage), wie ein Teil der Kleidung;
-	# sonst stößt der Rumpf in den Bewegungen hindurch (Test gurt_531, am Knochen spine_03 bis 4 cm)
-	var quelle := _haut_gewichte(m, sk)
+	# 531.2: der Gurt ist in „Stehen“ gerechnet; jede Ecke folgt den Knochen der nächsten Ecke von Körper und Kleidung, in die Ruhelage
+	# zurückgerechnet (Umkehr ihrer Häutung), damit er in „Stehen“ genau dort liegt und in den Bewegungen mitgeht
+	var quelle := _haut_gewichte(m, sk, lagen)
 	var st := SurfaceTool.new()
 	st.set_skin_weight_count(SurfaceTool.SKIN_4_WEIGHTS)
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var kinv := ks.affine_inverse()
 	var k := linie.size()
-	var mitte: Vector3 = (linie[0] + linie[k / 2]) * 0.5
+	var rumpf := ks * (lagen[maxi(sk.find_bone("spine_02"), 0)] as Transform3D).origin
+	var schulter_y := hals_y - 0.08
 	for i in k:
 		var p0: Vector3 = linie[i]; var p1: Vector3 = linie[(i + 1) % k]
-		if p0.z < _r[2] + 0.05 and p1.z < _r[2] + 0.05: continue   # hinten liegt der Köcher, der Gurt ist an seinen Enden angenäht
-		var aussen: Vector3 = ((p0 + p1) * 0.5 - mitte).normalized()
-		for s in [1.0, -1.0]:   # beide Seiten (der Riemen ist dünn, innen sieht man ihn an der Schulter)
-			var e := [p0 + n * GURT_BREIT * 0.5, p0 - n * GURT_BREIT * 0.5, p1 - n * GURT_BREIT * 0.5, p1 + n * GURT_BREIT * 0.5]
+		if p0.z < float(ruecken.call(p0.y)) + 0.12 or p1.z < float(ruecken.call(p1.y)) + 0.12: continue   # hinten liegen Köcher und Umhang darüber
+		# 531.2: der Riemen liegt flach am Körper: Fläche nach außen von der Rumpfachse (waagrecht, über der Schulter nach oben), Breite quer
+		# dazu; mit der Breite quer zur Ebene stand er an den Flanken wie eine Flosse ab
+		var pm := (p0 + p1) * 0.5
+		var aussen := Vector3(pm.x - rumpf.x, 0.0, pm.z - rumpf.z)
+		if pm.y > schulter_y: aussen = aussen.lerp(Vector3.UP * aussen.length(), clampf((pm.y - schulter_y) / 0.06, 0.0, 1.0))
+		aussen = aussen.normalized()
+		var quer := (p1 - p0).cross(aussen).normalized()
+		if quer.dot(n) < 0.0: quer = -quer
+		for s in [1.0, -1.0]:
+			var e := [p0 + quer * GURT_BREIT * 0.5, p0 - quer * GURT_BREIT * 0.5, p1 - quer * GURT_BREIT * 0.5, p1 + quer * GURT_BREIT * 0.5]
 			for j in ([0, 1, 2, 0, 2, 3] if s > 0.0 else [0, 2, 1, 0, 3, 2]):
 				var q: Vector3 = e[j] + aussen * s * 0.002
 				var gw: Array = _naechste_gewichte(quelle, q)
-				st.set_normal(kinv.basis * (aussen * s))
+				var mm := Transform3D(Basis(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO), Vector3.ZERO)
+				for jj in 4:
+					var w: float = gw[1][jj]
+					if w <= 0.0: continue
+					var bt: Transform3D = ks * (lagen[gw[0][jj]] as Transform3D) * sk.get_bone_global_rest(gw[0][jj]).affine_inverse() * kinv
+					mm.basis = Basis(mm.basis.x + bt.basis.x * w, mm.basis.y + bt.basis.y * w, mm.basis.z + bt.basis.z * w)
+					mm.origin += bt.origin * w
+				var ruhe := mm.affine_inverse() * q
+				st.set_normal((kinv.basis * (mm.basis.inverse() * (aussen * s))).normalized())
 				st.set_bones(gw[0]); st.set_weights(gw[1])
-				st.add_vertex(kinv * q)
+				st.add_vertex(kinv * ruhe)
 	var skin := Skin.new()
 	for b in sk.get_bone_count(): skin.add_named_bind(sk.get_bone_name(b), sk.get_bone_global_rest(b).affine_inverse())
 	var mi := MeshInstance3D.new()
@@ -716,14 +947,20 @@ static func ruecken_gurt(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D,
 	sk.add_child(mi)
 	mi.skeleton = NodePath("..")
 	Gebiet.male(mi, null, 2, [])
-	# Schlaufe: wo der Bogen den Köcher kreuzt, ein Lederband um beide (Bogen hinten, Köcher am Rücken), quer zum Bogen; am Knochen
-	# spine_03 wie Köcher und Bogen
-	var qd := Vector2(KOECHER_HOCH.x, KOECHER_HOCH.y).normalized(); var bd := Vector2(BOGEN_HOCH.x, BOGEN_HOCH.y).normalized()
-	var q0 := Vector2(0.03, y - 0.12); var b0 := Vector2(0.0, y - 0.1)
-	var t := ((b0 - q0).x * bd.y - (b0 - q0).y * bd.x) / (qd.x * bd.y - qd.y * bd.x)
-	var x2 := q0 + qd * t
+	# Schlaufe: wo der Bogen den Köcher kreuzt, ein Lederband um beide, quer zum Bogen; Lage aus den angelegten Teilen
+	var kq := sk.get_node_or_null("RueckenKoecher"); var kb := sk.get_node_or_null("RueckenBogen")
+	if kq == null or kb == null or kq.get_child_count() == 0 or kb.get_child_count() == 0: return
+	var tq: Transform3D = brust * (kq.get_child(0) as Node3D).transform
+	var tb: Transform3D = brust * (kb.get_child(0) as Node3D).transform
+	var qd := Vector2(tq.basis.y.x, tq.basis.y.y).normalized(); var bd := Vector2(tb.basis.y.x, tb.basis.y.y).normalized()
+	var q0 := Vector2(tq.origin.x, tq.origin.y); var b0 := Vector2(tb.origin.x, tb.origin.y)
+	var tt := ((b0 - q0).x * bd.y - (b0 - q0).y * bd.x) / (qd.x * bd.y - qd.y * bd.x)
+	var x2 := q0 + qd * tt
 	var hb3 := Vector3(bd.x, bd.y, 0.0); var quer := hb3.cross(Vector3.BACK).normalized()
-	var z0: float = _r[2] - 0.002; var z1: float = _r[2] - 0.2   # vom Rücken bis hinter den Bogen (Köcher 12 cm, Bogen 4 cm dahinter)
+	var zq: float = tq.origin.z + tq.basis.y.z * (tt / maxf(Vector2(tq.basis.y.x, tq.basis.y.y).length(), 1e-4))
+	var sb := (x2.y - tb.origin.y) / maxf(tb.basis.y.y, 1e-4)
+	var zb: float = tb.origin.z + tb.basis.y.z * sb
+	var z0: float = float(ruecken.call(x2.y)) - 0.002; var z1: float = minf(zb, zq) - 0.03
 	var ecken := [Vector3(x2.x, x2.y, z0) + quer * 0.075, Vector3(x2.x, x2.y, z1) + quer * 0.03, Vector3(x2.x, x2.y, z1) - quer * 0.03, Vector3(x2.x, x2.y, z0) - quer * 0.075]
 	var sm: Vector3 = (ecken[0] + ecken[1] + ecken[2] + ecken[3]) * 0.25
 	var st2 := SurfaceTool.new()
@@ -754,9 +991,10 @@ static func _leder() -> StandardMaterial3D:
 	mat.albedo_texture = ImageTexture.create_from_image(img)
 	return mat
 
-## Ecken mit Haut (Ruhelage, Raum von m, nur die Mitte |x| < 0,25) und ihre vier Knochen (Nummern im Skelett) mit Gewichten
-static func _haut_gewichte(m: Node3D, sk: Skeleton3D) -> Array:
+## Ecken mit Haut in der Haltung lagen (Raum von m, ohne Arme: Ruhelage |x| < 0,25) und ihre vier Knochen (Nummern im Skelett) mit Gewichten
+static func _haut_gewichte(m: Node3D, sk: Skeleton3D, lagen: Array) -> Array:
 	var pos := PackedVector3Array(); var kn := []; var gw := []
+	var ks := im_raum(m, sk)
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var x := mi as MeshInstance3D
 		if not x.skin or x.name == "Gurt": continue
@@ -768,14 +1006,20 @@ static func _haut_gewichte(m: Node3D, sk: Skeleton3D) -> Array:
 			if bo == null or vs.is_empty(): continue
 			var nn := int(bo.size() / vs.size())
 			for i in vs.size():
-				var p := t * vs[i]
-				if absf(p.x) > 0.25: continue
+				if absf((t * vs[i]).x) > 0.25: continue
 				var b4 := PackedInt32Array([0, 0, 0, 0]); var w4 := PackedFloat32Array([0, 0, 0, 0])
+				var p := Vector3.ZERO
+				var kopf := 0.0
 				for j in mini(nn, 4):
 					var bind: int = bo[i * nn + j]
 					var bone := x.skin.get_bind_bone(bind)
 					if bone < 0: bone = sk.find_bone(x.skin.get_bind_name(bind))
 					b4[j] = maxi(bone, 0); w4[j] = we[i * nn + j]
+					if w4[j] > 0.0: p += (ks * (lagen[b4[j]] as Transform3D) * x.skin.get_bind_pose(bind) * vs[i]) * w4[j]
+					var bn := sk.get_bone_name(b4[j]).to_lower()
+					if bn.contains("neck") or bn.contains("head"): kopf += w4[j]
+				# 531.2: nicht an Hals und Kopf (Kopfhaltung der Person dreht sie; der Gurt an der Schulter ging mit und stand 5 cm ab)
+				if kopf > 0.2: continue
 				pos.append(p); kn.append(b4); gw.append(w4)
 	return [pos, kn, gw]
 
