@@ -26,6 +26,7 @@ Im Bau geprüft: Wölfe und Goblins rücken ohne neuen Platz nicht, jedes erlaub
 | 294.13 | Tom | 1044 | ohne dich (am Bild gebilligt, 👍 15:48) | Grundstand der Leute | – | – |
 | 294.14 | Tom | 1417 | ohne dich (am Bild gebilligt, 👍 19:41) | Schild im Heldenmenü, `schild_menue_1417` | Test grün | Test rot |
 | 294.15 | Tom | 1420 | ohne dich (am Film gebilligt, 👍 19:40) | Fußstaub sanfter, auch im Wald | – | – |
+| 294.16 | Tom | 1383 | ohne dich (Diogenes bestätigt am Lauf) | `ziege_4162` | Test grün | Test rot |
 
 ## Lagen
 
