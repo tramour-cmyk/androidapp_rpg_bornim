@@ -150,3 +150,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:20 16.11.: Startsperre 20:20 Start Tuffy (lauf.py)
 - 20:21 16.11.: Planabweichung: lauf.py plante Tuffy 1408, Start stattdessen auf 1411.1 (Sokrates 20:20, Chef 20:19 „kann das ein freier Entwickler machen“; 1411.1 laut Vorgangsliste „startbar, Tuffy“)
 - 20:22 16.11.: Start Tuffy 1411.1 (session_01Hmoj79xmtbHYvY4HJgquQC, erste Nachricht mit Kaufrepo-Satz)
+- 20:38 16.11.: Startsperre 20:38 Start Sokrates (Ford von Hand), Neustart-Meldung 20:33 (706667e6d)
