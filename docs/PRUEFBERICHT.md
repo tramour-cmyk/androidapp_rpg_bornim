@@ -45,7 +45,7 @@ Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727
 
 - **1481 greift:** `figurenpruefung.py --pruefen` auf `main` 14 bekannt, 0 neu (Exit 0); Schritt „Daten pruefen“ in `godot.yml` und `godot-kampf.yml`, Commit-Haken da; angezeigte Namen auf `main` unverändert (nur Spiegelfelder in „kennungen“).
 - **1385 greift** (Unterbau, Werkzeug); Rest: Namen (`ac454c939`, Spielcode) als **D280.1 → 1482** (Spike, gebaut) in den Sammelbuild; Build 2 ist 649.2 (Jerry).
-- **D280.2 → 1483 (Spike):** 1445 hat dieselbe Lücke: Spielcode `010179304` nur auf `claude/spike-1445-anmerkung`, in keinem Build; als Bereich B nie Sammelbuild-fällig (`startbar.liegt_ohne_vorlage` schließt B aus), Weiter-Haken schickt mich trotzdem dorthin. Folgevorgang im Bereich E Oberfläche, gebaut; 1445 wartet auf 1483.
+- **D280.2 → 1483 (Spike):** 1445 hat dieselbe Lücke: Spielcode `010179304` nur auf `claude/spike-1445-anmerkung`, in keinem Build; als Bereich B nie Sammelbuild-fällig (`startbar.liegt_ohne_vorlage` schließt B aus), Weiter-Haken schickt mich trotzdem dorthin. Folgevorgang im Bereich E Oberfläche, gebaut; 1445 greift (Werkzeugteil seit 1476 auf `main`).
 
 ## Lauf 279 · 1385 Build 1 Figurenprüfung (Spike `50121c3d3`, `ac454c939`; 16.11., 19:4x)
 
