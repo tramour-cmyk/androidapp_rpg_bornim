@@ -1,16 +1,16 @@
-# Tom und Jerry · Build 290 · Sammelbuild: Menü wie alt, Karte, Ausrüstung, Wechsel · PR folgt
-E Technik · Tom (785.8, 785.20, 785.21, 785.22, 785.23, 1295, 1304, 1309), Jerry (1296; ohne dich 1314, 481.2), ohne dich Tom 1325 · 15.11., 21:36 · APK folgt
-Rot, bekannt, nicht melden: `wolf_mess_438` – Stab des Klerikers im Ausweichen am Ort 0,04 m durch Wolf 3 (1321, Jerry, in Arbeit).
+# Tom und Jerry · Build 290 · 0.348.506 · Sammelbuild: Menü wie alt, Karte, Ausrüstung, Wechsel · [PR #209](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/209)
+E Technik · Tom (785.8, 785.20, 785.21, 785.22, 785.23, 1295, 1304, 1309), Jerry (1296; ohne dich 1314, 481.2), ohne dich Tom 1325 · 15.11., 22:59 · [APK (Lauf 506)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43764236337/artifacts/14182745059)
+Rot, bekannt, nicht melden: `wolf_mess_438` – Stab des Helden im Ausweichen am Ort 0,04 m durch Wolf 3 (1321, Jerry, behoben auf eigenem Zweig, kommt mit dem nächsten Build).
 
 Sammelbuild 1331 auf Build 289 aufgesetzt (enthält alles aus 289 und `main`); die Punkte der Liste 289 kommen hier nicht noch einmal. Toms Zweige sind einzeln übernommen, ohne die Rücknahmen aus dem alten Stand 288 (1000, 785.8 bleiben drin).
 
 Ein Weg: über Build 289 installieren, Hauptmenü, „Weiter“ mit deinem Spielstand; erst im Dorf 290.1 bis 290.4, dann Menü 290.5 bis 290.7, dann Reiter „Test“, Zeilen 290.8 und 290.9 mit „Lage herstellen“. Die Bilder und Filme kommen vorher je als eigene Nachricht auf Telegram (👍 passt, 👎 falsch).
 
-Im Bau geprüft: Knöpfe klicken (`klick_78520`), Zurück-Taste (`zurueck_78521`), Plakette „Satt“ (`satt_78522`), Renntaste (`renntaste_78523`), Stab im Drehteller (`stab_teller_1304`), Fächer und Namen (`faecher_1309`), Kartenhöhe (`kartenhoehe_1295`), Lage Aushang (`lage_785_8`), Eingebung nur vor dem eigenen Zug (`eingebung_1296`, 60 Kämpfe); ohne dich: Deckel 50 % für Rüstung und Schild (481.2, `brs_kampf_478`, `brs_473`), Graks Axt in der Faust beim Gehen und Schamane nicht im Boden (1314, `ausholen_1000`, `tod_ragdoll_1215`, `typen.py`), Leute nicht in der Kachel des Helden (1325, `ziege_4162`). Für 1314 gilt als Nachweis nur „gut“ von `ausholen_1000` im Log des APK-Laufs; zeigt er „übersprungen“, kommt ein Film.
+Im Bau geprüft: Knöpfe klicken (`klick_78520`), Zurück-Taste (`zurueck_78521`), Plakette „Satt“ (`satt_78522`), Renntaste (`renntaste_78523`), Stab im Drehteller (`stab_teller_1304`), Fächer und Namen (`faecher_1309`), Kartenhöhe (`kartenhoehe_1295`), Lage Aushang (`lage_785_8`, `lage_1156`, nach 1345 grün), Eingebung nur vor dem eigenen Zug (`eingebung_1296`, 60 Kämpfe); ohne dich: Deckel 50 % für Rüstung und Schild (481.2, `brs_kampf_478`, `brs_473`), Graks Axt in der Faust beim Gehen und Schamane nicht im Boden (1314, `ausholen_1000` „gut“ in Lauf 506, `tod_ragdoll_1215`, `typen.py`), Leute nicht in der Kachel des Helden (1325, `ziege_4162`).
 
 Gegengelesen: Sokrates 15.11., 21:24 (vier Befunde eingearbeitet, Jerry 21:36)
 
-Tom (1337, 15.11., 21:33): Wege 290.1 bis 290.7 gegen den Code gegangen, 290.1 (Spielstände liegen im Hauptmenü, nicht unter System), 290.3 (wie man isst) und 290.7 (Kartenzeichen der Leiste) berichtigt; Bilder 290.3, 290.6 und Film 290.5 vom Stand `claude/build-290` auf Telegram (21:32).
+Tom (1337, 15.11., 21:33): Wege 290.1 bis 290.7 gegen den Code gegangen, 290.1 (Spielstände liegen im Hauptmenü, nicht unter System), 290.3 (wie man isst) und 290.7 (Kartenzeichen der Leiste) berichtigt; Bilder 290.3, 290.6 und Film 290.5 vom Stand `claude/build-290` auf Telegram (21:32). Bild 290.6 kommt neu (1341, Tom), das alte musst du nicht bewerten.
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
