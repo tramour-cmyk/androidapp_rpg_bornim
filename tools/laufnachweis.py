@@ -11,7 +11,8 @@
 #   ohne PRUEFLISTE: die mit der höchsten Nummer in docs/chefsache/ansehen und docs/entwurf (t<n>-….md)
 #   ohne --ref/--yml: origin/claude/build-<n> (n aus dem Dateinamen), holt den Zweig, wenn er fehlt
 # Liest die Testnamen in Backticks aus der Zeile oder dem Abschnitt „Im Bau geprüft“ bzw. „Ohne dich“ und aus Tabellenzeilen mit einer
-# Zelle „ohne dich“. Exit 0: alle tragen; 1: mindestens einer nicht; 2: Aufruf oder Datei fehlt.
+# Zelle „ohne dich“; neben Godot-Tests (`name_123`) auch Prüfskripte mit Endung (`typen.py`, `kauf_cache_probe.sh`; 1499, D282.1), die
+# im Bauablauf unter ihrem Dateinamen gesucht werden. Exit 0: alle tragen; 1: mindestens einer nicht; 2: Aufruf oder Datei fehlt.
 import os, re, subprocess, sys
 
 WURZEL = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,8 +34,19 @@ def neueste_pruefliste():
     return beste[1] if beste else None
 
 
+SKRIPT = re.compile(r'[a-z][a-z0-9_]*\.(py|sh)')
+
+
+def ist_skript(name):
+    return bool(SKRIPT.fullmatch(name))
+
+
 def testname(tok):
     tok = tok.strip()
+    # 1499 (D282.1): Prüfskript mit Endung, Pfad davor zählt nicht (tools/godot/typen.py → typen.py)
+    basis = tok.rsplit('/', 1)[-1]
+    if ist_skript(basis):
+        return basis
     tok = re.sub(r'^(res://)?(godot/)?tests/', '', tok)
     tok = re.sub(r'\.gd$', '', tok)
     return tok if re.fullmatch(r'[a-z][a-z0-9]*(?:_[a-z0-9]+)+', tok) else None
@@ -117,9 +129,18 @@ def quit_kann_rot(gd):
     return any(a.strip() not in ('', '0') for a in args) or bool(re.search(r'\bOS\.exit_code\s*=\s*[^0\s]', gd))
 
 
+def skript_kann_rot(text, name):
+    if name.endswith('.py'):
+        return bool(re.search(r'\bsys\.exit\(\s*(?!0\s*\))[^)\s]', text) or re.search(r'\b(raise\s+SystemExit|exit\(\s*[1-9])', text)
+                    or re.search(r'^\s*(assert|raise)\b', text, re.M))
+    return bool(re.search(r'\bexit\s+(\$|[1-9])', text) or re.search(r'^\s*set\s+-[a-z]*e', text, re.M))
+
+
 def pruefe(name, steps, gd_text):
     """→ (ok, befund, fundstellen)"""
+    skript = ist_skript(name)
     pfad = 'res://tests/%s.gd' % name
+    such = re.compile(r'(?<![\w.-])(?:[\w./-]*/)?%s(?![\w.])' % re.escape(name) if skript else r'tests/%s\.gd\b' % re.escape(name))
     treffer = []
     for st in steps:
         pipefail = 'pipefail' in st['shell'] or st['shell'] == 'bash'
@@ -135,9 +156,10 @@ def pruefe(name, steps, gd_text):
                 plus_e = True
             if re.search(r"\btrap\b.*\bERR\b", code):
                 falle = True
-            if pfad not in code and not re.search(r'tests/%s\.gd\b' % re.escape(name), code):
+            m = such.search(code)
+            if not m and pfad not in code:
                 continue
-            nach = code[code.find('tests/%s.gd' % name):]
+            nach = code[m.start():] if m else code[code.find(pfad):]
             gruende = []
             if re.search(r'\|\|\s*(true|:)\b', nach):
                 gruende.append('`|| true`')
@@ -154,9 +176,11 @@ def pruefe(name, steps, gd_text):
     if not treffer:
         return False, 'steht nicht im Bauablauf', []
     if gd_text is None:
-        return False, 'Testdatei fehlt im Zweig', treffer
+        return False, ('Skript fehlt im Zweig' if skript else 'Testdatei fehlt im Zweig'), treffer
     tragend = [t for t in treffer if not t['nie_rot'] and not t['bedingt']]
-    if tragend and not quit_kann_rot(gd_text):
+    if tragend and skript and not skript_kann_rot(gd_text, name):
+        return False, 'Skript kennt keinen Fehlercode, wird nie rot', treffer
+    if tragend and not skript and not quit_kann_rot(gd_text):
         return False, 'Testskript endet nur mit quit(0), wird nie rot', treffer
     if tragend:
         return True, 'trägt (Zeile %s, %s)' % (tragend[0]['zeile'], tragend[0]['schritt']), treffer
@@ -199,6 +223,12 @@ def main(argv):
         tests_ordner = tests_ordner or os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(yml_datei)))), 'godot', 'tests')
 
         def lies_gd(n):
+            if ist_skript(n):
+                wurzel = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(yml_datei))))
+                for d, _, fs in os.walk(os.path.join(wurzel, 'tools')):
+                    if n in fs:
+                        return open(os.path.join(d, n), encoding='utf-8').read()
+                return None
             p = os.path.join(tests_ordner, n + '.gd')
             return open(p, encoding='utf-8').read() if os.path.isfile(p) else None
     else:
@@ -218,8 +248,13 @@ def main(argv):
         yml, quelle = r.stdout, '%s:.github/workflows/godot.yml' % ref
 
         def lies_gd(n):
-            r = git('show', '%s:godot/tests/%s.gd' % (ref, n))
-            return r.stdout if r.returncode == 0 else None
+            if ist_skript(n):
+                ls = git('ls-tree', '-r', '--name-only', ref, 'tools').stdout.split()
+                treffer = [f for f in ls if f.rsplit('/', 1)[-1] == n]
+                r = git('show', '%s:%s' % (ref, treffer[0])) if treffer else None
+            else:
+                r = git('show', '%s:godot/tests/%s.gd' % (ref, n))
+            return r.stdout if r and r.returncode == 0 else None
     print('Laufnachweis %s gegen %s' % (os.path.relpath(liste, WURZEL) if liste.startswith(WURZEL) else liste, quelle))
     if not namen:
         print('  keine Testnamen unter „Im Bau geprüft“ oder „Ohne dich“')

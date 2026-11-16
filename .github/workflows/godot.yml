@@ -949,12 +949,20 @@ jobs:
           unzip -l $GITHUB_WORKSPACE/bornim-godot.apk | grep -E "\.pck|daten" || { echo "Daten fehlen im APK"; exit 1; }
       - name: Name des APK (918)
         if: ${{ !cancelled() }}
-        run: echo "APK_NAME=bornim-godot-apk$( [ -f rot-stufe ] && echo -$(cat rot-stufe) )" >> $GITHUB_ENV
+        run: |
+          echo "APK_NAME=bornim-godot-apk$( [ -f rot-stufe ] && echo -$(cat rot-stufe) )" >> $GITHUB_ENV
+          # 1485 (Chef 16.11., 20:22: Link von Build 293, installiert lief 286): die Datei im Artefakt trägt Version und Build, damit
+          # am Gerät keine ältere Datei gleichen Namens (bornim-godot.apk) installiert wird; der Name des Artefakts bleibt
+          B="$GITHUB_REF_NAME"; case "$B" in claude/build-*) B="build-${B#claude/build-}";; *) B="$(echo "${B#claude/}" | tr -c 'A-Za-z0-9.\n-' '-')";; esac
+          F="bornim-0.348.$GITHUB_RUN_NUMBER-$B.apk"
+          [ -f bornim-godot.apk ] && cp bornim-godot.apk "$F"
+          echo "APK_DATEI=$F" >> $GITHUB_ENV
+          echo "1485: APK im Artefakt heißt $F"
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: ${{ env.APK_NAME }}
-          path: bornim-godot.apk
+          path: ${{ env.APK_DATEI }}
       # 1268.5 (1268 A, Chef 15.11., 10:51): Bildrate und Ladezeit je Ort (Dorf, Wald, Hoehle, Wolfskampf) in jedem Lauf, im Renderer des
       # Handys (mobile, Lavapipe); Vergleich mit godot/tests/bildrate_grundwert.json, Warnung beim Abfall (Tabelle in der Zusammenfassung)
       - name: Bildrate je Ort (1268.5)

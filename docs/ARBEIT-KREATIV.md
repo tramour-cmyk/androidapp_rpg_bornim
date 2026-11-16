@@ -2,9 +2,9 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
+**Gelesen bis:** `10012aabf` (16.11., 21:01)
 
-**Übergabe (16.11., 17:13, `session_01Hmoj75zum6Z1f8NFfzpE4u`):** 1459: README-Wortlaut `[1459.readme.kopf]`, `[1459.readme.features]` in `STORY-BRS-OBERFLAECHE.md`, nur was im Godot-Spiel steht (fremd gegen den Code geprüft, `fd9c1c7e0`), mit Einbauhinweisen; Zeile an Tom. 1468: Dateiname in STORY-CHRONIK-TEXTE-K1.md. 1473: `[1473.namen]` (ein Name je Figur nach 348.12c A, Grimfang, the Pack Leader), DESIGN-BRS 12 nachgezogen, Zu 1385 an Spike. Nachfolger: keiner (1235 nach dem Meilenstein).
+**Übergabe (16.11., 21:15, `session_01Hmoj75eC5wiQijRtfjKuQd`):** 1489: Merkmale je Exemplar in `STORY-MERKMALE-TIERE.md` und `-WAFFEN.md` (14 Arten, je Art und Merkmal vier Beschreibungen DE/EN, Namen, Wirkung, Regeln für den Bau; fremd geprüft 21:12, Befunde eingearbeitet); in `STORY-REGELN.md` eingetragen; Zeile an Jerry (Zu 1488). Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
