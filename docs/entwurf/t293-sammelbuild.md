@@ -6,7 +6,7 @@ Sammelbuild auf Build 292 aufgesetzt (enthält alles aus 292, 291, 290 und `main
 
 Ein Weg: über Build 292 installieren, Zeile 293.1 mit „Lage herstellen“ (Probekampf Wölfe), eine Runde zusehen; danach Hauptmenü, „Weiter“, Menü → Ausrüstung (293.2); zuletzt mit Fackel in die Blutzahnhöhle (293.6, 293.7).
 
-Im Bau geprüft: Kampf- und Verbandmeldungen sagen „Leben“/“Life“ statt TP/HP (1323, `pim_verband_842`), keine Stelle ohne Typ über der Sperrklinke (1408, `typen.py`), Probe des Kauf-Caches ohne die Schalter des Bauservers (1409, `kauf_cache_probe.sh`), eine Einhandwaffe zeigt „Haupthand · Stufe n“ (1291, `gegenstand_524`), Wundsegen nach dem zweiten Segen im Kampf gesperrt (1292, `handlungen_870`; den Knopf „· 2/2“ siehst du als Bild auf Telegram, [1292](cs:1292)).
+Im Bau geprüft: Kampf- und Verbandmeldungen sagen „Leben“/“Life“ statt TP/HP (1323, `pim_verband_842`), keine Stelle ohne Typ über der Sperrklinke (1408, `typen.py`), Probe des Kauf-Caches ohne die Schalter des Bauservers (1409, `kauf_cache_probe.sh`), eine Einhandwaffe zeigt „Haupthand · Stufe n“ (1291, `gegenstand_524`), Wundsegen nach dem zweiten Segen im Kampf gesperrt (1292, `handlungen_870`; den Knopf „· 2/2“ hast du am Bild gebilligt, 14:15).
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
