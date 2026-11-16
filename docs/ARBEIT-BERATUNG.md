@@ -48,6 +48,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 142** (17.–20.10. in Git): Fahrplan im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM); offen: Anschrift vor dem Zahlungsprofil
 
 ## Einzelheiten
+- **Zu 1072, von Jerry (16.11., 18:24), Bitte „1072, Läufe frei“ (480.1):** ein Messlauf ohne Bild auf `claude/jerry-1072-t293` (`260260015`), Messfrage im Commit: bleibt der Kaufwolf nach jedem Biss am Gegner, auch im zweiten Durchgang nach „Nochmal“ (t293.1 a), und steht sein Rumpf am eigenen Platz zum Ziel (b, gebaut `87e1bed06`)? Am Rechner ohne Kaufwolf nicht nachstellbar (0 von 32 Bissen zurück), `add_repo` Kaufrepo in meiner Sitzung abgelehnt; der Haken 621 A hält den Handlauf an (zählt t293 nicht als Urteil). Dasselbe gilt für 1453 `wolf_mess_438` (PR 212).
 - **Zu 1288b, von Jerry (16.11., 07:57, 1366 `6f2aa465d`):** `glut2_lesen.py` Zeile 128 zieht `ungunst × 0,6` von der Wehr ab, Wehr gegen kleine Schläge hat dort also 10 Punkte Ungunst, die Datei 1288b sagt „15 statt 25“. Gebaut nach dem Wortlaut (15). Mit 15 nachgerechnet (`lesen_1288.py`, 1000 je Zelle): Lesen 0→3 im Mittel +10,5 (mit 10: +9,9), größtes +39, Sieg Mittel 94,6, Krogg kleinste 56; Schluss bleibt. `DESIGN-GLUT.md` 5 beim Nachziehen bitte mit 15.
 - **Zu 481, Fund Jerry (644a.1, 14.11., 23:20; Rest in Git):** Heiler wächst in Kapitel 1 nie im Grundwert (Heilmagie bleibt bei 12, er übt Stumpfe Waffen); alle anderen Kampfstile genau einmal. Mit 481 und 1411 vorlegen.
 
