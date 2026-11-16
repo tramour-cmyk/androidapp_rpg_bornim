@@ -107,3 +107,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:25 16.11.: Marke Start-fehlt Tuffy 16.11.-08:11 (lauf.py)
 - 08:25 16.11.: Nachfolger-Warnung Jerry (Übergabe 16.11., 08:23) (lauf.py)
 - 08:27 16.11.: Neustart Jerry (d12489ab2): alte Sitzung 1072 archiviert (4,56 $, gebucht); Start Jerry 1285, Tuffy 1291
+- 08:40 16.11.: archiviert Tuffy 1291 (1,81 $, gebucht); Homer per Weiter an 1380; 1379 bleibt bei Jerry
