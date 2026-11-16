@@ -94,6 +94,9 @@ def jetzt_von(d):
 
 
 def kurzstand(d, grund):
+    # 1497 (Chef 16.11., 22:24 „17 sind von Jerry, da stimmt doch was nicht“): gebaute Punkte ohne Antwort im Test hießen „startbar“
+    m = re.search(r"ohne Rückmeldung (t\d+)", d.get("stand", ""))
+    if grund is None and m: return "gebaut, %s ohne deine Antwort" % m.group(1)
     if grund is None: return {"in Arbeit": "in Arbeit"}.get(d["wort"], "startbar")
     g = re.sub(r"\s*\(.*$", "", grund)
     return g[:40]
