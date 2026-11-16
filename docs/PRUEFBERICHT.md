@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 272 · 1440 Blocknummern im Überblick (Perikles `358715434`; 16.11., 14:33)
+
+- **1440 greift:** `ueberblick_test.py` gut (Nummern eindeutig, im Überblick). Chefsache-README nach dem Lauf „Chefsache Übersicht“ 14:32: Blöcke 1–8 fett nummeriert, „Übriges“ 9 fest, die 20 Vorgänge tragen die Blocknummer in der Spalte Block. Nummer fest im Code (`num`), nicht aus der Reihenfolge.
+
 ## Lauf 271 · 1424 Zusammenführen getesteter Builds (Perikles `6eb93c858`; 16.11., 14:31)
 
 - **1424 greift:** `startbar_zusammen_test.py` gut. Im Betrieb: Ford-Lauf 14:28 (`3ad66a0b1`) legte 1442 bei Sokrates an (Builds 274, 286–289 getestet, nicht auf `main`, 17–144 h), Sokrates-Sitzung „1424: PR 210 zusammenführen“ läuft seit 14:29. Danach `zusammenfuehren_faellig()` leer, solange 1442 offen ist (keine Doppelzeile). Wirkung in der Wochenzählung 23.11.: kein getesteter Build über 24 h neben `main`, Rotquote unter 40 %.
