@@ -529,7 +529,7 @@ var brs := false
 ## 930.6 (DESIGN-GLUT.md, Bauplan 10 Stufe 1): Schalter des Kerbensystems (werte.json „kerbe“ „an“, Tests setzen ihn vor start); aus:
 ## der alte Kampf bis zur Abnahme. An: start, act, _auto_order gehen an den Regelkern kerbe.gd (gk); act nimmt ["KERBE", Plan]
 var kerbe: bool = Kerbe.an()
-var gk = null
+var gk: Variant = null
 
 func brs_einrichten() -> void:
 	assert(BrsKampf.an(), "870.5: daten/werte.json fehlt (tools/sim444/werte.json)")
@@ -1536,7 +1536,7 @@ func _handlung(f: Fighter, s: String, t) -> void:
 	wucht = ""
 
 
-func _handlung_tun(f: Fighter, s: String, t, h: Dictionary) -> void:
+func _handlung_tun(f: Fighter, s: String, t: Variant, h: Dictionary) -> void:
 	match s:
 		"H_KRAFT":
 			var n := mini(f.max_hp - f.hp, roundi(f.max_hp * float(h.get("heilung_anteil", 0.25))))
@@ -1705,11 +1705,11 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 
 
 ## 1333: Zweihaender oder stumpfe Waffe (Gruppe wie in _brs_waffe)
-func _waffe_schwer(f: Fighter, with_weapon) -> bool:
+func _waffe_schwer(f: Fighter, with_weapon: Variant) -> bool:
 	if f.b.is_empty():
 		return false
-	var w = with_weapon if with_weapon != null else f.weapon()
-	var wsheet = w if w != null else (f.hero.main if f.hero != null else null)
+	var w: Variant = with_weapon if with_weapon != null else f.weapon()
+	var wsheet: Variant = w if w != null else (f.hero.main if f.hero != null else null)
 	if wsheet == null:
 		return false
 	return BrsKampf.waffe_held(f.b, wsheet, w != null and w != f.main_weapon()) in WAFFEN_SCHWER
@@ -1718,7 +1718,7 @@ func _waffe_schwer(f: Fighter, with_weapon) -> bool:
 ## 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
 ## a dwarf's toughness against poison; a foe immune to it takes none, a boss shakes off a stun half the time.
 ## [save]: [ability, DC] or null.
-func _inflict(t: Fighter, st: String, turns: int, save = null, die = null, quelle = null) -> bool:
+func _inflict(t: Fighter, st: String, turns: int, save: Variant = null, die: Variant = null, quelle: Variant = null) -> bool:
 	if outcome != "ONGOING" or not t.standing():
 		return false
 	if st == "STUN" and t.stun_guard > 0:
@@ -2282,7 +2282,7 @@ var eroeffnung := false    # 1296: Ansagen zu Beginn, noch niemand hat gezogen
 
 ## 1296: kommt der Held vor dem nächsten Zug von [foe] noch dran, und kann er dann wechseln?
 func _held_kann_vorher_wechseln(foe: Fighter) -> bool:
-	var held_f = find("hero")
+	var held_f: Variant = find("hero")
 	if held_f == null or not held_f.standing() or held_f.held or order.is_empty():
 		return false
 	var n := order.size()
