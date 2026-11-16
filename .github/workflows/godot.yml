@@ -968,6 +968,15 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bildrate=$RUNNER_TEMP/bildrate.json 2>&1 | grep -E "^(BILDRATE|FEHLER)|SCRIPT ERROR" | cut -c1-300 || true
           cd ..
           python3 tools/bildrate.py $RUNNER_TEMP/bildrate.json
+      # 1426 (Chef 16.11., 13:31): Messung je Lauf aufheben, damit die Prüfliste Build gegen Vorgänger mit Zahlen vergleicht
+      # (tools/bildrate.py --vergleich <Lauf alt> <Lauf neu>), statt den Chef zu fragen, ob es langsamer ist
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        with:
+          name: bildrate
+          path: ${{ runner.temp }}/bildrate.json
+          if-no-files-found: ignore
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
       # 1212 (Lauf 450: „convert: command not found“, „ffmpeg: command not found“, das Abbild des Bauservers hat beide nicht mehr):
       # Bilder zusammensetzen (convert, montage) und Filme umwandeln (ffmpeg) brauchen beide; einmal vor allen Bild- und Filmschritten
