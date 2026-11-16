@@ -679,3 +679,4 @@
 2026-11-16 19:15:13	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	probe-294
 2026-11-16 19:33:52	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1411a-heiltrank-streuung.md: fehlt Numme	claude/sokrates-1411-mana
 2026-11-16 19:39:37	commit-pruefung	docs/chefsache/ansehen/1420-fussstaub.md: Uhrzeit 19:45 liegt nach jetzt (19:39)	main
+2026-11-16 20:44:36	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1411b-merkmale.md: fehlt Nummer 1411b in	HEAD
