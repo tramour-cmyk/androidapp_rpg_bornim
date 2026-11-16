@@ -637,3 +637,4 @@
 2026-11-16 15:14:40	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-16 15:22:30	probelauf	1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert (5 Dateien, etwa tools/blender348/grak-cc0-probe.sh). Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je Kl	HEAD
 2026-11-16 15:34:10	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 31032 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-16 15:35:15	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30734 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
