@@ -183,8 +183,18 @@ def je_rolle():
         elif muss: was = zeile(muss[0], "Muss") + ("; dann %d weitere" % (len(muss) - 1) if len(muss) > 1 else "")
         elif kuer: was = zeile(kuer[0], "nach dem Meilenstein" if kuer[0][1] == "N" else "Kür")
         else:
-            g = collections.Counter(re.sub(r"\s*[(:;].*$|\s+\d.*$", "", z[4]) for z in s.plan(r) if z[4] and "fuer" not in z[3])
-            was = "leer, weil " + (", ".join("%d %s" % (n, w) for w, n in g.most_common(3)) or "keine offene Zeile")
+            # 1494 (Chef 16.11., 21:50 „Auf welche 5 Rückläufer wartest du denn?“): „wartet auf 1125“ kam als „wartet auf“
+            # ohne Ziel, „ruht bis 23.11.“ als „ruht bis“; Vorgangsnummern jetzt gesammelt genannt, „ruht bis“ heißt „ruht“
+            g, nrn = collections.Counter(), {}
+            for z in s.plan(r):
+                if not z[4] or "fuer" in z[3]: continue
+                m = re.match(r"wartet auf (\d[\w.]*)", z[4])
+                w = "wartet auf Vorgang" if m else re.sub(r"\s*[(:;,].*$|\s+\d.*$", "", z[4])
+                w = "ruht" if w == "ruht bis" else w
+                g[w] += 1
+                if m: nrn.setdefault(w, []).append(m.group(1))
+            was = "leer, weil " + (", ".join("%d %s" % (n, w) + (" (%s)" % ", ".join(nrn[w]) if w in nrn else "")
+                                             for w, n in g.most_common(3)) or "keine offene Zeile")
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
         for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
             if team != r: continue
