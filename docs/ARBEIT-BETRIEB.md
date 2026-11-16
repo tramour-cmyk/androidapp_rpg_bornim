@@ -146,3 +146,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:47 16.11.: Startsperre 18:47 Start Sokrates (selbst), Neustart-Meldung 18:41 (5be26bcdd)
 - 18:47 16.11.: Sokrates Neustart (session_01Hmoj79fsduXk6Tm4jJEp45), alte archiviert, 4,91 $ auf 1411, 649, 1472 gebucht; Startsperre 18:47 Start Ford (selbst), Selbstneustart bei 403 Tsd. Token (Haken 1019), alter Ford session_01Hmoj77ipw2pXLtZ7APj4LE, Uhr trig_01F9cw92P51YgZM8o1Pwhb3v
 - 18:47 16.11.: Startsperre 18:47 Start Ford (selbst), Selbstneustart bei 403 Tsd. Token (Haken 1019)
+- 18:50 16.11.: Selbstneustart Ford (neue Sitzung session_01Hmoj76cLUxDoHGcPjixiTE): create_trigger für eigene Uhr von der Auto-Prüfung abgelehnt (Wortlaut an Perikles, 1441a A); alte Uhr trig_01F9cw92P51YgZM8o1Pwhb3v bleibt an, alte Sitzung …77ipw2pXLtZ7APj4LE nicht archiviert, Kosten offen
