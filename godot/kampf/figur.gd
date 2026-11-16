@@ -3158,6 +3158,10 @@ func spell_oder_fern(e: Dictionary) -> bool:
 	return e.spell != null or fighter.ranged()
 
 func strike(other, e: Dictionary) -> int:
+	# 1340 (tod_ragdoll_1215: ein Angriff, der schon in der Reihe stand, lief nach dem Tod und spielte „Gehen“ und „Hieb“ auf dem
+	# liegenden Körper, die Wurzel sprang zurück): ein Toter schlägt nicht mehr
+	if down:
+		return 0
 	_dreh_ab()
 	if ausgeholt() and (spell_oder_fern(e) or kauf or not kann_ausholen()):
 		ausholen(false)     # 1000: nur der Axthieb (_hieb) schlägt aus der gehaltenen Lage

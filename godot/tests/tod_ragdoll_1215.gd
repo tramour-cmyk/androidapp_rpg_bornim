@@ -16,6 +16,7 @@ const Probe = preload("res://kampf/probe.gd")
 const Figur = preload("res://kampf/figur.gd")
 ## die Grenzen des Gelenks geben bei schneller Bewegung nach (etwa 5° je rad/s, gelenk_1215)
 const ZUGABE := 20.0
+const UEBERNAHME_BILDER := 15     # 1340: 0,25 s, in denen die Physik eine schon bei der Übernahme überstreckte Lage zurückholt
 ## Treffer: Name, Art, Winkel des Angreifers zur Blickrichtung des Opfers (0 = von vorn, 90 = von seiner Linken), kritisch
 const FAELLE := [
 	["Hieb von vorn", "nah", 0.0, false], ["Hieb von hinten", "nah", 180.0, false], ["Hieb von links", "nah", 90.0, false],
@@ -126,6 +127,7 @@ func _run() -> void:
 				var ueber := 0.0
 				var ueber_wo := ""
 				var brust0 := Vector3.INF
+				var start_ueber := {}     # 1340: Überschreitung je Glied im ersten Bild der Physik
 				var n_bilder := 0
 				while r.phase != "liegt" and n_bilder < 60 * 9:
 					await physics_frame
@@ -146,6 +148,12 @@ func _run() -> void:
 						var x: Array = g.get("x", [0, 0])
 						# Scharniere (Knie, Ellbogen) und der Rumpf genau; an Schulter und Hüfte (Kugelgelenk, weite Grenzen) nur das Beugen
 						var d: float = maxf(float(x[0]) - w.x, w.x - float(x[1]))
+						# 1340: steht ein Gelenk schon bei der Übernahme außerhalb (die gekaufte Bewegung des Skeletts überstreckt das Knie
+						# um 23°), zählt das nicht gegen die Physik, solange es nicht wächst und nach UEBERNAHME_BILDER wieder drin ist
+						if not start_ueber.has(g.n):
+							start_ueber[g.n] = maxf(d, 0.0)
+						if r.bilder_physik <= UEBERNAHME_BILDER and d <= float(start_ueber[g.n]) + 1.0:
+							continue
 						if d > ueber and (String(g.n).begins_with("wade") or String(g.n).begins_with("unterarm") or g.n == "brust" or g.n == "kopf"):
 							ueber = d
 							ueber_wo = "%s %.0f° (Grenzen %.0f bis %.0f)" % [g.n, w.x, float(x[0]), float(x[1])]
