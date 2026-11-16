@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:01, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -30,7 +30,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Tuffy | 1072 Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
 | Spike | leer, weil 5 wartet auf Test, 3 ruht bis, 1 wartet auf |
 | Homer | leer, weil 1 Chef Gespräch |
-| Diogenes | leer, weil 3 Termin, 1 ruht bis, 1 wartet auf |
+| Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
 | Sokrates | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss); dann 1 weitere |
 | Perikles | M? M? entscheiden: 1406, 1398, 1400 (Muss); dann 1 weitere |
 
