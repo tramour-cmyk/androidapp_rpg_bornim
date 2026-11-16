@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:36, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -38,7 +38,7 @@ Heute (seit 6:00): 118 erledigt, 104 neu. In Klammern bei „offen“: Stand 6:0
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [t293](ansehen/t293-sammelbuild.md) testen, hält 9 Zeilen; dann 2 weitere |
-| Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 8 weitere |
+| Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 9 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 7 weitere |
 | Tuffy | 601.1 Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurüc… (Muss von Jerry, neben dessen Arbeit); dann 6 weitere |
 | Spike | 1457 Übernahme von Tom: Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachs… (Muss); dann 2 weitere |
@@ -64,13 +64,13 @@ Heute (seit 6:00): 118 erledigt, 104 neu. In Klammern bei „offen“: Stand 6:0
 | 11 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | startbar |
 | 12 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | startbar |
 | 13 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1457 | Tom | Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachstellen, beheben · wi… | M | 6 Godot besser nutzen | startbar |
-| 18 | 1456 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 19 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 20 | 1454 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 288; grün machen und PR zu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1457 | Tom | Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachstellen, beheben · wi… | M | 6 Godot besser nutzen | startbar |
+| 19 | 1456 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
+| 20 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
 
 Danach 103 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
@@ -87,7 +87,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [1270.4](ansehen/1270.4-licht.md) | Glühen und vorberechnetes Höhlenlicht: heute gegen neu | Spike | 16.11., 16:24 |
+| [1270.4](ansehen/12704-licht.md) | Glühen und vorberechnetes Höhlenlicht: heute gegen neu | Spike | 16.11., 16:35 |
 | [1375](ansehen/1375-haken.md) | Haken-Frage Abnahmeliste, Woche 16.11. | Perikles | 16.11., 09:11 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
