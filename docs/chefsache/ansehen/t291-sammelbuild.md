@@ -31,5 +31,13 @@ Gegengelesen: Sokrates 16.11., 01:22 (drei Befunde, eingearbeitet Tom 01:23, dan
 
 ## Ergebnis
 
+- 291.1 ✓ (Chef 16.11., 13:42, App)
+- 291.2 ✓ (Chef 16.11., 13:42, App)
+- 291.3 ✓ (Chef 16.11., 13:42, App); Prüflistenfehler: Zeile „Grafik“ steht im Reiter System unter „Gerät zeigen …“, nicht im Reiter Test; den Vergleich der Ladezeit mit 290 kann man nicht beantworten (Chef 13:31)
+- 291.4 ✓ (Chef 16.11., 13:42, App)
+- 291.5 ✓ (Chef 16.11., 13:42, App)
+- 291.6 ✓ (👍 Telegram)
+- 291.7 ✗ (Chef 16.11., 13:42, App); Prüflistenfehler: Lage Probekampf Wölfe ohne Begleiter, kein Knopf zum Tausch (Chef 13:38: „wenn ich bei Lage herstellen draufklicke, bin ich alleine“); 1275 bleibt, Film als Nachtrag (Jerry)
+- 291.9 ✓ (Chef 16.11., 13:42, App)
 - 291.8 ✗ Pfeil fliegt auf Schild-/Brusthöhe, aber der Held zuckt nicht; dreimal dieselbe Szene, kein Unterschied erkennbar, ob er trifft (Chef 16.11., 12:24, über Sokrates)
 - 291.10 ✓ Söldner zuckt dreimal, Schild bleibt vor ihm; neuer Fund: beim dritten Biss bleibt Abstand, der Wolf erreicht ihn nicht (Chef 16.11., 12:32, über Sokrates; an Jerry zu 1284 Luftbisse)
