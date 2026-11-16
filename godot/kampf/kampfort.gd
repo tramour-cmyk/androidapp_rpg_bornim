@@ -284,8 +284,7 @@ func _setup_world() -> void:
 	env.adjustment_enabled = true
 	env.adjustment_saturation = 0.8
 	env.adjustment_contrast = 1.06
-	Licht.gluehen_lesen()
-	Licht.setze_gluehen(env)     # 1270.4 Probe
+	Licht.setze_gluehen(env)     # 1270.4 ab Grafikstufe Hoch
 	env.fog_enabled = true
 	env.fog_light_color = Color(0.09, 0.14, 0.15)         # Waldinneres (ForestCam #14221A); Stand 9: oben doppelt so hell wie alt, grau; Runde 4: gelbstichig, kühler
 	# Ferne heller im Dunst (Prüfer Lauf 14: Wald oben dunkel), aber nach Tiefe: erst ab 16 m (Gruppe 13 m, Gegner 15–17 m)
@@ -297,6 +296,7 @@ func _setup_world() -> void:
 	env.fog_density = 1.0
 	var we := WorldEnvironment.new()
 	we.environment = env
+	we.add_to_group("grafik_gluehen")     # 1270.4: Grafik.setze schaltet das Glühen mit
 	add_child(we)
 	var sun := DirectionalLight3D.new()
 	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:

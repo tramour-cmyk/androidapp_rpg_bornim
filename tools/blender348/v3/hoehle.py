@@ -791,13 +791,13 @@ for y in range(NR * PX):
         pix[i + 3] = 0.5 + 0.5 * min(1.0, d / (PX * 0.6))
 img.pixels = pix
 img.filepath_raw = os.path.join(OUT, ID + '-boden-maske.png'); img.file_format = 'PNG'; img.save()
-# 1270.4 (1270 A, Chef 15.11., 10:51 „vorberechnetes Licht (Innenräume, Höhle)“; 22:43 Film statt Bild): Probe, nur mit GEBACKEN=1.
+# 1270.4 (1270 A, Chef 15.11., 10:51 „vorberechnetes Licht (Innenräume, Höhle)“; 16.11., 17:32 👍 auf den Film): immer an, GEBACKEN=0 aus.
 # Godot rechnet das Licht der Quellen (Fackel, Feuer, Pilze, Kristalle, Tageslicht) in Echtzeit, aber ohne Rückstrahlung: hinter einer
 # Ecke ist es schwarz, der Fels um das Feuer nimmt keine Farbe vom Feuer an. Hier rechnet Cycles einmal beim Bau nur das indirekte
 # Licht (Lichtfarbe, die von Boden und Wand weitergeworfen wird) aus denselben Quellen wie cave-info.json und legt es in die Eckfarbe:
 # Eckfarbe × (1 + bis GEBACKEN_KRAFT nach dem indirekten Licht). In Godot ändert sich nichts als die Daten (kein Shader, keine Kosten beim Spielen).
 # Wandfassungen hoch und tief stehen am selben Ort: je Fassung ein Durchgang, die andere dabei unsichtbar.
-GEBACKEN = os.environ.get('GEBACKEN', '') == '1'
+GEBACKEN = os.environ.get('GEBACKEN', '1') == '1'
 GEBACKEN_KRAFT = float(os.environ.get('GEBACKEN_KRAFT', '0.8'))   # Eckfarbe höchstens +80 %
 def backen():
     sc_ = bpy.context.scene

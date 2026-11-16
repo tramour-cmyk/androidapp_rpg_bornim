@@ -46,31 +46,35 @@ const NATUR := [[Vector2(-1.0, -0.3), 1.2], [Vector2(0.35, -1.0), 0.6], [Vector2
 static var bahn := NATUR   # Chef 25.10., 12:25 (3486-sonne): wie in der Natur
 static var stand := Stand.MITTAG
 static var zur_sonne := Vector3(0, 1, 0)
-static var nach_licht: Array[ShaderMaterial] = []
-# 1270.4 (1270 A, Chef 15.11., 10:51; 22:43 „Film statt Bild“): Glühen als Probe, aus bis zum Urteil des Chefs; nur was heller ist
-# als weiß (Flammen, Glut, Kristalle, Pilze, Augen; in der Höhle durch die Belichtung 1303 mehr) bekommt einen Schein. Anschalten:
-# Bildlauf --glow1270=1 (Vergleichsfilm; --gluehen gehört den Glühwürmchen 514), sonst aus. Gilt für Welt und Kampfort (kampfort.gd).
-static var gluehen := false
+static var nach_licht: Array[ShaderMaterial] = []   # werten das Licht selbst aus (Tusche nach dem Licht, toon kontur)
+# 1270.4 (Chef 16.11., 17:32: 👍 auf den Film, Archiv „1270.4, Glühen und Höhlenlicht“): Glühen ab Grafikstufe Hoch (698); nur was
+# heller ist als die Schwelle (Flammen, Glut, Kristalle, Pilze, Augen; in der Höhle durch die Belichtung 1303 mehr) bekommt einen
+# Schein, angestrahlter Stahl, Leder, Stoff nicht (Signatur 3). Gilt für Welt und Kampfort (WorldEnvironment in der Gruppe
+# „grafik_gluehen“, Grafik.setze schaltet beim Wechsel der Stufe mit). Bildlauf --glow1270=0/1 zwingt aus/an (Vergleichsfilm;
+# --gluehen gehört den Glühwürmchen 514).
 const GLUEHEN_SCHWELLE := 0.9     # Abgleich am Rechner: 1,0 zeigt im Renderer mobile nichts; 0,5 ließ das angestrahlte Hemd des Helden an der Fackel glühen (Homer 16.11., Signatur 3), 0,3 hebt Rauch und Boden
 const GLUEHEN_KRAFT := 1.3
+static var gluehen_zwang := -2    # -2 Argumente noch nicht gelesen, -1 nach der Grafikstufe, 0/1 Bildlauf
 
-static func gluehen_lesen() -> void:
-	for a in OS.get_cmdline_user_args():
-		if a.begins_with("--glow1270="): gluehen = a.substr(11) == "1"
+static func gluehen_an() -> bool:
+	if gluehen_zwang == -2:
+		gluehen_zwang = -1
+		for a in OS.get_cmdline_user_args():
+			if a.begins_with("--glow1270="): gluehen_zwang = 1 if a.substr(11) == "1" else 0
+	return gluehen_zwang == 1 if gluehen_zwang >= 0 else Grafik.gluehen()
 
 static func setze_gluehen(e: Environment) -> void:
-	e.glow_enabled = gluehen
-	if not gluehen: return
+	var an := gluehen_an()
+	e.glow_enabled = an
+	if not an: return
 	e.glow_normalized = false
 	for i in 7: e.set_glow_level(i, 1.0 if i in [1, 2, 3, 4] else 0.0)
-	var kraft := float(OS.get_environment("GLOW_KRAFT")) if OS.has_environment("GLOW_KRAFT") else GLUEHEN_KRAFT   # Abgleich am Rechner
-	var schwelle := float(OS.get_environment("GLOW_SCHWELLE")) if OS.has_environment("GLOW_SCHWELLE") else GLUEHEN_SCHWELLE
-	e.glow_intensity = kraft
+	e.glow_intensity = GLUEHEN_KRAFT
 	e.glow_strength = 1.0
 	e.glow_bloom = 0.0                       # kein Schleier über allem, nur über dem Hellen
 	e.glow_blend_mode = Environment.GLOW_BLEND_MODE_SCREEN
-	e.glow_hdr_threshold = schwelle
-	e.glow_hdr_scale = 2.0   # werten das Licht selbst aus (Tusche nach dem Licht, toon kontur)
+	e.glow_hdr_threshold = GLUEHEN_SCHWELLE
+	e.glow_hdr_scale = 2.0
 # 348.9 (Chefrunde 25.10., 13:26, 3489 1 a): Stimmung wie MapGrade im alten Spiel, ueber dem Bild, unter der Leiste:
 # Toenung multipliziert (Tag fast weiss, Daemmerung violett, Nacht blau), Raender dunkler (MapGrade.apply)
 const STIMMUNG := """shader_type canvas_item;
@@ -121,9 +125,9 @@ func _ready() -> void:
 	env.adjustment_enabled = true
 	env.adjustment_saturation = 0.8
 	env.adjustment_contrast = 1.06
-	gluehen_lesen()
-	setze_gluehen(env)     # 1270.4 Probe
+	setze_gluehen(env)     # 1270.4 ab Grafikstufe Hoch
 	welt = WorldEnvironment.new()
+	welt.add_to_group("grafik_gluehen")
 	welt.environment = env
 	add_child(welt)
 	var ebene := CanvasLayer.new()

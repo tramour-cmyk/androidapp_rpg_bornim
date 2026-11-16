@@ -49,7 +49,7 @@ func _lauf() -> void:
 	Testmodus.alles_sichtbar = true      # Prüfgegenstand ist das Licht, nicht der Nebel
 	Herde.beachten_nicht = true          # keine Begegnung mitten im Film (alle Fassungen gleich)
 	spiel.held.fackel_neu(true, false, true)
-	print("FILM1270 Glühen %s, Fackel %s" % [Licht.gluehen, spiel.held.traegt_fackel])
+	print("FILM1270 Glühen %s, Fackel %s" % [Licht.gluehen_an(), spiel.held.traegt_fackel])
 	spiel.kamera.zoom = 7.0
 	spiel.kamera.springe()
 	print("FILM1270 Start Bild %d" % Engine.get_frames_drawn())   # ab hier laufen alle Fassungen gleich (Schnitt mit ffmpeg)
