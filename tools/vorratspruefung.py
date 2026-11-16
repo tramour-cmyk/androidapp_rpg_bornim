@@ -13,7 +13,15 @@ Eine Sicht auf alle klassischen Fehler der Vorgangsliste, je Fund Besitzer und w
   H Nummer fremd  wartet auf eine Nummer, die es nirgends gibt
   I Chefsache     Datei beim Chef, deren Vorgang erledigt ist oder fehlt (älter als 48 h)
   J Vorrat        „Zu <Nr>“ im Vorrat, deren Vorgänge alle erledigt sind
-Nur lesen; Exit 0. `--kurz`: je Art die Zahl.
+  K Urteil        Urteil des Chefs der letzten 48 h (Vorgangsarchiv) nennt eine Nummer ohne Zeile, oder die Zeile steht noch auf „Chef“
+                  (ersetzt mit G die Leichenprüfung 1192 von Diogenes)
+  L doppelt       zwei offene Zeilen mit fast gleichen Titelwörtern (nur Hinweis, Sinn prüft Perikles von Hand)
+  M „jetzt“       Muss mit „jetzt“ im Titel, älter als 48 h und weder in Arbeit noch gebaut
+  N Zweig         Zweig der Zeile fehlt auf GitHub, oder steckt schon ganz in main, Zeile aber offen und nicht gebaut
+  O Unternummer   offene Unternummer, deren Oberzeile erledigt ist und die keiner Zeile mehr zugeordnet ist
+  P Titel         Titel oder Stand sagt „entfällt“, „überholt“, „doppelt“, „erledigt“, Zeile aber offen
+Nur lesen; Exit 0. `--kurz`: je Art die Zahl. `--streichen [--probe]`: J-Absätze ohne Künftiges aus den Vorräten nehmen
+(Chef 16.11., 14:01).
 """
 import os
 import re
@@ -24,7 +32,8 @@ import startbar as S
 
 ARTEN = {"A": "Form", "B": "Zirkel", "C": "Chef falsch", "D": "Rolle weiß nichts", "E": "Muss wartet auf Kür oder Ruhendes",
          "F": "erfüllt, nicht gelöst", "G": "Leiche", "H": "Nummer unbekannt", "I": "Chefsache ohne offenen Vorgang",
-         "J": "Vorrat mit Erledigtem"}
+         "J": "Vorrat mit Erledigtem", "K": "Chefurteil nicht nachgezogen", "L": "wohl doppelt (von Hand prüfen)",
+         "M": "„jetzt“ liegt", "N": "Zweig kaputt", "O": "Unternummer verwaist", "P": "Titel sagt fertig"}
 VORRAETE = {"Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md", "Spike": "ARBEIT-TEAM-SPIKE.md", "Homer": "ARBEIT-KREATIV.md",
             "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md"}
 RUHEND = ("ruht", "Idee", "nach Meilenstein", "aufgeteilt")
@@ -132,6 +141,64 @@ def funde():
             if S.haengt(d): aus.append(("G", nr, bes, "hängt: %s" % (S.sperre(d) or "startbar ohne Start")))
         except Exception:
             pass
+    # K: Chefurteile der letzten 48 h gegen die Zeilen
+    try:
+        for w, kopf, je in S.urteile(48):
+            for n, ort, st in je:
+                if ort == "ohne Zeile":
+                    aus.append(("K", n, "?", "Urteil %s „%s“: keine Zeile %s (Folgeauftrag eingetragen?)" % (w.strftime("%d.%m., %H:%M"), kopf[:60], n)))
+                elif ort.startswith("Liste") and S.wort_von(st) == "Chef":
+                    aus.append(("K", n, ort[6:], "Urteil %s „%s“, Zeile steht noch auf „Chef“" % (w.strftime("%d.%m., %H:%M"), kopf[:60])))
+    except Exception as e:
+        aus.append(("K", "–", "–", "Urteilsprüfung übersprungen: %s" % e))
+    # L: fast gleiche Titel (Kennwörter ab 5 Buchstaben, ohne Absender- und Füllwörter)
+    weg = {"chef", "sokrates", "perikles", "diogenes", "jerry", "homer", "spike", "tuffy", "nicht", "statt", "werkzeug", "zeile",
+           "zeilen", "vorgang", "build", "jetzt", "prüfen", "bitte", "wieder", "immer", "durch", "beim", "einen", "einer", "keine",
+           "sollen", "alles", "neuen", "ohne", "zurück", "wiederholt"}
+    def worte(d):
+        t = re.sub(r"\([^)]*\)|·.*$", " ", d["titel"]).lower()
+        return {x for x in re.findall(r"[a-zäöüß]{5,}", t) if x not in weg}
+    offen = [d for d in zs if d["wort"] not in RUHEND and d["besitzer"] != "Ideen" and d["nr"] not in S.SONDER]
+    ws = {d["nr"]: worte(d) for d in offen}
+    for i, a in enumerate(offen):
+        for b in offen[i + 1:]:
+            x, y = ws[a["nr"]], ws[b["nr"]]
+            if len(x) < 3 or len(y) < 3 or a["nr"].split(".")[0] == b["nr"].split(".")[0]: continue
+            gemein = x & y
+            if len(gemein) >= 3 and len(gemein) / min(len(x), len(y)) >= 0.6:
+                aus.append(("L", a["nr"], a["besitzer"], "ähnlich %s (%s): %s" % (b["nr"], b["besitzer"], ", ".join(sorted(gemein)[:5]))))
+    # M, N, O, P
+    try:
+        koepfe = {}
+        for z in S._git("ls-remote", "--heads", "origin").stdout.splitlines():
+            h, ref = z.split("\t"); koepfe[ref.replace("refs/heads/", "")] = h
+    except Exception:
+        koepfe = {}
+    import datetime
+    for d in zs:
+        nr, bes = d["nr"], d["besitzer"]
+        if bes == "Ideen" or nr in S.SONDER: continue
+        m = re.search(r"„jetzt“ (\d\d?)\.(\d\d?)\.", d["titel"] + " " + d["stand"])
+        if m and d["kl"] == "M" and d["wort"] in ("startbar", "offen", "wartet"):
+            try:
+                tag = S.jahr_von(int(m.group(1)), int(m.group(2)))
+                if (S.JETZT.date() - tag).days >= 2:
+                    aus.append(("M", nr, bes, "„jetzt“ seit %s, Stand „%s“%s" % (tag.strftime("%d.%m."), d["wort"], (", wartet auf " + ", ".join(d["warte"])) if d["warte"] else "")))
+            except ValueError:
+                pass
+        zw = (d.get("zweig") or "").strip()
+        if koepfe and zw.startswith("claude/") and d["wort"] in ("startbar", "offen", "in Arbeit", "wartet"):
+            if zw not in koepfe:
+                aus.append(("N", nr, bes, "Zweig %s gibt es auf GitHub nicht (mehr)" % zw))
+            elif S._git("merge-base", "--is-ancestor", koepfe[zw], "origin/main").returncode == 0 and \
+                    S._git("cat-file", "-e", koepfe[zw]).returncode == 0:
+                aus.append(("N", nr, bes, "Zweig %s steckt ganz in main, Zeile steht auf „%s“" % (zw, d["wort"])))
+        if "." in nr and d["wort"] not in RUHEND:
+            ober = nr.rsplit(".", 1)[0]
+            if ober not in nach and S.stand_von(ober)[0] == ober and not d["warte"] and d["kl"] == "K" and d["wort"] == "startbar":
+                aus.append(("O", nr, bes, "Oberzeile %s erledigt, Unternummer als startbare Kür übrig (noch gebraucht?)" % ober))
+        if re.search(r"\b(entfällt|überholt|doppelt zu|ist erledigt|schon erledigt|hinfällig)\b", d["titel"] + " " + d["zusatz"], re.I):
+            aus.append(("P", nr, bes, "Text sagt „%s“, Zeile offen (%s)" % (re.search(r"\b(entfällt|überholt|doppelt zu|ist erledigt|schon erledigt|hinfällig)\b", d["titel"] + " " + d["zusatz"], re.I).group(1), d["wort"])))
     try:
         schon = {(a, n) for a, n, _, _ in aus}
         for bes, arten in S.leichen().items():
@@ -145,8 +212,46 @@ def funde():
     return aus
 
 
+LEBT = re.compile(r"\b(nächste[nr]?|künftig|weiterhin|bleibt|jeden|jede[rs]? (Woche|Tag|Montag)|montags|täglich|Stichtag|noch offen|offen mit|"
+                  r"Rest|später|ab \d\d?\.\d\d?\.|gilt|dauerhaft)\b", re.I)
+
+
+def streichen(f, probe=False):
+    """1425 (Chef 16.11., 14:01: „warum können die da drin stehen, wenn sie doch erledigt sind? Da musst du die doch mal rausnehmen.“):
+    J-Absätze streichen (Zeile „- **Zu …“ samt eingerückter Folgezeilen); Absätze mit Hinweis auf Künftiges (LEBT) bleiben und
+    werden genannt. Text bleibt in Git. Gibt (gestrichen, behalten) zurück."""
+    weg, bleibt = {}, []
+    for a, nr, rolle, t in f:
+        if a != "J": continue
+        datei = t.split(":")[0]
+        weg.setdefault(datei, set()).add(nr)
+    zahl = 0
+    for datei, nrn in weg.items():
+        pfad = os.path.join(S.DOCS, datei)
+        L = open(pfad, encoding="utf-8").read().split("\n")
+        aus, i = [], 0
+        while i < len(L):
+            m = re.match(r"- \*\*Zu ((?:D?\d[\w.]*(?:, | und )?)+)", L[i])
+            if m:
+                ende = i + 1
+                while ende < len(L) and L[ende].startswith("  "): ende += 1
+                erste = re.split(r", | und ", m.group(1).strip(" ,"))[0]
+                absatz = "\n".join(L[i:ende])
+                if erste in nrn:
+                    if LEBT.search(absatz): bleibt.append("%s: Zu %s" % (datei, erste))
+                    else:
+                        zahl += 1; i = ende; continue
+            aus.append(L[i]); i += 1
+        if not probe: open(pfad, "w", encoding="utf-8").write("\n".join(aus))
+    return zahl, bleibt
+
+
 def main():
     f = funde()
+    if "--streichen" in sys.argv:
+        n, b = streichen(f, probe="--probe" in sys.argv)
+        print("gestrichen %d; behalten %d (Künftiges im Text, Besitzer entscheidet): %s" % (n, len(b), "; ".join(b)))
+        return 0
     if "--kurz" in sys.argv:
         print("Vorratsprüfung (1425): %d Funde · " % len(f) + " · ".join("%s %s %d" % (k, v, sum(1 for x in f if x[0] == k)) for k, v in ARTEN.items()))
         return 0
