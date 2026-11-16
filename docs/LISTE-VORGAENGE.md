@@ -107,7 +107,7 @@
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | Jerry | K | startbar, gelöst 16.11.: 16.11. | – | – | – | E Kampf | – |
 | 623.2 | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher 623 A, 07.11.), Datenfeld fx in LISTE-EFFEKTE.md | Jerry | K | startbar, Szene 2 frei (272.7 bestanden) | – | – | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | K | startbar, gelöst 16.11.: 16.11. | – | – | – | E Klang | – |
-| 643 | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft +Y) für Garrick auf dem Rücken, wie alt (MapFolk.kt: longbow over the quiver; von Tom zu 531) | Jerry | M | gebaut, Geprüft an: 5cb4e49dd | – | claude/tuffy-643-bogen | – | E Welt | 0,45 $ |
+| 643 | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft +Y) für Garrick auf dem Rücken, wie alt (MapFolk.kt: longbow over the quiver; von Tom zu 531) | Jerry | M | gebaut, Geprüft an: 5cb4e49dd | – | claude/tuffy-643-bogen | – | E Welt | 3,53 $ |
 | 649.2 | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auftritt, Klänge, Bewegungen, Gruppen erzeugt), Seite LISTE-FIGUREN.md; Monster füllen (aus 649) | Jerry | K | startbar, gelöst 16.11.: 16.11. | – | – | – | E Kampf | – |
 | 649.4 | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo eine Bewegung da ist (649 B, Chef 13:28) | Jerry | K | startbar, gelöst 16.11.: 16.11. | – | – | – | E Kampf | – |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2; Ablösung held.json, tabellen.json items, beute.gd | Jerry | K | startbar, gelöst 16.11.: 16.11. | – | – | – | E Kampf | – |
@@ -239,6 +239,7 @@
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | 1270.3, 1270.4 | – | – | E Technik | 3,04 $ |
 | 1378 | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; Unternummern alle erledigt: 620, 1137 (1188) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | erledigt | – | – | – | B Abläufe | – |
+| 1379 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Ford | M | startbar | – | – | – | E Technik | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |

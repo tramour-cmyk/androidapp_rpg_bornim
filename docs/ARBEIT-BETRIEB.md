@@ -104,3 +104,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:11 16.11.: Marke Archiv session_01Hmoj77tuR4inAweJo2KGGk (lauf.py)
 - 08:11 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 07:54) (lauf.py)
 - 08:14 16.11.: Lauf 08:11 mit lauf.py (Perikles hat 1372 behoben); Start Tom 431h, Spike 1145, Diogenes Wochenzählung, Homer 1370, Tuffy 643; Weiter Sokrates (Stellungnahme 431h); archiviert Tom 1361 (12,61 $), Diogenes 1148 (2,13 $), Homer 302 (4,16 $), gebucht
+- 08:28 16.11.: archiviert Tuffy 643 (3,08 $, gebucht; Tuffy fertig, Neustart Tom 531 5cb4e49dd, Tom-Sitzung 431h blockiert auf Chef 698); Rotbuch tod_ragdoll_1215 angelegt
