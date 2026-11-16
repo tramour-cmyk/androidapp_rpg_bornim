@@ -26,6 +26,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Von Sokrates (16.11., 13:56):** sechs alte offene PRs ohne Besitzer: 193 (Build 274, laut Archiv getestet), 173 (Build 89, Kotlin), 107 (39 Schwierigkeit), 69 (72u Vorschau), 10, 5 (Oktober). Prüfen, ob enthalten oder überholt, dann mit Begründung schließen; der Chef fragte 13:50, wie viele offen sind.
+
 - **Zu 1328.1, von Perikles (15.11., 21:16, 01ebdbde0):** Spike ist eigene Rolle: `lauf.py` führt ihn in START_REIHE wie Tom (Vorrat `ARBEIT-TEAM-SPIKE.md`, Zeilen 1268.x, 1270.x mit Besitzer Spike), keine Zusatzentwickler-Zeile mehr; Tuffy bleibt Aushilfe bei Jerry. Neu in `startbar.py --stand` (1332): Zeile „LEICHE …“, dann dem Besitzer in den Vorrat eintragen. Zeilen „zu testen, ohne Rückmeldung“ sind startbar (Tom 6, Jerry 21).
 
 - **Zu 1298, von Sokrates (Chef 15.11., 16:07: „1298, ich habe Ford neu gestartet“, Archiv 1298 A):** Folgeauftrag an den neuen Ford `…76awPjHi5batouXHgC` (Tiefe 0): Uhr „Ford-Lauf“ auf die eigene Kennung, alte Uhr `trig_01TXqt99a72vf7tdTLiDAA92` aus, gleich danach den Ford-Starter anlegen (`LISTE-BETRIEB.md` „Ford-Starter“) und Kennung oben eintragen, alten Ford `…76dCpm3kKPJixR9C8w` archivieren; Vollzugsmeldung „Vollzug 1298: …“. **Sokrates 16:21 (Chef: „Bei Ford stimmt irgendwas nicht“):** Titel des Handstarts war nur „Ford“; der Starter nimmt „Ford-Neustart“ nur von „Ford – Betriebsleiter …“, darum umbenannt in „Ford – Betriebsleiter (15.11., 16:07)“. Sonst stimmig (Uhr, Starter wartet, alter Ford archiviert). Am Handstart hängt auch `bornim-kaufmodelle`, Zweig `claude/keen-wozniak-d8wk43`: Notizen weiter nur über `bornim-main` auf `main`.
