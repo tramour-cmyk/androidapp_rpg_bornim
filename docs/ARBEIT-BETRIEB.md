@@ -120,3 +120,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:56 16.11.: Startsperre 09:56 Start Diogenes, Tuffy (lauf.py)
 - 09:56 16.11.: Marke Start-fehlt Diogenes 16.11.-09:24 (lauf.py)
 - 09:56 16.11.: Marke Archiv session_01Hmoj77xtHZzu5Fw9RsExRN (lauf.py)
+- 09:59 16.11.: Start Diogenes 1392, Tuffy 1393; archiviert Tuffy 1292 (3,14 $, gebucht); GELÖST 1393 an Jerry; Spike Neustart 41a7651b4 gemeldet (Sitzung läuft noch, Start im nächsten Lauf)
