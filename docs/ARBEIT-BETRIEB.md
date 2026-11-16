@@ -96,3 +96,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 16.11.: Marke Übergabe-Chef Homer 16.11. 06:58 (lauf.py)
 - 07:08 16.11.: Startsperre 07:08 Start Diogenes 1148 (lauf.py; Muss startet trotz Pause bis 08:00, CLAUDE.md „Pause hält nur die Kür an“, 1364)
 - 07:09 16.11.: Startsperre 07:09 Start Sokrates (Neustart, 4f3b3e668; Chef im Gespräch mit alter Sitzung …784LCeBpTzytFVVak6, nicht archivieren vor 15 min Ruhe nach letzter Chefnachricht)
+- 07:17 16.11.: Startsperre 07:17 Start Tom 431h (Sokrates, Chef 07:15, a0e041709; per Weiter an …75u1oiSjLm3ypdDjwu)
