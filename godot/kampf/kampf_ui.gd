@@ -1026,6 +1026,8 @@ func _build_orders() -> void:
 					extra = " %d" % int(sk.amount)
 				elif sk.cost == "PER_BATTLE" or sk.cost == "PER_REST":
 					extra = " ×%d" % f.uses.get(s, 0)
+				if s == "Z_WUND":     # 1292 A (Chef 16.11., 10:4x „Ja“ zu „2/2“): übrige Segen dieses Kampfs am Knopf
+					extra += " · %d/%d" % [m.wund_rest(f), Mars.wund_je_kampf()]
 				var skill: String = s
 				items.append(_button([sk.de, sk.en][lang] + extra, m.blocked(f, s) == null, func():
 					var reach: Array = m.aim_at(f, skill)

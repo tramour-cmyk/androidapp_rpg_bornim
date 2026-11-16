@@ -153,7 +153,7 @@
   "zauber": {
     "_quelle": "N 4: Zauber wie Waffe, Grundwert nach der Schule (schulen, 952 D), Fertigkeit = Schule; Grundschaden, Kosten, Heilung A",
     "Funkenpfeil": {"schule": "Evokation", "schaden": 6, "kosten": 4, "art": "zauber", "typ": "feuer"},
-    "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5,
+    "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5, "je_kampf": 2,
                     "_heilung": "Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte"},
     "Bannschild":  {"schule": "Schutzmagie", "ruestung": 2, "kosten": 4,
                     "_bannschild": "A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit"},

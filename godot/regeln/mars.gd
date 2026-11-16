@@ -302,6 +302,7 @@ class Fighter:
 	var schutz := 0.0
 	var beistand := 0
 	var bann_genutzt := false
+	var wund_genutzt := 0     # 1292 A: so oft hat er in diesem Kampf Wundsegen gesprochen oder als Gebet geheilt
 	var naechster := 0.0
 	var abstand := false
 	var schildwall := false
@@ -864,9 +865,20 @@ func blocked(f: Fighter, s: String):
 		return X.MSG72_NOBATTLE
 	if sk.cost == "PER_REST" and f.uses.get(s, 0) <= 0:
 		return X.MSG72_NOREST
+	if s == "Z_WUND" and wund_rest(f) <= 0:     # 1292 A
+		return X.MSG72_NOBATTLE
 	if aim_at(f, s).is_empty():
 		return X.MSG72_NOTARGET
 	return null
+
+
+## 1292 A (Chef 16.11., 11:49: „1292 A“; Rechnung klosterschueler_1292.py: ohne Grenze gewann der Klosterschüler jeden Kampf, auch
+## wartend): Wundsegen höchstens werte.json zauber.Wundsegen.je_kampf mal je Kampf, das Gebet aus dem Ring (Heilung ohne Mana) zählt mit
+static func wund_je_kampf() -> int:
+	return int(BrsKampf.w()["zauber"]["Wundsegen"].get("je_kampf", 99))
+
+func wund_rest(f: Fighter) -> int:
+	return maxi(0, wund_je_kampf() - f.wund_genutzt)
 
 
 func aim_at(f: Fighter, s: String) -> Array:
@@ -1459,6 +1471,7 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 				if outcome == "ONGOING":
 					_brs_zauber(f, g, z)
 		"Z_WUND":
+			f.wund_genutzt += 1     # 1292 A
 			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)))
 			t.hp += n
 			if f == t:
@@ -1964,7 +1977,7 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 			art = "FLAMMEN"
 		elif gruppe == "Dolche":
 			art = "HINTER"
-		elif "Z_WUND" in t.zauber:
+		elif "Z_WUND" in t.zauber and wund_rest(t) > 0:     # 1292 A: nach dem letzten Segen schlägt er zurück oder weicht nur aus
 			art = "GEBET"
 		elif nah:
 			art = "SCHLAG"
@@ -1991,6 +2004,7 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 		"GEBET":
 			_say(fmt(X.MSG72_PRAYS, lang, [t.name(lang)]), t.id, null, 0, null, true)
 			var z: Dictionary = BrsKampf.w()["zauber"]["Wundsegen"]
+			t.wund_genutzt += 1     # 1292 A
 			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(t.b.werte.get("wille", 0))) * (1.0 + float(t.b.fert.get(String(z.schule), 0)) / 100.0)))
 			t.hp += n
 			_say(fmt(X.MSG72_HEALSSELF, lang, [t.name(lang), n]), t.id, t.id, 0, null, false, false, "HEAL")

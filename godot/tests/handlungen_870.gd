@@ -305,6 +305,13 @@ func _zauber() -> void:
 	var heil := roundi((float(Z["Wundsegen"]["heilung"]) + 3.0) * 1.25)
 	m._perform(h, ["use", "Z_WUND", "hero"])
 	pruefe("Wundsegen heilt (6 + Wille) × (1 + Heilmagie/100)", h.hp == 5 + heil, "%d statt %d" % [h.hp, 5 + heil])
+	# 1292 A: höchstens je_kampf (2) Segen je Kampf, danach gesperrt, auch mit Mana
+	h.hp = 5
+	m._perform(h, ["use", "Z_WUND", "hero"])
+	h.hp = 5
+	h.sp = 40
+	pruefe("1292 A: nach dem zweiten Wundsegen gesperrt (%d je Kampf)" % Mars.wund_je_kampf(), Mars.wund_je_kampf() == 2 and m.wund_rest(h) == 0 and m.blocked(h, "Z_WUND") != null,
+			"Rest %d, gesperrt %s" % [m.wund_rest(h), m.blocked(h, "Z_WUND")])
 	m._perform(h, ["use", "Z_BANN", "hero"])
 	pruefe("Bannschild: Schutz und nur einmal je Kampf", h.schutz > 0.0 and m.blocked(h, "Z_BANN") != null, "%.1f" % h.schutz)
 	h.sp = 0
