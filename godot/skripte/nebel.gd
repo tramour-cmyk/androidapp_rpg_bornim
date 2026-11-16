@@ -70,6 +70,17 @@ var haus_von := PackedInt32Array()  # Dorf: je Kachel das Haus (-1 keins)
 var haeuser: Array = []             # je Haus seine Kacheln
 var haus_wert := PackedInt32Array() # je Haus: hoechste Stufe seiner Kacheln (nach jedem neu_sehen)
 var dinge: Array = []               # [Node3D, Kachel]: Lichter, Rauch, Flammen, Staub, Lichtstrahl der Karte
+# 1145 (Chef 14.11.: „sobald ich mich bewege, … hakelig“, auch mit allen Effekten aus): je Kachelwechsel und je 5° Drehung rechnete
+# schritt() 44 ms am Rechner (Messung hakeln_1145), am Handy ein Vielfaches; die Zeit frassen Woerterbuchzugriffe je Teil (zeichen_name,
+# fest, nebel mit 5x5 Nachbarn je Teil). Die Kacheln aendern sich nie, darum einmal je Karte als Felder, nebel() je Kachel einmal je Rechnung
+var _hoehle := false
+var _namen := PackedStringArray()
+var _fest := PackedByteArray()
+var _undurch := PackedByteArray()
+var _fels := PackedByteArray()
+var _nb := PackedByteArray()         # nebel() je Kachel, nur waehrend schritt() rechnet (_nb_an)
+var _nb_an := false
+var _fels_um: Array[PackedInt32Array] = []   # Hoehle: je Felskachel die freien Kacheln bis WAND_SICHT ringsum (1289) (nebel())
 
 func _init(s, k: Karte) -> void:
 	spiel = s
@@ -81,6 +92,28 @@ func _init(s, k: Karte) -> void:
 	rand_an = art == "CAVE"
 	breite = k.breite; hoehe = k.hoehe
 	name = "Nebel"
+	_hoehle = art == "CAVE"
+	var im_dorf := art == "TOWN"
+	_namen.resize(breite * hoehe); _fest.resize(breite * hoehe); _undurch.resize(breite * hoehe); _fels.resize(breite * hoehe)
+	for y in hoehe:
+		for x in breite:
+			var i := y * breite + x
+			var n := String(k.kacheln.get(k.zeichen(Vector2i(x, y)), {}).get("name", ""))
+			_namen[i] = n
+			_fels[i] = 1 if n in HOEHLENFELS else 0
+			_undurch[i] = 1 if n in UNDURCHSICHTIG else 0
+			_fest[i] = 1 if (im_dorf and n in HAUS) or (n in HOEHLENFELS if _hoehle else n == "TREE") else 0
+	_fels_um.resize(breite * hoehe)
+	if _hoehle:
+		for y in hoehe:
+			for x in breite:
+				if _fest[y * breite + x] == 0: continue
+				var um := PackedInt32Array()
+				for dy in range(-WAND_SICHT, WAND_SICHT + 1):
+					for dx in range(-WAND_SICHT, WAND_SICHT + 1):
+						var nx := x + dx; var ny := y + dy
+						if innen(nx, ny) and _fest[ny * breite + nx] == 0: um.append(ny * breite + nx)
+				_fels_um[y * breite + x] = um
 
 func _ready() -> void:
 	if not an and not rand_an: return
@@ -238,6 +271,7 @@ func speichere() -> void:
 
 # ---------------------------------------------------------------- Sicht (Sight.update)
 func zeichen_name(x: int, y: int) -> String:
+	if innen(x, y): return _namen[y * breite + x]
 	return String(karte.kacheln.get(karte.zeichen(Vector2i(x, y)), {}).get("name", ""))
 
 func innen(x: int, y: int) -> bool: return x >= 0 and y >= 0 and x < breite and y < hoehe
@@ -295,7 +329,7 @@ func sicht_frei(x0: int, y0: int, x1: int, y1: int) -> bool:
 	var err := dx + dy
 	while true:
 		if x == x1 and y == y1: return true
-		if (x != x0 or y != y0) and zeichen_name(x, y) in UNDURCHSICHTIG: return false
+		if (x != x0 or y != y0) and (_undurch[y * breite + x] == 1 if innen(x, y) else zeichen_name(x, y) in UNDURCHSICHTIG): return false
 		var e2 := 2 * err
 		if e2 >= dy: err += dy; x += sx
 		if e2 <= dx: err += dx; y += sy
@@ -306,6 +340,7 @@ func roh(i: int) -> int:   # 0 verborgen, 1 gesehen, 2 in Sicht (Fog)
 	return 1 if erkundet[i] == 1 else 0
 
 func fest(x: int, y: int) -> bool:
+	if innen(x, y): return _fest[y * breite + x] == 1
 	var n := zeichen_name(x, y)
 	if dorf and n in HAUS: return true
 	return n in HOEHLENFELS if String(karte.daten.get("art", "")) == "CAVE" else n == "TREE"
@@ -313,8 +348,9 @@ func fest(x: int, y: int) -> bool:
 ## Sight.fog(view = true): 0 verborgen, 1 gesehen, 2 in Sicht
 func nebel(x: int, y: int) -> int:
 	if not innen(x, y): return 0
+	if _nb_an: return _nb[y * breite + x]
 	var eigen := roh(y * breite + x)
-	var hoehle := String(karte.daten.get("art", "")) == "CAVE"
+	var hoehle := _hoehle
 	if not fest(x, y): return eigen
 	if dorf and haus_von.size() > 0 and haus_von[y * breite + x] >= 0: return haus_wert[haus_von[y * breite + x]]
 	if not hoehle:
@@ -324,12 +360,8 @@ func nebel(x: int, y: int) -> int:
 		return bb
 	var best := eigen
 	# 1289 (Chef 15.11., 20:34 „Rückseite von Wänden, wo ich nicht mal durchgucken kann“): Fels nimmt die Sicht nur vom Boden direkt
-	# daneben (alt Fog.kt zwei Kacheln: eine zwei Kacheln dicke Wand war ganz in Sicht, auch ihre abgewandte Seite)
-	for dy in range(-WAND_SICHT, WAND_SICHT + 1):
-		for dx in range(-WAND_SICHT, WAND_SICHT + 1):
-			var nx := x + dx; var ny := y + dy
-			if not innen(nx, ny) or fest(nx, ny): continue
-			best = maxi(best, roh(ny * breite + nx))
+	# daneben (WAND_SICHT; alt Fog.kt zwei Kacheln); 1145: die freien Kacheln ringsum stehen vorab in _fels_um
+	for i in _fels_um[y * breite + x]: best = maxi(best, roh(i))
 	return best
 
 ## Sight.inSight: Punkt in Kacheln, feiner als eine Kachel (Kegelkante als Linie, 13e)
@@ -337,7 +369,7 @@ func in_sicht_punkt(px: float, py: float) -> bool:
 	if not an: return true
 	var tx := floori(px); var ty := floori(py)
 	if not innen(tx, ty): return false
-	if String(karte.daten.get("art", "")) == "CAVE" and zeichen_name(tx, ty) in HOEHLENFELS: return nebel(tx, ty) == 2
+	if _hoehle and _fels[ty * breite + tx] == 1: return nebel(tx, ty) == 2
 	if dorf and haus_von[ty * breite + tx] >= 0: return nebel(tx, ty) == 2
 	if frei[ty * breite + tx] == 0: return false
 	var h: Vector2i = spiel.held.kachel
@@ -379,8 +411,13 @@ func schritt(dt: float) -> void:
 		# Lauf 1 zeigte harte Rautenkanten), in Sicht 0 mit der Kegelkante als Linie (13e)
 		var kw := PackedFloat32Array(); kw.resize(breite * hoehe)
 		var gesehen_wert := GESEHEN_HOEHLE if String(karte.daten.get("art", "")) == "CAVE" else GESEHEN
+		_nb.resize(breite * hoehe)
 		for ty in hoehe:
-			for tx in breite: kw[ty * breite + tx] = 1.0 if nebel(tx, ty) == 0 else gesehen_wert
+			for tx in breite:
+				var nt := nebel(tx, ty)
+				_nb[ty * breite + tx] = nt
+				kw[ty * breite + tx] = 1.0 if nt == 0 else gesehen_wert
+		_nb_an = true   # bis dinge_zeigen: sichtbar und erkundet bleiben, nebel() liest das Feld
 		var sw := breite * SUB
 		# nur um den Helden aendert sich etwas (Sicht bis reich, die weiche Kante eine Kachel weiter); beim Betreten alles
 		var r := int(reich) + 4
@@ -390,18 +427,34 @@ func schritt(dt: float) -> void:
 				var f := nebel(tx, ty)
 				var mitte: Vector2i = Vector2i(tx, ty) - h
 				var nahe := absi(mitte.x) <= int(reich) + 2 and absi(mitte.y) <= int(reich) + 2
+				# 1145: was je Teil gleich ausgeht, einmal je Kachel: Sicht (-1 nie, 1 immer, 0 je Teil rechnen) wie in_sicht_punkt,
+				# und die weiche Kante, wenn die neun Kachelmitten ringsum gleich sind
+				var sicht := -1
+				if f == 2 or nahe:
+					var i := ty * breite + tx
+					if _hoehle and _fels[i] == 1: sicht = 1 if f == 2 else -1
+					elif dorf and haus_von[i] >= 0: sicht = 1 if f == 2 else -1
+					elif frei[i] == 0: sicht = -1
+					else: sicht = 0
+				var gleich := -1.0
+				var k0 := kw_bei(kw, tx, ty)
+				if (kw_bei(kw, tx - 1, ty - 1) == k0 and kw_bei(kw, tx, ty - 1) == k0 and kw_bei(kw, tx + 1, ty - 1) == k0
+						and kw_bei(kw, tx - 1, ty) == k0 and kw_bei(kw, tx + 1, ty) == k0
+						and kw_bei(kw, tx - 1, ty + 1) == k0 and kw_bei(kw, tx, ty + 1) == k0 and kw_bei(kw, tx + 1, ty + 1) == k0):
+					gleich = k0
 				for v in SUB:
 					for u in SUB:
 						var j := (ty * SUB + v) * sw + tx * SUB + u
 						var px := tx + (u + 0.5) / SUB
 						var py := ty + (v + 0.5) / SUB
 						var g := 0.0
-						if not ((f == 2 or nahe) and in_sicht_punkt(px, py)):
-							g = weich(kw, px - 0.5, py - 0.5)
+						if not (sicht == 1 or (sicht == 0 and in_sicht_punkt(px, py))):
+							g = gleich if gleich >= 0.0 else weich(kw, px - 0.5, py - 0.5)
 						if soll[j] != g:
 							soll[j] = g
 							aktiv[j] = true
 		dinge_zeigen()
+		_nb_an = false
 		if neu:   # beim Betreten sofort, ohne Blenden
 			neu = false
 			for j in aktiv: ist[j] = soll[j]
