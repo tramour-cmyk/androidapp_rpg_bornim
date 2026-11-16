@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:15, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -37,14 +37,14 @@ Heute (seit 6:00): 143 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:0
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [431h](ansehen/431h-kleidung-stufe1.md) ansehen |
+| **Chef** | [1411](entscheiden/1411-mana.md) entscheiden; dann 1 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 6 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 13 weitere |
 | Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 12 weitere |
 | Spike | leer, weil 3 wartet auf Test/Build, 3 ruht bis, 2 wartet auf Diogenes |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1385 Unterbau „Alles an einer Stelle“: eine Kennung je Figur und… (Muss); dann 1 weitere |
-| Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss) |
+| Sokrates | 481 Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wac… (Kür) |
 | Perikles | 919 Regeln nachziehen: Testbitte auch bei rot mit Liste „bekann… (Kür) |
 
 **Die nächsten 20**
@@ -52,30 +52,34 @@ Heute (seit 6:00): 143 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:0
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1453 | Jerry | stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus 1072 | M | 2 Kampf passt | in Arbeit |
-| 2 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | 2 Kampf passt | startbar |
-| 3 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | 2 Kampf passt | startbar |
-| 4 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | 2 Kampf passt | startbar |
-| 5 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | startbar |
-| 6 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | 2 Kampf passt | startbar |
-| 7 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | 2 Kampf passt | startbar |
-| 8 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
-| 9 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | 2 Kampf passt | startbar |
-| 10 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
-| 11 | 1415 | Jerry | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6; Wege sind es nicht mehr, Ze… | M | 2 Kampf passt | startbar |
-| 12 | 1439 | Jerry | Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigener blauer Balken wie… | M | 2 Kampf passt | startbar |
-| 13 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 14 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 15 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 16 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 17 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 18 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1408 | Jerry | typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284; typisieren, dann n… | M | 6 Godot besser nutzen | startbar |
-| 20 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 2 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | 2 Kampf passt | startbar |
+| 3 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | 2 Kampf passt | startbar |
+| 4 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | startbar |
+| 5 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | 2 Kampf passt | startbar |
+| 6 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | 2 Kampf passt | startbar |
+| 7 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
+| 8 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | 2 Kampf passt | startbar |
+| 9 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
+| 10 | 1415 | Jerry | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6; Wege sind es nicht mehr, Ze… | M | 2 Kampf passt | startbar |
+| 11 | 1439 | Jerry | Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigener blauer Balken wie… | M | 2 Kampf passt | startbar |
+| 12 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 13 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 14 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 15 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
+| 16 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
+| 17 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1408 | Jerry | typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284; typisieren, dann n… | M | 6 Godot besser nutzen | startbar |
+| 19 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
 Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 61.
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1411](entscheiden/1411-mana.md) | **Muss** | G Balance | 16.11., 19:12 | Mana fließt nach jedem Sieg um den halben Willen zurück; Wundsegen streut wie Waffenschaden; Heiltränke bleiben fest, bis die Güte für alle Dinge kommt. | Sokrates |
 
 ## Zu billigen
 
