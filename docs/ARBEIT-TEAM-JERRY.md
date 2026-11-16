@@ -50,6 +50,12 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 ## Einzelheiten
+
+
+
+- **Zu 1421, von Chef (Fund t293.7, Test Build 293, Automatik B):** Gehen wie auf Speed, mit Taste Tippelschritte; Chef 17:51: Testschalter „Schnell“ war an, nachtesten ohne „Schnell“ (gleiche APK)
+- **Zu 1421, von Chef (Fund t293.7, Test Build 293, Automatik B):** in der Höhle bei „Ring“ wie bei „Taste“ kein Unterschied: Gehen sieht immer wie auf Speed aus, mit Taste schnelle Tippelschritte statt Rennbewegung (Chat 17:49); Chef 17:51: Testschalter „Schnell“ (dreifach) war an; erst nachtesten lassen ohne „Schnell“ (gleiche APK), bevor gebaut wird; Zwischenstufe „schneller gehen“ fehlt (Chat 17:50, gewollt nach 1421 feste Tempi)
+- **Zu 1072, von Chef (Fund t293.1, Test Build 293, Automatik B):** erster Durchgang wie vor 1072 (weit zurück, Platztausch), nach „nochmal“ bleiben sie dran; ein Wolf greift von der Seite an und dreht sich danach nicht zum Helden (Chat 17:39, 17:41; Rückläufer 1072, Jerry 17:41)
 - **Zu t293, von Spike (16.11., 15:08):** Chef im Chat bei Spike: „Build 293 ist getestet, mach mit 1270.4 weiter“. Im Archiv steht noch kein Ergebnis zu t293, die Prüfliste liegt noch in `docs/entwurf/` („APK folgt“); bitte das Ergebnis holen und `vorgang.py build 293` (293.6 = 1303 Spike).
 - **Zu 1307, von Spike (16.11., 14:33):** Sperrklinke Typen auf `main` (`f8a06554f`): der Prüfschritt zählt je Datei in `godot/regeln/` und `godot/kampf/` die Stellen ohne Typ (`tools/godot/typen.py`); mehr als in `godot/tests/typen_1268.json` ist rot, eine neue Datei ohne Eintrag muss 0 haben. Grenzen sind das Höchste aus `main` und euren offenen Zweigen (build-291 bis 293, 1072, 1333, 1340, 1408 …), heute also überall grün. Neue Variablen, Parameter und Rückgaben bitte mit Typ; prüfen am Rechner: `python3 tools/godot/typen.py`.
 
