@@ -350,7 +350,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | 35,09 $ | Jerry | erledigt |
 | 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Steuerung | M | –; +11,14 $ | Perikles | erledigt |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | 2,09 $ | Team Jerry | erledigt |
-| 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M | 16,26 $ | Team Tom | erledigt |
+| 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M | 19,18 $ | Team Tom | erledigt |
 | 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M | –; +2,98 $ | Team Tom | erledigt |
 | 267.2 | Blende in Wäldern wartet auf den ganzen Boden, Ladebalken (Chef 22.10., 11:22: Tiefer Wald ruckelig) | E Technik | M | – | Team Tom | erledigt |
 | 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | – | Team Jerry | erledigt |
@@ -1747,5 +1747,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | E Oberfläche | M | 14,70 $ | Tom | erledigt |
 | 1452 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | E Technik | M | – | Jerry | erledigt, grün in Lauf 517 und 524 (rot nur auf alten Zweigen, Läufe 497, 503) |
 | 1449 | Von Werkzeug (1334): Wiederholrot ausholen_1000: 4× rot in 48 h (Läufe 503, 497, 496, 489); Ursache nachstellen, beheben · wiederholt | E Technik | M | – | Jerry | erledigt, grün in Lauf 524 (rot nur auf alten Zweigen, Läufe 489–503) |
-| 1454 | Zusammenführen: getestet, nicht auf main: Build 274 (146 h), 288 (22 h); grün machen und PR zusammenführen (Punkt 13), rote Tests ans Team, sonst erben neue Zweige die Behebungen nicht (1424) | B Abläufe | M | – | Sokrates | erledigt |
+| 1454 | Zusammenführen: getestet, nicht auf main: Build 274 (146 h), 288 (22 h); grün machen und PR zusammenführen (Punkt 13), rote Tests ans Team, sonst erben neue Zweige die Behebungen nicht (1424) | B Abläufe | M | 2,92 $ | Sokrates | erledigt |
 | 1433 | Von Perikles: „Zu“ zu Erledigtem (1048, 1191, 1216, 644a.1) bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen (Chef 16.11., 14:13; Prüfung J, 1425) | B Abläufe | M | – | Sokrates | erledigt |

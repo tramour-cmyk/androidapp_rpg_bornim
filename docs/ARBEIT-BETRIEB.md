@@ -141,3 +141,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:22 16.11.: Tom Neustart (session_01Hmoj76RwQwh6oCCpcPppGf), alte archiviert, 6,47 $ auf 531, 1420, 431h gebucht; Perikles-Sitzung (Tagesbericht) archiviert, 6,94 $ auf Betrieb
 - 17:58 16.11.: Startsperre 17:58 Start Jerry (selbst), Neustart-Meldung 17:54 (1a2980a09)
 - 17:59 16.11.: Jerry Neustart (session_01Hmoj794gZGafp6bN7FPDvM), alte archiviert, 23,88 $ auf 293, 1072, 1453, 1421; Startsperre 17:59 Start Sokrates (selbst), Neustart-Meldung 16:57 (1c1876062), Nachfolger Sokrates – 1411: Mana grundsätzlich, Vorlage vorbereiten
+- 18:00 16.11.: Sokrates Neustart (session_01Hmoj79GWTJoZ1B7sWCAHix), alte archiviert, 8,76 $ auf 649, 1454, 293 gebucht
