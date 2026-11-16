@@ -125,6 +125,36 @@ def rechnen():
 
 
 ROLLEN_REIHE = ["Tom", "Jerry", "Spike", "Homer", "Diogenes", "Sokrates", "Perikles"]
+CHEF_ART = ("test", "entscheiden", "tun", "ansehen", "billigen")  # 1391: Folge nach Vorschlag Sokrates (Testbitte hält die meisten Zeilen)
+
+
+def chef_naechstes():
+    """1391 (Chef 16.11., 09:20 „Dann weiß ich nämlich, was ich als nächstes immer zu erledigen habe“): die Datei der Chefsache, die
+    am meisten aufhält: Testbitte (t<n>: Zeilen mit Build n „zu testen“), dann entscheiden/, tun/, ansehen/, billigen/; je Datei die
+    Zeilen, die auf sie warten (auch eine Stufe weiter); Gleichstand: kleinere Nummer (älter) zuerst."""
+    zs = s.vorgangsliste(s.lesen(s.LISTE))
+    def warten_auf(k):
+        direkt = {d["nr"] for d in zs if any(w == k or w == "Chef " + k for w in d["warte"])}
+        return direkt | {d["nr"] for d in zs if set(d["warte"]) & direkt}
+    kand = []
+    for art in ("ansehen", "entscheiden", "tun", "billigen"):
+        ordner = os.path.join(s.DOCS, "chefsache", art)
+        for f in sorted(os.listdir(ordner)) if os.path.isdir(ordner) else []:
+            if not f.endswith(".md"): continue
+            k = f.split("-")[0]
+            m = re.fullmatch(r"t(\d+)", k)
+            if m:
+                n, a = sum(1 for d in zs if d.get("build") == m.group(1) and d["wort"] == "zu testen"), "test"
+            else:
+                n, a = len(warten_auf(k)), art
+            zahl = int(re.match(r"t?(\d+)", k).group(1)) if re.match(r"t?\d", k) else 10 ** 6
+            kand.append((CHEF_ART.index(a), -n, zahl, art, f, k, n))
+    kand.sort()
+    if not kand: return "nichts offen in der Chefsache"
+    _, _, _, art, f, k, n = kand[0]
+    was = {"ansehen": "testen" if k.startswith("t") else "ansehen", "entscheiden": "entscheiden", "tun": "tun", "billigen": "billigen"}[art]
+    return "[%s](%s/%s) %s%s" % (k, art, f, was, (", hält %d Zeilen" % n if n else "")) + \
+        ("; dann %d weitere" % (len(kand) - 1) if len(kand) > 1 else "")
 
 
 def je_rolle():
@@ -132,7 +162,7 @@ def je_rolle():
     Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
     import collections, lauf
     st = lauf.stand()
-    aus = []
+    aus = ["| **Chef** | %s |" % chef_naechstes().replace("|", "/")]  # 1391
     for r in ROLLEN_REIHE:
         if r not in st: continue
         muss, kuer, p, _ = st[r]
