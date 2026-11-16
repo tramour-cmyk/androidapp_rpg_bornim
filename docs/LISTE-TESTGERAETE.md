@@ -71,6 +71,8 @@ Lesart (Sokrates, nicht nachgestellt): gleicher Build wie A56 am 15.11., dort Do
 
 Gasthaus (inn 8/2): 18 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 125 ms, längste Pause 145 ms (Erschaffung); Blende danach 10 s: längste 141 ms, 109 über 50 ms; Laden Erschaffung Tipp 793 ms, Gasthaus 3023 ms; 411 Zeichenaufrufe, 381k Dreiecke, 431 MB Grafik, Speicher 138 MB; Bildschirm 1080 × 2408, 450 dpi, Rand oben 65 (Kameraloch); keine Fehlermeldungen. Lesart (Sokrates, nicht nachgestellt): Build 286 hat keine Grafikstufen (erst ab 292). Im kleinen Gasthaus nur 381k Dreiecke, aber etwa so viele Zeichenaufrufe wie das Tablet im Wald (409–417); dort zehnmal so viele Dreiecke. Verdacht neben Dreiecken: Zahl der Zeichenaufrufe (Prozessor) oder Bildpunkte (2,6 Mio. Bildpunkte). Messung auf Build 293 fehlt.
 
+Zweiter Text (21:04), Dorf (village 6/6), gleicher Build: 11 Bilder/s im Schnitt der letzten 184, langsamstes 1 % 142 ms, längste Pause 148 ms; **Blende bereit nach 29,0 s** (längste Pause 145 ms), danach 10 s: längste 148 ms, 8 über 50 ms; **Laden Dorf 14738 ms**, Gasthaus 4846 ms; 470 Zeichenaufrufe, 2650k Dreiecke, 784 MB Grafik, Speicher 193 MB; keine Fehlermeldungen. Lesart: Gasthaus 381k Dreiecke 18 Bilder/s, Dorf 2650k 11 Bilder/s; beides zu langsam, das Dorf lädt fast 15 s und braucht bis zur fertigen Blende 29 s (Tablet Dorf kalt 10,6 s).
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```
