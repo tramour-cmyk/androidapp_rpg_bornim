@@ -142,6 +142,20 @@ def pruefpunkte(n):
     return aus
 
 
+def nachricht_im_archiv(mid, archiv):
+    """1316: „Nachricht 4201, 4200“, „Nachrichten 4146, 4147 und 4133“, „Telegram 4218“: jede Kennung der Liste gilt."""
+    import re
+    for m in re.finditer(r"(?:Nachricht(?:en)?|Telegram)\s+(\d+(?:\s*(?:,|und|\+)\s*\d+)*)", archiv):
+        if mid in re.findall(r"\d+", m.group(1)): return True
+    return False
+
+
+def build_im_archiv(n, archiv):
+    """1316: fetter Kopf mit „getestet“ nennt den Build: „**t287 getestet**“, „**t286, t287 getestet**“, „**t286 getestet, t287 getestet**“."""
+    import re
+    return any(re.search(r"(?<![\w.])t%s\b" % re.escape(n), k) for k in re.findall(r"\*\*([^*]*getestet[^*]*)\*\*", archiv))
+
+
 def offen_liste():
     """(offen, zeilen, kennung): offen bleibt ein 👍/✅/👎 auf eine zugeordnete Meldung, bis ein Archiveintrag „Nachricht <Kennung>“
     nennt (Prüfpunkte: bis „t<n> getestet“), ohne Zeitgrenze."""
@@ -157,9 +171,9 @@ def offen_liste():
     offen = []
     for mid, z in letzte.items():
         if mid not in kennung or z[3] == "(zurückgenommen)": continue
-        if re.search(r"(Nachricht|Telegram)\s+%s\b" % re.escape(mid), archiv): continue
+        if nachricht_im_archiv(mid, archiv): continue   # 1316: auch Kennungslisten
         m = PUNKT.match(kennung[mid][1])
-        if m and re.search(r"\*\*t%s\b[^*]*getestet" % m.group(1), archiv): continue   # 1217: Build ausgewertet
+        if m and build_im_archiv(m.group(1), archiv): continue   # 1217: Build ausgewertet; 1316: auch Buildlisten
         offen.append(z)
     return offen, zeilen, kennung
 

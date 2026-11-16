@@ -125,6 +125,7 @@ Vorher (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monst
 
 ### Oberfläche
 
+- **Wischen zwischen Gegenständen** (Chef 15.11., 19:56, an Sokrates): „Idee bei der Tasche oder bei der Auswahl für Slots in der Ausrüstung, dass man mit links und rechts zwischen den einzelnen Gegenständen wischen kann.“ Sokrates: heute öffnet Antippen eines Stücks die Einzelansicht (`menue.gd` `frage_stueck`), zurück und das nächste antippen; Wischen gibt es im Spiel noch nirgends, also kein Konflikt mit Reitern. Pro: Vergleichen am Handy in einer Hand, wie ein Bilderstapel; passt zur Auswahl je Platz (nur tragbare Stücke dieses Platzes, Vergleich mit dem Angelegten). Contra: Wischen allein findet keiner, braucht Pfeile ‹ › am Rand; senkrechtes Rollen der Liste darf nicht auslösen (Schwelle, nur waagrecht). Vorschlag: zuerst in der Auswahl je Platz, dann Tasche; Bau Tom (Oberfläche, 1309 auf derselben Seite). Urteil Homer offen.
 
 - **Zoom in Innenräumen nach Bildschirmbreite** (Chef 11.11., 13:44, an Sokrates, beim Test t276): „eine ganz schöne Sache wäre Zoom in Innenräumen, dass der Zoom sich automatisch so einstellt, dass die Bildschirmbreite optimal ausgenutzt ist … sinnvoller Zoom … bei Innenansichten.“ Sokrates: passt zu 590 (Innenräume, Tom); Gegenargument: kleine Räume wirken dann riesig, große winzig; Weg: Raumbreite füllen, aber mit Grenzen nach oben und unten. → **zu 590** (Homer 15.11.; Innenräume, Tom, ruht bis 16.11.): dort mit abwägen, kein eigener Vorgang; Grenze nach oben wie 1081 (10,2 Kacheln).
 

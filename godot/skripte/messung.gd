@@ -58,9 +58,12 @@ static func kampf_bild(dt: float) -> void:
 	kampf_spitze["grafik"] = maxf(float(kampf_spitze.get("grafik", 0.0)), Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1048576.0)
 
 ## Werte des laufenden oder letzten Kampfs; leer ohne Kampf. Schnitt, langsamstes 1 %, längste Pause, Pausen über 50 ms
-static func kampf_werte() -> Dictionary:
-	if kampf_bilder.is_empty(): return {}
-	var s := kampf_bilder.duplicate(); s.sort()
+static func kampf_werte() -> Dictionary: return werte(kampf_bilder)
+
+## 1268.5: dieselben Werte für beliebige Bildzeiten in ms (Bildrate je Ort im Lauf, spiel.gd bildrate_lauf)
+static func werte(ms: Array) -> Dictionary:
+	if ms.is_empty(): return {}
+	var s := ms.duplicate(); s.sort()
 	var summe := 0.0
 	var langsam := 0
 	for x in s:

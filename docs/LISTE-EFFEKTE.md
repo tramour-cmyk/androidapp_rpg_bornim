@@ -1,8 +1,8 @@
 # Effekte im Spiel (Zuordnungsseite)
 
-Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anlass**, welcher Effekt ihn zeigt und woher er kommt, damit niemand selbst baut, was wir haben, und jeder Held, jedes Monster, jeder Ort jedes Mal gleich aussieht. Paketnummern R1–R11: `LISTE-QUELLEN.md`. **Gekauft (09.11.):** R1–R4, R7–R11 und Status Effects; Namen der Effekte unten gegen die Pakete geprüft (21:08); R5, R6 zurückgestellt, Ersatz eingetragen. **Stand je Zeile: Vorschlag**, bis die Probe am Handy bestanden ist; dann trägt der Einbauende die Datei des Effekts ein und setzt „gilt“.
+Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anlass**, welcher Effekt ihn zeigt und woher er kommt, damit niemand selbst baut, was wir haben, und jeder Held, jedes Monster, jeder Ort jedes Mal gleich aussieht. Paketnummern R1–R11: `LISTE-QUELLEN.md`. **Gekauft (09.11.):** R1–R4, R7–R11 und Status Effects; Namen der Effekte unten gegen die Pakete geprüft (21:08); R5, R6 zurückgestellt, Ersatz eingetragen. **Stand je Zeile: Vorschlag**, bis die Probe am Handy bestanden ist; dann trägt der Einbauende die Datei des Effekts ein und setzt „gilt“. **Inventur 15.11. (Sokrates, `claude/build-289`):** im Spiel sind Dorf (814: chimney_smoke, torch_flame, dust_motes, footstep_dust, feather_burst, R11 cloth_flag), Kampfort (806: R8 mist, R7 dust_motes), Zustände (1036), Pfeilspur (R3 arrow_streak), Arkanpfeil (993, R2 arcane), Rauchbündel (1222, R7 smoke_poof); die Zeilen unten tragen es.
 
-**Regel (Vorschlag 623):** Vor jedem Eigenbau eines Effekts, Shaders oder Teilchens hier und in `LISTE-BESTAND.md` nachsehen. Was hier steht, steht auch in den Daten (Feld `fx` je Waffe, Zauber, Zustand, Monster in `regeln/tabellen.json` bzw. der Monsterliste), nicht verstreut im Code. Ein neuer Effekt bekommt zuerst eine Zeile hier.
+**Regel (Vorschlag 623):** Vor jedem Eigenbau eines Effekts, Shaders oder Teilchens hier und in `LISTE-BESTAND.md` nachsehen. Was hier steht, steht auch in den Daten (Feld `fx` je Waffe, Zauber, Zustand, Monster), nicht verstreut im Code. Ein neuer Effekt bekommt zuerst eine Zeile hier; die Commit-Prüfung warnt bei neuem Shader oder Teilchenknoten ohne Zeile (623.3). **Stand 15.11.:** `tabellen.json` gibt es seit 870.6 nicht mehr, ein Feld `fx` in `werte.json` ist nicht gebaut; die Pfade stehen als Tabellen im Code (`kampf_ui.gd` `ZUSTAND_PAKET`, `ARKAN_R2`, `SPUR_R3`, `RAUCH_R7`; `kampf_effekte.gd`; `dorfeffekte.gd`). Feld `fx` kommt mit 623.2 (Jerry), wenn die Kampfeffekte Szene 2 eingebaut werden.
 
 **Reihenfolge (623.8 A, Chef 09.11., 22:23):** Szene für Szene, je eine Testbitte; Farben gedämpft (kein Leuchtbunt, Gold nur wo Licht ist), Bilder/s vor und nach messen, nie schlechter als heute, jeder Effekt an der Grafikstufe (698).
 1. **Dorf am Abend** (Tom, 816): Kaminrauch (R7 chimney_smoke), Fackeln an Schlagbaum und Schenke (R7 torch_flame; Kaminfeuer eigen), Staubflocken in Schenke und Laden (R7 dust_motes), Fußstaub (R7 footstep_dust), Fahne (R11), Wind für Gras und Bäume, Gras weicht aus (R9, mit 804), Federn beim Huhn (R4 feather_burst); dazu (Chef 22:26): Bach und Fluss (R10 river, gegen `wasser.gdshader` vergleichen), Wiese (R9), Wege und Felsen mit Oberfläche (R11 Surface, Stylized Rock; Felsen aus dem Nature MegaKit), Schmetterlinge über der Wiese (Janpec Schmetterling `fly_cycle`, nur bei Tag; abends Glühwürmchen 514; Lizenz wie Wolf, 780 offen).
@@ -19,7 +19,7 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 | Kritischer Treffer | großer Aufprall, kurzer Halt | R1, R7 critical_hit | Vorschlag |
 | Parade, Block mit Schild | Funken am Schild | R7 parry_block, R1 | Vorschlag |
 | Fehlschlag, Ausweichen | Luftzug | R3 Dash Wind | Vorschlag |
-| Pfeil (Späher, Garrick, Held mit Bogen) | Pfeilspur, auch beim Fehlschuss | R3 Arrow Streak | Vorschlag (601) |
+| Pfeil (Späher, Garrick, Held mit Bogen) | Pfeilspur, auch beim Fehlschuss | R3 Arrow Streak | im Spiel (`kampf_ui.gd` `SPUR_R3`, Build 289); Einschlag 601.1 |
 | Sterben | Todesstoß bei Untoten, Auflösen bei Geistern; Tiere ohne Effekt (Bewegung, 596) | R4 death_burst; Geister verwehen mit R4 spirit_wisps | Vorschlag |
 | Ansage eines harten Schlags | Fläche am Boden | AoE Telegraphs (ungeprüft) oder R1 AoE | Frage |
 
@@ -27,13 +27,13 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 
 | Anlass | Effekt (Vorschlag) | Quelle | Stand |
 |---|---|---|---|
-| Feuerpfeil, Feuerball | Feuer: Wirken an der Stabspitze, Flug, Einschlag | R2 fire | Vorschlag (385.2) |
-| Magisches Geschoss | Arkan | R2 arcane | Vorschlag |
-| Heilige Flamme, Untote vertreiben | Heilig, heiliger Strahl | R2 holy, R7 holy_light | Vorschlag |
-| Heilung, Heiltrank | Heilband, Heilschein | R4 heal_beam, R7 heal | Vorschlag |
+| Funkenpfeil, Glutkugel, Flammenfächer, Glutstrahlen | Feuer: Wirken an der Stabspitze, Flug, Einschlag | R2 fire | Vorschlag (385.2) |
+| Arkanpfeil | Arkan, ein Pfeil | R2 arcane | im Spiel (993, `kampf_ui.gd` `ARKAN_R2`) |
+| Gleißstrahl, Untote vertreiben | Heilig, heiliger Strahl | R2 holy, R7 holy_light | Vorschlag |
+| Wundsegen, Heiltrank | Heilband, Heilschein | R4 heal_beam, R7 heal | Vorschlag |
 | Kältestrahl, Frost | Eis, Frostnova | R2 ice, R7 frost_nova | Vorschlag |
 | Gift, Säure | Säure | R2 acid | Vorschlag |
-| Vergiftet, Betäubt, Verlangsamt, Gestärkt | Zustand am Körper | Status Effects (415d.1), R7 stun_stars | Vorschlag |
+| Vergiftet, Betäubt, Verlangsamt, Gestärkt | Zustand am Körper | Status Effects (415d.1) | im Spiel außer Gestärkt (1036, unten) |
 | Im Schatten (Späher) | blass, Schatten | R7 shadow_burst beim Verschwinden, blass eigen (Material) | Vorschlag (566) |
 | Gefroren, versteinert | Körper vereist oder grau | R7 ice_burst; versteinert eigen (Material grau) | Vorschlag |
 | Wiederkehr im Tempel | Licht | R7 resurrect | Vorschlag |
@@ -45,12 +45,12 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 | Wolf, Jungwolf, Grimmzahn | Biss: Aufprall klein | Anspringen: Staub beim Aufprall | R1 | Vorschlag |
 | Riesenratte, Riesenfledermaus | Biss klein | – | R1 | Vorschlag |
 | Wildschwein | Hauer | Ansturm: Staubspur | R3 Dash Wind, R7 footstep_dust | Vorschlag |
-| Riesenegel | Biss | **Blutsaugen**: Strahl zum Egel | R4 Drain Beam | Vorschlag |
-| Säureschnecke, Ockergallerte | Säure | Schleim am Boden | R2 acid, R11 Toxic Ooze | Vorschlag |
+| Blutflügler | Biss | **Blutsaugen**: Strahl zum Blutflügler | R4 Drain Beam | Vorschlag |
+| Ockerschleim | Säure | Schleim am Boden | R2 acid, R11 Toxic Ooze | Vorschlag |
 | Riesenspinne | Biss | Netzwurf: Flug, Einschlag | R2 nature | Vorschlag |
 | Goblin-Späher | Pfeil | Schatten | R3 arrow_streak, R7 shadow_burst | Vorschlag |
 | Goblin-Schamane | Zauber | Wirken | R2 void oder nature | Frage (Homer: Art seiner Magie) |
-| Krogg | Morgenstern | schwerer erster Schlag: Bodenstoß; Rauchbündel (Morwen) | R1 AoE, R7 | Vorschlag |
+| Krogg | Morgenstern | schwerer erster Schlag: Bodenstoß; Rauchbündel (Morwen) | R1 AoE; Rauch R7 smoke_poof | Bodenstoß Vorschlag; Rauchbündel im Spiel (1222, `kampf_ui.gd` `RAUCH_R7`) |
 | Grak | Axt | – | R3, R1 | Vorschlag |
 | Skelett, Zombie, Ghul (506) | – | Todesstoß, Geisterlichter | R4 | Vorschlag |
 
@@ -58,9 +58,9 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 
 | Ort | Effekt (Vorschlag) | Quelle | Stand |
 |---|---|---|---|
-| Dorf | Kaminrauch, Fackeln, Fahne im Wind, Hühner flattern (591) | R7 chimney_smoke, torch_flame, R11 Flag, R4 Feather Burst | Vorschlag; eingebaut `skripte/dorfeffekte.gd` (814, Zweig `claude/tom-814-dorfeffekte`), dazu R7 footstep_dust auf Erdwegen |
+| Dorf | Kaminrauch, Fackeln, Fahne im Wind, Hühner flattern (591) | R7 chimney_smoke, torch_flame, R11 cloth_flag, R4 feather_burst | im Spiel (814, `skripte/dorfeffekte.gd`), dazu R7 footstep_dust auf Erdwegen |
 | Schenke, Häuser innen | Kerzen (eigene Flamme bleibt); **kein Staub im Licht** | – | Staub in Innenräumen gestrichen (990, Chef 12.11., 08:34: „sieht eher aus wie ein Mückenschwarm … lassen wir echt komplett in Innenräumen raus“) |
-| draußen: dunkler Wald, Teich, Kampfort | Licht schimmert durch, Teilchen wie Staub oder Mückenschwarm | R7 dust_motes | Idee des Chefs (12.11., 08:34): „vielleicht … draußen in Kampfszenen oder … in der Nähe eines Teichs oder … im dunklen Wald, dass da Licht durchschimmert“; noch kein Vorgang |
+| draußen: dunkler Wald, Teich, Kampfort | Licht schimmert durch, Teilchen wie Staub oder Mückenschwarm | R7 dust_motes, R8 mist | Kampfort im Spiel (806, `kampf/kampf_effekte.gd`); Wald und Teich: Idee des Chefs (12.11., 08:34): „vielleicht … draußen in Kampfszenen oder … in der Nähe eines Teichs oder … im dunklen Wald, dass da Licht durchschimmert“, mit 1155 |
 | Tempel | Glühende Runen, Licht der Wiederkehr | R11 Glowing Runes, R7 | Vorschlag |
 | Flüsterwald | Blätter im Wind, Gras weicht aus, Glühwürmchen (eigen, 514) | R8, R9 | Vorschlag |
 | Tiefer Wald, Morwens Hütte | Nebel, Geisterlichter, Rauch der Hütte | R8 fog, R4 Spirit Wisps, R7 | Vorschlag |

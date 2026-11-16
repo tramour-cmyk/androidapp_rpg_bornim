@@ -75,21 +75,21 @@ Bedingung: Kampfanfang, unter den Gegnern ein Goblin-Späher; die Wahl steht neb
 
 ## Heilkunde: Verband
 
-Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs; stillt Blutung und gibt etwas Leben, je Punkt Heilkunde mehr (1038 A, Chef 12.11., 16:24); ob Blutung die Heilung des Verbands noch halbiert, legt Jerry fest (1046); Anlegen übt Heilkunde. `{0}` = tatsächlich zurückgewonnene Trefferpunkte, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`); ist `{0}` null, entfällt „ +{0} TP“ / „ +{0} HP“. Texte angepasst an 1038 A (Homer 12.11., 1047).
+Gegenstand in der Tasche, zu kaufen bei Osric und Thessa (807 A); anlegen nur außerhalb des Kampfs; stillt Blutung und gibt etwas Leben, je Punkt Heilkunde mehr (1038 A, Chef 12.11., 16:24); ob Blutung die Heilung des Verbands noch halbiert, legt Jerry fest (1046); Anlegen übt Heilkunde. `{0}` = tatsächlich zurückgewonnenes Leben, Form wie die übrigen Heilmeldungen (`STORY-SPIEL.md`); ist `{0}` null, entfällt „ +{0} Leben“ / „ +{0} Life“. Texte angepasst an 1038 A (Homer 12.11., 1047).
 
 `[807.verband.name]` Verband / EN: Bandage
 
 `[807.verband.text]` (Beschreibung in Tasche und Laden) Saubere Leinenstreifen, fest gerollt. Stillt Blutung; wer Heilkunde versteht, holt mehr heraus. Nur außerhalb des Kampfs. / EN: Clean strips of linen, tightly rolled. Stops bleeding; the more you know of Medicine, the more it mends. Outside of combat only.
 
 `[807.verband.an]` (angelegt, der Held blutete nicht)
-1. Du ziehst den Verband fest. +{0} TP. — EN: You pull the bandage tight. +{0} HP.
-2. Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP. — EN: You wash out the wound and wrap the bandage around it. +{0} HP.
-3. Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP. — EN: You bind the wound and check that the bandage holds. +{0} HP.
+1. Du ziehst den Verband fest. +{0} Leben. — EN: You pull the bandage tight. +{0} Life.
+2. Du wäschst die Wunde aus und wickelst den Verband darum. +{0} Leben. — EN: You wash out the wound and wrap the bandage around it. +{0} Life.
+3. Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} Leben. — EN: You bind the wound and check that the bandage holds. +{0} Life.
 
 `[807.verband.blut]` (angelegt, die Blutung ist gestillt)
-1. Ein fester Knoten, und das Blut steht. +{0} TP. — EN: One firm knot, and the blood stops. +{0} HP.
-2. Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP. — EN: You press the bandage onto the wound. It bleeds no more. +{0} HP.
-3. Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP. — EN: Layer on layer, wrapped tight. The bleeding stops. +{0} HP.
+1. Ein fester Knoten, und das Blut steht. +{0} Leben. — EN: One firm knot, and the blood stops. +{0} Life.
+2. Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} Leben. — EN: You press the bandage onto the wound. It bleeds no more. +{0} Life.
+3. Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} Leben. — EN: Layer on layer, wrapped tight. The bleeding stops. +{0} Life.
 
 `[807.verband.kampf]` (im Kampf gewählt) Im Kampf bleibt keine Zeit für einen Verband. / EN: There's no time for a bandage in combat.
 
@@ -259,7 +259,7 @@ Texte (festgesetzt 954a.4; Zeilen, die oft kommen, in drei Wortlauten nach 504).
 
 ### Fallen an Truhen (954a.3 2 B; festgesetzt 954a.4)
 
-Fünf Truhen, je eine Falle, keine freien Fallen. Zwei Arten: **Klingenfalle** der Goblins (Draht und Klinge, Schnitt) an `cave_1`, `cave_2` und einer Händlerkiste der Beutekammer; **Giftnadel** im Schloss an `deep_4` und Graks Truhe (wer dort etwas versteckt, sichert es). Spähen zeigt die Falle, dann entschärfen; wer sie nicht sieht oder beim Entschärfen versagt, löst sie aus. Jede Falle kommt nur einmal, darum je ein Wortlaut. `{0}` = verlorene Trefferpunkte (Regel 3 in `STORY-REGELN.md`).
+Fünf Truhen, je eine Falle, keine freien Fallen. Zwei Arten: **Klingenfalle** der Goblins (Draht und Klinge, Schnitt) an `cave_1`, `cave_2` und einer Händlerkiste der Beutekammer; **Giftnadel** im Schloss an `deep_4` und Graks Truhe (wer dort etwas versteckt, sichert es). Spähen zeigt die Falle, dann entschärfen; wer sie nicht sieht oder beim Entschärfen versagt, löst sie aus. Jede Falle kommt nur einmal, darum je ein Wortlaut. `{0}` = verlorenes Leben (Regel 3 in `STORY-REGELN.md`).
 
 `[954a.4.falle.klinge]` (Spähen hat sie gefunden) Ein Draht, dünn wie ein Haar, vom Deckel zu einer Klinge darunter. Goblinarbeit. / EN: A wire, thin as a hair, runs from the lid to a blade beneath. Goblin work.
 
@@ -271,9 +271,9 @@ Fünf Truhen, je eine Falle, keine freien Fallen. Zwei Arten: **Klingenfalle** d
 
 `[954a.4.falle.nadel.weg]` (entschärft) Du hebelst die Nadel mit einem Holzspan heraus. / EN: You lever the needle out with a sliver of wood.
 
-`[954a.4.falle.klinge.aus]` (ausgelöst) Ein Schnappen, und die Klinge fährt dir über die Hand. −{0} TP. / EN: A snap, and the blade slices across your hand. −{0} HP.
+`[954a.4.falle.klinge.aus]` (ausgelöst) Ein Schnappen, und die Klinge fährt dir über die Hand. −{0} Leben. / EN: A snap, and the blade slices across your hand. −{0} Life.
 
-`[954a.4.falle.nadel.aus]` (ausgelöst; Gift) Ein Stich in den Finger. Das Brennen kriecht den Arm hinauf. −{0} TP. / EN: A prick in your finger. The burning creeps up your arm. −{0} HP.
+`[954a.4.falle.nadel.aus]` (ausgelöst; Gift) Ein Stich in den Finger. Das Brennen kriecht den Arm hinauf. −{0} Leben. / EN: A prick in your finger. The burning creeps up your arm. −{0} Life.
 
 ### Tiere beruhigen (954a.3 3 A; festgesetzt 954a.4)
 

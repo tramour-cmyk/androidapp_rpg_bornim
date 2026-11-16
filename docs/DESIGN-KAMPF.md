@@ -54,7 +54,7 @@ Heute ist jeder Kampf ein Zweikampf über ein Menü, abwechselnd Held und Gegner
 | Gegnerzug | Läuft ohne dich ab: Ausholen und Schlag kommen direkt nacheinander, du schaust zu |
 | Rudel | Steht im Hintergrund und sticht jede Runde zu; der Feuerball vertreibt es |
 | Sonderangriffe | Wolf wirft um, Spinne vergiftet, Keiler stürmt beim ersten Treffer, Grottenschrat trifft beim ersten Schlag hart, Hobgoblin jede dritte Runde |
-| Nach dem Kampf | Volle Trefferpunkte bis zum nächsten Kampf, sofern du heilst; Abnutzung gibt es kaum |
+| Nach dem Kampf | Volles Leben bis zum nächsten Kampf, sofern du heilst; Abnutzung gibt es kaum |
 | Stellung, Gelände | Keine: kein Abstand, keine Deckung, keine Gegenstände im Raum |
 
 **Was schon gut ist:** Abwehr mit Gegenschlag belohnt Mitdenken, und die Sonderangriffe geben den Monstern Charakter. **Was fehlt:** Du erfährst die Gegnerabsicht erst, wenn der Schlag schon gefallen ist. Darum ist Abwehr meistens ein Raten und Angriff fast immer die bessere Wahl.
@@ -100,7 +100,7 @@ Die Bausteine unten gelten für alle drei Richtungen. Wo sie sich unterscheiden,
 
 1. **Platz statt Bewegung:** Vier Helden stehen in einer Reihe. Jede Fähigkeit geht nur von bestimmten Plätzen und trifft nur bestimmte Gegnerplätze. Ein Ritter hinten ist nutzlos, ein Heiler vorn stirbt. Schon die Reihenfolge ist eine Entscheidung.
 2. **Die Reihe gerät durcheinander:** Gegner stoßen Helden zurück oder ziehen sie nach vorn, Tote hinterlassen Lücken. Jede Runde fragt neu: „Stelle ich mich wieder richtig hin oder greife ich an?“
-3. **Stress als zweite Lebensleiste:** Dunkelheit, Treffer und Schrecken füllen den Stress. Ab 100 bricht ein Held zusammen (er handelt eigenmächtig und steckt andere an) oder wächst selten über sich hinaus. Man kämpft also auch um die Nerven, nicht nur um Trefferpunkte.
+3. **Stress als zweite Lebensleiste:** Dunkelheit, Treffer und Schrecken füllen den Stress. Ab 100 bricht ein Held zusammen (er handelt eigenmächtig und steckt andere an) oder wächst selten über sich hinaus. Man kämpft also auch um die Nerven, nicht nur um das Leben in der Leiste.
 4. **Folgen über den Kampf hinaus:** Wunden, Krankheiten, Ängste und der endgültige Tod eines Helden bleiben. Darum vermeidet man unnötige Kämpfe und plant die wenigen gut.
 5. **Licht als Regler:** Die Fackel brennt herunter. Dunkel bringt mehr Beute, aber härtere Gegner und mehr Stress. Der Spieler wählt sein Risiko selbst.
 
@@ -169,7 +169,7 @@ Die Bausteine unten gelten für alle drei Richtungen. Wo sie sich unterscheiden,
 
 ## Baustein 4: Wunden bis zur Rast
 
-**Wer im Kampf unter ein Viertel seiner Trefferpunkte fällt, behält eine Wunde, die erst Rast oder Heiler schließen.** Man sieht sie am Helden als Verband, und sie gibt einen kleinen Malus, etwa −1 auf Angriffe oder weniger Höchst-TP.
+**Wer im Kampf unter ein Viertel seines Lebens fällt, behält eine Wunde, die erst Rast oder Heiler schließen.** Man sieht sie am Helden als Verband, und sie gibt einen kleinen Malus, etwa −1 auf Angriffe oder etwas weniger volles Leben.
 
 **Was es bringt:** Ein Kampf hat Folgen. Eine perfekte Reaktion (Baustein 2) ist nicht nur schön, sondern spart dir eine Wunde. Rastfeuer, Tränke, Heiler und der Weg durchs Moor bei Nacht bekommen dadurch Gewicht.
 
@@ -229,7 +229,7 @@ Die Bausteine unten gelten für alle drei Richtungen. Wo sie sich unterscheiden,
 
 ## Ein Kampf vorher und nachher: Magier gegen Grak
 
-**Heute:** Feuerpfeil. Grak schlägt zu, du schaust zu und verlierst 9 TP. Feuerpfeil. Grak schlägt zu. Heiltrank. Feuerpfeil. Gewonnen oder verloren, entschieden hat vor allem der Würfel. Der Magier gewinnt hier in 45 % der Fälle.
+**Heute:** Feuerpfeil. Grak schlägt zu, du schaust zu und verlierst 9 Leben. Feuerpfeil. Grak schlägt zu. Heiltrank. Feuerpfeil. Gewonnen oder verloren, entschieden hat vor allem der Würfel. Der Magier gewinnt hier in 45 % der Fälle.
 
 **Mit Richtung B:**
 

@@ -12,7 +12,7 @@ from collections import defaultdict
 
 SPIEL = {"Tom", "Jerry", "Homer"}
 ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy"]
-TEAM = {"Spike": "Tom", "Tuffy": "Jerry"}  # 394 (Chef 28.10., 10:26): Zusatzentwickler, eigene Sitzung, Vorrat und Kosten ihres Teams
+TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigene Rolle; 394 (Chef 28.10., 10:26): Zusatzentwickler, eigene Sitzung, Vorrat und Kosten ihres Teams
 
 def sitzungen(pfad, offen):
     """Sitzungen einer Seite; ist has_more wahr, kommt der Dateiname in offen (D28.3c)."""

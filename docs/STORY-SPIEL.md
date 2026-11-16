@@ -4,7 +4,7 @@ Texte, die in allen Kapiteln gelten und nicht zur Blende gehören (Regeln in `ST
 
 ## Kampfmeldungen MARS (72.10a.T, mit 72.10)
 
-Zeilen im Kampfprotokoll (`Skirmish.kt` `Msg72`). Knapp, Gegenwart, ohne Ausrufezeichen außer beim Gegnerzug. Punkte immer „TP“ (wie Rast, Regeln, Leiste), nie „Lebenspunkte“. Trankname ohne Artikel in Klammern, weil „Großer Heiltrank“ sich sonst beugen müsste.
+Zeilen im Kampfprotokoll (`Skirmish.kt` `Msg72`). Knapp, Gegenwart, ohne Ausrufezeichen außer beim Gegnerzug. Punkte immer „Leben“ / “Life” (1320, `STORY-REGELN.md` (3)), nie TP, HP, „Lebenspunkte“. Trankname ohne Artikel in Klammern, weil „Großer Heiltrank“ sich sonst beugen müsste.
 
 `[72.10a.T.zauber]` (Zauber, Kosten ZP oder Zaubertrick: Magier, Kleriker)
 {0} wirkt {1}.
@@ -23,20 +23,20 @@ EN: {0} is blessed.
 EN: {0} escapes the spell.
 
 `[72.10a.T.heilt]` (heilt einen anderen)
-{0} heilt {1}: +{2} TP.
-EN: {0} heals {1}: +{2} HP.
+{0} heilt {1}: +{2} Leben.
+EN: {0} heals {1}: +{2} Life.
 
 `[72.10a.T.heiltsich]` (heilt sich selbst)
-{0} heilt sich: +{1} TP.
-EN: {0} heals: +{1} HP.
+{0} heilt sich: +{1} Leben.
+EN: {0} heals: +{1} Life.
 
 `[72.10a.T.trinkt]` (Trank selbst)
-{0} trinkt ({1}): +{2} TP.
-EN: {0} drinks a {1}: +{2} HP.
+{0} trinkt ({1}): +{2} Leben.
+EN: {0} drinks a {1}: +{2} Life.
 
 `[72.10a.T.reicht]` (Trank an einen Verbündeten)
-{0} reicht {1} einen Trank ({2}): +{3} TP.
-EN: {0} hands {1} a {2}: +{3} HP.
+{0} reicht {1} einen Trank ({2}): +{3} Leben.
+EN: {0} hands {1} a {2}: +{3} Life.
 
 `[72.10a.T.keinezp]` (Zauber, zu wenig ZP)
 Nicht genug Zauberpunkte.
@@ -64,7 +64,7 @@ Aus 72.10 geändert (übrige Platzhalter bleiben wortgleich):
 
 `[72.10.bewusstlos]` {0} sinkt bewusstlos zu Boden. / EN: {0} sinks to the ground, unconscious.
 
-`[72.10.kraft]` {0} sammelt Kraft: +{1} TP. / EN: {0} gathers strength: +{1} HP.
+`[72.10.kraft]` {0} sammelt Kraft: +{1} Leben. / EN: {0} gathers strength: +{1} Life.
 
 `[72.10.herbei]` (statt „Ein {0}“, passt für jedes Geschlecht) Verstärkung: {0} eilt herbei. / EN: Reinforcement: {0} comes running.
 
@@ -120,10 +120,10 @@ Zeichen und Kampfzeilen ortsneutral (230): derselbe Gegner kämpft im Wald und i
 
 | Gegner | Absicht | Antwort |
 |---|---|---|
-| Goblin-Schamane (hintere Reihe) | Heilzauber · Fluch (auf {2}) · Feuerstoß (auf {2}) | offen, Regeln mit 478 (BRS); alt: heilt unter halben TP, Fluch mit Rettung (Weisheit), Feuerpfeil als Angriff, setzt manchmal in Brand. Vorschlag Homer, Balance beim Chef: vorher hart zuschlagen · Rettung (BRS-Wert) · ausweichen (Ring) |
+| Goblin-Schamane (hintere Reihe) | Heilzauber · Fluch (auf {2}) · Feuerstoß (auf {2}) | offen, Regeln mit 478 (BRS); alt: heilt, wenn ihm weniger als die Hälfte seines Lebens bleibt, Fluch mit Rettung (Weisheit), Feuerpfeil als Angriff, setzt manchmal in Brand. Vorschlag Homer, Balance beim Chef: vorher hart zuschlagen · Rettung (BRS-Wert) · ausweichen (Ring) |
 
 `[535.schamane.heil]` Name: Heilzauber / EN: Healing spell. Zeichen: 1 Er presst die Hand auf die Wunde und murmelt, der Schädel am Stab glimmt auf. / EN: He presses a hand to his wound and mutters; the skull on his staff begins to glow. · 2 Die freie Hand auf der Wunde, murmelt er vor sich hin. Der Schädel am Stab glimmt. / EN: Free hand on his wound, he mutters to himself. The skull on his staff glows. · 3 Er drückt die Hand fester auf die Wunde und murmelt schneller. Im Schädel am Stab glimmt ein Licht. / EN: He presses his hand harder to the wound and mutters faster. A light glows in the skull on his staff.
-`[535.schamane.heil.los]` (wirkt) allgemeine Heilzeile `Msg72.healsSelf` („{0} heilt sich: +{1} TP.“; hier {1} = TP), kein eigener Text.
+`[535.schamane.heil.los]` (wirkt) allgemeine Heilzeile `Msg72.healsSelf` („{0} heilt sich: +{1} Leben.“; hier {1} = Leben), kein eigener Text.
 `[535.schamane.heil.weg]` (nur falls 478 „vorher hart zuschlagen“ übernimmt) 1 Er krümmt sich, das Murmeln bricht ab. / EN: He doubles over; the muttering breaks off. · 2 Der Schlag erstickt ihm die Worte im Mund, der Schädel wird dunkel. / EN: The blow chokes the words in his mouth; the skull goes dark. · 3 Er keucht auf, das Glimmen am Stab erlischt. / EN: He gasps; the glow on his staff dies.
 `[535.schamane.fluch]` Name: Fluch (auf {2}) / EN: Curse (on {2}). Zeichen: 1 Er streckt die freie Hand nach {2} aus und flüstert in einer fremden Zunge. / EN: He reaches his free hand toward {2}, whispering in a strange tongue. · 2 Er hält die freie Hand auf {2} gerichtet, die Finger gekrümmt, und flüstert. / EN: He holds his free hand toward {2}, fingers crooked, whispering. · 3 Seine freie Hand zielt auf {2}, er flüstert Worte, die keiner kennt. / EN: His free hand points at {2}; he whispers words no one knows.
 `[535.schamane.fluch.los]` (wirkt: Schwäche) 1 Eine Kälte kriecht {1} in die Glieder. {1} ist geschwächt. / EN: A chill creeps into {1}'s limbs. {1} is weakened. · 2 Die Arme von {1} werden schwer. {1} ist geschwächt. / EN: {1}'s arms grow heavy. {1} is weakened. · 3 Etwas legt sich wie nasses Tuch auf {1}. {1} ist geschwächt. / EN: Something settles on {1} like wet cloth. {1} is weakened.
@@ -270,8 +270,8 @@ EN: A switch costs only half a turn; one blow remains after it. Switching row an
 `[201.decken]` Der Kämpfer in der vorderen Reihe kann **Decken**: einen Zug lang zieht er jeden angekündigten Schlag auf sich, und jeder kommt mit Ring. (geändert 225)
 EN: A fighter in the front row can **Cover**: for one turn, every announced blow falls on them, and each comes with a ring.
 
-`[201.auto]` **Automatik.** Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seiner Lebenspunkte fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.
-EN: **Autopilot.** The Söldner can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always meets the ring with good, never perfect. It stops when your hero drops below a third of their life points or a foe announces something strong, and it never runs against bosses.
+`[201.auto]` **Automatik.** Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seines Lebens fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.
+EN: **Autopilot.** The Söldner can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always meets the ring with good, never perfect. It stops when your hero drops below a third of their life or a foe announces something strong, and it never runs against bosses.
 
 `[201.fallen]` **Wer fällt.** Ein Söldner, der fällt, ist bewusstlos, nicht tot. Wer außer Atem in den Kampf geht, würfelt die Reihenfolge mit Nachteil.
 EN: **Who falls.** A Söldner who falls is unconscious, not dead. Whoever enters the fight out of breath rolls for the order with disadvantage.
@@ -303,8 +303,8 @@ EN: (button “Defend”, 203) Until your next turn, attacks on you have disadva
 `[204T.soeldner]` Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.
 EN: Auto: the Söldner fights on their own. Manual: you give every order.
 
-`[204T.automatik]` Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel der Lebenspunkte und bei einer starken Absicht; nie gegen Bosse.
-EN: Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops below a third of life points and on a strong intent; never against bosses.
+`[204T.automatik]` Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an, wenn dein Held unter ein Drittel seines Lebens fällt, und bei einer starken Absicht; nie gegen Bosse.
+EN: Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops when your hero drops below a third of their life, and on a strong intent; never against bosses.
 
 `[204T.decken]` (Kämpfer) Nur aus der vorderen Reihe: einen Zug lang zieht der Kämpfer jeden angekündigten Schlag auf Freunde auf sich, jeden mit Ring. Ring perfekt: Gegenschlag. (geändert 225)
 EN: Front row only: for one turn the fighter draws every announced blow aimed at friends, each with a ring. Perfect ring: a counterblow.
@@ -314,18 +314,18 @@ Zusätze hinter der Beschreibung (neue Zeile):
 `[204T.wunden]` (Wunden heilen) Auch für einen Freund, über alle Reihen. / EN: Also for a friend, across all rows.
 `[204T.finte]` (Finte, ab .9) Aus der hinteren Reihe, wenn vorn ein Freund steht: erreicht jeden Gegner ohne Deckung. / EN: From the back row, with a friend in front: reaches any foe without cover.
 `[204T.feuerball]` (Feuerball, ab Stufe 5, nicht im Probekampf) Trifft die ganze Reihe des Ziels. / EN: Strikes the target's whole row.
-`[204T.trank]` (Heiltrank; die Beschreibung nennt die Heilung nicht) Heilt 2W4+2 TP. / EN: Heals 2d4+2 HP.
+`[204T.trank]` (Heiltrank; die Beschreibung nennt die Heilung nicht) Heilt 2W4+2 Leben. / EN: Heals 2d4+2 Life.
 
 Nebenbefund für Jerry: Tatendrang macht in MARS (`Skirmish.useSkill`) auf Stufe 3 zwei Schläge, die Beschreibung verspricht einen (zwei erst ab Stufe 5). Beschreibung oder Code angleichen; Balance entscheidet der Chef.
 
 ## Ansagen erklärt (210T, Chef 19.10.)
 
-(A) Bei langem Druck auf die Ansage eines Gegners: Satz 1 sagt, was sie tut, Satz 2, was hilft und was beim Vereiteln bleibt. (B) Beim ersten Auftreten jeder Ansage einmal je Spielstand eine Zeile im Kampfbericht, die Eingebung des Helden (eigene Farbe oder kursiv). Regeln nachgesehen in `Skirmish.kt` (Zweig `claude/jerry-203-abwehr`, 19.10.); ändert Jerry eine Regel, ändert Homer den Text. „Ein Fünftel seiner Lebenspunkte“ folgt `BREAK_SHARE`.
+(A) Bei langem Druck auf die Ansage eines Gegners: Satz 1 sagt, was sie tut, Satz 2, was hilft und was beim Vereiteln bleibt. (B) Beim ersten Auftreten jeder Ansage einmal je Spielstand eine Zeile im Kampfbericht, die Eingebung des Helden (eigene Farbe oder kursiv). Regeln nachgesehen in `Skirmish.kt` (Zweig `claude/jerry-203-abwehr`, 19.10.); ändert Jerry eine Regel, ändert Homer den Text. „Ein Fünftel seines Lebens“ folgt `BREAK_SHARE`.
 
 **Grak**
 
-`[210T.heavy]` (geändert 280) Schwerer Hieb: die Axt mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seiner Lebenspunkte abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.
-EN: Heavy blow: the axe at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life points first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring.
+`[210T.heavy]` (geändert 280) Schwerer Hieb: die Axt mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seines Lebens abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.
+EN: Heavy blow: the axe at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring.
 `[210T.heavy.eingebung]` Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.
 EN: He winds up too far. If I hit him hard now, he loses his footing.
 
@@ -334,13 +334,13 @@ EN: Call the pack: a goblin comes, the second time a scout, no more. Helps: it c
 `[210T.call.eingebung]` Er ruft Hilfe. Die halte ich nicht auf, aber ihn kann ich treffen, solange er brüllt.
 EN: He calls for help. That I cannot stop, but I can hit him while he roars.
 
-`[210T.gather]` Kraft sammeln: er heilt sich um 2W10 Lebenspunkte. Hilft: ein Fünftel seiner Lebenspunkte vorher abnehmen, dann bleibt die Heilung aus.
-EN: Gather strength: he heals 2d10 life points. Helps: take a fifth of his life points first and the healing fails.
+`[210T.gather]` Kraft sammeln: er heilt sich um 2W10 Leben. Hilft: ein Fünftel seines Lebens vorher abnehmen, dann bleibt die Heilung aus.
+EN: Gather strength: he heals 2d10 Life. Helps: take a fifth of his life first and the healing fails.
 `[210T.gather.eingebung]` (ersetzt durch `[986.gather]`, `STORY-BRS-KAMPF.md`) Er holt Luft. Jetzt nachsetzen, sonst steht er gleich wieder voll da.
 EN: He is catching his breath. Press now, or he stands whole again.
 
-`[210T.breakthrough]` Durchbrechen: er stößt die Figur vorn nach hinten und schlägt die dahinter, die nun vorn steht, mit 1W6 mehr Schaden. Hilft: der Bedrohte tritt selbst nach vorn, dann bleibt ein einfacher Schlag; oder ein Fünftel seiner Lebenspunkte vorher.
-EN: Break through: he shoves the front figure back and strikes the one behind, now in front, with 1d6 extra damage. Helps: the threatened one steps forward, leaving a plain blow; or a fifth of his life points first.
+`[210T.breakthrough]` Durchbrechen: er stößt die Figur vorn nach hinten und schlägt die dahinter, die nun vorn steht, mit 1W6 mehr Schaden. Hilft: der Bedrohte tritt selbst nach vorn, dann bleibt ein einfacher Schlag; oder ein Fünftel seines Lebens vorher.
+EN: Break through: he shoves the front figure back and strikes the one behind, now in front, with 1d6 extra damage. Helps: the threatened one steps forward, leaving a plain blow; or a fifth of his life first.
 `[210T.breakthrough.eingebung]` (ersetzt durch `[986.breakthrough]`, `STORY-BRS-KAMPF.md`) Er will durch die Reihe. Steht der Bedrohte schon vorn, läuft er ins Leere.
 EN: He means to break the line. If the threatened one already stands in front, he charges into nothing.
 
@@ -387,8 +387,8 @@ EN: The young one holds back. The big one first.
 
 **Riesenspinne**
 
-`[210T.venom]` Gift sammeln: der nächste Biss hat 2W6 mehr Schaden, ohne Ring. Hilft: ein Fünftel ihrer Lebenspunkte vorher, dann versiegt das Gift; sonst Abwehr.
-EN: Gather venom: the next bite deals 2d6 extra damage, without a ring. Helps: a fifth of her life points first and the venom dries up; otherwise Defend.
+`[210T.venom]` Gift sammeln: der nächste Biss hat 2W6 mehr Schaden, ohne Ring. Hilft: ein Fünftel ihres Lebens vorher, dann versiegt das Gift; sonst Abwehr.
+EN: Gather venom: the next bite deals 2d6 extra damage, without a ring. Helps: a fifth of her life first and the venom dries up; otherwise Defend.
 `[210T.venom.eingebung]` (ersetzt durch `[986.venom]`, `STORY-BRS-KAMPF.md`) Das Gift kommt ohne Warnung. Ich muss sie treffen, bevor sie beißt.
 EN: The venom comes without warning. I must hit her before she bites.
 
@@ -466,17 +466,17 @@ EN: An easy fight: level {0} against challenge rating {1}.
 
 `[259T.knoepfe]` (bleiben) Kämpfen · Schnell; im Kampf: Schnell › / EN: Fight · Quick; Quick ›
 
-`[259T.tip]` (ersetzt `MarsTips.quick`) Nur gegen schwache Gegner: dein Held mindestens 4 Stufen über dem stärksten, nie gegen Bosse. Die Automatik spielt den Kampf für Held und Söldner in einem Rutsch, ohne Bilder. Hält an, wenn dein Held unter ein Drittel der Lebenspunkte fällt; dann übernimmst du. Ab 7 Stufen Abstand nur halber Schaden, ab 10 keiner.
-EN: Weak foes only: your hero at least 4 levels above the strongest, never against bosses. The automatic plays the fight for hero and Söldner in one go, without pictures. Stops when your hero falls below a third of life points; then you take over. From 7 levels apart only half damage, from 10 none.
+`[259T.tip]` (ersetzt `MarsTips.quick`) Nur gegen schwache Gegner: dein Held mindestens 4 Stufen über dem stärksten, nie gegen Bosse. Die Automatik spielt den Kampf für Held und Söldner in einem Rutsch, ohne Bilder. Hält an, wenn dein Held unter ein Drittel seines Lebens fällt; dann übernimmst du. Ab 7 Stufen Abstand nur halber Schaden, ab 10 keiner.
+EN: Weak foes only: your hero at least 4 levels above the strongest, never against bosses. The automatic plays the fight for hero and Söldner in one go, without pictures. Stops when your hero falls below a third of their life; then you take over. From 7 levels apart only half damage, from 10 none.
 
-`[259T.halt]` (Tip, wenn „Schnell“ anhält; {0} = Name des Helden) Schnell hält an: {0} ist unter einem Drittel der Lebenspunkte. Du übernimmst.
-EN: Quick stops: {0} is below a third of life points. You take over.
+`[259T.halt]` (Tip, wenn „Schnell“ anhält; {0} = Name des Helden) Schnell hält an: {0} ist unter einem Drittel des Lebens. Du übernimmst.
+EN: Quick stops: {0} is below a third of their life. You take over.
 
 `[259T.sieg]` (Kampfende gewonnen, gegen alle außer Grak; „Grak ist besiegt.“ bleibt) Der Kampf ist gewonnen.
 EN: The fight is won.
 
-`[259T.tafel]` (unter der Siegzeile nach „Schnell“, je Gefährte mit „ · “ getrennt; bleibt) {Name} −{n} LP; im Probekampf angehängt „ · Probekampf: keine Beute, keine EP“. Im Spiel später statt dessen „ · Beute: {Liste} · {n} EP“.
-EN: {Name} −{n} HP; trial: “ · trial fight: no loot, no XP”; in the game: “ · Loot: {list} · {n} XP”.
+`[259T.tafel]` (unter der Siegzeile nach „Schnell“, je Gefährte mit „ · “ getrennt; bleibt) {Name} −{n} Leben; im Probekampf angehängt „ · Probekampf: keine Beute, keine EP“. Im Spiel später statt dessen „ · Beute: {Liste} · {n} EP“.
+EN: {Name} −{n} Life; trial: “ · trial fight: no loot, no XP”; in the game: “ · Loot: {list} · {n} XP”.
 
 ## Laden: neue Ware (59e.1T)
 
@@ -495,15 +495,15 @@ EN: 8d6 fire damage, DEX save for half. Drives off the foe's pack and scouts tha
 
 `Resting.kt` (alte Fassung); Platzhalter, die hier nicht stehen, bleiben wortgleich. In Godot gelten die Rasttexte aus `STORY-BRS-OBERFLAECHE.md` „rast“ (870.15; kurze Rast ohne Leben nach 1038 R1).
 
-`[86.kurzwirkt]` Ausdauer voll, ein Viertel der TP zurück / EN: Stamina full, a quarter of HP back
+`[86.kurzwirkt]` Ausdauer voll, ein Viertel des Lebens zurück / EN: Stamina full, a quarter of Life back
 
-`[86.langwirkt]` TP, ZP und Ausdauer voll, Zustände geheilt / EN: HP, SP and stamina full, conditions cured
+`[86.langwirkt]` Leben, Mana und Ausdauer voll, Zustände geheilt / EN: Life, mana and stamina full, conditions cured
 
 `[86.zimmerwirkt]` Ein Bett für die Nacht: lange Rast / EN: A bed for the night: long rest
 
-`[86.kurzfertig]` Eine Stunde Ruhe. Die Ausdauer ist voll, +{0} TP. / EN: An hour of rest. Your stamina is full, +{0} HP.
+`[86.kurzfertig]` Eine Stunde Ruhe. Die Ausdauer ist voll, +{0} Leben. / EN: An hour of rest. Your stamina is full, +{0} Life.
 
-`[86.langfertig]` Acht Stunden Schlaf. TP, ZP und Ausdauer sind voll. / EN: Eight hours of sleep. HP, SP and stamina are full.
+`[86.langfertig]` Acht Stunden Schlaf. Leben, Mana und Ausdauer sind voll. / EN: Eight hours of sleep. Life, mana and stamina are full.
 
 `[86.met]` (Met getrunken, noch nicht betrunken) Der Met wärmt. Die Ausdauer ist voll. / EN: The mead warms you. Your stamina is full.
 
@@ -525,7 +525,7 @@ EN: Enough for today, {name}. Go to bed, the stairs are on the left.
 
 `[604.zimmerwirkt]` (ersetzt `[86.zimmerwirkt]`; die Gaststube hat kein Bett mehr, geschlafen wird oben, nur im Text) Ein Bett oben unter dem Dach: lange Rast / EN: A bed upstairs under the roof: long rest
 
-`[604.zimmerfertig]` (nach dem Zimmer statt `[86.langfertig]`; Lagerfeuer bleibt bei `[86.langfertig]`) Du steigst die Treppe hinauf und schläfst acht Stunden. TP, ZP und Ausdauer sind voll. / EN: You climb the stairs and sleep for eight hours. HP, SP and stamina are full.
+`[604.zimmerfertig]` (nach dem Zimmer statt `[86.langfertig]`; Lagerfeuer bleibt bei `[86.langfertig]`) Du steigst die Treppe hinauf und schläfst acht Stunden. Leben, Mana und Ausdauer sind voll. / EN: You climb the stairs and sleep for eight hours. Life, mana and stamina are full.
 
 ## Zustände außerhalb des Kampfs (86.9)
 
@@ -592,7 +592,7 @@ EN: {0} reaches over the shoulder into the pack: {1} instead of {2}.
 `[312.ueber]` Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im rundenbasierten Kampf, sammle Beute in sechs Seltenheitsstufen und schreibe mit deinem Helden die Chroniken von Bornim fort.
 EN: A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot in six rarities and carry the Chronicles of Bornim onward with your hero.
 
-`[312.srd]` (unverändert) Regeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).
+`[312.srd]` (entfällt mit 870.20; ersetzt durch `[870.15.ueber]` in `STORY-BRS-OBERFLAECHE.md`) Regeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).
 EN: Rules, classes, races, spells and monsters are simplified and based on the System Reference Document 5.1 (SRD 5.1) by Wizards of the Coast LLC, available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).
 
 `[312.eigen]` Geschichte, Orte und Figuren sind eigene Erfindungen.

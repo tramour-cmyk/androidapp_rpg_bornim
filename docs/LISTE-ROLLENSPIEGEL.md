@@ -23,6 +23,10 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 | 340.3 | alle | A: Hinweise von `notiz.sh` schreibt das Werkzeug täglich in den Vorrat des Besitzers | Hinweise 8 → höchstens 2 | Mo 09.11. | nein: 4 (Diogenes 09.11., Prüfbericht Lauf 92) |
 | 340.4 | alle | B: Pflichtzeile „Geprüft an: <Link>“ in Chefsache und bei „gebaut“ | höchstens 2 Runden je Aussehensfrage bis „passt“ | Mo 09.11. | fehlt (Runden nicht gezählt); Zeile da in 76 von 80 Vorlagen |
 | 340.5 | alle | C: „Uhr: HH:MM“ nach jedem Arbeitsschritt | 0 falsche Zeitstempel in der Woche | Mo 09.11. | nein: 8 von 201 daneben (`LISTE-REGELTREUE.md`) |
+| 340.7 | Perikles, Diogenes | V1: Werkzeug ohne Fund des Chefs ist Kür; Doppelprüfung nur für Regeln mehrerer Rollen | ≤ 100 Werkzeug-Commits Perikles je Woche; Diogenes ≥ ⅓ im Spiel | Mo 23.11. | – |
+| 340.8 | Tom, Jerry | V2: Tests vor Push und Filmlauf bis zum Ende; Filmtests nach Bildern | 0 rote Läufe, 0 Filmläufe ohne Film aus eigenen Testfehlern | Mo 23.11. | – |
+| 340.9, 340.11 | Sokrates, Homer | V3: Vorlage gegen Muster und Archiv; Wahl gegen Knopf; Auswertung am Tag der Runde | ≤ 2 Fehler 341 je Woche; keine Vorlage über 2 Runden | Mo 23.11. | – |
+| 340.10 | Ford | V4: Spiegelzeilen, Betriebskosten, 60 s vor Archivieren im Werkzeug | Nacharbeiten je Nacht 0 | Mo 23.11. | – |
 
 ## Woche 06.11.
 

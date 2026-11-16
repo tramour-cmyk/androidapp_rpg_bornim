@@ -7,7 +7,7 @@ Homer 10.11.; Teil von `STORY-BRS-ANLEITUNG.md` (Grundsätze dort). Für Schritt
 Entfallen mit `erschaffung.gd`, `heldwerte.gd` und den Klassen (Schritt 4), ohne Ersatz: `chooseClass`, `proficiency`, `hitDie`, `primary`, `armorProf`, `points`, `fromLevel`, `cannotEquipArmor`, `attack` (Angriffsbonus), `passive`, `unlimited` (∞ für Zaubertricks), `ac` (Schutzwert heißt `[870.14.kw.schutz]`). Geändert:
 
 - `sp`: Mana / Mana (Leiste, Kampfkopf)
-- `hp`: TP / HP bleibt (nur an Zahlen)
+- `hp`: Leben / Life (Leiste, Kampfkopf, an Zahlen; nie TP/HP, 1320)
 - `level`: in der Leiste kurz „St.“ / “Lv” wie heute; im Heldenreiter und auf dem Kapitelschirm Heldenstufe / Hero Level
 - `skills`: im Heldenreiter Fertigkeiten / Skills (Überschrift der Fertigkeitenliste); im Kampf heißt der Knopf Können / Abilities (`[870.14.knopf.koennen]`, eigener Schlüssel)
 - `chooseRace`: Wähle dein Volk / Choose your people
@@ -43,6 +43,20 @@ Texte ohne Würfel (Wirkung und Zahl stehen in den Regelwerten und in der Meldun
 - `spider_silk` (934): Fein und zäh wie Draht, aus dem Leib einer Riesenspinne. Feuer frisst sie im Nu. Händler zahlen gut dafür. / EN: Fine and tough as wire, from the body of a giant spider. Fire consumes it in an instant. Traders pay well for it. (Feuer verbrennt die Seide, `lohn.gd` 78)
 - `spider_gland` (934): „… Morwen kann daraus Alchemistenfeuer mischen.“ → Aus einer Riesenspinne. Morwen mischt daraus Brandflaschen. / EN: From a giant spider. Morwen mixes firebottles from it. (Rezept Morwen: Brandflasche aus 1 Giftdrüse, `Recipes.kt` 17)
 
+`[1318.kurz]` Kurzzeile unter dem Namen in der Ladenliste, Kaufen und Verkaufen (Vorschlag Homer 15.11., 1318 für 785.24 Tom; wie alt `ShopScreen.kt` 244, aber ohne Würfel). Zahl {0} aus den Regelwerten, nie fest im Text: Tränke `werte.json` „welt“ „heilung“, Verband `Menue.verband_heilung` des Helden (mit Heilkunde). Klein, ohne Punkt; „Leben“/„Life“ nach `STORY-REGELN.md` (3), 1320:
+
+| Ding | Deutsch | Englisch |
+| --- | --- | --- |
+| `potion`, `greater_potion`, `superior_potion` | heilt {0} Leben | heals {0} Life |
+| `remedy` | heilt Zustände und {0} Leben | cures conditions, heals {0} Life |
+| `bandage` | stillt Blutung, heilt {0} Leben | stops bleeding, heals {0} Life |
+| `stamina_potion` | doppelter Atem bis zur Rast | double stamina until the next rest |
+| `spark_potion` | leuchtet bis zur Rast | glows until the next rest |
+| `alchemist_fire` | Feuer (wie heute `sprache.gd` „kurz“) | Fire |
+| `holy_water` | Licht, nur gegen Untote | Light, undead only |
+
+Ohne Kurzzeile: Zutaten und Beute (Kräuter, rohes Fleisch, Fell, Hauer, Drüse, Flügel, Seide). `roast_meat` (Tasche und Verkaufen): heilt {0} Leben / heals {0} Life, {0} mit dem Bonus aus Kochen (`Laden.essen_bonus`). Kräutertrank ohne „alle“: im Kampf bleibt der Rausch (`mars.gd` 1579).
+
 Namen mit SRD-Herkunft (Vorschlag Homer; Text und Wirkung bleiben, nur der Name wechselt):
 
 | heute | neu |
@@ -56,11 +70,11 @@ Namen mit SRD-Herkunft (Vorschlag Homer; Text und Wirkung bleiben, nur der Name 
 
 Weihwasser, Kräutertrank und die übrigen Namen bleiben. Kosten: nur Text.
 
-## Über das Spiel (`aboutText`, erst mit 870.13)
+## Über das Spiel (`texte.json` ui `aboutText`, Bau 870.20 Tom)
 
-`[870.15.ueber]` Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug, sammle Beute und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nDie Regeln sind ein eigenes System, das Bornimer Rollenspielsystem: Du wirst, was du tust.\n\nGeschichte, Orte, Figuren und Regeln sind eigene Erfindungen.
-EN: A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot and continue the Chronicles of Bornim with your hero.\n\nThe rules are a system of our own, the Bornim Roleplaying System: you become what you do.\n\nThe story, places, characters and rules are original.
-(Bis 870.13 bleibt der heutige Text mit SRD-Hinweis; der Lizenzschirm für Schrift und Klang bleibt.)
+`[870.15.ueber]` (870.19, Homer 15.11.: ersetzt den Text mit SRD, Klassen und Wizards of the Coast; dritter Absatz neu mit dem Namen der Firma) Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug, sammle Beute und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nDie Regeln sind ein eigenes System, das Bornimer Rollenspielsystem: Du wirst, was du tust.\n\nGeschichte, Orte und Figuren sind eigene Erfindungen. Ein Spiel von BornWire TCS.
+EN: A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot and continue the Chronicles of Bornim with your hero.\n\nThe rules are a system of our own, the Bornim Roleplaying System: you become what you do.\n\nThe story, places and characters are original. A game by BornWire TCS.
+(Der SRD-Absatz entfällt ganz, ebenso „SRD 5.1 · CC BY 4.0“ unter dem Logo im Hauptmenü und auf der Seite, `hauptmenue.gd` 330 und 545, alles mit 870.20 und erst, wenn kein Wert mehr aus dem SRD rechnet (`brs.gd` 7 nennt noch `tabellen.json` bis 2.3; Inventur Sokrates); der Lizenzschirm für Schrift, Klang und Engine und „Mit Dank an“ `[623.dank.*]` bleiben.)
 
 ## Monsternamen
 

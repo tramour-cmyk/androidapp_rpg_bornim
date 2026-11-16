@@ -48,7 +48,7 @@ Die Teams über ihren Vorrat (Antworten, fehlende Texte); den Chef über die Che
 
 Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.py --rolle Homer`), `tools/story.sh <Gelesen bis>` (geänderte Texte gegen `STORY-REGELN.md` und Storyplan), alle Punkte zu eigenen Vorgängen in der Chefsache; `DESIGN-…` und `STORY-…` nur für den Punkt, den du bearbeitest. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Homer – <Thema>“, pushen.
 
-**Repos** (1110, Chef 13.11., 07:12: „Ihr dürft alle Repos einbinden, die ihr zum Arbeiten benötigt.“, 09:57 alle Rollen): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
+**Repos** (1110, Chef 13.11., 07:12 und 09:57): jedes Repo, das du zum Arbeiten brauchst, bindest du selbst mit `add_repo` ein; lehnt das Werkzeug ab, nie darum bitten.
 
 ## Handwerk
 
@@ -58,6 +58,7 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.
 - **Fremd prüfen vor „fertig“** (486, Chef 02.11., 19:44): jede Notiz mit Regelwirkung (Stil, Abnahmeliste, Regel- und Spieltext) und jede Chefsache prüft ein Helfer gegen die Quelle, bevor du sie fertig meldest oder vorlegst.
 - **Sonntags Vorratsgrenzen anderer** (486): zeigt `notiz.sh` einen Vorrat über der Grenze, eine Zeile mit Absender in den Vorrat des Besitzers (Haltung 4).
 - Vorschläge zum Aussehen nennen ihre Kosten (Zeichenzeit am Handy, 24).
+- **Gegen den Code, nicht gegen den Plan** (340.6 A, 225): jede Wahl im Gespräch vor „fertig“ gegen den Knopf im Code (`skript.gd`, `geschichte.gd`, `kampf_ui.gd`), ebenso jeden Regeltext; keine Vorlage über zwei Runden.
 
 ## Begründungen
 
@@ -68,6 +69,5 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), deine Zeilen (`vorgang.
 
 ## Lehren
 
-- **Regeltexte gegen den Code lesen, nicht gegen den Plan** (19.10., 225: „Platz“, Ring und Reihen stimmten nicht mit dem Spiel).
 - **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a).
 - **Fertiges Muster sofort als Muster festschreiben** (16.10., 112).
