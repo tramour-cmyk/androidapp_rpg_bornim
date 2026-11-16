@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1424** (zuletzt 1423 Jerry 16.11. 13:08:52 485c) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1425** (zuletzt 1424 Perikles 16.11. 13:14:53 473f) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -141,3 +141,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:05 16.11.: Marke Archiv session_01Hmoj75kAWFUnHAs39ZVQcD (lauf.py)
 - 13:05 16.11.: Marke Archiv session_01Hmoj78Qdamz672BcJVgmBj (lauf.py)
 - 13:10 16.11.: Chef 13:05 direkt: „Du darfst alles archivieren, was zum Archivieren ist, gemäß den Regeln“ (Autoprüfung lehnt Archivieren trotzdem ab, Chef will sie weg); Lauf 13:05: Start Homer 1419, archiviert Sokrates 75oX (11,06 $ auf 431,1382,1386) und Homer 1401 (2,57 $); Urteile 517 und 698 (4343/4344) im Archiv; GELÖST an Jerry 1331/1284b, Spike 1307; Sokrates 77oL bleibt bis 13:21, dann Archiv
+- 13:22 16.11.: Sokrates Chefrunde Rest archiviert (14,41 $ auf 1303,1235,1412 gebucht); Sokrates Testbegleitung t291/t292 läuft
+- 13:30 16.11.: Chef fragt nach 2 Diogenes-Sitzungen: Altlast „Diogenes – 1301“ (15.11., 17:00, ruhte seit 17:03 auf 'pausiert bis 16.11. 08:00') war nie archiviert; jetzt archiviert (1,19 $ auf 1301); lauf.py hat sie nicht gemeldet, weil beim Start 08:11 Diogenes als belegt galt (Seite 2 der Sitzungsliste nie geholt)
+- 13:40 16.11.: Altlasten archiviert nach Chef-Frage 13:26 (zwei Diogenes-Sitzungen): Diogenes 1301 (1,19 $), Homer 1267 (15.11., 0,62 $ auf 1267), Tuffy 930.7 (14.11., 5,02 $ auf 930.7), alle gebucht; Ursache: Kurzform-Dateien mit „# has_more: nein“ aus nur der ersten Seite (12 Sitzungen) geschrieben, ältere nicht archivierte Sitzungen fehlten, lauf.py konnte sie nicht sehen; Fehler von Ford. Ab jetzt je Lauf list_sessions limit 100 (volle Seite, in Datei), Kurzform aus allen nicht archivierten daraus per Skript, bis zum Stichtag 08.11. geprüft: sonst keine Altlast
