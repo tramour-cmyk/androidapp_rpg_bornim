@@ -342,7 +342,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 251.4 | Logo auf Leiterbahn mit Lötaugen (Fassung C) umstellen, Papiere `docs/firma/` neu erzeugen (Chef 21.10., 22:08) | M Markt | K | – | Homer | erledigt |
 | 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +10,07 $ | Tom | erledigt |
 | 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | K | – | Team Tom | erledigt |
-| 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | 1,13 $ | Team Tom | erledigt |
+| 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | 2,07 $ | Team Tom | erledigt |
 | 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Hauptmenü, Schirm heißt überall Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M | 15,13 $ | Team Tom | erledigt |
 | 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Steuerung | M | –; +6,16 $ | Perikles | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | – | – | Team Jerry | erledigt |
@@ -1706,3 +1706,13 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1419 | Von Sokrates (Chef 16.11., 12:40, für Tom): Text der Abfrage beim Beenden im Hauptmenü (Frage, Ja, Nein; DE/EN), Stil Hauptmenü | G Story | M | – | Homer | erledigt |
 | 1192 | Von Sokrates (1189 A, Chef 13.11., 17:09): Leichenprüfung alle 48 h durch Diogenes in ROLLE-PRUEFUNG.md und Start alle 48 h in ROLLE-BETRIEB.md/lauf.py; Diogenes liest startbar.py --leichen 7 und jedes Chefurteil der letzten 48 h gegen die Zeile, höchstens 10 $ je Lauf; Vollzug auf Telegram (1137) | B Abläufe | M | 2,50 $ | Perikles | erledigt |
 | 1270.3 | Von Sokrates (1270 A, Chef 15.11., 10:51), Bau Spike: Shader-Vorbau beim Export (export_presets.cfg), vorher prüfen, ob unsere Godot-Fassung es kann | E Technik | M | 3,91 $ | Spike | erledigt, t291 bestanden |
+| 481.2 | Von Sokrates (481a A, Chef 15.11., 10:51): Rechnung glut2.py mit Deckel des Abzugs von Rüstung und Schild auf 50 %, dazu 40 und 60 %, für Helden und Gegner; Vorlage an den Chef vor dem Bau | G Balance | M | 5,03 $ | Jerry | erledigt, Bautest Lauf 517 |
+| 1431 | Von Perikles: „Zu“ zu Erledigtem (1289 (3×)) bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen (Chef 16.11., 14:13; Prüfung J, 1425) | B Abläufe | M | – | Jerry | erledigt |
+| 1432 | Von Perikles: „Zu“ zu Erledigtem (1267, 1318, 830, 870.14) bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen (Chef 16.11., 14:13; Prüfung J, 1425) | B Abläufe | M | – | Homer | erledigt |
+| 1428 | Von Sokrates (Chef 16.11., 14:07 „ja“): Bitte, auf die jemand wartet (Freigabe), nie nur im Vorrat; als Vorgang mit Empfänger als Besitzer, eilig dazu Direktnachricht (Anlass: Jerrys Bitte 1284 lag 20 min ungesehen) | B Abläufe | M | 0,94 $ | Perikles | erledigt |
+| 1217 | Von Sokrates (Chef „jetzt“ 13.11., 19:58/20:01): Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen (pruefliste.py), Bild und Film je Prüfpunkt eine Telegram-Nachricht, 👍 passt, 👎 falsch (reaktionen.py, notiz.sh zeigen 👎 offen), Regel LISTE-CHECK-BUILD-TEST.md, Regelbilanz | B Abläufe | M | 8,86 $ | Perikles | erledigt, greift Lauf 265 |
+| 1437 | Von Perikles: „Zu“ zu Erledigtem (1217 (2×)) bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen (Chef 16.11., 14:13; Prüfung J, 1425) | B Abläufe | M | – | Perikles | erledigt |
+| 1422 | Von Spike (1268.3, Chef 13:04 über Sokrates): Bautest 1268.3 ohne dich bestätigen, TYPEN1268 0 Fehler in Lauf 506 (Build 290), dann vorgang.py bautest 1268.3 506 | B Abläufe | K | – | Diogenes | erledigt |
+| 1436 | Von Perikles: „Zu“ zu Erledigtem (1109, 1200, 1272, 434, 485, 696, 719, 911, 927) bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen (Chef 16.11., 14:13; Prüfung J, 1425) | B Abläufe | M | – | Diogenes | erledigt |
+| 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | E Technik | K | – | Sokrates | erledigt |
+| 1268.3 | Von Sokrates (1268 A, Chef 15.11., 10:51), Bau Spike, nach 1270: Warnungen fehlender Typen als Fehler, zuerst regeln/ und kampf/; Textabfragen get("…") abbauen beim Anfassen | E Technik | M | 3,00 $ | Spike | erledigt, Bautest Lauf 506 |

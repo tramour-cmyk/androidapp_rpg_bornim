@@ -23,4 +23,8 @@ u.s.zeilen_liste = lambda: liste
 _, kommt2, *_ = u.rechnen()
 u.s.zeilen_liste = alt
 soll("vorgezogen (%s) steht auf Rang 1" % (ziel or {}).get("nr"), kommt2[0][1]["nr"] if ziel else None, ziel["nr"] if ziel else None)
+# 1440: Blocknummern fest und eindeutig, Übriges nicht doppelt
+nums = [r["num"] for _, r in u.BLOECKE] + [u.UEBRIG_NUM]
+soll("Blocknummern eindeutig", len(nums) == len(set(nums)), True)
+soll("Blocknummer im Überblick", "**%d** %s" % (u.nummer(0), u.name(0)) in u.md(), True)
 sys.exit(1 if fehl else 0)
