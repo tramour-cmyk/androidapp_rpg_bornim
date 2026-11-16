@@ -174,6 +174,15 @@ func _r3() -> void:
 	var vor: String = m.gk.vorschlag_haltung(h)
 	m.gk.held_zug(h, {"tun": Kerbe.WARTEN, "loesen": true, "haltung": Kerbe.AUTO})
 	ok("Regel 3", vor == Kerbe.WEHR and h.hp == hp2 and h.gl.haltung == Kerbe.WEHR, "vorgeschlagene Wehr: der Wolf setzt nicht nach (%s, Leben %d → %d)" % [vor, hp2, h.hp])
+	# 1275 (Homer 16.11., 00:17: Lösen „kostet 1“, verlangt nicht zwei): mit der letzten Kerbe löst er sich noch
+	h = _held()
+	m = _kampf(h, ["zombie"], {"nur_einrichten": true})
+	g = m.all[1]
+	g.gl.ab = Kerbe.NAH
+	_zug(m, h)
+	h.gl.kerben = 1
+	m.gk.held_zug(h, {"tun": Kerbe.WARTEN, "loesen": true, "haltung": Kerbe.WEHR})
+	ok("Regel 3", int(g.gl.ab) == Kerbe.FERN and int(h.gl.bereit) == 0, "Lösen mit der letzten Kerbe: der Langsame ist fern, Rest %d" % int(h.gl.bereit))
 
 
 func _r4() -> void:
