@@ -67,6 +67,10 @@ Lesart (Sokrates, nicht nachgestellt): gleicher Build wie A56 am 15.11., dort Do
 
 **Build 293 (0.348.524), 16.11., 20:56, Gerätetext des Chefs:** Grafikstufe Automatisch wählt **Niedrig** (Sonnenschatten 1024 px, 3D 70 %). Wald 9/12: 10 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 118 ms, längste Pause 148 ms; Blende danach 10 s: längste 131 ms, 113 über 50 ms; Laden Wald 7409 ms; 409 Zeichenaufrufe, **2997k Dreiecke**, 615 MB Grafik, Speicher 227 MB; keine Fehlermeldungen. Lesart (Sokrates, nicht nachgestellt): gegen Build 286 (Wald 10 Bilder/s, 124 ms, 417 Aufrufe, 2940k Dreiecke) bringt Niedrig mit 3D 70 % (etwa halb so viele Bildpunkte) nichts; damit trägt die Lesart „teure Bildpunkte“ oben nicht. Niedrig senkt weder Dreiecke noch Zeichenaufrufe; Verdacht Dreiecke (3 Mio. auch auf Niedrig) oder Prozessor. Ursache Spike (1484).
 
+## Samsung Galaxy A22 5G (SM-A226B, Mali-G57 MC2, Android 33), Build 286 (0.348.473), Renderer „mobile“ (Chef 16.11., 21:03, Gerätetext ohne Wort; 1484)
+
+Gasthaus (inn 8/2): 18 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 125 ms, längste Pause 145 ms (Erschaffung); Blende danach 10 s: längste 141 ms, 109 über 50 ms; Laden Erschaffung Tipp 793 ms, Gasthaus 3023 ms; 411 Zeichenaufrufe, 381k Dreiecke, 431 MB Grafik, Speicher 138 MB; Bildschirm 1080 × 2408, 450 dpi, Rand oben 65 (Kameraloch); keine Fehlermeldungen. Lesart (Sokrates, nicht nachgestellt): Build 286 hat keine Grafikstufen (erst ab 292). Im kleinen Gasthaus nur 381k Dreiecke, aber etwa so viele Zeichenaufrufe wie das Tablet im Wald (409–417); dort zehnmal so viele Dreiecke. Verdacht neben Dreiecken: Zahl der Zeichenaufrufe (Prozessor) oder Bildpunkte (2,6 Mio. Bildpunkte). Messung auf Build 293 fehlt.
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```
