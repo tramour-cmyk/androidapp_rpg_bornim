@@ -6,7 +6,7 @@
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/dreh_1072.gd (SEED=7, GEGNER=WOLVES, SEKUNDEN=120,
 # DURCHGAENGE=2: danach „Nochmal“ und derselbe Kampf noch einmal; je Durchgang die Bisse, nach denen ein Wolf zurück in die
 # Aufstellung ging, Fund t293.1 a, nur Auskunft).
-# Exit = Zahl der Fehler.
+# Exit = Zahl der Fehler (Drehung; die Bisse ohne Platz am Gegner zählen nicht mit).
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
