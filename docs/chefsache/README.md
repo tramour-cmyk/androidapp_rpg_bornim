@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 23:37, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 23:46, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -28,16 +28,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (63) | 8 | 1 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (17) | 5 | 0 | 4 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| **7** Werkzeuge und Abläufe der Firma | 44 (58) | 29 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
+| **7** Werkzeuge und Abläufe der Firma | 43 (58) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 201 | 171 | 201 | 1061 |
+| erledigt | 202 | 171 | 202 | 1062 |
 | neu | 164 | 119 | 164 | 1054 |
-| **netto** (erledigt − neu) | **+37** | **+52** | **+37** | **+7** |
+| **netto** (erledigt − neu) | **+38** | **+52** | **+38** | **+8** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -49,7 +49,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 4 weitere |
 | Jerry | 1488 Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil,… (Muss); dann 4 weitere |
 | Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
-| Spike | 1502 Übernahme von Jerry: t294 „Im Bau geprüft“ nennt bildrate.py; Schritt mit contin… (Muss) |
+| Spike | leer, weil 3 wartet auf Test/Build, 3 ruht, 2 wartet auf Test |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss) |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
@@ -68,19 +68,19 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 7 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 8 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 9 | 1501 | Jerry | D283.1 von Diogenes: claude/build-294 ohne main ab 21:47 gebaut, 1485 fehlt; AP… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 10 | 1502 | Jerry | t294 „Im Bau geprüft“ nennt `bildrate.py`; Schritt mit continue-on-error, wird… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 11 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
-| 12 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
-| 13 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
-| 14 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 15 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
-| 16 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
-| 17 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
-| 18 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 20 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
+| 10 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
+| 11 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
+| 12 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
+| 13 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 14 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
+| 15 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
+| 16 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
+| 17 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 18 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 19 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
+| 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
 
-Danach 83 weitere offen. Bei dir zum Testen (vorgelegt): 17. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
+Danach 82 weitere offen. Bei dir zum Testen (vorgelegt): 17. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
 ## Zu entscheiden
 
 Nichts offen.
