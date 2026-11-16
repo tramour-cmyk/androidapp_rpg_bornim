@@ -4,6 +4,8 @@ Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, E
 
 - **t292 getestet** (16.11., 14:36, Chef in der App: „Build 292 · Ergebnis – 292.1 ✓ – 292.2 ✓ – 292.3 ✗ … 292.4 ✓ – 292.5 ✓“, zu 292.3: „wenn das das erwartete Ergebnis ist, dann ist alles richtig. Ich bin damit durch.“; Prüfliste `ansehen/t292-sammelbuild.md` in Git) → **alle Handypunkte ✓; 292.3 Neustart ins Hauptmenü ist gewollt, Prüflistenfehler (Spike); Anmerkung auch bei „Passt“ 1445 (Tom); 292.6–292.10 bei Diogenes (Nutzer)**
 
+- **1292, Knopf gebilligt** (16.11., 14:15, Chef 👍 auf Meldung Jerry 13:45, Nachricht 4393; `ansehen/1292-knopf.md` in Git) → **Anzeige „· 2/2“ hinter den Manakosten bleibt; fährt in Build 293 (Nutzer)**
+
 - **1416, Läufe frei** (16.11., 14:20, Sokrates nach 621 A, Bitte Spike 14:15: erster Lauf brach vor dem Rendern ab, bpy ohne Python 3.12, nachgestellt und behoben) → **genau ein Lauf Sichtung UAL2 (Kontaktblätter aller 134 Bewegungen) auf `claude/spike-1416-winken`; scheitert er: kein weiterer, Befund an Sokrates**
 
 - **t291 getestet** (16.11., 13:42, Chef in der App: „Build 291 · Ergebnis – 291.1 ✓ – 291.2 ✓ – 291.3 ✓ – 291.4 ✓ – 291.5 ✓ – 291.7 ✗ – 291.9 ✓“; 291.6 👍 Telegram; 291.8 ✗, 291.10 ✓ im Gespräch; Prüfliste `ansehen/t291-sammelbuild.md` in Git) → **alle Punkte ✓ außer 291.8 (601.1, kein Zucken, Jerry) und 291.7 (Prüflistenfehler: Lage ohne Begleiter; 1275 bleibt, Film nach, Jerry); 291.3 Weg falsch (Spike), Ladezeit messen 1426, Vergleich nie aus dem Gedächtnis 1427; Zwischenwände 1423 (Nutzer)**
