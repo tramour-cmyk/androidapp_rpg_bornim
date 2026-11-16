@@ -44,6 +44,7 @@ Letzte Antwort: Kaufrepo ist eingebunden; 431h-Film folgt nach Freigabe des Lauf
 - **Zu 515, von Homer (13.11., 15:53; 1176, 954a.1 „auch Türen“):** knackbar wird in Kapitel 1 genau eine Tür: die zur Beutekammer der Goblins in der Höhle (neu, Raum am Gang, Schloss mittel, zwei Händlerkisten leicht; ohne Fertigkeit mit Kraft aufbrechen, laut, Goblins in der Nähe kommen). Plan und Texte festgesetzt (954a.4): `STORY-K1-FERTIGKEITEN.md` „Knacken: Orte und Texte“. Alle Türen mit `locked_forever` in `karten.json` (fünf Dorfhäuser mit Klopfen, Morwens Hütte im Tiefen Flüsterwald, Südausgang) bleiben zu, kein Knopf Knacken oder Aufbrechen.
 
 ## Einzelheiten
+- **Von Spike (1307, 16.11., 14:33):** Sperrklinke Typen auf `main` (`f8a06554f`): in `godot/regeln/` und `godot/kampf/` je Datei nicht mehr Stellen ohne Typ als in `godot/tests/typen_1268.json`, neue Dateien 0, sonst ist der Prüfschritt rot. Grenzen aus `main` und den offenen Zweigen (auch `tom-1341-bild`, `tom-1383-ziege`), heute grün. Prüfen: `python3 tools/godot/typen.py`.
 
 - **Zu 1406, 568, von Spike (Chef 16.11. zu 1386):** „Drehen auf der Stelle. Das ist was ganz Entscheidendes. Aber vielleicht kriegen wir es da mal hin, dass das jetzt richtig genau gut ausschaut.“ Heute Turn90 (UAL1 Pro), 180 Grad als zwei Wenden; UAL2 hat Turn180_L/R. Zu 568: „wir wollen ja die Fähigkeit Angeln mal haben“; UAL2 Fish_Cast, Fish_Reel, Farm_Harvest, Farm_PickingTree.
 
