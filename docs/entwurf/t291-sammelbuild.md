@@ -3,7 +3,7 @@ E Technik · Tom (1326, 785.24, 870.20; ohne dich 1322, 1355, 1357), Jerry (1289
 
 Sammelbuild 1361 auf Build 290 aufgesetzt (enthält alles aus 290 und `main`); die Punkte der Liste 290 kommen hier nicht noch einmal, 290 bleibt offen, bis du ihn fertig getestet hast.
 
-Ein Weg: über Build 290 installieren, Hauptmenü (291.1), dann „Weiter“ mit deinem Spielstand und im Reiter „Test“ die Zeilen 291.2 bis 291.7 mit „Lage herstellen“; zuletzt Hauptmenü und Handbuch (291.9). Die Filme 291.6 und 291.8 kommen vorher je als eigene Nachricht auf Telegram (👍 passt, 👎 falsch).
+Ein Weg: über Build 290 installieren, Hauptmenü (291.1), dann „Weiter“ mit deinem Spielstand und im Reiter „Test“ die Zeilen 291.2 bis 291.7 mit „Lage herstellen“; zuletzt Hauptmenü und Handbuch (291.9). Die Filme 291.6, 291.8 und 291.10 kommen vorher je als eigene Nachricht auf Telegram (👍 passt, 👎 falsch).
 
 Im Bau geprüft: Kurzzeile der Vorräte im Laden (785.24, `laden_582`), Leben/Life statt TP/HP an Zahlen, Verband und Heilen (1322, `pim_verband_842`, `typen.py`), Wende ohne Nachlauf, nicht mehr zufällig rot (1355, `wende_4168`), Treffer ohne Schaden meldet sich (1321, `meldung_1305`), Einschlag am Rumpf (601.1, `einschlag_6011`), Kerbensystem (1275, `kerbe_930`), Lage Aushang nach Uhr statt 900 Bildern (1357, `lage_785_8`); ohne dich: Maus am Rechner dreht und zoomt die Kamera, Handy unverändert (673, `maus_673`; nur am Rechner), Leben/Life in allen Spielertexten (1322).
 
@@ -18,11 +18,14 @@ Im Bau geprüft: Kurzzeile der Vorräte im Laden (785.24, `laden_582`), Leben/Li
 | 291.7 | Jerry | 1275 | Handy | Zeile 291.7 → „Lage herstellen“ (Probekampf Wölfe), Knopf „Tausch“, dann angreifen | nach dem Tausch bist du weiter dran | der Zug endet mit dem Tausch |
 | 291.8 | Jerry | 601.1 | Film | Probekampf Goblin-Späher, der Späher schießt auf den Helden, Stand `claude/build-291` (Film folgt, Jerry) | der Pfeil steckt in der Brust, dort zuckt der Held | Pfeil an Bein oder Fuß; Zucken oben, Pfeil unten |
 | 291.9 | Tom | 870.20 | Handy | Hauptmenü und „Über das Spiel“ ansehen, dann Menü → System → Handbuch durchblättern | kein „SRD 5.1 · CC BY 4.0“ mehr; im Handbuch keine Würfel, TP/HP oder Rüstungsklasse, der Wert heißt Leben | SRD-Hinweis steht noch; Würfel, TP oder RK im Handbuch |
+| 291.10 | Jerry | 1363 | Film | Probekampf Wölfe, der Söldner mit Schild wird gebissen, Stand `claude/build-291` (Film folgt, Jerry) | er zuckt, der Schild bleibt vor ihm | der Schild fährt in den Wolf oder der Arm wirkt steif |
 
 ## Lagen
 
 - 291.2: station=Morwen
 - 291.3: station=Krogg
 - 291.7: probe=WOLVES
+
+Nachtrag 291.10 (Jerry, 1363, Text von Jerry 03:03): Gegengelesen: Tom 16.11., 03:04 (Bewegung, darum Film; erreichbar im Probekampf Wölfe mit Söldner).
 
 Gegengelesen: Sokrates 16.11., 01:22 (drei Befunde, eingearbeitet Tom 01:23, dann frei): (1) 291.6 (1321, Stab beim Ausweichen) und 291.8 (601.1, Pfeil in der Brust, Zucken) sind Bewegung: nach Regel 9 als Film vom Stand `claude/build-291`, nicht als Handy, je Film nur der Gegenstand, „Wo und wie“ = was im Film zu sehen ist; ihre Lagen fallen weg. (2) 291.4 (1289): zusätzlich „Bilder/s oben im Reiter Test nicht unter Build 290“ in „Passt“, weil Schwarz hinter Wänden die Grafikzeit ändert und die Höhle schon hakelt (1145). (3) 291.9 (870.20): nicht „spielen bis in die Höhle“; Texte sichert der Bau (1322 ohne dich), am Handy nur Hauptmenü, „Über das Spiel“ und Handbuch.

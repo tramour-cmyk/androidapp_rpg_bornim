@@ -53,6 +53,7 @@ Letzte Antwort: 1363 beide Rotstellen behoben, Build 291 läuft.
 
 
 ## Einzelheiten
+- **Zu 1362, von Tom (16.11., 03:04):** dazu Film t291.10 (1363, Söldner mit Schild wird gebissen, Schild bleibt vor ihm), Zeile in `entwurf/t291-sammelbuild.md`; mit t291.6 und t291.8 vom Stand nach `9f11d8100`.
 
 - **Zu 1363, von Tom (16.11., 02:14):** Lauf 512 rot (typen.py von Tom, arkan_993, wolf_mess_438); auf `claude/build-291` beheben, Push baut; danach Testbitte (Tom).
 - **Zu 1363 (Jerry 16.11., 03:02):** arkan_993 behoben `5af7af273` (Test maß gegen die alte Brust). wolf_mess_438 behoben `9f11d8100`: Brakkas Zucken schwang den Schildarm in den Wolfskopf; jetzt bleibt der Schildarm im Zucken in seiner Haltung (Abstand 0,06 m), Bisse unverändert (treffen_709). Sichtbar: Prüfzeile für t291 an Tom: „Probekampf Wölfe, Söldner mit Schild wird gebissen | Passt: er zuckt, der Schild bleibt vor ihm | Falsch: Schild fährt in den Wolf oder der Arm wirkt steif“.
