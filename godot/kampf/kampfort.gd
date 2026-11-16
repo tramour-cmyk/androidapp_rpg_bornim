@@ -1295,6 +1295,10 @@ func _process(_dt: float) -> void:
 	_grass_spots()
 	if ring_open and _ring_uhr() > ring_start + int((RING_MS + GOOD_MS) * ring_faktor) + 60:
 		_answer_ring(Mars.NONE)
+	if nachlauf_bis >= 0.0 and clock_ms >= nachlauf_bis:     # 1415: das Tier steht; was im Zug der Gegner vorgemerkt ist, rückt jetzt (F8)
+		nachlauf_bis = -1.0
+		for fid in figures:
+			figures[fid].zurueck_in_reihe()
 	if playing or verhuellt or messpause:     # 402: unter der Blende warten Worte und Züge; 806: ebenso beim Messen
 		return
 	if end_asked != null:
@@ -1377,7 +1381,9 @@ func _play_say(e: Dictionary) -> void:
 		busy_ms = figures[actor].busy_ms
 	# 717.1 A (Chef 09.11., 09:03/09:06; F8): Zurechtrücken beginnt im Zug der Gegner und darf in den Zug des Helden hinein auslaufen,
 	# nie erst dort anfangen: was im Zug des Helden umgestellt wurde (glide_to merkt es vor), rückt mit dem nächsten Zug der Gegner
-	if by != null and by.side == "FOES":
+	# 1415: eine Zeile, die läuft, während ein Tier noch absetzt, bewegt niemanden; die Vorgemerkten rücken, wenn es steht (_process)
+	var im_nachlauf := clock_ms < nachlauf_bis
+	if by != null and by.side == "FOES" and not im_nachlauf:
 		for fid in figures:
 			if fid != actor or lunge_ms == 0:
 				figures[fid].zurueck_in_reihe()
@@ -1527,7 +1533,7 @@ func _play_say(e: Dictionary) -> void:
 		_todesmeldung_vorweg(e)
 		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
 		warte_ms = 0
-	for f in mars.fighters():
+	for f in mars.fighters() if not im_nachlauf else []:
 		# 573 (Chef 04.11., 20:33: „wenn jemand tot ist, bitte nicht mehr die Position verändern“; der letzte Jungwolf wurde nach dem
 		# Haken „ich gewinne“ tot in die Mitte gezogen, tote_573): wer keine Trefferpunkte mehr hat, bleibt liegen, wo er fiel
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled and f.hp > 0:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
@@ -1538,7 +1544,7 @@ func _play_say(e: Dictionary) -> void:
 				figures[f.id].glide_to(ziel, by != null and by.side == "FOES")
 	# 717 C: beim Platztausch kommt der neue Platz des einen vor dem des anderen; erst wenn alle Plätze dieser Meldung stehen, rücken
 	# die Vorgemerkten (im Zug der Gegner)
-	if by != null and by.side == "FOES":
+	if by != null and by.side == "FOES" and not im_nachlauf:
 		for fid in figures:
 			figures[fid].zurueck_in_reihe()
 	if tot_ms > 0:
