@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 21:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 21:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -37,13 +37,13 @@ Heute (seit 6:00): 156 erledigt, 134 neu. In Klammern bei „offen“: Stand 6:0
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | nichts offen in der Chefsache |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 4 weitere |
 | Jerry | 642 Wölfe ineinander beim Anlauf und Biss neben einem ruhenden… (Muss); dann 15 weitere |
 | Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 14 weitere |
-| Spike | 1484 Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grund… (Muss); dann 1 weitere |
+| Spike | 1484 Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grund… (Muss) |
 | Homer | 1489 Beschreibungen der Merkmale je Exemplar: je Merkmal und Art… (Muss) |
-| Diogenes | leer, weil 2 Termin, 1 ruht bis, 1 wartet auf |
+| Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss) |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
 | Perikles | leer, weil 16 Termin, 5 wartet auf, 2 wartet auf Diogenes |
 
@@ -72,7 +72,7 @@ Heute (seit 6:00): 156 erledigt, 134 neu. In Klammern bei „offen“: Stand 6:0
 | 19 | 1484 | Spike | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grundwert Tablet in LISTE… | M | 6 Godot besser nutzen | startbar |
 | 20 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 13. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 60.
+Danach 94 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 13. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
 ## Zu entscheiden
 
 Nichts offen.
@@ -87,7 +87,11 @@ Nichts offen.
 
 ## Zu tun
 
-Nichts offen.
+Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1484](tun/1484-tablet-messen.md) | **Muss** | E Technik | 16.11., 21:09 | Auf dem Tablet mit Build 293 einmal Wald und einmal Kampf messen (etwa 5 Minuten) | Spike |
 
 ## Offen je Rolle
 
