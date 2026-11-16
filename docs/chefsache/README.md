@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 10:23, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 10:27, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -59,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | Kampf passt | startbar |
 | 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | Kampf passt | startbar |
 
-Danach 93 weitere offen. Bei dir zum Testen (vorgelegt): 35. Gebaut, fährt mit dem nächsten Build: 2. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
+Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 35. Gebaut, fährt mit dem nächsten Build: 3. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
