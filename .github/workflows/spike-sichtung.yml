@@ -1,0 +1,37 @@
+name: Spike Sichtung Kaufbewegungen (1416)
+
+# 1416 (Chef 16.11., 12:27): alle Bewegungen der gekauften UAL2 als Kontaktblätter (tools/blender348/ual2_sichtung.py).
+# 416.4a: Kaufmodelle nur über einen Ablauf auf GitHub, nie in eine Sitzung; ins Artefakt gehen nur Blätter und Namen.
+on:
+  push:
+    branches: ["claude/spike-1416-**"]
+    paths: ["tools/blender348/ual2_sichtung.py", ".github/workflows/spike-sichtung.yml"]
+  workflow_dispatch:
+
+jobs:
+  sichtung:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 fonts-dejavu-core > /dev/null
+          python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
+      - name: Gekaufte UAL2 (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+          MUSTER: "Universal.Animation.Library.2.Source.zip"
+        run: |
+          timeout 900 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
+          find $RUNNER_TEMP/kauf -name 'UAL2*.glb' | head
+      - name: Kontaktblätter
+        run: |
+          mkdir -p sichtung
+          KAUF=$RUNNER_TEMP/kauf OUT=sichtung timeout 1800 bl/bin/python -I tools/blender348/ual2_sichtung.py > sichtung/sichtung.log 2>&1 || { tail -40 sichtung/sichtung.log; exit 1; }
+          grep -E "^(GLB|NETZE|BEWEGUNGEN|BLATT)" sichtung/sichtung.log
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: ual2-sichtung
+          path: sichtung
