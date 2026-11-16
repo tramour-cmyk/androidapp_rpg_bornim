@@ -836,7 +836,7 @@ static func verband(z: Zustand, hw: BrsHeld, id: String) -> String:
 	z.varianten[marke] = [int(vv[0]) + 1, i]
 	var t := String(liste[i][0 if Sprache.aktiv() == "de" else 1])
 	var plus := hw.leben - vor
-	t = t.replace(" +{0} Leben.", "").replace(" +{0} Life.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
+	t = t.replace(" +{0} Leben.", "").replace(" +{0} Life.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} Leben“
 	var auf := z.fert_notiz()
 	return t + ("\n" + auf if auf != "" else "")
 
