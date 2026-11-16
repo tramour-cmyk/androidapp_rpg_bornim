@@ -69,18 +69,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:25 15.11.: Spike neu `…79F2ADvX6hyURaqmPK` (1270.1), alt archiviert (8,54 $ auf 1270.1); Tom neu `…76Ra6BZe2iYammL66v` (785.1), alt `…78NR8tcbL1C1FvSd17` archiviert um 12:29 wenn idle
 - 12:16 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` wieder aus dem Archiv (Chef will lesen, Sokrates 12:15): nicht archivieren bis der Chef es sagt; im Lauf `--ohne` Sokrates-Zeilen dieser Kennung
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
-- 01:06 16.11.: Startsperre 01:06 Start Tom (Sammelbuild 785.24, 1355, lauf.py; neu …77sUqpvJUtCb4yNz2H); Rotbuch 1356 (Sokrates), 1357 (Tom), 1358 (Jerry) angelegt; Wächter 1186 an Sokrates
-- 01:20 16.11.: Startsperre 01:20 Start Sokrates (Neustart, ddc75c68e); alte Sitzung …78BYXeazUzQG4s3QZE nach Ruhe archivieren, Kosten 5,22 $ auf 1186, 654, 1360; Spike über „1286 Läufe frei“ unterrichtet
-- 01:29 16.11.: Startsperre 01:29 Start Tom (Neustart, bd58fd48d); alte Sitzung …77sUqpvJUtCb4yNz2H nach Ruhe archivieren, Kosten 7,03 $ auf 785.24, 1355, 1361
-- 02:04 16.11.: Startsperre 02:04 Start Jerry, Homer, Perikles (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79NReuhLMU6cqsp6GW 2026-11-15T23:17 (lauf.py)
-- 02:04 16.11.: Marke Start-fehlt Sokrates 16.11.-01:20 (lauf.py)
 - 02:04 16.11.: Marke Archiv session_01Hmoj791pfnSs82NQrnpLnf (lauf.py)
 - 02:04 16.11.: Marke Archiv session_01Hmoj79NReuhLMU6cqsp6GW (lauf.py)
 - 02:04 16.11.: Marke Archiv session_01Hmoj79JCQRKsCCgciyGpnJ (lauf.py)
-- 02:08 16.11.: Startsperre 02:08 Start Jerry 1358, Homer 302, Perikles Wochenziel (lauf.py); alte Sitzungen …791pfnSs82NQrnpLnf (Jerry 1072, add_repo-Sperre), …79NReuhLMU6cqsp6GW (Homer, wartet 1352a), …79JCQRKsCCgciyGpnJ (Perikles, wartet 1351) archiviert, Fragen liegen als Chefsache-Dateien; Sokrates-Nachfolger bewusst nicht gestartet (wartet auf Diogenes 1129.4, --ohne Sokrates)
 - 02:19 16.11.: Startsperre 02:19 Start Jerry 1363 (Tom 02:17, 29b4172c1, per Weiter an …77q7xhEfYnpURnHgBh)
 - 03:03 16.11.: Marke Übergabe-Chef Homer 16.11. 02:07 (lauf.py)
 - 03:03 16.11.: Marke Hängt session_01Hmoj76VdQxk8E6re5azHWe 2026-11-16T00:54 (lauf.py)
@@ -100,3 +94,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:29 16.11.: Startsperre 07:29 Start Jerry (Neustart, b7b526127); alte Sitzung …79WJgXnZfYNBT9Sz4M nach Ruhe archivieren (Filmläufe t291 laufen, Weckruf prüfen), Kosten auf 1363, 1362
 - 08:01 16.11.: Startsperre 08:01 Start Jerry (Neustart, 9f208684c); alte Sitzung …75TLTx7miahDpcGVZP nach Ruhe archivieren, Kosten auf 1366, 1072
 - 08:10 16.11.: Startsperre 08:10 Start Perikles 1372 (Ford, lauf.py Absturz Zeile 200 startbar.py, per Weiter an …76MtaUFLBbEUE3ZMaK); Lauf 08:07 von Hand ohne lauf.py
+- 08:11 16.11.: Startsperre 08:11 Start Tom, Spike, Diogenes, Homer, Tuffy (lauf.py)
+- 08:11 16.11.: Marke Nachhalten 16.11. (lauf.py)
+- 08:11 16.11.: Marke Stellungnahme Sokrates 16.11. (lauf.py)
+- 08:11 16.11.: Marke Abgleich ganz 16.11. (lauf.py)
+- 08:11 16.11.: Marke Start-fehlt Spike 16.11.-06:50 (lauf.py)
+- 08:11 16.11.: Marke Archiv session_01Hmoj75u1oiSjLm3ypdDjwu (lauf.py)
+- 08:11 16.11.: Marke Archiv session_01Hmoj77EnUfBvqrUL2z7im2 (lauf.py)
+- 08:11 16.11.: Marke Archiv session_01Hmoj77tuR4inAweJo2KGGk (lauf.py)
+- 08:11 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 07:54) (lauf.py)
