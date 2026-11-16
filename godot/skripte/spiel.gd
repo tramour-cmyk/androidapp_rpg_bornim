@@ -1551,7 +1551,7 @@ func lage_herstellen(l: Dictionary) -> void:
 # sterben.“): Automatisch misst die Grafik einmal beim ersten Start, hinter einer schwarzen Blende wie die Ortsblende mit den Worten
 # [1365.einmessen.*]; sie stehen, bis sie zu lesen sind (Ortsblende.lese_ms), höchstens EINMESS_MAX_MS, mindestens so lange wie die Messung
 const EINMESS_MAX_MS := 7000.0
-func einmessen() -> void:
+func einmessen(gezeigt := Callable()) -> void:
 	if not Grafik.braucht_messung(): return
 	var de := Sprache.aktiv() == "de"
 	var w: Array = [Grafik.EINMESSEN_TITEL, Grafik.EINMESSEN_TEXT, Grafik.EINMESSEN_WAHL].map(func(x): return String(x[0 if de else 1]))
@@ -1569,7 +1569,10 @@ func einmessen() -> void:
 	mitte.add_child(worte)
 	ui.add_child(e)
 	var bis := Time.get_ticks_msec() + minf(Ortsblende.lese_ms(String(w[0] + w[1] + w[2]).length(), Ortsblende.daten()), EINMESS_MAX_MS)
-	create_tween().tween_property(worte, "modulate:a", 1.0, 0.4)
+	var ein := create_tween()
+	ein.tween_property(worte, "modulate:a", 1.0, 0.4)
+	await ein.finished
+	if gezeigt.is_valid(): await gezeigt.call()   # Bildlauf --grafik698: knipsen, wenn die Worte stehen
 	await Grafik.messen(get_tree())
 	while Time.get_ticks_msec() < bis: await get_tree().process_frame
 	var tw := create_tween()
@@ -3238,8 +3241,7 @@ func grafik_bilder() -> void:
 	# zuerst die Einmess-Blende (1365) wie beim ersten Start, geknipst, wenn die Worte stehen
 	blende.color.a = 1.0
 	Grafik.probe = true; Grafik.wahl = "auto"; Grafik.auto_stufe = -1
-	get_tree().create_timer(1.5).timeout.connect(func(): knips("%s/einmessen.png" % dir))
-	await einmessen()
+	await einmessen(func(): await knips("%s/einmessen.png" % dir))
 	Grafik.probe = false
 	blende.color.a = 0.0
 	var vp := get_viewport().get_viewport_rid()
