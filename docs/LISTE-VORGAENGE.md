@@ -274,5 +274,5 @@
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Spike | K | gebaut, Geprüft an: 1b773eca8 (maus_673 am Rechner grün) | – | claude/spike-673-maus | – | E Technik | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
-| 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | Spike | K | ruht | 23.11. | – | – | E Technik | – |
+| 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | Spike | K | erledigt | – | – | – | E Technik | – |
 | 698a | Rückfrage zu 698: was jede Grafikstufe abschaltet (Tusche, Licht aus Quelle und Gold in jeder Stufe; Schatten, 3D-Auflösung, Gras des Kits, Dorfeffekte gestuft), Automatisch als Vorgabe | Spike | M | startbar | Chef | – | – | E Technik | – |
