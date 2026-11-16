@@ -149,3 +149,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:26 16.11.: Marke Start-fehlt Tuffy 16.11.-20:20 (lauf.py)
 - 21:27 16.11.: Start Tuffy 1415 (session_01Hmoj76u1LvRMqGWHketsig, Kaufrepo-Satz), Perikles 21:26; 1488, 1439, 601.1 folgen als Tuffy-Zeilen danach
 - 21:29 16.11.: Startsperre 21:29 Start Sokrates (Ford von Hand), Neustart-Meldung 21:26 (31049d03b, Haken zweite Erinnerung)
+- 21:30 16.11.: Sokrates Neustart (session_01Hmoj77pgBEnvqA1NaaNeJP), alte …794brfP9KD4QDfzDUh archiviert, 6,59 $ auf 1411 gebucht (Link-Rückmeldung an die alte Sitzung entfiel: archiviert); Tuffy 1415 läuft
