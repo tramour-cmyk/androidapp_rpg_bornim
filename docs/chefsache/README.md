@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 14:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 14:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -24,14 +24,14 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 68 (68) | 26 | 1 | 9 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
-| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (14) | 8 | 0 | 1 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
+| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (14) | 8 | 1 | 1 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (57) | 11 | 0 | 5 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 (18) | 6 | 0 | 7 | 4 | 1270.4 (Spike) Vergleichsfilm alt gegen neu Glühen und vorberech… |
-| Werkzeuge und Abläufe der Firma | 46 (56) | 27 | 0 | 1 | 9 | 1428 (Perikles) Bitte, auf die jemand wartet, nie nur im Vorrat;… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 (18) | 5 | 0 | 6 | 4 | 1270.4 (Spike) Vergleichsfilm alt gegen neu Glühen und vorberech… |
+| Werkzeuge und Abläufe der Firma | 44 (56) | 26 | 0 | 1 | 9 | 1424 (Perikles) 12 von 20 Läufen rot, meist bekannte Rote auf Zwe… |
 | Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 80 erledigt, 69 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 83 erledigt, 69 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -45,7 +45,7 @@ Heute (seit 6:00): 80 erledigt, 69 neu. In Klammern bei „offen“: Stand 6:00.
 | Homer | Pflege von Werkzeug: 4 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Diogenes | 481.2 Rechnung glut2.py mit Deckel des Abzugs von Rüstung und Sch… (Muss) |
 | Sokrates | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 3 weitere |
-| Perikles | M? M? entscheiden: 1426, 1427 (Muss); dann 2 weitere |
+| Perikles | M? M? entscheiden: 1426, 1427 (Muss); dann 1 weitere |
 
 **Die nächsten 20**
 
@@ -57,7 +57,7 @@ Heute (seit 6:00): 80 erledigt, 69 neu. In Klammern bei „offen“: Stand 6:00.
 | 4 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | in Arbeit |
 | 5 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | Kampf passt | startbar |
 | 6 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | Kleiderschrank und Modelle | startbar |
-| 7 | 1416 | Spike | Winken oder ähnliche Geste war im Video des Pakets UAL2; LISTE-BESTAND sagt „Fe… | M | Kleiderschrank und Modelle | startbar |
+| 7 | 1416 | Spike | Winken oder ähnliche Geste war im Video des Pakets UAL2; LISTE-BESTAND sagt „Fe… | M | Kleiderschrank und Modelle | in Arbeit |
 | 8 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
 | 9 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | Kleiderschrank und Modelle | startbar |
 | 10 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
@@ -66,13 +66,13 @@ Heute (seit 6:00): 80 erledigt, 69 neu. In Klammern bei „offen“: Stand 6:00.
 | 13 | 1418 | Tom | Android-Zurück im Hauptmenü beendet das Spiel sofort; künftig Abfrage „Spiel be… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 14 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 15 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1428 | Perikles | Bitte, auf die jemand wartet, nie nur im Vorrat; als Vorgang mit Empfänger als… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1424 | Perikles | 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne die Behebung aus Bui… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 870.12 | Perikles | Projektplan 2.3 und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 64… | K | Umzug BRS, SRD ablösen | startbar |
-| 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 16 | 1424 | Perikles | 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne die Behebung aus Bui… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 870.12 | Perikles | Projektplan 2.3 und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 64… | K | Umzug BRS, SRD ablösen | startbar |
+| 18 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 
-Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 23. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 22. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
