@@ -596,6 +596,35 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var t := Transform3D(Basis(achse.cross(quer).normalized(), achse, quer), griff)
 		_haenge(m, sk, bi, brust, waffe, t, "RueckenWaffe")
 
+# 531 (Chef 03.11., 23:42: „Garrick wie alt …: Langbogen auf dem Rücken“): was eine Person ohne Hand auf dem Rücken trägt, Modelle aus
+# waffen.py (643: longbow.bin Griff am Ursprung, Wurfarme +Y, Rücken +X, Spitzen −X; quiver.bin Mitte, Öffnung +Y, Rückseite −Z).
+# Alt (MapFolk.kt garrick: „the longbow slung across his back over the quiver, both hands free“; Dress.kt bow, bowOnBack): der Bogen
+# quer von der linken Hüfte über die rechte Schulter, die Spitzen liegen am Rücken, der Griff steht eine Handbreit ab; der Köcher
+# darunter schräg zur anderen Schulter (Dress.kt: oben 0,45 der Schulterbreite zur Seite, unten 0,15 zur Gegenseite), über Kreuz
+const RUECKEN_JE := {"garrick": ["quiver", "longbow"]}
+const KOECHER_HOCH := Vector3(0.26, 1.0, 0.0)    # Ruhelage, +X links: oben über die linke Schulter
+const BOGEN_HOCH := Vector3(-0.55, 1.0, 0.0)     # oben über die rechte Schulter (Dress.kt sk.upper.dir(P3(-0.55, 1.0, 0.0)))
+static func ruecken_tragen(m: Node3D, sk: Skeleton3D, was: Array) -> void:
+	if was.is_empty() or sk == null: return
+	var bi := sk.find_bone("spine_03")
+	if bi < 0: return
+	var brust := im_raum(m, sk) * sk.get_bone_global_rest(bi)
+	var y := brust.origin.y
+	var r := ruecken_aus(haut_punkte(m, sk, false), y - 0.63, y + 0.1)
+	var aussen: float = r[2]
+	if "quiver" in was:
+		# Rohr 60 cm, oben 6 cm Halbmesser: Mitte 12 cm unter spine_03, Rückseite am Rücken
+		var hy := KOECHER_HOCH.normalized()
+		var z := Vector3.FORWARD                     # Modell +Z nach hinten (−Z der Figur), seine Rückseite (−Z) an den Körper
+		var t := Transform3D(Basis(hy.cross(z), hy, z), Vector3(0.03, y - 0.12, aussen - 0.065))
+		_haenge(m, sk, bi, brust, "quiver", t, "RueckenKoecher")
+		aussen -= 0.12
+	if "longbow" in was:
+		var hb := BOGEN_HOCH.normalized()
+		var x := Vector3.FORWARD                     # Modell +X (Rücken des Bogens) nach hinten, die Spitzen (−X) zum Körper
+		var t := Transform3D(Basis(x, hb, x.cross(hb)), Vector3(0.0, y - 0.1, aussen - 0.04))
+		_haenge(m, sk, bi, brust, "longbow", t, "RueckenBogen")
+
 # hinterste Stelle des Rumpfs (z, Ruhelage) auf Hoehe des Schulterblatts (y1 - 0,15) und des Kreuzes (y0 + 0,1), dazu die hinterste
 # zwischen y0 und y1; nur die Mitte (|x| < 0,12), alle Netze mit Haut (Koerper, Kleidung, Umhang)
 static func ruecken(m: Node3D, y0: float, y1: float) -> Array: return ruecken_aus(haut_punkte(m, null, false), y0, y1)
@@ -975,6 +1004,7 @@ static func person(id: String, mats: Array) -> Node3D:
 	m.name = "Person_" + id
 	m.scale = Vector3.ONE * float(ka.get("groesse", p.get("groesse", 1.0)))
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	ruecken_tragen(m, sk, RUECKEN_JE.get(id, []))   # 531
 	var kh: Array = p.get("kopfhaltung", [0, 0, 0])
 	var h := Haltung.new()
 	h.name = "Haltung"
