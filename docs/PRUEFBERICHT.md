@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 258 · 1369, 1371, 1382, 1364, 1148 (Perikles `7c31171c6`, `905a04bb1`; 16.11., 09:1x)
+
+- **1369 greift:** Wegwerfkopie, Marke „Lauf läuft bis 16.11., 14:00 (Render)“ oben in `ARBEIT-TEAM-SPIKE.md` und `ARBEIT-TEAM-JERRY.md`: Spike hält, keine Warnung; Jerry hält, Warnung „Klammer ohne Namen dieses Vorrats (Jerry/Tuffy), gilt für das Team“; Tuffy, Tom unberührt.
+- **1371 greift, damit 1364:** `startbar.py --stand` „Zusatz für Tuffy (bei Jerry): 1323, 1340, 1284a“; Übersicht „Je Rolle das Nächste“ Zeile Tuffy 1323 (Jerry selbst 1305).
+- **1382 greift:** Übersicht unter Kapitel 1 „↳ Alles an einer Stelle: Figuren, Helden, Gegenstände“ (13 offen, 3 Muss), Nummern 649, 644, 458, 1382, 1385 (Unterbau Spike), 1386 (Bewegungspaket).
+- **1148:** 1369 erledigt, echter Fall einer Spike-Marke fehlt weiter → `warte 1148 23.11.`
+
 ## Lauf 257 · startbare „gebaut“: 1217, 464, 1170, 1173, 1200, 1244, 1317, 1324, 1300, 1268.1, 1268.2, 1268.5, 1247, 1316, 1328.2; Prüfbericht ausgemistet (16.11., 09:0x)
 
 - **1170 greift:** echter Fall 1266 Kerbholz: Film und Hörprobe auf Telegram (15.11., 11:52, gebilligt 12:31/12:48), in t288 „fährt unverändert mit (kein neuer Prüfpunkt)“; Prüflisten t286–t291 ohne Klang-Zeile als Handyfrage.
