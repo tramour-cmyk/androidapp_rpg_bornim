@@ -664,3 +664,4 @@
 2026-11-16 17:53:33	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 33199 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 18:09:24	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 32776 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 18:09:46	commit-pruefung	CLAUDE.md: 15257 Bytes, Obergrenze 15000, Commit fügt 273 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-16 18:10:24	commit-pruefung	CLAUDE.md: 15008 Bytes, Obergrenze 15000, Commit fügt 24 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
