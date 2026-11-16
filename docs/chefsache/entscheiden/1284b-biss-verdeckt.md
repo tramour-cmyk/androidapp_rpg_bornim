@@ -26,6 +26,8 @@ Geprüft an: [Commit a71c46f61](https://github.com/tramour-cmyk/androidapp_rpg_b
 - **D: warten auf 1402** (Kampfkamera als großes Thema). Kosten: keine jetzt; bis dahin wie C.
 - **Stärkstes Gegenargument gegen A:** Es nimmt einen Teil von 1402 vorweg; eine Kamera, die sich ab und zu hebt, kann unruhig wirken.
 
+**Stellungnahme Sokrates (16.11., 12:22):** Was fehlt: Ob ein Biss trifft, zeigt nicht nur das Maul, sondern auch der Getroffene (er zittert, 249; zuckt, 709), dazu Zahl und Klang. Jerry hat nur gemessen, ob die Zähne verdeckt sind, nicht, ob der Treffer trotzdem lesbar ist. Stärker als „Kamera wirkt unruhig“ ist: A baut ein Stück der Kampfkamera vorab, die als großes Thema (1402) ohnehin kommt, und kostet eine Sitzung in einer Woche „Muss zuerst“ (Guthaben 37 %). Empfehlung: **D**, mit einem Film des jetzigen Stands (drei verdeckte Bisse, Treffer und Fehlbiss) im nächsten Sammelbuild als Bild-/Filmzeile; reicht dir die Reaktion des Helden nicht, kommt der verdeckte Biss als Fall in 1402.
+
 **Folgerungen:** Nach A baut Jerry, misst mit `biss_1284` (Ziel: höchstens 1 verdeckt je Wurf) und schickt einen Film. Nach B ebenso. Nach C oder D geht der jetzige Stand (Nachbar zur Seite, keine Luftbisse) in den nächsten Sammelbuild.
 
 Antwort: …
