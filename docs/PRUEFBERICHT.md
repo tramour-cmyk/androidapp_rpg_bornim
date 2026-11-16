@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 262 · 1399, 1392 Rotbuch-Besitzer; 1396 Tuffy auf belegtem Zweig (Perikles `e4639d759`, `fd2637cd5`; 16.11., 10:4x)
+
+- **1399 greift, damit 1392:** `rotbuch_test.py` grün. Klon `--depth 30` ohne Netz (nur Name): 52 von 370 anders als voll, davon 49 an Ford, keiner mehr an Perikles/Sokrates/Homer; übrig anmarsch_506_1 → Tom (voll Jerry), kartennebel_bild_505 → Tom (voll Sokrates). Mit Netz (`anleger_netz`, öffentliche API) ziege_4162, hoehle_492 → Tom, umweg_399, brs_blatt_870, klang_test, anmarsch_506_1, mars_regeln → Jerry, je wie im vollen Klon.
+- **1396 greift nicht (D262.1 → 1407, Perikles):** `lauf_zweige_test.py` grün, aber `sitzungszweige()` liest `external_metadata.current_branches`, und das kommt bei `lauf.py` nie an: `list_sessions` liefert kein `external_metadata` (nur `get_session`, dort `{"": "claude/build-292"}`), Fords Kurzzeilen (`LISTE-BETRIEB.md` 3) haben kein Zweigfeld, `kosten.sitzungen` liest keins. Beleg: Spalte „Zweig“ in `ARBEIT-BESETZUNG.md` (dieselbe Quelle, Zeile 1150) in 306 Commits seit 09.11. nie gefüllt. Der Ausschluss ist damit im Betrieb immer leer.
+
 ## Lauf 261 · 654.2 Messlauf ohne Freigabe (Perikles `40b4e09e8`; 16.11., 10:0x)
 
 - **654.2 greift:** `probelauf_messfrage_test.py` 9 von 9 (bild=nein mit „Messfrage:“ frei; Push-Lauf, Film, nur film=nein, leere Messfrage, zweiter am Tag nicht frei; zählt gegen die Grenze). Am Werkzeug: `handlauf_mcp` mit `inputs: {bild: nein}` setzt `bild_nein`; ohne Abholen des Zweigs bleibt die Nachricht leer → nicht frei. Zählung 23.11. (Freigaben je Woche unter 60, Messläufe je Vorgang) in der Wochenzählung.
