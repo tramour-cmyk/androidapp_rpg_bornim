@@ -119,3 +119,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:24 16.11.: Marke Archiv session_01Hmoj76h2mPbr2GReddWYJP (lauf.py)
 - 09:25 16.11.: Startsperre 09:25 Start Perikles (lauf.py)
 - 09:28 16.11.: Neustart Perikles cdb4d9327: Start Perikles 1392, alte Sitzung archiviert (8,58 $ auf 1369 gebucht)
+- 09:45 16.11.: Neustart Diogenes f5332dfa1: Sitzung archiviert (7,04 $ auf 1391 gebucht), Nachfolger 790 ab 18:07; Hinweis Sokrates Spike 1386/1395: Zu 1386, 1395 steht schon im Vorrat Spike
