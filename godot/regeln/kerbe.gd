@@ -975,7 +975,7 @@ func gegner_zug() -> void:
 ## Regel 19 Taumeln (1352a A, Chef 16.11., 10:15: „wir schauen uns das mal im Kampf an“; DESIGN-GLUT.md 19): verliert [g] seit seiner
 ## Ansage eines großen Schlags taumeln_anteil seines Lebens, jeder Schaden zählt (auch Zustände), geht der Schlag ins Leere
 ## (mars.gd _hurt ruft es nach jedem Schaden an einem Gegner, der noch steht)
-func taumeln(g, schaden: int) -> bool:
+func taumeln(g: Variant, schaden: int) -> bool:
 	var p: Dictionary = g.gl.get("plan", {})
 	if schaden <= 0 or p.is_empty() or not p.get("gross", false):
 		return false
