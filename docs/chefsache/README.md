@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 07:07, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 07:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -16,7 +16,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 12 | 25 | 643 (Jerry) Langbogen mit Köcher als Waffenmodell für Garrick… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 7 | 0 | 6 | 4 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
-| Werkzeuge und Abläufe der Firma | 59 | 36 | 0 | 0 | 9 | 1368 (Jerry) Zeile „**Abgabe:** …“ oben im Vorrat: je startbar… |
+| Werkzeuge und Abläufe der Firma | 60 | 37 | 0 | 0 | 9 | 1368 (Jerry) Zeile „**Abgabe:** …“ oben im Vorrat: je startbar… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
@@ -27,9 +27,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Jerry | 1368 Zeile „**Abgabe:** …“ oben im Vorrat: je startbarem Kampf-M… (Muss); dann 10 weitere |
 | Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1148 lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl d… (Muss); dann 25 weitere |
+| Diogenes | 1098.1 nach Fords erstem Neustart über Probe D bzw. Starter Tiefe,… (Muss); dann 24 weitere |
 | Sokrates | 620 Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebi… (Kür) |
-| Perikles | Pause bis 16.11., 09:00 |
+| Perikles | 1369 D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lau… (Muss) |
 
 **Die nächsten 20**
 
@@ -52,11 +52,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 15 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 16 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
 | 17 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 18 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
 
-Danach 94 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
+Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
