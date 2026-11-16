@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:09, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -15,7 +15,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kampf passt | 68 | 26 | 3 | 10 | 9 | 1284 (Jerry) Riesenratte sagt „Biss“ an, Bericht „Riesenratte… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 15 | 6 | 0 | 1 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 | 9 | 0 | 12 | 20 | 1398 (Perikles) Prüfliste mischt wieder Bild/Film mit APK-Wegen;… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 | 10 | 0 | 13 | 20 | 168.1 (Jerry) Umsetzung 168: Garrick fest in Kapitel 2, Söldner… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 8 | 0 | 10 | 4 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
 | Werkzeuge und Abläufe der Firma | 41 | 24 | 0 | 1 | 9 | 1351 (Perikles) Rechteprüfung lehnt freigegebenen Bildlauf PROBE=… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -32,7 +32,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
 | Sokrates | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss); dann 1 weitere |
-| Perikles | M? M? entscheiden: 1406, 1398, 1400 (Muss); dann 1 weitere |
+| Perikles | M? M? entscheiden: 1406, 1400 (Muss); dann 1 weitere |
 
 **Die nächsten 20**
 
@@ -59,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | Kampf passt | startbar |
 | 20 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | Kampf passt | startbar |
 
-Danach 89 weitere offen. Bei dir zum Testen (vorgelegt): 35. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 15. Ruhend oder nach dem Meilenstein: 62.
+Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 36. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 15. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
