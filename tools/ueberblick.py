@@ -146,6 +146,15 @@ def je_rolle():
             g = collections.Counter(re.sub(r"\s*[(:;].*$|\s+\d.*$", "", z[4]) for z in s.plan(r) if z[4] and "fuer" not in z[3])
             was = "leer, weil " + (", ".join("%d %s" % (n, w) for w, n in g.most_common(3)) or "keine offene Zeile")
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
+        for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
+            if team != r: continue
+            eigen = [x for x in muss if not x[2].startswith("Übernahme von")]
+            zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
+            frei = [x for x in eigen[1:] if (x[3].get("zweig") or "–") in ("–", "-", "", None) or x[3].get("zweig") != zw]
+            frei = [x for x in frei if not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))]
+            if frei: wz = zeile(frei[0], "Muss von %s, neben dessen Arbeit" % team) + ("; dann %d weitere" % (len(frei) - 1) if len(frei) > 1 else "")
+            else: wz = "leer, weil %s kein zweites unabhängiges Muss hat" % team + (" (Pause)" if p else "")
+            aus.append("| %s | %s |" % (zus, wz.replace("|", "/")))
     return aus
 
 
