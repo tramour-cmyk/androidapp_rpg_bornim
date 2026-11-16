@@ -151,3 +151,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:04 16.11.: Marke Start-fehlt Homer 16.11.-21:01 (lauf.py)
 - 22:04 16.11.: Marke Archiv session_01Hmoj76ZXZhJrxTbHvQ4FiN (lauf.py)
 - 22:04 16.11.: Warnung „Start Homer nicht angekommen“ (21:01) irrig: Homer lief 21:01–21:57 und ist archiviert (Wächter prüft nur lebende Sitzungen)
+- 22:05 16.11.: Lauf 22:03: Start Diogenes 1485 (session_01Hmoj75vVcD77XixJkEaw7D, Kaufrepo-Satz), alte …76ZXZhJrxTbHvQ4FiN archiviert, 5,63 $ auf 1385 gebucht; Tom, Spike, Perikles, Sokrates, Tuffy, Jerry belegt (Tom/Spike/Sokrates idle, eigene Arbeit offen)
