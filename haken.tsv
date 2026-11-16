@@ -619,3 +619,4 @@
 2026-11-16 14:11:24	commit-pruefung	CLAUDE.md: 15112 Bytes, Obergrenze 15000, Commit fügt 134 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-16 14:12:21	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-16 14:13:54	probelauf	748: Push angehalten, der letzte Lauf auf claude/spike-1416-winken ist rot (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43873608547, Stand a4ef25e22). Erst das Protokoll lesen (	claude/spike-1416-winken
+2026-11-16 14:14:11	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1416 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (	claude/spike-1416-winken
