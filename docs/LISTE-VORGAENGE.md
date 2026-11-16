@@ -185,7 +185,7 @@
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | K | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
 | 790 | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab 200 Tsd., Chef 09.11., 18:05) | Diogenes | M | startbar | 16.11. 18:07 | – | – | Q QM | – |
-| 1098.1 | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe D bzw. Starter Tiefe, Elternkette, Modell, Umgebung der neuen Sitzung prüfen (Zu 1098) | Diogenes | K | startbar | – | – | – | B Abläufe | 0,94 $ |
+| 1098.1 | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe D bzw. Starter Tiefe, Elternkette, Modell, Umgebung der neuen Sitzung prüfen (Zu 1098) | Diogenes | K | startbar | 1429 | – | – | B Abläufe | 0,94 $ |
 | 1128.3 | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen (12 aus der Liste in 1128), nach 285 Zahlen an Perikles und Chef ohne Wertung | Diogenes | M | startbar | 23.11. | – | – | Q QM | 5,59 $ |
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | 23.11. | – | – | Q QM | – |
 | Pflege | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Diogenes | K | startbar | – | – | – | B Abläufe | – |
@@ -227,6 +227,7 @@
 | 1411 | Von Chef (1292 A, 16.11., 11:49): Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei Heilung (Wundsegen, Kraft schöpfen fest, Tränke fest, Güte bei Tränken nur Idee 976); Vorlage nach 1403 | Sokrates | M | startbar | – | – | – | G Balance | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1102,71 $ |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
+| 1429 | D264.1 von Diogenes (1098.1): Ford …76awPjHi5batouXHgC 16.11., 14:05 bei 563 Tsd. used_tokens (get_session) ohne Selbstneustart (Schwelle 400 Tsd.); Starter …78K3Ut6YQSgPLqZEvX seit 15.11., 16:11 unbenutzt. Fords Kurzzeilen tragen für jede Sitzung 150000 statt used_tokens, die eigene auch; Haken-Erinnerung nicht nachgestellt | Ford | M? | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |

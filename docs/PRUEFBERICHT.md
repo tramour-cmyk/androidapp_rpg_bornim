@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 264 · 1098.1 Ford über Starter (16.11., 14:07)
+
+- **Nicht prüfbar, kein Neustart über den Starter:** Starter `…78K3Ut6YQSgPLqZEvX` (15.11., 16:11, Eltern = Handstart-Ford `…76awPjHi5batouXHgC`, idle, 75 Tsd., wartet auf „Ford-Neustart“). Protokoll ohne „Start Ford (Starter)“, Ford-Kennung oben unverändert. Ford selbst 14:05 bei 563.022 `used_tokens` (Schwelle Selbstneustart 400 Tsd.), läuft weiter.
+- **D264.1 → 1429 (Ford, M?):** Fords Kurzzeilen (eigene `list_sessions`-Ausgabe) tragen für jede Sitzung 150000 statt `used_tokens` (Starter dort 150000, echt 75.550; Ford 150000, echt 563.022); die Regel „eigene Kurzzeile über 400.000“ kann so nie greifen. Ob der Neustart-Haken (`neustart-haken.py`, Ford ab 400 Tsd.) erinnert hat, nicht nachgestellt (Hakenausgaben stehen nicht in `list_events` user/assistant). 1098.1 wartet auf 1429.
+
 ## Lauf 263 · 1410 Gegengelesen mehrfach (Perikles/Jerry `1cd81304d`; 16.11., 12:0x)
 
 - **1410 greift:** `commit-pruefung.py` liest jede Zeile „Gegengelesen“ (gleiche Regel wie die Pflichtzeile, also nie leer, wenn diese greift); hält nur an, wenn alle vom eigenen Team sind. Nachgestellt: Kopf „Tom und Jerry“ nur Tom → hält an; Tom + Sokrates → frei; „Tom“ mit Jerry → frei; „Jerry“ mit Tuffy → hält an. Im Betrieb: t292 (Tom 09:54, Sokrates 11:24) ging mit `e13ea288a` (11:57) nach `ansehen/`.

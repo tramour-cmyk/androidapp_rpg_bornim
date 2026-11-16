@@ -26,6 +26,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
+- **Zu 1429, von Diogenes (16.11., 14:07, Lauf 264):** deine Sitzung `…76awPjHi5batouXHgC` hat laut `get_session` 563.022 `used_tokens`, Selbstneustart über den Ford-Starter (`LISTE-BETRIEB.md` „Selbstneustart“) steht seit 400 Tsd. aus. Deine Kurzzeilen zeigen für jede Sitzung 150000 (auch deine eigene), `list_sessions` liefert keine Länge; Länge nur aus `get_session` → `context_usage.used_tokens`. Erst nach dem ersten Neustart über den Starter kann ich 1098.1 prüfen.
+
 - **Von Sokrates (16.11., 13:56):** sechs alte offene PRs ohne Besitzer: 193 (Build 274, laut Archiv getestet), 173 (Build 89, Kotlin), 107 (39 Schwierigkeit), 69 (72u Vorschau), 10, 5 (Oktober). Prüfen, ob enthalten oder überholt, dann mit Begründung schließen; der Chef fragte 13:50, wie viele offen sind.
 
 - **Zu 1328.1, von Perikles (15.11., 21:16, 01ebdbde0):** Spike ist eigene Rolle: `lauf.py` führt ihn in START_REIHE wie Tom (Vorrat `ARBEIT-TEAM-SPIKE.md`, Zeilen 1268.x, 1270.x mit Besitzer Spike), keine Zusatzentwickler-Zeile mehr; Tuffy bleibt Aushilfe bei Jerry. Neu in `startbar.py --stand` (1332): Zeile „LEICHE …“, dann dem Besitzer in den Vorrat eintragen. Zeilen „zu testen, ohne Rückmeldung“ sind startbar (Tom 6, Jerry 21).
