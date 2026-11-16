@@ -54,8 +54,8 @@ Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11.
 | Regel | Krieger (Einhänder, Schild; Wachsoldat) | Kämpe (Zweihänder) | Schütze (Bogen; Jägerkind) | Späher (Dolch; Herumtreiber) | Magier (Evokation; Zauberlehrling) | Heiler (Heilmagie; Klosterschüler) |
 | --- | --- | --- | --- | --- | --- | --- |
 | Treffer | Einhänder gegen Abwehr | Zweihänder | Bogen, + 1 je Wahrnehmung | Dolche | Evokation, ohne Grundwert | Heilmagie (Gleißstrahl), ohne Grundwert |
-| Schaden aus | Kraft | Kraft | Gewandtheit | Gewandtheit | Wille | Wille |
-| Kritisch | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | **nie** | **nie** |
+| Schaden aus | Kraft | Kraft | Gewandtheit | Gewandtheit | Verstand | Wille |
+| Kritisch (Grundwert × Fertigkeit / 50 %) | Gewandtheit | Gewandtheit | Wahrnehmung | Wahrnehmung | Wille | **nie** |
 | Abwehr (bester Wert) | Schild-Fertigkeit; Ausweichen (Fertigkeit + 2 × Gewandtheit); Parieren ½ Einhänder nur gegen Nahkampf | Ausweichen; Parieren ½ Zweihänder | nur Ausweichen | Ausweichen; Parieren ½ Dolche | nur Ausweichen (Stab: Parieren ½ Stumpfe Waffen) | wie Magier |
 | Abzug | Rüstung × (1 + Rüstungsfertigkeit/100) + Schild | Rüstung | Rüstung | Rüstung | keine Rüstung; Bannschild, Arkanhaut | Rüstung erlaubt (Heilmagie) |
 | Handlung ab Geselle | Finte; Schildwall | Wuchtschlag | Ruhige Hand | Stich aus dem Hinterhalt | Glutstrahlen, Flammenfächer, Arkanhaut | Beistand |
@@ -63,11 +63,11 @@ Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11.
 | Initiative, Flucht | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit |
 | Abwehrproben | Zähigkeit (Gift), Wille (Furcht, Zauber), Gewandtheit (Flächen) | gleich | gleich | gleich | gleich | gleich |
 | Schwäche vorher sehen | Verstand ab 6 | gleich | gleich | gleich | gleich | gleich |
-| **Grundwerte, die im Kampf zählen** | Kraft, Gewandtheit, Zähigkeit | Kraft, Gewandtheit, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | **Gewandtheit allein** (Schaden, Kritisch, Abwehr), Zähigkeit | **Wille allein** (Schaden, Mana), Gewandtheit nur Abwehr, Zähigkeit | wie Magier |
+| **Grundwerte, die im Kampf zählen** | Kraft, Gewandtheit, Zähigkeit | Kraft, Gewandtheit, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | Verstand (Schaden), Wille (Kritisch, Mana), Gewandtheit nur Abwehr, Zähigkeit | Wille (Heilung, Mana), Gewandtheit nur Abwehr, Zähigkeit |
 
 Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber und sind bei der Erschaffung nicht wählbar wie Bergbau (984 A, Chef 11.11., 20:12; Bau 984.1 Tom); frei, sobald ein Kapitel Zauber dafür hat. Nach 952 D misst Jerry, ob die Gewandtheit noch jeden Stil trägt.
 
-**Beschlossen, noch nicht gebaut (952 D, Chef 11.11., 20:03):** kritisch = zweiter Grundwert × Fertigkeit / 50 Prozent, nie der Grundwert des Schadens: Krieger und Kämpe Gewandtheit, Späher und Schütze Wahrnehmung; Magier: Schaden aus **Verstand**, kritisch und Mana aus Wille; Heiler: Heilung und Mana aus Wille, nie kritisch. Nach dem Bau die Zeilen oben nachziehen.
+**Gebaut (952 D, Chef 11.11., 20:03; `werte.json` „waffen“, „schulen“, `brs_held.gd` krit_von, auf `main` 16.11.):** kritisch = zweiter Grundwert × Fertigkeit / 50 Prozent, nie der Grundwert des Schadens; Zeilen „Schaden aus“, „Kritisch“ und „Grundwerte“ oben nachgezogen (Sokrates 16.11.).
 
 ## 1. Die Grundidee
 
@@ -181,7 +181,7 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 | Gewandtheit | Abwehr beim Ausweichen + 2 je Punkt |
 | Kritischer Treffer (anderthalbfach) | Grundwert × Fertigkeit / 50 Prozent; Grundwert: Gewandtheit im Nahkampf, Wahrnehmung bei Dolch, Wurfwaffe, Bogen, Armbrust, Wille bei Evokation, Illusion, Beschwörung; Heil- und Schutzmagie nie (952 D, Chef 11.11., 20:03; heute noch Gewandtheit in Prozent) |
 | Wahrnehmung | Trefferchance im Fernkampf + 1 Prozentpunkt je Punkt |
-| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Fertigkeit = Schule; Grundwert Verstand bei Evokation, Illusion, Beschwörung (Teilchen der Umgebung verstehen und formen), Wille bei Heil- und Schutzmagie (952 D, Chef 11.11., 20:03; heute noch überall Wille); Mana 10 + 5 × Wille |
+| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Fertigkeit = Schule; Grundwert Verstand bei Evokation, Illusion, Beschwörung (Teilchen der Umgebung verstehen und formen), Wille bei Heil- und Schutzmagie (952 D, Chef 11.11., 20:03); Mana 10 + 5 × Wille |
 
 Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 
@@ -262,7 +262,7 @@ Handwerk läuft neben dem Pfad, genauso mit Lehrmeister und drei Prüfungen, abe
 - **Schleichen und Hinterhalt:** Mit der Schleichtaste nähert sich der Held. Bleibt er unbemerkt (Schleichen gegen die Wachsamkeit des Gegners, ohne Würfel), greift er als Erster an und bekommt den Vorteil des Hinterhalts. Mehr Gegner sind schwerer zu überlisten. **Bosse** sind wachsamer, ihr Hinterhalt-Bonus ist gedeckelt.
 - **Ausschlüsse sind hart.** Metall stört die Aufnahme der Magiepartikel aus der Umgebung (Entscheidung 10, 33). Die Sperre hängt an der Schule, nicht am Pfad (Entscheidung 80): Evokation, Illusion und Beschwörung gehen für jeden nur ohne Metall, also in Stoff oder Leder; Heil- und Schutzmagie auch in Metall. Dazu trägt der Magier ab der Titelprüfung keine Rüstung, der Kriegsmagier nur leichte. In schwerer Rüstung geht Schleichen nicht („Deine Rüstung klirrt“). Zweihänder und Schild schließen sich aus. Jeder Held hat höchstens einen Pfad.
 - **Gegner gehören zu Gebieten**, damit niemand zu früh in zu hohe Stufen läuft. Höhere Gebiete sind betretbar; die Karte zeigt ihr Stufenband.
-- **Regeln aus dem Umzug (870a 1–6 A, Chef 10.11., 15:08; Plan `LISTE-UMZUG-BRS.md`):** (1) Spielstände aus der SRD-Zeit laden nicht mehr („Aus der alten Regelfassung, nicht mehr spielbar“, Löschen). (2) Gekämpft wird nur im MARS (626); `klassisch.gd` entfällt. (3) **Kampfhandlungen hängen an Fertigkeiten:** für alle Kraft schöpfen (einmal je Kampf, Leben zurück); mit Rang Geselle je Fertigkeit eine Handlung (etwa Einhänder Finte, Dolche Stich aus dem Hinterhalt, Zweihänder Wuchtschlag; Schild und Bogen eine schwächere Vorform, denn Decken und Zielschuss bleiben Fähigkeiten von Wächter und Scharfschütze, Abschnitt 5); Zauber nach Schule (Abschnitt 12); Extra-Angriff, Doppelzug, Zweiwaffenkampf entfallen; Liste und Zahlen Jerry mit 444, Namen Homer. (4) In Kapitel 1 wachsen die Grundwerte nicht. (5) **Proben als Prozent** wie die Trefferchance: Initiative und Flucht nach Gewandtheit, Abwehrprobe mit Zähigkeit (Gift, Krankheit), Wille (Furcht, Zauber), Gewandtheit (Flächen); Zahlen 444. (6) Abschnitt 11.
+- **Regeln aus dem Umzug (870a 1–6 A, Chef 10.11., 15:08; Plan `LISTE-UMZUG-BRS.md`):** (1) Spielstände aus der SRD-Zeit laden nicht mehr („Aus der alten Regelfassung, nicht mehr spielbar“, Löschen). (2) Gekämpft wird nur im MARS (626); `klassisch.gd` entfällt. (3) **Kampfhandlungen hängen an Fertigkeiten:** für alle Kraft schöpfen (einmal je Kampf, Leben zurück); mit Rang Geselle je Fertigkeit eine Handlung (etwa Einhänder Finte, Dolche Stich aus dem Hinterhalt, Zweihänder Wuchtschlag; Schild und Bogen eine schwächere Vorform, denn Decken und Zielschuss bleiben Fähigkeiten von Wächter und Scharfschütze, Abschnitt 5); Zauber nach Schule (Abschnitt 12); Extra-Angriff, Doppelzug, Zweiwaffenkampf entfallen; Liste und Zahlen Jerry mit 444, Namen Homer. (4) Grundwerte: ersetzt durch 644a.1 B (Grundwert an den Rängen 15, 25, 50, 75, 100). (5) **Proben als Prozent** wie die Trefferchance: Initiative und Flucht nach Gewandtheit, Abwehrprobe mit Zähigkeit (Gift, Krankheit), Wille (Furcht, Zauber), Gewandtheit (Flächen); Zahlen 444. (6) Abschnitt 11.
 - **Schwächen und Stärken der Monster (870a 8 A, Chef 10.11., 15:25):** Schadensarten Schnitt, Stich, Wucht, Feuer, Gift, Säure, Licht. Je Monsterart höchstens eine Schwäche (+50 %) und eine Stärke (−50 %), immun nur, wo die Natur es verlangt. Bei zwei bis drei Arten je Kapitel eine **Gegenwirkung**: das falsche Mittel stärkt den Gegner oder kostet etwas (Beute, Erfahrung), nie tödlich und beim ersten Mal sichtbar. Bekannt wird sie im Kampf und steht danach im Bestiarium; mit Verstand ab 6 sieht man sie vorher (870d, Vorentscheid Sokrates 11.11.; eine Fertigkeit Wissen gibt es nicht). Kampftränke und Wurfmittel tragen eine Schadensart (kaufen, erbeuten, mit Alchemie herstellen). Je Art: `LISTE-BESTIARIUM.md`; Zahlen 444.
 
 ## 8. Die Welt

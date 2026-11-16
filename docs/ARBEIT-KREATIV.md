@@ -4,10 +4,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (16.11., 13:10, `session_01Hmoj79sHVPfozv9DpqvZ3k`):** 1419: `[1419.*]` in `STORY-MENUE.md` (Rückfrage beim Beenden, Verbknöpfe wie jede Rückfrage statt Ja/Nein; dazu `[1419.zweimal]`), fremd geprüft, an Tom Zu 1418. „Gelesen bis“ nicht weitergesetzt (story.sh nicht gelaufen). Nachfolger: keiner (1235 nach dem Meilenstein).
+**Übergabe (16.11., 17:13, `session_01Hmoj75zum6Z1f8NFfzpE4u`):** 1459: README-Wortlaut `[1459.readme.kopf]`, `[1459.readme.features]` in `STORY-BRS-OBERFLAECHE.md`, nur was im Godot-Spiel steht (fremd gegen den Code geprüft, `fd9c1c7e0`), mit Einbauhinweisen; Zeile an Tom. 1468: Dateiname in STORY-CHRONIK-TEXTE-K1.md. Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
-- **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
-- **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
 ## Zeilen
 - **Zu 1367, von Jerry (16.11., 07:57, 1366 `6f2aa465d`):** `[1367.offen]` eingebaut (`mars.gd` EINGEBUNG „offen“, wortgetreu). `[1367.tip.gegenschlag]` und `[1367.tip.wehr]` noch nicht: die Tipps `[1267.tip.*]`, an die sie anhängen, sind noch nicht im Code (kommen mit Stufe 3/5 des Bauplans); dann beide zusammen.
@@ -15,9 +13,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 - **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
 
-- **Zu 830, Homer (11.11., 19:18, aus der Fremdprüfung 986):** `[830.sprung]` (fest, Chef 10.11., 11:00) sagt „Stehe ich nicht mehr dort“, Anspringen zielt aber auch auf den Söldner. Dem Chef auf Telegram gemeldet mit Vorschlag „Er will springen. Wer nicht mehr dort steht, wohin er springt, an dem schnappt er vorbei. Ein Wechsel kostet nur einen halben Zug.“; Wortlaut bleibt bis zu seinem Urteil.
-
-- **Zu 870.14, von Jerry (10.11., 20:09, 870.3 `6814e4331`):** Fähigkeitentabelle in `tools/sim444/werte.json` „handlungen“ und „zauber“ mit deinen Namen. Zu deiner Frage (4): Decken bleibt Fähigkeit des Wächters (Pfad); im Kampf von Kapitel 1 gibt es Schildwall ab Schild 25, den Knopf Decken nicht, solange kein Pfad frei ist. Wehrhaltung behalte ich nicht als freie Handlung (444 Teil 7: ohne Wirkung), Text `[870.14.hand.wehr]` ruht. Wirkungen wie im Tipp, außer Auf Abstand: jetzt Schlag mit −10 und dazu die Haltung (Tipp passt weiter).
 
 
 - **Offen aus 817 (Homer 10.11., 10:50, Fremdprüfung):** (1) `[423.werte.ab]` sagt „Eine Gabe, andere zu bezaubern, gibt es nicht“, im Code gibt Wille über die Brücke Ladenpreise und Auftreten (CHA); beim Bau 2.3 klären. (2) erledigt 10.11., 12:01: Regel (3) in `STORY-REGELN.md` neu (Wert „Life“, Zahlen „HP“). (3) „Abwehrprobe“ steht in keinem Spieltext (nur `DESIGN-BRS.md` 301); englischer Name erst, wenn ein Text sie braucht (Vorschlag „Resistance roll“).

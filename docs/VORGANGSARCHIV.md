@@ -2,6 +2,40 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **1472, Wortlaut des Chefs** (16.11., 18:13, Chef an Sokrates: „ja, so machen und jetzt umsetzen und an Spike geben“) → **jeder Start: „Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht.“; ersetzt den Satz 18:09; Spike führt 1472 (Nutzer; Votum Sokrates)**
+
+- **1472, Kaufrepo-Freigabe in der Startnachricht** (16.11., 18:07, Chef an Sokrates: „schlechter laufen kann es ja nicht … Erst in die Startnachricht bei allen Beschäftigten“; 18:09 „halt das irgendwo nach“) → **Chefwort 15:06/10:44 fest in jeder Startnachricht (`lauf.py` KAUFREPO), Bekannte Fehler in `CLAUDE.md`; Grund: Regel allein half nicht (Spike 13:09), Erlaubnis im Gespräch schon (Tom 17:21, Jerry 10:58) (Nutzer; Befund Sokrates)**
+
+- **293.7 nachgetestet, 1421 passt** (16.11., 17:53, Chef an Sokrates im Chat, ohne Testschalter „Schnell“: „Es funktioniert alles wie vorgesehen … Also der Fehler lag bei mir. Es war schnell an.“) → **1421 erledigt; zügigeres Gehen nach Ausschlag „nicht wichtig … nichts programmieren“ (Nutzer)**
+
+- **t293 getestet** (16.11., 17:50, Chef im Gespräch mit Sokrates: „Build 293 · Ergebnis – 293.1 ✗ siehe Chat – 293.2 ✓ – 293.6 ✓ – 293.7 ✗ siehe Chat“; 293.9 👍 Telegram; Prüfliste `ansehen/t293-sammelbuild.md` in Git) → **1291, 1303, 1284 erledigt; 1072 (Wolf dreht nicht zum Helden, erster Durchgang alt) und 1421 (Gehen wie auf Speed, Taste nur Tippelschritte; Testschalter „Schnell“ war an, Chef 17:51: 293.7 nachtesten ohne „Schnell“) zurück an Jerry (Nutzer)**
+
+- **531.2, Garrick im Profil: beides falsch** (16.11., 17:34, Chef an Sokrates im Chat zum Bild Tom 16:58: „Gürtel über Schulter und durch die Kapuze … Köcher … und Bogen schwebt auch … weder das eine gut noch das andere. Beides fail“; `ansehen/531-garrick-profil.md` in Git) → **Gurt, Köcher, Bogen schweben; Kapuze weiter zu groß (Nutzer)**
+
+- **1270.4, Glühen und Höhlenlicht** (16.11., 17:32, Chef auf Telegram: 👍 auf beide Filme, Nachricht 4423, 4424; Vorlage `ansehen/12704-licht.md` in Git) → **Glühen ins Spiel ab Grafikstufe Hoch (Schwelle 0,9), vorberechnetes Höhlenlicht immer (hoehle.py GEBACKEN); Bau Spike, Sammelbuild (Spike)**
+
+- **Haltung 4 mit Zahl statt zweiter Direktive** (16.11., 16:31, Chef an Sokrates im Chat: „Ja, Haltung 4 schärfen mit Zahl, so machen“; Votum 16:29: Leitsatz allein bewirkt wenig) → **Liegengebliebenes in derselben Sitzung als Vorgang beim Besitzer, eigenes Hindernis sofort melden; Diogenes zählt montags, was über 6 h lag, obwohl gesehen; Grundwert 23.11., halbiert bis 30.11.; Bau Perikles 1462 (Nutzer; Votum Sokrates)**
+
+- **340 A, Rollenspiegel mittwochs mit Vorschlag fürs Spiel** (16.11., 16:27, Chef an Sokrates im Chat: „ja, wir nehmen A, aber komplett umbuchen, alles nicht mehr freitags, sondern mittwochs … nach dem Managementbericht von Pericles“; Grund: freitags oft Konto leer) → **neue Frage 11 „Vorschlag fürs Spiel“ statt Frage 2, Runde mittwochs nach dem Tagesbericht, ab 18.11.; Bau Perikles 1461; Prüfung 26.11. (Nutzer; Votum Sokrates)**
+
+- **431h, Läufe frei** (16.11., 16:13, Sokrates nach 621 A und 431h A; Bitte Tom 13:56: Messung Stufe 1 bestanden, Skriptfehler Hochformat behoben) → **genau ein Filmlauf Mann und Frau je 15 s am Stand `233c2e058` (`claude/tom-431-ausruestung`), selbst ansehen, dann `--film` an den Chef; scheitert er: kein weiterer, Befund an Sokrates**
+
+- **1044, Grundstand gebilligt** (16.11., 15:48, Chef 👍 auf Meldung Tom 15:34, Nachricht 4416, 4417; `ansehen/1044-grundstand.md` in Git) → **Stand der Leute (Osric, Liska, Bram) passt; Bau `98e126c91` in den nächsten Build (Tom) (Nutzer)**
+
+- **1341, langer Name gebilligt** (16.11., 15:09, Chef 👍 auf Meldung Tom 14:57, Nachricht 4413; `ansehen/1341-namen-faecher.md` in Git) → **t290.6 passt: im Fach nur der Platz, Name beim Antippen ganz lesbar (Nutzer)**
+
+- **1441a A, Erlaubnisblock zurück** (16.11., 15:06, Chef an Perikles im Chat: „1441a A, ja“; `entscheiden/1441a-erlaubnisblock.md` in Git) → **`autoMode.allow` aus 4879b079b entfernt (cc66ac6c7); Probe am nächsten Ford-Neustart ohne Chefwort (Perikles 1441) (Perikles)**
+
+- **1416, kein Winken** (16.11., 15:0x, Chef im Chat: „ich habe das Winken auch nicht mehr gesehen“; Film `ansehen/1416-winken.md` in Git) → **UAL2 ohne Winken; vorgemerkt in `LISTE-BESTAND.md`: Throw, Chest_Open, Harvest/PlantSeed, Surprise, Yes, Idle_No, FoldArms, LayToIdle, IdleToLay, Turn180 mit Wurzelweg (1406) (Spike)**
+
+- **1448 A, Leiste ohne Wörter** (16.11., 14:47, Chef an Sokrates im Chat: „1448 A“) → **Weltleiste, Heldenmenü und Kampfschirm ohne Wörter Leben/Mana/EP; Balken gleich lang und bündig, dahinter die Zahl, bei Erfahrung die Stufe (Tom 1448, Kampfschirm Jerry 1439) (Sokrates)**
+
+- **t292 getestet** (16.11., 14:36, Chef in der App: „Build 292 · Ergebnis – 292.1 ✓ – 292.2 ✓ – 292.3 ✗ … 292.4 ✓ – 292.5 ✓“, zu 292.3: „wenn das das erwartete Ergebnis ist, dann ist alles richtig. Ich bin damit durch.“; Prüfliste `ansehen/t292-sammelbuild.md` in Git) → **alle Handypunkte ✓; 292.3 Neustart ins Hauptmenü ist gewollt, Prüflistenfehler (Spike); Anmerkung auch bei „Passt“ 1445 (Tom); 292.6–292.10 bei Diogenes (Nutzer)**
+
+- **1292, Knopf gebilligt** (16.11., 14:15, Chef 👍 auf Meldung Jerry 13:45, Nachricht 4393; `ansehen/1292-knopf.md` in Git) → **Anzeige „· 2/2“ hinter den Manakosten bleibt; fährt in Build 293 (Nutzer)**
+
+- **1416, Läufe frei** (16.11., 14:20, Sokrates nach 621 A, Bitte Spike 14:15: erster Lauf brach vor dem Rendern ab, bpy ohne Python 3.12, nachgestellt und behoben) → **genau ein Lauf Sichtung UAL2 (Kontaktblätter aller 134 Bewegungen) auf `claude/spike-1416-winken`; scheitert er: kein weiterer, Befund an Sokrates**
+
 - **t291 getestet** (16.11., 13:42, Chef in der App: „Build 291 · Ergebnis – 291.1 ✓ – 291.2 ✓ – 291.3 ✓ – 291.4 ✓ – 291.5 ✓ – 291.7 ✗ – 291.9 ✓“; 291.6 👍 Telegram; 291.8 ✗, 291.10 ✓ im Gespräch; Prüfliste `ansehen/t291-sammelbuild.md` in Git) → **alle Punkte ✓ außer 291.8 (601.1, kein Zucken, Jerry) und 291.7 (Prüflistenfehler: Lage ohne Begleiter; 1275 bleibt, Film nach, Jerry); 291.3 Weg falsch (Spike), Ladezeit messen 1426, Vergleich nie aus dem Gedächtnis 1427; Zwischenwände 1423 (Nutzer)**
 
 - **1284, Läufe frei** (16.11., 13:47, Sokrates nach 621 A, Bitte Jerry 13:27, nach 1284b D) → **genau ein Filmlauf Rattenbiss (drei verdeckte Bisse, mindestens ein Treffer und ein Fehlbiss, unter 15 s) am Stand `a71c46f61` (`claude/jerry-1072-mess`, in `claude/build-293`); selbst ansehen, dann `--film` an den Chef; scheitert er: kein weiterer, Befund an Sokrates**

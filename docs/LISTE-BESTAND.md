@@ -52,7 +52,9 @@ Gerüst: dieselben 65 Knochen wie UAL1, **Ruhelage gleich UAL1** (Drehung 0,0°,
 | Untote | Zombie_Idle, Zombie_Walk und Zombie_Run je 8 Richtungen, Zombie_Bite, Zombie_Scratch, Zombie_Spawn (aus dem Boden), MonsterTransformation |
 | Klettern, Springen | ClimbUp_1m/2m, StepUp, SafetyVault, GetOffWall_2m, DoubleJump, JogToFlip, NinjaJump_*, Slide_*, WallRun_* |
 
-**Fehlt:** Winken (nächstes: Idle_Rail_Call, Hand am Mund); schmaler ruhiger Stand: die Stehhaltungen stehen so breit wie UAL1 Idle (Fußabstand 3,0 × Abstand der Hüftgelenke, gemessen), lösen 1044 allein nicht.
+**Vom Chef vorgemerkt** (16.11., zu 1416: „die wir sicherlich grundsätzlich für was auch immer gut brauchen können“): OverhandThrow (Werfen), Chest_Open (Truhe öffnen), Farm_Harvest und Farm_PlantSeed (Pflücken), Surprise, Yes (Daumen hoch), Idle_No, Idle_FoldArms, LayToIdle (Aufstehen), IdleToLay (Hinlegen), Turn180_L/R aus `UAL2_RM.glb` mit Wurzelweg (Drehen auf der Stelle, 1406). Vor jeder neuen Geste oder Handlung hier zuerst.
+
+**Fehlt:** Winken im Stehen (1416: alle 134 Bewegungen als Blätter durchgesehen und Handhöhe gemessen, UAL1 ebenso ohne); nächstes: Idle_Rail_Call, am Geländer, Hand neben dem Kopf, kleines Winken oder Rufen; schmaler ruhiger Stand: die Stehhaltungen stehen so breit wie UAL1 Idle (Fußabstand 3,0 × Abstand der Hüftgelenke, gemessen), lösen 1044 allein nicht.
 
 ### Menschen: Protofactor Animset Wizard (385, gekauft 27.10., 21:10)
 
