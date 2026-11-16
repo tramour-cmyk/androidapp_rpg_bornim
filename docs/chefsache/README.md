@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:43, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -14,9 +14,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 69 | 30 | 3 | 6 | 9 | 1305 (Jerry) Kämpfer mit Schwert und Schild läuft in die hinte… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 14 | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 12 | 2 | 1 | 0 | 4 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
+| ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 12 | 2 | 1 | 0 | 3 | 1386 (Spike) Bewegungspaket UAL2 nach dem Kauf prüfen |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 | 9 | 1 | 11 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 9 | 1 | 6 | 4 | 1393 (Jerry) Sammelbuild 292: alle fertigen Zweige nach t291 |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 9 | 1 | 6 | 4 | 1393 (Jerry) Sammelbuild 292: alle fertigen Zweige nach t291 |
 | Werkzeuge und Abläufe der Firma | 42 | 25 | 0 | 1 | 9 | 1298 (Ford) Ford von Hand starten |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -59,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | Kampf passt | startbar |
 | 20 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | Kampf passt | startbar |
 
-Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 63.
+Danach 94 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
