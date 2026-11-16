@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:40, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:45, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -24,27 +24,27 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 67 (68) | 26 | 2 | 5 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 (57) | 10 | 0 | 4 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (18) | 6 | 0 | 2 | 4 | 1457 (Tom) Wiederholrot pruefliste_1020: 3× rot in 48 h; Urs… |
-| **7** Werkzeuge und Abläufe der Firma | 45 (56) | 31 | 0 | 2 | 9 | 1454 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
+| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 0 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 54 (57) | 9 | 0 | 3 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 15 (18) | 4 | 0 | 2 | 4 | 1383 (Tom) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
+| **7** Werkzeuge und Abläufe der Firma | 45 (56) | 31 | 0 | 2 | 9 | 1463 (Diogenes) Zählweise „Liegengebliebenes über 6 h, obwohl ges… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 118 erledigt, 104 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 122 erledigt, 105 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t293](ansehen/t293-sammelbuild.md) testen, hält 9 Zeilen; dann 2 weitere |
-| Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 8 weitere |
+| **Chef** | [t293](ansehen/t293-sammelbuild.md) testen, hält 9 Zeilen; dann 3 weitere |
+| Tom | 1383 Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstelle… (Muss); dann 7 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 7 weitere |
 | Tuffy | 601.1 Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurüc… (Muss von Jerry, neben dessen Arbeit); dann 6 weitere |
-| Spike | 1457 Übernahme von Tom: Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachs… (Muss); dann 2 weitere |
+| Spike | 1458 Übernahme von Jerry: tote SRD-Reste nur für Tests: regeln/ausdauer.gd, regeln/pe… (Muss) |
 | Homer | 1459 README.md beschreibt noch die Kotlin-Fassung; Features nach… (Muss) |
 | Diogenes | 1463 Zählweise „Liegengebliebenes über 6 h, obwohl gesehen“ fest… (Muss) |
-| Sokrates | 1454 Zusammenführen: getestet, nicht auf main: Build 274, 288; g… (Muss); dann 2 weitere |
+| Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss) |
 | Perikles | M? M? entscheiden: 1445, 1447, 1448, 1439 (Muss) |
 
 **Die nächsten 20**
@@ -59,23 +59,27 @@ Heute (seit 6:00): 118 erledigt, 104 neu. In Klammern bei „offen“: Stand 6:0
 | 6 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | 2 Kampf passt | startbar |
 | 7 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
 | 8 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | 2 Kampf passt | startbar |
-| 9 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | startbar |
-| 11 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | startbar |
-| 12 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | startbar |
-| 13 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1457 | Tom | Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachstellen, beheben · wi… | M | 6 Godot besser nutzen | startbar |
-| 18 | 1456 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 19 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 20 | 1454 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 288; grün machen und PR zu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | startbar |
+| 11 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | startbar |
+| 12 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 13 | 1309 | Tom | Feld „Kopf“ rutscht oben unter die Reiterleiste; lange Namen abgeschnitten, gan… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
+| 17 | 1463 | Diogenes | Zählweise „Liegengebliebenes über 6 h, obwohl gesehen“ festlegen, Zeile in ROLL… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | 2 Kampf passt | startbar |
+| 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
+| 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
 
-Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
+Danach 99 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [649b](entscheiden/649b-alles-an-einer-stelle.md) | **Muss** | B Werkzeuge | 16.11., 16:41 | Jetzt eine Prüfung über alle Stellen im Bau und einheitliche Namen (25–40 $); der Umzug der Listen aus dem Kampfcode und der Leute kommt in zwei weiteren Builds, wenn Jerrys Kampfzweige auf main sind; zusammen etwa 155–245 $. | Sokrates |
 
 ## Zu billigen
 
