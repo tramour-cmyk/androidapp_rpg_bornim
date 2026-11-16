@@ -648,3 +648,4 @@
 2026-11-16 16:41:48	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/649b-alles-an-einer-stelle.md: fehlt Num	HEAD
 2026-11-16 16:42:21	commit-pruefung	docs/chefsache/entscheiden/649b-alles-an-einer-stelle.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-16 16:50:57	probelauf	1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert (1 Dateien, etwa tools/blender348/waffen.py). Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je Klasse, Le	claude/tom-1420-staub
+2026-11-16 16:55:30	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 531 schon 1 Probelauf seit deinem Urteil 2026-11-16 12:19:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch 	claude/tom-531-film
