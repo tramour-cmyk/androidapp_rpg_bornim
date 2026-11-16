@@ -68,6 +68,11 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **`bc2dd1ea0` greift nicht:** Ursache am Rechner bestätigt (zweite Ziege mit Ziel Heldenkachel je Seite: alter Test 2 Fehler, Schritte `[(30, 27), (30, 28), false]`; neuer Test räumt sie aus, 0 Fehler). Der Test versteckt, was das Spiel weiter tut (Chef 416.2 „Ziege wird geschoben, kein Platztausch“).
 - **`e347e68d8` (Spike) nachgeprüft:** Logiksatz 153 gut (156 s), `ziege_4162` dreimal 0 Fehler; derselbe Test mit `leute.gd` von `828e0e98d` zweimal 1 Fehler an (-1, 0). Lücke: nur fliehende Tiere geben die Heldenkachel frei. Bauserver auf keinem Zweig gelaufen. Wahl des Zweigs bei Tom (Zu 1079 im Vorrat Tom); 1079 → startbar.
 
+## Lauf 254 · 1148 (16.11., 07:0x)
+- **Echter Fall fehlt:** seit `304660d8e` (13.11., 15:03) keine Marke „Lauf läuft bis …“ von Spike oben im Vorrat (Git aller Team-Vorräte); Jerrys zwei Marken (13.11., 21:19, 21:36) standen in „Zu“-Absätzen, nicht oben. Im Protokoll seit 13.11. kein ARCHIVIERE und keine Warnung „Start Spike nicht angekommen“ mitten in einem Lauf.
+- **Werkzeug (Kopie, Marke „Lauf läuft bis 16.11., 09:00 (Probe Diogenes)“ in `ARBEIT-TEAM-SPIKE.md`):** `lauf_laeuft` hält Spike, Tom und Jerry nicht. Lücke D254.1 → 1369 (Perikles): dieselbe Marke gibt zugleich die laute Warnung „zählt nicht … Sitzung gilt als fertig“ (Klammer ohne Namen), obwohl sie hält; seit 1328.1 hat Spike einen eigenen Vorrat, jede Klammer wie „(Render)“ löst sie aus.
+- 1148 wartet auf 1369 und den echten Fall.
+
 ## Lauf 253 · 1301 (15.11., 17:0x)
 
 - **1301 wirkt am Werkzeug, greift noch nicht** (`a5e00783f`): `reaktionen.ohne_wort` gestellt: 👎 ohne Nachricht → Hinweis; Nachricht binnen 15 min ohne Bezug oder als Antwort darauf → kein Hinweis; Antwort auf andere Meldung oder nach 16 min → Hinweis. `meldung.sh --probe --frage`: Kennung keine Zahl und Text ohne „?“ halten an. Commit-Prüfung: Eintrag mit 👎 und Kennung ohne Nachfrage hält an, `t<n>` frei. Lücke D253.1 → 1302: jedes Zitat ab 8 Zeichen und jedes „fragt … nach“ (auch als Absicht) lassen durch; der Anlass 760 ginge durch. Echter Fall fehlt: 760 (4224) war vor dem Bau eingetragen → `warte 1301 17.11.`, dann jedes 👎 ohne Wort 15.–16.11. mit Nachfrage → `greift`.
