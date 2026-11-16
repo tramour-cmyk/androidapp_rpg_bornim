@@ -8,6 +8,8 @@ Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, E
 
 - **Build 293 nicht vorab auf main** (16.11., 20:28, Chef an Sokrates: „Ok, 294 abwarten“; Anlass 20:25 „immer noch nichts auf Main gelandet“: 286–292 auf `main`, 293 mit 293.1 ✗, 293.7 ✗ und Lauf rot, 1453) → **das Bestandene aus 293 kommt mit Build 294 auf `main`, kein Rückbau von 1072 auf `claude/build-293` (Nutzer; Votum Sokrates)**
 
+- **531.2, Garrick anliegend gebilligt** (16.11., 21:57, Chef 👍 auf Meldung Tom 21:55, Nachricht 4475; `ansehen/531-garrick-anliegen.md` in Git) → **Köcher, Bogen, Gurt in „Stehen“ angelegt, Kapuze enger, `761af906c` in den nächsten Build; dann Film Fackelabwehr (Mobile-Renderer) (Tom) (Nutzer)**
+
 - **1417, Schild im Hauptmenü gebilligt** (16.11., 19:41, Chef 👍 auf Meldung Tom 19:38, Nachricht 4452; `ansehen/1417-schild-hauptmenue.md` in Git) → **Schildarm der Wachsoldatin 25 Grad abgespreizt, `b78ad10b9` in den nächsten Build (Tom) (Nutzer)**
 
 - **1420, Fußstaub gebilligt** (16.11., 19:40, Chef 👍 auf Meldung Tom 19:39, Nachricht 4454; `ansehen/1420-fussstaub.md` in Git) → **sanfter, auch im Wald, `714719fe7` in den nächsten Build (Tom); Ton hellgrau statt erdbraun bleibt so (Nutzer)**
