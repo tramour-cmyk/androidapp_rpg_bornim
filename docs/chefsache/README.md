@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 23:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 23:37, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,10 +23,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 61 (66) | 20 | 1 | 5 | 8 | 1488 (Jerry) Merkmale je Exemplar bauen, Anzeige nach Lesestuf… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (18) | 7 | 2 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
-| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (63) | 8 | 1 | 2 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **2** Kampf passt | 61 (66) | 20 | 1 | 7 | 8 | 1488 (Jerry) Merkmale je Exemplar bauen, Anzeige nach Lesestuf… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (18) | 7 | 2 | 2 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
+| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (63) | 8 | 1 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (17) | 5 | 0 | 4 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
 | **7** Werkzeuge und Abläufe der Firma | 44 (58) | 29 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -47,8 +47,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|
 | **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 2 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 4 weitere |
-| Jerry | 1488 Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil,… (Muss); dann 5 weitere |
-| Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
+| Jerry | 1488 Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil,… (Muss); dann 4 weitere |
+| Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | 1502 Übernahme von Jerry: t294 „Im Bau geprüft“ nennt bildrate.py; Schritt mit contin… (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss) |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
 | 20 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
 
-Danach 83 weitere offen. Bei dir zum Testen (vorgelegt): 11. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
+Danach 83 weitere offen. Bei dir zum Testen (vorgelegt): 17. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
 ## Zu entscheiden
 
 Nichts offen.
