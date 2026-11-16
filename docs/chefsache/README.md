@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 18:38, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 18:47, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,7 +23,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 66 (68) | 26 | 3 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
+| ↳ **2** Kampf passt | 66 (68) | 26 | 2 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 3 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 0 | 0 | 3 | 1385 (Spike) Unterbau „Alles an einer Stelle“: eine Kennung je… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (57) | 6 | 0 | 0 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
@@ -37,10 +37,10 @@ Heute (seit 6:00): 139 erledigt, 119 neu. In Klammern bei „offen“: Stand 6:0
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | nichts offen in der Chefsache |
+| **Chef** | [431h](ansehen/431h-kleidung-stufe1.md) ansehen |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 6 weitere |
-| Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 14 weitere |
-| Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 13 weitere |
+| Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 13 weitere |
+| Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 12 weitere |
 | Spike | 1385 Unterbau „Alles an einer Stelle“: eine Kennung je Figur und… (Muss); dann 1 weitere |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1445 Prüfliste im Spiel nimmt ein Wort nur bei „Falsch“; bei „Pa… (Muss) |
@@ -52,27 +52,27 @@ Heute (seit 6:00): 139 erledigt, 119 neu. In Klammern bei „offen“: Stand 6:0
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1453 | Jerry | stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus 1072 | M | 2 Kampf passt | in Arbeit |
-| 2 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | 2 Kampf passt | in Arbeit |
-| 3 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | 2 Kampf passt | startbar |
-| 4 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | 2 Kampf passt | startbar |
-| 5 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | 2 Kampf passt | startbar |
-| 6 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | startbar |
-| 7 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | 2 Kampf passt | startbar |
-| 8 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | 2 Kampf passt | startbar |
-| 9 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
-| 10 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | 2 Kampf passt | startbar |
-| 11 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
-| 12 | 1415 | Jerry | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6; Wege sind es nicht mehr, Ze… | M | 2 Kampf passt | startbar |
-| 13 | 1439 | Jerry | Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigener blauer Balken wie… | M | 2 Kampf passt | startbar |
-| 14 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 15 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 16 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 17 | 1385 | Spike | Unterbau „Alles an einer Stelle“: eine Kennung je Figur und Gegenstand, eine Da… | M | 4 Alles an einer Stelle | startbar |
-| 18 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 2 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | 2 Kampf passt | startbar |
+| 3 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | 2 Kampf passt | startbar |
+| 4 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | 2 Kampf passt | startbar |
+| 5 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | startbar |
+| 6 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | 2 Kampf passt | startbar |
+| 7 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | 2 Kampf passt | startbar |
+| 8 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
+| 9 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | 2 Kampf passt | startbar |
+| 10 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
+| 11 | 1415 | Jerry | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6; Wege sind es nicht mehr, Ze… | M | 2 Kampf passt | startbar |
+| 12 | 1439 | Jerry | Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigener blauer Balken wie… | M | 2 Kampf passt | startbar |
+| 13 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 14 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 15 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 16 | 1385 | Spike | Unterbau „Alles an einer Stelle“: eine Kennung je Figur und Gegenstand, eine Da… | M | 4 Alles an einer Stelle | startbar |
+| 17 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1408 | Jerry | typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284; typisieren, dann n… | M | 6 Godot besser nutzen | startbar |
 
-Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 61.
+Danach 101 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 61.
 ## Zu entscheiden
 
 Nichts offen.
@@ -83,7 +83,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [431h](ansehen/431h-kleidung-stufe1.md) | Sichtbare Ausrüstung Stufe 1: jede Tracht aus Einzelteilen | Tom | 16.11., 18:50 |
 
 ## Zu tun
 
