@@ -21,4 +21,11 @@ soll("Weg nennt Bild", arten(liste("Weiter, 9.1, dann 9.2.", H1, B2)), ["stop"])
 soll("Weg mit Bereich über Bild", arten(liste("Weiter, 9.1 bis 9.4.", H1, B2, H4)), ["stop", "warn"])
 soll("Handy lesen warnt", arten(liste("Weiter, 9.4.", H4)), ["warn"])
 soll("9.2 nicht in 9.20", arten(liste("Weiter, 9.20.", H1, B2)), [])
+# 1427: Vergleich aus dem Gedächtnis
+H5 = "| 9.5 | Spike | 5 | Handy | in die Höhle gehen | so hell wie in Build 292 | dunkler als vorher |"
+H6 = "| 9.6 | Spike | 6 | Handy | zweiter Kampf | nach höchstens 0,7 s bereit, halb so lang wie in Build 287 | über 0,7 s |"
+B7 = "| 9.7 | Spike | 7 | Bild | links Build 292, rechts neu, gleich hell wie in Build 292 | a | b |"
+soll("Vergleich aus dem Gedächtnis", arten(liste("Weiter, 9.5.", H5)), ["vergleich"])
+soll("Vergleich mit Messzahl frei", arten(liste("Weiter, 9.6.", H6)), [])
+soll("Bild alt gegen neu frei", arten(liste("Weiter, 9.1.", H1, B7)), [])
 sys.exit(1 if fehl else 0)

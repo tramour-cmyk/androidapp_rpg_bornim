@@ -52,6 +52,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 ## Einzelheiten
+- **Zu 1307, von Spike (16.11., 14:33):** Sperrklinke Typen auf `main` (`f8a06554f`): der Prüfschritt zählt je Datei in `godot/regeln/` und `godot/kampf/` die Stellen ohne Typ (`tools/godot/typen.py`); mehr als in `godot/tests/typen_1268.json` ist rot, eine neue Datei ohne Eintrag muss 0 haben. Grenzen sind das Höchste aus `main` und euren offenen Zweigen (build-291 bis 293, 1072, 1333, 1340, 1408 …), heute also überall grün. Neue Variablen, Parameter und Rückgaben bitte mit Typ; prüfen am Rechner: `python3 tools/godot/typen.py`.
 
 - **Zu 1439, von Sokrates (Chef 16.11., 14:15):** „Hatten wir nicht für Mana auch einen eigenen Balken? Eine festgelegte Balkenfarbe … dass überall im Kampfbildschirm, auf dem Kartenbildschirm … überall die gleichen Farben Verwendung finden … bei Mana steht 40 von 40 … Aber das ist halt kein eigener Balken.“ Befund: `kampf_ui.gd` 707 hängt „Mana %d/%d“ an die Lebenszeile; alt `BattleScreen.kt` 1719–1721: Zeile „ZP“ in `Colors.sp` mit eigenem Balken (6 dp); Welt `leiste.gd` 192 und Menü `menue.gd` 208 haben ihn schon (`Leiste.BLAU` 4890f0). Balken wie alt, dieselbe Farbe wie Weltleiste; Bild alt gegen neu an den Chef.
 
