@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:50, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,12 +26,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **2** Kampf passt | 64 (68) | 25 | 2 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (14) | 7 | 2 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (57) | 7 | 2 | 0 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (57) | 8 | 2 | 0 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (18) | 5 | 0 | 1 | 3 | 1408 (Jerry) typen.py rot, regeln/mars.gd 288 Stellen ohne Typ… |
-| **7** Werkzeuge und Abläufe der Firma | 43 (56) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
+| **7** Werkzeuge und Abläufe der Firma | 42 (56) | 27 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 152 erledigt, 126 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 153 erledigt, 127 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -41,9 +41,9 @@ Heute (seit 6:00): 152 erledigt, 126 neu. In Klammern bei „offen“: Stand 6:0
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 5 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 13 weitere |
 | Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 12 weitere |
-| Spike | leer, weil 4 wartet auf Test/Build, 3 ruht bis, 1 wartet auf Diogenes |
+| Spike | leer, weil 5 wartet auf Test/Build, 3 ruht bis |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1445 Prüfliste im Spiel nimmt ein Wort nur bei „Falsch“; bei „Pa… (Muss) |
+| Diogenes | leer, weil 2 Termin, 1 ruht bis, 1 wartet auf |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
 | Perikles | leer, weil 16 Termin, 5 wartet auf, 2 wartet auf Diogenes |
 
@@ -72,7 +72,7 @@ Heute (seit 6:00): 152 erledigt, 126 neu. In Klammern bei „offen“: Stand 6:0
 | 19 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
 
-Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 61.
+Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 19. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 61.
 ## Zu entscheiden
 
 Nichts offen.
