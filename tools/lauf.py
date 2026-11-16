@@ -97,8 +97,7 @@ REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_ur
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
 # 1472 (Chef 16.11., 18:07: „Erst in die Startnachricht bei allen Beschäftigten“): add_repo gelang nur mit der Erlaubnis im Gespräch
 # (Tom 17:21, Jerry 10:58), nicht allein mit autoMode.allow (Spike 13:09); darum steht das Chefwort in jeder START- und WEITER-Nachricht
-KAUFREPO = (" Kaufrepo: der Chef erlaubt es (16.11., 15:06): „Du darfst auf alle Repos zugreifen, die du zum Arbeiten brauchst.“"
-            " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, ohne Rückfrage (Chef 16.11., 10:44: alle Repos einbinden, nicht je Sitzung freigeben).")
+KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
 AUFWAND_HOCH = re.compile(r"Aufwand hoch\b", re.I)  # 827.1: „Nachfolger: … (Aufwand hoch, weil …)“ in der Übergabe
