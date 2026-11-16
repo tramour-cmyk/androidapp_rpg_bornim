@@ -4,8 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (16.11., 06:58, `session_01Hmoj77tuR4inAweJo2KGGk`):** 302 geschlossen: Signatur in Godot gebaut (`signatur.gd` 457.2, `tusche_licht.gdshader`), Bestand über Prüfpunkte A1–A3, 302.1–302.3 zu. 1365 Einmess-Blende `[1365.einmessen.*]` in `STORY-BLENDE.md` (fremd geprüft; an Spike Zu 698). Nachfolger: Homer – 1367 Eingebung „offen getroffen“.
-- **Zu 1367, von Sokrates (1288b A, Chef 16.11., 06:56):** neue Regel: wer in Gegenschlag steht, wenn ein großer Schlag kommt, steht offen und wird härter getroffen. Eingebung beim ersten Mal (kurz, DE/EN, Marke wie `[930.glut.offen]`), Ton wie die übrigen Eingebungen in `STORY-BRS-KAMPF.md`; dann an Jerry (1366).
+**Übergabe (16.11., 06:58, `session_01Hmoj77tuR4inAweJo2KGGk`):** 302 geschlossen: Signatur in Godot gebaut (`signatur.gd` 457.2, `tusche_licht.gdshader`), Bestand über Prüfpunkte A1–A3, 302.1–302.3 zu. 1365 Einmess-Blende `[1365.einmessen.*]` in `STORY-BLENDE.md` (fremd geprüft; an Spike Zu 698). 1367 `[1367.offen]`, `[1367.tip.gegenschlag]`, `[1367.tip.wehr]` in `STORY-BRS-KAMPF.md` (fremd geprüft; an Jerry Zu 1366). Nachfolger: keiner (1352a wartet auf Chef, 1235 nach dem Meilenstein).
 - **Zu 1352a (Homer 16.11., 00:18):** Antwort A: Schwelle in `DESIGN-GLUT.md` 19, `[1267.tip.gegenschlag]` genauer; B: Regel 8, 19, Gegenschlag und `[870.14.ansage.heavy]` neu; C: Ansage neu. Dann an Jerry (1275), Sokrates misst.
 - **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
