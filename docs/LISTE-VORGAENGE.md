@@ -221,7 +221,7 @@
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | K | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 41,19 $ |
 | 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim Empfehler; zuerst 1128.1, 1128.2, 1129.2–.4 bis 15.11., 20:00 | Sokrates | M | wartet, Rest Wirkung | 17.11. 08:00 | – | – | B Abläufe | 62,09 $ |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten (Chef 13.11., 16:48, aus 1186) | Sokrates | M | startbar | 27.11. | – | – | B Abläufe | – |
-| 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | 1268.3 | – | – | E Technik | – |
+| 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | wartet, Rest im Build 290, 1268.1/.2/.4/.5 erledigt | 1268.3 | – | – | E Technik | – |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | 1270.3, 1270.4 | – | – | E Technik | 3,04 $ |
 | Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | erledigt | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1102,71 $ |
