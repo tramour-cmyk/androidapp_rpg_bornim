@@ -30,6 +30,8 @@ Geprüft an: `99b19c66c` (Zweig `claude/tuffy-1292-klosterschueler`, `tools/sim4
 - **D: nichts ändern.** Er bleibt unverlierbar, jede Spielweise gewinnt.
 - **Stärkstes Gegenargument gegen A:** Eine feste Zahl je Kampf ist eine neue Art Regel, die das Spiel bisher nicht hat (Zauber kosten nur Mana); der Spieler muss sie lernen. Antwort: Nur Mana als Grenze greift nicht, weil 40 Mana für mehr Segen reichen, als ein Kampf braucht (C zeigt es); die Grenze betrifft nur einen Zauber und lässt sich an seinem Knopf zeigen.
 
+**Stellungnahme Sokrates (16.11., 10:01):** Tuffys stärkstes Gegenargument („neue Art Regel“) trägt nicht: „Kraft schöpfen“ gilt schon einmal je Kampf (870a 3 A, `DESIGN-BRS.md`). Stärker ist: Der Maßstab Wachsoldat gewinnt selbst eine Stufe drunter 92 bis 100, ist also auch zu stark; und mit 1352a A (Taumeln) werden Krogg und Grak noch leichter. A ist darum richtig, aber nur ein Schritt: die Nachmessung zu 1352a rechnet die Grenze von 1292 gleich mit, und die Siegquoten aller Herkünfte gegen die Bosse kommen danach als eine Vorlage. Kosten klein. Empfehlung: A.
+
 **Folgerungen:** Bei A oder B baut Jerry die Grenze (ohne Test durch dich: automatischer Test und Gegenrechnung im Spielcode) und trägt sie in `DESIGN-BRS.md` ein (über Sokrates, 481). Bei C ändert sich nur `werte.json`. Bei D nichts.
 
 Antwort: …
