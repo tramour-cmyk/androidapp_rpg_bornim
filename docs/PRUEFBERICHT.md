@@ -41,6 +41,24 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 276 · 790 Kosten nachher (Woche 09.11., 17:07Z bis 16.11., 17:05Z; 16.11., 18:1x)
+
+667 abgeschlossene Sitzungen (3 laufende nicht gezählt), 658 mit Kosten (9 ohne `usage`), zusammen 5.549 $; Rechnung wie Lauf 113, Werte aus `get_session` je Sitzung. Rolle = erstes Wort des Titels, Tuffy bei Jerry; Spike eigene Zeile (in Lauf 113 keine). Modelle: 615 opus, 36 sonnet, 7 andere.
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 95 | 1216 | 9,71 | 0,068 | 302 | 742 | 0,164 | 13 |
+| Jerry | 140 | 1668 | 9,63 | 0,068 | 306 | 678 | 0,154 | 13 |
+| Spike | 66 | 448 | 5,66 | 0,056 | 245 | 503 | 0,138 | 18 |
+| Sokrates | 112 | 952 | 7,07 | 0,059 | 262 | 484 | 0,134 | 18 |
+| Perikles | 83 | 458 | 4,53 | 0,060 | 222 | 493 | 0,131 | 18 |
+| Ford | 35 | 344 | 7,38 | 0,035 | 404 | 889 | 0,120 | 24 |
+| Diogenes | 81 | 256 | 2,06 | 0,053 | 160 | 392 | 0,123 | 25 |
+| Homer | 45 | 208 | 3,83 | 0,062 | 177 | 336 | 0,106 | 29 |
+| alle | 658 | 5549 | 6,37 | 0,060 | 252 | 889 | 0,142 | 16 |
+
+Gegen Lauf 113 (alle): Sitzungen 212 → 658, Kosten 3.083 → 5.549 $, Median je Sitzung 13,41 → 6,37 $, je Aufruf 0,074 → 0,060 $, Median Länge 391 → 252 Tsd., $ je 1000 Ausgabe 0,144 → 0,142, Neuanlegen 18 → 16 %. Eine Sitzung „Sonstige“ (0,02 $) nicht in der Tabelle. Nicht bewertet (Perikles).
+
 ## Lauf 275 · 1427 an der ersten echten Prüfliste (16.11., 18:06)
 
 - **1427 greift:** erste neue Prüfliste nach dem Bau, t293 (Jerry `f5b1a47f6`, 15:34; im Archiv seit `0fb38b49f`): neun Zeilen, keine mit Vergleich aus dem Gedächtnis („wie in Build n“, „als vorher“, „wie gewohnt“); Vergleiche nur im Film (293.9, Fehlbiss im selben Film). „wie 293.6“ in 293.7 ist ein Ortsverweis. Nicht geprüft: ob die Commit-Prüfung bei t293 lief (Liste hätte ohnehin nichts zum Anhalten).
