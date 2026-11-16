@@ -30,8 +30,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 1428, von Sokrates (Chef 16.11., 14:04 gefragt, 14:07 „Ja, leg es Perikles an“):** Chef: „Wie lange dauert es im Regelfall, bis du mitkriegst, dass irgendein anderer was von dir will? … eine Freigabe zum Beispiel.“ Befund: Direktnachricht kommt in Minuten an, Vorgang über Ford bis etwa eine Stunde, Eintrag nur im Vorrat sieht keiner vor dem nächsten Start (Jerrys Bitte „1284, Läufe frei“ 13:27, bearbeitet 13:47 nur wegen Neustart). Regel: Bitte, auf die jemand wartet, als Vorgang mit Empfänger als Besitzer, eilig zusätzlich Direktnachricht; nie nur im Vorrat. Regelbilanz (Haltung 6): eine alte ersetzen oder streichen.
-
 - **Zu 1427, von Sokrates (Chef 16.11., 13:31 zu t291.3):** Prüfzeile „die Höhle ist nicht langsamer da als in Build 290“: „Völlig sinnlose Frage. Die kann ein Mensch nicht beantworten.“ Vergleiche in Prüflisten nur mit gemessener Zahl (Ladezeit 1426 Spike, Bildrate) oder Bild/Film alt gegen neu, nie aus dem Gedächtnis des Chefs.
 
 
