@@ -140,3 +140,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 16.11.: Marke Mehrfach Sokrates (lauf.py)
 - 12:04 16.11.: Marke Archiv session_01Hmoj76tYoe7PjfkrZzLrzh (lauf.py)
 - 12:04 16.11.: Marke Archiv session_01Hmoj7752bUqezjjHom7vdR (lauf.py)
+- 12:07 16.11.: Lauf 12:04: Start Diogenes 1410, alte Diogenes-Sitzung archiviert (3,02 $ auf 1392 gebucht); GELÖST 1044 an Tom; Perikles-Nachfolger nicht gestartet (Vorrat leer, 1413 erledigt, alte Sitzung session_01Hmoj7752bUqezjjHom7vdR bleibt, kein Start ohne Arbeit)
