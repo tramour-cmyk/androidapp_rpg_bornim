@@ -54,8 +54,8 @@ Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11.
 | Regel | Krieger (Einhänder, Schild; Wachsoldat) | Kämpe (Zweihänder) | Schütze (Bogen; Jägerkind) | Späher (Dolch; Herumtreiber) | Magier (Evokation; Zauberlehrling) | Heiler (Heilmagie; Klosterschüler) |
 | --- | --- | --- | --- | --- | --- | --- |
 | Treffer | Einhänder gegen Abwehr | Zweihänder | Bogen, + 1 je Wahrnehmung | Dolche | Evokation, ohne Grundwert | Heilmagie (Gleißstrahl), ohne Grundwert |
-| Schaden aus | Kraft | Kraft | Gewandtheit | Gewandtheit | Wille | Wille |
-| Kritisch | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | **nie** | **nie** |
+| Schaden aus | Kraft | Kraft | Gewandtheit | Gewandtheit | Verstand | Wille |
+| Kritisch (Grundwert × Fertigkeit / 50 %) | Gewandtheit | Gewandtheit | Wahrnehmung | Wahrnehmung | Wille | **nie** |
 | Abwehr (bester Wert) | Schild-Fertigkeit; Ausweichen (Fertigkeit + 2 × Gewandtheit); Parieren ½ Einhänder nur gegen Nahkampf | Ausweichen; Parieren ½ Zweihänder | nur Ausweichen | Ausweichen; Parieren ½ Dolche | nur Ausweichen (Stab: Parieren ½ Stumpfe Waffen) | wie Magier |
 | Abzug | Rüstung × (1 + Rüstungsfertigkeit/100) + Schild | Rüstung | Rüstung | Rüstung | keine Rüstung; Bannschild, Arkanhaut | Rüstung erlaubt (Heilmagie) |
 | Handlung ab Geselle | Finte; Schildwall | Wuchtschlag | Ruhige Hand | Stich aus dem Hinterhalt | Glutstrahlen, Flammenfächer, Arkanhaut | Beistand |
@@ -63,11 +63,11 @@ Jede Regel, die im Kampf wirkt, gegen jeden Kampfstil gehalten (984, Chef 11.11.
 | Initiative, Flucht | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit | Gewandtheit |
 | Abwehrproben | Zähigkeit (Gift), Wille (Furcht, Zauber), Gewandtheit (Flächen) | gleich | gleich | gleich | gleich | gleich |
 | Schwäche vorher sehen | Verstand ab 6 | gleich | gleich | gleich | gleich | gleich |
-| **Grundwerte, die im Kampf zählen** | Kraft, Gewandtheit, Zähigkeit | Kraft, Gewandtheit, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | **Gewandtheit allein** (Schaden, Kritisch, Abwehr), Zähigkeit | **Wille allein** (Schaden, Mana), Gewandtheit nur Abwehr, Zähigkeit | wie Magier |
+| **Grundwerte, die im Kampf zählen** | Kraft, Gewandtheit, Zähigkeit | Kraft, Gewandtheit, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | Gewandtheit, Wahrnehmung, Zähigkeit | Verstand (Schaden), Wille (Kritisch, Mana), Gewandtheit nur Abwehr, Zähigkeit | Wille (Heilung, Mana), Gewandtheit nur Abwehr, Zähigkeit |
 
 Nicht in Kapitel 1: Illusion und Beschwörung haben keinen Zauber und sind bei der Erschaffung nicht wählbar wie Bergbau (984 A, Chef 11.11., 20:12; Bau 984.1 Tom); frei, sobald ein Kapitel Zauber dafür hat. Nach 952 D misst Jerry, ob die Gewandtheit noch jeden Stil trägt.
 
-**Beschlossen, noch nicht gebaut (952 D, Chef 11.11., 20:03):** kritisch = zweiter Grundwert × Fertigkeit / 50 Prozent, nie der Grundwert des Schadens: Krieger und Kämpe Gewandtheit, Späher und Schütze Wahrnehmung; Magier: Schaden aus **Verstand**, kritisch und Mana aus Wille; Heiler: Heilung und Mana aus Wille, nie kritisch. Nach dem Bau die Zeilen oben nachziehen.
+**Gebaut (952 D, Chef 11.11., 20:03; `werte.json` „waffen“, „schulen“, `brs_held.gd` krit_von, auf `main` 16.11.):** kritisch = zweiter Grundwert × Fertigkeit / 50 Prozent, nie der Grundwert des Schadens; Zeilen „Schaden aus“, „Kritisch“ und „Grundwerte“ oben nachgezogen (Sokrates 16.11.).
 
 ## 1. Die Grundidee
 
@@ -181,7 +181,7 @@ Die **Heldenstufe** wächst über Erfahrung. Sie bestimmt Leben, die Stärke im 
 | Gewandtheit | Abwehr beim Ausweichen + 2 je Punkt |
 | Kritischer Treffer (anderthalbfach) | Grundwert × Fertigkeit / 50 Prozent; Grundwert: Gewandtheit im Nahkampf, Wahrnehmung bei Dolch, Wurfwaffe, Bogen, Armbrust, Wille bei Evokation, Illusion, Beschwörung; Heil- und Schutzmagie nie (952 D, Chef 11.11., 20:03; heute noch Gewandtheit in Prozent) |
 | Wahrnehmung | Trefferchance im Fernkampf + 1 Prozentpunkt je Punkt |
-| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Fertigkeit = Schule; Grundwert Verstand bei Evokation, Illusion, Beschwörung (Teilchen der Umgebung verstehen und formen), Wille bei Heil- und Schutzmagie (952 D, Chef 11.11., 20:03; heute noch überall Wille); Mana 10 + 5 × Wille |
+| Zauber | Schaden wie Waffe mit Grundschaden des Zaubers, Fertigkeit = Schule; Grundwert Verstand bei Evokation, Illusion, Beschwörung (Teilchen der Umgebung verstehen und formen), Wille bei Heil- und Schutzmagie (952 D, Chef 11.11., 20:03); Mana 10 + 5 × Wille |
 
 Die Ätherdichte (Entscheidung 76) ist noch ohne Zahl.
 
