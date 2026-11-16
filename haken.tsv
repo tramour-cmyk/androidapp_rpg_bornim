@@ -622,3 +622,4 @@
 2026-11-16 14:14:11	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1416 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (	claude/spike-1416-winken
 2026-11-16 14:28:15	commit-pruefung	docs/ARBEIT-BESETZUNG.md: Uhrzeit 15:25 liegt nach jetzt (14:28)	main
 2026-11-16 14:28:24	startsperre	Startsperre fehlt (750 A): für Perikles steht in den letzten 10 Minuten keine „Startsperre … Start Perikles“ auf main (letzte 16.11., 14:07). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, p	HEAD
+2026-11-16 14:29:09	commit-pruefung	LISTE-VORGAENGE.md: 1426: Zeile über 400 Zeichen (Einzelheiten als „Zu 1426“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
