@@ -32,3 +32,4 @@ Gegengelesen: Sokrates 16.11., 01:22 (drei Befunde, eingearbeitet Tom 01:23, dan
 ## Ergebnis
 
 - 291.8 ✗ Pfeil fliegt auf Schild-/Brusthöhe, aber der Held zuckt nicht; dreimal dieselbe Szene, kein Unterschied erkennbar, ob er trifft (Chef 16.11., 12:24, über Sokrates)
+- 291.10 ✓ Söldner zuckt dreimal, Schild bleibt vor ihm; neuer Fund: beim dritten Biss bleibt Abstand, der Wolf erreicht ihn nicht (Chef 16.11., 12:32, über Sokrates; an Jerry zu 1284 Luftbisse)
