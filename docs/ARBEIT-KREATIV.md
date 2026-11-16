@@ -6,9 +6,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Übergabe (16.11., 08:18, `session_01Hmoj76es2uZMd5a4yrjmHt`):** 1370 erledigt: `[1370.grafik.zeichen]`, `[1370.grafik.satz]`, `[1370.grafik.meldung]` in `STORY-MENUE.md` (fremd geprüft; an Spike Zu 698). 1380: Stellung A zu 1291a als „Zu 1291a“ bei Jerry; Texte nach der Antwort. Nachfolger: keiner (1352a wartet auf Chef, 1235 nach dem Meilenstein).
 - **Zu 1380, von Sokrates (Chef 16.11., 10:37, „1291a D“, Archiv):** Hinweis im Ausrüstungsmenü, neutral, kein Versprechen (etwa „Die Nebenhand führt einen Schild oder eine Fackel.“), DE/EN, an Jerry (1291). Den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
-- **Zu 1352, von Sokrates (Chef 16.11., 10:15, „1352a A“, Archiv):** Schwelle in `DESIGN-GLUT.md` Regel 19 eintragen (ein Fünftel des Lebens seit der Ansage, jeder Schaden, nur angesagte große Schläge); Tipp `[1267.tip.gegenschlag]`: „Fällt er davon, bleibt sein Schlag aus; taumelt er, geht ein großer Schlag ins Leere.“ Dann an Jerry (1275).
 - **Zu 1401, von Sokrates (431h A, Chef 16.11., 10:08):** vier Oberkörper-Startstücke ohne neuen Schutzwert (Werte Lederrüstung), Aussehen der heutigen Trachten: Klosterschüler Ritter-Stoffkleid, Kräutersammler/Schmiedelehrling/Wanderer Bauernhemd; Name und Gegenstandstext DE/EN je Stück, an Tom.
-- **Zu 1352a (Homer 16.11., 00:18):** Antwort A: Schwelle in `DESIGN-GLUT.md` 19, `[1267.tip.gegenschlag]` genauer; B: Regel 8, 19, Gegenschlag und `[870.14.ansage.heavy]` neu; C: Ansage neu. Dann an Jerry (1275), Sokrates misst.
 - **Zu 1318 (Homer 15.11., 20:08):** Vorschlag, Urteil des Chefs im Build; Wortlaut bleibt bis dahin.
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
