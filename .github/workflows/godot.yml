@@ -998,7 +998,7 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --leute=$GITHUB_WORKSPACE/bilder/leute475 --gesichter --gesichterspiel 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^GESICHT|^LEUTE BLATT" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/leute475
-      # 531 (Chef 04.11., 19:27): Film Garrick am Feuer (Fackel Tag und Nacht, Ruhe aus dem Bestand), Spielkamera, opengl3 wie Dorftiere
+      # 531 (Chef 04.11., 19:27): Film Garrick am Feuer (Fackel Tag und Nacht, Ruhe aus dem Bestand), Spielkamera, mobile (Vulkan) wie am Handy
       - name: Kamine 501 (nur von Hand mit kamin=ja)
         if: ${{ !cancelled() && github.event.inputs.kamin == 'ja' }}
         continue-on-error: true
@@ -1943,8 +1943,8 @@ jobs:
             cp $RUNNER_TEMP/neu531.bin daten/held_L_garrick_M.bin
             (cd $B && convert links_vorher.png links.png -background "#D4B038" -splice 8x0 +append links_vorher_nachher.png) || true
           fi
-          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
-            --write-movie $RUNNER_TEMP/garrick531.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd -- --film531 > $B/film531.log 2>&1 || true
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 --write-movie $RUNNER_TEMP/garrick531.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd -- --film531 > $B/film531.log 2>&1 || true
           grep -E "SCRIPT ERROR|^GARRICKFILM" $B/film531.log | cut -c1-300 || true
           i=0; for f in $(grep -oE "^GARRICKFILM schnitt [0-9]+" $B/film531.log | awk '{print $3}'); do
             ffmpeg -loglevel error -y -ss $(awk "BEGIN{print ($f-15)/30}") -t 4.6 -i $RUNNER_TEMP/garrick531.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $RUNNER_TEMP/s$i.mp4 && echo "file '$RUNNER_TEMP/s$i.mp4'" >> $RUNNER_TEMP/s.txt; i=$((i+1)); done

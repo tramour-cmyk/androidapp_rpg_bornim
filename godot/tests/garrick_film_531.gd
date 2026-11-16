@@ -7,7 +7,7 @@ extends SceneTree
 #         Gibt je Abwehr „GARRICKFILM schnitt <bild>“ aus; tools: ffmpeg schneidet je 4,6 s ab dort zusammen.
 #   Bild (-- --bild=<datei>.png [--blick=links|rechts]): Garrick in Ruhe von hinten schräg oder im Profil, Langbogen und Köcher auf dem Rücken (643, heldfigur.gd ruecken_tragen)
 # Gesicht: 475; Ruhebewegungen: 1044 (heldfigur.gd RUHE_JE „garrick“: umsehen, greifen, trinken), nicht hier.
-# Aufruf im Ordner godot: xvfb-run -a -s "-screen 0 540x1170x24" godot --rendering-driver opengl3 --path . --resolution 540x1170
+# Aufruf im Ordner godot: xvfb-run -a -s "-screen 0 540x1170x24" godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170
 #   --write-movie <datei>.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd     (Bild: ohne --write-movie, mit -- --bild=…)
 
 var spiel
