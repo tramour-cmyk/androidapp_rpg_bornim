@@ -23,6 +23,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/0382b86d
 - **B:** Bildläufe nur auf dem Bauserver (Schritt in `godot.yml`); etwa 30–50 min Bauserver je Lauf, Tom wartet je Bild auf einen Lauf.
 - **Stärkstes Gegenargument gegen A:** Wir erklären einer Sicherheitsprüfung selbst, was sie durchlassen soll. Dagegen: genau dafür ist die Stelle gedacht, die Freigabe gibst du, und unser eigenes Tor bleibt.
 
+**Stellungnahme Sokrates (16.11., 01:06):** Stärkstes Gegenargument: Die Erklärzeile 797 zum Kaufrepo hat bei Spike nicht gewirkt (15.11., 22:44), eine Zeile ist also keine Gewähr. Außerdem schreiben wir der Sicherheitsprüfung ihre Ausnahme selbst. Meine eigene Anweisung „dann auf dem Bauserver“ hat sie um 00:05 ebenfalls abgelehnt, deshalb darf B nur mit deinem Wort gelten. Kein Widerspruch zu Entschiedenem: wie 797, das Tor 621 A bleibt. Kosten: ein Commit, bei B 30–50 min Bauserver je Bild. Empfehlung: A, und du sagst gleich mit, ob bei erneuter Ablehnung B gilt („1351 A, sonst B“).
+
 **Folgerungen:** A: Perikles schreibt die Zeile, Tom macht den Bildlauf 1044 erneut, einmal. Scheitert er wieder, kein weiterer Versuch, Weg B. B: Tom baut den Schritt in `godot.yml`.
 
 Antwort: …

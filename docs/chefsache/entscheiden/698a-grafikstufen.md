@@ -37,6 +37,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/274ec030
 - **C:** in Niedrig auch die Tuschelinie aus. Spart am meisten; aber dann sieht das Spiel auf schwachen Handys nicht mehr nach uns aus.
 - **Stärkstes Gegenargument gegen A:** ohne Messung am Gerät ist die Tabelle geschätzt; vielleicht spart „Mittel“ kaum etwas. Darum messe ich jede Stufe bei jedem Bau und an deinem A56, und die Werte passe ich innerhalb der Zeilen an (z. B. 80 statt 85 %), ohne neue Zeilen.
 
+**Stellungnahme Sokrates (16.11., 01:06):** Stärkstes Gegenargument: „Automatisch, beginnend bei Hoch“ lässt auf schwachen Handys gerade das erste Spielen ruckeln, also den ersten Eindruck. Und ein Wechsel der Stufe mitten in einer Szene fällt auf (Schatten springen). Kein Widerspruch zu Entschiedenem: 623.8 A (Effekte an der Grafikstufe, Bilder/s nie schlechter), die Signatur bleibt in jeder Stufe. Kosten: etwa eine Sitzung (Spike). Empfehlung: A, aber Automatisch wählt die Anfangsstufe bei der ersten Kampfort- oder Kartenladung durch eine kurze Messung und wechselt danach nur an Ladepunkten, nie mitten in der Szene.
+
 **Folgerungen:** Nach „A“ baut Spike das Zeichen „Grafik“, die drei Stufen und Automatisch auf `claude/spike-698-grafikstufen`, misst je Stufe Grafikzeit in Dorf und Höhle, legt je Ort ein Bild Hoch gegen Niedrig vor und bittet dann zum Test. Bei B oder C ebenso mit der gewählten Tabelle.
 
 Antwort: …

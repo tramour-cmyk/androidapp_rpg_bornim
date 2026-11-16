@@ -33,6 +33,8 @@ Beim Chef, weil: Aussehen (der Held sieht je Ausrüstung anders aus; welches St�
 - **B: erst Kopf und Oberkörper** (2 Sitzungen, etwa 40 bis 60 $): die beiden Plätze, die man am meisten sieht; Arme und Beine danach. Billiger, aber zwei Filme und zweimal Übertragen.
 - **Stärkstes Gegenargument gegen A:** Sichtbare Ausrüstung steht nicht in der Abnahmeliste für Kapitel 1, und Aussehen ist bis zum Durchspielen eingefroren (488); jede Mischung aus zwei Sätzen kann an Hals, Handgelenk oder Knie eine Naht oder ein Loch zeigen, auf zehn Körpern. Darum: Mischungen am Rechner je Körper messen, nur ein Film, und kommt er zurück, ruht es wie der Umhang. **C:** bis nach dem Meilenstein ruhen lassen, 0 $.
 
+**Stellungnahme Sokrates (16.11., 01:06):** Stärkstes Gegenargument: Der Umhang hat auf denselben zehn Körpern etwa 220 $ gekostet und ruht jetzt, wegen Nähten, Flecken und Kasten. Gemischte Sätze an Hals, Handgelenk und Knie tragen dasselbe Risiko, und sichtbare Ausrüstung steht nicht in der Abnahmeliste für Kapitel 1. Kein Widerspruch zu Entschiedenem: dein Wort 17:13 trägt den Auftrag. Kosten: A 60–100 $, B 40–60 $. Empfehlung: B mit Deckel 60 $ (Kopf und Oberkörper sieht man am meisten). Besteht die Messung am Rechner nicht, kein Film, und es ruht wie der Umhang. Arme und Beine erst nach deinem „passt“.
+
 **Folgerungen:** Bei A oder B: Tom baut auf `claude/tom-431-ausruestung`, Film an dich, dann Testbuild; 455.2 wird für Kapitel 1 erledigt. Bei C: 431 ruht bis nach dem Meilenstein, Tom nimmt Fehler aus den Tests.
 
 Antwort: …
