@@ -5,16 +5,16 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 16.11., 09:16** (Werkzeug `tools/tagesbericht.py`)
+**Stand 16.11., 09:17** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 3 abgenommen, 2 gebaut, 7 in Arbeit, 29 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 219 / 848, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 145 / 497; neu 159 / 822 |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 230 / 859, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 146 / 498; neu 161 / 824 |
 | 3 | Rest geschätzt | neues Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“, zweite Woche dasselbe Ziel; fertig, wenn du im Sammelbuild mit den festen Kampfplätzen (Vorgang 1072) „Kampf passt“ sagst. (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **5 entscheiden**, **1 ansehen**, **1 billigen**, **2 Build**, **1 tun** | ältestes: 0.348.506 seit 15.11., 22:59; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **23** (Tom 12, Jerry 11); rote Läufe 24 h **15 von 32** (Tom 1, Jerry 3, Spike 3, Build 8), 7 Tage 98 von 172; rote Tests 48 h: wolf_mess_438 6×, ziege_4162 6×, ausholen_1000 4×, pruefliste_1020 4×, lage_785_8 2×, atem_4531 2× (wackelt) | bei dir zum Testen: Build 290, Build 291; ein Build nimmt alle fertigen Zweige (317) |
-| 6 | Fehler | **19** offen, davon 4 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 4 | Wartet auf dich | **6 entscheiden**, **2 ansehen**, **1 billigen**, **2 Build**, **1 tun** | ältestes: 0.348.506 seit 15.11., 22:59; [Chefsache](chefsache/README.md) |
+| 5 | Builds | Änderungen warten auf deinen Test: **24** (Tom 12, Jerry 12); rote Läufe 24 h **15 von 32** (Tom 1, Jerry 3, Spike 3, Build 8), 7 Tage 98 von 172; rote Tests 48 h: wolf_mess_438 6×, ziege_4162 6×, ausholen_1000 4×, pruefliste_1020 4×, lage_785_8 2×, atem_4531 2× (wackelt) | bei dir zum Testen: Build 290, Build 291; ein Build nimmt alle fertigen Zweige (317) |
+| 6 | Fehler | **17** offen, davon 4 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
 | 7 | Geld | Woche unbekannt; gestern 798 $ Rechenwert, Spiel 69 %; **Bitte Bild der Nutzung** (Woche %; ruht die Niederlassung: nur Max; 783 W7) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
 | 8 | Von dir zuerst gefunden | seit dem letzten Bericht (15.11., 10:15) in Build 286 1284 der Rattenbiss ist nicht zu sehen, 1285 der Held rennt schon bei kleinen Joystick-Bewegungen, 1295 das Kartenblatt der Höhle ist abgeschnitten, 1289 die Höhle ist im Grafikmodus „mobile“ zu hell; in Build 287 1296 die Eingebung rät beim Anspringen … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
 | 9 | Größtes Risiko | rote Läufe auf dem Bauserver sind wieder gestiegen, 15 von 32 in 24 Stunden (8 davon beim Bau eines Test-Builds); zwei Tests sind je 6-mal in 48 Stunden rot gewesen, die Wolfsmessung (wolf_mess_438) und ein Ziegentest (ziege_4162). (ganz unter „Eingaben“) |  |
@@ -22,12 +22,12 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 62 | 14 | 6 | 70 | 203 |
-| Jerry | 80 | 31 | 33 | 55 | 202 |
+| Tom | 61 | 14 | 6 | 71 | 204 |
+| Jerry | 80 | 31 | 32 | 55 | 202 |
 | Homer | 4 | 3 | 0 | 19 | 73 |
 | Sokrates | 34 | 9 | 4 | 29 | 114 |
-| Perikles | 33 | 25 | 3 | 31 | 223 |
-| Diogenes | 26 | 21 | 17 | 6 | 20 |
+| Perikles | 29 | 22 | 5 | 37 | 229 |
+| Diogenes | 11 | 9 | 3 | 6 | 20 |
 <!-- /zahlen -->
 
 ## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 16.11., 09:1x)
@@ -73,5 +73,5 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
 - Rest geschätzt: neues Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“, zweite Woche dasselbe Ziel; fertig, wenn du im Sammelbuild mit den festen Kampfplätzen (Vorgang 1072) „Kampf passt“ sagst. Schätzungen von Tom und Jerry in Sitzungen liegen heute nicht vor; es gilt die Reihenfolge im Wochenziel. Das Teilprojekt „Umzug BRS“ ist erledigt (882.1, 882.2, 870.10, 870.13), seine Abnahme (870.20) kommt mit Build 291 zu dir zum Test.
-- Von dir zuerst gefunden: seit dem letzten Bericht (15.11., 10:15) in Build 286 1284 der Rattenbiss ist nicht zu sehen, 1285 der Held rennt schon bei kleinen Joystick-Bewegungen, 1295 das Kartenblatt der Höhle ist abgeschnitten, 1289 die Höhle ist im Grafikmodus „mobile“ zu hell; in Build 287 1296 die Eingebung rät beim Anspringen „Wechsel“; in Build 288 1305 der Kämpfer mit Schild läuft in die hintere Reihe, 1304 der Kampfstab zuckt in der Ausrüstung, 1309 das Feld „Kopf“ rutscht unter die Reiterleiste; an Regeln 1297 der Schild ist beim Halbling so groß wie er, 1322 und 1323 Texte sagen noch TP statt Leben, 1326 die Build-Nummer fehlt im Hauptmenü; im Betrieb 1312 Fertiges blieb ohne Vorlage liegen, 1301 nach einem 👎 fragte keiner nach, 341 ich wartete noch auf den Test von Build 287, 1364 fast alle startbare Arbeit lag bei Jerry. Davor (14.–15.11.): in Build 285 hakelt die Höhle weiter (1145, wiederholt); im Betrieb 1246 nachts warten alle aufeinander, 1259 den Namen „Glut“ hat dir keiner vorgelegt. Wiederholt statt neu: 1289 Höhle hell (dritter Fund), 1296 Eingebung (zweiter Fund). Die ganze Woche zählt Diogenes heute.
+- Von dir zuerst gefunden: seit dem letzten Bericht (15.11., 10:15) in Build 286 1284 der Rattenbiss ist nicht zu sehen, 1285 der Held rennt schon bei kleinen Joystick-Bewegungen, 1295 das Kartenblatt der Höhle ist abgeschnitten, 1289 die Höhle ist im Grafikmodus „mobile“ zu hell; in Build 287 1296 die Eingebung rät beim Anspringen „Wechsel“; in Build 288 1305 der Kämpfer mit Schild läuft in die hintere Reihe, 1304 der Kampfstab zuckt in der Ausrüstung, 1309 das Feld „Kopf“ rutscht unter die Reiterleiste; an Regeln 1297 der Schild ist beim Halbling so groß wie er, 1322 und 1323 Texte sagen noch „Trefferpunkte“ statt „Leben“, 1326 die Build-Nummer fehlt im Hauptmenü; im Betrieb 1312 Fertiges blieb ohne Vorlage liegen, 1301 nach einem 👎 fragte keiner nach, 341 ich wartete noch auf den Test von Build 287, 1364 fast alle startbare Arbeit lag bei Jerry. Davor (14.–15.11.): in Build 285 hakelt die Höhle weiter (1145, wiederholt); im Betrieb 1246 nachts warten alle aufeinander, 1259 den Namen „Glut“ hat dir keiner vorgelegt. Wiederholt statt neu: 1289 Höhle hell (dritter Fund), 1296 Eingebung (zweiter Fund). Die ganze Woche zählt Diogenes heute.
 - Größtes Risiko: rote Läufe auf dem Bauserver sind wieder gestiegen, 15 von 32 in 24 Stunden (8 davon beim Bau eines Test-Builds); zwei Tests sind je 6-mal in 48 Stunden rot gewesen, die Wolfsmessung (wolf_mess_438) und ein Ziegentest (ziege_4162). Jeder rote Lauf verzögert den nächsten Sammelbuild, und die festen Kampfplätze (Vorgang 1072: zweiter Schritt gebaut, noch nicht gemessen) brauchen gerade die Wolfsmessung. Die Wolfsmessung ist behoben und kommt mit Build 291 (1321); den Ziegentest hat Sokrates als Muss (1383)
