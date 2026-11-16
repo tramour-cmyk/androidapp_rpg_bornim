@@ -302,6 +302,23 @@ def offen_je_rolle():
     except Exception:
         return ""
 
+def zustaendig():
+    """1413 (Chef 16.11., 11:55: „für jeden der Mitarbeiter nochmal ganz kurz, was thematisch er zuständig ist“): aus der Tabelle
+    „Rollen“ in CLAUDE.md gelesen, damit es nicht veraltet; Tuffy steht dort nicht und kommt aus ROLLE-ENTWICKLUNG.md (433)."""
+    try:
+        t = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "CLAUDE.md"), encoding="utf-8").read()
+    except OSError:
+        return ""
+    zeilen = []
+    for z in t.split("## Rollen", 1)[-1].split("\n## ", 1)[0].splitlines():
+        m = re.match(r"\|\s*\*\*(?:Team\s+)?([^*]+)\*\*[^|]*\|\s*([^|]+?)\s*\|", z)
+        if not m or m.group(1).strip() == "Chef": continue
+        wer, was = m.group(1).strip(), m.group(2).strip()
+        if wer == "Sokrates": was = re.sub(r";.*$", "", was)
+        zeilen.append("- **%s:** %s" % (wer, was))
+        if wer == "Jerry": zeilen.append("- **Tuffy:** Aushilfe bei Jerry, nimmt dessen Muss-Zeilen auf anderem Zweig")
+    return ("## Wer wofür\n\n" + "\n".join(zeilen)) if zeilen else ""
+
 def ueberblick():
     """1313 (Chef 15.11., 19:37: „Das muss auf Chefsache direkt sichtbar stehen.“): Themenblöcke und die nächsten 20, bei jedem Lauf
     neu (anders als „Offen je Rolle“, 1129 A 6), damit Fertiges nachrückt und Vorgezogenes sofort oben steht; fällt das Werkzeug aus,
@@ -375,7 +392,7 @@ def bilderlinks():
 
 versionen_nachtragen()
 bilderlinks()
-neu = "\n".join([t for t in [KOPF, ueberblick(), tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
+neu = "\n".join([t for t in [KOPF, zustaendig(), ueberblick(), tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:

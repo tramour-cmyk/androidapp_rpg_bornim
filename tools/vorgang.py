@@ -78,12 +78,28 @@ def warte_aus(text):
 
 GEPRUEFT = startbar.GEPRUEFT
 
+def commit_nicht_gepusht(stand):
+    """1400: der Commit hinter „Geprüft an:“ muss auf einem Zweig von origin liegen; ein Rebase danach ändert sonst die Kennung."""
+    m = re.search(r"Geprüft an:?\s*`?([0-9a-f]{7,40})`?(?![\w/])", stand)
+    if not m: return None
+    def auf_origin():
+        r = subprocess.run(["git", "-C", DOCS, "branch", "-r", "--contains", m.group(1)], capture_output=True, text=True, timeout=30)
+        return r.returncode == 0 and r.stdout.strip() != ""
+    try:
+        if auf_origin(): return None
+        subprocess.run(["git", "-C", DOCS, "fetch", "-q", "origin"], capture_output=True, timeout=60)
+        return None if auf_origin() else m.group(1)
+    except (OSError, subprocess.SubprocessError):
+        return None   # ohne Netz nicht sperren
+
 def stand_pruefen(stand, nr):
     w = startbar.wort_von(stand)
     if not w: sys.exit("vorgang.py: Stand muss mit einem Wort der Liste beginnen (%s)" % ", ".join(startbar.WORTE))
     if "|" in stand or "\n" in stand: sys.exit("vorgang.py: Stand ohne | und Zeilenumbruch")
     if w == "gebaut" and not GEPRUEFT.search(stand):  # 340.4 (Chef 02.11., 19:44, „340.2 ja“, B)
         sys.exit("vorgang.py: „gebaut“ braucht „Geprüft an: <Link, Lauf-Nummer oder Commit>“ im Stand (340.4)")
+    if (fehlt := commit_nicht_gepusht(stand)):  # 1400 (D261.1): Kurzform vor einem Rebase nennt später einen Commit, den es nicht gibt
+        sys.exit("vorgang.py: Commit %s steht auf keinem Zweig von origin; erst pushen (nie danach rebasen), dann „Geprüft an: <Commit>“ (1400)" % fehlt)
     if len(startbar.zusatz_von(stand)) > 120: sys.exit("vorgang.py: Zusatz über 120 Zeichen; Einzelheiten als „Zu %s“ in den Vorrat" % nr)
     return w
 

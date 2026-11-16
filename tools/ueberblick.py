@@ -30,6 +30,9 @@ BLOECKE = [
     ("Umzug BRS, SRD ablösen", {"nr": ("870", "882", "1279"), "kap1": True}),
     ("Kampf passt", {"bereich": ("E Kampf", "G Balance"), "kap1": True}),
     ("Kleiderschrank und Modelle (Held, Leute, Monster)", {"bereich": ("E Figuren",), "kap1": True}),
+    # 1382 (Chef 16.11., 09:00 „Themenblock bei Pericles anlegen lassen, alles da reinpacken“): Kataloge 649, 644, 458, Unterbau Spike;
+    # über die Nummer, darum vor den Bereichsblöcken gezählt (block() prüft „nr“ zuerst), angezeigt an dieser Stelle
+    ("Alles an einer Stelle: Figuren, Helden, Gegenstände", {"nr": ("649", "644", "458", "1382", "1385", "1386"), "kap1": True}),
     ("Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt)",
      {"nr": ("1280", "1281"), "bereich": ("E Welt", "E Oberfläche", "E Klang", "G Stil", "G Story", "Q QS"), "kap1": True}),
     ("Godot besser nutzen (Technik, Build, Leistung)", {"bereich": ("E Technik",), "kap1": True}),
@@ -122,6 +125,36 @@ def rechnen():
 
 
 ROLLEN_REIHE = ["Tom", "Jerry", "Spike", "Homer", "Diogenes", "Sokrates", "Perikles"]
+CHEF_ART = ("test", "entscheiden", "tun", "ansehen", "billigen")  # 1391: Folge nach Vorschlag Sokrates (Testbitte hält die meisten Zeilen)
+
+
+def chef_naechstes():
+    """1391 (Chef 16.11., 09:20 „Dann weiß ich nämlich, was ich als nächstes immer zu erledigen habe“): die Datei der Chefsache, die
+    am meisten aufhält: Testbitte (t<n>: Zeilen mit Build n „zu testen“), dann entscheiden/, tun/, ansehen/, billigen/; je Datei die
+    Zeilen, die auf sie warten (auch eine Stufe weiter); Gleichstand: kleinere Nummer (älter) zuerst."""
+    zs = s.vorgangsliste(s.lesen(s.LISTE))
+    def warten_auf(k):
+        direkt = {d["nr"] for d in zs if any(w == k or w == "Chef " + k for w in d["warte"])}
+        return direkt | {d["nr"] for d in zs if set(d["warte"]) & direkt}
+    kand = []
+    for art in ("ansehen", "entscheiden", "tun", "billigen"):
+        ordner = os.path.join(s.DOCS, "chefsache", art)
+        for f in sorted(os.listdir(ordner)) if os.path.isdir(ordner) else []:
+            if not f.endswith(".md"): continue
+            k = f.split("-")[0]
+            m = re.fullmatch(r"t(\d+)", k)
+            if m:
+                n, a = sum(1 for d in zs if d.get("build") == m.group(1) and d["wort"] == "zu testen"), "test"
+            else:
+                n, a = len(warten_auf(k)), art
+            zahl = int(re.match(r"t?(\d+)", k).group(1)) if re.match(r"t?\d", k) else 10 ** 6
+            kand.append((CHEF_ART.index(a), -n, zahl, art, f, k, n))
+    kand.sort()
+    if not kand: return "nichts offen in der Chefsache"
+    _, _, _, art, f, k, n = kand[0]
+    was = {"ansehen": "testen" if k.startswith("t") else "ansehen", "entscheiden": "entscheiden", "tun": "tun", "billigen": "billigen"}[art]
+    return "[%s](%s/%s) %s%s" % (k, art, f, was, (", hält %d Zeilen" % n if n else "")) + \
+        ("; dann %d weitere" % (len(kand) - 1) if len(kand) > 1 else "")
 
 
 def je_rolle():
@@ -129,7 +162,7 @@ def je_rolle():
     Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
     import collections, lauf
     st = lauf.stand()
-    aus = []
+    aus = ["| **Chef** | %s |" % chef_naechstes().replace("|", "/")]  # 1391
     for r in ROLLEN_REIHE:
         if r not in st: continue
         muss, kuer, p, _ = st[r]
@@ -146,7 +179,48 @@ def je_rolle():
             g = collections.Counter(re.sub(r"\s*[(:;].*$|\s+\d.*$", "", z[4]) for z in s.plan(r) if z[4] and "fuer" not in z[3])
             was = "leer, weil " + (", ".join("%d %s" % (n, w) for w, n in g.most_common(3)) or "keine offene Zeile")
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
+        for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
+            if team != r: continue
+            eigen = [x for x in muss if not x[2].startswith("Übernahme von")]
+            zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
+            frei = [x for x in eigen[1:] if (x[3].get("zweig") or "–") in ("–", "-", "", None) or x[3].get("zweig") != zw]
+            frei = [x for x in frei if not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))]
+            if frei: wz = zeile(frei[0], "Muss von %s, neben dessen Arbeit" % team) + ("; dann %d weitere" % (len(frei) - 1) if len(frei) > 1 else "")
+            else: wz = "leer, weil %s kein zweites unabhängiges Muss hat" % team + (" (Pause)" if p else "")
+            aus.append("| %s | %s |" % (zus, wz.replace("|", "/")))
     return aus
+
+
+def offen_filter(d):
+    return d["wort"] not in ("erledigt",) and d["besitzer"] != "Ideen" and d["nr"] not in s.SONDER
+
+
+ARCHIV_NR = re.compile(r"(?m)^\|\s*([0-9][0-9A-Za-z.]*)\s*\|")
+
+
+def morgen():
+    """1412 (Chef 16.11., 11:52): Stand der Vorgangsliste um 6:00 Berliner Zeit aus Git. → (offen je Block, Text „Heute: …“) oder None."""
+    import zoneinfo
+    jetzt = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
+    sechs = jetzt.replace(hour=6, minute=0, second=0, microsecond=0)
+    if jetzt < sechs: sechs -= datetime.timedelta(days=1)
+    c = s._git("rev-list", "-1", "--before=" + sechs.isoformat(), "HEAD").stdout.strip()
+    if not c: return None
+    def zeigen(datei): return s._git("show", "%s:docs/%s" % (c, datei)).stdout
+    alt_text = zeigen(s.LISTE)
+    if not alt_text: return None
+    alt = s.vorgangsliste(alt_text)
+    je = {}
+    for d in alt:
+        if offen_filter(d): je[block(d)] = je.get(block(d), 0) + 1
+    alt_offen = {d["nr"] for d in alt if offen_filter(d)}
+    alt_alle = {d["nr"] for d in alt} | set(ARCHIV_NR.findall(zeigen("LISTE-VORGAENGE-ARCHIV.md")))
+    jetzt_liste = s.zeilen_liste()
+    jetzt_alle = {d["nr"] for d in jetzt_liste} | set(ARCHIV_NR.findall(s.lesen("LISTE-VORGAENGE-ARCHIV.md")))
+    jetzt_offen = {d["nr"] for d in jetzt_liste if offen_filter(d)}
+    neu = jetzt_alle - alt_alle
+    erledigt = {n for n in (alt_offen | neu) if n not in jetzt_offen and n not in s.SONDER}
+    return je, "Heute (seit 6:00): %d erledigt, %d neu. In Klammern bei „offen“: Stand 6:00." % (len(erledigt), len(neu))
 
 
 def md():
@@ -162,6 +236,8 @@ def md():
     for key, d, grund in kommt:
         erst.setdefault(block(d), d)
     kopf = False
+    try: mo = morgen()
+    except Exception: mo = None   # 1412: ohne Git-Verlauf keine Klammer
     for k in list(range(len(BLOECKE))) + [len(BLOECKE)]:
         je = [d for d in zs if block(d) == k]
         if not je: continue
@@ -169,10 +245,11 @@ def md():
         if kap1 and not kopf:
             aus.append("| **%s** | | | | | | |" % KAPITEL1); kopf = True
         n = erst.get(k)
-        aus.append("| %s | %d | %d | %d | %d | %d | %s |" % (
-            ("↳ " if kap1 else "") + name(k), len(je), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
+        aus.append("| %s | %s | %d | %d | %d | %d | %s |" % (
+            ("↳ " if kap1 else "") + name(k), ("%d (%d)" % (len(je), mo[0].get(k, 0))) if mo else str(len(je)), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
             sum(wartet_auf_test(d) for d in je), sum(d["wort"] in RUHT for d in je),
             ("%s (%s) %s" % (n["nr"], n["besitzer"], worum(n["titel"], 50))) if n else "–"))
+    if mo: aus += ["", mo[1]]
     aus += ["", "**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"] + je_rolle()
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):

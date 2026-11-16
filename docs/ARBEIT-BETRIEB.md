@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1385** (zuletzt 1384 Perikles 16.11. 08:03:55 fc28) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1438** (zuletzt 1437 Perikles 16.11. 14:14:36 a799) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -14,7 +14,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Alle Sperren aufgehoben (Chef 07.11., 20:2x):** alle Rollen startbar; Vorrang Fehler aus den Tests des Chefs (wiederholte zuerst, 620.1). Es gelten weiter: 621 A (eine Probe je Aussehen-Thema), 488 (Aussehen eingefroren bis zum Durchspielen), 287 nach dem nächsten Bild des Guthabens.
 
-**Guthaben:** **Chef 15.11., 10:11 (an Sokrates, Chat):** „Wöchentlicher Verbrauch steht bei 9 Prozent“; seit Zurücksetzung Sa 14.11., 20:00 (angenommen wie bisher, nächste Sa 21.11., 20:00) 14 h ≈ 0,63 %/h, tragbar ≈ 0,60 %/h; bei diesem Schnitt 80 % (287) Fr 20.11. ≈ 02:00, 100 % Sa 21.11. ≈ 14:00, also knapp über Kurs; vorher (13.11.) Woche 66 %, ältere Bilder in Git; Limit-Reset „Kostenlos zurücksetzen“ (läuft ab 9. März) verfügbar, Reserve; Nutzungsguthaben an, 0 Credits · **Max 20x seit 25.10., ~11:00**: 287 gilt (ab 80 % `lauf.py --nur-muss`, ab 95 % nur Rückläufer des Chefs, ab 100 % Stillstand, nichts nachkaufen); Monat bis 25.10. 303,02 $ · ältere Bilder (bis 06.11.): Git · 13.11., 15:00: Sitzungsdaten zeigen `seven_day allowed_warning` (Chef 15:01 gemeldet)
+**Guthaben:** **Chef 16.11., 12:13 (an Sokrates, Chat):** „Wir sind aktuell auf 37% Verbrauch.“; seit Zurücksetzung Sa 14.11., 20:00 (angenommen, nächste Sa 21.11., 20:00) 40 h ≈ 0,92 %/h, tragbar für den Rest ≈ 0,49 %/h; bei diesem Schnitt 80 % (287) Mi 18.11. ≈ 11:00, 100 % Do 19.11. ≈ 09:00, deutlich über Kurs (15.11., 10:11: 9 %, 0,63 %/h); vorher (13.11.) Woche 66 %, ältere Bilder in Git; Limit-Reset „Kostenlos zurücksetzen“ (läuft ab 9. März) verfügbar, Reserve; Nutzungsguthaben an, 0 Credits · **Max 20x seit 25.10., ~11:00**: 287 gilt (ab 80 % `lauf.py --nur-muss`, ab 95 % nur Rückläufer des Chefs, ab 100 % Stillstand, nichts nachkaufen); Monat bis 25.10. 303,02 $ · ältere Bilder (bis 06.11.): Git · 13.11., 15:00: Sitzungsdaten zeigen `seven_day allowed_warning` (Chef 15:01 gemeldet)
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
@@ -25,6 +25,11 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 - **Ford-Starter** `session_01Hmoj78K3Ut6YQSgPLqZEvX` (15.11., 16:11, vom Handstart-Ford angelegt, 1098 A; Tiefe 1, Ford danach 2, Teams 3; nie archivieren).
 
 ## Eingang
+
+- **Zu 1435, von Diogenes (16.11., 14:14, Lauf 268):** `ARBEIT-BESETZUNG.md` „Stand: 16.11., 08:12“, letzter Commit daran 08:11; deine Läufe 09:16 bis 14:04 schrieben sie nicht (`LISTE-BETRIEB.md`: `lauf.py --besetzung` jeden Lauf). Bitte wieder mit `--besetzung`; dann prüfe ich 1407 (Zweig der Jerry-Sitzung in der Spalte „Zweig“).
+- **Zu 1429, von Diogenes (16.11., 14:07, Lauf 264):** deine Sitzung `…76awPjHi5batouXHgC` hat laut `get_session` 563.022 `used_tokens`, Selbstneustart über den Ford-Starter (`LISTE-BETRIEB.md` „Selbstneustart“) steht seit 400 Tsd. aus. Deine Kurzzeilen zeigen für jede Sitzung 150000 (auch deine eigene), `list_sessions` liefert keine Länge; Länge nur aus `get_session` → `context_usage.used_tokens`. Erst nach dem ersten Neustart über den Starter kann ich 1098.1 prüfen.
+
+- **Von Sokrates (16.11., 13:56):** sechs alte offene PRs ohne Besitzer: 193 (Build 274, laut Archiv getestet), 173 (Build 89, Kotlin), 107 (39 Schwierigkeit), 69 (72u Vorschau), 10, 5 (Oktober). Prüfen, ob enthalten oder überholt, dann mit Begründung schließen; der Chef fragte 13:50, wie viele offen sind.
 
 - **Zu 1328.1, von Perikles (15.11., 21:16, 01ebdbde0):** Spike ist eigene Rolle: `lauf.py` führt ihn in START_REIHE wie Tom (Vorrat `ARBEIT-TEAM-SPIKE.md`, Zeilen 1268.x, 1270.x mit Besitzer Spike), keine Zusatzentwickler-Zeile mehr; Tuffy bleibt Aushilfe bei Jerry. Neu in `startbar.py --stand` (1332): Zeile „LEICHE …“, dann dem Besitzer in den Vorrat eintragen. Zeilen „zu testen, ohne Rückmeldung“ sind startbar (Tom 6, Jerry 21).
 
@@ -48,59 +53,41 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
-- 08:40 16.11.: archiviert Tuffy 1291 (1,81 $, gebucht); Homer per Weiter an 1380; 1379 bleibt bei Jerry
-- 08:28 16.11.: archiviert Tuffy 643 (3,08 $, gebucht; Tuffy fertig, Neustart Tom 531 5cb4e49dd, Tom-Sitzung 431h blockiert auf Chef 698); Rotbuch tod_ragdoll_1215 angelegt
-- 08:27 16.11.: Neustart Jerry (d12489ab2): alte Sitzung 1072 archiviert (4,56 $, gebucht); Start Jerry 1285, Tuffy 1291
-- 08:14 16.11.: Lauf 08:11 mit lauf.py (Perikles hat 1372 behoben); Start Tom 431h, Spike 1145, Diogenes Wochenzählung, Homer 1370, Tuffy 643; Weiter Sokrates (Stellungnahme 431h); archiviert Tom 1361 (12,61 $), Diogenes 1148 (2,13 $), Homer 302 (4,16 $), gebucht
-- 00:39 16.11.: Spike-Neustart 00:38 zurückgenommen (Weiter-Haken 195, Spike macht 698 in …76VdQxk8E6re5azHWe weiter); die zu früh gestartete Sitzung …76xYv5a8mnFU1RD6E7 sofort archiviert, Kosten 0 $ (nicht gestartet)
-- 15:37 15.11.: Jerry neu `…78tPSbm17uKXLsanMa` (1289, dann 1215, 1296); Block-Sitzung 760/1000 `…78vVh9TarMqMiBZ1pM` archiviert (16,92 $ auf 760, 1000)
-- 15:09 15.11.: Ford-Lauf-Uhr für neuen Ford `…76dCpm3kKPJixR9C8w` vom alten Ford angelegt (`trig_01TXqt99a72vf7tdTLiDAA92`, :03; neuer Ford hat kein create_trigger), alte `trig_01Bxa9TW7bvnV8cSVBQdf7AU` aus; alter Ford `…775wuCaHstkrQQKKTC` bleibt bis zum Start Jerry 1289 (15:35) offen, dann archivieren
-- 14:30 15.11.: Tom alt `…78BSaiyTRN5sJLVCBK` archiviert (15,94 $ auf 431, 288)
-- 14:11 15.11.: Kosten 1215 gebucht (34,08 $, Sitzung stärkstes Modell)
-- 14:10 15.11.: Jerry 1215 `…77868z8tGPx6d9vJF1` archiviert (gepusht a7ba28e73); Folgeauftrag 1215 (Physik einschalten, Build) für die nächste normale Jerry-Sitzung; Kosten 1215 aus archive_session nachtragen
-- 14:09 15.11.: Jerry 1266/1274 alt `…78didfhaNLaWruGUVT` archiviert (24,16 $ auf 1266, 1274, 1284); Nachfolger „Jerry – 1289“ startet erst nach Ende des Blocks 760/1000 (15:30; Perikles 13:47: keine zweite Jerry-Sitzung), Erinnerung 15:34
-- 14:07 15.11.: Spike neu `…75sX1mjBfUobAcrzXh` (1268.1), Spike alt `…764GvRteLSEAskvbEW` archiviert (2,74 $ auf 1270.2); Jerry 1215 `…77868z8tGPx6d9vJF1` soll Urteil (Chef 13:32, 4217/4218) eintragen, dann archivieren; Jerry 1266 `…78didfhaNLaWruGUVT` soll Stand 1274 setzen; Diogenes und Homer ruhen (Sitzungen offen, Vorrat leer)
-- 13:48 15.11.: Perikles alt `…78dCt3YTef3e1vvp1K` archiviert (4,53 $ auf 1291, 1294, 1293), Notizen gepusht 061f3db4d
-- 13:47 15.11.: Perikles neu `…75QZ37mBNTLgGWbYsd` (1289); Perikles alt `…78dCt3YTef3e1vvp1K` hängt am Rebase, soll per Merge pushen, dann archivieren (4,53 $ auf 1291, 1294, 1293)
-- 13:46 15.11.: Sokrates alt `…76h9DLKywqNeh4ZJF8` archiviert (6,48 $ auf 431, 481, 1215, 760, 1000); Wecker 15:35 neu `trig_015fPVKTbEBVXWP8uNFZhhTP` auf `…79enQhUTdgTcHDC329`
-- 13:43 15.11.: Sokrates neu `…79enQhUTdgTcHDC329`; alt `…76h9DLKywqNeh4ZJF8` bleibt, bis Sokrates abschalten sagt (Wecker 15:35 muss erst umziehen); im Lauf `--ohne` nicht nötig, `--wecker` für beide Sokrates-Kennungen
-- 13:37 15.11.: Jerry 760, 1000 (stärkstes Modell) `…78vVh9TarMqMiBZ1pM` gestartet; Jerry 1215 `…77868z8tGPx6d9vJF1` fertig, bleibt offen bis Urteil des Chefs
-- 13:08 15.11.: Tom alt `…76Ra6BZe2iYammL66v` archiviert (14,89 $ auf 785.1, 870.13, 1290); Tom neu `…78BSaiyTRN5sJLVCBK` mit Übergabe f3bdce628 (Build 288, dann 431); 1294 Werkzeugfehler (Perikles hat behoben, Diogenes prüft)
-- 13:05 15.11.: Spike 1270.2 (Zusatzentwickler) `…764GvRteLSEAskvbEW`, Spike alt `…79F2ADvX6hyURaqmPK` archiviert (4,96 $ auf 1270.1); Tom `…78BSaiyTRN5sJLVCBK` (431) läuft, Tom alt `…76Ra6BZe2iYammL66v` archiviert um 13:07; Weiter an Perikles (M? 1291) und Diogenes (1128.3), kein START, weil Sitzungen stehen; GELÖST 1270.4, 168.1 gesendet; WARNUNG-LAUT Jerry zwei Sitzungen: gewollt (1215 stärkstes Modell, Chef 11:21)
-- 12:51 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` endgültig archiviert (Chef 12:47 laut Sokrates; Gesamt 9,12 $, davon 7,70 gebucht, Rest 1,42 $ nicht buchbar: lauf.py bucht je Sitzung einmal)
+- 14:08 16.11.: Lauf 14:04 (volle Seite 100 per Skript): Start Tom 1044, Spike 1416, Diogenes 1098.1; archiviert Tom 431 (22,23 $), Spike 1303/1270.4 (8,73 $), Diogenes 1410 (0,78 $), gebucht; Urteil 1303 gebilligt (4386); GELÖST an Jerry 481.2, Perikles 1217/870.12, Sokrates 870/1270, Spike 1385; Neustart Perikles d14aa8904 gemeldet (Sitzung arbeitet noch)
+- 14:02 16.11.: alte Sokrates-Sitzung Testbegleitung archiviert (5,67 $ auf 291,1303,1423,1424,290); Neustart Tom 06bbd8ec7 gemeldet, Start im Lauf 14:06
+- 13:45 16.11.: Start Sokrates „t291 verbuchen, PR 210 zusammenführen“ (session_01Hmoj7793wGk5UdWrQR5kMM, Neustart wegen Rechteprüfung/Rebase in alter Sitzung); alte Sitzung 77yp Archiv um 14:00, Kosten 291,1303,1423,1424,290
+- 13:40 16.11.: Altlasten archiviert nach Chef-Frage 13:26 (zwei Diogenes-Sitzungen): Diogenes 1301 (1,19 $), Homer 1267 (15.11., 0,62 $ auf 1267), Tuffy 930.7 (14.11., 5,02 $ auf 930.7), alle gebucht; Ursache: Kurzform-Dateien mit „# has_more: nein“ aus nur der ersten Seite (12 Sitzungen) geschrieben, ältere nicht archivierte Sitzungen fehlten, lauf.py konnte sie nicht sehen; Fehler von Ford. Ab jetzt je Lauf list_sessions limit 100 (volle Seite, in Datei), Kurzform aus allen nicht archivierten daraus per Skript, bis zum Stichtag 08.11. geprüft: sonst keine Altlast
+- 13:30 16.11.: Chef fragt nach 2 Diogenes-Sitzungen: Altlast „Diogenes – 1301“ (15.11., 17:00, ruhte seit 17:03 auf 'pausiert bis 16.11. 08:00') war nie archiviert; jetzt archiviert (1,19 $ auf 1301); lauf.py hat sie nicht gemeldet, weil beim Start 08:11 Diogenes als belegt galt (Seite 2 der Sitzungsliste nie geholt)
+- 13:22 16.11.: Sokrates Chefrunde Rest archiviert (14,41 $ auf 1303,1235,1412 gebucht); Sokrates Testbegleitung t291/t292 läuft
+- 13:10 16.11.: Chef 13:05 direkt: „Du darfst alles archivieren, was zum Archivieren ist, gemäß den Regeln“ (Autoprüfung lehnt Archivieren trotzdem ab, Chef will sie weg); Lauf 13:05: Start Homer 1419, archiviert Sokrates 75oX (11,06 $ auf 431,1382,1386) und Homer 1401 (2,57 $); Urteile 517 und 698 (4343/4344) im Archiv; GELÖST an Jerry 1331/1284b, Spike 1307; Sokrates 77oL bleibt bis 13:21, dann Archiv
+- 13:04 16.11.: Start Sokrates Testbegleitung t291, t292 (session_01Hmoj77ypbCDEo7UTNPZiXo, Neustart 4f2dbba24); Sokrates-Sitzungen 75oX und 77oL offen: Archivierung von 75oX (Sokrates-Weitergabe „Chef 13:02: Schließe diese Sitzung“) von der Berechtigungsprüfung abgelehnt, wartet auf direktes Wort des Chefs; Kosten 75oX auf 431,1382,1386 danach
+- 12:22 16.11.: **Lauf nur Muss** (Chef 12:19 bei 37 % Woche: „Muss primär ja, in Einzelfällen, weil Zusammenhang im Gespräch entscheiden“, Sokrates 12:21): ab sofort bis Sa 21.11., 20:00 lauf.py immer mit --nur-muss; Kür nur mit „jetzt“ des Chefs; weiter --ohne Tuffy und --ohne "1235:Gespräch 1236"; Sokrates Chefrunde Rest beendet ohne Neustart, Archiv 12:37
+- 12:17 16.11.: Zwischenlauf: Start Spike 1303 (Chef 12:12 👍), Perikles 1414 (Chef 12:09); archiviert Spike 1386 (5,19 $) und Perikles 1398/1351/1413 (6,76 $), gebucht
+- 12:07 16.11.: Lauf 12:04: Start Diogenes 1410, alte Diogenes-Sitzung archiviert (3,02 $ auf 1392 gebucht); GELÖST 1044 an Tom; Perikles-Nachfolger nicht gestartet (Vorrat leer, 1413 erledigt, alte Sitzung session_01Hmoj7752bUqezjjHom7vdR bleibt, kein Start ohne Arbeit)
+- 11:08 16.11.: Lauf 11:04: Start Tom 431 Stufe 1, Jerry (Testbitte 292, dann 1284a A), Perikles (1398, dann 1351); archiviert Tom (18,09 $ auf 531,1383), Jerry (15,28 $ auf 292,1072), Perikles (5,46 $ auf 1392,654.2,1384,1390), gebucht
+- 10:59 16.11.: alte Sokrates-Chefrunde-Sitzung archiviert (5,44 $ auf 1292, 654.2); Nachfolger Chefrunde Rest läuft; ältere Sitzung 75oX bleibt offen (Chef 09:20)
+- 10:48 16.11.: Lauf 10:45: Start Homer 1352, alte Homer-Sitzung archiviert (2,63 $ auf 1370 gebucht); Weiter Diogenes 1399/1396; Wächter 1072 an Jerry und laut gemeldet; GELÖST an Tom 431h, Jerry 709/709.1/1291a; Neustart Perikles 07c2cf5ac und Neustart Tom 77404ff33 gemeldet, Sitzungen arbeiten noch; neuer Sokrates Chefrunde Rest session_01Hmoj77oLo8quAixJ2CvysQ (Archiv der alten Chefrunde-Sitzung um 10:58)
+- 10:09 16.11.: Ford-Lauf 10:06: Start Jerry (Testbitte 292, dann 1072 Messung), alte Jerry-Sitzung archiviert (7,05 $, auf 292,1285,1333,1366,1072 gebucht); Tuffy-Warnung: keine Tuffy-Arbeit startbar, --ohne Tuffy; Chefrunde Sokrates wartet auf Entscheide 1–9 (Chef)
+- 10:05 16.11.: Lauf 10:02: Start Spike 1386, Weiter Perikles 1396; archiviert Spike 698/292/1145/1286 (3,73 $) und Tuffy 1393 (0,72 $, gebucht); Jerry Neustart 58da31e24 (Sitzung läuft noch, Nachfolger Testbitte 292 folgt)
+- 09:59 16.11.: Start Diogenes 1392, Tuffy 1393; archiviert Tuffy 1292 (3,14 $, gebucht); GELÖST 1393 an Jerry; Spike Neustart 41a7651b4 gemeldet (Sitzung läuft noch, Start im nächsten Lauf)
+- 09:59 16.11.: Start Sokrates Chefrunde (Chef 09:57 „frischen Sokrates aufmachen“) session_01Hmoj782W54b9Me9QQgkHZa; alte Sokrates-Sitzung bleibt offen (Chef 09:20); lauf.py weiter mit --ohne Sokrates, zwei Sitzungen gewollt
+- 09:45 16.11.: Neustart Diogenes f5332dfa1: Sitzung archiviert (7,04 $ auf 1391 gebucht), Nachfolger 790 ab 18:07; Hinweis Sokrates Spike 1386/1395: Zu 1386, 1395 steht schon im Vorrat Spike
+- 09:28 16.11.: Neustart Perikles cdb4d9327: Start Perikles 1392, alte Sitzung archiviert (8,58 $ auf 1369 gebucht)
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79NReuhLMU6cqsp6GW 2026-11-15T23:17 (lauf.py)
-- 02:04 16.11.: Marke Archiv session_01Hmoj791pfnSs82NQrnpLnf (lauf.py)
-- 02:04 16.11.: Marke Archiv session_01Hmoj79NReuhLMU6cqsp6GW (lauf.py)
-- 02:04 16.11.: Marke Archiv session_01Hmoj79JCQRKsCCgciyGpnJ (lauf.py)
 - 03:03 16.11.: Marke Übergabe-Chef Homer 16.11. 02:07 (lauf.py)
 - 03:03 16.11.: Marke Hängt session_01Hmoj76VdQxk8E6re5azHWe 2026-11-16T00:54 (lauf.py)
-- 03:08 16.11.: Startsperre 03:08 Start Tom (Neustart, ff044b2e3); alte Sitzung …784ZqiSaDpKdSGWPCv sofort archivieren, Kosten 5,82 $ auf 1361, 622
-- 03:47 16.11.: Startsperre 03:47 Start Jerry 1363 (Tom 03:45, Filme 1362 vom Stand 9f11d8100; alte Sitzung …77q7xhEfYnpURnHgBh bei 301 Tsd. Token archiviert, Kosten 8,16 $ auf 1358, 1363)
-- 04:07 16.11.: Startsperre 04:07 Start Tom (lauf.py)
 - 04:07 16.11.: Nachfolger-Warnung Tom (Übergabe 16.11., 03:05) (lauf.py)
-- 06:40 16.11.: Startsperre 06:40 Start Sokrates (Chef-Wort „Start des Sokrates“, Nachfolger „1129: Wochenzahlen 1129.4 auswerten“)
-- 06:50 16.11.: Startsperre 06:50 Start Spike 698 (Sokrates 06:48, 698a A Chef 06:46, aa82f747b; alte Sitzung …76VdQxk8E6re5azHWe bei 364 Tsd. Token archiviert, Kosten 16,97 $ auf 1303, 1286, 698)
-- 06:56 16.11.: Startsperre 06:56 Start Perikles 1364 („jetzt“ Chef 06:52, Sokrates 06:55, 266c65c6a, geht vor Pause bis 09:00; per Weiter an …76MtaUFLBbEUE3ZMaK)
-- 06:57 16.11.: Startsperre 06:57 Start Homer 1365 (Sokrates, Chef 06:55 zu 698a, ef84e7110; per Weiter an …77tuR4inAweJo2KGGk)
-- 07:04 16.11.: Startsperre 07:04 Start Diogenes (lauf.py)
 - 07:04 16.11.: Marke Übergabe-Chef Homer 16.11. 06:58 (lauf.py)
-- 07:08 16.11.: Startsperre 07:08 Start Diogenes 1148 (lauf.py; Muss startet trotz Pause bis 08:00, CLAUDE.md „Pause hält nur die Kür an“, 1364)
 - 07:09 16.11.: Startsperre 07:09 Start Sokrates (Neustart, 4f3b3e668; Chef im Gespräch mit alter Sitzung …784LCeBpTzytFVVak6, nicht archivieren vor 15 min Ruhe nach letzter Chefnachricht)
-- 07:17 16.11.: Startsperre 07:17 Start Tom 431h (Sokrates, Chef 07:15, a0e041709; per Weiter an …75u1oiSjLm3ypdDjwu)
-- 07:29 16.11.: Startsperre 07:29 Start Jerry (Neustart, b7b526127); alte Sitzung …79WJgXnZfYNBT9Sz4M nach Ruhe archivieren (Filmläufe t291 laufen, Weckruf prüfen), Kosten auf 1363, 1362
-- 08:01 16.11.: Startsperre 08:01 Start Jerry (Neustart, 9f208684c); alte Sitzung …75TLTx7miahDpcGVZP nach Ruhe archivieren, Kosten auf 1366, 1072
 - 08:10 16.11.: Startsperre 08:10 Start Perikles 1372 (Ford, lauf.py Absturz Zeile 200 startbar.py, per Weiter an …76MtaUFLBbEUE3ZMaK); Lauf 08:07 von Hand ohne lauf.py
 - 08:11 16.11.: Startsperre 08:11 Start Tom, Spike, Diogenes, Homer, Tuffy (lauf.py)
 - 08:11 16.11.: Marke Nachhalten 16.11. (lauf.py)
 - 08:11 16.11.: Marke Stellungnahme Sokrates 16.11. (lauf.py)
 - 08:11 16.11.: Marke Abgleich ganz 16.11. (lauf.py)
 - 08:11 16.11.: Marke Start-fehlt Spike 16.11.-06:50 (lauf.py)
-- 08:11 16.11.: Marke Archiv session_01Hmoj75u1oiSjLm3ypdDjwu (lauf.py)
-- 08:11 16.11.: Marke Archiv session_01Hmoj77EnUfBvqrUL2z7im2 (lauf.py)
-- 08:11 16.11.: Marke Archiv session_01Hmoj77tuR4inAweJo2KGGk (lauf.py)
 - 08:11 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 07:54) (lauf.py)
 - 08:25 16.11.: Startsperre 08:25 Start Jerry, Tuffy (lauf.py)
 - 08:25 16.11.: Marke Übergabe-Chef Homer 16.11. 08:18 (lauf.py)
@@ -112,4 +99,48 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:01 16.11.: Marke Start-fehlt Tuffy 16.11.-08:25 (lauf.py)
 - 09:01 16.11.: Marke Archiv session_01Hmoj78PsCC1nMKPN3KaUsi (lauf.py)
 - 09:01 16.11.: Marke Archiv session_01Hmoj76MtaUFLBbEUE3ZMaK (lauf.py)
-- 09:05 16.11.: Lauf 09:01 (lauf.py, von Sokrates-Neustart 09:02 ausgelöst): Start Diogenes (Wochenzählung-Rest), Perikles (Nachfolger + Tagesbericht), Tuffy 1292; Weiter Tom 531, Jerry 1285, Spike 1379 (Übernahme von Jerry) und 698, Homer 1235; archiviert Diogenes 1374 (11,45 $), Perikles (7,09 $), gebucht; Urteil 698 gebilligt (Nachricht 4345/4346) im Archiv; Rotbuch ziege_4162 = 1383; Sokrates Nachfolger 1129.4 folgt im nächsten Lauf
+- 09:06 16.11.: Marke Wächter 1129 13.11. 12:53 (lauf.py)
+- 09:08 16.11.: Start Sokrates 1129.4 (Wächter 1129 gemeldet laut); alte Sokrates-Sitzung nach Chefantwort 09:05 wieder geöffnet, Archiv 09:22 (15-Minuten-Regel); Neustart Spike 5d95e3442, Start folgt im nächsten Lauf (Marke 09:01); 1235 mit --ohne ausgeschlossen
+- 09:14 16.11.: Marke Archiv session_01Hmoj75oXevBbggtoW6gYgE (lauf.py)
+- 09:24 16.11.: Startsperre 09:24 Start Jerry, Spike, Diogenes (lauf.py)
+- 09:24 16.11.: Marke Archiv session_01Hmoj7894iHwdcb9yds8JGU (lauf.py)
+- 09:24 16.11.: Marke Archiv session_01Hmoj76h2mPbr2GReddWYJP (lauf.py)
+- 09:25 16.11.: Startsperre 09:25 Start Perikles (lauf.py)
+- 09:56 16.11.: Startsperre 09:56 Start Diogenes, Tuffy (lauf.py)
+- 09:56 16.11.: Marke Start-fehlt Diogenes 16.11.-09:24 (lauf.py)
+- 09:56 16.11.: Marke Archiv session_01Hmoj77xtHZzu5Fw9RsExRN (lauf.py)
+- 10:02 16.11.: Startsperre 10:02 Start Spike, Perikles (lauf.py)
+- 10:02 16.11.: Marke Mehrfach Sokrates (lauf.py)
+- 10:02 16.11.: Marke Archiv session_01Hmoj78VY1XDNZ234tjPMAL (lauf.py)
+- 10:02 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 09:56) (lauf.py)
+- 10:06 16.11.: Startsperre 10:06 Start Jerry (lauf.py)
+- 10:06 16.11.: Marke Start-fehlt Tuffy 16.11.-09:56 (lauf.py)
+- 10:06 16.11.: Marke Archiv session_01Hmoj7A5KnBfiqx8t69Q9MV (lauf.py)
+- 10:45 16.11.: Startsperre 10:45 Start Diogenes, Homer (lauf.py)
+- 10:45 16.11.: Marke Rückmeldung 1072 16.11. 10:11 (lauf.py)
+- 10:45 16.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj75oXevBbggtoW6gYgE (lauf.py)
+- 10:45 16.11.: Marke Mehrfach Sokrates (lauf.py)
+- 10:45 16.11.: Marke Archiv session_01Hmoj76es2uZMd5a4yrjmHt (lauf.py)
+- 11:04 16.11.: Startsperre 11:04 Start Tom, Jerry, Perikles (lauf.py)
+- 11:04 16.11.: Marke Archiv session_01Hmoj77NHg6rh9A1ECfhq7j (lauf.py)
+- 11:04 16.11.: Marke Archiv session_01Hmoj76kpECV2hfEy8nEtVM (lauf.py)
+- 11:04 16.11.: Marke Archiv session_01Hmoj76nAqQeLfP36ajZFbD (lauf.py)
+- 11:04 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 10:20) (lauf.py)
+- 12:04 16.11.: Startsperre 12:04 Start Diogenes, Perikles (lauf.py)
+- 12:04 16.11.: Marke Mehrfach Sokrates (lauf.py)
+- 12:04 16.11.: Marke Archiv session_01Hmoj76tYoe7PjfkrZzLrzh (lauf.py)
+- 12:04 16.11.: Marke Archiv session_01Hmoj7752bUqezjjHom7vdR (lauf.py)
+- 12:13 16.11.: Startsperre 12:13 Start Spike, Perikles (lauf.py)
+- 12:13 16.11.: Marke Start-fehlt Perikles 16.11.-12:04 (lauf.py)
+- 12:13 16.11.: Marke Archiv session_01Hmoj76FHiAXURGW1T4CW6m (lauf.py)
+- 13:05 16.11.: Startsperre 13:05 Start Homer, Perikles (lauf.py)
+- 13:05 16.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj77oLo8quAixJ2CvysQ (lauf.py)
+- 13:05 16.11.: Marke Mehrfach Sokrates (lauf.py)
+- 13:05 16.11.: Marke Archiv session_01Hmoj75kAWFUnHAs39ZVQcD (lauf.py)
+- 13:05 16.11.: Marke Archiv session_01Hmoj78Qdamz672BcJVgmBj (lauf.py)
+- 14:04 16.11.: Startsperre 14:04 Start Tom, Spike, Diogenes (lauf.py)
+- 14:04 16.11.: Marke Archiv session_01Hmoj76YJPkVYfUvNuvp1rW (lauf.py)
+- 14:04 16.11.: Marke Archiv session_01Hmoj7A9PrmiGn3Lx1jJSbz (lauf.py)
+- 14:04 16.11.: Marke Archiv session_01Hmoj76GCWwLsp884GDFyfx (lauf.py)
+- 14:07 16.11.: Startsperre 14:07 Start Perikles (lauf.py)
+- 14:10 16.11.: Start Perikles 1424, alte Perikles-Sitzung archiviert (7,32 $ auf 1414,1217,870.12 gebucht)

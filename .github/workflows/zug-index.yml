@@ -28,9 +28,12 @@ permissions:
   actions: read
   pull-requests: read
 
+# 1387 (1129.4, 15.11.: 193 Commits „Chefsache: Übersicht“): Schübe bündeln. Ein neuer Push bricht den wartenden Lauf ab, der letzte
+# schreibt den jüngsten Stand (nach 60 s Wartezeit, Aktualität etwa 1–2 min). Der Versionslauf (workflow_run, 894) hat eine eigene
+# Gruppe und wird nie abgebrochen; Konflikte beider fängt die Push-Schleife (pull --rebase, vier Versuche).
 concurrency:
-  group: zug-index
-  cancel-in-progress: false
+  group: zug-index-${{ github.event_name == 'workflow_run' && 'version' || 'index' }}
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 jobs:
   index:
@@ -47,6 +50,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          [ "${{ github.event_name }}" = push ] && sleep 60   # 1387: weitere Pushes binnen einer Minute brechen diesen Lauf ab
           for versuch in 1 2 3 4; do
             git pull -q --rebase origin main
             ROLLEN=0; [ "${{ github.event_name }}" = schedule ] || [ "${{ github.event_name }}" = workflow_dispatch ] && ROLLEN=1
@@ -55,6 +59,8 @@ jobs:
             echo "1191: Offen je Rolle neu: $ROLLEN (zuletzt ${ZULETZT:+$(( ($(date +%s) - ZULETZT) / 60 )) min vorher})"
             ZUG_ROLLEN=$ROLLEN python3 tools/zug-index.py
             git diff --quiet docs/chefsache/ && exit 0
+            # 1387: nur der Stempel „Vorgangsliste vom …“ geändert (56 von 250 Commits) → kein Commit
+            if [ -z "$(git diff -U0 docs/chefsache/ | grep '^[-+][^-+]' | grep -v 'Vorgangsliste vom ')" ]; then git checkout -q docs/chefsache/; exit 0; fi
             git commit -qm "Chefsache: Übersicht$([ $ROLLEN = 1 ] && echo ' mit Rollen')" docs/chefsache/
             git push -q origin HEAD:main && exit 0
             git reset -q --hard origin/main

@@ -318,6 +318,7 @@ def spiegel_auswertung_faellig(jetzt, da=None, text=None):
 
 def leichenpruefung_faellig(jetzt, da=None):
     """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
+    return []  # 1425 (Chef 16.11., 13:59): entfällt, Perikles prüft täglich mit vorratspruefung.py (G, K)
     if jetzt.date() < LEICHEN_AB or jetzt.hour < 8: return []
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
     if any(re.match(r"Leichenprüfung \d", d.get("titel", "")) and d["wort"] not in ("erledigt", "verworfen", "aufgeteilt") for d in zeilen_liste()):
@@ -1336,6 +1337,9 @@ def main():
         for r in BAUTEAMS:  # 1364: auch Spike
             u = uebernahme(r)
             if u: print("  Übernahme für %s: %s" % (r, u))
+        for zus, team in ZUSATZ.items():  # 1371 (D254.2): Aushilfe nimmt das zweite unabhängige Muss ihres Teams (lauf.py, 433)
+            m = [z for z in plan(team) if z[1] == "M" and not z[4] and "fuer" not in z[3]][1:]
+            print("  Zusatz für %s (bei %s): %s" % (zus, team, ", ".join(z[0] for z in m[:8]) + (" …" if len(m) > 8 else "") if m else "leer, kein zweites startbares Muss bei " + team))
         teams = [r for r in BAUTEAMS if r in info]
         if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in teams) >= 4:  # 317: ab 4 fertigen Punkten aller Teams bittet der Erste
             print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)%s" % (", ".join("%s %d" % (r, info[r][1]) for r in teams),
