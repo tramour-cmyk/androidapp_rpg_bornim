@@ -147,3 +147,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:20 16.11.: Startsperre 21:20 Start Jerry (Ford von Hand), Neustart-Meldung 21:13 (a75f9abce, Nachtrag d9570ef88)
 - 21:26 16.11.: Startsperre 21:26 Start Tuffy (lauf.py)
 - 21:26 16.11.: Marke Start-fehlt Tuffy 16.11.-20:20 (lauf.py)
+- 21:27 16.11.: Start Tuffy 1415 (session_01Hmoj76u1LvRMqGWHketsig, Kaufrepo-Satz), Perikles 21:26; 1488, 1439, 601.1 folgen als Tuffy-Zeilen danach
