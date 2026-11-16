@@ -72,14 +72,6 @@
       ]
     }
   },
-  "attribute": {
-    "STR": {"kurz":{"de":"STÄ","en":"STR"},"name":{"de":"Stärke","en":"Strength"}},
-    "DEX": {"kurz":{"de":"GES","en":"DEX"},"name":{"de":"Geschicklichkeit","en":"Dexterity"}},
-    "CON": {"kurz":{"de":"KON","en":"CON"},"name":{"de":"Konstitution","en":"Constitution"}},
-    "INT": {"kurz":{"de":"INT","en":"INT"},"name":{"de":"Intelligenz","en":"Intelligence"}},
-    "WIS": {"kurz":{"de":"WEI","en":"WIS"},"name":{"de":"Weisheit","en":"Wisdom"}},
-    "CHA": {"kurz":{"de":"CHA","en":"CHA"},"name":{"de":"Charisma","en":"Charisma"}}
-  },
   "ruestungsarten": {
     "LIGHT": {"de":"leicht","en":"light"},
     "MEDIUM": {"de":"mittel","en":"medium"},
@@ -105,14 +97,12 @@
       "preis": 2,
       "ab_stufe": 1,
       "gewicht": "CLOTH",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "circlet": {
@@ -124,14 +114,12 @@
       "preis": 15,
       "ab_stufe": 2,
       "gewicht": "CLOTH",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "leather_cap": {
@@ -143,14 +131,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "LIGHT",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "helmet": {
@@ -162,14 +148,12 @@
       "preis": 15,
       "ab_stufe": 2,
       "gewicht": "MEDIUM",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "great_helm": {
@@ -181,14 +165,12 @@
       "preis": 40,
       "ab_stufe": 4,
       "gewicht": "HEAVY",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "robe": {
@@ -200,14 +182,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "CLOTH",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "leather": {
@@ -219,14 +199,12 @@
       "preis": 10,
       "ab_stufe": 1,
       "gewicht": "LIGHT",
-      "ruestung": 11,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "studded_leather": {
@@ -238,14 +216,12 @@
       "preis": 45,
       "ab_stufe": 2,
       "gewicht": "LIGHT",
-      "ruestung": 12,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "chain_shirt": {
@@ -257,14 +233,12 @@
       "preis": 50,
       "ab_stufe": 1,
       "gewicht": "MEDIUM",
-      "ruestung": 13,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "scale_mail": {
@@ -276,14 +250,12 @@
       "preis": 50,
       "ab_stufe": 2,
       "gewicht": "MEDIUM",
-      "ruestung": 14,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "breastplate": {
@@ -295,14 +267,12 @@
       "preis": 400,
       "ab_stufe": 4,
       "gewicht": "MEDIUM",
-      "ruestung": 14,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "half_plate": {
@@ -314,14 +284,12 @@
       "preis": 750,
       "ab_stufe": 6,
       "gewicht": "MEDIUM",
-      "ruestung": 15,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "chain_mail": {
@@ -333,14 +301,12 @@
       "preis": 75,
       "ab_stufe": 2,
       "gewicht": "HEAVY",
-      "ruestung": 16,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "splint": {
@@ -352,14 +318,12 @@
       "preis": 200,
       "ab_stufe": 4,
       "gewicht": "HEAVY",
-      "ruestung": 17,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "plate": {
@@ -371,14 +335,12 @@
       "preis": 1500,
       "ab_stufe": 7,
       "gewicht": "HEAVY",
-      "ruestung": 18,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "wraps": {
@@ -390,14 +352,12 @@
       "preis": 2,
       "ab_stufe": 1,
       "gewicht": "CLOTH",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "gloves": {
@@ -409,14 +369,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "LIGHT",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "bracers": {
@@ -428,14 +386,12 @@
       "preis": 20,
       "ab_stufe": 2,
       "gewicht": "MEDIUM",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "gauntlets": {
@@ -447,14 +403,12 @@
       "preis": 40,
       "ab_stufe": 3,
       "gewicht": "HEAVY",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "leggings": {
@@ -466,14 +420,12 @@
       "preis": 2,
       "ab_stufe": 1,
       "gewicht": "CLOTH",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "boots": {
@@ -485,14 +437,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "LIGHT",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "chain_leggings": {
@@ -504,14 +454,12 @@
       "preis": 20,
       "ab_stufe": 2,
       "gewicht": "MEDIUM",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "greaves": {
@@ -523,14 +471,12 @@
       "preis": 40,
       "ab_stufe": 3,
       "gewicht": "HEAVY",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "cloak": {
@@ -542,14 +488,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "mantle": {
@@ -561,14 +505,12 @@
       "preis": 30,
       "ab_stufe": 3,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "amulet": {
@@ -580,14 +522,12 @@
       "preis": 25,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "talisman": {
@@ -599,14 +539,12 @@
       "preis": 60,
       "ab_stufe": 3,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "ring": {
@@ -618,14 +556,12 @@
       "preis": 25,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "signet": {
@@ -637,14 +573,12 @@
       "preis": 60,
       "ab_stufe": 3,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "dagger": {
@@ -656,14 +590,12 @@
       "preis": 2,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,4,0],
       "schadensart": "PIERCING",
       "finesse": true,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "shortsword": {
@@ -675,14 +607,12 @@
       "preis": 10,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "PIERCING",
       "finesse": true,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "scimitar": {
@@ -694,14 +624,12 @@
       "preis": 25,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "SLASHING",
       "finesse": true,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "handaxe": {
@@ -713,14 +641,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "SLASHING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "mace": {
@@ -732,14 +658,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "spear": {
@@ -751,14 +675,12 @@
       "preis": 1,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "PIERCING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": [1,8,0],
+      "vielseitig": true,
       "reichweite": true
     },
     "quarterstaff": {
@@ -770,14 +692,12 @@
       "preis": 1,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": [1,8,0],
+      "vielseitig": true,
       "reichweite": false
     },
     "rapier": {
@@ -789,14 +709,12 @@
       "preis": 25,
       "ab_stufe": 2,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,8,0],
       "schadensart": "PIERCING",
       "finesse": true,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "longsword": {
@@ -808,14 +726,12 @@
       "preis": 15,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,8,0],
       "schadensart": "SLASHING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": [1,10,0],
+      "vielseitig": true,
       "reichweite": false
     },
     "battleaxe": {
@@ -827,14 +743,12 @@
       "preis": 10,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,8,0],
       "schadensart": "SLASHING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": [1,10,0],
+      "vielseitig": true,
       "reichweite": false
     },
     "morningstar": {
@@ -846,14 +760,12 @@
       "preis": 15,
       "ab_stufe": 3,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,8,0],
       "schadensart": "PIERCING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "warhammer": {
@@ -865,14 +777,12 @@
       "preis": 15,
       "ab_stufe": 2,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,8,0],
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": [1,10,0],
+      "vielseitig": true,
       "reichweite": false
     },
     "wand": {
@@ -884,14 +794,12 @@
       "preis": 30,
       "ab_stufe": 2,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,4,0],
       "schadensart": "FORCE",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 1,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "greatsword": {
@@ -903,14 +811,12 @@
       "preis": 50,
       "ab_stufe": 3,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [2,6,0],
       "schadensart": "SLASHING",
       "finesse": false,
       "fern": false,
       "zweihaendig": true,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "greataxe": {
@@ -922,14 +828,12 @@
       "preis": 30,
       "ab_stufe": 3,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,12,0],
       "schadensart": "SLASHING",
       "finesse": false,
       "fern": false,
       "zweihaendig": true,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "maul": {
@@ -941,14 +845,12 @@
       "preis": 10,
       "ab_stufe": 4,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [2,6,0],
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": true,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "halberd": {
@@ -960,14 +862,12 @@
       "preis": 20,
       "ab_stufe": 2,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,10,0],
       "schadensart": "SLASHING",
       "finesse": false,
       "fern": false,
       "zweihaendig": true,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": true
     },
     "staff": {
@@ -979,14 +879,12 @@
       "preis": 40,
       "ab_stufe": 2,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": true,
       "fokus": 2,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "shortbow": {
@@ -998,14 +896,12 @@
       "preis": 25,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,6,0],
       "schadensart": "PIERCING",
       "finesse": false,
       "fern": true,
       "zweihaendig": true,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "longbow": {
@@ -1017,14 +913,12 @@
       "preis": 50,
       "ab_stufe": 3,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,8,0],
       "schadensart": "PIERCING",
       "finesse": false,
       "fern": true,
       "zweihaendig": true,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "light_crossbow": {
@@ -1036,14 +930,12 @@
       "preis": 25,
       "ab_stufe": 2,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": [1,8,0],
       "schadensart": "PIERCING",
       "finesse": false,
       "fern": true,
       "zweihaendig": true,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "shield": {
@@ -1055,14 +947,12 @@
       "preis": 10,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 2,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "round_shield": {
@@ -1074,14 +964,12 @@
       "preis": 10,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 2,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "tower_shield": {
@@ -1093,14 +981,12 @@
       "preis": 60,
       "ab_stufe": 5,
       "gewicht": "NONE",
-      "ruestung": 3,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "torch": {
@@ -1112,14 +998,12 @@
       "preis": 2,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 0,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "orb": {
@@ -1131,14 +1015,12 @@
       "preis": 20,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 1,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "tome": {
@@ -1150,14 +1032,12 @@
       "preis": 25,
       "ab_stufe": 2,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 1,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     },
     "holy_symbol": {
@@ -1169,14 +1049,12 @@
       "preis": 5,
       "ab_stufe": 1,
       "gewicht": "NONE",
-      "ruestung": 0,
-      "schaden": null,
       "schadensart": "BLUDGEONING",
       "finesse": false,
       "fern": false,
       "zweihaendig": false,
       "fokus": 1,
-      "vielseitig": null,
+      "vielseitig": false,
       "reichweite": false
     }
   },
@@ -1249,7 +1127,7 @@
   },
   "affixdaten": {
     "STR": {
-      "name": {"de":"Stärke","en":"Strength"},
+      "name": {"de":"Kraft","en":"Strength"},
       "vor_de": "Kräftig",
       "vor_en": "Mighty",
       "nach_de": "der Bärenkraft",
@@ -1257,7 +1135,7 @@
       "prozent": false
     },
     "DEX": {
-      "name": {"de":"Geschicklichkeit","en":"Dexterity"},
+      "name": {"de":"Gewandtheit","en":"Agility"},
       "vor_de": "Flink",
       "vor_en": "Swift",
       "nach_de": "des Fuchses",
@@ -1265,7 +1143,7 @@
       "prozent": false
     },
     "CON": {
-      "name": {"de":"Konstitution","en":"Constitution"},
+      "name": {"de":"Zähigkeit","en":"Toughness"},
       "vor_de": "Robust",
       "vor_en": "Sturdy",
       "nach_de": "des Berges",
@@ -1273,7 +1151,7 @@
       "prozent": false
     },
     "INT": {
-      "name": {"de":"Intelligenz","en":"Intelligence"},
+      "name": {"de":"Verstand","en":"Wits"},
       "vor_de": "Klug",
       "vor_en": "Clever",
       "nach_de": "des Gelehrten",
@@ -1281,7 +1159,7 @@
       "prozent": false
     },
     "WIS": {
-      "name": {"de":"Weisheit","en":"Wisdom"},
+      "name": {"de":"Wahrnehmung","en":"Perception"},
       "vor_de": "Weis",
       "vor_en": "Wise",
       "nach_de": "der Eule",
@@ -1289,7 +1167,7 @@
       "prozent": false
     },
     "CHA": {
-      "name": {"de":"Charisma","en":"Charisma"},
+      "name": {"de":"Wille","en":"Will"},
       "vor_de": "Edl",
       "vor_en": "Noble",
       "nach_de": "des Königs",
@@ -1297,7 +1175,7 @@
       "prozent": false
     },
     "ALL_STATS": {
-      "name": {"de":"alle Attribute","en":"all abilities"},
+      "name": {"de":"alle Grundwerte","en":"all attributes"},
       "vor_de": "Erhaben",
       "vor_en": "Exalted",
       "nach_de": "der Vollkommenheit",
@@ -1329,7 +1207,7 @@
       "prozent": false
     },
     "SPELL": {
-      "name": {"de":"Zauberkraft","en":"Spell power"},
+      "name": {"de":"Zauberschaden","en":"spell damage"},
       "vor_de": "Arkan",
       "vor_en": "Arcane",
       "nach_de": "der Magie",
@@ -1337,7 +1215,7 @@
       "prozent": false
     },
     "HP": {
-      "name": {"de":"Trefferpunkte","en":"Hit points"},
+      "name": {"de":"Leben","en":"Life"},
       "vor_de": "Vital",
       "vor_en": "Vital",
       "nach_de": "des Lebens",
@@ -1353,7 +1231,7 @@
       "prozent": false
     },
     "CRIT": {
-      "name": {"de":"Kritischer Bereich","en":"Critical range"},
+      "name": {"de":"kritisch","en":"critical"},
       "vor_de": "Tödlich",
       "vor_en": "Deadly",
       "nach_de": "des Henkers",
@@ -1441,11 +1319,11 @@
       "prozent": true
     },
     "TENACITY": {
-      "name": {"de":"Standhaftigkeit","en":"Tenacity"},
-      "vor_de": "Standhaft",
-      "vor_en": "Steadfast",
-      "nach_de": "des Ankers",
-      "nach_en": "of the Anchor",
+      "name": {"de":"Abwehrprobe","en":"resistance roll"},
+      "vor_de": "Wehrhaft",
+      "vor_en": "Defiant",
+      "nach_de": "des Hexenjägers",
+      "nach_en": "of the Witch Hunter",
       "prozent": true
     }
   },

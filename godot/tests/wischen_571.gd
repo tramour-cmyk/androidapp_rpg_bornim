@@ -157,8 +157,15 @@ func _lauf() -> void:
 	await warte()
 	hm.ueber()
 	await warte()
-	for b in hm.find_children("*", "Button", true, false):
-		if String(b.text).begins_with("LIZENZEN"): (b as Button).pressed.emit(); break
+	# 870.20: die Zeile „Lizenzen“ ist ein tippbarer Kasten (Spielstaende.tippbar), kein Knopf; erst aufgeklappt rollt die Seite sicher
+	# (ohne SRD-Absatz passt „Über“ allein auf den Schirm)
+	var lz := hm.find_child("Lizenzen", true, false) as Control
+	if lz:
+		for gedrueckt in [true, false]:
+			var e := InputEventMouseButton.new(); e.button_index = MOUSE_BUTTON_LEFT; e.pressed = gedrueckt
+			e.position = lz.size / 2; e.global_position = lz.get_global_rect().get_center()
+			lz.gui_input.emit(e)
+	await warte()
 	await schirm("Lizenzen", hm)
 	print("WISCHEN571 ", "gut" if fehler == 0 else "FALSCH %d" % fehler)
 	quit(1 if fehler else 0)

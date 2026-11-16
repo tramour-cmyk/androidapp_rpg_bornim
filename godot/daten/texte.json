@@ -50,7 +50,7 @@
     "quest": {"de":"Auftrag","en":"Quest"},
     "level": {"de":"Stufe","en":"Level"},
     "xp": {"de":"EP","en":"XP"},
-    "hp": {"de":"TP","en":"HP"},
+    "hp": {"de":"Leben","en":"Life"},
     "sp": {"de":"Mana","en":"Mana"},
     "gold": {"de":"Gold","en":"Gold"},
     "damage": {"de":"Schaden","en":"Damage"},
@@ -84,8 +84,8 @@
     "found": {"de":"Erhalten: {0}!","en":"Received: {0}!"},
     "foundGold": {"de":"Erhalten: {0} Gold!","en":"Received: {0} gold!"},
     "aboutText": {
-      "de": "Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im rundenbasierten Kampf, sammle Beute in sechs Seltenheitsstufen und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nRegeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nGeschichte, Orte und Figuren sind eigene Erfindungen.",
-      "en": "A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot of six rarity tiers and continue the Chronicles of Bornim with your hero.\n\nRules, classes, races, spells and monsters are simplified and based on the System Reference Document 5.1 (SRD 5.1) by Wizards of the Coast LLC, available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nThe story, places and characters are original."
+      "de": "Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug, sammle Beute und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nDie Regeln sind ein eigenes System, das Bornimer Rollenspielsystem: Du wirst, was du tust.\n\nGeschichte, Orte und Figuren sind eigene Erfindungen. Ein Spiel von BornWire TCS.",
+      "en": "A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot and continue the Chronicles of Bornim with your hero.\n\nThe rules are a system of our own, the Bornim Roleplaying System: you become what you do.\n\nThe story, places and characters are original. A game by BornWire TCS."
     }
   },
   "rast": {
@@ -173,8 +173,8 @@
   "benutzen": {
     "cured": {"de":"{0} fühlt sich wieder gesund.","en":"{0} feels healthy again."},
     "ate": {
-      "de": "{0} isst {1}, heilt {2} TP und fühlt sich gestärkt für den nächsten Kampf.",
-      "en": "{0} eats {1}, recovers {2} HP and feels fortified for the next fight."
+      "de": "{0} isst {1}, heilt {2} Leben und fühlt sich gestärkt für den nächsten Kampf.",
+      "en": "{0} eats {1}, recovers {2} Life and feels fortified for the next fight."
     },
     "alreadyFed": {
       "de": "{0} ist noch satt von der letzten Mahlzeit.",
@@ -192,7 +192,7 @@
       "de": "Du drückst die Fackel aus. Das Dunkel rückt heran.",
       "en": "You snuff out the torch. The dark closes in."
     },
-    "healed": {"de":"{0} heilt {1} TP.","en":"{0} recovers {1} HP."}
+    "healed": {"de":"{0} heilt {1} Leben.","en":"{0} recovers {1} Life."}
   },
   "chronik": [
     {
@@ -324,53 +324,49 @@
   ],
   "dinge": {
     "potion": {
-      "name": {"de":"Heiltrank","en":"Potion of Healing"},
+      "name": {"de":"Heiltrank","en":"Healing Potion"},
       "info": {
         "de": "Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf.",
         "en": "A classic red healing potion. Works at once, also in battle."
       },
       "preis": 25,
       "art": "POTION",
-      "heilt": [2,4,2],
       "seltenheit": "COMMON",
-      "kurz": {"de":"heilt 2W4+2","en":"heals 2d4+2"}
+      "kurz": {"de":"heilt 14","en":"heals 14"}
     },
     "greater_potion": {
-      "name": {"de":"Großer Heiltrank","en":"Potion of Greater Healing"},
+      "name": {"de":"Großer Heiltrank","en":"Great Healing Potion"},
       "info": {
-        "de": "Doppelt so stark wie der einfache Heiltrank. Wirkt sofort, auch im Kampf.",
-        "en": "Twice as strong as the plain healing potion. Works at once, also in battle."
+        "de": "Stärker als der einfache Heiltrank. Wirkt sofort, auch im Kampf.",
+        "en": "Stronger than the plain healing potion. Works at once, also in battle."
       },
       "preis": 75,
       "art": "POTION",
-      "heilt": [4,4,4],
       "seltenheit": "UNCOMMON",
-      "kurz": {"de":"heilt 4W4+4","en":"heals 4d4+4"}
+      "kurz": {"de":"heilt 28","en":"heals 28"}
     },
     "superior_potion": {
-      "name": {"de":"Überragender Heiltrank","en":"Potion of Superior Healing"},
+      "name": {"de":"Kostbarer Heiltrank","en":"Precious Healing Potion"},
       "info": {
         "de": "Ein seltenes Elixier für schwere Wunden. Wirkt sofort, auch im Kampf.",
         "en": "A rare elixir for grave wounds. Works at once, also in battle."
       },
       "preis": 200,
       "art": "POTION",
-      "heilt": [8,4,8],
       "seltenheit": "RARE",
-      "kurz": {"de":"heilt 8W4+8","en":"heals 8d4+8"}
+      "kurz": {"de":"heilt 56","en":"heals 56"}
     },
     "remedy": {
       "name": {"de":"Kräutertrank","en":"Herbal Remedy"},
       "info": {
-        "de": "Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.",
-        "en": "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."
+        "de": "Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollem Leben trinkbar.",
+        "en": "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full life."
       },
       "preis": 20,
       "art": "POTION",
-      "heilt": [1,4,0],
       "heilt_leiden": true,
       "seltenheit": "COMMON",
-      "kurz": {"de":"heilt 1W4","en":"heals 1d4"}
+      "kurz": {"de":"heilt 5","en":"heals 5"}
     },
     "stamina_potion": {
       "name": {"de":"Ausdauertrank","en":"Stamina Draught"},
@@ -393,26 +389,26 @@
       "seltenheit": "COMMON"
     },
     "alchemist_fire": {
-      "name": {"de":"Alchemistenfeuer","en":"Alchemist's Fire"},
+      "name": {"de":"Brandflasche","en":"Firebottle"},
       "info": {
-        "de": "Wurfgeschoss, trifft immer und setzt den Gegner in Brand.",
-        "en": "Thrown, always hits and sets the foe on fire."
+        "de": "Wurfmittel. Feuer, setzt den Gegner in Brand.",
+        "en": "Thrown. Fire; sets the foe ablaze."
       },
       "preis": 30,
       "art": "BOMB",
       "seltenheit": "COMMON",
-      "kurz": {"de":"2W6 Feuer","en":"2d6 fire"}
+      "kurz": {"de":"Feuer","en":"Fire"}
     },
     "holy_water": {
       "name": {"de":"Weihwasser","en":"Holy Water"},
       "info": {
-        "de": "Wurfgeschoss, trifft immer. Wirkt nur gegen Untote: 2W6 gleißender Schaden.",
-        "en": "Thrown, always hits. Only harms undead: 2d6 radiant damage."
+        "de": "Wurfmittel. Licht; wirkt nur gegen Untote, dort aber hart.",
+        "en": "Thrown. Light; harms only the undead, but hard."
       },
       "preis": 25,
       "art": "BOMB",
       "seltenheit": "COMMON",
-      "kurz": {"de":"2W6 gleißend","en":"2d6 radiant"}
+      "kurz": {"de":"Licht","en":"Light"}
     },
     "raw_meat": {
       "name": {"de":"Rohes Fleisch","en":"Raw Meat"},
@@ -427,14 +423,13 @@
     "roast_meat": {
       "name": {"de":"Gebratenes Fleisch","en":"Roast Meat"},
       "info": {
-        "de": "Stärkt für den nächsten Kampf: +1 auf Angriffe und Schaden.",
-        "en": "Fortifies for the next fight: +1 to attacks and damage."
+        "de": "Stärkt für den nächsten Kampf: du triffst leichter und schlägst härter.",
+        "en": "Fortifies you for the next battle: you land blows more easily and hit harder."
       },
       "preis": 16,
       "art": "FOOD",
-      "heilt": [2,4,2],
       "seltenheit": "COMMON",
-      "kurz": {"de":"heilt 2W4+2","en":"heals 2d4+2"}
+      "kurz": {"de":"heilt 14","en":"heals 14"}
     },
     "herbs": {
       "name": {"de":"Heilkräuter","en":"Healing Herbs"},
@@ -469,8 +464,8 @@
     "spider_gland": {
       "name": {"de":"Giftdrüse","en":"Venom Gland"},
       "info": {
-        "de": "Aus einer Riesenspinne. Morwen kann daraus Alchemistenfeuer mischen.",
-        "en": "From a giant spider. Morwen can mix alchemist's fire from it."
+        "de": "Aus einer Riesenspinne. Morwen mischt daraus Brandflaschen.",
+        "en": "From a giant spider. Morwen mixes firebottles from it."
       },
       "preis": 30,
       "art": "INGREDIENT",
@@ -558,6 +553,13 @@
       },
       "preis": 8,
       "art": "BANDAGE",
+      "seltenheit": "COMMON"
+    },
+    "spider_silk": {
+      "art": "INGREDIENT",
+      "info": {"de":"","en":""},
+      "name": {"de":"Spinnseide","en":"Spider Silk"},
+      "preis": 20,
       "seltenheit": "COMMON"
     }
   },
@@ -805,8 +807,8 @@
         "en": "**On the road.** Walking, talking and examining are explained by the hint when you wake; you can change them under System, Handling. The action button shows what there is to do ahead of you: talk, open, read, rest, enter. In tall grass and in the cave, monsters lurk and ambush you; on the paths you are safer. Other monsters you can see: some just roam, some lurk still in their place, and hunters follow you until you outrun them or reach a safe place such as Garrick's fire. Whoever comes upon a monster from behind strikes first; whoever a monster catches from behind is taken by surprise. Running makes you heard sooner. Defeated monsters come back after a while."
       },
       {
-        "de": "**Die Leiste oben.** TP zeigen dein Leben: grün, gelb, dann rot. Mana brauchst du für Zauber. EP zeigen deine Erfahrung bis zur nächsten Heldenstufe. Rechts stehen Tag und Uhrzeit. Darunter kleine Zeichen für Zustände wie Gift oder Blut. Der goldene Balken am rechten Rand ist deine Ausdauer beim Rennen; er erscheint nur, wenn sie nicht voll ist. Ein Tipp auf die Leiste öffnet das Menü, das Kartenzeichen die Karte.",
-        "en": "**The bar at the top.** HP show your life: green, yellow, then red. Mana is what your spells cost. XP show your experience toward your next hero level. On the right: day and time. Below, small signs for conditions such as Psn or Bld. The golden bar on the right edge is your stamina for running; it shows only when it is not full. A tap on the bar opens the menu, the map sign the map."
+        "de": "**Die Leiste oben.** Leben zeigt, was du noch aushältst: grün, gelb, dann rot. Mana brauchst du für Zauber. EP zeigen deine Erfahrung bis zur nächsten Heldenstufe. Rechts stehen Tag und Uhrzeit. Darunter kleine Zeichen für Zustände wie Gift oder Blut. Der goldene Balken am rechten Rand ist deine Ausdauer beim Rennen; er erscheint nur, wenn sie nicht voll ist. Ein Tipp auf die Leiste öffnet das Menü, das Kartenzeichen die Karte.",
+        "en": "**The bar at the top.** Life shows how much more you can take: green, yellow, then red. Mana is what your spells cost. XP show your experience toward your next hero level. On the right: day and time. Below, small signs for conditions such as Psn or Bld. The golden bar on the right edge is your stamina for running; it shows only when it is not full. A tap on the bar opens the menu, the map sign the map."
       },
       {
         "de": "**Kampf.** Gekämpft wird in zwei Reihen, vorn und hinten. Wer zuerst handelt, entscheidet die Gewandtheit. Über jedem Gegner steht, was er als Nächstes vorhat; ein langer Druck auf das Zeichen sagt, was dagegen hilft. In deinem Zug wählst du: **Angriff** mit der Waffe. **Können**: Zauber und Kampfhandlungen deiner Fertigkeiten. **Tasche**: Heiltränke. **Wechsel**: Reihe oder Waffe wechseln, ein halber Zug. **Abwehr**: bis zu deinem nächsten Zug haben Angriffe auf dich Ungunst. **Flucht**: gelingt nicht immer und kostet dann den Zug; vor Bossen gibt es keine. Bei vielen Schlägen gegen dich erscheint ein Ring: tippe, wenn der große auf dem kleinen liegt, dann nimmst du halben Schaden oder weichst ganz aus. Jeder Knopf erklärt sich bei langem Druck.",
@@ -921,8 +923,8 @@
         "en": "**Metal and magic.** Metal disturbs how the body draws magic from its surroundings. So Evocation, Illusion and Summoning work only in cloth or leather, for everyone; only the Battlemage casts Evocation in light armor too. Healing and Warding draw on one's own will; they work in iron too."
       },
       {
-        "de": "**Tränke.** Ein Trank im Kampf kostet den Zug. Heiltränke heilen, die großen mehr; Kräutertränke heilen wenig, nehmen aber Gift und andere Zustände.",
-        "en": "**Potions.** A potion in battle costs your turn. Healing potions heal, the greater ones more; herbal remedies heal little but take away poison and other conditions."
+        "de": "**Tränke.** Ein Trank im Kampf kostet den Zug. Heiltränke heilen, die großen mehr; Kräutertränke heilen wenig, nehmen aber Gift und andere Zustände. Wurfmittel tragen eine Schadensart: Brandflaschen Feuer, Weihwasser Licht; Weihwasser trifft nur Untote, die aber hart. Nimm, was der Gegner fürchtet.",
+        "en": "**Potions.** A potion in battle costs your turn. Healing potions heal, the greater ones more; herbal remedies heal little but take away poison and other conditions. Things to throw carry a kind of damage: firebottles fire, holy water light; holy water strikes only the undead, but hard. Use what the foe fears."
       },
       {
         "de": "**Das Menü.** **Held**: Grundwerte, Fertigkeiten, Kampfwerte. **Tasche**: Vorräte benutzen, Ausrüstung anlegen, Dinge wegwerfen. **Ausrüstung**: was du trägst, Platz für Platz, und deine Kampfwerte. **Karte**: Landkarte, Gebietskarte und Grundriss; Aufträge, Leute und Dienste lassen sich einblenden. **Chronik**: deine Aufträge mit Stand und was bisher geschah. **System**: Speichern, Sprache und Einstellungen; ein langer Druck erklärt jedes Zeichen.",

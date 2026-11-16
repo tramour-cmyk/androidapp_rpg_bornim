@@ -763,13 +763,11 @@ func abbrechen() -> String: return Sprache.t(ABBRECHEN)
 
 # ---------------------------------------------------------------- Dinge benutzen (Game.useItemOutside)
 # Leuchtfunke, Ausdauertrank, Essen, Heiltrank und Kraeutertrank ausserhalb des Kampfes; Antwort wie alt (Light, Resting, Msgs, Ui)
-# 870.4: Leben fest nach BRS (werte.json „welt“ „heilung“, wie im Kampf), ohne Eintrag wie bisher mit den Wuerfeln des Dings
-static func heilung(id: String, h: Array, wuerfel_: Callable) -> int:
-	var fest = BrsHeld.welt().get("heilung", {}).get(id)
-	if fest != null: return int(fest)
-	return int(wuerfel_.call(int(h[0]), int(h[1]))) + int(h[2])
+# 870.4: Leben fest nach BRS (werte.json „welt“ „heilung“, wie im Kampf); 870.20: nur dort, ohne Würfel im Ding; null heilt nicht
+static func heilung(id: String):
+	return BrsHeld.welt().get("heilung", {}).get(id)
 
-static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> String:
+static func benutze(z: Zustand, hw: BrsHeld, id: String, _wuerfel: Callable) -> String:
 	var dd := Laden.ding(id)
 	var art := String(dd.get("art", ""))
 	var b: Dictionary = Sprache.texte.get("benutzen", {})
@@ -787,20 +785,20 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 		z.weg(id); z.ausdauer_trank = true
 		return Sprache.r("staminaDrunk", [hw.name])
 	if art == "BANDAGE": return verband(z, hw, id)   # 842
-	var h: Array = dd.get("heilt", [])
-	if art == "FOOD" and not h.is_empty():
+	var h = heilung(id)
+	if art == "FOOD" and h != null:
 		if z.satt and hw.leben >= hw.max_leben(): return sag.call("alreadyFed", [hw.name])
 		z.weg(id)
 		var vor := hw.leben
-		hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_) + Laden.essen_bonus(hw))   # Perks.mealBonus (870.4: Kochen)
+		hw.leben = mini(hw.max_leben(), hw.leben + int(h) + Laden.essen_bonus(hw))   # Perks.mealBonus (870.4: Kochen)
 		z.satt = true
 		return sag.call("ate", [hw.name, Laden.name(id), hw.leben - vor])
-	if art != "POTION" or h.is_empty(): return Sprache.u("cannotUseHere")
+	if art != "POTION" or h == null: return Sprache.u("cannotUseHere")
 	var heilt := bool(dd.get("heilt_leiden", false)) and not z.leiden.is_empty()
 	if hw.leben >= hw.max_leben() and not heilt: return Sprache.u("alreadyFull")
 	z.weg(id)
 	var vor := hw.leben
-	hw.leben = mini(hw.max_leben(), hw.leben + heilung(id, h, wuerfel_))
+	hw.leben = mini(hw.max_leben(), hw.leben + int(h))
 	if heilt: z.leiden.clear()
 	var geheilt: String = sag.call("healed", [hw.name, hw.leben - vor])
 	return (sag.call("cured", [hw.name]) + " " + geheilt) if heilt else geheilt
@@ -809,13 +807,13 @@ static func benutze(z: Zustand, hw: BrsHeld, id: String, wuerfel_: Callable) -> 
 # Blutung (z.leiden „BLEED“, darum halbiert sie die Heilung nicht), dann grund + je_heilkunde x Heilkunde Leben (werte.json „welt“
 # „verband“, gerundet), uebt Heilkunde; ohne Blutung und mit vollem Leben nichts verbraucht ([807.verband.voll])
 const VERBAND_AN := [   # [807.verband.an] (der Held blutete nicht)
-	["Du ziehst den Verband fest. +{0} TP.", "You pull the bandage tight. +{0} HP."],
-	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} TP.", "You wash out the wound and wrap the bandage around it. +{0} HP."],
-	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} TP.", "You bind the wound and check that the bandage holds. +{0} HP."]]
+	["Du ziehst den Verband fest. +{0} Leben.", "You pull the bandage tight. +{0} Life."],
+	["Du wäschst die Wunde aus und wickelst den Verband darum. +{0} Leben.", "You wash out the wound and wrap the bandage around it. +{0} Life."],
+	["Du verbindest die Wunde und prüfst, ob der Verband sitzt. +{0} Leben.", "You bind the wound and check that the bandage holds. +{0} Life."]]
 const VERBAND_BLUT := [   # [807.verband.blut] (die Blutung ist gestillt)
-	["Ein fester Knoten, und das Blut steht. +{0} TP.", "One firm knot, and the blood stops. +{0} HP."],
-	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} TP.", "You press the bandage onto the wound. It bleeds no more. +{0} HP."],
-	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} TP.", "Layer on layer, wrapped tight. The bleeding stops. +{0} HP."]]
+	["Ein fester Knoten, und das Blut steht. +{0} Leben.", "One firm knot, and the blood stops. +{0} Life."],
+	["Du presst den Verband auf die Wunde. Sie blutet nicht mehr. +{0} Leben.", "You press the bandage onto the wound. It bleeds no more. +{0} Life."],
+	["Lage um Lage, straff gewickelt. Die Blutung hört auf. +{0} Leben.", "Layer on layer, wrapped tight. The bleeding stops. +{0} Life."]]
 const VERBAND_KAMPF := {"de": "Im Kampf bleibt keine Zeit für einen Verband.", "en": "There's no time for a bandage in combat."}   # [807.verband.kampf]
 const VERBAND_VOLL := {"de": "Du bist unverletzt.", "en": "You are unhurt."}   # [807.verband.voll]
 
@@ -838,7 +836,7 @@ static func verband(z: Zustand, hw: BrsHeld, id: String) -> String:
 	z.varianten[marke] = [int(vv[0]) + 1, i]
 	var t := String(liste[i][0 if Sprache.aktiv() == "de" else 1])
 	var plus := hw.leben - vor
-	t = t.replace(" +{0} TP.", "").replace(" +{0} HP.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
+	t = t.replace(" +{0} Leben.", "").replace(" +{0} Life.", "") if plus == 0 else t.replace("{0}", str(plus))   # 1047: bei 0 entfaellt „ +{0} TP“
 	var auf := z.fert_notiz()
 	return t + ("\n" + auf if auf != "" else "")
 
@@ -1714,7 +1712,7 @@ func system() -> void:
 		z_.call(t.call("Hauptmenü", "Main menu"), null, t.call("Speichert und kehrt zum Hauptmenü zurück.", "Saves and returns to the main menu."), func(): hauptmenue.emit(), true, "MENU")])
 	# 352: was zu lesen ist, in einer eigenen Reihe
 	var a: Dictionary = Sprache.texte.get("anleitung", {})
-	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Anleitung", "en": "Guide"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),
+	zeichenreihe([z_.call(Sprache.t(a.get("zeichen", {"de": "Handbuch", "en": "Handbook"})), null, Sprache.t(a.get("hinweis", "")), anleitung, true, "RULES"),
 		z_.call(t.call("Über", "About"), null, t.call("Wer das Spiel macht und worauf seine Regeln beruhen.", "Who makes the game and what its rules are based on."), func(): ueber.emit(), true, "ABOUT")])
 	luecke(4)
 	gruppe(t.call("Kampf", "Combat"))
@@ -2185,4 +2183,4 @@ static func grundwert_text(g: Dictionary, de: bool) -> String:
 # 870.7: Stueck mit einer Zahl, die die Guete aendert (Beute.kennwert)
 static func hat_kennwert(g: Dictionary) -> bool:
 	var b := Beute.grundform(String(g["base"]))
-	return Beute.ist_waffe(b) or (String(b["slot"]) == "CHEST" and int(b.get("ruestung", 0)) > 0) or String(b["art"]) == "SHIELD"
+	return Beute.ist_waffe(b) or BrsHeld.schutzwert_von(String(g["base"])) > 0     # 870.20: Brustrüstung mit Gewicht oder Schild

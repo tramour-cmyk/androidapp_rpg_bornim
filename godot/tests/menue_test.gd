@@ -122,7 +122,7 @@ func _lauf() -> void:
 	var alle: Array = Sprache.texte["anleitung"]["teile"]
 	if teile.size() != alle.size() or teile.size() < 30: fehler += 1; print("FEHLER Handbuch %d Absätze" % teile.size())
 	for t_ in teile:
-		if "{" in t_ or "SRD" in t_ or "Rüstungsklasse" in t_ or "Zauberpunkte" in t_ or "Kämpfer" in t_: fehler += 1; print("FEHLER Handbuch: ", t_.substr(0, 80))
+		if "{" in t_ or "SRD" in t_ or "Rüstungsklasse" in t_ or "Zauberpunkte" in t_ or "Kämpfer" in t_ or RegEx.create_from_string("\\d+[Wd]\\d+|\\bTP\\b|\\bHP\\b").search(t_) != null: fehler += 1; print("FEHLER Handbuch: ", t_.substr(0, 80))
 	if not teile.any(func(t_): return t_.contains("40 %") or t_.contains("40%")) or not teile.any(func(t_): return t_.contains("25 %") or t_.contains("25%")):
 		fehler += 1; print("FEHLER Handbuch: Platzhalter Erfahrungsdeckel oder weiche Grenze nicht in Prozent")
 	var ueber_ := [0]
