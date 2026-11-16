@@ -209,7 +209,7 @@ func _wald_517(k) -> void:
 			["deep_forest", 1.0]:
 				soll = g == ["cricket"] and fern >= 1 and absf(fern_seite) >= 0.28
 			["deep_forest", 0.0]:
-				soll = g.is_empty() and fern >= 1     # am Tag halb so oft, in 3 Minuten mindestens einmal (2–5 Minuten Pause, das erste nach 20–60 s)
+				soll = g.is_empty() and fern >= 1     # am Tag halb so oft, in 3 Minuten mindestens einmal (2–5 Minuten Pause, das erste nach 8–20 s)
 			["forest", 1.0]:
 				soll = g == ["cricket", "owl"] and fern == 0
 			_:
