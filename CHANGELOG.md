@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 292 auf `main`** (Sokrates, PR 211 gemischt 16.11., 15:59, `91d9cbd35`, Lauf grün auf `7e3e23f89`): Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen; t292 bestanden (Chef 14:36).
+
 - **Builds 286 bis 291 auf `main`** (Sokrates, PR 210 gemischt 16.11., 15:17, `2e1eb96ed`, Lauf grün auf `207987ec4`; Chef 16.11., 13:43 „alles auf main“): alles, was der Chef in t286–t291 bestanden hat; nicht bestanden und darum zurückgenommen: 601.1 (Zucken beim Pfeiltreffer) und 1284 (Rattenbiss daneben). PR 205–209 als enthalten geschlossen.
 
 - **Gehen im Ring auch mit „Schnell“** (Jerry, 1285, Zweig `claude/jerry-1285-joystick`, noch ohne Build): mit dem Testmenü „Schnell“ rannte der Held schon bei kleinstem Joystick-Ausschlag; jetzt geht er im Ring und rennt erst darüber, wie ohne „Schnell“ (Test `joystick_1285`).
