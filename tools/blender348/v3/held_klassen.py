@@ -157,7 +157,8 @@ def kopfsitz(netze, haut, p, gesicht=None):
 # Kaufbau held_L_garrick_M (16.11.): die Ranger-Kapuze sitzt wie beim Helden (Jaegerkind) unverändert aus dem Kauf, Kopf bis z 1,81, Kapuze
 # bis 1,865, hinten 11 cm und über der Stirn 8 cm vor dem Kopf (Kopf 12 cm tief, Kapuze 32 cm). Die Leute tragen sie enger: der Abstand
 # über 6 mm zur Haut schrumpft auf KAPUZE_ENG, nach unten (Kragen, Schultern) ausgeblendet, die Verschiebung über die Nachbarn geglättet
-KAPUZE_ENG = float(os.environ.get('KAPUZE_ENG', '0.3'))
+# 531.2 (Chef 16.11., 17:34: Kapuze „größer“; Sokrates: „deutlich kleiner“): 0,3 war zu wenig, jetzt bis 6 mm an die Haut
+KAPUZE_ENG = float(os.environ.get('KAPUZE_ENG', '0.0'))
 
 
 def kapuze_eng(o, W, N, kopf, kd, p, runden=6):

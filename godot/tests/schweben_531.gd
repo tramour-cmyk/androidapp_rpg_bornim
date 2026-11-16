@@ -6,7 +6,8 @@ extends SceneTree
 # nächsten Fläche von Köcher, Gurt, Körper (höchstens BOGEN_LUFT_MAX). Massgeblich ist die Zeile SCHWEBEN531.
 #   im Ordner godot: MESS=531 godot --headless --path . -s res://tests/schweben_531.gd   (ohne Kaufdaten „ohne Kauf“, 0)
 
-const GURT_LUFT_MAX := 0.012
+# Gurt: über dem Ausschnitt des Kleids (unter dem Kragen der Kapuze) gibt es keine Fläche, der Riemen spannt dort bis 3,7 cm frei
+const GURT_LUFT_MAX := 0.04
 const KOECHER_LUFT_MAX := 0.012
 const BOGEN_LUFT_MAX := 0.015
 const BARY := [Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), Vector3(0.5, 0.5, 0), Vector3(0, 0.5, 0.5), Vector3(0.5, 0, 0.5),
@@ -70,7 +71,6 @@ func _lauf() -> void:
 							var t := v.dot(nor)
 							if t > 0.003 and t < 0.04 and (v - nor * t).length() < 0.01 and -t < tief:
 								tief = -t; two = p
-								if OS.get_environment("MESS") == "531": print("DECKT Gurt %s nor %s davor %s" % [_wo(g, p), nor, _wo(g, q)])
 		if tief < float(schlecht.get("tief", [INF])[0]): schlecht["tief"] = [tief, _wo(g, two)]
 		var koecher := _starr(g, "RueckenKoecher"); var bogen := _starr(g, "RueckenBogen")
 		var gitter := _gitter(koerper)

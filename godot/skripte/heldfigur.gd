@@ -701,7 +701,6 @@ static func _anlegen(ecken: PackedVector3Array, feld: Dictionary, hoch: Vector3,
 		for x in [oben, unten, mitte]: if x < INF: w = maxf(w, x)
 		if w < wert:
 			wert = w; bester = t; bester.origin.z += schub
-		if OS.get_environment("MESS") == "531": print("ANLEGEN531 %s kipp %d schub %.3f oben %.3f mitte %.3f unten %.3f" % ["bogen" if bogen else "koecher", kipp, schub, oben, mitte, unten])
 	return bester
 
 # 531 (Chef 16.11., 12:26 zum Bild von hinten: „wie ist der Langbogen befestigt? … wahrscheinlich ist er am Köcher befestigt“): der Köcher
@@ -712,8 +711,8 @@ static func _anlegen(ecken: PackedVector3Array, feld: Dictionary, hoch: Vector3,
 # und Bogen. gurt_punkte gibt die Mittellinie (für den Test gurt_531)
 const GURT_BREIT := 0.038
 const GURT_LUFT := 0.012
-const GURT_SCHULTER := 0.11   # 531.2: 0,085 lief über den Ausschnitt des Kleids (3 cm Luft über der Haut)
-const GURT_UNTEN := 0.34   # rechte Seite über der Hüfte; tiefer stößt der Rumpf an Umhang und Gürtel (gurt_531)
+const GURT_SCHULTER := 0.13   # 531.2: 0,085 lief über den Ausschnitt des Kleids (3 cm Luft über der Haut)
+const GURT_UNTEN := 0.28   # 531.2: rechte Seite über der Hüfte; mit 0,34 lief der Riemen unten durch den abstehenden Rock (schweben_531)
 static func gurt_punkte(pts: PackedVector3Array, hals_y: float, unten_y: float, breite := 0.21, drunter := 0.2) -> Array:
 	var koerper := PackedVector3Array()
 	for q in pts:
@@ -909,16 +908,22 @@ static func ruecken_gurt(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D,
 	var kinv := ks.affine_inverse()
 	var k := linie.size()
 	var rumpf := ks * (lagen[maxi(sk.find_bone("spine_02"), 0)] as Transform3D).origin
-	var schulter_y := hals_y - 0.08
+	var mitte_ring := Vector3.ZERO
+	for q in linie: mitte_ring += q
+	mitte_ring /= maxf(1.0, linie.size())
 	for i in k:
 		var p0: Vector3 = linie[i]; var p1: Vector3 = linie[(i + 1) % k]
 		if p0.z < float(ruecken.call(p0.y)) + 0.12 or p1.z < float(ruecken.call(p1.y)) + 0.12: continue   # hinten liegen Köcher und Umhang darüber
 		# 531.2: der Riemen liegt flach am Körper: Fläche nach außen von der Rumpfachse (waagrecht, über der Schulter nach oben), Breite quer
 		# dazu; mit der Breite quer zur Ebene stand er an den Flanken wie eine Flosse ab
+		# Fläche des Körpers: Mittel aus der Normale des Umrisses in der Ebene (über der Schulter nach oben, vorn nach vorn) und waagrecht
+		# weg von der Rumpfachse (an den Flanken zur Seite)
 		var pm := (p0 + p1) * 0.5
-		var aussen := Vector3(pm.x - rumpf.x, 0.0, pm.z - rumpf.z)
-		if pm.y > schulter_y: aussen = aussen.lerp(Vector3.UP * aussen.length(), clampf((pm.y - schulter_y) / 0.06, 0.0, 1.0))
-		aussen = aussen.normalized()
+		var tang := (p1 - p0).normalized()
+		var im_umriss := n.cross(tang).normalized()
+		if im_umriss.dot(pm - mitte_ring) < 0.0: im_umriss = -im_umriss
+		var waag := Vector3(pm.x - rumpf.x, 0.0, pm.z - rumpf.z).normalized()
+		var aussen := (im_umriss + waag * 0.6).normalized()
 		var quer := (p1 - p0).cross(aussen).normalized()
 		if quer.dot(n) < 0.0: quer = -quer
 		for s in [1.0, -1.0]:
