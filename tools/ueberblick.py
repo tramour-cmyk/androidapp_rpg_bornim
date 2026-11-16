@@ -245,18 +245,28 @@ def morgen(jetzt=None):
     null = jetzt.replace(hour=0, minute=0, second=0, microsecond=0)
     grenzen = {"heute": null, "gestern": null - datetime.timedelta(days=1),
                "Woche": null - datetime.timedelta(days=null.weekday()), "Monat": null.replace(day=1)}
-    def commit(t):
-        c = s._git("rev-list", "-1", "--before=" + t.isoformat(), "HEAD").stdout.strip()
-        if c: return c, None
-        erst = s._git("rev-list", "--max-parents=0", "HEAD").stdout.split()
-        if not erst: return None, None
-        tag = s._git("-c", "log.showSignature=false", "log", "-1", "--date=format-local:%d.%m.", "--format=%cd", erst[-1]).stdout.strip()
-        return erst[-1], tag
+    def tag_von(c):
+        return s._git("-c", "log.showSignature=false", "log", "-1", "--date=format-local:%d.%m.", "--format=%cd", c).stdout.strip()
+    def lesbar(c):
+        st = _stand(c)
+        return st if st and st[1] else None   # 1496: vor 08.11. hatte die Liste kein Feld Stand, offen las sich als 0
+    def erster_lesbarer(t):
+        """frühester Stand der Vorgangsliste nach t mit lesbaren offenen Zeilen (Halbierung über die Commits der Liste)."""
+        cs = s._git("log", "--reverse", "--format=%H", "--since=" + t.isoformat(), "HEAD", "--", os.path.join(s.DOCS, s.LISTE)).stdout.split()
+        lo, hi = 0, len(cs)
+        while lo < hi:
+            m = (lo + hi) // 2
+            if lesbar(cs[m]): hi = m
+            else: lo = m + 1
+        return cs[lo] if lo < len(cs) else None
     staende, seit = {}, {}
     for k, t in grenzen.items():
-        c, tag = commit(t)
-        st = _stand(c) if c else None
-        if st is None: return None
+        c = s._git("rev-list", "-1", "--before=" + t.isoformat(), "HEAD").stdout.strip()
+        st, tag = (lesbar(c), None) if c else (None, None)
+        if st is None:
+            c = erster_lesbarer(t)
+            if not c: return None
+            st, tag = lesbar(c), tag_von(c)
         staende[k], seit[k] = st, tag
     jetzt_st = _stand(None)
     zahlen = {"heute": _bilanz(staende["heute"], jetzt_st), "gestern": _bilanz(staende["gestern"], staende["heute"]),
