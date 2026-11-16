@@ -83,6 +83,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1303](ansehen/1303-stufen.md) | Höhle im Renderer mobile: Flecken im Dunkel weg, dafür dunkler | Spike | 16.11., 00:35 |
+| [698](ansehen/698-grafikstufen.md) | Grafikstufen: Hoch gegen Niedrig, Einmess-Blende, Zeichen „Grafik“ | Spike | 16.11., 07:52 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -99,21 +100,22 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 2, startbar 0
+**Homer** – offen 4, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 | 1352 | M | Von Jerry (1275, Regel 8): wann taumelt ein Gegner nach einem Gegenschlag? DESIGN-GLUT.md | wartet auf 1352a (startbar) |
 | 1352a | M | Rückfrage zu 1352: wann taumelt ein Gegner im Kerbensystem (Fünftel des Lebens seit der An | Chef (Datei in der Chefsache) |
+| 1370 | K | Von Spike (zu 698): Erklärsatz und Meldung zum Zeichen „Grafik“ im Systemmenü prüfen oder | startbar |
 
-**Tom** – offen 63, Muss 16, startbar 0
+**Tom** – offen 64, Muss 16, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerha | wartet auf 1351 (wartet) |
 | 1357 | M | Von Werkzeug (1334): Wiederholrot lage_785_8: 2× rot in 48 h (Läufe 508, 504); Ursache nac | wartet auf Test (Build 291) |
-| 1361 | M | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 13 | wartet auf 1362 (in Arbeit) |
+| 1361 | M | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 13 | wartet auf Test (Build 291) |
 | 1341 | M | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr | wartet auf 1351 (wartet) |
 | 1325 | M | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode | wartet auf Diogenes |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | Chef (Datei in der Chefsache) |
@@ -140,7 +142,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 691 | K | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander (Chef 03.11., 07:44, Test 204 | ruht bis 23.11. |
 | 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | ruht bis 23.11. |
 | 689 | K | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Lat | ruht bis 23.11. |
-| 816 | K | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (startbar) |
+| 816 | K | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | wartet auf 698 (in Arbeit) |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht bis 23.11. |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht bis 23.11. |
 | 861 | K | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | wartet auf 431 (wartet) |
@@ -172,15 +174,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1322 | M | Von Homer (1320, Chef 15.11., 20:15): Spielertexte der Oberfläche ohne TP/HP, Wert heißt L | wartet auf Test (Build 291) |
 | 870.20 | M | Von Sokrates (870, Schritt 9, auf build-289): SRD-Reste aus den Daten (held.json grundform | wartet auf Test (Build 291) |
 | 1326 | M | Von Sokrates (Chef 15.11., 20:33): Build-Name (Nummer des Builds) im Hauptmenü und in „Übe | wartet auf Test (Build 291) |
-| 431h | M | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, et | Chef (Datei in der Chefsache) |
+| 431h | M | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, et | startbar |
 | 1355 | K | Von Spike (Lauf 509): wende_4168 zufällig rot, „Knoten folgt der Kurve (hoechstens 1.21 Gr | wartet auf Test (Build 291) |
+| Pflege | K | von Werkzeug (340.3, 16.11.): 31051 Bytes (Grenze 30000), Erledigtes streichen | startbar |
 
 **Jerry** – offen 79, Muss 30, startbar 38
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1363 | M | Von Tom (1361): Rot in Build 291 (Lauf 512): arkan_993 Treffer endet 1,09 m hoch, 0,95 m n | wartet auf Test (Build 291) |
-| 1362 | M | Von Tom (1361): Filme t291.6 (1321, Stab beim Ausweichen) und t291.8 (601.1, Pfeil in der | startbar |
 | 1331 | M | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen | wartet auf Test t290 (Chef) |
 | 1321 | M | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den | wartet auf Test (Build 291) |
 | 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1321 (wolf) |
@@ -257,6 +259,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1336 | K | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu du | startbar |
 | 1340 | M | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | startbar |
 | 1284a | M | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar (Seitenplatz, Kamera | startbar |
+| 1366 | M | Von Sokrates (1288b A, Chef 16.11., 06:56): Lesen spürbar – Größe der Ansage erst ab Leses | startbar |
 | Pflege | K | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
 **Spike** – offen 18, Muss 9, startbar 2
@@ -282,13 +285,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 673 | K | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), | wartet auf Test (Build 291) |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 
-**Perikles** – offen 31, Muss 24, startbar 0, PAUSE bis 16.11., 09:00
+**Perikles** – offen 33, Muss 26, startbar 2, PAUSE bis 16.11., 09:00, nur Kür angehalten (1364)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1328.1 | M | Von Sokrates (1328, Chef 15.11., 21:05): Spike eigene Rolle Technik (Grafiktechnik, Leistu | wartet auf Diogenes (greift?) |
+| 1364 | M | Von Sokrates (Chef 16.11., 06:52 „jeder braucht doch einen Job“): Arbeit verteilen, keine | wartet auf 1371 (startbar) |
 | 1334 | M | Von Sokrates (Chef 15.11., 21:09): Wiederholrot-Wächter: derselbe Test zum zweiten Mal rot | wartet auf Diogenes (greift?) |
-| 1148 | M | Von Ford (13.11., 14:58): lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen | wartet auf Diogenes (greift?) |
+| 1148 | M | Von Ford (13.11., 14:58): lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen | wartet auf 1369 (startbar) |
 | 1332 | M | Von Sokrates (Chef 15.11., 21:07): „zu testen, ohne Rückmeldung“ nie liegen lassen: sofort | wartet auf Diogenes (greift?) |
 | 1313 | M | Von Sokrates (Chef 15.11., 19:37): Überblick in der Chefsache: die nächsten 20 Vorgänge in | wartet auf Diogenes (greift?) |
 | 1312 | M | Von Sokrates (Chef 15.11., 19:28): Fertiges nie liegen lassen: Werkzeug mischen (1311), Sp | Termin 17.11. |
@@ -299,7 +302,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1098 | M | D189.1 von Diogenes (zu 1019): Haken greift (4 Ford-Selbstneustarts seit 12.11. bei 416–88 | wartet auf 1098.1 (startbar) |
 | 870.12 | K | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870.20 (zu testen) |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | wartet auf Diogenes (greift?) |
-| 341 | K | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Pause |
+| 341 | K | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Pause, nur Muss |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
 | 919 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | wartet auf 918 (ruht) |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf 1125 (gebaut) |
@@ -316,48 +319,50 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1324 | M | Von Tom (PR #207): pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die P | wartet auf Diogenes (greift?) |
 | 1328.2 | K | Von Perikles (1328.1): Spike in Sperre 620.1 B und gemeinsamen Build einbeziehen (startbar | wartet auf Diogenes (greift?) |
 | 1351 | M | Von Tom (1044, 16.11., 00:05): Rechteprüfung lehnt freigegebenen Bildlauf PROBE=1044 als „ | Chef (Datei in der Chefsache) |
-| 654.2 | K | Von Sokrates (Systemrunde 654, 16.11.): erster Messlauf ohne Bild (bild=nein) je Vorgang u | Pause |
+| 654.2 | K | Von Sokrates (Systemrunde 654, 16.11.): erster Messlauf ohne Bild (bild=nein) je Vorgang u | Pause, nur Muss |
+| 1369 | M | D254.1 von Diogenes (16.11., 07:0x, zu 1148): lauf.py warnt laut über die Marke „Lauf läuf | startbar |
+| 1371 | M | D254.2 von Diogenes (16.11., 07:1x, zu 1364): Nachtrag Chef 07:02 (Tuffy bekommt Jerrys St | startbar |
 
-**Diogenes** – offen 34, Muss 26, startbar 0, PAUSE bis 16.11., 08:00
+**Diogenes** – offen 34, Muss 26, startbar 22, PAUSE bis 16.11., 08:00, nur Kür angehalten (1364)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1148 | M | Von Ford (13.11., 14:58): lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen | Pause |
-| 461b | K | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Pause |
+| 1148 | M | Von Ford (13.11., 14:58): lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen | wartet auf 1369 (startbar) |
+| 461b | K | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüch | Pause, nur Muss |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | K | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (startbar) |
 | 790 | M | 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vorher gegen nachher (Neustart ab | Termin 16.11. 18:07 |
-| 905 | K | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Pause |
-| 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | Pause |
-| 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | Pause |
-| 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | Pause |
-| 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Pause |
-| 1325 | M | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode | Pause |
-| 1185 | M | Von Perikles (1183, 1020 D): pruefliste.py warnt im Prüfschritt bei jeder Zeile ohne Eintr | Pause |
-| 1328.1 | M | Von Sokrates (1328, Chef 15.11., 21:05): Spike eigene Rolle Technik (Grafiktechnik, Leistu | Pause |
-| 1334 | M | Von Sokrates (Chef 15.11., 21:09): Wiederholrot-Wächter: derselbe Test zum zweiten Mal rot | Pause |
-| 1332 | M | Von Sokrates (Chef 15.11., 21:07): „zu testen, ohne Rückmeldung“ nie liegen lassen: sofort | Pause |
-| 1313 | M | Von Sokrates (Chef 15.11., 19:37): Überblick in der Chefsache: die nächsten 20 Vorgänge in | Pause |
-| 1217 | M | Von Sokrates (Chef „jetzt“ 13.11., 19:58/20:01): Testbitte unterwegs: Reiter „Test“ der AP | Pause |
-| 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | Pause |
-| 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Pause |
-| 1170 | M | Von Sokrates (Chef 13.11., 15:37, zu 1128 A): Klang nicht in die APK: Auswahl eines Klangs | Pause |
-| 1173 | M | Von Sokrates (Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“, A): Regel Kleinkram o | Pause |
-| 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | Pause |
-| 1244 | M | D236.1 von Diogenes (1133, 1129.1 P2a): Pflegehinweis-Commits sinken nicht (13.11. nach 27 | Pause |
-| 1317 | M | Von Jerry (1314): probelauf.py hält MESS= für ausholen_1000 an (Test enthält save_png nur | Pause |
-| 1324 | M | Von Tom (PR #207): pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die P | Pause |
-| 1300 | M | Von Tom (Build 288): atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ (Lauf 492 rot: 1, | Pause |
-| 1268.1 | M | Von Sokrates (1268 A, Chef 15.11., 10:51), Bau Spike, nach 1270: je Fehlerart eine Stelle | Pause |
-| 1268.2 | M | Von Sokrates (1268 A, Chef 15.11., 10:51), Bau Spike, nach 1270: schnelle Tests in einem G | Pause |
-| 1268.5 | M | Von Sokrates (1268 A, Chef 15.11., 10:51), Bau Spike, nach 1270: Bildrate und Ladezeit je | Pause |
-| 1335 | M | Von Sokrates (Chef 15.11., 21:09), für Spike nach 1328.1: wolf_mess_438 ohne Messrauschen | Pause |
-| 1247 | K | Von Tom (1242): Haken 621 A erkennt Freigabe „<Nr>, Lauf frei“ (Einzahl) und Freigaben unt | Pause |
-| 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Pause |
-| 1316 | K | Von Sokrates (1137 Stichtag 15.11., 20:00): reaktionen.py erkennt „Nachricht 4201, 4200“ ( | Pause |
-| 1328.2 | K | Von Perikles (1328.1): Spike in Sperre 620.1 B und gemeinsamen Build einbeziehen (startbar | Pause |
+| 905 | K | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zäh | Pause, nur Muss |
+| 1098.1 | M | Von Sokrates (Chef 13.11., 09:18, 1098 A, vorher D): nach Fords erstem Neustart über Probe | wartet auf Ford |
+| 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | startbar |
+| 1129.4 | M | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; M | startbar |
+| 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | startbar |
+| 1325 | M | Rot: ziege_4162 auf dem Bauserver in Lauf 499 und 500 (Build 288 nach Reverts, Ziegencode | startbar |
+| 1185 | M | Von Perikles (1183, 1020 D): pruefliste.py warnt im Prüfschritt bei jeder Zeile ohne Eintr | startbar |
+| 1364 | M | Von Sokrates (Chef 16.11., 06:52 „jeder braucht doch einen Job“): Arbeit verteilen, keine | wartet auf 1371 (startbar) |
+| 1334 | M | Von Sokrates (Chef 15.11., 21:09): Wiederholrot-Wächter: derselbe Test zum zweiten Mal rot | startbar |
+| 1332 | M | Von Sokrates (Chef 15.11., 21:07): „zu testen, ohne Rückmeldung“ nie liegen lassen: sofort | startbar |
+| 1313 | M | Von Sokrates (Chef 15.11., 19:37): Überblick in der Chefsache: die nächsten 20 Vorgänge in | startbar |
+| 1217 | M | Von Sokrates (Chef „jetzt“ 13.11., 19:58/20:01): Testbitte unterwegs: Reiter „Test“ der AP | startbar |
+| 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | startbar |
+| 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | startbar |
+| 1170 | M | Von Sokrates (Chef 13.11., 15:37, zu 1128 A): Klang nicht in die APK: Auswahl eines Klangs | startbar |
+| 1173 | M | Von Sokrates (Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“, A): Regel Kleinkram o | startbar |
+| 1200 | M | Von Tuffy (Chef 13.11., 18:36: „ich brauche einen Vorgang“): LISTE-BAUEN-TESTEN „kaputter | startbar |
+| 1244 | M | D236.1 von Diogenes (1133, 1129.1 P2a): Pflegehinweis-Commits sinken nicht (13.11. nach 27 | startbar |
+| 1317 | M | Von Jerry (1314): probelauf.py hält MESS= für ausholen_1000 an (Test enthält save_png nur | startbar |
+| 1324 | M | Von Tom (PR #207): pruefliste_1020 macht jeden Lauf auf claude/build-<n> rot, sobald die P | startbar |
+| 1300 | M | Von Tom (Build 288): atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ (Lauf 492 rot: 1, | startbar |
+| 1268.1 | M | Von Sokrates (1268 A, Chef 15.11., 10:51), Bau Spike, nach 1270: je Fehlerart eine Stelle | startbar |
+| 1268.2 | M | Von Sokrates (1268 A, Chef 15.11., 10:51), Bau Spike, nach 1270: schnelle Tests in einem G | startbar |
+| 1268.5 | M | Von Sokrates (1268 A, Chef 15.11., 10:51), Bau Spike, nach 1270: Bildrate und Ladezeit je | startbar |
+| 1335 | M | Von Sokrates (Chef 15.11., 21:09), für Spike nach 1328.1: wolf_mess_438 ohne Messrauschen | startbar |
+| 1247 | K | Von Tom (1242): Haken 621 A erkennt Freigabe „<Nr>, Lauf frei“ (Einzahl) und Freigaben unt | Pause, nur Muss |
+| 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Pause, nur Muss |
+| 1316 | K | Von Sokrates (1137 Stichtag 15.11., 20:00): reaktionen.py erkennt „Nachricht 4201, 4200“ ( | Pause, nur Muss |
+| 1328.2 | K | Von Perikles (1328.1): Spike in Sperre 620.1 B und gemeinsamen Build einbeziehen (startbar | Pause, nur Muss |
 
-**Sokrates** – offen 32, Muss 7, startbar 2
+**Sokrates** – offen 31, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -392,7 +397,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
 | 1268 | K | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.1 | wartet auf 1268.1 (gebaut) |
 | 1270 | K | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vo | wartet auf 1270.3 (zu testen) |
-| 1288 | M | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lücke 930.5 (fa | startbar |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
