@@ -660,3 +660,4 @@
 2026-11-16 17:52:03	commit-pruefung	docs/chefsache/ansehen/t293-sammelbuild.md: Handypunkte ohne Ergebnis (293.1, 293.2, 293.6, 293.7); die Prüfliste bleibt in ansehen/, bis der Chef jeden zurückgemeldet hat, auch kein Archiveintrag t29	main
 2026-11-16 17:52:19	commit-pruefung	VORGANGSARCHIV.md: Test t293 eingetragen, aber 1421 aus der Prüfliste ohne Build 293; erst `vorgang.py build 293 --mit 1421`, dann `vorgang.py build 293` (774)	main
 2026-11-16 17:52:28	commit-pruefung	VORGANGSARCHIV.md: Test t293 eingetragen, aber 1421 noch „zu testen“ mit Build 293; erst `python3 tools/vorgang.py build 293` (Automatik B, 275.2), dann im selben Commit	main
+2026-11-16 17:52:39	commit-pruefung	VORGANGSARCHIV.md: Test t293 eingetragen, aber 1421 noch „zu testen“ mit Build 293; erst `python3 tools/vorgang.py build 293` (Automatik B, 275.2), dann im selben Commit	main
