@@ -3754,6 +3754,27 @@ func _guard(on: bool) -> void:
 	arm_hold.active = on
 
 
+## 1363 (Lauf 512, wolf_mess_438 Bild 1281 am Söldner, nachgestellt am Rechner mit Kaufwolf): im Zucken beim Treffer
+## (SS_GetHitLightFront) schwang der Schildarm den Schild 0,16 m zur Seite und 0,18 m hoch in den Kopf des Wolfs, der neben dem Schild
+## gebissen hatte; der Schildarm (links) bleibt im Zucken in seiner Haltung, Rumpf und Schwertarm zucken wie bisher
+const SCHILD_ARM := ["clavicle_l", "upperarm_l", "lowerarm_l", "hand_l"]
+var schild_halt: ArmHold
+func _schild_halten(an: bool) -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null or not kauf:
+		return
+	if schild_halt == null:
+		schild_halt = ArmHold.new()
+		sk.add_child(schild_halt)
+	if an:
+		schild_halt.poses.clear()
+		for nm: String in SCHILD_ARM:
+			var bi := sk.find_bone(nm)
+			if bi >= 0:
+				schild_halt.poses[bi] = sk.get_bone_pose(bi)
+	schild_halt.active = an and not schild_halt.poses.is_empty()
+
+
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
 func body_r() -> float:
 	if vier(fighter):
@@ -4566,8 +4587,9 @@ func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 	elif _ss() and not down:
 		var tn := "SS_GetHitHeavyFront" if schwer else "SS_GetHitLightFront"
 		if anim.has_animation(tn):
+			_schild_halten(true)
 			_play(tn, 0.06)
-			get_tree().create_timer(anim.get_animation(tn).length - 0.1).timeout.connect(_idle_wenn_frei)
+			get_tree().create_timer(anim.get_animation(tn).length - 0.1).timeout.connect(func() -> void: _schild_halten(false); _idle_wenn_frei())
 	else:
 		_play("Treffer", 0.05)
 		get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
