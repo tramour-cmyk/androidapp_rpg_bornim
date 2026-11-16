@@ -79,7 +79,9 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
 		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
 	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
-		"He takes aim. If the one in his sights Defends, the arrow flies past."]}
+		"He takes aim. If the one in his sights Defends, the arrow flies past."],
+	"offen": ["Ich wollte ihm zuvorkommen und stand gegen seinen großen Schlag offen. Gegen große Schläge bin ich in Wehr besser dran.",     # [1367.offen], Kerbensystem (1366)
+		"I meant to strike first and was left open to his big blow. Against big blows, I am better off on Guard."]}
 const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
 ## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
 var gesehen := {}

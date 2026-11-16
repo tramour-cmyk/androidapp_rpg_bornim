@@ -28,7 +28,7 @@ func _initialize() -> void:
 		monsters[mo.id] = mo
 	K0 = (Brs.lade()["kampf"] as Dictionary).duplicate()
 	for t in [_r1, _r2, _r3, _r4, _r5, _r6, _r7, _r8, _r9, _r10, _r11, _r12, _r13, _r14, _r15, _r16, _r17, _r18, _r19, _r20, _r21,
-			_r22, _lesen, _vorschlag, _schalter]:
+			_r22, _lesen, _offen, _vorschlag, _schalter]:
 		_treffer(-1)
 		t.call()
 	_treffer(-1)
@@ -270,20 +270,22 @@ func _r7() -> void:
 	ok("Regel 7", int(m.gk.zaehler.wehr) == 1 and int(h.gl.bereit) == 2, "Wehr: eine Kerbe je Schlag")
 	m.gk.zug_beginnen(h)
 	ok("Regel 7", int(h.gl.bereit) == 0 and int(m.gk.zaehler.verstrichen) == 2, "Haltung verfällt mit dem eigenen nächsten Zug")
-	# Wehr: Ungunst im Treffer (Trefferchance wie werte.json)
+	# Wehr: Ungunst im Treffer (Trefferchance wie werte.json); 1366: gegen kleine Schläge nur wehr_klein_anteil davon
 	_treffer(-1)
 	var ch := []
-	for wehr in [false, true]:
+	for fall in [[false, false], [true, false], [false, true], [true, true]]:
 		h = _held()
-		m = _kampf(h, ["goblin"], {"nur_einrichten": true})
+		m = _kampf(h, ["goblin"], {"nur_einrichten": true, "ring": Mars.NONE})
 		g = m.all[1]
-		h.gl.bereit = 1 if wehr else 0
+		h.gl.bereit = 1 if fall[0] else 0
 		h.gl.haltung = Kerbe.WEHR
 		m._take_log()
-		m.gk.auf_held(g, h)
+		m.gk.auf_held(g, h, 1.0, fall[1])
 		var roll = m._take_log().filter(func(e): return e.roll != null)[0].roll
 		ch.append(int(roll[3]))
-	ok("Regel 7", ch[0] - ch[1] == -int(Kerbe.w().wehr_ungunst), "Wehr: Trefferchance %d statt %d" % [ch[1], ch[0]])
+	var wu := -float(Kerbe.w().wehr_ungunst)
+	ok("Regel 7", ch[2] - ch[3] == roundi(wu), "Wehr gegen großen Schlag: Trefferchance %d statt %d" % [ch[3], ch[2]])
+	ok("Regel 7", ch[0] - ch[1] == roundi(wu * float(Kerbe.w().wehr_klein_anteil)), "1366: Wehr gegen kleinen Schlag: Trefferchance %d statt %d" % [ch[1], ch[0]])
 	# Antworten nie kritisch
 	_treffer(1)
 	var krit := []
@@ -549,7 +551,52 @@ func _lesen() -> void:
 	var s0: Array = m.gk.gesehen(g)
 	_plan(g, true)
 	var s0g: Array = m.gk.gesehen(g)
-	ok("Abschnitt 5", s0[1] == null and s0g[1] != null, "Stufe 0 ohne Art; große Schläge mindestens Stufe 1")
+	g.gl.stufe_lesen = 1
+	var s1g: Array = m.gk.gesehen(g)
+	ok("Abschnitt 5", s0[1] == null and s0g == [false, null] and s1g[0] == true and s1g[1] != null,
+		"1366: Stufe 0 zeigt auch den großen Schlag nur als „!“ ohne Art (%s), Stufe 1 groß mit Art (%s)" % [str(s0g), str(s1g)])
+	var gb := _kampf(_held(), ["bugbear"], {"nur_einrichten": true})
+	ok("Abschnitt 5", int(gb.all[1].gl.stufe_lesen) >= 1, "Boss mindestens Stufe 1, sieht die Größe")
+
+
+## 1366 (1288b A Regel 2): in Gegenschlag gegen einen großen Schlag offen: Gunst und Schaden mal offen_faktor, Eingebung einmal
+func _offen() -> void:
+	_treffer(-1)
+	var ch := []
+	for h_ in ["", Kerbe.GEGENSCHLAG]:
+		var h := _held()
+		var m := _kampf(h, ["goblin"], {"nur_einrichten": true, "ring": Mars.NONE})
+		h.gl.bereit = 0
+		h.gl.haltung = h_
+		m._take_log()
+		m.gk.auf_held(m.all[1], h, 1.6, true)
+		ch.append(int(m._take_log().filter(func(e): return e.roll != null)[0].roll[3]))
+	ok("Regel 7", ch[1] - ch[0] == -roundi(float(Kerbe.w().ungunst)), "1366: großer Schlag gegen Gegenschlag: Trefferchance %d statt %d" % [ch[1], ch[0]])
+	# Schaden: gleicher Würfel, Gegenschlag gegen keine Haltung, klein und groß
+	_treffer(1)
+	var sch := {}
+	for fall in [["", true], [Kerbe.GEGENSCHLAG, true], [Kerbe.GEGENSCHLAG, false]]:
+		var h := _held({"leben": 5000})
+		var m := _kampf(h, ["goblin"], {"nur_einrichten": true, "ring": Mars.NONE, "seed": 5})
+		m.all[1].b.schaden = 40
+		h.gl.bereit = 0
+		h.gl.haltung = fall[0]
+		m.gk.auf_held(m.all[1], h, 1.0, fall[1])
+		sch[str(fall)] = h.max_hp - h.hp
+	var a := int(sch[str(["", true])])
+	var b := int(sch[str([Kerbe.GEGENSCHLAG, true])])
+	var c := int(sch[str([Kerbe.GEGENSCHLAG, false])])
+	ok("Regel 7", b > a and absf(float(b) / a - float(Kerbe.w().offen_faktor)) < 0.1 and c < b, "1366: offen getroffen %d statt %d (klein %d)" % [b, a, c])
+	# Eingebung [1367.offen] beim ersten Treffer, einmal je Spielstand
+	var h := _held({"leben": 5000})
+	var m := _kampf(h, ["goblin"], {"nur_einrichten": true, "ring": Mars.NONE})
+	h.gl.haltung = Kerbe.GEGENSCHLAG
+	m._take_log()
+	m.gk.auf_held(m.all[1], h, 1.6, true)
+	m.gk.auf_held(m.all[1], h, 1.6, true)
+	var e := m._take_log().filter(func(x): return x.cue == "EINGEBUNG")
+	ok("Regel 7", e.size() == 1 and e[0].text == Mars.EINGEBUNG.offen[0] and int(m.gk.zaehler.offen) == 2,
+		"1366: Eingebung „offen“ einmal (%d), offen %d" % [e.size(), int(m.gk.zaehler.offen)])
 
 
 func _vorschlag() -> void:

@@ -130,7 +130,7 @@ var runde := 0
 var ringe := 0
 ## gezählt wie glut2.py (Rechnung): Züge, Antworten, Wehr, verstrichene Kerben, vertieft, Goldkerbe, gekappte Ringe, Täuschungen, Netz, Prankenhieb
 var zaehler := {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verstrichen": 0, "vertieft": 0, "gold": 0,
-	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0}
+	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0}
 ## höchstens so viele Runden, dann verloren (werte.json „lauf“ „max_runden“, wie die Rechnung)
 var max_runden := 60
 ## wer in dieser Runde noch am Zug ist (Gruppe)
@@ -393,20 +393,18 @@ func _absicht(p: Dictionary) -> Dictionary:
 	return a
 
 
-## Abschnitt 5: (groß, Art) so, wie [held] die Ansage von [g] sieht; Art null auf Stufe 0; große Schläge mindestens Stufe 1
+## Abschnitt 5: (groß, Art) so, wie [held] die Ansage von [g] sieht; Art null auf Stufe 0; 1366 (1288b A Regel 1): die Größe erst ab
+## „groesse_ab“, darunter zeigt auch ein großer Schlag nur „!“
 func gesehen(g) -> Array:
 	var p: Dictionary = g.gl.plan if not (g.gl.plan as Dictionary).is_empty() else {"gross": false, "art": "schlag", "zeigt_gross": false}
 	var st := int(g.gl.stufe_lesen)
-	var gross: bool = p.gross if st >= 3 else p.zeigt_gross
-	if gross:
-		st = maxi(st, int(w()["lesen"]["mindestens_gross"]))
+	var gross: bool = (p.gross if st >= 3 else p.zeigt_gross) and st >= int(w()["lesen"]["groesse_ab"])
 	return [gross, p.art if st >= 1 else null]
 
 
 ## Lesestufe dieser Ansage (Bild, Stufe 3)
 func stufe_der_ansage(g) -> int:
-	var st := int(g.gl.stufe_lesen)
-	return maxi(st, int(w()["lesen"]["mindestens_gross"])) if gesehen(g)[0] else st
+	return int(g.gl.stufe_lesen)
 
 
 # ---------------------------------------------------------------- Vorschlag (Bedienung 7.1, Autopilot)
@@ -773,12 +771,19 @@ func auf_held(g, t, faktor := 1.0, gross := false, bonus := 0.0, wehr_hilft := t
 		_marke(t, M_HALT, M_GESCHLAGEN, 1)
 		zaehler.wehr += 1
 		wehr = true
-		bonus += _f("wehr_ungunst")
 		m._say("", t.id, g.id, 0, null, true, false, "KERBE_WEHR")
 	if g.gl.kraft:
 		g.gl.kraft = false
 		faktor *= _f("gross_faktor")
 		gross = true
+	if wehr:     # 1366 (1288b A Regel 2): Wehr ist auf den großen Schlag gerichtet, gegen kleine nur ein Teil der Ungunst
+		bonus += _f("wehr_ungunst") * (1.0 if gross else _f("wehr_klein_anteil"))
+	var offen := false
+	if wehr_hilft and gross and t.gl.haltung == GEGENSCHLAG:     # 1366 Regel 2: in Gegenschlag offen, Gunst und härter
+		offen = true
+		zaehler.offen += 1
+		bonus -= _f("ungunst")
+		faktor *= _f("offen_faktor")
 	var wt = t.weapon()
 	var tw := BrsKampf.waffe_held(t.b, wt if wt != null else t.hero.main, wt != null and wt != t.main_weapon())
 	var abw: Array = BrsKampf.held_abwehr(t.b, String(g.b.get("art", "nah")), tw, not t.drawn)
@@ -808,6 +813,8 @@ func auf_held(g, t, faktor := 1.0, gross := false, bonus := 0.0, wehr_hilft := t
 		var sch := Brs.schaden_roh(float(g.b.schaden), float(g.b.angriff), float(int(g.b.stufe) - int(t.b.stufe)), zg, 1.0, zs) * faktor * anteil
 		var n := int(Brs.endschaden(sch, BrsKampf.held_abzug(t.b, not t.drawn) + t.schutz))
 		m._hurt(t, n, g.id, m.fmt(m.wolf(g, "MSG279_WOLFHITS", "MSG72_HITS"), m.lang, [g.name(m.lang), t.name(m.lang), n]), info, true)
+	if offen and t.side == "PARTY":
+		m._eingebung("offen")     # [1367.offen], einmal je Spielstand
 	_gold(t)
 	return anteil
 

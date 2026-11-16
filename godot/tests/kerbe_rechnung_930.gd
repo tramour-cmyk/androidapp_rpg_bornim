@@ -94,7 +94,8 @@ func _zahlen(R: Dictionary) -> int:
 		["gross_faktor", G.gross_faktor, Z.gross_faktor], ["geselle", G.antwort_voll_ab, Z.geselle], ["taeuschen", G.taeuschen.anteil, Z.taeuschen],
 		["taeuscher", (G.taeuschen.arten as Array).duplicate(), Z.taeuscher], ["gegenwert", G.lesen.gegenwert, Z.gegenwert],
 		["tempo_gegner", G.tempo_gegner, Z.tempo_gegner], ["ungunst", G.ungunst, Z.ungunst], ["wehr_ungunst", G.wehr_ungunst, Z.ungunst],
-		["held_tempo", G.held_tempo, Z.held_tempo]]
+		["held_tempo", G.held_tempo, Z.held_tempo], ["groesse_ab", G.lesen.groesse_ab, Z.groesse_ab],     # 1366
+		["offen_faktor", G.offen_faktor, Z.offen_faktor], ["wehr_klein_anteil", G.wehr_klein_anteil, Z.wehr_klein_anteil]]
 	for p in paare:
 		var a = p[1]
 		var b = p[2]
