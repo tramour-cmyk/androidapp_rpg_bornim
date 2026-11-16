@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 13:56, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 14:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -28,10 +28,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (57) | 11 | 0 | 4 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 (18) | 6 | 0 | 6 | 4 | 1270.4 (Spike) Vergleichsfilm alt gegen neu Glühen und vorberech… |
-| Werkzeuge und Abläufe der Firma | 46 (56) | 28 | 0 | 1 | 9 | 1424 (Perikles) 12 von 20 Läufen rot, meist bekannte Rote auf Zwe… |
+| Werkzeuge und Abläufe der Firma | 45 (56) | 27 | 0 | 0 | 9 | 1424 (Perikles) 12 von 20 Läufen rot, meist bekannte Rote auf Zwe… |
 | Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 78 erledigt, 67 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 79 erledigt, 67 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -42,7 +42,7 @@ Heute (seit 6:00): 78 erledigt, 67 neu. In Klammern bei „offen“: Stand 6:00.
 | Jerry | 1284 Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, abe… (Muss); dann 9 weitere |
 | Tuffy | 481.2 Rechnung glut2.py mit Deckel des Abzugs von Rüstung und Sch… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
 | Spike | 1416 Winken oder ähnliche Geste war im Video des Pakets UAL2; LI… (Muss) |
-| Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
+| Homer | Pflege von Werkzeug: 4 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Diogenes | 1098.1 nach Fords erstem Neustart über Probe D bzw. Starter Tiefe,… (Muss); dann 1 weitere |
 | Sokrates | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 3 weitere |
 | Perikles | M? M? entscheiden: 1426, 1427 (Muss); dann 1 weitere |
@@ -72,7 +72,7 @@ Heute (seit 6:00): 78 erledigt, 67 neu. In Klammern bei „offen“: Stand 6:00.
 | 19 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 20 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 99 weitere offen. Bei dir zum Testen (vorgelegt): 16. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
+Danach 99 weitere offen. Bei dir zum Testen (vorgelegt): 15. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
