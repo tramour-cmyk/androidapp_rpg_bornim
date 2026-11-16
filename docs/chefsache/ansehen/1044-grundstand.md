@@ -1,5 +1,7 @@
 # 1044 · Leute stehen außerhalb des Kampfs locker statt im Kampfstand · Tom · 16.11., 15:35
 
+[Bild von 16.11., 15:34](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1534-1044-Tom-2.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 16.11., 15:34](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1534-1044-Tom.png) (eingetragen von meldung.sh, Tom)
 
 Bilder auf Telegram (Osric, Liska, Bram), je links vorher, rechts nachher
