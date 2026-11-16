@@ -47,3 +47,5 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 
 - **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen. **07.11.:** alle sechs gemessen (Z1, Z2 `regelcheck.py`; Z3–Z6 `PRUEFBERICHT.md`), → 341.1.
+
+Zu 1396 (von Ford, Tuffy 10:00): Tuffy 1393 meldet: Sammelbuild 292 baut Jerry selbst (Zweig claude/build-292, Commits 09:35-09:55); 1393 stand auf „wartet auf 1394“, obwohl Jerry daran arbeitete. Tuffy-Start sollte Zeilen mit Zweig in einer laufenden Sitzung (current_branches) auslassen.
