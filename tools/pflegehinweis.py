@@ -39,6 +39,15 @@ def befunde():
         m = re.match(r"(?:docs/)?(ARBEIT-[A-Z-]+\.md)", f)
         ziel = ziel or (m.group(1) if m else "ARBEIT-PROJEKT.md")
         je.setdefault(ziel, []).append(re.sub(r"^(?:docs/)?ARBEIT-[A-Z-]+\.md: ", "", f))
+    try:  # 1425: „Zu <Nr>“ zu Erledigtem (Vorratsprüfung J) wird beim Übergeben gestrichen
+        sys.path.insert(0, os.path.join(ROOT, "tools")); import vorratspruefung
+        zahl = {}
+        for a, nr, _, t in vorratspruefung.funde():
+            if a == "J": zahl.setdefault(t.split(":")[0], []).append(nr)
+        for datei, nrn in zahl.items():
+            je.setdefault(datei, []).append("%d „Zu“ zu Erledigtem (%s), beim Übergeben streichen (1425)" % (len(nrn), ", ".join(nrn[:6]) + (" …" if len(nrn) > 6 else "")))
+    except Exception:
+        pass
     return je
 
 
@@ -79,6 +88,8 @@ def setzen_liste(text, rolle, nr, zeile, unten=False):
     den Anfang; zeile None: entfernen."""
     sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
     L = text.split("\n")
+    if zeile and zeile in L:  # 1389 (D257.2): unveränderte Zeile bleibt, wo sie steht; sonst verschob jeder neue Vorgang des Besitzers sie (32 von 38 Commits)
+        return text
     L = [z for z in L if not (z.startswith(f"| {nr} |") and len(z.split("|")) > 3 and z.split("|")[3].strip() == rolle)]
     if zeile:
         zs = [d for d in startbar.vorgangsliste("\n".join(L)) if d["besitzer"] == rolle]

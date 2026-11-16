@@ -46,7 +46,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Wo was steht
 
 - `ROLLE-…`: wer ich bin, was ich tue, wen ich anspreche, was ich beim Start lese.
-- `ARBEIT-…` = **Vorrat** je Rolle (`-TEAM-<Name>`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`): oben „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann nur den Nachfolger einer Übergabe, 347); darunter „Zu <Nr.>“; keine Tabelle (275.2).
+- `ARBEIT-…` = **Vorrat** je Rolle (`-TEAM-<Name>`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`): oben „Übergabe:“, ggf. „Pause bis …“ (hält nur die Kür an, Muss startet, 1364); darunter „Zu <Nr.>“; keine Tabelle (275.2).
 - `LISTE-VORGAENGE.md` = **Vorgangsliste**, je Vorgang eine Zeile (Felder und Regeln im Kopf der Liste); nie ganz lesen: `python3 tools/vorgang.py --rolle <Rolle>`; schreiben nur mit `vorgang.py`. Zeilenfolge je Besitzer = Vorrang; Kl. **M** Muss (im Wochenziel oder Chef sagt „jetzt“, dann `„jetzt“ TT.MM., HH:MM` in den Titel, Wächter 383), sonst **K** Kür, „M?“ (Perikles entscheidet); Engpass, Termin bei „ruht“ und Kauf: Listenkopf (1129 A); Folge in Zusammenarbeit 1; Zahlen: `startbar.py --stand`.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung, Guthaben, Eingang (was keinem gehört), Protokoll.
 - `PROJEKTPLAN.md`: Stufen, Stand, oben das **Wochenziel**; `ARBEIT-BESETZUNG.md`: wer gerade woran (`tools/lauf.py`).
