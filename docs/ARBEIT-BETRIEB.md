@@ -48,6 +48,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 10:09 16.11.: Ford-Lauf 10:06: Start Jerry (Testbitte 292, dann 1072 Messung), alte Jerry-Sitzung archiviert (7,05 $, auf 292,1285,1333,1366,1072 gebucht); Tuffy-Warnung: keine Tuffy-Arbeit startbar, --ohne Tuffy; Chefrunde Sokrates wartet auf Entscheide 1–9 (Chef)
 - 10:05 16.11.: Lauf 10:02: Start Spike 1386, Weiter Perikles 1396; archiviert Spike 698/292/1145/1286 (3,73 $) und Tuffy 1393 (0,72 $, gebucht); Jerry Neustart 58da31e24 (Sitzung läuft noch, Nachfolger Testbitte 292 folgt)
 - 09:59 16.11.: Start Diogenes 1392, Tuffy 1393; archiviert Tuffy 1292 (3,14 $, gebucht); GELÖST 1393 an Jerry; Spike Neustart 41a7651b4 gemeldet (Sitzung läuft noch, Start im nächsten Lauf)
 - 09:59 16.11.: Start Sokrates Chefrunde (Chef 09:57 „frischen Sokrates aufmachen“) session_01Hmoj782W54b9Me9QQgkHZa; alte Sokrates-Sitzung bleibt offen (Chef 09:20); lauf.py weiter mit --ohne Sokrates, zwei Sitzungen gewollt
@@ -67,7 +68,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:11 15.11.: Kosten 1215 gebucht (34,08 $, Sitzung stärkstes Modell)
 - 14:10 15.11.: Jerry 1215 `…77868z8tGPx6d9vJF1` archiviert (gepusht a7ba28e73); Folgeauftrag 1215 (Physik einschalten, Build) für die nächste normale Jerry-Sitzung; Kosten 1215 aus archive_session nachtragen
 - 14:09 15.11.: Jerry 1266/1274 alt `…78didfhaNLaWruGUVT` archiviert (24,16 $ auf 1266, 1274, 1284); Nachfolger „Jerry – 1289“ startet erst nach Ende des Blocks 760/1000 (15:30; Perikles 13:47: keine zweite Jerry-Sitzung), Erinnerung 15:34
-- 14:07 15.11.: Spike neu `…75sX1mjBfUobAcrzXh` (1268.1), Spike alt `…764GvRteLSEAskvbEW` archiviert (2,74 $ auf 1270.2); Jerry 1215 `…77868z8tGPx6d9vJF1` soll Urteil (Chef 13:32, 4217/4218) eintragen, dann archivieren; Jerry 1266 `…78didfhaNLaWruGUVT` soll Stand 1274 setzen; Diogenes und Homer ruhen (Sitzungen offen, Vorrat leer)
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
@@ -77,7 +77,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 16.11.: Marke Archiv session_01Hmoj79JCQRKsCCgciyGpnJ (lauf.py)
 - 03:03 16.11.: Marke Übergabe-Chef Homer 16.11. 02:07 (lauf.py)
 - 03:03 16.11.: Marke Hängt session_01Hmoj76VdQxk8E6re5azHWe 2026-11-16T00:54 (lauf.py)
-- 04:07 16.11.: Startsperre 04:07 Start Tom (lauf.py)
 - 04:07 16.11.: Nachfolger-Warnung Tom (Übergabe 16.11., 03:05) (lauf.py)
 - 06:40 16.11.: Startsperre 06:40 Start Sokrates (Chef-Wort „Start des Sokrates“, Nachfolger „1129: Wochenzahlen 1129.4 auswerten“)
 - 06:50 16.11.: Startsperre 06:50 Start Spike 698 (Sokrates 06:48, 698a A Chef 06:46, aa82f747b; alte Sitzung …76VdQxk8E6re5azHWe bei 364 Tsd. Token archiviert, Kosten 16,97 $ auf 1303, 1286, 698)
@@ -127,4 +126,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:06 16.11.: Startsperre 10:06 Start Jerry (lauf.py)
 - 10:06 16.11.: Marke Start-fehlt Tuffy 16.11.-09:56 (lauf.py)
 - 10:06 16.11.: Marke Archiv session_01Hmoj7A5KnBfiqx8t69Q9MV (lauf.py)
-- 10:09 16.11.: Ford-Lauf 10:06: Start Jerry (Testbitte 292, dann 1072 Messung), alte Jerry-Sitzung archiviert (7,05 $, auf 292,1285,1333,1366,1072 gebucht); Tuffy-Warnung: keine Tuffy-Arbeit startbar, --ohne Tuffy; Chefrunde Sokrates wartet auf Entscheide 1–9 (Chef)
+- 10:45 16.11.: Startsperre 10:45 Start Diogenes, Homer (lauf.py)
+- 10:45 16.11.: Marke Rückmeldung 1072 16.11. 10:11 (lauf.py)
+- 10:45 16.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj75oXevBbggtoW6gYgE (lauf.py)
+- 10:45 16.11.: Marke Mehrfach Sokrates (lauf.py)
+- 10:45 16.11.: Marke Archiv session_01Hmoj76es2uZMd5a4yrjmHt (lauf.py)
