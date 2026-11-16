@@ -71,6 +71,7 @@ gruppen_535
 faehigkeiten_534
 platztausch_863
 eingebung_1296
+meldung_1305
 tempo_600
 arkan_993
 karten_regeln

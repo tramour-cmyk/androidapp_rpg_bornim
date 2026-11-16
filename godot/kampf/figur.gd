@@ -4661,9 +4661,109 @@ func dodge(after_ms: int, nm := "") -> void:
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_nach_ausweichen)
 			return
+	# 1321 (wolf_mess_438 Klosterschüler mit Stab: die Bewegung „Ausweichen“ am Ort schwingt den Stab bis 1,2 m nach vorn, 0,11 m in den Wolf, der
+	# knapp daneben biss): reicht ein Ding in der Hand beim Ausweichen bis an einen nahen Gegner, weicht der Held einen Schritt zurück
+	if fighter.monster == null and _ausweichen_zurueck_held():
+		return
 	_reichweite_merken("Ausweichen")
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 1321: Ding in der Hand (Stab, Klinge) während der Bewegung „Ausweichen“ gegen die Kapseln naher Gegner, wie wolf_mess_438 „Klinge
+## durch einen Wolf“; die Strecken einmal je Figur abgetastet (_hieb_bahn, über die Knochen, nicht über BoneAttachment3D, das beim
+## Abtasten nicht nachzieht). Der Wolf steht beim Aufruf AUSWEICH_VOR_MS vor dem Aufschlag, sein Kopf kommt noch näher: AUSWEICH_LUFT_M
+const AUSWEICH_SCHRITT_M := 0.55
+const AUSWEICH_SCHRITT_S := 0.35
+const AUSWEICH_LUFT_M := 0.15
+func _ausweich_tiefe(o, an := Vector3.INF) -> float:
+	var bahn_a: Array = _hieb_bahn("Ausweichen")
+	if bahn_a.is_empty():
+		return -INF
+	var tr := Transform3D(Basis(Vector3.UP, rotation.y), global_position if an == Vector3.INF else an)
+	var ks: Array = o.kapseln()
+	var tief := -INF
+	for st in bahn_a:
+		for w in st[1]:
+			var a0: Vector3 = tr * (w[0] as Vector3)
+			var a1: Vector3 = tr * (w[1] as Vector3)
+			for c in ks:
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a0, a1, c[0], c[1])
+				tief = maxf(tief, float(c[2]) - pq[0].distance_to(pq[1]))
+	return tief
+
+
+func _ausweichen_zurueck_held() -> bool:
+	if down or anim == null or kampfort == null or not anim.has_animation("Ausweichen"):
+		return false
+	var nah = null
+	var tief := -INF
+	for o in kampfort.figures.values():
+		if o == self or not o.visible or o.down or o.fighter.side == fighter.side:
+			continue
+		if Vector2(o.position.x - position.x, o.position.z - position.z).length() > 3.0 * _scale():
+			continue
+		var t := _ausweich_tiefe(o)
+		if t > tief:
+			tief = t
+			nah = o
+	if OS.get_environment("SCHAU_1321") != "":
+		print("438 DIAG 1321 %s prüft: nah %s, Ding beim Ausweichen %.2f m im Gegner (Grenze −%.2f)" % [fighter.id, nah.fighter.id if nah != null else "-", tief, AUSWEICH_LUFT_M])
+	if nah == null or tief < -AUSWEICH_LUFT_M:
+		return false
+	var weg_von := Vector3(position.x - nah.position.x, 0.0, position.z - nah.position.z)
+	if weg_von.length() < 0.01:
+		return false
+	# 1321 (Lauf 503, am Rechner nachgestellt: Held mit Stab am linken Rand, der Schritt gerade zurück führte aus dem Bild, er wich am Ort
+	# aus und der Stab fuhr 0,05 m durch Wolf 3): gerade zurück, sonst schräg bis zur Seite, auch kürzer; der Platz frei, im Bild
+	# und das Ding in der Hand dort weit genug vom Gegner
+	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
+	var ziel := Vector3.INF
+	for w in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0]:
+		for k in [1.0, 0.7]:
+			var q: Vector3 = position + weg_von.normalized().rotated(Vector3.UP, deg_to_rad(w)) * AUSWEICH_SCHRITT_M * k * _scale()
+			var ok: bool = _stand_frei(q, null) and _im_bild(q, blick) and _ausweich_tiefe(nah, Vector3(q.x, global_position.y, q.z)) < -AUSWEICH_LUFT_M
+			if OS.get_environment("SCHAU_1321") != "":
+				print("438 DIAG 1321 %s Schritt %.0f° ×%.1f nach %s: %s" % [fighter.id, w, k, q, "ja" if ok else "nein"])
+			if ok:
+				ziel = q
+				break
+		if ziel != Vector3.INF:
+			break
+	if ziel == Vector3.INF:
+		return false
+	if OS.get_environment("SCHAU_1321") != "":
+		print("438 DIAG 1321 %s weicht zurück vor %s" % [fighter.id, nah.fighter.id])
+	_dreh_ab()
+	var nm := _gang_ss("Zurück")
+	if nm == "Zurück":
+		nm = "Gehen"
+	var v := maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+	if anim.has_animation(nm):
+		_guard(true)
+		anim.play(nm, 0.08, clampf(ziel.distance_to(position) / AUSWEICH_SCHRITT_S / v, 1.0, WALK_MAX) * (1.0 if nm.begins_with("SS_") else -1.0))
+	bahn = [ziel]
+	tween = create_tween()
+	tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(func(): _guard(false); _idle())
+	tween.tween_interval(0.25)
+	tween.tween_callback(func(): _held_heim_vor())
+	return true
+
+
+## 1321: nach dem Schritt zurück wieder vor auf den Platz, das Gesicht zum Gegner
+func _held_heim_vor() -> void:
+	var d := home - position
+	d.y = 0.0
+	if d.length() < 0.05:
+		return
+	var nm := _gang_ss("Gehen")
+	var v := maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+	if anim and anim.has_animation(nm):
+		anim.play(nm, 0.12, 1.0)
+	tween = create_tween()
+	tween.tween_property(self, "position", home, d.length() / v)
+	tween.tween_callback(func(): _face(); _idle())
 
 
 ## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
