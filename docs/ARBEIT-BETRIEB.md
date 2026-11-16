@@ -99,3 +99,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:07 16.11.: Startsperre 04:07 Start Tom (lauf.py)
 - 04:07 16.11.: Nachfolger-Warnung Tom (Übergabe 16.11., 03:05) (lauf.py)
 - 06:40 16.11.: Startsperre 06:40 Start Sokrates (Chef-Wort „Start des Sokrates“, Nachfolger „1129: Wochenzahlen 1129.4 auswerten“)
+- 06:50 16.11.: Startsperre 06:50 Start Spike 698 (Sokrates 06:48, 698a A Chef 06:46, aa82f747b; alte Sitzung …76VdQxk8E6re5azHWe bei 364 Tsd. Token archiviert, Kosten 16,97 $ auf 1303, 1286, 698)
