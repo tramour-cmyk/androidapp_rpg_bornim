@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 13:11, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 13:15, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -28,10 +28,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 (57) | 13 | 1 | 8 | 20 | 1303 (Spike) Stufen im Dunkel im Renderer mobile, Höhle: dunkl… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 (18) | 9 | 0 | 10 | 4 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| Werkzeuge und Abläufe der Firma | 43 (56) | 26 | 0 | 1 | 9 | 1298 (Ford) Ford von Hand starten |
+| Werkzeuge und Abläufe der Firma | 44 (56) | 27 | 0 | 1 | 9 | 1424 (Perikles) 12 von 20 Läufen rot, meist bekannte Rote auf Zwe… |
 | Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 68 erledigt, 63 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 68 erledigt, 64 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -45,7 +45,7 @@ Heute (seit 6:00): 68 erledigt, 63 neu. In Klammern bei „offen“: Stand 6:00.
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
 | Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss); dann 1 weitere |
-| Perikles | leer, weil 13 Termin, 7 wartet auf, 3 wartet auf Diogenes |
+| Perikles | 1424 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne… (Muss) |
 
 **Die nächsten 20**
 
@@ -68,11 +68,11 @@ Heute (seit 6:00): 68 erledigt, 63 neu. In Klammern bei „offen“: Stand 6:00.
 | 15 | 1418 | Tom | Android-Zurück im Hauptmenü beendet das Spiel sofort; künftig Abfrage „Spiel be… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 16 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 17 | 1421 | Jerry | Rennen B und zwei feste Tempi wie alt: mit eingeschalteter Renntaste rennt der… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 18 | 1424 | Perikles | 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne die Behebung aus Bui… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
 
-Danach 94 weitere offen. Bei dir zum Testen (vorgelegt): 30. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
+Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 30. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
