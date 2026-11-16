@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1361** (zuletzt 1360 Ford 16.11. 01:05:45 5ff7) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1362** (zuletzt 1361 Tom 16.11. 01:19:16 a3b2) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -86,3 +86,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 01:03 16.11.: Marke Start-fehlt Tom 16.11.-00:10 (lauf.py)
 - 01:06 16.11.: Startsperre 01:06 Start Tom (Sammelbuild 785.24, 1355, lauf.py; neu …77sUqpvJUtCb4yNz2H); Rotbuch 1356 (Sokrates), 1357 (Tom), 1358 (Jerry) angelegt; Wächter 1186 an Sokrates
+- 01:20 16.11.: Startsperre 01:20 Start Sokrates (Neustart, ddc75c68e); alte Sitzung …78BYXeazUzQG4s3QZE nach Ruhe archivieren, Kosten 5,22 $ auf 1186, 654, 1360; Spike über „1286 Läufe frei“ unterrichtet
