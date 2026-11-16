@@ -780,8 +780,9 @@ PLAETZE = ('HEAD', 'CHEST', 'ARMS', 'LEGS', 'CLOAK')
 KLEID_PLATZ = {'chain': 'CHEST', 'tabard': 'CHEST', 'belt': 'CHEST', 'buckle': 'CHEST', 'robe': 'CHEST',
                'sleeves': 'ARMS', 'cuff': 'ARMS', 'pants': 'LEGS', 'boots': 'LEGS', 'cloak': 'CLOAK', 'clasp': 'CLOAK'}
 # Robe (Zauberlehrling): Aermel gehoeren zur Robe (431h: „Robe (mit Aermeln) · Arme leer“)
-# Wachsoldat: die Aermel gehoeren zum Kettenhemd (unter der Kette weggeschnitten, ohne sie hingen Fetzen an den Schultern); Arme = Stulpen
-KLEID_PLATZ_JE = {'ROBE': {'sleeves': 'CHEST', 'cuff': 'CHEST'}, 'WACHE': {'sleeves': 'CHEST'}}
+# Wachsoldat: die Aermel gehoeren zum Kettenhemd (unter der Kette weggeschnitten, ohne sie hingen Fetzen an den Schultern), die
+# Stulpen sitzen an den Stiefeln (Beine); die Arme zeigen kein eigenes Teil
+KLEID_PLATZ_JE = {'ROBE': {'sleeves': 'CHEST', 'cuff': 'CHEST'}, 'WACHE': {'sleeves': 'CHEST', 'cuff': 'LEGS'}}
 # Leib in Stuecke nach dem staerksten Knochen; ein Stueck faellt weg, wenn ein gezeigtes Teil es deckt (leib_deckung)
 LEIB_KNOCHEN = {'RUMPF': ('spine', 'clavicle'), 'OBERARM': ('upperarm',), 'UNTERARM': ('lowerarm',),
                 'HAND': ('hand', 'thumb', 'index', 'middle', 'ring', 'pinky'), 'BECKEN': ('pelvis', 'root'),

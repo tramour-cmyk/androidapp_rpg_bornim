@@ -36,12 +36,14 @@ func _init() -> void:
 		for g in ["m", "w"]:
 			if not HeldFigur.da(h, g): pruefe(false, "%s %s: Figur fehlt" % [h, g]); continue
 			var hw := BrsHeld.fuer_spiel("Test", "Mensch", h)
-			var pflicht := ["CHEST", "LEGS"] if h == "Zauberlehrling" else ["CHEST", "ARMS", "LEGS"]   # 431h: Robe mit Aermeln, Arme leer
+			# 431h: Robe mit Aermeln (Arme leer); Wachsoldat: Aermel am Kettenhemd, die Armwickel zeigen an seiner Tracht kein eigenes Teil
+			var pflicht := ["CHEST", "LEGS"] if h == "Zauberlehrling" else ["CHEST", "ARMS", "LEGS"]
+			var mit_teil := ["CHEST", "LEGS"] if h in ["Zauberlehrling", "Wachsoldat"] else ["CHEST", "ARMS", "LEGS"]
 			for p in pflicht: pruefe(hw.ausruestung.has(p), "%s: Start ohne %s" % [h, p])
 			var modell := String(HeldFigur.tracht({"herkunft": h, "aussehen": {"geschlecht": g}})["modell"])
 			var teile: Dictionary = info["trachten"].get(modell, {}).get("teile", {})
 			pruefe(not teile.is_empty(), "%s: keine Teile je Platz" % modell)
-			for p in pflicht: pruefe(teile.has(p), "%s: kein Teil fuer %s" % [modell, p])
+			for p in mit_teil: pruefe(teile.has(p), "%s: kein Teil fuer %s" % [modell, p])
 			var faelle := {"start": hw.ausruestung.duplicate(), "nackt": {"MAIN_HAND": hw.ausruestung.get("MAIN_HAND")},
 				"ohne_rumpf": hw.ausruestung.duplicate()}
 			(faelle["ohne_rumpf"] as Dictionary).erase("CHEST")

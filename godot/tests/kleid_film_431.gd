@@ -4,7 +4,7 @@ extends SceneTree
 # rechts neu ohne Kleidung (Kopf, Oberkoerper, Arme, Beine, Umhang leer). Eine Seite je Tracht, 3 s (eine halbe Drehung).
 # Alt: die Modelle eines Baus mit SCHRANK=0 (held_klassen.py) als daten/held_ALT<TRACHT>_<G>.bin, ihre held-klassen.json als
 # daten/held-klassen-alt.json (nur am Rechner, nie im Spiel). Ohne sie bleibt der linke Teller leer.
-# Film: xvfb-run godot --path godot --resolution 1080x720 --write-movie <x.avi> --fixed-fps 30 -s res://tests/kleid_film_431.gd [-- --frau]
+# Film (Hochformat des Spiels, 1080x2340): xvfb-run godot --path godot --write-movie <x.avi> --fixed-fps 30 -s res://tests/kleid_film_431.gd [-- --frau]
 # Probebild: BILD=<datei.png> ohne --write-movie: nur die erste Seite nach 1 s als Bild
 # Nahtpruefung (431h „Naehte an Hals, Handgelenk, Knie, kein Durchstossen im Stehen, Gehen, Hieb“, Standbilder selbst ansehen):
 # NAEHTE=<ordner>: je Tracht und Geschlecht ein Bild, Zeilen Start, ohne Oberkoerper, ohne Arme, ohne Beine, ausgezogen; Spalten
@@ -23,10 +23,10 @@ var titel: Label
 func _initialize() -> void:
 	_lauf.call_deferred()
 
-func teller(w: Dictionary, dreht := true, gross := 1.6) -> Drehteller:
+func teller(w: Dictionary, dreht := true, gross := 0.0) -> Drehteller:   # Film 1: mit 1,6 passte nur der mittlere Teller ins Hochformat
+	if gross <= 0.0: gross = (root.get_visible_rect().size.x / 3.0 - 12.0) / (150.0 * Drehteller.DP)   # drei nebeneinander, Seitenverhaeltnis wie im Spiel
 	var dt := Drehteller.new(w, gross, dreht)
 	dt.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	dt.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	return dt
 
 func schrift(l: Label, gr: int, farbe: Color) -> void:
