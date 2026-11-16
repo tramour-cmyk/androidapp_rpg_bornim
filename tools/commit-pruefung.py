@@ -10,7 +10,7 @@ Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). E
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
 Gelöschte Vorlage mit „Was du tust: …“ ohne neue Datei in chefsache/tun/ (890; Ausweg BORNIM_GETAN=1); Datei in ansehen/ (außer t<Build>-…) ohne Bild, Film oder Frage (890).
-Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen. Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen, Vorgang ohne Wort dazu in der Chefsache (1414). Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -364,6 +364,11 @@ def main():
         if mm and re.match(r"docs/ARBEIT-(KREATIV|TEAM|PROJEKT|PRUEFUNG|BERATUNG)", datei) and not git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():
             # 275.2 (Chef 07.11., 21:5x): Vorräte haben keine Tabelle mehr, jeder Vorgang steht nur in der Liste
             stop.append("%s: neue Tabellenzeile %s im Vorrat; Vorgänge nur in LISTE-VORGAENGE.md (`vorgang.py neu|stand|warte`, 275.2), Einzelheiten als „Zu %s“" % (datei, mm.group(1), mm.group(1)))
+        if re.match(r"docs/chefsache/(entscheiden|billigen|ansehen|tun)/(?!t\d+-)[^/]+\.md$", datei):
+            try:  # 1414 (Chef 16.11., 12:09): Vorgang ohne Wort dazu (MUSTER.md 9), nur Warnung
+                import nummer_wort
+                warn.extend(nummer_wort.melden(t, datei + ": "))
+            except Exception as e: warn.append("1414-Prüfung übersprungen: %s" % e)
         if re.search(r"\b(opus|sonnet|haiku|fable)\b", t, re.I) and not datei.endswith(("LISTE-BETRIEB.md", "PRUEFBERICHT-ARCHIV.md", "VORGANGSARCHIV.md", "PRUEFBERICHT.md")) and not datei.startswith("tools/"):
             warn.append("%s: Modellname in neuer Zeile" % datei)
         if datei.startswith("docs/chefsache/ansehen/") and ohne_signatur(t) and "Chef erlaubt ohne Signatur" not in t:
