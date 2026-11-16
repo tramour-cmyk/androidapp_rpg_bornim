@@ -39,6 +39,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | neu | 158 | 119 | 158 | 1048 |
 | **netto** (erledigt − neu) | **+33** | **+52** | **+33** | **+3** |
 
+Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
+
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
