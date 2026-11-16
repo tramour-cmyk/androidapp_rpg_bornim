@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 20:22, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,15 +23,15 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 64 (68) | 25 | 2 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
+| ↳ **2** Kampf passt | 64 (68) | 25 | 3 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (14) | 7 | 2 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (57) | 8 | 2 | 0 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (18) | 5 | 0 | 1 | 3 | 1408 (Jerry) typen.py rot, regeln/mars.gd 288 Stellen ohne Typ… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 14 (18) | 5 | 0 | 1 | 3 | 1408 (Jerry) typen.py rot, regeln/mars.gd 288 Stellen ohne Typ… |
 | **7** Werkzeuge und Abläufe der Firma | 42 (56) | 27 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 153 erledigt, 127 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 153 erledigt, 128 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -41,11 +41,11 @@ Heute (seit 6:00): 153 erledigt, 127 neu. In Klammern bei „offen“: Stand 6:0
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 5 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 13 weitere |
 | Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 12 weitere |
-| Spike | leer, weil 5 wartet auf Test/Build, 3 ruht bis |
+| Spike | 1484 Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grund… (Kür) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 2 Termin, 1 ruht bis, 1 wartet auf |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
-| Perikles | leer, weil 16 Termin, 5 wartet auf, 2 wartet auf Diogenes |
+| Perikles | M? M? entscheiden: 1484 (Muss) |
 
 **Die nächsten 20**
 
@@ -72,7 +72,7 @@ Heute (seit 6:00): 153 erledigt, 127 neu. In Klammern bei „offen“: Stand 6:0
 | 19 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
 
-Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 19. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 61.
+Danach 93 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 19. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 61.
 ## Zu entscheiden
 
 Nichts offen.
@@ -99,7 +99,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 58, Muss 15, startbar 17
+**Tom** – offen 59, Muss 16, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -133,12 +133,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht bis 23.11. |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht bis 23.11. |
 | 861 | K | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | wartet auf 431 (in Arbeit) |
-| 966.2 | K | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
+| 966.2 | K | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | startbar |
 | 954a.5 | K | Von Perikles (954a.2): Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsam | wartet auf 870 (wartet) |
 | 954a.7 | K | Von Perikles (954a.2, 954a.3 A): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits de | wartet auf 870 (wartet) |
 | 954a.12 | K | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Lederarb | wartet auf 870 (wartet) |
 | 954a.9 | K | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (wartet) |
-| 976 | K | Von Sokrates (Chef 11.11., 16:31): Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS H | wartet auf 966.2 (wartet) |
+| 976 | K | Von Sokrates (Chef 11.11., 16:31): Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS H | wartet auf 966.2 (startbar) |
 | 1155 | K | Von Sokrates (623.8 A, Chef 09.11., 22:23; Lücke, Chef 13.11., 15:12 „wann kommt … Teich u | startbar |
 | 1157 | K | Von Sokrates (Archivprüfung, 1038 A R1, Chef 12.11., 16:24): Verband herstellen mit dem Re | wartet auf 976 (startbar) |
 | 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | ruht |
@@ -154,15 +154,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1355 | K | Von Spike (Lauf 509): wende_4168 zufällig rot, „Knoten folgt der Kurve (hoechstens 1.21 Gr | startbar |
 | Pflege | K | von Werkzeug (340.3, 16.11.): 31051 Bytes (Grenze 30000), Erledigtes streichen | startbar |
 | 1406 | K | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 | startbar |
-| 1417 | M | Von Chef (16.11., 12:37/12:38, Bild Hauptmenü v0.348.506, über Sokrates): Schild des Helde | startbar |
+| 1417 | M | Von Chef (16.11., 12:37/12:38, Bild Hauptmenü v0.348.506, über Sokrates): Schild des Helde | wartet auf Test/Build (gebaut) |
 | 1418 | M | Von Chef (16.11., 12:40, zu t292, über Sokrates): Android-Zurück im Hauptmenü beendet das | wartet auf Test/Build (gebaut) |
-| 1420 | M | Von Chef (16.11., 12:44, Test t290, über Sokrates): Fußstaub (814) jetzt zu stark, „sieht | startbar |
+| 1420 | M | Von Chef (16.11., 12:44, Test t290, über Sokrates): Fußstaub (814) jetzt zu stark, „sieht | wartet auf Test/Build (gebaut) |
 | 1447 | K | Von Sokrates (Chef 16.11., 14:41, Idee, erst denken): Weltleiste links oben unruhig, Wörte | startbar |
 | 1448 | K | Von Sokrates (1448 A, Chef 16.11., 14:47): Weltleiste und Heldenmenü ohne Wörter Leben/Man | startbar |
 | 1460 | M | Von Sokrates (975a A, Chef 11.11., 17:04, nie gebaut; Fund Jerry 644a.1): Fertigkeit „Lede | startbar |
 | 1459 | M | Von Sokrates (870): README.md nach BRS und Godot; Wortlaut Homer fertig 16.11. ([1459.read | startbar |
+| 1480 | M | Von Perikles (1470, Chef 16.11., 17:53: t293.7 mit Testschalter „Schnell“ getestet, falsch | startbar |
 
-**Jerry** – offen 81, Muss 31, startbar 41
+**Jerry** – offen 82, Muss 31, startbar 42
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -246,9 +247,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1439 | M | Von Sokrates (Chef 16.11., 14:15): Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt e | startbar |
 | 1465 | K | Von Diogenes (1463, Startwarnung 969): LISTE-REGELWERTE.md veraltet seit 15.11., 20:22 (we | startbar |
 | 1466 | K | Von Diogenes (1463, Startwarnung 650.2): toter Link in ARBEIT-TEAM-JERRY.md auf chefsache/ | startbar |
-| 1411.1 | M | Von Sokrates (1411, Chef 16.11., 18:37 „soll doch Jerry mal zaubern“): Merkmale je Exempla | wartet auf 1453 (in Arbeit) |
+| 1411.1 | M | Von Sokrates (1411, Chef 16.11., 18:37 „soll doch Jerry mal zaubern“): Merkmale je Exempla | in Arbeit bei Tuffy |
+| 1478 | K | Von Sokrates (1411 A, Chef 16.11., 19:32): nach jedem Sieg Mana + halber Wille; Wundsegen | startbar |
 
-**Spike** – offen 8, Muss 4, startbar 0
+**Spike** – offen 9, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -256,12 +258,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 474 | K | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht bis 23.11. |
 | 30 | K | Abstürze beim Testen | ruht bis 23.11. |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
-| 1385 | M | Von Perikles (1382, Chef 16.11., 09:00 „Spike da mal als verantwortlich“): Unterbau „Alles | wartet auf Diogenes (greift?) |
 | 1426 | M | Von Sokrates (Chef 16.11., 13:31 zu t291.3; 14:17 „trägt es Früchte?“): Ladezeit je Ort mi | wartet auf Test/Build (gebaut) |
 | 1458 | M | Von Sokrates (870, Plan Schritt 5 „gelöscht“): tote SRD-Reste nur für Tests (regeln/ausdau | wartet auf Test/Build (gebaut) |
-| 1445 | M | Von Sokrates (Chef 16.11., 14:36 zu t292.3): Prüfliste im Spiel nimmt ein Wort nur bei „Fa | wartet auf Diogenes (greift?) |
+| 1482 | M | D280.1 von Diogenes (aus 1385): Namen nach [1473.namen] (claude/spike-1385-pruefung ac454c | wartet auf Test/Build (gebaut) |
+| 1483 | M | D280.2 von Diogenes (aus 1445): Spielcode der Anmerkung bei Passt (claude/spike-1445-anmer | wartet auf Test/Build (gebaut) |
+| 1484 | M? | Von Sokrates (Chef 16.11., 20:20, Tablet SM-X210, Adreno 619, Build 286): Welt und Kampf 9 | startbar |
 
-**Perikles** – offen 29, Muss 21, startbar 3
+**Perikles** – offen 26, Muss 21, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -277,7 +280,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | wartet auf 1388 (wartet) |
 | 341 | K | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 23.11. |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1); meldung.sh --film legte Film 572 nich | Dauerzeile |
-| 919 | K | Von Sokrates (Chef 11.11., 09:53 „1 ja, 2 ja“): Regeln nachziehen: Testbitte auch bei rot | startbar |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf 1125 (gebaut) |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | Termin 23.11. |
 | 1173 | M | Von Sokrates (Chef 13.11., 15:40 „Kleinkram bitte selbst erledigen“, A): Regel Kleinkram o | Termin 23.11. |
@@ -292,23 +294,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1400 | M | D261.1 von Diogenes: „Geprüft an“ nennt Commits, die es nicht gibt: 1392 c28c2e3d9 (echt 2 | Termin 23.11. |
 | 1414 | M | Von Chef (16.11., 12:09, über Sokrates): Warnung bei Vorgangsnummer ohne Wort dazu in Vorl | Termin 23.11. |
 | 1441 | M | Von Sokrates (Chef 16.11., 14:24): ständige Freigaben (Repos, Archivieren, Fords Stundenuh | wartet auf 1444 (startbar) |
-| 1467 | K | Von Diogenes (1463, Startwarnung 650.2): ARBEIT-TAGESBERICHT.md hat 7 tote Links auf beant | startbar |
-| 1470 | K | Von Sokrates (t293.7, Chef 16.11., 17:53: Testschalter „Schnell“ war an, keiner fragte): P | startbar |
 
-**Diogenes** – offen 8, Muss 7, startbar 2
+**Diogenes** – offen 6, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1387 | M | Von Sokrates (1129.4, Punkt 6 gerissen): Übersicht-Commits 15.11. 193 (14.11.: 37), Ursach | Termin 23.11. |
 | 1389 | M | D257.2 von Diogenes (1244): Pflegehinweis-Commits 15.11. 38 (13.11.: 79), Anteil 2,6 % geg | Termin 18.11. |
-| 1385 | M | Von Perikles (1382, Chef 16.11., 09:00 „Spike da mal als verantwortlich“): Unterbau „Alles | startbar |
-| 1445 | M | Von Sokrates (Chef 16.11., 14:36 zu t292.3): Prüfliste im Spiel nimmt ein Wort nur bei „Fa | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | Termin 23.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 
-**Sokrates** – offen 32, Muss 7, startbar 2
+**Sokrates** – offen 30, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -318,7 +316,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 780 | K | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | K | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | Termin 23.11. |
 | 508 | K | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsol | wartet auf 508.1 (startbar) |
-| 481 | K | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschüler, Bewähr | startbar |
 | 383.2 | K | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | ruht bis 23.11. |
 | 26.1 | K | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef | ruht bis 23.11. |
 | 327 | K | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraul | nach dem Meilenstein |
@@ -336,14 +333,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 340 | K | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht bis 26.11. |
 | 344 | K | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht bis 23.11. |
 | 644 | K | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | wartet auf 644.1 (wartet) |
-| 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 1385 (gebaut) |
+| 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.2 (wartet) |
 | 654 | K | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | Termin 23.11. |
 | 930 | K | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 17.11. 08:00 |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
 | 1270 | K | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vo | wartet auf 1270.4 (gebaut) |
-| 1405 | K | Systemlösung? Parade: 3 frühere Vorgänge (219, 662, 406.2), neu 1404; einmal grundsätzlich | startbar |
-| 1411 | M | Von Chef (1292 A, 16.11., 11:49): Mana grundsätzlich: woher, wie viel, wie es wächst; Zaub | Chef (Datei in der Chefsache) |
+| 1411 | M | Von Chef (1292 A, 16.11., 11:49): Mana grundsätzlich: woher, wie viel, wie es wächst; Zaub | wartet auf 1411.1 (in Arbeit) |
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
