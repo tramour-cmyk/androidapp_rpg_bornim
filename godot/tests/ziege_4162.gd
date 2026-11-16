@@ -99,6 +99,34 @@ func _lauf() -> void:
 		pruefe(not erst.is_empty() and erst[1] == h2 and erst[2], "1325: tauscht auch, wenn jemand zur Kachel des Helden unterwegs ist")
 	else:
 		print("Seite 1325: keine Person oder Kachel ", von, " zu")
+	await create_timer(0.5).timeout
+	# 1383 (Lauf 513 rot: „Ziege tritt ohne Tausch …: huhn2 (31, 27) -> (31, 28), Flucht“): ein Huhn stand noch auf der Kachel des
+	# Helden und floh eben von dort; frei_fuer_mich zaehlte es als Besetzer, der Tausch war gesperrt, die Ziege trat voran
+	var weg_h := h2 + Vector2i(0, 1) if k.begehbar(h2 + Vector2i(0, 1)) else h2 + Vector2i(0, -1)
+	if k.begehbar(weg_h):
+		var huhn := Leute.new(k, {"id": "huhn_1383", "x": h2.x, "y": h2.y, "blick": "DOWN", "streifen": 2, "tier": "huhn"}, spiel.held)
+		spiel.leute.add_child(huhn)
+		spiel.held.leute = spiel.leute.get_children()
+		if p != null: p.kachel = von + Vector2i(3, 3); p.position = k.kachel_pos(p.kachel); p.ziel = Vector2i(-1, -1); p.warte = 30.0
+		z.ziel = Vector2i(-1, -1); z.warte = 30.0; z.durch_bis = 0
+		z.kachel = start; z.position = k.kachel_pos(start)
+		spiel.held.setze(h2, "DOWN")
+		spiel.held.richtung = Vector3(d2.x, 0, d2.y)
+		var erst3 := []
+		var t3 := Time.get_ticks_msec()
+		while Time.get_ticks_msec() - t3 < 4000 and erst3.is_empty():
+			# das Huhn bleibt im Aufbruch: fast an der Kante, noch auf der Kachel des Helden, sein Schritt fuehrt fort (angehalten)
+			huhn.set_process(false); huhn.set_physics_process(false)
+			huhn.position = k.kachel_pos(h2).lerp(k.kachel_pos(weg_h), 0.45)
+			huhn.kachel = h2; huhn.ziel = weg_h; huhn.flucht = true
+			await process_frame
+			if z.ziel.x >= 0: erst3 = [z.kachel, z.ziel, z.durch_bis > Time.get_ticks_msec()]
+		spiel.held.richtung = Vector3.ZERO
+		print("Seite ", d2, " mit Huhn im Aufbruch von ", h2, " nach ", weg_h, ": erster Schritt der Ziege ", erst3)
+		pruefe(not erst3.is_empty() and erst3[1] == h2 and erst3[2], "1383: tauscht auch, wenn ein Tier eben von der Kachel des Helden flieht")
+		huhn.queue_free()
+	else:
+		print("Seite 1383: keine Nachbarkachel frei")
 	print("ZIEGE %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 

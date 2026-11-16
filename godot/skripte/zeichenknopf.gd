@@ -189,6 +189,10 @@ static func glyphe(ci: CanvasItem, g: String, o: Vector2, u: float, c: Color, an
 			zug.call(e, true)
 			ci.draw_arc(P.call(6.5, 11), 4 * u, deg_to_rad(120), deg_to_rad(240), 16, c, w, true)
 			ci.draw_arc(P.call(15.5, 11), 4 * u, deg_to_rad(-60), deg_to_rad(60), 16, c, w, true)
+		"GFX":   # 698 Grafik: ein Bild im Rahmen, Berg und Sonne
+			zug.call([Vector2(3, 5), Vector2(19, 5), Vector2(19, 17), Vector2(3, 17)], true)
+			zug.call([Vector2(4.5, 15.5), Vector2(9, 10), Vector2(12, 13), Vector2(14, 11), Vector2(17.5, 15.5)])
+			punkt.call(Vector2(15, 8.2), 1.4)
 		"STEPS":   # zwei Sohlen mit Absatz, versetzt
 			for ov in [[Vector2(6.5, 11.75), Vector2(2.5, 3.75)], [Vector2(6.5, 18.1), Vector2(1.9, 1.8)], [Vector2(15, 5.75), Vector2(2.5, 3.75)], [Vector2(15, 12.1), Vector2(1.9, 1.8)]]:
 				var q := PackedVector2Array()

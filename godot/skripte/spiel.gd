@@ -143,6 +143,7 @@ func _ready() -> void:
 	nebel_bilder()
 	robe_bilder()
 	bildrate_lauf()
+	grafik_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -203,6 +204,7 @@ func licht_nach_uhr(sofort := false) -> void:
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	var t0 := Time.get_ticks_usec()   # 399.1 Gerät: Ladezeit je Ort
+	var grafik_satz := Grafik.ladepunkt(get_tree(), Sprache.aktiv() == "de")   # 698: Grafikstufe nur an Ladepunkten, vor dem Aufbau
 	if gebiet: gebiet.queue_free()
 	if held: held.queue_free()
 	if leute: leute.queue_free()
@@ -261,6 +263,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	_steht_auf(t)
 	spiele(Geschichte.betreten(id, zustand))   # 390: MapDef.onEnter
 	speichere()   # 399: wie alt beim Kartenwechsel
+	if grafik_satz != "": ui.kurz(grafik_satz)   # 698: Automatisch hat gesenkt, einmal unten am Rand
 	Messung.geladen(id, (Time.get_ticks_usec() - t0) / 1000.0)
 
 func speichere() -> void:
@@ -774,6 +777,7 @@ func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeff
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
 	if ort == "wald": lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
 	var zeit := tageszeit() if probe.is_empty() or String(pa["zeit"]) == "" else String(pa["zeit"])   # 1020.2 B: Tageszeit nach Wahl
+	var grafik_satz := Grafik.ladepunkt(get_tree(), Sprache.aktiv() == "de")   # 698: der Kampfort ist ein Ladepunkt
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, ort, zeit, zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
 	# 1020.2 B: nach dem Probekampf „Nochmal“ mit derselben Wahl (Kampfort.again_fn, wie kampf/probe.gd) und „Zurück zum Testmenü“
 	if gestartet and not probe.is_empty() and aufruf.kampf != null:
@@ -819,6 +823,7 @@ func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeff
 	for k in umgebung.size(): umgebung[k].environment = env_alt[k]
 	kamera.make_current()
 	visible = true; ui.visible = true
+	if grafik_satz != "": ui.kurz(grafik_satz)   # 698: gesenkt, gesagt zurück in der Welt
 	if probe.is_empty():
 		for id in tasche:   # 532, 935: getrunken oder geworfen (fehlt ein Ding in der Tasche des Kampfs, ist nichts verbraucht)
 			var rest := int((erg["rest"] as Dictionary).get(id, tasche[id]))
@@ -1040,6 +1045,7 @@ func pfluecke(t: Vector2i) -> void:
 func abblenden(ziel: float) -> void:
 	klang("verhuelle", [ziel > 0.5])   # 399.3 (Jerry): in der Schwarzblende schweigen die Effekte, Musik erst danach (Hush.kt)
 	if ziel > 0.5: Messung.blende(true)
+	if ziel <= 0.5 and blende.color.a > 0.5: await einmessen()   # 698: erste Ladung, unter der Blende
 	var tw := create_tween()
 	tw.tween_property(blende, "color:a", ziel, 0.35)
 	await tw.finished
@@ -1544,7 +1550,41 @@ func lage_herstellen(l: Dictionary) -> void:
 	if not pr.is_empty(): await test_tat("probe", pr)
 
 # [von] leer beim Spielbeginn, [erster] beim ersten Besuch. Ohne daten/intro.json wie bisher nur die Blende
+# 698, 1365 (Chef 16.11., 06:55: „Da kann man ja auch eine Blende machen, tatsächlich einmalig … Dann muss der Spieler nicht dumm
+# sterben.“): Automatisch misst die Grafik einmal beim ersten Start, hinter einer schwarzen Blende wie die Ortsblende mit den Worten
+# [1365.einmessen.*]; sie stehen, bis sie zu lesen sind (Ortsblende.lese_ms), höchstens EINMESS_MAX_MS, mindestens so lange wie die Messung
+const EINMESS_MAX_MS := 7000.0
+func einmessen(gezeigt := Callable()) -> void:
+	if not Grafik.braucht_messung(): return
+	var de := Sprache.aktiv() == "de"
+	var w: Array = [Grafik.EINMESSEN_TITEL, Grafik.EINMESSEN_TEXT, Grafik.EINMESSEN_WAHL].map(func(x): return String(x[0 if de else 1]))
+	var e := Control.new()
+	e.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	e.mouse_filter = Control.MOUSE_FILTER_STOP   # nichts dahinter nimmt ein Tippen
+	e.add_child(Ortsblende.schwarz())
+	var mitte := CenterContainer.new()
+	mitte.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	mitte.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	e.add_child(mitte)
+	var worte := Ortsblende.worte_spalte(w[0], w[1], w[2])
+	worte.custom_minimum_size.x = get_viewport().get_visible_rect().size.x - 2 * 36 * Ortsblende.DP
+	worte.modulate.a = 0.0
+	mitte.add_child(worte)
+	ui.add_child(e)
+	var bis := Time.get_ticks_msec() + minf(Ortsblende.lese_ms(String(w[0] + w[1] + w[2]).length(), Ortsblende.daten()), EINMESS_MAX_MS)
+	var ein := create_tween()
+	ein.tween_property(worte, "modulate:a", 1.0, 0.4)
+	await ein.finished
+	if gezeigt.is_valid(): await gezeigt.call()   # Bildlauf --grafik698: knipsen, wenn die Worte stehen
+	await Grafik.messen(get_tree())
+	while Time.get_ticks_msec() < bis: await get_tree().process_frame
+	var tw := create_tween()
+	tw.tween_property(worte, "modulate:a", 0.0, 0.4)
+	await tw.finished
+	e.queue_free()
+
 func ortsworte(von: String, erster: bool) -> void:
+	await einmessen()   # 698, 1365: vor den Worten des Orts, einmal beim ersten Start
 	if not Zwischenbild.da():
 		await abblenden(0.0)
 		return
@@ -1873,6 +1913,7 @@ func gitter_neu(schwenk := false) -> void:
 # ---------------------------------------------------------------- Lauf
 func _process(dt: float) -> void:
 	if held == null: return
+	if blende.color.a < 0.5: Grafik.bild(get_tree(), dt)   # 698 Automatisch: misst mit, senkt erst am nächsten Ladepunkt
 	Messung.bild(dt, ("Kampf " + Messung.kampf_wo) if kampf != null else "%s %d/%d" % [karte.id, held.kachel.x, held.kachel.y])   # 399.1 Gerät: Messwerte wie alt
 	if kampf != null:
 		Messung.kampf_bild(dt)
@@ -3173,7 +3214,7 @@ func bildrate_lauf() -> void:
 	get_tree().quit()
 
 ## BILDRATE_SEK Sekunden Bildzeiten, gemessen von Bild zu Bild (unabhängig von _process der Welt, die im Kampf ruht)
-func _bildrate_fenster() -> Dictionary:
+func _bildrate_fenster(je_bild := Callable()) -> Dictionary:
 	var ms: Array = []
 	var zeichen := 0
 	var dreiecke := 0
@@ -3184,11 +3225,52 @@ func _bildrate_fenster() -> Dictionary:
 		var n := Time.get_ticks_usec()
 		ms.append((n - t) / 1000.0)
 		t = n
+		if je_bild.is_valid(): je_bild.call()   # 698: Grafikzeit je Bild dazu
 		zeichen = maxi(zeichen, int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)))
 		dreiecke = maxi(dreiecke, int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)))
 	var w := Messung.werte(ms)
 	return {"fps": snappedf(float(w["fps"]), 0.1), "eins_ms": roundf(float(w["eins"])), "laengste_ms": roundf(float(w["laengste"])),
 		"ueber50": int(w["langsam"]), "bilder": ms.size(), "zeichen": zeichen, "dreiecke": dreiecke}
+
+# 698 Grafikstufen (698a A, Folgerungen): --grafik698=<ordner> misst und knipst je Stufe (Hoch, Mittel, Niedrig) das Dorf am Abend
+# (Brunnen, 20 Uhr: Lampen, Rauch und Fackeln der Kits) und die Höhle (Eingang wie 1268.5); je Stufe ein neuer Aufbau des Orts wie am
+# Ladepunkt. Zeilen GRAFIK698 (Grafikzeit je Bild, Bilder/s) und <ort>_<stufe>.png; der Lauf setzt Hoch und Niedrig nebeneinander
+func grafik_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--grafik698="): dir = a.substr(12)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	# zuerst die Einmess-Blende (1365) wie beim ersten Start, geknipst, wenn die Worte stehen
+	blende.color.a = 1.0
+	Grafik.probe = true; Grafik.wahl = "auto"; Grafik.auto_stufe = -1
+	await einmessen(func(): await knips("%s/einmessen.png" % dir))
+	Grafik.probe = false
+	blende.color.a = 0.0
+	var vp := get_viewport().get_viewport_rid()
+	RenderingServer.viewport_set_measure_render_time(vp, true)
+	for o in [["dorf", START, START_KACHEL, "DOWN", 0.5], ["hoehle", "cave", Vector2i(10, 18), "UP", -1.0]]:
+		for st in [Grafik.HOCH, Grafik.MITTEL, Grafik.NIEDRIG]:
+			Grafik.zwang = st
+			betrete(String(o[1]), o[2], String(o[3]))
+			if herde: herde.aus = true
+			if float(o[4]) >= 0.0: licht.ziel = float(o[4]); licht.stelle(float(o[4]))
+			kamera.springe()
+			await get_tree().create_timer(BILDRATE_RUHE).timeout
+			ui.textfeld.visible = false
+			var gpu: Array = []
+			var w := await _bildrate_fenster(func(): gpu.append(RenderingServer.viewport_get_measured_render_time_gpu(vp)))
+			var gw := Messung.werte(gpu)
+			print("GRAFIK698 %s %s: Grafikzeit %.1f ms je Bild (langsamstes 1 %%: %.1f), Bilder/s %.1f, Zeichenaufrufe %d, Schatten %d px, 3D %.0f %%" % [o[0],
+				Grafik.STUFE_NAME[st], 1000.0 / maxf(float(gw.get("fps", 0.0)), 0.001) if not gw.is_empty() else -1.0, float(gw.get("eins", -1.0)), float(w["fps"]),
+				int(w["zeichen"]), Grafik.SONNE_PX[Grafik.aktiv], Grafik.SCHAERFE[Grafik.aktiv] * 100.0])
+			await knips("%s/%s_%s.png" % [dir, o[0], Grafik.STUFE_NAME[st]])
+	Grafik.zwang = -1
+	print("GRAFIK698 fertig")
+	get_tree().quit()
 
 # 558 Robe am Rechner (Chef 04.11., 11:31, Bild Build 257 im Tiefen Fluesterwald): --robe558=<ordner> knipst den Magier wie im Spiel,
 # zur Kamera gewandt: Tiefer Fluesterwald am Weg Tag und Nacht (wie das Bild des Chefs), Dorfplatz Tag, Nahstufe; der Ablauf
