@@ -324,7 +324,7 @@ jobs:
             dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
             # 522 (Chef 04.11., 11:55: „die alte Bewaffnung … war weg, aber die neue ist nicht sichtbar“): jede Waffe, die waffen.py bauen
             # kann, auch fuer den Helden; Streitkolben, Kriegshammer und die uebrigen haben noch kein Modell (458.3)
-            dinge="$dinge dagger scimitar handaxe shortbow"
+            dinge="$dinge dagger scimitar handaxe shortbow longbow quiver"   # 643: Langbogen (auch Held) und Köcher (Garrick, Rücken)
             mkdir -p godot/daten/waffen
             for w in $dinge; do
               OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
