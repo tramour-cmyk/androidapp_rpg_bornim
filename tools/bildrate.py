@@ -10,7 +10,12 @@ Zeichenaufrufe oder Dreiecke über 120 %. Zeiten vergleicht es nur auf demselben
 dem Prozessor, ein anderer Bauserver ist kein Abfall); Zeichenaufrufe und Dreiecke hängen nicht am Prozessor und zählen immer.
 Die Zahlen sind Bauserver-Zahlen (Software-Grafik), nicht die des Handys; sie zeigen, ob ein Stand langsamer ist als der vorige.
 
+1426 (Chef 16.11., 13:31 zu t291.3, „nicht langsamer als 290“: „Die kann ein Mensch nicht beantworten.“): jeder Lauf legt die
+Messung als Artefakt `bildrate` ab; `--vergleich` stellt zwei Läufe nebeneinander (Build gegen Vorgänger), die Zahlen gehen in die
+Zeile „Im Bau geprüft“ der Prüfliste statt einer Frage an den Chef.
+
 Aufruf:  tools/bildrate.py <messung.json> [--grundwert <datei>] [--neu]   (--neu: Messung als neuen Grundwert ablegen)
+         tools/bildrate.py --vergleich <alt.json|Lauf-Nr> <neu.json|Lauf-Nr>   (Lauf-Nr: Artefakt `bildrate` per gh api)
          tools/bildrate.py --selbsttest
 """
 import json
@@ -75,6 +80,72 @@ def bericht(m, g):
     return kopf + zeilen + [""] + ([f"Abfall: {w}" for w in warn] or ["Kein Abfall."]), warn
 
 
+def vergleich_zeilen(a, b, na="alt", nb="neu"):
+    """Tabelle zweier Messungen nebeneinander, je Ort Ladezeit, Bilder/s, langsamstes 1 %; Zeiten nur vergleichbar auf demselben Prozessor."""
+    gleich = a.get("cpu") == b.get("cpu") and a.get("kerne") == b.get("kerne")
+    z = [f"### Ladezeit und Bildrate je Ort (1426): {na} gegen {nb}", ""]
+    if not gleich:
+        z += [f"Andere Prozessoren ({a.get('cpu', '?')} / {b.get('cpu', '?')}): Zeiten nicht vergleichbar.", ""]
+    z += [f"| Ort | Laden ms {na} | Laden ms {nb} | Bilder/s {na} | Bilder/s {nb} | 1 % ms {na} | 1 % ms {nb} |", "|---|---|---|---|---|---|---|"]
+    warn = []
+    for k, name in ORTE:
+        x, y = a.get("orte", {}).get(k, {}), b.get("orte", {}).get(k, {})
+        werte = []
+        for sch in ("laden_ms", "fps", "eins_ms"):
+            for w in (x.get(sch), y.get(sch)):
+                werte.append("–" if w is None else (f"{w:.1f}" if sch == "fps" else f"{w:.0f}"))
+        z.append(f"| {name} | " + " | ".join(werte) + " |")
+        if gleich:
+            for sch, sname, r, f, ab, _ in GRENZEN:
+                if abfall(y.get(sch), x.get(sch), r, f, ab):
+                    warn.append(f"{name}: {sname} {y.get(sch):g} statt {x.get(sch):g}")
+    return z + [""] + ([f"Abfall: {w}" for w in warn] or (["Kein Abfall."] if gleich else [])), warn
+
+
+def lade(quelle):
+    """Datei oder Lauf-Nummer (Artefakt `bildrate` des Laufs, per gh api)."""
+    if not quelle.isdigit():
+        return json.load(open(quelle, encoding="utf-8"))
+    import io, subprocess, zipfile
+    repo = "repos/tramour-cmyk/androidapp_rpg_bornim/actions"
+    ids = subprocess.run(["gh", "api", f"{repo}/runs/{quelle}/artifacts", "-q", '.artifacts[]|select(.name=="bildrate")|.id'],
+                         capture_output=True, text=True, check=True).stdout.split()
+    if not ids:
+        return aus_protokoll(quelle)
+    roh = subprocess.run(["gh", "api", f"{repo}/artifacts/{ids[0]}/zip"], capture_output=True, check=True).stdout
+    return json.loads(zipfile.ZipFile(io.BytesIO(roh)).read("bildrate.json"))
+
+
+def aus_tabelle(text):
+    """Läufe vor 1426 (ohne Artefakt): die Tabelle von bericht() aus dem Protokoll zurücklesen."""
+    import re
+    m = {"orte": {}}
+    k = re.search(r"### Bildrate je Ort \(1268\.5\), ([^,]*), (.*), (.*) \((\d+) Kerne\)", text)
+    if k:
+        m.update(renderer=k.group(1), grafik=k.group(2), cpu=k.group(3), kerne=int(k.group(4)))
+    namen = {n: o for o, n in ORTE}
+    for zeile in text.splitlines():
+        t = [x.strip() for x in zeile.split("|")]
+        if len(t) >= 8 and t[1] in namen:
+            zahl = lambda x: None if x.startswith("–") else float(x.split()[0])
+            m["orte"][namen[t[1]]] = dict(zip(("fps", "eins_ms", "laden_ms", "zeichen", "dreiecke"), map(zahl, t[2:7])))
+    if not m["orte"]:
+        raise SystemExit("keine Tabelle Bildrate je Ort im Protokoll")
+    return m
+
+
+def aus_protokoll(lauf):
+    import subprocess
+    repo = "repos/tramour-cmyk/androidapp_rpg_bornim/actions"
+    jobs = subprocess.run(["gh", "api", f"{repo}/runs/{lauf}/jobs", "-q", ".jobs[].id"], capture_output=True, text=True, check=True).stdout.split()
+    for j in jobs:
+        log = subprocess.run(["gh", "api", f"{repo}/jobs/{j}/logs"], capture_output=True, text=True).stdout
+        if "### Bildrate je Ort" in log:
+            import re
+            return aus_tabelle(re.sub(r"(?m)^\S+Z ", "", log))
+    raise SystemExit(f"Lauf {lauf}: weder Artefakt bildrate noch Tabelle im Protokoll")
+
+
 def selbsttest():
     g = {"cpu": "A", "kerne": 4, "orte": {k: {"fps": 20.0, "eins_ms": 60, "laden_ms": 1000, "zeichen": 100, "dreiecke": 1000} for k, _ in ORTE}}
     m = json.loads(json.dumps(g))
@@ -101,6 +172,17 @@ def selbsttest():
     del m["orte"]["wald"]
     pruefe("Wald: keine Messung" in vergleiche(m, g)[1], "fehlender Ort gemeldet")
     pruefe(vergleiche(m, {})[1] == ["Wald: keine Messung"], "ohne Grundwert nur gemeldet")
+    a = json.loads(json.dumps(g))
+    b = json.loads(json.dumps(g))
+    b["orte"]["hoehle"]["laden_ms"] = 2500
+    z, w = vergleich_zeilen(a, b, "290", "291")
+    pruefe(w == ["Höhle: Ladezeit 2500 statt 1000"], "Vergleich: Höhle langsamer gemeldet (%s)" % w)
+    pruefe(any(x.startswith("| Höhle | 1000 | 2500 |") for x in z), "Vergleich: Ladezeiten nebeneinander")
+    b["cpu"] = "B"
+    pruefe(vergleich_zeilen(a, b)[1] == [], "Vergleich: anderer Prozessor ohne Abfall")
+    t = "\n".join(bericht(a, g)[0])
+    r = aus_tabelle(t)
+    pruefe(r["orte"]["hoehle"]["laden_ms"] == 1000 and r["cpu"] == "A" and r["kerne"] == 4, "Tabelle zurückgelesen (%s)" % r.get("cpu"))
     print("BILDRATE-SELBSTTEST %d Fehler" % fehler)
     return 1 if fehler else 0
 
@@ -108,6 +190,11 @@ def selbsttest():
 def main(a):
     if "--selbsttest" in a:
         return selbsttest()
+    if "--vergleich" in a:
+        i = a.index("--vergleich")
+        qa, qb = a[i + 1], a[i + 2]
+        print("\n".join(vergleich_zeilen(lade(qa), lade(qb), os.path.basename(qa), os.path.basename(qb))[0]))
+        return 0
     if not a or a[0].startswith("--"):
         print(__doc__)
         return 2
