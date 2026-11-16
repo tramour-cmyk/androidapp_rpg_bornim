@@ -14,6 +14,18 @@ z = r.zaehlen(ls, speicher)
 soll("zweimal rot", len(z["tests/zwei_2.gd"]["rot"]), 2)
 soll("zweimal rot wackelt nicht", z["tests/zwei_2.gd"]["wackelt"], False)
 soll("rot und grün am selben Commit wackelt", z["tests/wackel_1.gd"]["wackelt"], True)
+# 1392: im flachen Klon zählt der Grenz-Commit nicht, dann die Nummer im Testnamen (erst ganz, dann mit Punkt von rechts)
+nrs = {"416.2": "Tom", "438": "Jerry"}; r.besitzer_von_nr = lambda n: nrs.get(n)
+soll("Nummer aus Name 4162 → 416.2", r.nr_aus_name("tests/ziege_4162.gd"), "Tom")
+soll("Nummer aus Name ganz", r.nr_aus_name("tests/wolf_mess_438.gd"), "Jerry")
+soll("ohne Nummer im Namen", r.nr_aus_name("tests/ohne.gd"), None)
+echt = r.subprocess.run
+class A: stdout = "abc123 Sokrates: Inhaltsverzeichnis\n"
+r.subprocess.run = lambda *a, **k: A(); r.grenzen = lambda: {"abc123"}
+soll("Grenz-Commit im flachen Klon zählt nicht", r.besitzer("tests/ziege_4162.gd"), "Tom")
+r.grenzen = lambda: set()
+soll("voller Verlauf: Anleger im Betreff", r.besitzer("tests/ziege_4162.gd"), "Sokrates")
+r.subprocess.run = echt
 r.bekannt = lambda t: None; r.besitzer = lambda t: "Tom"
 k = {t: titel for t, _, titel in r.kandidaten(z)}
 soll("Wiederholer wird Vorgang", "Wiederholrot zwei_2" in k.get("tests/zwei_2.gd", ""), True)
