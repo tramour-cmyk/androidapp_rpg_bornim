@@ -579,3 +579,4 @@
 2026-11-16 10:20:08	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31320 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 10:20:57	commit-pruefung	docs/chefsache/ansehen/1386-ual2.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-16 10:20:57	commit-pruefung	docs/chefsache/ansehen/1386-ual2.md: Vorlage „ohne Tusche“: jede Probe mit Toon-Licht und Tusche wie im Spiel (457, Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“); neu zeichnen, Ausnahm	main
+2026-11-16 10:33:12	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-1284-seite
