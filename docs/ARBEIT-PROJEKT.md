@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `0382b86d5` (16.11., 00:09)
+**Gelesen bis:** `df38c3e15` (16.11., 02:07)
 
 **Pause bis 16.11., 09:00** (Wochenzählung Diogenes ab 08:00, danach Kennzahlen der Woche und Zielvereinbarungen melden)
 
