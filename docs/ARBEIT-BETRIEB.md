@@ -48,6 +48,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 00:39 16.11.: Spike-Neustart 00:38 zurückgenommen (Weiter-Haken 195, Spike macht 698 in …76VdQxk8E6re5azHWe weiter); die zu früh gestartete Sitzung …76xYv5a8mnFU1RD6E7 sofort archiviert, Kosten 0 $ (nicht gestartet)
 - 15:37 15.11.: Jerry neu `…78tPSbm17uKXLsanMa` (1289, dann 1215, 1296); Block-Sitzung 760/1000 `…78vVh9TarMqMiBZ1pM` archiviert (16,92 $ auf 760, 1000)
 - 15:09 15.11.: Ford-Lauf-Uhr für neuen Ford `…76dCpm3kKPJixR9C8w` vom alten Ford angelegt (`trig_01TXqt99a72vf7tdTLiDAA92`, :03; neuer Ford hat kein create_trigger), alte `trig_01Bxa9TW7bvnV8cSVBQdf7AU` aus; alter Ford `…775wuCaHstkrQQKKTC` bleibt bis zum Start Jerry 1289 (15:35) offen, dann archivieren
 - 14:30 15.11.: Tom alt `…78BSaiyTRN5sJLVCBK` archiviert (15,94 $ auf 431, 288)
@@ -67,14 +68,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:29 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` auf Wort des Chefs (12:28) wieder archiviert (Mehrkosten 0,69 $ auf 1288; Frage 1288a liegt in der Chefsache)
 - 12:25 15.11.: Spike neu `…79F2ADvX6hyURaqmPK` (1270.1), alt archiviert (8,54 $ auf 1270.1); Tom neu `…76Ra6BZe2iYammL66v` (785.1), alt `…78NR8tcbL1C1FvSd17` archiviert um 12:29 wenn idle
 - 12:16 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` wieder aus dem Archiv (Chef will lesen, Sokrates 12:15): nicht archivieren bis der Chef es sagt; im Lauf `--ohne` Sokrates-Zeilen dieser Kennung
-- 12:11 15.11.: Sokrates neu `…76h9DLKywqNeh4ZJF8`, alt `…7A9M8ZL4AXU31SCCyP` archiviert (7,70 $ auf 1270, 1271, 1215, 431), Wecker 1215 neu `trig_01BWeMw65nTWpiAreAcKbAJd`
-- 21:12 15.11.: Startsperre 21:12 Start Jerry 1330 („jetzt“ Chef 21:07, Sokrates 21:08, 7a2846331; alte Sitzung …79o7xKBkqtEh5WECtD bei 608 Tsd. Token: neu starten, alte archivieren, Kosten 32,27 $ auf 289, 760, 1072); Tom 1329 danach in laufender Tom-Sitzung
-- 21:21 15.11.: Startsperre 21:21 Start Spike 1335 (Sokrates, „jetzt“ Chef 21:19, per Weiter an …787ooK1sXUAdnpxuba; Zeile steht noch bei Tom)
-- 21:22 15.11.: Startsperre 21:22 Start Sokrates (Neustart, b9ed4cac0); alte Sitzung …77W8hSnsZKpf62m65d nach Ruhe archivieren, Kosten 7,07 $ auf 1186, 654
-- 21:24 15.11.: Startsperre 21:24 Start Jerry (Neustart, 1520d763d); alte Sitzung …77dx1JvNrLwSqHwX8v nach Ruhe archivieren, Kosten auf 1330
-- 21:53 15.11.: Startsperre 21:53 Start Perikles 1342 (Spike 21:52, 36957a43e; neue Sitzung, alte archiviert; Nachfolger Wochenziel 16.11. bleibt)
-- 21:55 15.11.: Startsperre 21:55 Start Tom (Neustart, 7a5cb8315); alte Sitzung …75e4tYNpcX1swGKhsa nach Ruhe archivieren, Kosten auf 1325, 1329; Tom-Weckruf der alten Sitzung legt der neue Tom neu an
-- 21:59 15.11.: Startsperre 21:59 Start Jerry (Neustart, f839e001a); alte Sitzung …7A1yNj6BADiZuT2LfB nach Ruhe archivieren, Kosten auf 1321, 1331
 - 22:07 15.11.: Startsperre 22:07 Start Perikles 1343 (Ford, lauf.py Absturz Zeile 255, per Weiter an …77a6aTXti8RcQ9d3iC); Lauf 22:04 von Hand ohne lauf.py (Absturz), Zeilen unten
 - 22:25 15.11.: Startsperre 22:25 Start Tom (Neustart, 17f714137); alte Sitzung …79cPYSXs27H1EtXt8A nach Ruhe archivieren, Kosten auf 1341, 870.20
 - 22:42 15.11.: Startsperre 22:42 Start Spike 1300 (Sokrates 22:40, Chef „1348 A“, 9c7fe4d1d; alte Sitzung …787ooK1sXUAdnpxuba bei 352 Tsd. Token archiviert, Kosten 11,72 $ auf 1335, 1268.1, 1270.3)
@@ -88,5 +81,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:14 16.11.: Startsperre 00:14 Start Homer 1352, 1353 (Jerry 00:13, ac6007b4d, per Weiter an …79NReuhLMU6cqsp6GW)
 - 00:24 16.11.: Startsperre 00:24 Start Spike (Neustart, 1f61b76a1); alte Sitzung …76MtqM5JpbkkpJNkAM sofort archivieren, Kosten 7,68 $ auf 1300, 1303
 - 00:38 16.11.: Startsperre 00:38 Start Spike (Neustart, 274ec030b); alte Sitzung …76VdQxk8E6re5azHWe nach Ruhe archivieren, Kosten auf 1303, 698
-- 00:39 16.11.: Spike-Neustart 00:38 zurückgenommen (Weiter-Haken 195, Spike macht 698 in …76VdQxk8E6re5azHWe weiter); die zu früh gestartete Sitzung …76xYv5a8mnFU1RD6E7 sofort archiviert, Kosten 0 $ (nicht gestartet)
 - 00:43 16.11.: Startsperre 00:43 Start Jerry (Neustart, Übergabe Jerry 00:43); alte Sitzung …79V2mmvvY954ZKD6GP nach Ruhe archivieren, Kosten auf 1331, 1275
+- 01:03 16.11.: Startsperre 01:03 Start Tom (lauf.py)
+- 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
+- 01:03 16.11.: Marke Start-fehlt Tom 16.11.-00:10 (lauf.py)
