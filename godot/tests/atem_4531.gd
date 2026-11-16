@@ -83,13 +83,16 @@ func _run() -> void:
 		print("Atem 453.1: ohne Kauf, nichts zu prüfen")
 		quit(0)
 		return
+	# 1335 (Lauf 492 rot, 493 am selben Stand grün): Würfel und Zufall der Bewegungen (randf: Ausweichen, Ruhe) fest wie in
+	# wolf_mess_438; sonst beißt in manchem Lauf ein Wolf in die Messung nach der Anstrengung, die Atemzüge nach 8 s werden kurz
+	seed(7)
 	var p = Probe.new()
 	p.hero_cls = "FIGHTER"
 	p.merc_cls = "CLERIC"
 	p.foe = "WOLVES"
 	root.add_child(p)
 	await process_frame
-	p._start()
+	p._start(7)
 	for i in 4:
 		await process_frame
 	var kf = p.fight
@@ -110,6 +113,18 @@ func _run() -> void:
 				mehr += 1
 		_check(mehr == 0, "%s atmet nicht selbst (%d Spuren mit mehr als einem Schlüssel)" % [rn, mehr])
 	# erst eine Sekunde einschwingen (Waffe und Haltung kommen ein Bild nach dem Einhängen, _arm_kauf)
+	for i in 30:
+		await process_frame
+	# 1300 (Lauf 507: Abwehr des Helden 3,6 s nach dem Hieb, Sprung 0,47): die Wölfe greifen vor dem ersten Zug des Helden an;
+	# gemessen wird erst, wenn ihre Züge durch sind und die Gruppe am Zug ist, sonst beißt ein Wolf in Ruhe oder Abklingen
+	var warte := 0
+	while warte < 3600 and not (not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.current() != null and kf.mars.current().side == "PARTY"):
+		if not kf.busy and not kf.playing and kf.beats.is_empty() and kf.mars.outcome == "ONGOING":
+			kf.go_on()
+		await process_frame
+		warte += 1
+	print("Atem 453.1: Gruppe am Zug nach %.1f s" % (warte / 30.0))
+	_check(warte < 3600, "die Gruppe kommt vor der Messung an den Zug")
 	for i in 30:
 		await process_frame
 	var sh := _spur(held)
@@ -160,10 +175,14 @@ func _run() -> void:
 	sh.zuege.clear()
 	var weit := 0.0     # Atemzüge in den ersten 3 s (Phase ohne Umbruch)
 	var sch_an: Array = []     # Schulterhöhe in den ersten 4 s
+	var fremd: Array = []      # 1300: Anstrengung stieg in der Messung (Biss, Ausweichen), [Zeit s, Sprung]
 	for i in 390:
 		var p0: float = held.atem.phase
+		var a0: float = held.atem.anstrengung
 		await process_frame
 		t += 1.0 / 30.0
+		if held.atem.anstrengung > a0 + 0.001:
+			fremd.append("%.2f@%.1f" % [held.atem.anstrengung - a0, t - t0])
 		_messe(sh, t, false)
 		if i < 90:
 			weit += fposmod(held.atem.phase - p0, 1.0)
@@ -175,6 +194,8 @@ func _run() -> void:
 	var ruhe_s: float = held.atem.takt
 	var spaete: Array = sh.zuege.filter(func(z): return z[0] - t0 >= 8.0).map(func(z): return z[1])
 	print("nach Anstrengung: Atemzüge %s s (Ruhe %.2f)" % [", ".join(sh.zuege.map(func(z): return "%.2f@%.1f" % [z[1], z[0] - t0])), ruhe_s])
+	# 1300: misst nur das Abklingen des einen Hiebs; beißt ein Wolf hinein, ist die Messung falsch, nicht der Atem
+	_check(fremd.is_empty(), "nach Anstrengung kein weiterer Kampfzug in der Messung (%s)" % ", ".join(fremd))
 	var mal: float = weit / (3.0 / ruhe_s)
 	_check(mal >= 1.6, "in den ersten 3 s nach Anstrengung %.2f-mal so schnell wie in Ruhe" % mal)
 	_check(not spaete.is_empty() and spaete.max() < 1.15 * ruhe_s and spaete.max() > 0.85 * ruhe_s, "nach 8 s wieder fast Ruhe (%s)" % str(spaete))
@@ -208,5 +229,9 @@ func _run() -> void:
 	_check(hieb_a > 0.3, "Kampfzüge strengen an (größter Sprung %.2f)" % hieb_a)
 	print("im Kampf: Held über halb angestrengt in %.0f %% der Bilder" % (100.0 * hoch / maxf(1, bilder)))
 	_check(kf.mars.outcome != "ONGOING", "Kampf endet (%s)" % kf.mars.outcome)
+	# 910 (Lauf 338): ein Wolf sprang den Helden in der Ruhemessung an, Sturz ohne Anstrengung, die Bilder danach galten als Ruhe
+	held.atem.anstrengung = 0.0
+	held.knocked_down()
+	_check(held.atem.anstrengung > 0.5, "Sturz strengt an (%.2f)" % held.atem.anstrengung)
 	print("Atem 453.1: %d Fehler" % fails)
 	quit(1 if fails > 0 else 0)

@@ -6,7 +6,7 @@ Ist-Stand aus dem Spiel, Dialoge wortgetreu (Stand `main`, 12.10.). Überblick u
 
 Der Held erwacht im Gasthaus von Bornim. Goblins des Blutzahn-Stamms überfallen seit Wochen die Waldstraße, und letzte Nacht haben sie Schwester Lyra und das Sonnenamulett aus dem Tempel geraubt. Ältester Aldric schickt den Helden los.
 
-Der Weg führt durch den Flüsterwald zur Blutzahnhöhle. Dort trägt der Bugbear Krogg den Schlüssel zur Halle von Hauptmann Grak. Grak fällt, Lyra ist frei, und bei ihm liegt ein Brief mit grauem Siegel: Der Graue Prophet wollte Amulett und Priesterin, denn der Tag der Asche naht.
+Der Weg führt durch den Flüsterwald zur Blutzahnhöhle. Dort trägt der Bärenschrat Krogg den Schlüssel zur Halle von Hauptmann Grak. Grak fällt, Lyra ist frei, und bei ihm liegt ein Brief mit grauem Siegel: Der Graue Prophet wollte Amulett und Priesterin, denn der Tag der Asche naht.
 
 Aldric erkennt, dass Grak nur der Anfang war. Bornim feiert, aber die Frage nach dem Propheten bleibt offen. Freiwillig: Leitwolf Grimmzahn im Tiefen Flüsterwald und die Aufträge vom Anschlagbrett.
 
@@ -39,7 +39,7 @@ Danach beginnt Quest 1: Rowenas „geschlafen wie ein Stein“ nimmt den letzten
 
 **Rowena:** Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!
 
-*Tipp je nach Steuerung: Wortlaut `[280.tipp]` in `STORY-K1-HANDLUNG.md`.*
+*Tipp zur Fingersteuerung: Wortlaut `[280.tipp]` in `STORY-K1-HANDLUNG.md`.*
 
 ### 2. Der Auftrag des Ältesten
 
@@ -185,7 +185,7 @@ Danach:
 
 ### Freiwillig: Morwen und Grimmzahn
 
-**Auslöser:** Tiefer Flüsterwald, östlich vom Flüsterwald. **Belohnung:** 1 Gegengift, danach Laden und Tränkebrauen.
+**Auslöser:** Tiefer Flüsterwald, östlich vom Flüsterwald. **Belohnung:** 1 Gegengift, danach Laden und Tränkebrauen; nach dem Umzug für den Sieg über Grimmzahn das Rezept Großer Heiltrank (975, `STORY-K1-FERTIGKEITEN.md` „Rezeptwege“).
 
 **Kräuterfrau Morwen:** Na sieh an, jemand wagt sich so tief in den Wald. Ich bin Morwen, ich sammle hier Kräuter.
 
@@ -212,7 +212,7 @@ Danach: **Kräuterfrau Morwen:** Ohne Grimmzahn ist der Wald ruhiger geworden. B
 | Rowena | Pass auf dich auf, {name}. Wenn du verletzt bist: Bruder Osric im Tempel heilt jeden, der darum bittet. | Für den Helden von Bornim geht das Bier heute aufs Haus! |
 | Bruder Osric | Willkommen im Tempel des Morgenlichts. Lass mich deine Wunden versorgen. … Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen. | Gesegnet seist du, {name}. Lass mich deine Wunden versorgen. |
 | Borin | Hrmpf. Ein Zwerg weiß so etwas: Skelette hassen Wuchtwaffen! Streitkolben, Hammer, sogar ein Stab – das zerschmettert ihre Knochen. Und heiliges Licht verbrennt alles Untote. | gleich |
-| Pim | Papa sagt, Goblins haben Angst vor Feuer! Stimmt das? Thessa verkauft Alchemistenfeuer. Damit kann man sogar zaubern, ohne Magier zu sein! | Wenn ich groß bin, werde ich auch ein Held! Genau wie du! |
+| Pim | Papa sagt, Goblins haben Angst vor Feuer! Stimmt das? Thessa verkauft Brandflaschen. Damit kann man sogar zaubern, ohne Magier zu sein! (EN: Thessa sells firebottles. You can do magic with them without even being a wizard!; 934) | Wenn ich groß bin, werde ich auch ein Held! Genau wie du! |
 | Bauer Bram | Das Korn steht gut dieses Jahr. Wenn nur die Wölfe nicht wären – letzte Woche haben sie mir zwei Hühner geholt. Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark! | Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig. |
 | Liska | Bei dem Wetter trocknet die Wäsche im Nu. Hast du schon Thessas neue Ware gesehen? Auf dem Markt am Brunnen gibt es frisches Obst. Und die Kräuterstände riechen herrlich. | Ganz Bornim spricht von dir! Ich habe gehört, du hast Grak mit bloßen Händen besiegt. |
 | Gwenna | Früher konnte man nachts in Ruhe fischen. Jetzt heulen die Wölfe bis zum Morgengrauen. | Der Held von Bornim! Ich hab's ja immer gewusst. |
@@ -227,7 +227,7 @@ Das Brett steht vor der Schänke. Fünf Aushänge in zwei Wellen, abgegeben wird
 | Felle für den Winter | Thessa | Start | 5 Wolfsfelle | 60 Gold |
 | Gwennas Ring | Gwenna | Start | Ring aus der Höhlentruhe | 40 Gold, 1 Heiltrank |
 | Hauer für den Schmied | Borin | Start | 3 Keilerhauer | 50 Gold |
-| Gift gegen Gift | Morwen | nach Krogg | 3 Giftdrüsen von Riesenspinnen | 50 Gold, 2 Kräutertränke |
+| Gift gegen Gift | Morwen | nach Krogg | 3 Giftdrüsen von Riesenspinnen | 50 Gold, 2 Kräutertränke; nach dem Umzug 50 Gold, Rezept Brandflasche (975) |
 | Feuer am Steinkreis | Wache Jorin | nach Krogg | was am Steinkreis liegt | Kopfschutz |
 
 ### Felle für den Winter
@@ -255,6 +255,8 @@ Der Ring liegt in der Höhlentruhe im Südwesten, sobald der Auftrag angenommen 
 *Aushang:* Drei Giftdrüsen von Riesenspinnen, ganz, nicht zerquetscht. Ich zahle in Gold und Tränken. Wer mich sucht, findet mich tief im Wald am Feuer. – Morwen
 
 **Kräuterfrau Morwen:** Drei, und keine geplatzt. Du hast ruhige Hände. Hier – und trink nicht alles auf einmal.
+
+(Nach dem Umzug gelten Aushang und Abgabe `[975.gift.aushang]`, `[975.gift.abgabe]` in `STORY-K1-FERTIGKEITEN.md` „Rezeptwege“.)
 
 ### Feuer am Steinkreis
 

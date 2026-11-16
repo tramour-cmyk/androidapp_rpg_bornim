@@ -32,6 +32,32 @@ uniform float vorrang = 0.0;       // 463: Umhang (UV2.x > 0,5, held_klassen.py 
 uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
 uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float teil = 0.0;          // nur zum Messen (held.gd --teilfarbe): Eisen gruen, Kette rot, Haut (rig.py TEILMASKE) blau, Rest schwarz
+// 1022 (Chef 12.11., 08:26; 20:07 „sanfter Übergang und dann dunkel“; alt MapEdge.fade, 27m „super“): hinter dem Kartenrand laeuft
+// alles weich ins Schwarz, Boden, Wasser, Halme und alles darauf gleich (gebiet.gd rand_karte). Gemessen im Bild, nicht am Boden: alt war
+// der Boden im Bild unverkuerzt (eine Kachel tief = eine Kachel hoch), bei 30 Grad Blick ist eine Kachel in Blickrichtung nur halb so
+// hoch; 3,4 Bodenkacheln Verlauf waren am Gerät 1,6 Kacheln Bildhoehe (Build 280, Bilder 17:59: harte Kante). Darum zaehlt der Abstand
+// hinter dem Rand so, wie er im Bild erscheint (quer zum Blick voll, laengs halb), hell bis RAND_HELL, schwarz nach RAND_WEICH mehr;
+// Bildbreite 7,8 Kacheln (kamera.gd FERN)
+const float RAND_HELL = 1.5;    // Kacheln im Bild hinter dem Rand voll hell (alt 2 von 6,75 Bildbreite)
+const float RAND_WEICH = 4.0;   // Kacheln im Bild bis schwarz (alt 3,4); in Blickrichtung 11 Bodenkacheln, Boden und Wasser reichen 12 (dorf.py AUS)
+uniform vec3 rand_karte = vec3(0.0);   // Breite, Hoehe der Karte in Metern, an (1); aus: ueberall hell (Held, Leute, Kampfort)
+float rand_licht(vec3 w, mat4 iv) {
+	if (rand_karte.z < 0.5) return 1.0;
+	float ox = max(max(-w.x, w.x - rand_karte.x), 0.0) * length(vec2(iv[0].x, iv[1].x));   // Weltachse x im Bild (rechts, oben)
+	float oz = max(max(-w.z, w.z - rand_karte.y), 0.0) * length(vec2(iv[0].z, iv[1].z));   // Ecke rund (mit max hell als Keil)
+	float u = clamp(1.0 - (length(vec2(ox, oz)) / 1.16 - RAND_HELL) / RAND_WEICH, 0.0, 1.0);
+	// alt nahm den Bildpunkt (sRGB) mal f; hier ist die Farbe linear, mal f sah bis kurz vor schwarz fast hell aus und fiel dann ab
+	return pow(u * u * (3.0 - 2.0 * u), 2.2);
+}
+// 1022 (Chef 12.11., 13:41 „1022 ja“: Sueden und Osten liefen als harte schwarze Wand mit gezackter Kronenkante): ein Baum
+// hinter dem Rand zur Kamera hin verdeckt hellen Boden weiter innen; sein Dunkel richtet sich darum nach dem Bodenpunkt, den er im
+// Bild verdeckt (Strahl der Kamera, orthogonal: entlang der Blickrichtung, bis zur Hoehe 0), nicht nach seinem eigenen Ort. So
+// schliesst jede Krone im Bild nahtlos an den Boden an, auf allen vier Seiten und bei jedem Gieren der Kamera
+vec3 rand_boden(vec3 w, vec3 blick) {
+	if (w.y <= 0.0 || blick.y > -0.05) return w;
+	return w + blick * (w.y / -blick.y);
+}
+uniform float schnitt = 0.0;       // 831 Blattkarten der Bausatz-Baeume (glTF MASK): Bildpunkte unter dieser Deckkraft des Bildes weg, auch im Schatten
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
@@ -83,7 +109,9 @@ void fragment() {
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
-	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	vec4 bild_px = texture(tex, UV);
+	if (schnitt > 0.0 && bild_px.a < schnitt) discard;
+	ALBEDO = bild_px.rgb * COLOR.rgb;
 	if (toen_hell > 0.0) {   // 376.1: Zeichnung des Bildes, Farbe des Tons, dazu ein Teil der Farbschwankung des Bildes (toen_farbe)
 		float hl = dot(ALBEDO, vec3(0.2126, 0.7152, 0.0722));
 		vec3 rel = (ALBEDO / max(hl, 0.001)) / max(toen_bild / toen_hell, vec3(0.001));
@@ -106,6 +134,8 @@ void fragment() {
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
 	EMISSION = glow_col * glow;
+	float rl = rand_licht(rand_boden(wpos, -INV_VIEW_MATRIX[2].xyz), INV_VIEW_MATRIX);
+	ALBEDO *= rl; EMISSION *= rl;
 	v_hinten = (rueckseite > 1.5 && !FRONT_FACING) ? 1.0 : 0.0;
 	if (rueckseite > 0.5 && rueckseite < 1.5 && !FRONT_FACING) {
 		ALBEDO = vec3(0.0);

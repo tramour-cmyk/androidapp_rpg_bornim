@@ -22,7 +22,7 @@ func _lauf() -> void:
 	z.dazu("herbs", 7)
 	z.dazu("potion", 2)
 	z.dazu("bat_wing", 0)
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	var ebene := CanvasLayer.new()
 	root.add_child(ebene)
 	var l := LadenSchirm.new(hw, z, Laden.new(["herbs", "potion", "remedy"], true))

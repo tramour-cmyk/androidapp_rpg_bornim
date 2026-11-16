@@ -4,6 +4,7 @@
 #   tools/meldung.sh --laut <Name> "<Nummer> <Stand>"   mit Ton und ⚠ (der Nutzer ist dran; nicht 22–7 Uhr)
 #   tools/meldung.sh --bild <datei> <Name> "<Text>"     Standbild mit der Zeile als Unterschrift (Telegram verkleinert)
 #   tools/meldung.sh --datei <datei> <Name> "<Text>"    Bild in voller Auflösung als Datei (Pixelprüfung)
+#   tools/meldung.sh --frage <Kennung> <Name> "<Nr>: …?"   Nachfrage als Antwort auf die Meldung mit dieser Telegram-Kennung (1301: 👎 ohne Wort)
 #   tools/meldung.sh --film <datei.mp4> <Name> "<Text>" Film (MP4, bis 50 MB) mit der Zeile als Unterschrift; Bewegung nur als Film vorlegen (381, Chef 27.10., 17:19)
 # Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, an jeder Stelle.
 # Kopf: Name verlinkt automatisch auf die eigene Sitzung. Pflicht für alle (Nutzer 15.10.): jede Nummer mit Datei auf „Chefsache“ als Sprungmarke.
@@ -17,7 +18,7 @@ if [ -z "$MELDUNG_WEITER" ] && [ -f "$haupt" ] && [ "$(realpath "$0")" != "$(rea
   MELDUNG_WEITER=1 exec "$haupt" "$@"
 fi
 laut=0; probe=0
-bild=""; art=""
+bild=""; art=""; frage=""
 # Optionen an jeder Stelle (244: „--bild“ hinter dem Text wurde still übergangen, nur der Text ging raus)
 rest=()
 while [ $# -gt 0 ]; do
@@ -27,15 +28,26 @@ while [ $# -gt 0 ]; do
     --bild) art=photo; bild="$2"; shift ;;
     --datei) art=document; bild="$2"; shift ;;
     --film) art=video; bild="$2"; shift ;;
+    --frage) frage="$2"; shift
+      case "$frage" in ''|*[!0-9]*) echo "meldung: --frage braucht die Telegram-Kennung (Zahl, „Nachricht <Kennung>“ aus notiz.sh), nichts gesendet (1301)" >&2; exit 2 ;; esac ;;
     --*) echo "meldung: unbekannte Option $1, nichts gesendet" >&2; exit 2 ;;
     *) rest+=("$1") ;;
   esac
   shift
 done
+if [ -n "$frage" ] && ! printf '%s' "${rest[*]}" | grep -q '?'; then echo "meldung: --frage ohne Frage (kein „?“ im Text), nichts gesendet (1301)" >&2; exit 2; fi
+if [ -n "$frage" ] && [ -n "$art" ]; then echo "meldung: --frage nur als Text, ohne Bild oder Film (1301)" >&2; exit 2; fi
+antw=(); [ -n "$frage" ] && antw=(--data-urlencode "reply_parameters={\"message_id\":$frage,\"allow_sending_without_reply\":true}")
 if [ -n "$art" ] && [ ! -f "$bild" ]; then echo "meldung: Bild $bild fehlt" >&2; exit 2; fi
 if [ "$art" = video ]; then  # 381: Telegram nimmt über die Bot-Schnittstelle höchstens 50 MB
   case "${bild,,}" in *.mp4) ;; *) echo "meldung: Film als MP4 (H.264), nichts gesendet (381)" >&2; exit 2 ;; esac
   [ "$(stat -c %s "$bild")" -le 52428800 ] || { echo "meldung: Film über 50 MB, nichts gesendet (kürzer oder kleiner rechnen; 381)" >&2; exit 2; }
+  # 1076 (Chef 12.11., 20:42: „einen fast einminütigen Film …, um einen Ring zu sehen, der nach 6 Sekunden vorbei ist“): nur der
+  # Prüfgegenstand, etwa dreimal hintereinander, höchstens etwa 15 s; über 20 s hält an (Ausnahme „Chef will langen Film“ im Text)
+  dauer=$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$bild" 2>/dev/null | cut -d. -f1)
+  if [ -n "$dauer" ] && [ "$dauer" -gt 20 ] && ! printf '%s' "${rest[*]}" | grep -q 'Chef will langen Film'; then
+    echo "meldung: Film $dauer s, nichts gesendet; nur den Prüfgegenstand schneiden, etwa dreimal hintereinander, höchstens etwa 15 s (1076)" >&2; exit 2
+  fi
 fi
 # 457 (Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“): Bild oder Film einer Probe nie „ohne Toon/Tusche“
 if [ -n "$art" ] && ! printf '%s' "${rest[*]}" | grep -q 'Chef erlaubt ohne Signatur' && fehlt=$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import importlib; m = importlib.import_module("commit-pruefung"); r = m.ohne_signatur(sys.argv[2]); print(r or ""); sys.exit(0 if r else 1)' "$(dirname "$(realpath "$0")")" "${rest[*]}" 2>/dev/null); then
@@ -72,21 +84,66 @@ still=true; [ $laut = 1 ] && still=false
 if [ -n "$art" ]; then
   nr=$(printf '%s' "${text#⚠ }" | sed -nE '1s/^[[:space:]]*\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\1/p')
   if [ -z "$nr" ]; then echo "meldung: Bild ohne Vorgangsnummer am Textanfang („348.7: …“), nichts gesendet (363)" >&2; exit 2; fi
-  # 374 (373 Punkt 2, 228): Bilder an den Chef nur mit Datei docs/chefsache/ansehen/<Nummer ohne Punkt>-….md
-  ansehen="$(dirname "$(realpath "$0")")/../docs/chefsache/ansehen"
-  k=$(printf '%s' "$nr" | tr -d . | tr 'A-Z' 'a-z')
-  if ! ls "$ansehen" 2>/dev/null | tr 'A-Z' 'a-z' | grep -q "^$k-.*\.md$"; then
-    echo "meldung: zu $nr liegt keine Datei docs/chefsache/ansehen/$k-….md, nichts gesendet (374); erst die Datei anlegen und pushen" >&2; exit 2
+  # 1217 (Chef 13.11., 20:01: „ein Däumchen hoch machen, wenn es passt … Däumchen runter“): Bild und Film zu einer Prüfliste je Punkt
+  # eine Nachricht „t<n>.<Punkt>: …“ mit „👍 passt: …“ und „👎 falsch: …“; eine Reaktion auf „t284“ allein ist mehrdeutig
+  if [ "$art" != document ] && [[ "$nr" =~ ^[tT][0-9]+$ ]]; then
+    echo "meldung: Bild oder Film zu $nr ohne Punkt, nichts gesendet; je Prüfpunkt eine Nachricht „$nr.<Punkt>: …“ (1217)" >&2; exit 2
+  fi
+  # 1217 (Chef 20:13 zu t284.7p: „ist die Frage, was ich sehen soll … War ich mal in der Prüfliste“): die Nachricht trägt die Zeile
+  # ganz, er braucht die Liste nie; fehlt „Zu sehen“, „👍 passt“ oder „👎 falsch“, setzt meldung.sh sie aus der Zeile des Punkts ein
+  if [ "$art" != document ] && [[ "$nr" =~ ^[tT]([0-9]+)\.(.+)$ ]]; then
+    voll=$(TEXT="$text" N="${BASH_REMATCH[1]}" P="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}" DOCS="$(dirname "$(realpath "$0")")/../docs" python3 -c '
+import glob, os, re, sys
+t, n, p, d = os.environ["TEXT"], os.environ["N"], os.environ["P"], os.environ["DOCS"]
+fs = [f for o in ("chefsache/ansehen", "entwurf") for f in sorted(glob.glob(os.path.join(d, o, "t%s-*.md" % n)))]
+if not fs: print("keine Prüfliste t%s-….md in ansehen/ oder entwurf/" % n); sys.exit(1)
+schlicht = lambda s: re.sub(r"\[(?:Bild|Film) von [^\]]*\]\([^)]*\)", "", re.sub(r"\*\*|`", "", s)).strip()
+kopf, zeilen = None, {}
+for z in open(fs[0], encoding="utf-8").read().splitlines():
+    if not z.startswith("|"): kopf = None if z.strip() else kopf; continue
+    c = [x.strip() for x in z.strip().strip("|").split("|")]
+    if kopf is None: kopf = c; continue
+    if c: zeilen[c[0]] = dict(zip(kopf, c))
+def feld(r, *namen, tiefe=0):   # „wie 284.7c“ aus jener Zeile, der Chef soll die Liste nie brauchen
+    w = schlicht(next((r[x] for x in namen if x in r), ""))
+    m = re.fullmatch(r"wie (\d+\.\d+[a-z]?)\.?", w)
+    return feld(zeilen[m.group(1)], *namen, tiefe=tiefe + 1) if m and m.group(1) in zeilen and tiefe < 3 else w
+if p in zeilen:
+    r = zeilen[p]
+    wo, ok, no = feld(r, "Wo und wie"), feld(r, "Passt", "Richtig"), feld(r, "Falsch")
+    zl = t.split("\\n")
+    if wo and wo[:40] not in t:
+        zl.insert(1, "Zu sehen: " + (wo if len(wo) < 500 else wo[:500].rstrip() + "…"))
+    if "👍" not in t: zl.append("👍 passt: " + ok)
+    if "👎" not in t: zl.append("👎 falsch: " + no)
+    print("\\n".join(zl)); sys.exit(0)
+print("Punkt %s steht nicht in %s" % (p, os.path.relpath(fs[0], d))); sys.exit(1)') || {
+      echo "meldung: $nr: $voll; nichts gesendet (1217)" >&2; exit 2; }
+    text="$voll"
+  fi
+  # 374 (373 Punkt 2, 228): Bilder an den Chef nur mit Datei docs/chefsache/ansehen/<Nummer ohne Punkt>-….md; auch die Vorlage
+  # entscheiden/<Nr>.md (Tom 13.11.) und der Entwurf einer Prüfliste docs/entwurf/t<n>-….md, die erst mit den Bildern nach ansehen/ darf (1199, 1208)
+  docs="$(dirname "$(realpath "$0")")/../docs"
+  orte="chefsache/ansehen entwurf chefsache/entscheiden"
+  k=$(printf '%s' "$nr" | tr -d . | tr 'A-Z' 'a-z'); punkt=""
+  # 1208: „t284.2a: …“ = Punkt 284.2a der Prüfliste t284-….md; der Link kommt in seine Zeile (die Commit-Prüfung verlangt ihn dort)
+  if [[ "$nr" =~ ^[tT]([0-9]+)\.([0-9]+[a-z]?(\.[0-9]+[a-z]?)*)$ ]]; then k="t${BASH_REMATCH[1]}"; punkt="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}"; fi
+  if ! (for o in $orte; do ls "$docs/$o" 2>/dev/null; done) | tr 'A-Z' 'a-z' | grep -qE "^$k(-.*)?\.md$"; then
+    echo "meldung: zu $nr liegt keine Datei docs/chefsache/ansehen/$k-….md (oder docs/entwurf/, entscheiden/$k.md), nichts gesendet (374); erst die Datei anlegen und pushen" >&2; exit 2
   fi
   if [ $probe = 0 ] && [ "$art" = video ] && [ "$(stat -c %s "$bild")" -gt 20971520 ]; then
     echo "meldung: Film über 20 MB, nicht im Zweig bilder abgelegt (Repo klein halten; 381), nur Telegram" >&2
   elif [ $probe = 0 ]; then
     repo="$(dirname "$(realpath "$0")")/.."
-    pfad="$(TZ=Europe/Berlin date +%Y-%m)/$(TZ=Europe/Berlin date +%d-%H%M)-$nr-$(printf '%s' "$name" | tr -c 'A-Za-z0-9' '_' | sed 's/_*$//').${bild##*.}"
+    basis="$(TZ=Europe/Berlin date +%Y-%m)/$(TZ=Europe/Berlin date +%d-%H%M)-$nr-$(printf '%s' "$name" | tr -c 'A-Za-z0-9' '_' | sed 's/_*$//')"
+    endung="${bild##*.}"; pfad="$basis.$endung"
     blob=$(git -C "$repo" hash-object -w "$bild")
     abgelegt=""
     for versuch in 1 2 3; do
       eltern=""; git -C "$repo" fetch -q origin bilder 2>/dev/null && eltern=$(git -C "$repo" rev-parse FETCH_HEAD)
+      # 696: mehrere Bilder in derselben Minute überschrieben sich; belegter Pfad bekommt einen Zähler (-2, -3 …)
+      pfad="$basis.$endung"; z=1
+      while [ -n "$eltern" ] && git -C "$repo" cat-file -e "$eltern:$pfad" 2>/dev/null; do z=$((z + 1)); pfad="$basis-$z.$endung"; done
       idx=$(mktemp); rm -f "$idx"
       [ -n "$eltern" ] && GIT_INDEX_FILE=$idx git -C "$repo" read-tree "$eltern"
       GIT_INDEX_FILE=$idx git -C "$repo" update-index --add --cacheinfo "100644,$blob,$pfad"
@@ -125,18 +182,29 @@ if [ -n "$art" ]; then
       for versuch in 1 2 3; do
         git -C "$repo" fetch -q origin main 2>/dev/null || { sleep $versuch; continue; }
         basis=$(git -C "$repo" rev-parse FETCH_HEAD); blatt=""; jung=0
-        for f in $(git -C "$repo" ls-tree --name-only "$basis" docs/chefsache/ansehen/); do
-          b=$(basename "$f" | tr 'A-Z' 'a-z'); case "$b" in "$k"-*.md) ;; *) continue ;; esac
+        for f in $(git -C "$repo" ls-tree --name-only "$basis" $(for o in $orte; do echo "docs/$o/"; done)); do
+          b=$(basename "$f" | tr 'A-Z' 'a-z'); case "$b" in "$k"-*.md|"$k".md) ;; *) continue ;; esac
           t=$(git -C "$repo" log -1 --format=%ct "$basis" -- "$f"); [ "${t:-0}" -ge $jung ] && { jung=${t:-0}; blatt=$f; }
         done
         [ -n "$blatt" ] || { echo "meldung: Datei zu Vorgang $nr in ansehen/ auf main nicht gefunden, Link nicht eingetragen (450)" >&2; break; }
         inhalt=$(git -C "$repo" show "$basis:$blatt"; echo .)
         case "$inhalt" in *"$u"*) eingetragen=1; break ;; esac
-        neu_b=$(printf '%s' "${inhalt%.}" | ZEILE="$zeile_l" python3 -c '
-import os, sys
-t = sys.stdin.read()
-k, _, r = t.partition("\n")
-sys.stdout.write(k + "\n\n" + os.environ["ZEILE"] + "\n\n" + r.lstrip("\n"))' | git -C "$repo" hash-object -w --stdin)
+        # Prüfliste (t<n>-….md): Zeilen 1 und 2 bleiben oben (Zeile 2 trägt den APK-Link, 1199); mit Punkt (1208) in dessen Zeile, Spalte „Wo und wie“
+        neu_b=$(printf '%s' "${inhalt%.}" | ZEILE="$zeile_l" PUNKT="$punkt" PRUEF="$(case "$k" in t[0-9]*) echo 1 ;; esac)" python3 -c '
+import os, re, sys
+t = sys.stdin.read(); z = os.environ["ZEILE"]; p = os.environ["PUNKT"]
+zl = t.split("\n")
+kopf = next((l for l in zl if l.startswith("|") and " Art " in l), "")
+kz = [c.strip() for c in kopf.strip().strip("|").split("|")]
+sp = kz.index("Wo und wie") if "Wo und wie" in kz else 4
+for i, l in enumerate(zl):
+    c = l.strip().strip("|").split("|")
+    if p and l.startswith("|") and c[0].strip() == p and len(c) > sp:
+        c[sp] = " " + c[sp].strip() + " " + z.split(" (eingetragen")[0] + " "
+        zl[i] = "|" + "|".join(c) + "|"
+        sys.stdout.write("\n".join(zl)); sys.exit(0)
+n = 2 if os.environ["PRUEF"] else 1
+sys.stdout.write("\n".join(zl[:n]) + "\n\n" + z + "\n\n" + "\n".join(zl[n:]).lstrip("\n"))' | git -C "$repo" hash-object -w --stdin)
         idx=$(mktemp); rm -f "$idx"
         GIT_INDEX_FILE=$idx git -C "$repo" read-tree "$basis"
         GIT_INDEX_FILE=$idx git -C "$repo" update-index --cacheinfo "100644,$neu_b,$blatt"
@@ -216,16 +284,20 @@ else
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
     --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=$still" \
     --data-urlencode "text=$zeile" --data-urlencode "parse_mode=HTML" \
-    --data-urlencode "link_preview_options={\"is_disabled\":true}" 2>&1)  # keine Vorschaukarten (Nutzer 15.10.)
+    --data-urlencode "link_preview_options={\"is_disabled\":true}" "${antw[@]}" 2>&1)  # keine Vorschaukarten (Nutzer 15.10.)
 fi
 case "$antwort" in *'"ok":true'*) echo "meldung: gesendet" ;; *) echo "meldung: Fehler: ${antwort:0:200}" >&2; exit 1 ;; esac
+# 658: Telegram-Kennung der Nachricht als fünfte Spalte, damit tools/reaktionen.py eine Reaktion des Chefs dem Vorgang zuordnet
+mid=$(printf '%s' "$antwort" | python3 -c 'import json,sys
+try: print(json.load(sys.stdin)["result"]["message_id"])
+except Exception: pass' 2>/dev/null)
 # 383 (Chef 27.10., 17:53): je Meldung eine Protokollzeile im Zweig „meldungen“ (Zeit, Vorgänge am Zeilenanfang, Name, Art),
 # damit der Wartewächter in lauf.py sieht, ob zu einem „jetzt“ des Chefs etwas vorgelegt wurde. Fehler hier ändern nichts am Senden.
 nrn=$(printf '%b' "${text#⚠ }" | sed -nE 's/^[[:space:]]*(⚠[[:space:]]*)?\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\2/p' | sort -u | paste -sd, -)
 if [ -n "$nrn" ]; then
   wie=text; [ $laut = 1 ] && wie=laut; [ -n "$art" ] && wie=$art
   repo="$(dirname "$(realpath "$0")")/.."
-  zeile_p="$(TZ=Europe/Berlin date "+%Y-%m-%d %H:%M")\t$nrn\t$name\t$wie"
+  zeile_p="$(TZ=Europe/Berlin date "+%Y-%m-%d %H:%M")\t$nrn\t$name\t$wie\t$mid"
   for versuch in 1 2 3; do
     eltern=""; git -C "$repo" fetch -q origin meldungen 2>/dev/null && eltern=$(git -C "$repo" rev-parse FETCH_HEAD)
     alt=""; [ -n "$eltern" ] && alt=$(git -C "$repo" show "$eltern:meldungen.tsv" 2>/dev/null)

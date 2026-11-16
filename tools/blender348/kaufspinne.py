@@ -61,9 +61,21 @@ def quelle():
     if not KAUF:
         sys.exit('KAUF fehlt (Ordner mit den gekauften Modellen)')
     t = sorted(glob.glob(os.path.join(KAUF, '**', 'DARKNESS_SPIDER.FBX'), recursive=True))
+    # 595 (Lauf 352: eine halb ausgepackte Kopie aus dem Rar lag vorn, Blender: „ASCII FBX files are not supported“): nur ganze
+    # binäre FBX (Kopf „Kaydara FBX Binary“), die anderen werden genannt
+    for f in t:
+        if open(f, 'rb').read(18) != b'Kaydara FBX Binary':
+            print('QUELLE übergangen (kein binäres FBX): %s' % f)
+    t = [f for f in t if open(f, 'rb').read(18) == b'Kaydara FBX Binary']
     if not t:
         sys.exit('DARKNESS_SPIDER.FBX nicht gefunden unter %s' % KAUF)
-    return t[0], os.path.dirname(t[0])
+    # 968 (Lauf 43051633587): im Kaufordner liegen zwei Fassungen, „DARKNESS SPIDER RAW FILES“ als ASCII-FBX (Blender liest sie nicht)
+    # und die aus dem Unity-Paket; sortiert kam die ASCII-Fassung zuerst. Nur Binär-FBX nehmen (Kopf „Kaydara FBX Binary“).
+    binaer = [f for f in t if open(f, 'rb').read(18) == b'Kaydara FBX Binary']
+    if not binaer:
+        sys.exit('DARKNESS_SPIDER.FBX nur als ASCII-FBX vorhanden (Blender liest sie nicht): %s' % ', '.join(t))
+    print('SPINNE Quelle %s (von %d)' % (binaer[0], len(t)), flush=True)
+    return binaer[0], os.path.dirname(binaer[0])
 
 
 def bild(pfad, kante):
@@ -582,6 +594,33 @@ def baue(haut_name):
     rig.animation_data.action = None
     INFO['tiefster_punkt_m'] = tief
     print('BODEN tiefster Punkt je Bewegung: %s' % tief)
+    # 595 (Chef 05.11., 19:2x, Build 266: „Animation Spinne sehr gut, gibt es mehr Angriffsbewegungen/Abwechslung?“): Biss und
+    # Bisskette (Bite3HitCombo) je wie kauftier.py „biss“: Kieferklauen am weitesten vorn (−Y), Zeitpunkt, seitlich -> figur.gd
+    # [Abstand Ursprung–Rand des Ziels, Zeitpunkt s, Drehung Grad]; figur.gd nimmt für die Bisskette nur den Unterschied zum Biss
+    # (der Biss selbst bleibt, wie er abgenommen ist)
+    w_kl = gewicht_feld(mesh, ('chelicere',))
+    kl = np.nonzero(w_kl > 0.5)[0]
+    biss = {}
+    for nm in ('Biss', 'Bisskette'):
+        a = bpy.data.actions.get(nm)
+        if a is None:
+            continue
+        rig.animation_data.action = a
+        if slot(a) is not None:
+            rig.animation_data.action_slot = slot(a)
+        a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+        vorn = []
+        for f in range(a0, a1 + 1):
+            P = np.array([tuple(v) for v in welt_netz([mesh], f)])
+            P = P[kl] if len(kl) else P
+            i = int(P[:, 1].argmin())
+            vorn.append((f, float(P[i, 1]), float(P[i, 0])))
+        best = min(vorn, key=lambda x: x[1])
+        biss[nm] = [round(-best[1] - 0.07, 3), round((best[0] - a0) / FPS, 3), round(-math.degrees(math.atan2(best[2], -best[1])), 1)]
+        print('BISS %s: Kieferklauen vorn %.2f m bei %.2f s (Länge %.2f s), seitlich %.2f m -> %s' % (
+            nm, -best[1], (best[0] - a0) / FPS, (a1 - a0) / FPS, best[2], biss[nm]))
+    rig.animation_data.action = None
+    INFO['biss_je'] = biss
     # ------------------------------------------------ Export
     bpy.ops.object.select_all(action='DESELECT')
     for o in (aussen, rig, mesh):

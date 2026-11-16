@@ -57,6 +57,20 @@ object MapInk {
     private fun isHouse(t: Tile) = t == Tile.ROOF || t == Tile.ROOF_BLUE || t == Tile.WALL || t == Tile.WINDOW
     private fun isRock(t: Tile) = t == Tile.CAVE_WALL || t == Tile.CRYSTAL || t == Tile.TORCH
 
+    /**
+     * 505 (Nebel auf der Karte im Menü, 62c): the noise that frays the edge between known and bare parchment in [render], one pixel
+     * per sheet unit (a third of the drawn sheet), grey 0..255; Godot mixes the sheet drawn all known with the bare one by it.
+     */
+    fun fray(map: MapDef): PixelImage {
+        val mw = map.width * C + 2 * PAD; val mh = map.height * C + 2 * PAD
+        val img = PixelImage(mw, mh)
+        for (y in 0 until mh) for (x in 0 until mw) {
+            val g = (noise(x.toDouble(), y.toDouble(), 3.0, 5) * 255).toInt().coerceIn(0, 255)
+            img.set(x, y, (0xFF shl 24) or (g shl 16) or (g shl 8) or g)
+        }
+        return img
+    }
+
     fun render(map: MapDef, seen: (Int, Int) -> Boolean, gateOpen: Boolean = false): PixelImage {
         val win = MapSheet.window(map, seen)
         val mw = win.w * C + 2 * PAD; val mh = win.h * C + 2 * PAD

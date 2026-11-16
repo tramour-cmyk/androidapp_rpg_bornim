@@ -17,7 +17,7 @@ var skills := {}
 
 
 func _initialize() -> void:
-	tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tab = Tabellen.lade()
 	for m in tab.monsters:
 		monsters[m.id] = m
 	for s in tab.skills:
@@ -52,7 +52,7 @@ func _werte() -> void:
 		var f = foes[0]
 		_soll(foes.size() == 3 and foes.all(func(x): return Mars.art_of(x.monster) == c[1] and x.monster.id == c[1] and Mars.koerper_of(x.monster) == c[2] and x.monster.de == c[3]),
 			"%s: Kennung %s (577), Körper %s, Name %s" % [c[0], f.monster.id, Mars.koerper_of(f.monster), f.monster.de])
-		_soll(int(f.monster.ac) == c[4] and int(f.monster.xp) == c[5], "%s: RK %s, EP %s" % [c[0], f.monster.ac, f.monster.xp])
+		# 870.6: RK und EP der alten Fassung gibt es nicht mehr (Werte nach BRS: brs_473, Lohn: lohn_870)
 	# Wölfe und Grimmzahn bleiben, wie sie waren
 	var w: Array = AufrufS.gegner("WOLVES", monsters, Wuerfel.new(3))
 	_soll(Mars.art_of(w[0].monster) == Mars.WOLF and Mars.koerper_of(w[0].monster) == Mars.WOLF and not w[0].monster.has("koerper"), "Wölfe im eigenen Körper")
@@ -108,7 +108,7 @@ func _blenden() -> void:
 		var geblendet := 0
 		for i in 1000:
 			h.status.erase("BLIND")
-			m._foe_wounds(m.all[1], h, false)
+			m._foe_wounds(m.all[1], h)
 			if h.status.has("BLIND"):
 				geblendet += 1
 		_soll((geblendet > 20 and geblendet < 250) if c[1] else geblendet == 0, "%s blendet: %d von 1000" % [c[0], geblendet])
@@ -116,9 +116,10 @@ func _blenden() -> void:
 
 
 func _lohn() -> void:
-	# der Anführer zählt (Lohn wie alt); Kobolde als Rudel: 25 × (1 + 0,4 × 2) = 45; Ratten und Fledermäuse ohne Rudel
-	for c in [["RATS", 25], ["BATS", 50], ["KOBOLDS", 45], ["SHAMANS", 100]]:
+	# 870.5: nach dem BRS zählt jeder Gegner seiner Art (lohn.gd, Brs.erfahrung für den Probehelden der Stufe 3), drei je Gruppe
+	for c in [["RATS", "giant_rat"], ["BATS", "giant_bat"], ["KOBOLDS", "kobold"], ["SHAMANS", "goblin_shaman"]]:
 		var m = _kampf(c[0], 17)
 		m.test_end(true)
-		var r: Dictionary = Lohn.reward(m, 0, Wuerfel.new(1))
-		_soll(int(r.xp) == c[1], "%s: %s EP (soll %d)" % [c[0], r.xp, c[1]])
+		var r: Dictionary = Lohn.reward(m, {}, Wuerfel.new(1))
+		var soll := roundi(3 * Brs.erfahrung(3, c[1]))
+		_soll(int(r.xp) == soll and soll > 0, "%s: %s EP (soll %d)" % [c[0], r.xp, soll])

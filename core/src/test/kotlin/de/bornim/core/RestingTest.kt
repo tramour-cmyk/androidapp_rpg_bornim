@@ -187,7 +187,7 @@ class RestingTest {
         assertEquals(0, g.state.gold)
         assertEquals(5 * 60, g.state.minutes)
         assertEquals(g.hero.maxHp, g.hero.hp)
-        // 114: awake beside the bed, not at the counter
+        // 114: awake at the start, not at the counter; 604: upstairs, only in the text
         assertEquals(Story.START, g.state.place)
         assertEquals(Story.START, g.state.respawn)
         skip(g)
@@ -198,20 +198,16 @@ class RestingTest {
         assertEquals(5 * 60, g.state.minutes)
     }
 
+    /** 604 (Chef 06.11., 09:38): no bed in the taproom, the room is upstairs and only in the text; other beds are only looked at. */
     @Test
-    fun theInnBedOffersTheRoomAtAnyHourOtherBedsNothing() {
+    fun theInnHasNoBedDownstairsOtherBedsNothing() {
         val g = game()
         g.state.minutes = 12 * 60
         val inn = World["inn"]
-        val (bx, by) = (0 until inn.height).flatMap { y -> (0 until inn.width).map { it to y } }.first { (x, y) -> inn.tile(x, y) == Tile.BED }
-        g.state.place = Place("inn", bx, by + 1, Facing.UP)
-        if (inn.tile(bx, by + 1) == Tile.BED || !inn.walkable(bx, by + 1, g.state)) g.state.place = Place("inn", bx - 1, by, Facing.RIGHT)
-        g.interact()
-        assertEquals(Mode.Rest(Resting.Spot.ROOM), g.mode)
-        assertEquals(ActionKind.REST, g.actionAt(bx, by))
+        assertTrue((0 until inn.height).none { y -> (0 until inn.width).any { x -> inn.tile(x, y) == Tile.BED } }, "no bed in the taproom")
+        assertTrue(inn.walkable(Story.START.x, Story.START.y, g.state), "the start is free")
         val elder = World["elder"]
         val (ex, ey) = (0 until elder.height).flatMap { y -> (0 until elder.width).map { it to y } }.first { (x, y) -> elder.tile(x, y) == Tile.BED }
-        g.advance()
         g.state.place = Place("elder", ex, ey + 1, Facing.UP)
         assertEquals(ActionKind.LOOK, g.actionAt(ex, ey))
     }

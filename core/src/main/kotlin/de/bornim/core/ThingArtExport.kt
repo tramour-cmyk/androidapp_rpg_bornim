@@ -25,7 +25,8 @@ object ThingArtExport {
         val dir = File(args.firstOrNull() ?: "dinge")
         dir.mkdirs()
         var n = 0
-        for (id in Items.all.map { it.id } + SupplyArt.GOLD) { png(SupplyArt.get(id), File(dir, "ding-$id.bild")); n++ }
+        // 842: den Verband gibt es nur in Godot (gegenstaende.json)
+        for (id in Items.all.map { it.id } + SupplyArt.GOLD + "bandage") { png(SupplyArt.get(id), File(dir, "ding-$id.bild")); n++ }
         for (b in GearBases.all) for (r in Rarity.entries) { png(ItemArt.get(b.id, r), File(dir, "stueck-${b.id}-${r.name}.bild")); n++ }
         println("Bilder der Dinge: $n -> $dir")
     }

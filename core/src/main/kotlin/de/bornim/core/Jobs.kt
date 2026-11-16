@@ -44,13 +44,14 @@ object Jobs {
         Job(
             "pelts", "thessa", T("Thessa", "Thessa"),
             T("Felle für den Winter", "Pelts for the winter"),
-            T("Suche fünf Wolfsfelle, dicht und ohne Löcher. Der Winter kommt früh dieses Jahr. Bezahlung bei Thessa im Kramladen.",
-                "Wanted: five wolf pelts, thick and whole. Winter is coming early this year. Payment from Thessa at the general store."),
-            T("60 Gold", "60 gold"),
-            "wolf_pelt", 5, gold = 60,
-            bring = T("Fünf Wolfsfelle, wie am Brett verlangt. Dicht und ohne Löcher.", "Five wolf pelts, as the board asked. Thick and whole."),
-            thanks = T("Fünf. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn.",
-                "Five. Good. They still smell of blood – that washes out. Here, your pay."),
+            // 356.2 (356 b, Chef 24.10., 21:33: drei Felle statt fünf, dazu Thessas Pelzumhang; Wortlaut [356.felle.*])
+            T("Suche drei Wolfsfelle, dicht und ohne Löcher. Der Winter kommt früh dieses Jahr. Bezahlung bei Thessa im Kramladen.",
+                "Wanted: three wolf pelts, thick and whole. Winter comes early this year. Payment from Thessa at the general store."),
+            T("60 Gold, ein Pelzumhang", "60 gold, a fur cloak"),
+            "wolf_pelt", 3, gold = 60, gifts = listOf("cloak_thessa" to 1),
+            bring = T("Drei Wolfsfelle, wie am Brett verlangt. Dicht und ohne Löcher.", "Three wolf pelts, as the board asked. Thick and whole."),
+            thanks = T("Drei. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn. Und den Umhang hab ich aus dem letzten Winter. Der hält warm.",
+                "Three. Good. They still smell of blood – that washes out. Here, your pay. And this cloak is from last winter. It keeps you warm."),
         ),
         Job(
             "ring", "gwenna", T("Gwenna", "Gwenna"),
@@ -68,11 +69,12 @@ object Jobs {
             T("Hauer für den Schmied", "Tusks for the smith"),
             T("Brauche drei Keilerhauer für Griffschalen. Keine Splitter. Borin, in der Schänke.",
                 "Need three boar tusks for handle scales. No splinters. Borin, at the inn."),
-            T("50 Gold", "50 gold"),
-            "boar_tusk", 3, gold = 50,
+            // 356.2 (356 b: dazu Borins Hauerdolch; Wortlaut [356.hauer.*])
+            T("50 Gold, ein Hauerdolch", "50 gold, a tusk dagger"),
+            "boar_tusk", 3, gold = 50, gifts = listOf("dagger_borin" to 1),
             bring = T("Drei Keilerhauer, für deine Griffschalen.", "Three boar tusks, for your handle scales."),
-            thanks = T("Hm. Ordentlich gebrochen, nicht geschnitten. Damit lässt sich arbeiten. Nimm.",
-                "Hm. Broken clean, not sawn. I can work with these. Take this."),
+            thanks = T("Hm. Ordentlich gebrochen, nicht geschnitten. Damit lässt sich arbeiten. Nimm. Und den hier – Griffschalen aus Hauer, wie die, die ich jetzt mache.",
+                "Hm. Broken clean, not sawn. I can work with these. Take this. And this one – grip plates of tusk, like the ones I'm making now."),
         ),
         // the second wave (29.3): once Krogg is dead the road to the woods is open and folk dare to ask for more
         Job(

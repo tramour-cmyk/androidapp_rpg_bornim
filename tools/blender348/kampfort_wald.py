@@ -274,10 +274,11 @@ def stamm(a0, b0, a1, b1, r, s):
     for i in range(5):
         q = p0.lerp(p1, i / 4)
         ZONEN.append((q.x, q.y, r + 0.4)); SCHATTEN.append((q.x + 0.15, q.y - 0.1, r * 1.6, 0.6))
-def bestand_teil(name, p, r, dreh, farbe):
+def bestand_teil(name, p, r, dreh, farbe, hoch=0.0, neig=(0.0, 0.0)):
     """Bestand geprüft (LISTE-BESTAND.md, Stylized Nature MegaKit, CC0, Chef: „Felsen ja“; wie dorf.py fremd_teil): Teil aus dem
     Naturbausatz, waagerecht auf Halbmesser [r] m gebracht, um [dreh] gedreht, ein Fünftel im Boden; Eckfarbe aus [farbe]. Ohne
-    Paket (CC0 fehlt): False"""
+    Paket (CC0 fehlt): False. 1162: mit [hoch] senkrecht auf diese Höhe gestreckt (stehender Stein), ein Zehntel im Boden, um
+    [neig] (rad um x, y) geneigt"""
     import glob
     from mathutils import Matrix
     d = glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/stylized-nature-megakit/glTF')
@@ -289,8 +290,10 @@ def bestand_teil(name, p, r, dreh, farbe):
     lo = Vector((min(q.x for q in pts_all), min(q.y for q in pts_all), min(q.z for q in pts_all)))
     hi = Vector((max(q.x for q in pts_all), max(q.y for q in pts_all), max(q.z for q in pts_all)))
     k = r / max((hi.x - lo.x) / 2, (hi.y - lo.y) / 2, 1e-6)
-    M = Matrix.Translation(p + Vector((0, 0, -(hi.z - lo.z) * k * 0.2))) @ Matrix.Rotation(dreh, 4, 'Z') @ Matrix.Scale(k, 4) \
-        @ Matrix.Translation(-Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)))
+    kz = hoch / 0.9 / max(hi.z - lo.z, 1e-6) if hoch > 0 else k
+    S = Matrix.Diagonal((k, k, kz, 1.0))
+    M = Matrix.Translation(p + Vector((0, 0, -(hi.z - lo.z) * kz * (0.1 if hoch > 0 else 0.2)))) @ Matrix.Rotation(neig[0], 4, 'X') \
+        @ Matrix.Rotation(neig[1], 4, 'Y') @ Matrix.Rotation(dreh, 4, 'Z') @ S @ Matrix.Translation(-Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z)))
     for o in neu:
         if o.type != 'MESH': continue
         me = o.data; W = M @ o.matrix_world
@@ -311,16 +314,25 @@ def fels(a, b, r, s):
             blob(p + Vector((0, 0, r * 0.25)), r, farbe, sub=3, squash=0.78, seed=s, bump=0.2)
     ZONEN.append((p.x, p.y, r + 0.3)); SCHATTEN.append((p.x + 0.2, p.y - 0.15, r * 1.5, 0.7))
 def menhir(a, b, h, r, s):
-    """stehender Stein (ForestCam menhir): kantig, oben schmaler, leicht geneigt; manche abgebrochen"""
+    """stehender Stein (ForestCam menhir): kantig, oben schmaler, leicht geneigt; manche abgebrochen.
+    1162 (Chef 03.11., 15:59: „Steine wie gekappte Stämme, ohne Schatten“): aus dem Bestand (Rock_Medium 1–3, Naturbausatz CC0)
+    hochkant gestreckt, unten Erde, oben Moos wie fels(); der Schatten fällt lang vom Fuß weg (wie bei den Felsen nach rechts
+    hinten), nicht nur als Fleck unter dem Stein. Ohne Paket die alte Säule"""
     p = fight(a, b)
     if PR.random() < 0.3: h *= 0.55
-    lean = Vector((PR.uniform(-0.08, 0.08), PR.uniform(-0.08, 0.08), 0))
-    col = lambda v, n: mixc(lin(0x48484A), lin(0xB4B2AA), 0.3 + 0.5 * max(0.0, n.x * 0.3 - n.y * 0.4 + n.z * 0.5))
+    neig = (PR.uniform(-0.08, 0.08), PR.uniform(-0.08, 0.08))
+    col = lambda v, n: mixc(mixc(lin(0x48484A), lin(0xB4B2AA), 0.3 + 0.5 * max(0.0, n.x * 0.3 - n.y * 0.4 + n.z * 0.5)), lin(0x56723A),
+                            0.5 * ss(0.5, 0.9, n.z) * ss(h * 0.5, h * 0.85, v.z - p.z))
     with use('feldstein'):
-        cylinder(p, r, h, 6, col, r2=r * 0.7, lean=lean)
-        top = [p + lean + Vector((math.cos(2 * math.pi * k / 6) * r * 0.7, math.sin(2 * math.pi * k / 6) * r * 0.7, h)) for k in range(6)]
-        add_face(top, col)
-    ZONEN.append((p.x, p.y, r + 0.3)); SCHATTEN.append((p.x + 0.25, p.y - 0.2, r * 2.2, 0.65))
+        if not bestand_teil('Rock_Medium_%d' % (1 + s % 3), p, r, PR.uniform(0, 2 * math.pi), col, hoch=h, neig=neig):
+            lean = Vector((neig[1], -neig[0], 0)) * h
+            cylinder(p, r, h, 6, col, r2=r * 0.7, lean=lean)
+            top = [p + lean + Vector((math.cos(2 * math.pi * k / 6) * r * 0.7, math.sin(2 * math.pi * k / 6) * r * 0.7, h)) for k in range(6)]
+            add_face(top, col)
+    ZONEN.append((p.x, p.y, r + 0.3)); SCHATTEN.append((p.x + 0.15, p.y - 0.12, r * 1.8, 0.8))
+    for k in range(1, 5):     # 1162: lang vom Fuß weg, schmaler und schwächer (Länge etwa die Höhe des Steins)
+        f = k / 4
+        SCHATTEN.append((p.x + 0.15 + 0.62 * h * f, p.y - 0.12 - 0.5 * h * f, r * (1.6 - 0.7 * f), 0.75 - 0.3 * f))
 def schilf(p, h, s):
     with use('laub'):
         for k in range(3):

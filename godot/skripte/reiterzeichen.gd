@@ -2,7 +2,7 @@ class_name Reiterzeichen
 extends Control
 # 399.1 TabSign wie alt (MenuTabs.kt glyph, 60j): die Reiter des Menues als gezeichnetes Zeichen, Linien in Gold auf Schwarz,
 # nie gefuellt, auf 24 mal 24 Einheiten; der Name des gewaehlten Reiters steht gross darueber (326). abzeichen: kleiner Stern oben
-# rechts (Punkte zu verteilen). Arten: held, tasche, ausruestung, karte, chronik, system, test.
+# rechts (Punkte zu verteilen). Arten: held, fertigkeiten, tasche, ausruestung, karte, chronik, system, test.
 
 var art := "held"
 var farbe := Stil.TEXT
@@ -29,6 +29,14 @@ func _draw() -> void:
 			linie.call([[7.5, 7.8], [7.5, 11.5]], w); linie.call([[16.5, 7.8], [16.5, 11.5]], w)
 			linie.call([[7.5, 8.2], [16.5, 8.2]], d); linie.call([[12, 8.2], [12, 12]], d)
 			linie.call([[3, 22], [4, 17], [8.5, 14.5], [15.5, 14.5], [20, 17], [21, 22]], w)
+		"fertigkeiten":   # 762: drei Stufen, wie die Raenge aufsteigend, oben ein Stern (was geuebt wird, steigt)
+			linie.call([[3, 21], [3, 16], [9, 16], [9, 11.5], [15, 11.5], [15, 7], [21, 7], [21, 21]], w, true)
+			var st := PackedVector2Array()
+			for i in 10:
+				var a := PI / 2 + i * PI / 5; var r := 2.6 if i % 2 == 0 else 1.05
+				st.append(Vector2(6 + r * cos(a), 9 - r * sin(a)) * u)
+			st.append(st[0])
+			draw_polyline(st, c, d, true)
 		"tasche":   # Umhaengetasche: Koerper mit runden Ecken, Klappe mit Schnalle, Riemen (wie die Leiste)
 			var ecke := PackedVector2Array()
 			for m in [[Vector2(17.5, 18.5), 0.0], [Vector2(6.5, 18.5), 0.5], [Vector2(6.5, 11.5), 1.0], [Vector2(17.5, 11.5), 1.5]]:
@@ -74,7 +82,7 @@ func _draw() -> void:
 
 # TabButton: 46 dp hoch, gewaehlt erhaben mit hellem Rand, sonst schwarz mit duennem Rand; nur das Zeichen
 static func knopf(a: String, wort: String, was: Callable, gewaehlt: bool, stern := false) -> Button:
-	var b := Erschaffung.knopf("", was, gewaehlt)
+	var b := Stil.knopf("", was, gewaehlt)
 	b.custom_minimum_size = Vector2(0, 46 * AktionsKnopf.DP)
 	b.tooltip_text = wort
 	var z := Reiterzeichen.new(a, Stil.BRIGHT if gewaehlt else Stil.GOLD, stern)

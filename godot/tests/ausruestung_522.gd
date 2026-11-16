@@ -17,10 +17,10 @@ func _lauf() -> void:
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
 	for i in 5: await process_frame
-	spiel.werte = Heldwerte.erschaffe("Probe", "HUMAN", "WIZARD")
+	spiel.werte = BrsHeld.fuer_spiel("Probe", "Mensch", "Zauberlehrling")
 	spiel.betrete("village", Vector2i(20, 12), "LEFT")
 	for i in 5: await process_frame
-	var hw: Heldwerte = spiel.held_werte()
+	var hw: BrsHeld = spiel.held_werte()
 	var z: Zustand = spiel.zustand
 	var vorher := JSON.stringify(HeldFigur.wahl(hw, z))
 	var alt: Node3D = spiel.held.modell

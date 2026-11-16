@@ -8,7 +8,7 @@ Lesen:
   vorgang.py pruefen                    Formprüfung der ganzen Liste (Exit 1 bei Fehlern)
 Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und pushen):
   vorgang.py neu "Titel" "Bereich" KL "Besitzer" [--nr NR] [--oben]   neue Zeile (Stand startbar); ohne --nr die nächste freie Nummer
-                                       aus ARBEIT-BETRIEB.md (zählt hoch); ans Ende der Zeilen des Besitzers (--oben: an den Anfang)
+                                       aus ARBEIT-BETRIEB.md (zählt hoch; gilt erst, wenn der Zähler auf origin/main gepusht ist, 940); ans Ende der Zeilen des Besitzers (--oben: an den Anfang)
   vorgang.py stand NR "Stand"          Wort der Liste, dahinter nach Komma ein kurzer Zusatz; „gebaut“ nur mit „Geprüft an: <Link|Lauf|Commit>“
                                        (340.4); „wartet auf X[: …]“ setzt Wort „wartet“ und das Feld
   vorgang.py warte NR "X, Y" | –       Feld „wartet auf“: Nummer, Rolle, Datum TT.MM.[ HH:MM], t<Build> oder Chef[ <Datei>] (Automatik A)
@@ -16,18 +16,25 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py klasse NR M|K             M?-Entscheid (190.8)
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
   vorgang.py fertig NR                 Stand „erledigt“ (ins Archiv schiebt lauf.py --aufraeumen); nennt Absätze „Zu NR“
+  vorgang.py greift NR LAUF            Diogenes nach „greift“ im Bereich B: „erledigt, greift Lauf N“ (724 A, 755)
+  vorgang.py bautest NR LAUF           Diogenes bestätigt „ohne dich“ am Lauf der APK (Laufnachweis, grün): „erledigt, Bautest Lauf N“ (1128 A)
   vorgang.py build N --mit NR,NR …     Testbuild N trägt diese Vorgänge: Build N, Stand „zu testen“
   vorgang.py build N [--datei PFAD] [--probe]   Automatik B nach dem Test des Chefs: liest die Prüfliste ansehen/tN-….md (auch gelöscht,
-                                       aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“;
-                                       je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar mit dem Fund (Absatz „Zu NR, von Chef
-                                       (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build (in die nächste Prüfliste).
+                                       aus Git) mit Abschnitt „## Ergebnis“ („- N.k ✓“, „- N.k ✗ <Fund>“, „- Rest ✓“) oder Spalte „Chef“,
+                                       dazu 👍/👎 des Chefs auf „tN.k:“-Meldungen für Punkte ohne Ergebnis (1217; „Rest ✓“ gilt danach);
+                                       je Vorgang mit Build N: alle Punkte ✓ → erledigt; ein ✗ → startbar (schlägt jedes ✓ und den Zweig claude/build-N, 1230) mit dem Fund (Absatz „Zu NR, von Chef
+                                       (Fund tN.k …)“ beim Besitzer); ohne Rückmeldung → „zu testen“ ohne Build, startbar für den Besitzer (1332);
+                                       Handypunkt ohne Ergebnis → bleibt „zu testen“ mit Build N, Liste bleibt in ansehen/ (1277).
                                        Genannte Nummern ohne Build N bleiben unverändert (D80.1). Erst danach den Archiveintrag tN
                                        committen; sonst hält die Commit-Prüfung an.
+  vorgang.py archivbereich [NR=Bereich …]   Bereichsfeld im Archiv (LISTE-VORGAENGE-ARCHIV.md): jedes ungültige nach
+                                       bereiche.einordnen(), die genannten Nummern fest (686, D90.3); meldet, was „? unbekannt“ bleibt
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
 import os, re, sys, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar
+import bereiche  # 651
 
 DOCS = startbar.DOCS
 ROLLEN = startbar.BESITZER
@@ -86,7 +93,8 @@ def stand_setzen(nr, stand, rolle=None):
     m = re.match(r"\s*wartet auf\s+(.+?)(?::\s*(.*))?$", stand)
     if m and not startbar.art(m.group(1).split(",")[0].strip()) is None:  # alte Gewohnheit „wartet auf 625: …“
         n["warte"] = warte_aus(m.group(1)); stand = "wartet" + ((", " + m.group(2)) if m.group(2) else "")
-    stand_pruefen(stand, nr)
+    if stand_pruefen(stand, nr) == "erledigt" and (sp := rest_sperre(nr, d)):   # 1153
+        sys.exit("vorgang.py: " + sp)
     n["stand"] = stand
     ersetzen(d, n)
     print("vorgang.py: %s (%s) Stand „%s“%s" % (nr, d["besitzer"], stand, (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else ""))
@@ -107,8 +115,11 @@ def setzen(nr, paare, rolle=None):
         if k not in FELDER: sys.exit("vorgang.py: Feld „%s“ unbekannt (%s)" % (k, ", ".join(sorted(set(FELDER)))))
         k = FELDER[k]
         if k == "warte": n[k] = warte_aus(v)
-        elif k == "stand": stand_pruefen(v, nr); n[k] = v
+        elif k == "stand":
+            if stand_pruefen(v, nr) == "erledigt" and (sp := rest_sperre(nr, d)): sys.exit("vorgang.py: " + sp)   # 1153
+            n[k] = v
         elif k == "build": n[k] = v.lstrip("t") or "–"
+        elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
     if n["besitzer"] != d["besitzer"]:  # neuer Besitzer: Zeile ans Ende seiner Zeilen
         ersetzen(d, n); rang(nr, "unten", None, n["besitzer"])
@@ -120,13 +131,140 @@ def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
     setzen(nr, ["kl=" + kl], rolle)
 
+# 1143 (Perikles, Vorschlag Sokrates 13.11., 14:38; Fund des Chefs 1141): 596 ging „erledigt“, obwohl sein Commit sagte „Goblins …
+# kippen steif, das braucht einen Bau mit Bild“; den Rest fand der Chef eine Woche später wieder. Nennt der letzte Commit der
+# Nummer („<Nr>: …“ auf irgendeinem Zweig) oder die Übergabe im Vorrat des Besitzers einen Rest, hält fertig an, bis es einen
+# Folgevorgang gibt (offene Unternummer <Nr>.x oder eine Zeile, die „aus <Nr>“ oder „(<Nr>)“ nennt) oder der Commit den Grund sagt
+# („Kein Folgevorgang, weil: …“).
+# 1237: seit jeder Code-Commit zählt, weckten „späterer“, „späterem“ (1137.2, 1237 selbst) und „<andere Nr> noch nicht im Build“
+# (1180) Fehlalarme; „später“ nur als ganzes Wort, „noch nicht im Build/auf main“ ist ein Stand, kein Rest
+REST = re.compile(r"noch nicht(?! (?:hat|haben|kennt|gibt|liegt|da ist|im Build|auf main))|braucht noch|später\b|braucht einen Bau|^Offen( in [\w.]+)?:|\bRest:", re.I | re.M)
+
+# 1175 (D207.1 Diogenes): nur der jüngste Commit der Nummer verdeckte den Rest, sobald ein Notizcommit wie „1143: in Arbeit bei
+# Spike“ (nur docs/) danach kam. Gelesen wird jetzt der jüngste Commit der Nummer, der mehr als Notizen ändert (Code, Werkzeuge,
+# Abläufe); gibt es keinen, der jüngste überhaupt.
+NOTIZ = re.compile(r"^(docs/|CHANGELOG\.md$|CLAUDE\.md$)")
+
+# 1237 (D228.1, Diogenes): DOCS (bornim-main) kennt nur main, meldungen, reaktionen; Baucommits auf claude/build-<n> und den
+# Teamzweigen liegen im Code-Klon daneben (androidapp_rpg_bornim, BORNIM_CODE), darum beide lesen
+def _repos():
+    haupt = os.path.dirname(os.path.dirname(os.path.abspath(DOCS)))
+    out = [DOCS]
+    for c in [os.environ.get("BORNIM_CODE", ""), os.path.join(haupt, "androidapp_rpg_bornim")]:
+        if c and os.path.isdir(os.path.join(c, ".git")) and os.path.realpath(c) != os.path.realpath(os.path.dirname(os.path.abspath(DOCS))):
+            out.append(c)
+    return out
+
+def _commits(nr):
+    """[(Kurzhash, „<Kurzhash>\n<Nachricht>“, Dateien)] der Commits mit der Nummer vorn im Betreff, neueste zuerst, ohne Doppelte."""
+    stuecke, gesehen = [], set()
+    for repo in _repos():
+        try:
+            r = subprocess.run(["git", "-C", repo, "log", "--all", "-n", "40", "-E", "--format=%x1e%h%x1d%ct%n%B%x1f", "--name-only",
+                                "--grep", "^" + nr.replace(".", "\\.") + "([:, ]|$)"], capture_output=True, text=True, timeout=30).stdout
+        except (OSError, subprocess.SubprocessError):
+            continue
+        for teil in r.split("\x1e")[1:]:
+            text, _, namen = teil.partition("\x1f")
+            kopf, _, rest = text.partition("\n")
+            h, _, zeit = kopf.partition("\x1d")
+            betreff = (rest.split("\n") + [""])[0]
+            if h in gesehen or not re.match(re.escape(nr) + r"([:, ]|$)", betreff):   # nur Commits mit der Nummer vorn im Betreff
+                continue
+            gesehen.add(h)
+            stuecke.append((int(zeit or 0), h, (h + "\n" + rest).strip("\n"), [n for n in namen.split("\n") if n.strip()]))
+    stuecke.sort(key=lambda x: -x[0])
+    return [(h, t, d) for _, h, t, d in stuecke]
+
+def bau_commits(nr):
+    """Alle Commits der Nummer, die mehr als Notizen ändern (1237: ein späterer ohne Rest verdeckt den früheren mit Rest nicht)."""
+    return [t for _, t, d in _commits(nr) if any(not NOTIZ.match(n) for n in d)]
+
+def bau_commit(nr):
+    """„<Kurzhash>\n<Nachricht>“ des maßgeblichen Commits der Nummer (1175), "" ohne Commit."""
+    alle = _commits(nr)
+    if not alle:
+        return ""
+    code = bau_commits(nr)
+    return code[0] if code else alle[0][1]
+
+# 1240 (D230.1, Diogenes): „Kein Folgevorgang, weil:“ hob nur den eigenen Commit auf; ein Rest in einem älteren Code-Commit
+# sperrte für immer (1237 durch ein Zitat). Jetzt gilt der Grund für seinen Commit und alle älteren der Nummer, auch als reiner
+# Notizcommit; Reste in jüngeren Commits zählen weiter. Nur am Zeilenanfang (nach „<Nr>: “), nie als Zitat „„Kein …““.
+KEIN_FOLGE = re.compile(r"^(?:[\w.]+: )?Kein Folgevorgang, weil:[ \t]*[^\s…]", re.M)
+
+def rest_offen(nr, d=None):
+    """[(Quelle, Satz)] der Reste ohne Folgevorgang, leer = fertig darf."""
+    funde = []
+    alle = _commits(nr)
+    code = {t for t in bau_commits(nr)}
+    for _, r, _ in alle:   # neueste zuerst
+        kopf, _, text = r.partition("\n")
+        if KEIN_FOLGE.search(text):
+            break   # 1240: Grund deckt diesen und alle älteren Commits
+        if code and r not in code:   # 1237: jeder Code-Commit der Nummer; ohne Code-Commit nur der jüngste
+            continue
+        for z in text.splitlines():
+            z = re.sub(r"\[[\w.]+\]", "", z)   # Textmarken wie [954.1.spaeter] (Spike 15:05: Fehlalarm in 1015, 1017)
+            if REST.search(z) and not z.startswith(("Co-Authored-By", "Claude-Session")):
+                funde.append(("Commit " + kopf.strip(), z.strip()[:160]))
+        if not code:
+            break
+    d = d or finden(nr)
+    vorrat = startbar.lesen(startbar.VORRAT.get(d["besitzer"], ""))
+    for z in vorrat.splitlines():
+        if z.startswith("**Übergabe") and re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", z):
+            for satz in re.split(r"(?<=[.;])\s+", z):
+                if re.search(r"(?<![\w.])" + re.escape(nr) + r"(?![\w]|\.\d)", satz) and REST.search(satz):
+                    funde.append(("Übergabe " + d["besitzer"], satz.strip()[:160]))
+    if not funde:
+        return []
+    folge = [x for x in startbar.zeilen_liste() if x["nr"] != nr and x["wort"] not in ("erledigt", "verworfen") and
+             (x["nr"].startswith(nr + ".") or re.search(r"\baus " + re.escape(nr) + r"(?![\w.]|\.\d)|\(" + re.escape(nr) + r"[,;)]", x["titel"]))]
+    return [] if folge else funde
+
+def rest_sperre(nr, d=None):
+    """1143, 1153 (D205.4): Meldung, wenn nr wegen eines Rests ohne Folgevorgang nicht erledigt werden darf, sonst None. Gilt für
+    fertig, greift, bautest, stand/setze mit „erledigt“ und die Testauswertung build N."""
+    rest = rest_offen(nr, d)
+    if not rest or os.environ.get("VORGANG_REST_OK") == nr:
+        return None
+    return ("%s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
+            "oder einen Commit „%s: Kein Folgevorgang, weil: …“ schreiben (deckt auch alle älteren, 1240)." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr, nr))
+
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
+    sperre = rest_sperre(nr, d)
+    if sperre:
+        print("vorgang.py: " + sperre)
+        sys.exit(1)
     ersetzen(d, dict(d, stand="erledigt", warte=[]))
     wer = [x for x in startbar.zeilen_liste() if nr in x["warte"]]
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
     print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; darauf warten: " + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
+
+def greift(nr, lauf, rolle=None):
+    """755 (D101.1, 724 A): Diogenes schließt einen Vorgang im Bereich B mit seinem „greift“ selbst ab, im Commit des Laufs;
+    greift er nicht, bleibt die Zeile und die Lücke wird ein eigener Vorgang, auf den sie wartet (`warte NR NEU`)."""
+    d = finden(nr, rolle)
+    if not d.get("bereich", "").startswith("B "):
+        # 1188 (d): 866, 896 waren Werkzeug unter „E Technik“, „greift“ prallte ab und die Zeile blieb offen
+        print("vorgang.py: %s ist nicht im Bereich B; „greift“ gilt nur für Werkzeug und Abläufe (724 A). Ist es Werkzeug oder Ablauf, "
+              "Vorgang an den Besitzer: Bereich auf B setzen (`vorgang.py setze %s bereich=B Werkzeuge`), dann greift; sonst wartet er auf den Test." % (nr, nr)); sys.exit(1)
+    fertig(nr, rolle)
+    d = finden(nr, rolle)
+    ersetzen(d, dict(d, stand="erledigt, greift Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
+
+def bautest(nr, lauf, rolle=None):
+    """1128.2 (1128 A, Chef 13.11., 13:36): Diogenes bestätigt einen Punkt „ohne dich“ am Lauf der APK: Test steht dort ohne `|| true`,
+    ohne continue-on-error und ohne Bedingung (`tools/laufnachweis.py`) und war grün. Dann zählt er nicht mehr in die Sperre 620.1 B."""
+    d = finden(nr, rolle)
+    if not (d["wort"] == "gebaut" or d["wort"].startswith("zu")):
+        print("vorgang.py: %s steht auf „%s“; „bautest“ gilt nur für gebaute oder zu testende Vorgänge" % (nr, d["stand"])); sys.exit(1)
+    fertig(nr, rolle)
+    d = finden(nr, rolle)
+    ersetzen(d, dict(d, stand="erledigt, Bautest Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
 
 def gruppe(L, besitzer):
     """Zeilenindizes der Zeilen eines Besitzers und Einfügestelle für einen neuen Besitzer (Reihenfolge wie die Liste)."""
@@ -154,11 +292,75 @@ def rang(nr, wie, ziel=None, rolle=None):
     schreiben(startbar.LISTE, "\n".join(L))
     print("vorgang.py: %s (%s) %s%s" % (nr, d["besitzer"], wie, (" " + ziel) if ziel else ""))
 
+_FERN = {}
+
+def _fern(datei):
+    """880 (D135.2): Stand von origin/main frisch geholt (einmal je Aufruf), damit zwei Sitzungen nicht dieselbe Nummer ziehen,
+    wenn eine noch nicht zusammengeführt hat. Ohne Netz: leer."""
+    if "_geholt" not in _FERN:
+        _FERN["_geholt"] = True
+        try: subprocess.run(["git", "-C", DOCS, "fetch", "-q", "origin", "main"], timeout=20, capture_output=True)
+        except Exception: pass
+    if datei not in _FERN:
+        try: _FERN[datei] = subprocess.run(["git", "-C", DOCS, "show", "origin/main:docs/" + datei], capture_output=True, text=True, timeout=10).stdout
+        except Exception: _FERN[datei] = ""
+    return _FERN[datei]
+
+def fern_zaehler():
+    m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", _fern("ARBEIT-BETRIEB.md"))
+    return [int(m.group(1))] if m else []
+
+def fern_nummern():
+    return set(re.findall(r"(?m)^\| (\d+) \|", _fern(startbar.LISTE)))
+
+def _git(*a, env=None, eingabe=None):
+    p = subprocess.run(["git", "-C", DOCS] + list(a), capture_output=True, text=True, timeout=30, env=env, input=eingabe)
+    return p.returncode, p.stdout.strip(), p.stderr
+
+def zaehler_pushen(zeile, nr, besitzer):
+    """940 (Tom 11.11., 13:13: 934, 935 doppelt): die Nummer gilt erst, wenn der Zähler auf origin/main steht. Ein Commit nur mit der
+    Zählerzeile, gebaut auf origin/main ohne Index und Arbeitskopie (commit-tree), wird gepusht. „gültig“; „abgewiesen“ (ein anderer
+    war schneller: neu holen); „aus“ (kein Netz, nicht auf main, BORNIM_OHNE_ZAEHLERPUSH=1: alter Weg, Mischkonflikt als Warnung)."""
+    if os.environ.get("BORNIM_OHNE_ZAEHLERPUSH"): return "aus"
+    try:
+        if _git("rev-parse", "--abbrev-ref", "HEAD")[1] != "main": return "aus"
+        _fern("ARBEIT-BETRIEB.md")  # holt origin/main einmal je Versuch
+        rc, basis, _ = _git("rev-parse", "origin/main")
+        rc2, alt, _ = _git("show", "origin/main:docs/ARBEIT-BETRIEB.md")
+        mm = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", alt) if rc == rc2 == 0 else None
+        if not mm or int(mm.group(1)) > int(nr): return "abgewiesen" if mm else "aus"
+        rc, blob, _ = _git("hash-object", "-w", "--stdin", eingabe=alt.replace(mm.group(0), zeile, 1) + "\n")
+        import tempfile
+        with tempfile.TemporaryDirectory() as t:
+            env = dict(os.environ, GIT_INDEX_FILE=os.path.join(t, "index"))
+            _git("read-tree", basis, env=env)
+            _git("update-index", "--cacheinfo", "100644,%s,docs/ARBEIT-BETRIEB.md" % blob, env=env)
+            rc, baum, _ = _git("write-tree", env=env)
+        # Systemzeilen aus dem letzten eigenen Commit dieser Kopie (Reflog „commit“), sonst ohne
+        _, log, _ = _git("log", "-g", "-n", "200", "--format=%H%x1f%gs", "HEAD")
+        eigen = next((l.split("\x1f")[0] for l in log.splitlines() if "\x1f" in l and l.split("\x1f")[1].startswith("commit")), None)
+        # 957 (D172.1): frische Sitzung ohne eigenen Commit: Co-Authored-By aus dem jüngsten Commit auf origin/main, der eine trägt;
+        # Claude-Session aus CLAUDE_CODE_REMOTE_SESSION_ID (cse_… = session_…)
+        _, text, _ = _git("log", "-1", "--format=%B", eigen) if eigen else (0, "", "")
+        if "Co-Authored-By:" not in text: _, text2, _ = _git("log", "-30", "--format=%B", "origin/main"); text += "\n" + text2
+        co = next((l for l in text.splitlines() if l.startswith("Co-Authored-By:")), None)
+        sid = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")
+        cs = ("Claude-Session: https://claude.ai/code/session_" + sid[4:]) if sid.startswith("cse_") else \
+            next((l for l in (_git("log", "-1", "--format=%B", eigen)[1] if eigen else "").splitlines() if l.startswith("Claude-Session:")), None)
+        anhang = "\n".join(x for x in (co, cs) if x)
+        rc, neu_c, _ = _git("commit-tree", baum, "-p", basis, "-m", "Zähler: %s vergeben (%s, 940)" % (nr, besitzer) + ("\n\n" + anhang if anhang else ""))
+        if rc or not neu_c: return "aus"
+        rc, _, err = _git("push", "-q", "origin", "%s:refs/heads/main" % neu_c)
+        if rc == 0: return "gültig"
+        return "abgewiesen" if re.search(r"rejected|fetch first|non-fast-forward|stale info", err) else "aus"
+    except Exception:
+        return "aus"
+
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     """275 Stufe 2, 275.2: neue Zeile (Stand startbar, Kosten –); ohne --nr die nächste freie Nummer aus ARBEIT-BETRIEB.md, die hochzählt."""
     if kl not in ("M", "K", "M?"): sys.exit("vorgang.py: Klasse M, K oder M?")
-    if not re.match(r"[A-Z] \S", bereich): sys.exit("vorgang.py: Bereich wie „B Abläufe“, „E Kampf“ (124)")
-    besitzer = {"Team Tom": "Tom", "Team Jerry": "Jerry", "Spike": "Tom", "Tuffy": "Jerry"}.get(besitzer.strip(), besitzer.strip())
+    if not bereiche.gueltig(bereich): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(bereich), bereiche.liste_text()))
+    besitzer = {"Team Tom": "Tom", "Team Jerry": "Jerry", "Tuffy": "Jerry"}.get(besitzer.strip(), besitzer.strip())
     if besitzer not in ROLLEN: sys.exit("vorgang.py: Besitzer eine Rolle: " + ", ".join(ROLLEN))
     if any(c in titel for c in "|\n"): sys.exit("vorgang.py: Titel ohne | und Zeilenumbruch")
     if nr and (nr in startbar.VORG or any(d["nr"] == nr for d in startbar.zeilen_liste())): sys.exit("vorgang.py: %s gibt es schon" % nr)
@@ -167,16 +369,67 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     fehler_oder(d)
     if not nr:
         b = startbar.lesen("ARBEIT-BETRIEB.md")
-        m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", b)
+        m = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*( \(zuletzt [^)]*\))?", b)
         if not m: sys.exit("vorgang.py: Zähler in ARBEIT-BETRIEB.md nicht gefunden")
-        nr = m.group(1); d["nr"] = nr
-        schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), "**Nächste freie Vorgangsnummer: %d**" % (int(nr) + 1), 1))
+        import secrets, time
+        for versuch in range(6):
+            nr = str(max([int(m.group(1))] + fern_zaehler())); d["nr"] = nr  # 880: nie unter dem Zähler auf origin/main
+            while nr in startbar.VORG or any(d2["nr"] == nr for d2 in startbar.zeilen_liste()) or nr in fern_nummern():
+                nr = str(int(nr) + 1); d["nr"] = nr
+            # 653 doppelt: zwei Sitzungen zogen dieselbe Nummer, die gleiche Zählerzeile mischte git still.
+            # Die Marke macht jede Ziehung verschieden, gleichzeitiges Ziehen wird ein Mischkonflikt.
+            marke = " (zuletzt %s %s %s %s)" % (nr, besitzer, time.strftime("%d.%m. %H:%M:%S"), secrets.token_hex(2))
+            zeile = "**Nächste freie Vorgangsnummer: %d**%s" % (int(nr) + 1, marke)
+            r = zaehler_pushen(zeile, nr, besitzer)
+            if r != "abgewiesen": break
+            _FERN.clear()  # ein anderer war schneller: frisch holen, nächste Nummer
+        else: sys.exit("vorgang.py: Zähler sechsmal abgewiesen (origin/main bewegt sich zu schnell); nichts angelegt, gleich noch einmal")
+        if r != "gültig": schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), zeile, 1))
+        # gültig: der Zähler steht auf origin/main; die eigene Kopie holt ihn beim nächsten pull ohne Konflikt (Zeile hier unverändert)
     L = text_liste().split("\n")
     eigen, ende = gruppe(L, besitzer)
     L.insert(eigen[0] if oben and eigen else ende, startbar.zeile_text(d))
     schreiben(startbar.LISTE, "\n".join(L))
     print("vorgang.py: %s angelegt (%s, %s, %s); Einzelheiten als „Zu %s“ in den Vorrat, dann pushen, dann die Nummer nennen" % (nr, bereich, kl, besitzer, nr))
+    if not titel.startswith(SYSTEM): waechter(nr, titel, bereich)
     return nr
+
+# 654 (Chef 08.11., 14:42): Wiederholungswächter. Teilt ein neuer Vorgang ein Stichwort mit zwei oder mehr früheren
+# (offen oder im Archiv), legt das Werkzeug eine Zeile „Systemlösung?“ für Sokrates an (Systemrunde montags), je Stichwort eine offene.
+SYSTEM = "Systemlösung?"
+STICHWORTE = ["Schild", "Waffe", "Bogen", "Axt", "Klinge", "Griff", "Pfote", "Haar", "Kapuze", "Umhang",
+              "Fackel", "Schrift", "Kasten", "Fenster", "Knopf", "Menü", "Kamera", "Licht", "Schatten", "Nebel",
+              "Wetter", "Wasser", "Teich", "Tür", "Treppe", "Ebene", "Karte", "Kollision", "Drehung", "Parade", "Klang", "Musik",
+              "Speichern", "Probebild", "Film"]
+# 788 (654 A, Chef 09.11., 17:46): Allerweltswörter legen keine Zeile an. Schwert und Zwischensequenz sind gestrichen
+# (763, 707: keine Systemfrage), Halt und Rüstung (654.1, Systemrunde 16.11.: 1350, 1354 Fehltreffer; Waffenhalt deckt Griff); Wörter mit schon entschiedenem Querschnitt verweisen nur auf ihn (Systemrunde 09.11.).
+QUERSCHNITT = {"Menü": "785", "Knopf": "785", "Fenster": "785", "Kasten": "785", "Schrift": "785",
+               "Klang": "786", "Musik": "786",
+               "Licht": "620.4", "Schatten": "620.4", "Fackel": "620.4", "Kamera": "620.4", "Karte": "620.4",
+               "Schild": "644", "Waffe": "644", "Film": "511", "Probebild": "511"}
+
+# 793 (D116.1): Wortanfänge, die ein anderes Wort sind (Beispiel Halt/Haltung, Halt gestrichen 654.1)
+NICHT = {}
+
+def waechter(nr, titel, bereich):
+    def hat(t, w): return re.search(r"(?<![\w])" + w + NICHT.get(w, ""), t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
+    titel_alle = []
+    for name in (startbar.LISTE, "LISTE-VORGAENGE-ARCHIV.md"):
+        for m in re.finditer(r"(?m)^\| ([^|\s]+) \| ([^|]*) \|", startbar.lesen(name)):
+            if m.group(1) not in (nr, "Nr.") and not m.group(2).startswith(SYSTEM): titel_alle.append((m.group(1), m.group(2)))
+    offen = " ".join(d["titel"] for d in startbar.zeilen_liste() if d["titel"].startswith(SYSTEM))
+    for w in STICHWORTE:
+        if not hat(titel, w): continue
+        frueher = [n for n, t in titel_alle if hat(t, w)]
+        if len(frueher) < 2: continue
+        if w in QUERSCHNITT:
+            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen; gehört zum Querschnitt %s (654 A), keine neue Zeile" % (w, len(frueher), QUERSCHNITT[w])); continue
+        if re.search(re.escape(SYSTEM) + " " + w + r"\b", offen):
+            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w)); continue
+        zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
+        n2 = neu("%s %s: %d frühere Vorgänge (%s), neu %s; einmal grundsätzlich lösen? (654)" % (SYSTEM, w, len(frueher), zeige, nr), bereich, "K", "Sokrates")
+        offen += " %s %s" % (SYSTEM, w)
+        print("vorgang.py: Wiederholung „%s“ → %s für Sokrates (654); vor dem Bauen die Systemfrage" % (w, n2))
 
 # ---------------------------------------------------------------- Automatik B
 
@@ -205,18 +458,20 @@ def nummern(zelle):
         elif re.fullmatch(r"\s*D?\d+[a-z0-9.]*\s*", teil): aus.append(teil.strip())
     return aus
 
-def ergebnisse(n, text):
-    """{Testnummer: (Vorgänge, Ergebnis ✓|✗|None, Fund)}."""
+def ergebnisse(n, text, telegram=False):
+    """{Testnummer: (Vorgänge, Ergebnis ✓|✗|None, Fund)}; telegram: 👍/👎 vor „Rest“ (1217)."""
     punkte = {}
     for kopf, zs in startbar.tabellen(text):
         if "Nr." not in kopf: continue
         i_nr = kopf.index("Nr."); i_chef = kopf.index("Chef") if "Chef" in kopf else None
         for _, t in zs:
-            if not re.fullmatch(r"%s\.\d+[a-z]?" % n, t[0]): continue
+            m0 = re.match(r"(%s\.\d+[a-z]?)(?![0-9a-z.])\s*(.*)" % n, t[0])  # 775: auch „269.1 ✓“, „269.3 ✗ → 663“ (t269)
+            if not m0: continue
             erg = fund = None
+            if m0.group(2)[:1] in ("✓", "✗"): erg, fund = m0.group(2)[0], m0.group(2)[1:].strip(" →") or None
             if i_chef is not None and i_chef < len(t) and t[i_chef].strip():
                 c = t[i_chef].strip(); erg = "✓" if c.startswith("✓") else "✗" if c.startswith("✗") else None; fund = c[1:].strip()
-            punkte[t[0]] = [nummern(t[i_nr]) if i_nr < len(t) else [], erg, fund]
+            punkte[m0.group(1)] = [nummern(t[i_nr]) if i_nr < len(t) else [], erg, fund]
     rest = None
     teil = re.split(r"(?m)^## Ergebnis[^\n]*\n", text)
     if len(teil) > 1:
@@ -227,6 +482,7 @@ def ergebnisse(n, text):
             if k.lower() == "rest": rest = e; continue
             if k in punkte: punkte[k][1:] = [e, f.strip(" :–-")]
             else: punkte.setdefault("Nr " + k, [[k], e, f.strip(" :–-")])
+    if telegram: telegram_ergebnisse(n, text, punkte)
     if rest:
         for k, v in punkte.items():
             if v[1] is None: v[1] = rest
@@ -249,9 +505,54 @@ def zu_absatz(besitzer, nr, kopf, text):
     else: t += "\n\n" + zeile
     schreiben(datei, t + "\n")
 
+def arten(n, text):
+    """{Testnummer: Art} aus der Spalte „Art“ (Handy, Bild, Film, ohne dich …)."""
+    aus = {}
+    for kopf, zs in startbar.tabellen(text):
+        if "Art" not in kopf: continue
+        i = kopf.index("Art")
+        for _, t in zs:
+            m0 = re.match(r"(%s\.\d+[a-z]?)(?![0-9a-z.])" % n, t[0])
+            if m0 and i < len(t): aus[m0.group(1)] = re.sub(r"\*\*|`", "", t[i]).strip()
+    return aus
+
+def handy_offen(n, text, punkte=None):
+    """1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“, t286 nach 👍 auf 286.1–.5 gelöscht): Handypunkte ohne Ergebnis;
+    solange einer offen ist, bleibt die Prüfliste in ansehen/ und seine Vorgänge bleiben „zu testen“ mit Build n."""
+    punkte = punkte if punkte is not None else ergebnisse(n, text, telegram=True)
+    a = arten(n, text)
+    return sorted((k for k, v in punkte.items() if a.get(k, "").lower().startswith("handy") and v[1] is None),
+                  key=lambda k: [int(x) if x.isdigit() else x for x in re.findall(r"\d+|[a-z]", k)])
+
+def falsch_spalte(n, text):
+    """1217: {Testnummer: Text der Spalte „Falsch“} für den Fund aus einem 👎."""
+    aus = {}
+    for kopf, zs in startbar.tabellen(text):
+        if "Falsch" not in kopf: continue
+        i = kopf.index("Falsch")
+        for _, t in zs:
+            m0 = re.match(r"(%s\.\d+[a-z]?)(?![0-9a-z.])" % n, t[0])
+            if m0 and i < len(t): aus[m0.group(1)] = re.sub(r"\*\*|`", "", t[i]).strip()
+    return aus
+
+def telegram_ergebnisse(n, text, punkte):
+    """1217 (Chef 13.11., 20:01: „Däumchen hoch …, wenn es passt … Däumchen runter“): 👍/👎 auf „t<n>.<Punkt>:“-Meldungen als ✓/✗
+    der Punkte ohne Ergebnis; ein Ergebnis im Abschnitt „## Ergebnis“ oder in der Spalte „Chef“ geht vor."""
+    try:
+        import reaktionen
+        tg = reaktionen.pruefpunkte(n)
+    except Exception as e:
+        print("vorgang.py: Telegram nicht gelesen (%s), nur die Prüfliste" % str(e)[:80]); return
+    fs = falsch_spalte(n, text)
+    for k, (e, mid, wann) in sorted(tg.items()):
+        if k not in punkte or punkte[k][1] is not None: continue
+        wo = "%s auf Telegram, %s, Nachricht %s" % ("👎" if e == "✗" else "👍", wann[11:], mid)
+        punkte[k][1:] = [e, ("nicht bestanden (%s); Zeile „Falsch“: %s; was der Chef dazu schrieb, geht vor" % (wo, fs.get(k) or "ohne Text")) if e == "✗" else wo]
+        print("vorgang.py: %s %s aus Telegram (Nachricht %s)" % (k, e, mid))
+
 def build_abschluss(n, datei=None, probe=False):
     pfad, text = pruefliste(n, datei)
-    punkte = ergebnisse(n, text)
+    punkte = ergebnisse(n, text, telegram=True)
     if not any(v[1] for v in punkte.values()):
         sys.exit("vorgang.py: Prüfliste %s ohne Ergebnis (Abschnitt „## Ergebnis“ mit „- %s.k ✓|✗ <Fund>“ und „- Rest ✓“, oder Spalte „Chef“)" % (pfad, n))
     je = {}
@@ -261,26 +562,45 @@ def build_abschluss(n, datei=None, probe=False):
     # D80.1: nur die Vorgänge des Builds (Feld Build = N, eingetragen mit build N --mit); in der Prüfliste genannte Nummern ohne Build N
     # bleiben, wie sie sind (Hinweis unten), sonst fielen startbare Zeilen anderer Arbeit aus der Rechnung
     betroffen = [d for d in zs if d.get("build") == str(n) and d["wort"] != "erledigt"]
-    fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d.get("build") != str(n) and d["wort"] != "erledigt"})
+    # 1220 (D222.1: 👎 auf 284.7c, 284.7p trafen 709 nicht, 15 Punkte ohne Build 284): ein genannter Vorgang „gebaut“ oder „zu testen“
+    # ohne Build-Nummer wartet auf genau diesen Test und zählt mit; andere (startbar, in Arbeit, anderer Build) bleiben wie in D80.1
+    nach = [d for d in zs if d["nr"] in je and not re.fullmatch(r"\d+", str(d.get("build") or "")) and d["wort"] in ("gebaut", "zu testen")
+            and d not in betroffen]
+    if nach: print("%s nachgezogen in Build %s (gebaut/zu testen ohne Build, 1220): %s" % ("PROBE" if probe else "BUILD", n, ", ".join(d["nr"] for d in nach)))
+    betroffen += nach
+    fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d not in betroffen and d["wort"] != "erledigt"})
     if not betroffen: sys.exit("vorgang.py: kein Vorgang mit Build %s in der Liste; erst vorgang.py build %s --mit <Nr,…>%s" % (n, n, ("; in der Prüfliste genannt: " + ", ".join(fremd)) if fremd else ""))
+    offen_h = handy_offen(n, text, punkte)
     aus = []
     for d in betroffen:
         p = je.get(d["nr"], [])
         durch = [x for x in p if x[1] == "✗"]
-        if d.get("zweig") == "claude/build-%s" % n and any(v[1] for v in punkte.values()):  # der Sammelbuild selbst: getestet
+        # 1230 (t284: 1022 trug den Zweig claude/build-284, ging trotz „284.2 ✗“ als Sammelbuild „getestet“ ins Archiv): ein ✗ schlägt
+        # jedes ✓ derselben Nummer und auch die Sammelbuild-Regel; erledigt heißt dann nie, Rückläufer statt Wiedereröffnen
+        if durch:
+            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–", titel=startbar.rueck_marke(d["titel"], n)); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
+        elif not p and d.get("zweig") == "claude/build-%s" % n and any(v[1] for v in punkte.values()):  # der Sammelbuild selbst (ohne eigene Punkte): getestet
             neu_d = dict(d, stand="erledigt, t%s getestet" % n, warte=[], build=str(n)); was = "erledigt (Sammelbuild)"
         elif p and all(x[1] == "✓" for x in p):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
-        elif durch:
-            neu_d = dict(d, stand="startbar, Fund " + ", ".join("t" + x[0] for x in durch), build="–"); was = "startbar (✗ %s)" % ", ".join(x[0] for x in durch)
+        elif any(x[0] in offen_h for x in p):  # 1277: Handypunkt ohne Ergebnis, der Chef testet noch
+            neu_d = d; was = "zu testen (Handy offen: %s)" % ", ".join(x[0] for x in p if x[0] in offen_h)
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
+    # 1153 (D205.4: 596 ging über die Testauswertung t268 zu, obwohl sein Commit einen Rest nannte): wer bestanden hat, aber einen
+    # Rest ohne Folgevorgang trägt, hält die Auswertung an (der Sammelbuild selbst nicht), bevor etwas geschrieben wird
+    sperren = [sp for d, neu_d, _, _ in aus if neu_d["stand"].startswith("erledigt, t%s bestanden" % n) and (sp := rest_sperre(d["nr"], d))]
     for d, neu_d, durch, was in aus:
         print("%s %s (%s): %s" % ("PROBE" if probe else "BUILD", d["nr"], d["besitzer"], was))
+    if sperren and not probe:
+        sys.exit("vorgang.py build %s: nichts geschrieben – %s" % (n, " | ".join(sperren)))
+    for sp in (sperren if probe else []): print("PROBE gesperrt: " + sp)
     if fremd: print("%s genannt, nicht in Build %s, bleibt: %s" % ("PROBE" if probe else "BUILD", n, ", ".join(fremd)))
+    if offen_h: print("%s Handy ohne Ergebnis: %s – Prüfliste bleibt in ansehen/, kein Archiveintrag t%s bis dahin (1277)" % ("PROBE" if probe else "BUILD", ", ".join(offen_h), n))
     if probe: return
     for d, neu_d, durch, was in aus:
+        if neu_d is d: continue
         alt = finden(d["nr"], d["besitzer"] if d["nr"] in startbar.SONDER else None)
         ersetzen(alt, neu_d)
         for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
@@ -323,8 +643,35 @@ def ansicht(rolle, nur_startbar=False):
         if nur_startbar and g: continue
         print("%s | %s | %s%s | %s | %s" % (nr, kl, d["stand"][:60], (" | wartet auf " + ", ".join(d["warte"])) if d["warte"] else "",
                                          re.sub(r"\*\*|`", "", titel)[:110], g or "startbar"))
+    if rolle == "Sokrates":  # 1236: große Vorhaben vor dem ersten Code-Commit, gebündelt in der Chefrunde
+        for d in startbar.zeilen_liste():
+            if "Chef Gespräch" in startbar.offen_warte(d): print("GESPRÄCH %s (%s): %s" % (d["nr"], d["besitzer"], re.sub(r"\*\*|`", "", d["titel"])[:110]))
     gel = [x for x in startbar.loesen(False) if x[1] == rolle]
     for nr, wer, weg, st in gel: print("GELÖST %s: wartet auf %s erfüllt (setzt lauf.py)" % (nr, ", ".join(weg)))
+
+def archivbereich(paare):
+    """686: alte Bereichsnamen im Archiv berichtigen; feste Zuordnung je Nummer geht vor einordnen()."""
+    fest = {}
+    for p in paare:
+        nr, _, b = p.partition("=")
+        if not bereiche.gueltig(b.strip()): sys.exit("vorgang.py: %s ist kein gültiger Bereich (%s)" % (b, p))
+        fest[nr.strip()] = b.strip()
+    name = "LISTE-VORGAENGE-ARCHIV.md"
+    aus, geaendert, unbekannt, gesehen = [], 0, [], set()
+    for z in startbar.lesen(name).split("\n"):
+        t = z.split(" | ")
+        if z.startswith("| ") and len(t) >= 4 and t[0][2:].strip() not in ("Nr.",) and not z.startswith("|---"):
+            nr, alt = t[0][2:].strip(), t[2].strip()
+            neu_b = fest.get(nr) or (alt if bereiche.gueltig(alt) else bereiche.einordnen(alt))
+            if nr in fest: gesehen.add(nr)
+            if neu_b.startswith("?"): unbekannt.append(nr)
+            elif neu_b != alt:
+                t[2] = neu_b; z = " | ".join(t); geaendert += 1
+        aus.append(z)
+    schreiben(name, "\n".join(aus))
+    fehlt = sorted(set(fest) - gesehen)
+    print("vorgang.py archivbereich: %d Felder berichtigt%s%s" % (geaendert,
+          ("; bleibt unbekannt: " + ", ".join(unbekannt)) if unbekannt else "", ("; nicht im Archiv: " + ", ".join(fehlt)) if fehlt else ""))
 
 def haupt(a):
     rolle = None
@@ -340,11 +687,14 @@ def haupt(a):
         f = startbar.pruefen_liste()
         for nr, x in f: print("%s: %s" % (nr, x))
         print("vorgang.py pruefen: %s" % ("%d Fehler" % len(f) if f else "ohne Fehler")); sys.exit(1 if f else 0)
+    if b == "archivbereich": return archivbereich(a[1:])
     if b == "stand" and len(a) == 3: return stand_setzen(a[1], a[2], rolle)
     if b == "warte" and len(a) == 3: return warte_setzen(a[1], a[2], rolle)
     if b == "setze" and len(a) >= 3: return setzen(a[1], a[2:], rolle)
     if b == "klasse" and len(a) == 3: return klasse(a[1], a[2], rolle)
     if b == "fertig" and len(a) == 2: return fertig(a[1], rolle)
+    if b == "greift" and len(a) == 3: return greift(a[1], a[2], rolle)
+    if b == "bautest" and len(a) == 3: return bautest(a[1], a[2], rolle)
     if b == "rang" and len(a) in (3, 4): return rang(a[1], a[2], a[3] if len(a) == 4 else None, rolle)
     if b == "neu" and len(a) >= 5:
         nr = a[a.index("--nr") + 1] if "--nr" in a else None
@@ -355,10 +705,28 @@ def haupt(a):
         if "--mit" in a:
             return build_mit(n, [x for x in re.split(r"[,\s]+", " ".join(a[a.index("--mit") + 1:])) if x])
         return build_abschluss(n, a[a.index("--datei") + 1] if "--datei" in a else None, "--probe" in a)
-    if b in ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build"): print(__doc__); sys.exit(2)
+    if b in ("stand", "warte", "setze", "klasse", "fertig", "greift", "bautest", "rang", "neu", "build"): print(__doc__); sys.exit(2)
     for nr in a:
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
 
+SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build")
+
+def liegt_melden(vorher):
+    """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung
+    der Rolle, meldet der Schreibende es Ford sofort wie einen Nachfolger („Start <Rolle> <Nr>, <Commit>“, LISTE-BETRIEB.md „Meldungen an Ford“)."""
+    try:
+        startbar.neu_laden()
+        neu = sorted(startbar.startbares_muss() - vorher)
+    except Exception: return
+    for r, nr in neu:
+        print("LIEGT %s (%s) ist jetzt startbar (891): nach dem Push `list_sessions`; läuft keine Sitzung %s (working) und ist es nicht deine "
+              "Rolle, `send_message` an Ford „Start %s %s, <Commit>“" % (nr, r, r, r, nr))
+
 if __name__ == "__main__":
-    haupt(sys.argv[1:])
+    a = sys.argv[1:]
+    schreibt = any(x in SCHREIBT for x in a[:1] + a[2:3])  # auch nach --rolle ROLLE vorn
+    try: vorher = startbar.startbares_muss() if schreibt else None
+    except Exception: vorher = None
+    haupt(a)
+    if vorher is not None: liegt_melden(vorher)

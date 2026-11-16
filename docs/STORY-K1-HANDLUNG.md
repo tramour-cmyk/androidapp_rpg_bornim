@@ -16,7 +16,8 @@ Na, endlich wach, {name}? Für einen, der nur eine Nacht bleiben wollte, hast du
 Ein graues Auge … wie auf dem Fetzen, den Jorin mir vom Steinkreis brachte. Dann war er schon hier, ganz nah bei Bornim.
 
 `[41.garrick.krogg]` (Garrick über Krogg; bisher „Ich habe Goblins belauscht. Ihr Bugbear Krogg trägt den Schlüssel zu Graks Halle.“)
-Ich habe Goblins belauscht. Ihr Grottenschrat Krogg trägt den Schlüssel zu Graks Halle.
+Ich habe Goblins belauscht. Ihr Bärenschrat Krogg trägt den Schlüssel zu Graks Halle.
+(Bärenschrat statt Grottenschrat seit 870.15, `DESIGN-BRS.md` 12; ebenso unten und in `STORY-K1-WELT.md`, `STORY-CHRONIK-TEXTE-K1.md`; Englisch `[870.15.namen.monster]`.)
 
 ### Weg über Morwen vor der Höhle (D4.1)
 
@@ -29,7 +30,7 @@ Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüster
 Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.
 
 `[D4.1.morwen.krogg]` (Morwen, sobald Garrick getroffen und Krogg nicht besiegt, einmal; gibt 1 Rauchbündel)
-Krogg? Grottenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.
+Krogg? Bärenschrate schlagen aus dem Dunkel zu, und der erste Hieb ist der schlimmste. Aber ihre Nasen sind fein.
 Wirf ihm das hier vor die Füße, sobald er auftaucht. Der Rauch beißt in den Augen, und sein Hieb geht ins Leere.
 
 `[D4.1.rauch.tasche]` (Beschreibung des Rauchbündels in der Tasche; Nutzer 15.10., 12:2x)
@@ -37,7 +38,7 @@ Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rau
 
 `[D4.1.chronik]` (Chronik, Aufträge, nach Garricks Hinweis; erledigt mit dem Rauchbündel oder Kroggs Fall)
 **Rauch gegen Krogg**
-Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Grottenschrats.
+Garrick riet {name}, vor dem Kampf gegen Krogg die Kräuterfrau Morwen im Tiefen Flüsterwald aufzusuchen. Sie kenne ein Mittel gegen den ersten Hieb eines Bärenschrats.
 
 `[427.2.rauch]` (Vorschlag Homer 03.11., Vorgang 427.2; Erzähler direkt nach dem Erwachen `[504.erwachen]`, wenn der Kampf gegen Krogg verloren ging; jede Niederlage, drei Wortlaute nach 504, erster beim ersten Mal)
 Erkennbar am Gegner „bugbear“ im Zweig nach der Niederlage (`spiel.gd`), als zweite Zeile nach `[504.erwachen]`.
@@ -156,11 +157,9 @@ EN: An honest price for honest goods. Come back when you've hunted more.
 
 Homer 21.10.: Texte, die nicht zu dem passen, was man sieht, oder fest Benanntem widersprechen. Bau Tom (280.1).
 
-`[280.tipp]` (Aufwachen im Greif, nach Rowenas letzter Zeile; ersetzt in `Story.kt` „Tipp: Mit dem Steuerkreuz bewegst du dich, mit A sprichst du … START öffnet das Menü.“: es gibt keinen Knopf A und kein START, das Steuerkreuz nur in der klassischen Steuerung)
-Fingersteuerung: Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.
+`[280.tipp]` (Aufwachen im Greif, nach Rowenas letzter Zeile; ersetzt in `Story.kt` „Tipp: Mit dem Steuerkreuz bewegst du dich, mit A sprichst du … START öffnet das Menü.“: es gibt keinen Knopf A und kein START; nur Fingersteuerung, die klassische Steuerung ist gestrichen, 663)
+Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.
 EN: Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.
-Klassische Steuerung: Tipp: Mit dem Steuerkreuz läufst du, der große Knopf spricht mit Leuten und untersucht Dinge. Der Beutel oben öffnet das Menü.
-EN: Tip: the D-pad moves you; the big button talks to people and examines things. The bag at the top opens the menu.
 
 `[280.krogg]` (Chronik, `Chronicle.kt`) „der Bugbear Krogg“ → „der Grottenschrat Krogg“, wie freigegeben in `[64d.krogg]` (feste Namen, `STORY-REGELN.md`).
 
@@ -196,6 +195,9 @@ EN: Three. Good. They still smell of blood – that washes out. Here, your pay. 
 `[356.pelzumhang]` (Stück, ungewöhnlich, Umhang) Thessas Pelzumhang
 EN: Thessa's Fur Cloak
 
+`[356.pelzumhang.text]` (Katalogtext, 694) Ein dichter Pelzumhang aus Thessas Kramladen, noch aus dem letzten Winter.
+EN: A thick fur cloak from Thessa's general store, left over from last winter.
+
 `[356.hauer.lohn]` 50 Gold, ein Hauerdolch
 EN: 50 gold, a tusk dagger
 
@@ -204,3 +206,6 @@ EN: Hm. Broken clean, not sawn. I can work with these. Take this. And this one �
 
 `[356.hauerdolch]` (Stück, ungewöhnlich, Dolch) Borins Hauerdolch
 EN: Borin's Tusk Dagger
+
+`[356.hauerdolch.text]` (Katalogtext, 694) Ein Dolch aus Borins Schmiede, die Griffschalen aus Keilerhauer, wie er sie jetzt macht.
+EN: A dagger from Borin's smithy, its grip plates of boar tusk, the way he makes them now.

@@ -19,26 +19,26 @@ func _init() -> void:
 			return
 	Sprache.lade()
 	# jeder Gegenstand des Spiels steht im Katalog, mit Stufe und Preis
-	var ids: Array = Heldwerte.lade()["grundformen"].keys() + Sprache.texte["dinge"].keys() + Sprache.texte["einzelstuecke"].keys()
+	var ids: Array = BrsHeld.daten()["grundformen"].keys() + Sprache.texte["dinge"].keys() + Sprache.texte["einzelstuecke"].keys()
 	for id in ids:
 		var e := Katalog.eintrag(String(id))
 		pruefe("im Katalog " + String(id), not e.is_empty() and e.get("stufe") != null and e.get("preis") != null, true)
 	# Grundformen: Stufe und Preis wie im Katalog (Startwerte 458.2a: die alten)
-	for id in Heldwerte.lade()["grundformen"]:
-		var b: Dictionary = Heldwerte.grundform(String(id))
+	for id in BrsHeld.daten()["grundformen"]:
+		var b: Dictionary = BrsHeld.grundform(String(id))
 		pruefe("Grundform " + String(id), [int(b["preis"]), int(b["ab_stufe"])], [Katalog.preis(String(id)), Katalog.stufe(String(id))])
 	pruefe("Startwerte", [Katalog.preis("dagger"), Katalog.stufe("dagger"), Katalog.preis("plate"), Katalog.stufe("plate"), Laden.preis("potion")], [2, 1, 1500, 7, 25])
 	# das Spiel liest wirklich den Katalog: eine Aenderung dort kommt im Laden und in der Beute an
 	Katalog.alle["dagger"]["preis"] = 99
 	Katalog.alle["dagger"]["stufe"] = 3
 	Katalog.alle["potion"]["preis"] = 40
-	Heldwerte.daten = {}
+	BrsHeld.D = {}
 	pruefe("Grundform aus dem Katalog", [int(Beute.grundform("dagger")["preis"]), int(Beute.grundform("dagger")["ab_stufe"])], [99, 3])
 	pruefe("Ding aus dem Katalog", Laden.preis("potion"), 40)
 	Katalog.alle = {}
-	Heldwerte.daten = {}
+	BrsHeld.D = {}
 	# Einzelstuecke: Preis 0, bleiben beim Helden, auch beim Verkauf alles Gewoehnlichen
-	var h := Heldwerte.erschaffe("Alrik", "HUMAN", "FIGHTER")
+	var h := BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat")
 	var z := Zustand.new()
 	var axt := {"uid": 7, "base": "greataxe", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": [], "unique": "greataxe_grak", "name_seed": 0}
 	var dolch := {"uid": 8, "base": "dagger", "rarity": "COMMON", "ilvl": 1, "plus": 0, "rolls": [], "unique": null, "name_seed": 0}

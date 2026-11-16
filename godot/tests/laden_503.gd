@@ -4,6 +4,7 @@ extends SceneTree
 # MenuHead, Namen matt, „Verkaufen · Preis“, „Abbrechen“ links und „Verkaufen · Preis“ rechts in einer Reihe wie Dialogs.kt). Dazu die Knoepfe der Karte (kartenreiter.gd) mit demselben Fehler.
 # Ohne Bild. Aufruf: im Ordner godot mit -s res://tests/laden_503.gd -> „LADEN503 n Fehler“
 
+const KH := preload("res://tests/knopf_hilfe.gd")
 var fehler := 0
 
 func pruefe(ok: bool, was: String) -> void:
@@ -34,7 +35,7 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 100
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	for i in 3: z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(70 + i), z.neue_uid, 2, "COMMON", ""))
 	z.beutel.append(Beute.erzeuge_mit_uid(KotlinZufall.new(90), z.neue_uid, 2, "RARE", ""))
 	var gew := z.beutel.filter(func(g): return Laden.ausruestung_verkaeuflich(g) and String(g["rarity"]) == "COMMON").size()
@@ -57,23 +58,27 @@ func _lauf() -> void:
 		await process_frame
 		var t := PackedStringArray(labels(l, []).map(func(x): return (x as Label).text))
 		pruefe("ALLE GEWÖHNLICHEN VERKAUFEN?" in t, "Titel der Rueckfrage fehlt: %s" % [t])
-		pruefe(("%d GEGENSTÄNDE:" % gew) in t, "Zeile „%d Gegenstände:“ als MenuHead fehlt" % gew)
+		pruefe(Laden.anzahl_gegenstaende(gew, true).to_upper() in t, "Zeile „%d Gegenstände:“ als MenuHead fehlt" % gew)
+		pruefe(Laden.anzahl_gegenstaende(1, true) == "1 Gegenstand:" and Laden.anzahl_gegenstaende(2, true) == "2 Gegenstände:", "699: Einzahl bei einem Stück")
 		# Dialogs.kt 99–104: eine Reihe, „Abbrechen“ links, „Verkaufen · Preis“ rechts, gleich breit, Text ganz im Knopf und im Bild
+		# 630 (549a): ohne Kasten, „‹ ABBRECHEN“ links, „VERKAUFEN · PREIS ›“ rechts in einer Reihe (knopfzeile), je die halbe Breite
 		var reihe: HBoxContainer = null
-		for b in knoepfe(l, []):
-			if (b as Button).text.begins_with("VERKAUFEN · ") and b.get_parent() is HBoxContainer: reihe = b.get_parent()
+		var vk := KH.finde(l, "VERKAUFEN · ", true)
+		if vk and vk.get_parent() is HBoxContainer: reihe = vk.get_parent()
 		pruefe(reihe != null, "Knopf „Verkaufen · Preis“ nicht in einer Reihe")
 		if reihe:
 			await process_frame
-			var ks := knoepfe(reihe, [])
-			pruefe(ks.size() == 2 and (ks[0] as Button).text == "ABBRECHEN" and (ks[1] as Button).text.begins_with("VERKAUFEN · "),
-				"Reihe nicht „Abbrechen | Verkaufen“: %s" % [ks.map(func(b): return b.text)])
+			var ks := KH.alle(reihe)
+			pruefe(ks.size() == 2 and KH.text(ks[0]) == "ABBRECHEN" and KH.text(ks[1]).begins_with("VERKAUFEN · "),
+				"Reihe nicht „Abbrechen | Verkaufen“: %s" % [ks.map(func(b): return KH.text(b))])
 			if ks.size() == 2:
 				pruefe(absf(ks[0].size.x - ks[1].size.x) < 2.0, "Knoepfe ungleich breit: %.0f / %.0f" % [ks[0].size.x, ks[1].size.x])
 				for b in ks:
-					pruefe(breit_genug(b), "%s schmaler als sein Text" % b.text)
-					pruefe(b.get_global_rect().end.x <= l.get_viewport_rect().size.x, "%s ragt aus dem Bild" % b.text)
-				# 519: PixelButton(size = 15.sp) zeichnet 15 × 0,7, mindestens 13 sp (Theme.kt 309), zu lang kleiner
-				pruefe(ks[1].get_theme_font_size("font_size") <= int(round(13 * Stil.SP)), "Knopfschrift über 13 sp")
+					var tx := b.find_child("Text", true, false) as Label
+					pruefe(tx.get_global_rect().end.x <= b.get_global_rect().end.x + 1.0 and tx.get_global_rect().position.x >= b.get_global_rect().position.x - 1.0, "%s schmaler als sein Text" % KH.text(b))
+					pruefe(b.get_global_rect().end.x <= l.get_viewport_rect().size.x, "%s ragt aus dem Bild" % KH.text(b))
+					# 549a: Knopfschrift 15 sp, zu lang kleiner, nie unter 13 sp
+					var g := tx.get_theme_font_size("font_size")
+					pruefe(g >= int(round(13 * Stil.SP)) and g <= int(round(15 * Stil.SP)), "Knopfschrift %d nicht 13–15 sp" % g)
 	print("LADEN503 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

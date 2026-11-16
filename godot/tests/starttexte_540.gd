@@ -44,11 +44,6 @@ func _lauf() -> void:
 	z2.setze(Geschichte.CHAPTER1_DONE)
 	pruefe("12/5 nach Kapitel 1", String(Geschichte.klopfen("village", Vector2i(12, 5), z2)["de"]), "„Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.“")
 	pruefe("andere Tür unverändert", Geschichte.klopfen("village", Vector2i(23, 5), z2), {})
-	var vorher := Bedienung.klassisch
-	Bedienung.klassisch = false
-	pruefe("Tipp Wischen", tipp(Zustand.new()).begins_with("Tipp: Zieh den Finger"), true)
-	Bedienung.klassisch = true
-	pruefe("Tipp Klassisch", tipp(Zustand.new()).begins_with("Tipp: Mit dem Steuerkreuz"), true)
-	Bedienung.klassisch = vorher
+	pruefe("Tipp Wischen (663: nur Touch)", tipp(Zustand.new()).begins_with("Tipp: Zieh den Finger"), true)
 	print("STARTTEXTE %d Fehler" % fehler)
 	quit(1 if fehler else 0)

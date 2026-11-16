@@ -126,13 +126,6 @@ func _draw() -> void:
 			l.call(7.5, 5.6, 7.5, 11.5, duenn); l.call(16.5, 5.6, 16.5, 11.5, duenn)
 			zug.call([Vector2(10, 10), Vector2(14, 10), Vector2(14, 15), Vector2(10, 15)], true)
 			punkt.call(12, 12.6, 0.9)
-		"ACT":
-			# 399.1 (ActionSign.ACT, Klassisch): ein Funke, vier Spitzen
-			zug.call([Vector2(12, 3), Vector2(14, 10), Vector2(21, 12), Vector2(14, 14), Vector2(12, 21), Vector2(10, 14), Vector2(3, 12), Vector2(10, 10)], true)
-		"NEXT":
-			# ActionSign.NEXT: zwei Winkel nach rechts
-			zug.call([Vector2(6, 6), Vector2(12, 12), Vector2(6, 18)])
-			zug.call([Vector2(12, 6), Vector2(18, 12), Vector2(12, 18)])
 		"RUN":
 			AktionsKnopf.stiefel(self, o, u, c)
 

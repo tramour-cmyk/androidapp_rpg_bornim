@@ -19,16 +19,18 @@ import javax.imageio.ImageIO
  * 399.1: the drawn maps of the menu's map tab (MenuScreen.kt MapTab, 62) for the Godot game, made here once in the build
  * instead of on the device: every town and room as its inked sheet (`karte-<id>.bild`), the land map once for each set of known wild places (`land-<forest><deep_forest>.bild`, 1 known), and
  * `kartenblatt.json` with where a tile sits on a sheet, the level up (62r), the places of the land map, the houses
- * (62g/62s), the people and services (62f) and the elder's mark (62e). The wild maps need what the hero has explored
- * (62c fog); they follow once the hero walks the wood in Godot.
+ * (62g/62s), the people and services (62f) and the elder's mark (62e). The woods (505) as two sheets, all known and bare,
+ * Godot shows what the hero explored (62c fog); the cave follows with 492.
  * Run: `./gradlew -p core exportMapSheets -Pout=<dir>`.
  */
 object MapSheetExport {
     /** The wild places of the land map, in the order of the bits in a land sheet's name. */
     val wild = listOf("forest", "deep_forest")
 
-    /** The maps drawn as sheets: towns and rooms, known as soon as the hero is there (MapMarks.seen). */
-    fun sheets(): List<MapDef> = World.maps.values.filter { it.kind != MapKind.FOREST && it.kind != MapKind.CAVE }
+    /** The maps drawn as sheets: towns and rooms, known as soon as the hero is there (MapMarks.seen); 505: the woods too, drawn all
+     *  known and bare (`karte-<id>-leer.bild`) with the noise of their frayed edge (`karte-<id>-rand.bild`), Godot shows what the hero
+     *  explored (nebel.gd, Zustand.erkundet). The cave follows with 492. */
+    fun sheets(): List<MapDef> = World.maps.values.filter { it.kind != MapKind.CAVE }
 
     fun json(sizes: Map<String, Pair<Int, Int>> = emptyMap()): JsonObject = buildJsonObject {
         put("kachel", MapSheet.C)
@@ -41,6 +43,7 @@ object MapSheetExport {
                 sizes[m.id]?.let { (w, h) -> put("bild_breite", w); put("bild_hoehe", h) }
                 // 62r: a room's level up is the area map whose door leads in; an area map's is the land map
                 put("oben", parentOf(m) ?: "")
+                if (m.kind == MapKind.FOREST) put("nebel", true)
             }
         }
         putJsonObject("land") {
@@ -122,6 +125,10 @@ object MapSheetExport {
             val img = MapSheet.render(m, { _, _ -> true })
             png(img, File(dir, "karte-${m.id}.bild"))
             sizes[m.id] = img.width to img.height
+            if (m.kind == MapKind.FOREST) {
+                png(MapSheet.render(m, { _, _ -> false }), File(dir, "karte-${m.id}-leer.bild"))
+                png(de.bornim.core.art.MapInk.fray(m), File(dir, "karte-${m.id}-rand.bild"))
+            }
         }
         for (bits in 0 until (1 shl wild.size)) {
             val name = wild.indices.joinToString("") { if (bits shr it and 1 == 1) "1" else "0" }

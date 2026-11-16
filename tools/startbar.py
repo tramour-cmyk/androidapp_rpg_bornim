@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """Startbares je Rolle (166) aus der einen Vorgangsliste `docs/LISTE-VORGAENGE.md` (275.2, Chef 07.11., 21:5x).
 
-Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen]   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
+Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md] [--loesen] [--liegt] [--leichen [TAGE]] [--urteile [STUNDEN]]   (--urteile: Chefurteile der letzten Stunden gegen die Zeile, 1192; --liegt: startbares Muss je Rolle nach Pause, 891; --leichen: Funde 1188 je Besitzer)   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
 Eine Tabelle, je Vorgang eine Zeile: Nr. · Titel · Besitzer · Kl. · Stand · wartet auf · Zweig · Build · Bereich · Kosten.
 Reihenfolge der Zeilen eines Besitzers = Vorrang. Vorräte `ARBEIT-*.md` haben keine Tabelle mehr, nur Übergabe, Pause und „Zu <Nr>“.
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür), dazu, warum andere Zeilen nicht startbar sind
-(--alle: jede Zeile); --stand: „offen n, Muss m, startbar s, gesperrt g“. „Pause bis <Zeit>“ oben im Vorrat sperrt die Rolle.
+(--alle: jede Zeile); --stand: „offen n, Muss m, startbar s, gesperrt g“. „Pause bis <Zeit>“ oben im Vorrat sperrt die Rolle; „Halt nur für <Nr>, …“ oder eine Pause ohne Datum mit Nummern nur diese Zeilen, eine Pause ohne Datum und Nummern nur die Kür (1246).
 Stand = ein Wort der Liste WORTE, dahinter nach Komma oder Doppelpunkt höchstens ein kurzer Zusatz; gerechnet wird nur mit dem Wort
 (und „in Arbeit bei Spike|Tuffy“, 433).
-**Automatik A „wartet auf“** (275.2): Feld mit Nummern, Rollen, Daten (TT.MM.[ HH:MM]) oder „Chef[ <Dateinummer>]“, mit Komma getrennt.
+**Automatik A „wartet auf“** (275.2): Feld mit Nummern, Rollen, Daten (TT.MM.[ HH:MM]) oder „Chef[ <Dateinummer>]“, mit Komma getrennt; „Chef Gespräch“ (1236) löst der Archiveintrag „- **<Nr>, Chef Gespräch …“.
 Erfüllt: Nummer erledigt (für die Sperre auch gebaut oder zu testen, 190.1; geschrieben wird nur bei erledigt, D80.3); Datum vorbei;
 Chefsache-Datei weg; t<Build> mit Archiveintrag.
 Eine Rolle erfüllt sich nie von selbst: die Zeile erscheint bei dieser Rolle als ihre Arbeit (Klasse der wartenden Zeile), bis die Rolle
@@ -16,19 +16,25 @@ das Feld mit `vorgang.py warte <Nr> –` leert. Jeder Lauf zeigt erfüllte Felde
 er sie: erfüllte Teile fallen weg, ist das Feld leer und das Wort wartet, Chef, ruht oder Dauer, wird die Zeile „startbar, gelöst …“.
 Muss durch Wartende (190.3, 162): wartet eine Muss-Zeile auf Nummer X, zählt X als Muss (Ausgabe „↑ Muss: <Rolle> wartet“).
 Zeilen mit „wiederholt“ im Titel stehen vor allem anderen, nur die „jetzt“-Zeilen davor (620.1 A).
+Ab 6 gebauten oder zu testenden Muss eines Teams (ohne Sammelbuild) sperrt neues Muss bis zum Test, aber nur, wenn es sich mit
+Ungetestetem überschneidet (Nummer, Titelwort wie Ort oder Figur, geänderte Datei; 779, Chef 09.11., 17:30); frei bleiben wiederholt,
+„jetzt“, Rückläufer mit Build und Angefangenes (620.1 B, Chef 08.11., 10:55/10:57; ein Rückläufer ist ein Fund, den der Chef
+zum zweiten Mal meldet, also „wiederholt“ nach 620.1 A; Angefangenes ist kein neues Muss; 729).
 Wächter 424: eine sonst startbare Zeile, die Regeln des alten Systems nennt, ruht. Exit 1 bei unlesbaren oder ungültigen Zeilen.
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
 """
-import os, re, sys, datetime
+import os, re, sys, datetime, subprocess
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import bereiche  # 651: feste Liste der Bereiche
 
 DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs")
-ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEIT-TEAM-JERRY.md", "Jerry"),
+ROLLEN = [("ARBEIT-KREATIV.md", "Homer"), ("ARBEIT-TEAM-TOM.md", "Tom"), ("ARBEIT-TEAM-JERRY.md", "Jerry"), ("ARBEIT-TEAM-SPIKE.md", "Spike"),
           ("ARBEIT-PROJEKT.md", "Perikles"), ("ARBEIT-PRUEFUNG.md", "Diogenes"), ("ARBEIT-BERATUNG.md", "Sokrates")]
 VORRAT = {r: d for d, r in ROLLEN}
 VORRAT["Ford"] = "ARBEIT-BETRIEB.md"
 BESITZER = [r for _, r in ROLLEN] + ["Ford", "Ideen"]  # „Ideen“: Ideenspeicher, wird nie gestartet (LISTE-IDEEN.md)
 WARTE_ROLLEN = [r for _, r in ROLLEN] + ["Ford"]
-ZUSATZ = {"Spike": "Tom", "Tuffy": "Jerry"}  # 394, 433: Zusatzentwickler arbeiten auf Zeilen ihres Teams
+ZUSATZ = {"Tuffy": "Jerry"}  # 394, 433: Zusatzentwickler arbeiten auf Zeilen ihres Teams; 1328 (Chef 15.11., 21:05): Spike eigene Rolle
 FERTIG = re.compile(r"erledigt|auf main|getestet|gebaut|zu testen", re.I)
 ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Spike|Tuffy|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"  # 394: Spike, Tuffy
 JETZT = datetime.datetime.now()
@@ -46,7 +52,7 @@ def blank(t):
 
 def lesen(name):
     p = os.path.join(DOCS, name)
-    return open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+    return open(p, encoding="utf-8").read() if name and os.path.isfile(p) else ""  # Homer 1264: Besitzer ohne Vorrat („Ideen“) gab docs/
 
 def liste_merken(docs=None):
     """275 Stufe 2: nach jedem Schreiben eines Werkzeugs den Inhalt von LISTE-VORGAENGE.md merken (git hash-object, höchstens 200,
@@ -153,6 +159,232 @@ def zeile_text(d):
     return "| " + " | ".join(str(x).replace("|", "/").replace("\n", " ").strip() for x in werte) + " |"
 
 _LISTE = None
+# 719 A (Chef 09.11., 11:26): jeder Wochentermin legt sich an seinem Tag selbst als Muss beim Besitzer an; Ford startet ihn wie jeden Vorgang.
+# lauf.py --sperre legt an (vorgang.neu), ersetzt WOCHENSTART; erledigt setzt der Besitzer. Neue Termine nur hier eintragen. Ab 10.11. (09.11. lief von Hand).
+WOCHENTERMINE = [  # (Wochentag 0 = Mo, ab Stunde, Besitzer, Name, Bereich)
+    (0, 8, "Perikles", "Wochenziel", "B Steuerung"),
+    (0, 8, "Diogenes", "Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720)", "Q QM"),
+    (0, 8, "Perikles", "Haken-Frage Abnahmeliste als ansehen/-Datei (720)", "Q QS"),
+] + [  # 759 (Chef 09.11., 14:36): je Rolle eine Zeile, sonst holt nur Perikles nach
+    (4, 8, r, "Rollenspiegel %s (rollenspiegel.sh %s)" % (r, r), "B Abläufe")
+    for r in ("Sokrates", "Perikles", "Homer", "Ford", "Diogenes", "Tom", "Jerry")
+] + [
+    (6, 9, "Homer", "Ideenspeicher", "B Abläufe"),
+]
+
+def wochentermine_faellig(jetzt):
+    """719: [(Titel, Bereich, Besitzer)] heute fällig und noch ohne Zeile in Liste oder Archiv."""
+    jetzt = jetzt.replace(tzinfo=None)  # 1372: lauf.py gibt Berliner Zeit mit Zone, startbar rechnet ohne (Absturz am ersten Montag 08:00 von urteil_faellig)
+    tag = jetzt.strftime("%d.%m.")
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
+    return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
+            if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
+            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da) + spiegel_auswertung_faellig(jetzt, da)
+
+# 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen
+# veralten still (99 ruhte seit 17.10. überholt; Chefurteil nie nachgezogen, Arbeit unter Unternummern erledigt, Richtungswechsel).
+# Montags ab 8 Uhr legt lauf.py --sperre je Besitzer eine Zeile an, die ihm einmal zum Urteil vorlegt: Mütter, deren Unternummern alle
+# erledigt sind, und Zeilen jeder Klasse ohne Bewegung seit URTEIL_TAGE: je Nummer gilt (neuer Termin im Feld „wartet auf“) oder
+# schließen. Jedes Urteil ändert die Zeile, damit beginnen die Tage neu.
+URTEIL_TAGE = 14
+URTEIL_MAX = 15  # Nummern je Zeile (Titel höchstens 400 Zeichen); der Rest kommt am nächsten Montag
+SAMMEL = 25  # Commits, die mehr Zeilen der Liste ändern (Wochenziel, Klassen, Umschaltung), sind keine Bewegung der Zeile
+RUHIG = (None, "in Arbeit", "Dauer", "Idee", "erledigt", "aufgeteilt")  # wird nicht vorgelegt
+
+def _vorlegbar(d, jetzt):
+    """1188: offene Zeile, die ein Urteil braucht: nicht in Arbeit oder fertig, nicht Ideen (Homer sonntags), nicht Pflege/Spiegel,
+    kein Datum in der Zukunft im Feld „wartet auf“ (schon geurteilt). „gebaut“ und „zu testen“ nur ohne Build (Sokrates 16:55: (d)
+    gebaut außerhalb von Bereich B, „greift“ schließt nur B, 866, 896; (e) „zu testen“ ohne Build schließt keiner, 1079, 1122);
+    mit Build wartet die Zeile auf den Test (test_vorbei, wenn er im Archiv steht)."""
+    if d["besitzer"] == "Ideen" or d["nr"] in SONDER or d["wort"] in RUHIG: return False
+    if d["wort"] in ("gebaut", "zu testen") and str(d.get("build") or "").strip().isdigit(): return False
+    return not any(art(w) == "datum" and datum_von(w) > jetzt for w in d.get("warte") or [])
+
+def ohne_bewegung(zs=None, jetzt=None):
+    """1188: [(Tage, dict)] vorlegbare Zeilen jeder Klasse ohne Bewegung seit URTEIL_TAGE, älteste zuerst. Bewegung = letzte
+    Änderung der Zeile nach git blame -M (verschobene Zeilen zählen nicht), ohne Sammel-Commits."""
+    jetzt = jetzt or JETZT
+    zs = zeilen_liste() if zs is None else zs
+    pfad = os.path.join(DOCS, LISTE)
+    seit = (jetzt - datetime.timedelta(days=60)).strftime("%Y-%m-%d")
+    gross = []; c = None
+    for z in _git("log", "--since=" + seit, "--format=@%H", "--numstat", "--", pfad).stdout.splitlines():
+        if z.startswith("@"): c = z[1:]
+        elif c and z.split("\t")[0].isdigit() and int(z.split("\t")[0]) > SAMMEL: gross.append(c)
+    import tempfile
+    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
+        f.write("\n".join(gross) + "\n"); ign = f.name
+    try:
+        out = _git("blame", "-M", "--ignore-revs-file", ign, "--line-porcelain", "--", pfad).stdout
+    finally:
+        os.unlink(ign)
+    zeit, cur = [], None
+    for z in out.splitlines():
+        if z.startswith("committer-time "): cur = int(z.split()[1])
+        elif z.startswith("\t"): zeit.append(cur)
+    if not zeit: return []  # kein Git: lieber nichts vorlegen als alles
+    aus = []
+    for d in zs:
+        if not _vorlegbar(d, jetzt) or d["i"] >= len(zeit) or zeit[d["i"]] is None: continue
+        tage = (jetzt - datetime.datetime.fromtimestamp(zeit[d["i"]])).days
+        if tage >= URTEIL_TAGE: aus.append((tage, d))
+    return sorted(aus, key=lambda x: -x[0])
+
+def mutter_fertig(zs=None, jetzt=None):
+    """1188 (b): vorlegbare Zeilen, deren Unternummern (Nr.k, eine Stufe tiefer) es gibt und alle erledigt sind (Archiv oder Liste)."""
+    jetzt = jetzt or JETZT
+    zs = zeilen_liste() if zs is None else zs
+    offen = {d["nr"] for d in zs if d["wort"] not in ("erledigt", "aufgeteilt")}
+    alle = set(archiv()) | {d["nr"] for d in zs}
+    aus = []
+    for d in zs:
+        if not _vorlegbar(d, jetzt): continue
+        kinder = [k for k in alle if k.startswith(d["nr"] + ".") and k.count(".") == d["nr"].count(".") + 1]
+        if kinder and not any(k in offen for k in kinder): aus.append(d)
+    return aus
+
+def test_vorbei(zs=None):
+    """1188 (zu 1189): Zeilen „gebaut“ oder „zu testen“ mit Build, dessen Test im Vorgangsarchiv steht („- **tN, Build N getestet“);
+    Automatik B hätte sie schließen oder zurückgeben sollen."""
+    zs = zeilen_liste() if zs is None else zs
+    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    return [d for d in zs if d["wort"] in ("gebaut", "zu testen") and str(d.get("build") or "").strip() in getestet]
+
+LEICHEN_ARTEN = ("Build getestet, Zeile offen", "Unternummern alle erledigt", "ohne Bewegung seit %d Tagen")
+
+def leichen(jetzt=None, tage=URTEIL_TAGE):
+    """1188: {Besitzer: {Art: [Nr]}} in der Folge LEICHEN_ARTEN, jede Nummer einmal (startbar.py --leichen [TAGE], Montagszeile)."""
+    jetzt = jetzt or JETZT
+    global URTEIL_TAGE
+    alt_tage, URTEIL_TAGE = URTEIL_TAGE, tage
+    try:
+        funde = [(LEICHEN_ARTEN[0], test_vorbei()), (LEICHEN_ARTEN[1], mutter_fertig(jetzt=jetzt)),
+                 (LEICHEN_ARTEN[2] % tage, [d for _, d in ohne_bewegung(jetzt=jetzt)])]
+    finally:
+        URTEIL_TAGE = alt_tage
+    aus, schon = {}, set()
+    for art_, ds in funde:
+        for d in ds:
+            if d["nr"] in schon or d["besitzer"] == "Ideen": continue
+            schon.add(d["nr"]); aus.setdefault(d["besitzer"], {}).setdefault(art_, []).append(d["nr"])
+    return aus
+
+def urteil_faellig(jetzt, da=None):
+    """1188: montags ab 8 Uhr je Besitzer mit Funden (leichen) eine Zeile (Titel, Bereich, Besitzer), noch ohne Zeile in Liste
+    oder Archiv; höchstens URTEIL_MAX Nummern, der Rest am nächsten Montag."""
+    if jetzt.weekday() != 0 or jetzt.hour < 8 or jetzt.date() < datetime.date(2026, 11, 16): return []
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
+    tag = jetzt.strftime("%d.%m.")
+    aus = []
+    for wer, je in leichen(jetzt).items():
+        kopf = "Wochentermin %s: Urteil alte Zeilen %s" % (tag, wer)
+        if kopf in da: continue
+        teile, frei = [], URTEIL_MAX
+        for art_, nrn in je.items():
+            if frei > 0: teile.append("%s: %s" % (art_, ", ".join(nrn[:frei]))); frei -= len(nrn[:frei])
+        rest = sum(len(n) for n in je.values()) - (URTEIL_MAX - frei)
+        aus.append(("%s, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; %s%s (1188)"
+                    % (kopf, "; ".join(teile), " (+%d am nächsten Montag)" % rest if rest > 0 else ""), "B Abläufe", wer))
+    return aus
+
+# 1192 (1189 A, Chef 13.11., 17:09): Diogenes prüft alle 48 h auf Leichen. lauf.py --sperre legt die Zeile ab 17.11., 8 Uhr an,
+# wenn die letzte „Leichenprüfung TT.MM.“ (Liste oder Archiv) mindestens zwei Tage alt ist und keine offen ist; fällt ein Tag aus,
+# kommt sie am nächsten, der Abstand bleibt mindestens 48 h. Rückstufung auf montags prüft Sokrates am 27.11.
+LEICHEN_AB = datetime.date(2026, 11, 17)
+LEICHEN_ABSTAND = 2  # Tage
+
+# 340.9 (340.6 A, Chef 15.11., 18:30, V3): liegen Antworten im Rollenspiegel ohne Auswertung, legt lauf.py --sperre am selben Tag
+# eine Muss-Zeile bei Sokrates an: sobald alle sieben geantwortet haben, sonst freitags ab 20 Uhr (oder später) mit dem, was da ist.
+SPIEGEL_AB = datetime.date(2026, 11, 20)
+SPIEGEL_ROLLEN = 7
+
+def spiegel_auswertung_faellig(jetzt, da=None, text=None):
+    """340.9: [(Titel, Bereich, Besitzer)] für Sokrates, wenn die jüngste Woche im Rollenspiegel Antworten hat und keine Auswertung."""
+    if jetzt.date() < SPIEGEL_AB: return []
+    text = lesen("LISTE-ROLLENSPIEGEL.md") if text is None else text
+    wochen = re.findall(r"(?ms)^## Woche (\d{1,2})\.(\d{1,2})\.\n(.*?)(?=^## |\Z)", text)
+    if not wochen: return []
+    t, m, block = wochen[-1]
+    try: freitag = jahr_von(int(t), int(m))
+    except ValueError: return []
+    zahl = len(re.findall(r"(?m)^### ", block))
+    if not zahl or freitag > jetzt.date() or (jetzt.date() - freitag).days > 3: return []  # ältere Wochen: Mo zählt Diogenes
+    if zahl < SPIEGEL_ROLLEN and freitag == jetzt.date() and jetzt.hour < 20: return []
+    tag = "%02d.%02d." % (int(t), int(m))
+    da = (lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da) + lesen("VORGANGSARCHIV.md")
+    if re.search(r"Auswertung Rollenspiegel %s|Rollenspiegel %s ausgewertet" % (re.escape(tag), re.escape(tag)), da): return []
+    return [("Auswertung Rollenspiegel %s (340.9): %d von %d Antworten, Vorlage mit Wegen an den Chef (ROLLE-BERATUNG.md)"
+             % (tag, zahl, SPIEGEL_ROLLEN), "B Abläufe", "Sokrates")]
+
+def leichenpruefung_faellig(jetzt, da=None):
+    """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
+    if jetzt.date() < LEICHEN_AB or jetzt.hour < 8: return []
+    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
+    if any(re.match(r"Leichenprüfung \d", d.get("titel", "")) and d["wort"] not in ("erledigt", "verworfen", "aufgeteilt") for d in zeilen_liste()):
+        return []
+    tage = []
+    for t, m in re.findall(r"\| Leichenprüfung (\d{1,2})\.(\d{1,2})\.", da):
+        try: tage.append(jahr_von(int(t), int(m)))
+        except ValueError: pass
+    if tage and (jetzt.date() - max(tage)).days < LEICHEN_ABSTAND: return []
+    return [("Leichenprüfung %s (1189 A): startbar.py --leichen 7 und --urteile 48 gegen Archiv und Code, Funde als Vorgang beim "
+             "Besitzer, höchstens 10 $ (ROLLE-PRUEFUNG.md, 1192)" % jetzt.strftime("%d.%m."), "Q QM", "Diogenes")]
+
+def urteile(stunden=48, jetzt=None, text=None):
+    """1192: Antworten des Chefs im Vorgangsarchiv der letzten n Stunden (ohne Vorentscheide und Laufzusagen) mit jeder Nummer
+    aus dem fetten Kopf und deren Stand jetzt: [(Zeit, Kopf, [(Nr, Ort, Stand)])]; Ort „Liste <Besitzer>“, „Archiv“ oder „ohne Zeile“."""
+    jetzt = jetzt or JETZT
+    aus = []
+    for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
+        m = re.match(r"- \*\*(.+?)\*\*", z)
+        t = ZEIT.search(z)
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**") or laufzusage(z) or not re.search(r"Chef|Nutzer", z): continue
+        try: w = _zeit(t)
+        except ValueError: continue
+        if not (jetzt - datetime.timedelta(hours=stunden) <= w <= jetzt): continue
+        kopf = m.group(1)
+        nrn = []
+        for nr in re.findall(r"(?<![\w.])(\d{2,4}(?:\.\d+[a-z]?)*[a-z]?)(?![\w.]| ?(?:h|Uhr|\$|%|px|KB|Tage|Stunden|Minuten)\b)", kopf):
+            if nr in nrn or not (nr in VORG or int(re.match(r"\d+", nr).group()) >= 100): continue
+            nrn.append(nr)
+        je = []
+        for nr in nrn:
+            d = next((d for d in zeilen_liste() if d["nr"] == nr), None)
+            if d: je.append((nr, "Liste " + d["besitzer"], d["stand"]))
+            elif nr in archiv(): je.append((nr, "Archiv", archiv()[nr]))
+            else: je.append((nr, "ohne Zeile", ""))
+        aus.append((w, kopf, je))
+    return aus
+
+def sammelbuild_faellig():
+    """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
+    ohne Build und hat keiner eine offene Zeile „Sammelbuild“, legt lauf.py --sperre sie beim Team mit den meisten an
+    (Gleichstand: Tom). (Titel, Bereich, Besitzer) oder None."""
+    zs = zeilen_liste()
+    offen = lambda d: d["wort"] not in (None, "erledigt", "verworfen", "aufgeteilt")
+    # 1131 (Sokrates 1129): eine Sammelbuild-Zeile, deren Build schon getestet ist (Vorgangsarchiv „tn, Build n getestet“), hält
+    # die Automatik nicht mehr an (825 stand nach t274 noch auf „gebaut“, 10.11. bis 13.11. kein Sammelbuild)
+    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    def build_getestet(d):
+        nrn = [str(d.get("build") or "")] + re.findall(r"\bt(\d+)\b", str(d.get("stand") or "") + " " + str(d.get("warte") or ""))
+        return any(n.strip() in getestet for n in nrn if n.strip().isdigit())
+    if any(offen(d) and d["titel"].startswith("Sammelbuild") and not build_getestet(d) for d in zs):
+        return None
+    # 1139 (von Jerry, 1138): ein offener, noch nicht getesteter Build hält die Automatik ebenso an, auch ohne Zeile „Sammelbuild“
+    # (Regel 3: „läuft schon ein offener Build ohne Test, kommt der Punkt dort hinein“); sonst legte sie 1138 doppelt zu Build 284 an
+    if any(offen(d) and str(d.get("build") or "").strip().isdigit() and not build_getestet(d) for d in zs):
+        return None
+    fertig = [d for d in zs if d["besitzer"] in ("Tom", "Jerry") and d["wort"] in ("gebaut", "zu testen")
+              and d.get("build") in ("", "–", "-", None) and not d.get("bereich", "").startswith("B ")
+              and not re.search(r"\bt\d+\b", " ".join(d.get("warte") or []))  # 1139: wartet schon auf einen Test
+              and not any(w in UEBERNAHME or w == "Diogenes" for w in (d.get("warte") or []))]
+    if len(fertig) < 4:
+        return None
+    n = {r: [d["nr"] for d in fertig if d["besitzer"] == r] for r in ("Tom", "Jerry")}
+    wer = "Jerry" if len(n["Jerry"]) > len(n["Tom"]) else "Tom"
+    return ("Sammelbuild: alle fertigen Zweige beider Teams (Tom %s; Jerry %s), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774)"
+            % (", ".join(n["Tom"]) or "–", ", ".join(n["Jerry"]) or "–"), "E Technik", wer)
+
 def zeilen_liste():
     global _LISTE
     if _LISTE is None: _LISTE = vorgangsliste()
@@ -217,13 +449,18 @@ def jahr_von(tag, monat):
     d = datetime.date(h.year, monat, tag)
     return d if d >= h - datetime.timedelta(days=183) else datetime.date(h.year + 1, monat, tag)
 
+def laufzusage(z):
+    """Archivkopf „- **<Nr>, Läufe frei**“, den Sokrates nach 480.1 gab (1011); mit „Chef an“ oder „(Nutzer“ ist es eine Chefantwort."""
+    return bool(re.match(r"- \*\*[^*]*, Läufe frei\*\*", z)) and "Sokrates" in z and not re.search(r"Chef an |\(Nutzer", z)
+
 def antworten(text=None):
-    """Vorgangsarchiv → {Dateikürzel (348.13a → 34813a): (Nr., Zeit der jüngsten Antwort des Chefs)}; Vorentscheide (→ **Vorentscheid**) zählen nicht."""
+    """Vorgangsarchiv → {Dateikürzel (348.13a → 34813a): (Nr., Zeit der jüngsten Antwort des Chefs)}; Vorentscheide (→ **Vorentscheid**)
+    und Laufzusagen von Sokrates nach 480.1 (laufzusage, 1010, 1011) zählen nicht."""
     antwort = {}
     for z in (lesen("VORGANGSARCHIV.md") if text is None else text).splitlines():
         m = re.match(r"- \*\*([0-9A-Za-z][0-9A-Za-z.]*?)(?:,|\*\*| )", z)
         t = ZEIT.search(z)
-        if not m or not t or z.rstrip().endswith("**Vorentscheid**"): continue
+        if not m or not t or z.rstrip().endswith("**Vorentscheid**") or laufzusage(z): continue
         k = m.group(1).replace(".", "").lower()
         try: w = _zeit(t)
         except ValueError: continue
@@ -260,6 +497,7 @@ NUMMER = re.compile(r"^D?\d+[A-Za-z0-9.]*$")
 def art(token):
     """rolle, chef, datum, nr oder None (ungültig)."""
     if token in WARTE_ROLLEN: return "rolle"
+    if token == "Chef Gespräch": return "gespraech"  # 1236: großes Vorhaben, Sokrates bündelt in der Chefrunde
     if re.fullmatch(r"Chef(?: [0-9][0-9a-z.]*)?", token): return "chef"
     if DATUM.match(token): return "datum"
     if re.fullmatch(r"t\d+", token): return "build"  # Test des Builds n: erfüllt mit dem Archiveintrag „- **t<n>“ (Antwort des Chefs)
@@ -282,7 +520,9 @@ def erfuellt(token, nr="", streng=False):
         teile = token.split(" ", 1)
         return not chef_datei(teile[1] if len(teile) > 1 else nr)
     if a == "build":
-        return re.search(r"(?m)^- \*\*" + token + r"\b", lesen("VORGANGSARCHIV.md")) is not None
+        return build_im_archiv(token[1:], lesen("VORGANGSARCHIV.md"))
+    if a == "gespraech":  # 1236: erfüllt mit dem Archiveintrag „- **<Nr>, Chef Gespräch …“ (Chef „los“ oder „anders“)
+        return bool(nr) and re.search(r"(?m)^- \*\*" + re.escape(nr) + r", Chef Gespräch\b", lesen("VORGANGSARCHIV.md")) is not None
     if a == "nr":
         for d in zeilen_liste():
             if d["nr"] == token: return d["wort"] == "erledigt" if streng else d["wort"] in ("erledigt", "gebaut", "zu testen")
@@ -291,8 +531,14 @@ def erfuellt(token, nr="", streng=False):
         return bool(st) and bool(FERTIG.search(st) or re.match(r"(fertig|erledigt)\b", blank(st), re.I))
     return False
 
+# 1294 (Befund Diogenes 15.11., 13:05): 190.1 („gebaut“, „zu testen“ lösen) gilt für die Teams, die auf gebautem Code weiterbauen.
+# Wer nicht baut (Perikles, Diogenes, Sokrates, Homer), wartet auf das Ergebnis: 1128.3 auf den Bautest von 1060, 870.12 auf die
+# Abnahme von 870.13; dort löst nur „erledigt“.
+WEITERBAUEN = ("Tom", "Jerry", "Spike")  # 1328: Spike baut eigenen Code
+
 def offen_warte(d):
-    return [t for t in d["warte"] if not erfuellt(t, d["nr"])]
+    streng = d.get("besitzer") not in WEITERBAUEN
+    return [t for t in d["warte"] if not erfuellt(t, d["nr"], streng=streng and art(t) == "nr")]
 
 GEPRUEFT = re.compile(r"Geprüft an:?\s*(?:https?://\S+|bilder:\S+|`?[0-9a-f]{7,40}`?|Lauf \d{3,})")  # 340.4
 
@@ -317,6 +563,8 @@ def pruefen_zeile(d, alle_nr=None):
     if d["wort"] == "Chef" and not any(art(t) == "chef" for t in d["warte"]): f.append("„Chef“ ohne „Chef“ im Feld „wartet auf“")
     if d["wort"] == "gebaut" and not GEPRUEFT.search(d.get("stand", "")): f.append("„gebaut“ ohne „Geprüft an: <Link, Lauf oder Commit>“ (340.4, D80.7)")
     if len(d.get("zeile", "")) > 400: f.append("Zeile über 400 Zeichen (Einzelheiten als „Zu %s“ in den Vorrat)" % d["nr"])
+    if d["nr"] not in SONDER and not bereiche.gueltig(d.get("bereich")):  # 651: feste Liste
+        f.append("Bereich „%s“ nicht in der festen Liste (`python3 tools/bereiche.py`; Vorschlag „%s“)" % (d.get("bereich"), bereiche.einordnen(d.get("bereich"))))
     return f
 
 def pruefen_liste(zs=None):
@@ -349,12 +597,125 @@ def loesbar(d):
 # und zum Bornimer Rollenspielsystem (BRS, früher Spielsystem 2.0). Absicht des Chefs für Altes: „Chef erlaubt alt“ in die Zeile schreiben.
 ALTES_SYSTEM = re.compile(r"\bSRD\b|\b[WwDd]20\b|Rettungsw[uü]rf|Trefferw[uü]rfel|Zauberpl[aä]tz|\bCharisma\b|vier Klassen"
                           r"|Rüstungsklasse|Übungsbonus|\bTalente\b"  # nicht „Kleriker“, „Klasse“: sperrte Aussehen (Schild 406)
-                          r"|talente\.gd|klassisch\.gd|core/Rules\.kt|Monsters\.kt")  # D50: Wortliste erweitert (Diogenes Lauf 50)
-ALT_FREI = re.compile(r"Spielsystem 2\.0|Bornimer Rollenspielsystem|\bBRS\b|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt")  # D50
+                          r"|talente\.gd|klassisch\.gd")  # D50: Wortliste erweitert (Diogenes Lauf 50); 882.2: ohne Kotlin-Dateien
+ALT_FREI = re.compile(r"Spielsystem 2\.0|Bornimer Rollenspielsystem|\bBRS\b|(?<![\d.])2\.0\b|^424\b|Ersatz|Ablösung|ablösen|ohne SRD|Glossar|Lizenz|Chef erlaubt alt"
+                      r"|Umzug|Wächter|(?<![\d.])870(\.\d+)?\b")  # D50; 886: Umzug BRS (870) baut das alte System ab, sperrte sonst sich selbst
 
 def altes_system(thema, rest, nr=""):
     t = nr + " " + thema + " " + rest
     return bool(ALTES_SYSTEM.search(t)) and not ALT_FREI.search(t)
+
+def b_gebaut(d):
+    """724 A (Chef 09.11., 11:27): Vorgang im Bereich B ist mit dem „greift“ von Diogenes erledigt; „gebaut“ wartet auf Diogenes, nicht auf Test."""
+    return d["wort"] == "gebaut" and d.get("bereich", "").startswith("B ")
+
+def b_nicht_auf_main(d):
+    """1311 (Chef 15.11., 19:13: „Da braucht ihr mich doch nicht dafür“): Werkzeug im Bereich B, „gebaut“ auf einem Zweig, der noch
+    nicht in origin/main steckt: der Besitzer mischt sofort nach grünem Lauf, ohne Test des Chefs; Diogenes prüft erst danach „greift“.
+    Zweig fehlt auf origin (nach dem Mischen gelöscht) = auf main."""
+    z = d.get("zweig")
+    if not b_gebaut(d) or z in (None, "", "–", "-") or z.startswith("claude/build-"): return False
+    if _git("rev-parse", "-q", "--verify", "origin/" + z).returncode != 0:
+        if _git("fetch", "-q", "origin", "%s:refs/remotes/origin/%s" % (z, z)).returncode != 0: return False
+    return _git("merge-base", "--is-ancestor", "origin/" + z, "origin/main").returncode != 0
+
+# 1312 (Chef 15.11., 19:28: „Einspielen ist das Beste, aber wenn das auch nicht passiert, dann doch wenigstens vorlegen und nicht
+# irgendwo rumliegen lassen.“): Spielcode „gebaut“ ohne Build und ohne Vorlage ist nach VORLAGE_STUNDEN für den Besitzer startbar.
+# Vorlage = Build-Nummer im Feld Build, t<n> im Feld „wartet auf“ (Test oder Film zu t<n>) oder ein Termin dort (Sammelbuild,
+# Antwort auf einen Film). Ersetzt „fährt im nächsten Build“ ohne Termin und die zwei Tage aus 1129 A 3a.
+VORLAGE_STUNDEN = 6
+VORLAGE_FENSTER = 14  # Tage Git-Verlauf; länger „gebaut“ zählt als so alt
+_GEBAUT_SEIT = None
+
+def gebaut_seit():
+    """Nummer → Zeitpunkt (Unix), an dem der Stand zuletzt auf „gebaut“ wechselte (Git-Verlauf der Liste; Kostenbuchung, Rang und
+    Titeländerung ohne Wechsel zählen nicht). Fehlt eine Nummer, war sie im Fenster schon „gebaut“ oder Git fehlt."""
+    global _GEBAUT_SEIT
+    if _GEBAUT_SEIT is not None: return _GEBAUT_SEIT
+    _GEBAUT_SEIT = {}
+    out = _git("log", "--since=%d.days" % VORLAGE_FENSTER, "--format=ZEIT %ct", "-U0", "--", os.path.join(DOCS, LISTE)).stdout
+    def auswerten(t, minus, plus):
+        for nr, w in plus.items():
+            if w == "gebaut" and minus.get(nr) != "gebaut" and nr not in _GEBAUT_SEIT: _GEBAUT_SEIT[nr] = t
+    t, minus, plus = None, {}, {}
+    for z in out.splitlines():
+        if z.startswith("ZEIT "):
+            if t is not None: auswerten(t, minus, plus)
+            t, minus, plus = int(z[5:]), {}, {}
+        elif z[:3] in ("-| ", "+| "):
+            c = zellen(z[1:])
+            if len(c) >= 5: (minus if z[0] == "-" else plus)[c[0]] = wort_von(c[4])
+    if t is not None: auswerten(t, minus, plus)
+    return _GEBAUT_SEIT
+
+def liegt_ohne_vorlage(d):
+    """1312: Stunden, seit die Spielcode-Zeile „gebaut“ ohne Build und ohne Vorlage liegt (nur ab VORLAGE_STUNDEN), sonst None.
+    Spielcode = Tom oder Jerry, nicht Bereich B (Werkzeug mischt der Besitzer selbst, 1311), nicht der Sammelbuild-Zweig."""
+    if d["wort"] != "gebaut" or d["besitzer"] not in WEITERBAUEN or (d.get("bereich") or "").startswith("B "): return None
+    if (d.get("zweig") or "").startswith("claude/build-") or str(d.get("build") or "").strip() not in ("", "–", "-"): return None
+    if offen_warte(d): return None
+    # Teil-Klon (GitHub Action zug-index, checkout filter blob:none): der Verlauf der Liste lädt dort Blob für Blob (über 2 min,
+    # nachgestellt 15.11., 19:50, Lauf 13257 hing); dort keine Frist rechnen, Ford und die Sitzungen haben den vollen Verlauf
+    if _git("config", "--get", "remote.origin.partialclonefilter").stdout.strip(): return None
+    seit = gebaut_seit()
+    if _git("rev-parse", "-q", "--verify", "HEAD").returncode != 0: return None  # ohne Git lieber nichts melden als alles
+    t = seit.get(d["nr"])
+    h = (JETZT - datetime.datetime.fromtimestamp(t)).total_seconds() / 3600 if t else VORLAGE_FENSTER * 24
+    return int(h) if h >= VORLAGE_STUNDEN else None
+
+def build_im_archiv(n, arch):
+    """Test des Builds n im Archiv: fetter Kopf eines Eintrags nennt t<n> („- **t287, Build 287 getestet**“, „- **t286, t287 …**“,
+    1347-Fund Chef 15.11., 22:37: „- **t286 getestet, t287 getestet**“ hielt 1217 und 1173 auf „wartet auf t287“)."""
+    return re.search(r"(?m)^- \*\*[^*\n]*\bt%s\b[^*\n]*\*\*" % re.escape(str(n)), arch) is not None
+
+def offener_build():
+    """Nummer des jüngsten Builds mit Zeilen „zu testen“ ohne Test im Archiv (dort kommt ein fertiger Punkt hinein, 1139), sonst None."""
+    arch = lesen("VORGANGSARCHIV.md")
+    nrn = {str(d.get("build") or "").strip() for d in zeilen_liste() if d["wort"] == "zu testen"}
+    offen = [int(n) for n in nrn if n.isdigit() and not build_im_archiv(n, arch)]
+    return max(offen) if offen else None
+
+def vorlage_auftrag(d, h):
+    b = offener_build()
+    weg = ("in den offenen Build %d mischen (`vorgang.py build %d --mit %s`)" % (b, b, d["nr"]) if b
+           else "Sammelbuild anlegen (LISTE-CHECK-BUILD-TEST 3, auch unter 4 Punkten)")
+    return (" (1312: Spielcode gebaut seit %d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
+            "ins Feld „wartet auf“; nie „fährt im nächsten Build“ ohne Termin)" % (h, weg))
+
+# 1332 (Chef 15.11., 21:07: „Und wieder bin ich bass erstaunt, dass irgendwelche Sachen rumliegen und sich keiner darum kümmert.“):
+# „zu testen, ohne Rückmeldung t<n>“ (vorgang.py build, Punkt ohne Antwort im Test) ist sofort startbar für den Besitzer, bis ein
+# Termin im Feld „wartet auf“ steht (Vorlage) oder die Zeile in einem neuen Build liegt. Ersetzt „in die nächste Prüfliste“.
+OHNE_RUECKMELDUNG = re.compile(r"\bohne Rückmeldung\b")
+
+def ohne_rueckmeldung(d):
+    return d["wort"] == "zu testen" and bool(OHNE_RUECKMELDUNG.search(d.get("stand") or "")) and \
+        str(d.get("build") or "").strip() in ("", "–", "-") and not offen_warte(d)
+
+RUECKMELDUNG_AUFTRAG = (" (1332: im Test ohne Rückmeldung: selbst prüfen und schließen, oder als Bild, Film, Hörprobe an den Chef "
+                        "und den Termin der Antwort ins Feld „wartet auf“, oder in den nächsten Build mit Prüfzeile)")
+
+def haengt(d, tiefe=0):
+    """1332 (3): Leiche = offene Zeile, die weder startbar ist noch auf einen Termin, einen Test, eine Person oder eine Zeile wartet,
+    die selbst vorankommt. Ruhendes (ruht, Dauer, nach Meilenstein, Idee, aufgeteilt) und Gebautes (1312, Diogenes) zählen nicht."""
+    if d["wort"] not in ("startbar", "offen", "wartet", "Chef", "in Arbeit") or d["besitzer"] == "Ideen" or d["nr"] in SONDER: return False
+    g = sperre(d)
+    if g is None or g.startswith(("Pause", "ruht", "nach dem Meilenstein", "Dauerzeile", "in Arbeit bei")): return False
+    offen = offen_warte(d)
+    if not offen: return True  # gesperrt ohne Grund im Feld (etwa „wartet“ ohne Feld)
+    for t in offen:
+        a = art(t)
+        if a in ("datum", "build", "chef", "gespraech", "rolle"): return False
+        if a == "nr":
+            ziel = next((z for z in zeilen_liste() if z["nr"] == t), None)
+            if ziel is None: continue  # Archiv oder unbekannt: kommt nicht voran
+            if ziel["wort"] in ("gebaut", "zu testen", "ruht", "nach Meilenstein", "Dauer"): return False
+            if tiefe < 8 and not haengt(ziel, tiefe + 1) and ziel["wort"] != "erledigt": return False
+    return True
+
+def b_offen_streng(d):
+    """1221 (Diogenes 13.11., 20:27): „greift“ prüft erst, wenn jede Nummer im Feld „wartet auf“ erledigt ist; „gebaut“ oder
+    „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
+    return [t for t in d["warte"] if not erfuellt(t, d["nr"], streng=art(t) == "nr")]
 
 def sperre(d):
     """Grund, warum die Zeile für ihren Besitzer nicht startbar ist, sonst None."""
@@ -366,6 +727,9 @@ def sperre(d):
     for t in offen:
         a = art(t)
         if a == "chef": return "Chef (Datei in der Chefsache)"
+        if a == "gespraech": return "Chef Gespräch (großes Vorhaben, Sokrates bündelt in der Chefrunde, 1236)"
+    # 1311: ein Termin im Feld ist der Prüftag für „greift“, das Mischen wartet nicht darauf; Auftrag „mischen“ im Titel (plan)
+    if all(art(t) == "datum" for t in offen) and b_nicht_auf_main(d): return None
     for t in offen:
         a = art(t)
         if a == "rolle": return "wartet auf " + t
@@ -375,13 +739,21 @@ def sperre(d):
         if a == "datum": return ("ruht bis " if w == "ruht" else "Termin ") + t
         if a == "build": return "wartet auf Test %s (Chef)" % t
         if a is None: return "wartet auf „%s“ (ungültig)" % t
-    if w == "gebaut": return "wartet auf Test/Build (gebaut)"  # 190.1
+    if b_gebaut(d):
+        for t in b_offen_streng(d):
+            n, st = stand_von(t)
+            return "wartet auf %s (%s), dann Diogenes (greift?)" % (t, wort_von(st) or st or "Nummer unbekannt")
+        return "wartet auf Diogenes (greift?)"
+    if w == "gebaut":
+        if liegt_ohne_vorlage(d) is not None: return None  # 1312: vorlegen (Auftrag im Titel, plan)
+        return "wartet auf Test/Build (gebaut)"  # 190.1
+    if w == "zu testen" and ohne_rueckmeldung(d): return None  # 1332: selbst prüfen oder vorlegen (Auftrag im Titel, plan)
     if w == "zu testen": return "wartet auf Test (Build%s)" % ((" " + d["build"]) if d.get("build") not in ("", "–", "-", None) else "")
     if w == "ruht" and not d["warte"]: return "ruht" + ((" (" + d["zusatz"][:60] + ")") if d["zusatz"].startswith("424") else "")
     if w == "Dauer" and not d["warte"]: return "Dauerzeile"
     if w in ("wartet", "Chef") and not d["warte"]: return "wartet (ohne Feld „wartet auf“)"
     if w == "nach Meilenstein": return "nach dem Meilenstein"
-    m = re.match(r"bei (Spike|Tuffy)\b", d["zusatz"]) if w == "in Arbeit" else None
+    m = re.match(r"bei (Tuffy)\b", d["zusatz"]) if w == "in Arbeit" else None
     if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
     if w in ("startbar", "offen", "in Arbeit", "wartet", "Chef", "ruht", "Dauer") and altes_system(d["titel"], d["stand"], d["nr"]):
         return "ruht (424: altes SRD-System)"
@@ -424,8 +796,12 @@ def plan(rolle):
         if d["wort"] == "erledigt" or d["nr"] in SONDER and d["besitzer"] != rolle: continue
         if d["besitzer"] == rolle:
             kl = "M" if d["nr"] in f and d["kl"] != "–" else d["kl"]
-            eigen.append((d["nr"], kl, d["titel"], d, sperre(d)))
-        elif rolle in offen_warte(d):
+            mischen = " (1311: Werkzeug gebaut auf %s, nicht auf main: nach grünem Lauf jetzt mischen, ohne Test des Chefs; dann Diogenes „greift“)" % d["zweig"] if b_nicht_auf_main(d) else ""
+            h = liegt_ohne_vorlage(d)
+            if h is not None: mischen = vorlage_auftrag(d, h)
+            if ohne_rueckmeldung(d): mischen = RUECKMELDUNG_AUFTRAG
+            eigen.append((d["nr"], kl, d["titel"] + mischen, d, sperre(d)))
+        elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d) and not b_nicht_auf_main(d):  # 724 A, 1221
             # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269);
             # ruht die Zeile (ruht, Dauer, nach Meilenstein, aufgeteilt, Idee), ruht sie auch für die Rolle (D80.5)
             rest = [t for t in offen_warte(d) if art(t) != "rolle"]
@@ -443,13 +819,175 @@ def plan(rolle):
         pos = max([k + 1 for k, e in enumerate(zs) if ("fuer" in e[3] or e[4] is None) and stufe(e) <= stufe(z)]
                   or [k + 1 for k, e in enumerate(zs) if stufe(e) < stufe(z)] or [0])
         zs.insert(pos, z)
-    w = [z for z in zs if WIEDERHOLT.search(z[2])]  # 620.1 A (Chef 07.11., 21:00): wiederholte Funde vor allem anderen, nur „jetzt“ davor
+    w = [z for z in zs if WIEDERHOLT.search(z[2]) and z[1] == "M"]  # D84.2: nur Muss; 620.1 A (Chef 07.11., 21:00): wiederholte Funde vor allem anderen, nur „jetzt“ davor
     if w:
         rest = [z for z in zs if z not in w]
         k = 0
         while k < len(rest) and jetzt_zeile(rest[k][3]): k += 1
         zs = rest[:k] + w + rest[k:]
+    n = ungetestet(rolle)
+    if n >= GRENZE_UNGETESTET:  # 620.1 B (Chef 08.11., 10:55/10:57): bis zum Test kein neues Muss, außer wiederholt, „jetzt“, Rückläufer
+        g = "Sperre 620.1 B: %d ungetestete Muss, erst gemeinsamer Build und Test" % n
+        offen = ungetestet_zeilen(rolle)
+        def sperre_779(z):  # 779 (Chef 09.11., 17:30): nur Arbeit, die sich mit Ungetestetem überschneidet (Nummer, Ort/Figur im Titel, Datei)
+            if not (z[4] is None and z[1] == "M" and "fuer" not in z[3] and neu_gesperrt(z)): return None
+            mit = ueberschneidung(z[3], offen)
+            return "%s; überschneidet sich mit %s" % (g, mit) if mit else None
+        zs = [z[:4] + (sperre_779(z),) if sperre_779(z) else z for z in zs]
+    inhalt = lesen(VORRAT.get(rolle, ""))  # 1246: Halt nur für genannte Nummern; Pause ohne Datum und Nummern nur für die Kür
+    h = halt(inhalt)
+    if h: zs = [z[:4] + ("Halt (Vorrat oben)",) if z[4] is None and "fuer" not in z[3] and ist_frei(z[0], h) else z for z in zs]
+    if pause_ohne_datum(inhalt): zs = [z[:4] + ("Pause ohne Datum, nur Muss",) if z[4] is None and z[1] != "M" else z for z in zs]
     return [z for z in zs if z[1] not in ("–", "-")]
+
+GRENZE_UNGETESTET = 6
+
+def ungetestet(rolle):
+    """620.1 B: eigene Muss-Zeilen eines Teams, gebaut oder zu testen; der Sammelbuild selbst (Zweig claude/build-…) zählt nicht,
+    Bereich B auch nicht (1128 A, Chef 13.11., 13:36: Werkzeuge schließt Diogenes mit „greift“, der Chef testet sie nie)."""
+    if rolle not in BAUTEAMS: return 0
+    return len(ungetestet_zeilen(rolle))
+
+def ungetestet_zeilen(rolle):
+    """1129 A 2 (Chef 13.11., 13:59): nur Zeilen, die in einem Build auf den Test warten; fertig ohne Build sperrt nichts,
+    denn kein Test des Chefs löste sie (die Sperre hing an 30 Zeilen ohne Build). Sie fahren im nächsten Sammelbuild mit
+    (ohne_build_zeilen, Ausgabe in --stand)."""
+    return [d for d in fertig_zeilen(rolle) if (d.get("build") or "").strip() not in ("", "–", "-")]
+
+
+def fertig_zeilen(rolle):
+    return [d for d in zeilen_liste() if d["besitzer"] == rolle and d["kl"] == "M" and d["wort"] in ("gebaut", "zu testen")
+            and not (d.get("zweig") or "").startswith("claude/build-")
+            and not (d.get("bereich") or "").startswith("B ")]
+
+
+def ohne_build_zeilen(rolle):
+    """1129 A 2: fertig, aber in keinem Build — Pflicht im nächsten Sammelbuild."""
+    return [d for d in fertig_zeilen(rolle) if (d.get("build") or "").strip() in ("", "–", "-") and not ohne_rueckmeldung(d)]  # 1332: die sind startbar
+
+# 779: Wörter, die in fast jedem Titel eines Teams stehen und allein keine Überschneidung machen (Dorf, Höhle: ganzes Gebiet eines Teams)
+ALLGEMEIN = {"kampf", "mars", "chef", "build", "held", "helden", "gegner", "alt", "neu", "spiel", "test", "idee", "werte", "regel",
+             "regeln", "zeile", "fehler", "prüfen", "brs", "text", "texte", "bild", "stand", "kapitel", "nach", "ohne", "statt", "beim",
+             "dorf", "höhle", "testmenü", "gibt", "kein", "keine", "allein", "halt", "zurück", "sieht", "wirkt", "zeigt", "läuft", "geht",
+             "ganz", "ganze", "sichtbar", "richtig", "bleibt", "nimmt", "macht", "steht", "gegen", "grund", "eine", "einen", "einer", "nicht", "immer", "wieder", "mehr", "auch", "noch", "dann", "aber", "oder", "unter", "über",
+             "jede", "jeden", "jeder", "jedes", "einmal", "design", "hinweis"}  # 792: Allerweltswörter ohne Thema (D114.1)
+
+def _woerter(t):
+    t = re.sub(r"\([^)]*\)", " ", t)  # Klammern sind meist Herkunft („Chef 07.11., t268“), nicht Inhalt
+    t = t.lower().translate(str.maketrans("äöüß", "aous"))
+    return {w for w in re.findall(r"[a-z]{4,}", t) if w not in {x.translate(str.maketrans("äöüß", "aous")) for x in ALLGEMEIN}}
+
+BEUGUNG = {"e", "en", "es", "s", "n", "er", "ern", "ens"}
+KEIN_NAME = {"greifen", "greife"}  # 970 (b): Verb, nicht der Greif
+
+def _gleich(a, b):
+    """Beugung wie „wolf/wolfe“, „aldric/aldrics“, kein Wortteil wie „schwert/schwertarm“ (792); 970 (b): nur echte Endungen,
+    also nicht „greift/greif“, „lage/lager“."""
+    if a == b: return True
+    k, l = sorted((a, b), key=len)
+    return len(k) >= 4 and l.startswith(k) and l[len(k):] in BEUGUNG and l not in KEIN_NAME
+
+# 965 (Chef 11.11., 14:56 „hat jeder einen Job?“): Titelwörter zählen nur als Ort oder Figur; Kurzformen, die in den Quellen nur
+# zusammengesetzt stehen („Riesenratte“, „Goblin-Späher“)
+NAMEN_EXTRA = {"ratte", "ratten", "fledermaus", "spinne", "egel", "schnecke", "hundertfusser", "spaher", "schurke", "grabhund",
+               "untote", "lager", "teich", "schenke", "schlagbaum", "lagerfeuer", "kessel", "hutte"}
+# Wörter aus Namen wie „Der alte Kael“, „Haus des Ältesten“, „Bauer Bram“, die allein keine Figur und keinen Ort meinen
+NAMEN_AUS = {"alte", "bosse", "eigenes", "graue", "grauen", "haus", "norden", "sohn", "tisch", "tiefer", "kapitelende", "schlafenden",
+             "handler", "bauer", "bruder", "schwester", "wache", "jager", "hauptmann", "wald"}  # „wald“ auch in WALD_M, Waldläufer
+_NAMEN = None
+
+def namen():
+    """965: Orte und Figuren von Kapitel 1 aus LISTE-FIGUREN.md (Spalten Figur und Ort) und PROJEKTPLAN.md 2.13–2.16 (Gegner, Orte,
+    Stationen, Leute), dazu NAMEN_EXTRA; Wörter wie _woerter."""
+    global _NAMEN
+    if _NAMEN is None:
+        n = set(NAMEN_EXTRA)
+        for z in lesen("LISTE-FIGUREN.md").split("## Abnahmelisten")[0].splitlines():
+            s = [x.strip() for x in z.strip().strip("|").split("|")]
+            if z.startswith("|") and len(s) > 2 and s[0] not in ("Figur",) and not s[0].startswith("---"):
+                n |= _woerter(s[0] + " " + s[-1])
+        p = lesen("PROJEKTPLAN.md")
+        m = re.search(r"\*\*2\.13\*\*(.*?)\*\*2\.17\*\*", p, re.S)
+        for x in re.findall(r"\[[ x]\] ([^·:\n(]+)", m.group(1) if m else ""):
+            n |= _woerter(x)
+        _NAMEN = n - NAMEN_AUS
+    return _NAMEN
+
+def _namen_im(t):
+    return {w for w in _woerter(t) if any(_gleich(w, n) for n in namen())}
+
+_GIT = {}
+
+def _git(*a):
+    """git im Werkzeugordner; gemerkt je Aufruf (startbar ruft dieselben Paare je Rolle mehrfach)."""
+    if a not in _GIT:
+        import subprocess
+        _GIT[a] = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__))] + list(a), capture_output=True, text=True)
+    return _GIT[a]
+
+_DATEIEN = {}
+
+_ZWEIGE = None
+
+def _dateien(zweig):
+    """Spieldateien, die die eigenen Commits des Zweigs ändern: Commits, die weder auf main noch auf einem anderen Zweig liegen,
+    außer Zweigen, die auf diesem aufbauen (965, 970 (a): sonst teilt jeder gestapelte Zweig alle Dateien seiner Unterlage,
+    auch einer, die keine Zeile der Liste trägt)."""
+    global _ZWEIGE
+    if not zweig or zweig in ("–", "-"): return set()
+    if _ZWEIGE is None:  # einmal: alle Commits über main mit Eltern und Dateien, je Commit die Zweige, die ihn enthalten
+        eltern, dateien, spitzen, enthalten = {}, {}, {}, {}
+        for z in _git("log", "--format=%H %P", "--remotes=origin", "--not", "origin/main").stdout.splitlines():
+            h, *p = z.split(); eltern[h] = p
+        c = None
+        for z in _git("log", "--name-only", "--format=@%H", "--remotes=origin", "--not", "origin/main").stdout.splitlines():
+            if z.startswith("@"): c = z[1:]; dateien[c] = set()
+            elif z and c: dateien[c].add(z)
+        for z in _git("for-each-ref", "--format=%(objectname) %(refname:short)", "refs/remotes/origin").stdout.splitlines():
+            h, r = z.split(" ", 1)
+            if r.startswith("origin/claude/build-") or r in ("origin", "origin/HEAD") or h not in eltern: continue  # Sammelbuilds tragen fremde Zweige
+            spitzen[r[len("origin/"):]] = h
+            offen = [h]
+            while offen:
+                k = offen.pop()
+                if r in enthalten.setdefault(k, set()): continue
+                enthalten[k].add(r); offen += [e for e in eltern.get(k, []) if e in eltern]
+        _ZWEIGE = (spitzen, enthalten, dateien)
+    if zweig not in _DATEIEN:
+        spitzen, enthalten, dateien = _ZWEIGE
+        s = spitzen.get(zweig)
+        auf = enthalten.get(s, set())  # Zweige, die auf diesem aufbauen
+        eigen = [k for k, r in enthalten.items() if s and ("origin/" + zweig) in r and r <= auf]
+        _DATEIEN[zweig] = {f for k in eigen for f in dateien.get(k, ()) if not re.match(r"(\.[^/]+|tools|docs|test|tests)/|.*(_test|test_)[^/]*$|.*\.md$", f)}
+    return _DATEIEN[zweig]
+
+def ueberschneidung(d, offen):
+    """779: Text „702 (wolf)“ der ersten ungetesteten Zeile, mit der d sich überschneidet: nennt ihre Nummer, teilt einen Ort oder
+    eine Figur im Titel (965: nicht mehr jedes Titelwort; Beugung wie _gleich), liegt auf ihrem Zweig (Stapel) oder teilt eine
+    eigene geänderte Datei; sonst None."""
+    wd = _namen_im(d["titel"]); fd = None
+    for o in offen:
+        if o["nr"] == d["nr"]: continue
+        if re.search(r"(?<![\d.])%s(?![\d])" % re.escape(o["nr"]), d["titel"] + " " + " ".join(d.get("warte") or [])): return o["nr"]
+        gleich = sorted(a for a in wd for b in _namen_im(o["titel"]) if _gleich(a, b))
+        if gleich: return "%s (%s)" % (o["nr"], gleich[0])
+        if d.get("zweig") not in (None, "", "–", "-"):
+            oz = o.get("zweig")
+            if oz not in (None, "", "–", "-") and oz != d["zweig"] and _dateien(oz) and \
+                    _git("merge-base", "--is-ancestor", "origin/" + oz, "origin/" + d["zweig"]).returncode == 0:
+                return "%s (Zweig liegt darauf)" % o["nr"]
+            fd = _dateien(d["zweig"]) if fd is None else fd
+            g = fd & _dateien(oz)
+            if g: return "%s (%s)" % (o["nr"], sorted(g)[0].rsplit("/", 1)[-1])
+    return None
+
+def neu_gesperrt(z):
+    """620.1 B: True für nicht angefangene Arbeit (auch „wartet“ mit erfülltem Feld), weder wiederholt noch „jetzt“ noch Rückläufer."""
+    d = z[3]
+    if d["wort"] == "in Arbeit": return False
+    if d["titel"].startswith("Sammelbuild"): return False  # 774: die Sperre wartet auf diesen Build, darf ihn nicht selbst sperren
+    if WIEDERHOLT.search(z[2]) or jetzt_zeile(d): return False
+    return d.get("build") in ("", "–", "-", None)
 
 def pause(inhalt):
     """„Pause bis TT.MM.[, HH[:MM] Uhr]“ in den ersten 14 Zeilen: Text, solange der Zeitpunkt nicht erreicht ist (D27.4).
@@ -461,22 +999,107 @@ def pause(inhalt):
                 bis = datetime.datetime(JETZT.year, int(m.group(2)), int(m.group(1)), int(m.group(3) or 0), int(m.group(4) or 0))
             except ValueError: return m.group(0)[10:] + " (nicht lesbar)"
             if bis > JETZT: return m.group(0)[10:]
-        elif "Pause bis" in z and not re.search(r"Pause bis (?:\w{1,3},? )?\d\d\.\d\d\.", z) and z.lstrip().startswith(("**Pause", "Pause")):
-            return z.strip()[:40] + " (Datum nicht lesbar)"
+    return None  # 1246: Pause ohne Datum sperrt nicht mehr die ganze Rolle, sondern nur die genannten Nummern (halt), ohne Nummern nur die Kür
+
+def _kopf_pause_ohne_datum(inhalt):
+    for z in inhalt.splitlines()[:14]:
+        if "Pause bis" in z and not re.search(r"Pause bis (?:\w{1,3},? )?\d\d\.\d\d\.", z) and z.lstrip().startswith(("**Pause", "Pause")):
+            return z
     return None
 
+NUMMER = re.compile(r"(?<![\w.])(\d{2,4}(?:\.\d+)?[a-z]?(?:\.\d+)?)(?![\w:])")
+
+def halt(inhalt):
+    """1246 (Chef 14.11., 10:28: „wenn ich nachts schlafe und ihr alle aufeinander wartet …“): Nummern, die angehalten sind:
+    „Halt nur für 1072, 709, …“ oben im Vorrat (bis zur ersten Klammer) oder eine Pause ohne lesbares Datum, die Nummern nennt
+    (Datum und Uhrzeit zählen nicht). Nur diese Zeilen sind gesperrt, alles andere bleibt startbar."""
+    for z in inhalt.splitlines()[:14]:
+        m = re.match(r"\s*\**Halt(?: nur)? für:?\s*([^(]*)", z)
+        if m: return NUMMER.findall(m.group(1).split("**")[0])
+    z = _kopf_pause_ohne_datum(inhalt)
+    if z:
+        rein = re.sub(r"\d\d\.\d\d\.(?:\d{2,4})?|\d\d?:\d\d", " ", z)
+        return NUMMER.findall(rein)
+    return []
+
+def pause_ohne_datum(inhalt):
+    """1246: Pause ohne lesbares Datum und ohne Nummern: Text; sperrt nur die Kür, Muss bleibt startbar (sonst Stillstand über Nacht)."""
+    z = _kopf_pause_ohne_datum(inhalt)
+    return z.strip()[:60] if z and not halt(inhalt) else None
+
+def pause_frei(inhalt):
+    """870.17 (870b A, Chef 10.11., 16:08): „frei für: 870.x, 709, …“ in der Pause-Zeile; diese Nummern bleiben trotz Pause
+    startbar („870.x“ = alle 870.<k>), sonst nichts. Ohne Angabe []."""
+    for z in inhalt.splitlines()[:14]:
+        if "Pause bis" in z:
+            m = re.search(r"frei für:?\s*([0-9][0-9A-Za-z., ]*)", z)
+            return [x for x in re.split(r"[,\s]+", m.group(1).strip(" .")) if x] if m else []
+    return []
+
+def ist_frei(nr, frei):
+    return any(nr == f or (f.endswith(".x") and nr.startswith(f[:-1])) for f in frei)
+
+LIEGT_ROLLEN = ["Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"]  # wie lauf.START_REIHE; Sokrates und Ford startet nie der Vorrat
+
+def startbares_muss():
+    """891 (654, Chef 10.11., 17:15): {(Rolle, Nr)} startbarer Muss-Zeilen nach Pause und „frei für“ (wie lauf.stand). Läuft keine
+    Sitzung der Rolle, „liegt“ die Zeile: wer sie startbar gemacht hat, meldet es Ford sofort (vorgang.py, LISTE-BETRIEB.md „Meldungen an Ford“)."""
+    aus = set()
+    for datei, rolle in ROLLEN:
+        if rolle not in LIEGT_ROLLEN: continue
+        inhalt = lesen(datei)
+        m = [z for z in plan(rolle) if z[1] == "M" and not z[4]]
+        if pause(inhalt) and pause_frei(inhalt):  # 1364: Pause ohne „frei für“ hält nur die Kür
+            frei = pause_frei(inhalt)
+            m = [z for z in m if ist_frei(z[0], frei)]
+        aus |= {(rolle, z[0]) for z in m}
+    return aus
+
 UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
+BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1328.2: Sperre 620.1 B und gemeinsamer Build für alle drei; Übernahme bleibt Tom ↔ Jerry
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
-def uebernahme(rolle, info):
-    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt)."""
-    a = UEBERNAHME[rolle]
-    if a not in info or rolle not in info or info[rolle][2]: return None
-    frei = [z for z in info[a][0] if "fuer" not in z[3]]
-    if not frei: return None
-    ohne = [z for z in frei if not GERAET.search(z[2])]
-    z = (ohne or frei)[0]
-    return "%s %s (Übernahme 118 von Team %s%s)" % (z[0], re.sub(r"\*\*|`", "", z[2])[:60], a, "" if ohne else ", mit Gerätetest")
+# 1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): jede Entwicklerrolle ohne startbares eigenes Muss nimmt alle freien Muss
+# der anderen, die zu ihrem Fach passen (Bereich) oder die der Besitzer ihr abgibt; nie eine Zeile mit Zweig (in Arbeit beim Besitzer)
+# und keine, die der Besitzer mit „nein“ behält. Zeile oben im Vorrat des Besitzers: „**Abgabe:** 1340 Spike, 1323 Tom; nein: 1305“.
+FACH = {"Tom": ("E Figuren", "E Welt", "E Oberfläche", "G Story", "G Stil"),
+        "Jerry": ("E Kampf", "G Balance", "E Klang"),
+        "Spike": ("E Technik", "B Werkzeuge", "Q QS")}
+ABGABE = re.compile(r"^\s*\**Abgabe:\**\s*(.*)$", re.M)
+
+def abgabe(geber):
+    """({Nr: Rolle} ausdrücklich abgegeben, {Nr} behalten) aus „**Abgabe:** …“ oben im Vorrat des Gebers (1364)."""
+    m = ABGABE.search("\n".join(lesen(VORRAT.get(geber, "")).splitlines()[:30]))
+    if not m: return {}, set()
+    teil = m.group(1).replace("*", "")
+    ja, nein = (re.split(r"(?i)\bnein:", teil, 1) + [""])[:2]
+    gib = {nr: wer for nr, wer in re.findall(r"(\d[\w.]*)\s+(Tom|Jerry|Spike)\b", ja)}
+    return gib, set(NUMMER.findall(nein))
+
+def uebernahmen(rolle):
+    """[(Nr, Titel, Geber, ausdrücklich)] für eine Entwicklerrolle ohne eigenes startbares Muss (1364; vorher nur die oberste
+    Zeile Tom ↔ Jerry, 118, 783 W3), vor der eigenen Kür; ohne Gerätetest zuerst."""
+    if rolle not in BAUTEAMS or any(z[1] == "M" and not z[4] and "fuer" not in z[3] for z in plan(rolle)): return []
+    aus = []
+    for a in BAUTEAMS:
+        if a == rolle: continue
+        gib, nein = abgabe(a)
+        for z in plan(a):
+            d = z[3]
+            if z[4] or z[1] != "M" or "fuer" in d or z[0] in nein: continue
+            if (d.get("zweig") or "–") not in ("–", "-", ""): continue
+            wer = gib.get(z[0])
+            if wer == rolle or wer is None and d.get("bereich") in FACH.get(rolle, ()):
+                aus.append((z[0], re.sub(r"\*\*|`", "", z[2]), a, wer == rolle))
+    aus.sort(key=lambda u: (not u[3], bool(GERAET.search(u[1]))))
+    return aus
+
+def uebernahme(rolle, info=None):
+    """Textzeile für --stand (118, 1364): alle Übernahmen der Rolle."""
+    u = uebernahmen(rolle)
+    if not u: return None
+    return "; ".join("%s %s (von %s%s)" % (nr, t[:50], a, ", abgegeben" if ja else "") for nr, t, a, ja in u[:8]) + (" …" if len(u) > 8 else "") + \
+        " (Übernahme 1364: zuerst vorgang.py setze NR besitzer=%s)" % rolle
 
 def loesen(schreiben=False):
     """Automatik A über die ganze Liste: [(Nr, Besitzer, erfüllte Teile, neuer Stand)]; mit schreiben die Liste ändern."""
@@ -496,12 +1119,163 @@ def loesen(schreiben=False):
         open(p, "w", encoding="utf-8").write("\n".join(L)); liste_merken(DOCS); neu_laden()
     return aus
 
+# 827 A, Bau 828 (Chef 10.11., 07:10): „festgefahren“ = zwei Rückläufer des Chefs oder über 30 $ Kosten; jede weitere Sitzung zu so
+# einem Vorgang startet lauf.py ab STARK_AB einmal auf STARK_MODELL (Marke „stärkstes Modell TT.MM.“ am Titel); Auswertung nach drei Vorgängen (Sokrates).
+# Rückläufer = Marke „zurück t<n>[, t<m>…]“ im Titel: setzt vorgang.py build <n> bei ✗; Funde außerhalb einer Prüfliste von Hand (Build des Chefs).
+STARK_AB = datetime.datetime(2099, 1, 1, 0, 0)  # Berliner Zeit; aus (Chef 13.11., 22:08: „wir nehmen kein neues Modell Fable“, statt dessen Aufwand hoch je Aufgabe, 827.1)
+STARK_MODELL = "fable"
+STARK_KOSTEN = 30.0
+STARK_RUECK = 2
+STARK_ROLLEN = ("Tom", "Jerry", "Spike")  # Bauarbeit (Spike, Tuffy auf deren Zeilen); Beratung und Abläufe starten nicht über die Zeilenregel
+STARK_MARKE = re.compile(r"stärkstes Modell \d")  # 827 A: eine Sitzung je Vorgang, danach Auswertung
+RUECK = re.compile(r"zurück ((?:t\d+(?:, )?)+)")
+
+def rueck_builds(titel):
+    """Builds aus der Marke „zurück t269, t272“ im Titel, sortiert, ohne Doppelte."""
+    m = RUECK.search(titel or "")
+    return sorted({int(x) for x in re.findall(r"t(\d+)", m.group(1))}) if m else []
+
+def rueck_marke(titel, n):
+    """Titel mit Build n in der Marke „zurück …“ (angehängt oder ergänzt)."""
+    b = rueck_builds(titel)
+    if int(n) in b: return titel
+    neu = "zurück " + ", ".join("t%d" % x for x in sorted(b + [int(n)]))
+    return RUECK.sub(neu, titel, count=1) if b else "%s · %s" % (titel.rstrip(), neu)
+
+def kosten_wert(k):
+    m = re.search(r"\d+(?:,\d+)?", (k or "").replace(".", ""))
+    return float(m.group(0).replace(",", ".")) if m else 0.0
+
+def festgefahren(d):
+    """Grund („2 Rückläufer (t269, t272)“, „41,37 $“) oder None; nur offene Arbeit."""
+    if not d or d.get("besitzer") not in STARK_ROLLEN or d.get("wort") in ("erledigt", "ruht", "Idee", "nach Meilenstein", "Dauer") or d.get("kl") not in ("M", "K", "M?"): return None
+    b = rueck_builds(d.get("titel")); k = kosten_wert(d.get("kosten"))
+    g = (["%d Rückläufer (%s)" % (len(b), ", ".join("t%d" % x for x in b))] if len(b) >= STARK_RUECK else []) + ([d["kosten"]] if k > STARK_KOSTEN else [])
+    return ", ".join(g) or None
+
+# ---------------------------------------------------------------- 1137.2 Wächter Vollzug
+VOLLZUG_AB = datetime.date(2026, 11, 13)   # 1137 (Chef 13.11., 14:03): gilt für Einträge ab heute
+BIS = re.compile(r"\bbis (\d{1,2})\.(\d{1,2})\.,? (\d{1,2}):(\d\d)")
+NUMMER = re.compile(r"(?<![\w.:])(\d{2,4}(?:\.\d+)?[a-z]?(?:\.\d+)?)(?![\w.:])")   # nicht 14 aus 14:03
+
+
+def vollzug_gemeldet(nr, text=None):
+    """1137.1 (1): Vollzugsmeldung „Vollzug <Nr>: … Geprüft an: <Commit|Lauf>“ in einer Commit-Nachricht der letzten Woche, im
+    Protokoll, in einem Vorrat, im Tagesbericht oder im Vorgangsarchiv. Die Vorlage der Zeile („Geprüft an: <Commit>“ mit spitzen
+    Klammern) zählt nicht, sonst meldete der Auftragstext seinen eigenen Vollzug."""
+    if text is None:
+        text = vollzug_quelle()
+    for m in re.finditer(r"Vollzug\s+" + re.escape(nr) + r"(?![.\w])([^\n]*)", text):   # 1137.2 (a): 1129.3 ist nicht 1129
+        if re.search(r"Geprüft an:\s*[0-9A-Za-z]", m.group(1)):
+            return True
+    return False
+
+
+def vollzug_offen(archiv_text=None, jetzt=None):
+    """1137.2 (Chef 13.11., 14:03): Archiveinträge ab 13.11. mit Folgevorgängen und Stichtag („bis TT.MM., HH:MM“), deren
+    Stichtag vorbei ist und zu deren Folgevorgängen keine Vollzugsmeldung vorliegt. Liefert [(Empfehler, Nr., Stichtag, [offene Nr.])]."""
+    jetzt = jetzt or datetime.datetime.now()
+    nummern = {d["nr"] for d in zeilen_liste()} | set(archiv())
+    verworfen = {d["nr"] for d in zeilen_liste() if d["wort"] == "verworfen"}
+    termin = {}   # eigener Termin einer Zeile (wartet auf TT.MM.[ HH:MM])
+    for d in zeilen_liste():
+        for t in (d.get("warte") or []):
+            mt = re.match(r"(\d{1,2})\.(\d{1,2})\.(?:,? ?(\d{1,2}):(\d\d))?$", str(t).strip())
+            if mt:
+                try:
+                    j = jahr_von(int(mt.group(1)), int(mt.group(2)))
+                    termin[d["nr"]] = datetime.datetime(j.year, j.month, j.day, int(mt.group(3) or 23), int(mt.group(4) or 59))
+                except ValueError:
+                    pass
+    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    for d in zeilen_liste():   # wartet eine Zeile auf den Test eines Builds, der noch nicht getestet ist, ist sie nicht fällig
+        for t in (d.get("warte") or []):
+            mb = re.match(r"t(\d+)$", str(t).strip())
+            if mb and mb.group(1) not in getestet:
+                termin[d["nr"]] = datetime.datetime.max
+    gemeldet = None
+    aus = []
+    for z in (lesen("VORGANGSARCHIV.md") if archiv_text is None else archiv_text).splitlines():
+        m = re.match(r"- \*\*([0-9A-Za-z][0-9A-Za-z.]*?)(?:,|\*\*| )", z)
+        t = ZEIT.search(z)
+        b = BIS.search(z)
+        if not (m and t and b):
+            continue
+        try:
+            wann, stichtag = _zeit(t), _zeit(b)
+        except ValueError:
+            continue
+        if wann.date() < VOLLZUG_AB or stichtag > jetzt:
+            continue
+        e = re.search(r"\((?:Nutzer; )?(?:Vorschlag|Votum|Vorentscheid) ([A-ZÄÖÜ][\wäöüß ]*?)(?:,|\)|$)", z)
+        empfehler = e.group(1).strip() if e else "Sokrates"
+        # 1137.2 (d, Sokrates 15:41): Unternummern nur für Nummern zwischen „zuerst“ und „bis“; ein bloßer Bezug („zu 1128 A“) zählt nicht
+        mz = re.search(r"\bzuerst\b(.*?)\bbis \d", z)
+        eltern = set(NUMMER.findall(mz.group(1))) if mz else set()
+        # 1137.2 (d): ein Bezug („zu 1128 A“, „nach 1077“, „aus 1140“) ist kein Folgevorgang
+        bezug = set(re.findall(r"\b(?:zu|nach|aus|wie|siehe)\s+(\d{2,4}(?:\.\d+)?[a-z]?)(?![\w.:])", z)) | set(re.findall(r"(?<![\w.:])(\d{2,4}(?:\.\d+)?) [A-DW]\d?\b", z))
+        folge = []
+        for n in dict.fromkeys(NUMMER.findall(z)):
+            if n not in nummern or (n in bezug and n != m.group(1) and n not in eltern):
+                continue
+            if n == m.group(1):
+                # 1137.2 (c, Sokrates 15:41; 1173 Perikles, 1170 Perikles): die eigene Nummer zählt, wenn sie ein offener Vorgang
+                # eines anderen als des Empfehlers ist
+                if any(d["nr"] == n and d["besitzer"] != empfehler and d["wort"] not in ("erledigt", "verworfen") for d in zeilen_liste()):
+                    folge.append(n)
+                continue
+            # 1137.2 (b): ein Elternvorgang („zuerst 1128, 1129 bis …“) steht für seine Unternummern, auch erledigte; eine
+            # Unternummer mit eigenem späterem Termin (1129.4 Mo 16.11.) ist bis dahin nicht fällig
+            kinder = sorted(k for k in nummern if k.startswith(n + ".") and not (k in termin and termin[k] > stichtag)) if n in eltern else []
+            if not kinder and n in termin and termin[n] > jetzt:
+                continue   # 1137.2 (e, Sokrates 16:04): direkt genannt mit eigenem späterem Termin (1172 Mo 16.11.) ist bis dahin nicht fällig
+            folge += kinder or [n]
+        folge = [n for n in dict.fromkeys(folge) if n not in verworfen]
+        if not folge:
+            continue
+        if gemeldet is None:   # Quellen einmal lesen
+            gemeldet = vollzug_quelle()
+        offen = [n for n in folge if not vollzug_gemeldet(n, gemeldet)]
+        if offen:
+            aus.append((empfehler, m.group(1), stichtag, offen))
+    return aus
+
+
+def vollzug_quelle():
+    """Text, in dem vollzug_gemeldet sucht (Protokoll, Vorräte, Archiv, Tagesbericht, Commit-Nachrichten der letzten Woche)."""
+    text = "\n".join(lesen(d) for d in ["ARBEIT-BETRIEB.md", "VORGANGSARCHIV.md", "ARBEIT-TAGESBERICHT.md",
+                                        os.path.join("..", "CHANGELOG.md")] + list(VORRAT.values()))
+    try:
+        text += subprocess.run(["git", "-C", os.path.dirname(DOCS), "log", "--since=7 days", "--format=%B"],
+                               capture_output=True, text=True, timeout=20).stdout
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return text
+
+
+def festgefahrene():
+    return [(d, festgefahren(d)) for d in zeilen_liste() if festgefahren(d)]
+
 def main():
     alle = "--alle" in sys.argv
     stand = "--stand" in sys.argv
     md = "--md" in sys.argv
     falsch = 0
     info = {}
+    if "--liegt" in sys.argv:  # 891: startbares Muss je Rolle; „liegt“, wenn keine Sitzung der Rolle läuft (das weiß nur list_sessions)
+        for r, nr in sorted(startbares_muss()): print("LIEGT %s %s (wenn keine Sitzung %s läuft)" % (r, nr, r))
+        return
+    if "--leichen" in sys.argv:  # 1188 (zu 1189): Funde je Besitzer; Zahl dahinter = Tage ohne Bewegung (Vorgabe URTEIL_TAGE)
+        i = sys.argv.index("--leichen"); n = sys.argv[i + 1] if len(sys.argv) > i + 1 and sys.argv[i + 1].isdigit() else URTEIL_TAGE
+        for wer, je in leichen(tage=int(n)).items():
+            for art_, nrn in je.items(): print("LEICHE %s · %s (%d): %s" % (wer, art_, len(nrn), ", ".join(nrn)))
+        return
+    if "--urteile" in sys.argv:  # 1192 (1189 A): Chefurteile der letzten n Stunden (Vorgabe 48) gegen die Zeile derselben Nummer
+        i = sys.argv.index("--urteile"); n = sys.argv[i + 1] if len(sys.argv) > i + 1 and sys.argv[i + 1].isdigit() else 48
+        for w, kopf, je in urteile(int(n)):
+            print("URTEIL %s · %s → %s" % (w.strftime("%d.%m., %H:%M"), kopf[:90],
+                  "; ".join("%s %s%s" % (nr, ort, (": " + st) if st else "") for nr, ort, st in je) or "keine Nummer"))
+        return
     if "--loesen" in sys.argv:
         for nr, wer, weg, st in loesen(True): print("GELÖST %s (%s): wartet auf %s erfüllt%s" % (nr, wer, ", ".join(weg), (" → " + st) if st else ""))
     if md: print("## Offen je Rolle\n\nVom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand %s; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.\n" % datetime.date.today().strftime("%d.%m."))
@@ -517,6 +1291,11 @@ def main():
         unles = sorted({nr for nr, _ in fehler if any(d["nr"] == nr and d["besitzer"] == rolle for d in zeilen_liste())})
         if unles: warn += "  UNLESBAR (Liste): " + ", ".join(unles)
         p = pause(inhalt)
+        frei = pause_frei(inhalt) if p else []
+        if p:  # 889, 892 (D148.1): Pause sperrt jede Zeile, die nicht unter „frei für“ steht, in jeder Ausgabe (auch --md, --stand)
+            zs = [z if z[4] or (frei and ist_frei(z[0], frei)) or (not frei and z[1] == "M") else z[:4] + ("Pause, nicht frei" if frei else "Pause, nur Muss",) for z in zs]
+            if not frei and any(z[1] == "M" and not z[4] for z in zs): p += ", nur Kür angehalten (1364)"  # Muss startet trotz Pause
+        if frei: p += ", frei für " + ", ".join(frei)  # 870.17
         if md:
             print("**%s** – offen %d, Muss %d, startbar %d%s\n" % (rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), (", PAUSE bis " + p) if p else ""))
             print("| Nr. | Kl. | Was | Stand |\n|---|---|---|---|")
@@ -525,6 +1304,8 @@ def main():
             print()
             continue
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn))  # Zahlen und Testzählung laufen weiter
+        elif pause_ohne_datum(inhalt): print("  %s: PAUSE ohne Datum (nicht lesbar), sperrt nur die Kür; Datum oder „Halt nur für <Nr>“ setzen (1246)" % rolle)
+        elif halt(inhalt): print("  %s: Halt nur für %s (1246)" % (rolle, ", ".join(halt(inhalt))))
         erstes = {"M": None, "K": None, "N": None}
         sperren = []
         for nr, kl, thema, d, b in zs:
@@ -535,14 +1316,14 @@ def main():
             if b: sperren.append((nr, b)); continue
             art_ = "M" if kl == "M" else "K"
             if erstes[art_] is None: erstes[art_] = (nr, kl, thema)
-        if rolle in UEBERNAHME:
+        if rolle in BAUTEAMS:
             # wie bisher alle eigenen Zeilen, die auf einen Test warten, auch die schon einem Build zugeordneten (D80.6)
             gebaut = sum(1 for z in zs if "fuer" not in z[3] and (z[4] or "").startswith("wartet auf Test"))
-            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"] or erstes["K"] or erstes["N"])
+            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"])  # 783 W3: nur eigenes Muss hält die Übernahme
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
-        if not p: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
+        if not p or frei: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
             print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), len(sperren)))
         if alle:
@@ -550,13 +1331,30 @@ def main():
         elif sperren:
             print("      nicht startbar: " + "; ".join("%s: %s" % s for s in sperren[:6]) + (" …" if len(sperren) > 6 else ""))
     if not md:
-        for r in UEBERNAHME:
-            u = uebernahme(r, info)
+        mf = ["%s (%s)" % (z[0], rolle) for _, rolle in ROLLEN for z in plan(rolle) if z[1] == "M?" and not z[4]]
+        if mf: print("  M? für Perikles (190.8; lauf.py startet es als Muss „M? entscheiden“, 921): " + ", ".join(mf))
+        for r in BAUTEAMS:  # 1364: auch Spike
+            u = uebernahme(r)
             if u: print("  Übernahme für %s: %s" % (r, u))
-        if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 4:  # 317: ab 4 fertigen Punkten beider Teams bittet der Erste
-            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
+        teams = [r for r in BAUTEAMS if r in info]
+        if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in teams) >= 4:  # 317: ab 4 fertigen Punkten aller Teams bittet der Erste
+            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)%s" % (", ".join("%s %d" % (r, info[r][1]) for r in teams),
+                  "".join("; Sperre 620.1 B für %s (%d ungetestete Muss)" % (r, ungetestet(r)) for r in teams if ungetestet(r) >= GRENZE_UNGETESTET)))
         if "--loesen" not in sys.argv:
             for nr, wer, weg, st in loesen(False): print("  GELÖST %s (%s): wartet auf %s erfüllt (schreibt lauf.py --sperre)" % (nr, wer, ", ".join(weg)))
+        for wer, nr, stichtag, offen in vollzug_offen():  # 1137.2
+            print("  VOLLZUG FEHLT %s (%s): Stichtag %s vorbei, keine Vollzugsmeldung zu %s (Telegram „Vollzug <Nr>: was gilt, "
+                  "Geprüft an: <Commit>“; Fehlendes mit Ursache und neuem Termin an den Chef, 1137.1)"
+                  % (nr, wer, stichtag.strftime("%d.%m., %H:%M"), ", ".join(offen)))
+        for r in UEBERNAHME:  # 1129 A 2: fertig ohne Build fährt Pflicht im nächsten Sammelbuild
+            ob = ohne_build_zeilen(r)
+            if ob: print("  OHNE BUILD %s (%d, Pflicht im nächsten Sammelbuild, 1129 A 2; sperrt nicht): %s"
+                         % (r, len(ob), ", ".join(d["nr"] for d in ob[:12]) + (" …" if len(ob) > 12 else "")))
+        lz = [d for d in zeilen_liste() if haengt(d)]  # 1332 (3): Ford liest --stand jeden Lauf und gibt sie dem Besitzer
+        if lz: print("  LEICHE (1332: weder startbar noch Termin, Test, Person oder Zeile, die vorankommt; Ford: dem Besitzer in den Vorrat): %s"
+                     % "; ".join("%s %s: %s" % (d["nr"], d["besitzer"], sperre(d)) for d in lz[:15]))
+        ff = festgefahrene()
+        if ff: print("  Festgefahren (827.1: mehr Leistung nur mit „Nachfolger: … (Aufwand hoch, weil …)“): %s" % ("; ".join("%s %s: %s%s" % (d["nr"], d["besitzer"], g, " (gehabt)" if STARK_MARKE.search(d["titel"]) else "") for d, g in ff)))
         for nr, f in fehler: print("  UNLESBAR %s: %s" % (nr, f))
     sys.exit(1 if fehler else 0)
 

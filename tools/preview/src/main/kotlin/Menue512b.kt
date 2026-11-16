@@ -124,6 +124,7 @@ class Fahrer(val scene: ImageComposeScene, val name: String) {
 
 private fun bild512(name: String, setup: (GameViewModel) -> Unit, steps: Fahrer.(GameViewModel) -> Unit = {}) {
     System.getenv("ONLY")?.let { if (!name.startsWith(it)) return }
+    if (System.getenv("WEITER") != null && File(aus512, "$name.png").exists()) return   // 882.1, wie shot()
     val vm = GameViewModel(Application())
     vm.ensureLang(dt)
     vm.prelude = false
@@ -143,6 +144,7 @@ private fun bild512(name: String, setup: (GameViewModel) -> Unit, steps: Fahrer.
     } finally {
         scene.close()
     }
+    weiterVoll()
 }
 
 private fun mode(g: Game, m: Mode) {

@@ -30,9 +30,9 @@ func _speichere(n: int, name_: String, volk: String, klasse: String, stufe: int,
 	var z := Zustand.new()
 	z.name = name_; z.gold = gold; z.tag = tag; z.minuten = minuten; z.gespielt_ms = gespielt_ms
 	for f in flaggen: z.setze(f)
-	var hw := Heldwerte.erschaffe(name_, volk, klasse, {}, z.neue_uid)
-	if stufe > 1: hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[stufe]))
-	hw.tp = maxi(1, hw.max_tp() - 5)
+	var hw := BrsHeld.fuer_spiel(name_, volk, klasse, z.neue_uid)
+	if stufe > 1: Testmodus.stufe_setzen(hw, z, stufe)
+	hw.leben = maxi(1, hw.max_leben() - 5)
 	Spielstand.platz = n
 	Spielstand.speichere(z, hw, {"karte": karte, "x": 4, "y": 6, "blick": "UP"})
 
@@ -53,8 +53,8 @@ func _ding(z: Zustand, base: String, rar: String, ilvl: int, rolls: Array, seed_
 
 func _wechsel() -> void:
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "ELF", "WIZARD", {}, z.neue_uid)
-	var ad: Dictionary = Heldwerte.lade()["affixdaten"]
+	var hw := BrsHeld.fuer_spiel("Mira", "Elf", "Zauberlehrling", z.neue_uid)
+	var ad: Dictionary = BrsHeld.daten()["affixdaten"]
 	var a := func(n: String, w: int) -> Array: return [n, w]
 	var roll := func(xs: Array) -> Array: return xs.filter(func(r): return ad.has(String(r[0])))
 	var an := _ding(z, "robe", "EPIC", 4, roll.call([a.call("DEX", 2), a.call("AC", 2), a.call("RESIST", 2), a.call("STR", 2)]), 7)
@@ -91,11 +91,11 @@ func _lauf() -> void:
 	var gesichert := Spielstand.liste()
 	var alt_platz := Spielstand.platz
 	for n in range(1, gesichert.size() + 1): Spielstand.loesche(n)
-	_speichere(1, "Mira", "ELF", "WIZARD", 4, "deep_forest", 3, 21 * 60 + 5, (2 * 60 + 14) * 60000, [Geschichte.QUEST_STARTED, Geschichte.BARRIER_OPEN], 37)
+	_speichere(1, "Mira", "Elf", "Zauberlehrling", 4, "deep_forest", 3, 21 * 60 + 5, (2 * 60 + 14) * 60000, [Geschichte.QUEST_STARTED, Geschichte.BARRIER_OPEN], 37)
 	await _zeige("B", "557_b_eins")
 	await _zeige("B", "557_b_loeschen", true)
 	await _zeige("B2", "557_b2_loeschen", true)   # Vorlage 2 (Chef 14:21): Rueckfrage ohne Kasten
-	_speichere(3, "Borin", "DWARF", "FIGHTER", 2, "inn", 1, 9 * 60 + 40, 38 * 60000, [Geschichte.QUEST_STARTED], 12)
+	_speichere(3, "Borin", "Zwerg", "Wachsoldat", 2, "inn", 1, 9 * 60 + 40, 38 * 60000, [Geschichte.QUEST_STARTED], 12)
 	await _zeige("B", "557_b_zwei")
 	await _zeige("B2", "557_b2_zwei")   # 557 Runde 4: „× LÖSCHEN“ in Warnfarbe, „‹ ZURÜCK“ links
 	await _zeige("", "557_jetzt_zwei")
@@ -119,14 +119,14 @@ func _ring(z: Zustand, saat: int, rolls: Array) -> Dictionary:
 func _fenster() -> void:
 	var z := Zustand.new()
 	z.name = "Thora"; z.gold = 100
-	var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 	var saat := 0
 	for s_ in 200:
 		if Beute.name(_ring(z, s_, [])).ends_with("Eisernen Richters"): saat = s_; break
 	hw.anlegen(_ring(z, saat + 1, [["DEX", 2], ["STR", 2]]))
 	var neu := _ring(z, saat, [["ALL_STATS", 1], ["DEX", 2], ["CHA", 2]])
 	z.beutel.append(neu)
-	var panzer := Beute.erzeuge_mit_uid(KotlinZufall.new(5), z.neue_uid, 9, "DIVINE", "FIGHTER")
+	var panzer := Beute.erzeuge_mit_uid(KotlinZufall.new(5), z.neue_uid, 9, "DIVINE", "Wachsoldat")
 	z.beutel.append(panzer)
 	# Zu 557 (4) (Chef 16:42; Pruefer 16:43: „Nebenhand fehlt im Bild“): eine Einhandwaffe, damit „Nebenhand“ in der Zeile unten steht
 	var schwert := {"uid": z.neue_uid.call(), "base": "shortsword", "rarity": "RARE", "ilvl": 5, "plus": 0, "rolls": [["STR", 1]], "unique": null, "name_seed": 3}
@@ -154,8 +154,8 @@ func _fenster() -> void:
 
 func _kapitel() -> void:
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Thora", "ELF", "WIZARD", {}, z.neue_uid)
-	hw.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[5]))
+	var hw := BrsHeld.fuer_spiel("Thora", "Elf", "Zauberlehrling", z.neue_uid)
+	Testmodus.stufe_setzen(hw, z, 5)
 	for entwurf in ["", "B", "B2"]:
 		KapitelSchirm.entwurf = "B" if entwurf == "B2" else entwurf
 		Spielstaende.vorlage2 = entwurf == "B2"
@@ -178,7 +178,7 @@ func _brauen() -> void:
 		z.dazu("herbs", 7)
 		z.dazu("potion", 2)
 		z.dazu("bat_wing", 0)
-		var hw := Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, z.neue_uid)
+		var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
 		var ebene := CanvasLayer.new()
 		root.add_child(ebene)
 		var l := LadenSchirm.new(hw, z, Laden.new(["herbs", "potion", "remedy"], true))

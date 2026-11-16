@@ -17,7 +17,7 @@ Jedes Kapitel deckt ein Stück auf und lässt eine neue Frage offen. Kapitel 1 u
 | 6 | 14–16 | offen | offen | offen |
 | 7 | 16–20 | offen | offen; Ende des Fadens | – |
 
-Stufen nach `DESIGN-BALANCE.md` (Stufe am Kapitelende).
+Stufen nach `alt/DESIGN-BALANCE.md` (Stufe am Kapitelende; überholt durch das BRS, keine feste Höchststufe, 650.2).
 
 ## Offene Fäden
 
@@ -46,7 +46,7 @@ Goblins rauben Priesterin und Sonnenamulett; hinter ihnen steht ein Fremder mit 
 
 Der Held kommt bei Nacht nach Bornim und will nur ein Bett für eine Nacht. Er verschläft den Überfall: Goblins des Blutzahn-Stamms rauben Schwester Lyra und das Sonnenamulett aus dem Tempel. Am Morgen schickt ihn Ältester Aldric los.
 
-Der Weg führt durch den Flüsterwald zur Blutzahnhöhle. Jäger Garrick verrät, dass der Grottenschrat Krogg den Schlüssel zu Graks Halle trägt. Grak fällt, Lyra ist frei. Bei ihm liegt ein Brief mit grauem Siegel.
+Der Weg führt durch den Flüsterwald zur Blutzahnhöhle. Jäger Garrick verrät, dass der Bärenschrat Krogg den Schlüssel zu Graks Halle trägt. Grak fällt, Lyra ist frei. Bei ihm liegt ein Brief mit grauem Siegel.
 
 Im Tempel kehrt das Amulett zurück. Bornim feiert, aber der Brief lässt den Helden nicht los.
 

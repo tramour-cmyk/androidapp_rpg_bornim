@@ -46,10 +46,14 @@ func _lauf() -> void:
 	var da: Vector2i = spiel.held.kachel
 	var r := await kampf(spiel, "kampf", ["GOBLINS"])
 	if not r.is_empty() and r[1] != "LOST" and spiel.held.kachel != da: fehler += 1; print("FEHLER Held nicht am Fleck")
-	hw.tp = 3
-	var vor := [hw.tp, hw.stufe, spiel.zustand.gold, spiel.zustand.siege]
+	hw.leben = 3
+	var vor := [hw.leben, hw.stufe, spiel.zustand.gold, spiel.zustand.siege]
 	r = await kampf(spiel, "probe", ["GRAK", "WIZARD", 5])
-	if not r.is_empty() and r[0] != 2: fehler += 1; print("FEHLER Probe ohne Soeldner")
-	if [hw.tp, hw.stufe, spiel.zustand.gold, spiel.zustand.siege] != vor: fehler += 1; print("FEHLER Probe aendert den Helden: ", vor)
+	if not r.is_empty() and r[0] != 1: fehler += 1; print("FEHLER Probe nicht allein (947: Söldner nur zugeschaltet)")
+	Testmodus.probe_soeldner = "*"
+	r = await kampf(spiel, "probe", ["GRAK", "WIZARD", 5])
+	Testmodus.probe_soeldner = ""
+	if not r.is_empty() and r[0] != 2: fehler += 1; print("FEHLER Probe mit Söldner ohne Söldner")
+	if [hw.leben, hw.stufe, spiel.zustand.gold, spiel.zustand.siege] != vor: fehler += 1; print("FEHLER Probe aendert den Helden: ", vor)
 	print("TESTKAMPF %d Fehler" % fehler)
 	quit(1 if fehler else 0)

@@ -23,13 +23,14 @@ class JobsTest {
         val j = Jobs["pelts"]
         Jobs.take(s, j)
         assertEquals(listOf("pelts"), Jobs.carried(s).map { it.id })
-        s.add("wolf_pelt", 3)
-        assertEquals(3, Jobs.progress(s, j))
+        s.add("wolf_pelt", 2)
+        assertEquals(2, Jobs.progress(s, j))
         assertNull(Jobs.handIn(s, "thessa"), "not enough pelts yet")
         s.add("wolf_pelt", 4)
-        assertEquals(5, Jobs.progress(s, j))
+        assertEquals(3, Jobs.progress(s, j))
         val cmds = Jobs.handIn(s, "thessa")!!
-        assertTrue(Cmd.Take("wolf_pelt", 5) in cmds && Cmd.GiveGold(60) in cmds)
+        assertTrue(Cmd.Take("wolf_pelt", 3) in cmds && Cmd.GiveGold(60) in cmds)
+        assertTrue(Cmd.Give("cloak_thessa", 1) in cmds, "356.2: Thessas Pelzumhang dazu")
         assertNull(Jobs.handIn(s, "borin"), "only the giver takes it back")
     }
 
@@ -44,6 +45,7 @@ class JobsTest {
         while (game.mode != Mode.Explore) game.advance()
         assertEquals(gold + 50, s.gold)
         assertEquals(0, s.count("boar_tusk"))
+        assertTrue(s.bag.any { it.unique == "dagger_borin" }, "356.2: Borins Hauerdolch als Ausrüstung in der Tasche")
         assertTrue(Jobs.isDone(s, Jobs["tusks"]))
         assertFalse("tusks" in Jobs.onBoard(s).map { it.id })
         assertTrue(Jobs.carried(s).isEmpty())

@@ -25,7 +25,7 @@ func _lauf() -> void:
 	spiel.ui = Steuerung.new()
 	root.add_child(spiel.ui)
 	await process_frame
-	spiel.werte = Heldwerte.erschaffe("Thora", "HUMAN", "FIGHTER", {}, spiel.zustand.neue_uid)
+	spiel.werte = BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", spiel.zustand.neue_uid)
 	spiel.zustand.gold = 42
 	spiel.zustand.dazu("raw_meat", 2)
 	for ort in ["feuer", "schenke"]:
@@ -39,7 +39,7 @@ func _lauf() -> void:
 		var t := texte(f)
 		print("RAST557 %s: %s" % [ort, t])
 		if ort == "feuer":
-			pruefe(t.contains("Kurze Rast") and t.contains("Lange Rast"), "Feuer ohne kurze und lange Rast: %s" % t)
+			pruefe(t.contains("Kurze Erholung") and t.contains("Langes Ausruhen"), "Feuer ohne Kurze Erholung und Langes Ausruhen (870.4): %s" % t)
 		else:
 			pruefe(t.contains("42 Gold"), "Theke ohne Gold: %s" % t)
 			pruefe(t.contains("Met") and t.contains("Zimmer") and t.contains("Fleisch verkaufen"), "Theke ohne Met, Zimmer, Fleisch: %s" % t)

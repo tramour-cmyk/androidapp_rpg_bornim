@@ -75,15 +75,15 @@ func _wahl_spalte(w: Dictionary) -> Control:
 	s.alignment = BoxContainer.ALIGNMENT_BEGIN
 	var z := Rastzeichen.neu(String(w.get("zeichen", "REST")), 40, Stil.BRIGHT if an else Stil.DIM)
 	z.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	s.add_child(Erschaffung.luecke(6))
+	s.add_child(Stil.luecke(6))
 	s.add_child(z)
-	s.add_child(Erschaffung.luecke(4))
+	s.add_child(Stil.luecke(4))
 	for t in [[String(w["name"]), 18, Stil.TEXT if an else Stil.DIM], [String(w.get("dauer", "")), 15, Stil.GOLD if an else Stil.DIM], [String(w.get("tut", "")), 13, Stil.DIM]]:
 		if String(t[0]) == "": continue
 		var l := _satz(String(t[0]), t[1], t[2])
 		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		s.add_child(l)
-	s.add_child(Erschaffung.luecke(8))
+	s.add_child(Stil.luecke(8))
 	var b := _tippbar(s, String(w["id"]), an)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	return b
@@ -139,7 +139,7 @@ func _ohne_kasten(titel: String, unter: String, wahlen: Array, weiter_text: Stri
 		var n := _satz(notiz, 15, Stil.TEXT)
 		n.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		sp.add_child(n)
-	sp.add_child(Erschaffung.luecke(6))
+	sp.add_child(Stil.luecke(6))
 	if Spielstaende.vorlage2:   # 557/549 (Chef 16:37: „mit denselben Bausteinen“): die Nebenwahl links wie Abbrechen;
 		# 557 Runde 4 (Chef 17:40: „sinnvoller wäre ein Zurück oder ein Abbrechen“): „‹ ZURÜCK“ statt „‹ WEITERGEHEN“, so gross wie jeder Knopf
 		var neben := Spielstaende.knopf("neben", Sprache.u("back"), func(): gewaehlt.emit(""), true)
@@ -184,12 +184,17 @@ func _tippbar(inhalt: Control, id: String, an: bool) -> PanelContainer:
 	p.mouse_filter = Control.MOUSE_FILTER_STOP if an else Control.MOUSE_FILTER_IGNORE
 	p.add_child(inhalt)
 	p.set_meta("id", id)
+	var ab := [Vector2.INF]
 	p.gui_input.connect(func(e: InputEvent):
-		if not (e is InputEventMouseButton and e.button_index == MOUSE_BUTTON_LEFT) and not e is InputEventScreenTouch: return
-		if e.pressed: p.add_theme_stylebox_override("panel", gedrueckt)
+		if not Spielstaende.tipp(e): return   # 605: sonst jeder Tipp zweimal (Beruehrung und nachgebildete Maus)
+		if e.pressed:
+			p.add_theme_stylebox_override("panel", gedrueckt)
+			ab[0] = e.global_position
 		else:
 			p.add_theme_stylebox_override("panel", leer)
-			if Rect2(Vector2.ZERO, p.size).has_point(e.position): gewaehlt.emit(id))
+			var gewischt: bool = ab[0] == Vector2.INF or (e.global_position as Vector2).distance_to(ab[0]) > Spielstaende.WISCH * DP   # 617
+			ab[0] = Vector2.INF
+			if not gewischt and Rect2(Vector2.ZERO, p.size).has_point(e.position): gewaehlt.emit(id))
 	return p
 
 func _weiter(text: String) -> Control:
