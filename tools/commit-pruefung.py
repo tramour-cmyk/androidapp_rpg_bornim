@@ -593,6 +593,11 @@ def main():
     if any(p in ("tools/sim444/werte.json", "docs/LISTE-REGELWERTE.md", "tools/regelwerte.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/regelwerte.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Regelwerte (969): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
+    # 1385 (649b A Build 1): Kennungstabelle gegen Code, Klänge, Absichten; hält nur bei neuen Befunden (Sperrklinke)
+    if any(s != "D" and (p in ("tools/sim444/werte.json", "godot/daten/klang/kampfklang.json", "tools/figurenpruefung.py")
+                         or (p.startswith("godot/") and p.endswith(".gd") and "/tests/" not in p)) for s, p in dat):
+        r = subprocess.run([sys.executable, "tools/figurenpruefung.py", "--pruefen"], capture_output=True, text=True)
+        if r.returncode: stop.append("Figurenprüfung (1385): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     if stop:

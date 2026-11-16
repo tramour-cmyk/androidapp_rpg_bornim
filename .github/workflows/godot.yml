@@ -65,6 +65,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+      # 1385 (649b A Build 1): Figuren, Gegenstände, Regelwerte im Bau prüfen; rot nur bei neuen Befunden der Figurenprüfung
+      # (Sperrklinke tools/figurenpruefung_bekannt.txt) und Fehlern im Gegenstandskatalog; die Regelwerte-Seite liegt auf main (Hinweis)
+      - name: Daten pruefen (1385)
+        run: |
+          python3 tools/figurenpruefung.py --pruefen
+          python3 tools/gegenstaende.py --daten
+          python3 tools/regelwerte.py --pruefen || echo "::warning::docs/LISTE-REGELWERTE.md veraltet (969): python3 tools/regelwerte.py auf main"
       # 870.9 (870a 7 B, Chef 10.11., 15:25): Karten, Texte, Held, Intro mit Bildern, Kartenblaetter, Bilder der Dinge, Schrift (Fondamento, OFL),
       # Hauptmenuebild und Klang sind seit dem letzten Export aus core (f32a789e6) Godot-Quelle unter godot/daten (eingecheckt,
       # godot/.gitignore); Karten bearbeiten: tools/karten/karten.py, Regeln: tests/karten_regeln.gd (Pruefschritt)
