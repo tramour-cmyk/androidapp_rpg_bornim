@@ -14,7 +14,7 @@ Im Bau geprüft: Automatisch senkt die Grafikstufe nur am Ladepunkt, nie mitten 
 | 292.2 | Spike | 698 | Handy | Systemmenü, Gruppe „Spiel“: Zeichen „Grafik“ viermal antippen, einmal gedrückt halten; unten „Gerät zeigen …“ antippen | Antippen wechselt Automatisch → Hoch → Mittel → Niedrig → Automatisch; gedrückt halten erklärt das Zeichen; bei „Niedrig“ werden Schatten und Schärfe sofort sparsamer, Schrift und Tuschelinie bleiben; dort steht die Zeile „Grafikstufe“ passend zur Wahl | Wert wechselt nicht oder falsche Reihenfolge; keine Erklärung; Bild ändert sich nicht oder Schrift/Tuschelinie leidet; Zeile „Grafikstufe“ fehlt oder stimmt nicht |
 | 292.3 | Spike | 1286 | Handy | Reiter „Test“ → „Strahlen“, einen Strahl abwarten, dann „Zurück“ | das Spiel kommt zurück, keine Fehlermeldung | Fehlermeldung oder Absturz nach „Zurück“ |
 | 292.4 | Spike | 1145 | Handy | Zeile 292.4 → „Lage herstellen“ (Höhle bei Krogg), Grafik auf „Automatisch“; eine Minute durch die Gänge gehen und dabei die Kamera drehen | Gehen und Drehen laufen gleichmäßig, kein kurzes Hakeln beim Schritt auf eine neue Kachel | es hakelt weiter wie in Build 291 |
-| 292.5 | Jerry | 1285 | Handy | in der Höhle (Lage 292.4) den Joystick nur wenig ausschlagen, einmal mit Testmenü „Schnell“ an, einmal aus | im Ring geht der Held, erst über den Ring rennt er | er rennt schon bei kleinem Ausschlag |
+| 292.5 | Jerry | 1285 | Handy | in der Höhle (Lage 292.4) den Joystick nur wenig ausschlagen, einmal mit Testmenü „Schnell“ an, einmal aus | in beiden Fällen geht der Held im Ring, erst über den Ring rennt er | er rennt schon bei kleinem Ausschlag (mit oder ohne „Schnell“) |
 | 292.6 | Jerry | 643 | ohne dich (Diogenes bestätigt am Lauf) | `waffen_522`: Langbogen und Köcher gebaut, Griff am Ursprung | Test grün | Test rot |
 | 292.7 | Jerry | 1305 | ohne dich (Diogenes bestätigt am Lauf) | `reihe_1305`: jedes erlaubte Nahkampfziel steht im Bild vorn (Probekampf drei Wölfe, Kämpfer) | Test grün | Test rot |
 | 292.8 | Jerry | 1333 | ohne dich (Diogenes bestätigt am Lauf) | `handlungen_870`: Wuchtschlag, Zweihänder, stumpfe Waffe melden „schwer“ | Test grün | Test rot |
@@ -24,6 +24,8 @@ Im Bau geprüft: Automatisch senkt die Grafikstufe nur am Ladepunkt, nie mitten 
 Gegengelesen: Tom 16.11., 09:54 (alle Wege im Code von 698, 1286, 1145 und Build 291 nachgesehen: Einmess-Blende nur ohne gespeicherte Stufe, Zeichen „Grafik“ mit Gedrückthalten, Folge Automatisch–Hoch–Mittel–Niedrig, Testmenü „Strahlen“, Lage Krogg, Schalter „Schnell“; 292.2 „Niedrig“ nach Tabelle 698a berichtigt, dort sind die Schatten hart, nicht weicher)
 
 Nachtrag (Jerry 09:58): 292.10 (1383, von Tom zu Build 292 gegeben) und die Zeilen 292.1, 292.2, 292.4 im Wortlaut von Spike nach dem Gegenlesen; 292.7 (1305) „ohne dich“ mit `reihe_1305`, neu im Lauf.
+
+Gegengelesen: Sokrates 16.11., 11:24 (beide Teams; Wegsatz nur durch Handy-Zeilen, Nummern aufsteigend, Lage 292.4 vorhanden; alle sechs Tests aus „Im Bau geprüft“ und den Zeilen „ohne dich“ stehen in `godot.yml` von `claude/build-292`; 292.5 „Passt“ auf beide Fälle mit und ohne „Schnell“ geschärft, `held.gd` 20)
 
 ## Lagen
 
