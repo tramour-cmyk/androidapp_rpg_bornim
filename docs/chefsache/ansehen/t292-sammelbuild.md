@@ -30,3 +30,11 @@ Gegengelesen: Sokrates 16.11., 11:24 (beide Teams; Wegsatz nur durch Handy-Zeile
 ## Lagen
 
 - 292.4: station=Krogg
+
+## Ergebnis
+
+- 292.1 ✓ (Chef 16.11., 14:36, App)
+- 292.2 ✓ (Chef 16.11., 14:36, App)
+- 292.3 ✓ (Chef 16.11., 14:36, App ✗ mit Vorbehalt: „Nach zurück startete das Spiel neu … wenn das das erwartete Ergebnis ist, dann ist alles richtig“); erwartet: „Zurück“ lädt das Spiel neu ins Hauptmenü (`strahlprobe.gd` Zeile 7 und 288), keine Fehlermeldung genannt; Prüflistenfehler (Spike): „Passt“ nannte den Neustart nicht
+- 292.4 ✓ (Chef 16.11., 14:36, App)
+- 292.5 ✓ (Chef 16.11., 14:36, App)
