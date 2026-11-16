@@ -1,6 +1,6 @@
 # Tom und Jerry · Build 294 · Sammelbuild: Wolf bleibt dran und dreht zum Helden, Zurück im Hauptmenü fragt, Leben in Kampfmeldungen, Testreparaturen · PR folgt
-E Kampf · Jerry (1072, 1275; ohne dich 1453, 1455, 1296, 642), Tom (1418, 1322), Spike (ohne dich 1426, 1458) · 16.11., 23:05 · APK folgt
-Gegengelesen: Tom 20:27 (294.1 Wortlaut wie `[1419.*]`, 294.3 wie `MSG72_DRINKS` auf `claude/build-294`; passt); neu seit 23:05: 294.2 Umzingeln, 294.2b, 294.4, 294.5, 294.9, bitte noch einmal
+E Kampf · Jerry (1072, 1275, 1439; ohne dich 1453, 1455, 1296, 642), Tom (1418, 1322, 1480; ohne dich 1044, 1417, 1420), Spike (1385; ohne dich 1426, 1458, 1485) · 16.11., 23:25 · APK folgt
+Gegengelesen: Tom 20:27 (294.1 Wortlaut wie `[1419.*]`, 294.3 wie `MSG72_DRINKS` auf `claude/build-294`; passt); neu seit 23:05: 294.2 Umzingeln, 294.2b, 294.4, 294.5, 294.9–294.15, bitte noch einmal
 
 Sammelbuild auf `main` mit Build 293 (über die Zweige 1072 und 1453); die Punkte der Liste 293 kommen hier nicht noch einmal. Taumeln 1275 fährt mit; das Kerbensystem gibt es nur in Proben ohne Schalter im Spiel, seine Prüfung ist ein Film auf Telegram, nicht hier.
 
@@ -20,8 +20,15 @@ Im Bau geprüft: Wölfe und Goblins rücken ohne neuen Platz nicht, jedes erlaub
 | 294.7 | Spike | 1426 | ohne dich (Diogenes bestätigt am Lauf) | Schritt „Bildrate je Ort“: Ladezeit und Bildrate je Ort gegen Lauf 524 als Zahlen im Protokoll | Zahlen stehen da | keine Zahlen |
 | 294.8 | Spike | 1458 | ohne dich (Diogenes bestätigt am Lauf) | Prüfschritt ohne die entfernten SRD-Reste | Prüfschritt ohne Fehler aus 1458 | Fehler aus 1458 |
 | 294.9 | Jerry | 642 | ohne dich (Diogenes bestätigt am Lauf) | `wolf_mess_438`: kein Wolf in einem anderen, keiner am Bildrand angeschnitten | Test grün | Test rot |
+| 294.10 | Jerry | 1439 | Handy | Zeile 294.10 → „Lage herstellen“ (Probekampf Wölfe mit Zauberlehrling), auf die Kästen unten sehen | im Kasten des Helden zwei Balken untereinander ohne Wort davor: Leben in Lebensfarbe, Mana blau wie in der Weltleiste; beide gleich lang und bündig, dahinter je die Zahl „n/n“ | „Mana 40/40“ als Text hinter dem Leben, kein blauer Balken, oder Balken verschieden lang |
+| 294.11 | Tom | 1480 | Handy | Reiter „Test“ → „Schnell“ an; dann „Lage herstellen“ einer beliebigen Zeile | mit „Schnell“ an steht die rote Zeile „Schnell an: verfälscht Prüfpunkte“; nach „Lage herstellen“ ist „Schnell“ aus und die Zeile weg | keine rote Zeile, oder „Schnell“ bleibt nach „Lage herstellen“ an |
+| 294.12 | Spike | 1385 | Handy | Testmenü auf Englisch stellen; Probekampf Grimmzahn, dann Wiedergänger und Grabhund wählen | Grimmzahn heißt „Grimfang, the Pack Leader“; Wiedergänger und Grabhund tragen auf Deutsch diese Namen | alte Namen (Zombie, Ghul) oder Grimmzahn ohne englischen Namen |
+| 294.13 | Tom | 1044 | ohne dich (am Bild gebilligt, 👍 15:48) | Grundstand der Leute | – | – |
+| 294.14 | Tom | 1417 | ohne dich (am Bild gebilligt, 👍 19:41) | Schild im Heldenmenü, `schild_menue_1417` | Test grün | Test rot |
+| 294.15 | Tom | 1420 | ohne dich (am Film gebilligt, 👍 19:40) | Fußstaub sanfter, auch im Wald | – | – |
 
 ## Lagen
 
 - 294.2: probe=WOLVES tasche=voll
 - 294.2b: probe=SPIDER
+- 294.10: probe=WOLVES herkunft=Zauberlehrling
