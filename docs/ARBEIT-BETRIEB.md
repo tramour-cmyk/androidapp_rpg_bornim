@@ -146,3 +146,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:47 16.11.: Startsperre 18:47 Start Ford (selbst), Selbstneustart bei 403 Tsd. Token (Haken 1019)
 - 19:04 16.11.: Startsperre 19:04 Start Tom, Jerry, Diogenes (lauf.py)
 - 19:04 16.11.: Marke Archiv session_01Hmoj794gZGafp6bN7FPDvM (lauf.py)
+- 19:04 16.11.: Start Jerry 1453 (session_01Hmoj76XQ54YtEhfAGyiZ3Y), alte Jerry archiviert, 11,69 $ auf 1072, 1453; Weiter 1477 Diogenes; Startsperre 19:04 Start Sokrates (selbst), Neustart-Meldung 2780b0605, Nachfolger Sokrates – 1411: Mana grundsätzlich, Vorlage; neuer Ford session_01Hmoj76cLUxDoHGcPjixiTE steht seit 19:01 auf Freigabe, hat keine Uhr angelegt, alter Ford führt weiter
+- 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
