@@ -143,3 +143,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:34 16.11.: Start Jerry Testbitte 293 (session_01Hmoj79Fja9zG9MubrAsDUS), alte Jerry-Sitzung archiviert, 41,28 $ auf 1393 gebucht
 - 14:39 16.11.: Startsperre 14:39 Start Diogenes (selbst), Neustart-Meldung 14:32 (0a6f5f865), Muss 1427, 1440 bereit; alte Diogenes-Sitzung archiviert, 7,56 $ auf 1424, 1098, 1098.1 gebucht
 - 15:07 16.11.: Lauf 15:03; START/ARCHIVIERE Perikles zurückgestellt (Perikles 14:45: Neustart erst nach Chef-Antwort zu 1441a); Stillstand Jerry 1340 nicht gezählt (Sitzung 293 läuft, Lauf bis 15:20); Rotbuch angelegt; Ford-Starter-Uhr (1444) nicht ausgeführt, Chef bezweifelt Befund
+- 15:19 16.11.: Startsperre 15:19 Start Perikles (selbst), Neustart-Meldung 14:42/15:08 (ca6816ddf), Nachfolger Perikles – Vorratsprüfung L und O
