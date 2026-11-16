@@ -1,5 +1,7 @@
 # 531 · Garrick im Profil: Gurt an Bogen und Köcher, Kapuze enger · Tom · 16.11.
 
+[Bild von 16.11., 16:58](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-1658-531-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Leute · Tom · 16.11. · aus deinem Wort 12:26 (Bild Rücken 10:17, Archiv „531.1“): „wie ist der Langbogen befestigt?“ und „die Kapuze ist wie für einen Riesen gemacht“
 
 Geprüft an: Lauf 43887943297 (`claude/tom-531-film`, `aba9db679`), Bauserver
