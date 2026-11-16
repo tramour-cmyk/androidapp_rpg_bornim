@@ -51,6 +51,15 @@ EN: Handling
 `[296.2.kampfsystem]` (Zeichen in der Gruppe Kampf, 296.2; Name „Kampfsystem“, EN „Battle system“; Werte „Klassisch“, „MARS“, EN „Classic“, „MARS“) Wie deine Kämpfe ablaufen. Klassisch: der bewährte Zugkampf. MARS: das neue Kampfsystem, mit Reihen, angesagten Absichten der Gegner und dem Ring zum Abwehren. Gilt ab dem nächsten Kampf.
 EN: How your fights play out. Classic: the proven turn-based fight. MARS: the new battle system, with rows, foes announcing their intents and the ring to ward off blows. Applies from the next fight.
 
+`[1370.grafik.zeichen]` (Zeichen in der Gruppe Spiel, 698a A; Werte in Antippfolge) Grafik: Automatisch, Hoch, Mittel, Niedrig
+EN: Graphics: Automatic, High, Medium, Low
+
+`[1370.grafik.satz]` Wie viel das Handy zeichnet. Antippen wechselt: Automatisch, Hoch, Mittel, Niedrig. Automatisch geht eine Stufe herunter, wenn es ruckelt, und nie von selbst herauf. Niedrig spart an Schatten, Schärfe und Effekten; Schrift und Tuschelinie bleiben, wie sie sind. Gras und Effekte wechseln erst beim nächsten Ortswechsel oder Kampf.
+EN: How much the phone draws. Tap to change: automatic, high, medium, low. Automatic steps down one level when the game stutters and never steps back up on its own. Low cuts back on shadows, sharpness and effects; text and the ink line stay as they are. Grass and effects change the next time you enter a place or a fight.
+
+`[1370.grafik.meldung]` (einmal unten am Rand, wenn Automatisch am Ladepunkt gesenkt hat; Stufe aus `[1370.grafik.zeichen]`) Grafik: Mittel
+EN: Graphics: Medium
+
 ## Hinweis beim ersten Öffnen (326)
 
 `[326.hinweis]` (einmal, beim ersten Öffnen des Systemreiters, weil nur dessen Zeichen sich erklären; `vm.signHintSeen`, Tom 23.10.) Halte ein Zeichen gedrückt, und es erklärt sich.
