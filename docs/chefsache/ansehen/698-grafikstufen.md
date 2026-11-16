@@ -1,4 +1,7 @@
 # 698 · Grafikstufen: Hoch gegen Niedrig, Einmess-Blende, Zeichen „Grafik“ · Spike · 16.11., 07:52
+
+[Bild von 16.11., 07:53](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-0753-698-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Bilder auf Telegram (je Bild 👍 oder 👎)
 
 E Technik
