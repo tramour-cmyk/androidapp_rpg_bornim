@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 22:18, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 22:27, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -35,8 +35,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 191 | 171 | 191 | 1051 |
-| neu | 158 | 119 | 158 | 1048 |
+| erledigt | 192 | 171 | 192 | 1052 |
+| neu | 159 | 119 | 159 | 1049 |
 | **netto** (erledigt − neu) | **+33** | **+52** | **+33** | **+3** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
@@ -62,19 +62,19 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 1439 | Jerry | Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigener blauer Balken wie… | M | 2 Kampf passt | startbar |
 | 2 | 601.1 | Jerry | Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurück; Einschlagstelle u… | M | 2 Kampf passt | startbar |
 | 3 | 1488 | Jerry | Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil, 2 Name, 3 Wirkung;… | M | 2 Kampf passt | startbar |
-| 4 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | 2 Kampf passt | startbar |
-| 5 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | startbar |
-| 6 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | 2 Kampf passt | startbar |
-| 7 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | 2 Kampf passt | startbar |
+| 4 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | 2 Kampf passt | gebaut, t293 ohne deine Antwort |
+| 5 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | gebaut, t292 ohne deine Antwort |
+| 6 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | 2 Kampf passt | gebaut, t293 ohne deine Antwort |
+| 7 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | 2 Kampf passt | gebaut, t292 ohne deine Antwort |
 | 8 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
-| 9 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | 2 Kampf passt | startbar |
+| 9 | 1366 | Jerry | Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet; W… | M | 2 Kampf passt | gebaut, t292 ohne deine Antwort |
 | 10 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
 | 11 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
 | 12 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
 | 13 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
 | 14 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 15 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | gebaut, t293 ohne deine Antwort |
 | 17 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
 | 18 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
 | 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
