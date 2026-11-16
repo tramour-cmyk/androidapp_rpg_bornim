@@ -65,6 +65,8 @@ Bildschirm 1200 × 1920, 240 dpi, Schrift Faktor 1.09, Breite 800 dp, Rand oben 
 
 Lesart (Sokrates, nicht nachgestellt): gleicher Build wie A56 am 15.11., dort Dorf 25, Wald 24, Kampf 18–20 („mobile“); das Tablet liegt bei etwa 40 % davon, im Kampf mit 146 Zeichenaufrufen und 359k Dreiecken ebenso langsam wie in der Welt: teure Bildpunkte (Adreno 619 gegen Xclipse 540, ähnlich viele Bildpunkte), wie Spike am A56 las. Kampfort 17,8 s gegen 3,0 s am A56. Build 286 hat noch keine Grafikstufen (698, ab Build 292); erst darauf messen. Der Chef wollte Build 293 installieren (Link Lauf 524, richtig); am Gerät lief trotzdem 286 (1485).
 
+**Build 293 (0.348.524), 16.11., 20:56, Gerätetext des Chefs:** Grafikstufe Automatisch wählt **Niedrig** (Sonnenschatten 1024 px, 3D 70 %). Wald 9/12: 10 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 118 ms, längste Pause 148 ms; Blende danach 10 s: längste 131 ms, 113 über 50 ms; Laden Wald 7409 ms; 409 Zeichenaufrufe, **2997k Dreiecke**, 615 MB Grafik, Speicher 227 MB; keine Fehlermeldungen. Lesart (Sokrates, nicht nachgestellt): gegen Build 286 (Wald 10 Bilder/s, 124 ms, 417 Aufrufe, 2940k Dreiecke) bringt Niedrig mit 3D 70 % (etwa halb so viele Bildpunkte) nichts; damit trägt die Lesart „teure Bildpunkte“ oben nicht. Niedrig senkt weder Dreiecke noch Zeichenaufrufe; Verdacht Dreiecke (3 Mio. auch auf Niedrig) oder Prozessor. Ursache Spike (1484).
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```
