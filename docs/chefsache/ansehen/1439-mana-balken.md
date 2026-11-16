@@ -1,4 +1,7 @@
 # 1439 · Mana als eigener blauer Balken im Kampfschirm
+
+[Bild von 16.11., 23:51](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/16-2351-1439-Tuffy.png) (eingetragen von meldung.sh, Tuffy)
+
 Tuffy · 16.11., 23:52 · E Kampf · dein Wort 16.11., 14:15 und 1448 A (14:47)
 Kurz: Mana steht jetzt als blauer Balken unter dem Lebensbalken, in der Farbe der Weltleiste, ohne Wort davor, beide Balken gleich lang, die Zahl dahinter.
 
