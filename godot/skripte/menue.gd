@@ -168,10 +168,7 @@ func luecke(dp: float) -> void: inhalt.add_child(Stil.luecke(dp))
 func balken(wort: String, wert: int, hoechst: int, farbe: Color, text := "") -> void:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(8 * DP))
-	var w := Stil.txt(wort, 14, Stil.TEXT, true)   # 584: LabeledBar, Wort halbfett wie alt
-	w.size_flags_horizontal = Control.SIZE_FILL
-	w.custom_minimum_size.x = 36 * DP
-	r.add_child(w)
+	r.name = "Balken_" + wort   # 1448 A (Chef 16.11., 14:47): kein Wort vor dem Balken, Balken gleich lang und bündig, dahinter die Zahl
 	var b := Leiste.Balken.new()
 	b.custom_minimum_size = Vector2(0, 10 * DP)
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -209,13 +206,13 @@ func held() -> void:
 	var st := z.stufe_brs()
 	if int(st["stufe"]) >= Brs.hoechste_stufe():
 		# 528 (MenuScreen.kt 594–601, Story.capped): auf der hoechsten Stufe des Kapitels gibt es keine Erfahrung mehr; der Balken voll
-		balken(Sprache.u("xp"), 1, 1, Leiste.GOLD_HELL, str(int(st["ep"])))
+		balken(Sprache.u("xp"), 1, 1, Leiste.GOLD_HELL, ("St. " if de else "Lv ") + str(hw.stufe))   # 1448 A: bei Erfahrung die Stufe
 		var satz := zeile("Höchststufe für Kapitel 1 erreicht. In diesem Kapitel gibt es keine weiteren EP; Kämpfe lohnen sich weiter für Beute und Ausrüstung." if de
 			else "Maximum level for Chapter 1 reached. No more XP this chapter; fights still pay off in loot and gear.", 13, Stil.DIM)
 		satz.name = "Hoechststufe"
 	else:
 		var bis := roundi(Brs.bedarf(int(st["stufe"])))
-		balken(Sprache.u("xp"), int(st["ep"]), bis, Leiste.GOLD_HELL, "%d / %d" % [int(st["ep"]), bis])
+		balken(Sprache.u("xp"), int(st["ep"]), bis, Leiste.GOLD_HELL, ("St. " if de else "Lv ") + str(hw.stufe))   # 1448 A: bei Erfahrung die Stufe
 	luecke(8)
 	zeile("%s %d   %s %d   %s %d %%" % [KAMPFWERT["schutz"][0 if de else 1], hw.schutzwert(), KAMPFWERT["schaden"][0 if de else 1], hw.schaden(),
 		KAMPFWERT["krit"][0 if de else 1], hw.krit_prozent()], 15, Stil.TEXT, true)   # 584: MenuScreen.kt 605
