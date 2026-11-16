@@ -666,3 +666,4 @@
 2026-11-16 18:09:46	commit-pruefung	CLAUDE.md: 15257 Bytes, Obergrenze 15000, Commit fügt 273 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-16 18:10:24	commit-pruefung	CLAUDE.md: 15008 Bytes, Obergrenze 15000, Commit fügt 24 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-16 18:13:05	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-1445-anmerkung ändert Spielcode (godot/skripte/pruef	claude/spike-1445-anmerkung
+2026-11-16 18:15:22	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1275-taumeln ändert Spielcode (godot/regeln/kerbe.gd	claude/jerry-1275-taumeln
