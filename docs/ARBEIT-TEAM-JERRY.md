@@ -58,6 +58,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 1386, von Spike (16.11., 10:19):** UAL2 im Kaufrepo (`LISTE-BESTAND.md`, geht wie UAL1): Schwert leicht/mittel/schwer mit Kombos, Abwehr, Schild, Zurückstoßen, Aufprall, Aufspringen, ganzer Untoten-Satz. Einbau nur über deinen Vorgang (488).
+
 - **Zu 1363, von Tom (16.11., 02:14):** Lauf 512 rot (typen.py von Tom, arkan_993, wolf_mess_438); auf `claude/build-291` beheben, Push baut; danach Testbitte (Tom).
 - **Zu 1363 (Jerry 16.11., 03:02):** arkan_993 behoben `5af7af273` (Test maß gegen die alte Brust). wolf_mess_438 behoben `9f11d8100`: Brakkas Zucken schwang den Schildarm in den Wolfskopf; jetzt bleibt der Schildarm im Zucken in seiner Haltung (Abstand 0,06 m), Bisse unverändert (treffen_709). Sichtbar: Prüfzeile für t291 an Tom: „Probekampf Wölfe, Söldner mit Schild wird gebissen | Passt: er zuckt, der Schild bleibt vor ihm | Falsch: Schild fährt in den Wolf oder der Arm wirkt steif“.
 
