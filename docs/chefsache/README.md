@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 15:19, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 15:25, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,15 +23,15 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 67 (68) | 25 | 1 | 5 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
+| ↳ **2** Kampf passt | 66 (68) | 25 | 1 | 5 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (57) | 10 | 0 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (18) | 7 | 1 | 2 | 4 | 1451 (Tom) Wiederholrot pruefliste_1020: 3× rot in 48 h; Urs… |
-| **7** Werkzeuge und Abläufe der Firma | 44 (56) | 30 | 0 | 2 | 10 | 1442 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| **7** Werkzeuge und Abläufe der Firma | 43 (56) | 29 | 0 | 2 | 9 | 1433 (Sokrates) „Zu“ zu Erledigtem bis 17.11. vor dem Tagesberich… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 110 erledigt, 93 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 112 erledigt, 93 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -44,7 +44,7 @@ Heute (seit 6:00): 110 erledigt, 93 neu. In Klammern bei „offen“: Stand 6:00
 | Spike | 1451 Übernahme von Tom: Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachs… (Muss); dann 3 weitere |
 | Homer | Pflege von Werkzeug: 4 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
-| Sokrates | 1442 Zusammenführen: getestet, nicht auf main: Build 274, 286, 2… (Muss); dann 5 weitere |
+| Sokrates | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 4 weitere |
 | Perikles | M? M? entscheiden: 1445, 1447, 1448, 1439 (Muss) |
 
 **Die nächsten 20**
@@ -69,10 +69,10 @@ Heute (seit 6:00): 110 erledigt, 93 neu. In Klammern bei „offen“: Stand 6:00
 | 16 | 1450 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
 | 17 | 1449 | Jerry | Wiederholrot ausholen_1000: 4× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 6 Godot besser nutzen | startbar |
 | 18 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 19 | 1442 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 286, 287, 288, 289; grün m… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 1433 | Sokrates | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 1433 | Sokrates | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1430 | Tom | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 63.
+Danach 101 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
