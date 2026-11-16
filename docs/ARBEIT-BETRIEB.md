@@ -140,3 +140,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:33 16.11.: Startsperre 16:33 Start Sokrates (selbst), Neustart-Meldung 16:32 (d8964c487), Nachfolger Sokrates – 1382: Bauplan „Alles an einer Stelle“ mit Aufwand
 - 16:35 16.11.: Sokrates Neustart (session_01Hmoj78ccfTGs5tcBtqAXFJ), alte archiviert, 8,56 $ auf 870, 340, 1382 gebucht
 - 16:45 16.11.: Startsperre 16:45 Start Tom (selbst), Neustart-Meldung 16:42 (92531017b), Nachfolger Tom – 531, 1420: Läufe auswerten, an den Chef
+- 16:46 16.11.: Tom Neustart (session_01Hmoj76uMfoeaLAsF4zd8pt), alte archiviert, 24,87 $ auf 1044, 1341, 531, 1420 gebucht; Weckruf trig_01RxFe51VoQDcXA6Jg2rdXsY hängt an archivierter Sitzung (Nachfolger legt neu an)
