@@ -141,3 +141,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:05 16.11.: Marke Archiv session_01Hmoj75kAWFUnHAs39ZVQcD (lauf.py)
 - 13:05 16.11.: Marke Archiv session_01Hmoj78Qdamz672BcJVgmBj (lauf.py)
 - 13:10 16.11.: Chef 13:05 direkt: „Du darfst alles archivieren, was zum Archivieren ist, gemäß den Regeln“ (Autoprüfung lehnt Archivieren trotzdem ab, Chef will sie weg); Lauf 13:05: Start Homer 1419, archiviert Sokrates 75oX (11,06 $ auf 431,1382,1386) und Homer 1401 (2,57 $); Urteile 517 und 698 (4343/4344) im Archiv; GELÖST an Jerry 1331/1284b, Spike 1307; Sokrates 77oL bleibt bis 13:21, dann Archiv
+- 13:22 16.11.: Sokrates Chefrunde Rest archiviert (14,41 $ auf 1303,1235,1412 gebucht); Sokrates Testbegleitung t291/t292 läuft
