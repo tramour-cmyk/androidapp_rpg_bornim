@@ -22,6 +22,7 @@ API = "https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/"
 STUNDEN = 48
 SPEICHER = os.path.expanduser("~/.cache/bornim-rotbuch.json")
 ROT = re.compile(r"^918 rot \((\w+)\) (tests/[\w./-]+\.gd)")
+BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1399: bauen Spielcode und seine Tests
 ROLLEN = ("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
@@ -77,18 +78,55 @@ def besitzer_von_nr(nr):
         if d["nr"] == nr: return d["besitzer"]
     try: archiv = open(os.path.join(REPO, "docs", "LISTE-VORGAENGE-ARCHIV.md"), encoding="utf-8").read()
     except OSError: return None
-    m = re.search(r"(?m)^\| %s \|(?:[^|]*\|){4}\s*(\w+)\s*\|" % re.escape(nr), archiv)
+    m = re.search(r"(?m)^\| %s \|(?:[^|]*\|){4}\s*(?:Team\s+)?(\w+)\s*\|" % re.escape(nr), archiv)
     return m.group(1) if m else None
 
 
+def grenzen():
+    """Grenz-Commits eines flachen Klons (1392): deren Betreff sagt nichts über den Anleger einer Datei."""
+    r = subprocess.run(["git", "-C", REPO, "rev-parse", "--git-path", "shallow"], capture_output=True, text=True)
+    pfad = r.stdout.strip()
+    if pfad and not os.path.isabs(pfad): pfad = os.path.join(REPO, pfad)
+    try: return {z.strip() for z in open(pfad, encoding="utf-8") if z.strip()}
+    except OSError: return set()
+
+
+def nr_aus_name(test):
+    """Zu 1392: Nummer aus dem Testnamen („ziege_4162“ → 416.2, „pruefliste_1020“ → 1020): erst ganz, dann mit Punkt von rechts.
+    1399 (D260.1): jede Zahl im Namen von links („anmarsch_506_1“ → 506, nicht 1), Zahlen unter drei Stellen nur als Zusatz; zählt nur ein
+    Besitzer, der Spielcode baut (Tom, Jerry, Spike), sonst nannte die Zahl eine Mutter (399 → Perikles, 870 → Sokrates) und es bleibt Ford."""
+    for z in re.findall(r"_(\d{3,})(?=_|$)", os.path.basename(test)[:-3]):
+        for k in [z] + [z[:i] + "." + z[i:] for i in range(len(z) - 1, 0, -1)]:
+            wer = {"Tuffy": "Jerry"}.get(besitzer_von_nr(k), besitzer_von_nr(k))
+            if wer in BAUTEAMS: return wer
+    return None
+
+
+def anleger_netz(test):
+    """1399: im flachen Klon den Betreff des ersten Commits der Datei über die öffentliche API (nur für Wiederholer, wenige Abrufe); sonst „“."""
+    try:
+        alle = []
+        for seite in range(1, 6):
+            teil = holen("commits?path=godot/%s&per_page=100&page=%d" % (test, seite))
+            alle += teil
+            if len(teil) < 100: break
+        return alle[-1]["commit"]["message"].splitlines()[0] if alle else ""
+    except Exception:
+        return ""
+
+
 def besitzer(test):
-    """Rolle im Betreff des Commits, der die Testdatei anlegte („Tom: …“), sonst Besitzer der Nummer dort („416.8 …“), sonst Ford."""
-    r = subprocess.run(["git", "-C", REPO, "log", "--diff-filter=A", "--format=%s", "--", "godot/" + test], capture_output=True, text=True)
+    """Rolle im Betreff des Commits, der die Testdatei anlegte („Tom: …“), sonst Besitzer der Nummer dort („416.8 …“), sonst Nummer
+    im Testnamen, sonst Ford. Im flachen Klon ist der älteste Commit oft nur die Grenze; dann zählt der Name (1392)."""
+    r = subprocess.run(["git", "-C", REPO, "log", "--diff-filter=A", "--format=%H %s", "--", "godot/" + test], capture_output=True, text=True)
     zeilen = [z for z in r.stdout.splitlines() if z]
     erst = zeilen[-1] if zeilen else ""
+    sha, _, erst = erst.partition(" ")
+    if sha in grenzen(): erst = anleger_netz(test)
     m = re.match(r"(%s)\b" % "|".join(ROLLEN), erst)
     wer = m.group(1) if m else None
     if not wer and (n := re.match(r"(\d+[a-z]?(?:\.\d+[a-z]?)*)\b", erst)): wer = besitzer_von_nr(n.group(1))
+    if not wer: wer = nr_aus_name(test)
     wer = {"Tuffy": "Jerry"}.get(wer, wer)
     return wer if wer in startbar.BESITZER and wer != "Ideen" else "Ford"
 

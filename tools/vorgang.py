@@ -78,12 +78,28 @@ def warte_aus(text):
 
 GEPRUEFT = startbar.GEPRUEFT
 
+def commit_nicht_gepusht(stand):
+    """1400: der Commit hinter „Geprüft an:“ muss auf einem Zweig von origin liegen; ein Rebase danach ändert sonst die Kennung."""
+    m = re.search(r"Geprüft an:?\s*`?([0-9a-f]{7,40})`?(?![\w/])", stand)
+    if not m: return None
+    def auf_origin():
+        r = subprocess.run(["git", "-C", DOCS, "branch", "-r", "--contains", m.group(1)], capture_output=True, text=True, timeout=30)
+        return r.returncode == 0 and r.stdout.strip() != ""
+    try:
+        if auf_origin(): return None
+        subprocess.run(["git", "-C", DOCS, "fetch", "-q", "origin"], capture_output=True, timeout=60)
+        return None if auf_origin() else m.group(1)
+    except (OSError, subprocess.SubprocessError):
+        return None   # ohne Netz nicht sperren
+
 def stand_pruefen(stand, nr):
     w = startbar.wort_von(stand)
     if not w: sys.exit("vorgang.py: Stand muss mit einem Wort der Liste beginnen (%s)" % ", ".join(startbar.WORTE))
     if "|" in stand or "\n" in stand: sys.exit("vorgang.py: Stand ohne | und Zeilenumbruch")
     if w == "gebaut" and not GEPRUEFT.search(stand):  # 340.4 (Chef 02.11., 19:44, „340.2 ja“, B)
         sys.exit("vorgang.py: „gebaut“ braucht „Geprüft an: <Link, Lauf-Nummer oder Commit>“ im Stand (340.4)")
+    if (fehlt := commit_nicht_gepusht(stand)):  # 1400 (D261.1): Kurzform vor einem Rebase nennt später einen Commit, den es nicht gibt
+        sys.exit("vorgang.py: Commit %s steht auf keinem Zweig von origin; erst pushen (nie danach rebasen), dann „Geprüft an: <Commit>“ (1400)" % fehlt)
     if len(startbar.zusatz_von(stand)) > 120: sys.exit("vorgang.py: Zusatz über 120 Zeichen; Einzelheiten als „Zu %s“ in den Vorrat" % nr)
     return w
 
@@ -397,19 +413,19 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
 # 654 (Chef 08.11., 14:42): Wiederholungswächter. Teilt ein neuer Vorgang ein Stichwort mit zwei oder mehr früheren
 # (offen oder im Archiv), legt das Werkzeug eine Zeile „Systemlösung?“ für Sokrates an (Systemrunde montags), je Stichwort eine offene.
 SYSTEM = "Systemlösung?"
-STICHWORTE = ["Schild", "Waffe", "Bogen", "Axt", "Klinge", "Griff", "Halt", "Pfote", "Haar", "Kapuze", "Umhang",
-              "Rüstung", "Fackel", "Schrift", "Kasten", "Fenster", "Knopf", "Menü", "Kamera", "Licht", "Schatten", "Nebel",
+STICHWORTE = ["Schild", "Waffe", "Bogen", "Axt", "Klinge", "Griff", "Pfote", "Haar", "Kapuze", "Umhang",
+              "Fackel", "Schrift", "Kasten", "Fenster", "Knopf", "Menü", "Kamera", "Licht", "Schatten", "Nebel",
               "Wetter", "Wasser", "Teich", "Tür", "Treppe", "Ebene", "Karte", "Kollision", "Drehung", "Parade", "Klang", "Musik",
               "Speichern", "Probebild", "Film"]
 # 788 (654 A, Chef 09.11., 17:46): Allerweltswörter legen keine Zeile an. Schwert und Zwischensequenz sind gestrichen
-# (763, 707: keine Systemfrage); Wörter mit schon entschiedenem Querschnitt verweisen nur auf ihn (Systemrunde 09.11.).
+# (763, 707: keine Systemfrage), Halt und Rüstung (654.1, Systemrunde 16.11.: 1350, 1354 Fehltreffer; Waffenhalt deckt Griff); Wörter mit schon entschiedenem Querschnitt verweisen nur auf ihn (Systemrunde 09.11.).
 QUERSCHNITT = {"Menü": "785", "Knopf": "785", "Fenster": "785", "Kasten": "785", "Schrift": "785",
                "Klang": "786", "Musik": "786",
                "Licht": "620.4", "Schatten": "620.4", "Fackel": "620.4", "Kamera": "620.4", "Karte": "620.4",
                "Schild": "644", "Waffe": "644", "Film": "511", "Probebild": "511"}
 
-# 793 (D116.1): Wortanfänge, die ein anderes Wort sind („Haltung des Helden“ ist kein Halt für Waffen)
-NICHT = {"Halt": r"(?!ung|bar|estelle)"}
+# 793 (D116.1): Wortanfänge, die ein anderes Wort sind (Beispiel Halt/Haltung, Halt gestrichen 654.1)
+NICHT = {}
 
 def waechter(nr, titel, bereich):
     def hat(t, w): return re.search(r"(?<![\w])" + w + NICHT.get(w, ""), t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)

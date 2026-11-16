@@ -516,6 +516,7 @@ def vorgang_aus_ref(ref, ablauf):
         sha = git("rev-parse", "FETCH_HEAD").stdout.strip()
         STAND_REF.update(wo=REPO, rev=sha)
         nachricht = git("log", "-1", "--format=%B", "FETCH_HEAD").stdout
+        HAND["nachricht"] = nachricht  # 654.2: Zeile „Messfrage:“
         if ablauf and not ablauf.isdigit():
             datei = ablauf if "/" in ablauf else ".github/workflows/" + ablauf
             name = (re.search(r"^name:\s*(.+)$", git("show", f"FETCH_HEAD:{datei}").stdout, re.M) or [None, ""])[1]
@@ -595,6 +596,29 @@ def ohne_film(eingaben):
     return any(str(eingaben.get(k, "")).strip().lower() == "nein" for k in ("bild", "film"))
 
 
+HAND = {"bild_nein": False, "nachricht": ""}  # 654.2: Handlauf auf dem Bauserver ohne Bild, Nachricht oben auf dem Zweig
+MESSFRAGE = re.compile(r"(?m)^\s*Messfrage:\s*\S")
+
+
+def bild_nein(eingaben):
+    """654.2: Messlauf ohne Bild heißt Eingabe bild=nein (film=nein allein filmt nicht, zeigt aber Bilder)."""
+    HAND["bild_nein"] = str(eingaben.get("bild", "")).strip().lower() == "nein"
+
+
+def messfrage_heute(nr, datei=DATEI, lokal=LOKAL):
+    """654.2: schon ein freier Messlauf („hand-messfrage“) zu nr heute (Berliner Datum)?"""
+    _, laeufe = zweig_lesen(datei)
+    eigen = open(lokal, encoding="utf-8").read() if os.path.exists(lokal) else ""
+    tag = jetzt()[:10]
+    return any(z[1] == nr and z[3] == "hand-messfrage" and z[0].startswith(tag) for z in zeilen(laeufe) + zeilen(eigen))
+
+
+def messlauf_frei(nr, art, film):
+    """654.2 (Vorentscheid Sokrates 16.11., billigen/6542): der erste Handlauf ohne Bild (bild=nein) je Vorgang und Tag braucht
+    keine Freigabe, wenn der oberste Commit eine Zeile „Messfrage: …“ trägt; er wird gezählt, der zweite am Tag braucht sie."""
+    return art == "hand" and not film and HAND["bild_nein"] and bool(MESSFRAGE.search(HAND["nachricht"])) and not messfrage_heute(nr)
+
+
 SAMMELBUILD = re.compile(r"(?:refs/heads/)?claude/build-\d+")  # 646: Sammelbuild für den Gerätetest des Chefs ist keine Probe
 
 
@@ -615,6 +639,7 @@ def handlauf_mcp(d):
         return RERUN
     if methode != "run_workflow" or sammelbuild_frei(e.get("ref"), e.get("inputs") or {}):
         return None
+    bild_nein(e.get("inputs") or {})
     return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand", not ohne_film(e.get("inputs") or {})
 
 
@@ -631,6 +656,7 @@ def handlauf_bash(befehl):
         ref = ref.group(1).strip("\"'") if ref else ""
         if sammelbuild_frei(ref, eing):
             return None
+        bild_nein(eing)
         return vorgang_aus_ref(ref, ablauf), "hand", not ohne_film(eing)
     m = API_LAUF.search(befehl)
     if m:
@@ -644,6 +670,7 @@ def handlauf_bash(befehl):
         alle.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(\w+)\]=([^\s\"']*)", befehl))
         if sammelbuild_frei(ref, alle):
             return None
+        bild_nein(eing)
         return vorgang_aus_ref(ref, m.group(1)), "hand", not ohne_film(eing)
     return None
 
@@ -1149,13 +1176,24 @@ def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
         sperre = figur_sperre(STAND_REF.get("wo"), STAND_REF.get("rev"))
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
+    try:
+        frei = messlauf_frei(nr, art, film)
+    except (OSError, subprocess.SubprocessError, ValueError, IndexError):
+        frei = False
+    if frei:
+        if sperre:
+            anhalten(sperre)
+        zaehlen(nr, wer, "hand-messfrage")
+        return hinweis_geben(f"654.2: erster Messlauf ohne Bild zu {nr} heute, frei wegen „Messfrage:“; gezählt. Der nächste "
+                             "Lauf heute braucht wieder „<Nr>, Läufe frei“ von Sokrates.")
     if n >= GRENZE:
         anhalten(f"621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für {nr} "
                  f"schon {n} Probelauf seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
                  f"jetzt vorlegen, was da ist, auch ein Messlauf (646; Datei in docs/chefsache/ansehen/, Sitz und Aussehen `meldung.sh --bild`, Bewegung `--film`, mit „{nr}:“ und offenen Punkten als Vermerk), "
                  "Befund der Fehlerprüfung danach als Text (396). Passt die Probe nicht: Rückfrage mit Wegen und Kosten in docs/chefsache/entscheiden/, keine neue Runde (621 A). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt einen neuen "
                  "Lauf frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
-                 "Chefsache); bis dahin an einem anderen Vorgang weiter.")
+                 "Chefsache); bis dahin an einem anderen Vorgang weiter. Ausnahme 654.2: der erste Handlauf ohne Bild (bild=nein) je Vorgang "
+                 "und Tag ist frei, wenn der oberste Commit eine Zeile „Messfrage: <was der Lauf klären soll>“ trägt.")
     if sperre:
         anhalten(sperre)
     zaehlen(nr, wer, art + ("-film" if film else ""))

@@ -144,7 +144,9 @@ def rote_laeufe():
 def rot_text(r):
     if not r: return "rote Läufe unbekannt (Netz)"
     n, g, t = r["24h"]; n7, g7, _ = r["7d"]
-    teams = ", ".join("%s %d" % (k.capitalize(), t[k]) for k in ("tom", "jerry", "spike", "build", "sonst") if t[k])
+    # 1390: für den Chef lesbar, „Build 8“ hieß „beim Bau eines Test-Builds“
+    name = {"build": "beim Bau eines Test-Builds", "sonst": "sonstige"}
+    teams = ", ".join("%s %d" % (name.get(k, k.capitalize()), t[k]) for k in ("tom", "jerry", "spike", "build", "sonst") if t[k])
     return "rote Läufe 24 h **%d von %d**%s, 7 Tage %d von %d%s" % (n, g, " (%s)" % teams if teams else "", n7, g7, rotbuch_kurz())
 
 def rotbuch_kurz():
@@ -163,7 +165,10 @@ def zeilen(d):
         if ks and c["abgenommen"] < len(ks):
             stufe = "**%s**: %d von %d abgenommen, %d gebaut, %d in Arbeit" % (name, c["abgenommen"], len(ks), c["gebaut"], c["in Arbeit"]); break
     n, alt = d["chef"]
-    warte = ", ".join("**%d %s**" % (n[a], a) for a in ("entscheiden", "ansehen", "billigen", "Build", "tun") if n.get(a))
+    # 1390: ausgeschrieben statt „2 Build, 1 tun“
+    wort = {"entscheiden": "zu entscheiden", "ansehen": "anzusehen", "billigen": "zu billigen", "Build": "%s zum Testen", "tun": "zu tun"}
+    warte = ", ".join("**%d %s**" % (n[a], wort[a] % ("Build" if n[a] == 1 else "Builds") if "%" in wort[a] else wort[a])
+                      for a in ("entscheiden", "ansehen", "billigen", "Build", "tun") if n.get(a))
     aeltest = min(alt.values())[1] if alt else "–"
     if alt: w = min(alt.values())[0]; aeltest = "%s seit %s.%s., %s" % (min(alt.values())[1], w[1], w[0], w[2])
     gut = re.search(r"\*\*Bild Chef (\d\d\.\d\d\.), (\d\d:\d\d)[^*]*\*\*:? Woche (\d+) %", lesen("ARBEIT-BETRIEB.md"))
@@ -181,7 +186,7 @@ def zeilen(d):
         ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3)"),
         ("Geld", ("Woche **%s %%** (dein Bild %s, %s)" % (gut.group(3), gut.group(1), gut.group(2)) if gut else "Woche unbekannt") +
          "; gestern %d $ Rechenwert, Spiel %d %%" % (ks, 100 * k["Spiel"] / ks if ks else 0) +
-         ("" if gut and gut.group(1) == JETZT.strftime("%d.%m.") else "; **Bitte Bild der Nutzung** (Woche %; ruht die Niederlassung: nur Max; 783 W7)"), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
+         ("" if gut and gut.group(1) == JETZT.strftime("%d.%m.") else "; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max)"), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
         ("Von dir zuerst gefunden", ein.get("Von dir zuerst gefunden", "–"), "Woche, zählt Diogenes montags"),
         ("Größtes Risiko", ein.get("Größtes Risiko", "–"), ""),
         ("Ausführlich", "[Abnahmeliste und Stand](PROJEKTPLAN.md)", ""),
