@@ -110,7 +110,7 @@ def kampf(W, H, held, mon_name, rng, opt):
          "bereit": 0, "haltung": None, "minus": 0, "funke_da": held.stufe >= 4, "funke_jetzt": False, "ringe": 0}
     lmax = s["leben"]
     st = {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "nachgelegt": 0, "funke": 0,
-          "ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0}
+          "ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0, "taumelt": 0, "segen": 0}
     pol = opt.get("politik", "schlag_haltung")
 
     def ring(wehr):
@@ -246,6 +246,7 @@ def kampf(W, H, held, mon_name, rng, opt):
             if g.name in TAEUSCHER and g.herr is None and p["art"] in ("schlag", "schuss", "anlegen") and rng.random() < P_TAEUSCH:
                 g.taeuscht = True; p["zeigt_gross"] = not p["gross"]
             g.plan = p
+            g.leben_ansage = g.leben
 
     def gesehen(g):
         """(groß, Art) so, wie der Held die Ansage sieht."""
@@ -299,7 +300,9 @@ def kampf(W, H, held, mon_name, rng, opt):
             zb = z["Bannschild"]; s["mana"] -= zb["kosten"]
             s["bann"] = zb["ruestung"] * (1 + held.f(zb["schule"]) * k["ruestungsfertigkeit_im_abzug_je_punkt"])
             s["bereit"] = glut - 1; s["haltung"] = haltung_waehlen(); return
-        if "Wundsegen" in held.zauber and s["leben"] < lmax * z["Wundsegen"]["heilen_unter"] and s["mana"] >= z["Wundsegen"]["kosten"]:
+        if "Wundsegen" in held.zauber and s["leben"] < lmax * z["Wundsegen"]["heilen_unter"] and s["mana"] >= z["Wundsegen"]["kosten"] \
+                and st["segen"] < opt.get("segen_max", 99):
+            st["segen"] += 1
             zb = z["Wundsegen"]; s["mana"] -= zb["kosten"]
             s["leben"] = min(lmax, s["leben"] + round(sim.zauber_grund(W, held, zb) * (1 + held.f(zb["schule"]) / 100.0)))
             s["bereit"] = glut - 1; s["haltung"] = haltung_waehlen(); return
@@ -389,6 +392,8 @@ def kampf(W, H, held, mon_name, rng, opt):
                 if g.ab == 0 and glut >= 2:
                     g.ab = 1; glut -= 1
                 gross = p["gross"] and glut >= 2
+                if gross and opt.get("taumeln") and g.leben_ansage - g.leben >= g.lmax * opt["taumeln"]:
+                    st["taumelt"] += 1; continue
                 if rng.random() < g.chance:
                     auf_held(g, GROSS_FAKTOR if gross else 1.0, gross)
                 continue
@@ -413,6 +418,8 @@ def kampf(W, H, held, mon_name, rng, opt):
                 g.offen = True
             elif p["gross"] and glut >= 2:
                 glut -= 2
+                if opt.get("taumeln") and g.leben_ansage - g.leben >= g.lmax * opt["taumeln"]:
+                    st["taumelt"] += 1; continue          # 1352a A: großer Schlag geht ins Leere
                 if g.ueb and g.erster:
                     g.erster = False
                 auf_held(g, GROSS_FAKTOR, True)
@@ -448,7 +455,7 @@ def kampf(W, H, held, mon_name, rng, opt):
 
 
 KEYS = ("zuege", "gegenschlag", "wachschuss", "wehr", "verfallen", "nachgelegt", "funke", "ringe_gekappt", "getaeuscht",
-        "netz", "prankenhieb")
+        "netz", "prankenhieb", "taumelt", "segen")
 
 
 def messe(W, H, held, gegner, n, rng, opt):
