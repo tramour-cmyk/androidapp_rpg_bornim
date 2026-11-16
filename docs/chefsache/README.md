@@ -163,11 +163,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 431h | M | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, et | Chef (Datei in der Chefsache) |
 | 1355 | K | Von Spike (Lauf 509): wende_4168 zufällig rot, „Knoten folgt der Kurve (hoechstens 1.21 Gr | wartet auf Test (Build 291) |
 
-**Jerry** – offen 79, Muss 30, startbar 38
+**Jerry** – offen 79, Muss 30, startbar 37
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1363 | M | Von Tom (1361): Rot in Build 291 (Lauf 512): arkan_993 Treffer endet 1,09 m hoch, 0,95 m n | startbar |
+| 1363 | M | Von Tom (1361): Rot in Build 291 (Lauf 512): arkan_993 Treffer endet 1,09 m hoch, 0,95 m n | wartet auf Test (Build 291) |
 | 1362 | M | Von Tom (1361): Filme t291.6 (1321, Stab beim Ausweichen) und t291.8 (601.1, Pfeil in der | Sperre 620.1 B: 6 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1321 |
 | 1331 | M | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen | wartet auf Test t290 (Chef) |
 | 1321 | M | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den | wartet auf Test (Build 291) |
