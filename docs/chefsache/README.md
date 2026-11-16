@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:23, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:36, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,7 +23,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 65 (68) | 25 | 2 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
+| ↳ **2** Kampf passt | 66 (68) | 25 | 2 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 3 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (57) | 6 | 2 | 0 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
@@ -31,13 +31,13 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | **7** Werkzeuge und Abläufe der Firma | 46 (56) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 143 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 144 erledigt, 122 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1411](entscheiden/1411-mana.md) entscheiden; dann 1 weitere |
+| **Chef** | [431h](ansehen/431h-kleidung-stufe1.md) ansehen |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 6 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 13 weitere |
 | Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 12 weitere |
@@ -45,7 +45,7 @@ Heute (seit 6:00): 143 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:0
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1385 Unterbau „Alles an einer Stelle“: eine Kennung je Figur und… (Muss); dann 1 weitere |
 | Sokrates | 481 Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wac… (Kür) |
-| Perikles | 919 Regeln nachziehen: Testbitte auch bei rot mit Liste „bekann… (Kür) |
+| Perikles | M? M? entscheiden: 1478 (Muss) |
 
 **Die nächsten 20**
 
@@ -72,14 +72,10 @@ Heute (seit 6:00): 143 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:0
 | 19 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 20 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 61.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 61.
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1411](entscheiden/1411-mana.md) | **Muss** | G Balance | 16.11., 19:12 | Mana fließt nach jedem Sieg um den halben Willen zurück; Wundsegen streut wie Waffenschaden; Heiltränke bleiben fest, bis die Güte für alle Dinge kommt. | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
