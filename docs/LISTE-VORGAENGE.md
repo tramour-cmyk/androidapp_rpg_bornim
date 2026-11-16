@@ -26,12 +26,12 @@
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | Tom | K | ruht | 23.11. | claude/spike-458-3-staffel | – | E Figuren | 12,15 $ |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | Tom | K | ruht | 23.11. | – | – | B Werkzeuge | – |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | Tom | K | ruht | 23.11. | claude/spike-455-2-groesse | – | E Figuren | – |
-| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) · „jetzt“ 28.10., 10:00 | Tom | M | ruht | 23.11. | – | – | E Figuren | 40,87 $ |
-| 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | Tom | K | ruht | 23.11. | claude/tom-348-fundament | – | E Figuren | – |
-| 348.13b | Tusche auch nach Fackeln, Feuer, Fenster; zuerst Dorf (Chef 28.10., 08:09 ja) | Tom | K | ruht | 23.11. | claude/tom-34813-kampfprobe | – | G Stil | – |
-| 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | Tom | K | ruht | 23.11. | claude/tom-3023-kraeftiger | – | G Stil | –; +6,40 $ |
-| 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | Tom | K | ruht | 23.11. | claude/tom-3022-tuschebild | – | G Stil | – |
-| 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | Tom | K | ruht | 23.11. | claude/tom-3021-tusche | – | G Stil | – |
+| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) · „jetzt“ 28.10., 10:00 | Tom | M | erledigt | – | – | – | E Figuren | 40,87 $ |
+| 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | Tom | K | erledigt | – | claude/tom-348-fundament | – | E Figuren | – |
+| 348.13b | Tusche auch nach Fackeln, Feuer, Fenster; zuerst Dorf (Chef 28.10., 08:09 ja) | Tom | K | erledigt | – | claude/tom-34813-kampfprobe | – | G Stil | – |
+| 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | Tom | K | erledigt | – | claude/tom-3023-kraeftiger | – | G Stil | –; +6,40 $ |
+| 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | Tom | K | erledigt | – | claude/tom-3022-tuschebild | – | G Stil | – |
+| 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | Tom | K | erledigt | – | claude/tom-3021-tusche | – | G Stil | – |
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | Tom | K | ruht | 23.11. | claude/tom-2923-titelmodus | – | G Stil | – |
 | 145 | Karten je Kapitel zum Drucken | Tom | K | ruht | 23.11. | claude/tom-145-kartenmappe | – | E Welt | 6,22 $ |
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | Tom | K | ruht | 23.11. | claude/tom-417-tragart | – | E Figuren | – |
@@ -40,7 +40,7 @@
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | wartet, Vorrang und Kennung klären | Perikles | – | – | M Veröffentlichung | – |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | Tom | K | wartet | 1235 | – | – | G Story | – |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | Tom | K | aufgeteilt | – | – | – | E Figuren | 1,06 $ |
-| 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | Tom | M | ruht, ohne Vorratszeile, Liste „raus“ (275.2) | 23.11. | – | – | E Technik | – |
+| 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | Tom | M | erledigt | – | – | – | E Technik | – |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | Tom | K | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | 23.11. | – | – | E Oberfläche | – |
 | 649.3 | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme, Gang, Klänge, Bewegungen, Text-Marken; aus 649) | Tom | K | ruht, Kampf zuerst (338.1) | 649.2 | – | – | E Figuren | – |
 | 644.4 | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umstellen (644 A, Ablösung) | Tom | K | ruht, Kampf zuerst (338.1) | 644.1 | – | – | E Welt | – |
@@ -82,7 +82,7 @@
 | 431h | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, etwa 60–100 $ (Chef 15.11., 17:13) | Tom | M | wartet, Vorlage beim Chef | Chef 431h | – | – | E Figuren | – |
 | 1355 | Von Spike (Lauf 509): wende_4168 zufällig rot, „Knoten folgt der Kurve (hoechstens 1.21 Grad daneben)“; Lauf 507 am selben Spielstand grün (nur atem_4531 verschieden) | Tom | K | zu testen | – | claude/tom-1355-wende | 291 | Q QS | 1,95 $ |
 | 1357 | Von Werkzeug (1334): Wiederholrot lage_785_8: 2× rot in 48 h (Läufe 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | zu testen | – | claude/build-291 | 291 | E Technik | – |
-| 1359 | Von Sokrates (1186): Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.2, 348.1, 348.13b (Belege Zu 1186 bei Tom); Rest dort je ein Satz | Tom | M | startbar | – | – | – | B Abläufe | – |
+| 1359 | Von Sokrates (1186): Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.2, 348.1, 348.13b (Belege Zu 1186 bei Tom); Rest dort je ein Satz | Tom | M | erledigt | – | – | – | B Abläufe | – |
 | 1356 | Von Werkzeug (1334): Wiederholrot hoehle_492: 2× rot in 48 h (Läufe 480, 466); Ursache nachstellen, beheben · wiederholt | Tom | M | erledigt | – | – | – | E Technik | – |
 | 1362 | Von Tom (1361): Filme t291.6 (1321, Stab beim Ausweichen) und t291.8 (601.1, Pfeil in der Brust) vom Stand claude/build-291 an den Chef (Befund Sokrates zu t291) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | t290 | – | – | E Technik | 15,96 $ |
