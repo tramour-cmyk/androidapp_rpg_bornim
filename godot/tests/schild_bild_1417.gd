@@ -17,7 +17,7 @@ func _lauf() -> void:
 	Hauptmenue.vorspann_gezeigt = true
 	var hm := Hauptmenue.new(null)
 	root.add_child(hm)
-	for i in 10: await process_frame
+	for i in 40: await process_frame   # Lauf 531: nach 10 Bildern war alles schwarz (Einblendung des Menüs)
 	var neu: HauptmenueHelden = null
 	for c in hm.find_children("*", "HauptmenueHelden", true, false): neu = c
 	if neu == null or neu.figuren.is_empty():
@@ -35,9 +35,10 @@ func _lauf() -> void:
 		if ap: ap.seek(stelle, true); ap.pause()
 		neu._bilder = 0
 		neu._v.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-		for k in 6: await process_frame
+		for k in 20: await process_frame
 		await RenderingServer.frame_post_draw
 		var img := root.get_texture().get_image()
+		img.save_png(aus + "/1417_ganz_%d.png" % int(a))   # zur eigenen Prüfung
 		var mass := Vector2(img.get_size()) / root.get_visible_rect().size
 		var g := neu.get_global_rect()
 		# linkes Drittel des Bilds: die Wachsoldatin ganz, ohne den Zauberlehrling

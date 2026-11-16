@@ -1756,7 +1756,7 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/bilder/schild1417
           cd godot
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
-            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
             -s res://tests/schild_bild_1417.gd -- --aus=$GITHUB_WORKSPACE/bilder/schild1417 2>&1 | grep -E "SCRIPT ERROR|^BILD|^SCHILDBILD1417" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/schild1417
       # 1090 (Vorentscheid Sokrates 13.11., 02:46, „1090 A“): ohne Hose unter der Robe; alle sieben mit Robe nah im Stehen und im Gehen
