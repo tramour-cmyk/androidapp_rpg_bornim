@@ -2,75 +2,88 @@
 
 Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 
+## Wer wofür
+
+- **Sokrates:** Stab des Chefs: Strategie, Markt, Geschäftsmodell, Chefrunde
+- **Homer:** Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen
+- **Perikles:** Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe
+- **Diogenes:** Prüfer: prüft `main`, zählt Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn
+- **Ford:** Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung
+- **Tom:** Entwickler: Leute, Dorf, Innenräume, Blende
+- **Jerry:** Entwickler: Monster, Höhle, Kampf, Klang
+- **Tuffy:** Aushilfe bei Jerry, nimmt dessen Muss-Zeilen auf anderem Zweig
+- **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:54, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:59, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
 | Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
-| ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 69 | 27 | 3 | 10 | 9 | 1284 (Jerry) Riesenratte sagt „Biss“ an, Bericht „Riesenratte… |
-| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 15 | 6 | 0 | 1 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 | 10 | 0 | 13 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 | 9 | 0 | 10 | 4 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| Werkzeuge und Abläufe der Firma | 43 | 27 | 0 | 2 | 9 | 1412 (Perikles) Überblick Themenblöcke: „offen“ mit Morgenwert in… |
-| Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
+| ↳ Umzug BRS, SRD ablösen | 4 (4) | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
+| ↳ Kampf passt | 70 (68) | 28 | 2 | 10 | 9 | 1072 (Jerry) Laufwege und Plätze im Kampf für alle Figuren: Zw… |
+| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 1 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
+| ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 (57) | 10 | 0 | 13 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 (18) | 9 | 0 | 10 | 4 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
+| Werkzeuge und Abläufe der Firma | 42 (56) | 26 | 0 | 1 | 9 | 1409 (Jerry) kauf_cache_probe.sh Zeile 45 auf dem Bauserver FA… |
+| Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
+
+Heute (seit 6:00): 61 erledigt, 53 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 5 weitere |
+| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 6 weitere |
 | Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 3 weitere |
-| Jerry | 1284 Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, abe… (Muss); dann 5 weitere |
-| Tuffy | 1072 Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
+| Jerry | 1072 Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch… (Muss); dann 4 weitere |
+| Tuffy | 1291 Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | leer, weil 5 wartet auf Test, 3 ruht bis, 1 wartet auf |
 | Homer | leer, weil 1 Chef Gespräch |
-| Diogenes | 1407 D262.1 von Diogenes: sitzungszweige liest current_branches,… (Kür) |
+| Diogenes | 1410 Commit-Prüfung 881 liest nur die erste Zeile „Gegengelesen“… (Muss) |
 | Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss); dann 2 weitere |
-| Perikles | M? M? entscheiden: 1406 (Muss); dann 1 weitere |
+| Perikles | M? M? entscheiden: 1406 (Muss) |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1284 | Jerry | Riesenratte sagt „Biss“ an, Bericht „Riesenratte Biss“, aber kein Biss zu sehen… | M | Kampf passt | in Arbeit |
-| 2 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | in Arbeit |
-| 3 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | Kampf passt | startbar |
-| 4 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
-| 5 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | Kampf passt | startbar |
-| 6 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | in Arbeit |
-| 7 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | Kleiderschrank und Modelle | startbar |
-| 8 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
-| 9 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
-| 10 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1412 | Perikles | Überblick Themenblöcke: „offen“ mit Morgenwert in Klammern, darunter Zeile „Heu… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 14 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 15 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 16 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
-| 17 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
-| 18 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
-| 19 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
-| 20 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
+| 1 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | in Arbeit |
+| 2 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | Kampf passt | startbar |
+| 3 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
+| 4 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | Kampf passt | startbar |
+| 5 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | in Arbeit |
+| 6 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | Kleiderschrank und Modelle | startbar |
+| 7 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
+| 8 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
+| 9 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 10 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 11 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 12 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 13 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 14 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
+| 15 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 16 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
+| 17 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
+| 18 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
+| 19 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
+| 20 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
 
-Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 37. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
+Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 36. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
-Nichts offen.
-
-## Zu billigen
-
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [654.2](billigen/6542-messlauf-ohne-freigabe.md) | Kür | B Abläufe | 16.11., 01:30 | Messläufe ohne Bild (nur Zahlen, nichts für dich) laufen einmal am Tag je Vorgang ohne mein Wort; Filme und Bilder bleiben wie 621 A. | Sokrates |
+| [1284b](entscheiden/1284b-biss-verdeckt.md) | **Muss** | E Kampf | 16.11., 11:56 | Nachbar zur Seite gebaut, hilft kaum (verdeckt 14 statt 15 von 54 Bissen); die Zähne liegen hinter dem Helden selbst. | Jerry |
+
+## Zu billigen
+
+Nichts offen.
 
 ## Anzusehen
 
@@ -88,6 +101,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 |---|---|---|---|---|---|
 | 1 | [0.348.506](ansehen/t290-sammelbuild.md) | [Build 290](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43764236337/artifacts/14182745059) | Sammelbuild: Menü wie alt, Karte, Ausrüstung, Wechsel | Tom und Jerry | 15.11., 22:59 |
 | 2 | [0.348.514](ansehen/t291-sammelbuild.md) | [Build 291](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43789694188/artifacts/14192207855) | Sammelbuild: Leben statt TP, Laden, Höhle schwarz, Kerben, Einschlag | Tom und Jerry | 16.11., 07:30 |
+| 3 | [0.348.517](ansehen/t292-sammelbuild.md) | [Build 292](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43835954328/artifacts/14214731981) | Sammelbuild: Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen | Tom und Jerry | 16.11., 11:20 |
 
 ## Zu tun
 
