@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1397 | Von Chef (16.11., 10:01, über Sokrates): Prüflisten t290, t291 berichtigen: Bild- und Filmpunkte nur Telegram, „Wo und wie“ = was zu sehen ist, „Ein Weg“ ohne sie; 291.1, 291.2, 291.9 als Bild oder ohne dich; nur echte Handypunkte bleiben | Tom | M? | startbar | – | – | – | Q QS | – |
+| 1397 | Von Chef („jetzt“ 16.11., 10:08, über Sokrates): Prüflisten t290, t291 berichtigen (online in der Chefsache; die APK trägt die alte Liste im Reiter „Test“): Bild- und Filmpunkte nur Telegram, „Wo und wie“ = was zu sehen ist, „Ein Weg“ ohne sie; 291.1, 291.2, 291.9 als Bild oder ohne dich | Tom | M | startbar | – | – | – | Q QS | – |
 | 1361 | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 1355, 870.20, 1322, 1326, 1321, 1289, 415, 601.1, 1275, 1270.3, 673) | Tom | M | zu testen | – | claude/build-291 | 291 | E Technik | 17,86 $ |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bildlauf von der Rechteprüfung abgelehnt | 1351 | – | – | E Oberfläche | 8,48 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | wartet | 1351 | claude/tom-1092-streifen | – | E Figuren | 29,31 $ |
