@@ -959,8 +959,14 @@ func _platz_am_gegner(f: Variant, spot: Vector2i) -> Vector3:
 					break
 			if OS.get_environment("SCHAU_1072") != "":
 				print("1072 Platz machen %s: %s" % [f.id, "frei" if q != Vector3.INF else "kein Platz, bleibt"])
-			if q != Vector3.INF:     # sonst bleibt er stehen: der Angreifer hat seinen Platz um ihn herum geplant (_bite_plan)
+			if q != Vector3.INF:
 				p = q
+			else:
+				# 1453 (reihe_1305 Seed 7, Lauf 524: wolf1 am Bildrand, jede Stelle vom Gegner weg lag außerhalb des Bilds; er blieb
+				# 1,9 m vor dem Helden stehen, die vorderen 2,3 und 2,5 m, der Spieler sah den hinteren vorn): ohne freie Stelle im Bild
+				# geht er auf seinen Platz der Aufstellung hinten, damit die Reihen im Bild stimmen (1305)
+				platz_eigen.erase(f.id)
+				return formation
 		platz_eigen[f.id] = spot.x
 		return Vector3(p.x, formation.y, p.z)
 	if vorher != null:     # hält schon einen eigenen Platz (Platz gemacht): bleibt dort, auch wenn er wieder nach vorn kommt
