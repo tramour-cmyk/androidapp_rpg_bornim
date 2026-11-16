@@ -19,7 +19,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 ## Das Spiel
 
 - [Stil](DESIGN-STIL.md): wie das Spiel aussieht, klingt und sich anfühlt.
-- [Kerbensystem](DESIGN-GLUT.md) (Datei heißt noch „Glut“): die Kampfregeln mit drei Kerben je Zug (Weg, Tun, Haltung), Bauplan und Prüfpunkte (930). Entschieden: bauen (930 A), Name Kerbe (1260 D), Kerben verstreichen (1288a), Lesen spürbar (1288b); gebaut in Build 291, noch nicht auf `main`; die übrigen Zahlen sind Entwurf.
+- [Kerbensystem](DESIGN-GLUT.md) (Datei heißt noch „Glut“): die Kampfregeln mit drei Kerben je Zug (Weg, Tun, Haltung), Bauplan und Prüfpunkte (930). Entschieden: bauen (930 A), Name Kerbe (1260 D), Kerben verstreichen (1288a), Lesen spürbar (1288b); gebaut ab Build 291, im Spiel noch ausgeschaltet (nur in den Proben an), noch nicht auf `main`; die übrigen Zahlen sind Entwurf.
 - [Kampf (MARS)](DESIGN-KAMPF.md): Grundgedanken vom 14.10. (Absicht des Gegners zeigen, Reaktion im Gegnerzug, Kulisse) und was zu Waffe, Schild und Kampf im Bild gilt; der Abschnitt „Handgemenge und Abstand (930)“ dort ist durch das Kerbensystem ersetzt.
 - [Blende](DESIGN-BLENDE.md): die Übergangsbilder zwischen Orten, bei Rast und Tod.
 - [Entscheidungen zum BRS](DESIGN-BRS-ENTSCHEIDUNGEN.md): die Regelfragen E 1–84 bis 11.11. als nummerierte Liste; spätere Regelentscheide stehen im Vorgangsarchiv, Verlauf und alte Ideen in `alt/DESIGN-SPIELSYSTEM-2-0.md`.
