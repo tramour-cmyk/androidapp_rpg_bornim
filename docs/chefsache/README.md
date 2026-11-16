@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:36, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:38, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -45,7 +45,7 @@ Heute (seit 6:00): 118 erledigt, 104 neu. In Klammern bei „offen“: Stand 6:0
 | Homer | 1459 README.md beschreibt noch die Kotlin-Fassung; Features nach… (Muss) |
 | Diogenes | 1463 Zählweise „Liegengebliebenes über 6 h, obwohl gesehen“ fest… (Muss) |
 | Sokrates | 1454 Zusammenführen: getestet, nicht auf main: Build 274, 288; g… (Muss); dann 2 weitere |
-| Perikles | M? M? entscheiden: 1445, 1447, 1448, 1439 (Muss); dann 1 weitere |
+| Perikles | M? M? entscheiden: 1445, 1447, 1448, 1439 (Muss) |
 
 **Die nächsten 20**
 
@@ -72,7 +72,7 @@ Heute (seit 6:00): 118 erledigt, 104 neu. In Klammern bei „offen“: Stand 6:0
 | 19 | 1456 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
 | 20 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
 
-Danach 103 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
+Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
