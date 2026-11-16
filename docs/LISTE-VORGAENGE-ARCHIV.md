@@ -1645,7 +1645,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 461b | Nur Gültiges steht: neu ersetzt alt im selben Commit, Commit-Prüfung, Kennzahl Widersprüche (Chef 01.11., 22:26) | B Abläufe | K | – | Diogenes | erledigt |
 | 905 | Von Perikles (903 B Zusatz 3, Chef 11.11., 07:46): über etwa zehn Vorlagen an den Chef zählen, wie viele wegen der Form zurückkommen (Liste „Vorlage an den Chef“), nicht je Build | Q QM | K | – | Diogenes | erledigt |
 | 1129.4 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen (Zu 1129.4) | Q QM | M | 2,38 $ | Diogenes | erledigt |
-| 1374 | Wochentermin 16.11.: Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720) (719) | Q QM | M | – | Diogenes | erledigt |
+| 1374 | Wochentermin 16.11.: Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720) (719) | Q QM | M | 11,45 $ | Diogenes | erledigt |
 | 1377 | Wochentermin 16.11.: Urteil alte Zeilen Diogenes, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; Unternummern alle erledigt: 461b (1188) | B Abläufe | M | – | Diogenes | erledigt |
 | 1335 | Von Sokrates (Chef 15.11., 21:09), für Spike nach 1328.1: wolf_mess_438 ohne Messrauschen (6× rot), Laden der Kaufmodelle mit Wiederholung bei Netzabbruch (Lauf 453); ziege_4162 (9×, 1325) und atem_4531 (2×, 1300) mitnehmen · „jetzt“ 15.11., 21:19 | B Werkzeuge | M | 3,91 $ | Spike | erledigt, greift Lauf 256 |
 | 1381 | D255.1 von Diogenes (1335): wolf_mess_438 rot in Lauf 506 (claude/build-290, enthält 5bd07c63c), Ende 1 nach 263 s, „Kampf FIGHTER: ONGOING nach 2900 Bildern“; 1335 greift nicht; Ursache nachstellen (Messrauschen oder echter Befund aus 709) | B Werkzeuge | M | – | Spike | erledigt |
