@@ -18,7 +18,7 @@ Im Bau geprüft: Kurzzeile der Vorräte im Laden (785.24, `laden_582`), Leben/Li
 | 291.7 | Jerry | 1275 | Handy | Zeile 291.7 → „Lage herstellen“ (Probekampf Wölfe), Knopf „Tausch“, dann angreifen | nach dem Tausch bist du weiter dran | der Zug endet mit dem Tausch |
 | 291.8 | Jerry | 601.1 | Film | Probekampf Goblin-Späher, der Späher schießt auf den Helden, Stand `claude/build-291` (Film folgt, Jerry) [Film von 16.11., 06:58](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261116-065827-t291.8/2026-11/16-0658-t291.8-Jerry.mp4) | der Pfeil steckt in der Brust, dort zuckt der Held | Pfeil an Bein oder Fuß; Zucken oben, Pfeil unten |
 | 291.9 | Tom | 870.20 | Handy | Hauptmenü und „Über das Spiel“ ansehen, dann Menü → System → Handbuch durchblättern | kein „SRD 5.1 · CC BY 4.0“ mehr; im Handbuch keine Würfel, TP/HP oder Rüstungsklasse, der Wert heißt Leben | SRD-Hinweis steht noch; Würfel, TP oder RK im Handbuch |
-| 291.10 | Jerry | 1363 | Film | Probekampf Wölfe, der Söldner mit Schild wird gebissen, Stand `claude/build-291` (Film folgt, Jerry) | er zuckt, der Schild bleibt vor ihm | der Schild fährt in den Wolf oder der Arm wirkt steif |
+| 291.10 | Jerry | 1363 | Film | Probekampf Wölfe, der Söldner mit Schild wird gebissen, Stand `claude/build-291` (Film folgt, Jerry) [Film von 16.11., 07:01](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261116-070133-t291.10/2026-11/16-0701-t291.10-Jerry.mp4) | er zuckt, der Schild bleibt vor ihm | der Schild fährt in den Wolf oder der Arm wirkt steif |
 
 ## Lagen
 
