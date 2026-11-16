@@ -43,7 +43,7 @@ Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727
 
 ## Lauf 274 · 1446 Lücken der Vergleichsprüfung (Perikles `5d641d279`, `d03601a56`; 16.11., 14:44)
 
-- **1446 greift:** `art_weg_test.py` gut (14 von 14). Meine fünf Proben aus Lauf 273 jetzt alle mit Fund („wie in 290“, „als zuletzt“, „wie gewohnt“, „in 2 s da; nicht dunkler als in Build 290“), Meterangabe („wie in 120 m“) frei. Rest ohne Vorgang: Messzahl im selben Satzteil mit Komma gibt noch frei („in 2 s da, nicht dunkler als in Build 290“). Seit `d03601a56` jede Art außer Bild/Film geprüft (Gespräch mit Fund). 1427 wartet auf die erste neue Prüfliste.
+- **1446 greift:** `art_weg_test.py` gut (14 von 14). Meine fünf Proben aus Lauf 273 jetzt alle mit Fund („wie in 290“, „als zuletzt“, „wie gewohnt“, „in 2 s da; nicht dunkler als in Build 290“), Meterangabe („wie in 120 m“) frei. Rest ohne Vorgang: Messzahl im selben Satzteil mit Komma gibt noch frei („in 2 s da, nicht dunkler als in Build 290“). Seit `d03601a56` jede Art außer Bild/Film geprüft (Gespräch mit Fund). Erster echter Fund: Entwurf t293 Zeile 293.6 („so hell wie in Build 292“), an Jerry 14:45. 1427 wartet auf die erste neue Prüfliste.
 
 ## Lauf 273 · 1427 Vergleich aus dem Gedächtnis (Perikles `982288fa2`; 16.11., 14:41)
 
