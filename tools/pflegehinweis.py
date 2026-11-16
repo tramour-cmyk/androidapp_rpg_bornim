@@ -39,6 +39,15 @@ def befunde():
         m = re.match(r"(?:docs/)?(ARBEIT-[A-Z-]+\.md)", f)
         ziel = ziel or (m.group(1) if m else "ARBEIT-PROJEKT.md")
         je.setdefault(ziel, []).append(re.sub(r"^(?:docs/)?ARBEIT-[A-Z-]+\.md: ", "", f))
+    try:  # 1425: „Zu <Nr>“ zu Erledigtem (Vorratsprüfung J) wird beim Übergeben gestrichen
+        sys.path.insert(0, os.path.join(ROOT, "tools")); import vorratspruefung
+        zahl = {}
+        for a, nr, _, t in vorratspruefung.funde():
+            if a == "J": zahl.setdefault(t.split(":")[0], []).append(nr)
+        for datei, nrn in zahl.items():
+            je.setdefault(datei, []).append("%d „Zu“ zu Erledigtem (%s), beim Übergeben streichen (1425)" % (len(nrn), ", ".join(nrn[:6]) + (" …" if len(nrn) > 6 else "")))
+    except Exception:
+        pass
     return je
 
 
