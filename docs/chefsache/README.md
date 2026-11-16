@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,11 +12,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 75 | 31 | 5 | 6 | 9 | 1305 (Jerry) Kämpfer mit Schwert und Schild läuft in die hinte… |
-| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 58 | 11 | 1 | 11 | 21 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ Kampf passt | 69 | 30 | 4 | 6 | 9 | 1305 (Jerry) Kämpfer mit Schwert und Schild läuft in die hinte… |
+| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 14 | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
+| ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 13 | 3 | 1 | 0 | 4 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 57 | 11 | 1 | 11 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 8 | 1 | 6 | 4 | 1383 (Sokrates) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
-| Werkzeuge und Abläufe der Firma | 55 | 34 | 0 | 0 | 9 | 1129 (Sokrates) Systemprüfung blinde Flecken mit Perikles: Regeln… |
+| Werkzeuge und Abläufe der Firma | 53 | 33 | 0 | 0 | 9 | 1376 (Perikles) Wochentermin 16.11.: Urteil alte Zeilen Perikles,… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
@@ -28,36 +29,36 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Tuffy | 1323 Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Rest… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1217 Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen… (Muss); dann 13 weitere |
-| Sokrates | 1129 Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe,… (Muss); dann 2 weitere |
-| Perikles | 1373 Wochentermin 16.11.: Wochenziel (Muss); dann 3 weitere |
+| Diogenes | 1217 Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen… (Muss); dann 14 weitere |
+| Sokrates | 1383 Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstelle… (Muss); dann 2 weitere |
+| Perikles | 1375 Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-… (Muss); dann 2 weitere |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 2 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
-| 3 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
-| 4 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
-| 5 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
-| 6 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
-| 7 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 8 | 1375 | Perikles | Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-Datei | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 9 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
-| 10 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 11 | 1373 | Perikles | Wochentermin 16.11.: Wochenziel | M | Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1376 | Perikles | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 14 | 1382 | Perikles | Themenblock „Alles an einer Stelle: Figuren, Helden, Gegenstände“ unter Kapitel… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 16 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 17 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 18 | 649.2 | Jerry | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json, S… | K | Kampf passt | startbar |
-| 19 | 649.4 | Jerry | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 mess… | K | Kampf passt | startbar |
-| 20 | 644.1 | Jerry | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen, zusammen… | K | Kampf passt | startbar |
+| 1 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | Kampf passt | in Arbeit |
+| 2 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | Kampf passt | startbar |
+| 3 | 1333 | Jerry | Aus 930.6: Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd | M | Kampf passt | startbar |
+| 4 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
+| 5 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
+| 6 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
+| 7 | 1375 | Perikles | Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-Datei | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 8 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
+| 9 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
+| 10 | 1376 | Perikles | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 11 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 12 | 1387 | Perikles | Übersicht-Commits 15.11. 193, 16.11. bis 09:06 126; Ursache 1313. Kein Commit b… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 13 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 14 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 15 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 16 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 17 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
+| 18 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
+| 19 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
+| 20 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
 
-Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 26. Ruhend oder nach dem Meilenstein: 62.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 63.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
