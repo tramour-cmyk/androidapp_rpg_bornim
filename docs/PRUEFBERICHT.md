@@ -41,6 +41,15 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 284 · 1499 Laufnachweis für Skripte (Spike `e49569691`; 16.11., 23:1x)
+
+- **1499 greift:** t293 gegen `claude/build-293` jetzt 5 von 5 (mit `typen.py` Zeile 617, `kauf_cache_probe.sh` Zeile 643), t292 unverändert 6 von 6. Gegenprobe (eigener Bauablauf): `kauf_cache_probe.sh || true` → NEIN „`|| true`“, `typen.py` mit `pipefail` → trägt, fehlendes Skript → „steht nicht im Bauablauf“, Exit 1.
+
+## Lauf 283 · 1500 Stand „Bautest Diogenes“ (Perikles `7453cda13`; 16.11., 23:1x)
+
+- **1500 greift:** `build_abschluss` nachgestellt (Arbeitskopie vor `3f81a03b5`, Prüfliste t292 mit Ergebnis, neues `vorgang.py`, `--probe`): 1305, 1333, 1366, 643, 1383 → „zu testen (Bautest Diogenes)“ statt „ohne Rückmeldung“; `bautest` leert „wartet auf Diogenes“ (an 1292, 1323, 1355 gesehen). Grenze: ein Punkt ganz ohne offene Zeile fiele durch `all()` über leer auch hierher; davor fangen ✓/✗ ab.
+- **Bautest:** Lauf 524 (Build 293): `handlungen_870` „1292 A: nach dem zweiten Wundsegen gesperrt“ ok, HANDLUNGEN870 gut → **1292 erledigt**; `pim_verband_842` PIM842 gut → **1323 erledigt**. Lauf 514 (Build 291, grün): `wende_4168` trägt (Zeile 772) → **1355 erledigt**.
+
 ## Lauf 282 · 1498 „ohne dich“-Zeilen von 292/293 (16.11., 22:4x)
 
 - **Bautest bestätigt:** Lauf 517 (Build 292): `handlungen_870` Exit 0 → **1333 erledigt**; `kerbe_930` „KERBE930 gut: 64 gut, 0 falsch“ → **1366 erledigt**; Laufnachweis 6 von 6 tragen; Lauf rot nur durch 918 Zeile 19 und 45 (1408, 1409). Lauf 524 (Build 293): „KAUFCACHE854 gut“, Zeile 643 mit `pipefail`, Skript endet mit `exit $fehler` → **1409 erledigt**.
