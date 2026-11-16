@@ -101,3 +101,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:40 16.11.: Startsperre 06:40 Start Sokrates (Chef-Wort „Start des Sokrates“, Nachfolger „1129: Wochenzahlen 1129.4 auswerten“)
 - 06:50 16.11.: Startsperre 06:50 Start Spike 698 (Sokrates 06:48, 698a A Chef 06:46, aa82f747b; alte Sitzung …76VdQxk8E6re5azHWe bei 364 Tsd. Token archiviert, Kosten 16,97 $ auf 1303, 1286, 698)
 - 06:56 16.11.: Startsperre 06:56 Start Perikles 1364 („jetzt“ Chef 06:52, Sokrates 06:55, 266c65c6a, geht vor Pause bis 09:00; per Weiter an …76MtaUFLBbEUE3ZMaK)
+- 06:57 16.11.: Startsperre 06:57 Start Homer 1365 (Sokrates, Chef 06:55 zu 698a, ef84e7110; per Weiter an …77tuR4inAweJo2KGGk)
