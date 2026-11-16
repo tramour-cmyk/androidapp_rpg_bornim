@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 285 · 1425 Vorratsprüfung vor dem Tagesbericht (Perikles `8b06e0086`, `102c95f39`; 17.11., 00:0x)
+
+- **Werkzeug wirkt:** `vorratspruefung.py --kurz` 45 Funde (E 2: 649 wartet auf ruhende Tom-Kür 649.3, 644.4; J 40; K 1: Urteil 16.11., 17:53 „293.7 nachgetestet“ ohne Zeile 293.7, Besitzer „?“; L 1: 1482/1483; O 1: 966.2), Exit 0. `tagesbericht.py` ohne Schalter: „HÄLT AN: Vorratsprüfung (1425) hat 5 Funde“, Exit 1 (J zählt nicht, wie beschrieben); Durchlass nur mit `BORNIM_VORRAT_GEPRUEFT=1`.
+- **Greift noch nicht:** Daueraufgabe „jeden Tag vor dem Tagesbericht“ erst am Tagesbericht 17.11. belegbar (Commit der Funde vor dem Bericht, E/K/L/O beseitigt oder beim Besitzer) → Feld „wartet auf“: Termin 17.11. vormittags, dann Diogenes.
+
 ## Lauf 284 · 1499 Laufnachweis für Skripte (Spike `e49569691`; 16.11., 23:1x)
 
 - **1499 greift:** t293 gegen `claude/build-293` jetzt 5 von 5 (mit `typen.py` Zeile 617, `kauf_cache_probe.sh` Zeile 643), t292 unverändert 6 von 6. Gegenprobe (eigener Bauablauf): `kauf_cache_probe.sh || true` → NEIN „`|| true`“, `typen.py` mit `pipefail` → trägt, fehlendes Skript → „steht nicht im Bauablauf“, Exit 1.
