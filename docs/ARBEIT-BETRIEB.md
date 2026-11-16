@@ -139,3 +139,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:27 16.11.: Marke Archiv session_01Hmoj77B6ik7MtVMjSKPLaK (lauf.py)
 - 14:30 16.11.: Startsperre 14:30 Start Sokrates (selbst), Neustart-Meldung 14:26 (0bdca6936), Nachfolger Sokrates – 1424: PR 210 zusammenführen
 - 14:31 16.11.: Start Perikles 1440 (session_01Hmoj764gyxqABGbpc7CtTg), Sokrates Neustart (session_01Hmoj78k58JUgc6hYURRcTg); alte Perikles 1424 und Sokrates 7793 archiviert, Kosten 4,53 $ und 7,50 $ gebucht; Weiter 1424 an Diogenes; Titel Ford auf 14:19 korrigiert
+- 14:33 16.11.: Startsperre 14:33 Start Jerry (selbst), Neustart-Meldung 14:31 (f606a7ccc), Nachfolger Jerry – Testbitte 293
