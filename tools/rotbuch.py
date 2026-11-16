@@ -77,18 +77,41 @@ def besitzer_von_nr(nr):
         if d["nr"] == nr: return d["besitzer"]
     try: archiv = open(os.path.join(REPO, "docs", "LISTE-VORGAENGE-ARCHIV.md"), encoding="utf-8").read()
     except OSError: return None
-    m = re.search(r"(?m)^\| %s \|(?:[^|]*\|){4}\s*(\w+)\s*\|" % re.escape(nr), archiv)
+    m = re.search(r"(?m)^\| %s \|(?:[^|]*\|){4}\s*(?:Team\s+)?(\w+)\s*\|" % re.escape(nr), archiv)
     return m.group(1) if m else None
 
 
+def grenzen():
+    """Grenz-Commits eines flachen Klons (1392): deren Betreff sagt nichts über den Anleger einer Datei."""
+    r = subprocess.run(["git", "-C", REPO, "rev-parse", "--git-path", "shallow"], capture_output=True, text=True)
+    pfad = r.stdout.strip()
+    if pfad and not os.path.isabs(pfad): pfad = os.path.join(REPO, pfad)
+    try: return {z.strip() for z in open(pfad, encoding="utf-8") if z.strip()}
+    except OSError: return set()
+
+
+def nr_aus_name(test):
+    """Zu 1392: Nummer aus dem Testnamen („ziege_4162“ → 416.2, „pruefliste_1020“ → 1020): erst ganz, dann mit Punkt von rechts."""
+    m = re.search(r"_(\d+)$", os.path.basename(test)[:-3])
+    if not m: return None
+    z = m.group(1)
+    for k in [z] + [z[:i] + "." + z[i:] for i in range(len(z) - 1, 0, -1)]:
+        if wer := besitzer_von_nr(k): return wer
+    return None
+
+
 def besitzer(test):
-    """Rolle im Betreff des Commits, der die Testdatei anlegte („Tom: …“), sonst Besitzer der Nummer dort („416.8 …“), sonst Ford."""
-    r = subprocess.run(["git", "-C", REPO, "log", "--diff-filter=A", "--format=%s", "--", "godot/" + test], capture_output=True, text=True)
+    """Rolle im Betreff des Commits, der die Testdatei anlegte („Tom: …“), sonst Besitzer der Nummer dort („416.8 …“), sonst Nummer
+    im Testnamen, sonst Ford. Im flachen Klon ist der älteste Commit oft nur die Grenze; dann zählt der Name (1392)."""
+    r = subprocess.run(["git", "-C", REPO, "log", "--diff-filter=A", "--format=%H %s", "--", "godot/" + test], capture_output=True, text=True)
     zeilen = [z for z in r.stdout.splitlines() if z]
     erst = zeilen[-1] if zeilen else ""
+    sha, _, erst = erst.partition(" ")
+    if sha in grenzen(): erst = ""
     m = re.match(r"(%s)\b" % "|".join(ROLLEN), erst)
     wer = m.group(1) if m else None
     if not wer and (n := re.match(r"(\d+[a-z]?(?:\.\d+[a-z]?)*)\b", erst)): wer = besitzer_von_nr(n.group(1))
+    if not wer: wer = nr_aus_name(test)
     wer = {"Tuffy": "Jerry"}.get(wer, wer)
     return wer if wer in startbar.BESITZER and wer != "Ideen" else "Ford"
 
