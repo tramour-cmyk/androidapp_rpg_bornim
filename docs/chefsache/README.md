@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 18:01, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 18:07, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,12 +26,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **2** Kampf passt | 65 (68) | 25 | 2 | 0 | 9 | 1453 (Jerry) stehen_973, reihe_1305, wolf_mess_438, ansage_946… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 3 | 0 | 8 | 1417 (Tom) Schild des Helden links an mehreren Stellen wie a… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 0 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (57) | 6 | 0 | 1 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (57) | 6 | 0 | 0 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 15 (18) | 4 | 0 | 1 | 4 | 1408 (Jerry) typen.py rot, regeln/mars.gd 288 Stellen ohne Typ… |
-| **7** Werkzeuge und Abläufe der Firma | 49 (56) | 31 | 0 | 1 | 9 | 1445 (Tom) Prüfliste im Spiel nimmt ein Wort nur bei „Falsch… |
+| **7** Werkzeuge und Abläufe der Firma | 50 (56) | 31 | 1 | 0 | 9 | 1471 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 130 erledigt, 112 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 131 erledigt, 114 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -41,11 +41,11 @@ Heute (seit 6:00): 130 erledigt, 112 neu. In Klammern bei „offen“: Stand 6:0
 | Tom | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss); dann 4 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 15 weitere |
 | Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 14 weitere |
-| Spike | 1445 Übernahme von Tom: Prüfliste im Spiel nimmt ein Wort nur bei „Falsch“; bei „Pa… (Muss) |
+| Spike | 1445 Prüfliste im Spiel nimmt ein Wort nur bei „Falsch“; bei „Pa… (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1427 Prüflisten ohne Vergleich aus dem Gedächtnis; Vergleich nur… (Muss) |
-| Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss) |
-| Perikles | 1467 ARBEIT-TAGESBERICHT.md hat 7 tote Links auf beantwortete Ch… (Kür) |
+| Diogenes | 790 383 A messen: eine Woche Kosten je Aufruf und je Sitzung vo… (Muss) |
+| Sokrates | 1471 Zusammenführen: getestet, nicht auf main: Build 274, 288; g… (Muss); dann 1 weitere |
+| Perikles | M? M? entscheiden: 1472 (Muss) |
 
 **Die nächsten 20**
 
@@ -70,9 +70,9 @@ Heute (seit 6:00): 130 erledigt, 112 neu. In Klammern bei „offen“: Stand 6:0
 | 17 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 18 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 19 | 1408 | Jerry | typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284; typisieren, dann n… | M | 6 Godot besser nutzen | startbar |
-| 20 | 1445 | Tom | Prüfliste im Spiel nimmt ein Wort nur bei „Falsch“; bei „Passt“ kann der Chef k… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1471 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 288; grün machen und PR zu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 104 weitere offen. Bei dir zum Testen (vorgelegt): 3. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
+Danach 106 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 13. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
