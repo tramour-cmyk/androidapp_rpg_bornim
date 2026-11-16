@@ -112,16 +112,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 | Pflege | K | von Werkzeug (340.3, 16.11.): 4 „Zu“ zu Erledigtem (1318, 1267, 830, 870.14), beim Übergeb | startbar |
 
-**Tom** – offen 60, Muss 14, startbar 18
+**Tom** – offen 59, Muss 13, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1044 | M | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerha | Termin 16.11. 15:00 |
+| 1044 | M | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerha | Chef (Datei in der Chefsache) |
 | 1383 | M | Von Werkzeug (1334): Wiederholrot ziege_4162: 6× rot in 48 h (Läufe 513, 500, 499, 484, 47 | startbar |
-| 1341 | M | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr | Termin 16.11. 15:00 |
+| 1341 | M | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr | Chef (Datei in der Chefsache) |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf Sokrates |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht bis 23.11. |
-| 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | startbar |
+| 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | Termin 16.11. 16:35 |
 | 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (startbar) |
 | 455.1 | K | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | ruht bis 23.11. |
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht bis 23.11. |
@@ -172,24 +172,26 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1417 | M | Von Chef (16.11., 12:37/12:38, Bild Hauptmenü v0.348.506, über Sokrates): Schild des Helde | startbar |
 | 1418 | M | Von Chef (16.11., 12:40, zu t292, über Sokrates): Android-Zurück im Hauptmenü beendet das | wartet auf Test/Build (gebaut) |
 | 1420 | M | Von Chef (16.11., 12:44, Test t290, über Sokrates): Fußstaub (814) jetzt zu stark, „sieht | startbar |
-| 1430 | M | Von Perikles: „Zu“ zu Erledigtem (785.8, 870.20) bis 17.11. vor dem Tagesbericht im eigene | startbar |
 | 1445 | M? | Von Sokrates (Chef 16.11., 14:36 zu t292.3): Prüfliste im Spiel nimmt ein Wort nur bei „Fa | startbar |
 | 1447 | M? | Von Sokrates (Chef 16.11., 14:41, Idee, erst denken): Weltleiste links oben unruhig, Wörte | startbar |
 | 1448 | M? | Von Sokrates (1448 A, Chef 16.11., 14:47): Weltleiste und Heldenmenü ohne Wörter Leben/Man | startbar |
 
-**Jerry** – offen 81, Muss 29, startbar 33
+**Jerry** – offen 82, Muss 31, startbar 35
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1452 | M | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursac | startbar |
+| 1449 | M | Von Werkzeug (1334): Wiederholrot ausholen_1000: 4× rot in 48 h (Läufe 503, 497, 496, 489) | startbar |
+| 1453 | M | Von Jerry (Build 293 rot, Lauf 524): stehen_973 (Wölfe und Goblins rücken ohne neuen Platz | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1072 |
 | 1408 | M | Von Jerry (Build 292 rot): typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284 (au | wartet auf Test (Build 293) |
 | 1331 | M | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen | wartet auf Test (Build) |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1284 (Zweig liegt darauf) |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1072 (figur.gd) |
 | 1284 | M | Von Chef (15.11., 12:07, Test Build 286, Wald): Riesenratte sagt „Biss“ an, Bericht „Riese | wartet auf Test (Build 293) |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1072 |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 760 (startbar) |
 | 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | wartet auf Test (Build 293) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1284 (figur.gd) |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1072 |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (wartet) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1072 |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | ruht bis 23.11. |
@@ -210,7 +212,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 469 | K | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | startbar |
 | 623.2 | K | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher | startbar |
 | 598 | K | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahm | startbar |
-| 643 | M | Langbogen mit Köcher als Waffenmodell (daten/waffen/longbow.bin, Griff = Ursprung, Schaft | startbar |
 | 649.2 | K | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | startbar |
 | 649.4 | K | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | startbar |
 | 644.1 | K | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | startbar |
@@ -238,16 +239,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1165 | K | Von Sokrates (Archivprüfung, 490/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefunde K | wartet auf 496 (startbar) |
 | 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | Halt (Vorrat oben) |
 | 1250 | K | Von Jerry (1000): grak_348 (godot-kampf.yml) rot schon auf main aeb8e0eb0, 11 FEHLER: Plat | wartet auf Test/Build (gebaut) |
-| 601.1 | M | Von Sokrates (601, Chef 15.11., 11:02): Pfeil trifft die Fußspitze, der Getroffene zuckt o | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1284 (figur.gd) |
-| 1275 | M | Von Homer (1267): Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Ge | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1408 (mars.gd) |
+| 601.1 | M | Von Sokrates (601, Chef 15.11., 11:02): Pfeil trifft die Fußspitze, der Getroffene zuckt o | startbar |
+| 1275 | M | Von Homer (1267): Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Ge | startbar |
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 | 1291 | M | Von Tom (785.5): Waffe in der Nebenhand wirkt im BRS-Kampf nicht (aufruf.gd blatt „off“ li | wartet auf Test (Build 293) |
 | 1292 | M | Von Sokrates (481.2 A): Klosterschüler, 1292 A (Chef 16.11., 11:49): Wundsegen höchstens z | wartet auf Test (Build 293) |
-| 1305 | M | Von Sokrates (Chef 15.11., 17:18, Probekampf 3 Wölfe, wohl Build 288): Kämpfer mit Schwert | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1284 (Zweig liegt darauf) |
+| 1296 | M | Von Sokrates (Chef 15.11., 14:48, Build 287, Probekampf Wolfsrudel): goldene Eingebung bei | wartet auf Test/Build (gebaut) |
+| 1305 | M | Von Sokrates (Chef 15.11., 17:18, Probekampf 3 Wölfe, wohl Build 288): Kämpfer mit Schwert | startbar |
 | 1319 | K | Von Homer (1318): Kampfmeldung MSG532_CURED (mars.gd 430) „von allen Leiden befreit“ / “cu | startbar |
 | 1323 | M | Von Homer (1320, Chef 15.11., 20:15): Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life | wartet auf Test (Build 293) |
 | 508.1 | K | Von Sokrates (508): Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welche | startbar |
-| 1327 | K | Von Sokrates (aus 1215, t289.2 ✓): Regeln melden Schildstoß und schweren Treffer an ragdol | startbar |
 | 1333 | M | Aus 930.6 (Rest 1215, Sokrates t289.2): Regelkern meldet Schildstoß und schweren Treffer a | Sperre 620.1 B: 7 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1408 (mars.gd) |
 | 1336 | K | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu du | startbar |
 | 1340 | M | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | startbar |
@@ -261,9 +262,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1421 | M | Von Chef (16.11., 12:48/12:54, zu t290.4, über Sokrates): Rennen B und zwei feste Tempi wi | wartet auf Test (Build 293) |
 | 1423 | M | Von Sokrates (Chef 16.11., 13:08, zu 1303; schon 15.11., 20:34 zu 1289): Felswände der Höh | startbar |
 | 1439 | M? | Von Sokrates (Chef 16.11., 14:15): Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt e | startbar |
-| 1443 | M | Von Perikles (1427): Prüfliste t293.6 (1303 Fackel) vergleicht aus dem Gedächtnis („so hel | startbar |
 
-**Spike** – offen 10, Muss 3, startbar 2
+**Spike** – offen 9, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -275,10 +275,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 673 | K | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), | startbar |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 | 1385 | M | Von Perikles (1382, Chef 16.11., 09:00 „Spike da mal als verantwortlich“): Unterbau „Alles | wartet auf Sokrates |
-| 1416 | M | Von Chef (16.11., 12:27, zu 1386 über Sokrates): Winken oder ähnliche Geste war im Video d | Chef (Datei in der Chefsache) |
 | 1426 | M? | Von Sokrates (Chef 16.11., 13:31 zu t291.3; 14:17 „trägt es Früchte?“): Ladezeit je Ort mi | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 27, Muss 21, startbar 0
+**Perikles** – offen 26, Muss 20, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -307,8 +306,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1400 | M | D261.1 von Diogenes: „Geprüft an“ nennt Commits, die es nicht gibt: 1392 c28c2e3d9 (echt 2 | Termin 23.11. |
 | 1414 | M | Von Chef (16.11., 12:09, über Sokrates): Warnung bei Vorgangsnummer ohne Wort dazu in Vorl | Termin 23.11. |
 | 1427 | M | Von Sokrates (Chef 16.11., 13:31 zu t291.3): Prüflisten ohne Vergleich aus dem Gedächtnis | wartet auf Test t293 (Chef) |
-| 1441 | M | Von Sokrates (Chef 16.11., 14:24): ständige Freigaben (Repos, Archivieren, Fords Stundenuh | Chef (Datei in der Chefsache) |
-| 1441a | M | Von Perikles (1441, Chef 14:44 „lief bis gestern“): Rückfrage: Erlaubnisblock autoMode.all | Chef (Datei in der Chefsache) |
+| 1441 | M | Von Sokrates (Chef 16.11., 14:24): ständige Freigaben (Repos, Archivieren, Fords Stundenuh | Termin 17.11. |
 
 **Diogenes** – offen 8, Muss 5, startbar 1
 
@@ -323,11 +321,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 | Pflege | K | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 
-**Sokrates** – offen 37, Muss 12, startbar 8
+**Sokrates** – offen 36, Muss 11, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1442 | M | Zusammenführen: getestet, nicht auf main: Build 274 (144 h), 286 (21 h), 287 (21 h), 288 ( | startbar |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht bis 23.11. |
 | 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | startbar |
@@ -357,7 +354,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 930 | K | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 17.11. 08:00 |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
-| 1270 | K | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vo | wartet auf 1270.4 (startbar) |
+| 1270 | K | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vo | wartet auf 1270.4 (in Arbeit) |
 | 1403 | M | Von Chef (1352a A, 16.11., 10:15): Nachmessung im Simulator glut2.py mit Taumeln (ein Fünf | wartet auf 1275 (startbar) |
 | 1405 | K | Systemlösung? Parade: 3 frühere Vorgänge (219, 662, 406.2), neu 1404; einmal grundsätzlich | startbar |
 | 1411 | M | Von Chef (1292 A, 16.11., 11:49): Mana grundsätzlich: woher, wie viel, wie es wächst; Zaub | startbar |
