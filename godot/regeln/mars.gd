@@ -47,7 +47,7 @@ const MSG870_GEGEN_FLUEGER := ["{0} wittert dein Blut und saugt gieriger.", "{0}
 const MSG870_GEGEN_ZOMBIE := ["{0} zerfällt. Diesmal steht er nicht wieder auf.", "{0} crumbles. This time it does not rise again."]
 const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in two."]
 ## [870.14.kraft.schoepfen]
-const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
+const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} Leben.", "{0} draws strength: +{1} Life."]
 ## 840 (830 A, Chef 10.11., 11:00; 210 B): Eingebung des Helden beim ersten Auftreten einer Ansage, einmal je Spielstand (gesehen),
 ## im Kampfbericht direkt nach der Ansage; Wolfssprung [830.sprung]. 986 (Homer, STORY-BRS-KAMPF.md „Eingebungen der Ansagen (986)“):
 ## heavy, call, shadow im Wortlaut [210T.*.eingebung] (STORY-SPIEL.md), die übrigen [986.*]; bite und claw ohne Eingebung.
@@ -305,6 +305,7 @@ class Fighter:
 	var schutz := 0.0
 	var beistand := 0
 	var bann_genutzt := false
+	var wund_genutzt := 0     # 1292 A: so oft hat er in diesem Kampf Wundsegen gesprochen oder als Gebet geheilt
 	var naechster := 0.0
 	var abstand := false
 	var schildwall := false
@@ -529,7 +530,7 @@ var brs := false
 ## 930.6 (DESIGN-GLUT.md, Bauplan 10 Stufe 1): Schalter des Kerbensystems (werte.json „kerbe“ „an“, Tests setzen ihn vor start); aus:
 ## der alte Kampf bis zur Abnahme. An: start, act, _auto_order gehen an den Regelkern kerbe.gd (gk); act nimmt ["KERBE", Plan]
 var kerbe: bool = Kerbe.an()
-var gk = null
+var gk: Variant = null
 
 func brs_einrichten() -> void:
 	assert(BrsKampf.an(), "870.5: daten/werte.json fehlt (tools/sim444/werte.json)")
@@ -881,9 +882,20 @@ func blocked(f: Fighter, s: String):
 		return X.MSG72_NOBATTLE
 	if sk.cost == "PER_REST" and f.uses.get(s, 0) <= 0:
 		return X.MSG72_NOREST
+	if s == "Z_WUND" and wund_rest(f) <= 0:     # 1292 A
+		return X.MSG72_NOBATTLE
 	if aim_at(f, s).is_empty():
 		return X.MSG72_NOTARGET
 	return null
+
+
+## 1292 A (Chef 16.11., 11:49: „1292 A“; Rechnung klosterschueler_1292.py: ohne Grenze gewann der Klosterschüler jeden Kampf, auch
+## wartend): Wundsegen höchstens werte.json zauber.Wundsegen.je_kampf mal je Kampf, das Gebet aus dem Ring (Heilung ohne Mana) zählt mit
+static func wund_je_kampf() -> int:
+	return int(BrsKampf.w()["zauber"]["Wundsegen"].get("je_kampf", 99))
+
+func wund_rest(f: Fighter) -> int:
+	return maxi(0, wund_je_kampf() - f.wund_genutzt)
 
 
 func aim_at(f: Fighter, s: String) -> Array:
@@ -1513,6 +1525,7 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 				if outcome == "ONGOING":
 					_brs_zauber(f, g, z)
 		"Z_WUND":
+			f.wund_genutzt += 1     # 1292 A
 			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)))
 			t.hp += n
 			if f == t:
@@ -1536,7 +1549,7 @@ func _handlung(f: Fighter, s: String, t) -> void:
 	wucht = ""
 
 
-func _handlung_tun(f: Fighter, s: String, t, h: Dictionary) -> void:
+func _handlung_tun(f: Fighter, s: String, t: Variant, h: Dictionary) -> void:
 	match s:
 		"H_KRAFT":
 			var n := mini(f.max_hp - f.hp, roundi(f.max_hp * float(h.get("heilung_anteil", 0.25))))
@@ -1705,11 +1718,11 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 
 
 ## 1333: Zweihaender oder stumpfe Waffe (Gruppe wie in _brs_waffe)
-func _waffe_schwer(f: Fighter, with_weapon) -> bool:
+func _waffe_schwer(f: Fighter, with_weapon: Variant) -> bool:
 	if f.b.is_empty():
 		return false
-	var w = with_weapon if with_weapon != null else f.weapon()
-	var wsheet = w if w != null else (f.hero.main if f.hero != null else null)
+	var w: Variant = with_weapon if with_weapon != null else f.weapon()
+	var wsheet: Variant = w if w != null else (f.hero.main if f.hero != null else null)
 	if wsheet == null:
 		return false
 	return BrsKampf.waffe_held(f.b, wsheet, w != null and w != f.main_weapon()) in WAFFEN_SCHWER
@@ -1718,7 +1731,7 @@ func _waffe_schwer(f: Fighter, with_weapon) -> bool:
 ## 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
 ## a dwarf's toughness against poison; a foe immune to it takes none, a boss shakes off a stun half the time.
 ## [save]: [ability, DC] or null.
-func _inflict(t: Fighter, st: String, turns: int, save = null, die = null, quelle = null) -> bool:
+func _inflict(t: Fighter, st: String, turns: int, save: Variant = null, die: Variant = null, quelle: Variant = null) -> bool:
 	if outcome != "ONGOING" or not t.standing():
 		return false
 	if st == "STUN" and t.stun_guard > 0:
@@ -2057,7 +2070,7 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 			art = "FLAMMEN"
 		elif gruppe == "Dolche":
 			art = "HINTER"
-		elif "Z_WUND" in t.zauber:
+		elif "Z_WUND" in t.zauber and wund_rest(t) > 0:     # 1292 A: nach dem letzten Segen schlägt er zurück oder weicht nur aus
 			art = "GEBET"
 		elif nah:
 			art = "SCHLAG"
@@ -2084,6 +2097,7 @@ func _perfect_answer(t: Fighter, foe: Fighter, info: Array) -> void:
 		"GEBET":
 			_say(fmt(X.MSG72_PRAYS, lang, [t.name(lang)]), t.id, null, 0, null, true)
 			var z: Dictionary = BrsKampf.w()["zauber"]["Wundsegen"]
+			t.wund_genutzt += 1     # 1292 A
 			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(t.b.werte.get("wille", 0))) * (1.0 + float(t.b.fert.get(String(z.schule), 0)) / 100.0)))
 			t.hp += n
 			_say(fmt(X.MSG72_HEALSSELF, lang, [t.name(lang), n]), t.id, t.id, 0, null, false, false, "HEAL")
@@ -2282,7 +2296,7 @@ var eroeffnung := false    # 1296: Ansagen zu Beginn, noch niemand hat gezogen
 
 ## 1296: kommt der Held vor dem nächsten Zug von [foe] noch dran, und kann er dann wechseln?
 func _held_kann_vorher_wechseln(foe: Fighter) -> bool:
-	var held_f = find("hero")
+	var held_f: Variant = find("hero")
 	if held_f == null or not held_f.standing() or held_f.held or order.is_empty():
 		return false
 	var n := order.size()

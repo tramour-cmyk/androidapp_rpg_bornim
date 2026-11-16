@@ -63,7 +63,7 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026 (BigSoundBank: �
 | Klang | Aufnahme(n) | Urheber, Paket | Quelle |
 |---|---|---|---|
 | `wind`, `hall` | wind background noise 2 | bashar3a, Mild wind background noise | https://opengameart.org/content/mild-wind-background-noise |
-| `wind`, `hall` | park_ambience_wind | thimras, Park ambiences | https://opengameart.org/content/park-ambiences |
+| `wind`, `hall` | park_ambience_wind (`wind_3` über 1,8 kHz gedämpft: Vogelrufe des Parks weg, 517) | thimras, Park ambiences | https://opengameart.org/content/park-ambiences |
 | `creak` | creak1, creak3 | Kenney, RPG Audio | https://kenney.nl/assets/rpg-audio |
 | `creak` | tree_creak | antumdeluge, Tree creaking | https://opengameart.org/content/tree-creaking |
 | `heartbeat` | heartbeat_slow_0, heartbeat_fast_reverb | bart, Heartbeat sounds | https://opengameart.org/content/heartbeat-sounds |

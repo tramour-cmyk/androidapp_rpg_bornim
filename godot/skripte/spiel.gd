@@ -155,12 +155,14 @@ func starte(w: Dictionary) -> void:
 	if not stand.is_empty():
 		zustand = Zustand.aus_daten(stand["zustand"])
 		werte = BrsHeld.aus_spiel_daten(stand["held"])   # 870.4
+		var neben_satz := nebenhand_ausraeumen()   # 1291
 		stufe_abgleichen()
 		var o: Dictionary = stand["ort"]
 		blende.color.a = 1.0
 		klang("verhuelle", [true])
 		betrete(String(o["karte"]), Vector2i(int(o["x"]), int(o["y"])), String(o["blick"]))
 		ortsworte("", false)   # 24.1 Spielbeginn: Name und Satz
+		if neben_satz != "": ui.kurz(neben_satz)
 		return
 	zustand = Zustand.new()   # nichts vom vorigen Spiel: Flaggen, Gold, Taschen, Ort
 	zustand.name = String(w.get("name", zustand.name))
@@ -183,6 +185,15 @@ func starte(w: Dictionary) -> void:
 	klang("verhuelle", [true])
 	betrete(String(Rast.START["karte"]), Vector2i(int(Rast.START["x"]), int(Rast.START["y"])), String(Rast.START["blick"]))
 	ortsworte("", true)   # 24.1 Spielbeginn: Name und Satz
+
+## 1291 (1291a D, Chef 16.11., 10:37: die Nebenhand hält nur Schild oder Fackel): eine Waffe in der Nebenhand aus einem alten
+## Spielstand kommt beim Laden in die Tasche, mit einer Zeile Meldung ([1380.laden]); gibt die Meldung zurück ("" ohne Waffe)
+func nebenhand_ausraeumen() -> String:
+	var n = werte.nebenwaffe()
+	if n == null: return ""
+	werte.ablegen("OFF_HAND")
+	zustand.beutel.append(n)
+	return ("Aus deiner Nebenhand in die Tasche gelegt: %s." if Sprache.aktiv() == "de" else "Moved from your off hand to your bag: %s.") % Beute.name(n)
 
 ## 555 (Chef 04.11., 17:20, t257 D: Testmenue „Zeit auf 1 Uhr nachts … Es ist aber taghell“; 17:22: „da es nie Nacht wird“): das
 ## Licht folgte nur der Rast und dem Schalter Tag/Nacht, nie der Uhr. Jetzt wie alt (Game.daylight): 7-19 Uhr Tag, 19-21 Uhr

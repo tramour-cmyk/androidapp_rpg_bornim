@@ -724,7 +724,7 @@ func _ortsklang(dt_ms: float) -> void:
 # Grimmzahns Tod weiter, auf der Suche nach einem neuen Leitwolf); in der Höhle grollt der Berg. Zahlen aus WildSound.kt.
 const LEBEN_MS := [5000.0, 8000.0]       # LIFE_MIN_MS, LIFE_SPAN_MS
 const LEBEN := 0.3                       # LIFE_VOLUME
-const FERN_ERST_MS := [20000.0, 40000.0] # firstFarMs: nie das Erste, was man hört
+const FERN_ERST_MS := [8000.0, 12000.0]  # firstFarMs: nie das Erste, was man hört; 517 (t269.26 „kommt spät“): nach 8–20 s statt 20–60 s
 const NACHT_AB := 0.65                   # Game.isNight: daylight < 0,35 (licht.gd nacht 0..1)
 var wild := "NONE"                       # WildSound.Kind des Orts
 
