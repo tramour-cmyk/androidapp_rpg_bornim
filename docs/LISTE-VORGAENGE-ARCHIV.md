@@ -1650,3 +1650,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1335 | Von Sokrates (Chef 15.11., 21:09), für Spike nach 1328.1: wolf_mess_438 ohne Messrauschen (6× rot), Laden der Kaufmodelle mit Wiederholung bei Netzabbruch (Lauf 453); ziege_4162 (9×, 1325) und atem_4531 (2×, 1300) mitnehmen · „jetzt“ 15.11., 21:19 | B Werkzeuge | M | 3,91 $ | Spike | erledigt, greift Lauf 256 |
 | 1381 | D255.1 von Diogenes (1335): wolf_mess_438 rot in Lauf 506 (claude/build-290, enthält 5bd07c63c), Ende 1 nach 263 s, „Kampf FIGHTER: ONGOING nach 2900 Bildern“; 1335 greift nicht; Ursache nachstellen (Messrauschen oder echter Befund aus 709) | B Werkzeuge | M | – | Spike | erledigt |
 | 1379 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | E Technik | M | – | Spike | erledigt, Geprüft an: Lauf 514 (build-291 grün mit 1314) |
+| 1373 | Wochentermin 16.11.: Wochenziel (719) | B Steuerung | M | – | Perikles | erledigt |
+| 1375 | Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-Datei (720) (719) | Q QS | M | – | Perikles | erledigt |
+| 1376 | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt (neuer Termin im Feld „wartet auf“) oder schließen; Unternummern alle erledigt: 464, 341, 1100 (1188) | B Abläufe | M | – | Perikles | erledigt |
