@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 261 · 654.2 Messlauf ohne Freigabe (Perikles `40b4e09e8`; 16.11., 10:0x)
+
+- **654.2 greift:** `probelauf_messfrage_test.py` 9 von 9 (bild=nein mit „Messfrage:“ frei; Push-Lauf, Film, nur film=nein, leere Messfrage, zweiter am Tag nicht frei; zählt gegen die Grenze). Am Werkzeug: `handlauf_mcp` mit `inputs: {bild: nein}` setzt `bild_nein`; ohne Abholen des Zweigs bleibt die Nachricht leer → nicht frei. Zählung 23.11. (Freigaben je Woche unter 60, Messläufe je Vorgang) in der Wochenzählung.
+- **D261.1 → 1400 (Perikles):** „Geprüft an: 48bb6c487“ (Zeile, Vollzug `72f66d19f`, `billigen/6542`) gibt es nicht, ebenso c28c2e3d9 bei 1392; echt `40b4e09e8`, `23cba5e17`.
+
 ## Lauf 260 · 1392 Rotbuch-Besitzer im flachen Klon (Perikles `23cba5e17`; 16.11., 10:0x)
 
 - **1392 greift mit Lücke (D260.1 → 1399, Perikles):** `rotbuch_test.py` grün. Klon `--depth 30`, Grenze erkannt: ziege_4162, platzwechsel_4162, hoehle_492 → Tom wie im vollen Klon (alte Fassung dort: Ford). Über alle 370 Tests weichen aber 58 vom vollen Klon ab: 25 gehen an Perikles/Sokrates/Homer, weil die Nummer im Namen eine Mutter nennt (399 → Perikles, 870/1020/1268 → Sokrates, 629 → Homer), 33 an Ford (ohne Nummer, Endung `_bild`, `_film`, `_1`); `anmarsch_506_1` liest Nr. 1 → Tom (voll: Jerry). Rote Tests landen so weiter bei Rollen, die keinen Spielcode bauen. Vorschlag (nicht bewertet): Nummer aus dem Namen nur, wenn ihr Besitzer Tom/Jerry/Spike ist, sonst Ford; oder im flachen Klon `git fetch --unshallow`.
