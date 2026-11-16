@@ -2,6 +2,12 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **Guthaben 37 %: Muss zuerst** (16.11., 12:19, Chef an Sokrates zu 37 % Woche, 0,92 %/h: erst „nur Muss nein“, dann „Mein Fehler: Muss primär ja, in Einzelfällen, weil Zusammenhang im Gespräch entscheiden“) → **ab sofort bis zur Zurücksetzung Sa 21.11. `lauf.py --nur-muss`; Kür nur, wenn der Chef sie im Gespräch freigibt (dann „jetzt“ im Titel) (Nutzer; Votum Sokrates)**
+
+- **1235 noch nicht, Texte Kapitel 2** (16.11., 12:19, Chef an Sokrates: „1235 noch nicht“, Liste 1236) → **bleibt nach dem Meilenstein, kein Gespräch jetzt (Nutzer; Vorschlag Sokrates)**
+
+- **531, Läufe frei** (16.11., 12:19, Sokrates nach 621 A, Bitte Tom 10:17: Filmskript `warte()` lief mit 0 Bildern, behoben `ad9474da8`, am Rechner bis zur ersten Abwehr nachgestellt) → **genau ein Filmlauf Fackelabwehr (Tag, Abend, Nacht je eine Abwehr, ohne Text, unter 15 s) auf `claude/tom-531-film`**
+
 - **1303 👍, Höhle mobile ohne Flecken** (16.11., 12:12, Chef an Sokrates: „1303 👍 … Ja, dann den Weg mal weitergehen“; `ansehen/1303-stufen.md` in Git, Spike) → **Belichtung der Kamera statt Hebung nach dem Bild; Helligkeit wie heute angleichen, Vorlage mit Fackel des Helden (Nutzer; Votum Sokrates)**
 
 - **1303, Läufe frei** (16.11., 12:13, Sokrates nach 621 A, nach 1303 👍) → **genau ein Messlauf Belichtung ×3 bis ×6 am Stand `d1f3a4b6e` (`claude/spike-1303-stufen`)**
