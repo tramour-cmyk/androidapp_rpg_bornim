@@ -31,6 +31,11 @@ Stufe 0 (930.5) neu:
   - Gemischte Begegnungen „A+B“: alle Hauptgegner müssen fallen; Ziel: nah zuerst, sonst der Schamane, sonst der nächste.
   - Warten wartet nur auf Gegner, die herankommen (vorher 0 % gegen den Späher, der nie kam), auch auf Lauernde.
 Politiken: schlag_haltung (S), nachlegen (N), warten (W), nur_wehr.
+
+1366 (1288b A, Chef 16.11., 06:56; Rechnung Sokrates glut2_lesen.py, claude/sokrates-1288-lesen 93dd006f1), immer an, aus mit
+Option ohne_1366: (1) Größe der Ansage erst ab Lesestufe GROESSE_AB, darunter nur „!“; (2) wer in Gegenschlag steht, wenn ein großer
+Schlag kommt, steht offen: Gunst (−ungunst), Schaden mal OFFEN_FAKTOR; Wehr gegen kleine Schläge nur WEHR_KLEIN der Ungunst
+(Wortlaut 1288b: „nur um 15 statt 25 Punkte“; glut2_lesen.py rechnete 10).
 """
 import os, random, statistics, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -41,6 +46,9 @@ FREI = {"schnell": 2, "normal": 1, "langsam": 0}
 RING = (0.2, 0.5, 0.3)
 RING_WEHR = (0.45, 0.45, 0.10)
 GROSS_FAKTOR = 1.6
+GROESSE_AB = 1
+OFFEN_FAKTOR = 1.25
+WEHR_KLEIN = 0.6
 NACHLEGEN_SCHADEN = float(os.environ.get("NACHLEGEN", "0.20"))
 GESELLE = 25
 P_TAEUSCH = 0.3
@@ -102,7 +110,7 @@ def kampf(W, H, held, mon_name, rng, opt):
          "bereit": 0, "haltung": None, "minus": 0, "funke_da": held.stufe >= 4, "funke_jetzt": False, "ringe": 0}
     lmax = s["leben"]
     st = {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "nachgelegt": 0, "funke": 0,
-          "ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0}
+          "ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0}
     pol = opt.get("politik", "schlag_haltung")
 
     def ring(wehr):
@@ -119,9 +127,13 @@ def kampf(W, H, held, mon_name, rng, opt):
         wehr = False
         if wehr_hilft and s["bereit"] > 0 and s["haltung"] == "wehr":
             s["bereit"] -= 1; st["wehr"] += 1; wehr = True
-            bonus += H["ungunst"]
         if g.kraft:
             g.kraft = False; faktor *= GROSS_FAKTOR; gross = True
+        neu = not opt.get("ohne_1366")
+        if wehr:
+            bonus += H["ungunst"] * (WEHR_KLEIN if neu and not gross else 1.0)     # 1366: Wehr ist auf den großen Schlag gerichtet
+        if neu and gross and wehr_hilft and s["haltung"] == "gegenschlag":
+            bonus -= H["ungunst"]; faktor *= OFFEN_FAKTOR; st["offen"] += 1     # 1366: offen gegen den großen Schlag
         _, abw = sim.held_abwehr(W, held, g.art, waffe_name, True)
         if rng.random() >= sim.trefferchance(W, g.angriff, abw, bonus):
             return None
@@ -239,6 +251,8 @@ def kampf(W, H, held, mon_name, rng, opt):
         """(groß, Art) so, wie der Held die Ansage sieht."""
         p = g.plan or {"gross": False, "art": "schlag", "zeigt_gross": False}
         gross = p["gross"] if g.stufe_lesen >= 3 else p["zeigt_gross"]
+        if not opt.get("ohne_1366") and g.stufe_lesen < GROESSE_AB:
+            gross = False                  # 1366: auf Stufe 0 nur „!“
         art = p["art"] if g.stufe_lesen >= 1 else None
         return gross, art
 
@@ -470,6 +484,7 @@ def json_ausgabe(W, H, held, herk, n, rng, a):
     nl = W.get("kerbe", {}).get("vertiefen", NACHLEGEN_SCHADEN)     # 1266: Kerbe, Vertiefen
     out = {"kaempfe": n, "unterstufe": a.unterstufe, "vertiefen": nl,
            "zahlen": {"frei": FREI, "ring": list(RING), "ring_wehr": list(RING_WEHR), "gross_faktor": GROSS_FAKTOR, "geselle": GESELLE,
+                      "groesse_ab": GROESSE_AB, "offen_faktor": OFFEN_FAKTOR, "wehr_klein_anteil": WEHR_KLEIN,
                       "taeuschen": P_TAEUSCH, "taeuscher": sorted(TAEUSCHER), "gegenwert": {k: v for k, v in GEGENWERT.items() if k != "Rudel"},
                       "tempo_gegner": {k: v for k, v in H["tempo_gegner"].items() if not k.startswith("_") and k != "Rudel"}, "ungunst": H["ungunst"],
                       "held_tempo": {k: v for k, v in H["held_tempo"].items() if not k.startswith("_")}},

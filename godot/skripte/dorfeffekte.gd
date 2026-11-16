@@ -30,7 +30,7 @@ static func da() -> bool:
 	return ResourceLoader.exists(VFX + "effects/chimney_smoke.tscn") and ResourceLoader.exists(VFX + "vfx_effect.gd")
 
 static func aktiv() -> bool:
-	return an and da()
+	return an and Grafik.kits() and da()   # 698: Niedrig ohne Kits
 
 static func fuer(id: String) -> bool:
 	return id in ORTE or id in STAUB_ORTE

@@ -280,6 +280,64 @@ def build_shortbow(P):
     # Späher Runde 2 (Prüfer 1: gelbe Krümel an der Bogenhand; Diogenes: heller Fleck am Bogenende): Sehne dunkler
     box(P, (sx - s, -s, at(-1.0).z), (sx + s, s, at(1.0).z), lin(0x6E6450))
 
+# 643 (Tom zu 531, Chef 03.11., 23:42 „Garrick wie alt …: Langbogen auf dem Rücken“): Langbogen wie Dress.bow (long: 0,8 der Größe,
+# 140 cm), Holz 0x5E3E24 (etwas heller, wie der Kurzbogen, damit er sich auf dem Mantel liest), Lederwicklung ±0,12, helle Sehne.
+# Ausrichtung wie shortbow: Griff am Ursprung, Wurfarme längs +Z (glTF +Y), Rücken nach +X, Spitzen zum Schützen (−X). Ein Langbogen
+# ist ein D ohne Rückbiegung: die Wurfarme biegen gleichmäßig, die Spitzen schlank mit Hornkappen. Nur der Bogen: der Held trägt
+# longbow.bin in der Hand (tragen.gd „bogen“), der Köcher ist ein eigenes Modell (quiver) für den Rücken
+def build_longbow(P):
+    L = 140.0; bend = 0.10 * L; n = 16
+    def thick(t): return 2.9 - 1.6 * abs(t)
+    def at(t):
+        u = abs(t); x = -bend * u * u + bend * 0.15
+        return Vector((x * CM, 0, t * L / 2 * CM))
+    wood = lin(0x6A4628)
+    for k in range(n):
+        t0 = -1.0 + 2.0 * k / n; t1 = -1.0 + 2.0 * (k + 1) / n
+        a = ring_pts(Vector((at(t0).x, 0)), thick(t0) * CM * 0.8, thick(t0) * CM, 8, at(t0).z)
+        b = ring_pts(Vector((at(t1).x, 0)), thick(t1) * CM * 0.8, thick(t1) * CM, 8, at(t1).z)
+        for j in range(8): face(P, [a[j], a[(j + 1) % 8], b[(j + 1) % 8], b[j]], wood)
+    # Hornkappen an den Spitzen (deckeln die Wurfarme)
+    horn = lin(0xC8BCA0)
+    for t, s in ((-1.0, 1), (1.0, -1)):
+        c = at(t); r = thick(t) * 1.05
+        a = ring_pts(Vector((c.x, 0)), r * CM * 0.8, r * CM, 6, c.z + s * 3.0 * CM); b = ring_pts(Vector((c.x, 0)), r * 0.5 * CM, r * 0.5 * CM, 6, c.z - s * 1.5 * CM)
+        for j in range(6): face(P, [a[j], a[(j + 1) % 6], b[(j + 1) % 6], b[j]], horn)
+        face(P, a if s < 0 else list(reversed(a)), horn); face(P, list(reversed(b)) if s < 0 else b, horn)
+    g = 0.12 * L / 2
+    a = ring_pts(Vector((at(0).x, 0)), 2.8 * CM, 3.1 * CM, 6, -g * CM); b = ring_pts(Vector((at(0).x, 0)), 2.8 * CM, 3.1 * CM, 6, g * CM)
+    for j in range(6): face(P, [a[j], a[(j + 1) % 6], b[(j + 1) % 6], b[j]], LEATHER)
+    face(P, list(reversed(a)), LEATHER); face(P, b, LEATHER)
+    sx = at(1.0).x; s = 0.45 * CM
+    box(P, (sx - s, -s, at(-1.0).z + 1.0 * CM), (sx + s, s, at(1.0).z - 1.0 * CM), lin(0x8A806A))
+
+# 643: Köcher wie Dress.bow (quiver): Lederrohr 0,34 der Größe (60 cm), unten 5, oben 6 cm Halbmesser (0,03 bzw. 0,034 der Größe),
+# oben ein dunkler Rand, in der Mitte ein Riemenring; darüber ragen fünf Pfeile mit hellen Federn (Dress 0xC8BCA0) 16 cm heraus.
+# Ursprung in der Mitte des Rohrs, Öffnung nach +Z (glTF +Y), Rückseite (an den Körper) nach Blender +Y (glTF −Z); Tom stellt
+# ihn schräg auf den Rücken, oben über die rechte Schulter, den Bogen darüber (MapFolk: „the longbow slung across his back over the quiver“)
+def build_quiver(P):
+    leder = lin(0x5A3C26)
+    n = 10
+    def rohr(z0, z1, r0, r1, col, cap0=False, cap1=False):
+        a = ring_pts(Vector((0, 0)), r0 * CM, r0 * 0.85 * CM, n, z0 * CM); b = ring_pts(Vector((0, 0)), r1 * CM, r1 * 0.85 * CM, n, z1 * CM)
+        for k in range(n): face(P, [a[k], a[(k + 1) % n], b[(k + 1) % n], b[k]], col)
+        if cap0: face(P, list(reversed(a)), col)
+        if cap1: face(P, b, col)
+    rohr(-30, -27, 4.6, 5.0, LEATHER, cap0=True)        # Boden
+    rohr(-27, 25, 5.0, 5.8, leder)
+    rohr(-2, 2, 5.9, 5.9, LEATHER)                       # Riemenring
+    rohr(25, 30, 6.1, 6.1, LEATHER)                      # Rand
+    rohr(29, 29.5, 5.6, 5.6, DARK, cap1=True)           # Dunkel in der Öffnung
+    schaft, feder = lin(0x8A6A44), lin(0xC8BCA0)
+    for i, (x, y, h) in enumerate(((-2.4, -1.0, 44), (0.0, -2.0, 46), (2.4, -1.0, 43), (-1.2, 1.6, 45), (1.4, 1.5, 42))):
+        c = Vector((x * CM, y * CM)); top = h * CM
+        a = ring_pts(c, 0.45 * CM, 0.45 * CM, 4, 28 * CM); b = ring_pts(c, 0.45 * CM, 0.45 * CM, 4, top)
+        for k in range(4): face(P, [a[k], a[(k + 1) % 4], b[(k + 1) % 4], b[k]], schaft)
+        face(P, b, schaft)
+        # zwei Federn je Pfeil, über Kreuz (je ein flacher Kasten)
+        box(P, (c.x - 1.3 * CM, c.y - 0.15 * CM, top - 10 * CM), (c.x + 1.3 * CM, c.y + 0.15 * CM, top - 1 * CM), feder)
+        box(P, (c.x - 0.15 * CM, c.y - 1.3 * CM, top - 10 * CM), (c.x + 0.15 * CM, c.y + 1.3 * CM, top - 1 * CM), feder)
+
 # 348.7 Goblin-Schamane (MonsterKits goblin_shaman, Liste „Goblin-Schamane“, Dress.kt staff mit fetish): knorriger Stab mit
 # einem kleinen Tierschädel oben, die Augenhöhlen glimmen grün (Eckfarbe mit Alpha 0, toon.gdshader glut), darunter Federn und
 # ein Knochen an Schnüren. Für einen Goblin von 108 cm gebaut: 130 cm vom Fuß bis zum Schädel; der Ursprung (Faust) 70 cm über
@@ -347,7 +405,8 @@ KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': bu
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
          'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe_gob, 'dagger-rost': build_dagger_gob, 'dagger-kobold': build_dagger_kobold,
          'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow, 'staff-schamane': build_staff_shaman,
-         'spear-rost': build_spear, 'greataxe-grak': build_greataxe}
+         'spear-rost': build_spear, 'greataxe-grak': build_greataxe,
+         'longbow': build_longbow, 'quiver': build_quiver}   # 643 Garrick
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
 # Runde 6 (Prüfer Goblin Runde 5: Klinge mit der Linie ganz schwarz, Rost kaum): Stahl heller, Schneide blanker, Rost als Flecken
 ROST = dict(STEEL=lin(0x847A70), EDGE=lin(0xA8A49A), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30),
@@ -362,7 +421,7 @@ def export(name):
     me = bpy.data.meshes.new(name); me.from_pydata([tuple(v) for v in P.V], [], P.F)
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER')
     for poly in me.polygons:
-        poly.use_smooth = name == 'shortbow'     # Späher Runde 3: Kanten des Bogens lasen sich als Streifen
+        poly.use_smooth = name in ('shortbow', 'longbow', 'quiver')     # Späher Runde 3: Kanten des Bogens lasen sich als Streifen
         for li in poly.loop_indices:
             c = P.C[me.loops[li].vertex_index]; ca.data[li].color = (c[0], c[1], c[2], c[3] if len(c) > 3 else 1.0)   # Alpha 0: glimmt
     mat = bpy.data.materials.get('waffe') or bpy.data.materials.new('waffe')

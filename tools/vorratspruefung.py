@@ -40,6 +40,7 @@ RUHEND = ("ruht", "Idee", "nach Meilenstein", "aufgeteilt")
 # Von Hand geprüft (Perikles), meldet L bzw. O nicht wieder: kein Doppel bzw. eigenständige Kür nach Entscheid oder Bestandsaufnahme
 GEPRUEFT_L = {frozenset(p) for p in (("709.1", "506.2"), ("1322", "1323"))}  # 16.11.: anderes Tier; Oberfläche gegen Kampfmeldungen
 GEPRUEFT_O = {"168.1", "623.2"} | {"785.%d" % i for i in range(9, 19)}  # 16.11.: Umsetzung 168 A, Effekte 623 A, Rest aus Abgleich 785
+GEPRUEFT_P = {"954a.13"}  # 16.11.: „entfällt“ meint den alten Kampf, die Zeile (Wirkung im MARS) lebt
 
 
 
@@ -145,10 +146,16 @@ def funde():
         except Exception:
             pass
     # K: Chefurteile der letzten 48 h gegen die Zeilen
+    vorraete = ""
+    for x in sorted(os.listdir(S.DOCS)):
+        if x.startswith("ARBEIT-") and x.endswith(".md"):
+            vorraete += open(os.path.join(S.DOCS, x), encoding="utf-8").read()
     try:
         for w, kopf, je in S.urteile(48):
             for n, ort, st in je:
                 if ort == "ohne Zeile":
+                    # Folgeauftrag im Vorrat des Besitzers mit Verweis „Archiv „<n>““ (16.11.: 531.1 steht als „Zu 531“ bei Tom)
+                    if re.search(r"Archiv „%s“" % re.escape(n), vorraete): continue
                     aus.append(("K", n, "?", "Urteil %s „%s“: keine Zeile %s (Folgeauftrag eingetragen?)" % (w.strftime("%d.%m., %H:%M"), kopf[:60], n)))
                 elif ort.startswith("Liste") and S.wort_von(st) == "Chef":
                     aus.append(("K", n, ort[6:], "Urteil %s „%s“, Zeile steht noch auf „Chef“" % (w.strftime("%d.%m., %H:%M"), kopf[:60])))
@@ -182,6 +189,7 @@ def funde():
     except Exception:
         koepfe = {}
     import datetime
+    je_nr = {x["nr"]: x for x in zs}
     for d in zs:
         nr, bes = d["nr"], d["besitzer"]
         if bes == "Ideen" or nr in S.SONDER: continue
@@ -189,12 +197,15 @@ def funde():
         if m and d["kl"] == "M" and d["wort"] in ("startbar", "offen", "wartet"):
             try:
                 tag = S.jahr_von(int(m.group(1)), int(m.group(2)))
-                if (S.JETZT.date() - tag).days >= 2:
+                # wartet nur auf Gebautes (Wirkung wird gemessen): liegt nicht (16.11.: 1129 wartet auf 1387)
+                gebaut_nur = d["warte"] and all(w in je_nr and je_nr[w]["wort"] == "gebaut" for w in d["warte"])
+                if (S.JETZT.date() - tag).days >= 2 and not gebaut_nur:
                     aus.append(("M", nr, bes, "„jetzt“ seit %s, Stand „%s“%s" % (tag.strftime("%d.%m."), d["wort"], (", wartet auf " + ", ".join(d["warte"])) if d["warte"] else "")))
             except ValueError:
                 pass
         zw = (d.get("zweig") or "").strip()
-        if koepfe and zw.startswith("claude/") and d["wort"] in ("startbar", "offen", "in Arbeit", "wartet"):
+        # „zurück t<n>“: Nacharbeit auf dem schon gemischten Zweig ist gewollt (16.11.: 601.1, 709)
+        if koepfe and zw.startswith("claude/") and not re.search(r"zurück t\d+", d["titel"]) and d["wort"] in ("startbar", "offen", "in Arbeit", "wartet"):
             if zw not in koepfe:
                 aus.append(("N", nr, bes, "Zweig %s gibt es auf GitHub nicht (mehr)" % zw))
             elif S._git("merge-base", "--is-ancestor", koepfe[zw], "origin/main").returncode == 0 and \
@@ -205,7 +216,7 @@ def funde():
             if ober not in nach and S.stand_von(ober)[0] == ober and not d["warte"] and d["kl"] == "K" and d["wort"] == "startbar" \
                     and nr not in GEPRUEFT_O:
                 aus.append(("O", nr, bes, "Oberzeile %s erledigt, Unternummer als startbare Kür übrig (noch gebraucht?)" % ober))
-        if re.search(r"\b(entfällt|überholt|doppelt zu|ist erledigt|schon erledigt|hinfällig)\b", d["titel"] + " " + d["zusatz"], re.I):
+        if nr not in GEPRUEFT_P and re.search(r"\b(entfällt|überholt|doppelt zu|ist erledigt|schon erledigt|hinfällig)\b", d["titel"] + " " + d["zusatz"], re.I):
             aus.append(("P", nr, bes, "Text sagt „%s“, Zeile offen (%s)" % (re.search(r"\b(entfällt|überholt|doppelt zu|ist erledigt|schon erledigt|hinfällig)\b", d["titel"] + " " + d["zusatz"], re.I).group(1), d["wort"])))
     try:
         schon = {(a, n) for a, n, _, _ in aus}
