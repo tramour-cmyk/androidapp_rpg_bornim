@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 00:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 00:09, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -51,7 +51,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tuffy | 1284b Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nic… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
 | Spike | leer, weil 3 ruht, 2 wartet auf Test, 2 wartet auf Test/Build |
 | Homer | Pflege von Werkzeug: 1 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
-| Diogenes | 1425 täglich vor dem Tagesbericht den ganzen Vorrat auf links dr… (Muss); dann 5 weitere |
+| Diogenes | 1312 Fertiges nie liegen lassen: Werkzeug mischen, Spielcode vor… (Muss); dann 4 weitere |
 | Sokrates | 1503 Zusammenführen: getestet, nicht auf main: Build 293; grün m… (Muss) |
 | Perikles | 1279 core/, app/, Kotlin-Vorschauordner unter tools/, Gradle-Wur… (Muss); dann 1 weitere |
 
