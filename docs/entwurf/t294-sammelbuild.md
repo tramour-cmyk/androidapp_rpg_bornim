@@ -1,5 +1,6 @@
 # Tom und Jerry · Build 294 · Sammelbuild: Wolf bleibt dran und dreht zum Helden, Zurück im Hauptmenü fragt, Leben in Kampfmeldungen, Testreparaturen · PR folgt
 E Kampf · Jerry (1072, 1275; ohne dich 1453, 1455, 1296), Tom (1418, 1322), Spike (ohne dich 1426, 1458) · 16.11., 20:15 · APK folgt
+Gegengelesen: Tom 20:27 (294.1 Wortlaut wie `[1419.*]`, 294.3 wie `MSG72_DRINKS` auf `claude/build-294`; passt)
 Rot, bekannt, nicht melden: `wolf_mess_438` – Wölfe stehen nach dem Biss teils ineinander (Platz am Gegner aus 1072 Schritt 2 prüft die Nachbarn nicht); Ursache nachgestellt, Behebung offen (1453).
 
 Sammelbuild auf `main` mit Build 293 (über die Zweige 1072 und 1453); die Punkte der Liste 293 kommen hier nicht noch einmal. Taumeln 1275 fährt mit; das Kerbensystem gibt es nur in Proben ohne Schalter im Spiel, seine Prüfung ist ein Film auf Telegram, nicht hier.
