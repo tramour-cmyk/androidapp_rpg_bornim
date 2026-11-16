@@ -1517,6 +1517,7 @@ func lage_herstellen(l: Dictionary) -> void:
 	if not fehler.is_empty():
 		ui.kurz(Sprache.t({"de": "Lage nicht herstellbar: ", "en": "Cannot set up: "}) + String(fehler[0]))
 		return
+	Testmodus.lage_schalter(l)   # 1480
 	if l.has("stufe"): Testmodus.stufe_setzen(werte, zustand, int(l["stufe"]))
 	if l.has("vorraete"): Testmodus.vorraete(werte, zustand)
 	if l.has("einmaliges"): await test_tat("einmaliges", [])

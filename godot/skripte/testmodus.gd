@@ -320,6 +320,22 @@ static func waffe(hw: BrsHeld, z: Zustand, base: String, neben := false) -> void
 	var weg: Array = hw.anlegen_nebenhand(g) if neben and Beute.ist_waffe(Beute.grundform(base)) else hw.anlegen(g)
 	for x in weg: z.beutel.append(x)
 
+## 1480: Satz, wenn Unsterblich oder Schnell an ist (verfälscht Kampf bzw. Gehen beim Prüfen), sonst ""
+static func verfaelscht(de: bool) -> String:
+	var Mars = load("res://regeln/mars.gd")
+	var an := []
+	if Mars.held_unsterblich: an.append("Unsterblich" if de else "Immortal")
+	if Held.schnell > 1.0: an.append("Schnell" if de else "Fast")
+	if an.is_empty(): return ""
+	return ("%s an: verfälscht Prüfpunkte" if de else "%s on: skews checks") % (" + ".join(PackedStringArray(an)))
+
+## 1480: „Lage herstellen“ schaltet Unsterblich und Schnell aus, außer die Lage verlangt sie (unsterblich, schnell)
+static func lage_schalter(l: Dictionary) -> void:
+	var Mars = load("res://regeln/mars.gd")
+	Mars.held_unsterblich = l.has("unsterblich")
+	Held.schnell = 3.0 if l.has("schnell") else 1.0
+	schalter_speichern()
+
 # 425 (Pruefer 01.11.: „Sehr Selten“): nur der erste Buchstabe gross, String.capitalize schreibt jedes Wort gross
 static func gross_anfang(w: String) -> String:
 	return w.left(1).to_upper() + w.substr(1)
@@ -352,6 +368,10 @@ static func reiter(m: Menue) -> void:
 		m.luecke(6)
 	m.zeile(t.call("Testmodus", "Test mode").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: Kopf wie alt (TestTab.kt 50, MenuHead)
 	m.luecke(8)
+	# 1480 (Chef 16.11., 17:53: t293.7 mit „Schnell“ getestet, falsches ✗): oben in Rot, wenn ein Schalter an ist, der das Ergebnis
+	# eines Prüfpunkts verfälscht
+	var faelscht := verfaelscht(de)
+	if faelscht != "": m.zeile(faelscht, 12, Stil.WARN)
 	absturz(m, t)
 	# 1020.1 A: Lage merken und zurück, Einmaliges zurücksetzen, Herkunft für den Schnellstart im Hauptmenü
 	m.gruppe(t.call("Schnelltest", "Quick test"))
@@ -653,7 +673,8 @@ const LAGE_LEBEN := ["voll", "halb", "knapp"]
 const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
 const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
 	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig",   # 542: ruhig = Monster beachten nicht
-	"auftrag", "unerkundet"]   # 785.8 (Fund t286.6): auftrag=<id> angenommen, nicht erledigt; unerkundet=<karte> ohne Erkundetes
+	"auftrag", "unerkundet",   # 785.8 (Fund t286.6): auftrag=<id> angenommen, nicht erledigt; unerkundet=<karte> ohne Erkundetes
+	"unsterblich", "schnell"]   # 1480: Lage verlangt den Schalter; ohne den Schlüssel schaltet „Lage herstellen“ ihn aus
 
 ## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
 static func lage_uhr(s: String) -> int:
