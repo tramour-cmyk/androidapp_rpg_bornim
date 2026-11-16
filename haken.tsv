@@ -698,3 +698,4 @@
 2026-11-16 23:07:21	commit-pruefung	docs/ROLLE-PROJEKT.md: 13542 Bytes, Obergrenze 13200, Commit fügt 399 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-16 23:07:42	commit-pruefung	docs/chefsache/ansehen/6011-pfeiltreffer.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
 2026-11-16 23:07:42	commit-pruefung	docs/chefsache/ansehen/6011-pfeiltreffer.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-16 23:11:05	commit-pruefung	docs/chefsache/ansehen/1499-laufnachweis-skripte.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
