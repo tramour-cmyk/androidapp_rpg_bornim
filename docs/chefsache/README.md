@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 21:46, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 21:53, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | **7** Werkzeuge und Abläufe der Firma | 43 (56) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 161 erledigt, 138 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 162 erledigt, 139 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -41,11 +41,11 @@ Heute (seit 6:00): 161 erledigt, 138 neu. In Klammern bei „offen“: Stand 6:0
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 4 weitere |
 | Jerry | 1439 Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigen… (Muss); dann 12 weitere |
 | Tuffy | 601.1 Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurüc… (Muss von Jerry, neben dessen Arbeit); dann 11 weitere |
-| Spike | leer, weil 3 wartet auf Test/Build, 3 ruht bis, 2 wartet auf Test |
+| Spike | leer, weil 3 wartet auf Test/Build, 3 ruht, 2 wartet auf Test |
 | Homer | 1489 Beschreibungen der Merkmale je Exemplar: je Merkmal und Art… (Muss) |
 | Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss) |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
-| Perikles | leer, weil 16 Termin, 5 wartet auf, 2 wartet auf Diogenes |
+| Perikles | leer, weil 16 Termin, 5 wartet auf Vorgang (870, 1388, 1125, 1389, 1444), 2 wartet auf Diogenes |
 
 **Die nächsten 20**
 
