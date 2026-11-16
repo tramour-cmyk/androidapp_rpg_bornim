@@ -80,6 +80,7 @@
 | 1326 | Von Sokrates (Chef 15.11., 20:33): Build-Name (Nummer des Builds) im Hauptmenü und in „Über das Spiel“ anzeigen, nicht nur v0.1 | Tom | M | gebaut, Geprüft an: 8740bcaaa | – | claude/tom-870-20-srd | – | E Oberfläche | – |
 | 431h | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, etwa 60–100 $ (Chef 15.11., 17:13) | Tom | M | wartet, Vorlage beim Chef | Chef 431h | – | – | E Figuren | – |
 | 1355 | Von Spike (Lauf 509): wende_4168 zufällig rot, „Knoten folgt der Kurve (hoechstens 1.21 Grad daneben)“; Lauf 507 am selben Spielstand grün (nur atem_4531 verschieden) | Tom | K | gebaut, Geprüft an: 6e9e4aff3 | – | claude/tom-1355-wende | – | Q QS | 1,95 $ |
+| 1357 | Von Werkzeug (1334): Wiederholrot lage_785_8: 2× rot in 48 h (Läufe 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | t290 | – | – | E Technik | 15,96 $ |
 | 1321 | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m nach vorn in einen Wolf, der daneben beißt (wolf_mess_438 Kleriker); Weg wählen, Film an den Chef, dann bauen | Jerry | M | gebaut, Geprüft an: 4ce68a119 | – | claude/jerry-1321-ausweichen | – | E Kampf | 9,98 $ |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, Sprung passt (Chef 20:33), Blut am Helden offen | – | claude/jerry-760-1000-sprung-axt | – | E Kampf | 28,71 $ |
@@ -156,6 +157,7 @@
 | 1336 | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1284a | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar (Seitenplatz, Kamera oder Seitenplatz wo frei)? | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 1358 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | Pflege | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
@@ -238,8 +240,6 @@
 | 1350 | Systemlösung? Halt: 13 frühere Vorgänge (653, 872, 967, 1208, 640 …), neu 1349; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 1354 | Systemlösung? Rüstung: 8 frühere Vorgänge (917, 868, 644a.5, 1255, 49 …), neu 431h; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
-| 1358 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Ford | M | startbar | – | – | – | E Technik | – |
-| 1357 | Von Werkzeug (1334): Wiederholrot lage_785_8: 2× rot in 48 h (Läufe 508, 504); Ursache nachstellen, beheben · wiederholt | Ford | M | startbar | – | – | – | E Technik | – |
 | 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | K | startbar | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |

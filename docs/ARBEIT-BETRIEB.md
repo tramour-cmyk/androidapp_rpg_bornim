@@ -85,3 +85,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:03 16.11.: Startsperre 01:03 Start Tom (lauf.py)
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 01:03 16.11.: Marke Start-fehlt Tom 16.11.-00:10 (lauf.py)
+- 01:06 16.11.: Startsperre 01:06 Start Tom (Sammelbuild 785.24, 1355, lauf.py; neu …77sUqpvJUtCb4yNz2H); Rotbuch 1356 (Sokrates), 1357 (Tom), 1358 (Jerry) angelegt; Wächter 1186 an Sokrates
