@@ -2349,6 +2349,21 @@ func _platz_besetzt() -> bool:
 	return false
 
 
+## 1072 Schritt 2: ein Gegner, der nach dem Angriff stehen bleibt (717 C), hält seinen Platz am Gegner (kampfort._platz_am_gegner)
+func bleibt_am_gegner() -> bool:
+	return _bleib_717() and not down and dead_at < 0
+
+
+## 1072 Schritt 2: wo er nach dem laufenden Zug steht (Absetzen nach dem Biss: letzter Punkt der Bahn)
+func ort_nach_zug() -> Vector3:
+	return bahn[bahn.size() - 1] if unterwegs() else position
+
+
+## 1072 Schritt 2: ist [p] mit Blick [d] frei von den anderen (auch auf ihren Bahnen) und im Bild?
+func platz_frei(p: Vector3, d: Vector3) -> bool:
+	return _platz_luft(p, d, null) >= PLATZ_LUFT and _im_bild(p, d)
+
+
 ## 717 C: steht der Held an [p] frei von allen außer sich und [ziel]?
 func _stand_frei(p: Vector3, ziel) -> bool:
 	for o in kampfort.figures.values():
