@@ -66,8 +66,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
-
-
+- **Zu 1275, von Sokrates (Chef 16.11., 13:38, t291.7 ✗):** Fehler der Prüfliste, nicht der Sache: Lage „Probekampf Wölfe“ hat keinen Begleiter, darum kein Knopf zum Tausch („wenn ich bei Lage herstellen draufklicke, bin ich alleine“). 1275 nicht ausbauen; Film vom Stand des Builds (Held tauscht mit Söldner, bleibt danach am Zug) als Nachtrag an den Chef. Zweiter Fall nach t290.9: Lage jeder Prüfzeile vor dem Push selbst herstellen und den Weg gehen.
+- **Zu 1423, von Sokrates (Chef 16.11., 13:32–13:34):** Außenwände der Höhle stehen hoch, zu niedrig sind nur die Zwischenwände zwischen den Räumen („Zwischenwandproblem“, „altes Wandproblem“). Ursache dort suchen.
 - **Zu 601.1, von Chef (Fund t291.8, Test Build 291, Automatik B):** Pfeil fliegt auf Schild-/Brusthöhe, aber der Held zuckt nicht; dreimal dieselbe Szene, kein Unterschied erkennbar, ob er trifft (Chef 16.11., 12:24, über Sokrates)
 - **Zu 1363, von Tom (16.11., 02:14):** Lauf 512 rot (typen.py von Tom, arkan_993, wolf_mess_438); auf `claude/build-291` beheben, Push baut; danach Testbitte (Tom).
 - **Zu 1363 (Jerry 16.11., 03:02):** arkan_993 behoben `5af7af273` (Test maß gegen die alte Brust). wolf_mess_438 behoben `9f11d8100`: Brakkas Zucken schwang den Schildarm in den Wolfskopf; jetzt bleibt der Schildarm im Zucken in seiner Haltung (Abstand 0,06 m), Bisse unverändert (treffen_709). Sichtbar: Prüfzeile für t291 an Tom: „Probekampf Wölfe, Söldner mit Schild wird gebissen | Passt: er zuckt, der Schild bleibt vor ihm | Falsch: Schild fährt in den Wolf oder der Arm wirkt steif“.
