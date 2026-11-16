@@ -144,3 +144,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:04 16.11.: Marke Archiv session_01Hmoj76GCWwLsp884GDFyfx (lauf.py)
 - 14:07 16.11.: Startsperre 14:07 Start Perikles (lauf.py)
 - 14:10 16.11.: Start Perikles 1424, alte Perikles-Sitzung archiviert (7,32 $ auf 1414,1217,870.12 gebucht)
+- 14:23 16.11.: Startsperre 14:23 Start Ford (Starter), Selbstneustart bei 563 Tsd. used_tokens (Zu 1429); Uhr Ford-Lauf trig_01PJTr2gPNqwT35yGNqDM5XC, alter Ford session_01Hmoj76awPjHi5batouXHgC
