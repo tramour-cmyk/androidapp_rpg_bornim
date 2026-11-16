@@ -27,9 +27,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Jerry | 1368 Zeile „**Abgabe:** …“ oben im Vorrat: je startbarem Kampf-M… (Muss); dann 10 weitere |
 | Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1370 Erklärsatz und Meldung zum Zeichen „Grafik“ im Systemmenü p… (Kür) |
-| Diogenes | 1098.1 nach Fords erstem Neustart über Probe D bzw. Starter Tiefe,… (Muss); dann 24 weitere |
+| Diogenes | 1128.3 ab Build 283 Funde und Rückschritte je Prüfart zählen, Baut… (Muss); dann 21 weitere |
 | Sokrates | 620 Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebi… (Kür) |
-| Perikles | 1369 D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lau… (Muss) |
+| Perikles | 1369 D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lau… (Muss); dann 1 weitere |
 
 **Die nächsten 20**
 
@@ -53,18 +53,18 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 16 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
 | 17 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 18 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 20 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 19 | 1371 | Perikles | D254.2 von Diogenes: Nachtrag Chef 07:02 fehlt im Bau 2c9b7b85a: keine Übernahm… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
 
-Danach 96 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
+Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 66.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [431h](entscheiden/431h-ausruestung-sichtbar.md) | **Muss** | E Figuren | 16.11., 07:12 | Jede Herkunft startet mit Gegenständen auf allen sichtbaren Plätzen, die so aussehen wie heute ihre Tracht; ein leerer Platz zeigt die Unterwäsche des Körpers, keine Tracht mehr. | Tom |
 | [1352a](entscheiden/1352a-taumeln.md) | **Muss** | E Kampf | 16.11., 00:20 | Taumeln wie im alten Kampf (ein Fünftel seines Lebens seit seiner Ansage) oder im Kampf mit Kerben streichen? | Homer |
-| [431h](entscheiden/431h-ausruestung-sichtbar.md) | **Muss** | E Figuren | 16.11., 00:12 | Jeder angelegte Kopf-, Brust-, Arm- und Beinschutz tauscht das passende Stück der Tracht gegen ein Teil aus dem gekauften Kleiderpaket; leere Plätze zeigen weiter die Tracht der Herkunft. | Tom |
 | [1351](entscheiden/1351-rechtepruefung-bildlauf.md) | **Muss** | B Abläufe | 16.11., 00:10 | Die Rechteprüfung der Sitzungen hält unseren eigenen, freigegebenen Bildlauf für eine Umgehung; eine Erklärzeile in den Einstellungen würde das beheben. | Perikles |
 | [1284a](entscheiden/1284a-rattenbiss-sicht.md) | **Muss** | E Kampf | 15.11., 23:03 | Die Ratte beißt von hinter dem Helden und ist verdeckt; Platz zur Seite reicht nur, wo er frei ist. | Jerry |
 
