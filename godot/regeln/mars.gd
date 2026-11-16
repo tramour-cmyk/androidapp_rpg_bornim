@@ -2381,6 +2381,11 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	if zaeh:
 		_say(fmt(MSG506_FORTITUDE, lang, [t.name(lang)]), t.id)
 	if t.standing():
+		# Regel 19 Taumeln (1352a A): im Kerbensystem bricht jeder Schaden seit der Ansage den großen Schlag (kerbe.gd taumeln); die
+		# alte Regel unten gilt dort nicht (kerbe.gd _absicht: nie brechbar über das alte Feld)
+		if kerbe and gk != null and t.side == "FOES" and not t.gl.is_empty():
+			gk.taumeln(t, dmg)
+			return
 		# 296.2: no one's blow (a status hurting at the turn's start) breaks no intent
 		if by == "" or not intents.has(t.id):
 			return
