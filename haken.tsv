@@ -594,3 +594,4 @@
 2026-11-16 11:42:51	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-431-ausruestung
 2026-11-16 11:50:43	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30392 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 11:54:04	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-1072-mess ändert Spielcode (godot/kampf/figur.gd, go	claude/jerry-1072-mess
+2026-11-16 11:54:32	probelauf	748: Push angehalten, der letzte Lauf auf claude/jerry-1072-mess ist rot (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43841285440, Stand eea133511). Erst das Protokoll lesen (Gi	claude/jerry-1072-mess
