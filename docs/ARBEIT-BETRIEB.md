@@ -114,3 +114,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:06 16.11.: Marke Wächter 1129 13.11. 12:53 (lauf.py)
 - 09:08 16.11.: Start Sokrates 1129.4 (Wächter 1129 gemeldet laut); alte Sokrates-Sitzung nach Chefantwort 09:05 wieder geöffnet, Archiv 09:22 (15-Minuten-Regel); Neustart Spike 5d95e3442, Start folgt im nächsten Lauf (Marke 09:01); 1235 mit --ohne ausgeschlossen
 - 09:14 16.11.: Marke Archiv session_01Hmoj75oXevBbggtoW6gYgE (lauf.py)
+- 09:23 16.11.: Chef 09:20 (laut Sokrates): Sokrates-Sitzung session_01Hmoj75oXevBbggtoW6gYgE bleibt offen, nie archivieren, keinen Nachfolger; lauf.py immer mit --ohne "Sokrates:Chef 09:20 Sitzung bleibt offen"; Sokrates-Nachfolger 78Ga (1129.4, 1,48 $) archiviert und gebucht
