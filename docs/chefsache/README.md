@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:29, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -27,11 +27,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 (57) | 10 | 0 | 4 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (18) | 8 | 0 | 2 | 4 | 1457 (Tom) Wiederholrot pruefliste_1020: 3× rot in 48 h; Urs… |
-| **7** Werkzeuge und Abläufe der Firma | 43 (56) | 28 | 0 | 2 | 9 | 1454 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (18) | 6 | 0 | 2 | 4 | 1457 (Tom) Wiederholrot pruefliste_1020: 3× rot in 48 h; Urs… |
+| **7** Werkzeuge und Abläufe der Firma | 45 (56) | 31 | 0 | 2 | 9 | 1454 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 116 erledigt, 102 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 118 erledigt, 104 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -41,11 +41,11 @@ Heute (seit 6:00): 116 erledigt, 102 neu. In Klammern bei „offen“: Stand 6:0
 | Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 8 weitere |
 | Jerry | 1453 stehen_973, reihe_1305, wolf_mess_438, ansage_946; wohl aus… (Muss); dann 7 weitere |
 | Tuffy | 601.1 Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurüc… (Muss von Jerry, neben dessen Arbeit); dann 6 weitere |
-| Spike | 1457 Übernahme von Tom: Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachs… (Muss); dann 4 weitere |
+| Spike | 1457 Übernahme von Tom: Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachs… (Muss); dann 2 weitere |
 | Homer | 1459 README.md beschreibt noch die Kotlin-Fassung; Features nach… (Muss) |
-| Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
+| Diogenes | 1463 Zählweise „Liegengebliebenes über 6 h, obwohl gesehen“ fest… (Muss) |
 | Sokrates | 1454 Zusammenführen: getestet, nicht auf main: Build 274, 288; g… (Muss); dann 2 weitere |
-| Perikles | M? M? entscheiden: 1445, 1447, 1448, 1439, 1461 (Muss) |
+| Perikles | M? M? entscheiden: 1445, 1447, 1448, 1439 (Muss); dann 1 weitere |
 
 **Die nächsten 20**
 
@@ -69,10 +69,10 @@ Heute (seit 6:00): 116 erledigt, 102 neu. In Klammern bei „offen“: Stand 6:0
 | 16 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 17 | 1457 | Tom | Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachstellen, beheben · wi… | M | 6 Godot besser nutzen | startbar |
 | 18 | 1456 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 19 | 1452 | Jerry | Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nachstellen, beheben · w… | M | 6 Godot besser nutzen | startbar |
-| 20 | 1449 | Jerry | Wiederholrot ausholen_1000: 4× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 6 Godot besser nutzen | startbar |
+| 19 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
+| 20 | 1454 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 288; grün machen und PR zu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 104 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
+Danach 103 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
