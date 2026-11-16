@@ -228,7 +228,7 @@
 | 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | 1268.1, 1268.2, 1268.3 | – | – | E Technik | – |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | 1270.3, 1270.4 | – | – | E Technik | 3,04 $ |
 | 1288 | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lücke 930.5 (falsche Haltung kostet zu wenig) (Chef 15.11., 12:00) | Sokrates | M | startbar, gelöst 15.11.: 1266 | – | – | – | E Kampf | – |
-| Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | erledigt | – | – | – | B Abläufe | – |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
@@ -242,7 +242,7 @@
 | 1300 | Von Tom (Build 288): atem_4531 zufällig rot, „nach 8 s wieder fast Ruhe“ (Lauf 492 rot: 1,80 und 2,57 s; Lauf 493 am selben Stand 865be6265 grün) | Spike | M | gebaut, auf main f98aa373c, Geprüft an: Lauf 509 | Diogenes | – | – | Q QS | 4,74 $ |
 | 1270.4 | Von Sokrates (1270 A, Chef 15.11., 10:51; 22:43 Film statt Bild), Bau Spike: Vergleichsfilm alt gegen neu Glühen (Gold, Fackel, Zauber) und vorberechnetes Höhlenlicht, Homer sieht vorher auf Stil; danach Laden im Hintergrund und Abziehbilder | Spike | K | startbar | 1303 | – | – | E Technik | – |
 | 1303 | Von Jerry (zu 1289): Stufen (Banding) im Dunkel im Renderer mobile, Höhle: dunkle Flächen in Flecken statt Verlauf (Helligkeit ×2,1 nach dem Bild hebt die groben Stufen); Ursache nachstellen, Weg ohne neues Aussehen | Spike | M | startbar | Chef 1303 | – | – | G Stil | 4,74 $ |
-| 698 | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstest; LISTE-IDEEN „Grafik-Einstellungen“, Chef 28.10., 08:31; 08.11., 19:46, zu 623) | Spike | M | startbar | 698a | – | – | E Technik | – |
+| 698 | Grafikstufen im Systemmenü mit Effekten (Niedrig/Mittel/Hoch, Automatisch per Leistungstest; LISTE-IDEEN „Grafik-Einstellungen“, Chef 28.10., 08:31; 08.11., 19:46, zu 623) | Spike | M | startbar | – | – | – | E Technik | – |
 | 1145 | Von Sokrates (Chef 13.11., 14:35/14:45, Build 282): Höhle fühlt sich hakelig an, Bilder/s 45 = halbe 90 Hz, Kampf 16 Bilder/s; erst am Gerät messen, was die Zeit frisst (Tusche, Lampen, Nebel, Schatten, Zeichenaufrufe), dann Weg zu 90 vorschlagen (Zu 1145) · zurück t286 | Spike | K | startbar, Fund t286.8 | 698a | claude/tom-1145-takt | – | E Technik | 25,21 $ |
 | 1286 | Von Spike (zu 415): Strahlprobe wirft nach dem Verlassen Fehler am A56, Build 286: busy/figures auf freigegebenem Objekt, data.tree null, create_timer auf null; vermutlich läuft strahlprobe.gd (Z. 297, Timer 87/158/182) weiter, nicht nachgestellt | Spike | K | gebaut, Geprüft an: Lauf 511 (e19a0f89c) | – | claude/spike-1286-strahlprobe | – | E Kampf | – |
 | 1307 | Von Spike (1268.3): Sperrklinke Typen, nach dem Mischen von claude/spike-1268-3-typen: in regeln/, kampf/ je Datei nicht mehr Stellen ohne Typ als tests/typen_1268.json, neue Dateien 0 (tools/godot/typen.py); offene Zweige vor dem Mischen prüfen | Spike | K | startbar | t290 | – | – | B Werkzeuge | – |
@@ -257,4 +257,4 @@
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Spike | K | zu testen | – | claude/spike-673-maus | 291 | E Technik | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
-| 698a | Rückfrage zu 698: was jede Grafikstufe abschaltet (Tusche, Licht aus Quelle und Gold in jeder Stufe; Schatten, 3D-Auflösung, Gras des Kits, Dorfeffekte gestuft), Automatisch als Vorgabe | Spike | M | startbar | Chef | – | – | E Technik | – |
+| 698a | Rückfrage zu 698: was jede Grafikstufe abschaltet (Tusche, Licht aus Quelle und Gold in jeder Stufe; Schatten, 3D-Auflösung, Gras des Kits, Dorfeffekte gestuft), Automatisch als Vorgabe | Spike | M | erledigt | – | – | – | E Technik | – |
