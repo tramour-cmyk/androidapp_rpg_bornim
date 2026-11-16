@@ -17,7 +17,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 12 | 2 | 1 | 0 | 4 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 | 9 | 1 | 11 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 1 | 6 | 4 | 1383 (Sokrates) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
-| Werkzeuge und Abläufe der Firma | 43 | 25 | 0 | 1 | 9 | 1387 (Perikles) Übersicht-Commits 15.11. 193, 16.11. bis 09:06 12… |
+| Werkzeuge und Abläufe der Firma | 44 | 26 | 0 | 1 | 9 | 1388 (Perikles) D257.1 von Diogenes: rote Godot-Läufe 09.–15.11.… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 3 Termin, 1 ruht bis, 1 wartet auf |
 | Sokrates | 1383 Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstelle… (Muss); dann 2 weitere |
-| Perikles | 1387 Übersicht-Commits 15.11. 193, 16.11. bis 09:06 126; Ursache… (Muss); dann 2 weitere |
+| Perikles | 1388 D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159… (Muss); dann 2 weitere |
 
 **Die nächsten 20**
 
@@ -44,9 +44,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 5 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
 | 6 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
 | 7 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 8 | 1387 | Perikles | Übersicht-Commits 15.11. 193, 16.11. bis 09:06 126; Ursache 1313. Kein Commit b… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 9 | 1388 | Perikles | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 10 | 1389 | Perikles | D257.2 von Diogenes: Pflegehinweis-Commits 15.11. 38, Anteil 2,6 % gegen 2,9 %;… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 8 | 1388 | Perikles | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1389 | Perikles | D257.2 von Diogenes: Pflegehinweis-Commits 15.11. 38, Anteil 2,6 % gegen 2,9 %;… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 10 | 1391 | Perikles | Überblick „Je Rolle das Nächste“ um Zeile Chef ergänzen: das Wichtigste, das er… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 11 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 12 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
 | 13 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
@@ -58,7 +58,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
 | 20 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
 
-Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 13. Ruhend oder nach dem Meilenstein: 63.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 14. Ruhend oder nach dem Meilenstein: 63.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
