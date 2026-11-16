@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 15:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 15:09, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -27,21 +27,21 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (57) | 10 | 0 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (18) | 3 | 0 | 2 | 4 | 1383 (Tom) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
-| **7** Werkzeuge und Abläufe der Firma | 45 (56) | 31 | 0 | 2 | 9 | 1442 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (18) | 7 | 1 | 2 | 4 | 1451 (Tom) Wiederholrot pruefliste_1020: 3× rot in 48 h; Urs… |
+| **7** Werkzeuge und Abläufe der Firma | 44 (56) | 30 | 0 | 2 | 10 | 1442 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 109 erledigt, 89 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 110 erledigt, 93 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1441a](entscheiden/1441a-erlaubnisblock.md) entscheiden, hält 3 Zeilen; dann 2 weitere |
+| **Chef** | [1341](ansehen/1341-namen-faecher.md) ansehen, hält 1 Zeilen; dann 1 weitere |
 | Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 7 weitere |
 | Jerry | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss); dann 1 weitere |
 | Tuffy | 1423 Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude… (Muss von Jerry, neben dessen Arbeit) |
-| Spike | 1270.4 Vergleichsfilm alt gegen neu Glühen und vorberechnetes Höhl… (Kür) |
+| Spike | 1451 Übernahme von Tom: Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachs… (Muss); dann 3 weitere |
 | Homer | Pflege von Werkzeug: 4 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
 | Sokrates | 1442 Zusammenführen: getestet, nicht auf main: Build 274, 286, 2… (Muss); dann 5 weitere |
@@ -61,25 +61,21 @@ Heute (seit 6:00): 109 erledigt, 89 neu. In Klammern bei „offen“: Stand 6:00
 | 8 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 9 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 10 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 12 | 1442 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 286, 287, 288, 289; grün m… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 1433 | Sokrates | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 14 | 1430 | Tom | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | 2 Kampf passt | startbar |
-| 16 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
-| 17 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
-| 18 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
-| 19 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 11 | 1451 | Tom | Wiederholrot pruefliste_1020: 3× rot in 48 h; Ursache nachstellen, beheben · wi… | M | 6 Godot besser nutzen | startbar |
+| 12 | 1452 | Jerry | Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nachstellen, beheben · w… | M | 6 Godot besser nutzen | startbar |
+| 13 | 1450 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
+| 14 | 1449 | Jerry | Wiederholrot ausholen_1000: 4× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 6 Godot besser nutzen | startbar |
+| 15 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
+| 16 | 1442 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 286, 287, 288, 289; grün m… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 1433 | Sokrates | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 1430 | Tom | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | 2 Kampf passt | startbar |
+| 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
 
-Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
+Danach 102 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 63.
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1441a](entscheiden/1441a-erlaubnisblock.md) | **Muss** | B Abläufe | 16.11., 14:46 | Seit dem neuen Erlaubnisblock (10:45) lehnt die Auto-Prüfung Stundenuhr und Archivieren ab; Probe: Block zurück, nächster Ford-Neustart zeigt es. | Perikles |
+Nichts offen.
 
 ## Zu billigen
 
