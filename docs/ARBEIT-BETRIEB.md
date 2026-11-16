@@ -95,3 +95,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:03 16.11.: Marke Übergabe-Chef Homer 16.11. 02:07 (lauf.py)
 - 03:03 16.11.: Marke Hängt session_01Hmoj76VdQxk8E6re5azHWe 2026-11-16T00:54 (lauf.py)
 - 03:08 16.11.: Startsperre 03:08 Start Tom (Neustart, ff044b2e3); alte Sitzung …784ZqiSaDpKdSGWPCv sofort archivieren, Kosten 5,82 $ auf 1361, 622
+- 03:47 16.11.: Startsperre 03:47 Start Jerry 1363 (Tom 03:45, Filme 1362 vom Stand 9f11d8100; alte Sitzung …77q7xhEfYnpURnHgBh bei 301 Tsd. Token archiviert, Kosten 8,16 $ auf 1358, 1363)
