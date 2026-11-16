@@ -2,7 +2,8 @@ extends SceneTree
 # 1296 (t289.3 ✗, Chef 15.11., 20:47, Bildschirmfoto Kampfbericht Probekampf Wölfe): die goldene Eingebung „Er will springen …
 # Wechsel, und mir bleibt noch ein halber Zug“ kam nach der Ansage von Wolf 3, danach sprangen Wolf 1 und Wolf 2, bevor der Held zog.
 # Regeln ohne Bild: Held (Kämpfer) und Söldner gegen das Wolfsrudel, Züge wie „Held Auto“, viele Kämpfe; nach jeder Eingebung zu
-# Anspringen oder Flanke darf kein Gegner anspringen oder flankieren, bevor der Held handelt.
+# Anspringen oder Flanke darf kein Gegner anspringen oder flankieren, bevor der Held handelt; im nächsten Zug des Helden ist
+# „Wechsel“ aktiv (Positivfall, t290.9 am Gerät nicht eingetreten: Chef 16.11., 12:59).
 # Aufruf: im Ordner godot mit -s res://tests/eingebung_1296.gd (Exit 0 = gut)
 
 const Mars = preload("res://regeln/mars.gd")
@@ -28,6 +29,7 @@ func _run() -> void:
 	for m in tables.monsters:
 		monsters[m.id] = m
 	var eingebungen := 0
+	var wechsel_danach := 0     # Züge des Helden nach einer Eingebung, geprüft auf aktiven Wechsel
 	var fehler := 0
 	for k in KAEMPFE:
 		var dice := Wuerfel.new(12960 + k)
@@ -43,9 +45,20 @@ func _run() -> void:
 		mars.start(react)
 		log.append_array(mars._take_log())
 		var zuege := 0
+		var rat_offen := false     # Positivfall (Chef 16.11., 12:59, t290.9): nach der Eingebung ist im nächsten Zug des Helden „Wechsel“ aktiv
 		while mars.outcome == "ONGOING" and zuege < 200:
 			zuege += 1
-			log.append_array(mars.act(mars._auto_order(mars.current()), react))
+			var c = mars.current()
+			if rat_offen and c.id == "hero":
+				rat_offen = false
+				wechsel_danach += 1
+				if not mars.can_swap(c):
+					fehler += 1
+					print("FALSCH Kampf %d: nach der Eingebung ist „Wechsel“ im Zug des Helden nicht aktiv" % k)
+			var neu: Array = mars.act(mars._auto_order(c), react)
+			if neu.any(func(e): return e.get("cue") == "EINGEBUNG" and RAT.any(func(r): return String(e.text).begins_with(r))):
+				rat_offen = true
+			log.append_array(neu)
 		var offen := -1     # Index der letzten Eingebung, auf die noch kein Zug des Helden folgte
 		for i in log.size():
 			var e: Dictionary = log[i]
@@ -58,8 +71,8 @@ func _run() -> void:
 				fehler += 1
 				print("FALSCH Kampf %d: nach der Eingebung „%s“ zuerst „%s“, bevor der Held zog" % [k, String(log[offen].text).left(40), e.text])
 				offen = -1
-	print("gut  " if eingebungen > 0 else "FALSCH ", "Eingebungen zum Wechsel in %d Kämpfen: %d" % [KAEMPFE, eingebungen])
-	if eingebungen == 0:
+	print("gut  " if eingebungen > 0 else "FALSCH ", "Eingebungen zum Wechsel in %d Kämpfen: %d, danach Züge des Helden mit Wechsel geprüft: %d" % [KAEMPFE, eingebungen, wechsel_danach])
+	if eingebungen == 0 or wechsel_danach == 0:
 		fehler += 1
 	print("EINGEBUNG1296 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))
 	quit(1 if fehler > 0 else 0)
