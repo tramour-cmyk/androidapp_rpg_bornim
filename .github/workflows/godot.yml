@@ -736,6 +736,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/gluehwuermchen_514.gd 2>&1 | tee glueh514.log | grep -E "FEHLER|GLUEH514|SCRIPT ERROR"; grep -q "^GLUEH514 0 Fehler" glueh514.log   # 514 Gluehwuermchen wie alt
           timeout 300 ~/godot/godot --headless --path . -s res://tests/effekte_814.gd 2>&1 | tee effekte814.log | grep -E "FEHLER|EFFEKTE814|SCRIPT ERROR"; grep -q "^EFFEKTE814 0 Fehler" effekte814.log   # 814 Effekte Szene 1 Dorf (Spike)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/fussstaub_814.gd 2>&1 | grep -E "FUSS814|SCRIPT ERROR" | head -80 || true   # 814 t277.5: Fussstaub und Federn, nur Messung
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/staub_1420.gd 2>&1 | grep -E "^(gut|FEHLER|STAUB1420)|SCRIPT ERROR"   # 1420 Fußstaub auch im Wald, dort schwächer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/huhnflucht_814.gd 2>&1 | tee huhnflucht814.log | grep -E "FEHLER|HUHNFLUCHT814|SCRIPT ERROR"; grep -q "^HUHNFLUCHT814 0 Fehler" huhnflucht814.log   # 814 Chef 16:14: Huhn schreckt auf, auch eingeklemmt und unterwegs
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_471.gd 2>&1 | grep -E "FALSCH|BRS471|SCRIPT ERROR"   # 471 Fertigkeiten durch Tun (BRS 1.2)
@@ -1971,6 +1972,24 @@ jobs:
             -s res://tests/grundstand_1044.gd -- --aus=$B > $B/grund1044.log 2>&1 || true
           grep -E "SCRIPT ERROR|^GRUND1044|^BILD" $B/grund1044.log | cut -c1-400 || true
           ls -l $B
+      # 1420 (Chef 16.11., 12:44/12:45): Fußstaub sanfter und auch im Wald; Film am Mittag Dorf vorher | Dorf, Wald, tiefer Wald nachher
+      # (tests/film_staub_1420.gd), bei „1420 Film“ im Commit oder bilder=1420
+      - name: Staubfilm (1420)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1420 Film') || contains(github.event.inputs.bilder, '1420')) }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/staub1420; mkdir -p $A
+          cd godot
+          command -v ffmpeg > /dev/null || { sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq ffmpeg > /dev/null; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          # Lauf 529: mit opengl3 (Compatibility) zeigte der Film keinen Staub, auch vorher nicht; das Handy zeichnet mit Mobile (Vulkan),
+          # wie der Staubfilm 1119
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/staub1420.avi --fixed-fps 30 -s res://tests/film_staub_1420.gd -- --film1420 > $A/staub1420.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^FILM1420|^BEGINN" $A/staub1420.log | cut -c1-300 || true
+          s=$(grep -oE "^FILM1420 village vorher \(Bild [0-9]+" $A/staub1420.log | grep -oE "[0-9]+$" || echo 0)
+          ffmpeg -loglevel error -y -ss $(awk "BEGIN{print $s/30}") -i $RUNNER_TEMP/staub1420.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $A/staub1420.mp4 || true
+          ls -l $A
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
