@@ -126,6 +126,8 @@ static func zeilen(vp: Viewport = null) -> Array:
 	if not kw.is_empty(): z.append("Letzter Kampf (%s): %.0f s, Bilder je Sekunde %.0f im Schnitt, langsamstes 1 %%: %.0f ms, längste Bildpause %.0f ms, über 50 ms: %d; höchstens %d Zeichenaufrufe, %dk Dreiecke, Grafikspeicher %.0f MB" % [
 		kampf_wo, kw["sek"], kw["fps"], kw["eins"], kw["laengste"], kw["langsam"], int(kampf_spitze["zeichen"]), int(kampf_spitze["dreiecke"] / 1000.0), float(kampf_spitze["grafik"])])
 	z.append_array(Bausteine806.zeilen)   # 806: „Kampf messen“, je Baustein Bild / Grafik / Zeichnen
+	z.append("Grafikstufe: %s (Wahl %s), Sonnenschatten %d px, 3D %.0f %%" % [Grafik.name_stufe(Grafik.aktiv, true), Grafik.name_wahl(true),
+		Grafik.SONNE_PX[Grafik.aktiv], Grafik.SCHAERFE[Grafik.aktiv] * 100.0])   # 698
 	z.append("Grafikspeicher: %.0f MB, Zeichenaufrufe: %d, Dreiecke: %dk" % [Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1048576.0,
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)), int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0)])
 	if vp: z.append("Rand oben (Kamera): %.0f, beim Start %.0f; sichere Fläche %s, Fenster %s, Ausschnitt %s" % [Rand.oben(vp), Rand.beim_start,
