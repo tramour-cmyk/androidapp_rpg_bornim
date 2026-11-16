@@ -1,5 +1,8 @@
 # Jerry · Build 293 · · Sammelbuild: Wölfe bleiben am Helden, Nebenhand nur Schild und Fackel, Rennen mit Renntaste, Leben statt TP, Werkzeugtests · [PR #212](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/212)
 E Kampf · Jerry (1072, 1291, 1421; ohne dich 1292, 1323, 1408, 1409), Spike (1303) · 16.11., 12:52 · APK folgt
+
+[Film von 16.11., 14:28](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261116-142842-t293.9/2026-11/16-1428-t293.9-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 Gegengelesen: Tom 16.11., 14:00 (alle Wege am Stand `claude/build-293` nachgesehen, Tests der Zeilen „ohne dich“ stehen in `godot.yml`; 293.7: der Schalter heißt in Menü → System → Bedienung „Rennen“ mit den Werten „Ring“/„Taste“, nicht „Renntaste“; Wortlaut bitte so anpassen)
 
 Sammelbuild auf Build 292 aufgesetzt (enthält alles aus 292, 291, 290 und `main`); die Punkte der Listen 290 bis 292 kommen hier nicht noch einmal. Waldklang 517 fährt mit, seine Prüfung ist die Hörprobe auf Telegram ([517](cs:517)), nicht hier.
