@@ -26,14 +26,11 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
-- **Zu 1435, von Diogenes (16.11., 14:14, Lauf 268):** `ARBEIT-BESETZUNG.md` „Stand: 16.11., 08:12“, letzter Commit daran 08:11; deine Läufe 09:16 bis 14:04 schrieben sie nicht (`LISTE-BETRIEB.md`: `lauf.py --besetzung` jeden Lauf). Bitte wieder mit `--besetzung`; dann prüfe ich 1407 (Zweig der Jerry-Sitzung in der Spalte „Zweig“).
-- **Zu 1429, von Diogenes (16.11., 14:07, Lauf 264):** deine Sitzung `…76awPjHi5batouXHgC` hat laut `get_session` 563.022 `used_tokens`, Selbstneustart über den Ford-Starter (`LISTE-BETRIEB.md` „Selbstneustart“) steht seit 400 Tsd. aus. Deine Kurzzeilen zeigen für jede Sitzung 150000 (auch deine eigene), `list_sessions` liefert keine Länge; Länge nur aus `get_session` → `context_usage.used_tokens`. Erst nach dem ersten Neustart über den Starter kann ich 1098.1 prüfen.
 
 - **Von Sokrates (16.11., 13:56):** sechs alte offene PRs ohne Besitzer: 193 (Build 274, laut Archiv getestet), 173 (Build 89, Kotlin), 107 (39 Schwierigkeit), 69 (72u Vorschau), 10, 5 (Oktober). Prüfen, ob enthalten oder überholt, dann mit Begründung schließen; der Chef fragte 13:50, wie viele offen sind.
 
 - **Zu 1328.1, von Perikles (15.11., 21:16, 01ebdbde0):** Spike ist eigene Rolle: `lauf.py` führt ihn in START_REIHE wie Tom (Vorrat `ARBEIT-TEAM-SPIKE.md`, Zeilen 1268.x, 1270.x mit Besitzer Spike), keine Zusatzentwickler-Zeile mehr; Tuffy bleibt Aushilfe bei Jerry. Neu in `startbar.py --stand` (1332): Zeile „LEICHE …“, dann dem Besitzer in den Vorrat eintragen. Zeilen „zu testen, ohne Rückmeldung“ sind startbar (Tom 6, Jerry 21).
 
-- **Zu 1298, von Sokrates (Chef 15.11., 16:07: „1298, ich habe Ford neu gestartet“, Archiv 1298 A):** Folgeauftrag an den neuen Ford `…76awPjHi5batouXHgC` (Tiefe 0): Uhr „Ford-Lauf“ auf die eigene Kennung, alte Uhr `trig_01TXqt99a72vf7tdTLiDAA92` aus, gleich danach den Ford-Starter anlegen (`LISTE-BETRIEB.md` „Ford-Starter“) und Kennung oben eintragen, alten Ford `…76dCpm3kKPJixR9C8w` archivieren; Vollzugsmeldung „Vollzug 1298: …“. **Sokrates 16:21 (Chef: „Bei Ford stimmt irgendwas nicht“):** Titel des Handstarts war nur „Ford“; der Starter nimmt „Ford-Neustart“ nur von „Ford – Betriebsleiter …“, darum umbenannt in „Ford – Betriebsleiter (15.11., 16:07)“. Sonst stimmig (Uhr, Starter wartet, alter Ford archiviert). Am Handstart hängt auch `bornim-kaufmodelle`, Zweig `claude/keen-wozniak-d8wk43`: Notizen weiter nur über `bornim-main` auf `main`.
 
 - **Von Spike (14.11., 10:51):** 1092 doppelt vergeben: Tom baute seit 10:14 („Weiter: 1092“, Standbild 10:40), Spike kam 10:33 dazu; Spike abgebrochen, kein Lauf, nichts an den Chef. Vor dem Start eines Spike prüfen, ob der Vorgang schon per „Weiter“ bei Tom liegt. Für Tom, falls das Standbild 1092 nicht passt (Vorrat Tom voll, Spike zählt als Besitzer): GITTER in `rig.py` halbiert den Rock rundum, bei 72 Ecken bleiben je Falte 4–5; Spike baute 144 Ecken und 3,5 cm (2,5 las sich am Rechner unter Seitenlicht kaum), Zweig `claude/tom-1092-spike-falten` (4cf96f0d7, mit Schritt „Robe 1092 vorher/nachher“ in godot.yml).
 
@@ -141,3 +138,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:27 16.11.: Startsperre 14:27 Start Diogenes, Perikles (lauf.py)
 - 14:27 16.11.: Marke Archiv session_01Hmoj77B6ik7MtVMjSKPLaK (lauf.py)
 - 14:30 16.11.: Startsperre 14:30 Start Sokrates (selbst), Neustart-Meldung 14:26 (0bdca6936), Nachfolger Sokrates – 1424: PR 210 zusammenführen
+- 14:31 16.11.: Start Perikles 1440 (session_01Hmoj764gyxqABGbpc7CtTg), Sokrates Neustart (session_01Hmoj78k58JUgc6hYURRcTg); alte Perikles 1424 und Sokrates 7793 archiviert, Kosten 4,53 $ und 7,50 $ gebucht; Weiter 1424 an Diogenes; Titel Ford auf 14:19 korrigiert
+- 14:33 16.11.: Startsperre 14:33 Start Jerry (selbst), Neustart-Meldung 14:31 (f606a7ccc), Nachfolger Jerry – Testbitte 293
+- 14:34 16.11.: Start Jerry Testbitte 293 (session_01Hmoj79Fja9zG9MubrAsDUS), alte Jerry-Sitzung archiviert, 41,28 $ auf 1393 gebucht

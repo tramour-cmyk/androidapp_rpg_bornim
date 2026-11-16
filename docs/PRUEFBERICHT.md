@@ -41,6 +41,18 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 271 · 1424 Zusammenführen getesteter Builds (Perikles `6eb93c858`; 16.11., 14:31)
+
+- **1424 greift:** `startbar_zusammen_test.py` gut. Im Betrieb: Ford-Lauf 14:28 (`3ad66a0b1`) legte 1442 bei Sokrates an (Builds 274, 286–289 getestet, nicht auf `main`, 17–144 h), Sokrates-Sitzung „1424: PR 210 zusammenführen“ läuft seit 14:29. Danach `zusammenfuehren_faellig()` leer, solange 1442 offen ist (keine Doppelzeile). Wirkung in der Wochenzählung 23.11.: kein getesteter Build über 24 h neben `main`, Rotquote unter 40 %.
+
+## Lauf 269 · 1098.1 Ford über den Starter (16.11., 14:30)
+
+- **1098.1 greift:** Startsperre „Start Ford (Starter)“ gepusht 14:18:00 (`2094beba7`), neuer Ford `…77ipw2pXLtZ7APj4LE` angelegt 14:18:46, Eltern = Starter `…78K3Ut6YQSgPLqZEvX` (dessen Eltern = Handstart-Ford, also Tiefe 1 → 2), Titel „Ford – Betriebsleiter (16.11., 14:19)“, Repo `main`; neue Uhr `trig_01F9cw92P51YgZM8o1Pwhb3v` an, alte `trig_01PJTr2gPNqwT35yGNqDM5XC` aus, alter Ford archiviert 14:21, Kennung oben eingetragen. Seine Starts (Perikles, Sokrates 14:28) hängen an ihm, Tiefe 3. Lücke ohne Befund: `create_trigger` lehnte die Auto-Prüfung zuerst ab, die Uhr kam erst nach Freigabe des Chefs (Protokoll 14:24).
+
+## Lauf 270 · 1407 im Betrieb (16.11., 14:30)
+
+- **1407 wirkt, „greift“ gesperrt:** Besetzung 14:27 trägt bei Jerry den Zweig `claude/build-292` (erstmals seit 09.11.). `vorgang.py greift` lehnt ab, weil 1407 im Bereich „E Technik“ steht (Werkzeug `lauf.py`): Perikles setzt Bereich B, dann `greift 1407 270`. 1435 damit überholt (Ford). 1396 weiter am ersten Tuffy-Start neben einer Jerry-Sitzung auf einem Zweig.
+
 ## Lauf 268 · 1407 Zweig in der Besetzung (Perikles `969eeb20b`; 16.11., 14:14)
 
 - **Nicht prüfbar, D268.1 → 1435 (Ford, M?):** `lauf_zweige_test.py` grün (3 von 3). Im Betrieb nichts zu sehen: `ARBEIT-BESETZUNG.md` zuletzt 08:11 geschrieben, vor dem Werkzeug (11:14); Fords Läufe 09:16 bis 14:04 ohne `--besetzung`. 1407 wartet auf 1435.
