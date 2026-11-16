@@ -1945,6 +1945,20 @@ jobs:
           grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true
           ls -l $B
+      # 1044 (1351 B, Chef 16.11., 10:13; Bildläufe am Rechner lehnt die Rechteprüfung ab): Grundstand der Leute, je Person links
+      # vorher (UAL-Ruhe), rechts nachher (Haltung.grund), Renderer wie am Handy; tests/grundstand_1044.gd bei „1044 Bild“ im Commit
+      - name: Grundstandbild (1044)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1044 Bild') || contains(github.event.inputs.bilder, '1044')) }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/grund1044; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/grundstand_1044.gd -- --aus=$B > $B/grund1044.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^GRUND1044|^BILD" $B/grund1044.log | cut -c1-400 || true
+          ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
