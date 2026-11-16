@@ -46,7 +46,7 @@ const MSG870_GEGEN_FLUEGER := ["{0} wittert dein Blut und saugt gieriger.", "{0}
 const MSG870_GEGEN_ZOMBIE := ["{0} zerfällt. Diesmal steht er nicht wieder auf.", "{0} crumbles. This time it does not rise again."]
 const MSG870_GEGEN_SCHLEIM := ["Der Schleim teilt sich.", "The slime splits in two."]
 ## [870.14.kraft.schoepfen]
-const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} TP.", "{0} draws strength: +{1} HP."]
+const MSG870_KRAFT := ["{0} schöpft Kraft: +{1} Leben.", "{0} draws strength: +{1} Life."]
 ## 840 (830 A, Chef 10.11., 11:00; 210 B): Eingebung des Helden beim ersten Auftreten einer Ansage, einmal je Spielstand (gesehen),
 ## im Kampfbericht direkt nach der Ansage; Wolfssprung [830.sprung]. 986 (Homer, STORY-BRS-KAMPF.md „Eingebungen der Ansagen (986)“):
 ## heavy, call, shadow im Wortlaut [210T.*.eingebung] (STORY-SPIEL.md), die übrigen [986.*]; bite und claw ohne Eingebung.
