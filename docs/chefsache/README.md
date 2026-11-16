@@ -15,64 +15,64 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 13:45, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 14:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
 | Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
-| ↳ Umzug BRS, SRD ablösen | 4 (4) | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 71 (68) | 29 | 1 | 9 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
-| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (14) | 8 | 0 | 1 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
-| ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 (57) | 13 | 0 | 9 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 (18) | 9 | 0 | 10 | 4 | 1270.4 (Spike) Vergleichsfilm alt gegen neu Glühen und vorberech… |
-| Werkzeuge und Abläufe der Firma | 44 (56) | 27 | 0 | 1 | 9 | 1424 (Perikles) 12 von 20 Läufen rot, meist bekannte Rote auf Zwe… |
-| Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
+| ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
+| ↳ **2** Kampf passt | 68 (68) | 24 | 1 | 9 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (14) | 8 | 0 | 1 | 8 | 431h (Tom) Rückfrage zu 431: angelegte Rüstung am Helden sic… |
+| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (57) | 11 | 0 | 5 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (18) | 5 | 0 | 6 | 4 | 1270.4 (Spike) Vergleichsfilm alt gegen neu Glühen und vorberech… |
+| **7** Werkzeuge und Abläufe der Firma | 43 (56) | 29 | 0 | 1 | 9 | 1442 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 68 erledigt, 64 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 99 erledigt, 83 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 3 weitere |
-| Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 7 weitere |
-| Jerry | 1296 goldene Eingebung beim Anspringen rät „Wechsel“, unter den… (Muss); dann 3 weitere |
-| Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
-| Spike | 1416 Winken oder ähnliche Geste war im Video des Pakets UAL2; LI… (Muss) |
-| Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
-| Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss); dann 1 weitere |
-| Perikles | 1424 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne… (Muss) |
+| **Chef** | [t292](ansehen/t292-sammelbuild.md) testen, hält 10 Zeilen; dann 2 weitere |
+| Tom | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss); dann 5 weitere |
+| Jerry | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss); dann 2 weitere |
+| Tuffy | 1423 Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
+| Spike | 1270.4 Vergleichsfilm alt gegen neu Glühen und vorberechnetes Höhl… (Kür) |
+| Homer | Pflege von Werkzeug: 4 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
+| Diogenes | 1427 Prüflisten ohne Vergleich aus dem Gedächtnis; Vergleich nur… (Muss) |
+| Sokrates | 1442 Zusammenführen: getestet, nicht auf main: Build 274, 286, 2… (Muss); dann 5 weitere |
+| Perikles | M? M? entscheiden: 1438, 1439, 1441 (Muss) |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | Kampf passt | startbar |
-| 2 | 1296 | Jerry | goldene Eingebung beim Anspringen rät „Wechsel“, unter den Knöpfen fehlt ein We… | M | Kampf passt | startbar |
-| 3 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | in Arbeit |
-| 4 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | Kampf passt | startbar |
-| 5 | 1415 | Jerry | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6; Wege sind es nicht mehr, Ze… | M | Kampf passt | startbar |
-| 6 | 1044 | Tom | Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand | M | Kleiderschrank und Modelle | startbar |
-| 7 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
-| 8 | 1416 | Spike | Winken oder ähnliche Geste war im Video des Pakets UAL2; LISTE-BESTAND sagt „Fe… | M | Kleiderschrank und Modelle | startbar |
-| 9 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
-| 10 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | Kleiderschrank und Modelle | startbar |
-| 11 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 12 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1418 | Tom | Android-Zurück im Hauptmenü beendet das Spiel sofort; künftig Abfrage „Spiel be… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1424 | Perikles | 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne die Behebung aus Bui… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 17 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 18 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 19 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
-| 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 1 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | startbar |
+| 2 | 1411 | Sokrates | Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei… | M | 2 Kampf passt | startbar |
+| 3 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
+| 4 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | 3 Kleiderschrank und Modelle | startbar |
+| 6 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 7 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 8 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 9 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 10 | 1442 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 286, 287, 288, 289; grün m… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 11 | 1433 | Sokrates | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 12 | 1430 | Tom | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 13 | 1443 | Jerry | Prüfliste t293.6 vergleicht aus dem Gedächtnis; umformulieren auf Sichtbares od… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 870.12 | Perikles | Projektplan 2.3 und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 64… | K | 1 Umzug BRS, SRD ablösen | startbar |
+| 15 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | 2 Kampf passt | startbar |
+| 16 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
+| 17 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
+| 18 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
+| 19 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
 
-Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 31. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
+Danach 94 weitere offen. Bei dir zum Testen (vorgelegt): 22. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
@@ -87,15 +87,14 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [1292](ansehen/1292-knopf.md) | Wundsegen zeigt die übrigen Segen am Knopf | Jerry | 16.11., 13:45 |
 | [1375](ansehen/1375-haken.md) | Haken-Frage Abnahmeliste, Woche 16.11. | Perikles | 16.11., 09:11 |
+| [1416](ansehen/1416-winken.md) | Winken in UAL2: war es Idle_Rail_Call? | Spike | 16.11., 14:26 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.514](ansehen/t291-sammelbuild.md) | [Build 291](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43789694188/artifacts/14192207855) | Sammelbuild: Leben statt TP, Laden, Höhle schwarz, Kerben, Einschlag | Tom und Jerry | 16.11., 07:30 |
-| 2 | [0.348.517](ansehen/t292-sammelbuild.md) | [Build 292](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43835954328/artifacts/14214731981) | Sammelbuild: Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen | Tom und Jerry | 16.11., 11:20 |
+| 1 | [0.348.517](ansehen/t292-sammelbuild.md) | [Build 292](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43835954328/artifacts/14214731981) | Sammelbuild: Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen | Tom und Jerry | 16.11., 11:20 |
 
 ## Zu tun
 
@@ -381,7 +380,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1375-haken.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1375-haken.md, ansehen/1416-winken.md
 
 ## So geht's
 

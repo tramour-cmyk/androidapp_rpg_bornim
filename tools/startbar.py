@@ -247,7 +247,7 @@ def test_vorbei(zs=None):
     """1188 (zu 1189): Zeilen „gebaut“ oder „zu testen“ mit Build, dessen Test im Vorgangsarchiv steht („- **tN, Build N getestet“);
     Automatik B hätte sie schließen oder zurückgeben sollen."""
     zs = zeilen_liste() if zs is None else zs
-    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    getestet = set(getestete_builds())
     return [d for d in zs if d["wort"] in ("gebaut", "zu testen") and str(d.get("build") or "").strip() in getestet]
 
 LEICHEN_ARTEN = ("Build getestet, Zeile offen", "Unternummern alle erledigt", "ohne Bewegung seit %d Tagen")
@@ -318,6 +318,7 @@ def spiegel_auswertung_faellig(jetzt, da=None, text=None):
 
 def leichenpruefung_faellig(jetzt, da=None):
     """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
+    return []  # 1425 (Chef 16.11., 13:59): entfällt, Perikles prüft täglich mit vorratspruefung.py (G, K)
     if jetzt.date() < LEICHEN_AB or jetzt.hour < 8: return []
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
     if any(re.match(r"Leichenprüfung \d", d.get("titel", "")) and d["wort"] not in ("erledigt", "verworfen", "aufgeteilt") for d in zeilen_liste()):
@@ -356,6 +357,49 @@ def urteile(stunden=48, jetzt=None, text=None):
         aus.append((w, kopf, je))
     return aus
 
+def getestete_builds(text=None):
+    """Build-Nummer → Zeit des Tests aus dem Vorgangsarchiv. Kennt „t282, Build 282 getestet (13.11., 10:40 …“ und seit 290 auch
+    „t291 getestet (16.11., 13:42 …“ und „t286 getestet, t287 getestet (15.11., 16:58 …“ (1424: die alte Form allein sah 286–291 nicht)."""
+    erg = {}
+    for m in re.finditer(r"^- \*\*([^*]*getestet[^*]*)\*\* \((\d\d)\.(\d\d)\., (\d\d):(\d\d)", text if text is not None else lesen("VORGANGSARCHIV.md"), re.M):
+        kopf, tg, mo, h, mi = m.groups()
+        heute = datetime.date.today()
+        jahr = heute.year if (int(mo), int(tg)) <= (heute.month, heute.day) else heute.year - 1  # Test liegt immer zurück
+        zeit = datetime.datetime(jahr, int(mo), int(tg), int(h), int(mi))
+        for n in re.findall(r"\bt(\d+)(?:, Build \1)? getestet", kopf):
+            erg.setdefault(n, zeit)
+    return erg
+
+LIEGT_STUNDEN = 6
+
+def getestet_nicht_auf_main(jetzt=None, stunden=LIEGT_STUNDEN):
+    """1424 (Chef 16.11., 13:13: „die APK-Läufe sind schneller geworden, dafür haben wir mehr Fehler“): ein getesteter Build, dessen
+    Zweig claude/build-<n> nach `stunden` noch nicht in origin/main steckt, hält Behebungen von allen neuen Zweigen fern (Läufe 508,
+    519 rot an wolf_mess_438 und lage_785_8, behoben nur auf build-290/291). Liste (n, Stunden seit Test), älteste zuerst."""
+    jetzt = jetzt or JETZT
+    erg = []
+    for n, zeit in getestete_builds().items():
+        h = (jetzt - zeit).total_seconds() / 3600
+        if h < stunden: continue
+        z = "claude/build-" + n
+        if _git("rev-parse", "-q", "--verify", "origin/" + z).returncode != 0: continue  # Zweig weg = zusammengeführt
+        if _git("merge-base", "--is-ancestor", "origin/" + z, "origin/main").returncode == 0: continue
+        erg.append((n, int(h)))
+    return sorted(erg, key=lambda x: int(x[0]))
+
+def zusammenfuehren_faellig(jetzt=None):
+    """1424: liegt ein getesteter Build länger als LIEGT_STUNDEN neben main und hat keiner eine offene Zeile „Zusammenführen“, legt
+    lauf.py --sperre sie bei Sokrates an (Punkt 13 LISTE-CHECK-BUILD-TEST: er hört das Ergebnis und führt zusammen; rote Tests gibt
+    er ans Team). (Titel, Bereich, Besitzer) oder None."""
+    offen = lambda d: d["wort"] not in (None, "erledigt", "verworfen", "aufgeteilt")
+    if any(offen(d) and d["titel"].startswith("Zusammenführen") for d in zeilen_liste()):
+        return None
+    liegt = getestet_nicht_auf_main(jetzt)
+    if not liegt: return None
+    builds = ", ".join("%s (%d h)" % b for b in liegt)
+    return ("Zusammenführen: getestet, nicht auf main: Build %s; grün machen und PR zusammenführen (Punkt 13), rote Tests ans Team, "
+            "sonst erben neue Zweige die Behebungen nicht (1424)" % builds, "B Abläufe", "Sokrates")
+
 def sammelbuild_faellig():
     """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
     ohne Build und hat keiner eine offene Zeile „Sammelbuild“, legt lauf.py --sperre sie beim Team mit den meisten an
@@ -364,7 +408,7 @@ def sammelbuild_faellig():
     offen = lambda d: d["wort"] not in (None, "erledigt", "verworfen", "aufgeteilt")
     # 1131 (Sokrates 1129): eine Sammelbuild-Zeile, deren Build schon getestet ist (Vorgangsarchiv „tn, Build n getestet“), hält
     # die Automatik nicht mehr an (825 stand nach t274 noch auf „gebaut“, 10.11. bis 13.11. kein Sammelbuild)
-    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    getestet = set(getestete_builds())
     def build_getestet(d):
         nrn = [str(d.get("build") or "")] + re.findall(r"\bt(\d+)\b", str(d.get("stand") or "") + " " + str(d.get("warte") or ""))
         return any(n.strip() in getestet for n in nrn if n.strip().isdigit())
@@ -1187,7 +1231,7 @@ def vollzug_offen(archiv_text=None, jetzt=None):
                     termin[d["nr"]] = datetime.datetime(j.year, j.month, j.day, int(mt.group(3) or 23), int(mt.group(4) or 59))
                 except ValueError:
                     pass
-    getestet = set(re.findall(r"^- \*\*t(\d+), Build \1 getestet", lesen("VORGANGSARCHIV.md"), re.M))
+    getestet = set(getestete_builds())
     for d in zeilen_liste():   # wartet eine Zeile auf den Test eines Builds, der noch nicht getestet ist, ist sie nicht fällig
         for t in (d.get("warte") or []):
             mb = re.match(r"t(\d+)$", str(t).strip())
