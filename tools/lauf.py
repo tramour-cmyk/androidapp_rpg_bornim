@@ -857,6 +857,7 @@ def main():
         alle_m = [x for x in st.get(team, ([], [], None, []))[0] if not x[3].get("fuer")]  # nur eigene Zeilen des Teams
         def zweig(x): return x[3].get("zweig", "–")
         zweige = {zweig(x) for x in alle_m if any(gleich(x[0], b) for b in besetzt)} - {"–", "-", ""}
+        zweige |= sitzungszweige(team_s)  # 1396 (Tuffy 16.11., 10:00): Zweig einer laufenden Teamsitzung ist belegt, auch wenn der Titel eine andere Nummer nennt
         frei = [x for x in alle_m if x[0] not in ausschluss and not any(gleich(x[0], b) for b in besetzt)
                 and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))
                 and x[0] not in startbar.SONDER and "Rollenspiegel" not in x[2]]  # 340.10 V4 (a): den Spiegel schreibt der Besitzer selbst
@@ -1128,6 +1129,14 @@ def ohne_ueberholt(ausschluss, leb):
                           or s.get("session_status") == "SESSION_STATUS_RUNNING"
                           or any(w in s.get("status_bucket", "") for w in ("WORKING", "BLOCKED")))]
             if not tätig: aus.append("OHNE-ÜBERHOLT %s: „in Arbeit“, aber keine Sitzung mit %s im Titel seit %d h" % (nr, nr, OHNE_ARBEIT_H))
+    return aus
+
+def sitzungszweige(sitzungen):
+    """1396: Zweige, auf denen laufende Sitzungen arbeiten (external_metadata.current_branches), ohne main."""
+    aus = set()
+    for s in sitzungen:
+        for zw in ((s.get("external_metadata") or {}).get("current_branches") or {}).values():
+            if isinstance(zw, str) and zw and zw not in ("main", "–"): aus.add(zw.removeprefix("refs/heads/"))
     return aus
 
 def besetzung_schreiben(leb):
