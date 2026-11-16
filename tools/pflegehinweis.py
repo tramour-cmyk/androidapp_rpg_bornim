@@ -3,8 +3,9 @@
 
 Was `notiz.sh` beim Start meldet (Größe, lange Zeilen, Übergabe zu lang; `regelcheck.py --kurz`), steht täglich als eine Zeile
 „Pflege“ „von Werkzeug“ mit dem Besitzer in der Liste und ersetzt die vom Vortag; ohne Befund fällt die Zeile weg.
-Dazu der Rollenspiegel als fester Freitagstermin: ab Freitag steht für jede Rolle ohne Antwort der Woche die Zeile „Spiegel“,
-bis `tools/rollenspiegel.sh <Rolle> --antwort …` angehängt hat (auch wenn am Freitag keine Sitzung der Rolle lief).
+Dazu der Rollenspiegel als fester Mittwochstermin (1461, ab 18.11.; vorher Freitag): ab Mittwoch nach dem Tagesbericht steht
+für jede Rolle ohne Antwort der Woche die Zeile „Spiegel“, bis `tools/rollenspiegel.sh <Rolle> --antwort …` angehängt hat
+(auch wenn am Mittwoch keine Sitzung der Rolle lief).
 
 Schreibt nicht in die Arbeitskopie: liest `origin/main`, baut den Commit mit eigenem Index und pusht (wie `meldung.sh`),
 darum stört es offene Änderungen nicht. `notiz.sh` ruft es einmal am Tag je Rechner im Hintergrund.
@@ -39,15 +40,31 @@ def befunde():
         m = re.match(r"(?:docs/)?(ARBEIT-[A-Z-]+\.md)", f)
         ziel = ziel or (m.group(1) if m else "ARBEIT-PROJEKT.md")
         je.setdefault(ziel, []).append(re.sub(r"^(?:docs/)?ARBEIT-[A-Z-]+\.md: ", "", f))
+    try:  # 1425: „Zu <Nr>“ zu Erledigtem (Vorratsprüfung J) wird beim Übergeben gestrichen
+        sys.path.insert(0, os.path.join(ROOT, "tools")); import vorratspruefung
+        zahl = {}
+        for a, nr, _, t in vorratspruefung.funde():
+            if a == "J": zahl.setdefault(t.split(":")[0], []).append(nr)
+        for datei, nrn in zahl.items():
+            je.setdefault(datei, []).append("%d „Zu“ zu Erledigtem (%s), beim Übergeben streichen (1425)" % (len(nrn), ", ".join(nrn[:6]) + (" …" if len(nrn) > 6 else "")))
+    except Exception:
+        pass
     return je
 
 
+UMSTELLUNG = datetime.date(2026, 11, 18)  # 1461 (Chef 16.11., 16:27): mittwochs nach dem Tagesbericht statt freitags
+
+
+def termintag(tag):
+    return 2 if tag >= UMSTELLUNG - datetime.timedelta(days=2) else 4  # wie rollenspiegel.sh
+
+
 def freitag(tag):
-    return tag + datetime.timedelta(days=4 - tag.weekday())  # wie rollenspiegel.sh: Mo–Do der kommende, Sa/So der vergangene
+    return tag + datetime.timedelta(days=termintag(tag) - tag.weekday())  # Termin der Woche: davor der kommende, danach der vergangene
 
 
-def spiegel_faellig(text_spiegel):
-    """Rollen, deren Rollenspiegel fällig ist: ab Freitag ohne Antwort unter „## Woche <Freitag>“; Mo–Do, wenn die Vorwoche fehlte
+def spiegel_faellig(text_spiegel, bericht=""):
+    """Rollen, deren Rollenspiegel fällig ist: ab dem Termintag ohne Antwort unter „## Woche <Termin>“; davor, wenn die Vorwoche fehlte
     und die laufende Woche noch keine Antwort hat."""
     wochen = {m.group(1): m.end() for m in re.finditer(r"(?m)^## Woche (\d\d\.\d\d\.)", text_spiegel)}
 
@@ -65,10 +82,15 @@ def spiegel_faellig(text_spiegel):
     for rolle in VORRAT:
         if hat(rolle, diese):
             continue
-        if heute.weekday() >= 4:
+        if heute.weekday() >= termintag(heute):
+            # 1461: am Termintag erst nach dem Tagesbericht („**Stand TT.MM., …“ von heute in ARBEIT-TAGESBERICHT.md)
+            if termintag(heute) == 2 and heute == diese and ("**Stand %s, " % heute.strftime("%d.%m.")) not in bericht:
+                continue
             faellig[rolle] = diese.strftime("%d.%m.")
         else:
             vorige = diese - datetime.timedelta(days=7)
+            if vorige < UMSTELLUNG <= diese:  # Woche vor der Umstellung: Termin war Freitag
+                vorige += datetime.timedelta(days=2)
             if vorige >= datetime.date(2026, 11, 6) and not hat(rolle, vorige):  # 340.3 gilt ab dem ersten Freitag danach
                 faellig[rolle] = vorige.strftime("%d.%m.") + ", nachholen"
     return faellig
@@ -79,6 +101,8 @@ def setzen_liste(text, rolle, nr, zeile, unten=False):
     den Anfang; zeile None: entfernen."""
     sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
     L = text.split("\n")
+    if zeile and zeile in L:  # 1389 (D257.2): unveränderte Zeile bleibt, wo sie steht; sonst verschob jeder neue Vorgang des Besitzers sie (32 von 38 Commits)
+        return text
     L = [z for z in L if not (z.startswith(f"| {nr} |") and len(z.split("|")) > 3 and z.split("|")[3].strip() == rolle)]
     if zeile:
         zs = [d for d in startbar.vorgangsliste("\n".join(L)) if d["besitzer"] == rolle]
@@ -103,7 +127,8 @@ def tag_der_zeile(z):
 
 def berechnen(basis, je, tag):
     sys.path.insert(0, os.path.join(ROOT, "tools")); import startbar
-    spiegel = spiegel_faellig(git("show", f"{basis}:docs/LISTE-ROLLENSPIEGEL.md").stdout)
+    spiegel = spiegel_faellig(git("show", f"{basis}:docs/LISTE-ROLLENSPIEGEL.md").stdout,
+                              git("show", f"{basis}:docs/ARBEIT-TAGESBERICHT.md").stdout)
     pfad = "docs/LISTE-VORGAENGE.md"
     alt = git("show", f"{basis}:{pfad}").stdout
     if not alt:

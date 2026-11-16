@@ -43,6 +43,7 @@ var stab_fuss := Vector3.INF  # Welt
 var stab_von := Vector3.ZERO
 var stab_nach := Vector3.ZERO
 var stab_t := 1.0
+var stab_lokal := Vector3.INF   # 1304: Fuss im Raum der Figur (im Stehen dreht er mit ihr)
 var zuletzt := ""             # Bewegung und Stelle im letzten Bild: die Uhr ist die Bewegung (Spiel, Film mit seek)
 var stelle := 0.0
 var faust_welt := Vector3.ZERO   # fuer die Messung
@@ -316,6 +317,10 @@ func _stab(G: Transform3D, P: Vector3, vorn: Vector3, ac: Vector3, geht: bool, d
 	var ruhe := Vector3(pw.x, boden, pw.z) + (aw * STAB_AUSSEN + vw * 0.03) * ms
 	# Pruefer 417 Runde 2 (im Film fehlte der Stab im Gehen): nach einem Sprung der Figur (Ortswechsel, Probe) stand der Fuss am alten
 	# Ort, die Faust kam nie mehr ueber ihn hinaus; weiter als einen Meter weg setzt er neu an
+	# 1304 (Chef 15.11., 17:13, Ausrüstung: „der Stab … zuckt ständig rauf runter, 10, 15 cm“): im Stehen dreht der Fuss mit der Figur
+	# (Drehteller, Wenden auf der Stelle); in der Welt fest blieb er zurück, nach 5 cm setzte der Stab mit Hub neu an, im Teller ohne Ende
+	if not geht and stab_t >= 1.0 and stab_lokal != Vector3.INF and stab_fuss != Vector3.INF:
+		stab_fuss = modell.global_transform * stab_lokal
 	if stab_fuss == Vector3.INF or Vector2(stab_fuss.x - ruhe.x, stab_fuss.z - ruhe.z).length() > 1.0 * ms:
 		stab_fuss = ruhe; stab_nach = ruhe; stab_t = 1.0
 	if stab_t >= 1.0:
@@ -326,8 +331,10 @@ func _stab(G: Transform3D, P: Vector3, vorn: Vector3, ac: Vector3, geht: bool, d
 			stab_von = stab_fuss; stab_nach = neu; stab_t = 0.0
 	if stab_t < 1.0:
 		if geht: stab_nach = ruhe + vw * STAB_SETZ_VOR * ms
+		else: stab_nach = ruhe   # 1304: das Ziel dreht mit, sonst liegt der Fuss nach dem Setzen wieder daneben
 		stab_t = minf(1.0, stab_t + dt / STAB_SETZ)
 		stab_fuss = stab_von.lerp(stab_nach, smoothstep(0.0, 1.0, stab_t)) + Vector3.UP * 0.07 * ms * sin(PI * stab_t)
+	stab_lokal = modell.global_transform.affine_inverse() * stab_fuss
 	var y := pw - stab_fuss
 	y.y = maxf(y.y, 0.5 * ms)
 	return (G.basis.inverse() * y.normalized()).normalized()

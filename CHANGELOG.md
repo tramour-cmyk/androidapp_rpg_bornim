@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 292 auf `main`** (Sokrates, PR 211 gemischt 16.11., 15:59, `91d9cbd35`, Lauf grün auf `7e3e23f89`): Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen; t292 bestanden (Chef 14:36).
+
+- **Builds 286 bis 291 auf `main`** (Sokrates, PR 210 gemischt 16.11., 15:17, `2e1eb96ed`, Lauf grün auf `207987ec4`; Chef 16.11., 13:43 „alles auf main“): alles, was der Chef in t286–t291 bestanden hat; nicht bestanden und darum zurückgenommen: 601.1 (Zucken beim Pfeiltreffer) und 1284 (Rattenbiss daneben). PR 205–209 als enthalten geschlossen.
+
+- **Gehen im Ring auch mit „Schnell“** (Jerry, 1285, Zweig `claude/jerry-1285-joystick`, noch ohne Build): mit dem Testmenü „Schnell“ rannte der Held schon bei kleinstem Joystick-Ausschlag; jetzt geht er im Ring und rennt erst darüber, wie ohne „Schnell“ (Test `joystick_1285`).
+
+- **Gehen ohne Hakeln** (Spike, 1145, Zweig `claude/spike-1145-nebel` `9ca59a27b`, noch ohne Build): der Nebel rechnete bei jedem Kachelwechsel und jeder kleinen Drehung neu und hielt das Bild an (Höhle 62 ms am Rechner); jetzt 4,5 ms, im Wald und Dorf halb so lang wie vorher, das Nebelbild an 1016 geprüften Stellen gleich.
+
 - **Bildrate je Ort in jedem Lauf** (Spike, 1268.5, auf `main` `0134ab078` nach 1311, Lauf 498): jeder Bau misst im Renderer des Handys (Software-Grafik) Dorf, Wald, Höhle und Wolfskampf: Ladezeit, Bilder/s, langsamstes 1 %, Zeichenaufrufe, Dreiecke; Tabelle in der Zusammenfassung des Laufs, Warnung beim Abfall gegen `godot/tests/bildrate_grundwert.json` (`tools/bildrate.py`).
 
 - **Prüflauf halb so lang** (Spike, 1268.2, auf `main` `832a44836` auf Zuruf des Chefs 15.11., 19:13): der Schritt „Skripte pruefen“ startet die einfachen Tests nebeneinander auf allen Kernen (`tools/godot/pruefsatz.py`), ein roter wird einmal allein wiederholt; 17 statt 36 min (Lauf 494).

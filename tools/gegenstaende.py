@@ -3,6 +3,7 @@
 
     python3 tools/gegenstaende.py            # pruefen und Uebersicht neu schreiben
     python3 tools/gegenstaende.py --pruefen  # nur pruefen (Exit 1 bei Fehlern oder veralteter Uebersicht)
+    python3 tools/gegenstaende.py --daten    # nur die Daten pruefen, nicht die Seite (Bau, 1385: die Seite liegt auf main)
 
 Die Datendatei ist die einzige Quelle: das Spiel liest sie (458.2 kopiert sie im Bau nach godot/daten/),
 die Uebersicht wird nie von Hand geschrieben. Wer fuellt: Jerry Stufe, Preis, Zustand, Beute (458.2, aus 444);
@@ -151,6 +152,9 @@ def main():
     fehler = pruefe(gg)
     for f in fehler:
         print("Fehler:", f)
+    if "--daten" in sys.argv:
+        print(f"gegenstaende: {len(gg)} Gegenstände, {len(fehler)} Fehler")
+        return 1 if fehler else 0
     text = erzeuge(gg)
     if "--pruefen" in sys.argv:
         alt = LISTE.read_text(encoding="utf-8") if LISTE.exists() else ""

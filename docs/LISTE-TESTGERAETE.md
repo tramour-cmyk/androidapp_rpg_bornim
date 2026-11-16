@@ -53,6 +53,26 @@ Nach „Renderer wechseln“ (Strahlprobe 415) und Neustart: „Grafik: Samsung 
 
 Lesart (Spike): „mobile“ gegen Kompatibilität: Höhle 63 statt 51, Kampf 18 statt 12 Bilder/s, aber kalter Kampfort 3,0 statt 1,2 s und Wald 3,7 statt 2,7 s Laden (Vulkan baut Shader beim ersten Gebrauch, dagegen 1270.3). Kampf bleibt der langsamste Ort: 200 Zeichenaufrufe und 337k Dreiecke bei 18 Bilder/s heißt teure Bildpunkte, nicht Geometrie. Grundwert A56 (A22 entfällt, Chef 12:30): Kampf 18 bis 20 Bilder/s, Kampfort kalt 3,0 s, warm 0,9 s; die 2,1 s Unterschied sind Aufbau beim ersten Gebrauch (Ziel 1270.3), die 0,9 s Laden der Figuren und des Orts (Ziel 1270.2). Offen: Kampf 2 zeigt höchstens 2917k Dreiecke statt 337k, wohl ein Bild mit der Welt dahinter (Blende); nicht nachgestellt.
 
+## Chef, Samsung Galaxy Tab A9+ (SM-X210, Adreno 619, Android 36), Build 286 (0.348.473), Renderer „mobile“ (16.11., 20:20, „Testspiel auf dem Tablet“; 1484)
+
+Bildschirm 1200 × 1920, 240 dpi, Schrift Faktor 1.09, Breite 800 dp, Rand oben 0; Speicher 197/187 MB; keine Fehlermeldungen. Zwei Texte des Chefs, Auszug:
+
+| Schritt | Bilder/s (langsamstes 1 %) | Laden | Zeichenaufrufe, Dreiecke, Grafik |
+|---|---|---|---|
+| Dorf 23/7 | 9 (147 ms) | 10638 ms (kalt) | 458, 2531k, 759 MB |
+| Wald 6/27 | 10 im Schnitt der letzten 600 (124 ms) | Dorf 5750, Ältester 1800, Wald 6554 ms; Blende bereit 14,7 s, danach 10 s: 25 Bilder über 50 ms | 417, 2940k, 594 MB |
+| Kampf (Ratte, Lichtung), 119 s | 10 (117 ms), 1192 Bilder über 50 ms, längste Pause 147 ms | Kampfort bereit 17,8 s | höchstens 146, 359k, 665 MB |
+
+Lesart (Sokrates, nicht nachgestellt): gleicher Build wie A56 am 15.11., dort Dorf 25, Wald 24, Kampf 18–20 („mobile“); das Tablet liegt bei etwa 40 % davon, im Kampf mit 146 Zeichenaufrufen und 359k Dreiecken ebenso langsam wie in der Welt: teure Bildpunkte (Adreno 619 gegen Xclipse 540, ähnlich viele Bildpunkte), wie Spike am A56 las. Kampfort 17,8 s gegen 3,0 s am A56. Build 286 hat noch keine Grafikstufen (698, ab Build 292); erst darauf messen. Der Chef wollte Build 293 installieren (Link Lauf 524, richtig); am Gerät lief trotzdem 286 (1485).
+
+**Build 293 (0.348.524), 16.11., 20:56, Gerätetext des Chefs:** Grafikstufe Automatisch wählt **Niedrig** (Sonnenschatten 1024 px, 3D 70 %). Wald 9/12: 10 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 118 ms, längste Pause 148 ms; Blende danach 10 s: längste 131 ms, 113 über 50 ms; Laden Wald 7409 ms; 409 Zeichenaufrufe, **2997k Dreiecke**, 615 MB Grafik, Speicher 227 MB; keine Fehlermeldungen. Lesart (Sokrates, nicht nachgestellt): gegen Build 286 (Wald 10 Bilder/s, 124 ms, 417 Aufrufe, 2940k Dreiecke) bringt Niedrig mit 3D 70 % (etwa halb so viele Bildpunkte) nichts; damit trägt die Lesart „teure Bildpunkte“ oben nicht. Niedrig senkt weder Dreiecke noch Zeichenaufrufe; Verdacht Dreiecke (3 Mio. auch auf Niedrig) oder Prozessor. Ursache Spike (1484).
+
+## Samsung Galaxy A22 5G (SM-A226B, Mali-G57 MC2, Android 33), Build 286 (0.348.473), Renderer „mobile“ (Chef 16.11., 21:03, Gerätetext ohne Wort; 1484)
+
+Gasthaus (inn 8/2): 18 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 125 ms, längste Pause 145 ms (Erschaffung); Blende danach 10 s: längste 141 ms, 109 über 50 ms; Laden Erschaffung Tipp 793 ms, Gasthaus 3023 ms; 411 Zeichenaufrufe, 381k Dreiecke, 431 MB Grafik, Speicher 138 MB; Bildschirm 1080 × 2408, 450 dpi, Rand oben 65 (Kameraloch); keine Fehlermeldungen. Lesart (Sokrates, nicht nachgestellt): Build 286 hat keine Grafikstufen (erst ab 292). Im kleinen Gasthaus nur 381k Dreiecke, aber etwa so viele Zeichenaufrufe wie das Tablet im Wald (409–417); dort zehnmal so viele Dreiecke. Verdacht neben Dreiecken: Zahl der Zeichenaufrufe (Prozessor) oder Bildpunkte (2,6 Mio. Bildpunkte). Messung auf Build 293 fehlt.
+
+Zweiter Text (21:04), Dorf (village 6/6), gleicher Build: 11 Bilder/s im Schnitt der letzten 184, langsamstes 1 % 142 ms, längste Pause 148 ms; **Blende bereit nach 29,0 s** (längste Pause 145 ms), danach 10 s: längste 148 ms, 8 über 50 ms; **Laden Dorf 14738 ms**, Gasthaus 4846 ms; 470 Zeichenaufrufe, 2650k Dreiecke, 784 MB Grafik, Speicher 193 MB; keine Fehlermeldungen. Lesart: Gasthaus 381k Dreiecke 18 Bilder/s, Dorf 2650k 11 Bilder/s; beides zu langsam, das Dorf lädt fast 15 s und braucht bis zur fertigen Blende 29 s (Tablet Dorf kalt 10,6 s).
+
 ## Tester 1, Samsung Galaxy A22 5G (Chef 27.10., 23:25, „Von erwähnten Tester, bei dem es ruckelt“; Ort: Mitte des Marktplatzes)
 
 ```

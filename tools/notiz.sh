@@ -95,9 +95,10 @@ if [ ! -f "$pw" ]; then
     if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
 fi
 if [ -f "$wt/tools/inhalt.py" ]; then ih=$(python3 "$wt/tools/inhalt.py" --kurz 2>/dev/null); [ -n "$ih" ] && printf "Inhaltsverzeichnis docs/README.md (650.2):\n%s\n" "$ih"; fi
-# 340.3: dieselben Hinweise einmal am Tag als Zeile „Pflege“ des Besitzers in der Vorgangsliste (275.2), Rollenspiegel ab Freitag als Zeile „Spiegel“;
+# 340.3: dieselben Hinweise einmal am Tag als Zeile „Pflege“ des Besitzers in der Vorgangsliste (275.2), Rollenspiegel ab Mittwoch nach dem
+# Tagesbericht als Zeile „Spiegel“ (1461; darum ein zweiter Lauf, sobald der Tagesbericht des Tages steht);
 # im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie (tools/pflegehinweis.py)
-pm="$HOME/.bornim-pflege-$(TZ=Europe/Berlin date +%Y%m%d)"
+pm="$HOME/.bornim-pflege-$(TZ=Europe/Berlin date +%Y%m%d)$(grep -qF "**Stand $(TZ=Europe/Berlin date +%d.%m.), " "$wt/docs/ARBEIT-TAGESBERICHT.md" 2>/dev/null && echo b)"
 if [ -f "$wt/tools/pflegehinweis.py" ] && [ ! -f "$pm" ]; then touch "$pm"; (python3 "$wt/tools/pflegehinweis.py" >/dev/null 2>&1 &); fi
 # Commit-Prüfung (192.1): pre-commit-Haken, gilt für Notizkopie und Arbeitskopie (gemeinsames Verzeichnis); fehlt das Skript im Zweig, tut er nichts
 hk="$(git rev-parse --git-common-dir)/hooks/pre-commit"

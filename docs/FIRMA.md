@@ -142,7 +142,7 @@ Dazu: Ausgabestil „Knapp“ (`.claude/output-styles/knapp.md`), Zeitzone und A
 | täglich | Perikles | Tagesbericht (`tagesbericht.py`) |
 | montags | Perikles | Wochenziel in `PROJEKTPLAN.md`, Reifes aus `LISTE-IDEEN.md` |
 | montags | Diogenes | Wochenzählung: Kennzahlen, Fehler, die der Chef zuerst fand |
-| freitags | alle | Rollenspiegel (`rollenspiegel.sh`) |
+| mittwochs nach dem Tagesbericht | alle | Rollenspiegel (`rollenspiegel.sh`, 1461) |
 | sonntags | Homer | Ideenliste sichten, per Telegram |
 
 **Bereiche** (feste Liste, `tools/bereiche.py`): **E** Entwicklung (Welt, Figuren, Kampf, Klang, Oberfläche, Technik) · **G** Gestaltung (Story, Stil, Balance) · **Q** Qualität (QS, QM) · **B** Betrieb (Steuerung, Abläufe, Werkzeuge) · **M** Markt. **Kennzahlen:** Kosten der Woche je Bereich und Anteil Spiel (E+G); Guthaben; Fortschritt Meilenstein; Testrunden und Rückläufer; Fehler, die der Chef zuerst fand.

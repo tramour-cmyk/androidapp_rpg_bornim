@@ -72,6 +72,8 @@ funde += re.findall(r"(?<!\w)(?:z\.\s?B\.|bzw\.|usw\.|ggf\.|ca\.|u\.\s?a\.|d\.\s
 print(", ".join(dict.fromkeys(funde))); sys.exit(0 if funde else 1)'); then
   echo "meldung: Abkürzung im Text ($kurz), nichts gesendet; ausschreiben (484, Chef 02.11., 19:27)" >&2; exit 2
 fi
+# 1414 (Chef 16.11., 12:09): Vorgang ohne Wort dazu (MUSTER.md 9); nur Warnung, die Meldung geht raus
+printf '%s' "$text" | python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import nummer_wort; [print("meldung: Warnung: " + w, file=sys.stderr) for w in nummer_wort.melden(sys.stdin.read().replace("\\n", "\n"))]' "$(dirname "$(realpath "$0")")" || true
 if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
 zeit=$(TZ=Europe/Berlin date "+%d.%m. %H:%M"); stunde=$(TZ=Europe/Berlin date +%H)
 if [ $laut = 1 ]; then

@@ -21,13 +21,10 @@ const KLASSE_HERKUNFT := {"FIGHTER": "Wachsoldat", "CLERIC": "Klosterschüler", 
 ## Waffe des Helden (Grundform) -> Waffengruppe: BrsHeld.WAFFE_GRUPPE (870.2)
 ## Gewicht der Brustrüstung (held.json „gewicht“) -> Rüstung des BRS
 const RUESTUNG := {"LIGHT": "Leichte Rüstung", "MEDIUM": "Mittlere Rüstung", "HEAVY": "Schwere Rüstung"}
-## alte Zauber -> Zauber des BRS (werte.json „zauber“), Grundschaden im Verhältnis zum Feuerpfeil (1W10)
+## alte Zauber -> Zauber des BRS (werte.json „zauber“)
 const ZAUBER_ANGRIFF := ["FIRE_BOLT", "SCORCHING_RAY"]
-const FEUERPFEIL_SRD := [1, 10, 0]
 ## Vorteil und Nachteil des MARS (Reihen, Deckung, Blind …) wie Umreißen: ±25 Prozentpunkte (werte.json „merkmale“)
 const NACHTEIL_SONST := -25.0
-## 1 Punkt auf den W20 des SRD = 5 % (werte.json „merkmale“ _quelle: 1 Punkt W20 = 10 Punkte Angriff bei 0,5 % je Punkt)
-const PROZENT_JE_W20 := 5.0
 
 
 static func w() -> Dictionary:

@@ -210,13 +210,15 @@ var _schatten_grund := Vector2.ZERO
 func _ground_shadow() -> void:
 	if shadow_shader == null:
 		shadow_shader = Shader.new()
+		# 1289 (Höhle im Renderer mobile, am Rechner nachgestellt): als feste dunkle Farbe (0,02; 0,03; 0,01) mit Deckung war der
+		# Schatten auf dunklem Boden heller als der Boden (Höhle: hellgrüne Scheiben unter Grak und den Goblins); jetzt dunkelt er den
+		# Boden um denselben Anteil ab (multipliziert), bei Tag wie vorher, im Dunkel nie heller als der Boden
 		shadow_shader.code = """shader_type spatial;
-render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabled;
+render_mode unshaded, blend_mul, depth_draw_never, cull_disabled, shadows_disabled, fog_disabled;
 uniform float dichte = 0.78;
 void fragment() {
 	float r = length(UV - 0.5) * 2.0;
-	ALBEDO = vec3(0.02, 0.03, 0.01);
-	ALPHA = dichte * (1.0 - smoothstep(0.45, 1.0, r));     // Prüfer: im alten Bild deutlich dunkler
+	ALBEDO = vec3(1.0 - dichte * (1.0 - smoothstep(0.45, 1.0, r)));     // Prüfer: im alten Bild deutlich dunkler
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
@@ -539,12 +541,10 @@ func _load_model() -> Node3D:
 		return kh
 	var p := _model_path()
 	if FileAccess.file_exists(p):
-		var doc := GLTFDocument.new()
-		var st := GLTFState.new()
-		if doc.append_from_buffer(lade_bin(p), "", st) == OK:
-			# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
-			# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
-			var n := doc.generate_scene(st, 30.0, false, false) as Node3D
+		# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
+		# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
+		var n := ModellSpeicher.kopie(p, false)     # 1270.2: einmal je Spielstart gebaut, danach Kopie
+		if n != null:
 			_paint(n)
 			anim = _find(n, "AnimationPlayer") as AnimationPlayer
 			if anim:
@@ -691,8 +691,51 @@ func _arm_kauf(gleich := false) -> void:
 			schild_faust.anim = anim
 			if OS.get_environment("TIEF1014") != "":
 				schild_faust.tief_grad = float(OS.get_environment("TIEF1014"))
+	_fackel_kauf(sk)
 	if anim:
 		_idle()
+
+
+## 999.1 (wie alt 268, HeroFigure.kt torch; Fackel aus fackel.gd, Tom 1140): mit einer Fackel in der Nebenhand hält der Held sie
+## im Kampf in der linken Faust; bei zweihändiger Waffe und beim Bogen (linke Hand) ist sie weg, nach dem Wechsel wieder da. Licht
+## nur im Dunkeln (Nacht, Höhle) wie in der Welt (held.gd fackel_kraft 2,2), am Abend halb, am Tag leuchtet nur die Flamme
+var fackel: Fackel = null
+const FACKEL_KRAFT := 2.2
+
+func fackel_frei() -> bool:
+	if fighter.hero == null or not bool(fighter.hero.get("fackel", false)):
+		return false
+	var w = _in_hand()
+	if w != null and bool(w.get("two", false)):
+		return false
+	return _waffe_id() == "" or _waffenhand() != "L"
+
+
+func _fackel_kauf(sk: Skeleton3D) -> void:
+	if fackel != null and is_instance_valid(fackel):
+		fackel.get_parent().queue_free()     # BoneAttachment3D samt Fackel (Fackel.an)
+	fackel = null
+	if not fackel_frei():
+		return
+	var fa := HeldFigur.faust(sk, "l")
+	if not fa.has("knochen"):
+		return
+	fackel = Fackel.an(sk, String(fa["knochen"]), fa["griff"], fa["achse"], model if model != null else self)
+	fackel.selbst = true
+	fackel_toon(fackel)
+	var dunkel: bool = kampfort != null and (kampfort.tageszeit == "nacht" or String(kampfort.ort).begins_with("hoehle"))
+	var abend: bool = kampfort != null and kampfort.tageszeit == "abend"
+	fackel.kraft = FACKEL_KRAFT if dunkel else (FACKEL_KRAFT * 0.5 if abend else 0.0)
+	fackel.licht.visible = fackel.kraft > 0.0
+
+
+## Lauf 479 (Signatur 457): der Stiel aus fackel.gd ist in der Welt beleuchtetes StandardMaterial3D; im Kampfort Toon wie die Waffen
+func fackel_toon(f: Node) -> void:
+	for n in f.find_children("*", "MeshInstance3D", true, false):
+		var mi := n as MeshInstance3D
+		var sm := mi.material_override as BaseMaterial3D
+		if sm != null and sm.shading_mode != BaseMaterial3D.SHADING_MODE_UNSHADED:
+			mi.material_override = _toon(sm.albedo_color)
 
 
 func _schild() -> String:
@@ -770,6 +813,15 @@ func _arm_goblin() -> void:
 		for at in model.find_children("*", "BoneAttachment3D", true, false):
 			if not at.has_meta("was") and at.find_children("Waffe*", "MeshInstance3D", true, false).size() > 0:
 				at.set_meta("was", "waffe-im-modell")
+	if Mars.koerper_of(fighter.monster) == Mars.SCOUT:     # 601: der Späher schießt sichtbar (schuss.gd)
+		var sch = preload("res://kampf/schuss.gd").new()
+		sch.name = "Schuss"
+		if sch.einrichten(sk):
+			sk.add_child(sch)
+			schuss = sch
+		else:
+			sch.free()
+			print("601 Schuss %s: Gerüst ohne Arme" % fighter.id)
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -785,11 +837,9 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		bi = sk.find_bone("hand_%s" % side.to_lower())
 	if bi < 0 or not FileAccess.file_exists(p):
 		return
-	var doc := GLTFDocument.new()
-	var st := GLTFState.new()
-	if doc.append_from_buffer(lade_bin(p), "", st) != OK:
+	var w := ModellSpeicher.kopie(p)     # 1270.2
+	if w == null:
 		return
-	var w := doc.generate_scene(st) as Node3D
 	_paint(w)
 	var at := BoneAttachment3D.new()
 	at.bone_name = sk.get_bone_name(bi)
@@ -1288,6 +1338,11 @@ func koerper_ruhe() -> Array:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
 	if sk == null or not anim.has_animation(grund):
 		return ks
+	# 845 (Messlauf 469, treffen_709 Krogg): geht das Ziel noch heim, zählt die Haltung im Gehen nicht (das Bein vorn lag 0,3–0,4 m
+	# vor dem Körper, der Söldner blieb 0,84–0,88 m zu kurz, und der Plan galt danach im Speicher auch für den stehenden Krogg);
+	# gezählt wird nur die Grundschleife, in der es ankommt
+	if unterwegs():
+		ks = []
 	var vor := String(anim.current_animation)
 	var vor_t: float = anim.current_animation_position if vor != "" else 0.0
 	var vor_v: float = anim.get_playing_speed() if vor != "" else 1.0
@@ -1309,7 +1364,7 @@ func _ruhe_uhr() -> int:
 
 
 func _ruhebewegung() -> void:
-	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen") or anim.has_animation("Lauern")) or bedroht():
+	if anim == null or down or not (anim.has_animation("Lefzen") or anim.has_animation("Umsehen") or anim.has_animation("Lauern")) or bedroht() or ausgeholt():     # 1000: mit erhobener Axt keine Ruhegeste
 		return
 	var grund: String = anim.current_animation
 	if not RUHE.has(grund) or grund != ("Hocke" if pouncing else "Stehen") or (tween and tween.is_running()):
@@ -2929,7 +2984,22 @@ func _hieb(other, weiter := 0.0) -> int:
 	var d2: Array = _dreh(tween, yaw, schlag, "Stehen")
 	t_run += d2[0]
 	var bl: float = anim.get_animation("Hieb").length if anim and anim.has_animation("Hieb") else 0.9
-	tween.tween_callback(func(): gang = "hieb"; _play("Hieb", 0.08))
+	# 1000: aus der gehaltenen Lage beginnt der Hieb an der Stelle, die sie zeigt (die Axt ist schon oben), ohne zweites Ausholen
+	var oben := ausgeholt()
+	var t0: float = ausholer.stelle() if oben else 0.0
+	if oben:
+		ausholer.fest = true
+		auf = maxf(0.0, auf - t0 / maxf(float(tempo.get("Hieb", 1.0)), 0.1))
+		bl -= t0
+	tween.tween_callback(func():
+		gang = "hieb"
+		if oben and ausholer != null and ausholer.an:
+			_play("Hieb", 0.0)
+			anim.seek(t0, true)
+			ausholer.aus_sofort()
+			schlag_kommt = false
+		else:
+			_play("Hieb", 0.08))
 	tween.tween_interval(bl)
 	# zurück, das Gesicht zum Ziel, um die anderen herum
 	var vh := _detour(start, home, other)
@@ -3011,6 +3081,42 @@ func announce(intent, at = null) -> void:
 		_idle_wenn_frei()     # 438 (wolf_mess_438: kauerte unterwegs heim und glitt 4,8 m in Hocke): unterwegs erst daheim
 
 
+## 1000 (Tuffy 620.2c, wie 310): nach der Ansage „Schwerer Hieb“ hält Grak die Axt oben bis zu seinem Hieb (ausholen.gd); kommt
+## er aus dem Tritt, senkt er sie. [schlag_kommt]: „Schwerer Hieb!“ (FOE_STRIKES) ist gefallen, die Ansage ist weg, der Hieb folgt
+var ausholer = null
+var schlag_kommt := false
+
+func kann_ausholen() -> bool:
+	return anim != null and anim.has_animation("Hieb") and _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3
+
+func ausgeholt() -> bool:
+	return ausholer != null and ausholer.an
+
+func ausholen(an: bool) -> void:
+	if not an:
+		schlag_kommt = false
+		if ausholer != null:
+			ausholer.an = false
+			ausholer.fest = false
+		return
+	if down or not kann_ausholen():
+		return
+	if ausholer == null:
+		var sk := _find(model, "Skeleton3D") as Skeleton3D
+		if sk == null:
+			return
+		var a = preload("res://kampf/ausholen.gd").new()
+		a.name = "Ausholen"
+		if not a.einrichten(anim.get_animation("Hieb"), anim, sk):
+			a.free()
+			return
+		sk.add_child(a)
+		ausholer = a
+	if not ausholer.an:
+		ausholer.phase = 0.0
+	ausholer.an = true
+
+
 ## 494 Riesenspinne: zuletzt angesagte Absicht (announce); „Netz werfen“ spielt den Netzwurf, wann das Netz losfliegt (ms)
 var angesagt = null
 var netz_los_ms := -1
@@ -3019,15 +3125,36 @@ const NETZ_LOS := 0.45      # Anteil des Netzwurfs, bei dem das Netz den Hinterl
 ## Schulter aus und lässt sie los, wenn der Arm über dem Kopf nach vorn geht (Hieb: oben bei 0,35, Mitte bei 0,41 der Bewegung)
 var wurf_los_ms := -1
 const WURF_LOS := 0.38
-const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY"]     # wie Zauber.BOMBS
+const WURFMITTEL := ["BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]     # wie Zauber.BOMBS
 
 ## A blow, bite, shot or spell at [other]; returns how long it takes (ms).
 ## 662 (Chef t270.9: „keine Seite erkennbar“): wo der Angriff ankommt (Platz vor dem Biss oder Hieb, im Raum des Kampforts);
 ## danach richtet der Angegriffene die Parade aus. INF: gerade aus dem Stand (dann zählt, wo der Angreifer steht)
 var angriff_von := Vector3.INF
+## 601: Schussbewegung des Spähers (schuss.gd), sonst null
+var schuss = null
+
+## 601: Lage eines Knochens in der Welt (der Pfeil auf der Sehne an der Zughand), null ohne Gerüst
+func hand_welt(knochen: String):
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model != null else null
+	if sk != null and schuss != null and knochen in ["hand_l", "hand_r"]:     # Kampfgerüst: die Hand ohne eigenen Knochen
+		return schuss.hand_welt(sk, "arm_l" if knochen == "hand_l" else "arm_r")
+	if sk == null or sk.find_bone(knochen) < 0:
+		return null
+	return sk.global_transform * sk.get_bone_global_pose(sk.find_bone(knochen)).origin
+
+
+func _schuss_fertig() -> void:
+	_face()
+	_idle_wenn_frei()
+
+func spell_oder_fern(e: Dictionary) -> bool:
+	return e.spell != null or fighter.ranged()
 
 func strike(other, e: Dictionary) -> int:
 	_dreh_ab()
+	if ausgeholt() and (spell_oder_fern(e) or kauf or not kann_ausholen()):
+		ausholen(false)     # 1000: nur der Axthieb (_hieb) schlägt aus der gehaltenen Lage
 	angriff_von = Vector3.INF
 	var spell: bool = e.spell != null
 	var ranged: bool = fighter.ranged()
@@ -3058,6 +3185,17 @@ func strike(other, e: Dictionary) -> int:
 		get_tree().create_timer(lw).timeout.connect(func(): _face(); _idle())
 		busy_ms = int(lw * 1000.0)
 		return wurf_los_ms
+	if ranged and not spell and schuss != null:
+		# 601 (Chef 05.11., t266.5: „Schussanimation nicht vorhanden“): heben, Sehne ziehen, zielen, lösen (schuss.gd); der Pfeil
+		# fliegt beim Lösen (kampf_ui.gd _pfeil_flug)
+		_schnaufen(0.6)
+		_face(other.position - position)
+		_play("Stehen", 0.1)
+		schuss.schiessen(other.position + Vector3.UP * (other.head().y - other.position.y) * 0.7)
+		if not schuss.fertig.is_connected(_schuss_fertig):
+			schuss.fertig.connect(_schuss_fertig)
+		busy_ms = int(schuss.DAUER * 1000.0)
+		return int(schuss.LOS * 1000.0)
 	if spell or ranged:
 		_schnaufen(0.6)
 		_face(other.position - position)
@@ -3479,6 +3617,8 @@ func cast_point():
 			return tip / n
 	if w != null:
 		return w.global_position
+	if schuss != null and off != null:     # 601: der Pfeil geht vom Bogen des Spähers aus, nicht aus der Zughand
+		return off.global_position
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
 	if sk == null:
 		return null
@@ -3604,6 +3744,27 @@ func _guard(on: bool) -> void:
 			if nm.begins_with("chestTop-sh") or nm.begins_with("sh") or nm.begins_with("up") or nm.begins_with("el") or nm.begins_with("fo"):
 				arm_hold.poses[bi] = sk.get_bone_pose(bi)
 	arm_hold.active = on
+
+
+## 1363 (Lauf 512, wolf_mess_438 Bild 1281 am Söldner, nachgestellt am Rechner mit Kaufwolf): im Zucken beim Treffer
+## (SS_GetHitLightFront) schwang der Schildarm den Schild 0,16 m zur Seite und 0,18 m hoch in den Kopf des Wolfs, der neben dem Schild
+## gebissen hatte; der Schildarm (links) bleibt im Zucken in seiner Haltung, Rumpf und Schwertarm zucken wie bisher
+const SCHILD_ARM := ["clavicle_l", "upperarm_l", "lowerarm_l", "hand_l"]
+var schild_halt: ArmHold
+func _schild_halten(an: bool) -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null or not kauf:
+		return
+	if schild_halt == null:
+		schild_halt = ArmHold.new()
+		sk.add_child(schild_halt)
+	if an:
+		schild_halt.poses.clear()
+		for nm: String in SCHILD_ARM:
+			var bi := sk.find_bone(nm)
+			if bi >= 0:
+				schild_halt.poses[bi] = sk.get_bone_pose(bi)
+	schild_halt.active = an and not schild_halt.poses.is_empty()
 
 
 ## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
@@ -3750,41 +3911,6 @@ func koerper() -> Array:
 		if r >= 0.03 * s:
 			out.append([c[0], c[1], r, c[3]] if c.size() > 3 else [c[0], c[1], r])     # 709: der Name für _hieb_bahn
 	return out
-
-
-## 601.1 (Chef 15.11., 11:02: der Pfeil „trifft dann unten eher in der Fußspitze, aber er zuckt oben zurück“): wo ein Geschoss
-## (Pfeil, Wurf, Zauber), das trifft, in den Körper geht: die Oberfläche des Rumpfs (Mensch: Becken bis Hals, Brust oberhalb der
-## Mitte; Tier: Rücken, Brust, Hals), die dem Schützen bei [von] am nächsten liegt; dort zuckt der Getroffene zurück
-## (SS_GetHitLightFront, „Treffer“). Vector3.INF ohne Gerüst (dann wie bisher geschätzt)
-const RUMPF_TEILE := ["spine", "chest", "belly", "waist", "body", "torso", "abdomen", "thorax", "neck", "hals", "root", "pelvis"]
-const BRUST_AB := 0.45     # Mensch: von Becken zum Hals erst ab diesem Anteil (Brust, nicht Bauch)
-func treffpunkt_fern(von: Vector3) -> Vector3:
-	var rumpf: Array = []
-	if fighter.monster == null:
-		for c in kapseln():
-			if float(c[2]) >= 0.13:     # MENSCH_KAPSELN: nur Becken–Brust (0,17) und Brust–Hals (0,14)
-				rumpf.append(c)
-		if rumpf.size() == 2:     # eine Strecke ab BRUST_AB von Becken zum Hals
-			var a: Vector3 = rumpf[0][0]
-			var b: Vector3 = rumpf[1][1]
-			rumpf = [[a.lerp(b, BRUST_AB), b.lerp(a, 0.1), float(rumpf[1][2])]]
-	else:
-		for c in koerper():
-			var nm := String(c[3]).to_lower() if c.size() > 3 else ""
-			for w in RUMPF_TEILE:
-				if nm.contains(w):
-					rumpf.append(c)
-					break
-	var best := Vector3.INF
-	var naechst := INF
-	for c in rumpf:
-		var q: Vector3 = Geometry3D.get_closest_point_to_segment(von, c[0], c[1])
-		var d: Vector3 = von - q
-		var p: Vector3 = q + (d.normalized() * float(c[2]) if d.length() > 0.001 else Vector3.ZERO)
-		if von.distance_to(p) < naechst:
-			naechst = von.distance_to(p)
-			best = p
-	return best
 
 
 ## 709: der Weg eines Angriffs [hn] im eigenen Raum (+Z zum Ziel, wie _face; [versatz]: so weit dreht die Figur beim Angriff aus der
@@ -4421,8 +4547,9 @@ func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
 	elif _ss() and not down:
 		var tn := "SS_GetHitHeavyFront" if schwer else "SS_GetHitLightFront"
 		if anim.has_animation(tn):
+			_schild_halten(true)
 			_play(tn, 0.06)
-			get_tree().create_timer(anim.get_animation(tn).length - 0.1).timeout.connect(_idle_wenn_frei)
+			get_tree().create_timer(anim.get_animation(tn).length - 0.1).timeout.connect(func() -> void: _schild_halten(false); _idle_wenn_frei())
 	else:
 		_play("Treffer", 0.05)
 		get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
@@ -4551,9 +4678,109 @@ func dodge(after_ms: int, nm := "") -> void:
 			_pfad_fahren(best, false, AUSWEICH_BOGEN)     # 438: im Lauf drehte er 28° je Bild; 546: im Schritt zu träge
 			tween.tween_callback(_nach_ausweichen)
 			return
+	# 1321 (wolf_mess_438 Klosterschüler mit Stab: die Bewegung „Ausweichen“ am Ort schwingt den Stab bis 1,2 m nach vorn, 0,11 m in den Wolf, der
+	# knapp daneben biss): reicht ein Ding in der Hand beim Ausweichen bis an einen nahen Gegner, weicht der Held einen Schritt zurück
+	if fighter.monster == null and _ausweichen_zurueck_held():
+		return
 	_reichweite_merken("Ausweichen")
 	_play("Ausweichen", 0.05)
 	get_tree().create_timer(0.45).timeout.connect(_idle_wenn_frei)
+
+
+## 1321: Ding in der Hand (Stab, Klinge) während der Bewegung „Ausweichen“ gegen die Kapseln naher Gegner, wie wolf_mess_438 „Klinge
+## durch einen Wolf“; die Strecken einmal je Figur abgetastet (_hieb_bahn, über die Knochen, nicht über BoneAttachment3D, das beim
+## Abtasten nicht nachzieht). Der Wolf steht beim Aufruf AUSWEICH_VOR_MS vor dem Aufschlag, sein Kopf kommt noch näher: AUSWEICH_LUFT_M
+const AUSWEICH_SCHRITT_M := 0.55
+const AUSWEICH_SCHRITT_S := 0.35
+const AUSWEICH_LUFT_M := 0.15
+func _ausweich_tiefe(o: Variant, an := Vector3.INF) -> float:
+	var bahn_a: Array = _hieb_bahn("Ausweichen")
+	if bahn_a.is_empty():
+		return -INF
+	var tr := Transform3D(Basis(Vector3.UP, rotation.y), global_position if an == Vector3.INF else an)
+	var ks: Array = o.kapseln()
+	var tief := -INF
+	for st: Array in bahn_a:
+		for w: Array in st[1]:
+			var a0: Vector3 = tr * (w[0] as Vector3)
+			var a1: Vector3 = tr * (w[1] as Vector3)
+			for c: Array in ks:
+				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a0, a1, c[0], c[1])
+				tief = maxf(tief, float(c[2]) - pq[0].distance_to(pq[1]))
+	return tief
+
+
+func _ausweichen_zurueck_held() -> bool:
+	if down or anim == null or kampfort == null or not anim.has_animation("Ausweichen"):
+		return false
+	var nah: Variant = null
+	var tief := -INF
+	for o: Variant in kampfort.figures.values():
+		if o == self or not o.visible or o.down or o.fighter.side == fighter.side:
+			continue
+		if Vector2(o.position.x - position.x, o.position.z - position.z).length() > 3.0 * _scale():
+			continue
+		var t := _ausweich_tiefe(o)
+		if t > tief:
+			tief = t
+			nah = o
+	if OS.get_environment("SCHAU_1321") != "":
+		print("438 DIAG 1321 %s prüft: nah %s, Ding beim Ausweichen %.2f m im Gegner (Grenze −%.2f)" % [fighter.id, nah.fighter.id if nah != null else "-", tief, AUSWEICH_LUFT_M])
+	if nah == null or tief < -AUSWEICH_LUFT_M:
+		return false
+	var weg_von := Vector3(position.x - nah.position.x, 0.0, position.z - nah.position.z)
+	if weg_von.length() < 0.01:
+		return false
+	# 1321 (Lauf 503, am Rechner nachgestellt: Held mit Stab am linken Rand, der Schritt gerade zurück führte aus dem Bild, er wich am Ort
+	# aus und der Stab fuhr 0,05 m durch Wolf 3): gerade zurück, sonst schräg bis zur Seite, auch kürzer; der Platz frei, im Bild
+	# und das Ding in der Hand dort weit genug vom Gegner
+	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
+	var ziel := Vector3.INF
+	for w: float in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0]:
+		for k: float in [1.0, 0.7]:
+			var q: Vector3 = position + weg_von.normalized().rotated(Vector3.UP, deg_to_rad(w)) * AUSWEICH_SCHRITT_M * k * _scale()
+			var ok: bool = _stand_frei(q, null) and _im_bild(q, blick) and _ausweich_tiefe(nah, Vector3(q.x, global_position.y, q.z)) < -AUSWEICH_LUFT_M
+			if OS.get_environment("SCHAU_1321") != "":
+				print("438 DIAG 1321 %s Schritt %.0f° ×%.1f nach %s: %s" % [fighter.id, w, k, q, "ja" if ok else "nein"])
+			if ok:
+				ziel = q
+				break
+		if ziel != Vector3.INF:
+			break
+	if ziel == Vector3.INF:
+		return false
+	if OS.get_environment("SCHAU_1321") != "":
+		print("438 DIAG 1321 %s weicht zurück vor %s" % [fighter.id, nah.fighter.id])
+	_dreh_ab()
+	var nm := _gang_ss("Zurück")
+	if nm == "Zurück":
+		nm = "Gehen"
+	var v := maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+	if anim.has_animation(nm):
+		_guard(true)
+		anim.play(nm, 0.08, clampf(ziel.distance_to(position) / AUSWEICH_SCHRITT_S / v, 1.0, WALK_MAX) * (1.0 if nm.begins_with("SS_") else -1.0))
+	bahn = [ziel]
+	tween = create_tween()
+	tween.tween_property(self, "position", ziel, AUSWEICH_SCHRITT_S).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_callback(func() -> void: _guard(false); _idle())
+	tween.tween_interval(0.25)
+	tween.tween_callback(func() -> void: _held_heim_vor())
+	return true
+
+
+## 1321: nach dem Schritt zurück wieder vor auf den Platz, das Gesicht zum Gegner
+func _held_heim_vor() -> void:
+	var d := home - position
+	d.y = 0.0
+	if d.length() < 0.05:
+		return
+	var nm := _gang_ss("Gehen")
+	var v := maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
+	if anim and anim.has_animation(nm):
+		anim.play(nm, 0.12, 1.0)
+	tween = create_tween()
+	tween.tween_property(self, "position", home, d.length() / v)
+	tween.tween_callback(func() -> void: _face(); _idle())
 
 
 ## 988 (wolf_mess_438 Lauf 369, CLERIC ohne Schild nach BRS, Bild 1330: Ausweichen auf der Stelle, die Brust neigt sich 11 px über
@@ -4711,6 +4938,7 @@ const AUSWEICHEN := [1.0, 0.0, 0.5, 0.9, 90.0, 120.0]     # r3c: mit Blick gerad
 func die() -> void:
 	_dreh_ab()
 	down = true
+	ausholen(false)     # 1000: die Axt sinkt mit dem Fall (die Schicht gibt dem Tod nach)
 	if atem != null:
 		atem.active = false     # 453.1: der Tote atmet nicht
 	if not weg.is_empty() and tween and tween.is_running():
@@ -4733,9 +4961,20 @@ func die() -> void:
 			# 1141 r3 (Chef 13.11., 17:16: „Speer links, dann beginnt das Sterben und dann ist der Speer aber rechts“): die Spiegelung
 			# tauscht links und rechts, also auch die Hand mit Waffe oder Schild; wer etwas hält, wird nicht gespiegelt (die Goblins
 			# fallen dafür mit Tod3 und Tod4 zu beiden Seiten)
-			if randf() < 0.5 and not _haelt_etwas(): sterbe_spiegeln()
-			_waffe_faellt()
+			var rd = _ragdoll_bereit()     # 1215: mit Physik fällt er in die Richtung des Treffers, ungespiegelt; die Waffe fällt als Körper
+			if rd != null:
+				nm = _tod_zur_richtung(alle, rd.treffer.richtung)
+				tod_name = nm
+			else:
+				if ragdoll_nie and tod_treffer.has("von"):     # Film 1215: gebacken in dieselbe Richtung wie der mit Physik daneben
+					nm = _tod_zur_richtung(alle, ((global_position - tod_treffer.von) * Vector3(1, 0, 1)).normalized())
+					tod_name = nm
+				elif randf() < 0.5 and not _haelt_etwas(): sterbe_spiegeln()
+				_waffe_faellt()
 		anim.play(nm, TOD_BLEND)
+		if ragdoll != null:
+			ragdoll.sterben(maxf(sterbe_ms() * ragdoll.VORLAUF / 1000.0, ragdoll.VORLAUF_MIN_S), global_position.y, _ragdoll_hindernisse())
+			print("1215 Ragdoll %s: %s, %s" % [fighter.id, tod_name, ragdoll.treffer])
 	else:
 		# 1141 (Chef 13.11., 14:36: „wie Playmobil-Figuren umfallen. Und zwar alle auf die gleiche Seite“): ohne „Tod“ (Ersatz, seit
 		# 1141 hat jeder Gegnerkörper einen, tod_1141) wenigstens zufällig zur einen oder anderen Seite, beschleunigt wie ein Fall
@@ -4754,6 +4993,8 @@ func die() -> void:
 		t.tween_method(_fade_out, IM_SCHATTEN if schatten_an else 0.0, 1.0, FADE_MS / 1000.0)     # 566: blass im Schatten bleibt blass
 		await t.finished
 		visible = false
+		if ragdoll != null and is_instance_valid(ragdoll):
+			ragdoll.raeumen()     # 1215: Körper und gefallene Waffe vergehen mit dem Toten
 
 
 ## 1141 r3: trägt die Figur etwas an einem Knochen (Waffe, Schild, im Modell gebackene Waffe von Grak und Krogg)
@@ -4818,6 +5059,94 @@ func _waffe_zu_boden(w: Node3D) -> void:
 	# Drehung und Weg getrennt (gespiegelte Tote, 596: ihre Basis ist gespiegelt, interpolate_with verlöre das Vorzeichen)
 	var t := create_tween()
 	t.tween_method(func(x: float): w.global_transform = Transform3D(Basis(Quaternion.IDENTITY.slerp(q, x * x)) * g.basis, g.origin.lerp(unten, x * x)), 0.0, 1.0, WAFFE_FALL)
+
+
+## 1215 (Chef 13.11., 16:25; 15.11., 11:21, 1215a A): physikalisches Sterben (ragdoll.gd) für Gegner auf einem Zweibeiner-Gerüst,
+## das ragdoll.gd kennt; Filme gebilligt (Chef 15.11., 13:32), seitdem fest an (Folgeauftrag); RAGDOLL=0 schaltet es zum Vergleich
+## ab (gebackene Bewegung wie vorher)
+static var ragdoll_probe := OS.get_environment("RAGDOLL") != "0"
+## der tödliche Treffer (kampfort.gd, vor hurt): von (Welt, wo der Angreifer beim Treffer steht), art (nah, schwer, pfeil, zauber,
+## schild, sprung, still = Gift, Blutung), anteil (Schaden durch höchste Lebenspunkte), kritisch
+var tod_treffer := {}
+var ragdoll = null
+static var ragdoll_alle := false
+var ragdoll_nie := false     # Film: dieser stirbt gebacken, der daneben mit Physik
+
+func _ragdoll_bereit():
+	if not ragdoll_probe or ragdoll_nie or fighter.side != "FOES" or gespiegelt or model == null:
+		return null
+	# Grak und Krogg behalten ihren Zusammenbruch (348.12, Chef 28.10., 15:23: „muss fulminant sterben … wir brauchen einen
+	# Zusammenbruch“: in die Knie, dann vornüber; abgenommen), außer im Test der Gliedertafel (ragdoll_alle)
+	if not ragdoll_alle and Mars.koerper_of(fighter.monster) in [Mars.GRAK, Mars.KROGG]:
+		return null
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	var Rd = preload("res://kampf/ragdoll.gd")
+	if sk == null or not Rd.frei():
+		return null
+	var r = Rd.new()
+	add_child(r)
+	if not r.einrichten(sk, anim, maxf(head().y - position.y, 0.3), "%s/%s" % [Mars.koerper_of(fighter.monster), kit_name()]):
+		r.queue_free()
+		return null
+	var t := tod_treffer.duplicate()
+	var von: Vector3 = t.get("von", Vector3.INF)
+	if von == Vector3.INF and String(t.get("art", "")) != "still":
+		# wer traf, ist nicht bekannt (Probekampf, Knopf): vom nächsten lebenden Gegner weg
+		var naechster := INF
+		for id in kampfort.figures:
+			var o = kampfort.figures[id]
+			if o.fighter.side != fighter.side and not o.down and o.global_position.distance_to(global_position) < naechster:
+				naechster = o.global_position.distance_to(global_position)
+				von = o.global_position
+	var richtung := Vector3.ZERO
+	if von != Vector3.INF:
+		richtung = ((global_position - von) * Vector3(1, 0, 1)).normalized()
+	var blick: Vector3 = (global_transform.basis.z * Vector3(1, 0, 1)).normalized()
+	r.treffer = {
+		"art": String(t.get("art", "nah")), "richtung": richtung, "kritisch": bool(t.get("kritisch", false)),
+		"staerke": clampf(0.7 + 0.6 * float(t.get("anteil", 0.5)), 0.7, 1.3),
+		# von welcher Seite: der Treffer von rechts vorn dreht die rechte Schulter weg (Hochachse); dazu etwas Zufall
+		"seite": clampf(blick.cross(richtung).y * 1.5 + randf_range(-0.35, 0.35), -1.0, 1.0),
+		"glied": t.get("glied", "kopf" if t.get("kritisch", false) and randf() < 0.5 else "brust"),
+	}
+	if String(t.get("art", "")) == "pfeil" and not t.has("glied"):
+		r.treffer.glied = ["brust", "oberarm_l", "oberarm_r", "becken", "brust"][randi() % 5]
+	r.schatten = get_node_or_null("Bodenschatten")
+	ragdoll = r
+	return r
+
+
+## die Sterbebewegung, die in die Richtung des Stoßes fällt (Goblins: vornüber, rücklings, zu beiden Seiten; die Wurzel kippt)
+func _tod_zur_richtung(alle: Array, richtung: Vector3) -> String:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	var beste := ""
+	var wert := -INF
+	for nm in alle:
+		var a := anim.get_animation(nm)
+		var fall := Vector3.ZERO
+		for i in a.get_track_count():
+			if a.track_get_type(i) == Animation.TYPE_ROTATION_3D and String(a.track_get_path(i).get_concatenated_subnames()) == "root":
+				fall = sk.global_transform.basis * (a.rotation_track_interpolate(i, a.length).normalized() * (sk.get_bone_rest(sk.find_bone("root")).basis.inverse() * Vector3.UP))
+		fall.y = 0.0
+		var w := fall.normalized().dot(richtung) if fall.length() > 0.2 and richtung.length() > 0.2 else randf() * 0.1
+		if w > wert:
+			wert = w
+			beste = nm
+	return beste
+
+
+## was um den Sterbenden steht (lebende Figuren): [Ort, Halbmesser, Höhe]; an ihnen gleitet der Fallende ab
+func _ragdoll_hindernisse() -> Array:
+	var h := []
+	for id in kampfort.figures:
+		var o = kampfort.figures[id]
+		if o != self and not o.down and o.visible and o.global_position.distance_to(global_position) < 3.0:
+			h.append([o.global_position, 0.2, 1.1])
+	return h
+
+
+func kit_name() -> String:
+	return String(model.get_meta("kit", model.name)) if model != null else ""
 
 
 ## 596: aus der Bewegung in den Sturz (vorher 0,05 s: der Keiler kippte hart)

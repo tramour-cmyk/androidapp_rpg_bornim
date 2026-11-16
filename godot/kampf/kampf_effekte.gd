@@ -18,10 +18,10 @@ static func da() -> bool:
 	return ResourceLoader.exists(NEBEL) or ResourceLoader.exists(STAUB)
 
 static func da_nebel() -> bool:
-	return an and ResourceLoader.exists(NEBEL)
+	return an and Grafik.kits() and ResourceLoader.exists(NEBEL)   # 698: Niedrig ohne Kits
 
 static func da_staub() -> bool:
-	return an and ResourceLoader.exists(STAUB)
+	return an and Grafik.kits() and ResourceLoader.exists(STAUB)
 
 ## Bodennebel um die Kamera (der Shader legt die Lagen selbst um sie), Lagen bis `hoch` m über dem Boden
 static func nebel(eltern: Node3D, hoch := 1.0, dichte := 0.55) -> MeshInstance3D:

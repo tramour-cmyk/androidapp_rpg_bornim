@@ -14,8 +14,8 @@ cp $C/hobgoblin_captain-hauptmann.glb $D/hobgoblin_captain-hauptmann.bin; cp $C/
 for k in kappe schild fell; do cp $K/kobold-$k.glb $D/kobold-$k.bin; done
 cp $K/kobold-info.json $D/; cp $K/kobold-info.json $P/
 G=~/godot/godot
-bild() { (cd $R/godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" $G --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
-film() { (cd $R/godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" $G --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie /tmp/$1.avi --fixed-fps 30 -- --bild=/tmp/x.png > $P/$1-film.log 2>&1) || true
+bild() { (cd $R/godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" $G --rendering-driver vulkan --rendering-method mobile --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+film() { (cd $R/godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" $G --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 --write-movie /tmp/$1.avi --fixed-fps 30 -- --bild=/tmp/x.png > $P/$1-film.log 2>&1) || true
   ffmpeg -loglevel error -y -i /tmp/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; rm -f /tmp/$1.avi; }
 (cd $R/godot && timeout 300 $G --headless --path . --import > $P/import.log 2>&1) || true
 export OHNEUI=1 SCHAU_LISTE=Stehen,Gehen,Hieb

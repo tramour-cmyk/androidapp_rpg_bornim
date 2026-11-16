@@ -38,6 +38,15 @@ void vertex() {
 	VERTEX += (inverse(MODEL_MATRIX) * vec4(d, 0.0)).xyz;
 	NORMAL = (inverse(MODEL_MATRIX) * vec4(0.0, 1.0, 0.0, 0.0)).xyz;   // Licht wie der Boden
 }
+// 1289: Leuchten (EMISSION) wie im Renderer Compatibility, in dem alles abgenommen wurde (dort wirkt es wie sRGB, in mobile linear,
+// gemessen an den Kristallen der Blutzahnhöhle: ohne Umrechnung in mobile etwa achtmal so hell)
+vec3 eckfarbe(vec3 c) {
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+	return c;
+#else
+	return mix(pow((c + vec3(0.055)) * (1.0 / 1.055), vec3(2.4)), c * (1.0 / 12.92), lessThan(c, vec3(0.04045)));
+#endif
+}
 void fragment() {
 	vec4 c = texture(tex, UV);
 	if (c.a < 0.5) discard;
@@ -51,7 +60,7 @@ void fragment() {
 			vec2 d = (wpos.xz - inseln[i].xy) / inseln[i].z;
 			k += inseln[i].w * exp(-3.5 * dot(d, d));
 		}
-		EMISSION = (ALBEDO + vec3(0.05, 0.03, 0.008)) * insel_farbe * min(k, 1.6) * insel_kraft * night;
+		EMISSION = eckfarbe((ALBEDO + vec3(0.05, 0.03, 0.008)) * insel_farbe * min(k, 1.6) * insel_kraft * night);
 	}
 	float rl = rand_licht(wpos, INV_VIEW_MATRIX);   // 1022: Halme hinter dem Rand schimmerten hell im Dunkel (Bilder 17:59)
 	ALBEDO *= rl; EMISSION *= rl;

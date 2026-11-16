@@ -554,6 +554,7 @@ func _unhandled_input(e: InputEvent) -> void:
 	if textfeld.visible:
 		if e is InputEventScreenTouch: _tipp_text(e as InputEventScreenTouch)
 		return
+	if _maus(e): return
 	if e is InputEventScreenTouch:
 		var t := e as InputEventScreenTouch
 		if t.pressed: finger[t.index] = t.position
@@ -591,6 +592,42 @@ func _unhandled_input(e: InputEvent) -> void:
 			if zieht: joystick.emit(joy_v)
 			ring(zieht and d.length() > JOY)
 			zeichner.queue_redraw()
+
+# 785.23 (WorldScreen.kt 196 runLatch = false): eingerastete Renntaste aus, Knopf wieder matt
+func renn_aus() -> void:
+	if not lauf_an: return
+	lauf_an = false
+	lauf_knopf.matt = true
+	laufen.emit(false)
+
+# 673 A (Chef 08.11., 15:39 „673 ja“): am Rechner zoomt das Mausrad, rechte Maustaste ziehen dreht die Kamera um den Helden; über
+# dasselbe Signal wie zwei Finger (kneifen), darum gleiche Grenzen (NAH bis WEIT). Auf dem Handy nichts (Touch erzeugt dort höchstens
+# die linke Maustaste, und „mobile“ schaltet ganz ab)
+const MAUS_ZOOM := 1.1                   # je Rastung des Mausrads
+const MAUS_GRAD_JE_PX := 0.4             # Drehung je Pixel Mausweg, rechte Taste gehalten
+var _rechts := false
+
+func _maus(e: InputEvent) -> bool:
+	if OS.has_feature("mobile"): return false
+	if e is InputEventMouseButton:
+		var mb := e as InputEventMouseButton
+		match mb.button_index:
+			MOUSE_BUTTON_WHEEL_UP:
+				if mb.pressed: kneifen.emit(1.0 / MAUS_ZOOM, 0.0)
+				return true
+			MOUSE_BUTTON_WHEEL_DOWN:
+				if mb.pressed: kneifen.emit(MAUS_ZOOM, 0.0)
+				return true
+			MOUSE_BUTTON_RIGHT:
+				_rechts = mb.pressed
+				return true
+	elif e is InputEventMouseMotion and _rechts:
+		if (e as InputEventMouseMotion).button_mask & MOUSE_BUTTON_MASK_RIGHT == 0:
+			_rechts = false
+			return false
+		kneifen.emit(1.0, (e as InputEventMouseMotion).relative.x * MAUS_GRAD_JE_PX)
+		return true
+	return false
 
 func ring(an: bool) -> void:
 	if an == ring_lauf or lauf_an: return

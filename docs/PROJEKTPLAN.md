@@ -10,8 +10,8 @@ Oben die Meilensteine des ganzen Projekts mit offenen Vorgängen, darunter der n
 
 | Nr. | Meilenstein | fertig, wenn | offene Vorgänge (Muss) | Stand 13.11. | vorher zu entscheiden |
 |---|---|---|---|---|---|
-| 1 | **Kapitel 1 fertig** | Stufen 1–4 der Abnahmeliste abgehakt, du sagst „gut“ (4.10) | 321 (113) | Stufe 1: 2 von 4; Stufen 2–4: 0 von 35 abgehakt; Wochenziel „Kampf passt“ | Reihenfolge der Teilprojekte unten |
-| 2 | **Marktstart** | Stufe 5: Kapitel 1 öffentlich im Play Store | 14 (1) | Gewerbeschein, privates Repo, 12 Tester offen (142, 109); Godot-Release erst mit 622 | Preis, Zeitpunkt des geschlossenen Tests |
+| 1 | **Kapitel 1 fertig** | Stufen 1–4 der Abnahmeliste abgehakt, du sagst „gut“ (4.10) | 230 (93) | Stufe 1: 2 von 4; Stufen 2–4: 0 von 35 abgehakt; Wochenziel „Kampf passt“ | Reihenfolge der Teilprojekte unten |
+| 2 | **Marktstart** | Stufe 5: Kapitel 1 öffentlich im Play Store | 15 (0) | Gewerbeschein, privates Repo, 12 Tester offen (142, 109); Godot-Release erst mit 622 | Preis, Zeitpunkt des geschlossenen Tests |
 | 3 | **SRD im Code abgelöst** | Stufe 6: Lizenzhinweis entfällt, `regelcheck` ohne Treffer | in 870.13, 4.8 | Wächter 870.11 greift | – |
 | 4 | **Kapitel 2 · Das Graumoor** | durchspielbar wie Kapitel 1 | 3 (Texte 1235, Garrick 168.1, Zustände 956), alle nach dem Meilenstein | Storyplan und Texte als Entwurf (`kapitel2/STORY-PLAN-K2.md`) | Plot mit Homer abstimmen; Umfang; Gespräch vor dem Bau (1236) |
 | 5–8 | **Kapitel 3 bis 7** | je Kapitel durchspielbar | keine | kein Plan; roter Faden (Grauer Prophet, Tag der Asche) ist offen (`STORY-PLAN.md` „Überblick“) | Handlung je Kapitel (du, Homer); vorher nichts zu bauen |
@@ -20,7 +20,7 @@ Zugeordnet ohne Raten: Marktstart = Bereich M Veröffentlichung und M Markt und 
 
 ### Teilprojekte bis „Kapitel 1 fertig“ (Reihenfolge aus 1061, Perikles 12.11., nach Chef 17:42; du legst die Priorität fest)
 
-1. **Umzug BRS fertig** (Stufe 2.3): 882.1, 882.2, 870.10, 870.13 · Stand: 882.1 und 882.2 gebaut, 870.10 und 870.13 warten darauf.
+1. **Umzug BRS fertig** (Stufe 2.3): 882.1, 882.2, 870.10, 870.13 · Stand: alle vier erledigt (16.11.); Abnahme Umzug 870.20 offen.
 2. **Kampf passt** (Stufe 2.3, 2.4; Wochenziel): 709, 1072, 1068, 1222, 1223, 1224, 931, 760 · Stand: Jerry an 709.1 und 1072 (Bahnen der Wölfe), 1223 gebaut; dazu alle offenen im Bereich E Kampf (Tafel unten).
 3. **Körper je Volk im Helden** (Stufe 4.4): 431 · Stand: wartet auf 1, Aufwand legt Tom dir vor dem Bau vor.
 4. **Kapitel 1 durchspielbar** (Stufe 2.13–2.15): 494, 507, 496 · Stand: Höhle 492, Nebel 505, Untote 506, Zufallsspieler 495 erledigt; übrige Gegner, Kampforte Höhle und Durchspiel-Build ruhen (Kampf zuerst).
@@ -29,37 +29,37 @@ Zugeordnet ohne Raten: Marktstart = Bereich M Veröffentlichung und M Markt und 
 7. **Ausgleich gemessen** (Stufe 2.5): 38 · Stand: Kapitelsimulation 1050 erledigt, Zielwert mit dir (38) ruht.
 8. **Aussehen fertig** (Stufe 4.3–4.5): 348.13, 302.1, 372 · Stand: ruhen; Ruhebewegungen 397 erledigt (Rest 1167, 1044).
 
-Zahlen je Teilprojekt (nur die genannten Vorgänge) und je Bereich: `python3 tools/projektplan.py`. Stand 13.11., 22:2x:
+Zahlen je Teilprojekt (nur die genannten Vorgänge) und je Bereich: `python3 tools/projektplan.py`. Stand 16.11., 09:07:
 
 | Teilprojekt | genannte Vorgänge offen | davon Muss | gebaut oder zu testen | ruht |
 |---|---|---|---|---|
-| 1 Umzug BRS fertig | 4 | 4 | 2 | 0 |
-| 2 Kampf passt | 9 | 8 | 1 | 0 |
+| 1 Umzug BRS fertig | 0 | 0 | 0 | 0 |
+| 2 Kampf passt | 7 | 6 | 0 | 0 |
 | 3 Körper je Volk im Helden | 1 | 1 | 0 | 0 |
-| 4 Kapitel 1 durchspielbar | 3 | 0 | 0 | 3 |
+| 4 Kapitel 1 durchspielbar | 3 | 0 | 0 | 1 |
 | 5 Was der Spieler tun kann nach BRS | 2 | 0 | 0 | 2 |
-| 6 Welt lebendig wie alt | 12 | 0 | 0 | 12 |
-| 7 Ausgleich gemessen | 1 | 0 | 0 | 1 |
-| 8 Aussehen fertig | 3 | 0 | 0 | 3 |
+| 6 Welt lebendig wie alt | 3 | 0 | 0 | 1 |
+| 7 Ausgleich gemessen | 0 | 0 | 0 | 0 |
+| 8 Aussehen fertig | 1 | 0 | 0 | 1 |
 
-**Befund:** nur 1 bis 3 sind Muss und laufen; 4 bis 8 ruhen ganz als Kür („Kampf zuerst“, 338.1), obwohl sie Teil der Abnahmeliste sind. Nach „Kampf passt“ brauchen sie deine Reihenfolge.
+**Befund:** 1 ist fertig, 2 und 3 sind Muss und laufen; 4 bis 8 sind Kür („Kampf zuerst“, 338.1), obwohl sie Teil der Abnahmeliste sind. Nach „Kampf passt“ brauchen sie deine Reihenfolge.
 
 | Teilprojekt (Bereich) | offen | Muss | startbar oder in Arbeit | gebaut oder zu testen | ruht | Schätzung |
 |---|---|---|---|---|---|---|
-| E Kampf | 89 | 40 | 35 | 19 | 22 | ~260 $ |
-| B Abläufe | 40 | 20 | 12 | 19 | 6 | ~50 $ |
-| B Werkzeuge | 26 | 17 | 3 | 17 | 5 | ~10 $ |
-| E Technik | 24 | 10 | 2 | 10 | 11 | ~60 $ |
-| E Figuren | 24 | 8 | 3 | 3 | 15 | ~100 $ |
-| E Oberfläche | 29 | 5 | 13 | 4 | 9 | ~80 $ |
-| Q QM | 7 | 5 | 7 | 0 | 0 | ~30 $ |
-| E Welt | 36 | 3 | 5 | 4 | 25 | ~40 $ |
-| G Balance | 11 | 3 | 2 | 3 | 6 | ~10 $ |
-| Q QS | 6 | 2 | 0 | 3 | 3 | – |
-| G Stil | 13 | 0 | 3 | 0 | 8 | ~30 $ |
-| B Steuerung | 6 | 0 | 4 | 0 | 1 | ~20 $ |
-| E Klang | 5 | 0 | 0 | 0 | 5 | – |
-| G Story | 5 | 0 | 1 | 0 | 1 | ~10 $ |
+| E Kampf | 74 | 30 | 44 | 9 | 10 | ~330 $ |
+| B Abläufe | 36 | 22 | 8 | 19 | 5 | ~40 $ |
+| E Technik | 20 | 9 | 8 | 8 | 4 | ~110 $ |
+| B Werkzeuge | 15 | 9 | 3 | 7 | 5 | ~10 $ |
+| E Figuren | 16 | 6 | 0 | 1 | 9 | ~120 $ |
+| E Oberfläche | 16 | 5 | 3 | 8 | 3 | ~20 $ |
+| Q QM | 4 | 3 | 4 | 0 | 0 | ~20 $ |
+| E Welt | 22 | 2 | 9 | 2 | 9 | ~60 $ |
+| Q QS | 6 | 2 | 1 | 2 | 3 | – |
+| G Stil | 6 | 2 | 2 | 1 | 3 | ~10 $ |
+| G Balance | 6 | 2 | 2 | 1 | 3 | ~10 $ |
+| B Steuerung | 3 | 1 | 2 | 0 | 1 | ~10 $ |
+| G Story | 4 | 0 | 1 | 0 | 1 | ~10 $ |
+| E Klang | 2 | 0 | 2 | 0 | 0 | ~10 $ |
 
 Schätzung = offene, nicht ruhende, nicht gebaute Vorgänge × Median der Kosten erledigter Vorgänge desselben Bereichs; grob, nur als Größenordnung. „ruht“ zählt auch Idee und Dauer. **Stärkstes Gegenargument gegen diese Tafel:** Bereich ist nicht Teilprojekt; ein Vorgang „E Kampf“ kann zu 2 oder 4 gehören. **Antwort:** die Teilprojekte nennen ihre Vorgänge selbst, die Bereichstafel zeigt nur, wo die Masse liegt; eine Zuordnung aller 335 Vorgänge wäre Raten.
 
@@ -69,14 +69,14 @@ Schätzung = offene, nicht ruhende, nicht gebaute Vorgänge × Median der Kosten
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
 - [x] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: abgenommen (720, Chef 09.11., 14:49)
-- [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3). (471 in t274 bestanden; Bewährungsproben und Lehrmeister mit 2.6, 3.1) · Stand: gebaut
+- [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3). (471 in t274 bestanden; Bewährungsproben und Lehrmeister mit 2.6, 3.1) · Teilhaken: [x] Steigen durch Tun, Hinweis beim Aufstieg, Heldenblatt nur Getanes (1375, Chef 16.11., 18:32); [ ] Bewährungsproben, Lehrmeister · Stand: gebaut
 - [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21). · Stand: gebaut
 - [x] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7). · Stand: abgenommen (720, Chef 09.11., 14:49)
 
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
 - [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26). · Stand: in Arbeit
-- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. Umzug BRS (870): Held, Kampf, Beute mit Build 277 auf `main`, Laden (870.7) und Kotlin-Ausstieg (870.9) mit Build 280 (12.11.); Behebungen der Kampf-Funde aus t280 in Build 281. · Stand: in Arbeit
+- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. Umzug BRS (870): neues Spiel bis zur Höhle nur mit BRS in Build 291 bestanden (870.20). Haken, wenn der Wächter (`regelcheck.py`) im Godot-Spiel keinen alten Namen mehr findet (16.11.: 30) und der Hinweis „SRD 5.1“ heraus ist (870, Schritt 9). · Stand: in Arbeit
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 - [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
@@ -90,18 +90,18 @@ Schätzung = offene, nicht ruhende, nicht gebaute Vorgänge × Median der Kosten
   - [x] Wolf (gekauft) · [x] Riesenratte (gekauft) · [x] Goblin · [x] Kobold · [x] Goblin-Schamane · [x] Goblin-Bogenschütze (alle im Build 257)
   - [ ] Riesenfledermaus: nur Kapsel, Modell in 510
   - [x] Wildschwein · [x] Riesenhundertfüßer · [x] Riesenspinne · [x] Riesenegel (für Stirge) · [x] Säureschnecke (für Ockergallerte): Haken 720 (Chef 09.11., 14:49, im Probekampf gesehen); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492)
-  - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
-  - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
+  - [x] Skelett · [x] Zombie · [x] Ghul (506, t275): Haken 1375 (Chef 16.11., 18:32)
+  - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [x] Krogg (bugbear) · [x] Grak (hobgoblin_captain) (492, t282): Haken 1375 (Chef 16.11., 18:32)
 - [x] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand: abgenommen (Höhle t282, Chef 13.11., 14:51):
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
   - [x] Zum Schlafenden Greif (Schänke) · [x] Thessas Kramladen · [x] Haus des Ältesten · [x] Tempel des Morgenlichts: Haken 720 (Chef 09.11., 14:49)
   - [x] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492, 505); Test t282 Höhle bestanden, 282.19–.21 (Chef 13.11., 14:51, Archiv); auf `main` mit PR #201
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
-  - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
+  - [x] 4 Höhle · [x] 5 Krogg · [x] 6 Grak · [x] 7 Lyra (492, t282): Haken 1375 (Chef 16.11., 18:32)
   - [ ] 8 Kapitelende (Aldric, Amulett, Brief)
 - [ ] **2.16** A · **Alle Leute von Kapitel 1 mit eigenem Gesicht** (475; Chef 05.11., 08:2x). Haken = Gesicht vom Chef abgenommen, keine zwei gleich, Gesicht frei. Stand 05.11.: keiner abgenommen (Lauf 1 nein, 04.11., 20:47)
-  - [ ] Aldric · [ ] Borin · [ ] Bram · [ ] Garrick · [ ] Gwenna · [ ] Jorin · [ ] Liska · [ ] Morwen · [ ] Osric · [ ] Pim · [ ] Rowena · [ ] Thessa · [ ] Lyra (mit 492)
+  - [x] Aldric · [x] Borin · [x] Bram · [x] Garrick · [x] Gwenna · [x] Jorin · [x] Liska · [x] Morwen · [x] Osric · [x] Pim · [x] Rowena · [x] Thessa (475, t275): Haken 1375 (Chef 16.11., 18:32) · [ ] Lyra (mit 492)
 - [ ] **2.17** M · **Alle Zauber und Fähigkeiten bis Stufe 6 im Kampf zu sehen** (Chef 05.11., 08:2x). Haken = im Kampf gewirkt und vom Chef gesehen. Seit dem Umzug BRS (870a 3 A, Chef 10.11., 15:08) hängen Kampfhandlungen an Fertigkeiten statt an Klassen; Extra-Angriff, Doppelzug, Zweiwaffenkampf entfallen. Vollständige Liste und Zahlen: Jerry mit 444 (870.5), Namen Homer (870.14); bis dahin:
   - Für alle: [ ] Kraft schöpfen (einmal je Kampf)
   - Ab Geselle je Fertigkeit: [ ] Einhänder: Finte · [ ] Dolche: Stich aus dem Hinterhalt · [ ] Zweihänder: Wuchtschlag · [ ] Schild: Vorform von Decken · [ ] Bogen: Vorform von Zielschuss
@@ -187,7 +187,28 @@ Quelle: der alte Kotlin-Code (`core`, `app`), abgeglichen mit `LISTE-ABGLEICH-AL
 
 „da“ heißt nur: im Code gefunden, nicht von dir abgenommen. Geprüft nur Kopf und einzelne Stellen der Godot-Dateien; ob jedes Merkmal dem alten Stand voll entspricht, sagt erst dein Häkchen.
 
-## Wochenziel 09.–15.11.: Der Kampf funktioniert (Perikles, gesetzt 09.11., 10:1x; neu geordnet 12.11., 16:5x nach 1052; ersetzt das vom 03.11.)
+## Wochenziel 16.–22.11.: Kampf passt, mit festen Plätzen (Perikles, gesetzt 16.11., 00:0x; ersetzt das vom 09.11.)
+
+**Du kämpfst im Sammelbuild mit 1072 gegen Wölfe, Ratten und Grimmzahn und sagst „Kampf passt“: jede Figur hat ihren Platz und ihre Bahn, Nahkampf trifft nur, wen er treffen darf, der Wolf duckt sich, springt und beißt sichtbar, und was der Bericht sagt, sieht man.** Das Ziel vom 09.11. ist nicht erreicht (dein „Kampf passt“ fehlt; 1072 stand auf deinen Halt 13.11., 23:35, dann nach 930.6, 14.11., 20:31). Es gilt weiter „Kampf zuerst, nichts Neues“; Muss sind die Zeilen unten, deine „jetzt“, „bitte machen“, Kampffunde und Abstürze, dazu alle offenen Muss im Bereich E Kampf (Tafel oben). Kür baut diese Woche keiner. Termine gibt es keine, die Reihenfolge gilt; Fertiges wird binnen 6 h vorgelegt (1312).
+
+| Reihenfolge | Vorgang | Wer | fertig, wenn |
+|---|---|---|---|
+| 1 | dein Test t290; danach Sammelbuild mit allem Fertigen (ohne Build heute: Tom 4, Jerry 5, Spike 3) | du; wer zuerst 4 hat, bittet (317) | `vorgang.py build`; nichts Gebautes liegt länger als 6 h ohne Vorlage |
+| 2 | **1072 Plätze und Bahnen** auf den Abständen des Glutsystems (Schritt 2 frei, 1349), danach 1068 Ring bei großen Schlägen, 1224 Berührung sperrend | Jerry | dein Probekampf: kein Wolf läuft außen herum, Tausch auf Bahnen |
+| 3 | Kampffunde: 1305 hintere Reihe, 1291 Nebenhand, 1275 Kerben wie `DESIGN-GLUT.md`, 1323 Kampfmeldungen, 1292 Klosterschüler, 1333 Schildstoß, 1340 Sterben Skelett; 1284a entscheidest du | Jerry | wie in der Zeile |
+| 4 | 760 Blut am Helden, dann 1043 Ausweichen im Sprung, 1032 Angriff mit Bewegung, 931 Ducken | Jerry | ein Film je Punkt, dein 👍 |
+| 5 | 1288 Kerben (Verstreichen, Mitnehmen); 709 und 709.1 nach dem Gesamtbild | Sokrates, dann Jerry | Vorlage bei dir; 709 wieder startbar |
+| 6 | Tom: 1341, 1044 (Bildlauf steht, Ablehnung der Rechteprüfung), dann 431 Körper je Volk (Teilprojekt 3); bietet Jerry Übernahme aus 3 an (Jerry 29 Muss, Tom 17) | Tom | wie in der Zeile |
+| 7 | Spike: 1300 atem rot, 1303 Stufen im Dunkel, dann 698 Grafikstufen | Spike | Kerntest stabil grün; Höhle ohne Flecken |
+| 8 | Tuffy: Jerrys Kampffunde aus 3 neben Jerrys Arbeit (1364, 1371; Chef 16.11., 07:02); jede Entwicklerrolle ohne eigenes Muss nimmt Muss aus ihrem Fach (Übernahme 1364) | Tuffy, Tom, Spike | keine Entwicklerrolle leer, solange Jerry startbares Muss hat |
+
+**Stärkstes Gegenargument:** zweite Woche dasselbe Ziel, während Teilprojekte 4–8 der Abnahmeliste ganz ruhen; „Kapitel 1 durchspielbar“ rückt nicht vor. **Entkräftet:** „Kampf zuerst“ ist dein Wort und nicht zurückgenommen; die Gegner und Kampforte der Höhle (494, 507) hängen an Plätzen und Bahnen aus 1072 und würden sonst doppelt gebaut; Tom und Spike arbeiten daneben an 431 und Technik. Sobald du „Kampf passt“ sagst, lege ich dir die Reihenfolge von 4–8 vor.
+
+**Nachtrag 16.11., 09:0x (Perikles):** Zeile 8 nach 1364/1371; Themenblock „Alles an einer Stelle“ (1382) unter Kapitel 1, Bau erst nach Bauplan Sokrates und Gespräch (1236), diese Woche kein Bau.
+
+**Mit diesem Wochenziel entschieden (Perikles):** M? → K: 1174 Körperregler (hängt an 431), 1211 Leuchtfunke (Prüfauftrag ohne „jetzt“), 999.2 Armbrust (ruht, Kauf), 906 (überholt laut Sokrates 1186). Reifes aus `LISTE-IDEEN.md` holt diese Woche keiner („Borin trinkt am Tisch“, Homer 1264, bleibt dort bis nach „Kampf passt“).
+
+## Wochenziel 09.–15.11.: Der Kampf funktioniert (Perikles, gesetzt 09.11., 10:1x; neu geordnet 12.11., 16:5x nach 1052; ersetzt durch das vom 16.11. oben; nicht erreicht)
 
 **Du kämpfst im nächsten gemeinsamen Build (281) gegen Wölfe, Ratten und Grimmzahn und sagst „Kampf passt“: der Held sieht ordentlich aus, jeder Angriff trifft den Gegner sichtbar, der Kampf zeigt, was geschieht (Ring lesbar, Ausweichen, Angriff mit Bewegung, Zustände an den Figuren, Bericht in Farbe), die Gegner laufen frei statt auf Schienen, drehen mit Schritten und zeigen dir nicht den Rücken, der Kampf ist flott.** Der Umhang gehört nicht mehr dazu: gestoppt, Vorlage für irgendwann (861, Chef 12.11., 07:10). Grundlage: „Kampf zuerst, nichts Neues“ (Chef 08.11., 21:36, Archiv). Muss sind nur die Zeilen unten, deine „jetzt“, deine „bitte machen“ und Abstürze. Was ohne Kampfbezug neu gebaut würde, ruht mit dem Stand „ruht, Kampf zuerst (338.1)“; gestrichen wird nichts. Kür baut diese Woche keiner. Termine gibt es keine, die Reihenfolge gilt. Der alte Stand (Build 271, Schritte 1–8 vom 09.11.): Git, Stand vor „Perikles: 1052“.
 
