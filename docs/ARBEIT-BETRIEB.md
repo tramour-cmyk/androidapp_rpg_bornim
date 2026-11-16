@@ -146,3 +146,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:01 16.11.: Marke Archiv session_01Hmoj75zum6Z1f8NFfzpE4u (lauf.py)
 - 21:01 16.11.: Marke Archiv session_01Hmoj7A9JQitciHyQxAs6gq (lauf.py)
 - 21:03 16.11.: Lauf 21:01: Start Homer 1489 (session_01Hmoj75eC5wiQijRtfjKuQd), Start Perikles M? 1484–1487 (session_01Hmoj75bTNPcFHKN9gDnnxw); archiviert und gebucht: Homer alt 5,27 $ auf 1459, Perikles alt 2,57 $ auf 1474, Tuffy 2,67 $ auf 1411.1; 1488 (Jerry, Bau Merkmale) nicht gestartet: Jerry läuft (1453/Build 294), Vorrang Perikles; Spike 1484/1485 warten auf M
+- 21:20 16.11.: Startsperre 21:20 Start Jerry (Ford von Hand), Neustart-Meldung 21:13 (a75f9abce, Nachtrag d9570ef88)
