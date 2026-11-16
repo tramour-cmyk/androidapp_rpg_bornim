@@ -24,3 +24,11 @@ Im Bau geprüft: Kampf- und Verbandmeldungen sagen „Leben“/“Life“ statt 
 ## Lagen
 
 - 293.1: probe=WOLVES
+
+## Ergebnis
+
+Chef 16.11., 17:50 im Gespräch mit Sokrates („Build 293 · Ergebnis“):
+- 293.1 ✗ erster Durchgang wie vor 1072 (weit zurück, Platztausch), nach „nochmal“ bleiben sie dran; ein Wolf greift von der Seite an und dreht sich danach nicht zum Helden (Chat 17:39, 17:41)
+- 293.2 ✓
+- 293.6 ✓
+- 293.7 ✗ Gehen wie auf Speed, mit Taste Tippelschritte; Chef 17:51: Testschalter „Schnell“ war an, nachtesten ohne „Schnell“ (gleiche APK)
