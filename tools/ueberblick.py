@@ -191,6 +191,38 @@ def je_rolle():
     return aus
 
 
+def offen_filter(d):
+    return d["wort"] not in ("erledigt",) and d["besitzer"] != "Ideen" and d["nr"] not in s.SONDER
+
+
+ARCHIV_NR = re.compile(r"(?m)^\|\s*([0-9][0-9A-Za-z.]*)\s*\|")
+
+
+def morgen():
+    """1412 (Chef 16.11., 11:52): Stand der Vorgangsliste um 6:00 Berliner Zeit aus Git. → (offen je Block, Text „Heute: …“) oder None."""
+    import zoneinfo
+    jetzt = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
+    sechs = jetzt.replace(hour=6, minute=0, second=0, microsecond=0)
+    if jetzt < sechs: sechs -= datetime.timedelta(days=1)
+    c = s._git("rev-list", "-1", "--before=" + sechs.isoformat(), "HEAD").stdout.strip()
+    if not c: return None
+    def zeigen(datei): return s._git("show", "%s:docs/%s" % (c, datei)).stdout
+    alt_text = zeigen(s.LISTE)
+    if not alt_text: return None
+    alt = s.vorgangsliste(alt_text)
+    je = {}
+    for d in alt:
+        if offen_filter(d): je[block(d)] = je.get(block(d), 0) + 1
+    alt_offen = {d["nr"] for d in alt if offen_filter(d)}
+    alt_alle = {d["nr"] for d in alt} | set(ARCHIV_NR.findall(zeigen("LISTE-VORGAENGE-ARCHIV.md")))
+    jetzt_liste = s.zeilen_liste()
+    jetzt_alle = {d["nr"] for d in jetzt_liste} | set(ARCHIV_NR.findall(s.lesen("LISTE-VORGAENGE-ARCHIV.md")))
+    jetzt_offen = {d["nr"] for d in jetzt_liste if offen_filter(d)}
+    neu = jetzt_alle - alt_alle
+    erledigt = {n for n in (alt_offen | neu) if n not in jetzt_offen and n not in s.SONDER}
+    return je, "Heute (seit 6:00): %d erledigt, %d neu. In Klammern bei „offen“: Stand 6:00." % (len(erledigt), len(neu))
+
+
 def md():
     zs, kommt, test, pruef, gebaut = rechnen()
     # Stand = letzte Änderung der Vorgangsliste (Berliner Zeit), nicht die Uhr: sonst schriebe jeder Lauf die Übersicht neu
@@ -204,6 +236,8 @@ def md():
     for key, d, grund in kommt:
         erst.setdefault(block(d), d)
     kopf = False
+    try: mo = morgen()
+    except Exception: mo = None   # 1412: ohne Git-Verlauf keine Klammer
     for k in list(range(len(BLOECKE))) + [len(BLOECKE)]:
         je = [d for d in zs if block(d) == k]
         if not je: continue
@@ -211,10 +245,11 @@ def md():
         if kap1 and not kopf:
             aus.append("| **%s** | | | | | | |" % KAPITEL1); kopf = True
         n = erst.get(k)
-        aus.append("| %s | %d | %d | %d | %d | %d | %s |" % (
-            ("↳ " if kap1 else "") + name(k), len(je), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
+        aus.append("| %s | %s | %d | %d | %d | %d | %s |" % (
+            ("↳ " if kap1 else "") + name(k), ("%d (%d)" % (len(je), mo[0].get(k, 0))) if mo else str(len(je)), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
             sum(wartet_auf_test(d) for d in je), sum(d["wort"] in RUHT for d in je),
             ("%s (%s) %s" % (n["nr"], n["besitzer"], worum(n["titel"], 50))) if n else "–"))
+    if mo: aus += ["", mo[1]]
     aus += ["", "**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"] + je_rolle()
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):
