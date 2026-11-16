@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:21, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:26, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -16,22 +16,23 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 14 | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 12 | 2 | 1 | 0 | 4 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 | 9 | 1 | 11 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 1 | 6 | 4 | 1383 (Sokrates) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
-| Werkzeuge und Abläufe der Firma | 44 | 26 | 0 | 1 | 9 | 1388 (Perikles) D257.1 von Diogenes: rote Godot-Läufe 09.–15.11.… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 1 | 6 | 4 | 1383 (Tom) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
+| Werkzeuge und Abläufe der Firma | 43 | 25 | 0 | 1 | 9 | 1392 (Perikles) rotbuch.py besitzer falsch im flachen Klon: git l… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| Tom | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss) |
+| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 11 weitere |
+| Tom | 1383 Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstelle… (Muss); dann 1 weitere |
 | Jerry | 1305 Kämpfer mit Schwert und Schild läuft in die hintere Reihe u… (Muss); dann 3 weitere |
 | Tuffy | 1323 Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Rest… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
 | Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 3 Termin, 1 ruht bis, 1 wartet auf |
-| Sokrates | 1383 Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstelle… (Muss); dann 2 weitere |
-| Perikles | 1388 D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159… (Muss); dann 2 weitere |
+| Sokrates | 1385 Unterbau „Alles an einer Stelle“: eine Kennung je Figur und… (Muss) |
+| Perikles | 1392 rotbuch.py besitzer falsch im flachen Klon: git log --diff-… (Muss) |
 
 **Die nächsten 20**
 
@@ -42,23 +43,23 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 3 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | startbar |
 | 4 | 1284a | Jerry | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar? | M | Kampf passt | startbar |
 | 5 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 6 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
+| 6 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
 | 7 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 8 | 1388 | Perikles | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 9 | 1389 | Perikles | D257.2 von Diogenes: Pflegehinweis-Commits 15.11. 38, Anteil 2,6 % gegen 2,9 %;… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 10 | 1391 | Perikles | Überblick „Je Rolle das Nächste“ um Zeile Chef ergänzen: das Wichtigste, das er… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 11 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 13 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 14 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 15 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
-| 16 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
-| 17 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
-| 18 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
-| 19 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
-| 20 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
+| 8 | 1392 | Perikles | rotbuch.py besitzer falsch im flachen Klon: git log --diff-filter=A liefert den… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 10 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 11 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 12 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 13 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
+| 14 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
+| 15 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
+| 16 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
+| 17 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
+| 18 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | Kampf passt | startbar |
+| 19 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | Kampf passt | startbar |
+| 20 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | Kampf passt | startbar |
 
-Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 14. Ruhend oder nach dem Meilenstein: 63.
+Danach 96 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 15. Ruhend oder nach dem Meilenstein: 63.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
