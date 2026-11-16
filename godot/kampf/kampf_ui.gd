@@ -686,11 +686,28 @@ func _party_box(f) -> Control:
 	n.clip_text = true
 	top.add_child(n)
 	v.add_child(top)
-	var low := HBoxContainer.new()
-	low.add_theme_constant_override("separation", int(6 * dp))
+	# 1439 (Chef 16.11., 14:15: „Hatten wir nicht für Mana auch einen eigenen Balken?“; alt BattleScreen.kt 1719: Zeile in Colors.sp mit
+	# eigenem Balken) und 1448 A (14:47: ohne Wort davor, alle Balken gleich lang und bündig, dahinter die Zahl): Leben und Mana je ein
+	# Balken, das Raster hält die Zahlen in einer Spalte, so enden die Balken bündig; Mana in der Farbe der Weltleiste (Leiste.BLAU)
+	var low := GridContainer.new()
+	low.columns = 2
+	low.add_theme_constant_override("h_separation", int(6 * dp))
+	low.add_theme_constant_override("v_separation", int(2 * dp))
+	low.add_child(_box_balken(f.max_hp, hp, hp_color(float(hp) / maxf(1.0, f.max_hp))))
+	low.add_child(_box_zahl("%d/%d" % [hp, f.max_hp]))
+	if f.hero != null and not f.zauber.is_empty():
+		var spv: int = kampfort.shown.sp.get(f.id, f.sp)
+		low.add_child(_box_balken(f.max_sp, spv, Leiste.BLAU))
+		low.add_child(_box_zahl("%d/%d" % [spv, f.max_sp]))
+	v.add_child(low)
+	return box
+
+
+## 1439: Balken im Kasten eines Gefährten (Leben, Mana), 4 dp hoch, Spur wie bisher
+func _box_balken(mx: int, wert: int, farbe: Color) -> ProgressBar:
 	var bar := ProgressBar.new()
-	bar.max_value = f.max_hp
-	bar.value = hp
+	bar.max_value = mx
+	bar.value = wert
 	bar.show_percentage = false
 	bar.custom_minimum_size = Vector2(0, 4 * dp)
 	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -699,17 +716,19 @@ func _party_box(f) -> Control:
 	track.bg_color = Color(1, 1, 1, 0.12)
 	bar.add_theme_stylebox_override("background", track)
 	var fill := StyleBoxFlat.new()
-	fill.bg_color = hp_color(float(hp) / maxf(1.0, f.max_hp))
+	fill.bg_color = farbe
 	bar.add_theme_stylebox_override("fill", fill)
-	low.add_child(bar)
+	return bar
+
+
+## 1439: Zahl hinter einem Balken, rechtsbündig in ihrer Spalte
+func _box_zahl(text: String) -> Label:
 	var l := Label.new()
-	var spv: int = kampfort.shown.sp.get(f.id, f.sp)
-	l.text = "%d/%d" % [hp, f.max_hp] + ((t("  Mana %d/%d", "  Mana %d/%d") % [spv, f.max_sp]) if f.hero != null and not f.zauber.is_empty() else "")     # [870.14.kopf.mana]
+	l.text = text
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	l.add_theme_font_size_override("font_size", sp(13))
 	l.add_theme_color_override("font_color", TEXT)
-	low.add_child(l)
-	v.add_child(low)
-	return box
+	return l
 
 
 ## PixelButton im schwarzen Stil: eckig, Rahmen 1 dp, Großbuchstaben mit Laufweite; an: erhaben mit hellem Rahmen.
