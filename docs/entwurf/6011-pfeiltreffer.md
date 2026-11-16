@@ -1,4 +1,7 @@
 # 601.1 · Pfeiltreffer: warum der Held im Film zum Prüfpunkt 291.8 nicht zuckte
+
+[Film von 16.11., 23:08](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261116-230803-601.1/2026-11/16-2308-601.1-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 Tuffy · 16.11., 23:07 · E Kampf · Rückläufer aus Prüfpunkt 291.8 (Chef 16.11., 12:24)
 Kurz: Der Pfeil traf Hilde außerhalb des Bildes; dazu brach das Ende der Schildbewegung das Zucken ab. Beides behoben, neuer Film nach Freigabe eines Laufs.
 
