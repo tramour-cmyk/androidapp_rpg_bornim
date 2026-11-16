@@ -68,17 +68,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:29 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` auf Wort des Chefs (12:28) wieder archiviert (Mehrkosten 0,69 $ auf 1288; Frage 1288a liegt in der Chefsache)
 - 12:25 15.11.: Spike neu `…79F2ADvX6hyURaqmPK` (1270.1), alt archiviert (8,54 $ auf 1270.1); Tom neu `…76Ra6BZe2iYammL66v` (785.1), alt `…78NR8tcbL1C1FvSd17` archiviert um 12:29 wenn idle
 - 12:16 15.11.: alte Sokrates `…7A9M8ZL4AXU31SCCyP` wieder aus dem Archiv (Chef will lesen, Sokrates 12:15): nicht archivieren bis der Chef es sagt; im Lauf `--ohne` Sokrates-Zeilen dieser Kennung
-- 00:04 16.11.: Startsperre 00:04 Start Perikles (lauf.py)
-- 00:04 16.11.: Marke Start-fehlt Perikles 15.11.-23:04 (lauf.py)
-- 00:07 16.11.: Startsperre 00:07 Start Perikles 1044/1341 (Tom 00:08, Bildläufe von der Rechteprüfung abgelehnt, per Nachricht an die laufende Perikles-Sitzung …79JCQRKsCCgciyGpnJ)
-- 00:10 16.11.: Startsperre 00:10 Start Tom (Neustart, d72ec7214); alte Sitzung …76nRhry7t7BqTpwhBM nach Ruhe archivieren, Kosten auf 1044, 1341
-- 00:14 16.11.: Startsperre 00:14 Start Homer 1352, 1353 (Jerry 00:13, ac6007b4d, per Weiter an …79NReuhLMU6cqsp6GW)
-- 00:24 16.11.: Startsperre 00:24 Start Spike (Neustart, 1f61b76a1); alte Sitzung …76MtqM5JpbkkpJNkAM sofort archivieren, Kosten 7,68 $ auf 1300, 1303
-- 00:38 16.11.: Startsperre 00:38 Start Spike (Neustart, 274ec030b); alte Sitzung …76VdQxk8E6re5azHWe nach Ruhe archivieren, Kosten auf 1303, 698
-- 00:43 16.11.: Startsperre 00:43 Start Jerry (Neustart, Übergabe Jerry 00:43); alte Sitzung …79V2mmvvY954ZKD6GP nach Ruhe archivieren, Kosten auf 1331, 1275
-- 01:03 16.11.: Startsperre 01:03 Start Tom (lauf.py)
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
-- 01:03 16.11.: Marke Start-fehlt Tom 16.11.-00:10 (lauf.py)
 - 01:06 16.11.: Startsperre 01:06 Start Tom (Sammelbuild 785.24, 1355, lauf.py; neu …77sUqpvJUtCb4yNz2H); Rotbuch 1356 (Sokrates), 1357 (Tom), 1358 (Jerry) angelegt; Wächter 1186 an Sokrates
 - 01:20 16.11.: Startsperre 01:20 Start Sokrates (Neustart, ddc75c68e); alte Sitzung …78BYXeazUzQG4s3QZE nach Ruhe archivieren, Kosten 5,22 $ auf 1186, 654, 1360; Spike über „1286 Läufe frei“ unterrichtet
 - 01:29 16.11.: Startsperre 01:29 Start Tom (Neustart, bd58fd48d); alte Sitzung …77sUqpvJUtCb4yNz2H nach Ruhe archivieren, Kosten 7,03 $ auf 785.24, 1355, 1361
@@ -102,3 +92,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:50 16.11.: Startsperre 06:50 Start Spike 698 (Sokrates 06:48, 698a A Chef 06:46, aa82f747b; alte Sitzung …76VdQxk8E6re5azHWe bei 364 Tsd. Token archiviert, Kosten 16,97 $ auf 1303, 1286, 698)
 - 06:56 16.11.: Startsperre 06:56 Start Perikles 1364 („jetzt“ Chef 06:52, Sokrates 06:55, 266c65c6a, geht vor Pause bis 09:00; per Weiter an …76MtaUFLBbEUE3ZMaK)
 - 06:57 16.11.: Startsperre 06:57 Start Homer 1365 (Sokrates, Chef 06:55 zu 698a, ef84e7110; per Weiter an …77tuR4inAweJo2KGGk)
+- 07:04 16.11.: Startsperre 07:04 Start Diogenes (lauf.py)
+- 07:04 16.11.: Marke Übergabe-Chef Homer 16.11. 06:58 (lauf.py)
