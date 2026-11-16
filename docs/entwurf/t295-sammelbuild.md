@@ -12,9 +12,9 @@ Im Bau geprüft: Merkmale je Gegner beim Kampfbeginn, höchstens eines je Gegner
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
 | 295.1 | Spike | 1270.4 | ohne dich (am Film gebilligt, 👍 16.11., 17:32) | Glühen an Feuer, Glut, Kristallen, Pilzen ab Grafikstufe Hoch; vorberechnetes Höhlenlicht immer | – | – |
-| 295.2 | Jerry | 1488 | Handy | Zeile 295.2 → „Lage herstellen“ (Probekampf Wölfe), auf die Namen über den Wölfen sehen | je nach Lesestufe steht hinter dem Namen ▲ oder ▼, der Merkmalsname oder Name und Wirkung; höchstens ein Merkmal je Wolf | kein Zusatz an einem Wolf mit Merkmal, oder zwei Merkmale an einem Wolf |
+| 295.2 | Jerry | 1488 | Handy | Zeile 295.2 → „Lage herstellen“ (Probekampf Wölfe, Held Jägerkind: liest Wölfe auf Stufe 3), auf die Namen über den Wölfen sehen; dann zweimal „Nochmal“ | in jedem Durchgang trägt etwa jeder zweite Wolf hinter dem Namen ein Merkmal mit Wirkung, etwa „Wolf 2 · jung (Leben −15 %, Angriff −10 %, Abwehr +10 %)“; die übrigen nur ihren Namen; von Durchgang zu Durchgang wechselt, welcher Wolf welches Merkmal trägt | in drei Durchgängen trägt kein Wolf oder jeder Wolf ein Merkmal, ein Merkmal steht ohne Wirkung in Klammern, oder ein Wolf trägt zwei Merkmale |
 | 295.3 | Jerry | 1488 | ohne dich (Diogenes bestätigt am Lauf) | `merkmale_1488`: höchstens ein Merkmal je Gegner, Zusatz nach Lesestufe | Test grün | Test rot |
 
 ## Lagen
 
-- 295.2: probe=WOLVES
+- 295.2: probe=WOLVES herkunft=Jägerkind
