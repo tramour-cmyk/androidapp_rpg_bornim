@@ -653,7 +653,7 @@ func laeuft() -> bool:
 	return kampfort.mars.outcome == "ONGOING" or kampfort.busy
 
 
-## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern „ZP sp/max“ (ohne „LP“).
+## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern darunter ein blauer Balken „sp/max“ (1439).
 func _party_box(f) -> Control:
 	var box := PanelContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -686,11 +686,25 @@ func _party_box(f) -> Control:
 	n.clip_text = true
 	top.add_child(n)
 	v.add_child(top)
+	# 1439 (Chef 16.11., 14:15; 1448 A 14:47): Mana als eigener blauer Balken wie alt (BattleScreen.kt 1719–1721, Colors.sp) und
+	# wie in der Weltleiste (Leiste.BLAU); ohne Wort davor, beide Balken gleich lang und bündig, dahinter die Zahl
+	var zahl_fs := sp(13)
+	var zahl_w := font.get_string_size("%d/%d" % [maxi(f.max_hp, f.max_sp), maxi(f.max_hp, f.max_sp)], HORIZONTAL_ALIGNMENT_LEFT, -1, zahl_fs).x
+	v.add_child(_balken_zeile(hp, f.max_hp, hp_color(float(hp) / maxf(1.0, f.max_hp)), zahl_w, zahl_fs))
+	if f.hero != null and not f.zauber.is_empty():
+		var spv: int = kampfort.shown.sp.get(f.id, f.sp)
+		v.add_child(_balken_zeile(spv, f.max_sp, Leiste.BLAU, zahl_w, zahl_fs))
+	return box
+
+
+## 1439: ein Balken (4 dp) in [farbe] mit „wert/max“ dahinter, rechtsbündig in fester Breite [zahl_w], damit Balken untereinander
+## gleich lang sind
+func _balken_zeile(wert: int, max_wert: int, farbe: Color, zahl_w: float, zahl_fs: int) -> HBoxContainer:
 	var low := HBoxContainer.new()
 	low.add_theme_constant_override("separation", int(6 * dp))
 	var bar := ProgressBar.new()
-	bar.max_value = f.max_hp
-	bar.value = hp
+	bar.max_value = maxi(1, max_wert)
+	bar.value = wert
 	bar.show_percentage = false
 	bar.custom_minimum_size = Vector2(0, 4 * dp)
 	bar.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -699,17 +713,17 @@ func _party_box(f) -> Control:
 	track.bg_color = Color(1, 1, 1, 0.12)
 	bar.add_theme_stylebox_override("background", track)
 	var fill := StyleBoxFlat.new()
-	fill.bg_color = hp_color(float(hp) / maxf(1.0, f.max_hp))
+	fill.bg_color = farbe
 	bar.add_theme_stylebox_override("fill", fill)
 	low.add_child(bar)
 	var l := Label.new()
-	var spv: int = kampfort.shown.sp.get(f.id, f.sp)
-	l.text = "%d/%d" % [hp, f.max_hp] + ((t("  Mana %d/%d", "  Mana %d/%d") % [spv, f.max_sp]) if f.hero != null and not f.zauber.is_empty() else "")     # [870.14.kopf.mana]
-	l.add_theme_font_size_override("font_size", sp(13))
+	l.text = "%d/%d" % [wert, max_wert]
+	l.add_theme_font_size_override("font_size", zahl_fs)
 	l.add_theme_color_override("font_color", TEXT)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	l.custom_minimum_size = Vector2(ceilf(zahl_w), 0)
 	low.add_child(l)
-	v.add_child(low)
-	return box
+	return low
 
 
 ## PixelButton im schwarzen Stil: eckig, Rahmen 1 dp, Großbuchstaben mit Laufweite; an: erhaben mit hellem Rahmen.
@@ -1625,7 +1639,7 @@ func _arkan_los(by, on, missed: bool) -> void:
 	dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
 	var hand = by.cast_point()
 	var von: Vector3 = hand if hand != null else by.position + Vector3.UP * (by.head().y - by.position.y) * START_UP + dir * (_girth(by) + 0.1)
-	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir, von)
+	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir)
 	var s := maxf(Zauber.arrives("MISSILES") / 1000.0, 0.05)
 	var p := arkan_r2().instantiate()
 	for kv in [["fly_on_ready", false], ["collision_mask", 0], ["impact_on_expire", true],
@@ -1996,17 +2010,7 @@ func _hidden_by_front(fig, pts: PackedVector2Array, welt := []) -> bool:
 
 
 ## Brust des Ziels, zum Wirkenden hin (Ende der Bahn)
-## 601.1 (Chef 15.11., 11:02: Pfeil in der Fußspitze, Zucken oben): mit [von] (Start des Geschosses) die Stelle am Rumpf, die dem
-## Schützen zugewandt ist (Figur.treffpunkt_fern), dort zuckt der Getroffene; _aim_genau sagt, ob es sie gab. Ohne Gerüst geschätzt
-## wie bisher (Höhe des Namensbalkens × 0,55, vor dem Umriss)
-var _aim_genau := false
-func _aim_point(on, dir: Vector3, von := Vector3.INF) -> Vector3:
-	_aim_genau = false
-	if von != Vector3.INF and on.has_method("treffpunkt_fern"):
-		var p: Vector3 = on.treffpunkt_fern(von)
-		if p != Vector3.INF:
-			_aim_genau = true
-			return p
+func _aim_point(on, dir: Vector3) -> Vector3:
 	return on.position + Vector3.UP * (on.head().y - on.position.y) * 0.55 - dir * _girth(on)
 
 
@@ -2108,8 +2112,7 @@ func _draw_spells() -> void:
 			var hand = by.cast_point() if flying else null
 			sp["from"] = hand if hand != null else by.position + Vector3.UP * h_by * (START_UP if flying else 0.55) + dir * (_girth(by) + 0.1 if flying else 0.0)
 		var a3: Vector3 = sp["from"]
-		var b3: Vector3 = _aim_point(on, dir, a3 if flying else Vector3.INF)
-		Zauber.ziel_genau = _aim_genau and not sp.missed
+		var b3: Vector3 = _aim_point(on, dir)
 		if sp.kind == "BOMB_SMOKE":     # 1222: das Bündel landet vor den Füßen (zauber.gd), der gekaufte Rauch steht davor
 			if not sp.has("r7") and p >= Zauber.SMOKE_FLUG_MS / Zauber.SMOKE_MS:
 				sp["r7"] = _rauch_r7(on, on.position - dir * _girth(on))

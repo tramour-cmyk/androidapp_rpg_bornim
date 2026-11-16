@@ -55,19 +55,6 @@ func d(sides: int) -> int:
 	return next_int(1, sides + 1)
 
 
-## d20 with advantage (+1), disadvantage (-1) or neither (0).
-func d20(mode: int = 0) -> int:
-	if mode > 0:
-		var a := d(20)
-		var b := d(20)
-		return maxi(a, b)
-	if mode < 0:
-		var a := d(20)
-		var b := d(20)
-		return mini(a, b)
-	return d(20)
-
-
 ## True with probability [p] (Dice.chance); from a tape as a number in [0, 1000).
 func chance(p: float) -> bool:
 	if tape == null:

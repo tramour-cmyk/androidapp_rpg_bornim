@@ -69,14 +69,14 @@ Schätzung = offene, nicht ruhende, nicht gebaute Vorgänge × Median der Kosten
 
 **Stufe 1 · Kern spielbar** (Prüfung: Rechensimulation 444 abgenommen; der Chef spielt Dorf und Wald an)
 - [x] **1.1** G · Ohne Klassen (E 1): Erschaffung mit sechs Grundwerten ab 1, 21 Punkte, jeder Wert 3 bis 8 (E 77); fünf Völker mit Bonus, Malus und Merkmal, Volk hebt bis 9, nie unter 3 (E 70, 72, 78); Herkunft freiwillig oder Wanderer, Startfertigkeiten bei 10 (E 68, 69; NW 2). Ins Spiel erst mit 2.3; bis dahin im Testmenü zu sehen (470a: „C“, aber der Rechenkern des Kampfs ist mit 3–4 Sitzungen über 2 geschätzt, darum gilt B). · Stand: abgenommen (720, Chef 09.11., 14:49)
-- [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3). (471 in t274 bestanden; Bewährungsproben und Lehrmeister mit 2.6, 3.1) · Stand: gebaut
+- [ ] **1.2** G · Fertigkeiten steigen durch Tun, Wert 0–100 in vier Rängen, am Rangende Halt mit kleinem Puffer bis zur Prüfung (E 67, E 44); Kapitel 1 bis Geselle (49) mit Bewährungsproben zum Gesellen (Takt, NW 5); Prüfregel und die 37 (E 59); Hinweis beim Aufstieg, Heldenblatt zeigt nur Getanes (NW 3). (471 in t274 bestanden; Bewährungsproben und Lehrmeister mit 2.6, 3.1) · Teilhaken: [x] Steigen durch Tun, Hinweis beim Aufstieg, Heldenblatt nur Getanes (1375, Chef 16.11., 18:32); [ ] Bewährungsproben, Lehrmeister · Stand: gebaut
 - [ ] **1.3** G · Heldenstufe aus Erfahrung (E 16), höchstens 40 % aus Fertigkeitsaufstiegen (E 17); Kapitelgrenze weich bis zwei Stufen darüber (E 18, E 35); Erfahrungstopf je Gebiet, Wiederkehrer geben kaum Erfahrung, aber Beute (E 19, E 21). · Stand: gebaut
 - [x] **1.4** M · Neue Monsterwerte für Kapitel 1 nach dem BRS auf Rechenmodell D (E 73–75, NW 7). · Stand: abgenommen (720, Chef 09.11., 14:49)
 
 **Stufe 2 · Kapitel 1 durchspielbar** (Prüfung: Zufallsspieler spielt Kapitel 1 durch; Kollision 0; Kapitelsimulation: jede Herkunft schafft die Bosse; der Chef spielt einmal grob durch)
 - [ ] **2.1** T · Kollision und Sprungtest 0 in jedem Ort; kein Schweben nach Start und Kartenwechsel (24); Tippen trifft, was gezeichnet ist.
 - [ ] **2.2** T · Kerntests der Regeln des BRS als GDScript-Tests grün; Zufallsspieler spielt Kapitel 1 im neuen Spiel durch (26). · Stand: in Arbeit
-- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. Umzug BRS (870): Held, Kampf, Beute mit Build 277 auf `main`, Laden (870.7) und Kotlin-Ausstieg (870.9) mit Build 280 (12.11.); Behebungen der Kampf-Funde aus t280 in Build 281. · Stand: in Arbeit
+- [ ] **2.3** M · MARS rund auf den Regeln des BRS (`DESIGN-BRS.md` 7, Rechenmodell D; nur MARS, `klassisch.gd` entfällt, 870a 2 ersetzt 212 A): kein W20, Trefferchance und Proben als Prozent (870a 5), jeder Angriff sichtbar (249), Ansage harter Schläge, Pechsträhne als Prozent; Zahlen 444. Umzug BRS (870): neues Spiel bis zur Höhle nur mit BRS in Build 291 bestanden (870.20). Haken, wenn der Wächter (`regelcheck.py`) im Godot-Spiel keinen alten Namen mehr findet (16.11.: 30) und der Hinweis „SRD 5.1“ heraus ist (870, Schritt 9). · Stand: in Arbeit
 - [ ] **2.4** M · Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`); Schwierigkeitsgrade (39).
 - [ ] **2.5** M · Ausgleich gemessen, nicht geschätzt: Simulation „Zeit bis Stufe“ und Kapitelsimulation auf den Regeln des BRS (444); jede Herkunft und der Wanderer schaffen die Bosse in vergleichbarem Maß; Zielwert mit dem Chef festlegen (38).
 - [ ] **2.6** G · Lehrmeister spricht an, sobald zwei Kernfertigkeiten eines Pfads Geselle sind; Anwärter möglich (E 63, E 79; Takt NW 5); Bewährungsprobe zum Gesellen siehe 3.1.
@@ -90,18 +90,18 @@ Schätzung = offene, nicht ruhende, nicht gebaute Vorgänge × Median der Kosten
   - [x] Wolf (gekauft) · [x] Riesenratte (gekauft) · [x] Goblin · [x] Kobold · [x] Goblin-Schamane · [x] Goblin-Bogenschütze (alle im Build 257)
   - [ ] Riesenfledermaus: nur Kapsel, Modell in 510
   - [x] Wildschwein · [x] Riesenhundertfüßer · [x] Riesenspinne · [x] Riesenegel (für Stirge) · [x] Säureschnecke (für Ockergallerte): Haken 720 (Chef 09.11., 14:49, im Probekampf gesehen); auf der Karte nachts und in der Höhle noch nicht prüfbar (539, 492)
-  - [ ] Skelett · [ ] Zombie · [ ] Ghul: fehlen (506)
-  - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [ ] Krogg (bugbear) · [ ] Grak (hobgoblin_captain): mit der Blutzahnhöhle (492)
+  - [x] Skelett · [x] Zombie · [x] Ghul (506, t275): Haken 1375 (Chef 16.11., 18:32)
+  - [ ] **Bosse:** [ ] Grimmzahn neu auf dem Kaufwolf (533; heute altes Modell, Kampf und Leibwache gehen) · [x] Krogg (bugbear) · [x] Grak (hobgoblin_captain) (492, t282): Haken 1375 (Chef 16.11., 18:32)
 - [x] **2.14** W · **Alle Orte von Kapitel 1 begehbar** (Chef 05.11., 08:2x). Haken = im Build begehbar wie alt, vom Chef gesehen; „Ort fertig“ (4.3) kommt danach. Stand: abgenommen (Höhle t282, Chef 13.11., 14:51):
   - [x] Bornim (Dorf) · [x] Flüsterwald · [x] Tiefer Flüsterwald (491, „passt fürs Erste“; Schild am Eingang und Morwens Hütte offen)
   - [x] Zum Schlafenden Greif (Schänke) · [x] Thessas Kramladen · [x] Haus des Ältesten · [x] Tempel des Morgenlichts: Haken 720 (Chef 09.11., 14:49)
   - [x] **Blutzahnhöhle:** in Build 282 in Fassung B mit Nebel (492, 505); Test t282 Höhle bestanden, 282.19–.21 (Chef 13.11., 14:51, Archiv); auf `main` mit PR #201
 - [ ] **2.15** W · **Hauptquest von Kapitel 1 einmal durchgespielt**, Station für Station (Testmenü „Stationen“, 555; Chef 05.11., 08:2x). Haken = der Chef hat die Station im Build gespielt. Stand 05.11.:
   - [x] 1 Garrick (Schlagbaum, t257 251.7) · [x] 2 Morwen (t257 251.2) · [x] 3 Grimmzahn (Kampf, t257 252.7; Blende, Tod offen)
-  - [ ] 4 Höhle · [ ] 5 Krogg · [ ] 6 Grak · [ ] 7 Lyra: warten auf die Höhle (492)
+  - [x] 4 Höhle · [x] 5 Krogg · [x] 6 Grak · [x] 7 Lyra (492, t282): Haken 1375 (Chef 16.11., 18:32)
   - [ ] 8 Kapitelende (Aldric, Amulett, Brief)
 - [ ] **2.16** A · **Alle Leute von Kapitel 1 mit eigenem Gesicht** (475; Chef 05.11., 08:2x). Haken = Gesicht vom Chef abgenommen, keine zwei gleich, Gesicht frei. Stand 05.11.: keiner abgenommen (Lauf 1 nein, 04.11., 20:47)
-  - [ ] Aldric · [ ] Borin · [ ] Bram · [ ] Garrick · [ ] Gwenna · [ ] Jorin · [ ] Liska · [ ] Morwen · [ ] Osric · [ ] Pim · [ ] Rowena · [ ] Thessa · [ ] Lyra (mit 492)
+  - [x] Aldric · [x] Borin · [x] Bram · [x] Garrick · [x] Gwenna · [x] Jorin · [x] Liska · [x] Morwen · [x] Osric · [x] Pim · [x] Rowena · [x] Thessa (475, t275): Haken 1375 (Chef 16.11., 18:32) · [ ] Lyra (mit 492)
 - [ ] **2.17** M · **Alle Zauber und Fähigkeiten bis Stufe 6 im Kampf zu sehen** (Chef 05.11., 08:2x). Haken = im Kampf gewirkt und vom Chef gesehen. Seit dem Umzug BRS (870a 3 A, Chef 10.11., 15:08) hängen Kampfhandlungen an Fertigkeiten statt an Klassen; Extra-Angriff, Doppelzug, Zweiwaffenkampf entfallen. Vollständige Liste und Zahlen: Jerry mit 444 (870.5), Namen Homer (870.14); bis dahin:
   - Für alle: [ ] Kraft schöpfen (einmal je Kampf)
   - Ab Geselle je Fertigkeit: [ ] Einhänder: Finte · [ ] Dolche: Stich aus dem Hinterhalt · [ ] Zweihänder: Wuchtschlag · [ ] Schild: Vorform von Decken · [ ] Bogen: Vorform von Zielschuss

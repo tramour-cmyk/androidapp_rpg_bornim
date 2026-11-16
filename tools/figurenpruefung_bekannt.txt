@@ -1,0 +1,13 @@
+# Figurenprüfung (1385): heute bekannte Befunde, machen den Bau nicht rot (Sperrklinke, 649b A).
+# Nie von Hand ergänzen; behoben -> python3 tools/figurenpruefung.py --stand
+absichten: boar ohne eigene Absichten (nimmt „_sonst“)
+absichten: bugbear ohne eigene Absichten (nimmt „_sonst“)
+absichten: giant_centipede ohne eigene Absichten (nimmt „_sonst“)
+absichten: kobold ohne eigene Absichten (nimmt „_sonst“)
+absichten: ochre_jelly ohne eigene Absichten (nimmt „_sonst“)
+absichten: skeleton ohne eigene Absichten (nimmt „_sonst“)
+absichten: stirge ohne eigene Absichten (nimmt „_sonst“)
+name: ghoul: Art „Ghul“, Anzeigename „Grabhund“
+name: ochre_jelly: Art „Ockerschleim“, Anzeigename „Säureschnecke“
+name: stirge: Art „Blutflügler“, Anzeigename „Riesenegel“
+name: zombie: Art „Zombie“, Anzeigename „Wiedergänger“

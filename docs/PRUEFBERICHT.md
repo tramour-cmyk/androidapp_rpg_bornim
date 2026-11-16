@@ -41,6 +41,115 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 284 · 1499 Laufnachweis für Skripte (Spike `e49569691`; 16.11., 23:1x)
+
+- **1499 greift:** t293 gegen `claude/build-293` jetzt 5 von 5 (mit `typen.py` Zeile 617, `kauf_cache_probe.sh` Zeile 643), t292 unverändert 6 von 6. Gegenprobe (eigener Bauablauf): `kauf_cache_probe.sh || true` → NEIN „`|| true`“, `typen.py` mit `pipefail` → trägt, fehlendes Skript → „steht nicht im Bauablauf“, Exit 1.
+
+## Lauf 283 · 1500 Stand „Bautest Diogenes“ (Perikles `7453cda13`; 16.11., 23:1x)
+
+- **1500 greift:** `build_abschluss` nachgestellt (Arbeitskopie vor `3f81a03b5`, Prüfliste t292 mit Ergebnis, neues `vorgang.py`, `--probe`): 1305, 1333, 1366, 643, 1383 → „zu testen (Bautest Diogenes)“ statt „ohne Rückmeldung“; `bautest` leert „wartet auf Diogenes“ (an 1292, 1323, 1355 gesehen). Grenze: ein Punkt ganz ohne offene Zeile fiele durch `all()` über leer auch hierher; davor fangen ✓/✗ ab.
+- **Bautest:** Lauf 524 (Build 293): `handlungen_870` „1292 A: nach dem zweiten Wundsegen gesperrt“ ok, HANDLUNGEN870 gut → **1292 erledigt**; `pim_verband_842` PIM842 gut → **1323 erledigt**. Lauf 514 (Build 291, grün): `wende_4168` trägt (Zeile 772) → **1355 erledigt**.
+
+## Lauf 282 · 1498 „ohne dich“-Zeilen von 292/293 (16.11., 22:4x)
+
+- **Bautest bestätigt:** Lauf 517 (Build 292): `handlungen_870` Exit 0 → **1333 erledigt**; `kerbe_930` „KERBE930 gut: 64 gut, 0 falsch“ → **1366 erledigt**; Laufnachweis 6 von 6 tragen; Lauf rot nur durch 918 Zeile 19 und 45 (1408, 1409). Lauf 524 (Build 293): „KAUFCACHE854 gut“, Zeile 643 mit `pipefail`, Skript endet mit `exit $fehler` → **1409 erledigt**.
+- **1305:** `reihe_1305` in Lauf 524 rot, fährt in Build 294 als 294.4 (1453) → Feld Build 294.
+- **D282.1 → 1499 (Jerry):** `laufnachweis.py` übersieht Namen mit Endung (`kauf_cache_probe.sh`, `typen.py`), t293 3 statt 5 erkannt; 1409 von Hand nachgewiesen.
+- **→ 1500 (Perikles, M?):** „zu testen, ohne Rückmeldung t<n>“ bei „ohne dich“-Zeilen klingt nach Chef (startbar.py 742).
+
+## Lauf 281 · 1485 APK-Dateiname (Spike `611030249`; 16.11., 22:0x)
+
+- **1485 greift auf dem Zweig:** Lauf 536 (`claude/spike-1485-apkname`, grün 20:41) lädt `bornim-0.348.536-spike-1485-apkname.apk` ins Artefakt `bornim-godot-apk`; Version = `run_number` wie in `godot.yml`; auf `claude/build-<n>` ergibt dieselbe Zeile `bornim-0.348.<Lauf>-build-<n>.apk`. Keine weitere Stelle liest `bornim-godot.apk` aus dem Artefakt (nur `export_presets.cfg` und der Export davor).
+- **Auf `main` seit 21:47** als Cherry-pick `82efd967e` (meine Prüfung suchte nur `611030249`; Lücke 1311 zurückgenommen, Spike 22:09). Noch kein Lauf eines `claude/build-<n>` ab diesem Stand → `greift 1485` am ersten.
+
+## Lauf 280 · 1481, 1385 auf main (Spike `7dc9e98e8`; 16.11., 19:4x)
+
+- **1481 greift:** `figurenpruefung.py --pruefen` auf `main` 14 bekannt, 0 neu (Exit 0); Schritt „Daten pruefen“ in `godot.yml` und `godot-kampf.yml`, Commit-Haken da; angezeigte Namen auf `main` unverändert (nur Spiegelfelder in „kennungen“).
+- **1385 greift** (Unterbau, Werkzeug); Rest: Namen (`ac454c939`, Spielcode) als **D280.1 → 1482** (Spike, gebaut) in den Sammelbuild; Build 2 ist 649.2 (Jerry).
+- **D280.2 → 1483 (Spike):** 1445 hat dieselbe Lücke: Spielcode `010179304` nur auf `claude/spike-1445-anmerkung`, in keinem Build; als Bereich B nie Sammelbuild-fällig (`startbar.liegt_ohne_vorlage` schließt B aus), Weiter-Haken schickt mich trotzdem dorthin. Folgevorgang im Bereich E Oberfläche, gebaut; 1445 greift (Werkzeugteil seit 1476 auf `main`).
+
+## Lauf 279 · 1385 Build 1 Figurenprüfung (Spike `50121c3d3`, `ac454c939`; 16.11., 19:4x)
+
+- **1385 greift auf dem Zweig:** `figurenpruefung.py --pruefen` 11 bekannt, 0 neu (Exit 0); Gegenproben rot wie verlangt: Kopf der Fledermaus in `figur.gd` geändert → 1 neu, Exit 1; `wolf` aus `kampfklang.json` „monster_fx“ entfernt → 1 neu, Exit 1. `gegenstaende.py --daten` 96, 0 Fehler. Kerntests 182 gut (201 s). Namen headless aus `Brs.name` gleich `[1473.namen]` (Riesenegel/Giant Leech, Säureschnecke/Acid Slug, Wiedergänger/Revenant, Grabhund/Grave Hound, „Grimmzahn, der Leitwolf“/„Grimfang, the Pack Leader“). Alte Namen nur noch als Zeilen der Monsterwerte und `gegenstaende.json` „wo“ (nicht angezeigt); bewusst zu Build 2 (Absatz „Zu 649.2, von Spike“). Regelwerteprüfung im Bau nur als Warnung (Seite liegt auf `main`).
+- **D279.1 → 1481 (Spike):** Werkzeugteil nur auf `claude/spike-1385-pruefung`; nach 1311 gehört er sofort auf `main`, sonst prüft kein Teamzweig ab `main` bis zum getesteten Sammelbuild (649b: „fängt ab sofort jede neue Abweichung“). Probe: Werkzeug gegen den `main`-Stand von `werte.json`, `aufruf.gd`, `testmodus.gd` = 75 Befunde, 66 neu (fehlende Spiegelfelder) → mit dem Werkzeug gehören die Spiegelfelder in `werte.json` „kennungen“ (unsichtbar) und `--stand` am Stand von `main`; Namen und `NAMEN_494` mit dem Sammelbuild.
+- Rest ohne Vorgang: die Namensprüfung im Code greift nur, wenn `m.de` und `m.en` beide als Literal stehen; ein einzelner fester Name (`m.de = "Grimmzahn"`) bleibt grün (Gegenprobe Exit 0). Fällt mit Build 2 weg.
+
+## Lauf 278 · 1477 Build-Zweige mit nur Reverts (Perikles `bb0543ca6`; 16.11., 19:05)
+
+- **1477 greift:** `getestet_nicht_auf_main()` jetzt leer; `_inhalt_auf_main` für build-274 und 286–292 wahr, für build-293 (13 eigene Commits, getestet 17:52) falsch, also wird ein echter liegender Build weiter gezählt. `startbar_zusammen_test.py` gut. Rest ohne Vorgang: ein Build-Zweig, der absichtlich einen Commit von `main` zurücknimmt (nur Revert, nicht auf `main`), gälte als zusammengeführt; bisher kein Fall.
+
+## Lauf 277 · 1445 Anmerkung bei Passt (Spike `010179304`; 16.11., 18:3x)
+
+- **1445 greift noch nicht:** Spielcode (`pruefliste.gd`, Test `pruefliste_1020.gd`) nur auf `claude/spike-1445-anmerkung`, kein Build; greift erst, wenn der Chef in einer Prüfliste eine ✓-Anmerkung gibt und sie als Absatz beim Besitzer landet.
+- **D277.1 → 1476 (Spike):** der Werkzeugteil (`tools/vorgang.py`, ✓-Anmerkung als Absatz) liegt im selben Commit nur auf dem Zweig; nach 1311 gehört er sofort auf `main`, sonst verliert `vorgang.py build` die erste ✓-Anmerkung aus dem Sammelbuild.
+
+## Lauf 276 · 790 Kosten nachher (Woche 09.11., 17:07Z bis 16.11., 17:05Z; 16.11., 18:1x)
+
+667 abgeschlossene Sitzungen (3 laufende nicht gezählt), 658 mit Kosten (9 ohne `usage`), zusammen 5.549 $; Rechnung wie Lauf 113, Werte aus `get_session` je Sitzung. Rolle = erstes Wort des Titels, Tuffy bei Jerry; Spike eigene Zeile (in Lauf 113 keine). Modelle: 615 opus, 36 sonnet, 7 andere.
+
+| Rolle | Sitzungen | Kosten $ | Median je Sitzung $ | je Aufruf $ | Median Länge Tsd. | größte Tsd. | $ je 1000 Ausgabe | Neuanlegen % |
+|---|---|---|---|---|---|---|---|---|
+| Tom | 95 | 1216 | 9,71 | 0,068 | 302 | 742 | 0,164 | 13 |
+| Jerry | 140 | 1668 | 9,63 | 0,068 | 306 | 678 | 0,154 | 13 |
+| Spike | 66 | 448 | 5,66 | 0,056 | 245 | 503 | 0,138 | 18 |
+| Sokrates | 112 | 952 | 7,07 | 0,059 | 262 | 484 | 0,134 | 18 |
+| Perikles | 83 | 458 | 4,53 | 0,060 | 222 | 493 | 0,131 | 18 |
+| Ford | 35 | 344 | 7,38 | 0,035 | 404 | 889 | 0,120 | 24 |
+| Diogenes | 81 | 256 | 2,06 | 0,053 | 160 | 392 | 0,123 | 25 |
+| Homer | 45 | 208 | 3,83 | 0,062 | 177 | 336 | 0,106 | 29 |
+| alle | 658 | 5549 | 6,37 | 0,060 | 252 | 889 | 0,142 | 16 |
+
+Gegen Lauf 113 (alle): Sitzungen 212 → 658, Kosten 3.083 → 5.549 $, Median je Sitzung 13,41 → 6,37 $, je Aufruf 0,074 → 0,060 $, Median Länge 391 → 252 Tsd., $ je 1000 Ausgabe 0,144 → 0,142, Neuanlegen 18 → 16 %. Eine Sitzung „Sonstige“ (0,02 $) nicht in der Tabelle. Nicht bewertet (Perikles).
+
+## Lauf 275 · 1427 an der ersten echten Prüfliste (16.11., 18:06)
+
+- **1427 greift:** erste neue Prüfliste nach dem Bau, t293 (Jerry `f5b1a47f6`, 15:34; im Archiv seit `0fb38b49f`): neun Zeilen, keine mit Vergleich aus dem Gedächtnis („wie in Build n“, „als vorher“, „wie gewohnt“); Vergleiche nur im Film (293.9, Fehlbiss im selben Film). „wie 293.6“ in 293.7 ist ein Ortsverweis. Nicht geprüft: ob die Commit-Prüfung bei t293 lief (Liste hätte ohnehin nichts zum Anhalten).
+
+## Lauf 274 · 1446 Lücken der Vergleichsprüfung (Perikles `5d641d279`, `d03601a56`; 16.11., 14:44)
+
+- **1446 greift:** `art_weg_test.py` gut (14 von 14). Meine fünf Proben aus Lauf 273 jetzt alle mit Fund („wie in 290“, „als zuletzt“, „wie gewohnt“, „in 2 s da; nicht dunkler als in Build 290“), Meterangabe („wie in 120 m“) frei. Rest ohne Vorgang: Messzahl im selben Satzteil mit Komma gibt noch frei („in 2 s da, nicht dunkler als in Build 290“). Seit `d03601a56` jede Art außer Bild/Film geprüft (Gespräch mit Fund). Erster echter Fund: Entwurf t293 Zeile 293.6 („so hell wie in Build 292“), an Jerry 14:45. 1427 wartet auf die erste neue Prüfliste.
+
+## Lauf 273 · 1427 Vergleich aus dem Gedächtnis (Perikles `982288fa2`; 16.11., 14:41)
+
+- **1427 wirkt, mit Lücke:** `art_weg_test.py` gut (9 von 9), Regel in `LISTE-CHECK-BUILD-TEST.md` 10 (`a30754118`). Die echte Zeile t291.3 als neue Liste hält an („als in Build 290“). Nicht gefunden: „wie in 290“ ohne „Build“ (stand so im Falsch-Feld derselben Zeile), „als zuletzt“, „wie gewohnt“; eine Zahl mit Einheit irgendwo in der Zeile gibt jeden Vergleich frei („in 2 s da; nicht dunkler als in Build 290“ ohne Fund). Nur Art Handy geprüft, Regel gilt für jede Zeile. **D273.1 → 1446** (Perikles); 1427 wartet auf 1446, danach greift es an der ersten neuen Prüfliste ohne Fund.
+
+## Lauf 272 · 1440 Blocknummern im Überblick (Perikles `358715434`; 16.11., 14:33)
+
+- **1440 greift:** `ueberblick_test.py` gut (Nummern eindeutig, im Überblick). Chefsache-README nach dem Lauf „Chefsache Übersicht“ 14:32: Blöcke 1–8 fett nummeriert, „Übriges“ 9 fest, die 20 Vorgänge tragen die Blocknummer in der Spalte Block. Nummer fest im Code (`num`), nicht aus der Reihenfolge.
+
+## Lauf 271 · 1424 Zusammenführen getesteter Builds (Perikles `6eb93c858`; 16.11., 14:31)
+
+- **1424 greift:** `startbar_zusammen_test.py` gut. Im Betrieb: Ford-Lauf 14:28 (`3ad66a0b1`) legte 1442 bei Sokrates an (Builds 274, 286–289 getestet, nicht auf `main`, 17–144 h), Sokrates-Sitzung „1424: PR 210 zusammenführen“ läuft seit 14:29. Danach `zusammenfuehren_faellig()` leer, solange 1442 offen ist (keine Doppelzeile). Wirkung in der Wochenzählung 23.11.: kein getesteter Build über 24 h neben `main`, Rotquote unter 40 %.
+
+## Lauf 269 · 1098.1 Ford über den Starter (16.11., 14:30)
+
+- **1098.1 greift:** Startsperre „Start Ford (Starter)“ gepusht 14:18:00 (`2094beba7`), neuer Ford `…77ipw2pXLtZ7APj4LE` angelegt 14:18:46, Eltern = Starter `…78K3Ut6YQSgPLqZEvX` (dessen Eltern = Handstart-Ford, also Tiefe 1 → 2), Titel „Ford – Betriebsleiter (16.11., 14:19)“, Repo `main`; neue Uhr `trig_01F9cw92P51YgZM8o1Pwhb3v` an, alte `trig_01PJTr2gPNqwT35yGNqDM5XC` aus, alter Ford archiviert 14:21, Kennung oben eingetragen. Seine Starts (Perikles, Sokrates 14:28) hängen an ihm, Tiefe 3. Lücke ohne Befund: `create_trigger` lehnte die Auto-Prüfung zuerst ab, die Uhr kam erst nach Freigabe des Chefs (Protokoll 14:24).
+
+## Lauf 270 · 1407 im Betrieb (16.11., 14:30)
+
+- **1407 wirkt, „greift“ gesperrt:** Besetzung 14:27 trägt bei Jerry den Zweig `claude/build-292` (erstmals seit 09.11.). `vorgang.py greift` lehnt ab, weil 1407 im Bereich „E Technik“ steht (Werkzeug `lauf.py`): Perikles setzt Bereich B, dann `greift 1407 270`. 1435 damit überholt (Ford). 1396 weiter am ersten Tuffy-Start neben einer Jerry-Sitzung auf einem Zweig.
+
+## Lauf 268 · 1407 Zweig in der Besetzung (Perikles `969eeb20b`; 16.11., 14:14)
+
+- **Nicht prüfbar, D268.1 → 1435 (Ford, M?):** `lauf_zweige_test.py` grün (3 von 3). Im Betrieb nichts zu sehen: `ARBEIT-BESETZUNG.md` zuletzt 08:11 geschrieben, vor dem Werkzeug (11:14); Fords Läufe 09:16 bis 14:04 ohne `--besetzung`. 1407 wartet auf 1435.
+
+## Lauf 267 · 481.2 Deckel des Abzugs 50 % (Jerry `90aeed178`, Build 292, Lauf 517; 16.11., 14:13)
+
+- **481.2 bestanden, bautest 517:** Zweig nicht als Vorfahr in `claude/build-292`, aber alle 15 neuen Zeilen von `90aeed178` stehen dort. Am Rechner an `e39b3bece` (nach `--import`, Daten wie Schritt „Karten und Texte“): BRS473 gut, BRS478 gut, Zeile „Deckel des Abzugs 50 %: Treffer 6, Abzug 5,5 -> 3; Treffer 20 -> 14“. Lauf 517 selbst rot nur aus `typen.py` (1408) und `kauf_cache_probe` (1409). Nachtrag zu Lauf 266: ohne `--import` liefert der fremde `.godot`-Zwischenspeicher Parse-Fehler, der eine Typenfehler dort ist damit kein Befund.
+
+## Lauf 266 · 1422 Bautest 1268.3 (Lauf 506, Build 290; 16.11., 14:11)
+
+- **1268.3 bestanden, bautest 506:** im Protokoll ist die Zeile „TYPEN1268“ abgeschnitten (Protokoll beginnt 21:37:30), aber `typen.py` endet mit 1 bei jedem Fehler und steht im Schritt „Skripte pruefen“ (Bash mit `-eo pipefail`) vor den Nebenher-Tests; die liefen alle zu Ende, rot nur `wolf_mess_438` (1321, bekannt). Am Rechner an `3d9159913` mit dem `.godot`-Zwischenspeicher von `main` kam 1 Fehler (`kampf/kampfort.gd` 111 statt 110); vermutlich der fremde Zwischenspeicher, nicht nachgestellt. Fällt es am nächsten Lauf von `main` rot aus: Befund an Spike.
+
+## Lauf 265 · 1217 Testbitte unterwegs (Perikles `ee39a624b`; 16.11., 14:09)
+
+- **1217 greift:** `pruefliste.py` auf `ansehen/t292-sammelbuild.md`: 10 Zeilen, JSON nur die 5 mit Art „Handy“ (292.1–292.5), 5 „ohne dich“ gezählt, Reiter nicht leer. `vorgang.py build 291` (Sokrates `02f25f30c`): nur Zeilen des Builds geändert (12), Rückläufer 601.1 startbar mit „Fund t291.8“ und Absatz „Zu 601.1, von Chef (Fund t291.8 …)“ im Wortlaut des Chefs; zwei ohne Rückmeldung bleiben „zu testen“. Einen echten 👎 auf einen Prüfpunkt mit Text der Spalte „Falsch“ gab es seit 285 nicht (t291.8 kam als Wort über Sokrates); der Weg ist mit 1220 (Lauf 225) schon geprüft.
+
+## Lauf 264 · 1098.1 Ford über Starter (16.11., 14:07)
+
+- **Nicht prüfbar, kein Neustart über den Starter:** Starter `…78K3Ut6YQSgPLqZEvX` (15.11., 16:11, Eltern = Handstart-Ford `…76awPjHi5batouXHgC`, idle, 75 Tsd., wartet auf „Ford-Neustart“). Protokoll ohne „Start Ford (Starter)“, Ford-Kennung oben unverändert. Ford selbst 14:05 bei 563.022 `used_tokens` (Schwelle Selbstneustart 400 Tsd.), läuft weiter.
+- **D264.1 → 1429 (Ford, M?):** Fords Kurzzeilen (eigene `list_sessions`-Ausgabe) tragen für jede Sitzung 150000 statt `used_tokens` (Starter dort 150000, echt 75.550; Ford 150000, echt 563.022); die Regel „eigene Kurzzeile über 400.000“ kann so nie greifen. Ob der Neustart-Haken (`neustart-haken.py`, Ford ab 400 Tsd.) erinnert hat, nicht nachgestellt (Hakenausgaben stehen nicht in `list_events` user/assistant). 1098.1 wartet auf 1429.
+
 ## Lauf 263 · 1410 Gegengelesen mehrfach (Perikles/Jerry `1cd81304d`; 16.11., 12:0x)
 
 - **1410 greift:** `commit-pruefung.py` liest jede Zeile „Gegengelesen“ (gleiche Regel wie die Pflichtzeile, also nie leer, wenn diese greift); hält nur an, wenn alle vom eigenen Team sind. Nachgestellt: Kopf „Tom und Jerry“ nur Tom → hält an; Tom + Sokrates → frei; „Tom“ mit Jerry → frei; „Jerry“ mit Tuffy → hält an. Im Betrieb: t292 (Tom 09:54, Sokrates 11:24) ging mit `e13ea288a` (11:57) nach `ansehen/`.
@@ -62,7 +171,7 @@ Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727
 
 ## Lauf 259 · 1391 Zeile Chef in „Je Rolle das Nächste“ (Perikles `1156442d8`; 16.11., 09:2x)
 
-- **1391 greift:** `ueberblick.py` gibt „| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 11 weitere |“ als erste Zeile der Tabelle; die Übersicht von 09:21 trägt sie noch nicht (vor dem Bau), der nächste Push schreibt sie. t290 (offen) steht hinter t291, weil t291 mehr Zeilen hält und 290 enthält.
+- **1391 greift:** `ueberblick.py` gibt „| **Chef** | t291 (Link auf `ansehen/t291-sammelbuild.md`) testen, hält 15 Zeilen; dann 11 weitere |“ als erste Zeile der Tabelle; die Übersicht von 09:21 trägt sie noch nicht (vor dem Bau), der nächste Push schreibt sie. t290 (offen) steht hinter t291, weil t291 mehr Zeilen hält und 290 enthält.
 
 ## Lauf 258 · 1369, 1371, 1382, 1364, 1148 (Perikles `7c31171c6`, `905a04bb1`; 16.11., 09:1x)
 

@@ -280,6 +280,13 @@ def srd_neu(dat):
 
 MENUEPFAD = re.compile(r"Menü\s*→|\bReiter\b|Lage herstellen")
 HANDY_LESEN = re.compile(r"(?i)\b(lesen|liest|durchblättern|Text\w*|Handbuch\w*)\b")
+# 1427 (Chef 16.11., 13:31 zu t291.3 „nicht langsamer da als in Build 290“: „Völlig sinnlose Frage. Die kann ein Mensch nicht beantworten.“):
+# Vergleich mit einem früheren Build oder „wie vorher“ an einer Handy-Zeile nur mit gemessener Zahl (0,7 s, 30 Bilder/s, 12 %)
+# 1446 (D273.1): auch „wie in 290“ ohne „Build“, „als zuletzt“, „wie gewohnt“; die Messzahl zählt nur im selben Satzteil
+VERGLEICH = re.compile(r"(?i)\b(?:als|wie)\s+(?:in\s+|im\s+|bei\s+|mit\s+)?(?:dem\s+)?(?:Build\s*|t)\d{3}\b"
+                       r"|\b(?:als|wie)\s+(?:in|im|bei|mit)\s+(?:dem\s+)?\d{3}\b(?!\s*(?:m|cm|km|Gold|EP)\b)"
+                       r"|\b(?:als|wie)\s+(?:vorher|bisher|früher|zuvor|zuletzt|sonst|gestern|gewohnt|immer|beim letzten (?:Mal|Build))\b")
+GEMESSEN = re.compile(r"\d+(?:,\d+)?\s*(?:s|ms|Sek\w*|Min\w*|fps|Bilder/s|%|Prozent)(?![\wäöü])")
 
 
 def art_weg_befunde(inhalt):
@@ -302,6 +309,12 @@ def art_weg_befunde(inhalt):
         elif art.startswith("handy"):
             m = HANDY_LESEN.search(wo)
             if m: out.append(("warn", "Zeile %s Art Handy mit „%s“: nur Lesen ist Bild oder „ohne dich“, nicht Handy (1398)" % (r[0], m.group(0))))
+        if not re.match(r"(bild|film)\b", art):  # 1446 (D273.1): Regel 10 gilt für jede Zeile; Bild/Film zeigen alt gegen neu selbst
+            ganz = re.sub(r"\[[^\]]*\]\([^)]*\)", "", " | ".join(r[sw:])) if sw >= 0 else ""
+            m = next((v for v in (VERGLEICH.search(teil) for teil in re.split(r"[;|]", ganz) if not GEMESSEN.search(teil)) if v), None)
+            if m:
+                out.append(("vergleich", "Zeile %s Art %s vergleicht aus dem Gedächtnis („%s“); kein Mensch weiß das noch: gemessene Zahl "
+                            "(Reiter „Test“ → „Gerät“) oder Bild/Film alt gegen neu (1427, LISTE-CHECK-BUILD-TEST.md 10)" % (r[0], (r[sa].split() or ["?"])[0], m.group(0))))
     weg = re.search(r"(?m)^\W*Ein Weg:?\**(.*)$", inhalt)
     if weg:
         text = re.split(r"\.\s+(?=[A-ZÄÖÜ„])", weg.group(1))[0]  # nur der Wegsatz; „Bilder und Filme (…) nur auf Telegram“ danach darf sie nennen
@@ -442,7 +455,7 @@ def main():
             genannt = {x for nrs, _, _ in vorgang.ergebnisse(n, pl).values() for x in nrs}
             # 1121 (t282, 1040.1): „zu testen, ohne Rückmeldung tN“ setzt vorgang.py build N selbst (Build „–“), das ist gebucht, nicht lose
             lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")
-                    and ("ohne Rückmeldung t%s" % n) not in d["stand"]]
+                    and ("ohne Rückmeldung t%s" % n) not in d["stand"] and ("Bautest Diogenes t%s" % n) not in d["stand"]]  # 1500
             if lose: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber %s aus der Prüfliste ohne Build %s; erst `vorgang.py build %s --mit %s`, dann `vorgang.py build %s` (774)" % (n, ", ".join(lose[:8]), n, n, ",".join(lose), n))
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
@@ -472,8 +485,8 @@ def main():
     for s, p in dat:  # 1398 (Chef 16.11., 10:01: „Wenn da steht Bild und Film, dann verstehe ich nicht ganz, warum ich das hier über Menü,
         # Held, Reiter, Ausrüstung irgendwie testen soll … Telegram schicken, Bilder, Filme, wenig in die APK packen.“)
         if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
-            for f in art_weg_befunde(git("show", ":" + p)):
-                (stop if f[0] == "stop" else warn).append("%s: %s" % (p, f[1]))
+            for f in art_weg_befunde(git("show", ":" + p)):  # 1427: Vergleich hält nur neue Listen an, Nachträge an alten warnen
+                (stop if f[0] == "stop" or (f[0] == "vergleich" and s == "A") else warn).append("%s: %s" % (p, f[1]))
     for s, p in dat:  # 1217 (Chef 13.11., 20:13 zu t284.7p: „da gibt es gar kein P … Ah, das ist in der falschen Reihenfolge“): ab Build 285
         m = re.match(r"docs/(?:chefsache/ansehen|entwurf)/t(\d+)-[^/]+\.md$", p)   # die Zeilen jeder Tabelle in Nummernfolge
         if s == "D" or not m or int(m.group(1)) < 285: continue
@@ -580,6 +593,11 @@ def main():
     if any(p in ("tools/sim444/werte.json", "docs/LISTE-REGELWERTE.md", "tools/regelwerte.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/regelwerte.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Regelwerte (969): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
+    # 1385 (649b A Build 1): Kennungstabelle gegen Code, Klänge, Absichten; hält nur bei neuen Befunden (Sperrklinke)
+    if any(s != "D" and (p in ("tools/sim444/werte.json", "godot/daten/klang/kampfklang.json", "tools/figurenpruefung.py")
+                         or (p.startswith("godot/") and p.endswith(".gd") and "/tests/" not in p)) for s, p in dat):
+        r = subprocess.run([sys.executable, "tools/figurenpruefung.py", "--pruefen"], capture_output=True, text=True)
+        if r.returncode: stop.append("Figurenprüfung (1385): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     if stop:

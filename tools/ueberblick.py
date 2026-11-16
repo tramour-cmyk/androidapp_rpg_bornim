@@ -27,19 +27,22 @@ import startbar as s
 # zu Kapitel 1 abschließen passt“: Überschrift KAPITEL1 über allen Blöcken mit "kap1"; Abgleich alt (1280, 1281) bei Welt.
 KAPITEL1 = "Kapitel 1 fertig (Godot, BRS)"
 BLOECKE = [
-    ("Umzug BRS, SRD ablösen", {"nr": ("870", "882", "1279"), "kap1": True}),
-    ("Kampf passt", {"bereich": ("E Kampf", "G Balance"), "kap1": True}),
-    ("Kleiderschrank und Modelle (Held, Leute, Monster)", {"bereich": ("E Figuren",), "kap1": True}),
+    ("Umzug BRS, SRD ablösen", {"num": 1, "nr": ("870", "882", "1279"), "kap1": True}),
+    ("Kampf passt", {"num": 2, "bereich": ("E Kampf", "G Balance"), "kap1": True}),
+    ("Kleiderschrank und Modelle (Held, Leute, Monster)", {"num": 3, "bereich": ("E Figuren",), "kap1": True}),
     # 1382 (Chef 16.11., 09:00 „Themenblock bei Pericles anlegen lassen, alles da reinpacken“): Kataloge 649, 644, 458, Unterbau Spike;
     # über die Nummer, darum vor den Bereichsblöcken gezählt (block() prüft „nr“ zuerst), angezeigt an dieser Stelle
-    ("Alles an einer Stelle: Figuren, Helden, Gegenstände", {"nr": ("649", "644", "458", "1382", "1385", "1386"), "kap1": True}),
+    ("Alles an einer Stelle: Figuren, Helden, Gegenstände", {"num": 4, "nr": ("649", "644", "458", "1382", "1385", "1386"), "kap1": True}),
     ("Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt)",
-     {"nr": ("1280", "1281"), "bereich": ("E Welt", "E Oberfläche", "E Klang", "G Stil", "G Story", "Q QS"), "kap1": True}),
-    ("Godot besser nutzen (Technik, Build, Leistung)", {"bereich": ("E Technik",), "kap1": True}),
-    ("Werkzeuge und Abläufe der Firma", {"bereich": ("B Steuerung", "B Abläufe", "B Werkzeuge", "Q QM")}),
-    ("Marktstart", {"bereich": ("M Markt", "M Veröffentlichung")}),
+     {"num": 5, "nr": ("1280", "1281"), "bereich": ("E Welt", "E Oberfläche", "E Klang", "G Stil", "G Story", "Q QS"), "kap1": True}),
+    ("Godot besser nutzen (Technik, Build, Leistung)", {"num": 6, "bereich": ("E Technik",), "kap1": True}),
+    ("Werkzeuge und Abläufe der Firma", {"num": 7, "bereich": ("B Steuerung", "B Abläufe", "B Werkzeuge", "Q QM")}),
+    ("Marktstart", {"num": 8, "bereich": ("M Markt", "M Veröffentlichung")}),
 ]
 UEBRIG = "Übriges"
+# 1440 (Chef 16.11., 14:19): jeder Block trägt eine feste Nummer („num“), damit der Chef „Block 3“ sagen kann; sie bleibt,
+# auch wenn Blöcke umgestellt werden; ein neuer Block bekommt die nächste freie Nummer, nie eine alte.
+UEBRIG_NUM = 9
 RUHT = ("ruht", "nach Meilenstein", "Idee", "Dauer", "aufgeteilt", "erledigt", None)
 JETZT_ZEIT = re.compile(r"„jetzt“ (\d\d)\.(\d\d)\.(?:,? (\d\d):(\d\d))?")
 ANZAHL = 20
@@ -57,6 +60,10 @@ def block(d):
 
 def name(k):
     return BLOECKE[k][0] if k < len(BLOECKE) else UEBRIG
+
+
+def nummer(k):
+    return BLOECKE[k][1]["num"] if k < len(BLOECKE) else UEBRIG_NUM
 
 
 def worum(titel, n=80):
@@ -87,6 +94,9 @@ def jetzt_von(d):
 
 
 def kurzstand(d, grund):
+    # 1497 (Chef 16.11., 22:24 „17 sind von Jerry, da stimmt doch was nicht“): gebaute Punkte ohne Antwort im Test hießen „startbar“
+    m = re.search(r"ohne Rückmeldung (t\d+)", d.get("stand", ""))
+    if grund is None and m: return "gebaut, %s ohne deine Antwort" % m.group(1)
     if grund is None: return {"in Arbeit": "in Arbeit"}.get(d["wort"], "startbar")
     g = re.sub(r"\s*\(.*$", "", grund)
     return g[:40]
@@ -176,8 +186,18 @@ def je_rolle():
         elif muss: was = zeile(muss[0], "Muss") + ("; dann %d weitere" % (len(muss) - 1) if len(muss) > 1 else "")
         elif kuer: was = zeile(kuer[0], "nach dem Meilenstein" if kuer[0][1] == "N" else "Kür")
         else:
-            g = collections.Counter(re.sub(r"\s*[(:;].*$|\s+\d.*$", "", z[4]) for z in s.plan(r) if z[4] and "fuer" not in z[3])
-            was = "leer, weil " + (", ".join("%d %s" % (n, w) for w, n in g.most_common(3)) or "keine offene Zeile")
+            # 1494 (Chef 16.11., 21:50 „Auf welche 5 Rückläufer wartest du denn?“): „wartet auf 1125“ kam als „wartet auf“
+            # ohne Ziel, „ruht bis 23.11.“ als „ruht bis“; Vorgangsnummern jetzt gesammelt genannt, „ruht bis“ heißt „ruht“
+            g, nrn = collections.Counter(), {}
+            for z in s.plan(r):
+                if not z[4] or "fuer" in z[3]: continue
+                m = re.match(r"wartet auf (\d[\w.]*)", z[4])
+                w = "wartet auf Vorgang" if m else re.sub(r"\s*[(:;,].*$|\s+\d.*$", "", z[4])
+                w = "ruht" if w == "ruht bis" else w
+                g[w] += 1
+                if m: nrn.setdefault(w, []).append(m.group(1))
+            was = "leer, weil " + (", ".join("%d %s" % (n, w) + (" (%s)" % ", ".join(nrn[w]) if w in nrn else "")
+                                             for w, n in g.most_common(3)) or "keine offene Zeile")
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
         for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
             if team != r: continue
@@ -198,29 +218,74 @@ def offen_filter(d):
 ARCHIV_NR = re.compile(r"(?m)^\|\s*([0-9][0-9A-Za-z.]*)\s*\|")
 
 
-def morgen():
-    """1412 (Chef 16.11., 11:52): Stand der Vorgangsliste um 6:00 Berliner Zeit aus Git. → (offen je Block, Text „Heute: …“) oder None."""
-    import zoneinfo
-    jetzt = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
-    sechs = jetzt.replace(hour=6, minute=0, second=0, microsecond=0)
-    if jetzt < sechs: sechs -= datetime.timedelta(days=1)
-    c = s._git("rev-list", "-1", "--before=" + sechs.isoformat(), "HEAD").stdout.strip()
-    if not c: return None
-    def zeigen(datei): return s._git("show", "%s:docs/%s" % (c, datei)).stdout
-    alt_text = zeigen(s.LISTE)
-    if not alt_text: return None
-    alt = s.vorgangsliste(alt_text)
+def _stand(c):
+    """Stand der Vorgangsliste an Commit c (None = jetzt) → (offen je Block, offene Nummern, alle Nummern mit Archiv) oder None."""
+    if c is None:
+        liste, archiv = s.zeilen_liste(), s.lesen("LISTE-VORGAENGE-ARCHIV.md")
+    else:
+        text = s._git("show", "%s:docs/%s" % (c, s.LISTE)).stdout
+        if not text: return None
+        liste, archiv = s.vorgangsliste(text), s._git("show", "%s:docs/LISTE-VORGAENGE-ARCHIV.md" % c).stdout
     je = {}
-    for d in alt:
+    for d in liste:
         if offen_filter(d): je[block(d)] = je.get(block(d), 0) + 1
-    alt_offen = {d["nr"] for d in alt if offen_filter(d)}
-    alt_alle = {d["nr"] for d in alt} | set(ARCHIV_NR.findall(zeigen("LISTE-VORGAENGE-ARCHIV.md")))
-    jetzt_liste = s.zeilen_liste()
-    jetzt_alle = {d["nr"] for d in jetzt_liste} | set(ARCHIV_NR.findall(s.lesen("LISTE-VORGAENGE-ARCHIV.md")))
-    jetzt_offen = {d["nr"] for d in jetzt_liste if offen_filter(d)}
-    neu = jetzt_alle - alt_alle
-    erledigt = {n for n in (alt_offen | neu) if n not in jetzt_offen and n not in s.SONDER}
-    return je, "Heute (seit 6:00): %d erledigt, %d neu. In Klammern bei „offen“: Stand 6:00." % (len(erledigt), len(neu))
+    return je, {d["nr"] for d in liste if offen_filter(d)}, {d["nr"] for d in liste} | set(ARCHIV_NR.findall(archiv))
+
+
+def _bilanz(alt, neu_st):
+    """erledigt und neu zwischen zwei Ständen, Zählweise 1412 (Archiv mit, SONDER und Ideen aus)."""
+    neu = neu_st[2] - alt[2]
+    return len({n for n in (alt[1] | neu) if n not in neu_st[1] and n not in s.SONDER}), len(neu)
+
+
+def morgen(jetzt=None):
+    """1495 (Chef 16.11., 22:12 „jetzt“, ersetzt 1412 mit 6:00): erledigt und neu auf Kalendertage bis 24 Uhr Berliner Zeit,
+    für heute (seit 0:00), gestern (Stand 0:00 gestern gegen 0:00 heute), Woche (seit Montag 0:00), Monat (seit dem 1., 0:00);
+    fehlt ein Git-Stand so weit zurück, zählt der früheste („seit <Datum>“). → (offen je Block um 0:00, Zeilen) oder None."""
+    import zoneinfo
+    tz = zoneinfo.ZoneInfo("Europe/Berlin")
+    jetzt = jetzt or datetime.datetime.now(tz)
+    null = jetzt.replace(hour=0, minute=0, second=0, microsecond=0)
+    grenzen = {"heute": null, "gestern": null - datetime.timedelta(days=1),
+               "Woche": null - datetime.timedelta(days=null.weekday()), "Monat": null.replace(day=1)}
+    def tag_von(c):
+        return s._git("-c", "log.showSignature=false", "log", "-1", "--date=format-local:%d.%m.", "--format=%cd", c).stdout.strip()
+    def lesbar(c):
+        st = _stand(c)
+        return st if st and st[1] else None   # 1496: vor 08.11. hatte die Liste kein Feld Stand, offen las sich als 0
+    def erster_lesbarer(t):
+        """frühester Stand der Vorgangsliste nach t mit lesbaren offenen Zeilen (Halbierung über die Commits der Liste)."""
+        cs = s._git("log", "--reverse", "--format=%H", "--since=" + t.isoformat(), "HEAD", "--", os.path.join(s.DOCS, s.LISTE)).stdout.split()
+        lo, hi = 0, len(cs)
+        while lo < hi:
+            m = (lo + hi) // 2
+            if lesbar(cs[m]): hi = m
+            else: lo = m + 1
+        return cs[lo] if lo < len(cs) else None
+    staende, seit = {}, {}
+    for k, t in grenzen.items():
+        c = s._git("rev-list", "-1", "--before=" + t.isoformat(), "HEAD").stdout.strip()
+        st, tag = (lesbar(c), None) if c else (None, None)
+        if st is None:
+            c = erster_lesbarer(t)
+            if not c: return None
+            st, tag = lesbar(c), tag_von(c)
+        staende[k], seit[k] = st, tag
+    jetzt_st = _stand(None)
+    zahlen = {"heute": _bilanz(staende["heute"], jetzt_st), "gestern": _bilanz(staende["gestern"], staende["heute"]),
+              "Woche": _bilanz(staende["Woche"], jetzt_st), "Monat": _bilanz(staende["Monat"], jetzt_st)}
+    kopf = ["%s (seit %s)" % (k, seit[k]) if seit[k] else k for k in grenzen]
+    zeilen = ["**Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)", "",
+              "| | " + " | ".join(kopf) + " |", "|---|" + "---|" * len(kopf),
+              "| erledigt | " + " | ".join(str(zahlen[k][0]) for k in grenzen) + " |",
+              "| neu | " + " | ".join(str(zahlen[k][1]) for k in grenzen) + " |",
+              # 1496 (Chef 16.11., 22:17 „die beiden Werte voneinander abziehen … netto, wo man steht“): plus = weniger offen
+              "| **netto** (erledigt − neu) | " + " | ".join(("**%+d**" % (zahlen[k][0] - zahlen[k][1])).replace("-", "−") for k in grenzen) + " |"]
+    # 1496 (Chef 16.11., 22:20 „damit das sich erklärt“): warum ein Zeitraum später beginnt
+    for k in grenzen:
+        if seit[k]:
+            zeilen += ["", "%s erst ab %s: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar." % (k, seit[k])]
+    return staende["heute"][0], "\n".join(zeilen)
 
 
 def md():
@@ -230,14 +295,15 @@ def md():
                    os.path.join(s.DOCS, s.LISTE)).stdout.strip() or s.JETZT.strftime("%d.%m., %H:%M")
     aus = ["## Überblick", "",
            "Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom %s, neu bei jeder Änderung. "
-           "Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer." % stand, "",
+           "Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. "
+           "Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert." % stand, "",
            "**Themenblöcke**", "", "| Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |", "|---|---|---|---|---|---|---|"]
     erst = {}
     for key, d, grund in kommt:
         erst.setdefault(block(d), d)
     kopf = False
     try: mo = morgen()
-    except Exception: mo = None   # 1412: ohne Git-Verlauf keine Klammer
+    except Exception: mo = None   # 1412, 1495: ohne Git-Verlauf keine Klammer
     for k in list(range(len(BLOECKE))) + [len(BLOECKE)]:
         je = [d for d in zs if block(d) == k]
         if not je: continue
@@ -246,7 +312,7 @@ def md():
             aus.append("| **%s** | | | | | | |" % KAPITEL1); kopf = True
         n = erst.get(k)
         aus.append("| %s | %s | %d | %d | %d | %d | %s |" % (
-            ("↳ " if kap1 else "") + name(k), ("%d (%d)" % (len(je), mo[0].get(k, 0))) if mo else str(len(je)), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
+            ("↳ " if kap1 else "") + "**%d** %s" % (nummer(k), name(k)), ("%d (%d)" % (len(je), mo[0].get(k, 0))) if mo else str(len(je)), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
             sum(wartet_auf_test(d) for d in je), sum(d["wort"] in RUHT for d in je),
             ("%s (%s) %s" % (n["nr"], n["besitzer"], worum(n["titel"], 50))) if n else "–"))
     if mo: aus += ["", mo[1]]
@@ -254,7 +320,7 @@ def md():
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):
         aus.append("| %d | %s | %s | %s | %s | %s | %s |" % (i, d["nr"], d["besitzer"], worum(d["titel"]).replace("|", "/"),
-                                                         d["kl"], name(block(d)).split(" (")[0].split(":")[0], kurzstand(d, grund)))
+                                                         d["kl"], "%d %s" % (nummer(block(d)), name(block(d)).split(" (")[0].split(":")[0]), kurzstand(d, grund)))
     aus += ["", "Danach %d weitere offen. Bei dir zum Testen (vorgelegt): %d. Gebaut, fährt mit dem nächsten Build: %d. "
             "Werkzeug gebaut, Prüfung Diogenes: %d. Ruhend oder nach dem Meilenstein: %d." % (
         max(0, len(kommt) - ANZAHL), len(test), len(gebaut), len(pruef), sum(d["wort"] in RUHT for d in zs))]

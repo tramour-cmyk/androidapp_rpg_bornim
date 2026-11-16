@@ -23,4 +23,18 @@ u.s.zeilen_liste = lambda: liste
 _, kommt2, *_ = u.rechnen()
 u.s.zeilen_liste = alt
 soll("vorgezogen (%s) steht auf Rang 1" % (ziel or {}).get("nr"), kommt2[0][1]["nr"] if ziel else None, ziel["nr"] if ziel else None)
+# 1440: Blocknummern fest und eindeutig, Übriges nicht doppelt
+nums = [r["num"] for _, r in u.BLOECKE] + [u.UEBRIG_NUM]
+soll("Blocknummern eindeutig", len(nums) == len(set(nums)), True)
+soll("Blocknummer im Überblick", "**%d** %s" % (u.nummer(0), u.name(0)) in u.md(), True)
+
+# 1495: Kalendertage bis 24 Uhr; gestern + heute = seit 0:00 gestern (neu genau, Gegenrechnung Sokrates)
+import datetime, zoneinfo, startbar as s
+n0 = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin")).replace(hour=0, minute=0, second=0, microsecond=0)
+cm = lambda t: s._git("rev-list", "-1", "--before=" + t.isoformat(), "HEAD").stdout.strip() or None
+g, h, x = u._stand(cm(n0 - datetime.timedelta(days=1))), u._stand(cm(n0)), u._stand(None)
+if g and h:
+    soll("neu: gestern + heute = seit gestern", u._bilanz(g, h)[1] + u._bilanz(h, x)[1], u._bilanz(g, x)[1])
+mo = u.morgen()
+soll("Zeile heute, gestern, Woche, Monat", mo is not None and all(k in mo[1] for k in ("heute", "gestern", "Woche", "Monat")), True)
 sys.exit(1 if fehl else 0)
