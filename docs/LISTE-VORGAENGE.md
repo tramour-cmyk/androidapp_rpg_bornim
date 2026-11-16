@@ -230,7 +230,7 @@
 | 1405 | Systemlösung? Parade: 3 frühere Vorgänge (219, 662, 406.2), neu 1404; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 1411 | Von Chef (1292 A, 16.11., 11:49): Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberkosten; Streuung bei Heilung (Wundsegen, Kraft schöpfen fest, Tränke fest, Güte bei Tränken nur Idee 976); Vorlage nach 1403 | Sokrates | M | startbar | – | – | – | G Balance | – |
 | 649b | Rückfrage Bauplan „Alles an einer Stelle“: jetzt Prüfung und Namen, Umzug aus dem Kampfcode nach dem Zusammenführen der Kampfzweige (aus 649, 1382) | Sokrates | M | wartet | Chef 649b | – | – | B Werkzeuge | – |
-| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1104,10 $ |
+| Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1111,04 $ |
 | 1444 | Von Perikles (1441): Stundenuhr dauerhaft beim Ford-Starter (LISTE-BETRIEB.md Selbstneustart, Ford-Starter); angehalten bis Probe 1441a | Ford | M | startbar | 1441 | – | – | B Abläufe | – |
 | 1469 | Von Diogenes (1463, Startwarnung 108): chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11.; verkleinern oder löschen, wenn 415 entschieden | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
