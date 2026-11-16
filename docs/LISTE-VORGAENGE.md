@@ -81,6 +81,7 @@
 | 431h | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, etwa 60–100 $ (Chef 15.11., 17:13) | Tom | M | wartet, Vorlage beim Chef | Chef 431h | – | – | E Figuren | – |
 | 1355 | Von Spike (Lauf 509): wende_4168 zufällig rot, „Knoten folgt der Kurve (hoechstens 1.21 Grad daneben)“; Lauf 507 am selben Spielstand grün (nur atem_4531 verschieden) | Tom | K | gebaut, Geprüft an: 6e9e4aff3 | – | claude/tom-1355-wende | – | Q QS | 1,95 $ |
 | 1357 | Von Werkzeug (1334): Wiederholrot lage_785_8: 2× rot in 48 h (Läufe 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1359 | Von Sokrates (1186): Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.2, 348.1, 348.13b (Belege Zu 1186 bei Tom); Rest dort je ein Satz | Tom | M | startbar | – | – | – | B Abläufe | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | t290 | – | – | E Technik | 15,96 $ |
 | 1321 | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m nach vorn in einen Wolf, der daneben beißt (wolf_mess_438 Kleriker); Weg wählen, Film an den Chef, dann bauen | Jerry | M | gebaut, Geprüft an: 4ce68a119 | – | claude/jerry-1321-ausweichen | – | E Kampf | 9,98 $ |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, Sprung passt (Chef 20:33), Blut am Helden offen | – | claude/jerry-760-1000-sprung-axt | – | E Kampf | 28,71 $ |
@@ -203,7 +204,7 @@
 | 1129.4 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen (Zu 1129.4) | Diogenes | M | startbar | – | – | – | Q QM | – |
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | – | – | – | Q QM | – |
 | 1356 | Von Werkzeug (1334): Wiederholrot hoehle_492: 2× rot in 48 h (Läufe 480, 466); Ursache nachstellen, beheben · wiederholt | Sokrates | M | startbar | – | – | – | E Technik | – |
-| 1186 | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitzer zum Schließen (Chef 13.11., 16:28, Anlass 41 Homer) · „jetzt“ 13.11., 16:28 | Sokrates | M | startbar | – | – | – | B Abläufe | 33,54 $ |
+| 1186 | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitzer zum Schließen (Chef 13.11., 16:28, Anlass 41 Homer) · „jetzt“ 13.11., 16:28 | Sokrates | M | wartet, Nachsicht 16.11.: Tom 8, Ford 3 offen | 1359, 1360 | – | – | B Abläufe | 33,54 $ |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust gingen (Art 1110 Rechte, 1128 Prüffragen; Chef 13.11., 12:53) · „jetzt“ 13.11., 12:53 | Sokrates | M | startbar | 1129.4 | – | – | B Abläufe | 20,09 $ |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | 23.11. | – | – | B Werkzeuge | – |
 | 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht (Chef 10.11., 14:03) | Sokrates | M | wartet | 870.20 | – | – | E Kampf | 86,27 $ |
@@ -245,6 +246,7 @@
 | 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | K | startbar | – | – | – | B Steuerung | – |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
+| 1360 | Von Sokrates (1186): 843, 741, 906 schließen (Belege Zu 1186 in ARBEIT-BETRIEB.md) | Ford | M | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
