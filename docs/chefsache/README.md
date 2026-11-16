@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 16:11, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,12 +26,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **2** Kampf passt | 67 (68) | 26 | 1 | 5 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 0 | 8 | 431h (Tom) Rückfrage zu 431: angelegte Rüstung am Helden sic… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (57) | 10 | 0 | 4 | 20 | 1322 (Tom) Spielertexte der Oberfläche ohne TP/HP, Wert heiß… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 18 (18) | 8 | 1 | 2 | 4 | 1457 (Tom) Wiederholrot pruefliste_1020: 3× rot in 48 h; Urs… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 54 (57) | 10 | 0 | 4 | 20 | 1322 (Tom) Spielertexte der Oberfläche ohne TP/HP, Wert heiß… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (18) | 8 | 1 | 2 | 4 | 1457 (Tom) Wiederholrot pruefliste_1020: 3× rot in 48 h; Urs… |
 | **7** Werkzeuge und Abläufe der Firma | 43 (56) | 29 | 0 | 2 | 9 | 1454 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 115 erledigt, 98 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 115 erledigt, 100 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -45,7 +45,7 @@ Heute (seit 6:00): 115 erledigt, 98 neu. In Klammern bei „offen“: Stand 6:00
 | Homer | Pflege von Werkzeug: 4 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
 | Sokrates | 1454 Zusammenführen: getestet, nicht auf main: Build 274, 288; g… (Muss); dann 5 weitere |
-| Perikles | M? M? entscheiden: 1445, 1447, 1448, 1439 (Muss) |
+| Perikles | M? M? entscheiden: 1459, 1445, 1447, 1448, 1439 (Muss) |
 
 **Die nächsten 20**
 
@@ -72,7 +72,7 @@ Heute (seit 6:00): 115 erledigt, 98 neu. In Klammern bei „offen“: Stand 6:00
 | 19 | 1383 | Tom | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
 | 20 | 1454 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 288; grün machen und PR zu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 103 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
+Danach 105 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
