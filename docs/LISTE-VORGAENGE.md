@@ -11,8 +11,8 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1451 | Von Werkzeug (1334): Wiederholrot pruefliste_1020: 3× rot in 48 h (Läufe 500, 499, 470); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
-| 1450 | Von Werkzeug (1334): Wiederholrot lage_785_8: 4× rot in 48 h (Läufe 522, 519, 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1451 | Von Werkzeug (1334): Wiederholrot pruefliste_1020: 3× rot in 48 h (Läufe 500, 499, 470); Ursache nachstellen, beheben · wiederholt | Tom | M | erledigt | – | – | – | E Technik | – |
+| 1450 | Von Werkzeug (1334): Wiederholrot lage_785_8: 4× rot in 48 h (Läufe 522, 519, 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | erledigt | – | – | – | E Technik | – |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bild t290.6 neu | Chef | – | – | E Oberfläche | 8,48 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | wartet, Bilder Grundstand | Chef | claude/tom-1044-grundstand | – | E Figuren | 29,31 $ |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Film 431h: Läufe frei | Sokrates | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
