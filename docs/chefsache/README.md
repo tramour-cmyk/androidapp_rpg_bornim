@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 15:00, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 15:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -24,20 +24,20 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 67 (68) | 25 | 1 | 5 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (14) | 7 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 15 (14) | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (57) | 10 | 0 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (18) | 3 | 0 | 2 | 4 | 1383 (Tom) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
 | **7** Werkzeuge und Abläufe der Firma | 45 (56) | 31 | 0 | 2 | 9 | 1442 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 108 erledigt, 89 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 109 erledigt, 89 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1441a](entscheiden/1441a-erlaubnisblock.md) entscheiden, hält 3 Zeilen; dann 3 weitere |
+| **Chef** | [1441a](entscheiden/1441a-erlaubnisblock.md) entscheiden, hält 3 Zeilen; dann 2 weitere |
 | Tom | 1044 Leute stehen außerhalb des Kampfs wie zur Rolle passend, ke… (Muss); dann 7 weitere |
 | Jerry | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss); dann 1 weitere |
 | Tuffy | 1423 Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude… (Muss von Jerry, neben dessen Arbeit) |
@@ -72,7 +72,7 @@ Heute (seit 6:00): 108 erledigt, 89 neu. In Klammern bei „offen“: Stand 6:00
 | 19 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
 | 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
 
-Danach 101 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
+Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -93,7 +93,6 @@ Nichts offen.
 |---|---|---|---|
 | [1341](ansehen/1341-namen-faecher.md) | Reiter Ausrüstung: lange Gegenstandsnamen (t290.6 neu) | Tom | 16.11., 14:57 |
 | [1375](ansehen/1375-haken.md) | Haken-Frage Abnahmeliste, Woche 16.11. | Perikles | 16.11., 09:11 |
-| [1416](ansehen/1416-winken.md) | Winken in UAL2: war es Idle_Rail_Call? | Spike | 16.11., 14:26 |
 
 ## Zu tun
 
@@ -366,7 +365,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1375-haken.md, ansehen/1416-winken.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1375-haken.md
 
 ## So geht's
 
