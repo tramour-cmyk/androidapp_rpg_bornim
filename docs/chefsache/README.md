@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 06:59, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 07:00, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -16,14 +16,26 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 16 | 6 | 0 | 0 | 10 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 59 | 11 | 1 | 12 | 25 | 643 (Jerry) Langbogen mit Köcher als Waffenmodell für Garrick… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 | 7 | 0 | 6 | 4 | 698 (Spike) Grafikstufen im Systemmenü mit Effekten |
-| Werkzeuge und Abläufe der Firma | 58 | 35 | 0 | 0 | 9 | 1364 (Perikles) Arbeit verteilen, keine Rolle leer, solange Jerry… |
+| Werkzeuge und Abläufe der Firma | 59 | 36 | 0 | 0 | 9 | 1368 (Jerry) Zeile „**Abgabe:** …“ oben im Vorrat: je startbar… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
+
+**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
+
+| Rolle | als Nächstes |
+|---|---|
+| Tom | 643 Übernahme von Jerry: Langbogen mit Köcher als Waffenmodell für Garrick auf dem R… (Muss); dann 1 weitere |
+| Jerry | 1368 Zeile „**Abgabe:** …“ oben im Vorrat: je startbarem Kampf-M… (Muss); dann 10 weitere |
+| Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
+| Homer | 1367 Eingebung beim ersten „offen getroffen“, DE/EN, mit Marke (Kür) |
+| Diogenes | 1148 lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl d… (Muss); dann 25 weitere |
+| Sokrates | 620 Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebi… (Kür) |
+| Perikles | Pause bis 16.11., 09:00 |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1364 | Perikles | Arbeit verteilen, keine Rolle leer, solange Jerry 39 Startbare hat; Übersicht z… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 1 | 1368 | Jerry | Zeile „**Abgabe:** …“ oben im Vorrat: je startbarem Kampf-Muss an Tom oder Spik… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 2 | 1362 | Jerry | Filme t291.6 und t291.8 vom Stand claude/build-291 an den Chef | M | Kampf passt | in Arbeit |
 | 3 | 1072 | Jerry | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Mons… | M | Kampf passt | startbar |
 | 4 | 1291 | Jerry | Waffe in der Nebenhand wirkt im BRS-Kampf nicht; Nebenhand nur Schild, Fackel,… | M | Kampf passt | startbar |
@@ -44,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
 | 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
 
-Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 66.
+Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 66.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
