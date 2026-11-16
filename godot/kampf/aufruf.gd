@@ -178,7 +178,6 @@ static func blatt(h, zweite = null) -> Dictionary:
 	var schild = h.schild()
 	return {"name": h.name, "race": HeldFigur.volk_modell(h.volk), "herkunft": h.herkunft, "level": h.stufe,
 		"sp": h.mana, "sp_max": h.max_mana(), "skills": [], "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
-		"off": _waffe(h, h.nebenwaffe()) if h.nebenwaffe() != null else null,
 		"schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
 		# 870.6: Lebensraub, Schadensminderung, Standhaftigkeit, Gift-/Blutungs-/Betäubungschance der alten Ausrüstung entfallen
 		# (nicht in der Liste DESIGN-BRS.md 11); was die Ausrüstung nach BRS gibt, steht im Kampfblatt „brs“ („zusatz“)
