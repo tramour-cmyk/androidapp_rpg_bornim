@@ -4,6 +4,9 @@ extends RefCounted
 # daten/pruefliste.json ins Spiel (tools/pruefliste.py, godot.yml). Je Zeile: Wo und wie, Richtig, Falsch; ✓ oder ✗ mit einem Wort,
 # bleibt über einen Neustart gespeichert (user://pruefliste.cfg, je Build); „Ergebnis kopieren“ legt den Text in die Zwischenablage
 # im Format der Prüfliste („## Ergebnis“: „- n.k ✓“, „- n.k ✗ <Wort>“, LISTE-CHECK-BUILD-TEST.md 11).
+# 1445 (Chef 16.11., 14:36 zu t292.3: „ich konnte ja bei Passt nicht einen Kommentar abgeben im Handy“): das Feld für eine Anmerkung
+# steht bei jeder aufgeklappten Zeile, auch vor und nach „Passt“ („- n.k ✓ <Anmerkung>“); Zeichen und Anmerkung getrennt gespeichert
+# (Abschnitt t<n> und t<n>-notiz), damit eine Anmerkung vor dem Antippen nicht verloren geht.
 
 const DATEI := "res://daten/pruefliste.json"
 const ERGEBNIS := "user://pruefliste.cfg"
@@ -51,25 +54,60 @@ static func zeilen() -> Array:
 	return aus
 
 static func _sektion() -> String: return "t%d" % int(liste().get("build", 0))
+static func _notiz_sektion() -> String: return _sektion() + "-notiz"
 
-## „✓“, „✗ Wort“ oder ""
-static func ergebnis(nr: String) -> String:
+## „✓“, „✗“ oder "" (ältere Stände trugen das Wort im selben Wert: nur das Zeichen)
+static func zeichen(nr: String) -> String:
 	var c := ConfigFile.new()
 	if c.load(ERGEBNIS) != OK: return ""
-	return String(c.get_value(_sektion(), nr, ""))
+	return String(c.get_value(_sektion(), nr, "")).left(1)
 
+## „✓“, „✓ Anmerkung“, „✗ Wort“ oder ""
+static func ergebnis(nr: String) -> String:
+	var z := zeichen(nr)
+	if z == "": return ""
+	var w := wort(nr)
+	return z if w == "" else z + " " + w
+
+## [wert] „✓“, „✗“, mit Anmerkung („✗ kein Staub“) oder "" (löscht Zeichen und Anmerkung)
 static func setze(nr: String, wert: String) -> void:
 	var c := ConfigFile.new()
 	c.load(ERGEBNIS)
-	if wert == "":
-		if c.has_section_key(_sektion(), nr): c.erase_section_key(_sektion(), nr)
+	var w := wert.strip_edges()
+	if w == "":
+		for s in [_sektion(), _notiz_sektion()]:
+			if c.has_section_key(s, nr): c.erase_section_key(s, nr)
 	else:
-		c.set_value(_sektion(), nr, wert)
+		c.set_value(_sektion(), nr, w.left(1))
+		if w.length() > 1: c.set_value(_notiz_sektion(), nr, w.substr(1).strip_edges())
 	c.save(ERGEBNIS)
 
+## nur das Zeichen setzen, die Anmerkung bleibt
+static func setze_zeichen(nr: String, z: String) -> void:
+	var c := ConfigFile.new()
+	c.load(ERGEBNIS)
+	c.set_value(_sektion(), nr, z)
+	c.save(ERGEBNIS)
+
+static func setze_wort(nr: String, w: String) -> void:
+	var c := ConfigFile.new()
+	c.load(ERGEBNIS)
+	var t := w.strip_edges()
+	if t == "":
+		if c.has_section_key(_notiz_sektion(), nr): c.erase_section_key(_notiz_sektion(), nr)
+	else:
+		c.set_value(_notiz_sektion(), nr, t)
+	c.save(ERGEBNIS)
+
+## die Anmerkung der Zeile, bei „Passt“ wie bei „Falsch“ (auch vor dem Antippen)
 static func wort(nr: String) -> String:
-	var e := ergebnis(nr)
-	return e.substr(2).strip_edges() if e.begins_with("✗") else ""
+	var c := ConfigFile.new()
+	if c.load(ERGEBNIS) != OK: return ""
+	var w := String(c.get_value(_notiz_sektion(), nr, ""))
+	if w == "":
+		var alt := String(c.get_value(_sektion(), nr, ""))
+		if alt.length() > 1: w = alt.substr(1).strip_edges()
+	return w
 
 static func naechste_offene(nach := "") -> String:
 	var alle := zeilen()
@@ -88,7 +126,7 @@ static func ergebnis_text() -> String:
 	for z in zeilen():
 		var nr := String(z["nr"])
 		var e := ergebnis(nr)
-		if e == "": offene.append(nr)
+		if e == "": offene.append(nr if wort(nr) == "" else "%s (%s)" % [nr, wort(nr)])
 		else: t.append("- %s %s" % [nr, e])
 	if not offene.is_empty(): t.append("- offen: " + ", ".join(offene))
 	return "\n".join(t)
@@ -152,9 +190,9 @@ static func _zeilenknopf(m: Menue, links: String, ergebnis_: String, auf: bool, 
 	h.add_child(a)
 	if ergebnis_ != "":
 		var falsch := ergebnis_.begins_with("✗")
-		var w := ergebnis_.substr(2).strip_edges() if falsch else ""
+		var w := ergebnis_.substr(1).strip_edges()
 		if w != "":
-			var b := Stil.txt(w if w.length() <= 16 else w.left(15) + "…", 14, Stil.WARN)
+			var b := Stil.txt(w if w.length() <= 16 else w.left(15) + "…", 14, Stil.WARN if falsch else Stil.TEXT)
 			b.autowrap_mode = TextServer.AUTOWRAP_OFF     # sonst bricht das Wort Zeichen für Zeichen um
 			b.size_flags_horizontal = Control.SIZE_SHRINK_END
 			b.size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -192,31 +230,32 @@ static func _zeile(m: Menue, t: Callable, z: Dictionary) -> void:
 		m.inhalt.add_child(Spielstaende.knopfzeile(
 			Spielstaende.knopf("neben", t.call("Lage herstellen", "Set up"), func(): m.test.emit("lage", [lage]), true), null))
 		m.luecke(6)
-	# „Passt“ springt zur nächsten offenen Zeile; „Falsch“ bleibt hier und öffnet das Feld für ein Wort
+	# 1445: das Feld für eine Anmerkung steht vor den Knöpfen, bei jeder aufgeklappten Zeile; „Passt“ springt danach zur nächsten
+	# offenen Zeile, „Falsch“ bleibt hier
+	var f := LineEdit.new()
+	f.text = wort(nr)
+	f.placeholder_text = t.call("Anmerkung, freiwillig; bei Falsch: was nicht passt", "Note, optional; if wrong: what is wrong")
+	f.max_length = 80
+	f.add_theme_font_override("font", Stil.variante(0.2))
+	f.add_theme_font_size_override("font_size", int(round(16 * Stil.SP)))
+	f.add_theme_color_override("font_color", Stil.TEXT)
+	f.add_theme_color_override("font_placeholder_color", Color(Stil.DIM, 0.8))
+	f.add_theme_color_override("caret_color", Stil.GOLD)
+	var s := Stil.kasten(Stil.RAISED, Stil.RIM, 1.0)
+	s.set_content_margin_all(10 * DP)
+	for k in ["normal", "focus"]: f.add_theme_stylebox_override(k, s)
+	f.custom_minimum_size.y = 48 * DP
+	f.text_changed.connect(func(w): setze_wort(nr, String(w)))
+	f.text_submitted.connect(func(_w): f.release_focus())
+	m.inhalt.add_child(f)
+	m.luecke(6)
 	m.inhalt.add_child(Spielstaende.knopfzeile(
-		Spielstaende.knopf("haupt" if e == "✓" else "neben", t.call("Passt", "Right"), func():
-			setze(nr, "✓")
+		Spielstaende.knopf("haupt" if e.begins_with("✓") else "neben", t.call("Passt", "Right"), func():
+			setze_zeichen(nr, "✓")
 			m._tue(func(): _oeffne(naechste_offene(nr))), true),
 		Spielstaende.knopf("gefahr", t.call("Falsch", "Wrong"), func():
-			setze(nr, ("✗ " + wort(nr)).strip_edges())
+			setze_zeichen(nr, "✗")
 			m._tue(func(): pass))))
-	if e.begins_with("✗"):
-		var f := LineEdit.new()
-		f.text = wort(nr)
-		f.placeholder_text = t.call("ein Wort, was nicht passt", "a word on what is wrong")
-		f.max_length = 80
-		f.add_theme_font_override("font", Stil.variante(0.2))
-		f.add_theme_font_size_override("font_size", int(round(16 * Stil.SP)))
-		f.add_theme_color_override("font_color", Stil.TEXT)
-		f.add_theme_color_override("font_placeholder_color", Color(Stil.DIM, 0.8))
-		f.add_theme_color_override("caret_color", Stil.GOLD)
-		var s := Stil.kasten(Stil.RAISED, Stil.RIM, 1.0)
-		s.set_content_margin_all(10 * DP)
-		for k in ["normal", "focus"]: f.add_theme_stylebox_override(k, s)
-		f.custom_minimum_size.y = 48 * DP
-		f.text_changed.connect(func(w): setze(nr, ("✗ " + String(w).strip_edges()).strip_edges()))
-		f.text_submitted.connect(func(_w): f.release_focus())
-		m.inhalt.add_child(f)
 	var ende := Stil.luecke(8)
 	m.inhalt.add_child(ende)
 	if _neu_offen:

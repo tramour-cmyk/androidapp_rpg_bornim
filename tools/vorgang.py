@@ -620,6 +620,9 @@ def build_abschluss(n, datei=None, probe=False):
         alt = finden(d["nr"], d["besitzer"] if d["nr"] in startbar.SONDER else None)
         ersetzen(alt, neu_d)
         for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
+        # 1445 (Chef 16.11., 14:36): eine Anmerkung bei „Passt“ („- n.k ✓ <Anmerkung>“) geht als Absatz an den Besitzer, nie verloren
+        for k, e, f in [x for x in je.get(d["nr"], []) if x[1] == "✓" and x[2] and not x[2].startswith("👍")]:
+            zu_absatz(d["besitzer"], d["nr"], "Anmerkung t%s (✓), Test Build %s, Automatik B" % (k, n), f)
     ohne = sorted(nr for nr in je if not any(d["nr"] == nr for d in zs))
     print("vorgang.py build %s: %d Vorgänge (%s); Prüfliste %s%s%s" % (n, len(aus), ", ".join("%s %s" % (d["nr"], w.split()[0]) for d, _, _, w in aus), os.path.relpath(pfad, os.path.dirname(DOCS)) if not pfad.startswith("git:") else pfad,
                                                           ("; ohne Listenzeile: " + ", ".join(ohne)) if ohne else "",
