@@ -37,6 +37,7 @@ func _init(s: Steuerung) -> void:
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	Rand.ruecke(self, Rand.oben(get_viewport()))   # 399.4: unter der Kamera des Handys
+	Zurueck.melde(self, frage_beenden)   # 1418: Android-Zurück im Hauptmenü fragt erst (Fenster darüber nehmen die Taste zuerst)
 	var bg := ColorRect.new()
 	bg.color = Color.BLACK
 	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -65,6 +66,16 @@ func _ready() -> void:
 		ueber()
 
 static var ueber_zuerst := false
+
+# 1418 (Chef 16.11., 12:40: „aus Versehen kommt man einmal auf zurück und dann beendet sich das Spiel. Das ist mir zu flott“): Rückfrage
+# wie jede andere (Spielstaende.frage), Texte [1419.*] (Homer, STORY-MENUE.md); Zurück und Tippen daneben wie „Abbrechen“ (Rueckfrage).
+# Kein Satz darunter: im Hauptmenü läuft kein Spiel, jeder Weg hierher speichert vorher
+var beenden_frage: Control
+func frage_beenden() -> void:
+	if is_instance_valid(beenden_frage) and not beenden_frage.is_queued_for_deletion(): return
+	var de := Sprache.aktiv() == "de"
+	beenden_frage = Spielstaende.frage(self, "Spiel beenden?" if de else "Quit the game?", [], "", "Beenden" if de else "Quit", Stil.GOLD,
+		func(): get_tree().quit())
 
 # ---------------------------------------------------------------- 292 Vorspann (Prelude.kt, App.kt MainMenuScreen)
 # beim Kaltstart einmal: das Firmenzeichen mit „präsentiert“ und dem Klanglogo (292.1, nur mit Musik), dann schwarz und still
