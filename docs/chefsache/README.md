@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 11:54, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -17,7 +17,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 | 10 | 0 | 13 | 20 | 1341 (Tom) Bild t290.6 neu, zeigt keine Gegenstandsnamen; Pr… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 | 9 | 0 | 10 | 4 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| Werkzeuge und Abläufe der Firma | 42 | 26 | 0 | 2 | 9 | 1409 (Jerry) kauf_cache_probe.sh Zeile 45 auf dem Bauserver FA… |
+| Werkzeuge und Abläufe der Firma | 43 | 27 | 0 | 2 | 9 | 1412 (Perikles) Überblick Themenblöcke: „offen“ mit Morgenwert in… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
@@ -32,7 +32,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | 1407 D262.1 von Diogenes: sitzungszweige liest current_branches,… (Kür) |
 | Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss); dann 2 weitere |
-| Perikles | M? M? entscheiden: 1406 (Muss) |
+| Perikles | M? M? entscheiden: 1406 (Muss); dann 1 weitere |
 
 **Die nächsten 20**
 
@@ -48,18 +48,18 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 8 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | Kleiderschrank und Modelle | startbar |
 | 9 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
 | 10 | 1341 | Tom | Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, sieh… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 13 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 14 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 15 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
-| 16 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
-| 17 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
-| 18 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
-| 19 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
-| 20 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
+| 11 | 1412 | Perikles | Überblick Themenblöcke: „offen“ mit Morgenwert in Klammern, darunter Zeile „Heu… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 12 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 13 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 14 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 15 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 16 | 1405 | Sokrates | Systemlösung? Parade: 3 frühere Vorgänge, neu 1404; einmal grundsätzlich lösen? | K | Kampf passt | startbar |
+| 17 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 18 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
+| 19 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
+| 20 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
 
-Danach 87 weitere offen. Bei dir zum Testen (vorgelegt): 37. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
+Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 37. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
