@@ -223,7 +223,7 @@
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | Ideen | K | Idee | – | – | – | E Oberfläche | – |
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe; erst Probefilm (Chef 01.11., 20:2x) | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | Ideen | K | Idee | – | – | – | E Kampf | – |
-| 1270.4 | Von Sokrates (1270 A, Chef 15.11., 10:51; 22:43 Film statt Bild), Bau Spike: Vergleichsfilm alt gegen neu Glühen (Gold, Fackel, Zauber) und vorberechnetes Höhlenlicht, Homer sieht vorher auf Stil; danach Laden im Hintergrund und Abziehbilder | Spike | K | gebaut, Geprüft an: c73cff808 | t294 | claude/spike-1270-4-gluehen | – | E Technik | 16,17 $ |
+| 1270.4 | Von Sokrates (1270 A, Chef 15.11., 10:51; 22:43 Film statt Bild), Bau Spike: Vergleichsfilm alt gegen neu Glühen (Gold, Fackel, Zauber) und vorberechnetes Höhlenlicht, Homer sieht vorher auf Stil; danach Laden im Hintergrund und Abziehbilder | Spike | K | gebaut, Geprüft an: c73cff808 | t295 | claude/spike-1270-4-gluehen | – | E Technik | 16,17 $ |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
