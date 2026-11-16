@@ -48,6 +48,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 10:59 16.11.: alte Sokrates-Chefrunde-Sitzung archiviert (5,44 $ auf 1292, 654.2); Nachfolger Chefrunde Rest läuft; ältere Sitzung 75oX bleibt offen (Chef 09:20)
+- 10:48 16.11.: Lauf 10:45: Start Homer 1352, alte Homer-Sitzung archiviert (2,63 $ auf 1370 gebucht); Weiter Diogenes 1399/1396; Wächter 1072 an Jerry und laut gemeldet; GELÖST an Tom 431h, Jerry 709/709.1/1291a; Neustart Perikles 07c2cf5ac und Neustart Tom 77404ff33 gemeldet, Sitzungen arbeiten noch; neuer Sokrates Chefrunde Rest session_01Hmoj77oLo8quAixJ2CvysQ (Archiv der alten Chefrunde-Sitzung um 10:58)
 - 10:09 16.11.: Ford-Lauf 10:06: Start Jerry (Testbitte 292, dann 1072 Messung), alte Jerry-Sitzung archiviert (7,05 $, auf 292,1285,1333,1366,1072 gebucht); Tuffy-Warnung: keine Tuffy-Arbeit startbar, --ohne Tuffy; Chefrunde Sokrates wartet auf Entscheide 1–9 (Chef)
 - 10:05 16.11.: Lauf 10:02: Start Spike 1386, Weiter Perikles 1396; archiviert Spike 698/292/1145/1286 (3,73 $) und Tuffy 1393 (0,72 $, gebucht); Jerry Neustart 58da31e24 (Sitzung läuft noch, Nachfolger Testbitte 292 folgt)
 - 09:59 16.11.: Start Diogenes 1392, Tuffy 1393; archiviert Tuffy 1292 (3,14 $, gebucht); GELÖST 1393 an Jerry; Spike Neustart 41a7651b4 gemeldet (Sitzung läuft noch, Start im nächsten Lauf)
@@ -66,8 +68,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:09 15.11.: Ford-Lauf-Uhr für neuen Ford `…76dCpm3kKPJixR9C8w` vom alten Ford angelegt (`trig_01TXqt99a72vf7tdTLiDAA92`, :03; neuer Ford hat kein create_trigger), alte `trig_01Bxa9TW7bvnV8cSVBQdf7AU` aus; alter Ford `…775wuCaHstkrQQKKTC` bleibt bis zum Start Jerry 1289 (15:35) offen, dann archivieren
 - 14:30 15.11.: Tom alt `…78BSaiyTRN5sJLVCBK` archiviert (15,94 $ auf 431, 288)
 - 14:11 15.11.: Kosten 1215 gebucht (34,08 $, Sitzung stärkstes Modell)
-- 14:10 15.11.: Jerry 1215 `…77868z8tGPx6d9vJF1` archiviert (gepusht a7ba28e73); Folgeauftrag 1215 (Physik einschalten, Build) für die nächste normale Jerry-Sitzung; Kosten 1215 aus archive_session nachtragen
-- 14:09 15.11.: Jerry 1266/1274 alt `…78didfhaNLaWruGUVT` archiviert (24,16 $ auf 1266, 1274, 1284); Nachfolger „Jerry – 1289“ startet erst nach Ende des Blocks 760/1000 (15:30; Perikles 13:47: keine zweite Jerry-Sitzung), Erinnerung 15:34
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
@@ -131,5 +131,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:45 16.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj75oXevBbggtoW6gYgE (lauf.py)
 - 10:45 16.11.: Marke Mehrfach Sokrates (lauf.py)
 - 10:45 16.11.: Marke Archiv session_01Hmoj76es2uZMd5a4yrjmHt (lauf.py)
-- 10:48 16.11.: Lauf 10:45: Start Homer 1352, alte Homer-Sitzung archiviert (2,63 $ auf 1370 gebucht); Weiter Diogenes 1399/1396; Wächter 1072 an Jerry und laut gemeldet; GELÖST an Tom 431h, Jerry 709/709.1/1291a; Neustart Perikles 07c2cf5ac und Neustart Tom 77404ff33 gemeldet, Sitzungen arbeiten noch; neuer Sokrates Chefrunde Rest session_01Hmoj77oLo8quAixJ2CvysQ (Archiv der alten Chefrunde-Sitzung um 10:58)
-- 10:59 16.11.: alte Sokrates-Chefrunde-Sitzung archiviert (5,44 $ auf 1292, 654.2); Nachfolger Chefrunde Rest läuft; ältere Sitzung 75oX bleibt offen (Chef 09:20)
+- 11:04 16.11.: Startsperre 11:04 Start Tom, Jerry, Perikles (lauf.py)
+- 11:04 16.11.: Marke Archiv session_01Hmoj77NHg6rh9A1ECfhq7j (lauf.py)
+- 11:04 16.11.: Marke Archiv session_01Hmoj76kpECV2hfEy8nEtVM (lauf.py)
+- 11:04 16.11.: Marke Archiv session_01Hmoj76nAqQeLfP36ajZFbD (lauf.py)
+- 11:04 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 10:20) (lauf.py)
