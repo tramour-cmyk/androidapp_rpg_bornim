@@ -36,15 +36,15 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 11 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
 | 12 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 13 | 1358 | Jerry | Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nachstellen, beheben · w… | M | Godot besser nutzen | startbar |
-| 14 | 1357 | Tom | Wiederholrot lage_785_8: 2× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
-| 15 | 1356 | Tom | Wiederholrot hoehle_492: 2× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
-| 16 | 1361 | Tom | Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 | M | Godot besser nutzen | in Arbeit |
-| 17 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 20 | 1359 | Tom | Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1356 | Tom | Wiederholrot hoehle_492: 2× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
+| 15 | 1361 | Tom | Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 | M | Godot besser nutzen | in Arbeit |
+| 16 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 1359 | Tom | Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
 
-Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 76.
+Danach 99 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 76.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
