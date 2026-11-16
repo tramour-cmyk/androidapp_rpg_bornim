@@ -3,6 +3,7 @@
 # gleichmäßig über die Länge, von vorn. Läuft nur auf dem Bauserver (416.4a: Kaufmodelle nie in eine Sitzung), ins Artefakt
 # gehen nur die gerenderten Blätter, nie die Rohdatei (348.12c a).
 # Aufruf: KAUF=<Kaufordner> OUT=<Ziel> [BILDER=8] [NUR=<Anzahl>] [JE_BLATT=12] bl/bin/python -I ual2_sichtung.py
+# FILM="A,B,C,D": statt Blättern jedes Bild der Bewegungen A–D nebeneinander (2×2, je zweimal), OUT/film_0001.png …, Film mit ffmpeg
 import os, glob, math
 import bpy
 from mathutils import Vector
@@ -60,12 +61,44 @@ except OSError:
 
 if arm.animation_data is None:
     arm.animation_data_create()
-zeilen = []
-tmp = OUT + '/_bild.png'
-for a in aktionen:
+
+
+def setze(a):
     arm.animation_data.action = a
     if hasattr(arm.animation_data, 'action_slot') and a.slots:     # Blender 4.4+: Aktion braucht ihren Platz
         arm.animation_data.action_slot = a.slots[0]
+
+
+if os.environ.get('FILM'):
+    wahl = os.environ['FILM'].split(',')
+    nach = {a.name.replace('_Loop', ''): a for a in bpy.data.actions}
+    cam.data.ortho_scale = 2.2
+    W, H = 400, 520
+    sc.render.resolution_x, sc.render.resolution_y = W, H
+    bilder = {}
+    for n in wahl:
+        a = nach[n]; setze(a)
+        f0, f1 = (int(round(v)) for v in a.frame_range)
+        bilder[n] = []
+        for f in range(f0, f1 + 1):
+            sc.frame_set(f); sc.render.filepath = OUT + '/_bild.png'
+            bpy.ops.render.render(write_still=True)
+            bilder[n].append(Image.open(OUT + '/_bild.png').convert('RGB').copy())
+        print('FILMTEIL', n, len(bilder[n]))
+    lang = 2 * max(len(b) for b in bilder.values())
+    for i in range(lang):
+        blatt = Image.new('RGB', (2 * W, 2 * H), (20, 20, 20)); d = ImageDraw.Draw(blatt)
+        for j, n in enumerate(wahl):
+            x, y = (j % 2) * W, (j // 2) * H
+            blatt.paste(bilder[n][i % len(bilder[n])], (x, y))
+            d.text((x + 10, y + 8), n, fill=(30, 30, 30), font=SCHRIFT)
+        blatt.save('%s/film_%04d.png' % (OUT, i + 1))
+    os.remove(OUT + '/_bild.png')
+    raise SystemExit(0)
+zeilen = []
+tmp = OUT + '/_bild.png'
+for a in aktionen:
+    setze(a)
     f0, f1 = (int(round(v)) for v in a.frame_range)
     bilder = []
     for i in range(N):
