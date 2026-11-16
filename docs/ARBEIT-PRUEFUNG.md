@@ -4,7 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (16.11., 14:42):** Läufe 264–272 (Prüfbericht); Lauf 273: 1427 wirkt mit Lücke, D273.1 → 1446 (Perikles), Lauf 274: 1446 greift; 1407 greift (Lauf 270, Bereich jetzt B), 1396 wartet auf Diogenes. Nächste Nummer D275. Nachfolger: Diogenes – 790 Kosten je Aufruf (ab 16.11., 18:07)
+**Übergabe (16.11., 17:11):** 1463 erledigt: Zählweise „Liegengebliebenes über 6 h“ in `LISTE-PRUEFUNG.md` (Wochenzählung), Zeile in `ROLLE-PRUEFUNG.md`, Leichenprüfung-Abschnitt gestrichen (Regelbilanz); Startwarnungen ohne Vorgang als 1465–1469 angelegt; 1462 (Perikles) ohne Befund gegen Archiv 16.11., 16:31. Nächste Nummer D275. Nachfolger: Diogenes – 790 Kosten je Aufruf (ab 16.11., 18:07)
+
+- **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1427 (Lauf 273, 274):** erste neue Prüfliste `ansehen/t<n>` ohne Vergleich aus dem Gedächtnis oder von der Commit-Prüfung angehalten → `greift 1427 <Lauf>`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
 - **Zu 1388, 1389 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %), 1244 an einem ganzen Tag Pflege-Commits ohne reines Verschieben → `greift`.

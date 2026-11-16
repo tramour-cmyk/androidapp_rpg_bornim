@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `79ac1e9f3` (15.11., 19:07)
 
-**Übergabe (16.11., 13:10, `session_01Hmoj79sHVPfozv9DpqvZ3k`):** 1419: `[1419.*]` in `STORY-MENUE.md` (Rückfrage beim Beenden, Verbknöpfe wie jede Rückfrage statt Ja/Nein; dazu `[1419.zweimal]`), fremd geprüft, an Tom Zu 1418. 1432: „Zu“ 1267, 1318, 830, 870.14 gestrichen. „Gelesen bis“ nicht weitergesetzt (story.sh nicht gelaufen). Nachfolger: keiner (1235 nach dem Meilenstein).
+**Übergabe (16.11., 17:13, `session_01Hmoj75zum6Z1f8NFfzpE4u`):** 1459: README-Wortlaut `[1459.readme.kopf]`, `[1459.readme.features]` in `STORY-BRS-OBERFLAECHE.md`, nur was im Godot-Spiel steht (fremd gegen den Code geprüft, `fd9c1c7e0`), mit Einbauhinweisen; Zeile an Tom. Nachfolger: Homer – 1468 (Dateiname in STORY-CHRONIK-TEXTE-K1.md).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
