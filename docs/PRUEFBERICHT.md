@@ -107,7 +107,7 @@ Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727
 
 ## Lauf 259 · 1391 Zeile Chef in „Je Rolle das Nächste“ (Perikles `1156442d8`; 16.11., 09:2x)
 
-- **1391 greift:** `ueberblick.py` gibt „| **Chef** | [t291](ansehen/t291-sammelbuild.md) testen, hält 15 Zeilen; dann 11 weitere |“ als erste Zeile der Tabelle; die Übersicht von 09:21 trägt sie noch nicht (vor dem Bau), der nächste Push schreibt sie. t290 (offen) steht hinter t291, weil t291 mehr Zeilen hält und 290 enthält.
+- **1391 greift:** `ueberblick.py` gibt „| **Chef** | t291 (Link auf `ansehen/t291-sammelbuild.md`) testen, hält 15 Zeilen; dann 11 weitere |“ als erste Zeile der Tabelle; die Übersicht von 09:21 trägt sie noch nicht (vor dem Bau), der nächste Push schreibt sie. t290 (offen) steht hinter t291, weil t291 mehr Zeilen hält und 290 enthält.
 
 ## Lauf 258 · 1369, 1371, 1382, 1364, 1148 (Perikles `7c31171c6`, `905a04bb1`; 16.11., 09:1x)
 
