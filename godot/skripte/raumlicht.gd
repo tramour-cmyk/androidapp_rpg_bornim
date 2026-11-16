@@ -85,7 +85,8 @@ func licht(l: Dictionary) -> void:
 		o.light_color = Color(1.0, 0.56, 0.26) if art == "kamin" else Color(1.0, 0.72, 0.42)
 		# Kerzen: Lichtinsel um den Tisch (Pruefer Lauf 1: keine Inseln), steiler abfallend als der Kamin
 		o.omni_attenuation = 1.2 if art == "kamin" else KERZE_ABFALL   # Lauf 3: bei 1,9 und kurzer Reichweite kam kein Licht am Boden an
-		o.shadow_enabled = art == "kamin"
+		o.shadow_enabled = art == "kamin" and Grafik.innen_schatten()   # 698: Niedrig ohne Innenschatten
+		if art == "kamin": o.add_to_group("grafik_schatten")
 		o.shadow_bias = 0.06
 		add_child(o)
 		feuer.append([o, kraft, randf() * 10.0])
@@ -106,7 +107,8 @@ func licht(l: Dictionary) -> void:
 		o.light_energy = kraft
 		o.light_color = Color(1.0, 0.69, 0.38) if art == "fackel" else Color.html(String(l.get("farbe", "FFFFFF")))
 		o.omni_attenuation = 1.4 if art == "fackel" else 1.5
-		o.shadow_enabled = art == "fackel"
+		o.shadow_enabled = art == "fackel" and Grafik.innen_schatten()   # 698: Niedrig ohne Innenschatten
+		if art == "fackel": o.add_to_group("grafik_schatten")
 		o.shadow_bias = 0.06
 		add_child(o)
 		if art == "schein":   # 492 (Abgleich, alt WorldScreen 2642): Pilze atmen langsam (0,65 + 0,35 sin t/0,9 s), Kristalle schneller und flacher
@@ -132,7 +134,8 @@ func licht(l: Dictionary) -> void:
 		s.spot_angle_attenuation = 0.6 if art == "tageslicht" else 0.35   # Lauf 7: gedreht durch die Tuer noch ein scharfer Keil
 		s.shadow_blur = 2.5
 		# Lauf 8: durch die Tuer warf die Oeffnung einen scharfen Keil (auch mit weichem Schatten): Tuerlicht ohne Schatten, nur weicher Kegel
-		s.shadow_enabled = art == "tageslicht"
+		s.shadow_enabled = art == "tageslicht" and Grafik.innen_schatten()   # 698: Niedrig ohne Innenschatten
+		if art == "tageslicht": s.add_to_group("grafik_schatten")
 		s.shadow_bias = 0.05
 		fenster.append([s, float(l.get("kraft", 0.55)) * (1.0 if art == "tageslicht" else TUER_ANTEIL), art == "tuer"])
 
