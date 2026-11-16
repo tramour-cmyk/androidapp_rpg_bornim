@@ -51,6 +51,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
+- 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
+- 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 18:50 16.11.: Selbstneustart Ford (neue Sitzung session_01Hmoj76cLUxDoHGcPjixiTE): create_trigger für eigene Uhr von der Auto-Prüfung abgelehnt (Wortlaut an Perikles, 1441a A); alte Uhr trig_01F9cw92P51YgZM8o1Pwhb3v bleibt an, alte Sitzung …77ipw2pXLtZ7APj4LE nicht archiviert, Kosten offen
 - 18:36 16.11.: Lauf 18:33 (Sokrates 18:33: 1385 Spike, 1473 Homer, 1474 Perikles); Start Spike (session_01Hmoj76zAeRQxR3Re8uoBTU, erste Nachricht mit Kaufrepo-Satz), Start Perikles M? (session_01Hmoj77QaqaUitEpoXy4B2K), alte Spike archiviert 4,50 $ auf 1445, 1472; Weiter 1473 Homer, 431 Tom, 1445 Diogenes; Jerry läuft, add_repo-Probe beim nächsten Jerry-Start
 - 18:26 16.11.: Sokrates Neustart (session_01Hmoj7A9DCaCpWVHJgyzrnF, erste Nachricht mit Kaufrepo-Satz), alte archiviert, 8,56 $ auf 1411, 1472, 1471; Spike 1445 läuft weiter (Probe 1472 gilt erst beim nächsten Spike-Start)
@@ -68,9 +71,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:24 16.11.: Selbstneustart Ford abgeschlossen (Neue Uhr 14:22 nach Chef-Freigabe, Auto-Prüfung hatte create_trigger zuerst abgelehnt); Offen vom alten Ford: Perikles-Neustart gemeldet, Nachfolger „1440: Themenblöcke im Überblick nummerieren“ (nächster Lauf 15:03)
 - 14:10 16.11.: Start Perikles 1424, alte Perikles-Sitzung archiviert (7,32 $ auf 1414,1217,870.12 gebucht)
 - 14:08 16.11.: Lauf 14:04 (volle Seite 100 per Skript): Start Tom 1044, Spike 1416, Diogenes 1098.1; archiviert Tom 431 (22,23 $), Spike 1303/1270.4 (8,73 $), Diogenes 1410 (0,78 $), gebucht; Urteil 1303 gebilligt (4386); GELÖST an Jerry 481.2, Perikles 1217/870.12, Sokrates 870/1270, Spike 1385; Neustart Perikles d14aa8904 gemeldet (Sitzung arbeitet noch)
-- 14:02 16.11.: alte Sokrates-Sitzung Testbegleitung archiviert (5,67 $ auf 291,1303,1423,1424,290); Neustart Tom 06bbd8ec7 gemeldet, Start im Lauf 14:06
-- 13:45 16.11.: Start Sokrates „t291 verbuchen, PR 210 zusammenführen“ (session_01Hmoj7793wGk5UdWrQR5kMM, Neustart wegen Rechteprüfung/Rebase in alter Sitzung); alte Sitzung 77yp Archiv um 14:00, Kosten 291,1303,1423,1424,290
-- 13:40 16.11.: Altlasten archiviert nach Chef-Frage 13:26 (zwei Diogenes-Sitzungen): Diogenes 1301 (1,19 $), Homer 1267 (15.11., 0,62 $ auf 1267), Tuffy 930.7 (14.11., 5,02 $ auf 930.7), alle gebucht; Ursache: Kurzform-Dateien mit „# has_more: nein“ aus nur der ersten Seite (12 Sitzungen) geschrieben, ältere nicht archivierte Sitzungen fehlten, lauf.py konnte sie nicht sehen; Fehler von Ford. Ab jetzt je Lauf list_sessions limit 100 (volle Seite, in Datei), Kurzform aus allen nicht archivierten daraus per Skript, bis zum Stichtag 08.11. geprüft: sonst keine Altlast
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
@@ -92,7 +92,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:56 16.11.: Startsperre 09:56 Start Diogenes, Tuffy (lauf.py)
 - 10:02 16.11.: Marke Mehrfach Sokrates (lauf.py)
 - 10:02 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 09:56) (lauf.py)
-- 10:06 16.11.: Marke Archiv session_01Hmoj7A5KnBfiqx8t69Q9MV (lauf.py)
 - 10:45 16.11.: Marke Rückmeldung 1072 16.11. 10:11 (lauf.py)
 - 10:45 16.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj75oXevBbggtoW6gYgE (lauf.py)
 - 10:45 16.11.: Marke Mehrfach Sokrates (lauf.py)
@@ -105,7 +104,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 16.11.: Marke Archiv session_01Hmoj76tYoe7PjfkrZzLrzh (lauf.py)
 - 12:04 16.11.: Marke Archiv session_01Hmoj7752bUqezjjHom7vdR (lauf.py)
 - 12:13 16.11.: Marke Archiv session_01Hmoj76FHiAXURGW1T4CW6m (lauf.py)
-- 13:05 16.11.: Startsperre 13:05 Start Homer, Perikles (lauf.py)
 - 13:05 16.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj77oLo8quAixJ2CvysQ (lauf.py)
 - 13:05 16.11.: Marke Mehrfach Sokrates (lauf.py)
 - 13:05 16.11.: Marke Archiv session_01Hmoj75kAWFUnHAs39ZVQcD (lauf.py)
@@ -147,6 +145,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:04 16.11.: Startsperre 19:04 Start Tom, Jerry, Diogenes (lauf.py)
 - 19:04 16.11.: Marke Archiv session_01Hmoj794gZGafp6bN7FPDvM (lauf.py)
 - 19:04 16.11.: Start Jerry 1453 (session_01Hmoj76XQ54YtEhfAGyiZ3Y), alte Jerry archiviert, 11,69 $ auf 1072, 1453; Weiter 1477 Diogenes; Startsperre 19:04 Start Sokrates (selbst), Neustart-Meldung 2780b0605, Nachfolger Sokrates – 1411: Mana grundsätzlich, Vorlage; neuer Ford session_01Hmoj76cLUxDoHGcPjixiTE steht seit 19:01 auf Freigabe, hat keine Uhr angelegt, alter Ford führt weiter
-- 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
-- 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
-- 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
+- 19:36 16.11.: Startsperre 19:36 Start Diogenes, Perikles (lauf.py)
+- 19:36 16.11.: Marke Start-fehlt Diogenes 16.11.-19:04 (lauf.py)
+- 19:36 16.11.: Marke Start-fehlt Tom 16.11.-19:04 (lauf.py)
+- 19:36 16.11.: Marke Archiv session_01Hmoj77QaqaUitEpoXy4B2K (lauf.py)
