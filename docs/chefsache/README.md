@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 18:59, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 19:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -28,10 +28,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (57) | 6 | 2 | 0 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (18) | 5 | 0 | 1 | 3 | 1408 (Jerry) typen.py rot, regeln/mars.gd 288 Stellen ohne Typ… |
-| **7** Werkzeuge und Abläufe der Firma | 47 (56) | 29 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
+| **7** Werkzeuge und Abläufe der Firma | 46 (56) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 142 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 143 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -43,7 +43,7 @@ Heute (seit 6:00): 142 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:0
 | Tuffy | 1408 typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284… (Muss von Jerry, neben dessen Arbeit); dann 12 weitere |
 | Spike | leer, weil 3 wartet auf Test/Build, 3 ruht bis, 2 wartet auf Diogenes |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1477 startbar.py getestet_nicht_auf_main zählt build-274 und bui… (Muss); dann 2 weitere |
+| Diogenes | 1385 Unterbau „Alles an einer Stelle“: eine Kennung je Figur und… (Muss); dann 1 weitere |
 | Sokrates | 1411 Mana grundsätzlich: woher, wie viel, wie es wächst; Zauberk… (Muss) |
 | Perikles | 919 Regeln nachziehen: Testbitte auch bei rot mit Liste „bekann… (Kür) |
 
@@ -72,7 +72,7 @@ Heute (seit 6:00): 142 erledigt, 120 neu. In Klammern bei „offen“: Stand 6:0
 | 19 | 1408 | Jerry | typen.py rot, regeln/mars.gd 288 Stellen ohne Typ statt 284; typisieren, dann n… | M | 6 Godot besser nutzen | startbar |
 | 20 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 61.
+Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 61.
 ## Zu entscheiden
 
 Nichts offen.
