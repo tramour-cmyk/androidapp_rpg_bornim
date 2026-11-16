@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1394 | Von Jerry (1393): Entwurf docs/entwurf/t292-sammelbuild.md gegenlesen (Regel 8), Zeile „Gegengelesen: Tom …“ eintragen | Tom | M | startbar | – | – | – | E Technik | – |
+| 1394 | Von Jerry (1393): Entwurf docs/entwurf/t292-sammelbuild.md gegenlesen (Regel 8), Zeile „Gegengelesen: Tom …“ eintragen | Tom | M | erledigt | – | – | – | E Technik | – |
 | 1361 | Von Tom (1312): Sammelbuild 291: alle fertigen Zweige der drei Teams nach t290 (785.24, 1355, 870.20, 1322, 1326, 1321, 1289, 415, 601.1, 1275, 1270.3, 673) | Tom | M | zu testen | – | claude/build-291 | 291 | E Technik | 17,86 $ |
 | 1341 | Von Sokrates (1309, Chef 15.11., 21:42): Bild t290.6 neu, zeigt keine Gegenstandsnamen; Prüfpunkt klar formulieren, siehe Zu 1309 | Tom | M | wartet, Bildlauf von der Rechteprüfung abgelehnt | 1351 | – | – | E Oberfläche | 8,48 $ |
 | 1044 | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerhalb des Kampfs wie zur Rolle passend, kein Kampfstand (Grundstand „Stehen“ breitbeinig, Bram, Frau im roten Kleid, Osric t283.3) · zurück t282, t283 · wiederholt Film 1040.1 15.11., 21:50 | Tom | M | wartet | 1351 | claude/tom-1092-streifen | – | E Figuren | 29,31 $ |
