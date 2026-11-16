@@ -22,7 +22,7 @@ static func da() -> bool:
 		and ResourceLoader.exists(KIT + "wind/grass_wind.gd")
 
 static func aktiv() -> bool:
-	return an and da()
+	return an and Grafik.kits() and da()   # 698: Niedrig ohne Kits
 
 # Vorlage des Kits als eigene Kopie, Farben gedaempft, ohne Leuchten (nachts sonst gluehende Spitzen)
 static func stoff(vorlage: String) -> ShaderMaterial:

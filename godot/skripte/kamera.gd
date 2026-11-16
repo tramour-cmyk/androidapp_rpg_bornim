@@ -62,7 +62,7 @@ func _process(_d: float) -> void:
 func tusche_lampen() -> void:
 	var pos := PackedVector4Array()
 	var kraft := PackedFloat32Array()
-	if lampen_an and nacht > 0.02:
+	if lampen_an and Grafik.tusche_lampen() and nacht > 0.02:   # 698: Niedrig nur nach Helligkeit
 		var mitte := ziel.global_position if ziel else global_position
 		var l := []
 		for n in get_tree().get_nodes_in_group("tuschelicht"):

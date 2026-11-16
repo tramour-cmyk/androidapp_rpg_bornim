@@ -12,6 +12,16 @@ func pruefe(ok: bool, was: String) -> void:
 	print(("gut " if ok else "FEHLER ") + was)
 	if not ok: fehler += 1
 
+# 1079 (Lauf 413, 450, 467 rot nur auf dem Bauserver, am Rechner ohne Kaufmodelle grün): beim ersten Schritt der Ziege, wer um den
+# Helden steht und ob der Platztausch frei waere (Leute.weiche: Nachbar und frei_fuer_mich), damit ein Rot die Ursache zeigt
+func _umfeld(spiel, z: Leute, h: Vector2i) -> void:
+	var hk: Vector2i = z.held_kachel()
+	var nah := []
+	for l in spiel.leute.get_children():
+		if l is Leute and l != z and (absi(l.kachel.x - hk.x) + absi(l.kachel.y - hk.y) <= 2 or absi(l.ziel.x - hk.x) + absi(l.ziel.y - hk.y) <= 1):
+			nah.append("%s %s -> %s%s%s" % [l.daten.get("id", "?"), l.kachel, l.ziel, "" if l.visible else " unsichtbar", " Flucht" if l.flucht else ""])
+	print("Umfeld Held %s (gestellt %s, Position %s), Ziege Leib %.2f, frei %s; nah: %s" % [hk, h, spiel.held.position, z.leib, z.frei_fuer_mich(hk, true), nah])
+
 func _lauf() -> void:
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
@@ -28,8 +38,11 @@ func _lauf() -> void:
 		z = Leute.new(k, {"id": "ziege1", "x": p[1], "y": p[2], "blick": "DOWN", "streifen": 2, "tier": "ziege"}, spiel.held)
 		spiel.leute.add_child(z)
 		z.leib = 0.65
-		spiel.held.leute = spiel.leute.get_children()
 		print("Ziege selbst gestellt (ohne Modell)")
+		# 1079: die Hühner wie Leute.dorftiere am Heuhaufen (33, 28), (33, 29), sonst fehlen sie am Rechner
+		for hp in [Vector2i(32, 28), Vector2i(33, 27), Vector2i(32, 29), Vector2i(34, 29)]:
+			spiel.leute.add_child(Leute.new(k, {"id": "huhn_%d_%d" % [hp.x, hp.y], "x": hp.x, "y": hp.y, "blick": "DOWN", "streifen": 2, "tier": "huhn"}, spiel.held))
+		spiel.held.leute = spiel.leute.get_children()
 	Leute.still = false
 	var start := z.kachel
 	print("Ziege auf ", start, " Daten ", z.daten)
@@ -46,6 +59,8 @@ func _lauf() -> void:
 			await process_frame
 			if z.ziel.x >= 0 and (tritte.is_empty() or tritte[-1][1] != z.ziel):
 				tritte.append([z.kachel, z.ziel, z.durch_bis > Time.get_ticks_msec()])
+				if not tritte[-1][2]: print("Ziege tritt ohne Tausch; auf oder unterwegs zur Kachel des Helden: ", im_weg(spiel, z, k.pos_kachel(spiel.held.position)))
+				if tritte.size() == 1: _umfeld(spiel, z, h)
 			var hk := k.pos_kachel(spiel.held.position)
 			if vorbei < 0 and (hk - start) == d: vorbei = (Time.get_ticks_msec() - t0) / 1000.0
 		spiel.held.richtung = Vector3.ZERO
@@ -53,5 +68,71 @@ func _lauf() -> void:
 		pruefe(vorbei >= 0, "von %s kommt der Held an der Ziege vorbei" % [d])
 		pruefe(not tritte.is_empty() and tritte[0][1] == h and tritte[0][2], "von %s tauscht die Ziege mit dem Helden den Platz" % [d])
 		await create_timer(0.5).timeout
+	# 1325 (Lauf 499, 500 rot: von Westen trat die Ziege erst voran, dann Tausch; Ursache am Rechner nachgestellt): wer gerade
+	# zur Kachel des Helden unterwegs ist (sein Schritt galt vor dem Helden), sperrte den Tausch. Eine Person geht hinter dem
+	# Helden auf dessen Kachel zu, waehrend er von Westen gegen die Ziege drueckt
+	var d2 := Vector2i(-1, 0)
+	var h2: Vector2i = start - d2
+	var p: Leute = null
+	for l in spiel.leute_liste():
+		if l != z and not l.daten.has("tier") and not l.daten.has("runde"): p = l; break
+	var von := h2 + Vector2i(1, 0)
+	if p == null and k.begehbar(von):
+		# am Rechner ohne Personenmodelle: eine Person wie Leute.alle, ohne Tier
+		p = Leute.new(k, {"id": "gaenger", "x": von.x, "y": von.y, "blick": "LEFT", "streifen": 1}, spiel.held)
+		spiel.leute.add_child(p)
+		spiel.held.leute = spiel.leute.get_children()
+	if p != null and k.begehbar(von):
+		z.ziel = Vector2i(-1, -1); z.warte = 30.0; z.durch_bis = 0
+		z.kachel = start; z.position = k.kachel_pos(start)
+		spiel.held.setze(h2, "DOWN")
+		p.kachel = von; p.position = k.kachel_pos(von); p.weg.clear(); p.warte = 30.0; p.ziel = h2
+		spiel.held.richtung = Vector3(d2.x, 0, d2.y)
+		var erst := []
+		var t1 := Time.get_ticks_msec()
+		while Time.get_ticks_msec() - t1 < 4000 and erst.is_empty():
+			await process_frame
+			if p.ziel == h2 and p.kachel != h2: p.warte = 30.0
+			if z.ziel.x >= 0: erst = [z.kachel, z.ziel, z.durch_bis > Time.get_ticks_msec()]
+		spiel.held.richtung = Vector3.ZERO
+		print("Seite ", d2, " mit ", p.daten.get("id"), " unterwegs auf ", h2, ": erster Schritt der Ziege ", erst)
+		pruefe(not erst.is_empty() and erst[1] == h2 and erst[2], "1325: tauscht auch, wenn jemand zur Kachel des Helden unterwegs ist")
+	else:
+		print("Seite 1325: keine Person oder Kachel ", von, " zu")
+	await create_timer(0.5).timeout
+	# 1383 (Lauf 513 rot: „Ziege tritt ohne Tausch …: huhn2 (31, 27) -> (31, 28), Flucht“): ein Huhn stand noch auf der Kachel des
+	# Helden und floh eben von dort; frei_fuer_mich zaehlte es als Besetzer, der Tausch war gesperrt, die Ziege trat voran
+	var weg_h := h2 + Vector2i(0, 1) if k.begehbar(h2 + Vector2i(0, 1)) else h2 + Vector2i(0, -1)
+	if k.begehbar(weg_h):
+		var huhn := Leute.new(k, {"id": "huhn_1383", "x": h2.x, "y": h2.y, "blick": "DOWN", "streifen": 2, "tier": "huhn"}, spiel.held)
+		spiel.leute.add_child(huhn)
+		spiel.held.leute = spiel.leute.get_children()
+		if p != null: p.kachel = von + Vector2i(3, 3); p.position = k.kachel_pos(p.kachel); p.ziel = Vector2i(-1, -1); p.warte = 30.0
+		z.ziel = Vector2i(-1, -1); z.warte = 30.0; z.durch_bis = 0
+		z.kachel = start; z.position = k.kachel_pos(start)
+		spiel.held.setze(h2, "DOWN")
+		spiel.held.richtung = Vector3(d2.x, 0, d2.y)
+		var erst3 := []
+		var t3 := Time.get_ticks_msec()
+		while Time.get_ticks_msec() - t3 < 4000 and erst3.is_empty():
+			# das Huhn bleibt im Aufbruch: fast an der Kante, noch auf der Kachel des Helden, sein Schritt fuehrt fort (angehalten)
+			huhn.set_process(false); huhn.set_physics_process(false)
+			huhn.position = k.kachel_pos(h2).lerp(k.kachel_pos(weg_h), 0.45)
+			huhn.kachel = h2; huhn.ziel = weg_h; huhn.flucht = true
+			await process_frame
+			if z.ziel.x >= 0: erst3 = [z.kachel, z.ziel, z.durch_bis > Time.get_ticks_msec()]
+		spiel.held.richtung = Vector3.ZERO
+		print("Seite ", d2, " mit Huhn im Aufbruch von ", h2, " nach ", weg_h, ": erster Schritt der Ziege ", erst3)
+		pruefe(not erst3.is_empty() and erst3[1] == h2 and erst3[2], "1383: tauscht auch, wenn ein Tier eben von der Kachel des Helden flieht")
+		huhn.queue_free()
+	else:
+		print("Seite 1383: keine Nachbarkachel frei")
 	print("ZIEGE %d Fehler" % fehler)
 	quit(1 if fehler else 0)
+
+# 1325: wer auf der Kachel h steht oder zu ihr unterwegs ist (ausser der Ziege)
+func im_weg(spiel, z, h: Vector2i) -> Array:
+	var r := []
+	for l in spiel.leute_liste():
+		if l != z and (l.kachel == h or l.ziel == h): r.append([l.daten.get("id"), l.kachel, l.ziel, l.flucht])
+	return r

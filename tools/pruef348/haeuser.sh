@@ -37,7 +37,7 @@ for v in $V; do
   for t in gras erde pflaster halme korn weiss; do cp $S/out/tex/$t.png $D/$t.bild; done
   cp $S/out_$v/boden-maske.png $D/boden-maske.bild
   (cd $G && ~/godot/godot --headless --import --path . > $S/import_$v.log 2>&1 || true)
-  (cd $G && timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . --resolution 1080x2340 -- --haeuser=$S/bild_$v:$H > $S/godot_$v.log 2>&1 || true)
+  (cd $G && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --haeuser=$S/bild_$v:$H > $S/godot_$v.log 2>&1 || true)
 done
 ls $S/bild_*
 echo BILDER OK

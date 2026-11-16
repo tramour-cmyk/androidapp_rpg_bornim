@@ -9,6 +9,7 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 const BrsKampf = preload("res://regeln/brs_kampf.gd")
+const Kerbe = preload("res://regeln/kerbe.gd")
 ## 555 Testmenue „Kampfhilfen“ wie alt (Battle.heroCritsAlways, foesFailSaves), dazu „unsterblich“: der Held faellt nie unter 1 TP;
 ## von Hand an, sonst immer aus (die Gegenproben laufen ohne sie)
 static var held_immer_krit := false
@@ -68,7 +69,7 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 	"circle": ["Der da ruft das Rudel zusammen. Den treffen, egal wie leicht.",     # [986.circle]
 		"That one calls the pack together. Hit it, however lightly."],
 	"growl": ["Der hier hält sich zurück. Erst den Leitwolf treffen.",     # [986.growl]
-		"This one holds back. Hit the lead wolf first."],
+		"This one holds back. Hit the pack leader first."],
 	"web": ["Das Netz fliegt langsam. Nur wer den Moment genau trifft, bleibt frei.",     # [986.web]
 		"The web flies slowly. Only perfect timing keeps you free."],
 	"gather": ["Er holt Luft. Jetzt nachsetzen, sonst kommt er wieder zu Kräften.",     # [986.gather]
@@ -78,7 +79,9 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
 		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
 	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
-		"He takes aim. If the one in his sights Defends, the arrow flies past."]}
+		"He takes aim. If the one in his sights Defends, the arrow flies past."],
+	"offen": ["Ich wollte ihm zuvorkommen und stand gegen seinen großen Schlag offen. Gegen große Schläge bin ich in Wehr besser dran.",     # [1367.offen], Kerbensystem (1366)
+		"I meant to strike first and was left open to his big blow. Against big blows, I am better off on Guard."]}
 const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
 ## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
 var gesehen := {}
@@ -298,7 +301,7 @@ class Fighter:
 	## Zurückrechnen nach dem Kampf; Schutz aus Bannschild und Arkanhaut (Abzug), Runden mit Beistand, Bannschild schon gewirkt
 	var zauber: Array = []
 	var max_sp := 0
-	var srd_sp := -1
+	var mana_vorher := -1
 	var schutz := 0.0
 	var beistand := 0
 	var bann_genutzt := false
@@ -322,6 +325,7 @@ class Fighter:
 	## stun in which no new one takes hold; the statuses have acted this turn; has landed a blow in this fight.
 	var status := {}
 	var gift := 1.0     # 870.6: Stärke des Gifts, das auf ihm wirkt (werte.json „monsterregeln“ „gift“)
+	var zustand_d := {}     # 956: Zustand -> Stufenunterschied D seines Verursachers zu ihm (Stufenfaktor wie beim Schaden)
 	var stun_guard := 0
 	var ticked := false
 	var has_hit := false
@@ -334,7 +338,9 @@ class Fighter:
 	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
 	var b := {}
-	## 478: seine Leben nach dem SRD beim Umrechnen (Maßstab für alles, was noch in Würfeln des SRD rechnet)
+	## 930.6: sein Stand im Kerbensystem (kerbe.gd: Kerben, Haltung, Abstand, Ansage …), leer im alten Kampf
+	var gl := {}
+	## 478: seine Leben vor dem Umrechnen
 
 	func standing() -> bool:
 		return hp > 0 and not fled
@@ -429,11 +435,17 @@ const KROGG := "bugbear"
 const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
 const MSG532_CURED := ["{0} ist von allen Leiden befreit!", "{0} is cured of all ailments!"]     # Battle.kt Msg.cured
 const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
+const MSG1232_RAUCH := ["{0} hat beißenden Rauch in den Augen. Sein Schlag geht ins Leere.", "{0} has stinging smoke in his eyes. His blow goes astray."]     # [1232.rauch.krogg]
 var aim_spot := {}
 var retargeted := {}
 var chosen := false
 var called := 0
 var casting = null
+# 1333 (aus 1215, 930 Regel 5): wie der laufende Schlag trifft, fuer das Sterben mit Physik (kampf/ragdoll.gd STOSS): „schwer“ bei
+# Wuchtschlag, Schaedelstoss, Durchschlag und Zweihaender oder stumpfer Waffe, „schild“ beim Schildstoss; steht in der Meldung („wucht“)
+var wucht := ""
+const HANDLUNG_WUCHT := {"H_WUCHT": "schwer", "H_SCHAEDEL": "schwer", "H_DURCH": "schwer", "H_SCHILDSTOSS": "schild"}
+const WAFFEN_SCHWER := ["Zweihänder", "Stumpfe Waffen"]
 
 
 ## [party] and [foes] are Fighters; [tables] the monsters, items and skills (870.6: regeln/tabellen.gd Tabellen.lade(), nach BRS).
@@ -513,6 +525,11 @@ var anspringen := "handeln"
 ## 478, 870.5: der Kampf rechnet nur nach dem BRS (Modell D, brs_kampf.gd); Leben der Gruppe im selben Anteil wie vorher, Gegner nach
 ## dem Bestiarium (daten/werte.json); true, sobald der Kampf eingerichtet ist (aufruf.gd liest es)
 var brs := false
+
+## 930.6 (DESIGN-GLUT.md, Bauplan 10 Stufe 1): Schalter des Kerbensystems (werte.json „kerbe“ „an“, Tests setzen ihn vor start); aus:
+## der alte Kampf bis zur Abnahme. An: start, act, _auto_order gehen an den Regelkern kerbe.gd (gk); act nimmt ["KERBE", Plan]
+var kerbe: bool = Kerbe.an()
+var gk = null
 
 func brs_einrichten() -> void:
 	assert(BrsKampf.an(), "870.5: daten/werte.json fehlt (tools/sim444/werte.json)")
@@ -642,7 +659,7 @@ func _brs_zauber_kennen(f: Fighter) -> void:
 	var h: Dictionary = W["held"]
 	f.max_sp = int(f.b.get("mana", 0)) if int(f.b.get("mana", 0)) > 0 else int(h.get("mana_basis", 10)) + int(h.get("mana_je_wille", 5)) * int(f.b.werte.get("wille", 0))     # 870.6: aus dem Kampfblatt (mit Mana der Ausrüstung)
 	var alt_max := int(f.hero.get("sp_max", 0))
-	f.srd_sp = f.sp if alt_max > 0 else -1
+	f.mana_vorher = f.sp if alt_max > 0 else -1
 	f.sp = clampi(roundi(float(f.max_sp) * f.sp / alt_max), 0, f.max_sp) if alt_max > 0 else f.max_sp
 
 
@@ -650,7 +667,7 @@ func _brs_zauber_kennen(f: Fighter) -> void:
 static func sp_nach(f) -> int:
 	var alt_max := int(f.hero.get("sp_max", 0)) if f.hero != null else 0
 	if alt_max <= 0 or f.max_sp <= 0:
-		return f.srd_sp if f.srd_sp >= 0 else f.sp
+		return f.mana_vorher if f.mana_vorher >= 0 else f.sp
 	return clampi(roundi(float(alt_max) * f.sp / f.max_sp), 0, alt_max)
 
 
@@ -943,6 +960,8 @@ func drink_helps(item: String, t: Fighter) -> bool:
 
 # 72.13: heal a friend below half, else a cantrip, else the weapon.
 func _auto_order(f: Fighter) -> Array:
+	if kerbe and gk != null:     # 930.6: Vorschlag der Bedienung (DESIGN-GLUT.md 7.1, 7.6)
+		return ["KERBE", gk.vorschlag(f)]
 	var friend = null
 	for x in all:
 		if x.side == f.side and x.standing() and x.hp * 2 < x.max_hp:
@@ -1093,11 +1112,17 @@ func autopilot_blocked(hp = null):
 	return null
 
 
+## 1275 (DESIGN-GLUT Regel 5, 10): im Kerbensystem kostet der Platztausch den freien Schritt, die Waffe wechselt einmal je Zug frei;
+## beides beendet den Zug nicht (kerbe.gd tausch_vorweg, waffe_vorweg)
 func can_swap(f: Fighter) -> bool:
+	if kerbe and gk != null and not f.gl.is_empty():
+		return gk.kann_tauschen(f)
 	return not f.moved
 
 
 func can_draw(f: Fighter) -> bool:
+	if kerbe and gk != null and not f.gl.is_empty():
+		return gk.kann_wechseln(f)
 	return not f.moved and f.spare() != null
 
 
@@ -1130,6 +1155,18 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 	var f := current()
 	assert(f.side == "PARTY" and f.standing())
 	chosen = true
+	if kerbe and o[0] == "drink":     # 1266 (Regel 10): Trank aus der Tasche, der Zug geht weiter (kerbe.gd trank_vorweg)
+		gk.trank_vorweg(f, String(o[1]), by_id(String(o[2])) if o.size() > 2 and o[2] != null else f)
+		return _take_log()
+	if kerbe and (o[0] == "swap" or o[0] == "draw"):     # 1275 (Regel 5, 10): Platztausch und Waffe wechseln, der Zug geht weiter
+		if o[0] == "swap":
+			gk.tausch_vorweg(f, o[1], o.size() > 2 and bool(o[2]))
+		else:
+			gk.waffe_vorweg(f)
+		return _take_log()
+	if kerbe:     # 930.6: ["KERBE", Plan] (kerbe.gd held_zug); die Befehle des alten Kampfs übersetzt kerbe.gd plan_aus
+		gk.handeln(f, o[1] if o[0] == "KERBE" else gk.plan_aus(f, o))
+		return _take_log()
 	_perform(f, o)
 	if o[0] == "swap" or o[0] == "draw":
 		f.moved = true
@@ -1140,6 +1177,10 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 
 func proceed(react: Callable = Callable()) -> Array:
 	assert(outcome == "ONGOING")
+	if kerbe:     # 930.6: der Regelkern hält an jeder Wahl der Gruppe; Autopilot und Söldner spielen den Vorschlag
+		if pilot_next():
+			return act(_auto_order(current()), react)
+		return _take_log()
 	_skip_to_choice(react)
 	return _take_log()
 
@@ -1177,6 +1218,10 @@ func start(react: Callable = Callable(), verjagen := false) -> Array:
 		if outcome != "ONGOING":
 			started = true
 			return _take_log()
+	if kerbe:     # 930.6
+		gk = Kerbe.new(self)
+		gk.beginnen(react)
+		return _take_log()
 	_opening()
 	_skip_to_choice(react)
 	return _take_log()
@@ -1190,8 +1235,10 @@ func _opening() -> void:
 		_say(fmt(MSG399_FED, lang, [lead().name(lang)]))
 	_smoke_bundle()
 	_cow()
+	eroeffnung = true
 	for foe in intents.keys():
 		_say_announce(by_id(foe))
+	eroeffnung = false
 
 
 ## D4.1 (Battle.smokeBundle): the hero throws Morwen's smoke bundle as soon as Krogg shows up, by itself, before an ambush too.
@@ -1200,7 +1247,14 @@ func _smoke_bundle() -> void:
 		return
 	smoke -= 1
 	smoke_thrown = true
+	casting = "BOMB_SMOKE"     # 1222: am Kampfort fliegt das Bündel und platzt an Krogg (zauber.gd _smoke_bundle)
 	_say(fmt(THROWS, lang, [lead().name(lang), SMOKE_BUNDLE[lang]]), lead().id, foes_of_kind(KROGG)[0].id, 0, null, false, false, "THROW")
+	casting = null
+
+
+## 1222: geht der nächste Schlag von [foe] in Morwens Rauch fehl (Krogg, Bündel geworfen, Rauch noch nicht verbraucht)?
+func _verraucht(foe: Fighter) -> bool:
+	return foe.monster != null and str(foe.monster.id) == KROGG and smoke_thrown and not smoke_spent
 
 
 func foes_of_kind(id: String) -> Array:
@@ -1477,6 +1531,12 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 ## 870.5: eine Kampfhandlung (werte.json „handlungen“, wie tools/sim444/handlungen.py duell)
 func _handlung(f: Fighter, s: String, t) -> void:
 	var h := _hw(s)
+	wucht = String(HANDLUNG_WUCHT.get(s, ""))
+	_handlung_tun(f, s, t, h)
+	wucht = ""
+
+
+func _handlung_tun(f: Fighter, s: String, t, h: Dictionary) -> void:
 	match s:
 		"H_KRAFT":
 			var n := mini(f.max_hp - f.hp, roundi(f.max_hp * float(h.get("heilung_anteil", 0.25))))
@@ -1620,7 +1680,7 @@ func _throw(f: Fighter, item: String, t: Fighter) -> void:
 	casting = null
 	_gegenwirkung(f, t, typ)
 	if item == "alchemist_fire" and statuses and outcome == "ONGOING" and t.standing():
-		_inflict(t, "BURN", 2)
+		_inflict(t, "BURN", 2, null, null, f)
 
 
 ## 870.4: ein Trank heilt fest wie in der Welt (werte.json „welt“ „heilung“, Leben nach BRS); 870.6: für jeden, ohne Würfel
@@ -1637,13 +1697,28 @@ func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
 ## 870.5: ein Schlag mit der Waffe nur nach dem BRS (_brs_waffe); [mod] einer Kampfhandlung: treffer (Prozentpunkte), schaden
 ## (Faktor), ruestung (Anteil der Rüstung des Ziels)
 func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null, mod := {}) -> void:
+	var vorher := wucht
+	if wucht == "" and _waffe_schwer(f, with_weapon):
+		wucht = "schwer"
 	_brs_waffe(f, t, advantage, cover, with_weapon, mod)
+	wucht = vorher
+
+
+## 1333: Zweihaender oder stumpfe Waffe (Gruppe wie in _brs_waffe)
+func _waffe_schwer(f: Fighter, with_weapon) -> bool:
+	if f.b.is_empty():
+		return false
+	var w = with_weapon if with_weapon != null else f.weapon()
+	var wsheet = w if w != null else (f.hero.main if f.hero != null else null)
+	if wsheet == null:
+		return false
+	return BrsKampf.waffe_held(f.b, wsheet, w != null and w != f.main_weapon()) in WAFFEN_SCHWER
 
 
 ## 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
 ## a dwarf's toughness against poison; a foe immune to it takes none, a boss shakes off a stun half the time.
 ## [save]: [ability, DC] or null.
-func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bool:
+func _inflict(t: Fighter, st: String, turns: int, save = null, die = null, quelle = null) -> bool:
 	if outcome != "ONGOING" or not t.standing():
 		return false
 	if st == "STUN" and t.stun_guard > 0:
@@ -1672,6 +1747,10 @@ func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bo
 			_say(fmt(ST_SHAKES, lang, [who]), null, t.id)
 			return false
 	t.status[st] = maxi(int(t.status.get(st, 0)), turns)
+	if quelle != null:     # 956 (870.6a 2 A, Chef 11.11., 13:55): D des Verursachers, der neueste gilt
+		t.zustand_d[st] = float(int(quelle.b.get("stufe", 1)) - int(t.b.get("stufe", 1)))
+	else:
+		t.zustand_d.erase(st)
 	if st == "POISON" and die != null:
 		t.gift = float(die)
 	if st == "STUN":
@@ -1710,7 +1789,12 @@ func _tick(f: Fighter) -> bool:
 			anteil *= f.gift
 			if _volk(f) == "Zwerg":
 				anteil *= 0.5
-		var dmg: int = _anteil(f, anteil)
+		# 956 (870.6a 2 A, Chef 11.11., 13:55; DESIGN-BRS 7, Entscheidung 73): mit dem Stufenfaktor D des Verursachers wie beim
+		# Schaden; ohne Verursacher Faktor 1; Faktor 0 (D bis −10) schadet nicht, sonst mindestens 1
+		var faktor := BrsKampf.Brs.stufenfaktor(float(f.zustand_d.get(st, 0.0)))
+		if faktor <= 0.0:
+			continue
+		var dmg: int = _anteil(f, anteil * faktor)
 		_hurt(f, dmg, "", fmt(ST_HURTS[st], lang, [who]) + " " + fmt(MSG296_DAMAGE, lang, [dmg]))
 	if outcome != "ONGOING" or not f.standing():
 		return false
@@ -1732,7 +1816,7 @@ func _foe_wounds(foe: Fighter, t: Fighter) -> void:
 		return
 	match str(m.get("special", "NONE")):
 		"POISON":
-			_inflict(t, "POISON", 3, ["zaehigkeit", 11], float(m.get("gift", 1.0)))
+			_inflict(t, "POISON", 3, ["zaehigkeit", 11], float(m.get("gift", 1.0)), foe)
 		"SURPRISE_ATTACK":
 			if first:
 				_inflict(t, "STUN", 1, ["zaehigkeit", 12])
@@ -1741,7 +1825,7 @@ func _foe_wounds(foe: Fighter, t: Fighter) -> void:
 				_inflict(t, "BLIND", 2, ["zaehigkeit", 10])
 		"BLOOD_DRAIN":
 			if dice.chance(0.3):
-				_inflict(t, "BLEED", 2)
+				_inflict(t, "BLEED", 2, null, null, foe)
 		"PARALYZE":     # 506: Grabhund
 			if _volk(t) == "Elf":
 				_say(fmt(MSG506_ELF, lang, [t.name(lang)]), t.id)
@@ -1821,7 +1905,9 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 			_say(fmt(pick("MSG130_DUCKS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "DUCKED")
 			continue
 		var re := NONE
-		if not intent.ring and not (foe.id in t.cover_from):
+		if _verraucht(foe):     # 1222 ([1232.rauch.krogg], Homer): der verrauchte Schlag geht ohnehin ins Leere, kein Ring
+			re = NONE
+		elif not intent.ring and not (foe.id in t.cover_from):
 			re = NONE
 		elif _piloted(t) or t.auto:
 			re = GOOD
@@ -1848,7 +1934,7 @@ func _lineup_attack(foe: Fighter, intent: Dictionary, aimed: Array, react: Calla
 			_strike(foe, r[0], I_STAB, NONE)
 		return
 	if foe.id in t.cover_from:
-		var re := GOOD if _piloted(t) or t.auto else _ring(react, t, intent)
+		var re := NONE if _verraucht(foe) else (GOOD if _piloted(t) or t.auto else _ring(react, t, intent))     # 1222: kein Ring
 		_strike(foe, t, intent, re, false)
 		return
 	if intent.effect == "FLANK":
@@ -1900,7 +1986,8 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		test_erzwungen.append("ausweichen")
 		success = false
 		info[4] = false
-	if str(m.id) == KROGG and smoke_thrown and not smoke_spent:
+	var verraucht := _verraucht(foe)
+	if verraucht:
 		# D4.1: der Rauch brennt in den Augen, der erste Schlag geht fehl, mit ihm der Überraschungsschlag (Battle.enemyAttack)
 		smoke_spent = true
 		foe.has_hit = true
@@ -1911,6 +1998,9 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	# Anspringen (285) mit dem vorderen, statt nach vorn und wieder ganz zurück zu laufen; Fernkampf und Zauber bleiben hinten
 	if intent.effect == "POUNCE" or (foe.side == "FOES" and String(foe.b.get("art", "nah")) == "nah"):
 		_leap_forward(foe)
+	if verraucht:     # 1222 (Chef 13.11., 20:39: Rauchbündel „ohne sichtbare Wirkung“): eigene Zeile statt „verfehlt“ ([1232.rauch.krogg])
+		_say(fmt(MSG1232_RAUCH, lang, [foe.name(lang)]), foe.id, t.id, 0, info)
+		return
 	if re == PERFECT:
 		_perfect_answer(t, foe, info)
 		return
@@ -1933,7 +2023,10 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 		dmg = roundi(dmg * _schaden_faktor(foe))     # 870.6: Schwächung als Faktor
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
-	if dmg > 0:
+	# 1305 (Chef 15.11., 17:18; reihe_1305 Seed 7): ein Treffer ohne Schaden (Modell D, 478) blieb ohne Meldung; der hintere Wolf
+	# tauschte beim Einkreisen in den Regeln nach vorn (863), im Bild biss er nie und blieb hinten stehen, der Held schlug ihn dort.
+	# Jetzt meldet auch ein Treffer mit 0 Schaden (wie beim Helden); nur nach Ausweichen oder Abwehr am Ring sagt das die Zeile davor
+	if dmg > 0 or re == NONE:
 		_hurt(t, dmg, foe.id, fmt(wolf(foe, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [foe.name(lang), t.name(lang), dmg]), info, true)
 	if outcome != "ONGOING" or not t.standing():
 		return
@@ -2174,7 +2267,39 @@ func _say_announce(foe: Fighter) -> void:
 	var key := "MSG130_SIGN_" + str(intent.id).to_upper()
 	if TX.has(key):
 		_say(fmt(pick(key), lang, [foe.name(lang), "", target]), foe.id)
+	# 1296 (Chef 15.11., 14:48, Build 287: „was der Hinweis soll, wenn ich ja eh nicht wechseln kann“): die Eingebung zu Anspringen
+	# und Flanke rät dem Helden zum Wechsel. Am Rechner nachgestellt: die erste Ansage kam zu Beginn, die Wölfe sprangen, bevor der
+	# Held einen Zug hatte. Jetzt nur, wenn der Held vor dem Ansager noch am Zug ist und wechseln kann (nicht angesprungen am Boden,
+	# nicht im Netz: Aufstehen kostet den halben Zug); sonst wartet sie auf eine Ansage, bei der der Wechsel geht
+	if str(intent.id) in WECHSEL_RAT and not _held_kann_vorher_wechseln(foe):
+		return
 	_eingebung(str(intent.id))
+
+
+## 1296: Eingebungen, die zum Wechsel raten
+const WECHSEL_RAT := ["pounce", "flank"]
+var eroeffnung := false    # 1296: Ansagen zu Beginn, noch niemand hat gezogen
+
+## 1296: kommt der Held vor dem nächsten Zug von [foe] noch dran, und kann er dann wechseln?
+func _held_kann_vorher_wechseln(foe: Fighter) -> bool:
+	var held_f = find("hero")
+	if held_f == null or not held_f.standing() or held_f.held or order.is_empty():
+		return false
+	var n := order.size()
+	# sagt der an, der gerade gezogen hat, kommt er erst nach einer Runde wieder; zu Beginn hat noch niemand gezogen
+	var ab := turn + 1 if order[turn % n] == foe and not eroeffnung else turn
+	for i in n:
+		var f: Fighter = order[(ab + i) % n]
+		if f == foe:
+			return false
+		if f == held_f:
+			return true
+		# 1296 (t289.3 ✗, Chef 15.11., 20:47: Eingebung nach der Ansage von Wolf 3, dann sprangen Wolf 1 und Wolf 2, bevor der Held
+		# zog): springt vor dem Zug des Helden noch ein anderer Gegner mit angesagtem Sprung oder Flanke, kommt sie erst bei dessen
+		# Ansage, unmittelbar vor dem Zug des Helden
+		if f != foe and f.side != held_f.side and f.standing() and intents.has(f.id) and str(intents[f.id][0].id) in WECHSEL_RAT:
+			return false
+	return false
 
 
 ## 840, 986: Eingebung des Helden zu einer Ansage, einmal je Spielstand, gleich nach ihrer ersten Zeile im Bericht
@@ -2291,8 +2416,10 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"text": text, "actor": actor, "target": target, "damage": damage, "hp": hp, "places": places,
 		"intents": intents.duplicate(), "roll": roll, "queue": queue(), "sp": sp, "answer": answer, "wound": wound,
 		"spell": casting, "cue": cue if cue != "" else null,
-		"status": _statuses(), "hidden": _hidden(),
+		"status": _statuses(), "hidden": _hidden(), "wucht": wucht if wucht != "" else null,
 	}
+	if kerbe and gk != null:     # 930.7: die Kerben der Gruppe, wie sie mit dieser Meldung stehen (kampf/kerbbild.gd)
+		e["gl"] = gk.bild()
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)
@@ -2392,7 +2519,7 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 		return
 	var type := str(wsheet.get("type", "BLUDGEONING"))
 	if e.kritisch and type == "SLASHING":
-		_inflict(t, "BLEED", 3)
+		_inflict(t, "BLEED", 3, null, null, f)
 	if e.kritisch and type == "BLUDGEONING" and dice.chance(0.5):
 		_inflict(t, "STUN", 1)
 

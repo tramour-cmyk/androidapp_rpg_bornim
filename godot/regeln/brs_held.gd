@@ -67,9 +67,6 @@ const BRS_AFFIX := {"STR": {"de": "Kraft", "en": "Strength"}, "DEX": {"de": "Gew
 	"CRIT": {"de": "kritisch", "en": "critical"}, "SPELL": {"de": "Zauberschaden", "en": "spell damage"},
 	"TENACITY": {"de": "Abwehrprobe", "en": "resistance roll"}}     # 870.6 (DESIGN-BRS.md 11, STORY-BRS-HELD.md)
 
-const BRS_KURZ := {"STR": {"de": "KRA", "en": "STR"}, "DEX": {"de": "GEW", "en": "AGI"}, "CON": {"de": "ZÄH", "en": "TOU"},
-	"INT": {"de": "VER", "en": "WIT"}, "WIS": {"de": "WAH", "en": "PER"}, "CHA": {"de": "WIL", "en": "WIL"}}
-
 static func brs_woerter(d: Dictionary) -> void:
 	# 870.6, Homer 925 ([925.namen.abwehr]): Namensteile der Abwehrprobe (Kennung TENACITY, alt Standhaftigkeit)
 	if d.get("affixdaten", {}).has("TENACITY"):
@@ -83,9 +80,6 @@ static func brs_woerter(d: Dictionary) -> void:
 		if d.get("affixdaten", {}).has(a):
 			d["affixdaten"][a]["name"] = BRS_AFFIX[a]
 			d["affixdaten"][a]["prozent"] = bool(zusatz.get(a, {}).get("prozent", false))     # 870.6: kritisch, Zauberschaden, Abwehrprobe in %
-		if d.get("attribute", {}).has(a):
-			d["attribute"][a]["name"] = BRS_AFFIX[a]
-			d["attribute"][a]["kurz"] = BRS_KURZ[a]
 
 static func grundform(id: String) -> Dictionary: return daten()["grundformen"][id]
 
@@ -169,20 +163,24 @@ static func grundwert_der_fertigkeit(f: String) -> String:
 		if d is Dictionary and d.get("grundwert") != null: return String(d["grundwert"])
 	return ""
 
-## 644a F: Punkte, die die Fertigkeiten an [g] seit dem Start gewonnen haben (geuebt ueber dem Startwert; „Fertigkeit +n“ der
-## Ausruestung zaehlt nicht); [geuebt_] statt des Geuebten dieses Helden
-func geuebte_punkte(g: String, geuebt_ = null) -> int:
+## 644a.1 B (Chef 14.11., 22:03): Wert der besten Fertigkeit an [g] (geuebt, sonst Startwert); [geuebt_] statt des Geuebten dieses Helden
+func beste_fertigkeit_an(g: String, geuebt_ = null) -> int:
+	var jetzt := fertigkeiten()
 	var ge: Dictionary = geuebt if geuebt_ == null else geuebt_
-	var start := fertigkeiten()
-	var n := 0
-	for f in ge:
-		if grundwert_der_fertigkeit(String(f)) == g: n += maxi(0, int(ge[f]) - int(start.get(String(f), 0)))
-	return n
+	for f in ge: jetzt[String(f)] = int(ge[f])
+	var best := 0
+	for f in jetzt:
+		if grundwert_der_fertigkeit(String(f)) == g: best = maxi(best, int(jetzt[f]))
+	return best
 
-## 644a F: was Ueben dem Grundwert [g] gibt: +1 je „ueben“ „grundwert_punkte“ gewonnene Punkte
+## 644a.1 B (ersetzt 644a F „+1 je grundwert_punkte“): +1 je Schwelle aus „ueben“ „grundwert_schwellen“ (15, 25, 50, 75, 100),
+## die die beste Fertigkeit an [g] erreicht hat; Wert, nicht Gewinn, hoechstens so viele wie Schwellen
 func uebungs_plus(g: String, geuebt_ = null) -> int:
-	var n := int(lade().get("ueben", {}).get("grundwert_punkte", 0))
-	return geuebte_punkte(g, geuebt_) / n if n > 0 else 0
+	var best := beste_fertigkeit_an(g, geuebt_)
+	var n := 0
+	for s in lade().get("ueben", {}).get("grundwert_schwellen", []):
+		if best >= int(s): n += 1
+	return n
 
 ## 644a F (fuer die Meldung „Grundwert gestiegen“, 644a.2 Tom): die Grundwerte, die durch Ueben hoeher sind als mit [geuebt_vorher]
 func grundwerte_gestiegen(geuebt_vorher: Dictionary) -> Array:
@@ -424,7 +422,7 @@ func beide_haende_mit(w_) -> bool:
 	var d := grundform(w_["base"])
 	if bool(d["fern"]): return false
 	var hw = waffe()
-	return bool(d["zweihaendig"]) or (d["vielseitig"] != null and hw != null and int(w_["uid"]) == int(hw["uid"]) and ding("OFF_HAND") == null)
+	return bool(d["zweihaendig"]) or (bool(d["vielseitig"]) and hw != null and int(w_["uid"]) == int(hw["uid"]) and ding("OFF_HAND") == null)
 
 ## jeder darf alles tragen (DESIGN-BRS.md 7), aber erst ab der Stufe des Stuecks (644a A, DESIGN-BRS.md 11 „Mindeststufe“); was
 ## darin nicht geht (Metall und Magie, Schleichen), sagt das Gegenstandsfenster. Nur Anlegen prueft das: Getragenes bleibt angelegt

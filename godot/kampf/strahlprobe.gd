@@ -51,6 +51,13 @@ func _ready() -> void:
 	_lauf.call_deferred()
 
 
+## 1286 (Build 286, A56; nachgestellt in Lauf 510, Test strahl_zurueck_1286): nach „Zurück“ nimmt der Szenenwechsel die Probe sofort
+## aus dem Baum, ihre wartenden Abläufe (Timer, process_frame) laufen aber weiter: get_tree() null, Kampfort freigegeben. Nach jedem
+## Warten darum fragen, ob die Probe noch steht, und dann still enden
+func _weg() -> bool:
+	return not is_inside_tree() or not is_instance_valid(kf)
+
+
 func _lauf() -> void:
 	probe = Probe.new()
 	probe.hero_cls = "WIZARD"
@@ -58,9 +65,11 @@ func _lauf() -> void:
 	probe.foe = "WOLVES"
 	add_child(probe)
 	await get_tree().process_frame
+	if not is_inside_tree(): return
 	probe._start(7)
 	for i in 6:
 		await get_tree().process_frame
+		if not is_inside_tree(): return
 	kf = probe.fight
 	_oberflaeche()
 	if kf == null:
@@ -80,11 +89,14 @@ func _lauf() -> void:
 	# einen zweiten außerhalb (Ziel gewählt, als das Rudel noch einlief). Jetzt die Spielkamera wie im Kampf (alle im Bild) und das Ziel
 	# erst, wenn alle Figuren 1 s still stehen (höchstens 10 s)
 	await _bis_still()
+	if _weg(): return
 	await _kampf_ruht()
-	while true:
+	while not _weg():
 		for s in STRAHLEN:
 			await _feuer(s[0], s[1])
+			if _weg(): return
 			await get_tree().create_timer(PAUSE_S).timeout
+			if _weg(): return
 		if film:
 			fertig = true
 			return
@@ -156,6 +168,7 @@ func _feuer(art: String, name_: String) -> void:
 	_drehen((w.global_position - held.global_position).rotated(Vector3.UP, deg_to_rad(dreh_grad)))
 	held._play("Ausholen")
 	await get_tree().create_timer(AUSHOLEN_S).timeout
+	if _weg(): return
 	strahl = (load(PFAD % art) as PackedScene).instantiate()
 	strahl.auto_raycast = false
 	strahl.target = ziel
@@ -168,6 +181,7 @@ func _feuer(art: String, name_: String) -> void:
 	var bilder := 0
 	while t < STRAHL_S:
 		await get_tree().process_frame
+		if _weg(): return
 		t += get_process_delta_time()
 		_richten(w)
 		if _spitze_im_magier():
@@ -180,6 +194,7 @@ func _feuer(art: String, name_: String) -> void:
 	strahl.stop()
 	sichtbar = false
 	await get_tree().create_timer(0.8).timeout
+	if _weg(): return
 	strahl.queue_free()
 	strahl = null
 	jetzt = ""
@@ -297,6 +312,7 @@ func _kampf_ruht() -> void:
 		if not kf.busy and not kf.playing and kf.beats.is_empty() and (kf.mars.outcome != "ONGOING" or not kf.mars.pilot_next()):
 			break
 		await get_tree().process_frame
+		if _weg(): return
 		t += get_process_delta_time()
 	kf.busy = true
 	await _bis_still()
@@ -309,6 +325,7 @@ func _bis_still() -> void:
 	var ruhig := 0.0
 	while t < 10.0 and ruhig < 1.0:
 		await get_tree().process_frame
+		if _weg(): return
 		var dt := get_process_delta_time()
 		t += dt
 		var weit := 0.0

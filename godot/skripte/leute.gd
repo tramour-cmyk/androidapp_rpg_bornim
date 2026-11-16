@@ -571,6 +571,14 @@ func weiche(d: Vector2i) -> bool:
 	var u := h - kachel
 	var nachbar := absi(u.x) + absi(u.y) == 1 or (absi(u.x) == 1 and absi(u.y) == 1 and karte.begehbar(kachel + Vector2i(u.x, 0)) and karte.begehbar(kachel + Vector2i(0, u.y)))
 	if nachbar and frei_fuer_mich(h, true):
+		# 1079 (ziege_4162 rot in Lauf 413, 450, 467; am Rechner mit den Hühnern am Heuhaufen nachgestellt): ein fliehendes Huhn,
+		# dessen Schritt auf die Kachel des Helden zielt, sperrte den Tausch, die Ziege wurde geschoben. Es sucht sich neu einen Weg
+		# 1325 (Lauf 499, 500; in ziege_4162 nachgestellt): ebenso jeder, der zur Kachel des Helden nur unterwegs ist (sein Schritt
+		# galt, bevor der Held dort stand), etwa eine Person auf ihrem Weg; er plant neu (gehe_nach geht um den Helden herum)
+		for l in get_parent().get_children():
+			if l is Leute and l != self and l.ziel == h and l.kachel != h:
+				l.ziel = Vector2i(-1, -1)
+				l.weg.clear()
 		ziel = h
 		warte = 4.0
 		durch_bis = Time.get_ticks_msec() + DURCH_MS
@@ -598,7 +606,12 @@ func frei_fuer_mich(t: Vector2i, held_da := false) -> bool:
 	if daten.has("tier") and not held_da and not (Leute.tierboden_gross(karte, t) if leib > 0.7 else Leute.tierboden(karte, t)): return false
 	if t == held_kachel() and not held_da: return false
 	for l in get_parent().get_children():
-		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t): return false
+		if l is Leute and l != self and l.visible and (l.kachel == t or l.ziel == t):
+			if held_da and l.kachel != t: continue   # 1079, 1325: nur im Schritt dorthin, er plant neu (weiche)
+			# 1383 (Lauf 513, in ziege_4162 nachgestellt): ein Tier, das eben von der Kachel des Helden flieht (Schritt fort), steht dort
+			# nur noch im Aufbruch; es sperrte den Tausch, die Ziege trat voran
+			if held_da and l.flucht and l.ziel.x >= 0 and l.ziel != t: continue
+			return false
 	return true
 
 # 416.4 (Chef 01.11., 13:1x: „von Stehen zu Gehen oder Laufen muss weich sein. Egal, wer sich bewegt“): wer auf der Runde von Kachel
@@ -861,6 +874,13 @@ func runde() -> void:
 
 func laufe(dt: float) -> void:
 	wende = ""
+	# 1325 (Lauf 499, 500; in ziege_4162 nachgestellt): steht der Held auf der Kachel, zu der jemand eben unterwegs ist (der Schritt
+	# galt, bevor er dort stand), bleibt der stehen und plant neu, statt in ihn hineinzulaufen; nur wer mit ihm den Platz tauscht
+	# (weiche, durch_bis), geht hindurch. Vorher sperrte so jemand den Tausch, die Ziege trat voran statt zu tauschen
+	if ziel != kachel and ziel == held_kachel() and Time.get_ticks_msec() >= durch_bis:
+		ziel = Vector2i(-1, -1)
+		weg.clear()
+		return
 	var zp := karte.kachel_pos(ziel)
 	var to := zp - position
 	to.y = 0
@@ -915,7 +935,9 @@ func drehe_stehend(dt: float, rate: float) -> void:
 	if wende != "":
 		var k: PackedFloat32Array = wende_kurve[wende]
 		var spielt := anim != null and anim.current_animation == wende
-		var t := anim.current_animation_position if spielt else INF
+		# 1355 (Lauf 509): die Bewegung laeuft erst nach diesem Knoten weiter (Kind im Baum); ohne Vorgriff stand der Knoten je Bild
+		# um dt dahinter (bei 60 Bildern/s 2 Grad, bei 20 Bildern/s 6 Grad) und der Standfuss rutschte
+		var t := minf(anim.current_animation_position + dt * anim.speed_scale, anim.current_animation_length) if spielt else INF
 		var soll := wende_start + kurve(k, t)
 		var vorbei := signf(angle_difference(soll, blick)) != signf(k[k.size() - 1])   # Ziel erreicht oder ueberholt
 		if not vorbei: rotation.y = soll   # ueberholt: stehen lassen, den Rest dreht drehe (der Held kann auch die Seite gewechselt haben)

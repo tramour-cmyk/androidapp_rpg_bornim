@@ -231,6 +231,18 @@ def telegram(d):
         "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:9])) + "\n10. Ausführlich: %sPROJEKTPLAN.md" % GH
 
 def main():
+    if "--telegram" not in sys.argv and "--probe" not in sys.argv:
+        # 1425 (Chef 16.11., 13:44/13:47): vor jedem Tagesbericht den ganzen Vorrat auf Fehler prüfen und sie ausmerzen
+        try:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import vorratspruefung
+            f = [x for x in vorratspruefung.funde() if x[0] != "J"]
+            if f and os.environ.get("BORNIM_VORRAT_GEPRUEFT") != "1":
+                print("tagesbericht HÄLT AN: Vorratsprüfung (1425) hat %d Funde; erst beheben oder dem Besitzer in den Vorrat, "
+                      "`python3 tools/vorratspruefung.py`; danach mit BORNIM_VORRAT_GEPRUEFT=1" % len(f), file=sys.stderr)
+                return 1
+        except Exception as e:
+            print("tagesbericht: Vorratsprüfung übersprungen (%s)" % e, file=sys.stderr)
     d = rechnen()
     if "--telegram" in sys.argv: print(telegram(d)); return 0
     md = zahlen_md(d)
