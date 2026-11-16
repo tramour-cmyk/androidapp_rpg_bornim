@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 23:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 23:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,21 +23,21 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 63 (66) | 22 | 2 | 4 | 8 | 1488 (Jerry) Merkmale je Exemplar bauen, Anzeige nach Lesestuf… |
+| ↳ **2** Kampf passt | 61 (66) | 20 | 1 | 5 | 8 | 1488 (Jerry) Merkmale je Exemplar bauen, Anzeige nach Lesestuf… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (18) | 7 | 2 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (63) | 8 | 1 | 2 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (63) | 8 | 1 | 2 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (17) | 5 | 0 | 4 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| **7** Werkzeuge und Abläufe der Firma | 45 (58) | 29 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
+| **7** Werkzeuge und Abläufe der Firma | 45 (58) | 30 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 196 | 171 | 196 | 1056 |
-| neu | 163 | 119 | 163 | 1053 |
-| **netto** (erledigt − neu) | **+33** | **+52** | **+33** | **+3** |
+| erledigt | 200 | 171 | 200 | 1060 |
+| neu | 164 | 119 | 164 | 1054 |
+| **netto** (erledigt − neu) | **+36** | **+52** | **+36** | **+6** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,42 +45,42 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 1 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 4 weitere |
-| Jerry | 1488 Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil,… (Muss); dann 7 weitere |
-| Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 6 weitere |
-| Spike | 1499 D282.1 von Diogenes: laufnachweis.py übersieht Skriptnamen… (Muss) |
+| Jerry | 1488 Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil,… (Muss); dann 5 weitere |
+| Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
+| Spike | 1502 Übernahme von Jerry: t294 „Im Bau geprüft“ nennt bildrate.py; Schritt mit contin… (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss) |
+| Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss); dann 1 weitere |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
-| Perikles | M? M? entscheiden: 1500 (Muss) |
+| Perikles | leer, weil 16 Termin, 5 wartet auf Vorgang (870, 1388, 1125, 1389, 1444), 2 wartet auf Diogenes |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1488 | Jerry | Merkmale je Exemplar bauen, Anzeige nach Lesestufe 1 Pfeil, 2 Name, 3 Wirkung;… | M | 2 Kampf passt | startbar |
-| 2 | 1292 | Jerry | Klosterschüler, 1292 A: Wundsegen höchstens zweimal je Kampf, sichtbar am Knopf… | M | 2 Kampf passt | gebaut, t293 ohne deine Antwort |
-| 3 | 1323 | Jerry | Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Reste siehe Zu-Absatz | M | 2 Kampf passt | gebaut, t293 ohne deine Antwort |
-| 4 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
-| 5 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
-| 6 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 7 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 8 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 9 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 10 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 11 | 1499 | Spike | D282.1 von Diogenes: laufnachweis.py übersieht Skriptnamen mit Endung; t293: 3… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1501 | Jerry | D283.1 von Diogenes: claude/build-294 ohne main ab 21:47 gebaut, 1485 fehlt; AP… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
-| 14 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
-| 15 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
-| 16 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 17 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
-| 18 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
-| 19 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
-| 20 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 2 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
+| 3 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
+| 4 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 5 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 6 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
+| 7 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 8 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1501 | Jerry | D283.1 von Diogenes: claude/build-294 ohne main ab 21:47 gebaut, 1485 fehlt; AP… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 10 | 1502 | Jerry | t294 „Im Bau geprüft“ nennt `bildrate.py`; Schritt mit continue-on-error, wird… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 11 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
+| 12 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
+| 13 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
+| 14 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 15 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
+| 16 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
+| 17 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
+| 18 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 20 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
 
-Danach 88 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
+Danach 83 weitere offen. Bei dir zum Testen (vorgelegt): 11. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 60.
 ## Zu entscheiden
 
 Nichts offen.
@@ -91,7 +91,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [601.1](ansehen/6011-pfeiltreffer.md) | Pfeiltreffer: warum der Held im Film zum Prüfpunkt 291.8 nicht zuckte | – | 16.11., 23:08 |
 
 ## Zu tun
 
@@ -354,6 +358,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 16.11.; „star
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 17.11. 08:00 |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
 | 1270 | K | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vo | wartet auf 1270.4 (gebaut) |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/6011-pfeiltreffer.md
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
