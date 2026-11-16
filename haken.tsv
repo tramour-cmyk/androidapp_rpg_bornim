@@ -686,3 +686,4 @@
 2026-11-16 21:09:10	commit-pruefung	docs/chefsache/tun/1484-tablet-messen.md: Uhrzeit 21:20 liegt nach jetzt (21:09)	main
 2026-11-16 21:09:10	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md: Uhrzeit 21:20 liegt nach jetzt (21:09)	main
 2026-11-16 21:12:05	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/jerry-642-platz ändert Spielcode (godot/kampf/figur.gd), a	claude/jerry-642-platz
+2026-11-16 21:14:52	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 35874 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	HEAD
