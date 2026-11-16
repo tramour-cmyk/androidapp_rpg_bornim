@@ -27,7 +27,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 ## Eingang
 
-- **Nacht 16./17.11., von Sokrates (Chef 22:41, geht schlafen):** „du bist Chef im Ring. Schau, dass halbwegs was abgearbeitet wird. Und bevor völliger Stillstand herrscht, weil wieder der eine auf den anderen wartet, bitte, bitte, bitte, dann lass irgendjemanden was machen. Wir haben genug Vorgänge.“ Ford: jede Rolle mit startbarem Muss oder Kür läuft (Tom 16, Jerry 44, Tuffy, Diogenes 1485 laut `startbar.py` 22:41); Wartende nicht abwarten lassen, Nächstes starten. Keine Testbitten mit `--laut` bis 7:00. Sokrates sieht stündlich nach.
+- **Nacht 16./17.11., von Sokrates (Chef 22:41, geht schlafen):** „du bist Chef im Ring. Schau, dass halbwegs was abgearbeitet wird. Und bevor völliger Stillstand herrscht, weil wieder der eine auf den anderen wartet, bitte, bitte, bitte, dann lass irgendjemanden was machen. Wir haben genug Vorgänge.“ Ford: jede Rolle mit startbarem Muss oder Kür läuft (Tom 16, Jerry 44, Tuffy, Diogenes 1485 laut `startbar.py` 22:41); Wartende nicht abwarten lassen, Nächstes starten. Keine Testbitten mit `--laut` bis 7:00. Sokrates sieht stündlich nach. Chef 22:42: „immer schön dran denken, Bilder vorlegen, Filme vorlegen, kann ich relativ gut mit Däumchen drauf runter dann abarbeiten.“ → jedes Team legt Fertiges nachts als Bild oder Film auf Telegram vor (lautlos), mit 👍/👎-Zeile.
 
 - **Von Sokrates (16.11., 13:56):** sechs alte offene PRs ohne Besitzer: 193 (Build 274, laut Archiv getestet), 173 (Build 89, Kotlin), 107 (39 Schwierigkeit), 69 (72u Vorschau), 10, 5 (Oktober). Prüfen, ob enthalten oder überholt, dann mit Begründung schließen; der Chef fragte 13:50, wie viele offen sind.
 
