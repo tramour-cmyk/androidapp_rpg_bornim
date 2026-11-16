@@ -19,19 +19,12 @@
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | in Arbeit, Ursachen nachgestellt (Zu 531) | 643 | claude/tom-531-film | – | E Oberfläche | 12,96 $ |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | K | ruht | 870, 23.11. | – | – | E Welt | – |
-| 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | Tom | K | erledigt | – | claude/spike-376-1-tracht | – | E Figuren | 221,15 $ |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | K | ruht | 23.11. | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | wartet | 458.3 | – | – | E Oberfläche | – |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | Tom | K | ruht | 23.11. | claude/spike-458-3-staffel | – | E Figuren | 12,15 $ |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | Tom | K | ruht | 23.11. | – | – | B Werkzeuge | – |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | Tom | K | ruht | 23.11. | claude/spike-455-2-groesse | – | E Figuren | – |
-| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) · „jetzt“ 28.10., 10:00 | Tom | M | erledigt | – | – | – | E Figuren | 40,87 $ |
-| 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | Tom | K | erledigt | – | claude/tom-348-fundament | – | E Figuren | – |
-| 348.13b | Tusche auch nach Fackeln, Feuer, Fenster; zuerst Dorf (Chef 28.10., 08:09 ja) | Tom | K | erledigt | – | claude/tom-34813-kampfprobe | – | G Stil | – |
-| 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | Tom | K | erledigt | – | claude/tom-3023-kraeftiger | – | G Stil | –; +6,40 $ |
-| 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | Tom | K | erledigt | – | claude/tom-3022-tuschebild | – | G Stil | – |
-| 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | Tom | K | erledigt | – | claude/tom-3021-tusche | – | G Stil | – |
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | Tom | K | ruht | 23.11. | claude/tom-2923-titelmodus | – | G Stil | – |
 | 145 | Karten je Kapitel zum Drucken | Tom | K | ruht | 23.11. | claude/tom-145-kartenmappe | – | E Welt | 6,22 $ |
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | Tom | K | ruht | 23.11. | claude/tom-417-tragart | – | E Figuren | – |
@@ -40,7 +33,6 @@
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | wartet, Vorrang und Kennung klären | Perikles | – | – | M Veröffentlichung | – |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | Tom | K | wartet | 1235 | – | – | G Story | – |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | Tom | K | aufgeteilt | – | – | – | E Figuren | 1,06 $ |
-| 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | Tom | M | erledigt | – | – | – | E Technik | – |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | Tom | K | ruht, ohne Vorratszeile, Liste „wartet“ (275.2) | 23.11. | – | – | E Oberfläche | – |
 | 649.3 | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme, Gang, Klänge, Bewegungen, Text-Marken; aus 649) | Tom | K | ruht, Kampf zuerst (338.1) | 649.2 | – | – | E Figuren | – |
 | 644.4 | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umstellen (644 A, Ablösung) | Tom | K | ruht, Kampf zuerst (338.1) | 644.1 | – | – | E Welt | – |
@@ -82,8 +74,6 @@
 | 431h | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, etwa 60–100 $ (Chef 15.11., 17:13) | Tom | M | wartet, Vorlage beim Chef | Chef 431h | – | – | E Figuren | – |
 | 1355 | Von Spike (Lauf 509): wende_4168 zufällig rot, „Knoten folgt der Kurve (hoechstens 1.21 Grad daneben)“; Lauf 507 am selben Spielstand grün (nur atem_4531 verschieden) | Tom | K | zu testen | – | claude/tom-1355-wende | 291 | Q QS | 4,29 $ |
 | 1357 | Von Werkzeug (1334): Wiederholrot lage_785_8: 2× rot in 48 h (Läufe 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | zu testen | – | claude/build-291 | 291 | E Technik | – |
-| 1359 | Von Sokrates (1186): Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.2, 348.1, 348.13b (Belege Zu 1186 bei Tom); Rest dort je ein Satz | Tom | M | erledigt | – | – | – | B Abläufe | – |
-| 1356 | Von Werkzeug (1334): Wiederholrot hoehle_492: 2× rot in 48 h (Läufe 480, 466); Ursache nachstellen, beheben · wiederholt | Tom | M | erledigt | – | – | – | E Technik | – |
 | 1362 | Von Tom (1361): Filme t291.6 (1321, Stab beim Ausweichen) und t291.8 (601.1, Pfeil in der Brust) vom Stand claude/build-291 an den Chef (Befund Sokrates zu t291) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | t290 | – | – | E Technik | 15,96 $ |
 | 1321 | Von Jerry (1305, 481.2): Held ohne Wurzelweg weicht am Ort aus, die Bewegung schwingt den Stab bis 1,2 m nach vorn in einen Wolf, der daneben beißt (wolf_mess_438 Kleriker); Weg wählen, Film an den Chef, dann bauen | Jerry | M | zu testen | – | claude/jerry-1321-ausweichen | 291 | E Kampf | 9,98 $ |
@@ -163,7 +153,7 @@
 | 1284a | Rückfrage zu 1284: wie wird der Rattenbiss hinter dem Helden sichtbar (Seitenplatz, Kamera oder Seitenplatz wo frei)? | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1358 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 2× rot in 48 h (Läufe 503, 497); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | Pflege | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
-| 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | wartet | 302.1 | – | – | G Stil | –; +3,98 $ |
+| 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | Homer | K | startbar, gelöst 16.11.: 302.1 | – | – | – | G Stil | –; +3,98 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | – | – | – | G Story | 1,19 $ |
 | 1352 | Von Jerry (1275, Regel 8): wann taumelt ein Gegner nach einem Gegenschlag? DESIGN-GLUT.md sagt es nicht, kerbe.gd setzt die Bruchschwelle ab (_absicht breakable false); Text [1267.tip.gegenschlag] und [870.14.ansage.heavy] versprechen es („ein Fünftel seines Lebens“). Regel festlegen, dann baut Jerry | Homer | M | startbar | 1352a | – | – | E Kampf | – |
 | 1352a | Rückfrage zu 1352: wann taumelt ein Gegner im Kerbensystem (Fünftel des Lebens seit der Ansage wie im alten Kampf oder kein Taumeln)? | Homer | M | startbar | Chef | – | – | E Kampf | – |
@@ -207,7 +197,6 @@
 | 1128.3 | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen (12 aus der Liste in 1128), nach 285 Zahlen an Perikles und Chef ohne Wertung | Diogenes | M | startbar | – | – | – | Q QM | 5,59 $ |
 | 1129.4 | Von Sokrates (1129 alle ja, Chef 13.11., 13:59): 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen (Zu 1129.4) | Diogenes | M | startbar | – | – | – | Q QM | 2,38 $ |
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | – | – | – | Q QM | – |
-| 1186 | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitzer zum Schließen (Chef 13.11., 16:28, Anlass 41 Homer) · „jetzt“ 13.11., 16:28 | Sokrates | M | erledigt | – | – | – | B Abläufe | 35,54 $ |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust gingen (Art 1110 Rechte, 1128 Prüffragen; Chef 13.11., 12:53) · „jetzt“ 13.11., 12:53 | Sokrates | M | startbar | 1129.4 | – | – | B Abläufe | 20,09 $ |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | 23.11. | – | – | B Werkzeuge | – |
 | 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht (Chef 10.11., 14:03) | Sokrates | M | wartet | 870.20 | – | – | E Kampf | 86,27 $ |
@@ -234,22 +223,15 @@
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | K | wartet, entschieden A B C (Chef 14:28) | 644.1, 644.2, 644.4 | – | – | E Kampf | 32,25 $ |
 | 649 | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium geht darin auf; mehr als eine Handlung je Monsterart (Chef 08.11., 13:19, 13:24) | Sokrates | M | in Arbeit, Prüfung, vorziehen (Chef 10.11., 10:56) | 870 | – | – | E Kampf | 5,35 $ |
 | 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | K | startbar, Runde 16.11. erledigt, nächste 23.11. | 23.11. | – | – | B Abläufe | 60,67 $ |
-| 862 | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal grundsätzlich lösen? (654) | Sokrates | K | erledigt | – | – | – | E Figuren | – |
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln gegenlesen Perikles oder Diogenes (Chef 11.11., 12:28) | Sokrates | K | wartet, Befund 930.4 eingearbeitet | 930.3 | – | – | E Kampf | 41,19 $ |
 | 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim Empfehler; zuerst 1128.1, 1128.2, 1129.2–.4 bis 15.11., 20:00 | Sokrates | M | wartet, Rest Wirkung | 1129.4, 1192, 1316 | – | – | B Abläufe | 62,09 $ |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten (Chef 13.11., 16:48, aus 1186) | Sokrates | M | startbar | 27.11. | – | – | B Abläufe | – |
 | 1268 | Code robuster, schneller, weniger fehleranfällig: Votum Sokrates, dann Gespräch (Chef 15.11., 10:20) | Sokrates | K | startbar | 1268.1, 1268.2, 1268.3 | – | – | E Technik | – |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vorlage (Chef 15.11., 10:22) | Sokrates | K | startbar | 1270.3, 1270.4 | – | – | E Technik | 3,04 $ |
 | 1288 | Kerben: Verstreichen lassen oder eine Kerbe in den nächsten Zug mitnehmen; Lücke 930.5 (falsche Haltung kostet zu wenig) (Chef 15.11., 12:00) | Sokrates | M | startbar, gelöst 15.11.: 1266 | – | – | – | E Kampf | – |
-| 1350 | Systemlösung? Halt: 13 frühere Vorgänge (653, 872, 967, 1208, 640 …), neu 1349; einmal grundsätzlich lösen? (654) | Sokrates | K | erledigt | – | – | – | E Kampf | – |
-| 1354 | Systemlösung? Rüstung: 8 frühere Vorgänge (917, 868, 644a.5, 1255, 49 …), neu 431h; einmal grundsätzlich lösen? (654) | Sokrates | K | erledigt | – | – | – | E Figuren | – |
 | Pflege | von Werkzeug (340.3, 16.11.): 30677 Bytes (Grenze 30000), Erledigtes streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
-| 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | Ford | K | erledigt | – | – | – | B Steuerung | 12,41 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1095,62 $ |
-| 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | Ford | K | erledigt | – | – | – | B Steuerung | – |
-| 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | Ford | K | erledigt | – | – | – | B Steuerung | – |
 | 1298 | Ford von Hand starten (Tiefe 6, Handstart des Chefs, wie 110 alt) | Ford | K | startbar | – | – | – | B Steuerung | – |
-| 1360 | Von Sokrates (1186): 843, 741, 906 schließen (Belege Zu 1186 in ARBEIT-BETRIEB.md) | Ford | M | erledigt | – | – | – | B Abläufe | 2,00 $ |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
@@ -276,5 +258,4 @@
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 673 | Emulator: Kamera drehen und zoomen mit Maus und Tasten (rechte Maustaste ziehen, Mausrad), nur am Rechner, Handy unverändert (Rückfrage Sokrates 08.11., 15:34) | Spike | K | zu testen | – | claude/spike-673-maus | 291 | E Technik | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
-| 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | Spike | K | erledigt | – | – | – | E Technik | – |
 | 698a | Rückfrage zu 698: was jede Grafikstufe abschaltet (Tusche, Licht aus Quelle und Gold in jeder Stufe; Schatten, 3D-Auflösung, Gras des Kits, Dorfeffekte gestuft), Automatisch als Vorgabe | Spike | M | startbar | Chef | – | – | E Technik | – |

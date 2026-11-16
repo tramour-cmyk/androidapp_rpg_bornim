@@ -1606,3 +1606,22 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1304 | Von Sokrates (Chef 15.11., 17:13, Bild Ausrüstungsseite, wohl Build 288): Kampfstab in der Hand des Helden zuckt in der Ausrüstungsansicht ständig etwa 10–15 cm rauf und runter; Ursache nachstellen, Messung | E Figuren | M | 0,90 $ | Tom | erledigt, t290 bestanden |
 | 1314 | Von Jerry (t289, Lauf 497 rot): Typen-Sperrklinke 1268.3 nach dem Mischen, tod_ragdoll_1215 (Schamane 0,3 m im Boden, Grak ohne Stoß), ausholen_1000 (Axt 9 cm aus der Faust beim Gehen) beheben, vor Build 290 | E Kampf | M | – | Jerry | erledigt, Geprüft an: 3d9159913 am Rechner (ausholen_1000, tod_ragdoll_1215, typen gut) |
 | 1353 | Von Jerry (1275, Regel 3): Knopf „Lösen“ im Kerbensystem fehlt, der Spieler kann sich nicht lösen; Beschriftung und Tipp DE/EN (Kosten 1 Kerbe, kein neuer freier Schritt, schneller Gegner setzt nach außer in Wehr), dann baut Jerry | E Kampf | M | – | Homer | erledigt |
+| 376.1 | Probeblatt Quaternius-Figuren mit Bewegungsraster als Film (Chef kaufte 27.10., 12:20) | E Figuren | K | 221,15 $ | Tom | erledigt |
+| 385 | Protofactor-Animsets (Zauberer u. a.) auf die Listen, Probe ob nutzbar (Chef 27.10., 20:59) · „jetzt“ 28.10., 10:00 | E Figuren | M | 40,87 $ | Tom | erledigt |
+| 372 | Feinschliff Held am Ende des Umzugs: Kettenhemd, Helm, Kragen (aus 338a B, Chef 27.10., 09:36) | E Figuren | K | – | Tom | erledigt |
+| 348.13b | Tusche auch nach Fackeln, Feuer, Fenster; zuerst Dorf (Chef 28.10., 08:09 ja) | G Stil | K | – | Tom | erledigt |
+| 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | G Stil | K | –; +6,40 $ | Tom | erledigt |
+| 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | G Stil | K | – | Tom | erledigt |
+| 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | G Stil | K | – | Tom | erledigt |
+| 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | E Technik | M | – | Tom | erledigt |
+| 1359 | Von Sokrates (1186): Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.2, 348.1, 348.13b (Belege Zu 1186 bei Tom); Rest dort je ein Satz | B Abläufe | M | – | Tom | erledigt |
+| 1356 | Von Werkzeug (1334): Wiederholrot hoehle_492: 2× rot in 48 h (Läufe 480, 466); Ursache nachstellen, beheben · wiederholt | E Technik | M | – | Tom | erledigt |
+| 1186 | Altbestand: offene Vorgänge unter 700 auf überholt prüfen, Funde an die Besitzer zum Schließen (Chef 13.11., 16:28, Anlass 41 Homer) · „jetzt“ 13.11., 16:28 | B Abläufe | M | 35,54 $ | Sokrates | erledigt |
+| 862 | Systemlösung? Umhang: 6 frühere Vorgänge (58, 488, 463, 463.1, 656 …), neu 861; einmal grundsätzlich lösen? (654) | E Figuren | K | – | Sokrates | erledigt |
+| 1350 | Systemlösung? Halt: 13 frühere Vorgänge (653, 872, 967, 1208, 640 …), neu 1349; einmal grundsätzlich lösen? (654) | E Kampf | K | – | Sokrates | erledigt |
+| 1354 | Systemlösung? Rüstung: 8 frühere Vorgänge (917, 868, 644a.5, 1255, 49 …), neu 431h; einmal grundsätzlich lösen? (654) | E Figuren | K | – | Sokrates | erledigt |
+| 843 | D126.1 (Diogenes, 838): START ohne Sitzung 14 von 39 (09.11., 19:04 bis 10.11., 11:08), keiner mit --ohne; 3 ohne Grund (22:44 Spike, 10:25 Jerry, Perikles) | B Steuerung | K | 12,41 $ | Ford | erledigt |
+| 741 | D61.1 Tageszahl roter Läufe fehlt im Protokoll (464): je Lauf „Rot TT.MM.: n (Tom a, Jerry b)“ oben im Protokoll, Tagesbericht liest sie (von Diogenes, Lauf 59; Perikles 02.11.) | B Steuerung | K | – | Ford | erledigt |
+| 906 | lauf.py startet Zusatzentwickler auf Zeilen, deren Zweig Umzugsdateien berührt (492 am 11.11., 08:04: claude/tom-492-durchspiel ändert spiel.gd; Grundsatz 5 LISTE-UMZUG-BRS, Zu 870.4 Sokrates 01:57); Sperre nach geänderten Dateien prüfen (von Spike) | B Steuerung | K | – | Ford | erledigt |
+| 1360 | Von Sokrates (1186): 843, 741, 906 schließen (Belege Zu 1186 in ARBEIT-BETRIEB.md) | B Abläufe | M | 2,00 $ | Ford | erledigt |
+| 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | K | – | Spike | erledigt |
