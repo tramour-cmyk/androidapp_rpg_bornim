@@ -37,4 +37,6 @@ soll("Zahl in anderem Satzteil gibt nicht frei", arten(liste("Weiter, 9.8.", H8)
 soll("wie in 290 ohne Build", arten(liste("Weiter, 9.9.", H9)), ["vergleich"])
 soll("wie gewohnt", arten(liste("Weiter, 9.10.", H10)), ["vergleich"])
 soll("Meterangabe kein Build", arten(liste("Weiter, 9.11.", H11)), [])
+G12 = "| 9.12 | Jerry | 12 | Gespräch | Schaden je Treffer | höher als in Build 290 | b |"
+soll("Gespräch ebenso", arten(liste("Weiter, 9.1.", H1, G12)), ["vergleich"])
 sys.exit(1 if fehl else 0)

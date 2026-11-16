@@ -309,11 +309,12 @@ def art_weg_befunde(inhalt):
         elif art.startswith("handy"):
             m = HANDY_LESEN.search(wo)
             if m: out.append(("warn", "Zeile %s Art Handy mit „%s“: nur Lesen ist Bild oder „ohne dich“, nicht Handy (1398)" % (r[0], m.group(0))))
+        if not re.match(r"(bild|film)\b", art):  # 1446 (D273.1): Regel 10 gilt für jede Zeile; Bild/Film zeigen alt gegen neu selbst
             ganz = re.sub(r"\[[^\]]*\]\([^)]*\)", "", " | ".join(r[sw:])) if sw >= 0 else ""
             m = next((v for v in (VERGLEICH.search(teil) for teil in re.split(r"[;|]", ganz) if not GEMESSEN.search(teil)) if v), None)
             if m:
-                out.append(("vergleich", "Zeile %s Art Handy vergleicht aus dem Gedächtnis („%s“); kein Mensch weiß das noch: gemessene Zahl "
-                            "(Reiter „Test“ → „Gerät“) oder Bild/Film alt gegen neu (1427, LISTE-CHECK-BUILD-TEST.md 10)" % (r[0], m.group(0))))
+                out.append(("vergleich", "Zeile %s Art %s vergleicht aus dem Gedächtnis („%s“); kein Mensch weiß das noch: gemessene Zahl "
+                            "(Reiter „Test“ → „Gerät“) oder Bild/Film alt gegen neu (1427, LISTE-CHECK-BUILD-TEST.md 10)" % (r[0], (r[sa].split() or ["?"])[0], m.group(0))))
     weg = re.search(r"(?m)^\W*Ein Weg:?\**(.*)$", inhalt)
     if weg:
         text = re.split(r"\.\s+(?=[A-ZÄÖÜ„])", weg.group(1))[0]  # nur der Wegsatz; „Bilder und Filme (…) nur auf Telegram“ danach darf sie nennen
