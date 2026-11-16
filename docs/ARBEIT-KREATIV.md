@@ -11,6 +11,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 - **Zu 1267 (Homer 15.11., 11:00):** Urteil des Chefs zu `[1267.handbuch.kerben]` abwarten; Wortlaut bleibt bis dahin. Kampfbericht zu `KERBE_…` und Eingebungen erst mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).
 
 ## Zeilen
+- **Zu 1367, von Jerry (16.11., 07:57, 1366 `6f2aa465d`):** `[1367.offen]` eingebaut (`mars.gd` EINGEBUNG „offen“, wortgetreu). `[1367.tip.gegenschlag]` und `[1367.tip.wehr]` noch nicht: die Tipps `[1267.tip.*]`, an die sie anhängen, sind noch nicht im Code (kommen mit Stufe 3/5 des Bauplans); dann beide zusammen.
 
 - **Zu 785.1, von Tom (15.11., 12:32):** Reiter Held zeigt wieder den Anteil der Ausrüstung je Grundwert blau, mit dem alten Satz „Blau: Bonus durch Ausrüstung (im Wert enthalten)“ / “Blue: bonus from gear (included in the score)” (MenuScreen.kt 650); in `STORY-BRS-HELD.md` fehlt er. Bitte als Marke aufnehmen oder neu fassen; der alte Satz zur Obergrenze entfällt (644b A).
 
