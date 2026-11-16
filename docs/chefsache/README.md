@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 01:24, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 01:25, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -15,7 +15,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ Kampf passt | 74 | 29 | 3 | 5 | 11 | 1072 (Jerry) Laufwege und Plätze im Kampf für alle Figuren: Zw… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 21 | 7 | 0 | 0 | 14 | 1285 (Jerry) Held rennt schon bei kleinen Joystick-Bewegungen,… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 63 | 11 | 1 | 12 | 29 | 643 (Jerry) Langbogen mit Köcher als Waffenmodell für Garrick… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 21 | 11 | 0 | 5 | 5 | 1358 (Jerry) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 20 | 10 | 0 | 5 | 5 | 1358 (Jerry) Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ur… |
 | Werkzeuge und Abläufe der Firma | 58 | 36 | 0 | 0 | 9 | 1128.3 (Diogenes) ab Build 283 Funde und Rückschritte je Prüfart zä… |
 | Marktstart | 10 | 0 | 0 | 0 | 7 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -35,16 +35,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 10 | 1285 | Jerry | Held rennt schon bei kleinen Joystick-Bewegungen, große Laufschritte statt Gehe… | M | Kleiderschrank und Modelle | startbar |
 | 11 | 643 | Jerry | Langbogen mit Köcher als Waffenmodell für Garrick auf dem Rücken, wie alt | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 12 | 1358 | Jerry | Wiederholrot tod_ragdoll_1215: 2× rot in 48 h; Ursache nachstellen, beheben · w… | M | Godot besser nutzen | startbar |
-| 13 | 1356 | Tom | Wiederholrot hoehle_492: 2× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
-| 14 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1359 | Tom | Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 13 | 1128.3 | Diogenes | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1129.4 | Diogenes | 1129.2/.3 am laufenden Werkzeug prüfen; Mo 16.11. Wirkung zählen | M | Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 1172 | Diogenes | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1359 | Tom | Leichen schließen, seit 13.11. unverändert: 376.1, 385, 302.3, 372, 302.1, 302.… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 18 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 20 | 649.2 | Jerry | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json, S… | K | Kampf passt | startbar |
 
-Danach 99 weitere offen. Bei dir zum Testen (vorgelegt): 23. Gebaut, fährt mit dem nächsten Build: 5. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 76.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 23. Gebaut, fährt mit dem nächsten Build: 5. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 76.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
