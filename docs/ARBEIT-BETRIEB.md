@@ -50,6 +50,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 18:26 16.11.: Sokrates Neustart (session_01Hmoj7A9DCaCpWVHJgyzrnF, erste Nachricht mit Kaufrepo-Satz), alte archiviert, 8,56 $ auf 1411, 1472, 1471; Spike 1445 läuft weiter (Probe 1472 gilt erst beim nächsten Spike-Start)
+- 18:06 16.11.: Lauf 18:03; Start Spike 1445 (session_01Hmoj79F8rkiBQBTH4VdjLm), alte Spike archiviert, 23,60 $ auf 1416, 1270.4; Weiter 1427 an Diogenes; Warnung Start Perikles nicht angekommen: nichts Startbares (Termine), bewusst nicht gestartet
 - 18:00 16.11.: Sokrates Neustart (session_01Hmoj79GWTJoZ1B7sWCAHix), alte archiviert, 8,76 $ auf 649, 1454, 293 gebucht
 - 17:22 16.11.: Tom Neustart (session_01Hmoj76RwQwh6oCCpcPppGf), alte archiviert, 6,47 $ auf 531, 1420, 431h gebucht; Perikles-Sitzung (Tagesbericht) archiviert, 6,94 $ auf Betrieb
 - 17:07 16.11.: Lauf 17:03; Start Diogenes 1463 (session_01Hmoj75wrUCWzR6Dt7F3tPc), Homer 1459 (session_01Hmoj75zum6Z1f8NFfzpE4u); alte Diogenes (2,23 $ auf 1427) und Homer (3,58 $ auf 1419) archiviert; Weiter an Jerry 1453, Spike 1458, Perikles M?-Entscheid; Rotbuch nicht erneut angelegt (Doppel 1456/1457)
@@ -68,8 +70,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:40 16.11.: Altlasten archiviert nach Chef-Frage 13:26 (zwei Diogenes-Sitzungen): Diogenes 1301 (1,19 $), Homer 1267 (15.11., 0,62 $ auf 1267), Tuffy 930.7 (14.11., 5,02 $ auf 930.7), alle gebucht; Ursache: Kurzform-Dateien mit „# has_more: nein“ aus nur der ersten Seite (12 Sitzungen) geschrieben, ältere nicht archivierte Sitzungen fehlten, lauf.py konnte sie nicht sehen; Fehler von Ford. Ab jetzt je Lauf list_sessions limit 100 (volle Seite, in Datei), Kurzform aus allen nicht archivierten daraus per Skript, bis zum Stichtag 08.11. geprüft: sonst keine Altlast
 - 13:30 16.11.: Chef fragt nach 2 Diogenes-Sitzungen: Altlast „Diogenes – 1301“ (15.11., 17:00, ruhte seit 17:03 auf 'pausiert bis 16.11. 08:00') war nie archiviert; jetzt archiviert (1,19 $ auf 1301); lauf.py hat sie nicht gemeldet, weil beim Start 08:11 Diogenes als belegt galt (Seite 2 der Sitzungsliste nie geholt)
 - 13:22 16.11.: Sokrates Chefrunde Rest archiviert (14,41 $ auf 1303,1235,1412 gebucht); Sokrates Testbegleitung t291/t292 läuft
-- 13:10 16.11.: Chef 13:05 direkt: „Du darfst alles archivieren, was zum Archivieren ist, gemäß den Regeln“ (Autoprüfung lehnt Archivieren trotzdem ab, Chef will sie weg); Lauf 13:05: Start Homer 1419, archiviert Sokrates 75oX (11,06 $ auf 431,1382,1386) und Homer 1401 (2,57 $); Urteile 517 und 698 (4343/4344) im Archiv; GELÖST an Jerry 1331/1284b, Spike 1307; Sokrates 77oL bleibt bis 13:21, dann Archiv
-- 13:04 16.11.: Start Sokrates Testbegleitung t291, t292 (session_01Hmoj77ypbCDEo7UTNPZiXo, Neustart 4f2dbba24); Sokrates-Sitzungen 75oX und 77oL offen: Archivierung von 75oX (Sokrates-Weitergabe „Chef 13:02: Schließe diese Sitzung“) von der Berechtigungsprüfung abgelehnt, wartet auf direktes Wort des Chefs; Kosten 75oX auf 431,1382,1386 danach
 - 01:03 16.11.: Marke Wächter 1186 13.11. 16:28 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj791pfnSs82NQrnpLnf 2026-11-15T23:45 (lauf.py)
 - 02:04 16.11.: Marke Hängt session_01Hmoj79JCQRKsCCgciyGpnJ 2026-11-15T23:11 (lauf.py)
@@ -89,7 +89,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:06 16.11.: Marke Wächter 1129 13.11. 12:53 (lauf.py)
 - 09:08 16.11.: Start Sokrates 1129.4 (Wächter 1129 gemeldet laut); alte Sokrates-Sitzung nach Chefantwort 09:05 wieder geöffnet, Archiv 09:22 (15-Minuten-Regel); Neustart Spike 5d95e3442, Start folgt im nächsten Lauf (Marke 09:01); 1235 mit --ohne ausgeschlossen
 - 09:56 16.11.: Startsperre 09:56 Start Diogenes, Tuffy (lauf.py)
-- 09:56 16.11.: Marke Archiv session_01Hmoj77xtHZzu5Fw9RsExRN (lauf.py)
 - 10:02 16.11.: Marke Mehrfach Sokrates (lauf.py)
 - 10:02 16.11.: Marke Archiv session_01Hmoj78VY1XDNZ234tjPMAL (lauf.py)
 - 10:02 16.11.: Nachfolger-Warnung Spike (Übergabe 16.11., 09:56) (lauf.py)
@@ -105,8 +104,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:04 16.11.: Marke Mehrfach Sokrates (lauf.py)
 - 12:04 16.11.: Marke Archiv session_01Hmoj76tYoe7PjfkrZzLrzh (lauf.py)
 - 12:04 16.11.: Marke Archiv session_01Hmoj7752bUqezjjHom7vdR (lauf.py)
-- 12:13 16.11.: Startsperre 12:13 Start Spike, Perikles (lauf.py)
-- 12:13 16.11.: Marke Start-fehlt Perikles 16.11.-12:04 (lauf.py)
 - 12:13 16.11.: Marke Archiv session_01Hmoj76FHiAXURGW1T4CW6m (lauf.py)
 - 13:05 16.11.: Startsperre 13:05 Start Homer, Perikles (lauf.py)
 - 13:05 16.11.: Marke Mehrfach-Warnung Sokrates session_01Hmoj77oLo8quAixJ2CvysQ (lauf.py)
@@ -141,6 +138,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 16.11.: Marke Start-fehlt Perikles 16.11.-17:04 (lauf.py)
 - 18:04 16.11.: Marke Start-fehlt Spike 16.11.-17:04 (lauf.py)
 - 18:04 16.11.: Marke Archiv session_01Hmoj77BPLCjmVvbzkxDtiX (lauf.py)
-- 18:06 16.11.: Lauf 18:03; Start Spike 1445 (session_01Hmoj79F8rkiBQBTH4VdjLm), alte Spike archiviert, 23,60 $ auf 1416, 1270.4; Weiter 1427 an Diogenes; Warnung Start Perikles nicht angekommen: nichts Startbares (Termine), bewusst nicht gestartet
 - 18:25 16.11.: Startsperre 18:25 Start Sokrates (selbst), Neustart-Meldung 18:20 (2b17afc42)
-- 18:26 16.11.: Sokrates Neustart (session_01Hmoj7A9DCaCpWVHJgyzrnF, erste Nachricht mit Kaufrepo-Satz), alte archiviert, 8,56 $ auf 1411, 1472, 1471; Spike 1445 läuft weiter (Probe 1472 gilt erst beim nächsten Spike-Start)
+- 18:33 16.11.: Startsperre 18:33 Start Tom, Spike, Diogenes, Homer, Perikles (lauf.py)
+- 18:33 16.11.: Marke Archiv session_01Hmoj79F8rkiBQBTH4VdjLm (lauf.py)
