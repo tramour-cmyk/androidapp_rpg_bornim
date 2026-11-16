@@ -20,7 +20,8 @@ const SCHWUNG_S := 0.28           # je Seite
 const OBERARM_HEBEN := 30.0       # Grad ueber der Waagerechten, zum Tier hin
 const UNTERARM_HEBEN := 62.0      # Grad: die Fackel steigt vor ihm auf
 const QUER := 0.42                # Anteil seitlich beim Schwung (etwa 23 Grad)
-const AUSSEN := 0.45              # Pruefer Lauf 1 (Bild 2, 3: Fackel 2-5 cm an der Kapuze): Arm nach rechts aussen, Fackel vom Kopf weg
+const AUSSEN := 0.6               # Pruefer Lauf 1 (Bild 2, 3: Fackel 2-5 cm an der Kapuze): Arm nach rechts aussen, Fackel vom Kopf weg
+# 531.2 (garrick_531 Lauf 535: Fackel 0,30 m an der Kopfmitte, an der Grenze): AUSSEN 0,45 -> 0,6, jetzt 0,33 m
 
 var t := -1.0                     # s seit Beginn; < 0: aus
 var ziel := Vector3.ZERO          # Welt: wo das Tier stand
