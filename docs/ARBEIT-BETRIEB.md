@@ -142,3 +142,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:13 16.11.: Startsperre 12:13 Start Spike, Perikles (lauf.py)
 - 12:13 16.11.: Marke Start-fehlt Perikles 16.11.-12:04 (lauf.py)
 - 12:13 16.11.: Marke Archiv session_01Hmoj76FHiAXURGW1T4CW6m (lauf.py)
+- 12:17 16.11.: Zwischenlauf: Start Spike 1303 (Chef 12:12 👍), Perikles 1414 (Chef 12:09); archiviert Spike 1386 (5,19 $) und Perikles 1398/1351/1413 (6,76 $), gebucht
