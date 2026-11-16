@@ -1,7 +1,7 @@
 extends SceneTree
 # 1215 (Frage 9 von Sokrates 15.11., 11:21: „Test am echten Gerüst statt Nachbau, der Test vom 13.11. übersah den Fehler“):
 # physikalisches Sterben an den echten Gegnern im Kampfort (braucht die gebauten Modelle, darum nicht im Logiksatz). Je Gegnerart
-# (GEGNER=GOBLINS,SCOUTS,SHAMANS,KOBOLDS,GRAK; ohne Angabe alle, die gebaut sind) stirbt jeder Gegner des Probekampfs mit einem
+# (GEGNER=GOBLINS,SCOUTS,SHAMANS,KOBOLDS,GRAK,SKELETONS,WIEDERGAENGER3; ohne Angabe alle, die gebaut sind) stirbt jeder Gegner des Probekampfs mit einem
 # anderen Treffer (FAELLE). Gemessen je Tod:
 #   Hüfte–Becken: Abstand der Hüftknochen vom Becken in der Ruhe und größter im Fall (Frage 1: 0,085 gegen 0,507 m am Nachbau)
 #   Spalt: größter Abstand der zwei Seiten eines Gelenks (die Glieder hängen zusammen, die Haut reißt nicht aus)
@@ -80,7 +80,7 @@ func _run() -> void:
 	Figur.ragdoll_alle = true     # auch Grak: seine Tafel (UAL) wird gemessen, im Spiel bleibt sein Zusammenbruch gebacken
 	preload("res://kampf/ragdoll.gd").bildrate_pruefen = false
 	preload("res://kampf/ragdoll.gd").bleibt = true
-	var arten: Array = Array(OS.get_environment("GEGNER").split(",", false)) if OS.get_environment("GEGNER") != "" else ["GOBLINS", "SCOUTS", "SHAMANS", "KOBOLDS", "GRAK"]
+	var arten: Array = Array(OS.get_environment("GEGNER").split(",", false)) if OS.get_environment("GEGNER") != "" else ["GOBLINS", "SCOUTS", "SHAMANS", "KOBOLDS", "GRAK", "SKELETONS", "WIEDERGAENGER3"]   # 1340: Skelett, Wiedergänger
 	var fall := 0
 	var tode := 0
 	for art in arten:
@@ -117,9 +117,8 @@ func _run() -> void:
 					continue
 				tode += 1
 				var hueft := []
-				for n in ["hipL-thighL", "thigh_l"]:
-					if sk.find_bone(n) >= 0:
-						hueft = [sk.find_bone(n), sk.find_bone("pelvis-waist") if n == "hipL-thighL" else sk.find_bone("pelvis")]
+				# 1340: Schenkel und Becken aus der Tafel des erkannten Gerüsts (auch Biped mit Präfix)
+				hueft = [r.glieder[r.nach_name["schenkel_l"]].b, r.glieder[0].b]
 				var h0: float = (sk.get_bone_global_pose(hueft[0]).origin - sk.get_bone_global_pose(hueft[1]).origin).length() * r.skala
 				var hmax := h0
 				var spalt := 0.0
