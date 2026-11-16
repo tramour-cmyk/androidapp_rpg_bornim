@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 21:53, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 21:56, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,23 +26,23 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | ↳ **2** Kampf passt | 65 (68) | 24 | 2 | 3 | 8 | 1439 (Jerry) Kampfschirm zeigt Mana nur als Text „Mana 40/40“;… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (14) | 7 | 2 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 54 (57) | 9 | 1 | 2 | 20 | 1489 (Homer) Beschreibungen der Merkmale je Exemplar: je Merkm… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (57) | 8 | 1 | 2 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (18) | 5 | 0 | 4 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
 | **7** Werkzeuge und Abläufe der Firma | 43 (56) | 28 | 0 | 0 | 9 | 1444 (Ford) Stundenuhr dauerhaft beim Ford-Starter; Probe 144… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 162 erledigt, 139 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 163 erledigt, 139 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 1 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 4 weitere |
 | Jerry | 1439 Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigen… (Muss); dann 12 weitere |
 | Tuffy | 601.1 Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurüc… (Muss von Jerry, neben dessen Arbeit); dann 11 weitere |
 | Spike | leer, weil 3 wartet auf Test/Build, 3 ruht, 2 wartet auf Test |
-| Homer | 1489 Beschreibungen der Merkmale je Exemplar: je Merkmal und Art… (Muss) |
+| Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | 1485 APK im Artefakt heißt bei jedem Build gleich bornim-godot.a… (Muss) |
 | Sokrates | 327 Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (nach dem Meilenstein) |
 | Perikles | leer, weil 16 Termin, 5 wartet auf Vorgang (870, 1388, 1125, 1389, 1444), 2 wartet auf Diogenes |
@@ -63,16 +63,16 @@ Heute (seit 6:00): 162 erledigt, 139 neu. In Klammern bei „offen“: Stand 6:0
 | 10 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
 | 11 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
 | 12 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 13 | 1489 | Homer | Beschreibungen der Merkmale je Exemplar: je Merkmal und Art mindestens vier, zu… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 15 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
-| 19 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
-| 20 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
+| 13 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
+| 14 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1444 | Ford | Stundenuhr dauerhaft beim Ford-Starter; Probe 1441a 18:4x: Ablehnung bleibt, je… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1409 | Jerry | kauf_cache_probe.sh Zeile 45 auf dem Bauserver FALSCH, am Rechner grün; Ursache… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
+| 18 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
+| 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
+| 20 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
 
-Danach 92 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
+Danach 91 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 60.
 ## Zu entscheiden
 
 Nichts offen.
@@ -83,7 +83,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [531](ansehen/531-garrick-anliegen.md) | Garrick: Köcher, Bogen, Gurt liegen an, Kapuze kleiner | Tom | 16.11., 21:55 |
 
 ## Zu tun
 
