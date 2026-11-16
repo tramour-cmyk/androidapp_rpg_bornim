@@ -21,12 +21,12 @@ Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem Bornimer R
 ## Bekannte Fehler
 
 Höchstens 10 Zeilen „nie X, stattdessen Y“; Diogenes schlägt in der Wochenzählung vor, Perikles trägt ein (347).
-- Nie die Uhrzeit schätzen; stattdessen die Zeile „Uhr:“ (340.5).
 - Nie einen Helferbefund verschweigen; stattdessen als Text nachsenden, urteilen tut nur der Chef (320, 373, 396).
 - Nie eine Probe anders bauen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3).
 - Nie Inhalte oder einen Stand aus dem Gedächtnis übernehmen; stattdessen in der Quelle nachsehen, beim Stand Vorrat und Archiv (13e).
 - Nie ein Urteil des Chefs umformulieren oder ersetzen; stattdessen Wortlaut mit Zeit stehen lassen, bis er es abnimmt (t78).
 - Nie einen Fehler zweimal mit Vermutung bauen; stattdessen erst die Ursache in Vorschau oder Test nachstellen (334).
+- Nie zum Kaufrepo Wege vorschlagen (Einstellung, MCP, Freigabe); stattdessen `add_repo` (Chefwort im Start, 1472).
 ## Rollen
 
 | Rolle | Aufgabe | Rollendatei |
@@ -73,7 +73,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; Diogenes schlägt in der Wochen
 ## Notizen nur auf `main`
 
 - Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen und pushen (baut keine APK); Arbeitszweige nur Code.
-- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (Ausnahmen `tools/vorgang.py`, 275; Bildlink von `meldung.sh`, 450); sofort pushen. Push abgelehnt: `git pull`, erneut pushen.
+- Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (Ausnahmen `tools/vorgang.py`, 275; Bildlink von `meldung.sh`, 450); sofort pushen.
 - Vor jeder Antwort an den Chef `tools/notiz.sh`.
 
 ## Feste Regeln
