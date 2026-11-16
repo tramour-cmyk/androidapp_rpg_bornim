@@ -1072,6 +1072,13 @@ func _find(n: Node, cls: String) -> Node:
 
 func _face(dir := Vector3.ZERO) -> void:
 	var d: Vector3 = dir if dir != Vector3.ZERO else kampfort.facing(fighter.side == "FOES")
+	# 1072, Fund t293.1 (Chef 16.11., 17:41: „dazu muss der Wolf halt auch in die richtige Richtung gucken … Orientiert sein.“): wer
+	# seinen Platz am Gegner hält, steht oft schräg oder in der Flanke; die Achse des Kampforts drehte den Rumpf dort höchstens 32° zum
+	# Ziel, den Rest nur der Hals. Am eigenen Platz gilt darum die Richtung zum Ziel als Achse, der Rumpf steht zum Ziel
+	if dir == Vector3.ZERO and aim != null and is_instance_valid(aim) and kampfort and kampfort.platz_eigen.has(fighter.id):
+		var zu := Vector3(aim.position.x - position.x, 0.0, aim.position.z - position.z)
+		if zu.length() > 0.01:
+			d = zu.normalized()
 	# Wölfe in Ruhe halb seitlich wie im alten Bild: von vorn verkürzt las sich der Rumpf als Buckel ohne Hals (Prüfer Runde 10)
 	var look := 0.0
 	if dir == Vector3.ZERO and vier(fighter):
