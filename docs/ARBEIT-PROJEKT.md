@@ -28,6 +28,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 1441, von Sokrates (Chef 16.11., 14:24):** „Jetzt darf er nicht mal mehr seine Stundenuhren anlegen … Muss doch irgendeinen Grund geben, warum jetzt wieder ich ständig Repos freigebe, Archivieren freigebe und jetzt sogar noch … die Stundenuhr“. Befund: die Ablehnungen kommen von der Auto-Prüfung der Plattform, nicht aus unseren Haken; `.claude/settings.json` autoMode ist nur ein Hinweis an sie: add_repo trotz `allow` (4879b079b, 10:45) abgelehnt bei Spike 13:09 und 14:15; Archivieren nur auf ARCHIVIERE-Zeile beschrieben, nicht auf Weitergabe eines Chefworts (Betrieb 13:04); create_trigger für die Stundenuhr steht gar nicht drin, Ford legt sie bei jedem Neustart neu an (14:22). Auftrag: (1) je Ablehnung Wortlaut, Sitzung, Werkzeug sammeln (Ford, Spike, Tom); (2) Wege prüfen, die keine wiederkehrende Freigabe brauchen (Stundenuhr einmal und dauerhaft statt je Ford-Sitzung, Kaufmodelle nur auf dem Bauserver 416.4a); (3) Einträge in settings nur, wo sie nachweislich greifen; Vorlage an den Chef nur bei „Rollen und Accounts“.
 - **Zu 1427, von Sokrates (Chef 16.11., 13:31 zu t291.3):** Prüfzeile „die Höhle ist nicht langsamer da als in Build 290“: „Völlig sinnlose Frage. Die kann ein Mensch nicht beantworten.“ Vergleiche in Prüflisten nur mit gemessener Zahl (Ladezeit 1426 Spike, Bildrate) oder Bild/Film alt gegen neu, nie aus dem Gedächtnis des Chefs.
 
 

@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 14:18, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 14:21, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -24,14 +24,14 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 3 (4) | 2 | 0 | 0 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ Kampf passt | 69 (68) | 25 | 1 | 8 | 9 | 1411 (Sokrates) Mana grundsätzlich: woher, wie viel, wie es wächs… |
-| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (14) | 8 | 0 | 1 | 8 | 431h (Tom) Rückfrage zu 431: angelegte Rüstung am Helden sic… |
+| ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (14) | 8 | 0 | 1 | 8 | 1416 (Spike) Winken oder ähnliche Geste war im Video des Paket… |
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 11 (10) | 2 | 1 | 0 | 3 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (57) | 11 | 0 | 5 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ Godot besser nutzen (Technik, Build, Leistung) | 17 (18) | 5 | 0 | 6 | 4 | 1270.4 (Spike) Vergleichsfilm alt gegen neu Glühen und vorberech… |
-| Werkzeuge und Abläufe der Firma | 50 (56) | 31 | 0 | 1 | 9 | 1434 (Spike) „Zu“ zu Erledigtem (1268.2, 1270.1, 1270.3) bis 1… |
+| Werkzeuge und Abläufe der Firma | 49 (56) | 30 | 0 | 1 | 9 | 1440 (Perikles) Themenblöcke im Überblick der Chefsache durchnumm… |
 | Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
-Heute (seit 6:00): 87 erledigt, 79 neu. In Klammern bei „offen“: Stand 6:00.
+Heute (seit 6:00): 89 erledigt, 80 neu. In Klammern bei „offen“: Stand 6:00.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
@@ -39,13 +39,13 @@ Heute (seit 6:00): 87 erledigt, 79 neu. In Klammern bei „offen“: Stand 6:00.
 |---|---|
 | **Chef** | [t292](ansehen/t292-sammelbuild.md) testen, hält 10 Zeilen; dann 2 weitere |
 | Tom | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss); dann 6 weitere |
-| Jerry | 1296 goldene Eingebung beim Anspringen rät „Wechsel“, unter den… (Muss); dann 4 weitere |
-| Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
-| Spike | 1434 „Zu“ zu Erledigtem (1268.2, 1270.1, 1270.3) bis 17.11. vor… (Muss) |
+| Jerry | 1296 goldene Eingebung beim Anspringen rät „Wechsel“, unter den… (Muss); dann 3 weitere |
+| Tuffy | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
+| Spike | 1416 Winken oder ähnliche Geste war im Video des Pakets UAL2; LI… (Muss); dann 1 weitere |
 | Homer | Pflege von Werkzeug: 4 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
-| Diogenes | Pflege von Werkzeug: Übergabe über 700 Zeichen (Kür) |
-| Sokrates | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 5 weitere |
-| Perikles | M? M? entscheiden: 1438, 1439, 1426, 1427 (Muss); dann 2 weitere |
+| Diogenes | 1424 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne… (Muss) |
+| Sokrates | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 4 weitere |
+| Perikles | M? M? entscheiden: 1438, 1439, 1426, 1427 (Muss); dann 1 weitere |
 
 **Die nächsten 20**
 
@@ -56,23 +56,23 @@ Heute (seit 6:00): 87 erledigt, 79 neu. In Klammern bei „offen“: Stand 6:00.
 | 3 | 1296 | Jerry | goldene Eingebung beim Anspringen rät „Wechsel“, unter den Knöpfen fehlt ein We… | M | Kampf passt | startbar |
 | 4 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | Kampf passt | in Arbeit |
 | 5 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | Kampf passt | startbar |
-| 6 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
-| 7 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | Kleiderschrank und Modelle | startbar |
-| 8 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 9 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 10 | 1418 | Tom | Android-Zurück im Hauptmenü beendet das Spiel sofort; künftig Abfrage „Spiel be… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 12 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1434 | Spike | „Zu“ zu Erledigtem (1268.2, 1270.1, 1270.3) bis 17.11. vor dem Tagesbericht im… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 14 | 1424 | Perikles | 12 von 20 Läufen rot, meist bekannte Rote auf Zweigen ohne die Behebung aus Bui… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1437 | Perikles | „Zu“ zu Erledigtem (1217) bis 17.11. vor dem Tagesbericht im eigenen Vorrat str… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 6 | 1416 | Spike | Winken oder ähnliche Geste war im Video des Pakets UAL2; LISTE-BESTAND sagt „Fe… | M | Kleiderschrank und Modelle | startbar |
+| 7 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | Kleiderschrank und Modelle | startbar |
+| 8 | 1417 | Tom | Schild des Helden links an mehreren Stellen wie abgeschnitten: Umhang/Stoff dah… | M | Kleiderschrank und Modelle | startbar |
+| 9 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 10 | 1322 | Tom | Spielertexte der Oberfläche ohne TP/HP, Wert heißt Leben/Life auch an Zahlen; R… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 11 | 1418 | Tom | Android-Zurück im Hauptmenü beendet das Spiel sofort; künftig Abfrage „Spiel be… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 12 | 1420 | Tom | Fußstaub jetzt zu stark, „sieht nach Comic aus“; sanfter machen, Film alt gegen… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 13 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1440 | Perikles | Themenblöcke im Überblick der Chefsache durchnummerieren, damit er sich darauf… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 1434 | Spike | „Zu“ zu Erledigtem (1268.2, 1270.1, 1270.3) bis 17.11. vor dem Tagesbericht im… | M | Werkzeuge und Abläufe der Firma | startbar |
 | 16 | 1433 | Sokrates | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | Werkzeuge und Abläufe der Firma | startbar |
 | 17 | 1430 | Tom | „Zu“ zu Erledigtem bis 17.11. vor dem Tagesbericht im eigenen Vorrat streichen | M | Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1431 | Jerry | „Zu“ zu Erledigtem (1289) bis 17.11. vor dem Tagesbericht im eigenen Vorrat str… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 870.12 | Perikles | Projektplan 2.3 und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 64… | K | Umzug BRS, SRD ablösen | startbar |
-| 20 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | Kampf passt | startbar |
+| 18 | 870.12 | Perikles | Projektplan 2.3 und 2.17 neu fassen; nach Abnahme 868, 534, 467, 469, 644.1, 64… | K | Umzug BRS, SRD ablösen | startbar |
+| 19 | 481 | Sokrates | Herkünfte ausgleichen: Kräutersammler mit Kampftränken, Wachsoldat, Klosterschü… | K | Kampf passt | startbar |
+| 20 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
 
-Danach 105 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 62.
+Danach 103 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Nichts offen.
