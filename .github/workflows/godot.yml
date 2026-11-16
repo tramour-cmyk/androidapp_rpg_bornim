@@ -1921,7 +1921,7 @@ jobs:
             (cd $B && convert links_vorher.png links.png -background "#D4B038" -splice 8x0 +append links_vorher_nachher.png) || true
           fi
           timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
-            --write-movie $RUNNER_TEMP/garrick531.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd > $B/film531.log 2>&1 || true
+            --write-movie $RUNNER_TEMP/garrick531.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd -- --film531 > $B/film531.log 2>&1 || true
           grep -E "SCRIPT ERROR|^GARRICKFILM" $B/film531.log | cut -c1-300 || true
           i=0; for f in $(grep -oE "^GARRICKFILM schnitt [0-9]+" $B/film531.log | awk '{print $3}'); do
             ffmpeg -loglevel error -y -ss $(awk "BEGIN{print ($f-15)/30}") -t 4.6 -i $RUNNER_TEMP/garrick531.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $RUNNER_TEMP/s$i.mp4 && echo "file '$RUNNER_TEMP/s$i.mp4'" >> $RUNNER_TEMP/s.txt; i=$((i+1)); done
