@@ -545,3 +545,4 @@
 2026-11-16 07:06:07	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1321 schon 1 Probelauf seit deinem Urteil 2026-11-16 06:52:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch	claude/build-291
 2026-11-16 07:16:10	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 32041 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-16 07:29:57	commit-pruefung	docs/chefsache/ansehen/t291-sammelbuild.md: Prüfzeile verlangt Lizenzlesen (291.9); gehört als Test unter „Im Bau geprüft“ (832, LISTE-CHECK-BUILD-TEST.md 9)	main
+2026-11-16 07:48:11	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-698-grafikstufen ändert Spielcode (godot/skripte/spi	claude/spike-698-grafikstufen
