@@ -810,10 +810,7 @@ static func monster_namen() -> Dictionary:
 	if not tab is Dictionary: return {}
 	var namen := {}
 	for mo in tab["monsters"]: namen[String(mo["id"])] = String(mo["de"] if Sprache.aktiv() == "de" else mo["en"])
-	# 494 (Prüfer 512b): Riesenegel und Säureschnecke heißen nach LISTE-FIGUREN wie im Kampf (aufruf.gd NAMEN_494), nicht Stirge, Ockergallerte
-	var neu: Dictionary = load("res://kampf/aufruf.gd").NAMEN_494
-	for paar in [["stirge", "LEECHES"], ["ochre_jelly", "SLUGS"], ["zombie", "WIEDERGAENGER"], ["ghoul", "GRABHUND"]]:     # 506
-		if namen.has(paar[0]) and neu.has(paar[1]): namen[paar[0]] = String(neu[paar[1]][0 if Sprache.aktiv() == "de" else 1])
+	# 1385: Riesenegel, Säureschnecke, Wiedergänger, Grabhund stehen jetzt in werte.json „kennungen“ (früher aufruf.gd NAMEN_494)
 	var r := {}
 	for a in Streuner.GRUPPE:
 		if namen.has(a) and Streuner.da(String(a)): r[a] = namen[a]
