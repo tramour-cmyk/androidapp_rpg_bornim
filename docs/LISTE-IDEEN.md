@@ -180,6 +180,8 @@ Vorher (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monst
 
 ## B Betrieb
 
+- **Claude-Sitzungen auf eigener Hardware (Chef 16.11., 18:20–18:23, Idee „nachhalten“):** Sitzungen auf Proxmox oder dem NAS (DS1522+, AMD Ryzen R1600, 2 Kerne, 32 GB) statt in der Cloud; Vorteil: Einstellungen dauerhaft, Kaufrepo per Git statt `add_repo`, kein Neuaufbau je Start. Dagegen: Betrieb (Ford, Weckrufe, Archiv) auf Cloud gebaut, Pflege, Schlüssel lokal; Proxmox-Runner war langsamer als GitHub (264), das NAS hat nur 2 Kerne (Godot-Tests lokal langsamer; die Sitzung selbst wartet meist auf das Modell). Bauen bleibt bei GitHub. Bedingung: erst wenn 1472 (Kaufrepo-Satz im Start) scheitert, dann Vorlage Sokrates mit Messung.
+
 - **650.2 C4–C6, Story-Dateien zusammenlegen (Homer; Chef 09.11., 20:52 „650.2 wie Vorschlag“):** C4 `STORY-PLAN`, `-ROTER-FADEN`, `-PLAN-K1`, `-K1-HANDLUNG`, `-CHRONIK-TEXTE-K1` zu zwei (Überblick aller Kapitel, Handlung K1), Texte wortgetreu; C5 Spielerhandbuch Teile 1–3 zu einer Datei, gegen das BRS halten; C6 `STORY-SPIEL` bleibt ganz, Grenze „15 KB“ im Kopf fällt, SRD-Namen abgleichen; `STORY-MENUE` Kopf auf Godot. Kein Vorgang vor Kapitel 1; nebenbei, wenn Homer ohnehin an den Texten ist.
 
 ### Werkzeuge
