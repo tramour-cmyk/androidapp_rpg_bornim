@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 277 · 1445 Anmerkung bei Passt (Spike `010179304`; 16.11., 18:3x)
+
+- **1445 greift noch nicht:** Spielcode (`pruefliste.gd`, Test `pruefliste_1020.gd`) nur auf `claude/spike-1445-anmerkung`, kein Build; greift erst, wenn der Chef in einer Prüfliste eine ✓-Anmerkung gibt und sie als Absatz beim Besitzer landet.
+- **D277.1 → 1476 (Spike):** der Werkzeugteil (`tools/vorgang.py`, ✓-Anmerkung als Absatz) liegt im selben Commit nur auf dem Zweig; nach 1311 gehört er sofort auf `main`, sonst verliert `vorgang.py build` die erste ✓-Anmerkung aus dem Sammelbuild.
+
 ## Lauf 276 · 790 Kosten nachher (Woche 09.11., 17:07Z bis 16.11., 17:05Z; 16.11., 18:1x)
 
 667 abgeschlossene Sitzungen (3 laufende nicht gezählt), 658 mit Kosten (9 ohne `usage`), zusammen 5.549 $; Rechnung wie Lauf 113, Werte aus `get_session` je Sitzung. Rolle = erstes Wort des Titels, Tuffy bei Jerry; Spike eigene Zeile (in Lauf 113 keine). Modelle: 615 opus, 36 sonnet, 7 andere.
