@@ -50,3 +50,5 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 
 - **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen. **07.11.:** alle sechs gemessen (Z1, Z2 `regelcheck.py`; Z3–Z6 `PRUEFBERICHT.md`), → 341.1.
+
+Zu 1384 (von Ford, 16.11.): Homer 09:03: 1235 (nach dem Meilenstein) braucht vor dem Bau ein Gespräch mit dem Chef (1236, Zu 1235 in ARBEIT-KREATIV.md); lauf.py gibt trotzdem WEITER 1235. Ford schließt 1235 vorerst mit --ohne 1235:Gespräch 1236 aus.
