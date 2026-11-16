@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 267 · 481.2 Deckel des Abzugs 50 % (Jerry `90aeed178`, Build 292, Lauf 517; 16.11., 14:13)
+
+- **481.2 bestanden, bautest 517:** Zweig nicht als Vorfahr in `claude/build-292`, aber alle 15 neuen Zeilen von `90aeed178` stehen dort. Am Rechner an `e39b3bece` (nach `--import`, Daten wie Schritt „Karten und Texte“): BRS473 gut, BRS478 gut, Zeile „Deckel des Abzugs 50 %: Treffer 6, Abzug 5,5 -> 3; Treffer 20 -> 14“. Lauf 517 selbst rot nur aus `typen.py` (1408) und `kauf_cache_probe` (1409). Nachtrag zu Lauf 266: ohne `--import` liefert der fremde `.godot`-Zwischenspeicher Parse-Fehler, der eine Typenfehler dort ist damit kein Befund.
+
 ## Lauf 266 · 1422 Bautest 1268.3 (Lauf 506, Build 290; 16.11., 14:11)
 
 - **1268.3 bestanden, bautest 506:** im Protokoll ist die Zeile „TYPEN1268“ abgeschnitten (Protokoll beginnt 21:37:30), aber `typen.py` endet mit 1 bei jedem Fehler und steht im Schritt „Skripte pruefen“ (Bash mit `-eo pipefail`) vor den Nebenher-Tests; die liefen alle zu Ende, rot nur `wolf_mess_438` (1321, bekannt). Am Rechner an `3d9159913` mit dem `.godot`-Zwischenspeicher von `main` kam 1 Fehler (`kampf/kampfort.gd` 111 statt 110); vermutlich der fremde Zwischenspeicher, nicht nachgestellt. Fällt es am nächsten Lauf von `main` rot aus: Befund an Spike.
