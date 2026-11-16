@@ -1075,7 +1075,10 @@ func _face(dir := Vector3.ZERO) -> void:
 	# 1072, Fund t293.1 (Chef 16.11., 17:41: „dazu muss der Wolf halt auch in die richtige Richtung gucken … Orientiert sein.“): wer
 	# seinen Platz am Gegner hält, steht oft schräg oder in der Flanke; die Achse des Kampforts drehte den Rumpf dort höchstens 32° zum
 	# Ziel, den Rest nur der Hals. Am eigenen Platz gilt darum die Richtung zum Ziel als Achse, der Rumpf steht zum Ziel
-	if dir == Vector3.ZERO and aim != null and is_instance_valid(aim) and kampfort and kampfort.platz_eigen.has(fighter.id):
+	# 1453 (dreh_1072 Flanke +120°, am Rechner mit Kaufwolf: nach hinten getauscht ohne Platz im Bild verlor er den eigenen Platz und
+	# stand bis zu seinem Zug noch neben dem Helden, den Rumpf 112° neben dem Ziel): ebenso, wer angesagt hat und noch am Gegner steht
+	if dir == Vector3.ZERO and aim != null and is_instance_valid(aim) and kampfort and (kampfort.platz_eigen.has(fighter.id) \
+			or angesagt != null and aim.clearance(position) <= kampfort.KONTAKT_M * _scale()):
 		var zu := Vector3(aim.position.x - position.x, 0.0, aim.position.z - position.z)
 		if zu.length() > 0.01:
 			d = zu.normalized()
@@ -1881,6 +1884,15 @@ func _walk_home(skip = null) -> float:
 			# (wolf_mess_438, Kleriker 42,2 s: stand er am Start schon knapp an der Bahn eines Beißenden, erlaubte „nicht enger als am
 			# Start“ 12 cm Wolf in Wolf): nie tiefer als 2 cm; ist es enger und läuft ein anderer, erst warten
 			var grenze7 := minf(WEG_LUFT, maxf(_rumpf_luft(position, rotation.y, skip) - 0.01, -0.02))
+			# 1453 (reihe_1305 Seed 7, am Rechner mit Kaufwolf: Wolf 1 stand nach dem Einkreisen 0,41 m in Wolf 2, kam nach hinten und
+			# blieb 2,1 m vor dem Helden stehen, weil schon der erste Schritt im anderen lag; der Spieler sah den hinteren vorn): wer schon
+			# in einem anderen steht, darf aus ihm heraus, wenn er dabei jeden Schritt weiter von ihm wegkommt und keinen dritten berührt
+			if rl7 < grenze7:
+				var rv := _raus_aus(skip)
+				if rv != Vector3.INF:
+					via = rv
+					bahn = [home] if via == position else [via, home]
+					rl7 = grenze7
 			if rl7 < grenze7 and _warte_n < WARTE_MAX and kampfort.figures.values().any(func(o): return o != self and o.visible and not o.down and o.unterwegs()):
 				_warte_n += 1
 				tween.kill()
@@ -2341,6 +2353,7 @@ var _abgesetzt := false     # 438: auf diesem Heimweg schon einmal rückwärts a
 
 ## 717 C (Chef 09.11., 08:58; F7): Gegner (außer auf der Flucht) bleiben nach dem Angriff abgesetzt stehen und rücken erst mit dem eigenen
 ## Zug in die Reihe; 717.1 A (F8): auch das Zurechtrücken beginnt in ihrem Zug (glide_to merkt den neuen Platz nur vor)
+const BISS_LOESEN_S := 0.15     # 1453: so lange vor dem Ende der Bissbewegung löst er sich schon
 const ABSETZ_TEMPO_717 := 1.3      # × Gehen rückwärts: ein bis zwei rasche Schritte, nicht im Schneckentempo
 func _bleib_717() -> bool:
 	return fighter.monster != null and not flieht
@@ -2367,8 +2380,12 @@ func ort_nach_zug() -> Vector3:
 
 
 ## 1072 Schritt 2: ist [p] mit Blick [d] frei von den anderen (auch auf ihren Bahnen) und im Bild?
-func platz_frei(p: Vector3, d: Vector3) -> bool:
-	return _platz_luft(p, d, null) >= PLATZ_LUFT and _im_bild(p, d)
+## 1453 (wolf_mess_438 Seed 7, FIGHTER 83,5 s, am Rechner mit Kaufwolf: Platz gemacht mit 20 dp Rand, dann knurrte er dort in der Hocke
+## halb seitlich und streckte sich 33 px rechts aus dem Bild): wer dort steht, bleibt und bewegt sich in Ruhe, darum dort mehr Rand
+## (kampfort._platz_am_gegner; für den Schritt zur Seite während eines Bisses, 642, bleibt IM_BILD_DP)
+const PLATZ_BILD_DP := 20.0
+func platz_frei(p: Vector3, d: Vector3, bild_dp := IM_BILD_DP) -> bool:
+	return _platz_luft(p, d, null) >= PLATZ_LUFT and _im_bild(p, d, bild_dp)
 
 
 ## 717 C: steht der Held an [p] frei von allen außer sich und [ziel]?
@@ -2990,7 +3007,10 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	if nm == "Sprungbiss":
 		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
 	else:
-		tween.tween_interval(bl)
+		# 1453 (wolf_mess_438 Seed 7, CLERIC 18,5 s, am Rechner mit Kaufwolf: am Ort des Bisses stand der Kopf noch, als der Held aus
+		# „Treffer“ in den Stand zurückkam, sein Unterarm 0,035 m im Kopf des Wolfs): das Lösen (rückwärts absetzen) beginnt in den
+		# letzten BISS_LOESEN_S der Bissbewegung, nie vor dem Biss selbst
+		tween.tween_interval(maxf(bl - BISS_LOESEN_S, minf(bl, biss_t + 0.1)))
 	var t_back := 0.0
 	var ende := start + dir * jump
 	# 863: der Rücksprung der Quelle (Ratte: dodgeBackwards, 1,6 m) nur, wenn sein Weg frei ist, sonst rückwärts im Gang (unten, mit
@@ -3122,6 +3142,62 @@ func _rueck_luft(von: Vector3, via: Vector3, nach: Vector3, skip = null) -> floa
 				for at in bei:
 					g = minf(g, o.clearance(p + q, at))
 	return g
+
+
+## 1453: steht er schon in einem anderen (mehr als 2 cm), ein Weg rückwärts nach home, der aus ihm herausführt (jeder Schritt mit mehr
+## Luft zu ihm als der vorige, bis er frei ist) und keinen dritten berührt: gerade (Rückgabe [position]) oder über einen Umweg zur Seite
+## im Bild; keiner: Vector3.INF
+func _raus_aus(skip = null) -> Vector3:
+	if skip != null:
+		return Vector3.INF
+	var drin: Variant = null
+	var tief := -0.02
+	for o: Variant in kampfort.figures.values():
+		if o == self or not o.visible or o.down:
+			continue
+		var l := _rumpf_luft(position, rotation.y, null, o)
+		if l < tief:
+			tief = l
+			drin = o
+	if drin == null:
+		return Vector3.INF
+	var grenze := minf(WEG_LUFT, maxf(_rumpf_luft(position, rotation.y, drin) - 0.01, -0.02))
+	var ab := Vector3(home.x - position.x, 0.0, home.z - position.z)
+	if ab.length() < 0.12:
+		return Vector3.INF
+	var blick := Vector3(basis.z.x, 0.0, basis.z.z)
+	var vias: Array = [position]
+	for m: float in [0.8, 1.2, 1.6]:
+		for w: float in [30.0, -30.0, 60.0, -60.0, 90.0, -90.0]:
+			vias.append(position + ab.normalized().rotated(Vector3.UP, deg_to_rad(w)) * m * _scale())
+	# erst Umwege im Bild; steht er selbst schon am Rand außerhalb, auch die übrigen (raus aus dem anderen geht vor dem Bildrand)
+	var kandidaten: Array = vias.filter(func(v: Vector3) -> bool: return v == position or _im_bild(v, blick))
+	if not _im_bild(position, blick):
+		kandidaten.append_array(vias.filter(func(v: Vector3) -> bool: return not kandidaten.has(v)))
+	for via: Vector3 in kandidaten:
+		var orte: Array = []
+		var stuecke: Array = [[position, home]] if via == position else [[position, via], [via, home]]
+		for st: Array in stuecke:
+			var n := maxi(1, int(ceilf(Vector2(st[1].x - st[0].x, st[1].z - st[0].z).length() / 0.25)))
+			for i in range(1, n + 1):
+				orte.append((st[0] as Vector3).lerp(st[1], float(i) / n))
+		var vorher := tief
+		var raus := true
+		for p: Vector3 in orte:
+			var l: float = _rumpf_luft(p, rotation.y, null, drin)
+			if l >= WEG_LUFT:
+				break
+			if l <= vorher:
+				raus = false
+				break
+			vorher = l
+		if raus and _rueck_luft(position, via, home, drin) >= grenze:
+			if OS.get_environment("SCHAU_MESS") != "":
+				print("1453 %s raus aus %s über %s" % [fighter.id, drin.fighter.id, via])
+			return via
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("1453 %s raus aus %s: kein Weg" % [fighter.id, drin.fighter.id])
+	return Vector3.INF
 
 
 ## 562: ein Umweg [via] für den Weg rückwärts von [von] nach [nach] (beide Abschnitte hinter ihm, im Bild, der Rumpf in seiner
@@ -4760,9 +4836,9 @@ static func _koerper_zu(other: Variant, zu: Vector3) -> Array:
 ## 438 (wolf_mess_438: Wolf 1 am Umweg 32 px draußen, obwohl sein Kasten in Ruhe mit 8 dp Rand im Bild war): im Lauf streckt er
 ## Läufe und Kopf über den Kasten der Ruhe hinaus; darum mehr Rand
 const IM_BILD_DP := 20.0
-func _im_bild(p: Vector3, blick: Vector3) -> bool:
+func _im_bild(p: Vector3, blick: Vector3, dp := IM_BILD_DP) -> bool:
 	var sr: Rect2 = kampfort.scene_rect()
-	var rand: float = IM_BILD_DP * sr.size.x / 412.0
+	var rand: float = dp * sr.size.x / 412.0
 	var box := footprint()
 	var b := Basis(Vector3.UP, atan2(blick.x, blick.z)) if Vector2(blick.x, blick.z).length() > 0.01 else basis
 	var hoch: float = kampfort.screen_of(position).y - kampfort.screen_of(head()).y
