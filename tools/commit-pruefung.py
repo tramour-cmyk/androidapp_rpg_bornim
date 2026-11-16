@@ -455,7 +455,7 @@ def main():
             genannt = {x for nrs, _, _ in vorgang.ergebnisse(n, pl).values() for x in nrs}
             # 1121 (t282, 1040.1): „zu testen, ohne Rückmeldung tN“ setzt vorgang.py build N selbst (Build „–“), das ist gebucht, nicht lose
             lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")
-                    and ("ohne Rückmeldung t%s" % n) not in d["stand"]]
+                    and ("ohne Rückmeldung t%s" % n) not in d["stand"] and ("Bautest Diogenes t%s" % n) not in d["stand"]]  # 1500
             if lose: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber %s aus der Prüfliste ohne Build %s; erst `vorgang.py build %s --mit %s`, dann `vorgang.py build %s` (774)" % (n, ", ".join(lose[:8]), n, n, ",".join(lose), n))
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
