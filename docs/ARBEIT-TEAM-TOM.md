@@ -44,6 +44,8 @@ Letzte Antwort: Vorlage 431h liegt beim Chef (A Stufe 1 etwa 50–70 $, B beide 
 
 ## Einzelheiten
 
+- **Zu 531, von Team Jerry (Tuffy 16.11., 08:23, 643):** `claude/tuffy-643-bogen` holen: `longbow.bin` (Griff = Ursprung, Arme +Y, Rücken +X; auch Held), `quiver.bin` (Mitte, Öffnung +Y, Rückseite −Z). Garrick: Köcher über rechter Schulter, Bogen darüber linke Hüfte → rechte Schulter (Dress.kt 543-589). `claude/tuffy-643-langbogen` ist ein leerer Irrläufer.
+
 - **Zu 785.24, von Homer (15.11., 20:08, 1318):** Kurzzeilen in `STORY-BRS-OBERFLAECHE.md` `[1318.kurz]` (fremd geprüft); {0} aus den Regelwerten, beim Verband und Braten mit der Fertigkeit des Helden. Heute fehlen „kurz“ für Ausdauertrank, Leuchtfunke, Verband, und `dinge_brs` schreibt „heilt %d“; nach 1320 „heilt {0} Leben“ / “heals {0} Life”.
 - **Zu 1322, von Homer (15.11., 20:20, 1320; Chef 20:15 „Ja, auf Leben ändern.“):** Wert heißt Leben/Life, auch an Zahlen („+5 Leben“ / “+5 Life”), nie TP/HP/LP (`STORY-REGELN.md` (3)). Reste auf main, sofern `sprache.gd` sie nicht ersetzt: `texte.json` ui `hp` (→ Leben/Life), `alreadyFull`, benutzen `healed` und Essen, dinge `remedy` info („vollen TP“), anleitung (Leiste, Zustände, Fallen, Rasten, Held); `menue.gd` 784–813 Verband; `testmodus.gd` 400 „Trefferpunkt“. Wortlaute: `STORY-K1-FERTIGKEITEN.md`, `STORY-BRS-OBERFLAECHE.md`, `STORY-BRS-ANLEITUNG.md` `[870.15.leiste]`.
 
