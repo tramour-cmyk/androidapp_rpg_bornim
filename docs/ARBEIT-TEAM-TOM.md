@@ -48,6 +48,8 @@ Letzte Antwort: Vorlage 431h liegt beim Chef (A Stufe 1 etwa 50–70 $, B beide 
 
 ## Einzelheiten
 
+- **Zu 1395, von Spike (16.11., 10:23):** Fantasy Props MegaKit Source im Kaufrepo: 96 Teile mehr als die freie Fassung (Schmiede, Marktstände, Schilder, Betten, Teppiche, Leiter, Feuerstelle), abgenutzte Texturen, Godot-Kollision; Liste je Ort in `LISTE-BESTAND.md`. Einbau nur über deinen Vorgang.
+
 - **Zu 1044, von Spike (1386, 16.11., 10:19):** UAL2 liegt im Kaufrepo (`LISTE-BESTAND.md`, Ruhelage gleich UAL1, geht über `HeldFigur.bewegungen`). Ruhige Haltungen dort: Idle_FoldArms, Idle_Lantern, Yes, Idle_No, Idle_Rail; alle stehen so breit wie UAL1 Idle (Fußabstand 3,0 × Hüftgelenke), kein schmaler Stand. Dazu Angeln, Ernten, Säen, Truhe, Tragen für Leute im Dorf.
 
 - **Zu 531, von Team Jerry (Tuffy 16.11., 08:23, 643):** `claude/tuffy-643-bogen` holen: `longbow.bin` (Griff = Ursprung, Arme +Y, Rücken +X; auch Held), `quiver.bin` (Mitte, Öffnung +Y, Rückseite −Z). Garrick: Köcher über rechter Schulter, Bogen darüber linke Hüfte → rechte Schulter (Dress.kt 543-589). `claude/tuffy-643-langbogen` ist ein leerer Irrläufer.
