@@ -703,6 +703,8 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ausweichen_546.gd 2>&1 | grep -E "^(ok|FEHLER|AUSWEICHEN_546)|SCRIPT ERROR" || true
           # 415 r3 (Jerry): Strahlenprobe ohne Bild, Stabspitze hinter dem Körper (F6), Strahl durch eine Figur (E3), Richtung (F2); meldet nur
           nebenher strahl_mess_415 'timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_mess_415.gd 2>&1 | grep -E "^(Strahl|STRAHL)|SCRIPT ERROR" || true'
+          # 1286 Strahlprobe verlassen: nach „Zurück“ kein Fehler der Probe (Lauf 510: data.tree null, create_timer auf null, Kampfort frei)
+          nebenher strahl_zurueck_1286 'set -o pipefail; timeout 180 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/strahl_zurueck_1286.gd 2>&1 | tee sz1286.log | grep -E "ZURUECK1286|SCRIPT ERROR|ERROR: .*(null|freed|previously)|at: .*strahlprobe" | cut -c1-300; ! grep -qE "at: .*strahlprobe|data.tree. is null" sz1286.log'
           timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_test.gd 2>&1 | grep -E "^(gut|FALSCH)|KLANG|SCRIPT ERROR"   # 399.3
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/klang_994.gd 2>&1 | grep -E "^FALSCH|KLANG994|SCRIPT ERROR"   # 994 kein stummer Tierlaut, Wiederholung als eine Zeile
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/staub_990.gd 2>&1 | grep -E "^FALSCH|STAUB990|SCRIPT ERROR"   # 990 Staub im Licht bleibt im Raum
