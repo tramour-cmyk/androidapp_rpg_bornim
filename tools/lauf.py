@@ -422,8 +422,9 @@ def titel_datum(titel):
         except ValueError: continue
         if d > JETZT.date(): return "%02d.%02d." % (d.day, d.month)
         rest = titel[m.end():]
-        u = re.match(r"\s*,?\s*(?:(?:um|ab)\s+)?(\d\d?)(?:[:.](\d\d)(?:\s*Uhr)?|\s*Uhr)\b", rest) or \
-            re.search(r"\b(?:um|ab)\s+(\d\d?)[:.](\d\d)\b", rest)
+        # 1372: „ab 16.11.“ ist ein Datum, keine Uhrzeit 16:11 (Punkt danach)
+        u = re.match(r"\s*,?\s*(?:(?:um|ab)\s+)?(\d\d?)(?:[:.](\d\d)(?![.\d])(?:\s*Uhr)?|\s*Uhr)\b", rest) or \
+            re.search(r"\b(?:um|ab)\s+(\d\d?)[:.](\d\d)(?![.\d])\b", rest)
         if d == JETZT.date() and u and (int(u.group(1)), int(u.group(2) or 0)) > (JETZT.hour, JETZT.minute):
             return "%02d.%02d., %d:%s" % (d.day, d.month, int(u.group(1)), u.group(2) or "00")
     return None

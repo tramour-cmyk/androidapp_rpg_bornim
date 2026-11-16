@@ -174,6 +174,7 @@ WOCHENTERMINE = [  # (Wochentag 0 = Mo, ab Stunde, Besitzer, Name, Bereich)
 
 def wochentermine_faellig(jetzt):
     """719: [(Titel, Bereich, Besitzer)] heute fällig und noch ohne Zeile in Liste oder Archiv."""
+    jetzt = jetzt.replace(tzinfo=None)  # 1372: lauf.py gibt Berliner Zeit mit Zone, startbar rechnet ohne (Absturz am ersten Montag 08:00 von urteil_faellig)
     tag = jetzt.strftime("%d.%m.")
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
     return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
