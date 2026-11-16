@@ -1,5 +1,6 @@
-# Tom und Jerry · Build 292 · · Sammelbuild: Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen · [PR #211](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/211)
-E Technik · Jerry (1285; ohne dich 643, 1305, 1333, 1366), Spike (698, 1286, 1145), Tom (ohne dich 1383) · 16.11., 09:50 · APK folgt
+# Tom und Jerry · Build 292 · 0.348.517 · Sammelbuild: Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen · [PR #211](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/211)
+E Technik · Jerry (1285; ohne dich 643, 1305, 1333, 1366), Spike (698, 1286, 1145), Tom (ohne dich 1383) · 16.11., 11:20 · [APK (Lauf 517)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43835954328/artifacts/14214731981)
+Rot, bekannt, nicht melden: `typen.py` (Zeile 19) – `regeln/mars.gd` hat 4 Stellen ohne Typ über der Sperrklinke, aus 1275/1366/1333 (Jerry), am Rechner nachgestellt, Behebung im nächsten Build (1408); `kauf_cache_probe.sh` (Zeile 45) – Gegenprobe des Kauf-Caches auf dem Bauserver, am Rechner grün, berührt das Spiel nicht (1409).
 
 Sammelbuild 1393 auf Build 291 aufgesetzt (enthält alles aus 291, 290 und `main`); die Punkte der Listen 290 und 291 kommen hier nicht noch einmal, beide bleiben offen, bis du sie fertig getestet hast.
 
