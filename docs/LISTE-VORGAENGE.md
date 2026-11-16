@@ -150,7 +150,7 @@
 | 1327 | Von Sokrates (aus 1215, t289.2 ✓): Regeln melden Schildstoß und schweren Treffer an ragdoll.gd (kennt beide, mars.gd meldet sie noch nicht; Commit 8ed72e0e4 Punkt 4) | Jerry | K | startbar | – | – | – | E Kampf | – |
 | 1333 | Aus 930.6 (Rest 1215, Sokrates t289.2): Regelkern meldet Schildstoß und schweren Treffer an ragdoll.gd (930 Regel 5) | Jerry | M | zu testen | – | claude/jerry-1333-ragdoll-schwer | 292 | E Kampf | 1,76 $ |
 | 1336 | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | Jerry | K | startbar | – | – | – | E Kampf | – |
-| 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | startbar | – | – | – | E Kampf | – |
+| 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | in Arbeit, Gerüste erkannt, 10 Fehler offen | – | claude/jerry-1340-ragdoll | – | E Kampf | – |
 | 1366 | Von Sokrates (1288b A, Chef 16.11., 06:56): Lesen spürbar – Größe der Ansage erst ab Lesestufe 1, falsche Haltung kostet (Gegenschlag gegen großen Schlag offen, Wehr gegen kleinen 60 %); Werte in werte.json, Kerntests, Rechnung gegen glut2_lesen.py ±3 | Jerry | M | zu testen | – | claude/jerry-1366-lesen | 292 | E Kampf | 4,25 $ |
 | 1291a | Rückfrage zu 1291: Nebenhand nur Schild und Fackel (Waffe dort entfällt wie der Zweiwaffenkampf, 870a 3 A) oder Dolch als Parierdolch? | Jerry | M | startbar | 1380 | – | – | E Kampf | – |
 | Pflege | von Werkzeug (340.3, 16.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
