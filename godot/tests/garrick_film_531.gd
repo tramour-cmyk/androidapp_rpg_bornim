@@ -5,7 +5,7 @@ extends SceneTree
 #   Film: ein Wolf jagt den Helden an Garricks Feuer, Garrick nimmt die Fackel aus dem Feuer, schwenkt sie zum Tier, das Tier geht;
 #         dreimal (Tag, Abend, Nacht), Spielkamera auf die Mitte zwischen Garrick und Tier. Die Regeln laufen (Herde, Schutzort).
 #         Gibt je Abwehr „GARRICKFILM schnitt <bild>“ aus; tools: ffmpeg schneidet je 4,6 s ab dort zusammen.
-#   Bild (-- --bild=<datei>.png): Garrick in Ruhe von hinten schräg, Langbogen und Köcher auf dem Rücken (643, heldfigur.gd ruecken_tragen)
+#   Bild (-- --bild=<datei>.png [--blick=links|rechts]): Garrick in Ruhe von hinten schräg oder im Profil, Langbogen und Köcher auf dem Rücken (643, heldfigur.gd ruecken_tragen)
 # Gesicht: 475; Ruhebewegungen: 1044 (heldfigur.gd RUHE_JE „garrick“: umsehen, greifen, trinken), nicht hier.
 # Aufruf im Ordner godot: xvfb-run -a -s "-screen 0 540x1170x24" godot --rendering-driver opengl3 --path . --resolution 540x1170
 #   --write-movie <datei>.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd     (Bild: ohne --write-movie, mit -- --bild=…)
@@ -13,11 +13,13 @@ extends SceneTree
 var spiel
 var g: Leute
 var bild := ""
+var blick := "hinten"
 var bilder := 0
 
 func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--bild="): bild = a.substr(7)
+		if a.begins_with("--blick="): blick = a.substr(8)
 	_lauf.call_deferred()
 
 func warte(s: float) -> void:
@@ -59,7 +61,9 @@ func _lauf() -> void:
 	print("GARRICKFILM fertig, %d von 3 Abwehren" % gesehen)
 	quit(0 if gesehen == 3 else 1)
 
-## Garrick von hinten schraeg (links hinten, etwas erhoeht), Brust in der Bildmitte, Tag
+## Garrick von hinten schraeg (links hinten, etwas erhoeht), Brust in der Bildmitte, Tag; --blick=links/rechts: im Profil von seiner
+## linken (Köcher oben, Gurt über der Schulter, Bogen unten) oder rechten Seite (Bogen oben), ganze Figur (531.1, Chef 16.11., 12:26:
+## „Müsste man von der Seite sehen“)
 func knips_ruecken() -> void:
 	spiel.herde.aus = true
 	g.set_process(false)
@@ -70,8 +74,10 @@ func knips_ruecken() -> void:
 	var links := vorn.cross(Vector3.UP) * -1.0
 	var brust := g.global_position + Vector3.UP * 1.0
 	cam.global_position = brust - vorn * 4.0 + links * 1.8 + Vector3.UP * 0.9
+	if blick == "links": cam.global_position = brust + links * 4.2 - vorn * 0.35 + Vector3.UP * 0.35
+	if blick == "rechts": cam.global_position = brust - links * 4.2 - vorn * 0.35 + Vector3.UP * 0.35
 	cam.look_at(brust, Vector3.UP)
-	cam.fov = 40.0
+	cam.fov = 40.0 if blick == "hinten" else 30.0
 	cam.make_current()
 	await warte(0.5)
 	await RenderingServer.frame_post_draw
@@ -95,7 +101,7 @@ func jagd(h: Herde) -> bool:
 	h.frieden_bis = 0
 	# Pruefer Lauf 288: das Tier gibt 4,8-7 m vor Garrick auf; Spielkamera normal, Mitte zwischen Garrick und Tier
 	var mitte := Node3D.new()
-	g.get_parent().add_child(mitte)
+	g.get_parent().get_parent().add_child(mitte)   # nicht unter die Leute (spiel._nacht ruft dort jedes Kind)
 	mitte.global_position = (g.global_position + jaeger.global_position) * 0.5
 	if spiel.kamera.nah: spiel.kamera.nah_fern()
 	spiel.kamera.ziel = mitte

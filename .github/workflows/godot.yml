@@ -747,6 +747,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tasche_521.gd 2>&1 | grep -E "^(gut|FEHLER|TASCHE521)|SCRIPT ERROR"   # 521, 523 Ausruestungszeile wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/untersuchen_541.gd 2>&1 | grep -E "FEHLER|UNTERSUCHEN|SCRIPT ERROR"   # 541 Untersuchen, Angriff mit dem Knopf
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/garrick_531.gd 2>&1 | grep -E "^(gut|FEHLER|GARRICK531|ohne)|SCRIPT ERROR"   # 531 Garrick wehrt mit der Fackel ab
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/gurt_531.gd 2>&1 | grep -E "^(gut|FEHLER|GURT531)|SCRIPT ERROR"   # 531 Köchergurt liegt in Garricks Bewegungen über Körper und Kleidung
           timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/sprung_680.gd 2>&1 | grep -E "^FEHLER|^RUNDE|^WAISE|SPRUNG 680|SCRIPT ERROR"   # 680 Ortswechsel ohne Speicherzuwachs (Spike)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/ziege_4162.gd 2>&1 | grep -E "FEHLER|ZIEGE|^Seite|^Ziege|SCRIPT ERROR"   # 416.2 Ziege (146.5); 1079: Seiten und Schritte der Ziege ins Protokoll
@@ -1720,6 +1721,36 @@ jobs:
             -s res://tests/film_ketten_1144.gd -- --film=1144 > $B/ketten1144.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true
+          ls -l $B
+      # 531 (1351 B: Bildläufe auf dem Bauserver; Chef 16.11., 12:26 zu 531.1): Garrick im Profil links mit Kapuze vorher (wie bisher,
+      # KAPUZE_ENG=1, hier nur Garrick gebaut) | nachher (enger, held_klassen.py kapuze_eng) und Köchergurt, rechts und von hinten
+      # nachher (Schlaufe um Bogen und Köcher), dazu der Film Fackelabwehr (Tag, Abend, Nacht, je 4,6 s ab „GARRICKFILM schnitt“);
+      # tests/garrick_film_531.gd bei „531 Bild“ im Commit
+      - name: Garrick (531)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '531 Bild') || contains(github.event.inputs.bilder, '531')) }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/garrick531; mkdir -p $B
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          KAPUZE_ENG=1 LEUTE_KAUF=garrick OUT=$RUNNER_TEMP/out531 ZIEL=$RUNNER_TEMP/alt531 Q=~/cc0 timeout 1500 bl/bin/python -I tools/blender348/v3/held_klassen.py > $B/alt531.log 2>&1 || tail -20 $B/alt531.log
+          grep -E "^KOPFSITZ|^KAPUZE|^LEUTE" $B/alt531.log | cut -c1-300 || true
+          cd godot
+          knips() { VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 300 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/garrick_film_531.gd -- --bild=$B/$1.png --blick=$2 2>&1 | grep -E "SCRIPT ERROR|^GARRICKFILM" | cut -c1-300 || true; }
+          knips links links; knips rechts rechts; knips hinten hinten
+          if [ -f $RUNNER_TEMP/alt531/held_L_garrick_M.glb ]; then
+            cp daten/held_L_garrick_M.bin $RUNNER_TEMP/neu531.bin && cp $RUNNER_TEMP/alt531/held_L_garrick_M.glb daten/held_L_garrick_M.bin
+            knips links_vorher links
+            cp $RUNNER_TEMP/neu531.bin daten/held_L_garrick_M.bin
+            (cd $B && convert links_vorher.png links.png -background "#D4B038" -splice 8x0 +append links_vorher_nachher.png) || true
+          fi
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/garrick531.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd > $B/film531.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^GARRICKFILM" $B/film531.log | cut -c1-300 || true
+          i=0; for f in $(grep -oE "^GARRICKFILM schnitt [0-9]+" $B/film531.log | awk '{print $3}'); do
+            ffmpeg -loglevel error -y -ss $(awk "BEGIN{print ($f-15)/30}") -t 4.6 -i $RUNNER_TEMP/garrick531.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $RUNNER_TEMP/s$i.mp4 && echo "file '$RUNNER_TEMP/s$i.mp4'" >> $RUNNER_TEMP/s.txt; i=$((i+1)); done
+          [ -f $RUNNER_TEMP/s.txt ] && ffmpeg -loglevel error -y -f concat -safe 0 -i $RUNNER_TEMP/s.txt -c copy $B/garrick531.mp4 || true
           ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein

@@ -130,6 +130,7 @@ def kopfsitz(netze, haut, p, gesicht=None):
             weg = [f for f in bm.faces if (lambda c: c.y < p['mitte'][1] - 0.03 and abs(c.x) < bx and p['kinn_z'] - 0.03 < c.z < p['augen_z'] + 0.03)(mw @ f.calc_center_median())]
             bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(o.data); bm.free(); o.data.update()
             print('KOPFSITZ', o.name, 'Gesicht frei:', len(weg), 'Flaechen weg')
+        if 'hood' in n and KAPUZE_ENG < 1.0: kapuze_eng(o, W, N, kopf, kd, p)
         if 'armet' in n:
             bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world
             # Lauf 2 (Pruefer 21:26: Wangenklappen bis neben die Mundwinkel): nach der Flaechenmitte, auch die Wangenklappen vor dem Gesicht
@@ -150,6 +151,38 @@ def kopfsitz(netze, haut, p, gesicht=None):
         print('KOPFSITZ', o.name, 'unter der Haut vorher %d Ecken (tiefste %.1f mm), alle jetzt 6 mm darueber' % (durch, -tief * 1000))
         if gesicht: kopfsitz_geformt(o, W, N, kopf, p, gesicht)
     return teile
+
+
+# 531 (Chef 16.11., 12:26, Bild Garrick im Profil: „Garrick ist … klein und die Kapuze ist wie für einen Riesen gemacht“): gemessen am
+# Kaufbau held_L_garrick_M (16.11.): die Ranger-Kapuze sitzt wie beim Helden (Jaegerkind) unverändert aus dem Kauf, Kopf bis z 1,81, Kapuze
+# bis 1,865, hinten 11 cm und über der Stirn 8 cm vor dem Kopf (Kopf 12 cm tief, Kapuze 32 cm). Die Leute tragen sie enger: der Abstand
+# über 6 mm zur Haut schrumpft auf KAPUZE_ENG, nach unten (Kragen, Schultern) ausgeblendet, die Verschiebung über die Nachbarn geglättet
+KAPUZE_ENG = float(os.environ.get('KAPUZE_ENG', '0.3'))
+
+
+def kapuze_eng(o, W, N, kopf, kd, p, runden=6):
+    V = KO._welt(o); D = np.zeros_like(V); vorher = []; luft = np.zeros(len(V))
+    for k in range(len(V)):
+        q, j, d = kd.find(Vector(V[k]))
+        if q is None or d > 0.25: continue
+        i = kopf[j]; h = float(np.dot(V[k] - W[i], N[i]))
+        luft[k] = max(0.0, h - 0.006)
+        if h <= 0.006: continue
+        unten = np.clip((V[k][2] - (p['kinn_z'] - 0.06)) / 0.08, 0.0, 1.0)   # unter dem Kinn (Kragen) bleibt die Kapuze, wie sie ist
+        D[k] = -N[i] * (h - 0.006) * (1.0 - KAPUZE_ENG) * unten
+        vorher.append(h)
+    nb = [[] for _ in range(len(V))]
+    for e in o.data.edges:
+        a, b = e.vertices; nb[a].append(b); nb[b].append(a)
+    for r in range(runden):
+        D = np.array([(D[k] + D[nb[k]].mean(axis=0)) * 0.5 if nb[k] else D[k] for k in range(len(V))])
+    # Glätten zieht innen liegende Ecken (Futter, Rand) mit hinein: nie weiter als bis 6 mm über die Haut
+    lang = np.linalg.norm(D, axis=1)
+    D *= (np.minimum(lang, luft) / np.maximum(lang, 1e-9))[:, None]
+    KO._zurueck(o, V + D)
+    H = np.array(vorher) if vorher else np.zeros(1)
+    print('KAPUZE ENG', o.name, 'Faktor %.2f, Abstand zur Haut vorher bis %.0f mm (Mitte %.0f), Verschiebung bis %.0f mm' % (
+        KAPUZE_ENG, H.max() * 1000, np.median(H) * 1000, np.linalg.norm(D, axis=1).max() * 1000))
 
 
 def kopfsitz_geformt(o, W, N, kopf, p, ge, runden=8):
