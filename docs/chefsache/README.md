@@ -4,7 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 09:15, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer.
 
 **Themenblöcke**
 
@@ -12,12 +12,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ Umzug BRS, SRD ablösen | 4 | 3 | 0 | 1 | 1 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ Kampf passt | 69 | 30 | 4 | 6 | 9 | 1305 (Jerry) Kämpfer mit Schwert und Schild läuft in die hinte… |
+| ↳ Kampf passt | 69 | 30 | 3 | 6 | 9 | 1305 (Jerry) Kämpfer mit Schwert und Schild läuft in die hinte… |
 | ↳ Kleiderschrank und Modelle (Held, Leute, Monster) | 14 | 6 | 0 | 0 | 8 | 1044 (Tom) Leute stehen außerhalb des Kampfs wie zur Rolle p… |
 | ↳ Alles an einer Stelle: Figuren, Helden, Gegenstände | 13 | 3 | 1 | 0 | 4 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 56 | 10 | 1 | 11 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
-| ↳ Godot besser nutzen (Technik, Build, Leistung) | 19 | 8 | 1 | 6 | 4 | 1383 (Sokrates) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
-| Werkzeuge und Abläufe der Firma | 52 | 32 | 0 | 0 | 9 | 1387 (Perikles) Übersicht-Commits 15.11. 193, 16.11. bis 09:06 12… |
+| ↳ Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 55 | 9 | 1 | 11 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ Godot besser nutzen (Technik, Build, Leistung) | 18 | 7 | 1 | 6 | 4 | 1383 (Sokrates) Wiederholrot ziege_4162: 6× rot in 48 h; Ursache… |
+| Werkzeuge und Abläufe der Firma | 45 | 28 | 0 | 1 | 9 | 1387 (Perikles) Übersicht-Commits 15.11. 193, 16.11. bis 09:06 12… |
 | Marktstart | 10 | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
@@ -29,9 +29,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | Tuffy | 1323 Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Rest… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
 | Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1217 Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen… (Muss); dann 13 weitere |
+| Diogenes | 1369 D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lau… (Muss); dann 2 weitere |
 | Sokrates | 1383 Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstelle… (Muss); dann 2 weitere |
-| Perikles | 1387 Übersicht-Commits 15.11. 193, 16.11. bis 09:06 126; Ursache… (Muss) |
+| Perikles | 1387 Übersicht-Commits 15.11. 193, 16.11. bis 09:06 126; Ursache… (Muss); dann 2 weitere |
 
 **Die nächsten 20**
 
@@ -45,26 +45,27 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 6 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
 | 7 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
 | 8 | 1387 | Perikles | Übersicht-Commits 15.11. 193, 16.11. bis 09:06 126; Ursache 1313. Kein Commit b… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 9 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 10 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 11 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 12 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 13 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
-| 14 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
-| 15 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
-| 16 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
-| 17 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
-| 18 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
-| 19 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | Kampf passt | startbar |
-| 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | Kampf passt | startbar |
+| 9 | 1388 | Perikles | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 10 | 1389 | Perikles | D257.2 von Diogenes: Pflegehinweis-Commits 15.11. 38, Anteil 2,6 % gegen 2,9 %;… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 11 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 12 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 13 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 14 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 15 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | Kampf passt | startbar |
+| 16 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | Kampf passt | startbar |
+| 17 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | Kampf passt | startbar |
+| 18 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | Kampf passt | startbar |
+| 19 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | Kampf passt | startbar |
+| 20 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | Kampf passt | startbar |
 
-Danach 95 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 63.
+Danach 97 weitere offen. Bei dir zum Testen (vorgelegt): 25. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 63.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1292](entscheiden/1292-klosterschueler.md) | **Muss** | G Balance | 16.11., 09:14 | Der Klosterschüler gewinnt fast immer, weil Wundsegen ihn in jedem Kampf unter halbem Leben so oft heilt, wie das Mana reicht (bis zu achtmal); mit höchstens zwei Segen je Kampf steht er neben dem Wachsoldaten, und wie er kämpft, zählt wieder. | Tuffy (Team Jerry) |
 | [1291a](entscheiden/1291a-nebenhand.md) | **Muss** | E Kampf | 16.11., 08:30 | Eine Waffe in der Nebenhand tut heute nichts, weder im Kampf noch am Helden; Empfehlung: die Nebenhand nimmt nur noch Schild und Fackel. | Tuffy |
 | [431h](entscheiden/431h-ausruestung-sichtbar.md) | **Muss** | E Figuren | 16.11., 07:20 | Stufe 1 legt jeder Herkunft ihre Tracht als Kleidungsstücke in die Plätze und zeigt leere Plätze in Unterwäsche; Stufe 2 macht jede Rüstung sichtbar; beide getrennt mit Aufwand. | Tom |
 | [1352a](entscheiden/1352a-taumeln.md) | **Muss** | E Kampf | 16.11., 00:20 | Taumeln wie im alten Kampf (ein Fünftel seines Lebens seit seiner Ansage) oder im Kampf mit Kerben streichen? | Homer |
