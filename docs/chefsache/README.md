@@ -25,11 +25,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 |---|---|
 | Tom | 531 Build 249: Garrick wie alt und besser: Gesicht, Langbogen a… (Muss) |
 | Jerry | 1305 Kämpfer mit Schwert und Schild läuft in die hintere Reihe u… (Muss); dann 4 weitere |
+| Tuffy | 1323 Kampfmeldungen ohne TP/HP, „+{1} Leben“ / “+{1} Life”; Rest… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | 698 Grafikstufen im Systemmenü mit Effekten (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1217 Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen… (Muss); dann 11 weitere |
+| Diogenes | 1217 Testbitte unterwegs: Reiter „Test“ der APK nur Handy-Zeilen… (Muss); dann 13 weitere |
 | Sokrates | 1129 Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe,… (Muss); dann 2 weitere |
-| Perikles | 1369 D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lau… (Muss); dann 5 weitere |
+| Perikles | 1373 Wochentermin 16.11.: Wochenziel (Muss); dann 3 weitere |
 
 **Die nächsten 20**
 
@@ -45,18 +46,18 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 16.11., 
 | 8 | 1375 | Perikles | Wochentermin 16.11.: Haken-Frage Abnahmeliste als ansehen/-Datei | M | Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 9 | 1383 | Sokrates | Wiederholrot ziege_4162: 6× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | Godot besser nutzen | startbar |
 | 10 | 698 | Spike | Grafikstufen im Systemmenü mit Effekten | M | Godot besser nutzen | startbar |
-| 11 | 1369 | Perikles | D254.1 von Diogenes: lauf.py warnt laut über die Marke „Lauf läuft bis …“ in Sp… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1371 | Perikles | D254.2 von Diogenes: Nachtrag Chef 07:02 fehlt im Bau 2c9b7b85a: keine Übernahm… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 1373 | Perikles | Wochentermin 16.11.: Wochenziel | M | Werkzeuge und Abläufe der Firma | startbar |
-| 14 | 1376 | Perikles | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1382 | Perikles | Themenblock „Alles an einer Stelle: Figuren, Helden, Gegenstände“ unter Kapitel… | M | Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
-| 18 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
-| 19 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
-| 20 | 649.2 | Jerry | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json, S… | K | Kampf passt | startbar |
+| 11 | 1373 | Perikles | Wochentermin 16.11.: Wochenziel | M | Werkzeuge und Abläufe der Firma | startbar |
+| 12 | 1376 | Perikles | Wochentermin 16.11.: Urteil alte Zeilen Perikles, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 13 | 1378 | Sokrates | Wochentermin 16.11.: Urteil alte Zeilen Sokrates, je Nr. gilt oder schließen; U… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1382 | Perikles | Themenblock „Alles an einer Stelle: Figuren, Helden, Gegenstände“ unter Kapitel… | M | Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | Kampf passt | startbar |
+| 16 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | Kampf passt | startbar |
+| 17 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | Kampf passt | startbar |
+| 18 | 649.2 | Jerry | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json, S… | K | Kampf passt | startbar |
+| 19 | 649.4 | Jerry | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 mess… | K | Kampf passt | startbar |
+| 20 | 644.1 | Jerry | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen, zusammen… | K | Kampf passt | startbar |
 
-Danach 100 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 62.
+Danach 98 weitere offen. Bei dir zum Testen (vorgelegt): 24. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 26. Ruhend oder nach dem Meilenstein: 62.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
