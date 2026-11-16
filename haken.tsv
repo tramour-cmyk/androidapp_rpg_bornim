@@ -576,3 +576,4 @@
 2026-11-16 10:14:47	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 531 schon 1 Probelauf seit deinem Urteil 2026-11-04 20:54:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch 	claude/tom-531-film
 2026-11-16 10:15:24	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1386 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (	HEAD
 2026-11-16 10:17:51	commit-pruefung	docs/chefsache/ansehen/531-garrick-ruecken.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-16 10:20:08	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 31320 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
