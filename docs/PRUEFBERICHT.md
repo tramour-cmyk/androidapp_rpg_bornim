@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 273 · 1427 Vergleich aus dem Gedächtnis (Perikles `982288fa2`; 16.11., 14:41)
+
+- **1427 wirkt, mit Lücke:** `art_weg_test.py` gut (9 von 9), Regel in `LISTE-CHECK-BUILD-TEST.md` 10 (`a30754118`). Die echte Zeile t291.3 als neue Liste hält an („als in Build 290“). Nicht gefunden: „wie in 290“ ohne „Build“ (stand so im Falsch-Feld derselben Zeile), „als zuletzt“, „wie gewohnt“; eine Zahl mit Einheit irgendwo in der Zeile gibt jeden Vergleich frei („in 2 s da; nicht dunkler als in Build 290“ ohne Fund). Nur Art Handy geprüft, Regel gilt für jede Zeile. **D273.1 → 1446** (Perikles); 1427 wartet auf 1446, danach greift es an der ersten neuen Prüfliste ohne Fund.
+
 ## Lauf 272 · 1440 Blocknummern im Überblick (Perikles `358715434`; 16.11., 14:33)
 
 - **1440 greift:** `ueberblick_test.py` gut (Nummern eindeutig, im Überblick). Chefsache-README nach dem Lauf „Chefsache Übersicht“ 14:32: Blöcke 1–8 fett nummeriert, „Übriges“ 9 fest, die 20 Vorgänge tragen die Blocknummer in der Spalte Block. Nummer fest im Code (`num`), nicht aus der Reihenfolge.
