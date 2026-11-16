@@ -331,7 +331,10 @@ func _process(dt: float) -> void:
 	var tempo := 0.0
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
-		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0) * schnell
+		# 1421 (Chef 16.11., 12:54: „Ja, so machen wir das“): zwei feste Tempi wie alt (WorldScreen.kt 726: der Joystick gibt nur die Richtung,
+		# Rennen über den Ring oder die Renntaste), statt Tempo nach Ausschlag (348.6: clampf(dir.length(), 0.5, 1.0); halber Ausschlag
+		# gab halbes Tempo, das Gehen lief dann gedehnt, „große Schritte … wie in Zeitlupe“)
+		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * schnell
 		# aus dem Stand mit ANLAUF los (416.4), schneller oder langsamer werden weich
 		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position)) * schnell
 		var ab := ABBREMS   # 416.4: langsamer werden ohne Halt (Rennen -> Gehen) gut 1 s

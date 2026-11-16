@@ -592,7 +592,10 @@ func _unhandled_input(e: InputEvent) -> void:
 			ring(zieht and d.length() > JOY)
 			zeichner.queue_redraw()
 
+# 1421 (Chef 16.11., 12:48, „Rennen B“: „Joystick weit ausgeschlagen rennt auch bei ausgeschalteter Renntaste“): ist die Renntaste in
+# der Bedienung eingeschaltet, rennt der Held nur mit ihr; der Ring gibt dann nur die Richtung
 func ring(an: bool) -> void:
+	if Bedienung.lauf_taste: an = false
 	if an == ring_lauf or lauf_an: return
 	ring_lauf = an
 	laufen.emit(an)
