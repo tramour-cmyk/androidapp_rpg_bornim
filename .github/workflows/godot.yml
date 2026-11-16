@@ -1886,6 +1886,20 @@ jobs:
           grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true
           ls -l $B
+      # 1341 (t290.6; 1351 B, Chef 16.11., 10:13; Bildläufe am Rechner lehnt die Rechteprüfung ab): Reiter Ausrüstung, neun göttliche
+      # Stücke, Beine angetippt (Name sichtbar), 1080 × 2340 wie am Handy; tests/bild_t290.gd bei „1341 Bild“ im Commit
+      - name: Fächerbild (1341)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1341 Bild') || contains(github.event.inputs.bilder, '1341')) }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/faecher1341; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          T290=faecher_tipp BILD_AUS=$B VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 \
+            -s res://tests/bild_t290.gd > $B/faecher1341.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^BILD" $B/faecher1341.log | cut -c1-400 || true
+          ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:
