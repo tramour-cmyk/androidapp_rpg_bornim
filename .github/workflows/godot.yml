@@ -736,6 +736,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/kamera_615.gd 2>&1 | grep -E "^FALSCH|KAMERA615|SCRIPT ERROR"   # 615 Kamera dreht und zoomt um den Helden (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/maus_673.gd 2>&1 | grep -E "^FALSCH|MAUS673|SCRIPT ERROR"   # 673 A am Rechner Mausrad zoomt, rechte Taste ziehen dreht (Spike)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/atemlos_592.gd 2>&1 | grep -E "^(ok|FEHLER|Atemlos 592)|SCRIPT ERROR"   # 592 atemlos kurz stehen (Tom)
+          set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/joystick_1285.gd 2>&1 | grep -E "^(ok|FEHLER|1285 )|SCRIPT ERROR"   # 1285 im Ring gehen, auch mit Schnell (Jerry)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/glas_608.gd 2>&1 | grep -E "^FALSCH|GLAS608|SCRIPT ERROR"   # 608 Fenster durchsichtiger Haeuser nach der Tageszeit (Tom)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/ruhe_test.gd 2>&1 | grep -E "RUHE|FEHLER|SCRIPT ERROR"   # 397, 592 Ruhebewegungen ohne Muede
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/ruhe_kauf_595.gd 2>&1 | grep -E "^(ok|FEHLER|RUHE595)|SCRIPT ERROR"   # 595 Ruhebewegungen Egel, Schnecke
