@@ -7,9 +7,7 @@ Sammelbuild auf `main` mit Build 293 (über die Zweige 1072 und 1453); die Punkt
 
 Ein Weg: über Build 293 installieren, im Hauptmenü Android-Zurück (294.1); dann Zeile 294.2 mit „Lage herstellen“ (Probekampf Wölfe) zwei Runden zusehen, in der zweiten Runde selbst einen Trank trinken (294.3).
 
-Im Bau geprüft: Wölfe und Goblins rücken ohne neuen Platz nicht, jedes erlaubte Ziel steht im Bild vorn, Ansagen laufen bis zum Ende (1453: `stehen_973`, `reihe_1305`, `ansage_946`); verdeckte Rattenbisse nur als Auskunft, Luftbisse bleiben Fehler (1455, `biss_1284`); nach der Eingebung zum Wechsel ist „Wechsel“ im nächsten Zug des Helden aktiv (1296, `eingebung_1296`); tote SRD-Reste entfernt, alle Tests laufen ohne sie (1458).
-
-Werkzeug, kein Test (wird nie rot, Diogenes liest am Lauf, 1499): Ladezeit und Bildrate je Ort gegen den Vorgänger als Zahlen (1426, Schritt „Bildrate je Ort“, 294.7).
+Im Bau geprüft: Wölfe und Goblins rücken ohne neuen Platz nicht, jedes erlaubte Ziel steht im Bild vorn, Ansagen laufen bis zum Ende (1453: `stehen_973`, `reihe_1305`, `ansage_946`); verdeckte Rattenbisse nur als Auskunft, Luftbisse bleiben Fehler (1455, `biss_1284`); nach der Eingebung zum Wechsel ist „Wechsel“ im nächsten Zug des Helden aktiv (1296, `eingebung_1296`); Ladezeit und Bildrate je Ort gegen den Vorgänger als Zahlen (1426, `bildrate.py`); tote SRD-Reste entfernt, alle Tests laufen ohne sie (1458).
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
