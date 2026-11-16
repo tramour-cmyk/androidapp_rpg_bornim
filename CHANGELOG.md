@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Builds 286 bis 291 auf `main`** (Sokrates, PR 210 gemischt 16.11., 15:17, `2e1eb96ed`, Lauf grün auf `207987ec4`; Chef 16.11., 13:43 „alles auf main“): alles, was der Chef in t286–t291 bestanden hat; nicht bestanden und darum zurückgenommen: 601.1 (Zucken beim Pfeiltreffer) und 1284 (Rattenbiss daneben). PR 205–209 als enthalten geschlossen.
+
 - **Gehen im Ring auch mit „Schnell“** (Jerry, 1285, Zweig `claude/jerry-1285-joystick`, noch ohne Build): mit dem Testmenü „Schnell“ rannte der Held schon bei kleinstem Joystick-Ausschlag; jetzt geht er im Ring und rennt erst darüber, wie ohne „Schnell“ (Test `joystick_1285`).
 
 - **Gehen ohne Hakeln** (Spike, 1145, Zweig `claude/spike-1145-nebel` `9ca59a27b`, noch ohne Build): der Nebel rechnete bei jedem Kachelwechsel und jeder kleinen Drehung neu und hielt das Bild an (Höhle 62 ms am Rechner); jetzt 4,5 ms, im Wald und Dorf halb so lang wie vorher, das Nebelbild an 1016 geprüften Stellen gleich.
