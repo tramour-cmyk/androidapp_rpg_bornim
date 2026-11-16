@@ -71,6 +71,17 @@ Zeitraum 09.11., 19:04 bis 10.11., 11:08 (ab da trägt `--sperre` jede START-Zei
 - **`bc2dd1ea0` greift nicht:** Ursache am Rechner bestätigt (zweite Ziege mit Ziel Heldenkachel je Seite: alter Test 2 Fehler, Schritte `[(30, 27), (30, 28), false]`; neuer Test räumt sie aus, 0 Fehler). Der Test versteckt, was das Spiel weiter tut (Chef 416.2 „Ziege wird geschoben, kein Platztausch“).
 - **`e347e68d8` (Spike) nachgeprüft:** Logiksatz 153 gut (156 s), `ziege_4162` dreimal 0 Fehler; derselbe Test mit `leute.gd` von `828e0e98d` zweimal 1 Fehler an (-1, 0). Lücke: nur fliehende Tiere geben die Heldenkachel frei. Bauserver auf keinem Zweig gelaufen. Wahl des Zweigs bei Tom (Zu 1079 im Vorrat Tom); 1079 → startbar.
 
+## Lauf 256 · 1325, 1335, 1128.3 an Lauf 506 (Build 290, 16.11., 08:3x)
+
+- **1325 Bautest Lauf 506:** `laufnachweis.py` an t290: 15 von 15 Tests tragen, darunter `ziege_4162`; im Schritt „Skripte pruefen“ steht unter „ROT: 1 Zeilen“ nur `wolf_mess_438`, `ziege_4162` also grün.
+- **1335 greift:** `wolf_mess_438` rot in Lauf 506 (`claude/build-290` mit `5bd07c63c`, „Ende 1 nach 263 s“), aber mit echtem Befund: Wolf 3 bis 0,118 m im Schild (Kampfstab, Bild 1568–1571), wie 1363 (Lauf 512); `rotbuch.py`: Läufe 503–513 ohne „WACKELT“. D255.1 (1381) zuerst angelegt, nach dem Widerlegen selbst verworfen.
+- **1185 greift:** `pruefliste.py --pruefe` (Bauschritt `godot.yml` Zeile 792, ohne Bedingung) warnt an der Liste des Baus t291 je Handyzeile ohne Lage (291.1, 291.4, 291.5, 291.9); der Bau bleibt grün.
+- **1334 greift:** `rotbuch.py` zählt 12 rote Tests der letzten 48 h, je mit bekannter Zeile; Ford legte heute 1379 (`tod_ragdoll_1215`, 2×) mit `--anlegen` an; Wackeltest `atem_4531` erkannt (in 1355).
+- **1372 greift:** Fords Lauf 08:11 mit `lauf.py` lief durch und legte die Wochentermine an (1374–1378), kein TypeError.
+- **1313 greift:** Chefsache „Überblick“ 08:31 mit 7 Themenblöcken, „Je Rolle das Nächste“ und „Die nächsten 20“, neu nach der Listenänderung.
+- **1332 greift:** die zwei Zeilen „zu testen, ohne Rückmeldung“ (1309, 481.2) tragen ein Wartefeld ihres Besitzers (1341, 1321), keine steht in der Übersicht als „liegt bei dir“.
+- **1128.3:** seit Lauf 487 keine Änderung an `leute.json` auf einem Zweig, also kein Fall für 1060 → `warte 1128.3 23.11.`
+
 ## Lauf 255 · Wochenzählung 09.–15.11. (1374), 1129.4, 1172, 905, 461b, 1188, 1125 (16.11., 08:1x–08:3x)
 
 - **Zahlen** in der Tabelle oben, Spalte 09.–15.11.; nur gezählt, nicht bewertet. 1374, 1129.4 (Zahlen für Sokrates in der Zeile „Wirkung 1129“), 905 (3 von 131), 461b (Zählung steht, nach 1186) und 1377 (nur 461b) erledigt; 1172 zählt wieder am 23.11.
