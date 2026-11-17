@@ -13,6 +13,11 @@ func pruefe(ok: bool, was: String) -> void:
 	print(("gut   " if ok else "FEHLER ") + was)
 	if not ok: fehler += 1
 
+# Shader-Parameter, nie gesetzt = 0
+func par(m: ShaderMaterial, k: String) -> float:
+	var v: Variant = m.get_shader_parameter(k)
+	return 0.0 if v == null else float(v)
+
 func _initialize() -> void:
 	_lauf.call_deferred()
 
@@ -91,10 +96,19 @@ func _lauf() -> void:
 	for i in 6: await physics_frame
 	var durch: Array = wandgruppen.filter(func(k): return float(spiel.gebiet.gruppen[k]["ziel"]) < 1.0)
 	pruefe(durch.size() >= 1, "Held bei Krogg (15, 11) hinter der Wand zum Lager: durchsichtig %s" % [durch])
+	await create_timer(0.5).timeout
+	if durch.size() >= 1:   # 1423: Loch um den Helden (cut_on) statt halb durchsichtig (weg)
+		var wm: ShaderMaterial = spiel.gebiet.gruppen[durch[0]]["mats"][0]["m"]
+		var cp: Vector3 = wm.get_shader_parameter("cut_pos")
+		pruefe(par(wm, "cut_on") > 0.5 and par(wm, "weg") < 0.5 and wm.next_pass != null
+			and cp.distance_to(spiel.held.global_position) < 1.2, "Wand oeffnet ein Loch um den Helden (cut_on, Durchgaenge, cut_pos am Helden)")
 	spiel.held.setze(Vector2i(10, 18), "UP"); spiel.kamera.springe()
 	for i in 6: await physics_frame
 	durch = wandgruppen.filter(func(k): return float(spiel.gebiet.gruppen[k]["ziel"]) < 1.0)
 	pruefe(durch.is_empty(), "am Eingang (10, 18) deckt jede Wand: %s" % [durch])
+	await create_timer(0.5).timeout
+	var offen: Array = wandgruppen.filter(func(k): return par(spiel.gebiet.gruppen[k]["mats"][0]["m"], "cut_on") > 0.5)
+	pruefe(offen.is_empty(), "am Eingang kein Loch mehr: %s" % [offen])
 	pruefe(spiel.held.fackel_kraft > 2.0,"Fackel des Helden brennt in der Hoehle auch am Tag: %.2f" % spiel.held.fackel_kraft)
 	# Gitter
 	var gl := spiel.gebiet.find_child("Gitter_L", true, false) as Node3D
