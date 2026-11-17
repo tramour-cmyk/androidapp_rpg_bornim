@@ -11,6 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1423b | Von Chef (17.11., 11:01, an Sokrates, t296.1) „jetzt“ 17.11., 11:01: Loch um den Helden hinter einer Höhlenwand fehlt am Handy (nur Haaransatz zu sehen, Bild); einmal mit wenig Aufwand nachbessern, sonst Löcher ganz weg statt neuem Fehler; Wände und Stimmung top | Tom | M | startbar | – | – | – | G Stil | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Stufe 2 als Vorlage beim Chef | 431h | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | zu testen | – | claude/tom-531-film | 297 | E Oberfläche | 44,79 $ |
