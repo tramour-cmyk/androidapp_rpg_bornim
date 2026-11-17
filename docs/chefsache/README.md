@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 12:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 12:19, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,9 +26,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **2** Kampf passt | 63 (61) | 20 | 0 | 9 | 12 | 1545 (Jerry) Halt-Zeile oben im Vorrat streichen: Bedingung er… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 18 (16) | 9 | 0 | 4 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 47 (52) | 4 | 0 | 1 | 24 | 1530 (Tom) Intro wie alt: Fackelträger laufen in den Tempel;… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 47 (52) | 4 | 0 | 1 | 24 | 168.1 (Jerry) Umsetzung 168: Garrick fest in Kapitel 2, Söldner… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 8 (13) | 2 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
-| **7** Werkzeuge und Abläufe der Firma | 49 (43) | 29 | 0 | 1 | 11 | 1547 (Jerry) 07: einen vernünftigen Build 297 mit allem, was o… |
+| **7** Werkzeuge und Abläufe der Firma | 50 (43) | 30 | 0 | 1 | 11 | 1547 (Jerry) 07: einen vernünftigen Build 297 mit allem, was o… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 53 | 202 | 255 | 1115 |
-| neu | 52 | 164 | 216 | 1106 |
-| **netto** (erledigt − neu) | **+1** | **+38** | **+39** | **+9** |
+| neu | 53 | 164 | 217 | 1107 |
+| **netto** (erledigt − neu) | **+0** | **+38** | **+38** | **+8** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,8 +45,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen |
-| Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 2 weitere |
+| **Chef** | [1551a](entscheiden/1551a-ford-uhr-erlaubnis.md) entscheiden; dann 2 weitere |
+| Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 1 weitere |
 | Jerry | 1547 07: einen vernünftigen Build 297 mit allem, was offen ist,… (Muss); dann 3 weitere |
 | Tuffy | 1545 Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt; son… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
 | Spike | leer, weil 3 ruht, 1 wartet auf Test, 1 Chef |
@@ -64,26 +64,30 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 1541 | Jerry | Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen… | M | 2 Kampf passt | startbar |
 | 4 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | startbar |
 | 5 | 1549 | Tom | beim Sitzen hat der Held die Waffe in der Hand, „macht keinen Sinn … Logikfrage… | M | 3 Kleiderschrank und Modelle | startbar |
-| 6 | 1530 | Tom | Intro wie alt: Fackelträger laufen in den Tempel; Chef sieht ihn nicht mehr, „b… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 7 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 8 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 9 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 10 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 11 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
-| 12 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 13 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 14 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 15 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
-| 16 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
-| 17 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
-| 18 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
-| 19 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
-| 20 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
+| 6 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 7 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 8 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 9 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 10 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
+| 11 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 12 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 13 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 14 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 15 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
+| 16 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 17 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 18 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 19 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
+| 20 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
 
-Danach 71 weitere offen. Bei dir zum Testen (vorgelegt): 16. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 23. Ruhend oder nach dem Meilenstein: 73.
+Danach 71 weitere offen. Bei dir zum Testen (vorgelegt): 16. Gebaut, fährt mit dem nächsten Build: 5. Werkzeug gebaut, Prüfung Diogenes: 23. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1551a](entscheiden/1551a-ford-uhr-erlaubnis.md) | **Muss** | B Abläufe | 17.11., 12:16 | Auto-Prüfung lehnt den Commit der Ford-Erlaubnis (Stundenuhr, Notizen) als „Undermining Oversight“ ab; freigeben oder lassen? | Perikles |
 
 ## Zu billigen
 
@@ -91,7 +95,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1530](ansehen/1530-intro-fackelzug.md) | Intro Bild 3: Fackelträger laufen wieder in den Tempel | Tom | 17.11., 12:17 |
 
 ## Zu tun
 
@@ -348,6 +356,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 142 | K | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | nach dem Meilenstein |
 | 45 | K | Geschäftsmodell und Umsetzung (Play Store) | nach dem Meilenstein |
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1530-intro-fackelzug.md
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
