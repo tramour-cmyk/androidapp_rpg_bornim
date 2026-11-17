@@ -26,7 +26,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **Sokrates (Chef 17.11., 08:52: „definitiv nicht archivieren oder schließen“)** `session_01Hmoj76gTnkQt77JpdpoGF3`: nie archivieren, kein zweiter Sokrates.
 - **Ford-Starter** `session_01Hmoj78K3Ut6YQSgPLqZEvX` (15.11., 16:11, vom Handstart-Ford angelegt, 1098 A; Tiefe 1, Ford danach 2, Teams 3; nie archivieren).
-- **Zu 1582, von Perikles (1572, Chef 17.11., 17:05: „Da muss mir das mal jemand sagen.“):** hängt Ford selbst, läuft kein `lauf.py`; seit 18:31 reicht auch die Uhr-Sitzung nichts mehr weiter. Darum prüft die Wache stündlich. `create_session` „Ford-Wache (TT.MM., HH:MM)“, sonnet, deine Umgebung, Repo `main`, Startsperre „Start Ford (Wache)“ vorher; erste Nachricht: „Ford-Wache. Du bist die Wache für Ford (1572), sonst nichts: keine andere Arbeit, keine Commits, keine Sitzungen. Bei jedem Weckruf „Fordprüfung“: Zeile „Wache“ in docs/LISTE-BETRIEB.md (vorher `git pull`, Kennung aus „Ford (aktuell)“ in docs/ARBEIT-BETRIEB.md), meldung.sh aus /home/user/androidapp_rpg_bornim/tools; je Stand nur einmal melden; im Chat eine Zeile.“ Dann `create_trigger` „Ford-Wache“ `33 * * * *` an sie, Wortlaut „Fordprüfung“; alte Uhren `trig_01Phk9eXekP5yY9M6L3bgS1c`, `trig_015znjB9NqE23LzgEG4qn5vE` aus, alte Wache (opus, 443 Tsd.) archivieren, Kosten buchen. Lehnt die Auto-Prüfung ab: Wortlaut an mich.
+- **Zu 1582, von Perikles (1572, Chef 17.11., 17:05: „Da muss mir das mal jemand sagen.“):** hängt Ford selbst, läuft kein `lauf.py`; seit 18:31 reicht auch die Uhr-Sitzung nichts mehr weiter. Darum prüft die Wache stündlich. `create_session` „Ford-Wache (TT.MM., HH:MM)“, Modell und Umgebung wie du, Repo `main`, Startsperre „Start Ford (Wache)“ vorher; erste Nachricht: „Ford-Wache. Du bist die Wache für Ford (1572), sonst nichts: keine andere Arbeit, keine Commits, keine Sitzungen. Bei jedem Weckruf „Fordprüfung“: Zeile „Wache“ in docs/LISTE-BETRIEB.md (vorher `git pull`, Kennung aus „Ford (aktuell)“ in docs/ARBEIT-BETRIEB.md), meldung.sh aus /home/user/androidapp_rpg_bornim/tools; je Stand nur einmal melden; im Chat eine Zeile.“ Dann `create_trigger` „Ford-Wache“ `33 * * * *` an sie, Wortlaut „Fordprüfung“; alte Uhren `trig_01Phk9eXekP5yY9M6L3bgS1c`, `trig_015znjB9NqE23LzgEG4qn5vE` aus, alte Wache (großes Modell, 443 Tsd.) archivieren, Kosten buchen. Lehnt die Auto-Prüfung ab: Wortlaut an mich.
 
 ## Eingang
 
@@ -123,7 +123,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 17.11.: Marke Archiv session_01Hmoj79xM5rV6bTs6ZDkmXE (lauf.py)
 - 10:50 17.11.: Marke Archiv session_01Hmoj777UC4mRXgFsJi1T9s (lauf.py)
 - 12:01 17.11.: Marke Archiv session_01Hmoj75Zz5WUmAyUmi4Uym5 (lauf.py)
-- 12:28 17.11.: Startsperre 12:28 Start Ford (Starter)
 - 12:31 17.11.: Startsperre 12:31 Start Ford (Starter, zweiter Versuch ohne Uhrsatz)
 - 13:07 17.11.: Startsperre 13:07 Start Diogenes (lauf.py)
 - 13:07 17.11.: Marke Archiv session_01Hmoj76GuSR3ZmBd53Pew6R (lauf.py)
