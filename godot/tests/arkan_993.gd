@@ -27,7 +27,7 @@ func _lauf() -> void:
 	var paket: bool = KampfUi.arkan_r2() != null
 	print("Arkan 993: Paket R2 %s" % ("da" if paket else "nicht da"))
 	if not paket and OS.get_environment("ARKAN_R2") != "":
-		print("FEHLER: R2 im Bau gefunden, aber %s lädt nicht" % KampfUi.ARKAN_R2)
+		print("FEHLER: R2 im Bau gefunden, aber %s lädt nicht" % KampfUi.arkan_pfad())
 		befunde += 1
 	seed(3)
 	var p = Probe.new()
