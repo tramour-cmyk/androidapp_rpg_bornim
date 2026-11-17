@@ -1,7 +1,7 @@
-# Tom und Jerry · Build 294 · Sammelbuild: Wolf bleibt dran und dreht zum Helden, Zurück im Hauptmenü fragt, Leben in Kampfmeldungen, Testreparaturen · PR folgt
-E Kampf · Jerry (1072, 1275, 1439; ohne dich 1453, 1455, 1296, 642), Tom (1418, 1322, 1480; ohne dich 1044, 1417, 1420), Spike (1385; ohne dich 1426, 1458, 1485) · 16.11., 23:25 · APK folgt
-Gegengelesen: Tom 23:40 (294.1 Wortlaut wie `[1419.*]`, 294.3 wie `MSG72_DRINKS`; 294.11, 294.12 wie die Wünsche 20:27–21:14; Lagen: `herkunft=Zauberlehrling` in `Testmodus.HERKUENFTE`, `probe=SPIDER` = „Riesenspinne und Wolf“, Schlüssel in `LAGE_SCHLUESSEL`; passt). 531 kommt dazu, sobald der Lauf auf `claude/tom-531-film` grün ist (Zeile schicke ich)
-
+# Tom und Jerry · Build 294 · Sammelbuild: Wolf bleibt dran und dreht zum Helden, Zurück im Hauptmenü fragt, Leben in Kampfmeldungen, Testreparaturen · [PR 214](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/214) · Datei bornim-0.348.542-build-294.apk
+E Kampf · Jerry (1072, 1275, 1439; ohne dich 1453, 1455, 1296, 642), Tom (1418, 1322, 1480; ohne dich 1044, 1417, 1420, 1383), Spike (1385; ohne dich 1426, 1458, 1485) · 17.11., 01:25 · [APK (Lauf 542)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43980603017/artifacts/14284795775)
+Gegengelesen: Tom 23:40 (294.1 Wortlaut wie `[1419.*]`, 294.3 wie `MSG72_DRINKS`; 294.11, 294.12 wie die Wünsche 20:27–21:14; Lagen: `herkunft=Zauberlehrling` in `Testmodus.HERKUENFTE`, `probe=SPIDER` = „Riesenspinne und Wolf“, Schlüssel in `LAGE_SCHLUESSEL`; passt).
+Verglichen (alt gegen neu): Kampfschirm, Kasten des Gefährten mit Leben und Mana gegen `BattleScreen.kt` 1719 (1439, Bild `bild_mana_1439`); Hauptmenü, Fenster „Spiel beenden?“ (1418, Toms Abgleich); sonst kein Schirm berührt (Laufwege, Tests).
 Sammelbuild auf `main` mit Build 293 (über die Zweige 1072 und 1453); die Punkte der Liste 293 kommen hier nicht noch einmal. Taumeln 1275 fährt mit; das Kerbensystem gibt es nur in Proben ohne Schalter im Spiel, seine Prüfung ist ein Film auf Telegram, nicht hier.
 
 Ein Weg: über Build 293 installieren, im Hauptmenü Android-Zurück (294.1); dann Zeile 294.2 mit „Lage herstellen“ (Probekampf Wölfe) zwei Runden zusehen, in der zweiten Runde selbst einen Trank trinken (294.3).
