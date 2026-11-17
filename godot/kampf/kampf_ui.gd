@@ -227,6 +227,12 @@ func _ready() -> void:
 	tip.add_theme_color_override("font_color", TEXT)
 	tip.add_theme_font_size_override("font_size", sp(14))
 	tip.add_theme_stylebox_override("normal", _box(Color.BLACK, GOLD, 8, 6, 1.0))
+	# 785.15 (alt SkirmishScreen.kt 1354–1358 clickable { tip = null }): ein Tipp auf das Erklärfenster schließt es
+	tip.mouse_filter = Control.MOUSE_FILTER_STOP
+	tip.gui_input.connect(func(ev: InputEvent) -> void:
+		if _pressed(ev):
+			tip_schliessen()
+			tip.accept_event())
 	root.add_child(tip)
 	# 785.10 (259, alt SkirmishScreen.kt 1340–1345): „Schnell ›“ im leichten Kampf am Zug der Gruppe, unten links in der Szene,
 	# schwarz mit Rand wie die Schalter rechts; langes Drücken erklärt ([259T.tip])
@@ -344,6 +350,9 @@ func _process(_dt: float) -> void:
 		if was != "":
 			show_tip(was)
 			names_until = Time.get_ticks_msec() + NAMES_MS     # 536: wie alt (SkirmishScreen namesUntil) zeigen dann alle ihre Namen
+	# 785.15 (alt SkirmishScreen.kt 1354 tip?.takeIf { ring == null }): solange der Ring auf ein Tippen wartet, ist das Erklärfenster
+	# weg; läuft seine Zeit noch, kommt es danach wieder
+	tip.visible = tip_offen and not kampfort.ring_open and ring_target == ""
 	overlay.queue_redraw()
 
 
@@ -1330,15 +1339,23 @@ func show_tip(text: String) -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
 	tip.size = Vector2(vs.x - 16 * dp, 0)
 	tip.text = text
-	tip.visible = true
+	tip_offen = true
+	tip.visible = not kampfort.ring_open and ring_target == ""     # 785.15
 	tip.position = Vector2(8 * dp, kampfort.scene_rect().size.y - 70 * dp)
 	tip.size = Vector2(vs.x - 16 * dp, 0)
 	if _a833():     # 833 A: über den Schaltern Würfel und Raster (40 dp), nicht auf ihnen
 		tip.position.y = kampfort.scene_rect().size.y - 56 * dp - tip.get_combined_minimum_size().y
 	tip_nr += 1
 	var nr := tip_nr     # die Uhr eines früheren Fensters schließt nicht das neue
-	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip.visible = false)
+	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip_schliessen())
 var tip_nr := 0
+var tip_offen := false     # 785.15: das Erklärfenster steht (während des Rings verborgen)
+
+
+func tip_schliessen() -> void:
+	tip_nr += 1     # die Uhr des geschlossenen Fensters schließt kein späteres
+	tip_offen = false
+	tip.visible = false
 
 
 # ---------------------------------------------------------------- ring, rolls, verdict
