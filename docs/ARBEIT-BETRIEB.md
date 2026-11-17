@@ -49,6 +49,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 17.11., 09:16 Ford: Sokrates-Neustart auf Chefwort 09:08: `…79XLgTfEVz9NoYYJ7m` („Chefrunde“), alter `…76gTnkQt77JpdpoGF3` archiviert (Schutzzeile war geleert), 7,53 $ auf 1520, 870; Tom „Weiter: 1528“ („jetzt“).
+- 10:27 17.11.: Startsperre 10:27 Start Jerry (selbst) – Neustart auf Meldung 10:19 (720cfaf9c).
 - 10:22 17.11.: Startsperre 10:22 Start Sokrates (selbst) – Neustart auf Meldung 10:18 (a8ec14a1e).
 - 17.11., 10:24 Ford: Sokrates-Neustart `…78qEvbcgDXCfWfsxLn` (1529), alter archiviert, 9,02 $ auf 1529, 1520; Link Build 296 nicht gesendet (Chef 10:03 „296 warten“). Diogenes 1425 läuft, „Weiter: 1538“. Perikles `…777UC4mRXgFsJi1T9s` nicht archiviert: offene Frage „Soll ich das bauen?“ (Fehlerhäufung Übergabe/Nachtragen) an den Chef, Neustart-Nachfolger erst 18.11. Jerry Neustart-Meldung 10:19 wartet (Sitzung working), Prüfung 10:25.
 - 17.11., 10:04 Ford: Lauf 10:03 (vorgezogen 10:01): Start Diogenes `…79xM5rV6bTs6ZDkmXE` (1425), Perikles `…777UC4mRXgFsJi1T9s` (M? 1535, 1538); Spike „Weiter: 1537“; alte Diogenes (1,87 $ auf 1531) und Perikles (5,42 $ auf Betrieb) archiviert. URTEIL 785.10 ins Archiv.
