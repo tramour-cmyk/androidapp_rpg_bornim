@@ -1341,7 +1341,7 @@ jobs:
           fi
           ls -l $B
       - name: Kampfort-Filme Grundstand (453 r3, 453.1; nur von Hand mit kampf=ja)
-        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '1222' && github.event.inputs.kampf != '806' && github.event.inputs.kampf != '601' && github.event.inputs.kampf != '9991' && github.event.inputs.film != 'nein' }}
+        if: ${{ !cancelled() && github.event.inputs.kampf != '' && github.event.inputs.kampf != '2963' && github.event.inputs.kampf != '656' && github.event.inputs.kampf != '935' && github.event.inputs.kampf != '1222' && github.event.inputs.kampf != '806' && github.event.inputs.kampf != '601' && github.event.inputs.kampf != '9991' && github.event.inputs.kampf != '3852' && github.event.inputs.film != 'nein' }}
         continue-on-error: true
         run: |
           B=$GITHUB_WORKSPACE/bilder/kampf461; mkdir -p $B
