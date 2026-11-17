@@ -14,6 +14,22 @@ const HELL := 0.82                    # Helligkeit der Vorlagen
 const FARBEN := ["base_color", "tip_color", "patch_color", "dry_tip_color", "stem_color", "petal_color_a", "petal_color_b",
 	"petal_inner_color", "center_color"]
 const BLUMEN := ["flower_daisy", "flower_cluster", "flower_lavender", "flower_tulip"]
+# 1205 (Chef 13.11., 18:48: „verschiedene Grass Blade Single, Clump Short, Clump Medium, Clump Chunky und Clump Tall … viel mehr Varianz
+# in unsere Wiesen“): Büschel je Boden nach Anteil [Netz, Anteil]; vorher Wiese kurz 45 % / mittel 55 %, hohes Gras nur „tall“
+const WIESE := [["grass_clump_short", 0.38], ["grass_clump_medium", 0.34], ["grass_clump_chunky", 0.16], ["grass_blade_single", 0.12]]
+const HOCH := [["grass_clump_tall", 0.7], ["grass_clump_chunky", 0.2], ["grass_blade_single", 0.1]]
+# 1205: Blumenwiese („f“) dichter, seit die gezeichneten Blüten aus dorf.py bei stehendem Kit nichts mehr zeichnen (gebiet.gd gras_neu);
+# vorher 0,3
+const BLUMEN_WIESE := 0.5
+const WIESE_VORHER := [["grass_clump_short", 0.45], ["grass_clump_medium", 0.55]]
+const HOCH_VORHER := [["grass_clump_tall", 1.0]]
+static var vorher := false            # 1205: Bild an den Chef (tests/wiese_bild_1205.gd): Stand vor 1205, mit den gezeichneten Blüten
+
+static func wahl(liste: Array, x: float) -> String:
+	for n in liste:
+		x -= float(n[1])
+		if x < 0.0: return n[0]
+	return liste[liste.size() - 1][0]
 
 static var an := true
 
@@ -41,17 +57,21 @@ static func netz(name: String) -> Mesh:
 # stellen: Fusspunkte unseres Grases; art je Stelle: 0 Wiese, 1 hohes Gras (Wald), 2 Blumenwiese. Gibt die neuen Knoten zurueck.
 static func baue(eltern: Node3D, stellen: Array[Vector3], art: PackedByteArray) -> Array[MultiMeshInstance3D]:
 	var rng := RandomNumberGenerator.new(); rng.seed = 804
-	var gruppen := {"grass_clump_short": [], "grass_clump_medium": [], "grass_clump_tall": []}
+	var gruppen := {}
+	var wiese: Array = WIESE_VORHER if vorher else WIESE
+	var hoch: Array = HOCH_VORHER if vorher else HOCH
+	for n in wiese: gruppen[n[0]] = []
+	for n in hoch: gruppen[n[0]] = []
 	for b in BLUMEN: gruppen[b] = []
 	for i in stellen.size():
 		var p := stellen[i]
 		var a := art[i]
-		var blume := (a == 2 and rng.randf() < 0.3) or (a == 0 and rng.randf() < 0.015)
+		var blume := (a == 2 and rng.randf() < (0.3 if vorher else BLUMEN_WIESE)) or (a == 0 and rng.randf() < 0.015)
 		if blume:
 			gruppen[BLUMEN[rng.randi() % BLUMEN.size()]].append(Transform3D(Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3.ONE * rng.randf_range(0.8, 1.1)), p))
 			continue
 		if i % JE != 0: continue
-		var n := "grass_clump_tall" if a == 1 else ("grass_clump_short" if rng.randf() < 0.45 else "grass_clump_medium")
+		var n := wahl(hoch if a == 1 else wiese, rng.randf())
 		var s := rng.randf_range(0.85, 1.15)
 		gruppen[n].append(Transform3D(Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * rng.randf_range(0.85, 1.15), s)), p))
 	var gras := stoff("grass_summer")
