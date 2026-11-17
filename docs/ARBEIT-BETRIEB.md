@@ -88,3 +88,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:54 17.11.: Startsperre 02:54 Start Jerry (Ford von Hand), Neustart-Meldung 02:53 (bd830f17c)
 - 03:04 17.11.: Startsperre 03:04 Start Perikles (lauf.py)
 - 03:04 17.11.: Marke Archiv session_01Hmoj79W9kdjryXGMR6Avbb (lauf.py)
+- 03:31 17.11.: Startsperre 03:31 Start Diogenes (Ford von Hand), Neustart-Meldung 02:05 (2604e4fd8)
