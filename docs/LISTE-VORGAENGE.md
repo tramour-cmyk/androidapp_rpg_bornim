@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1423b | Von Chef (17.11., 11:01, an Sokrates, t296.1) „jetzt“ 17.11., 11:01: Loch um den Helden hinter einer Höhlenwand fehlt am Handy (nur Haaransatz zu sehen, Bild); einmal mit wenig Aufwand nachbessern, sonst Löcher ganz weg statt neuem Fehler; Wände und Stimmung top | Tom | M | gebaut, Geprüft an: 99c3e751e | – | claude/tom-1423b | – | G Stil | – |
+| 1423b | Von Chef (17.11., 11:01, an Sokrates, t296.1) „jetzt“ 17.11., 11:01: Loch um den Helden hinter einer Höhlenwand fehlt am Handy (nur Haaransatz zu sehen, Bild); einmal mit wenig Aufwand nachbessern, sonst Löcher ganz weg statt neuem Fehler; Wände und Stimmung top | Tom | M | zu testen | – | claude/tom-1423b | 297 | G Stil | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Stufe 2 gebilligt (Chef 11:59), Test in Build 297 | 431h, t297 | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 1297 | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | Tom | M | wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel | 431 | – | – | E Figuren | – |
@@ -89,7 +89,7 @@
 | 785.15 | Von Spike (785): Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings (SK 340, 494, 1354; kampf_ui.gd 812–823) | Jerry | M | zu testen | – | claude/jerry-785-15-tipp | 297 | E Kampf | 2,80 $ |
 | 785.17 | Von Spike (785): Zurück-Taste im Kampf schließt das Untermenü (SK 364; zurueck.gd: im Kampf nichts); ganzer Bericht erledigt mit 833 A | Jerry | M | zu testen | – | claude/jerry-785-17-zurueck | 297 | E Kampf | 2,80 $ |
 | 1305 | Von Sokrates (Chef 15.11., 17:18, Probekampf 3 Wölfe, wohl Build 288): Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort einen Wolf, obwohl Nahkampf nur vorn trifft, solange dort jemand steht (mars.gd 1067); Ursache nachstellen | Jerry | M | zu testen | – | claude/build-292 | 292 | E Kampf | 0,90 $ |
-| 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | zu testen, ohne Rückmeldung t295 | 17.11. 18:00 | claude/jerry-1340-ragdoll | 297 | E Kampf | 7,01 $ |
+| 1340 | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Jerry | M | zu testen | 17.11. 18:00 | claude/jerry-1340-ragdoll | 297 | E Kampf | 7,01 $ |
 | 1541 | Von Jerry (Rest aus 1275, Diogenes D295.1): Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen brechen() nie auf (DESIGN-GLUT.md 19, Regel klar laut Homer 16.11.) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | Jerry | K | ruht | 23.11. | claude/jerry-438a-sturz-2 | – | E Kampf | 24,62 $ |
 | 416.6 | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.11., 07:31) | Jerry | K | ruht | 23.11. | claude/jerry-416-6-blut | – | E Technik | – |
@@ -99,7 +99,7 @@
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | K | ruht, Vorrang 11.11.: kein Neues bis Umzug und Testfehler | 23.11. | claude/jerry-494-gegner | – | E Kampf | 135,26 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | K | ruht, Verdrahtung auf Zweig 0928f2d12 | 23.11. | claude/jerry-507-hoehle | – | E Kampf | 75,48 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | K | ruht, Kampf zuerst (338.1) | 23.11. | – | – | E Technik | – |
-| 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | startbar, gelöst 17.11.: 623.2 | – | – | – | E Kampf | 9,99 $ |
+| 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | gebaut, Geprüft an: a0acd466c | 17.11. 18:00 | claude/jerry-385-2-feuer | – | E Kampf | 9,99 $ |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | 23.11. | claude/jerry-344-2-fackel | – | E Kampf | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | startbar, gelöst 15.11.: 38 | – | – | – | G Story | – |
 | 39 | Schwierigkeitsgrad im Menü | Jerry | K | ruht | 23.11. | claude/jerry-39-schwierigkeit | – | E Kampf | 3,80 $ |
