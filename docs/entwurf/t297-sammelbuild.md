@@ -1,5 +1,5 @@
 # Tom und Jerry · Build 297 · Sammelbuild: Zielwahl, Ring erklärt, Erklärfenster, Zurück im Kampf, Höhlenwände, Kampfschirm, Stab, Achsel · PR folgt
-E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17), Tom (Handy 1423, 785.10; ohne dich 1460, 531, 1448, 1516, 1522; Bild 1515/1417/1535), Spike (Handy 1483, 1512) · 17.11., 10:39 · APK folgt
+E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17), Tom (Handy 1423 mit 1423b, 785.10; ohne dich 1460, 531, 1448, 1516, 1522; Bild 1515/1417/1535), Spike (Handy 1483, 1512) · 17.11., 10:39 · APK folgt
 
 Verglichen (alt gegen neu): Zielliste, Ringerklärung, Erklärfenster und Zurück im Kampf gegen `SkirmishScreen.kt` (582–588, 705–725, 1257–1262, 1321–1328, 340, 364, 494) und `MarsTips.kt` 84–89; Funde behoben. Umbau überall: Zielliste und Dämpfen gelten für Angriff, Fähigkeit, Trank und Wurf (ein Weg in `kampf_ui.gd`); die Ringerklärung gibt es nur im Kampf. Höhle, Garrick, Leiste wie Liste 296.
 
@@ -13,7 +13,7 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
-| 297.1 | Tom | 1423 | Handy | Zeile 297.1 → „Lage herstellen“ (Höhle, Westflügel unten am Leuchtpilz, die hohe Wand zum Teich steht zwischen dir und dem Helden); drei Schritte nach rechts und wieder zurück | der Held bleibt ganz zu sehen: in der Wand vor ihm ist ein rundes Loch, das mit ihm geht; links und rechts davon steht der Fels hoch | der Held verschwindet hinter der Wand, das Loch bleibt stehen oder flackert, oder die ganze Wand ist weg |
+| 297.1 | Tom | 1423, 1423b | Handy | Zeile 297.1 → „Lage herstellen“ (Höhle, Westflügel unten am Leuchtpilz, die hohe Wand zum Teich steht zwischen dir und dem Helden); drei Schritte nach rechts und wieder zurück | der Held bleibt ganz zu sehen: in der Wand vor ihm ist ein rundes Loch, das mit ihm geht; links und rechts davon steht der Fels hoch | der Held verschwindet hinter der Wand, das Loch bleibt stehen oder flackert, oder die ganze Wand ist weg |
 | 297.2 | Tom | 1460 | ohne dich (Diogenes bestätigt am Lauf) | `schneidern_1460`: Fertigkeit Schneidern statt Lederarbeit, alte Spielstände übernommen | Test grün | Test rot |
 | 297.3 | Tom | 531 | ohne dich (am Film gebilligt, 👍 17.11., 06:06) | Garrick vertreibt den Wolf mit der Fackel; seine Fackel leuchtet im Nebel | – | – |
 | 297.4 | Tom | 1448 | ohne dich (am Bild gebilligt, 👍 17.11., 06:02) | Weltleiste und Heldenmenü ohne Wörter Leben/Mana/EP, Balken bündig, dahinter die Zahl, bei Erfahrung die Stufe | – | – |

@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1423b | Von Chef (17.11., 11:01, an Sokrates, t296.1) „jetzt“ 17.11., 11:01: Loch um den Helden hinter einer Höhlenwand fehlt am Handy (nur Haaransatz zu sehen, Bild); einmal mit wenig Aufwand nachbessern, sonst Löcher ganz weg statt neuem Fehler; Wände und Stimmung top | Tom | M | startbar | – | – | – | G Stil | – |
+| 1423b | Von Chef (17.11., 11:01, an Sokrates, t296.1) „jetzt“ 17.11., 11:01: Loch um den Helden hinter einer Höhlenwand fehlt am Handy (nur Haaransatz zu sehen, Bild); einmal mit wenig Aufwand nachbessern, sonst Löcher ganz weg statt neuem Fehler; Wände und Stimmung top | Tom | M | gebaut, Geprüft an: 99c3e751e | – | claude/tom-1423b | – | G Stil | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | wartet, Stufe 2 als Vorlage beim Chef | 431h | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
 | 531 | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere sichtbar mit der Fackel, Ruhebewegungen (Chef 03.11., 23:42) | Tom | M | erledigt, t296 bestanden | – | claude/tom-531-film | 296 | E Oberfläche | 44,79 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
