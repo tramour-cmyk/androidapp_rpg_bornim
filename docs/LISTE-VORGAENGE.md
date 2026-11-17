@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1562 | Von Werkzeug (1334): Wiederholrot ziege_4162: 3× rot in 48 h (Läufe 513, 500, 499); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1562 | Von Werkzeug (1334): Wiederholrot ziege_4162: 3× rot in 48 h (Läufe 513, 500, 499); Ursache nachstellen, beheben · wiederholt | Tom | M | erledigt, Läufe 499/500 vor 1325, 513 vor 1383 (seit Build 292 grün); am Rechner mit Kaufmodellen 3× 0 | – | – | – | E Technik | – |
 | 1559 | Von Werkzeug (1334): Wiederholrot pruefliste_1020: 2× rot in 48 h (Läufe 500, 499); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
 | 1558 | Von Werkzeug (1334): Wiederholrot lage_785_8: 4× rot in 48 h (Läufe 522, 519, 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
 | 1423b | Von Chef (17.11., 11:01, an Sokrates, t296.1) „jetzt“ 17.11., 11:01: Loch um den Helden hinter einer Höhlenwand fehlt am Handy (nur Haaransatz zu sehen, Bild); einmal mit wenig Aufwand nachbessern, sonst Löcher ganz weg statt neuem Fehler; Wände und Stimmung top | Tom | M | zu testen | – | claude/tom-1423b | 297 | G Stil | – |
