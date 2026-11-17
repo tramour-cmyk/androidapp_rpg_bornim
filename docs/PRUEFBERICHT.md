@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 287 · 1254 Läufe auf altem Modellbau (Perikles `40aa2a93f`; 17.11., 01:1x)
+
+- **Greift:** 60 Läufe `godot.yml` 15.11., 01:09 – 16.11., 23:35 (483–542): keiner auf einem Stand, dessen Abzweig hinter dem Modellbau von `main` lag (`tools/blender348`, `kauf_cache.py`; Abzweig gegen `main` zur Laufzeit). Gebaut haben (Schritte über 1 min) nur 521, 528/529 (erste Läufe nach neuem Modellbau auf `main`, 14:05 und 16:28: `held3.py`, `waffen.py` aus Build 292, Zweig frisch gemischt) und 526 (`claude/build-292` selbst); 33 übrige Läufe ohne eigene Änderung: alle Treffer. Vorher (Lauf 469/470) 50–86 min je Lauf auf altem Stand.
+- Rest ohne Vorgang: der erste Lauf nach einer Modelländerung auf `main` baut 26–28 min (Held je Klasse), das trifft den Zweig, der zuerst läuft; gehört nicht zu 1254.
+
 ## Lauf 286 · 1312 Fertiges vorlegen (Perikles `4ecfd75f6`; 17.11., 01:0x)
 
 - **Werkzeug wirkt:** `startbar.liegt_ohne_vorlage` meldet Jerry 517 (14 h), 1250 (27 h), 1275 (6 h) mit Auftrag „in den offenen Build 294 mischen“; Tom 1460 (0,1 h), Spike 1482/1483 (unter 6 h), Zeilen mit t<n> (1415 t294, 1270.4 t295) richtig frei. Alte Fälle 785.8, 1295, 1304, 1195, 930.6 nicht mehr „gebaut“ ohne Build.
