@@ -1042,9 +1042,15 @@ def unter_schluessel(leiber, netze, plaetze, deckung):
 UMHANG_SUCH = 0.05    # m: Kleidung so weit unter dem Umhang (entlang der Normale) zieht unter_CLOAK ein
 UMHANG_DURCH = 0.06   # m: Kleidung, die so weit durch den Umhang sticht, zieht unter_CLOAK hinter ihn
 UMHANG_LUFT = 0.008   # m: Abstand hinter dem Umhang
+# 1569 Bild 2 (Chef 21:42 👍 „Flecken beheben“): am Zauberlehrling stach die Robe unten am Ruecken grossflaechig durch den Umhang, am
+# Jaegerkind das Schulterstueck. Gemessen (Robe M, Stehen): in der Ruhelage 40 Ecken hinter dem Umhang hervor, in der Haltung 269 (z 0,4 bis
+# 1,4 m); der weite Rock folgt den Beinen, der Umhang dem Becken, ein Abstand nur in der Ruhelage haelt nicht. Darum legt unter_CLOAK jede
+# Ecke auf der Rueckseite, hinter der (bis UMHANG_HINTEN) der Umhang liegt, auf den Koerper (naechster Punkt des Leibs plus UMHANG_AUF)
+UMHANG_HINTEN = 0.5   # m: so weit hinter der Ecke darf der Umhang liegen, dann deckt er sie
+UMHANG_AUF = 0.006    # m: ueber der Haut
 
 
-def umhang_unter(arm, netze, k, plaetze):
+def umhang_unter(arm, netze, k, plaetze, leiber=()):
     # 1569 (Chef 17.11., 16:12, t297.18): Trachten ohne eigenen Umhang tragen das Schrankteil UMHANG der Wachtracht; ihre Kleidung
     # (Guertel, Schulterstueck, Robe) stach hinten durch (Probebild 1569). Formschluessel unter_CLOAK an jedem Kleidungsnetz: Ecken unter
     # dem Umhang oder bis UMHANG_DURCH davor ruecken hinter ihn (UMHANG_LUFT); Godot setzt ihn, wenn ein fremdes Umhangteil haengt
@@ -1055,10 +1061,13 @@ def umhang_unter(arm, netze, k, plaetze):
     ob = QT.importiere(p)
     a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
     vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
-    um = [o for o in ob if o.type == 'MESH']
+    um = [o for o in ob if o.type == 'MESH' and not o.name.startswith('Icosphere')]   # 1569: die Hilfskugel des Kaufpakets (1 m) ist kein Umhang
     QT.an_geruest(ob, arm, vs)
     bv = _bvh(um)
     kleid = set(n for p_, ns in plaetze.items() for n in ns)
+    bl = _bvh(list(leiber)) if leiber else None
+    mitte_y = float(np.mean(np.concatenate([KO._welt(lo)[:, 1] for lo in leiber]))) if leiber else 0.0
+    hinten = 1.0 if bv is not None and float(np.mean(np.concatenate([KO._welt(o)[:, 1] for o in um]))) > mitte_y else -1.0
     for o in netze:
         if bv is None or o.name not in kleid or o.type != 'MESH': continue
         W, N = _normalen(o)
@@ -1070,14 +1079,26 @@ def umhang_unter(arm, netze, k, plaetze):
             if h[0] is not None: continue
             h = bv.ray_cast(w - nv * 0.0005, -nv, UMHANG_DURCH)   # Ecke vor dem Umhang: hinter ihn
             if h[0] is not None: D[i] = -N[i] * (h[3] + UMHANG_LUFT); n += 1
+        n_auf = 0
+        if bl is not None:
+            for i in range(len(W)):
+                w = Vector(W[i])
+                if (W[i, 1] - mitte_y) * hinten <= 0: continue   # Vorderseite
+                if bv.ray_cast(w, Vector((0, hinten, 0)), UMHANG_HINTEN)[0] is None: continue   # kein Umhang dahinter
+                h = bl.find_nearest(w)
+                if h[0] is None: continue
+                ziel = np.array(h[0] + h[1].normalized() * UMHANG_AUF)
+                if np.linalg.norm(ziel - W[i]) > np.linalg.norm(D[i]): D[i] = ziel - W[i]; n_auf += 1
+        n += n_auf
         if not n: continue
         if not o.data.shape_keys: o.shape_key_add(name='Basis', from_mix=False)
         B = np.empty(len(W) * 3); o.data.shape_keys.key_blocks['Basis'].data.foreach_get('co', B)
         Mi = np.array(o.matrix_world.inverted())
         sk = o.shape_key_add(name='unter_CLOAK', from_mix=False)
         sk.data.foreach_set('co', (B.reshape(-1, 3) + D @ Mi[:3, :3].T).ravel())
-        print('UMHANG UNTER', k, o.name, n, 'Ecken')
-    for o in um: bpy.data.objects.remove(o)   # das Geruest des Imports entfernt an_geruest
+        print('UMHANG UNTER', k, o.name, n, 'Ecken, davon auf den Koerper', n_auf)
+    for o in ob:
+        if o.name in bpy.data.objects and o.type == 'MESH': bpy.data.objects.remove(o)   # das Geruest des Imports entfernt an_geruest
 
 
 def schrank(arm, netze, k, g, teilnamen=None):
@@ -1096,7 +1117,7 @@ def schrank_fertig(netze, k, sch):
     unter_schluessel(leiber, netze, plaetze, deckung)
     if 'CLOAK' not in plaetze:   # Geruest der fertigen Netze (kaempfer tauscht es nach schrank() aus, ROBE)
         arm = next((m.object for o in netze if o.type == 'MESH' for m in o.modifiers if m.type == 'ARMATURE' and m.object), None)
-        if arm: umhang_unter(arm, netze, k, plaetze)
+        if arm: umhang_unter(arm, netze, k, plaetze, leiber)
     SCHRANK_INFO[k] = {'teile': plaetze, 'unter': unter, 'leib': deckung}
 
 
