@@ -13,7 +13,10 @@ const Probe = preload("res://kampf/probe.gd")
 const Zauber = preload("res://kampf/zauber.gd")
 const KampfUi = preload("res://kampf/kampf_ui.gd")
 const Figur = preload("res://kampf/figur.gd")
-const RUMPF_M := 0.03     # 1363: Treffer an der Oberfläche des Rumpfs (treffpunkt_fern legt ihn genau darauf)
+## 1363: Treffer an der Oberfläche des Rumpfs (treffpunkt_fern legt ihn beim Planen genau darauf). 1514 (Lauf 546: 0,031 m, am
+## Rechner mit Paket nachgestellt): gemessen wird im Bild des Abwurfs, nicht im Bild des Planens; dazwischen atmet und dreht der Wolf
+## weiter, 1 mm über der alten Grenze. Grenze 5 cm (der Einschlag des Pakets ist größer)
+const RUMPF_M := 0.05
 
 
 func _initialize() -> void:
