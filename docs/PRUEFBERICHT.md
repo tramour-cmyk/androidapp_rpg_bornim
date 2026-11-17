@@ -41,6 +41,16 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 297 · 1524 Testbitte erst ab 4 Handypunkten (`290c7e994`; 17.11., 09:0x)
+
+- **Greift:** `art_weg_test.py` 18 von 18 ok. Echter Haken `commit-pruefung.py` in Wegwerfklon mit neuer `ansehen/t297-probe.md` (Abschrift t296): 2 Handypunkte → HÄLT AN mit Text 1524, Exit 1; dieselbe Liste mit 4 Handypunkten → Exit 0. Regel 3 in `LISTE-CHECK-BUILD-TEST.md` und die Aufträge in `startbar.py` (Sammelbuild, 1312-Vorlage) nennen die Grenze. → **1524 greift**.
+- **Hinweis, kein Befund:** t296 (Tom, 08:17, 2 Handypunkte: 296.1, 296.5) ging nach dem Chefwort 08:10 und vor dem Werkzeug (08:27) raus und liegt beim Chef; zurückziehen ist nicht meine Entscheidung.
+
+## Lauf 296 · 1531 Schutz Sokrates-Sitzung (`5faf35999`; 17.11., 09:0x)
+
+- **Greift:** `lauf.py` liest die Zeile „**Nie archivieren:**“ (`ARBEIT-BETRIEB.md`) und lässt die Kennung in beiden Archivwegen aus (Archivregel und `vorgaenger` nach START). Probe in Kopie mit drei Sokrates-Sitzungen (ohne Marke „Lauf läuft bis“): mit Zeile nur die alte fremde archiviert, ohne Zeile auch `session_01Hmoj76…`; ebenso beim START Sokrates (Kontext über 200 Tsd.). Neustart-Haken: Kennung `cse_` → `session_` stimmt (eigene Sitzung geprüft); mit geschützter Kennung und Schwelle 1000 keine Erinnerung, mit fremder eine. Sitzung lebt (09:06, läuft). → **1531 greift**.
+- **Hinweis, kein Befund:** die Sitzung hat 241 Tsd. Token, über `WEITER_TOKEN`; ruht sie über 20 Minuten, startet `lauf.py` für eine Stellungnahme eine zweite Sokrates-Sitzung daneben (die geschützte bleibt). Die Marke „Lauf läuft bis 17.11., 20:45“ im Vorrat Sokrates hält bis dahin die ganze Rolle aus dem Lauf; nach 1531 ist sie entbehrlich (Besitzer Sokrates).
+
 ## Lauf 295 · Bautests t295 (Lauf 546, `e13f4011f`; 17.11., 08:1x)
 
 - **Bautest bestätigt:** `laufnachweis.py` 2 von 2 tragen (`merkmale_1488` Zeile 872, `kerbe_930` Zeile 873, `pipefail`); im Lauf „MERKMALE1488 0 Fehler“, „KERBE930 gut: 66 gut, 0 falsch“ → **1488 erledigt** (295.2 ✓ Chef 08:09). Film-Punkte: gefilmter Stand Vorfahr von `e13f4011f`, 👍 des Chefs in `reaktionen.tsv` → **601.1** (`ef366354d`, Film 00:36, 👍 06:01), **1284b** (Stand Build 294, Film 04:13, 👍 06:08), **623.2** (`6c8ad4cd4`, Film 06:08, 👍 06:13), **1270.4** (Film 16:35, 👍 17:32; danach nur `c41d5e642` „ab Grafikstufe Hoch“ laut Chefurteil) erledigt.

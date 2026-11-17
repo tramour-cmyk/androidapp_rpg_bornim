@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nie archivieren:** session_01Hmoj76gTnkQt77JpdpoGF3 (Sokrates; Chef 17.11., 08:52 „diese Sitzung definitiv nicht archivieren oder schließen lassen“, 1531; nie archivieren, kein Neustart-Hinweis, bis der Chef sie freigibt, dann Zeile weg)
+**Nie archivieren:** (keine; Sokrates `session_01Hmoj76gTnkQt77JpdpoGF3` freigegeben, Chef 17.11., 09:08 „Dann Neustart“)
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
@@ -48,6 +48,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 17.11., 09:06 Ford: Lauf 09:03 (angekommen): Start Spike `…79iEGkbHvG4SheXezL` (295), Diogenes `…77PU7ZUzbAcvLEQ8S5` (1531), Homer `…79rLgkQVZ7GEDAFVcw` (1525); archiviert Spike, Diogenes, Homer alt, Kosten 10,73 $ auf 295, 2,17 $ auf 295, 601.1, 1488, 1275, 1340, 1284b, 1,76 $ auf Betrieb. WÄCHTER 785.10 an Tom (ohne Chefmeldung, Chef hat selbst geantwortet 08:44); GELÖST 385.2 an Jerry, 1270 an Sokrates; URTEIL 1516, 1515 ins Archiv, Chefsache-Dateien weg. Abgleich-Warnung 1 Zeile (ganz erst ab nächstem Tag).
 - 17.11., 08:54 Ford: Chef 08:52 (über Sokrates): Sokrates-Sitzung `…76gTnkQt77JpdpoGF3` nie archivieren, kein zweiter Sokrates; Marke „Lauf läuft bis 17.11., 20:45“ gesetzt, Dauerregel 1531 bei Perikles („Weiter: 1531“ gesendet).
 - 17.11., 08:53 Ford: Jerry-Neustart `…76TUvncWrgAWbXDgzh` (1505), alter archiviert, 20,17 $ auf 785.12, 1505, 1514; Sokrates auf Zuruf des Chefs 08:33 `…76gTnkQt77JpdpoGF3`; 1528 (.uid grundstand_1044) an Tom.
 - 17.11., 08:16 Ford: Sokrates `…77G4ce7ghB2Dwu4oTC` archiviert (Übergabe 6ab0126f8, nichts startbar), 5,24 $ auf 870, 1520; Nachfolger „Sokrates – 1520 nach Antwort des Chefs, 870 nach 1523“ erst bei Lösung.
