@@ -877,3 +877,4 @@
 2026-11-17 22:08:42	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-17 22:08:49	commit-pruefung	docs/DESIGN-GEGNER.md: Uhrzeit 22:15 liegt nach jetzt (22:08)	main
 2026-11-17 22:13:09	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1484a-welt-zellen.md: fehlt Nummer 1484a	claude/spike-1211-1484
+2026-11-17 22:13:10	commit-pruefung	docs/chefsache/entscheiden/15891-gegnerverhalten.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
