@@ -196,7 +196,7 @@
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | B Abläufe | – |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | M Markt | – |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | Sokrates | K | ruht | 23.11. | – | – | M Veröffentlichung | – |
-| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | K | wartet, D-U-N-S erteilt 13.11. (317411832) | 08.12. | – | – | M Veröffentlichung | – |
+| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | K | ruht, Wiedervorlage 24.11. mit 366 (Chef 11:14) | 24.11. | – | – | M Veröffentlichung | – |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | K | ruht, 340 A 16.11.: mittwochs, Frage 11 (Bau 1461) | 26.11. | – | – | B Abläufe | 6,39 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | K | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | 23.11. | – | – | E Welt | – |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | K | wartet, entschieden A B C (Chef 14:28) | 644.1, 644.2, 644.4 | – | – | E Kampf | 32,25 $ |
@@ -212,7 +212,7 @@
 | 1534 | Von Chef (17.11., 08:53, Idee): Gegnerkunde: Reiter „Gegner“ in der Chronik, füllt sich mit eigener Erfahrung (Angriffe, Schwäche, Stärke), im Kampf per langem Drücken; Texte Homer; Vorlage Sokrates | Sokrates | K | ruht, Vorlage nach Test Kerbensystem (zur Kenntnis 10:51) | – | – | – | E Oberfläche | – |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | Sokrates | K | nach Meilenstein | – | – | – | M Markt | –; +1,26 $ |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Sokrates | K | nach Meilenstein | – | – | – | Q QM | – |
-| 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Markt | –; +25,65 $ |
+| 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | K | ruht, Wiedervorlage 24.11. mit 142.4 (Chef 11:14) | 24.11. | – | – | M Markt | –; +25,65 $ |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | Sokrates | K | nach Meilenstein | – | – | – | E Kampf | – |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 19,96 $ |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 4,68 $ |
