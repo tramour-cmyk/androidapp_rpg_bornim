@@ -1,5 +1,7 @@
 # 1568 · Kampfort: kein rechteckiger Schatten mehr unter Tieren und Held
 
+[Bild von 17.11., 20:25](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-2025-1568-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 17.11., 20:25 · G Stil · Fund des Chefs 17.11., 16:05 (Build 297: „Warum haben die Wölfe einen rechteckigen Schatten unter sich?“)
 Kurz: Unter Tieren und Held liegt nur noch der runde weiche Schatten, die dunkle Fläche drumherum ist weg.
 
