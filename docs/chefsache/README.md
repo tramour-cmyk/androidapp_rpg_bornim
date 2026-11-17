@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 06:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 06:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -52,7 +52,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Spike | leer, weil 3 ruht, 3 wartet auf Test, 2 wartet auf Test t295 |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | Pflege von Werkzeug: 3 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
-| Sokrates | 623.2 Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Date… (Kür) |
+| Sokrates | Pflege von Werkzeug: Übergabe über 700 Zeichen; 8 „Zu“ zu Erledigt… (Kür) |
 | Perikles | Pflege von Werkzeug: 1 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 
 **Die nächsten 20**
@@ -107,7 +107,7 @@ Nichts offen.
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
 | [531](ansehen/531-fackelabwehr.md) | Garrick vertreibt den Wolf mit der Fackel (Tag, Abend, Nacht) | – | 17.11., 02:54 |
 | [601.1](ansehen/6011-pfeiltreffer.md) | Pfeiltreffer: Pfeil an der Brust, der Getroffene zuckt dort | – | 17.11., 00:36 |
-| [623.2](ansehen/6232-effekte-wolfskampf.md) | Effekte Wolfskampf (Szene 2), erster Stand | – | 17.11., 05:43 |
+| [623.2](ansehen/6232-effekte-wolfskampf.md) | Effekte Wolfskampf (Szene 2) | – | 17.11., 06:08 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
