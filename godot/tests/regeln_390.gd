@@ -1,11 +1,9 @@
-# 390: Pechsträhne, Ausdauer, Talente, Zustände und Spuren nach GDScript, mit den Testfällen aus core (MissStreakTest, StaminaTest,
-# PerksTest, TracksTest). 870.4: die Talente nach Charisma und Co. entfallen; was sie taten, tun Fertigkeiten und Grundwerte nach BRS
+# 390: Talente, Zustände und Spuren nach GDScript, mit den Testfällen aus core (PerksTest, TracksTest); 1458: Pechsträhne und
+# Ausdauer nach SRD (W20, Stärke 13, Konstitution) entfernt, das Spiel rechnet die Ausdauer in skripte/ausdauer.gd nach BRS. 870.4: die Talente nach Charisma und Co. entfallen; was sie taten, tun Fertigkeiten und Grundwerte nach BRS
 # (Laden, BrsHeld, werte.json „welt“).
 # Run: godot --headless --path godot -s res://tests/regeln_390.gd   (exit code 0 = wie im alten Spiel)
 extends SceneTree
 
-const Pech = preload("res://regeln/pechstraehne.gd")
-const Ausdauer = preload("res://regeln/ausdauer.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 const Spuren = preload("res://regeln/spuren.gd")
 
@@ -21,8 +19,6 @@ static func probeheld(werte := {}, fert := {}) -> BrsHeld:
 
 
 func _init() -> void:
-	_pech()
-	_ausdauer()
 	_talente()
 	_zustaende()
 	_spuren()
@@ -35,100 +31,6 @@ func _check(what: String, got, want) -> void:
 	if not ok:
 		failed += 1
 		print("FEHLER ", what, ": ", got, " statt ", want)
-
-
-func _pech() -> void:
-	# bonusStartsAfterThreeMissesAndStopsAtFour
-	var s = Pech.new()
-	var bonuses := []
-	for i in 7:
-		s.miss()
-		bonuses.append(s.bonus())
-	_check("Pechsträhne 1–7", bonuses, [0, 0, 2, 3, 4, 4, 4])
-	_check("Pechsträhne längste", s.longest, 7)
-	# aHitStartsOver
-	s = Pech.new()
-	for i in 4:
-		s.miss()
-	s.hit()
-	_check("Treffer setzt zurück", s.bonus(), 0)
-	s.miss(); s.miss()
-	_check("zwei danach", s.bonus(), 0)
-	_check("längste bleibt", s.longest, 4)
-	# offOnlyCounts
-	s = Pech.new(false)
-	for i in 5:
-		s.miss()
-	_check("aus: kein Bonus", s.bonus(), 0)
-	_check("aus: zählt", s.longest, 5)
-
-
-## Bilder von 20 ms über [ms]; gibt zurück, wie lange der Held wirklich rannte.
-func _run(a, lasts: float, ms: int, moving := true, run := true) -> int:
-	var ran := 0
-	var t := 0
-	while t < ms:
-		if a.step(20.0, moving, run, lasts):
-			ran += 20
-		t += 20
-	return ran
-
-
-func _run_empty(a, lasts: float) -> int:
-	var ran := 0
-	while not a.winded and ran < 120000:
-		a.step(20.0, true, true, lasts)
-		ran += 20
-	return ran
-
-
-func _ausdauer() -> void:
-	# Kämpfer, Mensch: Konstitution des neuen Spiels; hier wie im Kotlin-Test über lasts_ms, nicht über eine feste Zahl
-	var lasts: float = Ausdauer.lasts_ms(1, 1)
-	_check("Vorrat Kon +1, Stufe 1", lasts, 8000.0)
-	_check("Vorrat Kon −4 mindestens 2 s", Ausdauer.lasts_ms(-4, 1), 2000.0)
-	_check("Vorrat Stufe 4", Ausdauer.lasts_ms(0, 4), 8000.0)
-	_check("Vorrat schwer, Trank", Ausdauer.lasts_ms(0, 1, true, true), 6000.0)
-	_check("schwer ohne Stärke", Ausdauer.heavy("HEAVY", 12), true)
-	_check("schwer mit Stärke 13", Ausdauer.heavy("HEAVY", 13), false)
-	_check("mittel", Ausdauer.heavy("MEDIUM", 8), false)
-	# aFullStoreLastsAsLongAsConstitutionSays
-	var a = Ausdauer.new()
-	var ran := _run_empty(a, lasts)
-	_check("rennt so lange wie der Vorrat", absf(ran - lasts) <= 40.0, true)
-	_check("danach außer Atem", a.winded, true)
-	# outOfBreathTheHeroWalksUntilAQuarterIsBack
-	a = Ausdauer.new()
-	_run_empty(a, lasts)
-	_check("außer Atem geht er", a.step(20.0, true, true, lasts), false)
-	_run(a, lasts, 9000, true, false)
-	_check("nach 9 s Gehen noch außer Atem", a.winded, true)
-	_run(a, lasts, 1100, true, false)
-	_check("nach 10,1 s wieder bei Atem", a.winded, false)
-	_check("rennt wieder", a.step(20.0, true, true, lasts), true)
-	# standingRefillsFasterThanWalking
-	var st = Ausdauer.new()
-	var ge = Ausdauer.new()
-	st.stamina = 0.0; ge.stamina = 0.0
-	_run(st, lasts, 10000, false, false)
-	_run(ge, lasts, 10000, true, false)
-	_check("Stehen 10 s", absf(st.stamina - 0.5) < 0.01, true)
-	_check("Gehen 10 s", absf(ge.stamina - 0.25) < 0.01, true)
-	# betrunken rennt er nicht (181)
-	a = Ausdauer.new()
-	_check("betrunken", a.step(20.0, true, true, lasts, true), false)
-	# aRestFillsTheStore
-	a = Ausdauer.new()
-	_run_empty(a, lasts)
-	a.refill()
-	_check("Rast füllt", a.stamina, 1.0)
-	_check("Rast: bei Atem", a.winded, false)
-	# theStoreIsSaved
-	a = Ausdauer.new()
-	a.stamina = 0.4; a.winded = true
-	var back = Ausdauer.from_dict(a.to_dict())
-	_check("gespeichert Vorrat", back.stamina, 0.4)
-	_check("gespeichert außer Atem", back.winded, true)
 
 
 func _talente() -> void:

@@ -2,7 +2,7 @@ extends SceneTree
 # 526 (Abgleich Build 249; alt Dialogs.kt ConfirmDialog .tap(onDismiss), SlotsScreen und AboutScreen BackHandler): ohne Bild;
 # Rueckfragen schliessen bei einem Tippen daneben, nicht bei einem Tippen in den Kasten; Android-Zurueck schliesst erst das
 # Fenster, das Menue darunter bleibt. Geprueft: Menue-Rueckfrage, „Spielstand löschen?“, „Überspringen?“ der Zwischensequenz,
-# „Über das Spiel“. Braucht godot/daten wie im Bau. Aufruf: im Ordner godot mit -s res://tests/rueckfrage_526.gd -> „RUECKFRAGE n Fehler“
+# „Über das Spiel“, „Spiel beenden?“ im Hauptmenü (1418). Braucht godot/daten wie im Bau. Aufruf: im Ordner godot mit -s res://tests/rueckfrage_526.gd -> „RUECKFRAGE n Fehler“
 
 func _initialize() -> void: _lauf.call_deferred()
 
@@ -85,6 +85,15 @@ func _lauf() -> void:
 	await process_frame
 	pruefe("Über das Spiel: Zurück schliesst sie", offen(seite), false)
 	pruefe("Hauptmenü bleibt", offen(hm), true)
+	# 1418: Zurück im Hauptmenü beendet nicht sofort, es fragt „Spiel beenden?“; Zurück und Tippen daneben wie „Abbrechen“
+	pruefe("Hauptmenü: Zurück nimmt die Taste", Zurueck.taste(self), true)
+	await process_frame
+	var fb := schleier_von(hm)
+	pruefe("Hauptmenü: Zurück fragt „Spiel beenden?“", fb != null and fb == hm.beenden_frage, true)
+	pruefe("Hauptmenü: Zurück nochmal schliesst die Frage", Zurueck.taste(self), true)
+	await process_frame
+	pruefe("Hauptmenü: Frage zu, Hauptmenü bleibt", [offen(fb), offen(hm)], [false, true])
+	await pruefe_fenster("Spiel beenden?", hm.frage_beenden, hm)
 	hm.queue_free()
 	if Zwischenbild.da():
 		var zb := Zwischenbild.new("tempel")
