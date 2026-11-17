@@ -1,5 +1,7 @@
 # 1211 · Leuchtfunke: heute gegen R7 rocket_trail (Film nachts im Dorf)
 
+[Film von 17.11., 21:56](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-215558-1211/2026-11/17-2155-1211-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Spike · 17.11., 21:46 · Prüfauftrag Chef 13.11., 19:10 („Prüfe auch mal, ob wir Rocket Trail nicht als Lichtquelle verwenden können für den Trank“)
 Kurz: rocket_trail macht den Funken größer und heller, bringt aber kein besseres Licht. Kühl eingefärbt wird er ein weißer Klecks, in der Urfassung ist er orangefarbenes Feuer mit Rauch. Den Lichtkreis am Boden macht in „heute“ und „kühl“ dasselbe Licht.
 
