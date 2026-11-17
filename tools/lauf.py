@@ -912,7 +912,7 @@ def main():
         zweige = {zweig(x) for x in alle_m if any(gleich(x[0], b) for b in besetzt)} - {"–", "-", ""}
         zweige |= sitzungszweige(team_s) | (frische_zweige(team) if team_s else set())  # 1407: frisch gepushte Teamzweige; 1396 (Tuffy 16.11., 10:00): Zweig einer laufenden Teamsitzung ist belegt, auch wenn der Titel eine andere Nummer nennt
         frei = [x for x in alle_m if x[0] not in ausschluss and not any(gleich(x[0], b) for b in besetzt)
-                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))
+                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + " " + x[3].get("stand", ""))
                 and x[0] not in startbar.SONDER and "Rollenspiegel" not in x[2]]  # 340.10 V4 (a): den Spiegel schreibt der Besitzer selbst
         if besetzt == {"Nachfolger"} or not besetzt and not team_s:
             ausgabe.append("NICHTS %s: Arbeit von %s unbekannt (Nachfolger oder Titel ohne Nummer)" % (zusatz, team)); continue
