@@ -1,5 +1,7 @@
 # 1205 · Blumenwiese nach deinem „1205a A“: Blumen des Graspakets groß und farbig, mehr Gras · Tom · 17.11., 15:50
 
+[Bild von 17.11., 15:48](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-1548-1205-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt · Tom · 17.11. · aus deinem Wort 15:35: „1205a A, gerne auch mehr Gras?!?“
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/9f98626ca (`claude/tom-1205-wiese`, Standbilder am Rechner, Großbild: Telegram 17.11. 15:50)
