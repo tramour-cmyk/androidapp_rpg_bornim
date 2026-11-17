@@ -1,7 +1,7 @@
 extends SceneTree
 # 1215 (Frage 9 von Sokrates 15.11., 11:21: „Test am echten Gerüst statt Nachbau, der Test vom 13.11. übersah den Fehler“):
 # physikalisches Sterben an den echten Gegnern im Kampfort (braucht die gebauten Modelle, darum nicht im Logiksatz). Je Gegnerart
-# (GEGNER=GOBLINS,SCOUTS,SHAMANS,KOBOLDS,GRAK; ohne Angabe alle, die gebaut sind) stirbt jeder Gegner des Probekampfs mit einem
+# (GEGNER=GOBLINS,SCOUTS,SHAMANS,KOBOLDS,GRAK,SKELETONS,WIEDERGAENGER3; ohne Angabe alle, die gebaut sind) stirbt jeder Gegner des Probekampfs mit einem
 # anderen Treffer (FAELLE). Gemessen je Tod:
 #   Hüfte–Becken: Abstand der Hüftknochen vom Becken in der Ruhe und größter im Fall (Frage 1: 0,085 gegen 0,507 m am Nachbau)
 #   Spalt: größter Abstand der zwei Seiten eines Gelenks (die Glieder hängen zusammen, die Haut reißt nicht aus)
@@ -16,6 +16,7 @@ const Probe = preload("res://kampf/probe.gd")
 const Figur = preload("res://kampf/figur.gd")
 ## die Grenzen des Gelenks geben bei schneller Bewegung nach (etwa 5° je rad/s, gelenk_1215)
 const ZUGABE := 20.0
+const UEBERNAHME_BILDER := 15     # 1340: 0,25 s, in denen die Physik eine schon bei der Übernahme überstreckte Lage zurückholt
 ## Treffer: Name, Art, Winkel des Angreifers zur Blickrichtung des Opfers (0 = von vorn, 90 = von seiner Linken), kritisch
 const FAELLE := [
 	["Hieb von vorn", "nah", 0.0, false], ["Hieb von hinten", "nah", 180.0, false], ["Hieb von links", "nah", 90.0, false],
@@ -80,7 +81,7 @@ func _run() -> void:
 	Figur.ragdoll_alle = true     # auch Grak: seine Tafel (UAL) wird gemessen, im Spiel bleibt sein Zusammenbruch gebacken
 	preload("res://kampf/ragdoll.gd").bildrate_pruefen = false
 	preload("res://kampf/ragdoll.gd").bleibt = true
-	var arten: Array = Array(OS.get_environment("GEGNER").split(",", false)) if OS.get_environment("GEGNER") != "" else ["GOBLINS", "SCOUTS", "SHAMANS", "KOBOLDS", "GRAK"]
+	var arten: Array = Array(OS.get_environment("GEGNER").split(",", false)) if OS.get_environment("GEGNER") != "" else ["GOBLINS", "SCOUTS", "SHAMANS", "KOBOLDS", "GRAK", "SKELETONS", "WIEDERGAENGER3"]   # 1340: Skelett, Wiedergänger
 	var fall := 0
 	var tode := 0
 	for art in arten:
@@ -117,9 +118,8 @@ func _run() -> void:
 					continue
 				tode += 1
 				var hueft := []
-				for n in ["hipL-thighL", "thigh_l"]:
-					if sk.find_bone(n) >= 0:
-						hueft = [sk.find_bone(n), sk.find_bone("pelvis-waist") if n == "hipL-thighL" else sk.find_bone("pelvis")]
+				# 1340: Schenkel und Becken aus der Tafel des erkannten Gerüsts (auch Biped mit Präfix)
+				hueft = [r.glieder[r.nach_name["schenkel_l"]].b, r.glieder[0].b]
 				var h0: float = (sk.get_bone_global_pose(hueft[0]).origin - sk.get_bone_global_pose(hueft[1]).origin).length() * r.skala
 				var hmax := h0
 				var spalt := 0.0
@@ -127,6 +127,7 @@ func _run() -> void:
 				var ueber := 0.0
 				var ueber_wo := ""
 				var brust0 := Vector3.INF
+				var start_ueber := {}     # 1340: Überschreitung je Glied im ersten Bild der Physik
 				var n_bilder := 0
 				while r.phase != "liegt" and n_bilder < 60 * 9:
 					await physics_frame
@@ -147,6 +148,12 @@ func _run() -> void:
 						var x: Array = g.get("x", [0, 0])
 						# Scharniere (Knie, Ellbogen) und der Rumpf genau; an Schulter und Hüfte (Kugelgelenk, weite Grenzen) nur das Beugen
 						var d: float = maxf(float(x[0]) - w.x, w.x - float(x[1]))
+						# 1340: steht ein Gelenk schon bei der Übernahme außerhalb (die gekaufte Bewegung des Skeletts überstreckt das Knie
+						# um 23°), zählt das nicht gegen die Physik, solange es nicht wächst und nach UEBERNAHME_BILDER wieder drin ist
+						if not start_ueber.has(g.n):
+							start_ueber[g.n] = maxf(d, 0.0)
+						if r.bilder_physik <= UEBERNAHME_BILDER and d <= float(start_ueber[g.n]) + 1.0:
+							continue
 						if d > ueber and (String(g.n).begins_with("wade") or String(g.n).begins_with("unterarm") or g.n == "brust" or g.n == "kopf"):
 							ueber = d
 							ueber_wo = "%s %.0f° (Grenzen %.0f bis %.0f)" % [g.n, w.x, float(x[0]), float(x[1])]
