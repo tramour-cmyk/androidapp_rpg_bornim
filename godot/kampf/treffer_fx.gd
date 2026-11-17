@@ -51,7 +51,7 @@ static func fuer_zustand(st: String) -> String:
 
 ## die Pfade des Effekts [name] (einer oder mehrere, der erste vorhandene gilt)
 static func pfade(name: String) -> Array:
-	var p = eintrag(name).get("pfad", [])
+	var p: Variant = eintrag(name).get("pfad", [])
 	return p if p is Array else [p]
 
 
@@ -66,12 +66,12 @@ static func aktiv() -> bool:
 
 
 ## die Szene des Effekts [name] wie geliefert, null ohne Paket (einmal geladen)
-static func szene(name: String):
+static func szene(name: String) -> PackedScene:
 	if not _szenen.has(name):
 		_szenen[name] = false
-		for p in pfade(name):
+		for p: Variant in pfade(name):
 			if ResourceLoader.exists(String(p)):
-				var r = load(String(p))
+				var r: Resource = load(String(p))
 				if r is PackedScene:
 					_szenen[name] = r
 					break
@@ -79,13 +79,13 @@ static func szene(name: String):
 
 
 ## der Stil der Spur [name] (R3), gedämpft nach farbe und energie, null ohne Paket
-static func stil(name: String):
+static func stil(name: String) -> Variant:
 	if not _stile.has(name):
 		_stile[name] = false
 		var e := eintrag(name)
 		var p := pfad(name)
 		if p != "" and ResourceLoader.exists(p) and ResourceLoader.exists(SPUR_SKRIPT):
-			var st = load(p)
+			var st: Variant = load(p)
 			if st != null:
 				st = st.duplicate(true)
 				var f: Array = e.get("farbe", [])
@@ -112,7 +112,7 @@ static func stil(name: String):
 static func zeige(name: String, eltern: Node3D, at: Vector3, hoehe := 1.8, blick := Vector3.ZERO) -> Node3D:
 	if name == "" or eltern == null or not aktiv():
 		return null
-	var sz = szene(name)
+	var sz: PackedScene = szene(name)
 	if sz == null:
 		return null
 	var e := eintrag(name)
@@ -134,7 +134,7 @@ static func zeige(name: String, eltern: Node3D, at: Vector3, hoehe := 1.8, blick
 		fx.call("play")
 	gezeigt[name] = int(gezeigt.get(name, 0)) + 1
 	var w: WeakRef = weakref(fx)     # das Paket gibt seine Effekte selbst frei (auto_free); sonst nach 3 s
-	eltern.get_tree().create_timer(3.0).timeout.connect(func(): if w.get_ref() != null: w.get_ref().queue_free())
+	eltern.get_tree().create_timer(3.0).timeout.connect(func() -> void: if w.get_ref() != null: w.get_ref().queue_free())
 	return n
 
 
@@ -145,10 +145,10 @@ static func zeige(name: String, eltern: Node3D, at: Vector3, hoehe := 1.8, blick
 static func spur(name: String, welt: Node3D, an_knoten: Node3D, ab_s: float, dauer_s: float, base := Vector3.INF, tip := Vector3.INF) -> Node3D:
 	if name == "" or an_knoten == null or welt == null or not aktiv():
 		return null
-	var st = stil(name)
+	var st: Variant = stil(name)
 	if st == null:
 		return null
-	var tr = load(SPUR_SKRIPT).new()
+	var tr: Variant = load(SPUR_SKRIPT).new()
 	tr.style = st
 	tr.emitting = false
 	var e := eintrag(name)
@@ -168,16 +168,16 @@ static func spur(name: String, welt: Node3D, an_knoten: Node3D, ab_s: float, dau
 	var baum := an_knoten.get_tree()
 	var w: WeakRef = weakref(tr)
 	var wf: WeakRef = weakref(folge)
-	baum.create_timer(maxf(ab_s, 0.0)).timeout.connect(func():
+	baum.create_timer(maxf(ab_s, 0.0)).timeout.connect(func() -> void:
 		if w.get_ref() != null:
 			w.get_ref().clear()
 			w.get_ref().emitting = true)
-	baum.create_timer(maxf(ab_s, 0.0) + dauer_s).timeout.connect(func():
+	baum.create_timer(maxf(ab_s, 0.0) + dauer_s).timeout.connect(func() -> void:
 		if w.get_ref() != null:
 			w.get_ref().emitting = false
 		if wf.get_ref() != null:
 			wf.get_ref().queue_free())
-	baum.create_timer(maxf(ab_s, 0.0) + dauer_s + 1.5).timeout.connect(func(): if w.get_ref() != null: w.get_ref().queue_free())
+	baum.create_timer(maxf(ab_s, 0.0) + dauer_s + 1.5).timeout.connect(func() -> void: if w.get_ref() != null: w.get_ref().queue_free())
 	return tr
 
 
@@ -231,7 +231,7 @@ static func _daempfe(name: String, fx: Node, e: Dictionary) -> void:
 	for p in fx.find_children("*", "GPUParticles3D", true, false):
 		var gp := p as GPUParticles3D
 		if gp.process_material is ParticleProcessMaterial:
-			gp.process_material = _kopie(name, gp.process_material, func(r):
+			gp.process_material = _kopie(name, gp.process_material, func(r: Resource) -> void:
 				var pm := r as ParticleProcessMaterial
 				pm.color = _ton(pm.color, ton, grau, hell)
 				if pm.color_ramp is GradientTexture1D and (pm.color_ramp as GradientTexture1D).gradient != null:
@@ -242,7 +242,7 @@ static func _daempfe(name: String, fx: Node, e: Dictionary) -> void:
 					gt.gradient = g
 					pm.color_ramp = gt)
 		if gp.material_override != null:
-			gp.material_override = _kopie(name, gp.material_override, func(r): _mat_daempfen(r, ton, grau, hell, glanz))
+			gp.material_override = _kopie(name, gp.material_override, func(r: Resource) -> void: _mat_daempfen(r, ton, grau, hell, glanz))
 
 
 static func _kopie(name: String, r: Resource, aendern: Callable) -> Resource:
@@ -254,14 +254,14 @@ static func _kopie(name: String, r: Resource, aendern: Callable) -> Resource:
 	return _gedaempft[key]
 
 
-static func _mat_daempfen(m, ton: Color, grau: float, hell: float, glanz: float) -> void:
+static func _mat_daempfen(m: Resource, ton: Color, grau: float, hell: float, glanz: float) -> void:
 	if m is ShaderMaterial:
 		var sm := m as ShaderMaterial
-		var en = sm.get_shader_parameter("emission_energy")
+		var en: Variant = sm.get_shader_parameter("emission_energy")
 		if en != null:
 			sm.set_shader_parameter("emission_energy", float(en) * glanz)
-		for nm in ["color", "core_color", "edge_color", "glint_color"]:
-			var c = sm.get_shader_parameter(nm)
+		for nm: String in ["color", "core_color", "edge_color", "glint_color"]:
+			var c: Variant = sm.get_shader_parameter(nm)
 			if c is Color:
 				sm.set_shader_parameter(nm, _ton(c, ton, grau, hell))
 	elif m is StandardMaterial3D:

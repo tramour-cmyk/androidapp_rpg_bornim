@@ -33,7 +33,7 @@ var held_anim := {}   # id -> letzte Bewegung des Helden/Söldners
 var reihe := []       # 439: [Bild, Text] Verstöße gegen Angriff, Treffer, Tod, Neuformation
 var tote := {}        # k -> [Bild bis Ende des Liegens]
 var platz_vor := {}   # 973: id -> letzter Platz nach den Regeln (shown.places)
-var platz_offen := {} # 973: id -> Platz gewechselt, neue Stelle noch nicht angefahren
+var platz_offen := {} # 973: id -> Platz (home) vor dem Wechsel, solange die neue Stelle nicht angefahren ist
 var heim_boden := {}  # 973: id -> letzter Platz (home) gegen den Boden (die Kamera nimmt den Boden mit)
 ## 438 Prüfer Film 08:18: Drehsprünge in jeder Bewegung, Kopf im Helden, Würfelzeile vor dem Treffer
 const DREH_BILD_GRAD := 16.0     # TURN_DPS 450°/s bei 30 Bildern: 15° je Bild
@@ -172,11 +172,20 @@ func _bild(kf, n: int, k: String) -> void:
 			# 973 (930a A, F3: „Angriff, Treffer, Tod; die Übrigen bleiben stehen“): nach einem Tod rückt keiner ohne neuen Platz
 			var pl = kf.shown.places.get(f.fighter.id)
 			if platz_vor.has(fid) and platz_vor[fid] != pl:
-				platz_offen[fid] = true
+				platz_offen[fid] = f.home     # 1505: Platz vor dem Wechsel; offen, bis er an einem anderen angekommen ist
 			var rel: Vector3 = f.home - kf._ground(0, 0)
-			var rueckt: bool = heim_boden.has(fid) and rel.distance_to(heim_boden[fid]) > 0.05
-			if rueckt and platz_offen.get(fid, false):
-				platz_offen[fid] = false
+			# 1415 (Seed 7, Kämpfer Bild 2619): nach dem Ausweichen steht der Wolf neben seinem alten Platz; die nächste Zeile der Gegner
+			# macht die Stelle, an der er steht, zu seinem Platz am Gegner (1072), ohne dass er sich bewegt. Rücken heißt gehen: nur ein
+			# neuer Platz, der nicht unter ihm liegt, zählt
+			var rueckt: bool = heim_boden.has(fid) and rel.distance_to(heim_boden[fid]) > 0.05 \
+				and Vector2(f.home.x - f.position.x, f.home.z - f.position.z).length() > 0.05
+			# 1505 (Lauf 544, Kleriker Bild 2102; am Rechner nachgestellt): der neue Platz kam mit der Zeile des Platztauschs, der Wolf
+			# rückt erst in seinem Zug (717.1 A), bis dahin rechnet die nächste Zeile den Platz am Gegner neu (1072); offen bleibt der
+			# Platz, bis der Wolf dort angekommen ist (so sagt es platz_offen), nicht nur bis zur ersten Änderung
+			if platz_offen.get(fid, null) is Vector3:
+				if not f.unterwegs() and Vector2(f.home.x - f.position.x, f.home.z - f.position.z).length() <= 0.05 \
+						and not (platz_offen[fid] as Vector3).is_equal_approx(f.home):
+					platz_offen.erase(fid)
 			elif rueckt and not f.fighter.fled and tote.keys().any(func(t): return t.begins_with(k + "/")):
 				reihe.append([n, "%s rückt %.2f m nach einem Tod ohne neuen Platz (F3, 973)" % [fid, rel.distance_to(heim_boden[fid])]])
 			heim_boden[fid] = rel
