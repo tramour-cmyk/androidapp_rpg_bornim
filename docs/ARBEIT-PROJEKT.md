@@ -2,7 +2,7 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `72e6f6ada` (17.11., 10:16)
+**Gelesen bis:** `4468c4031` (17.11., 12:05)
 
 **Kosten frei:** 431 bis 160 $; 709.1 bis 160 $; 870 bis 160 $; 531 bis 80 $; 709 bis 80 $; 930 bis 80 $; 620 bis 80 $; 654 bis 80 $; 1137 bis 80 $
 (1538, 1520 so: offener Vorgang ab 40 $ ohne Eintrag hier hält an, `lauf.py` startet mich mit „Kosten entscheiden“; je Vorgang weiter oder vereinfachen = Eintrag bis zur nächsten Schwelle 40/80/160/320 $, streichen; Chefauftrag streichen nur über die Chefsache; „jetzt“ läuft weiter. Beim Erledigen Eintrag streichen.)
