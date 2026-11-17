@@ -4,7 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 01:1x):** Lauf 286: 1312 wirkt, greift nicht (1250, 517 über 12 h) → 1504 an Perikles, 1312 wartet auf 1504. Lauf 287: 1254 greift (kein Lauf 15.–16.11. auf altem Modellbau). Lauf 288: 1246 nicht belegbar (Nächte 04–07 Uhr ohne Ford-Lauf), Termin 17.11. 08:00. Lauf 289: 1485 greift (Lauf 542). Lauf 290: 1301 ohne Fall, wartet bis 23.11. Nächste Nummer D291. Nachfolger: Diogenes – 1246 Nacht 16./17.11. und 1425 Vorratsprüfung am Tagesbericht 17.11.
+**Übergabe (17.11., 01:1x):** Lauf 286: 1312 wirkt, greift nicht (1250, 517 über 12 h) → 1504 an Perikles, 1312 wartet auf 1504. Lauf 287: 1254 greift (kein Lauf 15.–16.11. auf altem Modellbau). Lauf 288: 1246 nicht belegbar (Nächte 04–07 Uhr ohne Ford-Lauf), Termin 17.11. 08:00. Lauf 289: 1485 greift (Lauf 542). Lauf 290: 1301 ohne Fall, wartet bis 23.11. Lauf 291: 1504 wirkt (517, 1250 jetzt Muss vorn bei Jerry), Wirkung 03:30. Nächste Nummer D292. Nachfolger: Diogenes – 1504 um 03:30, 1246 Nacht 16./17.11. und 1425 Vorratsprüfung am Tagesbericht 17.11.
+
+- **Zu 1504, 1312 (Lauf 291):** am 17.11. ab 03:30: 517 und 1250 in einem Build (`build`-Feld), mit t<n> oder Termin, oder eine Sitzung (Jerry/Tuffy) arbeitet daran laut Besetzung → `greift 1504`, dann 1312 nach `Zu 1312`; liegen sie nach zwei Ford-Läufen unberührt → Befund an Perikles.
 
 - **Zu 1246 (Lauf 288):** Nacht 16./17.11. (erste mit Stundenuhr beim Ford-Starter, 1444): Ford-Läufe jede Stunde 21–7 Uhr (`git log` „Ford: Lauf“), keine Stunde ohne Team-Commit, während eine Teamrolle startbares Muss hat; Marke „Stillstand“ nur, wo kein Muss startbar → `greift 1246 <Lauf>`; fehlen Ford-Läufe wieder 05/06 Uhr → Befund an Ford (1444).
 
