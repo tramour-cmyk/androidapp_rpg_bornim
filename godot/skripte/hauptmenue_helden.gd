@@ -22,7 +22,10 @@ const HELDEN := [
 	# 0,54 bis 0,58 m von der Schulter; am Rechner nachgestellt, auch mit dem Griff naeher am Koerper und tiefer gefasst nicht) ->
 	# Ersatz wie entschieden: Schwert gesenkt in der rechten Hand (senken, HandSenken), Schild am linken Arm, Flaeche schraeg zum Spieler;
 	# Sokrates 03:14 (Vorlage 6 passt): der Schild lag nah am Zauberlehrling -> 8 cm weiter nach aussen (x -1,40)
-	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.40, "dreh": 35.0, "haltung": "", "kopf": 0.4, "senken": true},
+	# 1417 (Chef 16.11., 12:37/12:38: Schild „an mehreren Stellen eingekerbt … als ob der Stoff, der dahinter liegt, einen Teil des
+	# Schildes überdeckt“): der Arm hing in „Stehen“ am Bein, Rock über dem linken Oberschenkel bis 6,2 cm durch den Schild
+	# (tests/schild_menue_1417.gd); der Schildarm 25 Grad abgespreizt, Fläche weiter schräg zum Spieler (60 Grad): 1,9 cm frei
+	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.40, "dreh": 35.0, "haltung": "", "kopf": 0.4, "senken": true, "schild_abspreiz": 25.0},
 	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 25.0, "haltung": "zauberer", "kopf": 0.6, "arm": 22.0},
 	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -25.0, "haltung": "bogen", "kopf": 0.6},
 	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -35.0, "haltung": "", "kopf": 0.4},
@@ -124,7 +127,7 @@ func _init(breite_dp := 330.0) -> void:
 			var hd := HandSenken.new()
 			hd.name = "SchildDrehen"; hd.seite = "l"; hd.um_unterarm = true; hd.grad = float(h.get("schild_dreh", 60.0))
 			sk.add_child(hd)
-			waffen_in_die_hand(m, sk, anim, w.get("ausruestung", {}), hl, "r")
+			waffen_in_die_hand(m, sk, anim, w.get("ausruestung", {}), hl, "r", float(h.get("schild_abspreiz", 0.0)))
 		if sk and stuetzt:
 			var st := schwert_stuetzen(m, sk, w.get("ausruestung", {}))
 			st.kamera = kam.position   # die Welt des Bilds beginnt am Ursprung
@@ -353,7 +356,7 @@ class SchwertStuetzen extends Tragen:
 
 ## 867: Waffe und Schild wie in der Haltung gehalten: was bewaffne() auf den Ruecken oder als Wanderstab gestellt hat, weg; die Waffe in
 ## die Hand, die in der Haltung hoeher steht (Stab des Zauberers), der Bogen links, der Schild an den linken Arm
-static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, aus: Dictionary, bew: String, seite_fest := "") -> void:
+static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, aus: Dictionary, bew: String, seite_fest := "", schild_abspreiz := 0.0) -> void:
 	var neben = aus.get("OFF_HAND")
 	var schild := HeldFigur._modell(neben) if neben is Dictionary and String(Beute.grundform(String(neben.get("base", ""))).get("art", "")) == "SHIELD" else ""
 	var waffe := HeldFigur._modell(aus.get("MAIN_HAND"))
@@ -377,7 +380,7 @@ static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, a
 		var t := Tragen.new("", d, m, HeldFigur.faust(sk, String(p[2])))
 		t.halt = Halt.gegenstand(String(p[0]))
 		t.gang = String(p[1]); t.seite = String(p[2]); t.anim = ap
-		t.schild_abspreiz = 0.0; t.schwert_abspreiz = 0.0   # die Haltung fuehrt den Arm
+		t.schild_abspreiz = schild_abspreiz; t.schwert_abspreiz = 0.0   # die Haltung fuehrt den Arm (1417: ausser dem Schildarm in „Stehen“)
 		sk.add_child(t)
 	print("MENU867 Haltung %s: Waffe %s in %s, Schild %s" % [bew, waffe, seite, schild])
 

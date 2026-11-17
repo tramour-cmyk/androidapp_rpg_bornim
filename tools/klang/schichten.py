@@ -5,11 +5,11 @@ bevor der Kampf beginnt; Stille bewusst einsetzen. Gewählt: Form wie Probe 1, a
     python3 tools/klang/schichten.py <ordner mit den Aufnahmen> <ziel>
     python3 tools/klang/schichten.py --spiel <ordner mit den Aufnahmen>
 
---spiel schreibt die drei Spuren als Schleifen nach app/src/main/assets/music (spur_*.ogg, Vorbis q 1, höchstens 90 s,
+--spiel schreibt die drei Spuren als Schleifen nach godot/daten/klang/music (spur_*.ogg, Vorbis q 1, höchstens 90 s,
 die letzten 3 s gehen in den Anfang über), Effektivpegel SPUR_RMS + SPUR_TOP: so laut wie in Probe 1 im Augenblick,
 bevor der Jäger den Helden bemerkt (Hüllkurve 1,2); das Spiel regelt sie mit der Nähe herunter (MusicDirector).
 
-Musik aus app/src/main/assets/music (schon auf -18 LUFS), Spur aus drei CC0-Aufnahmen (QUELLEN.md, „Musik in
+Musik aus godot/daten/klang/music (schon auf -18 LUFS), Spur aus drei CC0-Aufnahmen (QUELLEN.md, „Musik in
 Schichten“; laden mit tools/klang/holen.sh), auf gleichen Effektivpegel gebracht. Pegel wie im Spiel (Musik 0,6).
 Proben (MP3, Stereo):
   0 heute: Waldmusik, Kampf beginnt hart
@@ -26,7 +26,7 @@ SR = 44100
 SPIEL = sys.argv[1] == "--spiel"
 D, OUT = (sys.argv[2], None) if SPIEL else (sys.argv[1], sys.argv[2])
 if OUT: os.makedirs(OUT, exist_ok=True)
-MUSIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../app/src/main/assets/music")
+MUSIC = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../godot/daten/klang/music")
 LEVEL = 0.6
 # Pegel der Spur bei Hüllkurve 1 (RMS, dBFS): etwa so laut wie die Waldmusik im Spiel (-28), nach Tiefe gleich laut
 SPUR_RMS = -31

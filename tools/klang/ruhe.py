@@ -4,7 +4,7 @@ Knochenklappern, Stöhnen, Blubbern; leise, ohne Hall (der Ort gibt ihn), je Fam
 Alle CC0 (QUELLEN.md, „D3.9 Leerlauf-Laute“).
 
     python3 tools/klang/ruhe.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben und je Familie eine Probe probe_<familie>.mp3
-    python3 tools/klang/ruhe.py <ordner mit den Aufnahmen> --spiel    # OGG nach app/src/main/assets/sfx (idle_<familie>_<n>.ogg)
+    python3 tools/klang/ruhe.py <ordner mit den Aufnahmen> --spiel    # OGG nach godot/daten/klang/sfx (idle_<familie>_<n>.ogg)
 
 Aufnahmen: tools/klang/holen.sh („D3.9 Leerlauf-Laute“).
 """
@@ -12,7 +12,7 @@ import sys, os, subprocess, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
 D, OUT = sys.argv[1], sys.argv[2]
 SPIEL = OUT == "--spiel"
-if SPIEL: OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+if SPIEL: OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
 os.makedirs(OUT, exist_ok=True)
 
 _index = {}

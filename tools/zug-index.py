@@ -348,6 +348,23 @@ def lauf_version(pr, _cache={}):
         _cache[pr] = None
     return _cache[pr]
 
+def benennt_datei(pr, _cache={}):
+    """1491: nur wenn godot.yml am Zweig des PR die Datei schon nach der Fassung benennt (1485, „APK_DATEI“); ältere Builds heißen bornim-godot.apk."""
+    token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
+    if not (token and repo): return False
+    if pr in _cache: return _cache[pr]
+    import json, urllib.request, urllib.parse
+    def hole(pfad, roh=False):
+        req = urllib.request.Request(f"https://api.github.com/repos/{repo}/{pfad}", headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github.raw" if roh else "application/vnd.github+json"})
+        with urllib.request.urlopen(req, timeout=20) as r: return r.read().decode("utf-8") if roh else json.load(r)
+    try:
+        zweig = hole(f"pulls/{pr}")["head"]["ref"]
+        _cache[pr] = "APK_DATEI" in hole(f"contents/.github/workflows/godot.yml?ref={urllib.parse.quote(zweig)}", True)
+    except Exception as e:
+        print(f"zug-index: godot.yml zu PR #{pr} nicht geholt ({e})")
+        _cache[pr] = False
+    return _cache[pr]
+
 def versionen_nachtragen():
     """298: Kopfzeilen von t<Build>-Dateien ohne Version bekommen sie hinter „Build n“ (Quelle: PR in derselben Zeile)."""
     pfad = os.path.join(ZUG, "ansehen")
@@ -357,14 +374,27 @@ def versionen_nachtragen():
         zeilen = open(datei, encoding="utf-8").read().split("\n")
         geaendert = False
         for i, z in enumerate(zeilen):
-            if not (i == 0 and z.startswith("# ") or re.match(r"## Build \d+ · ", z)) or VERSION.search(z): continue
-            pr, teile = re.search(r"PR #(\d+)", z), z.split(" · ")
+            if not (i == 0 and z.startswith("# ") or re.match(r"## Build \d+ · ", z)): continue
+            teile = z.split(" · ")
             stelle = next((k for k, t in enumerate(teile) if re.fullmatch(r"(## )?Build \d+", t)), None)
-            v = lauf_version(pr.group(1)) if pr and stelle is not None else None
-            if not v: continue
-            zeilen[i] = " · ".join(teile[:stelle + 1] + [v] + teile[stelle + 1:])
-            geaendert = True
-            print(f"zug-index: {n} Version {v} nachgetragen")
+            if stelle is None: continue
+            if not VERSION.search(z):
+                pr = re.search(r"PR #(\d+)", z)
+                v = lauf_version(pr.group(1)) if pr else None
+                if not v: continue
+                teile = teile[:stelle + 1] + [v] + teile[stelle + 1:]
+                print(f"zug-index: {n} Version {v} nachgetragen")
+            # 1491 (aus 1485): der Kopf nennt die Datei im Artefakt, wie godot.yml „Name des APK“ sie benennt
+            pr = re.search(r"PR #(\d+)", z)
+            if not any(t.startswith("Datei ") for t in teile) and pr and benennt_datei(pr.group(1)):
+                b, v = re.search(r"\d+", teile[stelle]).group(0), next((t for t in teile if re.fullmatch(r"0\.348\.\d+", t)), None)
+                if v:
+                    k = teile.index(v)
+                    teile = teile[:k + 1] + [f"Datei bornim-{v}-build-{b}.apk"] + teile[k + 1:]
+                    print(f"zug-index: {n} Dateiname nachgetragen")
+            if " · ".join(teile) != z:
+                zeilen[i] = " · ".join(teile)
+                geaendert = True
         if geaendert: open(datei, "w", encoding="utf-8").write("\n".join(zeilen))
 
 BILDER = "https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/"

@@ -5,7 +5,7 @@ Stimmengewirr, Regel „Ortsklang nur von dem, was da ist“ in docs/DESIGN-STIL
 (Quellen: QUELLEN.md). Schreibt nur diese Dateien, die übrigen Klänge bleiben unberührt.
 
     tools/klang/holen.sh <ordner>                          # Aufnahmen laden (einmal), dazu die Ortsaufnahmen unten
-    python3 tools/klang/orte.py <ordner>                   # nach app/src/main/assets/sfx
+    python3 tools/klang/orte.py <ordner>                   # nach godot/daten/klang/sfx
     python3 tools/klang/orte.py <ordner> --proben <ziel>   # je Klang eine Hörprobe (alle Fassungen hintereinander)
 """
 import sys, os, subprocess, numpy as np, soundfile as sf
@@ -81,7 +81,7 @@ if "--proben" in sys.argv:
         os.remove(tmp)
     print("Proben:", out)
 else:
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in ALL.items():
         for i, x in enumerate(takes):
             y = level(name, x)

@@ -41,6 +41,66 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 293 · 1312 Fertiges nie liegen lassen (Perikles `4ecfd75f6`; 17.11., 03:3x)
+
+- **Greift:** Teamzeilen „gebaut“ ohne Build, t<n> oder Termin (`liegt_ohne_vorlage`, `gebaut_seit`): 531 seit 02:54, 1448 01:14, 1460 01:00, 601.1 16.11. 23:08, 1483 (Spike) 16.11. 19:51 = 7 h; keine über 12 h. 1483 über der Werkzeugschwelle 6 h, Auftrag läuft.
+
+## Lauf 292 · 1504 Wirkung (Perikles `4eb4a3379`; 17.11., 03:3x)
+
+- **Greift:** 517 „zu testen“ in Build 294 (`61f7d6ac6`), 1250 von Jerry erledigt (`348a83022`, Platzwechsel 12/12, Rest Hieb zu 709). Beide nicht mehr „gebaut ohne Build“.
+
+## Lauf 291 · 1504 Vorlage vor anderem Muss (Perikles `4eb4a3379`; 17.11., 01:2x)
+
+- **Wirkt:** `startbar.py`: Jerry Muss 517 (15 h), 1250 (28 h) vorn, vor jeder Kür, Sperre 620.1 B nicht auf sie; Tom 1448/1460, Spike 1482/1483, Jerry 601.1 unter 6 h frei. Wirkung (Zeilen verlassen „gebaut ohne Build“) erst nach den nächsten Ford-Läufen → Termin 17.11. 03:30.
+
+## Lauf 290 · 1301 Nachfrage bei 👎 ohne Wort (Perikles `a5e00783f`; 17.11., 01:1x)
+
+- **Ohne Fall:** `reaktionen.tsv` 15.–16.11.: 34 Reaktionen, ein 👎 (760, 15.11., 16:08, Auslöser von 1301, vor dem Bau; Chef 20:33 „Sprung passt“). Nach dem Bau kein 👎, Werkzeug am echten Fall ungeprüft → wartet auf 23.11., Diogenes.
+
+## Lauf 289 · 1485 Name der APK (Spike `82efd967e`; 17.11., 01:1x)
+
+- **Greift:** Lauf 542 (`claude/build-294`, 16.11., 23:35) „1485: APK im Artefakt heißt bornim-0.348.542-build-294.apk“, Artefakt `bornim-godot-apk` 642 MB hochgeladen.
+
+## Lauf 288 · 1246 Nachts nicht aufeinander warten (Perikles `4cd150d68`; 17.11., 01:1x)
+
+- **Nicht belegbar:** Nächte 14./15. und 15./16.11. je 04–07 Uhr ohne Ford-Lauf (Ford-Läufe 15.11.: 04:03, dann 07:04; 16.11.: 04:07, dann 07:04) und ohne Team-Commit außer Tom 16.11., 04:50/05:52 (wartet auf 1362); Marke „Stillstand“ nie gesetzt. Ursache der Lücke ist die Stundenuhr (1441, gebaut als 1444 am 16.11. abends), nicht `startbar`/`lauf.py`. Termin 17.11. 08:00: Nacht 16./17.11.
+
+## Lauf 287 · 1254 Läufe auf altem Modellbau (Perikles `40aa2a93f`; 17.11., 01:1x)
+
+- **Greift:** 60 Läufe `godot.yml` 15.11., 01:09 – 16.11., 23:35 (483–542): keiner auf einem Stand, dessen Abzweig hinter dem Modellbau von `main` lag (`tools/blender348`, `kauf_cache.py`; Abzweig gegen `main` zur Laufzeit). Gebaut haben (Schritte über 1 min) nur 521, 528/529 (erste Läufe nach neuem Modellbau auf `main`, 14:05 und 16:28: `held3.py`, `waffen.py` aus Build 292, Zweig frisch gemischt) und 526 (`claude/build-292` selbst); 33 übrige Läufe ohne eigene Änderung: alle Treffer. Vorher (Lauf 469/470) 50–86 min je Lauf auf altem Stand.
+- Rest ohne Vorgang: der erste Lauf nach einer Modelländerung auf `main` baut 26–28 min (Held je Klasse), das trifft den Zweig, der zuerst läuft; gehört nicht zu 1254.
+
+## Lauf 286 · 1312 Fertiges vorlegen (Perikles `4ecfd75f6`; 17.11., 01:0x)
+
+- **Werkzeug wirkt:** `startbar.liegt_ohne_vorlage` meldet Jerry 517 (14 h), 1250 (27 h), 1275 (6 h) mit Auftrag „in den offenen Build 294 mischen“; Tom 1460 (0,1 h), Spike 1482/1483 (unter 6 h), Zeilen mit t<n> (1415 t294, 1270.4 t295) richtig frei. Alte Fälle 785.8, 1295, 1304, 1195, 930.6 nicht mehr „gebaut“ ohne Build.
+- **Greift nicht:** 1250 und 517 über 12 h ohne Build, t<n> oder Termin; die laufende Jerry-Sitzung (Build 294) nimmt den Auftrag nicht, Muss 1275 steht in `--startbar` hinter 21 Kür → D286.1 = 1504 an Perikles; 1312 wartet auf 1504.
+
+## Lauf 285 · 1425 Vorratsprüfung vor dem Tagesbericht (Perikles `8b06e0086`, `102c95f39`; 17.11., 00:0x)
+
+- **Werkzeug wirkt:** `vorratspruefung.py --kurz` 45 Funde (E 2: 649 wartet auf ruhende Tom-Kür 649.3, 644.4; J 40; K 1: Urteil 16.11., 17:53 „293.7 nachgetestet“ ohne Zeile 293.7, Besitzer „?“; L 1: 1482/1483; O 1: 966.2), Exit 0. `tagesbericht.py` ohne Schalter: „HÄLT AN: Vorratsprüfung (1425) hat 5 Funde“, Exit 1 (J zählt nicht, wie beschrieben); Durchlass nur mit `BORNIM_VORRAT_GEPRUEFT=1`.
+- **Greift noch nicht:** Daueraufgabe „jeden Tag vor dem Tagesbericht“ erst am Tagesbericht 17.11. belegbar (Commit der Funde vor dem Bericht, E/K/L/O beseitigt oder beim Besitzer) → Feld „wartet auf“: Termin 17.11. vormittags, dann Diogenes.
+
+## Lauf 284 · 1499 Laufnachweis für Skripte (Spike `e49569691`; 16.11., 23:1x)
+
+- **1499 greift:** t293 gegen `claude/build-293` jetzt 5 von 5 (mit `typen.py` Zeile 617, `kauf_cache_probe.sh` Zeile 643), t292 unverändert 6 von 6. Gegenprobe (eigener Bauablauf): `kauf_cache_probe.sh || true` → NEIN „`|| true`“, `typen.py` mit `pipefail` → trägt, fehlendes Skript → „steht nicht im Bauablauf“, Exit 1.
+
+## Lauf 283 · 1500 Stand „Bautest Diogenes“ (Perikles `7453cda13`; 16.11., 23:1x)
+
+- **1500 greift:** `build_abschluss` nachgestellt (Arbeitskopie vor `3f81a03b5`, Prüfliste t292 mit Ergebnis, neues `vorgang.py`, `--probe`): 1305, 1333, 1366, 643, 1383 → „zu testen (Bautest Diogenes)“ statt „ohne Rückmeldung“; `bautest` leert „wartet auf Diogenes“ (an 1292, 1323, 1355 gesehen). Grenze: ein Punkt ganz ohne offene Zeile fiele durch `all()` über leer auch hierher; davor fangen ✓/✗ ab.
+- **Bautest:** Lauf 524 (Build 293): `handlungen_870` „1292 A: nach dem zweiten Wundsegen gesperrt“ ok, HANDLUNGEN870 gut → **1292 erledigt**; `pim_verband_842` PIM842 gut → **1323 erledigt**. Lauf 514 (Build 291, grün): `wende_4168` trägt (Zeile 772) → **1355 erledigt**.
+
+## Lauf 282 · 1498 „ohne dich“-Zeilen von 292/293 (16.11., 22:4x)
+
+- **Bautest bestätigt:** Lauf 517 (Build 292): `handlungen_870` Exit 0 → **1333 erledigt**; `kerbe_930` „KERBE930 gut: 64 gut, 0 falsch“ → **1366 erledigt**; Laufnachweis 6 von 6 tragen; Lauf rot nur durch 918 Zeile 19 und 45 (1408, 1409). Lauf 524 (Build 293): „KAUFCACHE854 gut“, Zeile 643 mit `pipefail`, Skript endet mit `exit $fehler` → **1409 erledigt**.
+- **1305:** `reihe_1305` in Lauf 524 rot, fährt in Build 294 als 294.4 (1453) → Feld Build 294.
+- **D282.1 → 1499 (Jerry):** `laufnachweis.py` übersieht Namen mit Endung (`kauf_cache_probe.sh`, `typen.py`), t293 3 statt 5 erkannt; 1409 von Hand nachgewiesen.
+- **→ 1500 (Perikles, M?):** „zu testen, ohne Rückmeldung t<n>“ bei „ohne dich“-Zeilen klingt nach Chef (startbar.py 742).
+
+## Lauf 281 · 1485 APK-Dateiname (Spike `611030249`; 16.11., 22:0x)
+
+- **1485 greift auf dem Zweig:** Lauf 536 (`claude/spike-1485-apkname`, grün 20:41) lädt `bornim-0.348.536-spike-1485-apkname.apk` ins Artefakt `bornim-godot-apk`; Version = `run_number` wie in `godot.yml`; auf `claude/build-<n>` ergibt dieselbe Zeile `bornim-0.348.<Lauf>-build-<n>.apk`. Keine weitere Stelle liest `bornim-godot.apk` aus dem Artefakt (nur `export_presets.cfg` und der Export davor).
+- **Auf `main` seit 21:47** als Cherry-pick `82efd967e` (meine Prüfung suchte nur `611030249`; Lücke 1311 zurückgenommen, Spike 22:09). Noch kein Lauf eines `claude/build-<n>` ab diesem Stand → `greift 1485` am ersten.
+
 ## Lauf 280 · 1481, 1385 auf main (Spike `7dc9e98e8`; 16.11., 19:4x)
 
 - **1481 greift:** `figurenpruefung.py --pruefen` auf `main` 14 bekannt, 0 neu (Exit 0); Schritt „Daten pruefen“ in `godot.yml` und `godot-kampf.yml`, Commit-Haken da; angezeigte Namen auf `main` unverändert (nur Spiegelfelder in „kennungen“).

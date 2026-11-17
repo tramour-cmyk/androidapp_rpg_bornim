@@ -680,6 +680,13 @@ func _hit_camera() -> void:
 	var z := 1.0 + hz * (0.10 if kill else Wucht.zoom(w)) + 0.03 * jp
 	if not hit.has("pivot"):
 		hit["pivot"] = _pivot(_near_of(on.position), 1.0 + (0.10 if kill else Wucht.zoom(w)) + 0.03)
+	# 1453 (wolf_mess_438 Seed 7, FIGHTER 83,5 s, am Rechner mit Kaufwolf: Wolf 1 hielt seinen Platz am rechten Rand, Hilde traf Wolf 2;
+	# die Mitte passte beim Schlag für alle, dann knurrte er in der Hocke halb seitlich und ragte bei Zoom 1,11 33 px hinaus): je Bild
+	# nur so weit heran, dass um die Mitte jede Figur mit ihrem Körper jetzt im Bild bleibt; einmal zurückgenommen, bleibt es dabei
+	var zmax: float = hit.get("zmax", INF)
+	while z > 1.005 and (z > zmax or not _pivot_passt(hit.pivot, z)):
+		z -= 0.01
+	hit["zmax"] = minf(zmax, maxf(z, 1.0))
 	var p: Vector2 = hit.pivot
 	var z0: float = hit.get("z0", 1.0)
 	if absf(z0 - 1.0) > 0.0001 and el < t_in:     # 438: vom Stand des vorigen Schlags weich zum neuen (992: auch aus dem Rückzug von _rand_kamera)
@@ -804,6 +811,19 @@ func _pivot(p: Vector2, z: float) -> Vector2:
 	return c
 
 
+## 1453: bleibt bei Zoom [z] um die Mitte [c] jede stehende Figur ganz in der Szene (wie _pivot)?
+func _pivot_passt(c: Vector2, z: float) -> bool:
+	var vs := get_viewport().get_visible_rect().size
+	var per_px := base_size / vs.y
+	var half := Vector2(vs.x, vs.y) * per_px / 2.0
+	var m := 8.0 * (vs.x / 412.0) * per_px
+	var below := (vs.y - scene_rect().size.y) * per_px
+	var lo := Vector2(base_off.x - half.x + m, base_off.y - half.y + below + m)
+	var hi := Vector2(base_off.x + half.x - m, base_off.y + half.y - m)
+	var r := _pivot_range(c, z, 1.0 - 1.0 / z, lo, hi, false)
+	return c.x >= r[0].x - 1e-6 and c.x <= r[1].x + 1e-6 and c.y >= r[0].y - 1e-6 and c.y <= r[1].y + 1e-6
+
+
 func _pivot_range(p: Vector2, z: float, k: float, lo: Vector2, hi: Vector2, only_party: bool) -> Array:
 	var mn := Vector2(-INF, -INF)
 	var mx := Vector2(INF, INF)
@@ -816,7 +836,16 @@ func _pivot_range(p: Vector2, z: float, k: float, lo: Vector2, hi: Vector2, only
 		var top := _near_of(fig.head())
 		var wolf: bool = Figur.vier(fig.fighter)
 		var w: float = (top.y - foot.y) * (0.8 if wolf else 0.45)
-		for q in [Vector2(foot.x - w, foot.y), Vector2(foot.x + w, top.y)]:
+		var qs: Array = [Vector2(foot.x - w, foot.y), Vector2(foot.x + w, top.y)]
+		# 1453 (wolf_mess_438 Seed 7, FIGHTER 83,5 s: der Kaufwolf schräg in der Hocke ist breiter als 0,8 seiner Höhe, 33 px draußen):
+		# dazu die Kapseln des Körpers mit ihrer Dicke, wie _rand_kamera und wolf_mess_438 messen
+		for kp: Array in fig.kapseln():
+			for e: Vector3 in [kp[0], kp[1]]:
+				var ne := _near_of(e)
+				var rr: float = float(kp[2]) * cam.near / maxf(-(e - cam.position).z, 0.01)
+				qs.append(ne - Vector2(rr, rr))
+				qs.append(ne + Vector2(rr, rr))
+		for q in qs:
 			# sichtbar bei Zoom z um c: lo ≤ c + (q - c)·z … umgestellt nach c
 			mx.x = minf(mx.x, (q.x - lo.x / z) / k)
 			mn.x = maxf(mn.x, (q.x - hi.x / z) / k)
@@ -952,7 +981,7 @@ func _platz_am_gegner(f: Variant, spot: Vector2i) -> Vector3:
 					var q2: Vector3 = p + d * PLATZ_MACHEN_M * fig._scale() * k
 					if OS.get_environment("SCHAU_1072") != "":
 						print("1072   %s %.0f° x%.1f: Luft %.2f Bild %s" % [f.id, w, k, fig._platz_luft(q2, -weg, null), fig._im_bild(q2, -weg)])
-					if fig.platz_frei(q2, -weg):
+					if fig.platz_frei(q2, -weg, fig.PLATZ_BILD_DP):
 						q = q2
 						break
 				if q != Vector3.INF:
@@ -961,6 +990,8 @@ func _platz_am_gegner(f: Variant, spot: Vector2i) -> Vector3:
 				print("1072 Platz machen %s: %s" % [f.id, "frei" if q != Vector3.INF else "kein Platz, bleibt"])
 			if q != Vector3.INF:
 				p = q
+				if OS.get_environment("SCHAU_1072") != "":
+					print("1072 Platz gemacht %s an %s, Blick %.0f°" % [f.id, q, rad_to_deg(atan2(-weg.x, -weg.z))])
 			else:
 				# 1453 (reihe_1305 Seed 7, Lauf 524: wolf1 am Bildrand, jede Stelle vom Gegner weg lag außerhalb des Bilds; er blieb
 				# 1,9 m vor dem Helden stehen, die vorderen 2,3 und 2,5 m, der Spieler sah den hinteren vorn): ohne freie Stelle im Bild

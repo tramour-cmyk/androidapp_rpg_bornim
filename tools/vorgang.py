@@ -56,6 +56,9 @@ def finden(nr, rolle=None):
 def fehler_oder(d, alt=None):
     alle = set(startbar.VORG) | {x["nr"] for x in startbar.zeilen_liste()}
     f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN)), alle)
+    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert
+    if alt is not None and d.get("titel") == alt.get("titel"):
+        f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
     # Chef nur mit Datei (275.2): beim Schreiben streng, beim Lesen erfüllt sie sich (Datei weg)
     for t in d["warte"]:
         if startbar.art(t) == "chef" and (alt is None or t not in alt["warte"]):
@@ -280,7 +283,7 @@ def bautest(nr, lauf, rolle=None):
         print("vorgang.py: %s steht auf „%s“; „bautest“ gilt nur für gebaute oder zu testende Vorgänge" % (nr, d["stand"])); sys.exit(1)
     fertig(nr, rolle)
     d = finden(nr, rolle)
-    ersetzen(d, dict(d, stand="erledigt, Bautest Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
+    ersetzen(d, dict(d, stand="erledigt, Bautest Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip(), warte=[w for w in d.get("warte") or [] if w != "Diogenes"]))
 
 def gruppe(L, besitzer):
     """Zeilenindizes der Zeilen eines Besitzers und Einfügestelle für einen neuen Besitzer (Reihenfolge wie die Liste)."""
@@ -532,6 +535,10 @@ def arten(n, text):
             if m0 and i < len(t): aus[m0.group(1)] = re.sub(r"\*\*|`", "", t[i]).strip()
     return aus
 
+def ohne_dich(art_text):
+    """1500: Art „ohne dich“ (Diogenes bestätigt am Lauf), auch mit Zusatz in Klammern."""
+    return bool(re.match(r"ohne dich\b", art_text.strip().lower()))
+
 def handy_offen(n, text, punkte=None):
     """1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“, t286 nach 👍 auf 286.1–.5 gelöscht): Handypunkte ohne Ergebnis;
     solange einer offen ist, bleibt die Prüfliste in ansehen/ und seine Vorgänge bleiben „zu testen“ mit Build n."""
@@ -587,6 +594,7 @@ def build_abschluss(n, datei=None, probe=False):
     fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d not in betroffen and d["wort"] != "erledigt"})
     if not betroffen: sys.exit("vorgang.py: kein Vorgang mit Build %s in der Liste; erst vorgang.py build %s --mit <Nr,…>%s" % (n, n, ("; in der Prüfliste genannt: " + ", ".join(fremd)) if fremd else ""))
     offen_h = handy_offen(n, text, punkte)
+    arten_n = arten(n, text)
     aus = []
     for d in betroffen:
         p = je.get(d["nr"], [])
@@ -601,6 +609,11 @@ def build_abschluss(n, datei=None, probe=False):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
         elif any(x[0] in offen_h for x in p):  # 1277: Handypunkt ohne Ergebnis, der Chef testet noch
             neu_d = d; was = "zu testen (Handy offen: %s)" % ", ".join(x[0] for x in p if x[0] in offen_h)
+        elif p and all(ohne_dich(arten_n.get(x[0], "")) for x in p if x[1] is None):
+            # 1500 (Chef 16.11., 22:42 „wie kann von 292 noch was offen sein?“): ein offener „ohne dich“-Punkt liegt bei Diogenes
+            # (Bautest am Lauf), nicht beim Chef; der Stand sagt das, Diogenes sieht die Zeile über das Feld „wartet auf“
+            neu_d = dict(d, stand="zu testen, Bautest Diogenes t%s" % n, build="–", warte=[w for w in d.get("warte") or [] if w != "Diogenes"] + ["Diogenes"])
+            was = "zu testen (Bautest Diogenes)"
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
