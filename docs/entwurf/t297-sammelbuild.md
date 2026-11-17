@@ -1,5 +1,5 @@
-# Tom und Jerry · Build 297 · Sammelbuild: Zielwahl, Ring erklärt, Erklärfenster, Zurück im Kampf, Höhlenwände, Kampfschirm, Stab, Achsel · PR folgt
-E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17; ohne dich 1505, 1514, 1340), Tom (Handy 1423b, 785.10, 1530, 431h, Prüfzeile 1423a; ohne dich 1516, 1522; Bild 1515/1417/1535), Spike (Handy 1483) · 17.11., 12:40 · APK folgt
+# Tom und Jerry · Build 297 · Sammelbuild: Zielwahl, Ring erklärt, Erklärfenster, Zurück im Kampf, Höhlenloch, Rüstung, Fackelzug · [PR 217](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/217)
+E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17; ohne dich 1505, 1514, 1340), Tom (Handy 1423b, 785.10, 1530, 431h, Prüfzeile 1423a; ohne dich 1516, 1522, 1549, 1155; Bild 1515/1417/1535), Spike (Handy 1483) · 17.11., 14:40 · [APK (Lauf 554, grün)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44089796100/artifacts/14332656664)
 
 Verglichen (alt gegen neu): Zielliste, Ringerklärung, Erklärfenster und Zurück im Kampf gegen `SkirmishScreen.kt` (582–588, 705–725, 1257–1262, 1321–1328, 340, 364, 494) und `MarsTips.kt` 84–89; Funde behoben. Umbau überall: Zielliste und Dämpfen gelten für Angriff, Fähigkeit, Trank und Wurf (ein Weg in `kampf_ui.gd`); die Ringerklärung gibt es nur im Kampf. Höhle, Garrick, Leiste wie Liste 296.
 
