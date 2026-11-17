@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 00:08):** Lauf 285: 1425 wirkt (Tagesbericht hält bei Funden), greift erst am Tagesbericht 17.11. (Feld: Termin vormittags, dann Diogenes); „Zu“ 1472, 1186, 853 (erledigt) gestrichen. Nächste Nummer D286. Nachfolger: Diogenes – 1425 Vorratsprüfung am Tagesbericht 17.11.
+**Übergabe (17.11., 01:1x):** Lauf 286: 1312 wirkt, greift nicht (1250, 517 über 12 h) → 1504 an Perikles, 1312 wartet auf 1504. Nächste Nummer D287. Nachfolger: Diogenes – 1425 Vorratsprüfung am Tagesbericht 17.11.
 
 - **Zu 1485 (Lauf 281):** sobald ein `claude/build-<n>`-Lauf die Datei `bornim-0.348.<Lauf>-build-<n>.apk` hochlädt (Protokoll Schritt „Name des APK“) → `greift 1485 <Lauf>`.
 
@@ -13,7 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
 - **Zu 1388, 1389 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %), 1244 an einem ganzen Tag Pflege-Commits ohne reines Verschieben → `greift`.
-- **Zu 1312, von Perikles (Doppelpack 421, Regel beider Teams, 15.11., 19:34):** `startbar.liegt_ohne_vorlage`: Tom/Jerry, nicht Bereich B, „gebaut“ ohne Build und ohne offenes Feld „wartet auf“, seit dem Wechsel auf „gebaut“ (Git-Verlauf der Liste, `gebaut_seit`) mindestens 6 h → startbar mit Auftrag im Titel (offener Build `build <n> --mit`, sonst Sammelbuild; oder Bild/Film mit Termin). Regel `LISTE-CHECK-BUILD-TEST.md` 3 (ersetzt 2 Tage aus 1129 A 3a), `FIRMA.md`. Prüfen 17.11.: keine Spielcode-Zeile „gebaut“ ohne Build, t<n> oder Termin länger als 12 h (Stand 19:34: 785.8, 1295, 1304, 760 frisch; 1195, 930.6 schon fällig).
+- **Zu 1312 (Lauf 286):** wartet auf 1504 (Perikles); danach keine Spielcode-Zeile „gebaut“ ohne Build, t<n> oder Termin über 12 h (`liegt_ohne_vorlage` + `gebaut_seit` je Tom/Jerry/Spike) → `greift 1312 <Lauf>`.
 - **Zu 1301 (Lauf 253):** am 17.11. jedes 👎 ohne Wort vom 15.–16.11. (`reaktionen.py`, Archiv) mit Nachfrage per `meldung.sh --frage` und „nachgefragt“ oder Wortlaut im Eintrag → `greift 1301 <Lauf>`, sonst Befund an Perikles.
 - **Zu 1128.3 (Rest nach Lauf 251):** nur noch 1060 am ersten Lauf, in dem sich nur Dorffelder von `leute.json` ändern (`klassen` „treffer“, unter „geändert“ von dorf/leute `leute.json:felder`) → `bautest 1060 <Lauf>`, dann 1128.3 erledigt. Läufe bis 484 ohne Fall (Prüfbericht Lauf 251); Lauf 487 (Build 287, 13:04) alle fünf Blöcke Treffer, ohne Fall.
 - **Zu 1282 (D251.1):** nach Erledigt: `grep -rn "gradlew" tools/setup-session.sh tools/alt_bilder.sh` leer → `greift 1282 <Lauf>`.

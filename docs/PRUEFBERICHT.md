@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 286 · 1312 Fertiges vorlegen (Perikles `4ecfd75f6`; 17.11., 01:0x)
+
+- **Werkzeug wirkt:** `startbar.liegt_ohne_vorlage` meldet Jerry 517 (14 h), 1250 (27 h), 1275 (6 h) mit Auftrag „in den offenen Build 294 mischen“; Tom 1460 (0,1 h), Spike 1482/1483 (unter 6 h), Zeilen mit t<n> (1415 t294, 1270.4 t295) richtig frei. Alte Fälle 785.8, 1295, 1304, 1195, 930.6 nicht mehr „gebaut“ ohne Build.
+- **Greift nicht:** 1250 und 517 über 12 h ohne Build, t<n> oder Termin; die laufende Jerry-Sitzung (Build 294) nimmt den Auftrag nicht, Muss 1275 steht in `--startbar` hinter 21 Kür → D286.1 = 1504 an Perikles; 1312 wartet auf 1504.
+
 ## Lauf 285 · 1425 Vorratsprüfung vor dem Tagesbericht (Perikles `8b06e0086`, `102c95f39`; 17.11., 00:0x)
 
 - **Werkzeug wirkt:** `vorratspruefung.py --kurz` 45 Funde (E 2: 649 wartet auf ruhende Tom-Kür 649.3, 644.4; J 40; K 1: Urteil 16.11., 17:53 „293.7 nachgetestet“ ohne Zeile 293.7, Besitzer „?“; L 1: 1482/1483; O 1: 966.2), Exit 0. `tagesbericht.py` ohne Schalter: „HÄLT AN: Vorratsprüfung (1425) hat 5 Funde“, Exit 1 (J zählt nicht, wie beschrieben); Durchlass nur mit `BORNIM_VORRAT_GEPRUEFT=1`.
