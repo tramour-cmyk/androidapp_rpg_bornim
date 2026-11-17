@@ -731,11 +731,13 @@ def offener_build():
     offen = [int(n) for n in nrn if n.isdigit() and not build_im_archiv(n, arch)]
     return max(offen) if offen else None
 
+VORLAGE_MARKE = " (1312: Spielcode gebaut seit "
+
 def vorlage_auftrag(d, h):
     b = offener_build()
     weg = ("in den offenen Build %d mischen (`vorgang.py build %d --mit %s`)" % (b, b, d["nr"]) if b
            else "Sammelbuild anlegen (LISTE-CHECK-BUILD-TEST 3, auch unter 4 Punkten)")
-    return (" (1312: Spielcode gebaut seit %d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
+    return (VORLAGE_MARKE + "%d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
             "ins Feld „wartet auf“; nie „fährt im nächsten Build“ ohne Termin)" % (h, weg))
 
 # 1332 (Chef 15.11., 21:07: „Und wieder bin ich bass erstaunt, dass irgendwelche Sachen rumliegen und sich keiner darum kümmert.“):
@@ -854,7 +856,7 @@ def plan(rolle):
             kl = "M" if d["nr"] in f and d["kl"] != "–" else d["kl"]
             mischen = " (1311: Werkzeug gebaut auf %s, nicht auf main: nach grünem Lauf jetzt mischen, ohne Test des Chefs; dann Diogenes „greift“)" % d["zweig"] if b_nicht_auf_main(d) else ""
             h = liegt_ohne_vorlage(d)
-            if h is not None: mischen = vorlage_auftrag(d, h)
+            if h is not None: mischen = vorlage_auftrag(d, h); kl = "M" if kl not in ("–", "-") else kl  # 1504: Vorlegen ist Muss (auch für die Aushilfe, 433)
             if ohne_rueckmeldung(d): mischen = RUECKMELDUNG_AUFTRAG
             eigen.append((d["nr"], kl, d["titel"] + mischen, d, sperre(d)))
         elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d) and not b_nicht_auf_main(d):  # 724 A, 1221
@@ -881,6 +883,12 @@ def plan(rolle):
         k = 0
         while k < len(rest) and jetzt_zeile(rest[k][3]): k += 1
         zs = rest[:k] + w + rest[k:]
+    v = [z for z in zs if "fuer" not in z[3] and VORLAGE_MARKE in z[2]]  # 1504 (D286.1): Vorlegen nach 1312 vor jedem anderen Muss, nur „jetzt“ und Wiederholtes davor
+    if v:
+        rest = [z for z in zs if z not in v]
+        k = 0
+        while k < len(rest) and (jetzt_zeile(rest[k][3]) or rest[k] in w): k += 1
+        zs = rest[:k] + v + rest[k:]
     n = ungetestet(rolle)
     if n >= GRENZE_UNGETESTET:  # 620.1 B (Chef 08.11., 10:55/10:57): bis zum Test kein neues Muss, außer wiederholt, „jetzt“, Rückläufer
         g = "Sperre 620.1 B: %d ungetestete Muss, erst gemeinsamer Build und Test" % n
@@ -1043,6 +1051,7 @@ def neu_gesperrt(z):
     if d["wort"] == "in Arbeit": return False
     if d["titel"].startswith("Sammelbuild"): return False  # 774: die Sperre wartet auf diesen Build, darf ihn nicht selbst sperren
     if WIEDERHOLT.search(z[2]) or jetzt_zeile(d): return False
+    if VORLAGE_MARKE in z[2]: return False  # 1504: Vorlegen bringt Ungetestetes in den Test, die Sperre wartet genau darauf
     return d.get("build") in ("", "–", "-", None)
 
 def pause(inhalt):
