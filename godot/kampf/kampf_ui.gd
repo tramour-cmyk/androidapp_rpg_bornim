@@ -225,6 +225,17 @@ func _ready() -> void:
 	tip.add_theme_font_size_override("font_size", sp(14))
 	tip.add_theme_stylebox_override("normal", _box(Color.BLACK, GOLD, 8, 6, 1.0))
 	root.add_child(tip)
+	# 785.10 (259, alt SkirmishScreen.kt 1340–1345): „Schnell ›“ im leichten Kampf am Zug der Gruppe, unten links in der Szene,
+	# schwarz mit Rand wie die Schalter rechts; langes Drücken erklärt ([259T.tip])
+	schnell_knopf = _button(t("Schnell ›", "Quick ›"), true, func() -> void: kampfort.schnell(), false, true, SCHNELL_TIP)
+	schnell_knopf.text = t("Schnell ›", "Quick ›")
+	schnell_knopf.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	schnell_knopf.custom_minimum_size = Vector2(0, 40 * dp)
+	for art in ["normal", "hover", "pressed", "disabled"]:
+		schnell_knopf.add_theme_stylebox_override(art, _box(Color.BLACK, RIM, 10, 6, 1.0))
+	schnell_knopf.add_theme_color_override("font_color", GOLD)
+	schnell_knopf.visible = false
+	root.add_child(schnell_knopf)
 	verdict = Label.new()
 	verdict.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	verdict.add_theme_font_size_override("font_size", sp(20))
@@ -621,8 +632,24 @@ func refresh() -> void:
 			continue
 		party_row.add_child(_party_box(f))
 	_build_orders()
+	_schnell_knopf_setzen()
 	if log_area:
 		log_area.queue_redraw()
+
+
+var schnell_knopf: Button
+## 785.10: sichtbar im leichten Kampf (mars.easy, ohne Kerben), wenn die Gruppe wählt: begonnen, niemand spielt, kein Ring, offen
+func _schnell_knopf_setzen() -> void:
+	if schnell_knopf == null:
+		return
+	var k: Variant = kampfort
+	var m: Variant = k.mars
+	var zeig: bool = m.easy() and not m.kerbe and m.started and k.tor == "" and not k.busy and not k.ring_open and m.outcome == "ONGOING"
+	schnell_knopf.visible = zeig
+	if zeig:
+		var sr: Rect2 = k.scene_rect()
+		schnell_knopf.reset_size()
+		schnell_knopf.position = Vector2(sr.position.x + 4 * dp, sr.end.y - schnell_knopf.get_combined_minimum_size().y - 4 * dp)
 
 
 ## 565 (Chef 04.11., 17:10: „unten sehe ich gar nicht, welcher von den beiden es ist“), nur Vorschlag, aus: "" wie alt (alle Kästen

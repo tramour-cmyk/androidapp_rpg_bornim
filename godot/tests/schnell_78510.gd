@@ -71,7 +71,18 @@ func _lauf() -> void:
 	var t: Array = _texte(kf.ui.orders, [])
 	pruefe(t.has("KÄMPFEN") and t.has("SCHNELL"), "leichter Kampf wartet auf „Kämpfen“ oder „Schnell“: %s" % [t])
 	pruefe(t.any(func(x): return String(x).begins_with("Ein leichter Kampf: dein Held Stufe 14, der stärkste Gegner Stufe ")), "darüber [259T.frage]: %s" % [t])
-	kf.schnell()
+	pruefe(not kf.ui.schnell_knopf.visible, "vor der Wahl kein Eckknopf „Schnell ›“")
+	kf.tor_wahl(false)     # erst „Kämpfen“, dann am Zug der Gruppe der Eckknopf
+	n = 0
+	while (kf.busy or kf.ring_open) and kf.mars.outcome == "ONGOING" and n < 1800:
+		n += 1
+		if kf.ring_open: kf.tap()
+		await process_frame
+	kf.ui.refresh()
+	await process_frame
+	pruefe(kf.mars.outcome != "ONGOING" or kf.ui.schnell_knopf.visible, "am Zug der Gruppe steht unten links „Schnell ›“ (Kampf: %s, sichtbar %s)" % [kf.mars.outcome, kf.ui.schnell_knopf.visible])
+	if kf.mars.outcome == "ONGOING":
+		kf.ui.schnell_knopf.pressed.emit()
 	n = 0
 	while (kf.busy or kf.mars.outcome == "ONGOING") and n < 1800:
 		n += 1
