@@ -246,7 +246,10 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	var bogen := gang == "bogen"
 	if gang == "schild": _abspreizen(sk, ih, schwert_abspreiz)
 	R = hand_rahmen(sk, seite)
-	var d := (R.basis * (BOGEN_ACHSE if bogen else GRIFF_ACHSE)).normalized()
+	# 1516 (Chef 17.11., 07:32: Stab des Zauberlehrlings im Hauptmenü 10 cm neben der Hand): GRIFF_* gelten rechts; links ist der Rahmen
+	# gespiegelt (wie beim Bogen innen +z), sonst lief der Schaft am Handrücken statt durch die Faust
+	var spiegel := Vector3(1, 1, -1) if seite == "l" else Vector3.ONE
+	var d := (R.basis * (BOGEN_ACHSE if bogen else GRIFF_ACHSE * spiegel)).normalized()
 	zwei_winkel = 0.0
 	if gang == "axt" and seite == "r":
 		var RL := hand_rahmen(sk, "l")
@@ -260,7 +263,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 			d = dn
 	var _mitte := _faust_zu(sk, ih, d)
 	R = hand_rahmen(sk, seite)
-	var p := R * (BOGEN_PUNKT if bogen else GRIFF_PUNKT)
+	var p := R * (BOGEN_PUNKT if bogen else GRIFF_PUNKT * spiegel)
 	var dw := (G.basis * d).normalized()
 	schaft_welt = dw
 	faust_welt = G * p
