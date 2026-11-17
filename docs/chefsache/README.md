@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 10:21, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 10:27, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -24,11 +24,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 62 (61) | 18 | 0 | 1 | 10 | 385.2 (Jerry) Feuer aus der Stabspitze bei Feuerpfeil, Feuerball |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (16) | 8 | 0 | 1 | 8 | 431h (Tom) Rückfrage zu 431: angelegte Rüstung am Helden sic… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (16) | 8 | 0 | 0 | 8 | 431h (Tom) Rückfrage zu 431: angelegte Rüstung am Helden sic… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (52) | 5 | 0 | 5 | 23 | 1530 (Tom) Intro wie alt: Fackelträger laufen in den Tempel;… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 8 (13) | 2 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
-| **7** Werkzeuge und Abläufe der Firma | 43 (43) | 25 | 0 | 0 | 9 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
+| **7** Werkzeuge und Abläufe der Firma | 44 (43) | 25 | 0 | 0 | 9 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 46 | 202 | 248 | 1108 |
-| neu | 40 | 164 | 204 | 1094 |
-| **netto** (erledigt − neu) | **+6** | **+38** | **+44** | **+14** |
+| neu | 41 | 164 | 205 | 1095 |
+| **netto** (erledigt − neu) | **+5** | **+38** | **+43** | **+13** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -46,7 +46,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [t296](ansehen/t296-sammelbuild.md) testen, hält 4 Zeilen; dann 2 weitere |
-| Tom | 431h Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuo… (Muss); dann 3 weitere |
+| Tom | 431h Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuo… (Muss); dann 2 weitere |
 | Jerry | 385.2 Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | 1512 Testmenü auf Englisch: unten bei „Show Animals/Monsters“ en… (Kür) |
@@ -60,27 +60,27 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 431h | Tom | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → K… | M | 3 Kleiderschrank und Modelle | startbar |
-| 2 | 1535 | Tom | Kleidung hängt bei anderen NPCs in der Ruhebewegung an einer Hand, „sollte man… | M | 3 Kleiderschrank und Modelle | startbar |
-| 3 | 1530 | Tom | Intro wie alt: Fackelträger laufen in den Tempel; Chef sieht ihn nicht mehr, „b… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 4 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 5 | 1137 | Sokrates | Vollzugsmeldung je Entscheid: Folgeaufträge melden Vollzug auf Telegram, Sticht… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
-| 7 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 8 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 9 | 1529 | Sokrates | Ausdauer im Kampf: hart angreifen kostet Ausdauer, leer kein harter Angriff meh… | K | 2 Kampf passt | startbar |
-| 10 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 11 | 1533 | Sokrates | Gegner ohne Zahlen: Zustand und Stärke in Worten nach Lesestufe, keine Stufe de… | K | 2 Kampf passt | startbar |
-| 12 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 13 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 14 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 15 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
-| 16 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
-| 17 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
-| 18 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
-| 19 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
-| 20 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
+| 2 | 1530 | Tom | Intro wie alt: Fackelträger laufen in den Tempel; Chef sieht ihn nicht mehr, „b… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 3 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 4 | 1137 | Sokrates | Vollzugsmeldung je Entscheid: Folgeaufträge melden Vollzug auf Telegram, Sticht… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
+| 6 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 7 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 8 | 1529 | Sokrates | Ausdauer im Kampf: hart angreifen kostet Ausdauer, leer kein harter Angriff meh… | K | 2 Kampf passt | startbar |
+| 9 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 10 | 1533 | Sokrates | Gegner ohne Zahlen: Zustand und Stärke in Worten nach Lesestufe, keine Stufe de… | K | 2 Kampf passt | startbar |
+| 11 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 12 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 13 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 14 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 15 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
+| 16 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 17 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 18 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 19 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
+| 20 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
 
-Danach 76 weitere offen. Bei dir zum Testen (vorgelegt): 8. Gebaut, fährt mit dem nächsten Build: 13. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 67.
+Danach 76 weitere offen. Bei dir zum Testen (vorgelegt): 7. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 67.
 ## Zu entscheiden
 
 Nichts offen.
@@ -96,7 +96,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.546](ansehen/t295-sammelbuild.md) | [Build 295](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44024918701/artifacts/14303487932) | Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen | Spike | 17.11., 07:15 |
-| 2 | [0.348.548](ansehen/t296-sammelbuild.md) | [Build 296](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44033571913/artifacts/14307153462) | Sammelbuild: Höhlenwände in voller Höhe, Garricks Fackel, Leiste ohne Wörter, Schneidern | Tom | 17.11., 08:18 |
+| 2 | [0.348.551](ansehen/t296-sammelbuild.md) | [Build 296](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44049709181/artifacts/14314571449) | Sammelbuild: Höhlenwände in voller Höhe, Garricks Fackel, Leiste ohne Wörter, Schneidern | Tom | 17.11., 10:27 |
 
 ## Zu tun
 
