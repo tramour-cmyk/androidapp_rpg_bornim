@@ -1800,8 +1800,8 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 		"t0": k.clock_ms + after_ms, "nr": nr})
 	# Feuer wirft Licht auf Gegner und Boden (Helfer Lauf 126: „Feuer ohne Licht“; DESIGN-STIL Signatur: Licht aus Quellen)
 	if kind == "FIREBALL" and by != on and k.figures.has(by) and k.figures.has(on):     # 385.2: die Glutkugel trifft die Reihe, bleibt gemalt
-		var fb = k.figures[by]
-		var fo = k.figures[on]
+		var fb: Figur = k.figures[by]
+		var fo: Figur = k.figures[on]
 		get_tree().create_timer(maxf(after_ms, 0.0) / 1000.0).timeout.connect(func() -> void:
 			if is_instance_valid(fb) and is_instance_valid(fo) and fb.cast_point() != null:
 				_wirken(kind, fb, fb.cast_point(), fo.position + Vector3.UP * (fo.head().y - fo.position.y) * 0.55))
@@ -1845,7 +1845,7 @@ static func geschoss_r2(kind: String) -> PackedScene:
 
 func _arkan_flug(by, on, missed: bool, after_ms: float, kind := "MISSILES") -> void:
 	if after_ms > 0.0:
-		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): _arkan_los(by, on, missed, kind))
+		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func() -> void: _arkan_los(by, on, missed, kind))
 	else:
 		_arkan_los(by, on, missed, kind)
 
@@ -1873,7 +1873,7 @@ func _arkan_los(by, on, missed: bool, kind := "MISSILES") -> void:
 
 
 ## 385.2: Feuer an der Stabspitze beim Loslassen (werte.json fx zauber_wirken), in Flugrichtung; ohne Paket nichts
-func _wirken(kind: String, by, von: Vector3, ziel: Vector3) -> void:
+func _wirken(kind: String, by: Figur, von: Vector3, ziel: Vector3) -> void:
 	var name := String((TrefferFx.tabelle().get("zauber_wirken", {}) as Dictionary).get(kind, ""))
 	if name != "" and is_instance_valid(kampfort):
 		gewirkt.append([kind, von, TrefferFx.zeige(name, kampfort, kampfort.to_local(von), by.head().y - by.position.y, ziel - von)])
