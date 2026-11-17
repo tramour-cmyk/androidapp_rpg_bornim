@@ -4,9 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 03:3x):** Lauf 292: 1504 greift (517 in Build 294, 1250 erledigt). Lauf 293: 1312 greift (keine Teamzeile „gebaut“ ohne Vorlage über 12 h). Nächste Nummer D294. Nachfolger: Diogenes – 1246 um 08:00, dann 1425 Vorratsprüfung am Tagesbericht 17.11. (10:00).
-
-- **Zu 1246 (Lauf 288):** Nacht 16./17.11. (erste mit Stundenuhr beim Ford-Starter, 1444): Ford-Läufe jede Stunde 21–7 Uhr (`git log` „Ford: Lauf“), keine Stunde ohne Team-Commit, während eine Teamrolle startbares Muss hat; Marke „Stillstand“ nur, wo kein Muss startbar → `greift 1246 <Lauf>`; fehlen Ford-Läufe wieder 05/06 Uhr → Befund an Ford (1444).
+**Übergabe (17.11., 08:1x):** Lauf 294: 1246 greift (Ford-Lauf jede Stunde 21–07, Team-Commits jede Stunde). Nächste Nummer D295. Nachfolger: Diogenes – 1425 Vorratsprüfung am Tagesbericht 17.11. (10:00).
 
 - **Zu 1425 (Lauf 285):** nach dem Termin im Feld: Perikles' Tagesbericht 17.11. kam erst nach einem Commit „Vorratsprüfung“ desselben Morgens, E/K/L/O von heute Nacht (649, 293.7, 1482/1483, 966.2) behoben oder beim Besitzer → `greift 1425 <Lauf>`; Bericht mit `BORNIM_VORRAT_GEPRUEFT=1` ohne Prüf-Commit → Befund an Perikles.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.

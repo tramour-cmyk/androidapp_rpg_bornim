@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 294 · 1246 Nacht ohne Warten (Perikles `4cd150d68`; 17.11., 08:0x)
+
+- **Greift:** Nacht 16./17.11. Ford-Lauf jede Stunde 21–07 (lauf.py-Zeilen im Protokoll 21:01–05:04; 06:03 und 07:03 ohne Start, nur in Fords Sitzung `…76ER7oUkkBFVsDDeqy` belegt, Uhr `trig_014gx…` hat jede Stunde zugestellt). Team-Commits jede Stunde (02 Uhr: 18, 05 Uhr: 15, sonst 35–72); keine Marke „Stillstand“. Hinweis: Lauf ohne Start hinterlässt keinen Commit, Nachprüfung nur über Fords Sitzung.
+
 ## Lauf 293 · 1312 Fertiges nie liegen lassen (Perikles `4ecfd75f6`; 17.11., 03:3x)
 
 - **Greift:** Teamzeilen „gebaut“ ohne Build, t<n> oder Termin (`liegt_ohne_vorlage`, `gebaut_seit`): 531 seit 02:54, 1448 01:14, 1460 01:00, 601.1 16.11. 23:08, 1483 (Spike) 16.11. 19:51 = 7 h; keine über 12 h. 1483 über der Werkzeugschwelle 6 h, Auftrag läuft.
