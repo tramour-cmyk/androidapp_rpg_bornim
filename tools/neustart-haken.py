@@ -4,6 +4,8 @@
   neustart-haken.py prompt   bei jeder Nachricht des Nutzers (UserPromptSubmit): misst, wie stark das Gespräch
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
+  neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung ab 200 Tsd., Sperre ab 300 Tsd.
+                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo oder Ford 400/500 Tsd.; nie im Test des Chefs).
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
@@ -149,6 +151,19 @@ def pruefliste(pfad, eingabe):
     return None
 
 
+def geschuetzt():
+    """1531 (Chef 17.11., 08:52): diese Sitzung steht in „**Nie archivieren:**“ (ARBEIT-BETRIEB.md): keine Neustart-Erinnerung."""
+    import re
+    kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")
+    if not kennung.startswith("cse_"): return False
+    for d in ("/home/user/bornim-main/docs", os.path.join(os.environ.get("CLAUDE_PROJECT_DIR", "."), "docs")):
+        try: text = open(os.path.join(d, "ARBEIT-BETRIEB.md")).read()
+        except OSError: continue
+        m = re.search(r"(?m)^\*\*Nie archivieren:?\*\*:?(.*)$", text)
+        return bool(m) and ("session_" + kennung[4:]) in m.group(1)
+    return False
+
+
 def prompt(eingabe):
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
@@ -170,7 +185,7 @@ def prompt(eingabe):
     except Exception:
         pass
     kern(sitzung)
-    if not pfad or not os.path.exists(pfad):
+    if not pfad or not os.path.exists(pfad) or geschuetzt():
         return
     plus, gesamt = zuwachs(groessen(pfad))
     zpfad = f"/tmp/bornim-neustart-{sitzung}.json"
@@ -206,6 +221,117 @@ def prompt(eingabe):
             print(text(stufe, plus, gesamt, ab, ford))
     with open(zpfad, "w") as f:
         json.dump({"stufe": stufe, "seit": seit}, f)
+
+
+SPERRE_AB = int(os.environ.get("BORNIM_SPERRE_AB", "300000"))
+WERKZEUG_ALLE = 25  # 1537: Erinnerung an Werkzeugaufrufen höchstens alle 25 Aufrufe
+# 1537 (1520 so, Chef 17.11., 10:00): ab der Sperre nur noch Übergabe, Push, Neustart-Nachricht an Ford
+FREI_WERKZEUG = {"ToolSearch", "ReadNotifications", "TaskStop", "mcp__claude-code-remote__send_message",
+                 "mcp__claude-code-remote__get_session", "mcp__claude-code-remote__list_sessions",
+                 "mcp__claude-code-remote__set_session_title", "mcp__claude-code-remote__create_session"}
+FREI_DATEI = r"/docs/(ARBEIT-[^/]*|LISTE-REGELTREUE|LISTE-RELEASE-NEUSTART)\.md$"  # Übergabe, Zählung sichern (347), Neustart-Ablauf lesen (1540)
+FREI_BASH = (r"^\s*(do\s+|then\s+)?(cd \S+\s*$|git( -C \S+)? (add|commit|push|pull|fetch|merge|status|log|diff|show|rev-parse|branch)\b"
+             r"|python3 (\S*/)?tools/(vorgang|regelcheck|startbar|zug-haken)\.py|(\S*/)?tools/(notiz|meldung)\.sh"
+             r"|(grep|sed -n|cat|head|tail)\b.*\bdocs/LISTE-RELEASE-NEUSTART\.md"
+             r"|for \w+ in [\w ]+$|(break|done|fi|true|sleep \d+)\s*$|if git\b)")  # Push mit Wiederholschleife (1540)
+
+
+def letzte_groesse(pfad, rueck=3_000_000):
+    """1537: nur die letzte Antwort zählt; liest das Protokollende, damit jeder Werkzeugaufruf billig bleibt."""
+    with open(pfad, "rb") as f:
+        f.seek(0, 2)
+        f.seek(max(0, f.tell() - rueck))
+        zeilen = f.read().decode("utf-8", errors="replace").splitlines()
+    for zeile in reversed(zeilen):
+        if '"usage"' not in zeile:
+            continue
+        try:
+            d = json.loads(zeile)
+        except ValueError:
+            continue
+        if d.get("type") != "assistant" or d.get("isSidechain"):
+            continue
+        u = (d.get("message") or {}).get("usage") or {}
+        t = sum(int(u.get(k) or 0) for k in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens"))
+        if t > 0:
+            return t
+    return 0
+
+
+def frei(eingabe):
+    """1537: erlaubt ab der Sperre: Übergabe (Vorrat docs/ARBEIT-*.md lesen und schreiben), Commit und Push, Meldung, Nachricht an Ford."""
+    import re
+    werkzeug = str(eingabe.get("tool_name") or "")
+    ein = eingabe.get("tool_input") or {}
+    if werkzeug in FREI_WERKZEUG:
+        return True
+    if werkzeug in ("Read", "Edit", "Write"):
+        return bool(re.search(FREI_DATEI, str(ein.get("file_path") or "")))
+    if werkzeug == "Bash":
+        befehl = str(ein.get("command") or "")
+        befehl = re.sub(r"<<-?\s*['\"]?(\w+)['\"]?.*?^\s*\1\s*$", "", befehl, flags=re.S | re.M)  # Hier-Dokument (Commit-Nachricht)
+        befehl = re.sub(r"\"(?:[^\"\\]|\\.)*\"|'[^']*'", "''", befehl, flags=re.S)  # Text in Anführungszeichen
+        befehl = re.sub(r"\s\d?>&\d|\s\d?>\s*/dev/null|\s*\|\s*(tail|head|grep)\b[^|;&\n]*", "", befehl)  # 2>&1, 2>/dev/null, | tail -5
+        if re.search(r"[|>`]|\$\(", befehl.replace("||", "&&")):
+            return False
+        teile = [t for t in re.split(r"\s*(?:&&|\|\||;|\n)\s*", befehl.strip()) if t.strip()]
+        return bool(teile) and all(re.match(FREI_BASH, t) for t in teile)
+    return False
+
+
+def werkzeug(eingabe, art):
+    """1537 (1520 so, Chef 17.11., 10:00): Neustart-Haken an jedem Werkzeugaufruf, damit lange Züge ohne Nachricht nicht ungemessen bleiben.
+    art „vor“ (PreToolUse): ab SPERRE_AB (mit Kaufrepo oder Ford doppelt) Rückgabe 2 = Aufruf gesperrt, außer frei();
+    art „nach“ (PostToolUse): ab AB (doppelt ebenso) alle WERKZEUG_ALLE Aufrufe eine Erinnerung, zählt die Stufe weiter (Weiter-Haken 195).
+    Nie, solange der Chef einen Build der Sitzung testet (812, 865) oder die Sitzung geschützt ist (1531)."""
+    pfad = eingabe.get("transcript_path")
+    if not pfad or not os.path.exists(pfad) or geschuetzt():
+        return 0
+    gesamt = letzte_groesse(pfad)
+    sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
+    ford = name(pfad, sitzung).startswith("Ford")
+    doppelt = ford or os.path.isdir(os.path.join(KAUF, ".git"))
+    ab = AB + (AB if doppelt else 0)            # 200 / 400 Tsd.
+    sperre = SPERRE_AB + (AB if doppelt else 0)  # 300 / 500 Tsd.
+    if gesamt < ab:
+        return 0
+    zpfad = f"/tmp/bornim-neustart-{sitzung}.json"
+    try:
+        with open(zpfad) as f:
+            z = json.load(f)
+    except (OSError, ValueError):
+        z = {}
+    aufrufe = int(z.get("aufrufe", 0)) + (1 if art == "nach" else 0)
+    k = lambda n: f"{round(n / 1000)} Tsd."
+    if art == "vor":
+        if gesamt < sperre or frei(eingabe):
+            return 0
+        test = z.get("test")
+        if test is None:  # Prüfliste liest das ganze Protokoll, darum zwischengespeichert (frisch alle WERKZEUG_ALLE Aufrufe)
+            test = "" if ford else (pruefliste(pfad, {}) or "")
+            z["test"] = test
+            with open(zpfad, "w") as f:
+                json.dump(z, f)
+        if test:
+            return 0
+        sys.stderr.write(f"Neustart-Haken (1537): Das Gespräch ist {k(gesamt)} Token lang, Sperre ab {k(sperre)}: erlaubt sind nur noch "
+                         "Übergabe (docs/ARBEIT-*.md), Commit und Push, meldung.sh, vorgang.py und die Nachricht an Ford "
+                         + ("(Selbstneustart nach LISTE-BETRIEB.md)." if ford else "„Neustart <Name>, <Commit>“ (send_message); im Chat danach genau „Weiter in <Titel>: <Link>“."))
+        return 2
+    z["aufrufe"] = aufrufe
+    if aufrufe % WERKZEUG_ALLE == 0 or "test" not in z:
+        try:
+            z["test"] = "" if ford else (pruefliste(pfad, {}) or "")
+        except Exception:
+            z["test"] = ""
+    if not z["test"] and (aufrufe % WERKZEUG_ALLE == 1 or int(z.get("stufe", 0)) == 0):
+        stufe = int(z.get("stufe", 0)) + 1
+        z["stufe"], z["seit"] = stufe, 0
+        hinweis = text(stufe, 0, gesamt, ab, ford).replace("; seit dem Start +0 Tsd.", "") + f" Ab {k(sperre)} sperrt der Haken jeden Werkzeugaufruf außer Übergabe, Push und Nachricht an Ford (1537)."
+        print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": hinweis}}, ensure_ascii=False))
+    with open(zpfad, "w") as f:
+        json.dump(z, f)
+    return 0
 
 
 def kern(sitzung):
@@ -254,11 +380,15 @@ def main():
         prompt(eingabe)
     elif art == "start":
         start(eingabe)
+    elif art in ("vor", "nach"):
+        return werkzeug(eingabe, art)
+    return 0
 
 
 if __name__ == "__main__":
+    code = 0
     try:
-        main()
+        code = main() or 0
     except Exception:
-        pass
-    sys.exit(0)
+        code = 0
+    sys.exit(2 if code == 2 else 0)

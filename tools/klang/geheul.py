@@ -3,7 +3,7 @@ Kampfgeheul (D3, mit 18): der Leitwolf heult im Kampf aus der Nähe, statt des e
 Je Fassung eine andere Aufnahme (D1.14) und eine andere Stelle als das ferne Wolfsgeheul (umwelt.py).
 
     python3 tools/klang/geheul.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben zum Anhören
-    python3 tools/klang/geheul.py <ordner mit den Aufnahmen> --spiel    # OGG nach app/src/main/assets/sfx
+    python3 tools/klang/geheul.py <ordner mit den Aufnahmen> --spiel    # OGG nach godot/daten/klang/sfx
 
 Aufnahmen (Freesound, Vorschau 128 kbit/s, alle CC0): 500646 betchkal „Cooper Creek … solitary wolf howl very clear“
 (zweiter Heuler), 143568 ondrosik „wolfs“ (ein Heuler vor dem Chor), 651193 Borgory „Wolfes howl howling Wolf Pack
@@ -24,7 +24,7 @@ def finish(x): return norm(trim(x, -60), -1.0, -19)
 
 if OUT == "--spiel":
     import subprocess
-    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in S.items():
         for i, x in enumerate(takes):
             tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, finish(x))

@@ -289,6 +289,19 @@ VERGLEICH = re.compile(r"(?i)\b(?:als|wie)\s+(?:in\s+|im\s+|bei\s+|mit\s+)?(?:de
 GEMESSEN = re.compile(r"\d+(?:,\d+)?\s*(?:s|ms|Sek\w*|Min\w*|fps|Bilder/s|%|Prozent)(?![\wäöü])")
 
 
+MIN_HANDY = 4
+
+
+def handypunkte(inhalt):
+    """1524: Zahl der Zeilen mit Art „Handy“ in einer Prüfliste, None ohne Spalte Art."""
+    tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in inhalt.splitlines() if zl.startswith("|")]
+    kopf = next((r for r in tab if "Art" in r), None)
+    if not kopf: return None
+    sa = kopf.index("Art")
+    return sum(1 for r in tab if r and re.fullmatch(r"\*?\d+\.\d+[a-z]?(\.\d+[a-z]?)*\*?", r[0]) and len(r) > sa
+               and r[sa].lower().startswith("handy"))
+
+
 def art_weg_befunde(inhalt):
     """1398: Bild/Film ohne APK-Weg, „Ein Weg“ ohne Bild-/Filmnummer, Handy nur zum Lesen (Warnung). [(stop|warn, Text)]"""
     tab = [[c.strip() for c in zl.strip().strip("|").split("|")] for zl in inhalt.splitlines() if zl.startswith("|")]
@@ -455,7 +468,7 @@ def main():
             genannt = {x for nrs, _, _ in vorgang.ergebnisse(n, pl).values() for x in nrs}
             # 1121 (t282, 1040.1): „zu testen, ohne Rückmeldung tN“ setzt vorgang.py build N selbst (Build „–“), das ist gebucht, nicht lose
             lose = [d["nr"] for d in startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")) if d["nr"] in genannt and d.get("build") != n and d["wort"] in ("zu testen", "gebaut")
-                    and ("ohne Rückmeldung t%s" % n) not in d["stand"]]
+                    and ("ohne Rückmeldung t%s" % n) not in d["stand"] and ("Bautest Diogenes t%s" % n) not in d["stand"]]  # 1500
             if lose: stop.append("VORGANGSARCHIV.md: Test t%s eingetragen, aber %s aus der Prüfliste ohne Build %s; erst `vorgang.py build %s --mit %s`, dann `vorgang.py build %s` (774)" % (n, ", ".join(lose[:8]), n, n, ",".join(lose), n))
     try: gueltig_pruefen(dat, stop, warn)
     except Exception as e: warn.append("461b-Prüfung übersprungen: %s" % e)
@@ -487,6 +500,13 @@ def main():
         if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
             for f in art_weg_befunde(git("show", ":" + p)):  # 1427: Vergleich hält nur neue Listen an, Nachträge an alten warnen
                 (stop if f[0] == "stop" or (f[0] == "vergleich" and s == "A") else warn).append("%s: %s" % (p, f[1]))
+    for s, p in dat:  # 1524 (Chef 17.11., 08:10 zu Build 295 mit einem Handypunkt, 600 MB mobil: „100-mal geregelt“, 783 W2)
+        if s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p):
+            n = handypunkte(git("show", ":" + p))
+            if n is not None and n < MIN_HANDY:
+                stop.append("%s: %d Handypunkt(e), Testbitte erst ab %d (1524, 783 W2; Bild, Film, Test, „ohne dich“ zählen nicht): "
+                            "Punkte ohne dich nach grünem Lauf ohne Testbitte auf main einspielen (1312), Handypunkte warten im offenen "
+                            "Build; unter %d keine APK an den Chef (LISTE-CHECK-BUILD-TEST.md 3)" % (p, n, MIN_HANDY, MIN_HANDY))
     for s, p in dat:  # 1217 (Chef 13.11., 20:13 zu t284.7p: „da gibt es gar kein P … Ah, das ist in der falschen Reihenfolge“): ab Build 285
         m = re.match(r"docs/(?:chefsache/ansehen|entwurf)/t(\d+)-[^/]+\.md$", p)   # die Zeilen jeder Tabelle in Nummernfolge
         if s == "D" or not m or int(m.group(1)) < 285: continue
@@ -593,6 +613,11 @@ def main():
     if any(p in ("tools/sim444/werte.json", "docs/LISTE-REGELWERTE.md", "tools/regelwerte.py") for s, p in dat if s != "D"):
         r = subprocess.run([sys.executable, "tools/regelwerte.py", "--pruefen"], capture_output=True, text=True)
         if r.returncode: stop.append("Regelwerte (969): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
+    # 1385 (649b A Build 1): Kennungstabelle gegen Code, Klänge, Absichten; hält nur bei neuen Befunden (Sperrklinke)
+    if any(s != "D" and (p in ("tools/sim444/werte.json", "godot/daten/klang/kampfklang.json", "tools/figurenpruefung.py")
+                         or (p.startswith("godot/") and p.endswith(".gd") and "/tests/" not in p)) for s, p in dat):
+        r = subprocess.run([sys.executable, "tools/figurenpruefung.py", "--pruefen"], capture_output=True, text=True)
+        if r.returncode: stop.append("Figurenprüfung (1385): " + (r.stdout.strip().replace("\n", "; ") or "Prüfung fehlgeschlagen"))
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     if stop:

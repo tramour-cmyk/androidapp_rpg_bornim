@@ -17,11 +17,8 @@ var kampf: Node
 var tabellen: Dictionary
 
 
-## 494 (Kauf 348.12c, LISTE-FIGUREN): der Riesenegel ersetzt die Stirge, die Säureschnecke die Ockergallerte
-const NAMEN_494 := {"LEECHES": ["Riesenegel", "Giant Leech"], "SLUGS": ["Säureschnecke", "Acid Slug"],
-	# 506 (348.12c, LISTE-FIGUREN): der Wiedergänger ersetzt den Zombie, der Grabhund den Ghul (Regeln unter dem alten Namen)
-	"WIEDERGAENGER": ["Wiedergänger", "Revenant"], "WIEDERGAENGER3": ["Wiedergänger", "Revenant"],
-	"GRABHUND": ["Grabhund", "Grave Hound"], "GRABHUNDE": ["Grabhund", "Grave Hound"]}
+## 1385 (649b A, [1473.namen]): Anzeigenamen aller Arten nur aus werte.json „kennungen“ (Riesenegel, Säureschnecke, Wiedergänger,
+## Grabhund, Grimmzahn); die Liste NAMEN_494 (494, 506) fiel weg
 
 
 ## Die Gegner einer Gruppe (Aufstellung, Namen und Aussehen wie im Probekampf; probe.gd ruft das auch)
@@ -98,8 +95,8 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			# Rudels wie beim Wolf (Mars.wolfig)
 			m.koerper = Mars.WOLF
 			m.pack = "dire_wolf"
-			m.de = "Grimmzahn, der Leitwolf"
-			m.en = "Grimfang the Alpha"
+			m.de = Brs.name("dire_wolf")     # 1385: Name aus der Kennungstabelle ([1473.namen])
+			m.en = Brs.name("dire_wolf", 1)
 		elif foe == "GRIMM":     # 533: seine Leibwache wie alt (Packs.kt guard)
 			m = m.duplicate(true)
 			m.chance = float(Brs.begleiter("Leibwache", "dire_wolf").get("chance", LEIBWACHE.chance))     # 870.3: werte.json
@@ -114,10 +111,6 @@ static func gegner(foe: String, monsters: Dictionary, dice) -> Array:
 			m = (monsters[ART[foe]] as Dictionary).duplicate(true)
 			m.koerper = e[1]
 			m.pack = ART[foe]
-		elif foe in NAMEN_494:     # 494: Name nach LISTE-FIGUREN (Regeln noch unter dem alten Namen)
-			m = m.duplicate()
-			m.de = NAMEN_494[foe][0]
-			m.en = NAMEN_494[foe][1]
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 		if foe == "GRIMM" and e[0] != Figur.GRIMM:
 			foes[foes.size() - 1].follows = Figur.GRIMM     # 533: fällt Grimmzahn, flieht die Leibwache (mars.gd _pack_flees)
@@ -186,7 +179,6 @@ static func blatt(h, zweite = null) -> Dictionary:
 	var schild = h.schild()
 	return {"name": h.name, "race": HeldFigur.volk_modell(h.volk), "herkunft": h.herkunft, "level": h.stufe,
 		"sp": h.mana, "sp_max": h.max_mana(), "skills": [], "main": _waffe(h, h.waffe()), "second": _waffe(h, zweite) if zweite != null else null,
-		"off": _waffe(h, h.nebenwaffe()) if h.nebenwaffe() != null else null,
 		"schild": String(schild["base"]) if schild != null else "",   # 406: Modell in der Hand (figur.gd)
 		# 999.1: Fackel in der Nebenhand, im Kampf in der linken Faust (figur.gd _fackel_kauf)
 		"fackel": h.ding("OFF_HAND") != null and String(Beute.grundform(String(h.ding("OFF_HAND")["base"])).get("art", "")) == "LIGHT",

@@ -38,7 +38,7 @@ func _lauf() -> void:
 	# 944 (t276.5): Schaden als Zahl nach dem BRS, kein Würfel, keine Zeile „Mit beiden Händen“
 	var gut := Beute.schaden(schwert)
 	pruefe(gut > int(BrsHeld.lade()["waffen"][BrsHeld.fertigkeit_von("longsword")]["schaden"]), "870.7: Güte „Gut“ hebt den Schaden nicht (%d)" % gut)
-	for soll in ["Haupt- oder Nebenhand · Stufe 3", "Schaden %d · Schnitt" % gut, "Güte: Gut", "Fertigkeit: Einhänder", "Schaden mit Kraft"]:
+	for soll in ["Haupthand · Stufe 3", "Schaden %d · Schnitt" % gut, "Güte: Gut", "Fertigkeit: Einhänder", "Schaden mit Kraft"]:
 		pruefe(t.contains(soll), "Langschwert ohne „%s“" % soll)
 	pruefe(not t.contains("Angriff") and not t.contains(" +1"), "870.7: Langschwert mit „Angriff +n“ oder „+1“: %s" % t)
 	pruefe(RegEx.create_from_string("\\d+W\\d+").search(t) == null and not t.contains("Mit beiden Händen"), "Langschwert mit Würfeltext: %s" % t)

@@ -5,7 +5,7 @@ Stimmengewirr, Regel „Ortsklang nur von dem, was da ist“ in docs/DESIGN-STIL
 (Quellen: QUELLEN.md). Schreibt nur diese Dateien, die übrigen Klänge bleiben unberührt.
 
     tools/klang/holen.sh <ordner>                          # Aufnahmen laden (einmal), dazu die Ortsaufnahmen unten
-    python3 tools/klang/orte.py <ordner>                   # nach app/src/main/assets/sfx
+    python3 tools/klang/orte.py <ordner>                   # nach godot/daten/klang/sfx
     python3 tools/klang/orte.py <ordner> --proben <ziel>   # je Klang eine Hörprobe (alle Fassungen hintereinander)
 """
 import sys, os, subprocess, numpy as np, soundfile as sf
@@ -39,7 +39,7 @@ def hall(x, a, lp, seed=1):
 LOOPS = {
     # draußen (Dorf, Wald): Wind in Böen, mal hell, mal dumpf
     "wind": [loop(wind, 6.0), loop(lowpass(wind, 3000, 2), 52.0) if len(wind) > 63 * SR else loop(lowpass(wind, 3000, 2), 20.0),
-             loop(park, 400.0 / 2)],
+             loop(lowpass(park, 1800, 8), 400.0 / 2)],   # 517 (t269.26): im Park zwitschern Vögel (5 s, 8 s), auch nachts und im Tiefen Wald; über 1,8 kHz weg
     # Tempel: Luft in einer hohen Halle, fast still
     # (Hall vor dem Schneiden, damit die Schleife 10 s bleibt: SoundPool kürzt Klänge über etwa 1 MB)
     "hall": [hall(wind, 20.0, 900), hall(park, 120.0, 800, 2), hall(wind, 30.0, 1100, 3)],
@@ -81,7 +81,7 @@ if "--proben" in sys.argv:
         os.remove(tmp)
     print("Proben:", out)
 else:
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in ALL.items():
         for i, x in enumerate(takes):
             y = level(name, x)

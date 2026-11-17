@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang impor
 D, OUT = sys.argv[1], sys.argv[2]
 NUR = sys.argv[sys.argv.index("--nur") + 1].split(",") if "--nur" in sys.argv else None
 SPIEL = OUT == "--spiel"
-if SPIEL: OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+if SPIEL: OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
 os.makedirs(OUT, exist_ok=True)
 
 _index = {}

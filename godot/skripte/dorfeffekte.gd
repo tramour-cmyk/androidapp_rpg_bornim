@@ -11,6 +11,11 @@ extends Node3D
 const VFX := "res://addons/reeboo_vfx/"
 const FLAGGE := "res://addons/reeboo_surfaces/shaders/cloth_flag.gdshader"
 const ORTE := ["village", "inn", "shop"]   # Szene 1; Wald und Hoehle kommen mit Szene 3 (623.8 A)
+# 1420 (Chef 16.11., 12:45: „im Dorf funktionieren, aber auf dem Weg im Wald, wenn ich laufe, kriege ich keine … im tiefen Wald gibt es
+# auch keine“): Ursache, die Effekte gab es nur in ORTE. Im Wald und tiefen Wald nur der Fußstaub (die übrigen Effekte weiter mit
+# Szene 3), auf dem Waldboden schwächer (STAUB_WALD); die Erde kommt dort wie im Dorf aus der Bodenmaske
+const STAUB_ORTE := ["forest", "deep_forest"]
+const STAUB_WALD := 0.7                     # Größe und Deckung auf dem Waldboden (Erde mit Laub) gegen den Erdweg im Dorf
 const RAUCH_K := 0.45                      # Kaminrauch des Pakets auf unseren Massstab (Haus gut 4 m, Rauch bisher 0,45-m-Flocken)
 # 814 Fussstaub: Groesse und Deckung der Vorlage (R7 footstep_dust) auf unser Bild, Begruendung bei fussstaub()
 const STAUB_K := 1.8
@@ -28,7 +33,7 @@ static func aktiv() -> bool:
 	return an and Grafik.kits() and da()   # 698: Niedrig ohne Kits
 
 static func fuer(id: String) -> bool:
-	return id in ORTE
+	return id in ORTE or id in STAUB_ORTE
 
 var gebiet: Gebiet
 var kaminrauch: Array[Node3D] = []
@@ -65,6 +70,9 @@ func szene(datei: String) -> PackedScene:
 ## baut, was der Ort braucht; vom Gebiet nach baue_leben und baue_lampen
 func baue() -> void:
 	var id := gebiet.karte.id
+	if not id in ORTE:   # 1420: Wald nur mit Fußstaub
+		nacht(nacht_k)
+		return
 	if id == "village":
 		baue_kaminrauch()
 		baue_schlagbaum()
@@ -367,17 +375,25 @@ func tritt(held: Node3D) -> void:
 ## der Vorlage (Specks, additiv hell): in dieser Groesse lasen sie sich als weisse Kuegelchen
 const STAUB_NAH := 0.03
 const STAUB_LEBEN := 1.5
-const STAUB_HELL := 1.05
+const STAUB_HELL := 0.9
 ## 1119 (Chef 13.11., 10:14, t282.4: „staubt es jetzt, als ob hier ein Traktor rumfahren würde … Nur einen Tick“; 10:20: „bei normalen
 ## Gehen müsste es ja fast gar nicht stauben. Bei Rennen macht es eher Sinn“): nach Gang gestaffelt. Rennen die Wolke von 282 einen
 ## Tick kleiner und duenner (STAUB_RENNEN), Gehen nur ein Hauch (STAUB_GEHEN: halb so gross, ein Drittel der Deckung, kurz)
-const STAUB_RENNEN := [1.3 * 0.85, 0.85, 1.0]   # Groesse, Deckung, Leben je mal STAUB_K, STAUB_DECK, STAUB_LEBEN
-const STAUB_GEHEN := [0.5, 0.35, 0.6]
+## 1420 (Chef 16.11., 12:44: „für das, dass die Staubwolken früher nie zu sehen waren, sind sie jetzt zu stark. Die müssen noch ein
+## bisschen sanfter werden. Das sieht nach Comic aus“): Rennen vorher [1.105, 0.85, 1.0], Gehen [0.5, 0.35, 0.6], heller als die Erde
+## (1,05); jetzt kleiner, halb so deckend, kürzer, im Ton der Erde (STAUB_HELL 0,9)
+const STAUB_RENNEN := [0.8, 0.45, 0.8]   # Groesse, Deckung, Leben je mal STAUB_K, STAUB_DECK, STAUB_LEBEN
+const STAUB_GEHEN := [0.35, 0.18, 0.5]
+const STAUB_ALT := [[1.3 * 0.85, 0.85, 1.0], [0.5, 0.35, 0.6], 1.05]   # Rennen, Gehen, Helligkeit vor 1420
+static var staub_alt := false   # nur der Vergleichsfilm 1420 (tests/film_staub_1420.gd)
 func fussstaub(at: Vector3, rennen: bool) -> Node3D:
 	var st: Array = STAUB_RENNEN if rennen else STAUB_GEHEN
-	var fx := setze("effects/footstep_dust.tscn", at, STAUB_K * float(st[0]), ["Specks"])
+	var hell := STAUB_HELL
+	if staub_alt: st = STAUB_ALT[0] if rennen else STAUB_ALT[1]; hell = STAUB_ALT[2]
+	var wald := STAUB_WALD if gebiet.karte.id in STAUB_ORTE else 1.0
+	var fx := setze("effects/footstep_dust.tscn", at, STAUB_K * float(st[0]) * wald, ["Specks"])
 	if fx == null: return null
-	daempfe(fx, 0.8, STAUB_HELL * (1.0 - 0.4 * nacht_k), STAUB_DECK * float(st[1]))
+	daempfe(fx, 0.8, hell * (1.0 - 0.4 * nacht_k), STAUB_DECK * float(st[1]) * wald)
 	nah_am_boden(fx)
 	for p in fx.find_children("*", "GPUParticles3D", true, false):
 		(p as GPUParticles3D).lifetime *= STAUB_LEBEN * float(st[2])

@@ -7,7 +7,6 @@ local.properties
 captures/
 *.apk
 !dist/*.apk
-tools/preview/build/
 bornim.bundle
 bornim-source.zip
 __pycache__/

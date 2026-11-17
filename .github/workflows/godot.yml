@@ -65,6 +65,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+      # 1385 (649b A Build 1): Figuren, Gegenstände, Regelwerte im Bau prüfen; rot nur bei neuen Befunden der Figurenprüfung
+      # (Sperrklinke tools/figurenpruefung_bekannt.txt) und Fehlern im Gegenstandskatalog; die Regelwerte-Seite liegt auf main (Hinweis)
+      - name: Daten pruefen (1385)
+        run: |
+          python3 tools/figurenpruefung.py --pruefen
+          python3 tools/gegenstaende.py --daten
+          python3 tools/regelwerte.py --pruefen || echo "::warning::docs/LISTE-REGELWERTE.md veraltet (969): python3 tools/regelwerte.py auf main"
       # 870.9 (870a 7 B, Chef 10.11., 15:25): Karten, Texte, Held, Intro mit Bildern, Kartenblaetter, Bilder der Dinge, Schrift (Fondamento, OFL),
       # Hauptmenuebild und Klang sind seit dem letzten Export aus core (f32a789e6) Godot-Quelle unter godot/daten (eingecheckt,
       # godot/.gitignore); Karten bearbeiten: tools/karten/karten.py, Regeln: tests/karten_regeln.gd (Pruefschritt)
@@ -645,11 +652,12 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/eingebung_1296.gd 2>&1 | grep -E "^(gut|FALSCH)|EINGEBUNG1296|SCRIPT ERROR"   # 1296 Eingebung zum Wechsel erst, wenn vor dem Helden kein Sprung mehr kommt
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/meldung_1305.gd 2>&1 | grep -E "^(gut|FALSCH)|MELDUNG1305|SCRIPT ERROR"   # 1305 jeder Angriff eines Gegners meldet sich, auch mit 0 Schaden (sonst Platztausch ohne Bild)
           set -o pipefail; for s in 7 9; do SEED=$s timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/reihe_1305.gd 2>&1 | grep -E "^FEHLER 1305|REIHE1305|SCRIPT ERROR"; done   # 1305 jedes erlaubte Ziel steht auch im Bild vorn (Kaufwolf; vor dem Bau Seed 7 und 9 je 2 Fehler; Jerry)
+          set -o pipefail; for s in F 7 9; do FLANKE=$([ $s = F ] && echo 1) SEED=${s/F/7} DURCHGAENGE=2 SEKUNDEN=90 timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/dreh_1072.gd 2>&1 | grep -E "^FEHLER 1072|^ZURUECK 1072|^Durchgang|DREH1072|SCRIPT ERROR"; done   # 1072 t293.1 am eigenen Platz am Gegner steht der Rumpf zum Ziel (Flanke nachgestellt: vor dem Bau 5 Fehler, bis 112°; Kaufwolf Seed 7, 9, je zwei Durchgänge mit „Nochmal“, Bisse ohne Platz am Gegner nur Auskunft; Jerry)
           set -o pipefail; HERO=CLERIC MERC=FIGHTER GEGNER=RATS SEEDS=1,2,3,4,5,6 timeout 600 ~/godot/godot --headless --path . -s res://tests/ruhe_863.gd 2>&1 | grep -E "^(gut|FALSCH)|RUHE863|SCRIPT ERROR"   # 863 t277.14 keine Ratte weicht in eine andere (Kaufratte; Seed 1 war rot)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/wurf_935.gd 2>&1 | grep -E "^(gut|FEHLER)|^  [A-Z]|WURF935|SCRIPT ERROR"   # 935 Flasche im Bogen
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/bausteine_806.gd 2>&1 | grep -E "^(gut|FEHLER)|BAUSTEINE806|SCRIPT ERROR"   # 806 Kampf messen, kein Bodennebel
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_597.gd 2>&1 | grep -E "ANSAGE597|FEHLER|SCRIPT ERROR"   # 597 t268.21 Ansage der Wölfe im Bild
-          set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_946.gd 2>&1 | grep -E "ANSAGE946|Rand|SCRIPT ERROR"   # 946 Ansage nie unter der Zugleiste (Rand oben, große Schrift)
+          set -o pipefail; timeout 480 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/ansage_946.gd 2>&1 | grep -E "ANSAGE946|Rand|SCRIPT ERROR"   # 946 Ansage nie unter der Zugleiste (Rand oben, große Schrift); 1453: Lauf 517 257 s, Lauf 524 über 300 s, am Rechner 179 s mit Kaufmodellen, ohne Fehler
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/stehen_973.gd 2>&1 | grep -E "STEHEN973|Seed|SCRIPT ERROR"   # 973 F3: nach einem Tod bleiben die Übrigen stehen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tempo_600.gd 2>&1 | grep -E "TEMPO600|SCRIPT ERROR"   # 600 Tempoknopf im Kampfort
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/bewegung_997.gd 2>&1 | grep -E "BEWEGUNG997|SCRIPT ERROR"   # 997 Testkampf: laufende Bewegung und Fassung je Figur
@@ -663,6 +671,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/ausholen_1000.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|AUSHOLEN1000|SCRIPT ERROR"   # 1000 Grak hält die Axt oben von der Ansage bis zum Hieb
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
+          set -o pipefail; for s in 7 9 13; do SEED=$s timeout 400 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/biss_1284.gd 2>&1 | grep -E "^BISS1284 ([0-9]|FEHLER)|SCRIPT ERROR"; done   # 1284 Ratte beißt auch daneben sichtbar knapp vorbei; 1284a A: drei Würfe
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/am_zug_565.gd 2>&1 | grep -E "^(FEHLER|AMZUG565)|SCRIPT ERROR"   # 565 A Kasten am Zug
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/schirm_833.gd 2>&1 | grep -E "^(FEHLER|SCHIRM833|Gegnerzug)|SCRIPT ERROR"   # 833 Vorschlag A unterer Kampfschirm
           set -o pipefail; SEEDS=4 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/leiste_751.gd 2>&1 | grep -E "^  |LEISTE751"   # 751 A Knöpfe matt, keine Zeile „ist dran“ (1095), Zugleiste, kein verratener Ausgang (Jerry)
@@ -676,6 +685,8 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_431.gd 2>&1 | grep -E "^(FEHLER|KLEID431)|SCRIPT ERROR"   # 431h A der Held trägt, was in den Plätzen steht (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/schild_menue_1417.gd 2>&1 | tee schild1417.log | grep -E "FEHLER|SCHILD1417|SCRIPT ERROR"; grep -q "^SCHILD1417 0 Fehler" schild1417.log   # 1417 Schild der Wachsoldatin im Hauptmenue nicht im Rock (Tom)
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/testschalter_1480.gd 2>&1 | tee schalter1480.log | grep -E "FEHLER|TESTSCHALTER1480|SCRIPT ERROR"; grep -q "^TESTSCHALTER1480 0 Fehler" schalter1480.log   # 1480 Testschalter rot, Lage schaltet aus (Tom)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           # 824: Held ohne Schild geht nach dem Hieb rückwärts im Schritttempo heim (nicht 3,8 m/s mit 1,6-facher Bewegung)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/angriff_824.gd 2>&1 | grep -E "^(ANGRIFF824|FEHLER|MASS)|SCRIPT ERROR"   # 824 (Jerry)
@@ -726,6 +737,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/gluehwuermchen_514.gd 2>&1 | tee glueh514.log | grep -E "FEHLER|GLUEH514|SCRIPT ERROR"; grep -q "^GLUEH514 0 Fehler" glueh514.log   # 514 Gluehwuermchen wie alt
           timeout 300 ~/godot/godot --headless --path . -s res://tests/effekte_814.gd 2>&1 | tee effekte814.log | grep -E "FEHLER|EFFEKTE814|SCRIPT ERROR"; grep -q "^EFFEKTE814 0 Fehler" effekte814.log   # 814 Effekte Szene 1 Dorf (Spike)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/fussstaub_814.gd 2>&1 | grep -E "FUSS814|SCRIPT ERROR" | head -80 || true   # 814 t277.5: Fussstaub und Federn, nur Messung
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/staub_1420.gd 2>&1 | grep -E "^(gut|FEHLER|STAUB1420)|SCRIPT ERROR"   # 1420 Fußstaub auch im Wald, dort schwächer
           timeout 300 ~/godot/godot --headless --path . -s res://tests/huhnflucht_814.gd 2>&1 | tee huhnflucht814.log | grep -E "FEHLER|HUHNFLUCHT814|SCRIPT ERROR"; grep -q "^HUHNFLUCHT814 0 Fehler" huhnflucht814.log   # 814 Chef 16:14: Huhn schreckt auf, auch eingeklemmt und unterwegs
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_472.gd 2>&1 | grep -E "FALSCH|BRS472|SCRIPT ERROR"   # 472 Heldenstufe aus Erfahrung
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_471.gd 2>&1 | grep -E "FALSCH|BRS471|SCRIPT ERROR"   # 471 Fertigkeiten durch Tun (BRS 1.2)
@@ -940,12 +952,20 @@ jobs:
           unzip -l $GITHUB_WORKSPACE/bornim-godot.apk | grep -E "\.pck|daten" || { echo "Daten fehlen im APK"; exit 1; }
       - name: Name des APK (918)
         if: ${{ !cancelled() }}
-        run: echo "APK_NAME=bornim-godot-apk$( [ -f rot-stufe ] && echo -$(cat rot-stufe) )" >> $GITHUB_ENV
+        run: |
+          echo "APK_NAME=bornim-godot-apk$( [ -f rot-stufe ] && echo -$(cat rot-stufe) )" >> $GITHUB_ENV
+          # 1485 (Chef 16.11., 20:22: Link von Build 293, installiert lief 286): die Datei im Artefakt trägt Version und Build, damit
+          # am Gerät keine ältere Datei gleichen Namens (bornim-godot.apk) installiert wird; der Name des Artefakts bleibt
+          B="$GITHUB_REF_NAME"; case "$B" in claude/build-*) B="build-${B#claude/build-}";; *) B="$(echo "${B#claude/}" | tr -c 'A-Za-z0-9.\n-' '-')";; esac
+          F="bornim-0.348.$GITHUB_RUN_NUMBER-$B.apk"
+          [ -f bornim-godot.apk ] && cp bornim-godot.apk "$F"
+          echo "APK_DATEI=$F" >> $GITHUB_ENV
+          echo "1485: APK im Artefakt heißt $F"
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
           name: ${{ env.APK_NAME }}
-          path: bornim-godot.apk
+          path: ${{ env.APK_DATEI }}
       # 1268.5 (1268 A, Chef 15.11., 10:51): Bildrate und Ladezeit je Ort (Dorf, Wald, Hoehle, Wolfskampf) in jedem Lauf, im Renderer des
       # Handys (mobile, Lavapipe); Vergleich mit godot/tests/bildrate_grundwert.json, Warnung beim Abfall (Tabelle in der Zusammenfassung)
       - name: Bildrate je Ort (1268.5)
@@ -959,6 +979,15 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bildrate=$RUNNER_TEMP/bildrate.json 2>&1 | grep -E "^(BILDRATE|FEHLER)|SCRIPT ERROR" | cut -c1-300 || true
           cd ..
           python3 tools/bildrate.py $RUNNER_TEMP/bildrate.json
+      # 1426 (Chef 16.11., 13:31): Messung je Lauf aufheben, damit die Prüfliste Build gegen Vorgänger mit Zahlen vergleicht
+      # (tools/bildrate.py --vergleich <Lauf alt> <Lauf neu>), statt den Chef zu fragen, ob es langsamer ist
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        with:
+          name: bildrate
+          path: ${{ runner.temp }}/bildrate.json
+          if-no-files-found: ignore
       # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
       # 1212 (Lauf 450: „convert: command not found“, „ffmpeg: command not found“, das Abbild des Bauservers hat beide nicht mehr):
       # Bilder zusammensetzen (convert, montage) und Filme umwandeln (ffmpeg) brauchen beide; einmal vor allen Bild- und Filmschritten
@@ -1748,6 +1777,17 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
             -s res://tests/hauptmenue_bild_867.gd -- --aus=$GITHUB_WORKSPACE/bilder/menue867 2>&1 | grep -E "SCRIPT ERROR|^BILD|^MENU867" | cut -c1-400 || true
           ls -l $GITHUB_WORKSPACE/bilder/menue867
+      # 1417 (Chef 16.11., 12:37): Wachsoldatin des Hauptmenues, Schild vorher/nachher in einem Bild; nur von Hand (bilder=1417)
+      - name: Schild im Hauptmenü (1417)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.event.inputs.bilder, '1417') }}
+        continue-on-error: true
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/bilder/schild1417
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/schild_bild_1417.gd -- --aus=$GITHUB_WORKSPACE/bilder/schild1417 2>&1 | grep -E "SCRIPT ERROR|^BILD|^SCHILDBILD1417" | cut -c1-400 || true
+          ls -l $GITHUB_WORKSPACE/bilder/schild1417
       # 1090 (Vorentscheid Sokrates 13.11., 02:46, „1090 A“): ohne Hose unter der Robe; alle sieben mit Robe nah im Stehen und im Gehen
       # (Luecke Saum/Schuh?); nur von Hand auf claude/tom-1090-…
       - name: Rock ohne Hose (1090)
@@ -1943,6 +1983,38 @@ jobs:
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/kleid431_$g.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/kleid431_$g.mp4 || true
           done
           ls -l $B
+      # 1044 (1351 B, Chef 16.11., 10:13; Bildläufe am Rechner lehnt die Rechteprüfung ab): Grundstand der Leute, je Person links
+      # vorher (UAL-Ruhe), rechts nachher (Haltung.grund), Renderer wie am Handy; tests/grundstand_1044.gd bei „1044 Bild“ im Commit
+      - name: Grundstandbild (1044)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1044 Bild') || contains(github.event.inputs.bilder, '1044')) }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/grund1044; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null || true
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/grundstand_1044.gd -- --aus=$B > $B/grund1044.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^GRUND1044|^BILD" $B/grund1044.log | cut -c1-400 || true
+          ls -l $B
+      # 1420 (Chef 16.11., 12:44/12:45): Fußstaub sanfter und auch im Wald; Film am Mittag Dorf vorher | Dorf, Wald, tiefer Wald nachher
+      # (tests/film_staub_1420.gd), bei „1420 Film“ im Commit oder bilder=1420
+      - name: Staubfilm (1420)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1420 Film') || contains(github.event.inputs.bilder, '1420')) }}
+        continue-on-error: true
+        run: |
+          A=$GITHUB_WORKSPACE/bilder/staub1420; mkdir -p $A
+          cd godot
+          command -v ffmpeg > /dev/null || { sudo apt-get update -qq > /dev/null; sudo apt-get install -y -qq ffmpeg > /dev/null; }
+          sudo apt-get install -y -qq libgl1-mesa-dri xvfb > /dev/null || true
+          # Lauf 529: mit opengl3 (Compatibility) zeigte der Film keinen Staub, auch vorher nicht; das Handy zeichnet mit Mobile (Vulkan),
+          # wie der Staubfilm 1119
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/staub1420.avi --fixed-fps 30 -s res://tests/film_staub_1420.gd -- --film1420 > $A/staub1420.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^FILM1420|^BEGINN" $A/staub1420.log | cut -c1-300 || true
+          s=$(grep -oE "^FILM1420 village vorher \(Bild [0-9]+" $A/staub1420.log | grep -oE "[0-9]+$" || echo 0)
+          ffmpeg -loglevel error -y -ss $(awk "BEGIN{print $s/30}") -i $RUNNER_TEMP/staub1420.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $A/staub1420.mp4 || true
+          ls -l $A
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:

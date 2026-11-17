@@ -81,13 +81,14 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 ## Lehren
 
+- Jede Vorgangsnummer im Chat und auf Telegram mit Titel in Worten aus `vorgang.py <Nr>`, auch die eigene (16.11. 976, 17.11. 930: „schon wieder vergessen“).
 - „Zu testen“ heißt nicht „liegt beim Chef“: vorher `ansehen/`, `tun/` lesen (15.11., 21:03: „ich habe nichts zu testen“, 1332).
 
 - Was ich empfehle, prüfe ich am Ergebnis, sobald es greifen muss (Einstellung an der laufenden Sitzung, nicht an der Variable; 11.11., 365a B wirkte nie, Chef 18:14 „keiner gemerkt“; 981).
 
 - Läufe nach 621 A gebe ich selbst frei (595), nie den Chef fragen; den Vorrat nach jeder Nachricht eines anderen sofort lesen (10.11., 19:41 Bitte Perikles liegen gelassen, 19:59 den Chef gefragt, obwohl 19:54 selbst freigegeben).
 
-- Bei „was bleibt von alt“ nicht nur prüfen, ob es noch läuft, sondern ob es noch Quelle für Neues ist (Bauweg in den Workflows, Commits der letzten Woche); und Schadensarten, Schwächen und Ähnliches gegen jede Datei der alten Regeln abzählen, nicht nur gegen die Kampfwege (10.11., 870a: Kotlin als Quelle von Dorf und Quests erst auf Nachfrage des Chefs, Monsterschwächen erst über seine Idee; Chef 15:25: „freut mich, dass ich wieder was gefunden habe“).
+- Bei „was bleibt von alt“ prüfen, ob es noch Quelle für Neues ist (Workflows, Commits der Woche), und jede Datei der alten Regeln abzählen; im Abgleich je Punkt Datei und Zeile der alten Fassung (10.11., 870a, Chef 15:25 „wieder was gefunden“; 17.11., 785.10: Probeschirm statt echtem geprüft).
 
 - Eine Absprache mit dem Chef zum Ablauf sofort dort eintragen, wo das Werkzeug sie liest (Haken, `LISTE-RELEASE-NEUSTART.md`), sonst gilt sie für den Nachfolger nicht; und solange der Chef testet, keinen Neustart (10.11., 13:27 Neustart bei t274.16; Chef 13:34: „das machen wir nicht mehr … einfach mal wieder ignoriert“; 865).
 

@@ -39,7 +39,7 @@ VORRAETE = {"Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md", "Spike
 RUHEND = ("ruht", "Idee", "nach Meilenstein", "aufgeteilt")
 # Von Hand geprüft (Perikles), meldet L bzw. O nicht wieder: kein Doppel bzw. eigenständige Kür nach Entscheid oder Bestandsaufnahme
 GEPRUEFT_L = {frozenset(p) for p in (("709.1", "506.2"), ("1322", "1323"))}  # 16.11.: anderes Tier; Oberfläche gegen Kampfmeldungen
-GEPRUEFT_O = {"168.1", "623.2"} | {"785.%d" % i for i in range(9, 19)}  # 16.11.: Umsetzung 168 A, Effekte 623 A, Rest aus Abgleich 785
+GEPRUEFT_O = {"168.1", "623.2", "966.2", "623.9"} | {"785.%d" % i for i in range(9, 19)}  # 16.11.: Umsetzung 168 A, Effekte 623 A, Rest aus Abgleich 785; 17.11. (1539): 966.2, 623.9 gewollt (Übergabe Perikles 07:44)
 GEPRUEFT_P = {"954a.13"}  # 16.11.: „entfällt“ meint den alten Kampf, die Zeile (Wirkung im MARS) lebt
 
 
@@ -151,9 +151,12 @@ def funde():
         if x.startswith("ARBEIT-") and x.endswith(".md"):
             vorraete += open(os.path.join(S.DOCS, x), encoding="utf-8").read()
     try:
+        builds = {int(b) for b in S.getestete_builds()}
         for w, kopf, je in S.urteile(48):
             for n, ort, st in je:
                 if ort == "ohne Zeile":
+                    # 1539 (D298.1): „293.7“ ist Prüfpunkt 7 der Prüfliste t293, kein Vorgang
+                    if re.match(r"\d{3}\.\d+$", n) and int(n.split(".")[0]) in builds: continue
                     # Folgeauftrag im Vorrat des Besitzers mit Verweis „Archiv „<n>““ (16.11.: 531.1 steht als „Zu 531“ bei Tom)
                     if re.search(r"Archiv „%s“" % re.escape(n), vorraete): continue
                     aus.append(("K", n, "?", "Urteil %s „%s“: keine Zeile %s (Folgeauftrag eingetragen?)" % (w.strftime("%d.%m., %H:%M"), kopf[:60], n)))

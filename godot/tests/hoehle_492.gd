@@ -69,6 +69,8 @@ func _lauf() -> void:
 	raeume(spiel, Vector2i(10, 4), 4)
 	pruefe(spiel.karte.id == "cave" and spiel.held.kachel == Vector2i(10, 18), "in der Hoehle am Eingang (10, 18): %s %s" % [spiel.karte.id, spiel.held.kachel])
 	pruefe(spiel.gebiet.raumlicht != null and spiel.licht.innen and spiel.licht.hoehle, "Grundriss mit Raumlicht, Licht der Hoehle")
+	var ca := spiel.licht.welt.camera_attributes as CameraAttributesPractical   # 1303: Belichtung statt Hebung nach dem Bild
+	pruefe(ca != null and is_equal_approx(ca.exposure_multiplier, Licht.HOEHLE_BELICHTUNG) and is_equal_approx(spiel.licht.env.adjustment_brightness, 1.0), "1303 Hoehle: Belichtung x%s, keine Hebung nach dem Bild" % (ca.exposure_multiplier if ca else "-"))
 	pruefe(spiel.ui.spricht(), "beim ersten Betreten spricht die Hoehle")
 	await durch(spiel)
 	pruefe(spiel.zustand.has("cave_seen"), "beim ersten Betreten: „Ein modriger Geruch …“ (cave_seen)")

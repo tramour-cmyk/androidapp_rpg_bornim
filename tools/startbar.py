@@ -385,8 +385,19 @@ def getestet_nicht_auf_main(jetzt=None, stunden=LIEGT_STUNDEN):
         z = "claude/build-" + n
         if _git("rev-parse", "-q", "--verify", "origin/" + z).returncode != 0: continue  # Zweig weg = zusammengeführt
         if _git("merge-base", "--is-ancestor", "origin/" + z, "origin/main").returncode == 0: continue
+        if _inhalt_auf_main("origin/" + z): continue
         erg.append((n, int(h)))
     return sorted(erg, key=lambda x: int(x[0]))
+
+def _inhalt_auf_main(zweig):
+    """1477 (Sokrates 16.11., 18:53): Inhalt steckt schon in main, wenn `git cherry` außer Gleichem („-“) nur Reverts („+ … Revert "…"“)
+    nennt; die nehmen auf dem Build-Zweig Dinge zurück, die später auf main kamen, Mischen baute main zurück (build-274, -288)."""
+    r = _git("cherry", "-v", "origin/main", zweig)
+    if r.returncode != 0: return False
+    for zeile in r.stdout.splitlines():
+        if zeile.startswith("+") and not zeile.split(" ", 2)[-1].startswith('Revert "'):
+            return False
+    return True
 
 def zusammenfuehren_faellig(jetzt=None):
     """1424: liegt ein getesteter Build länger als LIEGT_STUNDEN neben main und hat keiner eine offene Zeile „Zusammenführen“, legt
@@ -427,7 +438,8 @@ def sammelbuild_faellig():
         return None
     n = {r: [d["nr"] for d in fertig if d["besitzer"] == r] for r in ("Tom", "Jerry")}
     wer = "Jerry" if len(n["Jerry"]) > len(n["Tom"]) else "Tom"
-    return ("Sammelbuild: alle fertigen Zweige beider Teams (Tom %s; Jerry %s), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774)"
+    return ("Sammelbuild: alle fertigen Zweige beider Teams (Tom %s; Jerry %s), build <n> --mit für jede Nummer (774); Prüfliste ansehen/t<n> "
+            "erst ab 4 Handypunkten, Punkte ohne dich nach grünem Lauf ohne Testbitte auf main (1524)"
             % (", ".join(n["Tom"]) or "–", ", ".join(n["Jerry"]) or "–"), "E Technik", wer)
 
 def zeilen_liste():
@@ -720,11 +732,14 @@ def offener_build():
     offen = [int(n) for n in nrn if n.isdigit() and not build_im_archiv(n, arch)]
     return max(offen) if offen else None
 
+VORLAGE_MARKE = " (1312: Spielcode gebaut seit "
+
 def vorlage_auftrag(d, h):
     b = offener_build()
     weg = ("in den offenen Build %d mischen (`vorgang.py build %d --mit %s`)" % (b, b, d["nr"]) if b
-           else "Sammelbuild anlegen (LISTE-CHECK-BUILD-TEST 3, auch unter 4 Punkten)")
-    return (" (1312: Spielcode gebaut seit %d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
+           else "Sammelbuild anlegen (LISTE-CHECK-BUILD-TEST 3; Testbitte erst ab 4 Handypunkten, Punkte ohne dich nach grünem Lauf "
+                "ohne Testbitte auf main, 1524)")
+    return (VORLAGE_MARKE + "%d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
             "ins Feld „wartet auf“; nie „fährt im nächsten Build“ ohne Termin)" % (h, weg))
 
 # 1332 (Chef 15.11., 21:07: „Und wieder bin ich bass erstaunt, dass irgendwelche Sachen rumliegen und sich keiner darum kümmert.“):
@@ -802,7 +817,41 @@ def sperre(d):
     if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
     if w in ("startbar", "offen", "in Arbeit", "wartet", "Chef", "ruht", "Dauer") and altes_system(d["titel"], d["stand"], d["nr"]):
         return "ruht (424: altes SRD-System)"
+    k = kostenhalt(d)
+    if k: return "Kostenschwelle %d $ (%s; Perikles entscheidet, 1538)" % (k, d.get("kosten") or "")
     return None
+
+# 1538 (1520 so, Chef 17.11., 10:00): erreicht ein offener Vorgang 40 $ ohne Freigabe, hält er an und Perikles entscheidet (weiter,
+# vereinfachen, streichen; Chef nur beim Streichen eines Chefauftrags). Freigabe = Zeile „**Kosten frei:** 431 bis 160 $; …“ in
+# ARBEIT-PROJEKT.md; „weiter“ gibt bis zur nächsten Schwelle (40, 80, 160 … $) frei. „jetzt“-Zeilen laufen weiter, lauf.py legt
+# Perikles eine Muss-Zeile „Kosten entscheiden“ vor (wie M?).
+KOSTEN_SCHWELLE = 40.0
+KOSTEN_FREI = re.compile(r"^\**Kosten frei:\**\s*(.*)$", re.M)
+
+def kosten_frei(text=None):
+    """Nummer → freigegeben bis ($) aus der Zeile „Kosten frei:“ im Vorrat Perikles."""
+    m = KOSTEN_FREI.search(lesen("ARBEIT-PROJEKT.md") if text is None else text)
+    return {n: float(b) for n, b in re.findall(r"([\w.]+) bis (\d+) ?\$", m.group(1))} if m else {}
+
+def naechste_schwelle(kosten):
+    s = KOSTEN_SCHWELLE
+    while s <= kosten: s *= 2
+    return int(s)
+
+def kostenhalt(d, frei=None):
+    """Erreichte Schwelle (int), wenn die Zeile über ihrer Freigabe liegt, sonst None; nur offene Arbeit, nie „jetzt“."""
+    if d.get("wort") in ("erledigt", "ruht", "Idee", "aufgeteilt", "nach Meilenstein", "Dauer") or jetzt_zeile(d): return None
+    k = kosten_wert(d.get("kosten"))
+    grenze = (kosten_frei() if frei is None else frei).get(d["nr"], KOSTEN_SCHWELLE)
+    if k < grenze: return None
+    s = KOSTEN_SCHWELLE
+    while s * 2 <= k: s *= 2
+    return int(s)
+
+def kosten_offen():
+    """[(nr, besitzer, kosten, schwelle)] aller Zeilen, die an der Kostenschwelle stehen (für Perikles)."""
+    frei = kosten_frei()
+    return [(d["nr"], d["besitzer"], d.get("kosten"), s) for d in zeilen_liste() for s in [kostenhalt(d, frei)] if s]
 
 def blocker(nr, rest=None, chef=None, thema=""):
     """Kompatibel zu früher: Grund der Listenzeile nr, sonst None."""
@@ -843,7 +892,7 @@ def plan(rolle):
             kl = "M" if d["nr"] in f and d["kl"] != "–" else d["kl"]
             mischen = " (1311: Werkzeug gebaut auf %s, nicht auf main: nach grünem Lauf jetzt mischen, ohne Test des Chefs; dann Diogenes „greift“)" % d["zweig"] if b_nicht_auf_main(d) else ""
             h = liegt_ohne_vorlage(d)
-            if h is not None: mischen = vorlage_auftrag(d, h)
+            if h is not None: mischen = vorlage_auftrag(d, h); kl = "M" if kl not in ("–", "-") else kl  # 1504: Vorlegen ist Muss (auch für die Aushilfe, 433)
             if ohne_rueckmeldung(d): mischen = RUECKMELDUNG_AUFTRAG
             eigen.append((d["nr"], kl, d["titel"] + mischen, d, sperre(d)))
         elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d) and not b_nicht_auf_main(d):  # 724 A, 1221
@@ -870,6 +919,12 @@ def plan(rolle):
         k = 0
         while k < len(rest) and jetzt_zeile(rest[k][3]): k += 1
         zs = rest[:k] + w + rest[k:]
+    v = [z for z in zs if "fuer" not in z[3] and VORLAGE_MARKE in z[2]]  # 1504 (D286.1): Vorlegen nach 1312 vor jedem anderen Muss, nur „jetzt“ und Wiederholtes davor
+    if v:
+        rest = [z for z in zs if z not in v]
+        k = 0
+        while k < len(rest) and (jetzt_zeile(rest[k][3]) or rest[k] in w): k += 1
+        zs = rest[:k] + v + rest[k:]
     n = ungetestet(rolle)
     if n >= GRENZE_UNGETESTET:  # 620.1 B (Chef 08.11., 10:55/10:57): bis zum Test kein neues Muss, außer wiederholt, „jetzt“, Rückläufer
         g = "Sperre 620.1 B: %d ungetestete Muss, erst gemeinsamer Build und Test" % n
@@ -1032,6 +1087,7 @@ def neu_gesperrt(z):
     if d["wort"] == "in Arbeit": return False
     if d["titel"].startswith("Sammelbuild"): return False  # 774: die Sperre wartet auf diesen Build, darf ihn nicht selbst sperren
     if WIEDERHOLT.search(z[2]) or jetzt_zeile(d): return False
+    if VORLAGE_MARKE in z[2]: return False  # 1504: Vorlegen bringt Ungetestetes in den Test, die Sperre wartet genau darauf
     return d.get("build") in ("", "–", "-", None)
 
 def pause(inhalt):
@@ -1378,6 +1434,8 @@ def main():
     if not md:
         mf = ["%s (%s)" % (z[0], rolle) for _, rolle in ROLLEN for z in plan(rolle) if z[1] == "M?" and not z[4]]
         if mf: print("  M? für Perikles (190.8; lauf.py startet es als Muss „M? entscheiden“, 921): " + ", ".join(mf))
+        ko = kosten_offen()
+        if ko: print("  Kosten für Perikles (1538; lauf.py startet es als Muss „Kosten entscheiden“): " + ", ".join("%s (%s, %s, Schwelle %d $)" % x for x in ko))
         for r in BAUTEAMS:  # 1364: auch Spike
             u = uebernahme(r)
             if u: print("  Übernahme für %s: %s" % (r, u))
