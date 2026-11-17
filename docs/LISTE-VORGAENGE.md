@@ -69,6 +69,7 @@
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | nach Meilenstein | – | – | – | M Veröffentlichung | 2,91 $ |
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Tom | K | nach Meilenstein | – | – | – | E Welt | – |
 | 1205a | Rückfrage zu 1205: Blumen des Graspakets größer und kräftiger, Kleckse weg (A) oder Kleckse bleiben (B)? | Tom | K | startbar | Chef 1205a | – | – | E Welt | – |
+| 785.25 | D304.1 von Diogenes (aus 785.10, Commit c0d157bb7 „Eckknopf noch nicht“): Knopf „Schnell ›“ im leichten Kampf während des Kampfs fehlt ([259T.knoepfe] STORY-SPIEL.md 467); ohne Folgevorgang hält bautest 785.10 an | Tom | M? | startbar | – | – | – | E Kampf | – |
 | 1561 | Von Werkzeug (1334): Wiederholrot stehen_973: 2× rot in 48 h (Läufe 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1560 | Von Werkzeug (1334): Wiederholrot reihe_1305: 3× rot in 48 h (Läufe 537, 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1557 | Von Werkzeug (1334): Wiederholrot einschlag_6011: 2× rot in 48 h (Läufe 539, 537); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
