@@ -66,14 +66,14 @@ Die Denkweise sagt, was ein Gegner will. Die Rolle sagt, wo er steht und wie er 
 - **Selten und lesbar.** Ein Rudel flieht, wenn der Anführer gefallen ist und die Hälfte besiegt ist. Bei Grimmzahn gilt außerdem: Fällt er unter die Hälfte, flieht das Rudel vor Feuer (915). **Fällt Grak, fliehen die Goblins** wie das Rudel ohne Grimmzahn (Homer, `[428.goblin]`). Ein Goblin oder Kobold flieht, wenn er allein übrig ist und weniger als ¼ Leben hat. Die letzte Riesenratte flieht, sobald sie verwundet ist („Allein ist sie feige“, `[428.ratte]`). **Untote, Säureschnecke und Bosse fliehen nie.**
 - **Ablauf** (wie in `DESIGN-KAMPF.md`, Chef 14:23): Der Gegner sagt die Flucht einen Zug vorher an und ist nach seinem nächsten Zug fort. Bis dahin treffen ihn Schuss und Zauber von überall. Ein Nahkämpfer erreicht ihn nur, wenn sein Weg für Weg und Schlag reicht. Steht der Fliehende nah, setzt der Held nach.
 - **Lohn A:** Flieht ein Gegner von selbst, gibt es die volle Erfahrung und die halbe Beute; der Kampf zählt als gewonnen, wer ihn festhält, bekommt alles. Das ersetzt „Beute weg“ in `DESIGN-KAMPF.md`, Zeile 119. **Wer Gegner mit Feuer vertreibt, bekommt weder Beute noch Erfahrung,** wie entschieden (870c 3 A, 915): der Preis des Feuers. Den Unterschied zeigen eigene Ansage und Kampfzeile (705a B).
-- **Ansagen** (Entwurf Homer, Endfassung mit Marken beim Bau): „{0} weicht zurück und sucht einen Ausweg.“ · „{0} ist fort.“ · „{0} kommt nicht mehr weg.“ · „Das Rudel zerstreut sich zwischen den Bäumen.“ · „Die Goblins sehen ihren Hauptmann fallen und laufen.“ Figur beim Namen, nie „dich“, keine Zahlen.
+- **Ansagen und Lohnzeile:** `STORY-BRS-KAMPF.md`, Abschnitt „Flucht und Absprache der Gegner“, Marken `[1601.…]` (Homer 1601).
 
 ## 7. Absprache
 
 - Höchstens **eine angesagte Absprache je Begegnung**, etwa „Der Schamane sammelt Kraft für den Goblin“ oder „Das Rudel kreist dich ein“. Sie steht in der Ansage, bevor sie wirkt.
 - Gemischte Begegnungen (Wolf mit Späher, Kobold mit Schamane) folgen `DESIGN-GLUT.md` Regel 22: zwei Rezepte, die sich widersprechen, damit der Spieler wählen muss.
 - Begründung: Mehr als eine Absprache ist nicht mehr lesbar, und der Kampf wird zum Raten.
-- Ansagen (Entwurf Homer): „{0} raunt seinen Knochen etwas zu. {1} schlägt gleich härter zu.“ · „Die Kobolde zischen einander zu und rücken zusammen.“ „Einkreisen“ hat schon eine Ansage (`[986.circle.tip]`).
+- Ansagen: `STORY-BRS-KAMPF.md`, Marken `[1601.absprache.…]` (Schamane heilt oder stärkt, je nach Bau; Kobolde erst mit der Kür). „Einkreisen“ hat schon eine Ansage (`[986.circle.tip]`).
 - Neue Absprachen über Einkreisen und Kraft sammeln hinaus sind Kür, später (Perikles).
 
 ## 8. Fairness (fasst Entschiedenes zusammen)
