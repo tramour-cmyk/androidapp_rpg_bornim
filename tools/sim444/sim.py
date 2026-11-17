@@ -1414,7 +1414,7 @@ def bericht_wirtschaft(W, we, laeufe):
       f"Beschädigt (Leistung {zahl(ab['leistung']['Beschädigt'], 2)}), Defekt bei 0 (wirkt nicht).")
     r = wi["reparatur"]
     a(f"- **Dorf und Reparatur:** alle {wi['dorf_alle_kaempfe']} Kämpfe ins Dorf, sofort nach dem Kampf, in dem ein Stück „Beschädigt“ wird; dort verkaufen, „Alles reparieren“, Tränke auffüllen. "
-      f"Handwerker: von 0 auf 100 kostet {round(100 * r['handwerker_anteil'])} % des Ladenpreises; selbst (Schmieden bzw. Lederarbeit mit Rang nach Abschnitt 11): "
+      f"Handwerker: von 0 auf 100 kostet {round(100 * r['handwerker_anteil'])} % des Ladenpreises; selbst (Schmieden bzw. Schneidern mit Rang nach Abschnitt 11): "
       f"{round(100 * r['selbst_anteil'])} % als Material. Ladenpreise alt: "
       + ", ".join(f"{v['ding']} {v['preis']}" for k, v in wi["ausruestung"].items() if not k.startswith("_") and isinstance(v, dict) and "ding" in v) + ".")
     tr = wi["traenke"]

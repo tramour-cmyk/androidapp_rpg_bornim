@@ -732,6 +732,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/namen_1234.gd 2>&1 | grep -E "FALSCH|NAMEN1234|SCRIPT ERROR"   # 1234 Bärenschrat statt Grottenschrat im Text (Spike)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_held_870.gd 2>&1 | grep -E "FALSCH|BRSHELD870|SCRIPT ERROR"   # 870.4 Held nach BRS (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kraeutersammeln_875.gd 2>&1 | grep -E "FALSCH|KRAEUTERSAMMELN875|SCRIPT ERROR"   # 875 Kräutersammeln statt Kräuterkunde (Tom)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schneidern_1460.gd 2>&1 | grep -E "FALSCH|SCHNEIDERN1460|SCRIPT ERROR"   # 1460 Schneidern statt Lederarbeit (975a A, Tom)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/gegenstaende_870.gd 2>&1 | grep -E "FALSCH|GEGENSTAENDE870|SCRIPT ERROR"   # 870.6 Gegenstände und Beute nach BRS (Tuffy)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_870.gd 2>&1 | grep -E "FALSCH|ZUSTAENDE870|SCRIPT ERROR"   # 870.6 Zustände, Tränke, Spinnseide ohne SRD-Maß (Tuffy)
           timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt

@@ -67,7 +67,7 @@ const FERT := {"Einhänder": "One-handed", "Zweihänder": "Two-handed", "Stangen
 	"Evokation": "Evocation", "Schutzmagie": "Warding", "Heilmagie": "Healing Magic", "Illusion": "Illusion", "Beschwörung": "Summoning",
 	"Tiere beruhigen": "Calming Beasts", "Überreden": "Persuasion", "Einschüchtern": "Intimidation", "Handeln": "Haggling",
 	"Kräutersammeln": "Foraging", "Bergbau": "Mining", "Angeln": "Fishing", "Jagd": "Hunting", "Schmieden": "Smithing",
-	"Lederarbeit": "Leatherwork", "Alchemie": "Alchemy", "Kochen": "Cooking", "Runenkunde": "Runecraft", "Heilkunde": "Medicine"}
+	"Schneidern": "Tailoring", "Alchemie": "Alchemy", "Kochen": "Cooking", "Runenkunde": "Runecraft", "Heilkunde": "Medicine"}
 
 # 954 (Chef 11.11., 13:55 „1 ja“; Saetze Homer STORY-BRS-ERSCHAFFUNG.md, wortgetreu): Gedrueckthalten auf Grundwert, Volk, Herkunft
 # oder Fertigkeit zeigt Name und einen Satz im Fenster des Systemmenues (Menue.erklaer_kasten). Wirkt etwas in Kapitel 1 noch nicht
@@ -144,8 +144,8 @@ const ERKLAER := {
 		"Angeln": {"de": "Fische fangen, an Bach und See.", "en": "Catch fish in streams and lakes."},
 		"Jagd": {"de": "Erlegte Tiere zerlegen und Fährten lesen.", "en": "Dress slain beasts and read tracks."},
 		"Schmieden": {"de": "Waffen und Rüstung aus Metall fertigen und flicken, auch Dietriche.", "en": "Make and mend metal weapons and armor, lockpicks too."},
-		"Lederarbeit": {"de": "Gerben, nähen, Leder und Stoff flicken, für leichte Rüstung, Roben, Taschen und Köcher.",
-			"en": "Tan, sew and mend leather and cloth, for light armor, robes, bags and quivers."},   # [954.1.fert.leder]; Name Schneidern mit 975a
+		"Schneidern": {"de": "Gerben, nähen, Leder und Stoff flicken, für leichte Rüstung, Roben, Taschen und Köcher.",
+			"en": "Tan, sew and mend leather and cloth, for light armor, robes, bags and quivers."},   # [954.1.fert.leder]; Name Schneidern (975a A, 1460)
 		"Alchemie": {"de": "Wer sich auf Tränke versteht, bekommt beim Brauen öfter einen zweiten dazu.", "en": "If you know your potions, a brew more often yields a second one."},
 		"Kochen": {"de": "Was du isst, stärkt dich mehr.", "en": "What you eat does you more good."},
 		"Runenkunde": {"de": "Runen und Verzauberungen auf deine Ausrüstung legen.", "en": "Lay runes and enchantments on your gear."},
@@ -155,7 +155,7 @@ const ERKLAER := {
 # ohne Wirkung im Spiel (STORY-BRS-ERSCHAFFUNG.md „Mit Wirkung im Umzugszweig … Ohne“; Glückskind nur im alten klassisch.gd). 1017 (Homer 1015):
 # Verstand wirkt (Evokationsschaden) und steht nicht mehr hier; der Satz zum Wissen kommt erst mit 960 (kennt_schwaechen im Spiel)
 const OHNE_WIRKUNG := ["Hügelvolk", "Wurfwaffen", "Schleichen", "Spähen", "Schlösser knacken", "Fallen entschärfen", "Illusion",
-	"Beschwörung", "Tiere beruhigen", "Überreden", "Einschüchtern", "Angeln", "Jagd", "Schmieden", "Lederarbeit", "Runenkunde", "Heilkunde"]
+	"Beschwörung", "Tiere beruhigen", "Überreden", "Einschüchtern", "Angeln", "Jagd", "Schmieden", "Schneidern", "Runenkunde", "Heilkunde"]
 
 ## 954: der Satz zum Gedrueckthalten ([art] wert, volk, herkunft, fert), mit [954.1.spaeter], wo es noch nicht wirkt; "" ohne Satz
 static func erklaerung(art: String, k: String) -> String:
