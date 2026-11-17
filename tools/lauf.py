@@ -25,7 +25,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
-  WARNUNG(-LAUT) Sitzung hängt / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
+  WARNUNG(-LAUT) Sitzung hängt / Sitzung wartet auf Freigabe (blocked ab 15 Min., 1572) / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
   WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
@@ -98,11 +98,6 @@ REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten 
 # 1472 (Chef 16.11., 18:07: „Erst in die Startnachricht bei allen Beschäftigten“): add_repo gelang nur mit der Erlaubnis im Gespräch
 # (Tom 17:21, Jerry 10:58), nicht allein mit autoMode.allow (Spike 13:09); darum steht das Chefwort in jeder START- und WEITER-Nachricht
 KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
-# 1551 (Chef 17.11., 12:03/12:07): die Auto-Prüfung lehnte create_trigger und git in bornim-main beim neuen Ford ab; wie KAUFREPO
-# steht die Erlaubnis darum in der ersten Nachricht jedes Ford (Selbstneustart über den Ford-Starter: `lauf.py --fordsatz`)
-FORDSATZ = (" Deine Stundenuhr „Ford-Lauf“ (3 * * * *) legst du selbst mit create_trigger an und verwaltest sie, und deine Notizen in"
-            " /home/user/bornim-main holst und lädst du mit git pull und git push hoch, so wie du es für deine Arbeit als Betriebsleiter"
-            " brauchst, wie es der Chef dir erlaubt hat und wie es in deiner Rollendatei steht.")
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
 AUFWAND_HOCH = re.compile(r"Aufwand hoch\b", re.I)  # 827.1: „Nachfolger: … (Aufwand hoch, weil …)“ in der Übergabe
@@ -565,8 +560,6 @@ def notizen_frisch():
 
 def main():
     a = sys.argv[1:]
-    if a[:1] == ["--fordsatz"]:  # 1551: Schluss der ersten Nachricht an jeden neuen Ford, wörtlich anhängen
-        return print((FORDSATZ + KAUFREPO).strip())
     if a[:1] == ["--morgen"]:  # 783 W7 (Chef 09.11., 20:16): Fords 7-Uhr-Zeile entfällt, alles steht im Tagesbericht 7:30
         return print("Morgenmeldung entfällt (783 W7); Chefsache-Zahl und Bitte um das Bild der Nutzung stehen im Tagesbericht.")
     if a[:1] == ["--aufraeumen"]:
@@ -744,11 +737,21 @@ def main():
             neue_marken.append("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste))
             ausgabe.append("WARNUNG-LAUT %d Sitzungen im Bereich %s in zwei Läufen hintereinander (seit %s, 261.5)" % (len(offene), r, vor[0].strftime("%H:%M")))
         if not [d for d in zeiten if (JETZT - d).total_seconds() < 1800]: neue_marken.append("Mehrfach " + r.replace(" ", "-"))
-    # 927 (D162.1, Schritt 9): Sitzung hängt = working/blocked, aber seit 60 Minuten ohne neues updated_at (zwei Läufe) und ohne Weckruf; einmal je Sitzung und Stand, nachts lautlos
+    # 1572 (Chef 17.11., 17:02: Ford hing zwei Stunden an einer Freigabe, keiner meldete): blocked = wartet auf eine Freigabe in der Sitzung;
+    # ab 15 Minuten laut an den Chef mit Link, einmal je Sitzung und Stand, nachts lautlos (Ford selbst prüft die Uhr-Sitzung, LISTE-BETRIEB.md)
+    for s in leb:
+        r, laufend, ruhig, _ = s["_info"]
+        if "BLOCKED" not in s.get("status_bucket", "") or ruhig < FREIGABE_MIN: continue
+        m = "Freigabe %s %s" % (s["id"], s["updated_at"][:16])
+        if ("Marke " + m) in marke_alt: continue
+        ausgabe.append("%s Sitzung wartet auf Freigabe: %s „%s“ seit %s; Chef: in https://claude.ai/code/%s freigeben oder ablehnen (1572)" % (
+            laut_nachts(), r, s.get("title", ""), berlin(z(s["updated_at"])), s["id"]))
+        neue_marken.append(m)
+    # 927 (D162.1, Schritt 9): Sitzung hängt = working, aber seit 60 Minuten ohne neues updated_at (zwei Läufe) und ohne Weckruf; einmal je Sitzung und Stand, nachts lautlos
     for s in leb:
         r, laufend, ruhig, _ = s["_info"]
         bucket = s.get("status_bucket", "")
-        if laufend or not ("WORKING" in bucket or "BLOCKED" in bucket or s.get("session_status") == "SESSION_STATUS_RUNNING"): continue
+        if laufend or "BLOCKED" in bucket or not ("WORKING" in bucket or s.get("session_status") == "SESSION_STATUS_RUNNING"): continue
         m = "Hängt %s %s" % (s["id"], s["updated_at"][:16])
         if ("Marke " + m) in marke_alt: continue
         ausgabe.append("%s Sitzung hängt: %s „%s“ seit %s ohne Lebenszeichen, https://claude.ai/code/%s (927)" % (
