@@ -35,3 +35,15 @@ Im Bau geprüft: Wölfe und Goblins rücken ohne neuen Platz nicht, jedes erlaub
 - 294.2: probe=WOLVES tasche=voll
 - 294.2b: probe=SPIDER
 - 294.10: probe=WOLVES herkunft=Zauberlehrling
+
+## Ergebnis
+
+Chef 17.11., 06:51 (Chat Sokrates); übrige Punkte „ohne dich“ wie in der Liste bestätigt oder gebilligt:
+- 294.1 ✓
+- 294.2 ✓
+- 294.2b ✓
+- 294.3 ✓
+- 294.10 ✓
+- 294.11 ✓
+- 294.12 ✓
+- Rest ✓
