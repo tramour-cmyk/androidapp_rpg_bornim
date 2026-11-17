@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 17:28, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 18:09, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -28,7 +28,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 47 (52) | 2 | 0 | 0 | 24 | 1563 (Jerry) Teich in der Höhle am Ufer noch eckig und kantig;… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 16 (13) | 10 | 0 | 1 | 4 | 1561 (Jerry) Wiederholrot stehen_973: 2× rot in 48 h; Ursache… |
-| **7** Werkzeuge und Abläufe der Firma | 44 (43) | 27 | 0 | 0 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
+| **7** Werkzeuge und Abläufe der Firma | 45 (43) | 28 | 0 | 0 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 79 | 202 | 281 | 1141 |
-| neu | 74 | 164 | 238 | 1128 |
-| **netto** (erledigt − neu) | **+5** | **+38** | **+43** | **+13** |
+| neu | 75 | 164 | 239 | 1129 |
+| **netto** (erledigt − neu) | **+4** | **+38** | **+42** | **+12** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -53,7 +53,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1270 Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader… (Kür) |
-| Perikles | M? M? entscheiden: 785.25, 1571, 1567, 1568 (Muss); dann 1 weitere |
+| Perikles | M? M? entscheiden: 785.25, 1571, 1567, 1568 (Muss); dann 2 weitere |
 
 **Die nächsten 20**
 
@@ -71,16 +71,16 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 10 | 1554 | Jerry | Wiederholrot ausholen_1000: 4× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 6 Godot besser nutzen | startbar |
 | 11 | 1553 | Jerry | Wackeltest atem_4531: rot und grün am selben Commit; deterministisch machen, ni… | M | 6 Godot besser nutzen | startbar |
 | 12 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 14 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 15 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 16 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 17 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 18 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 19 | 785.25 | Tom | D304.1 von Diogenes: Knopf „Schnell ›“ im leichten Kampf während des Kampfs feh… | M? | 2 Kampf passt | startbar |
-| 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 13 | 1572 | Perikles | Ford hing ab 16:04 zwei Stunden, keiner startete, kein Telegram; Hängeralarm: b… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 15 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 16 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 17 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 18 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 20 | 785.25 | Tom | D304.1 von Diogenes: Knopf „Schnell ›“ im leichten Kampf während des Kampfs feh… | M? | 2 Kampf passt | startbar |
 
-Danach 78 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 73.
+Danach 79 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
@@ -111,7 +111,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 53, Muss 8, startbar 9
+**Tom** – offen 53, Muss 8, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -156,7 +156,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | ruht |
 | 1167 | K | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11.): Atmen für die Dorftiere (g | wartet auf Test/Build (gebaut) |
 | 1174 | K | Von Sokrates (Archivprüfung, 348.10 Chef 25.10., 16:36 „brauchen wir auf jeden Fall“; Zwec | wartet auf 431 (wartet) |
-| 1205 | K | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | startbar |
+| 1205 | K | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | wartet auf Test/Build (gebaut) |
 | 1211 | K | Von Sokrates (Prüfauftrag Chef 13.11., 19:10): Leuchtfunke mit R7 rocket_trail als Schweif | startbar |
 | 1210 | K | Von Sokrates: Regen wie alt (D3.10) fehlt in Godot; Bild ohne Vorgang (R8 Weather FX statt | ruht |
 | 1406 | K | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 | startbar |
@@ -245,7 +245,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1536 | K | Von Homer (1525 C, Chef 17.11., 09:43): drei Merkmalsnamen je Tiermerkmal einbauen, im Kam | startbar |
 | 1529.1 | K | Von Sokrates (1529 nach Votum, Chef 17.11., 10:51): Ausdauer im Kampf bauen nach DESIGN-GL | ruht |
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
-| 1566 | M | Von Chef (17.11., 14:50, an Sokrates, Build 296, Bild): Höhlenwasser leuchtet hinter Wände | Chef (Datei in der Chefsache) |
+| 1566 | M | Von Chef (17.11., 14:50, an Sokrates, Build 296, Bild): Höhlenwasser leuchtet hinter Wände | wartet auf Test/Build (gebaut) |
 | 1567 | M? | Von Chef (17.11., 14:54, an Sokrates, Build 296, Bild): Siegtafel zeigt „Alrik –0 Leben“ ( | startbar |
 | 1568 | M? | Von Chef (17.11., 16:05, an Sokrates, Build 297, Bild): im Kampfort liegt unter Wölfen und | startbar |
 
@@ -259,11 +259,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 30 | K | Abstürze beim Testen | ruht bis 23.11. |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 
-**Perikles** – offen 26, Muss 20, startbar 1
+**Perikles** – offen 27, Muss 21, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1148 | M | Von Ford (13.11., 14:58): lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen | Termin 23.11. |
+| 1572 | M | Von Chef (17.11., 17:02, an Sokrates): Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abg | startbar |
 | 1548 | M | Von Chef (17.11., 11:15): Laufzeiten der letzten Läufe prüfen, greifen die vorgerenderten | Termin 18.11. |
 | 1543 | M | Von Sokrates (Chef 17.11., 10:46: „viele Muss im Kampf … warum Jerry Kürvorgänge in den To | Termin 18.11. |
 | 1508 | M | Von Sokrates (Chef 17.11., 06:19: „die nächsten 20 alles Jerry, sollte jemand helfen?“): J | Termin 18.11. |
