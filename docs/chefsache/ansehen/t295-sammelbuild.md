@@ -4,6 +4,8 @@ Rot, bekannt, nicht melden: wolf_mess_438 – nach einem Tod rücken Wölfe ohne
 
 Gegengelesen: Tom 00:25 (295.1 wie Archiv 1270.4, 👍 16.11., 17:32; 295.2 nach Einwand neu gefasst, passt: `herkunft=Jägerkind` in `BrsHeld.herkuenfte()` (testmodus.gd 721), „Lesestufe 3“ von Jerry, nicht nachgerechnet; 295.3 Test auf `claude/spike-295-vorlauf` da). 531 trage ich nach grünem Lauf selbst ein.
 
+Verglichen (alt gegen neu): Glühen und Höhlenlicht im Vergleichsfilm (1270.4, gebilligt 16.11., 17:32); sonst kein Schirm umgebaut (1488 ergänzt den Zusatz am Gegnernamen, 1275 ist eine Regel).
+
 Sammelbuild auf `claude/build-294` (Lauf 539); die Punkte der Liste 294 kommen hier nicht noch einmal. 531 (Tom) fährt im nächsten Build (Wolf im Fackelfilm nicht zu sehen, Tom 01:20).
 
 Ein Weg: über Build 294 installieren; Zeile 295.2 mit „Lage herstellen“.
