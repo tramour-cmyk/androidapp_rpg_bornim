@@ -45,7 +45,8 @@ const MIN_BILDRATE := 20.0
 ## null: wo der Winkel 0 ist: "ruhe" (Ruhelage des Gerüsts), "gerade" (in Verlängerung des Glieds darüber), "gegen" (ihm entgegen:
 ## die Beine hängen am Becken nach unten); x: Beugen nach vorn (+) und hinten (−) in Grad, y: Drehen um die eigene Achse (±), z: zur
 ## Seite (±; Knie 12°, Ellbogen 15° vor der Streckung: die Grenze gibt bei schneller Bewegung um etwa 5° je rad/s nach, gemessen
-## gelenk_1215); r: Spannung (Faktor); mit: weitere Kapseln am selben Glied [von, bis, mal] (Fuß)
+## gelenk_1215; der Ellbogen hat 15° Spiel beim Drehen und zur Seite, 1505: als reines Scharnier verkantete er, sobald die Hand am
+## Boden oder an der Brust lag, und Schulter und Ellbogen klafften liegend bis 0,1 m, Unterarm bis 29° über die Grenze); r: Spannung (Faktor); mit: weitere Kapseln am selben Glied [von, bis, mal] (Fuß)
 ## eigenes Gerüst (tools/blender348/v3_kampf/rig.py: je Strecke zwischen zwei Gelenkpunkten ein Knochen „a-b“; Goblin, Späher,
 ## Schamane, Kobold)
 const GLIEDER_STRECKE := [
@@ -53,9 +54,9 @@ const GLIEDER_STRECKE := [
 	{"n": "brust", "k": "belly-chest", "ende": "chestTop-neck", "an": "becken", "form": "kasten", "m": 0.24, "null": "gerade", "x": [-15, 40], "y": 18, "z": 18, "r": 0.8},
 	{"n": "kopf", "k": "neck-neckTop", "an": "brust", "form": "kasten", "m": 0.09, "lang": 0.16, "null": "ruhe", "x": [-60, 45], "y": 45, "z": 30, "r": 0.12},
 	{"n": "oberarm_l", "k": "upL-elL", "ende": "elL-foL", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_l", "k": "elL-foL", "ende": "foL-wrL", "mal": 2.7, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_l", "k": "elL-foL", "ende": "foL-wrL", "mal": 2.7, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "oberarm_r", "k": "upR-elR", "ende": "elR-foR", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_r", "k": "elR-foR", "ende": "foR-wrR", "mal": 2.7, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_r", "k": "elR-foR", "ende": "foR-wrR", "mal": 2.7, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "schenkel_l", "k": "hipL-thighL", "ende": "kneeL-calfL", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
 	{"n": "wade_l", "k": "kneeL-calfL", "ende": "ankleL-heelL", "an": "schenkel_l", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["ankleL-heelL", "ballL-toeL", 1.5]], "r": 0.5},
 	{"n": "schenkel_r", "k": "hipR-thighR", "ende": "kneeR-calfR", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
@@ -67,9 +68,9 @@ const GLIEDER_UAL := [
 	{"n": "brust", "k": "spine_02", "ende": "neck_01", "an": "becken", "form": "kasten", "m": 0.24, "null": "gerade", "x": [-15, 40], "y": 18, "z": 18, "r": 0.8},
 	{"n": "kopf", "k": "Head", "an": "brust", "form": "kasten", "m": 0.08, "lang": 0.13, "null": "ruhe", "x": [-60, 45], "y": 45, "z": 30, "r": 0.12},
 	{"n": "oberarm_l", "k": "upperarm_l", "ende": "lowerarm_l", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_l", "k": "lowerarm_l", "ende": "hand_l", "mal": 1.45, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_l", "k": "lowerarm_l", "ende": "hand_l", "mal": 1.45, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "oberarm_r", "k": "upperarm_r", "ende": "lowerarm_r", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_r", "k": "lowerarm_r", "ende": "hand_r", "mal": 1.45, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_r", "k": "lowerarm_r", "ende": "hand_r", "mal": 1.45, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "schenkel_l", "k": "thigh_l", "ende": "calf_l", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
 	{"n": "wade_l", "k": "calf_l", "ende": "foot_l", "an": "schenkel_l", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["foot_l", "ball_l", 1.6]], "r": 0.5},
 	{"n": "schenkel_r", "k": "thigh_r", "ende": "calf_r", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
@@ -81,9 +82,9 @@ const GLIEDER_BIPED := [
 	{"n": "brust", "k": "Spine1", "ende": "Neck", "an": "becken", "form": "kasten", "m": 0.24, "null": "gerade", "x": [-15, 40], "y": 18, "z": 18, "r": 0.8},
 	{"n": "kopf", "k": "Head", "an": "brust", "form": "kasten", "m": 0.08, "lang": 0.13, "null": "ruhe", "x": [-60, 45], "y": 45, "z": 30, "r": 0.12},
 	{"n": "oberarm_l", "k": "L UpperArm", "ende": "L Forearm", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_l", "k": "L Forearm", "ende": "L Hand", "mal": 1.45, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_l", "k": "L Forearm", "ende": "L Hand", "mal": 1.45, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "oberarm_r", "k": "R UpperArm", "ende": "R Forearm", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_r", "k": "R Forearm", "ende": "R Hand", "mal": 1.45, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_r", "k": "R Forearm", "ende": "R Hand", "mal": 1.45, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "schenkel_l", "k": "L Thigh", "ende": "L Calf", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
 	{"n": "wade_l", "k": "L Calf", "ende": "L Foot", "an": "schenkel_l", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["L Foot", "L Toe0", 1.6]], "r": 0.5},
 	{"n": "schenkel_r", "k": "R Thigh", "ende": "R Calf", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
@@ -397,7 +398,12 @@ func sterben(nach_s: float, fuss: float, hindernisse := []) -> void:
 	_boden_y = fuss
 	_hindernisse = hindernisse
 	_vor.clear()
-	process_priority = 100      # nach dem AnimationPlayer: die Haltung dieses Bilds
+	# 1505 (Lauf 544/548: je Lauf andere Fehler, am Rechner mit fester Bildrate 30/60/120 nachgestellt): Vorlauf und Übernahme im
+	# Takt der Physik, die Sterbebewegung ebenso; so fällt er bei jeder Bildrate gleich (vorher gab die Bildzeit Zeitpunkt und
+	# Geschwindigkeit der Übernahme vor, auf dem Bauserver unter Last anders als am Rechner und am Handy)
+	if anim != null:
+		anim.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_PHYSICS
+	process_physics_priority = 100      # nach dem AnimationPlayer: die Haltung dieses Takts
 	zugleich += 1
 
 var _hindernisse := []
@@ -419,7 +425,12 @@ func _lage(g: Dictionary) -> Transform3D:
 	return Transform3D(t.basis.orthonormalized(), t.origin)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	if phase == "physik":
+		_nachfuehren()
+
+
+func _physics_process(delta: float) -> void:
 	if phase == "vorlauf":
 		_zeit += delta
 		var jetzt := []
@@ -428,11 +439,7 @@ func _process(delta: float) -> void:
 		if _zeit >= 0.0 and not _vor.is_empty():
 			_los(_vor, jetzt, maxf(delta, 0.001))
 		_vor = jetzt
-	elif phase == "physik":
-		_nachfuehren()
-
-
-func _physics_process(delta: float) -> void:
+		return
 	if phase != "physik":
 		return
 	_zeit += delta

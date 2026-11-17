@@ -1,6 +1,6 @@
-# Spike · Build 295 · Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen · [PR 213](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/213) · Datei bornim-0.348.544-build-295.apk
-E Technik · Spike (ohne dich 1270.4), Jerry (1488; ohne dich 1488, 1275) · 17.11., 02:52 · [APK (Lauf 544)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43986044991/artifacts/14290861168)
-Rot, bekannt, nicht melden: wolf_mess_438 – nach einem Tod rücken Wölfe ohne neuen Platz nach (439, F3), Vorgang 1505 (Jerry); tod_ragdoll_1215 – Grak: Gelenk Unterarm klafft 0,083 m, Physik bei 3 Toten 15 ms je Bild; mit 1340 auch Skelett Oberarm 0,096 m und Goblin mit Gift sackt nicht am Platz, Vorgang 1505 (Jerry).
+# Spike · Build 295 · Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen · [PR 213](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/213) · Datei bornim-0.348.546-build-295.apk
+E Technik · Spike (1483; ohne dich 1270.4), Jerry (1488; ohne dich 1488, 1275, 601.1, 1340, 1284b, 623.2) · 17.11., 07:15 · [APK (Lauf 546)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44024918701/artifacts/14303487932)
+Rot, bekannt, nicht melden: Typenprüfung (kampf/treffer_fx.gd, kampf/kampfort.gd ohne Typen) und arkan_993 (Arkanpfeil landet 0,95 m neben dem Gegner), Vorgang 1514 (Jerry); wolf_mess_438 – nach einem Tod rücken Wölfe ohne neuen Platz nach (439, F3), Vorgang 1505 (Jerry); tod_ragdoll_1215 – Grak: Gelenk Unterarm klafft 0,083 m, Physik bei 3 Toten 15 ms je Bild; mit 1340 auch Skelett Oberarm 0,096 m und Goblin mit Gift sackt nicht am Platz, Vorgang 1505 (Jerry).
 
 Gegengelesen: Tom 00:25 (295.1 wie Archiv 1270.4, 👍 16.11., 17:32; 295.2 nach Einwand neu gefasst, passt: `herkunft=Jägerkind` in `BrsHeld.herkuenfte()` (testmodus.gd 721), „Lesestufe 3“ von Jerry, nicht nachgerechnet; 295.3 Test auf `claude/spike-295-vorlauf` da). 531 trage ich nach grünem Lauf selbst ein.
 
@@ -29,3 +29,7 @@ Im Bau geprüft: Merkmale je Gegner beim Kampfbeginn, höchstens eines je Gegner
 ## Lagen
 
 - 295.2: probe=WOLVES herkunft=Jägerkind
+
+## Ergebnis
+
+- 295.2 ✓ (Chef 17.11., 08:09, Bildschirmfoto: „wenn der Wolf normal ist, steht sozusagen nichts dabei. Wenn er der Durchschnittswolf ist, dann passt das alles.“ Wolf 1 ohne Merkmal 25/25, Wolf 2 angeschlagen −30 % 18/18, Wolf 3 kräftig +15 % 29/29)
