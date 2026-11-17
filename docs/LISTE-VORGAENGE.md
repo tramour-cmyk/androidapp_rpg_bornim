@@ -67,10 +67,7 @@
 | 1546 | Rest aus 531 (Commit 407487618, angelegt Sokrates bei Abschluss t296): Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress.kt bowOnBack (ohne Gurt) | Tom | K | startbar | – | – | – | G Stil | – |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | nach Meilenstein | – | – | – | M Veröffentlichung | 2,91 $ |
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Tom | K | nach Meilenstein | – | – | – | E Welt | – |
-| 1580 | Von Werkzeug (1334): Wiederholrot wolf_mess_438: 14× rot in 48 h (Läufe 548, 546, 544, 537, 524, 522); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
-| 1579 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 6× rot in 48 h (Läufe 550, 548, 546, 544, 503, 497); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1578 | Von Werkzeug (1334): Wiederholrot stehen_973: 2× rot in 48 h (Läufe 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | erledigt, Geprüft an: Lauf 554 (Doppel zu 1561) | – | – | – | E Technik | – |
-| 1575 | Von Werkzeug (1334): Wiederholrot arkan_993: 4× rot in 48 h (Läufe 552, 548, 546, 512); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1560 | Von Werkzeug (1334): Wiederholrot reihe_1305: 3× rot in 48 h (Läufe 537, 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | erledigt, Geprüft an: Lauf 554 (518/524/537 vor 0f950d2a3) | – | – | – | E Technik | – |
 | 1545 | Von Perikles (1543): Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt (Halt Chef 13.11., 23:35 „Hausaufgaben“ → Gesamtbild 930 A 14.11., 20:19; 1072 erledigt t294; 1288 erledigt; Wochenziel 2 und 5: 1068, dann 709 wieder startbar); sonst Grund an Perikles | Jerry | M | erledigt | – | – | – | E Kampf | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | – | – | – | E Technik | 15,96 $ |
@@ -241,3 +238,6 @@
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
+| 1580 | Von Werkzeug (1334): Wiederholrot wolf_mess_438: 14× rot in 48 h (Läufe 548, 546, 544, 537, 524, 522); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
+| 1579 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 6× rot in 48 h (Läufe 550, 548, 546, 544, 503, 497); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
+| 1575 | Von Werkzeug (1334): Wiederholrot arkan_993: 4× rot in 48 h (Läufe 552, 548, 546, 512); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
