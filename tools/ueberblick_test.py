@@ -37,4 +37,10 @@ if g and h:
     soll("neu: gestern + heute = seit gestern", u._bilanz(g, h)[1] + u._bilanz(h, x)[1], u._bilanz(g, x)[1])
 mo = u.morgen()
 soll("Zeile heute, gestern, Woche, Monat", mo is not None and all(k in mo[1] for k in ("heute", "gestern", "Woche", "Monat")), True)
+# 1592: „in Arbeit“ aus der Besetzung (Vorgang je Sitzung), Betrieb und Kopfzeilen zählen nicht
+probe = "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Tom | [x](u) | 297.11 | – | 17.11. |\n| Ford | [f](u) | Betrieb | – | 17.11. |\n| Jerry | [j](u) | 1561 | claude/jerry-1 | 17.11. |"
+soll("Besetzung gelesen", sorted(u.besetzt(probe)), ["1561", "297.11"])
+soll("in Arbeit zählt Besetzung", u.in_arbeit({"wort": "startbar", "nr": "1561"}, {"1561"}), True)
+soll("gebaut zählt nicht als in Arbeit", u.in_arbeit({"wort": "gebaut", "nr": "1561"}, {"1561"}), False)
+soll("Stand in den 20 aus Besetzung", u.kurzstand({"wort": "startbar", "nr": "1561", "stand": ""}, None, {"1561"}), "in Arbeit")
 sys.exit(1 if fehl else 0)
