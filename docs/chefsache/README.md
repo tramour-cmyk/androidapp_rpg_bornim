@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 03:07, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 03:11, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,12 +23,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 62 (61) | 21 | 1 | 9 | 8 | 1340 (Jerry) Aus 1215: Sterben mit Physik fehlt noch für Skele… |
+| ↳ **2** Kampf passt | 62 (61) | 21 | 1 | 9 | 10 | 1340 (Jerry) Aus 1215: Sterben mit Physik fehlt noch für Skele… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 0 | 3 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
-| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 8 | 0 | 4 | 20 | 1423 (Jerry) Felswände der Höhle nur nabelhoch, auch mit 1289… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (13) | 5 | 0 | 6 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| **7** Werkzeuge und Abläufe der Firma | 42 (43) | 27 | 0 | 0 | 9 | 1506 (Perikles) startbar.py zeigt Kür am Aussehen als startbar, o… |
+| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 8 | 0 | 4 | 23 | 1423 (Jerry) Felswände der Höhle nur nabelhoch, auch mit 1289… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (13) | 5 | 0 | 6 | 4 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
+| **7** Werkzeuge und Abläufe der Firma | 42 (43) | 27 | 0 | 0 | 9 | 1501 (Jerry) D283.1 von Diogenes: claude/build-294 ohne main a… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -53,7 +53,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | Pflege von Werkzeug: 3 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Sokrates | Pflege von Werkzeug: Übergabe über 700 Zeichen; 8 „Zu“ zu Erledigt… (Kür) |
-| Perikles | 1506 startbar.py zeigt Kür am Aussehen als startbar, obwohl 488… (Muss) |
+| Perikles | Pflege von Werkzeug: 1 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 
 **Die nächsten 20**
 
@@ -62,25 +62,25 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
 | 2 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
 | 3 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 4 | 1506 | Perikles | startbar.py zeigt Kür am Aussehen als startbar, obwohl 488 sie einfriert; Einst… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 5 | 1501 | Jerry | D283.1 von Diogenes: claude/build-294 ohne main ab 21:47 gebaut, 1485 fehlt; AP… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
-| 7 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
-| 8 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
-| 9 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 10 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
-| 11 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
-| 12 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
-| 13 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 14 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 15 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
-| 16 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
-| 17 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | 2 Kampf passt | startbar |
-| 18 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
-| 19 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
-| 20 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 4 | 1501 | Jerry | D283.1 von Diogenes: claude/build-294 ohne main ab 21:47 gebaut, 1485 fehlt; AP… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
+| 6 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 7 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
+| 8 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
+| 9 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
+| 10 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 11 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 12 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
+| 13 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 14 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | 2 Kampf passt | startbar |
+| 15 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
+| 16 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 17 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 18 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 19 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
+| 20 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
 
-Danach 78 weitere offen. Bei dir zum Testen (vorgelegt): 22. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 59.
+Danach 69 weitere offen. Bei dir zum Testen (vorgelegt): 22. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 67.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
