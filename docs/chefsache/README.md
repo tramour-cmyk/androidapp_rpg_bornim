@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 13:07, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 13:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -28,16 +28,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 47 (52) | 4 | 0 | 3 | 24 | 168.1 (Jerry) Umsetzung 168: Garrick fest in Kapitel 2, Söldner… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (13) | 13 | 0 | 1 | 4 | 1562 (Tom) Wiederholrot ziege_4162: 3× rot in 48 h; Ursache… |
-| **7** Werkzeuge und Abläufe der Firma | 48 (43) | 28 | 0 | 1 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
+| **7** Werkzeuge und Abläufe der Firma | 46 (43) | 28 | 0 | 1 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 55 | 202 | 257 | 1117 |
+| erledigt | 57 | 202 | 259 | 1119 |
 | neu | 64 | 164 | 228 | 1118 |
-| **netto** (erledigt − neu) | **−9** | **+38** | **+29** | **−1** |
+| **netto** (erledigt − neu) | **−7** | **+38** | **+31** | **+1** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -51,9 +51,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tuffy | 1541 Taumeln im Kerbensystem auch bei Zurückdrängen und Netz ver… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | 1562 Übernahme von Tom: Wiederholrot ziege_4162: 3× rot in 48 h; Ursache nachstelle… (Muss); dann 9 weitere |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1547 07: einen vernünftigen Build 297 mit allem, was offen ist,… (Muss) |
+| Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1270 Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader… (Kür) |
-| Perikles | leer, weil 16 Termin, 5 wartet auf Vorgang (1388, 1389, 870, 1125, 1522), 4 wartet auf Diogenes |
+| Perikles | leer, weil 16 Termin, 5 wartet auf Vorgang (1388, 1389, 870, 1125, 1522), 2 wartet auf Test/Build |
 
 **Die nächsten 20**
 
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
 | 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
 
-Danach 77 weitere offen. Bei dir zum Testen (vorgelegt): 20. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 23. Ruhend oder nach dem Meilenstein: 73.
+Danach 77 weitere offen. Bei dir zum Testen (vorgelegt): 20. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
