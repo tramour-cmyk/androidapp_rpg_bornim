@@ -63,6 +63,8 @@ func _lauf() -> void:
 	kf.ui.refresh()
 	await _knips(aus + "/2_eckknopf.png")
 	if kf.mars.outcome == "ONGOING":
+		if OS.get_environment("VERLUST_1567") != "":     # 1567: Verlust vor „Schnell ›“ (wie ein Biss davor) zählt auf der Tafel mit
+			kf.mars.all[0].hp -= int(OS.get_environment("VERLUST_1567"))
 		kf.schnell()
 	n = 0
 	while (kf.busy or kf.mars.outcome == "ONGOING") and n < 3000:
