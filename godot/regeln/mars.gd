@@ -1572,7 +1572,10 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 					_brs_zauber(f, g, z)
 		"Z_WUND":
 			f.wund_genutzt += 1     # 1292 A
-			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)))
+			# 1478 (1411 A, Chef 16.11., 19:32): Heilung gestreut wie der Waffenschaden (kampf.streuung, 0,8–1,2)
+			var st := float(BrsKampf.w()["kampf"].get("streuung", 0.0))
+			var streu: float = (1.0 - st) + 2.0 * st * float(dice.randf()) if st > 0.0 and dice != null else 1.0
+			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0) * streu))
 			t.hp += n
 			if f == t:
 				_say(fmt(X.MSG72_HEALSSELF, lang, [f.name(lang), n]), f.id, t.id, 0, null, false, false, "HEAL")
