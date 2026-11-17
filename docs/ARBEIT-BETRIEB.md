@@ -46,9 +46,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 17.11., 07:59 Ford: Sokrates-Neustart: `…77G4ce7ghB2Dwu4oTC` gestartet, alter `…781BCNQwnEbXqwzD3u` archiviert, Kosten 9,46 $ auf 1503, 1506, 1507, 1508, 1519.
-- 07:57 17.11.: Startsperre 07:57 Start Sokrates (selbst) – Neustart auf Meldung 07:53 (d3399827c).
 - 17.11., 07:54 Ford: Tom-Neustart: `…77SRDgqsBSpjHkd9Wt` gestartet, alter Tom archiviert. Lauf 07:52: 1068, 1224, 1415 an Jerry und 870 an Sokrates als GELÖST gesendet; Diogenes-Nachfolger 1246 erst 08:00 (zweiter Lauf prüft); Sokrates `…781BCNQwnEbXqwzD3u` idle, bei 08:03 archivieren.
-- 07:53 17.11.: Startsperre 07:53 Start Tom (selbst) – Neustart auf Meldung 07:51, Kosten 32,06 $ auf 1423 gebucht.
 - 17.11., 07:45 Ford (Nachfolger `…75aJAz5Whuj3YyDLJw`): Übergabe 1 bis 3 ausgeführt, Uhr-Sitzung bestätigt 07:44, alter Ford `…76ER7oUkkBFVsDDeqy` archiviert, Kosten 7,68 $ auf 1019, 1366. Lauf 08:03 ist die Probe.
 - 17.11., 06:20 Ford: 1507 gilt ab jetzt: Satz „Fertiges lautlos … 👍/👎-Zeile“ nur in Starts und „Weiter“ an Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer, Sokrates. Weiter an Jerry (1284b, 601.1, 1340, 623.2 Szene 3) und Tom (1448, 531, 1423 in den Sammelbuild) nach Chefdaumen der Nacht (Sokrates 06:18); 966.2 und 168.1 ausgelassen (Kür, Kapitel 2 bzw. Vorrangregel).
 - 17.11., 00:06 Ford: Lauf 00:03 über Uhr-Sitzung angekommen, 1444 erledigt. Start Diogenes 1425 (`…78eYFVHDkQHymU7Jt7`); 1485 ausgeschlossen bis Jerrys 1501; Spike-Übergabe wartet auf Chef 1484 (bekannt).
@@ -79,14 +77,14 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
+- 07:57 17.11.: Startsperre 07:57 Start Sokrates (selbst) – Neustart auf Meldung 07:53 (d3399827c).
+- 07:53 17.11.: Startsperre 07:53 Start Tom (selbst) – Neustart auf Meldung 07:51, Kosten 32,06 $ auf 1423 gebucht.
 - 00:05 17.11.: Marke Übergabe-Chef Spike 16.11. 23:14 (lauf.py)
 - 01:04 17.11.: Startsperre 01:04 Start Diogenes, Homer, Perikles (lauf.py)
 - 01:04 17.11.: Marke Archiv session_01Hmoj78eYFVHDkQHymU7Jt7 (lauf.py)
 - 01:04 17.11.: Marke Archiv session_01Hmoj76CDuBaNGRkJoRGqaj (lauf.py)
 - 01:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 00:08) (lauf.py)
 - 01:12 17.11.: Startsperre 01:12 Start Spike (Ford von Hand), Neustart-Meldung 01:08 (5ba3de80e)
-- 01:50 17.11.: Startsperre 01:50 Start Sokrates (Ford von Hand), Neustart-Meldung 01:49 (bd6ba506d)
-- 02:04 17.11.: Startsperre 02:04 Start Diogenes, Perikles (lauf.py)
 - 02:04 17.11.: Marke Archiv session_01Hmoj79sb6Z4qbo43YiQ32Q (lauf.py)
 - 02:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 01:19) (lauf.py)
 - 02:54 17.11.: Startsperre 02:54 Start Jerry (Ford von Hand), Neustart-Meldung 02:53 (bd830f17c)
@@ -103,3 +101,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:38 17.11.: Startsperre 06:38 Start Jerry (Ford von Hand), Neustart-Meldung 06:33 (d29a69780)
 - 07:31 17.11.: Startsperre 07:31 Start Perikles (Ford von Hand), Tagesbericht 17.11. ab 07:30
 - 07:43 17.11.: Startsperre 07:43 Start Ford (selbst), Selbstneustart bei 401 Tsd. Token (Haken 1019, Erinnerung 1), alter Ford session_01Hmoj76ER7oUkkBFVsDDeqy; Uhr-Sitzung …76cLUxDoHGcPjixiTE bleibt (1444)
+- 08:04 17.11.: Startsperre 08:04 Start Diogenes, Perikles (lauf.py)
+- 08:04 17.11.: Marke Nachhalten 17.11. (lauf.py)
+- 08:04 17.11.: Marke Abgleich ganz 17.11. (lauf.py)
+- 08:04 17.11.: Marke Archiv session_01Hmoj78gV596wg1KgLhojwt (lauf.py)
