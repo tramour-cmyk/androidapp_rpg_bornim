@@ -23,7 +23,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 56 (61) | 13 | 0 | 0 | 12 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
+| ↳ **2** Kampf passt | 56 (61) | 13 | 0 | 0 | 12 | 1068 (Jerry) Ring bei jedem großen Schlag der Gegner, diese Sc… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 20 (16) | 10 | 1 | 0 | 8 | 1569 (Tom) Rest aus 431h: angelegter Umhang an der Heldenfig… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 0 | 24 | 1567 (Jerry) Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben… |
@@ -45,10 +45,10 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 1 weitere |
 | Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 1 weitere |
-| Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 9 weitere |
-| Tuffy | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
+| Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 5 weitere |
+| Tuffy | 1541 Taumeln im Kerbensystem auch bei Zurückdrängen und Netz ver… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
 | Spike | leer, weil 3 ruht, 2 Termin, 1 Chef |
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
@@ -59,28 +59,28 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 760 | Jerry | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung pa… | M | 2 Kampf passt | startbar |
-| 2 | 1068 | Jerry | Ring bei jedem großen Schlag der Gegner, diese Schläge härter, Ring beim eigene… | M | 2 Kampf passt | startbar |
-| 3 | 709.1 | Jerry | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar | M | 2 Kampf passt | startbar |
-| 4 | 709 | Jerry | Kampf: Angriffe treffen den Gegner sichtbar, alle Angreifer prüfen | M | 2 Kampf passt | startbar |
-| 5 | 1541 | Jerry | Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen… | M | 2 Kampf passt | startbar |
-| 6 | 1588 | Jerry | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachba… | M | 2 Kampf passt | startbar |
-| 7 | 1589.1 | Sokrates | Regelblatt Gegnerverhalten gemeinsam, nicht im stillen Kämmerchen: Gespräch Che… | M | 2 Kampf passt | startbar |
-| 8 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 9 | 1587 | Jerry | Zauberstab ohne Modell, darum an der Figur unsichtbar; ebenso Magierstab und Gl… | M | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 1567 | Jerry | Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben macht nicht so viel Sinn“; Zei… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1568 | Jerry | im Kampfort liegt unter Wölfen und Held ein rechteckiger dunkler Fleck; nicht d… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 12 | 1591 | Tom | im nächsten Sammelbuild eine Handyzeile „neues Spiel von der Erschaffung über D… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 14 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 15 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 16 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 17 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 18 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 1 | 1068 | Jerry | Ring bei jedem großen Schlag der Gegner, diese Schläge härter, Ring beim eigene… | M | 2 Kampf passt | startbar |
+| 2 | 1541 | Jerry | Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen… | M | 2 Kampf passt | startbar |
+| 3 | 1589.1 | Sokrates | Regelblatt Gegnerverhalten gemeinsam, nicht im stillen Kämmerchen: Gespräch Che… | M | 2 Kampf passt | startbar |
+| 4 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 5 | 1587 | Jerry | Zauberstab ohne Modell, darum an der Figur unsichtbar; ebenso Magierstab und Gl… | M | 3 Kleiderschrank und Modelle | startbar |
+| 6 | 1567 | Jerry | Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben macht nicht so viel Sinn“; Zei… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 7 | 1568 | Jerry | im Kampfort liegt unter Wölfen und Held ein rechteckiger dunkler Fleck; nicht d… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 8 | 1591 | Tom | im nächsten Sammelbuild eine Handyzeile „neues Spiel von der Erschaffung über D… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 9 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 10 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 11 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 12 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 13 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 14 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 15 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 16 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 17 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
+| 18 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 19 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 20 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
 
-Danach 73 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 13. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 73.
+Danach 72 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
@@ -91,7 +91,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1569](ansehen/1569-umhang.md) | Angelegter Umhang an jeder Herkunft sichtbar (Bild alt gegen neu) | – | 17.11., 19:12 |
 
 ## Zu tun
 
