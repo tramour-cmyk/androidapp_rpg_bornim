@@ -51,6 +51,7 @@ const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen
 
 static var info := {}
 static var haare_szenen := {}   # Geschlecht -> haare.bin (m), haare_w.bin
+static var schrank_szenen := {}  # 431h Stufe 2: Datei schrank_<G>_<TEIL>.bin -> Szene
 static var bew_lib: AnimationLibrary = null
 static var bew_becken := 1.0
 static var bew_sk: Skeleton3D = null    # Skelett von bewegungen.bin (Ruhelage fuer rennen_umformen)
@@ -202,6 +203,8 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	m.name = "Held_" + herkunft(w)
 	m.set_meta("tracht", t["modell"])
 	kapuze(m, t["kapuze"])
+	var kl := kleide(m, w, String(t["modell"]))   # 431h: was in den Plaetzen steht; Kapuze nur mit Stueck auf dem Kopf
+	if kl.has("kapuze"): t["kapuze"] = kl["kapuze"]
 	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	if sk == null:   # 680: Datei ohne Skelett (verschluesselt ohne Schluessel, beschaedigt): nichts liegen lassen, alte Figur
@@ -364,6 +367,104 @@ static func _schluessel(m: Node3D, namen: Array, n: String) -> void:
 		for i in me.get_blend_shape_count():
 			var bn := String(me.get_blend_shape_name(i))
 			if bn in namen: (mi as MeshInstance3D).set_blend_shape_value(i, 1.0 if bn == n else 0.0)
+
+# 431h A (Chef 16.11., 10:08, Archiv: „der Held traegt genau das, was in den Ausruestungsplaetzen steht“): je Platz (Kopf, Oberkoerper,
+# Arme, Beine, Umhang) zeigt die Tracht ihr Teil nur, wenn dort ein Stueck liegt. Darunter der Koerper mit Unterwaesche in Stuecken
+# (held_klassen.py leib, held-klassen.json trachten.<T>: „teile“ {PLATZ: [Netze]}, „leib“ {Leib_<STUECK>: [Plaetze, die es decken]},
+# „unter“ {Netz: [Platz, Platz darueber]}): ein Leibstueck ist zu sehen, wenn keiner der Plaetze, die es decken, gezeigt wird; Kleidung
+# unter dem Teil eines anderen Platzes (frueher weggeschnitten) nur, wenn ihr Platz gezeigt wird und der darueber nicht; Formschluessel
+# „unter_<PLATZ>“ zieht die Haut unter einem gezeigten Teil ein (sticht nicht durch). Stufe 1: das Teil der eigenen Tracht steht fuer
+# jedes Stueck des Platzes (die Startstuecke sind die Teile der Tracht, welt.start); eigene Teile je Ruestung erst mit Stufe 2.
+# Ohne „teile“ (Bau vor 431h), fuer die Leute des Dorfs (modell) und mit „kleid“ null (Kampfproben ohne Spielstand): die ganze Tracht.
+# Alt (Dress.kt, Kotlin): der Held Platz fuer Platz aus den Stuecken, leerer Oberkoerper zeigte das Kleid der Klasse; hier zeigt er den Koerper.
+# Gibt {"kapuze": …} zurueck (Haar darunter weg)
+const KLEID_PLAETZE := ["HEAD", "CHEST", "ARMS", "LEGS", "CLOAK"]
+static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
+	var tr: Dictionary = lade_info().get("trachten", {}).get(modell, {})
+	var teile: Dictionary = tr.get("teile", {})
+	# „kleid“: Plaetze, nach denen sich die Kleidung richtet, wenn „ausruestung“ etwas anderes traegt (Kampfort: Waffe in der Hand statt
+	# auf dem Ruecken)
+	var aus = w.get("kleid", w.get("ausruestung", {}))
+	if teile.is_empty() or String(w.get("modell", "")) != "" or not (aus is Dictionary): return {}
+	var zeig := {}
+	# 431h Stufe 2 (Chef 17.11., 09:45, „431h A“): ein Stueck, das die Tracht nicht selbst traegt („eigen“: Startstuecke ihrer Herkuenfte
+	# und Stuecke aus ihren Teilen), zeigt sein Teil aus dem Kleiderschrank des Geschlechts (schrank_<G>.bin, Feld „teil“ der
+	# Gegenstandsliste; je Teil schrank_<G>_<TEIL>.bin); das eigene Teil des Platzes faellt dann weg. Ohne „eigen“ (Bau vor Stufe 2) wie Stufe 1
+	var eigen: Array = tr.get("eigen", [])
+	var fremd := []   # Kennungen der Schrankteile
+	for p in KLEID_PLAETZE:
+		var st = aus.get(p)
+		zeig[p] = st is Dictionary and teile.has(p)
+		if not (st is Dictionary) or eigen.is_empty() or w.get("stufe1", false): continue   # „stufe1“: Vergleichsfilm alt
+		var b := String(st.get("base", ""))
+		# Robe (held-klassen.json „rock“: CHEST): unter dem eigenen Rock bleiben die eigenen Beine (sonst stechen fremde Hosen durch);
+		# ohne Rock zeigt auch das Startstueck (Hose) sein Teil, die Tracht hat keine Hose
+		var rock := String(tr.get("rock", ""))
+		if p == "LEGS" and rock != "":
+			if bool(zeig.get(rock, false)): continue
+		elif b in eigen: continue
+		zeig[p] = false
+		fremd += teil_von(b)
+	var sch: Dictionary = lade_info().get("schrank", {}).get(String(tr.get("geschlecht", "M")), {})
+	fremd = fremd.filter(func(t): return sch.has(t))
+	var leib: Dictionary = tr.get("leib", {})
+	var unter: Dictionary = tr.get("unter", {})
+	var kap := false
+	var fremd_leib := {}   # Leib_<STUECK> -> von einem Schrankteil gedeckt
+	for t in fremd:
+		for lo in Array(sch[t].get("leib", [])): fremd_leib[lo] = true
+		if t in ["RANGER_HOOD", "KNIGHT_HELM"]: kap = true   # Haar darunter weg (Topfhelm deckt den ganzen Kopf)
+	if not fremd.is_empty(): schrank_an(m, String(tr.get("geschlecht", "M")), fremd, sch)
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var x := mi as MeshInstance3D
+		var n := String(x.name)
+		for p in teile:
+			if n in Array(teile[p]):
+				x.visible = bool(zeig.get(p, false))
+				if p == "HEAD" and x.visible and n.contains("Hood"): kap = true
+		if unter.has(n): x.visible = bool(zeig.get(String(unter[n][0]), false)) and not bool(zeig.get(String(unter[n][1]), false))
+		if leib.has(n):
+			x.visible = not Array(leib[n]).any(func(p): return bool(zeig.get(String(p), false))) and not fremd_leib.has(n)
+			if x.mesh is ArrayMesh:
+				var me := x.mesh as ArrayMesh
+				for i in me.get_blend_shape_count():
+					var bn := String(me.get_blend_shape_name(i))
+					if bn.begins_with("unter_"): x.set_blend_shape_value(i, 1.0 if bool(zeig.get(bn.substr(6), false)) else 0.0)
+	return {"kapuze": kap}
+
+# 431h Stufe 2: Teile eines Stuecks (Grundform; Einzelstuecke ueber ihre Grundform), leer = am Helden unsichtbar (Mantel, Umhang anderer
+# Trachten, solange der Umhang ruht)
+static func teil_von(base: String) -> Array:
+	var e := Katalog.eintrag(base)
+	if not e.has("teil") and e.has("grundform"): e = Katalog.eintrag(String(e["grundform"]))
+	return Array(e.get("teil", []))
+
+# 431h Stufe 2: Netze der Schrankteile ans Skelett des Helden (gleiches Geruest des Kaufkoerpers; Bindung ueber Knochennamen, weil die
+# Datei zur Laufzeit mit Bindung nach Nummern geladen wird). Vor Gebiet.male, statur, toene: die Teile werden wie die Figur gezeichnet
+static func schrank_an(m: Node3D, g: String, fremd: Array, sch: Dictionary) -> void:
+	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	if sk == null: return
+	for t in fremd:
+		var datei := "res://daten/schrank_%s_%s.bin" % [g, t]   # je Teil eine Datei, einmal je Spielstart geladen
+		if not FileAccess.file_exists(datei): continue
+		if not schrank_szenen.has(datei): schrank_szenen[datei] = Gebiet.lade_glb(datei)
+		var sz: Node3D = schrank_szenen[datei]
+		if sz == null: continue
+		var ssk := Gebiet.finde(sz, "Skeleton3D") as Skeleton3D
+		for n in Array(sch[t].get("netze", [])):
+			var q := sz.find_child(String(n), true, false) as MeshInstance3D
+			if q == null or q.skin == null: continue
+			var skin := Skin.new()
+			for i in q.skin.get_bind_count():
+				var bn := String(q.skin.get_bind_name(i))
+				if bn == "" and ssk: bn = ssk.get_bone_name(q.skin.get_bind_bone(i))
+				skin.add_named_bind(bn, q.skin.get_bind_pose(i))
+			var mi := MeshInstance3D.new()
+			mi.name = String(n)
+			mi.mesh = q.mesh
+			mi.skin = skin
+			sk.add_child(mi)
+			mi.skeleton = NodePath("..")
 
 # Kapuze der Waldtracht (Head_Hood) nur, wenn die Herkunft sie traegt (Jaegerkind ja, Herumtreiber nein)
 static func kapuze(m: Node3D, an: bool) -> void:
@@ -1289,7 +1390,7 @@ static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInst
 	var aus := PackedVector3Array()
 	for mi in ([nur] if nur else m.find_children("*", "MeshInstance3D", true, false)):
 		var x := mi as MeshInstance3D
-		if not x.skin: continue
+		if not x.skin or not x.visible: continue   # 431h: abgelegte Teile und verdeckter Leib zaehlen nicht
 		var t := im_raum(m, x)
 		var sk := x.get_node_or_null(x.skeleton) as Skeleton3D
 		if sk == null: sk = _sk
