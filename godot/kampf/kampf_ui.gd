@@ -1004,6 +1004,13 @@ func _build_orders() -> void:
 	# 785.10 (259, alt SkirmishScreen.kt 1395–1404): im leichten Kampf zu Beginn „Kämpfen“ oder „Schnell“ ([259T.knoepfe]); langes
 	# Drücken auf „Schnell“ erklärt ([259T.tip])
 	if k.tor == "leicht":
+		var lv: int = int(k.mars.all[0].level())
+		var frage := Label.new()     # [259T.frage] (1513, Homer 17.11.)
+		frage.text = t("Ein leichter Kampf: dein Held Stufe %d, der stärkste Gegner Stufe %d.", "An easy fight: your hero level %d, the strongest foe level %d.") % [lv, roundi(float(lv) - float(k.mars.easy_gap))]
+		frage.add_theme_font_size_override("font_size", sp(14))
+		frage.add_theme_color_override("font_color", TEXT)
+		frage.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		orders.add_child(frage)
 		orders.add_child(_row([_button(t("Kämpfen", "Fight"), true, func() -> void: k.tor_wahl(false)),
 			_button(t("Schnell", "Quick"), true, func() -> void: k.schnell(), false, false, SCHNELL_TIP)], 0, true))
 		return

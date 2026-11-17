@@ -70,6 +70,7 @@ func _lauf() -> void:
 		return
 	var t: Array = _texte(kf.ui.orders, [])
 	pruefe(t.has("KÄMPFEN") and t.has("SCHNELL"), "leichter Kampf wartet auf „Kämpfen“ oder „Schnell“: %s" % [t])
+	pruefe(t.any(func(x): return String(x).begins_with("Ein leichter Kampf: dein Held Stufe 14, der stärkste Gegner Stufe ")), "darüber [259T.frage]: %s" % [t])
 	kf.schnell()
 	n = 0
 	while (kf.busy or kf.mars.outcome == "ONGOING") and n < 1800:
