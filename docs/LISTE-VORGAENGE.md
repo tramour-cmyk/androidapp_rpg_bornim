@@ -11,6 +11,9 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
+| 1581 | Von Werkzeug (1334): Wiederholrot ziege_4162: 3× rot in 48 h (Läufe 513, 500, 499); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1577 | Von Werkzeug (1334): Wiederholrot pruefliste_1020: 2× rot in 48 h (Läufe 500, 499); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
+| 1576 | Von Werkzeug (1334): Wiederholrot lage_785_8: 4× rot in 48 h (Läufe 522, 519, 508, 504); Ursache nachstellen, beheben · wiederholt | Tom | M | startbar | – | – | – | E Technik | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | startbar, gelöst 17.11.: 431h, t297 | – | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 1297 | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | Tom | M | wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel | 431 | – | – | E Figuren | – |
@@ -64,6 +67,10 @@
 | 1546 | Rest aus 531 (Commit 407487618, angelegt Sokrates bei Abschluss t296): Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress.kt bowOnBack (ohne Gurt) | Tom | K | startbar | – | – | – | G Stil | – |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | nach Meilenstein | – | – | – | M Veröffentlichung | 2,91 $ |
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Tom | K | nach Meilenstein | – | – | – | E Welt | – |
+| 1580 | Von Werkzeug (1334): Wiederholrot wolf_mess_438: 14× rot in 48 h (Läufe 548, 546, 544, 537, 524, 522); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
+| 1579 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 6× rot in 48 h (Läufe 550, 548, 546, 544, 503, 497); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
+| 1578 | Von Werkzeug (1334): Wiederholrot stehen_973: 2× rot in 48 h (Läufe 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
+| 1575 | Von Werkzeug (1334): Wiederholrot arkan_993: 4× rot in 48 h (Läufe 552, 548, 546, 512); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1561 | Von Werkzeug (1334): Wiederholrot stehen_973: 2× rot in 48 h (Läufe 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | erledigt | – | – | – | E Technik | – |
 | 1560 | Von Werkzeug (1334): Wiederholrot reihe_1305: 3× rot in 48 h (Läufe 537, 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1557 | Von Werkzeug (1334): Wiederholrot einschlag_6011: 2× rot in 48 h (Läufe 539, 537); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
@@ -78,7 +85,7 @@
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., 17:07; tiefer Biss Entwurf claude/jerry-709a-tiefbiss 8bbafbcb6) | Jerry | M | startbar, 1072 erledigt (t294): mit erledigt? | – | claude/jerry-709-1-wolfsbiss-c | – | E Kampf | 83,22 $ |
 | 506.2 | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, 506; Chef 10.11., 19:26) | Jerry | M | startbar, 709c A (Chef 07:56) | 709.1 | – | – | E Kampf | – |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen (Chef 08.11., 21:36, über Sokrates) · zurück t284 | Jerry | M | startbar, 1072 erledigt (t294): mit erledigt? | – | claude/jerry-709-treffen | – | E Kampf | 64,31 $ |
-| 1415 | Von Jerry (1072 gemessen): Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A); Wege sind es nicht mehr, Zeit steckt im Takt der Meldungen (Ansage und Satz je 1,1 s, nach „verfehlt“ 3–6 s Pause) | Jerry | M | wartet, rot nur wolf_mess_438 Seed 7: Stab im Wolf (Art 709), Geprüft an: 398d5b32a | 709 | claude/jerry-1415-takt | – | E Kampf | – |
+| 1415 | Von Jerry (1072 gemessen): Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A); Wege sind es nicht mehr, Zeit steckt im Takt der Meldungen (Ansage und Satz je 1,1 s, nach „verfehlt“ 3–6 s Pause) | Jerry | M | wartet, rot nur wolf_mess_438 Seed 7: Stab im Wolf (Art 709), Geprüft an: 398d5b32a | 709 | claude/jerry-1415-takt | – | E Kampf | 9,72 $ |
 | 931 | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss 0,6 s, Absetzen 0,8 s, Ansage ungekürzt; Wolf höchstens 3,4 s (F9); messen erst mit 863 im Build | Jerry | M | startbar | 760 | – | – | E Kampf | – |
 | 1541 | Von Jerry (Rest aus 1275, Diogenes D295.1): Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen brechen() nie auf (DESIGN-GLUT.md 19, Regel klar laut Homer 16.11.) | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1552 | Von Jerry (Lauf 552): Kauf-Cache klassen enthält godot/daten/werte.json, gegenstaende.json, pruefliste.json, logo.bild; holen überschreibt damit den Stand des Laufs (Werte, Prüfliste im Spiel alt) | Jerry | M | gebaut, Geprüft an: eff7904f5 | – | claude/jerry-1552-kaufcache | – | E Technik | – |
