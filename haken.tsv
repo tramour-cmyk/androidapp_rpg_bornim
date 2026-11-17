@@ -771,3 +771,4 @@
 2026-11-17 09:42:35	commit-pruefung	LISTE-VORGAENGE.md: 785.10: Zeile über 400 Zeichen (Einzelheiten als „Zu 785.10“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-17 09:58:00	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tom-785-10-kampfschirm ändert Spielcode (godot/daten/OFL-F	claude/tom-1515-achsel
 2026-11-17 09:59:31	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30695 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-17 10:01:34	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-785-15-tipp
