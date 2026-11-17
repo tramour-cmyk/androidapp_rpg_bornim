@@ -228,7 +228,22 @@ def telegram(d):
     zs = zeilen(d)
     roh = lambda t: re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t).replace("**", "")
     return "448: Tagesbericht %s (%sARBEIT-TAGESBERICHT.md)\n" % (JETZT.strftime("%d.%m."), GH) + "\n".join(
-        "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:9])) + "\n10. Ausführlich: %sPROJEKTPLAN.md" % GH
+        "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:9])) + "\n10. Ausführlich: %sPROJEKTPLAN.md" % GH + vorrat_zeile()
+
+def vorrat_zeile():
+    """1425 (Chef 17.11., 10:14: „Ergebnis der heutigen Leichenprüfung … keine Telegram-Nachricht“): Ergebnis der Vorratsprüfung des
+    Tages aus dem Commit „Vorratsprüfung TT.MM.: …“ und die jetzt noch offenen Funde (ohne J)."""
+    import subprocess
+    try:
+        r = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__)), "log", "--since=%s 00:00" % JETZT.strftime("%Y-%m-%d"),
+                            "--format=%s", "--grep=Vorratsprüfung " + JETZT.strftime("%d.%m.")], capture_output=True, text=True, timeout=30)
+        erg = [re.sub(r"^.*?Vorratsprüfung \d\d\.\d\d\.:?\s*", "", z) for z in r.stdout.splitlines() if z.strip()]
+        import vorratspruefung
+        f = [x for x in vorratspruefung.funde() if x[0] != "J"]
+        offen = ", ".join("%s %s" % (x[0], x[1]) for x in f[:8]) + (" …" if len(f) > 8 else "")
+        return "\nVorrat auf links (1425): %s; offen: %s" % ("; ".join(erg) or "heute kein Lauf eingetragen", offen or "nichts")
+    except Exception as e:
+        return "\nVorrat auf links (1425): nicht lesbar (%s)" % e
 
 def main():
     if "--telegram" not in sys.argv and "--probe" not in sys.argv:
