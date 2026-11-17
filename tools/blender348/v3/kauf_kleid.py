@@ -524,7 +524,7 @@ for f_ in KF:
     for j_ in range(len(f_)):
         a_, b_ = f_[j_], f_[(j_ + 1) % len(f_)]; _nb[a_].add(b_); _nb[b_].add(a_)
 _n_dehn = 0
-for _runde in range(4):
+for _runde in range(30):   # Borin: ganze Saumstuecke am Daumen, jede Runde heilt einen Ring vom Rand her
     _schlecht = set()
     for i in np.where(WKq[:, _armk].sum(1) > 0.3)[0] if _armk else []:
         for k in _nb[i]:
