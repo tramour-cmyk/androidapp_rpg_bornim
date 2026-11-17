@@ -101,6 +101,7 @@ func _lauf() -> void:
 	var ab := float(OS.get_environment("FILM_AB_MS")) if OS.get_environment("FILM_AB_MS") != "" else 0.0
 	var bis := float(OS.get_environment("FILM_BIS_MS")) if OS.get_environment("FILM_BIS_MS") != "" else INF
 	var spiel_ms := 0.0
+	var bild_ms: Array = Array(OS.get_environment("BILD_MS").split(",", false))
 	var bild := 0
 	if ab > 0.0:
 		Engine.time_scale = 10.0
@@ -108,6 +109,12 @@ func _lauf() -> void:
 		await process_frame
 		bild += 1
 		spiel_ms += 1000.0 / 30.0 * Engine.time_scale
+		if bild_ms.size() > 0 and spiel_ms >= float(bild_ms[0]):     # Probebild (für den Ersteller): BILD_MS=52300,57000 …
+			await RenderingServer.frame_post_draw
+			var bp := "/tmp/fx623-%s.png" % bild_ms[0]
+			root.get_viewport().get_texture().get_image().save_png(bp)
+			print("FX623 Bild ", bp)
+			bild_ms.remove_at(0)
 		if Engine.time_scale > 1.0 and spiel_ms >= ab:
 			Engine.time_scale = 1.0
 			print("FX623 Film ab Bild %d (%d ms)" % [bild, int(spiel_ms)])

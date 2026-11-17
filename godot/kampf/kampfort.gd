@@ -1537,7 +1537,18 @@ func _fx_szene2(e: Dictionary, actor, target, by, tg, across: bool, lands: int, 
 		if name != "" and w != null and w.visible:
 			var kl := TrefferFx.klinge(w)
 			if kl.size() == 2:
-				TrefferFx.spur(name, self, w, maxi(0, lands - FX_SPUR_VOR_MS) / 1000.0, (FX_SPUR_VOR_MS + FX_SPUR_NACH_MS) / 1000.0, kl[0], kl[1])
+				# Band zur Kamera hinter der Spitze (R3 steel_slash als Band): als Klinge (Fläche zwischen Griff und Spitze) lag die
+				# Spur bei Stich und Hieb von oben oft auf der Kante zur Kamera, nur ein Strich war zu sehen (Probebild 17.11.)
+				var spitze := Node3D.new()
+				spitze.name = "Spitze623"
+				spitze.position = (kl[0] as Vector3).lerp(kl[1], 0.85)
+				w.add_child(spitze)
+				var ab_s := maxi(0, lands - FX_SPUR_VOR_MS) / 1000.0
+				var dauer_s := (FX_SPUR_VOR_MS + FX_SPUR_NACH_MS) / 1000.0
+				if TrefferFx.spur(name, self, spitze, ab_s, dauer_s) == null:
+					spitze.queue_free()
+				else:
+					get_tree().create_timer(ab_s + dauer_s + 0.2).timeout.connect(func(): if is_instance_valid(spitze): spitze.queue_free())
 	var richt: Vector3 = (tf.position - af.position) * Vector3(1, 0, 1)
 	richt = richt.normalized() if richt.length() > 0.01 else Vector3.FORWARD
 	var hoehe: float = tf.head().y - tf.position.y

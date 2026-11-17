@@ -713,13 +713,13 @@
   "fx": {
     "_quelle": "623.2 (623 E, 623.8 A Szene 2 Wolfskampf): je Anlass der Effekt im Kampf, Zuordnung LISTE-EFFEKTE.md; Pakete nur im Bau (godot.yml, Lizenz: nie ins Repo), fehlt eines, bleibt es wie bisher. art: teilchen (Szene des Pakets), spur (Trail3D-Stil, R3), geschoss (R2). Gedämpft (623.8 A): glanz = Faktor auf emission_energy, grau = Anteil Richtung ton (Helligkeit bleibt), hell = Faktor auf die Farbe, lichter false = Punktlichter weg (am Handy je Licht teuer), weg = Knoten weg; groesse in m je 1,8 m Körperhöhe",
     "effekte": {
-      "klingenspur": {"art": "spur", "pfad": "res://addons/reeboo_trails/presets/steel_slash.tres", "farbe": [0.78, 0.76, 0.70, 0.45], "energie": 0.5, "breite": 0.8},
+      "klingenspur": {"art": "spur", "pfad": "res://addons/reeboo_trails/presets/steel_slash.tres", "farbe": [0.86, 0.84, 0.78, 0.85], "energie": 0.9, "breite": 1.0, "shader": {"body_alpha": 0.7, "edge_width": 0.06}},
       "luftzug":     {"art": "spur", "pfad": "res://addons/reeboo_trails/presets/dash_wind.tres", "farbe": [0.70, 0.70, 0.66, 0.30], "energie": 0.35, "breite": 0.5},
       "pfeilspur":   {"art": "spur", "pfad": "res://addons/reeboo_trails/presets/arrow_streak.tres", "farbe": [0.80, 0.77, 0.70, 0.55], "energie": 0.55},
       "blut":        {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/pack3_effects/blood_hit.tscn", "glanz": 1.0, "grau": 0.15, "ton": [0.45, 0.02, 0.03], "hell": 0.8, "groesse": 0.6},
       "kritisch":    {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/critical_hit.tscn", "glanz": 0.3, "grau": 0.55, "ton": [0.85, 0.62, 0.30], "lichter": false, "groesse": 0.55},
-      "parade":      {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/parry_block.tscn", "glanz": 0.3, "grau": 0.75, "ton": [0.90, 0.74, 0.45], "lichter": false, "groesse": 0.45},
-      "staubschlag": {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/dust_impact.tscn", "glanz": 0.8, "grau": 0.2, "ton": [0.45, 0.40, 0.33], "lichter": false, "groesse": 0.7},
+      "parade":      {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/parry_block.tscn", "glanz": 0.3, "grau": 0.75, "ton": [0.90, 0.74, 0.45], "lichter": false, "weg": ["Flash", "Ring", "Arc", "Shield"], "groesse": 0.25},
+      "staubschlag": {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/dust_impact.tscn", "glanz": 0.8, "grau": 0.3, "ton": [0.55, 0.48, 0.38], "hell": 1.25, "lichter": false, "weg": ["Flash", "Ring", "Wave"], "groesse": 0.3},
       "arkan":       {"art": "geschoss", "pfad": "res://addons/reeboo_projectiles/elements/arcane/arcane_projectile.tscn"},
       "rauch":       {"art": "teilchen", "pfad": ["res://addons/reeboo_vfx/effects/smoke_poof.tscn", "res://addons/reeboo_vfx/pack3_effects/smoke_poof.tscn"]},
       "brennend":    {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/burning.tscn"},

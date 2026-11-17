@@ -99,6 +99,10 @@ static func stil(name: String):
 						st.core_color = c
 				if e.has("energie") and "energy" in st:
 					st.energy = float(e.energie)
+				if e.has("shader") and "shader_params" in st:     # z. B. body_alpha der Klingenspur (Fläche hinter der Kante)
+					var sp: Dictionary = (st.shader_params as Dictionary).duplicate()
+					sp.merge(e.shader, true)
+					st.shader_params = sp
 				_stile[name] = st
 	return _stile[name] if not (_stile[name] is bool) else null
 
