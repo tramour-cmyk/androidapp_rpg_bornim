@@ -531,6 +531,8 @@ def aufraeumen():
         neu = ["| %s | %s | %s | %s | %s | %s | %s |" % (d["nr"], d["titel"], d["bereich"], d["kl"], d["kosten"] or "–", d["besitzer"], d["stand"]) for d in zs]
         open(q, "w", encoding="utf-8").write(alt.rstrip("\n") + "\n" + "\n".join(neu) + "\n")
         n += len(zs); startbar.neu_laden()
+    import vorgang  # 1543: je Besitzer Muss vor Kür, von selbst in jedem Lauf
+    n += vorgang.ordnen()
     return n
 
 def noch_offen(ausgabe, rolle, nrn):
