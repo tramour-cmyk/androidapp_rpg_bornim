@@ -5,12 +5,13 @@ Verglichen (alt gegen neu): Zielliste, Ringerklärung, Erklärfenster und Zurüc
 
 Sammelbuild mit allem Offenen (1547, Chef 17.11., 11:07): `main`, `claude/build-296`, Toms 1423b, 431h, 1530. Nach t296 (11:03) erledigt und darum hier nicht mehr: 1460, 531, 1448, 1512 (frühere Zeilen 297.2–297.4, 297.16). 1483 (Anmerkung bei Passt) aus t295 nicht prüfbar, darum noch einmal. 1305 wartet auf den Bautest von Diogenes, nicht in dieser Liste.
 
-Ein Weg: über Build 295 installieren; 297.1 mit „Lage herstellen“ (Höhle), gleich danach 297.19 (dieselbe Stelle mit Leuchtfunken); dann 297.6 (Grak), 297.7–297.9 im selben Probekampf Wölfe; 297.10; 297.18 (Probekampf, dann Welt); 297.17 zuletzt (Menü).
+Ein Weg: über Build 296 installieren (Chef hat 296 seit 10:53); 297.1 mit „Lage herstellen“ (Höhle), gleich danach 297.19 (dieselbe Stelle mit Leuchtfunken); dann 297.6 (Grak), 297.7–297.9 im selben Probekampf Wölfe; 297.18 (Probekampf, dann Welt); 297.17 zuletzt (Menü).
 
 Gegengelesen: Tom 17.11., 10:52 (297.6–297.9: Lage-Schlüssel probe, zug gültig in `testmodus.gd` LAGE_SCHLUESSEL; Wege und Passt/Falsch eindeutig; 297.1–297.5 aus t296 übernommen)
 
 Gegengelesen: Jerry 17.11., 12:40 (297.17, 297.18: Wege aus frischem Spielstand erreichbar; `ruestung=plate` greift ohne `held=`, der Testheld bekommt den Plattenpanzer über `probe_ausstatten`; 297.18 in der Welt auf die eigene Brustrüstung geschärft)
 Gegengelesen: Tom 17.11., 12:54 (297.19: Lage `vorraete` legt je Ding 10 Stück in die Tasche, auch den Leuchtfunken (`testmodus.gd` vorraete); Knopf heißt „Benutzen“ (vorher „trinken“, geändert); Passt/Falsch eindeutig. 297.20: ohne dich, am Film gebilligt, keine Handlung nötig)
+Gegengelesen: Sokrates 17.11., 14:45 (Liste beider Teams, 881): gegen Chef 11:07 („alles Offene“, „nichts, was der Code prüfen kann“) und Archiv t295/t296 gelesen; Installationsweg auf Build 296 berichtigt; 297.10 nach `heldkasten_78510`, `schnell_78510` auf „ohne dich“ (Vorhandensein ist Code), bleiben 9 Handypunkte; 297.1 prüft Toms Versuch 1423b (sonst Loch raus, Chef 11:01); 297.21 (1549) Laufnachweis und 297.11 Bild liegen bei Tom; 1305 fehlt bewusst (Bautest Diogenes).
 
 Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer Wand (1423, `hoehle_492`); Schneidern statt Lederarbeit (1460, `schneidern_1460`); Zielliste mit Reihe ab drei Stehenden, Wählbare hell, übrige gedämpft bei Angriff, Fähigkeit, Trank, Wurf (785.11, `zielwahl_78511`); Ringerklärung einmal je Spielstand vor der Eingebung, nicht gegen einen Helden auf Automatik, Wort über dem ersten Ring (785.12, `ring_785`); Erklärfenster schließt mit einem Tipp und ist während des Rings weg (785.15, `tipp_78515`); Android-Zurück schließt Ziel, Können, Tasche, Wechsel (785.17, `zurueck_kampf_78517`); Kasten des Helden nur Leben und Mana, Schnell im leichten Kampf (785.10, `heldkasten_78510`, `schnell_78510`); Stab in der linken Faust (1516, `stab_menue_1516`); Kleidung an der Achsel nicht am Unterarm (1515, 1535, `achsel_1515`, `schild_menue_1417`).
 
@@ -22,7 +23,7 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 | 297.7 | Jerry | 785.11 | Handy | Zeile 297.7 → „Lage herstellen“ (Probekampf drei Wölfe); „Angriff“ tippen, dann „Zurück“, „Tasche“ → einen Trank wählen | bei „Angriff“: Liste mit Reihe und Leben je Wolf (etwa „Wolf 1 · vorn  25/25“), wählbare Wölfe mit Ring und Name, ein nicht erreichbarer Wolf und deine eigenen Leute blass; beim Trank sind die Wölfe blass, deine Leute hell | gleichnamige Wölfe nicht zu unterscheiden, keine Reihe, alles gleich hell |
 | 297.8 | Jerry | 785.15 | Handy | im selben Kampf lange auf einen Knopf drücken (etwa „Angriff“), dann ins Erklärfenster tippen | das Fenster geht mit einem Tipp weg; kommt ein Ring, ist es währenddessen nicht zu sehen | das Fenster bleibt stehen oder liegt über dem Ring |
 | 297.9 | Jerry | 785.17 | Handy | im selben Kampf „Angriff“ tippen, dann die Android-Zurück-Taste (oder Wischgeste) | wieder die Befehle (Angriff, Können, Tasche …), der Kampf läuft weiter | der Kampf endet, das Spiel geht ins Menü, oder nichts passiert |
-| 297.10 | Tom | 785.10 | Handy | Zeile 297.10 → „Lage herstellen“ (Probekampf Ratten, dein Held Stufe 5: ein leichter Kampf); vor dem ersten Zug die Starttafel ansehen, „Kämpfen“ tippen und den Kasten deines Helden unten ansehen | vor dem Kampf zwei Knöpfe „Kämpfen“ und „Schnell“; im Kampf zeigt der Kasten des Helden nur Leben und Mana, keinen Erfahrungsbalken und keine Stufe | keine Starttafel, ein Erfahrungsbalken oder „Lv.“ im Kasten des Helden |
+| 297.10 | Tom | 785.10 | ohne dich (Diogenes bestätigt am Lauf; Chef 11:07: was der Code prüfen kann, nicht zu dir) | `heldkasten_78510`: Kasten des Helden nur Leben und Mana, kein Erfahrungsbalken, keine Stufe; `schnell_78510`: Starttafel mit „Kämpfen“ und „Schnell“ im leichten Kampf | Test grün | Test rot |
 | 297.11 | Tom | 1515, 1417, 1535 | Bild (Tom sendet nach dem grünen Lauf) | Wachsoldatin mit Schild und eine Bewohnerin im Kaufkleid in der Ruhebewegung, alt gegen neu: kein Stoffstreifen mehr zwischen Unterarm und Rumpf | – | – |
 | 297.12 | Tom | 1522 | ohne dich | README ohne SRD-Hinweis und Satz zu Wizards of the Coast (kein Spielinhalt) | – | – |
 | 297.13 | Jerry | 1505 | ohne dich (Diogenes bestätigt am Lauf) | `wolf_mess_438`: Wölfe rücken nach einem Tod auf einen neuen Platz; `tod_ragdoll_1215`: Sterben im Physiktakt, bei jeder Bildrate gleich | Test grün | Test rot |
@@ -42,6 +43,5 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 - 297.7: probe=WOLVES
 - 297.8: probe=WOLVES
 - 297.9: probe=WOLVES
-- 297.10: probe=RATS pstufe=5
 - 297.18: probe=WOLVES ruestung=plate
 - 297.19: station=Krogg ort=cave:2:11:RIGHT ruhig vorraete
