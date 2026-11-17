@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 08:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 08:18, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,11 +23,11 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 62 (61) | 22 | 0 | 7 | 10 | 1505 (Jerry) rot wolf_mess_438 und tod_ragdoll_1215; in 542 gr… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 0 | 0 | 8 | 1417 (Tom) Schild des Helden links wie abgeschnitten; Durchd… |
+| ↳ **2** Kampf passt | 59 (61) | 20 | 0 | 2 | 10 | 1505 (Jerry) rot wolf_mess_438 und tod_ragdoll_1215; in 542 gr… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 0 | 0 | 8 | 1515 (Tom) Schild jetzt ganz, aber vor dem Schild der Wachso… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 49 (52) | 4 | 0 | 6 | 23 | 1525 (Homer) Merkmalsnamen am Gegner abwechseln, „schwächlich… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 2 | 0 | 2 | 4 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 8 (13) | 2 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
 | **7** Werkzeuge und Abläufe der Firma | 43 (43) | 25 | 0 | 0 | 9 | 1524 (Perikles) Build 295 mit einem Handypunkt, 600 MB mobil, „10… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -35,9 +35,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 32 | 202 | 234 | 1094 |
-| neu | 25 | 164 | 189 | 1079 |
-| **netto** (erledigt − neu) | **+7** | **+38** | **+45** | **+15** |
+| erledigt | 37 | 202 | 239 | 1099 |
+| neu | 26 | 164 | 190 | 1080 |
+| **netto** (erledigt − neu) | **+11** | **+38** | **+49** | **+19** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,14 +45,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t295](ansehen/t295-sammelbuild.md) testen, hält 1 Zeilen; dann 8 weitere |
-| Tom | 1417 Schild des Helden links wie abgeschnitten; Durchdringung be… (Muss); dann 2 weitere |
-| Jerry | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu si… (Muss); dann 4 weitere |
-| Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
+| **Chef** | [t296](ansehen/t296-sammelbuild.md) testen, hält 5 Zeilen; dann 9 weitere |
+| Tom | 1515 Schild jetzt ganz, aber vor dem Schild der Wachsoldatin hän… (Muss); dann 1 weitere |
+| Jerry | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu si… (Muss); dann 5 weitere |
+| Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
 | Spike | 785.17 Übernahme von Jerry: Zurück-Taste im Kampf schließt das Untermenü; ganzer Berich… (Muss) |
 | Homer | 1525 Merkmalsnamen am Gegner abwechseln, „schwächlich klingt gut… (Kür) |
-| Diogenes | 601.1 Pfeil trifft die Fußspitze, der Getroffene zuckt oben zurüc… (Muss); dann 4 weitere |
-| Sokrates | Pflege von Werkzeug: Übergabe über 700 Zeichen; 8 „Zu“ zu Erledigt… (Kür) |
+| Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
+| Sokrates | 1270 Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader… (Kür) |
 | Perikles | 1524 Build 295 mit einem Handypunkt, 600 MB mobil, „100-mal gere… (Muss) |
 
 **Die nächsten 20**
@@ -63,7 +63,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 2 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
 | 3 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
 | 4 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
-| 5 | 1417 | Tom | Schild des Helden links wie abgeschnitten; Durchdringung beheben, auch Welt und… | M | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1527 | Jerry | D295.1 von Diogenes: 1275 Bautest Lauf 546 bestanden, Abschluss gesperrt: Rest… | M | 2 Kampf passt | startbar |
 | 6 | 1515 | Tom | Schild jetzt ganz, aber vor dem Schild der Wachsoldatin hängt ein weißes Etwas,… | M | 3 Kleiderschrank und Modelle | startbar |
 | 7 | 1524 | Perikles | Build 295 mit einem Handypunkt, 600 MB mobil, „100-mal geregelt“. Untergrenze 4… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 8 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
 | 20 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
 
-Danach 76 weitere offen. Bei dir zum Testen (vorgelegt): 15. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 67.
+Danach 78 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 67.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -111,6 +111,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.546](ansehen/t295-sammelbuild.md) | [Build 295](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44024918701/artifacts/14303487932) | Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen | Spike | 17.11., 07:15 |
+| 2 | [0.348.548](ansehen/t296-sammelbuild.md) | [Build 296](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44033571913/artifacts/14307153462) | Sammelbuild: Höhlenwände in voller Höhe, Garricks Fackel, Leiste ohne Wörter, Schneidern | Tom | 17.11., 08:18 |
 
 ## Zu tun
 
