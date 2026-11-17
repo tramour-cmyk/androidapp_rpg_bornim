@@ -817,7 +817,41 @@ def sperre(d):
     if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
     if w in ("startbar", "offen", "in Arbeit", "wartet", "Chef", "ruht", "Dauer") and altes_system(d["titel"], d["stand"], d["nr"]):
         return "ruht (424: altes SRD-System)"
+    k = kostenhalt(d)
+    if k: return "Kostenschwelle %d $ (%s; Perikles entscheidet, 1538)" % (k, d.get("kosten") or "")
     return None
+
+# 1538 (1520 so, Chef 17.11., 10:00): erreicht ein offener Vorgang 40 $ ohne Freigabe, hält er an und Perikles entscheidet (weiter,
+# vereinfachen, streichen; Chef nur beim Streichen eines Chefauftrags). Freigabe = Zeile „**Kosten frei:** 431 bis 160 $; …“ in
+# ARBEIT-PROJEKT.md; „weiter“ gibt bis zur nächsten Schwelle (40, 80, 160 … $) frei. „jetzt“-Zeilen laufen weiter, lauf.py legt
+# Perikles eine Muss-Zeile „Kosten entscheiden“ vor (wie M?).
+KOSTEN_SCHWELLE = 40.0
+KOSTEN_FREI = re.compile(r"^\**Kosten frei:\**\s*(.*)$", re.M)
+
+def kosten_frei(text=None):
+    """Nummer → freigegeben bis ($) aus der Zeile „Kosten frei:“ im Vorrat Perikles."""
+    m = KOSTEN_FREI.search(lesen("ARBEIT-PROJEKT.md") if text is None else text)
+    return {n: float(b) for n, b in re.findall(r"([\w.]+) bis (\d+) ?\$", m.group(1))} if m else {}
+
+def naechste_schwelle(kosten):
+    s = KOSTEN_SCHWELLE
+    while s <= kosten: s *= 2
+    return int(s)
+
+def kostenhalt(d, frei=None):
+    """Erreichte Schwelle (int), wenn die Zeile über ihrer Freigabe liegt, sonst None; nur offene Arbeit, nie „jetzt“."""
+    if d.get("wort") in ("erledigt", "ruht", "Idee", "aufgeteilt", "nach Meilenstein", "Dauer") or jetzt_zeile(d): return None
+    k = kosten_wert(d.get("kosten"))
+    grenze = (kosten_frei() if frei is None else frei).get(d["nr"], KOSTEN_SCHWELLE)
+    if k < grenze: return None
+    s = KOSTEN_SCHWELLE
+    while s * 2 <= k: s *= 2
+    return int(s)
+
+def kosten_offen():
+    """[(nr, besitzer, kosten, schwelle)] aller Zeilen, die an der Kostenschwelle stehen (für Perikles)."""
+    frei = kosten_frei()
+    return [(d["nr"], d["besitzer"], d.get("kosten"), s) for d in zeilen_liste() for s in [kostenhalt(d, frei)] if s]
 
 def blocker(nr, rest=None, chef=None, thema=""):
     """Kompatibel zu früher: Grund der Listenzeile nr, sonst None."""
@@ -1400,6 +1434,8 @@ def main():
     if not md:
         mf = ["%s (%s)" % (z[0], rolle) for _, rolle in ROLLEN for z in plan(rolle) if z[1] == "M?" and not z[4]]
         if mf: print("  M? für Perikles (190.8; lauf.py startet es als Muss „M? entscheiden“, 921): " + ", ".join(mf))
+        ko = kosten_offen()
+        if ko: print("  Kosten für Perikles (1538; lauf.py startet es als Muss „Kosten entscheiden“): " + ", ".join("%s (%s, %s, Schwelle %d $)" % x for x in ko))
         for r in BAUTEAMS:  # 1364: auch Spike
             u = uebernahme(r)
             if u: print("  Übernahme für %s: %s" % (r, u))
