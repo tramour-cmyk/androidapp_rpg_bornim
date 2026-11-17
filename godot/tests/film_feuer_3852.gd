@@ -72,6 +72,21 @@ func _run() -> void:
 		if fl > gewirkt:
 			gewirkt = fl
 			print("Film 3852: Funkenpfeil %d fliegt, Bild %d (%.1f s)" % [gewirkt, n, n / 30.0])
+			# 385.2 (Chef 17.11., 21:40: „Zauber beginnt nicht am Stab sondern am /hinterm Kopf“): Start gegen Kopf und Stab messen
+			var hf = kf.figures.get("hero")
+			var flug: Array = kf.ui.arkan_fluege.back() if r2 else []
+			if hf != null and flug.size() > 2:
+				var w: Node3D = hf.model.find_child("Waffe", true, false) as Node3D if hf.model != null else null
+				var stab: bool = w != null and w.get_meta("stab", false) and not w.find_children("*", "MeshInstance3D", true, false).is_empty()
+				var kopf: Vector3 = hf.head()
+				var richtung: Vector3 = Vector3(flug[2].x - kopf.x, 0, flug[2].z - kopf.z).normalized()
+				var vor: float = (flug[1] - kopf).dot(richtung)
+				if OS.get_environment("STANDBILD") != "":     # Einzelbild beim Loslassen, nur zum eigenen Ansehen
+					root.get_texture().get_image().save_png(OS.get_environment("STANDBILD").replace(".png", "-%d.png" % gewirkt))
+				print("Film 3852: Start %.2f m über dem Kopf, %.2f m vor dem Kopf zum Ziel, Stab mit Modell: %s" % [flug[1].y - kopf.y, vor, stab])
+				if not stab or vor < 0.0:
+					print("FEHLER 385.2: Funkenpfeil beginnt nicht an der Stabspitze vor dem Helden")
+					fehler += 1
 			if gewirkt >= WIRKEN:
 				ende = n + 60
 		if ende > 0 and n >= ende:
