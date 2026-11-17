@@ -1380,6 +1380,7 @@ func _play_say(e: Dictionary) -> void:
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
+	_fx_szene2(e, actor, target, by, tg, across, lands, lunge_ms, fx)
 	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
 	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden
 	if target != null and actor != null and e.damage > 0 and figures.has(target) and tg != null:
@@ -1515,6 +1516,74 @@ func _missed(e: Dictionary) -> bool:
 	if e.roll[0] == "SAVE":
 		return e.roll[4] and e.damage == 0
 	return not e.roll[4]
+
+
+## 623.2 (623.8 A Szene 2 Wolfskampf; werte.json fx, TrefferFx): Klingenspur beim Hieb, Blut und kritischer Treffer am Getroffenen,
+## Parade am Schild, Luftzug beim Ausweichen, Staub beim Aufprall des Sprungs; alles zum Aufschlag [lands]. Ohne Paket oder unter
+## Grafikstufe Mittel nichts (TrefferFx.aktiv)
+const FX_SPUR_VOR_MS := 320     # die Klingenspur zeichnet so lange vor dem Aufschlag (der Schwung) …
+const FX_SPUR_NACH_MS := 90     # … und so lange danach
+const FX_LUFTZUG_MS := 450
+
+func _fx_szene2(e: Dictionary, actor, target, by, tg, across: bool, lands: int, lunge_ms: int, fx) -> void:
+	if not TrefferFx.aktiv() or actor == null or target == null or not across or not figures.has(actor) or not figures.has(target):
+		return
+	var af = figures[actor]
+	var tf = figures[target]
+	var gruppe := fx_waffengruppe(by)
+	if lunge_ms > 0 and fx == null and af.model != null:
+		var name := TrefferFx.fuer_monster(String(by.monster.id), "hieb") if by.monster != null else TrefferFx.fuer_waffe(gruppe, "hieb")
+		var w := af.model.find_child("Waffe", true, false) as Node3D
+		if name != "" and w != null and w.visible:
+			var kl := TrefferFx.klinge(w)
+			if kl.size() == 2:
+				TrefferFx.spur(name, w, maxi(0, lands - FX_SPUR_VOR_MS) / 1000.0, (FX_SPUR_VOR_MS + FX_SPUR_NACH_MS) / 1000.0, kl[0], kl[1])
+	var richt: Vector3 = (tf.position - af.position) * Vector3(1, 0, 1)
+	richt = richt.normalized() if richt.length() > 0.01 else Vector3.FORWARD
+	var hoehe: float = tf.head().y - tf.position.y
+	var sprung: bool = lunge_ms > 0 and af.letzter_sprung and by.monster != null
+	var wann := lands / 1000.0
+	if sprung:
+		var staub := TrefferFx.fuer_monster(String(by.monster.id), "sprung")
+		var boden: Vector3 = tf.position - richt * ui._girth(tf)
+		get_tree().create_timer(wann).timeout.connect(func(): TrefferFx.zeige(staub, self, boden, af.head().y - af.position.y))
+	if e.damage > 0:
+		var brust: Vector3 = tf.position + Vector3.UP * hoehe * 0.55 - richt * ui._girth(tf) * 0.6
+		var namen := []
+		if e.wound and blood_level() > 0:
+			namen.append(TrefferFx.fuer_anlass("treffer"))
+		if _crit(e):
+			namen.append(TrefferFx.fuer_anlass("kritisch"))
+		if by.monster == null and fx == null:
+			namen.append(TrefferFx.fuer_waffe(gruppe, "treffer"))
+		get_tree().create_timer(wann).timeout.connect(func():
+			for n in namen:
+				TrefferFx.zeige(n, self, brust, hoehe, richt))
+	elif _missed(e) and tf.blockt() and e.cue != "EVADED":
+		var schild := tf.model.find_child("Schild", true, false) as Node3D if tf.model != null else null
+		var at: Vector3 = to_local(schild.global_position) if schild != null and schild.visible else tf.position + Vector3.UP * hoehe * 0.55 - richt * ui._girth(tf)
+		at -= richt * 0.1     # vor dem Schild, auf der Seite des Angreifers
+		get_tree().create_timer(wann).timeout.connect(func(): TrefferFx.zeige(TrefferFx.fuer_anlass("parade"), self, at, 1.8, -richt))
+	elif _missed(e):
+		var ab: int = maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands
+		var halter := Node3D.new()
+		halter.name = "Luftzug"
+		halter.position = Vector3.UP * hoehe * 0.5
+		tf.add_child(halter)
+		if TrefferFx.spur(TrefferFx.fuer_anlass("ausweichen"), halter, ab / 1000.0, FX_LUFTZUG_MS / 1000.0) == null:
+			halter.queue_free()
+		else:
+			get_tree().create_timer(ab / 1000.0 + FX_LUFTZUG_MS / 1000.0 + 1.6).timeout.connect(func(): if is_instance_valid(halter): halter.queue_free())
+
+
+## 623.2: Waffengruppe des BRS (werte.json „waffen“) der Waffe in der Hand; "" bei Gegnern
+func fx_waffengruppe(f) -> String:
+	if f == null or f.hero == null:
+		return ""
+	var w = f.weapon()
+	if w == null or String(w.id) == "":
+		return "Faustkampf"
+	return String(preload("res://regeln/brs_held.gd").WAFFE_GRUPPE.get(String(w.id), "Bogen" if bool(w.ranged) else "Einhänder"))
 
 
 ## Kritisch nur bei einem Angriff mit der 20 (eine 20 beim Rettungswurf zählte bisher auch)

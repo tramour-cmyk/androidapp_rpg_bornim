@@ -717,6 +717,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/parade_seite_662.gd 2>&1 | grep -E "PARADE662|FEHLER|SCRIPT ERROR"   # 662 Parade nach der Seite des Angreifers (Jerry)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/todesschrei_2963.gd 2>&1 | grep -E "^(ok|FEHLER|Todesschrei 296.3)|SCRIPT ERROR"   # 296.3 Todesschrei auch bei Zauber- und Zustandstod (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/arkan_993.gd 2>&1 | grep -E "^(Arkan 993|  |FEHLER|ARKAN993)|SCRIPT ERROR"   # 993 Arkanpfeil aus R2 (Jerry)
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/fx_623.gd 2>&1 | grep -E "^(FX623|FEHLER)|SCRIPT ERROR"   # 623.2 Effekte Szene 2 Wolfskampf aus werte.json fx (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_473.gd 2>&1 | grep -E "FALSCH|BRS473|SCRIPT ERROR"   # 473 Monsterwerte BRS wie sim444
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/brs_kampf_478.gd 2>&1 | grep -E "^(ok|FALSCH)|BRS478|SCRIPT ERROR"   # 478 Kampf nach BRS wie sim444
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/handlungen_870.gd 2>&1 | grep -E "^(ok|FALSCH)|HANDLUNGEN870|SCRIPT ERROR"   # 870.5 Kampfhandlungen an Fertigkeiten

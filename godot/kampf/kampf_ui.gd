@@ -1597,14 +1597,18 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 ## Von der Stabspitze zur Brust des Ziels, daneben auf den freien Fleck am Boden (_miss_point); er kommt nach Zauber.arrives an wie
 ## bisher, dann zeigt der Kampfort den Treffer. Aufruf des Pakets wie in der Probe 623.5 (effektprobe.gd _projektil, 163f07e84).
 ## Fehlt das Paket (am Rechner, in den Tests ohne Kaufrepo), malt zauber.gd wie bisher.
-const ARKAN_R2 := "res://addons/reeboo_projectiles/elements/arcane/arcane_projectile.tscn"
+## 623.2: Pfad aus werte.json fx (zauber MISSILES → arkan)
+static func arkan_pfad() -> String:
+	return TrefferFx.pfad(TrefferFx.fuer_zauber("MISSILES"))
+
 static var _arkan_szene = null     # PackedScene, false: nicht da
 ## 993, für den Test arkan_993: je Flug [Knoten, Start, Ziel, Ankunft in ms Uhrzeit]
 var arkan_fluege: Array = []
 
 static func arkan_r2() -> PackedScene:
 	if _arkan_szene == null:
-		_arkan_szene = load(ARKAN_R2) if ResourceLoader.exists(ARKAN_R2) else false
+		var pf := arkan_pfad()
+		_arkan_szene = load(pf) if pf != "" and ResourceLoader.exists(pf) else false
 	return _arkan_szene if _arkan_szene is PackedScene else null
 
 
@@ -1643,36 +1647,16 @@ func _arkan_los(by, on, missed: bool) -> void:
 ## beim Lösen fliegt er zum Ziel oder daneben, steckt im Getroffenen (geht mit ihm) oder im Boden und vergeht.
 const PFEIL_AVR := "res://addons/pfeil_avr/mdvl_weapons_arrow_01.glb"
 const PFEIL_AVR_LANG := 0.776     # m, Nocke bis Spitze längs +Y (Ursprung an der Nocke)
-const SPUR_R3 := "res://addons/reeboo_trails/presets/arrow_streak.tres"
-const SPUR_R3_SKRIPT := "res://addons/reeboo_trails/trail_3d.gd"
+const SPUR_R3_SKRIPT := TrefferFx.SPUR_SKRIPT
 ## Länge des Pfeils als Anteil der Größe des Schützen (der Kurzbogen hat 0,48, figur.gd GOB_BOGEN)
 const PFEIL_ANTEIL := 0.5
-## gedämpft: grauweiß, halb durchsichtig, wenig Leuchten (Vorgabe hell weißblau, Energie 1,8)
-const SPUR_FARBE := Color(0.80, 0.77, 0.70, 0.55)
-const SPUR_ENERGIE := 0.55
 const STECKT_S := 1.6
 ## 601, für den Test schuss_601: je Pfeil der Knoten
 var pfeile: Array = []
-static var _spur_stil = null
-
+## gedämpft: grauweiß, halb durchsichtig, wenig Leuchten (Vorgabe hell weißblau, Energie 1,8); 623.2: Stil und Dämpfung aus
+## werte.json fx (waffengruppe Bogen → pfeilspur)
 static func spur_r3():
-	if _spur_stil == null:
-		_spur_stil = false
-		if ResourceLoader.exists(SPUR_R3) and ResourceLoader.exists(SPUR_R3_SKRIPT):
-			var st = load(SPUR_R3)
-			if st != null:
-				st = st.duplicate(true)
-				if "energy" in st:
-					st.energy = SPUR_ENERGIE
-				if "color_ramp" in st and st.color_ramp is Gradient:
-					var g := st.color_ramp as Gradient
-					for i in g.get_point_count():
-						var c := g.get_color(i)
-						g.set_color(i, Color(SPUR_FARBE.r, SPUR_FARBE.g, SPUR_FARBE.b, c.a * SPUR_FARBE.a))
-				if "core_color" in st:
-					st.core_color = SPUR_FARBE
-				_spur_stil = st
-	return _spur_stil if not (_spur_stil is bool) else null
+	return TrefferFx.stil(TrefferFx.fuer_waffe("Bogen", "geschoss"))
 
 
 ## der Pfeil als Körper: Nocke im Ursprung, Spitze nach −Z, [lang] m
@@ -2001,12 +1985,11 @@ func _aim_point(on, dir: Vector3) -> Vector3:
 ## 1222: der gekaufte Rauch aus R7 (Stylized VFX v2.0, smoke_poof; LISTE-EFFEKTE Krogg „R7“, 1036 im Film „Geblendet“), nur im Bau
 ## (Lizenz: nie ins Repo); er platzt an Kroggs Kopf und läuft aus. Fehlt das Paket (am Rechner, in den Tests), malt zauber.gd die
 ## eigene Wolke. true, wenn der gekaufte Rauch steht
-const RAUCH_R7 := ["res://addons/reeboo_vfx/effects/smoke_poof.tscn", "res://addons/reeboo_vfx/pack3_effects/smoke_poof.tscn"]
 
 func _rauch_r7(on, at: Vector3) -> bool:
 	if OS.get_environment("RAUCH_EIGEN") != "":     # Vergleich im Film: eigene Wolke auch mit Paket
 		return false
-	for pfad in RAUCH_R7:
+	for pfad in TrefferFx.pfade(TrefferFx.fuer_zauber("BOMB_SMOKE")):     # 623.2: werte.json fx (rauch)
 		if not ResourceLoader.exists(pfad):
 			continue
 		var sz = load(pfad)
@@ -2139,9 +2122,7 @@ func _zustaende_da() -> bool:
 ## nur im Bau unter addons/reeboo_vfx, Lizenz: nie ins Repo); fehlt das Paket, malt zustandsbild.gd wie bisher. Brennend „gefällt
 ## mir gut“, Vergiftet, Blutend (die Lache bringt der Effekt mit), Betäubt („besser als diese Vögelchen“, also nicht stun_stars),
 ## Verlangsamt; Geschwächt, Geblendet, Betrunken bleiben eigen (neue Vorlage)
-const ZUSTAND_PAKET := {"BURN": "res://addons/reeboo_vfx/effects/burning.tscn",
-		"POISON": "res://addons/reeboo_vfx/status_effects/poisoned.tscn", "BLEED": "res://addons/reeboo_vfx/status_effects/bleeding.tscn",
-		"STUN": "res://addons/reeboo_vfx/status_effects/shocked.tscn", "SLOW": "res://addons/reeboo_vfx/status_effects/chilled.tscn"}
+## 623.2: die Pfade stehen in werte.json fx (zustand → effekte)
 ## laufende Effekte aus dem Paket: "<id>|<Zustand>" -> Knoten an der Figur
 var _paket_fx := {}
 static var _paket_szene := {}
@@ -2149,10 +2130,10 @@ static var _paket_szene := {}
 
 ## 1036: die Szene des Pakets zum Zustand st, oder null ohne Paket (einmal geladen)
 static func zustand_szene(st: String):
-	if not ZUSTAND_PAKET.has(st):
+	var pfad := TrefferFx.pfad(TrefferFx.fuer_zustand(st))
+	if pfad == "":
 		return null
 	if not _paket_szene.has(st):
-		var pfad: String = ZUSTAND_PAKET[st]
 		var r = load(pfad) if ResourceLoader.exists(pfad) else null
 		_paket_szene[st] = r if r is PackedScene else null
 	return _paket_szene[st]
