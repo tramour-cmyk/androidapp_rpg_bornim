@@ -3,7 +3,7 @@ Schleifen fürs Feuerknistern (18k): je 10 s aus einer CC0-Aufnahme, Ende weich 
 Fassung ohne Naht und ohne Pause endlos läuft. Ersetzt die kurzen crackle_*.ogg aus rezepte.py.
 
     tools/klang/holen.sh <ordner>                      # Aufnahmen laden (einmal)
-    python3 tools/klang/schleifen.py <ordner>          # nach app/src/main/assets/sfx/crackle_{1,2,3}.ogg
+    python3 tools/klang/schleifen.py <ordner>          # nach godot/daten/klang/sfx/crackle_{1,2,3}.ogg
 """
 import sys, os, subprocess, numpy as np, soundfile as sf
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
@@ -22,7 +22,7 @@ def loop(f, a):
     return norm(y, -1.0, -20)
 
 TAKES = [loop("fs_181563.mp3", 8.0), loop("fs_370938.mp3", 1.5), loop("fs_370938.mp3", 13.0)]
-out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
 for i, y in enumerate(TAKES):
     tmp = os.path.join(out, "_tmp.wav"); sf.write(tmp, np.clip(y, -1, 1), SR, subtype="PCM_16")   # ohne Ausblenden am Ende
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-ac", "1", "-ar", "44100", "-c:a", "libvorbis", "-q:a", "4",

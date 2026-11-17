@@ -15,7 +15,7 @@ einzeln geschnitten und als Paar 0,17 s gesetzt, Dub leiser; vier Paare alle 0,5
 das letzte endet, wenn das Schwarz der Blende geht (1,75 s).
 
     python3 tools/klang/herzschlag.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben: Fassung 2, 2a, 2b, 2b als Paare
-    python3 tools/klang/herzschlag.py <ordner mit den Aufnahmen> --spiel    # nach app/src/main/assets/sfx (heartbeat_strong_1)
+    python3 tools/klang/herzschlag.py <ordner mit den Aufnahmen> --spiel    # nach godot/daten/klang/sfx (heartbeat_strong_1)
 """
 import sys, os, subprocess, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
@@ -74,7 +74,7 @@ S["heartbeat_strong"].append(paare())                                           
 def finish(x): return norm(trim(x, -60), -0.5, -15)
 
 if OUT == "--spiel":
-    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in {"heartbeat_strong": [S["heartbeat_strong"][3]]}.items():   # 2b als Paare (Chef 31.10., 21:07)
         for i, x in enumerate(takes):
             tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, finish(x))

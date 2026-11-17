@@ -18,7 +18,7 @@ for w in longsword shield shortsword quarterstaff round_shield; do [ -f $O/waffe
 # 882.1: Texte, Held und Bilder der Dinge seit 870.9 in godot/daten (kein Gradle)
 mkdir -p $O/dinge && cp godot/daten/texte.json godot/daten/held.json $O/ && cp godot/daten/ding-*.bild $O/dinge/
 rm -rf $G && mkdir -p $G && cp -r $R/godot/. $G/ && D=$G/daten && mkdir -p $D/waffen
-cp $O/texte.json $O/held.json $D/; cp -r $O/dinge/. $D/; cp $R/app/src/main/res/font/fondamento_regular.ttf $D/fondamento.ttf
+cp $O/texte.json $O/held.json $D/; cp -r $O/dinge/. $D/; cp $R/godot/daten/fondamento.ttf $D/fondamento.ttf
 cp $O/karten.json $D/; cp $O/held.glb $D/held.bin; cp $O/held-info.json $D/; cp $O/dorf.glb $D/dorf.bin; cp $O/dorf-info.json $D/
 for t in gras erde pflaster halme korn weiss; do cp $O/tex/$t.png $D/$t.bild; done
 cp $O/boden-maske.png $D/boden-maske.bild

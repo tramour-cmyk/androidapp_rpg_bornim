@@ -3,7 +3,7 @@ Die Nacht unter dem Schwarzbild des Intros (69c.1, `[69.intro.5]`): fern und ged
 eine Glocke (Schleife), Rufe und ein Schrei (je drei Fassungen) aus CC0-Aufnahmen (Quellen: QUELLEN.md).
 
     tools/klang/holen.sh <ordner>                          # Aufnahmen laden (einmal)
-    python3 tools/klang/nacht.py <ordner>                  # nach app/src/main/assets/sfx/{alarm_bell,far_shout,far_scream}_{1,2,3}.ogg
+    python3 tools/klang/nacht.py <ordner>                  # nach godot/daten/klang/sfx/{alarm_bell,far_shout,far_scream}_{1,2,3}.ogg
     python3 tools/klang/nacht.py <ordner> --proben <ziel>  # Hörprobe: das Schwarzbild unter der Titelmusik, mit Messung
 """
 import sys, os, glob, subprocess, numpy as np, soundfile as sf
@@ -52,7 +52,7 @@ if proben:
     # Wie im Spiel (IntroSound, MusicPlayer): Titelmusik ab Beginn des Schwarzbilds in 2 s auf 0,6; Glocke in 2,5 s auf
     # BELL; Rufe und Schrei zu den Zeiten aus IntroSound.night; nach 7,2 s blendet alles in 1,2 s aus. Je Glocke eine Probe.
     BELL, IN, STEP, END = 0.12, 2.5, 7.2, 1.2
-    music = load(os.path.join(HERE, "..", "..", "app", "src", "main", "assets", "music", "titel_adventure_intro.ogg"))
+    music = load(os.path.join(HERE, "..", "..", "godot", "daten", "klang", "music", "titel_adventure_intro.ogg"))
     n = int((STEP + END + 0.5) * SR); t = np.arange(n) / SR
     out = np.clip(1 - (t - STEP) / END, 0, 1)
     m = music[:n] * 0.6 * np.clip(t / 2.0, 0, 1) * out
@@ -73,7 +73,7 @@ if proben:
     y = np.concatenate(parts)
     sf.write(os.path.join(proben, "nacht_probe.wav"), np.clip(y, -1, 1), SR, subtype="PCM_16")
     sys.exit()
-out = os.path.join(HERE, "..", "..", "app", "src", "main", "assets", "sfx")
+out = os.path.join(HERE, "..", "..", "godot", "daten", "klang", "sfx")
 for name, takes in (("alarm_bell", BELLS), ("far_shout", SHOUTS), ("far_scream", SCREAMS)):
     for i, y in enumerate(takes):
         ogg(y, os.path.join(out, f"{name}_{i + 1}.ogg"))

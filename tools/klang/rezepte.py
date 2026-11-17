@@ -2,7 +2,7 @@
 Klänge aus CC0-Aufnahmen (Thema 18): schneiden, tiefer stimmen, filtern, Hall, Lautstärke angleichen.
 
     tools/klang/holen.sh <ordner>                      # Aufnahmen laden (einmal)
-    python3 tools/klang/rezepte.py <ordner>            # Klänge fürs Spiel nach app/src/main/assets/sfx (OGG)
+    python3 tools/klang/rezepte.py <ordner>            # Klänge fürs Spiel nach godot/daten/klang/sfx (OGG)
     python3 tools/klang/schleifen.py <ordner>          # danach: Feuerknistern als Schleifen (18k)
     python3 tools/klang/rezepte.py <ordner> --proben <ziel> [--nur a,b]   # Fassungen als WAV zum Anhören (--nur: nur diese Klänge)
 
@@ -180,7 +180,7 @@ if "--proben" in sys.argv:
         for i, x in enumerate(takes): write(os.path.join(out, f"neu_{name}_{i + 1}.wav"), finish(name, x))
     print("Proben:", out)
 else:
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     os.makedirs(out, exist_ok=True)
     for f in os.listdir(out):
         if f.endswith(".ogg"): os.remove(os.path.join(out, f))

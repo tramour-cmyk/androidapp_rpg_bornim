@@ -828,7 +828,7 @@ def spielcode(pfade):
 def alt_meldung(zweig, spiel):
     return ("647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser "
             f"machen“): Push auf {zweig} ändert Spielcode ({', '.join(spiel[:3])}{' …' if len(spiel) > 3 else ''}), aber keine "
-            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in der Kotlin-Fassung lesen (app/, core/; nach 870.10 im Zweit-Repo), dann eine Zeile "
+            "Commit-Nachricht nennt die alte Fassung. Vor dem Bauen die Fundstelle in der Kotlin-Fassung lesen (Zweit-Repo bornim-kaufmodelle, kotlin-alt/app, kotlin-alt/core; mit add_repo einbinden, 1279), dann eine Zeile "
             "„Alt: <Datei:Zeilen>, übernommen: …, besser: …“ in die Nachricht (git commit --amend, solange nicht gepusht), "
             "oder „Alt: keine (<Grund>)“, wenn es nichts Altes gibt.")
 

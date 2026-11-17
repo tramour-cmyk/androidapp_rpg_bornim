@@ -3,7 +3,7 @@ Klopfen an einer verschlossenen Tür (215.1; Chef 20.10., 06:42: „Klopfgeräus
 Schläge der Fingerknöchel auf eine Holztür. Alle CC0 (QUELLEN.md): Kenney, Impact Sounds, impactWood_light und _medium.
 
     python3 tools/klang/klopfen.py <ordner mit kenney_impact.zip entpackt> <ziel>    # Hörprobe als WAV
-    python3 tools/klang/klopfen.py <ordner> --spiel                                   # nach app/src/main/assets/sfx (knock_1–3)
+    python3 tools/klang/klopfen.py <ordner> --spiel                                   # nach godot/daten/klang/sfx (knock_1–3)
 
 Ein Schlag ist der Anfang einer Holzaufnahme, etwas höher gestimmt (Knöchel statt Hammer), die Tiefen etwas mehr (Tür
 mit Körper), wenig Raum (draußen vor dem Haus). 215.2 (Chef 20.10., t45: „Klopfen an Türen ist sehr leise“): um etwa 6 dB
@@ -38,7 +38,7 @@ S = {"knock": [
 ]}
 
 if OUT == "--spiel":
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in S.items():
         for i, x in enumerate(takes):
             tmp = os.path.join(out, "_tmp.wav"); write(tmp, x)
