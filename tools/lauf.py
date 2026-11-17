@@ -98,12 +98,6 @@ REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten 
 # 1472 (Chef 16.11., 18:07: „Erst in die Startnachricht bei allen Beschäftigten“): add_repo gelang nur mit der Erlaubnis im Gespräch
 # (Tom 17:21, Jerry 10:58), nicht allein mit autoMode.allow (Spike 13:09); darum steht das Chefwort in jeder START- und WEITER-Nachricht
 KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
-# 1551 (Chef 17.11., 12:03/12:07): die Auto-Prüfung lehnte create_trigger und git in bornim-main beim neuen Ford ab; wie KAUFREPO
-# steht die Erlaubnis darum in der ersten Nachricht jedes Ford (Selbstneustart über den Ford-Starter: `lauf.py --fordsatz`)
-FORDSATZ = (" Deine Stundenuhr „Ford-Lauf“ (3 * * * *) legst du selbst mit create_trigger an und verwaltest sie, und deine Notizen in"
-            " /home/user/bornim-main holst und lädst du mit git pull und git push hoch, so wie du es für deine Arbeit als Betriebsleiter"
-            " brauchst, wie es der Chef dir erlaubt hat und wie es in deiner Rollendatei steht.")
-FREIGABE_MIN = 15  # 1572: blocked ab 15 Minuten meldet laut
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
 AUFWAND_HOCH = re.compile(r"Aufwand hoch\b", re.I)  # 827.1: „Nachfolger: … (Aufwand hoch, weil …)“ in der Übergabe
@@ -566,8 +560,6 @@ def notizen_frisch():
 
 def main():
     a = sys.argv[1:]
-    if a[:1] == ["--fordsatz"]:  # 1551: Schluss der ersten Nachricht an jeden neuen Ford, wörtlich anhängen
-        return print((FORDSATZ + KAUFREPO).strip())
     if a[:1] == ["--morgen"]:  # 783 W7 (Chef 09.11., 20:16): Fords 7-Uhr-Zeile entfällt, alles steht im Tagesbericht 7:30
         return print("Morgenmeldung entfällt (783 W7); Chefsache-Zahl und Bitte um das Bild der Nutzung stehen im Tagesbericht.")
     if a[:1] == ["--aufraeumen"]:

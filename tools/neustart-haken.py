@@ -5,7 +5,7 @@
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
   neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung ab 200 Tsd., Sperre ab 300 Tsd.
-                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo oder Ford 400/500 Tsd.; nie im Test des Chefs).
+                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo 400/500 Tsd.; nie im Test des Chefs; nie bei Ford, 1574).
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
@@ -68,8 +68,6 @@ def text(stufe, plus, gesamt, ab=AB, ford=False):
         rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
     else:
         rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über Ford (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
-    if ford:  # 1019 (Stichtag 14.11.): Ford schickt sich kein „Neustart Ford“, er startet sich selbst
-        rest = "Ford: nach diesem Lauf Selbstneustart nach LISTE-BETRIEB.md „Selbstneustart“ (Startsperre ins Protokoll, pushen, create_session aus dieser Sitzung, neue Sitzung übernimmt die Uhr); kein send_message „Neustart Ford“. Im Chat nichts dazu."
     return kopf + " " + rest
 
 
@@ -196,9 +194,9 @@ def prompt(eingabe):
         z = {}
     ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) else AB  # 818
     ford = False
-    try:  # 1019: Ford startet sich bei 400 Tsd. selbst neu (185, LISTE-BETRIEB „Selbstneustart“), nicht am Haken (Tiefe wuchs sonst täglich bis 6)
+    try:  # 1574 (Chef 17.11., 18:31): Ford bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
         if name(pfad, sitzung).startswith("Ford"):
-            ab, ford = 2 * AB, True
+            return
     except Exception:
         pass
     if gesamt < ab:  # 383 A: Gesprächslänge, nicht Zuwachs
@@ -290,6 +288,8 @@ def werkzeug(eingabe, art):
     gesamt = letzte_groesse(pfad)
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
     ford = name(pfad, sitzung).startswith("Ford")
+    if ford:  # 1574: Ford bleibt eine Sitzung, weder Erinnerung noch Sperre
+        return 0
     doppelt = ford or os.path.isdir(os.path.join(KAUF, ".git"))
     ab = AB + (AB if doppelt else 0)            # 200 / 400 Tsd.
     sperre = SPERRE_AB + (AB if doppelt else 0)  # 300 / 500 Tsd.

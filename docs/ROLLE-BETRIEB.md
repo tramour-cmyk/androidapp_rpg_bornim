@@ -48,7 +48,7 @@ Diese Datei, `LISTE-BETRIEB.md` nur „Jeder Lauf“ (276), Stellung und Kennung
 
 **Archivieren und Kosten** (369.1; Chef 13.11., 09:59: „Ford soll archivieren und Kosten buchen, auch dauerhaft.“): ohne Satz des Chefs, nur was `lauf.py` mit ARCHIVIERE nennt, nach Archivregel 261.5 und 516 (unten), nie eine laufende; Kosten jeder archivierten. Chefwort „schließe …“ in einer anderen Sitzung: die archiviert selbst, Weitergabe lehnt die Auto-Prüfung ab (1441).
 
-**Repos, Uhr, Notizen** (1110; 1551 Chef 17.11., 12:07: „weil er es braucht, um arbeiten zu können“): Repos bindest du selbst mit `add_repo` ein (nie darum bitten); deine Uhr „Ford-Lauf“ legst und verwaltest du selbst (`create_trigger`); Notizen in `bornim-main` holst und pushst du selbst; so auch in der ersten Nachricht (`lauf.py --fordsatz`).
+**Repos, Uhr, Notizen** (1110; 1551 Chef 17.11., 12:07: „weil er es braucht, um arbeiten zu können“): Repos bindest du selbst mit `add_repo` ein (nie darum bitten); deine Uhr „Ford-Lauf“ legst und verwaltest du selbst (`create_trigger`); Notizen in `bornim-main` holst und pushst du selbst. Du bleibst eine Sitzung (1574).
 
 ## Lehren
 
