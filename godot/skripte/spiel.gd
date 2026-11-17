@@ -854,6 +854,8 @@ func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeff
 	var hf = erg["held"]
 	if hf != null:
 		hw.mana = clampi(int(hf.sp), 0, hw.max_mana())
+		if ende[0] in ["WON", "ENEMY_FLED"]:   # 1478 (1411 A): nach dem Sieg Mana + Wille / 2, aufgerundet, hoechstens voll
+			hw.mana_nach_sieg()
 	zustand.leiden = AufrufS.leiden_nach(hf, ende[0], maxi(0, hw.wert("zaehigkeit") - int(BrsHeld.welt().get("leiden_zaehigkeit_ab", 5))))
 	if ende[0] == "LOST":
 		Rast.vergeht(zustand, 4 * 60)   # Game.DEATH_HOURS
