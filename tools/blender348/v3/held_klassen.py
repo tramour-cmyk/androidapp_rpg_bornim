@@ -1048,6 +1048,7 @@ def umhang_unter(arm, netze, k, plaetze):
     # 1569 (Chef 17.11., 16:12, t297.18): Trachten ohne eigenen Umhang tragen das Schrankteil UMHANG der Wachtracht; ihre Kleidung
     # (Guertel, Schulterstueck, Robe) stach hinten durch (Probebild 1569). Formschluessel unter_CLOAK an jedem Kleidungsnetz: Ecken unter
     # dem Umhang oder bis UMHANG_DURCH davor ruecken hinter ihn (UMHANG_LUFT); Godot setzt ihn, wenn ein fremdes Umhangteil haengt
+    # (Kauf-Cache: bau/klassen-05a39df078a151311245 ist ohne diesen Schluessel gebaut, darum diese Zeile, neue Kennung)
     t, g = k.rsplit('_', 1)
     p = os.path.join(ZIEL, 'teil_UMHANG_%s.glb' % g)
     if not SCHRANK or not os.path.exists(p): print('UMHANG UNTER FEHLT', k, p); return
