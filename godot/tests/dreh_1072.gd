@@ -51,6 +51,9 @@ func _lauf() -> void:
 	var zurueck_ges := 0
 	for durchgang in int(_env("DURCHGAENGE", "1")):
 		if durchgang > 0:     # „Nochmal“ wie im Probekampf (Kampfort.again, probe.gd _start)
+			# 1556 (Lauf 552 rot, am Rechner zwei Läufe mit Seed 7 im 2. Durchgang verschieden): again_fn ist probe._start ohne Saat,
+			# die Würfel des zweiten Kampfs waren je Lauf neu (Wuerfel.rng.randomize); mit fester Saat spielt er jedes Mal gleich
+			kf.again_fn = p._start.bind(int(_env("NOCHMAL", str(s + durchgang * 1000))))
 			kf.again()
 			for i in 4:
 				await process_frame
