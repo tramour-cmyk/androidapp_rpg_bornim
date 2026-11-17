@@ -4964,7 +4964,10 @@ func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, t
 		anim.seek(minf(-vor_ms / 1000.0, k), true)
 	_schnaufen(0.6)
 	var rest: float = anim.get_animation(nm).length - maxf(0.0, -vor_ms / 1000.0)
-	get_tree().create_timer(maxf(0.1, rest - 0.1)).timeout.connect(_idle_wenn_frei)
+	# 601.1 (Chef 16.11., 12:24, t291.8: „zucken tut der Held definitiv nicht“; zucken_6011: der Pfeil traf 0,27 s nach Beginn der
+	# Abwehr, SS_GetHitLightFront (1,03 s) brach nach 0,33 s ab, weil das Ende der Abwehr in Ruhe schaltete): nur in Ruhe, wenn
+	# noch die Abwehr läuft
+	get_tree().create_timer(maxf(0.1, rest - 0.1)).timeout.connect(func() -> void: if String(anim.current_animation) == nm: _idle_wenn_frei())
 
 
 func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
