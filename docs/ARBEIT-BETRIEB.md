@@ -98,3 +98,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 05:04 17.11.: Marke Archiv session_01Hmoj764SLoCvCFwQShPLJT (lauf.py)
 - 05:04 17.11.: Nachfolger-Warnung Spike (Übergabe 17.11., 02:53) (lauf.py)
 - 06:38 17.11.: Startsperre 06:38 Start Jerry (Ford von Hand), Neustart-Meldung 06:33 (d29a69780)
+- 07:31 17.11.: Startsperre 07:31 Start Perikles (Ford von Hand), Tagesbericht 17.11. ab 07:30
