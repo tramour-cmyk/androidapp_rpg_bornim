@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 21:33, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 21:41, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -27,7 +27,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 20 (16) | 10 | 2 | 1 | 8 | 1571 (Tom) Zauberstab in der Haupthand angelegt, an der Figu… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 6 | 24 | 508 (Sokrates) Lehrmeister in Kapitel 1 erreichbar, Magie-Pflich… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 3 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 3 | 0 | 1 | 4 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
 | **7** Werkzeuge und Abläufe der Firma | 47 (43) | 32 | 0 | 0 | 11 | 1593 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -45,11 +45,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 6 weitere |
+| **Chef** | [1569](ansehen/1569-umhang.md) ansehen, hält 1 Zeilen; dann 1 weitere |
 | Tom | 1571 Zauberstab in der Haupthand angelegt, an der Figur nicht zu… (Muss) |
-| Jerry | 1336 Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattense… (Kür) |
+| Jerry | 385.2 Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
-| Spike | leer, weil 3 ruht, 2 Termin, 1 Chef |
+| Spike | 1484 Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grund… (Muss) |
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1593 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss); dann 1 weitere |
@@ -61,26 +61,26 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|---|---|---|---|---|
 | 1 | 1589.1 | Sokrates | Regelblatt Gegnerverhalten gemeinsam, nicht im stillen Kämmerchen: Gespräch Che… | M | 2 Kampf passt | in Arbeit |
 | 2 | 1571 | Tom | Zauberstab in der Haupthand angelegt, an der Figur nicht zu sehen; Fackel der N… | M | 3 Kleiderschrank und Modelle | startbar |
-| 3 | 1593 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 4 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 5 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 6 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 7 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 8 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
-| 9 | 1487 | Jerry | Heiler wächst in Kapitel 1 nie im Willen; Vorschlag, wie er Heilmagie übt, Rech… | K | 2 Kampf passt | startbar |
-| 10 | 623.9 | Jerry | Aus 623.2: Effekte Szene 3 Höhle einbauen: Nebel R8, Teich R10, Kristalle R4 cr… | K | 2 Kampf passt | startbar |
-| 11 | 1536 | Jerry | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von K… | K | 2 Kampf passt | startbar |
-| 12 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 13 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | in Arbeit |
-| 14 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
-| 18 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
-| 20 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | wartet auf 1591 |
+| 3 | 1484 | Spike | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grundwert Tablet in LISTE… | M | 6 Godot besser nutzen | startbar |
+| 4 | 1593 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 6 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
+| 7 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 8 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 9 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 10 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 11 | 1487 | Jerry | Heiler wächst in Kapitel 1 nie im Willen; Vorschlag, wie er Heilmagie übt, Rech… | K | 2 Kampf passt | startbar |
+| 12 | 623.9 | Jerry | Aus 623.2: Effekte Szene 3 Höhle einbauen: Nebel R8, Teich R10, Kristalle R4 cr… | K | 2 Kampf passt | startbar |
+| 13 | 1536 | Jerry | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von K… | K | 2 Kampf passt | startbar |
+| 14 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 15 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | in Arbeit |
+| 16 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
+| 20 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 64 weitere offen. Bei dir zum Testen (vorgelegt): 11. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 73.
+Danach 65 weitere offen. Bei dir zum Testen (vorgelegt): 11. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
@@ -96,19 +96,11 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1515](ansehen/1515-wache-alt-neu.md) | Hauptmenü: weißer Streifen vor dem Schild der Wachsoldatin (Bild alt gegen neu) | – | 17.11., 19:26 |
-| [1567](ansehen/1567-sieg-leben.md) | Siegtafel nach „Schnell“: Verlust ab Kampfbeginn, kein „−0 Leben“ | – | 17.11., 20:18 |
-| [1568](ansehen/1568-schatten.md) | Kampfort: kein rechteckiger Schatten mehr unter Tieren und Held | – | 17.11., 20:25 |
 | [1569](ansehen/1569-umhang.md) | Angelegter Umhang an jeder Herkunft sichtbar (Bild 2, alt gegen neu) | – | 17.11., 21:05 |
-| [1587](ansehen/1587-staebe.md) | Zauberstab und Magierstab jetzt an der Figur | – | 17.11., 20:27 |
-| [385.2](ansehen/3852-feuer-stab.md) | Feuer aus der Stabspitze beim Funkenpfeil | – | 17.11., 20:57 |
 
 ## Zu tun
 
-Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1484](tun/1484-tablet-messen.md) | **Muss** | E Technik | 16.11., 21:09 | Auf dem Tablet mit Build 293 einmal Wald und einmal Kampf messen (etwa 5 Minuten) | Spike |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -357,9 +349,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1515-wache-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1567-sieg-leben.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1568-schatten.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1569-umhang.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1587-staebe.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/3852-feuer-stab.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/3852-feuer-stab.md
+Format (Muster: „So geht's“ unten): ansehen/1515-wache-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1569-umhang.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 ## So geht's
 
