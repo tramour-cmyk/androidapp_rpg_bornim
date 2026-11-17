@@ -1,5 +1,7 @@
 # 1569 · Angelegter Umhang an jeder Herkunft sichtbar (Bild 2, alt gegen neu)
 
+[Bild von 17.11., 21:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-2105-1569-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 17.11., 21:04 · E Figuren · Fund des Chefs 17.11., 16:12 (t297.18: Umhang angelegt, an der Figur nichts); Lauf frei 20:08
 Kurz: Der Umhang hängt an jeder Herkunft. Am Jägerkind ist das Durchstechen fast weg, am Zauberlehrling sticht die Robe jetzt durch.
 
