@@ -1055,8 +1055,8 @@ def umhang_unter(arm, netze, k, plaetze):
     ob = QT.importiere(p)
     a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
     vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
-    QT.an_geruest(ob, arm, vs)
     um = [o for o in ob if o.type == 'MESH']
+    QT.an_geruest(ob, arm, vs)
     bv = _bvh(um)
     kleid = set(n for p_, ns in plaetze.items() for n in ns)
     for o in netze:
@@ -1077,7 +1077,7 @@ def umhang_unter(arm, netze, k, plaetze):
         sk = o.shape_key_add(name='unter_CLOAK', from_mix=False)
         sk.data.foreach_set('co', (B.reshape(-1, 3) + D @ Mi[:3, :3].T).ravel())
         print('UMHANG UNTER', k, o.name, n, 'Ecken')
-    for o in ob: bpy.data.objects.remove(o)
+    for o in um: bpy.data.objects.remove(o)   # das Geruest des Imports entfernt an_geruest
 
 
 def schrank(arm, netze, k, g, teilnamen=None):
@@ -1094,7 +1094,9 @@ def schrank_fertig(netze, k, sch):
     plaetze, unter, leiber, arm = sch
     deckung = leib_deckung(leiber, netze, plaetze, k)
     unter_schluessel(leiber, netze, plaetze, deckung)
-    if 'CLOAK' not in plaetze: umhang_unter(arm, netze, k, plaetze)
+    if 'CLOAK' not in plaetze:   # Geruest der fertigen Netze (kaempfer tauscht es nach schrank() aus, ROBE)
+        arm = next((m.object for o in netze if o.type == 'MESH' for m in o.modifiers if m.type == 'ARMATURE' and m.object), None)
+        if arm: umhang_unter(arm, netze, k, plaetze)
     SCHRANK_INFO[k] = {'teile': plaetze, 'unter': unter, 'leib': deckung}
 
 
