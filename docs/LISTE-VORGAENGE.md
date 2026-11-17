@@ -231,7 +231,7 @@
 | 1537 | Von Sokrates (1520 so, Chef 17.11., 10:00): Neustart-Haken zusätzlich an jeden Werkzeugaufruf (PreToolUse/PostToolUse): ab 200 Tsd. Erinnerung, ab 300 Tsd. Sperre außer Übergabe, Push, Neustart-Nachricht an Ford (mit Kaufrepo 400/500 Tsd.); nie während Test des Chefs (865) | Spike | M | gebaut, Geprüft an: efa589bde | 23.11. | – | – | B Steuerung | 1,68 $ |
 | 1555 | Von Werkzeug (1334): Wiederholrot biss_1284: 3× rot in 48 h (Läufe 537, 524, 518); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
 | 1556 | Von Werkzeug (1334): Wiederholrot dreh_1072: 2× rot in 48 h (Läufe 552, 537); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
-| 1557 | Von Werkzeug (1334): Wiederholrot einschlag_6011: 2× rot in 48 h (Läufe 539, 537); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
+| 1557 | Von Werkzeug (1334): Wiederholrot einschlag_6011: 2× rot in 48 h (Läufe 539, 537); Ursache nachstellen, beheben · wiederholt | Spike | M | erledigt, Geprüft an: Lauf 554 (537/539: Testdatei mit 601.1 zurückgenommen, 81d105470 brachte sie zurück) | – | – | – | E Technik | – |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
