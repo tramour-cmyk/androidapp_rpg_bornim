@@ -4,9 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 01:1x):** Lauf 286: 1312 wirkt, greift nicht (1250, 517 über 12 h) → 1504 an Perikles, 1312 wartet auf 1504. Lauf 287: 1254 greift (kein Lauf 15.–16.11. auf altem Modellbau). Lauf 288: 1246 nicht belegbar (Nächte 04–07 Uhr ohne Ford-Lauf), Termin 17.11. 08:00. Lauf 289: 1485 greift (Lauf 542). Lauf 290: 1301 ohne Fall, wartet bis 23.11. Lauf 291: 1504 wirkt (517, 1250 jetzt Muss vorn bei Jerry), Wirkung 03:30. Nächste Nummer D292. Nachfolger: Diogenes – 1504 um 03:30, 1246 Nacht 16./17.11. und 1425 Vorratsprüfung am Tagesbericht 17.11.
-
-- **Zu 1504, 1312 (Lauf 291):** am 17.11. ab 03:30: 517 und 1250 in einem Build (`build`-Feld), mit t<n> oder Termin, oder eine Sitzung (Jerry/Tuffy) arbeitet daran laut Besetzung → `greift 1504`, dann 1312 nach `Zu 1312`; liegen sie nach zwei Ford-Läufen unberührt → Befund an Perikles.
+**Übergabe (17.11., 03:3x):** Lauf 292: 1504 greift (517 in Build 294, 1250 erledigt). Lauf 293: 1312 greift (keine Teamzeile „gebaut“ ohne Vorlage über 12 h). Nächste Nummer D294. Nachfolger: Diogenes – 1246 um 08:00, dann 1425 Vorratsprüfung am Tagesbericht 17.11. (10:00).
 
 - **Zu 1246 (Lauf 288):** Nacht 16./17.11. (erste mit Stundenuhr beim Ford-Starter, 1444): Ford-Läufe jede Stunde 21–7 Uhr (`git log` „Ford: Lauf“), keine Stunde ohne Team-Commit, während eine Teamrolle startbares Muss hat; Marke „Stillstand“ nur, wo kein Muss startbar → `greift 1246 <Lauf>`; fehlen Ford-Läufe wieder 05/06 Uhr → Befund an Ford (1444).
 
@@ -15,7 +13,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
 - **Zu 1388, 1389 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %), 1244 an einem ganzen Tag Pflege-Commits ohne reines Verschieben → `greift`.
-- **Zu 1312 (Lauf 286):** wartet auf 1504 (Perikles); danach keine Spielcode-Zeile „gebaut“ ohne Build, t<n> oder Termin über 12 h (`liegt_ohne_vorlage` + `gebaut_seit` je Tom/Jerry/Spike) → `greift 1312 <Lauf>`.
 - **Zu 1301 (Lauf 290):** 15.–16.11. nur ein 👎 (760, 15.11., 16:08, vor dem Bau 16:57; Chef antwortete 20:33 „Sprung passt“). Am ersten 👎 ohne Wort nach 16.11. (`git show origin/reaktionen:reaktionen.tsv`): Nachfrage per `meldung.sh --frage`, „nachgefragt HH:MM“ oder Wortlaut im Eintrag → `greift 1301 <Lauf>`, sonst Befund an Perikles; bis 23.11. kein 👎 → greift ohne Fall.
 - **Zu 1128.3 (Rest nach Lauf 251):** nur noch 1060 am ersten Lauf, in dem sich nur Dorffelder von `leute.json` ändern (`klassen` „treffer“, unter „geändert“ von dorf/leute `leute.json:felder`) → `bautest 1060 <Lauf>`, dann 1128.3 erledigt. Läufe bis 484 ohne Fall (Prüfbericht Lauf 251); Lauf 487 (Build 287, 13:04) alle fünf Blöcke Treffer, ohne Fall.
 - **Zu 1282 (D251.1):** nach Erledigt: `grep -rn "gradlew" tools/setup-session.sh tools/alt_bilder.sh` leer → `greift 1282 <Lauf>`.
