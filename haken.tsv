@@ -894,3 +894,4 @@
 2026-11-17 23:45:18	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md: Uhrzeit 23:52 liegt nach jetzt (23:45)	main
 2026-11-17 23:45:24	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md: Uhrzeit 23:52 liegt nach jetzt (23:45)	main
 2026-11-17 23:47:46	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-1515-streifen
+2026-11-18 00:03:26	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-458-3-katalog ändert Spielcode (godot/skripte/gebiet	claude/spike-458-3-katalog
