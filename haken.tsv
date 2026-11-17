@@ -753,3 +753,4 @@
 2026-11-17 08:02:33	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-1516-stab
 2026-11-17 08:02:41	commit-pruefung	docs/chefsache/entscheiden/1520-laeufe-sparen.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-17 08:06:31	commit-pruefung	docs/ARBEIT-BERATUNG.md: Uhrzeit 10:00 liegt nach jetzt (08:06)	main
+2026-11-17 08:06:36	commit-pruefung	docs/ARBEIT-BERATUNG.md: Uhrzeit 10:00 liegt nach jetzt (08:06)	main
