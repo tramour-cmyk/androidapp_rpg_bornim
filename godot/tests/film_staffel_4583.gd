@@ -57,7 +57,7 @@ func _lauf() -> void:
 		hw.ausruestung["MAIN_HAND"] = g
 		spiel.held_figur_neu("")
 		var schl := Staffel.schluessel(g)
-		var am := spiel.held.modell != null and (not spiel.held.modell.find_children("Getragen*", "", false, false).is_empty() \
+		var am: bool = spiel.held.modell != null and (not spiel.held.modell.find_children("Getragen*", "", false, false).is_empty() \
 			or not spiel.held.modell.find_children("Ruecken*", "", true, false).is_empty())
 		print("FILM4583 %s Stufe %d %s: %s %s" % [e[0], e[1], e[2], schl, "am Helden" if am else "FEHLT"])
 		if not (am and schl.contains("#")): fehler += 1
