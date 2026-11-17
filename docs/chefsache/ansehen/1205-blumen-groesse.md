@@ -1,5 +1,7 @@
 # 1205 · Blumen kleiner und gestreut: Dorf ×1,2–1,5, draußen ×1,2–1,8 · Tom · 17.11., 16:40
 
+[Bild von 17.11., 16:38](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-1638-1205-Tom.png) (eingetragen von meldung.sh, Tom)
+
 E Welt · Tom · 17.11. · aus deinem Wort 16:23 (an Sokrates): „ist ein bisschen zu groß. Dann vielleicht eher Faktor 1,5 und in Dorf vielleicht … ein Faktor 1,2 bis 1,5 und vielleicht außerhalb 1,2 bis 1,8. Halt eine Mische irgendwie.“
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/e9b2c63bc (`claude/tom-1205-wiese`, Standbilder am Rechner, Großbild: Telegram 17.11. 16:40)
