@@ -1,4 +1,7 @@
 # 1205a · Blumenwiese: Blumen des Graspakets größer und kräftiger, die gezeichneten Kleckse weg?
+
+[Bild von 17.11., 14:17](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-1417-1205a-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 17.11., 14:15 · E Welt · aus deinem Wort 13.11., 18:48 (an Sokrates)
 Kurz: Mehr Grasarten aus dem Paket sind gebaut; ohne die Kleckse wird die Blumenwiese aber grün, weil die Blumen des Pakets in der Spielansicht kaum zu sehen sind.
 Beim Chef, weil: Aussehen
