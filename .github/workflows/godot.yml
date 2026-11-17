@@ -2025,6 +2025,23 @@ jobs:
           i=0; for f in $(grep -oE "^GARRICKFILM schnitt [0-9]+" $B/film531.log | awk '{print $3}'); do
             ffmpeg -loglevel error -y -ss $(awk "BEGIN{print ($f-15)/30}") -t 4.6 -i $RUNNER_TEMP/garrick531.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $RUNNER_TEMP/s$i.mp4 && echo "file '$RUNNER_TEMP/s$i.mp4'" >> $RUNNER_TEMP/s.txt; i=$((i+1)); done
           [ -f $RUNNER_TEMP/s.txt ] && ffmpeg -loglevel error -y -f concat -safe 0 -i $RUNNER_TEMP/s.txt -c copy $B/garrick531.mp4 || true
+      # 1448 A (Chef 16.11., 14:47): Weltleiste und Balken im Heldenmenü ohne Wörter, vorher (leiste.gd, menue.gd von main) | nachher,
+      # je Gegenstand ein Bild (tests/leiste_bild_1448.gd); bei „1448 Bild“ im Commit oder bilder=1448
+      - name: Leiste (1448)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1448 Bild') || contains(github.event.inputs.bilder, '1448')) }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/leiste1448; mkdir -p $B/neu $B/alt
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb imagemagick > /dev/null || true
+          cd godot
+          knips() { BILD1448_AUS=$1 VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 300 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/leiste_bild_1448.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD1448" | cut -c1-300 || true; }
+          knips $B/neu
+          cp skripte/leiste.gd skripte/menue.gd $RUNNER_TEMP/
+          git fetch -q --depth 1 origin main && git show FETCH_HEAD:godot/skripte/leiste.gd > skripte/leiste.gd && git show FETCH_HEAD:godot/skripte/menue.gd > skripte/menue.gd
+          knips $B/alt
+          cp $RUNNER_TEMP/leiste.gd $RUNNER_TEMP/menue.gd skripte/
+          for g in leiste held; do (cd $B && convert alt/$g.png neu/$g.png -background "#D4B038" -splice 0x8 -append ${g}_vorher_nachher.png) || true; done
           ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
