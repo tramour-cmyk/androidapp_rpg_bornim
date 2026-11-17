@@ -5622,6 +5622,21 @@ func im_schatten(an: bool) -> void:
 	_schatten_tw.tween_method(func(x: float): _fade_out(x), von, IM_SCHATTEN - von, 0.45)
 
 
+## 785.11 (alt SkirmishScreen.kt 1087: beim Wählen eines Ziels Alpha 0,55 für die, die nicht wählbar sind): gedämpft, solange der
+## Spieler ein Ziel wählt; im Schatten bleibt blasser (IM_SCHATTEN)
+const GEDAEMPFT := 0.45
+var gedaempft_an := false
+
+
+func gedaempft(an: bool) -> void:
+	if an == gedaempft_an or dead_at >= 0:
+		return
+	gedaempft_an = an
+	if _schatten_tw:
+		_schatten_tw.kill()
+	_fade_out(IM_SCHATTEN if schatten_an else (GEDAEMPFT if an else 0.0))
+
+
 func _fade_out(x: float) -> void:
 	for m in mats:
 		m.set_shader_parameter("weg", x)
