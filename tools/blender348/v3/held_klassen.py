@@ -1081,7 +1081,7 @@ def teil_ablegen(k, netze, arm):
     t, g = k.rsplit('_', 1)
     kenn = next((n for n, v in SCHRANK_TEILE.items() if v[0] == t), None)
     if not kenn or not SCHRANK: return
-    ms = [o for o in netze if o.name.split('.')[0] == 'Kleid_CHEST']
+    ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_CHEST')]   # mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK)
     if not ms: print('TEIL FEHLT', k, 'Kleid_CHEST'); return
     exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
     print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
