@@ -386,29 +386,29 @@ func _hell_mess() -> void:
 	var tag := "%s/%s Licht %s%s" % [fight.ort, fight.platz, OS.get_environment("HOEHLE_LICHT") if OS.get_environment("HOEHLE_LICHT") != "" else "Vorgabe",
 		" Nebel alt" if OS.get_environment("HOEHLE_NEBEL") == "alt" else ""]
 	var werte: Array = []
-	for y in range(int(sr.position.y), int(sr.end.y), 3):
-		for x in range(0, img.get_width(), 3):
+	for y: int in range(int(sr.position.y), int(sr.end.y), 3):
+		for x: int in range(0, img.get_width(), 3):
 			werte.append(_luma(img, x, y))
 	werte.sort()
 	var n := werte.size()
 	# 507 Lauf 287 (Prüfer: 44 % fast schwarz): Anteil der Szene unter 12 von 255, oben (erstes Drittel) und unten (letztes) getrennt
 	var schwarz := 0
-	for w in werte:
+	for w: float in werte:
 		if w < 12.0:
 			schwarz += 1
 	print("HELL %s Szene: p10 %.0f, p50 %.0f, p90 %.0f, Mittel %.1f, fast schwarz %.0f %%, oben %.0f %%, unten %.0f %%" % [tag, werte[n / 10],
 		werte[n / 2], werte[n * 9 / 10], _mittel(werte), 100.0 * schwarz / n, _schwarz_anteil(img, sr, 0.0, 0.33), _schwarz_anteil(img, sr, 0.67, 1.0)])
-	for id in fight.figures:
-		var fg = fight.figures[id]
+	for id: Variant in fight.figures:
+		var fg: Node3D = fight.figures[id]
 		if not fg.visible:
 			continue
 		var lo := Vector2(1e9, 1e9)
 		var hi := Vector2(-1e9, -1e9)
-		for mi in fg.find_children("*", "MeshInstance3D", true, false):
+		for mi: MeshInstance3D in fg.find_children("*", "MeshInstance3D", true, false):
 			if not mi.is_visible_in_tree() or mi.mesh == null or mi.name in ["Bodenschatten", "Pfotenschatten"]:
 				continue
 			var bb: AABB = mi.global_transform * mi.get_aabb()
-			for k in 8:
+			for k: int in 8:
 				var q: Vector2 = fight.cam.unproject_position(bb.get_endpoint(k))
 				lo = lo.min(q)
 				hi = hi.max(q)
@@ -423,8 +423,8 @@ func _hell_mess() -> void:
 			tag, id, innen, links, rechts, schatten, boden, r.position.x, r.position.y, r.end.x, r.end.y])
 	var ip := "res://kampf/daten/hoehle-info-%s.json" % fight.platz
 	if fight.ort == "hoehle" and FileAccess.file_exists(ip):
-		var info = JSON.parse_string(FileAccess.get_file_as_string(ip))
-		for m in info.get("merk", []):
+		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ip))
+		for m: Dictionary in info.get("merk", []):
 			var w: Vector3 = fight.forest.to_global(Vector3(m.pos[0], m.pos[1], m.pos[2]))
 			var q: Vector2 = fight.cam.unproject_position(w) * kb
 			var kern := _feld(img, Rect2(q - Vector2(5, 5), Vector2(10, 10)))
@@ -436,8 +436,8 @@ func _hell_mess() -> void:
 func _schwarz_anteil(img: Image, sr: Rect2, von: float, bis: float) -> float:
 	var n := 0
 	var s := 0
-	for y in range(int(sr.position.y + sr.size.y * von), int(sr.position.y + sr.size.y * bis), 3):
-		for x in range(0, img.get_width(), 3):
+	for y: int in range(int(sr.position.y + sr.size.y * von), int(sr.position.y + sr.size.y * bis), 3):
+		for x: int in range(0, img.get_width(), 3):
 			n += 1
 			if _luma(img, x, y) < 12.0:
 				s += 1
@@ -451,7 +451,7 @@ static func _luma(img: Image, x: int, y: int) -> float:
 
 static func _mittel(a: Array) -> float:
 	var s := 0.0
-	for v in a:
+	for v: float in a:
 		s += v
 	return s / maxf(a.size(), 1)
 
