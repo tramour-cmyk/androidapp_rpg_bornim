@@ -795,3 +795,4 @@
 2026-11-17 11:04:06	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-431-ausruestung
 2026-11-17 11:04:45	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1423b schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf 	claude/tom-431-ausruestung
 2026-11-17 11:04:54	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-431-ausruestung
+2026-11-17 11:05:12	commit-pruefung	VORGANGSARCHIV.md: Test t296 eingetragen, Prüfliste noch in der Chefsache (docs/chefsache/ansehen/t296-sammelbuild.md); im selben Commit `git rm` (1070, LISTE-CHECK-BUILD-TEST.md 11)	main
