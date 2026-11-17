@@ -4,9 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 09:0x):** Lauf 296: 1531 greift; Lauf 297: 1524 greift (Prüfbericht). Lauf 295: Bautests t295 (Lauf 546): 1488, 601.1, 1284b, 623.2, 1270.4 erledigt; 1275 wartet auf D295.1 = 1527 (Jerry); 1340 wartet auf 1505. Nächste Nummer D298. Nachfolger: Diogenes – 1425 Vorratsprüfung am Tagesbericht 17.11. (10:00).
-
-- **Zu 1425 (Lauf 285):** nach dem Termin im Feld: Perikles' Tagesbericht 17.11. kam erst nach einem Commit „Vorratsprüfung“ desselben Morgens, E/K/L/O von heute Nacht (649, 293.7, 1482/1483, 966.2) behoben oder beim Besitzer → `greift 1425 <Lauf>`; Bericht mit `BORNIM_VORRAT_GEPRUEFT=1` ohne Prüf-Commit → Befund an Perikles.
+**Übergabe (17.11., 10:05):** Lauf 298: 1425 greift; Lücke D298.1 = 1539 (Perikles: beurteilte Fehlalarme kommen täglich wieder). Nächste Nummer D299. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.).
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
 - **Zu 1388, 1389 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %), 1244 an einem ganzen Tag Pflege-Commits ohne reines Verschieben → `greift`.
