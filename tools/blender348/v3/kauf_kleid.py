@@ -389,6 +389,25 @@ for i in np.where(ENG_K)[0]:
 leer = WKq.sum(1) == 0
 WKq[leer, Q_KN.index('pelvis')] = 1.0
 WKq /= WKq.sum(1, keepdims=True)
+# 1515 Runde 2 (Chef 17.11., 21:45: „die Aussage, dass der breite weiße Streifen weg sei, ist falsch“): Saumecken des Kettenhemds an der
+# Huefte lagen in unserer Haltung (Arme haengen) neben dem Daumen und erbten dessen Gewicht (Wache W: 13 Flaechen Oberschenkel-Daumen);
+# zurueck in der Ruhelage sassen sie am Daumen der T-Haltung, die Flaechen spannten 70 cm von der Huefte zur Hand, im Hauptmenue als
+# breiter heller Streifen zum Schild. ACHSEL_LANG fing sie nicht (nur Unterarm/Hand an Becken/Rumpf, Finger und Oberschenkel fehlten).
+# Jetzt fuer jede Ecke mit Gewicht an Unterarm, Hand oder Finger: traegt der naechste Punkt des Koerpers dort kein Armgewicht (Huefte,
+# Oberschenkel, Rumpf), gehen die Armgewichte an die Gewichte des Koerpers an diesem Punkt (eine Regel fuer alle Kleider, 1535)
+_fing = ('thumb', 'index', 'middle', 'ring', 'pinky')
+_armk = [k for k, nm in enumerate(Q_KN) if nm.startswith(('lowerarm_', 'hand_') + _fing)]
+_n_hand = 0
+if _armk:
+    for i in np.where(WKq[:, _armk].sum(1) > 1e-3)[0]:
+        c, _, fi, _ = qbvh.find_nearest(Vector(VK2[i]))
+        if fi is None: continue
+        ecken = list(QF[fi]); d = np.linalg.norm(QV[ecken] - np.array(c), axis=1)
+        w = 1.0 / np.maximum(d, 1e-4); wk = (w[:, None] * WQ[ecken]).sum(0) / w.sum()
+        if wk[_armk].sum() > 0.05: continue   # Aermel am Arm: bleibt
+        a_ = float(WKq[i, _armk].sum()); WKq[i, _armk] = 0.0; WKq[i] += a_ * wk / max(wk.sum(), 1e-6); _n_hand += 1
+    WKq /= WKq.sum(1, keepdims=True)
+print('HAND AM KOERPER 1515', _n_hand, 'Ecken (Armgewichte an den naechsten Koerperpunkt)')
 # Pruefer 20:49 (Kettensplitter auf Kinn und Hals): die Kragenecken erbten am Kinn Gewichte des Kopfs, drehten mit ihm (UAL, Kopf
 # heben in figurenprobe.gd) und stachen ins Gesicht; Kleidung haengt hoechstens am Hals
 iKopf = Q_KN.index('Head'); iHals = Q_KN.index('neck_02') if 'neck_02' in Q_KN else Q_KN.index('neck_01')
