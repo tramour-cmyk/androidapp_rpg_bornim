@@ -108,7 +108,7 @@ def rechnen():
     rollen, test = stand_rollen()
     erl_rolle = lambda ns, r: sum(1 for n in ns if r in jetzt[n]["vorrat"])
     return dict(jetzt=jetzt, e1=e1, e7=e7, s1=spiel(e1), s7=spiel(e7), neu1=neu1, neu7=neu7, kost=kost, punkte=p_heute, seit=seit,
-                rollen=rollen, test=test, erl_rolle=erl_rolle, chef=chefsache(), ein=eingaben(), rot=rote_laeufe())
+                rollen=rollen, test=test, erl_rolle=erl_rolle, chef=chefsache(), ein=eingaben(), rot=rote_laeufe(), lz=laufzeiten_kurz())
 
 NICHT_BAU = {"zug-index", "release-notes", "webseite", "vorschau"}  # Abläufe ohne Bau (Notizen, Seiten)
 
@@ -140,6 +140,14 @@ def rote_laeufe():
                                          if (l.get("head_branch") or "").startswith("claude/" + v)), "sonst") for l in rot)  # 777: tuffy → Jerry; 1328: spike eigene Rolle
         erg[name] = (len(rot), len(gezaehlt), team)
     return erg
+
+def laufzeiten_kurz():
+    """1548 (Chef 17.11., 11:15): Läufe 24 h, Ø, min, max, und ob die vorgerenderten Kaufmodelle griffen (tools/laufzeiten.py)."""
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import laufzeiten
+        return laufzeiten.kurz(24)
+    except Exception:
+        return "Laufzeiten unbekannt"
 
 def rot_text(r):
     if not r: return "rote Läufe unbekannt (Netz)"
@@ -181,7 +189,7 @@ def zeilen(d):
          "Vorgänge erledigt 24 h / 7 Tage: %d / %d, davon Spiel (Entwicklung, Gestaltung, Texte, Design) %d / %d; neu %d / %d" % (len(d["e1"]), len(d["e7"]), d["s1"], d["s7"], d["neu1"], d["neu7"])),
         ("Rest geschätzt", ein.get("Rest geschätzt", "noch keine Schätzung"), "Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu"),
         ("Wartet auf dich", warte or "nichts", "ältestes: %s; [Chefsache](chefsache/README.md)" % aeltest),
-        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d); %s" % (t1 + t2, t1, t2, rot_text(d.get("rot"))),
+        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d); %s" % (t1 + t2, t1, t2, rot_text(d.get("rot"))) + ("; " + d["lz"] if d.get("lz") else ""),
          "bei dir zum Testen: %s; ein Build nimmt alle fertigen Zweige (317)" % (", ".join(re.findall(r"\[(Build \d+)\]", lesen("chefsache/README.md"))) or "kein Build")),
         ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3)"),
         ("Geld", ("Woche **%s %%** (dein Bild %s, %s)" % (gut.group(3), gut.group(1), gut.group(2)) if gut else "Woche unbekannt") +
