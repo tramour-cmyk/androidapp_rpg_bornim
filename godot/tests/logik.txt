@@ -192,3 +192,4 @@ grafik_698
 zucken_6011
 zielwahl_78511
 tipp_78515
+zurueck_kampf_78517
