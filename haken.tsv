@@ -836,3 +836,4 @@
 2026-11-17 16:39:10	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 32323 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-17 18:32:20	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-17 18:34:17	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30597 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-17 18:38:17	startsperre	Startsperre fehlt (750 A): für Ford steht in den letzten 10 Minuten keine „Startsperre … Start Ford“ auf main (letzte 17.11., 12:31). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen, d	HEAD
