@@ -137,3 +137,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 17.11.: Marke Archiv session_01Hmoj777UC4mRXgFsJi1T9s (lauf.py)
 - 12:01 17.11.: Startsperre 12:01 Start Perikles (lauf.py)
 - 12:01 17.11.: Marke Archiv session_01Hmoj75Zz5WUmAyUmi4Uym5 (lauf.py)
+- 12:02 17.11.: Startsperre 12:02 Start Tom (selbst; Neustart-Meldung ebec38f6c, Tom idle seit 10:54, Kosten 17,52 $ auf 431h gebucht)
