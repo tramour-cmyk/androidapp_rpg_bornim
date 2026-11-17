@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 20:29, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 20:33, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **2** Kampf passt | 56 (61) | 13 | 1 | 0 | 12 | 1589.1 (Sokrates) Regelblatt Gegnerverhalten gemeinsam, nicht im st… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 20 (16) | 10 | 1 | 0 | 8 | 1569 (Tom) Rest aus 431h: angelegter Umhang an der Heldenfig… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 0 | 24 | 1591 (Tom) im nächsten Sammelbuild eine Handyzeile „neues Sp… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 0 | 24 | 1564 (Sokrates) Systemlösung? Wasser: 4 frühere Vorgänge, neu 156… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 3 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
 | **7** Werkzeuge und Abläufe der Firma | 49 (43) | 32 | 0 | 0 | 11 | 1593 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -46,14 +46,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 5 weitere |
-| Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 2 weitere |
-| Jerry | 168.1 Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapite… (Kür) |
+| Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 1 weitere |
+| Jerry | 1319 Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cur… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | leer, weil 3 ruht, 2 Termin, 1 Chef |
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1593 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss); dann 1 weitere |
-| Perikles | leer, weil 22 Termin, 4 wartet auf Vorgang (1388, 1389, 870, 1125), 2 wartet auf Test/Build |
+| Perikles | 168.1 Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapite… (Kür) |
 
 **Die nächsten 20**
 
@@ -62,23 +62,23 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 1589.1 | Sokrates | Regelblatt Gegnerverhalten gemeinsam, nicht im stillen Kämmerchen: Gespräch Che… | M | 2 Kampf passt | in Arbeit |
 | 2 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | in Arbeit |
 | 3 | 1571 | Tom | Zauberstab in der Haupthand angelegt, an der Figur nicht zu sehen; Fackel der N… | M | 3 Kleiderschrank und Modelle | startbar |
-| 4 | 1591 | Tom | im nächsten Sammelbuild eine Handyzeile „neues Spiel von der Erschaffung über D… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 5 | 1593 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 7 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 8 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 9 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 10 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 11 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 12 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 13 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
-| 14 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
-| 15 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
-| 16 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
-| 17 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
-| 18 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
-| 19 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
-| 20 | 1478 | Jerry | nach jedem Sieg Mana + halber Wille; Wundsegen × 0,8–1,2 wie Waffenschaden; Ker… | K | 2 Kampf passt | startbar |
+| 4 | 1593 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 6 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 7 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 8 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 9 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 10 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 11 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 12 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
+| 13 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
+| 14 | 1478 | Jerry | nach jedem Sieg Mana + halber Wille; Wundsegen × 0,8–1,2 wie Waffenschaden; Ker… | K | 2 Kampf passt | startbar |
+| 15 | 1486 | Jerry | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Beg… | K | 2 Kampf passt | startbar |
+| 16 | 1487 | Jerry | Heiler wächst in Kapitel 1 nie im Willen; Vorschlag, wie er Heilmagie übt, Rech… | K | 2 Kampf passt | startbar |
+| 17 | 623.9 | Jerry | Aus 623.2: Effekte Szene 3 Höhle einbauen: Nebel R8, Teich R10, Kristalle R4 cr… | K | 2 Kampf passt | startbar |
+| 18 | 1536 | Jerry | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von K… | K | 2 Kampf passt | startbar |
+| 19 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 20 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | startbar |
 
 Danach 69 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
