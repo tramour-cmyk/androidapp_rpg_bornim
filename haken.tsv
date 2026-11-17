@@ -899,3 +899,4 @@
 2026-11-18 00:11:35	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-455-2-groesse
 2026-11-18 00:15:27	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/spike-458-3-katalog
 2026-11-18 00:16:34	commit-pruefung	docs/PRUEFBERICHT.md: Uhrzeit 12:00 liegt nach jetzt (00:16)	main
+2026-11-18 00:17:28	commit-pruefung	CLAUDE.md: 15077 Bytes, Obergrenze 15000, Commit fügt 113 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
