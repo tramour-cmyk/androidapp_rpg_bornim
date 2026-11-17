@@ -9,7 +9,7 @@ bpy.ops.import_scene.gltf(filepath=glb)
 I = json.load(open(info))
 art = {w['hoch']: (w['innen'], 'hoch') for w in I['waende']}; art.update({w['tief']: (w['innen'], 'tief') for w in I['waende']})
 dg = bpy.context.evaluated_depsgraph_get()
-B = [(o.name, BVHTree.FromObject(o, dg)) for o in bpy.data.objects if o.type == 'MESH' and o.name.startswith('Wand_')]
+B = [(o.name, BVHTree.FromObject(o, dg)) for o in bpy.data.objects if o.type == 'MESH' and 'Wand_' in o.name]
 TS = 1.16; walk = I['begehbar']
 def b(g): return Vector((g[0], -g[2], g[1]))
 for yaw in (0, 90, 180, 270):
