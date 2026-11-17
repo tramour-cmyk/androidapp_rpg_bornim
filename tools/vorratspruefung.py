@@ -43,6 +43,14 @@ GEPRUEFT_O = {"168.1", "623.2", "966.2", "623.9"} | {"785.%d" % i for i in range
 GEPRUEFT_P = {"954a.13"}  # 16.11.: „entfällt“ meint den alten Kampf, die Zeile (Wirkung im MARS) lebt
 
 
+def pruefpunkt(n, builds, alle):
+    """1539, 1544 (D302.1): <Build>.<k> mit getestetem Build ist ein Prüfpunkt, außer der Vorgang <Build> hat echte Unternummern
+    (292.1–292.4 in Liste oder Archiv): dann zählt 292.9 als fehlende Folgezeile."""
+    m = re.match(r"(\d{3})\.\d+$", n)
+    if not m or int(m.group(1)) not in builds: return False
+    return not any(x.startswith(m.group(1) + ".") for x in alle)
+
+
 def folge_da(n, vorraete, zs):
     """1542: ein Urteil ohne eigene Zeile ist nachgezogen, wenn ein Vorrat „Zu <n>“ trägt oder eine offene Zeile <n> im Titel nennt."""
     nr = r"%s(?!\w|\.\d)" % re.escape(n)
@@ -158,11 +166,12 @@ def funde():
             vorraete += open(os.path.join(S.DOCS, x), encoding="utf-8").read()
     try:
         builds = {int(b) for b in S.getestete_builds()}
+        alle = set(S.vorgaenge())
         for w, kopf, je in S.urteile(48):
             for n, ort, st in je:
                 if ort == "ohne Zeile":
                     # 1539 (D298.1): „293.7“ ist Prüfpunkt 7 der Prüfliste t293, kein Vorgang
-                    if re.match(r"\d{3}\.\d+$", n) and int(n.split(".")[0]) in builds: continue
+                    if pruefpunkt(n, builds, alle): continue
                     # Folgeauftrag im Vorrat des Besitzers mit Verweis „Archiv „<n>““ (16.11.: 531.1 steht als „Zu 531“ bei Tom)
                     if re.search(r"Archiv „%s“" % re.escape(n), vorraete): continue
                     # 1542: Folgeauftrag als „Zu <n>“ in einem Vorrat oder im Titel einer offenen Zeile (1423a A: Prüfzeile in 1547)
