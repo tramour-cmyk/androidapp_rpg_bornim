@@ -43,3 +43,19 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 - 297.9: probe=WOLVES
 - 297.18: probe=WOLVES ruestung=plate
 - 297.19: station=Krogg ort=cave:2:11:RIGHT ruhig vorraete
+
+## Ergebnis
+
+Chef 17.11., 16:16 (App, im Gespräch mit Sokrates):
+
+- 297.1 ✓ funktioniert, weiß nur nicht, ob es mir gefällt...
+- 297.6 ✓
+- 297.7 ✓ Wo kommt der Auftrag zum Ausblenden her?
+- 297.8 ✓ Wo kommt nochmal der Ring im Wolfskampf?
+- 297.9 ✓
+- 297.10 ✓
+- 297.15 ✓ ... juheeee....
+- 297.17 ✓
+- 297.18 ✓ passt, bis auf den Umhamg funktioniert es.
+- 297.19 ✓
+- Rest ✓

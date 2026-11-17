@@ -58,6 +58,8 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 ## Einzelheiten
 
 
+
+
 - **Zu 1488, von Chef (Anmerkung t295.2 (✓), Test Build 295, Automatik B):** (Chef 17.11., 08:09, Bildschirmfoto: „wenn der Wolf normal ist, steht sozusagen nichts dabei. Wenn er der Durchschnittswolf ist, dann passt das alles.“ Wolf 1 ohne Merkmal 25/25, Wolf 2 angeschlagen −30 % 18/18, Wolf 3 kräftig +15 % 29/29)
 - **Zu 1415 (Jerry 17.11., 07:54, `398d5b32a` auf `claude/jerry-1415-takt`, mit `main` nach 294, am Rechner mit Kaufmodellen):** `angriff_824` rot durch Umweg beim Rückweg des Helden (behoben in `_back_home`); 973-Prüfung zählte Platz unter dem stehenden Wolf als Rücken (Test geschärft). Rot bleibt `wolf_mess_438` Seed 7: Kleriker 90,2 s, Stab im Treffer-Taumeln 0,16 m im Hals des absetzenden Wolfs; auf `main` dieselbe Art bei Seed 3, Seeds 1–5 je 11 Befunde (main und 1415). Gehört zu 709 (Halt bis 930), darum wartet 1415 auf 709.
 - **Zu 785.12 (Jerry 17.11., 06:55, `fd01683c0` auf `claude/jerry-785-12-urteil`, von `main`):** `[219T.erster]` vor der Eingebung, `[219T.jetzt]` über dem ersten Ring, Urteil in Farbe, „Gut“ bei Fehlschlag, Antwort der Klasse darunter; Test `ring_785`. Prüfpunkt im nächsten Sammelbuild als Handy: neuer Spielstand, erster Kampf mit Schwerem Hieb (Goblins, Hobgoblin-Hauptmann), Erklärung im Bericht, Wort über dem Ring, Urteil farbig. Zweig `claude/jerry-785-12-ring` ist ein Fehlgriff (nur Fords Notiz), nicht mischen; Löschen verweigert der Proxy.
