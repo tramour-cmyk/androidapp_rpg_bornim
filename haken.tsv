@@ -839,3 +839,4 @@
 2026-11-17 18:38:17	startsperre	Startsperre fehlt (750 A): für Ford steht in den letzten 10 Minuten keine „Startsperre … Start Ford“ auf main (letzte 17.11., 12:31). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen, d	HEAD
 2026-11-17 18:39:57	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1569-umhang
 2026-11-17 18:40:30	commit-pruefung	docs/ROLLE-PROJEKT.md: 13586 Bytes, Obergrenze 13200, Commit fügt 399 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-17 18:40:41	startsperre	Startsperre fehlt (750 A): für Ford steht in den letzten 10 Minuten keine „Startsperre … Start Ford“ auf main (letzte 17.11., 12:31). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen, d	ccr-f7f249f7-uallb2
