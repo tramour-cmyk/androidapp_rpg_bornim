@@ -89,7 +89,7 @@
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | K | ruht, Vorrang 11.11.: kein Neues bis Umzug und Testfehler | 23.11. | claude/jerry-494-gegner | – | E Kampf | 135,26 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | K | ruht, Verdrahtung auf Zweig 0928f2d12 | 23.11. | claude/jerry-507-hoehle | – | E Kampf | 75,48 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | K | ruht, Kampf zuerst (338.1) | 23.11. | – | – | E Technik | – |
-| 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | startbar, Wirken hinterm Kopf (Chef 21:40) | – | claude/jerry-385-2-feuer | – | E Kampf | 9,99 $ |
+| 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | wartet, Ursache b11e60eae, braucht Zauberhaltung | 1589.1 | claude/jerry-385-2-feuer | – | E Kampf | 9,99 $ |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | 23.11. | claude/jerry-344-2-fackel | – | E Kampf | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | startbar, gelöst 15.11.: 38 | Perikles | – | – | G Story | – |
 | 39 | Schwierigkeitsgrad im Menü | Jerry | K | ruht | 23.11. | claude/jerry-39-schwierigkeit | – | E Kampf | 3,80 $ |
