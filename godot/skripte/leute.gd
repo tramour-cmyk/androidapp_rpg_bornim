@@ -550,7 +550,10 @@ func richte_ding() -> void:
 		p = stab_fuss + y * ding_unten   # der Schaft laeuft durch den Griff, das untere Ende steht auf stab_fuss
 	ding.global_position = p
 
+var nacht_k := 0.0
 func nacht(k: float) -> void:
+	nacht_k = k
+	if abwehr: abwehr.nacht_k = k
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
 
 # fuer Held.frei: steht hier jemand?
@@ -654,7 +657,25 @@ func _process(dt: float) -> void:
 		anim.play(pause, Held.ueberblendung(anim.current_animation, false))
 		anim.speed_scale = 1.0
 
+# 531: Garrick wehrt am Schutzort ein Tier mit der Fackel ab (herde.gd abgewehrt, abwehr.gd); so lange steht er und schaut zum Tier
+var abwehr: Abwehr
+func wehre_ab(wo: Vector3) -> void:
+	if abwehr == null:
+		var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D if modell else null
+		if sk == null: return
+		abwehr = Abwehr.baue(sk, self)
+		abwehr.nacht_k = nacht_k
+	if abwehr.laeuft(): return
+	# 531 Film: das Feuer liegt eine Kachel in seiner Blickrichtung (Story.kt: Garrick links vom Feuer, Blick RECHTS)
+	var k := (karte.kachel_pos(Vector2i(1, 0)) - karte.kachel_pos(Vector2i(0, 0))).length()
+	abwehr.los(wo, global_position + Vector3(sin(blick), 0, cos(blick)) * k)
+
 func stehen(dt: float) -> void:
+	if abwehr and abwehr.laeuft():
+		var soll := atan2(abwehr.ziel.x - global_position.x, abwehr.ziel.z - global_position.z) if abwehr.zum_tier() else blick
+		rotation.y = drehe(rotation.y, soll, DREH_ZU * dt)
+		warte = maxf(warte, 1.0)
+		return
 	# 1086 (Chef 13.11., 15:47, t283.5: „Text sagt, er rennt heim, steht aber neben mir, passiert nichts“; nachgestellt in pim_rennt_1086):
 	# eilt setzte erst plan_jetzt im Tagesplan, und den erreichte Pim erst nach der Zuwendung (10 s) und nur, wenn der Held nicht mehr
 	# bei ihm stand (schaut). Jetzt gleich nach dem Gespraech, in dem er heimgeschickt wurde
