@@ -48,6 +48,9 @@ func _lauf() -> void:
 	pruefe("Traeger", a.size(), 5)
 	pruefe("Zug geht", a[0][0] != b[0][0] or a[0][1] != b[0][1], true)
 	pruefe("hinter dem Tempel", z.zug_bei(8600).any(func(p): return p[3] > 0.5), true)
+	# 1530: die Flaechen des Zugs haengen im Bild (fehlte seit 399.1, der Zug wurde nie gezeichnet) und liegen ueber ihrem Bild
+	pruefe("Zug im Bild", [z.unter_leben.is_inside_tree(), z.ober_leben.is_inside_tree()], [true, true])
+	pruefe("Zug ueber Bild", [z.ober_leben.get_parent() == z.ober_bild.get_parent(), z.ober_leben.get_index() > z.ober_bild.get_index(), z.ober_bild.get_index() > z.unter_leben.get_index()], [true, true, true])
 	pruefe("Flamme", Zwischenbild.flamme(100, 100, 4, 12, 1).size(), 17)
 	var rand: Array = z.leben["pfuetze"]
 	var mx := 0.0

@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1549** (zuletzt 1548 Perikles 17.11. 11:15:51 085b) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1551** (zuletzt 1550 Tom 17.11. 11:00:26 a6ef) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -50,7 +50,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 17.11., 09:16 Ford: Sokrates-Neustart auf Chefwort 09:08: `…79XLgTfEVz9NoYYJ7m` („Chefrunde“), alter `…76gTnkQt77JpdpoGF3` archiviert (Schutzzeile war geleert), 7,53 $ auf 1520, 870; Tom „Weiter: 1528“ („jetzt“).
 - 17.11., 11:24 Ford (alt): Nachfolger `…75h6xVRxXjjce8kTvq` ist an `git pull --rebase` und `git push` in `bornim-main` gescheitert (Auto-Prüfung lehnt git dort ab); Schritte 1 (aktuell eingetragen) und 2 (Uhr-Sitzung) hat der alte Ford erledigt; Archivieren und Kosten 9,63 $ auf 1019, 1366 stehen beim neuen Ford.
-- 11:09 17.11.: Startsperre 11:09 Start Ford (Starter) – Selbstneustart bei 404 Tsd. Token, Übergabe 11:08.
 - 17.11., 11:05 Ford: Lauf 11:03 (angekommen): nichts zu starten, alle Rollen belegt. Befund: Perikles und Jerry hängen an `git rebase --continue` (Auto-Prüfung lehnt ab, wartet auf den Chef); beiden gesagt: `rebase --abort`, Konflikt neu lösen. Spike wartet auf Ja des Chefs zum Schließen der Prüfliste Build 295 (Neustartmeldung 10:58 ohne Nachfolger, nichts Startbares).
 - 17.11., 10:52 Ford: Lauf 10:50: Jerry-Neustart `…77xEazSvYLsbY2twWp` (297), Tom über neue Jerry-Kennung informiert; Start Diogenes `…76GuSR3ZmBd53Pew6R` (1539), Perikles `…75Zz5WUmAyUmi4Uym5` (M? 1541, 1543); archiviert Jerry alt (3,86 $ auf 785.11, 785.15, 785.17, 785.12, 297), Diogenes alt (2,78 $ auf 1425, 1538), Perikles alt (5,04 $ auf 1535, 1538, 1537; Chefrückfrage beantwortet 10:27, kein Werkzeug gebaut). GELÖST 1520, 1137 an Sokrates.
 - 17.11., 10:33 Ford: Tom-Neustart `…77SRiAi6pEtMKx6z7N` (431h Stufe 2), alter archiviert, 19,25 $ auf 296, 1516, 1417, 1515, 1535, 785.10.
@@ -95,6 +94,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
+- 11:09 17.11.: Startsperre 11:09 Start Ford (Starter) – Selbstneustart bei 404 Tsd. Token, Übergabe 11:08.
 - 10:50 17.11.: Startsperre 10:50 Start Jerry (selbst) – Neustart auf Meldung 10:43 (97c0dae38).
 - 10:31 17.11.: Startsperre 10:31 Start Tom (selbst) – Neustart auf Meldung 10:25 (92be1c9df).
 - 10:27 17.11.: Startsperre 10:27 Start Jerry (selbst) – Neustart auf Meldung 10:19 (720cfaf9c).
@@ -135,3 +135,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 17.11.: Startsperre 10:50 Start Diogenes, Perikles (lauf.py)
 - 10:50 17.11.: Marke Archiv session_01Hmoj79xM5rV6bTs6ZDkmXE (lauf.py)
 - 10:50 17.11.: Marke Archiv session_01Hmoj777UC4mRXgFsJi1T9s (lauf.py)
+- 12:01 17.11.: Startsperre 12:01 Start Perikles (lauf.py)
+- 12:01 17.11.: Marke Archiv session_01Hmoj75Zz5WUmAyUmi4Uym5 (lauf.py)
+- 12:02 17.11.: Startsperre 12:02 Start Tom (selbst; Neustart-Meldung ebec38f6c, Tom idle seit 10:54, Kosten 17,52 $ auf 431h gebucht)
