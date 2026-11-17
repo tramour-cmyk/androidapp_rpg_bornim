@@ -714,6 +714,7 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/atem_tiere_1166.gd 2>&1 | grep -E "^FEHLER|ATEMTIERE1166|SCRIPT ERROR"   # 1166 Atem für alle Tiere mit Rücken
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_dorftiere_1167.gd 2>&1 | grep -E "^FEHLER|^1167|ATEMDORF1167|SCRIPT ERROR"   # 1167 Dorftiere atmen (Tom)
           # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; 1136 (1128 A Laufnachweis): haelt an
           # (Lauf 427: „SCHILD 406 gut“, Ende 0), traegt 1013 und 1014
           nebenher schild_406 'timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR"'
