@@ -1062,6 +1062,7 @@ def umhang_unter(arm, netze, k, plaetze, leiber=()):
     a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
     vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
     um = [o for o in ob if o.type == 'MESH' and not o.name.startswith('Icosphere')]   # 1569: die Hilfskugel des Kaufpakets (1 m) ist kein Umhang
+    netze_import = [o for o in ob if o.type == 'MESH']
     QT.an_geruest(ob, arm, vs)
     bv = _bvh(um)
     kleid = set(n for p_, ns in plaetze.items() for n in ns)
@@ -1097,8 +1098,7 @@ def umhang_unter(arm, netze, k, plaetze, leiber=()):
         sk = o.shape_key_add(name='unter_CLOAK', from_mix=False)
         sk.data.foreach_set('co', (B.reshape(-1, 3) + D @ Mi[:3, :3].T).ravel())
         print('UMHANG UNTER', k, o.name, n, 'Ecken, davon auf den Koerper', n_auf)
-    for o in ob:
-        if o.name in bpy.data.objects and o.type == 'MESH': bpy.data.objects.remove(o)   # das Geruest des Imports entfernt an_geruest
+    for o in netze_import: bpy.data.objects.remove(o)   # das Geruest des Imports entfernt an_geruest
 
 
 def schrank(arm, netze, k, g, teilnamen=None):
