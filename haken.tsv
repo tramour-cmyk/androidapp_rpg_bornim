@@ -908,3 +908,4 @@
 2026-11-18 00:23:43	commit-pruefung	docs/ARBEIT-PROJEKT.md: Uhrzeit 07:30 liegt nach jetzt (00:23)	main
 2026-11-18 00:29:14	probelauf	464: Push angehalten, Parsefehler in GDScript (CI würde rot, der Chef bekommt eine E-Mail). Erst beheben, dann erneut pushen:	claude/spike-458-3-katalog
 2026-11-18 00:40:00	commit-pruefung	LISTE-VORGAENGE.md: 1612: Zeile über 400 Zeichen (Einzelheiten als „Zu 1612“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-18 00:47:13	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/billigen/1211-licht-b.md: fehlt Rückbau, Kosten; doc	HEAD
