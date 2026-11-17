@@ -2,7 +2,7 @@
 Hörproben am Waldweiher (27j): Froschrufe, Froschchor als Schleife, Flügelschlag der Libellen. Alle CC0 (QUELLEN.md, Runde 4).
 
     python3 tools/klang/teich.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben und eine Szene zum Anhören
-    python3 tools/klang/teich.py <ordner mit den Aufnahmen> --spiel    # die gewählten (27k) nach app/src/main/assets/sfx
+    python3 tools/klang/teich.py <ordner mit den Aufnahmen> --spiel    # die gewählten (27k) nach godot/daten/klang/sfx
 
 Aufnahmen: Freesound 710246 (Sahand.Zangeneh, Frösche am Wasser), 426462 (musicbrain, frogs_01), 240549 (jaegrover,
 Libelle im Netz), 511326 (onehugeeye, Insect wings); OpenGameArt „Frog Croaks“ (croak_03.mp3).
@@ -42,7 +42,7 @@ def finish(x, rms=-20): return norm(trim(x, -55), -1.0, rms)
 # Gewählt vom Nutzer (27k, 12.10.): Frosch 1–3, Chor 2, Libelle 1–2
 if OUT == "--spiel":
     import subprocess
-    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     chosen = {"frog": S["frosch"][:3], "frog_chorus": [S["froschchor"][1]], "dragonfly": S["libelle"][:2]}
     for name, takes in chosen.items():
         for i, x in enumerate(takes):

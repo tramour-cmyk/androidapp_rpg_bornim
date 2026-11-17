@@ -70,28 +70,5 @@ Die APK baut `godot.yml` (Punkt 4 in `LISTE-CHECK-BUILD-TEST.md`); der Kotlin-Ba
 
 ### Vorschau und Spiel
 
-- Vorschau direkt: `cd tools/preview && SCHALTER=… ../../gradlew -q run`, Bilder unter `tools/preview/build/screens/`. Filmläufe sind langsam; Shell-Befehle brechen nach 10 Minuten ab, lange Läufe im Hintergrund mit `timeout`.
+- Alte Vorschau (`tools/preview`, Kotlin) gibt es hier nicht mehr (1279): Vergleichsbilder „alt“ mit `tools/alt_bilder.sh` aus dem Zweig `bilder`, Quelltext im Zweit-Repo `bornim-kaufmodelle` unter `kotlin-alt/` (Schalter und Kotlin-Tests: Git, Stand vor „1279“). Shell-Befehle brechen nach 10 Minuten ab, lange Läufe im Hintergrund mit `timeout`.
 - **Im Spiel testen:** Testmodus (7× auf das Copyright im Hauptmenü tippen), Reiter „Test“: Stufe, Gold, Vorräte, Testkämpfe, „Kartenzoom“, „Monster beachten mich nicht“, „Sichtlinie aus“ u. a.
-
-| Schalter | Wofür |
-|---|---|
-| `KARTENZOOM=1` (+ `ONLY=zoom_nah_…`, `DIAG=1`, `RAIN=1`, `ZOOMSTUFE=`) | Karte im echten Spiel: Wald, Dorf, Schänke (`i1`, `i2`), Ältester `e`, Laden `l`, Tempel `t`, Tag und Abend |
-| `KARTENZOOM=1 HELDORT=ort:x:y:R:stunde` | Held an einem Ort zur Stunde (Tagesablauf der Bewohner, 5l) |
-| `ISODINGE=1` / `=aeltester` / `=laden` / `=tempel` | Bild aller Raum-Möbel diagonal, je drei Varianten |
-| `FEUER=1` | alle Bilder des Kaminfeuers |
-| `WALKFILM=karte:x:y` (+ `CROP=x0:y0:x1:y1`, `FROM=`), `IDLEFILM=` | Laufen bzw. Stehen durch die echte Oberfläche filmen |
-| `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |
-| `UNERKUNDET=1` (mit `KARTENZOOM=1 HELDORT=…`) | Rand der Sicht gegen das Schwarz (13e) |
-| `KATZE=1`; `KATZEINN=<ms>` | Katze: Haltungen; in der Schänke zum Zeitpunkt ihrer Runde |
-| `HUND=1`; `HUNDDORF=<ms>` (mit `KARTENZOOM=1`) | Dorfhund (D29.3): Haltungen; im Dorf zum Zeitpunkt seiner Runde |
-| `SWINGBILD=1` (+ `SWINGMORE=1`, `SWINGWHO=…`) | Nachschwingen (17), auch Haare und Köcher |
-| `FIREFLIES=1`, `SQUATDRAFT=1`, `MAPFIGYAWS=1 WEAPONS=…` | Glühwürmchen, Garrick hocken/schüren/dösen, Waffen in allen Richtungen |
-| `MAPFOE=scene\|dirs\|walk\|yaws\|others\|cave\|wood`, `FOEFILM=1` (`FOEIDLE=1`) | Monster auf der Karte: Entwürfe, Film |
-| `FILM=klasse:gegner FILMTAPS=…`, `FILMBATCH=datei FILMSTEP=40` | Kampffilme |
-| `KAMPFORT=forest:7:14:8,12` | Kampfort aus der Karte (72u; Ort, Zoomstufen) |
-| `SPRUNGBILD=` | Standbilder rund um eine Fundstelle des Sprungtests |
-| `FOEANIM=`, `VERMINANIM=`, `CLASH=1`, `FOECLASH=1`, `ABILITYFX=1`, `STATUSFX=1` | Bewegungsblätter, Kollisionsprüfung, Effekte |
-| `SOUNDS=NAME,…`, `KLANGPROBEN=…` | Hörproben |
-| `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*'` | Kapitelsimulation (Balance) |
-
-Kotlin-Tests der alten Fassung (kein Kerntest mehr seit 882.2, Abschnitt fällt mit 870.10): `JumpTest`/`BattleJumpTest` (Sprünge), `InnCornerTest`, `FireFlickerTest`, `HitWeightTest`, `MissStreakTest`, `RoamerTest`, `PlayerSimTest`.

@@ -3,7 +3,7 @@ Regen und Donner (D3.10): drei nahtlose 12-s-Schleifen Regen und drei ferne Donn
 „Runde 10“). Der Donner bleibt fern wie bisher (10.10., 1c): kein Krachen, nur ein tiefes Rollen, das anschwillt und
 verebbt.
 
-    python3 tools/klang/regen.py <ordner mit den Aufnahmen>                  # nach app/src/main/assets/sfx
+    python3 tools/klang/regen.py <ordner mit den Aufnahmen>                  # nach godot/daten/klang/sfx
     python3 tools/klang/regen.py <ordner mit den Aufnahmen> --proben <ziel>  # Hörproben (WAV)
 
 Aufnahmen (BigSoundBank, Joseph Sardin, CC0; laden: holen.sh): 0124 „Rain and storm“ (Starkregen, Gewitter erst am
@@ -39,7 +39,7 @@ THUNDER = [far(L("bsb_3116.mp3"), 0.4, 15.0, 1),   # ein Schlag, schwillt an und
            far(L("bsb_3179.mp3"), 0.0, 11.0, 3)]   # kurz und dumpf
 
 proben = sys.argv[3] if len(sys.argv) > 3 and sys.argv[2] == "--proben" else None
-out = proben or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+out = proben or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
 if proben:
     os.makedirs(out, exist_ok=True)
     gap = np.zeros(int(SR * 1.0))

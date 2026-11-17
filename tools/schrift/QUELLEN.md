@@ -1,8 +1,8 @@
 # Schriften (Thema 60b)
 
-Alle aus dem Google-Fonts-Archiv (https://github.com/google/fonts, Ordner `ofl/…`), Lizenz SIL Open Font License 1.1 (erlaubt kommerzielle Nutzung und Bearbeitung; kein „Reserved Font Name“ angegeben). Lizenztext je Schrift in `app/src/main/assets/OFL-*.txt`.
+Alle aus dem Google-Fonts-Archiv (https://github.com/google/fonts, Ordner `ofl/…`), Lizenz SIL Open Font License 1.1 (erlaubt kommerzielle Nutzung und Bearbeitung; kein „Reserved Font Name“ angegeben). Lizenztext je Schrift neben der Datei (`OFL-*.txt`). Im Spiel: `godot/daten/fondamento.ttf`, `godot/kampf/schrift/alegreya_*.ttf`; die übrigen nur noch in der alten Kotlin-Fassung (Zweit-Repo `bornim-kaufmodelle`, `kotlin-alt/app/src/main/res/font`, 1279).
 
-| Datei in `app/src/main/res/font` | Quelle | Urheber | Bearbeitung |
+| Datei | Quelle | Urheber | Bearbeitung |
 |---|---|---|---|
 | `ebgaramond_regular.ttf`, `ebgaramond_semibold.ttf` | `ofl/ebgaramond/EBGaramond[wght].ttf` | The EB Garamond Project Authors (Georg Duffner, Octavio Pardo) | Schnitt 400/600 aus der variablen Schrift, auf Latein-1 gekürzt |
 | `alegreya_regular.ttf`, `alegreya_semibold.ttf` | `ofl/alegreya/Alegreya[wght].ttf` | The Alegreya Project Authors (Juan Pablo del Peral, Huerta Tipográfica) | wie oben |

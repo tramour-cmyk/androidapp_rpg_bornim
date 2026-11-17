@@ -5,7 +5,7 @@ ohne Worte bemerkbar (DESIGN-STIL.md, Klang: keine erkennbare Sprache): ein Mann
 „134.3 Ruf“), Freesound-Vorschau (holen.sh).
 
     python3 tools/klang/ruf.py <ordner mit den Aufnahmen> <ziel>     # Hörprobe: je Stimme die drei Fassungen mit Pause
-    python3 tools/klang/ruf.py <ordner> --spiel                     # nach app/src/main/assets/sfx (hail_man_1–3, hail_woman_1–3, hail_child_1–3)
+    python3 tools/klang/ruf.py <ordner> --spiel                     # nach godot/daten/klang/sfx (hail_man_1–3, hail_woman_1–3, hail_child_1–3)
 
 Die Zeiten stammen aus dem Pegelverlauf der Aufnahmen (klang.segments, −28 dB). Ohne Raum (wie die Hühner), Höhen leicht
 gedämpft, alle auf denselben Pegel, damit keine Fassung heraussticht.
@@ -29,7 +29,7 @@ S = {
 }
 
 if OUT == "--spiel":
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in S.items():
         for i, x in enumerate(takes):
             tmp = os.path.join(out, "_tmp.wav"); write(tmp, x)

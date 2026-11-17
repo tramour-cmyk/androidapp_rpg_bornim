@@ -6,7 +6,7 @@ Vorgang 620.2 (Chef 07.11., 14:3x zu 620; 621 D ja, 16:4x: „Abgleich alt einma
 
 Nur belegte Punkte; Spieltexte nicht abgeschrieben, nur genannt (Schlüssel `[…]` oder Thema). Koordinaten (x/y) sind Kacheln der alten Karte (Ursprung oben links), aus den Kartenzeilen in `Story.kt`.
 
-Quellenkürzel (Pfade ab `core/src/main/kotlin/de/bornim/core/`):
+Quellenkürzel (Pfade ab `core/src/main/kotlin/de/bornim/core/`; alle Kotlin-Pfade dieser Liste seit 1279 im Zweit-Repo `bornim-kaufmodelle` unter `kotlin-alt/`):
 - **S** = `Story.kt` · **G** = `Game.kt` · **W** = `World.kt` · **VD** = `VillageDay.kt` · **MP** = `MapPeople.kt` · **MM** = `MapMarks.kt` · **J** = `Jobs.kt` · **R** = `Resting.kt` · **H** = `Hail.kt` · **IL** = `Interlude.kt`
 - **A/** = `art/` · **AU/** = `audio/` (z. B. `A/MapFolk.kt` = `art/MapFolk.kt`)
 - **UI** = `app/src/main/java/de/bornim/game/ui/WorldScreen.kt` (Zeilen dort ungefähr, Blockanfang)
