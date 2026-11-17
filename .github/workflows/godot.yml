@@ -1576,6 +1576,20 @@ jobs:
             --write-movie $RUNNER_TEMP/rauch1222.avi --fixed-fps 30 -s res://tests/film_rauch_1222.gd > $B/rauch1222.log 2>&1 || true
           grep -E "SCRIPT ERROR|^Film|1222|^Signatur|FEHLER" $B/rauch1222.log | head -16 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/rauch1222.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1222-rauch.mp4 || true
+      # 385.2 (Chef 28.10., Zauberer-Set): Zauberlehrling wirkt zweimal den Funkenpfeil auf einen Wolf: Feuer an der Stabspitze und
+      # Geschoss aus R2 (fire); nur von Hand mit kampf=3852
+      - name: Feuerfilm 385.2 (nur von Hand mit kampf=3852)
+        if: ${{ !cancelled() && github.event.inputs.kampf == '3852' && github.event.inputs.film != 'nein' }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/feuer3852; mkdir -p $B
+          cd godot
+          sudo apt-get install -y -qq libgl1-mesa-dri mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          MESS=1 timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/film_feuer_3852.gd 2>&1 | grep -E "^Film|385|FEHLER|SCRIPT ERROR" | tee $B/messung.log || true
+          timeout 900 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
+            --write-movie $RUNNER_TEMP/feuer3852.avi --fixed-fps 30 -s res://tests/film_feuer_3852.gd > $B/feuer3852.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^Film|385|^Signatur|FEHLER" $B/feuer3852.log | head -16 || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/feuer3852.avi -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/3852-feuer.mp4 || true
       # 601 (Chef 05.11., t266.5: Goblin-Späher ohne Schussbewegung, Pfeil passt nicht, kein Pfeil beim Fehlschuss): nur die Schüsse des
       # Spähers von der Seite (schuss.gd, Pfeil aus dem Kaufrepo mit Spur R3); nur von Hand mit kampf=601
       - name: Pfeilfilm 601 (nur von Hand mit kampf=601)
