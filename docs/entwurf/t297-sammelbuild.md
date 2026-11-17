@@ -1,11 +1,11 @@
 # Tom und Jerry · Build 297 · Sammelbuild: Zielwahl, Ring erklärt, Erklärfenster, Zurück im Kampf, Höhlenwände, Kampfschirm, Stab, Achsel · PR folgt
-E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17), Tom (Handy 1423 mit 1423b, 785.10; ohne dich 1460, 531, 1448, 1516, 1522; Bild 1515/1417/1535), Spike (Handy 1483; ohne dich 1512) · 17.11., 10:39 · APK folgt
+E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17), Tom (Handy 1423 mit 1423b, 785.10, 1530, 431h; ohne dich 1460, 531, 1448, 1516, 1522; Bild 1515/1417/1535), Spike (Handy 1483; ohne dich 1512) · 17.11., 10:39 · APK folgt
 
 Verglichen (alt gegen neu): Zielliste, Ringerklärung, Erklärfenster und Zurück im Kampf gegen `SkirmishScreen.kt` (582–588, 705–725, 1257–1262, 1321–1328, 340, 364, 494) und `MarsTips.kt` 84–89; Funde behoben. Umbau überall: Zielliste und Dämpfen gelten für Angriff, Fähigkeit, Trank und Wurf (ein Weg in `kampf_ui.gd`); die Ringerklärung gibt es nur im Kampf. Höhle, Garrick, Leiste wie Liste 296.
 
 Sammelbuild auf `main` mit `claude/build-296` (Chef 17.11., 10:03: „296 warten“; 296 wurde nicht installiert, seine Punkte stehen hier noch einmal als 297.1–297.4). 1512 (Probekampf auf Englisch) und 1483 (Anmerkung bei Passt, aus t295 nicht prüfbar: Chef hatte Lauf 544) fahren im Zweig mit (über build-296); Zeilen 297.15, 297.16 (Spike, 10:55). Bekannt: 1340 (Sterben von Skelett und Wiedergänger, aus 296) fährt im Zweig mit; der Bau prüft nur Goblin, Späher, Schamane, Kobold, Grak; Film an den Chef von Jerry bis 17.11., 18:00, nicht in dieser Liste.
 
-Ein Weg: über Build 295 installieren; 297.1 mit „Lage herstellen“ (Höhle); dann 297.6 (Grak), 297.7–297.9 im selben Probekampf Wölfe; 297.10 zuletzt.
+Ein Weg: über Build 295 installieren; 297.1 mit „Lage herstellen“ (Höhle); dann 297.6 (Grak), 297.7–297.9 im selben Probekampf Wölfe; 297.10; 297.18 (Probekampf, dann Welt); 297.17 zuletzt (Menü).
 
 Gegengelesen: Tom 17.11., 10:52 (297.6–297.9: Lage-Schlüssel probe, zug gültig in `testmodus.gd` LAGE_SCHLUESSEL; Wege und Passt/Falsch eindeutig; 297.1–297.5 aus t296 übernommen)
 
@@ -29,6 +29,8 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 | 297.14 | Jerry | 1514 | ohne dich (Diogenes bestätigt am Lauf) | `typen.py`: `kampf/treffer_fx.gd` mit Typen | Test grün | Test rot |
 | 297.15 | Spike | 1483 | Handy | Reiter „Test“, diese Zeile 297.15 aufklappen, ins Feld „Anmerkung, freiwillig …“ ein Wort tippen, dann „Passt“; danach „Ergebnis kopieren“ und irgendwo einfügen | im eingefügten Text steht „- 297.15 ✓ <dein Wort>“ | Feld fehlt, das Wort ist nach „Passt“ weg, oder der Text zeigt nur „✓“ |
 | 297.16 | Spike | 1512 | ohne dich (Diogenes bestätigt am Lauf; Chef 10:03 „Zu gucken, ob die Wörter da sind, ist doch Code.“) | `probekampf_1020` (1512): jeder Gegner des Probekampfs hat einen englischen Namen, das Testmenü zeigt ihn auf Englisch | Test grün | Test rot |
+| 297.17 | Tom | 1530 | Handy | Menü → Chronik → unter „Bisher geschehen“ „Die Ankunft ansehen“; beim dritten Bild (Platz mit Brunnen und Tempel, „Der Platz schläft …“) hinsehen | fünf Träger mit Fackeln gehen rechts die Straße entlang zum Tempel, ihr Licht liegt warm auf dem Pflaster und spiegelt sich in der Pfütze; einer nach dem anderen verschwindet hinter dem Tempel | der Platz bleibt leer, die Fackeln stehen still, oder das Licht fehlt |
+| 297.18 | Tom | 431h | Handy | Zeile 297.18 → „Lage herstellen“ (Probekampf Wölfe, dein Held im Plattenpanzer); im Kampf deinen Helden ansehen; danach in der Welt Menü → Ausrüstung: die Brustrüstung antippen, „Ablegen“; dann Tasche → dieselbe Rüstung → „Anlegen“, jedes Mal die Figur ansehen | im Kampf trägt dein Held sichtbar einen Plattenpanzer, nichts sticht durch; beim Ablegen verschwindet die Rüstung an der Figur, beim Anlegen kommt sie wieder | der Held trägt im Kampf seine Herkunftskleidung statt des Panzers, Haut oder Kleid sticht durch, oder die Figur ändert sich beim Ablegen nicht |
 
 ## Lagen
 
@@ -38,3 +40,4 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 - 297.8: probe=WOLVES
 - 297.9: probe=WOLVES
 - 297.10: probe=RATS pstufe=5
+- 297.18: probe=WOLVES ruestung=plate
