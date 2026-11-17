@@ -1,5 +1,7 @@
 # 385.2 · Feuer aus der Stabspitze beim Funkenpfeil
 
+[Film von 17.11., 20:57](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-205740-385.2/2026-11/17-2057-385.2-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 17.11., 20:58 · E Kampf · aus 385.1 (Chef 28.10., Zauberer-Set: „aus dem Stab soll sichtbar Zauber kommen“)
 Kurz: Der Zauberlehrling wirkt zweimal den Funkenpfeil; Lichtkranz beim Wirken, Feuergeschoss fliegt zum Wolf, Einschlag.
 
