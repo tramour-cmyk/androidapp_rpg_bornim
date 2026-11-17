@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`).
 
 Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
-Halt nur für 1526, 1588, 709, 709.1, 506.2, 760, 1043, 1032, 931, 1415, 1224 (Chef 17.11., 18:15 an Sokrates: „Wichtig wäre dann, dass wir jetzt Arbeiten einstellen, die das Themenfeld berühren, nicht, dass wir da wieder jetzt unnötig arbeiten“; bis 1589.1 Gegnerverhalten entschieden ist; 760 schon gebaut `c05b7fe70`, nur nicht weiter)
+Halt aufgehoben (1589.1 A, Chef 17.11., 22:33; Sokrates 22:36): 760 und 1068 in den nächsten Build; Bau 1589 nach Stufen 1600 ab Sa 20:00; Jägerkind ohne Nahwaffe mit 444 prüfen (`DESIGN-GEGNER.md` 1a).
 
 - **Zu 1595, von Perikles (1594, 17.11., 21:58):** Erst 298 wie gegengelesen (Entwurf Zeile 4: 760 raus; `claude/jerry-298-sammel` enthält noch den Merge `d654cadb3` von 760, neu mischen) heute Nacht bauen und Testbitte. Dann 299 als Schlussbuild ab Mi 18.11., 13:00: aus `main` (dann mit 1593 von Sokrates und 298 nach Test), dazu nur, was bis 13:00 gebilligt ist (760 nur auf „760 rein“ des Chefs); danach kein Zweig mehr; ein Zweig mit rotem Test fliegt raus, keine Reparatur im Build; Testbitte bis Mi 20:00. Ab 80 % Guthaben (Mi ≈ 09:00) vor jedem anderen Muss.
 - **Zu 1589, von Sokrates (Chef 17.11., 17:45/17:52):** „ob man denen nicht … ein bisschen Intelligenz einhauchen kann, dass … wenn ich schon vorne stehe, ich nicht erst wieder nach hinten laufe“. Befund: `figur.gd` 1850–2020 Einzelregeln, „Gesicht zum Gegner“ (438) macht das Seitwärtstraben. Regelblatt gemeinsam (1589.1, Sokrates, Gegenlesen auch du), dann Bau.
