@@ -94,6 +94,19 @@ func _init() -> void:
 						if fremd: for lo in Array(sch[t].get("leib", [])): gedeckt[lo] = true
 				for lo in gedeckt:
 					if n.has(lo): pruefe(not (n[lo] as MeshInstance3D).visible, "%s: %s unter Schrankteil sichtbar" % [wo, lo])
+				# 1569: unter dem fremden Umhang zieht die Kleidung ein (unter_CLOAK), sonst nicht
+				var umhang_fremd: bool = saetze[sn].has("CLOAK") and String(saetze[sn]["CLOAK"]) not in eigen
+				var mit_schluessel := 0
+				for nm in n:
+					var mi := n[nm] as MeshInstance3D
+					if String(nm).begins_with("Leib_") or not (mi.mesh is ArrayMesh): continue
+					var bi := -1
+					for j in (mi.mesh as ArrayMesh).get_blend_shape_count():
+						if String((mi.mesh as ArrayMesh).get_blend_shape_name(j)) == "unter_CLOAK": bi = j
+					if bi < 0: continue
+					mit_schluessel += 1
+					pruefe(is_equal_approx(mi.get_blend_shape_value(bi), 1.0 if umhang_fremd else 0.0), "%s: %s unter_CLOAK %.1f" % [wo, nm, mi.get_blend_shape_value(bi)])
+				if umhang_fremd: pruefe(mit_schluessel > 0, "%s: keine Kleidung mit unter_CLOAK" % wo)
 				m.free()
 	print("KLEID2 %d Fehler" % falsch)
 	quit(1 if falsch > 0 else 0)
