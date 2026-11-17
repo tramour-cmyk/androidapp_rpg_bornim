@@ -2,13 +2,17 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 08.11., 11:03 (lauf.py)
+**Stand:** 17.11., 02:04 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (08.11., 09:05)](https://claude.ai/code/session_01Hmoj78NKRazEf1Gp5XtnWY) | Betrieb | – | 08.11., 09:04 |
-| Jerry | [Jerry – 562: Lauf 289 auswerten, Ursache nachstellen; dann 507 (08.11., 09:06)](https://claude.ai/code/session_01Hmoj77QbZtBr66SrPaFxoA) | 562 | – | 08.11., 09:05 |
-| Sokrates | [Sokrates – Stellungnahme (08.11., 09:06)](https://claude.ai/code/session_01Hmoj76mdq7nhTC9BDJe8YH) | Betrieb | – | 08.11., 09:07 |
-| Tom | [Tom – 499: Schild in der Erschaffung (08.11., 10:14)](https://claude.ai/code/session_01Hmoj789nNQYtGaijUkixhD) | 499 | – | 08.11., 10:13 |
-| Diogenes | [Diogenes – 620.1 (08.11., 10:58)](https://claude.ai/code/session_01Hmoj77RnWkMZ9bpp3B4VPH) | 620.1 | – | 08.11., 10:59 |
-| Perikles | [Perikles – M? (08.11., 10:58)](https://claude.ai/code/session_01Hmoj75nVuCDzqjDEHrVKHo) | Betrieb | – | 08.11., 10:59 |
+| Sonstige | [Ford-Starter (15.11., 16:11)](https://claude.ai/code/session_01Hmoj78K3Ut6YQSgPLqZEvX) | Betrieb | – | 15.11., 16:11 |
+| Ford | [Ford – Betriebsleiter (16.11., 18:48)](https://claude.ai/code/session_01Hmoj76cLUxDoHGcPjixiTE) | Betrieb | – | 16.11., 18:48 |
+| Jerry | [Jerry – Build 294: reihe_1305 und dreh_1072 beheben, 642 mischen, Lauf (16.11., 21:20)](https://claude.ai/code/session_01Hmoj79PVQe2i9Ke3oaW9fH) | 1305 | claude/build-292 | 16.11., 21:19 |
+| Tuffy | [Tuffy – 1415 (16.11., 21:26)](https://claude.ai/code/session_01Hmoj76u1LvRMqGWHketsig) | 1415 | – | 16.11., 21:26 |
+| Tom | [Tom – 531: Fackelfilm, Build 294 (16.11., 22:49)](https://claude.ai/code/session_01Hmoj78CY54jy3o4vF8uRur) | 531 | claude/tom-531-film | 16.11., 22:49 |
+| Ford | [Ford – Betriebsleiter (16.11., 23:50)](https://claude.ai/code/session_01Hmoj76ER7oUkkBFVsDDeqy) | Betrieb | – | 16.11., 23:51 |
+| Diogenes | [Diogenes – 1312 (17.11., 01:04)](https://claude.ai/code/session_01Hmoj7A2DWWWg2TkquF92st) | 1312 | – | 17.11., 01:04 |
+| Homer | [Homer – Pflege (17.11., 01:04)](https://claude.ai/code/session_01Hmoj76NcjeerwtT8PnpvfR) | Betrieb | – | 17.11., 01:04 |
+| Spike | [Spike – 295: Build-Lauf und Testbitte (17.11., 01:13)](https://claude.ai/code/session_01Hmoj75bizrHjtD8tG3F1De) | 295 | – | 17.11., 01:12 |
+| Sokrates | [Sokrates – Nachtaufsicht bis 7:00 (17.11., 01:53)](https://claude.ai/code/session_01Hmoj781BCNQwnEbXqwzD3u) | Betrieb | – | 17.11., 01:53 |

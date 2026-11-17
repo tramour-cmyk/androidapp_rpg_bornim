@@ -1,6 +1,6 @@
 # Bestand (Inventur)
 
-Vorgang 377.1, Stand 27.10., 14:36. Hier steht nur, was wir **besitzen**: gekauft oder heruntergeladen und abgelegt (privates Repo, Zweig) oder laut Prüfung heruntergeladen. Suchergebnisse und Kaufkandidaten stehen in `LISTE-CC0-MODELLE.md`, nicht hier.
+Vorgang 377.1, Stand 27.10., 14:36. Hier steht nur, was wir **besitzen**: gekauft oder heruntergeladen und abgelegt (privates Repo, Zweig) oder laut Prüfung heruntergeladen. Suchergebnisse und Kaufkandidaten stehen in `LISTE-QUELLEN.md`, nicht hier.
 
 - **Vor jedem Eigenbau hier nachsehen** (Regel „Bestand zuerst“, `ROLLE-ENTWICKLUNG.md`, 377).
 - Wer hochlädt oder herunterlädt, trägt im selben Schritt hier ein (Teil, Datei, Ort, Lizenz, Format).
@@ -31,6 +31,30 @@ Namen aus `UAL1.glb` (Pro); `_Loop` weggelassen; **fett** = auch in Standard.
 | Unbrauchbar | **Pistol_Idle/Aim_Up/Neutral/Down/Shoot/Reload**, **Driving** |
 
 **Fehlt** (Tom 27.10.): Stich, Schildabwehr, gehaltenes Ausholen; je Waffe nur ein Angriff.
+
+### Menschen: Quaternius Universal Animation Library 2 (UAL2, gekauft 16.11., 09:41; geprüft 1386, Spike 16.11.)
+
+| Datei (Asset-Id) | Ort | Lizenz | Format |
+|---|---|---|---|
+| `Universal.Animation.Library.2.Source.zip` (754088289, 53 MB) → `Unreal-Godot/UAL2.glb`, `UAL2_RM.glb` (mit Wurzelweg), `Unity/UAL2(_RM).fbx`, `UAL2.blend`, `root_motion_toggle.py`, `Female Mannequin/…/Mannequin_F.glb` (Frauenkörper ohne Bewegungen) | privat | CC0 (`License.txt` im Paket, 16.11.) | GLB, .blend, FBX |
+
+Gerüst: dieselben 65 Knochen wie UAL1, **Ruhelage gleich UAL1** (Drehung 0,0°, Längen gleich): geht überall, wo UAL1 geht, ohne neue Zuordnung. Probe auf Regular Mann und Frau (Grundkörper Volk Mensch) wie `HeldFigur.bewegungen`: Füße am Boden, Hände und Kopf ohne Verdrehung. Godot kürzt beim Import `_Loop` weg. 134 Bewegungen (Namen aus `UAL2_RM.glb`, `_Loop` weggelassen):
+
+| Gruppe | Bewegungen |
+|---|---|
+| Stehen | Idle_FoldArms (Arme verschränkt), Idle_Lantern (Laterne), Idle_No, Yes (Nicken), Idle_Rail/Idle_Rail_Call (an Geländer lehnen, rufen), Surprise, Idle_TalkingPhone (unbrauchbar), Turn180_L/R |
+| Alltag | Fish_Cast, Fish_Cast_Idle, Fish_OH_Idle, Fish_Reel, Fish_Reel_Failed (Angeln); Farm_Harvest, Farm_PlantSeed, Farm_ScatteringSeeds, Farm_Watering, Farm_PickingTree; Chest_Open; Mining, TreeChopping; Walk_Carry (Tragen); Consume, Bandage; IdleToLay, LayToIdle (Hinlegen, Aufstehen) |
+| Gehen | Walk_Fwd/Bwd/L/R und schräg (8 Richtungen) |
+| Schwert | Sword_Light_A–D, Sword_Regular_A–C, Sword_Heavy_A–D (je mit _Rec), Sword_Light/Regular/Heavy_Combo, Sword_Block, Sword_Dash, Sword_UpperCut, Sword_GroundPound, Sword_Aerial_A/B/Combo/Idle |
+| Schild | Idle_Shield, Idle_Shield_Break, Shield_Dash, Shield_OneShot, Sprint_Shield |
+| Faust, Wurf, Bogen | Melee_Combo, Melee_Hook, Melee_Knee, Melee_Uppercut (je _Rec); OverhandThrow; Bow_Notch, Bow_Aim_Up/Neutral/Down, Bow_Shoot, Bow_RapidShoot |
+| Treffer, Fallen | Hit_Knockback (Zurückstoßen bis zum Boden), KipUp (Aufspringen), LiftAir, LiftAir_Idle, LiftAir_Hit_L/R, LiftAir_Fall, LiftAir_Fall_Air, LiftAir_Fall_Impact (hochgeschleudert, Aufprall) |
+| Untote | Zombie_Idle, Zombie_Walk und Zombie_Run je 8 Richtungen, Zombie_Bite, Zombie_Scratch, Zombie_Spawn (aus dem Boden), MonsterTransformation |
+| Klettern, Springen | ClimbUp_1m/2m, StepUp, SafetyVault, GetOffWall_2m, DoubleJump, JogToFlip, NinjaJump_*, Slide_*, WallRun_* |
+
+**Vom Chef vorgemerkt** (16.11., zu 1416: „die wir sicherlich grundsätzlich für was auch immer gut brauchen können“): OverhandThrow (Werfen), Chest_Open (Truhe öffnen), Farm_Harvest und Farm_PlantSeed (Pflücken), Surprise, Yes (Daumen hoch), Idle_No, Idle_FoldArms, LayToIdle (Aufstehen), IdleToLay (Hinlegen), Turn180_L/R aus `UAL2_RM.glb` mit Wurzelweg (Drehen auf der Stelle, 1406). Vor jeder neuen Geste oder Handlung hier zuerst.
+
+**Fehlt:** Winken im Stehen (1416: alle 134 Bewegungen als Blätter durchgesehen und Handhöhe gemessen, UAL1 ebenso ohne); nächstes: Idle_Rail_Call, am Geländer, Hand neben dem Kopf, kleines Winken oder Rufen; schmaler ruhiger Stand: die Stehhaltungen stehen so breit wie UAL1 Idle (Fußabstand 3,0 × Abstand der Hüftgelenke, gemessen), lösen 1044 allein nicht.
 
 ### Menschen: Protofactor Animset Wizard (385, gekauft 27.10., 21:10)
 
@@ -84,7 +108,7 @@ Release `stufe1` im Kaufrepo: `ANIMSET.SWORD.SHIELD.unitypackage` (698119529), `
 | Protofactor Riesenratte | `GIANT.RAT.RAW.FILES.rar` (678372860), `GiantRat.4.14.rar` (678370352, Unreal), `GIANT_RAT_ASSET.rar` (678371040, enthält `GIANT_RAT_PACKAGE.unitypackage`) | privat | Protofactor EULA | FBX je Bewegung, Unreal, Unity; RAR (Entpacken: `unar`) |
 | Janpec Animal Pack Deluxe | `Animal.pack.deluxe.unitypackage` (678515204, 324 MB) | privat | Unity Asset Store EULA | Unity-Paket (tar.gz, ohne Unity entpackbar, `kauf_laden.sh`); FBX: `Models/<Tier>_Rig.fbx`, je Bewegung `Animations/<Tier>_<Bew>.fbx` |
 | MadeCG Hundertfüßer | `low.poly.animated.centipede.zip` (678369839) | privat | RenderHub Extended Use | innen je Zip: FBX, OBJ, .blend, Maya, 3ds Max, Unreal, Unity; je Bewegung eine Datei (`fbx/walk.FBX` …), Netz `skin` |
-| Animated3D Leopard-Mischwesen (Leopard Hybrid A2, RenderHub) | `leopard.hybrid-a2.zip` (685443057, 768 MB) | privat | RenderHub Extended Use (Volltext prüfen) | innen je Zip: `Blender.zip` (.blend 3.6), `FbxBlender`/`FbxUnity`/`FbxUE5` (ein FBX, alle Bewegungen), `FbxC4D`/`Fbx3DSmax`/`FbxMaya` (je Bewegung eine Datei), `Iclone8_CC4`; `Textures_A2.zip` (PNG 4096: diffuse, normal, height, ao, opacity); Film `Leopard_Hybrid_A12.mp4` |
+| Animated3D Leopard-Mischwesen (Leopard Hybrid A2, RenderHub) | `leopard.hybrid-a2.zip` (685443057, 768 MB) | privat | RenderHub Extended Use (Volltext geprüft 10.11.: kommerziell, Spiele, unbefristet, ohne Nennung, nicht weitergeben) | innen je Zip: `Blender.zip` (.blend 3.6), `FbxBlender`/`FbxUnity`/`FbxUE5` (ein FBX, alle Bewegungen), `FbxC4D`/`Fbx3DSmax`/`FbxMaya` (je Bewegung eine Datei), `Iclone8_CC4`; `Textures_A2.zip` (PNG 4096: diffuse, normal, height, ao, opacity); Film `Leopard_Hybrid_A12.mp4` |
 | Protofactor Darkness Spider (Riesenspinne; 348.12c, Chef 03.11.) | `DARKNESS.SPIDER.RAW.FILES.rar` (705921551), `ARANEAE_TENEBRAE_ASSET.1.rar` (705921043, enthält `DARKNESS_SPIDER_PACKAGE.unitypackage`) | privat | Protofactor EULA | FBX je Bewegung, Texturen jpg (Albedo, AO, Gloss, Illum, Roughness, Spec, Metalness), DAE |
 | Protofactor Skeleton Knight (Skelett) | `SKELETON.KNIGHT.RAW.FILES.rar` (705918842), `SKELETON_KNIGHT_ASSET.1.rar` (705919870, Unity) | privat | Protofactor EULA | FBX je Bewegung, Körper `SK_SkeletonKnight.FBX`, lose Knochen `SM_SkeletonBones.FBX`; Texturen je Teil: Einhandschwert, Zweihandschwert, Brustpanzer, Helm, Schild |
 | Protofactor Barghest (Grabhund) | `BARGHEST.RAW.FILES.1.rar` (705910673), `BARGHEST_ASSET.rar` (705912873, Unity) | privat | Protofactor EULA | FBX je Bewegung; Netze einzeln `BARGHEST_BODY`, `_MANE`, `_TAIL` und `_AllMeshes`; Texturen jpg, Haar tga mit Transparenz |
@@ -175,7 +199,7 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 | Gefäße | Clay_Pot_1–6, Large_Jug_Copper/Gold/Silver |
 | Sonst | Meat_Hanging_Frame_1/2, Log_Pile_1/2, Straw_Bails (9) |
 
-**Waffen und Schilde (348.12h, hochgeladen 29.10., 11:0x; Inventur Sokrates 11:09)**, alle privat in `bornim-kaufmodelle` (Version stufe1); Lizenzen auf den Seiten `LISTE-CC0-MODELLE.md` „Ausrüstung genau“:
+**Waffen und Schilde (348.12h, hochgeladen 29.10., 11:0x; Inventur Sokrates 11:09)**, alle privat in `bornim-kaufmodelle` (Version stufe1); Lizenzen auf den Seiten `LISTE-QUELLEN.md` „Ausrüstung genau“:
 
 | Paket | Datei | Lizenz | Modelle | Dreiecke | Texturen | Godot |
 |---|---|---|---|---|---|---|
@@ -187,7 +211,7 @@ Fehlt im Paket: Hund, Katze, Pferd, Schaf, Vögel außer Huhn und Gans.
 
 - **Omie:** Langschwert, Kurzschwert, Krummsäbel, Dolch; Handaxt, Streitaxt, große Axt; Speer, Hellebarde, Dreizack; Streitkolben, Kriegshammer, Kriegspicke, Flegel; Bogen, Armbrust; Zauberstab („Staff Magic“, ein Stück, ohne Kugel); Rund-, Kite-, Faustschild.
 - **Anker:** 8 Schwerter (Claymore, Zweihänder, Falchion, Messer …), Dolch, 4 Äxte (mit Bardiche), 5 Stangenwaffen (Lanze, Wurfspeer …), 7 Schlagwaffen (Morgenstern-Keule, Zweihandhammer …), Lang- und Reiterbogen, Armbrust, Pfeil, Bolzen, Köcher; Zauberbuch offen und zu, Schriftrolle, 6 Tränke; Schilde A–F; Heugabel, Sense, Sichel, Besen, Laute, Krug; 9 Belagerungsgeräte (über 3.000 Dreiecke). Kein Stab.
-- **In Gebrauch:** Anker `Maces/Spiked Mace.fbx` (265 Flächen, zwei Grundfarben) als Kroggs Morgenstern (494, `krogg_gestalt.py`, auf 0,92 m, Eisen mit Blutflecken).
+- **In Gebrauch:** Anker `Maces/Spiked Mace.fbx` (265 Flächen, zwei Grundfarben) als Kroggs Morgenstern (494, `krogg_gestalt.py`, auf 0,92 m, Eisen mit Blutflecken); Anker `Spears/Spear.fbx` (186 Dreiecke) als Speer des Skeletts, Kit 3 (506, `kaufskelett.py`, auf 1,75 m, Eisen rostig, Schaft altes Holz).
 - **Avramania:** Schwert, Kurzschwert, Holzschwert, Dolch, Messer, Handaxt, Speer, Streitkolben, Kurzbogen, Armbrust, Pfeil, Bolzen, Köcher, Stab; Rund-, Faust-, Übungsschild; Scheide, Waffenständer.
 - **PolyMech:** Kite, vier runde (Holz, Metallrand, offen), Holz mit Metallrahmen, zwei lange (Eisen, Löwenherz), Löwenherz klein.
 - **Überschneidung:** Dolch, Streitkolben, Bogen, Armbrust, Schwert, Handaxt, Speer, Rundschild in drei Paketen. Nur Omie: Dreizack, Kriegspicke, Krummsäbel; nur Anker: Bücher, Tränke, Belagerung, Werkzeug.
@@ -213,6 +237,15 @@ Quaternius, itch, CC0 (`License_Standard.txt`), glTF/FBX/OBJ; laut 376 herunterg
 
 **Fantasy Props MegaKit [Standard]** (Quaternius, itch `fantasy-props-megakit`, CC0, `License_Standard.txt` geprüft 28.10.; `cc0_laden.sh`, im Bau `godot.yml`), glTF mit vier Bildern (Trim Furniture, Metal, Cloth, Props, 2048 px): Anvil(_Log), Axe_Bronze, Bag, Banner_1/2(_Cloth), Barrel(_Apples, _Holder), Bed_Twin1/2, Bench, BookGroup_Medium/Small 1–3, BookStand, Book_5/7, Book_Simplified_Single, Book_Stack_1/2, Bookcase_2, Bottle_1, Bucket_Metal/Wooden_1, Cabinet, Cage_Small, CandleStick(_Stand, _Triple), Candle_1/2, Carrot, Cauldron, Chain_Coil, Chair_1, Chalice, Chandelier, Chest_Wood, Coin(_Pile, _Pile_2), Crate_Metal/Wooden, Dummy, FarmCrate_Apple/Carrot/Empty, Key_Gold/Metal, Lantern_Wall, Mug, Nightstand_Shelf, Peg_Rack, Pickaxe_Bronze, Pot_1(_Lid), Potion_1/2/4, Pouch_Large, Rope_1–3, Scroll_1/2, Shelf_Arch/Simple/Small_Bottles, Shield_Wooden, SmallBottle(s_1), Stall_Cart_Empty, Stall_Empty, Stool, Sword_Bronze, Table_Fork/Knife/Large/Plate/Spoon, Torch_Metal, Vase_2/4, Vase_Rubble_Medium, WeaponStand, Whetstone, Workbench(_Drawers). **In Gebrauch** (399.5, `raum.py`, Tom 28.10.): Einrichtung der vier Grundrisse; dazu aus dem Dorfbausatz die Wand-, Fenster- und Türteile innen wie außen. Shield_Wooden: Rundschild des Klerikers (406, `waffen.py`, Jerry 29.10.), eigene Bemalung.
 
+**Fantasy Props MegaKit [Source]** (gekauft 16.11., 09:41; geprüft 1395, Spike 16.11.): `Fantasy.Props.MegaKit.Source.zip` (754089066, 573 MB), privat, CC0 (`License_Source.txt` im Paket). Inhalt: 211 Teile je als `Exports/glTF/`, `Exports/glTF (Godot)/` (mit Kollision `-convcolonly`), FBX, OBJ; `Blends/FantasyProps_AllModels.blend`, `Chest_Wood.blend`, `Chest_Legendary.blend`; Bilder in `Blends/`, dazu **abgenutzte Fassungen** `T_Trim_Furniture/Metal/Props_Worn_*` und `T_Runes`, `T_Page_*`; `Engine Projects/Godot.zip` (Godot 4.3, Hersteller-Shader). **Mehr als die freie Fassung** (96 Teile, Namensvergleich mit der Liste oben), je Ort:
+- Schmiede: Stall_Blacksmith, Sign_Blacksmith, Bellows, Hammer_Rack, Hammer_Small/Medium/Large (Bronze, Stahl), Workbench_Vice, Shelf_Sword, Sword_Steel, Axe_Steel, Axe_Double (Bronze, Stahl), Dagger (Bronze, Stahl), Shield_Metal, Sign_Armory(_2)
+- Markt, Wirtshaus: Stall_Potions, Stall_Vegetables_Full, Sign_Food, Sign_Potions, Sign_Pub, FarmCrate_GreenApples/Leek/Oranges/Radish, Leek, Radish, Pan_1/2, Pot_2_Lid, Barrel_Dark, Wagon
+- Häuser: Bed_Double(2), Bed_Bunk(2), Bed_Twin3, Dresser_1, Desk, Nightstand_Drawer, Rug_1, Rug_Round, Ladder, Bench_MetalSides, Chandelier_Large, BookGroup_Large_1–3, Book_Open, Page_Single, Page_Stack_Small/Large, Parchment, Shelf_Small, SmallBottles_2, Bucket_Wooden_2, Pouch_Small, Banner_Vertical_1/2, Banner_SmallTriangles (kurz, mittel, lang)
+- Feld: Hoe, Shovel, Pickaxe_Steel (Bronze, Stahl)
+- Höhle, Lager, Rast: Skull, Skull_Top, Cage_Large, Runes, Vase_Rubble_Small/Large, FirePit, CampfireTripod, Chest_Legendary
+- Gold (darf glänzen): Chalice_Golden, Coin_Low
+- Beschläge für Eigenbau (Truhen, Türen): Parts_Hinge (kurz, mittel, lang, Verbinder), Parts_Handle (sieben Formen), Parts_Corner_90, Parts_Chain_Straight
+
 Ebenfalls geprüft, **nicht verwenden** (Chef 27.10., 12:42 „nein“): 150 Lowpoly Nature Models; Lowpoly Modular Dungeon Pack (höchstens Fackel, Gitter, Truhe als Rohform nach dem Meilenstein).
 
 Dungeon: kein fremder Bausatz im Bestand.
@@ -225,6 +258,8 @@ Dungeon: kein fremder Bausatz im Bestand.
 | REEBOO Stylized VFX Free Sample v1.5 (REEBOO Labs, gratis; 572, hochgeladen Chef 04.11., 20:26) | `REEBOO_Stylized_VFX_Free_Sample_v1.5.zip`, Asset 710646298 (55 KB) | privat (`stufe1`) | eigene (`addons/reeboo_vfx/LICENSE.txt`): unbefristet, kommerziell in eigenen Spielen, ändern erlaubt, im fertigen Spiel immer erlaubt, Nennung nicht Pflicht; Dateien nie weitergeben, auch nicht geändert; passt zu 348.12c | Addon `reeboo_vfx` (Knoten `VFXEffect`, Shader `vfx_slash`, `vfx_add`, `vfx_particle`), 3 Effekte: Hit Spark (Trefferfunken), Slash (Hiebbogen), Pickup Sparkle (Aufheben); Godot 4.4+, Demo auf 4.7; volles Paket 25 Effekte (u. a. Feuerball, Blitzschlag, Heilung, Stufenaufstieg, Schild, Giftwolke, Eisstoß, Lagerfeuer, Brennen, Teleport, Schattenstoß) `reebo0.itch.io/stylized-vfx-godot`, Pack 2 mit 61 Effekten 20 $ |
 | Stylized Status Effects VFX Free Sample v1.0 (REEBOO Labs, gratis; 572, hochgeladen Chef 04.11., 20:26) | `Stylized_Status_Effects_VFX_Free_Sample_v1.0.zip`, Asset 710646328 (67 KB) | privat (`stufe1`) | eigene (`LICENSE.txt`), gleicher Wortlaut wie oben, gilt ausdrücklich auch für das Gratisstück | Addon `reeboo_vfx` (gleicher Kern `vfx_effect.gd`, eigene Shader `vfx_status_*`), 3 Effekte: armor_up (Rüstungsplatten kreisen, dauernd), poisoned (Giftblasen, Gas, Tropfen, dauernd), buff_gain (goldene Pfeile, Lichtsäule, einmalig); GPU-Partikel und Shader, Zeichen ohne Bilder; Forward+, Mobile, Compatibility; Glow empfohlen, nicht nötig; Größe für 1,8 m; volles Paket 23 Effekte 6,99 $ `reebo0.itch.io/status-effects-vfx-godot` |
 | Neun Gratisproben REEBOO Labs (623, geladen Sokrates 07.11., 20:2x): Surface Shaders v1.0.1 (4 Shader), Weather FX v1.0 (6 Presets), Combat VFX Mega v1.0, Stylized Projectiles v1.0 (2 Elemente), Weapon Trails v1.0 (4 Presets), Water Kit (3 Presets), VFX Pack 3 v1.0 (4 Effekte), Character Shaders v1.0, Grass & Wind v1.0.1 | `anhang/reeboo/<seite>-free-sample.zip` (9 Dateien, zusammen 12,3 MB) | privat, Zweig `claude/brave-faraday-9mxupv` (ed7b0b7), `LIZENZ.md` dort | eigene je Paket (`LICENSE.txt` gelesen): weltweit, dauerhaft, kommerziell, ändern erlaubt, Nennung keine Pflicht, nicht weitergeben, Maskottchen nie | Matrix und Links `LISTE-QUELLEN.md` R1–R11; Zuordnung `LISTE-EFFEKTE.md` |
+| **Gekauft 09.11. (623), sieben REEBOO-Pakete:** Combat VFX Mega v1.2.1, Stylized Projectiles v1.0, Status Effects VFX v1.0, Weather FX v1.0, Grass & Wind Kit v1.0.1, Water Shader Kit v1.0.1, Stylized Surface Shaders v1.0.2 | `Godot_Combat_VFX_Mega_Pack_v1.2.1.zip` (726432934), `Stylized_Projectiles_VFX_Godot_v1.0.zip` (726433080), `Stylized_Status_Effects_VFX_v1.0.zip` (726432897), `Godot_Weather_FX_v1.0.zip` (726433012), `Godot_Grass_Wind_Kit_v1.0.1.zip` (726432823), `Godot_Water_Shader_Kit_v1.0.1.zip` (726432657), `Godot_Stylized_Surface_Shaders_v1.0.2.zip` (726433021) | privat (`stufe1`), `LIZENZ.md` dort (960a560) | eigene je Paket (`LICENSE.txt` gelesen 09.11.): dauerhaft, kommerziell, im exportierten Spiel erlaubt, ändern erlaubt, Nennung keine Pflicht, Dateien nie weitergeben; Maskottchen „Oho“ (demo/oho, Combat Mega, Surface) nie ins Spiel; Hashfunktionen von David Hoskins (Grass, Water, Surface) unter MIT: Hinweis bei den Lizenzen im Spiel | Vollfassungen; Einbau 623.2 (Jerry), Zuordnung `LISTE-EFFEKTE.md` |
+| **Gekauft 09.11., 21:05 (623), drei REEBOO-Pakete, hochgeladen Chef 21:07, Inventur Sokrates 21:08:** R3 Weapon & Motion Trails v1.0 (25 Spuren, eigener Knoten `Trail3D`/`Trail2D`, kein Plugin), R4 Stylized VFX Pack 3 v1.0 (24 Effekte, nicht in Pack 1/2), R7 Stylized VFX v2.0 = Pack 2 (61 Effekte, enthält Pack 1) | `Weapon_Motion_Trails_Godot_v1.0.zip` (728804359, 83 KB), `Stylized_VFX_Pack_3_Godot_v1.0.zip` (728804211, 136 KB), `REEBOO_Stylized_VFX_v2.0.zip` (728804275, 251 KB) | privat (`stufe1`) | eigene je Paket (`LICENSE.txt` gelesen 21:08), Wortlaut wie oben: dauerhaft, kommerziell, im exportierten Spiel erlaubt, ändern erlaubt, keine Nennungspflicht, Dateien nie weitergeben; kein „Oho“ in den drei Paketen | Godot 4.4+; R3, R4 alle drei Renderer, **R7 nur Forward+ und Mobile** (wir: Mobile; Ausweichen auf OpenGL bei Geräten ohne Vulkan ungeprüft); Android bei keinem getestet. Unbrauchbar (Science-Fiction, bunt): R3 bullet_tracer, anime_slash, rainbow_ribbon, skid_marks, speed_lines, rocket_smoke; R4 plasma_bolt, plasma_impact, emp_blast, black_hole, firework, confetti_burst; R7 laser_beam, bullet_impact, muzzle_flash, rocket_trail, coin_burst, checkpoint_beacon. Zuordnung `LISTE-EFFEKTE.md` |
 
 ## Eigenbau im Zweig (nicht fremd)
 
@@ -234,6 +269,5 @@ Dungeon: kein fremder Bausatz im Bestand.
 
 | Teil | Befund |
 |---|---|
-| Kenney Survival Kit | Dreiecke laut `LISTE-CC0-MODELLE.md` „aus den OBJ gezählt“; nirgends abgelegt |
+| Kenney Survival Kit | Dreiecke laut `LISTE-QUELLEN.md` „aus den OBJ gezählt“; nirgends abgelegt |
 | RenderHub „Asset Pack Vol 10 – Modular Dungeon Interior“ (JuanChee, 7 $) | Chef „checken“, Votum offen; nicht im privaten Repo, Kauf nicht belegt |
-| Universal Animation Library 2 | CC0 laut Seite, nicht geladen |

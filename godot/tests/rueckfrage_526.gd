@@ -59,13 +59,13 @@ func _lauf() -> void:
 	if Sprache.aktiv() != "de": Sprache.wechsle()
 	root.size = Vector2i(1080, 2340)
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", z.neue_uid)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
 	var zu := [0]
 	m.zu.connect(func(): zu[0] += 1)
-	await pruefe_fenster("Menü-Rückfrage", func(): m.dialog("Probe", Stil.GOLD, [Erschaffung.txt("Zeile", 15)], [["OK", func(): pass]]), m)
+	await pruefe_fenster("Menü-Rückfrage", func(): m.dialog("Probe", Stil.GOLD, [Stil.txt("Zeile", 15)], [["OK", func(): pass]]), m)
 	pruefe("Menü bleibt offen", [offen(m), zu[0]], [true, 0])
 	m.queue_free()
 	await process_frame

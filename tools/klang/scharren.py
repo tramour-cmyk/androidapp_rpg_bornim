@@ -29,7 +29,7 @@ if os.path.exists(os.path.join(D, "bsb_3202.mp3")):
 if OUT == "--spiel":
     import subprocess
     pick = sys.argv[3]
-    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for f in os.listdir(sfx):
         if f.startswith("hen_scratch_"): os.remove(os.path.join(sfx, f))
     for i, x in enumerate(S[pick]):

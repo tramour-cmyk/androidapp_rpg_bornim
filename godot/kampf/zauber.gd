@@ -5,7 +5,25 @@ extends RefCounted
 ## Heilung, Segen, Brennende Hände und der Pfeil. Maß wie alt: u = Höhe des Getroffenen / 40 (ein Wolf steht rund 40 Einheiten hoch).
 
 ## Was fliegt, geht beim Fehlschlag am Ziel vorbei (BattleFx.kt FLYING)
-const FLYING := ["ARROW", "FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "SACRED_FLAME", "WEB"]
+const FLYING := ["ARROW", "FIRE_BOLT", "MISSILES", "RAYS", "FIREBALL", "SACRED_FLAME", "WEB", "BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]
+## 935 (Chef 11.11., 20:34: „kein Wurf … Keine Parabel, die geworfen wurde“): Brandflasche und
+## Weihwasser fliegen wie alt (BattleFx.kt flask) als Flasche, die sich überschlägt, im hohen Bogen und zerschellen am Ziel;
+## Scheitel bei FLASK_RISE der Weite über der Geraden (bei 6 m etwa 2 m), Flug die erste Hälfte der Dauer (BattleScreen flight 0,5)
+const FLASK_RISE := 0.32
+const FLASK_FLUG := 0.5
+const BOMBS := ["BOMB_FIRE", "BOMB_HOLY", "BOMB_SMOKE"]
+## 1222 (Chef 13.11., 20:39, t284.4b: Rauchbündel „ohne sichtbare Wirkung“): Morwens Rauchbündel fliegt wie die Flasche im Bogen
+## (ein Kräuterbündel, verschnürt, das sich überschlägt und einen Faden Rauch hinter sich herzieht), landet wie alt (BattleFx.kt
+## smokeBundle) vor Kroggs Füßen, und graugrüner Rauch quillt ihm bis über die Augen; anders als alt hängt er dort, bis sein erster
+## Schlag ins Leere geht (Zeile [1232.rauch.krogg]), statt nach 1,8 s verweht zu sein
+const SMOKE_FLUG_MS := 375.0     # Flug wie die Flasche (750 × 0,5)
+const SMOKE_MS := 5600.0     # hängt, bis Kroggs erster Schlag kommt (Film am Rechner: Zeile nach etwa 4 s)
+const SMOKE_HELL := Color("b4b89e")     # graugrün wie alt (BattleFx.kt smokeBundle)
+const SMOKE_GRAU := Color("858a78")
+const LEINEN := Color("5e6a3a")          # Kräuterbündel, olivgrün wie alt
+const LEINEN_DUNKEL := Color("8a6a3a")   # Schnur
+const GLASS := Color("dde6ea")
+const STEAM := Color("e8ecee")
 ## 494 Netz der Riesenspinne (MarsTips.kt: „Das Netz fliegt langsam“): grauweiße Fäden, matt (Gold bleibt einziger Glanz)
 const WEB_SILK := Color("d8d4c8")
 
@@ -44,6 +62,10 @@ static var d_to := 10.0
 static var d_hit := 10.0
 static var d_miss := 10.0
 static var m_px := 0.01
+## 935: Höhe der fliegenden Flasche (m) im letzten Bild; FLASK_HOEHE_U: vom Korken (-13,5) bis zum Bauch (9,5) in Einheiten u
+static var flasche_m := 0.0
+const FLASK_HOEHE_U := 23.0
+const FLASK_M := 0.22     # 935: Höhe der Flasche (m), wie ein Krug in der Hand des Helden
 ## Fehlschuss: Bodenpunkt am Schirm, den kampf_ui.gd frei von Figuren wählt (INF: wie bisher neben dem Ziel)
 static var miss_at := Vector2.INF
 ## 348.7a Runde 3, Probe BAHN_PRUEF: jeder Bahnpunkt im Raum (kampf_ui.gd prüft, ob er in einer Figur steckt oder hinter ihr liegt)
@@ -56,10 +78,12 @@ static func duration(kind: String) -> float:
 	match kind:
 		"FIREBALL", "SACRED_FLAME", "BURNING_HANDS":
 			return 900.0
-		"MISSILES", "FIRE_BOLT", "ARROW", "HEAL", "BLESS":
+		"MISSILES", "FIRE_BOLT", "ARROW", "HEAL", "BLESS", "BOMB_FIRE", "BOMB_HOLY":     # 935: wie alt 750
 			return 750.0
 		"WEB":     # 494: langsamer als der Pfeil, bleibt kurz am Ziel kleben
 			return 1100.0
+		"BOMB_SMOKE":     # 1222: die Wolke bleibt hängen
+			return SMOKE_MS
 	return 520.0
 
 
@@ -71,6 +95,10 @@ static func arrives(kind: String) -> float:
 			share = 0.6
 		"WEB":
 			share = 0.55
+		"BOMB_FIRE", "BOMB_HOLY":
+			share = FLASK_FLUG
+		"BOMB_SMOKE":
+			share = SMOKE_FLUG_MS / SMOKE_MS
 		"FIREBALL", "FIRE_BOLT", "MISSILES":
 			share = 0.42
 		"RAYS", "BURNING_HANDS":
@@ -628,6 +656,120 @@ func _web(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 			ci.draw_line(at.lerp(spitzen[i], ring), at.lerp(spitzen[(i + 1) % 8], ring), _a(WEB_SILK, a * 0.8), 0.5 * u, true)
 
 
+## 935 Wurfmittel wie alt (BattleFx.kt flask): eine Flasche (Glas, Flüssigkeit, Korken, bei der Brandflasche ein brennender Lappen
+## im Hals) überschlägt sich im hohen Bogen und zerschellt: Scherben, Spritzer, die fallen; Feuer bleibt brennend am Ziel hängen,
+## Weihwasser zischt als Dampf auf
+func _flask(p: float, from: Vector2, to: Vector2, u: float, holy: bool) -> void:
+	var liquid := Color("9cc8e8") if holy else Color("ff8a2a")
+	if p < FLASK_FLUG:
+		var t := p / FLASK_FLUG
+		var pos := _arc(from, to, t, 0.0, FLASK_RISE)
+		var w := deg_to_rad(p * 760.0)
+		# 935 (Chef 12.11., 08:07: „es wird ja so groß wie ein Ölfass. Es ist riesig“; wurf_935 vorher 0,66–0,77 m): u wächst mit der
+		# Bildhöhe des Ziels (kampf_ui _draw_spells: tall / 40), die Flasche war so 0,6 der Höhe des Wolfs. Jetzt in echter Größe
+		# FLASK_M, an jedem Punkt der Bahn in ihrer Tiefe (Tafel: Bildpunkte je Meter dort)
+		var uf := u
+		if ci != null and ci.has_method("world_at"):
+			var px_m: float = (ci.world_at(pos + Vector2(0, 1), ci.depth) - ci.world_at(pos, ci.depth)).length()
+			if px_m > 0.0:
+				uf = FLASK_M / (FLASK_HOEHE_U * px_m)
+			flasche_m = FLASK_HOEHE_U * uf * px_m
+		var at := func(v: Vector2) -> Vector2: return pos + (v * uf).rotated(w)
+		var oval := func(c: Vector2, rx: float, ry: float) -> PackedVector2Array:
+			var pts := PackedVector2Array()
+			for i in 14:
+				var a := TAU * i / 14.0
+				pts.append(at.call(c + Vector2(cos(a) * rx, sin(a) * ry)))
+			return pts
+		var eck := func(x0: float, y0: float, x1: float, y1: float) -> PackedVector2Array:
+			return PackedVector2Array([at.call(Vector2(x0, y0)), at.call(Vector2(x1, y0)), at.call(Vector2(x1, y1)), at.call(Vector2(x0, y1))])
+		ci.draw_colored_polygon(eck.call(-2.2, -11.0, 2.2, -4.0), _a(GLASS, 0.7))          # Hals
+		ci.draw_colored_polygon(oval.call(Vector2(0, 2.5), 7.0, 7.0), _a(GLASS, 0.55))      # Bauch
+		ci.draw_colored_polygon(oval.call(Vector2(0, 4.5), 5.5, 4.0), _a(liquid, 0.9))      # Flüssigkeit
+		ci.draw_colored_polygon(oval.call(Vector2(-3.0, -1.0), 1.5, 2.0), _a(WHITE, 0.6))   # Glanz
+		ci.draw_colored_polygon(eck.call(-2.6, -13.5, 2.6, -10.5), Color("6a4a2a"))         # Korken
+		if not holy:     # der brennende Lappen im Hals; die Flamme steht nach oben, wie die Flasche auch liegt
+			var hals: Vector2 = at.call(Vector2(0, -13.0))
+			_tongue(hals, 7 * uf, 3.5 * uf, sin(p * 50.0) * 1.5 * uf, FIRE, 0.9)
+			_tongue(hals, 4 * uf, 2 * uf, 0.0, FIRE_HOT, 0.9)
+		return
+	_at_hit()
+	var s := (p - FLASK_FLUG) / (1.0 - FLASK_FLUG)
+	for i in 9:     # Scherben
+		var a := _rf() * TAU
+		var d := (10 + _rf() * 22) * u * s
+		var q := Vector2(to.x + cos(a) * d, to.y + sin(a) * d * 0.7 + s * s * 18 * u)
+		ci.draw_line(q, q + Vector2(cos(a + 1.0), sin(a + 1.0)) * 2.5 * u, _a(Color("e8f0f4"), 1.0 - s), 1.0 * u, true)
+	for i in 14:     # Spritzer, nach oben geschleudert, dann fallend
+		var a := PI + _rf() * PI
+		var d := (12 + _rf() * 20) * u * s
+		_square(liquid, Vector2(to.x + cos(a) * d, to.y + sin(a) * d * 0.8 + s * s * 26 * u), (2.6 - s) * u, (1.0 - s) * 0.9)
+	var flash := clampf(1.0 - s / 0.25, 0.0, 1.0)
+	if holy:
+		if flash > 0.0:
+			_glow(to, 20 * u, [_a(WHITE, 0.6 * flash), _a(liquid, 0.25 * flash), NONE])
+		for i in 6:     # zischt als Dampf auf
+			var tt := clampf(s * (0.7 + _rf() * 0.5), 0.0, 1.0)
+			_glow(Vector2(to.x + (_rf() - 0.5) * 24 * u + sin(tt * 5.0 + i) * 3 * u, to.y - tt * 34 * u), (4 + 7 * tt) * u, [_a(STEAM, 0.4 * (1 - tt)), _a(STEAM, 0.0)])
+	else:
+		if flash > 0.0:
+			_glow(to, 26 * u, [_a(FIRE_HOT, 0.8 * flash), _a(FIRE, 0.35 * flash), NONE])
+		_clinging_fire(to, s, u, 1.5)
+
+
+## 1222: Morwens Rauchbündel (siehe SMOKE_FLUG_MS). Ist der gekaufte Rauch da (kampf_ui.gd RAUCH_R7), malt hier nur der Flug;
+## sonst quillt die eigene Wolke: dichte graue Ballen, die an Kopf und Augen hängen, sich langsam weiten und zuletzt vergehen
+static var nur_flug := false
+
+func _smoke_bundle(p: float, from: Vector2, to: Vector2, u: float, ground: float) -> void:
+	var flug := SMOKE_FLUG_MS / SMOKE_MS
+	var feet := Vector2(to.x + (_rf() - 0.5) * 10 * u, ground - 4 * u)
+	if p < flug:
+		var t := p / flug
+		var pos := _arc(from, feet, t, 0.0, FLASK_RISE)
+		var uf := u
+		if ci != null and ci.has_method("world_at"):     # echte Größe wie die Flasche (935), das Bündel ist eine Faust groß
+			var px_m: float = (ci.world_at(pos + Vector2(0, 1), ci.depth) - ci.world_at(pos, ci.depth)).length()
+			if px_m > 0.0:
+				uf = FLASK_M / (FLASK_HOEHE_U * px_m)
+		var w := deg_to_rad(t * 540.0)
+		var at := func(v: Vector2) -> Vector2: return pos + (v * uf).rotated(w)
+		var oval := func(c: Vector2, rx: float, ry: float) -> PackedVector2Array:
+			var pts := PackedVector2Array()
+			for i in 14:
+				var a := TAU * i / 14.0
+				pts.append(at.call(c + Vector2(cos(a) * rx, sin(a) * ry)))
+			return pts
+		ci.draw_colored_polygon(oval.call(Vector2.ZERO, 9.0, 6.0), LEINEN)                       # Bündel (alt 12 × 8)
+		ci.draw_colored_polygon(oval.call(Vector2(-1.0, -1.0), 4.5, 3.0), Color("7e8a4e"))        # Licht auf den Kräutern
+		ci.draw_line(at.call(Vector2(0, -6.5)), at.call(Vector2(0, 6.5)), LEINEN_DUNKEL, 1.4 * uf, true)     # Schnur
+		for i in 5:     # ein Faden Rauch glimmt heraus und bleibt hinter ihm
+			var q := _arc(from, feet, maxf(0.0, t - 0.05 * (i + 1)), 0.0, FLASK_RISE)
+			_glow(q, (2.0 + 1.2 * i) * uf, [_a(SMOKE_HELL, 0.35 * (1.0 - i / 5.0)), _a(SMOKE_HELL, 0.0)])
+		return
+	_at_hit()
+	if nur_flug:
+		return
+	var s := (p - flug) / (1.0 - flug)
+	var height := (ground - to.y) * 1.9     # vom Boden bis an den Kopf (to ist etwa die Brust), wie alt
+	var augen := Vector2(to.x, ground - (ground - to.y) * 1.4)     # Augenhöhe (to: 0,55 der Kopfhöhe)
+	var weg := 1.0 - clampf((s - 0.88) / 0.12, 0.0, 1.0)     # zuletzt verweht er
+	for i in 22:     # quillt auf wie alt: Ballen steigen von den Füßen und breiten sich aus
+		var born := _rf() * 0.12
+		var side := (_rf() - 0.5) * 36 * u
+		var hoch := 0.55 + 0.5 * _rf()
+		var tt := clampf((s - born) / 0.25, 0.0, 1.0)
+		if tt <= 0.0:
+			continue
+		var c := Vector2(feet.x + side * (0.5 + 1.2 * tt) + sin(s * 6.0 + i) * 3 * u, feet.y - height * tt * hoch)
+		if tt >= 1.0:     # danach hängt er um Kopf und Augen, statt weiterzusteigen
+			c = c.lerp(augen + Vector2(side * 0.9, (hoch - 0.8) * 16 * u), clampf((s - born - 0.25) / 0.2, 0.0, 1.0))
+		var rad := (12 + 26 * minf(tt, 0.6)) * u
+		var a := 0.75 * minf(tt / 0.12, 1.0) * (1.0 - 0.45 * minf(tt, 1.0)) * weg
+		var tone := SMOKE_HELL if i % 3 == 0 else SMOKE_GRAU
+		_glow(c, rad, [_a(tone, a), _a(tone, a * 0.45), NONE])
+
+
 ## Einschlag (Helfer Runde 2: Pfeil ohne Einschlag): er steckt kurz, wo er traf, ein Ruck Splitter und Staub, dann vergeht er
 func _arrow_lands(p: float, from: Vector2, hit: Vector2, u: float) -> void:
 	var s := (p - 0.6) / 0.4
@@ -665,6 +807,10 @@ func draw_fx(kind: String, sd: int, p: float, source: Vector2, target: Vector2, 
 			_web(p, source, hit, u)
 		"FIRE_BOLT":
 			_fire_bolt(p, source, hit, u)
+		"BOMB_FIRE", "BOMB_HOLY":
+			_flask(p, source, hit, u, kind == "BOMB_HOLY")
+		"BOMB_SMOKE":
+			_smoke_bundle(p, source, hit, u, ground)
 		"FIREBALL":
 			_fireball(p, source, hit, ground, u)
 		"MISSILES":

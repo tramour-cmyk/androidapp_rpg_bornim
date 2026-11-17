@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Texte im Spiel (Dialoge, Erzähltext, Aushänge, Schilder) zwischen zwei Ständen vergleichen, ohne Code zu lesen
-# (Thema 41). Zieht aus core/src/main/kotlin alle deutsch/englischen Textpaare: say(...), narrate(...), T(...).
+# (Thema 41). Zieht aus godot/ (Skripte ohne tests/, Daten godot/daten/*.json) alle deutsch/englischen Textpaare:
+# say(wer, de, en), narrate(de, en), {"de": …, "en": …}, [de, en] (Varianten). 882.2: vorher aus der Kotlin-Fassung.
 #   tools/story.sh <von> [<bis>]   Änderungen von <von> bis <bis> (Standard: origin/main), z. B. „Gelesen bis“ aus ARBEIT-KREATIV.md
 #   tools/story.sh <von> origin/claude/zweig   auch für Zweige, die noch nicht auf main sind
 #   tools/story.sh --alle [<bis>]  alle Texte eines Stands auflisten
@@ -10,22 +11,29 @@ git fetch -q origin 2>/dev/null
 exec python3 -I - "$@" <<'PY'
 import re, subprocess, sys
 
-SRC = "core/src/main/kotlin"
+SRC = "godot"
 STR = r'"((?:[^"\\]|\\.)*)"'
 SAY = re.compile(r'\bsay\(\s*(\w+)\s*,\s*' + STR + r'\s*,\s*' + STR, re.S)
-NAR = re.compile(r'\b(?:narrate|T)\(\s*' + STR + r'\s*,\s*' + STR, re.S)
-NAME = re.compile(r'val\s+(\w+)\s*=\s*T\(\s*' + STR)
+NAR = re.compile(r'\bnarrate\(\s*' + STR + r'\s*,\s*' + STR, re.S)
+DICT = re.compile(r'"de"\s*:\s*' + STR + r'\s*,\s*"en"\s*:\s*' + STR, re.S)
+PAAR = re.compile(r'\[\s*' + STR + r'\s*,\s*' + STR + r'\s*\]', re.S)
+NAME = re.compile(r'const\s+(\w+)\s*:?=\s*\{\s*"de"\s*:\s*' + STR)
 
 def git(*a):
     return subprocess.run(["git", *a], capture_output=True, text=True).stdout
 
+def quelle(path):
+    if path.startswith("godot/tests/"):
+        return False
+    return path.endswith(".gd") or (path.startswith("godot/daten/") and path.endswith(".json"))
+
 def texts(rev):
     out = {}
     for path in git("ls-tree", "-r", "--name-only", rev, SRC).split():
-        if not path.endswith(".kt"):
+        if not quelle(path):
             continue
         src = git("show", f"{rev}:{path}")
-        if '"' not in src:
+        if '"de"' not in src and "say(" not in src and "narrate(" not in src and "[" not in src:
             continue
         names = {m.group(1): m.group(2) for m in NAME.finditer(src)}
         file = path.rsplit("/", 1)[-1]
@@ -34,13 +42,15 @@ def texts(rev):
             seen.add(m.start(2))
             who = names.get(m.group(1), m.group(1))
             add(out, file, src, m.start(), who, m.group(2), m.group(3))
-        for m in NAR.finditer(src):
-            if m.start(1) in seen:
-                continue
-            de, en = m.group(1), m.group(2)
-            if " " not in de and len(de) < 25:   # Namen und Kennungen weglassen
-                continue
-            add(out, file, src, m.start(), "", de, en)
+        for pat in (NAR, DICT, PAAR):
+            for m in pat.finditer(src):
+                if m.start(1) in seen:
+                    continue
+                seen.add(m.start(1))
+                de, en = m.group(1), m.group(2)
+                if " " not in de and len(de) < 25:   # Namen und Kennungen weglassen
+                    continue
+                add(out, file, src, m.start(), "", de, en)
     return out
 
 def add(out, file, src, pos, who, de, en):

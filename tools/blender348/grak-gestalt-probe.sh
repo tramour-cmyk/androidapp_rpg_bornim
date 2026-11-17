@@ -13,7 +13,7 @@ echo '{"hauptmann": {"waffen": [], "groesse_cm": 186, "geruest": "cc0"}}' > $D/h
 X=~/godot/godot
 (cd $R/godot && timeout 300 $X --headless --path . --import > $P/import.log 2>&1) || true
 cd $R/godot && GEGNER=GRAK OHNEUI=1 SCHAU=dreh DREH_S=${DREH_S:-8} DREH_BILDER=$P SCHAU_TITEL="${TITEL:-Grak, Gestalt}" DREH_ZEILE="${ZEILE:-}" \
-  timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" $X --rendering-driver opengl3 --path . --resolution 540x1170 \
+  timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" $X --rendering-driver vulkan --rendering-method mobile --path . --resolution 540x1170 \
   --write-movie /tmp/grak-dreh.avi --fixed-fps 30 -- --bild=/tmp/x.png > $P/grak-film.log 2>&1 || true
 # r2 (Prüfer r1: Sekunde 1 zeigte den Kampf): ab dem ersten Bild der Drehung
 AB=$(grep -oE "^Dreh Start Bild [0-9]+" $P/grak-film.log | grep -oE "[0-9]+$" | head -1)

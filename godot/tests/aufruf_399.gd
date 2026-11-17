@@ -17,7 +17,7 @@ func _initialize() -> void:
 
 
 func _alle() -> void:
-	var tab: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	var tab: Dictionary = Tabellen.lade()
 	var fehler := 0
 	var n := 0
 	for fall in [["WOLVES", "tag"], ["RATS", "abend"], ["GRAK", "nacht"], ["GRIMM", "tag"]]:
@@ -29,22 +29,21 @@ func _alle() -> void:
 		print(("endet " if gut else "FEHLER ") + "%s %s: %s" % [fall[0], fall[1], r])
 		if not gut:
 			fehler += 1
-	# mit Toms Heldwerten (skripte/heldwerte.gd, daten/held.json), sobald beide im Zweig liegen (399.1): neu erschaffener Held je
+	# mit Toms Heldwerten (regeln/brs_held.gd (870.4), daten/held.json), sobald beide im Zweig liegen (399.1): neu erschaffener Held je
 	# Klasse gegen das Wolfsrudel, Blatt wie MarsGoldenTest.sheet
-	if FileAccess.file_exists("res://skripte/heldwerte.gd") and FileAccess.file_exists("res://daten/held.json"):
-		var HW = load("res://skripte/heldwerte.gd")
-		for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:
+	if FileAccess.file_exists("res://daten/held.json"):
+		for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:   # 870.4: Herkunft statt Klasse
 			n += 1
-			var h = HW.erschaffe("Alrik", "HUMAN", k)
+			var h = BrsHeld.fuer_spiel("Alrik", "Mensch", k)
 			var r: String = await _einer("WOLVES", "tag", h, -1, tab.probe.CLERIC.merc.hero, int(tab.probe.CLERIC.merc.hp))
 			var gut := r.begins_with("WON ") or r.begins_with("LOST ")
 			print(("endet " if gut else "FEHLER ") + "Heldwerte %s: %s" % [k, r])
 			if not gut:
 				fehler += 1
 		# 399.2a (Chef 14:19: Kapitel 1, der Held allein, Wolf mit 1–2 Jungwölfen): neu erschaffener Held ohne Söldner
-		for k in ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]:
+		for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:   # 870.4: Herkunft statt Klasse
 			n += 1
-			var h = HW.erschaffe("Alrik", "HUMAN", k)
+			var h = BrsHeld.fuer_spiel("Alrik", "Mensch", k)
 			var r: String = await _einer("RUDEL", "tag", h, -1, null, 0)
 			var gut := r.begins_with("WON ") or r.begins_with("LOST ")
 			print(("endet " if gut else "FEHLER ") + "Rudel allein %s: %s" % [k, r])
@@ -199,5 +198,6 @@ func _blende(held: Dictionary) -> String:
 	var o: String = k.mars.outcome
 	k.finish()
 	await process_frame
-	var gut: bool = art == "AMBUSH" and worte.size() == 2 and worte[1] == "WOLF" and o != "ONGOING"
+	# 661: alle Blenden ein Aufbau, oben der Name des Gegners gesperrt, darunter der Satz (vorher Satz, dann Name; 882.1 nachgestellt)
+	var gut: bool = art == "AMBUSH" and worte.size() == 2 and worte[0] == "WOLF" and o != "ONGOING"
 	return ("gut " if gut else "") + "%s, %s, %d ms verhüllt (Spielzeit ×30), %s" % [art, worte, unter, o]

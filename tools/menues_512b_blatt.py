@@ -3,6 +3,7 @@
 # Fehlt eine Seite, steht dort der Grund. Dazu die Pruefung nur mit Zahlen je Bild: einfarbig?, gleich wie der vorige Zustand derselben
 # Seite?, Anteil heller Pixel (Schrift auf Schwarz) – nach <aus>/pruefung.txt und auf den Schirm.
 # Aufruf: python3 tools/menues_512b_blatt.py <alt-Ordner> <neu-Ordner> <aus-Ordner>
+# alt-Ordner (882.1): einmal gerendert im Zweig „bilder“, holen mit `bash tools/alt_bilder.sh 512b <alt-Ordner>` (ohne Gradle)
 import os
 import sys
 
@@ -15,9 +16,6 @@ os.makedirs(aus, exist_ok=True)
 FEHLT = {
     ("alt", "06_ueber_lizenzen"): "alt: kein Knopf „Lizenzen der Engine“ (App.kt AboutScreen)",
     ("alt", "06b_ueber_lizenzen_ende"): "alt: kein Knopf „Lizenzen der Engine“ (App.kt AboutScreen)",
-    ("alt", "22_erschaffung_brs_oben"): "alt: keine Erschaffung nach BRS",
-    ("alt", "23_erschaffung_brs_mitte"): "alt: keine Erschaffung nach BRS",
-    ("alt", "24_erschaffung_brs_unten"): "alt: keine Erschaffung nach BRS",
     ("neu", "76_kapitelende"): "neu: kein Schirm (spiel.gd: „kapitelende“ endet in szene.clear())",
 }
 

@@ -4,7 +4,7 @@ Ziege meckert und rupft Gras, Kaninchen knabbert (das Klopfen ist raus, Chef 29.
 ihre Laute seit 83c (huehner.py). Alle CC0 (QUELLEN.md, 401).
 
     python3 tools/klang/dorftiere.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben zum Anhören
-    python3 tools/klang/dorftiere.py <ordner mit den Aufnahmen> --spiel    # nach app/src/main/assets/sfx (goat_*, rabbit_*)
+    python3 tools/klang/dorftiere.py <ordner mit den Aufnahmen> --spiel    # nach godot/daten/klang/sfx (goat_*, rabbit_*)
 
 Aufnahmen (tools/klang/holen.sh): BigSoundBank (Joseph Sardin, CC0) 0279/0280 „Bleating goat #1/#2“, 1380/1381 „Goat #1/#2“,
 0990 „Horse eating grass #2“, 0185 „Rat nibbling“.
@@ -35,7 +35,7 @@ LEISE = {"goat_graze": -30, "rabbit_munch": -32}
 def finish(name, x): return norm(trim(x, -55), -1.0, LEISE.get(name, -22))
 
 if OUT == "--spiel":
-    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in S.items():
         for i, x in enumerate(takes):
             tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, finish(name, x))

@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Rollenspiegel (340.2): eigene Antwort ohne fremde. Die Datei docs/LISTE-ROLLENSPIEGEL.md nie selbst öffnen.
 #   tools/rollenspiegel.sh <Rolle>                          Fragen und eigene Antwort der Vorwoche zeigen
-#   tools/rollenspiegel.sh <Rolle> --antwort <datei|->      Antwort (Zeilen „0. …“ bis „10. …“) anhängen
+#   tools/rollenspiegel.sh <Rolle> --antwort <datei|->      Antwort (Zeilen „0. …“ bis „11. …“, ohne 2) anhängen;
+#                                                           Zeile „11. …“ (Vorschlag fürs Spiel) geht zusätzlich nach LISTE-IDEEN.md
 #                          [--sitzung "<Titel>"]            Sitzungstitel für die Kopfzeile
-# Rollen: Sokrates, Perikles, Homer, Ford, Diogenes, Tom, Jerry (auch „Team Tom“). Hängt unter „## Woche <Freitag>“ an;
+# Rollen: Sokrates, Perikles, Homer, Ford, Diogenes, Tom, Jerry (auch „Team Tom“). Hängt unter „## Woche <Mittwoch>“ an (1461, ab 18.11.; vorher Freitag);
 # eine neue Woche verdrängt alles vor der Vorwoche (älteres steht in Git). Danach selbst committen und pushen.
 haupt=/home/user/bornim-main
 [ -d "$haupt/docs" ] || haupt="$(cd "$(dirname "$0")/.." && pwd)"
@@ -34,8 +35,21 @@ def eigene(block):
     m = re.search(r"(?ms)^### " + re.escape(rolle) + r"\b.*?(?=^### |\Z)", block)
     return m.group(0).rstrip() if m else None
 jetzt = datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin"))
-freitag = (jetzt + datetime.timedelta(days=4 - jetzt.weekday())).strftime("%d.%m.")
-kopfzeile = "## Woche " + freitag
+# 1461 (340 A, Chef 16.11., 16:27: „alles nicht mehr freitags, sondern mittwochs. Und zwar nach dem Managementbericht von Pericles“):
+# Termin mittwochs; vor dem 18.11. gilt noch der Freitag (Nachholen der Woche 13.11.).
+UMSTELLUNG = datetime.date(2026, 11, 18)
+TAG = 2 if jetzt.date() >= UMSTELLUNG - datetime.timedelta(days=2) else 4  # ab Mo 16.11. ist der nächste Termin Mi 18.11.
+termin_d = (jetzt + datetime.timedelta(days=TAG - jetzt.weekday())).date()
+termin = termin_d.strftime("%d.%m.")
+kopfzeile = "## Woche " + termin
+# 721, D93.1: eine Antwort vor dem Termintag ist immer das Nachholen des vergangenen Termins; steht dort schon eine,
+# ist nichts fällig. Früher landete sie unter dem kommenden Termin und verdeckte dessen Ausfall.
+naechster = ("Mi " if TAG == 2 else "Fr ") + termin
+if jetzt.weekday() < TAG:
+    vorige = termin_d - datetime.timedelta(days=7)
+    if vorige < UMSTELLUNG:  # Woche vor der Umstellung: Freitag
+        vorige = vorige + datetime.timedelta(days=2)
+    kopfzeile = "## Woche " + vorige.strftime("%d.%m.")
 
 if antwort is None:
     fragen = re.search(r"(?ms)^## Fragen\n.*?(?=^## )", kopf)
@@ -53,19 +67,31 @@ if antwort is None:
     sys.exit(0)
 
 neu = (sys.stdin.read() if antwort == "-" else open(antwort, encoding="utf-8").read()).strip()
-if not re.search(r"(?m)^0\. ", neu) or not re.search(r"(?m)^10\. ", neu):
-    sys.exit("Antwort braucht die Zeilen „0. …“ bis „10. …“ (Fragen ohne Antwort: „nichts“ mit Begründung).")
+if not re.search(r"(?m)^0\. ", neu) or not re.search(r"(?m)^11\. ", neu):
+    sys.exit("Antwort braucht die Zeilen „0. …“ bis „11. …“ ohne 2 (Fragen ohne Antwort: „nichts“ mit Begründung).")
 neu = re.sub(r"(?m)^#+ .*\n?", "", neu).strip()
 abschnitt = "### %s (%s%s)\n\n%s\n" % (rolle, jetzt.strftime("%d.%m., %H:%M"), ", Sitzung „%s“" % sitzung if sitzung else "", neu)
 for n, w in enumerate(wochen):
     if w.startswith(kopfzeile):
-        if eigene(w): sys.exit("Für die %s steht schon eine Antwort von %s; nichts geändert." % (kopfzeile[3:], rolle))
+        if eigene(w): sys.exit("Für die %s steht schon eine Antwort von %s; nichts geändert, der nächste Rollenspiegel ist am %s" % (kopfzeile[3:], rolle, naechster))
         wochen[n] = w.rstrip() + "\n\n" + abschnitt + ("\n" if n < len(wochen) - 1 else "")
         break
 else:
     wochen = wochen[-1:] + [kopfzeile + "\n\n" + abschnitt]
     if wochen[0] != wochen[-1]: wochen[0] = wochen[0].rstrip() + "\n\n"
 open(datei, "w", encoding="utf-8").write(kopf + "".join(wochen))
+# 1461: Frage 11 (Vorschlag fürs Spiel) zusätzlich in den Ideenspeicher; Homer urteilt sonntags, Perikles holt montags
+m11 = re.search(r"(?ms)^11\. (.*?)(?=^\d+\. |\Z)", neu)
+if m11 and m11.group(1).strip():
+    ideen = datei.replace("LISTE-ROLLENSPIEGEL.md", "LISTE-IDEEN.md")
+    t = open(ideen, encoding="utf-8").read()
+    zeile = "- **%s (Rollenspiegel %s):** %s" % (rolle, kopfzeile[9:], " ".join(m11.group(1).split()))
+    k = "## Aus dem Rollenspiegel (Frage 11, 1461)"
+    if k in t: t = t.replace(k + "\n\n", k + "\n\n" + zeile + "\n", 1)  # neueste oben
+    elif "\n## Verworfen" in t: t = t.replace("\n## Verworfen", "\n" + k + "\n\n" + zeile + "\n\n## Verworfen", 1)
+    else: t = t.rstrip() + "\n\n" + k + "\n\n" + zeile + "\n"
+    open(ideen, "w", encoding="utf-8").write(t)
+    print("Frage 11 in LISTE-IDEEN.md „%s“ eingetragen." % k[3:])
 print("Angehängt unter %s: %s. Jetzt committen und pushen (Commit „340: Rollenspiegel %s“)." % (kopfzeile[3:], rolle, rolle))
 PY
 )

@@ -9,6 +9,7 @@ extends Node3D
 
 var gebiet: Node3D
 var feuer: Array = []        # [OmniLight3D, Grundkraft, Saat]
+var schein: Array = []   # 492: [Licht, Kraft, Phase, Takt s, Tiefe] der Pilze und Kristalle
 var flammen: Array = []      # [Node3D Kern, Saat]
 var fenster: Array = []      # [SpotLight3D, Kraft, Tuer?]
 var scheiben: Array[ShaderMaterial] = []
@@ -39,9 +40,25 @@ static func baue(g: Node3D, info: Dictionary, netz: Node3D) -> Raumlicht:
 			var x := netz.find_child(String(w.get(k, "-")), true, false) if w.has(k) else null
 			if x: mit.append(x)
 		r.waende.append([h, t, s, n, mit])
+		if info.get("hoehle", false) and h is MeshInstance3D: r.schattenfels(h as MeshInstance3D)
 		if s: r.sammle_scheiben(s)
 	r.ohne_schatten(netz)
 	return r
+
+# 492 (Abgleich; Pruefer Lauf 2: weisse Wandflaechen ohne Quelle in Eingang, Teich, Westfluegel): die hohe Felswand ist vor dem Raum
+# ausgeblendet (Kamera), dann warf sie keinen Schatten, und von hinten (einseitige Flaeche) nie: Licht des Ausgangs und der Fackeln
+# fiel durch den Fels in Nachbarraeume. Jetzt wirft jede hohe Wand immer ihren Schatten, beidseitig, als eigene Schattenfassung
+func schattenfels(h: MeshInstance3D) -> void:
+	var sch := MeshInstance3D.new()
+	sch.name = String(h.name) + "_Schatten"
+	sch.mesh = h.mesh
+	sch.transform = h.transform
+	sch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+	var m := StandardMaterial3D.new()
+	m.cull_mode = BaseMaterial3D.CULL_DISABLED
+	sch.material_override = m
+	h.get_parent().add_child(sch)
+	h.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 # Kleinkram (raum.py Klein_…: Krug, Kerze, Buch) wirft keinen Schatten: Kamin und Fenster zeichnen den Raum sonst je Licht noch einmal
 func ohne_schatten(n: Node) -> void:
@@ -68,7 +85,8 @@ func licht(l: Dictionary) -> void:
 		o.light_color = Color(1.0, 0.56, 0.26) if art == "kamin" else Color(1.0, 0.72, 0.42)
 		# Kerzen: Lichtinsel um den Tisch (Pruefer Lauf 1: keine Inseln), steiler abfallend als der Kamin
 		o.omni_attenuation = 1.2 if art == "kamin" else KERZE_ABFALL   # Lauf 3: bei 1,9 und kurzer Reichweite kam kein Licht am Boden an
-		o.shadow_enabled = art == "kamin"
+		o.shadow_enabled = art == "kamin" and Grafik.innen_schatten()   # 698: Niedrig ohne Innenschatten
+		if art == "kamin": o.add_to_group("grafik_schatten")
 		o.shadow_bias = 0.06
 		add_child(o)
 		feuer.append([o, kraft, randf() * 10.0])
@@ -78,19 +96,46 @@ func licht(l: Dictionary) -> void:
 		for f in l.get("flammen", []):
 			teile.append(flamme(gpos(f), 2.0 if art == "kamin" else 0.32, art == "kamin"))
 		if l.has("wand"): an_wand[String(l["wand"])] = an_wand.get(String(l["wand"]), []) + teile
+	elif art == "fackel" or art == "schein":
+		# 492 Hoehle (alt MapLight CAVE): Fackel an der Wand FFB060, Leuchtpilz 60E8D8, Kristall B088FF; brennen und leuchten immer;
+		# Fackel mit Schatten und Flamme, Pilz und Kristall nur ein schwacher Schein ohne Schatten
+		var o := OmniLight3D.new()
+		o.position = gpos(l["pos"])
+		o.omni_range = float(l.get("reich", 2.0)) * ts
+		var k := float(l.get("kraft", 0.6))
+		var kraft := k * (2.6 if art == "fackel" else 1.4)   # 492 Abgleich (Pruefer Lauf 1: Kristalle schweben vor dunkler Wand): Schein heller
+		o.light_energy = kraft
+		o.light_color = Color(1.0, 0.69, 0.38) if art == "fackel" else Color.html(String(l.get("farbe", "FFFFFF")))
+		o.omni_attenuation = 1.4 if art == "fackel" else 1.5
+		o.shadow_enabled = art == "fackel" and Grafik.innen_schatten()   # 698: Niedrig ohne Innenschatten
+		if art == "fackel": o.add_to_group("grafik_schatten")
+		o.shadow_bias = 0.06
+		add_child(o)
+		if art == "schein":   # 492 (Abgleich, alt WorldScreen 2642): Pilze atmen langsam (0,65 + 0,35 sin t/0,9 s), Kristalle schneller und flacher
+			var pilz := String(l.get("farbe", "")) == "60E8D8"
+			schein.append([o, kraft, randf() * 10.0, 0.9 if pilz else 0.6, 0.35 if pilz else 0.2])
+		if art == "fackel":
+			feuer.append([o, kraft, randf() * 10.0])
+			o.add_to_group("tuschelicht")
+			o.set_meta("reich", o.omni_range); o.set_meta("kraft", k); o.set_meta("art", art)
+		var teile: Array = [o]
+		for f in l.get("flammen", []): teile.append(flamme(gpos(f), 1.2, false))   # 492 (Pruefer Lauf 1: Fackel nur ein roter Punkt): 0,75 -> 1,2
+		if l.has("wand"): an_wand[String(l["wand"])] = an_wand.get(String(l["wand"]), []) + teile
 	elif art == "tageslicht" or art == "tuer":
 		var s := SpotLight3D.new()
 		var von := gpos(l["pos"]); var zu := gpos(l["ziel"])
 		add_child(s)
 		s.look_at_from_position(von, zu, Vector3.UP)
 		s.spot_range = von.distance_to(zu) * 1.8
-		s.spot_angle = 30.0 if art == "tageslicht" else 26.0
+		if l.has("reich"): s.spot_range = float(l["reich"]) * ts   # 492: alt EXIT 3,4 Kacheln, SKY 3,0 (MapLight)
+		s.spot_angle = float(l.get("winkel", 30.0 if art == "tageslicht" else 26.0))
 		s.spot_attenuation = 0.6
 		# Pruefer Lauf 6: rosa Lichtkeil mit scharfer Kante auf dem roten Teppich: Rand des Kegels weicher, Schatten weicher
 		s.spot_angle_attenuation = 0.6 if art == "tageslicht" else 0.35   # Lauf 7: gedreht durch die Tuer noch ein scharfer Keil
 		s.shadow_blur = 2.5
 		# Lauf 8: durch die Tuer warf die Oeffnung einen scharfen Keil (auch mit weichem Schatten): Tuerlicht ohne Schatten, nur weicher Kegel
-		s.shadow_enabled = art == "tageslicht"
+		s.shadow_enabled = art == "tageslicht" and Grafik.innen_schatten()   # 698: Niedrig ohne Innenschatten
+		if art == "tageslicht": s.add_to_group("grafik_schatten")
 		s.shadow_bias = 0.05
 		fenster.append([s, float(l.get("kraft", 0.55)) * (1.0 if art == "tageslicht" else TUER_ANTEIL), art == "tuer"])
 
@@ -167,6 +212,8 @@ func _process(dt: float) -> void:
 		var o: OmniLight3D = f[0]
 		var t: float = zeit + f[2]
 		o.light_energy = f[1] * (0.86 + 0.09 * sin(t * 13.0) * sin(t * 5.3) + 0.05 * sin(t * 29.0))
+	for f in schein:
+		(f[0] as OmniLight3D).light_energy = f[1] * (1.0 - f[4] + f[4] * sin((zeit + f[2]) / f[3]))
 	for f in flammen:
 		var kern: Node3D = f[0]
 		var innen := kern.get_child(1) as Node3D

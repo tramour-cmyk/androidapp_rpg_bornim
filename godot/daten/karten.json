@@ -1,0 +1,1496 @@
+{
+  "version": 1,
+  "kacheln": {
+    ".": {"name":"GRASS","begehbar":true,"schritt":1.0},
+    ",": {"name":"TALL_GRASS","begehbar":true,"schritt":1.5},
+    "f": {"name":"FLOWERS","begehbar":true,"schritt":1.1},
+    "=": {"name":"PATH","begehbar":true,"schritt":0.85},
+    "T": {"name":"TREE","begehbar":false,"schritt":1.0},
+    "~": {"name":"WATER","begehbar":false,"schritt":1.0},
+    "r": {"name":"ROCK","begehbar":false,"schritt":1.0},
+    "^": {"name":"ROOF","begehbar":false,"schritt":1.0},
+    "M": {"name":"ROOF_BLUE","begehbar":false,"schritt":1.0},
+    "#": {"name":"WALL","begehbar":false,"schritt":1.0},
+    "W": {"name":"WINDOW","begehbar":false,"schritt":1.0},
+    "D": {"name":"DOOR","begehbar":true,"schritt":1.0},
+    "S": {"name":"SIGN","begehbar":false,"schritt":1.0},
+    "!": {"name":"NOTICE","begehbar":false,"schritt":1.0},
+    "C": {"name":"CHEST","begehbar":false,"schritt":1.0},
+    "w": {"name":"WELL","begehbar":false,"schritt":1.0},
+    "F": {"name":"CAMPFIRE","begehbar":false,"schritt":1.0},
+    "X": {"name":"CAVE_WALL","begehbar":false,"schritt":1.0},
+    "_": {"name":"CAVE_FLOOR","begehbar":true,"schritt":1.0},
+    "E": {"name":"CAVE_ENTRANCE","begehbar":true,"schritt":1.0},
+    "+": {"name":"CAVE_EXIT","begehbar":true,"schritt":1.0},
+    "t": {"name":"TORCH","begehbar":false,"schritt":1.0},
+    "L": {"name":"GATE","begehbar":false,"schritt":1.0},
+    "k": {"name":"WOOD_FLOOR","begehbar":true,"schritt":1.0},
+    "R": {"name":"RUG","begehbar":true,"schritt":1.0},
+    "K": {"name":"COUNTER","begehbar":false,"schritt":1.0},
+    "Y": {"name":"TABLE","begehbar":false,"schritt":1.0},
+    "B": {"name":"BED","begehbar":false,"schritt":1.0},
+    "Q": {"name":"SHELF","begehbar":false,"schritt":1.0},
+    "P": {"name":"PLANT","begehbar":false,"schritt":1.0},
+    "A": {"name":"ALTAR","begehbar":false,"schritt":1.0},
+    "Z": {"name":"HEARTH","begehbar":false,"schritt":1.0},
+    "J": {"name":"CLUTTER","begehbar":true,"schritt":1.3},
+    "d": {"name":"DESK","begehbar":false,"schritt":1.0},
+    "a": {"name":"TRUNK","begehbar":false,"schritt":1.0},
+    "s": {"name":"ARMCHAIR","begehbar":false,"schritt":1.0},
+    "V": {"name":"HANGING","begehbar":true,"schritt":1.0},
+    "U": {"name":"RACK","begehbar":false,"schritt":1.0},
+    "N": {"name":"CANDLES","begehbar":false,"schritt":1.0},
+    "&": {"name":"FONT","begehbar":false,"schritt":1.0},
+    "o": {"name":"COBBLE","begehbar":true,"schritt":0.85},
+    "m": {"name":"STALL","begehbar":false,"schritt":1.0},
+    "l": {"name":"LAMP","begehbar":false,"schritt":1.0},
+    "b": {"name":"BARREL","begehbar":false,"schritt":1.0},
+    "n": {"name":"BENCH","begehbar":false,"schritt":1.0},
+    "h": {"name":"BRIDGE","begehbar":true,"schritt":0.85},
+    "x": {"name":"FENCE","begehbar":false,"schritt":1.0},
+    "c": {"name":"CROPS","begehbar":false,"schritt":1.0},
+    "v": {"name":"VEG_BED","begehbar":false,"schritt":1.0},
+    "y": {"name":"HAY","begehbar":false,"schritt":1.0},
+    "q": {"name":"WASHLINE","begehbar":false,"schritt":1.0},
+    "z": {"name":"BARRIER","begehbar":false,"schritt":1.0},
+    "p": {"name":"YARD","begehbar":false,"schritt":1.0},
+    "g": {"name":"GLOWSHROOM","begehbar":true,"schritt":1.1},
+    "G": {"name":"CRYSTAL","begehbar":false,"schritt":1.0},
+    "i": {"name":"STALAGMITE","begehbar":false,"schritt":1.0},
+    "%": {"name":"RUBBLE","begehbar":true,"schritt":1.3},
+    "j": {"name":"BONES","begehbar":true,"schritt":1.1},
+    "u": {"name":"CRATE","begehbar":false,"schritt":1.0},
+    "e": {"name":"BEDROLL","begehbar":true,"schritt":1.0},
+    "H": {"name":"SUPPORT","begehbar":true,"schritt":1.0},
+    "*": {"name":"SKYLIGHT","begehbar":true,"schritt":1.0},
+    "O": {"name":"LOG","begehbar":false,"schritt":1.0},
+    "I": {"name":"MENHIR","begehbar":false,"schritt":1.0}
+  },
+  "busch_schritt": 1.5,
+  "schlagbaum": {
+    "de": "Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten kommst du hier nicht durch.",
+    "en": "The barrier is down. You can't pass without the Elder's permission."
+  },
+  "gehen": 1.838235294117647,
+  "laufen": 3.676470588235294,
+  "tagesablauf": {
+    "pim": [
+      [420,15,14,3,false], [720,13,23,0,false], [780,17,24,2,false], [1020,15,14,3,false],
+      [1200,13,23,0,false], [1260,13,23,0,true]
+    ],
+    "bram": [
+      [300,20,29,1,false], [720,14,15,1,false], [780,32,29,1,false], [1140,7,8,1,false],
+      [1320,10,29,0,false]
+    ],
+    "gwenna": [
+      [360,16,15,1,false], [540,8,24,2,false], [960,14,13,1,false], [1200,5,15,0,false],
+      [1320,5,15,0,true]
+    ],
+    "liska": [
+      [360,8,7,1,false], [600,25,8,0,false], [660,10,12,1,false], [900,8,10,1,false],
+      [1320,8,7,0,false], [1380,8,7,0,true]
+    ]
+  },
+  "karten": {
+    "village": {
+      "id": "village",
+      "name": {"de":"Bornim","en":"Bornim"},
+      "art": "TOWN",
+      "breite": 36,
+      "hoehe": 32,
+      "rand": "T",
+      "stufe": 1,
+      "zeilen": [
+        "TTTTTTTTTTTTTTTTT==TTTTTTTTTTTTTTTTT",
+        "TTT.......T.....x==x.....TT......TTT",
+        "TT.............lxzzxlS..T.........TT",
+        "T..^^^^^^........==.......^^^^^....T",
+        "T..^^^^^^..^^^^..==....^^.^^^^^....T",
+        "T.p#W#D#Wb.#D#W..==....D#.W#D#Wb...T",
+        "T.....=S.b..=....==....=.S..=......T",
+        "T...!.=.....=....==....=....=......T",
+        "T....==========================....T",
+        "T.f..........pf..==...f.......T..f.T",
+        "T................==.......T........T",
+        "T.......qqqplooooooooool...........T",
+        "T..^^^^.....oommoooommoo.....^^^^..T",
+        "T..^^^^.....oooooooooooo....p#D#W..T",
+        "T..W#D#.....oooooooooooo========...T",
+        "T....=======oooooooooooo...........T",
+        "T.f.........oonowoooonoo.........f.T",
+        "T...........looooooooool.........T.T",
+        "T.T^^^^^^........==.......MMMMMM...T",
+        "T..^^^^^^f.......==.......MMMMMM...T",
+        "T..W#D#WW........==.....f.W#D#W#...T",
+        "T....=.....^^^^..==.........=....f.T",
+        "T....=.....W#D#..==.........=......T",
+        "T....==========================....T",
+        "T..f...p.........==...T....f....T..T",
+        "~~~~~~~~~~~......==...~~~~~~~~~~~~~~",
+        "~~~~~~~~~~~~~~~~~hh~~~~~~~~~~~~~~~~~",
+        "T..........~~~~~~hh~~~p............T",
+        "T..xxxxxxx===========............y.T",
+        "T..xvvvvvx..f....==S.ccccccccccc.y.T",
+        "TT.xvvvvvx.y...f.==.fccccccccccc..TT",
+        "TTTTTTTTTTTTTTT..==..TTTTTTTTTTTTTTT"
+      ],
+      "buesche": [
+        [19,0], [20,0], [26,10], [35,16], [33,17], [32,24], [35,28], [35,29], [3,31], [4,31], [5,31],
+        [6,31], [10,31], [11,31], [13,31], [14,31], [21,31], [22,31], [23,31], [24,31], [26,31],
+        [27,31], [28,31], [29,31], [30,31], [32,31], [34,31]
+      ],
+      "bewuchs": [
+        [19,0,"busch"], [20,0,"busch"], [30,9,"jung"], [26,10,"busch"], [35,16,"busch"],
+        [33,17,"busch"], [32,24,"busch"], [35,28,"busch"], [35,29,"busch"], [34,30,"jung"],
+        [35,30,"jung2"], [3,31,"busch"], [4,31,"busch"], [5,31,"busch"], [6,31,"busch"],
+        [7,31,"jung2"], [8,31,"jung"], [9,31,"jung"], [10,31,"busch"], [11,31,"busch"],
+        [12,31,"jung"], [13,31,"busch"], [14,31,"busch"], [21,31,"busch"], [22,31,"busch"],
+        [23,31,"busch"], [24,31,"busch"], [25,31,"jung2"], [26,31,"busch"], [27,31,"busch"],
+        [28,31,"busch"], [29,31,"busch"], [30,31,"busch"], [31,31,"jung"], [32,31,"busch"],
+        [33,31,"jung"], [34,31,"busch"], [35,31,"jung"]
+      ],
+      "ring": [
+        [-6,-6,"baum2"], [-5,-6,"baum"], [-4,-6,"baum2"], [-3,-6,"baum"], [-2,-6,"baum2"],
+        [-1,-6,"baum"], [0,-6,"baum2"], [1,-6,"baum"], [2,-6,"baum2"], [3,-6,"baum"], [4,-6,"baum2"],
+        [5,-6,"baum"], [6,-6,"baum2"], [7,-6,"baum"], [8,-6,"baum2"], [9,-6,"baum"], [10,-6,"baum2"],
+        [11,-6,"baum"], [12,-6,"baum2"], [13,-6,"baum"], [14,-6,"baum2"], [15,-6,"baum"],
+        [16,-6,"baum_offen"], [17,-6,"baum_offen"], [18,-6,"baum_offen"], [19,-6,"baum_offen"],
+        [20,-6,"baum_offen"], [21,-6,"baum_offen"], [22,-6,"baum2"], [23,-6,"baum"], [24,-6,"baum2"],
+        [25,-6,"baum"], [26,-6,"baum2"], [27,-6,"baum"], [28,-6,"baum2"], [29,-6,"baum"],
+        [30,-6,"baum2"], [31,-6,"baum"], [32,-6,"baum2"], [33,-6,"baum"], [34,-6,"baum2"],
+        [35,-6,"baum"], [36,-6,"baum2"], [37,-6,"baum"], [38,-6,"baum2"], [39,-6,"baum"],
+        [40,-6,"baum2"], [41,-6,"baum"], [-6,-5,"baum"], [-5,-5,"baum2"], [-4,-5,"baum"],
+        [-3,-5,"baum2"], [-2,-5,"baum"], [-1,-5,"baum2"], [0,-5,"baum"], [1,-5,"baum2"],
+        [2,-5,"baum"], [3,-5,"baum2"], [4,-5,"baum"], [5,-5,"baum2"], [6,-5,"baum"], [7,-5,"baum2"],
+        [8,-5,"baum"], [9,-5,"baum2"], [10,-5,"baum"], [11,-5,"baum2"], [12,-5,"baum"],
+        [13,-5,"baum2"], [14,-5,"baum"], [15,-5,"baum2"], [16,-5,"baum_offen"], [17,-5,"baum_offen"],
+        [18,-5,"baum_offen"], [19,-5,"baum_offen"], [20,-5,"baum_offen"], [21,-5,"baum_offen"],
+        [22,-5,"baum"], [23,-5,"baum2"], [24,-5,"baum"], [25,-5,"baum2"], [26,-5,"baum"],
+        [27,-5,"baum2"], [28,-5,"baum"], [29,-5,"baum2"], [30,-5,"baum"], [31,-5,"baum2"],
+        [32,-5,"baum"], [33,-5,"baum2"], [34,-5,"baum"], [35,-5,"baum2"], [36,-5,"baum"],
+        [37,-5,"baum2"], [38,-5,"baum"], [39,-5,"baum2"], [40,-5,"baum"], [41,-5,"baum2"],
+        [-6,-4,"baum2"], [-5,-4,"baum"], [-4,-4,"baum2"], [-3,-4,"baum"], [-2,-4,"baum2"],
+        [-1,-4,"baum"], [0,-4,"baum2"], [1,-4,"baum"], [2,-4,"baum2"], [3,-4,"baum"], [4,-4,"baum2"],
+        [5,-4,"baum"], [6,-4,"baum2"], [7,-4,"baum"], [8,-4,"baum2"], [9,-4,"baum"], [10,-4,"baum2"],
+        [11,-4,"baum"], [12,-4,"baum2"], [13,-4,"baum"], [14,-4,"baum2"], [15,-4,"baum"],
+        [22,-4,"baum2"], [23,-4,"baum"], [24,-4,"baum2"], [25,-4,"baum"], [26,-4,"baum2"],
+        [27,-4,"baum"], [28,-4,"baum2"], [29,-4,"baum"], [30,-4,"baum2"], [31,-4,"baum"],
+        [32,-4,"baum2"], [33,-4,"baum"], [34,-4,"baum2"], [35,-4,"baum"], [36,-4,"baum2"],
+        [37,-4,"baum"], [38,-4,"baum2"], [39,-4,"baum"], [40,-4,"baum2"], [41,-4,"baum"],
+        [-6,-3,"baum"], [-5,-3,"baum2"], [-4,-3,"baum"], [-3,-3,"baum2"], [-2,-3,"baum"],
+        [-1,-3,"baum2"], [0,-3,"baum"], [1,-3,"baum2"], [2,-3,"baum"], [3,-3,"baum2"], [4,-3,"baum"],
+        [5,-3,"baum2"], [6,-3,"baum"], [7,-3,"baum2"], [8,-3,"baum"], [9,-3,"baum2"], [10,-3,"baum"],
+        [11,-3,"baum2"], [12,-3,"baum"], [13,-3,"baum2"], [14,-3,"baum"], [15,-3,"baum2"],
+        [22,-3,"baum"], [23,-3,"baum2"], [24,-3,"baum"], [25,-3,"baum2"], [26,-3,"baum"],
+        [27,-3,"baum2"], [28,-3,"baum"], [29,-3,"baum2"], [30,-3,"baum"], [31,-3,"baum2"],
+        [32,-3,"baum"], [33,-3,"baum2"], [34,-3,"baum"], [35,-3,"baum2"], [36,-3,"baum"],
+        [37,-3,"baum2"], [38,-3,"baum"], [39,-3,"baum2"], [40,-3,"baum"], [41,-3,"baum2"],
+        [-6,-2,"baum2"], [-5,-2,"baum"], [-4,-2,"baum2"], [-3,-2,"baum"], [-2,-2,"baum2"],
+        [-1,-2,"baum"], [0,-2,"baum2"], [1,-2,"baum"], [2,-2,"baum2"], [3,-2,"baum"], [4,-2,"baum2"],
+        [5,-2,"baum"], [6,-2,"baum2"], [7,-2,"baum"], [8,-2,"baum2"], [9,-2,"baum"], [10,-2,"baum2"],
+        [11,-2,"baum"], [12,-2,"baum2"], [13,-2,"baum"], [14,-2,"baum2"], [15,-2,"baum"],
+        [22,-2,"baum2"], [23,-2,"baum"], [24,-2,"baum2"], [25,-2,"baum"], [26,-2,"baum2"],
+        [27,-2,"baum"], [28,-2,"baum2"], [29,-2,"baum"], [30,-2,"baum2"], [31,-2,"baum"],
+        [32,-2,"baum2"], [33,-2,"baum"], [34,-2,"baum2"], [35,-2,"baum"], [36,-2,"baum2"],
+        [37,-2,"baum"], [38,-2,"baum2"], [39,-2,"baum"], [40,-2,"baum2"], [41,-2,"baum"],
+        [-6,-1,"baum"], [-5,-1,"baum2"], [-4,-1,"baum"], [-3,-1,"baum2"], [-2,-1,"baum"],
+        [-1,-1,"baum2"], [0,-1,"baum"], [1,-1,"baum2"], [2,-1,"baum"], [3,-1,"baum2"], [4,-1,"baum"],
+        [5,-1,"baum2"], [6,-1,"baum"], [7,-1,"baum2"], [8,-1,"baum"], [9,-1,"baum2"], [10,-1,"baum"],
+        [11,-1,"baum2"], [12,-1,"baum"], [13,-1,"baum2"], [14,-1,"baum"], [15,-1,"baum2"],
+        [22,-1,"baum"], [23,-1,"baum2"], [24,-1,"baum"], [25,-1,"baum2"], [26,-1,"baum"],
+        [27,-1,"baum2"], [28,-1,"baum"], [29,-1,"baum2"], [30,-1,"baum"], [31,-1,"baum2"],
+        [32,-1,"baum"], [33,-1,"baum2"], [34,-1,"baum"], [35,-1,"baum2"], [36,-1,"baum"],
+        [37,-1,"baum2"], [38,-1,"baum"], [39,-1,"baum2"], [40,-1,"baum"], [41,-1,"baum2"],
+        [-6,0,"baum2"], [-5,0,"baum"], [-4,0,"baum2"], [-3,0,"baum"], [-2,0,"baum2"], [-1,0,"baum"],
+        [36,0,"baum2"], [37,0,"baum"], [38,0,"baum2"], [39,0,"baum"], [40,0,"baum2"], [41,0,"baum"],
+        [-6,1,"baum"], [-5,1,"baum2"], [-4,1,"baum"], [-3,1,"baum2"], [-2,1,"baum"], [-1,1,"baum2"],
+        [36,1,"baum"], [37,1,"baum2"], [38,1,"baum"], [39,1,"baum2"], [40,1,"baum"], [41,1,"baum2"],
+        [-6,2,"baum2"], [-5,2,"baum"], [-4,2,"baum2"], [-3,2,"baum"], [-2,2,"baum2"], [-1,2,"baum"],
+        [36,2,"baum2"], [37,2,"baum"], [38,2,"baum2"], [39,2,"baum"], [40,2,"baum2"], [41,2,"baum"],
+        [-6,3,"baum"], [-5,3,"baum2"], [-4,3,"baum"], [-3,3,"baum2"], [-2,3,"baum"], [-1,3,"baum2"],
+        [36,3,"baum"], [37,3,"baum2"], [38,3,"baum"], [39,3,"baum2"], [40,3,"baum"], [41,3,"baum2"],
+        [-6,4,"baum2"], [-5,4,"baum"], [-4,4,"baum2"], [-3,4,"baum"], [-2,4,"baum2"], [-1,4,"baum"],
+        [36,4,"baum2"], [37,4,"baum"], [38,4,"baum2"], [39,4,"baum"], [40,4,"baum2"], [41,4,"baum"],
+        [-6,5,"baum"], [-5,5,"baum2"], [-4,5,"baum"], [-3,5,"baum2"], [-2,5,"baum"], [-1,5,"baum2"],
+        [36,5,"baum"], [37,5,"baum2"], [38,5,"baum"], [39,5,"baum2"], [40,5,"baum"], [41,5,"baum2"],
+        [-6,6,"baum2"], [-5,6,"baum"], [-4,6,"baum2"], [-3,6,"baum"], [-2,6,"baum2"], [-1,6,"baum"],
+        [36,6,"baum2"], [37,6,"baum"], [38,6,"baum2"], [39,6,"baum"], [40,6,"baum2"], [41,6,"baum"],
+        [-6,7,"baum"], [-5,7,"baum2"], [-4,7,"baum"], [-3,7,"baum2"], [-2,7,"baum"], [-1,7,"baum2"],
+        [36,7,"baum"], [37,7,"baum2"], [38,7,"baum"], [39,7,"baum2"], [40,7,"baum"], [41,7,"baum2"],
+        [-6,8,"baum2"], [-5,8,"baum"], [-4,8,"baum2"], [-3,8,"baum"], [-2,8,"baum2"], [-1,8,"baum"],
+        [36,8,"baum2"], [37,8,"baum"], [38,8,"baum2"], [39,8,"baum"], [40,8,"baum2"], [41,8,"baum"],
+        [-6,9,"baum"], [-5,9,"baum2"], [-4,9,"baum"], [-3,9,"baum2"], [-2,9,"baum"], [-1,9,"baum2"],
+        [36,9,"baum"], [37,9,"baum2"], [38,9,"baum"], [39,9,"baum2"], [40,9,"baum"], [41,9,"baum2"],
+        [-6,10,"baum2"], [-5,10,"baum"], [-4,10,"baum2"], [-3,10,"baum"], [-2,10,"baum2"],
+        [-1,10,"baum"], [36,10,"baum2"], [37,10,"baum"], [38,10,"baum2"], [39,10,"baum"],
+        [40,10,"baum2"], [41,10,"baum"], [-6,11,"baum"], [-5,11,"baum2"], [-4,11,"baum"],
+        [-3,11,"baum2"], [-2,11,"baum"], [-1,11,"baum2"], [36,11,"baum"], [37,11,"baum2"],
+        [38,11,"baum"], [39,11,"baum2"], [40,11,"baum"], [41,11,"baum2"], [-6,12,"baum2"],
+        [-5,12,"baum"], [-4,12,"baum2"], [-3,12,"baum"], [-2,12,"baum2"], [-1,12,"baum"],
+        [36,12,"baum2"], [37,12,"baum"], [38,12,"baum2"], [39,12,"baum"], [40,12,"baum2"],
+        [41,12,"baum"], [-6,13,"baum"], [-5,13,"baum2"], [-4,13,"baum"], [-3,13,"baum2"],
+        [-2,13,"baum"], [-1,13,"baum2"], [36,13,"baum"], [37,13,"baum2"], [38,13,"baum"],
+        [39,13,"baum2"], [40,13,"baum"], [41,13,"baum2"], [-6,14,"baum2"], [-5,14,"baum"],
+        [-4,14,"baum2"], [-3,14,"baum"], [-2,14,"baum2"], [-1,14,"baum"], [36,14,"baum2"],
+        [37,14,"baum"], [38,14,"baum2"], [39,14,"baum"], [40,14,"baum2"], [41,14,"baum"],
+        [-6,15,"baum"], [-5,15,"baum2"], [-4,15,"baum"], [-3,15,"baum2"], [-2,15,"baum"],
+        [-1,15,"baum2"], [36,15,"baum"], [37,15,"baum2"], [38,15,"baum"], [39,15,"baum2"],
+        [40,15,"baum"], [41,15,"baum2"], [-6,16,"baum2"], [-5,16,"baum"], [-4,16,"baum2"],
+        [-3,16,"baum"], [-2,16,"baum2"], [-1,16,"baum"], [36,16,"baum2"], [37,16,"baum"],
+        [38,16,"baum2"], [39,16,"baum"], [40,16,"baum2"], [41,16,"baum"], [-6,17,"baum"],
+        [-5,17,"baum2"], [-4,17,"baum"], [-3,17,"baum2"], [-2,17,"baum"], [-1,17,"baum2"],
+        [36,17,"baum"], [37,17,"baum2"], [38,17,"baum"], [39,17,"baum2"], [40,17,"baum"],
+        [41,17,"baum2"], [-6,18,"baum2"], [-5,18,"baum"], [-4,18,"baum2"], [-3,18,"baum"],
+        [-2,18,"baum2"], [-1,18,"baum"], [36,18,"baum2"], [37,18,"baum"], [38,18,"baum2"],
+        [39,18,"baum"], [40,18,"baum2"], [41,18,"baum"], [-6,19,"baum"], [-5,19,"baum2"],
+        [-4,19,"baum"], [-3,19,"baum2"], [-2,19,"baum"], [-1,19,"baum2"], [36,19,"baum"],
+        [37,19,"baum2"], [38,19,"baum"], [39,19,"baum2"], [40,19,"baum"], [41,19,"baum2"],
+        [-6,20,"baum2"], [-5,20,"baum"], [-4,20,"baum2"], [-3,20,"baum"], [-2,20,"baum2"],
+        [-1,20,"baum"], [36,20,"baum2"], [37,20,"baum"], [38,20,"baum2"], [39,20,"baum"],
+        [40,20,"baum2"], [41,20,"baum"], [-6,21,"baum"], [-5,21,"baum2"], [-4,21,"baum"],
+        [-3,21,"baum2"], [-2,21,"baum"], [-1,21,"baum2"], [36,21,"baum"], [37,21,"baum2"],
+        [38,21,"baum"], [39,21,"baum2"], [40,21,"baum"], [41,21,"baum2"], [-6,22,"baum2"],
+        [-5,22,"baum"], [-4,22,"baum2"], [-3,22,"baum"], [-2,22,"baum2"], [-1,22,"baum"],
+        [36,22,"baum2"], [37,22,"baum"], [38,22,"baum2"], [39,22,"baum"], [40,22,"baum2"],
+        [41,22,"baum"], [-6,23,"baum"], [-5,23,"baum2"], [-4,23,"baum"], [-3,23,"baum2"],
+        [-2,23,"baum"], [-1,23,"baum2"], [36,23,"baum"], [37,23,"baum2"], [38,23,"baum"],
+        [39,23,"baum2"], [40,23,"baum"], [41,23,"baum2"], [-6,24,"baum_offen"], [-5,24,"baum_offen"],
+        [40,24,"baum_offen"], [41,24,"baum_offen"], [-6,27,"baum_offen"], [-5,27,"baum_offen"],
+        [40,27,"baum_offen"], [41,27,"baum_offen"], [-6,28,"baum_offen"], [-5,28,"baum_offen"],
+        [40,28,"baum_offen"], [41,28,"baum_offen"], [-6,29,"baum_offen"], [-5,29,"baum_offen"],
+        [40,29,"baum_offen"], [41,29,"baum_offen"], [-6,30,"baum2"], [-5,30,"baum"], [-4,30,"baum2"],
+        [-3,30,"baum"], [-2,30,"baum2"], [-1,30,"baum"], [36,30,"busch"], [37,30,"busch"],
+        [38,30,"baum2"], [39,30,"baum"], [40,30,"baum2"], [41,30,"baum"], [-6,31,"baum"],
+        [-5,31,"baum2"], [-4,31,"baum"], [-3,31,"baum2"], [-2,31,"baum"], [-1,31,"baum2"],
+        [36,31,"jung2"], [37,31,"busch"], [39,31,"baum2"], [40,31,"baum"], [41,31,"baum2"],
+        [-6,32,"baum2"], [-5,32,"baum"], [-4,32,"baum2"], [-3,32,"baum"], [-2,32,"baum2"],
+        [-1,32,"baum"], [0,32,"baum2"], [1,32,"baum"], [2,32,"baum2"], [3,32,"jung2"],
+        [4,32,"busch"], [5,32,"busch"], [6,32,"jung2"], [7,32,"jung2"], [8,32,"busch"],
+        [9,32,"busch"], [10,32,"busch"], [11,32,"busch"], [12,32,"busch"], [13,32,"jung"],
+        [24,32,"busch"], [25,32,"busch"], [26,32,"busch"], [27,32,"jung"], [28,32,"busch"],
+        [29,32,"busch"], [30,32,"busch"], [31,32,"jung2"], [32,32,"busch"], [33,32,"busch"],
+        [34,32,"jung2"], [35,32,"jung"], [36,32,"jung"], [37,32,"jung"], [39,32,"baum"],
+        [40,32,"baum2"], [41,32,"baum"], [-6,33,"baum"], [-5,33,"baum2"], [-4,33,"baum"],
+        [-3,33,"baum2"], [-2,33,"baum"], [-1,33,"baum2"], [0,33,"baum"], [1,33,"baum2"],
+        [2,33,"baum"], [3,33,"baum2"], [4,33,"busch"], [5,33,"jung"], [6,33,"busch"], [7,33,"jung"],
+        [8,33,"busch"], [9,33,"busch"], [10,33,"jung"], [11,33,"busch"], [12,33,"busch"],
+        [13,33,"busch"], [24,33,"busch"], [25,33,"busch"], [26,33,"busch"], [27,33,"busch"],
+        [28,33,"jung"], [29,33,"busch"], [30,33,"busch"], [31,33,"jung2"], [32,33,"busch"],
+        [33,33,"busch"], [34,33,"busch"], [35,33,"busch"], [36,33,"busch"], [37,33,"jung2"],
+        [38,33,"baum"], [39,33,"baum2"], [40,33,"baum"], [41,33,"baum2"], [-6,34,"baum2"],
+        [-5,34,"baum"], [-4,34,"baum2"], [-3,34,"baum"], [-2,34,"baum2"], [-1,34,"baum"],
+        [0,34,"baum2"], [1,34,"baum"], [2,34,"baum2"], [3,34,"baum"], [4,34,"baum2"], [37,34,"baum"],
+        [38,34,"baum2"], [39,34,"baum"], [40,34,"baum2"], [41,34,"baum"], [-6,35,"baum"],
+        [-5,35,"baum2"], [-4,35,"baum"], [-3,35,"baum2"], [-2,35,"baum"], [-1,35,"baum2"],
+        [0,35,"baum"], [1,35,"baum2"], [2,35,"baum"], [3,35,"baum2"], [4,35,"baum"], [5,35,"baum2"],
+        [13,35,"baum2"], [35,35,"baum2"], [36,35,"baum"], [37,35,"baum2"], [38,35,"baum"],
+        [39,35,"baum2"], [40,35,"baum"], [41,35,"baum2"], [-6,36,"baum2"], [-5,36,"baum"],
+        [-4,36,"baum2"], [-3,36,"baum"], [-2,36,"baum2"], [-1,36,"baum"], [0,36,"baum2"],
+        [1,36,"baum"], [2,36,"baum2"], [3,36,"baum"], [4,36,"baum2"], [5,36,"baum"], [6,36,"baum2"],
+        [7,36,"baum"], [8,36,"baum2"], [9,36,"baum"], [10,36,"baum2"], [11,36,"baum"],
+        [12,36,"baum2"], [13,36,"baum"], [14,36,"baum_offen"], [15,36,"baum_offen"],
+        [16,36,"baum_offen"], [17,36,"baum_offen"], [24,36,"baum2"], [25,36,"baum"], [26,36,"baum2"],
+        [27,36,"baum"], [28,36,"baum2"], [29,36,"baum"], [30,36,"baum2"], [31,36,"baum"],
+        [32,36,"baum2"], [33,36,"baum"], [34,36,"baum2"], [35,36,"baum"], [36,36,"baum2"],
+        [37,36,"baum"], [38,36,"baum2"], [39,36,"baum"], [40,36,"baum2"], [41,36,"baum"],
+        [-6,37,"baum"], [-5,37,"baum2"], [-4,37,"baum"], [-3,37,"baum2"], [-2,37,"baum"],
+        [-1,37,"baum2"], [0,37,"baum"], [1,37,"baum2"], [2,37,"baum"], [3,37,"baum2"], [4,37,"baum"],
+        [5,37,"baum2"], [6,37,"baum"], [7,37,"baum2"], [8,37,"baum"], [9,37,"baum2"], [10,37,"baum"],
+        [11,37,"baum2"], [12,37,"baum"], [13,37,"baum2"], [14,37,"baum_offen"], [15,37,"baum_offen"],
+        [16,37,"baum_offen"], [17,37,"baum_offen"], [18,37,"baum_offen"], [19,37,"baum_offen"],
+        [20,37,"baum_offen"], [21,37,"baum_offen"], [22,37,"baum_offen"], [23,37,"baum_offen"],
+        [24,37,"baum"], [25,37,"baum2"], [26,37,"baum"], [27,37,"baum2"], [28,37,"baum"],
+        [29,37,"baum2"], [30,37,"baum"], [31,37,"baum2"], [32,37,"baum"], [33,37,"baum2"],
+        [34,37,"baum"], [35,37,"baum2"], [36,37,"baum"], [37,37,"baum2"], [38,37,"baum"],
+        [39,37,"baum2"], [40,37,"baum"], [41,37,"baum2"]
+      ],
+      "ausgaenge": [
+        {
+          "x": 17,
+          "y": 0,
+          "ziel": {"karte":"forest","x":9,"y":30,"blick":"UP"},
+          "braucht": "quest_started",
+          "verschlossen": false,
+          "umkehren": false,
+          "abgewiesen": [
+            {
+              "wer": {"de":"Wache Jorin","en":"Guard Jorin"},
+              "text": {
+                "de": "Halt! Ohne Erlaubnis des Ältesten lasse ich niemanden in den Wald.",
+                "en": "Halt! Nobody enters the woods without the Elder's permission."
+              }
+            },
+            {
+              "wer": {"de":"Wache Jorin","en":"Guard Jorin"},
+              "text": {
+                "de": "Sein Haus ist unten links am Dorfplatz.",
+                "en": "His house is at the bottom left of the village square."
+              }
+            }
+          ]
+        },
+        {
+          "x": 18,
+          "y": 0,
+          "ziel": {"karte":"forest","x":10,"y":30,"blick":"UP"},
+          "braucht": "quest_started",
+          "verschlossen": false,
+          "umkehren": false,
+          "abgewiesen": [
+            {
+              "wer": {"de":"Wache Jorin","en":"Guard Jorin"},
+              "text": {
+                "de": "Halt! Ohne Erlaubnis des Ältesten lasse ich niemanden in den Wald.",
+                "en": "Halt! Nobody enters the woods without the Elder's permission."
+              }
+            },
+            {
+              "wer": {"de":"Wache Jorin","en":"Guard Jorin"},
+              "text": {
+                "de": "Sein Haus ist unten links am Dorfplatz.",
+                "en": "His house is at the bottom left of the village square."
+              }
+            }
+          ]
+        },
+        {
+          "x": 15,
+          "y": 31,
+          "ziel": {"karte":"village","x":15,"y":30,"blick":"UP"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": true,
+          "gedanke": {
+            "de": "Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."
+          },
+          "gedanke_kurz": {
+            "de": "Erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "First you want to know what happened in Bornim."
+          }
+        },
+        {
+          "x": 16,
+          "y": 31,
+          "ziel": {"karte":"village","x":16,"y":30,"blick":"UP"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": true,
+          "gedanke": {
+            "de": "Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."
+          },
+          "gedanke_kurz": {
+            "de": "Erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "First you want to know what happened in Bornim."
+          }
+        },
+        {
+          "x": 17,
+          "y": 31,
+          "ziel": {"karte":"village","x":17,"y":30,"blick":"UP"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": true,
+          "gedanke": {
+            "de": "Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."
+          },
+          "gedanke_kurz": {
+            "de": "Erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "First you want to know what happened in Bornim."
+          }
+        },
+        {
+          "x": 18,
+          "y": 31,
+          "ziel": {"karte":"village","x":18,"y":30,"blick":"UP"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": true,
+          "gedanke": {
+            "de": "Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."
+          },
+          "gedanke_kurz": {
+            "de": "Erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "First you want to know what happened in Bornim."
+          }
+        },
+        {
+          "x": 19,
+          "y": 31,
+          "ziel": {"karte":"village","x":19,"y":30,"blick":"UP"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": true,
+          "gedanke": {
+            "de": "Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."
+          },
+          "gedanke_kurz": {
+            "de": "Erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "First you want to know what happened in Bornim."
+          }
+        },
+        {
+          "x": 20,
+          "y": 31,
+          "ziel": {"karte":"village","x":20,"y":30,"blick":"UP"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": true,
+          "gedanke": {
+            "de": "Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "You came from the south to rest here. You can move on later – first you want to know what happened in Bornim."
+          },
+          "gedanke_kurz": {
+            "de": "Erst willst du wissen, was in Bornim geschehen ist.",
+            "en": "First you want to know what happened in Bornim."
+          }
+        },
+        {
+          "x": 6,
+          "y": 5,
+          "ziel": {"karte":"inn","x":4,"y":6,"blick":"UP"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 28,
+          "y": 5,
+          "ziel": {"karte":"shop","x":4,"y":5,"blick":"UP"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 5,
+          "y": 20,
+          "ziel": {"karte":"elder","x":4,"y":4,"blick":"UP"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 28,
+          "y": 20,
+          "ziel": {"karte":"temple","x":4,"y":5,"blick":"UP"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 12,
+          "y": 5,
+          "ziel": {"karte":"village","x":12,"y":6,"blick":"DOWN"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": false,
+          "klopfen": {
+            "tag": [
+              {
+                "text": {
+                  "de": "„Wer ist da? … Ich mach nicht auf. Für niemanden.“",
+                  "en": "“Who's there? … I'm not opening. Not for anyone.”"
+                }
+              }
+            ],
+            "nacht": [
+              {
+                "text": {
+                  "de": "„Wer ist da? … Ich mach nicht auf. Für niemanden.“",
+                  "en": "“Who's there? … I'm not opening. Not for anyone.”"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "x": 23,
+          "y": 5,
+          "ziel": {"karte":"village","x":23,"y":6,"blick":"DOWN"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": false,
+          "klopfen": {
+            "tag": [
+              {
+                "text": {
+                  "de": "„Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.“",
+                  "en": "“Move along. I've heard enough knocking at strange doors in my life.”"
+                }
+              }
+            ],
+            "nacht": [
+              {
+                "text": {
+                  "de": "„Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.“",
+                  "en": "“Move along. I've heard enough knocking at strange doors in my life.”"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "x": 5,
+          "y": 14,
+          "ziel": {"karte":"village","x":5,"y":15,"blick":"DOWN"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": false,
+          "klopfen": {
+            "tag": [
+              {
+                "text": {
+                  "de": "Hier wohnt Gwenna. Seit ihr Mann nicht zurückkam, bleibt die Tür verschlossen.",
+                  "en": "Gwenna lives here. Ever since her husband didn't come back, the door has stayed locked."
+                }
+              }
+            ],
+            "nacht": [{"text":{"de":"„Nicht nachts. Nicht mehr.“","en":"“Not at night. Not anymore.”"}}]
+          }
+        },
+        {
+          "x": 30,
+          "y": 13,
+          "ziel": {"karte":"village","x":30,"y":14,"blick":"DOWN"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": false,
+          "klopfen": {
+            "tag": [
+              {
+                "text": {
+                  "de": "Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.",
+                  "en": "The house of Dorran the smith. He must be in his workshop."
+                }
+              }
+            ],
+            "nacht": [
+              {
+                "text": {
+                  "de": "„Die Esse ist kalt. Komm morgen.“",
+                  "en": "“The forge is cold. Come back tomorrow.”"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "x": 13,
+          "y": 22,
+          "ziel": {"karte":"village","x":13,"y":23,"blick":"DOWN"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": false,
+          "klopfen": {
+            "tag": [
+              {
+                "text": {
+                  "de": "„Pim ist nicht da. Wenn du ihn am Schlagbaum siehst, schick ihn heim.“",
+                  "en": "“Pim isn't here. If you see him at the barrier, send him home.”"
+                }
+              }
+            ],
+            "nacht": [
+              {
+                "text": {
+                  "de": "„Pim schläft. Und du solltest um diese Zeit auch nicht draußen sein.“",
+                  "en": "“Pim is asleep. And you shouldn't be out at this hour either.”"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "leute": [
+        {
+          "id": "jorin",
+          "x": 15,
+          "y": 3,
+          "aussehen": "guard",
+          "blick": "RIGHT",
+          "streifen": 0,
+          "runde": [[15,3],[17,3],[20,3],[18,3]]
+        },
+        {"id":"pim","x":15,"y":14,"aussehen":"child","blick":"DOWN","streifen":3},
+        {"id":"bram","x":20,"y":29,"aussehen":"farmer","blick":"DOWN","streifen":1},
+        {"id":"liska","x":8,"y":10,"aussehen":"maid","blick":"DOWN","streifen":1},
+        {"id":"gwenna","x":8,"y":24,"aussehen":"villager","blick":"DOWN","streifen":2}
+      ],
+      "kisten": [],
+      "schilder": [
+        {
+          "x": 21,
+          "y": 2,
+          "text": {
+            "de": "Norden: Flüsterwald.\nAchtung, Goblins!",
+            "en": "North: Whisperwood.\nBeware of goblins!"
+          }
+        },
+        {
+          "x": 7,
+          "y": 6,
+          "text": {"de":"Gasthaus »Zum Schlafenden Greif«","en":"The Sleeping Griffin Inn"}
+        },
+        {"x":19,"y":29,"text":{"de":"Rabenschanze\nSchilfrode","en":"Rabenschanze\nSchilfrode"}},
+        {
+          "x": 25,
+          "y": 6,
+          "text": {
+            "de": "Thessas Kramladen\nWaffen · Rüstungen · Tränke",
+            "en": "Thessa's General Store\nWeapons · Armor · Potions"
+          }
+        }
+      ],
+      "haeuser": [
+        {"x":3,"y":3,"dach":"RED","wand":"TIMBER","gespiegelt":false,"merkmal":"INN_SIGN"},
+        {"x":26,"y":3,"dach":"SHINGLE","wand":"PLANKS","gespiegelt":true,"merkmal":"AWNING"},
+        {"x":11,"y":4,"dach":"STRAW","wand":"TIMBER","gespiegelt":false,"merkmal":"NONE"},
+        {"x":23,"y":4,"dach":"STRAW","wand":"PLANKS","gespiegelt":true,"merkmal":"NONE"},
+        {"x":3,"y":12,"dach":"RED","wand":"STONE","gespiegelt":true,"merkmal":"NONE"},
+        {"x":29,"y":12,"dach":"SLATE","wand":"STONE","gespiegelt":false,"merkmal":"NONE"},
+        {"x":3,"y":18,"dach":"BLUE","wand":"STONE","gespiegelt":false,"merkmal":"NONE"},
+        {"x":26,"y":18,"dach":"SLATE","wand":"STONE","gespiegelt":false,"merkmal":"BELL_TOWER"},
+        {"x":11,"y":21,"dach":"SHINGLE","wand":"TIMBER","gespiegelt":true,"merkmal":"NONE"}
+      ],
+      "fassaden": [
+        {"x":3,"y":5,"n":6,"d":3,"vorn":"#W#D#W","seite":"#W#"},
+        {"x":11,"y":5,"n":4,"d":2,"vorn":"#D#W","seite":"W#"},
+        {"x":23,"y":5,"n":2,"d":2,"vorn":"D#","seite":"W#"},
+        {"x":26,"y":5,"n":5,"d":3,"vorn":"W#D#W","seite":"#W#"},
+        {"x":29,"y":13,"n":4,"d":2,"vorn":"#D#W","seite":"#W"},
+        {"x":3,"y":14,"n":4,"d":3,"vorn":"W#D#","seite":"#W#"},
+        {"x":3,"y":20,"n":6,"d":3,"vorn":"W#D#WW","seite":"#W#"},
+        {"x":26,"y":20,"n":6,"d":3,"vorn":"W#D#W#","seite":"#W#"},
+        {"x":11,"y":22,"n":4,"d":2,"vorn":"W#D#","seite":"W#"}
+      ],
+      "schutz": []
+    },
+    "inn": {
+      "id": "inn",
+      "name": {"de":"Zum Schlafenden Greif","en":"The Sleeping Griffin"},
+      "art": "INTERIOR",
+      "breite": 10,
+      "hoehe": 8,
+      "rand": "#",
+      "stufe": 1,
+      "zeilen": [
+        "###ZZ#W###",
+        "#QQkkJbnu#",
+        "#kkkkkkYk#",
+        "#KKKkkkkJW",
+        "#kkYJkYYk#",
+        "#bkRRRnnJ#",
+        "##kRRRkku#",
+        "##W#D###W#"
+      ],
+      "buesche": [],
+      "bewuchs": [],
+      "ausgaenge": [
+        {
+          "x": 4,
+          "y": 7,
+          "ziel": {"karte":"village","x":6,"y":6,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        }
+      ],
+      "leute": [
+        {"id":"rowena","x":1,"y":2,"aussehen":"innkeeper","blick":"DOWN","streifen":0},
+        {"id":"borin","x":8,"y":4,"aussehen":"dwarf","blick":"LEFT","streifen":0}
+      ],
+      "kisten": [],
+      "schilder": [],
+      "haeuser": [],
+      "schutz": []
+    },
+    "shop": {
+      "id": "shop",
+      "name": {"de":"Thessas Kramladen","en":"Thessa's General Store"},
+      "art": "INTERIOR",
+      "breite": 9,
+      "hoehe": 7,
+      "rand": "#",
+      "stufe": 1,
+      "zeilen": ["##ZZ#W###","#kkkQQQU#","#bkkkkkk#","#bKKKKkJW","#kkkkkku#","#ukkkkkJ#","#W##D##W#"],
+      "buesche": [],
+      "bewuchs": [],
+      "ausgaenge": [
+        {
+          "x": 4,
+          "y": 6,
+          "ziel": {"karte":"village","x":28,"y":6,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        }
+      ],
+      "leute": [{"id":"thessa","x":4,"y":2,"aussehen":"merchant","blick":"DOWN","streifen":0}],
+      "kisten": [],
+      "schilder": [],
+      "haeuser": [],
+      "schutz": []
+    },
+    "elder": {
+      "id": "elder",
+      "name": {"de":"Haus des Ältesten","en":"Elder's House"},
+      "art": "INTERIOR",
+      "breite": 9,
+      "hoehe": 6,
+      "rand": "#",
+      "stufe": 1,
+      "zeilen": ["####ZZ#W#","#BBskkVd#","#BBkkkkaW","#akRRRkk#","#kkRRRkk#","#W##D#WW#"],
+      "buesche": [],
+      "bewuchs": [],
+      "ausgaenge": [
+        {
+          "x": 4,
+          "y": 5,
+          "ziel": {"karte":"village","x":5,"y":21,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        }
+      ],
+      "leute": [{"id":"aldric","x":7,"y":3,"aussehen":"elder","blick":"DOWN","streifen":0}],
+      "kisten": [],
+      "schilder": [],
+      "haeuser": [],
+      "schutz": []
+    },
+    "temple": {
+      "id": "temple",
+      "name": {"de":"Tempel des Morgenlichts","en":"Temple of the Dawnlight"},
+      "art": "INTERIOR",
+      "breite": 9,
+      "hoehe": 7,
+      "rand": "#",
+      "stufe": 1,
+      "zeilen": ["#W#####W#","#kNAAANk#","#kkkkdkk#","#knnknnkW","#knnknnk#","#kk&kkkk#","#W##D#W##"],
+      "buesche": [],
+      "bewuchs": [],
+      "ausgaenge": [
+        {
+          "x": 4,
+          "y": 6,
+          "ziel": {"karte":"village","x":28,"y":21,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        }
+      ],
+      "leute": [
+        {"id":"osric","x":4,"y":2,"aussehen":"priest","blick":"DOWN","streifen":0},
+        {"id":"lyra_temple","x":6,"y":2,"aussehen":"lyra","blick":"DOWN","streifen":0}
+      ],
+      "kisten": [],
+      "schilder": [],
+      "haeuser": [],
+      "schutz": []
+    },
+    "forest": {
+      "id": "forest",
+      "name": {"de":"Flüsterwald","en":"Whisperwood"},
+      "art": "FOREST",
+      "breite": 20,
+      "hoehe": 32,
+      "rand": "T",
+      "stufe": 1,
+      "zeilen": [
+        "TTTTTTTTXXEXXTTTTTTT",
+        "TTT,,,,..=..S.,,,TTT",
+        "TT,,,,,..=...,,OO,TT",
+        "TT,,TT,..=..TT,,,,TT",
+        "TT,,TT...=...T,,C,TT",
+        "TTTTTT..==...TTTTTTT",
+        "TTfff..==.....TTTTTT",
+        "TTfr..==........TTTT",
+        "TTff..=.......r,,,TT",
+        "TT,,,.=....F...,,,TT",
+        "TT,,,.=......=======",
+        "TT,,,.==.......,,,TT",
+        "TTTT...=...TTT,,TTTT",
+        "TT~~~..=..,,,,,,,,TT",
+        "TT~~~~.=..,,,,,,,,TT",
+        "TT~~~~.==.,,TT,,C,TT",
+        "TT~~~...=.,,TT,,,,TT",
+        "TTT.....=....TTTTTTT",
+        "TT,,,,..==..,,,,,,TT",
+        "TT,OO,...=..,,,,,,TT",
+        "TT,,TT...=...TT,,,TT",
+        "TT,,TT...=...TT,,,TT",
+        "TTffff...=.....r..TT",
+        "TTTTTff..=...TTTTTTT",
+        "TTC,,,...==..,,I,TTT",
+        "TT,,,,....=..I,,,ITT",
+        "TT,,,,....=..,,,,,TT",
+        "TTTT,,ff..=...I,TTTT",
+        "TTTTfff...=S..fffTTT",
+        "TTTTTT...==...TTTTTT",
+        "TTTTTTTT.==.TTTTTTTT",
+        "TTTTTTTTT==TTTTTTTTT"
+      ],
+      "buesche": [[19,11],[19,12],[11,31],[12,31],[13,31]],
+      "bewuchs": [
+        [12,3,"jung2"], [13,3,"jung"], [13,4,"jung"], [13,5,"jung"], [14,5,"jung2"], [15,5,"jung"],
+        [16,5,"jung"], [15,6,"jung2"], [19,11,"busch"], [11,12,"jung"], [12,12,"jung"],
+        [13,12,"jung"], [16,12,"jung"], [19,12,"busch"], [17,24,"jung"], [18,25,"jung"],
+        [19,25,"jung2"], [18,26,"jung2"], [19,26,"jung"], [16,27,"jung"], [17,27,"jung"],
+        [18,27,"jung"], [19,27,"jung"], [17,28,"jung"], [18,28,"jung"], [19,28,"jung"],
+        [14,29,"jung2"], [15,29,"jung"], [16,29,"jung"], [17,29,"jung"], [18,29,"jung"],
+        [19,29,"jung"], [12,30,"jung2"], [13,30,"jung"], [14,30,"jung"], [15,30,"jung2"],
+        [16,30,"jung"], [17,30,"jung2"], [18,30,"jung"], [19,30,"jung"], [11,31,"busch"],
+        [12,31,"busch"], [13,31,"busch"], [14,31,"jung2"], [15,31,"jung2"], [16,31,"jung"],
+        [17,31,"jung"], [18,31,"jung2"]
+      ],
+      "ring": [
+        [-6,-6,"baum2"], [-5,-6,"baum"], [-4,-6,"baum2"], [-3,-6,"baum"], [-2,-6,"baum2"],
+        [-1,-6,"baum"], [0,-6,"baum2"], [1,-6,"baum"], [2,-6,"baum2"], [3,-6,"baum"], [4,-6,"baum2"],
+        [5,-6,"baum"], [6,-6,"baum2"], [7,-6,"baum_offen"], [8,-6,"baum_offen"], [9,-6,"baum_offen"],
+        [10,-6,"baum_offen"], [11,-6,"baum_offen"], [12,-6,"baum_offen"], [13,-6,"baum_offen"],
+        [14,-6,"baum_offen"], [15,-6,"baum_offen"], [16,-6,"baum2"], [17,-6,"baum"], [18,-6,"baum2"],
+        [19,-6,"baum"], [20,-6,"baum2"], [21,-6,"baum"], [22,-6,"baum2"], [23,-6,"baum"],
+        [24,-6,"baum2"], [25,-6,"baum"], [-6,-5,"baum"], [-5,-5,"baum2"], [-4,-5,"baum"],
+        [-3,-5,"baum2"], [-2,-5,"baum"], [-1,-5,"baum2"], [0,-5,"baum"], [1,-5,"baum2"],
+        [2,-5,"baum"], [3,-5,"baum2"], [4,-5,"baum"], [5,-5,"baum2"], [6,-5,"baum"],
+        [7,-5,"baum_offen"], [8,-5,"baum_offen"], [9,-5,"baum_offen"], [10,-5,"baum_offen"],
+        [11,-5,"baum_offen"], [12,-5,"baum_offen"], [13,-5,"baum_offen"], [14,-5,"baum_offen"],
+        [15,-5,"baum_offen"], [16,-5,"baum"], [17,-5,"baum2"], [18,-5,"baum"], [19,-5,"baum2"],
+        [20,-5,"baum"], [21,-5,"baum2"], [22,-5,"baum"], [23,-5,"baum2"], [24,-5,"baum"],
+        [25,-5,"baum2"], [-6,-4,"baum2"], [-5,-4,"baum"], [-4,-4,"baum2"], [-3,-4,"baum"],
+        [-2,-4,"baum2"], [-1,-4,"baum"], [0,-4,"baum2"], [1,-4,"baum"], [2,-4,"baum2"],
+        [3,-4,"baum"], [4,-4,"baum2"], [5,-4,"baum"], [6,-4,"baum2"], [16,-4,"baum2"],
+        [17,-4,"baum"], [18,-4,"baum2"], [19,-4,"baum"], [20,-4,"baum2"], [21,-4,"baum"],
+        [22,-4,"baum2"], [23,-4,"baum"], [24,-4,"baum2"], [25,-4,"baum"], [-6,-3,"baum"],
+        [-5,-3,"baum2"], [-4,-3,"baum"], [-3,-3,"baum2"], [-2,-3,"baum"], [-1,-3,"baum2"],
+        [0,-3,"baum"], [1,-3,"baum2"], [2,-3,"baum"], [3,-3,"baum2"], [4,-3,"baum"], [5,-3,"baum2"],
+        [6,-3,"baum"], [16,-3,"baum"], [17,-3,"baum2"], [18,-3,"baum"], [19,-3,"baum2"],
+        [20,-3,"baum"], [21,-3,"baum2"], [22,-3,"baum"], [23,-3,"baum2"], [24,-3,"baum"],
+        [25,-3,"baum2"], [-6,-2,"baum2"], [-5,-2,"baum"], [-4,-2,"baum2"], [-3,-2,"baum"],
+        [-2,-2,"baum2"], [-1,-2,"baum"], [0,-2,"baum2"], [1,-2,"baum"], [2,-2,"baum2"],
+        [3,-2,"baum"], [4,-2,"baum2"], [5,-2,"baum"], [6,-2,"baum2"], [16,-2,"baum2"],
+        [17,-2,"baum"], [18,-2,"baum2"], [19,-2,"baum"], [20,-2,"baum2"], [21,-2,"baum"],
+        [22,-2,"baum2"], [23,-2,"baum"], [24,-2,"baum2"], [25,-2,"baum"], [-6,-1,"baum"],
+        [-5,-1,"baum2"], [-4,-1,"baum"], [-3,-1,"baum2"], [-2,-1,"baum"], [-1,-1,"baum2"],
+        [0,-1,"baum"], [1,-1,"baum2"], [2,-1,"baum"], [3,-1,"baum2"], [4,-1,"baum"], [5,-1,"baum2"],
+        [6,-1,"baum"], [16,-1,"baum"], [17,-1,"baum2"], [18,-1,"baum"], [19,-1,"baum2"],
+        [20,-1,"baum"], [21,-1,"baum2"], [22,-1,"baum"], [23,-1,"baum2"], [24,-1,"baum"],
+        [25,-1,"baum2"], [-6,0,"baum2"], [-5,0,"baum"], [-4,0,"baum2"], [-3,0,"baum"],
+        [-2,0,"baum2"], [-1,0,"baum"], [20,0,"baum2"], [21,0,"baum"], [22,0,"baum2"], [23,0,"baum"],
+        [24,0,"baum2"], [25,0,"baum"], [-6,1,"baum"], [-5,1,"baum2"], [-4,1,"baum"], [-3,1,"baum2"],
+        [-2,1,"baum"], [-1,1,"baum2"], [20,1,"baum"], [21,1,"baum2"], [22,1,"baum"], [23,1,"baum2"],
+        [24,1,"baum"], [25,1,"baum2"], [-6,2,"baum2"], [-5,2,"baum"], [-4,2,"baum2"], [-3,2,"baum"],
+        [-2,2,"baum2"], [-1,2,"baum"], [20,2,"baum2"], [21,2,"baum"], [22,2,"baum2"], [23,2,"baum"],
+        [24,2,"baum2"], [25,2,"baum"], [-6,3,"baum"], [-5,3,"baum2"], [-4,3,"baum"], [-3,3,"baum2"],
+        [-2,3,"baum"], [-1,3,"baum2"], [20,3,"baum"], [21,3,"baum2"], [22,3,"baum"], [23,3,"baum2"],
+        [24,3,"baum"], [25,3,"baum2"], [-6,4,"baum2"], [-5,4,"baum"], [-4,4,"baum2"], [-3,4,"baum"],
+        [-2,4,"baum2"], [-1,4,"baum"], [20,4,"baum2"], [21,4,"baum"], [22,4,"baum2"], [23,4,"baum"],
+        [24,4,"baum2"], [25,4,"baum"], [-6,5,"baum"], [-5,5,"baum2"], [-4,5,"baum"], [-3,5,"baum2"],
+        [-2,5,"baum"], [-1,5,"baum2"], [20,5,"baum"], [21,5,"baum2"], [22,5,"baum"], [23,5,"baum2"],
+        [24,5,"baum"], [25,5,"baum2"], [-6,6,"baum2"], [-5,6,"baum"], [-4,6,"baum2"], [-3,6,"baum"],
+        [-2,6,"baum2"], [-1,6,"baum"], [20,6,"baum2"], [21,6,"baum"], [22,6,"baum2"], [23,6,"baum"],
+        [24,6,"baum2"], [25,6,"baum"], [-6,7,"baum"], [-5,7,"baum2"], [-4,7,"baum"], [-3,7,"baum2"],
+        [-2,7,"baum"], [-1,7,"baum2"], [20,7,"baum"], [21,7,"baum2"], [22,7,"baum"], [23,7,"baum2"],
+        [24,7,"baum"], [25,7,"baum2"], [-6,8,"baum2"], [-5,8,"baum"], [-4,8,"baum2"], [-3,8,"baum"],
+        [-2,8,"baum2"], [-1,8,"baum"], [20,8,"baum2"], [21,8,"baum"], [22,8,"baum2"], [23,8,"baum"],
+        [24,8,"baum2"], [25,8,"baum"], [-6,9,"baum"], [-5,9,"baum2"], [-4,9,"baum"], [-3,9,"baum2"],
+        [-2,9,"baum"], [-1,9,"baum2"], [24,9,"baum_offen"], [25,9,"baum_offen"], [-6,10,"baum2"],
+        [-5,10,"baum"], [-4,10,"baum2"], [-3,10,"baum"], [-2,10,"baum2"], [-1,10,"baum"],
+        [24,10,"baum_offen"], [25,10,"baum_offen"], [-6,11,"baum"], [-5,11,"baum2"], [-4,11,"baum"],
+        [-3,11,"baum2"], [-2,11,"baum"], [-1,11,"baum2"], [24,11,"baum_offen"], [25,11,"baum_offen"],
+        [-6,12,"baum2"], [-5,12,"baum"], [-4,12,"baum2"], [-3,12,"baum"], [-2,12,"baum2"],
+        [-1,12,"baum"], [24,12,"baum_offen"], [25,12,"baum_offen"], [-6,13,"baum"], [-5,13,"baum2"],
+        [-4,13,"baum"], [-3,13,"baum2"], [-2,13,"baum"], [-1,13,"baum2"], [24,13,"baum_offen"],
+        [25,13,"baum_offen"], [-6,14,"baum2"], [-5,14,"baum"], [-4,14,"baum2"], [-3,14,"baum"],
+        [-2,14,"baum2"], [-1,14,"baum"], [20,14,"baum2"], [21,14,"baum"], [22,14,"baum2"],
+        [23,14,"baum"], [24,14,"baum2"], [25,14,"baum"], [-6,15,"baum"], [-5,15,"baum2"],
+        [-4,15,"baum"], [-3,15,"baum2"], [-2,15,"baum"], [-1,15,"baum2"], [20,15,"baum"],
+        [21,15,"baum2"], [22,15,"baum"], [23,15,"baum2"], [24,15,"baum"], [25,15,"baum2"],
+        [-6,16,"baum2"], [-5,16,"baum"], [-4,16,"baum2"], [-3,16,"baum"], [-2,16,"baum2"],
+        [-1,16,"baum"], [20,16,"baum2"], [21,16,"baum"], [22,16,"baum2"], [23,16,"baum"],
+        [24,16,"baum2"], [25,16,"baum"], [-6,17,"baum"], [-5,17,"baum2"], [-4,17,"baum"],
+        [-3,17,"baum2"], [-2,17,"baum"], [-1,17,"baum2"], [20,17,"baum"], [21,17,"baum2"],
+        [22,17,"baum"], [23,17,"baum2"], [24,17,"baum"], [25,17,"baum2"], [-6,18,"baum2"],
+        [-5,18,"baum"], [-4,18,"baum2"], [-3,18,"baum"], [-2,18,"baum2"], [-1,18,"baum"],
+        [20,18,"baum2"], [21,18,"baum"], [22,18,"baum2"], [23,18,"baum"], [24,18,"baum2"],
+        [25,18,"baum"], [-6,19,"baum"], [-5,19,"baum2"], [-4,19,"baum"], [-3,19,"baum2"],
+        [-2,19,"baum"], [-1,19,"baum2"], [20,19,"baum"], [21,19,"baum2"], [22,19,"baum"],
+        [23,19,"baum2"], [24,19,"baum"], [25,19,"baum2"], [-6,20,"baum2"], [-5,20,"baum"],
+        [-4,20,"baum2"], [-3,20,"baum"], [-2,20,"baum2"], [-1,20,"baum"], [20,20,"baum2"],
+        [21,20,"baum"], [22,20,"baum2"], [23,20,"baum"], [24,20,"baum2"], [25,20,"baum"],
+        [-6,21,"baum"], [-5,21,"baum2"], [-4,21,"baum"], [-3,21,"baum2"], [-2,21,"baum"],
+        [-1,21,"baum2"], [20,21,"baum"], [21,21,"baum2"], [22,21,"baum"], [23,21,"baum2"],
+        [24,21,"baum"], [25,21,"baum2"], [-6,22,"baum2"], [-5,22,"baum"], [-4,22,"baum2"],
+        [-3,22,"baum"], [-2,22,"baum2"], [-1,22,"baum"], [20,22,"baum2"], [21,22,"baum"],
+        [22,22,"baum2"], [23,22,"baum"], [24,22,"baum2"], [25,22,"baum"], [-6,23,"baum"],
+        [-5,23,"baum2"], [-4,23,"baum"], [-3,23,"baum2"], [-2,23,"baum"], [-1,23,"baum2"],
+        [20,23,"baum"], [21,23,"baum2"], [22,23,"baum"], [23,23,"baum2"], [24,23,"baum"],
+        [25,23,"baum2"], [-6,24,"baum2"], [-5,24,"baum"], [-4,24,"baum2"], [-3,24,"baum"],
+        [-2,24,"baum2"], [-1,24,"baum"], [20,24,"baum2"], [21,24,"baum"], [22,24,"baum2"],
+        [23,24,"baum"], [24,24,"baum2"], [25,24,"baum"], [-6,25,"baum"], [-5,25,"baum2"],
+        [-4,25,"baum"], [-3,25,"baum2"], [-2,25,"baum"], [-1,25,"baum2"], [20,25,"baum"],
+        [21,25,"baum2"], [22,25,"baum"], [23,25,"baum2"], [24,25,"baum"], [25,25,"baum2"],
+        [-6,26,"baum2"], [-5,26,"baum"], [-4,26,"baum2"], [-3,26,"baum"], [-2,26,"baum2"],
+        [-1,26,"baum"], [20,26,"baum2"], [21,26,"baum"], [22,26,"baum2"], [23,26,"baum"],
+        [24,26,"baum2"], [25,26,"baum"], [-6,27,"baum"], [-5,27,"baum2"], [-4,27,"baum"],
+        [-3,27,"baum2"], [-2,27,"baum"], [-1,27,"baum2"], [20,27,"baum"], [21,27,"baum2"],
+        [22,27,"baum"], [23,27,"baum2"], [24,27,"baum"], [25,27,"baum2"], [-6,28,"baum2"],
+        [-5,28,"baum"], [-4,28,"baum2"], [-3,28,"baum"], [-2,28,"baum2"], [-1,28,"baum"],
+        [20,28,"baum2"], [21,28,"baum"], [22,28,"baum2"], [23,28,"baum"], [24,28,"baum2"],
+        [25,28,"baum"], [-6,29,"baum"], [-5,29,"baum2"], [-4,29,"baum"], [-3,29,"baum2"],
+        [-2,29,"baum"], [-1,29,"baum2"], [20,29,"baum"], [21,29,"baum2"], [22,29,"baum"],
+        [23,29,"baum2"], [24,29,"baum"], [25,29,"baum2"], [-6,30,"baum2"], [-5,30,"baum"],
+        [-4,30,"baum2"], [-3,30,"baum"], [-2,30,"baum2"], [-1,30,"baum"], [20,30,"baum2"],
+        [21,30,"baum"], [22,30,"baum2"], [23,30,"baum"], [24,30,"baum2"], [25,30,"baum"],
+        [-6,31,"baum"], [-5,31,"baum2"], [-4,31,"baum"], [-3,31,"baum2"], [-2,31,"baum"],
+        [-1,31,"baum2"], [20,31,"baum"], [21,31,"baum2"], [22,31,"baum"], [23,31,"baum2"],
+        [24,31,"baum"], [25,31,"baum2"], [-6,32,"baum2"], [-5,32,"baum"], [-4,32,"baum2"],
+        [-3,32,"baum"], [-2,32,"baum2"], [-1,32,"baum"], [0,32,"baum2"], [1,32,"baum"],
+        [2,32,"baum2"], [3,32,"baum"], [4,32,"baum2"], [5,32,"baum"], [6,32,"baum2"], [7,32,"baum"],
+        [14,32,"baum2"], [15,32,"baum"], [16,32,"baum2"], [17,32,"baum"], [18,32,"baum2"],
+        [19,32,"baum"], [20,32,"baum2"], [21,32,"baum"], [22,32,"baum2"], [23,32,"baum"],
+        [24,32,"baum2"], [25,32,"baum"], [-6,33,"baum"], [-5,33,"baum2"], [-4,33,"baum"],
+        [-3,33,"baum2"], [-2,33,"baum"], [-1,33,"baum2"], [0,33,"baum"], [1,33,"baum2"],
+        [2,33,"baum"], [3,33,"baum2"], [4,33,"baum"], [5,33,"baum2"], [6,33,"baum"], [7,33,"baum2"],
+        [14,33,"baum"], [15,33,"baum2"], [16,33,"baum"], [17,33,"baum2"], [18,33,"baum"],
+        [19,33,"baum2"], [20,33,"baum"], [21,33,"baum2"], [22,33,"baum"], [23,33,"baum2"],
+        [24,33,"baum"], [25,33,"baum2"], [-6,34,"baum2"], [-5,34,"baum"], [-4,34,"baum2"],
+        [-3,34,"baum"], [-2,34,"baum2"], [-1,34,"baum"], [0,34,"baum2"], [1,34,"baum"],
+        [2,34,"baum2"], [3,34,"baum"], [4,34,"baum2"], [5,34,"baum"], [6,34,"baum2"], [7,34,"baum"],
+        [14,34,"baum2"], [15,34,"baum"], [16,34,"baum2"], [17,34,"baum"], [18,34,"baum2"],
+        [19,34,"baum"], [20,34,"baum2"], [21,34,"baum"], [22,34,"baum2"], [23,34,"baum"],
+        [24,34,"baum2"], [25,34,"baum"], [-6,35,"baum"], [-5,35,"baum2"], [-4,35,"baum"],
+        [-3,35,"baum2"], [-2,35,"baum"], [-1,35,"baum2"], [0,35,"baum"], [1,35,"baum2"],
+        [2,35,"baum"], [3,35,"baum2"], [4,35,"baum"], [5,35,"baum2"], [6,35,"baum"], [7,35,"baum2"],
+        [14,35,"baum"], [15,35,"baum2"], [16,35,"baum"], [17,35,"baum2"], [18,35,"baum"],
+        [19,35,"baum2"], [20,35,"baum"], [21,35,"baum2"], [22,35,"baum"], [23,35,"baum2"],
+        [24,35,"baum"], [25,35,"baum2"], [-6,36,"baum2"], [-5,36,"baum"], [-4,36,"baum2"],
+        [-3,36,"baum"], [-2,36,"baum2"], [-1,36,"baum"], [0,36,"baum2"], [1,36,"baum"],
+        [2,36,"baum2"], [3,36,"baum"], [4,36,"baum2"], [5,36,"baum"], [6,36,"baum2"], [7,36,"baum"],
+        [8,36,"baum_offen"], [9,36,"baum_offen"], [10,36,"baum_offen"], [11,36,"baum_offen"],
+        [12,36,"baum_offen"], [13,36,"baum_offen"], [14,36,"baum2"], [15,36,"baum"], [16,36,"baum2"],
+        [17,36,"baum"], [18,36,"baum2"], [19,36,"baum"], [20,36,"baum2"], [21,36,"baum"],
+        [22,36,"baum2"], [23,36,"baum"], [24,36,"baum2"], [25,36,"baum"], [-6,37,"baum"],
+        [-5,37,"baum2"], [-4,37,"baum"], [-3,37,"baum2"], [-2,37,"baum"], [-1,37,"baum2"],
+        [0,37,"baum"], [1,37,"baum2"], [2,37,"baum"], [3,37,"baum2"], [4,37,"baum"], [5,37,"baum2"],
+        [6,37,"baum"], [7,37,"baum2"], [8,37,"baum_offen"], [9,37,"baum_offen"],
+        [10,37,"baum_offen"], [11,37,"baum_offen"], [12,37,"baum_offen"], [13,37,"baum_offen"],
+        [14,37,"baum"], [15,37,"baum2"], [16,37,"baum"], [17,37,"baum2"], [18,37,"baum"],
+        [19,37,"baum2"], [20,37,"baum"], [21,37,"baum2"], [22,37,"baum"], [23,37,"baum2"],
+        [24,37,"baum"], [25,37,"baum2"]
+      ],
+      "ausgaenge": [
+        {
+          "x": 9,
+          "y": 31,
+          "ziel": {"karte":"village","x":17,"y":1,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 10,
+          "y": 31,
+          "ziel": {"karte":"village","x":18,"y":1,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "ziel": {"karte":"cave","x":10,"y":18,"blick":"UP"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 19,
+          "y": 10,
+          "ziel": {"karte":"deep_forest","x":1,"y":18,"blick":"RIGHT"},
+          "verschlossen": false,
+          "umkehren": false
+        }
+      ],
+      "leute": [{"id":"garrick","x":10,"y":9,"aussehen":"hunter","blick":"RIGHT","streifen":0}],
+      "kisten": [
+        {"id":"forest_1","x":16,"y":4,"ding":"@gear:UNCOMMON","anzahl":1,"gold":0},
+        {"id":"forest_2","x":16,"y":15,"ding":"potion","anzahl":2,"gold":0},
+        {"id":"forest_3","x":2,"y":24,"anzahl":1,"gold":40}
+      ],
+      "schilder": [
+        {
+          "x": 11,
+          "y": 28,
+          "text": {
+            "de": "Flüsterwald\nBleib auf dem Weg, Wanderer!",
+            "en": "Whisperwood\nStay on the path, traveler!"
+          }
+        },
+        {
+          "x": 12,
+          "y": 1,
+          "text": {
+            "de": "BLUTZAHN-HÖHLE\nWer weitergeht, wird gefressen!\n– die Goblins",
+            "en": "BLOODFANG CAVE\nKeep out or get eaten!\n– the goblins"
+          }
+        }
+      ],
+      "haeuser": [],
+      "fassaden": [],
+      "schutz": [
+        {
+          "x": 10,
+          "y": 9,
+          "radius": 4,
+          "text": {
+            "de": "Jäger Garrick schwenkt seine Fackel – die Biester weichen zurück!",
+            "en": "Hunter Garrick waves his torch – the beasts back off!"
+          }
+        },
+        {"x":10,"y":30,"radius":3},
+        {"x":10,"y":1,"radius":2},
+        {"x":19,"y":10,"radius":2}
+      ],
+      "begegnungen": {
+        "rate": 0.004,
+        "streuner": 7,
+        "kacheln": [","],
+        "tabelle": [
+          ["giant_rat",22], ["wolf",20], ["goblin",17], ["goblin_archer",8], ["boar",10],
+          ["kobold",10], ["giant_centipede",7], ["stirge",6]
+        ],
+        "nacht": [
+          ["wolf",24], ["skeleton",18], ["zombie",14], ["giant_bat",14], ["goblin",10],
+          ["kobold",10], ["stirge",10]
+        ]
+      }
+    },
+    "deep_forest": {
+      "id": "deep_forest",
+      "name": {"de":"Tiefer Flüsterwald","en":"Deep Whisperwood"},
+      "art": "FOREST",
+      "breite": 44,
+      "hoehe": 38,
+      "rand": "T",
+      "stufe": 2,
+      "zeilen": [
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTTTTT,TT..TTTTTTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTTT,,,,,.......TTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTT,,,,,,,.....CTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTT,,,,,,.......TTTTTTTT,TTTTTTT",
+        "TTTTTTTTTTT,,,,,,,,,..........T,,,,,,,,TTTTT",
+        "TTTTTTTTTT,,,,,,,,,...=......T,,,T,,,C,,TTTT",
+        "TTTTTTTTTT,,T,,,,,,.T.=.T..T.TT,,OO,,,,,,TTT",
+        "TTTTTTTTTT,,,,=,,,,Tff=...T.TT,,,,,,,,,,,TTT",
+        "TTTTTTTTTT,,,,=T,,,,ff=.TTTTTT,,T,,=,,,,,,TT",
+        "TTTTTTTTTT,,,,=,,,,TT==TTTTTTT,,,,,=,,,,,,TT",
+        "TTTTTTTTTTT,,,=,,,TTT=TTTTTTTT,,,,,=,,,,,TTT",
+        "TTTTTTTTTTrTT==,TTTTT=TTTTTTTT,,,,,=,,r,,TTT",
+        "TTTTT.I...I..=TTTTTTT=TTTTTTTTTT,,,=,,TTTTTT",
+        "TT.T.........=TTTTTTT=TTTTTTTT,TT,T=,TTTTTTT",
+        "TTT..I.T...I==TTTTTff=fffTTT,,,,,,T=TTTTTTTT",
+        "TT..........=..TTffT.=ffT.,,,,,,,===TTTTTTTT",
+        "=======.....=.T......=....,,,,,,,=,TTTTTTTTT",
+        "TT.S..========.r.....=============,,TTTTTTTT",
+        "TTT.fff.,,,,,==========T..,====,,,,TTTTTTTTT",
+        "TTT.ff.,,,,,,,.==.........,,,,=,,,TTTTTTTTTT",
+        "TTT.....,,,,,T==.......,.,,,,,=,,,TTTTTTTTTT",
+        "TTTTTTT...TTTT=TT.....,,,,,,,,=TTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTT=TTTT....,,,,,TT====TTTTTTTTTT",
+        "TTTTTTTTTTT,T==TTTT.T=.TTTTTTT...=....T.TTTT",
+        "TTTTTTTTT,,,==,,TTTTT=^^^TTTT....=......TTTT",
+        "TTTTTTTT,,,,=,,,,TTTT.^^^.TTT..===......TTTT",
+        "TTTTTTT,,,,,=,,,,TT...W#W.TTT..=....~....TTT",
+        "TTTTT,T,,,OO=,,,,TT.......TTT..=..~~~~~...TT",
+        "TTTTTT,,,,r,=,,,,TTT...F..TTT..=.~~~~~~...TT",
+        "TTTTT,,,,,,,,,,,,TTT.....TTTT.ff..~~~~~C..TT",
+        "TTTTTT,,,C,,,,,,,,,TTTTTTTTTT.fff...~...TTTT",
+        "TTTTTTTr,,,,,,,,,TTTTTTTTTTTTTTT.......TTTTT",
+        "TTTTTTTT,,,,,,,,,TTTTTTTTTTTTTTTT.T..TTTTTTT",
+        "TTTTTTTTTTTT,TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT",
+        "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT"
+      ],
+      "buesche": [
+        [24,8], [29,9], [28,10], [27,11], [14,18], [0,19], [1,19], [0,20], [1,20], [2,22], [3,23],
+        [5,23], [4,24], [7,24], [8,24], [7,25], [26,30], [27,30], [25,31], [26,31], [27,31], [23,32],
+        [24,32], [25,32], [26,32], [28,32], [25,33], [29,33], [30,33], [26,34], [30,34], [31,34],
+        [27,35], [28,35], [31,35], [31,36]
+      ],
+      "bewuchs": [
+        [24,8,"busch"], [27,8,"jung2"], [26,9,"jung2"], [28,9,"jung"], [29,9,"busch"],
+        [26,10,"jung2"], [27,10,"jung2"], [28,10,"busch"], [27,11,"busch"], [7,16,"jung2"],
+        [14,16,"jung2"], [15,17,"jung2"], [14,18,"busch"], [0,19,"busch"], [1,19,"busch"],
+        [0,20,"busch"], [1,20,"busch"], [2,20,"jung"], [1,21,"jung"], [2,21,"jung2"], [2,22,"busch"],
+        [3,23,"busch"], [4,23,"jung"], [5,23,"busch"], [6,23,"jung"], [10,23,"jung2"],
+        [16,23,"jung2"], [4,24,"busch"], [5,24,"jung"], [6,24,"jung"], [7,24,"busch"],
+        [8,24,"busch"], [9,24,"jung"], [10,24,"jung2"], [5,25,"jung2"], [7,25,"busch"],
+        [8,25,"jung"], [9,25,"jung"], [8,26,"jung"], [26,29,"jung"], [26,30,"busch"],
+        [27,30,"busch"], [25,31,"busch"], [26,31,"busch"], [27,31,"busch"], [28,31,"jung2"],
+        [23,32,"busch"], [24,32,"busch"], [25,32,"busch"], [26,32,"busch"], [27,32,"jung"],
+        [28,32,"busch"], [24,33,"jung2"], [25,33,"busch"], [26,33,"jung2"], [27,33,"jung2"],
+        [28,33,"jung"], [29,33,"busch"], [30,33,"busch"], [25,34,"jung2"], [26,34,"busch"],
+        [27,34,"jung2"], [28,34,"jung"], [29,34,"jung"], [30,34,"busch"], [31,34,"busch"],
+        [26,35,"jung"], [27,35,"busch"], [28,35,"busch"], [29,35,"jung"], [30,35,"jung2"],
+        [31,35,"busch"], [32,35,"jung2"], [27,36,"jung2"], [28,36,"jung"], [29,36,"jung2"],
+        [30,36,"jung"], [31,36,"busch"], [28,37,"jung2"], [30,37,"jung2"]
+      ],
+      "ring": [
+        [-6,-6,"baum2"], [-5,-6,"baum"], [-4,-6,"baum2"], [-3,-6,"baum"], [-2,-6,"baum2"],
+        [-1,-6,"baum"], [0,-6,"baum2"], [1,-6,"baum"], [2,-6,"baum2"], [3,-6,"baum"], [4,-6,"baum2"],
+        [5,-6,"baum"], [6,-6,"baum2"], [7,-6,"baum"], [8,-6,"baum2"], [9,-6,"baum"], [10,-6,"baum2"],
+        [11,-6,"baum"], [12,-6,"baum2"], [13,-6,"baum"], [14,-6,"baum2"], [15,-6,"baum"],
+        [16,-6,"baum2"], [17,-6,"baum"], [18,-6,"baum2"], [19,-6,"baum"], [20,-6,"baum2"],
+        [21,-6,"baum"], [22,-6,"baum2"], [23,-6,"baum"], [24,-6,"baum2"], [25,-6,"baum"],
+        [26,-6,"baum2"], [27,-6,"baum"], [28,-6,"baum2"], [29,-6,"baum"], [30,-6,"baum2"],
+        [31,-6,"baum"], [32,-6,"baum2"], [33,-6,"baum"], [34,-6,"baum2"], [35,-6,"baum"],
+        [36,-6,"baum2"], [37,-6,"baum"], [38,-6,"baum2"], [39,-6,"baum"], [40,-6,"baum2"],
+        [41,-6,"baum"], [42,-6,"baum2"], [43,-6,"baum"], [44,-6,"baum2"], [45,-6,"baum"],
+        [46,-6,"baum2"], [47,-6,"baum"], [48,-6,"baum2"], [49,-6,"baum"], [-6,-5,"baum"],
+        [-5,-5,"baum2"], [-4,-5,"baum"], [-3,-5,"baum2"], [-2,-5,"baum"], [-1,-5,"baum2"],
+        [0,-5,"baum"], [1,-5,"baum2"], [2,-5,"baum"], [3,-5,"baum2"], [4,-5,"baum"], [5,-5,"baum2"],
+        [6,-5,"baum"], [7,-5,"baum2"], [8,-5,"baum"], [9,-5,"baum2"], [10,-5,"baum"],
+        [11,-5,"baum2"], [12,-5,"baum"], [13,-5,"baum2"], [14,-5,"baum"], [15,-5,"baum2"],
+        [16,-5,"baum"], [17,-5,"baum2"], [18,-5,"baum"], [19,-5,"baum2"], [20,-5,"baum"],
+        [21,-5,"baum2"], [22,-5,"baum"], [23,-5,"baum2"], [24,-5,"baum"], [25,-5,"baum2"],
+        [26,-5,"baum"], [27,-5,"baum2"], [28,-5,"baum"], [29,-5,"baum2"], [30,-5,"baum"],
+        [31,-5,"baum2"], [32,-5,"baum"], [33,-5,"baum2"], [34,-5,"baum"], [35,-5,"baum2"],
+        [36,-5,"baum"], [37,-5,"baum2"], [38,-5,"baum"], [39,-5,"baum2"], [40,-5,"baum"],
+        [41,-5,"baum2"], [42,-5,"baum"], [43,-5,"baum2"], [44,-5,"baum"], [45,-5,"baum2"],
+        [46,-5,"baum"], [47,-5,"baum2"], [48,-5,"baum"], [49,-5,"baum2"], [-6,-4,"baum2"],
+        [-5,-4,"baum"], [-4,-4,"baum2"], [-3,-4,"baum"], [-2,-4,"baum2"], [-1,-4,"baum"],
+        [0,-4,"baum2"], [1,-4,"baum"], [2,-4,"baum2"], [3,-4,"baum"], [4,-4,"baum2"], [5,-4,"baum"],
+        [6,-4,"baum2"], [7,-4,"baum"], [8,-4,"baum2"], [9,-4,"baum"], [10,-4,"baum2"],
+        [11,-4,"baum"], [12,-4,"baum2"], [13,-4,"baum"], [14,-4,"baum2"], [15,-4,"baum"],
+        [16,-4,"baum2"], [17,-4,"baum"], [18,-4,"baum2"], [19,-4,"baum"], [20,-4,"baum2"],
+        [21,-4,"baum"], [22,-4,"baum2"], [23,-4,"baum"], [24,-4,"baum2"], [25,-4,"baum"],
+        [26,-4,"baum2"], [27,-4,"baum"], [28,-4,"baum2"], [29,-4,"baum"], [30,-4,"baum2"],
+        [31,-4,"baum"], [32,-4,"baum2"], [33,-4,"baum"], [34,-4,"baum2"], [35,-4,"baum"],
+        [36,-4,"baum2"], [37,-4,"baum"], [38,-4,"baum2"], [39,-4,"baum"], [40,-4,"baum2"],
+        [41,-4,"baum"], [42,-4,"baum2"], [43,-4,"baum"], [44,-4,"baum2"], [45,-4,"baum"],
+        [46,-4,"baum2"], [47,-4,"baum"], [48,-4,"baum2"], [49,-4,"baum"], [-6,-3,"baum"],
+        [-5,-3,"baum2"], [-4,-3,"baum"], [-3,-3,"baum2"], [-2,-3,"baum"], [-1,-3,"baum2"],
+        [0,-3,"baum"], [1,-3,"baum2"], [2,-3,"baum"], [3,-3,"baum2"], [4,-3,"baum"], [5,-3,"baum2"],
+        [6,-3,"baum"], [7,-3,"baum2"], [8,-3,"baum"], [9,-3,"baum2"], [10,-3,"baum"],
+        [11,-3,"baum2"], [12,-3,"baum"], [13,-3,"baum2"], [14,-3,"baum"], [15,-3,"baum2"],
+        [16,-3,"baum"], [17,-3,"baum2"], [18,-3,"baum"], [19,-3,"baum2"], [20,-3,"baum"],
+        [21,-3,"baum2"], [22,-3,"baum"], [23,-3,"baum2"], [24,-3,"baum"], [25,-3,"baum2"],
+        [26,-3,"baum"], [27,-3,"baum2"], [28,-3,"baum"], [29,-3,"baum2"], [30,-3,"baum"],
+        [31,-3,"baum2"], [32,-3,"baum"], [33,-3,"baum2"], [34,-3,"baum"], [35,-3,"baum2"],
+        [36,-3,"baum"], [37,-3,"baum2"], [38,-3,"baum"], [39,-3,"baum2"], [40,-3,"baum"],
+        [41,-3,"baum2"], [42,-3,"baum"], [43,-3,"baum2"], [44,-3,"baum"], [45,-3,"baum2"],
+        [46,-3,"baum"], [47,-3,"baum2"], [48,-3,"baum"], [49,-3,"baum2"], [-6,-2,"baum2"],
+        [-5,-2,"baum"], [-4,-2,"baum2"], [-3,-2,"baum"], [-2,-2,"baum2"], [-1,-2,"baum"],
+        [0,-2,"baum2"], [1,-2,"baum"], [2,-2,"baum2"], [3,-2,"baum"], [4,-2,"baum2"], [5,-2,"baum"],
+        [6,-2,"baum2"], [7,-2,"baum"], [8,-2,"baum2"], [9,-2,"baum"], [10,-2,"baum2"],
+        [11,-2,"baum"], [12,-2,"baum2"], [13,-2,"baum"], [14,-2,"baum2"], [15,-2,"baum"],
+        [16,-2,"baum2"], [17,-2,"baum"], [18,-2,"baum2"], [19,-2,"baum"], [20,-2,"baum2"],
+        [21,-2,"baum"], [22,-2,"baum2"], [23,-2,"baum"], [24,-2,"baum2"], [25,-2,"baum"],
+        [26,-2,"baum2"], [27,-2,"baum"], [28,-2,"baum2"], [29,-2,"baum"], [30,-2,"baum2"],
+        [31,-2,"baum"], [32,-2,"baum2"], [33,-2,"baum"], [34,-2,"baum2"], [35,-2,"baum"],
+        [36,-2,"baum2"], [37,-2,"baum"], [38,-2,"baum2"], [39,-2,"baum"], [40,-2,"baum2"],
+        [41,-2,"baum"], [42,-2,"baum2"], [43,-2,"baum"], [44,-2,"baum2"], [45,-2,"baum"],
+        [46,-2,"baum2"], [47,-2,"baum"], [48,-2,"baum2"], [49,-2,"baum"], [-6,-1,"baum"],
+        [-5,-1,"baum2"], [-4,-1,"baum"], [-3,-1,"baum2"], [-2,-1,"baum"], [-1,-1,"baum2"],
+        [0,-1,"baum"], [1,-1,"baum2"], [2,-1,"baum"], [3,-1,"baum2"], [4,-1,"baum"], [5,-1,"baum2"],
+        [6,-1,"baum"], [7,-1,"baum2"], [8,-1,"baum"], [9,-1,"baum2"], [10,-1,"baum"],
+        [11,-1,"baum2"], [12,-1,"baum"], [13,-1,"baum2"], [14,-1,"baum"], [15,-1,"baum2"],
+        [16,-1,"baum"], [17,-1,"baum2"], [18,-1,"baum"], [19,-1,"baum2"], [20,-1,"baum"],
+        [21,-1,"baum2"], [22,-1,"baum"], [23,-1,"baum2"], [24,-1,"baum"], [25,-1,"baum2"],
+        [26,-1,"baum"], [27,-1,"baum2"], [28,-1,"baum"], [29,-1,"baum2"], [30,-1,"baum"],
+        [31,-1,"baum2"], [32,-1,"baum"], [33,-1,"baum2"], [34,-1,"baum"], [35,-1,"baum2"],
+        [36,-1,"baum"], [37,-1,"baum2"], [38,-1,"baum"], [39,-1,"baum2"], [40,-1,"baum"],
+        [41,-1,"baum2"], [42,-1,"baum"], [43,-1,"baum2"], [44,-1,"baum"], [45,-1,"baum2"],
+        [46,-1,"baum"], [47,-1,"baum2"], [48,-1,"baum"], [49,-1,"baum2"], [-6,0,"baum2"],
+        [-5,0,"baum"], [-4,0,"baum2"], [-3,0,"baum"], [-2,0,"baum2"], [-1,0,"baum"], [44,0,"baum2"],
+        [45,0,"baum"], [46,0,"baum2"], [47,0,"baum"], [48,0,"baum2"], [49,0,"baum"], [-6,1,"baum"],
+        [-5,1,"baum2"], [-4,1,"baum"], [-3,1,"baum2"], [-2,1,"baum"], [-1,1,"baum2"], [44,1,"baum"],
+        [45,1,"baum2"], [46,1,"baum"], [47,1,"baum2"], [48,1,"baum"], [49,1,"baum2"], [-6,2,"baum2"],
+        [-5,2,"baum"], [-4,2,"baum2"], [-3,2,"baum"], [-2,2,"baum2"], [-1,2,"baum"], [44,2,"baum2"],
+        [45,2,"baum"], [46,2,"baum2"], [47,2,"baum"], [48,2,"baum2"], [49,2,"baum"], [-6,3,"baum"],
+        [-5,3,"baum2"], [-4,3,"baum"], [-3,3,"baum2"], [-2,3,"baum"], [-1,3,"baum2"], [44,3,"baum"],
+        [45,3,"baum2"], [46,3,"baum"], [47,3,"baum2"], [48,3,"baum"], [49,3,"baum2"], [-6,4,"baum2"],
+        [-5,4,"baum"], [-4,4,"baum2"], [-3,4,"baum"], [-2,4,"baum2"], [-1,4,"baum"], [44,4,"baum2"],
+        [45,4,"baum"], [46,4,"baum2"], [47,4,"baum"], [48,4,"baum2"], [49,4,"baum"], [-6,5,"baum"],
+        [-5,5,"baum2"], [-4,5,"baum"], [-3,5,"baum2"], [-2,5,"baum"], [-1,5,"baum2"], [44,5,"baum"],
+        [45,5,"baum2"], [46,5,"baum"], [47,5,"baum2"], [48,5,"baum"], [49,5,"baum2"], [-6,6,"baum2"],
+        [-5,6,"baum"], [-4,6,"baum2"], [-3,6,"baum"], [-2,6,"baum2"], [-1,6,"baum"], [44,6,"baum2"],
+        [45,6,"baum"], [46,6,"baum2"], [47,6,"baum"], [48,6,"baum2"], [49,6,"baum"], [-6,7,"baum"],
+        [-5,7,"baum2"], [-4,7,"baum"], [-3,7,"baum2"], [-2,7,"baum"], [-1,7,"baum2"], [44,7,"baum"],
+        [45,7,"baum2"], [46,7,"baum"], [47,7,"baum2"], [48,7,"baum"], [49,7,"baum2"], [-6,8,"baum2"],
+        [-5,8,"baum"], [-4,8,"baum2"], [-3,8,"baum"], [-2,8,"baum2"], [-1,8,"baum"], [44,8,"baum2"],
+        [45,8,"baum"], [46,8,"baum2"], [47,8,"baum"], [48,8,"baum2"], [49,8,"baum"], [-6,9,"baum"],
+        [-5,9,"baum2"], [-4,9,"baum"], [-3,9,"baum2"], [-2,9,"baum"], [-1,9,"baum2"], [44,9,"baum"],
+        [45,9,"baum2"], [46,9,"baum"], [47,9,"baum2"], [48,9,"baum"], [49,9,"baum2"],
+        [-6,10,"baum2"], [-5,10,"baum"], [-4,10,"baum2"], [-3,10,"baum"], [-2,10,"baum2"],
+        [-1,10,"baum"], [44,10,"baum2"], [45,10,"baum"], [46,10,"baum2"], [47,10,"baum"],
+        [48,10,"baum2"], [49,10,"baum"], [-6,11,"baum"], [-5,11,"baum2"], [-4,11,"baum"],
+        [-3,11,"baum2"], [-2,11,"baum"], [-1,11,"baum2"], [44,11,"baum"], [45,11,"baum2"],
+        [46,11,"baum"], [47,11,"baum2"], [48,11,"baum"], [49,11,"baum2"], [-6,12,"baum2"],
+        [-5,12,"baum"], [-4,12,"baum2"], [-3,12,"baum"], [-2,12,"baum2"], [-1,12,"baum"],
+        [44,12,"baum2"], [45,12,"baum"], [46,12,"baum2"], [47,12,"baum"], [48,12,"baum2"],
+        [49,12,"baum"], [-6,13,"baum"], [-5,13,"baum2"], [-4,13,"baum"], [-3,13,"baum2"],
+        [-2,13,"baum"], [-1,13,"baum2"], [44,13,"baum"], [45,13,"baum2"], [46,13,"baum"],
+        [47,13,"baum2"], [48,13,"baum"], [49,13,"baum2"], [-6,14,"baum2"], [-5,14,"baum"],
+        [-4,14,"baum2"], [-3,14,"baum"], [-2,14,"baum2"], [-1,14,"baum"], [44,14,"baum2"],
+        [45,14,"baum"], [46,14,"baum2"], [47,14,"baum"], [48,14,"baum2"], [49,14,"baum"],
+        [-6,15,"baum"], [-5,15,"baum2"], [-4,15,"baum"], [-3,15,"baum2"], [-2,15,"baum"],
+        [-1,15,"baum2"], [44,15,"baum"], [45,15,"baum2"], [46,15,"baum"], [47,15,"baum2"],
+        [48,15,"baum"], [49,15,"baum2"], [-6,16,"baum2"], [-5,16,"baum"], [-4,16,"baum2"],
+        [-3,16,"baum"], [-2,16,"baum2"], [-1,16,"baum"], [44,16,"baum2"], [45,16,"baum"],
+        [46,16,"baum2"], [47,16,"baum"], [48,16,"baum2"], [49,16,"baum"], [-6,17,"baum_offen"],
+        [-5,17,"baum_offen"], [44,17,"baum"], [45,17,"baum2"], [46,17,"baum"], [47,17,"baum2"],
+        [48,17,"baum"], [49,17,"baum2"], [-6,18,"baum_offen"], [-5,18,"baum_offen"], [44,18,"baum2"],
+        [45,18,"baum"], [46,18,"baum2"], [47,18,"baum"], [48,18,"baum2"], [49,18,"baum"],
+        [-6,19,"baum_offen"], [-5,19,"baum_offen"], [44,19,"baum"], [45,19,"baum2"], [46,19,"baum"],
+        [47,19,"baum2"], [48,19,"baum"], [49,19,"baum2"], [-6,20,"baum_offen"], [-5,20,"baum_offen"],
+        [44,20,"baum2"], [45,20,"baum"], [46,20,"baum2"], [47,20,"baum"], [48,20,"baum2"],
+        [49,20,"baum"], [-6,21,"baum_offen"], [-5,21,"baum_offen"], [44,21,"baum"], [45,21,"baum2"],
+        [46,21,"baum"], [47,21,"baum2"], [48,21,"baum"], [49,21,"baum2"], [-6,22,"baum2"],
+        [-5,22,"baum"], [-4,22,"baum2"], [-3,22,"baum"], [-2,22,"baum2"], [-1,22,"baum"],
+        [44,22,"baum2"], [45,22,"baum"], [46,22,"baum2"], [47,22,"baum"], [48,22,"baum2"],
+        [49,22,"baum"], [-6,23,"baum"], [-5,23,"baum2"], [-4,23,"baum"], [-3,23,"baum2"],
+        [-2,23,"baum"], [-1,23,"baum2"], [44,23,"baum"], [45,23,"baum2"], [46,23,"baum"],
+        [47,23,"baum2"], [48,23,"baum"], [49,23,"baum2"], [-6,24,"baum2"], [-5,24,"baum"],
+        [-4,24,"baum2"], [-3,24,"baum"], [-2,24,"baum2"], [-1,24,"baum"], [44,24,"baum2"],
+        [45,24,"baum"], [46,24,"baum2"], [47,24,"baum"], [48,24,"baum2"], [49,24,"baum"],
+        [-6,25,"baum"], [-5,25,"baum2"], [-4,25,"baum"], [-3,25,"baum2"], [-2,25,"baum"],
+        [-1,25,"baum2"], [44,25,"baum"], [45,25,"baum2"], [46,25,"baum"], [47,25,"baum2"],
+        [48,25,"baum"], [49,25,"baum2"], [-6,26,"baum2"], [-5,26,"baum"], [-4,26,"baum2"],
+        [-3,26,"baum"], [-2,26,"baum2"], [-1,26,"baum"], [44,26,"baum2"], [45,26,"baum"],
+        [46,26,"baum2"], [47,26,"baum"], [48,26,"baum2"], [49,26,"baum"], [-6,27,"baum"],
+        [-5,27,"baum2"], [-4,27,"baum"], [-3,27,"baum2"], [-2,27,"baum"], [-1,27,"baum2"],
+        [44,27,"baum"], [45,27,"baum2"], [46,27,"baum"], [47,27,"baum2"], [48,27,"baum"],
+        [49,27,"baum2"], [-6,28,"baum2"], [-5,28,"baum"], [-4,28,"baum2"], [-3,28,"baum"],
+        [-2,28,"baum2"], [-1,28,"baum"], [44,28,"baum2"], [45,28,"baum"], [46,28,"baum2"],
+        [47,28,"baum"], [48,28,"baum2"], [49,28,"baum"], [-6,29,"baum"], [-5,29,"baum2"],
+        [-4,29,"baum"], [-3,29,"baum2"], [-2,29,"baum"], [-1,29,"baum2"], [44,29,"baum"],
+        [45,29,"baum2"], [46,29,"baum"], [47,29,"baum2"], [48,29,"baum"], [49,29,"baum2"],
+        [-6,30,"baum2"], [-5,30,"baum"], [-4,30,"baum2"], [-3,30,"baum"], [-2,30,"baum2"],
+        [-1,30,"baum"], [44,30,"baum2"], [45,30,"baum"], [46,30,"baum2"], [47,30,"baum"],
+        [48,30,"baum2"], [49,30,"baum"], [-6,31,"baum"], [-5,31,"baum2"], [-4,31,"baum"],
+        [-3,31,"baum2"], [-2,31,"baum"], [-1,31,"baum2"], [44,31,"baum"], [45,31,"baum2"],
+        [46,31,"baum"], [47,31,"baum2"], [48,31,"baum"], [49,31,"baum2"], [-6,32,"baum2"],
+        [-5,32,"baum"], [-4,32,"baum2"], [-3,32,"baum"], [-2,32,"baum2"], [-1,32,"baum"],
+        [44,32,"baum2"], [45,32,"baum"], [46,32,"baum2"], [47,32,"baum"], [48,32,"baum2"],
+        [49,32,"baum"], [-6,33,"baum"], [-5,33,"baum2"], [-4,33,"baum"], [-3,33,"baum2"],
+        [-2,33,"baum"], [-1,33,"baum2"], [44,33,"baum"], [45,33,"baum2"], [46,33,"baum"],
+        [47,33,"baum2"], [48,33,"baum"], [49,33,"baum2"], [-6,34,"baum2"], [-5,34,"baum"],
+        [-4,34,"baum2"], [-3,34,"baum"], [-2,34,"baum2"], [-1,34,"baum"], [44,34,"baum2"],
+        [45,34,"baum"], [46,34,"baum2"], [47,34,"baum"], [48,34,"baum2"], [49,34,"baum"],
+        [-6,35,"baum"], [-5,35,"baum2"], [-4,35,"baum"], [-3,35,"baum2"], [-2,35,"baum"],
+        [-1,35,"baum2"], [44,35,"baum"], [45,35,"baum2"], [46,35,"baum"], [47,35,"baum2"],
+        [48,35,"baum"], [49,35,"baum2"], [-6,36,"baum2"], [-5,36,"baum"], [-4,36,"baum2"],
+        [-3,36,"baum"], [-2,36,"baum2"], [-1,36,"baum"], [44,36,"baum2"], [45,36,"baum"],
+        [46,36,"baum2"], [47,36,"baum"], [48,36,"baum2"], [49,36,"baum"], [-6,37,"baum"],
+        [-5,37,"baum2"], [-4,37,"baum"], [-3,37,"baum2"], [-2,37,"baum"], [-1,37,"baum2"],
+        [44,37,"baum"], [45,37,"baum2"], [46,37,"baum"], [47,37,"baum2"], [48,37,"baum"],
+        [49,37,"baum2"], [-6,38,"baum2"], [-5,38,"baum"], [-4,38,"baum2"], [-3,38,"baum"],
+        [-2,38,"baum2"], [-1,38,"baum"], [0,38,"baum2"], [1,38,"baum"], [2,38,"baum2"],
+        [3,38,"baum"], [4,38,"baum2"], [5,38,"baum"], [6,38,"baum2"], [7,38,"baum"], [8,38,"baum2"],
+        [9,38,"baum"], [10,38,"baum2"], [11,38,"baum"], [12,38,"baum2"], [13,38,"baum"],
+        [14,38,"baum2"], [15,38,"baum"], [16,38,"baum2"], [17,38,"baum"], [18,38,"baum2"],
+        [19,38,"baum"], [20,38,"baum2"], [21,38,"baum"], [22,38,"baum2"], [23,38,"baum"],
+        [24,38,"baum2"], [25,38,"baum"], [26,38,"baum2"], [27,38,"baum"], [28,38,"baum2"],
+        [29,38,"baum"], [30,38,"baum2"], [31,38,"baum"], [32,38,"baum2"], [33,38,"baum"],
+        [34,38,"baum2"], [35,38,"baum"], [36,38,"baum2"], [37,38,"baum"], [38,38,"baum2"],
+        [39,38,"baum"], [40,38,"baum2"], [41,38,"baum"], [42,38,"baum2"], [43,38,"baum"],
+        [44,38,"baum2"], [45,38,"baum"], [46,38,"baum2"], [47,38,"baum"], [48,38,"baum2"],
+        [49,38,"baum"], [-6,39,"baum"], [-5,39,"baum2"], [-4,39,"baum"], [-3,39,"baum2"],
+        [-2,39,"baum"], [-1,39,"baum2"], [0,39,"baum"], [1,39,"baum2"], [2,39,"baum"],
+        [3,39,"baum2"], [4,39,"baum"], [5,39,"baum2"], [6,39,"baum"], [7,39,"baum2"], [8,39,"baum"],
+        [9,39,"baum2"], [10,39,"baum"], [11,39,"baum2"], [12,39,"baum"], [13,39,"baum2"],
+        [14,39,"baum"], [15,39,"baum2"], [16,39,"baum"], [17,39,"baum2"], [18,39,"baum"],
+        [19,39,"baum2"], [20,39,"baum"], [21,39,"baum2"], [22,39,"baum"], [23,39,"baum2"],
+        [24,39,"baum"], [25,39,"baum2"], [26,39,"baum"], [27,39,"baum2"], [28,39,"baum"],
+        [29,39,"baum2"], [30,39,"baum"], [31,39,"baum2"], [32,39,"baum"], [33,39,"baum2"],
+        [34,39,"baum"], [35,39,"baum2"], [36,39,"baum"], [37,39,"baum2"], [38,39,"baum"],
+        [39,39,"baum2"], [40,39,"baum"], [41,39,"baum2"], [42,39,"baum"], [43,39,"baum2"],
+        [44,39,"baum"], [45,39,"baum2"], [46,39,"baum"], [47,39,"baum2"], [48,39,"baum"],
+        [49,39,"baum2"], [-6,40,"baum2"], [-5,40,"baum"], [-4,40,"baum2"], [-3,40,"baum"],
+        [-2,40,"baum2"], [-1,40,"baum"], [0,40,"baum2"], [1,40,"baum"], [2,40,"baum2"],
+        [3,40,"baum"], [4,40,"baum2"], [5,40,"baum"], [6,40,"baum2"], [7,40,"baum"], [8,40,"baum2"],
+        [9,40,"baum"], [10,40,"baum2"], [11,40,"baum"], [12,40,"baum2"], [13,40,"baum"],
+        [14,40,"baum2"], [15,40,"baum"], [16,40,"baum2"], [17,40,"baum"], [18,40,"baum2"],
+        [19,40,"baum"], [20,40,"baum2"], [21,40,"baum"], [22,40,"baum2"], [23,40,"baum"],
+        [24,40,"baum2"], [25,40,"baum"], [26,40,"baum2"], [27,40,"baum"], [28,40,"baum2"],
+        [29,40,"baum"], [30,40,"baum2"], [31,40,"baum"], [32,40,"baum2"], [33,40,"baum"],
+        [34,40,"baum2"], [35,40,"baum"], [36,40,"baum2"], [37,40,"baum"], [38,40,"baum2"],
+        [39,40,"baum"], [40,40,"baum2"], [41,40,"baum"], [42,40,"baum2"], [43,40,"baum"],
+        [44,40,"baum2"], [45,40,"baum"], [46,40,"baum2"], [47,40,"baum"], [48,40,"baum2"],
+        [49,40,"baum"], [-6,41,"baum"], [-5,41,"baum2"], [-4,41,"baum"], [-3,41,"baum2"],
+        [-2,41,"baum"], [-1,41,"baum2"], [0,41,"baum"], [1,41,"baum2"], [2,41,"baum"],
+        [3,41,"baum2"], [4,41,"baum"], [5,41,"baum2"], [6,41,"baum"], [7,41,"baum2"], [8,41,"baum"],
+        [9,41,"baum2"], [10,41,"baum"], [11,41,"baum2"], [12,41,"baum"], [13,41,"baum2"],
+        [14,41,"baum"], [15,41,"baum2"], [16,41,"baum"], [17,41,"baum2"], [18,41,"baum"],
+        [19,41,"baum2"], [20,41,"baum"], [21,41,"baum2"], [22,41,"baum"], [23,41,"baum2"],
+        [24,41,"baum"], [25,41,"baum2"], [26,41,"baum"], [27,41,"baum2"], [28,41,"baum"],
+        [29,41,"baum2"], [30,41,"baum"], [31,41,"baum2"], [32,41,"baum"], [33,41,"baum2"],
+        [34,41,"baum"], [35,41,"baum2"], [36,41,"baum"], [37,41,"baum2"], [38,41,"baum"],
+        [39,41,"baum2"], [40,41,"baum"], [41,41,"baum2"], [42,41,"baum"], [43,41,"baum2"],
+        [44,41,"baum"], [45,41,"baum2"], [46,41,"baum"], [47,41,"baum2"], [48,41,"baum"],
+        [49,41,"baum2"], [-6,42,"baum2"], [-5,42,"baum"], [-4,42,"baum2"], [-3,42,"baum"],
+        [-2,42,"baum2"], [-1,42,"baum"], [0,42,"baum2"], [1,42,"baum"], [2,42,"baum2"],
+        [3,42,"baum"], [4,42,"baum2"], [5,42,"baum"], [6,42,"baum2"], [7,42,"baum"], [8,42,"baum2"],
+        [9,42,"baum"], [10,42,"baum2"], [11,42,"baum"], [12,42,"baum2"], [13,42,"baum"],
+        [14,42,"baum2"], [15,42,"baum"], [16,42,"baum2"], [17,42,"baum"], [18,42,"baum2"],
+        [19,42,"baum"], [20,42,"baum2"], [21,42,"baum"], [22,42,"baum2"], [23,42,"baum"],
+        [24,42,"baum2"], [25,42,"baum"], [26,42,"baum2"], [27,42,"baum"], [28,42,"baum2"],
+        [29,42,"baum"], [30,42,"baum2"], [31,42,"baum"], [32,42,"baum2"], [33,42,"baum"],
+        [34,42,"baum2"], [35,42,"baum"], [36,42,"baum2"], [37,42,"baum"], [38,42,"baum2"],
+        [39,42,"baum"], [40,42,"baum2"], [41,42,"baum"], [42,42,"baum2"], [43,42,"baum"],
+        [44,42,"baum2"], [45,42,"baum"], [46,42,"baum2"], [47,42,"baum"], [48,42,"baum2"],
+        [49,42,"baum"], [-6,43,"baum"], [-5,43,"baum2"], [-4,43,"baum"], [-3,43,"baum2"],
+        [-2,43,"baum"], [-1,43,"baum2"], [0,43,"baum"], [1,43,"baum2"], [2,43,"baum"],
+        [3,43,"baum2"], [4,43,"baum"], [5,43,"baum2"], [6,43,"baum"], [7,43,"baum2"], [8,43,"baum"],
+        [9,43,"baum2"], [10,43,"baum"], [11,43,"baum2"], [12,43,"baum"], [13,43,"baum2"],
+        [14,43,"baum"], [15,43,"baum2"], [16,43,"baum"], [17,43,"baum2"], [18,43,"baum"],
+        [19,43,"baum2"], [20,43,"baum"], [21,43,"baum2"], [22,43,"baum"], [23,43,"baum2"],
+        [24,43,"baum"], [25,43,"baum2"], [26,43,"baum"], [27,43,"baum2"], [28,43,"baum"],
+        [29,43,"baum2"], [30,43,"baum"], [31,43,"baum2"], [32,43,"baum"], [33,43,"baum2"],
+        [34,43,"baum"], [35,43,"baum2"], [36,43,"baum"], [37,43,"baum2"], [38,43,"baum"],
+        [39,43,"baum2"], [40,43,"baum"], [41,43,"baum2"], [42,43,"baum"], [43,43,"baum2"],
+        [44,43,"baum"], [45,43,"baum2"], [46,43,"baum"], [47,43,"baum2"], [48,43,"baum"],
+        [49,43,"baum2"]
+      ],
+      "ausgaenge": [
+        {
+          "x": 0,
+          "y": 18,
+          "ziel": {"karte":"forest","x":18,"y":10,"blick":"LEFT"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 23,
+          "y": 28,
+          "ziel": {"karte":"deep_forest","x":23,"y":29,"blick":"DOWN"},
+          "braucht": "locked_forever",
+          "verschlossen": true,
+          "umkehren": false
+        }
+      ],
+      "leute": [
+        {"id":"morwen","x":25,"y":30,"aussehen":"herbalist","blick":"LEFT","streifen":0},
+        {"id":"grimfang","x":22,"y":4,"aussehen":"monster:dire_wolf","blick":"DOWN","streifen":0}
+      ],
+      "kisten": [
+        {"id":"deep_1","x":37,"y":7,"ding":"@gear:RARE","anzahl":1,"gold":0},
+        {"id":"deep_2","x":9,"y":32,"ding":"remedy","anzahl":2,"gold":0},
+        {"id":"deep_3","x":39,"y":31,"anzahl":1,"gold":120},
+        {"id":"deep_4","x":27,"y":4,"ding":"@gear:VERY_RARE","anzahl":1,"gold":0}
+      ],
+      "schilder": [
+        {
+          "x": 3,
+          "y": 19,
+          "text": {
+            "de": "Tiefer Flüsterwald\nHier endet der Weg der Jäger.\nNur für erfahrene Abenteurer!",
+            "en": "Deep Whisperwood\nThe hunters' trail ends here.\nFor seasoned adventurers only!"
+          }
+        }
+      ],
+      "haeuser": [{"x":22,"y":26,"dach":"STRAW","wand":"PLANKS","gespiegelt":false,"merkmal":"HUT"}],
+      "fassaden": [{"x":22,"y":28,"n":3,"d":3,"vorn":"WDW","seite":"#W"}],
+      "schutz": [
+        {
+          "x": 21,
+          "y": 21,
+          "radius": 4,
+          "text": {
+            "de": "Der beißende Kräuterrauch aus Morwens Feuer vertreibt die Biester!",
+            "en": "The acrid herb smoke from Morwen's fire drives the beasts away!"
+          }
+        },
+        {"x":1,"y":18,"radius":3}
+      ],
+      "begegnungen": {
+        "rate": 0.004,
+        "streuner": 13,
+        "kacheln": [","],
+        "tabelle": [
+          ["wolf",22], ["boar",14], ["kobold",14], ["giant_spider",8], ["goblin",12],
+          ["goblin_archer",8], ["giant_centipede",8], ["stirge",8], ["goblin_shaman",6]
+        ],
+        "nacht": [
+          ["wolf",22], ["skeleton",16], ["zombie",12], ["giant_bat",16], ["ghoul",6], ["kobold",10],
+          ["giant_spider",10], ["stirge",8]
+        ]
+      }
+    },
+    "cave": {
+      "id": "cave",
+      "name": {"de":"Blutzahnhöhle","en":"Bloodfang Cave"},
+      "art": "CAVE",
+      "breite": 22,
+      "hoehe": 20,
+      "rand": "X",
+      "stufe": 3,
+      "zeilen": [
+        "XXXXXXXXXXXXXXXXXXXXXX",
+        "XXXXXXti_______tXXXXXX",
+        "XXXXXX________j_XXXXXX",
+        "XXXXXXi________iXXXXXX",
+        "XXXXXXXXXX__XXXXXXXXXX",
+        "XXXXXXXXXXLLXXXXXXXXXX",
+        "XXXGXXGXXXHHXXXXXXXXXX",
+        "XXg_____XX__XX__*__jXX",
+        "XX_C___gXX__XX%___C_XX",
+        "XXg_____XX__XX_____jXX",
+        "XX___r______________XX",
+        "XX_g____XX__XXi_____XX",
+        "XXXXX_XXXXHHXXXX_XXXXX",
+        "XX~~____XX__XXe____uXX",
+        "XX~~C___XX__XXe____uXX",
+        "XX~g____XX__XX__F_j_XX",
+        "XX_%______________%_XX",
+        "XXXXXXXXXXHHXXXXXXXXXX",
+        "XXXXXXXXXX__XXXXXXXXXX",
+        "XXXXXXXXXX++XXXXXXXXXX"
+      ],
+      "buesche": [],
+      "bewuchs": [],
+      "ausgaenge": [
+        {
+          "x": 10,
+          "y": 19,
+          "ziel": {"karte":"forest","x":10,"y":1,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        },
+        {
+          "x": 11,
+          "y": 19,
+          "ziel": {"karte":"forest","x":10,"y":1,"blick":"DOWN"},
+          "verschlossen": false,
+          "umkehren": false
+        }
+      ],
+      "leute": [
+        {"id":"krogg","x":16,"y":9,"aussehen":"monster:bugbear","blick":"DOWN","streifen":0},
+        {
+          "id": "grak",
+          "x": 10,
+          "y": 2,
+          "aussehen": "monster:hobgoblin_captain",
+          "blick": "DOWN",
+          "streifen": 0
+        },
+        {"id":"lyra_cave","x":8,"y":1,"aussehen":"lyra","blick":"DOWN","streifen":0}
+      ],
+      "kisten": [
+        {"id":"cave_1","x":3,"y":8,"ding":"greater_potion","anzahl":2,"gold":0},
+        {"id":"cave_2","x":18,"y":8,"ding":"@gear:RARE","anzahl":1,"gold":0},
+        {"id":"cave_3","x":4,"y":14,"ding":"@class_weapon","anzahl":1,"gold":0}
+      ],
+      "schilder": [],
+      "haeuser": [],
+      "schutz": [{"x":10,"y":18,"radius":2}],
+      "begegnungen": {
+        "rate": 0.004,
+        "streuner": 6,
+        "kacheln": ["_","%","j","g","*"],
+        "tabelle": [
+          ["goblin",22], ["goblin_archer",12], ["goblin_shaman",8], ["skeleton",14], ["zombie",9],
+          ["giant_bat",12], ["giant_rat",6], ["ghoul",6], ["giant_spider",5], ["ochre_jelly",3]
+        ]
+      }
+    }
+  }
+}

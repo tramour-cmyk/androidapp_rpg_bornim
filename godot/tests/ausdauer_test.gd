@@ -13,22 +13,25 @@ func _initialize() -> void: _lauf.call_deferred()
 func _lauf() -> void:
 	Sprache.lade()
 	var z := Zustand.new()
-	var hw := Heldwerte.erschaffe("Alrik", "HUMAN", "FIGHTER")
-	for a in ["STR", "CON"]: hw.basis[a] = 10
-	pruefe("6 s bei KON 10", Ausdauer.reicht_ms(hw), 6000.0)
+	var hw := BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat")
+	# 870.4: Ausdauer aus Zaehigkeit und Wille (werte.json „welt“ „ausdauer“: 6 s bei Zaehigkeit + Wille = 10, je Punkt 0,5 s)
+	hw.ausruestung.erase("CHEST")
+	hw.volk = ""
+	for g in BrsHeld.grundwerte(): hw.verteilt[g] = 5
+	pruefe("6 s bei Zaehigkeit 5, Wille 5", Ausdauer.reicht_ms(hw), 6000.0)
 	pruefe("Trank doppelt", Ausdauer.reicht_ms(hw, true), 12000.0)
-	hw.basis["CON"] = 14
-	pruefe("KON 14: 10 s", Ausdauer.reicht_ms(hw), 10000.0)
-	hw.basis["CON"] = 1
+	hw.verteilt["zaehigkeit"] = 9
+	pruefe("Zaehigkeit 9: 8 s", Ausdauer.reicht_ms(hw), 8000.0)
+	hw.verteilt["zaehigkeit"] = 1; hw.verteilt["wille"] = 1
 	pruefe("mindestens 2 s", Ausdauer.reicht_ms(hw), 2000.0)
-	hw.basis["CON"] = 10
+	hw.verteilt["zaehigkeit"] = 5; hw.verteilt["wille"] = 5
 	hw.stufe = 4
 	pruefe("Stufe 4: 8 s", Ausdauer.reicht_ms(hw), 8000.0)
 	hw.stufe = 1
 	hw.ausruestung["CHEST"] = Beute.wuerfle(z.neue_uid(), "chain_mail", 1, "COMMON", KotlinZufall.new(1))
-	pruefe("schwer ohne STR 13", [Ausdauer.schwer(hw), Ausdauer.reicht_ms(hw)], [true, 3000.0])
-	hw.basis["STR"] = 13
-	pruefe("schwer mit STR 13", Ausdauer.schwer(hw), false)
+	pruefe("schwer ohne Kraft 7", [Ausdauer.schwer(hw), Ausdauer.reicht_ms(hw)], [true, 3000.0])
+	hw.verteilt["kraft"] = 7
+	pruefe("schwer mit Kraft 7", Ausdauer.schwer(hw), false)
 	hw.ausruestung.erase("CHEST")
 	# 6 s rennen leeren den Vorrat, dann geht er, bis ein Viertel zurueck ist (10 s gehen)
 	var rennt := true
@@ -47,7 +50,7 @@ func _lauf() -> void:
 	# 399.1 Fackel (Light.torch, torchChange): nur in der Nebenhand; im Dunkeln sagt An- und Ablegen etwas, sonst wie immer
 	Sprache.setze("de")
 	var zf := Zustand.new()
-	var hf := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, zf.neue_uid)
+	var hf := BrsHeld.fuer_spiel("Mira", "Mensch", "Wachsoldat", zf.neue_uid)
 	var m := Menue.new(hf, zf)
 	root.add_child(m)
 	await process_frame

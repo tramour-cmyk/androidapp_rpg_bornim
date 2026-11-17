@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Richtet auf einer frischen Ubuntu-Server-24.04-VM den Build-Rechner für Bornim ein (264, LISTE-PROXMOX-RUNNER.md):
+# Richtet auf einer frischen Ubuntu-Server-24.04-VM den Build-Rechner für Bornim ein (264, docs/alt/LISTE-PROXMOX-RUNNER.md):
 # Java 17, Android-SDK, GitHub-Runner als Dienst unter dem Benutzer "runner" (ohne sudo), Firewall ohne Zugriff aufs Heimnetz.
 # Aufruf: sudo bash einrichten.sh   (fragt nach dem Runner-Schlüssel von GitHub)
 set -euo pipefail
@@ -20,7 +20,7 @@ echo "=== 1/6 Programme installieren (dauert einige Minuten) ==="
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -q
 apt-get install -y -q curl unzip git jq ufw openjdk-17-jdk-headless
-# GitHub-CLI (gh): android.yml und release-notes.yml rufen sie auf
+# GitHub-CLI (gh): release-notes.yml ruft sie auf (android.yml gestrichen mit 870.10)
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg -o /usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
 apt-get update -q

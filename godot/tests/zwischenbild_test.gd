@@ -64,7 +64,18 @@ func _lauf() -> void:
 	h.free()
 	# 24.1 Ortsblende (InterludeClock.kindFor, at; Interlude.placeLines, pick)
 	pruefe("Arten", [Ortsblende.art_fuer("", "inn", false), Ortsblende.art_fuer("village", "inn", true), Ortsblende.art_fuer("village", "inn", false),
-		Ortsblende.art_fuer("village", "forest", false)], ["FULL", "FULL", "BLINK", "NAME"])
+		Ortsblende.art_fuer("village", "forest", false, [])], ["FULL", "FULL", "BLINK", "FULL"])
+	# 951 (Fund t276): beim zweiten Besuch wieder Name und Satz, nur bei haeufigen Wechseln (etwa zum fuenften Mal) der Name allein
+	var hin_her := ["forest", "village", "forest", "village", "forest", "village", "forest", "village"]
+	pruefe("haeufig", [Ortsblende.art_fuer("village", "forest", false, ["village", "forest", "village"]),
+		Ortsblende.art_fuer("village", "forest", false, hin_her),
+		Ortsblende.art_fuer("village", "forest", false, ["forest", "forest", "forest", "forest", "inn", "village", "inn", "village", "inn", "village", "inn", "village"]),
+		Ortsblende.art_fuer("forest", "forest", false, [])], ["FULL", "NAME", "FULL", "NAME"])
+	var alt_besuche := Ortsblende.besuche
+	Ortsblende.besuche = []
+	for i in 20: Ortsblende.merke("forest" if i % 2 == 0 else "village")
+	pruefe("merke", [Ortsblende.besuche.size(), Ortsblende.art_fuer("village", "forest", false)], [Ortsblende.HAEUFIG_FENSTER, "NAME"])
+	Ortsblende.besuche = alt_besuche
 	var zs := Zustand.new()
 	var tag := Ortsblende.saetze("village", zs, false)
 	var nacht := Ortsblende.saetze("village", zs, true)
@@ -96,6 +107,16 @@ func _lauf() -> void:
 	# Ueberspringen: fragen, dann beenden
 	z.frage()
 	pruefe("fragt", z.fragt != null, true)
+	# 856 (t274): die Rückfrage nach 549a: ganz deckend, kein Rahmen, „‹ ABBRECHEN“ links, „ÜBERSPRINGEN ›“ rechts; der Satz ohne Goldrand
+	pruefe("Rückfrage deckend", (z.fragt as ColorRect).color, Color.BLACK)
+	var gerahmt := z.fragt.find_children("*", "PanelContainer", true, false).filter(func(p):
+		var sb = (p as PanelContainer).get_theme_stylebox("panel")
+		return sb is StyleBoxFlat and (sb as StyleBoxFlat).border_width_top > 0)
+	pruefe("Rückfrage ohne Rahmen", gerahmt.size(), 0)
+	var kn: Array = z.fragt.find_children("*", "PanelContainer", true, false).filter(func(p): return p.has_meta("knopf")).map(func(p):
+		return [String(p.get_meta("knopf")), bool(p.get_meta("links")), (p.find_child("Text", true, false) as Label).text])
+	pruefe("Knöpfe", kn, [["neben", true, "ABBRECHEN"], ["haupt", false, "ÜBERSPRINGEN"]])
+	pruefe("Satz ohne Goldrand", (z.satz_kasten.get_theme_stylebox("panel") as StyleBoxFlat).border_width_top, 0)
 	var ende := [false]
 	z.fertig.connect(func(): ende[0] = true)
 	z.beende()

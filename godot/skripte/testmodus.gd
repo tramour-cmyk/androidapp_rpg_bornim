@@ -12,6 +12,8 @@ static var geladen := false
 static var an := false                  # prefs KEY_TEST
 static var bildrate := false            # FrameMeter.on: Bilder je Sekunde ueber der Welt
 static var standort := false            # PlaceMeter.on: Karte und Kachel des Helden ueber der Welt
+static var tiere := false               # 991: Tiermodelle um den Helden (Spiel.tiere_an_aus), fuer den Zustand am Zeichen
+static var klang := false               # 636 A (Chef 09.11., 06:55): die letzten Effekte ueber der Welt (klang.gd protokoll_zeilen)
 
 static func lade() -> void:
 	if geladen: return
@@ -19,39 +21,123 @@ static func lade() -> void:
 	var c := ConfigFile.new()
 	if c.load(DATEI) != OK: return
 	an = bool(c.get_value("test", "an", false))
+	if an and DisplayServer.get_name() != "headless": _schalter_laden(c)   # Tests ohne Fenster laufen immer mit den Grundwerten
 
 static func umschalten() -> void:
 	lade()
 	an = not an
 	var c := ConfigFile.new()
+	c.load(DATEI)
 	c.set_value("test", "an", an)
+	if not an and c.has_section("schalter"): c.erase_section("schalter")   # 1020.1 E: aus heißt alles wieder auf Anfang beim nächsten Start
 	c.save(DATEI)
+
+# 1020.1 E (Chef 12.11., 08:09; Vorlage 1020 E): die Schalter des Reiters bleiben über einen Neustart der App, bis der Testmodus aus ist.
+# Gespeichert nach jedem Antippen im Reiter (reiter() baut nach jedem Tippen neu); Tiere nicht (Modelle am Ort, kein Schalter)
+static func _schalter() -> Dictionary:
+	var Mars = load("res://regeln/mars.gd")
+	return {"bildrate": bildrate, "standort": standort, "klang": klang, "unsterblich": Mars.held_unsterblich, "schnell": Held.schnell > 1.0,
+		"beachten_nicht": Herde.beachten_nicht, "alles_sichtbar": alles_sichtbar, "krit": Mars.held_immer_krit, "ohne_rettung": Mars.gegner_ohne_rettung,
+		"gras_kit": GrasBausatz.an, "lichtschaechte": KampfEffekte.an, "zoom": Kamera.test_kacheln, "schnell_herkunft": schnell_herkunft,
+		"eroeffnung": eroeffnung, "kampfort": kampfort, "probe_gegner": probe_gegner, "probe_stufe": probe_stufe, "probe_held": probe_held}
+
+static func schalter_speichern(auch_ohne_fenster := false) -> void:
+	if not an or (DisplayServer.get_name() == "headless" and not auch_ohne_fenster): return   # Tests schreiben nichts in test.cfg
+	var c := ConfigFile.new()
+	c.load(DATEI)
+	var d := _schalter()
+	for k in d: c.set_value("schalter", k, d[k])
+	c.save(DATEI)
+
+static func _schalter_laden(c: ConfigFile) -> void:
+	if not c.has_section("schalter"): return
+	var g := func(k: String, v): return c.get_value("schalter", k, v)
+	var Mars = load("res://regeln/mars.gd")
+	bildrate = bool(g.call("bildrate", false)); standort = bool(g.call("standort", false)); klang = bool(g.call("klang", false))
+	Mars.held_unsterblich = bool(g.call("unsterblich", false))
+	Held.schnell = 3.0 if bool(g.call("schnell", false)) else 1.0
+	Herde.beachten_nicht = bool(g.call("beachten_nicht", false))
+	alles_sichtbar = bool(g.call("alles_sichtbar", false))
+	Mars.held_immer_krit = bool(g.call("krit", false)); Mars.gegner_ohne_rettung = bool(g.call("ohne_rettung", false))
+	GrasBausatz.an = bool(g.call("gras_kit", GrasBausatz.an)); KampfEffekte.an = bool(g.call("lichtschaechte", KampfEffekte.an))
+	Kamera.test_kacheln = float(g.call("zoom", 0.0))
+	schnell_herkunft = String(g.call("schnell_herkunft", schnell_herkunft))
+	eroeffnung = String(g.call("eroeffnung", eroeffnung)); kampfort = String(g.call("kampfort", kampfort))
+	probe_gegner = String(g.call("probe_gegner", probe_gegner)); probe_stufe = int(g.call("probe_stufe", probe_stufe))
+	probe_held = String(g.call("probe_held", probe_held))
 
 static func ist_an() -> bool:
 	lade()
 	return an
 
 # ---------------------------------------------------------------- Reiter „Test“ (TestTab.kt), soweit die neue Welt es traegt
-# Wie alt in Gruppen: Anzeigen und Messwerte, Held, Welt, Teleport, Kampf beschwoeren, MARS-Probekampf, Beute erzeugen. Was in die Welt
+# Wie alt in Gruppen: Anzeigen und Messwerte, Held, Welt, Teleport, Probekampf (1034: statt Kampf beschwoeren und MARS-Probekampf), Beute erzeugen. Was in die Welt
 # greift (Teleport, Kapitelende, Kampf), sagt das Menue der Welt mit Menue.test; der Rest aendert Held und Zustand gleich.
 # 555 (Chef 04.11., 00:30: „Fehlt vielleicht noch mehr im Testmenü??? Wäre zum Testen noch etwas sinnvoll, damit es flott geht???“): was alt
 # da war, wieder (Absturzbericht, Blende „bereit nach“, Teleport Wald und Hoehle, Kartenzoom, Monster beachten mich nicht, Bosse
 # zuruecksetzen, Kampfhilfen, Monster neben den Helden holen), dazu fuers Durchspielen: Stationen von Kapitel 1 mit passendem Stand,
 # Held unsterblich, Gehen dreifach, Truhen und Kraeuter zuruecksetzen, Merker der Geschichte. Noch nicht wie alt: Regen (Godot hat keinen),
-# Sichtlinie (erst mit dem Nebel 505), Varianten Elite und Schimmernd (MARS kennt sie noch nicht, 390), „Letztes Ende der App“ (Android).
+# Sichtlinie (erst mit dem Nebel 505), Varianten Elite und Schimmernd (MARS kennt sie noch nicht, 390). „Letztes Ende der App“ seit 1021.
 
 const STUFEN_PROBE := [3, 5, 6, 8, 11]          # Skirmish.PROBE_LEVEL und die Stufen aus 259
 const NEBENHAND := ["", "shield", "round_shield", "dagger"]   # cheatOffHand
-const KLASSEN := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
+const HERKUENFTE := ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]   # 870.4: Probehelden nach Herkunft statt Klasse
 
 static var waffen_auf := false
-static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer zuerst handelt im beschworenen Kampf
-static var kampfort := ""               # 493 (Jerry): Kampfort im Wald für den beschworenen Kampf; leer: nach der Kachel wie im Spiel
+# 1020.1 A: Schnellstart und Lage merken je auf einem eigenen Platz hinter den vier des Spielers (Spielstand.PLAETZE), nie auf seinem
+const UHRZEITEN := [8 * 60, 10 * 60, 12 * 60, 19 * 60, 20 * 60 + 30, 21 * 60, 23 * 60]   # 1020.1 E: Zeiten der Prüflisten
+const TESTPLATZ := 9
+const LAGEPLATZ := 8
+static var schnell_herkunft := "Wachsoldat"
+static func schnellstart() -> Dictionary:
+	var hw := probeheld(schnell_herkunft, 1)
+	return {"schnell": true, "platz": TESTPLATZ, "name": "Test", "brs": hw.als_daten()}
+static var eroeffnung := "NORMAL"       # 399.2 (Jerry, TestTab.kt opening): wer zuerst handelt, im Testmodus in jedem Kampf
+static var kampfort := ""               # 493 (Jerry): Kampfort im Wald, im Testmodus für jeden Kampf; leer: nach der Kachel wie im Spiel
 static var probe_gegner := "GRAK"
 static var probe_stufe := 3
 static var merker_auf := false
 static var bericht_auf := false
 static var alles_sichtbar := false      # 555 wie alt Game.seeAll; wirkt mit dem Nebel (505, nebel.gd)
+# 1145 (Chef 13.11., 14:35: Hoehle „fühlt sich ein bisschen hackelig an“, Bilder/s 45 bei 90 Hz): am Geraet messen, was die Zeit
+# frisst; je Teil einzeln aus, nicht gespeichert (nach dem Neustart wieder alles an)
+static var ohne_tusche := false
+static var ohne_tuschelampen := false
+static var ohne_nebel := false
+static var ohne_schatten := false
+static var _leistung_war := false
+# 1145 Test 285 (Chef 14.11., 10:44: „es ist egal, ob ich alles ausschalte oder nicht. Sobald ich mich bewege, ja, schaut es hakelig
+# aus“; ohne Effekte 94 Bilder/s bei 120 Hz): bei 94 Bildern auf 120 Hz steht jedes Bild ungleich lang (eins, dann zwei Takte des
+# Bildschirms), die Bewegung ruckelt auch bei hoher Rate. Zum Messen am Gerät: Bilder je Sekunde fest begrenzen (0 = frei). Alt (WorldScreen.kt
+# 190: withFrameMillis) bewegte je Takt des Bildschirms, schrieb ein Bild je Takt (Compose), nie ein ungleich langes
+const TAKTE := [0, 60, 40, 30]
+static var takt_i := 0
+
+## 1145: Takt reihum (frei, 60, 40, 30); Engine.max_fps gilt sofort, nicht gespeichert
+static func takt_setzen(i: int) -> void:
+	takt_i = posmod(i, TAKTE.size())
+	Engine.max_fps = int(TAKTE[takt_i])
+
+## 1145: die Schalter „Messen ohne …“ auf Kamera (Tusche, Tuschelampen, Nebel) und alle Lichter (Schatten) anwenden; laeuft nur,
+## solange einer aus ist, und einmal danach zum Zuruecksetzen
+static func leistung_anwenden(tree: SceneTree) -> void:
+	var aus := ohne_tusche or ohne_tuschelampen or ohne_nebel or ohne_schatten
+	if not aus and not _leistung_war: return
+	_leistung_war = aus
+	var args := OS.get_cmdline_user_args()
+	var kam := tree.root.get_viewport().get_camera_3d()
+	if kam is Kamera:
+		var k := kam as Kamera
+		k.lampen_an = not ohne_tuschelampen and not "--tuschelampen=0" in args
+		for c in k.get_children():
+			if not (c is MeshInstance3D and (c as MeshInstance3D).material_override is ShaderMaterial): continue
+			var m := (c as MeshInstance3D).material_override as ShaderMaterial
+			if m in k.tusche_mats: (c as MeshInstance3D).visible = not ohne_tusche and not "--ohnetusche" in args
+			elif m.shader and m.shader.resource_path.ends_with("nebel.gdshader"): (c as MeshInstance3D).visible = not ohne_nebel
+	for n in tree.root.find_children("*", "Light3D", true, false):
+		var l := n as Light3D
+		if not l.has_meta("schatten_1145"): l.set_meta("schatten_1145", l.shadow_enabled)
+		l.shadow_enabled = bool(l.get_meta("schatten_1145")) and not ohne_schatten
 const ZOOM_KACHELN := [0.0, 5.6, 6.75, 8.4, 10.5]   # 555 wie alt MapZoom.levels (Kacheln quer); 0 = wie unter Bedienung „Karte“
 
 # 555 Merker der Geschichte in der Folge von Kapitel 1 (Geschichte.gd), mit kurzem Namen zum Ansehen und Setzen
@@ -65,7 +151,9 @@ const MERKER := [["intro_done", "Erwacht", "Woke up"], ["quest_started", "Auftra
 # 555 Stationen von Kapitel 1: Name, Karte, Person (oder Kachel und Blick), Merker bis dahin (Index in MERKER, ausschliesslich)
 const STATIONEN := [["Garrick", "forest", "garrick", 3], ["Morwen", "deep_forest", "morwen", 5], ["Grimmzahn", "deep_forest", "grimfang", 7],
 	["Höhle", "forest", [Vector2i(10, 1), "UP"], 8], ["Krogg", "cave", "krogg", 9], ["Grak", "cave", [Vector2i(10, 7), "UP"], 11],
-	["Lyra", "cave", "lyra_cave", 12]]
+	["Lyra", "cave", "lyra_cave", 12], ["Tempel", "temple", "lyra_temple", 14]]
+# 635 (Chef, t274.13: „Lyra steht erst nach der Befreiung im Tempel; Sprung im Reiter ‚Test‘ nötig“): Station „Tempel“ = Lyra befreit
+# und fort aus der Höhle, Amulett in der Tasche, vor Aldric; der Held steht neben Lyra im Tempel
 
 ## 555 (Chef 04.11., 11:52, t257 251.1: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): die Spinne hat noch kein Modell
 ## (Streuner.da), der Kampf zeigte statt ihrer einen zweiten Wolf; ebenso Fledermaeuse. Nur Gruppen, deren Monster ein Modell haben;
@@ -77,40 +165,139 @@ static func feinde(alle := false) -> Dictionary:
 	for g in s.FOES:
 		if alle or gruppe_da(String(g)): r[g] = s.FOES[g]
 	return r
+# 555 (Chef 04.11., 11:52: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): jede Figur der Aufstellung braucht ihr Modell. Vorher
+# zaehlten nur Gruppen, die ein Monster der Karte traegt; „Riesenspinne und Wolf“ (SPIDER) traegt keines und galt immer als da
+static var _gruppe_da := {}
 static func gruppe_da(g: String) -> bool:
-	for mo in Streuner.GRUPPE:
-		if String(Streuner.GRUPPE[mo]) == g and not Streuner.da(String(mo)): return false
-	return true
+	if _gruppe_da.has(g): return _gruppe_da[g]
+	var tab: Dictionary = Tabellen.lade()
+	var monsters := {}
+	for m in tab.monsters: monsters[m.id] = m
+	var ja := true
+	for f in Streuner.AufrufS.gegner(g, monsters, Streuner.Wuerfel.new(null)):
+		var fig = Streuner.Figur.new()
+		fig.fighter = f
+		if not FileAccess.file_exists(String(fig._model_path())): ja = false
+		fig.free()
+		if not ja: break
+	_gruppe_da[g] = ja
+	return ja
 static func ohne_modell() -> Array:
 	var alle := feinde(true)
 	return alle.keys().filter(func(g): return not gruppe_da(String(g))).map(func(g): return String(alle[g]))
 
-# Held und Soeldner der MARS-Probe: Mensch der Klasse auf der Stufe, Werte wie vorgeschlagen
-static func probeheld(klasse: String, stufe: int) -> Heldwerte:
-	var h := Heldwerte.erschaffe("Probe", "HUMAN", klasse)
-	h.ep_dazu(int(Heldwerte.regel("ep_fuer_stufe")[stufe]))
+# Held und Soeldner der MARS-Probe: Mensch der Herkunft (870.4) auf der Stufe, Punkte wie die Herkunft sie verteilt, ihre Ausruestung
+static func probeheld(herkunft: String, stufe: int, volk := "Mensch") -> BrsHeld:
+	var h := BrsHeld.fuer_spiel("Probe", volk, herkunft)
+	h.stufe = clampi(stufe, 1, Brs.hoechste_stufe())
 	h.voll()
-	h.zp = h.max_zp()
 	return h
 
-# Game.cheatLevel: hinauf mit EP, hinab mit Stufe, EP und Punkten wie bei einem, der so weit kam; danach voll geheilt
-static func stufe_setzen(hw: Heldwerte, z: Zustand, ziel: int) -> void:
-	var t := clampi(ziel, 1, int(Heldwerte.regel("max_stufe")))
-	var tab: Array = Heldwerte.regel("ep_fuer_stufe")
-	if t > hw.stufe: hw.ep_dazu(maxi(0, int(tab[t]) - hw.ep))
-	elif t < hw.stufe:
-		hw.stufe = t
-		hw.ep = int(tab[t])
-		hw.passe_punkte()
-	heile(hw)
-	z.stufe_held = hw.stufe
+# ---------------------------------------------------------------- 1020.2 B Probekampf-Baukasten (Chef 12.11., 08:09; Vorlage 1020 B)
+# Vor dem Probekampf frei wählbar: Volk, Herkunft, Stufe, Waffe (auch Bogen, Zweihänder), andere Hand, Söldner (wie der Held, keiner oder
+# eine eigene Herkunft), Tasche, Leben zu Beginn, Tageszeit; dazu Kampfort und Eröffnung. „*“ = wie die Herkunft ausstattet bzw. wie bisher.
+# Nach dem Kampf „Nochmal“ mit derselben Wahl (spiel.gd test_tat „probe“) und „Zurück zum Testmenü“. Elite: MARS nach BRS kennt keine
+# Elite-Gegner (nur klassisch.gd), bis es eine Regel gibt, fehlt der Schalter.
+const PROBE_TASCHEN := {"zwei": {"potion": 2}, "keine": {}, "voll": {"potion": 5, "greater_potion": 2, "remedy": 2, "alchemist_fire": 3, "holy_water": 2}}
+const PROBE_LEBEN := {"voll": 1.0, "halb": 0.5, "knapp": 0.15}
+const PROBE_ZEITEN := ["", "tag", "abend", "nacht"]
+static var probe_herkunft := "Wachsoldat"
+static var probe_volk := "Mensch"
+static var probe_waffe := "*"           # Grundform, "" ohne Waffe, "*" wie die Herkunft
+static var probe_neben := "*"           # NEBENHAND oder "*"
+# 964 (Fund t284.5, Chef 13.11., 20:47: „Beute erzeugen“ gab 30–40 Mal kein Kettenhemd): Brustrüstung der Lage („ruestung=chain_shirt“),
+# "*" wie die Herkunft, "" ohne; nur über die Prüfliste, im Reiter kein eigener Knopf
+static var probe_ruestung := "*"
+static var probe_soeldner := ""         # "*" wie der Held, "" keiner, sonst Herkunft; 947 (Chef 11.11., t276.12): keiner wie in Kapitel 1 (168 D: Söldner ab K3)
+static var probe_tasche := "zwei"
+static var probe_leben := "voll"
+static var probe_zeit := ""             # "" nach der Spieluhr
+static var probe_waffen_auf := false
+# 1020.2 C: einmal je Probekampf erzwungen (Mars.test_gegnerzug, Mars.test_ausweichen; spiel.gd kampf_im_wald setzt sie bei jedem Start)
+const PROBE_ZUEGE := ["", "pounce", "heavy", "reihe", "flucht"]
+static var probe_zug := ""
+static var probe_ausweichen := false
+# 1034 (Chef 12.11., 14:34–14:38): ein Probekampf für alles. „spiel“: der eigene Held aus dem Spielstand, Beute, Gold, Erfahrung, Übung
+# und Tränke zählen wie im Spiel (spiel.gd kampf_im_wald ohne probe); „test“: der Testheld wie bisher, der Spielstand bleibt unberührt
+const PROBE_HELDEN := ["test", "spiel"]
+static var probe_held := "test"
+static var gegner_auf := true           # 1034: Gegnerliste aufgeklappt (einklappbar über „Gegner“)
+# [72.10a.5.namen] (STORY-BLENDE.md, alt Skirmish.MERC_NAMES): der Söldner bekommt den nächsten freien Namen, nie den des Helden
+const SOELDNER_NAMEN := ["Bertram", "Hagen", "Edric", "Tamsin", "Wulf", "Ilsa", "Corwin", "Maren", "Odo", "Fenna", "Rurik", "Sela"]
+static func soeldner_name(held_name: String) -> String:
+	for n in SOELDNER_NAMEN:
+		if n.to_lower() != held_name.to_lower(): return n
+	return SOELDNER_NAMEN[0]
 
-static func heile(hw: Heldwerte) -> void:   # Hero.restoreFully
+## 1034: der Söldner des Probekampfs zum Helden [hw] (Spielheld oder Testheld) auf dessen Stufe, „wie der Held“ mit dessen Herkunft;
+## null ohne Söldner
+static func probe_soeldner_fuer(hw: BrsHeld):
+	var sk := hw.herkunft if probe_soeldner == "*" else probe_soeldner
+	if sk == "": return null
+	var s := probeheld(sk, hw.stufe)
+	s.name = soeldner_name(hw.name)
+	return s
+
+## Held, Söldner, Leben und Tasche des Probekampfs nach der Wahl im Reiter; [herkunft], [stufe] wie gewählt oder aus einem Test.
+## 1034 (Chef 12.11., 14:41: Held und Söldner hießen beide „Probe“): der Testheld trägt [name] (den des eigenen Helden, wie alt
+## Skirmish.probe), der Söldner einen aus SOELDNER_NAMEN
+static func probe_aufbau(herkunft: String, stufe: int, name := "") -> Dictionary:
+	var h := probeheld(herkunft, stufe, probe_volk)
+	if name != "": h.name = name
+	probe_ausstatten(h)
+	var sk := herkunft if probe_soeldner == "*" else probe_soeldner
+	var s = probeheld(sk, stufe) if sk != "" else null
+	if s != null: s.name = soeldner_name(h.name)
+	h.leben = maxi(1, roundi(h.max_leben() * float(PROBE_LEBEN.get(probe_leben, 1.0))))   # aufruf.gd _kaempfer: Leben nach BRS
+	return {"held": h, "soeldner": s, "tasche": (PROBE_TASCHEN.get(probe_tasche, {}) as Dictionary).duplicate(), "zeit": probe_zeit}
+
+static func probe_ausstatten(h: BrsHeld) -> void:
+	var neu := func(base: String) -> Dictionary:
+		return {"uid": 0, "base": base, "rarity": "COMMON", "ilvl": h.stufe, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
+	if probe_waffe != "*":
+		h.ablegen("MAIN_HAND")
+		if probe_waffe != "": h.anlegen(neu.call(probe_waffe))
+	var hw = h.waffe()
+	var zwei: bool = hw != null and bool(Beute.grundform(String(hw["base"]))["zweihaendig"])
+	if probe_neben != "*" and not zwei:
+		h.ablegen("OFF_HAND")
+		if probe_neben != "":
+			var g: Dictionary = neu.call(probe_neben)
+			if Beute.ist_waffe(Beute.grundform(probe_neben)): h.anlegen_nebenhand(g)
+			else: h.anlegen(g)
+	if probe_ruestung != "*":
+		h.ablegen("CHEST")
+		if probe_ruestung != "": h.anlegen(neu.call(probe_ruestung))
+	h.voll()
+
+## 964: Grundformen, die als Brustrüstung angelegt werden (für „ruestung=“ der Lage)
+static func brustruestungen() -> Array:
+	return Beute.grundformen().filter(func(id): var b := Beute.grundform(String(id)); return String(b["art"]) == "ARMOR" and String(b["slot"]) == "CHEST")
+
+static func probe_waffen() -> Array:
+	var alle: Array = ["*", ""]
+	for id in Beute.grundformen():
+		if Beute.ist_waffe(Beute.grundform(id)): alle.append(id)
+	return alle
+
+static func weiter(liste: Array, jetzt):
+	return liste[(liste.find(jetzt) + 1) % liste.size()]
+
+# Game.cheatLevel, 870.4: Heldenstufe nach BRS setzen (Stand in zustand.brs_stufe, Erfahrung am Anfang der Stufe); danach voll geheilt
+static func stufe_setzen(hw: BrsHeld, z: Zustand, ziel: int) -> void:
+	var t := clampi(ziel, 1, Brs.hoechste_stufe())
+	var st := z.stufe_brs()
+	st["stufe"] = t
+	st["ep"] = 0.0
+	st["ep_fert"] = 0.0
+	hw.stufe = t
+	heile(hw)
+
+static func heile(hw: BrsHeld) -> void:   # Hero.restoreFully
 	hw.voll()
-	hw.zp = hw.max_zp()
 
 # Game.cheatSupplies: jeder Vorrat ausser Schluesseldingen auf mindestens n, Fackeln auf zwei, ein Rauchbuendel
-static func vorraete(hw: Heldwerte, z: Zustand, n := 10) -> void:
+static func vorraete(hw: BrsHeld, z: Zustand, n := 10) -> void:
 	var dinge: Dictionary = Sprache.texte.get("dinge", {})
 	for id in dinge:
 		if String(dinge[id].get("art", "")) != "KEY" and z.anzahl(id) < n: z.dazu(id, n - z.anzahl(id))
@@ -120,11 +307,11 @@ static func vorraete(hw: Heldwerte, z: Zustand, n := 10) -> void:
 	for i in maxi(0, 2 - fackeln): z.ausruestung_dazu(Beute.fackel(0))
 	if z.anzahl(Geschichte.SMOKE_BUNDLE) == 0: z.dazu(Geschichte.SMOKE_BUNDLE, 1)
 
-static func schlicht(z: Zustand, hw: Heldwerte, base: String) -> Dictionary:   # Gear(0, base, COMMON, level)
-	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "plus": 0, "rolls": [], "unique": null, "name_seed": 0}
+static func schlicht(z: Zustand, hw: BrsHeld, base: String) -> Dictionary:   # Gear(0, base, COMMON, level)
+	return {"uid": z.neue_uid(), "base": base, "rarity": "COMMON", "ilvl": hw.stufe, "guete": 0, "rolls": [], "unique": null, "name_seed": 0}
 
 # Game.cheatWeapon / cheatOffHand: was die Hand hielt, kommt in die Tasche
-static func waffe(hw: Heldwerte, z: Zustand, base: String, neben := false) -> void:
+static func waffe(hw: BrsHeld, z: Zustand, base: String, neben := false) -> void:
 	var platz := "OFF_HAND" if neben else "MAIN_HAND"
 	var alt = hw.ablegen(platz)
 	if alt != null: z.beutel.append(alt)
@@ -145,6 +332,7 @@ static func name_von(base: String) -> String:
 # wie im Menü „System“ (zeichenknopf.gd): Name, Wert in Gold, Antippen tut es, Gedrückthalten erklärt; Listen (Waffen, Gegner) bleiben
 # Knöpfe mit dem Namen, weil der Name dort der Inhalt ist
 static func reiter(m: Menue) -> void:
+	schalter_speichern()   # 1020.1 E: nach jedem Antippen (der Reiter baut danach neu)
 	var de := Sprache.aktiv() == "de"
 	var t := func(d: String, e: String) -> String: return d if de else e
 	var an_aus := func(b: bool) -> String: return t.call("an", "on") if b else t.call("aus", "off")
@@ -156,33 +344,59 @@ static func reiter(m: Menue) -> void:
 		var r := HBoxContainer.new()
 		r.add_theme_constant_override("separation", int(6 * Menue.DP))
 		for k in knoepfe:
-			var b := Erschaffung.knopf(String(k[0]), k[1])
+			var b := Stil.knopf(String(k[0]), k[1], k.size() > 2 and bool(k[2]))   # 1034: [2] gewählt (Gegner des Probekampfs)
 			b.clip_text = false   # 425 (Pruefer 01.11.: „Wolf mit Jungwölfen“ am Rand abgeschnitten): lange Namen brechen um
 			b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			r.add_child(b)
 		m.inhalt.add_child(r)
 		m.luecke(6)
-	m.zeile(t.call("Testmodus", "Test mode"), 18, Stil.BRIGHT)
+	m.zeile(t.call("Testmodus", "Test mode").to_upper(), 14, Stil.GOLD).add_theme_font_override("font", Stil.variante(3.0))   # 584: Kopf wie alt (TestTab.kt 50, MenuHead)
 	m.luecke(8)
 	absturz(m, t)
+	# 1020.1 A: Lage merken und zurück, Einmaliges zurücksetzen, Herkunft für den Schnellstart im Hauptmenü
+	m.gruppe(t.call("Schnelltest", "Quick test"))
+	m.zeichenreihe([zk.call(t.call("Lage merken", "Save spot"), null, t.call("Merkt sich Ort, Uhrzeit, Held und Geschichte auf einem eigenen Testplatz; dein Spielstand bleibt.",
+			"Remembers place, time, hero and story on a test slot of its own; your save stays."), func(): m.test.emit("lage_merken", []), "PIN"),
+		zk.call(t.call("Lage zurück", "Back to spot"), null, t.call("Zurück in die gemerkte Lage, um einen Prüfpunkt zu wiederholen.", "Back to the saved situation, to repeat a check."),
+			func(): m.test.emit("lage_zurueck", []), "", "↺"),
+		zk.call(t.call("Einmaliges", "One-time"), null, t.call("Eingebungen, Kampfhinweise und Ortssätze erscheinen wieder wie beim ersten Mal.",
+			"Insights, fight hints and place lines appear again as the first time."), func(): m.test.emit("einmaliges", []), "FLAG"),
+		zk.call(t.call("Schnellstart", "Quick start"), ErschaffungBrs.herkunft_name(schnell_herkunft), t.call("Herkunft des Helden für „Schnellstart“ im Hauptmenü: neues Spiel ohne Intro und Erschaffung auf einem Testplatz.",
+			"Background of the hero for “Quick start” in the main menu: a new game without intro and creation on a test slot."),
+			func(): schnell_herkunft = HERKUENFTE[(HERKUENFTE.find(schnell_herkunft) + 1) % HERKUENFTE.size()], "RUN")])
+	m.luecke(6)
+	Pruefliste.zeige(m, t)   # 1020.1: die Prüfliste des Builds gleich danach
 	m.gruppe(t.call("Anzeigen", "Displays"))
 	# 425 wie alt (TestTab.kt): nur die Messwerte offen, Geraet, System und Grafik erst hinter „Gerät zeigen …“ (DeviceBox)
 	var ml := Engine.get_main_loop()
-	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 13, Stil.TEXT)
+	for r in Messung.zeilen(ml.root if ml is SceneTree else null): m.zeile(String(r), 15, Stil.TEXT)   # 624: lesbar (vorher 13 sp)
 	m.luecke(8)
 	m.zeichenreihe([zk.call(t.call("Bildrate", "Frame rate"), an_aus.call(bildrate), t.call("Zeigt über der Welt die Bilder je Sekunde.", "Shows frames per second over the world."),
 			func(): bildrate = not bildrate, "FPS", "", bildrate),
 		zk.call(t.call("Standort", "Position"), an_aus.call(standort), t.call("Zeigt über der Welt Karte und Kachel des Helden.", "Shows the hero's map and tile over the world."),
-			func(): standort = not standort, "PIN", "", standort)])
+			func(): standort = not standort, "PIN", "", standort),
+		zk.call(t.call("Klang", "Sound"), an_aus.call(klang), t.call("Zeigt über der Welt die letzten Geräusche: spielt, verklungen, abgebrochen oder nicht gestartet.", "Shows the latest sounds over the world: playing, finished, cut off or not started."),
+			func(): klang = not klang, "SOUND", "", klang)])
+	# 1145: messen, was die Bildzeit frisst; mit „Bildrate“ zeigt die Welt dazu Grafik- und Rechenzeit je Bild und den Bildschirmtakt
+	var mess_satz: String = t.call("Nur zum Messen mit „Bildrate“: schaltet diesen Teil des Bildes ab, bis du ihn wieder anschaltest oder das Spiel neu startest.",
+		"For measuring with “Frame rate” only: turns this part of the picture off until you turn it on again or restart the game.")
+	m.zeichenreihe([zk.call(t.call("Tusche", "Ink"), an_aus.call(not ohne_tusche), mess_satz, func(): ohne_tusche = not ohne_tusche, "", "✒", not ohne_tusche),
+		zk.call(t.call("Tusche nach Lampen", "Ink by lamps"), an_aus.call(not ohne_tuschelampen), mess_satz, func(): ohne_tuschelampen = not ohne_tuschelampen, "", "✒", not ohne_tuschelampen),
+		zk.call(t.call("Nebel", "Fog"), an_aus.call(not ohne_nebel), mess_satz, func(): ohne_nebel = not ohne_nebel, "", "▒", not ohne_nebel),
+		zk.call(t.call("Schatten", "Shadows"), an_aus.call(not ohne_schatten), mess_satz, func(): ohne_schatten = not ohne_schatten, "", "◐", not ohne_schatten)])
+	m.zeichenreihe([zk.call(t.call("Takt", "Frame cap"), (t.call("frei", "free") if TAKTE[takt_i] == 0 else "%d" % TAKTE[takt_i]),
+		t.call("Nur zum Messen: begrenzt die Bilder je Sekunde (frei, 60, 40, 30), bis zum Neustart. Läuft die Bewegung mit festem Takt ruhig, kommt das Hakeln vom ungleichen Takt.",
+			"For measuring only: caps the frames per second (free, 60, 40, 30) until restart. If movement runs smoothly with a fixed cap, the stutter comes from uneven pacing."),
+		func(): takt_setzen(takt_i + 1), "FPS", "", TAKTE[takt_i] != 0)])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
-	var stufe_satz: String = t.call("Stufe des Helden ändern; danach voll geheilt. Hinab mit Stufe, Erfahrung und Punkten wie bei einem, der so weit kam.",
-		"Change the hero's level, then fully healed. Down sets level, experience and points as for one who got that far.")
+	var stufe_satz: String = t.call("Heldenstufe ändern; die Erfahrung beginnt am Anfang der Stufe, danach voll geheilt.",
+		"Change the hero level; experience starts at the beginning of the level, then fully healed.")
 	m.zeichenreihe([-5, -1, 1, 5].map(func(d): return zk.call(t.call("Stufe", "Level"), null, stufe_satz,
 		func(): stufe_setzen(hw, z, hw.stufe + d), "", ("+%d" % d) if d > 0 else ("−%d" % -d))))
 	m.zeichenreihe([zk.call("Gold", str(z.gold), t.call("Gibt 1000 Gold.", "Gives 1000 gold."), func(): z.gold += 1000, "COIN"),
-		zk.call(t.call("Heilen", "Heal"), "%d/%d" % [hw.tp, hw.max_tp()], t.call("Trefferpunkte und Zauberplätze voll.", "Hit points and spell slots full."),
+		zk.call(t.call("Heilen", "Heal"), "%d/%d" % [hw.leben, hw.max_leben()], t.call("Leben und Mana voll.", "Life and mana full."),
 			func(): heile(hw), "HEAL"),
 		zk.call(t.call("Vorräte", "Supplies"), "10", t.call("Jeder Vorrat auf mindestens 10, dazu zwei Fackeln und ein Rauchbündel.", "Every supply to at least 10, plus two torches and a smoke bundle."),
 			func():
@@ -198,13 +412,13 @@ static func reiter(m: Menue) -> void:
 			t.call("Wechselt die andere Hand: leer, Schild, Rundschild, Dolch.", "Cycles the other hand: empty, shield, round shield, dagger."),
 			func(): waffe(hw, z, NEBENHAND[(maxi(NEBENHAND.find(nb), 0) + 1) % NEBENHAND.size()] if NEBENHAND.has(nb) else "", true), "SHIELD")])
 	var Mars = load("res://regeln/mars.gd")
-	m.zeichenreihe([zk.call(t.call("Unsterblich", "Immortal"), an_aus.call(Mars.held_unsterblich), t.call("Im Kampf fällt der Held nie unter 1 Trefferpunkt; zum Durchspielen.",
+	m.zeichenreihe([zk.call(t.call("Unsterblich", "Immortal"), an_aus.call(Mars.held_unsterblich), t.call("Im Kampf fällt der Held nie unter 1 Leben; zum Durchspielen.",
 			"In a fight the hero never drops below 1 hit point; for playing through."), func(): Mars.held_unsterblich = not Mars.held_unsterblich, "", "∞", Mars.held_unsterblich),
 		zk.call(t.call("Schnell", "Fast"), an_aus.call(Held.schnell > 1.0), t.call("Gehen und Laufen dreimal so schnell, damit der Weg durch Kapitel 1 flott geht.",
 			"Walking and running three times as fast, to cross chapter 1 quickly."), func(): Held.schnell = 1.0 if Held.schnell > 1.0 else 3.0, "RUN", "", Held.schnell > 1.0)])
-	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; „Abenteuer beginnen“ und „Zurück“ fuehren in die Welt zurueck
-	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Zeigt die neue Seite „Neues Spiel“ nach BRS 1.1. Ins Spiel kommt sie mit dem Kampf nach BRS (2.3); bis dahin ändert sie den Helden nicht.",
-		"Shows the new “New game” page after BRS 1.1. It enters the game with BRS combat (2.3); until then it does not change the hero."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
+	# 470a B: die Seite „Neues Spiel“ nach BRS 1.1 bis 2.3 nur hier; 834: „Abenteuer beginnen“ beginnt ein neues Spiel mit diesem Helden, „Zurück“ fuehrt in die Welt zurueck
+	m.zeichenreihe([zk.call(t.call("Erschaffung BRS", "Creation BRS"), null, t.call("Neue Seite „Neues Spiel“ nach BRS 1.1. „Abenteuer beginnen“ speichert dieses Spiel und beginnt ein neues mit dem Helden nach BRS (Fertigkeiten, Übung); gekämpft wird bis 2.3 wie bisher.",
+		"New “New game” page after BRS 1.1. “Begin adventure” saves this game and starts a new one with the BRS hero (skills, practice); combat stays as before until 2.3."), func(): m.test.emit("erschaffung_brs", []), "RULES")])
 	if waffen_auf:
 		var alle: Array = [""]
 		for id in Beute.grundformen():
@@ -216,10 +430,15 @@ static func reiter(m: Menue) -> void:
 				paar.append([(name_von(w) if w != "" else t.call("Ohne Waffe", "No weapon")) + (" ²" if zwei else ""), func(): waffe(hw, z, w); waffen_auf = false; m.baue()])
 			reihe.call(paar)
 	m.gruppe(t.call("Welt", "World"))
-	m.zeichenreihe([zk.call(t.call("Uhrzeit", "Time"), "%02d:%02d" % [z.minuten / 60, z.minuten % 60], t.call("Stellt die Uhr drei Stunden vor.", "Moves the clock three hours on."),
+	# 1020.1 E (Vorlage 1020 E: die Listen wollen 10:00, 20:30, „nach 18 Uhr“): die Uhr direkt auf die nächste Zeit der Liste
+	m.zeichenreihe([zk.call(t.call("Uhrzeit", "Time"), "%02d:%02d" % [z.minuten / 60, z.minuten % 60], t.call("Stellt die Uhr auf die nächste dieser Zeiten: 8, 10, 12, 19, 20:30, 21, 23 Uhr.",
+			"Sets the clock to the next of these times: 8, 10, 12, 19, 20:30, 21, 23 o'clock."),
 			func():
-				var alle_ := z.minuten + 3 * 60   # Game.cheatTime
-				z.tag += alle_ / (24 * 60); z.minuten = alle_ % (24 * 60), "CLOCK"),
+				var naechste := -1
+				for u in UHRZEITEN:
+					if u > z.minuten: naechste = u; break
+				if naechste < 0: z.tag += 1; naechste = UHRZEITEN[0]
+				z.minuten = naechste, "CLOCK"),
 		zk.call(t.call("Kartenzoom", "Map zoom"), zoom_name(t), t.call("Wie viele Kacheln die Karte quer zeigt, in vier Stufen wie alt; „Bedienung“ heißt wie unter System, Bedienung.",
 			"How many tiles the map shows across, in four steps as before; “Controls” means as set under System, Controls."), func():
 				Kamera.test_kacheln = ZOOM_KACHELN[(ZOOM_KACHELN.find(Kamera.test_kacheln) + 1) % ZOOM_KACHELN.size()]
@@ -244,9 +463,10 @@ static func reiter(m: Menue) -> void:
 				if String(f).begins_with("kiste:"): z.flaggen.erase(f)
 			z.gepflueckt.clear()
 			m.test.emit("ort_neu", [t.call("Truhen und Kräuter zurückgesetzt.", "Chests and herbs reset.")]), "GEM")]
-	welt4.append(zk.call(t.call("Merker", "Flags"), "%d" % MERKER.filter(func(f): return z.has(String(f[0]))).size(),
-		t.call("Zeigt die Merker der Geschichte von Kapitel 1; Antippen setzt oder löscht einen, „Ort neu“ zeigt den Ort danach.",
-			"Shows the story flags of chapter 1; a tap sets or clears one, “Reload place” shows the place afterwards."), func(): merker_auf = not merker_auf, "FLAG", "", merker_auf))
+	# 555 (Chef 04.11., 20:11: „warum heißt das Ding Merker?“; Vorschlag Sokrates): „Geschichte“, Stand der Geschichte von Kapitel 1
+	welt4.append(zk.call(t.call("Geschichte", "Story"), "%d" % MERKER.filter(func(f): return z.has(String(f[0]))).size(),
+		t.call("Stand der Geschichte von Kapitel 1: was schon geschehen ist. Antippen setzt oder löscht einen Schritt, „Ort neu“ zeigt den Ort danach.",
+			"Story so far in chapter 1. A tap sets or clears a step; “Reload place” shows the place afterwards."), func(): merker_auf = not merker_auf, "FLAG", "", true))   # 991: klappt eine Liste auf wie „Waffe“, kein Schalter: immer gold
 	m.zeichenreihe(welt4)
 	if merker_auf:
 		for i in range(0, MERKER.size(), 2):
@@ -256,11 +476,23 @@ static func reiter(m: Menue) -> void:
 				m.baue()]))
 		reihe.call([[t.call("Ort neu", "Reload place"), func(): m.test.emit("ort_neu", [])]])
 	# 500 (Chef 03.11., 07:24): was nur die Probeknoepfe rechts in der Welt schalteten, hier
-	var welt2 := [zk.call(t.call("Tag / Nacht", "Day / night"), null, t.call("Schaltet zwischen Mittag und 23 Uhr; die Leute folgen der Uhr.", "Switches between noon and 11 pm; the people follow the clock."),
+	# 991 (Chef 11.11., 20:24, t277: „man kann anhand des Icons nicht sehen, was jetzt an ist“): jeder Schalter zeigt seinen Zustand,
+	# aus matt und durchgestrichen, darunter an/aus oder der Wert; Tag/Nacht nennt die Tageszeit
+	var nachts: bool = z.minuten >= 20 * 60 or z.minuten < 6 * 60
+	var welt2 := [zk.call(t.call("Tag / Nacht", "Day / night"), t.call("Nacht", "night") if nachts else t.call("Tag", "day"), t.call("Schaltet zwischen Mittag und 23 Uhr; die Leute folgen der Uhr.", "Switches between noon and 11 pm; the people follow the clock."),
 		func(): m.test.emit("nacht", []), "", "☾")]
 	if DirAccess.dir_exists_absolute("res://daten/tiere"):
-		welt2.append(zk.call(t.call("Tiere", "Animals"), null, t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
-			func(): m.test.emit("tiere", []), "STEPS"))
+		welt2.append(zk.call(t.call("Tiere", "Animals"), an_aus.call(tiere), t.call("Stellt alle Tiermodelle zum Anschauen um den Helden; noch einmal: weg.", "Puts every animal model around the hero to look at; again: gone."),
+			func(): m.test.emit("tiere", []), "STEPS", "", tiere))
+	if GrasBausatz.da():   # 804: Gras des Kits oder unser altes, gleich am Ort; Bilder/s vorher und nachher unter „Messen“
+		welt2.append(zk.call(t.call("Gras", "Grass"), t.call("Kit", "kit") if GrasBausatz.an else t.call("alt", "old"), t.call("Gras und Blumen aus Grass & Wind oder unser altes Gras, gleich hier am Ort.",
+			"Grass and flowers from Grass & Wind or our old grass, right here."), func(): m.test.emit("gras", []), "", "G", GrasBausatz.an))
+	if KampfEffekte.da():   # 806: Lichtschächte im Kampfort an oder aus, gilt ab dem nächsten Kampf (Bilder/s vorher und nachher; Bodennebel seit Test 277 aus)
+		welt2.append(zk.call(t.call("Lichtschächte", "Light shafts"), an_aus.call(KampfEffekte.an), t.call("Lichtschächte im Kampfort an oder aus; gilt ab dem nächsten Kampf.",
+			"Light shafts at the battle place on or off; from the next battle on."), func(): m.test.emit("kampfeffekte", []), "", "N", KampfEffekte.an))
+	# 806 (Fund t277.7): der nächste Kampf hält vor dem ersten Zug an und misst je Baustein Bild-, Grafik- und Zeichenzeit
+	welt2.append(zk.call(t.call("Kampf messen", "Measure battle"), null, t.call("Der nächste Kampf misst etwa 40 s lang, was jeder Baustein (Gras, Tusche, Schatten …) an Zeit kostet; Ergebnis über dem Kampfort und unter „Gerät zeigen“.",
+		"The next battle measures for about 40 s what each part (grass, ink, shadows …) costs; result above the battle place and under “Show device”."), func(): m.test.emit("kampfmessen", []), "", "M"))
 	m.zeichenreihe(welt2)
 	m.gruppe("Teleport")
 	var orte := [[t.call("Dorf", "Village"), "village", 11, 7, "DOWN", "HOME", ""], [t.call("Wald", "Forest"), "forest", 10, 20, "UP", "", "W"],
@@ -283,56 +515,238 @@ static func reiter(m: Menue) -> void:
 			"Hero always crits: every weapon hit of the hero is critical, to test the killing blow."), func(): Mars.held_immer_krit = not Mars.held_immer_krit, "BLOOD", "", Mars.held_immer_krit),
 		zk.call(t.call("Rettung", "Saves"), t.call("nie", "never") if Mars.gegner_ohne_rettung else t.call("wie im Spiel", "as in game"),
 			t.call("Gegner bestehen keine Rettungswürfe: Zauber, denen man ausweichen kann, treffen immer voll.", "Foes fail every save: spells one can dodge always hit in full."),
-			func(): Mars.gegner_ohne_rettung = not Mars.gegner_ohne_rettung, "", "✗", Mars.gegner_ohne_rettung)])
+			func(): Mars.gegner_ohne_rettung = not Mars.gegner_ohne_rettung, "", "✗", Mars.gegner_ohne_rettung)])     # 870.5: Schalter BRS/SRD weg, BRS immer
 	# 415 (Jerry, Chef „415 jetzt“ 02.11., 10:55): Handyprobe der Beams-Probe im Kampfort (kampf/strahlprobe.gd)
 	m.zeichenreihe([zk.call(t.call("Strahlen", "Beams"), null, t.call("415: drei Strahlen der Beams-Probe im Kampfort, mit Bildern je Sekunde; Renderer umschaltbar.",
 		"415: three beams of the Beams sample in the battle place, with frames per second; renderer switchable."), func(): m.test.emit("strahlen", []), "FPS")])
 	var fs := feinde()
-	if not fs.is_empty():
-		m.gruppe(t.call("Kampf beschwören", "Summon a fight"))
-		var eroeffnungen := {"NORMAL": t.call("Normal", "Normal"), "AMBUSHED": t.call("Gegner zuerst", "Foe first"), "HERO_FIRST": t.call("Held zuerst", "Hero first")}
-		m.zeichenreihe([zk.call(t.call("Eröffnung", "Opening"), String(eroeffnungen[eroeffnung]), t.call("Wer im beschworenen Kampf zuerst handelt: wie im Spiel, Hinterhalt der Gegner, oder der Held.",
-			"Who acts first in a summoned fight: as in the game, a foe ambush, or the hero."), func():
-				var e: Array = eroeffnungen.keys()
-				eroeffnung = String(e[(e.find(eroeffnung) + 1) % e.size()]), "DICE"),
-			# 493: welcher Kampfort im Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis), sonst nach der Kachel wie im Spiel
-			zk.call(t.call("Kampfort", "Battle place"), String(kampforte()[kampfort]), t.call("Wo der beschworene Kampf im Wald stattfindet: wie im Spiel nach dem, was um dich steht, oder einer der sechs Orte.",
-				"Where the summoned fight takes place in the woods: as in the game by what stands around you, or one of the six places."), func():
-					var o: Array = kampforte().keys()
-					kampfort = String(o[(o.find(kampfort) + 1) % o.size()]), "PIN")])
-		var ids: Array = fs.keys()
-		for i in range(0, ids.size(), 2):
-			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): m.test.emit("kampf", [id])]))
-		var ohne := ohne_modell()
-		if not ohne.is_empty(): m.zeile(t.call("Noch ohne Modell: ", "No model yet: ") + ", ".join(ohne), 13, Stil.DIM)
-		m.luecke(6)
-		# 555 wie alt („Antippen: neben den Helden holen“): ein Monster der Karte neben den Helden, 2 Minuten friedlich, um ihm zuzusehen
-		var holbar := monster_namen()
-		if not holbar.is_empty():
-			m.zeile(t.call("Neben den Helden holen, 2 Minuten friedlich:", "Bring beside the hero, peaceful for 2 minutes:"), 13, Stil.DIM)
-			m.luecke(4)
-			var arten: Array = holbar.keys()
-			for i in range(0, arten.size(), 2):
-				reihe.call(arten.slice(i, i + 2).map(func(a): return [String(holbar[a]), func(): m.test.emit("holen", [a])]))
-			m.luecke(6)
-		m.gruppe(t.call("MARS-Probekampf", "MARS trial fight"))
-		if not fs.has(probe_gegner): probe_gegner = String(ids[0])
-		m.zeichenreihe([zk.call(t.call("Gegner", "Foes"), String(fs[probe_gegner]), t.call("Wechselt die Gegner des Probekampfs.", "Changes the foes of the trial fight."),
-				func(): probe_gegner = String(ids[(ids.find(probe_gegner) + 1) % ids.size()]), "SKULL"),
-			zk.call(t.call("Stufe", "Level"), null, t.call("Stufe von Held und Söldner im Probekampf; die Zahl im Kreis.", "Level of hero and mercenary in the trial fight; the number in the circle."),
-				func(): probe_stufe = STUFEN_PROBE[(STUFEN_PROBE.find(probe_stufe) + 1) % STUFEN_PROBE.size()], "", str(probe_stufe))])
-		m.zeile(t.call("Starten als:", "Start as:"), 13, Stil.DIM)
+	# 1034 (Chef 12.11., 14:38): „Kampf beschwören“ entfällt, der Probekampf mit dem Spielhelden tut dasselbe (zählt im Spielstand)
+	if not fs.is_empty(): probekampf(m, t, zk, reihe, fs, fs.keys())
+	# 555 wie alt („Antippen: neben den Helden holen“): ein Monster der Karte neben den Helden, 2 Minuten friedlich, um ihm zuzusehen
+	var holbar := monster_namen()
+	if not holbar.is_empty():
+		m.gruppe(t.call("Monster holen", "Bring monsters"))
+		m.zeile(t.call("Neben den Helden holen, 2 Minuten friedlich:", "Bring beside the hero, peaceful for 2 minutes:"), 13, Stil.DIM)
 		m.luecke(4)
-		reihe.call(KLASSEN.map(func(k): return [Sprache.t(Heldwerte.lade()["klassen"][k]["name"]), func(): m.test.emit("probe", [probe_gegner, k, probe_stufe])]))
+		var arten: Array = holbar.keys()
+		for i in range(0, arten.size(), 2):
+			reihe.call(arten.slice(i, i + 2).map(func(a): return [String(holbar[a]), func(): m.test.emit("holen", [a])]))
+		m.luecke(6)
 	m.gruppe(t.call("Beute erzeugen", "Create loot"))
-	var st: Dictionary = Heldwerte.lade()["seltenheiten"]
+	var st: Dictionary = BrsHeld.daten()["seltenheiten"]
 	var sel: Array = st.keys()
 	for i in range(0, sel.size(), 4):
 		m.zeichenreihe(sel.slice(i, i + 4).map(func(r): return zk.call(gross_anfang(Sprache.t(st[r]["name"])), null,
-			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden, passend zur Klasse.", "Creates an item of this rarity at the hero's level, suited to the class."),
+			t.call("Erzeugt ein Stück dieser Seltenheit auf der Stufe des Helden.", "Creates an item of this rarity at the hero's level."),
 			func():   # Game.cheatLoot
-				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw.klasse))
+				var g := z.ausruestung_dazu(Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, String(r), hw))   # 870.6: nach seinen Fertigkeiten
 				m.meldung(t.call("Erhalten: ", "Received: ") + Beute.name(g)), "GEM")))
+	# 756.1: Schlecht gibt es im Spiel erst mit 976 (Herstellen); fuer die Prüfliste je Güte ein Stück, damit alle vier Zeichen
+	# nebeneinander in der Tasche liegen (Schlecht roter Punkt, Normal keins, Gut ein Goldpunkt, Meisterhaft zwei)
+	m.zeichenreihe([zk.call(t.call("Vier Güten", "Four qualities"), null,
+		t.call("Legt je ein Stück Schlecht, Normal, Gut und Meisterhaft auf der Stufe des Helden in die Tasche.",
+			"Puts one item each of Poor, Common, Fine and Masterwork at the hero's level into the bag."),
+		func():
+			vier_gueten(z, hw)
+			m.meldung(t.call("Erhalten: vier Stücke, je Güte eins", "Received: four items, one per quality")), "GEM")])
+
+## 756.1: dieselbe Waffe viermal, Güte Schlecht, Normal, Gut, Meisterhaft (-1 bis 2), in die Tasche; gibt die vier Stücke zurück
+static func vier_gueten(z: Zustand, hw: BrsHeld) -> Array:
+	var b0 := Beute.erzeuge(KotlinZufall.new(randi()), z.neue_uid(), hw.stufe, "COMMON", hw, "MAIN_HAND")
+	var aus: Array = []
+	for gu in [-1, 0, 1, 2]:
+		var b: Dictionary = b0.duplicate(true)
+		b["uid"] = z.neue_uid()
+		b["guete"] = gu
+		aus.append(z.ausruestung_dazu(b))
+	return aus
+
+# 1020.2 B (Chef 12.11., 08:09): der Probekampf als Baukasten. 1034 (Chef 12.11., 14:34–14:38): ein Probekampf für alles, mit dem
+# Spielhelden (zählt im Spielstand) oder dem Testhelden (Spielstand unberührt; Herkunft, Volk, Stufe, Waffe, Leben, Tasche nur für ihn);
+# Söldner, Kampfort, Eröffnung, Gegnerzug, Ausweichen, Tempo und „Nochmal“ für beide; die Gegner als Knöpfe, ein Tipp wählt
+static func probekampf(m: Menue, t: Callable, zk: Callable, reihe: Callable, fs: Dictionary, ids: Array) -> void:
+	m.gruppe(t.call("Probekampf", "Trial fight"))
+	if not fs.has(probe_gegner): probe_gegner = String(ids[0])
+	if not PROBE_HELDEN.has(probe_held): probe_held = "test"
+	if not HERKUENFTE.has(probe_herkunft) and not BrsHeld.herkuenfte().has(probe_herkunft): probe_herkunft = String(HERKUENFTE[0])
+	var test := probe_held == "test"
+	var hks: Array = BrsHeld.herkuenfte()
+	var voelker: Array = BrsHeld.voelker()
+	var waffe_name := func(w: String) -> String:
+		if w == "*": return t.call("wie Herkunft", "by origin")
+		return name_von(w) if w != "" else t.call("keine", "none")
+	var soeldner_name_: String = t.call("wie der Held", "like hero") if probe_soeldner == "*" else (t.call("keiner", "none") if probe_soeldner == "" else ErschaffungBrs.herkunft_name(probe_soeldner))
+	var taschen := {"zwei": t.call("2 Tränke", "2 potions"), "keine": t.call("leer", "empty"), "voll": t.call("Tränke, Flaschen", "potions, flasks")}
+	var leben := {"voll": t.call("voll", "full"), "halb": t.call("halb", "half"), "knapp": t.call("knapp", "low")}
+	var zeiten := {"": t.call("Spieluhr", "game clock"), "tag": t.call("Tag", "day"), "abend": t.call("Abend", "evening"), "nacht": t.call("Nacht", "night")}
+	var neben_name: String = t.call("wie Herkunft", "by origin") if probe_neben == "*" else (name_von(probe_neben) if probe_neben != "" else t.call("leer", "empty"))
+	var helden := {"test": t.call("Testheld", "Test hero"), "spiel": t.call("Spielheld", "Game hero")}
+	# (1) wer kämpft, (2) der Söldner, dazu die Gegnerliste
+	m.zeichenreihe([zk.call(t.call("Held", "Hero"), String(helden[probe_held]),
+			t.call("Spielheld: dein eigener Held aus dem Spielstand; Beute, Gold, Erfahrung, Übung und Tränke zählen wie im Spiel. Testheld: ein Held nach deiner Wahl hier, dein Spielstand bleibt unberührt.",
+				"Game hero: your own hero from the save; loot, gold, experience, practice and potions count as in the game. Test hero: a hero of your choice here, your save stays untouched."),
+			func(): probe_held = String(weiter(PROBE_HELDEN, probe_held)), "", "T" if test else "H", true),
+		zk.call(t.call("Söldner", "Mercenary"), soeldner_name_, t.call("Söldner an der Seite des Helden: wie der Held (dieselbe Herkunft), keiner oder mit eigener Herkunft.",
+			"Mercenary at the hero's side: like the hero (the same origin), none, or with an origin of his own."),
+			func(): probe_soeldner = String(weiter(["*", ""] + hks, probe_soeldner)), "", "S"),
+		zk.call(t.call("Gegner", "Foes"), String(fs[probe_gegner]), t.call("Klappt die Liste der Gegner auf oder zu; ein Tipp auf einen Gegner wählt ihn.",
+			"Opens or closes the list of foes; a tap on a foe chooses it."), func(): gegner_auf = not gegner_auf, "SKULL", "", true)])
+	if gegner_auf:
+		for i in range(0, ids.size(), 2):
+			reihe.call(ids.slice(i, i + 2).map(func(id): return [String(fs[id]), func(): probe_gegner = String(id); m.baue(), String(id) == probe_gegner]))
+		var ohne := ohne_modell()
+		if not ohne.is_empty(): m.zeile(t.call("Noch ohne Modell: ", "No model yet: ") + ", ".join(ohne), 13, Stil.DIM)
+		m.luecke(4)
+	# (3) nur der Testheld: wer er ist und was er trägt
+	if test:
+		m.zeichenreihe([zk.call(t.call("Stufe", "Level"), null, t.call("Stufe von Testheld und Söldner; die Zahl im Kreis.", "Level of test hero and mercenary; the number in the circle."),
+				func(): probe_stufe = int(weiter(STUFEN_PROBE, probe_stufe)), "", str(probe_stufe)),
+			zk.call(t.call("Herkunft", "Origin"), ErschaffungBrs.herkunft_name(probe_herkunft), t.call("Herkunft des Testhelden: Fertigkeiten, Tracht und Ausrüstung wie bei der Erschaffung.",
+				"The test hero's origin: skills, garb and gear as at creation."), func(): probe_herkunft = String(weiter(hks, probe_herkunft)), "RULES"),
+			zk.call(t.call("Volk", "Folk"), ErschaffungBrs.volk_name(probe_volk), t.call("Volk des Testhelden; ändert Grundwerte und Gestalt.", "The test hero's folk; changes base values and build."),
+				func(): probe_volk = String(weiter(voelker, probe_volk)), "", "V"),
+			zk.call(t.call("Leben", "Life"), String(leben[probe_leben]), t.call("Leben des Testhelden zu Beginn: voll, halb oder knapp.", "The test hero's life at the start: full, half or low."),
+				func(): probe_leben = String(weiter(leben.keys(), probe_leben)), "HEAL")])
+		m.zeichenreihe([zk.call(t.call("Waffe", "Weapon"), waffe_name.call(probe_waffe), t.call("Öffnet die Liste aller Waffen, auch Bogen und Zweihänder.", "Opens the list of all weapons, bows and two-handers too."),
+				func(): probe_waffen_auf = not probe_waffen_auf, "SWORD", "", probe_waffen_auf or probe_waffe != "*"),
+			zk.call(t.call("Andere Hand", "Other hand"), neben_name, t.call("Andere Hand: wie die Herkunft, leer, Schild, Rundschild, Dolch. Bei zweihändiger Waffe bleibt sie leer.",
+				"Other hand: by origin, empty, shield, round shield, dagger. Stays empty with a two-handed weapon."), func(): probe_neben = String(weiter(["*"] + NEBENHAND, probe_neben)), "SHIELD"),
+			zk.call(t.call("Tasche", "Bag"), String(taschen[probe_tasche]), t.call("Was der Testheld im Kampf trinken oder werfen kann: 2 Heiltränke, nichts, oder Tränke und Brandflaschen.",
+				"What the test hero can drink or throw: 2 healing potions, nothing, or potions and fire flasks."), func(): probe_tasche = String(weiter(taschen.keys(), probe_tasche)), "SUPPLY"),
+			zk.call(t.call("Tageszeit", "Time of day"), String(zeiten[probe_zeit]), t.call("Licht im Kampfort: nach der Spieluhr, Tag, Abend oder Nacht.", "Light at the battle place: by the game clock, day, evening or night."),
+				func(): probe_zeit = String(weiter(PROBE_ZEITEN, probe_zeit)), "CLOCK")])
+		if probe_waffen_auf:
+			var alle := probe_waffen()
+			for i in range(0, alle.size(), 2):
+				var paar := []
+				for w in alle.slice(i, i + 2):
+					var zwei: bool = w != "*" and w != "" and bool(Beute.grundform(w)["zweihaendig"])
+					paar.append([waffe_name.call(w) + (" ²" if zwei else ""), func(): probe_waffe = String(w); probe_waffen_auf = false; m.baue()])
+				reihe.call(paar)
+	# (4) für beide: Kampfort, Eröffnung, Gegnerzug, Ausweichen, Tempo
+	var eroeffnungen := {"NORMAL": t.call("Normal", "Normal"), "AMBUSHED": t.call("Gegner zuerst", "Foe first"), "HERO_FIRST": t.call("Held zuerst", "Hero first")}
+	var zuege := {"": t.call("Zufall", "random"), "pounce": t.call("Anspringen", "Pounce"), "heavy": t.call("Schwerer Hieb", "Heavy blow"),
+		"reihe": t.call("Reihe umstellen", "Reorder rows"), "flucht": t.call("Flucht", "Flight")}
+	var tempi: Array = [t.call("Ruhig", "Calm"), t.call("Normal", "Normal"), t.call("Schnell", "Fast"), t.call("Sehr schnell", "Very fast")]
+	m.zeichenreihe([zk.call(t.call("Eröffnung", "Opening"), String(eroeffnungen[eroeffnung]), t.call("Wer zuerst handelt: wie im Spiel, Hinterhalt der Gegner, oder der Held. Gilt im Testmodus für jeden Kampf.",
+			"Who acts first: as in the game, a foe ambush, or the hero. In test mode it holds for every fight."), func(): eroeffnung = String(weiter(eroeffnungen.keys(), eroeffnung)), "DICE"),
+		# 493: welcher Kampfort im Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis), sonst nach der Kachel wie im Spiel
+		zk.call(t.call("Kampfort", "Battle place"), String(kampforte()[kampfort]), t.call("Wo gekämpft wird: wie im Spiel nach dem, was um dich steht, oder einer der sechs Orte im Wald. Gilt im Testmodus für jeden Kampf.",
+			"Where the fight takes place: as in the game by what stands around you, or one of the six places in the woods. In test mode it holds for every fight."),
+			func(): kampfort = String(weiter(kampforte().keys(), kampfort)), "PIN"),
+		zk.call(t.call("Tempo", "Pace"), String(tempi[clampi(Bedienung.tempo, 0, 3)]), t.call("Tempo im Kampf; „sehr schnell“ gibt es nur im Testmodus, zum Warten.",
+			"Pace in battle; “very fast” exists only in test mode, for waiting."), func(): Bedienung.tempo = (Bedienung.tempo + 1) % 4, "", "»")])
+	# 1020.2 C: was sonst nur mit Warten kommt, einmal je Probekampf erzwingen
+	m.zeichenreihe([zk.call(t.call("Gegnerzug", "Foe move"), String(zuege[probe_zug]), t.call("Erzwingt im Probekampf einmal: Anspringen (Wölfe), Schwerer Hieb (Grak), ein Gegner der hinteren Reihe tauscht nach vorn, oder alle Gegner fliehen. Danach wieder Zufall; „Nochmal“ erzwingt es erneut.",
+			"Forces once in the trial fight: pounce (wolves), heavy blow (Grak), a back-row foe swaps forward, or every foe flees. Then random again; “Again” forces it anew."),
+			func(): probe_zug = String(weiter(PROBE_ZUEGE, probe_zug)), "SKULL", "", probe_zug != ""),
+		zk.call(t.call("Ausweichen", "Dodge"), t.call("erzwingen", "forced") if probe_ausweichen else t.call("Zufall", "random"),
+			t.call("Der erste Angriff auf den Helden im Probekampf geht fehl: er weicht aus, mit Schild wehrt er ab.", "The first attack on the hero in the trial fight misses: he dodges, with a shield he blocks."),
+			func(): probe_ausweichen = not probe_ausweichen, "", "↷", probe_ausweichen)])
+	# 964: die Rüstung einer Lage gilt nur für deren Kampf; von Hand gestartet wieder wie die Herkunft
+	reihe.call([[t.call("Probekampf starten", "Start trial fight"), func(): probe_ruestung = "*"; m.test.emit("probe", [probe_gegner, probe_herkunft, probe_stufe, true, probe_held])]])
+
+# 1156 (Vorlage 1020 D Stufe 2): die Lage einer Zeile der Prüfliste (Abschnitt „## Lagen“, tools/pruefliste.py), die der Knopf
+# „Lage herstellen“ herstellt (spiel.gd lage_herstellen). Werte wie die Knöpfe dieses Reiters.
+const LAGE_TASCHEN := ["zwei", "keine", "voll"]
+const LAGE_LEBEN := ["voll", "halb", "knapp"]
+const LAGE_EROEFFNUNGEN := ["NORMAL", "AMBUSHED", "HERO_FIRST"]
+const LAGE_SCHLUESSEL := ["station", "ort", "uhr", "merker", "stufe", "vorraete", "einmaliges", "probe", "held", "herkunft", "volk", "pstufe",
+	"waffe", "neben", "ruestung", "soeldner", "tasche", "leben", "zeit", "zug", "ausweichen", "eroeffnung", "kampfort", "ruhig",   # 542: ruhig = Monster beachten nicht
+	"auftrag", "unerkundet"]   # 785.8 (Fund t286.6): auftrag=<id> angenommen, nicht erledigt; unerkundet=<karte> ohne Erkundetes
+
+## Minuten seit Mitternacht aus „HH:MM“ (oder „HH“), -1 bei falscher Form
+static func lage_uhr(s: String) -> int:
+	var t := s.split(":")
+	if t.size() > 2 or not t[0].is_valid_int() or (t.size() == 2 and not t[1].is_valid_int()): return -1
+	var h := int(t[0])
+	var mi := int(t[1]) if t.size() == 2 else 0
+	return h * 60 + mi if h >= 0 and h < 24 and mi >= 0 and mi < 60 else -1
+
+## was an der Lage nicht stimmt, je Fehler ein Satz; leer: herstellbar
+static func lage_fehler(l: Dictionary) -> Array:
+	var f := []
+	var in_ := func(k: String, liste: Array) -> void:
+		if l.has(k) and not liste.has(String(l[k])):
+			f.append("%s=%s unbekannt (%s)" % [k, l[k], ", ".join(PackedStringArray(liste.map(func(x): return String(x))))])
+	for k in l:
+		if not LAGE_SCHLUESSEL.has(String(k)): f.append("Schlüssel %s unbekannt" % k)
+	in_.call("station", STATIONEN.map(func(s_): return String(s_[0])) + ["Kapitelende"])
+	if l.has("ort"):
+		var o := String(l["ort"]).split(":")
+		if o.size() < 3 or not o[1].is_valid_int() or not o[2].is_valid_int() or not da(o[0]): f.append("ort=%s: Karte:x:y[:Blick], Karte im Spiel" % l["ort"])
+		elif o.size() > 3 and not ["UP", "DOWN", "LEFT", "RIGHT"].has(o[3]): f.append("ort=%s: Blick UP, DOWN, LEFT oder RIGHT" % l["ort"])
+		if String(l.get("station", "")) == "Kapitelende": f.append("ort= nicht mit station=Kapitelende (Aldrics Haus ist der Ort)")   # 542
+	if l.has("uhr") and lage_uhr(String(l["uhr"])) < 0: f.append("uhr=%s: HH:MM" % l["uhr"])
+	if l.has("merker"):
+		var ids := MERKER.map(func(m_): return String(m_[0]))
+		for w in String(l["merker"]).split(",", false):
+			if not ids.has(w.trim_prefix("+").trim_prefix("-")): f.append("merker %s unbekannt" % w)
+	for k in ["stufe", "pstufe"]:
+		if l.has(k) and not String(l[k]).is_valid_int(): f.append("%s=%s keine Zahl" % [k, l[k]])
+	if l.has("auftrag"):
+		var ids := Auftraege.alle().map(func(j_): return String(j_["id"]))
+		for w in String(l["auftrag"]).split(",", false):
+			if not ids.has(w): f.append("auftrag=%s unbekannt (%s)" % [w, ", ".join(PackedStringArray(ids))])
+	if l.has("unerkundet"):
+		for w in String(l["unerkundet"]).split(",", false):
+			if not karten_ids().has(w): f.append("unerkundet=%s: keine Karte (%s)" % [w, ", ".join(PackedStringArray(karten_ids()))])
+	in_.call("probe", feinde(true).keys())
+	# 1180 (D209.2 Diogenes): der Reiter Probekampf bietet nur Gruppen mit Modell (feinde(), 555); ohne Modell startete die Lage den
+	# Kampf mit einem falschen Monster und galt doch als herstellbar
+	if l.has("probe") and feinde(true).has(String(l["probe"])) and not gruppe_da(String(l["probe"])):
+		f.append("probe=%s: Gruppe ohne Modell (%s), im Reiter Probekampf nicht wählbar" % [l["probe"], feinde(true)[String(l["probe"])]])
+	in_.call("held", PROBE_HELDEN)
+	in_.call("herkunft", BrsHeld.herkuenfte())
+	in_.call("volk", BrsHeld.voelker())
+	in_.call("waffe", probe_waffen())
+	in_.call("neben", ["*"] + NEBENHAND)
+	in_.call("ruestung", ["*", ""] + brustruestungen())
+	in_.call("soeldner", ["*", ""] + BrsHeld.herkuenfte())
+	in_.call("tasche", LAGE_TASCHEN)
+	in_.call("leben", LAGE_LEBEN)
+	in_.call("zeit", PROBE_ZEITEN)
+	in_.call("zug", PROBE_ZUEGE)
+	in_.call("eroeffnung", LAGE_EROEFFNUNGEN)
+	in_.call("kampfort", kampforte().keys())
+	return f
+
+## setzt die Wahl des Probekampfs aus der Lage und gibt die Angaben für „probe“ zurück (wie „Probekampf starten“); [] ohne probe
+static func lage_probe(l: Dictionary) -> Array:
+	if not l.has("probe"): return []
+	probe_gegner = String(l["probe"])
+	probe_held = String(l.get("held", "test"))
+	if l.has("herkunft"): probe_herkunft = String(l["herkunft"])
+	if l.has("volk"): probe_volk = String(l["volk"])
+	if l.has("pstufe"): probe_stufe = int(l["pstufe"])
+	probe_waffe = String(l.get("waffe", "*"))
+	probe_neben = String(l.get("neben", "*"))
+	probe_ruestung = String(l.get("ruestung", "*"))
+	probe_soeldner = String(l.get("soeldner", ""))
+	probe_tasche = String(l.get("tasche", "zwei"))
+	probe_leben = String(l.get("leben", "voll"))
+	probe_zeit = String(l.get("zeit", ""))
+	probe_zug = String(l.get("zug", ""))
+	probe_ausweichen = l.has("ausweichen")
+	if l.has("eroeffnung"): eroeffnung = String(l["eroeffnung"])
+	if l.has("kampfort"): kampfort = String(l["kampfort"])
+	return [probe_gegner, probe_herkunft, probe_stufe, true, probe_held]
+
+## kurz, was der Knopf herstellt („Station Garrick · 20:30 Uhr · Probekampf Grak“)
+static func lage_text(l: Dictionary, de: bool) -> String:
+	var t := []
+	if l.has("station"): t.append("Station " + String(l["station"]))
+	if l.has("ort"): t.append(String(l["ort"]).split(":")[0])   # 542: auch Station mit Ort
+	if l.has("uhr"): t.append(String(l["uhr"]) + (" Uhr" if de else ""))
+	if l.has("stufe"): t.append(("Stufe " if de else "Level ") + String(l["stufe"]))
+	if l.has("merker"): t.append(("Geschichte " if de else "Story ") + String(l["merker"]))
+	if l.has("auftrag"): t.append(("Auftrag angenommen " if de else "Job taken ") + String(l["auftrag"]))
+	if l.has("unerkundet"): t.append(("unerkundet " if de else "unexplored ") + String(l["unerkundet"]))
+	if l.has("vorraete"): t.append("Vorräte" if de else "Supplies")
+	if l.has("einmaliges"): t.append("Einmaliges" if de else "One-time")
+	if l.has("ruhig"): t.append("Monster beachten nicht" if de else "Monsters ignore")
+	if l.has("probe"): t.append(("Probekampf " if de else "Trial fight ") + String(feinde(true).get(String(l["probe"]), l["probe"])))
+	return " · ".join(PackedStringArray(t))
 
 # cheatChapterEnd: ein begehbares Feld neben Aldric im Haus des Aeltesten, mit Blick zu ihm: [Kachel, Blick]; [] ohne Aldric
 static func vor_aldric() -> Array: return vor_person("elder", "aldric")
@@ -350,6 +764,13 @@ static func vor_person(karte_id: String, person: String) -> Array:
 	return []
 
 # 555: gibt es die Karte im Spiel (Modell aus dem Bau)?
+## 785.8: Kennungen der Karten aus daten/karten.json (wie Zustand.erkundet), ohne gebaute Kartendateien
+static func karten_ids() -> Array:
+	var d = JSON.parse_string(FileAccess.get_file_as_string("res://daten/karten.json"))
+	if not (d is Dictionary) or not d.has("karten"): return []
+	var k = d["karten"]
+	return (k as Dictionary).keys() if k is Dictionary else (k as Array).map(func(x): return String(x.get("id", "")))
+
 static func da(karte_id: String) -> bool:
 	return karte_id == "village" or FileAccess.file_exists("res://daten/%s.bin" % Gebiet.datei(karte_id))
 
@@ -385,13 +806,13 @@ static func station(name_: String, z: Zustand) -> Array:
 
 # 555: die Monster der Karte, die es im Spiel gibt (Streuner.da), mit Namen aus den Regeln
 static func monster_namen() -> Dictionary:
-	var tab = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json")) if FileAccess.file_exists("res://regeln/tabellen.json") else null
+	var tab = Tabellen.lade()     # 870.6: nach BRS (regeln/tabellen.gd)
 	if not tab is Dictionary: return {}
 	var namen := {}
 	for mo in tab["monsters"]: namen[String(mo["id"])] = String(mo["de"] if Sprache.aktiv() == "de" else mo["en"])
 	# 494 (Prüfer 512b): Riesenegel und Säureschnecke heißen nach LISTE-FIGUREN wie im Kampf (aufruf.gd NAMEN_494), nicht Stirge, Ockergallerte
 	var neu: Dictionary = load("res://kampf/aufruf.gd").NAMEN_494
-	for paar in [["stirge", "LEECHES"], ["ochre_jelly", "SLUGS"]]:
+	for paar in [["stirge", "LEECHES"], ["ochre_jelly", "SLUGS"], ["zombie", "WIEDERGAENGER"], ["ghoul", "GRABHUND"]]:     # 506
 		if namen.has(paar[0]) and neu.has(paar[1]): namen[paar[0]] = String(neu[paar[1]][0 if Sprache.aktiv() == "de" else 1])
 	var r := {}
 	for a in Streuner.GRUPPE:
@@ -402,17 +823,20 @@ static func monster_namen() -> Dictionary:
 static func absturz(m: Menue, t: Callable) -> void:
 	var b := Messung.bericht(Messung.voriges_protokoll())
 	var jetzt := Messung.fehler(1000)
+	var ende := Messung.ende_text(Messung.letztes_ende(), Sprache.aktiv() == "de")   # 1021 wie alt „Letztes Ende der App“ (TestTab.kt CrashBox)
+	m.zeile(t.call("Letztes Ende der App: ", "Last app exit: ") + ende.get_slice("\n", 0), 13, Stil.TEXT)
 	m.zeile(t.call("Letzter Lauf: ", "Last run: ") + (String(b["datei"]).trim_prefix("godot").trim_suffix(".log").replace("T", " ") + t.call(", Fehler: ", ", errors: ") + str(b["fehler"].size()) if not b.is_empty() else "–")
 		+ t.call("  ·  seit Start: ", "  ·  since start: ") + str(jetzt.size()), 13, Stil.TEXT)
-	if b.is_empty() and jetzt.is_empty(): return
-	var text: String = t.call("Voriger Lauf (%s), Fehler:\n", "Previous run (%s), errors:\n") % (b.get("datei", "–")) + "\n".join(PackedStringArray(b.get("fehler", [])))
+	if b.is_empty() and jetzt.is_empty() and ende == "–": return
+	var text: String = t.call("Ende laut System:\n", "End according to the system:\n") + ende + "\n\n"
+	text += t.call("Voriger Lauf (%s), Fehler:\n", "Previous run (%s), errors:\n") % (b.get("datei", "–")) + "\n".join(PackedStringArray(b.get("fehler", [])))
 	text += t.call("\n\nVoriger Lauf, Ende:\n", "\n\nPrevious run, end:\n") + String(b.get("ende", "–"))
 	text += t.call("\n\nSeit Start, Fehler:\n", "\n\nSince start, errors:\n") + "\n".join(PackedStringArray(jetzt))
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(6 * Menue.DP))
-	r.add_child(Erschaffung.knopf(t.call("Absturzbericht schließen", "Hide crash report") if bericht_auf else t.call("Absturzbericht zeigen …", "Show crash report…"), func(): bericht_auf = not bericht_auf; m.baue()))
+	r.add_child(Stil.knopf(t.call("Absturzbericht schließen", "Hide crash report") if bericht_auf else t.call("Absturzbericht zeigen …", "Show crash report…"), func(): bericht_auf = not bericht_auf; m.baue()))
 	if bericht_auf:
-		var k := Erschaffung.knopf(t.call("Kopieren", "Copy"), func(): DisplayServer.clipboard_set(text); m.meldung(t.call("Absturzbericht kopiert.", "Crash report copied.")))
+		var k := Stil.knopf(t.call("Kopieren", "Copy"), func(): DisplayServer.clipboard_set(text); m.meldung(t.call("Absturzbericht kopiert.", "Crash report copied.")))
 		k.size_flags_stretch_ratio = 0.5
 		r.add_child(k)
 	m.inhalt.add_child(r)
@@ -426,3 +850,15 @@ static func kampforte() -> Dictionary:
 	return {"": "Wie im Spiel" if de else "As in game", "lichtung": "Lichtung" if de else "Clearing", "waldrand": "Waldrand" if de else "Forest edge",
 		"teich": "Teich" if de else "Pond", "baum": "Baum" if de else "Fallen tree", "felsen": "Felsen" if de else "Rocks",
 		"steinkreis": "Steinkreis" if de else "Stone circle"}
+
+
+## 785.8 (Fund t286.6, Chef 15.11., 11:21: „Am Brett steht nur Felle … Hauer … Gift“; der Aushang war in seinem Spielstand erledigt, der
+## Wald erkundet): Aufträge der Lage angenommen und nicht erledigt (Fund und Ding wieder offen), Karten ohne Erkundetes
+static func lage_auftraege(l: Dictionary, z: Zustand) -> void:
+	for w in String(l.get("auftrag", "")).split(",", false):
+		var j := Auftraege.von(w)
+		z.setze("job_" + w)
+		z.flaggen.erase("job_%s_done" % w)
+		z.flaggen.erase("job_%s_seen" % w)
+		if not j.is_empty() and z.anzahl(String(j["ding"])) > 0: z.weg(String(j["ding"]), z.anzahl(String(j["ding"])))
+	for w in String(l.get("unerkundet", "")).split(",", false): z.erkundet.erase(w)

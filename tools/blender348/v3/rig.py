@@ -21,6 +21,8 @@ for m in bpy.data.materials:
     for l in list(out.inputs['Surface'].links): nt.links.remove(l)
     nt.links.new(nt.nodes['M_albedo'].outputs[0], out.inputs['Surface'])
 scn.render.engine = 'CYCLES'; scn.cycles.samples = 4; scn.cycles.device = 'CPU'
+# 558: mit der Stoffschicht (held3.py STOFF) backt die Umgebungsverdeckung mit; 4 Proben je Punkt rauschen, 24 glatt
+if float(os.environ.get('STOFF', '0')) > 0: scn.cycles.samples = int(os.environ.get('STOFF_PROBEN', '24'))
 meshes = [o for o in bpy.data.objects if o.type == 'MESH']
 # 348.5: Albedo in ein Bild backen (statt Eckfarben): Gewebe, Ringe, Abnutzung und Gesicht bleiben scharf
 ATLAS = int(os.environ.get('ATLAS', '2048'))

@@ -14,6 +14,8 @@ uniform float vorrang = 0.0;       // 463 wie shader/toon.gdshader: Umhang (UV2.
 uniform float rueck = 0.0;         // 463: Rueckseiten (Normale von der Kamera weg) so viele Meter laengs des Blickstrahls zurueck; Lagen in Falten
 uniform float nach = 0.0;          // 463: Aermel (UV2.y > 0,5, held_klassen.py vorrang_marke) so viele Meter zurueck; verlieren gegen Umhang und Kette
 uniform float weg = 0.0;           // 348.7: Ausblenden des Toten (0 da, 1 weg), als Raster, damit Tiefe und Tusche bleiben
+uniform float schnitt = 0.0;       // 506 Grabhund: Haarkarten (glTF MASK) unter diesem Alpha ausgeschnitten, auch im Schatten
+uniform float glow_tex = 0.0;      // 995 Grabhund: Augen leuchten in ihrer gemalten Farbe (Pupille bleibt schwarz), im Schatten lesbar
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -35,6 +37,18 @@ void vertex() {
 		if (nach > 0.0 && UV2.y > 0.5) vv.xyz += blick * nach;
 	}
 	POSITION = PROJECTION_MATRIX * vv;
+}
+// 1289 (Chef 15.11., 12:34 und 13:39, Höhle am Handy im Renderer mobile „total hell … Sichtachsen sind weg“): die Eckfarben (COLOR,
+// aus dem glTF) kommen in mobile so an, wie sie gespeichert sind (sRGB), in Compatibility schon linear. Am Rechner nachgestellt
+// (lavapipe, Blutzahnhöhle, Gang): Felswände in mobile hellgrau (Bildmittel 17 gegen 6), mit Umrechnung 6 wie Compatibility.
+// Alles, was der Chef abgenommen hat, kam aus Compatibility; darum rechnet mobile hier um, Compatibility bleibt unverändert.
+// Ebenso das Leuchten (EMISSION): Kristalle in mobile weiß statt violett, mit derselben Umrechnung wie Compatibility (gemessen).
+vec3 eckfarbe(vec3 c) {
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+	return c;
+#else
+	return mix(pow((c + vec3(0.055)) * (1.0 / 1.055), vec3(2.4)), c * (1.0 / 12.92), lessThan(c, vec3(0.04045)));
+#endif
 }
 void fragment() {
 	// Laub zwischen Kamera und Held: innen fast frei, nach aussen weich dicht. Der deckende Durchgang laesst das Loch aus (Schatten bleibt),
@@ -61,11 +75,16 @@ void fragment() {
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
 	if (weg > 0.0 && fract(sin(dot(floor(FRAGCOORD.xy), vec2(12.9898, 78.233))) * 43758.5453) < weg) discard;
-	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	vec4 t = texture(tex, UV);
+	if (schnitt > 0.0 && t.a < schnitt) discard;
+	ALBEDO = t.rgb * eckfarbe(COLOR.rgb);
+	// 1141 (Probebild 13.11.: gespiegelte Tote aus 596 fast schwarz): der Renderer Compatibility hält bei gespiegeltem Modell (scale.z < 0)
+	// die Vorderseiten für Rückseiten und dreht ihre Normale nach innen; dann zeigt sie von der Kamera weg und wird zurückgedreht
+	if (determinant(mat3(MODEL_MATRIX)) < 0.0 && dot(NORMAL, VIEW) < 0.0) NORMAL = -NORMAL;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
-	EMISSION = glow_col * glow + COLOR.rgb * (1.0 - COLOR.a) * glut;
+	EMISSION = eckfarbe(glow_col * glow + eckfarbe(COLOR.rgb) * (1.0 - COLOR.a) * glut + t.rgb * glow_tex);   // 1289: wie Compatibility
 }
 void light() {
 	float ndl = clamp(dot(NORMAL, LIGHT), 0.0, 1.0);

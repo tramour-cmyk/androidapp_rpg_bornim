@@ -19,7 +19,7 @@ var vorher := {}     # Ansagen bei der letzten Wahl (mars.gd löscht die Absicht
 
 
 func _initialize() -> void:
-	tables = JSON.parse_string(FileAccess.get_file_as_string("res://regeln/tabellen.json"))
+	tables = Tabellen.lade()
 	var monsters := {}
 	for m in tables.monsters: monsters[String(m.id)] = m
 	var skills := {}

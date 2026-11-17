@@ -22,7 +22,7 @@ func richte(w: float) -> void:
 	queue_redraw()
 
 func _gui_input(e: InputEvent) -> void:
-	if (e is InputEventScreenTouch and not e.pressed) or (e is InputEventMouseButton and not e.pressed):
+	if Spielstaende.tipp(e) and not e.pressed:   # 605: nur die Maus, sonst zweimal
 		zurueck.emit()
 		accept_event()
 

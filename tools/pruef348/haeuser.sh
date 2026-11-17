@@ -4,7 +4,7 @@ set -e
 S=$1; R=/home/user/androidapp_rpg_bornim; B=~/bl/bin/python
 cd $R
 [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
-[ -f $S/karten.json ] || ./gradlew -p core exportMaps -Pout=$S/karten.json -q
+cp godot/daten/karten.json $S/karten.json   # 882.1: seit 870.9 eingecheckt, kein Gradle
 export KARTEN=$S/karten.json
 mkdir -p $S/out
 for s in tex held3 rig; do [ -f $S/out/.$s ] || { OUT=$S/out $B -I tools/blender348/v3/$s.py > $S/$s.log 2>&1 && touch $S/out/.$s; }; done
@@ -37,7 +37,7 @@ for v in $V; do
   for t in gras erde pflaster halme korn weiss; do cp $S/out/tex/$t.png $D/$t.bild; done
   cp $S/out_$v/boden-maske.png $D/boden-maske.bild
   (cd $G && ~/godot/godot --headless --import --path . > $S/import_$v.log 2>&1 || true)
-  (cd $G && timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . --resolution 1080x2340 -- --haeuser=$S/bild_$v:$H > $S/godot_$v.log 2>&1 || true)
+  (cd $G && VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --haeuser=$S/bild_$v:$H > $S/godot_$v.log 2>&1 || true)
 done
 ls $S/bild_*
 echo BILDER OK

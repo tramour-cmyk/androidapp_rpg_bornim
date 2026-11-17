@@ -6,7 +6,8 @@ extends RefCounted
 var name := "Alrik"
 var aussehen := {}                     # 376.1 Kopfform, Haar, Bart, Haar- und Hautfarbe (HeldFigur.VORGABE)
 var brs := {}                          # 470: Held nach BRS (BrsHeld.als_daten: Volk, Herkunft, Grundwerte, Startfertigkeiten)
-var stufe_held := 1
+var fert := {}                         # 471: Fertigkeiten durch Tun (BrsFertigkeit.neuer_stand: Werte, Uebung, Rangdecke, Probe, bekannt)
+var brs_stufe := {}                    # 471, 870.4: Heldenstufe und Erfahrung nach BRS (Brs.neuer_stand), einzige Quelle der Stufe
 var gold := 0
 var taschen := {}                      # Ding -> Anzahl (GameState.inventory)
 var flaggen := {}                      # Flagge -> true (GameState.flags)
@@ -32,12 +33,13 @@ var gehoert := {}                      # 399.1 Person -> Fingerabdruecke der let
 var uid_zaehler := 0                   # GameState.uidCounter
 var gespielt_ms := 0                   # 529 (GameState.playedMs, PlayClock): gespielte Zeit fuer die Karte des Spielstands
 var varianten := {}                    # 504.1 Marke -> [wie oft gehoert, letzte Wahl] (Skript.variante)
+var erkundet := {}                     # 505 Karte -> hex, je Ziffer 4 Kacheln, die der Held je gesehen hat (GameState.explored)
 var gepflueckt := {}                   # 490 „Karte:x:y“ -> Tag, an dem dort Heilkraut gepflueckt wurde (GameState.picked)
 
 func has(f: String) -> bool: return flaggen.has(f)
 func setze(f: String) -> void: flaggen[f] = true
 func anzahl(ding: String) -> int: return int(taschen.get(ding, 0))
-func stufe() -> int: return stufe_held
+func stufe() -> int: return int(stufe_brs()["stufe"])   # 870.4: Heldenstufe nach BRS
 func betrunken() -> bool: return met >= Rast.BETRUNKEN
 
 func uhr(dt: float) -> void:
@@ -71,22 +73,62 @@ func ausruestung_dazu(g: Dictionary) -> Dictionary:
 # ein Stueck Ausruestung aus JSON: Zahlen wieder ganz
 static func stueck(g: Dictionary) -> Dictionary:
 	var rolls: Array = []
-	for r in g.get("rolls", []): rolls.append([String(r[0]), int(r[1])])
+	for r in g.get("rolls", []): rolls.append([String(r[0]), int(r[1])] + ([String(r[2])] if (r as Array).size() > 2 else []))   # 870.6: SKILL nennt die Fertigkeit
 	return {"uid": int(g.get("uid", 0)), "base": String(g["base"]), "rarity": String(g.get("rarity", "COMMON")), "ilvl": int(g.get("ilvl", 1)),
-		"plus": int(g.get("plus", 0)), "rolls": rolls, "unique": g.get("unique"), "name_seed": int(g.get("name_seed", 0))}
+		"guete": int(g.get("guete", 0)), "rolls": rolls, "unique": g.get("unique"), "name_seed": int(g.get("name_seed", 0))}   # 870.6: Güte statt „plus“
 
 func als_daten() -> Dictionary:
-	return {"name": name, "stufe": stufe_held, "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
+	return {"name": name, "stufe": stufe(), "gold": gold, "taschen": taschen.duplicate(), "flaggen": flaggen.keys(), "minuten": minuten, "tag": tag,
 		"ausdauer": ausdauer, "atemlos": atemlos, "ausdauer_trank": ausdauer_trank, "funke": funke, "satt": satt, "lange_rast_tag": lange_rast_tag,
 		"met": met, "leiden": leiden.duplicate(), "wiederkehr": wiederkehr.duplicate(), "beutel": beutel.duplicate(true), "siege": siege, "schritte": schritte,
 		"laden_verkauft": laden_verkauft.keys(), "uid_zaehler": uid_zaehler, "gehoert": gehoert.duplicate(true), "aussehen": aussehen.duplicate(),
-		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true)}
+		"gepflueckt": gepflueckt.duplicate(), "brs": brs.duplicate(true), "fert": fert.duplicate(true), "brs_stufe": brs_stufe.duplicate(true), "gespielt_ms": gespielt_ms, "varianten": varianten.duplicate(true),
+		"erkundet": erkundet.duplicate()}
+
+## 471: Stand der Fertigkeiten nach BRS, beim ersten Mal aus den Startfertigkeiten des Helden (leer ohne BRS-Held)
+func fertigkeiten_stand() -> Dictionary:
+	if fert.is_empty() and not brs.is_empty(): fert = BrsFertigkeit.neuer_stand(brs.get("fertigkeiten", {}))
+	return fert
+
+## 471, 870.4: Stand der Heldenstufe nach BRS (Stufe, Erfahrung, Toepfe); Kampf (lohn.gd) und Uebung schreiben hinein
+func stufe_brs() -> Dictionary:
+	if brs_stufe.is_empty(): brs_stufe = Brs.neuer_stand()
+	return brs_stufe
+
+## 471: eine Taetigkeit ausserhalb des Kampfs (Kraeuter pfluecken, Handeln im Laden) uebt [f] einmal, Ziel der eigenen Stufe; die
+## Ereignisse sammeln sich fuer die naechste Notiz (fert_notiz)
+var fert_ev: Array = []
+func uebe(f: String, menge := -1.0) -> void:   # 842: menge < 0 wie BrsFertigkeit.uebe (Uebung je Benutzung)
+	var s := fertigkeiten_stand()
+	if s.is_empty(): return
+	fert_ev.append_array(BrsFertigkeit.uebe(s, stufe_brs(), f, stufe(), menge))
+	spiegle()
+
+## 471: die geuebten Werte auch in brs.fertigkeiten (Heldenreiter 762 liest dort), nur Bekanntes
+func spiegle() -> void:
+	if fert.is_empty() or brs.is_empty(): return
+	var w := {}
+	for n in fert["bekannt"]: w[String(n)] = BrsFertigkeit.wert(fert, String(n))
+	brs["fertigkeiten"] = w
+
+## 471: „Handeln ↑ 3“ fuer alles seit der letzten Notiz, oder leer
+func fert_notiz() -> String:
+	var t := Kampfuebung.notiz(fert_ev)
+	fert_ev.clear()
+	return t
 
 static func aus_daten(d: Dictionary) -> Zustand:
 	var z := Zustand.new()
 	z.aussehen = (d.get("aussehen", {}) as Dictionary).duplicate()
 	if d.get("brs") is Dictionary and not (d["brs"] as Dictionary).is_empty(): z.brs = BrsHeld.aus_daten(d["brs"]).als_daten()   # 470: Zahlen wieder ganz
-	z.name = String(d.get("name", z.name)); z.stufe_held = int(d.get("stufe", 1)); z.gold = int(d.get("gold", 0))
+	if d.get("fert") is Dictionary:
+		z.fert = (d["fert"] as Dictionary).duplicate(true)   # 471
+		BrsFertigkeit.umbenennen(z.fert)   # 875: Kräuterkunde heißt jetzt Kräutersammeln
+	if d.get("brs_stufe") is Dictionary:
+		z.brs_stufe = (d["brs_stufe"] as Dictionary).duplicate(true)
+		if z.brs_stufe.has("stufe"): z.brs_stufe["stufe"] = int(z.brs_stufe["stufe"])   # 870.4: JSON liefert 1.0
+	z.spiegle()
+	z.name = String(d.get("name", z.name)); z.gold = int(d.get("gold", 0))
 	for k in d.get("taschen", {}): z.taschen[String(k)] = int(d["taschen"][k])
 	for f in d.get("flaggen", []): z.flaggen[String(f)] = true
 	z.minuten = int(d.get("minuten", z.minuten)); z.tag = int(d.get("tag", 1))
@@ -103,4 +145,5 @@ static func aus_daten(d: Dictionary) -> Zustand:
 	for k in d.get("gepflueckt", {}): z.gepflueckt[String(k)] = int(d["gepflueckt"][k])
 	z.gespielt_ms = int(d.get("gespielt_ms", 0))
 	for k in d.get("varianten", {}): z.varianten[String(k)] = [int(d["varianten"][k][0]), int(d["varianten"][k][1])]   # 504.1
+	for k in d.get("erkundet", {}): z.erkundet[String(k)] = String(d["erkundet"][k])   # 505
 	return z

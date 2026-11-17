@@ -8,6 +8,7 @@ extends PanelContainer
 
 signal menue
 signal karte                       # 528 (86.2): das Kartenzeichen oeffnet gleich die Karte
+var zustaende_da := false           # 764 (Chef 09.11., 14:49): ein Zustand steht in der Leiste
 
 const DP := AktionsKnopf.DP
 const HP_GRUEN := Color("48c858")
@@ -162,29 +163,39 @@ func _gui_input(e: InputEvent) -> void:
 		accept_event()
 
 # Txt auf Schwarz wie Erschaffung.txt, aber einzeilig
+# Zustand als Plakette (alt WorldScreen.kt 2863–2869: abgerundet 3 dp, 9 sp weiss fett)
+static func chip(text: String, farbe: Color) -> PanelContainer:
+	var k := PanelContainer.new()
+	var s := StyleBoxFlat.new()
+	s.bg_color = farbe; s.set_corner_radius_all(int(3 * DP))
+	s.content_margin_left = 3 * DP; s.content_margin_right = 3 * DP
+	k.add_theme_stylebox_override("panel", s)
+	k.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	k.add_child(wort(text, 9, Color.WHITE))
+	return k
+
 static func wort(t: String, groesse_sp: float, farbe: Color) -> Label:
 	var l := Stil.zeile(t, maxf(groesse_sp, 13.7) * 0.95, farbe, 0.2)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
 # HudInfo.of: Werte des Helden, Tag und Uhr, Nacht (Game.isNight: Tageslicht unter 0,35), Zustaende, freie Punkte
-func zeige(hw: Heldwerte, z: Zustand, nacht: bool) -> void:
+func zeige(hw: BrsHeld, z: Zustand, nacht: bool) -> void:
 	var de := Sprache.aktiv() == "de"
 	var tp: Array = balken["tp"]
-	var anteil := float(hw.tp) / maxf(1.0, float(hw.max_tp()))
+	var anteil := float(hw.leben) / maxf(1.0, float(hw.max_leben()))
 	tp[3].text = Sprache.u("hp"); tp[1].anteil = anteil
 	tp[1].farbe = HP_GRUEN if anteil > 0.5 else (HP_GELB if anteil > 0.2 else ROT)
-	tp[2].text = "%d/%d" % [hw.tp, hw.max_tp()]
+	tp[2].text = "%d/%d" % [hw.leben, hw.max_leben()]
 	var zp: Array = balken["zp"]
-	zp[0].visible = hw.max_zp() > 0
-	zp[3].text = Sprache.u("sp"); zp[1].anteil = float(hw.zp) / maxf(1.0, float(hw.max_zp())); zp[1].farbe = BLAU
-	zp[2].text = "%d/%d" % [hw.zp, hw.max_zp()]
+	zp[0].visible = hw.max_mana() > 0
+	zp[3].text = Sprache.u("sp"); zp[1].anteil = float(hw.mana) / maxf(1.0, float(hw.max_mana())); zp[1].farbe = BLAU
+	zp[2].text = "%d/%d" % [hw.mana, hw.max_mana()]
 	var ep: Array = balken["ep"]
-	var tab: Array = Heldwerte.regel("ep_fuer_stufe")
-	var von := int(tab[hw.stufe])
-	var bis := int(tab[hw.stufe + 1]) if hw.stufe + 1 < tab.size() and hw.stufe < int(Heldwerte.regel("max_stufe")) else -1
+	var stand := z.stufe_brs()   # 870.4: Erfahrung nach BRS in der Stufe (Brs.bedarf), auf der hoechsten Stufe voll
+	var voll := int(stand["stufe"]) >= Brs.hoechste_stufe()
 	ep[3].text = Sprache.u("xp"); ep[1].farbe = GOLD_HELL
-	ep[1].anteil = 1.0 if bis < 0 else clampf(float(hw.ep - von) / float(bis - von), 0.0, 1.0)
+	ep[1].anteil = 1.0 if voll else clampf(float(stand["ep"]) / maxf(1.0, Brs.bedarf(int(stand["stufe"]))), 0.0, 1.0)
 	ep[2].text = ("St. " if de else "Lv ") + str(hw.stufe)
 	for k in balken: balken[k][1].queue_redraw()
 	zeichen.art = "mond" if nacht else "sonne"
@@ -193,18 +204,12 @@ func zeige(hw: Heldwerte, z: Zustand, nacht: bool) -> void:
 	for c in chips.get_children():
 		chips.remove_child(c)
 		c.queue_free()
-	var zd: Dictionary = Heldwerte.lade().get("zustaende", {})
+	var zd: Dictionary = BrsHeld.daten().get("zustaende", {})
 	var welche := []
 	for st in zd:   # Reihenfolge wie Status.entries; betrunken gilt bis zur Rast (86.9)
 		if int(z.leiden.get(st, 0)) > 0 or (st == "DRUNK" and z.betrunken()): welche.append(st)
-	for st in welche:
-		var k := PanelContainer.new()
-		var s := StyleBoxFlat.new()
-		s.bg_color = Color(String(zd[st]["farbe"])); s.set_corner_radius_all(int(3 * DP))
-		s.content_margin_left = 3 * DP; s.content_margin_right = 3 * DP
-		k.add_theme_stylebox_override("panel", s)
-		k.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		k.add_child(wort(Sprache.t(zd[st]["kurz"]), 9, Color.WHITE))
-		chips.add_child(k)
-	if hw.offen > 0: chips.add_child(wort("★ +%d" % hw.offen, 11, GOLD_HELL))
-	if welche.is_empty() and hw.offen == 0: chips.add_child(wort(" ", 11, Color.WHITE))   # die Zeile bleibt, die Leiste springt nie
+	for st in welche: chips.add_child(chip(Sprache.t(zd[st]["kurz"]), Color(String(zd[st]["farbe"]))))
+	# 785.22 (WorldScreen.kt 2856–2858): nach dem Essen „Satt“ in Bernstein hinter den Zuständen, bis zum nächsten Kampf (z.satt)
+	if z.satt: chips.add_child(chip("Satt" if de else "Fed", Color(0xB07A30FF)))
+	zustaende_da = not welche.is_empty()   # 764: Antippen der Leiste oeffnet dann den Heldenreiter mit der Erklaerung
+	if welche.is_empty() and not z.satt: chips.add_child(wort(" ", 11, Color.WHITE))   # 870.4: keine Attributspunkte mehr (870a 4)   # die Zeile bleibt, die Leiste springt nie

@@ -1,11 +1,11 @@
 extends Node
 # 399.3 (Chef 28.10., 16:42: Klang in die Spielfassung; 398, Chef 11:38: „dass wir den Ton NICHT neu erfinden … sondern
 # wiederverwenden“): Musik und Klang wie im alten Spiel, Zahlen aus Music.kt (MusicDirector), MusicPlayer.kt, SfxPlayer.kt,
-# Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen kopiert godot.yml aus app/src/main/assets nach daten/klang, dazu
-# liste.json (Dateinamen ohne Endung je Ordner). Fehlen sie (Tests am Rechner), bleibt alles still.
-# Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, rendert KlangExport.kt im Bau als .wav (nicht neu gebaut).
+# Footsteps.kt, Mix (SoundSettings.kt). Die Aufnahmen liegen in daten/klang (870.9 eingecheckt, einst aus app/src/main/assets),
+# liste.json (Dateinamen ohne Endung je Ordner) schreibt godot.yml. Fehlen sie (Tests am Rechner), bleibt alles still.
+# Kampfklang nach MarsSound.kt; was das alte Spiel synthetisiert, liegt als .wav aus KlangExport.kt in daten/klang (870.9).
 # Ortsklang wie PlaceSound.kt, Ambience.kt, RiverSound.kt (WorldScreen.kt: Wind, Halle, Feuer, Fluss, Tropfen, Knarren, Husten);
-# Raumklang wie Room.kt: die Fassungen aus app/src/main/assets/raum (Vorschau RAUMKLANG=spiel), die synthetischen aus KlangExport.kt.
+# Raumklang wie Room.kt: die Fassungen in daten/klang/raum (einst app/src/main/assets/raum, Vorschau RAUMKLANG=spiel), samt der synthetischen.
 # Kleines Leben und ferne Laute wie WildSound.kt (517): Vögel am Tag, Grillen und Eule nachts, im Tiefen Wald fernes Wolfsheulen,
 # in der Höhle Grollen im Berg.
 # Noch nicht hier (Folgeschritte 399.3): Leute (Tassen, Stühle, D1.10), Teich, Hühner, pickende Vögel, Regen (gibt es in Godot noch nicht),
@@ -302,14 +302,21 @@ func _warte(s: float) -> void:
 
 ## Ein Klang [id] (Sound-Name klein, z. B. "click", "door", "coins") mit einer zufälligen seiner Aufnahmen
 func effekt(id: String, pegel := 0.8, tempo := 1.0, nr := -1) -> void:
+	# 994 (Chef 11.11., 20:54, t277.18: „steht ständig … hand scratch“): was zu weit weg ist, um es zu hören (Tierlaute über
+	# TIER_WEIT, Pegel 0), startet nichts und steht nicht in der Klangzeile; vorher jede Sekunde „hen_scratch 0.00 Blende“ je Huhn im Dorf
+	if pegel <= 0.0:
+		return
 	if not effekte_an:
+		_merke(id, pegel, null, "Effekte aus")
 		return
 	if not id in DURCH:
 		pegel *= schleier_pegel()
 		if pegel <= 0.0:
+			_merke(id, pegel, null, "Blende")
 			return
 	var takes: Array = liste.get("sfx", []).filter(func(n): return String(n).begins_with(id + "_") and String(n).substr(id.length() + 1).is_valid_int())
 	if takes.is_empty():
+		_merke(id, pegel, null, "keine Aufnahme")
 		return
 	var take := String(takes[_zufall.randi_range(0, takes.size() - 1)])
 	if nr >= 0 and takes.has("%s_%d" % [id, nr + 1]):     # 399.1 Intro: eine bestimmte Aufnahme (IntroSound.Cue.take)
@@ -319,14 +326,73 @@ func effekt(id: String, pegel := 0.8, tempo := 1.0, nr := -1) -> void:
 	if s == null:
 		s = _strom("sfx/" + take)
 	if s == null:
+		_merke(take, pegel, null, "nicht geladen")
 		return
 	var p := _effekte[_naechster]
 	_naechster = (_naechster + 1) % STROEME
+	_abgebrochen(p)
 	p.stop()
 	p.stream = s
 	p.pitch_scale = tempo
 	p.volume_db = linear_to_db(maxf(pegel, 0.0001))
 	p.play()
+	_merke(take, pegel, p, "")
+
+
+# 636 A (Chef 09.11., 06:55: Satz am Schlagbaum kam, trotzdem kein Geräusch; am Rechner spielt door_n ganz): die letzten Effekte für
+# den Testmodus „Klang“ über der Welt, damit das Gerät zeigt, ob ein Klang gespielt, abgebrochen oder gar nicht erst gestartet wurde
+const PROTOKOLL_MAX := 10
+var protokoll: Array = []                        # {"was", "pegel", "p" (Spieler oder null), "grund", "t" (ticks), "ende_ms" (-1: offen)}
+
+
+func _merke(was: String, pegel: float, p: AudioStreamPlayer, grund: String) -> void:
+	# 994: derselbe Klang gleich wieder (das fressende Huhn scharrt jede Sekunde) ist eine Zeile mit „×n“, damit seltene wie door_n
+	# in den letzten zehn bleiben
+	var art := _klangart(was)
+	var n := 1
+	if not protokoll.is_empty() and _klangart(String(protokoll[-1].was)) == art:
+		n = int(protokoll[-1].get("n", 1)) + 1
+		protokoll.pop_back()
+	protokoll.append({"was": was, "pegel": pegel, "p": p, "grund": grund, "t": Time.get_ticks_msec(), "ende_ms": -1, "n": n})
+	if protokoll.size() > PROTOKOLL_MAX:
+		protokoll.pop_front()
+
+
+## Name eines Klangs ohne die Nummer der Aufnahme („hen_scratch_2“ -> „hen_scratch“)
+static func _klangart(was: String) -> String:
+	var i := was.rfind("_")
+	return was.substr(0, i) if i > 0 and was.substr(i + 1).is_valid_int() else was
+
+
+## Der Spieler [p] wird für einen neuen Klang gebraucht: spielt seiner noch, ist er abgebrochen (alle STROEME belegt)
+func _abgebrochen(p: AudioStreamPlayer) -> void:
+	for e in protokoll:
+		if e.p == p:
+			if p.playing and e.ende_ms < 0:
+				e.ende_ms = Time.get_ticks_msec() - int(e.t)
+				e.grund = "abgebrochen"
+			e.p = null
+
+
+## Zeilen für die Anzeige: neueste oben, je Klang Name, Pegel, Lage (spielt, verklungen, abgebrochen, nicht gestartet) und Alter;
+## dazu die Regler, weil ein Klang auch an ihnen still sein kann
+func protokoll_zeilen() -> Array:
+	var r: Array = ["Klang: alle %d %%, Effekte %d %%%s, %d Spieler" % [lautstaerke.all, lautstaerke.fx, "" if effekte_an else " (aus)", STROEME]]
+	var jetzt := Time.get_ticks_msec()
+	for i in range(protokoll.size() - 1, -1, -1):
+		var e: Dictionary = protokoll[i]
+		var lage := String(e.grund)
+		if lage == "abgebrochen":
+			lage = "abgebrochen nach %.1f s" % (e.ende_ms / 1000.0)
+		elif lage == "":
+			var p = e.p
+			if p != null and is_instance_valid(p) and p.playing:
+				lage = "spielt %.1f s" % p.get_playback_position()
+			else:
+				lage = "verklungen"
+		var mal := " ×%d" % int(e.n) if int(e.get("n", 1)) > 1 else ""
+		r.append("%s%s  %.2f  %s  (vor %.1f s)" % [e.was, mal, e.pegel, lage, (jetzt - int(e.t)) / 1000.0])
+	return r
 
 
 ## SfxPlayer.voice: die Stimme des Monsters [id] („angriff“, „schmerz“, „tod“), tiefer für Grimmzahn und Elite (Recorded.voiceOf)
@@ -343,6 +409,8 @@ func stimme(id: String, ruf: String, elite := false, pegel := 0.8) -> void:
 const LANDS_MS := 170                    # der Hieb landet nach dem halben Ausfall (SWING_IN_MS)
 const CRY_MS := LANDS_MS + 90            # der Schrei gleich nach dem Klang des Treffers, nie darüber
 const SCHWER := ["mace", "maul", "morningstar", "warhammer"]     # Icon.HAMMER, Icon.MACE
+var _tod_kampf = null                    # 296.3: der Kampf (MARS), für den _tod_gerufen gilt
+var _tod_gerufen := {}                   # 296.3: Gegner (id), deren Todesschrei schon kam
 
 ## Die Klänge einer MARS-Meldung [e] (kampfort.gd _play_say) nach MarsSound.of: Hiebe nach Waffe oder Angriff des Gegners,
 ## kritisch, Zauber nach Art, Heilung, Gift, Fallen; der Schwung der Gruppe vor dem Treffer, die Stimme des Gegners.
@@ -351,7 +419,10 @@ const SCHWER := ["mace", "maul", "morningstar", "warhammer"]     # Icon.HAMMER, 
 func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 	var by = mars.find(e.actor) if e.actor != null else null
 	var tg = mars.find(e.target) if e.target != null else null
-	if e.cue != null:
+	if _tod_kampf != mars:
+		_tod_kampf = mars
+		_tod_gerufen.clear()
+	if e.cue != null and e.cue != "EVADED":     # 949: der Schlag vor dem perfekten Ring klingt wie jeder Fehlschlag
 		match String(e.cue):
 			"FOE_STRIKES":
 				if by != null and by.monster != null:
@@ -361,17 +432,36 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 			"GATHER": _bald(0, func(): effekt(_fx_klang("ENEMY_HEAL")))
 			"VENOM": _bald(0, func(): effekt("poison"))
 			"WEB": _bald(0, func(): effekt("throw"))
-			"FOE_FALLS": _bald(0, func(): effekt("enemy_down"))
+			"THROW":     # 1222: das Rauchbündel fliegt hörbar los (die Flaschen klingen mit dem Treffer, 935)
+				if e.spell == "BOMB_SMOKE":
+					_bald(0, func(): effekt("throw"))
+			"FOE_FALLS":
+				_bald(0, func(): effekt("enemy_down"))
+				# 296.3 (Todesschrei; alt BattleScreen ENEMY_FAINT „its death cry once, if no blow struck it down“): fiel er durch
+				# einen Zauber oder einen Zustand, schreit er mit dem Sturz, einmal; wer flieht, schreit nicht
+				if tg != null and tg.monster != null and not tg.fled and not _tod_gerufen.has(tg.id):
+					_tod_gerufen[tg.id] = true
+					_bald(0, func(): stimme(art_von(tg.monster), "tod", _elite(tg)))
 			"HERO_FALLS", "KNOCKED_OUT": _bald(0, func(): effekt("hero_down"))
 			"POUNCED": _bald(0, func(): effekt("hit_smash", 0.6))     # Rückläufer t53: zu Boden geworfen
 			"DUCKED": _bald(0, func(): effekt("arrow"))               # Rückläufer t58: der Pfeil zischt vorbei
 		return
-	var krit: bool = e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+	var krit: bool = e.roll != null and e.roll[4] and ((e.roll[0] == "ATTACK" and e.roll[1] == 20) or (e.roll[0] == "BRS" and e.roll.size() > 7 and e.roll[7]))     # 478: auch nach dem BRS
+	# 296.3 (Chef 08.11., 21:28, t270.11: „Feuerpfeil auf den Jungwolf. 0 Lebenspunkte, fällt tot um. Und dann irgendwann kommt ein
+	# Geheul … definitiv so 3 Sekunden zu spät“): wer durch einen Zauber oder einen Zustand fällt, schrie erst mit der Meldung
+	# „bricht zusammen“ (FOE_FALLS), und die spielt der Kampfort erst nach Sturz und Liegen; jetzt schreit er, wenn es ihn trifft
+	# (Zauber: bei der Ankunft, treffer_ms), einmal
+	var stirbt_jetzt: bool = e.damage > 0 and tg != null and tg.monster != null and not tg.fled and int(e.hp.get(tg.id, 1)) <= 0 \
+			and not _tod_gerufen.has(tg.id) and (by == null or by.side != tg.side)
+	var schlag: bool = e.spell == null and by != null and e.roll != null and e.roll[0] in ["ATTACK", "BRS"]     # der Hieb schreit unten
+	if stirbt_jetzt and not schlag:
+		_tod_gerufen[tg.id] = true
+		_bald(maxi(0, treffer_ms) + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod", _elite(tg)))
 	if e.spell != null:
 		if String(e.spell) in ["HEAL", "BLESS"] or (by != null and tg != null and by.side != tg.side):
 			_bald(0, func(): effekt(_fx_klang(String(e.spell), krit)))
 		return
-	if by == null or tg == null or by.side == tg.side or e.roll == null or e.roll[0] != "ATTACK":
+	if by == null or tg == null or by.side == tg.side or e.roll == null or not (e.roll[0] in ["ATTACK", "BRS"]):     # 478: auch nach dem BRS
 		return
 	var art := _angriff(by)
 	var ausfall := art != "ARROW"
@@ -384,6 +474,8 @@ func kampf(e: Dictionary, mars, treffer_ms := -1) -> void:
 		_bald(landet, func(): effekt(_fx_klang(art, krit)))
 		if tg.monster != null:
 			var stirbt: bool = int(e.hp.get(tg.id, 1)) <= 0
+			if stirbt:
+				_tod_gerufen[tg.id] = true     # 296.3: der Todesschrei kam mit dem Hieb, nicht noch einmal beim Sturz
 			_bald(landet + CRY_MS - LANDS_MS, func(): stimme(art_von(tg.monster), "tod" if stirbt else "schmerz", _elite(tg)))
 	elif art == "ARROW":
 		_bald(0, func(): effekt("arrow"))
@@ -737,11 +829,16 @@ const TIER_WEIT := 6.0                   # HenSound.FAR (Kacheln)
 const TIER_NAH := 1.5                    # HenSound.NEAR
 ## je Tier und Anlass: [Klang, Pegel ganz nah]; „fressen“ mit dem Abstand der Wiederholung (ms), „ruf“ mit der Pause (ms)
 const TIERLAUT := {
+	# 591 (Chef 08.11., 15:41, t269.10: „Huhn gackert kaum, Flattern kaum hörbar … tschack, tschack, tschack … weg“; „Kaninchen nicht
+	# hörbar“): beim Losrennen gackert das Huhn laut und schlaegt dreimal mit den Fluegeln, das zweite Gackern spaeter; das Kaninchen
+	# huscht in vier schnellen Schritten durchs Gras. Die Pegel des alten Spiels (HenSound ALARM_MAX 0,45, FLAP_MAX 0,3) gingen im Godot-
+	# Dorf unter Musik und Umgebung unter. „held“: [Klang, Pegel ganz nah, Tempo, nach s]
 	"huhn": {"fressen": ["hen_scratch", 0.12, 700.0, 1600.0], "anfang": ["hen_cluck", 0.3], "ruf": ["hen_cluck", 0.25, 15000.0, 35000.0],
-		"held": [["hen_alarm", 0.45], ["hen_flap", 0.3]]},
+		"held": [["hen_alarm", 0.85], ["hen_flap", 0.75, 1.0, 0.05], ["hen_flap", 0.7, 1.08, 0.3], ["hen_flap", 0.6, 0.95, 0.55], ["hen_alarm", 0.6, 1.05, 0.9]]},
 	"ziege": {"fressen": ["goat_graze", 0.25, 2500.0, 4500.0], "ruf": ["goat_bleat", 0.4, 20000.0, 45000.0], "held": [["goat_bleat", 0.5]]},
-	# 591: das fliehende Kaninchen huscht hoerbar durchs Gras (Schritt im Gras, hoch und leise); Klopfen bleibt raus
-	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0], "held": [["step_grass", 0.22, 1.7], ["step_grass", 0.16, 1.9]]},
+	# 591: das fliehende Kaninchen huscht hoerbar durchs Gras (Schritt im Gras, hoch); Klopfen bleibt raus
+	"kaninchen": {"fressen": ["rabbit_munch", 0.2, 2500.0, 4000.0],
+		"held": [["step_grass", 0.7, 1.7], ["step_grass", 0.65, 1.9, 0.12], ["step_grass", 0.6, 1.8, 0.24], ["step_grass", 0.5, 2.0, 0.36]]},
 }
 var _tiere := {}                         # Tier (Knoten) -> {pause, nah, fressen_ms, ruf_ms}
 var _tiere_suche := 0.0
@@ -776,7 +873,9 @@ func _tierlaute(dt_ms: float) -> void:
 		var nah: bool = n.nah_am_held(n.kachel) or n.get("flucht") == true   # 603: Probetier ohne flucht (null)
 		if nah and not st.nah:
 			for l in art.held:
-				effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
+				var nach: float = float(l[3]) if l.size() > 3 else 0.0
+				if nach > 0.0: get_tree().create_timer(nach).timeout.connect(effekt.bind(l[0], tier_pegel(d, l[1]), float(l[2])))
+				else: effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
 		st.nah = nah
 		var pause := String(n.pause)
 		if pause != st.pause:

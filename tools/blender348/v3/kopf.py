@@ -7,7 +7,19 @@ import numpy as np
 from mathutils import Vector
 
 # Regler (0 = wie gekauft): breite, kiefer, laenge = Anteil (0,1 = 10 %); kinn (vor), wangen (aussen), brauen (vor) in m; nase Anteil
-REGLER = ('breite', 'kiefer', 'laenge', 'kinn', 'nase', 'wangen', 'brauen')
+REGLER = ('breite', 'kiefer', 'laenge', 'kinn', 'nase', 'wangen', 'brauen', 'ohren', 'augen')
+# 475 (Chef 04.11., 13:26: „ein Gesicht definiert sich über die Form … unterschiedliche Nasen, Ohren“): ohren Anteil (0,1 = Ohr 5 mm weiter
+# ab und 10 % groesser), augen in m je Seite (Abstand der Augen). feld ist linear in jedem Regler: je Regler ein Formschluessel mit
+# EINHEIT (held_klassen.py schluessel, „r_<regler>“), Godot setzt Wert / EINHEIT je Person (heldfigur.gd gesicht)
+EINHEIT = {'breite': 0.1, 'kiefer': 0.1, 'laenge': 0.1, 'kinn': 0.01, 'nase': 0.1, 'wangen': 0.01, 'brauen': 0.01, 'ohren': 0.1, 'augen': 0.01}
+# 475 Lauf 2 (Chef 04.11., 20:47: „die Augen sind gleich, die Nase ist gleich … die Augenbrauen sind gleich“): Form statt Wert.
+# Nase: hoecker (m vor, Mitte des Rueckens), nasenbreite (Anteil, Nasenfluegel), spitze (m nach unten, negativ = Stupsnase);
+# Augen: augen_gross (Anteil, Augapfel und Lidspalte), augen_schmal (Anteil, Lidspalte niedriger), augen_tief (m zurueck, mit Lidern);
+# Brauen (nur am Netz der Brauen, art 'brauen'): bdick (Anteil, Hoehe des Haarstreifens: 1 = doppelt, -0,6 = duenn), bwinkel (m, Innenende
+# nach unten: grimmig; negativ: innen hoch, sorgenvoll)
+REGLER = REGLER + ('hoecker', 'nasenbreite', 'spitze', 'augen_gross', 'augen_schmal', 'augen_tief', 'bdick', 'bwinkel')
+EINHEIT.update({'hoecker': 0.01, 'nasenbreite': 0.1, 'spitze': 0.01, 'augen_gross': 0.1, 'augen_schmal': 0.1, 'augen_tief': 0.01,
+                'bdick': 0.1, 'bwinkel': 0.01})
 FORMEN = {   # Pruefer 20:2x/20:33: schmal = hager = gekauft, kantig einseitig gebeult: schmal nur eng, hager lang mit hohen Wangen
              # und langer Nase, kantig der Kiefer breit mit Kinn und Brauen vor (Kiefer weicher nach hinten, kopf.feld)
     'gekauft': {},
@@ -72,12 +84,49 @@ def merkpunkte(haut, augen=None):
     p = {'augen_z': az, 'augen_y': ay, 'augen_x': ax, 'nase': n.copy(), 'kinn_z': kz, 'kinn_y': kv, 'oben': oben,
          'mund_z': kz + 0.6 * (float(n[2]) - kz), 'hoehe': oben - kz}
     p['mitte'] = np.array([0.0, float(V[(np.abs(V[:, 2] - az) < 0.01)][:, 1].mean()), az])
+    # 475: Ohr je Seite: aeusserster Punkt auf Augenhoehe bis 5 cm darunter, nicht vor der Augenmitte (Wange)
+    m = (V[:, 2] < az + 0.01) & (V[:, 2] > az - 0.05) & (V[:, 1] > p['mitte'][1] - 0.01) & (V[:, 2] < oben)
+    for s, k in ((1.0, 'ohr_r'), (-1.0, 'ohr_l')):
+        ms = m & (V[:, 0] * s > 0)
+        p[k] = V[ms][np.argmax(V[ms][:, 0] * s)].copy() if ms.any() else np.array([s * 0.075, p['mitte'][1] + 0.02, az - 0.02])
     return p
 
 
-def feld(W, p, f):
+def augen_mitte(p, s):
+    # Mitte des Augapfels je Seite (s +1 rechts, -1 links): 0,72 der Aussenkante, 1 cm hinter der Vorderkante des Augennetzes
+    return np.array([s * p['augen_x'] / 0.6 * 0.72, p['augen_y'] + 0.01, p['augen_z']])
+
+
+def brauen_feld(W, f):
+    # 475 Lauf 2: nur am Netz der Brauen. Je Seite die Mittellinie des Haarstreifens (z ueber |x|, quadratisch angepasst); bdick streckt
+    # quer zur Linie, bwinkel senkt das Innenende (linear in |x|, aussen 0)
+    D = np.zeros_like(W)
+    if not (f.get('bdick') or f.get('bwinkel')) or len(W) < 8: return D
+    for s in (W[:, 0] < 0, W[:, 0] >= 0):
+        if s.sum() < 4: continue
+        ax = np.abs(W[s, 0]); z = W[s, 2]
+        k = np.polyfit(ax, z, 2) if np.ptp(ax) > 1e-4 else np.array([0.0, 0.0, z.mean()])
+        zm = np.polyval(k, ax)
+        D[s, 2] += f.get('bdick', 0.0) * (z - zm)
+        innen = (ax.max() - ax) / max(np.ptp(ax), 1e-4)
+        D[s, 2] -= f.get('bwinkel', 0.0) * innen
+    # Pruefer 21:34 (Brauen stehen hakenfoermig ueber die Stirn vor): die Stirn weicht nach oben zurueck, die Braue folgt ihr (etwa 0,35 m
+    # zurueck je m nach oben, am Kaufkopf ueber den Augen gemessen)
+    D[:, 1] += 0.35 * D[:, 2]
+    return D
+
+
+def augen_netz_D(Ws, p, f):
+    # Augapfel einer Seite als Ganzes verschoben (feld an der Mitte), augen_gross zu 60 % gestreckt (die Lider wachsen mit dem Feld nur
+    # zu etwa 60 %; voll stiesse der Augapfel vorn durchs Lid)
+    m = Ws.mean(0, keepdims=True)
+    return feld(m, p, f)[0] + 0.6 * f.get('augen_gross', 0.0) * (Ws - m)
+
+
+def feld(W, p, f, art=None):
     # Verschiebung je Punkt (Welt) fuer die Form f; ausserhalb des Kopfs 0 (Hals unter dem Kinn, Schultern)
     if not f: return np.zeros_like(W)
+    if art == 'brauen': return feld(W, p, {k: v for k, v in f.items() if k not in ('bdick', 'bwinkel')}) + brauen_feld(W, f)
     x, y, z = W[:, 0], W[:, 1], W[:, 2]
     r = np.linalg.norm(W - p['mitte'], axis=1)
     w = _glatt(p['kinn_z'] - 0.025, p['kinn_z'] + 0.02, z) * (1 - _glatt(0.15, 0.21, r))
@@ -106,6 +155,33 @@ def feld(W, p, f):
         if f.get('brauen'):
             c = np.array([s * p['augen_x'] * 0.9, p['augen_y'] - 0.006, p['augen_z'] + 0.02])
             D[:, 1] -= f['brauen'] * gauss(c, np.array([0.028, 0.02, 0.014]))
+        if f.get('ohren'):
+            c = p['ohr_r' if s > 0 else 'ohr_l'] + np.array([-s * 0.012, 0.0, 0.0])
+            g = gauss(c, np.array([0.022, 0.03, 0.035])) * (x * s > 0)
+            D[:, 0] += s * 0.05 * f['ohren'] * g
+            D += 1.0 * f['ohren'] * g[:, None] * (W - c) * np.array([0.0, 1.0, 1.0])
+        if f.get('augen'):
+            c = np.array([s * p['augen_x'] / 0.6 * 0.72, p['augen_y'] + 0.004, p['augen_z']])   # Augenmitte: 0,72 der Aussenkante
+            D[:, 0] += s * f['augen'] * gauss(c, np.array([0.02, 0.025, 0.018])) * (x * s > 0)
+        # 475 Lauf 2: Augenform (Lidspalte gross, schmal, tiefliegend); je Seite nur ihre Haelfte
+        ce = augen_mitte(p, s); seite = (x * s > 0)
+        if f.get('augen_gross'):
+            D += f['augen_gross'] * (gauss(ce, np.array([0.022, 0.02, 0.017])) * seite)[:, None] * (W - ce)
+        if f.get('augen_schmal'):
+            g = gauss(ce, np.array([0.02, 0.02, 0.012])) * seite * (y < ce[1])
+            D[:, 2] -= f['augen_schmal'] * g * (z - p['augen_z'])
+        if f.get('augen_tief'):
+            D[:, 1] += f['augen_tief'] * gauss(ce, np.array([0.02, 0.02, 0.016])) * seite
+    # 475 Lauf 2: Nasenform. Ruecken (Hoecker) halb zwischen Augen und Spitze, Fluegel 8 mm unter der Spitze, Spitze nach unten
+    n = p['nase']
+    if f.get('hoecker'):
+        c = np.array([0.0, n[1] + 0.008, 0.5 * (n[2] + p['augen_z'])])
+        D[:, 1] -= f['hoecker'] * gauss(c, np.array([0.011, 0.02, 0.011]))
+    if f.get('nasenbreite'):
+        c = np.array([0.0, n[1] + 0.016, n[2] - 0.008])
+        D[:, 0] += f['nasenbreite'] * x * gauss(c, np.array([0.026, 0.022, 0.016]))
+    if f.get('spitze'):
+        D[:, 2] -= f['spitze'] * gauss(n + np.array([0.0, 0.004, -0.003]), np.array([0.011, 0.012, 0.011]))
     return D
 
 
@@ -120,8 +196,8 @@ def forme(netze, f, haut=None):
         if o is augen:
             D = np.zeros_like(W)
             for s in (W[:, 0] < 0, W[:, 0] >= 0):
-                if s.any(): D[s] = feld(W[s].mean(0, keepdims=True), p, f)[0]
-        else: D = feld(W, p, f)
+                if s.any(): D[s] = augen_netz_D(W[s], p, f)
+        else: D = feld(W, p, f, 'brauen' if o.name.startswith('Eyebrows') else None)
         _zurueck(o, W + D)
     return p
 

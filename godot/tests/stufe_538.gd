@@ -1,7 +1,7 @@
 extends SceneTree
 # 538 (Abgleich Build 249: „Heldenstufe kommt in Gesprächen nie an (Garrick warnt immer), Stufengrenze 6 für Kapitel 1 fehlt“):
-# ohne Bild; in Kapitel 1 endet die Erfahrung bei Stufe 6 (Story.levelCap, Hero.gainXp: was darueber geht, verfaellt), ab
-# Kapitel 2 nicht; vor jedem Gespraech kennt der Spielstand die Stufe des Helden, Garrick warnt vor Krogg nur unter Stufe 3.
+# ohne Bild; 870.4: in Kapitel 1 endet die Erfahrung an der Grenze nach BRS (Kapitelgrenze plus weiche Grenze, Brs.gib_erfahrung);
+# vor jedem Gespraech kennt der Spielstand die Stufe des Helden, Garrick warnt vor Krogg nur unter Stufe 3.
 # Braucht godot/daten wie im Bau. Aufruf: im Ordner godot mit -s res://tests/stufe_538.gd -> „STUFE n Fehler“
 
 func _initialize() -> void: _lauf.call_deferred()
@@ -20,24 +20,24 @@ func warnt(z: Zustand) -> bool:
 func _lauf() -> void:
 	Sprache.lade()
 	if Sprache.aktiv() != "de": Sprache.wechsle()
-	var tab: Array = Heldwerte.regel("ep_fuer_stufe")
+	# 870.4: die Heldenstufe nach BRS (zustand.brs_stufe, Brs.gib_erfahrung): Kapitelgrenze, weiche Grenze, dann nichts mehr
 	var z := Zustand.new()
-	pruefe("Deckel Kapitel 1", Geschichte.stufendeckel(z), 6)
-	var hw := Heldwerte.erschaffe("Mira", "HUMAN", "FIGHTER", {}, z.neue_uid)
-	hw.ep_dazu(int(tab[9]), Geschichte.stufendeckel(z))
-	pruefe("Kapitel 1: hoechstens Stufe 6, Erfahrung darueber verfaellt", [hw.stufe, hw.ep], [6, int(tab[6])])
-	z.setze(Geschichte.CHAPTER2_STARTED)
-	hw.ep_dazu(int(tab[9]) - hw.ep, Geschichte.stufendeckel(z))
-	pruefe("Kapitel 2: weiter bis Stufe 9", hw.stufe, 9)
+	var st := z.stufe_brs()
+	Brs.gib_erfahrung(st, 100000.0, "quest")
+	pruefe("Kapitel 1: hoechstens Kapitelgrenze plus weiche Grenze", st["stufe"], Brs.hoechste_stufe())
+	pruefe("Zustand kennt die Stufe", z.stufe(), Brs.hoechste_stufe())
+	var r := Brs.gib_erfahrung(st, 100.0, "kampf")
+	pruefe("auf der hoechsten Stufe verfaellt alles", [r.gegeben, r.verfallen], [0.0, 100.0])
 	# Gespraech: die Stufe des Helden kommt an
 	var spiel = load("res://spiel.tscn").instantiate()
 	root.add_child(spiel)
 	for i in 5: await process_frame
-	var w: Heldwerte = spiel.held_werte()
+	var w: BrsHeld = spiel.held_werte()
 	var sz: Zustand = spiel.zustand
 	pruefe("Stufe 1: Garrick warnt", warnt(sz), true)
-	w.ep_dazu(int(tab[5]), Geschichte.stufendeckel(sz))
+	sz.stufe_brs()["stufe"] = 5
 	spiel.stufe_abgleichen()
+	pruefe("der Held spiegelt die Stufe, voll geheilt", [w.stufe, w.leben], [5, w.max_leben()])
 	pruefe("abgeglichen: der Spielstand kennt Stufe 5", sz.stufe(), 5)
 	pruefe("Stufe 5: Garrick warnt nicht", warnt(sz), false)
 	print("STUFE %d Fehler" % fehler)

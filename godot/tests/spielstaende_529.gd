@@ -27,10 +27,10 @@ func _lauf() -> void:
 	var z := Zustand.new()
 	z.name = "Thora"
 	z.gespielt_ms = (2 * 60 + 14) * 60000 + 5000
-	var hw := Heldwerte.erschaffe("Thora", "DWARF", "CLERIC", {}, z.neue_uid)
+	var hw := BrsHeld.fuer_spiel("Thora", "Zwerg", "Klosterschüler", z.neue_uid)
 	pruefe(Zustand.aus_daten(z.als_daten()).gespielt_ms == z.gespielt_ms, "gespielte Zeit geht beim Speichern verloren")
 	# Sommerzeit gespeichert (Ortszeit 14:05), heute Winter: die Karte zeigt 14:05, nicht aus der Unix-Zeit gerechnet
-	var d := {"platz": 2, "zustand": z.als_daten(), "held": hw.als_daten(), "ort": {"karte": "village"},
+	var d := {"version": Spielstand.VERSION, "platz": 2, "zustand": z.als_daten(), "held": hw.spiel_daten(), "ort": {"karte": "village"},
 		"gespeichert": 1, "gespeichert_ortszeit": {"year": 2026, "month": 10, "day": 24, "hour": 14, "minute": 5, "second": 0}}
 	var k := Spielstaende.karte(d)
 	root.add_child(k)
@@ -41,7 +41,7 @@ func _lauf() -> void:
 	var b := k.find_child("Heldbild", true, false)
 	pruefe(b is Drehteller and not (b as Drehteller).dreht, "Figur des Helden fehlt oder dreht sich")
 	pruefe(b != null and (b as Control).mouse_filter == Control.MOUSE_FILTER_IGNORE, "Figur faengt das Antippen der Karte")
-	pruefe(b != null and (b as Drehteller).wahl.get("volk", "") == "DWARF" and (b as Drehteller).wahl.get("klasse", "") == "CLERIC", "nicht der gespeicherte Held: %s" % [(b as Drehteller).wahl if b else {}])
+	pruefe(b != null and (b as Drehteller).wahl.get("volk", "") == "DWARF" and (b as Drehteller).wahl.get("herkunft", "") == "Klosterschüler", "nicht der gespeicherte Held: %s" % [(b as Drehteller).wahl if b else {}])
 	# aeltere Spielstaende ohne Ortszeit: aus der Unix-Zeit, ohne Absturz; ohne Held: Grundfigur
 	var alt := Spielstaende.gespeichert_um({"gespeichert": 1700000000000})
 	pruefe(alt.has("hour") and int(alt["year"]) == 2023, "alter Spielstand ohne Ortszeit: %s" % [alt])
