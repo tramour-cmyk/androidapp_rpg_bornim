@@ -229,4 +229,4 @@
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
-| 1567 | Von Chef (17.11., 14:54, an Sokrates, Build 296, Bild): Siegtafel zeigt „Alrik –0 Leben“ (Leiste 97/109), „Minus 0 Leben macht nicht so viel Sinn“; Zeile bei 0 weglassen, Wert gegen den Kampf prüfen | Spike | M | gebaut, Geprüft an: 48033f7fa | – | claude/spike-1567-sieg-leben | – | E Oberfläche | – |
+| 1567 | Von Chef (17.11., 14:54, an Sokrates, Build 296, Bild): Siegtafel zeigt „Alrik –0 Leben“ (Leiste 97/109), „Minus 0 Leben macht nicht so viel Sinn“; Zeile bei 0 weglassen, Wert gegen den Kampf prüfen | Spike | M | gebaut, Geprüft an: 48033f7fa | 18.11. 12:00 | claude/spike-1567-sieg-leben | – | E Oberfläche | – |
