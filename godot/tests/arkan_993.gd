@@ -52,12 +52,21 @@ func _lauf() -> void:
 		return
 	var by = kf.figures[party[0].id]
 	var on = kf.figures[foes[0].id]
-	for daneben in [false, true]:
+	# 385.2: der Funkenpfeil fliegt ebenso aus R2 (fire), mit Feuer an der Stabspitze beim Loslassen
+	var feuer: bool = KampfUi.geschoss_r2("FIRE_BOLT") != null
+	print("Feuer 385.2: Paket R2 fire %s" % ("da" if feuer else "nicht da"))
+	if paket and not feuer:
+		print("FEHLER: R2 da, aber %s lädt nicht" % KampfUi.geschoss_pfad("FIRE_BOLT"))
+		befunde += 1
+	for fall in [["MISSILES", false], ["MISSILES", true], ["FIRE_BOLT", false], ["FIRE_BOLT", true]]:
+		var zauber: String = fall[0]
+		var daneben: bool = fall[1]
 		var vorher: int = ui.spells.size()
+		var w0: int = ui.gewirkt.size()
 		var n0: int = ui.arkan_fluege.size()
 		var t0: float = kf.clock_ms     # Uhr des Kampforts (Spielzeit wie die Zeitgeber), nicht die Wanduhr
-		var step: float = ui.cast("MISSILES", party[0].id, foes[0].id, false, daneben)
-		var art := "daneben" if daneben else "Treffer"
+		var step: float = ui.cast(zauber, party[0].id, foes[0].id, false, daneben)
+		var art := "%s %s" % [zauber, "daneben" if daneben else "Treffer"]
 		if not paket:
 			var gemalt: int = ui.spells.size() - vorher
 			print("  %s: ohne Paket gemalt %d (soll 1)" % [art, gemalt])
@@ -70,7 +79,7 @@ func _lauf() -> void:
 			print("FEHLER %s: mit Paket trotzdem gemalt" % art)
 			befunde += 1
 		# bis zur Ankunft warten (Seitenschritt + Flug), dabei die kleinste Entfernung zum Ziel messen
-		var bis := t0 + step + Zauber.arrives("MISSILES") + 250.0
+		var bis := t0 + step + Zauber.arrives(zauber) + 250.0
 		var flug = null
 		var naechst := INF
 		var start_fehler := INF
@@ -110,7 +119,14 @@ func _lauf() -> void:
 			print("  %s: Abstand zum Rumpf %s, zur geschätzten Brust %.2f m" % [art, "%.3f m" % am_rumpf if am_rumpf != INF else "ohne Gerüst", ziel.distance_to(brust)])
 		print("  %s: Start an der Stabspitze %s (%.2f m), Bahn bis %.2f m ans Ziel, Ziel %s (Höhe %.2f m, %.2f m neben dem Gegner), Schritt %.0f ms" % [
 			art, ok_start, start_fehler if start_fehler != INF else -1.0, naechst if naechst != INF else -1.0, ok_ziel, ziel.y, neben, step])
-		if not (ok_start and ok_weg and ok_ziel):
+		var ok_wirken: bool = zauber != "FIRE_BOLT" or (ui.gewirkt.size() > w0 and ui.gewirkt[w0][2] != null \
+			and (ui.gewirkt[w0][1] as Vector3).distance_to(flug[1]) < 0.05)
+		if zauber == "FIRE_BOLT":
+			print("    Feuer an der Stabspitze beim Loslassen: %s" % ok_wirken)
+		if flug.size() > 4 and flug[4] != zauber:
+			print("FEHLER %s: Geschoss für %s gestartet" % [art, flug[4]])
+			befunde += 1
+		if not (ok_start and ok_weg and ok_ziel and ok_wirken):
 			befunde += 1
 	print("ARKAN993 %d" % befunde)
 	p.queue_free()

@@ -1773,7 +1773,8 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	var step_ms := 0.0
 	# 993: der Arkanpfeil aus R2 fliegt gerade wie Funkenpfeil und Pfeil, darum mit Seitenschritt (348.7b (1)); die Ausnahme (5) galt
 	# den gefächerten Geschossen
-	var r2: bool = kind == "MISSILES" and by != on and arkan_r2() != null and k.figures.has(by) and k.figures.has(on)
+	# 385.2: der Funkenpfeil ebenso als Geschoss aus R2 (Element fire), mit Feuer an der Stabspitze beim Wirken
+	var r2: bool = by != on and geschoss_r2(kind) != null and k.figures.has(by) and k.figures.has(on)
 	# 601: der Späher mit Schussbewegung tritt zuerst zur Seite, dann hebt er den Bogen (schuss.gd wartet so lange); der Pfeil ist
 	# ein Körper im Raum mit Spur (R3 Arrow Streak), kein gemalter Strich
 	var schuetze = k.figures[by].schuss if kind == "ARROW" and by != on and k.figures.has(by) and k.figures.has(on) else null
@@ -1786,7 +1787,9 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 		step_ms = _step_aside(kind, k.figures[by], k.figures[on], after_ms, Zauber.arrives(kind))
 	after_ms += step_ms
 	if r2:
-		_arkan_flug(k.figures[by], k.figures[on], missed, after_ms)
+		_arkan_flug(k.figures[by], k.figures[on], missed, after_ms, kind)
+		if kind == "FIRE_BOLT":
+			k.fire_light(on, after_ms + Zauber.arrives(kind), Zauber.duration(kind) - Zauber.arrives(kind), false)
 		return step_ms
 	# 348.7a Runde 5 (Prüfer r4: „drei Strahlen eine Bahn“): der wievielte Strahl dieses Wirkenden in Folge
 	var t: float = k.clock_ms + after_ms
@@ -1796,6 +1799,12 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 	spells.append({"kind": kind, "by": by, "on": on, "crit": crit, "missed": missed, "seed": spell_seed * 7919,
 		"t0": k.clock_ms + after_ms, "nr": nr})
 	# Feuer wirft Licht auf Gegner und Boden (Helfer Lauf 126: „Feuer ohne Licht“; DESIGN-STIL Signatur: Licht aus Quellen)
+	if kind == "FIREBALL" and by != on and k.figures.has(by) and k.figures.has(on):     # 385.2: die Glutkugel trifft die Reihe, bleibt gemalt
+		var fb = k.figures[by]
+		var fo = k.figures[on]
+		get_tree().create_timer(maxf(after_ms, 0.0) / 1000.0).timeout.connect(func() -> void:
+			if is_instance_valid(fb) and is_instance_valid(fo) and fb.cast_point() != null:
+				_wirken(kind, fb, fb.cast_point(), fo.position + Vector3.UP * (fo.head().y - fo.position.y) * 0.55))
 	if kind in ["FIRE_BOLT", "RAYS", "FIREBALL", "BURNING_HANDS", "BOMB_FIRE"]:
 		k.fire_light(on, after_ms + Zauber.arrives(kind), Zauber.duration(kind) - Zauber.arrives(kind), kind == "FIREBALL")
 	return step_ms
@@ -1808,28 +1817,40 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 ## bisher, dann zeigt der Kampfort den Treffer. Aufruf des Pakets wie in der Probe 623.5 (effektprobe.gd _projektil, 163f07e84).
 ## Fehlt das Paket (am Rechner, in den Tests ohne Kaufrepo), malt zauber.gd wie bisher.
 ## 623.2: Pfad aus werte.json fx (zauber MISSILES → arkan)
+## 385.2 (Chef 28.10., 19:1x zum Zauberer-Set: aus dem Stab soll sichtbar Zauber kommen; LISTE-EFFEKTE R2 fire):
+## der Funkenpfeil ebenso, Element fire; beim Loslassen Feuer an der Stabspitze (fx zauber_wirken, fire_cast), auch bei der Glutkugel.
 static func arkan_pfad() -> String:
-	return TrefferFx.pfad(TrefferFx.fuer_zauber("MISSILES"))
+	return geschoss_pfad("MISSILES")
 
-static var _arkan_szene = null     # PackedScene, false: nicht da
-## 993, für den Test arkan_993: je Flug [Knoten, Start, Ziel, Ankunft in ms Uhrzeit]
+static func geschoss_pfad(kind: String) -> String:
+	var name := TrefferFx.fuer_zauber(kind)
+	return TrefferFx.pfad(name) if String(TrefferFx.eintrag(name).get("art", "")) == "geschoss" else ""
+
+static var _geschoss_szenen := {}     # Zauber -> PackedScene, false: nicht da
+## 993, für den Test arkan_993: je Flug [Knoten, Start, Ziel, Ankunft in ms Uhrzeit, Zauber]
 var arkan_fluege: Array = []
+## 385.2, für den Test: je Wirken [Zauber, Ort, Knoten oder null]
+var gewirkt: Array = []
 
 static func arkan_r2() -> PackedScene:
-	if _arkan_szene == null:
-		var pf := arkan_pfad()
-		_arkan_szene = load(pf) if pf != "" and ResourceLoader.exists(pf) else false
-	return _arkan_szene if _arkan_szene is PackedScene else null
+	return geschoss_r2("MISSILES")
+
+## das Geschoss aus R2 für [kind] (werte.json fx zauber, art geschoss), null ohne Paket oder Eintrag
+static func geschoss_r2(kind: String) -> PackedScene:
+	if not _geschoss_szenen.has(kind):
+		var pf := geschoss_pfad(kind)
+		_geschoss_szenen[kind] = load(pf) if pf != "" and ResourceLoader.exists(pf) else false
+	return _geschoss_szenen[kind] if _geschoss_szenen[kind] is PackedScene else null
 
 
-func _arkan_flug(by, on, missed: bool, after_ms: float) -> void:
+func _arkan_flug(by, on, missed: bool, after_ms: float, kind := "MISSILES") -> void:
 	if after_ms > 0.0:
-		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): _arkan_los(by, on, missed))
+		get_tree().create_timer(after_ms / 1000.0).timeout.connect(func(): _arkan_los(by, on, missed, kind))
 	else:
-		_arkan_los(by, on, missed)
+		_arkan_los(by, on, missed, kind)
 
 
-func _arkan_los(by, on, missed: bool) -> void:
+func _arkan_los(by, on, missed: bool, kind := "MISSILES") -> void:
 	var k = kampfort
 	if not is_instance_valid(k) or not is_instance_valid(by) or not is_instance_valid(on):
 		return
@@ -1838,8 +1859,9 @@ func _arkan_los(by, on, missed: bool) -> void:
 	var hand = by.cast_point()
 	var von: Vector3 = hand if hand != null else by.position + Vector3.UP * (by.head().y - by.position.y) * START_UP + dir * (_girth(by) + 0.1)
 	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir, von)
-	var s := maxf(Zauber.arrives("MISSILES") / 1000.0, 0.05)
-	var p := arkan_r2().instantiate()
+	var s := maxf(Zauber.arrives(kind) / 1000.0, 0.05)
+	_wirken(kind, by, von, ziel)
+	var p := geschoss_r2(kind).instantiate()
 	for kv in [["fly_on_ready", false], ["collision_mask", 0], ["impact_on_expire", true],
 			["speed", maxf(von.distance_to(ziel), 0.1) / s], ["lifetime", s]]:
 		if kv[0] in p:
@@ -1847,7 +1869,14 @@ func _arkan_los(by, on, missed: bool) -> void:
 	k.add_child(p)
 	if p.has_method("launch"):
 		p.call("launch", von, ziel - von, -1.0, true)
-	arkan_fluege.append([p, von, ziel, Time.get_ticks_msec() + s * 1000.0])
+	arkan_fluege.append([p, von, ziel, Time.get_ticks_msec() + s * 1000.0, kind])
+
+
+## 385.2: Feuer an der Stabspitze beim Loslassen (werte.json fx zauber_wirken), in Flugrichtung; ohne Paket nichts
+func _wirken(kind: String, by, von: Vector3, ziel: Vector3) -> void:
+	var name := String((TrefferFx.tabelle().get("zauber_wirken", {}) as Dictionary).get(kind, ""))
+	if name != "" and is_instance_valid(kampfort):
+		gewirkt.append([kind, von, TrefferFx.zeige(name, kampfort, kampfort.to_local(von), by.head().y - by.position.y, ziel - von)])
 
 
 ## 601 (Chef 05.11., Build 266, t266.5: „Pfeil passt nicht“; 13.11., 17:06: „Der ominöse, selbstgebaute Pfeil. Haben wir da nicht

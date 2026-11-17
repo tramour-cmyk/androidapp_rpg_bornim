@@ -732,6 +732,8 @@
       "parade":      {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/parry_block.tscn", "glanz": 0.3, "grau": 0.75, "ton": [0.90, 0.74, 0.45], "lichter": false, "weg": ["Flash", "Ring", "Arc", "Shield"], "groesse": 0.25},
       "staubschlag": {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/dust_impact.tscn", "glanz": 0.8, "grau": 0.3, "ton": [0.55, 0.48, 0.38], "hell": 1.25, "lichter": false, "weg": ["Flash", "Ring", "Wave"], "groesse": 0.3},
       "arkan":       {"art": "geschoss", "pfad": "res://addons/reeboo_projectiles/elements/arcane/arcane_projectile.tscn"},
+      "feuer":       {"art": "geschoss", "pfad": "res://addons/reeboo_projectiles/elements/fire/fire_projectile.tscn"},
+      "feuer_wirken": {"art": "teilchen", "pfad": "res://addons/reeboo_projectiles/elements/fire/fire_cast.tscn", "lichter": false, "groesse": 0.6},
       "rauch":       {"art": "teilchen", "pfad": ["res://addons/reeboo_vfx/effects/smoke_poof.tscn", "res://addons/reeboo_vfx/pack3_effects/smoke_poof.tscn"]},
       "brennend":    {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/burning.tscn"},
       "vergiftet":   {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/status_effects/poisoned.tscn"},
@@ -745,7 +747,8 @@
       "Stangenwaffen": {"hieb": "klingenspur"}, "Stumpfe Waffen": {"treffer": "staubschlag"},
       "Wurfwaffen": {}, "Bogen": {"geschoss": "pfeilspur"}, "Armbrust": {"geschoss": "pfeilspur"}
     },
-    "zauber": {"MISSILES": "arkan", "BOMB_SMOKE": "rauch"},
+    "zauber": {"MISSILES": "arkan", "FIRE_BOLT": "feuer", "BOMB_SMOKE": "rauch"},
+    "zauber_wirken": {"FIRE_BOLT": "feuer_wirken", "FIREBALL": "feuer_wirken"},
     "zustand": {"BURN": "brennend", "POISON": "vergiftet", "BLEED": "blutend", "STUN": "betaeubt", "SLOW": "verlangsamt"},
     "monster": {"wolf": {"sprung": "staubschlag"}, "dire_wolf": {"sprung": "staubschlag"}}
   }
