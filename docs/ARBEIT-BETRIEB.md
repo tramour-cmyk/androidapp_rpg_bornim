@@ -49,6 +49,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 17.11., 09:16 Ford: Sokrates-Neustart auf Chefwort 09:08: `…79XLgTfEVz9NoYYJ7m` („Chefrunde“), alter `…76gTnkQt77JpdpoGF3` archiviert (Schutzzeile war geleert), 7,53 $ auf 1520, 870; Tom „Weiter: 1528“ („jetzt“).
+- 17.11., 11:05 Ford: Lauf 11:03 (angekommen): nichts zu starten, alle Rollen belegt. Befund: Perikles und Jerry hängen an `git rebase --continue` (Auto-Prüfung lehnt ab, wartet auf den Chef); beiden gesagt: `rebase --abort`, Konflikt neu lösen. Spike wartet auf Ja des Chefs zum Schließen der Prüfliste Build 295 (Neustartmeldung 10:58 ohne Nachfolger, nichts Startbares).
 - 17.11., 10:52 Ford: Lauf 10:50: Jerry-Neustart `…77xEazSvYLsbY2twWp` (297), Tom über neue Jerry-Kennung informiert; Start Diogenes `…76GuSR3ZmBd53Pew6R` (1539), Perikles `…75Zz5WUmAyUmi4Uym5` (M? 1541, 1543); archiviert Jerry alt (3,86 $ auf 785.11, 785.15, 785.17, 785.12, 297), Diogenes alt (2,78 $ auf 1425, 1538), Perikles alt (5,04 $ auf 1535, 1538, 1537; Chefrückfrage beantwortet 10:27, kein Werkzeug gebaut). GELÖST 1520, 1137 an Sokrates.
 - 17.11., 10:33 Ford: Tom-Neustart `…77SRiAi6pEtMKx6z7N` (431h Stufe 2), alter archiviert, 19,25 $ auf 296, 1516, 1417, 1515, 1535, 785.10.
 - 17.11., 10:28 Ford: Jerry-Neustart `…75aoSZgtM2AQoGfirC` (Sammelbuild 785.11/785.15/785.17/785.12), alter archiviert, 14,21 $ auf 1505, 1340, 785.11, 785.15, 785.17, 1275, 1527. Tom Neustart-Meldung 10:25 (92be1c9df), Sitzung working, Prüfung 10:30.
@@ -111,8 +112,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:04 17.11.: Marke Archiv session_01Hmoj79W9kdjryXGMR6Avbb (lauf.py)
 - 04:04 17.11.: Marke Archiv session_01Hmoj78CY54jy3o4vF8uRur (lauf.py)
 - 04:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 03:39) (lauf.py)
-- 05:04 17.11.: Startsperre 05:04 Start Jerry (lauf.py)
-- 05:04 17.11.: Marke Start-fehlt Diogenes 17.11.-03:31 (lauf.py)
 - 05:04 17.11.: Marke Archiv session_01Hmoj764SLoCvCFwQShPLJT (lauf.py)
 - 05:04 17.11.: Nachfolger-Warnung Spike (Übergabe 17.11., 02:53) (lauf.py)
 - 06:38 17.11.: Startsperre 06:38 Start Jerry (Ford von Hand), Neustart-Meldung 06:33 (d29a69780)
