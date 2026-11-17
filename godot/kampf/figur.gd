@@ -3871,6 +3871,10 @@ func _back_home(back: float, skip) -> void:
 	var from := position
 	var via := _detour(from, home, skip)
 	var way := from.distance_to(via) + via.distance_to(home) if via != from else from.distance_to(home)
+	# 1415 (angriff_824 ROGUE: geplant 1,47 s für 3,14 m gerade, der Umweg um den Söldner war 5,08 m, Gehen 1,64-fach, Grenze 1,15):
+	# die Zeit galt dem geraden Weg; mit Umweg im selben Tempo, also länger
+	if via != from and from.distance_to(home) > 0.01:
+		back *= maxf(1.0, way / from.distance_to(home))
 	# 562: mit Schild gleichmäßig (die Schritte laufen in einem Tempo; eine Kurve im Weg ließ die Füße in der Mitte gleiten)
 	var gleich := false
 	if anim and _gang_ss("Zurück") == "SS_WalkBackwards" and way > 0.2:

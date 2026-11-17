@@ -174,7 +174,11 @@ func _bild(kf, n: int, k: String) -> void:
 			if platz_vor.has(fid) and platz_vor[fid] != pl:
 				platz_offen[fid] = true
 			var rel: Vector3 = f.home - kf._ground(0, 0)
-			var rueckt: bool = heim_boden.has(fid) and rel.distance_to(heim_boden[fid]) > 0.05
+			# 1415 (Seed 7, Kämpfer Bild 2619): nach dem Ausweichen steht der Wolf neben seinem alten Platz; die nächste Zeile der Gegner
+			# macht die Stelle, an der er steht, zu seinem Platz am Gegner (1072), ohne dass er sich bewegt. Rücken heißt gehen: nur ein
+			# neuer Platz, der nicht unter ihm liegt, zählt
+			var rueckt: bool = heim_boden.has(fid) and rel.distance_to(heim_boden[fid]) > 0.05 \
+				and Vector2(f.home.x - f.position.x, f.home.z - f.position.z).length() > 0.05
 			if rueckt and platz_offen.get(fid, false):
 				platz_offen[fid] = false
 			elif rueckt and not f.fighter.fled and tote.keys().any(func(t): return t.begins_with(k + "/")):
