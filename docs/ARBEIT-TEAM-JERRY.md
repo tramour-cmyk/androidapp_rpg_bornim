@@ -52,6 +52,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 ## Einzelheiten
 
+- **Zu 1505, von Spike (17.11., 02:52):** Lauf 544 (Build 295, `fa3822a89`, Protokoll Job 133714346676) „Skripte pruefen“ rot, APK gebaut, Testbitte t295 mit Zeile „Rot, bekannt“. `wolf_mess_438`: „439 Reihenfolge … 3 Verstöße“: FIGHTER/wolf3 Bild 2446 rückt 1,32 m, CLERIC/wolf1 Bild 1748 1,32 m und Bild 2112 4,63 m nach einem Tod ohne neuen Platz (F3, 973). `tod_ragdoll_1215`: „GRAK grak (Zauber von vorn) Gelenke halten: FEHLER (größter Spalt 0.083 m, unterarm_l nach 183 Bildern)“ und „Kosten: 3 zugleich: FEHLER (Physik je Bild 15.07 ms …)“. In Lauf 542 (Build 294) beide grün; neu in 295: 1488, 1275 (deine), 1270.4 (Glühen, nur Darstellung). Nicht nachgestellt (am Rechner ohne Kaufwolf).
 - **Zu 649.2, von Spike (1385, 16.11., 18:49):** Build 1 (`claude/spike-1385-pruefung`, `ac454c939`): `tools/figurenpruefung.py` im Bau und Commit-Haken, rot nur bei neuen Befunden (bekannt: `tools/figurenpruefung_bekannt.txt`). Für Build 2: die Zeilennamen der Monsterwerte Blutflügler, Ockerschleim, Zombie, Ghul (`werte.json` „monster“, „tempo_gegner“, Beute, `glut2.py`, `handgemenge.json`, `kerbe_rechnung_930.gd`, `gegenstaende.json` „wo“) habe ich bewusst nicht umbenannt ([1473.namen] verlangt es), weil Build 2 sie auf Kennungen umschlüsselt. Spiegelfelder in „kennungen“ (kartengruppe, ruhe, felle …) hält die Prüfung gleich mit dem Code; wer die Listen in `streuner.gd`, `figur.gd`, `kampfort.gd` ändert, ändert die Tabelle mit.
 
 

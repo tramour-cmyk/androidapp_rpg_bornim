@@ -1,5 +1,6 @@
-# Spike · Build 295 · Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen · PR folgt
-E Technik · Spike (ohne dich 1270.4), Jerry (1488; ohne dich 1488, 1275) · 17.11., 00:12 · APK folgt
+# Spike · Build 295 · Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen · [PR 213](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/213) · Datei bornim-0.348.544-build-295.apk
+E Technik · Spike (ohne dich 1270.4), Jerry (1488; ohne dich 1488, 1275) · 17.11., 02:52 · [APK (Lauf 544)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43986044991/artifacts/14290861168)
+Rot, bekannt, nicht melden: wolf_mess_438 – nach einem Tod rücken Wölfe ohne neuen Platz nach (439, F3), Vorgang 1505 (Jerry); tod_ragdoll_1215 – Grak: Gelenk Unterarm klafft 0,083 m, Physik bei 3 Toten 15 ms je Bild, Vorgang 1505 (Jerry).
 
 Gegengelesen: Tom 00:25 (295.1 wie Archiv 1270.4, 👍 16.11., 17:32; 295.2 nach Einwand neu gefasst, passt: `herkunft=Jägerkind` in `BrsHeld.herkuenfte()` (testmodus.gd 721), „Lesestufe 3“ von Jerry, nicht nachgerechnet; 295.3 Test auf `claude/spike-295-vorlauf` da). 531 trage ich nach grünem Lauf selbst ein.
 
