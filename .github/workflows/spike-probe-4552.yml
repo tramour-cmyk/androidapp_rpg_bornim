@@ -1,0 +1,129 @@
+name: Spike Probe Groessen (455.2)
+
+# 455.2 Groessenfilm (Chef 01.11., 11:21; Archiv 455, Chefsache 455 „Groessen der Voelker“): Hügelvolk und Orkblütiger, Mann und
+# Frau, in Kette (Wachsoldat), Platte (Ritter) und Robe (Zauberlehrling), neben dem Menschen; Kleidung ueber Knochenlaengen
+# (volk_tracht.py nach voelker.py, 431), Durchdringung in Bewegung gemessen (pruef_volk.py), im Spiel gefilmt (figurenprobe
+# --teil=groessen, groessenprobe.gd), Film groessen_film.py. Kaufmodelle nur ueber diesen Ablauf (416.4a); ins Artefakt nur Film,
+# Bilder, Protokolle. Nur bei Commits, die mit „455.2 Probe“ beginnen.
+on:
+  push:
+    branches: ["claude/spike-455-2-**"]
+  workflow_dispatch:
+
+jobs:
+  probe:
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, '455.2 Probe')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Karten und Texte aus core (wie godot.yml)
+        run: |
+          ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
+          ./gradlew -p core exportTexts -Pout=$GITHUB_WORKSPACE/godot/daten/texte.json -q
+          ./gradlew -p core exportHero -Pout=$GITHUB_WORKSPACE/godot/daten/held.json -q
+          ./gradlew -p core exportIntro -Pout=$GITHUB_WORKSPACE/godot/daten/intro.json -q
+          mkdir -p godot/daten/intro && for f in app/src/main/assets/intro/*.jpg app/src/main/assets/intro/*.png app/src/main/assets/tempel/*.jpg; do b=$(basename $f); cp $f godot/daten/intro/${b%.*}.bild; done
+          cp godot/bilder/logo-quer.svg godot/daten/logo.bild
+          ./gradlew -p core exportMapSheets -Pout=$GITHUB_WORKSPACE/godot/daten -q
+          ./gradlew -p core exportThingArt -Pout=$GITHUB_WORKSPACE/godot/daten -q
+          cp app/src/main/res/font/fondamento_regular.ttf godot/daten/fondamento.ttf
+          cp app/src/main/assets/menu/hauptmenue.jpg godot/daten/hauptmenue.bild
+      - name: Gekaufte Modelle (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
+          timeout 1200 bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf > kauf.log 2>&1 || { tail -20 kauf.log; exit 1; }
+          wc -l kauf.log
+      - uses: actions/setup-python@v5
+        id: py
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}-py${{ steps.py.outputs.python-version }}
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          [ -x bl/bin/python ] || { rm -rf bl; python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+      - uses: actions/cache@v4
+        with:
+          path: ~/cc0
+          key: cc0-quaternius-4
+      - name: CC0-Pakete (Quaternius)
+        run: |
+          [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          [ -d ~/cc0/medieval-village-megakit ] || PAKETE=medieval-village-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          [ -d ~/cc0/stylized-nature-megakit ] || PAKETE=stylized-nature-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+          [ -d ~/cc0/fantasy-props-megakit ] || PAKETE=fantasy-props-megakit bash tools/blender348/v3/cc0_laden.sh ~/cc0
+      - name: Modelle bauen (Held, Dorf; wie godot.yml)
+        run: |
+          export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
+          for s in tex held3 rig dorf; do
+            bl/bin/python -I tools/blender348/v3/$s.py > $s.log 2>&1 || { tail -40 $s.log; exit 1; }
+          done
+          D=godot/daten
+          cp $OUT/held.glb $D/held.bin && cp $OUT/held-info.json $D/
+          cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
+          for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
+          cp $OUT/boden-maske.png $D/boden-maske.bild
+      - name: Trachten (WACHE, RITTER, ROBE; gekauft), Voelker, Durchdringung (455.2)
+        run: |
+          export OUT=$RUNNER_TEMP/out
+          Z=$RUNNER_TEMP/klassen; V=$RUNNER_TEMP/voelker; mkdir -p $GITHUB_WORKSPACE/probe
+          echo "VOELKER=$V" >> $GITHUB_ENV
+          MIT_RITTER=1 TRACHTEN=WACHE,RITTER,ROBE ZIEL=$Z Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > $GITHUB_WORKSPACE/probe/klassen.log 2>&1 || { tail -40 $GITHUB_WORKSPACE/probe/klassen.log; exit 1; }
+          grep -E "^TRACHT|HELD TRACHTEN|FEHLT" $GITHUB_WORKSPACE/probe/klassen.log
+          D=godot/daten
+          for f in $Z/held_*.glb; do cp $f $D/$(basename $f .glb).bin; done
+          cp $Z/haare.glb $D/haare.bin && cp $Z/haare_w.glb $D/haare_w.bin && cp $Z/bewegungen.glb $D/bewegungen.bin && cp $Z/held-klassen.json $D/
+          Z=$Z ZIEL=$V Q=~/cc0 bl/bin/python -I tools/blender348/v3/volk_tracht.py > $GITHUB_WORKSPACE/probe/volk.log 2>&1 || { tail -40 $GITHUB_WORKSPACE/probe/volk.log; exit 1; }
+          grep -E "^(NETZE|VOLKTRACHT|FEHLT)" $GITHUB_WORKSPACE/probe/volk.log | cut -c1-400
+          cp $V/volk_tracht.json $GITHUB_WORKSPACE/probe/
+          UAL=$(find ~/cc0 -name UAL1_Standard.glb | grep -i godot | head -1); [ -n "$UAL" ] || UAL=$(find ~/cc0 -name UAL1_Standard.glb | head -1)
+          FIGUREN=$V UAL=$UAL timeout 2400 bl/bin/python -I tools/blender348/v3/pruef_volk.py > $GITHUB_WORKSPACE/probe/durch.log 2>&1 || echo "pruef_volk $?"
+          grep -E "^(DURCH|FEHLT)" $GITHUB_WORKSPACE/probe/durch.log | cut -c1-300
+          cp $V/durch.json $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          ~/godot/godot --version
+      - name: Film
+        run: |
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
+          export PATH=~/ffbin:$PATH
+          A=$RUNNER_TEMP/aus; mkdir -p $A
+          cd godot
+          timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          timeout 2400 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x720 \
+            -- --figuren=$A --teil=groessen > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
+          grep -E "^(FIGUR|REIHE|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -60
+          cp $A/probe.txt $A/groessen/lage.json $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
+          cd $GITHUB_WORKSPACE
+          bl/bin/python -I tools/blender348/v3/groessen_film.py $A/groessen godot/kampf/schrift/alegreya_regular.ttf $RUNNER_TEMP/seiten
+          ffmpeg -loglevel error -y -framerate 30 -i $RUNNER_TEMP/seiten/%04d.png -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast -movflags +faststart probe/4552-groessen.mp4
+          for i in 0000 0075 0150 0225; do cp $RUNNER_TEMP/seiten/$i.png probe/4552-$i.png 2>/dev/null || true; done
+          ls -l probe
+          ! grep -q "SCRIPT ERROR" probe/probe.log && ! grep -q "^FEHLT" probe/probe.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bornim-probe-4552
+          path: probe/
+          if-no-files-found: ignore
