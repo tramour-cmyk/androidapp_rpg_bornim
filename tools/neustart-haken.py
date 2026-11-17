@@ -229,7 +229,11 @@ WERKZEUG_ALLE = 25  # 1537: Erinnerung an Werkzeugaufrufen höchstens alle 25 Au
 FREI_WERKZEUG = {"ToolSearch", "ReadNotifications", "TaskStop", "mcp__claude-code-remote__send_message",
                  "mcp__claude-code-remote__get_session", "mcp__claude-code-remote__list_sessions",
                  "mcp__claude-code-remote__set_session_title", "mcp__claude-code-remote__create_session"}
-FREI_BASH = r"^\s*(cd \S+\s*$|git (add|commit|push|pull|fetch|merge|status|log|diff|show|rev-parse|branch)\b|python3 (\S*/)?tools/(vorgang|regelcheck|startbar)\.py|(\S*/)?tools/(notiz|meldung)\.sh)"
+FREI_DATEI = r"/docs/(ARBEIT-[^/]*|LISTE-REGELTREUE|LISTE-RELEASE-NEUSTART)\.md$"  # Übergabe, Zählung sichern (347), Neustart-Ablauf lesen (1540)
+FREI_BASH = (r"^\s*(do\s+|then\s+)?(cd \S+\s*$|git( -C \S+)? (add|commit|push|pull|fetch|merge|status|log|diff|show|rev-parse|branch)\b"
+             r"|python3 (\S*/)?tools/(vorgang|regelcheck|startbar|zug-haken)\.py|(\S*/)?tools/(notiz|meldung)\.sh"
+             r"|(grep|sed -n|cat|head|tail)\b.*\bdocs/LISTE-RELEASE-NEUSTART\.md"
+             r"|for \w+ in [\w ]+$|(break|done|fi|true|sleep \d+)\s*$|if git\b)")  # Push mit Wiederholschleife (1540)
 
 
 def letzte_groesse(pfad, rueck=3_000_000):
@@ -262,12 +266,12 @@ def frei(eingabe):
     if werkzeug in FREI_WERKZEUG:
         return True
     if werkzeug in ("Read", "Edit", "Write"):
-        return bool(re.search(r"/docs/ARBEIT-[^/]*\.md$", str(ein.get("file_path") or "")))
+        return bool(re.search(FREI_DATEI, str(ein.get("file_path") or "")))
     if werkzeug == "Bash":
         befehl = str(ein.get("command") or "")
         befehl = re.sub(r"<<-?\s*['\"]?(\w+)['\"]?.*?^\s*\1\s*$", "", befehl, flags=re.S | re.M)  # Hier-Dokument (Commit-Nachricht)
         befehl = re.sub(r"\"(?:[^\"\\]|\\.)*\"|'[^']*'", "''", befehl, flags=re.S)  # Text in Anführungszeichen
-        befehl = re.sub(r"\s\d?>&\d|\s*\|\s*(tail|head|grep)\b[^|;&\n]*", "", befehl)  # 2>&1, | tail -5
+        befehl = re.sub(r"\s\d?>&\d|\s\d?>\s*/dev/null|\s*\|\s*(tail|head|grep)\b[^|;&\n]*", "", befehl)  # 2>&1, 2>/dev/null, | tail -5
         if re.search(r"[|>`]|\$\(", befehl.replace("||", "&&")):
             return False
         teile = [t for t in re.split(r"\s*(?:&&|\|\||;|\n)\s*", befehl.strip()) if t.strip()]
