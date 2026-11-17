@@ -63,8 +63,4 @@ Der GitHub-Actions-Workflow `.github/workflows/godot.yml` baut Modelle und Karte
 
 © BornWire TCS 2026
 
-Dieses Werk enthält Material aus dem System Reference Document 5.1 („SRD 5.1“) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).
-
 Geschichte, Orte, Figuren und Grafiken sind eigene Werke. Schriften: Alegreya (SIL Open Font License 1.1, siehe `godot/kampf/schrift/OFL-Alegreya.txt`) und Fondamento (SIL Open Font License 1.1, siehe `godot/daten/OFL-Fondamento.txt`). Klänge: freie Aufnahmen (CC0); Musik: freie Stücke (CC0); Quelle und Urheber je Datei in `tools/klang/QUELLEN.md`.
-
-Dieses Spiel steht in keiner Verbindung zu Wizards of the Coast.
