@@ -133,6 +133,7 @@
 | 1536 | Von Homer (1525 C, Chef 17.11., 09:43): drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von Kampf zu Kampf gezogen, nie zweimal hintereinander je Art und Merkmal (STORY-MERKMALE-TIERE.md [1489.name.tier.*], Wolf jung [1489.name.wolf.jung.*]); mit den Texten aus 1489 | Jerry | K | ruht, Block 2 (1605) | 21.11. 20:00 | – | – | E Kampf | – |
 | 1529.1 | Von Sokrates (1529 nach Votum, Chef 17.11., 10:51): Ausdauer im Kampf bauen nach DESIGN-GLUT.md 12.5 (Vorrat, Kosten je Vertiefen-Kerbe nach Fertigkeit, graue Kerben, Atem holen, Prüfpunkte 1–3), erst nach Test des Kerbensystems im Build | Jerry | K | ruht, bis Test Kerbensystem im Build | – | – | – | E Kampf | – |
 | 1281 | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, 937, 938, 1002; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Jerry | K | nach Meilenstein | – | – | – | E Kampf | – |
+| 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | Jerry | M | in Arbeit bei Tuffy | – | claude/spike-455-2-groesse | – | E Figuren | – |
 | Pflege | von Werkzeug (340.3, 17.11.): 1 „Zu“ zu Erledigtem (1367), beim Übergeben streichen (1425) | Homer | K | erledigt | – | – | – | B Abläufe | – |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | Chef Gespräch | – | – | G Story | 6,54 $ |
 | 1605 | Von Sokrates (Chef „jetzt“ 17.11., 23:17/23:21): bis Sa 20:00 nichts aus Block 2 Kampf anfassen (neues Gegnerverhalten kommt), stattdessen Blöcke 3, 4, 5 (Kleiderschrank, Figuren- und Gegenstandsbibliotheken, Welt); Rang je Besitzer setzen | Perikles | M | erledigt | – | – | – | E Kampf | 2,25 $ |
@@ -233,7 +234,6 @@
 | 1484a | Von Spike (1484, Auswertung Tablet 17.11.): Rückfrage Welt in Zellen teilen, Durchsicht nur nahe am Helden (Vorschlag mit Kosten) | Spike | M | wartet | Chef 1484a | – | – | E Technik | – |
 | 1589.6 | Von Perikles (Chef 17.11., 23:13 „wir haben auch Tuffy und Spike“; 1589.2): Rechnung 444 aufs Blatt: sim444 rechnet mit blatt.gd (Punkt, Umriss, Reichweite) statt nah, fern, weit; eine Wahrheit mit dem Spiel (Jerry 1589.1 Punkt 6, 1486) | Spike | M | startbar | 1589.2 | – | – | E Kampf | – |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | Spike | M | in Arbeit | – | claude/spike-458-3-staffel | – | E Figuren | 12,15 $ |
-| 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | Spike | M | startbar, vorgezogen Block 3 (1605, Chef 23:21) | – | claude/spike-455-2-groesse | – | E Figuren | – |
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
