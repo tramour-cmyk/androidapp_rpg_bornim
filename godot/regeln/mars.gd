@@ -408,6 +408,7 @@ var numbered := {}
 var easy_gap = null
 var quick_run := false
 var started := false
+var hp_start := {}     # 1567: Leben je Gefährte zu Kampfbeginn (_opening), für [259T.tafel] nach „Schnell ›“ mitten im Kampf
 var knockouts := 0
 var outcome := "ONGOING"
 ## 296.2: who strikes first, as on the map: "AMBUSHED" the foes before the party, "HERO_FIRST" the party first and the
@@ -1287,6 +1288,9 @@ func start(react: Callable = Callable(), verjagen := false) -> Array:
 
 func _opening() -> void:
 	started = true
+	for p in all:
+		if p.side == "PARTY":
+			hp_start[p.id] = p.hp
 	if winded:
 		_say(fmt(X.MSG72_WINDED, lang, [lead().name(lang)]))
 	if fed:
@@ -1410,9 +1414,11 @@ func quick() -> Dictionary:
 	_log = []
 	var stopped := outcome == "ONGOING"
 	autopilot = false
+	# 1567 (Chef 17.11., 14:54, Build 296: „Alrik –0 Leben“, Leiste 97/109): seit „Schnell ›“ auch mitten im Kampf geht (785.10)
+	# zählt der Verlust ab Kampfbeginn, nicht erst ab dem Knopf (alt Skirmish.kt quick nur zu Beginn, dort gleich)
 	var lost := {}
 	for p in party:
-		lost[p.id] = before[p.id] - p.hp
+		lost[p.id] = int(hp_start.get(p.id, before[p.id])) - p.hp
 	return {"lost": lost, "stopped": stopped, "events": events}
 
 
