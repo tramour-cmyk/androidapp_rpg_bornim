@@ -172,6 +172,25 @@ Ohne Eingebung: `bite`, `claw` (einfache Schläge; Ratte, Fledermaus, Grabhund, 
 
 Kampfhandlungen und Zauber: `STORY-BRS-KOENNEN.md`.
 
+## Flucht und Absprache der Gegner (1601)
+
+Homer 17.11. zu 1601, nach `DESIGN-GEGNER.md` 6 und 7 (1589.1 A, Lohn A, Chef 17.11., 22:33). Gilt mit dem Bau (Stufen Sokrates); wirkt der Bau anders, Grundsatz 4. Figur immer beim Namen, nie „dich“; keine Zahlen. Die Wölfe vor dem Feuer behalten ihre Texte `[915.…]` (Meldungen oben): Feuer kostet alles, Flucht von selbst nur die halbe Beute.
+
+**Flucht** (Regel 6: Ansage einen Zug vorher, danach fort; Lohn A)
+- `[1601.ansage.flee]` Ansage im Kopf: Flucht / EN: Flee · langer Text (`marstips.gd` INTENTS): Flucht: er sucht einen Ausweg und ist nach seinem nächsten Zug fort. Lässt du ihn ziehen, bleibt dir die Erfahrung, aber nur die halbe Beute. Hilft: Schuss und Zauber erreichen ihn überall, Nahkampf nur, wenn der Weg reicht. / EN: Flee: he looks for a way out and is gone after his next turn. Let him go and you keep the experience, but only half the loot. Counter: shots and spells reach him anywhere, melee only if the way is short enough.
+- `[1601.flucht.ansage]` Kampfzeile, wenn er die Flucht ansagt: {0} weicht zurück und sucht einen Ausweg. / EN: {0} backs away, looking for a way out.
+- `[1601.flucht.fort]` Kampfzeile, wenn er fort ist: {0} ist fort. / EN: {0} is gone. (Nicht MSG296_FLED „ist entkommen!“, das ist die Flucht des Helden, `[870.14.flucht]`.)
+- `[1601.flucht.fest]` Kampfzeile, nur wenn der Bau ein Festhalten hat (der Held setzt nach und stellt ihn): {0} kommt nicht mehr weg. / EN: {0} can't get away now. Fällt der Fliehende, genügt die gewöhnliche Meldung.
+- `[1601.flucht.rudel]` statt der Einzelzeilen, wenn die übrigen Wölfe zugleich fliehen, weil ihr Anführer fiel und die Hälfte besiegt ist (nicht vor Feuer, das ist `[915.wolf.flucht]`): Das Rudel zerstreut sich zwischen den Bäumen. / EN: The pack scatters among the trees.
+- `[1601.flucht.grak]` statt der Einzelzeilen, wenn Grak fällt und die übrigen Goblins fliehen (auch der gerufene): Die Goblins sehen ihren Hauptmann fallen und laufen. / EN: The goblins see their captain fall, and run.
+- `[1601.flucht.eingebung]` Eingebung beim ersten Fluchtangebot je Spielstand (wie 986, `mars.gd` EINGEBUNG): Lasse ich ihn ziehen, bleibt mir die Erfahrung, aber nur die halbe Beute. Halte ich ihn, gehört mir alles. / EN: If I let him go, I keep the experience but only half the loot. If I stop him, it is all mine.
+- `[1601.lohn.geflohen]` Lohn nach dem Kampf (`lohn.gd`), jedes Mal, wenn ein Gegner von selbst floh; neben `[915.lohn.vertrieben]`, nie statt ihm: Von selbst geflohen: halbe Beute, volle Erfahrung. / EN: Fled on their own: half the loot, full experience.
+
+**Absprache** (Regel 7: höchstens eine je Begegnung, angesagt, bevor sie wirkt; Einkreisen hat seine Texte `[986.circle]`, `[986.circle.tip]`)
+- `[1601.absprache.schamane]` Kampfzeile, wenn der Schamane einen Verbündeten im nächsten Zug heilt (Wundsegen, `mars.gd` 1385, Meldung danach wie bisher MSG72_HEALS): {0} raunt seinen Knochen etwas zu. Gleich legt sich ein Wundsegen auf {1}. / EN: {0} mutters to his bones. A woundmend is about to settle on {1}. · Stärkt der Bau statt zu heilen: {0} raunt seinen Knochen etwas zu. {1} schlägt gleich härter zu. / EN: {0} mutters to his bones. {1} is about to strike harder.
+- `[1601.ansage.segen]` langer Text: Wundsegen für einen anderen: er heilt im nächsten Zug einen Verbündeten um einen guten Teil seines Lebens. Hilft: vorher ein Fünftel seines Lebens nehmen, dann bleibt der Segen aus; oder den Verbündeten vorher fällen. / EN: Woundmend for another: on his next turn he heals an ally by a good part of their life. Counter: take a fifth of his life first and the blessing fails; or bring the ally down first. (Brechen wie Kraft sammeln angenommen; regelt der Bau es anders, Grundsatz 4.)
+- `[1601.absprache.kobolde]` erst mit der Kür neuer Absprachen (Perikles, `DESIGN-GEGNER.md` 7): Die Kobolde zischen einander zu und rücken zusammen. / EN: The kobolds hiss to each other and close ranks.
+
 ## Kampf mit Kerben (1267)
 
 Homer 15.11.; Texte für das Kerbensystem (`DESIGN-GLUT.md`; Namen 1260 D, Verstreichen 1265). **Gelten nur mit dem Schalter** (`werte.json` „kerbe“ „an“); im alten Kampf bleiben die ersetzten Marken. Gegen den Code gelesen: Zweig `claude/jerry-1266-kerbe` `ce3dda066` (`regeln/kerbe.gd`, `kampf/kerbbild.gd`, `kampf_ui.gd` 969–974). Chef 14.11., 22:49: im Handbuch nie „Aktionspunkte“, umschreiben, wofür die Kerben da sind. Keine Zahl, die noch Vorschlag ist (`DESIGN-GLUT.md` 12.2: Vertiefen, halbe Antworten, zwei Ringe); „drei Kerben“ steht im Text (1260 D), die Goldkerbe mit Platzhaltern aus `werte.json` „kerbe“ wie `[423.*]`. Handbuchabsätze: `STORY-BRS-ANLEITUNG.md` `[1267.handbuch.*]`. Meldungen im Kampfbericht zu den Stichworten `KERBE_…` und Eingebungen kommen mit Stufe 3 und 5 (`DESIGN-GLUT.md` 10).

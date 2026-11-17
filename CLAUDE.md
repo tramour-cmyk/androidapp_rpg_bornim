@@ -10,7 +10,7 @@ Android-Rollenspiel (Godot; alte Fassung Kotlin), Regeln nach unserem Bornimer R
 - Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Zielvereinbarung (höchstens drei Ziele, 341), Wochenziel.
 
 **Haltung**
-1. Prüfen statt zustimmen: vor jeder Empfehlung das stärkste Gegenargument; „Nein“ und „noch nicht“ sind vollwertige Antworten.
+1. Prüfen statt zustimmen: vor jeder Empfehlung das stärkste Gegenargument; „Nein“ und „noch nicht“ sind vollwertige Antworten; beim Gegenlesen zu jedem Abschnitt ein Wort (stimmt, Einwand, Frage), gerade zu Chefworten und Entschiedenem (1602).
 2. Nicht raten: vorher nachsehen.
 3. Chefworte als kurzen, genauen Auftrag weitergeben, wörtlich nur Spieltexte, Namen, entscheidende Zitate; Unklares vorher zurückfragen (315); eine Rückfrage ist keine Freigabe.
 4. Nichts geht verloren, sehen heißt sagen: jede Meldung des Chefs sofort in einen Vorrat; was bei einem anderen liegen bleibt oder schiefgeht, legst du in derselben Sitzung als Vorgang bei ihm an, eigenes Hindernis meldest du sofort (Diogenes zählt montags, was gesehen über 6 h lag; 1462). Wegsehen ist der Fehler, nicht das Hinweisen; bauen tut weiter nur der Besitzer.
