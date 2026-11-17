@@ -631,8 +631,8 @@ static func probekampf(m: Menue, t: Callable, zk: Callable, reihe: Callable, fs:
 	m.zeichenreihe([zk.call(t.call("Eröffnung", "Opening"), String(eroeffnungen[eroeffnung]), t.call("Wer zuerst handelt: wie im Spiel, Hinterhalt der Gegner, oder der Held. Gilt im Testmodus für jeden Kampf.",
 			"Who acts first: as in the game, a foe ambush, or the hero. In test mode it holds for every fight."), func(): eroeffnung = String(weiter(eroeffnungen.keys(), eroeffnung)), "DICE"),
 		# 493: welcher Kampfort im Wald (Lichtung, Waldrand, Teich, Baum, Felsen, Steinkreis), sonst nach der Kachel wie im Spiel
-		zk.call(t.call("Kampfort", "Battle place"), String(kampforte()[kampfort]), t.call("Wo gekämpft wird: wie im Spiel nach dem, was um dich steht, oder einer der sechs Orte im Wald. Gilt im Testmodus für jeden Kampf.",
-			"Where the fight takes place: as in the game by what stands around you, or one of the six places in the woods. In test mode it holds for every fight."),
+		zk.call(t.call("Kampfort", "Battle place"), String(kampforte()[kampfort]), t.call("Wo gekämpft wird: wie im Spiel nach dem, was um dich steht, oder einer der sechs Orte im Wald und der fünf in der Höhle. Gilt im Testmodus für jeden Kampf.",
+			"Where the fight takes place: as in the game by what stands around you, or one of the six places in the woods and five in the cave. In test mode it holds for every fight."),
 			func(): kampfort = String(weiter(kampforte().keys(), kampfort)), "PIN"),
 		zk.call(t.call("Tempo", "Pace"), String(tempi[clampi(Bedienung.tempo, 0, 3)]), t.call("Tempo im Kampf; „sehr schnell“ gibt es nur im Testmodus, zum Warten.",
 			"Pace in battle; “very fast” exists only in test mode, for waiting."), func(): Bedienung.tempo = (Bedienung.tempo + 1) % 4, "", "»")])
@@ -849,7 +849,11 @@ static func kampforte() -> Dictionary:
 	var de := Sprache.aktiv() == "de"
 	return {"": "Wie im Spiel" if de else "As in game", "lichtung": "Lichtung" if de else "Clearing", "waldrand": "Waldrand" if de else "Forest edge",
 		"teich": "Teich" if de else "Pond", "baum": "Baum" if de else "Fallen tree", "felsen": "Felsen" if de else "Rocks",
-		"steinkreis": "Steinkreis" if de else "Stone circle"}
+		"steinkreis": "Steinkreis" if de else "Stone circle",
+		# 507 (Jerry): die fünf Kampforte der Höhle; wer einen wählt, kämpft dort, auch wenn er gerade im Wald steht
+		"hoehle:eingang": "Höhle: Eingang" if de else "Cave: Mouth", "hoehle:gang": "Höhle: Gang" if de else "Cave: Passage",
+		"hoehle:halle": "Höhle: Halle" if de else "Cave: Hall", "hoehle:teich": "Höhle: Teich" if de else "Cave: Pool",
+		"hoehle:lager": "Höhle: Lager" if de else "Cave: Camp"}
 
 
 ## 785.8 (Fund t286.6, Chef 15.11., 11:21: „Am Brett steht nur Felle … Hauer … Gift“; der Aushang war in seinem Spielstand erledigt, der

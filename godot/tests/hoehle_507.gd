@@ -68,5 +68,10 @@ func _alles() -> void:
 	_pruef("am Kartenrand: Wand außerhalb zählt nicht", KampfortS.hoehlenplatz_fuer(_karte(halle), Vector2i(0, 0)) == "gang")
 	_pruef("ohne Karte: Halle", KampfortS.hoehlenplatz_fuer(null, m) == "halle")
 	_pruef("fünf Orte", KampfortS.HOEHLENPLAETZE == ["eingang", "gang", "halle", "teich", "lager"])
+	# 507 (17.11.): im Testmenü wählbar, jeder Schlüssel „hoehle:<ort>“ ein Ort der Höhle (spiel.gd setzt dann ort = hoehle)
+	var hk := []
+	for k in Testmodus.kampforte().keys():
+		if String(k).begins_with("hoehle:"): hk.append(String(k).trim_prefix("hoehle:"))
+	_pruef("Testmenü: fünf Orte der Höhle", hk == KampfortS.HOEHLENPLAETZE, str(hk))
 	print("HOEHLE507 %s, %d Fehler" % ["gut" if fehler == 0 else "FEHLER", fehler])
 	quit(1 if fehler else 0)

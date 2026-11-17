@@ -775,7 +775,13 @@ func _kampf_lauf(zurueck: Vector2i, gegner := "RUDEL", probe: Array = [], eroeff
 	if probe.is_empty(): lage["stand"] = zustand.stufe_brs()
 	if probe.is_empty(): lage["gebiet"] = String(BrsHeld.welt().get("gebiet", {}).get(karte.id, ""))
 	# 493 (Jerry): Kampfort im Wald nach dem, was um den Helden steht (wie alt BattleScene.spotFor); im Testmodus wählbar
-	if ort == "wald": lage["platz"] = Testmodus.kampfort if Testmodus.ist_an() and Testmodus.kampfort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
+	# 507 (Jerry): in der Höhle ebenso nach dem, was um den Helden steht (CaveScene.spotFor); „hoehle:<ort>“ im Testmodus auch vom Wald aus
+	var test_ort := Testmodus.kampfort if Testmodus.ist_an() else ""
+	if test_ort.begins_with("hoehle:"):
+		ort = "hoehle"
+		lage["platz"] = test_ort.trim_prefix("hoehle:")
+	elif ort == "wald": lage["platz"] = test_ort if test_ort != "" else load("res://kampf/kampfort.gd").platz_fuer(karte, held.kachel)
+	else: lage["platz"] = load("res://kampf/kampfort.gd").hoehlenplatz_fuer(karte, held.kachel)
 	var zeit := tageszeit() if probe.is_empty() or String(pa["zeit"]) == "" else String(pa["zeit"])   # 1020.2 B: Tageszeit nach Wahl
 	var grafik_satz := Grafik.ladepunkt(get_tree(), Sprache.aktiv() == "de")   # 698: der Kampfort ist ein Ladepunkt
 	var gestartet: bool = aufruf.starte(gegner, hw, soeldner, ort, zeit, zustand.anzahl("potion") if probe.is_empty() else 2, -1, -1, -1, beute, lage)
