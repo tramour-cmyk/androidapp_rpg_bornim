@@ -28,7 +28,7 @@ var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte
 # 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
 func gras_neu() -> void:
 	if GrasBausatz.aktiv() and kit_gras.is_empty() and not kit_stellen.is_empty():
-		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art)
+		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art, karte.id == "village")   # 1205: Blumen im Dorf kleiner
 	for m in kit_gras: m.visible = GrasBausatz.an
 	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
 	# 1205 (Chef 13.11., 18:48: „Blütenfelder, weil die dann nicht so komisch ausschauen wie unsere … geklecksten Blümchen“): steht das

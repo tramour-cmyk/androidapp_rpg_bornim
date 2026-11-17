@@ -25,7 +25,10 @@ const WIESE_VORHER := [["grass_clump_short", 0.45], ["grass_clump_medium", 0.55]
 const HOCH_VORHER := [["grass_clump_tall", 1.0]]
 # 1205a A (Chef 17.11., 15:35: „1205a A, gerne auch mehr Gras?!?“): Blumen des Kits etwa doppelt so groß, in den Farben der
 # gezeichneten Blüten (dorf.py flowers) statt gedämpft, je Blumenart eine oder zwei Farben (je Farbe ein Netz); Gras dichter (JE_NEU)
-const BLUMEN_GROESSE := Vector2(1.7, 2.2)
+# 1205 (Chef 17.11., 16:23: „ein bisschen zu groß … in Dorf … Faktor 1,2 bis 1,5 und vielleicht außerhalb 1,2 bis 1,8. Halt eine Mische“):
+# je Blume gestreut, im Dorf kleiner; vorher 1,7–2,2 überall
+const BLUMEN_GROESSE := Vector2(1.2, 1.8)
+const BLUMEN_GROESSE_DORF := Vector2(1.2, 1.5)
 const BLUMEN_FARBEN := {"flower_daisy": ["E8E0D0", "D8C050"], "flower_cluster": ["A84A6A"], "flower_lavender": ["8A6AB8"],
 	"flower_tulip": ["C8603A", "A84A6A"]}
 const JE_NEU := 2
@@ -61,7 +64,7 @@ static func netz(name: String) -> Mesh:
 	return load(p) as Mesh if ResourceLoader.exists(p) else null
 
 # stellen: Fusspunkte unseres Grases; art je Stelle: 0 Wiese, 1 hohes Gras (Wald), 2 Blumenwiese. Gibt die neuen Knoten zurueck.
-static func baue(eltern: Node3D, stellen: Array[Vector3], art: PackedByteArray) -> Array[MultiMeshInstance3D]:
+static func baue(eltern: Node3D, stellen: Array[Vector3], art: PackedByteArray, dorf := false) -> Array[MultiMeshInstance3D]:
 	var rng := RandomNumberGenerator.new(); rng.seed = 804
 	var gruppen := {}
 	var wiese: Array = WIESE_VORHER if vorher else WIESE
@@ -73,7 +76,7 @@ static func baue(eltern: Node3D, stellen: Array[Vector3], art: PackedByteArray) 
 		else:
 			for f in BLUMEN_FARBEN[b]: gruppen[b + "#" + f] = []
 	var je := JE if vorher else JE_NEU
-	var gr := Vector2(0.8, 1.1) if vorher else BLUMEN_GROESSE
+	var gr := Vector2(0.8, 1.1) if vorher else (BLUMEN_GROESSE_DORF if dorf else BLUMEN_GROESSE)
 	for i in stellen.size():
 		var p := stellen[i]
 		var a := art[i]
