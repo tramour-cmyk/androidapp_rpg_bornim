@@ -901,3 +901,4 @@
 2026-11-18 00:16:34	commit-pruefung	docs/PRUEFBERICHT.md: Uhrzeit 12:00 liegt nach jetzt (00:16)	main
 2026-11-18 00:17:28	commit-pruefung	CLAUDE.md: 15077 Bytes, Obergrenze 15000, Commit fügt 113 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-18 00:17:44	commit-pruefung	CLAUDE.md: 15018 Bytes, Obergrenze 15000, Commit fügt 54 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-18 00:20:53	commit-pruefung	docs/chefsache/ansehen/4583-staffel-im-spiel.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
