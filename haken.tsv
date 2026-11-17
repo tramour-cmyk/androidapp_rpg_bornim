@@ -736,3 +736,4 @@
 2026-11-17 05:30:21	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-623-effekte
 2026-11-17 05:43:25	commit-pruefung	docs/chefsache/ansehen/6232-effekte-wolfskampf.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-17 05:43:25	commit-pruefung	docs/chefsache/ansehen/6232-effekte-wolfskampf.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
+2026-11-17 05:49:14	probelauf	783 W1: `PROBEBILD=623.2` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film `PROBE=623.2`.	claude/jerry-623-effekte
