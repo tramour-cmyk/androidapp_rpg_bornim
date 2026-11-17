@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 20:55, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 20:59, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 5 weitere |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 6 weitere |
 | Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 1 weitere |
 | Jerry | 1336 Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattense… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
@@ -100,6 +100,7 @@ Nichts offen.
 | [1568](ansehen/1568-schatten.md) | Kampfort: kein rechteckiger Schatten mehr unter Tieren und Held | – | 17.11., 20:25 |
 | [1569](ansehen/1569-umhang.md) | Angelegter Umhang an jeder Herkunft sichtbar (Bild alt gegen neu) | – | 17.11., 19:12 |
 | [1587](ansehen/1587-staebe.md) | Zauberstab und Magierstab jetzt an der Figur | – | 17.11., 20:27 |
+| [385.2](ansehen/3852-feuer-stab.md) | Feuer aus der Stabspitze beim Funkenpfeil | – | 17.11., 20:57 |
 
 ## Zu tun
 
@@ -359,7 +360,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1515-wache-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1567-sieg-leben.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1568-schatten.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1587-staebe.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1515-wache-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1567-sieg-leben.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1568-schatten.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1587-staebe.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/3852-feuer-stab.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/3852-feuer-stab.md
 
 ## So geht's
 
