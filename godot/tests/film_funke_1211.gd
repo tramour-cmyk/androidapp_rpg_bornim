@@ -14,6 +14,8 @@ extends SceneTree
 var spiel
 var art := "heute"
 var mess := false
+var licht := ""     # Chef 17.11., 23:56 („Ja, das wäre hilfreich“): --licht1211=abc: in der Höhle nacheinander A heute, B Abfall 1,0 und 8 m,
+                    # C wie B mit Stärke 2,0, dann die Fackel wie heute (Funke aus)
 var ort := "dorf"   # Chef 17.11., 21:49: „noch ein Film in Höhle mit alter leuchtkugel und rockettrail kühl, u. Licht und Ausleuchtung zu sehen“
 
 
@@ -22,6 +24,7 @@ func _initialize() -> void:
 		if a.begins_with("--art1211="): art = a.get_slice("=", 1)
 		if a == "--mess1211=1": mess = true
 		if a.begins_with("--ort1211="): ort = a.get_slice("=", 1)
+		if a.begins_with("--licht1211="): licht = a.get_slice("=", 1)
 	_lauf.call_deferred()
 
 
@@ -135,6 +138,10 @@ func _lauf() -> void:
 	var zeichen := 0
 	var dreiecke := 0
 	var n := 0
+	if licht == "abc":
+		await _abc()
+		quit()
+		return
 	var rs := [Vector3.RIGHT, Vector3.BACK, Vector3.LEFT, Vector3.FORWARD]
 	if ort == "hoehle": rs = [Vector3.FORWARD, Vector3.FORWARD, Vector3.BACK, Vector3.BACK]   # durch den Gang hinauf und zurück
 	for r in rs:
@@ -150,3 +157,35 @@ func _lauf() -> void:
 	print("FILM1211 MESS %s: %.1f Bilder/s, %d Zeichenaufrufe, %d Dreiecke je Bild" % [art, (Engine.get_frames_drawn() - b0) / dt, zeichen / n, dreiecke / n])
 	await _warte(1.0)
 	quit()
+
+
+# 1211 Film A/B/C: je Fassung den Gang hinauf und zurück (je 3,4 s), Schrift oben links
+func _abc() -> void:
+	var ebene := CanvasLayer.new()
+	ebene.layer = 60
+	root.add_child(ebene)
+	var titel := Label.new()
+	titel.add_theme_font_size_override("font_size", 28)
+	titel.add_theme_color_override("font_color", Color(0.96, 0.93, 0.85))
+	titel.add_theme_color_override("font_outline_color", Color.BLACK)
+	titel.add_theme_constant_override("outline_size", 8)
+	titel.position = Vector2(24, 90)
+	ebene.add_child(titel)
+	var h = spiel.held
+	var fassungen := [["A · Leuchtfunke heute", 2.2 * 1.05 / 1.35, 8.0 * 5.2 / 6.2, 2.0, false],
+		["B · Abfall 1,0, Reichweite 8 m", 2.2 * 1.05 / 1.35, 8.0, 1.0, false],
+		["C · wie B, Stärke 2,0", 2.0, 8.0, 1.0, false], ["Fackel wie heute", 0.0, 0.0, 0.0, true]]
+	for f in fassungen:
+		titel.text = String(f[0])
+		var fackel: bool = f[4]
+		spiel.zustand.funke = not fackel
+		h.funke_neu(not fackel)
+		if not fackel:
+			h.funke_grund = float(f[1]); h.funke_licht.omni_range = float(f[2]); h.funke_licht.omni_attenuation = float(f[3])
+		h.fackel_neu(fackel, false, true)
+		print("FILM1211 ABC %s: Funke %s, Fackel %s" % [f[0], not fackel, fackel])
+		for r in [Vector3.FORWARD, Vector3.BACK]:
+			for i in int(1.7 * 30.0):
+				h.richtung = r * 0.6
+				await process_frame
+		h.richtung = Vector3.ZERO

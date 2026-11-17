@@ -465,6 +465,7 @@ const FUNKE_FARBE := Color(0.863, 0.91, 1.0)    # 0xDCE8FF wie alt
 var funke_an := false
 var funke: Node3D
 var funke_licht: OmniLight3D
+var funke_grund := 2.2 * 1.05 / 1.35   # 1211: Stärke des Funkenlichts im Dunkeln (vor Glanz); Film A/B/C stellt sie um
 var funke_kern: MeshInstance3D
 var funke_hof: MeshInstance3D
 var funke_hoch := 1.0                             # 0 im Raum (Schulter), 1 draussen (ueber dem Kopf); gleitet
@@ -590,7 +591,7 @@ func richte_funke(dt: float) -> void:
 	var dunkel := 1.0 if in_hoehle else nacht_k
 	(funke_hof.material_override as ShaderMaterial).set_shader_parameter("staerke", glanz * (0.25 + 0.35 * dunkel) * (0.4 + 0.6 * up) * 2.0)
 	funke_hof.scale = Vector3.ONE * (0.55 + 0.45 * up)
-	funke_licht.light_energy = 2.2 * dunkel * (1.05 / 1.35) * glanz
+	funke_licht.light_energy = funke_grund * dunkel * glanz
 	funke_licht.visible = dunkel > 0.02
 
 func geht() -> bool:
