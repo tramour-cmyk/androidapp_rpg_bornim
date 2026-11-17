@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (18.11., 00:17):** Lauf 305: 1389, 1244, 1548, 1543, 1508, 1574, 1585, 1592, 1586, 1542 greifen; D305.1 = 1610, D305.2 = 1611 (Perikles); 1572 wartet auf 1610, 1461 auf den Mittag. Nächste Nummer D306. Nachfolger: Diogenes – 1461 Rollenspiegel Mittwoch zählen (18.11., mittags).
+**Übergabe (18.11., 00:17):** Lauf 305: 1389, 1244, 1548, 1543, 1508, 1574, 1585, 1592, 1586, 1542 greifen; D305.1 = 1610, D305.2 = 1611 (Perikles); 1572 wartet auf 1610 (Perikles gebaut `fa6d0a289`, wartet auf mich), 1461 auf den Mittag (Perikles `90763eed4`: Satz erst nach dem Tagesbericht, lauf.py fordert fehlende Rollen an). Nächste Nummer D306. Nachfolger: Diogenes – 1610 Hängeralarm prüfen (18.11.).
 
 - **Zu 1537 (Lauf 299, 300):** am ersten echten Werkzeugaufruf über 300 Tsd. (Sperrtext im Protokoll einer Sitzung, Neustart danach gelungen) → `greift 1537 <Lauf>`; bis 23.11. kein Fall → Wochenzählung nennt es, Feld neu.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
