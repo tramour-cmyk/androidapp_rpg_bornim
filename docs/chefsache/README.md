@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [431h](entscheiden/431h-stufe2-ruestung.md) entscheiden; dann 5 weitere |
+| **Chef** | [t294](ansehen/t294-sammelbuild.md) testen, hält 16 Zeilen; dann 6 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 1 weitere |
 | Jerry | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss); dann 3 weitere |
 | Tuffy | 1284b Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nic… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
@@ -103,6 +103,12 @@ Nichts offen.
 | [1448](ansehen/1448-leiste-ohne-woerter.md) | Weltleiste und Heldenmenü ohne Wörter vor den Balken | – | 17.11., 01:14 |
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
 | [601.1](ansehen/6011-pfeiltreffer.md) | Pfeiltreffer: Pfeil an der Brust, der Getroffene zuckt dort | – | 17.11., 00:36 |
+
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.348.542](ansehen/t294-sammelbuild.md) | [Build 294](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43980603017/artifacts/14284795775) | Sammelbuild: Wolf bleibt dran und dreht zum Helden, Zurück im Hauptmenü fragt, Leben in Kampfmeldungen, Testreparaturen | Tom und Jerry | 17.11., 01:25 |
 
 ## Zu tun
 
