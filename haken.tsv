@@ -826,3 +826,4 @@
 2026-11-17 14:20:34	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30592 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-17 14:39:08	commit-pruefung	docs/chefsache/ansehen/t297-sammelbuild.md: gegengelesen vom eigenen Team (Tom, Zeile 1: Tom und Jerry); eine Sitzung außerhalb des Teams liest gegen (881)	main
 2026-11-17 14:39:08	commit-pruefung	docs/chefsache/ansehen/t297-sammelbuild.md: Laufnachweis fehlt (1128 A): kleid_film2_431 steht nicht im Bauablauf; als Prüffrage am Handy oder Test ohne `|| true` in den Lauf der APK (`python3 tools/l	main
+2026-11-17 14:39:22	commit-pruefung	docs/chefsache/ansehen/t297-sammelbuild.md: Zeile 297.11 Art Bild ohne Link aufs Gesendete; erst `meldung.sh --bild <datei> <Name> "t297.11: …"` (trägt den Link in die Zeile des Entwurfs ein), dann ve	main
