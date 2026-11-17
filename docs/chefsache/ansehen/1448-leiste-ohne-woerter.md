@@ -1,5 +1,7 @@
 # 1448 · Weltleiste und Heldenmenü ohne Wörter vor den Balken
 
+[Bild von 17.11., 01:14](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-0114-1448-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 17.11., 01:14 · E Oberfläche · dein Entscheid „1448 A“ (16.11., 14:47)
 Kurz: 1448 (Leiste ohne Wörter): Leben, Mana und Erfahrung ohne Wort davor, alle Balken bündig und gleich lang, dahinter die Zahl, bei Erfahrung die Stufe.
 
