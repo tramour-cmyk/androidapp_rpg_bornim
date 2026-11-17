@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t295](ansehen/t295-sammelbuild.md) testen; dann 1 weitere |
+| **Chef** | [t295](ansehen/t295-sammelbuild.md) testen; dann 2 weitere |
 | Tom | 431h Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuo… (Muss); dann 1 weitere |
 | Jerry | 1547 07: einen vernünftigen Build 297 mit allem, was offen ist,… (Muss); dann 3 weitere |
 | Tuffy | 1545 Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt; son… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
@@ -90,6 +90,12 @@ Nichts offen.
 Nichts offen.
 
 ## Anzusehen
+
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [431h](ansehen/431h-stufe2-ruestung.md) | Sichtbare Ausrüstung Stufe 2: jede angelegte Rüstung am Helden | Tom | 17.11., 11:45 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
