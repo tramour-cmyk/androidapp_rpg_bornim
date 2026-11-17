@@ -150,14 +150,21 @@ def bild_klassen(a):
     return k
 
 
-def umfaerben(a, kl, sel):
-    # ganzes Bild in der Farbe der Klasse kl, Zeichnung als Helligkeit gegen den Median der Bildpunkte dieser Klasse
+S_MAX = 1.3   # groesste Zeichnung (Helligkeit gegen den Median); im Spielbild S / S_MAX, die toenung traegt den Rest
+
+
+def zeichnung(a, kl):
+    # Zeichnung der Klasse kl als Helligkeit gegen den Median der Bildpunkte dieser Klasse (0,55 bis S_MAX)
     lum = a @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
     k = bild_klassen(a)
     eigen = lum[k == KLASSEN.index(kl)]
     med = float(np.median(eigen)) if eigen.size > 16 else float(np.median(lum))
-    S = np.clip(lum / max(med, 0.02), 0.55, 1.3) ** (0.7 if kl == 'metall' else 0.85)
-    out = np.array(PALETTE[sel][kl], dtype=np.float32)[None, None, :] * S[:, :, None]
+    return (np.clip(lum / max(med, 0.02), 0.55, S_MAX) ** (0.7 if kl == 'metall' else 0.85)).astype(np.float32)
+
+
+def umfaerben(a, kl, sel):
+    # ganzes Bild in der Farbe der Klasse kl (Film: ein Bild je Seltenheit)
+    out = np.array(PALETTE[sel][kl], dtype=np.float32)[None, None, :] * zeichnung(a, kl)[:, :, None]
     return np.clip(out, 0, 1)
 
 
@@ -220,6 +227,92 @@ def testpakete(wo):
     o.data.materials.append(m)
     for l in o.data.uv_layers.active.data: l.uv = (0.2, 0.5)
     bpy.ops.export_scene.gltf(filepath=os.path.join(wo, 'Weapons_Shields_Free', 'mdvl_weapons_spear_01.glb'), export_format='GLB')
+
+
+# SPIEL=1 (458.3 Schritt 1): fuers Spiel wie waffen.py (Modellregel 4): Griff (Mitte der Faust) im Ursprung, Klinge und Schaft
+# nach +Y (Blender +Z), Schneide quer nach +X, echte Laenge; ein graues Bild je Material, Farbe je Seltenheit als toenung;
+# Datei <waffenart>_<form>.glb. Ohne SPIEL wie bisher fuer den Film (1 m, ein Bild je Seltenheit).
+SPIEL = bool(os.environ.get('SPIEL'))
+DREIECKE = 800
+# Masse in cm aus Dress.kt (reach: vor der Faust; GRIP_BACK: dahinter; runde Waffen buttPart · reach), Boegen aus waffen.py
+VORN = {'dagger': 28, 'shortsword': 47, 'scimitar': 65, 'rapier': 80, 'longsword': 75, 'greatsword': 103, 'handaxe': 36,
+        'battleaxe': 64, 'greataxe': 96, 'mace': 54, 'morningstar': 66, 'warhammer': 53, 'maul': 85, 'spear': 148, 'halberd': 131,
+        'staff': 70}
+HINTEN = {'dagger': 7, 'shortsword': 8.5, 'scimitar': 8, 'rapier': 8.5, 'longsword': 12.5, 'greatsword': 25.5, 'handaxe': 9,
+          'battleaxe': 12, 'greataxe': 35, 'mace': 11.5, 'morningstar': 11.5, 'warhammer': 9, 'maul': 30, 'halberd': 45,
+          'spear': 148 * 0.42, 'staff': 70 * 1.45}
+BOEGEN = {'shortbow': 101, 'longbow': 140}
+ARMBRUST = {'light_crossbow': (70, 25)}   # Laenge, Griff ab Kolbenende (Dress.kt baut sie rund, ohne Mass); geschaetzt
+SCHWERTER = {'dagger', 'shortsword', 'scimitar', 'rapier', 'longsword', 'greatsword'}
+
+
+def punkte(me):
+    return np.array([v.co[:] for v in me.vertices])
+
+
+def drehe_z(me, winkel):
+    me.transform(Matrix.Rotation(winkel, 4, 'Z'))
+
+
+def lage_spiel(me, fl_kl, art):
+    # Eingang: Mitte im Ursprung, laengste Achse z, schweres Ende oben (wie fuer den Film)
+    kl = np.array(fl_kl)
+    if art in ARMBRUST:
+        # Armbrust: der Schaft (Holz) laeuft nach +Z, nicht der Bogen; Bogen (Metall) oben
+        hz = np.array([pg.center[:] for pg, k in zip(me.polygons, kl) if k in ('holz', 'leder')] or [[0, 0, 1]])
+        ausd = hz.max(0) - hz.min(0)
+        if ausd[0] > ausd[2] * 1.1: me.transform(Matrix.Rotation(1.5708, 4, 'Y'))
+        elif ausd[1] > ausd[2] * 1.1: me.transform(Matrix.Rotation(1.5708, 4, 'X'))
+        me.update()
+        zs = np.array([pg.center.z for pg in me.polygons]); fl = np.array([pg.area for pg in me.polygons])
+        mt = np.isin(kl, ['metall', 'beschlag'])
+        if (fl * mt * (zs < 0)).sum() > (fl * mt * (zs > 0)).sum(): me.transform(Matrix.Rotation(3.14159, 4, 'X'))
+    v = punkte(me); lo, hi = v.min(0), v.max(0)
+    if (hi - lo)[1] > (hi - lo)[0]: drehe_z(me, 1.5708)   # breitere waagrechte Seite nach X (Schneide, Blatt, Bogenkruemmung)
+    v = punkte(me); lo, hi = v.min(0), v.max(0); L = float(hi[2] - lo[2])
+    if art in BOEGEN:
+        s = BOEGEN[art] / 100.0 / L
+        me.transform(Matrix.Scale(s, 4)); v = punkte(me); L *= s
+        mitte = v[np.abs(v[:, 2]) < 0.06 * L]; enden = v[np.abs(v[:, 2]) > 0.42 * L]
+        if len(mitte) and len(enden) and mitte[:, 0].mean() < enden[:, 0].mean(): drehe_z(me, 3.14159)   # Ruecken +X, Spitzen −X
+        v = punkte(me); mitte = v[np.abs(v[:, 2]) < 0.06 * L]
+        g = Vector((float(mitte[:, 0].max()) - 0.012, float(mitte[:, 1].mean()), 0.0))   # Griff eine halbe Faust hinter dem Ruecken
+        me.transform(Matrix.Translation(-g)); me.update()
+        return {'laenge_cm': round(L * 100, 1), 'griff_ab_unten_cm': round(L * 50, 1)}
+    if art in ARMBRUST:
+        ges, hinten = ARMBRUST[art]
+    else:
+        ges, hinten = VORN[art] + HINTEN[art], HINTEN[art]
+    s = ges / 100.0 / L
+    me.transform(Matrix.Scale(s, 4)); v = punkte(me); lo, hi = v.min(0), v.max(0); L = float(hi[2] - lo[2])
+    zg = float(lo[2]) + hinten / 100.0
+    wie = 'Dress'
+    if art in SCHWERTER:
+        # Parierstange: breiteste Scheibe (2 cm) im unteren Teil; die Faust endet 5,6 cm darunter (waffen.py longsword: Griff 5 cm vor
+        # der Faust, Parierstange bei 5,6)
+        sch = np.arange(float(lo[2]), float(lo[2]) + 0.5 * L, 0.02)
+        breit = [float(np.ptp(v[(v[:, 2] >= a) & (v[:, 2] < a + 0.02), 0])) if ((v[:, 2] >= a) & (v[:, 2] < a + 0.02)).sum() > 2 else 0.0
+                 for a in sch]
+        if breit:
+            i = int(np.argmax(breit)); unten = [b for b in breit[:max(i, 1)] if b > 0]
+            if unten and breit[i] > 1.6 * float(np.median(unten)) and sch[i] - lo[2] > 0.05:
+                zg = float(sch[i]) - 0.056 + 0.01; wie = 'Parierstange'
+    # Mitte des Querschnitts in Griffhoehe: Kanten, die die Ebene schneiden (lange Stiele haben nur oben und unten Ecken)
+    sp = []
+    for e in me.edges:
+        a, b = v[e.vertices[0]], v[e.vertices[1]]
+        if (a[2] - zg) * (b[2] - zg) <= 0 and a[2] != b[2]:
+            t = (zg - a[2]) / (b[2] - a[2]); sp.append(a + t * (b - a))
+    if sp:
+        sp = np.array(sp); mx = np.median(sp[:, 0]); sp = sp[np.abs(sp[:, 0] - mx) < 0.04]   # nur der Stiel, nicht ein Blatt daneben
+    g = Vector((float(sp[:, 0].mean()), float(sp[:, 1].mean()), zg)) if len(sp) else Vector((0.0, 0.0, zg))
+    me.transform(Matrix.Translation(-g)); me.update()
+    # Schneide nach +X: Metall weit vor der Achse (Axtblatt, Hammerkopf, Hellebarde); Klingen sind gleich, dann bleibt es
+    v = punkte(me); fz = np.array([pg.center[:] for pg in me.polygons]); fl = np.array([pg.area for pg in me.polygons])
+    mt = np.isin(kl, ['metall', 'beschlag', 'akzent']) & (fz[:, 2] > 0.5 * float(v[:, 2].max()))
+    if (fl * mt * fz[:, 0]).sum() < -0.002 * fl.sum(): drehe_z(me, 3.14159)
+    me.update()
+    return {'laenge_cm': round(L * 100, 1), 'griff_ab_unten_cm': round((zg - float(lo[2])) * 100, 1), 'griff': wie}
 
 
 if os.environ.get('TESTPAKETE'):
@@ -315,13 +408,19 @@ for kennung in sorted(gesucht):
     neu = []
     for i, (qi, kl) in enumerate(paare):
         name = '%s.%d' % (kl, i)
-        bilder = {}
         art, q = quellen[qi]
-        for sel in SELTENHEITEN:
-            a = umfaerben(q, kl, sel) if art == 'bild' else np.tile(np.array(PALETTE[sel][kl], np.float32), (4, 4, 1))
-            bilder[sel] = speichern(a, os.path.join(ZIEL, '%s__%s__%s.png' % (kennung, name, sel)))
+        if SPIEL:
+            # Spiel: ein graues Bild je Material (Zeichnung S / S_MAX), die Farbe je Seltenheit setzt Godot als toenung (staffel.json)
+            a = np.repeat((zeichnung(q, kl) / S_MAX)[:, :, None], 3, 2) if art == 'bild' else np.full((4, 4, 3), 1.0 / S_MAX, np.float32)
+            bild = speichern(a, os.path.join(ZIEL, '%s__%s.png' % (kennung, name)))
+        else:
+            bilder = {}
+            for sel in SELTENHEITEN:
+                a = umfaerben(q, kl, sel) if art == 'bild' else np.tile(np.array(PALETTE[sel][kl], np.float32), (4, 4, 1))
+                bilder[sel] = speichern(a, os.path.join(ZIEL, '%s__%s__%s.png' % (kennung, name, sel)))
+            bild = bilder['COMMON']
         m = bpy.data.materials.new(name); m.use_nodes = True
-        t = m.node_tree.nodes.new('ShaderNodeTexImage'); t.image = bilder['COMMON']
+        t = m.node_tree.nodes.new('ShaderNodeTexImage'); t.image = bild
         m.node_tree.links.new(t.outputs['Color'], m.node_tree.nodes['Principled BSDF'].inputs['Base Color'])
         neu.append(m)
     idx = {pk: i for i, pk in enumerate(paare)}
@@ -351,17 +450,44 @@ for kennung in sorted(gesucht):
     g_oben = float((fl * griff * (zs > laenge * 0.3)).sum()); g_unten = float((fl * griff * (zs < -laenge * 0.3)).sum())
     if g_oben > g_unten * 1.3: gedreht = True
     elif g_unten > g_oben * 1.3: gedreht = False
+    # 458.3 Spiel (Blatt 17.11.): bei Kopfwaffen entscheidet ein klar einseitiger Kopf vor dem Griff (Bardiche, Stachelkeule, Omie-
+    # Kriegshammer standen kopfueber: der Kopf verdeckt den Stiel unten, oben bleibt mehr Holz sichtbar)
+    if SPIEL and gesucht[kennung][0] not in SCHWERTER | set(BOEGEN) | set(ARMBRUST):
+        mz = float((fl * metall * zs).sum() / max((fl * metall).sum(), 1e-9))   # Schwerpunkt des Kopfs (Metall, Stein)
+        if mz < -0.08 * laenge: gedreht = True
+        elif mz > 0.08 * laenge: gedreht = False
     if gedreht: me.transform(Matrix.Rotation(3.14159, 4, 'X'))
-    me.transform(Matrix.Scale(1.0 / max(laenge, 1e-6), 4))   # 1 m zum Ansehen; Laenge am Helden setzt das Spiel (417)
-    o.name = kennung
+    art = gesucht[kennung][0]
+    if SPIEL:
+        lage = lage_spiel(me, fl_kl, art)
+    else:
+        me.transform(Matrix.Scale(1.0 / max(laenge, 1e-6), 4))   # 1 m zum Ansehen (Film)
+        lage = {}
     dr = sum(len(pg.vertices) - 2 for pg in me.polygons)
+    if SPIEL and dr > DREIECKE:
+        # Modellregel 7 (LISTE-UMZUG-348.md): hoechstens 800 Dreiecke je Waffe; Omie hat bis 1764
+        bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
+        mo = o.modifiers.new('weniger', 'DECIMATE'); mo.ratio = (DREIECKE - 20) / dr
+        bpy.ops.object.modifier_apply(modifier=mo.name)
+        me = o.data
+        print('VEREINFACHT', kennung, dr, '->', sum(len(pg.vertices) - 2 for pg in me.polygons))
+        dr = sum(len(pg.vertices) - 2 for pg in me.polygons)
+    datei = '%s_%s' % (art, kennung) if SPIEL else kennung
+    o.name = datei
     bpy.ops.object.select_all(action='DESELECT'); o.select_set(True)
-    bpy.ops.export_scene.gltf(filepath=os.path.join(ZIEL, kennung + '.glb'), export_format='GLB', use_selection=True)
+    bpy.ops.export_scene.gltf(filepath=os.path.join(ZIEL, datei + '.glb'), export_format='GLB', use_selection=True)
     anteil = {k: round(float(fl[np.array(fl_kl) == k].sum() / max(fl.sum(), 1e-9)), 3) for k in KLASSEN}
     info[kennung] = {'paket': paket, 'datei': os.path.relpath(p, KAUF), 'dreiecke': dr, 'laenge_roh': round(laenge, 3),
-                     'gedreht': gedreht, 'materialien': [m.name for m in neu], 'anteil': anteil, 'fuer': gesucht[kennung]}
-    print('FORM', kennung, dr, 'Dreiecke', 'Materialien', ','.join(m.name for m in neu), 'Anteil', anteil,
-          'gedreht' if info[kennung]['gedreht'] else '')
-json.dump({'formen': info, 'seltenheiten': SELTENHEITEN, 'glimmen': {s: {'farbe': c, 'klassen': k} for s, (c, k) in GLIMMEN.items()}},
-          open(os.path.join(ZIEL, 'staffel.json'), 'w'), indent=1, ensure_ascii=False)
+                     'gedreht': gedreht, 'materialien': [m.name for m in neu], 'anteil': anteil, 'fuer': gesucht[kennung],
+                     'spiel': datei, **lage}
+    print('FORM', datei, dr, 'Dreiecke', 'Materialien', ','.join(m.name for m in neu), 'Anteil', anteil,
+          'gedreht' if info[kennung]['gedreht'] else '', ' '.join('%s=%s' % kv for kv in lage.items()))
+aus = {'formen': info, 'seltenheiten': SELTENHEITEN, 'glimmen': {s: {'farbe': c, 'klassen': k} for s, (c, k) in GLIMMEN.items()}}
+if SPIEL:
+    # Godot (staffel.gd): je Waffenart die Formen nach Stufe (ab), je Seltenheit und Klasse die toenung (linear, mal S_MAX^2,2,
+    # weil das Bild S / S_MAX traegt; sRGB als Potenz 2,2 genaehert)
+    aus['waffen'] = {g['id']: [{'ab': f['ab'], 'datei': info[f['netz']]['spiel']} for f in g['formen'] if f['netz'] in info]
+                     for g in katalog['gegenstaende'] if g.get('formen')}
+    aus['toenung'] = {sel: {kl: [round((c ** 2.2) * S_MAX ** 2.2, 4) for c in PALETTE[sel][kl]] for kl in KLASSEN} for sel in SELTENHEITEN}
+json.dump(aus, open(os.path.join(ZIEL, 'staffel.json'), 'w'), indent=1, ensure_ascii=False)
 print('STAFFEL OK', len(info), 'von', len(gesucht))

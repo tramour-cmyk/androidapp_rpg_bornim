@@ -56,7 +56,7 @@ var axt_griff := AXT_GRIFF        # Probe 417 Runde 3 (tragprobe.gd): Fassungen 
 var axt_haengt := true            # Blatt nach unten (Runde 3); false: Schneide oben wie Runde 2
 var zwei_winkel := 0.0            # Messung: Grad zwischen Schaft durch beide Faeuste und der Achse der rechten Hand
 
-static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
+static func art_von(base: String) -> String: return String(ARTEN.get(Staffel.art(base), ""))   # 458.3: Staffelform -> Art
 
 # 417 Runde 4 (Chef 01.11., 12:21, Axt Runde 3 „schwebt“; 348.12c): Gehen und Rennen je Waffe aus den Protofactor-Paketen
 # (waffengang.py, bewegungen.bin „Gehen_<gang>“, „Rennen_<gang>“). Die Bewegung fuehrt Arm und Hand; dieser Knoten stellt nur die Waffe
@@ -64,6 +64,7 @@ static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
 const GANG_ZWEI :=["greatsword", "greataxe", "maul", "halberd"]
 const GANG_BOGEN := ["shortbow", "longbow", "light_crossbow"]
 static func gang_von(base: String, schild: bool) -> String:
+	base = Staffel.art(base)   # 458.3
 	if base == "" or ARTEN.get(base, "") == "stab": return ""
 	if base in GANG_BOGEN: return "bogen"
 	if base in GANG_ZWEI or (base == "spear" and not schild): return "axt"

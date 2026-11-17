@@ -52,8 +52,9 @@ BLOECKE = {
     # 1115 (Diogenes D191.5: „Leute bauen“ 9–11 min in jedem Lauf, nie abgelegt): die Leute des Dorfs (held3 FIGUR=<id>, rig, je
     # eigener OUT, also ohne figur) und die Waffen aus waffen.py. In die Kennung gehen nur die Personen-Ids, die der Schritt aus
     # karten.json liest (leute_ids), nicht die ganze Karte. Vor kampf, weil kampf shield.bin und round_shield.bin ersetzt (WAFFEN).
-    'leute': dict(schritt='Leute bauen', skripte=['v3/held3.py', 'v3/rig.py', 'waffen.py'], braucht=[], kauf=True, karten=False,
-                  marken=('vor_leute', 'leute'), leute_ids=True),
+    # 458.3: dazu die Waffenstaffel (waffen_staffel.py SPIEL=1) mit ihrer Spalte formen im Katalog (fremd: Dateien ausserhalb BL)
+    'leute': dict(schritt='Leute bauen', skripte=['v3/held3.py', 'v3/rig.py', 'waffen.py', 'waffen_staffel.py'], braucht=[], kauf=True,
+                  karten=False, marken=('vor_leute', 'leute'), leute_ids=True, fremd=['tools/gegenstaende/gegenstaende.json']),
     'kampf': dict(schritt='Kampfort bauen', skripte=None, braucht=[], kauf=True, karten=False, marken=('vor_kampf', 'kampf'),
                   dazu=['v3/tex.py']),
 }
@@ -197,7 +198,7 @@ def eingaben(block):
     st = _schritt(b['schritt'])
     run = (st or {}).get('run', '')
     start = ['%s/%s' % (BL, s) for s in b['skripte']] if b['skripte'] else ['%s/%s' % (BL, s) for s in _skripte_im_schritt(run)]
-    start += ['%s/%s' % (BL, s) for s in b.get('dazu', [])]
+    start += ['%s/%s' % (BL, s) for s in b.get('dazu', [])] + list(b.get('fremd', []))
     ohne = _nicht_gelesen(block, run)
     gesehen, offen = set(), []
     for s in start:

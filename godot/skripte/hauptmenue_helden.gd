@@ -200,7 +200,7 @@ static func schwert_stuetzen(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> Schw
 	st.faeuste = {"r": HeldFigur.faust(sk, "r"), "l": HeldFigur.faust(sk, "l")}
 	for p in [[waffe, "waffe"], [schild, "schild"]]:
 		if String(p[0]) == "": continue
-		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+		var d := Staffel.lade(String(p[0]))
 		if d == null: continue
 		d.name = "Getragen"
 		d.top_level = true
@@ -365,13 +365,13 @@ static func waffen_in_die_hand(m: Node3D, sk: Skeleton3D, ap: AnimationPlayer, a
 		if String(alt.name).contains("Getragen"): alt.free()
 	for alt in sk.get_children():
 		if alt is Tragen: alt.free()
-	var bogen := waffe in Tragen.GANG_BOGEN
+	var bogen := Staffel.art(waffe) in Tragen.GANG_BOGEN
 	var seite := "l" if bogen else (seite_fest if seite_fest != "" else hoehere_hand(sk, ap, bew))
 	var paare := []
 	if waffe != "": paare.append([waffe, "bogen" if bogen else "einhand", seite])
 	if schild != "": paare.append([schild, "schildarm", "l"])
 	for p in paare:
-		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+		var d := Staffel.lade(String(p[0]))
 		if d == null: continue
 		d.name = "Getragen"
 		d.top_level = true

@@ -1051,10 +1051,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 2,
-   "netz": "waffen.py dagger",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1099,10 +1099,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 10,
-   "netz": "waffen.py shortsword",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1143,10 +1143,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 25,
-   "netz": "waffen.py scimitar",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1191,10 +1191,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 5,
-   "netz": "waffen.py handaxe",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1239,10 +1239,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 5,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1283,10 +1283,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 1,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1399,10 +1399,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 15,
-   "netz": "waffen.py longsword",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1447,10 +1447,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 10,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1491,10 +1491,10 @@
    "platz": "haupthand",
    "stufe": 3,
    "preis": 15,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1539,10 +1539,10 @@
    "platz": "haupthand",
    "stufe": 2,
    "preis": 15,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1621,10 +1621,10 @@
    "platz": "beide_haende",
    "stufe": 3,
    "preis": 50,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1669,10 +1669,10 @@
    "platz": "beide_haende",
    "stufe": 3,
    "preis": 30,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1717,10 +1717,10 @@
    "platz": "beide_haende",
    "stufe": 4,
    "preis": 10,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1761,10 +1761,10 @@
    "platz": "beide_haende",
    "stufe": 2,
    "preis": 20,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1809,10 +1809,10 @@
    "platz": "beide_haende",
    "stufe": 2,
    "preis": 40,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1853,10 +1853,10 @@
    "platz": "beide_haende",
    "stufe": 1,
    "preis": 25,
-   "netz": "waffen.py shortbow",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1897,10 +1897,10 @@
    "platz": "beide_haende",
    "stufe": 3,
    "preis": 50,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1937,10 +1937,10 @@
    "platz": "beide_haende",
    "stufe": 2,
    "preis": 25,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",

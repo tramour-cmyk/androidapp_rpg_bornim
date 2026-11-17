@@ -34,7 +34,7 @@ AUFBAU = {
     "zustand": (False, "true = nutzt sich ab (Abnutzung, Reparatur); null = offen"),
     "text": (False, "{de, en}, ein Satz (Homer)"),
     "grundform": (False, "bei Einzelstuecken: id der Grundform"),
-    "formen": (False, "Waffen (458.3): Liste {ab, netz}, Form ab Heldenstufe ab, netz = Kennung paket_datei (waffen_staffel.py); "
+    "formen": (False, "Waffen (458.3): Liste {ab, netz}, Form ab Stufe des Gegenstands (ilvl) ab, netz = Kennung paket_datei (waffen_staffel.py); "
                       "erste ab 1, aufsteigend, 2-4 Formen (1, wo der Bestand nicht mehr hat: Langbogen); Material und Zeichen je Seltenheit im Block seltenheit"),
     "alt": (False, "Werte der alten Fassung (SRD), gelten nicht; Hilfe beim Uebertragen, faellt mit Stufe 6"),
 }
