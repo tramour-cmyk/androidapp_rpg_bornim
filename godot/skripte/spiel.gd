@@ -1971,7 +1971,11 @@ func _process(dt: float) -> void:
 		if herde:
 			for s in herde.liste: s.visible = nebel.zeigt(s.kachel)
 		for l in leute.get_children():
-			if l is Leute: l.visible = l.da and not l.drinnen and nebel.zeigt(l.kachel)
+			if l is Leute:
+				# 531: Garricks Fackel leuchtet, solange er abwehrt; so sieht man das Tier, das er vertreibt
+				if l.abwehr and l.abwehr.laeuft(): nebel.licht("fackel_" + String(l.name), l.kachel, Nebel.TORCH_SIGHT)
+				else: nebel.licht_aus("fackel_" + String(l.name))
+				l.visible = l.da and not l.drinnen and nebel.zeigt(l.kachel)
 	leiste_uhr -= dt
 	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
 		leiste_uhr = 0.25

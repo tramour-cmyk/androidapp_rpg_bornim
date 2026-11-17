@@ -69,6 +69,7 @@ func _lauf() -> void:
 	spiel.kamera.ziel = mitte
 	spiel.kamera.springe()
 	var tier_im_bild := 0
+	var tier_sichtbar := 0   # 531 (Messung 17.11.: im Film kein Wolf, der Nebel verbarg ihn 4,6-7,0 m vor dem Helden)
 	var oben_bilder := 0
 	var ab := Time.get_ticks_msec()
 	while Time.get_ticks_msec() - ab < 6000:
@@ -96,6 +97,7 @@ func _lauf() -> void:
 				oben_bilder += 1
 				var kam: Camera3D = spiel.kamera
 				if kam.is_position_in_frustum(jaeger.global_position) and kam.is_position_in_frustum(jaeger.global_position + Vector3.UP * 0.6): tier_im_bild += 1
+				if jaeger.is_visible_in_tree(): tier_sichtbar += 1
 	pruefe(angriffe.is_empty(), "am Feuer kein Kampf (%s)" % [angriffe])
 	pruefe(not jaeger.jagt, "der Jaeger gibt auf")
 	pruefe(not meldungen.is_empty(), "Meldung am Schutzort: %s" % [meldungen])
@@ -106,6 +108,7 @@ func _lauf() -> void:
 	pruefe(vor > 0.2, "Fackel vor ihm, zum Tier hin (%.2f m)" % vor)
 	pruefe(blick_fehler < 0.35, "Garrick schaut zum Tier (Abweichung %.0f Grad)" % rad_to_deg(blick_fehler))
 	pruefe(seiten[0] < -0.8 and seiten[1] > 0.8, "schwenkt links und rechts (%.2f, %.2f)" % seiten)
+	pruefe(oben_bilder > 0 and tier_sichtbar == oben_bilder, "Tier im Nebel sichtbar, solange Garrick die Fackel hebt (%d von %d Bildern)" % [tier_sichtbar, oben_bilder])
 	pruefe(tier_im_bild > 0, "Tier im Bild der Spielkamera, Fackel oben (%d von %d Bildern)" % [tier_im_bild, oben_bilder])
 	pruefe(garrick.abwehr == null or (not garrick.abwehr.laeuft() and not garrick.abwehr.fackel.visible), "danach Fackel wieder weg")
 	_ende()
