@@ -45,6 +45,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 17.11., 06:20 Ford: 1507 gilt ab jetzt: Satz „Fertiges lautlos … 👍/👎-Zeile“ nur in Starts und „Weiter“ an Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer, Sokrates. Weiter an Jerry (1284b, 601.1, 1340, 623.2 Szene 3) und Tom (1448, 531, 1423 in den Sammelbuild) nach Chefdaumen der Nacht (Sokrates 06:18); 966.2 und 168.1 ausgelassen (Kür, Kapitel 2 bzw. Vorrangregel).
 - 17.11., 00:06 Ford: Lauf 00:03 über Uhr-Sitzung angekommen, 1444 erledigt. Start Diogenes 1425 (`…78eYFVHDkQHymU7Jt7`); 1485 ausgeschlossen bis Jerrys 1501; Spike-Übergabe wartet auf Chef 1484 (bekannt).
 - 16.11., 23:53 Ford (Nachfolger `…76ER7oUkkBFVsDDeqy`, Übergabe 23:50): `create_trigger` „Ford-Lauf“ auf eigene Kennung vom Auto-Modus-Klassifikator abgelehnt (Wortlaut an Perikles, 1441a A); nichts umgangen. Alte Uhr `trig_014gxLmndi38XvoQWufDEs98` wieder an, alter Ford `…76cLUxDoHGcPjixiTE` nicht archiviert (8,13 $ offen), läuft mit alter Uhr weiter. Offen: Erlaubnisregel für create_trigger, dann Uhr neu, alte aus, alten Ford archivieren.
 
