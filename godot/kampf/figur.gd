@@ -977,7 +977,10 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
 	# 999: der Bogen des Helden links ist seine Waffe (cast_point: der Pfeil geht vom Bogen aus); beim Späher bleibt es, wie es war
 	w.name = "Waffe" if side == "R" or (fighter.monster == null and what.contains("bow")) else "Schild"
-	w.set_meta("stab", what in STAFFS or what == "staff-schamane")     # 348.7b: Zauber ab der Stabspitze (cast_point)
+	w.set_meta("stab", what in STAFFS or what in ["staff-schamane", "wand"])     # 348.7b: Zauber ab der Stabspitze (cast_point); 1587 Zauberstab
+	if what in ["staff", "wand"]:     # 1587: Kristall und Kugel glimmen (waffen.py, Eckfarbe mit Alpha 0)
+		for m in mats.slice(mats.size() - _count_meshes(w)):
+			(m as ShaderMaterial).set_shader_parameter("glut", 1.6)
 	if fighter.monster != null and (what in ["shortbow", "staff-schamane"] or what.ends_with("-rost") or what.ends_with("-grob")):
 		# Späher Runde 1c (Prüfer 1a, 1b: der Bogen ein schwarzer Strich, die Tusche ist breiter als der Wurfarm): ohne Tusche wie
 		# Held und Söldner (Schablone 2), so liest sich das Holz mit der Krümmung
