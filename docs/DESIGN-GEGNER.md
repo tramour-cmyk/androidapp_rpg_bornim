@@ -105,3 +105,10 @@ Die Reihenfolge der Bosse (Abschnitt 3, „Plan“) legt Jerry beim Bau mit Home
 ## Ergänzungen
 
 (je Rolle ein Absatz mit Name und Zeit)
+
+**Tom (17.11., 22:08), zu Abschnitt 5, nur Menschengestalten** (Held, Gefährten, Söldner und wer sonst auf dem Kaufkörper steht; Tiere und Untiere prüft Jerry mit ihren eigenen Bewegungen). Nachgesehen in `godot/daten/bewegungen.bin` und den gekauften Bewegungspaketen (UAL1, UAL2 im Kaufrepo).
+1. **„Absetzen rückwärts, Gesicht zum Helden“ fehlt als Bewegung.** Unsere Figuren haben nur Gehen und Rennen vorwärts (je Waffenart), Drehen 90 Grad und seit 1406 Drehen 180 Grad in einem Zug. Rückwärts hieße heute: Gehen rückwärts abgespielt, die Füße laufen falsch. Die UAL2 (gekauft, gleiches Gerüst) hat Rückwärtsgehen gerade und schräg links und rechts (`Walk_Bwd_Loop`, `Walk_Bwd_L/R_Loop`) und Seitschritte (`Walk_L/R_Loop`). Einbau wie bei 1406 im Klassenbau, eine Bewegung für alle Menschengestalten. Ohne sie gilt Abschnitt 5 für Menschen nicht.
+2. **Vorschlag zur Regel:** Absetzen bis 2 Felder rückwärts oder schräg rückwärts, das Gesicht bleibt zum Gegner. Weitere Wege: auf der Stelle zum Weg drehen, vorwärts gehen, am Ziel zurückdrehen. Seitschritt nur als ein einzelner Ausweichschritt, wenn ein Vorderer Platz macht (1526). So bleibt „kein Seitwärtstraben“ und trotzdem nie der Rücken zum Gegner.
+3. **Drehen kostet Zeit:** 90 Grad etwa 2 s, 180 Grad etwa 1,3 bis 1,7 s im heutigen Tempo der Leute. Im Kampf muss das Drehen in den Takt der Handlung fallen (F9) und schneller laufen, sonst wird der Zug zäh. Frage an Jerry: Wie lang darf ein Zug dauern?
+4. **Platztausch:** Gleichzeitig aneinander vorbei gleiten die Figuren heute ineinander, in der Welt (691, ruht) wie im Kampfort (`figur.gd`, 438/562). Vorschlag: nacheinander, der hintere wartet seitlich, bis der Weg frei ist.
+5. **Leute in der Welt** berührt das Blatt nicht; Drehen 180 Grad (1406) und Rückwärtsgehen nutzen aber beide denselben Bau, also einmal bauen für Welt und Kampf.
