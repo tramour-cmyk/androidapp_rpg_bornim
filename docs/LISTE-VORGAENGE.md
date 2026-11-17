@@ -170,6 +170,7 @@
 | Pflege | von Werkzeug (340.3, 17.11.): 1 „Zu“ zu Erledigtem (1427), beim Übergeben streichen (1425) | Perikles | K | erledigt | – | – | – | B Abläufe | – |
 | 1523 | Von Sokrates (870, Schritt 9): CLAUDE.md erster Absatz: Satz „der Hinweis SRD 5.1 · CC BY 4.0 bleibt …“ streichen, sobald README ohne SRD-Absatz auf main ist | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 1542 | Von Perikles (1425): vorratspruefung.py meldet K bei Chefentscheid ohne Folgeauftrag (1423a A „so lassen“) als fehlende Zeile; Entscheide ohne Bauauftrag ausnehmen, keine neue Regel (Chef 10:26 „so lassen“) | Perikles | K | gebaut, Geprüft an: 33dc025d0 | 18.11. | – | – | B Werkzeuge | – |
+| 1574 | Ford: Ford bleibt eine Sitzung, kein Selbstneustart; eigene Uhr seit 17.11. (Chef 18:31 „mit minimalem Eingriff durch mich“): Haken 1019 und LISTE-BETRIEB „Selbstneustart“ anpassen | Perikles | M | startbar | – | – | – | B Werkzeuge | – |
 | 1128.3 | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen (12 aus der Liste in 1128), nach 285 Zahlen an Perikles und Chef ohne Wertung | Diogenes | M | startbar | 23.11. | – | – | Q QM | 5,59 $ |
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | 23.11. | – | – | Q QM | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
