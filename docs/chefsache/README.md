@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 18:44, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 18:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,21 +23,21 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 54 (61) | 11 | 0 | 0 | 12 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
+| ↳ **2** Kampf passt | 53 (61) | 10 | 0 | 0 | 12 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 19 (16) | 9 | 0 | 0 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 47 (52) | 4 | 0 | 0 | 24 | 1567 (Jerry) Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 18 (13) | 12 | 0 | 1 | 4 | 1581 (Tom) Wiederholrot ziege_4162: 3× rot in 48 h; Ursache… |
-| **7** Werkzeuge und Abläufe der Firma | 47 (43) | 30 | 0 | 0 | 11 | 1582 (Ford) Ford-Wache neu als kleine Sitzung, Uhr „Fordprüfu… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 15 (13) | 9 | 0 | 1 | 4 | 1580 (Jerry) Wiederholrot wolf_mess_438: 14× rot in 48 h; Ursa… |
+| **7** Werkzeuge und Abläufe der Firma | 47 (43) | 30 | 0 | 0 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 88 | 202 | 290 | 1150 |
-| neu | 87 | 164 | 251 | 1141 |
-| **netto** (erledigt − neu) | **+1** | **+38** | **+39** | **+9** |
+| erledigt | 94 | 202 | 296 | 1156 |
+| neu | 89 | 164 | 253 | 1143 |
+| **netto** (erledigt − neu) | **+5** | **+38** | **+43** | **+13** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -46,14 +46,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen |
-| Tom | 1581 Wiederholrot ziege_4162: 3× rot in 48 h; Ursache nachstelle… (Muss); dann 6 weitere |
+| Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 2 weitere |
 | Jerry | 1580 Wiederholrot wolf_mess_438: 14× rot in 48 h; Ursache nachst… (Muss); dann 10 weitere |
 | Tuffy | 1579 Wiederholrot tod_ragdoll_1215: 6× rot in 48 h; Ursache nach… (Muss von Jerry, neben dessen Arbeit); dann 9 weitere |
 | Spike | 1555 Wiederholrot biss_1284: 3× rot in 48 h; Ursache nachstellen… (Muss); dann 1 weitere |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
-| Perikles | 1583 rotbuch.py --anlegen legt einen Wiederholer neu an, sobald… (Muss) |
+| Perikles | 1586 lauf.py meldet „Start Homer nicht angekommen“, obwohl 1235… (Kür) |
 
 **Die nächsten 20**
 
@@ -64,23 +64,23 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 1068 | Jerry | Ring bei jedem großen Schlag der Gegner, diese Schläge härter, Ring beim eigene… | M | 2 Kampf passt | startbar |
 | 4 | 709.1 | Jerry | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar | M | 2 Kampf passt | startbar |
 | 5 | 709 | Jerry | Kampf: Angriffe treffen den Gegner sichtbar, alle Angreifer prüfen | M | 2 Kampf passt | startbar |
-| 6 | 785.25 | Tom | D304.1 von Diogenes: Knopf „Schnell ›“ im leichten Kampf während des Kampfs feh… | M | 2 Kampf passt | startbar |
-| 7 | 1541 | Jerry | Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen… | M | 2 Kampf passt | startbar |
-| 8 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | startbar |
-| 9 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 1571 | Tom | Zauberstab in der Haupthand angelegt, an der Figur nicht zu sehen; Fackel der N… | M | 3 Kleiderschrank und Modelle | startbar |
-| 11 | 1567 | Jerry | Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben macht nicht so viel Sinn“; Zei… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 12 | 1568 | Jerry | im Kampfort liegt unter Wölfen und Held ein rechteckiger dunkler Fleck; nicht d… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1581 | Tom | Wiederholrot ziege_4162: 3× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 14 | 1580 | Jerry | Wiederholrot wolf_mess_438: 14× rot in 48 h; Ursache nachstellen, beheben · wie… | M | 6 Godot besser nutzen | startbar |
-| 15 | 1555 | Spike | Wiederholrot biss_1284: 3× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 6 Godot besser nutzen | startbar |
-| 16 | 1577 | Tom | Wiederholrot pruefliste_1020: 2× rot in 48 h; Ursache nachstellen, beheben · wi… | M | 6 Godot besser nutzen | startbar |
-| 17 | 1579 | Jerry | Wiederholrot tod_ragdoll_1215: 6× rot in 48 h; Ursache nachstellen, beheben · w… | M | 6 Godot besser nutzen | startbar |
-| 18 | 1556 | Spike | Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 6 Godot besser nutzen | startbar |
-| 19 | 1576 | Tom | Wiederholrot lage_785_8: 4× rot in 48 h; Ursache nachstellen, beheben · wiederh… | M | 6 Godot besser nutzen | startbar |
-| 20 | 1575 | Jerry | Wiederholrot arkan_993: 4× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 6 Godot besser nutzen | startbar |
+| 6 | 1541 | Jerry | Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen… | M | 2 Kampf passt | startbar |
+| 7 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | startbar |
+| 8 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | startbar |
+| 9 | 1571 | Tom | Zauberstab in der Haupthand angelegt, an der Figur nicht zu sehen; Fackel der N… | M | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 1567 | Jerry | Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben macht nicht so viel Sinn“; Zei… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 11 | 1568 | Jerry | im Kampfort liegt unter Wölfen und Held ein rechteckiger dunkler Fleck; nicht d… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 12 | 1580 | Jerry | Wiederholrot wolf_mess_438: 14× rot in 48 h; Ursache nachstellen, beheben · wie… | M | 6 Godot besser nutzen | startbar |
+| 13 | 1555 | Spike | Wiederholrot biss_1284: 3× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 6 Godot besser nutzen | startbar |
+| 14 | 1579 | Jerry | Wiederholrot tod_ragdoll_1215: 6× rot in 48 h; Ursache nachstellen, beheben · w… | M | 6 Godot besser nutzen | startbar |
+| 15 | 1556 | Spike | Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 6 Godot besser nutzen | startbar |
+| 16 | 1575 | Jerry | Wiederholrot arkan_993: 4× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 6 Godot besser nutzen | startbar |
+| 17 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 19 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 20 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
 
-Danach 80 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 22. Ruhend oder nach dem Meilenstein: 73.
+Danach 74 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 23. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
