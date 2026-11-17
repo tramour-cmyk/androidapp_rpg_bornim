@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 290 · 1301 Nachfrage bei 👎 ohne Wort (Perikles `a5e00783f`; 17.11., 01:1x)
+
+- **Ohne Fall:** `reaktionen.tsv` 15.–16.11.: 34 Reaktionen, ein 👎 (760, 15.11., 16:08, Auslöser von 1301, vor dem Bau; Chef 20:33 „Sprung passt“). Nach dem Bau kein 👎, Werkzeug am echten Fall ungeprüft → wartet auf 23.11., Diogenes.
+
 ## Lauf 289 · 1485 Name der APK (Spike `82efd967e`; 17.11., 01:1x)
 
 - **Greift:** Lauf 542 (`claude/build-294`, 16.11., 23:35) „1485: APK im Artefakt heißt bornim-0.348.542-build-294.apk“, Artefakt `bornim-godot-apk` 642 MB hochgeladen.
