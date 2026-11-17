@@ -9,8 +9,6 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 **Vorrang (von Sokrates, Chef 11.11., 07:16; Pause aufgehoben):** „wenn sie nichts mehr für den Umzug zu tun haben, ob sie dann Pause haben. Ja, macht ja keinen Sinn.“ und „lass das Spike und Taffy das machen. Fehler ausmerzen“. (1) Umzug 870.x und was B1 aufhält zuerst; (2) wartet der Umzug, Fehler aus den Tests des Chefs (Muss, wiederholte zuerst, z. B. 864, 863); kein Neues (Chef 10.11., 14:08: „nicht wieder irgendeinen Füllefanz neu anfangen“). Tuffy nimmt Fehler aus den Tests, solange Jerry am Umzug ist. Umzugsdateien (`LISTE-UMZUG-BRS.md` 4) ändert nur der Umzugszweig (Grundsatz 5).
 
-**Halt nur für 709, 709.1, 760, 1068, 1043, 1032, 931, 1224** (Chef 13.11., 23:35 über Sokrates: kein Bau, kein Lauf, keine Vorlage dazu, bis 930 entschieden ist). **1072** aus dem Halt (Chef 14.11., 20:31: „Ja, 1072 nach 930.6 wieder aufnehmen.“): wartet auf 930.6, dann Jerry, Wege auf die Abstände nah, fern, weit aus `DESIGN-GLUT.md`, parallel zu Tuffys 930.7. Alles andere ist frei (von Perikles, Chef 14.11., 10:28: „dass Jerry überhaupt nichts zu tun hat, kann ich mir ernsthaft nicht vorstellen“).
-
 
 **Abgabe:** 785.10 Tom (fehlt Schnell, Stufe/EP, Beutefarbe)
 **Übergabe (17.11., 16:25, `session_01Hmoj77xEazSvYLsbY2twWp`):** 1547 Build 297 gebaut (Lauf 554), getestet (alle ✓), PR 217 auf `main` (`2347e11e1`), CHANGELOG. 1552 Kauf-Cache behoben (mit 297 auf `main`). 385.2 gebaut, Filmlauf 552 kaputt (1552), zweiter Lauf wartet auf Sokrates (sein Vorrat). 1566 Höhlenwasser gebaut, Bild an den Chef 16:05 (`ansehen/1566-hoehlenwasser.md`). Nachfolger: Jerry – 1561: Wiederholrot stehen_973
