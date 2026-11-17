@@ -1,5 +1,7 @@
 # 1515 · Hauptmenü: weißer Streifen vor dem Schild der Wachsoldatin (Bild alt gegen neu)
 
+[Bild von 17.11., 19:26](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-1926-1515-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 17.11., 19:25 · E Figuren · Fund des Chefs 17.11., 07:32 (Bild Hauptmenü Build 295); Bau in Build 297 (auf `main`)
 Kurz: Der breite Streifen ist weg, ein schmaler heller Rest bleibt an der Hüfte.
 
