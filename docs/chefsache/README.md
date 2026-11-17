@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 00:25, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 00:30, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -25,7 +25,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 61 (61) | 18 | 0 | 4 | 49 | 1589.6 (Spike) Rechnung 444 in die Arena: sim444 rechnet mit are… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 20 (20) | 11 | 3 | 1 | 7 | 1569 (Tom) Rest aus 431h: angelegter Umhang an der Heldenfig… |
-| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 1 | 0 | 5 | 458.3 (Spike) Gegenstandskatalog: Netze, Modelle, Läden |
+| ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 1 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (48) | 5 | 0 | 6 | 25 | 1211 (Spike) Leuchtfunke mit R7 rocket_trail als Schweif? Ein… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 11 (11) | 5 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
 | **7** Werkzeuge und Abläufe der Firma | 41 (48) | 27 | 0 | 0 | 11 | 1595 (Jerry) Schlussbuild 299 = main nach 1593 und 298, dazu n… |
@@ -49,7 +49,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 1 weitere |
 | Jerry | 1595 Schlussbuild 299 = main nach 1593 und 298, dazu nur bis Mi… (Muss) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
-| Spike | 458.3 Gegenstandskatalog: Netze, Modelle, Läden (Muss) |
+| Spike | 1211 Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nacht… (Kür) |
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | 1610 D305.1 von Diogenes: Hängeralarm kam 15 bis 75 statt 15 Min… (Muss) |
 | Sokrates | 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss) |
@@ -61,24 +61,24 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|---|---|---|---|---|
 | 1 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | in Arbeit |
 | 2 | 1571 | Tom | Zauberstab in der Haupthand angelegt, an der Figur nicht zu sehen; Fackel der N… | M | 3 Kleiderschrank und Modelle | startbar |
-| 3 | 458.3 | Spike | Gegenstandskatalog: Netze, Modelle, Läden | M | 4 Alles an einer Stelle | in Arbeit |
-| 4 | 1595 | Jerry | Schlussbuild 299 = main nach 1593 und 298, dazu nur bis Mi 18.11., 13:00 Gebill… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 5 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 7 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | in Arbeit |
-| 9 | 1211 | Spike | Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuf… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 10 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 12 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
-| 14 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
-| 16 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | wartet auf 1591 |
-| 17 | 1589.6 | Spike | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd statt nah, fern, weit; e… | M | 2 Kampf passt | wartet auf 1589.2 |
-| 18 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf passt | Termin 21.11. 20:00 |
-| 19 | 1589 | Jerry | Motor des Kampfs: Gegnerverhalten nach Regeln; Bau nach Regelblatt 1589.1 in St… | M | 2 Kampf passt | wartet auf 1589.5 |
-| 20 | 1589.2 | Jerry | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf passt | Termin 21.11. 20:00 |
+| 3 | 1595 | Jerry | Schlussbuild 299 = main nach 1593 und 298, dazu nur bis Mi 18.11., 13:00 Gebill… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 4 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 6 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 7 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | in Arbeit |
+| 8 | 1211 | Spike | Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuf… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 9 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 10 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 11 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 12 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
+| 13 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
+| 15 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | wartet auf 1591 |
+| 16 | 1589.6 | Spike | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd statt nah, fern, weit; e… | M | 2 Kampf passt | wartet auf 1589.2 |
+| 17 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf passt | Termin 21.11. 20:00 |
+| 18 | 1589 | Jerry | Motor des Kampfs: Gegnerverhalten nach Regeln; Bau nach Regelblatt 1589.1 in St… | M | 2 Kampf passt | wartet auf 1589.5 |
+| 19 | 1589.2 | Jerry | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf passt | Termin 21.11. 20:00 |
+| 20 | 1589.4 | Jerry | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Bei… | M | 2 Kampf passt | wartet auf 1589.2 |
 
 Danach 36 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 110.
 ## Zu entscheiden
