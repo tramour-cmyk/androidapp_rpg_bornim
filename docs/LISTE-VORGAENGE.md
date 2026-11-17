@@ -90,7 +90,7 @@
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | K | ruht, Kampf zuerst (338.1) | 23.11. | – | – | E Technik | – |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | gebaut, Geprüft an: a0acd466c | 17.11. 20:50 | claude/jerry-385-2-feuer | – | E Kampf | 9,99 $ |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | Jerry | K | ruht | 23.11. | claude/jerry-344-2-fackel | – | E Kampf | – |
-| 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | startbar, gelöst 15.11.: 38 | – | – | – | G Story | – |
+| 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | startbar, gelöst 15.11.: 38 | Perikles | – | – | G Story | – |
 | 39 | Schwierigkeitsgrad im Menü | Jerry | K | ruht | 23.11. | claude/jerry-39-schwierigkeit | – | E Kampf | 3,80 $ |
 | 59e | Händler: Vorrat je Laden | Jerry | K | ruht | 23.11. | claude/jerry-59e-haendlervorrat | – | G Balance | – |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | Jerry | K | ruht, Kampf zuerst (338.1) | 23.11. | – | – | E Kampf | – |
