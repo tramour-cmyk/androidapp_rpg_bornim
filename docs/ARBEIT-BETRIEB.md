@@ -45,6 +45,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 17.11., 07:54 Ford: Tom-Neustart: `…77SRDgqsBSpjHkd9Wt` gestartet, alter Tom archiviert. Lauf 07:52: 1068, 1224, 1415 an Jerry und 870 an Sokrates als GELÖST gesendet; Diogenes-Nachfolger 1246 erst 08:00 (zweiter Lauf prüft); Sokrates `…781BCNQwnEbXqwzD3u` idle, bei 08:03 archivieren.
 - 07:53 17.11.: Startsperre 07:53 Start Tom (selbst) – Neustart auf Meldung 07:51, Kosten 32,06 $ auf 1423 gebucht.
 - 17.11., 07:45 Ford (Nachfolger `…75aJAz5Whuj3YyDLJw`): Übergabe 1 bis 3 ausgeführt, Uhr-Sitzung bestätigt 07:44, alter Ford `…76ER7oUkkBFVsDDeqy` archiviert, Kosten 7,68 $ auf 1019, 1366. Lauf 08:03 ist die Probe.
 - 17.11., 06:20 Ford: 1507 gilt ab jetzt: Satz „Fertiges lautlos … 👍/👎-Zeile“ nur in Starts und „Weiter“ an Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer, Sokrates. Weiter an Jerry (1284b, 601.1, 1340, 623.2 Szene 3) und Tom (1448, 531, 1423 in den Sammelbuild) nach Chefdaumen der Nacht (Sokrates 06:18); 966.2 und 168.1 ausgelassen (Kür, Kapitel 2 bzw. Vorrangregel).
