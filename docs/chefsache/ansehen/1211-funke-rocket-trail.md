@@ -1,5 +1,7 @@
 # 1211 · Leuchtfunke: heute gegen R7 rocket_trail (Film nachts im Dorf)
 
+[Film von 17.11., 21:56](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-215558-1211/2026-11/17-2155-1211-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Spike · 17.11., 21:46 · Prüfauftrag Chef 13.11., 19:10 („Prüfe auch mal, ob wir Rocket Trail nicht als Lichtquelle verwenden können für den Trank“)
 Kurz: rocket_trail macht den Funken größer und heller, bringt aber kein besseres Licht. Kühl eingefärbt wird er ein weißer Klecks, in der Urfassung ist er orangefarbenes Feuer mit Rauch. Den Lichtkreis am Boden macht in „heute“ und „kühl“ dasselbe Licht.
 
@@ -13,7 +15,9 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/3f4f21
 - Unverändert ist es Feuer mit Rauch über dem Kopf. In der Inventur vom 09.11. steht rocket_trail unter „Unbrauchbar (Science-Fiction, bunt)“.
 - Bildrate am Rechner gleich (heute 2,8, kühl 2,8, unverändert 2,7 Bilder/s; Zeichenaufrufe 125/127/128).
 
-**Offen:** Der Held ist im Film unbekleidet; Ursache nicht geprüft (vermutlich der Modellstand aus dem Kaufcache in der Sitzung). Einmal verdeckt ein Hausdach das Bild. Mit nur einem Lauf war das nicht zu wiederholen.
+**Zweiter Film, Höhle** (Chef 21:49: „noch ein Film in Höhle mit alter leuchtkugel und rockettrail kühl, u. Licht und Ausleuchtung zu sehen“; Telegram 21:56): Mittelgang der Blutzahnhöhle, links heute, rechts rocket_trail kühl. Das Licht ist bei beiden dasselbe (Funkenlicht von heute), darum leuchten Boden und Wände gleich aus. Anders ist nur der Leuchtkörper: rocket_trail ist größer und hat in der Höhle einen weichen Hof um den Funken. Bildrate gleich (je 4,3 Bilder/s am Rechner).
+
+**Offen:** Der Held ist in beiden Filmen unbekleidet; Ursache nicht geprüft (vermutlich der Modellstand aus dem Kaufcache in der Sitzung). Im Dorf verdeckt einmal ein Hausdach das Bild, in der Höhle mitten im Film eine Wand. Mit je einem Lauf war das nicht zu wiederholen.
 
 Empfehlung: den Funken von heute behalten; was dem Chef am Licht fehlt (Hof, Lichtkreis, Tusche), als eigenen Vorgang am Licht angehen, nicht über rocket_trail.
 
