@@ -408,9 +408,10 @@ def zusammenfuehren_faellig(jetzt=None):
         return None
     liegt = getestet_nicht_auf_main(jetzt)
     if not liegt: return None
-    builds = ", ".join("%s (%d h)" % b for b in liegt)
-    return ("Zusammenführen: getestet, nicht auf main: Build %s; grün machen und PR zusammenführen (Punkt 13), rote Tests ans Team, "
-            "sonst erben neue Zweige die Behebungen nicht (1424)" % builds, "B Abläufe", "Sokrates")
+    # 1585 (Ford 17.11., 18:38): bei vielen Builds lag der Titel über 400 Zeichen, vorgang.py lehnte ab, die Zeile kam nie
+    builds = ", ".join("%s (%d h)" % b for b in liegt[:6]) + (" und %d weitere" % (len(liegt) - 6) if len(liegt) > 6 else "")
+    return ("Zusammenführen: getestet, nicht auf main: Build %s; grün machen und PR zusammenführen (Punkt 13), rote Tests ans Team (1424)" % builds,
+            "B Abläufe", "Sokrates")
 
 def sammelbuild_faellig():
     """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
