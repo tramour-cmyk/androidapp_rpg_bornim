@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 01:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 01:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **2** Kampf passt | 61 (61) | 20 | 1 | 9 | 8 | 1340 (Jerry) Aus 1215: Sterben mit Physik fehlt noch für Skele… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 1 | 2 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 8 | 2 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 8 | 1 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (13) | 5 | 0 | 6 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
 | **7** Werkzeuge und Abläufe der Firma | 42 (43) | 27 | 0 | 0 | 9 | 1441 (Perikles) ständige Freigaben abstellen; Ablehnungen der Aut… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -45,13 +45,13 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [431h](entscheiden/431h-stufe2-ruestung.md) entscheiden; dann 4 weitere |
+| **Chef** | [431h](entscheiden/431h-stufe2-ruestung.md) entscheiden; dann 5 weitere |
 | Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 1 weitere |
 | Jerry | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss); dann 3 weitere |
 | Tuffy | 1284b Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nic… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
 | Spike | leer, weil 3 ruht, 2 wartet auf Test, 2 wartet auf Test/Build |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1301 👎 ohne Wort auf Telegram, wer es einträgt, fragt im selben… (Muss) |
+| Diogenes | Pflege von Werkzeug: 3 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Sokrates | Pflege von Werkzeug: Übergabe über 700 Zeichen; 8 „Zu“ zu Erledigt… (Kür) |
 | Perikles | 1279 core/, app/, Kotlin-Vorschauordner unter tools/, Gradle-Wur… (Muss); dann 2 weitere |
 
@@ -80,14 +80,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
 | 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
 
-Danach 81 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 59.
+Danach 80 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 59.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [431h (Rüstung sichtbar)](entscheiden/431h-stufe2-ruestung.md) | – | E Figuren | 17.11., 00:51 | Stufe 2 zeigt jede angelegte Rüstung mit ihrem eigenen Teil, auch Stücke anderer Herkünfte und die Ritterteile; Aufwand und Risiko hier. | Tom |
+| [431h](entscheiden/431h-stufe2-ruestung.md) | **Muss** | E Figuren | 17.11., 00:51 | 431h (Rüstung sichtbar), Stufe 2 zeigt jede angelegte Rüstung mit ihrem eigenen Teil, auch Stücke anderer Herkünfte und die Ritterteile; Aufwand und Risiko hier. | Tom |
 
 ## Zu billigen
 
@@ -100,6 +100,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1439](ansehen/1439-mana-balken.md) | Mana als eigener blauer Balken im Kampfschirm | – | 16.11., 23:51 |
+| [1448](ansehen/1448-leiste-ohne-woerter.md) | Weltleiste und Heldenmenü ohne Wörter vor den Balken | – | 17.11., 01:14 |
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
 | [601.1](ansehen/6011-pfeiltreffer.md) | Pfeiltreffer: Pfeil an der Brust, der Getroffene zuckt dort | – | 17.11., 00:36 |
 
@@ -367,7 +368,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1439-mana-balken.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); entscheiden/431h-stufe2-ruestung.md: fehlt Zeile 1 „# <Nr.> · <Frage>?“ (364, [Muster](MUSTER.md))
+Format (Muster: „So geht's“ unten): ansehen/1439-mana-balken.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1448-leiste-ohne-woerter.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/6011-pfeiltreffer.md
 
