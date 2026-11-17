@@ -395,7 +395,7 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 	for p in KLEID_PLAETZE:
 		var st = aus.get(p)
 		zeig[p] = st is Dictionary and teile.has(p)
-		if not (st is Dictionary) or eigen.is_empty(): continue
+		if not (st is Dictionary) or eigen.is_empty() or w.get("stufe1", false): continue   # „stufe1“: Vergleichsfilm alt
 		var b := String(st.get("base", ""))
 		if b in eigen: continue
 		zeig[p] = false
