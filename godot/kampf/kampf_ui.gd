@@ -1426,8 +1426,8 @@ func ring_verdict(r: String) -> void:
 func ring_folge(e: Dictionary) -> void:
 	if not verdict.visible or ring_ergebnis == "":
 		return
-	var by = kampfort.mars.find(String(e.actor)) if e.get("actor") != null else null
-	var r = e.get("roll")
+	var by: Variant = kampfort.mars.find(String(e.actor)) if e.get("actor") != null else null
+	var r: Variant = e.get("roll")
 	if ring_ergebnis == "GOOD" and r is Array and r.size() > 4 and not bool(r[4]) and by != null and by.side != "PARTY":
 		verdict.text = t("Gut", "Good")
 	if e.get("answer", false) and String(e.get("text", "")) != "":
