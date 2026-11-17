@@ -197,6 +197,19 @@ jobs:
           if [ -n "$s" ]; then mkdir -p godot/addons && cp -r "$s" godot/addons/ && rm -f godot/addons/reeboo_trails/README* godot/addons/reeboo_trails/LICENSE*
             echo "R3: $(ls godot/addons/reeboo_trails/presets | grep -c tres) Spuren, arrow_streak $(ls godot/addons/reeboo_trails/presets/arrow_streak.tres 2>/dev/null)"
           else echo "R3: nicht da"; fi
+      # 1155 (Chef 13.11., 15:12; 16.11., 13:49 „das Wasser, das ich entschieden habe, weder in der Höhle noch sonst irgendwo verwendet“):
+      # R10 Water Shader Kit v1.0.1 (REEBOO, gekauft 09.11.), „Teich klar“ (623.6, Chef 08.11., 17:02) auf Dorfbach, Teich, Höhle
+      # (gebiet.gd male). Lizenz verbietet die Weitergabe: nie ins Repo (godot/.gitignore), nur in den Bau; nur Shader, die Vorgabe
+      # pond_clear und ihre Texturen. Hashfunktion David Hoskins (MIT) steht schon bei den Lizenzen (hauptmenue.gd). Fehlt das Kit,
+      # bleibt unser Wasser (wasser.gdshader).
+      - name: Wasser R10 (1155, privat)
+        run: |
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 5 -type d -path '*Water_Shader_Kit*/addons/water_kit' 2>/dev/null | head -1)
+          if [ -n "$s" ]; then d=godot/addons/water_kit; mkdir -p $d/shaders $d/presets/lake $d/textures
+            cp "$s/shaders/lake.gdshader" "$s/shaders/water_common.gdshaderinc" $d/shaders/ && cp "$s/presets/lake/pond_clear.tres" $d/presets/lake/
+            for t in water_normal_a water_normal_b foam caustics; do cp "$s/textures/$t.png" $d/textures/; done
+            echo "R10: $(find $d -type f | wc -l) Dateien, $(ls $d/presets/lake)"
+          else echo "R10: nicht da ($(find "$KAUF/anhang/stufe1" -maxdepth 2 -iname '*water*' 2>/dev/null | head -3 | tr '\n' ' '))"; fi
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -780,6 +793,7 @@ jobs:
           set -o pipefail; timeout 240 ~/godot/godot --headless --path . -s res://tests/lage_785_8.gd 2>&1 | tee lage7858.log | grep -E "FEHLER|LAGE7858|SCRIPT ERROR"; grep -q "^LAGE7858 0 Fehler" lage7858.log   # 785.8 Lage auftrag=, unerkundet= (Fund t286.6)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/startwerte_543.gd 2>&1 | grep -E "FEHLER|STARTWERTE|SCRIPT ERROR"   # 543 Startgold, Heiltraenke, Wiederkehrort
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wasser_kit_1155.gd 2>&1 | grep -E "FEHLER|WASSER1155|SCRIPT ERROR"   # 1155 Wasser des Kits (Teich klar), ohne Kit unseres
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kapitelende_537.gd 2>&1 | grep -E "FEHLER|KAPITELENDE|SCRIPT ERROR"   # 537 Kapitelende, Tempelszene, Morgen
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/rueckfrage_526.gd 2>&1 | grep -E "FEHLER|RUECKFRAGE|SCRIPT ERROR"   # 526 Rückfragen: daneben tippen, Zurück
