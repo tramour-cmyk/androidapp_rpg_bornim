@@ -218,6 +218,21 @@ static func atem_an(modell: Node3D, anim: AnimationPlayer, seed: int) -> Node:
 	sk.add_child(atem)
 	return atem
 
+# 1167 (Archivprüfung Sokrates, 453.1 Chef 01.11.: „als ob die Leute halt wirklich leben“; 453a B 02.11.: „gilt für alle Vierbeiner“):
+# Dorftiere (kauftier.py, ohne UAL-Gerüst) atmen als Schicht wie die Tiere im Kampf (kampf/atem_tier.gd, figur.gd _atem_an): Rücken aus
+# den Knochen gesucht, Heben nach der Länge des Rückens, je Tier eigener Takt. Ohne erkennbaren Rücken null.
+static func tier_atem_an(modell: Node3D, seed: int) -> Node:
+	var sk := finde(modell, "Skeleton3D") as Skeleton3D
+	var Tier = load("res://kampf/atem_tier.gd")
+	if sk == null or not Tier.passt(sk) or OS.get_environment("ATEM_ALT") != "": return null
+	var atem = Tier.new()
+	atem.name = "Atem"
+	atem.knochen_setzen(sk)
+	if atem.halten_name != Tier.HALTEN: atem.groesse = -1.0
+	atem.eigen(seed)
+	sk.add_child(atem)
+	return atem
+
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
 # davor stehen. Jede Bewegung bekommt fuer jeden fehlenden Knochen eine Spur mit der Ruhepose, dazu Schleife
