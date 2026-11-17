@@ -104,6 +104,23 @@ func _lauf() -> void:
 		var cp: Vector3 = wm.get_shader_parameter("cut_pos")
 		pruefe(par(wm, "cut_on") > 0.5 and par(wm, "weg") < 0.5 and wm.next_pass != null
 			and cp.distance_to(spiel.held.global_position) < 1.2, "Wand oeffnet ein Loch um den Helden (cut_on, Durchgaenge, cut_pos am Helden)")
+	# 1423b (t296.1, Chef 17.11., 11:01: am Handy kein Loch, Held bis auf den Haaransatz hinter der Wand): Lage 296.1 (Westfluegel,
+	# Kachel 2/11 nach rechts): jede Wand, die Brust oder Kopf zur Kamera hin verdeckt (Dreiecke beidseitig), oeffnet sich; vorher traf der
+	# Strahl die einseitige Wand von hinten nicht (Gruppe_Wand_N_hoch_2)
+	spiel.held.setze(Vector2i(2, 11), "RIGHT"); spiel.kamera.springe()
+	for i in 6: await physics_frame
+	var verdeckt := []
+	var zur: Vector3 = spiel.kamera.global_basis.z
+	for k in wandgruppen:
+		var mi := spiel.gebiet.find_child(String(k), true, false) as MeshInstance3D
+		if mi == null: continue
+		var tm := mi.mesh.generate_triangle_mesh()
+		var inv := mi.global_transform.affine_inverse()
+		for h in [1.4, 1.7]:   # Brust und Kopf (nur die Huefte verdeckt: bleibt, wie beim Haus, gebiet.gd 4 von 9 Strahlen)
+			var von: Vector3 = spiel.held.global_position + Vector3(0, h, 0)
+			var t = tm.intersect_segment(inv * von, inv * (von + zur * 30.0)) if tm else null
+			if t and t.size() > 0 and float(spiel.gebiet.gruppen[k]["ziel"]) >= 1.0: verdeckt.append("%s (%.2f m)" % [k, h]); break
+	pruefe(verdeckt.is_empty(), "Lage 296.1 (2, 11): jede verdeckende Wand oeffnet sich: zu %s" % [verdeckt])
 	spiel.held.setze(Vector2i(10, 18), "UP"); spiel.kamera.springe()
 	for i in 6: await physics_frame
 	durch = wandgruppen.filter(func(k): return float(spiel.gebiet.gruppen[k]["ziel"]) < 1.0)

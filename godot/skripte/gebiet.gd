@@ -478,6 +478,9 @@ func baue_gruppen(n: Node) -> void:
 			body.set_meta("gruppe", key)
 			var cs := CollisionShape3D.new()
 			cs.shape = mi.mesh.create_trimesh_shape()
+			# 1423b (t296.1, Chef 17.11., 11:01: kein Loch, Held hinter der Wand): die Felswaende der Hoehle sind einseitig, ihre Rueckseite
+			# zeigt zum Helden; der Strahl von der Brust zur Kamera traf sie nicht (nachgestellt an Gruppe_Wand_N_hoch_2, Kachel 2/11)
+			(cs.shape as ConcavePolygonShape3D).backface_collision = true
 			body.add_child(cs)
 			mi.add_child(body)
 	for c in n.get_children(): baue_gruppen(c)
