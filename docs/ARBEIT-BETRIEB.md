@@ -49,6 +49,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 13:36 17.11.: Startsperre 13:36 Start Tom (selbst) – Neustart auf Meldung 13:29 (f1e7a208f).
+- 17.11., 13:07 Ford: Lauf 13:04: Start Diogenes `…76bxudxAGUfPJBE1Pc` (1547), alter Diogenes archiviert (1,01 $ auf 1539); Rotbuch angelegt (1560–1562 u. a.); Ford-Neustart 12:33 angekommen, Uhr-Sitzung bestätigt.
 - 17.11., 09:16 Ford: Sokrates-Neustart auf Chefwort 09:08: `…79XLgTfEVz9NoYYJ7m` („Chefrunde“), alter `…76gTnkQt77JpdpoGF3` archiviert (Schutzzeile war geleert), 7,53 $ auf 1520, 870; Tom „Weiter: 1528“ („jetzt“).
 - 17.11., 11:24 Ford (alt): Nachfolger `…75h6xVRxXjjce8kTvq` ist an `git pull --rebase` und `git push` in `bornim-main` gescheitert (Auto-Prüfung lehnt git dort ab); Schritte 1 (aktuell eingetragen) und 2 (Uhr-Sitzung) hat der alte Ford erledigt; Archivieren und Kosten 9,63 $ auf 1019, 1366 stehen beim neuen Ford.
 - 17.11., 11:05 Ford: Lauf 11:03 (angekommen): nichts zu starten, alle Rollen belegt. Befund: Perikles und Jerry hängen an `git rebase --continue` (Auto-Prüfung lehnt ab, wartet auf den Chef); beiden gesagt: `rebase --abort`, Konflikt neu lösen. Spike wartet auf Ja des Chefs zum Schließen der Prüfliste Build 295 (Neustartmeldung 10:58 ohne Nachfolger, nichts Startbares).
