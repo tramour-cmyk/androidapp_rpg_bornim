@@ -959,7 +959,28 @@ func _naechster_eigener():
 
 func _target_label(f) -> String:
 	var hp: int = kampfort.shown.hp.get(f.id, f.hp)
+	# 785.11 (alt SkirmishScreen.kt 1556–1561 targetLabel): ab drei Stehenden einer Seite die Reihe dazu, wie die Figur am Kampfort steht
+	if kampfort.mars.standing_of(f.side).size() > 2:
+		return "%s · %s  %d/%d" % [f.name(lang), _spot_name(f.place), maxi(0, hp), f.max_hp]
 	return "%s  %d/%d" % [f.name(lang), maxi(0, hp), f.max_hp]
+
+
+## 785.11 (alt SkirmishScreen.kt 886–891 aimed): wen der Spieler gerade wählen kann, beim Angriff, beim Zauber- und Fähigkeitsziel,
+## beim Trank und beim Wurf; sonst leer
+func _waehlbare(current: Variant) -> Array:
+	var m: Variant = kampfort.mars
+	if current == null:
+		return []
+	match pick:
+		"target":
+			return m.targets(current)
+		"skill_at":
+			return m.aim_at(current, pick_arg)
+		"throw_at":
+			return m.throw_targets(pick_arg)
+		"drink_at":
+			return m.fighters().filter(func(tg: Variant) -> bool: return tg.side == current.side and tg.standing() and m.drink_helps(pick_arg, tg))
+	return []
 
 
 func _spot_name(s: Vector2i) -> String:
@@ -1488,6 +1509,7 @@ func _draw_overlay() -> void:
 	# Hintergrund voraus, der Ausgang steht fest, während die letzten Züge noch spielen; zu Ende ist es erst, wenn alles gezeigt ist
 	var ended: bool = m.outcome != "ONGOING" and not k.busy
 	var current = m.current() if not k.busy and not ended else null
+	var waehlbar: Array = _waehlbare(current)
 	# under the figures: the ring under the one whose turn it is, chosen targets (CamRing)
 	for id in k.figures:
 		var fig = k.figures[id]
@@ -1496,7 +1518,7 @@ func _draw_overlay() -> void:
 		var beast: bool = Figur.vier(fig.fighter)
 		if fig.fighter == current:
 			_ground_ring(fig.position, 0.75 if beast else 0.55, BRIGHT, 2.5 * dp)
-		elif pick == "target" and current != null and m.targets(current).has(fig.fighter):
+		elif waehlbar.has(fig.fighter):
 			_ground_ring(fig.position, 0.75 if beast else 0.55, TEXT, 2.0 * dp)
 	# the grid: the two places of each row on both sides
 	if grid_on:
@@ -1542,10 +1564,10 @@ func _draw_overlay() -> void:
 	named.clear()
 	name_rects.clear()
 	var weich := clampf(float(names_until - Time.get_ticks_msec()) / SOFT_MS, 0.0, 1.0)
-	var waehlbar: Array = m.targets(current) if pick == "target" and current != null else []
 	for id in k.figures:
 		var fig = k.figures[id]
 		var f = fig.fighter
+		fig.gedaempft(not waehlbar.is_empty() and not waehlbar.has(f))     # 785.11: die übrigen gedämpft
 		if not fig.visible or fig.down or k.shown.hp.get(id, f.hp) <= 0:
 			continue
 		var a: float = 1.0 if waehlbar.has(f) else weich
