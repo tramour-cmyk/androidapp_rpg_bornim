@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 09:19, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 09:40, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -24,7 +24,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 62 (61) | 20 | 1 | 2 | 10 | 1505 (Jerry) rot wolf_mess_438 und tod_ragdoll_1215; in 542 gr… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (16) | 7 | 0 | 0 | 8 | 1515 (Tom) Schild jetzt ganz, aber vor dem Schild der Wachso… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 17 (16) | 7 | 0 | 1 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 5 | 0 | 6 | 23 | 1530 (Tom) Intro wie alt: Fackelträger laufen in den Tempel;… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 2 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
@@ -46,7 +46,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [t296](ansehen/t296-sammelbuild.md) testen, hält 5 Zeilen; dann 8 weitere |
-| Tom | 1515 Schild jetzt ganz, aber vor dem Schild der Wachsoldatin hän… (Muss); dann 2 weitere |
+| Tom | 1522 README.md Abschnitt Lizenzen: Absatz SRD 5.1 und Satz „kein… (Muss); dann 1 weitere |
 | Jerry | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün; Ursach… (Muss); dann 5 weitere |
 | Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
 | Spike | 785.17 Übernahme von Jerry: Zurück-Taste im Kampf schließt das Untermenü; ganzer Berich… (Muss) |
@@ -64,23 +64,23 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
 | 4 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
 | 5 | 1527 | Jerry | D295.1 von Diogenes: 1275 Bautest Lauf 546 bestanden, Abschluss gesperrt: Rest… | M | 2 Kampf passt | startbar |
-| 6 | 1515 | Tom | Schild jetzt ganz, aber vor dem Schild der Wachsoldatin hängt ein weißes Etwas,… | M | 3 Kleiderschrank und Modelle | startbar |
-| 7 | 1530 | Tom | Intro wie alt: Fackelträger laufen in den Tempel; Chef sieht ihn nicht mehr, „b… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 8 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 9 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
-| 10 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 11 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 12 | 1529 | Sokrates | Ausdauer im Kampf: hart angreifen kostet Ausdauer, leer kein harter Angriff meh… | K | 2 Kampf passt | startbar |
-| 13 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 14 | 1533 | Sokrates | Gegner ohne Zahlen: Zustand und Stärke in Worten nach Lesestufe, keine Stufe de… | K | 2 Kampf passt | startbar |
-| 15 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 16 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 17 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 18 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
-| 19 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
-| 20 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 6 | 1530 | Tom | Intro wie alt: Fackelträger laufen in den Tempel; Chef sieht ihn nicht mehr, „b… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 7 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 8 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
+| 9 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 10 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 11 | 1529 | Sokrates | Ausdauer im Kampf: hart angreifen kostet Ausdauer, leer kein harter Angriff meh… | K | 2 Kampf passt | startbar |
+| 12 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 13 | 1533 | Sokrates | Gegner ohne Zahlen: Zustand und Stärke in Worten nach Lesestufe, keine Stufe de… | K | 2 Kampf passt | startbar |
+| 14 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 15 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 16 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 17 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 18 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
+| 19 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 20 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
 
-Danach 83 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 67.
+Danach 81 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 67.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -124,14 +124,14 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 2, Muss 0, startbar 1
+**Homer** – offen 2, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
-| 1525 | K | Von Chef (17.11., 08:11, Idee): Merkmalsnamen am Gegner abwechseln, „schwächlich klingt gu | startbar |
+| 1525 | K | Von Chef (17.11., 08:11, Idee): Merkmalsnamen am Gegner abwechseln, „schwächlich klingt gu | Chef (Datei in der Chefsache) |
 
-**Tom** – offen 58, Muss 12, startbar 11
+**Tom** – offen 60, Muss 13, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -181,8 +181,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1297 | M | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schil | wartet auf 431 (wartet) |
 | 431h | M | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, et | Chef (Datei in der Chefsache) |
 | 1406 | K | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 | startbar |
-| 1417 | M | Von Chef (16.11., 12:37, Hauptmenü): Schild des Helden links wie abgeschnitten; Durchdring | wartet auf 1515 (startbar) |
-| 1515 | M | Von Chef (17.11., 07:32, Bild Hauptmenü Build 295, nach 1417): Schild jetzt ganz, aber vor | startbar |
+| 1417 | M | Von Chef (16.11., 12:37, Hauptmenü): Schild des Helden links wie abgeschnitten; Durchdring | wartet auf Test/Build (gebaut) |
+| 1515 | M | Von Chef (17.11., 07:32, Bild Hauptmenü Build 295, nach 1417): Schild jetzt ganz, aber vor | wartet auf Test/Build (gebaut) |
 | 1447 | K | Von Sokrates (Chef 16.11., 14:41, Idee, erst denken): Weltleiste links oben unruhig, Wörte | startbar |
 | 1448 | K | Von Sokrates (1448 A, Chef 16.11., 14:47): Weltleiste und Heldenmenü ohne Wörter Leben/Man | wartet auf Test (Build 296) |
 | 1460 | M | Von Sokrates (975a A, Chef 11.11., 17:04, nie gebaut; Fund Jerry 644a.1): Fertigkeit „Lede | wartet auf Test (Build 296) |
@@ -193,6 +193,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1519 | K | Von Chef (17.11., 07:39, „Hauptmenü lebendig ja … kein Muss, ganz hinten“): vier Helden im | wartet auf 431 (wartet) |
 | 1522 | M | Von Sokrates (870, LISTE-UMZUG-BRS.md Schritt 9, Hinweis raus): README.md Abschnitt Lizenz | startbar |
 | 1528 | K | Von Ford (17.11., 08:30): godot/tests/grundstand_1044.gd.uid fehlt im Repo (430 andere Tes | startbar |
+| 1530 | M | Von Sokrates (Chef 17.11., 08:49): Intro wie alt: Fackelträger laufen in den Tempel (Bild | startbar |
+| 1535 | M? | Von Chef (17.11., 09:18, zu 1515): Kleidung hängt bei anderen NPCs in der Ruhebewegung an | startbar |
 
 **Jerry** – offen 70, Muss 23, startbar 27
 
@@ -280,12 +282,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1484 | M | Von Sokrates (Chef 16.11., 20:20, Tablet SM-X210, Adreno 619, Build 286): Welt und Kampf 9 | Chef (Datei in der Chefsache) |
 | 1512 | K | Von Chef (17.11., 06:54, zu t294.12): Testmenü auf Englisch: unten bei „Show Animals/Monst | wartet auf Test (Build 296) |
 
-**Perikles** – offen 26, Muss 20, startbar 1
+**Perikles** – offen 25, Muss 19, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1148 | M | Von Ford (13.11., 14:58): lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen | Termin 23.11. |
-| 1524 | M | Von Chef (17.11., 08:10, über Sokrates): Build 295 mit einem Handypunkt, 600 MB mobil, „10 | wartet auf Diogenes |
 | 1508 | M | Von Sokrates (Chef 17.11., 06:19: „die nächsten 20 alles Jerry, sollte jemand helfen?“): J | Termin 18.11. |
 | 1462 | M | Von Sokrates (Chef 16.11., 16:31 „Haltung 4 schärfen mit Zahl, so machen“): Liegengebliebe | Termin 30.11. |
 | 1461 | M | Von Sokrates (340 A, Chef 16.11., 16:27): Rollenspiegel mittwochs nach dem Tagesbericht st | Termin 18.11. |
@@ -311,11 +312,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1506 | M | Von Sokrates: startbar.py zeigt Kür am Aussehen als startbar, obwohl 488 sie einfriert (To | Termin 23.11. |
 | 1523 | M | Von Sokrates (870, Schritt 9): CLAUDE.md erster Absatz: Satz „der Hinweis SRD 5.1 · CC BY | wartet auf 1522 (gebaut) |
 
-**Diogenes** – offen 9, Muss 8, startbar 1
+**Diogenes** – offen 8, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1524 | M | Von Chef (17.11., 08:10, über Sokrates): Build 295 mit einem Handypunkt, 600 MB mobil, „10 | startbar |
 | 1425 | M | Von Chef (16.11., 13:44): täglich vor dem Tagesbericht den ganzen Vorrat auf links drehen: | Termin 17.11. 10:00 |
 | 1301 | M | Von Sokrates (Chef 15.11., 16:54 zu 760: „vielleicht kommt ja jemand auch auf die Idee noc | Termin 23.11. |
 | 1387 | M | Von Sokrates (1129.4, Punkt 6 gerissen): Übersicht-Commits 15.11. 193 (14.11.: 37), Ursach | Termin 23.11. |
@@ -325,7 +325,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | Termin 23.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 
-**Sokrates** – offen 34, Muss 7, startbar 4
+**Sokrates** – offen 38, Muss 7, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -363,6 +363,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1509 | K | Systemlösung? Nebel: 6 frühere Vorgänge (502, 505, 1091, 785.7, 1145 …), neu 623.9; einmal | startbar |
 | 1510 | K | Systemlösung? Teich: 5 frühere Vorgänge (1155, 509, 507, 509a, 493), neu 623.9; einmal gru | startbar |
 | 1521 | K | Figurenkatalog Build 3 (Rest aus 649, 649b A; Perikles 17.11.: Muss 649 schließt nach Buil | wartet auf 649.3 (ruht) |
+| 1529 | K | Von Chef (17.11., 08:48, Idee, zu 930 Kerbensystem): Ausdauer im Kampf: hart angreifen kos | startbar |
+| 1532 | K | Von Chef (17.11., 08:41, Idee, ja zur Vorlage 08:46): Hinterhalt mit dem Rücken: Held steh | startbar |
+| 1533 | K | Von Chef (17.11., 08:44/08:52, Idee): Gegner ohne Zahlen: Zustand und Stärke in Worten nac | startbar |
+| 1534 | K | Von Chef (17.11., 08:53, Idee): Gegnerkunde: Reiter „Gegner“ in der Chronik, füllt sich mi | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
