@@ -12,7 +12,7 @@ Nie „Heldin“, immer „der Held“ (Chef 29.10.).
 
 
 **Abgabe:** 785.10 Tom (fehlt Schnell, Stufe/EP, Beutefarbe)
-**Übergabe (17.11., 08:46, `session_01Hmoj799mexZFzyA7jnwrsJ`):** 785.12 gebaut (`claude/jerry-785-12-urteil`, nächster Sammelbuild), t296 gegengelesen (1511), 1415 auf `main` gesetzt (wartet auf 709), 1514 und 1505 (Teil `wolf_mess_438`) in `claude/build-296` gemischt (`abc913d84`, Lauf ansehen). Nachfolger: Jerry – 1505: tod_ragdoll_1215
+**Übergabe (17.11., 10:19, `session_01Hmoj76TUvncWrgAWbXDgzh`):** 1505 behoben, build-296 Lauf 551 ganz grün (Tom benachrichtigt); 1340 gebaut; 785.11, 785.15, 785.17 gebaut (eigene Zweige, nächster Sammelbuild, Prüfpunkte unten); 649.2 wartet auf t296 (649b A: erst Kampfzweige auf `main`); 1275, 1527 erledigt, Rest als 1541 (M?, Perikles). Nachfolger: Jerry – Sammelbuild 785.11/785.15/785.17/785.12
 - **Zu 785.11 (Jerry 17.11., 09:59, `8a760b716` auf `claude/jerry-785-11-ziel`, von `main`):** Zielliste mit Reihe ab drei Stehenden, Wählbare mit Ring und Name, übrige gedämpft bei Angriff, Fähigkeit, Trank, Wurf; Test `zielwahl_78511`. Prüfpunkt im nächsten Sammelbuild als Handy: Probekampf Wölfe (drei), „Angriff“: Liste „Wolf 1 · vorn  25/25“, nicht erreichbarer Wolf und eigene Leute blass; „Tasche“ → Trank: Gegner blass.
 - **Zu 785.15 (Jerry 10:08, `c6c10a831` auf `claude/jerry-785-15-tipp`):** Prüfpunkt Handy: im Kampf lange auf einen Knopf drücken, Erklärfenster antippen → weg.
 - **Zu 785.17 (Jerry 10:15, `c61712b37` auf `claude/jerry-785-17-zurueck`):** Prüfpunkt Handy: im Kampf „Angriff“, dann Android-Zurück → wieder die Befehle, Kampf bleibt.
