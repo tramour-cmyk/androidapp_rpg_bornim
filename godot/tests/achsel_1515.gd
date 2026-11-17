@@ -1,7 +1,7 @@
 # 1515 (Chef 17.11., 07:32, Bild Hauptmenü Build 295): vor dem Schild der Wachsoldatin „ein weißes Etwas“. Ursache (Messung Tom 08:06):
 # Dreiecke des Kettenhemds an der Achsel verbanden Ecken am Unterarm mit Ecken an der Brust; ging der Arm vom Körper weg, spannte sich
 # das Stück vom Gürtel zum Arm. Ohne Bild: je Tracht der Menühelden die Dreiecke der Kleidung, deren Ecken (nach dem größten Gewicht) an
-# Unterarm oder Hand und zugleich an Becken oder Rumpf hängen. Erlaubt: keins.
+# Unterarm oder Hand und zugleich an Becken oder Rumpf hängen; dazu die Leute (held_L_*, 1535). Erlaubt: keins.
 # Run: godot --headless --path godot -s res://tests/achsel_1515.gd   (ohne Kaufdateien „ohne Kauf“, 0)
 extends SceneTree
 
@@ -31,6 +31,26 @@ func _lauf() -> void:
 				fehler += 1
 		m.queue_free()
 		await process_frame
+	# 1535 (Chef 17.11., 09:18: Kleidung hängt auch bei anderen Leuten in der Ruhebewegung an einer Hand): die Leute auf dem Kaufkörper
+	var d := DirAccess.open("res://daten")
+	if d:
+		for f in d.get_files():
+			if not (f.begins_with("held_L_") and f.ends_with(".bin")): continue
+			var sc := Gebiet.lade_glb("res://daten/" + f)
+			if sc == null: continue
+			root.add_child(sc)
+			await process_frame
+			var sk2 := Gebiet.finde(sc, "Skeleton3D") as Skeleton3D
+			if sk2:
+				for me_ in sk2.find_children("*", "MeshInstance3D", true, false):
+					var me := me_ as MeshInstance3D
+					if me.skin == null or me.mesh == null: continue
+					var n := _bruecken(sk2, me)
+					if n > 0:
+						print("FEHLER %s %s: %d Dreiecke verbinden Unterarm und Rumpf" % [f, me.name, n])
+						fehler += 1
+			sc.queue_free()
+			await process_frame
 	print("ACHSEL1515 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
