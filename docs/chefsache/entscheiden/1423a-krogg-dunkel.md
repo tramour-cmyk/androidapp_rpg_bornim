@@ -22,6 +22,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c4380c
 - **B:** den Helden in der Höhle im Schatten leicht aufhellen (wie draußen am Tag, Umriss erkennbar), etwa 1 $, Bild an dich.
 - **Stärkstes Gegenargument gegen A:** Ohne Fackel verliert der Spieler seinen Helden hinter Wänden aus dem Blick, gerade neben einem Gegner. Wie stark, ist am Handy nicht gemessen; im Bild ist er nur noch zu ahnen.
 
+**Stellungnahme Sokrates (17.11., 09:18):** Was fehlt: wer im Spiel betroffen ist. Die Fackel sitzt in der Nebenhand (399.1, wie alt), dort sitzt auch der Schild (1291a D). Wachsoldat und Kleriker mit Schild stehen in der Höhle also immer ohne eigenes Licht; für sie ist „nimm eine Fackel“ eine echte Wahl Schild gegen Licht, und genau die soll das Spiel haben (Leitbild). Stärker als Toms Gegenargument ist: die Tuschelinie (Stil 2) ist dunkel und hilft vor Schwarz nicht, der Held ist dann wirklich weg; gemessen ist nur am Rechner, nicht am Handy. Empfehlung: **A**, mit einer Prüfzeile im nächsten Sammelbuild „Held mit Schild bei Krogg am Handy: findest du ihn?“; findest du ihn nicht, ist B (etwa 1 $) der Rückweg, ohne neue Vorlage.
+
 **Folgerungen:** A: nichts zu tun, 1423 (Höhlenwände) bleibt wie gebilligt. B: Tom baut die Aufhellung und schickt ein Bild bei Krogg alt gegen neu.
 
 ![Krogg: links alt, rechts neu](../bilder/1423-krogg-2.webp)

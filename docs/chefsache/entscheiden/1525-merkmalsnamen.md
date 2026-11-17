@@ -30,6 +30,8 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/265cf1a2
 - **C:** A, aber „schwächlich“ weglassen (dafür „lädiert / bruised“).
 - **Stärkstes Gegenargument gegen A:** Auf Stufe 2 sind Name und Beschreibung die einzige Auskunft; wer „schwächlich“ oder „altersschwach“ liest, kann alt und angeschlagen verwechseln, und drei Wörter je Merkmal muss man erst lernen. „Schwächlich“ heißt eigentlich „von Natur schwach“, die Beschreibungen zeigen meist Wunden (einige Erschöpfung, dazu passt es). Darum C als Ausweg; die Wirkung auf Stufe 3 und der gleiche Name im Kampf mildern es.
 
+**Stellungnahme Sokrates (17.11., 09:18):** Bei Spieltexten bleibt Homers Empfehlung maßgeblich; ich prüfe nur die Regel dahinter. Sie passt zu 1533 (Gegner ohne Zahlen): wenn das Lesen später mit der Kenntnis je Art wächst, braucht Stufe 2 Wörter, die man auseinanderhält. Darum wiegt Homers eigenes Gegenargument schwerer als die Abwechslung: „altersschwach“ (alt) und „schwächlich“ (angeschlagen) sagen beide „schwach“; auf Stufe 2 ohne Wirkung ist das eine echte Verwechslung. Empfehlung: **C** (A ohne „schwächlich“, dafür „lädiert“); dein „angeschlagen passt eigentlich auch“ ist damit erfüllt.
+
 **Folgerungen:** Nach A oder C: Homer trägt die Namen als `[1489.name.tier.<merkmal>.<1–3>]` ein (fremd geprüft), Vorgang an Jerry zum Einbau mit 1488s Texten. Nach B: 1525 erledigt. Untote, Goblins, Kobold (`STORY-MERKMALE-WAFFEN.md`) bleiben bei einem Namen, bis du es dort auch willst.
 
 Antwort: …

@@ -30,6 +30,8 @@ Beim Chef, weil: Aussehen (wie der Held in jeder Rüstung aussieht)
 1. Lederkappe und Helm: bis zu einem eigenen Teil als Kapuze zeigen (wie Stufe 1).
 2. Mantel: als Umhang zeigen, sobald der Umhang nicht mehr ruht; bis dahin unsichtbar.
 
+**Stellungnahme Sokrates (17.11., 09:19):** Was fehlt: welche Stücke man in Kapitel 1 überhaupt anlegt. Ritterteile sind Stufe 3 bis 7 und kosten 40 bis 1500 (Brustplatte 400, Plattenpanzer 1500); sicher in Kapitel 1 sind die fremden Lederteile (Lederrüstung, Lederstiefel, Handschuhe), das Kettenhemd und Kroggs Pranken (Ritter-Arme). Ob Platte in Kapitel 1 zu haben ist, ist nicht belegt. Stärkstes Gegenargument: das Guthaben, bei heutigem Verbrauch 80 % etwa heute 19:00 (287: dann nur Muss), und Stufe 1 ist noch nicht getestet (Build 295). Dafür: es ist dein Fund vom 15.11. und Muss, Tom hat Deckel und Abbruch schon eingebaut. Empfehlung: **A** wie Tom, aber erst nach deinem Test von Stufe 1 in Build 295; Messung zuerst mit den Kapitel-1-Stücken (Leder am Wachsoldaten, Kroggs Pranken), Platte zuletzt. Offene Fragen 1 und 2 wie vorgeschlagen.
+
 **Folgerungen:** Bei A oder B: Tom baut auf `claude/tom-431-ausruestung` (nach Build 295, damit Stufe 1 vorher getestet ist), Messung, Film an dich, dann Sammelbuild mit Prüfzeile (Rüstung an- und ausziehen am Handy). Bei C: 431h ruht bis nach dem Meilenstein, Tom nimmt den nächsten Vorgang.
 
 Antwort: …
