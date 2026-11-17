@@ -354,7 +354,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M | –; +2,98 $ | Team Tom | erledigt |
 | 267.2 | Blende in Wäldern wartet auf den ganzen Boden, Ladebalken (Chef 22.10., 11:22: Tiefer Wald ruckelig) | E Technik | M | – | Team Tom | erledigt |
 | 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | 11,09 $ | Team Jerry | erledigt |
-| 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | 0,77 $ | Team Tom | erledigt |
+| 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | 18,61 $ | Team Tom | erledigt |
 | 301.1 | Kampfzeilen „stattdessen“ in Varianten, wenn ein Gegner umzielen muss (Chef 22.10., 12:37) | E Kampf | M | –; +1,20 $ | Homer | erledigt |
 | 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | – | – | Perikles | erledigt |
 | 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | erledigt |
