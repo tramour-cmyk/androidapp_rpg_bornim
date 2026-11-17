@@ -18,6 +18,7 @@ gegenstaende_870
 begriffe_868
 tasche_532
 absicht_1049
+merkmale_1488
 krogg_494
 erklaerung_954
 wende_4168
@@ -74,6 +75,7 @@ eingebung_1296
 meldung_1305
 tempo_600
 arkan_993
+fx_623
 karten_regeln
 laden_503
 fertigkeiten_762
@@ -82,6 +84,7 @@ tritte_560
 blende_594
 reihe_836
 eingebung_840
+ring_785
 bericht_1031
 eingebung_986
 bewegung_997
@@ -156,6 +159,8 @@ gang_744
 position_518
 sterben_596
 lohn_870
+heldkasten_78510
+schnell_78510
 brs_blatt_870
 effekte_814
 brs_471
@@ -184,3 +189,8 @@ renntaste_78523
 faecher_1309
 kartenhoehe_1295
 grafik_698
+zucken_6011
+zielwahl_78511
+tipp_78515
+zurueck_kampf_78517
+wasser_kit_1155

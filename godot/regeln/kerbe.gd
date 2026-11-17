@@ -608,7 +608,7 @@ func held_zug(f, p: Dictionary) -> void:
 		if m.outcome == "ONGOING":
 			_setzt_nach(f, false)
 		return
-	if bool(p.get("loesen", false)) and kerbe > _i("loesen"):     # Regel 3
+	if bool(p.get("loesen", false)) and kerbe >= _i("loesen"):     # Regel 3 (1275, Homer 16.11., 00:17: „kostet 1“, auch mit der letzten Kerbe)
 		kerbe -= _i("loesen")
 		_marke(f, M_FREI, M_GESCHLAGEN, _i("loesen"))
 		var nahe := gegner().filter(func(g): return int(g.gl.ab) == NAH)

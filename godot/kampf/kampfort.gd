@@ -228,6 +228,12 @@ func _ready() -> void:
 		tor = "einschuechtern"
 		ui.refresh()
 		return
+	# 785.10 (259, alt SkirmishScreen.kt 1395–1404): im leichten Kampf (mars.easy: Held mindestens leicht_ab Stufen über dem
+	# stärksten Gegner, kein Boss) wartet der Kampf auf „Kämpfen“ oder „Schnell“ (kampf_ui.gd); nicht mit Kerben (930.6)
+	if mars.easy() and not mars.kerbe:
+		tor = "leicht"
+		ui.refresh()
+		return
 	_run(func(): mars.start(_react))
 
 
@@ -238,6 +244,22 @@ func tor_wahl(verjagen: bool) -> void:
 		return
 	tor = ""
 	_run(func(): mars.start(_react, verjagen))
+
+
+## 785.10 (259, alt SkirmishScreen.kt 749–767 quick): „Schnell“ spielt den leichten Kampf mit der Automatik in einem Rutsch ohne
+## Bilder (mars.quick, quick_run: keine Beats); danach ein Bild mit dem Stand (Gefallene fallen, Leisten), hält er unter einem
+## Drittel Leben an, sagt es [259T.halt] und der Held übernimmt. schnell_verlust: wer wie viel Leben verlor ([259T.tafel])
+const SCHNELL_HALT := ["Schnell hält an: {0} ist unter einem Drittel des Lebens. Du übernimmst.", "Quick stops: {0} is below a third of their life. You take over."]   # [259T.halt]
+var schnell_verlust := {}
+func schnell() -> void:
+	if mars.outcome != "ONGOING" or not mars.easy() or mars.kerbe or (busy and tor == ""):
+		return
+	tor = ""
+	_run(func() -> void:
+		var r: Dictionary = mars.quick()
+		schnell_verlust = r.get("lost", {})
+		var halt: String = String(SCHNELL_HALT[mars.lang]).replace("{0}", mars.all[0].name(mars.lang)) if r.get("stopped", false) else ""
+		mars._say(halt))
 
 
 ## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht
@@ -284,6 +306,7 @@ func _setup_world() -> void:
 	env.adjustment_enabled = true
 	env.adjustment_saturation = 0.8
 	env.adjustment_contrast = 1.06
+	Licht.setze_gluehen(env)     # 1270.4 ab Grafikstufe Hoch
 	env.fog_enabled = true
 	env.fog_light_color = Color(0.09, 0.14, 0.15)         # Waldinneres (ForestCam #14221A); Stand 9: oben doppelt so hell wie alt, grau; Runde 4: gelbstichig, kühler
 	# Ferne heller im Dunst (Prüfer Lauf 14: Wald oben dunkel), aber nach Tiefe: erst ab 16 m (Gruppe 13 m, Gegner 15–17 m)
@@ -295,6 +318,7 @@ func _setup_world() -> void:
 	env.fog_density = 1.0
 	var we := WorldEnvironment.new()
 	we.environment = env
+	we.add_to_group("grafik_gluehen")     # 1270.4: Grafik.setze schaltet das Glühen mit
 	add_child(we)
 	var sun := DirectionalLight3D.new()
 	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:
@@ -1352,6 +1376,8 @@ func _play_say(e: Dictionary) -> void:
 		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	var vor_gl: Dictionary = shown.get("gl", {}) if shown is Dictionary else {}
 	shown = e
+	if ui != null:
+		ui.ring_folge(e)     # 785.12: „Gut“ allein bei Fehlschlag, Antwort der Klasse unter dem Urteil
 	# 930.7 (DESIGN-GLUT.md 8): Kerben der Meldung (Blitz, Verstreichen, Vertiefen); die Stichworte des Kerbensystems ohne Zeile
 	# halten den Kampf nur so lange an, wie ihr Bild dauert (F9: Rundenzeit nicht länger als heute), nicht SAY_MS
 	if ui != null and ui.kerbe != null:
@@ -1494,6 +1520,7 @@ func _play_say(e: Dictionary) -> void:
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
+	_fx_szene2(e, actor, target, by, tg, across, lands, lunge_ms, fx)
 	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
 	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden
 	if target != null and actor != null and e.damage > 0 and figures.has(target) and tg != null:
@@ -1564,7 +1591,7 @@ func _play_say(e: Dictionary) -> void:
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
 func _zeigen(e: Dictionary) -> void:
 	if e.text != "" and not e.get("vorweg", false):
-		ui.log_line(e.text, e.get("cue") == "EINGEBUNG")     # 840: die Eingebung des Helden in eigener Farbe
+		ui.log_line(e.text, e.get("cue") in ["EINGEBUNG", "RING_ERSTER"])     # 840: Eingebung in eigener Farbe; 785.12 wie sie (219T)
 	ui.refresh()
 	ui.show_roll(e)
 
@@ -1629,6 +1656,85 @@ func _missed(e: Dictionary) -> bool:
 	if e.roll[0] == "SAVE":
 		return e.roll[4] and e.damage == 0
 	return not e.roll[4]
+
+
+## 623.2 (623.8 A Szene 2 Wolfskampf; werte.json fx, TrefferFx): Klingenspur beim Hieb, Blut und kritischer Treffer am Getroffenen,
+## Parade am Schild, Luftzug beim Ausweichen, Staub beim Aufprall des Sprungs; alles zum Aufschlag [lands]. Ohne Paket oder unter
+## Grafikstufe Mittel nichts (TrefferFx.aktiv)
+const FX_SPUR_VOR_MS := 320     # die Klingenspur zeichnet so lange vor dem Aufschlag (der Schwung) …
+const FX_SPUR_NACH_MS := 90     # … und so lange danach
+const FX_LUFTZUG_MS := 450
+
+func _fx_szene2(e: Dictionary, actor: Variant, target: Variant, by: Variant, tg: Variant, across: bool, lands: int, lunge_ms: int, fx: Variant) -> void:
+	if not TrefferFx.aktiv() or actor == null or target == null or not across or not figures.has(actor) or not figures.has(target):
+		return
+	var af: Variant = figures[actor]
+	var tf: Variant = figures[target]
+	var gruppe := fx_waffengruppe(by)
+	if lunge_ms > 0 and fx == null and af.model != null:
+		var name := TrefferFx.fuer_monster(String(by.monster.id), "hieb") if by.monster != null else TrefferFx.fuer_waffe(gruppe, "hieb")
+		var w := af.model.find_child("Waffe", true, false) as Node3D
+		if name != "" and w != null and w.visible:
+			var kl := TrefferFx.klinge(w)
+			if kl.size() == 2:
+				# Band zur Kamera hinter der Spitze (R3 steel_slash als Band): als Klinge (Fläche zwischen Griff und Spitze) lag die
+				# Spur bei Stich und Hieb von oben oft auf der Kante zur Kamera, nur ein Strich war zu sehen (Probebild 17.11.)
+				var spitze := Node3D.new()
+				spitze.name = "Spitze623"
+				spitze.position = (kl[0] as Vector3).lerp(kl[1], 0.85)
+				w.add_child(spitze)
+				var ab_s := maxi(0, lands - FX_SPUR_VOR_MS) / 1000.0
+				var dauer_s := (FX_SPUR_VOR_MS + FX_SPUR_NACH_MS) / 1000.0
+				if TrefferFx.spur(name, self, spitze, ab_s, dauer_s) == null:
+					spitze.queue_free()
+				else:
+					get_tree().create_timer(ab_s + dauer_s + 0.2).timeout.connect(func() -> void: if is_instance_valid(spitze): spitze.queue_free())
+	var richt: Vector3 = (tf.position - af.position) * Vector3(1, 0, 1)
+	richt = richt.normalized() if richt.length() > 0.01 else Vector3.FORWARD
+	var hoehe: float = tf.head().y - tf.position.y
+	var sprung: bool = lunge_ms > 0 and af.letzter_sprung and by.monster != null
+	var wann := lands / 1000.0
+	if sprung:
+		var staub := TrefferFx.fuer_monster(String(by.monster.id), "sprung")
+		var boden: Vector3 = tf.position - richt * ui._girth(tf)
+		get_tree().create_timer(wann).timeout.connect(func() -> void: TrefferFx.zeige(staub, self, boden, af.head().y - af.position.y))
+	if e.damage > 0:
+		var brust: Vector3 = tf.position + Vector3.UP * hoehe * 0.55 - richt * ui._girth(tf) * 0.6
+		var namen := []
+		if e.wound and blood_level() > 0:
+			namen.append(TrefferFx.fuer_anlass("treffer"))
+		if _crit(e):
+			namen.append(TrefferFx.fuer_anlass("kritisch"))
+		if by.monster == null and fx == null:
+			namen.append(TrefferFx.fuer_waffe(gruppe, "treffer"))
+		get_tree().create_timer(wann).timeout.connect(func() -> void:
+			for n: String in namen:
+				TrefferFx.zeige(n, self, brust, hoehe, richt))
+	elif _missed(e) and tf.blockt() and e.cue != "EVADED":
+		var schild := tf.model.find_child("Schild", true, false) as Node3D if tf.model != null else null
+		var at: Vector3 = to_local(schild.global_position) if schild != null and schild.visible else tf.position + Vector3.UP * hoehe * 0.55 - richt * ui._girth(tf)
+		at -= richt * 0.1     # vor dem Schild, auf der Seite des Angreifers
+		get_tree().create_timer(wann).timeout.connect(func() -> void: TrefferFx.zeige(TrefferFx.fuer_anlass("parade"), self, at, 1.8, -richt))
+	elif _missed(e):
+		var ab: int = maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands
+		var halter := Node3D.new()
+		halter.name = "Luftzug"
+		halter.position = Vector3.UP * hoehe * 0.5
+		tf.add_child(halter)
+		if TrefferFx.spur(TrefferFx.fuer_anlass("ausweichen"), self, halter, ab / 1000.0, FX_LUFTZUG_MS / 1000.0) == null:
+			halter.queue_free()
+		else:
+			get_tree().create_timer(ab / 1000.0 + FX_LUFTZUG_MS / 1000.0 + 1.6).timeout.connect(func() -> void: if is_instance_valid(halter): halter.queue_free())
+
+
+## 623.2: Waffengruppe des BRS (werte.json „waffen“) der Waffe in der Hand; "" bei Gegnern
+func fx_waffengruppe(f: Variant) -> String:
+	if f == null or f.hero == null:
+		return ""
+	var w: Variant = f.weapon()
+	if w == null or String(w.id) == "":
+		return "Faustkampf"
+	return String(preload("res://regeln/brs_held.gd").WAFFE_GRUPPE.get(String(w.id), "Bogen" if bool(w.ranged) else "Einhänder"))
 
 
 ## Kritisch nur bei einem Angriff mit der 20 (eine 20 beim Rettungswurf zählte bisher auch)

@@ -168,8 +168,8 @@
     "_puffer": "an der Rangdecke werden bis zu 15 Uebung gemerkt",
     "probe_siege": 3,
     "grundwert_schwellen": [15, 25, 50, 75, 100],
-    "_grundwert_schwellen": "644a.1 B (Chef 14.11., 22:03, ersetzt 644a F grundwert_punkte 10): ein Grundwert steigt um 1, sobald die beste Fertigkeit an ihm den Wert 15, 25, 50, 75, 100 erreicht (Wert, nicht Gewinn; hoechstens +5; nur die beste je Grundwert); grundwert_von nach DESIGN-BRS.md Abschnitt 3 (1255 A), Lederarbeit wie Schneidern",
-    "grundwert_von": {"Einhänder": "kraft", "Zweihänder": "kraft", "Stangenwaffen": "kraft", "Stumpfe Waffen": "kraft", "Faustkampf": "kraft", "Einschüchtern": "kraft", "Bergbau": "kraft", "Schmieden": "kraft", "Dolche": "gewandtheit", "Wurfwaffen": "gewandtheit", "Bogen": "gewandtheit", "Ausweichen": "gewandtheit", "Schleichen": "gewandtheit", "Schlösser knacken": "gewandtheit", "Fallen entschärfen": "gewandtheit", "Schneidern": "gewandtheit", "Lederarbeit": "gewandtheit", "Leichte Rüstung": "zaehigkeit", "Mittlere Rüstung": "zaehigkeit", "Schwere Rüstung": "zaehigkeit", "Schild": "zaehigkeit", "Evokation": "verstand", "Illusion": "verstand", "Beschwörung": "verstand", "Handeln": "verstand", "Alchemie": "verstand", "Kochen": "verstand", "Runenkunde": "verstand", "Heilkunde": "verstand", "Heilmagie": "wille", "Schutzmagie": "wille", "Überreden": "wille", "Tiere beruhigen": "wille", "Armbrust": "wahrnehmung", "Spähen": "wahrnehmung", "Kräutersammeln": "wahrnehmung", "Angeln": "wahrnehmung", "Jagd": "wahrnehmung"},
+    "_grundwert_schwellen": "644a.1 B (Chef 14.11., 22:03, ersetzt 644a F grundwert_punkte 10): ein Grundwert steigt um 1, sobald die beste Fertigkeit an ihm den Wert 15, 25, 50, 75, 100 erreicht (Wert, nicht Gewinn; hoechstens +5; nur die beste je Grundwert); grundwert_von nach DESIGN-BRS.md Abschnitt 3 (1255 A), Schneidern (975a A, 1460)",
+    "grundwert_von": {"Einhänder": "kraft", "Zweihänder": "kraft", "Stangenwaffen": "kraft", "Stumpfe Waffen": "kraft", "Faustkampf": "kraft", "Einschüchtern": "kraft", "Bergbau": "kraft", "Schmieden": "kraft", "Dolche": "gewandtheit", "Wurfwaffen": "gewandtheit", "Bogen": "gewandtheit", "Ausweichen": "gewandtheit", "Schleichen": "gewandtheit", "Schlösser knacken": "gewandtheit", "Fallen entschärfen": "gewandtheit", "Schneidern": "gewandtheit", "Schneidern": "gewandtheit", "Leichte Rüstung": "zaehigkeit", "Mittlere Rüstung": "zaehigkeit", "Schwere Rüstung": "zaehigkeit", "Schild": "zaehigkeit", "Evokation": "verstand", "Illusion": "verstand", "Beschwörung": "verstand", "Handeln": "verstand", "Alchemie": "verstand", "Kochen": "verstand", "Runenkunde": "verstand", "Heilkunde": "verstand", "Heilmagie": "wille", "Schutzmagie": "wille", "Überreden": "wille", "Tiere beruhigen": "wille", "Armbrust": "wahrnehmung", "Spähen": "wahrnehmung", "Kräutersammeln": "wahrnehmung", "Angeln": "wahrnehmung", "Jagd": "wahrnehmung"},
     "_probe_siege": "Bewaehrungsprobe: 3 Siege gegen Gegner mindestens der eigenen Stufe, in denen die Fertigkeit benutzt wurde"
   },
 
@@ -308,6 +308,15 @@
   },
 
   "merkmale": {
+    "exemplar": {"_quelle": "1488 (1411b A, Chef 16.11., 20:59; Werte wie Rechnung 1411.1, merkmale_1411.py): je Exemplar hoechstens ein Merkmal, Bosse fest, Ockerschleim ohne; klein (geringer Schaden) nur das Leben der Tiermerkmale (Annahme 1488)",
+      "gewoehnlich": 0.5,
+      "gruppen": {
+        "tier": {"arten": ["Wolf", "Jungwolf", "Wildschwein", "Riesen-Hundertfüßer", "Riesenspinne", "Blutflügler"],
+          "merkmale": {"jung": {"leben": 0.85, "angriff": 0.90, "abwehr": 1.10}, "alt": {"leben": 0.90, "angriff": 0.90}, "kräftig": {"leben": 1.15, "schaden": 1.15}, "angeschlagen": {"leben": 0.70}}},
+        "klein": {"arten": ["Riesenratte", "Riesenfledermaus"],
+          "merkmale": {"jung": {"leben": 0.85}, "alt": {"leben": 0.90}, "kräftig": {"leben": 1.15}, "angeschlagen": {"leben": 0.70}}},
+        "waffe": {"arten": ["Skelett", "Zombie", "Ghul", "Goblin", "Goblin-Späher", "Goblin-Schamane", "Kobold"],
+          "merkmale": {"rostige Waffe": {"schaden": 0.75}, "gute Waffe": {"schaden": 1.20}, "brüchig": {"leben": 0.80}, "zäh": {"leben": 1.20}}}}},
     "_quelle": "427.1 (Jerry 02.11.): aus dem alten Spiel umgerechnet (core Packs.kt, Battle.kt, Monsters.kt), A; 1 Punkt W20 = 5 % = 10 Punkte Angriff (trefferchance_je_punkt 0,5)",
     "rudel": {
       "_info": "A: Begleiter stehen hinter dem Anfuehrer, jeder greift je Runde nach ihm mit 'chance' an, nicht angreifbar (angreifbar: false; Jungwolf im Spiel angreifbar), fliehen, wenn er faellt (wie im alten Spiel). Angriff = Anfuehrer + angriff_verschiebung, Schaden = Anfuehrer x schaden_anteil",
@@ -413,7 +422,7 @@
       "Mittlere Rüstung": {"ding": "Kettenhemd", "preis": 50, "material": "Metall", "rang": "Geselle"},
       "Leichte Rüstung":  {"ding": "Lederrüstung", "preis": 10, "material": "Leder", "rang": "Anfänger"},
       "Schild":           {"ding": "Schild", "preis": 10, "material": "Metall", "rang": "Geselle"},
-      "material_fertigkeit": {"Metall": "Schmieden", "Leder": "Lederarbeit", "Stoff": "Lederarbeit", "Holz": "Schmieden"},
+      "material_fertigkeit": {"Metall": "Schmieden", "Leder": "Schneidern", "Stoff": "Schneidern", "Holz": "Schmieden"},
       "_holz": "A: Boegen repariert der Schmied (Geselle), N 11 nennt Boegen beim Gesellen ohne Werkstoff"
     },
 
@@ -463,7 +472,7 @@
       "Wildnis": ["Tiere beruhigen"],
       "Gesellschaft": ["Überreden", "Einschüchtern", "Handeln"],
       "Sammeln": ["Kräutersammeln", "Bergbau", "Angeln", "Jagd"],
-      "Meisterschaften": ["Schmieden", "Lederarbeit", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
+      "Meisterschaften": ["Schmieden", "Schneidern", "Alchemie", "Kochen", "Runenkunde", "Heilkunde"],
       "_fertigkeiten": "N 3: 37 Fertigkeiten in acht Gruppen; Bergbau zeigt sich ab Kapitel 2 (461c), zur Wahl erst dann"
     },
     "nicht_waehlbar": ["Bergbau", "Illusion", "Beschwörung"],
@@ -556,16 +565,16 @@
     "gebiet": {"forest": "Wald", "deep_forest": "Tiefer Wald", "cave": "Höhle"},
     "_gebiet": "Karte -> Gebiet fuer den Erfahrungstopf (lohn.gd, Brs.gib_erfahrung); andere Karten ohne Topf",
     "start": {
-      "Wachsoldat": ["longsword", "chain_shirt", "round_shield"],
-      "Jägerkind": ["shortbow", "leather"],
-      "Zauberlehrling": ["quarterstaff", "robe"],
-      "Klosterschüler": ["quarterstaff", "leather"],
-      "Kräutersammler": ["dagger", "leather"],
-      "Schmiedelehrling": ["quarterstaff", "leather"],
-      "Herumtreiber": ["dagger", "leather"],
-      "Wanderer": ["shortsword", "leather"]
+      "Wachsoldat": ["longsword", "chain_shirt", "round_shield", "wraps", "boots", "cloak"],
+      "Jägerkind": ["shortbow", "leather", "hood", "gloves", "boots"],
+      "Zauberlehrling": ["quarterstaff", "robe", "leggings"],
+      "Klosterschüler": ["quarterstaff", "novice_habit", "wraps", "leggings"],
+      "Kräutersammler": ["dagger", "forager_shirt", "wraps", "leggings"],
+      "Schmiedelehrling": ["quarterstaff", "smith_shirt", "wraps", "leggings"],
+      "Herumtreiber": ["dagger", "leather", "gloves", "boots"],
+      "Wanderer": ["shortsword", "wayfarer_shirt", "wraps", "leggings"]
     },
-    "_start": "Klosterschueler und Schmiedelehrling bis 458.3 Kampfstab statt Streitkolben (870e Nachtrag, kein Modell). Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
+    "_start": "Klosterschueler und Schmiedelehrling bis 458.3 Kampfstab statt Streitkolben (870e Nachtrag, kein Modell). Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; 431h A (Chef 16.11., 10:08): dazu die Kleidung der Tracht in Kopf, Armen, Beinen, Umhang (der Held traegt, was in den Plaetzen steht), Kutte und Hemden (1401) mit den Werten der Lederruestung; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
   },
   "zustaende": {
     "_quelle": "870.6 (Zu 870.6 von Tom 11.11., 02:13; Sokrates 20:05): was im Kampf noch in Wuerfeln der alten Fassung rechnete (Gift, Brand, Blutung, Schwaechung, Saettigung, Sammeln des Schamanen, Untotenzaehigkeit) nach dem BRS, ohne Massstab der alten Trefferpunkte. Alle Zahlen A, bis 444 sie misst (dann Chef)",
@@ -710,5 +719,34 @@
     "bugbear":           {"art": "Krogg",              "de": "Krogg der Grobian",      "en": "Krogg the Brute",    "gruppe": "Bärenschrat", "kartengruppe": "KROGG"},
     "dire_wolf":         {"art": "Grimmzahn",          "de": "Grimmzahn, der Leitwolf", "en": "Grimfang, the Pack Leader", "gruppe": "Tier", "kartengruppe": "GRIMM", "ruhe": ["Lefzen", "UmsehenL", "UmsehenR", "Scharren", "Hecheln", "Knurren"], "sitz": ["HockeUmsehenL", "HockeUmsehenR", "HockeHecheln", "HockeKnurren"], "groesse_modell": 1.75},
     "hobgoblin_captain": {"art": "Grak",               "de": "Hauptmann Grak",         "en": "Captain Grak",       "gruppe": "Goblin-Hauptmann", "kartengruppe": "GRAK"}
+  },
+
+  "fx": {
+    "_quelle": "623.2 (623 E, 623.8 A Szene 2 Wolfskampf): je Anlass der Effekt im Kampf, Zuordnung LISTE-EFFEKTE.md; Pakete nur im Bau (godot.yml, Lizenz: nie ins Repo), fehlt eines, bleibt es wie bisher. art: teilchen (Szene des Pakets), spur (Trail3D-Stil, R3), geschoss (R2). Gedämpft (623.8 A): glanz = Faktor auf emission_energy, grau = Anteil Richtung ton (Helligkeit bleibt), hell = Faktor auf die Farbe, lichter false = Punktlichter weg (am Handy je Licht teuer), weg = Knoten weg; groesse in m je 1,8 m Körperhöhe",
+    "effekte": {
+      "klingenspur": {"art": "spur", "pfad": "res://addons/reeboo_trails/presets/steel_slash.tres", "farbe": [0.86, 0.84, 0.78, 0.85], "energie": 0.9, "breite": 1.0, "shader": {"body_alpha": 0.7, "edge_width": 0.06}},
+      "luftzug":     {"art": "spur", "pfad": "res://addons/reeboo_trails/presets/dash_wind.tres", "farbe": [0.70, 0.70, 0.66, 0.30], "energie": 0.35, "breite": 0.5},
+      "pfeilspur":   {"art": "spur", "pfad": "res://addons/reeboo_trails/presets/arrow_streak.tres", "farbe": [0.80, 0.77, 0.70, 0.55], "energie": 0.55},
+      "blut":        {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/pack3_effects/blood_hit.tscn", "glanz": 1.0, "grau": 0.15, "ton": [0.45, 0.02, 0.03], "hell": 0.8, "groesse": 0.6},
+      "kritisch":    {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/critical_hit.tscn", "glanz": 0.3, "grau": 0.55, "ton": [0.85, 0.62, 0.30], "lichter": false, "groesse": 0.55},
+      "parade":      {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/parry_block.tscn", "glanz": 0.3, "grau": 0.75, "ton": [0.90, 0.74, 0.45], "lichter": false, "weg": ["Flash", "Ring", "Arc", "Shield"], "groesse": 0.25},
+      "staubschlag": {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/dust_impact.tscn", "glanz": 0.8, "grau": 0.3, "ton": [0.55, 0.48, 0.38], "hell": 1.25, "lichter": false, "weg": ["Flash", "Ring", "Wave"], "groesse": 0.3},
+      "arkan":       {"art": "geschoss", "pfad": "res://addons/reeboo_projectiles/elements/arcane/arcane_projectile.tscn"},
+      "rauch":       {"art": "teilchen", "pfad": ["res://addons/reeboo_vfx/effects/smoke_poof.tscn", "res://addons/reeboo_vfx/pack3_effects/smoke_poof.tscn"]},
+      "brennend":    {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/effects/burning.tscn"},
+      "vergiftet":   {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/status_effects/poisoned.tscn"},
+      "blutend":     {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/status_effects/bleeding.tscn"},
+      "betaeubt":    {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/status_effects/shocked.tscn"},
+      "verlangsamt": {"art": "teilchen", "pfad": "res://addons/reeboo_vfx/status_effects/chilled.tscn"}
+    },
+    "anlass": {"treffer": "blut", "kritisch": "kritisch", "parade": "parade", "ausweichen": "luftzug"},
+    "waffengruppe": {
+      "Faustkampf": {}, "Dolche": {"hieb": "klingenspur"}, "Einhänder": {"hieb": "klingenspur"}, "Zweihänder": {"hieb": "klingenspur"},
+      "Stangenwaffen": {"hieb": "klingenspur"}, "Stumpfe Waffen": {"treffer": "staubschlag"},
+      "Wurfwaffen": {}, "Bogen": {"geschoss": "pfeilspur"}, "Armbrust": {"geschoss": "pfeilspur"}
+    },
+    "zauber": {"MISSILES": "arkan", "BOMB_SMOKE": "rauch"},
+    "zustand": {"BURN": "brennend", "POISON": "vergiftet", "BLEED": "blutend", "STUN": "betaeubt", "SLOW": "verlangsamt"},
+    "monster": {"wolf": {"sprung": "staubschlag"}, "dire_wolf": {"sprung": "staubschlag"}}
   }
 }

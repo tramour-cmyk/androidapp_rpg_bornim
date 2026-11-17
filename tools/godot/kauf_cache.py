@@ -82,6 +82,11 @@ def _nicht_gelesen(block, run):
 # Ausnahme: die Kaufschilde (kampf, kaufschild.py) ersetzen daten/waffen/shield.bin und round_shield.bin aus „Leute bauen“; darum
 # holt der Bauserver erst nach den Dorftieren (Schritt vor „Kampfort bauen“).
 OHNE = ('godot/daten/leute/', 'godot/daten/tiere/', 'godot/daten/dorftiere/', 'godot/daten/kauf.txt')
+# 1552 (Jerry, Lauf 552: Funkenpfeil aus werte.json fx fehlte im Bau, FX623 „14 Effekte“ statt 16): Dateien, die „Karten und Texte“
+# aus dem Repo nach godot/daten kopiert, gehören zu keinem Block. Der Zweig bau/klassen-97f55… trug werte.json, gegenstaende.json,
+# pruefliste.json, logo.bild; holen legte sie über den Stand des Laufs (alte Regelwerte, alte Prüfliste im Reiter „Test“). Nie ablegen,
+# nie holen.
+QUELLEN = ('godot/daten/werte.json', 'godot/daten/gegenstaende.json', 'godot/daten/pruefliste.json', 'godot/daten/logo.bild')
 # 1115: was der Block leute selbst ablegt (Leute und alle Waffen); die übrigen Blöcke lassen es weiter draußen
 LEUTE_TEILE = ('godot/daten/leute/', 'godot/daten/waffen/')
 WAFFEN = ('godot/daten/waffen/shield.bin', 'godot/daten/waffen/round_shield.bin')
@@ -473,7 +478,7 @@ def holen(bloecke=None):
             if ZUSATZ not in namen:
                 print('KAUF-CACHE Zweig unvollständig', block, k, flush=True)
                 return 1
-            namen = [n for n in namen if n not in (ZUSATZ, EINGABEN)]
+            namen = [n for n in namen if n not in (ZUSATZ, EINGABEN) and n not in QUELLEN]
             if any(n.startswith(('/', '..')) or '/../' in n or not n.startswith(tuple(o + '/' for o in ORDNER)) for n in namen):
                 sys.exit('KAUF-CACHE fremder Pfad im Zweig')
             fehlt = _teile_pruefen(namen)
@@ -632,7 +637,7 @@ def _block_dateien(block):
         neu = sorted(p for p, w in b['stand'].items() if a['stand'].get(p) != w and p.startswith(LEUTE_TEILE)
                      and p != 'godot/daten/leute/leute.json')   # die Kopie von leute.json legt der Schritt immer neu hin
     else:
-        neu = sorted(p for p, w in b['stand'].items() if a['stand'].get(p) != w and not p.startswith(OHNE)
+        neu = sorted(p for p, w in b['stand'].items() if a['stand'].get(p) != w and not p.startswith(OHNE) and p not in QUELLEN
                      and (not p.startswith('godot/daten/waffen/') or p in WAFFEN))
     alt_liste = list(a['liste'])
     zusatz = []

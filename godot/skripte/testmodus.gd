@@ -162,8 +162,9 @@ static func feinde(alle := false) -> Dictionary:
 	var s = load("res://kampf/probe.gd") if ResourceLoader.exists("res://kampf/probe.gd") else null
 	if s == null: return {}
 	var r := {}
+	var en: bool = Sprache.aktiv() != "de"     # 1512: Knöpfe des Probekampfs auf Englisch
 	for g in s.FOES:
-		if alle or gruppe_da(String(g)): r[g] = s.FOES[g]
+		if alle or gruppe_da(String(g)): r[g] = s.FOES_EN.get(g, s.FOES[g]) if en else s.FOES[g]
 	return r
 # 555 (Chef 04.11., 11:52: „wenn ich auf eine Spinne klicke, dann kommt die nicht“): jede Figur der Aufstellung braucht ihr Modell. Vorher
 # zaehlten nur Gruppen, die ein Monster der Karte traegt; „Riesenspinne und Wolf“ (SPIDER) traegt keines und galt immer als da

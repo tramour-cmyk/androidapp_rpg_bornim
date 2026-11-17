@@ -182,9 +182,9 @@ func _kampf(k: String, bis_ende: bool) -> void:
 		print("FEHLER Gegner: %s" % [feinde.map(func(f): return "%s/%s" % [f.monster.id, f.monster.de])])
 	var leben := int(Brs.monster("skeleton").get("leben", -1))     # 922 (Lauf 346): BRS aus werte.json (36), nicht SRD 6–20
 	for f in feinde:
-		if f.max_hp != leben:
+		if f.max_hp != maxi(1, roundi(float(leben) * float(f.b.get("merkmal_fak", {}).get("leben", 1.0)))):     # 1488: mal Merkmal
 			fehler += 1
-			print("FEHLER Trefferpunkte %d (werte.json %d)" % [f.max_hp, leben])
+			print("FEHLER Trefferpunkte %d (werte.json %d, Merkmal %s)" % [f.max_hp, leben, f.b.get("merkmal", "–")])
 	if k == "FIGHTER":
 		for i in 30:
 			await process_frame

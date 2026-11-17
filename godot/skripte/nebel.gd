@@ -52,6 +52,11 @@ var breite := 0
 var hoehe := 0
 var sichtbar := PackedByteArray()  # Kachel jetzt in Sicht
 var frei := PackedByteArray()      # Kachel nah genug, nichts dazwischen (fuer in_sicht)
+## 531 (Chef 03.11., 23:42 „vertreibt Tiere sichtbar mit der Fackel“; Messung 17.11.: das Tier gibt 4,6-7,0 m vor dem Helden auf, ausser
+## seiner Sicht, der Nebel verbarg es): eine Fackel in fremder Hand leuchtet wie die des Helden (TORCH_SIGHT) und macht sichtbar, was
+## sie bescheint; Name -> [Kachel, Weite]
+var lichter := {}
+var licht_feld := PackedByteArray()  # Kachel von einem fremden Licht in Sicht
 var reich := 0.0
 var blick := Vector2(0, 1)
 var schluessel := ""
@@ -118,7 +123,7 @@ func _init(s, k: Karte) -> void:
 func _ready() -> void:
 	if not an and not rand_an: return
 	if an:
-		sichtbar.resize(breite * hoehe); frei.resize(breite * hoehe)
+		sichtbar.resize(breite * hoehe); frei.resize(breite * hoehe); licht_feld.resize(breite * hoehe)
 		erkundet = lade(spiel.zustand, karte.id, breite * hoehe)
 		ist.resize(breite * hoehe * SUB * SUB); ist.fill(1.0)
 		soll.resize(ist.size()); soll.fill(1.0)
@@ -288,14 +293,23 @@ func weite() -> float:
 	var w := BrsHeld.welt()
 	return s + 0.25 * maxi(0, spiel.held_werte().wert("wahrnehmung") - int(w.get("sinne_ab", 3)))
 
+## 531: fremdes Licht an [t] mit Weite [r] (Garricks Fackel); gleiche Werte rechnen nichts neu
+func licht(name: String, t: Vector2i, r: float) -> void:
+	if lichter.get(name, []) == [t, r]: return
+	lichter[name] = [t, r]; schluessel = ""; neu = true
+
+func licht_aus(name: String) -> void:
+	if not lichter.has(name): return
+	lichter.erase(name); schluessel = ""; neu = true
+
 func neu_sehen(h: Vector2i, gier: float) -> bool:
 	var grad := roundf(rad_to_deg(gier) / 5.0) * 5.0   # in Schritten von 5°, sonst rechnet jede kleine Drehung neu
 	var r_ := weite()
-	var k := "%d/%d/%s/%s/%s" % [h.x, h.y, grad, r_, form]
+	var k := "%d/%d/%s/%s/%s/%s" % [h.x, h.y, grad, r_, form, lichter]
 	if k == schluessel: return false
 	schluessel = k
 	blick = Vector2(sin(deg_to_rad(grad)), cos(deg_to_rad(grad)))
-	sichtbar.fill(0); frei.fill(0)
+	sichtbar.fill(0); frei.fill(0); licht_feld.fill(0)
 	reich = r_
 	var kegel: float = FORMEN[form][0]
 	var r := int(r_) + 2
@@ -312,6 +326,14 @@ func neu_sehen(h: Vector2i, gier: float) -> bool:
 				if (dx * blick.x + dy * blick.y) / d < kegel: continue
 				if not los: continue
 			sichtbar[y * breite + x] = 1
+	for n in lichter:   # 531: rundum, so weit das Licht reicht und nichts dazwischen steht
+		var lt: Vector2i = lichter[n][0]; var lr: float = lichter[n][1]
+		for dy in range(-int(lr) - 1, int(lr) + 2):
+			for dx in range(-int(lr) - 1, int(lr) + 2):
+				var x := lt.x + dx; var y := lt.y + dy
+				if not innen(x, y) or sqrt(float(dx * dx + dy * dy)) > lr: continue
+				if absi(dx) + absi(dy) > 1 and not sicht_frei(lt.x, lt.y, x, y): continue
+				sichtbar[y * breite + x] = 1; frei[y * breite + x] = 1; licht_feld[y * breite + x] = 1
 	var geaendert := false
 	for i in sichtbar.size():
 		if sichtbar[i] == 1 and erkundet[i] == 0:
@@ -434,6 +456,7 @@ func schritt(dt: float) -> void:
 					var i := ty * breite + tx
 					if _hoehle and _fels[i] == 1: sicht = 1 if f == 2 else -1
 					elif dorf and haus_von[i] >= 0: sicht = 1 if f == 2 else -1
+					elif f == 2 and licht_feld[i] == 1: sicht = 1   # 531: von fremdem Licht beschienen, ganz in Sicht
 					elif frei[i] == 0: sicht = -1
 					else: sicht = 0
 				var gleich := -1.0

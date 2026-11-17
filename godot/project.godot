@@ -56,3 +56,6 @@ anti_aliasing/quality/screen_space_aa=1
 [physics]
 
 3d/physics_engine="Jolt Physics"
+; 1340 (Jolt, nur die Ragdolls der Toten): mehr Lösungsschritte, Gelenke klaffen sonst je Lauf verschieden (Spalt bis 0,14 m, Kopf 22° über der Grenze)
+jolt_physics_3d/simulation/velocity_steps=16
+jolt_physics_3d/simulation/position_steps=4
