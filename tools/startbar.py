@@ -438,7 +438,8 @@ def sammelbuild_faellig():
         return None
     n = {r: [d["nr"] for d in fertig if d["besitzer"] == r] for r in ("Tom", "Jerry")}
     wer = "Jerry" if len(n["Jerry"]) > len(n["Tom"]) else "Tom"
-    return ("Sammelbuild: alle fertigen Zweige beider Teams (Tom %s; Jerry %s), Prüfliste ansehen/t<n>, build <n> --mit für jede Nummer (774)"
+    return ("Sammelbuild: alle fertigen Zweige beider Teams (Tom %s; Jerry %s), build <n> --mit für jede Nummer (774); Prüfliste ansehen/t<n> "
+            "erst ab 4 Handypunkten, Punkte ohne dich nach grünem Lauf ohne Testbitte auf main (1524)"
             % (", ".join(n["Tom"]) or "–", ", ".join(n["Jerry"]) or "–"), "E Technik", wer)
 
 def zeilen_liste():
@@ -736,7 +737,8 @@ VORLAGE_MARKE = " (1312: Spielcode gebaut seit "
 def vorlage_auftrag(d, h):
     b = offener_build()
     weg = ("in den offenen Build %d mischen (`vorgang.py build %d --mit %s`)" % (b, b, d["nr"]) if b
-           else "Sammelbuild anlegen (LISTE-CHECK-BUILD-TEST 3, auch unter 4 Punkten)")
+           else "Sammelbuild anlegen (LISTE-CHECK-BUILD-TEST 3; Testbitte erst ab 4 Handypunkten, Punkte ohne dich nach grünem Lauf "
+                "ohne Testbitte auf main, 1524)")
     return (VORLAGE_MARKE + "%d h ohne Build: vorlegen, %s; oder Bild/Film an den Chef und den Termin der Antwort "
             "ins Feld „wartet auf“; nie „fährt im nächsten Build“ ohne Termin)" % (h, weg))
 

@@ -181,7 +181,7 @@ func _lauf() -> void:
 	pruefe(Menue.verband_heilung(hw) == 25, "Großmeister heilt 25 (%d)" % Menue.verband_heilung(hw))
 	hw.geuebt.erase("Heilkunde")
 
-	# 1038 A, 1047: Verband stillt Blutung; volles Leben und Blutung -> verbraucht, Blutung weg, ohne „ +0 TP“
+	# 1038 A, 1047: Verband stillt Blutung; volles Leben und Blutung -> verbraucht, Blutung weg, ohne „ +0 Leben“
 	pruefe(String(Laden.ding("bandage").get("info", {}).get("de", "")) == "Saubere Leinenstreifen, fest gerollt. Stillt Blutung; wer Heilkunde versteht, holt mehr heraus. Nur außerhalb des Kampfs.", "Beschreibung [807.verband.text]")
 	hw.leben = hw.max_leben()
 	v.leiden["BLEED"] = 3

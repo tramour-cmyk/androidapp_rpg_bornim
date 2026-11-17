@@ -32,6 +32,8 @@
     "offen_faktor": 1.25, "wehr_klein_anteil": 0.6,
     "_ring": "Regel 9, 16: grosser Schlag kostet gross_kosten und kommt mit Ring, Schaden mal gross_faktor; hoechstens ringe_je_gegnerzug Ringe je Gegnerzug, weitere ohne Ring",
     "gross_kosten": 2, "gross_faktor": 1.6, "ringe_je_gegnerzug": 2,
+    "_taumeln": "Regel 19 (1352a A, Chef 16.11.): verliert ein Gegner seit seiner Ansage eines grossen Schlags diesen Anteil seines Lebens (jeder Schaden), geht der Schlag ins Leere",
+    "taumeln_anteil": 0.2,
     "_gold": "Regel 12: ab Heldenstufe, einmal je Kampf, nach perfektem Ring oder Leben unter dem Anteil; vierte Kerbe im naechsten Zug",
     "gold_ab_stufe": 4, "gold_unter_leben": 0.5,
     "_ungunst": "Fledermaus flattert (Tun des Helden mit Ungunst, Antworten ohne); nach dem Prankenhieb ist Krogg offen (naechstes Tun mit Gunst): 25 Punkte wie Umreissen",
@@ -196,7 +198,7 @@
   "zauber": {
     "_quelle": "N 4: Zauber wie Waffe, Grundwert nach der Schule (schulen, 952 D), Fertigkeit = Schule; Grundschaden, Kosten, Heilung A",
     "Funkenpfeil": {"schule": "Evokation", "schaden": 6, "kosten": 4, "art": "zauber", "typ": "feuer"},
-    "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5,
+    "Wundsegen":   {"schule": "Heilmagie", "heilung": 6, "kosten": 5, "heilen_unter": 0.5, "je_kampf": 2,
                     "_heilung": "Heilung = (6 + Wille) x (1 + Heilmagie / 100), wenn Leben unter der Haelfte"},
     "Bannschild":  {"schule": "Schutzmagie", "ruestung": 2, "kosten": 4,
                     "_bannschild": "A: einmal je Kampf in Runde 1, Ruestung +2, Abzug mit Schutzmagie als Fertigkeit"},
@@ -699,14 +701,14 @@
     "goblin":            {"art": "Goblin",             "de": "Goblin",                 "en": "Goblin",             "gruppe": "Goblin", "kartengruppe": "GOBLINS", "jaeger": true},
     "goblin_archer":     {"art": "Goblin-Späher",      "de": "Goblin-Späher",          "en": "Goblin Scout",       "gruppe": "Goblin", "kartengruppe": "SCOUTS", "jaeger": true},
     "skeleton":          {"art": "Skelett",            "de": "Skelett",                "en": "Skeleton",           "gruppe": "Untoter", "kartengruppe": "SKELETT", "jaeger": true},
-    "zombie":            {"art": "Zombie",             "de": "Zombie",                 "en": "Zombie",             "gruppe": "Untoter", "kartengruppe": "WIEDERGAENGER", "jaeger": true, "ruhe": ["Lauern"]},
+    "zombie":            {"art": "Zombie",             "de": "Wiedergänger",           "en": "Revenant",           "gruppe": "Untoter", "kartengruppe": "WIEDERGAENGER", "jaeger": true, "ruhe": ["Lauern"]},
     "giant_bat":         {"art": "Riesenfledermaus",   "de": "Riesenfledermaus",       "en": "Giant Bat",          "gruppe": "Tier", "kartengruppe": "FLEDERMAUS", "lauerer": true, "ruhe": ["Lefzen"], "vierbeiner": true, "felle": ["braun", "schwarz", "grau"], "kopf": 0.98, "schatten": [0.9, 0.5, -0.04], "groesse_kampfort": 0.757576},
     "goblin_shaman":     {"art": "Goblin-Schamane",    "de": "Goblin-Schamane",        "en": "Goblin Shaman",      "gruppe": "Goblin", "kartengruppe": "SHAMANS", "jaeger": true},
     "giant_spider":      {"art": "Riesenspinne",       "de": "Riesenspinne",           "en": "Giant Spider",       "gruppe": "Tier", "kartengruppe": "SPINNE", "lauerer": true, "ruhe": ["Lefzen"]},
-    "ghoul":             {"art": "Ghul",               "de": "Ghul",                   "en": "Ghoul",              "gruppe": "Untoter", "kartengruppe": "GRABHUND", "jaeger": true, "ruhe": ["Lefzen", "Umsehen"]},
+    "ghoul":             {"art": "Ghul",               "de": "Grabhund",               "en": "Grave Hound",           "gruppe": "Untoter", "kartengruppe": "GRABHUND", "jaeger": true, "ruhe": ["Lefzen", "Umsehen"]},
     "ochre_jelly":       {"art": "Ockerschleim",       "de": "Säureschnecke",          "en": "Acid Slug",          "gruppe": "Tier", "kartengruppe": "SLUGS", "lauerer": true, "ruhe": ["Umsehen"], "vierbeiner": true},
     "bugbear":           {"art": "Krogg",              "de": "Krogg der Grobian",      "en": "Krogg the Brute",    "gruppe": "Bärenschrat", "kartengruppe": "KROGG"},
-    "dire_wolf":         {"art": "Grimmzahn",          "de": "Grimmzahn, der Leitwolf", "en": "Grimfang the Alpha", "gruppe": "Tier", "kartengruppe": "GRIMM", "ruhe": ["Lefzen", "UmsehenL", "UmsehenR", "Scharren", "Hecheln", "Knurren"], "sitz": ["HockeUmsehenL", "HockeUmsehenR", "HockeHecheln", "HockeKnurren"], "groesse_modell": 1.75},
+    "dire_wolf":         {"art": "Grimmzahn",          "de": "Grimmzahn, der Leitwolf", "en": "Grimfang, the Pack Leader", "gruppe": "Tier", "kartengruppe": "GRIMM", "ruhe": ["Lefzen", "UmsehenL", "UmsehenR", "Scharren", "Hecheln", "Knurren"], "sitz": ["HockeUmsehenL", "HockeUmsehenR", "HockeHecheln", "HockeKnurren"], "groesse_modell": 1.75},
     "hobgoblin_captain": {"art": "Grak",               "de": "Hauptmann Grak",         "en": "Captain Grak",       "gruppe": "Goblin-Hauptmann", "kartengruppe": "GRAK"}
   }
 }

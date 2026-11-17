@@ -39,7 +39,7 @@ def hall(x, a, lp, seed=1):
 LOOPS = {
     # draußen (Dorf, Wald): Wind in Böen, mal hell, mal dumpf
     "wind": [loop(wind, 6.0), loop(lowpass(wind, 3000, 2), 52.0) if len(wind) > 63 * SR else loop(lowpass(wind, 3000, 2), 20.0),
-             loop(park, 400.0 / 2)],
+             loop(lowpass(park, 1800, 8), 400.0 / 2)],   # 517 (t269.26): im Park zwitschern Vögel (5 s, 8 s), auch nachts und im Tiefen Wald; über 1,8 kHz weg
     # Tempel: Luft in einer hohen Halle, fast still
     # (Hall vor dem Schneiden, damit die Schleife 10 s bleibt: SoundPool kürzt Klänge über etwa 1 MB)
     "hall": [hall(wind, 20.0, 900), hall(park, 120.0, 800, 2), hall(wind, 30.0, 1100, 3)],

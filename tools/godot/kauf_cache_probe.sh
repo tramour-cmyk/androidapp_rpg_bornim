@@ -22,6 +22,9 @@ cp $QUELLE/.github/workflows/godot.yml $R/.github/workflows/
 KARTEN_LEER='{"karten": {"village": {"leute": []}, "inn": {"leute": []}, "shop": {"leute": []}, "elder": {"leute": []}, "temple": {"leute": []}, "forest": {"leute": []}, "deep_forest": {"leute": []}, "cave": {"leute": []}}}'   # 1115: alle Karten, die „Leute bauen“ liest
 echo "$KARTEN_LEER" > $R/godot/daten/karten.json
 git init -q --bare $T/kauf.git
+# 1409 (Lauf 517 rot, am Rechner grün): auf dem Bauserver stehen die Schalter der echten Schritte (KAUF_KAMPF=treffer …) über GITHUB_ENV
+# in der Umgebung und galten hier in jedem Lauf; die Probe beginnt ohne sie, wie am Rechner
+unset $(compgen -v KAUF_)
 export KAUF_CACHE_PROBE=$T/kauf.git KAUF=$T/ohne
 fehler=0
 pruefe() { if eval "$1"; then echo "gut  $2"; else echo "FALSCH $2"; fehler=$((fehler+1)); fi; }

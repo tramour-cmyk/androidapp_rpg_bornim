@@ -4,7 +4,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `a5e334759` (17.11., 01:04)
 
-**Übergabe (17.11., 01:07, `session_01Hmoj76NcjeerwtT8PnpvfR`):** Pflege: „Zu 1367“ gestrichen (1367 erledigt; offener Einbau der `[1367.tip.*]` steht bei Jerry, Zu 1366). Nachfolger: keiner (1235 nach dem Meilenstein).
+**Übergabe (17.11., 07:03, `session_01Hmoj76NcjeerwtT8PnpvfR`):** Pflege: „Zu 1367“ gestrichen (offener Einbau der `[1367.tip.*]` steht bei Jerry, Zu 1366). 1513: `[259T.frage]` nach BRS, fremd geprüft, an Tom. Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen

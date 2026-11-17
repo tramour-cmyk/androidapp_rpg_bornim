@@ -461,8 +461,8 @@ EN: (sentence at the end of `[201.reihen]`) Likewise, melee from the back row pa
 
 Gegen den Code gelesen (`claude/jerry-259-schwach`: `SkirmishScreen.kt`, `MarsTips.quick`, `Skirmish.quick`, 21.10.): „Schnell“ spielt Held und Söldner mit der Automatik und hält an, wenn der Held unter ein Drittel fällt. Ersetzt die Platzhalter.
 
-`[259T.frage]` (Zeile über „Kämpfen“/„Schnell“ am Kampfbeginn) Ein leichter Kampf: Stufe {0} gegen Herausforderungsgrad {1}.
-EN: An easy fight: level {0} against challenge rating {1}.
+`[259T.frage]` (Zeile über „Kämpfen“/„Schnell“ am Kampfbeginn; {0} = Stufe des Helden, {1} = BRS-Stufe des stärksten Gegners, `mars.gd` 870.6; Homer 17.11., 1513) Ein leichter Kampf: dein Held Stufe {0}, der stärkste Gegner Stufe {1}.
+EN: An easy fight: your hero level {0}, the strongest foe level {1}.
 
 `[259T.knoepfe]` (bleiben) Kämpfen · Schnell; im Kampf: Schnell › / EN: Fight · Quick; Quick ›
 

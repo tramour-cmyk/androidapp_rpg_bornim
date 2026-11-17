@@ -130,7 +130,7 @@ var runde := 0
 var ringe := 0
 ## gezählt wie glut2.py (Rechnung): Züge, Antworten, Wehr, verstrichene Kerben, vertieft, Goldkerbe, gekappte Ringe, Täuschungen, Netz, Prankenhieb
 var zaehler := {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verstrichen": 0, "vertieft": 0, "gold": 0,
-	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0}
+	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0, "getaumelt": 0}
 ## höchstens so viele Runden, dann verloren (werte.json „lauf“ „max_runden“, wie die Rechnung)
 var max_runden := 60
 ## wer in dieser Runde noch am Zug ist (Gruppe)
@@ -368,6 +368,7 @@ func planen() -> void:
 			p.zeigt_gross = not p.gross
 		p.ziel = held.id if held != null else ""
 		g.gl.plan = p
+		g.gl.verlust_seit_ansage = 0     # Regel 19 Taumeln (1352a A): Verlust seit dieser Ansage
 		m.intents[g.id] = [_absicht(p), [p.ziel]]     # Bild der alten Ansage, bis Stufe 3 sie nach der Lesestufe zeichnet
 
 
@@ -969,6 +970,20 @@ func gegner_zug() -> void:
 		elif kerbe > 0 and art in w()["lauern_arten"]:     # Regel 17: übrige Kerben lauert
 			g.gl.lauert = 1
 			g.gl.kerben_bereit = kerbe
+
+
+## Regel 19 Taumeln (1352a A, Chef 16.11., 10:15: „wir schauen uns das mal im Kampf an“; DESIGN-GLUT.md 19): verliert [g] seit seiner
+## Ansage eines großen Schlags taumeln_anteil seines Lebens, jeder Schaden zählt (auch Zustände), geht der Schlag ins Leere
+## (mars.gd _hurt ruft es nach jedem Schaden an einem Gegner, der noch steht)
+func taumeln(g: Variant, schaden: int) -> bool:
+	var p: Dictionary = g.gl.get("plan", {})
+	if schaden <= 0 or p.is_empty() or not p.get("gross", false):
+		return false
+	g.gl.verlust_seit_ansage = int(g.gl.get("verlust_seit_ansage", 0)) + schaden
+	if float(g.gl.verlust_seit_ansage) < _f("taumeln_anteil") * float(g.max_hp):
+		return false
+	zaehler.getaumelt += 1
+	return brechen(g)
 
 
 ## Regel 19: Zurückdrängen, Netz verbrennen, Taumeln lassen einen angesagten großen Schlag von [g] ins Leere gehen

@@ -60,7 +60,8 @@ func zug(karte_id: String, dp: float, schnell: float) -> Array:
 		h.laeuft = Ausdauer.schritt(z, hw, dt * 1000.0, h.geht(), will[0])
 		h._process(dt)
 		ring = ring or will[0]
-		if i > 30: max_t = maxf(max_t, h.tempo_jetzt); bew = String(h.anim.current_animation)
+		# 1421: bei „Schnell“ und Rennen (12 m/s) erreicht er vor dem Ende die Wand; die Bewegung zählt, solange er läuft
+		if i > 30 and h.tempo_jetzt > 0.0: max_t = maxf(max_t, h.tempo_jetzt); bew = String(h.anim.current_animation)
 	ereignis(ui, o, false, false)
 	ui.free(); h.anim.free(); h.free()
 	Held.schnell = 1.0
@@ -79,6 +80,19 @@ func _lauf() -> void:
 				var soll := "Rennen" if dp > 94.0 else "Gehen"
 				if r[1] != soll or r[2] != (dp > 94.0):
 					fehler += 1; print("FEHLER %s schnell %.0f, %.0f dp: %s statt %s" % [karte_id, s, dp, r[1], soll])
+	# 1421 (Chef 16.11., 12:48, „Rennen B“): mit eingeschalteter Renntaste (aus) rennt er auch weit ausgeschlagen nicht; zwei feste
+	# Tempi: jeder Ausschlag im Ring gibt dasselbe Gehtempo
+	Bedienung.lauf_taste = true
+	for dp in [55.0, 130.0]:
+		var r: Array = await zug("village", dp, 1.0)
+		print("1421 Renntaste aus: Ausschlag %3.0f dp -> %.2f m/s, %s, Ring %s" % [dp, r[0], r[1], r[2]])
+		if r[1] != "Gehen" or r[2]:
+			fehler += 1; print("FEHLER 1421 Renntaste aus, %.0f dp: %s, Ring %s statt Gehen ohne Ring" % [dp, r[1], r[2]])
+	Bedienung.lauf_taste = false
+	var t20: Array = await zug("village", 20.0, 1.0)
+	var t90: Array = await zug("village", 90.0, 1.0)
+	if absf(float(t20[0]) - float(t90[0])) > 0.05:
+		fehler += 1; print("FEHLER 1421 Gehtempo hängt am Ausschlag: 20 dp %.2f m/s, 90 dp %.2f m/s" % [t20[0], t90[0]])
 	Bedienung.ring = vorher[0]; Bedienung.lauf_taste = vorher[1]
 	print("ok Joystick 1285" if fehler == 0 else "FEHLER Joystick 1285: %d" % fehler)
 	quit(1 if fehler else 0)

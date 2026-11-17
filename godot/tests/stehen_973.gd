@@ -60,6 +60,14 @@ func _lauf() -> void:
 					if platz.has(id) and platz[id] != pl:
 						offen[id] = true
 					var rueckt: bool = heim.has(id) and rel.distance_to(heim[id]) > 0.05
+					# 1453 (1072 Schritt 2, Platz am Gegner): wird der Heimatplatz die Stelle, an der er schon steht oder an der sein
+					# eigener Zug endet, bewegt er sich nicht ohne Grund (er bleibt am Gegner statt zurück in die Aufstellung)
+					# (steht schon dort, oder sein eigener Zug läuft gerade dorthin; eine Neuformation hätte einen fremden Anlass)
+					var dort: Vector3 = f.ort_nach_zug() if f.has_method("ort_nach_zug") else f.position
+					var eigen: bool = f.position.distance_to(dort) < 0.05 or str(kf.shown.get("actor", "")) == str(id)
+					var am_gegner: bool = rueckt and eigen and Vector3(f.home.x, 0, f.home.z).distance_to(Vector3(dort.x, 0, dort.z)) < 0.05
+					if am_gegner:
+						rueckt = false
 					if rueckt and offen.get(id, false):
 						offen[id] = false
 					elif tot and rueckt and not f.fighter.fled:
