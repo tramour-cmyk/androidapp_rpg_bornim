@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 04:45, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 05:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t294](ansehen/t294-sammelbuild.md) testen, hält 18 Zeilen; dann 11 weitere |
+| **Chef** | [t294](ansehen/t294-sammelbuild.md) testen, hält 18 Zeilen; dann 12 weitere |
 | Tom | 966.2 Kochen und Alchemie mit Ring wie Knacken: Held brät selbst… (Kür) |
 | Jerry | 168.1 Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapite… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
@@ -107,6 +107,7 @@ Nichts offen.
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
 | [531](ansehen/531-fackelabwehr.md) | Garrick vertreibt den Wolf mit der Fackel (Tag, Abend, Nacht) | – | 17.11., 02:54 |
 | [601.1](ansehen/6011-pfeiltreffer.md) | Pfeiltreffer: Pfeil an der Brust, der Getroffene zuckt dort | – | 17.11., 00:36 |
+| [623.2](ansehen/6232-effekte-wolfskampf.md) | Effekte Wolfskampf (Szene 2), erster Stand | – | 17.11., 05:43 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -133,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 58, Muss 16, startbar 9
+**Tom** – offen 58, Muss 16, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -194,7 +195,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1460 | M | Von Sokrates (975a A, Chef 11.11., 17:04, nie gebaut; Fund Jerry 644a.1): Fertigkeit „Lede | wartet auf Test/Build (gebaut) |
 | 1480 | M | Von Perikles (1470, Chef 16.11., 17:53: t293.7 mit Testschalter „Schnell“ getestet, falsch | wartet auf Test (Build 294) |
 | Pflege | K | von Werkzeug (340.3, 17.11.): 2 „Zu“ zu Erledigtem (1355, 1395), beim Übergeben streichen | startbar |
-| 1423 | M | Von Sokrates (Chef 16.11., 13:08, zu 1303; schon 15.11., 20:34 zu 1289): Felswände der Höh | startbar |
+| 1423 | M | Von Sokrates (Chef 16.11., 13:08, zu 1303; schon 15.11., 20:34 zu 1289): Felswände der Höh | Chef (Datei in der Chefsache) |
 
 **Jerry** – offen 77, Muss 25, startbar 23
 
@@ -375,9 +376,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1284b-biss-verdeckt.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1340-tod-physik.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1423-hoehlenwand.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1439-mana-balken.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1448-leiste-ohne-woerter.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/531-fackelabwehr.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1284b-biss-verdeckt.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1340-tod-physik.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1423-hoehlenwand.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1439-mana-balken.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1448-leiste-ohne-woerter.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/531-fackelabwehr.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6232-effekte-wolfskampf.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1284b-biss-verdeckt.md, ansehen/1340-tod-physik.md, ansehen/6011-pfeiltreffer.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1284b-biss-verdeckt.md, ansehen/1340-tod-physik.md, ansehen/6011-pfeiltreffer.md, ansehen/6232-effekte-wolfskampf.md
 
 ## So geht's
 
