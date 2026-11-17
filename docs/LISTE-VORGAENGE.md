@@ -69,8 +69,6 @@
 | 1557 | Von Werkzeug (1334): Wiederholrot einschlag_6011: 2× rot in 48 h (Läufe 539, 537); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1556 | Von Werkzeug (1334): Wiederholrot dreh_1072: 2× rot in 48 h (Läufe 552, 537); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1555 | Von Werkzeug (1334): Wiederholrot biss_1284: 3× rot in 48 h (Läufe 537, 524, 518); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
-| 1554 | Von Werkzeug (1334): Wiederholrot ausholen_1000: 4× rot in 48 h (Läufe 503, 497, 496, 489); Ursache nachstellen, beheben · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
-| 1553 | Von Werkzeug (1334): Wackeltest atem_4531: rot und grün am selben Commit (Läufe 507, 492); deterministisch machen, nie abschalten · wiederholt | Jerry | M | startbar | – | – | – | E Technik | – |
 | 1545 | Von Perikles (1543): Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt (Halt Chef 13.11., 23:35 „Hausaufgaben“ → Gesamtbild 930 A 14.11., 20:19; 1072 erledigt t294; 1288 erledigt; Wochenziel 2 und 5: 1068, dann 709 wieder startbar); sonst Grund an Perikles | Jerry | M | startbar | – | – | – | E Kampf | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | – | – | – | E Technik | 15,96 $ |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | startbar, Sprung passt (Chef 20:33), Blut am Helden offen | – | claude/jerry-760-1000-sprung-axt | – | E Kampf | 28,71 $ |
@@ -231,3 +229,5 @@
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
+| 1553 | Von Werkzeug (1334): Wackeltest atem_4531: rot und grün am selben Commit (Läufe 507, 492); deterministisch machen, nie abschalten · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
+| 1554 | Von Werkzeug (1334): Wiederholrot ausholen_1000: 4× rot in 48 h (Läufe 503, 497, 496, 489); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
