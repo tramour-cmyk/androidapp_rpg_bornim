@@ -149,6 +149,19 @@ def pruefliste(pfad, eingabe):
     return None
 
 
+def geschuetzt():
+    """1531 (Chef 17.11., 08:52): diese Sitzung steht in „**Nie archivieren:**“ (ARBEIT-BETRIEB.md): keine Neustart-Erinnerung."""
+    import re
+    kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")
+    if not kennung.startswith("cse_"): return False
+    for d in ("/home/user/bornim-main/docs", os.path.join(os.environ.get("CLAUDE_PROJECT_DIR", "."), "docs")):
+        try: text = open(os.path.join(d, "ARBEIT-BETRIEB.md")).read()
+        except OSError: continue
+        m = re.search(r"(?m)^\*\*Nie archivieren:?\*\*:?(.*)$", text)
+        return bool(m) and ("session_" + kennung[4:]) in m.group(1)
+    return False
+
+
 def prompt(eingabe):
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
@@ -170,7 +183,7 @@ def prompt(eingabe):
     except Exception:
         pass
     kern(sitzung)
-    if not pfad or not os.path.exists(pfad):
+    if not pfad or not os.path.exists(pfad) or geschuetzt():
         return
     plus, gesamt = zuwachs(groessen(pfad))
     zpfad = f"/tmp/bornim-neustart-{sitzung}.json"

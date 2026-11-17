@@ -135,6 +135,12 @@ VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "A
 START_REIHE = ["Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
+
+def geschuetzt():
+    """1531 (Chef 17.11., 08:52 zur Sitzung Sokrates: „diese Sitzung definitiv nicht archivieren oder schließen lassen“): Kennungen aus der
+    Zeile „**Nie archivieren:** session_… (…)“ oben in ARBEIT-BETRIEB.md; Ford archiviert sie nie, bis der Chef sie freigibt (Zeile weg)."""
+    m = re.search(r"(?m)^\*\*Nie archivieren:?\*\*:?(.*)$", lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))
+    return set(re.findall(r"session_[A-Za-z0-9]+", m.group(1))) if m else set()
 SPERRE_MIN = 20
 WEITER_TOKEN = 200000  # 383 A (Chef 09.11., 18:05): günstigste Länge 200 Tsd. (Rechnung Sokrates); vorher 400000 nach 383.1 (Chef 27.10., 19:19 „nicht mal 2 Seiten lang“): Kontext 1 Mio., Kosten je Arbeit bis 500 Tsd. gleich (Messung Sokrates 18:15); Vorentscheid Perikles 27.10. (vorher 150 Tsd., D40.1)
 WEITER_MIN = 60  # 261.5 (3): WEITER nur in eine Sitzung, die unter 60 Minuten ruht; fürs Archivieren gibt es keine Wartezeit mehr (Chef 21.10., 16:46)
@@ -583,6 +589,7 @@ def main():
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
     ausgabe = vorab; archiviert = set()
+    schutz = geschuetzt()  # 1531
     if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite holen" % ", ".join(offen))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
     for t, ber, wer in startbar.wochentermine_faellig(JETZT):  # 719 A: vor dem Plan, damit der neue Vorgang im selben Lauf startet
@@ -686,6 +693,7 @@ def main():
         if r in ohne_rollen or lauf_laeuft(r): continue  # 1148: --ohne <Rolle> und „Lauf läuft bis HH:MM“ nehmen sie ganz aus dem Lauf
         for s in ss:
             _, laufend, ruhig, hinder = s["_info"]
+            if s["id"] in schutz: continue  # 1531
             if laufend or ruhig < 1: continue  # 340.10 V4 (c): unter 60 s nach dem letzten Ereignis nicht archivieren (Sokrates 13.11., 03:41)
             # (2) nur mit neuerer Sitzung desselben Bereichs, ohne Wartezeit (261.5, Chef 16:46; ersetzt 60 Minuten aus 238)
             # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
@@ -751,7 +759,7 @@ def main():
     def vorgaenger(r):
         # 261.5 (Chef 18:25): startet ein Nachfolger, archiviert Ford die alten Sitzungen der Rolle gleich danach, nicht erst im nächsten Lauf
         for s in je_rolle.get(r, []):
-            if s["id"] in archiviert or s["_info"][1] or s["_info"][2] < 1: continue  # 340.10 (c): 60 s Ruhe
+            if s["id"] in archiviert or s["id"] in schutz or s["_info"][1] or s["_info"][2] < 1: continue  # 340.10 (c): 60 s Ruhe  (1531: geschützte nie)
             archiviert.add(s["id"])
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
