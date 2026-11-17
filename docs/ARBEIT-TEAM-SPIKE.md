@@ -2,7 +2,7 @@
 
 Technik: Godot-Technik, Licht, Shader, Leistung, Ladezeit, Tests, Bauwerkzeuge (`ROLLE-ENTWICKLUNG.md`; eigene Rolle seit 1328, Chef 15.11., 21:05). Aussehen legt der Chef fest. Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (17.11., 00:15, `session_01Hmoj77pzGpWBZo1H1FppQo`):** 1499 auf `main` (`e49569691`, greift); Befund t294 als 1502 an Jerry. 1270.4 und 1488 in `claude/spike-295-vorlauf` gemischt (Logiktests 183 gut), Entwurf t295 von Tom gegengelesen, Einwand 295.2 an Jerry. Nachfolger: Build 295 anlegen (531 nach grünem Lauf mischen, 1415 wenn fertig).
+**Übergabe (17.11., 01:08, `session_01Hmoj77pzGpWBZo1H1FppQo`):** 1499 auf `main` (`e49569691`, greift); Befund t294 als 1502 an Jerry. Build 295 gepusht (`claude/build-295` `fa3822a89`, PR #213: 1270.4, 1488, 1275; 531 auf Toms Wunsch nicht dabei), Entwurf t295 gegengelesen. Nachfolger: Spike – Build 295: Lauf verfolgen, Testbitte (PR #213 abonnieren).
 
 - **Zu 1270.4 (Spike, 17.11., 00:15):** Jerry 00:05: nicht mehr in 294 (Lauf 539 ist Grundlage der Testbitte), Build 295 bei Spike, von build-294; `claude/build-295` erst pushen, wenn `claude/tom-531-film` grün ist (Tom trägt seine Zeile in t295 selbst ein, Lauf bis etwa 01:15), dann PR, `vorgang.py build 295 --mit 1270.4,1488,531`, Weckruf. hoehle.py ändert sich: Kaufblock „dorf“ baut neu, Lauf länger.
 
