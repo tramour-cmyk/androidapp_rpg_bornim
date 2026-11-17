@@ -1537,7 +1537,7 @@ func _fx_szene2(e: Dictionary, actor, target, by, tg, across: bool, lands: int, 
 		if name != "" and w != null and w.visible:
 			var kl := TrefferFx.klinge(w)
 			if kl.size() == 2:
-				TrefferFx.spur(name, w, maxi(0, lands - FX_SPUR_VOR_MS) / 1000.0, (FX_SPUR_VOR_MS + FX_SPUR_NACH_MS) / 1000.0, kl[0], kl[1])
+				TrefferFx.spur(name, self, w, maxi(0, lands - FX_SPUR_VOR_MS) / 1000.0, (FX_SPUR_VOR_MS + FX_SPUR_NACH_MS) / 1000.0, kl[0], kl[1])
 	var richt: Vector3 = (tf.position - af.position) * Vector3(1, 0, 1)
 	richt = richt.normalized() if richt.length() > 0.01 else Vector3.FORWARD
 	var hoehe: float = tf.head().y - tf.position.y
@@ -1570,7 +1570,7 @@ func _fx_szene2(e: Dictionary, actor, target, by, tg, across: bool, lands: int, 
 		halter.name = "Luftzug"
 		halter.position = Vector3.UP * hoehe * 0.5
 		tf.add_child(halter)
-		if TrefferFx.spur(TrefferFx.fuer_anlass("ausweichen"), halter, ab / 1000.0, FX_LUFTZUG_MS / 1000.0) == null:
+		if TrefferFx.spur(TrefferFx.fuer_anlass("ausweichen"), self, halter, ab / 1000.0, FX_LUFTZUG_MS / 1000.0) == null:
 			halter.queue_free()
 		else:
 			get_tree().create_timer(ab / 1000.0 + FX_LUFTZUG_MS / 1000.0 + 1.6).timeout.connect(func(): if is_instance_valid(halter): halter.queue_free())

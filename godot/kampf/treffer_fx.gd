@@ -135,9 +135,11 @@ static func zeige(name: String, eltern: Node3D, at: Vector3, hoehe := 1.8, blick
 
 
 ## hängt die Spur [name] (R3) an [an_knoten]: als Klinge zwischen [base] und [tip] (lokal), sonst als Band hinter dem Knoten;
-## sie zeichnet ab [ab_s] für [dauer_s] und läuft dann aus. null ohne Paket oder aus
-static func spur(name: String, an_knoten: Node3D, ab_s: float, dauer_s: float, base := Vector3.INF, tip := Vector3.INF) -> Node3D:
-	if name == "" or an_knoten == null or not aktiv():
+## sie zeichnet ab [ab_s] für [dauer_s] und läuft dann aus. Die Spur selbst liegt in [welt] (Kampfort) und folgt dem Knoten über
+## ein RemoteTransform3D: ihr Netz liegt in Weltlage und darf nicht in den Umriss der Figur oder ihrer Waffe zählen (Kamera,
+## Lebensbalken, Abstände). null ohne Paket oder aus
+static func spur(name: String, welt: Node3D, an_knoten: Node3D, ab_s: float, dauer_s: float, base := Vector3.INF, tip := Vector3.INF) -> Node3D:
+	if name == "" or an_knoten == null or welt == null or not aktiv():
 		return null
 	var st = stil(name)
 	if st == null:
@@ -152,15 +154,25 @@ static func spur(name: String, an_knoten: Node3D, ab_s: float, dauer_s: float, b
 		tr.mode = 1     # Trail3D.Mode.BLADE
 		tr.blade_base = base
 		tr.blade_tip = tip
-	an_knoten.add_child(tr)
+	welt.add_child(tr)
+	tr.global_transform = an_knoten.global_transform
+	var folge := RemoteTransform3D.new()
+	folge.name = "Spur623"
+	an_knoten.add_child(folge)
+	folge.remote_path = folge.get_path_to(tr)
 	gezeigt[name] = int(gezeigt.get(name, 0)) + 1
 	var baum := an_knoten.get_tree()
 	var w: WeakRef = weakref(tr)
+	var wf: WeakRef = weakref(folge)
 	baum.create_timer(maxf(ab_s, 0.0)).timeout.connect(func():
 		if w.get_ref() != null:
 			w.get_ref().clear()
 			w.get_ref().emitting = true)
-	baum.create_timer(maxf(ab_s, 0.0) + dauer_s).timeout.connect(func(): if w.get_ref() != null: w.get_ref().emitting = false)
+	baum.create_timer(maxf(ab_s, 0.0) + dauer_s).timeout.connect(func():
+		if w.get_ref() != null:
+			w.get_ref().emitting = false
+		if wf.get_ref() != null:
+			wf.get_ref().queue_free())
 	baum.create_timer(maxf(ab_s, 0.0) + dauer_s + 1.5).timeout.connect(func(): if w.get_ref() != null: w.get_ref().queue_free())
 	return tr
 
@@ -172,6 +184,8 @@ static func klinge(waffe: Node3D) -> Array:
 	var erst := true
 	var inv := waffe.global_transform.affine_inverse()
 	for m in waffe.find_children("*", "MeshInstance3D", true, false):
+		if (m as MeshInstance3D).top_level:     # eine Spur von vorhin
+			continue
 		var bb: AABB = (m as MeshInstance3D).get_aabb()
 		for i in 8:
 			var q: Vector3 = inv * ((m as MeshInstance3D).global_transform * bb.get_endpoint(i))

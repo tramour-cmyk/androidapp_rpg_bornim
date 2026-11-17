@@ -96,12 +96,25 @@ func _lauf() -> void:
 	var vor := {}
 	var n := 0
 	var sprung := false
-	while n < DAUER_BILDER:
+	# Film: bis FILM_AB_MS Spielzeit im Zeitraffer (wenige Bilder), dann Echtzeit bis FILM_BIS_MS; die Zeile „FX623 Film ab Bild“
+	# sagt, ab welchem Bild der Film geschnitten wird
+	var ab := float(OS.get_environment("FILM_AB_MS")) if OS.get_environment("FILM_AB_MS") != "" else 0.0
+	var bis := float(OS.get_environment("FILM_BIS_MS")) if OS.get_environment("FILM_BIS_MS") != "" else INF
+	var spiel_ms := 0.0
+	var bild := 0
+	if ab > 0.0:
+		Engine.time_scale = 10.0
+	while n < DAUER_BILDER and spiel_ms < bis:
 		await process_frame
-		n += 1
+		bild += 1
+		spiel_ms += 1000.0 / 30.0 * Engine.time_scale
+		if Engine.time_scale > 1.0 and spiel_ms >= ab:
+			Engine.time_scale = 1.0
+			print("FX623 Film ab Bild %d (%d ms)" % [bild, int(spiel_ms)])
+		n = int(spiel_ms * 30.0 / 1000.0)
 		for k in TrefferFx.gezeigt:
 			if int(TrefferFx.gezeigt[k]) > int(vor.get(k, 0)):
-				print("FX623 %d %s" % [int(n * 1000.0 / 30.0), k])
+				print("FX623 %d %s" % [int(spiel_ms), k])
 				vor[k] = TrefferFx.gezeigt[k]
 		for f in kf.figures.values():
 			if f.fighter.monster != null and f.letzter_sprung:
@@ -116,7 +129,7 @@ func _lauf() -> void:
 				var ts: Array = kf.mars.targets(c)
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 	print("FX623 gezeigt: %s, Kampf %s nach %d ms" % [TrefferFx.gezeigt, kf.mars.outcome, int(n * 1000.0 / 30.0)])
-	if OS.get_environment("FX_AUS") == "":
+	if OS.get_environment("FX_AUS") == "" and bis == INF:
 		for k in ["klingenspur", "blut"]:
 			if int(TrefferFx.gezeigt.get(k, 0)) == 0:
 				_fehler("%s kam nicht vor" % k)
