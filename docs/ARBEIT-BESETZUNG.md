@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 17.11., 18:53 (lauf.py)
+**Stand:** 17.11., 19:04 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -12,5 +12,5 @@
 | Tom | [Tom – 297.11: Bild 1515 aus den Bildern von Lauf 554 (17.11., 18:29)](https://claude.ai/code/session_01Hmoj7A5e8XuUcxGZfTGeTf) | 297.11 | – | 17.11., 18:29 |
 | Jerry | [Jerry – 1561: Wiederholrot stehen_973 (17.11., 18:29)](https://claude.ai/code/session_01Hmoj7A1SdVNe4dvtNGZQMv) | 1561 | – | 17.11., 18:29 |
 | Spike | [Spike – Test t297.15 abwarten (17.11., 18:29)](https://claude.ai/code/session_01Hmoj78Bxqvknx8Qois6dfi) | 297.15 | – | 17.11., 18:29 |
-| Perikles | [Perikles – 1572, 1573, M? entscheiden (17.11., 18:29)](https://claude.ai/code/session_01Hmoj76reTfqdn289ggENZa) | 1572 | – | 17.11., 18:29 |
 | Sonstige | [Ford-Wache (17.11., 18:42)](https://claude.ai/code/session_01Hmoj76ew1cGKY7mCBVHUFx) | Betrieb | – | 17.11., 18:41 |
+| Perikles | [Perikles – 1586: Homer-Warnung trotz Sperre (17.11., 18:57)](https://claude.ai/code/session_01Hmoj76YGRAV2pioPXo9H5f) | 1586 | – | 17.11., 18:56 |
