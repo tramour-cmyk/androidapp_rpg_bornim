@@ -84,3 +84,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 17.11.: Marke Archiv session_01Hmoj78eYFVHDkQHymU7Jt7 (lauf.py)
 - 01:04 17.11.: Marke Archiv session_01Hmoj76CDuBaNGRkJoRGqaj (lauf.py)
 - 01:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 00:08) (lauf.py)
+- 01:12 17.11.: Startsperre 01:12 Start Spike (Ford von Hand), Neustart-Meldung 01:08 (5ba3de80e)
