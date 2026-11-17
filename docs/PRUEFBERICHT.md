@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 299 · 1537 Neustart-Haken an jedem Werkzeugaufruf (`efa589bde`; 17.11., 10:06)
+
+- **Wirkt im Kern:** nachgestellte Protokolle (Rolle Diogenes, Grep-Aufruf): 150 Tsd. still; 250 Tsd. nach dem Aufruf Erinnerung, kein Sperren; 350 Tsd. vor dem Aufruf Exit 2 mit Sperrtext. Frei bleiben Vorrat-Edit, Commit (-qm, Hier-Dokument), meldung.sh, vorgang.py; `rm`, `curl` gesperrt.
+- **Lücke → D299.1 = 1540 (Spike, M):** gesperrt sind auch Neustart Schritt 0 (`zug-haken.py --summe`, Zeile in `LISTE-REGELTREUE.md`), Lesen von `LISTE-RELEASE-NEUSTART.md`, Push mit Wiederholschleife, `git -C`. 1537 wartet auf 1540; danach am ersten echten Fall über 300 Tsd. → greift.
+
 ## Lauf 298 · 1425 Vorratsprüfung am Tagesbericht 17.11. (`9f0430de4`, `9bfe34088`; 17.11., 10:04)
 
 - **Greift:** Prüf-Commit „1425 Vorratsprüfung 17.11.“ 07:36, Tagesbericht 07:42 danach (kein Bericht mit `BORNIM_VORRAT_GEPRUEFT=1` ohne Prüfung). Funde der Nacht: E 649 an Sokrates (wartet auf 649.2, 644.1, 644.5); K 293.7 Fehlalarm (Urteil 16.11., 17:53 im Vorgangsarchiv, 1421 erledigt); L 1482 im Archiv, 1483 bleibt; O 966.2 gewollt (Übergabe Perikles 07:44). `vorratspruefung.py` 10:03: keine A, B, D, E, F, H, I. → **1425 greift**.
