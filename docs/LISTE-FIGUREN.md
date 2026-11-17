@@ -60,6 +60,75 @@ Leute aus Schilfrode tragen einen **Ölhaut-Umhang**; daran erkennt man sie auch
 | Der Aschenpriester | – | Räuchergefäß mit Glut an einer Kette, offenes graues Auge auf der Brust, Gesicht mit Asche geweißt | graue Robe mit verkohltem Saum | fanatisch | Aschfurt, Kapelle |
 | Gruft-Unhold | ausgezehrt, lange Klauen | Reste eines Ölhaut-Umhangs | graue Haut, tote Augen | – | Aschfurt, Kapelle |
 
+<!-- figuren.py: Anfang (erzeugt, nicht von Hand ändern; python3 tools/figuren.py) -->
+
+## Monster im Spiel (erzeugt, 649.2)
+
+Erzeugt von `tools/figuren.py` aus den Quellen, die das Spiel liest (Kopf des Werkzeugs); ändern dort, nicht hier. Klänge: Zahl der Fassungen je Anlass (Ziel drei). Bewegungen im Kampf stehen erst nach dem Kampfbau fest (`--modelle`); hier die der Kartenmodelle.
+
+| Kennung | Name | Gruppe | Stufe, Leben, Schutz, Angriff/Abwehr, Schaden | Art, Schwäche | Handlungen | Sonderregel, Beute | Auftritt | Kampfgruppe |
+|---|---|---|---|---|---|---|---|---|
+| `giant_rat` | Riesenratte / Giant Rat | Tier | 1, 20, 1, 10/5, 3 | nah, feuer ×1,5 | bite | NONE, stich; potion 8 %, raw_meat 30 % | forest Tag 22 %, cave Tag 6 % | RATTE: 1 × giant_rat |
+| `kobold` | Kobold / Kobold | Kobold | 1, 24, 1, 10/5, 3 | nah | stab (allgemein) | PACK_TACTICS, stich; potion 12 %, alchemist_fire 4 % | forest Tag 10 %, forest Nacht 10 %, deep_forest Tag 14 %, deep_forest Nacht 10 % | KOBOLDS: 3 × kobold |
+| `stirge` | Riesenegel / Giant Leech | Tier | 1, 18, 2, 15/9, 3 | nah, feuer ×1,5 | stab (allgemein) | BLOOD_DRAIN, stich; potion 6 % | forest Tag 6 %, forest Nacht 10 %, deep_forest Tag 8 %, deep_forest Nacht 8 % | LEECHES: 1 × stirge |
+| `wolf` | Wolf / Wolf | Tier | 2, 25, 1, 15/12, 6 | nah, feuer ×1,5 | pounce, circle | KNOCKDOWN, stich; potion 12 %, raw_meat 60 %, wolf_pelt 45 % | forest Tag 20 %, forest Nacht 24 %, deep_forest Tag 22 %, deep_forest Nacht 22 % | RUDEL: Leitwolf mit 1–2 Jungwolf |
+| `boar` | Wildschwein / Boar | Tier | 2, 29, 0, 10/8, 3 | nah, stich ×1,5, schnitt ×0,5 | stab (allgemein) | CHARGE, schnitt; potion 8 %, raw_meat 80 %, boar_tusk 50 % | forest Tag 10 %, deep_forest Tag 14 % | BOARS: 1 × boar |
+| `giant_centipede` | Riesen-Hundertfüßer / Giant Centipede | Tier | 2, 22, 1, 15/12, 3 | nah, wucht ×1,5, stich ×0,5 | stab (allgemein) | POISON, stich; potion 10 % | forest Tag 7 %, deep_forest Tag 8 % | CENTIPEDES: 1 × giant_centipede |
+| `goblin` | Goblin / Goblin | Goblin | 2, 18, 2, 15/16, 5 | nah | slash, flank | NONE, schnitt; potion 15 %, alchemist_fire 6 % | forest Tag 17 %, forest Nacht 10 %, deep_forest Tag 12 %, cave Tag 23 % | GOBLINS: 3 × goblin |
+| `goblin_archer` | Goblin-Späher / Goblin Scout | Goblin | 2, 22, 1, 15/12, 5 | fern | aim, shadow | NONE, stich; potion 15 %, alchemist_fire 5 % | forest Tag 8 %, deep_forest Tag 8 %, cave Tag 12 % | SCOUTS: 3 × goblin_archer |
+| `skeleton` | Skelett / Skeleton | Untoter | 2, 36, 1, 15/12, 5 | nah, wucht ×1,5, stich ×0,5, gift ×0 | stab (allgemein) | NONE, stich; potion 8 %, holy_water 4 % | forest Nacht 18 %, deep_forest Nacht 16 %, cave Tag 14 % | SKELETT: 1 × skeleton |
+| `zombie` | Wiedergänger / Revenant | Untoter | 2, 44, 0, 10/2, 3 | nah, feuer ×1,5, gift ×0 | claw | UNDEAD_FORTITUDE, wucht; potion 10 %, holy_water 6 % | forest Nacht 14 %, deep_forest Nacht 12 %, cave Tag 9 % | WIEDERGAENGER: 1 × zombie |
+| `giant_bat` | Riesenfledermaus / Giant Bat | Tier | 3, 46, 1, 20/17, 5 | nah, stich ×1,5 | bite | EVASIVE, stich; potion 10 %, bat_wing 60 % | forest Nacht 14 %, deep_forest Nacht 16 %, cave Tag 12 % | FLEDERMAUS: 1 × giant_bat |
+| `goblin_shaman` | Goblin-Schamane / Goblin Shaman | Goblin | 3, 29, 1, 15/15, 4 | zauber, stich ×1,5, feuer ×0,5 | slash, flank (wie goblin) | SHAMAN, wucht; potion 25 %, greater_potion 6 % | deep_forest Tag 6 %, cave Tag 8 % | SHAMANS: 3 × goblin_shaman |
+| `giant_spider` | Riesenspinne / Giant Spider | Tier | 4, 43, 2, 25/24, 7 | nah, feuer ×1,5, gift ×0,5 | venom, web | POISON, stich; greater_potion 15 %, spider_gland 60 %, spider_silk 50 % | deep_forest Tag 8 %, deep_forest Nacht 10 %, cave Tag 5 % | SPINNE: 1 × giant_spider |
+| `ghoul` | Grabhund / Grave Hound | Untoter | 4, 37, 1, 25/20, 6 | nah, licht ×1,5, gift ×0 | bite | PARALYZE, schnitt; greater_potion 15 %, holy_water 6 % | deep_forest Nacht 6 %, cave Tag 6 % | GRABHUND: 1 × ghoul |
+| `ochre_jelly` | Säureschnecke / Acid Slug | Tier | 5, 44, 0, 30/17, 5 | nah, feuer ×1,5, saeure ×0 | stab (allgemein) | ACID, wucht; greater_potion 20 % | cave Tag 3 % | SLUGS: 1 × ochre_jelly |
+| `bugbear` | Krogg der Grobian / Krogg the Brute | Bärenschrat | 4, 55, 2, 20/28, 7 | nah | stab (allgemein) | SURPRISE_ATTACK, stich; rusty_key 100 % | – | KROGG: 1 × bugbear |
+| `dire_wolf` | Grimmzahn, der Leitwolf / Grimfang, the Pack Leader | Tier | 5, 55, 2, 22/29, 7 | nah | pounce, circle (wie wolf) | KNOCKDOWN, stich; greater_potion 50 %, wolf_pelt 100 %, raw_meat 100 % | – | GRIMM: mit Leibwache: 2 × Wolf |
+| `hobgoblin_captain` | Hauptmann Grak / Captain Grak | Goblin-Hauptmann | 6, 60, 2, 25/38, 7 | nah | heavy, breakthrough, call, gather | MARTIAL_ADVANTAGE, schnitt; sun_amulet 100 %, prophet_letter 100 %, grak_key 100 % | – | GRAK: 1 × hobgoblin_captain |
+
+### Klang, Aussehen, Bewegungen
+
+| Kennung | Stimme | Angriff | Treffer | Tod | Stimme (Ruhe) | Trefferklang | Aussehen | Ruhe auf der Karte | Bewegungen (Karte) |
+|---|---|---|---|---|---|---|---|---|---|
+| `giant_rat` | giant_rat | 3 | 3 | 3 | 3 | bite | braun, grau, schwarz | Lefzen | Stehen, Gehen, Hocke, Biss, Sprung, Treffer, Ausweichen, Tod, Lefzen, Drohen |
+| `kobold` | kobold | 3 | 3 | 3 | 3 | hit_pierce | kappe, schild, fell | – | – |
+| `stirge` | stirge | 3 | 3 | 3 | 3 | hit_pierce | Kaufhäute (erst im Kampfbau) | Umsehen | – |
+| `wolf` | wolf | 3 | 3 | 3 | 3 | bite | grau, dunkel, rost, asche | Lefzen, UmsehenL, UmsehenR, Scharren, Hecheln, Knurren, HockeUmsehenL, HockeUmsehenR, HockeHecheln, HockeKnurren | Stehen, Gehen, Hocke, Sprung, Biss, Treffer, Ausweichen, Tod, Heulen, Lefzen, Scharren, ScharrenR |
+| `boar` | boar | 3 | 3 | 3 | 3 | hit_smash | dunkel, grau, rost | Fressen | Stehen, Gehen, Hocke, Hauer, Ansturm, Treffer, Ausweichen, Tod, Schnauben, Scharren, ScharrenR, Drohen |
+| `giant_centipede` | giant_centipede | 3 | 3 | 3 | 3 | bite | Kaufhäute (erst im Kampfbau) | – | – |
+| `goblin` | goblin | 3 | 3 | 3 | 3 | hit_slash | leder, kappe, helm | – | – |
+| `goblin_archer` | goblin | 3 | 3 | 3 | 3 | arrow | kapuze, kappe, fell | – | – |
+| `skeleton` | skeleton | 3 | 3 | 3 | 3 | hit_pierce | schwert, schild, speer | – | – |
+| `zombie` | zombie | 3 | 3 | 3 | 3 | hit_smash | lumpen, hemd, kette | Lauern | – |
+| `giant_bat` | giant_bat | 3 | 3 | 3 | 3 | bite | braun, schwarz, grau | Lefzen | – |
+| `goblin_shaman` | goblin | 3 | 3 | 3 | 3 | hit_smash | robe, fell, beides | – | – |
+| `giant_spider` | giant_spider | 3 | 3 | 3 | 3 | bite | Kaufhäute (erst im Kampfbau) | Lefzen | – |
+| `ghoul` | ghoul | 3 | 3 | 3 | 3 | hit_slash | Kaufhäute (erst im Kampfbau) | Lefzen, Umsehen | – |
+| `ochre_jelly` | ochre_jelly | 3 | 3 | 3 | 3 | hit_smash | Kaufhäute (erst im Kampfbau) | Umsehen | – |
+| `bugbear` | bugbear | 3 | 3 | 3 | 0 | hit_smash | krogg | – | – |
+| `dire_wolf` | wolf | 3 | 3 | 3 | 3 | bite | Kaufhäute (erst im Kampfbau) | Lefzen, UmsehenL, UmsehenR, Scharren, Hecheln, Knurren, HockeUmsehenL, HockeUmsehenR, HockeHecheln, HockeKnurren | Stehen, Gehen, Hocke, Sprung, Biss, Treffer, Ausweichen, Tod, Heulen, Lefzen, Scharren, ScharrenR |
+| `hobgoblin_captain` | hobgoblin_captain | 3 | 3 | 3 | 0 | hit_slash | hauptmann | – | – |
+
+### Lücken (14)
+
+- `giant_rat`: nur eine Handlung (bite; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `kobold`: nur eine Handlung (stab; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `stirge`: nur eine Handlung (stab; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `boar`: nur eine Handlung (stab; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `giant_centipede`: nur eine Handlung (stab; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `giant_centipede`: ohne Ruhebewegung auf der Karte („ruhe“)
+- `skeleton`: nur eine Handlung (stab; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `zombie`: nur eine Handlung (claw; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `giant_bat`: nur eine Handlung (bite; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `ghoul`: nur eine Handlung (bite; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `ochre_jelly`: nur eine Handlung (stab; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `bugbear`: nur eine Handlung (stab; Chef 08.11. „mehr als eine Handlung je Monsterart“)
+- `bugbear`: Klang Stimme: 0 Fassungen (idle_bugbear)
+- `hobgoblin_captain`: Klang Stimme: 0 Fassungen (idle_hobgoblin_captain)
+
+<!-- figuren.py: Ende -->
+
 ## Abnahmelisten der Modelle (348.11)
 
 Je Modell fünf prüfbare Punkte (Größe, Umriss, Merkmal, Farbe, Haltung), aus der bisherigen gezeichneten Fassung im Code; vor Entwurfsrunde 1 von Homer, einmal vom Chef gebilligt. Helfer, Homer, Diogenes prüfen nur diese Punkte, je Punkt Ja oder Nein mit einem Satz; alles andere kommt auf die Liste für den Feinschliff (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 7). „Bisher“ = die Fassung, die heute im Spiel ist.

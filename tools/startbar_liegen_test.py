@@ -9,7 +9,7 @@ def soll(name, ist, erwartet):
 liste = s.zeilen_liste()
 vorlage = dict(next(d for d in liste if d["wort"] == "startbar"))
 def neu(nr, stand, wort, warte=(), build="–"):
-    d = dict(vorlage, nr=nr, stand=stand, wort=wort, warte=list(warte), build=build, besitzer="Jerry", zusatz="", titel="Probe " + nr, kl="M")
+    d = dict(vorlage, nr=nr, stand=stand, wort=wort, warte=list(warte), build=build, besitzer="Jerry", zusatz="", titel="Probe " + nr, kl="M", kosten="–", zweig="–")  # 1604: Vorlage ohne Kosten (Schwelle 1538 sperrte)
     return d
 proben = [neu("8801", "zu testen, ohne Rückmeldung t289", "zu testen"),
           neu("8802", "zu testen", "zu testen", build="289"),
