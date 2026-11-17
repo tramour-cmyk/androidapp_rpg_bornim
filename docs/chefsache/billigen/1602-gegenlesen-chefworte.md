@@ -16,7 +16,7 @@ Geprüft an: `02b077202` (CLAUDE.md, Haltung 1)
 
 **Berührt:** alle Rollen beim Gegenlesen; Sokrates (seine Blätter fragen bisher je Rolle nur nach deren Fach).
 
-**Begründung:** Im Blatt 1589.1 standen die Abschnitte 2, 3 und 6 als „entschieden“ mit deinem Wort. Die Fragen ans Gegenlesen gingen je Rolle nur an das eigene Fach. Darum schrieben Jerry, Homer, Tom und ich fast nur zu den Vorschlägen. Zu den entschiedenen Abschnitten 2, 3 und 6 sagte keiner, ob sie stimmen. Es kamen nur Lücken für den Bau (Jerry: eine Zahl für die Trägheit) und der Widerspruch zu 915 (Homer, ich).
+**Begründung:** Im Regelblatt Gegnerverhalten (1589.1) standen die Abschnitte 2, 3 und 6 als „entschieden“ mit deinem Wort. Die Fragen ans Gegenlesen gingen je Rolle nur an das eigene Fach. Darum schrieben Jerry, Homer, Tom und ich fast nur zu den Vorschlägen. Zu den entschiedenen Abschnitten 2, 3 und 6 sagte keiner, ob sie stimmen. Es kamen nur Lücken für den Bau (Jerry: eine Zahl für die Trägheit) und der Widerspruch zu 915 (Homer, ich).
 
 **Sachverhalt:**
 - `DESIGN-GEGNER.md`, Ergänzungen 17.11., 22:08–22:15 (Tom, Jerry, Homer, Perikles).
