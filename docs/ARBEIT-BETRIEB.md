@@ -117,7 +117,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 03:39) (lauf.py)
 - 05:04 17.11.: Marke Archiv session_01Hmoj764SLoCvCFwQShPLJT (lauf.py)
 - 05:04 17.11.: Nachfolger-Warnung Spike (Übergabe 17.11., 02:53) (lauf.py)
-- 06:38 17.11.: Startsperre 06:38 Start Jerry (Ford von Hand), Neustart-Meldung 06:33 (d29a69780)
 - 07:31 17.11.: Startsperre 07:31 Start Perikles (Ford von Hand), Tagesbericht 17.11. ab 07:30
 - 07:43 17.11.: Startsperre 07:43 Start Ford (selbst), Selbstneustart bei 401 Tsd. Token (Haken 1019, Erinnerung 1), alter Ford session_01Hmoj76ER7oUkkBFVsDDeqy; Uhr-Sitzung …76cLUxDoHGcPjixiTE bleibt (1444)
 - 08:04 17.11.: Startsperre 08:04 Start Diogenes, Perikles (lauf.py)
@@ -141,3 +140,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:02 17.11.: Startsperre 12:02 Start Tom (selbst; Neustart-Meldung ebec38f6c, Tom idle seit 10:54, Kosten 17,52 $ auf 431h gebucht)
 - 12:28 17.11.: Startsperre 12:28 Start Ford (Starter)
 - 12:31 17.11.: Startsperre 12:31 Start Ford (Starter, zweiter Versuch ohne Uhrsatz)
+- 13:07 17.11.: Startsperre 13:07 Start Diogenes (lauf.py)
+- 13:07 17.11.: Marke Archiv session_01Hmoj76GuSR3ZmBd53Pew6R (lauf.py)
