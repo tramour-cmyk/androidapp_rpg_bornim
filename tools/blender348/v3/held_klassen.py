@@ -556,7 +556,7 @@ def vorrang_marke(netze, teile):
         print('VORRANG', o.name, n, 'Ecken Umhang,', na, 'Aermel')
 
 
-def exportiere(p, objs, farbe=False):
+def exportiere(p, objs, farbe=False, bild='AUTO'):
     schlank(objs)
     for o in objs:
         if o.type == 'MESH': o.data.name = o.name   # Godot benennt Netze nach den Daten (haare.glb: „Sphere.014_Retopology“)
@@ -564,7 +564,8 @@ def exportiere(p, objs, farbe=False):
     for o in objs: o.select_set(True)
     bpy.ops.export_scene.gltf(filepath=p, export_format='GLB', use_selection=True, export_animations=False, export_apply=False,
                               export_skins=True, export_morph=True, export_morph_normal=True,
-                              export_vertex_color='ACTIVE' if farbe else 'NONE')
+                              export_vertex_color='ACTIVE' if farbe else 'NONE',
+                              **({'export_image_format': 'JPEG', 'export_jpeg_quality': 90} if bild == 'JPEG' else {}))
 
 
 # Pruefer Lauf 1 (Kaempfer von hinten): Haut unter dem Umhangsaum durch die Hose, weisse Splitter an der Sohle, tuerkis im Schritt
@@ -1029,7 +1030,8 @@ def schrank_fertig(netze, k, sch):
 # Geruest); Godot haengt das Teil eines angelegten Stuecks an das Skelett des Helden, wenn seine Tracht es nicht selbst traegt
 # (heldfigur.gd kleide, Feld „teil“ der Gegenstandsliste). Je Teil: Platz, Netze, welche Leibstuecke es deckt (Leib_<STUECK>, wie
 # leib_deckung). Kettenhemd und Robe kommen aus den Bauten der Trachten WACHE und ROBE (teil_<KENNUNG>_<G>.glb, Kleid_CHEST).
-# Eine Datei je Geschlecht statt aller Teile in jedem der zehn Heldenmodelle: geladen wird sie nur, wenn ein fremdes Stueck angelegt ist.
+# Je Geschlecht und Teil eine Datei (schrank_<G>_<KENNUNG>.glb) statt aller Teile in jedem der zehn Heldenmodelle: geladen wird nur,
+# was angelegt ist.
 SCHRANK_TEILE = {   # Kennung -> (Kauftracht oder Tracht unseres Baus, Netzname nach „<Geschlecht>_<Satz>“ beginnt mit, Platz)
     'RANGER_HOOD': ('{v}_Ranger', ('_Head_Hood',), 'HEAD'),
     'RANGER_BODY': ('{v}_Ranger', ('_Body', '_Acc_Pauldron'), 'CHEST'),   # mit Guerteln und Schulterstueck, wie die Waldtracht
@@ -1139,8 +1141,14 @@ def schrank_datei(g):
     for kenn, v in info.items():
         v['leib'] = sorted(set([lo for lo, ps in dk.items() if kenn in ps] + SCHRANK_DECKT.get(kenn, [])))
     for lo in leiber: bpy.data.objects.remove(lo)
-    exportiere(os.path.join(ZIEL, 'schrank_%s.glb' % g), [arm] + teile, farbe=True)
-    print('SCHRANK DATEI', g, len(info), 'Teile', round(os.path.getsize(os.path.join(ZIEL, 'schrank_%s.glb' % g)) / 1e6, 2), 'MB')
+    # je Teil eine Datei (Godot laedt nur, was angelegt ist; Messung 17.11.: ein Schrank fuer alles 23 MB, erstes Laden +560 ms), Bilder
+    # als JPEG (Kleidung ohne Durchsicht; die Bilder waren 12,6 von 23 MB)
+    ges = 0
+    for kenn, v in info.items():
+        p = os.path.join(ZIEL, 'schrank_%s_%s.glb' % (g, kenn))
+        exportiere(p, [arm] + [o for o in teile if o.name in v['netze']], farbe=True, bild='JPEG')
+        v['mb'] = round(os.path.getsize(p) / 1e6, 2); ges += v['mb']
+    print('SCHRANK DATEIEN', g, len(info), 'Teile', round(ges, 2), 'MB', {k: v['mb'] for k, v in info.items()})
     return info
 
 
@@ -1469,6 +1477,11 @@ if LEUTE_KAUF:
     print('LEUTE KAUF OK', sorted(lk['trachten']))
     raise SystemExit(0)
 
+if os.environ.get('SCHRANK_NUR') == '1':   # 431h Stufe 2 am Rechner: nur den Kleiderschrank neu (teil_*.glb und held-klassen.json liegen)
+    info = json.load(open(os.path.join(ZIEL, 'held-klassen.json')))
+    info['schrank'] = {g: schrank_datei(g) for g in GESCHLECHTER if not NUR_G or g in NUR_G}
+    json.dump(info, open(os.path.join(ZIEL, 'held-klassen.json'), 'w'), indent=1, ensure_ascii=False)
+    raise SystemExit(0)
 info = {'formen': FORMEN, 'statur': list(STATUR), 'haut': {k: list(v) for k, v in KO.HAUT.items()},
         'haarfarben': {k: list(v) for k, v in QT.HAAR.items()}, 'herkuenfte': HERKUENFTE, 'klasse_herkunft': KLASSE_HERKUNFT,
         'trachten': {}, 'geschlechter': {}}
@@ -1484,6 +1497,7 @@ for t, f in TRACHTEN.items():
         if k in SCHRANK_INFO:
             info['trachten'][k].update(SCHRANK_INFO[k])   # 431h: teile, unter, leib (heldfigur.gd kleide)
             info['trachten'][k]['eigen'] = eigen_stuecke(t)   # 431h Stufe 2: Stuecke, die das eigene Teil zeigt
+            if t == 'ROBE': info['trachten'][k]['rock'] = 'CHEST'   # Beine richten sich nach der Robe (heldfigur.gd kleide)
         print('TRACHT', k, info['trachten'][k]['dreiecke'], 'Dreiecke', info['trachten'][k]['kleid'], info['trachten'][k].get('eigen'))
 # 431h Stufe 2: Kleiderschrank je Geschlecht (nach den Trachten: Kettenhemd und Robe aus ihren Bauten); SCHRANK_DATEI=0 ohne
 if SCHRANK and os.environ.get('SCHRANK_DATEI', '1') != '0' and not FREI:

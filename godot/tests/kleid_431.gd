@@ -53,16 +53,19 @@ func _init() -> void:
 				if m == null: pruefe(false, "%s %s %s: keine Figur" % [h, g, f]); continue
 				var n := netze(m)
 				var wo := "%s %s %s" % [h, g, f]
+				# Stufe 2: Robe ohne Rock zeigt die Hose aus dem Kleiderschrank (kleid_stufe2_431 prueft das)
+				var rock := String(info["trachten"][modell].get("rock", ""))
+				var hose := rock != "" and info.has("schrank") and not (aus.get(rock) is Dictionary) and aus.get("LEGS") is Dictionary
 				for p in teile:
 					for nm in teile[p]:
 						pruefe(n.has(nm), "%s: Netz %s fehlt" % [wo, nm])
-						if n.has(nm): pruefe((n[nm] as MeshInstance3D).visible == (aus.get(p) is Dictionary), "%s: %s (%s) sichtbar %s" % [wo, nm, p, (n[nm] as MeshInstance3D).visible])
+						if n.has(nm): pruefe((n[nm] as MeshInstance3D).visible == (aus.get(p) is Dictionary and not (hose and p == "LEGS")), "%s: %s (%s) sichtbar %s" % [wo, nm, p, (n[nm] as MeshInstance3D).visible])
 				# Leib: jedes Stueck da, wenn kein gezeigter Platz es deckt; ausgezogen alle acht da, kein unter_ an; Start: Rumpf weg
 				var leib: Dictionary = info["trachten"][modell].get("leib", {})
 				pruefe(leib.size() == 8, "%s: %d Leibstuecke statt 8" % [modell, leib.size()])
 				for ln in leib:
 					pruefe(n.has(ln), "%s: %s fehlt" % [wo, ln])
-					if not n.has(ln): continue
+					if not n.has(ln) or hose: continue
 					var soll := not Array(leib[ln]).any(func(p): return aus.get(p) is Dictionary)
 					pruefe((n[ln] as MeshInstance3D).visible == soll, "%s: %s sichtbar %s statt %s" % [wo, ln, (n[ln] as MeshInstance3D).visible, soll])
 					if f == "nackt":

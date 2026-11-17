@@ -51,7 +51,7 @@ const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen
 
 static var info := {}
 static var haare_szenen := {}   # Geschlecht -> haare.bin (m), haare_w.bin
-static var schrank_szenen := {}  # 431h Stufe 2: Geschlecht (M, W) -> schrank_<G>.bin
+static var schrank_szenen := {}  # 431h Stufe 2: Datei schrank_<G>_<TEIL>.bin -> Szene
 static var bew_lib: AnimationLibrary = null
 static var bew_becken := 1.0
 static var bew_sk: Skeleton3D = null    # Skelett von bewegungen.bin (Ruhelage fuer rennen_umformen)
@@ -389,7 +389,7 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 	var zeig := {}
 	# 431h Stufe 2 (Chef 17.11., 09:45, „431h A“): ein Stueck, das die Tracht nicht selbst traegt („eigen“: Startstuecke ihrer Herkuenfte
 	# und Stuecke aus ihren Teilen), zeigt sein Teil aus dem Kleiderschrank des Geschlechts (schrank_<G>.bin, Feld „teil“ der
-	# Gegenstandsliste); das eigene Teil des Platzes faellt dann weg. Ohne „eigen“ (Bau vor Stufe 2) wie Stufe 1
+	# Gegenstandsliste; je Teil schrank_<G>_<TEIL>.bin); das eigene Teil des Platzes faellt dann weg. Ohne „eigen“ (Bau vor Stufe 2) wie Stufe 1
 	var eigen: Array = tr.get("eigen", [])
 	var fremd := []   # Kennungen der Schrankteile
 	for p in KLEID_PLAETZE:
@@ -397,7 +397,12 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 		zeig[p] = st is Dictionary and teile.has(p)
 		if not (st is Dictionary) or eigen.is_empty() or w.get("stufe1", false): continue   # „stufe1“: Vergleichsfilm alt
 		var b := String(st.get("base", ""))
-		if b in eigen: continue
+		# Robe (held-klassen.json „rock“: CHEST): unter dem eigenen Rock bleiben die eigenen Beine (sonst stechen fremde Hosen durch);
+		# ohne Rock zeigt auch das Startstueck (Hose) sein Teil, die Tracht hat keine Hose
+		var rock := String(tr.get("rock", ""))
+		if p == "LEGS" and rock != "":
+			if bool(zeig.get(rock, false)): continue
+		elif b in eigen: continue
 		zeig[p] = false
 		fremd += teil_von(b)
 	var sch: Dictionary = lade_info().get("schrank", {}).get(String(tr.get("geschlecht", "M")), {})
@@ -437,14 +442,15 @@ static func teil_von(base: String) -> Array:
 # 431h Stufe 2: Netze der Schrankteile ans Skelett des Helden (gleiches Geruest des Kaufkoerpers; Bindung ueber Knochennamen, weil die
 # Datei zur Laufzeit mit Bindung nach Nummern geladen wird). Vor Gebiet.male, statur, toene: die Teile werden wie die Figur gezeichnet
 static func schrank_an(m: Node3D, g: String, fremd: Array, sch: Dictionary) -> void:
-	var datei := "res://daten/schrank_%s.bin" % g
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
-	if sk == null or not FileAccess.file_exists(datei): return
-	if not schrank_szenen.has(g): schrank_szenen[g] = Gebiet.lade_glb(datei)
-	var sz: Node3D = schrank_szenen[g]
-	if sz == null: return
-	var ssk := Gebiet.finde(sz, "Skeleton3D") as Skeleton3D
+	if sk == null: return
 	for t in fremd:
+		var datei := "res://daten/schrank_%s_%s.bin" % [g, t]   # je Teil eine Datei, einmal je Spielstart geladen
+		if not FileAccess.file_exists(datei): continue
+		if not schrank_szenen.has(datei): schrank_szenen[datei] = Gebiet.lade_glb(datei)
+		var sz: Node3D = schrank_szenen[datei]
+		if sz == null: continue
+		var ssk := Gebiet.finde(sz, "Skeleton3D") as Skeleton3D
 		for n in Array(sch[t].get("netze", [])):
 			var q := sz.find_child(String(n), true, false) as MeshInstance3D
 			if q == null or q.skin == null: continue

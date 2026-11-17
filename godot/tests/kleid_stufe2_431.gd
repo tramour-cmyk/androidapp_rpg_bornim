@@ -25,7 +25,7 @@ func stueck(base: String) -> Dictionary: return {"base": base}
 
 func _init() -> void:
 	var info := HeldFigur.lade_info()
-	if not info.has("schrank") or not FileAccess.file_exists("res://daten/schrank_M.bin"):
+	if not info.has("schrank") or not FileAccess.file_exists("res://daten/schrank_M_KETTE.bin"):
 		print("KLEID2 ohne Daten (held-klassen.json ohne schrank)")
 		quit(0)
 		return
@@ -63,6 +63,8 @@ func _init() -> void:
 				for p in saetze[sn]:
 					var b: String = saetze[sn][p]
 					var fremd := b not in eigen
+					var rock := String(tr.get("rock", ""))
+					if p == "LEGS" and rock != "": fremd = saetze[sn].has(rock) and String(saetze[sn][rock]) not in eigen
 					for nm in Array(tr.get("teile", {}).get(p, [])):
 						if n.has(nm): pruefe((n[nm] as MeshInstance3D).visible == (not fremd), "%s: eigenes %s (%s) sichtbar %s" % [wo, nm, p, (n[nm] as MeshInstance3D).visible])
 					for t in HeldFigur.teil_von(b):
@@ -84,7 +86,7 @@ func _init() -> void:
 								weit = maxf(weit, d)
 							pruefe(schlecht == 0, "%s: %s, %d Knochen fehlen im Skelett" % [wo, tn, schlecht])
 							pruefe(weit < 0.001, "%s: %s Bindung weicht %.4f m von der Ruhelage ab" % [wo, tn, weit])
-						for lo in Array(sch[t].get("leib", [])): gedeckt[lo] = true
+						if fremd: for lo in Array(sch[t].get("leib", [])): gedeckt[lo] = true
 				for lo in gedeckt:
 					if n.has(lo): pruefe(not (n[lo] as MeshInstance3D).visible, "%s: %s unter Schrankteil sichtbar" % [wo, lo])
 				m.free()
