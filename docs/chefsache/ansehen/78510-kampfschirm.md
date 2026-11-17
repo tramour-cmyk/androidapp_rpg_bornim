@@ -1,5 +1,7 @@
 # 785.10 · Kampfschirm: Erfahrung im Kasten des Helden, Beute in Seltenheitsfarbe, „Schnell“ im leichten Kampf
 
+[Bild von 17.11., 07:42](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-0742-785.10-Tom-2.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 17.11., 07:42](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-0742-785.10-Tom.png) (eingetragen von meldung.sh, Tom)
 
 Tom · 17.11., 07:41 · E Kampf · Rest aus 536 (alter Kampfschirm), von Jerry übernommen
