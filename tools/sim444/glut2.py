@@ -109,7 +109,10 @@ def kampf(W, H, held, mon_name, rng, opt):
     s = {"leben": held.leben_max(), "mana": held.mana_max(), "bann": 0.0, "liegt": False, "betaeubt": 0,
          "bereit": 0, "haltung": None, "minus": 0, "funke_da": held.stufe >= 4, "funke_jetzt": False, "ringe": 0}
     lmax = s["leben"]
-    st = {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "nachgelegt": 0, "funke": 0,
+    AUS = opt.get("ausdauer")                     # 1529: Ausdauer im Kampf (None = aus, wie bisher)
+    if AUS:
+        s["aus_max"] = AUS.get("faktor", 1.0) * hg.ausdauer_max(H, held); s["aus"] = s["aus_max"]; s["tief_letzt"] = False
+    st = {"leer": 0, "tief_gekappt": 0, "zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verfallen": 0, "nachgelegt": 0, "funke": 0,
           "ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0}
     pol = opt.get("politik", "schlag_haltung")
 
@@ -274,8 +277,24 @@ def kampf(W, H, held, mon_name, rng, opt):
             return "wachschuss" if any(g.ab > 0 for g in lebend()) else "wehr"
         return "gegenschlag"
 
+    def tief_kosten(fa):
+        """1529: Ausdauer je Vertiefen-Kerbe, sinkt mit der Fertigkeit des Tuns (BRS: du wirst, was du tust)."""
+        fn = z["Funkenpfeil"]["schule"] if fa == "Funkenpfeil" else waffe_name
+        return AUS["kosten"] * max(AUS.get("min_anteil", 0.25), 1.0 - held.f(fn) / AUS.get("teiler", 100.0))
+
     def tun(t, glut, fa):
         nd = glut - 1 if pol == "nachlegen" else 0
+        if AUS and nd > 0 and AUS.get("kosten", 0) > 0:
+            c = tief_kosten(fa)
+            geht = int((s["aus"] + 1e-9) // c)
+            if geht < nd:
+                st["tief_gekappt"] += nd - geht
+                if geht == 0:
+                    st["leer"] += 1
+                nd = geht
+            s["aus"] -= nd * c
+            if nd > 0:
+                s["tief_letzt"] = True
         bonus = 0.0; faktor = 1.0
         if nd > 0:
             st["nachgelegt"] += nd
@@ -287,11 +306,19 @@ def kampf(W, H, held, mon_name, rng, opt):
         st["verfallen"] += s["bereit"]
         s["bereit"] = 0; s["haltung"] = None
         st["zuege"] += 1
+        if AUS:                                    # 1529: Atem kommt zurück, wenn im letzten Zug nicht vertieft
+            if not s["tief_letzt"]:
+                s["aus"] = min(s["aus_max"], s["aus"] + AUS.get("atem", 0.0) * s["aus_max"])
+            s["tief_letzt"] = False
         if s["betaeubt"] > 0:
             s["betaeubt"] -= 1; return
         glut = max(1, 3 - s["minus"]); s["minus"] = 0
         if s["funke_jetzt"]:
             glut += 1; s["funke_jetzt"] = False
+        if AUS and AUS.get("kraftakt"):            # 1529 Weg B: Kraftakt, eine Kerbe mehr gegen Ausdauer (DESIGN-AKTIONSPUNKTE I5)
+            c = AUS["kraftakt"] * max(AUS.get("min_anteil", 0.25), 1.0 - held.f(waffe_name) / AUS.get("teiler", 100.0))
+            if s["aus"] >= c:
+                s["aus"] -= c; glut += 1; st["kraftakt"] = st.get("kraftakt", 0) + 1
         frei = FREI[tempo]
         t = ziel_von()
         fa = aktion_fern()
