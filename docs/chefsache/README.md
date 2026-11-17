@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 19:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 19:28, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -27,7 +27,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 20 (16) | 10 | 1 | 0 | 8 | 1569 (Tom) Rest aus 431h: angelegter Umhang an der Heldenfig… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 0 | 24 | 1567 (Jerry) Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 11 (13) | 5 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 10 (13) | 4 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
 | **7** Werkzeuge und Abläufe der Firma | 47 (43) | 30 | 0 | 0 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -35,9 +35,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 98 | 202 | 300 | 1160 |
+| erledigt | 99 | 202 | 301 | 1161 |
 | neu | 94 | 164 | 258 | 1148 |
-| **netto** (erledigt − neu) | **+4** | **+38** | **+42** | **+12** |
+| **netto** (erledigt − neu) | **+5** | **+38** | **+43** | **+13** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,10 +45,10 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 1 weitere |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 2 weitere |
 | Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 1 weitere |
-| Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 5 weitere |
-| Tuffy | 1541 Taumeln im Kerbensystem auch bei Zurückdrängen und Netz ver… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
+| Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 4 weitere |
+| Tuffy | 1567 Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben macht nich… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | leer, weil 3 ruht, 2 Termin, 1 Chef |
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
@@ -60,27 +60,27 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1068 | Jerry | Ring bei jedem großen Schlag der Gegner, diese Schläge härter, Ring beim eigene… | M | 2 Kampf passt | startbar |
-| 2 | 1541 | Jerry | Taumeln im Kerbensystem auch bei Zurückdrängen und Netz verbrennen, beide rufen… | M | 2 Kampf passt | startbar |
-| 3 | 1589.1 | Sokrates | Regelblatt Gegnerverhalten gemeinsam, nicht im stillen Kämmerchen: Gespräch Che… | M | 2 Kampf passt | startbar |
-| 4 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 5 | 1587 | Jerry | Zauberstab ohne Modell, darum an der Figur unsichtbar; ebenso Magierstab und Gl… | M | 3 Kleiderschrank und Modelle | startbar |
-| 6 | 1567 | Jerry | Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben macht nicht so viel Sinn“; Zei… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 7 | 1568 | Jerry | im Kampfort liegt unter Wölfen und Held ein rechteckiger dunkler Fleck; nicht d… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 8 | 1591 | Tom | im nächsten Sammelbuild eine Handyzeile „neues Spiel von der Erschaffung über D… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 9 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 10 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 11 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 12 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 13 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 14 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 15 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 16 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
-| 17 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
-| 18 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
-| 19 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
-| 20 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 2 | 1589.1 | Sokrates | Regelblatt Gegnerverhalten gemeinsam, nicht im stillen Kämmerchen: Gespräch Che… | M | 2 Kampf passt | startbar |
+| 3 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 4 | 1587 | Jerry | Zauberstab ohne Modell, darum an der Figur unsichtbar; ebenso Magierstab und Gl… | M | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1567 | Jerry | Siegtafel zeigt „Alrik –0 Leben“, „Minus 0 Leben macht nicht so viel Sinn“; Zei… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 6 | 1568 | Jerry | im Kampfort liegt unter Wölfen und Held ein rechteckiger dunkler Fleck; nicht d… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 7 | 1591 | Tom | im nächsten Sammelbuild eine Handyzeile „neues Spiel von der Erschaffung über D… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 8 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 10 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 11 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 12 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 13 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 14 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 15 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 16 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
+| 17 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 18 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 19 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 20 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
 
-Danach 72 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 73.
+Danach 71 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 24. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
@@ -95,6 +95,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [1515](ansehen/1515-wache-alt-neu.md) | Hauptmenü: weißer Streifen vor dem Schild der Wachsoldatin (Bild alt gegen neu) | – | 17.11., 19:26 |
 | [1569](ansehen/1569-umhang.md) | Angelegter Umhang an jeder Herkunft sichtbar (Bild alt gegen neu) | – | 17.11., 19:12 |
 
 ## Zu tun
@@ -349,6 +350,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 45 | K | Geschäftsmodell und Umsetzung (Play Store) | nach dem Meilenstein |
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
 | 1589.1 | M | Von Chef (17.11., 17:58/18:05, zu 1589): Regelblatt Gegnerverhalten gemeinsam, nicht im st | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): ansehen/1515-wache-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
