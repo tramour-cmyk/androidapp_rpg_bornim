@@ -868,3 +868,4 @@
 2026-11-17 21:41:51	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30106 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-17 21:46:01	commit-pruefung	docs/chefsache/ansehen/1211-funke-rocket-trail.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-17 21:46:05	commit-pruefung	VORGANGSARCHIV.md: 👎 ohne Wort des Chefs; im selben Zug nachfragen (tools/meldung.sh --frage <Kennung> …), dann „nachgefragt HH:MM“ oder seinen Wortlaut „Chef …: „…““ in den Eintrag (1301, 1302)	main
+2026-11-17 21:50:19	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md: „Zu 1211 … von Sokrates“ liefert, aber 1211 wartet noch auf Sokrates; Feld nachziehen: `vorgang.py warte 1211 –` (Rolle löst sich nie von selbst, 1124; liefert noch nicht: B	main
