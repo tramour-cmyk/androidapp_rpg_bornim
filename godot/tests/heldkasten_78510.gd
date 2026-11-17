@@ -1,5 +1,5 @@
-# 785.10 ohne Bild: im Kasten des Helden steht unter Leben und Mana die Erfahrung als goldener Balken, dahinter die Stufe („St. n“)
-# wie alt (BattleScreen.kt 1708, 1725–1729), im Probekampf ohne Stand voll; der Söldner hat keinen. Massgeblich: HELDKASTEN78510
+# 785.10 ohne Bild, Rückläufer (Chef 17.11., 08:44: „Wir haben nur den Lebensbalken und den Mana-Balken. Wofür brauche ich den?“):
+# im Kasten des Helden nur Leben und Mana, kein Erfahrungsbalken und keine Stufe („St. n“); der Söldner nur Leben. Massgeblich: HELDKASTEN78510
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -46,9 +46,8 @@ func _lauf() -> void:
 	var hb := hk.find_children("*", "ProgressBar", true, false)
 	var sb := sk.find_children("*", "ProgressBar", true, false)
 	var stufe := "St. %d" % held.level()
-	pruefe(hb.size() == 3, "Held (Kleriker): Leben, Mana, Erfahrung: %d Balken" % hb.size())
-	pruefe(_texte(hk, []).has(stufe), "hinter dem Erfahrungsbalken „%s“: %s" % [stufe, _texte(hk, [])])
-	pruefe(hb.size() == 3 and is_equal_approx((hb[2] as ProgressBar).value, (hb[2] as ProgressBar).max_value), "Probekampf ohne Stand: Balken voll")
+	pruefe(hb.size() == 2, "Held (Kleriker): nur Leben und Mana: %d Balken" % hb.size())
+	pruefe(not _texte(hk, []).has(stufe), "keine Stufe „%s“ im Kasten: %s" % [stufe, _texte(hk, [])])
 	pruefe(sb.size() == 1 and not _texte(sk, []).any(func(t): return String(t).begins_with("St. ")), "Söldner ohne Erfahrung: %d Balken" % sb.size())
 	hk.free(); sk.free()
 	print("HELDKASTEN78510 %d Fehler" % fehler)

@@ -753,15 +753,8 @@ func _party_box(f) -> Control:
 	if f.hero != null and not f.zauber.is_empty():
 		var spv: int = kampfort.shown.sp.get(f.id, f.sp)
 		v.add_child(_balken_zeile(spv, f.max_sp, Leiste.BLAU, zahl_w, zahl_fs))
-	# 785.10 (alt BattleScreen.kt 1708, 1725–1729: Stufe und EP-Balken im Kasten des Helden): Erfahrung in der Stufe als goldener
-	# Balken wie in der Weltleiste (1448 A: ohne Wort, dahinter die Stufe „St. 3“); ohne Stand (Probekampf) die Stufe des Kämpfers, voll
-	if f.hero != null and f == kampfort.mars.all[0]:
-		var stand: Dictionary = kampfort.progress.get("stand", {})
-		var stufe: int = int(stand.get("stufe", f.level()))
-		var voll: bool = stand.is_empty() or stufe >= Brs.hoechste_stufe()
-		var ep: int = 1 if voll else int(float(stand.get("ep", 0.0)))
-		var bedarf: int = 1 if voll else maxi(1, int(Brs.bedarf(stufe)))
-		v.add_child(_balken_zeile(mini(ep, bedarf), bedarf, Leiste.GOLD_HELL, zahl_w, zahl_fs, (t("St. ", "Lv ")) + str(stufe)))
+	# 785.10 Rückläufer (Chef 17.11., 08:44: „warum taucht jetzt auf einmal der Erfahrungspunkte-Balken im Kampfbildschirm auf? … Wir haben
+	# nur den Lebensbalken und den Mana-Balken. Wofür brauche ich den?“): keine Stufe und kein Erfahrungsbalken im Kasten des Helden
 	return box
 
 
