@@ -550,6 +550,24 @@ if UA > 0 and 'cloak' in TEILNAMEN:
     print('UMHANG AUF', int(m.sum()), 'Ecken')
 umhang_dbg(VK3, 'Ende')
 kme.vertices.foreach_set('co', VK3.ravel())
+# 1515 (Chef 17.11., 07:32, Hauptmenü: „weißes Etwas“ vor dem Schild der Wachsoldatin): lange Flächen des Kettenhemds spannten in der
+# Ruhe der Kauffigur (T-Haltung) vom Ärmelsaum am Ellbogen bis an die Seite des Rumpfs (Messung tests/achsel_1515.gd: Dreiecke mit Ecken
+# an Unterarm und Rumpf, 20-30 cm lang); ging der Arm vom Körper weg, wurden sie als heller Streifen vom Gürtel zum Arm sichtbar. Flächen,
+# deren Ecken (größtes Gewicht) an Unterarm oder Hand und zugleich an Becken/Rumpf hängen und die länger als ACHSEL_LANG sind, fallen weg
+ACHSEL_LANG = float(os.environ.get('ACHSEL_LANG', '0.12'))
+_dom = WKq.argmax(1)
+_arm = np.isin(_dom, [Q_KN.index(n) for n in Q_KN if n.startswith(('lowerarm_', 'hand_'))])
+_rumpf = np.isin(_dom, [Q_KN.index(n) for n in Q_KN if n == 'pelvis' or n.startswith('spine')])
+_bm = bmesh.new(); _bm.from_mesh(kme); _bm.verts.ensure_lookup_table()
+_weg = []
+for f_ in _bm.faces:
+    ix_ = [v.index for v in f_.verts]
+    if not (_arm[ix_].any() and _rumpf[ix_].any()): continue
+    P_ = VK3[ix_]
+    if max(np.linalg.norm(P_[i] - P_[(i + 1) % len(P_)]) for i in range(len(P_))) > ACHSEL_LANG: _weg.append(f_)
+bmesh.ops.delete(_bm, geom=_weg, context='FACES_ONLY')
+_bm.to_mesh(kme); _bm.free()
+print('ACHSEL 1515', len(_weg), 'lange Flaechen Arm-Rumpf weg')
 for g in list(kleid.vertex_groups): kleid.vertex_groups.remove(g)
 for j, n in enumerate(Q_KN):
     idx = np.where(WKq[:, j] > 1e-3)[0]

@@ -464,7 +464,9 @@ func baue_gruppen(n: Node) -> void:
 	if n is MeshInstance3D and String(n.name).begins_with("Gruppe_"):
 		var mi := n as MeshInstance3D
 		var key := String(mi.name).trim_suffix("_Glas")
-		if not gruppen.has(key): gruppen[key] = {"mats": [], "a": 1.0, "ziel": 1.0}
+		# 1423: hohe Felswand der Hoehle (hoehle.py „Gruppe_Wand_…“): halb durchsichtig deckte der dunkle Fels den Helden weiter; sie
+		# oeffnet ein Loch um ihn wie das Laub im Wald (toon cut_*), nur solange sie ihn verdeckt
+		if not gruppen.has(key): gruppen[key] = {"mats": [], "a": 1.0, "ziel": 1.0, "loch": key.contains("Wand_")}
 		for i in mi.mesh.get_surface_count():
 			var m := mi.get_surface_override_material(i) as ShaderMaterial
 			# eigene Kette (Laub am Haus: Efeu, Blumenkasten) bleibt; sonst kommt sie erst beim Ausblenden dazu
@@ -506,7 +508,8 @@ func blende_gruppen(dt: float) -> void:
 		var g: Dictionary = gruppen[key]
 		var a: float = g["a"]
 		var z: float = g["ziel"]
-		if a == z: continue
+		var loch: bool = g.get("loch", false)
+		if a == z and not (loch and a < 1.0): continue   # das Loch folgt dem Helden
 		a = move_toward(a, z, dt / 0.3)
 		g["a"] = a
 		for e in g["mats"]:
@@ -521,8 +524,13 @@ func blende_gruppen(dt: float) -> void:
 				elif a >= 1.0: m.next_pass = null
 			var x := m
 			while x:
-				x.set_shader_parameter("weg", 1.0 if a < 1.0 else 0.0)
-				x.set_shader_parameter("durch_a", a)
+				if loch:   # waechst weich mit a (cut_weit hoechstens 1, sonst rechnet toon die Deckkraft wie im Tiefen Wald)
+					x.set_shader_parameter("cut_on", 1.0 if a < 1.0 else 0.0)
+					x.set_shader_parameter("cut_weit", maxf(0.01, (1.0 - a) / (1.0 - DURCH_A)))
+					if held: x.set_shader_parameter("cut_pos", held.global_position + Vector3(0, 0.9, 0))
+				else:
+					x.set_shader_parameter("weg", 1.0 if a < 1.0 else 0.0)
+					x.set_shader_parameter("durch_a", a)
 				x = x.next_pass as ShaderMaterial
 
 # 608 (Chef 07.11., t268: „Pims Hütte am Tag, wenn sie transparent wird, … dann geht das Licht im Haus an“): die Durchgaenge der

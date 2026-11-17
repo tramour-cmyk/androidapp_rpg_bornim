@@ -273,7 +273,7 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
           grep -E "^(GANG|FEHLT|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-200
           GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
-          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT" klassen.log
+          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT|^UAL531" klassen.log
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
@@ -686,6 +686,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/schild_menue_1417.gd 2>&1 | tee schild1417.log | grep -E "FEHLER|SCHILD1417|SCRIPT ERROR"; grep -q "^SCHILD1417 0 Fehler" schild1417.log   # 1417 Schild der Wachsoldatin im Hauptmenue nicht im Rock (Tom)
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/achsel_1515.gd 2>&1 | tee achsel1515.log | grep -E "FEHLER|ACHSEL1515|SCRIPT ERROR"; grep -q "^ACHSEL1515 0 Fehler" achsel1515.log   # 1515 Kleidung an der Achsel nicht am Unterarm (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testschalter_1480.gd 2>&1 | tee schalter1480.log | grep -E "FEHLER|TESTSCHALTER1480|SCRIPT ERROR"; grep -q "^TESTSCHALTER1480 0 Fehler" schalter1480.log   # 1480 Testschalter rot, Lage schaltet aus (Tom)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/held_kampf_403.gd 2>&1 | grep -E "^(ok|FEHLER|Held 403)|SCRIPT ERROR"   # 403 (Jerry)
           # 824: Held ohne Schild geht nach dem Hieb rückwärts im Schritttempo heim (nicht 3,8 m/s mit 1,6-facher Bewegung)
@@ -734,6 +735,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/namen_1234.gd 2>&1 | grep -E "FALSCH|NAMEN1234|SCRIPT ERROR"   # 1234 Bärenschrat statt Grottenschrat im Text (Spike)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/brs_held_870.gd 2>&1 | grep -E "FALSCH|BRSHELD870|SCRIPT ERROR"   # 870.4 Held nach BRS (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kraeutersammeln_875.gd 2>&1 | grep -E "FALSCH|KRAEUTERSAMMELN875|SCRIPT ERROR"   # 875 Kräutersammeln statt Kräuterkunde (Tom)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schneidern_1460.gd 2>&1 | grep -E "FALSCH|SCHNEIDERN1460|SCRIPT ERROR"   # 1460 Schneidern statt Lederarbeit (975a A, Tom)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/gegenstaende_870.gd 2>&1 | grep -E "FALSCH|GEGENSTAENDE870|SCRIPT ERROR"   # 870.6 Gegenstände und Beute nach BRS (Tuffy)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/zustaende_870.gd 2>&1 | grep -E "FALSCH|ZUSTAENDE870|SCRIPT ERROR"   # 870.6 Zustände, Tränke, Spinnseide ohne SRD-Maß (Tuffy)
           timeout 60 ~/godot/godot --headless --path . -s res://tests/masse_498.gd 2>&1 | tee masse498.log | grep -E "FEHLER|MASSE498|SCRIPT ERROR"; grep -q "^MASSE498 0 Fehler" masse498.log   # 498 Schrift wie alt
@@ -797,6 +799,8 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/waffe_948.gd 2>&1 | grep -E "^  |WAFFE948|SCRIPT ERROR"   # 948 B jede Klinge 3 cm an der Wurzel, 1 cm dick; Dolch in der Hand je Herkunft (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tasche_521.gd 2>&1 | grep -E "^(gut|FEHLER|TASCHE521)|SCRIPT ERROR"   # 521, 523 Ausruestungszeile wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/untersuchen_541.gd 2>&1 | grep -E "FEHLER|UNTERSUCHEN|SCRIPT ERROR"   # 541 Untersuchen, Angriff mit dem Knopf
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/garrick_531.gd 2>&1 | grep -E "^(gut|FEHLER|GARRICK531|ohne)|SCRIPT ERROR"   # 531 Garrick wehrt mit der Fackel ab
+          set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/schweben_531.gd 2>&1 | grep -E "^(gut|FEHLER|SCHWEBEN531 [0-9])|SCRIPT ERROR"   # 531.2 Köcher, Bogen, Gurt liegen an, Gurt nicht im Körper (ersetzt gurt_531)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/platzwechsel_4162.gd 2>&1 | grep -E "FEHLER|PLATZWECHSEL|SCRIPT ERROR"   # 416.2
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . -s res://tests/sprung_680.gd 2>&1 | grep -E "^FEHLER|^RUNDE|^WAISE|SPRUNG 680|SCRIPT ERROR"   # 680 Ortswechsel ohne Speicherzuwachs (Spike)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/ziege_4162.gd 2>&1 | grep -E "FEHLER|ZIEGE|^Seite|^Ziege|SCRIPT ERROR"   # 416.2 Ziege (146.5); 1079: Seiten und Schritte der Ziege ins Protokoll
@@ -1031,7 +1035,7 @@ jobs:
           VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -- --leute=$GITHUB_WORKSPACE/bilder/leute475 --gesichter --gesichterspiel 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^GESICHT|^LEUTE BLATT" | cut -c1-300 || true
           ls -l $GITHUB_WORKSPACE/bilder/leute475
-      # 501 (Chef 03.11., 07:26): Kamine in den Grundrissen, Renderer wie am Handy; KAMIN-Zeilen: Lage der Flamme im Bild (Ausschnitt)
+      # 531 (Chef 04.11., 19:27): Film Garrick am Feuer (Fackel Tag und Nacht, Ruhe aus dem Bestand), Spielkamera, mobile (Vulkan) wie am Handy
       - name: Kamine 501 (nur von Hand mit kamin=ja)
         if: ${{ !cancelled() && github.event.inputs.kamin == 'ja' }}
         continue-on-error: true
@@ -1996,6 +2000,53 @@ jobs:
           s=$(grep -oE "^FILM1420 village vorher \(Bild [0-9]+" $A/staub1420.log | grep -oE "[0-9]+$" || echo 0)
           ffmpeg -loglevel error -y -ss $(awk "BEGIN{print $s/30}") -i $RUNNER_TEMP/staub1420.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $A/staub1420.mp4 || true
           ls -l $A
+      # 531 (1351 B: Bildläufe auf dem Bauserver; Chef 16.11., 12:26 zu 531.1): Garrick im Profil links mit Kapuze vorher (wie bisher,
+      # KAPUZE_ENG=1, hier nur Garrick gebaut) | nachher (enger, held_klassen.py kapuze_eng) und Köchergurt, rechts und von hinten
+      # nachher (Schlaufe um Bogen und Köcher), dazu der Film Fackelabwehr (Tag, Abend, Nacht, je 4,6 s ab „GARRICKFILM schnitt“);
+      # tests/garrick_film_531.gd bei „531 Bild“ im Commit
+      - name: Garrick (531)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '531 Bild') || contains(github.event.inputs.bilder, '531')) }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/garrick531; mkdir -p $B
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          KAPUZE_ENG=1 LEUTE_KAUF=garrick OUT=$RUNNER_TEMP/out531 ZIEL=$RUNNER_TEMP/alt531 Q=~/cc0 timeout 1500 bl/bin/python -I tools/blender348/v3/held_klassen.py > $B/alt531.log 2>&1 || tail -20 $B/alt531.log
+          grep -E "^KOPFSITZ|^KAPUZE|^LEUTE" $B/alt531.log | cut -c1-300 || true
+          cd godot
+          knips() { VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 300 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+            -s res://tests/garrick_film_531.gd -- --bild=$B/$1.png --blick=$2 2>&1 | grep -E "SCRIPT ERROR|^GARRICKFILM" | cut -c1-300 || true; }
+          knips links links; knips rechts rechts; knips hinten hinten
+          if [ -f $RUNNER_TEMP/alt531/held_L_garrick_M.glb ]; then
+            cp daten/held_L_garrick_M.bin $RUNNER_TEMP/neu531.bin && cp $RUNNER_TEMP/alt531/held_L_garrick_M.glb daten/held_L_garrick_M.bin
+            knips links_vorher links
+            cp $RUNNER_TEMP/neu531.bin daten/held_L_garrick_M.bin
+            (cd $B && convert links_vorher.png links.png -background "#D4B038" -splice 8x0 +append links_vorher_nachher.png) || true
+          fi
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 1500 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 --write-movie $RUNNER_TEMP/garrick531.avi --fixed-fps 30 -s res://tests/garrick_film_531.gd -- --film531 > $B/film531.log 2>&1 || true
+          grep -E "SCRIPT ERROR|^GARRICKFILM" $B/film531.log | cut -c1-300 || true
+          i=0; for f in $(grep -oE "^GARRICKFILM schnitt [0-9]+" $B/film531.log | awk '{print $3}'); do
+            ffmpeg -loglevel error -y -ss $(awk "BEGIN{print ($f-15)/30}") -t 4.6 -i $RUNNER_TEMP/garrick531.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $RUNNER_TEMP/s$i.mp4 && echo "file '$RUNNER_TEMP/s$i.mp4'" >> $RUNNER_TEMP/s.txt; i=$((i+1)); done
+          [ -f $RUNNER_TEMP/s.txt ] && ffmpeg -loglevel error -y -f concat -safe 0 -i $RUNNER_TEMP/s.txt -c copy $B/garrick531.mp4 || true
+      # 1448 A (Chef 16.11., 14:47): Weltleiste und Balken im Heldenmenü ohne Wörter, vorher (leiste.gd, menue.gd von main) | nachher,
+      # je Gegenstand ein Bild (tests/leiste_bild_1448.gd); bei „1448 Bild“ im Commit oder bilder=1448
+      - name: Leiste (1448)
+        if: ${{ !cancelled() && (contains(github.event.head_commit.message, '1448 Bild') || contains(github.event.inputs.bilder, '1448')) }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/leiste1448; mkdir -p $B/neu $B/alt
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb imagemagick > /dev/null || true
+          cd godot
+          knips() { BILD1448_AUS=$1 VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 300 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 1080x2340 -s res://tests/leiste_bild_1448.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD1448" | cut -c1-300 || true; }
+          knips $B/neu
+          cp skripte/leiste.gd skripte/menue.gd $RUNNER_TEMP/
+          git fetch -q --depth 1 origin main && git show FETCH_HEAD:godot/skripte/leiste.gd > skripte/leiste.gd && git show FETCH_HEAD:godot/skripte/menue.gd > skripte/menue.gd
+          knips $B/alt
+          cp $RUNNER_TEMP/leiste.gd $RUNNER_TEMP/menue.gd skripte/
+          for g in leiste held; do (cd $B && convert alt/$g.png neu/$g.png -background "#D4B038" -splice 0x8 -append ${g}_vorher_nachher.png) || true; done
+          ls -l $B
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() && github.event.inputs.bild != 'nein' }}     # 453: Filme auch nach rotem Prüfschritt; nie mit bild=nein
         with:

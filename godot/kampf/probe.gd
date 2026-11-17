@@ -12,6 +12,8 @@ const Signatur = preload("res://kampf/signatur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Wachsoldat", "WIZARD": "Zauberlehrling", "ROGUE": "Herumtreiber", "CLERIC": "Klosterschüler"}   # 870.13: Herkunft statt Klasse (held_klassen.py KLASSE_HERKUNFT)
 const FOES := {"WOLVES": "Wolfsrudel", "RUDEL": "Wolf mit Jungwölfen", "GRAK": "Grak", "SPIDER": "Riesenspinne und Wolf", "SCOUT": "Goblin-Späher und Goblin", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde", "BOARS": "Wildschwein", "CENTIPEDES": "Hundertfüßer", "KROGG": "Krogg", "LEECHES": "Riesenegel", "SLUGS": "Säureschnecke", "RATTE": "Ratte", "FLEDERMAUS": "Fledermaus", "SPINNE": "Spinne allein", "SKELETONS": "Skelette", "WIEDERGAENGER3": "Wiedergänger", "GRABHUNDE": "Grabhunde"}
+## 1512 (Chef 17.11., 06:54 zu t294.12): Knöpfe des Probekampfs auf Englisch (Testmodus.feinde); Namen wie werte.json „kennungen“ (1473)
+const FOES_EN := {"WOLVES": "Wolf pack", "RUDEL": "Wolf with cubs", "GRAK": "Grak", "SPIDER": "Giant spider and wolf", "SCOUT": "Goblin scout and goblin", "RATS": "Rats", "BATS": "Bats", "GRIMM": "Grimfang", "GOBLINS": "Goblins", "SCOUTS": "Goblin scouts", "SHAMANS": "Goblin shamans", "KOBOLDS": "Kobolds", "BOARS": "Boar", "CENTIPEDES": "Centipedes", "KROGG": "Krogg", "LEECHES": "Giant leeches", "SLUGS": "Acid slug", "RATTE": "Rat", "FLEDERMAUS": "Bat", "SPINNE": "Spider alone", "SKELETONS": "Skeletons", "WIEDERGAENGER3": "Revenants", "GRABHUNDE": "Grave hounds"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"

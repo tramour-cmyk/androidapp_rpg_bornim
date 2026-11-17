@@ -197,6 +197,15 @@ func _lauf() -> void:
 	# Reiter: jede Gruppe gilt als da (sonst fehlt der Abschnitt ohne gebaute Modelle), Liste der Waffen offen
 	var foes: Dictionary = load("res://kampf/probe.gd").FOES
 	for g in foes: Testmodus._gruppe_da[g] = true
+	# 1512: jeder Gegner des Probekampfs hat einen englischen Namen, das Testmenü zeigt ihn auf Englisch
+	var foes_en: Dictionary = load("res://kampf/probe.gd").FOES_EN
+	pruefe("Probekampf englisch: jeder Gegner", foes.keys().all(func(g): return foes_en.has(g)) and foes_en.size() == foes.size(), str(foes.keys().filter(func(g): return not foes_en.has(g))))
+	var sp_ := Sprache.aktiv()
+	Sprache.setze("en")
+	pruefe("Probekampf englisch: Knopf", String(Testmodus.feinde(true).get("WIEDERGAENGER3", "")) == "Revenants", str(Testmodus.feinde(true).get("WIEDERGAENGER3")))
+	Sprache.setze("de")
+	pruefe("Probekampf deutsch: Knopf", String(Testmodus.feinde(true).get("WIEDERGAENGER3", "")) == "Wiedergänger", str(Testmodus.feinde(true).get("WIEDERGAENGER3")))
+	Sprache.setze(sp_)
 	Testmodus.an = true; Testmodus.geladen = true
 	Testmodus.probe_waffen_auf = true
 	var z := Zustand.new()

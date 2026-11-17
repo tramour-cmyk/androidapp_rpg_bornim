@@ -1,8 +1,9 @@
 # 492 (Perikles, Wochenziel 03.11. Reihe 3: „Blutzahnhöhle begehbar wie alt (Story.kt:731): Grundriss, Krogg, Grak, Lyra, Tor und
 # Schlüssel“): die Höhle als Grundriss aus dem Export von core (karten.json, art CAVE) wie alt MapCaveIso.kt / MapCave.kt.
 # - Fels steht um den Boden auf, wie alt: an jeder Kante Boden/Fels eine raue Felswand mit Fuß, je Lauf zwei Fassungen wie die
-#   Innenräume (raum.py, raumlicht.gd „waende“): hoch hinter dem Boden (alt TALL 2,4 m, dünne Wand zwischen zwei Räumen MID 1 m),
-#   niedrig davor (alt RIM 0,4 m), nach der Blickrichtung der Kamera; obenauf ein dunkler Deckel, die Decke verliert sich im Dunkel.
+#   Innenräume (raum.py, raumlicht.gd „waende“): hoch hinter dem Boden (alt TALL 2,4 m; 1423: auch die dünne Wand zwischen zwei
+#   Räumen, alt MID 1 m), niedrig davor (alt RIM 0,4 m), nach der Blickrichtung der Kamera; obenauf ein dunkler Deckel, die Decke
+#   verliert sich im Dunkel.
 # - Dinge je Zeichen wie MapCaveIso: Fackel (t) an der Wand, Kristalle (G) violett aus der Wand, Leuchtpilze (g), Tropfsteine (i),
 #   Geröll (%), Knochen (j), Kisten und Fass (u), Schlaflager (e), Truhe (C), Lagerfeuer (F), Stützbalken (H) quer über dem Gang,
 #   Gitter (L) mit zwei Flügeln an Angeln (Gitter_L, Gitter_R: Godot schwenkt sie auf, wenn gate_open), Lichtschacht (*), Teich (~),
@@ -26,7 +27,10 @@ ROWS = K['zeilen']; NR = len(ROWS); NC = K['breite']
 TS = 116.0                                           # cm je Kachel wie dorf.py, raum.py
 FELS = set('XGt')                                    # alt caveRock: CAVE_WALL, CRYSTAL, TORCH (Fog.kt, MapLight opaque)
 TALL = 240.0                                         # alt MapCaveIso TALL 138 / 57 je m
-MID = 80.0                                           # alt MID 58 (1 m); Lauf 1 Strahltest: bei 1 m Knie des Helden hinter der Ecke verdeckt
+# 1423 (Chef 15.11., 20:34 „Wände kniehoch“; 16.11., 13:08 „Die kann nicht auf halber Höhe aufhören“, 13:32 „Zwischenwandproblem“):
+# die dünne Wand zwischen zwei Räumen stand wie alt MID (58 = 1 m, hier 80 cm) nabelhoch, damit sie den Helden im Raum dahinter nicht
+# verdeckt; die Fackel daran hing 70 cm über dem Fels. Jetzt steht sie hoch wie jede Wand (TALL); verdeckt sie den Helden, wird sie
+# als Ganzes halb durchsichtig wie ein Haus im Dorf (Name „Gruppe_…“, gebiet.gd baue_gruppen, Strahlen Hüfte bis Kopf zur Kamera)
 RIM = 38.0                                           # alt RIM 22
 MUND = [c for c in range(NC) if ROWS[NR - 1][c] == '+']   # Ausgang am unteren Rand: dort geht der Gang hinaus weiter
 WALK = {c for c, t in KARTEN['kacheln'].items() if t['begehbar']}
@@ -226,7 +230,7 @@ for r in range(NR + AUSSEN):
             duenn = any(0 <= nb[0] + a_ < NC and 0 <= nb[1] + b_ < NR and not fels(nb[0] + a_, nb[1] + b_) and a_ * d[0] + b_ * d[1] >= 0
                         and (a_, b_) != (-d[0], -d[1]) for a_ in range(-2, 3) for b_ in range(-2, 3) if (a_, b_) != (0, 0))
             schluessel = (s, round(a.y if s in 'NS' else a.x))
-            kanten.setdefault(schluessel, []).append(dict(c=c, r=r, a=a, b=b, nb=nb, hoch=MID if duenn else TALL))
+            kanten.setdefault(schluessel, []).append(dict(c=c, r=r, a=a, b=b, nb=nb, hoch=TALL, duenn=duenn))
 
 def laeufe():
     out = []
@@ -312,7 +316,7 @@ def flaeche(P, a, e, n, L, hoehen, ton, seed, deckel=True):
 for nr_, (s, lauf) in enumerate(laeufe()):
     d, linie, n = SEITEN[s]
     a = lauf[0]['a']; e = (lauf[0]['b'] - lauf[0]['a']).normalized(); L = len(lauf) * TS
-    hoch = 'Wand_%s_hoch_%d' % (s, nr_); tief = 'Wand_%s_tief_%d' % (s, nr_)
+    hoch = ('Gruppe_' if any(k['duenn'] for k in lauf) else '') + 'Wand_%s_hoch_%d' % (s, nr_); tief = 'Wand_%s_tief_%d' % (s, nr_)
     flaeche(part(hoch), a, e, n, L, [k['hoch'] for k in lauf], fels_ton(), nr_ * 7 + 1)
     flaeche(part(tief), a, e, n, L, [RIM] * len(lauf), fels_ton(1.05), nr_ * 7 + 1)
     WANDLISTE.append(dict(hoch=hoch, tief=tief, glas='-', innen=[n.x, -n.y]))
@@ -749,7 +753,7 @@ def build(P, name):
         for j, li in enumerate(poly.loop_indices):
             c = P.C[me.loops[li].vertex_index]
             ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[k][j]
-    if name.startswith('Wand_'):
+    if 'Wand_' in name:
         # 492 (Pruefer 08.11., 19:29: Wandstuecke „grob gerastert“ in Halle, bei Krogg, Westfluegel): jedes Viereck hatte eigene Ecken, also
         # flach schattiert; gemessen Knick zwischen Nachbarn im Mittel 14 Grad, 35 % ueber 15 Grad: unter der Fackel ein Schachbrett.
         # Alt (MapCaveIso.kt relief) malte das Relief weich; jetzt Ecken verschmolzen und weich schattiert, nur Kanten ueber

@@ -250,6 +250,7 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 		add_child(herde)
 		herde.kampf.connect(_kampf_auf_karte)
 		herde.gemeldet.connect(func(t): ui.kurz(t))
+		herde.abgewehrt.connect(_abwehr)
 	kraut_tag = -1
 	kraeuter_neu()
 	sichtbar_neu()
@@ -1705,6 +1706,18 @@ func held_figur_neu(vorher: String) -> void:
 	if held == null or JSON.stringify(w) == vorher: return
 	held.neu_figur(w)
 
+# 531 (wie alt WorldScreen lastWardOff: wer am Schutzort steht, npc.x == wo.x): die Person naechst der Mitte nimmt die Fackel
+func _abwehr(schutz: Dictionary, wo: Vector3) -> void:
+	var mitte := Vector2i(int(schutz.get("x", -99)), int(schutz.get("y", -99)))
+	var r := int(schutz.get("radius", 0)) + 1
+	var wer: Leute = null
+	var best := 999
+	for l in leute.get_children():
+		if not (l is Leute) or not l.da or l.drinnen: continue
+		var d := absi(l.kachel.x - mitte.x) + absi(l.kachel.y - mitte.y)
+		if d <= r and d < best: best = d; wer = l
+	if wer: wer.wehre_ab(wo)
+
 func fackel_neu() -> void:
 	if held: held.fackel_neu(Menue.fackel(held_werte()), String(karte.daten.get("art", "")) == "INTERIOR", String(karte.daten.get("art", "")) == "CAVE")
 
@@ -1970,7 +1983,11 @@ func _process(dt: float) -> void:
 		if herde:
 			for s in herde.liste: s.visible = nebel.zeigt(s.kachel)
 		for l in leute.get_children():
-			if l is Leute: l.visible = l.da and not l.drinnen and nebel.zeigt(l.kachel)
+			if l is Leute:
+				# 531: Garricks Fackel leuchtet, solange er abwehrt; so sieht man das Tier, das er vertreibt
+				if l.abwehr and l.abwehr.laeuft(): nebel.licht("fackel_" + String(l.name), l.kachel, Nebel.TORCH_SIGHT)
+				else: nebel.licht_aus("fackel_" + String(l.name))
+				l.visible = l.da and not l.drinnen and nebel.zeigt(l.kachel)
 	leiste_uhr -= dt
 	if leiste_uhr <= 0.0:   # 399.1 Leiste: viermal je Sekunde reicht fuer Uhr und Werte
 		leiste_uhr = 0.25
