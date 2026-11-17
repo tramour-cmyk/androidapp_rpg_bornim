@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 10:07):** Lauf 298: 1425 greift; Lücke D298.1 = 1539 (Perikles: beurteilte Fehlalarme kommen täglich wieder). Lauf 299: 1537 wirkt im Kern, wartet auf D299.1 = 1540 (Spike, Neustart-Ablauf gesperrt). Nächste Nummer D300. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.).
+**Übergabe (17.11., 10:07):** Lauf 298: 1425 greift; Lücke D298.1 = 1539 (Perikles: beurteilte Fehlalarme kommen täglich wieder). Lauf 299: 1537 wirkt im Kern; Lauf 300: Lücke 1540 greift. Nächste Nummer D301. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.).
 
-- **Zu 1537 (Lauf 299):** nach 1540 die Fälle aus „Zu 1540“ (Vorrat Spike) erneut durch `frei()`; dann am ersten echten Werkzeugaufruf über 300 Tsd. (Sperrtext im Protokoll einer Sitzung, Neustart danach gelungen) → `greift 1537 <Lauf>`.
+- **Zu 1537 (Lauf 299, 300):** am ersten echten Werkzeugaufruf über 300 Tsd. (Sperrtext im Protokoll einer Sitzung, Neustart danach gelungen) → `greift 1537 <Lauf>`; bis 23.11. kein Fall → Wochenzählung nennt es, Feld neu.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
 - **Zu 1388, 1389 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %), 1244 an einem ganzen Tag Pflege-Commits ohne reines Verschieben → `greift`.
