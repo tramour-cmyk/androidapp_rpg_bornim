@@ -239,6 +239,6 @@
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
-| 1580 | Von Werkzeug (1334): Wiederholrot wolf_mess_438: 14× rot in 48 h (Läufe 548, 546, 544, 537, 524, 522); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
-| 1579 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 6× rot in 48 h (Läufe 550, 548, 546, 544, 503, 497); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
-| 1575 | Von Werkzeug (1334): Wiederholrot arkan_993: 4× rot in 48 h (Läufe 552, 548, 546, 512); Ursache nachstellen, beheben · wiederholt | Spike | M | startbar | – | – | – | E Technik | – |
+| 1580 | Von Werkzeug (1334): Wiederholrot wolf_mess_438: 14× rot in 48 h (Läufe 548, 546, 544, 537, 524, 522); Ursache nachstellen, beheben · wiederholt | Spike | M | erledigt, Geprüft an: Lauf 554 und am Rechner zweimal Befunde 0 (behoben abc913d84) | – | – | – | E Technik | – |
+| 1579 | Von Werkzeug (1334): Wiederholrot tod_ragdoll_1215: 6× rot in 48 h (Läufe 550, 548, 546, 544, 503, 497); Ursache nachstellen, beheben · wiederholt | Spike | M | erledigt, Geprüft an: Lauf 554 und am Rechner alles gut (behoben 8599dbf4c) | – | – | – | E Technik | – |
+| 1575 | Von Werkzeug (1334): Wiederholrot arkan_993: 4× rot in 48 h (Läufe 552, 548, 546, 512); Ursache nachstellen, beheben · wiederholt | Spike | M | erledigt, Geprüft an: Lauf 554 und am Rechner zweimal 0 (behoben e442ba317, 552 Kauf-Cache 1552) | – | – | – | E Technik | – |
