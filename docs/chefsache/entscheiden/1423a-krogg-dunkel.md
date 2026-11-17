@@ -5,7 +5,7 @@ Beim Chef, weil: Aussehen
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c4380cc5f (Lichtmessung am Rechner ohne Bild, Höhle alt und neu)
 
-**Frage:** Im Bild bei Krogg (Grottenschrat, Ostflügel der Höhle) ist der Held hinter der neuen hohen Wand kaum zu sehen ([Vorlage 1423](../ansehen/1423-hoehlenwand.md), zweites Bild). Das Loch in der Wand um den Helden ist da. Es ist aber nur Dunkel zu sehen, weil er dort kein Licht bekommt. Soll das so bleiben?
+**Frage:** Im Bild bei Krogg (Grottenschrat, Ostflügel der Höhle) ist der Held hinter der neuen hohen Wand kaum zu sehen (Bild unten, rechts neu, der Held links von Krogg). Das Loch in der Wand um den Helden ist da. Es ist aber nur Dunkel zu sehen, weil er dort kein Licht bekommt. Soll das so bleiben?
 
 **Votum:** „1423a A“: so lassen; Licht nur aus Quellen, wer im Dunkeln steht, nimmt eine Fackel.
 
@@ -23,5 +23,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c4380c
 - **Stärkstes Gegenargument gegen A:** Ohne Fackel verliert der Spieler seinen Helden hinter Wänden aus dem Blick, gerade neben einem Gegner. Wie stark, ist am Handy nicht gemessen; im Bild ist er nur noch zu ahnen.
 
 **Folgerungen:** A: nichts zu tun, 1423 (Höhlenwände) bleibt wie gebilligt. B: Tom baut die Aufhellung und schickt ein Bild bei Krogg alt gegen neu.
+
+![Krogg: links alt, rechts neu](../bilder/1423-krogg-2.webp)
 
 Antwort: …
