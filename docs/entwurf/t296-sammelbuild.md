@@ -7,6 +7,8 @@ Sammelbuild auf `claude/build-295`; die Punkte der Liste 295 kommen hier nicht n
 
 Ein Weg: über Build 295 installieren; Zeile 296.1 mit „Lage herstellen“.
 
+Gegengelesen: Jerry 17.11., 07:00 (Lage-Schlüssel gültig, alle vier Zweige in `claude/build-296`, `hoehle_492` und `schneidern_1460` stehen in `godot.yml`; ob der Platz am Leuchtpilz die hohe Wand zwischen Kamera und Held hat, prüft erst `lage_1156` im Bau)
+
 Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer Wand, am Eingang keins (1423, `hoehle_492`); Fertigkeit heißt Schneidern (EN Tailoring), Lederarbeit aus alten Spielständen übernommen (1460, `schneidern_1460`).
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
