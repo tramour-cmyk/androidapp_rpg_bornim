@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 06:46, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 06:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,7 +23,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 64 (61) | 26 | 0 | 13 | 10 | 785.10 (Jerry) Rest aus 536, auf dessen Zweig und main nicht geb… |
+| ↳ **2** Kampf passt | 64 (61) | 26 | 0 | 13 | 10 | 785.11 (Jerry) Zielwahl im Kampf: Reihe in der Zielliste, gleich… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 0 | 3 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 52 (52) | 9 | 0 | 6 | 23 | 1511 (Jerry) Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jer… |
@@ -46,9 +46,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [t294](ansehen/t294-sammelbuild.md) testen, hält 18 Zeilen; dann 5 weitere |
-| Tom | 785.10 Übernahme von Jerry: Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklä… (Muss); dann 1 weitere |
-| Jerry | 785.11 Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Geg… (Muss); dann 3 weitere |
-| Tuffy | 785.12 Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
+| Tom | 785.10 Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklä… (Muss) |
+| Jerry | 1511 Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jerry“ (Muss); dann 4 weitere |
+| Tuffy | 785.11 Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Geg… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | 785.17 Übernahme von Jerry: Zurück-Taste im Kampf schließt das Untermenü; ganzer Berich… (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | Pflege von Werkzeug: 3 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
@@ -59,11 +59,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | M | 2 Kampf passt | startbar |
-| 2 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
-| 3 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | M | 2 Kampf passt | startbar |
-| 4 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
-| 5 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
+| 1 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
+| 2 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | M | 2 Kampf passt | startbar |
+| 3 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
+| 4 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
+| 5 | 785.10 | Tom | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | M | 2 Kampf passt | startbar |
 | 6 | 1511 | Jerry | Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jerry“ | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 7 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
 | 8 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
