@@ -48,6 +48,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 09:15 17.11.: Startsperre 09:15 Start Sokrates (selbst) – Neustart auf Meldung 09:09 (9b2199a20, Chef 09:08 „Dann Neustart“).
 - 17.11., 09:06 Ford: Lauf 09:03 (angekommen): Start Spike `…79iEGkbHvG4SheXezL` (295), Diogenes `…77PU7ZUzbAcvLEQ8S5` (1531), Homer `…79rLgkQVZ7GEDAFVcw` (1525); archiviert Spike, Diogenes, Homer alt, Kosten 10,73 $ auf 295, 2,17 $ auf 295, 601.1, 1488, 1275, 1340, 1284b, 1,76 $ auf Betrieb. WÄCHTER 785.10 an Tom (ohne Chefmeldung, Chef hat selbst geantwortet 08:44); GELÖST 385.2 an Jerry, 1270 an Sokrates; URTEIL 1516, 1515 ins Archiv, Chefsache-Dateien weg. Abgleich-Warnung 1 Zeile (ganz erst ab nächstem Tag).
 - 17.11., 08:54 Ford: Chef 08:52 (über Sokrates): Sokrates-Sitzung `…76gTnkQt77JpdpoGF3` nie archivieren, kein zweiter Sokrates; Marke „Lauf läuft bis 17.11., 20:45“ gesetzt, Dauerregel 1531 bei Perikles („Weiter: 1531“ gesendet).
 - 17.11., 08:53 Ford: Jerry-Neustart `…76TUvncWrgAWbXDgzh` (1505), alter archiviert, 20,17 $ auf 785.12, 1505, 1514; Sokrates auf Zuruf des Chefs 08:33 `…76gTnkQt77JpdpoGF3`; 1528 (.uid grundstand_1044) an Tom.
