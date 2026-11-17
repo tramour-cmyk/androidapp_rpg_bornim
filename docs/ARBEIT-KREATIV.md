@@ -2,9 +2,10 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `a5e334759` (17.11., 01:04)
+**Gelesen bis:** `0a908737b` (17.11., 09:11)
 
-**Übergabe (17.11., 07:03, `session_01Hmoj76NcjeerwtT8PnpvfR`):** Pflege: „Zu 1367“ gestrichen (offener Einbau der `[1367.tip.*]` steht bei Jerry, Zu 1366). 1513: `[259T.frage]` nach BRS, fremd geprüft, an Tom. Nachfolger: keiner (1235 nach dem Meilenstein).
+**Übergabe (17.11., 09:11, `session_01Hmoj79rLgkQVZ7GEDAFVcw`):** 1525: Vorlage `chefsache/entscheiden/1525-merkmalsnamen.md` (drei Namen je Tiermerkmal, im Kampf gleich), fremd geprüft, Telegram. Nachfolger: keiner (1235 nach dem Meilenstein).
+- **Zu 1525 (Chef 17.11., 08:11, Idee):** „schwächlich klingt gut, aber angeschlagen passt eigentlich auch … 5 Alternativen … also gehen beide“. Nach A/C: Namen als `[1489.name.tier.<merkmal>.<1–3>]` in `STORY-MERKMALE-TIERE.md`, fremd prüfen, Vorgang an Jerry.
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
