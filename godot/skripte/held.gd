@@ -585,10 +585,13 @@ func richte_funke(dt: float) -> void:
 	var glanz := (0.85 + 0.15 * sin(t / 0.16)) * (0.55 + 0.45 * up)
 	funke_kern.scale = Vector3.ONE * (0.6 + 0.4 * up)
 	if funke_r7: funke_r7.scale = Vector3.ONE * 0.35 * (0.6 + 0.4 * up)   # im Raum kleiner wie der Kern
-	(funke_hof.material_override as ShaderMaterial).set_shader_parameter("staerke", glanz * (0.25 + 0.35 * nacht_k) * (0.4 + 0.6 * up) * 2.0)
+	# 1211 (Chef 17.11., 23:56: „an den Grad der Dunkelheit orientieren und nicht an der Uhrzeit“): in der Höhle immer dunkel wie bei der
+	# Fackel (492, alt MapLight dark = 1.0 in CAVE), draussen und in Häusern nach dem Licht des Orts (nacht_k)
+	var dunkel := 1.0 if in_hoehle else nacht_k
+	(funke_hof.material_override as ShaderMaterial).set_shader_parameter("staerke", glanz * (0.25 + 0.35 * dunkel) * (0.4 + 0.6 * up) * 2.0)
 	funke_hof.scale = Vector3.ONE * (0.55 + 0.45 * up)
-	funke_licht.light_energy = 2.2 * nacht_k * (1.05 / 1.35) * glanz
-	funke_licht.visible = nacht_k > 0.02
+	funke_licht.light_energy = 2.2 * dunkel * (1.05 / 1.35) * glanz
+	funke_licht.visible = dunkel > 0.02
 
 func geht() -> bool:
 	return weg.size() > 0 or richtung.length() > 0.15

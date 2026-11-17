@@ -46,6 +46,15 @@ func _lauf() -> void:
 	h.nacht(0.0)
 	h._process(1.0 / 30.0)
 	pruefe(not h.funke_licht.visible, "am Tag Licht an")
+	# 1211 (Chef 17.11., 23:56: „an den Grad der Dunkelheit … nicht an der Uhrzeit“): in der Höhle am Tag volles Licht wie die Fackel
+	h.fackel_neu(false, false, true)
+	h.nacht(0.0)
+	h._process(1.0 / 30.0)
+	var e_hoehle := h.funke_licht.light_energy
+	pruefe(h.funke_licht.visible and e_hoehle > 0.5, "Höhle am Tag ohne Licht: %.2f" % e_hoehle)
+	h.fackel_neu(false, false, false)
+	h._process(1.0 / 30.0)
+	pruefe(not h.funke_licht.visible, "draussen am Tag Licht an (nach der Höhle)")
 	# im Raum sinkt er auf die Schulter
 	h.fackel_neu(false, true)
 	for i in 60: h._process(1.0 / 30.0)
@@ -57,4 +66,4 @@ func _lauf() -> void:
 	pruefe(not h.funke.visible, "gelöscht noch sichtbar")
 	print("Funke 677: draussen %.2f–%.2f m, im Raum %.2f m" % [hmin, hmax, hr])
 	print("FUNKE677 %d Fehler" % fehler)
-	quit(0)
+	quit(1 if fehler else 0)
