@@ -28,6 +28,7 @@ Im Bau geprüft: Wölfe und Goblins rücken ohne neuen Platz nicht, jedes erlaub
 | 294.14 | Tom | 1417 | ohne dich (am Bild gebilligt, 👍 19:41) | Schild im Heldenmenü, `schild_menue_1417` | Test grün | Test rot |
 | 294.15 | Tom | 1420 | ohne dich (am Film gebilligt, 👍 19:40) | Fußstaub sanfter, auch im Wald | – | – |
 | 294.16 | Tom | 1383 | ohne dich (Diogenes bestätigt am Lauf) | `ziege_4162` | Test grün | Test rot |
+| 294.17 | Jerry | 517 | ohne dich (an der Hörprobe gebilligt, 👍 16.11., 12:29) | Waldklang: keine Vögel nachts und im Tiefen Wald, ferner Wolf nach 8–20 s (`601e67974`, im Build) | – | – |
 
 ## Lagen
 
