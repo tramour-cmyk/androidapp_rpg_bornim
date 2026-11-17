@@ -911,3 +911,4 @@
 2026-11-18 00:47:13	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/billigen/1211-licht-b.md: fehlt Rückbau, Kosten; doc	HEAD
 2026-11-18 00:47:37	commit-pruefung	VORGANGSARCHIV.md: neuer Entscheid zu 458.3 berührt E7; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts d	main
 2026-11-18 00:47:37	commit-pruefung	docs/chefsache/billigen/1211-licht-b.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-18 00:47:37	commit-pruefung	docs/chefsache/billigen/4583-staffel.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
