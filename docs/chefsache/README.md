@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 13:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 13:21, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -45,8 +45,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 1 weitere |
-| Tom | 1155 Effekte Szene 3 Wald: Teich klar R10, Fluss R10 river gegen… (Kür) |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 2 weitere |
+| Tom | 1167 Atmen für die Dorftiere (Kür) |
 | Jerry | 1545 Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt; son… (Muss); dann 2 weitere |
 | Tuffy | 1541 Taumeln im Kerbensystem auch bei Zurückdrängen und Netz ver… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | 1562 Übernahme von Tom: Wiederholrot ziege_4162: 3× rot in 48 h; Ursache nachstelle… (Muss); dann 9 weitere |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
 | 20 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
 
-Danach 77 weitere offen. Bei dir zum Testen (vorgelegt): 20. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 73.
+Danach 76 weitere offen. Bei dir zum Testen (vorgelegt): 20. Gebaut, fährt mit dem nächsten Build: 5. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
@@ -95,6 +95,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [1155](ansehen/1155-wasser-teich-klar.md) | Das gekaufte Wasser „Teich klar“ an Dorfbach, Waldteich und Höhle | Tom | 17.11., 13:20 |
 | [1530](ansehen/1530-intro-fackelzug.md) | Intro Bild 3: Fackelträger laufen wieder in den Tempel | Tom | 17.11., 12:17 |
 
 ## Zu tun
@@ -358,7 +359,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1530-intro-fackelzug.md
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1155-wasser-teich-klar.md, ansehen/1530-intro-fackelzug.md
 
 ## So geht's
 
