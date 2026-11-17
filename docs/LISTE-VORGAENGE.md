@@ -238,4 +238,4 @@
 | 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build einmal deinstallieren; dauerhaft ohne Cache | Spike | K | ruht | 23.11. | – | – | E Technik | 8,66 $ |
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
-| 1211 | Von Sokrates (Prüfauftrag Chef 13.11., 19:10): Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuft: alt (Kotlin) gegen jetzt gegen rocket_trail kühl weiß umgefärbt; dazu Befund, was am Licht schlechter ist als Kotlin | Spike | K | wartet, Film beim Chef | Chef | – | – | E Welt | 8,73 $ |
+| 1211 | Von Sokrates (Prüfauftrag Chef 13.11., 19:10): Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuft: alt (Kotlin) gegen jetzt gegen rocket_trail kühl weiß umgefärbt; dazu Befund, was am Licht schlechter ist als Kotlin | Spike | K | startbar, passt 23:52, Ausleuchtung | – | – | – | E Welt | 8,73 $ |
