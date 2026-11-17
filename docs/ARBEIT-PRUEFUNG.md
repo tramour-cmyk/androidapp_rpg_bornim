@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 10:55):** Lauf 302: 1539 greift im Kern; Lücke D302.1 = 1544 (Perikles), 1539 wartet darauf. Nächste Nummer D303. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.).
+**Übergabe (17.11., 13:14):** Lauf 303: 1544, 1539 greifen. 1547 wartet auf den Lauf Build 297 (Wecker 13:38). Nächste Nummer D304. Nachfolger: Diogenes – 1547 Build 297 abschließen.
 
-- **Zu 1539, 1544 (Lauf 302):** nach Erledigt 1544: Probe mit Urteil „292.9 A“ ohne Zeile wird als K gemeldet, 293.7 weiter nicht → `greift 1539` und `greift 1544`.
+- **Zu 1547 (17.11., 13:12, an Jerry gemeldet):** nach grünem Lauf 44075989732 (PR 217): Log „KAUF-CACHE“ klassen Treffer? Dann APK ohne 1552 mit alter pruefliste.json/werte.json → Lücke, neu bauen. 1549 (Code in 297) ohne Zeile in t297 → Lücke Tom. 1305 (`reihe_1305` Seed 7/9), 1505, 1514 am Lauf → `bautest`. 1331 steht noch „zu testen, Build 290“ (Pflege Jerry). Sonst `greift`-Prüfung: alles Offene drin, 10 Handypunkte, keine Sprachzeilen → `warte 1547 –`.
 
 - **Zu 1537 (Lauf 299, 300):** am ersten echten Werkzeugaufruf über 300 Tsd. (Sperrtext im Protokoll einer Sitzung, Neustart danach gelungen) → `greift 1537 <Lauf>`; bis 23.11. kein Fall → Wochenzählung nennt es, Feld neu.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.

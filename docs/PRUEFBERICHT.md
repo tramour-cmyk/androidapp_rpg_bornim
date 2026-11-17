@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 303 · 1544, 1539 K nur für Prüfpunkte (`6d7921dbd`; 17.11., 13:13)
+
+- **Greift:** `pruefpunkt()` an `main`: 292.9 kein Prüfpunkt (292.1–292.4 bestehen) → würde als K gemeldet; 293.7 Prüfpunkt → stumm. `greift 1544 303`, `greift 1539 303`.
+
 ## Lauf 302 · 1539 Vorratsprüfung ohne beurteilte Fehlalarme (`805c22494`; 17.11., 10:53)
 
 - **Greift im Kern:** `vorratspruefung.py` an `main` 10:52: 293.7 (K), 966.2 und 623.9 (O) nicht mehr gemeldet; übrige Funde unverändert (36).

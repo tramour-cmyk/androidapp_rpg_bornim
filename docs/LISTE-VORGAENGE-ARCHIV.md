@@ -354,7 +354,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M | –; +2,98 $ | Team Tom | erledigt |
 | 267.2 | Blende in Wäldern wartet auf den ganzen Boden, Ladebalken (Chef 22.10., 11:22: Tiefer Wald ruckelig) | E Technik | M | – | Team Tom | erledigt |
 | 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | 11,09 $ | Team Jerry | erledigt |
-| 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | 0,77 $ | Team Tom | erledigt |
+| 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | 18,61 $ | Team Tom | erledigt |
 | 301.1 | Kampfzeilen „stattdessen“ in Varianten, wenn ein Gegner umzielen muss (Chef 22.10., 12:37) | E Kampf | M | –; +1,20 $ | Homer | erledigt |
 | 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | – | – | Perikles | erledigt |
 | 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | erledigt |
@@ -1855,3 +1855,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1448 | Von Sokrates (1448 A, Chef 16.11., 14:47): Weltleiste und Heldenmenü ohne Wörter Leben/Mana/EP; alle Balken gleich lang und bündig, dahinter die Zahl, bei Erfahrung die Stufe; Kampfschirm ebenso mit 1439 (Jerry); Anlass: Balken versetzt (Build 292: 93/86/58 px) | E Oberfläche | K | 8,96 $ | Tom | erledigt, t296 bestanden |
 | 1460 | Von Sokrates (975a A, Chef 11.11., 17:04, nie gebaut; Fund Jerry 644a.1): Fertigkeit „Lederarbeit“ heißt Schneidern (EN Tailoring), Meisterschaft Schneider; Spielstände mit Lederarbeit übernehmen | E Welt | K | 6,34 $ | Tom | erledigt, t296 bestanden |
 | 1512 | Von Chef (17.11., 06:54, zu t294.12): Testmenü auf Englisch: unten bei „Show Animals/Monsters“ englisch, aber im Probekampf (Trial Fight) stehen auf den Knöpfen deutsche Namen; angleichen („irgendwann“) | E Oberfläche | K | – | Spike | erledigt, t296 bestanden |
+| 1550 | Von Chef (17.11., 11:59, an Sokrates, Bilder 431h Stufe 2): Held sitzt mit gezogenem Kampfgerät in der Hand, „macht keinen Sinn … Logikfrage“; beim Hinsetzen wegstecken oder ablegen (verwandt 417 (6) Tragart innen) | E Figuren | M? | – | Tom | erledigt, doppelt zu 1549 |
+| 1551 | Von Chef (17.11., 12:03/12:07, an Sokrates) „jetzt“ 17.11., 12:03: Ford darf Stundenuhr und Notizen selbst anlegen, verwalten, hochladen: Rollendatei, Startsatz wie KAUFREPO (lauf.py), Ablauf Ford-Starter; Probe am nächsten Ford-Neustart, dann Uhr-Sitzung abbauen | B Abläufe | M | – | Perikles | erledigt |
+| 1551a | Von Perikles (1551, Chef 12:07): Auto-Prüfung lehnte Commit der Ford-Erlaubnis Stundenuhr und Notizen ab; freigeben oder lassen | B Abläufe | M | – | Perikles | erledigt |
