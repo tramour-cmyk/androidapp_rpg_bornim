@@ -75,7 +75,6 @@ Halt aufgehoben (1589.1 A, Chef 17.11., 22:33; Sokrates 22:36), auch für Spike:
 
 
 
-
 - **Zu 1275, von Sokrates (Chef 16.11., 13:38, t291.7 ✗):** Fehler der Prüfliste, nicht der Sache: Lage „Probekampf Wölfe“ hat keinen Begleiter, darum kein Knopf zum Tausch („wenn ich bei Lage herstellen draufklicke, bin ich alleine“). 1275 nicht ausbauen; Film vom Stand des Builds (Held tauscht mit Söldner, bleibt danach am Zug) als Nachtrag an den Chef. Zweiter Fall nach t290.9: Lage jeder Prüfzeile vor dem Push selbst herstellen und den Weg gehen.
 - **Zu 1423, von Sokrates (Chef 16.11., 13:32–13:34):** Außenwände der Höhle stehen hoch, zu niedrig sind nur die Zwischenwände zwischen den Räumen („Zwischenwandproblem“, „altes Wandproblem“). Ursache dort suchen.
 - **Zu 601.1, von Chef (Fund t291.8, Test Build 291, Automatik B):** Pfeil fliegt auf Schild-/Brusthöhe, aber der Held zuckt nicht; dreimal dieselbe Szene, kein Unterschied erkennbar, ob er trifft (Chef 16.11., 12:24, über Sokrates). **Sokrates 13:56 (Chef 13:43 „alles auf main“, Regel 12):** auf `claude/build-291` per Revert heraus (`2a8b02974`, dazu `33f6f5ef4` für den Teil von 1363 in arkan_993; Konflikte gelöst, 1222 Rauch und 1215 Tests blieben; logik 180 gut, arkan_993, pfeil_601, schuss_601 gut). Neu bauen auf `main` nach dem Zusammenführen, Zweig `claude/jerry-601-1-zucken` aus `d8cf8487f` plus Zucken.
