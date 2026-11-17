@@ -5,6 +5,7 @@
 #  - mindestens einer springt aus dem Stand (Absprung höchstens 0,2 m von dort, wo er zuletzt stand: daheim oder abgesetzt, 717 C);
 #  - der Flug endet am Boden, Rumpf waagerecht (auch wenn er im Flug fällt);
 #  - nach dem Sprung steht er binnen 10 s wieder auf dem eigenen Platz (höchstens 0,15 m daneben);
+#  - Blut eines Bisses beginnt am Schirm dort, wo die Zähne den Körper treffen (BLUT_AB; Chef 15.11., 20:33);
 #  - Messung (sperrt nicht, Zeile MESSUNG760): der Biss reicht hin (Chef 15.11., 16:56: „beißt einen Meter zu kurz … bleibt am oder kurz vorm Schild hängen und verursacht aber
 #    Schaden“): beim Treffer kommen die Zähne an den Körper (Lücke höchstens LUECKE_TREFFER), daneben schnappen sie knapp vor Körper
 #    oder Schild zu (höchstens LUECKE_DANEBEN, nicht tiefer als LUECKE_TIEF im Körper; wie biss_1284).
@@ -22,9 +23,13 @@ const HEIM_S := 10.0
 const LUECKE_TREFFER := 0.06
 const LUECKE_DANEBEN := 0.25
 const LUECKE_TIEF := -0.05
+## 760 (Chef 15.11., 20:33): so weit (Körperhöhen am Schirm) darf das Blut vom Treffpunkt der Zähne beginnen (vorher bis 0,25)
+const BLUT_AB := 0.05
 const KOPF := ["Head", "Jaw", "Tongue", "kopf", "Mouth", "mouth", "Fang", "fang"]
 
 var fehler := 0
+var blut_n := 0
+var blut_max := 0.0
 
 
 func _initialize() -> void:
@@ -78,6 +83,9 @@ func _lauf() -> void:
 	var biss := {}          # Wolf -> {ziel, ausgang, koerper, schild}: der laufende Sprungbiss
 	var bisse := []         # fertige [Wolf, Ziel, Ausgang, Lücke Körper, Lücke Schild, Zeit]
 	var shown_vor = null
+	var blut_t0 := -1
+	var blut_offen := []
+	var blut_vor := {}
 	Mars.test_gegnerzug = "pounce"
 	while n < int(FPS) * 240:
 		await process_frame
@@ -103,6 +111,38 @@ func _lauf() -> void:
 					biss[wf].t = t
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break
+		# 760 (Chef 15.11., 20:33: „wo das Blut spritzt … nicht an der Person, am Helden“): Blut beginnt dort, wo die Zähne den
+		# Getroffenen erreichen (Messung je neuem Blut eines Wolfs)
+		var bl: Dictionary = kf.ui.bleeding
+		if not bl.is_empty() and int(bl.t0) != blut_t0 and kf.figures.has(bl.by) and kf.figures.has(bl.on):
+			blut_t0 = int(bl.t0)
+			_blut(kf, kf.figures[bl.by], kf.figures[bl.on], t)
+			blut_offen.append({"wolf": kf.figures[bl.by], "ziel": kf.figures[bl.on], "t": t, "min": INF, "bei": t})
+		# Zeit, zu der die Zähne dem Getroffenen am nächsten kommen, je Blut 1,5 s davor und danach
+		for bo in blut_offen:
+			if is_instance_valid(bo.wolf) and is_instance_valid(bo.ziel) and t - float(bo.t) <= 1.5:
+				var lu0: float = _luecke(bo.wolf, bo.ziel)[0]
+				if lu0 < float(bo.min):
+					bo.min = lu0
+					bo.bei = t
+		for f in woelfe:
+			if is_instance_valid(f):
+				for z in kf.figures.values():
+					if z.fighter.monster == null and z.visible:
+						var hk: String = "%s>%s" % [f.fighter.id, z.fighter.id]
+						if not blut_vor.has(hk):
+							blut_vor[hk] = []
+						blut_vor[hk].append([t, _luecke(f, z)[0]])
+						while blut_vor[hk].size() > 45:
+							blut_vor[hk].pop_front()
+		for bo in blut_offen:
+			if not bo.has("vor"):
+				bo.vor = true
+				var hk2: String = "%s>%s" % [bo.wolf.fighter.id, bo.ziel.fighter.id]
+				for v in blut_vor.get(hk2, []):
+					if float(v[1]) < float(bo.min):
+						bo.min = v[1]
+						bo.bei = v[0]
 		for f in woelfe:
 			if not is_instance_valid(f):
 				continue
@@ -210,6 +250,9 @@ func _lauf() -> void:
 	# Messung, sperrt nicht (Sokrates 15.11.: „als Messung im Test“): von der Schildseite kommt die Schnauze beim Treffer noch nicht
 	# an den Körper, ohne dass der Wolf im Helden steckt (709.1, ruht bis 930)
 	print("MESSUNG760 der Biss reicht hin: Treffer am Körper (bis %.2f m), daneben knapp davor (bis %.2f m): %s, %d von %d nicht" % [LUECKE_TREFFER, LUECKE_DANEBEN, "erfüllt" if kurz_biss == 0 else "NICHT erfüllt", kurz_biss, bisse.size()])
+	for bo in blut_offen:
+		print("760 Blut %.2f s, Zähne am nächsten (%.2f m) bei %.2f s: Blut %+.2f s" % [bo.t, bo.min, bo.bei, float(bo.t) - float(bo.bei)])
+	_gut(blut_n > 0 and blut_max <= BLUT_AB, "Blut beginnt am Treffpunkt der Zähne: %d Treffer, Abstand am Schirm höchstens %.2f Körperhöhen (bis %.2f)" % [blut_n, blut_max, BLUT_AB])
 	_gut(nicht_heim == 0, "nach dem Sprung zurück auf dem eigenen Platz (%d nicht)" % nicht_heim)
 	print("SPRUNG760 %s" % ("gut" if fehler == 0 else "FALSCH %d" % fehler))
 	quit(1 if fehler else 0)
@@ -251,3 +294,27 @@ func _luecke(a, b) -> Array:
 				var d: float = (maxf(dx, maxf(dy, dz)) if dx <= 0 and dy <= 0 and dz <= 0 else Vector3(maxf(dx, 0), maxf(dy, 0), maxf(dz, 0)).length()) * sc
 				schild = minf(schild, d - float(w[2]))
 	return [best, schild]
+
+
+## 760: Ursprung des Bluts (kampf_ui _draw_blood, kampfort _fx_szene2) gegen die Stelle, an der die Zähne den Getroffenen erreichen
+func _blut(kf, wolf, ziel, t: float) -> void:
+	var ws: Array = _zaehne(wolf)
+	if ws.is_empty():
+		return
+	var best := INF
+	var punkt := Vector3.ZERO
+	for w in ws:
+		for c in ziel.koerper():
+			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
+			if pq[0].distance_to(pq[1]) < best:
+				best = pq[0].distance_to(pq[1])
+				punkt = pq[1] + (pq[0] - pq[1]).normalized() * float(c[2]) if best > 0.001 else pq[1]
+	var am: Vector2 = kf.screen_of(kf.to_local(punkt))
+	var ui = kf.ui
+	var fuss: Vector2 = ui._foot(ziel)
+	var hoch: float = ui._tall(ziel)
+	var ursprung: Vector2 = ui.blut_ursprung(ziel)
+	var d := am.distance_to(ursprung) / maxf(hoch, 1.0)
+	blut_n += 1
+	blut_max = maxf(blut_max, d)
+	print("760 %.2f Blut %s an %s: Biss am Körper %s px, Blut ab %s px, Abstand %.2f Körperhöhen (Zähne %.2f m vom Körper)" % [t, wolf.fighter.id, ziel.fighter.id, am.round(), ursprung.round(), d, best])

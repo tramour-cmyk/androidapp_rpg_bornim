@@ -61,7 +61,7 @@ static func bauen(lib: AnimationLibrary, sk: Skeleton3D, biss_t: float, tempo_bi
 	an.length = laenge
 	an.loop_mode = Animation.LOOP_NONE
 	var n := int(ceil(laenge * 30.0))
-	for key in spur:
+	for key: String in spur:
 		var e: Array = spur[key]
 		var ty: int = e[1]
 		var ti := an.add_track(ty)
@@ -74,16 +74,16 @@ static func bauen(lib: AnimationLibrary, sk: Skeleton3D, biss_t: float, tempo_bi
 			var w_str := smoothstep(t_ab - AB_VOR, t_ab + AB_NACH, t)
 			var w_biss := smoothstep(t_land - BISS_VOR, t_land - BISS_DA, t)
 			# ohne Spur in einer Quelle gilt der Wert des Bisses, ohne Biss der der Quelle selbst
-			var vb = _wert(biss, e[2], ty, sb)
-			var vh = _wert(hocke, e[4], ty, 0.0)
-			var vs = _wert(lauf, e[3], ty, t_str)
+			var vb: Variant = _wert(biss, e[2], ty, sb)
+			var vh: Variant = _wert(hocke, e[4], ty, 0.0)
+			var vs: Variant = _wert(lauf, e[3], ty, t_str)
 			if vb == null:
 				vb = vs if vs != null else vh
 			if vh == null:
 				vh = vb
 			if vs == null:
 				vs = vb
-			var v = _misch(_misch(vh, vs, w_str, ty), vb, w_biss, ty)
+			var v: Variant = _misch(_misch(vh, vs, w_str, ty), vb, w_biss, ty)
 			match ty:
 				Animation.TYPE_ROTATION_3D: an.rotation_track_insert_key(ti, t, v)
 				Animation.TYPE_POSITION_3D: an.position_track_insert_key(ti, t, v)
@@ -129,7 +129,7 @@ static func _scheitel(weite: float) -> float:
 	return HOCH_M * sqrt(clampf(weite / SATZ_M, 0.15, K_MAX))
 
 
-static func _wert(a: Animation, spur: int, ty: int, t: float):
+static func _wert(a: Animation, spur: int, ty: int, t: float) -> Variant:
 	if spur < 0:
 		return null
 	match ty:
@@ -139,7 +139,7 @@ static func _wert(a: Animation, spur: int, ty: int, t: float):
 	return null
 
 
-static func _misch(a, b, w: float, ty: int):
+static func _misch(a: Variant, b: Variant, w: float, ty: int) -> Variant:
 	if ty == Animation.TYPE_ROTATION_3D:
 		return (a as Quaternion).slerp(b, w)
 	return (a as Vector3).lerp(b, w)
@@ -151,7 +151,7 @@ static func _gestreckt(lauf: Animation, sk: Skeleton3D) -> float:
 	if sk == null:
 		return lauf.length * 0.25
 	var pf := []
-	for nm in ["vpfoteL", "vpfoteR", "hpfoteL", "hpfoteR"]:
+	for nm: String in ["vpfoteL", "vpfoteR", "hpfoteL", "hpfoteR"]:
 		pf.append(sk.find_bone(nm))
 	if pf.has(-1):
 		return lauf.length * 0.25
@@ -175,7 +175,7 @@ static func _gestreckt(lauf: Animation, sk: Skeleton3D) -> float:
 		var t := lauf.length * i / schritte
 		var g := {}
 		var o := []
-		for b in pf:
+		for b: int in pf:
 			o.append(_global(sk, b, t, lauf, dreh, ort, g).origin)
 		var d: float = ((o[0] + o[1]) * 0.5).distance_to((o[2] + o[3]) * 0.5)
 		if d > best:
