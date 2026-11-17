@@ -17,7 +17,7 @@ Geprüft an: fe160ec12 (`docs/DESIGN-GEGNER.md`, Abschnitt „Ergänzungen“: T
 - **Heute gibt es kein Blatt** (Jerry): Der Kampf kennt je Seite 4 Plätze (`mars.gd` 118) und 3 Abstände (`kerbe.gd` 17–19). Wie eine Figur geht, entscheidet das Bild (`figur.gd` 1809–2100). Das Ziel wählt der Gegner zufällig aus der vorderen Reihe (`dice.pick`, Perikles).
 - **Bewegung fehlt** (Tom): Menschengestalten können nur vorwärts gehen und rennen und sich um 90 oder 180 Grad drehen. Rückwärts gehen und Seitschritte gibt es im gekauften Paket UAL2, eingebaut sind sie nicht.
 - **Kerben** (Jerry, Perikles): Abschnitt 4 und 9 setzen das Kerbensystem voraus. Das ist im Spiel noch aus.
-- **Widerspruch Lohn** (Homer, Perikles): Abschnitt 6 gibt für einen Geflohenen die vollen EP und die halbe Beute. Entschieden und gebaut ist aber 870c 3 A/915: Wölfe, die vor Feuer fliehen, bringen weder Beute noch EP. Das steht in `LISTE-BESTIARIUM.md` Zeile 49, in `STORY-BRS-KAMPF.md` 51 und im Code (`mars.gd` 343).
+- **Widerspruch Lohn** (Homer, Perikles): Abschnitt 6 gibt für einen Geflohenen die volle Erfahrung und die halbe Beute. Entschieden und gebaut ist aber 870c 3 A/915: Wölfe, die vor Feuer fliehen, bringen weder Beute noch Erfahrung. Das steht in `LISTE-BESTIARIUM.md` Zeile 49, in `STORY-BRS-KAMPF.md` 51 und im Code (`mars.gd` 343).
 - **Homers Funde:**
   - In der Tabelle je Art fehlen Skelett, Grabhund und Säureschnecke.
   - Der Kobold kämpft im Rudel.
@@ -37,7 +37,7 @@ Geprüft an: fe160ec12 (`docs/DESIGN-GEGNER.md`, Abschnitt „Ergänzungen“: T
 - **Stärkstes Gegenargument gegen A:** 10–13 Sitzungen bei Jerry, der schon die meisten Muss trägt, und du siehst lange nichts Neues im Kampf. Dagegen spricht: Für Kapitel 1 gibt es keinen Termin. Jede Stufe bringt einen eigenen Build. Tom baut die Bewegung parallel.
 
 **Lohn, wenn ein Gegner flieht:**
-- **Lohn A (Empfehlung):** Zwei Fälle, zwei Regeln. Treibt der Held Gegner mit Feuer in die Flucht, gibt es weder Beute noch EP, wie entschieden (915). Das ist der Preis des Feuers, und Feuer bleibt eine echte Wahl. Flieht ein Gegner von selbst (Rudel ohne Anführer, Goblin allein, Goblins ohne Grak), gibt es die vollen EP und die halbe Beute. Wer ihn festhält, bekommt alles.
+- **Lohn A (Empfehlung):** Zwei Fälle, zwei Regeln. Treibt der Held Gegner mit Feuer in die Flucht, gibt es weder Beute noch Erfahrung, wie entschieden (915). Das ist der Preis des Feuers, und Feuer bleibt eine echte Wahl. Flieht ein Gegner von selbst (Rudel ohne Anführer, Goblin allein, Goblins ohne Grak), gibt es die volle Erfahrung und die halbe Beute. Wer ihn festhält, bekommt alles.
 - **Lohn B:** Es gilt überall die Regel aus 915: Wer flieht, bringt nichts. Das ist einfacher. Dann wird aber jeder Fliehende zur Pflichtjagd, denn sonst geht der Lohn des Kampfs verloren.
 - **Stärkstes Gegenargument gegen Lohn A:** Zwei Regeln für dasselbe Bild, ein Gegner läuft weg, muss der Spieler erst lernen. Dagegen spricht: Er sieht den Unterschied, weil die Flucht vor Feuer eine eigene Ansage und eine eigene Kampfzeile hat (705a B).
 
