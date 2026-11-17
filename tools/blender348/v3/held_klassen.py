@@ -1085,7 +1085,8 @@ def umhang_unter(arm, netze, k, plaetze, leiber=()):
             for i in range(len(W)):
                 w = Vector(W[i])
                 if (W[i, 1] - mitte_y) * hinten <= 0: continue   # Vorderseite
-                if bv.ray_cast(w, Vector((0, hinten, 0)), UMHANG_HINTEN)[0] is None: continue   # kein Umhang dahinter
+                if bv.ray_cast(w, Vector((0, hinten, 0)), UMHANG_HINTEN)[0] is None and bv.ray_cast(w, Vector((0, -hinten, 0)), UMHANG_HINTEN)[0] is None:
+                    continue   # weder dahinter noch davor ein Umhang (Messung: 145 von 270 Durchstechern lagen schon in Ruhe hinter dem Umhang)
                 h = bl.find_nearest(w)
                 if h[0] is None: continue
                 ziel = np.array(h[0] + h[1].normalized() * UMHANG_AUF)
