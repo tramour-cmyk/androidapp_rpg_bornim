@@ -22,3 +22,11 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 ## Lagen
 
 - 296.1: station=Krogg ort=cave:2:11:RIGHT ruhig
+
+## Ergebnis
+
+Chef 17.11., 11:03 (App, im Gespräch mit Sokrates):
+
+- 296.1 ✗ Es ist kein Loch on der Wand, aber das ist nicht nötig!!! siehe chat Sokrates
+- 296.5 ✓
+- Rest ✓
