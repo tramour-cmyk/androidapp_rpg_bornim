@@ -1,5 +1,7 @@
 # 431h · Sichtbare Ausrüstung Stufe 2: jede angelegte Rüstung am Helden · Tom · 17.11., 11:45
 
+[Bild von 17.11., 11:51](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-1151-431h-Tom-2.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 17.11., 11:51](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-1151-431h-Tom.png) (eingetragen von meldung.sh, Tom)
 
 E Figuren · Tom · 17.11. · aus deinem Wort „431h A“ (09:45): Kleiderschrank je Körper, Messung zuerst mit Kapitel-1-Stücken, Platte zuletzt
