@@ -1084,10 +1084,13 @@ SCHRANK_TEILE = {   # Kennung -> (Kauftracht oder Tracht unseres Baus, Netzname 
     'NOBLE_CROWN': ('{v}_Noble', ('_Head_Crown',), 'HEAD'),
     'NOBLE_GORGET': ('{v}_Noble', ('_Acc_Gorget',), 'CHEST'),
     'KETTE': ('WACHE', (), 'CHEST'),
+    # 1569 (Chef 17.11., 16:12, t297.18: angelegter Umhang in der Welt nie zu sehen): nur die Wachtracht hat einen Umhang (unsere
+    # Kleidung, kauf_kleid.py); die Kauftrachten keinen. Ihr Umhang (Kleid_CLOAK: Umhang und Spange) haengt bei den anderen Trachten
+    'UMHANG': ('WACHE', (), 'CLOAK'),
     'ROBE': ('ROBE', (), 'CHEST'),
 }
 # Teile, die eine Tracht selbst traegt (dann zeigt sie ihr eigenes Teil, wie Stufe 1); dazu die Startstuecke ihrer Herkuenfte
-EIGEN_TEILE = {'WACHE': ['KETTE'], 'ROBE': ['ROBE'], 'KLOSTER': ['CLOTH_BODY', 'CLOTH_ARMS'],
+EIGEN_TEILE = {'WACHE': ['KETTE', 'UMHANG'], 'ROBE': ['ROBE'], 'KLOSTER': ['CLOTH_BODY', 'CLOTH_ARMS'],
                'WALD': ['RANGER_HOOD', 'RANGER_BODY', 'RANGER_ARMS', 'RANGER_LEGS'], 'BAUER': ['PEASANT_BODY', 'PEASANT_ARMS', 'PEASANT_LEGS']}
 SCHRANK_DECKT = {'ROBE': ['Leib_BECKEN', 'Leib_OBERSCHENKEL', 'Leib_UNTERSCHENKEL']}   # wie DECKT_JE ROBE
 
@@ -1113,14 +1116,16 @@ def eigen_stuecke(t):
 
 
 def teil_ablegen(k, netze, arm):
-    # 431h Stufe 2: Kleid_CHEST der Trachten WACHE (Kettenhemd) und ROBE fuer den Kleiderschrank der anderen Trachten
+    # 431h Stufe 2: Kleid_<PLATZ> der Trachten WACHE (Kettenhemd, 1569 Umhang) und ROBE fuer den Kleiderschrank der anderen Trachten
     t, g = k.rsplit('_', 1)
-    kenn = next((n for n, v in SCHRANK_TEILE.items() if v[0] == t), None)
-    if not kenn or not SCHRANK: return
-    ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_CHEST')]   # mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK)
-    if not ms: print('TEIL FEHLT', k, 'Kleid_CHEST'); return
-    exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
-    print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
+    if not SCHRANK: return
+    for kenn, (quelle, _, platz) in SCHRANK_TEILE.items():
+        if quelle != t: continue
+        # Kleid_CHEST mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK); Kleid_CLOAK ohne fremde Teile darunter
+        ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_' + platz)]
+        if not ms: print('TEIL FEHLT', k, 'Kleid_' + platz); continue
+        exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
+        print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
 
 
 def schrank_datei(g):

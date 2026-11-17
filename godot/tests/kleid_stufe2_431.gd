@@ -5,7 +5,8 @@ extends SceneTree
 # Lederstiefel, Kettenhemd, Kroggs Pranken) und ein schwerer Satz (Topfhelm, Plattenpanzer, Beinschienen): fuer jeden Platz mit
 # fremdem Stueck ist das eigene Teil weg, die Netze des Schrankteils hangen sichtbar am Skelett des Helden, jeder Knochen ihrer Bindung
 # ist im Skelett und ihre Bindung passt zur Ruhelage des Helden (gleiches Geruest, Abweichung unter 1 mm), die Leibstuecke, die das Teil
-# deckt, sind weg; (3) Schrankteile im Teil der eigenen Tracht (Lederruestung am Jaegerkind) nicht doppelt.
+# deckt, sind weg; (3) Schrankteile im Teil der eigenen Tracht (Lederruestung am Jaegerkind) nicht doppelt; (4) 1569: Umhang
+# (auch Einzelstueck) an jeder Tracht, an der Wachtracht ihr eigener.
 # Braucht daten/schrank_*.bin und held-klassen.json mit „schrank“, „eigen“; sonst „KLEID2 ohne Daten“.
 # godot --headless --path godot -s res://tests/kleid_stufe2_431.gd   -> „KLEID2 0 Fehler“, Ende 0/1
 
@@ -34,6 +35,9 @@ func _init() -> void:
 		"kette": {"CHEST": "chain_shirt", "ARMS": "gauntlets_ogre", "LEGS": "leggings"},
 		"schwer": {"HEAD": "great_helm", "CHEST": "plate", "ARMS": "gauntlets", "LEGS": "greaves"},
 		"kloster": {"HEAD": "hood", "CHEST": "novice_habit", "ARMS": "bracers", "LEGS": "leggings"},
+		# 1569 (Chef 17.11., 16:12, t297.18): Umhang an jeder Tracht zu sehen (Schrankteil UMHANG aus der Wachtracht), auch als Einzelstueck
+		"umhang": {"CLOAK": "cloak"},
+		"umhang_einzel": {"CLOAK": "cloak_protection"},
 	}
 	for h in ["Wachsoldat", "Zauberlehrling", "Jägerkind", "Klosterschüler", "Wanderer"]:
 		for g in ["m", "w"]:
@@ -45,6 +49,7 @@ func _init() -> void:
 			pruefe(not eigen.is_empty(), "%s: ohne eigen" % modell)
 			var sch: Dictionary = info["schrank"].get(String(tr.get("geschlecht", "")), {})
 			pruefe(not sch.is_empty(), "%s: kein Schrank" % modell)
+			pruefe(sch.has("UMHANG"), "%s: Schrank ohne UMHANG (1569)" % modell)
 			# (1) Start
 			var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": {"geschlecht": g}, "ausruestung": hw.ausruestung.duplicate()}, [])
 			if m == null: pruefe(false, "%s %s: keine Figur" % [h, g]); continue
