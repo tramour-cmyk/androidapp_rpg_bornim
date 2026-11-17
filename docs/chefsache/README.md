@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 14:09, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 14:17, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **2** Kampf passt | 63 (61) | 20 | 0 | 9 | 12 | 1545 (Jerry) Halt-Zeile oben im Vorrat streichen: Bedingung er… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 18 (16) | 9 | 0 | 6 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 4 | 0 | 4 | 24 | 1563 (Jerry) Teich in der Höhle am Ufer noch eckig und kantig;… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 49 (52) | 4 | 0 | 4 | 24 | 1563 (Jerry) Teich in der Höhle am Ufer noch eckig und kantig;… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 16 (13) | 10 | 0 | 1 | 4 | 1561 (Jerry) Wiederholrot stehen_973: 2× rot in 48 h; Ursache… |
 | **7** Werkzeuge und Abläufe der Firma | 46 (43) | 28 | 0 | 1 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 61 | 202 | 263 | 1123 |
-| neu | 66 | 164 | 230 | 1120 |
-| **netto** (erledigt − neu) | **−5** | **+38** | **+33** | **+3** |
+| neu | 67 | 164 | 231 | 1121 |
+| **netto** (erledigt − neu) | **−6** | **+38** | **+32** | **+2** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,8 +45,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen |
-| Tom | 1205 Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass & W… (Kür) |
+| **Chef** | [1205a](entscheiden/1205a-blumenwiese.md) entscheiden, hält 2 Zeilen; dann 1 weitere |
+| Tom | 1211 Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nacht… (Kür) |
 | Jerry | 1545 Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt; son… (Muss); dann 2 weitere |
 | Tuffy | 1541 Taumeln im Kerbensystem auch bei Zurückdrängen und Netz ver… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | 1561 Übernahme von Jerry: Wiederholrot stehen_973: 2× rot in 48 h; Ursache nachstelle… (Muss); dann 6 weitere |
@@ -80,10 +80,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
 | 20 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
 
-Danach 73 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 5. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 73.
+Danach 73 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1205a](entscheiden/1205a-blumenwiese.md) | Kür | E Welt | 17.11., 14:17 | Mehr Grasarten aus dem Paket sind gebaut; ohne die Kleckse wird die Blumenwiese aber grün, weil die Blumen des Pakets in der Spielansicht kaum zu sehen sind. |  |
 
 ## Zu billigen
 
@@ -358,6 +362,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 142 | K | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | nach dem Meilenstein |
 | 45 | K | Geschäftsmodell und Umsetzung (Play Store) | nach dem Meilenstein |
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): entscheiden/1205a-blumenwiese.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
