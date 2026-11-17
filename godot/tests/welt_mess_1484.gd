@@ -71,6 +71,15 @@ func _lauf() -> void:
 			dr += (idx.size() if idx != null else (arr[Mesh.ARRAY_VERTEX] as PackedVector3Array).size()) / 3
 		if dr < 20000: continue
 		zeilen.append("MESS1484 %s Netz %s: %dk Dreiecke, %d Stoffe" % [ort, mi.name, dr / 1000, mi.mesh.get_surface_count()])
+		# Durchsicht (gebiet.gd durchsicht: TIEFE und DURCH als next_pass an Laub und Rinde, über die ganze Karte)
+		var ketten := {}
+		for s in mi.mesh.get_surface_count():
+			var sm := mi.get_active_material(s) as ShaderMaterial
+			if sm and sm.next_pass: ketten[sm] = sm.next_pass
+		if not ketten.is_empty():
+			await schritt.call("ohne Durchsicht-Durchgänge %s (%d Stoffe)" % [mi.name, ketten.size()],
+				func(): for k in ketten: k.next_pass = null, func(): for k in ketten: k.next_pass = ketten[k])
+		if "--nur_durchsicht" in OS.get_cmdline_user_args(): continue
 		for s in mi.mesh.get_surface_count():
 			var mat := mi.get_active_material(s)
 			var nm := "%s/%d %s" % [mi.name, s, (mat.resource_name if mat and mat.resource_name != "" else (mat.get_class() if mat else "-"))]
