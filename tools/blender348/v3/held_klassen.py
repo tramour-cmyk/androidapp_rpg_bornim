@@ -1116,10 +1116,11 @@ def schrank_datei(g):
             vor = kleid.replace('_Knight_Cloth', '_Knight')
             ms = [o for o in ob if o.type == 'MESH' and o.name.split('.')[0].startswith(vor + '_')
                   and o.name.split('.')[0][len(vor):].startswith(enden)]
-            for o in [o for o in ob if o.type == 'MESH' and o not in ms]: bpy.data.objects.remove(o)
-            ob = [o for o in ob if o.type != 'MESH' or o in ms]
+            weg = [o for o in ob if o.type == 'MESH' and o not in ms]
+            ob = [o for o in ob if o not in weg]
+            for o in weg: bpy.data.objects.remove(o)
         if not ms:
-            print('SCHRANK FEHLT', kenn, g, 'keine Netze'); [bpy.data.objects.remove(o) for o in ob if o.name in bpy.data.objects]; continue
+            print('SCHRANK FEHLT', kenn, g, 'keine Netze'); [bpy.data.objects.remove(o) for o in ob]; continue
         QT.an_geruest(ob, arm, vs)
         for o in ms:   # wie tracht(): Schulterstueck Leder, Ritterplatten Stahl, Kloster ohne Gruenstich, Sonne auf der Kutte
             if 'Pauldron' in o.name: QT.toene(o, lambda n: True, QT.LEDER)
