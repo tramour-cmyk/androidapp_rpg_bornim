@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 03:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 03:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -28,16 +28,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 8 | 0 | 5 | 23 | 1423 (Jerry) Felswände der Höhle nur nabelhoch, auch mit 1289… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (13) | 5 | 0 | 6 | 4 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
-| **7** Werkzeuge und Abläufe der Firma | 42 (43) | 27 | 0 | 0 | 9 | 1501 (Jerry) D283.1 von Diogenes: claude/build-294 ohne main a… |
+| **7** Werkzeuge und Abläufe der Firma | 40 (43) | 25 | 0 | 0 | 9 | 1501 (Jerry) D283.1 von Diogenes: claude/build-294 ohne main a… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 7 | 202 | 209 | 1069 |
+| erledigt | 9 | 202 | 211 | 1071 |
 | neu | 4 | 164 | 168 | 1058 |
-| **netto** (erledigt − neu) | **+3** | **+38** | **+41** | **+11** |
+| **netto** (erledigt − neu) | **+5** | **+38** | **+43** | **+13** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -51,7 +51,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tuffy | 1284b Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nic… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | leer, weil 3 ruht, 3 wartet auf Test, 1 wartet auf Test t295 |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
-| Diogenes | 1504 D286.1 von Diogenes: Spielcode „gebaut“ ohne Build liegt tr… (Muss) |
+| Diogenes | Pflege von Werkzeug: 3 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Sokrates | Pflege von Werkzeug: Übergabe über 700 Zeichen; 8 „Zu“ zu Erledigt… (Kür) |
 | Perikles | Pflege von Werkzeug: 1 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
 | 20 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
 
-Danach 69 weitere offen. Bei dir zum Testen (vorgelegt): 23. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 67.
+Danach 69 weitere offen. Bei dir zum Testen (vorgelegt): 23. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 67.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
