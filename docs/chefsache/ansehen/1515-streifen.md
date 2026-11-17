@@ -1,5 +1,7 @@
 # 1515 · Hauptmenü: weißer Streifen vor dem Schild der Wachsoldatin (Bild alt gegen neu, Runde 2)
 
+[Bild von 17.11., 23:49](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-2349-1515-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 17.11., 23:48 · E Figuren · Fund des Chefs 17.11., 07:32; 👎 21:34 („die Aussage, dass der breite weiße Streifen weg sei, ist falsch“)
 Kurz: Der Streifen ist jetzt weg. Ursache war ein Stück vom Saum des Kettenhemds, das an ihrem linken Daumen hing.
 
