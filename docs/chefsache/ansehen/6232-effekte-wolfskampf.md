@@ -1,5 +1,7 @@
 # 623.2 · Effekte Wolfskampf (Szene 2), erster Stand
 
+[Film von 17.11., 06:08](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-060821-623.2/2026-11/17-0608-623.2-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+
 [Film von 17.11., 05:43](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-054332-623.2/2026-11/17-0543-623.2-Jerry.mp4)
 
 Jerry · 17.11., 05:44 · E Kampf · Vorgang 623.2 (Effekte Szene 2; 623.8 A, Chef 09.11., 22:23: Szene für Szene, je eine Testbitte)
