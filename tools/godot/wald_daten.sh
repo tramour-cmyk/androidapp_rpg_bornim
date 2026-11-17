@@ -31,7 +31,7 @@ cp $O/held.glb $K/held.bin
 for f in grau dunkel rost asche; do cp $O/wolf-$f.glb $K/wolf-$f.bin; done; cp $O/wolf-info.json $K/
 for f in schwarz schimmer; do cp $O/dire_wolf-$f.glb $K/dire_wolf-$f.bin; done; cp $O/dire_wolf-info.json $K/
 for f in braun grau schwarz; do cp $O/giant_rat-$f.glb $K/giant_rat-$f.bin; done; cp $O/giant_rat-info.json $K/
-for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do [ -f $O/$w.glb ] && cp $O/$w.glb $K/$w.bin; done
+for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost wand staff; do [ -f $O/$w.glb ] && cp $O/$w.glb $K/$w.bin; done
 for k in leder kappe helm; do cp $O/goblin-$k.glb $K/goblin-$k.bin; done; cp $O/goblin-info.json $K/
 for k in kapuze kappe fell; do cp $O/goblin_archer-$k.glb $K/goblin_archer-$k.bin; done; cp $O/goblin_archer-info.json $K/
 for k in kappe schild fell; do cp $O/kobold-$k.glb $K/kobold-$k.bin; done; cp $O/kobold-info.json $K/

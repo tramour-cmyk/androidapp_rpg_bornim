@@ -399,7 +399,53 @@ def build_staff_shaman(P):
         face(P, [a_ - side * 0.3, a_ + side * 0.3, b_ + side, b_ - side], col)
         face(P, [a_ + side * 0.3, a_ - side * 0.3, b_ - side, b_ + side], col)
 
-KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': build_longsword,
+# 1587 (Chef 17.11., 16:35, Build 297, 1571: Zauberstab angelegt, an der Figur nicht zu sehen): Zauberstab und Magierstab nach Dress.kt
+# staff() (auf 175 cm gebaut). Magierstab: knorriger Schaft, unter der Mitte gefasst (buttPart 1,45: 66 cm über, 96 cm unter der Faust),
+# Knoten unter drei geschnitzten Klauen, die den Kristall halten; Zauberstab: kurzer Stab in Linie mit der Hand, Messingring, Kugel an
+# der Spitze. Kristall und Kugel glimmen (Eckfarbe mit Alpha 0, toon.gdshader glut) im arkanen Blau von glowColour(). Holz heller als
+# in Dress.kt (0x3E2A1C, 0x3A2618), sonst liest es sich wie der Schamanenstab Runde 1a als schwarzer Pfahl; der Zauberstab 28 statt
+# 17,5 cm bis zur Spitze, Kugel größer: in Dress.kt 1,1 cm, im Kampfbild Pixelstaub (Regel des Kobold-Dolchs, 948 B)
+ARKAN = lin(0x80C8FF)
+def cone(P, a, b, r0, r1, col, seg=6):
+    dv = b - a; q = dv.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+    bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=seg, radius1=r0, radius2=r1, depth=1.0)
+    M4 = Matrix.Translation((a + b) / 2) @ q @ Matrix.Diagonal((1, 1, dv.length, 1))
+    for v in bm.verts: v.co = M4 @ v.co
+    for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
+    bm.free()
+def blob(P, c, r, col, sub=1):
+    bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=sub, radius=1.0)
+    for v in bm.verts: v.co = Vector((v.co.x * r[0] * CM, v.co.y * r[1] * CM, v.co.z * r[2] * CM)) + c
+    for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
+    bm.free()
+def build_staff(P):
+    wood, dark = lin(0x5C4230), lin(0x46321F)
+    base, top, n = -96.0, 64.0, 9
+    def at(t):   # knorrig wie Dress.kt: sin(t·17) zur Seite, cos(t·11) quer
+        return Vector((0.7 * math.sin(t * 17.0) * CM, 0.5 * math.cos(t * 11.0) * CM, (base + (top - base) * t) * CM))
+    for k in range(n):
+        t0, t1 = k / n * 0.96, (k + 1) / n * 0.96
+        a = ring_pts(at(t0), (1.5 + 0.35 * t0) * CM, (1.5 + 0.35 * t0) * CM, 7, at(t0).z)
+        b = ring_pts(at(t1), (1.5 + 0.35 * t1) * CM, (1.5 + 0.35 * t1) * CM, 7, at(t1).z)
+        for j in range(7): face(P, [a[j], a[(j + 1) % 7], b[(j + 1) % 7], b[j]], wood if k % 3 else dark)
+        if k == 0: face(P, list(reversed(a)), dark)
+    # Messingring unter dem Knoten (Gold ist der einzige Glanz), Lederwicklung an der Faust
+    z = at(0.86).z / CM
+    tube(P, z - 1.2, z + 1.2, 2.05, 2.05, BRASS, n=8)
+    tube(P, -6, 6, 1.95, 1.95, LEATHER, n=8)
+    blob(P, at(0.93), (2.5, 2.5, 3.2), wood)
+    crystal = Vector((0, 0, (top + 2.6) * CM))
+    for c in range(3):
+        a_ = c * 2 * math.pi / 3; out = Vector((math.cos(a_), math.sin(a_), 0))
+        cone(P, at(0.95), crystal + out * 2.4 * CM + Vector((0, 0, 2.4 * CM)), 0.75 * CM, 0.3 * CM, dark, 5)
+    blob(P, crystal, (2.1, 2.1, 3.6), ARKAN + (0.0,))
+def build_wand(P):
+    wood = lin(0x4E3422)
+    tube(P, -3, 25, 1.0, 0.65, wood, n=7)
+    tube(P, 20.5, 22.5, 0.9, 0.9, BRASS, n=7)
+    blob(P, Vector((0, 0, 26.6 * CM)), (1.35, 1.35, 1.5), ARKAN + (0.0,))
+
+KINDS = {'dagger': build_dagger, 'wand': build_wand, 'staff': build_staff, 'shortsword': build_shortsword, 'longsword': build_longsword,
          'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield,
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)

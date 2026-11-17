@@ -359,7 +359,7 @@ jobs:
             dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
             # 522 (Chef 04.11., 11:55: „die alte Bewaffnung … war weg, aber die neue ist nicht sichtbar“): jede Waffe, die waffen.py bauen
             # kann, auch fuer den Helden; Streitkolben, Kriegshammer und die uebrigen haben noch kein Modell (458.3)
-            dinge="$dinge dagger scimitar handaxe shortbow longbow quiver"   # 643: Langbogen (auch Held) und Köcher (Garrick, Rücken)
+            dinge="$dinge dagger scimitar handaxe shortbow longbow quiver wand staff"   # 643: Langbogen (auch Held) und Köcher (Garrick, Rücken); 1587 Zauber- und Magierstab
             mkdir -p godot/daten/waffen
             for w in $dinge; do
               OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
@@ -433,7 +433,7 @@ jobs:
           for f in braun schwarz grau; do cp $OUT/giant_bat-$f.glb $D/giant_bat-$f.bin; done; cp $OUT/giant_bat-info.json $D/
           cp $OUT/kampfort-wald.glb $D/kampfort-wald.bin; cp $OUT/wald-maske.png $D/wald-maske.bild
           for o in waldrand teich baum felsen steinkreis; do cp $OUT/kampfort-wald-$o.glb $D/kampfort-wald-$o.bin; cp $OUT/wald-maske-$o.png $D/wald-maske-$o.bild; done
-          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb $D/$w.bin; done
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost wand staff; do cp $OUT/$w.glb $D/$w.bin; done
           for k in leder kappe helm; do cp $OUT/goblin-$k.glb $D/goblin-$k.bin; done; cp $OUT/goblin-info.json $D/
           for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb $D/goblin_archer-$k.bin; done; cp $OUT/goblin_archer-info.json $D/
           for k in robe fell beides; do cp $OUT/goblin_shaman-$k.glb $D/goblin_shaman-$k.bin; done; cp $OUT/goblin_shaman-info.json $D/
