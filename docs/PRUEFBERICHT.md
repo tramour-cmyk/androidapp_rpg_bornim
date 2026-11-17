@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 306 · 1610 Hängeralarm (18.11., 00:21–00:38)
+
+- **Freigabe-Haken noch nicht belegt:** Skript läuft (Probe ohne Freigabe schreibt die Spur, Meldetext geht durch `meldung.sh --probe`, Link auf die Sitzung), aber seit `fa6d0a289` keine Sitzung blocked, keine Zeile „Freigabe“ in `meldungen.tsv`. Beleg für „feuert in der Wolke“ ist diese Zeile, nicht `/tmp/freigabe-haken.log` (liegt nur im eigenen Behälter). Haken gilt erst in Sitzungen, die nach 00:15 starteten.
+- **Wache prüft andere Sitzungen nicht:** Lauf 00:33 nur `get_session` Ford, kein `git pull`, kein `list_sessions`; die geänderte Zeile „Wache“ erreicht sie so nie. D306.1 → 1612 (Perikles, M); `warte 1610 1612, 23.11.`.
+- Nicht geprüft: Haken an einer echten Freigabe-Frage (kein Fall), Nachtfall lautlos.
+
 ## Lauf 305 · startbare „gebaut“ Perikles: 1389, 1572, 1548, 1543, 1508, 1461, 1574, 1585, 1592, 1542, 1586 (18.11., 00:0x–00:1x)
 
 - **1389, 1244 greifen:** 17.11. zwei Commits „Pflegehinweise“ (15.11.: 38, 13.11.: 79), beide mit neuem Inhalt (`d78fdc6b5` Tageswechsel mit geänderten Befunden, `9e104b38f` eine neue Zeile Ford), kein reines Verschieben; 16.11. nach dem Bau 09:22 drei.
