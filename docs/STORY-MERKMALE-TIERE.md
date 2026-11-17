@@ -1,6 +1,6 @@
 # Merkmale je Exemplar: Tiere (1489)
 
-Homer, 16.11.; Auftrag 1411b A (Chef 16.11., 20:59: „1411b A, aber bitte Elixier in diesem Fall vier Beschreibungen.“, 21:37: „das Wort Elixier ist nicht bestätigt, sondern es hieß lieber 4 oder mehr Vorschläge von Homer.“; 18:41: „ich will nicht 50 Mal alter Wolf lesen oder klappriges Skelett“). Regel und Werte: `DESIGN-BRS.md` „Merkmale je Exemplar“; Bau Jerry 1488. Waffenträger (Untote, Goblinvolk): `STORY-MERKMALE-WAFFEN.md`. Fremd geprüft 16.11., 21:12.
+Homer, 16.11.; Auftrag 1411b A (Chef 16.11., 20:59: „1411b A, aber bitte Elixier in diesem Fall vier Beschreibungen.“, 21:37: „das Wort Elixier ist nicht bestätigt, sondern es hieß lieber 4 oder mehr Vorschläge von Homer.“; 18:41: „ich will nicht 50 Mal alter Wolf lesen oder klappriges Skelett“). Regel und Werte: `DESIGN-BRS.md` „Merkmale je Exemplar“; Bau Jerry 1488. Waffenträger (Untote, Goblinvolk): `STORY-MERKMALE-WAFFEN.md`. Fremd geprüft 16.11., 21:12; Namen nach 1525 C fremd geprüft 17.11., 09:47.
 
 ## Regeln für den Bau (gelten für beide Dateien)
 
@@ -10,11 +10,17 @@ Homer, 16.11.; Auftrag 1411b A (Chef 16.11., 20:59: „1411b A, aber bitte Elixi
 - **Wirkung** (Lesestufe 3): eine Zeile je Merkmal, ohne Zahlen, `[1489.wirkung.…]`.
 - **Ohne Merkmal:** Bosse (Krogg, Grimmzahn, Grak), Säureschnecke und der **Jungwolf** (er ist schon jung; „Jungwolf, alt“ widerspricht sich).
 - **Riesenratte, Riesenfledermaus:** nach `DESIGN-BRS.md` nur Lebensmerkmale; welche der vier das sind, legt der Bau fest (Jerry, 1488). Texte stehen für alle vier, es gelten die, die der Bau zieht.
-- Marken: `[1489.<art>.<merkmal>.<1–4>]`; Arten `ratte`, `wolf`, `keiler`, `hundertfuesser`, `spinne`, `fledermaus`, `egel`; Merkmale `jung`, `alt`, `kraeftig`, `angeschlagen`.
+- Marken: `[1489.<art>.<merkmal>.<1–4>]`; Arten `ratte`, `wolf`, `keiler`, `hundertfuesser`, `spinne`, `fledermaus`, `egel`; Merkmale `jung`, `alt`, `kraeftig`, `angeschlagen`. Namen `[1489.name.tier.<merkmal>.<1–3>]`, beim Wolf für jung `[1489.name.wolf.jung.<1–3>]` (vor `tier`); Nummer = Reihenfolge in der Zeile.
 
 ## Namen (Lesestufe 2)
 
-`[1489.name.tier]` alle Tiere: jung / young · alt / old · kräftig / strong · angeschlagen / wounded. **Ausnahme Wolf:** „jung“ heißt dort unerfahren / green, damit „Wolf, jung“ nicht neben dem Jungwolf steht.
+Drei Namen je Merkmal (1525 C, Chef 17.11., 09:43). Im selben Kampf trägt ein Merkmal einen Namen (alle alten Wölfe des Kampfes heißen gleich); beim nächsten Kampf neu gezogen, nie derselbe zweimal hintereinander je Art und Merkmal (gemerkt wie die Beschreibungen). Pfeil und Wirkung bleiben.
+
+- `[1489.name.tier.jung.1–3]` jung, halbwüchsig, unausgewachsen / young, half-grown, immature
+- `[1489.name.wolf.jung.1–3]` **nur Wolf:** unerfahren, ungeübt, unerprobt / green, untried, unseasoned (keine Altersworte wegen des Jungwolfs)
+- `[1489.name.tier.alt.1–3]` alt, betagt, altersschwach / old, aged, decrepit
+- `[1489.name.tier.kraeftig.1–3]` kräftig, stattlich, massig / strong, burly, massive
+- `[1489.name.tier.angeschlagen.1–3]` angeschlagen, verwundet, lädiert / battered, wounded, bruised
 
 ## Wirkung (Lesestufe 3)
 
