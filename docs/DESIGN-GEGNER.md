@@ -1,15 +1,24 @@
 # Gegnerverhalten (Regelblatt 1589.1)
 
-**Stand 17.11., 22:05: Gerüst, Schritt 2 von 4.** Weg nach dem Chefwort vom 17.11., 17:58/18:05 („gemeinsam, nicht im stillen Kämmerchen“): (1) Gespräch Chef–Sokrates, (2) Entwurf, (3) Gegenlesen durch Jerry, Homer, Perikles und Tom, jeder mit eigenen Ergänzungen, (4) Entscheid des Chefs. Erst danach baut Jerry (1589). Bis dahin gilt der Halt bei Jerry (Chef 18:15).
-
-Kennzeichen je Regel: **entschieden** (Chefwort mit Zeit) oder **Vorschlag** (noch offen, gegenlesen). Wer gegenliest, schreibt seine Ergänzung unten unter „Ergänzungen“, nicht in den Regeltext.
+**Entschieden 1589.1 A, Lohn A (Chef 17.11., 22:33): „Ansonsten folge ich deinem Votum … Mit A und Lohn können wir auch annehmen.“** Das ganze Blatt gilt mit den Ergänzungen der vier Gegenleser, eingearbeitet unten. Der Chef ergänzte selbst Abschnitt 1 und 1a („wenn du aus meinen Ergänzungen noch was ableiten kannst, dann mach das“). Gebaut wird in vier Stufen (Abschnitt 11) ab Sa 21.11., 20:00. Der Halt bei Jerry (Chef 18:15) ist aufgehoben. Zahlen kommen aus der Rechnung 444.
 
 ## 1. Grundsatz: das Blatt
 
-- Intern ist der Kampf ein 2D-Blatt mit X und Y, eine „Schachfigurenwelt“. 3D ist nur die Umsetzung davon: Figuren gehen aneinander vorbei, halten Abstände, Bisse landen, neue Aufstellungen entstehen (Chef 18:15).
-- Die Figuren stehen von oben gesehen maßstabsgetreu auf dem Blatt. Jeder Angriff hat seine Reichweite, die eingetragen ist, etwa Klaue oder vorgestreckter Biss (Chef 18:50).
+- Intern ist der Kampf ein 2D-Blatt mit X und Y. 3D ist nur die Umsetzung davon: Figuren gehen aneinander vorbei, halten Abstände, Bisse landen, neue Aufstellungen entstehen (Chef 18:15).
+- **Fein wie Millimeterpapier, nicht grob wie ein Schachbrett** (Chef 22:33: „Ein Schachbrett ist mir zu grob … Millimeterpapier jetzt nicht wörtlich nehmen“). Jede Figur hat einen Punkt in Metern (x, y) und einen Umriss als Kreis, gemessen am Modell (Jerry). Es gibt keine Felder, an die eine Figur gebunden ist.
+- Die Figuren stehen von oben gesehen maßstabsgetreu auf dem Blatt. Jeder Angriff hat eine Reichweite in Metern, eingetragen in `werte.json`, etwa Klaue, vorgestreckter Biss, Schwert, Speer, Bogen (Chef 18:50).
+- **Abstand wird abgeleitet, nicht gesetzt** (Chef 22:33: „dass eben die Reichweiten da ableitbar sind … wann geht es über von fern in nah“): Nah ist, wer die Reichweite des eigenen Nahangriffs erreicht oder in der des Gegners steht. Fern ist, wer außerhalb davon steht, aber in Schussweite. Weit ist alles darüber. Die drei Stufen aus `DESIGN-GLUT.md` (nah, fern, weit) bleiben als Wörter für den Spieler. Woher sie kommen, entscheidet das Blatt.
+- **Die Plätze im MARS sind nicht mehr bindend** (Chef 22:33: „nicht mehr so ganz fix auf die ursprünglichen Gitterpositionen gebunden, die wir ja einblenden können“). Vorn und hinten, die vier Plätze und das Raster bleiben eine Einblendung zum Lesen; die Regeln rechnen mit den Punkten auf dem Blatt.
 - Jede Regel unten wird auf dem Blatt entschieden, nie im Bild. Der Blickwinkel der Kamera ändert keine Regel (Abschnitt 10).
-- Abstand, Kerben, Tempo und großer Schlag gelten wie in `DESIGN-GLUT.md`. Dieses Blatt regelt nur, **was der Gegner will und wie er sich dabei bewegt**.
+- Das Blatt gilt im MARS auch ohne Kerben. Ob das Kerbensystem ins Spiel kommt, ist ein eigener Entscheid. Bis dahin heißt „3 Kerben“ in Abschnitt 4 und 9 „großer Schlag, angesagt“ (Jerry, Perikles).
+
+## 1a. Waffe und Abstand (abgeleitet aus Chef 22:33)
+
+- Chef 22:33: „entweder habe ich zum Beispiel einen Bogen, dann kommt einer nah an mich ran, dann muss ich auf die Waffe wechseln, um mich zu verteidigen. Weil ansonsten kriege ich halt einen Malus auf Bogenkampf im Nahkampf … Oder ich greife mit Bogen an und nähere mich und wechsle dann auf Schwert. Und wenn ich das nicht habe, ja, dann habe ich ein Problem, ein taktisches.“
+- **Fernwaffe im Nahkampf mit Ungunst:** Steht ein Gegner nah (nach Abschnitt 1), schießt man mit Bogen, Armbrust oder Wurfwaffe mit Ungunst. Die Höhe rechnet Jerry mit 444; Vorschlag ist die übliche Ungunst (−25). Das ersetzt Regel 7 in `DESIGN-KAMPF.md` („aus dem Handgemenge … ohne Strafe in Kapitel 1“).
+- **Waffe wechseln** bleibt klein und frei, einmal je Zug (`DESIGN-GLUT.md` Regel 10). Wer Bogen und Nahwaffe trägt, wechselt also, wenn der Gegner heran ist, oder auf dem Weg heran. Das ist die taktische Wahl, die der Chef meint.
+- **Wer keine Nahwaffe hat,** kämpft mit Faustkampf oder schießt mit Ungunst. Prüfen muss Jerry mit 444, ob das Jägerkind allein damit noch durchkommt (der Grund, warum Regel 7 die Strafe einst verwarf). Wenn nicht, bekommt es eine Nahwaffe zum Start, etwa ein Jagdmesser; den Text liefert Homer.
+- Dasselbe gilt für Gegner: Ein Fernkämpfer, der heranrückende Nahkämpfer nah hat, schießt mit Ungunst. Darum weicht er zurück (Abschnitt 4). Der Goblin-Späher hat keine Nahwaffe, der Schamane nur den Stab.
 
 ## 2. Denkweise (entschieden: Chef 17.11., 21:56, „Ja, vier Denkweisen passen.“)
 
@@ -31,7 +40,7 @@ Jede Gegnerart hat eine von vier Denkweisen, passend zu ihrem Gegenwert:
 - Das Ziel wird zu Beginn jedes Zugs neu gewählt. Der Gegner bleibt beim bisherigen Ziel, solange kein anderes deutlich besser passt. Ohne diese Trägheit springen die Ziele hin und her.
 - **Versperren** auf dem Blatt ist eine echte Wahl: Wer vorn steht, deckt die hinteren. Ein listiger Gegner kommt an ihnen nur vorbei, wenn eine Lücke frei ist.
 
-## 4. Rolle im Kampf (Vorschlag)
+## 4. Rolle im Kampf
 
 Die Denkweise sagt, was ein Gegner will. Die Rolle sagt, wo er steht und wie er kämpft (Chefwort 17:45: Nahkampf, Fernkampf, Rudel, Zauber, Boss).
 
@@ -40,35 +49,41 @@ Die Denkweise sagt, was ein Gegner will. Die Rolle sagt, wo er steht und wie er 
 - **Rudel:** handelt als Gruppe. Einer greift an, die anderen stellen sich um den Helden (Einkreisen, Flanke). Steht ein Anführer, folgt das Rudel ihm.
 - **Zauber:** steht hinten, stärkt oder heilt andere und greift selbst nur schwach an. Nahkämpfer müssen an der Reihe vorbei (Schamane).
 - **Boss:** 3 Kerben, ein Tun und eine Sonderregel. Der dritte Schlag ist offen angesagt („holt aus“).
+- **Rollenwechsel:** Wer zwei Rollen hat (Riesenspinne: Netz, dann Biss), wechselt, sobald sein Ziel nah ist (Abschnitt 1) oder im Netz hängt (Jerry).
 
-## 5. Bewegung (Vorschlag)
+## 5. Bewegung
 
-- **Vorn bleibt vorn** (Chef 17:45). Platztausch nur aus gutem Grund, etwa wenn ein hinterer Gegner einen großen Schlag hat, oder wenn der vordere wankt.
-- Nach einem Angriff setzt sich der Gegner ein bis zwei Schritte rückwärts ab, mit dem Gesicht zum Helden (F7). Er zeigt nie den Rücken, außer auf der Flucht.
-- **Kein Seitwärtstraben** (Chef 17:45): Wege gehen auf dem kürzesten Weg über das Blatt, ohne Schienen und ohne Bogen.
+- **Vorn bleibt vorn** (Chef 17:45). Platztausch nur aus gutem Grund, etwa wenn ein hinterer Gegner einen großen Schlag hat, oder wenn der vordere wankt. Beim Platztausch gehen die Figuren nacheinander, nie ineinander; der hintere wartet seitlich, bis der Weg frei ist (Tom).
+- Nach einem Angriff setzt sich der Gegner bis zwei Schritte rückwärts oder schräg rückwärts ab, mit dem Gesicht zum Helden (F7). Weitere Wege: auf der Stelle zum Weg drehen, vorwärts gehen, am Ziel zurückdrehen. Er zeigt nie den Rücken, außer auf der Flucht (Tom).
+- **Ausnahmen** (Homer): Untote setzen sich nicht ab, sie bleiben stehen und drücken nach; nur der Wiedergänger weicht einen Schritt vor Weihwasser oder Licht. Krogg setzt sich nicht ab, er versperrt („an Krogg kommt keiner vorbei“, `[428.krogg]`).
+- **Kein Seitwärtstraben** (Chef 17:45): Wege gehen auf dem kürzesten Weg über das Blatt, ohne Schienen und ohne Bogen. Ein Seitschritt nur als einzelner Ausweichschritt, wenn ein Vorderer Platz macht (Tom).
 - **1526 geht hierin auf:** Ein vorderer Wolf, der für einen hinteren Platz macht, weicht nur auf den frei gewordenen Platz, nicht ganz nach hinten. Er läuft nicht als Nächster wieder ganz vor („ein bisschen sinnlos“, Chef 17.11., 08:12).
-- Die Takte je Handlung (F9) bleiben.
+- **Takt:** Drehen und Absetzen fallen in die Takte der Handlung (F9), nicht davor; Maß ist die Runde des Wolfsrudels, 14,6 s (784 A).
+- **Menschengestalten** brauchen dafür Rückwärtsgehen gerade und schräg sowie den Seitschritt aus dem gekauften Paket UAL2 (Tom). Tiere und Untiere prüft Jerry mit ihren eigenen Bewegungen.
 
-## 6. Flucht (entschieden: Chef 17.11., 22:03, „mach mal so, wie du willst“; Grundlage Vorschlag Sokrates 22:00)
+## 6. Flucht (entschieden: Chef 17.11., 22:03; Lohn A 22:33)
 
-- **Selten und lesbar.** Ein Rudel flieht, wenn der Anführer gefallen ist und die Hälfte besiegt ist. Bei Grimmzahn gilt außerdem: Fällt er unter die Hälfte, flieht das Rudel vor Feuer (915). Ein Goblin flieht, wenn er allein übrig ist und weniger als ¼ Leben hat. **Untote und Bosse fliehen nie.**
-- **Ablauf** (wie in `DESIGN-KAMPF.md`, Chef 14:23): Der Gegner sagt die Flucht einen Zug vorher an („weicht zurück, sucht den Ausweg“) und ist nach seinem nächsten Zug fort. Bis dahin treffen ihn Schuss und Zauber von überall. Ein Nahkämpfer erreicht ihn nur, wenn seine Kerben für Weg und Schlag reichen. Steht der Fliehende nah, setzt der Held nach.
-- **Lohn:** Für einen Geflohenen gibt es die vollen EP, aber nur die halbe Beute. Der Kampf zählt als gewonnen. Wer ihn festhält, bekommt die ganze Beute. Das ersetzt „Beute weg“ in `DESIGN-KAMPF.md`, Zeile 119. Grund: Wer ziehen lässt, soll nicht bestraft werden, und Grinden bleibt unnötig.
+- **Selten und lesbar.** Ein Rudel flieht, wenn der Anführer gefallen ist und die Hälfte besiegt ist. Bei Grimmzahn gilt außerdem: Fällt er unter die Hälfte, flieht das Rudel vor Feuer (915). **Fällt Grak, fliehen die Goblins** wie das Rudel ohne Grimmzahn (Homer, `[428.goblin]`). Ein Goblin oder Kobold flieht, wenn er allein übrig ist und weniger als ¼ Leben hat. Die letzte Riesenratte flieht, sobald sie verwundet ist („Allein ist sie feige“, `[428.ratte]`). **Untote, Säureschnecke und Bosse fliehen nie.**
+- **Ablauf** (wie in `DESIGN-KAMPF.md`, Chef 14:23): Der Gegner sagt die Flucht einen Zug vorher an und ist nach seinem nächsten Zug fort. Bis dahin treffen ihn Schuss und Zauber von überall. Ein Nahkämpfer erreicht ihn nur, wenn sein Weg für Weg und Schlag reicht. Steht der Fliehende nah, setzt der Held nach.
+- **Lohn A:** Flieht ein Gegner von selbst, gibt es die volle Erfahrung und die halbe Beute; der Kampf zählt als gewonnen, wer ihn festhält, bekommt alles. Das ersetzt „Beute weg“ in `DESIGN-KAMPF.md`, Zeile 119. **Wer Gegner mit Feuer vertreibt, bekommt weder Beute noch Erfahrung,** wie entschieden (870c 3 A, 915): der Preis des Feuers. Den Unterschied zeigen eigene Ansage und Kampfzeile (705a B).
+- **Ansagen** (Entwurf Homer, Endfassung mit Marken beim Bau): „{0} weicht zurück und sucht einen Ausweg.“ · „{0} ist fort.“ · „{0} kommt nicht mehr weg.“ · „Das Rudel zerstreut sich zwischen den Bäumen.“ · „Die Goblins sehen ihren Hauptmann fallen und laufen.“ Figur beim Namen, nie „dich“, keine Zahlen.
 
-## 7. Absprache (Vorschlag)
+## 7. Absprache
 
 - Höchstens **eine angesagte Absprache je Begegnung**, etwa „Der Schamane sammelt Kraft für den Goblin“ oder „Das Rudel kreist dich ein“. Sie steht in der Ansage, bevor sie wirkt.
 - Gemischte Begegnungen (Wolf mit Späher, Kobold mit Schamane) folgen `DESIGN-GLUT.md` Regel 22: zwei Rezepte, die sich widersprechen, damit der Spieler wählen muss.
 - Begründung: Mehr als eine Absprache ist nicht mehr lesbar, und der Kampf wird zum Raten.
+- Ansagen (Entwurf Homer): „{0} raunt seinen Knochen etwas zu. {1} schlägt gleich härter zu.“ · „Die Kobolde zischen einander zu und rücken zusammen.“ „Einkreisen“ hat schon eine Ansage (`[986.circle.tip]`).
+- Neue Absprachen über Einkreisen und Kraft sammeln hinaus sind Kür, später (Perikles).
 
-## 8. Fairness (Vorschlag, fasst Entschiedenes zusammen)
+## 8. Fairness (fasst Entschiedenes zusammen)
 
 - Jeder große Schlag ist angesagt und hat den Ring (1048 A). **Nie ein unangesagter großer Schlag.**
 - Wie genau der Spieler die Absicht liest, hängt von der Lesestufe ab (1288b).
 - Täuschen nur auf drei Arten, wie entschieden. Der Hinterhalt mit dem Rücken (1532) ist die angesagte Ausnahme beim Überfall.
 - Eine Flucht des Helden steht immer zur Wahl, gelingt aber nicht sicher, nie vor einem Boss (Chef 12:56).
 
-## 9. Je Art (Vorschlag, Grundlage Tabelle „Gegner im Glutsystem“ in `DESIGN-AKTIONSPUNKTE.md`)
+## 9. Je Art (Grundlage Tabelle „Gegner im Glutsystem“ in `DESIGN-AKTIONSPUNKTE.md`; mit `werte.json` abgleichen, Lücken als Einzelvorgang, Perikles)
 
 | Art | Denkweise | Rolle | Besonderheit (Bestand) |
 |---|---|---|---|
@@ -82,27 +97,33 @@ Die Denkweise sagt, was ein Gegner will. Die Rolle sagt, wo er steht und wie er 
 | Blutflügler, Riesenegel | Instinkt | Nahkampf | saugt sich fest |
 | Goblin | List | Nahkampf | Schwerer Hieb nur in Graks Nähe |
 | Goblin-Späher | List | Fernkampf | Anlegen, Schritt zurück |
-| Kobold | List | Nahkampf | lauert mit dem Speer |
+| Kobold | List | Rudel | lauert mit dem Speer; allein feige, im Rudel stärker (`[428.kobold]`) |
 | Goblin-Schamane | List | Zauber | Wundsegen, Kraft sammeln |
-| Wiedergänger | Stur | Nahkampf | nie zurückgedrängt, nie müde, ruft Nachschub |
+| Wiedergänger | Stur | Nahkampf | nie zurückgedrängt, nie müde, ruft Nachschub; weicht vor Weihwasser oder Licht |
+| Skelett | Stur | Nahkampf | – |
+| Grabhund | Stur | Nahkampf | Ziel: der Gelähmte zuerst (`[428.ghul]`) |
+| Säureschnecke | Stur | Nahkampf | flieht nie; spuckt auf Abstand |
 | Krogg | Plan | Boss | Prankenhieb mit 3 Kerben, angesagt |
 | Hauptmann Grak | Plan | Boss | stärker neben Verbündeten |
 
-Die Reihenfolge der Bosse (Abschnitt 3, „Plan“) legt Jerry beim Bau mit Homer fest. Zahlen kommen aus der Rechnung 444, nicht aus dem Gefühl.
+Die Reihenfolge der Bosse (Abschnitt 3, „Plan“) legt Jerry beim Bau mit Homer fest. Grimmzahn bleibt ein Wolf in Bild und Ansage (heult, fletscht, duckt sich), nie ein Stratege; dass er zu klug kämpft, ist der Hinweis auf die roten Augen (Homer). Zahlen kommen aus der Rechnung 444, nicht aus dem Gefühl. Kür, nur wenn der Bau es leicht hergibt: Wildschwein geht auf den, der es zuletzt getroffen hat; Riesenfledermaus auf den, der sich zuletzt bewegt hat (Homer).
 
 ## 10. Kamera (nicht Teil dieses Blatts)
 
 - Der Chef möchte den Kampf mit wechselndem Blickwinkel aufpeppen (11.11., 20:11; 17.11., 16:07). Heute gibt es im Kampfort kein Drehen, nur den Zoom beim Schlag (`kampfort.gd` 654–682).
 - Die Kamera bleibt ein eigenes großes Vorhaben (1402): erst eine Vorlage, dann das Gespräch, erst dann Code. Weil die Regeln auf dem Blatt gelten (Abschnitt 1), hängt dieses Blatt nicht von ihr ab.
 
-## Fragen ans Gegenlesen
+## 11. Bau (Perikles 22:15, entschieden mit 1589.1 A)
 
-- **Jerry:** Lässt sich das auf dem Blatt in `mars.gd` bauen? Was fehlt für den Bau? Grobe Kosten.
-- **Homer:** Passen Denkweise und Rolle je Art zum Bestiarium und zur Geschichte? Wie lauten die Ansagen für Flucht und Absprache?
-- **Perikles:** Was davon ist für Kapitel 1 Muss, was kann später kommen? In welcher Reihenfolge bauen wir?
-- **Tom:** Passt die Bewegung (Abschnitt 5) zu Leuten, Begleitern und den Bewegungen, die wir haben?
+Je Stufe ein Vorgang mit eigenem Build, ab Sa 21.11., 20:00 (vorher Stillstand, 1594); nichts davon in Build 299.
+1. **Blatt unsichtbar** (Jerry): `regeln/blatt.gd` mit Punkt, Umriss, Reichweite; Abstand abgeleitet (Abschnitt 1); Zielwahl je Denkweise mit Trägheit und Versperren (Strecken-Kreis-Prüfung); Flucht; Ungunst der Fernwaffe im Nahkampf (1a); Rechnung 444 lernt das Blatt in derselben Stufe. Prüfbar mit Logiktest gegen die heutigen Wege.
+2. **Bewegung Menschengestalten** (Tom, neben Stufe 1): Rückwärtsgehen gerade und schräg, Seitschritt aus UAL2, einmal gebaut für Welt und Kampf.
+3. **Figuren aufs Blatt** (Jerry): `figur.gd` geht nur noch die Wege des Blatts, Bewegung nach Abschnitt 5 mit 1526 und den Ausnahmen; alte Regeln im Bild raus; Messtests 438, 709 neu; Film.
+4. **Reihenfolge der Bosse** (Jerry mit Homer): Grimmzahn, Krogg, Grak.
 
-## Ergänzungen
+Nicht auf das Blatt warten 760 (Wolf springt beim Anspringen) und 1068 (Ring bei großen Schlägen): beide in den nächsten Build, mit Stufe 3 neu messen. 1532 (Hinterhalt mit dem Rücken) bleibt eigene Kür.
+
+## Ergänzungen (Gegenlesen 17.11., eingearbeitet oben)
 
 (je Rolle ein Absatz mit Name und Zeit)
 
