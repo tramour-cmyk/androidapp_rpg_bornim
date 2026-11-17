@@ -215,6 +215,7 @@
 | 1507 | Von Sokrates (Chef 17.11., 06:15: Diogenes-Meldungen mit Daumen „nicht kapiert“): Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer; Prüfberichte ohne Daumenzeile | Ford | M | startbar | – | – | – | B Abläufe | 1,89 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $ |
 | 1469 | Von Diogenes (1463, Startwarnung 108): chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11.; verkleinern oder löschen, wenn 415 entschieden | Ford | K | startbar | – | – | – | B Abläufe | – |
+| Pflege | von Werkzeug (340.3, 17.11.): 31482 Bytes (Grenze 30000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
