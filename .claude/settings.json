@@ -157,6 +157,18 @@
           }
         ]
       }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/freigabe-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/freigabe-haken.py; command -v python3 >/dev/null && python3 \"$f\" 2>/dev/null; true",
+            "timeout": 30
+          }
+        ]
+      }
     ]
   }
 }
