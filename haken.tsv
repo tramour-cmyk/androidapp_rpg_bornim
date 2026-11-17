@@ -792,3 +792,4 @@
 2026-11-17 10:56:08	commit-pruefung	VORGANGSARCHIV.md: Test t295 eingetragen, aber 1340, 1483 aus der Prüfliste ohne Build 295; erst `vorgang.py build 295 --mit 1340,1483`, dann `vorgang.py build 295` (774)	main
 2026-11-17 11:03:48	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-385-2-feuer
 2026-11-17 11:04:00	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-431-ausruestung
+2026-11-17 11:04:06	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-431-ausruestung
