@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 07:02, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 07:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,10 +23,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 59 (61) | 21 | 1 | 7 | 10 | 1505 (Jerry) rot wolf_mess_438 und tod_ragdoll_1215; in 542 gr… |
+| ↳ **2** Kampf passt | 60 (61) | 22 | 1 | 7 | 10 | 1514 (Jerry) rot typen.py und arkan_993; in Lauf 544 grün, neu… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 13 (16) | 4 | 0 | 0 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 1 | 23 | 1511 (Jerry) Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jer… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 47 (52) | 4 | 0 | 1 | 23 | 168.1 (Jerry) Umsetzung 168: Garrick fest in Kapitel 2, Söldner… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 2 | 0 | 2 | 4 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
 | **7** Werkzeuge und Abläufe der Firma | 40 (43) | 24 | 0 | 0 | 9 | 1469 (Ford) chefsache/bilder/415-strahlen-gl.webp und 415-str… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -35,8 +35,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 29 | 202 | 231 | 1091 |
-| neu | 12 | 164 | 176 | 1066 |
+| erledigt | 30 | 202 | 232 | 1092 |
+| neu | 13 | 164 | 177 | 1067 |
 | **netto** (erledigt − neu) | **+17** | **+38** | **+55** | **+25** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
@@ -47,7 +47,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|
 | **Chef** | [t295](ansehen/t295-sammelbuild.md) testen, hält 8 Zeilen; dann 4 weitere |
 | Tom | 785.10 Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklä… (Muss) |
-| Jerry | 1511 Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jerry“ (Muss); dann 6 weitere |
+| Jerry | 1514 rot typen.py und arkan_993; in Lauf 544 grün, neu sind 623.… (Muss); dann 6 weitere |
 | Tuffy | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu si… (Muss von Jerry, neben dessen Arbeit); dann 5 weitere |
 | Spike | 785.17 Übernahme von Jerry: Zurück-Taste im Kampf schließt das Untermenü; ganzer Berich… (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
@@ -59,13 +59,13 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1505 | Jerry | rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu sind 1488, 1275, 1270.… | M | 2 Kampf passt | startbar |
-| 2 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
-| 3 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
-| 4 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
-| 5 | 785.10 | Tom | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | M | 2 Kampf passt | in Arbeit |
-| 6 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | gebaut, t294 ohne deine Antwort |
-| 7 | 1511 | Jerry | Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jerry“ | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 1 | 1514 | Jerry | rot typen.py und arkan_993; in Lauf 544 grün, neu sind 623.2, 601.1, 1340, 1284b | M | 2 Kampf passt | startbar |
+| 2 | 1505 | Jerry | rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu sind 1488, 1275, 1270.… | M | 2 Kampf passt | startbar |
+| 3 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
+| 4 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
+| 5 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
+| 6 | 785.10 | Tom | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | M | 2 Kampf passt | in Arbeit |
+| 7 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | gebaut, t294 ohne deine Antwort |
 | 8 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
 | 9 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
 | 10 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
@@ -106,7 +106,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.544](ansehen/t295-sammelbuild.md) | [Build 295](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43986044991/artifacts/14290861168) | Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen | Spike | 17.11., 02:52 |
+| 1 | [0.348.546](ansehen/t295-sammelbuild.md) | [Build 295](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44024918701/artifacts/14303487932) | Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen | Spike | 17.11., 07:15 |
 
 ## Zu tun
 
