@@ -2726,6 +2726,8 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 		if not all.any(func(x): return x.side == "FOES" and x.standing()):
 			kein_lohn = all.all(func(x): return x.side != "FOES" or x.called_in or x.vor_feuer)
 			outcome = "WON"
+	elif art == "giant_spider" and ty == "feuer" and kerbe and gk != null and gk.netz_verbrennt(f, t):
+		pass     # 1541 (Regel 19): im Kerbensystem verbrennt Feuer das angesagte Netz, die Zeile der Seide sagt brechen()
 	elif art == "giant_spider" and ty == "feuer" and not t.seide_weg:
 		t.seide_weg = true
 		_say(MSG870_GEGEN_SPINNE[lang], f.id, t.id)
