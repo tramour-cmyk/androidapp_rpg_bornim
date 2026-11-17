@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1531** (zuletzt 1530 Tom 17.11. 08:50:25 6cd6) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1532** (zuletzt 1531 Perikles 17.11. 08:52:43 cacb) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -47,6 +47,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 08:52 17.11.: Startsperre 08:52 Start Jerry (selbst) – Neustart auf Meldung 08:46 (6a3dcfaef).
 - 08:32 17.11.: Startsperre 08:32 Start Sokrates (selbst) – auf Zuruf des Chefs („Bitte hol mal Sokrates“, 08:32).
+- 17.11., 08:53 Ford: Jerry-Neustart `…76TUvncWrgAWbXDgzh` (1505), alter archiviert, 20,17 $ auf 785.12, 1505, 1514; Sokrates auf Zuruf des Chefs 08:33 `…76gTnkQt77JpdpoGF3`; 1528 (.uid grundstand_1044) an Tom.
 - 17.11., 08:16 Ford: Sokrates `…77G4ce7ghB2Dwu4oTC` archiviert (Übergabe 6ab0126f8, nichts startbar), 5,24 $ auf 870, 1520; Nachfolger „Sokrates – 1520 nach Antwort des Chefs, 870 nach 1523“ erst bei Lösung.
 - 17.11., 08:15 Ford: Diogenes-Neustart: `…79bbfZMzZXyLy1U8G6` (Bautests t295: 601.1, 1488, 1275, 1340, 1284b), alter archiviert, 1,95 $ auf 1246. Perikles `…75iwL4zXVJo28mnSiW` „Weiter: 1524“ (Chef-Fund Build 295, Sokrates 08:11).
 - 08:14 17.11.: Startsperre 08:14 Start Diogenes (selbst) – Neustart 6a4619a53, danach Bautests t295 (601.1, 1488, 1275, 1340, 1284b).
