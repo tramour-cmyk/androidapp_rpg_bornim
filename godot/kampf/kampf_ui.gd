@@ -726,12 +726,21 @@ func _party_box(f) -> Control:
 	if f.hero != null and not f.zauber.is_empty():
 		var spv: int = kampfort.shown.sp.get(f.id, f.sp)
 		v.add_child(_balken_zeile(spv, f.max_sp, Leiste.BLAU, zahl_w, zahl_fs))
+	# 785.10 (alt BattleScreen.kt 1708, 1725–1729: Stufe und EP-Balken im Kasten des Helden): Erfahrung in der Stufe als goldener
+	# Balken wie in der Weltleiste (1448 A: ohne Wort, dahinter die Stufe „St. 3“); ohne Stand (Probekampf) die Stufe des Kämpfers, voll
+	if f.hero != null and f == kampfort.mars.all[0]:
+		var stand: Dictionary = kampfort.progress.get("stand", {})
+		var stufe: int = int(stand.get("stufe", f.level()))
+		var voll: bool = stand.is_empty() or stufe >= Brs.hoechste_stufe()
+		var ep: int = 1 if voll else int(float(stand.get("ep", 0.0)))
+		var bedarf: int = 1 if voll else maxi(1, int(Brs.bedarf(stufe)))
+		v.add_child(_balken_zeile(mini(ep, bedarf), bedarf, Leiste.GOLD_HELL, zahl_w, zahl_fs, (t("St. ", "Lv ")) + str(stufe)))
 	return box
 
 
 ## 1439: ein Balken (4 dp) in [farbe] mit „wert/max“ dahinter, rechtsbündig in fester Breite [zahl_w], damit Balken untereinander
 ## gleich lang sind
-func _balken_zeile(wert: int, max_wert: int, farbe: Color, zahl_w: float, zahl_fs: int) -> HBoxContainer:
+func _balken_zeile(wert: int, max_wert: int, farbe: Color, zahl_w: float, zahl_fs: int, text := "") -> HBoxContainer:
 	var low := HBoxContainer.new()
 	low.add_theme_constant_override("separation", int(6 * dp))
 	var bar := ProgressBar.new()
@@ -749,7 +758,7 @@ func _balken_zeile(wert: int, max_wert: int, farbe: Color, zahl_w: float, zahl_f
 	bar.add_theme_stylebox_override("fill", fill)
 	low.add_child(bar)
 	var l := Label.new()
-	l.text = "%d/%d" % [wert, max_wert]
+	l.text = text if text != "" else "%d/%d" % [wert, max_wert]
 	l.add_theme_font_size_override("font_size", zahl_fs)
 	l.add_theme_color_override("font_color", TEXT)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -1206,8 +1215,10 @@ func _ende_833() -> void:
 		lohn.append(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts))
 	if not lohn.is_empty():
 		v.add_child(Stil.luecke(10))
+		var selten: Dictionary = k.reward.get("selten", {})     # 785.10: Beute in Seltenheitsfarbe wie alt (BattleScreen.kt 1569)
 		for i in lohn.size():
-			v.add_child(_mittig(String(lohn[i]), 15, DIM if grau.has(i) else TEXT, 0.0, breit))
+			var farbe := DIM if grau.has(i) else (Color(Menue.SELTEN.get(String(selten[i]), "e6ddcb")) if selten.has(i) else TEXT)
+			v.add_child(_mittig(String(lohn[i]), 15, farbe, 0.0, breit))
 	v.add_child(Stil.luecke(12))
 	v.add_child(Spielstaende.linie())
 	var zurueck := Spielstaende.knopf("neben", t("Zurück", "Back"), func(): k.finish(), true)

@@ -158,6 +158,7 @@ gang_744
 position_518
 sterben_596
 lohn_870
+heldkasten_78510
 brs_blatt_870
 effekte_814
 brs_471

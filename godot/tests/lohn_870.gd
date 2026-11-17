@@ -72,6 +72,11 @@ func _lohn() -> void:
 	var r := Lohn.reward(_kampf(w), {}, Wuerfel.new([4, 500, 100, 0]))
 	_soll("drei Wölfe: Zeilen", " | ".join(r.lines), "Ansgar erhält 107 EP. | Du erbeutest 4 Gold. | Beute: Rohes Fleisch! | Beute: Wolfsfell!")
 	_soll("drei Wölfe: Stufe", r.level, 3)
+	# 785.10: Ausrüstung als Beute trägt ihre Seltenheit je Zeile („selten“), kampf_ui malt sie in der Farbe
+	var gb := Lohn.reward(_kampf(["wolf"]), {}, Wuerfel.new([1, 999, 999, 999]), "", [{"gear": {"rarity": "RARE"}, "name": "Dolch", "rarity": "Selten"}])
+	var gi: int = gb.lines.find("Beute: Dolch (Selten)!")
+	_soll("Beute selten: Zeile und Farbe", "%d %s" % [gi, gb.get("selten", {}).get(gi, "-")], "%d RARE" % maxi(gi, 0))
+	_soll("Beute selten: andere Zeilen ohne", gb.get("selten", {}).size(), 1)
 	# Aufstieg: 280 von 300 in Stufe 3, ein Wolf (36): Heldenstufe 4, Rest 15,56, Leben und Mana voll
 	var m = _kampf(["wolf"])
 	var vorher := _stand(3, 280.0)
