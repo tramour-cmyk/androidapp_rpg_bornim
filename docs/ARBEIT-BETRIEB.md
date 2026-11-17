@@ -122,7 +122,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:50 17.11.: Marke Archiv session_01Hmoj79xM5rV6bTs6ZDkmXE (lauf.py)
 - 10:50 17.11.: Marke Archiv session_01Hmoj777UC4mRXgFsJi1T9s (lauf.py)
 - 12:01 17.11.: Marke Archiv session_01Hmoj75Zz5WUmAyUmi4Uym5 (lauf.py)
-- 12:28 17.11.: Startsperre 12:28 Start Ford (Starter)
 - 12:31 17.11.: Startsperre 12:31 Start Ford (Starter, zweiter Versuch ohne Uhrsatz)
 - 13:07 17.11.: Startsperre 13:07 Start Diogenes (lauf.py)
 - 13:07 17.11.: Marke Archiv session_01Hmoj76GuSR3ZmBd53Pew6R (lauf.py)
