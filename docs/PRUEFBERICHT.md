@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 302 · 1539 Vorratsprüfung ohne beurteilte Fehlalarme (`805c22494`; 17.11., 10:53)
+
+- **Greift im Kern:** `vorratspruefung.py` an `main` 10:52: 293.7 (K), 966.2 und 623.9 (O) nicht mehr gemeldet; übrige Funde unverändert (36).
+- **Lücke D302.1 = 1544 (Perikles, K):** die K-Ausnahme gilt für jede Nummer `<Build>.<n>` mit getestetem Build (274–294), nicht nur für Prüfpunkte; eine fehlende Folgezeile zu einer echten Unternummer alter Vorgänge (292.4 besteht, Build 292 getestet; ab Build 300 auch 344.x, 385.x) bliebe stumm. Urteilskopf „293.7 nachgetestet“ trägt kein „t“, unterscheiden geht über die Prüfliste `ansehen/t<Build>` oder Unternummern des Vorgangs. → `warte 1539 1544`.
+- **Hinweis, kein Befund:** J nennt dieselbe Zeile mehrfach (1275 viermal, je Absatz „Zu 1275“), bläht die Zahl auf (29).
+
 ## Lauf 301 · 1538 Kostenschwelle 40 $ (`dd2c2a5ef`; 17.11., 10:13)
 
 - **Greift:** `kostenschwelle_test.py` 13 von 13 ok. Echte Liste: alle 11 offenen Zeilen ab 40 $ haben eine Freigabe oder ruhen/Dauer, keine hält; 620 steht bei 79,98 $ und hält ab 80 $. Nachgestellt ohne Freigabe für 620: `kosten_offen()` nennt 620, `lauf.stand()` setzt Perikles „Kosten entscheiden: 620 (Sokrates, 79,98 $)“ als erste Muss-Zeile. → **1538 greift**.

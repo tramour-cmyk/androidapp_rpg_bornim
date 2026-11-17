@@ -15,6 +15,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py setze NR feld=wert …      titel, besitzer, kl, stand, warte, zweig, build, bereich
   vorgang.py klasse NR M|K             M?-Entscheid (190.8)
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
+  vorgang.py ordnen                    Muss vor M? vor Kür vor „nach Meilenstein“ je Besitzer, Folge innerhalb bleibt (1543; auch nach
+                                       „klasse“ und in jedem Lauf von lauf.py --aufraeumen/--sperre)
   vorgang.py fertig NR                 Stand „erledigt“ (ins Archiv schiebt lauf.py --aufraeumen); nennt Absätze „Zu NR“
   vorgang.py greift NR LAUF            Diogenes nach „greift“ im Bereich B: „erledigt, greift Lauf N“ (724 A, 755)
   vorgang.py bautest NR LAUF           Diogenes bestätigt „ohne dich“ am Lauf der APK (Laufnachweis, grün): „erledigt, Bautest Lauf N“ (1128 A)
@@ -149,6 +151,28 @@ def setzen(nr, paare, rolle=None):
 def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
     setzen(nr, ["kl=" + kl], rolle)
+    n = ordnen()
+    if n: print("vorgang.py: %d Zeilen nach Klasse geordnet (1543)" % n)
+
+def stufe(d):
+    """1543: Rang der Klasse für ordnen()."""
+    if d.get("stand", "").startswith("nach"): return 3
+    return {"M": 0, "M?": 1}.get(d.get("kl", "").strip(), 2)
+
+def muss_vorn(text):
+    """1543 (Chef 17.11., 10:46: „viele Muss im Kampf … warum Jerry Kürvorgänge in den Top 20 hat ohne Ende“): je Besitzer Muss vor M?
+    vor Kür vor „nach Meilenstein“; innerhalb einer Klasse bleibt die Folge (stabil), jede Zeile bleibt auf einem Platz ihres Besitzers.
+    Gibt (neuer Text, Zahl der verschobenen Zeilen) zurück."""
+    L = text.split("\n"); zs = startbar.vorgangsliste(text); neu = list(L)
+    for b in dict.fromkeys(d["besitzer"] for d in zs):
+        eigen = [d for d in zs if d["besitzer"] == b]
+        for i, d in zip([d["i"] for d in eigen], sorted(eigen, key=stufe)): neu[i] = d["zeile"]
+    return "\n".join(neu), sum(1 for a, b in zip(L, neu) if a != b)
+
+def ordnen():
+    t, n = muss_vorn(text_liste())
+    if n: schreiben(startbar.LISTE, t)
+    return n
 
 # 1143 (Perikles, Vorschlag Sokrates 13.11., 14:38; Fund des Chefs 1141): 596 ging „erledigt“, obwohl sein Commit sagte „Goblins …
 # kippen steif, das braucht einen Bau mit Bild“; den Rest fand der Chef eine Woche später wieder. Nennt der letzte Commit der
@@ -727,6 +751,7 @@ def haupt(a):
     if b == "fertig" and len(a) == 2: return fertig(a[1], rolle)
     if b == "greift" and len(a) == 3: return greift(a[1], a[2], rolle)
     if b == "bautest" and len(a) == 3: return bautest(a[1], a[2], rolle)
+    if b == "ordnen" and len(a) == 1: return print("vorgang.py: %d Zeilen nach Klasse geordnet (1543)" % ordnen())
     if b == "rang" and len(a) in (3, 4): return rang(a[1], a[2], a[3] if len(a) == 4 else None, rolle)
     if b == "neu" and len(a) >= 5:
         nr = a[a.index("--nr") + 1] if "--nr" in a else None
@@ -742,7 +767,7 @@ def haupt(a):
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
 
-SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "neu", "build")
+SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "ordnen", "neu", "build")
 
 def liegt_melden(vorher):
     """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung

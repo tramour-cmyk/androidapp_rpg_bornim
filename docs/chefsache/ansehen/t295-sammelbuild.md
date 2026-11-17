@@ -33,3 +33,4 @@ Im Bau geprüft: Merkmale je Gegner beim Kampfbeginn, höchstens eines je Gegner
 ## Ergebnis
 
 - 295.2 ✓ (Chef 17.11., 08:09, Bildschirmfoto: „wenn der Wolf normal ist, steht sozusagen nichts dabei. Wenn er der Durchschnittswolf ist, dann passt das alles.“ Wolf 1 ohne Merkmal 25/25, Wolf 2 angeschlagen −30 % 18/18, Wolf 3 kräftig +15 % 29/29)
+- 295.9 nicht prüfbar (Chef hat Lauf 544, 10:09); 1483 als 297.15 in Build 297
