@@ -1,5 +1,7 @@
 # 531 · Garrick vertreibt den Wolf mit der Fackel (Tag, Abend, Nacht)
 
+[Film von 17.11., 02:54](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-025415-531/2026-11/17-0254-531-Tom.mp4) (eingetragen von meldung.sh, Tom)
+
 Tom · 17.11., 02:55 · E Oberfläche · dein Wort 03.11., 23:42 („vertreibt Tiere sichtbar mit der Fackel“)
 Kurz: 531 (Garrick, Fackelabwehr): ein Wolf jagt den Helden an Garricks Feuer, Garrick nimmt die Fackel, schwenkt sie zum Wolf, der Wolf geht; jetzt im Renderer des Handys und mit sichtbarem Wolf.
 
