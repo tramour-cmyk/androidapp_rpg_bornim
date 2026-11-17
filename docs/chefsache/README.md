@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 20:41, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 20:44, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -23,21 +23,21 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 56 (61) | 13 | 1 | 0 | 12 | 1589.1 (Sokrates) Regelblatt Gegnerverhalten gemeinsam, nicht im st… |
+| ↳ **2** Kampf passt | 55 (61) | 13 | 1 | 0 | 12 | 1589.1 (Sokrates) Regelblatt Gegnerverhalten gemeinsam, nicht im st… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 20 (16) | 10 | 1 | 0 | 8 | 1569 (Tom) Rest aus 431h: angelegter Umhang an der Heldenfig… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 0 | 24 | 1564 (Sokrates) Systemlösung? Wasser: 4 frühere Vorgänge, neu 156… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 0 | 24 | 508 (Sokrates) Lehrmeister in Kapitel 1 erreichbar, Magie-Pflich… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 3 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
-| **7** Werkzeuge und Abläufe der Firma | 49 (43) | 32 | 0 | 0 | 11 | 1593 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| **7** Werkzeuge und Abläufe der Firma | 47 (43) | 32 | 0 | 0 | 11 | 1593 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 100 | 202 | 302 | 1162 |
+| erledigt | 103 | 202 | 305 | 1165 |
 | neu | 96 | 164 | 260 | 1150 |
-| **netto** (erledigt − neu) | **+4** | **+38** | **+42** | **+12** |
+| **netto** (erledigt − neu) | **+7** | **+38** | **+45** | **+15** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -47,7 +47,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|
 | **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 5 weitere |
 | Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 1 weitere |
-| Jerry | 508.1 Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1… (Kür) |
+| Jerry | 1336 Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattense… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | leer, weil 3 ruht, 2 Termin, 1 Chef |
 | Homer | leer, weil 1 Chef Gespräch |
@@ -67,20 +67,20 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 6 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
 | 7 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
 | 8 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 9 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
-| 10 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
-| 11 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
-| 12 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
-| 13 | 1478 | Jerry | nach jedem Sieg Mana + halber Wille; Wundsegen × 0,8–1,2 wie Waffenschaden; Ker… | K | 2 Kampf passt | startbar |
-| 14 | 1486 | Jerry | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Beg… | K | 2 Kampf passt | startbar |
-| 15 | 1487 | Jerry | Heiler wächst in Kapitel 1 nie im Willen; Vorschlag, wie er Heilmagie übt, Rech… | K | 2 Kampf passt | startbar |
-| 16 | 623.9 | Jerry | Aus 623.2: Effekte Szene 3 Höhle einbauen: Nebel R8, Teich R10, Kristalle R4 cr… | K | 2 Kampf passt | startbar |
-| 17 | 1536 | Jerry | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von K… | K | 2 Kampf passt | startbar |
-| 18 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 19 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | startbar |
-| 20 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 9 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
+| 10 | 1478 | Jerry | nach jedem Sieg Mana + halber Wille; Wundsegen × 0,8–1,2 wie Waffenschaden; Ker… | K | 2 Kampf passt | startbar |
+| 11 | 1486 | Jerry | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Beg… | K | 2 Kampf passt | startbar |
+| 12 | 1487 | Jerry | Heiler wächst in Kapitel 1 nie im Willen; Vorschlag, wie er Heilmagie übt, Rech… | K | 2 Kampf passt | startbar |
+| 13 | 623.9 | Jerry | Aus 623.2: Effekte Szene 3 Höhle einbauen: Nebel R8, Teich R10, Kristalle R4 cr… | K | 2 Kampf passt | startbar |
+| 14 | 1536 | Jerry | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von K… | K | 2 Kampf passt | startbar |
+| 15 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 16 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | startbar |
+| 17 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1211 | Tom | Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuf… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 68 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 73.
+Danach 65 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
