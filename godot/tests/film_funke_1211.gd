@@ -1,7 +1,8 @@
 extends SceneTree
 # 1211 (Prüfauftrag Chef 13.11., 19:10: „Prüfe auch mal, ob wir Rocket Trail nicht als Lichtquelle verwenden können für den Trank“):
 # Probe als Film, wie im Spiel (spiel.tscn, Spielkamera, Renderer mobile): der Held geht nachts mit Leuchtfunke durchs Dorf.
-# --art1211=heute  Funke wie heute (Kern, Hof, funke_licht)
+# --art1211=heute  Funke wie im Spiel (nach 1211: rocket_trail gedämpft, sonst Kern und Hof)
+# --art1211=alt    Kern und Hof wie bis 17.11.
 # --art1211=kuehl  R7 rocket_trail statt Kern und Hof: kühl weiß (FUNKE_FARBE), gedämpft, ohne Rauch und ohne eigenes Licht; Licht bleibt funke_licht
 # --art1211=r7     R7 rocket_trail unverändert (warm, Rauch, eigenes Licht), nur auf Funkengröße, zum Vergleich
 # --mess1211=1     ohne Film: misst Bilder/s, Zeichenaufrufe und Dreiecke beim Gehen (Lavapipe, nur Vergleich untereinander)
@@ -117,7 +118,12 @@ func _lauf() -> void:
 	spiel.zustand.funke = true
 	for i in 5:
 		await process_frame
-	if art != "heute": _baue_r7(art == "kuehl")
+	if art == "alt" and spiel.held.funke_r7:   # nach 1211: alt = Kern und Hof wie bis 17.11., neu = wie im Spiel (rocket_trail gedämpft)
+		spiel.held.funke_r7.queue_free(); spiel.held.funke_r7 = null
+		spiel.held.funke_kern.visible = true; spiel.held.funke_hof.visible = true
+	elif art in ["kuehl", "r7"]:
+		if spiel.held.funke_r7: spiel.held.funke_r7.queue_free(); spiel.held.funke_r7 = null
+		_baue_r7(art == "kuehl")
 	if art == "r7":   # funke_licht aus, R7 bringt eigenes Licht; richte_funke setzt es sonst jedes Bild wieder an
 		spiel.held.funke_licht.light_color = Color.BLACK
 	spiel.kamera.zoom = 6.0
