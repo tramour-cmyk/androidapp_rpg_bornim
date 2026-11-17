@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 01:1x):** Lauf 286: 1312 wirkt, greift nicht (1250, 517 über 12 h) → 1504 an Perikles, 1312 wartet auf 1504. Lauf 287: 1254 greift (kein Lauf 15.–16.11. auf altem Modellbau). Nächste Nummer D288. Nachfolger: Diogenes – 1425 Vorratsprüfung am Tagesbericht 17.11.
+**Übergabe (17.11., 01:1x):** Lauf 286: 1312 wirkt, greift nicht (1250, 517 über 12 h) → 1504 an Perikles, 1312 wartet auf 1504. Lauf 287: 1254 greift (kein Lauf 15.–16.11. auf altem Modellbau). Lauf 288: 1246 nicht belegbar (Nächte 04–07 Uhr ohne Ford-Lauf), Termin 17.11. 08:00. Lauf 289: 1485 greift (Lauf 542). Nächste Nummer D290. Nachfolger: Diogenes – 1246 Nacht 16./17.11. und 1425 Vorratsprüfung am Tagesbericht 17.11.
 
-- **Zu 1485 (Lauf 281):** sobald ein `claude/build-<n>`-Lauf die Datei `bornim-0.348.<Lauf>-build-<n>.apk` hochlädt (Protokoll Schritt „Name des APK“) → `greift 1485 <Lauf>`.
+- **Zu 1246 (Lauf 288):** Nacht 16./17.11. (erste mit Stundenuhr beim Ford-Starter, 1444): Ford-Läufe jede Stunde 21–7 Uhr (`git log` „Ford: Lauf“), keine Stunde ohne Team-Commit, während eine Teamrolle startbares Muss hat; Marke „Stillstand“ nur, wo kein Muss startbar → `greift 1246 <Lauf>`; fehlen Ford-Läufe wieder 05/06 Uhr → Befund an Ford (1444).
 
 - **Zu 1482 (Lauf 280):** Namensteil von 1385 im Sammelbuild; nach dem Test des Chefs schließt ihn Automatik B, kein Lauf nötig.
 - **Zu 1425 (Lauf 285):** nach dem Termin im Feld: Perikles' Tagesbericht 17.11. kam erst nach einem Commit „Vorratsprüfung“ desselben Morgens, E/K/L/O von heute Nacht (649, 293.7, 1482/1483, 966.2) behoben oder beim Besitzer → `greift 1425 <Lauf>`; Bericht mit `BORNIM_VORRAT_GEPRUEFT=1` ohne Prüf-Commit → Befund an Perikles.
