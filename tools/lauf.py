@@ -143,6 +143,7 @@ def geschuetzt():
     return set(re.findall(r"session_[A-Za-z0-9]+", m.group(1))) if m else set()
 SPERRE_MIN = 20
 WEITER_TOKEN = 200000  # 383 A (Chef 09.11., 18:05): günstigste Länge 200 Tsd. (Rechnung Sokrates); vorher 400000 nach 383.1 (Chef 27.10., 19:19 „nicht mal 2 Seiten lang“): Kontext 1 Mio., Kosten je Arbeit bis 500 Tsd. gleich (Messung Sokrates 18:15); Vorentscheid Perikles 27.10. (vorher 150 Tsd., D40.1)
+FREIGABE_MIN = 15  # 1572: blocked ab 15 Minuten laut an den Chef (Konstante fiel mit e1cb7588c weg, Ford 17.11., 21:04)
 WEITER_MIN = 60  # 261.5 (3): WEITER nur in eine Sitzung, die unter 60 Minuten ruht; fürs Archivieren gibt es keine Wartezeit mehr (Chef 21.10., 16:46)
 
 def z(s):
