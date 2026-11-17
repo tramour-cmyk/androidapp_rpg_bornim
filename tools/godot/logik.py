@@ -76,6 +76,12 @@ def main():
     muster = sys.argv[1] if len(sys.argv) > 1 else ''
     namen = [n for n in liste() if muster in n]
     befehle = zeilen()
+    # 1557 (Läufe 537, 539: einschlag_6011 rot nach 0 s, die Testdatei war mit 601.1 zurückgenommen, die Zeile in godot.yml nicht):
+    # jeder Test, den der Prüfschritt ruft, muss als Datei da sein
+    weg = sorted(n for n in befehle if not os.path.isfile(os.path.join(G, 'tests', n + '.gd')))
+    if weg:
+        sys.exit('LOGIK: godot.yml „Skripte pruefen“ ruft Tests ohne Datei (zurückgenommen? Zeile mit entfernen): '
+                 + ', '.join(weg))
     fehlt = [n for n in namen if n not in befehle]
     if fehlt:
         sys.exit('LOGIK: nicht (sperrend) im Prüfschritt von godot.yml: ' + ', '.join(fehlt))
