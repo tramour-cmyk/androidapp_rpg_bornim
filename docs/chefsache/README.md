@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 13:41, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 13:53, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **2** Kampf passt | 63 (61) | 20 | 0 | 9 | 12 | 1545 (Jerry) Halt-Zeile oben im Vorrat streichen: Bedingung er… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 18 (16) | 9 | 0 | 6 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 46 (52) | 4 | 0 | 3 | 24 | 168.1 (Jerry) Umsetzung 168: Garrick fest in Kapitel 2, Söldner… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 4 | 0 | 3 | 24 | 1564 (Sokrates) Systemlösung? Wasser: 4 frühere Vorgänge, neu 156… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 16 (13) | 10 | 0 | 1 | 4 | 1561 (Jerry) Wiederholrot stehen_973: 2× rot in 48 h; Ursache… |
 | **7** Werkzeuge und Abläufe der Firma | 46 (43) | 28 | 0 | 1 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 61 | 202 | 263 | 1123 |
-| neu | 64 | 164 | 228 | 1118 |
-| **netto** (erledigt − neu) | **−3** | **+38** | **+35** | **+5** |
+| neu | 66 | 164 | 230 | 1120 |
+| **netto** (erledigt − neu) | **−5** | **+38** | **+33** | **+3** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,15 +45,15 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen; dann 1 weitere |
-| Tom | 1167 Atmen für die Dorftiere (Kür) |
+| **Chef** | [1484](tun/1484-tablet-messen.md) tun, hält 1 Zeilen |
+| Tom | 1205 Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass & W… (Kür) |
 | Jerry | 1545 Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt; son… (Muss); dann 2 weitere |
 | Tuffy | 1541 Taumeln im Kerbensystem auch bei Zurückdrängen und Netz ver… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | 1561 Übernahme von Jerry: Wiederholrot stehen_973: 2× rot in 48 h; Ursache nachstelle… (Muss); dann 6 weitere |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1270 Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader… (Kür) |
-| Perikles | leer, weil 16 Termin, 5 wartet auf Vorgang (1388, 1389, 870, 1125, 1522), 2 wartet auf Test/Build |
+| Perikles | M? M? entscheiden: 1563 (Muss) |
 
 **Die nächsten 20**
 
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
 | 20 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
 
-Danach 72 weitere offen. Bei dir zum Testen (vorgelegt): 20. Gebaut, fährt mit dem nächsten Build: 5. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 73.
+Danach 73 weitere offen. Bei dir zum Testen (vorgelegt): 20. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
@@ -91,11 +91,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [1155](ansehen/1155-wasser-teich-klar.md) | Das gekaufte Wasser „Teich klar“ an Dorfbach, Waldteich und Höhle | Tom | 17.11., 13:20 |
+Nichts offen.
 
 ## Zu tun
 
@@ -362,12 +358,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 142 | K | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | nach dem Meilenstein |
 | 45 | K | Geschäftsmodell und Umsetzung (Play Store) | nach dem Meilenstein |
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1155-wasser-teich-klar.md
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
