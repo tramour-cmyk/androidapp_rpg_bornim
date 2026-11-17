@@ -88,7 +88,7 @@ Empfiehlst du in einer Sitzung fast alles mit „ja“, prüfst du zu wenig.
 
 - Läufe nach 621 A gebe ich selbst frei (595), nie den Chef fragen; den Vorrat nach jeder Nachricht eines anderen sofort lesen (10.11., 19:41 Bitte Perikles liegen gelassen, 19:59 den Chef gefragt, obwohl 19:54 selbst freigegeben).
 
-- Bei „was bleibt von alt“ prüfen, ob es noch Quelle für Neues ist (Workflows, Commits der Woche), und jede Datei der alten Regeln abzählen; im Abgleich je Punkt Datei und Zeile der alten Fassung (10.11., 870a, Chef 15:25 „wieder was gefunden“; 17.11., 785.10 EP-Balken im Kampf, alt nur Weltleiste).
+- Bei „was bleibt von alt“ prüfen, ob es noch Quelle für Neues ist (Workflows, Commits der Woche), und jede Datei der alten Regeln abzählen; im Abgleich je Punkt Datei und Zeile der alten Fassung (10.11., 870a, Chef 15:25 „wieder was gefunden“; 17.11., 785.10: Probeschirm statt echtem geprüft).
 
 - Eine Absprache mit dem Chef zum Ablauf sofort dort eintragen, wo das Werkzeug sie liest (Haken, `LISTE-RELEASE-NEUSTART.md`), sonst gilt sie für den Nachfolger nicht; und solange der Chef testet, keinen Neustart (10.11., 13:27 Neustart bei t274.16; Chef 13:34: „das machen wir nicht mehr … einfach mal wieder ignoriert“; 865).
 
