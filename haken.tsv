@@ -820,3 +820,4 @@
 2026-11-17 13:12:48	commit-pruefung	LISTE-VORGAENGE.md: 1547: Zeile über 400 Zeichen (Einzelheiten als „Zu 1547“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-17 13:15:12	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1155-wasser
 2026-11-17 13:20:43	commit-pruefung	docs/chefsache/ansehen/1155-wasser-teich-klar.md: Vorlage „keine Tuschelinie“: jede Probe mit Toon-Licht und Tusche wie im Spiel (457, Chef 01.11., 11:49: „unsere Signatur muss sich wiederfinden“); ne	main
+2026-11-17 13:27:03	probelauf	725 (D72): Ziel `cd $p` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home/user/…`) ode	claude/tom-1155-wasser
