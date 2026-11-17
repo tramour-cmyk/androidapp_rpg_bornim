@@ -818,3 +818,4 @@
 2026-11-17 12:51:31	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md: Uhrzeit 13:00 liegt nach jetzt (12:51)	main
 2026-11-17 12:51:52	commit-pruefung	docs/ARBEIT-TEAM-JERRY.md hat 30552 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-17 13:12:48	commit-pruefung	LISTE-VORGAENGE.md: 1547: Zeile über 400 Zeichen (Einzelheiten als „Zu 1547“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-17 13:15:12	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1155-wasser
