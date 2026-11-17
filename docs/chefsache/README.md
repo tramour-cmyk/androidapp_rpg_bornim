@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 02:46, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 02:54, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,12 +23,12 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 61 (61) | 20 | 1 | 9 | 8 | 1340 (Jerry) Aus 1215: Sterben mit Physik fehlt noch für Skele… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 1 | 3 | 8 | 431 (Tom) Völker als Modelle: erst Bibliothek sichten, Kand… |
+| ↳ **2** Kampf passt | 62 (61) | 21 | 1 | 9 | 8 | 1340 (Jerry) Aus 1215: Sterben mit Physik fehlt noch für Skele… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 0 | 3 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 3 | 649.4 (Jerry) Zwei bis drei Handlungen je gewöhnlicher Monstera… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 8 | 1 | 4 | 20 | 531 (Tom) Build 249: Garrick wie alt und besser: Gesicht, L… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 8 | 0 | 4 | 20 | 1423 (Jerry) Felswände der Höhle nur nabelhoch, auch mit 1289… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 13 (13) | 5 | 0 | 6 | 3 | 496 (Jerry) Durchspiel-Build: Kapitel 1 von Anfang bis Ende a… |
-| **7** Werkzeuge und Abläufe der Firma | 41 (43) | 26 | 0 | 0 | 9 | 1501 (Jerry) D283.1 von Diogenes: claude/build-294 ohne main a… |
+| **7** Werkzeuge und Abläufe der Firma | 42 (43) | 26 | 0 | 0 | 9 | 1501 (Jerry) D283.1 von Diogenes: claude/build-294 ohne main a… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 6 | 202 | 208 | 1068 |
-| neu | 2 | 164 | 166 | 1056 |
-| **netto** (erledigt − neu) | **+4** | **+38** | **+42** | **+12** |
+| neu | 4 | 164 | 168 | 1058 |
+| **netto** (erledigt − neu) | **+2** | **+38** | **+40** | **+10** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,15 +45,15 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t294](ansehen/t294-sammelbuild.md) testen, hält 17 Zeilen; dann 6 weitere |
-| Tom | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 1 weitere |
-| Jerry | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss); dann 3 weitere |
-| Tuffy | 1284b Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nic… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
+| **Chef** | [t294](ansehen/t294-sammelbuild.md) testen, hält 17 Zeilen; dann 8 weitere |
+| Tom | 1423 Übernahme von Jerry: Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude… (Muss) |
+| Jerry | 1340 Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wie… (Muss); dann 2 weitere |
+| Tuffy | 1284b Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nic… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | leer, weil 3 ruht, 3 wartet auf Test, 1 wartet auf Test t295 |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | Pflege von Werkzeug: 3 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Sokrates | Pflege von Werkzeug: Übergabe über 700 Zeichen; 8 „Zu“ zu Erledigt… (Kür) |
-| Perikles | Pflege von Werkzeug: 1 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
+| Perikles | M? M? entscheiden: 1506 (Muss) |
 
 **Die nächsten 20**
 
@@ -61,26 +61,26 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|---|---|---|---|---|
 | 1 | 1340 | Jerry | Aus 1215: Sterben mit Physik fehlt noch für Skelett und Wiedergänger | M | 2 Kampf passt | in Arbeit |
 | 2 | 1284b | Jerry | Rückfrage zu 1284: Rattenbiss verdeckt der Held selbst, nicht der Nachbar; Kame… | M | 2 Kampf passt | startbar |
-| 3 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | in Arbeit |
-| 4 | 531 | Tom | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertr… | M | 5 Welt, Karten, Bild, Ton, Bedienung | in Arbeit |
-| 5 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 6 | 1501 | Jerry | D283.1 von Diogenes: claude/build-294 ohne main ab 21:47 gebaut, 1485 fehlt; AP… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 7 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
-| 8 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
-| 9 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
-| 10 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 11 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
-| 12 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
-| 13 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
-| 14 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 15 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 16 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
-| 17 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
-| 18 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | 2 Kampf passt | startbar |
-| 19 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
-| 20 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 3 | 1423 | Jerry | Felswände der Höhle nur nabelhoch, auch mit 1289 auf claude/spike-1303-stufen;… | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 4 | 1501 | Jerry | D283.1 von Diogenes: claude/build-294 ohne main ab 21:47 gebaut, 1485 fehlt; AP… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 507 | Jerry | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager | K | 2 Kampf passt | startbar |
+| 6 | 469 | Jerry | Kampf auf BRS: Ring ohne Klassen regeln | K | 2 Kampf passt | startbar |
+| 7 | 623.2 | Jerry | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen, Datenfeld fx in LISTE-EF… | K | 2 Kampf passt | startbar |
+| 8 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 9 | 785.10 | Jerry | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | K | 2 Kampf passt | startbar |
+| 10 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | K | 2 Kampf passt | startbar |
+| 11 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | K | 2 Kampf passt | startbar |
+| 12 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 13 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
+| 14 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | K | 2 Kampf passt | startbar |
+| 15 | 785.16 | Jerry | Raster- und Würfelschalter im Kampf über Kämpfe gemerkt | K | 2 Kampf passt | startbar |
+| 16 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | K | 2 Kampf passt | startbar |
+| 17 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
+| 18 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
+| 19 | 508.1 | Jerry | Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welcher Heldens… | K | 2 Kampf passt | startbar |
+| 20 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
 
-Danach 77 weitere offen. Bei dir zum Testen (vorgelegt): 22. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 59.
+Danach 78 weitere offen. Bei dir zum Testen (vorgelegt): 22. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 59.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -102,6 +102,7 @@ Nichts offen.
 | [1439](ansehen/1439-mana-balken.md) | Mana als eigener blauer Balken im Kampfschirm | – | 16.11., 23:51 |
 | [1448](ansehen/1448-leiste-ohne-woerter.md) | Weltleiste und Heldenmenü ohne Wörter vor den Balken | – | 17.11., 01:14 |
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
+| [531](ansehen/531-fackelabwehr.md) | Garrick vertreibt den Wolf mit der Fackel (Tag, Abend, Nacht) | – | 17.11., 02:54 |
 | [601.1](ansehen/6011-pfeiltreffer.md) | Pfeiltreffer: Pfeil an der Brust, der Getroffene zuckt dort | – | 17.11., 00:36 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
@@ -109,6 +110,7 @@ Nichts offen.
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.348.542](ansehen/t294-sammelbuild.md) | [Build 294](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43980603017/artifacts/14284795775) | Sammelbuild: Wolf bleibt dran und dreht zum Helden, Zurück im Hauptmenü fragt, Leben in Kampfmeldungen, Testreparaturen | Tom und Jerry | 17.11., 01:25 |
+| 2 | [0.348.544](ansehen/t295-sammelbuild.md) | [Build 295](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43986044991/artifacts/14290861168) | Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen | Spike | 17.11., 02:52 |
 
 ## Zu tun
 
@@ -373,7 +375,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1439-mana-balken.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1448-leiste-ohne-woerter.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1439-mana-balken.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1448-leiste-ohne-woerter.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/531-fackelabwehr.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/6011-pfeiltreffer.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/6011-pfeiltreffer.md
 
