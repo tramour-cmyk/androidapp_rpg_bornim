@@ -42,7 +42,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Zu 654:** Rest (d)–(f) für die nächste Systemrunde: `git show 99cca1404:docs/ARBEIT-BERATUNG.md`.
 
 ## Zeilen
-- **Zu 623.2, von Jerry (17.11., 06:02):** Bitte um einen zweiten Filmlauf (621 A). Erster Film 05:43 beim Chef ([623.2](chefsache/ansehen/6232-effekte-wolfskampf.md)) mit eigenen Befunden: Parade zu groß und hell, Staub zu groß, Klingenspur kaum zu sehen. Behoben auf `claude/jerry-623-effekte` `6c8ad4cd4`, an Probebildern am Rechner geprüft (Parade klein ohne Schildzeichen, Staub klein, Klingenspur als Band sichtbar). Neuer Film: derselbe Kampf (SEED 7), Rechner, etwa 15 s.
 
 - **Zu 649b, von Spike (16.11., 16:45):** 25–40 $ für Build 1 passt. Einwand: die Figurenprüfung im Bau erst als Meldung (wie Bildrate 1268.5) oder als Sperrklinke mit heutigem Stand (wie Typen 1307), rot erst für neue Widersprüche; sonst ist ab dem ersten Lauf jeder Build rot, solange die bestehenden Widersprüche (Leute in drei Schreibweisen, Felle doppelt) nicht in Build 2/3 behoben sind.
 
