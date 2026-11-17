@@ -97,18 +97,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 13:36 17.11.: Startsperre 13:36 Start Tom (selbst) – Neustart auf Meldung 13:29 (f1e7a208f).
-- 11:09 17.11.: Startsperre 11:09 Start Ford (Starter) – Selbstneustart bei 404 Tsd. Token, Übergabe 11:08.
-- 10:50 17.11.: Startsperre 10:50 Start Jerry (selbst) – Neustart auf Meldung 10:43 (97c0dae38).
-- 10:31 17.11.: Startsperre 10:31 Start Tom (selbst) – Neustart auf Meldung 10:25 (92be1c9df).
-- 10:27 17.11.: Startsperre 10:27 Start Jerry (selbst) – Neustart auf Meldung 10:19 (720cfaf9c).
 - 10:22 17.11.: Startsperre 10:22 Start Sokrates (selbst) – Neustart auf Meldung 10:18 (a8ec14a1e).
-- 09:15 17.11.: Startsperre 09:15 Start Sokrates (selbst) – Neustart auf Meldung 09:09 (9b2199a20, Chef 09:08 „Dann Neustart“).
-- 08:52 17.11.: Startsperre 08:52 Start Jerry (selbst) – Neustart auf Meldung 08:46 (6a3dcfaef).
-- 08:32 17.11.: Startsperre 08:32 Start Sokrates (selbst) – auf Zuruf des Chefs („Bitte hol mal Sokrates“, 08:32).
-- 08:14 17.11.: Startsperre 08:14 Start Diogenes (selbst) – Neustart 6a4619a53, danach Bautests t295 (601.1, 1488, 1275, 1340, 1284b).
 - 00:05 17.11.: Marke Übergabe-Chef Spike 16.11. 23:14 (lauf.py)
 - 01:04 17.11.: Marke Archiv session_01Hmoj78eYFVHDkQHymU7Jt7 (lauf.py)
-- 01:04 17.11.: Marke Archiv session_01Hmoj76CDuBaNGRkJoRGqaj (lauf.py)
 - 01:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 00:08) (lauf.py)
 - 02:04 17.11.: Marke Archiv session_01Hmoj79sb6Z4qbo43YiQ32Q (lauf.py)
 - 02:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 01:19) (lauf.py)
@@ -120,24 +111,26 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:04 17.11.: Marke Nachhalten 17.11. (lauf.py)
 - 08:04 17.11.: Marke Abgleich ganz 17.11. (lauf.py)
 - 08:04 17.11.: Marke Archiv session_01Hmoj78gV596wg1KgLhojwt (lauf.py)
-- 09:04 17.11.: Startsperre 09:04 Start Spike, Diogenes, Homer (lauf.py)
 - 09:04 17.11.: Marke Rückmeldung 785.10 17.11. 08:44 (lauf.py)
 - 09:04 17.11.: Marke Archiv session_01Hmoj75bizrHjtD8tG3F1De (lauf.py)
 - 09:04 17.11.: Marke Archiv session_01Hmoj79bbfZMzZXyLy1U8G6 (lauf.py)
 - 09:04 17.11.: Marke Archiv session_01Hmoj76NcjeerwtT8PnpvfR (lauf.py)
 - 09:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 08:29) (lauf.py)
-- 10:01 17.11.: Startsperre 10:01 Start Diogenes, Perikles (lauf.py)
 - 10:01 17.11.: Marke Archiv session_01Hmoj77PU7ZUzbAcvLEQ8S5 (lauf.py)
 - 10:01 17.11.: Marke Archiv session_01Hmoj75iwL4zXVJo28mnSiW (lauf.py)
-- 10:50 17.11.: Startsperre 10:50 Start Diogenes, Perikles (lauf.py)
 - 10:50 17.11.: Marke Archiv session_01Hmoj79xM5rV6bTs6ZDkmXE (lauf.py)
 - 10:50 17.11.: Marke Archiv session_01Hmoj777UC4mRXgFsJi1T9s (lauf.py)
-- 12:01 17.11.: Startsperre 12:01 Start Perikles (lauf.py)
 - 12:01 17.11.: Marke Archiv session_01Hmoj75Zz5WUmAyUmi4Uym5 (lauf.py)
-- 12:02 17.11.: Startsperre 12:02 Start Tom (selbst; Neustart-Meldung ebec38f6c, Tom idle seit 10:54, Kosten 17,52 $ auf 431h gebucht)
 - 12:28 17.11.: Startsperre 12:28 Start Ford (Starter)
 - 12:31 17.11.: Startsperre 12:31 Start Ford (Starter, zweiter Versuch ohne Uhrsatz)
 - 13:07 17.11.: Startsperre 13:07 Start Diogenes (lauf.py)
 - 13:07 17.11.: Marke Archiv session_01Hmoj76GuSR3ZmBd53Pew6R (lauf.py)
 - 14:05 17.11.: Startsperre 14:05 Start Perikles (lauf.py)
 - 14:05 17.11.: Marke Archiv session_01Hmoj77FsiCUjt98K4cFCVi (lauf.py)
+- 18:26 17.11.: Startsperre 18:26 Start Tom, Jerry, Spike, Homer, Perikles (lauf.py)
+- 18:26 17.11.: Marke Hängt session_01Hmoj75VKXkjJJfgZNpp4Hr 2026-11-17T16:06 (lauf.py)
+- 18:26 17.11.: Marke Hängt session_01Hmoj79rLgkQVZ7GEDAFVcw 2026-11-17T08:48 (lauf.py)
+- 18:26 17.11.: Marke Archiv session_01Hmoj75VKXkjJJfgZNpp4Hr (lauf.py)
+- 18:26 17.11.: Marke Archiv session_01Hmoj77xEazSvYLsbY2twWp (lauf.py)
+- 18:26 17.11.: Marke Archiv session_01Hmoj79iEGkbHvG4SheXezL (lauf.py)
+- 18:26 17.11.: Marke Archiv session_01Hmoj79rLgkQVZ7GEDAFVcw (lauf.py)
