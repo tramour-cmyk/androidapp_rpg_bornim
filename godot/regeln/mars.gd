@@ -82,6 +82,11 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 		"He takes aim. If the one in his sights Defends, the arrow flies past."],
 	"offen": ["Ich wollte ihm zuvorkommen und stand gegen seinen großen Schlag offen. Gegen große Schläge bin ich in Wehr besser dran.",     # [1367.offen], Kerbensystem (1366)
 		"I meant to strike first and was left open to his big blow. Against big blows, I am better off on Guard."]}
+## [219T.erster] (STORY-SPIEL.md „Der Ring erklärt“), Flagge GESEHEN_RING; [219T.jetzt] über dem ersten Ring (kampf_ui, GESEHEN_RING_JETZT)
+const MSG219_ERSTER := ["Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; um deine Figur zieht sich ein großer Ring auf einen kleinen zusammen; tippe, wenn er genau auf ihm liegt: knapp daneben nimmst du halben Schaden, genau getroffen gar keinen.",
+	"The sign ◯ means: this blow comes with a ring; a large ring closes around your figure onto a small one; tap when it lies exactly on it: just off, you take half damage, exactly, none at all."]
+const GESEHEN_RING := "ring_erster"
+const GESEHEN_RING_JETZT := "ring_jetzt"
 const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
 ## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
 var gesehen := {}
@@ -2271,9 +2276,21 @@ func _say_announce(foe: Fighter) -> void:
 	# und Flanke rät dem Helden zum Wechsel. Am Rechner nachgestellt: die erste Ansage kam zu Beginn, die Wölfe sprangen, bevor der
 	# Held einen Zug hatte. Jetzt nur, wenn der Held vor dem Ansager noch am Zug ist und wechseln kann (nicht angesprungen am Boden,
 	# nicht im Netz: Aufstehen kostet den halben Zug); sonst wartet sie auf eine Ansage, bei der der Wechsel geht
+	# 785.12 (alt SkirmishScreen 582–585, MarsTips firstRing): die erste Ansage mit Ring gegen eine Figur, die der Spieler steuert,
+	# erklärt das Zeichen einmal je Spielstand im Bericht, vor dem Schlag und vor der Eingebung (STORY-BRS-KAMPF.md 1048: „zuerst
+	# [219T.erster], in der nächsten Zeile [830.sprung]“)
+	if intent.ring and not gesehen.has(GESEHEN_RING) and aimed.any(_selbst_gesteuert):
+		gesehen[GESEHEN_RING] = true
+		_say(MSG219_ERSTER[lang], null, null, 0, null, false, false, "RING_ERSTER")
 	if str(intent.id) in WECHSEL_RAT and not _held_kann_vorher_wechseln(foe):
 		return
 	_eingebung(str(intent.id))
+
+
+## 785.12: eine Figur der Gruppe, die der Spieler selbst steuert (ihr Ring wird gefragt, _foe_turn)
+func _selbst_gesteuert(id) -> bool:
+	var a = find(String(id))
+	return a != null and a.side == "PARTY" and not a.auto and not _piloted(a)
 
 
 ## 1296: Eingebungen, die zum Wechsel raten

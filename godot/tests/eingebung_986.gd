@@ -36,6 +36,7 @@ func _lauf() -> void:
 	var m = a.kampf.mars
 	for k in flaggen.keys():
 		if str(k).begins_with(Mars.GESEHEN_EINGEBUNG): flaggen.erase(k)
+	flaggen[Mars.GESEHEN_RING] = true     # 785.12: die Ringerklärung vor der ersten Ansage mit Ring prüft ring_785
 	var wolf = _erster_gegner(m)
 	var ids := ["heavy", "call", "gather", "stab", "slash", "bite", "claw", "pounce", "circle", "venom", "web", "aim", "shadow", "breakthrough", "flank"]
 	for id in ids:
