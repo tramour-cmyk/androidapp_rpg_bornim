@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 09:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 09:11, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -45,12 +45,12 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t296](ansehen/t296-sammelbuild.md) testen, hält 5 Zeilen; dann 7 weitere |
+| **Chef** | [t296](ansehen/t296-sammelbuild.md) testen, hält 5 Zeilen; dann 8 weitere |
 | Tom | 1515 Schild jetzt ganz, aber vor dem Schild der Wachsoldatin hän… (Muss); dann 2 weitere |
 | Jerry | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün; Ursach… (Muss); dann 5 weitere |
 | Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
 | Spike | 785.17 Übernahme von Jerry: Zurück-Taste im Kampf schließt das Untermenü; ganzer Berich… (Muss) |
-| Homer | 1525 Merkmalsnamen am Gegner abwechseln, „schwächlich klingt gut… (Kür) |
+| Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1270 Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader… (Kür) |
 | Perikles | Pflege von Werkzeug: 1 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
@@ -90,6 +90,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [1520](entscheiden/1520-laeufe-sparen.md) | **Muss** | B Steuerung | 17.11., 08:05 | Lange Sitzungen und teure Vorgänge sind die zwei großen Löcher; A schließt das erste per Haken, B legt dir das zweite einmal je Vorgang vor. | Sokrates |
 | [1423a](entscheiden/1423a-krogg-dunkel.md) | **Muss** | G Stil | 17.11., 06:21 | Seit die Zwischenwände hoch sind, schirmen sie das Lagerfeuer ab; der Held steht bei Krogg ohne eigene Fackel im Dunkeln. | Tom |
 | [431h](entscheiden/431h-stufe2-ruestung.md) | **Muss** | E Figuren | 17.11., 00:51 | 431h (Rüstung sichtbar), Stufe 2 zeigt jede angelegte Rüstung mit ihrem eigenen Teil, auch Stücke anderer Herkünfte und die Ritterteile; Aufwand und Risiko hier. | Tom |
+| [1525](entscheiden/1525-merkmalsnamen.md) | Kür | G Story | 17.11., 09:10 | Drei Namen je Tiermerkmal, im Kampf gleich, von Kampf zu Kampf wechselnd; Wirkung bleibt. | Homer |
 
 ## Zu billigen
 
