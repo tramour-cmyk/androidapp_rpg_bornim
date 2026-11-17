@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 17.11., 00:04 (lauf.py)
+**Stand:** 17.11., 01:03 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -13,5 +13,4 @@
 | Sokrates | [Sokrates – Chefgespräch: Halt 1072 nachhalten (16.11., 21:29)](https://claude.ai/code/session_01Hmoj77pgBEnvqA1NaaNeJP) | 1072 | claude/jerry-1072-t293 | 16.11., 21:29 |
 | Tom | [Tom – 531: Fackelfilm, Build 294 (16.11., 22:49)](https://claude.ai/code/session_01Hmoj78CY54jy3o4vF8uRur) | 531 | claude/tom-531-film | 16.11., 22:49 |
 | Spike | [Spike – 1499 (16.11., 23:04)](https://claude.ai/code/session_01Hmoj77pzGpWBZo1H1FppQo) | 1499 | – | 16.11., 23:04 |
-| Perikles | [Perikles – M? entscheiden (16.11., 23:04)](https://claude.ai/code/session_01Hmoj76CDuBaNGRkJoRGqaj) | Betrieb | – | 16.11., 23:04 |
 | Ford | [Ford – Betriebsleiter (16.11., 23:50)](https://claude.ai/code/session_01Hmoj76ER7oUkkBFVsDDeqy) | Betrieb | – | 16.11., 23:51 |
