@@ -249,6 +249,7 @@ def kampf(W, H, held, mon_name, rng, opt):
             if g.name in TAEUSCHER and g.herr is None and p["art"] in ("schlag", "schuss", "anlegen") and rng.random() < P_TAEUSCH:
                 g.taeuscht = True; p["zeigt_gross"] = not p["gross"]
             g.plan = p
+            g.leben_ansage = g.leben                # 1529: Taumeln (Regel 19) zählt Schaden seit der Ansage
 
     def gesehen(g):
         """(groß, Art) so, wie der Held die Ansage sieht."""
@@ -283,7 +284,12 @@ def kampf(W, H, held, mon_name, rng, opt):
         return AUS["kosten"] * max(AUS.get("min_anteil", 0.25), 1.0 - held.f(fn) / AUS.get("teiler", 100.0))
 
     def tun(t, glut, fa):
-        nd = glut - 1 if pol == "nachlegen" else 0
+        nd = glut - 1 if (pol == "nachlegen" or (pol == "sparen" and gesehen(t)[0])) else 0   # 1529: sparen bis zur Ansage
+        if pol == "reserve":                       # 1529: vertiefen, aber zwei Kerben Ausdauer für eine Ansage zurückhalten
+            nd = glut - 1
+            if AUS and AUS.get("kosten", 0) > 0 and not gesehen(t)[0]:
+                c = tief_kosten(fa)
+                nd = max(0, min(nd, int((s["aus"] + 1e-9) // c) - 2))
         if AUS and nd > 0 and AUS.get("kosten", 0) > 0:
             c = tief_kosten(fa)
             geht = int((s["aus"] + 1e-9) // c)
@@ -430,6 +436,9 @@ def kampf(W, H, held, mon_name, rng, opt):
             gegenschlag(g)
             if g.leben <= 0:
                 continue
+            if opt.get("taumeln") and p["gross"] and g.leben <= g.leben_ansage - opt["taumeln"] * g.lmax:
+                st["taumeln"] = st.get("taumeln", 0) + 1
+                continue                                           # 1529, Regel 19 (1352a A): der große Schlag geht ins Leere
             if p["art"] == "prankenhieb" and glut >= 3:
                 glut -= 3; st["prankenhieb"] += 1
                 if g.ueb and g.erster:

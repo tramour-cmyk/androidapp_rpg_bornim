@@ -34,6 +34,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--kaempfe", type=int, default=300)
     p.add_argument("--laeufe", type=int, default=25)
+    p.add_argument("--taumeln", action="store_true", help="Teil 2: mit Taumeln (Regel 19), Politik sparen gegen immer vertiefen")
     p.add_argument("--unterstufe", type=int, default=0, help="Held so viele Stufen unter dem Gegner")
     a = p.parse_args()
     HIER = os.path.dirname(os.path.abspath(__file__))
@@ -69,6 +70,8 @@ def main():
                 "tief": sum(x["nachgelegt"] for x in r) / n, "leer": sum(x["leer"] for x in r) / n,
                 "gekappt": sum(x["tief_gekappt"] for x in r) / n}
 
+    if a.taumeln:
+        return taumeln_teil(W, H, held, herk, n, run, nl)
     roh = {}
     for hk in herk:
         for gg, sf in G.FAELLE:
@@ -112,6 +115,32 @@ def main():
         "–" if not roh[(hk, gg)][c_]["runden"] else f"{roh[(hk, gg)][c_]['runden']:.1f}" for c_ in spalten))
     print("## Wer vertieft wie oft bis leer (k3a: Vertiefen-Kerben je Kampf · Züge leer)\n")
     G.tabelle("k3a", G.FAELLE, herk, lambda hk, gg, sf: f"{roh[(hk, gg)]['N_k3a']['tief']:.1f}·{roh[(hk, gg)]['N_k3a']['leer']:.1f}")
+
+
+def taumeln_teil(W, H, held, herk, n, run, nl):
+    """Teil 2: Taumeln an (ein Fünftel des Lebens seit der Ansage, 1352a A). N vertieft immer, Sp nur gegen ein gesehenes „!!“."""
+    K3 = {"kosten": 3.0, "atem": 0.0}
+    sp = [("S", {"politik": "schlag_haltung"}), ("N", {"politik": "nachlegen"}), ("Sp", {"politik": "sparen"}),
+          ("N_k3", {"politik": "nachlegen", "ausdauer": K3}), ("Sp_k3", {"politik": "sparen", "ausdauer": K3}),
+          ("R_k3", {"politik": "reserve", "ausdauer": K3})]
+    roh = {}
+    for hk in herk:
+        for gg, sf in G.FAELLE:
+            roh[(hk, gg)] = {nm: run(held[(hk, sf)], gg, dict(o, nachlegen_schaden=nl, wehr_gegen_schuetzen=True, taumeln=0.2))
+                             for nm, o in sp}
+    print("## Mit Taumeln: Sieg je 100 (S / N / Sp / N_k3 / Sp_k3 / R_k3)\n")
+    G.tabelle("Sieg", G.FAELLE, herk, lambda hk, gg, sf: "/".join(hg.pz(roh[(hk, gg)][c]["quote"]) for c, _ in sp))
+    print("## Mit Taumeln: Runden bis Sieg\n")
+    G.tabelle("Runden", G.FAELLE, herk, lambda hk, gg, sf: "/".join(
+        "–" if not roh[(hk, gg)][c]["runden"] else f"{roh[(hk, gg)][c]['runden']:.1f}" for c, _ in sp))
+    for a_, b_ in (("Sp", "N"), ("Sp_k3", "N_k3"), ("R_k3", "N_k3")):
+        vorn = sum(1 for k in roh if G.wert(roh[k][a_]) - G.wert(roh[k][b_]) > 3)
+        hinten = sum(1 for k in roh if G.wert(roh[k][b_]) - G.wert(roh[k][a_]) > 3)
+        d = sum(G.wert(roh[k][a_]) - G.wert(roh[k][b_]) for k in roh) / len(roh)
+        print(f"- {a_} gegen {b_}: {vorn} Zellen vorn, {hinten} hinten, im Mittel {d:+.1f} Punkte")
+    for c, _ in sp:
+        q = [roh[k][c]["quote"] for k in roh]; r = [roh[k][c]["runden"] for k in roh if roh[k][c]["runden"]]
+        print(f"- {c}: Sieg {100 * sum(q) / len(q):.0f}, Runden {sum(r) / len(r):.2f}, Vertiefen {sum(roh[k][c]['tief'] for k in roh) / len(roh):.1f} je Kampf")
 
 
 if __name__ == "__main__":
