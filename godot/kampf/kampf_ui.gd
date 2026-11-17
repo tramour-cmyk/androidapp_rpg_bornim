@@ -914,6 +914,12 @@ func _build_orders() -> void:
 		c.queue_free()
 	var k = kampfort
 	var m = k.mars
+	# 785.17 (alt SkirmishBody BackHandler; Abgleich 785): in einer Auswahl (Ziel, Können, Tasche, Wechsel …) führt Android-Zurück
+	# wie der Knopf „Zurück“ ins Hauptmenü des Zugs; sonst nimmt der Kampf die Taste nicht (785.21)
+	if pick != "main" and m.outcome == "ONGOING" and not k.busy:
+		Zurueck.melde(orders, func() -> void: if pick != "main": _set_pick("main"))
+	elif orders.is_in_group(Zurueck.GRUPPE):
+		orders.remove_from_group(Zurueck.GRUPPE)
 	if m.outcome != "ONGOING" and not k.busy and _a833():
 		_ende_833()
 		return
