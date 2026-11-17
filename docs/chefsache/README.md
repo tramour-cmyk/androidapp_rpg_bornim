@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 18:09, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 18:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -28,7 +28,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 47 (52) | 2 | 0 | 0 | 24 | 1563 (Jerry) Teich in der Höhle am Ufer noch eckig und kantig;… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 16 (13) | 10 | 0 | 1 | 4 | 1561 (Jerry) Wiederholrot stehen_973: 2× rot in 48 h; Ursache… |
-| **7** Werkzeuge und Abläufe der Firma | 45 (43) | 28 | 0 | 0 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
+| **7** Werkzeuge und Abläufe der Firma | 46 (43) | 29 | 0 | 0 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 79 | 202 | 281 | 1141 |
-| neu | 75 | 164 | 239 | 1129 |
-| **netto** (erledigt − neu) | **+4** | **+38** | **+42** | **+12** |
+| neu | 76 | 164 | 240 | 1130 |
+| **netto** (erledigt − neu) | **+3** | **+38** | **+41** | **+11** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -53,7 +53,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1270 Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader… (Kür) |
-| Perikles | M? M? entscheiden: 785.25, 1571, 1567, 1568 (Muss); dann 2 weitere |
+| Perikles | M? M? entscheiden: 785.25, 1571, 1567, 1568 (Muss); dann 3 weitere |
 
 **Die nächsten 20**
 
@@ -71,16 +71,16 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 10 | 1554 | Jerry | Wiederholrot ausholen_1000: 4× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 6 Godot besser nutzen | startbar |
 | 11 | 1553 | Jerry | Wackeltest atem_4531: rot und grün am selben Commit; deterministisch machen, ni… | M | 6 Godot besser nutzen | startbar |
 | 12 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 1572 | Perikles | Ford hing ab 16:04 zwei Stunden, keiner startete, kein Telegram; Hängeralarm: b… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 14 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 15 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 16 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
-| 17 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
-| 18 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
-| 19 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
-| 20 | 785.25 | Tom | D304.1 von Diogenes: Knopf „Schnell ›“ im leichten Kampf während des Kampfs feh… | M? | 2 Kampf passt | startbar |
+| 13 | 1573 | Perikles | 1551 nach Ablehnung 12:28 zurückgebaut und geschlossen, Ford hing 16:04–17:xx a… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1572 | Perikles | Ford hing ab 16:04 zwei Stunden, keiner startete, kein Telegram; Hängeralarm: b… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 16 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 17 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
+| 18 | 785.9 | Jerry | MARS-Probekampf im Systemmenü mit Regelseite wie alt | K | 2 Kampf passt | startbar |
+| 19 | 785.13 | Jerry | Eingebung beim ersten Schlag von hinten; Ersthinweis vordere Reihe erledigt mit… | K | 2 Kampf passt | startbar |
+| 20 | 785.14 | Jerry | Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „halber Z… | K | 2 Kampf passt | startbar |
 
-Danach 79 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 73.
+Danach 80 weitere offen. Bei dir zum Testen (vorgelegt): 2. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
