@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 21:17, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 21:28, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -67,18 +67,18 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 6 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
 | 7 | 1532 | Sokrates | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Geg… | K | 2 Kampf passt | startbar |
 | 8 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
-| 9 | 1486 | Jerry | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Beg… | K | 2 Kampf passt | startbar |
-| 10 | 1487 | Jerry | Heiler wächst in Kapitel 1 nie im Willen; Vorschlag, wie er Heilmagie übt, Rech… | K | 2 Kampf passt | startbar |
-| 11 | 623.9 | Jerry | Aus 623.2: Effekte Szene 3 Höhle einbauen: Nebel R8, Teich R10, Kristalle R4 cr… | K | 2 Kampf passt | startbar |
-| 12 | 1536 | Jerry | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von K… | K | 2 Kampf passt | startbar |
-| 13 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 14 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | in Arbeit |
-| 15 | 1211 | Spike | Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuf… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
-| 20 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1487 | Jerry | Heiler wächst in Kapitel 1 nie im Willen; Vorschlag, wie er Heilmagie übt, Rech… | K | 2 Kampf passt | startbar |
+| 10 | 623.9 | Jerry | Aus 623.2: Effekte Szene 3 Höhle einbauen: Nebel R8, Teich R10, Kristalle R4 cr… | K | 2 Kampf passt | startbar |
+| 11 | 1536 | Jerry | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von K… | K | 2 Kampf passt | startbar |
+| 12 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 13 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | in Arbeit |
+| 14 | 1211 | Spike | Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuf… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
+| 19 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
 
 Danach 63 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
