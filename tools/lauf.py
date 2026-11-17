@@ -24,6 +24,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
+  NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1461) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
   WARNUNG(-LAUT) Sitzung hängt / Sitzung wartet auf Freigabe (blocked ab 15 Min., 1572) / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
@@ -154,6 +155,22 @@ def lesen(p):
 
 def berlin(d):
     return d.strftime("%d.%m., %H:%M")
+
+def bericht_heute():
+    """448: Kopf von tools/tagesbericht.py für heute steht."""
+    p = os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")
+    return os.path.exists(p) and ("**Stand %s, " % JETZT.strftime("%d.%m.")) in lesen(p)
+
+SPIEGEL_ROLLEN = (("Sokrates", "Sokrates"), ("Perikles", "Perikles"), ("Homer", "Homer"), ("Ford", "Ford"),
+                  ("Diogenes", "Diogenes"), ("Team Tom", "Tom"), ("Team Jerry", "Jerry"))
+
+def spiegel_offen():
+    """1461 (Chef 18.11., 00:03: „Da kommt ihr nicht aus“): Rollen ohne Antwort unter „## Woche <heute>“ in LISTE-ROLLENSPIEGEL.md."""
+    p = os.path.join(DOCS, "LISTE-ROLLENSPIEGEL.md")
+    t = lesen(p) if os.path.exists(p) else ""
+    m = re.search(r"(?ms)^## Woche %s\n(.*?)(?=^## |\Z)" % re.escape(JETZT.strftime("%d.%m.")), t)
+    da = set(re.findall(r"(?m)^### (Team Tom|Team Jerry|\w+)", m.group(1))) if m else set()
+    return [kurz for lang, kurz in SPIEGEL_ROLLEN if lang not in da]
 
 def laut_nachts():
     """Schritt 9: laut melden, nachts (22–7 Uhr) lautlos (ROLLE-BETRIEB.md)."""
@@ -868,7 +885,7 @@ def main():
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
             ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus der Vorgangsliste (vorgang.py --rolle %s)%s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r,
-                ", Mittwoch: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)" if JETZT.weekday() == 2 else ""))
+                ", Mittwoch: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)" if JETZT.weekday() == 2 and bericht_heute() else ""))  # 1461: erst nach dem Tagesbericht
             if nr in ("M?", "Stillstand", "Kosten"): ausgabe[-1] = "WEITER %s | %s | %s | Weiter: %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, thema)  # 921, 1246
             if thema.startswith("Übernahme von"): ausgabe[-1] = ausgabe[-1].replace("; wird send_message", "; %s; wird send_message" % thema[:120], 1)  # 1364
             sperren.append(r); continue
@@ -882,7 +899,7 @@ def main():
             msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann die Übergabe in %s beachten." % (r, thema, VORRAT[r])
         if thema.startswith("Übernahme von"): msg += " " + thema[:160] + "."  # 1364: die Zeile gehört noch dem Geber
         msg += satz
-        if JETZT.weekday() == 2: msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."
+        if JETZT.weekday() == 2 and bericht_heute(): msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
     # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
@@ -1043,6 +1060,39 @@ def main():
         if r.returncode: ausgabe.append("WARNUNG regelcheck.py --rueckmeldung Exit %d: %s (559, Perikles)" % (r.returncode, r.stderr.strip()[-200:]))
     except Exception as e:
         ausgabe.append("WARNUNG Rückmeldungswächter fehlgeschlagen: %s (559, Perikles)" % e)
+    # 1461 (Chef 18.11., 00:03, „jetzt“: Mittwochsrunde nach dem Tagesbericht, alle sieben Rollen, „Da kommt ihr nicht aus“), nach allen anderen START:
+    # läuft die Rolle, Nachricht an ihre Sitzung; sonst START nur für den Spiegel; Ford schreibt selbst. Je Rolle einmal am Tag (Marke).
+    if JETZT.weekday() == 2 and bericht_da:
+        offen_sp = spiegel_offen()
+        for r in offen_sp:
+            marke = "Rollenspiegel %s %s" % (r, heute)
+            if marke in marke_text: continue
+            text = "%s: Mittwochsrunde (1461): jetzt Rollenspiegel mit tools/rollenspiegel.sh %s, Antwort mit --antwort, Datei LISTE-ROLLENSPIEGEL.md nicht öffnen; committen, pushen." % (r, r)
+            if r == "Ford":
+                ausgabe.append("NACHRICHT Ford | - | " + text); wochen.append(marke); continue
+            rr = [r] + (["Spike"] if r == "Tom" else ["Tuffy"] if r == "Jerry" else [])
+            sitz = [s for x in rr for s in laeuft(x)]
+            if any(l.startswith("START %s " % x) or (l.startswith("WEITER ") and " | %s | " % x in l) for x in rr for l in ausgabe):
+                continue  # die Startnachricht trägt den Hinweis; läuft sie im nächsten Lauf ohne Antwort, kommt die Nachricht
+            if sitz:
+                ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], text)); wochen.append(marke); continue
+            if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60: continue
+            mo, satz, hoch = modell(r, None)
+            msg = "%s\n\nNur Rollenspiegel (1461, Mittwochsrunde, Chef 18.11.: „Da kommt ihr nicht aus“): zuerst Start nach deiner Rollendatei, dann tools/rollenspiegel.sh %s, Antwort mit --antwort, Datei LISTE-ROLLENSPIEGEL.md nicht öffnen; committen, pushen; keine andere Arbeit, keine Übergabe.%s" % (r, r, satz)
+            ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, "%s – 1461: Rollenspiegel (%s)" % (r, berlin(JETZT)), msg.replace("\n", "\\n")))
+            vorgaenger(r); sperren.append(r); wochen.append(marke)
+        # Nachtrag 00:04 („Und eure Ideensammlung zur Spieleverbesserung“): nur heute, nach dem letzten Spiegel die Übersicht der Antworten 11
+        if not offen_sp and heute == "18.11." and "Ideensammlung %s" % heute not in marke_text:
+            text = "Perikles: 1461 Ideensammlung: alle sieben Rollenspiegel stehen; Antworten 11 (Vorschlag fürs Spiel) als eine Übersicht an den Chef (Telegram, Link LISTE-IDEEN.md)."
+            psitz = laeuft("Perikles")
+            if any(l.startswith("START Perikles ") for l in ausgabe): pass  # nächster Lauf schickt die Nachricht an diese Sitzung
+            elif psitz: ausgabe.append("NACHRICHT Perikles | %s | %s" % (juengste(psitz)["id"], text))
+            else:
+                mo, satz, hoch = modell("Perikles", None)
+                ausgabe.append("START Perikles | %s%s | %s | %s | %s | %s | %s" % (mo, aufwand(hoch), umgebung("Perikles", hoch), REPO, REVISION, "Perikles – 1461: Ideensammlung (%s)" % berlin(JETZT),
+                               "Perikles\\n\\n%s Zuerst Start nach deiner Rollendatei.%s" % (text[10:], satz)))
+                vorgaenger("Perikles"); sperren.append("Perikles")
+            if not any(l.startswith("START Perikles ") and "Ideensammlung" not in l for l in ausgabe): wochen.append("Ideensammlung %s" % heute)
     wochen += vorentscheid_marken + neue_marken
     try:  # 1228 (Chef 13.11., 21:22: „jeder, der sieht, das erledigt“): offene Urteile auf Telegram, Netz für Sitzungen, die notiz.sh nicht rufen
         import reaktionen

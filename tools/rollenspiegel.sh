@@ -66,6 +66,12 @@ if antwort is None:
     print("\nAntwort anhängen: tools/rollenspiegel.sh " + args[0] + " --antwort <datei> --sitzung \"<Titel>\"; danach committen und pushen.")
     sys.exit(0)
 
+# 1461 (Chef 16.11., 16:27: „nach dem Managementbericht von Pericles“; 18.11., 00:03): mittwochs erst nach dem Tagesbericht
+import os
+tb = os.path.join(os.path.dirname(os.path.abspath(datei)), "ARBEIT-TAGESBERICHT.md")
+if jetzt.weekday() == 2 and jetzt.date() >= UMSTELLUNG and os.path.exists(tb) and ("**Stand %s, " % jetzt.strftime("%d.%m.")) not in open(tb, encoding="utf-8").read():
+    sys.exit("Mittwoch: Rollenspiegel erst nach dem Tagesbericht (1461); nichts geändert, lauf.py fordert ihn danach an.")
+
 neu = (sys.stdin.read() if antwort == "-" else open(antwort, encoding="utf-8").read()).strip()
 if not re.search(r"(?m)^0\. ", neu) or not re.search(r"(?m)^11\. ", neu):
     sys.exit("Antwort braucht die Zeilen „0. …“ bis „11. …“ ohne 2 (Fragen ohne Antwort: „nichts“ mit Begründung).")
