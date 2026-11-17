@@ -12,6 +12,8 @@ extends SceneTree
 const Probe = preload("res://kampf/probe.gd")
 const Zauber = preload("res://kampf/zauber.gd")
 const KampfUi = preload("res://kampf/kampf_ui.gd")
+const Figur = preload("res://kampf/figur.gd")
+const RUMPF_M := 0.03     # 1363: Treffer an der Oberfläche des Rumpfs (treffpunkt_fern legt ihn genau darauf)
 
 
 func _initialize() -> void:
@@ -25,7 +27,7 @@ func _lauf() -> void:
 	var paket: bool = KampfUi.arkan_r2() != null
 	print("Arkan 993: Paket R2 %s" % ("da" if paket else "nicht da"))
 	if not paket and OS.get_environment("ARKAN_R2") != "":
-		print("FEHLER: R2 im Bau gefunden, aber %s lädt nicht" % KampfUi.ARKAN_R2)
+		print("FEHLER: R2 im Bau gefunden, aber %s lädt nicht" % KampfUi.arkan_pfad())
 		befunde += 1
 	seed(3)
 	var p = Probe.new()
@@ -69,6 +71,7 @@ func _lauf() -> void:
 		var flug = null
 		var naechst := INF
 		var start_fehler := INF
+		var am_rumpf := INF
 		# 1018 (Lauf 373, am Rechner mit Kaufheld und Paket nachgestellt: Treffer 0,14 m): das Geschoss startet zwischen zwei Bildern
 		# an der Stabspitze, der Stab schwingt im Zauber weiter; gemessen wird der Abstand zum Weg der Spitze vom Bild davor bis danach
 		var vor_hand = by.cast_point()
@@ -76,6 +79,7 @@ func _lauf() -> void:
 			await process_frame
 			if flug == null and ui.arkan_fluege.size() > n0:
 				flug = ui.arkan_fluege[n0]
+				am_rumpf = _am_rumpf(on, flug[2])     # im Bild des Abwurfs: danach atmet und dreht der Wolf weiter
 				var hand = by.cast_point()
 				if hand != null:
 					var a: Vector3 = vor_hand if vor_hand != null else hand
@@ -95,7 +99,12 @@ func _lauf() -> void:
 		var neben: float = Vector2(ziel.x - on.position.x, ziel.z - on.position.z).length()
 		var ok_start: bool = start_fehler < 0.05 or start_fehler == INF
 		var ok_weg: bool = naechst <= 0.5 or naechst == INF     # INF: das Paket gab den Knoten vor der ersten Messung frei (Einschlag)
-		var ok_ziel: bool = (ziel.y < 0.15 and neben >= 0.3) if daneben else ziel.distance_to(brust) < 0.6
+		# 1363 (Lauf 512): seit 601.1 zielt der Treffer auf die dem Wirkenden zugewandte Stelle am Rumpf (Figur.treffpunkt_fern), beim
+		# Kaufwolf vorn an Hals und Brust (1,09 m hoch, 0,95 m vor seinem Ursprung); gemessen wird darum der Abstand zur Oberfläche des
+		# Rumpfs wie einschlag_6011, ohne Gerüst wie bisher die geschätzte Brust
+		var ok_ziel: bool = (ziel.y < 0.15 and neben >= 0.3) if daneben else (am_rumpf <= RUMPF_M if am_rumpf != INF else ziel.distance_to(brust) < 0.6)
+		if not daneben:
+			print("  %s: Abstand zum Rumpf %s, zur geschätzten Brust %.2f m" % [art, "%.3f m" % am_rumpf if am_rumpf != INF else "ohne Gerüst", ziel.distance_to(brust)])
 		print("  %s: Start an der Stabspitze %s (%.2f m), Bahn bis %.2f m ans Ziel, Ziel %s (Höhe %.2f m, %.2f m neben dem Gegner), Schritt %.0f ms" % [
 			art, ok_start, start_fehler if start_fehler != INF else -1.0, naechst if naechst != INF else -1.0, ok_ziel, ziel.y, neben, step])
 		if not (ok_start and ok_weg and ok_ziel):
@@ -105,3 +114,30 @@ func _lauf() -> void:
 	for i in 5:
 		await process_frame
 	quit(1 if befunde > 0 else 0)
+
+
+## Abstand von [q] zur Oberfläche des Rumpfs von [on] (0 innen); INF ohne Gerüst
+func _am_rumpf(on, q: Vector3) -> float:
+	var best := INF
+	for c in _rumpf(on):
+		best = minf(best, maxf(0.0, q.distance_to(Geometry3D.get_closest_point_to_segment(q, c[0], c[1])) - float(c[2])))
+	return best
+
+
+## Rumpf als Kapseln [a, b, r] (Welt): Mensch Becken bis Hals, Tier nach Namen (wie Figur.RUMPF_TEILE, einschlag_6011)
+func _rumpf(on) -> Array:
+	var out: Array = []
+	if not on.has_method("koerper"):
+		return out
+	if on.fighter.monster == null:
+		for c in on.kapseln():
+			if float(c[2]) >= 0.13:
+				out.append(c)
+		return out
+	for c in on.koerper():
+		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+		for w in Figur.RUMPF_TEILE:
+			if nm.contains(w):
+				out.append(c)
+				break
+	return out

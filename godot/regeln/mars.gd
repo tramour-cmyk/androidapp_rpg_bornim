@@ -553,9 +553,50 @@ func _brs_kaempfer(f: Fighter) -> void:
 		assert(not f.b.is_empty(), "870.5: kein Gegner %s in werte.json" % String(f.monster.id))
 		if f.b.is_empty():
 			return
+		_merkmal_ziehen(f)
 		var mx := int(f.b.leben)
 		f.hp = clampi(roundi(float(f.hp) * mx / maxf(1.0, f.max_hp)), 1 if f.hp > 0 else 0, mx)
 		f.max_hp = mx
+
+
+## 1488 (1411b A, Chef 16.11., 20:59; DESIGN-BRS.md „Merkmale je Exemplar“): Art des Gegners [f] (Begleiter nach ihrem Körper)
+func merkmal_art(f: Fighter) -> String:
+	if f.monster == null:
+		return ""
+	if f.monster.has("rudel"):
+		return String(BrsKampf.w().get("merkmale", {}).get("rudel", {}).get(String(f.monster.rudel), {}).get("koerper", ""))
+	return String(Brs.kennung(String(f.monster.get("id", ""))).get("art", ""))
+
+
+## 1488: beim Kampfbeginn je Exemplar höchstens ein Merkmal ziehen (werte.json „merkmale“ „exemplar“: etwa die Hälfte gewöhnlich,
+## Bosse fest, Ockerschleim ohne, kleine Gegner nur Lebensmerkmale); es bleibt den Kampf über und wirkt auf Leben, Angriff, Abwehr
+## und Schaden in f.b. Eigene Würfel aus der Saat des Kampfs und der Kennung, damit die Würfe des Kampfs dieselben bleiben; vom Band
+## (mars_golden) nie
+func _merkmal_ziehen(f: Fighter) -> void:
+	var E: Dictionary = BrsKampf.w().get("merkmale", {}).get("exemplar", {})
+	if E.is_empty() or dice == null or dice.tape != null or bool(f.b.get("boss", false)):
+		return
+	var art := merkmal_art(f)
+	var gruppe: Dictionary = {}
+	for g: String in E.get("gruppen", {}):
+		if art in E.gruppen[g].get("arten", []):
+			gruppe = E.gruppen[g]
+	if gruppe.is_empty():
+		return
+	var r := RandomNumberGenerator.new()
+	r.seed = hash([dice.rng.seed, f.id, art])
+	if r.randf() < float(E.get("gewoehnlich", 0.5)):
+		return
+	var namen: Array = (gruppe.merkmale as Dictionary).keys()
+	namen.sort()
+	var nm: String = namen[r.randi_range(0, namen.size() - 1)]
+	var fak: Dictionary = gruppe.merkmale[nm]
+	f.b["merkmal"] = nm
+	f.b["merkmal_fak"] = fak
+	for k: String in ["leben", "angriff", "abwehr", "schaden"]:
+		if fak.has(k) and f.b.has(k):
+			f.b[k] = float(f.b[k]) * float(fak[k])
+	f.b["leben"] = maxi(1, roundi(float(f.b.leben)))
 
 
 ## 870.5: von den Klassenfähigkeiten bleiben nur die Zauber (bis zu ihrem Teil); dazu die Kampfhandlungen, die seine Fertigkeiten

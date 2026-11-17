@@ -791,6 +791,80 @@ for y in range(NR * PX):
         pix[i + 3] = 0.5 + 0.5 * min(1.0, d / (PX * 0.6))
 img.pixels = pix
 img.filepath_raw = os.path.join(OUT, ID + '-boden-maske.png'); img.file_format = 'PNG'; img.save()
+# 1270.4 (1270 A, Chef 15.11., 10:51 „vorberechnetes Licht (Innenräume, Höhle)“; 16.11., 17:32 👍 auf den Film): immer an, GEBACKEN=0 aus.
+# Godot rechnet das Licht der Quellen (Fackel, Feuer, Pilze, Kristalle, Tageslicht) in Echtzeit, aber ohne Rückstrahlung: hinter einer
+# Ecke ist es schwarz, der Fels um das Feuer nimmt keine Farbe vom Feuer an. Hier rechnet Cycles einmal beim Bau nur das indirekte
+# Licht (Lichtfarbe, die von Boden und Wand weitergeworfen wird) aus denselben Quellen wie cave-info.json und legt es in die Eckfarbe:
+# Eckfarbe × (1 + bis GEBACKEN_KRAFT nach dem indirekten Licht). In Godot ändert sich nichts als die Daten (kein Shader, keine Kosten beim Spielen).
+# Wandfassungen hoch und tief stehen am selben Ort: je Fassung ein Durchgang, die andere dabei unsichtbar.
+GEBACKEN = os.environ.get('GEBACKEN', '1') == '1'
+GEBACKEN_KRAFT = float(os.environ.get('GEBACKEN_KRAFT', '0.8'))   # Eckfarbe höchstens +80 %
+def backen():
+    sc_ = bpy.context.scene
+    sc_.render.engine = 'CYCLES'; sc_.cycles.device = 'CPU'
+    sc_.cycles.samples = int(os.environ.get('GEBACKEN_PROBEN', '48')); sc_.cycles.max_bounces = 3
+    welt = bpy.data.worlds.new('dunkel'); sc_.world = welt; welt.use_nodes = True
+    welt.node_tree.nodes['Background'].inputs[1].default_value = 0.0
+    farbe = {'fackel': 'FFB060', 'kamin': 'FF9A48', 'tageslicht': 'FFF4E0'}
+    for k, l in enumerate(LICHTER):
+        a = l['art']
+        if a not in ('fackel', 'kamin', 'schein', 'tageslicht'): continue
+        f = lin(int(l.get('farbe', farbe.get(a, 'FFFFFF')), 16))
+        if a == 'tageslicht':
+            d = bpy.data.lights.new('b%d' % k, 'SPOT'); d.spot_size = math.radians(l.get('winkel', 30) * 2)
+            d.energy = 2000.0 * l.get('kraft', 1.0)
+        else:
+            d = bpy.data.lights.new('b%d' % k, 'POINT'); d.shadow_soft_size = 0.1
+            d.energy = 60.0 * l.get('kraft', 1.0)          # Godot OmniLight Kraft ~1 bei Reichweite 2,4–4,4 Kacheln, grob gleich hell
+        d.color = f
+        o = bpy.data.objects.new('b%d' % k, d); sc_.collection.objects.link(o)
+        o.location = Vector(l['pos']) * 0.01
+        if 'ziel' in l:
+            o.rotation_euler = (Vector(l['ziel']) * 0.01 - o.location).to_track_quat('-Z', 'Y').to_euler()
+    # Rückstrahlung in der Farbe des Bodens und der Wand: Eckfarbe als Grundfarbe, matt
+    bm_ = bpy.data.materials.new('backen'); bm_.use_nodes = True
+    nt = bm_.node_tree; bs = nt.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
+    at = nt.nodes.new('ShaderNodeAttribute'); at.attribute_name = 'albedo'
+    nt.links.new(at.outputs['Color'], bs.inputs['Base Color'])
+    netze_ = [o for o in sc_.objects if o.type == 'MESH']
+    alt_mat = {o.name: list(o.data.materials) for o in netze_}
+    for o in netze_:
+        for i_ in range(len(o.data.materials)): o.data.materials[i_] = bm_   # Fächer bleiben (clear() setzte alle Flächen auf Fach 0)
+        o.data.color_attributes.new('licht', 'FLOAT_COLOR', 'CORNER')
+        o.data.color_attributes.active_color = o.data.color_attributes['licht']
+    tief_ = [o for o in netze_ if '_tief_' in o.name]
+    hoch_ = [o for o in netze_ if '_hoch_' in o.name]
+    for ziele, aus in ((([o for o in netze_ if o not in tief_]), tief_), (tief_, hoch_)):
+        if not ziele: continue
+        for o in netze_: o.hide_render = o in aus
+        bpy.ops.object.select_all(action='DESELECT')
+        for o in ziele: o.select_set(True)
+        bpy.context.view_layer.objects.active = ziele[0]
+        bpy.ops.object.bake(type='DIFFUSE', pass_filter={'INDIRECT'}, target='VERTEX_COLORS', use_clear=True)
+    # Maßstab aus den Werten selbst (Abgleich am Rechner: roh bleichten Steine und Holz am Feuer aus): die hellsten 5 % ergeben
+    # + GEBACKEN_KRAFT, mehr wird gekappt; so hängt das Ergebnis nicht an der Lichtstärke in Blender
+    hell = sorted(max(d.color[0], d.color[1], d.color[2]) for o in netze_ for d in o.data.color_attributes['licht'].data)
+    p95 = max(hell[int(len(hell) * 0.95)], 1e-6)
+    print('GEBACKEN p50 %.4f p95 %.4f max %.4f' % (hell[len(hell) // 2], p95, hell[-1]))
+    for o in netze_:
+        o.hide_render = False
+        me = o.data; al = me.color_attributes['albedo']; li = me.color_attributes['licht']
+        # was selbst leuchtet, bleibt (Glut, Kristalle, Pilze, Himmel, Strahl, Wasser: Abgleich am Rechner, die Glut wurde gelb)
+        if o.name.startswith(('Himmel_', 'Strahl_', 'Wasser_')): continue
+        nm = [m_.name for m_ in alt_mat[o.name]]
+        for poly in me.polygons:
+            if poly.material_index < len(nm) and nm[poly.material_index].startswith(('glut', 'leucht')): continue
+            for i in poly.loop_indices:
+                c = al.data[i].color; l_ = li.data[i].color
+                al.data[i].color = tuple(min(1.0, c[j] * (1.0 + min(GEBACKEN_KRAFT, GEBACKEN_KRAFT * l_[j] / p95))) for j in range(3)) + (c[3],)
+    for o in netze_:
+        me = o.data; li = me.color_attributes['licht']
+        me.color_attributes.remove(li)
+        me.color_attributes.active_color = me.color_attributes['albedo']
+        for i_, m_ in enumerate(alt_mat[o.name]): me.materials[i_] = m_
+    for o in [o for o in sc_.objects if o.type == 'LIGHT']: bpy.data.objects.remove(o)
+    print('GEBACKEN', len(netze_), 'Netze, Kraft', GEBACKEN_KRAFT)
+if GEBACKEN: backen()
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.export_scene.gltf(filepath=os.path.join(OUT, ID + '.glb'), export_format='GLB', use_selection=True, export_vertex_color='ACTIVE',
                           export_yup=True, export_image_format='JPEG', export_jpeg_quality=88)

@@ -255,6 +255,25 @@ def held_abwehr(W, held, art, waffe_name=None, schild=True):
 
 # ---------------------------------------------------------------- Kampf
 
+def mit_merkmal(W, art, mon, rng):
+    """1488 (1411b A, Chef 16.11., 20:59): wie das Spiel (mars.gd _merkmal_ziehen) je Exemplar hoechstens ein Merkmal aus
+    W["merkmale"]["exemplar"]; gibt eine Kopie von mon mit den Faktoren und dem Namen unter "merkmal" (Bosse und Arten ohne Gruppe
+    unveraendert)."""
+    E = W.get("merkmale", {}).get("exemplar")
+    if not E or mon.get("boss"):
+        return mon
+    gr = next((g for g in E["gruppen"].values() if art in g["arten"]), None)
+    if gr is None or rng.random() < E["gewoehnlich"]:
+        return mon
+    name = rng.choice(sorted(gr["merkmale"]))
+    m = dict(mon)
+    for k, f in gr["merkmale"][name].items():
+        m[k] = m[k] * f
+    m["leben"] = max(1, round(m["leben"]))
+    m["merkmal"] = name
+    return m
+
+
 def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=None, leben0=None, mana0=None):
     """wirt: Zustand, Traenke und Zaehler der Wirtschaft (Teil 5) oder None (Teile 1 bis 4 unveraendert).
     tier_zuerst: misslungenes Beruhigen, das Tier handelt in Runde 1 vor dem Helden.
