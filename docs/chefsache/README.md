@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 02:54, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 03:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -130,15 +130,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 57, Muss 15, startbar 11
+**Tom** – offen 57, Muss 15, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1044 | M | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerha | wartet auf Test (Build 294) |
 | 1383 | M | Von Werkzeug (1334): Wiederholrot ziege_4162: 6× rot in 48 h (Läufe 513, 500, 499, 484, 47 | wartet auf Test (Build 294) |
-| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | startbar |
+| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 431h (Chef) |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht bis 23.11. |
-| 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | startbar |
+| 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf Test/Build (gebaut) |
 | 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
 | 455.1 | K | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | ruht bis 23.11. |
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht bis 23.11. |
@@ -163,7 +163,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 816 | K | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s n | startbar |
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht bis 23.11. |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht bis 23.11. |
-| 861 | K | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | wartet auf 431 (in Arbeit) |
+| 861 | K | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | wartet auf 431 (wartet) |
 | 966.2 | K | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | startbar |
 | 954a.5 | K | Von Perikles (954a.2): Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsam | wartet auf 870 (wartet) |
 | 954a.7 | K | Von Perikles (954a.2, 954a.3 A): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits de | wartet auf 870 (wartet) |
@@ -174,12 +174,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1157 | K | Von Sokrates (Archivprüfung, 1038 A R1, Chef 12.11., 16:24): Verband herstellen mit dem Re | wartet auf 976 (startbar) |
 | 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | ruht |
 | 1167 | K | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11.): Atmen für die Dorftiere (g | startbar |
-| 1174 | K | Von Sokrates (Archivprüfung, 348.10 Chef 25.10., 16:36 „brauchen wir auf jeden Fall“; Zwec | wartet auf 431 (in Arbeit) |
+| 1174 | K | Von Sokrates (Archivprüfung, 348.10 Chef 25.10., 16:36 „brauchen wir auf jeden Fall“; Zwec | wartet auf 431 (wartet) |
 | 1205 | K | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | startbar |
 | 1211 | K | Von Sokrates (Prüfauftrag Chef 13.11., 19:10): Leuchtfunke mit R7 rocket_trail als Schweif | startbar |
 | 1210 | K | Von Sokrates: Regen wie alt (D3.10) fehlt in Godot; Bild ohne Vorgang (R8 Weather FX statt | ruht |
 | 1280 | K | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 6 | nach dem Meilenstein |
-| 1297 | M | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schil | wartet auf 431 (in Arbeit) |
+| 1297 | M | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schil | wartet auf 431 (wartet) |
 | 1322 | M | Von Homer (1320, Chef 15.11., 20:15): Spielertexte der Oberfläche ohne TP/HP, Wert heißt L | wartet auf Test (Build 294) |
 | 431h | M | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, et | Chef (Datei in der Chefsache) |
 | 1406 | K | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 | startbar |
@@ -192,11 +192,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1480 | M | Von Perikles (1470, Chef 16.11., 17:53: t293.7 mit Testschalter „Schnell“ getestet, falsch | wartet auf Test (Build 294) |
 | Pflege | K | von Werkzeug (340.3, 17.11.): 2 „Zu“ zu Erledigtem (1355, 1395), beim Übergeben streichen | startbar |
 
-**Jerry** – offen 79, Muss 26, startbar 34
+**Jerry** – offen 80, Muss 27, startbar 34
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1455 | M | Von Werkzeug (1334): Wiederholrot biss_1284: 2× rot in 48 h (Läufe 524, 518); Ursache nach | wartet auf Test (Build 294) |
+| 1505 | M | Von Spike (Lauf 544, Build 295): rot wolf_mess_438 (439 Reihenfolge: 3 Wölfe rücken nach e | Sperre 620.1 B: 8 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1453 (wolf) |
 | 1453 | M | Von Jerry (Build 293 rot, Lauf 524): stehen_973 (Wölfe und Goblins rücken ohne neuen Platz | wartet auf Test (Build 294) |
 | 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | wartet auf Test (Build 294) |
 | 1331 | M | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen | wartet auf Test (Build) |
@@ -286,11 +287,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 | 1426 | M | Von Sokrates (Chef 16.11., 13:31 zu t291.3; 14:17 „trägt es Früchte?“): Ladezeit je Ort mi | wartet auf Test (Build 294) |
 | 1458 | M | Von Sokrates (870, Plan Schritt 5 „gelöscht“): tote SRD-Reste nur für Tests (regeln/ausdau | wartet auf Test (Build 294) |
-| 1482 | M | D280.1 von Diogenes (aus 1385): Namen nach [1473.namen] (claude/spike-1385-pruefung ac454c | wartet auf Test/Build (gebaut) |
+| 1482 | M | D280.1 von Diogenes (aus 1385): Namen nach [1473.namen] (claude/spike-1385-pruefung ac454c | wartet auf Test (Build 294) |
 | 1483 | M | D280.2 von Diogenes (aus 1445): Spielcode der Anmerkung bei Passt (claude/spike-1445-anmer | wartet auf Test/Build (gebaut) |
 | 1484 | M | Von Sokrates (Chef 16.11., 20:20, Tablet SM-X210, Adreno 619, Build 286): Welt und Kampf 9 | Chef (Datei in der Chefsache) |
 
-**Perikles** – offen 25, Muss 19, startbar 1
+**Perikles** – offen 26, Muss 19, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -319,6 +320,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1414 | M | Von Chef (16.11., 12:09, über Sokrates): Warnung bei Vorgangsnummer ohne Wort dazu in Vorl | Termin 23.11. |
 | Pflege | K | von Werkzeug (340.3, 17.11.): 1 „Zu“ zu Erledigtem (1427), beim Übergeben streichen (1425) | startbar |
 | 1504 | M | D286.1 von Diogenes (1312): Spielcode „gebaut“ ohne Build liegt trotz Auftrag über 12 h (J | Termin 17.11. 03:30 |
+| 1506 | M? | Von Sokrates: startbar.py zeigt Kür am Aussehen als startbar, obwohl 488 sie einfriert (To | startbar |
 
 **Diogenes** – offen 11, Muss 9, startbar 1
 
