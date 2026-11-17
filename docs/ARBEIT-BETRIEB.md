@@ -73,9 +73,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
-- 22:49 16.11.: Startsperre 22:49 Start Tom (Ford von Hand), Neustart-Meldung 22:44 (ed805007c)
-- 23:04 16.11.: Startsperre 23:04 Start Spike, Perikles (lauf.py)
-- 23:04 16.11.: Marke Start-fehlt Perikles 16.11.-21:01 (lauf.py)
 - 23:50 16.11.: Startsperre 23:50 Start Ford (selbst), Selbstneustart bei 403 Tsd. Token (Haken 1019, Erinnerung 1), alter Ford session_01Hmoj76cLUxDoHGcPjixiTE, Uhr trig_014gxLmndi38XvoQWufDEs98; Weiter 1270.4 an Spike (Sokrates 23:50)
 - 00:05 17.11.: Startsperre 00:05 Start Diogenes (lauf.py)
 - 00:05 17.11.: Marke Übergabe-Chef Spike 16.11. 23:14 (lauf.py)
@@ -86,3 +83,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 00:08) (lauf.py)
 - 01:12 17.11.: Startsperre 01:12 Start Spike (Ford von Hand), Neustart-Meldung 01:08 (5ba3de80e)
 - 01:50 17.11.: Startsperre 01:50 Start Sokrates (Ford von Hand), Neustart-Meldung 01:49 (bd6ba506d)
+- 02:04 17.11.: Startsperre 02:04 Start Diogenes, Perikles (lauf.py)
+- 02:04 17.11.: Marke Archiv session_01Hmoj79sb6Z4qbo43YiQ32Q (lauf.py)
+- 02:04 17.11.: Nachfolger-Warnung Diogenes (Übergabe 17.11., 01:19) (lauf.py)
