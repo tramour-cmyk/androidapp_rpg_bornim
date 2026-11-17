@@ -808,3 +808,4 @@
 2026-11-17 11:53:23	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30079 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-17 12:01:39	startsperre	Startsperre fehlt (750 A): für Tom steht in den letzten 10 Minuten keine „Startsperre … Start Tom“ auf main (letzte 17.11., 10:31). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen, dan	HEAD
 2026-11-17 12:04:55	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1530-fackeln
+2026-11-17 12:15:17	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tom-1530-fackeln ändert Spielcode (godot/skripte/zwischenb	claude/tom-1530-fackeln
