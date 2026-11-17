@@ -39,4 +39,9 @@ soll("wie gewohnt", arten(liste("Weiter, 9.10.", H10)), ["vergleich"])
 soll("Meterangabe kein Build", arten(liste("Weiter, 9.11.", H11)), [])
 G12 = "| 9.12 | Jerry | 12 | Gespräch | Schaden je Treffer | höher als in Build 290 | b |"
 soll("Gespräch ebenso", arten(liste("Weiter, 9.1.", H1, G12)), ["vergleich"])
+# 1524: Testbitte erst ab 4 Handypunkten
+soll("Handypunkte zählen", cp.handypunkte(liste("Weiter, 9.1.", H1, B2, F3, H4, H5)), 3)
+soll("Handy fett nummeriert", cp.handypunkte(liste("Weiter.", H1.replace("| 9.1 |", "| *9.1* |"))), 1)
+soll("ohne Spalte Art", cp.handypunkte("# x\n| a | b |\n"), None)
+soll("t295 hatte 2", cp.handypunkte(cp.git("show", "3f5e3c23a:docs/chefsache/ansehen/t295-sammelbuild.md")), 2)
 sys.exit(1 if fehl else 0)
