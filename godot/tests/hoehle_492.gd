@@ -78,7 +78,24 @@ func _lauf() -> void:
 		if c is OmniLight3D: arten[String(c.get_meta("art", "schein"))] = arten.get(String(c.get_meta("art", "schein")), 0) + 1
 	pruefe(arten.get("fackel", 0) == 2 and arten.get("kamin", 0) == 1, "zwei Fackeln, ein Lagerfeuer: %s" % arten)
 	pruefe(rl.waende.size() > 20 and rl.waende.all(func(w): return w[0] != null and w[1] != null), "Waende hoch und niedrig je Lauf: %d" % rl.waende.size())
-	pruefe(spiel.held.fackel_kraft > 2.0, "Fackel des Helden brennt in der Hoehle auch am Tag: %.2f" % spiel.held.fackel_kraft)
+	# 1423 (Chef 16.11., 13:08, 13:32 „Zwischenwandproblem“): jede hohe Wand steht hoch, auch die duenne zwischen zwei Raeumen (vorher
+	# 80 cm); verdeckt sie den Helden, wird sie als Ganzes halb durchsichtig (gebiet.gd Gruppe)
+	var niedrig := []
+	for w in rl.waende:
+		var hm := w[0] as MeshInstance3D
+		if hm and hm.get_aabb().size.y < 2.2: niedrig.append("%s %.2f m" % [hm.name, hm.get_aabb().size.y])
+	pruefe(niedrig.is_empty(), "hohe Fassung jeder Wand mindestens 2,2 m: %s" % [niedrig])
+	var wandgruppen: Array = spiel.gebiet.gruppen.keys().filter(func(k): return String(k).contains("Wand_"))
+	pruefe(wandgruppen.size() > 10, "duenne Waende blenden durch (Gruppe): %d" % wandgruppen.size())
+	spiel.held.setze(Vector2i(15, 11), "UP"); spiel.kamera.springe()
+	for i in 6: await physics_frame
+	var durch: Array = wandgruppen.filter(func(k): return float(spiel.gebiet.gruppen[k]["ziel"]) < 1.0)
+	pruefe(durch.size() >= 1, "Held bei Krogg (15, 11) hinter der Wand zum Lager: durchsichtig %s" % [durch])
+	spiel.held.setze(Vector2i(10, 18), "UP"); spiel.kamera.springe()
+	for i in 6: await physics_frame
+	durch = wandgruppen.filter(func(k): return float(spiel.gebiet.gruppen[k]["ziel"]) < 1.0)
+	pruefe(durch.is_empty(), "am Eingang (10, 18) deckt jede Wand: %s" % [durch])
+	pruefe(spiel.held.fackel_kraft > 2.0,"Fackel des Helden brennt in der Hoehle auch am Tag: %.2f" % spiel.held.fackel_kraft)
 	# Gitter
 	var gl := spiel.gebiet.find_child("Gitter_L", true, false) as Node3D
 	pruefe(gl != null and absf(gl.rotation.y) < 0.01, "Gitter zu (Gitter_L an der Angel)")
