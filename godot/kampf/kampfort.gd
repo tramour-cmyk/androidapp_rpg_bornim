@@ -228,6 +228,12 @@ func _ready() -> void:
 		tor = "einschuechtern"
 		ui.refresh()
 		return
+	# 785.10 (259, alt SkirmishScreen.kt 1395–1404): im leichten Kampf (mars.easy: Held mindestens leicht_ab Stufen über dem
+	# stärksten Gegner, kein Boss) wartet der Kampf auf „Kämpfen“ oder „Schnell“ (kampf_ui.gd); nicht mit Kerben (930.6)
+	if mars.easy() and not mars.kerbe:
+		tor = "leicht"
+		ui.refresh()
+		return
 	_run(func(): mars.start(_react))
 
 
@@ -238,6 +244,22 @@ func tor_wahl(verjagen: bool) -> void:
 		return
 	tor = ""
 	_run(func(): mars.start(_react, verjagen))
+
+
+## 785.10 (259, alt SkirmishScreen.kt 749–767 quick): „Schnell“ spielt den leichten Kampf mit der Automatik in einem Rutsch ohne
+## Bilder (mars.quick, quick_run: keine Beats); danach ein Bild mit dem Stand (Gefallene fallen, Leisten), hält er unter einem
+## Drittel Leben an, sagt es [259T.halt] und der Held übernimmt. schnell_verlust: wer wie viel Leben verlor ([259T.tafel])
+const SCHNELL_HALT := ["Schnell hält an: {0} ist unter einem Drittel des Lebens. Du übernimmst.", "Quick stops: {0} is below a third of their life. You take over."]   # [259T.halt]
+var schnell_verlust := {}
+func schnell() -> void:
+	if mars.outcome != "ONGOING" or not mars.easy() or mars.kerbe or (busy and tor == ""):
+		return
+	tor = ""
+	_run(func() -> void:
+		var r: Dictionary = mars.quick()
+		schnell_verlust = r.get("lost", {})
+		var halt: String = String(SCHNELL_HALT[mars.lang]).replace("{0}", mars.all[0].name(mars.lang)) if r.get("stopped", false) else ""
+		mars._say(halt))
 
 
 ## 600: Ruhig, Normal, Schnell wie im Menü (Bedienung.tempo), gilt sofort, bleibt gespeichert; während der Blende erst, wenn sie geht

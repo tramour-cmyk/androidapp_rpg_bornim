@@ -1001,6 +1001,12 @@ func _build_orders() -> void:
 	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
 	# 841 (807a A, STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Beginn „Kämpfen“ oder den Späher verjagen; der Knopf
 	# nennt die Fertigkeit in Klammern ([807.spaeher.wahl])
+	# 785.10 (259, alt SkirmishScreen.kt 1395–1404): im leichten Kampf zu Beginn „Kämpfen“ oder „Schnell“ ([259T.knoepfe]); langes
+	# Drücken auf „Schnell“ erklärt ([259T.tip])
+	if k.tor == "leicht":
+		orders.add_child(_row([_button(t("Kämpfen", "Fight"), true, func() -> void: k.tor_wahl(false)),
+			_button(t("Schnell", "Quick"), true, func() -> void: k.schnell(), false, false, SCHNELL_TIP)], 0, true))
+		return
 	if k.tor == "einschuechtern":
 		orders.add_child(_row([_button(t("Kämpfen", "Fight"), true, func(): k.tor_wahl(false)),
 			_button(t("Verjag den Späher (Einschüchtern)", "Scare off the scout (Intimidation)"), true, func(): k.tor_wahl(true))], 0, true))
@@ -1189,6 +1195,9 @@ func _angreifen(f, id: String) -> void:
 
 ## 833 A: Sieg, Flucht und Niederlage wie die Blenden (661): Titel gesperrt in Gold, Zierlinie, Satz und Lohn mittig; darunter eine
 ## schlichte Linie und die Knöpfe der Schirme (‹ ZURÜCK links, NOCHMAL › rechts im Probekampf)
+const SCHNELL_TIP := ["Nur gegen schwache Gegner: dein Held mindestens 4 Stufen über dem stärksten, nie gegen Bosse. Die Automatik spielt den Kampf für Held und Söldner in einem Rutsch, ohne Bilder. Hält an, wenn dein Held unter ein Drittel seines Lebens fällt; dann übernimmst du. Ab 7 Stufen Abstand nur halber Schaden, ab 10 keiner.",
+	"Weak foes only: your hero at least 4 levels above the strongest, never against bosses. The automatic plays the fight for hero and Söldner in one go, without pictures. Stops when your hero falls below a third of their life; then you take over. From 7 levels apart only half damage, from 10 none."]   # [259T.tip]
+
 func _ende_833() -> void:
 	var k = kampfort
 	var m = k.mars
@@ -1211,13 +1220,23 @@ func _ende_833() -> void:
 		v.add_child(_mittig(satz, Ortsblende.SATZ_SP, TEXT, 0.6, breit))
 	var lohn: Array = k.reward.get("lines", []).duplicate()
 	var grau: Array = k.reward.get("grau", [])     # 1096: „Ein echter Kampf brächte …“ grau
+	var vorab := 0     # Zeilen vor dem Lohn (grau und selten zählen im Lohn)
+	if won and not k.schnell_verlust.is_empty():     # 785.10 [259T.tafel]: nach „Schnell“ je Gefährte, was er an Leben verlor
+		var teile: Array = []
+		for id in k.schnell_verlust:
+			var g: Variant = m.find(id)
+			if g != null: teile.append("%s −%d %s" % [g.name(lang), int(k.schnell_verlust[id]), t("Leben", "Life")])
+		if not teile.is_empty():
+			vorab = 1
+			lohn.push_front(" · ".join(teile))
 	if m.knockouts > 0:
 		lohn.append(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts))
 	if not lohn.is_empty():
 		v.add_child(Stil.luecke(10))
 		var selten: Dictionary = k.reward.get("selten", {})     # 785.10: Beute in Seltenheitsfarbe wie alt (BattleScreen.kt 1569)
 		for i in lohn.size():
-			var farbe := DIM if grau.has(i) else (Color(Menue.SELTEN.get(String(selten[i]), "e6ddcb")) if selten.has(i) else TEXT)
+			var j := i - vorab
+			var farbe := DIM if grau.has(j) else (Color(Menue.SELTEN.get(String(selten[j]), "e6ddcb")) if selten.has(j) else TEXT)
 			v.add_child(_mittig(String(lohn[i]), 15, farbe, 0.0, breit))
 	v.add_child(Stil.luecke(12))
 	v.add_child(Spielstaende.linie())
