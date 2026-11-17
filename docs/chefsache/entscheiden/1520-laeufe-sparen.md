@@ -16,7 +16,7 @@ Geprüft an: 195084a02 (`tools/neustart-haken.py`, `.claude/settings.json`, Kost
 **Sachverhalt:**
 - Neustart-Haken (`tools/neustart-haken.py`, 383 A): erinnert ab 200 Tsd. (mit Kaufrepo 400 Tsd.), aber nur über `UserPromptSubmit`, also bei einer Nachricht an die Sitzung. In langen Zügen ohne Nachricht misst niemand. Der Weiter-Haken zwingt erst nach der zweiten Erinnerung zum Neustart; die kommt so nie.
 - Heute Nacht: Tom 430 Tsd., Jerry 572 Tsd. (Messung Sokrates 06:2x).
-- Alle offenen Vorgänge zusammen: 1.636 $; die 13 über 40 $ tragen 1.031 $ (63 %): 494 (Gegner Kapitel 1, 135 $, ruht), 431 (Völker als Modelle, 126 $), 348.13 (Tusche nach Licht, 89 $, ruht), 870 (Umstellung auf BRS, 89 $), 709.1 (Biss auf den Schild, 83 $), 620 (Stärken und Schwächen, 80 $), 507 (Kampforte Höhle, 75 $, ruht), 709 (Treffer sichtbar, 64 $), 1137 (Vollzugsmeldung, 62 $), 654 (Mitdenken vor dem Bauen, 61 $), 531 (Garrick, 45 $), 930 (Handgemenge, 41 $), dazu Fords Betrieb (80 $).
+- Alle offenen Vorgänge zusammen: 1.636 $; die 13 über 40 $ tragen 1.031 $ (63 %): 494 (Gegner Kapitel 1, 135 $, ruht), 431 (Völker als Modelle, 126 $), 348.13 (Tusche nach Licht, 89 $, ruht), 870 (Umstellung auf das Bornimer Rollenspielsystem, 89 $), 709.1 (Biss auf den Schild, 83 $), 620 (Stärken und Schwächen, 80 $), 507 (Kampforte Höhle, 75 $, ruht), 709 (Treffer sichtbar, 64 $), 1137 (Vollzugsmeldung, 62 $), 654 (Mitdenken vor dem Bauen, 61 $), 531 (Garrick, 45 $), 930 (Handgemenge, 41 $), dazu Fords Betrieb (80 $).
 - Fünf der 13 sind meine (870, 620, 1137, 654, 930; zusammen 352 $).
 
 **Auswertung:**
