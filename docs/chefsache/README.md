@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 06:54, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 07:45, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,10 +23,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 59 (61) | 21 | 0 | 7 | 10 | 1505 (Jerry) rot wolf_mess_438 und tod_ragdoll_1215; in 542 gr… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 13 (16) | 4 | 0 | 0 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
+| ↳ **2** Kampf passt | 60 (61) | 22 | 0 | 7 | 10 | 1514 (Jerry) rot typen.py und arkan_993; in Lauf 544 grün, neu… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 6 | 0 | 0 | 8 | 1516 (Tom) „jetzt“ 17.11., 07:39: Von Chef: Zauberlehrling h… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (52) | 5 | 0 | 1 | 23 | 1511 (Jerry) Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jer… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (52) | 4 | 0 | 6 | 23 | 168.1 (Jerry) Umsetzung 168: Garrick fest in Kapitel 2, Söldner… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 9 (13) | 2 | 0 | 2 | 4 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
 | **7** Werkzeuge und Abläufe der Firma | 40 (43) | 24 | 0 | 0 | 9 | 1469 (Ford) chefsache/bilder/415-strahlen-gl.webp und 415-str… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 8 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -35,9 +35,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 28 | 202 | 230 | 1090 |
-| neu | 11 | 164 | 175 | 1065 |
-| **netto** (erledigt − neu) | **+17** | **+38** | **+55** | **+25** |
+| erledigt | 29 | 202 | 231 | 1091 |
+| neu | 18 | 164 | 182 | 1072 |
+| **netto** (erledigt − neu) | **+11** | **+38** | **+49** | **+19** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,28 +45,28 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t295](ansehen/t295-sammelbuild.md) testen, hält 8 Zeilen; dann 4 weitere |
-| Tom | 785.10 Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklä… (Muss) |
-| Jerry | 1511 Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jerry“ (Muss); dann 7 weitere |
-| Tuffy | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu si… (Muss von Jerry, neben dessen Arbeit); dann 6 weitere |
+| **Chef** | [t295](ansehen/t295-sammelbuild.md) testen, hält 8 Zeilen; dann 5 weitere |
+| Tom | 1417 Schild des Helden links wie abgeschnitten; Durchdringung be… (Muss); dann 1 weitere |
+| Jerry | 1514 rot typen.py und arkan_993; in Lauf 544 grün, neu sind 623.… (Muss); dann 6 weitere |
+| Tuffy | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu si… (Muss von Jerry, neben dessen Arbeit); dann 5 weitere |
 | Spike | 785.17 Übernahme von Jerry: Zurück-Taste im Kampf schließt das Untermenü; ganzer Berich… (Muss) |
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | Pflege von Werkzeug: 3 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
 | Sokrates | Pflege von Werkzeug: Übergabe über 700 Zeichen; 8 „Zu“ zu Erledigt… (Kür) |
-| Perikles | Pflege von Werkzeug: 1 „Zu“ zu Erledigtem, beim Übergeben streichen (Kür) |
+| Perikles | M? M? entscheiden: 1515 (Muss) |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1505 | Jerry | rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu sind 1488, 1275, 1270.… | M | 2 Kampf passt | startbar |
-| 2 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
-| 3 | 785.12 | Jerry | Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; Urteil… | M | 2 Kampf passt | startbar |
-| 4 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
-| 5 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
-| 6 | 785.10 | Tom | Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber, Fähi… | M | 2 Kampf passt | startbar |
+| 1 | 1516 | Tom | „jetzt“ 17.11., 07:39: Von Chef: Zauberlehrling hält den Stab nicht, der Stab s… | M | 3 Kleiderschrank und Modelle | startbar |
+| 2 | 1514 | Jerry | rot typen.py und arkan_993; in Lauf 544 grün, neu sind 623.2, 601.1, 1340, 1284b | M | 2 Kampf passt | startbar |
+| 3 | 1505 | Jerry | rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu sind 1488, 1275, 1270.… | M | 2 Kampf passt | startbar |
+| 4 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
+| 5 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
+| 6 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
 | 7 | 1305 | Jerry | Kämpfer mit Schwert und Schild läuft in die hintere Reihe und schlägt dort eine… | M | 2 Kampf passt | gebaut, t294 ohne deine Antwort |
-| 8 | 1511 | Jerry | Entwurf t296 gegenlesen, Zeile „Gegengelesen: Jerry“ | M | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 8 | 1417 | Tom | Schild des Helden links wie abgeschnitten; Durchdringung beheben, auch Welt und… | M | 3 Kleiderschrank und Modelle | startbar |
 | 9 | 385.2 | Jerry | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball | K | 2 Kampf passt | startbar |
 | 10 | 1509 | Sokrates | Systemlösung? Nebel: 6 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
 | 11 | 1510 | Sokrates | Systemlösung? Teich: 5 frühere Vorgänge, neu 623.9; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1336 | Jerry | Aus 1141: Robe des Goblin-Schamanen fällt steif, Schattenseite zu dunkel | K | 2 Kampf passt | startbar |
 | 20 | 1402 | Jerry | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel; gr… | K | 2 Kampf passt | startbar |
 
-Danach 70 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 67.
+Danach 73 weitere offen. Bei dir zum Testen (vorgelegt): 15. Gebaut, fährt mit dem nächsten Build: 4. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 67.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -101,12 +101,13 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
+| [785.10](ansehen/78510-kampfschirm.md) | Kampfschirm: Erfahrung im Kasten des Helden, Beute in Seltenheitsfarbe, „Schnell“ im leichten Kampf | – | 17.11., 07:42 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.348.544](ansehen/t295-sammelbuild.md) | [Build 295](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/43986044991/artifacts/14290861168) | Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen | Spike | 17.11., 02:52 |
+| 1 | [0.348.546](ansehen/t295-sammelbuild.md) | [Build 295](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44024918701/artifacts/14303487932) | Sammelbuild: Glühen und Höhlenlicht, Merkmale am Gegnernamen | Spike | 17.11., 07:15 |
 
 ## Zu tun
 
@@ -126,15 +127,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 58, Muss 16, startbar 8
+**Tom** – offen 58, Muss 12, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1044 | M | Von Sokrates (Chef 12.11., 16:08; 13.11., 09:35 zurück bis auf Lyra): Leute stehen außerha | wartet auf Test (Build 294) |
-| 1383 | M | Von Werkzeug (1334): Wiederholrot ziege_4162: 6× rot in 48 h (Läufe 513, 500, 499, 484, 47 | wartet auf Test (Build 294) |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 431h (Chef) |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht bis 23.11. |
-| 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf Test/Build (gebaut) |
+| 531 | M | Build 249: Garrick wie alt und besser: Gesicht, Langbogen auf dem Rücken, vertreibt Tiere | wartet auf Test (Build 296) |
 | 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
 | 455.1 | K | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | ruht bis 23.11. |
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht bis 23.11. |
@@ -151,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 41.2 | K | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | wartet auf 1235 (nach Meilenstein) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
 | 531a | K | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | ruht bis 23.11. |
-| 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (wartet) |
+| 649.3 | M | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen (Tagesablauf, Laden, Stimme | wartet auf 649.2 (startbar) |
 | 644.4 | M | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umst | wartet auf 644.1 (wartet) |
 | 691 | K | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander (Chef 03.11., 07:44, Test 204 | ruht bis 23.11. |
 | 688 | K | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: T | ruht bis 23.11. |
@@ -176,44 +175,41 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1210 | K | Von Sokrates: Regen wie alt (D3.10) fehlt in Godot; Bild ohne Vorgang (R8 Weather FX statt | ruht |
 | 1280 | K | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 6 | nach dem Meilenstein |
 | 1297 | M | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schil | wartet auf 431 (wartet) |
-| 1322 | M | Von Homer (1320, Chef 15.11., 20:15): Spielertexte der Oberfläche ohne TP/HP, Wert heißt L | wartet auf Test (Build 294) |
 | 431h | M | Rückfrage zu 431: angelegte Rüstung am Helden sichtbar, Zuordnung Grundform → Kaufteil, et | Chef (Datei in der Chefsache) |
 | 1406 | K | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 | startbar |
-| 1417 | M | Von Chef (16.11., 12:37/12:38, Bild Hauptmenü v0.348.506, über Sokrates): Schild des Helde | wartet auf Test (Build 294) |
-| 1418 | M | Von Chef (16.11., 12:40, zu t292, über Sokrates): Android-Zurück im Hauptmenü beendet das | wartet auf Test (Build 294) |
-| 1420 | M | Von Chef (16.11., 12:44, Test t290, über Sokrates): Fußstaub (814) jetzt zu stark, „sieht | wartet auf Test (Build 294) |
+| 1417 | M | Von Chef (16.11., 12:37, Hauptmenü): Schild des Helden links wie abgeschnitten; Durchdring | startbar |
 | 1447 | K | Von Sokrates (Chef 16.11., 14:41, Idee, erst denken): Weltleiste links oben unruhig, Wörte | startbar |
-| 1448 | K | Von Sokrates (1448 A, Chef 16.11., 14:47): Weltleiste und Heldenmenü ohne Wörter Leben/Man | wartet auf Test/Build (gebaut) |
-| 1460 | M | Von Sokrates (975a A, Chef 11.11., 17:04, nie gebaut; Fund Jerry 644a.1): Fertigkeit „Lede | wartet auf Test/Build (gebaut) |
-| 1480 | M | Von Perikles (1470, Chef 16.11., 17:53: t293.7 mit Testschalter „Schnell“ getestet, falsch | wartet auf Test (Build 294) |
+| 1448 | K | Von Sokrates (1448 A, Chef 16.11., 14:47): Weltleiste und Heldenmenü ohne Wörter Leben/Man | wartet auf Test (Build 296) |
+| 1460 | M | Von Sokrates (975a A, Chef 11.11., 17:04, nie gebaut; Fund Jerry 644a.1): Fertigkeit „Lede | wartet auf Test (Build 296) |
 | Pflege | K | von Werkzeug (340.3, 17.11.): 2 „Zu“ zu Erledigtem (1355, 1395), beim Übergeben streichen | startbar |
 | 1423 | M | Von Sokrates (Chef 16.11., 13:08, zu 1303; schon 15.11., 20:34 zu 1289): Felswände der Höh | wartet auf Jerry |
+| 785.10 | M | Von Spike (785): Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber | Chef (Datei in der Chefsache) |
+| 1515 | M? | Von Chef (17.11., 07:32, Bild Hauptmenü Build 295, nach 1417): Schild jetzt ganz, aber vor | startbar |
+| 1516 | M | „jetzt“ 17.11., 07:39: Von Chef (17.11., 07:32, am Tablet, Hauptmenü): Zauberlehrling (zwe | startbar |
+| 1517 | K | Von Chef (17.11., 07:39, „Hauptmenü lebendig ja … kein Muss, ganz hinten“): vier Helden im | startbar |
+| 1518 | K | Von Chef (17.11., 07:39, „Hauptmenü lebendig ja … kein Muss, ganz hinten“): vier Helden im | startbar |
+| 1519 | K | Von Chef (17.11., 07:39, „Hauptmenü lebendig ja … kein Muss, ganz hinten“): vier Helden im | wartet auf 431 (wartet) |
 
-**Jerry** – offen 80, Muss 32, startbar 26
+**Jerry** – offen 72, Muss 25, startbar 27
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1455 | M | Von Werkzeug (1334): Wiederholrot biss_1284: 2× rot in 48 h (Läufe 524, 518); Ursache nach | wartet auf Test (Build 294) |
-| 1511 | M | Von Tom: Entwurf t296 gegenlesen (docs/entwurf/t296-sammelbuild.md, Sammelbuild 296 auf bu | startbar |
-| 1505 | M | Von Spike (Lauf 544, Build 295): rot wolf_mess_438 (439 Reihenfolge: 3 Wölfe rücken nach e | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1453 (wolf) |
-| 1453 | M | Von Jerry (Build 293 rot, Lauf 524): stehen_973 (Wölfe und Goblins rücken ohne neuen Platz | wartet auf Test (Build 294) |
-| 642 | M | Wölfe ineinander beim Anlauf und Biss neben einem ruhenden Wolf, bis 0,15 m (wolf_mess_438 | wartet auf Test (Build 294) |
+| 1514 | M | Von Spike (Lauf 546, Build 295 mit Jerrys Nachtrag): rot typen.py (kampf/treffer_fx.gd 21 | startbar |
+| 1505 | M | Von Spike (Lauf 544, Build 295): rot wolf_mess_438 (439 Reihenfolge: 3 Wölfe rücken nach e | startbar |
 | 1331 | M | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen | wartet auf Test (Build) |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1453 (wolf) |
-| 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1072 |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | Halt (Vorrat oben) |
+| 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | Halt (Vorrat oben) |
 | 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
 | 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 760 (startbar) |
-| 1072 | M | Laufwege und Plätze im Kampf für alle Figuren: Zweiertausch im Heldenteam, Monster zu eins | wartet auf Test (Build 294) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1453 (wolf) |
-| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (wartet) |
-| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1072 |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | Halt (Vorrat oben) |
+| 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (startbar) |
+| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | Halt (Vorrat oben) |
 | 438a | K | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv | ruht bis 23.11. |
 | 416.6 | K | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.1 | ruht bis 23.11. |
 | 406.1 | K | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann | wartet auf 469 (ruht) |
 | 510 | K | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt ( | ruht bis 23.11. |
 | 509 | K | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; Po | ruht bis 23.11. |
 | 494 | K | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Woche | ruht bis 23.11. |
-| 517 | K | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wal | wartet auf Test (Build 294) |
 | 507 | K | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | ruht bis 23.11. |
 | 496 | K | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | ruht bis 23.11. |
 | 385.2 | K | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | startbar |
@@ -224,13 +220,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 469 | K | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | ruht bis 23.11. |
 | 623.2 | K | Effekte Szene 2 Wolfskampf einbauen (623.8 A, Chef 09.11., 22:23; vorher 623 A, 07.11.), D | wartet auf Test (Build 295) |
 | 598 | K | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahm | ruht bis 23.11. |
-| 1415 | M | Von Jerry (1072 gemessen): Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A); Weg | wartet auf Test t294 (Chef) |
-| 1439 | M | Von Sokrates (Chef 16.11., 14:15): Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt e | wartet auf Test (Build 294) |
+| 1415 | M | Von Jerry (1072 gemessen): Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A); Weg | wartet auf Test/Build (gebaut) |
 | 601.1 | M | Von Sokrates (601, Chef 15.11., 11:02): Pfeil trifft die Fußspitze, der Getroffene zuckt o | wartet auf Test (Build 295) |
 | 1488 | M | Von Sokrates (1411b A, Chef 16.11., 20:59): Merkmale je Exemplar bauen (Werte wie Rechnung | wartet auf Test (Build 295) |
-| 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | Sperre 620.1 B: 11 ungetestete Muss, erst gemeinsamer Build und Test; überschneidet sich mit 1453 |
+| 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | startbar |
 | 649.4 | K | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | ruht bis 23.11. |
-| 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | wartet auf 649.2 (wartet) |
+| 644.1 | M | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit | wartet auf 649.2 (startbar) |
 | 644.2 | K | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 S | ruht bis 23.11. |
 | 681 | K | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht bis 23.11. |
 | 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | wartet auf 760 (startbar) |
@@ -241,15 +236,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 954a.11 | K | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Auftr | wartet auf 870 (wartet) |
 | 954a.13 | K | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
 | 785.9 | K | Von Spike (785): MARS-Probekampf im Systemmenü mit Regelseite (Reihen, Ansagen, Ring, Perf | startbar |
-| 785.10 | M | Von Spike (785): Rest aus 536, auf dessen Zweig und main nicht gebaut: Erklärung je Zauber | startbar |
 | 785.11 | M | Von Spike (785): Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterschei | startbar |
-| 785.12 | M | Von Spike (785): Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; U | startbar |
+| 785.12 | M | Von Spike (785): Ring: Ersthinweis am ersten Ring und Erklärung des Zeichens im Bericht; U | wartet auf Test/Build (gebaut) |
 | 785.13 | K | Von Spike (785): Eingebung beim ersten Schlag von hinten (SK 571–573); Ersthinweis vordere | startbar |
 | 785.14 | K | Von Spike (785): Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „ha | startbar |
 | 785.15 | M | Von Spike (785): Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des | startbar |
 | 785.16 | K | Von Spike (785): Raster- und Würfelschalter im Kampf über Kämpfe gemerkt (GameViewModel.kt | startbar |
 | 785.17 | M | Von Spike (785): Zurück-Taste im Kampf schließt das Untermenü (SK 364; zurueck.gd: im Kamp | startbar |
-| 1423 | M | Von Sokrates (Chef 16.11., 13:08, zu 1303; schon 15.11., 20:34 zu 1289): Felswände der Höh | startbar |
 | 785.18 | K | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | startbar |
 | 999.2 | K | Von 999: Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow); | ruht bis 23.11. |
 | 1036.1 | K | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände, jeder Zustand des Codes mit a | ruht bis 20.11. |
@@ -257,8 +250,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | Halt (Vorrat oben) |
 | 1275 | M | Von Homer (1267): Kerbensystem auf dem Zweig weicht von DESIGN-GLUT.md ab: Taumeln nach Ge | wartet auf Test (Build 295) |
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
-| 1296 | M | Von Sokrates (Chef 15.11., 14:48, Build 287, Probekampf Wolfsrudel): goldene Eingebung bei | wartet auf Test (Build 294) |
-| 1305 | M | Von Sokrates (Chef 15.11., 17:18, Probekampf 3 Wölfe, wohl Build 288): Kämpfer mit Schwert | wartet auf Test (Build 294) |
+| 1305 | M | Von Sokrates (Chef 15.11., 17:18, Probekampf 3 Wölfe, wohl Build 288): Kämpfer mit Schwert | startbar |
+| 1423 | M | Von Sokrates (Chef 16.11., 13:08, zu 1303; schon 15.11., 20:34 zu 1289): Felswände der Höh | startbar |
 | 1319 | K | Von Homer (1318): Kampfmeldung MSG532_CURED (mars.gd 430) „von allen Leiden befreit“ / “cu | startbar |
 | 508.1 | K | Von Sokrates (508): Simulation 444 mit Übung außerhalb des Kampfes in Kapitel 1; ab welche | startbar |
 | 1336 | K | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu du | startbar |
@@ -274,7 +267,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | Pflege | K | von Werkzeug (340.3, 17.11.): 34495 Bytes (Grenze 30000), Erledigtes streichen; Übergabe ü | startbar |
 | 623.9 | K | Aus 623.2 (Jerry): Effekte Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23): Nebel R8, | startbar |
 
-**Spike** – offen 9, Muss 5, startbar 0
+**Spike** – offen 7, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -282,11 +275,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 474 | K | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht bis 23.11. |
 | 30 | K | Abstürze beim Testen | ruht bis 23.11. |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
-| 1426 | M | Von Sokrates (Chef 16.11., 13:31 zu t291.3; 14:17 „trägt es Früchte?“): Ladezeit je Ort mi | wartet auf Test (Build 294) |
-| 1458 | M | Von Sokrates (870, Plan Schritt 5 „gelöscht“): tote SRD-Reste nur für Tests (regeln/ausdau | wartet auf Test (Build 294) |
-| 1482 | M | D280.1 von Diogenes (aus 1385): Namen nach [1473.namen] (claude/spike-1385-pruefung ac454c | wartet auf Test (Build 294) |
 | 1483 | M | D280.2 von Diogenes (aus 1445): Spielcode der Anmerkung bei Passt (claude/spike-1445-anmer | wartet auf Test (Build 295) |
 | 1484 | M | Von Sokrates (Chef 16.11., 20:20, Tablet SM-X210, Adreno 619, Build 286): Welt und Kampf 9 | Chef (Datei in der Chefsache) |
+| 1512 | K | Von Chef (17.11., 06:54, zu t294.12): Testmenü auf Englisch: unten bei „Show Animals/Monst | wartet auf Test (Build 296) |
 
 **Perikles** – offen 25, Muss 19, startbar 1
 
@@ -333,14 +324,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 | Pflege | K | von Werkzeug (340.3, 17.11.): 3 „Zu“ zu Erledigtem (1472, 1186, 853), beim Übergeben strei | startbar |
 
-**Sokrates** – offen 33, Muss 7, startbar 3
+**Sokrates** – offen 32, Muss 6, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1503 | M | Zusammenführen: getestet, nicht auf main: Build 293 (6 h); grün machen und PR zusammenführ | wartet auf Test t294 (Chef) |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht bis 23.11. |
-| 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 1458 (zu testen) |
+| 870 | M | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom u | wartet auf 1460 (zu testen) |
 | 780 | K | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | K | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | Termin 23.11. |
 | 508 | K | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsol | wartet auf 508.1 (startbar) |
@@ -361,7 +351,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 340 | K | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht bis 26.11. |
 | 344 | K | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht bis 23.11. |
 | 644 | K | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | wartet auf 644.1 (wartet) |
-| 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.2 (wartet) |
+| 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.2 (startbar) |
 | 654 | K | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | Termin 23.11. |
 | 930 | K | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (wartet) |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | Termin 17.11. 08:00 |
@@ -370,6 +360,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | Pflege | K | von Werkzeug (340.3, 17.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand | startbar |
 | 1509 | K | Systemlösung? Nebel: 6 frühere Vorgänge (502, 505, 1091, 785.7, 1145 …), neu 623.9; einmal | startbar |
 | 1510 | K | Systemlösung? Teich: 5 frühere Vorgänge (1155, 509, 507, 509a, 493), neu 623.9; einmal gru | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): ansehen/78510-kampfschirm.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.

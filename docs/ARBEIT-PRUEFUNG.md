@@ -8,7 +8,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 - **Zu 1246 (Lauf 288):** Nacht 16./17.11. (erste mit Stundenuhr beim Ford-Starter, 1444): Ford-Läufe jede Stunde 21–7 Uhr (`git log` „Ford: Lauf“), keine Stunde ohne Team-Commit, während eine Teamrolle startbares Muss hat; Marke „Stillstand“ nur, wo kein Muss startbar → `greift 1246 <Lauf>`; fehlen Ford-Läufe wieder 05/06 Uhr → Befund an Ford (1444).
 
-- **Zu 1482 (Lauf 280):** Namensteil von 1385 im Sammelbuild; nach dem Test des Chefs schließt ihn Automatik B, kein Lauf nötig.
 - **Zu 1425 (Lauf 285):** nach dem Termin im Feld: Perikles' Tagesbericht 17.11. kam erst nach einem Commit „Vorratsprüfung“ desselben Morgens, E/K/L/O von heute Nacht (649, 293.7, 1482/1483, 966.2) behoben oder beim Besitzer → `greift 1425 <Lauf>`; Bericht mit `BORNIM_VORRAT_GEPRUEFT=1` ohne Prüf-Commit → Befund an Perikles.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
