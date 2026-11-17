@@ -1,16 +1,16 @@
-# 623.2 · Effekte Wolfskampf (Szene 2), erster Stand
+# 623.2 · Effekte Wolfskampf (Szene 2)
 
-[Film von 17.11., 06:08](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-060821-623.2/2026-11/17-0608-623.2-Jerry.mp4) (eingetragen von meldung.sh, Jerry)
+[Film von 17.11., 06:08](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-060821-623.2/2026-11/17-0608-623.2-Jerry.mp4) (ersetzt den Film von 05:43)
 
-[Film von 17.11., 05:43](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261117-054332-623.2/2026-11/17-0543-623.2-Jerry.mp4)
+Jerry · 17.11., 06:09 · E Kampf · Vorgang 623.2 (Effekte Szene 2; 623.8 A, Chef 09.11., 22:23: Szene für Szene, je eine Testbitte)
+Kurz: Gekaufte Kampfeffekte im Wolfskampf, gedämpft: Klingenspur, Blut, Parade, Luftzug beim Ausweichen, Staub beim Sprung.
 
-Jerry · 17.11., 05:44 · E Kampf · Vorgang 623.2 (Effekte Szene 2; 623.8 A, Chef 09.11., 22:23: Szene für Szene, je eine Testbitte)
-Kurz: Erster Stand der gekauften Kampfeffekte im Wolfskampf; noch nicht abnahmefähig, die Fehler unten behebe ich.
-
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/cdc1f3676 (Film vom Rechner, Zweig `claude/jerry-623-effekte`, Kaufmodelle und Pakete wie im Bau der APK)
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/6c8ad4cd4 (Film vom Rechner, Zweig `claude/jerry-623-effekte`, Kaufmodelle und Pakete wie im Bau der APK; Lauf frei Sokrates 06:05)
 
 **Was der Film zeigt (Ausschnitt, Probekampf Ansgar und Hilde gegen die Wölfe, Autopilot):** Ein Wolf springt Ansgar an, Ansgar pariert mit dem Schild (Parade, Staub beim Aufprall); ein Sprung trifft Ansgar (Blut); Ansgar weicht aus (Luftzug); Ansgar trifft Wolf 2 (Klingenspur, Blut).
 
-**Selbst gesehen, noch offen:** Parade viel zu groß und zu hell (Schildzeichen, Ringe); Staub beim Sprung viel zu groß, hinterlässt dunkle Flecken; Klingenspur kaum zu sehen; ein kritischer Treffer kam nicht vor. Den neuen Film gibt Sokrates frei (621 A).
+**Behoben seit dem Film 05:43:** Parade klein, ohne Schildzeichen und Ringe; Staub klein; Klingenspur als Band hinter der Spitze.
 
-👍 Richtung stimmt (Blut, Luftzug; Rest nach Behebung) · 👎 falsche Richtung
+**Selbst gesehen, noch offen:** Parade blitzt noch hell gelb; ein kritischer Treffer kam nicht vor.
+
+👍 passt so · 👎 nicht so

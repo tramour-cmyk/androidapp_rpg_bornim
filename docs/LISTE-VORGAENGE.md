@@ -97,7 +97,7 @@
 | 39 | Schwierigkeitsgrad im Menü | Jerry | K | ruht | 23.11. | claude/jerry-39-schwierigkeit | – | E Kampf | 3,80 $ |
 | 59e | Händler: Vorrat je Laden | Jerry | K | ruht | 23.11. | claude/jerry-59e-haendlervorrat | – | G Balance | – |
 | 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | Jerry | K | ruht, Kampf zuerst (338.1) | 23.11. | – | – | E Kampf | – |
-| 623.2 | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher 623 A, 07.11.), Datenfeld fx in LISTE-EFFEKTE.md | Jerry | K | in Arbeit, Szene 2 Film 1 beim Chef | Sokrates | claude/jerry-623-effekte | – | E Kampf | – |
+| 623.2 | Effekte Szene 2 Wolfskampf und Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23; vorher 623 A, 07.11.), Datenfeld fx in LISTE-EFFEKTE.md | Jerry | K | in Arbeit, Szene 2 Film beim Chef | Chef 6232 | claude/jerry-623-effekte | – | E Kampf | – |
 | 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | Jerry | K | ruht, Kampf zuerst (338.1) | 23.11. | – | – | E Klang | – |
 | 1415 | Von Jerry (1072 gemessen): Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A); Wege sind es nicht mehr, Zeit steckt im Takt der Meldungen (Ansage und Satz je 1,1 s, nach „verfehlt“ 3–6 s Pause) | Jerry | M | gebaut, Geprüft an: 85be6e231; nach 294 neu aufsetzen (Jerry 23:06) | t294 | – | – | E Kampf | – |
 | 1439 | Von Sokrates (Chef 16.11., 14:15): Kampfschirm zeigt Mana nur als Text „Mana 40/40“; alt eigener blauer Balken (BattleScreen.kt 1721, Colors.sp) wie in der Weltleiste (Leiste.BLAU); Umzugslücke, Balken wie alt | Jerry | M | zu testen | – | – | 294 | E Kampf | 0,94 $ |
