@@ -33,6 +33,7 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 | 297.19 | Tom | 1423 | Handy | Zeile 297.19 → „Lage herstellen“ (Höhle bei Krogg wie 297.1, mit vollen Vorräten); Tasche → Leuchtfunke → „Benutzen“, dann drei Schritte nach rechts hinter die hohe Wand und zurück | über dem Helden leuchtet ein Funke, der Held ist auch hinter der Wand bei Krogg gut zu sehen (ohne Funken steht er dort im Dunkeln, so gewollt: Licht nur aus Quellen) | mit Funken bleibt der Held im Dunkeln oder ist nicht zu erkennen |
 | 297.20 | Jerry | 1340 | ohne dich (am Film gebilligt, 👍 17.11., 06:08) | Skelett und Wiedergänger sterben mit Physik wie die Goblins | – | – |
 | 297.21 | Tom | 1549 | ohne dich (nur Prüfbild, kein Spielcode) | `kleid_film2_431` (Nahtbilder 431h): wer sitzt, hat die Waffe abgelegt; im Spiel sitzt der Held nie, die einzige sitzende Figur (Borin) trägt nichts. Sichtbar im nächsten Rüstungsbild | – | – |
+| 297.22 | Tom | 1155 | ohne dich (am Bild freigegeben, Chef 17.11., 12:24 über Sokrates) | Wasser im Wald aus dem Kaufpaket: Teich klar, Bach | – | – |
 
 ## Lagen
 
