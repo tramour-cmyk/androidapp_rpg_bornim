@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 08:29, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 08:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -23,7 +23,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (3) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 59 (61) | 20 | 0 | 2 | 10 | 1505 (Jerry) rot wolf_mess_438 und tod_ragdoll_1215; in 542 gr… |
+| ↳ **2** Kampf passt | 59 (61) | 20 | 1 | 2 | 10 | 1505 (Jerry) rot wolf_mess_438 und tod_ragdoll_1215; in 542 gr… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 16 (16) | 7 | 0 | 0 | 8 | 1515 (Tom) Schild jetzt ganz, aber vor dem Schild der Wachso… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 49 (52) | 4 | 0 | 6 | 23 | 1525 (Homer) Merkmalsnamen am Gegner abwechseln, „schwächlich… |
@@ -47,7 +47,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|
 | **Chef** | [t296](ansehen/t296-sammelbuild.md) testen, hält 5 Zeilen; dann 9 weitere |
 | Tom | 1515 Schild jetzt ganz, aber vor dem Schild der Wachsoldatin hän… (Muss); dann 1 weitere |
-| Jerry | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu si… (Muss); dann 5 weitere |
+| Jerry | 1505 rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün; Ursach… (Muss); dann 5 weitere |
 | Tuffy | 649.2 Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/fig… (Muss von Jerry, neben dessen Arbeit); dann 4 weitere |
 | Spike | 785.17 Übernahme von Jerry: Zurück-Taste im Kampf schließt das Untermenü; ganzer Berich… (Muss) |
 | Homer | 1525 Merkmalsnamen am Gegner abwechseln, „schwächlich klingt gut… (Kür) |
@@ -59,7 +59,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1505 | Jerry | rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün, neu sind 1488, 1275, 1270.… | M | 2 Kampf passt | startbar |
+| 1 | 1505 | Jerry | rot wolf_mess_438 und tod_ragdoll_1215; in 542 grün; Ursache nachstellen | M | 2 Kampf passt | in Arbeit |
 | 2 | 785.11 | Jerry | Zielwahl im Kampf: Reihe in der Zielliste, gleichnamige Gegner unterscheidbar;… | M | 2 Kampf passt | startbar |
 | 3 | 785.15 | Jerry | Erklärfenster im Kampf lässt sich wegtippen und verschwindet während des Rings | M | 2 Kampf passt | startbar |
 | 4 | 785.17 | Jerry | Zurück-Taste im Kampf schließt das Untermenü; ganzer Bericht erledigt mit 833 A | M | 2 Kampf passt | startbar |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1404 | Jerry | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UA… | K | 2 Kampf passt | startbar |
 | 20 | 1478 | Jerry | nach jedem Sieg Mana + halber Wille; Wundsegen × 0,8–1,2 wie Waffenschaden; Ker… | K | 2 Kampf passt | startbar |
 
-Danach 78 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 6. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 67.
+Danach 77 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 7. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 67.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
