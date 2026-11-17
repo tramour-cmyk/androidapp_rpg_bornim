@@ -2,6 +2,16 @@
 
 Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, Entscheidung, *Leitlinien*, Antwort des Chefs und wessen Empfehlung („Nutzer“ = Chef). **Neue Einträge ab 21.10. höchstens etwa 250 Zeichen** (274): Wortlaut des Chefs, soweit er die Entscheidung trägt, steht hier; Begründung in der Rollendatei dessen, der empfiehlt (`CLAUDE.md` „Jeder Text an einem Ort“); Anlass und langer Wortlaut nur in der Chefsache-Datei und „Zu ‹Nr›“, nach dem Löschen in Git. Ältere Einträge bleiben. Einträge werden nicht geändert, außer dem Anhang „→ ersetzt durch <Nr., Datum>“ am alten Eintrag, wenn ein neuer ihn ablöst (461b); was gilt, steht in den DESIGN-Dateien je Thema (461d: Punkte mit Kennung in `DESIGN-STIL.md`, `DESIGN-KAMPF.md`, `DESIGN-ABNAHME.md`), das Archiv ist Verlauf; wer einen Punkt aus der Chefsache entscheiden lässt, trägt ihn hier oben ein und löscht im selben Schritt die Datei in `docs/chefsache/`. Nur Text: Bilder und Hörproben der Einträge bis 16.10. stehen in den [alten Beschlüssen](https://claude.ai/artifact/UJPtHAnrZn5s2gonz8YkMM) (abgelöst 16.10.); Dateinamen in älteren Einträgen sind die damaligen.
 
+- **385.2 falsch** (17.11., 21:40, Chef an Sokrates zum Film 20:57: „Zauber beginnt nicht am Stab sondern am /hinterm Kopf“; `ansehen/3852-feuer-stab.md` in Git) → **Wirken an die Stabspitze, neuer Film (Jerry) (Nutzer)**
+
+- **1587 gebilligt, Stäbe** (17.11., 21:37, Chef auf Telegram 👍 auf Jerrys Meldung 20:27, Nachricht 4597; eingetragen Sokrates; `ansehen/1587-staebe.md` in Git) → **in den nächsten Sammelbuild (Jerry) (Nutzer)**
+
+- **1568 gebilligt, Schatten Kampfort** (17.11., 21:36, Chef auf Telegram 👍 auf Jerrys Meldung 20:25, Nachricht 4596; eingetragen Sokrates; `ansehen/1568-schatten.md` in Git) → **in den nächsten Sammelbuild (Jerry) (Nutzer)**
+
+- **1567 gebilligt, Siegtafel** (17.11., 21:36, Chef auf Telegram 👍 auf Spikes Meldung 20:18, Nachricht 4595; eingetragen Sokrates; `ansehen/1567-sieg-leben.md` in Git) → **in den nächsten Sammelbuild (Spike) (Nutzer)**
+
+- **1484 gemessen** (17.11., 21:29–21:31, Chef: Gerätetext „Zu 1484“ und 6 Fotos vom Tablet; eingetragen Sokrates; `tun/1484-tablet-messen.md` in Git) → **Spike wertet aus und schlägt den Weg mit Kosten vor (Spike)**
+
 - **1211, Lauf frei** (17.11., 21:23, Sokrates nach 621 A, Bitte Spike 21:22: Probelauf brach ohne Bild ab, Modelle fehlten; Ursache behoben) → **genau ein Filmlauf (heute | rocket_trail kühl weiß | unverändert); selbst ansehen, lautlos an den Chef; scheitert er: kein weiterer (Sokrates)**
 
 - **1569, Lauf frei** (17.11., 20:08, Chef „Tom und Jerry jeweils einen Lauf autorisieren“, Bitte Tom 20:07) → **genau ein Bildlauf `PROBE=1569` `tests/umhang_bild_1569.gd` am Stand `11b4bf3f6`; Bild selbst ansehen, lautlos an den Chef mit 👍/👎; scheitert er: kein weiterer (Nutzer)**
