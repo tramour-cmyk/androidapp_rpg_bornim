@@ -197,6 +197,19 @@ jobs:
           if [ -n "$s" ]; then mkdir -p godot/addons && cp -r "$s" godot/addons/ && rm -f godot/addons/reeboo_trails/README* godot/addons/reeboo_trails/LICENSE*
             echo "R3: $(ls godot/addons/reeboo_trails/presets | grep -c tres) Spuren, arrow_streak $(ls godot/addons/reeboo_trails/presets/arrow_streak.tres 2>/dev/null)"
           else echo "R3: nicht da"; fi
+      # 1155 (Chef 13.11., 15:12; 16.11., 13:49 „das Wasser, das ich entschieden habe, weder in der Höhle noch sonst irgendwo verwendet“):
+      # R10 Water Shader Kit v1.0.1 (REEBOO, gekauft 09.11.), „Teich klar“ (623.6, Chef 08.11., 17:02) auf Dorfbach, Teich, Höhle
+      # (gebiet.gd male). Lizenz verbietet die Weitergabe: nie ins Repo (godot/.gitignore), nur in den Bau; nur Shader, die Vorgabe
+      # pond_clear und ihre Texturen. Hashfunktion David Hoskins (MIT) steht schon bei den Lizenzen (hauptmenue.gd). Fehlt das Kit,
+      # bleibt unser Wasser (wasser.gdshader).
+      - name: Wasser R10 (1155, privat)
+        run: |
+          s=$(find "$KAUF/anhang/stufe1" -maxdepth 5 -type d -path '*Water_Shader_Kit*/addons/water_kit' 2>/dev/null | head -1)
+          if [ -n "$s" ]; then d=godot/addons/water_kit; mkdir -p $d/shaders $d/presets/lake $d/textures
+            cp "$s/shaders/lake.gdshader" "$s/shaders/water_common.gdshaderinc" $d/shaders/ && cp "$s/presets/lake/pond_clear.tres" $d/presets/lake/
+            for t in water_normal_a water_normal_b foam caustics; do cp "$s/textures/$t.png" $d/textures/; done
+            echo "R10: $(find $d -type f | wc -l) Dateien, $(ls $d/presets/lake)"
+          else echo "R10: nicht da ($(find "$KAUF/anhang/stufe1" -maxdepth 2 -iname '*water*' 2>/dev/null | head -3 | tr '\n' ' '))"; fi
       - uses: actions/setup-python@v5
         id: py
         with:
@@ -273,12 +286,14 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
           grep -E "^(GANG|FEHLT|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-200
           GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
-          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT|^UAL531" klassen.log
+          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT|^UAL531|^SCHRANK" klassen.log
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
           cp $RUNNER_TEMP/klassen/haare_w.glb $D/haare_w.bin   # 376.1 Heldin
           printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
+          # 431h Stufe 2: Kleiderschrank je Geschlecht (fremde Ruestungsteile, heldfigur.gd kleide), gekauft
+          for f in $RUNNER_TEMP/klassen/schrank_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           # 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF), Gesicht
           # je Person waehlt Godot (heldfigur.gd person, leute.json kauf); scheitert eine Person, bleibt ihre alte Figur
           LEUTE_KAUF=alle OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leutekauf Q=~/cc0 timeout 2400 bl/bin/python -I tools/blender348/v3/held_klassen.py > leutekauf.log 2>&1 || { echo "LEUTE KAUF abgebrochen"; tail -40 leutekauf.log; python3 tools/godot/kauf_cache.py halb klassen "475 LEUTE KAUF abgebrochen"; }   # 1112: dann nicht ablegen
@@ -685,6 +700,8 @@ jobs:
           GEGNER=GRAK,KROGG,SKELETONS,BOARS,GRABHUNDE,GOBLINS timeout 400 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/tod_lage_1141.gd 2>&1 | grep -E "^TODLAGE1141|SCRIPT ERROR" | cut -c1-260 || true   # 1141.1 Messung: fallen sie um die Füße? (meldet nur)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/zustand_1036.gd 2>&1 | grep -E "^(ZUSTAND1036|Zustand|Aufflackern|Tafel|FEHLER)|SCRIPT ERROR"   # 1036 Zustände an den Figuren wie alt (Brennen, Gift …)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_431.gd 2>&1 | grep -E "^(FEHLER|KLEID431)|SCRIPT ERROR"   # 431h A der Held trägt, was in den Plätzen steht (Tom)
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_stufe2_431.gd 2>&1 | grep -E "^(FEHLER|KLEID2)|SCRIPT ERROR"   # 431h Stufe 2 fremde Rüstung sichtbar (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/schild_menue_1417.gd 2>&1 | tee schild1417.log | grep -E "FEHLER|SCHILD1417|SCRIPT ERROR"; grep -q "^SCHILD1417 0 Fehler" schild1417.log   # 1417 Schild der Wachsoldatin im Hauptmenue nicht im Rock (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/achsel_1515.gd 2>&1 | tee achsel1515.log | grep -E "FEHLER|ACHSEL1515|SCRIPT ERROR"; grep -q "^ACHSEL1515 0 Fehler" achsel1515.log   # 1515 Kleidung an der Achsel nicht am Unterarm (Tom)
@@ -776,6 +793,7 @@ jobs:
           set -o pipefail; timeout 240 ~/godot/godot --headless --path . -s res://tests/lage_785_8.gd 2>&1 | tee lage7858.log | grep -E "FEHLER|LAGE7858|SCRIPT ERROR"; grep -q "^LAGE7858 0 Fehler" lage7858.log   # 785.8 Lage auftrag=, unerkundet= (Fund t286.6)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/startwerte_543.gd 2>&1 | grep -E "FEHLER|STARTWERTE|SCRIPT ERROR"   # 543 Startgold, Heiltraenke, Wiederkehrort
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wasser_kit_1155.gd 2>&1 | grep -E "FEHLER|WASSER1155|SCRIPT ERROR"   # 1155 Wasser des Kits (Teich klar), ohne Kit unseres
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kapitelende_537.gd 2>&1 | grep -E "FEHLER|KAPITELENDE|SCRIPT ERROR"   # 537 Kapitelende, Tempelszene, Morgen
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/rueckfrage_526.gd 2>&1 | grep -E "FEHLER|RUECKFRAGE|SCRIPT ERROR"   # 526 Rückfragen: daneben tippen, Zurück
@@ -1986,6 +2004,30 @@ jobs:
             -s res://tests/film_ketten_1144.gd -- --film=1144 > $B/ketten1144.log 2>&1 || true
           grep -E "SCRIPT ERROR|^FILM1144|^KLANG" $B/ketten1144.log | cut -c1-400 || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ketten1144.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/ketten1144.mp4 || true
+          ls -l $B
+      # 431h (Sokrates 16.11., 16:14 „431h, Läufe frei“; 1351 B Bildläufe auf dem Bauserver): Drehteller alt (Bau mit SCHRANK=0, ganze
+      # Tracht) | neu Startausrüstung | neu ausgezogen, je Tracht 3 s, Mann und Frau je ein Film (tests/kleid_film_431.gd), mit bilder=431
+      - name: Kleidfilm (431h)
+        if: ${{ !cancelled() && contains(github.event.inputs.bilder, '431') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/kleid431; mkdir -p $B
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb ffmpeg > /dev/null || true
+          G=""; [ -d $RUNNER_TEMP/gang ] && G=$RUNNER_TEMP/gang
+          SCHRANK=0 TRACHTEN=WACHE,ROBE,WALD,KLOSTER,BAUER GANG=$G OUT=$RUNNER_TEMP/out431 ZIEL=$RUNNER_TEMP/alt431 Q=~/cc0 timeout 2400 \
+            bl/bin/python -I tools/blender348/v3/held_klassen.py > $B/alt431.log 2>&1 || tail -20 $B/alt431.log
+          grep -E "^TRACHT|HELD TRACHTEN|FEHLT" $B/alt431.log | cut -c1-300 || true
+          for f in $RUNNER_TEMP/alt431/held_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f godot/daten/held_ALT${n#held_}.bin; done
+          cp $RUNNER_TEMP/alt431/held-klassen.json godot/daten/held-klassen-alt.json || true
+          ls godot/daten/held_ALT* || true
+          cd godot
+          for g in mann frau; do
+            VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json PROBE=431 timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 \
+              --write-movie $RUNNER_TEMP/kleid431_$g.avi --fixed-fps 30 -s res://tests/kleid_film_431.gd -- --$g > $B/kleid431_$g.log 2>&1 || true
+            grep -E "SCRIPT ERROR|^KLEIDFILM431" $B/kleid431_$g.log | cut -c1-300 || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/kleid431_$g.avi -vf scale=540:-2 -c:v libx264 -pix_fmt yuv420p -crf 24 -preset veryfast $B/kleid431_$g.mp4 || true
+          done
           ls -l $B
       # 1044 (1351 B, Chef 16.11., 10:13; Bildläufe am Rechner lehnt die Rechteprüfung ab): Grundstand der Leute, je Person links
       # vorher (UAL-Ruhe), rechts nachher (Haltung.grund), Renderer wie am Handy; tests/grundstand_1044.gd bei „1044 Bild“ im Commit

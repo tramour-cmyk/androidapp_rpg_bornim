@@ -565,16 +565,16 @@
     "gebiet": {"forest": "Wald", "deep_forest": "Tiefer Wald", "cave": "Höhle"},
     "_gebiet": "Karte -> Gebiet fuer den Erfahrungstopf (lohn.gd, Brs.gib_erfahrung); andere Karten ohne Topf",
     "start": {
-      "Wachsoldat": ["longsword", "chain_shirt", "round_shield"],
-      "Jägerkind": ["shortbow", "leather"],
-      "Zauberlehrling": ["quarterstaff", "robe"],
-      "Klosterschüler": ["quarterstaff", "leather"],
-      "Kräutersammler": ["dagger", "leather"],
-      "Schmiedelehrling": ["quarterstaff", "leather"],
-      "Herumtreiber": ["dagger", "leather"],
-      "Wanderer": ["shortsword", "leather"]
+      "Wachsoldat": ["longsword", "chain_shirt", "round_shield", "wraps", "boots", "cloak"],
+      "Jägerkind": ["shortbow", "leather", "hood", "gloves", "boots"],
+      "Zauberlehrling": ["quarterstaff", "robe", "leggings"],
+      "Klosterschüler": ["quarterstaff", "novice_habit", "wraps", "leggings"],
+      "Kräutersammler": ["dagger", "forager_shirt", "wraps", "leggings"],
+      "Schmiedelehrling": ["quarterstaff", "smith_shirt", "wraps", "leggings"],
+      "Herumtreiber": ["dagger", "leather", "gloves", "boots"],
+      "Wanderer": ["shortsword", "wayfarer_shirt", "wraps", "leggings"]
     },
-    "_start": "Klosterschueler und Schmiedelehrling bis 458.3 Kampfstab statt Streitkolben (870e Nachtrag, kein Modell). Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
+    "_start": "Klosterschueler und Schmiedelehrling bis 458.3 Kampfstab statt Streitkolben (870e Nachtrag, kein Modell). Startausruestung je Herkunft nach 'herkuenfte' (Waffe, Ruestung, Schild) als Grundform der Gegenstaende; 431h A (Chef 16.11., 10:08): dazu die Kleidung der Tracht in Kopf, Armen, Beinen, Umhang (der Held traegt, was in den Plaetzen steht), Kutte und Hemden (1401) mit den Werten der Lederruestung; Gold und Heiltraenke aus 'wirtschaft' (startgold, start_heiltraenke)"
   },
   "zustaende": {
     "_quelle": "870.6 (Zu 870.6 von Tom 11.11., 02:13; Sokrates 20:05): was im Kampf noch in Wuerfeln der alten Fassung rechnete (Gift, Brand, Blutung, Schwaechung, Saettigung, Sammeln des Schamanen, Untotenzaehigkeit) nach dem BRS, ohne Massstab der alten Trefferpunkte. Alle Zahlen A, bis 444 sie misst (dann Chef)",

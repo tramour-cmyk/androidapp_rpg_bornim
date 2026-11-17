@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Build 297 auf `main`** (Jerry, PR 217 gemischt 17.11., 16:20, `2347e11e1`, Lauf 554 grün auf `d2552e46e`; t297 alle ✓, Chef 16:16): Zielwahl mit Reihe und gedämpften Unerreichbaren, Ring erklärt, Erklärfenster wegtippen, Android-Zurück im Kampf (785.11/12/15/17); Höhlenwände voll hoch mit Loch um den Helden (1423, 1423b); Kleiderschrank Rüstung sichtbar (431h); Fackelzug im Intro (1530); Kampfkasten nur Leben und Mana, Schnell (785.10); Stab links (1516); Achsel (1515, 1417, 1535); Wasser im Wald (1155); Sterben mit Physik auch für Skelett und Wiedergänger (1340); Kauf-Cache holt keine Quelldateien mehr (1552).
 - **Alte Kotlin-Fassung aus dem Spielrepo** (Perikles, 1279, 870a 7 B, `17d5d605c`): `core/`, `app/`, `tools/preview`, Gradle-Wurzel und `tools/gradle-mirror.gradle` liegen nur noch zum Nachschlagen im Zweit-Repo `bornim-kaufmodelle` unter `kotlin-alt/` (`0010f9a`); Werkzeuge zeigen auf `godot/daten` (Klang, Schrift, Intro), `alt_bilder_rendern.sh` und der Gradle-Spiegel entfallen. Kerntests 182 gut, kein offener Zweig der letzten 7 Tage bekommt dadurch einen Konflikt.
 
 - **Build 292 auf `main`** (Sokrates, PR 211 gemischt 16.11., 15:59, `91d9cbd35`, Lauf grün auf `7e3e23f89`): Grafikstufen, Höhle ohne Hakeln, Joystick, Strahlprobe, Lesen; t292 bestanden (Chef 14:36).

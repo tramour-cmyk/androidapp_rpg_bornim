@@ -462,7 +462,8 @@ func _kaufheld() -> Node3D:
 	var k := _herkunft()     # 870.4: Tracht nach der Herkunft (BrsHeld), Probeblätter mit Klasse wie bisher
 	if not HeldFigur.da(k):
 		return null
-	var w := {"herkunft": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {}}
+	var w := {"herkunft": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {},
+		"kleid": fighter.hero.get("kleid")}   # 431h: Kleidung nach den Plaetzen des Helden (aufruf.gd); ohne Spielstand die ganze Tracht
 	var m := HeldFigur.baue(w, mats)
 	if m == null:
 		return null

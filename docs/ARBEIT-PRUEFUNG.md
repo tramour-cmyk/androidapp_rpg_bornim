@@ -4,9 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 10:55):** Lauf 302: 1539 greift im Kern; Lücke D302.1 = 1544 (Perikles), 1539 wartet darauf. Nächste Nummer D303. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.).
-
-- **Zu 1539, 1544 (Lauf 302):** nach Erledigt 1544: Probe mit Urteil „292.9 A“ ohne Zeile wird als K gemeldet, 293.7 weiter nicht → `greift 1539` und `greift 1544`.
+**Übergabe (17.11., 15:25):** Lauf 303: 1544, 1539 greifen. Lauf 304: 1547 greift; Bautests 1305, 1505, 1514, 785.10 an Lauf 554; D304.1 = 785.25 (Tom). Nächste Nummer D305. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.).
 
 - **Zu 1537 (Lauf 299, 300):** am ersten echten Werkzeugaufruf über 300 Tsd. (Sperrtext im Protokoll einer Sitzung, Neustart danach gelungen) → `greift 1537 <Lauf>`; bis 23.11. kein Fall → Wochenzählung nennt es, Feld neu.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.

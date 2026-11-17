@@ -109,7 +109,9 @@ func herkuenfte(info: Dictionary) -> void:
 	for h in hk:
 		for g in ["m", "w"]:
 			var a := {"geschlecht": g, "frisur": "Hair_Long"}
-			var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": {}}, [])
+			# 431h: mit der Startausruestung (die Kapuze liegt beim Jaegerkind im Kopfplatz)
+			var name_ := String(["Wachsoldat", "Zauberlehrling", "Jägerkind", "Herumtreiber", "Klosterschüler", "Kräutersammler", "Schmiedelehrling", "Wanderer"].filter(func(x): return HeldFigur.kennung(x) == String(h)).front())
+			var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": BrsHeld.fuer_spiel("T", "Mensch", name_).ausruestung}, [])
 			pruefe(m != null, "%s %s: keine Figur" % [h, g])
 			if m == null: continue
 			var kap := 0
