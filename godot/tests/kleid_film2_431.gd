@@ -106,6 +106,14 @@ func _lauf() -> void:
 	print("KLEIDFILM2 fertig")
 	quit(0)
 
+# 1549 (Chef 17.11., 11:59, Bilder 431h Stufe 2: Held sitzt mit gezogener Waffe, „macht keinen Sinn … Logikfrage“): wer sitzt, hat
+# nichts in der Hand; die getragene Waffe ist abgelegt, die Hand folgt wieder der Bewegung (im Spiel sitzt der Held nie, nur Borin
+# ohne Ding, leute.gd setze_sitzen)
+static func ablegen(m: Node) -> void:
+	for d in m.find_children("*Getragen*", "Node3D", true, false): (d as Node3D).visible = false
+	for t in m.find_children("*", "SkeletonModifier3D", true, false):
+		if t is Tragen: (t as SkeletonModifier3D).active = false
+
 func naehte(ordner: String) -> void:
 	DirAccess.make_dir_recursive_absolute(ordner)
 	var gitter := GridContainer.new()
@@ -134,6 +142,7 @@ func naehte(ordner: String) -> void:
 					ap.play(String(hz[0]))
 					ap.pause()
 					ap.seek(ap.get_animation(String(hz[0])).length * float(hz[1]), true)
+				if String(hz[0]) == "Sitzen": ablegen(dt.teller.get_child(0))
 				dt._bilder = 0
 				dt._v.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 			for i in 4: await process_frame
