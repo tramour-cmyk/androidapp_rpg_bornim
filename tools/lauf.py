@@ -229,6 +229,16 @@ def start_angekommen(rolle, d, alle):
         if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
     return False
 
+def start_noetig(rolle, st, ausschluss, nur_muss=False, nf_offen=False):
+    """1586 (Ford 17.11., 18:38): eine fehlende Sitzung nach der Startsperre zählt nur, wenn die Rolle jetzt etwas zu starten hätte
+    (offener Nachfolger oder startbare Zeile, die nicht mit --ohne ausgeschlossen ist, keine Pause). Sonst war der Start gewollt
+    ausgelassen oder lief schon und ist archiviert (Kurzform ohne archivierte Sitzungen; Homer 1235 am 17.11., 1489 am 16.11.)."""
+    if nf_offen: return True
+    muss, kuer, pause, _ = st.get(rolle, ([], [], None, []))
+    if pause: return False
+    if [x for x in muss if x[0] not in ausschluss]: return True
+    return bool(rolle in MIT_KUER and not nur_muss and [x for x in kuer if x[0] not in ausschluss])
+
 def chefdateien_je_rolle():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
     aus = {}
@@ -762,6 +772,9 @@ def main():
     for name, d in sorted(marken.items()):  # nur die jüngste Sperre je Rolle; ein späterer Start ersetzt einen früheren
         alter = (JETZT - d).total_seconds() / 60
         if alter < START_PRUEF_MIN or alter > START_PRUEF_STD * 60 or start_angekommen(name, d, alle) or name in ohne_rollen: continue  # 1148
+        nf, nf_zeit, _ = nachfolger(name) if name in VORRAT else (None, None, None)
+        nf_offen = bool(nf) and nf_zeit is not None and not any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", "")) == name)
+        if name in VORRAT and not start_noetig(name, st, ausschluss, nur_muss, nf_offen): continue  # 1586 (Ford ohne Vorrat: Warnung wie bisher)
         nicht_da.add(name)
         schl = "Start-fehlt %s %s" % (name, d.strftime("%d.%m.-%H:%M"))
         if schl in marke_alt or schl in neue_marken: continue
