@@ -1,5 +1,7 @@
-# Tom und Jerry · Build 298 · Sammelbuild: Neues Spiel nur BRS, Wiesen, Dorftiere, Mana nach dem Sieg, Bodenschatten, Höhlenwasser, Stäbe, Siegtafel, Wolfssprung
-E Kampf · Jerry (Handy 1591, 1478, 1566, 760; ohne dich 1541, 1319; gebilligt 1568, 1587), Tom (Handy 1205, 1167), Spike (Handy 1567) · 17.11., 21:30
+# Tom und Jerry · Build 298 · Sammelbuild: Neues Spiel nur BRS, Wiesen, Dorftiere, Mana nach dem Sieg, Bodenschatten, Höhlenwasser, Stäbe, Siegtafel, Wolfssprung · [PR 219](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/219)
+E Kampf · Jerry (Handy 1591, 1478, 1566, 760; ohne dich 1541, 1319; gebilligt 1568, 1587), Tom (Handy 1205, 1167), Spike (Handy 1567) · 17.11., 23:45 · [APK (Lauf 559, rot)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44184072098/artifacts/14374753540)
+
+**Rot im Lauf 559:** `rand_1022` (Kartenrand je Gebietskarte, ohne Bild); am Rechner auf demselben Stand grün, Ursache bei Tom (1606). Start- und Absturztest grün.
 
 Gegengelesen: Sokrates, 17.11., 22:40 (21:16 Magier aus 298.1; 760 nach 1589.1 A wieder dabei, `DESIGN-GEGNER.md` 11: „760 … in den nächsten Build“)
 
