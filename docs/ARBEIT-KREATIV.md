@@ -2,18 +2,13 @@
 
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `10012aabf` (16.11., 21:01)
+**Gelesen bis:** `a5e334759` (17.11., 01:04)
 
-**Übergabe (16.11., 21:15, `session_01Hmoj75eC5wiQijRtfjKuQd`):** 1489: Merkmale je Exemplar in `STORY-MERKMALE-TIERE.md` und `-WAFFEN.md` (14 Arten, je Art und Merkmal vier Beschreibungen DE/EN, Namen, Wirkung, Regeln für den Bau; fremd geprüft 21:12, Befunde eingearbeitet); in `STORY-REGELN.md` eingetragen; Zeile an Jerry (Zu 1488). Nachfolger: keiner (1235 nach dem Meilenstein).
+**Übergabe (17.11., 01:07, `session_01Hmoj76NcjeerwtT8PnpvfR`):** Pflege: „Zu 1367“ gestrichen (1367 erledigt; offener Einbau der `[1367.tip.*]` steht bei Jerry, Zu 1366). Nachfolger: keiner (1235 nach dem Meilenstein).
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
-- **Zu 1367, von Jerry (16.11., 07:57, 1366 `6f2aa465d`):** `[1367.offen]` eingebaut (`mars.gd` EINGEBUNG „offen“, wortgetreu). `[1367.tip.gegenschlag]` und `[1367.tip.wehr]` noch nicht: die Tipps `[1267.tip.*]`, an die sie anhängen, sind noch nicht im Code (kommen mit Stufe 3/5 des Bauplans); dann beide zusammen.
-
-
 - **Zu 976, Homer (12.11., 11:33):** `[870.14.ding.guete]` und Begriffe in `STORY-BRS-KAMPF.md` nach 976a A; Code noch alt (Hinweis an Tom gegeben). Ein Handbuchabsatz zur Güte entsteht erst mit dem Herstellen.
-
-
 
 - **Offen aus 817 (Homer 10.11., 10:50, Fremdprüfung):** (1) `[423.werte.ab]` sagt „Eine Gabe, andere zu bezaubern, gibt es nicht“, im Code gibt Wille über die Brücke Ladenpreise und Auftreten (CHA); beim Bau 2.3 klären. (2) erledigt 10.11., 12:01: Regel (3) in `STORY-REGELN.md` neu (Wert „Life“, Zahlen „HP“). (3) „Abwehrprobe“ steht in keinem Spieltext (nur `DESIGN-BRS.md` 301); englischer Name erst, wenn ein Text sie braucht (Vorschlag „Resistance roll“).
 

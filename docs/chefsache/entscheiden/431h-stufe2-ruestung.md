@@ -1,6 +1,6 @@
-# 431h (Rüstung sichtbar) · Stufe 2: soll man jede angelegte Rüstung am Helden sehen, auch fremde Stücke und Plattenrüstung (etwa 40 bis 70 $)?
+# 431h · Stufe 2: soll man jede angelegte Rüstung am Helden sehen, auch fremde Stücke und Plattenrüstung (etwa 40 bis 70 $)?
 Tom · 17.11., 00:51 · E Figuren · Folge aus deinem 👍 zu Stufe 1 (16.11., 18:47: „danach Stufe 2 als Vorlage“)
-Kurz: Stufe 2 zeigt jede angelegte Rüstung mit ihrem eigenen Teil, auch Stücke anderer Herkünfte und die Ritterteile; Aufwand und Risiko hier.
+Kurz: 431h (Rüstung sichtbar), Stufe 2 zeigt jede angelegte Rüstung mit ihrem eigenen Teil, auch Stücke anderer Herkünfte und die Ritterteile; Aufwand und Risiko hier.
 Beim Chef, weil: Aussehen
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/69285b8a3 (`claude/tom-431-ausruestung`; `tools/gegenstaende/gegenstaende.json` Feld `netz`, `godot/skripte/heldfigur.gd` `kleide` 381–408, `tools/blender348/v3/held_klassen.py` `schrank`); Größe der Heldenmodelle am Rechner gemessen (Stand `main`, 17.11.): je Tracht und Geschlecht 7,8 bis 8,1 MB, zehn Stück
