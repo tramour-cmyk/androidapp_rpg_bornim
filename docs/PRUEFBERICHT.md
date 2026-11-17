@@ -41,6 +41,20 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 305 · startbare „gebaut“ Perikles: 1389, 1572, 1548, 1543, 1508, 1461, 1574, 1585, 1592, 1542, 1586 (18.11., 00:0x–00:1x)
+
+- **1389, 1244 greifen:** 17.11. zwei Commits „Pflegehinweise“ (15.11.: 38, 13.11.: 79), beide mit neuem Inhalt (`d78fdc6b5` Tageswechsel mit geänderten Befunden, `9e104b38f` eine neue Zeile Ford), kein reines Verschieben; 16.11. nach dem Bau 09:22 drei.
+- **1548 greift:** `laufzeiten.py --tage 2` liest 45 Läufe (Neubau an Lauf 543, 544, 553, 558 erkannt), `tagesbericht.py --probe` und `--telegram` tragen „APK-Läufe 24 h: 14, Ø 49 min (min 25, max 97), vorgerendert 10 von 14“ in Zeile 5.
+- **1543 greift:** bei keinem Besitzer steht eine Muss-Zeile nach der ersten Kür (Tom 50, Jerry 72, Sokrates 39, Perikles 29 offene Zeilen), auch nach den seit 11:13 neu angelegten.
+- **1508 greift:** Übernahme lief (Tom 785.10, Spike 1553–1557); `startbar.py --stand`: startbar Tom 8, Jerry 2, Spike 2. Gegenargument: Jerrys kleine Zahl kommt auch von „ruht bis 21.11.“ (1605), nicht nur von der Abgabe.
+- **1574 greift:** Ford `…76dyxkyvfmpM8LcpYk` seit 17.11., 18:24 eine Sitzung ohne Neustart, 566 Tsd. Token, 37,88 $ (für Perikles’ Kostenvergleich 18.11.). Nebenbefund: `e1cb7588c` löschte `FREIGABE_MIN`, `lauf.py` stürzte 21:03 an der ersten blockierten Sitzung ab (Ford behob 21:05, `07aa399d3`); Vorschlag D305.2 → 1611 (Perikles, K).
+- **1572 noch nicht:** kein echter Fall seit 18:34 (Meldungen ohne Freigabe-Warnung; jetzt keine Sitzung blocked). D305.1 → 1610 (Perikles, M?): `lauf.py` prüft nur um :03, die Wache Ford nur um :33, also Meldung 15–75 statt 15 Minuten nach dem Hängen; `warte 1572 1610, 23.11.`.
+- **1585 greift:** `lauf.py --sperre` legte 00:03 1608 (Sokrates, Zusammenführen) an.
+- **1592 greift:** Überblick 00:10 „in Arbeit“ Block 3: 3 (1569 laut Besetzung, 455.2 „in Arbeit bei Tuffy“, 1406 Stand „in Arbeit“), Block 4: 1 (458.3); 1068 (ruht) und 1593 (erledigt) richtig nicht gezählt.
+- **1586 greift:** sechs Ford-Läufe 19:03–00:03 ohne „Start Homer nicht angekommen“, obwohl 1235 durchgehend gesperrt; `start_noetig_test.py` 9 Fälle grün.
+- **1542 greift:** `vorratspruefung.py` 00:15 ohne Abschnitt K (vorher Fehlalarm 1423a).
+- **1461 noch nicht:** erste Mittwochsrunde heute nach dem Tagesbericht; wartet auf den Mittag. An Perikles: `lauf.py` 871/885 hängt den Satz an jeden Mittwochsstart, auch vor dem Tagesbericht, Nachfolgerstarts bekommen ihn nicht.
+
 ## Lauf 304 · 1547 Sammelbuild 297 (Lauf 554, `d2552e46e`; 17.11., 15:24)
 
 - **Greift:** Lauf 554 grün („ROT: keine“, APK `bornim-0.348.554-build-297.apk`), mit 1552 (Kauf-Cache klassen Treffer, Quelldateien nicht geholt) und 1155. t297: 9 Handypunkte, keine Sprach- oder Textzeile, Offenes aus t295/t296 drin (1423b, 1483, Prüfzeile 1423a als 297.19). Vorlauf 44075989732 durch Neupush ersetzt.
