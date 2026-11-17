@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 16:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 16:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | ↳ **2** Kampf passt | 62 (61) | 18 | 0 | 7 | 12 | 1545 (Jerry) Halt-Zeile oben im Vorrat streichen: Bedingung er… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 18 (16) | 9 | 0 | 3 | 8 | 1406 (Tom) Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwe… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 1 | 0 | 0 | 5 | 649.2 (Jerry) Figurenkatalog Schritt 2: Werkzeug figuren.py und… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (52) | 5 | 0 | 4 | 24 | 1563 (Jerry) Teich in der Höhle am Ufer noch eckig und kantig;… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (52) | 5 | 0 | 4 | 24 | 1563 (Jerry) Teich in der Höhle am Ufer noch eckig und kantig;… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 16 (13) | 10 | 0 | 1 | 4 | 1561 (Jerry) Wiederholrot stehen_973: 2× rot in 48 h; Ursache… |
 | **7** Werkzeuge und Abläufe der Firma | 45 (43) | 27 | 0 | 1 | 11 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 65 | 202 | 267 | 1127 |
-| neu | 70 | 164 | 234 | 1124 |
-| **netto** (erledigt − neu) | **−5** | **+38** | **+33** | **+3** |
+| neu | 71 | 164 | 235 | 1125 |
+| **netto** (erledigt − neu) | **−6** | **+38** | **+32** | **+2** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -53,7 +53,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Homer | 1235 Texte Kapitel 2 bauen, nach dem Meilenstein (nach dem Meilenstein) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1270 Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader… (Kür) |
-| Perikles | M? M? entscheiden: 785.25, 1567 (Muss) |
+| Perikles | M? M? entscheiden: 785.25, 1567, 1568 (Muss) |
 
 **Die nächsten 20**
 
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 785.18 | Jerry | Stufenaufstieg im Endfeld des Kampfes hervorgehoben | K | 2 Kampf passt | startbar |
 | 20 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ / “cured of all ailments”… | K | 2 Kampf passt | startbar |
 
-Danach 74 weitere offen. Bei dir zum Testen (vorgelegt): 16. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 73.
+Danach 75 weitere offen. Bei dir zum Testen (vorgelegt): 16. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 73.
 ## Zu entscheiden
 
 Nichts offen.
