@@ -1,5 +1,7 @@
 # 1423 · Höhle: Zwischenwände in voller Höhe (alt links, neu rechts)
 
+[Bild von 17.11., 04:24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-0424-1423-Tom-2.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 17.11., 04:24](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/17-0424-1423-Tom.png) (eingetragen von meldung.sh, Tom)
 
 Tom · 17.11., 04:25 · G Stil · dein Wort 16.11., 13:08 („Die kann nicht auf halber Höhe aufhören“), 13:32 („Zwischenwandproblem“)
