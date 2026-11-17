@@ -46,6 +46,9 @@ var orders: VBoxContainer
 var full_log: PanelContainer
 var tip: Label
 var verdict: Label
+var verdict_antwort: Label
+var ring_ergebnis := ""     # 785.12: Ergebnis des letzten Rings, solange sein Urteil steht
+var ring_hilfe := false     # 785.12: [219T.jetzt] über dem ersten Ring je Spielstand
 var lines: Array = []
 var pick := "main"
 var pick_arg = null
@@ -244,6 +247,15 @@ func _ready() -> void:
 	verdict.add_theme_constant_override("outline_size", int(4 * dp))
 	verdict.visible = false
 	root.add_child(verdict)
+	verdict_antwort = Label.new()     # 785.12: die Antwort der Klasse unter dem Urteil (alt SkirmishScreen 1326)
+	verdict_antwort.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	verdict_antwort.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	verdict_antwort.add_theme_font_size_override("font_size", sp(15))
+	verdict_antwort.add_theme_color_override("font_color", GOLD)
+	verdict_antwort.add_theme_color_override("font_outline_color", Color.BLACK)
+	verdict_antwort.add_theme_constant_override("outline_size", int(4 * dp))
+	verdict_antwort.visible = false
+	root.add_child(verdict_antwort)
 	full_log = PanelContainer.new()
 	full_log.set_anchors_preset(Control.PRESET_FULL_RECT)
 	full_log.offset_top = rand_oben()     # 552: der ganze Bericht beginnt unter dem Band über der Kamera
@@ -431,6 +443,10 @@ func _draw_log() -> void:
 		var yy: float = block[0]
 		for row in block[1]:
 			for word in row:
+				if word[0] == "◯":     # 785.12: das Ringzeichen gezeichnet wie der Ring (Homer 219T), Alegreya hat kein ◯
+					var rw := font.get_string_size("◯", HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+					log_area.draw_arc(Vector2(word[2] + rw * 0.5, yy + lh * 0.78 - fs * 0.32), fs * 0.3, 0, TAU, 24, GOLD, 1.5 * dp, true)
+					continue
 				log_area.draw_string(font, Vector2(word[2], yy + lh * 0.78), word[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, word[1])
 			yy += lh
 	if more:
@@ -1331,6 +1347,7 @@ func ring_open(target_id: String, _intent: Dictionary) -> void:
 	ring_t0 = uhr.call()
 	ring_stand = -1
 	pick = "main"
+	ring_hilfe = not kampfort.mars.gesehen.has(Mars.GESEHEN_RING_JETZT)
 
 
 func ring_close() -> void:
@@ -1351,15 +1368,49 @@ func ring_ms_bild() -> float:
 	return float((ring_stand if ring_stand >= 0 else int(uhr.call())) - ring_t0)
 
 
+## 785.12 (alt SkirmishScreen 721–725, 1321–1328): Urteil in der Farbe des Ergebnisses ([219.ring.*]), perfekt hell, gut im Text,
+## verpasst warnend; die Antwort der Klasse darunter in Gold (ring_folge)
+const URTEIL_FARBE := {"PERFECT": BRIGHT, "GOOD": TEXT, "NONE": WARN}
+var urteil_nr := 0
+
 func ring_verdict(r: String) -> void:
 	ring_halt()
+	if ring_hilfe:
+		kampfort.mars.gesehen[Mars.GESEHEN_RING_JETZT] = true
+		ring_hilfe = false
+	ring_ergebnis = r
 	verdict.text = {"PERFECT": t("Perfekt: ausgewichen", "Perfect: dodged"), "GOOD": t("Gut: halber Schaden", "Good: half damage"),
 		"NONE": t("Verpasst", "Missed")}[r]
+	verdict.add_theme_color_override("font_color", URTEIL_FARBE[r])
 	verdict.visible = true
+	verdict_antwort.visible = false
 	var vs: Vector2 = get_viewport().get_visible_rect().size
 	verdict.position = Vector2(0, kampfort.scene_rect().size.y * 0.18)
 	verdict.size = Vector2(vs.x, 40 * dp)
-	get_tree().create_timer(2.2 if r == "PERFECT" else 1.2).timeout.connect(func(): verdict.visible = false)
+	verdict_antwort.position = Vector2(16 * dp, verdict.position.y + 38 * dp)
+	verdict_antwort.size = Vector2(vs.x - 32 * dp, 0)
+	urteil_nr += 1
+	var nr := urteil_nr
+	get_tree().create_timer(2.2 if r == "PERFECT" else 1.2).timeout.connect(func():
+		if nr == urteil_nr:
+			verdict.visible = false
+			verdict_antwort.visible = false
+			ring_ergebnis = "")
+
+
+## 785.12: was die Meldung nach dem Ring am Urteil ändert, solange es steht: gut, aber der Schlag verfehlt ohnehin, zeigt nur das
+## Wort ([219.4T.gut]; der Bericht sagt „verfehlt“); die Antwort der Klasse (answer) steht darunter
+func ring_folge(e: Dictionary) -> void:
+	if not verdict.visible or ring_ergebnis == "":
+		return
+	var by = kampfort.mars.find(String(e.actor)) if e.get("actor") != null else null
+	var r = e.get("roll")
+	if ring_ergebnis == "GOOD" and r is Array and r.size() > 4 and not bool(r[4]) and by != null and by.side != "PARTY":
+		verdict.text = t("Gut", "Good")
+	if e.get("answer", false) and String(e.get("text", "")) != "":
+		verdict_antwort.text = String(e.text)
+		verdict_antwort.size = Vector2(verdict_antwort.size.x, 0)
+		verdict_antwort.visible = true
 
 
 func show_roll(e: Dictionary) -> void:
@@ -1669,6 +1720,15 @@ func _draw_overlay() -> void:
 			var a := clampf(1.0 - absf(k1) * 0.4, 0.3, 1.0)
 			overlay.draw_arc(c2, now, 0, TAU, 64, Color(0, 0, 0, 0.5 * a), 6.0 * dp, true)
 			overlay.draw_arc(c2, now, 0, TAU, 64, Color(GOLD, a), 4.0 * dp, true)
+		# 785.12 (alt SkirmishScreen 1257–1262): beim ersten Ring je Spielstand ein Wort darüber, bis getippt oder vorbei ([219T.jetzt])
+		if ring_hilfe and kampfort.ring_open:
+			var wort := t("Tippen, wenn die Ringe aufeinanderliegen!", "Tap when the rings meet!")
+			var ws := font.get_string_size(wort, HORIZONTAL_ALIGNMENT_LEFT, -1, sp(14))
+			var bx := Rect2(Vector2(clampf(c2.x - ws.x * 0.5 - 8 * dp, 4 * dp, maxf(4 * dp, sr.size.x - ws.x - 20 * dp)),
+				maxf(4 * dp, _foot(fig).y - h - 24 * dp - ws.y)), ws + Vector2(16 * dp, 6 * dp))     # wie alt über dem Kopf
+			overlay.draw_rect(bx, Color.BLACK)
+			overlay.draw_rect(bx, GOLD, false, 1.0 * dp)
+			overlay.draw_string(font, bx.position + Vector2(8 * dp, 3 * dp + font.get_ascent(sp(14))), wort, HORIZONTAL_ALIGNMENT_LEFT, -1, sp(14), BRIGHT)
 		var hint := t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one")
 		overlay.draw_string(font, Vector2(0, sr.size.y - 12 * dp), hint, HORIZONTAL_ALIGNMENT_CENTER, sr.size.x, sp(14), DIM)
 

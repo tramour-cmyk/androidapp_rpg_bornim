@@ -1376,6 +1376,8 @@ func _play_say(e: Dictionary) -> void:
 		print("PL %.1f actor %s cue %s text %s places %s" % [clock_ms / 1000.0, e.actor, e.cue, String(e.text).left(50), e.places])
 	var vor_gl: Dictionary = shown.get("gl", {}) if shown is Dictionary else {}
 	shown = e
+	if ui != null:
+		ui.ring_folge(e)     # 785.12: „Gut“ allein bei Fehlschlag, Antwort der Klasse unter dem Urteil
 	# 930.7 (DESIGN-GLUT.md 8): Kerben der Meldung (Blitz, Verstreichen, Vertiefen); die Stichworte des Kerbensystems ohne Zeile
 	# halten den Kampf nur so lange an, wie ihr Bild dauert (F9: Rundenzeit nicht länger als heute), nicht SAY_MS
 	if ui != null and ui.kerbe != null:
@@ -1589,7 +1591,7 @@ func _play_say(e: Dictionary) -> void:
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal
 func _zeigen(e: Dictionary) -> void:
 	if e.text != "" and not e.get("vorweg", false):
-		ui.log_line(e.text, e.get("cue") == "EINGEBUNG")     # 840: die Eingebung des Helden in eigener Farbe
+		ui.log_line(e.text, e.get("cue") in ["EINGEBUNG", "RING_ERSTER"])     # 840: Eingebung in eigener Farbe; 785.12 wie sie (219T)
 	ui.refresh()
 	ui.show_roll(e)
 
