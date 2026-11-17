@@ -1,9 +1,9 @@
 # Tom und Jerry · Build 297 · Sammelbuild: Zielwahl, Ring erklärt, Erklärfenster, Zurück im Kampf, Höhlenwände, Kampfschirm, Stab, Achsel · PR folgt
-E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17), Tom (Handy 1423, 785.10; ohne dich 1460, 531, 1448, 1516, 1522; Bild 1515/1417/1535) · 17.11., 10:39 · APK folgt
+E Kampf · Jerry (Handy 785.11, 785.12, 785.15, 785.17), Tom (Handy 1423, 785.10; ohne dich 1460, 531, 1448, 1516, 1522; Bild 1515/1417/1535), Spike (Handy 1483, 1512) · 17.11., 10:39 · APK folgt
 
 Verglichen (alt gegen neu): Zielliste, Ringerklärung, Erklärfenster und Zurück im Kampf gegen `SkirmishScreen.kt` (582–588, 705–725, 1257–1262, 1321–1328, 340, 364, 494) und `MarsTips.kt` 84–89; Funde behoben. Umbau überall: Zielliste und Dämpfen gelten für Angriff, Fähigkeit, Trank und Wurf (ein Weg in `kampf_ui.gd`); die Ringerklärung gibt es nur im Kampf. Höhle, Garrick, Leiste wie Liste 296.
 
-Sammelbuild auf `main` mit `claude/build-296` (Chef 17.11., 10:03: „296 warten“; 296 wurde nicht installiert, seine Punkte stehen hier noch einmal als 297.1–297.4). 1512 (Spike, Probekampf auf Englisch) fährt im Zweig mit; den Test dazu baut Spike, er steht nicht in dieser Liste. Bekannt: 1340 (Sterben von Skelett und Wiedergänger, aus 296) fährt im Zweig mit; der Bau prüft nur Goblin, Späher, Schamane, Kobold, Grak; Film an den Chef von Jerry bis 17.11., 18:00, nicht in dieser Liste.
+Sammelbuild auf `main` mit `claude/build-296` (Chef 17.11., 10:03: „296 warten“; 296 wurde nicht installiert, seine Punkte stehen hier noch einmal als 297.1–297.4). 1512 (Probekampf auf Englisch) und 1483 (Anmerkung bei Passt, aus t295 nicht prüfbar: Chef hatte Lauf 544) fahren im Zweig mit (über build-296); Zeilen 297.15, 297.16 (Spike, 10:55). Bekannt: 1340 (Sterben von Skelett und Wiedergänger, aus 296) fährt im Zweig mit; der Bau prüft nur Goblin, Späher, Schamane, Kobold, Grak; Film an den Chef von Jerry bis 17.11., 18:00, nicht in dieser Liste.
 
 Ein Weg: über Build 295 installieren; 297.1 mit „Lage herstellen“ (Höhle); dann 297.6 (Grak), 297.7–297.9 im selben Probekampf Wölfe; 297.10 zuletzt.
 
@@ -27,6 +27,8 @@ Im Bau geprüft: Höhlenwände mindestens 2,2 m, Loch um den Helden hinter einer
 | 297.12 | Tom | 1522 | ohne dich | README ohne SRD-Hinweis und Satz zu Wizards of the Coast (kein Spielinhalt) | – | – |
 | 297.13 | Jerry | 1505 | ohne dich (Diogenes bestätigt am Lauf) | `wolf_mess_438`: Wölfe rücken nach einem Tod auf einen neuen Platz; `tod_ragdoll_1215`: Sterben im Physiktakt, bei jeder Bildrate gleich | Test grün | Test rot |
 | 297.14 | Jerry | 1514 | ohne dich (Diogenes bestätigt am Lauf) | `typen.py`: `kampf/treffer_fx.gd` mit Typen | Test grün | Test rot |
+| 297.15 | Spike | 1483 | Handy | Reiter „Test“, diese Zeile 297.15 aufklappen, ins Feld „Anmerkung, freiwillig …“ ein Wort tippen, dann „Passt“; danach „Ergebnis kopieren“ und irgendwo einfügen | im eingefügten Text steht „- 297.15 ✓ <dein Wort>“ | Feld fehlt, das Wort ist nach „Passt“ weg, oder der Text zeigt nur „✓“ |
+| 297.16 | Spike | 1512 | Handy | Spiel auf Englisch, Reiter „Test“, Probekampf, Liste „Foes“ aufklappen | alle Gegner englisch (etwa „Wolf pack“, „Revenants“, „Grave hounds“) | ein deutscher Name |
 
 ## Lagen
 
