@@ -108,6 +108,8 @@ Die Denkweise sagt, was ein Gegner will. Die Rolle sagt, wo er steht und wie er 
 
 Die Reihenfolge der Bosse (Abschnitt 3, „Plan“) legt Jerry beim Bau mit Homer fest. Grimmzahn bleibt ein Wolf in Bild und Ansage (heult, fletscht, duckt sich), nie ein Stratege; dass er zu klug kämpft, ist der Hinweis auf die roten Augen (Homer). Zahlen kommen aus der Rechnung 444, nicht aus dem Gefühl. Kür, nur wenn der Bau es leicht hergibt: Wildschwein geht auf den, der es zuletzt getroffen hat; Riesenfledermaus auf den, der sich zuletzt bewegt hat (Homer).
 
+**Abgleich (Perikles, 17.11., 22:39):** Die Spalte „Besonderheit (Bestand)“ stammt aus dem Kerbensystem. Im Spiel (MARS ohne Kerben) fehlen Prankenhieb (Krogg), Umreißen (Grimmzahn), Ansturm (Wildschwein), Rudel (Kobold), Säure auf Abstand (Säureschnecke), Nachschub (Wiedergänger) und die eigenen Absichten des Schamanen; Lücken in 1603, Felder Denkweise und Rolle in 1589.2.
+
 ## 10. Kamera (nicht Teil dieses Blatts)
 
 - Der Chef möchte den Kampf mit wechselndem Blickwinkel aufpeppen (11.11., 20:11; 17.11., 16:07). Heute gibt es im Kampfort kein Drehen, nur den Zoom beim Schlag (`kampfort.gd` 654–682).
