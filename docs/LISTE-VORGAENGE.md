@@ -87,7 +87,7 @@
 | 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt (Chef 03.11., 10:28–10:57, aus 494) | Jerry | K | ruht | 23.11. | claude/jerry-494-gegner | – | E Kampf | 17,92 $ |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot (Chef 03.11., 09:21; `PondLife.kt`, Projektplan O6, W22) | Jerry | K | ruht | 23.11. | claude/jerry-509-teich | – | E Welt | – |
 | 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | Jerry | K | ruht, Vorrang 11.11.: kein Neues bis Umzug und Testfehler | 23.11. | claude/jerry-494-gegner | – | E Kampf | 135,26 $ |
-| 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) · zurück t269 | Jerry | K | gebaut, Geprüft an: 601e67974 | – | claude/jerry-517-waldklang | – | E Oberfläche | 2,32 $ |
+| 517 | Waldklang wie alt: Vögel am Tag, Eule und Grillen nachts, fernes Wolfsheulen im Tiefen Wald (`WildSound.kt`; Abgleich 512, von Team Tom) · zurück t269 | Jerry | K | zu testen | – | claude/jerry-517-waldklang | 294 | E Oberfläche | 2,32 $ |
 | 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | Jerry | K | ruht, Verdrahtung auf Zweig 0928f2d12 | 23.11. | claude/jerry-507-hoehle | – | E Kampf | 61,39 $ |
 | 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | Jerry | K | ruht, Kampf zuerst (338.1) | 23.11. | – | – | E Technik | – |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Jerry | K | wartet | 623.2 | – | – | E Kampf | 9,99 $ |
