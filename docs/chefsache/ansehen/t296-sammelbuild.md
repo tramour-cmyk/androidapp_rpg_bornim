@@ -1,6 +1,5 @@
-# Tom · Build 296 · Sammelbuild: Höhlenwände in voller Höhe, Garricks Fackel, Leiste ohne Wörter, Schneidern · [PR 215](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/215) · Datei bornim-0.348.548-build-296.apk
-E Welt · Tom (Handy 1423; ohne dich 1460, 531, 1448), Spike (Handy 1512) · 17.11., 08:18 · [APK (Lauf 548)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44033571913/artifacts/14307153462)
-Rot, bekannt, nicht melden: wie Build 295: Typenprüfung (kampf/treffer_fx.gd, kampf/kampfort.gd) und arkan_993, Vorgang 1514 (Jerry); wolf_mess_438, Vorgang 1505 (Jerry); tod_ragdoll_1215, Vorgang 1505 (Jerry).
+# Tom · Build 296 · Sammelbuild: Höhlenwände in voller Höhe, Garricks Fackel, Leiste ohne Wörter, Schneidern · [PR 215](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/215) · Datei bornim-0.348.551-build-296.apk
+E Welt · Tom (Handy 1423; ohne dich 1460, 531, 1448), Spike (Handy 1512) · 17.11., 10:27 · [APK (Lauf 551, grün)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44049709181/artifacts/14314571449)
 
 Verglichen (alt gegen neu): Höhle Lager und Krogg am Bild (1423, 👍 17.11., 06:09), Garricks Fackelabwehr im Film (531, 👍 06:06), Weltleiste und Heldenmenü am Bild (1448, 👍 06:02); Umbau überall: die Balken ohne Wörter gibt es nur in Weltleiste und Heldenmenü, den Kampfschirm baut Jerry mit 1439.
 
