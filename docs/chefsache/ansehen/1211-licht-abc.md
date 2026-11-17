@@ -1,5 +1,7 @@
 # 1211 · Leuchtfunke: welches Licht in der Höhle, A, B oder C?
 
+[Film von 18.11., 00:44](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261118-004405-1211/2026-11/18-0044-1211-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Spike · 18.11., 00:43 · aus 1211 (Leuchtfunke), dein Wort 17.11., 23:56: „Ja, das wäre hilfreich.“ und „Intensität … an den Grad der Dunkelheit … nicht an der Uhrzeit“
 Kurz: Ein Film in der Blutzahnhöhle bei Nacht zeigt drei Fassungen des Funkenlichts nacheinander und die Fackel zum Vergleich; dazu leuchtet der Funke in der Höhle jetzt auch tagsüber voll.
 
