@@ -109,3 +109,19 @@ Homer 10.11.; ersetzt die SRD-Sätze aus `Perks.describe` (Ausfuhr `held.json` �
 - `[817.wille.handeln.minus]` (Bonus negativ) Handeln: %d %% teurer einkaufen und %d %% billiger verkaufen. / EN: Haggling: buy for %d%% more and sell for %d%% less.
 - Auftreten: %s Aussicht, dass ein gewöhnlicher Gegner eingeschüchtert zögert und seine erste Runde verliert (nie im Hinterhalt, nie ein Boss). / EN: Presence: %s chance that an ordinary foe hesitates, cowed, and loses its first round (never in an ambush, never a boss).
 - (Zauberlehrling, Klosterschüler) zählt statt Verstand bzw. Wahrnehmung, wenn er höher ist. / EN: (Apprentice Mage, Cloister Pupil) counts instead of Wits or Perception respectively, if it is higher.
+
+## Nebenhand (1380)
+
+Homer 16.11.; nach 1291a D (Chef 16.11., 10:37, Vorgangsarchiv): Nebenhand nur Schild und Fackel, neutral, kein Versprechen eines Wegs mit zwei Waffen (den nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie 1404). Gilt mit dem Bau 1291 (Jerry). Fremd geprüft 16.11., 10:50; zwei Punkte eingearbeitet.
+- `[1380.wo.waffe]` (Zeile „wo“ einer Einhandwaffe, `menue.gd` 904 und 1400, statt „Haupt- oder Nebenhand“) Haupthand / EN: Main hand
+- `[1380.hinweis]` (Ausrüstung, Platz Nebenhand gewählt, über der Liste) Die Nebenhand hält einen Schild oder eine Fackel. / EN: The off hand holds a shield or a torch.
+- `[1380.laden]` (einmal beim Laden eines alten Spielstands, Waffe aus der Nebenhand in die Tasche; %s = Name der Waffe) Aus deiner Nebenhand in die Tasche gelegt: %s. / EN: Moved from your off hand to your bag: %s.
+- Kopfkommentar `menue.gd` 12 und 1045 „die Nebenhand nimmt auch Einhandwaffen“ entfällt (kein Spieltext).
+
+## Beenden im Hauptmenü (1419)
+
+Homer 16.11.; für 1418 (Tom; Chef 16.11., 12:40: Android-Zurück im Hauptmenü beendet nicht mehr sofort). „Ja, nein“ des Chefs war Beispiel: die Knöpfe sagen, was sie tun, wie jede Rückfrage im Spiel (`Spielstaende.frage`: Titel, Zierlinie, „Abbrechen“ links, die Wahl rechts; Chef 549a (8): „für jedes Fenster gleich“). Kein Satz darunter: im Hauptmenü läuft kein Spiel, jeder Weg dorthin speichert vorher (`spiel.gd` 1365 und 1486, `[326.sys.hauptmenue]`; sonst Kaltstart). Fremd geprüft 16.11., 13:09; zwei Punkte eingearbeitet.
+- `[1419.frage]` (Titel der Rückfrage nach Android-Zurück im Hauptmenü; groß und gold wie jeder Titel) Spiel beenden? / EN: Quit the game?
+- `[1419.ja]` (die Wahl rechts, beendet die App; Hauptwahl, nicht Warnfarbe: es geht nichts verloren) Beenden / EN: Quit
+- `[1419.nein]` (links; Zurück und Tippen daneben wirken ebenso) Abbrechen / EN: Cancel (vorhanden in `Spielstaende.fuss`)
+- `[1419.zweimal]` (nur, falls Tom statt der Rückfrage zweimal Zurück baut: Hinweis unten am Rand nach dem ersten Zurück) Noch einmal Zurück, und das Spiel endet. / EN: Press back again to quit.

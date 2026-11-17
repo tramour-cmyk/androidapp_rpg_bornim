@@ -3,7 +3,7 @@ Der Fluss am Dorf (D6.4): drei nahtlose 12-s-Schleifen fließenden Wassers aus C
 gedämpft, damit es nach breitem, ruhigem Fluss klingt und nicht nach hellem Gebirgsbach oder nach Wind.
 
     tools/klang/holen.sh <ordner>                          # Aufnahmen laden (einmal)
-    python3 tools/klang/fluss.py <ordner>                  # nach app/src/main/assets/sfx/river_{1,2,3}.ogg
+    python3 tools/klang/fluss.py <ordner>                  # nach godot/daten/klang/sfx/river_{1,2,3}.ogg
     python3 tools/klang/fluss.py <ordner> --proben <ziel>  # Hörprobe: alle drei hintereinander, je zweimal
 """
 import sys, os, subprocess, numpy as np, soundfile as sf
@@ -26,7 +26,7 @@ TAKES = [
     loop("bsb_0823.mp3", 30.0, 1800),         # kleiner Bach, ebenso
 ]
 proben = sys.argv[3] if len(sys.argv) > 3 and sys.argv[2] == "--proben" else None
-out = proben or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+out = proben or os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
 if proben:
     gap = np.zeros(int(SR * 0.8))
     y = np.concatenate([np.concatenate([t, t, gap]) for t in TAKES])

@@ -9,7 +9,7 @@ Entwürfe für den Reiter „Chronik“ (64d, 62i), nur Deutsch; Englisch übers
 - **Bisher geschehen:** der Chronist erzählt in dritter Person, je Wendepunkt 2–3 Sätze. Hier in Spielreihenfolge zum Lesen, im Spiel steht der neueste oben. `{name}` ist der Name des Helden.
 - **Hörensagen:** ein Satz je Ort und Person, immer mit Quelle („Bram sagt …“). Er erscheint erst, wenn der Held die Quelle getroffen hat.
 - **(neu)** markiert, was es im Spiel noch nicht gibt. Alles andere steht so oder sinngemäß schon in den Dialogen.
-- Streichen, umschreiben oder kommentieren direkt im Text. Was stehen bleibt, kommt danach in `docs/STORY.md`.
+- Streichen, umschreiben oder kommentieren direkt im Text. Was stehen bleibt, kommt danach in `docs/STORY-REGELN.md`.
 
 ## Bisher geschehen
 
@@ -90,7 +90,7 @@ Entschieden am 13.10., 12:48. Was daraus an neuen Texten folgt, steht im nächst
 
 ## Neue Texte zum Abstimmen
 
-Vier geänderte Dialogzeilen und drei zweite Hörensagen-Sätze. Nach deiner Freigabe gehen sie über `docs/STORY.md` an Tom.
+Vier geänderte Dialogzeilen und drei zweite Hörensagen-Sätze. Nach deiner Freigabe gehen sie über `docs/STORY-REGELN.md` an Tom.
 
 | Wo | Bisher | Neu |
 | --- | --- | --- |

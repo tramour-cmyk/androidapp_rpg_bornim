@@ -3,7 +3,7 @@ Umweltklang (84, D3.15): fernes Wolfsgeheul im Tiefen Wald, fernes Grollen in de
 der pickenden Vögel auf der Wiese. Alle CC0 (QUELLEN.md, „84 Umweltklang“).
 
     python3 tools/klang/umwelt.py <ordner mit den Aufnahmen> <ziel>     # WAV-Proben zum Anhören
-    python3 tools/klang/umwelt.py <ordner mit den Aufnahmen> --spiel    # OGG nach app/src/main/assets/sfx
+    python3 tools/klang/umwelt.py <ordner mit den Aufnahmen> --spiel    # OGG nach godot/daten/klang/sfx
 
 Aufnahmen (Freesound, Vorschau 128 kbit/s): 500646 betchkal „Cooper Creek … solitary wolf howl very clear“ (ein Wolf im
 Wrangell-St.-Elias-Nationalpark, vier Heuler), 143568 ondrosik „wolfs“ (fünf Wölfe), 158780 Paresh „wolves“ (Rudel in
@@ -47,7 +47,7 @@ def finish(x, name): return norm(trim(x, -60), -1.0, RMS[name])
 
 if OUT == "--spiel":
     import subprocess
-    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in S.items():
         for i, x in enumerate(takes):
             tmp = os.path.join(sfx, "_tmp.wav"); write(tmp, finish(x, name))

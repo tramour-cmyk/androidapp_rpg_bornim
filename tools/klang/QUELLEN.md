@@ -1,6 +1,6 @@
 # Quellen der Klänge (Thema 18)
 
-Alle Aufnahmen stehen unter **CC0 1.0** (gemeinfrei, kommerzielle Nutzung erlaubt, keine Namensnennung nötig; Regel in `CLAUDE.md`). Lizenz auf der Quellseite geprüft am 11.10.2026; bei Bearbeitungen auch das Original. Die Klänge in `app/src/main/assets/sfx` entstehen mit `tools/klang/rezepte.py` daraus (geschnitten, teils tiefer gestimmt, gefiltert, mit Raumhall).
+Alle Aufnahmen stehen unter **CC0 1.0** (gemeinfrei, kommerzielle Nutzung erlaubt, keine Namensnennung nötig; Regel in `CLAUDE.md`). Lizenz auf der Quellseite geprüft am 11.10.2026; bei Bearbeitungen auch das Original. Die Klänge in `godot/daten/klang/sfx` (bis 870.9 `app/src/main/assets/sfx`) entstehen mit `tools/klang/rezepte.py` daraus (geschnitten, teils tiefer gestimmt, gefiltert, mit Raumhall).
 
 | Klang im Spiel | Aufnahme(n) | Urheber, Paket | Quelle |
 |---|---|---|---|

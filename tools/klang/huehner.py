@@ -37,7 +37,7 @@ def finish(x, rms=-22): return norm(trim(x, -55), -1.0, rms)
 # ins Spiel (bis zur Wahl des Nutzers auf „Dein Zug“ 83c alle Proben)
 if OUT == "--spiel":
     import subprocess
-    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    sfx = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     chosen = {"hen_cluck": S["gluck"], "hen_scratch": S["scharren"], "hen_alarm": S["gacker"], "hen_flap": S["flattern"]}
     for name, takes in chosen.items():
         for i, x in enumerate(takes):

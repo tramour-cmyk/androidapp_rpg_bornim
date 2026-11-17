@@ -2540,13 +2540,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# ohne in den Schild zu fahren, und der eigene Körper frei bleibt. Der Aufschlag ist der Augenblick, in dem sie am nächsten ist
 	var biss_t: float = bite[nm][1]
 	var biss_von := Vector3.INF
-	# 1284 (Chef 15.11., 12:07, Build 286: „Riesenratte Biss, aber die macht gar keinen Biss … klappt es nur, wenn sie trifft“;
-	# biss_1284 mit Kaufratte: daneben biss sie 0,6–0,8 m weiter weg als beim Treffer, Mitte zu Mitte 2,1 gegen 1,3 m, weil dieser
-	# Weg nur beim Treffer galt und daneben VERFEHLT_M auf den alten Abstand kam; für die kurze Ratte ein Biss in die Luft): daneben
-	# derselbe Weg, die Zähne schnappen BISS_DANEBEN vor Körper oder Schild zu; nur für Tiere unter BISS_KLEIN_M (Ratte, Spinne,
-	# Schnecke): Wolf und Grimmzahn bleiben daneben VERFEHLT_M weiter weg (wolf_mess_438 sonst: Wolf bis 0,14 m in Schild und Stab)
-	if nm == "Biss" and other.fighter.monster == null and (weiter <= 0.0 or hoehe_oben() < BISS_KLEIN_M):
-		var soll: float = -BISS_TIEF if weiter <= 0.0 else BISS_DANEBEN
+	if nm == "Biss" and weiter <= 0.0 and other.fighter.monster == null:
 		var bb: Array = _hieb_bahn(nm, deg_to_rad(bite[nm][2]))
 		if not bb.is_empty():
 			var ziel: Array = other.koerper()
@@ -2556,7 +2550,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
 			for w in [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0]:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
-				var pl: Array = hieb_plan(bb, ziel, other.position, d2, soll, BISS_LUFT, hind)
+				var pl: Array = hieb_plan(bb, ziel, other.position, d2, -BISS_TIEF, BISS_LUFT, hind)
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Biss %s an %s, %.0f°: Stand %.2f (Schnauze %.2f, Körper %.2f), vorher %.2f" % [fighter.id, other.fighter.id, w, pl[0], pl[2], pl[3], stand])
 				if pl[2] <= 0.0:
@@ -3325,8 +3319,6 @@ const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hi
 const BISS_UMRISS := 0.03         # 709: so viel Luft hält der Umriss des Tiers am Bissplatz zu allen (wolf_mess_438: 5 cm tief erlaubt)
 const BISS_LUFT := 0.05           # 709: Körper und Schnauze bleiben so weit vor Körper und Schild des Ziels (wolf_mess_438: 4 cm im Schild)
 const BISS_TIEF := 0.01           # 709: so tief fasst die Schnauze beim Treffer in den Körper (Kapseln; wolf_mess_438 erlaubt 3 cm)
-const BISS_DANEBEN := 0.12        # 1284: daneben schnappen die Zähne so weit vor Körper oder Schild zu (sichtbar knapp, kein Luftbiss)
-const BISS_KLEIN_M := 0.7         # 1284: kleiner als das (Oberkante; Kaufratte 0,52 m, Wolf Schulter 0,8 m) beißt daneben knapp vorbei
 const NACH_T := 0.2               # 709: so lange nach dem Aufschlag beginnt der „zweite Schwung“ (hieb_plan [4])
 const NACH_LUFT := 0.12           # 709: so weit bleibt die Waffe danach vom Ziel (der Getroffene zuckt bis 0,1 m vor)
 const HIEB_VERZUG := 0.05         # 709: der Hieb beginnt mit Überblendung (0,08 s) ein Bild nach dem Aufruf; so viel später der Aufschlag
@@ -3923,41 +3915,6 @@ func koerper() -> Array:
 		if r >= 0.03 * s:
 			out.append([c[0], c[1], r, c[3]] if c.size() > 3 else [c[0], c[1], r])     # 709: der Name für _hieb_bahn
 	return out
-
-
-## 601.1 (Chef 15.11., 11:02: der Pfeil „trifft dann unten eher in der Fußspitze, aber er zuckt oben zurück“): wo ein Geschoss
-## (Pfeil, Wurf, Zauber), das trifft, in den Körper geht: die Oberfläche des Rumpfs (Mensch: Becken bis Hals, Brust oberhalb der
-## Mitte; Tier: Rücken, Brust, Hals), die dem Schützen bei [von] am nächsten liegt; dort zuckt der Getroffene zurück
-## (SS_GetHitLightFront, „Treffer“). Vector3.INF ohne Gerüst (dann wie bisher geschätzt)
-const RUMPF_TEILE := ["spine", "chest", "belly", "waist", "body", "torso", "abdomen", "thorax", "neck", "hals", "root", "pelvis"]
-const BRUST_AB := 0.45     # Mensch: von Becken zum Hals erst ab diesem Anteil (Brust, nicht Bauch)
-func treffpunkt_fern(von: Vector3) -> Vector3:
-	var rumpf: Array = []
-	if fighter.monster == null:
-		for c: Array in kapseln():
-			if float(c[2]) >= 0.13:     # MENSCH_KAPSELN: nur Becken–Brust (0,17) und Brust–Hals (0,14)
-				rumpf.append(c)
-		if rumpf.size() == 2:     # eine Strecke ab BRUST_AB von Becken zum Hals
-			var a: Vector3 = rumpf[0][0]
-			var b: Vector3 = rumpf[1][1]
-			rumpf = [[a.lerp(b, BRUST_AB), b.lerp(a, 0.1), float(rumpf[1][2])]]
-	else:
-		for c: Array in koerper():
-			var nm := String(c[3]).to_lower() if c.size() > 3 else ""
-			for w: String in RUMPF_TEILE:
-				if nm.contains(w):
-					rumpf.append(c)
-					break
-	var best := Vector3.INF
-	var naechst := INF
-	for c: Array in rumpf:
-		var q: Vector3 = Geometry3D.get_closest_point_to_segment(von, c[0], c[1])
-		var d: Vector3 = von - q
-		var p: Vector3 = q + (d.normalized() * float(c[2]) if d.length() > 0.001 else Vector3.ZERO)
-		if von.distance_to(p) < naechst:
-			naechst = von.distance_to(p)
-			best = p
-	return best
 
 
 ## 709: der Weg eines Angriffs [hn] im eigenen Raum (+Z zum Ziel, wie _face; [versatz]: so weit dreht die Figur beim Angriff aus der

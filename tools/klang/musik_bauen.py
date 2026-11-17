@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Macht aus den geladenen Stücken (tools/klang/musik_holen.sh) die OGG-Dateien in app/src/main/assets/music (Thema 28, 28i).
+"""Macht aus den geladenen Stücken (tools/klang/musik_holen.sh) die OGG-Dateien in godot/daten/klang/music (Thema 28, 28i).
 
 Aufruf: python3 -I tools/klang/musik_bauen.py <Ordner mit den geladenen Dateien> [Arbeitsordner]
 - Stereo, 44,1 kHz, Vorbis; Musik ~112 kbit/s (q 3), Klangflächen (grund_*) ~80 kbit/s (q 1).
@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 SRC = pathlib.Path(sys.argv[1])
-OUT = pathlib.Path(__file__).resolve().parents[2] / "app/src/main/assets/music"
+OUT = pathlib.Path(__file__).resolve().parents[2] / "godot/daten/klang/music"
 OUT.mkdir(parents=True, exist_ok=True)
 TMP = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else SRC.parent / "musik_tmp"
 TMP.mkdir(exist_ok=True)

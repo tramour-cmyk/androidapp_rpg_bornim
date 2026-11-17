@@ -58,8 +58,8 @@ Eine Zeile je Quelle, die wir nutzen oder gekauft haben; was wir davon haben, st
 | Quelle | Link | Lizenz | bezahlt | wofür | F2 |
 |---|---|---|---|---|---|
 | Quaternius: Universal Animation Library 1 (Pro, Standard, Source) | https://quaternius.itch.io/universal-animation-library | CC0 | Pro 9,99 $ (Chefsache 348.12b), 26.10., 13:36 (Stufe 1); Source liegt mit im Bestand, Preis fehlt | Bewegungen, Gerüst 65 Knochen | ja |
-| Quaternius: Universal Animation Library 2 (Source) | https://quaternius.itch.io/universal-animation-library-2 | CC0 (Seite, 16.11.; Datei prüft 1386) | 14,99 $, 16.11., 09:41 | Bewegungen (über 110), mit und ohne Wurzelweg | ja |
-| Quaternius: Fantasy Props MegaKit (Source) | https://quaternius.itch.io/fantasy-props-megakit | CC0 (Seite, 16.11.; Datei prüft 1395) | 14,99 $, 16.11., 09:41 | über 200 Einrichtungsteile, abgenutzte Texturen, .blend | ja |
+| Quaternius: Universal Animation Library 2 (Source) | https://quaternius.itch.io/universal-animation-library-2 | CC0 (Seite und `License.txt`, 16.11., 1386) | 14,99 $, 16.11., 09:41 | 134 Bewegungen, mit und ohne Wurzelweg (`LISTE-BESTAND.md`) | ja |
+| Quaternius: Fantasy Props MegaKit (Source) | https://quaternius.itch.io/fantasy-props-megakit | CC0 (Seite und `License_Source.txt`, 16.11., 1395) | 14,99 $, 16.11., 09:41 | 211 Teile (96 mehr als frei), abgenutzte Texturen, .blend, Godot-Kollision (`LISTE-BESTAND.md`) | ja |
 | Quaternius: Universal Base Characters (Source) | https://quaternius.itch.io/universal-base-characters | CC0 | etwa 20 $, 27.10. | Körper, Köpfe | ja |
 | Quaternius: Modular Character Outfits – Fantasy (Source) | https://quaternius.itch.io/modular-character-outfits-fantasy | CC0 | 20 $ (Source laut Seite), 27.10. | Trachten (Krogg, Grak) | ja |
 | Quaternius: Medieval Village MegaKit, Stylized Nature MegaKit, Fantasy Props MegaKit (Standard) | https://quaternius.com/packs/medievalvillagemegakit.html, https://quaternius.com/packs/stylizednaturemegakit.html, https://quaternius.com/packs/fantasypropsmegakit.html | CC0 (Seiten geprüft 09.11.) | frei | Raumteile, Einrichtung, Steine | ja |

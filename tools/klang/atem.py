@@ -4,7 +4,7 @@ Keuchen des Helden (95, zu 86.3; Nutzer 15.10., 16:5x: „Atem mit Anzeige … h
 BigSoundBank 1103 „Breathless Man“ und 1345 „Breathless Woman“ (Joseph Sardin).
 
     python3 tools/klang/atem.py <ordner mit bsb_1103.mp3, bsb_1345.mp3> <ziel>     # Hörprobe: 10 s Keuchen, die Pausen werden länger
-    python3 tools/klang/atem.py <ordner> --spiel                                  # nach app/src/main/assets/sfx (pant_man_1–3, pant_woman_1–3)
+    python3 tools/klang/atem.py <ordner> --spiel                                  # nach godot/daten/klang/sfx (pant_man_1–3, pant_woman_1–3)
 
 Ein Atemzug reicht von einer Stille zur übernächsten (Ausatmen, dann Einatmen); die Zeiten stammen aus dem Pegelverlauf
 der Aufnahme in 50-ms-Schritten. Das Spiel reiht sie aneinander (core/.../audio/Panting.kt).
@@ -26,7 +26,7 @@ S = {
 }
 
 if OUT == "--spiel":
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "app", "src", "main", "assets", "sfx")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "godot", "daten", "klang", "sfx")
     for name, takes in S.items():
         for i, x in enumerate(takes):
             tmp = os.path.join(out, "_tmp.wav"); write(tmp, x)

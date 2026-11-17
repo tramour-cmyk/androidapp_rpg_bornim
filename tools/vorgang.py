@@ -56,6 +56,9 @@ def finden(nr, rolle=None):
 def fehler_oder(d, alt=None):
     alle = set(startbar.VORG) | {x["nr"] for x in startbar.zeilen_liste()}
     f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN)), alle)
+    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert
+    if alt is not None and d.get("titel") == alt.get("titel"):
+        f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
     # Chef nur mit Datei (275.2): beim Schreiben streng, beim Lesen erfüllt sie sich (Datei weg)
     for t in d["warte"]:
         if startbar.art(t) == "chef" and (alt is None or t not in alt["warte"]):
@@ -78,12 +81,28 @@ def warte_aus(text):
 
 GEPRUEFT = startbar.GEPRUEFT
 
+def commit_nicht_gepusht(stand):
+    """1400: der Commit hinter „Geprüft an:“ muss auf einem Zweig von origin liegen; ein Rebase danach ändert sonst die Kennung."""
+    m = re.search(r"Geprüft an:?\s*`?([0-9a-f]{7,40})`?(?![\w/])", stand)
+    if not m: return None
+    def auf_origin():
+        r = subprocess.run(["git", "-C", DOCS, "branch", "-r", "--contains", m.group(1)], capture_output=True, text=True, timeout=30)
+        return r.returncode == 0 and r.stdout.strip() != ""
+    try:
+        if auf_origin(): return None
+        subprocess.run(["git", "-C", DOCS, "fetch", "-q", "origin"], capture_output=True, timeout=60)
+        return None if auf_origin() else m.group(1)
+    except (OSError, subprocess.SubprocessError):
+        return None   # ohne Netz nicht sperren
+
 def stand_pruefen(stand, nr):
     w = startbar.wort_von(stand)
     if not w: sys.exit("vorgang.py: Stand muss mit einem Wort der Liste beginnen (%s)" % ", ".join(startbar.WORTE))
     if "|" in stand or "\n" in stand: sys.exit("vorgang.py: Stand ohne | und Zeilenumbruch")
     if w == "gebaut" and not GEPRUEFT.search(stand):  # 340.4 (Chef 02.11., 19:44, „340.2 ja“, B)
         sys.exit("vorgang.py: „gebaut“ braucht „Geprüft an: <Link, Lauf-Nummer oder Commit>“ im Stand (340.4)")
+    if (fehlt := commit_nicht_gepusht(stand)):  # 1400 (D261.1): Kurzform vor einem Rebase nennt später einen Commit, den es nicht gibt
+        sys.exit("vorgang.py: Commit %s steht auf keinem Zweig von origin; erst pushen (nie danach rebasen), dann „Geprüft an: <Commit>“ (1400)" % fehlt)
     if len(startbar.zusatz_von(stand)) > 120: sys.exit("vorgang.py: Zusatz über 120 Zeichen; Einzelheiten als „Zu %s“ in den Vorrat" % nr)
     return w
 
@@ -264,7 +283,7 @@ def bautest(nr, lauf, rolle=None):
         print("vorgang.py: %s steht auf „%s“; „bautest“ gilt nur für gebaute oder zu testende Vorgänge" % (nr, d["stand"])); sys.exit(1)
     fertig(nr, rolle)
     d = finden(nr, rolle)
-    ersetzen(d, dict(d, stand="erledigt, Bautest Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip()))
+    ersetzen(d, dict(d, stand="erledigt, Bautest Lauf %s" % re.sub(r"^\s*Lauf\s*", "", lauf).strip(), warte=[w for w in d.get("warte") or [] if w != "Diogenes"]))
 
 def gruppe(L, besitzer):
     """Zeilenindizes der Zeilen eines Besitzers und Einfügestelle für einen neuen Besitzer (Reihenfolge wie die Liste)."""
@@ -516,6 +535,10 @@ def arten(n, text):
             if m0 and i < len(t): aus[m0.group(1)] = re.sub(r"\*\*|`", "", t[i]).strip()
     return aus
 
+def ohne_dich(art_text):
+    """1500: Art „ohne dich“ (Diogenes bestätigt am Lauf), auch mit Zusatz in Klammern."""
+    return bool(re.match(r"ohne dich\b", art_text.strip().lower()))
+
 def handy_offen(n, text, punkte=None):
     """1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“, t286 nach 👍 auf 286.1–.5 gelöscht): Handypunkte ohne Ergebnis;
     solange einer offen ist, bleibt die Prüfliste in ansehen/ und seine Vorgänge bleiben „zu testen“ mit Build n."""
@@ -571,6 +594,7 @@ def build_abschluss(n, datei=None, probe=False):
     fremd = sorted({d["nr"] for d in zs if d["nr"] in je and d not in betroffen and d["wort"] != "erledigt"})
     if not betroffen: sys.exit("vorgang.py: kein Vorgang mit Build %s in der Liste; erst vorgang.py build %s --mit <Nr,…>%s" % (n, n, ("; in der Prüfliste genannt: " + ", ".join(fremd)) if fremd else ""))
     offen_h = handy_offen(n, text, punkte)
+    arten_n = arten(n, text)
     aus = []
     for d in betroffen:
         p = je.get(d["nr"], [])
@@ -585,6 +609,11 @@ def build_abschluss(n, datei=None, probe=False):
             neu_d = dict(d, stand="erledigt, t%s bestanden" % n, warte=[], build=str(n)); was = "erledigt"
         elif any(x[0] in offen_h for x in p):  # 1277: Handypunkt ohne Ergebnis, der Chef testet noch
             neu_d = d; was = "zu testen (Handy offen: %s)" % ", ".join(x[0] for x in p if x[0] in offen_h)
+        elif p and all(ohne_dich(arten_n.get(x[0], "")) for x in p if x[1] is None):
+            # 1500 (Chef 16.11., 22:42 „wie kann von 292 noch was offen sein?“): ein offener „ohne dich“-Punkt liegt bei Diogenes
+            # (Bautest am Lauf), nicht beim Chef; der Stand sagt das, Diogenes sieht die Zeile über das Feld „wartet auf“
+            neu_d = dict(d, stand="zu testen, Bautest Diogenes t%s" % n, build="–", warte=[w for w in d.get("warte") or [] if w != "Diogenes"] + ["Diogenes"])
+            was = "zu testen (Bautest Diogenes)"
         else:
             neu_d = dict(d, stand="zu testen, ohne Rückmeldung t%s" % n, build="–"); was = "zu testen (keine Rückmeldung)"
         aus.append((d, neu_d, durch, was))
@@ -604,6 +633,9 @@ def build_abschluss(n, datei=None, probe=False):
         alt = finden(d["nr"], d["besitzer"] if d["nr"] in startbar.SONDER else None)
         ersetzen(alt, neu_d)
         for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
+        # 1445 (Chef 16.11., 14:36): eine Anmerkung bei „Passt“ („- n.k ✓ <Anmerkung>“) geht als Absatz an den Besitzer, nie verloren
+        for k, e, f in [x for x in je.get(d["nr"], []) if x[1] == "✓" and x[2] and not x[2].startswith("👍")]:
+            zu_absatz(d["besitzer"], d["nr"], "Anmerkung t%s (✓), Test Build %s, Automatik B" % (k, n), f)
     ohne = sorted(nr for nr in je if not any(d["nr"] == nr for d in zs))
     print("vorgang.py build %s: %d Vorgänge (%s); Prüfliste %s%s%s" % (n, len(aus), ", ".join("%s %s" % (d["nr"], w.split()[0]) for d, _, _, w in aus), os.path.relpath(pfad, os.path.dirname(DOCS)) if not pfad.startswith("git:") else pfad,
                                                           ("; ohne Listenzeile: " + ", ".join(ohne)) if ohne else "",

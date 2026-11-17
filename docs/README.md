@@ -61,7 +61,7 @@ Arbeitslisten; du musst sie nicht lesen.
 - [Simulation](LISTE-SIMULATION-444.md): Rechenprobe, wie stark Helden je Herkunft und Stufe werden (Stand 12.11., vor dem Kerbensystem).
 - [Testgeräte](LISTE-TESTGERAETE.md): welche Handys getestet werden und wie schnell das Spiel darauf läuft.
 - [Glossar](LISTE-GLOSSAR.md): unsere Begriffe und Abkürzungen von A bis Z.
-- [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): freitags je Rolle, was sie tun soll und was sie getan hat.
+- [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): mittwochs je Rolle, was sie tun soll und was sie getan hat.
 - Handwerk: [Bauen und Testen](LISTE-BAUEN-TESTEN.md) · [Checkliste Build und Test](LISTE-CHECK-BUILD-TEST.md) · [Betrieb](LISTE-BETRIEB.md) · [Prüfen](LISTE-PRUEFUNG.md) · [Auswertung Prüfbögen](LISTE-AUSWERTUNG-PRUEFBOGEN.md) · [Release und Neustart](LISTE-RELEASE-NEUSTART.md) · [Regeltreue](LISTE-REGELTREUE.md).
 
 ## Firma

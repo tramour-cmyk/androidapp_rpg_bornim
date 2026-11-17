@@ -14,6 +14,16 @@ Montags ab 8 Uhr legt `startbar.py` den Vorgang „Wochentermin TT.MM.: Wochenz�
 | **Testrunden des Chefs** | gelöschte Dateien in `docs/chefsache/ansehen/` (`git log`) |
 | **Ersparte Fragen** durch Vorentscheid (unter 5 je Woche fällt der Vorentscheid weg, 98.2) | Einträge „Vorentscheid“ in `VORGANGSARCHIV.md` |
 | **Zielvereinbarung 341 je Rolle:** „x von n erfüllt“, je Ziel die Zahl | unten |
+| **Liegengebliebenes über 6 h, obwohl gesehen** (1463): Fälle der Woche je Rolle, die es sah; Median der Liegezeit | siehe unten |
+
+### Liegengebliebenes über 6 h (1462, 1463; Haltung 4)
+
+**Fall:** bei einem anderen bleibt etwas liegen oder geht schief, oder jemand blockiert selbst, und ein Beleg zeigt, dass eine Rolle es sah. **Liegezeit:** vom ersten Beleg bis zum Vorgang beim Besitzer (Commit in `LISTE-VORGAENGE.md`), zur Behebung oder, beim eigenen Hindernis, bis zur Meldung (`send_message` oder Vorgang). Zählt bei über 6 h, auch wenn Montag 8 Uhr noch offen; ein Fall einmal, auch mit mehreren Belegen; gezählt bei der Rolle, die es zuerst sah. Belege:
+- **Vorgangsliste:** neu angelegte Nummern (im Commit `+` ohne `-` derselben Nummer; `git log -p -U0 -- docs/LISTE-VORGAENGE.md`), deren Titel eine Anlasszeit „TT.MM., HH:MM“ über 6 h vor dem Commit nennt. Nur Kandidaten: Fall erst, wenn die Zeit ein Sehen war (Fund, Meldung, Chefwort), nicht ein Zustand („seit …“). Probe 14.–16.11.: 263 neue, 9 Kandidaten.
+- **Vorräte:** Commits der Woche, die einen Mangel eines anderen (Rolle genannt; fehlt, liegt, rot, falsch, kaputt, blockiert) nur in einen Vorrat schreiben, ohne Vorgang binnen 6 h.
+- **Telegram** (Zweig `meldungen`, `meldungen.tsv`): Meldungen mit solchem Mangel ohne Vorgang beim Besitzer binnen 6 h.
+- **Werkzeugwarnungen**, die jede Sitzung beim Start sieht (`notiz.sh`, Haken: toter Link, veraltet, über 60 KB …), ohne Vorgang oder Pflegezeile; Beginn ist der Commit, der den Zustand schuf.
+- **Eigenes Hindernis:** Stichprobe fünf Sitzungen je Woche (`list_events`): Werkzeug abgelehnt, Zugang fehlt, wartet auf andere, ohne Meldung binnen 6 h.
 
 ### Zielvereinbarung 341 (alle Rollen; Chef 23.10., 09:53, Probe Perikles bestanden 07.11.; ersetzt „je Rolle eine Kennzahl“)
 
@@ -22,15 +32,6 @@ Je Rolle höchstens drei Ziele: **Z3** und **Z4** für alle, **Ze** eigen (Tabel
 - **Z4 Eigene Verbesserung:** mindestens 1 eigener Vorschlag je Woche mit Wirkung, Kosten, Gegenargument, vom Chef mit „ja“ oder „ja, aber“ angenommen (neue Chefsache-Datei laut `git log --diff-filter=A`, Wort im Vorgangsarchiv; gebilligter Vorentscheid zählt).
 - **Folge:** zwei Wochen hintereinander dasselbe Ziel verfehlt → Sokrates legt dem Chef eine Vorlage vor (Rolle, Modell oder Ziel ändern); für Sokrates selbst Perikles.
 - Diogenes zählt, Perikles meldet montags mit dem Wochenziel eine Zeile je Rolle, unverändert mit Link.
-
-## Leichenprüfung (1189 A, Chef 13.11., 17:09; Werkzeug 1192)
-
-- Alle 48 h, ab 17.11., legt `lauf.py --sperre` dir den Vorgang „Leichenprüfung TT.MM.“ an (nicht, solange einer offen ist).
-- `startbar.py --leichen 7` gegen Archiv und Code: erledigt, überholt, hängt die Zeile? `startbar.py --urteile 48`: jedes Urteil des Chefs der letzten 48 h gegen die Zeile derselben Nummer (folgen Stand, Klasse, Titel dem Wortlaut?).
-- Nummern in einer offenen Zeile „Urteil alte Zeilen“ (montags, 1188) überspringst du.
-- Funde je Besitzer ein Vorgang (Nummer, was nicht stimmt, ein Satz); der Besitzer schließt, du änderst keine Zeile.
-- Höchstens 10 $ je Lauf: ab 8 $ (`get_session` ohne Kennung) Schluss, Rest in die Übergabe.
-- Eine Zeile im Prüfbericht: Treffer, Funde, Kosten (Rückstufung auf montags prüft Sokrates am 27.11.); dann den Vorgang schließen.
 
 ## Wie du prüfst
 
