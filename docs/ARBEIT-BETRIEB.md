@@ -52,6 +52,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:31 17.11.: Startsperre 10:31 Start Tom (selbst) – Neustart auf Meldung 10:25 (92be1c9df).
 - 10:27 17.11.: Startsperre 10:27 Start Jerry (selbst) – Neustart auf Meldung 10:19 (720cfaf9c).
 - 10:22 17.11.: Startsperre 10:22 Start Sokrates (selbst) – Neustart auf Meldung 10:18 (a8ec14a1e).
+- 17.11., 10:33 Ford: Tom-Neustart `…77SRiAi6pEtMKx6z7N` (431h Stufe 2), alter archiviert, 19,25 $ auf 296, 1516, 1417, 1515, 1535, 785.10.
 - 17.11., 10:28 Ford: Jerry-Neustart `…75aoSZgtM2AQoGfirC` (Sammelbuild 785.11/785.15/785.17/785.12), alter archiviert, 14,21 $ auf 1505, 1340, 785.11, 785.15, 785.17, 1275, 1527. Tom Neustart-Meldung 10:25 (92be1c9df), Sitzung working, Prüfung 10:30.
 - 17.11., 10:24 Ford: Sokrates-Neustart `…78qEvbcgDXCfWfsxLn` (1529), alter archiviert, 9,02 $ auf 1529, 1520; Link Build 296 nicht gesendet (Chef 10:03 „296 warten“). Diogenes 1425 läuft, „Weiter: 1538“. Perikles `…777UC4mRXgFsJi1T9s` nicht archiviert: offene Frage „Soll ich das bauen?“ (Fehlerhäufung Übergabe/Nachtragen) an den Chef, Neustart-Nachfolger erst 18.11. Jerry Neustart-Meldung 10:19 wartet (Sitzung working), Prüfung 10:25.
 - 17.11., 10:04 Ford: Lauf 10:03 (vorgezogen 10:01): Start Diogenes `…79xM5rV6bTs6ZDkmXE` (1425), Perikles `…777UC4mRXgFsJi1T9s` (M? 1535, 1538); Spike „Weiter: 1537“; alte Diogenes (1,87 $ auf 1531) und Perikles (5,42 $ auf Betrieb) archiviert. URTEIL 785.10 ins Archiv.
