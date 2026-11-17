@@ -1,5 +1,7 @@
 # 458.3 · Waffenstaffel im Spiel: Form nach Stufe, Farbe nach Seltenheit am Helden
 
+[Film von 18.11., 00:22](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261118-002231-458.3/2026-11/18-0022-458.3-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Spike · 18.11., 00:20 · aus 458.3 (dein Wort 01.11.: „Staffel nach Stufe, Seltenheit über Material und Zeichen“; 02.11.: Modelle und Staffel passen)
 Kurz: Die 45 Formen aus den Kaufpaketen (Omie, Anker, Avramania) werden im Bau fürs Spiel gebaut und hängen am Helden: 18 Waffenarten, Form nach Stufe des Gegenstands, Farbe nach Seltenheit. Zwei Filme mit dem gehenden Kämpfer.
 
