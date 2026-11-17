@@ -15,7 +15,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/6661a2
 
 **Sachverhalt:**
 - Tablet (`LISTE-TESTGERAETE.md`, Galaxy Tab A9+): Kampf 25 Bilder/s, 153 Tsd. Dreiecke. Welt 10 Bilder/s, 2,7 Mio. Dreiecke, Grafikzeit 99 ms; Schatten aus halbiert die Dreiecke (1,4 Mio.) und spart 12 ms.
-- Dorf und Wald sind je **ein** Netz `Dorf_Netz` (Wald 444 Tsd. Dreiecke, 13 Stoffe). Davon ist nur 7 % (Dorf) bzw. 22 % (Wald) im Bild. Godot muss aber alles zeichnen, weil es ein einziges Netz nicht teilweise weglassen kann. Gemessen am 16.11.: Zellen von 12 m sparen 54 % (Dorf) bzw. 57 % (Wald) der gezeichneten Dreiecke.
+- Dorf und Wald sind je **ein** Netz `Dorf_Netz` (Wald 444 Tsd. Dreiecke, 13 Stoffe). Davon ist nur 7 % (Dorf) beziehungsweise 22 % (Wald) im Bild. Godot muss aber alles zeichnen, weil es ein einziges Netz nicht teilweise weglassen kann. Gemessen am 16.11.: Zellen von 12 m sparen 54 % (Dorf) beziehungsweise 57 % (Wald) der gezeichneten Dreiecke.
 - Neu heute am Rechner (Wald an der Stelle 9/12,, Grafikzeit; der Rechner zeichnet ohne Grafikkarte, darum zählen nur die Anteile): ohne das große Netz −64 %, ohne Schatten −34 %. Das Laub allein (193 Tsd. Dreiecke) kostet −25 %. Die zwei Zusatz-Durchgänge der Durchsicht an Laub und Rinde (6 Stoffe, die ganze Karte) kosten −16 %. Gras −5 %, Tusche −3 %.
 - Die Durchsicht braucht nur die Bäume zwischen Kamera und Held; heute laufen ihre Durchgänge an allen Bäumen der Karte (`gebiet.gd`, `durchsicht`).
 
