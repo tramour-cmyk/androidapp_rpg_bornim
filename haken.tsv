@@ -811,3 +811,4 @@
 2026-11-17 12:15:17	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/tom-1530-fackeln ändert Spielcode (godot/skripte/zwischenb	claude/tom-1530-fackeln
 2026-11-17 12:16:37	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1551a-ford-uhr-erlaubnis.md: fehlt Numme	HEAD
 2026-11-17 12:16:45	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1551a-ford-uhr-erlaubnis.md: fehlt Numme	HEAD
+2026-11-17 12:22:34	commit-pruefung	docs/ROLLE-BETRIEB.md: 9236 Bytes, Obergrenze 8700, Commit fügt 544 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
