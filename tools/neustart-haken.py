@@ -74,6 +74,23 @@ def text(stufe, plus, gesamt, ab=AB, ford=False):
 ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)( \d)?"
 
 
+def ist_ford():
+    """1574: diese Sitzung ist der aktuelle Ford laut ARBEIT-BETRIEB.md („Ford (aktuell)“), auch wenn die erste Nachricht nicht mit „Ford“ beginnt
+    (Handstart des Chefs 17.11., 18:24: Haken erkannte ihn nicht)."""
+    import re
+    kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "").split("_", 1)[-1]
+    if not kennung:
+        return False
+    for d in ("/home/user/bornim-main", os.environ.get("CLAUDE_PROJECT_DIR") or "."):
+        try:
+            m = re.search(r"\*\*Ford \(aktuell\)\*\* `session_(\w+)`", open(os.path.join(d, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read())
+        except OSError:
+            continue
+        if m:
+            return m.group(1) == kennung
+    return False
+
+
 def name(pfad, sitzung):
     """462: Rolle aus der ersten Nachricht („Wer man ist, sagt die erste Nachricht“), je Sitzung zwischengespeichert."""
     import re
@@ -195,7 +212,7 @@ def prompt(eingabe):
     ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) else AB  # 818
     ford = False
     try:  # 1574 (Chef 17.11., 18:31): Ford bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
-        if name(pfad, sitzung).startswith("Ford"):
+        if name(pfad, sitzung).startswith("Ford") or ist_ford():
             return
     except Exception:
         pass
@@ -287,7 +304,7 @@ def werkzeug(eingabe, art):
         return 0
     gesamt = letzte_groesse(pfad)
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
-    ford = name(pfad, sitzung).startswith("Ford")
+    ford = name(pfad, sitzung).startswith("Ford") or ist_ford()
     if ford:  # 1574: Ford bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
     doppelt = ford or os.path.isdir(os.path.join(KAUF, ".git"))
