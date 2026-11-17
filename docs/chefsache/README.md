@@ -116,11 +116,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 |---|---|---|---|
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | nach dem Meilenstein |
 
-**Tom** – offen 58, Muss 13, startbar 8
+**Tom** – offen 60, Muss 15, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1423b | M | Von Chef (17.11., 11:01, an Sokrates, t296.1) „jetzt“ 17.11., 11:01: Loch um den Helden hi | wartet auf Test (Build 297) |
+| 1559 | M | Von Werkzeug (1334): Wiederholrot pruefliste_1020: 2× rot in 48 h (Läufe 500, 499); Ursach | startbar |
+| 1558 | M | Von Werkzeug (1334): Wiederholrot lage_785_8: 4× rot in 48 h (Läufe 522, 519, 508, 504); U | startbar |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf Test t297 (Chef) |
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht bis 23.11. |
 | 1297 | M | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schil | wartet auf 431 (wartet) |
@@ -162,7 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 954a.12 | K | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Lederarb | wartet auf 870 (wartet) |
 | 954a.9 | K | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (wartet) |
 | 976 | K | Von Sokrates (Chef 11.11., 16:31): Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS H | wartet auf 966.2 (startbar) |
-| 1155 | K | Von Sokrates (623.8 A, Chef 09.11., 22:23; Lücke, Chef 13.11., 15:12 „wann kommt … Teich u | startbar |
+| 1155 | K | Von Sokrates (623.8 A, Chef 09.11., 22:23; Lücke, Chef 13.11., 15:12 „wann kommt … Teich u | Chef (Datei in der Chefsache) |
 | 1157 | K | Von Sokrates (Archivprüfung, 1038 A R1, Chef 12.11., 16:24): Verband herstellen mit dem Re | wartet auf 976 (startbar) |
 | 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | ruht |
 | 1167 | K | Von Sokrates (Archivprüfung, 453.1 Chef 01.11.; 453a B 02.11.): Atmen für die Dorftiere (g | startbar |
@@ -179,11 +181,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 622 | K | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | nach dem Meilenstein |
 | 1280 | K | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 6 | nach dem Meilenstein |
 
-**Jerry** – offen 72, Muss 23, startbar 24
+**Jerry** – offen 80, Muss 31, startbar 30
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1547 | M | Von Chef (17.11., 11:07, an Sokrates) „jetzt“ 17.11., 11:07: einen vernünftigen Build 297 | startbar |
+| 1547 | M | Von Chef (17.11., 11:07, an Sokrates) „jetzt“ 17.11., 11:07: einen vernünftigen Build 297 | wartet auf Diogenes |
+| 1561 | M | Von Werkzeug (1334): Wiederholrot stehen_973: 2× rot in 48 h (Läufe 524, 518); Ursache nac | startbar |
+| 1560 | M | Von Werkzeug (1334): Wiederholrot reihe_1305: 3× rot in 48 h (Läufe 537, 524, 518); Ursach | startbar |
+| 1557 | M | Von Werkzeug (1334): Wiederholrot einschlag_6011: 2× rot in 48 h (Läufe 539, 537); Ursache | startbar |
+| 1556 | M | Von Werkzeug (1334): Wiederholrot dreh_1072: 2× rot in 48 h (Läufe 552, 537); Ursache nach | startbar |
+| 1555 | M | Von Werkzeug (1334): Wiederholrot biss_1284: 3× rot in 48 h (Läufe 537, 524, 518); Ursache | startbar |
+| 1554 | M | Von Werkzeug (1334): Wiederholrot ausholen_1000: 4× rot in 48 h (Läufe 503, 497, 496, 489) | startbar |
+| 1553 | M | Von Werkzeug (1334): Wackeltest atem_4531: rot und grün am selben Commit (Läufe 507, 492); | startbar |
 | 1545 | M | Von Perikles (1543): Halt-Zeile oben im Vorrat streichen: Bedingung erfüllt (Halt Chef 13. | startbar |
 | 1514 | M | Von Spike (Lauf 546, Build 295 mit Jerrys Nachtrag): rot typen.py (kampf/treffer_fx.gd 21 | wartet auf Test (Build 297) |
 | 1505 | M | Von Spike (Lauf 544, Build 295): rot wolf_mess_438 (973: Wölfe rücken nach einem Tod ohne | wartet auf Test (Build 297) |
@@ -204,6 +213,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1305 | M | Von Sokrates (Chef 15.11., 17:18, Probekampf 3 Wölfe, wohl Build 288): Kämpfer mit Schwert | wartet auf Test (Build 292) |
 | 1340 | M | Aus 1215 (Jerry 15.11., 13:08): Sterben mit Physik fehlt noch für Skelett und Wiedergänger | Termin 17.11. 18:00 |
 | 1541 | M | Von Jerry (Rest aus 1275, Diogenes D295.1): Taumeln im Kerbensystem auch bei Zurückdrängen | startbar |
+| 1552 | M | Von Jerry (Lauf 552): Kauf-Cache klassen enthält godot/daten/werte.json, gegenstaende.json | wartet auf Test/Build (gebaut) |
 | 438a | K | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv | ruht bis 23.11. |
 | 416.6 | K | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.1 | ruht bis 23.11. |
 | 406.1 | K | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff; Regelvorschlag, dann | wartet auf 469 (ruht) |
@@ -212,7 +222,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 494 | K | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Woche | ruht bis 23.11. |
 | 507 | K | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | ruht bis 23.11. |
 | 496 | K | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | ruht bis 23.11. |
-| 385.2 | K | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | Termin 17.11. 18:00 |
+| 385.2 | K | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | wartet auf Sokrates |
 | 344.2 | K | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | ruht bis 23.11. |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | startbar |
 | 39 | K | Schwierigkeitsgrad im Menü | ruht bis 23.11. |
@@ -267,7 +277,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 30 | K | Abstürze beim Testen | ruht bis 23.11. |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 
-**Perikles** – offen 28, Muss 20, startbar 0
+**Perikles** – offen 26, Muss 20, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -296,25 +306,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 23.11. |
 | 1396 | K | Von Ford (Tuffy 16.11., 10:00): lauf.py startet Tuffy auf Zeile 1393, die Jerry schon in s | wartet auf Test/Build (gebaut) |
 | 1523 | M | Von Sokrates (870, Schritt 9): CLAUDE.md erster Absatz: Satz „der Hinweis SRD 5.1 · CC BY | wartet auf 1522 (zu testen) |
-| 1539 | K | D298.1 von Diogenes (1425): vorratspruefung.py meldet beurteilte Fehlalarme täglich neu (K | wartet auf Diogenes |
 | 1542 | K | Von Perikles (1425): vorratspruefung.py meldet K bei Chefentscheid ohne Folgeauftrag (1423 | Termin 18.11. |
-| 1544 | K | D302.1 von Diogenes (1539): vorratspruefung.py nimmt bei K jede Nummer <Build>.<n> mit get | wartet auf Diogenes |
 
-**Diogenes** – offen 9, Muss 6, startbar 2
+**Diogenes** – offen 8, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1547 | M | Von Chef (17.11., 11:07, an Sokrates) „jetzt“ 17.11., 11:07: einen vernünftigen Build 297 | Termin 17.11. 13:38 |
 | 1301 | M | Von Sokrates (Chef 15.11., 16:54 zu 760: „vielleicht kommt ja jemand auch auf die Idee noc | Termin 23.11. |
 | 1387 | M | Von Sokrates (1129.4, Punkt 6 gerissen): Übersicht-Commits 15.11. 193 (14.11.: 37), Ursach | Termin 23.11. |
 | 1389 | M | D257.2 von Diogenes (1244): Pflegehinweis-Commits 15.11. 38 (13.11.: 79), Anteil 2,6 % geg | Termin 18.11. |
-| 1539 | K | D298.1 von Diogenes (1425): vorratspruefung.py meldet beurteilte Fehlalarme täglich neu (K | startbar |
-| 1544 | K | D302.1 von Diogenes (1539): vorratspruefung.py nimmt bei K jede Nummer <Build>.<n> mit get | startbar |
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | Termin 23.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 
-**Sokrates** – offen 37, Muss 7, startbar 5
+**Sokrates** – offen 38, Muss 7, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -346,6 +353,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 17.11.; „star
 | 1510 | K | Systemlösung? Teich: 5 frühere Vorgänge (1155, 509, 507, 509a, 493), neu 623.9; einmal gru | startbar |
 | 1521 | K | Figurenkatalog Build 3 (Rest aus 649, 649b A; Perikles 17.11.: Muss 649 schließt nach Buil | wartet auf 649.3 (ruht) |
 | 1532 | K | Von Chef (17.11., 08:41, Idee, ja zur Vorlage 08:46): Hinterhalt mit dem Rücken: Held steh | startbar |
+| 385.2 | K | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) (für Je | startbar |
 | 1533 | K | Von Chef (17.11., 08:44/08:52, Idee): Gegner ohne Zahlen: Zustand und Stärke in Worten nac | ruht |
 | 1534 | K | Von Chef (17.11., 08:53, Idee): Gegnerkunde: Reiter „Gegner“ in der Chronik, füllt sich mi | ruht |
 | 366 | K | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | ruht bis 24.11. |
