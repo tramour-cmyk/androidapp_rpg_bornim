@@ -29,3 +29,7 @@ Im Bau geprüft: Merkmale je Gegner beim Kampfbeginn, höchstens eines je Gegner
 ## Lagen
 
 - 295.2: probe=WOLVES herkunft=Jägerkind
+
+## Ergebnis
+
+- 295.2 ✓ (Chef 17.11., 08:09, Bildschirmfoto: „wenn der Wolf normal ist, steht sozusagen nichts dabei. Wenn er der Durchschnittswolf ist, dann passt das alles.“ Wolf 1 ohne Merkmal 25/25, Wolf 2 angeschlagen −30 % 18/18, Wolf 3 kräftig +15 % 29/29)
