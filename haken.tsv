@@ -751,3 +751,4 @@
 2026-11-17 07:52:34	startsperre	Startsperre fehlt (750 A): für Tom steht in den letzten 10 Minuten keine „Startsperre … Start Tom“ auf main (letzte 17.11., 04:04). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen, dan	HEAD
 2026-11-17 07:59:32	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1516-stab
 2026-11-17 08:02:33	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/tom-1516-stab
+2026-11-17 08:02:41	commit-pruefung	docs/chefsache/entscheiden/1520-laeufe-sparen.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
