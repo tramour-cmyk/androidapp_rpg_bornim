@@ -273,12 +273,14 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
           grep -E "^(GANG|FEHLT|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-200
           GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
-          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT" klassen.log
+          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT|^SCHRANK" klassen.log
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
           cp $RUNNER_TEMP/klassen/haare_w.glb $D/haare_w.bin   # 376.1 Heldin
           printf 'daten/haare.bin\ndaten/haare_w.bin\ndaten/bewegungen.bin\n' >> $D/kauf.txt
+          # 431h Stufe 2: Kleiderschrank je Geschlecht (fremde Ruestungsteile, heldfigur.gd kleide), gekauft
+          for f in $RUNNER_TEMP/klassen/schrank_*.glb; do [ -f "$f" ] || continue; n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           # 475 (Chef 03.11., 07:45/07:47): die Leute des Dorfs auf dem Kaufkoerper in ihrer Kleidung (held_klassen.py LEUTE_KAUF), Gesicht
           # je Person waehlt Godot (heldfigur.gd person, leute.json kauf); scheitert eine Person, bleibt ihre alte Figur
           LEUTE_KAUF=alle OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/leutekauf Q=~/cc0 timeout 2400 bl/bin/python -I tools/blender348/v3/held_klassen.py > leutekauf.log 2>&1 || { echo "LEUTE KAUF abgebrochen"; tail -40 leutekauf.log; python3 tools/godot/kauf_cache.py halb klassen "475 LEUTE KAUF abgebrochen"; }   # 1112: dann nicht ablegen
@@ -684,6 +686,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/zustand_1036.gd 2>&1 | grep -E "^(ZUSTAND1036|Zustand|Aufflackern|Tafel|FEHLER)|SCRIPT ERROR"   # 1036 Zustände an den Figuren wie alt (Brennen, Gift …)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_431.gd 2>&1 | grep -E "^(FEHLER|KLEID431)|SCRIPT ERROR"   # 431h A der Held trägt, was in den Plätzen steht (Tom)
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_stufe2_431.gd 2>&1 | grep -E "^(FEHLER|KLEID2)|SCRIPT ERROR"   # 431h Stufe 2 fremde Rüstung sichtbar (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/schild_menue_1417.gd 2>&1 | tee schild1417.log | grep -E "FEHLER|SCHILD1417|SCRIPT ERROR"; grep -q "^SCHILD1417 0 Fehler" schild1417.log   # 1417 Schild der Wachsoldatin im Hauptmenue nicht im Rock (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/testschalter_1480.gd 2>&1 | tee schalter1480.log | grep -E "FEHLER|TESTSCHALTER1480|SCRIPT ERROR"; grep -q "^TESTSCHALTER1480 0 Fehler" schalter1480.log   # 1480 Testschalter rot, Lage schaltet aus (Tom)

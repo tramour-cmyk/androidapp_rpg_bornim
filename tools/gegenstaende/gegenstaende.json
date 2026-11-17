@@ -12,6 +12,9 @@
    "stufe": 1,
    "preis": 2,
    "netz": "Kapuze (Ranger Head_Hood)",
+   "teil": [
+    "RANGER_HOOD"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -46,6 +49,9 @@
    "stufe": 2,
    "preis": 15,
    "netz": "Reif (Noble Head_Crown)",
+   "teil": [
+    "NOBLE_CROWN"
+   ],
    "material": "Eisen",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -80,6 +86,9 @@
    "stufe": 1,
    "preis": 5,
    "netz": "Kappe",
+   "teil": [
+    "RANGER_HOOD"
+   ],
    "material": "Leder",
    "zeichen": "Farbe",
    "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
@@ -114,6 +123,9 @@
    "stufe": 2,
    "preis": 15,
    "netz": "Kappe",
+   "teil": [
+    "RANGER_HOOD"
+   ],
    "material": "Eisen",
    "zeichen": "Farbe",
    "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
@@ -148,6 +160,9 @@
    "stufe": 4,
    "preis": 40,
    "netz": "Topfhelm (Knight Head_Armet)",
+   "teil": [
+    "KNIGHT_HELM"
+   ],
    "material": "Platte",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -182,6 +197,9 @@
    "stufe": 1,
    "preis": 5,
    "netz": "Lange Robe (held_wizard)",
+   "teil": [
+    "ROBE"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe, Borte",
    "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
@@ -216,6 +234,9 @@
    "stufe": 1,
    "preis": 10,
    "netz": "Wams (Ranger Body)",
+   "teil": [
+    "RANGER_BODY"
+   ],
    "material": "Leder",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -250,6 +271,9 @@
    "stufe": 1,
    "preis": 10,
    "netz": "Kutte (Knight_Cloth Body_Cloth)",
+   "teil": [
+    "CLOTH_BODY"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -276,6 +300,9 @@
    "stufe": 1,
    "preis": 10,
    "netz": "Hemd (Peasant Body)",
+   "teil": [
+    "PEASANT_BODY"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -302,6 +329,9 @@
    "stufe": 1,
    "preis": 10,
    "netz": "Hemd (Peasant Body)",
+   "teil": [
+    "PEASANT_BODY"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -328,6 +358,9 @@
    "stufe": 1,
    "preis": 10,
    "netz": "Hemd (Peasant Body)",
+   "teil": [
+    "PEASANT_BODY"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -354,6 +387,9 @@
    "stufe": 2,
    "preis": 45,
    "netz": "Wams (Ranger Body)",
+   "teil": [
+    "RANGER_BODY"
+   ],
    "material": "Leder",
    "zeichen": "Nieten",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -388,6 +424,9 @@
    "stufe": 1,
    "preis": 50,
    "netz": "Kettenhemd (Wachsoldat)",
+   "teil": [
+    "KETTE"
+   ],
    "material": "Kette",
    "zeichen": "Farbe",
    "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
@@ -422,6 +461,9 @@
    "stufe": 2,
    "preis": 50,
    "netz": "Kettenhemd (Wachsoldat)",
+   "teil": [
+    "KETTE"
+   ],
    "material": "Schuppe",
    "zeichen": "Farbe",
    "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
@@ -456,6 +498,9 @@
    "stufe": 4,
    "preis": 400,
    "netz": "Brustplatte (Knight Body_Armor)",
+   "teil": [
+    "KNIGHT_BODY"
+   ],
    "material": "Platte",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -490,6 +535,10 @@
    "stufe": 6,
    "preis": 750,
    "netz": "Plattenrüstung (Knight Body_Armor, Pauldron_Round)",
+   "teil": [
+    "KNIGHT_BODY",
+    "KNIGHT_PAULDRON"
+   ],
    "material": "Platte",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -524,6 +573,9 @@
    "stufe": 2,
    "preis": 75,
    "netz": "Kettenhemd (Wachsoldat)",
+   "teil": [
+    "KETTE"
+   ],
    "material": "Kette",
    "zeichen": "Wappenrock",
    "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
@@ -558,6 +610,9 @@
    "stufe": 4,
    "preis": 200,
    "netz": "Brustplatte (Knight Body_Armor)",
+   "teil": [
+    "KNIGHT_BODY"
+   ],
    "material": "Schiene",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -592,6 +647,11 @@
    "stufe": 7,
    "preis": 1500,
    "netz": "Plattenrüstung (Knight Body_Armor, Pauldrons_Round, Noble Gorget)",
+   "teil": [
+    "KNIGHT_BODY",
+    "KNIGHT_PAULDRON",
+    "NOBLE_GORGET"
+   ],
    "material": "Platte",
    "zeichen": "Farbe, Borte",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -626,6 +686,9 @@
    "stufe": 1,
    "preis": 2,
    "netz": "Ärmel (Peasant Arms)",
+   "teil": [
+    "PEASANT_ARMS"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -660,6 +723,9 @@
    "stufe": 1,
    "preis": 5,
    "netz": "Handschuh (Ranger Arms)",
+   "teil": [
+    "RANGER_ARMS"
+   ],
    "material": "Leder",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -694,6 +760,9 @@
    "stufe": 2,
    "preis": 20,
    "netz": "Armschiene (Knight_Cloth Arms)",
+   "teil": [
+    "CLOTH_ARMS"
+   ],
    "material": "Leder mit Eisen",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -728,6 +797,9 @@
    "stufe": 3,
    "preis": 40,
    "netz": "Panzerhandschuh (Knight Arms)",
+   "teil": [
+    "KNIGHT_ARMS"
+   ],
    "material": "Platte",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -762,6 +834,9 @@
    "stufe": 1,
    "preis": 2,
    "netz": "Hose mit Schuh (Peasant Legs, Feet)",
+   "teil": [
+    "PEASANT_LEGS"
+   ],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -796,6 +871,9 @@
    "stufe": 1,
    "preis": 5,
    "netz": "Hose mit Stiefel (Ranger Legs, Feet_Boots)",
+   "teil": [
+    "RANGER_LEGS"
+   ],
    "material": "Leder",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -830,6 +908,9 @@
    "stufe": 2,
    "preis": 20,
    "netz": "Hose mit Stiefel (Ranger Legs, Feet_Boots)",
+   "teil": [
+    "RANGER_LEGS"
+   ],
    "material": "Kette",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren); Eigenbau, falls Kette dort nicht trägt (455.1)",
@@ -864,6 +945,9 @@
    "stufe": 3,
    "preis": 40,
    "netz": "Beinschiene (Knight Legs, Feet)",
+   "teil": [
+    "KNIGHT_LEGS"
+   ],
    "material": "Platte",
    "zeichen": "Farbe",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -898,6 +982,7 @@
    "stufe": 1,
    "preis": 5,
    "netz": "Umhang (Wachsoldat)",
+   "teil": [],
    "material": "Stoff",
    "zeichen": "Farbe",
    "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
@@ -932,6 +1017,7 @@
    "stufe": 3,
    "preis": 30,
    "netz": "Mantel",
+   "teil": [],
    "material": "Wolle, Fell am Kragen",
    "zeichen": "Farbe",
    "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
@@ -2085,6 +2171,9 @@
    "stufe": 4,
    "preis": 0,
    "netz": "Panzerhandschuh (Knight Arms)",
+   "teil": [
+    "KNIGHT_ARMS"
+   ],
    "material": "Platte",
    "zeichen": "Runen",
    "modell": "Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren)",
@@ -2413,6 +2502,7 @@
    "stufe": 4,
    "preis": 0,
    "netz": "Umhang (Wachsoldat)",
+   "teil": [],
    "material": "Stoff",
    "zeichen": "Runen",
    "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",
@@ -2445,6 +2535,7 @@
    "stufe": 1,
    "preis": 0,
    "netz": "Umhang (Wachsoldat)",
+   "teil": [],
    "material": "Fell",
    "zeichen": "Farbe",
    "modell": "unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1)",

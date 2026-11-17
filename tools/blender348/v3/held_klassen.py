@@ -678,6 +678,7 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
     statur(arm, netze)
     schrank_fertig(netze, k, sch)
     vorrang_marke(netze, os.path.join(env['OUT'], 'teile.json'))
+    if held: teil_ablegen(k, netze, arm)   # 431h Stufe 2: Kettenhemd, Robe fuer den Kleiderschrank
     exportiere(os.path.join(ZIEL, 'held_%s.glb' % k), [arm] + netze, farbe=True)
     return arm, netze
 
@@ -1022,6 +1023,126 @@ def schrank_fertig(netze, k, sch):
 
 
 
+# ---------------------------------------------------------------- 431h Stufe 2: Kleiderschrank je Koerper (Geschlecht)
+# Chef 17.11., 09:45 („431h A“, Archiv): jede angelegte Ruestung sichtbar, auch Stuecke anderer Trachten und die Ritterteile. Alle Teile
+# je Geschlecht in einer Datei schrank_<G>.glb auf dem Geruest des Kaufkoerpers (alle Kauftrachten und unsere Kleidung haengen am selben
+# Geruest); Godot haengt das Teil eines angelegten Stuecks an das Skelett des Helden, wenn seine Tracht es nicht selbst traegt
+# (heldfigur.gd kleide, Feld „teil“ der Gegenstandsliste). Je Teil: Platz, Netze, welche Leibstuecke es deckt (Leib_<STUECK>, wie
+# leib_deckung). Kettenhemd und Robe kommen aus den Bauten der Trachten WACHE und ROBE (teil_<KENNUNG>_<G>.glb, Kleid_CHEST).
+# Eine Datei je Geschlecht statt aller Teile in jedem der zehn Heldenmodelle: geladen wird sie nur, wenn ein fremdes Stueck angelegt ist.
+SCHRANK_TEILE = {   # Kennung -> (Kauftracht oder Tracht unseres Baus, Netzname nach „<Geschlecht>_<Satz>“ beginnt mit, Platz)
+    'RANGER_HOOD': ('{v}_Ranger', ('_Head_Hood',), 'HEAD'),
+    'RANGER_BODY': ('{v}_Ranger', ('_Body', '_Acc_Pauldron'), 'CHEST'),   # mit Guerteln und Schulterstueck, wie die Waldtracht
+    'RANGER_ARMS': ('{v}_Ranger', ('_Arms',), 'ARMS'),
+    'RANGER_LEGS': ('{v}_Ranger', ('_Legs', '_Feet'), 'LEGS'),
+    'PEASANT_BODY': ('{v}_Peasant', ('_Body',), 'CHEST'),
+    'PEASANT_ARMS': ('{v}_Peasant', ('_Arms',), 'ARMS'),
+    'PEASANT_LEGS': ('{v}_Peasant', ('_Legs', '_Feet'), 'LEGS'),
+    'CLOTH_BODY': ('{v}_Knight_Cloth', ('_Body_Cloth', '_Acc_Pauldron_Spike'), 'CHEST'),   # Netze heissen <G>_Knight_…
+    'CLOTH_ARMS': ('{v}_Knight_Cloth', ('_Arms',), 'ARMS'),
+    'KNIGHT_HELM': ('{v}_Knight', ('_Head_Armet',), 'HEAD'),
+    'KNIGHT_BODY': ('{v}_Knight', ('_Body_Armor',), 'CHEST'),
+    'KNIGHT_PAULDRON': ('{v}_Knight', ('_Acc_Pauldron',), 'CHEST'),
+    'KNIGHT_ARMS': ('{v}_Knight', ('_Arms',), 'ARMS'),
+    'KNIGHT_LEGS': ('{v}_Knight', ('_Legs', '_Feet'), 'LEGS'),
+    'NOBLE_CROWN': ('{v}_Noble', ('_Head_Crown',), 'HEAD'),
+    'NOBLE_GORGET': ('{v}_Noble', ('_Acc_Gorget',), 'CHEST'),
+    'KETTE': ('WACHE', (), 'CHEST'),
+    'ROBE': ('ROBE', (), 'CHEST'),
+}
+# Teile, die eine Tracht selbst traegt (dann zeigt sie ihr eigenes Teil, wie Stufe 1); dazu die Startstuecke ihrer Herkuenfte
+EIGEN_TEILE = {'WACHE': ['KETTE'], 'ROBE': ['ROBE'], 'KLOSTER': ['CLOTH_BODY', 'CLOTH_ARMS'],
+               'WALD': ['RANGER_HOOD', 'RANGER_BODY', 'RANGER_ARMS', 'RANGER_LEGS'], 'BAUER': ['PEASANT_BODY', 'PEASANT_ARMS', 'PEASANT_LEGS']}
+SCHRANK_DECKT = {'ROBE': ['Leib_BECKEN', 'Leib_OBERSCHENKEL', 'Leib_UNTERSCHENKEL']}   # wie DECKT_JE ROBE
+
+
+def eigen_stuecke(t):
+    # 431h Stufe 2: Grundformen, die die Tracht t mit ihrem eigenen Teil zeigt: Startstuecke ihrer Herkuenfte (werte.json start) und
+    # Stuecke, deren Teile alle in EIGEN_TEILE stehen
+    wurzel = os.path.dirname(os.path.dirname(HIER))
+    try:
+        start = json.load(open(os.path.join(wurzel, 'sim444', 'werte.json')))
+        start = next((v['start'] for v in start.values() if isinstance(v, dict) and 'start' in v and isinstance(v['start'], dict)), {})
+        gs = json.load(open(os.path.join(wurzel, 'gegenstaende', 'gegenstaende.json')))['gegenstaende']
+    except (OSError, ValueError) as e:
+        print('EIGEN FEHLT', e); return []
+    aus = set()
+    for h, l in start.items():
+        hk = h.upper().replace('Ä', 'AE').replace('Ö', 'OE').replace('Ü', 'UE')
+        if HERKUENFTE.get(hk, {}).get('tracht') == t: aus.update(l)
+    for x in gs:
+        tl = x.get('teil')
+        if tl and all(y in EIGEN_TEILE.get(t, []) for y in tl): aus.add(x['id'])
+    return sorted(aus)
+
+
+def teil_ablegen(k, netze, arm):
+    # 431h Stufe 2: Kleid_CHEST der Trachten WACHE (Kettenhemd) und ROBE fuer den Kleiderschrank der anderen Trachten
+    t, g = k.rsplit('_', 1)
+    kenn = next((n for n, v in SCHRANK_TEILE.items() if v[0] == t), None)
+    if not kenn or not SCHRANK: return
+    ms = [o for o in netze if o.name.split('.')[0] == 'Kleid_CHEST']
+    if not ms: print('TEIL FEHLT', k, 'Kleid_CHEST'); return
+    exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
+    print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
+
+
+def schrank_datei(g):
+    """431h Stufe 2: alle Teile (SCHRANK_TEILE) fuer Geschlecht g in ZIEL/schrank_<g>.glb; Rueckgabe {Kennung: {platz, netze, leib}}."""
+    G = GESCHLECHTER[g]
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    kn, kp = QT.datei(G['koerper'])
+    if not kp: raise SystemExit('FEHLT %s (gekauft, KAUF=)' % G['koerper'])
+    objs = QT.importiere(kp)
+    arm = next(o for o in objs if o.type == 'ARMATURE'); arm.name = 'Armature'
+    for o in [o for o in objs if o.type == 'MESH']: bpy.data.objects.remove(o)
+    QT.KOPIEN.clear()
+    teile, info = [], {}
+    for kenn, (quelle, enden, platz) in SCHRANK_TEILE.items():
+        if quelle in TRACHTEN:
+            p = os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g))
+            if not os.path.exists(p): print('SCHRANK FEHLT', kenn, g, p); continue
+            ob = QT.importiere(p)
+            ms = [o for o in ob if o.type == 'MESH']
+            a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
+            vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+        else:
+            kleid = quelle.format(v=G['v'])
+            kn2, kp2 = QT.datei(kleid)
+            if not kp2 or kn2 != kleid: print('SCHRANK FEHLT', kenn, kleid); continue
+            ob = QT.importiere(kp2)
+            a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
+            vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+            vor = kleid.replace('_Knight_Cloth', '_Knight')
+            ms = [o for o in ob if o.type == 'MESH' and o.name.split('.')[0].startswith(vor + '_')
+                  and o.name.split('.')[0][len(vor):].startswith(enden)]
+            for o in [o for o in ob if o.type == 'MESH' and o not in ms]: bpy.data.objects.remove(o)
+            ob = [o for o in ob if o.type != 'MESH' or o in ms]
+        if not ms:
+            print('SCHRANK FEHLT', kenn, g, 'keine Netze'); [bpy.data.objects.remove(o) for o in ob if o.name in bpy.data.objects]; continue
+        QT.an_geruest(ob, arm, vs)
+        for o in ms:   # wie tracht(): Schulterstueck Leder, Ritterplatten Stahl, Kloster ohne Gruenstich, Sonne auf der Kutte
+            if 'Pauldron' in o.name: QT.toene(o, lambda n: True, QT.LEDER)
+            elif kenn.startswith('KNIGHT'): QT.toene(o, lambda n: n.startswith('MI_Knight'), QT.STAHL)
+            if kenn == 'CLOTH_ARMS': entgruen(o)
+            if kenn == 'CLOTH_BODY' and 'Body_Cloth' in o.name: sonne(o, arm)
+        namen = []
+        for i, o in enumerate(ms):
+            o.name = 'Teil_%s%s' % (kenn, '_%d' % i if len(ms) > 1 else ''); namen.append(o.name)
+        teile += ms
+        info[kenn] = {'platz': platz, 'netze': namen}
+        print('SCHRANK', g, kenn, namen, sum(len(o.data.polygons) for o in ms), 'Flaechen')
+    leiber = leib(arm, g)
+    statur(arm, teile + leiber)   # gleich geglaettet wie am Helden (Koerper und Kleidung gehen zusammen)
+    dk = leib_deckung(leiber, teile, {kenn: v['netze'] for kenn, v in info.items()}, 'SCHRANK_' + g)
+    for kenn, v in info.items():
+        v['leib'] = sorted(set([lo for lo, ps in dk.items() if kenn in ps] + SCHRANK_DECKT.get(kenn, [])))
+    for lo in leiber: bpy.data.objects.remove(lo)
+    exportiere(os.path.join(ZIEL, 'schrank_%s.glb' % g), [arm] + teile, farbe=True)
+    print('SCHRANK DATEI', g, len(info), 'Teile', round(os.path.getsize(os.path.join(ZIEL, 'schrank_%s.glb' % g)) / 1e6, 2), 'MB')
+    return info
+
+
 def tracht(k, g, f):
     G = GESCHLECHTER[g]
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -1359,8 +1480,16 @@ for t, f in TRACHTEN.items():
         arm, netze = tracht(k, g, f) if 'kleid' in f else kaempfer(k, g, '' if f['tracht'] == 'unsere' else f['tracht'], fu, f.get('stiefel_bis', 0.0))
         info['trachten'][k] = {'kleid': (f.get('kleid') or f['tracht']).format(v=GESCHLECHTER[g]['v']), 'geschlecht': g,
                                'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze), 'netze': sorted(o.name for o in netze)}
-        if k in SCHRANK_INFO: info['trachten'][k].update(SCHRANK_INFO[k])   # 431h: teile, unter, leib (heldfigur.gd kleide)
-        print('TRACHT', k, info['trachten'][k]['dreiecke'], 'Dreiecke', info['trachten'][k]['kleid'])
+        if k in SCHRANK_INFO:
+            info['trachten'][k].update(SCHRANK_INFO[k])   # 431h: teile, unter, leib (heldfigur.gd kleide)
+            info['trachten'][k]['eigen'] = eigen_stuecke(t)   # 431h Stufe 2: Stuecke, die das eigene Teil zeigt
+        print('TRACHT', k, info['trachten'][k]['dreiecke'], 'Dreiecke', info['trachten'][k]['kleid'], info['trachten'][k].get('eigen'))
+# 431h Stufe 2: Kleiderschrank je Geschlecht (nach den Trachten: Kettenhemd und Robe aus ihren Bauten); SCHRANK_DATEI=0 ohne
+if SCHRANK and os.environ.get('SCHRANK_DATEI', '1') != '0' and not FREI:
+    info['schrank'] = {}
+    for g in GESCHLECHTER:
+        if NUR_G and g not in NUR_G: continue
+        info['schrank'][g] = schrank_datei(g)
 for g in GESCHLECHTER:
     if NUR_G and g not in NUR_G: continue
     info['geschlechter'][g] = haare(g)

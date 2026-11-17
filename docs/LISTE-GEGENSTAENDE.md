@@ -237,6 +237,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `stufe` | nein | Heldenstufe ab der erhaeltlich (BRS); null = offen |
 | `preis` | nein | Grundpreis in Gold (BRS, vor Ruf); 0 = unverkaeuflich; null = offen |
 | `netz` | nein | Modellnetz (455), z. B. Datei im Kaufrepo |
+| `teil` | nein | 431h Stufe 2: Teile im Kleiderschrank (held_klassen.py SCHRANK_TEILE), Liste; leer = am Helden unsichtbar |
 | `material` | nein | Material des Netzes (455) |
 | `zeichen` | nein | Zeichnung/Tusche des Netzes (455) |
 | `modell` | nein | Quelle und Lizenz des Modells (LISTE-BESTAND.md) |
