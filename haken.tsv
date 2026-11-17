@@ -720,3 +720,4 @@
 2026-11-17 01:20:07	commit-pruefung	CLAUDE.md: 15018 Bytes, Obergrenze 15000, Commit fügt 32 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-17 01:20:07	commit-pruefung	docs/ROLLE-ENTWICKLUNG.md: 13180 Bytes, Obergrenze 13100, Commit fügt 108 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-17 01:23:33	commit-pruefung	docs/chefsache/ansehen/t294-sammelbuild.md: gegengelesen vom eigenen Team (Tom, Zeile 1: Tom und Jerry); eine Sitzung außerhalb des Teams liest gegen (881)	main
+2026-11-17 01:26:54	commit-pruefung	LISTE-VORGAENGE.md: 1504: Zeile über 400 Zeichen (Einzelheiten als „Zu 1504“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
