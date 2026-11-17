@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 04:41, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 17.11., 04:45, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert.
 
 **Themenblöcke**
 
@@ -101,7 +101,7 @@ Nichts offen.
 |---|---|---|---|
 | [1284b](ansehen/1284b-biss-verdeckt.md) | Rattenbiss, bei dem der Held die Ratte verdeckt | – | 17.11., 04:13 |
 | [1340](ansehen/1340-tod-physik.md) | Physik beim Sterben auch für Skelett und Wiedergänger | – | 17.11., 03:37 |
-| [1423](ansehen/1423-hoehlenwand.md) | Höhle: Zwischenwände in voller Höhe (alt links, neu rechts) | – | 17.11., 04:24 |
+| [1423](ansehen/1423-hoehlenwand.md) | Höhle: Zwischenwände in voller Höhe (alt links, neu rechts) | – | 17.11., 04:45 |
 | [1439](ansehen/1439-mana-balken.md) | Mana als eigener blauer Balken im Kampfschirm | – | 16.11., 23:51 |
 | [1448](ansehen/1448-leiste-ohne-woerter.md) | Weltleiste und Heldenmenü ohne Wörter vor den Balken | – | 17.11., 01:14 |
 | [1499](ansehen/1499-laufnachweis-skripte.md) | Laufnachweis: Prüfskripte mit Endung werden jetzt erkannt | – | 16.11., 23:11 |
