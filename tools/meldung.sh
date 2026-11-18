@@ -72,6 +72,22 @@ funde += re.findall(r"(?<!\w)(?:z\.\s?B\.|bzw\.|usw\.|ggf\.|ca\.|u\.\s?a\.|d\.\s
 print(", ".join(dict.fromkeys(funde))); sys.exit(0 if funde else 1)'); then
   echo "meldung: Abkürzung im Text ($kurz), nichts gesendet; ausschreiben (484, Chef 02.11., 19:27)" >&2; exit 2
 fi
+# 1644 (340.12 Änderung 2, Chef 18.11., 09:51): „behoben/weg/fertig“ zu einem Fund des Chefs zum Aussehen (Zeile „Von Chef“, Bereich
+# E Figuren, E Welt, E Oberfläche, E Kampf, G Stil) nur mit --bild oder --film, Ort und Spielgröße wie beim Fund; Logik und Regeln:
+# „Test:“ im Text (der Test reicht)
+if [ -z "$art" ] && behoben=$(TEXT="$text" DOCS="$(dirname "$(realpath "$0")")/../docs" python3 -c '
+import os, re, sys
+t = os.environ["TEXT"].replace("\\n", "\n")
+m = re.match(r"\s*\[?([0-9]+[a-z]?(?:\.[0-9]+[a-z]?)*)[\]:( ]", t)
+if not m or not re.search(r"(?i)\b(behoben|weg|fertig)\b", t) or re.search(r"\bTest:", t): sys.exit(1)
+for z in open(os.path.join(os.environ["DOCS"], "LISTE-VORGAENGE.md"), encoding="utf-8"):
+    sp = [x.strip() for x in z.strip().strip("|").split("|")]
+    if len(sp) > 8 and sp[0] == m.group(1):
+        if sp[1].startswith("Von Chef") and sp[8] in ("E Figuren", "E Welt", "E Oberfläche", "E Kampf", "G Stil"):
+            print(m.group(1)); sys.exit(0)
+sys.exit(1)'); then
+  echo "meldung: $behoben ist ein Fund des Chefs zum Aussehen; „behoben/weg/fertig“ nur mit --bild oder --film (Ort und Spielgröße wie beim Fund), bei Logik „Test: <Name>“ in den Text; nichts gesendet (1644)" >&2; exit 2
+fi
 # 1414 (Chef 16.11., 12:09): Vorgang ohne Wort dazu (MUSTER.md 9); nur Warnung, die Meldung geht raus
 printf '%s' "$text" | python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import nummer_wort; [print("meldung: Warnung: " + w, file=sys.stderr) for w in nummer_wort.melden(sys.stdin.read().replace("\\n", "\n"))]' "$(dirname "$(realpath "$0")")" || true
 if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
