@@ -111,6 +111,7 @@ static func innen_schatten() -> bool: return aktiv >= MITTEL
 static func tusche_lampen() -> bool: return aktiv >= MITTEL
 static func kits() -> bool: return aktiv >= MITTEL
 static func gluehen() -> bool: return aktiv >= HOCH       # 1270.4 (Chef 16.11., 17:32)
+static func sonne_px() -> int: return SONNE_PX[aktiv]     # 1645: Kampfort liest sie beim Betreten und Verlassen
 
 # ---------------------------------------------------------------- Ladepunkte
 

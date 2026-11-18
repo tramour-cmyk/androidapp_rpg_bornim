@@ -121,5 +121,15 @@ func _lauf() -> void:
 	await Grafik.messen(self)
 	pruefe("Anfangsmessung wählt eine Stufe", Grafik.auto_stufe >= Grafik.NIEDRIG and Grafik.aktiv == Grafik.auto_stufe, str(Grafik.auto_stufe))
 	pruefe("danach keine Messung mehr", not Grafik.braucht_messung())
+	# 1645: Kampfort nimmt höchstens die Karte der Stufe und gibt beim Verlassen die der Stufe zurück, nicht fest 4096
+	var kf = load("res://kampf/kampfort.gd")
+	var karten := []
+	for st in [Grafik.NIEDRIG, Grafik.MITTEL, Grafik.HOCH]:
+		Grafik.setze(self, st)
+		karten.append([kf.schattenkarte(), Grafik.sonne_px()])
+	pruefe("Kampfort-Schattenkarte je Stufe (im Kampf, danach)", karten == [[1024, 1024], [2048, 2048], [2048, 4096]], str(karten))
+	var quelle := FileAccess.get_file_as_string("res://kampf/kampfort.gd")
+	var ende := quelle.substr(quelle.find("func _exit_tree"), 200)
+	pruefe("Kampfort verlässt mit der Karte der Stufe", ende.contains("Grafik.sonne_px()") and not ende.contains("4096)"))
 	Grafik.probe = false
 	quit(1 if fehler else 0)
