@@ -370,6 +370,11 @@ def kern(sitzung):
             pass
 
 
+BESITZER_VORRAT = {"ARBEIT-KREATIV.md": "Homer", "ARBEIT-TEAM-TOM.md": "Tom", "ARBEIT-TEAM-JERRY.md": "Jerry", "ARBEIT-TEAM-SPIKE.md": "Spike",
+                   "ARBEIT-PROJEKT.md": "Perikles", "ARBEIT-PRUEFUNG.md": "Diogenes", "ARBEIT-BERATUNG.md": "Sokrates", "ARBEIT-BETRIEB.md": "Ford",
+                   "ARBEIT-BESETZUNG.md": "Ford", "ARBEIT-TAGESBERICHT.md": "Perikles"}
+
+
 def start(eingabe):
     wurzel = os.environ.get("CLAUDE_PROJECT_DIR") or eingabe.get("cwd") or "."
     # 98: jeder Vorrat ARBEIT-*.md, außer dem eingefrorenen Archiv (117).
@@ -383,7 +388,8 @@ def start(eingabe):
             continue
         n = os.path.getsize(os.path.join(docs, name))
         if n > OFFEN_MAX:
-            print(f"Bornim: docs/{name} ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB). "
+            wer = BESITZER_VORRAT.get(name, "Perikles")  # 1642: jede Startwarnung mit festem Besitzer (wie startwarnung.py)
+            print(f"Bornim: docs/{name} ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB; Besitzer {wer}, nach 6 h Vorgang durchs Werkzeug). "
                   "Nach der Regel „Vorräte klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
 
 
