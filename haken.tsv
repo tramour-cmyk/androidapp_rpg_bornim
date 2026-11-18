@@ -915,3 +915,4 @@
 2026-11-18 00:48:59	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/spike-1211-1484
 2026-11-18 01:07:51	commit-pruefung	docs/chefsache/ansehen/4552-groessen.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
 2026-11-18 01:18:02	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/spike-1484a-zellen
+2026-11-18 01:18:06	probelauf	513.1 (Chef 03.11., 15:56: „513 B“): dieser Stand enthält den abgenommenen Figurenstand nicht: 3b29ac0cb (417), e3789d130 (463). Erst den Figurenstand hineinmischen (Zweig mit allen Abnahmen, Toms 513	claude/spike-1484a-zellen
