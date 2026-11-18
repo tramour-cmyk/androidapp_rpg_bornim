@@ -1,5 +1,7 @@
 # 1621 · Zweihandwaffen kürzer: alt gegen neu am Helden
 
+[Bild von 18.11., 09:08](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0907-1621-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Spike · 18.11., 09:08 · aus deinem Wort 07:37 („zu den Langwaffen nehmen wir dann mal A, die ein bisschen kürzer machen“)
 Kurz: Großaxt 131 → 110 cm, Kriegshammer 115 → 100 cm, Zweihänder 128,5 → 115 cm, Griff im selben Verhältnis; Speer und Hellebarde bleiben. Drei Bilder im Dorf wie im Spiel, hinten derselbe Held mit der alten Länge, vorn neu.
 
