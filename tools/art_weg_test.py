@@ -25,7 +25,16 @@ soll("9.2 nicht in 9.20", arten(liste("Weiter, 9.20.", H1, B2)), [])
 H5 = "| 9.5 | Spike | 5 | Handy | in die Höhle gehen | so hell wie in Build 292 | dunkler als vorher |"
 H6 = "| 9.6 | Spike | 6 | Handy | zweiter Kampf | nach höchstens 0,7 s bereit, halb so lang wie in Build 287 | über 0,7 s |"
 B7 = "| 9.7 | Spike | 7 | Bild | links Build 292, rechts neu, gleich hell wie in Build 292 | a | b |"
-soll("Vergleich aus dem Gedächtnis", arten(liste("Weiter, 9.5.", H5)), ["vergleich"])
+soll("Vergleich aus dem Gedächtnis (und nur Aussehen, 1672)", arten(liste("Weiter, 9.5.", H5)), ["aussehen", "vergleich"])
+# 1677: Falsch entscheidet (Passt „flüssig“ nebenbei), Bewegung zählt als Film
+H8 = "| 9.8 | Spike | 8 | Handy | durch den Gang gehen | Fackeln glühen, Schatten, Bild flüssig | kein Glühen, keine Schatten |"
+H9 = "| 9.9 | Tom | 9 | Handy | Jorin zusehen | er dreht sich in einem Zug um | er rutscht auf der Stelle herum |"
+H10 = "| 9.10 | Tom | 10 | Handy | Tür antippen | Tür geht auf, Licht fällt herein | Tür bleibt zu |"
+H11 = "| 9.11 | Spike | 11 | Handy | gehen | gleichmäßig beim Schritt | es hakelt |"
+soll("Passt flüssig, Falsch nur Aussehen", arten(liste("Weiter, 9.8.", H8)), ["aussehen"])
+soll("Bewegung ist Film", arten(liste("Weiter, 9.9.", H9)), ["aussehen"])
+soll("Falsch ohne Blickwort, Passt mit Licht: wie bisher", arten(liste("Weiter, 9.10.", H10)), ["aussehen"])
+soll("Hakeln ist Bedienen", arten(liste("Weiter, 9.11.", H11)), [])
 soll("Vergleich mit Messzahl frei", arten(liste("Weiter, 9.6.", H6)), [])
 soll("Bild alt gegen neu frei", arten(liste("Weiter, 9.1.", H1, B7)), [])
 # 1446: Lücken aus D273.1
@@ -40,8 +49,21 @@ soll("Meterangabe kein Build", arten(liste("Weiter, 9.11.", H11)), [])
 G12 = "| 9.12 | Jerry | 12 | Gespräch | Schaden je Treffer | höher als in Build 290 | b |"
 soll("Gespräch ebenso", arten(liste("Weiter, 9.1.", H1, G12)), ["vergleich"])
 # 1524: Testbitte erst ab 4 Handypunkten
-soll("Handypunkte zählen", cp.handypunkte(liste("Weiter, 9.1.", H1, B2, F3, H4, H5)), 3)
+soll("Handypunkte zählen", cp.handypunkte(liste("Weiter, 9.1.", H1, B2, F3, H4, H5)), 2)  # 1672: H5 nur Aussehen
 soll("Handy fett nummeriert", cp.handypunkte(liste("Weiter.", H1.replace("| 9.1 |", "| *9.1* |"))), 1)
 soll("ohne Spalte Art", cp.handypunkte("# x\n| a | b |\n"), None)
 soll("t295 hatte 2", cp.handypunkte(cp.git("show", "3f5e3c23a:docs/chefsache/ansehen/t295-sammelbuild.md")), 2)
+# 1672 (Chef 18.11., 15:48 zu t299): Aussehen nie als Handypunkt
+A1 = "| 9.13 | Tom | 13 | Handy | Hauptmenü: Wachsoldatin ansehen | Schild ganz, nichts abgeschnitten | Schild im Arm versunken |"
+A2 = "| 9.14 | Tom | 14 | Handy | Hauptmenü wie 9.13 | kein heller Streifen zwischen Gürtel und Hand | heller Streifen |"
+A3 = "| 9.15 | Tom | 15 | Handy | Ausrüstung: Umhang ablegen, wieder anlegen | nach Ablegen weg, nach Anlegen wieder zu sehen | bleibt sichtbar |"
+A4 = "| 9.16 | Tom | 16 | Handy | im Dorf rennen | die Renntaste geht von selbst aus und wird matt | Taste bleibt hell |"
+A5 = "| 9.17 | Spike | 17 | Handy | Wald | Bäume durchsichtig, über 31 Bilder/s | unter 31 Bilder/s |"
+soll("Aussehen als Handy", arten(liste("Weiter, 9.13.", A1)), ["aussehen"])
+soll("„zwischen“ ist kein Wischen", arten(liste("Weiter, 9.14.", A2)), ["aussehen"])
+soll("Ablegen ist Bedienen", arten(liste("Weiter, 9.15.", A3)), [])
+soll("Taste ist Bedienen", arten(liste("Weiter, 9.16.", A4)), [])
+soll("Bildrate ist Gerät", arten(liste("Weiter, 9.17.", A5)), [])
+soll("Aussehen zählt nicht als Handypunkt", cp.handypunkte(liste("Weiter.", A1, A2, A3, H1)), 2)
+soll("t299 hatte 1 echten Handypunkt", cp.handypunkte(cp.git("show", "a17fb1d96:docs/chefsache/ansehen/t299-schlussbuild.md")), 1)
 sys.exit(1 if fehl else 0)

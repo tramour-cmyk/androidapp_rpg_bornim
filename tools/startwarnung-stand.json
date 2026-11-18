@@ -27,7 +27,12 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Ford",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 34977 Bytes (Grenze 30000), Erledigtes streichen"
+  "text": "docs/ARBEIT-BETRIEB.md hat 36139 Bytes (Grenze 30000), Erledigtes streichen"
+ },
+ "groesse:docs/ARBEIT-TEAM-TOM.md": {
+  "besitzer": "Tom",
+  "seit": "2026-11-18T16:19+01:00",
+  "text": "docs/ARBEIT-TEAM-TOM.md hat 32562 Bytes (Grenze 30000), Erledigtes streichen"
  },
  "regel:ARBEIT-TAGESBERICHT.md:Tabellenzeilen über N Zeichen (Einzelhei": {
   "besitzer": "Perikles",
@@ -39,6 +44,11 @@
   "seit": "2026-11-18T10:55+01:00",
   "text": "ARBEIT-BERATUNG.md: 2 „Zu“ zu Erledigtem (1288b, 1411), beim Übergeben streichen"
  },
+ "vorrat:ARBEIT-PRUEFUNG.md": {
+  "besitzer": "Diogenes",
+  "seit": "2026-11-18T15:50+01:00",
+  "text": "ARBEIT-PRUEFUNG.md: 1 „Zu“ zu Erledigtem (1661), beim Übergeben streichen"
+ },
  "vorrat:ARBEIT-TEAM-JERRY.md": {
   "besitzer": "Jerry",
   "seit": "2026-11-18T10:55+01:00",
@@ -47,11 +57,11 @@
  "vorrat:ARBEIT-TEAM-SPIKE.md": {
   "besitzer": "Spike",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TEAM-SPIKE.md: 5 „Zu“ zu Erledigtem (1567, 1303, 1145, 1286, 1145), beim Übergeben streichen"
+  "text": "ARBEIT-TEAM-SPIKE.md: 6 „Zu“ zu Erledigtem (1211, 1211, 1211, 1211, 1211, 1567), beim Übergeben streichen"
  },
  "vorrat:ARBEIT-TEAM-TOM.md": {
   "besitzer": "Tom",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TEAM-TOM.md: 3 „Zu“ zu Erledigtem (1423a, 1044, 1167), beim Übergeben streichen"
+  "text": "ARBEIT-TEAM-TOM.md: 8 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515, 1423a …), beim Übergeben streichen"
  }
 }
