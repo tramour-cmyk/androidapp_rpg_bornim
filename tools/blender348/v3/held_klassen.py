@@ -667,7 +667,7 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
     env['OHNE_TEIL'] = ','.join(ohne)
     if SCHRANK and liste == 'trachten.json': env['UNTER_MARKE'] = '1'   # 431h: Kleidung unter anderen Teilen markieren statt weg
     r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'kauf_kleid.py')], env=env, capture_output=True, text=True)
-    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG', 'SCHALE', 'RUECKBAHN', 'LAGEN', 'UNTER WEG', 'ACHSEL'))))
+    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG', 'SCHALE', 'RUECKBAHN', 'LAGEN', 'UNTER WEG', 'ACHSEL', 'HAND'))))
     if r.returncode: print(r.stdout[-3000:], r.stderr[-3000:]); raise SystemExit('kauf_kleid.py %d' % r.returncode)
     bpy.ops.wm.open_mainfile(filepath=os.path.join(roh, 'held_%s.blend' % k))
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
@@ -1041,20 +1041,86 @@ def unter_schluessel(leiber, netze, plaetze, deckung):
             print('UNTER', lo.name, p, n, 'Ecken eingezogen')
 
 
+UMHANG_SUCH = 0.05    # m: Kleidung so weit unter dem Umhang (entlang der Normale) zieht unter_CLOAK ein
+UMHANG_DURCH = 0.06   # m: Kleidung, die so weit durch den Umhang sticht, zieht unter_CLOAK hinter ihn
+UMHANG_LUFT = 0.008   # m: Abstand hinter dem Umhang
+# 1569 Bild 2 (Chef 21:42 👍 „Flecken beheben“): am Zauberlehrling stach die Robe unten am Ruecken grossflaechig durch den Umhang, am
+# Jaegerkind das Schulterstueck. Gemessen (Robe M, Stehen): in der Ruhelage 40 Ecken hinter dem Umhang hervor, in der Haltung 269 (z 0,4 bis
+# 1,4 m); der weite Rock folgt den Beinen, der Umhang dem Becken, ein Abstand nur in der Ruhelage haelt nicht. Darum legt unter_CLOAK jede
+# Ecke auf der Rueckseite, hinter der (bis UMHANG_HINTEN) der Umhang liegt, auf den Koerper (naechster Punkt des Leibs plus UMHANG_AUF)
+UMHANG_HINTEN = 0.5   # m: so weit hinter der Ecke darf der Umhang liegen, dann deckt er sie
+UMHANG_AUF = 0.006    # m: ueber der Haut
+
+
+def umhang_unter(arm, netze, k, plaetze, leiber=()):
+    # 1569 (Chef 17.11., 16:12, t297.18): Trachten ohne eigenen Umhang tragen das Schrankteil UMHANG der Wachtracht; ihre Kleidung
+    # (Guertel, Schulterstueck, Robe) stach hinten durch (Probebild 1569). Formschluessel unter_CLOAK an jedem Kleidungsnetz: Ecken unter
+    # dem Umhang oder bis UMHANG_DURCH davor ruecken hinter ihn (UMHANG_LUFT); Godot setzt ihn, wenn ein fremdes Umhangteil haengt
+    # (Kauf-Cache: bau/klassen-05a39df078a151311245 ist ohne diesen Schluessel gebaut, darum diese Zeile, neue Kennung)
+    t, g = k.rsplit('_', 1)
+    p = os.path.join(ZIEL, 'teil_UMHANG_%s.glb' % g)
+    if not SCHRANK or not os.path.exists(p): print('UMHANG UNTER FEHLT', k, p); return
+    ob = QT.importiere(p)
+    a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
+    vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+    um = [o for o in ob if o.type == 'MESH' and not o.name.startswith('Icosphere')]   # 1569: die Hilfskugel des Kaufpakets (1 m) ist kein Umhang
+    netze_import = [o for o in ob if o.type == 'MESH']
+    QT.an_geruest(ob, arm, vs)
+    bv = _bvh(um)
+    kleid = set(n for p_, ns in plaetze.items() for n in ns)
+    bl = _bvh(list(leiber)) if leiber else None
+    mitte_y = float(np.mean(np.concatenate([KO._welt(lo)[:, 1] for lo in leiber]))) if leiber else 0.0
+    hinten = 1.0 if bv is not None and float(np.mean(np.concatenate([KO._welt(o)[:, 1] for o in um]))) > mitte_y else -1.0
+    for o in netze:
+        if bv is None or o.name not in kleid or o.type != 'MESH': continue
+        W, N = _normalen(o)
+        D = np.zeros_like(W); n = 0
+        for i in range(len(W)):
+            w = Vector(W[i]); nv = Vector(N[i])
+            h = bv.ray_cast(w + nv * 0.0005, nv, UMHANG_SUCH)   # Umhang ueber der Ecke: um den Abstand bis kurz davor zurueck
+            if h[0] is not None and h[3] < UMHANG_LUFT: D[i] = -N[i] * (UMHANG_LUFT - h[3]); n += 1; continue
+            if h[0] is not None: continue
+            h = bv.ray_cast(w - nv * 0.0005, -nv, UMHANG_DURCH)   # Ecke vor dem Umhang: hinter ihn
+            if h[0] is not None: D[i] = -N[i] * (h[3] + UMHANG_LUFT); n += 1
+        n_auf = 0
+        if bl is not None:
+            for i in range(len(W)):
+                w = Vector(W[i])
+                if (W[i, 1] - mitte_y) * hinten <= 0: continue   # Vorderseite
+                if bv.ray_cast(w, Vector((0, hinten, 0)), UMHANG_HINTEN)[0] is None and bv.ray_cast(w, Vector((0, -hinten, 0)), UMHANG_HINTEN)[0] is None:
+                    continue   # weder dahinter noch davor ein Umhang (Messung: 145 von 270 Durchstechern lagen schon in Ruhe hinter dem Umhang)
+                h = bl.find_nearest(w)
+                if h[0] is None: continue
+                ziel = np.array(h[0] + h[1].normalized() * UMHANG_AUF)
+                if np.linalg.norm(ziel - W[i]) > np.linalg.norm(D[i]): D[i] = ziel - W[i]; n_auf += 1
+        n += n_auf
+        if not n: continue
+        if not o.data.shape_keys: o.shape_key_add(name='Basis', from_mix=False)
+        B = np.empty(len(W) * 3); o.data.shape_keys.key_blocks['Basis'].data.foreach_get('co', B)
+        Mi = np.array(o.matrix_world.inverted())
+        sk = o.shape_key_add(name='unter_CLOAK', from_mix=False)
+        sk.data.foreach_set('co', (B.reshape(-1, 3) + D @ Mi[:3, :3].T).ravel())
+        print('UMHANG UNTER', k, o.name, n, 'Ecken, davon auf den Koerper', n_auf)
+    for o in netze_import: bpy.data.objects.remove(o)   # das Geruest des Imports entfernt an_geruest
+
+
 def schrank(arm, netze, k, g, teilnamen=None):
     # 431h: Teile je Platz und Leib; vor statur() (Formschluessel auch am Leib), unter_* nach statur() (schrank_fertig)
     if not SCHRANK: return netze, None
     netze, plaetze, unter = teile_je_platz(netze, k, teilnamen)
     leiber = leib(arm, g)
-    return netze + leiber, (plaetze, unter, leiber)
+    return netze + leiber, (plaetze, unter, leiber, arm)
 
 
 def schrank_fertig(netze, k, sch):
     # nach statur(): Deckung und unter_*; Eintrag fuer held-klassen.json (heldfigur.gd kleide)
     if not sch: return
-    plaetze, unter, leiber = sch
+    plaetze, unter, leiber, arm = sch
     deckung = leib_deckung(leiber, netze, plaetze, k)
     unter_schluessel(leiber, netze, plaetze, deckung)
+    if 'CLOAK' not in plaetze:   # Geruest der fertigen Netze (kaempfer tauscht es nach schrank() aus, ROBE)
+        arm = next((m.object for o in netze if o.type == 'MESH' for m in o.modifiers if m.type == 'ARMATURE' and m.object), None)
+        if arm: umhang_unter(arm, netze, k, plaetze, leiber)
     SCHRANK_INFO[k] = {'teile': plaetze, 'unter': unter, 'leib': deckung}
 
 
@@ -1086,10 +1152,13 @@ SCHRANK_TEILE = {   # Kennung -> (Kauftracht oder Tracht unseres Baus, Netzname 
     'NOBLE_CROWN': ('{v}_Noble', ('_Head_Crown',), 'HEAD'),
     'NOBLE_GORGET': ('{v}_Noble', ('_Acc_Gorget',), 'CHEST'),
     'KETTE': ('WACHE', (), 'CHEST'),
+    # 1569 (Chef 17.11., 16:12, t297.18: angelegter Umhang in der Welt nie zu sehen): nur die Wachtracht hat einen Umhang (unsere
+    # Kleidung, kauf_kleid.py); die Kauftrachten keinen. Ihr Umhang (Kleid_CLOAK: Umhang und Spange) haengt bei den anderen Trachten
+    'UMHANG': ('WACHE', (), 'CLOAK'),
     'ROBE': ('ROBE', (), 'CHEST'),
 }
 # Teile, die eine Tracht selbst traegt (dann zeigt sie ihr eigenes Teil, wie Stufe 1); dazu die Startstuecke ihrer Herkuenfte
-EIGEN_TEILE = {'WACHE': ['KETTE'], 'ROBE': ['ROBE'], 'KLOSTER': ['CLOTH_BODY', 'CLOTH_ARMS'],
+EIGEN_TEILE = {'WACHE': ['KETTE', 'UMHANG'], 'ROBE': ['ROBE'], 'KLOSTER': ['CLOTH_BODY', 'CLOTH_ARMS'],
                'WALD': ['RANGER_HOOD', 'RANGER_BODY', 'RANGER_ARMS', 'RANGER_LEGS'], 'BAUER': ['PEASANT_BODY', 'PEASANT_ARMS', 'PEASANT_LEGS']}
 SCHRANK_DECKT = {'ROBE': ['Leib_BECKEN', 'Leib_OBERSCHENKEL', 'Leib_UNTERSCHENKEL']}   # wie DECKT_JE ROBE
 
@@ -1114,15 +1183,47 @@ def eigen_stuecke(t):
     return sorted(aus)
 
 
+# 1569.1 (Sokrates 18.11., Bild 3: dunkler Keil an der rechten Schulter, grüner Rand Jägerkind): in „Stehen“ drückt der hängende Oberarm
+# die Seitenbahn des Umhangs nach außen, man sieht ihre Rückseite und den Ärmel davor. Gemessen (Blender, Blick von hinten wie der Teller):
+# Seiten 4 cm nach außen, Rückseite 30 → 10 Treffer, Kleidung an Schulter und Oberarm 617 → 374. Nur das Schrankteil, nicht die Wachtracht
+UMHANG_WEIT = 0.04    # m: Umhang an den Seiten (|x| ab UMHANG_SEITE) zwischen Hüfte und Schulter so weit entlang der Normale nach außen
+UMHANG_SEITE = (0.08, 0.16)            # m: |x| von – bis (weicher Übergang)
+UMHANG_HOEHE = (0.90, 1.00, 1.50, 1.60)  # m: z ein, voll, voll, aus
+
+
+def _stufe(x, a, b):
+    t = np.clip((x - a) / (b - a), 0.0, 1.0)
+    return t * t * (3 - 2 * t)
+
+
+def umhang_weiten(ms):
+    for o in ms:
+        n = len(o.data.vertices)
+        W, N = _normalen(o)
+        h = UMHANG_HOEHE
+        g = _stufe(np.abs(W[:, 0]), *UMHANG_SEITE) * _stufe(W[:, 2], h[0], h[1]) * (1 - _stufe(W[:, 2], h[2], h[3]))
+        D = N * (UMHANG_WEIT * g)[:, None] @ np.array(o.matrix_world.inverted())[:3, :3].T
+        B = np.empty(n * 3); o.data.vertices.foreach_get('co', B)
+        o.data.vertices.foreach_set('co', (B.reshape(-1, 3) + D).ravel())
+        if o.data.shape_keys:
+            for kb in o.data.shape_keys.key_blocks:
+                kb.data.foreach_get('co', B); kb.data.foreach_set('co', (B.reshape(-1, 3) + D).ravel())
+        o.data.update()
+        print('UMHANG WEIT', o.name, int((g > 0.01).sum()), 'Ecken')
+
+
 def teil_ablegen(k, netze, arm):
-    # 431h Stufe 2: Kleid_CHEST der Trachten WACHE (Kettenhemd) und ROBE fuer den Kleiderschrank der anderen Trachten
+    # 431h Stufe 2: Kleid_<PLATZ> der Trachten WACHE (Kettenhemd, 1569 Umhang) und ROBE fuer den Kleiderschrank der anderen Trachten
     t, g = k.rsplit('_', 1)
-    kenn = next((n for n, v in SCHRANK_TEILE.items() if v[0] == t), None)
-    if not kenn or not SCHRANK: return
-    ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_CHEST')]   # mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK)
-    if not ms: print('TEIL FEHLT', k, 'Kleid_CHEST'); return
-    exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
-    print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
+    if not SCHRANK: return
+    for kenn, (quelle, _, platz) in SCHRANK_TEILE.items():
+        if quelle != t: continue
+        # Kleid_CHEST mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK); Kleid_CLOAK ohne fremde Teile darunter
+        ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_' + platz)]
+        if not ms: print('TEIL FEHLT', k, 'Kleid_' + platz); continue
+        if kenn == 'UMHANG': umhang_weiten(ms)
+        exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
+        print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
 
 
 def schrank_datei(g):

@@ -273,6 +273,12 @@ func begrenze() -> void:
 	leben = clampi(leben, 0, max_leben())
 	mana = clampi(mana, 0, max_mana())
 
+## 1478 (1411 A, Chef 16.11., 19:32): nach jedem gewonnenen Kampf Mana + Wille x mana_nach_sieg_je_wille, aufgerundet, hoechstens voll
+func mana_nach_sieg() -> int:
+	var dazu := ceili(wert("wille") * float(h().get("mana_nach_sieg_je_wille", 0.0)))
+	mana = mini(max_mana(), mana + dazu)
+	return dazu
+
 func voll() -> void:
 	leben = max_leben()
 	mana = max_mana()

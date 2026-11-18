@@ -3,7 +3,7 @@ extends SceneTree
 # war weg, aber die neue ist nicht sichtbar gewesen“): jede Waffe, die waffen.py bauen kann, hat ein Modell fuer den Helden; ein Dolch in
 # der Nebenhand haengt nicht als Schild auf dem Ruecken. Die Waffen ohne Modell (458.3) nennt der Test. Ohne Bild.
 # Aufruf: im Ordner godot mit -s res://tests/waffen_522.gd -> „WAFFEN522 gut“ oder „n Fehler“
-const MIT_MODELL := ["longsword", "shortsword", "quarterstaff", "dagger", "scimitar", "handaxe", "shortbow", "longbow", "shield", "round_shield"]
+const MIT_MODELL := ["longsword", "shortsword", "quarterstaff", "dagger", "scimitar", "handaxe", "shortbow", "longbow", "shield", "round_shield", "wand", "staff"]   # 1587
 
 var fehler := 0
 

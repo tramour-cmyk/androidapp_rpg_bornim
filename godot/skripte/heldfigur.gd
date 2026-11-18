@@ -391,6 +391,7 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 	# und Stuecke aus ihren Teilen), zeigt sein Teil aus dem Kleiderschrank des Geschlechts (schrank_<G>.bin, Feld „teil“ der
 	# Gegenstandsliste; je Teil schrank_<G>_<TEIL>.bin); das eigene Teil des Platzes faellt dann weg. Ohne „eigen“ (Bau vor Stufe 2) wie Stufe 1
 	var eigen: Array = tr.get("eigen", [])
+	var sch: Dictionary = lade_info().get("schrank", {}).get(String(tr.get("geschlecht", "M")), {})
 	var fremd := []   # Kennungen der Schrankteile
 	for p in KLEID_PLAETZE:
 		var st = aus.get(p)
@@ -403,16 +404,20 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 		if p == "LEGS" and rock != "":
 			if bool(zeig.get(rock, false)): continue
 		elif b in eigen: continue
+		# 1569 (Chef 17.11., 16:12, t297.18: angelegter Umhang in der Welt nie zu sehen): ein fremdes Stueck ohne Schrankteil (Umhang,
+		# Mantel: „teil“ leer; oder Teil nicht gebaut) zeigt wie Stufe 1 das Teil der eigenen Tracht, statt den Platz leer zu lassen
+		var tl := teil_von(b).filter(func(t): return sch.has(t))
+		if tl.is_empty(): continue
 		zeig[p] = false
-		fremd += teil_von(b)
-	var sch: Dictionary = lade_info().get("schrank", {}).get(String(tr.get("geschlecht", "M")), {})
-	fremd = fremd.filter(func(t): return sch.has(t))
+		fremd += tl
 	var leib: Dictionary = tr.get("leib", {})
 	var unter: Dictionary = tr.get("unter", {})
 	var kap := false
 	var fremd_leib := {}   # Leib_<STUECK> -> von einem Schrankteil gedeckt
+	var fremd_platz := {}  # 1569: Plaetze mit Schrankteil (Kleidung darunter zieht unter_<PLATZ> ein, held_klassen.py umhang_unter)
 	for t in fremd:
 		for lo in Array(sch[t].get("leib", [])): fremd_leib[lo] = true
+		fremd_platz[String(sch[t].get("platz", ""))] = true
 		if t in ["RANGER_HOOD", "KNIGHT_HELM"]: kap = true   # Haar darunter weg (Topfhelm deckt den ganzen Kopf)
 	if not fremd.is_empty(): schrank_an(m, String(tr.get("geschlecht", "M")), fremd, sch)
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
@@ -430,10 +435,15 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 				for i in me.get_blend_shape_count():
 					var bn := String(me.get_blend_shape_name(i))
 					if bn.begins_with("unter_"): x.set_blend_shape_value(i, 1.0 if bool(zeig.get(bn.substr(6), false)) else 0.0)
+		elif x.mesh is ArrayMesh:
+			var me := x.mesh as ArrayMesh
+			for i in me.get_blend_shape_count():
+				var bn := String(me.get_blend_shape_name(i))
+				if bn.begins_with("unter_"): x.set_blend_shape_value(i, 1.0 if fremd_platz.has(bn.substr(6)) else 0.0)
 	return {"kapuze": kap}
 
-# 431h Stufe 2: Teile eines Stuecks (Grundform; Einzelstuecke ueber ihre Grundform), leer = am Helden unsichtbar (Mantel, Umhang anderer
-# Trachten, solange der Umhang ruht)
+# 431h Stufe 2: Teile eines Stuecks (Grundform; Einzelstuecke ueber ihre Grundform); leer (Mantel, Umhang): kleide zeigt das Teil der
+# eigenen Tracht (1569)
 static func teil_von(base: String) -> Array:
 	var e := Katalog.eintrag(base)
 	if not e.has("teil") and e.has("grundform"): e = Katalog.eintrag(String(e["grundform"]))

@@ -39,7 +39,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; Diogenes schlägt in der Wochen
 | **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung | `ROLLE-BETRIEB.md` |
 | **Team Tom** | Entwickler: Leute, Dorf, Innenräume, Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** | Entwickler: Monster, Höhle, Kampf, Klang | ebenso |
-| **Spike** | Entwickler: Technik | ebenso |
+| **Spike** | Technik, jede APK | `ROLLE-TECHNIK.md` |
 
 - Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …), auch als Systemmeldung (853). Alle laufen auf Toms Account (Max, „Zentrale“).
 

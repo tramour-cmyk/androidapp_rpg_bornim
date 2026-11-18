@@ -2,12 +2,12 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `ef7efa2fc` (18.11., 14:52)
+**Gelesen bis:** `198dd5aa2` (18.11., 16:47)
 
 **Kosten frei:** 431 bis 160 $; 709.1 bis 160 $; 870 bis 160 $; 531 bis 80 $; 709 bis 80 $; 930 bis 80 $; 620 bis 80 $; 654 bis 80 $; 1137 bis 80 $
 (1538, 1520 so: offener Vorgang ab 40 $ ohne Eintrag hier hält an, `lauf.py` startet mich mit „Kosten entscheiden“; je Vorgang weiter oder vereinfachen = Eintrag bis zur nächsten Schwelle 40/80/160/320 $, streichen; Chefauftrag streichen nur über die Chefsache; „jetzt“ läuft weiter. Beim Erledigen Eintrag streichen.)
 
-**Übergabe (18.11., 16:22, `session_01Hmoj7A68u3bcsiWqf5rZGK`):** 1677 erledigt: Wächter 1672 (`nur_aussehen` in `commit-pruefung.py`) zählt Bewegungswörter (`BEWEGUNG`: dreht, Wende, Schritt, gleit …) wie Aussehen; Leistungswörter („flüssig“, Bilder/s) gelten als Bedienen nur in Falsch, nicht nebenbei in Passt; „hakel“ ist Bedienen. Entwurf t300 trifft jetzt 300.4, 300.5, 300.6, 300.8, 300.9; t299 bleibt 1 Handypunkt; t290–t298 neu 293.1 (Wölfe zusehen, Film). Nachfolger: keiner.
+**Übergabe (18.11., 16:47, `session_01Hmoj75vvfGtKCS55vajqPq`):** 1682 erledigt: `LISTE-CHECK-BUILD-TEST.md` 3 (Sammelbuild) und 9 (Art je Punkt) verweisen auf `ROLLE-TECHNIK.md` Aufgabe 1; Spike prüft die Art jeder Zeile vor der Testbitte, Commit-Prüfung nur zweite Sicherung. Nachfolger: keiner.
 - **Prüfen 23.11. (1672, 1677, Gegenargument):** Wortliste grob; Fehlalarm zwingt zum Umformulieren statt zur richtigen Art, Lücke (Aussehen mit „Taste“, „Start“ im Satz; Falsch „Tür bleibt zu“ bei Passt „Licht fällt herein“ warnt fälschlich) lässt durch oder hält. Listen t300ff. auf beides ansehen.
 - **Prüfen an der nächsten Prüfliste (1668, Gegenargument):** die Regel hat keinen Wächter in der Commit-Prüfung; fehlt die Stufe in Aussehenszeilen der nächsten Liste, Wächter bauen (Zeile Bild/Film/Handy ohne „Grafik“ oder „alle Stufen“ warnt).
 - **Prüfen 23.11. (1659, Gegenargument):** „je Spielvorgang“ teilt alle Läufe durch alle erledigten Spielvorgänge (7 Tage 181 / 547 = 0,3); Umstufungen und Archivschübe blähen den Nenner, die Zahl taugt nur im Verlauf, nicht absolut. Prüfen 23.11.: liest der Chef sie als Maß, sonst durch „Läufe je abgenommenem Abnahmepunkt“ ersetzen.

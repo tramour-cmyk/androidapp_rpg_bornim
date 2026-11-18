@@ -96,7 +96,9 @@ func karte_pruefen(spiel) -> void:
 		if not (nm.begins_with("Dorf_") or nm.begins_with("Gruppe_") or nm.begins_with("Schlagbaum")): continue   # nur das Netz aus dorf.py
 		for k in (mi as MeshInstance3D).get_surface_override_material_count():
 			var m := (mi as MeshInstance3D).get_surface_override_material(k) as ShaderMaterial
-			if m == null: continue
+			# 1606 (Lauf 558/559, nur mit dem Gras-Kit im Bau): steht das Gras des Kits, zeichnen die Blütenkleckse aus dorf.py nichts
+			# (1205, Gebiet._ohne schiebt jede Ecke aus dem Bild); ohne Bild braucht der Stoff keinen Rand
+			if m == null or m == Gebiet._ohne: continue
 			var x = m.get_shader_parameter("rand_karte")
 			if x is Vector3 and is_equal_approx(x.x, w * Karte.TS) and is_equal_approx(x.y, h * Karte.TS) and x.z > 0.5: mit += 1
 			else: ohne += 1

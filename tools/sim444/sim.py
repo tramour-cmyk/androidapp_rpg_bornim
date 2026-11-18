@@ -27,6 +27,7 @@ Zwei Teile:
 """
 import argparse
 import json
+import math
 import os
 import random
 import statistics
@@ -421,6 +422,8 @@ def kampf(W, held, mon, rng, lernen=False, wirt=None, tier_zuerst=False, beutel=
             zb = z["Wundsegen"]
             mana -= zb["kosten"]
             heil = zauber_grund(W, held, zb) * (1 + held.f(zb["schule"]) / 100.0)
+            st_ = W["kampf"].get("streuung", 0.0)
+            heil *= rng.uniform(1 - st_, 1 + st_)   # 1478 (1411 A): gestreut wie der Waffenschaden
             leben = min(lmax, leben + round(heil))
             if lernen:
                 held.uebe(zb["schule"], mon["stufe"])
@@ -1084,6 +1087,8 @@ def fortschritt_rast(W, herkunft, rng, regel, je_tag):
         r = kampf(W, held, mon, rng, lernen=True, wirt=wirt, leben0=st["leben"], mana0=st["mana"])
         if r["sieg"]:
             st["leben"], st["mana"] = r["leben_abs"], r["mana"]
+            # 1478 (1411 A): nach dem Sieg Mana + Wille x 0,5, aufgerundet, hoechstens voll (wie spiel.gd)
+            st["mana"] = min(held.mana_max(), st["mana"] + math.ceil(held.werte["wille"] * W["held"].get("mana_nach_sieg_je_wille", 0.0)))
             held.gib_ep(ep_fuer(W, held, mon), "kampf")
             held.nach_sieg(r["benutzt"], mon["stufe"])
             if wirt.beute(name, mon, rng) and regel != "alt" and ra["fleisch_essen"]:

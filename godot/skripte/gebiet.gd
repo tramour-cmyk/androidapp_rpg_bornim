@@ -19,6 +19,8 @@ var halm_mmi: MultiMeshInstance3D       # 804: unser Gras, aus, solange das Gras
 var kit_gras: Array[MultiMeshInstance3D] = []
 var kit_stellen: Array[Vector3] = []
 var kit_art := PackedByteArray()
+var blueten: Array = []               # 1205: [MeshInstance3D, Fläche, Stoff] der gezeichneten Blüten (dorf.py flowers, Stoff „bluete“)
+static var _ohne: ShaderMaterial
 var effekte: DorfEffekte             # 814 Effekte Szene 1 (Kaminrauch, Fackeln, Staub, Fahne, Wind, Federn), nach DorfEffekte.an
 var bereit := false                   # 814: aufgebaut (gras_neu darf die Effekte schalten)
 var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte (Fackel der Schenke)
@@ -26,9 +28,17 @@ var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte
 # 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
 func gras_neu() -> void:
 	if GrasBausatz.aktiv() and kit_gras.is_empty() and not kit_stellen.is_empty():
-		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art)
+		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art, karte.id == "village")   # 1205: Blumen im Dorf kleiner
 	for m in kit_gras: m.visible = GrasBausatz.an
 	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
+	# 1205 (Chef 13.11., 18:48: „Blütenfelder, weil die dann nicht so komisch ausschauen wie unsere … geklecksten Blümchen“): steht das
+	# Gras des Kits, blühen nur seine Blumen; die Kleckse aus dorf.py (Kugel auf Stiel) zeichnen dann nichts, ohne Kit wie bisher
+	var kit_an := GrasBausatz.an and not kit_gras.is_empty() and not GrasBausatz.vorher
+	if kit_an and _ohne == null:
+		_ohne = ShaderMaterial.new()
+		_ohne.shader = Shader.new()
+		_ohne.shader.code = "shader_type spatial;\nrender_mode unshaded, cull_disabled;\nvoid vertex() { POSITION = vec4(2.0, 2.0, 2.0, 1.0); }\nvoid fragment() { ALBEDO = vec3(0.0); }\n"
+	for b in blueten: (b[0] as MeshInstance3D).set_surface_override_material(b[1], _ohne if kit_an else b[2])
 	if held and GrasBausatz.an and not kit_gras.is_empty(): GrasBausatz.schieber(held)
 	# 814: bis zum Ende des Umzugs schaltet „Gras“ im Testmenue auch die Effekte der Szene 1 (Bilder/s mit und ohne Pakete);
 	# spiel.gd und testmodus.gd aendert bis dahin nur der Umzug (LISTE-UMZUG-BRS 2.5), danach ein eigener Schalter
@@ -226,6 +236,21 @@ static func atem_an(modell: Node3D, anim: AnimationPlayer, seed: int) -> Node:
 	sk.add_child(atem)
 	return atem
 
+# 1167 (Archivprüfung Sokrates, 453.1 Chef 01.11.: „als ob die Leute halt wirklich leben“; 453a B 02.11.: „gilt für alle Vierbeiner“):
+# Dorftiere (kauftier.py, ohne UAL-Gerüst) atmen als Schicht wie die Tiere im Kampf (kampf/atem_tier.gd, figur.gd _atem_an): Rücken aus
+# den Knochen gesucht, Heben nach der Länge des Rückens, je Tier eigener Takt. Ohne erkennbaren Rücken null.
+static func tier_atem_an(modell: Node3D, seed: int) -> Node:
+	var sk := finde(modell, "Skeleton3D") as Skeleton3D
+	var Tier = load("res://kampf/atem_tier.gd")
+	if sk == null or not Tier.passt(sk) or OS.get_environment("ATEM_ALT") != "": return null
+	var atem = Tier.new()
+	atem.name = "Atem"
+	atem.knochen_setzen(sk)
+	if atem.halten_name != Tier.HALTEN: atem.groesse = -1.0
+	atem.eigen(seed)
+	sk.add_child(atem)
+	return atem
+
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
 # davor stehen. Jede Bewegung bekommt fuer jeden fehlenden Knochen eine Spur mit der Ruhepose, dazu Schleife
@@ -347,18 +372,6 @@ static func toon_mark(k: int) -> Shader:
 		markiert[k] = sh
 	return markiert[k]
 
-## 1566 (Chef 17.11., 14:50, Bild Blutzahnhoehle: „Warum sehe ich da das Wasser durch, obwohl das ja nicht in meiner Sichtlinie ist?“):
-## wasser.gdshader ist unbeleuchtet (draussen wie alt: Farbe fest, nachts gedimmt); in der dunklen Hoehle blieb der Teich darum hell,
-## wo Boden und Fels ohne Licht schwarz sind, und hinter Waenden schimmerte er durch den Nebel (Deckung 0,92). Hier dieselbe Farbe,
-## aber vom Licht der Hoehle beleuchtet (Feuer, Fackel, Pilze, Kristalle): ohne Licht dunkel wie der Boden ringsum
-static var _wasser_hoehle: Shader = null
-static func wasser_hoehle() -> Shader:
-	if _wasser_hoehle == null:
-		_wasser_hoehle = Shader.new()
-		_wasser_hoehle.code = (load("res://shader/wasser.gdshader") as Shader).code.replace(
-			"render_mode specular_disabled, unshaded;", "render_mode specular_disabled;")
-	return _wasser_hoehle
-
 # jedes Netz bekommt den Look der Probe; g (Gebiet) merkt sich Boden, Wasser, Glas und die Dorfmaterialien;
 # mark = Schablone fuer alles (2 Held), sonst 1 fuer Blueten; aus sammelt die Materialien (Held: Aufhellung im Schatten)
 static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
@@ -390,8 +403,6 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py)
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
-				if g.info.get("hoehle", false):   # 1566: in der Hoehle vom Licht der Hoehle beleuchtet (siehe wasser_hoehle)
-					m.shader = wasser_hoehle()
 				if g.info.get("hoehle", false):   # 492 Abgleich (Pruefer 03.11.: Teich hell tuerkis, heller als ringsum, glaenzt): alt MapCave POOL_S, POOL_D, GLINT, tief und schwarz
 					m.set_shader_parameter("rim", Color.html("1E2A2C"))
 					m.set_shader_parameter("deep", Color.html("06090A"))
@@ -430,6 +441,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 					if g: g.glut.append(m)
 			mi.set_surface_override_material(i, m)
 			if zs != "": g.zell_mat[zs] = m
+			if g and src and String(src.resource_name).begins_with("bluete"): g.blueten.append([mi, i, m])   # 1205 (gras_neu)
 		# 492 Hoehle (Lauf 1, Pruefer: Ausgang und Lichtschacht ohne sichtbare Quelle): Ausblick und Spalt leuchten (Himmel_…), der
 		# Lichtstrahl ist durchscheinend (Strahl_…); beide tags hell, nachts schwach (nacht())
 		if g and (nm.begins_with("Himmel") or nm.begins_with("Strahl")):

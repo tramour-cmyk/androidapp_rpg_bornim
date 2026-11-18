@@ -213,12 +213,17 @@ func _ground_shadow() -> void:
 		# 1289 (Höhle im Renderer mobile, am Rechner nachgestellt): als feste dunkle Farbe (0,02; 0,03; 0,01) mit Deckung war der
 		# Schatten auf dunklem Boden heller als der Boden (Höhle: hellgrüne Scheiben unter Grak und den Goblins); jetzt dunkelt er den
 		# Boden um denselben Anteil ab (multipliziert), bei Tag wie vorher, im Dunkel nie heller als der Boden
+		# 1568 (Chef 17.11., 16:05, Build 297: „Warum haben die Wölfe einen rechteckigen Schatten unter sich?“): Compatibility (Handy)
+		# wendet Filmic und die Anpassung schon im Shader des Stoffs an; das Weiß 1,0 außerhalb des Flecks kam gedämpft heraus und
+		# dunkelte die ganze Fläche ab, ihre Ecken standen als Rechteck. Jetzt Schwarz mit Deckung: Boden × (1 − Deckung) wie vorher, Schwarz
+		# bleibt im Tonemapping schwarz (nie heller als der Boden, 1289), außerhalb des Flecks Deckung 0
 		shadow_shader.code = """shader_type spatial;
-render_mode unshaded, blend_mul, depth_draw_never, cull_disabled, shadows_disabled, fog_disabled;
+render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabled, fog_disabled;
 uniform float dichte = 0.78;
 void fragment() {
 	float r = length(UV - 0.5) * 2.0;
-	ALBEDO = vec3(1.0 - dichte * (1.0 - smoothstep(0.45, 1.0, r)));     // Prüfer: im alten Bild deutlich dunkler
+	ALBEDO = vec3(0.0);
+	ALPHA = dichte * (1.0 - smoothstep(0.45, 1.0, r));     // Prüfer: im alten Bild deutlich dunkler
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
@@ -977,12 +982,15 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
 	# 999: der Bogen des Helden links ist seine Waffe (cast_point: der Pfeil geht vom Bogen aus); beim Späher bleibt es, wie es war
 	w.name = "Waffe" if side == "R" or (fighter.monster == null and what.contains("bow")) else "Schild"
-	w.set_meta("stab", what in STAFFS or what == "staff-schamane")     # 348.7b: Zauber ab der Stabspitze (cast_point)
+	w.set_meta("stab", what in STAFFS or what in ["staff-schamane", "wand"])     # 348.7b: Zauber ab der Stabspitze (cast_point); 1587 Zauberstab
+	if what in ["staff", "wand"]:     # 1587: Kristall und Kugel glimmen (waffen.py, Eckfarbe mit Alpha 0)
+		for m: Material in mats.slice(mats.size() - _count_meshes(w)):
+			(m as ShaderMaterial).set_shader_parameter("glut", 1.6)
 	if fighter.monster != null and (what in ["shortbow", "staff-schamane"] or what.ends_with("-rost") or what.ends_with("-grob")):
 		# Späher Runde 1c (Prüfer 1a, 1b: der Bogen ein schwarzer Strich, die Tusche ist breiter als der Wurfarm): ohne Tusche wie
 		# Held und Söldner (Schablone 2), so liest sich das Holz mit der Krümmung
 		# Goblin Runde 6 (Prüfer Runde 5: Säbel mit der Umrisslinie ganz schwarz, Beil und Dolch Klumpen): Goblinwaffen ebenso
-		for m in mats.slice(mats.size() - _count_meshes(w)):
+		for m: Material in mats.slice(mats.size() - _count_meshes(w)):
 			(m as ShaderMaterial).shader = toon_mark()
 
 

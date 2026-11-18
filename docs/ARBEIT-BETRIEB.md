@@ -4,9 +4,11 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Nie archivieren:** (keine; Sokrates …777MV8Hv8ps2Js5voW freigegeben, Chef 18.11., 08:45)
 
+**Startstopp bis PR 220 auf `main` (Chef 18.11., 18:24, Guthaben 87 %, über Sokrates):** keine neuen Starts außer für PR 220 (Spike, 1667); laufende Sitzungen nur zu Ende übergeben. Danach Regel 287 (`--nur-muss`, ab 95 % nur Rückläufer des Chefs).
+
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1679** (zuletzt 1678 Sokrates 18.11. 16:24:40 ccc2) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1700** (zuletzt 1699 Jerry 18.11. 18:13:49 fcdb) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -16,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Alle Sperren aufgehoben (Chef 07.11., 20:2x):** alle Rollen startbar; Vorrang Fehler aus den Tests des Chefs (wiederholte zuerst, 620.1). Es gelten weiter: 621 A (eine Probe je Aussehen-Thema), 488 (Aussehen eingefroren bis zum Durchspielen), 287 nach dem nächsten Bild des Guthabens.
 
-**Guthaben:** **Chef 18.11., 12:13 (an Sokrates, Chat):** „81 Prozent Nutzung.“; Bild 12:15: „Alle Modelle 81 % verbraucht“, zurückgesetzt Sa 19:59; App: „morgen früh aufgebraucht … vor der Zurücksetzung am Samstag“; **kein Limit-Reset vorhanden** (Chef 12:16: „Hier gibt es kein Zurücksetzen.“); 80 % überschritten: 287 nur Muss (`lauf.py --nur-muss`); 100 % Do 19.11. früh (App; eigene Rechnung 0,73 %/h ≈ 14:00); davor 17.11., 21:50: 71 %; 17.11., 13:02: 64 % (an Perikles); davor Chef 16.11., 21:30: „Wir machen weiter ohne Einschränkungen.“; 287 bleibt, bis der Chef anderes sagt; vorher (13.11.) Woche 66 %, ältere Bilder in Git; Nutzungsguthaben an, 0 Credits · **Max 20x seit 25.10., ~11:00**: 287 gilt (ab 80 % `lauf.py --nur-muss`, ab 95 % nur Rückläufer des Chefs, ab 100 % Stillstand, nichts nachkaufen); Monat bis 25.10. 303,02 $ · ältere Bilder (bis 06.11.): Git · 13.11., 15:00: Sitzungsdaten zeigen `seven_day allowed_warning` (Chef 15:01 gemeldet)
+**Guthaben:** **Chef 18.11., 18:21 (an Sokrates, Chat):** „87 Prozent“ (seit 12:13 ≈ 1 %/h: 95 % etwa 02:30, 100 % etwa 07:30 Do 19.11.); davor 12:13: „81 Prozent Nutzung.“; Bild 12:15: „Alle Modelle 81 % verbraucht“, zurückgesetzt Sa 19:59; App: „morgen früh aufgebraucht … vor der Zurücksetzung am Samstag“; **kein Limit-Reset vorhanden** (Chef 12:16: „Hier gibt es kein Zurücksetzen.“); 80 % überschritten: 287 nur Muss (`lauf.py --nur-muss`); 100 % Do 19.11. früh (App; eigene Rechnung 0,73 %/h ≈ 14:00); davor 17.11., 21:50: 71 %; 17.11., 13:02: 64 % (an Perikles); davor Chef 16.11., 21:30: „Wir machen weiter ohne Einschränkungen.“; 287 bleibt, bis der Chef anderes sagt; vorher (13.11.) Woche 66 %, ältere Bilder in Git; Nutzungsguthaben an, 0 Credits · **Max 20x seit 25.10., ~11:00**: 287 gilt (ab 80 % `lauf.py --nur-muss`, ab 95 % nur Rückläufer des Chefs, ab 100 % Stillstand, nichts nachkaufen); Monat bis 25.10. 303,02 $ · ältere Bilder (bis 06.11.): Git · 13.11., 15:00: Sitzungsdaten zeigen `seven_day allowed_warning` (Chef 15:01 gemeldet)
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
@@ -47,6 +49,14 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 17:09 18.11.: Startsperre 17:09 Start Sokrates (Neustart 5c413fea5, 1608)
+- 18.11., 17:05 Ford: Tom-Neustart `…75RSsSMVuCzxsyjp32` (300.10, 1655, 1570, 1674); Diogenes `…76MMaHby73zUmJ8yEE` (1683) gestartet und archiviert, Perikles 1677, 1682 archiviert (1,34 $, 0,91 $, 0,93 $); Startregel auf 1683 (Kern über lauf.py).
+- 17:01 18.11.: Startsperre 17:01 Start Tom (Neustart a7196e254, 1406)
+- 16:58 18.11.: Startsperre 16:58 Start Diogenes (e13780dd8, 1683)
+- 16:45 18.11.: Startsperre 16:45 Start Perikles (db348e69a, 1682)
+- 18.11., 16:45 Ford: Neustarts Sokrates `…77w4eC1bearZWLwJZf` (1678, fertig), Spike `…789eBk8ZNvZt8H2DoE` (1667, PR 220/221); Spike alt archiviert (18,76 $ auf 1595, 1270.6, 1645, 1664, 1667); 1680 gebaut. Sokrates-Nachfolger 1608 zurückgestellt (Guthaben, Spike merged 299 selbst).
+- 16:39 18.11.: Startsperre 16:39 Start Spike (Neustart 3bd32fc16, 1667)
+- 16:37 18.11.: Startsperre 16:37 Start Sokrates (Neustart 35ac3bc16, 1678)
 - 16:23 18.11.: Startsperre 16:23 Start Sokrates (Neustart d9dd3a2b6, Chefrunde)
 - 16:18 18.11.: Startsperre 16:18 Start Perikles (a06eeb1f9, 1677)
 - 18.11., 16:05 Ford: Perikles `…79KP73TmJnieGVtFS2` (1672) gestartet und archiviert, 1,64 $ auf 1672.
