@@ -1011,3 +1011,4 @@
 2026-11-18 16:37:30	commit-pruefung	docs/chefsache/ansehen/1621-zweihaender-griff.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-18 16:38:32	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30241 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-18 16:43:06	commit-pruefung	CLAUDE.md: 15072 Bytes, Obergrenze 15000, Commit fügt 92 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
+2026-11-18 16:43:12	commit-pruefung	CLAUDE.md: 15005 Bytes, Obergrenze 15000, Commit fügt 25 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
