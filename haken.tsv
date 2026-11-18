@@ -1049,3 +1049,4 @@
 2026-11-18 22:27:47	commit-pruefung	docs/chefsache/ansehen/t300-sammelbuild.md: Laufnachweis fehlt (1128 A): zellen_1484a Testskript endet nur mit quit(0), wird nie rot; wende180_1406 steht nicht im Bauablauf; als Prüffrage am Handy ode	main
 2026-11-18 22:28:23	commit-pruefung	docs/chefsache/ansehen/1654-rowena-schuerze.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
 2026-11-18 22:28:23	commit-pruefung	docs/chefsache/ansehen/1653-thessa-spangen.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
+2026-11-18 22:29:12	commit-pruefung	docs/chefsache/ansehen/1654-rowena-schuerze.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
