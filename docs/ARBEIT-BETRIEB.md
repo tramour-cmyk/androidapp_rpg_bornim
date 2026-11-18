@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Nie archivieren:** (keine; Sokrates …777MV8Hv8ps2Js5voW freigegeben, Chef 18.11., 08:45)
 
-**Startstopp bis PR 220 auf `main` (Chef 18.11., 18:24, Guthaben 87 %, über Sokrates):** keine neuen Starts außer für PR 220 (Spike, 1667); laufende Sitzungen nur zu Ende übergeben. Danach Regel 287 (`--nur-muss`, ab 95 % nur Rückläufer des Chefs).
+**Guthaben (Chef 18.11., 18:24, 87 %, etwa 1 %/h):** Startstopp bis PR 220 aufgehoben (PR 220 gemischt 19:50, Spike); jetzt Regel 287: `--nur-muss`, ab 95 % (gegen 02:30) nur Rückläufer des Chefs.
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
@@ -49,6 +49,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 20:01 18.11.: Startsperre 20:01 Start Spike (Neustart 75a32f4e7, 1595)
+- 18.11., 20:01 Ford: PR 220 (Build 298/299) gemischt 19:50; Startstopp aufgehoben. Archiviert 17:13–18:50: Tom ×2 (20,13 $, 11,10 $), Sokrates 1678 (4,49 $), Jerry (16,93 $); 1698 an Jerry (Wende im frischen Bau klassen).
 - 17:09 18.11.: Startsperre 17:09 Start Sokrates (Neustart 5c413fea5, 1608)
 - 18.11., 17:05 Ford: Tom-Neustart `…75RSsSMVuCzxsyjp32` (300.10, 1655, 1570, 1674); Diogenes `…76MMaHby73zUmJ8yEE` (1683) gestartet und archiviert, Perikles 1677, 1682 archiviert (1,34 $, 0,91 $, 0,93 $); Startregel auf 1683 (Kern über lauf.py).
 - 17:01 18.11.: Startsperre 17:01 Start Tom (Neustart a7196e254, 1406)
