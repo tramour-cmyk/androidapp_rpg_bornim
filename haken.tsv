@@ -1025,3 +1025,4 @@
 2026-11-18 18:24:36	commit-pruefung	docs/chefsache/ansehen/1406-jorin-wende.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
 2026-11-18 18:24:36	commit-pruefung	docs/chefsache/ansehen/1406-jorin-wende.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-18 18:35:44	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1674-bank
+2026-11-18 18:44:03	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30532 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
