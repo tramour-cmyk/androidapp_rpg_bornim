@@ -164,6 +164,7 @@ func _lauf() -> void:
 						var lu: Array = _luecke(f, z)
 						biss[f].koerper[z.fighter.id] = minf(float(biss[f].koerper.get(z.fighter.id, INF)), lu[0])
 						biss[f].schild[z.fighter.id] = minf(float(biss[f].schild.get(z.fighter.id, INF)), lu[1])
+						if OS.get_environment("SCHAU_LUECKE") != "": print("LUECKE %.2f %s %s %.2f %.2f %s %.2f" % [t, f.fighter.id, z.fighter.id, lu[0], lu[1], f.anim.current_animation, f.anim.current_animation_position])
 				# Einzelbilder für die eigene Prüfung (BILD_760=<Ordner>, nur mit Bild): geduckt, im Scheitel, im Aufkommen
 				var ordner := OS.get_environment("BILD_760")
 				if ordner != "" and DisplayServer.get_name() != "headless":

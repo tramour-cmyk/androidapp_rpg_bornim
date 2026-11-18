@@ -2846,6 +2846,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var hind: Array = other.schild_kapseln()
 			other.footprint()     # misst schild_unten (ohne Schild INF)
 			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
+			var tief := []     # 760: bester Platz, an dem die Schnauze trifft und der Umriss bis SPRUNG_TIEF am Helden liegt: [Umriss, Platz, Richtung, Stand, t]
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
 			# 1284 (Chef 15.11., 14:54, Film Rattenbiss: „man sieht nicht, ob sie trifft oder nicht, weil da steht ja genau der Held dann
 			# davor … die steht ja neben ihm, als sie zubeißt“; biss_1284: 10 von 11 Bissen lagen die Zähne ganz hinter dem Ziel, die
@@ -2930,6 +2931,10 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Umriss mit Held gedreht %.2f (soll %.2f), voll %s" % [r2, r_soll, voll])
+				if gebaut and weiter <= 0.0 and voll and r2 < r_soll and r2 >= -SPRUNG_TIEF * _scale() and l2 >= PLATZ_LUFT and w2 >= WEG_LUFT \
+						and h2 >= -BISS_UMRISS and _im_bild(s2, d2) and (tief.is_empty() or r2 > float(tief[0])):
+					# trifft er, wehrt der Schild nicht ab: Stand ohne ABWEHR_VOR (sprung_760 Wolf 3: Zähne sonst 0,09 m davor)
+					tief = [r2, Vector3(other.position.x, position.y, other.position.z) - d2 * float(pl[0]), d2, float(pl[0]), float(bite[nm][1]) + maxf(0.0, float(pl[1]) - float(bite["Biss"][1])) / maxf(float(tempo.get("Biss", 1.0)), 0.1)]
 				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _im_bild(s2, d2):
 					continue
 				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
@@ -2954,6 +2959,14 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				sauber = true
 				break
 			biss_verdeckt = false
+			if biss_von == Vector3.INF and not tief.is_empty():     # 760: der Sprung trifft, Brust an Brust, statt davor zu bleiben
+				biss_von = tief[1]
+				dir = tief[2]
+				stand = tief[3]
+				biss_t = tief[4]
+				sauber = true
+				if OS.get_environment("SCHAU_760") != "":
+					print("760 tief %s an %s: Umriss %.2f, Platz %s" % [fighter.id, other.fighter.id, tief[0], tief[1]])
 			if biss_von == Vector3.INF and not verdeckt_bei.is_empty():
 				biss_verdeckt = true     # biss_1284: kein freier Platz im Bild, an dem das Ziel die Zähne nicht verdeckt
 				biss_von = verdeckt_bei[0]
@@ -3781,6 +3794,10 @@ const HIEB_ZURUECK_M := 0.3
 const HIEB_TIEF := 0.02           # 709: so tief dringt die Klinge beim Treffer in den Körper (Kapseln)
 const HIEB_KOERPER_LUFT := 0.02   # 709: Körper und Schild bleiben im ganzen Hieb so weit vor dem Körper des Ziels (E3)
 const BISS_UMRISS := 0.03         # 709: so viel Luft hält der Umriss des Tiers am Bissplatz zu allen (wolf_mess_438: 5 cm tief erlaubt)
+# 760 (Chef 18.11., t298.7: „hat einfach zu kurz gebissen … war nicht auf der Person“; sprung_760 nachgestellt: kein Platz hielt den
+# Umriss des Wolfs am gedrehten Helden über -BISS_UMRISS, der Treffer nahm dann den Teilplatz, die Zähne blieben 0,20 m davor): trifft
+# der Sprung, darf er tiefer an den Helden (Brust an Brust), als ein Platz im Stand dürfte
+const SPRUNG_TIEF := 0.25
 const BISS_LUFT := 0.05           # 709: Körper und Schnauze bleiben so weit vor Körper und Schild des Ziels (wolf_mess_438: 4 cm im Schild)
 const BISS_TIEF := 0.01           # 709: so tief fasst die Schnauze beim Treffer in den Körper (Kapseln; wolf_mess_438 erlaubt 3 cm)
 const BISS_DANEBEN := 0.12        # 1284: daneben schnappen die Zähne so weit vor Körper oder Schild zu (sichtbar knapp, kein Luftbiss)
