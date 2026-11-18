@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 10:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 10:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -24,10 +24,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 65 (61) | 19 | 0 | 4 | 49 | 1635 (Sokrates) Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 27 (20) | 15 | 2 | 1 | 7 | 1631 (Spike) Durchstechprüfung Kleidung gegen Leib und Arme fü… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 27 (20) | 15 | 2 | 1 | 7 | 1631 (Tom) Durchstechprüfung Kleidung gegen Leib und Arme fü… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (48) | 5 | 0 | 6 | 26 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 12 (11) | 6 | 0 | 1 | 4 | 1270.5 (Spike) ganze Technik gegen fremde Praxis abgleichen, nic… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 12 (11) | 6 | 1 | 1 | 4 | 1270.5 (Spike) ganze Technik gegen fremde Praxis abgleichen, nic… |
 | **7** Werkzeuge und Abläufe der Firma | 48 (48) | 32 | 0 | 0 | 11 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -46,7 +46,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 2 weitere |
-| Tom | 1631 Übernahme von Spike: Durchstechprüfung Kleidung gegen Leib und Arme für alle Fig… (Muss) |
+| Tom | 1631 Durchstechprüfung Kleidung gegen Leib und Arme für alle Fig… (Muss) |
 | Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | 1640 chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorrat… (Muss); dann 5 weitere |
@@ -59,8 +59,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1270.5 | Spike | ganze Technik gegen fremde Praxis abgleichen, nicht nur Wald; höchstens drei Vo… | M | 6 Godot besser nutzen | startbar |
-| 2 | 1631 | Spike | Durchstechprüfung Kleidung gegen Leib und Arme für alle Figuren mit Kaufkleid j… | M | 3 Kleiderschrank und Modelle | startbar |
+| 1 | 1270.5 | Spike | ganze Technik gegen fremde Praxis abgleichen, nicht nur Wald; höchstens drei Vo… | M | 6 Godot besser nutzen | in Arbeit |
+| 2 | 1631 | Tom | Durchstechprüfung Kleidung gegen Leib und Arme für alle Figuren mit Kaufkleid j… | M | 3 Kleiderschrank und Modelle | startbar |
 | 3 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 4 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 5 | 1640 | Spike | chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorratspflege „Pflege von… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
@@ -96,7 +96,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1619](ansehen/1619-gang-mit-waffe.md) | Gang mit Waffe: Beine aus dem Gehen statt Trippeln | – | 18.11., 08:52 |
-| [1621](ansehen/1621-waffenlaenge.md) | Zweihandwaffen kürzer: alt gegen neu am Helden | – | 18.11., 09:08 |
+| [1621](ansehen/1621-waffenlaenge.md) | Zweihandwaffen kürzer: alt gegen neu am Helden | – | 18.11., 10:33 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
