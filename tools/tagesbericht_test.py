@@ -21,5 +21,17 @@ z5 = next(l for l in md.splitlines() if l.startswith("| 5 |"))
 if "**5 von 9**" not in z5 or "weiter unter der Tabelle" not in z5: fehler.append("Zeile 5 Anfang fehlt: " + z5[:80])
 if "- Zeile 5 (Builds), weiter:" not in md or "Ø **46 min**" not in md: fehler.append("Rest von Zeile 5 nicht unter der Tabelle")
 if "ganz unter „Eingaben“" not in next(l for l in md.splitlines() if l.startswith("| 8 |")): fehler.append("Zeile 8 ohne Hinweis")
+# 1659: Zeile Läufe aus den Zahlen; 1660: Vorrat als Satz
+d2 = {"rot": {"24h": (1, 4, __import__("collections").Counter(tom=1), 30.0, 120.0), "7d": (2, 10, None, 60.0, 300.0)}, "lz": "",
+      "e1": ["1", "2"], "e7": ["1", "2", "3"], "jetzt": {"1": dict(bereich="E", stand="erledigt"), "2": dict(bereich="E", stand="verworfen"),
+                                                       "3": dict(bereich="B", stand="erledigt")}}
+T.rotbuch_kurz = lambda: ""
+w = T.wirkung_text(d2)
+for teil in ("**75 % grün** (3 von 4)", "**30 min in roten Läufen** (25 % der Laufzeit)", "**4,0 Läufe je erledigtem Spielvorgang**", "7 Tage 80 % grün", "Tom 1"):
+    if teil not in w: fehler.append("Läufe ohne " + teil)
+v = T.vorrat_satz(["3 Absätze gestrichen"], [("L", "1", "Tom", ""), ("L", "2", "Jerry", ""), ("I", "77", "?", "")])
+for teil in ("behoben: 3 Absätze gestrichen", "Offen: 3 Funde (2 wohl doppelt", "Tom 1", "Für dich: 1 Datei in der Chefsache ohne offenen Vorgang (77)"):
+    if teil not in v: fehler.append("Vorrat ohne " + teil)
+if "Für dich: nichts" not in T.vorrat_satz([], []) or "noch nicht geprüft" not in T.vorrat_satz([], []): fehler.append("Vorrat leer falsch")
 print("tagesbericht_test:", "grün" if not fehler else "ROT: " + "; ".join(fehler))
 sys.exit(1 if fehler else 0)
