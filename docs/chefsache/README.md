@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 22:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 22:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -26,10 +26,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 64 (61) | 18 | 0 | 2 | 49 | 1635 (Sokrates) Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 22 | 0 | 6 | 7 | 1694 (Spike) Griff einmal für alle gehaltenen Dinge: fester Gr… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 34 (20) | 22 | 0 | 6 | 7 | 1694 (Spike) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (48) | 5 | 0 | 3 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 18 (11) | 11 | 0 | 5 | 4 | 1701 (Spike) alte Notizkopie trat wieder auf; Ursache finden,… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 11 | 0 | 5 | 4 | 1701 (Spike) alte Notizkopie trat wieder auf; Ursache finden,… |
 | **7** Werkzeuge und Abläufe der Firma | 48 (48) | 28 | 0 | 2 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -38,8 +38,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 82 | 114 | 398 | 1258 |
-| neu | 108 | 116 | 388 | 1278 |
-| **netto** (erledigt − neu) | **−26** | **−2** | **+10** | **−20** |
+| neu | 110 | 116 | 390 | 1280 |
+| **netto** (erledigt − neu) | **−28** | **−2** | **+8** | **−22** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | 1707 ARBEIT-PRUEFUNG.md: 1 „Zu“ zu Erledigtem, beim Übergeben st… (Kür) |
 | Sokrates | läuft: 1608 (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 1 weitere |
-| Perikles | M? M? entscheiden: 1708 (Muss); dann 1 weitere |
+| Perikles | M? M? entscheiden: 1708, 1710 (Muss); dann 1 weitere |
 
 **Die nächsten 20**
 
@@ -82,7 +82,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1705 | Homer | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergän… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 20 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 55 weitere offen. Bei dir zum Testen (vorgelegt): 18. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 57 weitere offen. Bei dir zum Testen (vorgelegt): 18. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Nichts offen.
