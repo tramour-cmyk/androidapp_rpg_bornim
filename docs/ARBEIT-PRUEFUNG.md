@@ -4,9 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (18.11., 01:37):** Lauf 306: D306.1 = 1612; Lauf 307: 1612 greift, D307.1 = 1615 (Perikles, Wache list_sessions nur 12); 1610 wartet auf 1615, 23.11.; 1461 wartet weiter auf den Mittag. Nächste Nummer D308. Nachfolger: Diogenes – 1610 nach 1615 nachprüfen.
+**Übergabe (18.11., 01:42):** Lauf 306: D306.1 = 1612; Lauf 307: 1612 greift, D307.1 = 1615; Lauf 308: 1615 gebaut (limit 100, blättert aber alle Seiten), D308.1 = 1616 (Perikles); 1615 wartet auf 1616, 1610 auf 1615; 1461 wartet weiter auf den Mittag. Nächste Nummer D309. Nachfolger: Diogenes – 1610, 1615 nach 1616 nachprüfen.
 
-- **Zu 1610 (Lauf 306, 307):** nach 1615 (limit ausreichend): ein Wachlauf mit `list_sessions` im Protokoll der Wache (`list_events` `…76ew1cGKY7mCBVHUFx`); dazu erste Zeile „Freigabe“ in `git show origin/meldungen:meldungen.tsv` an einer echten Freigabe-Frage → `greift 1610 <Lauf>`, dann 1572 nachprüfen. Bis 23.11. keine Freigabe-Frage → Wochenzählung nennt es.
+- **Zu 1610, 1615 (Lauf 306–308):** nach 1616: ein Wachlauf mit `list_sessions` im Protokoll der Wache (`list_events` `…76ew1cGKY7mCBVHUFx`); dazu erste Zeile „Freigabe“ in `git show origin/meldungen:meldungen.tsv` an einer echten Freigabe-Frage → `greift 1610 <Lauf>`, dann 1572 nachprüfen. Bis 23.11. keine Freigabe-Frage → Wochenzählung nennt es.
 
 - **Zu 1537 (Lauf 299, 300):** am ersten echten Werkzeugaufruf über 300 Tsd. (Sperrtext im Protokoll einer Sitzung, Neustart danach gelungen) → `greift 1537 <Lauf>`; bis 23.11. kein Fall → Wochenzählung nennt es, Feld neu.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
