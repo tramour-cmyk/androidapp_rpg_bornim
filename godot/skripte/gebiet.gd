@@ -372,6 +372,18 @@ static func toon_mark(k: int) -> Shader:
 		markiert[k] = sh
 	return markiert[k]
 
+## 1566 (Chef 17.11., 14:50, Bild Blutzahnhoehle: „Warum sehe ich da das Wasser durch, obwohl das ja nicht in meiner Sichtlinie ist?“):
+## wasser.gdshader ist unbeleuchtet (draussen wie alt: Farbe fest, nachts gedimmt); in der dunklen Hoehle blieb der Teich darum hell,
+## wo Boden und Fels ohne Licht schwarz sind, und hinter Waenden schimmerte er durch den Nebel (Deckung 0,92). Hier dieselbe Farbe,
+## aber vom Licht der Hoehle beleuchtet (Feuer, Fackel, Pilze, Kristalle): ohne Licht dunkel wie der Boden ringsum
+static var _wasser_hoehle: Shader = null
+static func wasser_hoehle() -> Shader:
+	if _wasser_hoehle == null:
+		_wasser_hoehle = Shader.new()
+		_wasser_hoehle.code = (load("res://shader/wasser.gdshader") as Shader).code.replace(
+			"render_mode specular_disabled, unshaded;", "render_mode specular_disabled;")
+	return _wasser_hoehle
+
 # jedes Netz bekommt den Look der Probe; g (Gebiet) merkt sich Boden, Wasser, Glas und die Dorfmaterialien;
 # mark = Schablone fuer alles (2 Held), sonst 1 fuer Blueten; aus sammelt die Materialien (Held: Aufhellung im Schatten)
 static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
@@ -403,6 +415,8 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py)
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
+				if g.info.get("hoehle", false):   # 1566: in der Hoehle vom Licht der Hoehle beleuchtet (siehe wasser_hoehle)
+					m.shader = wasser_hoehle()
 				if g.info.get("hoehle", false):   # 492 Abgleich (Pruefer 03.11.: Teich hell tuerkis, heller als ringsum, glaenzt): alt MapCave POOL_S, POOL_D, GLINT, tief und schwarz
 					m.set_shader_parameter("rim", Color.html("1E2A2C"))
 					m.set_shader_parameter("deep", Color.html("06090A"))
