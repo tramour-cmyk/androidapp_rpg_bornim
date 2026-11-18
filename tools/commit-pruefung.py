@@ -283,8 +283,25 @@ MENUEPFAD = re.compile(r"Menü\s*→|\bReiter\b|Lage herstellen")
 AUSSEHEN = re.compile(r"(?i)(sehen|sichtbar|abgeschnitten|Streifen|leucht|Licht|hell|dunkel|Farbe|Stoff|Kleid|Schatten|glüh|sticht|ragt|"
                       r"schwebt|Fleck|versunken|steckt|hängt|spannt|Umriss|Glanz|Nebel|Staub|Funke)")
 BEDIENEN = re.compile(r"(?i)(tipp|drück|Knopf|Taste|Start\b|von selbst|Schaltfl|\bwisch|ablegen|anlegen|ausw[äa]hl|öffnet|schließt|reagiert|Ring\b|Ton\b|Klang|hör|"
-                      r"ruckel|flüssig|hakt|Gefühl|spür|lädt|Lade|Absturz|stürzt|friert|bleibt stehen|kommt (?:nicht )?an|erreich|"
+                      r"ruckel|flüssig|hakt|hakel|Gefühl|spür|lädt|Lade|Absturz|stürzt|friert|bleibt stehen|kommt (?:nicht )?an|erreich|"
                       r"Gespräch|Auftrag|Kampf beginnt|Bilder/s|fps|Takt\b|Ziel\b|trifft|ausgelöst|bewegt sich (?:nicht|zu)|steuer|Joystick|langsam|schnell)")
+# 1677 (Sokrates, Gegenlesen t300): Bewegung ist Film, nie Handy (300.6 Gehbewegung, 300.9 Wende)
+BEWEGUNG = re.compile(r"(?i)(dreht|Wende|Schritt|gleit|rutsch|Gehbewegung|Animation|wackel|schwingt|zuckt|flattert|wippt|Ausholen)")
+
+
+LEISTUNG = re.compile(r"(?i)(flüssig|ruckel|hakt|hakel|Bilder/s|fps)")
+
+
+def nur_aussehen(urteil, falsch):
+    """1672/1677: Treffer (Wort) einer Handyzeile, die nur übers Aussehen oder die Bewegung urteilt, sonst None.
+    Leistungswörter („flüssig“, Bilder/s) zählen als Bedienen nur in Falsch; nebenbei in Passt („Bild flüssig“, 300.4)
+    machen sie aus einer Aussehenszeile keine Handyzeile."""
+    m = AUSSEHEN.search(urteil) or BEWEGUNG.search(urteil)
+    if not m: return None
+    vorn = urteil[:len(urteil) - len(falsch)] if urteil.endswith(falsch) else urteil
+    return None if BEDIENEN.search(LEISTUNG.sub("", vorn)) or BEDIENEN.search(falsch) else m.group(0)
+
+
 HANDY_LESEN = re.compile(r"(?i)\b(lesen|liest|durchblättern|Text\w*|Handbuch\w*)\b")
 # 1427 (Chef 16.11., 13:31 zu t291.3 „nicht langsamer da als in Build 290“: „Völlig sinnlose Frage. Die kann ein Mensch nicht beantworten.“):
 # Vergleich mit einem früheren Build oder „wie vorher“ an einer Handy-Zeile nur mit gemessener Zahl (0,7 s, 30 Bilder/s, 12 %)
@@ -305,9 +322,8 @@ def handypunkte(inhalt):
     if not kopf: return None
     sa = kopf.index("Art")
     sw = next((i for i, c in enumerate(kopf) if c.lower().startswith("wo und wie")), -1)
-    def aussehen(r):  # 1672: Handyzeile, die nur übers Aussehen urteilt, zählt nicht
-        u = " ".join(r[sw + 1:]) if sw >= 0 else ""
-        return bool(AUSSEHEN.search(u)) and not BEDIENEN.search(u)
+    def aussehen(r):  # 1672, 1677: Handyzeile, die nur übers Aussehen oder die Bewegung urteilt, zählt nicht
+        return sw >= 0 and len(r) > sw + 1 and nur_aussehen(" ".join(r[sw + 1:]), r[-1]) is not None
     return sum(1 for r in tab if r and re.fullmatch(r"\*?\d+\.\d+[a-z]?(\.\d+[a-z]?)*\*?", r[0]) and len(r) > sa
                and r[sa].lower().startswith("handy") and not aussehen(r))
 
@@ -332,11 +348,11 @@ def art_weg_befunde(inhalt):
         elif art.startswith("handy"):
             m = HANDY_LESEN.search(wo)
             if m: out.append(("warn", "Zeile %s Art Handy mit „%s“: nur Lesen ist Bild oder „ohne dich“, nicht Handy (1398)" % (r[0], m.group(0))))
-            urteil = " ".join(r[sw + 1:]) if sw >= 0 else ""
-            if AUSSEHEN.search(urteil) and not BEDIENEN.search(urteil):
-                out.append(("aussehen", "Zeile %s Art Handy urteilt nur übers Aussehen (Passt/Falsch: „%s“, kein Bedienen); Aussehen ist Bild, "
-                            "Bewegung Film, nie Handy, und zählt nicht für die 4 Handypunkte (1672, Chef 18.11., 15:48 zu t299; "
-                            "LISTE-CHECK-BUILD-TEST.md 9)" % (r[0], AUSSEHEN.search(urteil).group(0))))
+            w = nur_aussehen(" ".join(r[sw + 1:]), r[-1]) if 0 <= sw < len(r) - 1 else None
+            if w:
+                out.append(("aussehen", "Zeile %s Art Handy urteilt nur übers Aussehen oder die Bewegung (Passt/Falsch: „%s“, kein Bedienen); "
+                            "Aussehen ist Bild, Bewegung Film, nie Handy, und zählt nicht für die 4 Handypunkte (1672, 1677; "
+                            "LISTE-CHECK-BUILD-TEST.md 9)" % (r[0], w)))
         if not re.match(r"(bild|film)\b", art):  # 1446 (D273.1): Regel 10 gilt für jede Zeile; Bild/Film zeigen alt gegen neu selbst
             ganz = re.sub(r"\[[^\]]*\]\([^)]*\)", "", " | ".join(r[sw:])) if sw >= 0 else ""
             m = next((v for v in (VERGLEICH.search(teil) for teil in re.split(r"[;|]", ganz) if not GEMESSEN.search(teil)) if v), None)

@@ -26,6 +26,15 @@ H5 = "| 9.5 | Spike | 5 | Handy | in die Höhle gehen | so hell wie in Build 292
 H6 = "| 9.6 | Spike | 6 | Handy | zweiter Kampf | nach höchstens 0,7 s bereit, halb so lang wie in Build 287 | über 0,7 s |"
 B7 = "| 9.7 | Spike | 7 | Bild | links Build 292, rechts neu, gleich hell wie in Build 292 | a | b |"
 soll("Vergleich aus dem Gedächtnis (und nur Aussehen, 1672)", arten(liste("Weiter, 9.5.", H5)), ["aussehen", "vergleich"])
+# 1677: Falsch entscheidet (Passt „flüssig“ nebenbei), Bewegung zählt als Film
+H8 = "| 9.8 | Spike | 8 | Handy | durch den Gang gehen | Fackeln glühen, Schatten, Bild flüssig | kein Glühen, keine Schatten |"
+H9 = "| 9.9 | Tom | 9 | Handy | Jorin zusehen | er dreht sich in einem Zug um | er rutscht auf der Stelle herum |"
+H10 = "| 9.10 | Tom | 10 | Handy | Tür antippen | Tür geht auf, Licht fällt herein | Tür bleibt zu |"
+H11 = "| 9.11 | Spike | 11 | Handy | gehen | gleichmäßig beim Schritt | es hakelt |"
+soll("Passt flüssig, Falsch nur Aussehen", arten(liste("Weiter, 9.8.", H8)), ["aussehen"])
+soll("Bewegung ist Film", arten(liste("Weiter, 9.9.", H9)), ["aussehen"])
+soll("Falsch ohne Blickwort, Passt mit Licht: wie bisher", arten(liste("Weiter, 9.10.", H10)), ["aussehen"])
+soll("Hakeln ist Bedienen", arten(liste("Weiter, 9.11.", H11)), [])
 soll("Vergleich mit Messzahl frei", arten(liste("Weiter, 9.6.", H6)), [])
 soll("Bild alt gegen neu frei", arten(liste("Weiter, 9.1.", H1, B7)), [])
 # 1446: Lücken aus D273.1
