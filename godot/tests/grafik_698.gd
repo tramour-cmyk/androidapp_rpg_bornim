@@ -42,6 +42,8 @@ func _lauf() -> void:
 	pruefe("Niedrig: ohne Innenschatten, Kits, Tusche nach Lampen", not Grafik.innen_schatten() and not Grafik.kits() and not Grafik.tusche_lampen())
 	pruefe("Niedrig: Innenschatten aus, fremdes Licht bleibt", not l.shadow_enabled and frei.shadow_enabled)
 	pruefe("Niedrig: kein Gras und keine Effekte der Kits", not GrasBausatz.aktiv() and not DorfEffekte.aktiv() and not KampfEffekte.da_nebel())
+	# 1205b A (Chef 18.11., 15:37): in Niedrig nur die Blumen des Kits (wenn es da ist), in Mittel und Hoch das ganze Kit
+	pruefe("Niedrig: Blumen des Kits ohne sein Gras", GrasBausatz.nur_blumen() == GrasBausatz.da())
 	Grafik.setze(self, Grafik.MITTEL)
 	pruefe("Mittel: 3D 85 %, Innenschatten, Kits", is_equal_approx(root.scaling_3d_scale, 0.85) and l.shadow_enabled and Grafik.kits() and Grafik.tusche_lampen())
 	Grafik.setze(self, Grafik.HOCH)

@@ -7,7 +7,8 @@ extends RefCounted
 #   Hoch:    Sonnenschatten 4096 px weich (Stufe 2), Innenschatten, Tusche nach Lampen, 3D voll, Gras und Effekte der Kits
 #   Mittel:  Sonnenschatten 2048 px weich (Stufe 1), sonst wie Hoch, 3D 85 %
 #   Niedrig: Sonnenschatten 1024 px hart, ohne Innenschatten (Kamin, Fackel, Tageslicht), Tusche nur nach Helligkeit, 3D 70 %,
-#            ohne Kits (unser eigenes Gras, unser Rauch und die Lichtinseln)
+#            ohne Kits (unser eigenes Gras, unser Rauch und die Lichtinseln), nur die Blumen des Grass & Wind Kits statt der
+#            gezeichneten Kleckse (1205b A, Chef 18.11., 15:37)
 # Automatisch (Vorgabe): misst beim ersten Start hinter der Einmess-Blende (spiel.gd einmessen, Chef 06:55, Worte Homer 1365) kurz
 # die Grafikzeit je Stufe am ersten Ort und nimmt die hoechste, die mit Luft reicht (Stellungnahme Sokrates: nicht „beginnend bei Hoch“). Danach misst es mit; braucht die Grafik
 # zehn Sekunden am Stueck mehr als ein Bild bei 60 Hz, geht es eine Stufe herunter, aber erst am naechsten Ladepunkt (Ortswechsel,
