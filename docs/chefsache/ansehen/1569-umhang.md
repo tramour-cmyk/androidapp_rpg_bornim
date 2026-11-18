@@ -1,5 +1,7 @@
 # 1569 · Robe unter dem Umhang (Bild 3, Zauberlehrling)
 
+[Bild von 18.11., 01:43](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0142-1569-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 18.11., 01:42 · E Figuren · Fund des Chefs 17.11., 16:12 (t297.18), Bild 2 👍 (17.11., 21:42), Rest: Robe stach unten am Rücken durch
 Kurz: Die Robe des Zauberlehrlings sticht nicht mehr durch den Umhang; nur die Ärmel sind seitlich zu sehen, so wie bei den anderen Herkünften die Arme.
 
