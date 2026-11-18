@@ -105,13 +105,13 @@ jobs:
           ~/godot/godot --version
       - name: Film
         run: |
-          sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri mesa-vulkan-drivers > /dev/null
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; }
           export PATH=~/ffbin:$PATH
           A=$RUNNER_TEMP/aus; mkdir -p $A
           cd godot
           timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
-          timeout 2400 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x720 \
+          timeout 2400 xvfb-run -a -s "-screen 0 1920x1080x24" ~/godot/godot --rendering-driver vulkan --rendering-method mobile --path . --resolution 1080x720 \
             -- --figuren=$A --teil=groessen > $GITHUB_WORKSPACE/probe/probe.log 2>&1 || true
           grep -E "^(FIGUR|REIHE|FEHLT)|SCRIPT ERROR|^ +at: " $GITHUB_WORKSPACE/probe/probe.log | cut -c1-300 | head -60
           cp $A/probe.txt $A/groessen/lage.json $GITHUB_WORKSPACE/probe/ 2>/dev/null || true
