@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 307 · 1612 Wache (18.11., 01:36)
+
+- **1612 greift:** Wachlauf 01:33 mit `git pull`, liest die Zeile „Wache“, `get_session` Ford und `list_sessions` (mine), meldet „keine Sitzung blocked“.
+- **Lücke:** `list_sessions` mit `limit` 12; ältere laufende Sitzungen fehlen (00:22 Tom 1569 auf Platz 20). D307.1 → 1615 (Perikles, M); `warte 1610 1615, 23.11.`.
+
 ## Lauf 306 · 1610 Hängeralarm (18.11., 00:21–00:38)
 
 - **Freigabe-Haken noch nicht belegt:** Skript läuft (Probe ohne Freigabe schreibt die Spur, Meldetext geht durch `meldung.sh --probe`, Link auf die Sitzung), aber seit `fa6d0a289` keine Sitzung blocked, keine Zeile „Freigabe“ in `meldungen.tsv`. Beleg für „feuert in der Wolke“ ist diese Zeile, nicht `/tmp/freigabe-haken.log` (liegt nur im eigenen Behälter). Haken gilt erst in Sitzungen, die nach 00:15 starteten.
