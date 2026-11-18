@@ -381,11 +381,33 @@ WKq = np.zeros((len(VK2), len(Q_KN)))
 for j, n in enumerate(R_KN):
     m = n if n in S else rig_eltern.get(n)
     if m in S: WKq[:, Q_KN.index(m)] += WK[:, j]
+# 1535 Ursache (Chef 18.11., 21:47 zum Bild 16:58: „da ist kein Unterschied zwischen alt und neu … ein riesiges Krebsgeschwuer an der
+# Seite“; Messung Tom 22:14 an Garrick, Ruhe_Trinken: die Flanke des Kittels unter der Achsel hing zu 100 % am Oberarm, die Haut darunter
+# an spine_02/03): eng anliegende Kleidung nahm die Gewichte von der naechsten Koerperflaeche in unserer Haltung, und mit haengenden
+# Armen liegt neben der Flanke die Innenseite des Oberarms naeher als der Rumpf (beim kraeftigen Koerper beruehren sie sich). Darum sucht
+# jede Ecke in der Ruhelage der Kauffigur (T-Haltung, Arme weit vom Rumpf): mit unseren Gewichten dorthin zurueckgerechnet, dort die
+# naechste Koerperflaeche. ARM_TRENNEN=0: wie vorher (Messung Garrick, gedehnte Flaeche Ruhe_Trinken 0,13 -> 0,03 m2, Stehen_2 0,21 -> 0,07)
+_trennen = os.environ.get('ARM_TRENNEN', '1') != '0'
+if _trennen:
+    _QR = np.array([(np.linalg.inv(np.tensordot(WQ[k], SA, axes=1)) @ np.r_[QV[k], 1.0])[:3] for k in range(len(QV))])
+    _bv_ruhe = BVHTree.FromPolygons([Vector(v) for v in _QR], QF)
+_ARM_Q = [k for k, nm in enumerate(Q_KN) if nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky'))]
+_n_tr = 0
 for i in np.where(ENG_K)[0]:
     c, _, fi, _ = qbvh.find_nearest(Vector(VK2[i]))
     if fi is None: continue
     ecken = list(QF[fi]); d = np.linalg.norm(QV[ecken] - np.array(c), axis=1)
-    w = 1.0 / np.maximum(d, 1e-4); WKq[i] = (w[:, None] * WQ[ecken]).sum(0) / w.sum()
+    w = 1.0 / np.maximum(d, 1e-4); w_alt = (w[:, None] * WQ[ecken]).sum(0) / w.sum()
+    if _trennen:
+        p_ = (np.linalg.inv(np.tensordot(WKq[i], SA, axes=1)) @ np.r_[VK2[i], 1.0])[:3]
+        c, _, fi, _ = _bv_ruhe.find_nearest(Vector(p_))
+        if fi is not None:
+            ecken = list(QF[fi]); d = np.linalg.norm(_QR[ecken] - np.array(c), axis=1)
+            w = 1.0 / np.maximum(d, 1e-4); WKq[i] = (w[:, None] * WQ[ecken]).sum(0) / w.sum()
+            if w_alt[_ARM_Q].sum() - WKq[i, _ARM_Q].sum() > 0.3: _n_tr += 1
+            continue
+    WKq[i] = w_alt
+print('ARM GETRENNT 1535', _n_tr, 'eng anliegende Ecken nicht mehr am Arm (Armanteil um mehr als 0,3 kleiner)')
 leer = WKq.sum(1) == 0
 WKq[leer, Q_KN.index('pelvis')] = 1.0
 WKq /= WKq.sum(1, keepdims=True)
@@ -514,30 +536,6 @@ if 'cloak' in TID and os.environ.get('UMHANG_ARM', '') != '1':
             WKq[i, _js] += w_arm * k_ * (1.0 - r_); WKq[i, _jr] += w_arm * k_ * r_; WKq[i, _arm] *= (1.0 - k_); _n_arm += 1
     WKq = WKq / WKq.sum(1, keepdims=True)
     print('UMHANG OHNE ARM', _n_arm, 'Ecken (Armgewichte an das Schluesselbein)')
-# 1535 Rueckläufer (Chef 18.11., 15:33, Build 299: Garrick hebt in der Ruhe den Arm, „zieht sich da auch wieder irgendwas von der
-# Jacke … so einen Faden“; Bild 1535-garrick-ursache): die Flanke des Kleids unter der Achsel trug Gewichte des Oberarms und spannte
-# beim gehobenen Arm vom Guertel bis zum Ellbogen. Regel fuer alle Kleider ausser dem Umhang (eigene Regel oben): eine Ecke, die in
-# unserer Haltung weiter als FLANKE_ARM von der Achse des Arms (Oberarm bis Hand) liegt und unter dem Schultergelenk, gibt ihre
-# Armgewichte an den Rumpf (spine_03), von FLANKE_BIS unter dem Gelenk an ganz; Aermel (nah am Arm) bleiben
-FLANKE_ARM = float(os.environ.get('FLANKE_ARM', '0.07')); FLANKE_BIS = float(os.environ.get('FLANKE_BIS', '0.12'))
-FLANKE_WEICH = float(os.environ.get('FLANKE_WEICH', '0.08'))   # weicher Uebergang Aermel -> Flanke (hart: Naht spine_03 1,0 neben upperarm 1,0, Zug 25 -> 44)
-_brust = sorted(n for n in Q_KN if n.lower().startswith('spine'))   # oberster Rumpfknochen (spine_03)
-print('FLANKE Rumpf', _brust[-1:] if _brust else 'fehlt')
-if _brust and os.environ.get('FLANKE', '1') != '0':
-    _jr = Q_KN.index(_brust[-1]); _n_fl = 0
-    _um = TID.get('cloak', -1)
-    for _seite in ('l', 'r'):
-        _armf = [k for k, nm in enumerate(Q_KN) if nm.endswith('_' + _seite) and nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky'))]
-        if not _armf or 'upperarm_' + _seite not in QP_MAT or 'hand_' + _seite not in QP_MAT: continue
-        _a = np.array(QP_MAT['upperarm_' + _seite].translation); _b = np.array(QP_MAT['hand_' + _seite].translation)
-        _ab = _b - _a; _t = np.clip(((VK2 - _a) @ _ab) / float(_ab @ _ab), 0.0, 1.0)
-        _abst = np.linalg.norm(VK2 - (_a + _t[:, None] * _ab), axis=1)
-        _w = WKq[:, _armf].sum(1)
-        for i in np.where((_w > 1e-4) & (_abst > FLANKE_ARM) & (VK2[:, 2] < _a[2]) & (LTk != _um))[0]:
-            k_ = float(np.clip((_a[2] - VK2[i, 2]) / max(FLANKE_BIS, 1e-3), 0.0, 1.0)) * float(np.clip((_abst[i] - FLANKE_ARM) / FLANKE_WEICH, 0.0, 1.0))
-            WKq[i, _jr] += _w[i] * k_; WKq[i, _armf] *= (1.0 - k_); _n_fl += 1
-    WKq = WKq / WKq.sum(1, keepdims=True)
-    print('FLANKE 1535', _n_fl, 'Ecken (Armgewichte unter der Achsel an den Rumpf)')
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
@@ -550,7 +548,9 @@ for i, v in enumerate(VK2):
 # als DEHN_FAKTOR mal so lang wird wie in unserer Haltung, nimmt das Mittel ihrer ungedehnten Nachbarn und wird neu zurueckgerechnet
 DEHN_MAX = float(os.environ.get('DEHN_MAX', '0.12')); DEHN_FAKTOR = float(os.environ.get('DEHN_FAKTOR', '3'))
 _fing = ('thumb', 'index', 'middle', 'ring', 'pinky')
-_armk = [k for k, nm in enumerate(Q_KN) if nm.startswith(('lowerarm_', 'hand_') + _fing)]
+# 1535 (Messung Tom 22:46, Garrick Stehen_2 gedehnte Flaeche 0,16 -> 0,08 m2): auch Ecken am Oberarm, deren Kante in der Ruhelage reisst
+# (Achselecken, die mit dem Oberarm in die T-Haltung gedreht wurden); DEHN_OBERARM=0 wie vorher
+_armk = [k for k, nm in enumerate(Q_KN) if nm.startswith(('lowerarm_', 'hand_') + _fing + (('upperarm_',) if os.environ.get('DEHN_OBERARM', '1') == '1' else ()))]
 _nb = [set() for _ in range(len(VK2))]
 for f_ in KF:
     for j_ in range(len(f_)):

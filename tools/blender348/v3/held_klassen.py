@@ -665,7 +665,7 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
     env['OHNE_TEIL'] = ','.join(ohne)
     if SCHRANK and liste == 'trachten.json': env['UNTER_MARKE'] = '1'   # 431h: Kleidung unter anderen Teilen markieren statt weg
     r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'kauf_kleid.py')], env=env, capture_output=True, text=True)
-    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG', 'SCHALE', 'RUECKBAHN', 'LAGEN', 'UNTER WEG', 'ACHSEL', 'HAND', 'FLANKE'))))
+    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG', 'SCHALE', 'RUECKBAHN', 'LAGEN', 'UNTER WEG', 'ACHSEL', 'HAND', 'ARM GETRENNT'))))
     if r.returncode: print(r.stdout[-3000:], r.stderr[-3000:]); raise SystemExit('kauf_kleid.py %d' % r.returncode)
     bpy.ops.wm.open_mainfile(filepath=os.path.join(roh, 'held_%s.blend' % k))
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
