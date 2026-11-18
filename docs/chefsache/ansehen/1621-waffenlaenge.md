@@ -17,10 +17,12 @@ Kurz: Großaxt 131 → 110 cm, Kriegshammer 115 → 100 cm, Zweihänder 128,5 �
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/claude/spike-1621-laengen (Bau am Rechner „STAFFEL OK 45 von 45“, alle Formen dieser drei Arten mit neuer Länge; Test `waffen_522` gut)
 
-**Bild:** Der Kämpfer geht mit der Waffe der Stufe 1 und ist mitten im Schritt angehalten (Tragehaltung wie im Film 458.3). Hinten (im Bild weiter oben) derselbe Held in derselben Haltung mit der alten Länge. Oben die Längen.
+**Runde 2 (10:33, nach deinem Wort „Jede Waffe schwebt“, Längen bestätigt):** Ursache seit 458.3: bei Zweihandwaffen schob `tragen.gd` die Waffe fest 30 cm längs des Schafts; die Fäuste lagen 30 und 45 cm unter dem Griff, die Staffelstiele enden 23 bis 45 cm darunter. Jetzt nach Stiellänge (`e5689addb`), `tragen_pakete_417` prüft die linke Faust am Stielende (vorher nur im Protokoll: 19 von 19 Bildern darunter). Die Bilder 09:08 zeigten zudem den stehenden Helden; im Stand reicht die linke Faust nicht an den Schaft (offen, unten). Bilder 10:33 im Gehen (`d4d62a159`), beide Fäuste am Schaft; vorn verdeckt der Schornstein die Klinge der Großaxt.
+
+**Bild:** Der Kämpfer geht mit der Waffe der Stufe 1. Hinten (im Bild weiter oben) derselbe Held in derselben Haltung mit der alten Länge. Oben die Längen.
 
 **So gebaut:** Alle Formen je Art gekürzt (Großaxt 3, Kriegshammer 2, Zweihänder 3), Griffanteil gleich. Die Spielregeln nutzen die Modelllänge nicht. Die Bilder zeigen schon das neue Gehen aus 1619 (Beine aus dem Gehen); die Länge hängt nicht davon ab.
 
-**Offen:** Wirkt die Großaxt noch zu wuchtig, liegt es an der Tragehaltung (eigener Schritt, nicht hier).
+**Offen:** Im Stand gibt es keine Haltung mit Zweihandwaffe (keine Bewegung „Stehen_axt“): die Waffe hängt dann nur in der rechten Faust, die linke reicht nicht an den Schaft. Wie er sie im Stand trägt, ist Aussehen, deine Wahl. Wirkt die Großaxt noch zu wuchtig, liegt es an der Tragehaltung (eigener Schritt, nicht hier).
 
 👍 so in den Sammelbuild · 👎 falsch
