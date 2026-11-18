@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 326 · 1683 Kern über lauf.py (Spike `6f2f443ff`, Merge `e13780dd8`; 18.11., 17:01)
+
+- **1683 greift (Test):** `lauf_kern_test.py` Exit 0 an `main`; `kern()` liest aus den echten Rollendateien Spike 3868 und Sokrates 4223 Zeichen (mit Schwerpunkt A), übrige Rollen leer, kein `|` im Kern (Feldtrenner der START-Zeile bleibt heil). Gilt für alle START-Zeilen (Nachfolger 927, Vorrat, Zusatz, Stellungnahme 1099, Spiegel); WEITER an die laufende Sitzung ohne Kern (hat ihn schon). Folgezeilen stehen: `ROLLE-BETRIEB.md` (Handstart Ford), `ROLLE-BERATUNG-START.md`, `ROLLE-TECHNIK.md`.
+- Nicht geprüft: echte START-Nachricht einer neuen Sitzung (noch keine seit dem Merge); andere Schwerpunkte als A nur von Hand (so gewollt).
+
 ## Lauf 321–323 · 1461 Rollenspiegel, 1622, 1648 (18.11., 12:08)
 
 - **321, 1461 greift:** `## Woche 18.11.` hat alle sieben Rollen (Perikles 07:52 … Diogenes 07:57), alle nach dem Tagesbericht (Stand 18.11., 07:51), je Zeile „11.“, keine „2.“; `LISTE-IDEEN.md` hat sieben Frage-11-Einträge (Chef 09:00: sechs → 1627–1632, Homer „knicken“). Woche 13.11. bleibt als Vorwoche.
