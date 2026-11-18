@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 315 · 1622 „<Nr> main“ im Feld „wartet auf“ (Spike `c22ae372c`; 18.11., 09:00)
+
+- **1622 greift mit Lücke:** `startbar_main_test.py` gut; Kopie mit `vorgang.py warte 476 "458.3 main, 23.11."`: angenommen, Formprüfung leer, Sperre „wartet auf 458.3 main (gebaut)“; blanke „458.3“ bei sonst startbarer Zeile: keine Sperre (190.1, gewollt). Lücke: 476 trägt noch „458.3, 23.11.“ → D315.1 = 1626 (Tom), 1622 wartet darauf.
+
 ## Lauf 314 · 1624 beantwortete Spiegelzeile nicht startbar (Perikles `60109b0aa`; 18.11., 08:59)
 
 - **1624 greift:** Stand von Fords Lauf 08:03 (`98a934182`) mit dem neuen `startbar.sperre`: Spiegel Diogenes → „Spiegel beantwortet“ (Antwort 07:57 unter „## Woche 18.11.“); `startbar_spiegel_test.py` Exit 0. (b) 1417, 455.2 startbar ist Wortlaut 1312 (Vorgangsarchiv: „nach 6 h für den Besitzer startbar“, `liegt_ohne_vorlage`), kein Fehler; Fords „gebaut gilt nie startbar“ widerspricht 1312. (c) 458.3, 1484a am Stand 08:03 „Termin 21.11. 20:00“ (seit `6d20a79bd` 07:45), Fords Anzeige nicht nachstellbar.
