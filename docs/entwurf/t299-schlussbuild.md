@@ -1,4 +1,4 @@
-# Tom und Spike · Build 299 · Schlussbuild: Schild und Streifen der Wache, Kleidung in der Ruhe, Umhang, Funkenlicht in der Höhle · PR folgt
+# Tom und Spike · Build 299 · Schlussbuild: Schild und Streifen der Wache, Kleidung in der Ruhe, Umhang, Funkenlicht in der Höhle · [PR 220](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/220)
 E Figuren · Tom (Handy 1417, 1515, 1535, 1569; ohne dich 1549, 1571, 1606), Spike (Handy 1211) · 18.11., 13:10 · APK folgt
 
 Sammelbuild aus `main` (nach 1593) mit Build 298 (`claude/build-298`, noch nicht getestet: seine Liste `t298-sammelbuild.md` lässt sich in diesem Build prüfen) und den bis 13:00 gebilligten Zweigen `claude/tom-1515-streifen` (1515, 👍 17.11., 23:54), `claude/tom-1569-umhang` (1569, 1569.1, Vorentscheid gebilligt 18.11., 09:46), `claude/tom-1571-fackel` (1571), `claude/tom-1205-wiese` (1606), `claude/spike-1211-1484` (1211 B, gebilligt 09:46). 1417, 1535, 1549 sind schon auf `main`. Nicht dabei (nicht gebilligt bis 13:00, nächster Sammelbuild): 1406, 1630, 1645.
