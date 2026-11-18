@@ -797,6 +797,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/startwerte_543.gd 2>&1 | grep -E "FEHLER|STARTWERTE|SCRIPT ERROR"   # 543 Startgold, Heiltraenke, Wiederkehrort
           timeout 120 ~/godot/godot --headless --path . -s res://tests/zwischenbild_test.gd 2>&1 | grep -E "FALSCH|ZWISCHENBILD|SCRIPT ERROR"   # 399.1 Intro
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/wasser_kit_1155.gd 2>&1 | grep -E "FEHLER|WASSER1155|SCRIPT ERROR"   # 1155 Wasser des Kits (Teich klar), ohne Kit unseres
+          set -o pipefail; timeout 240 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/bank_1674.gd 2>&1 | grep -E "^gut|FEHLER|BANK1674|SCRIPT ERROR"   # 1674 Leute kommen am stehenden Helden zwischen Bank und Brunnen vorbei
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/kapitelende_537.gd 2>&1 | grep -E "FEHLER|KAPITELENDE|SCRIPT ERROR"   # 537 Kapitelende, Tempelszene, Morgen
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tasten_4161.gd 2>&1 | grep -E "FEHLER|TASTEN|SCRIPT ERROR"   # 416.1
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/rueckfrage_526.gd 2>&1 | grep -E "FEHLER|RUECKFRAGE|SCRIPT ERROR"   # 526 Rückfragen: daneben tippen, Zurück

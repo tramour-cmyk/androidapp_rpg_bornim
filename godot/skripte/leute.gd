@@ -67,6 +67,7 @@ const WENDE_FEIN := 0.1                 # rad (6 Grad): kleinerer Rest nach dem 
 var blick_letzt := 0.0
 var folgt := 0.0                        # s: das Ziel wandert noch (FOLGE_NACH nach der letzten Bewegung)
 var nachholen := false                  # nach dem Folgen: den Rest ueber WENDE_FEIN mit einem Schritt
+var blockiert := 0.0                    # 1674: so lange (s) wartet sie schon vor einer besetzten Kachel
 # 416.8 (Chef 03.11., 07:44: „völlig ohne irgendeine Form der Bewegung … auf der Stelle drehen … wie eine Schachfigur“): im Stehen
 # wendet die Person mit Schritten (Drehen_L/R aus Turn90 der UAL Pro, geruest.py ohne die Drehung des Beckens gebacken); der Knoten
 # dreht nach der gemessenen Kurve der Bewegung (held-info.json gier), so bleibt der Standfuss stehen; Tempo wie bisher (rate)
@@ -859,7 +860,19 @@ func gehe_nach(p: Vector2i) -> void:
 	if weg.is_empty():
 		warte = 1.0
 		return
+	# 1674 (Chef 18.11., t299: Bewohner hing 2 Minuten an der Bank am Brunnen; in bank_1674 nachgestellt): steht der Held auf dem Weg,
+	# zuerst ein ganzer Weg ohne seine Kachel. Vorher ging sie nur eine Kachel zur Seite (umweg), plante von dort wieder durch ihn und
+	# trat hin und her; in der Enge zwischen Bank und Brunnen kam sie nie vorbei. Ebenso, wenn dort eine andere Person steht (nicht nur
+	# durchgeht) und sie schon 1,5 s wartet: zwei, die je auf die Kachel des anderen wollten, warteten sonst für immer
+	var h := held_kachel()
+	var schraeg_am_held: bool = weg[0].x != kachel.x and weg[0].y != kachel.y and (Vector2i(weg[0].x, kachel.y) == h or Vector2i(kachel.x, weg[0].y) == h)
+	if weg[0] == h or schraeg_am_held or (blockiert >= 1.5 and steht_dort(weg[0])):   # schräg an ihm vorbei streifte sie seine Kachel
+		var ohne := karte.weg_ohne(kachel, p, h if weg[0] == h or schraeg_am_held else weg[0])
+		if ohne.size() > 1:
+			ohne.pop_front()
+			weg = ohne
 	if not frei_fuer_mich(weg[0]):
+		blockiert += 0.5
 		# 1086 (pim_rennt_1086): steht der Held auf dem Weg, aussen herum; vorher wartete die Person, bis er ging (Pim blieb neben ihm)
 		var um := umweg(p) if weg[0] == held_kachel() else Vector2i(-1, -1)
 		if um.x >= 0:
@@ -868,7 +881,14 @@ func gehe_nach(p: Vector2i) -> void:
 			return
 		warte = 0.5
 		return
+	blockiert = 0.0
 	ziel = weg.pop_front()
+
+# 1674: steht auf t eine andere sichtbare Person (nicht nur im Schritt dorthin)?
+func steht_dort(t: Vector2i) -> bool:
+	for l in get_parent().get_children():
+		if l is Leute and l != self and l.visible and l.kachel == t and l.ziel.x < 0: return true
+	return false
 
 # 1086: freie Nachbarkachel, von der der Weg nach p am kuerzesten ist (nicht die des Helden); (-1, -1) ohne
 func umweg(p: Vector2i) -> Vector2i:
@@ -934,7 +954,10 @@ func laufe(dt: float) -> void:
 		return
 	var vor := to.normalized() if ab < BOGEN else Vector3(sin(rotation.y), 0.0, cos(rotation.y))
 	var neu := position + vor * s
-	if karte.begehbar(karte.pos_kachel(neu)): position = neu   # der Bogen fuehrt nie auf eine gesperrte Kachel
+	# der Bogen fuehrt nie auf eine gesperrte Kachel; 1674 (bank_1674): auch nicht auf die des Helden (sie stand danach in ihm, das Ziel
+	# schraeg hinter der Brunnenecke, und kam nicht mehr fort)
+	var nk := karte.pos_kachel(neu)
+	if karte.begehbar(nk) and (nk == kachel or nk == ziel or nk != held_kachel()): position = neu
 	kachel = karte.pos_kachel(position)
 	if anim:
 		# 591: auf der Flucht das Rennen (Huhn, Kaninchen aus kauftier.py), sonst Gehen (mit getragenem Ding geh_anim, 417)

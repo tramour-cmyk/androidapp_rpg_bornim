@@ -101,3 +101,11 @@ func weg(a: Vector2i, b: Vector2i) -> Array[Vector2i]:
 	if not begehbar(a) or not begehbar(b): return r
 	for p in astar.get_id_path(a, b): r.append(p)
 	return r
+
+# 1674: Weg wie weg(), aber ohne die Kachel sperr (der Held steht dort); leer, wenn es so keinen gibt
+func weg_ohne(a: Vector2i, b: Vector2i, sperr: Vector2i) -> Array[Vector2i]:
+	if sperr == b or not astar.is_in_boundsv(sperr) or astar.is_point_solid(sperr): return weg(a, b)
+	astar.set_point_solid(sperr, true)
+	var r := weg(a, b)
+	astar.set_point_solid(sperr, false)
+	return r
