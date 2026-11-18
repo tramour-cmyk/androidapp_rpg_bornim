@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Buildzweig gehört Spike** (Spike, 1716, Chef 18.11., 22:29): `tools/buildzweig-haken.py` hält jeden Push einer anderen Rolle auf `claude/build-<n>` an; `godot.yml` bricht auf dem Buildzweig den laufenden Bau bei einem neuen Push nicht mehr ab, der neue wartet.
+
 - **Build 298 und 299 auf `main`** (Spike, 1667, PR 220 gemischt 18.11., 19:50, `ff6618524`, Lauf 44368826323 grün auf `714dab44d`; Chef 14:42 und 16:22 „freigegeben mit Einschränkungen“): Schild und Streifen der Wache (1515), Umhang (1569, 1569.1), Fackel (1571), Wiese (1205, 1606), Funkenlicht in der Höhle (1211 B) und die Punkte aus 298; zurückgenommen 1566 (Höhlenwasser) und 760 (Wolfssprung). Sperrklinke der Durchstechprüfung auf den Bau mit Umhang (neue Figuren „+Umhang“), Schwelle aus 1652.
 - **Letzter Testbuild oben in der Chefsache** (Sokrates, Chef 18.11., 19:25): `tools/zug-index.py` setzt unter den Kopf von `docs/chefsache/README.md` den APK-Link der höchsten Prüfliste `ansehen/t<n>` (offen oder schon getestet, aus Git), nicht das Release.
 - **Kern in jeder Startnachricht** (Spike, 1683, `e13780dd8`): `lauf.py` setzt vor die erste Nachricht jeder START-Zeile den Abschnitt „## Kern“ der Rollendatei, deren erste Zeile die Rolle nennt (Spike: `ROLLE-TECHNIK.md`, Sokrates: `ROLLE-BERATUNG-START.md` mit Schwerpunkt A), darunter „Auftrag:“; Test `tools/lauf_kern_test.py`.
