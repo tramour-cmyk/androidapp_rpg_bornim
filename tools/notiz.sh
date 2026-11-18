@@ -38,6 +38,19 @@ if ! git -C "$wt" merge-base HEAD origin/main >/dev/null 2>&1 \
    && [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
     git fetch -q --unshallow origin main 2>/dev/null || echo "Bornim: Verlauf ließ sich nicht nachladen (Netz?)."
 fi
+# 1701 (Sokrates 18.11., 20:29: Notizkopie mit 60 eigenen, 341 fehlenden Commits, Stand 03:39): ein neuer Container kann eine alte
+# Notizkopie mitbringen (gesicherter Stand der Umgebung). Eigene Commits werden vor jeder Pause gepusht (CLAUDE.md); sind alle nicht
+# gepushten Commits älter als 2 Stunden, ist es eine alte Kopie: sichern (Zweig backup-alt-<Zeit>) und auf origin/main setzen,
+# statt sie hineinzumischen (das Mischen brachte gestrichenen Text zurück).
+if [ -z "$(git -C "$wt" status --porcelain)" ] && [ -n "$(git -C "$wt" rev-list -1 origin/main..HEAD 2>/dev/null)" ]; then
+    juengst=$(git -C "$wt" log -1 --format=%ct origin/main..HEAD 2>/dev/null)
+    if [ -n "$juengst" ] && [ $(( $(date +%s) - juengst )) -gt 7200 ]; then
+        b="backup-alt-$(TZ=Europe/Berlin date +%m%d-%H%M)"
+        n=$(git -C "$wt" rev-list --count origin/main..HEAD)
+        git -C "$wt" branch -f "$b" HEAD && git -C "$wt" reset -q --hard origin/main \
+            && echo "Bornim (1701): alte Notizkopie ($n nicht gepushte Commits, jüngster $(TZ=Europe/Berlin date -d @"$juengst" '+%d.%m., %H:%M')) gesichert als Zweig $b und auf origin/main gesetzt; nur prüfen, falls dort Eigenes fehlt."
+    fi
+fi
 # Arbeitskopie auf den neuesten Stand; eigene, noch nicht gepushte Commits bleiben (Zusammenführen, kein Rebase).
 if [ -z "$(git -C "$wt" status --porcelain)" ]; then
     git -C "$wt" merge -q --ff-only origin/main 2>/dev/null || git -C "$wt" merge -q --no-edit origin/main 2>/dev/null \
