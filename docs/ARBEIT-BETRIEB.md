@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nie archivieren:** Sokrates `session_01Hmoj777MV8Hv8ps2Js5voW` (Chefwort 18.11., 08:09 laut Vorgangsarchiv: bleibt offen, kein ARCHIVIERE, kein Neustart; neue Sokrates-Arbeit per send_message dorthin, `--ohne Sokrates:Chef_08:09` falls lauf.py startet)
+**Nie archivieren:** (keine; Sokrates …777MV8Hv8ps2Js5voW freigegeben, Chef 18.11., 08:45)
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
@@ -49,6 +49,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 08:48 18.11.: Startsperre 08:48 Start Sokrates (Neustart d15cde305, 1625)
 - 17.11., 18:34 Ford: Chef startet Ford `…76dyxkyvfmpM8LcpYk` 18:24 von Hand; Doppel-Ford `…78mrHo3KyeKYwQQYFn` (Starter 18:20, Lauf 18:29) angehalten, archiviert, 0,92 $ auf 1019; Homer `…75XKLrPrbjhwyzzaf3` (1235 trotz „noch nicht“ gestartet, `--ohne` fehlte) archiviert, 0,55 $ auf 1235; eigene Uhr `trig_01Ey145LdtFf268UwRB3MVcF`, Uhr-Sitzung aus; 1574 an Perikles.
 - 17.11., 13:07 Ford: Lauf 13:04: Start Diogenes `…76bxudxAGUfPJBE1Pc` (1547), alter Diogenes archiviert (1,01 $ auf 1539); Rotbuch angelegt (1560–1562 u. a.); Ford-Neustart 12:33 angekommen, Uhr-Sitzung bestätigt.
 - 17.11., 09:16 Ford: Sokrates-Neustart auf Chefwort 09:08: `…79XLgTfEVz9NoYYJ7m` („Chefrunde“), alter `…76gTnkQt77JpdpoGF3` archiviert (Schutzzeile war geleert), 7,53 $ auf 1520, 870; Tom „Weiter: 1528“ („jetzt“).
