@@ -4,7 +4,7 @@ Kurz: Alt und neu sehen gleich aus; Zellen in den nächsten Sammelbuild, du miss
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/9fa1444d47 (`claude/spike-1484a-zellen`)
 
-**Frage:** Billigst du, dass die Zellen in den nächsten Sammelbuild gehen?
+**Frage:** Billigst du, dass die Zellen in den nächsten Sammelbuild gehen? (Schließt den Vorentscheid 00:53 ein: Weg A, Welt in Zellen von 12 m und Durchsicht nur nahe am Helden, statt B nur Durchsicht oder C weniger Laub; Datei `billigen/1484a-welt-zellen.md` in Git.)
 
 **Entschieden:** ja. Sag „gebilligt“ oder „zurück“ (Zweig bleibt liegen).
 
