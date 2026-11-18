@@ -17,7 +17,7 @@ Was der Chef entschieden hat, neueste oben (99g.1). Je Vorgang: Nummer, Datum, E
 - **1211, passt** (17.11., 23:52, Chef an Sokrates zu `ansehen/1211-funke-gedaempft.md`, in Git): „der neue Leuchtfunken Rocket Flare oder wie es heißt, ist sehr gut. Was wir noch ein bisschen höher justieren müssen, ist einfach die Ausleuchtung an sich. Die war beim alten schon suboptimal.“ → **rocket_trail kühl gedämpft ins Spiel (nächster Sammelbuild); Ausleuchtung höher, Werte nach Wahl des Chefs (Spike) (Nutzer)**
 - **1211, 👎** (17.11., 22:17, 👎 auf Meldung 21:56, Telegram 4605, Zeile „👍 Funke bleibt · 👎 rocket_trail kühl weiter“; Lesart Ford 23:06; `ansehen/1211-funke-rocket-trail.md` in Git) → **rocket_trail kühl als Leuchtfunke weiter, gedämpft und kleiner; Licht bleibt; Ergebnis als Film (Spike) (Nutzer)**
 
-- **1602, Gegenlesen** (17.11., 22:42, Vorentscheid Perikles; Chef 22:33: „da, wo ich was geschrieben habe, hat wieder kein anderer was geschrieben“) → **Haltung 1: beim Gegenlesen zu jedem Abschnitt ein Wort, gerade zu Chefworten (`billigen/1602-gegenlesen-chefworte.md`)** → gebilligt 23:16 (Nutzer)
+- **1602, Gegenlesen** (17.11., 22:42, Vorentscheid Perikles; Chef 22:33: „da, wo ich was geschrieben habe, hat wieder kein anderer was geschrieben“) → **Haltung 1: beim Gegenlesen zu jedem Abschnitt ein Wort, gerade zu Chefworten (`billigen/1602-gegenlesen-chefworte.md`)** → gebilligt 17.11., 23:16 (Nutzer)
 
 - **1589.1 A, Lohn A, Regelblatt Gegnerverhalten** (17.11., 22:33, Chef an Sokrates: „Ansonsten folge ich deinem Votum … Mit A und Lohn können wir auch annehmen.“; dazu Blatt „Millimeterpapier“, Bogen im Nahkampf mit Malus; Vorlage `entscheiden/15891-gegnerverhalten.md` in Git) → **`DESIGN-GEGNER.md` gilt, Bau in vier Stufen ab Sa 20:00 (Sokrates)**
 
