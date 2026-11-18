@@ -8,7 +8,7 @@
 # ZUG: Dreiecke, deren längste Kante gegen die Ruhelage über ZUG_FAKTOR wächst und über ZUG_LANG lang ist (Stoff hängt an der Hand,
 # 1515, 1535). Je Figur und Bewegung zählt das Bild mit den meisten Ecken bzw. Dreiecken.
 # Schwelle: durchstich_1631.json (Sperrklinke wie typen_1268.json): je Figur und Bewegung höchstens der gespeicherte Wert; fehlt er, 0.
-# Rot (Ende 1), wenn ein Wert darüber liegt. Ohne die Datei nur Messung (Ende 0); die Werte des Laufs stehen in der Zeile SCHWELLE1631
+# Rot (Ende 1), wenn ein Wert über Grenze plus Spielraum liegt (spielraum(), 1700); ohne Eintrag nur gemessen (NEU1631). Ohne die Datei nur Messung (Ende 0); die Werte des Laufs stehen in der Zeile SCHWELLE1631
 # (erste Schwelle aus dem Lauf des Bauservers am Stand von main, nicht am Rechner: der Kaufbau dort ist der des Spiels). Neu messen und Schwelle schreiben: -- --schreiben (nur nach Befund, nie um rot zu umgehen).
 # Run: godot --headless --path godot -s res://tests/durchstich_1631.gd [-- --nur=<Figur>]   (ohne Kaufdateien „ohne Kauf“, 0)
 extends SceneTree
@@ -32,6 +32,11 @@ var _warte := false
 
 func _initialize() -> void:
 	_lauf.call_deferred()
+
+# 1700: Spielraum über der Grenze, 2 oder 2 % (gerundet auf), was größer ist
+static func spielraum(grenze: int) -> int:
+	return maxi(2, ceili(grenze * 0.02))
+
 
 func _lauf() -> void:
 	if not HauptmenueHelden.da():
@@ -161,16 +166,22 @@ func _figur(name: String, m: Node3D, ruhe: Array) -> void:
 			durch = maxi(durch, n)
 			zug = maxi(zug, _zug(V, netz["tri"], laengen))
 		neu[name][bew] = {"durch": durch, "zug": zug}
+		# 1700: Grenze plus Spielraum (Rechenrauschen zwischen Rechner und Bauserver, je 1–2 Ecken, Läufe 564–570);
+		# Figur oder Bewegung ohne Eintrag: nur gemessen (Zeile NEU1631), Eintrag mit dem nächsten -- --schreiben am Bauserver.
+		var bekannt: bool = alt.has(name) and (alt[name] as Dictionary).has(bew)
 		var grenze: Dictionary = alt.get(name, {}).get(bew, {})
 		var gd := int(grenze.get("durch", 0)); var gz := int(grenze.get("zug", 0))
 		var oben := wo.keys()
 		oben.sort_custom(func(x, y): return wo[x] > wo[y])
 		print("DURCH1631 %s %s: durch %d (Grenze %d), Zug %d (Grenze %d)  %s" % [name, bew, durch, gd, zug, gz, ", ".join(oben.slice(0, 4).map(func(x): return "%s: %d" % [x, wo[x]]))])
-		if durch > gd:
-			print("FEHLER %s %s: %d Ecken stechen durch die Lage darüber (Grenze %d)" % [name, bew, durch, gd])
+		if not bekannt:
+			print("NEU1631 %s %s: ohne Grenze, nur gemessen (durch %d, Zug %d)" % [name, bew, durch, zug])
+			continue
+		if durch > gd + spielraum(gd):
+			print("FEHLER %s %s: %d Ecken stechen durch die Lage darüber (Grenze %d + %d)" % [name, bew, durch, gd, spielraum(gd)])
 			fehler += 1
-		if zug > gz:
-			print("FEHLER %s %s: %d Dreiecke gezogen (Grenze %d)" % [name, bew, zug, gz])
+		if zug > gz + spielraum(gz):
+			print("FEHLER %s %s: %d Dreiecke gezogen (Grenze %d + %d)" % [name, bew, zug, gz, spielraum(gz)])
 			fehler += 1
 	sk.skeleton_updated.disconnect(_nach_update)
 	m.queue_free()
