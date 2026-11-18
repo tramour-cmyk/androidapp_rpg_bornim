@@ -151,15 +151,15 @@
 	},
 	"L_osric": {
 		"Ruhe_Greifen": {
-			"durch": 230,
+			"durch": 171,
 			"zug": 30
 		},
 		"Stehen": {
-			"durch": 232,
+			"durch": 173,
 			"zug": 24
 		},
 		"Stehen_2": {
-			"durch": 256,
+			"durch": 200,
 			"zug": 36
 		}
 	},
