@@ -684,6 +684,7 @@ jobs:
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/gelenk_1215.gd 2>&1 | grep -E "GELENK1215|SCRIPT ERROR"   # 1215 Gelenk des Physikservers: Vorzeichen der Grenzen, Lage fest, Motor als Reibung
           set -o pipefail; SCHAU_1340=1 timeout 1200 ~/godot/godot --headless --path . -s res://tests/tod_ragdoll_1215.gd 2>&1 | tee tr1215.log | grep -E "TODRAGDOLL1215 .*(FEHLER|Kosten|Tode|alles gut|Fehler$)|^1340 Gerüst|SCRIPT ERROR"; grep -q "^TODRAGDOLL1215 alles gut" tr1215.log   # 1215 physikalisches Sterben am echten Gerüst: Goblin, Späher, Schamane, Kobold, Grak
           timeout 120 ~/godot/godot --headless --path . -s res://tests/geruest_1215.gd 2>&1 | grep -E "GERUEST1215" | cut -c1-400 || true   # 1215 Gerüste aller Körper im Bau (Äste an der Wurzel, Gliedertafel), nur Auskunft
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/hieb_844.gd 2>&1 | grep -E "HIEB844|SCRIPT ERROR"   # 844 Goblins, Kobolde, Schamanen schlagen: über dem Boden, nicht durch sich selbst
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/ausholen_1000.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|AUSHOLEN1000|SCRIPT ERROR"   # 1000 Grak hält die Axt oben von der Ansage bis zum Hieb
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
@@ -1375,6 +1376,13 @@ jobs:
             GEGNER=KROGG BEAM_LOG=1 timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/beam_864.gd 2>&1 | grep -E "^(  Sprung|Kampf |BEAM864)|SCRIPT ERROR" | head -80 || true
             GEGNER=KROGG timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/kamera_992.gd 2>&1 | grep -E "^(  Sprung|  Boden|KAMERA992)|SCRIPT ERROR" | head -80 || true
             exit 0
+          fi
+          # 844 (Tuffy, aus 709): kampf=844 Goblins, Kobolde, Schamanen gehen heran und schlagen den Kämpfer mit Schild (Treffer, abgewehrt,
+          # Treffer); erst die Prüfung ohne Bild, dann je Art ein Film; geschnitten nach den Zeilen „Film 844 … Bild a–b“
+          if [ "${{ github.event.inputs.kampf }}" = "844" ]; then
+            timeout 300 ~/godot/godot --headless --path . -s res://tests/hieb_844.gd 2>&1 | grep -E "HIEB844|SCRIPT ERROR" || true
+            for g in GOBLINS KOBOLDS SHAMANS; do film 844-$(echo $g | tr A-Z a-z) film_hieb_844 GEGNER=$g; grep -E "^Film 844" $B/844-$(echo $g | tr A-Z a-z).log || true; done
+            ls -l $B; exit 0
           fi
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
