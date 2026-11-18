@@ -1,5 +1,7 @@
 # 1484a · Welt in Zellen: Bilder alt gegen neu an drei Stellen · Spike · 18.11., 01:30
 
+[Bild von 18.11., 01:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0130-1484a-Spike.jpg) (eingetragen von meldung.sh, Spike)
+
 E Technik · Spike · aus Vorentscheid A (Sokrates 18.11., 00:53, `billigen/1484a-welt-zellen.md`): „Vor dem Build Bilder alt gegen neu an drei Stellen, Tom sieht mit.“
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/9fa1444d47 (`claude/spike-1484a-zellen`, Bau am Rechner, Renderer wie am Handy)
