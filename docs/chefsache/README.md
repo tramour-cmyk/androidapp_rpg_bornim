@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 14:20, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 13:20, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,22 +33,26 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
-| | heute | gestern | Woche | Monat (seit 07.11.) |
+| | heute | gestern (seit 17.11.) | Woche (seit 17.11.) | Monat (seit 17.11.) |
 |---|---|---|---|---|
-| erledigt | 36 | 114 | 352 | 1212 |
-| neu | 63 | 116 | 343 | 1233 |
-| **netto** (erledigt − neu) | **−27** | **−2** | **+9** | **−21** |
+| erledigt | 36 | 16 | 52 | 52 |
+| neu | 63 | 22 | 85 | 85 |
+| **netto** (erledigt − neu) | **−27** | **−6** | **−33** | **−33** |
 
-Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
+gestern erst ab 17.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
+
+Woche erst ab 17.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
+
+Monat erst ab 17.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
 **Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen |
+| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 1 weitere |
 | Tom | 1650 Durchstechprüfung: Hosen stechen durch den Stiefelschaft be… (Muss); dann 4 weitere |
-| Jerry | 1652 Durchstechprüfung: Osric innere Stücke stechen durch die Ro… (Muss); dann 3 weitere |
-| Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
+| Jerry | 455.2 Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfi… (Muss); dann 4 weitere |
+| Tuffy | 1652 Durchstechprüfung: Osric innere Stücke stechen durch die Ro… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | läuft: 1645 (Besetzung); 1621 Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115… (Muss); dann 4 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | läuft: 1658 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
@@ -95,7 +99,8 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t298-sammelbuild.md) | [Build 298](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44184072098/artifacts/14374753540) | Sammelbuild: Neues Spiel nur BRS, Wiesen, Dorftiere, Mana nach dem Sieg, Bodenschatten, Höhlenwasser, Stäbe, Siegtafel, Wolfssprung | Tom und Jerry | 17.11., 23:45 |
+| 1 | [0.1.563](ansehen/t299-schlussbuild.md) | [Build 299](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44301568081/artifacts/14429688295) | Schlussbuild: Schild und Streifen der Wache, Kleidung in der Ruhe, Umhang, Funkenlicht in der Höhle | Tom und Spike | 18.11., 14:20 |
+| 2 | [–](ansehen/t298-sammelbuild.md) | [Build 298](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44184072098/artifacts/14374753540) | Sammelbuild: Neues Spiel nur BRS, Wiesen, Dorftiere, Mana nach dem Sieg, Bodenschatten, Höhlenwasser, Stäbe, Siegtafel, Wolfssprung | Tom und Jerry | 17.11., 23:45 |
 
 ## Zu tun
 
