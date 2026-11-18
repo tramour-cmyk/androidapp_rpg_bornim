@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 09:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 09:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -28,16 +28,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (48) | 5 | 0 | 6 | 26 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 11 (11) | 5 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
-| **7** Werkzeuge und Abläufe der Firma | 47 (48) | 31 | 1 | 0 | 11 | 340.12 (Sokrates) Rollenspiegel 18.11. ausgewertet, drei Änderungen… |
+| **7** Werkzeuge und Abläufe der Firma | 48 (48) | 32 | 1 | 0 | 11 | 340.12 (Sokrates) Rollenspiegel 18.11. ausgewertet, drei Änderungen… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 21 | 114 | 337 | 1197 |
-| neu | 36 | 116 | 316 | 1206 |
-| **netto** (erledigt − neu) | **−15** | **−2** | **+21** | **−9** |
+| erledigt | 22 | 114 | 338 | 1198 |
+| neu | 38 | 116 | 318 | 1208 |
+| **netto** (erledigt − neu) | **−16** | **−2** | **+20** | **−10** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,14 +45,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 10 weitere |
+| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 3 weitere |
 | Tom | 1631 Übernahme von Spike: Durchstechprüfung Kleidung gegen Leib und Arme für alle Fig… (Muss) |
 | Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
-| Spike | 1640 chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorrat… (Muss); dann 1 weitere |
+| Spike | 1640 chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorrat… (Muss); dann 3 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
-| Sokrates | 340.12 Rollenspiegel 18.11. ausgewertet, drei Änderungen zur Wahl (Muss); dann 2 weitere |
+| Sokrates | 340.12 Rollenspiegel 18.11. ausgewertet, drei Änderungen zur Wahl (Muss); dann 1 weitere |
 | Perikles | M? M? entscheiden: 1636, 1637, 1638, 1634, 1639 (Muss) |
 
 **Die nächsten 20**
@@ -63,45 +63,35 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 2 | 340.12 | Sokrates | Rollenspiegel 18.11. ausgewertet, drei Änderungen zur Wahl | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 3 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 4 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 5 | 1623 | Sokrates | Auswertung Rollenspiegel 18.11.: 7 von 7 Antworten, Vorlage mit Wegen an den Ch… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 1640 | Spike | chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorratspflege „Pflege von… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 7 | 1641 | Spike | Start-Haken neustart-haken.py warnt Vorräte ab 15 KB, CLAUDE.md erlaubt 30 KB;… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 8 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 9 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | M? | 2 Kampf passt | startbar |
-| 10 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | M? | 2 Kampf passt | startbar |
-| 11 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
-| 12 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 13 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | M? | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | M? | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | M? | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 1629 | Spike | epische Beute zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Li… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 5 | 1640 | Spike | chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorratspflege „Pflege von… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 6 | 1641 | Spike | Start-Haken neustart-haken.py warnt Vorräte ab 15 KB, CLAUDE.md erlaubt 30 KB;… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 7 | 1642 | Spike | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, na… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 8 | 1643 | Spike | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 10 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | M? | 2 Kampf passt | startbar |
+| 11 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | M? | 2 Kampf passt | startbar |
+| 12 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
+| 13 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 14 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | M? | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | M? | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | M? | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 19 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1629 | Spike | epische Beute zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Li… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 46 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 112.
+Danach 47 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 112.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [340.12](entscheiden/34012-rollenspiegel.md) | **Muss** | B Abläufe | 18.11., 09:08 | Alle sieben Rollen haben heute 07:52–07:57 geantwortet. Drei Muster, drei Änderungen, ein Widerspruch in Frage 10, sieben Spielvorschläge. | Sokrates |
+| [340.12](entscheiden/34012-rollenspiegel.md) | **Muss** | B Abläufe | 18.11., 09:48 | Alle sieben Rollen haben heute 07:52–07:57 geantwortet. Drei Muster, drei Änderungen, ein Widerspruch in Frage 10, sieben Spielvorschläge. | Sokrates |
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1569.1](billigen/15691-umhang-seiten.md) | **Muss** | E Figuren | 18.11., 03:08 | Bild 4 so lassen, mit 1569 in den nächsten Sammelbuild; kein weiterer Bildlauf. Prüfpunkt am Handy: Keil und Wölbung in der Spielkamera. | Sokrates |
-| [1484a](billigen/1484a-zellen-bilder.md) | **Muss** | E Technik | 18.11., 01:58 | Alt und neu sehen gleich aus; Zellen in den nächsten Sammelbuild, du misst am Tablet Wald 11/19 und Flüsterwald 9/12, auch mit 3D 50 %. | Sokrates |
-| [1571](billigen/1571-fackel-hand.md) | **Muss** | E Figuren | 18.11., 01:58 | Die Fackel sitzt in der linken Hand; in deinem Bild vom 17.11. war der Held gedreht. Nichts zu bauen; 1571 erledigt, sobald Zauberstab (1587) und Umhang (1569) im Build sind. | Sokrates |
-| [455.2](billigen/4552-groessen.md) | **Muss** | E Figuren | 18.11., 01:58 | Passt: ein Netz je Stück für alle Völker, Ork auf dem Superhelden mit Nachaußenrücken; Bau der Völkerkörper im Spiel bleibt bei 431 (Tom); Durchstich beim Zwerg dort beheben. | Sokrates |
-| [1569](billigen/1569-umhang-robe.md) | **Muss** | E Figuren | 18.11., 01:46 | Robe sticht hinten nicht mehr durch, in den nächsten Sammelbuild; dunkler Keil an der rechten Schulter und grüner Rand beim Jägerkind als 1569.1 (Umhang Schulter) bei Tom. | Sokrates |
-| [1613](billigen/1613-glanz.md) | Kür | E Figuren | 18.11., 03:08 | Waffen episch und göttlich bekommen Schein und Glut (C); Umschaltung `glanz_art` streichen; in den nächsten Sammelbuild nach Sa 20:00 mit 458.3. Prüfpunkt am Handy: Funken in der Spielkamera zu sehen, kein Ruckeln. | Sokrates |
-| [1211](billigen/1211-licht-b.md) | Kür | E Welt | 18.11., 00:48 | Funkenlicht B: Abfall 1,0 statt 2,0, Reichweite 8 m statt 6,7 m, Stärke wie heute; Höhle immer voll. | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
