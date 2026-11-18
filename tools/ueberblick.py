@@ -185,6 +185,17 @@ def chef_naechstes():
         ("; dann %d weitere" % (len(kand) - 1) if len(kand) > 1 else "")
 
 
+def besetzt_rolle(rolle):
+    """1640 (Chef 18.11., 09:03: Spike „leer“, obwohl er laut Besetzung an 1619 arbeitete): Vorgang der laufenden Sitzung der Rolle aus
+    ARBEIT-BESETZUNG.md, sonst None."""
+    try: t = open(os.path.join(s.DOCS, "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return None
+    for z in t.splitlines():
+        sp = [x.strip() for x in z.strip().strip("|").split("|")]
+        if len(sp) >= 3 and sp[0] == rolle and sp[2] not in ("", "–", "-"): return sp[2]
+    return None
+
+
 def je_rolle():
     """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand, mit
     Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
@@ -216,6 +227,8 @@ def je_rolle():
                 if m: nrn.setdefault(w, []).append(m.group(1))
             was = "leer, weil " + (", ".join("%d %s" % (n, w) + (" (%s)" % ", ".join(nrn[w]) if w in nrn else "")
                                              for w, n in g.most_common(3)) or "keine offene Zeile")
+        b = besetzt_rolle(r)
+        if b: was = "läuft: %s (Besetzung); %s" % (b, was)
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
         for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
             if team != r: continue

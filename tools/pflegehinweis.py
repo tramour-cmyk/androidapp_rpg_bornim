@@ -2,7 +2,7 @@
 """Pflegehinweise als Zeile der Vorgangsliste (340.3, Chef 02.11., 19:44, „340.2 ja“, Variante A; seit 275.2 in LISTE-VORGAENGE.md).
 
 Was `notiz.sh` beim Start meldet (Größe, lange Zeilen, Übergabe zu lang; `regelcheck.py --kurz`), steht täglich als eine Zeile
-„Pflege“ „von Werkzeug“ mit dem Besitzer in der Liste und ersetzt die vom Vortag; ohne Befund fällt die Zeile weg.
+„Pflege“ „im Vorrat“ (1640: hieß „von Werkzeug“ und las sich wie Werkzeugarbeit) mit dem Besitzer in der Liste und ersetzt die vom Vortag; ohne Befund fällt die Zeile weg.
 Dazu der Rollenspiegel als fester Mittwochstermin (1461, ab 18.11.; vorher Freitag): ab Mittwoch nach dem Tagesbericht steht
 für jede Rolle ohne Antwort der Woche die Zeile „Spiegel“, bis `tools/rollenspiegel.sh <Rolle> --antwort …` angehängt hat
 (auch wenn am Mittwoch keine Sitzung der Rolle lief).
@@ -147,7 +147,7 @@ def berechnen(basis, je, tag):
         elif b:
             text = "; ".join(b)
             text = text if len(text) <= 200 else text[:197] + " …"
-            pflege = startbar.zeile_text(dict(nr="Pflege", titel="von Werkzeug (340.3, %s): %s" % (tag, text.replace("|", "/")), besitzer=besitzer, kl="K",
+            pflege = startbar.zeile_text(dict(nr="Pflege", titel="im Vorrat (340.3, %s, Hinweis des Werkzeugs): %s" % (tag, text.replace("|", "/")), besitzer=besitzer, kl="K",
                                               stand="startbar", warte=[], bereich="B Abläufe"))
             # 1129.1 P2 (a): ändert sich nur eine Zahl (Bytes, Zeichen) am selben Tag, bleibt die alte Zeile; sonst je Start ein Commit
             # (309 in 7 Tagen) und dazu je ein Lauf „Chefsache: Übersicht“; 1244: ebenso an einem neuen Tag, Datum bleibt das alte
