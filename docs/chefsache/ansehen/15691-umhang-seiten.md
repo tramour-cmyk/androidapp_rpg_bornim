@@ -1,5 +1,7 @@
 # 1569.1 · Umhang an den Seiten weiter (Bild 4: Keil und grüner Rand)
 
+[Bild von 18.11., 02:42](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0242-1569.1-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 18.11., 02:42 · E Figuren · aus Bild 3 zu 1569 (Sokrates, Nachtvertretung 01:46): dunkler Keil an der rechten Schulter, grüner Rand beim Jägerkind; ein Bildlauf frei
 Kurz: Der Umhang ist an den Seiten 4 cm weiter. Den grünen Rand sieht man nicht mehr, der Keil ist kleiner, aber noch zu sehen. Die Seiten wölben sich jetzt etwas am Oberarm.
 
