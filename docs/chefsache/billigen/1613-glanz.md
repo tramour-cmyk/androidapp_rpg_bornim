@@ -8,7 +8,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/33b3fa
 
 **Entschieden:** C. Sag „gebilligt“ oder „zurück“ (dann A, B oder deine Wahl).
 
-**Berührt:** 1613, 458.3, 415, `DESIGN-BRS.md` (göttlich: „sichtbarer Effekt“)
+**Berührt:** 1613 (Glanz der Waffen), 458.3 (Waffenstaffel), 415 (Effektprobe), `DESIGN-BRS.md` (göttlich: „sichtbarer Effekt“)
 
 **Begründung:** Dein Wort 02.11., 11:28: „als ob die Waffe einfach orange gefärbt wäre … cool, wenn man da irgendwie noch eine Art Effekt draufkriegen“. A allein ist ein heller Streifen auf der Klinge, im Film liest er sich wieder wie Färbung. Erst die Funken (B) sind ein Effekt, der sich bewegt und beim Gehen zurückbleibt. C nimmt beides: Funken für den Effekt, Schein, damit die fast schwarze Schwarzstahlklinge überhaupt zu sehen ist.
 

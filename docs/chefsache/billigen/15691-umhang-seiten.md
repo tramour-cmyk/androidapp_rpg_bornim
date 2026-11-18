@@ -8,7 +8,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/fa6e46
 
 **Entschieden:** 👍 so lassen. Sag „gebilligt“ oder „zurück“ (dann Bild 3, Seitenweite raus).
 
-**Berührt:** 1569, 1569.1, 431h
+**Berührt:** 1569 (Umhang), 1569.1 (Umhang Schulter), 431h (Kleidung Stufe 2)
 
 **Begründung:** Die beiden Fehler aus Bild 3 sind behoben oder fast weg: grüner Rand beim Jägerkind weg, Innenseite 30 → 3 und 35 → 9 Messpunkte, Kleidung durch den Umhang 617 → 174. Mehr Weite (6 cm) machte die Rückseite laut Tom wieder schlechter, ein weiterer Lauf verspricht wenig.
 
