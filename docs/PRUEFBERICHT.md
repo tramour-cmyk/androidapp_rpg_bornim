@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 314 · 1624 beantwortete Spiegelzeile nicht startbar (Perikles `60109b0aa`; 18.11., 08:59)
+
+- **1624 greift:** Stand von Fords Lauf 08:03 (`98a934182`) mit dem neuen `startbar.sperre`: Spiegel Diogenes → „Spiegel beantwortet“ (Antwort 07:57 unter „## Woche 18.11.“); `startbar_spiegel_test.py` Exit 0. (b) 1417, 455.2 startbar ist Wortlaut 1312 (Vorgangsarchiv: „nach 6 h für den Besitzer startbar“, `liegt_ohne_vorlage`), kein Fehler; Fords „gebaut gilt nie startbar“ widerspricht 1312. (c) 458.3, 1484a am Stand 08:03 „Termin 21.11. 20:00“ (seit `6d20a79bd` 07:45), Fords Anzeige nicht nachstellbar.
+- Nicht geprüft: echter Ford-Lauf zwischen Spiegelantwort und Pflegelauf (heute schon alle Spiegelzeilen weg).
+
 ## Lauf 313 · 1620 Vorentscheid-Bremse nur „zurück“ (Perikles `0b7c028212`; 18.11., 07:59)
 
 - **1620 greift:** `abgleich.py` zählt nur „zurück“ der letzten 7 Tage (oberste 80 Archivzeilen), wie 1129 A 3f (Vorlage `1129-blinde-flecken.md` in `ace1de359~1`: „zählt nur ‚zurück‘, nicht, was du noch nicht gebilligt hast“); Kopfzeile 9 angeglichen. Kopie: 3 „zurück“ → Warnung, 2 → still, 7 Dateien zusätzlich in `billigen/` → still; echter Stand still (Exit 0). Kein weiterer Ort mit der alten Schwelle in Rollendateien, `chefsache/README.md`, `LISTE-*`, `tools/*.py`.
