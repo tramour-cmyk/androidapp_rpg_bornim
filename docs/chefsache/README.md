@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 18:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 18:20, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -24,7 +24,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 64 (61) | 19 | 0 | 0 | 49 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 22 | 0 | 4 | 7 | 1655 (Tom) Durchstechprüfung: Morwen Kapuze schneidet in den… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 22 | 0 | 4 | 7 | 1619 (Spike) Held stakst im Film 458.3, sieht nicht nach Gehen… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 5 | 0 | 3 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (11) | 10 | 0 | 5 | 4 | 1667 (Spike) auf claude/build-299 nur 1566 und 760 zurücknehme… |
@@ -46,7 +46,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [1679.md](entscheiden/1679.md) entscheiden; dann 4 weitere |
-| Tom | 1655 Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sic… (Muss); dann 3 weitere |
+| Tom | 1674 Bewohner hängt rund 2 Minuten an der Bank fest, kommt nicht… (Muss); dann 2 weitere |
 | Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 4 weitere |
 | Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
 | Spike | läuft: 1645 (Besetzung); 1667 auf claude/build-299 nur 1566 und 760 zurücknehmen, Lauf gr… (Muss); dann 4 weitere |
@@ -62,25 +62,25 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | startbar |
 | 2 | 760 | Jerry | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung pa… | M | 2 Kampf passt | startbar |
 | 3 | 1697 | Jerry | dunkle Rechtecke unter Held und Goblin im Kampfort Wald wie Fund 1568; Rückfall… | M | 2 Kampf passt | startbar |
-| 4 | 1655 | Tom | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sichtbarkeit prüfen, da… | M | 3 Kleiderschrank und Modelle | startbar |
-| 5 | 1619 | Spike | Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursache in Vorschau nach… | M | 3 Kleiderschrank und Modelle | startbar |
-| 6 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
-| 7 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
-| 9 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 1674 | Tom | Bewohner hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegsch… | M | 3 Kleiderschrank und Modelle | startbar |
-| 11 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
-| 12 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
-| 13 | 1698 | Jerry | frischer Bau des Blocks klassen verliert die Wende mit Schritten; wende_4168 au… | M | 3 Kleiderschrank und Modelle | startbar |
-| 14 | 1667 | Spike | auf claude/build-299 nur 1566 und 760 zurücknehmen, Lauf grün, Merge PR 220, PR… | M | 6 Godot besser nutzen | startbar |
-| 15 | 1696 | Sokrates | ein Bildlauf frei für die Hände; der Lauf nach dem Urteil lief mit unveränderte… | M | 6 Godot besser nutzen | startbar |
-| 16 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 19 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
-| 20 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 4 | 1619 | Spike | Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursache in Vorschau nach… | M | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
+| 6 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
+| 7 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
+| 8 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Kleiderschrank und Modelle | startbar |
+| 9 | 1674 | Tom | Bewohner hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegsch… | M | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
+| 11 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
+| 12 | 1698 | Jerry | frischer Bau des Blocks klassen verliert die Wende mit Schritten; wende_4168 au… | M | 3 Kleiderschrank und Modelle | startbar |
+| 13 | 1667 | Spike | auf claude/build-299 nur 1566 und 760 zurücknehmen, Lauf grün, Merge PR 220, PR… | M | 6 Godot besser nutzen | startbar |
+| 14 | 1696 | Sokrates | ein Bildlauf frei für die Hände; der Lauf nach dem Urteil lief mit unveränderte… | M | 6 Godot besser nutzen | startbar |
+| 15 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 17 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 18 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
+| 19 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 20 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
 
-Danach 66 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 65 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -124,7 +124,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1686 | K | Von Werkzeug (Startwarnung 650.2, 1642, seit 18.11., 10:55): Inhaltsverzeichnis docs/READM | startbar |
 | 1687 | K | Von Werkzeug (Startwarnung 650.2, 1642, seit 18.11., 10:55): Inhaltsverzeichnis docs/READM | startbar |
 
-**Tom** – offen 52, Muss 15, startbar 5
+**Tom** – offen 52, Muss 15, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -134,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1535 | M | Von Chef (17.11., 09:18, zu 1515): Kleidung hängt bei NPCs in der Ruhebewegung an einer Ha | wartet auf Test/Build (gebaut) |
 | 1589.3 | M | Von Perikles (1600, 1589.1 A): Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä | Termin 21.11. 20:00 |
 | 1650 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, | wartet auf Test/Build (gebaut) |
-| 1655 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, b | startbar |
+| 1655 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, b | wartet auf Test/Build (gebaut) |
 | 1657 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m | wartet auf 1694 (startbar) |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht bis 23.11. |
 | 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
@@ -181,7 +181,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1690 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-TOM.md: 5 „Zu“ zu | startbar |
 | 1570 | M | Von Chef (18.11., 17:07, „ich bin auch für die Systemlösung“, Votum Sokrates): Umhang einm | startbar |
 
-**Jerry** – offen 75, Muss 24, startbar 9
+**Jerry** – offen 77, Muss 26, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -260,12 +260,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1684 | K | Von Werkzeug (Startwarnung 108, 1642, seit 18.11., 10:55): Datei über 60 KB: docs/chefsach | startbar |
 | 1685 | K | Von Werkzeug (Startwarnung 108, 1642, seit 18.11., 10:55): Datei über 60 KB: docs/chefsach | startbar |
 | 1691 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-JERRY.md: 8 „Zu“ z | startbar |
+| 1697 | M | Von Jerry (Film t300.9, Lauf 567): dunkle Rechtecke unter Held und Goblin im Kampfort Wald | startbar |
+| 1698 | M | Von Ford (Befund Spike 18.11., 18:14): frischer Bau des Blocks klassen (held_klassen.py au | startbar |
 
-**Spike** – offen 30, Muss 19, startbar 8
+**Spike** – offen 28, Muss 19, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1694 | M | Von Chef (18.11., 17:01, „Als Systemlösung, genau“, Votum Sokrates): Griff einmal für alle | startbar |
+| 1694 | M | Von Chef (18.11., 17:01, „Als Systemlösung, genau“, Votum Sokrates): Griff einmal für alle | wartet auf 1696 (startbar) |
 | 1667 | M | Von Sokrates (Chef 18.11., 14:42 Build 298 und 16:22 Build 299 „freigegeben mit den Einsch | startbar |
 | 1484 | M | Von Sokrates (Chef 16.11., 20:20, Tablet SM-X210, Adreno 619, Build 286): Welt und Kampf 9 | Termin 21.11. 20:00 |
 | 1537 | M | Von Sokrates (1520 so, Chef 17.11., 10:00): Neustart-Haken zusätzlich an jeden Werkzeugauf | Termin 23.11. |
@@ -287,8 +289,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 30 | K | Abstürze beim Testen | ruht bis 23.11. |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 | 1613 | K | Von Sokrates (458.3, Vorentscheid 18.11.): Waffen episch und höher mit Effekt statt Färbun | Termin 21.11. 20:00 |
-| 1646 | K | Von Perikles (Warnung 77): startwarnung.py meldet alte Dateinamen in docs/LISTE-VORGAENGE- | wartet auf Test/Build (gebaut) |
-| 1647 | K | Von Perikles (Pflegewarnung Tagesbericht): tagesbericht.py schreibt Zeilen 5 (Builds, 475 | wartet auf Test/Build (gebaut) |
 | 1270.8 | K | Von Sokrates (1270.5 A, Chef 18.11., 13:06): nur wenn die Messung es verlangt: Tusche halb | Termin 21.11. 20:00 |
 | 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
 | 1665 | M | Von Chef (18.11., 14:34, Fund, Build 298/299): Streitkolben in der Haupthand angelegt, am | startbar |
@@ -337,7 +337,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 
-**Sokrates** – offen 43, Muss 7, startbar 8
+**Sokrates** – offen 44, Muss 8, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -383,6 +383,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
 | 1679 | M? | Von Chef (18.11., 16:32, Frage): wer ist zuständig für Kartendesign, Design grundsätzlich, | startbar |
 | 1693 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-BERATUNG.md: 1 „Zu“ zu | startbar |
+| 1696 | M | Von Spike (1694, 👎 Chef 17:38): ein Bildlauf frei für die Hände (Längsblick und Spielnähe, | startbar |
 | 1486 | K | Von Sokrates (1411.1 Tuffy 16.11., 20:32; 1403): bei gleicher Stufe gewinnen Wachsoldat un | ruht bis 21.11. 20:00 |
 ## Lücken
 
