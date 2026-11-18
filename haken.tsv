@@ -1075,3 +1075,4 @@
 2026-11-18 23:51:25	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 32115 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-18 23:51:31	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 32115 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-18 23:52:57	probelauf	725 (D72): Ziel `cd $d` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home/user/…`) ode	claude/spike-1694-griff
+2026-11-19 00:02:49	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 30362 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
