@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 02:02, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 02:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -24,7 +24,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 61 (61) | 18 | 0 | 4 | 49 | 1589.6 (Spike) Rechnung 444 in die Arena: sim444 rechnet mit are… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 23 (20) | 11 | 1 | 1 | 7 | 1570 (Sokrates) Systemlösung? Umhang: 12 frühere Vorgänge, neu 15… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 23 (20) | 12 | 1 | 1 | 7 | 1569.1 (Tom) dunkler Keil an der rechten Schulter auf dem Umha… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (48) | 5 | 0 | 6 | 25 | 508 (Sokrates) Lehrmeister in Kapitel 1 erreichbar, Magie-Pflich… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 11 (11) | 5 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
@@ -46,24 +46,24 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 6 weitere |
-| Tom | 476 Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Kür) |
+| Tom | 1569.1 dunkler Keil an der rechten Schulter auf dem Umhang, grüner… (Muss) |
 | Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | leer, weil 3 Termin, 3 wartet auf Test/Build, 3 ruht |
 | Homer | leer, weil 1 Chef Gespräch |
 | Diogenes | 1616 D308.1 von Diogenes: Wache blättert list_sessions bis has_m… (Muss) |
 | Sokrates | 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss) |
-| Perikles | M? M? entscheiden: 1569.1 (Muss) |
+| Perikles | leer, weil 12 Termin, 7 wartet auf Vorgang (1595, 1610, 1388, 1615, 1616, 870, 1125), 3 wartet auf Test/Build |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 2 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 3 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 4 | 1614 | Tom | Heldmodelle held_*.bin tragen eine Hilfskugel der Kaufdatei; verfälscht Messung… | K | 3 Kleiderschrank und Modelle | startbar |
-| 5 | 1569.1 | Tom | dunkler Keil an der rechten Schulter auf dem Umhang, grüner Rand Jägerkind am S… | M? | 3 Kleiderschrank und Modelle | in Arbeit |
+| 1 | 1569.1 | Tom | dunkler Keil an der rechten Schulter auf dem Umhang, grüner Rand Jägerkind am S… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 2 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 3 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 4 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1614 | Tom | Heldmodelle held_*.bin tragen eine Hilfskugel der Kaufdatei; verfälscht Messung… | K | 3 Kleiderschrank und Modelle | startbar |
 | 6 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 7 | 476 | Tom | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 8 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
