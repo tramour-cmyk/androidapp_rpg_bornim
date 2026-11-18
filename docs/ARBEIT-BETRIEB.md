@@ -49,6 +49,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 20:28 18.11.: Startsperre 20:28 Start Sokrates (Neustart cb4eeef7c, Chefrunde, Chef 20:27)
 - 18.11., 20:01 Ford: PR 220 (Build 298/299) gemischt 19:50; Startstopp aufgehoben. Archiviert 17:13–18:50: Tom ×2 (20,13 $, 11,10 $), Sokrates 1678 (4,49 $), Jerry (16,93 $); 1698 an Jerry (Wende im frischen Bau klassen).
 - 18.11., 17:05 Ford: Tom-Neustart `…75RSsSMVuCzxsyjp32` (300.10, 1655, 1570, 1674); Diogenes `…76MMaHby73zUmJ8yEE` (1683) gestartet und archiviert, Perikles 1677, 1682 archiviert (1,34 $, 0,91 $, 0,93 $); Startregel auf 1683 (Kern über lauf.py).
 - 18.11., 16:45 Ford: Neustarts Sokrates `…77w4eC1bearZWLwJZf` (1678, fertig), Spike `…789eBk8ZNvZt8H2DoE` (1667, PR 220/221); Spike alt archiviert (18,76 $ auf 1595, 1270.6, 1645, 1664, 1667); 1680 gebaut. Sokrates-Nachfolger 1608 zurückgestellt (Guthaben, Spike merged 299 selbst).
