@@ -334,10 +334,13 @@ func _strahl(V: PackedVector3Array, netz: Dictionary, g: Dictionary, von: Vector
 					if hit == null: continue
 					var d := von.distance_to(hit)
 					if d >= best[2]: continue
+					var fn := (b - a).cross(c - a)
 					if nur:
-						var fn := (b - a).cross(c - a)
 						if fn.dot(-dir) <= 0.0: continue   # Wand zeigt wie die Ecke nach außen (dir ist gegen die Normale)
-					best = [t, lt, d, hit]
+					best = [t, lt, d, hit, fn]
+	# 1652: decken heißt, die nächste Wand einer anderen Lage wird von innen getroffen (zeigt wie der Strahl nach außen); ist es ihre
+	# Außenseite, liegt die Lage darunter (Rückseite eines aufgesetzten Stücks, Osrics Sonne auf der Robe)
+	if not nur and best[0] >= 0 and (best[4] as Vector3).dot(dir) <= 0.0: return [-1, -1, INF, Vector3.ZERO]
 	return best
 
 func _rand_gitter(V: PackedVector3Array, rand: PackedInt32Array) -> Dictionary:
