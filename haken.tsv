@@ -994,3 +994,4 @@
 2026-11-18 15:54:43	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 299 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (6	claude/tom-1650-stiefel
 2026-11-18 15:56:44	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1650-stiefel
 2026-11-18 16:00:48	commit-pruefung	docs/ARBEIT-TEAM-TOM.md hat 32478 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-18 16:15:01	commit-pruefung	docs/chefsache/ansehen/1535-garrick-faden.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
