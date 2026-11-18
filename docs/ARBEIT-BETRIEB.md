@@ -47,6 +47,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 18.11., 08:57 Ford: Lauf 08:56 (`--nur-muss`): Start Diogenes `…76MR3jM5NKU4Nj26VS` (1624), Perikles `…79fdWCFRtP9PJU8ubg` (M? 1625); Tom 1621 per `--ohne` (Spike hat 1621 nach 1619), kein Stillstand; Warnungen „Start nicht angekommen“ 08:04 irrig (Rollenspiegel liefen und sind archiviert).
 - 18.11., 08:54 Ford: Chef startet Ford `…78M61cNk8nkWNPfU9N` 08:50; alter Ford archiviert (79,59 $ auf 1574), alte Uhr und Erinnerung gelöscht, eigene Uhr `trig_01QxYSSDeefUxtovs2DXhbSo`; Sokrates alt `…777MV8Hv8ps2Js5voW` archiviert (Chef 08:45), 10,46 $ auf 1569.1, 1613, 1619, 1621, 1620, 1625.
 - 17.11., 18:34 Ford: Chef startet Ford `…76dyxkyvfmpM8LcpYk` 18:24 von Hand; Doppel-Ford `…78mrHo3KyeKYwQQYFn` (Starter 18:20, Lauf 18:29) angehalten, archiviert, 0,92 $ auf 1019; Homer `…75XKLrPrbjhwyzzaf3` (1235 trotz „noch nicht“ gestartet, `--ohne` fehlte) archiviert, 0,55 $ auf 1235; eigene Uhr `trig_01Ey145LdtFf268UwRB3MVcF`, Uhr-Sitzung aus; 1574 an Perikles.
 - 17.11., 13:07 Ford: Lauf 13:04: Start Diogenes `…76bxudxAGUfPJBE1Pc` (1547), alter Diogenes archiviert (1,01 $ auf 1539); Rotbuch angelegt (1560–1562 u. a.); Ford-Neustart 12:33 angekommen, Uhr-Sitzung bestätigt.
