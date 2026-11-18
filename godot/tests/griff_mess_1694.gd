@@ -65,6 +65,7 @@ func miss(m: Node3D) -> Dictionary:
 		if n is Tragen: t = n
 	if w == null or t == null: return aus
 	t.merken = true
+	if OS.get_environment("WER") != "": print("WER w=%s waffe=%s gleich=%s" % [w.get_path(), t.waffe.get_path() if t.waffe else null, w == t.waffe])
 	if t.posen.size() != sk.get_bone_count(): return aus
 	_posen = t.posen
 	var g := w.global_transform * Halt.griff_rahmen(t.halt)
@@ -83,6 +84,50 @@ func miss(m: Node3D) -> Dictionary:
 		var dq: float = quer.call(fl)
 		if dq > 0.12: continue   # diese Hand hält nicht
 		aus[s + "_flaeche"] = 100.0 * dq
+		# Lage der Schaftachse im Rahmen der Hand (cm vom Mittelfingergrundgelenk): fl = zum Finger hin, in = zur Handinnenseite
+		var hb := sk.find_bone("hand_" + s)
+		var th := sk.find_bone("thumb_01_" + s)
+		var ih := sk.find_bone("index_01_" + s); var pk := sk.find_bone("pinky_01_" + s)
+		if hb >= 0 and th >= 0 and ih >= 0 and pk >= 0:
+			var G := sk.global_transform
+			var lang := (G * _posen[mf].origin - G * _posen[hb].origin).normalized()
+			var qv := (G * _posen[ih].origin - G * _posen[pk].origin).normalized()
+			var innen := lang.cross(qv).normalized()
+			if innen.dot(G * _posen[th].origin - G * _posen[hb].origin) < 0.0: innen = -innen
+			var nah := g.origin + ax * (fl - g.origin).dot(ax)
+			var rel := nah - fl
+			aus[s + "_lang"] = 100.0 * rel.dot(lang)
+			aus[s + "_innen"] = 100.0 * rel.dot(innen)
+			aus[s + "_winkel"] = rad_to_deg(acos(clampf(absf(ax.dot(qv)), 0.0, 1.0)))   # Schaft gegen die Knöchellinie (0 = längs durch die Faust)
+		# Umschlingung: Winkel um die Schaftachse von Grundgelenk über Mittel- und Endglied bis zur Spitze des Mittelfingers
+		var kette := []
+		for gl in ["_01_", "_02_", "_03_"]:
+			var b := sk.find_bone("middle" + gl + s)
+			if b >= 0: kette.append(sk.global_transform * _posen[b].origin)
+		var sp := _spitze(sk, "middle_03_" + s)
+		if sp != Vector3.INF: kette.append(sk.global_transform * sp)
+		var summe := 0.0
+		for k in range(1, kette.size()):
+			var a: Vector3 = kette[k - 1] - g.origin; a -= ax * a.dot(ax)
+			var b2: Vector3 = kette[k] - g.origin; b2 -= ax * b2.dot(ax)
+			summe += rad_to_deg(a.signed_angle_to(b2, ax))
+		aus[s + "_umschl"] = absf(summe)
+		if kette.size() >= 2:   # geschlossen (Spitze zurück zum Grundgelenk): 360 = Schaft in der Faust, 0 = außen
+			var a: Vector3 = kette[-1] - g.origin; a -= ax * a.dot(ax)
+			var b2: Vector3 = kette[0] - g.origin; b2 -= ax * b2.dot(ax)
+			aus[s + "_kreis"] = absf(summe + rad_to_deg(a.signed_angle_to(b2, ax)))
+		# nächster Punkt jedes Fingers (Gelenke, Mitten, Spitze) zur Schaftoberfläche: unter 0 = Finger im Schaft
+		var tief := INF
+		for f in FINGER:
+			var pts := []
+			for gl in ["_01_", "_02_", "_03_"]:
+				var b := sk.find_bone(f + gl + s)
+				if b >= 0: pts.append(sk.global_transform * _posen[b].origin)
+			var spx := _spitze(sk, f + "_03_" + s)
+			if spx != Vector3.INF: pts.append(sk.global_transform * spx)
+			for k in range(1, pts.size()):
+				tief = minf(tief, minf(float(quer.call(pts[k])), float(quer.call((pts[k] + pts[k - 1]) * 0.5))) - rad)
+		aus[s + "_naechst"] = 100.0 * tief
 		for f in FINGER:
 			var p := _spitze(sk, f + "_03_" + s)
 			if p != Vector3.INF: aus["%s_%s" % [s, f]] = 100.0 * (float(quer.call(sk.global_transform * p)) - rad)

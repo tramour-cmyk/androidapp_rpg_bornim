@@ -44,6 +44,12 @@ func _lauf() -> void:
 		var rechts: Vector3 = spiel.held.modell.global_basis * Vector3.LEFT
 		kam.global_position = hand + (vorn * 0.55 + rechts * 0.45 + Vector3.UP * 0.12)
 		kam.look_at(hand, Vector3.UP)
+		if OS.get_environment("LAENGS") != "":   # Ursache (Chef 17:38): Blick längs des Schafts auf die Faust
+			var m := t.halt.duplicate() if not t.halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
+			var gw := t.waffe.global_transform * Halt.griff_rahmen(m)
+			var ax := gw.basis.y.normalized()
+			kam.global_position = gw.origin - ax * 0.45
+			kam.look_at(gw.origin, Vector3.UP if absf(ax.y) < 0.9 else Vector3.FORWARD)
 		kam.make_current()
 		spiel.held.process_mode = Node.PROCESS_MODE_DISABLED
 		for f in 4: await process_frame
