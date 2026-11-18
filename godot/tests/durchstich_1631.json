@@ -146,20 +146,20 @@
 		},
 		"Stehen": {
 			"durch": 69,
-			"zug": 8
+			"zug": 9
 		}
 	},
 	"L_osric": {
 		"Ruhe_Greifen": {
-			"durch": 230,
+			"durch": 171,
 			"zug": 30
 		},
 		"Stehen": {
-			"durch": 232,
+			"durch": 173,
 			"zug": 24
 		},
 		"Stehen_2": {
-			"durch": 256,
+			"durch": 200,
 			"zug": 36
 		}
 	},
@@ -240,7 +240,7 @@
 		},
 		"Stehen_2": {
 			"durch": 378,
-			"zug": 132
+			"zug": 133
 		}
 	},
 	"WACHE_W": {
