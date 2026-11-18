@@ -155,6 +155,25 @@ def kopfsitz(netze, haut, p, gesicht=None):
     return teile
 
 
+# 1655 (Durchstich 1631, Bild 18.11., 17:05: Morwens Kopf oben und hinten durch die Kapuze): gemessen am Spielnetz Female_Ranger_Head_Hood,
+# in den oberen 15 cm hingen 14 % der Gewichte an spine_03 und den Schlüsselbeinen; nickt der Kopf in der Ruhebewegung, bleibt die Kapuze
+# zurück und der Schädel tritt aus. Über dem Kinn ganz an Head, darunter bis 6 cm weich zurück zu den Gewichten des Kaufs (Kragen auf den
+# Schultern bleibt am Rumpf)
+def kapuze_am_kopf(o, p):
+    hk = o.vertex_groups.get('Head') or o.vertex_groups.new(name='Head')
+    mw = o.matrix_world; z0 = p['kinn_z'] - 0.06; n = 0
+    for v in o.data.vertices:
+        t = min(1.0, max(0.0, ((mw @ v.co).z - z0) / 0.06))
+        if t <= 0.0: continue
+        alt = {g.group: g.weight for g in v.groups}
+        summe = sum(alt.values()) or 1.0
+        for gi, w in alt.items():
+            if gi != hk.index: o.vertex_groups[gi].add([v.index], w / summe * (1.0 - t), 'REPLACE')
+        hk.add([v.index], alt.get(hk.index, 0.0) / summe * (1.0 - t) + t, 'REPLACE')
+        n += 1
+    print('KAPUZE AM KOPF', o.name, n, 'Ecken über dem Kinn an Head')
+
+
 # 531 (Chef 16.11., 12:26, Bild Garrick im Profil: „Garrick ist … klein und die Kapuze ist wie für einen Riesen gemacht“): gemessen am
 # Kaufbau held_L_garrick_M (16.11.): die Ranger-Kapuze sitzt wie beim Helden (Jaegerkind) unverändert aus dem Kauf, Kopf bis z 1,81, Kapuze
 # bis 1,865, hinten 11 cm und über der Stirn 8 cm vor dem Kopf (Kopf 12 cm tief, Kapuze 32 cm). Die Leute tragen sie enger: der Abstand
@@ -706,7 +725,9 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
         netze += kopf_frei(netze, haut, p, ge, os.path.join(env['OUT'], 'teile.json'))
     kopfteile = kopfsitz(netze, haut, p, ge) if liste != 'trachten.json' else []
     for o in kopfteile:
-        if 'hood' in o.name.lower(): kragen_unter_kapuze(o, netze, haut, p, ge)
+        if 'hood' in o.name.lower():
+            kapuze_am_kopf(o, p)
+            kragen_unter_kapuze(o, netze, haut, p, ge)
     if liste != 'trachten.json': wange_messen(netze, haut, p, ge)
     schluessel(([haut, augen] if augen else [haut]) + brauen + kopfteile, p, augen)
     sch = None
