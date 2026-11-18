@@ -4418,30 +4418,6 @@ func treffpunkt_fern(von: Vector3) -> Vector3:
 	return best
 
 
-## 760 (Chef 15.11., 20:33: „ich weiß ernsthaft nicht, wo das Blut spritzt … nicht an der Person, am Helden“): wo ein Biss von
-## [angreifer] den Körper trifft, die Stelle der eigenen Kapseln (Oberfläche, Welt) nächst an Kopf, Kiefer, Zunge (BISS_TEILE) des
-## Angreifers; Vector3.INF, wenn einer von beiden kein Gerüst oder der Angreifer keine Bissteile hat (dann wie bisher geschätzt)
-func treffpunkt_biss(angreifer: Variant) -> Vector3:
-	if angreifer == null or not is_instance_valid(angreifer) or angreifer.fighter.monster == null:
-		return Vector3.INF
-	var kopf: Array = []
-	for c: Array in angreifer.kapseln():
-		var nm := String(c[3]).to_lower() if c.size() > 3 else ""
-		for w: String in BISS_TEILE:
-			if nm.contains(w):
-				kopf.append(c)
-				break
-	var best := Vector3.INF
-	var naechst := INF
-	for w: Array in kopf:
-		for c: Array in koerper():
-			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
-			var d: Vector3 = pq[0] - pq[1]
-			if d.length() < naechst:
-				naechst = d.length()
-				best = pq[1] + (d.normalized() * float(c[2]) if d.length() > float(c[2]) else d)
-	return best
-
 ## 709: der Weg eines Angriffs [hn] im eigenen Raum (+Z zum Ziel, wie _face; [versatz]: so weit dreht die Figur beim Angriff aus der
 ## Richtung zum Ziel, z. B. die Schnauze im Biss), je 1/30 s: [t (s der Bewegung), Waffe, Körper], beide als Kapseln [[a, b, r] …].
 ## Waffe: was der Held in der Waffenhand trägt (Strecke längs des Kastens), beim Tier Kopf, Kiefer, Zunge; Körper: beim Held Rumpf,
