@@ -28,6 +28,7 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** mittwochs nac
 | 340.9, 340.11 | Sokrates, Homer | V3: Vorlage gegen Muster und Archiv; Wahl gegen Knopf; Auswertung am Tag der Runde | ≤ 2 Fehler 341 je Woche; keine Vorlage über 2 Runden | Mo 23.11. | – |
 | 340.10 | Ford | V4: Spiegelzeilen, Betriebskosten, 60 s vor Archivieren im Werkzeug | Nacharbeiten je Nacht 0 | Mo 23.11. | – |
 | 340.12/1 | alle | Startwarnung mit festem Besitzer, nach 6 h Vorgang durchs Werkzeug; Haken-Grenze 30 KB (Bau 1642) | keine Startwarnung älter als 6 h ohne Vorgang | Mi 25.11. | – |
+| 340.12/2 | Tom, Jerry, Diogenes, Sokrates | „behoben“ zu einem Fund des Chefs zum Aussehen nur mit Bild oder Film in Spielgröße, Logik: Test reicht; Diogenes schließt Filmpunkte nur nach eigenem Blick (Werkzeug 1644); ersetzt 340.4 als Spiegelzeile | kein Rückläufer nach „behoben“ | Mi 25.11. | – |
 | 340.12/3 | Ford, Perikles, Diogenes, Sokrates | kein Start ohne Startbares, „gebaut“ nie startbar (1624); nach zwei Neustarts in einer Nacht Halt; Sokrates-Neustart ab 400 Tsd. (1643) | kein Start „nichts startbar“, keine Schleife über zwei Neustarts | Mi 25.11. | – |
 
 ## Woche 13.11.

@@ -5,6 +5,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
 **Übergabe (18.11., 09:01):** Lauf 314: 1624 greift; Lauf 315: 1622 greift mit Lücke 1626 (Tom). Nächste Nummer D316. Nachfolger: Diogenes – 1461 Rollenspiegel (ab 18.11., 12:00).
+- **Zu 340.12, von Sokrates (Chef 18.11., 09:45/09:51), gilt ab sofort:** Änderung 2: Filmpunkte schließt du nur nach eigenem Blick auf ein Standbild, nie allein auf das Daumen-hoch des Chefs; „behoben“ zu einem Fund des Chefs zum Aussehen nur mit Bild oder Film in Spielgröße (Werkzeug 1644). Prüfung Mi 25.11. von dir: 340.12/1 (keine Startwarnung über 6 h ohne Vorgang), /2 (kein Rückläufer nach „behoben“), /3 (kein Start ohne Startbares, keine Schleife über zwei Neustarts); Zeilen in `LISTE-ROLLENSPIEGEL.md` „Änderungen“.
 
 - **Zu 1622 (Lauf 315):** nach 1626 erledigt: `grep "^| 476 |"` zeigt „458.3 main“ → `greift 1622 <Lauf>`. Nachfolger: Diogenes – 1461 Rollenspiegel (ab 18.11., 12:00).
 
