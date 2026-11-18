@@ -2,22 +2,26 @@
  "108:docs/chefsache/bilder/415-strahlen-gl.webp": {
   "besitzer": "Jerry",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "Datei über 60 KB: docs/chefsache/bilder/415-strahlen-gl.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)"
+  "text": "Datei über 60 KB: docs/chefsache/bilder/415-strahlen-gl.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)",
+  "vorgang": "1684"
  },
  "108:docs/chefsache/bilder/415-strahlen-mobile.webp": {
   "besitzer": "Jerry",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "Datei über 60 KB: docs/chefsache/bilder/415-strahlen-mobile.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)"
+  "text": "Datei über 60 KB: docs/chefsache/bilder/415-strahlen-mobile.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)",
+  "vorgang": "1685"
  },
  "650.2:STORY-MERKMALE-TIERE.md": {
   "besitzer": "Homer",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: STORY-MERKMALE-TIERE.md"
+  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: STORY-MERKMALE-TIERE.md",
+  "vorgang": "1686"
  },
  "650.2:STORY-MERKMALE-WAFFEN.md": {
   "besitzer": "Homer",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: STORY-MERKMALE-WAFFEN.md"
+  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: STORY-MERKMALE-WAFFEN.md",
+  "vorgang": "1687"
  },
  "650.2:chefsache/ansehen/t298-sammelbuild.md": {
   "besitzer": "Perikles",
@@ -27,12 +31,14 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Ford",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 36644 Bytes (Grenze 30000), Erledigtes streichen"
+  "text": "docs/ARBEIT-BETRIEB.md hat 36708 Bytes (Grenze 30000), Erledigtes streichen",
+  "vorgang": "1688"
  },
  "regel:ARBEIT-TAGESBERICHT.md:Tabellenzeilen über N Zeichen (Einzelhei": {
   "besitzer": "Perikles",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TAGESBERICHT.md: Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16"
+  "text": "ARBEIT-TAGESBERICHT.md: Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16",
+  "vorgang": "1689"
  },
  "regel:ARBEIT-TEAM-SPIKE.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Spike",
@@ -42,7 +48,8 @@
  "vorrat:ARBEIT-BERATUNG.md": {
   "besitzer": "Sokrates",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-BERATUNG.md: 1 „Zu“ zu Erledigtem (1589.1), beim Übergeben streichen"
+  "text": "ARBEIT-BERATUNG.md: 1 „Zu“ zu Erledigtem (1589.1), beim Übergeben streichen",
+  "vorgang": "1693"
  },
  "vorrat:ARBEIT-PRUEFUNG.md": {
   "besitzer": "Diogenes",
@@ -52,16 +59,19 @@
  "vorrat:ARBEIT-TEAM-JERRY.md": {
   "besitzer": "Jerry",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TEAM-JERRY.md: 8 „Zu“ zu Erledigtem (1591, 1478, 1488, 1275, 601.1, 1275 …), beim Übergeben streichen"
+  "text": "ARBEIT-TEAM-JERRY.md: 8 „Zu“ zu Erledigtem (1591, 1478, 1488, 1275, 601.1, 1275 …), beim Übergeben streichen",
+  "vorgang": "1691"
  },
  "vorrat:ARBEIT-TEAM-SPIKE.md": {
   "besitzer": "Spike",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TEAM-SPIKE.md: 6 „Zu“ zu Erledigtem (1211, 1211, 1211, 1211, 1211, 1567), beim Übergeben streichen"
+  "text": "ARBEIT-TEAM-SPIKE.md: 6 „Zu“ zu Erledigtem (1211, 1211, 1211, 1211, 1211, 1567), beim Übergeben streichen",
+  "vorgang": "1692"
  },
  "vorrat:ARBEIT-TEAM-TOM.md": {
   "besitzer": "Tom",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen"
+  "text": "ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen",
+  "vorgang": "1690"
  }
 }
