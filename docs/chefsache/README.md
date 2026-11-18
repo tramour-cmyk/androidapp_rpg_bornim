@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 12:18, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 12:32, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -46,7 +46,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Rolle | als Nächstes |
 |---|---|
 | **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 3 weitere |
-| Tom | läuft: 1631 (Besetzung); 1650 Durchstechprüfung: Hosen stechen durch den Stiefelschaft be… (Muss); dann 3 weitere |
+| Tom | läuft: 1631 (Besetzung); 1631 Durchstechprüfung Kleidung gegen Leib und Arme für alle Fig… (Muss); dann 4 weitere |
 | Jerry | 1652 Durchstechprüfung: Osric innere Stücke stechen durch die Ro… (Muss); dann 2 weitere |
 | Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
 | Spike | läuft: 1645 (Besetzung); 1621 Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115… (Muss); dann 1 weitere |
@@ -60,25 +60,25 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1621 | Spike | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128… | M | 3 Kleiderschrank und Modelle | startbar |
-| 2 | 1650 | Tom | Durchstechprüfung: Hosen stechen durch den Stiefelschaft bei Borin, Bram, Garri… | M | 3 Kleiderschrank und Modelle | startbar |
-| 3 | 1651 | Tom | Durchstechprüfung: Wache M/W Kettenhemd sticht an der Schulter durch den Umhang… | M | 3 Kleiderschrank und Modelle | startbar |
-| 4 | 1655 | Tom | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sichtbarkeit prüfen, da… | M | 3 Kleiderschrank und Modelle | startbar |
-| 5 | 1657 | Tom | Durchstechprüfung: Held Robe M/W Hände durch die Robe und 230–285 gezogene Drei… | M | 3 Kleiderschrank und Modelle | startbar |
-| 6 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
-| 7 | 1652 | Jerry | Durchstechprüfung: Osric innere Stücke stechen durch die Robe; Sichtbarkeit prü… | M | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
-| 9 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 11 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 13 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
-| 14 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
-| 15 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 16 | 1656 | Sokrates | Systemlösung? Kapuze: 2 frühere Vorgänge, neu 1655; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 17 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 2 | 1631 | Tom | Durchstechprüfung Kleidung gegen Leib und Arme für alle Figuren mit Kaufkleid j… | M | 3 Kleiderschrank und Modelle | in Arbeit |
+| 3 | 1650 | Tom | Durchstechprüfung: Hosen stechen durch den Stiefelschaft bei Borin, Bram, Garri… | M | 3 Kleiderschrank und Modelle | startbar |
+| 4 | 1651 | Tom | Durchstechprüfung: Wache M/W Kettenhemd sticht an der Schulter durch den Umhang… | M | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1655 | Tom | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sichtbarkeit prüfen, da… | M | 3 Kleiderschrank und Modelle | startbar |
+| 6 | 1657 | Tom | Durchstechprüfung: Held Robe M/W Hände durch die Robe und 230–285 gezogene Drei… | M | 3 Kleiderschrank und Modelle | startbar |
+| 7 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
+| 8 | 1652 | Jerry | Durchstechprüfung: Osric innere Stücke stechen durch die Robe; Sichtbarkeit prü… | M | 3 Kleiderschrank und Modelle | startbar |
+| 9 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
+| 11 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 12 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 13 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 14 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 15 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
+| 16 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 17 | 1656 | Sokrates | Systemlösung? Kapuze: 2 frühere Vorgänge, neu 1655; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 18 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 
 Danach 51 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 21. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 113.
 ## Zu entscheiden
