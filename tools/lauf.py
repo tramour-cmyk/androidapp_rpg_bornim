@@ -32,7 +32,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
   OHNE-ÜBERHOLT NR: Grund                                           → (1129.1 P1) der Ausschluss gilt nicht mehr (Nummer im Archiv, ruht, oder „in Arbeit“ ohne Sitzung seit 2 h): Ford streicht --ohne NR ab dem nächsten Lauf, auch in seiner Übergabe
   URTEIL <Text>, Nachricht <Kennung>                              → (1228) offenes 👍/👎/✅ des Chefs: Ford erledigt es wie jeder (Archiveintrag mit Wortlaut und „Nachricht <Kennung>“, Datei der Chefsache weg, Stand); steht die Kennung schon im Archiv, nichts
-  GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
+  GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts; „bleibt gesperrt“: nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
   (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
              Steht statt NR ein Rollenname (auch Spike, Tuffy), fällt die Rolle ganz aus dem Lauf: kein START, keine Zusatzentwickler-Zeile, kein ARCHIVIERE, keine Warnung „Start nicht angekommen“ (1148).
@@ -1141,6 +1141,12 @@ def main():
         for nr, wer, weg, neu_st in startbar.loesen(True):  # 275.2 Automatik A: erfüllte „wartet auf“ schreiben (Ford pusht)
             # D80.4: „Meldung an den Besitzer“: läuft eine Sitzung der Rolle, ihre Kennung (Ford: send_message); sonst startet lauf.py sie wie jede startbare Zeile
             sitz = [x for x in je_rolle.get(wer, []) if x["id"] not in archiviert]
+            # Ford 18.11., 12:06 (1567 „zu testen“, 1622 „gebaut“): bleibt die Zeile nach dem Leeren gesperrt, keine Meldung „startbar“
+            d_neu = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+            grund = startbar.sperre(d_neu) if d_neu else None
+            if grund:
+                print("GELÖST %s | %s | wartet auf %s erfüllt, bleibt gesperrt (%s) | - (Notizen pushen, keine Meldung)" % (nr, wer, ", ".join(weg), grund))
+                continue
             print("GELÖST %s | %s | wartet auf %s erfüllt%s | %s (Notizen pushen)" % (nr, wer, ", ".join(weg), (" → " + neu_st) if neu_st else "",
                                                                                    ("an " + juengste(sitz)["id"]) if sitz else "-"))
         n = aufraeumen()
