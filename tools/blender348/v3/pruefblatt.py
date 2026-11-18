@@ -19,7 +19,7 @@ INFO = json.load(open(OUT + '/held-info.json'))
 ding = None
 _wf = os.path.join(os.environ.get('WAFFEN', os.path.join(OUT, '..', 'waffen')), '%s.glb' % INFO.get('traegt', '-'))
 if INFO.get('traegt') and os.path.exists(_wf):
-    _vor = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=_wf)
+    _vor = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=_wf, disable_bone_shape=True)
     _neu = [o for o in bpy.data.objects if o not in _vor and o.type == 'MESH']
     for o in _neu: o.parent = None
     bpy.ops.object.select_all(action='DESELECT')

@@ -13,7 +13,7 @@ bpy.ops.wm.open_mainfile(filepath=FIG)
 qa = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
 haut = next(o for o in qa.children if o.type == 'MESH' and any('haut' in m.name for m in o.data.materials))
 vorher = set(bpy.data.actions)
-bpy.ops.import_scene.gltf(filepath=UAL)
+bpy.ops.import_scene.gltf(filepath=UAL, disable_bone_shape=True)
 for o in [o for o in bpy.data.objects if o != qa and o.parent != qa]: bpy.data.objects.remove(o)
 AKT = {a.name.split('|')[-1]: a for a in bpy.data.actions if a not in vorher}
 netze = [c for c in qa.children if c.type == 'MESH']

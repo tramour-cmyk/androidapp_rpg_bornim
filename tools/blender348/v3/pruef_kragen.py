@@ -14,7 +14,7 @@ kleid = bpy.data.objects['Kleid']
 TN = json.load(open(os.environ.get('TEILE', '/home/user/q376/out/teile.json')))
 tl = np.zeros(len(kleid.data.vertices), dtype=int); kleid.data.attributes['teil'].data.foreach_get('value', tl)
 vorher = set(bpy.data.actions)
-bpy.ops.import_scene.gltf(filepath=UAL)
+bpy.ops.import_scene.gltf(filepath=UAL, disable_bone_shape=True)
 for o in [o for o in bpy.data.objects if o != qa and o.parent != qa]: bpy.data.objects.remove(o)
 AKT = {a.name.split('|')[-1]: a for a in bpy.data.actions if a not in vorher}
 qa.animation_data_create(); a = AKT['Idle_Loop']; qa.animation_data.action = a
