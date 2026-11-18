@@ -974,3 +974,4 @@
 2026-11-18 13:11:31	commit-pruefung	docs/ROLLE-PROJEKT.md: 13252 Bytes, Obergrenze 13200, Commit fügt 421 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-18 14:20:00	commit-pruefung	docs/chefsache/ansehen/t299-schlussbuild.md: gegengelesen vom eigenen Team (Tom, Zeile 1: Tom und Spike); eine Sitzung außerhalb des Teams liest gegen (881)	main
 2026-11-18 14:20:07	commit-pruefung	docs/chefsache/ansehen/t299-schlussbuild.md: gegengelesen vom eigenen Team (Tom, Zeile 1: Tom und Spike); eine Sitzung außerhalb des Teams liest gegen (881)	main
+2026-11-18 14:20:07	commit-pruefung	docs/chefsache/ansehen/t299-schlussbuild.md: Laufnachweis fehlt (1128 A): kleid_film2_431 steht nicht im Bauablauf; als Prüffrage am Handy oder Test ohne `|| true` in den Lauf der APK (`python3 tools/	main
