@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 16:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 16:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -75,7 +75,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 14 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
 | 15 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Kleiderschrank und Modelle | startbar |
 | 16 | 1674 | Tom | Bewohner hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegsch… | M | 3 Kleiderschrank und Modelle | startbar |
-| 17 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei; d… | M | 3 Kleiderschrank und Modelle | startbar |
+| 17 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
 | 18 | 1606 | Tom | rand_1022 rot in Lauf 558 und 559 auf claude/build-298, am Rechner auf demselbe… | M | 6 Godot besser nutzen | gebaut, t299 ohne deine Antwort |
 | 19 | 1667 | Spike | PR 219 rot, darum mit PR 220 nach t299 zusammen auf main: auf claude/build-299… | M | 6 Godot besser nutzen | startbar |
 | 20 | 1670 | Spike | Grafik Hoch im Systemmenü 1. Mal zurück auf Automatisch gesprungen; 2. Mal gesp… | M | 6 Godot besser nutzen | startbar |
