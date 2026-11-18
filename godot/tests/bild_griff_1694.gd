@@ -1,6 +1,7 @@
 extends SceneTree
 # 1694 (Chef 18.11., 17:01): Bild der rechten Hand mit Waffe im Dorf, Held angehalten im Stehen, Kamera nah an der Hand (Tusche wie im
-# Spiel). Je Waffe ein Bild nach BILDER=<ordner>/<waffe>-<alt|neu>.png; GRIFF1694=0 = alter Griff.
+# Spiel). Je Waffe ein Bild nach BILDER=<ordner>/<waffe>-<alt|neu>.png; GRIFF1694=0 = alter Griff; LAENGS=1 Blick längs des Schafts;
+# SPIELKAMERA=1 die Spielkamera (mit --resolution 540x1170 wie das Handy).
 #   GRIFF1694=0|1 BILDER=<ordner> xvfb-run -a godot --path . --resolution 900x900 -s res://tests/bild_griff_1694.gd -- --bild1694
 
 const FOLGE := ["quarterstaff", "handaxe", "longsword"]
@@ -13,6 +14,7 @@ func _lauf() -> void:
 	root.add_child(spiel)
 	for i in 5: await process_frame
 	spiel.zustand.minuten = 13 * 60
+	spiel.licht_nach_uhr(true)   # Chef 21:37 („nix zu erkennen“): Tageslicht wirklich setzen, sonst stand das Licht vom Start (Nacht)
 	spiel.betrete("village", Vector2i(17, 5), "UP")
 	for i in 5: await process_frame
 	for n in ["mess", "oben", "leiste", "textfeld"]:
@@ -50,7 +52,8 @@ func _lauf() -> void:
 			var ax := gw.basis.y.normalized()
 			kam.global_position = gw.origin - ax * 0.45
 			kam.look_at(gw.origin, Vector3.UP if absf(ax.y) < 0.9 else Vector3.FORWARD)
-		kam.make_current()
+		if OS.get_environment("SPIELKAMERA") != "": spiel.kamera.springe()   # Chef 21:37: dieselbe Hand in Spielkamera und Handygröße
+		else: kam.make_current()
 		spiel.held.process_mode = Node.PROCESS_MODE_DISABLED
 		for f in 4: await process_frame
 		await RenderingServer.frame_post_draw
