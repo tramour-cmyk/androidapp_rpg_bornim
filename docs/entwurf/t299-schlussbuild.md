@@ -7,7 +7,7 @@ Verglichen (alt gegen neu): Wachsoldatin im Hauptmenü (Bild 1515 alt gegen neu,
 
 Ein Weg: über Build 298 installieren (sonst 297), Hauptmenü ansehen (299.1, 299.2), „Weiter“ ins Dorf (299.3), Menü → Ausrüstung (299.4), dann Höhle (299.5).
 
-Im Bau geprüft: Schildarm und Kleid ohne Fläche über Unterarm–Rumpf bei allen Figuren mit Kaufkleid (1417, 1515, 1535, `achsel_1515`); wer sitzt, hat nichts in der Hand (1549, `kleid_stufe2_431`); Fackel in der Nebenhand links (1571, Messung im Test); Kartenrand je Gebietskarte, auch mit dem Gras-Kit (1606, `rand_1022`); Funkenlicht 8 m, Abfall 1,0, in der Höhle auch am Tag (1211, `funke_677`).
+Im Bau geprüft: Schildarm und Kleid ohne Fläche über Unterarm–Rumpf bei allen Figuren mit Kaufkleid (1417, 1515, 1535, `achsel_1515`); wer sitzt, hat nichts in der Hand (1549; im Spiel sitzt der Held nie, nur im Bildwerkzeug `kleid_film2_431`, dort legt `ablegen` die Waffe ab); Fackel in der Nebenhand links (1571, Messung im Test); Kartenrand je Gebietskarte, auch mit dem Gras-Kit (1606, `rand_1022`); Funkenlicht 8 m, Abfall 1,0, in der Höhle auch am Tag (1211, `funke_677`).
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
@@ -22,3 +22,5 @@ Im Bau geprüft: Schildarm und Kleid ohne Fläche über Unterarm–Rumpf bei all
 - 299.3: ort=village:17:5:UP uhr=12:00
 - 299.4: vorraete
 - 299.5: station=Krogg uhr=12:00 vorraete
+
+Gegengelesen: Tom 18.11., 13:10. 299.1 stimmt. 299.2 stimmt. 299.3 stimmt (Jorin geht auf y 3 zwischen x 15 und 20, zwei Felder vor dem Helden; Pim 9 Felder südlich). 299.4 Einwand: „vorraete“ gibt nur Verbrauchsgüter und Fackeln (`testmodus.gd` 301), keinen Umhang; kein Lage-Schlüssel gibt einen (`ruestung` nur Brustrüstungen, `brustruestungen()`); ohne Umhang in der Tasche ist 299.4 nicht prüfbar, Lage-Schlüssel für den Umhang nötig (Spike). 1549 berichtigt (Bildwerkzeug, nicht `kleid_stufe2_431`).
