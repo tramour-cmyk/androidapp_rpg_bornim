@@ -48,7 +48,6 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 18.11., 08:54 Ford: Chef startet Ford `…78M61cNk8nkWNPfU9N` 08:50; alter Ford archiviert (79,59 $ auf 1574), alte Uhr und Erinnerung gelöscht, eigene Uhr `trig_01QxYSSDeefUxtovs2DXhbSo`; Sokrates alt `…777MV8Hv8ps2Js5voW` archiviert (Chef 08:45), 10,46 $ auf 1569.1, 1613, 1619, 1621, 1620, 1625.
-- 08:48 18.11.: Startsperre 08:48 Start Sokrates (Neustart d15cde305, 1625)
 - 17.11., 18:34 Ford: Chef startet Ford `…76dyxkyvfmpM8LcpYk` 18:24 von Hand; Doppel-Ford `…78mrHo3KyeKYwQQYFn` (Starter 18:20, Lauf 18:29) angehalten, archiviert, 0,92 $ auf 1019; Homer `…75XKLrPrbjhwyzzaf3` (1235 trotz „noch nicht“ gestartet, `--ohne` fehlte) archiviert, 0,55 $ auf 1235; eigene Uhr `trig_01Ey145LdtFf268UwRB3MVcF`, Uhr-Sitzung aus; 1574 an Perikles.
 - 17.11., 13:07 Ford: Lauf 13:04: Start Diogenes `…76bxudxAGUfPJBE1Pc` (1547), alter Diogenes archiviert (1,01 $ auf 1539); Rotbuch angelegt (1560–1562 u. a.); Ford-Neustart 12:33 angekommen, Uhr-Sitzung bestätigt.
 - 17.11., 09:16 Ford: Sokrates-Neustart auf Chefwort 09:08: `…79XLgTfEVz9NoYYJ7m` („Chefrunde“), alter `…76gTnkQt77JpdpoGF3` archiviert (Schutzzeile war geleert), 7,53 $ auf 1520, 870; Tom „Weiter: 1528“ („jetzt“).
@@ -97,12 +96,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
+- 08:48 18.11.: Startsperre 08:48 Start Sokrates (Neustart d15cde305, 1625)
 - 07:55 18.11.: Startsperre 07:55 Start Spike (1619)
 - 03:45 18.11.: Startsperre 03:45 Start Perikles (1618)
 - 03:39 18.11.: Startsperre 03:39 Start Diogenes (1610, 1617 nach Wachlauf)
-- 02:42 18.11.: Startsperre 02:42 Start Diogenes (1610, 1617)
-- 02:38 18.11.: Startsperre 02:38 Start Perikles (1617)
-- 02:25 18.11.: Startsperre 02:25 Start Sokrates (Neustart f6e314f2b, Nachtvertretung)
 - 00:04 18.11.: Marke Abgleich Vorentscheid 1602 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
 - 00:04 18.11.: Marke Archiv session_01Hmoj76bxudxAGUfPJBE1Pc (lauf.py)
 - 02:04 18.11.: Marke Rückmeldung 1484 18.11. 01:58 (lauf.py)
@@ -135,3 +132,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:04 18.11.: Marke Start-fehlt Perikles 18.11.-07:41 (lauf.py)
 - 08:04 18.11.: Marke Start-fehlt Tom 18.11.-07:41 (lauf.py)
 - 08:04 18.11.: Nachfolger-Warnung Perikles (Übergabe 18.11., 07:55) (lauf.py)
+- 08:56 18.11.: Startsperre 08:56 Start Diogenes, Perikles (lauf.py)
+- 08:56 18.11.: Marke Start-fehlt Diogenes 18.11.-08:04 (lauf.py)
+- 08:56 18.11.: Marke Start-fehlt Jerry 18.11.-08:04 (lauf.py)
+- 08:56 18.11.: Marke Start-fehlt Perikles 18.11.-08:04 (lauf.py)
