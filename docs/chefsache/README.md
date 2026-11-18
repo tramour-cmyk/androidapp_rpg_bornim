@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 15:44, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 15:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -28,7 +28,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (48) | 5 | 0 | 1 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 10 | 0 | 2 | 4 | 1670 (Spike) Grafik Hoch im Systemmenü 1. Mal zurück auf Autom… |
-| **7** Werkzeuge und Abläufe der Firma | 43 (48) | 28 | 0 | 0 | 12 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| **7** Werkzeuge und Abläufe der Firma | 44 (48) | 29 | 0 | 0 | 12 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 48 | 114 | 364 | 1224 |
-| neu | 72 | 116 | 352 | 1242 |
-| **netto** (erledigt − neu) | **−24** | **−2** | **+12** | **−18** |
+| neu | 73 | 116 | 353 | 1243 |
+| **netto** (erledigt − neu) | **−25** | **−2** | **+11** | **−19** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -53,7 +53,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | läuft: 1658 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | läuft: 1270.5 (Besetzung); 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss); dann 1 weitere |
-| Perikles | leer, weil 13 Termin, 4 wartet auf Vorgang (1610, 1388, 870, 1125), 3 wartet auf Test/Build |
+| Perikles | 1672 Aussehen als Handypunkt in der Prüfliste, gegen Regel 9 Art… (Muss) |
 
 **Die nächsten 20**
 
@@ -75,12 +75,12 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 14 | 1670 | Spike | Grafik Hoch im Systemmenü 1. Mal zurück auf Automatisch gesprungen; 2. Mal gesp… | M | 6 Godot besser nutzen | startbar |
 | 15 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 16 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 19 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
-| 20 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 17 | 1672 | Perikles | Aussehen als Handypunkt in der Prüfliste, gegen Regel 9 Art; Gegenlesen ließ es… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 18 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 19 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 20 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
 
-Danach 54 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 55 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Nichts offen.
