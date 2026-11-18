@@ -47,6 +47,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 18.11., 09:19 Ford: Sokrates-Neustart (Chefrunde) `…77LdCgs6NPm9PuwX1n`; alter `…75saV8X5Rzi1yMDgpH` archiviert, 6,40 $ auf 340.12, 1633; 1595 um 13:00 an Spike (1633).
 - 09:13 18.11.: Startsperre 09:13 Start Sokrates (Neustart 4a0b36b99, Chefrunde)
 - 18.11., 08:57 Ford: Lauf 08:56 (`--nur-muss`): Start Diogenes `…76MR3jM5NKU4Nj26VS` (1624), Perikles `…79fdWCFRtP9PJU8ubg` (M? 1625); Tom 1621 per `--ohne` (Spike hat 1621 nach 1619), kein Stillstand; Warnungen „Start nicht angekommen“ 08:04 irrig (Rollenspiegel liefen und sind archiviert).
 - 18.11., 08:54 Ford: Chef startet Ford `…78M61cNk8nkWNPfU9N` 08:50; alter Ford archiviert (79,59 $ auf 1574), alte Uhr und Erinnerung gelöscht, eigene Uhr `trig_01QxYSSDeefUxtovs2DXhbSo`; Sokrates alt `…777MV8Hv8ps2Js5voW` archiviert (Chef 08:45), 10,46 $ auf 1569.1, 1613, 1619, 1621, 1620, 1625.
