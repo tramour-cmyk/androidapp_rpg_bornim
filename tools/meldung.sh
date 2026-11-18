@@ -26,6 +26,7 @@ while [ $# -gt 0 ]; do
     --probe) probe=1 ;;  # nur zeigen, was gesendet würde (HTML), nichts senden
     --laut) laut=1 ;;
     --bild) art=photo; bild="$2"; shift ;;
+    --ausschnitt) ausschnitt="$2"; shift ;;  # 1710: Bildvergleich nur in diesem Teil jeder Hälfte (x,y,b,h als Anteile 0–1)
     --datei) art=document; bild="$2"; shift ;;
     --film) art=video; bild="$2"; shift ;;
     --frage) frage="$2"; shift
@@ -53,6 +54,14 @@ fi
 if [ -n "$art" ] && ! printf '%s' "${rest[*]}" | grep -q 'Chef erlaubt ohne Signatur' && fehlt=$(python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import importlib; m = importlib.import_module("commit-pruefung"); r = m.ohne_signatur(sys.argv[2]); print(r or ""); sys.exit(0 if r else 1)' "$(dirname "$(realpath "$0")")" "${rest[*]}" 2>/dev/null); then
   echo "meldung: Probe „$fehlt“, nichts gesendet; mit Toon-Licht und Tusche wie im Spiel neu zeichnen (457, D57.1; Ausnahme „Chef erlaubt ohne Signatur“)" >&2; exit 2
 fi
+# 1710 (Chef 18.11., 22:08): Bild „alt gegen neu“ ohne messbaren Unterschied der Hälften (tools/bildvergleich.py) hält an;
+# übersteuern nur mit „Ohne Unterschied, weil:“ im Text
+gleich=""
+if [ "$art" = photo ] && printf '%s' "${rest[*]}" | grep -qiE 'alt gegen neu|alt/neu|alt und neu|vorher.{0,3}nachher' \
+   && ! printf '%s' "${rest[*]}" | grep -q 'Ohne Unterschied, weil:'; then
+  gleich=$(python3 "$(dirname "$(realpath "$0")")/bildvergleich.py" "$bild" ${ausschnitt:+--ausschnitt "$ausschnitt"} 2>/dev/null) || true
+fi
+if [ -n "$gleich" ]; then echo "meldung: $gleich; nichts gesendet" >&2; exit 2; fi
 [ -n "$art" ] && bild="$(realpath "$bild")"  # relativer Pfad: git -C "$repo" fand die Datei sonst nicht (Jerry 25.10.)
 if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
 name="${rest[0]}"; text="${rest[1]}"
