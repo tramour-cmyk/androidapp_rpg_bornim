@@ -1,5 +1,7 @@
 # 1694 · Griff für alles Gehaltene: liegt der Stiel jetzt in der geschlossenen Faust?
 
+[Bild von 18.11., 20:43](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-2043-1694-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Spike · 18.11., 20:43 · E Technik · aus deinem 👎 17:38 („der Stiel liegt nicht in der geschlossenen Hand“), Lauf frei Sokrates 20:31
 Kurz: Handbeil in der rechten Hand, Blick längs des Stiels auf die Faust, links alt, rechts neu (Schaft zur Handinnenseite). Mein Befund: neu wirkt nicht, der Stiel liegt in beiden an den Fingerspitzen, die Faust darüber bleibt hohl.
 
