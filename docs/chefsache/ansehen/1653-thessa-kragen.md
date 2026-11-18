@@ -1,5 +1,7 @@
 # 1653 · Thessa: sticht das Kleid am Kragen sichtbar durch?
 
+[Bild von 18.11., 21:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-2130-1653-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 18.11., 21:30 · E Figuren · aus Toms Durchstechprüfung 1631 (Lauf 560)
 Kurz: Thessa in „Ruhe am Tresen“, Brust und Kragen (1,4 m), vorn, 50° rechts, 50° links. Mein Befund: sichtbar, gezackte dunkle Flecken am Kragen und am Schulterfell.
 
