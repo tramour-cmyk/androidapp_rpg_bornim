@@ -47,6 +47,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 18.11., 14:07 Ford: Lauf 14:05: Start Tom `…79yBwFhFs66bCs3c39` (1650), Jerry `…7882wxYj9qxGKUYmLQ` (1652), Perikles `…767Uu7i2DGdoHmqoLJ` (1659, 1660); archiviert Tom (7,82 $ auf 1631, 1650; Bauserver-Lauf 1650 an Nachfolger gemeldet), Perikles (1,48 $ auf 1659, 1660, 1662).
 - 18.11., 13:08 Ford: Lauf 13:06: Start Diogenes `…76rBBYAGPiGMVm2GaU` (1658), Perikles `…75tEB699cCr9xdy85o` (M? 1659, 1660); Perikles alt archiviert, 1,69 $ auf 1649, 1659; `--ohne` Jerry (1595 bei Spike, läuft), 1661 (Probe beim nächsten Sokrates-Start); 1661 gebaut.
 - 18.11., 12:32 Ford: Tom-Neustart `…79iYtAvHXSiAgGMdpW` (1631); alter `…77q6iS3aDy6wKb8GJk` archiviert, 5,09 $ auf 1631, 1614; Diogenes `…78ZfZEfBywYU6iCQ7J` archiviert 12:14, 1,32 $ auf 1461, 1658.
 - 18.11., 12:06 Ford: Lauf 12:04: Start Diogenes `…78ZfZEfBywYU6iCQ7J` (1461 Rollenspiegel), Perikles `…76h12sqMDi6vdYZgEk` (M? 1649–1657); archiviert Diogenes (2,14 $ auf 1640–1644), Perikles (2,07 $ auf 1645, 1629); GELÖST 1567, 1622 an Spike; 1621 per `--ohne` (beim Chef).
