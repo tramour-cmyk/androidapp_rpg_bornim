@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 308 · 1615 Wache (18.11., 01:41)
+
+- **1615 gebaut, noch nicht im Lauf gesehen:** Zeile „Wache“ jetzt `limit` 100 und „weitere Seiten über `after_id`, bis has_more falsch“ (`8cfc8f4da`). Die Liste führt auch Archivierte (00:22: 20 Sitzungen in 3 h 15), stündlich also alle Sitzungen seit Beginn. D308.1 → 1616 (Perikles, M): Blättern bei `created_at` älter als etwa 24 h abbrechen; `warte 1615 1616`.
+
 ## Lauf 307 · 1612 Wache (18.11., 01:36)
 
 - **1612 greift:** Wachlauf 01:33 mit `git pull`, liest die Zeile „Wache“, `get_session` Ford und `list_sessions` (mine), meldet „keine Sitzung blocked“.
