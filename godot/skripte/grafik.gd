@@ -101,8 +101,11 @@ static func name_stufe(s: int, de: bool) -> String: return NAMEN[STUFE_NAME[s]][
 
 ## Systemmenue: Antippen wechselt Automatisch, Hoch, Mittel, Niedrig; gilt sofort fuer Schatten und Schaerfe, Gras und Effekte der
 ## Kits ab dem naechsten Ort
+static var neu_laden := false                  # 1670a A: nach einer Wahl im Menue den Ort beim Schliessen neu aufbauen
+
 static func weiter(tree: SceneTree) -> void:
 	lade()
+	neu_laden = true
 	wahl = WAHL[(WAHL.find(wahl) + 1) % WAHL.size()]
 	gesenkt = false
 	speichere()

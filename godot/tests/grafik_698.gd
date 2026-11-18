@@ -63,6 +63,9 @@ func _lauf() -> void:
 		Grafik.weiter(self)
 		folge.append(Grafik.wahl)
 	pruefe("Antippen wechselt", folge == ["hoch", "mittel", "niedrig", "auto"], str(folge))
+	pruefe("1670a: nach einer Wahl wird der Ort beim Schliessen neu gebaut", Grafik.neu_laden)
+	pruefe("1670a: spiel.gd baut beim Schliessen des Menüs neu", FileAccess.get_file_as_string("res://skripte/spiel.gd").contains("if Grafik.neu_laden:"))
+	Grafik.neu_laden = false
 	Grafik.weiter(self); Grafik.weiter(self)   # Mittel gewählt
 	pruefe("Wahl Mittel gilt sofort", Grafik.aktiv == Grafik.MITTEL and is_equal_approx(root.scaling_3d_scale, 0.85))
 	for i in 2: Grafik.weiter(self)   # zurück auf Automatisch

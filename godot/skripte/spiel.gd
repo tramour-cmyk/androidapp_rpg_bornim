@@ -1398,7 +1398,13 @@ func oeffne_menue(reiter := "") -> void:
 		held_figur_neu(figur_vorher)
 		fackel_neu()
 		kamera.fern_neu()
-		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65))
+		ui.leiste.zeige(held_werte(), zustand, licht.nacht > 0.65)
+		# 1670a A (Chef 18.11., 15:37; Fund 1670: „die Anpassung der Grafik ist nicht erfolgt, ich musste das Spiel neu starten“): Gras,
+		# Kits, Innenschatten und Tusche nach Lampen entstehen beim Bau des Orts; nach einer Grafikwahl den Ort hinter der Blende neu
+		# aufbauen wie „ort_neu“, kein Neustart (das Menue oeffnet nicht im Kampf)
+		if Grafik.neu_laden:
+			Grafik.neu_laden = false
+			test_tat("ort_neu", []))
 
 # 399.1 Reiter „Test“ (Testmodus.gd) wie alt: cheatWarp, cheatChapterEnd, cheatFight, startProbe
 func test_tat(was: String, mit: Array) -> void:
