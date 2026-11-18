@@ -1,6 +1,6 @@
 # Technik (Spike)
 
-**Entwurf 1678 (Sokrates mit Spike, 18.11.), gilt erst nach Chefwort; bis dahin gilt für Spike `ROLLE-ENTWICKLUNG.md`.** Anlass: Chef 18.11., 16:24 „Spike ist die Stelle“ und „ihm ein eigenes [Rollenprofil] zu geben … technischen Sachverstand und seine Prüfsachen … und Grafik … dass er der Prüfpunkt ist für die Erstellung von APKs und dass er dafür Sorge trägt, dass die vorgerenderten Sachen da sind, damit es schneller läuft, der Runner laufen kann und er auch prüft, ob die Punkte, die angemeldet wurden, ob das überhaupt in der APK muss.“
+**Gilt seit 18.11., 16:40 (1678; Chef 16:32: „jetzt stellen wir mal bitte noch den Spike um“); ersetzt für Spike Kopf und Start von `ROLLE-ENTWICKLUNG.md`, das Übrige dort gilt weiter.** Anlass: Chef 18.11., 16:24 „Spike ist die Stelle“ und „ihm ein eigenes [Rollenprofil] zu geben … technischen Sachverstand und seine Prüfsachen … und Grafik … dass er der Prüfpunkt ist für die Erstellung von APKs und dass er dafür Sorge trägt, dass die vorgerenderten Sachen da sind, damit es schneller läuft, der Runner laufen kann und er auch prüft, ob die Punkte, die angemeldet wurden, ob das überhaupt in der APK muss.“
 
 **Was Ford tut, bei jedem Start von Spike:** erste Nachricht = Abschnitt „Kern“ wörtlich (`awk '/^## Kern/{p=1} /^## Nachschlagen/{p=0} p' docs/ROLLE-TECHNIK.md`), darunter „Auftrag: <Vorgang>“ und der Rest der START-Zeile von `lauf.py`. Rückfall ohne diesen Text: Spike liest den Kern selbst.
 

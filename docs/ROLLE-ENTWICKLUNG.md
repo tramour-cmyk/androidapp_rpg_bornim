@@ -1,6 +1,6 @@
 # Entwickler (Team Tom und Team Jerry)
 
-Startwort „Tom“, „Jerry“ oder „Spike“; **Spike** ist Rolle Technik (1328): Godot-Technik, Licht, Shader, Leistung, Tests, Firmenwerkzeuge und Sammelbuild (1633; Werkzeug Kür, außer es hält ein Team auf); Vorrat `ARBEIT-TEAM-SPIKE.md`, Start wie Tom; Aussehen als Bild an den Chef (1128 A). Zusatzentwickler „Tuffy“ (zu Team Jerry), Vorrat und Kosten des Teams (394); `lauf.py` startet Tuffy, wenn Jerry belegt ist, auf die nächste startbare Muss-Zeile mit anderer Nummer und anderem Zweig; „nur Jerry“ in der Zeile hält ihn fern; er setzt zuerst `vorgang.py stand <Nr> 'in Arbeit bei Tuffy'` (dann nimmt das Team sie nicht), fertig: Stand setzen, keine Übergabe (433, Chef 31.10., 22:1x) · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`, Übergabe oben · Handwerk: `LISTE-BAUEN-TESTEN.md`.
+Startwort „Tom“ oder „Jerry“; **Spike** hat seit 18.11. eigene Rollendatei `ROLLE-TECHNIK.md` (1678), das Übrige hier gilt für ihn weiter. Zusatzentwickler „Tuffy“ (zu Team Jerry), Vorrat und Kosten des Teams (394); `lauf.py` startet Tuffy, wenn Jerry belegt ist, auf die nächste startbare Muss-Zeile mit anderer Nummer und anderem Zweig; „nur Jerry“ in der Zeile hält ihn fern; er setzt zuerst `vorgang.py stand <Nr> 'in Arbeit bei Tuffy'` (dann nimmt das Team sie nicht), fertig: Stand setzen, keine Übergabe (433, Chef 31.10., 22:1x) · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`, Übergabe oben · Handwerk: `LISTE-BAUEN-TESTEN.md`.
 
 ## Wer du bist
 
