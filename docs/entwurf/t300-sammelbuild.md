@@ -23,7 +23,7 @@ Im Bau geprüft: Bildrate fest 30, Ziel des Einmessens nach dem Takt, alte Messu
 | 300.6 | Spike | 1669, 1630 | Bild | Höhle am Mittag, Grafik Hoch, Held mit Fackel und Leuchtfunke im Gang; Spielkamera, Handygröße | Fackeln glühen, Wände werfen Schatten, Tuschelinien folgen dem Fackellicht | kein Glühen, keine Schatten, Linien wie bei Tageslicht |
 | 300.7 | Spike | 1669 | Bild | Dorf am Brunnen, 20 Uhr, Grafik Hoch; Spielkamera, Handygröße | Rauch aus den Schornsteinen, Lichtinseln unter den Lampen | kein Rauch, keine Lichtinseln |
 | 300.8 | Jerry | 1566 | Bild | Blutzahnhöhle, Teich unten links ohne Licht in der Nähe, alt (Build 298) gegen neu [Bild von 18.11., 16:35](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1634-t300.8-Jerry.png) | der Teich ist dunkel wie der Boden | der Teich leuchtet hell türkis |
-| 300.9 | Jerry | 1664, 1669 | Film | Probekampf gegen Goblins, Grafik Hoch, bis 15 s | Goblins gehen mit Schritten heran und schlagen zu; Nebel und Staub am Kampfort, Treffer mit Effekt | Goblins gleiten, kein Nebel, kein Treffereffekt |
+| 300.9 | Jerry | 1664, 1669 | Film | Probekampf gegen Goblins, Grafik Hoch, bis 15 s [Film von 18.11., 18:11](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261118-181135-t300.9/2026-11/18-1811-t300.9-Jerry.mp4) | Goblins gehen mit Schritten heran und schlagen zu; Nebel und Staub am Kampfort, Treffer mit Effekt | Goblins gleiten, kein Nebel, kein Treffereffekt |
 | 300.10 | Tom | 1406 | Film | Dorf am Schlagbaum, Jorin dreht am Ende seines Wegs um, bis 15 s | eine halbe Drehung in einem Zug mit Schritten | zwei Viertelwenden oder Rutschen auf der Stelle |
 
 ## Lagen
