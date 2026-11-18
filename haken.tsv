@@ -977,3 +977,4 @@
 2026-11-18 14:20:07	commit-pruefung	docs/chefsache/ansehen/t299-schlussbuild.md: Laufnachweis fehlt (1128 A): kleid_film2_431 steht nicht im Bauablauf; als Prüffrage am Handy oder Test ohne `|| true` in den Lauf der APK (`python3 tools/	main
 2026-11-18 14:20:12	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-1652-osric
 2026-11-18 14:20:35	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/jerry-1652-osric
+2026-11-18 14:23:53	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md: Uhrzeit 14:30 liegt nach jetzt (14:23)	main
