@@ -1,16 +1,4 @@
 {
- "108:docs/chefsache/bilder/415-strahlen-gl.webp": {
-  "besitzer": "Jerry",
-  "seit": "2026-11-18T10:55+01:00",
-  "text": "Datei über 60 KB: docs/chefsache/bilder/415-strahlen-gl.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)",
-  "vorgang": "1684"
- },
- "108:docs/chefsache/bilder/415-strahlen-mobile.webp": {
-  "besitzer": "Jerry",
-  "seit": "2026-11-18T10:55+01:00",
-  "text": "Datei über 60 KB: docs/chefsache/bilder/415-strahlen-mobile.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)",
-  "vorgang": "1685"
- },
  "650.2:STORY-MERKMALE-TIERE.md": {
   "besitzer": "Homer",
   "seit": "2026-11-18T10:55+01:00",
@@ -42,7 +30,7 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Ford",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 37016 Bytes (Grenze 30000), Erledigtes streichen",
+  "text": "docs/ARBEIT-BETRIEB.md hat 37019 Bytes (Grenze 30000), Erledigtes streichen",
   "vorgang": "1688"
  },
  "regel:ARBEIT-TAGESBERICHT.md:Tabellenzeilen über N Zeichen (Einzelhei": {
