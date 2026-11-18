@@ -8,6 +8,8 @@ Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört 
 
 ## Reif (Übersicht für Perikles)
 
+- **Funken für verzauberte Klingen** (Chef 18.11., 13:09): Funken aus 1613 nur für Statuseffekte auf der Waffe, je Art eigene Farbe und Form (vergiftet, unter Strom, Wasser …); hängt an Verzauberung (Runenkunde, Runenmeister) und Giften (Alchemie) im Regelwerk, beide „später auf deiner Reise“ (954a.12) → nach dem Meilenstein, Spike (Effekt), Homer (Arten).
+
 - **Effekte wie andere sie bauen** (1270.5, Spike 18.11.: Bildfolgen auf wenigen Flächen für Feuer, Treffer, Rauch; Zauber und Hiebe als bewegte Netze; gemeinsamer Effekt-Shader mit Atlas) → Jerry, Homer; kein Engpass belegt, jedes neue Effektbild ist Aussehen (Chef).
 
 - **Kampfaktion „Helfen“** → Vorrat Jerry, zu 72.10a.9 (unter Kampf).
