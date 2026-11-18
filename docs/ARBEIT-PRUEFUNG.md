@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (18.11., 09:01):** Lauf 314: 1624 greift; Lauf 315: 1622 greift mit Lücke 1626 (Tom). Nächste Nummer D316.
+**Übergabe (18.11., 09:01):** Lauf 314: 1624 greift; Lauf 315: 1622 greift mit Lücke 1626 (Tom). Nächste Nummer D316. Nachfolger: Diogenes – 1461 Rollenspiegel (ab 18.11., 12:00).
 
 - **Zu 1622 (Lauf 315):** nach 1626 erledigt: `grep "^| 476 |"` zeigt „458.3 main“ → `greift 1622 <Lauf>`. Nachfolger: Diogenes – 1461 Rollenspiegel (ab 18.11., 12:00).
 
