@@ -21,7 +21,10 @@ func _l() -> void:
 	var info := HeldFigur.lade_info()
 	if not info.get("schrank", {}).get("M", {}).has("UMHANG"):
 		print("UMHANGBILD1569 ohne Kaufdaten"); quit(0); return
+	# Fenster und Teller in voller Größe (Bild 2: Teller füllten das Fenster nicht, grauer Rand, Titel winzig)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	root.size = Vector2i(1500, 560)
+	DisplayServer.window_set_size(Vector2i(1500, 560))
 	var reihe := HBoxContainer.new()
 	reihe.size = Vector2(1500, 560)
 	var bg := ColorRect.new()
@@ -43,9 +46,13 @@ func _l() -> void:
 		box.custom_minimum_size = Vector2(300, 560)
 		var l := Label.new()
 		l.text = titel[i]
-		l.add_theme_font_size_override("font_size", 18)
+		l.add_theme_font_size_override("font_size", 26)
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		box.add_child(l)
 		var d := Drehteller.new(wahl(f[0], f[1]), 1.6, false)
+		d.custom_minimum_size = Vector2(300, 520)
+		d.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		d.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		box.add_child(d)
 		reihe.add_child(box)
 		if f[3] and d.teller: d.teller.rotation.y = PI
