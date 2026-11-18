@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 13:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 13:37, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -24,7 +24,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 65 (61) | 19 | 0 | 4 | 49 | 1635 (Sokrates) Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 35 (20) | 23 | 0 | 8 | 7 | 1621 (Spike) Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegs… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 34 (20) | 22 | 0 | 8 | 7 | 1621 (Spike) Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegs… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (48) | 5 | 0 | 7 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (11) | 8 | 0 | 2 | 4 | 1270.6 (Spike) Messbuild Technik: Schalter 3D-Auflösung 50 % im… |
@@ -35,9 +35,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 33 | 114 | 349 | 1209 |
+| erledigt | 34 | 114 | 350 | 1210 |
 | neu | 61 | 116 | 341 | 1231 |
-| **netto** (erledigt − neu) | **−28** | **−2** | **+8** | **−22** |
+| **netto** (erledigt − neu) | **−27** | **−2** | **+9** | **−21** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -62,8 +62,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 1621 | Spike | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128… | M | 3 Kleiderschrank und Modelle | startbar |
 | 2 | 1619 | Spike | Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursache in Vorschau nach… | M | 3 Kleiderschrank und Modelle | startbar |
 | 3 | 1650 | Tom | Durchstechprüfung: Hosen stechen durch den Stiefelschaft bei Borin, Bram, Garri… | M | 3 Kleiderschrank und Modelle | startbar |
-| 4 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
-| 5 | 1651 | Tom | Durchstechprüfung: Wache M/W Kettenhemd sticht an der Schulter durch den Umhang… | M | 3 Kleiderschrank und Modelle | startbar |
+| 4 | 1651 | Tom | Durchstechprüfung: Wache M/W Kettenhemd sticht an der Schulter durch den Umhang… | M | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
 | 6 | 1655 | Tom | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sichtbarkeit prüfen, da… | M | 3 Kleiderschrank und Modelle | startbar |
 | 7 | 1657 | Tom | Durchstechprüfung: Held Robe M/W Hände durch die Robe und 230–285 gezogene Drei… | M | 3 Kleiderschrank und Modelle | startbar |
 | 8 | 1652 | Jerry | Durchstechprüfung: Osric innere Stücke stechen durch die Robe; Sichtbarkeit prü… | M | 3 Kleiderschrank und Modelle | startbar |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
 | 20 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
 
-Danach 52 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 12. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 114.
+Danach 52 weitere offen. Bei dir zum Testen (vorgelegt): 21. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Nichts offen.
@@ -115,7 +115,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1637 | K | Von Chef (18.11., 09:11, Idee Sokrates 5): Lyras Fährte zwischen Wald und Höhle (Saum, Geb | startbar |
 | 1638 | K | Von Chef (18.11., 09:10, Idee): Leuchtfunke vorschicken: außerhalb des Kampfs werfen als K | startbar |
 
-**Tom** – offen 55, Muss 17, startbar 5
+**Tom** – offen 54, Muss 16, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -131,7 +131,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1571 | M | Von Chef (17.11., 16:35, an Sokrates, Build 297, Bild t297-stab-fehlt.webp): Zauberstab in | wartet auf 1595 (startbar) |
 | 1589.3 | M | Von Perikles (1600, 1589.1 A): Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä | Termin 21.11. 20:00 |
 | 1569.1 | M | Von Sokrates (Vertretung, 1569 Bild 3): dunkler Keil an der rechten Schulter auf dem Umhan | wartet auf 1595 (startbar) |
-| 1631 | M | Von Chef (18.11., 09:00, Rollenspiegel Tom): Durchstechprüfung Kleidung gegen Leib und Arm | startbar |
 | 1650 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, | startbar |
 | 1651 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Wache M/W Kettenhemd sticht an der Schulter d | startbar |
 | 1655 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, b | startbar |
@@ -256,7 +255,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | nach dem Meilenstein |
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 
-**Spike** – offen 28, Muss 18, startbar 2
+**Spike** – offen 27, Muss 16, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -267,17 +266,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1589.6 | M | Von Perikles (Chef 17.11., 23:13 „wir haben auch Tuffy und Spike“; 1589.2): Rechnung 444 i | wartet auf 1589.2 (startbar) |
 | 458.3 | M | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | Termin 21.11. 20:00 |
 | 1621 | M | Von Chef (18.11., 07:37, A, Votum Sokrates): Zweihandwaffen kürzer: Großaxt 131→110 cm, Kr | startbar |
-| 1619 | M | Von Chef (18.11., 07:29, über Sokrates): Held stakst im Film 458.3, sieht nicht nach Gehen | Chef (Datei in der Chefsache) |
+| 1619 | M | Von Chef (18.11., 07:29, über Sokrates): Held stakst im Film 458.3, sieht nicht nach Gehen | startbar |
 | 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | ruht bis 21.11. 20:00 |
-| 1595 | M | Von Perikles (1594, Chef 17.11., 21:53 aktuelle App vor dem Stillstand): Schlussbuild 299 | Termin 18.11. 13:00 |
+| 1595 | M | Von Perikles (1594, Chef 17.11., 21:53 aktuelle App vor dem Stillstand): Schlussbuild 299 | startbar |
 | 1642 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 1 Rollenspiegel: jede Startwarnung m | Termin 25.11. |
 | 1643 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 3 Rollenspiegel, Rest neben 1624: de | Termin 25.11. |
-| 1644 | M | Von Sokrates (340.12 A, Änderung 2, Chef 18.11., 09:51): meldung.sh nimmt „behoben/weg/fer | wartet auf 1648 (gebaut), dann Diogenes (greift?) |
-| 1270.5 | M | Von Sokrates („jetzt“ 18.11., 09:56; Chef 09:53/09:56, zu 1484a: „mal bei anderen gucken“, | Chef (Datei in der Chefsache) |
 | 1645 | M | Von Spike (1270.5 Rang 6): Kampfort setzt die Sonnenschattenkarte beim Verlassen fest auf | wartet auf 1595 (startbar) |
-| 1648 | M | Von Diogenes (D320.1, Lauf 320 zu 1644): meldung.sh-Sperre greift nur bei Titeln „Von Chef | wartet auf 1658 (gebaut), dann Diogenes (greift?) |
 | 1649 | M | Von Sokrates (1621, Chef 18.11., 11:55): Zweihandwaffe im Stand: keine Haltung (Stehen_axt | startbar |
-| 1632 | K | Von Chef (18.11., 09:00, Rollenspiegel Diogenes): Gangprüfung im Bautest: Fußgleiten je Bo | wartet auf 1619 (in Arbeit) |
+| 1270.6 | M | Von Sokrates (1270.5 A, Chef 18.11., 13:06): Messbuild Technik: Schalter 3D-Auflösung 50 % | startbar |
+| 1270.7 | M | Von Sokrates (1270.5 A, Chef 18.11., 13:06): nach Messung 1270.6: Texturen komprimiert (Nr | wartet auf 1270.6 (startbar) |
+| 1632 | K | Von Chef (18.11., 09:00, Rollenspiegel Diogenes): Gangprüfung im Bautest: Fußgleiten je Bo | startbar |
 | 1630 | K | Von Chef (18.11., 09:00, Rollenspiegel Ford): alle Lichtquellen der Höhle (Fackeln, Glut, | wartet auf 1595 (startbar) |
 | 474 | K | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht bis 23.11. |
 | 30 | K | Abstürze beim Testen | ruht bis 23.11. |
@@ -286,10 +284,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1613 | K | Von Sokrates (458.3, Vorentscheid 18.11.): Waffen episch und höher mit Effekt statt Färbun | Termin 21.11. 20:00 |
 | 1646 | K | Von Perikles (Warnung 77): startwarnung.py meldet alte Dateinamen in docs/LISTE-VORGAENGE- | wartet auf Test/Build (gebaut) |
 | 1647 | K | Von Perikles (Pflegewarnung Tagesbericht): tagesbericht.py schreibt Zeilen 5 (Builds, 475 | wartet auf Test/Build (gebaut) |
+| 1270.8 | K | Von Sokrates (1270.5 A, Chef 18.11., 13:06): nur wenn die Messung es verlangt: Tusche halb | wartet auf 1270.6 (startbar) |
 | 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
-| 1658 | M | Von Diogenes (D323.1, Lauf 323 zu 1648): chef_fund.vom_chef erkennt den Chef nur in der er | wartet auf Diogenes (greift?) |
 
-**Perikles** – offen 24, Muss 17, startbar 2
+**Perikles** – offen 25, Muss 20, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -310,15 +308,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1506 | M | Von Sokrates: startbar.py zeigt Kür am Aussehen als startbar, obwohl 488 sie einfriert (To | Termin 23.11. |
 | 1583 | M | Von Jerry (1578): rotbuch.py --anlegen legt einen Wiederholer neu an, sobald sein Vorgang | wartet auf Test/Build (gebaut) |
 | 1610 | M | D305.1 von Diogenes (1572): Hängeralarm kam 15 bis 75 statt 15 Minuten nach dem Hängen (la | Termin 23.11. |
+| 1659 | M | Von Chef (18.11., 12:10, an Sokrates): Tagesbericht eigene Zeile „Läufe: wie wirksam“ stat | startbar |
+| 1662 | M | Von Ford (18.11., 13:06): lauf.py startete Jerry für Nachfolger 1595 (Schlussbuild 299), o | Termin 23.11. |
+| 1660 | M | Von Chef (18.11., 12:17, an Sokrates): Tagesbericht Punkt 11 „Vorrat auf links“ als Aussag | startbar |
 | 870.12 | K | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870 (wartet) |
 | 341 | K | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 23.11. |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf 1125 (gebaut) |
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 23.11. |
 | 1396 | K | Von Ford (Tuffy 16.11., 10:00): lauf.py startet Tuffy auf Zeile 1393, die Jerry schon in s | wartet auf Test/Build (gebaut) |
-| 1659 | M? | Von Chef (18.11., 12:10, an Sokrates): Tagesbericht eigene Zeile „Läufe: wie wirksam“ stat | startbar |
-| 1660 | M? | Von Chef (18.11., 12:17, an Sokrates): Tagesbericht Punkt 11 „Vorrat auf links“ als Aussag | startbar |
 
-**Diogenes** – offen 9, Muss 8, startbar 1
+**Diogenes** – offen 8, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -326,17 +325,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1387 | M | Von Sokrates (1129.4, Punkt 6 gerissen): Übersicht-Commits 15.11. 193 (14.11.: 37), Ursach | Termin 23.11. |
 | 1642 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 1 Rollenspiegel: jede Startwarnung m | Termin 25.11. |
 | 1643 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 3 Rollenspiegel, Rest neben 1624: de | Termin 25.11. |
-| 1658 | M | Von Diogenes (D323.1, Lauf 323 zu 1648): chef_fund.vom_chef erkennt den Chef nur in der er | startbar |
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | Termin 23.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 
-**Sokrates** – offen 43, Muss 8, startbar 7
+**Sokrates** – offen 44, Muss 9, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1608 | M | Zusammenführen: getestet, nicht auf main: Build 274 (178 h), 280 (128 h), 281 (110 h), 282 | startbar |
+| 1661 | M | Von Sokrates (1625 A, Chef 18.11., „jetzt“ 18.11., 12:57): jeder Start von Sokrates mit St | startbar |
 | 1520 | M | Von Chef (17.11., 06:18): An den Läufen sparen; A Neustart-Haken auch in langen Zügen, Spe | ruht bis 24.11. |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von | ruht bis 23.11. |
@@ -344,7 +343,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.2 (ruht) |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | ruht bis 23.11. |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
-| 1625 | K | Von Chef (18.11., 08:17/08:22, Idee): feste Startprompts je Rolle statt Startlektüre; wir | Chef (Datei in der Chefsache) |
+| 1625 | K | Von Chef (18.11., 08:17/08:22, Idee): feste Startprompts je Rolle statt Startlektüre; wir | ruht bis 25.11. |
 | 780 | K | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | K | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | Termin 23.11. |
 | 508 | K | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsol | startbar |
