@@ -1,5 +1,7 @@
 # 1697 · Kampfort Wald: sind die Rechtecke unter den Figuren weg?
 
+[Bild von 18.11., 21:21](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-2121-1697-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 18.11., 21:21 · E Kampf · aus meinem Film t300.9 (Lauf 567)
 Kurz: Probekampf Goblins im Kampfort Wald, Spielkamera, Renderer des Handys (mobile), links Stand ohne 1568 (Rechtecke), rechts Build 300 (weicher Fleck).
 
