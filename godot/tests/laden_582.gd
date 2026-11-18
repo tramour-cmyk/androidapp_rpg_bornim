@@ -63,7 +63,9 @@ func _lauf() -> void:
 	var sel := String(Sprache.t(BrsHeld.daten()["seltenheiten"]["UNCOMMON"]["name"]))
 	var sl := label(kasten, sel)
 	pruefe(sl != null and farbe(sl) == Color(Menue.SELTEN["UNCOMMON"]), "Mengenkasten ohne Seltenheit „%s“: %s" % [sel, kt])
-	pruefe(wuerfel.search(" ".join(kt)) == null and not " ".join(kt).contains("heilt"), "Würfeltext im Mengenkasten: %s" % [kt])     # 944
+	pruefe(wuerfel.search(" ".join(kt)) == null, "Würfeltext im Mengenkasten: %s" % [kt])     # 944
+	# 1663 (Chef 18.11., 14:17): die Kurzzeile ohne Würfel wie in der Liste steht auch im Kasten
+	pruefe(LadenSchirm.kurz("greater_potion", l.hw)[0] in kt, "Mengenkasten ohne Wirkung „%s“: %s" % [LadenSchirm.kurz("greater_potion", l.hw), kt])
 	pruefe(Sprache.t(Laden.ding("greater_potion")["info"]) in kt, "Mengenkasten ohne Langtext")
 	kasten.queue_free()
 
