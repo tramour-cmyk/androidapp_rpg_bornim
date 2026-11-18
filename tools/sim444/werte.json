@@ -65,6 +65,8 @@
     "leben_je_zaehigkeit": 2,
     "mana_basis": 10,
     "mana_je_wille": 5,
+    "mana_nach_sieg_je_wille": 0.5,
+    "_mana_nach_sieg": "1411 A (Chef 16.11., 19:32): nach jedem gewonnenen Kampf Mana + Wille x 0,5, aufgerundet, hoechstens bis zum Hoechstwert (1478)",
     "kapitelgrenze": 6,
     "rangdecken_kapitel": [24, 49],
     "_rangdecken": "Kapitel 1: Anfaenger bis 24, Bewaehrungsprobe, dann Geselle bis 49 (N 3, N 5 Tabelle 'Kapitel als Takt')"

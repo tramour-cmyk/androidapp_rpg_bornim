@@ -465,6 +465,7 @@ const FUNKE_FARBE := Color(0.863, 0.91, 1.0)    # 0xDCE8FF wie alt
 var funke_an := false
 var funke: Node3D
 var funke_licht: OmniLight3D
+var funke_grund := 2.2 * 1.05 / 1.35   # 1211: Stärke des Funkenlichts im Dunkeln (vor Glanz); Film A/B/C stellt sie um
 var funke_kern: MeshInstance3D
 var funke_hof: MeshInstance3D
 var funke_hoch := 1.0                             # 0 im Raum (Schulter), 1 draussen (ueber dem Kopf); gleitet
@@ -510,14 +511,68 @@ void fragment() {
 	funke_hof.material_override = hm
 	funke_hof.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	funke.add_child(funke_hof)
+	_funke_r7()
 	funke_licht = OmniLight3D.new()
 	funke_licht.light_color = FUNKE_FARBE
-	funke_licht.omni_range = 8.0 * 5.2 / 6.2
-	funke_licht.omni_attenuation = 2.0
+	# 1211 B (Vorentscheid Sokrates 18.11., 00:48, Film Höhle A/B/C): weicher Abfall, Reichweite 8 m, Stärke wie bisher (vorher 6,7 m, Abfall 2,0)
+	funke_licht.omni_range = 8.0
+	funke_licht.omni_attenuation = 1.0
 	funke.add_child(funke_licht)
 	funke_licht.set_meta("reich", 4.0 * 5.2 / 6.2)   # Tusche nach dem Licht wie die Fackel (348.13b)
 	funke_licht.set_meta("kraft", 1.05 / 1.35)
 	funke_licht.add_to_group("tuschelicht")
+
+# 1211 (Chef 17.11., 22:17: 👎 = „rocket_trail kühl weiter“, gedämpft und kleiner): Leuchtkörper aus R7 rocket_trail statt Kern und
+# Hof, kühl weiß (FUNKE_FARBE), ohne Rauch und ohne eigenes Licht; das Licht bleibt funke_licht (Tusche nach Licht). Nur mit dem Paket
+# (Bau, nie im Repo) und ab Grafikstufe Mittel wie die anderen Kits (698); sonst Kern und Hof wie bisher.
+const FUNKE_R7 := "res://addons/reeboo_vfx/effects/rocket_trail.tscn"
+var funke_r7: Node3D
+
+static func _funke_farbe(t: float, a: float) -> Color:
+	return Color(lerpf(1.0, FUNKE_FARBE.r, t), lerpf(1.0, FUNKE_FARBE.g, t), lerpf(1.0, FUNKE_FARBE.b, t), a)
+
+static func _funke_verlauf(farben: Array) -> GradientTexture1D:
+	var g := Gradient.new()
+	var off := PackedFloat32Array()
+	var col := PackedColorArray()
+	for i in farben.size():
+		off.append(float(i) / float(farben.size() - 1))
+		col.append(farben[i])
+	g.offsets = off
+	g.colors = col
+	var t := GradientTexture1D.new()
+	t.gradient = g
+	return t
+
+func _funke_r7() -> void:
+	if not Grafik.kits() or not ResourceLoader.exists(FUNKE_R7) or not ResourceLoader.exists("res://addons/reeboo_vfx/vfx_effect.gd"): return
+	var fx: Node3D = (load(FUNKE_R7) as PackedScene).instantiate()
+	fx.set("auto_free", false)
+	fx.scale = Vector3.ONE * 0.35
+	for n in ["Light", "Smoke"]:
+		var weg := fx.get_node_or_null(n)
+		if weg: fx.remove_child(weg); weg.free()
+	var teile := {   # Name: [Verlauf, Leuchtkraft, Anzahl (0 = wie im Paket)]
+		"Core": [[_funke_farbe(0.3, 0.8), _funke_farbe(1.0, 0.8)], 0.5, 0],
+		"Flare": [[_funke_farbe(0.5, 0.4), _funke_farbe(1.0, 0.0)], 0.5, 0],
+		"Flames": [[_funke_farbe(0.2, 0.7), _funke_farbe(1.0, 0.5), Color(0.55, 0.62, 0.8, 0.25), Color(0.3, 0.35, 0.5, 0.0)], 0.5, 16],
+		"Sparks": [[_funke_farbe(0.0, 0.9), _funke_farbe(1.0, 0.6), Color(0.5, 0.6, 0.9, 0.0)], 1.2, 4]}
+	for n in teile:
+		var p := fx.get_node_or_null(n) as GPUParticles3D
+		if p == null: continue
+		var pm := (p.process_material as ParticleProcessMaterial).duplicate() as ParticleProcessMaterial
+		pm.color_ramp = _funke_verlauf(teile[n][0])
+		if n == "Sparks": pm.initial_velocity_min = 0.3; pm.initial_velocity_max = 0.9
+		p.process_material = pm
+		var mat := (p.material_override as ShaderMaterial).duplicate() as ShaderMaterial
+		mat.set_shader_parameter("emission_energy", teile[n][1])
+		if n == "Flames": mat.set_shader_parameter("edge_color", Color(0.45, 0.55, 0.9, 1))
+		p.material_override = mat
+		if teile[n][2] > 0: p.amount = teile[n][2]
+	funke.add_child(fx)
+	funke_r7 = fx
+	funke_kern.visible = false
+	funke_hof.visible = false
 
 func richte_funke(dt: float) -> void:
 	if funke == null or not funke.visible: return
@@ -531,10 +586,14 @@ func richte_funke(dt: float) -> void:
 	funke.global_position = global_position + Vector3(seite, h, tiefe)
 	var glanz := (0.85 + 0.15 * sin(t / 0.16)) * (0.55 + 0.45 * up)
 	funke_kern.scale = Vector3.ONE * (0.6 + 0.4 * up)
-	(funke_hof.material_override as ShaderMaterial).set_shader_parameter("staerke", glanz * (0.25 + 0.35 * nacht_k) * (0.4 + 0.6 * up) * 2.0)
+	if funke_r7: funke_r7.scale = Vector3.ONE * 0.35 * (0.6 + 0.4 * up)   # im Raum kleiner wie der Kern
+	# 1211 (Chef 17.11., 23:56: „an den Grad der Dunkelheit orientieren und nicht an der Uhrzeit“): in der Höhle immer dunkel wie bei der
+	# Fackel (492, alt MapLight dark = 1.0 in CAVE), draussen und in Häusern nach dem Licht des Orts (nacht_k)
+	var dunkel := 1.0 if in_hoehle else nacht_k
+	(funke_hof.material_override as ShaderMaterial).set_shader_parameter("staerke", glanz * (0.25 + 0.35 * dunkel) * (0.4 + 0.6 * up) * 2.0)
 	funke_hof.scale = Vector3.ONE * (0.55 + 0.45 * up)
-	funke_licht.light_energy = 2.2 * nacht_k * (1.05 / 1.35) * glanz
-	funke_licht.visible = nacht_k > 0.02
+	funke_licht.light_energy = funke_grund * dunkel * glanz
+	funke_licht.visible = dunkel > 0.02
 
 func geht() -> bool:
 	return weg.size() > 0 or richtung.length() > 0.15

@@ -359,7 +359,7 @@ jobs:
             dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
             # 522 (Chef 04.11., 11:55: „die alte Bewaffnung … war weg, aber die neue ist nicht sichtbar“): jede Waffe, die waffen.py bauen
             # kann, auch fuer den Helden; Streitkolben, Kriegshammer und die uebrigen haben noch kein Modell (458.3)
-            dinge="$dinge dagger scimitar handaxe shortbow longbow quiver"   # 643: Langbogen (auch Held) und Köcher (Garrick, Rücken)
+            dinge="$dinge dagger scimitar handaxe shortbow longbow quiver wand staff"   # 643: Langbogen (auch Held) und Köcher (Garrick, Rücken); 1587 Zauber- und Magierstab
             mkdir -p godot/daten/waffen
             for w in $dinge; do
               OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
@@ -433,7 +433,7 @@ jobs:
           for f in braun schwarz grau; do cp $OUT/giant_bat-$f.glb $D/giant_bat-$f.bin; done; cp $OUT/giant_bat-info.json $D/
           cp $OUT/kampfort-wald.glb $D/kampfort-wald.bin; cp $OUT/wald-maske.png $D/wald-maske.bild
           for o in waldrand teich baum felsen steinkreis; do cp $OUT/kampfort-wald-$o.glb $D/kampfort-wald-$o.bin; cp $OUT/wald-maske-$o.png $D/wald-maske-$o.bild; done
-          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb $D/$w.bin; done
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost wand staff; do cp $OUT/$w.glb $D/$w.bin; done
           for k in leder kappe helm; do cp $OUT/goblin-$k.glb $D/goblin-$k.bin; done; cp $OUT/goblin-info.json $D/
           for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb $D/goblin_archer-$k.bin; done; cp $OUT/goblin_archer-info.json $D/
           for k in robe fell beides; do cp $OUT/goblin_shaman-$k.glb $D/goblin_shaman-$k.bin; done; cp $OUT/goblin_shaman-info.json $D/
@@ -702,6 +702,7 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/held_klassen_376.gd 2>&1 | grep -E "HELDKLASSEN|FALSCH|SCRIPT ERROR"   # 376.1
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_431.gd 2>&1 | grep -E "^(FEHLER|KLEID431)|SCRIPT ERROR"   # 431h A der Held trägt, was in den Plätzen steht (Tom)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_stufe2_431.gd 2>&1 | grep -E "^(FEHLER|KLEID2)|SCRIPT ERROR"   # 431h Stufe 2 fremde Rüstung sichtbar (Tom)
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/umhang_1569.gd 2>&1 | grep -E "^(FEHLER|UMHANG1569)|SCRIPT ERROR"   # 1569 Umhang ohne Schrankteil zeigt das Teil der Tracht (Tom)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/schild_menue_1417.gd 2>&1 | tee schild1417.log | grep -E "FEHLER|SCHILD1417|SCRIPT ERROR"; grep -q "^SCHILD1417 0 Fehler" schild1417.log   # 1417 Schild der Wachsoldatin im Hauptmenue nicht im Rock (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/achsel_1515.gd 2>&1 | tee achsel1515.log | grep -E "FEHLER|ACHSEL1515|SCRIPT ERROR"; grep -q "^ACHSEL1515 0 Fehler" achsel1515.log   # 1515 Kleidung an der Achsel nicht am Unterarm (Tom)
@@ -714,6 +715,7 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/atem_tiere_1166.gd 2>&1 | grep -E "^FEHLER|ATEMTIERE1166|SCRIPT ERROR"   # 1166 Atem für alle Tiere mit Rücken
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_dorftiere_1167.gd 2>&1 | grep -E "^FEHLER|^1167|ATEMDORF1167|SCRIPT ERROR"   # 1167 Dorftiere atmen (Tom)
           # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; 1136 (1128 A Laufnachweis): haelt an
           # (Lauf 427: „SCHILD 406 gut“, Ende 0), traegt 1013 und 1014
           nebenher schild_406 'timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR"'
@@ -924,6 +926,7 @@ jobs:
           timeout 180 ~/godot/godot --headless --path . -s res://tests/zielwahl_78511.gd 2>&1 | tee zielwahl78511.log | grep -E "^FEHLER|ZIELWAHL78511|SCRIPT ERROR"; grep -q "^ZIELWAHL78511 gut" zielwahl78511.log   # 785.11 Zielwahl wie alt (Reihe, Wählbare hell, übrige gedämpft)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tipp_78515.gd 2>&1 | tee tipp78515.log | grep -E "^FEHLER|TIPP78515|SCRIPT ERROR"; grep -q "^TIPP78515 gut" tipp78515.log   # 785.15 Erklärfenster wegtippen, weg während des Rings
           timeout 180 ~/godot/godot --headless --path . -s res://tests/zurueck_kampf_78517.gd 2>&1 | tee zk78517.log | grep -E "^FEHLER|ZURUECKKAMPF78517|SCRIPT ERROR"; grep -q "^ZURUECKKAMPF78517 gut" zk78517.log   # 785.17 Zurück im Kampf schließt die Auswahl
+          timeout 180 ~/godot/godot --headless --path . -s res://tests/mana_1478.gd 2>&1 | tee m1478.log | grep -E "^FEHLER|MANA1478|SCRIPT ERROR"; grep -q "^MANA1478 gut" m1478.log   # 1478 Mana nach dem Sieg (1411 A)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/satt_78522.gd 2>&1 | tee satt78522.log | grep -E "^FEHLER|SATT78522|SCRIPT ERROR"; grep -q "^SATT78522 0 Fehler" satt78522.log   # 785.22 Leiste zeigt „Satt“ wie alt
           timeout 200 ~/godot/godot --headless --path . -s res://tests/renntaste_78523.gd 2>&1 | tee renntaste78523.log | grep -E "^FEHLER|RENNTASTE78523|SCRIPT ERROR"; grep -q "^RENNTASTE78523 0 Fehler" renntaste78523.log   # 785.23 Renntaste geht von selbst aus
           timeout 120 ~/godot/godot --headless --path . --resolution 1080x2340 -s res://tests/faecher_1309.gd 2>&1 | tee faecher1309.log | grep -E "^FEHLER|FAECHER1309|SCRIPT ERROR"; grep -q "^FAECHER1309 0 Fehler" faecher1309.log   # 1309 Fächer der Ausrüstung wie alt, Seite rollt nicht

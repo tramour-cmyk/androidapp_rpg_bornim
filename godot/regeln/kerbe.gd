@@ -130,7 +130,7 @@ var runde := 0
 var ringe := 0
 ## gezählt wie glut2.py (Rechnung): Züge, Antworten, Wehr, verstrichene Kerben, vertieft, Goldkerbe, gekappte Ringe, Täuschungen, Netz, Prankenhieb
 var zaehler := {"zuege": 0, "gegenschlag": 0, "wachschuss": 0, "wehr": 0, "verstrichen": 0, "vertieft": 0, "gold": 0,
-	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0, "getaumelt": 0}
+	"ringe_gekappt": 0, "getaeuscht": 0, "netz": 0, "prankenhieb": 0, "offen": 0, "getaumelt": 0, "netz_verbrannt": 0}
 ## höchstens so viele Runden, dann verloren (werte.json „lauf“ „max_runden“, wie die Rechnung)
 var max_runden := 60
 ## wer in dieser Runde noch am Zug ist (Gruppe)
@@ -750,6 +750,8 @@ func held_schlag(f, t, tun: String, bonus := 0.0, faktor := 1.0, antwort := fals
 	sch *= faktor
 	var n := int(Brs.endschaden(sch, float(t.b.ruestung)))
 	m._hurt(t, n, f.id, m.fmt(m.wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), m.lang, [f.name(m.lang), t.name(m.lang), n]), info, true)
+	if typ != null and String(typ) == "feuer" and m.outcome == "ONGOING":     # Regel 19: Funkenpfeil verbrennt das Netz
+		netz_verbrennt(f, t)
 	return true
 
 
@@ -986,8 +988,9 @@ func taumeln(g: Variant, schaden: int) -> bool:
 	return brechen(g)
 
 
-## Regel 19: Zurückdrängen, Netz verbrennen, Taumeln lassen einen angesagten großen Schlag von [g] ins Leere gehen
-func brechen(g) -> bool:
+## Regel 19: Zurückdrängen, Netz verbrennen, Taumeln lassen einen angesagten großen Schlag von [g] ins Leere gehen; [zeile] statt
+## „taumelt“ (Netz verbrennen: die Zeile der Spinnseide)
+func brechen(g, zeile := "", von: Variant = null) -> bool:
 	var p: Dictionary = g.gl.get("plan", {})
 	if p.is_empty() or not p.get("gross", false):
 		return false
@@ -995,5 +998,20 @@ func brechen(g) -> bool:
 	p.zeigt_gross = false
 	p.art = "gebrochen"
 	m.intents.erase(g.id)
-	m._say(m.fmt(m.pick("MSG72_BROKEN"), m.lang, [g.name(m.lang), m.I_HEAVY.name[m.lang]]), null, g.id)
+	if zeile != "":
+		m._say(zeile, von.id if von != null else null, g.id)
+	else:
+		m._say(m.fmt(m.pick("MSG72_BROKEN"), m.lang, [g.name(m.lang), m.I_HEAVY.name[m.lang]]), null, g.id)
+	return true
+
+
+## Regel 19 Netz verbrennen (1541, Rest aus 1275; DESIGN-GLUT.md 19): Feuer, das die Riesenspinne trifft, während sie das Netz
+## angesagt hat, verbrennt es: das Netz geht ins Leere (Zeile [870.14.gegen.spinne]); false ohne angesagtes Netz
+func netz_verbrennt(f: Variant, t: Variant) -> bool:
+	if t.gl.get("art", "") != "Riesenspinne" or String((t.gl.get("plan", {}) as Dictionary).get("art", "")) != "netz" or not t.standing():
+		return false
+	if not brechen(t, m.MSG870_GEGEN_SPINNE[m.lang], f):
+		return false
+	t.seide_weg = true     # 870.6: die Seide ist verbrannt (lohn.gd lässt sie weg)
+	zaehler.netz_verbrannt += 1
 	return true

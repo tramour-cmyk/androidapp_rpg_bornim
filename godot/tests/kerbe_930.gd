@@ -501,6 +501,26 @@ func _r19() -> void:
 	g.gl.verlust_seit_ansage = 0
 	m._hurt(g, 50, "hero", "x")
 	ok("Regel 19", bleibt and taumelt and ringe == 0 and g.gl.plan.art == "schlag", "Taumeln: nach 12 von 100 steht der große Schlag noch, nach 20 geht er ins Leere (kein Ring); ein kleiner taumelt nie")
+	# Netz verbrennen (1541): Feuer, das die Spinne trifft, während sie das Netz angesagt hat, lässt es ins Leere gehen (kein Ring,
+	# kein Heranziehen, keine Kerbe weniger, die Seide ist verbrannt); ein Schwerthieb oder Feuer ohne angesagtes Netz bricht nichts
+	_treffer(1)
+	var hf := _held({"zauber": ["Funkenpfeil"]})
+	m = _kampf(hf, ["giant_spider"], {"nur_einrichten": true, "ring": Mars.NONE, "leben": 500})
+	g = m.all[1]
+	m.gk.planen()
+	var angesagt: bool = String(g.gl.plan.art) == "netz" and bool(g.gl.plan.gross)
+	m.gk.held_schlag(hf, g, Kerbe.WAFFE)
+	var nach_hieb: bool = String(g.gl.plan.art) == "netz"
+	m.gk.held_schlag(hf, g, "Z_FUNKEN")
+	var verbrannt: bool = String(g.gl.plan.art) == "gebrochen" and g.seide_weg and not m.intents.has(g.id)
+	ringe = 0
+	m.gk.gegner_zug()
+	var frei: bool = ringe == 0 and int(hf.gl.minus) == 0
+	_plan(g, false, "biss")
+	m.gk.held_schlag(hf, g, "Z_FUNKEN")
+	ok("Regel 19", angesagt and nach_hieb and verbrannt and frei and String(g.gl.plan.art) == "biss",
+		"Netz verbrennen: Funkenpfeil auf die Spinne mit angesagtem Netz bricht es (kein Ring, zieht nicht heran, keine Kerbe weniger, Seide weg); Hieb oder Feuer ohne Netz nicht (angesagt %s, nach Hieb %s, verbrannt %s, frei %s)" % [angesagt, nach_hieb, verbrannt, frei])
+	_treffer(-1)
 
 
 func _r20() -> void:

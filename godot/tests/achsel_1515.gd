@@ -74,8 +74,15 @@ func _bruecken(sk: Skeleton3D, me: MeshInstance3D) -> int:
 			for k in n:
 				if ws[vi * n + k] > bw: bw = ws[vi * n + k]; best = bind[bs[vi * n + k]]
 			var bn := sk.get_bone_name(best) if best >= 0 else ""
-			art[vi] = 1 if (bn.begins_with("lowerarm") or bn.begins_with("hand_")) else (2 if (bn == "pelvis" or bn.begins_with("spine")) else 0)
+			# 1515 Runde 2 (Chef 21:45): Finger zaehlen zur Hand, Oberschenkel und alles ausser Arm und Schluesselbein zum Koerper
+			# (Wache W: 13 Flaechen Oberschenkel–Daumen, 70 cm, fing der alte Test nicht)
+			var hand := bn.begins_with("lowerarm") or bn.begins_with("hand_")
+			for f in ["thumb", "index", "middle", "ring", "pinky"]: hand = hand or bn.begins_with(f)
+			var armkette := hand or bn.begins_with("upperarm") or bn.begins_with("clavicle") or bn == ""
+			art[vi] = 1 if hand else (0 if armkette else 2)
 		for t in range(0, ix.size(), 3):
 			var g := [art[ix[t]], art[ix[t + 1]], art[ix[t + 2]]]
-			if 1 in g and 2 in g: zahl += 1
+			if not (1 in g and 2 in g): continue
+			var p0 := vs[ix[t]]; var p1 := vs[ix[t + 1]]; var p2 := vs[ix[t + 2]]
+			if maxf(p0.distance_to(p1), maxf(p1.distance_to(p2), p2.distance_to(p0))) > 0.12: zahl += 1
 	return zahl

@@ -1304,7 +1304,8 @@ func _ende_833() -> void:
 		var teile: Array = []
 		for id in k.schnell_verlust:
 			var g: Variant = m.find(id)
-			if g != null: teile.append("%s −%d %s" % [g.name(lang), int(k.schnell_verlust[id]), t("Leben", "Life")])
+			# 1567 (Chef 17.11., 14:54: „Minus 0 Leben macht nicht so viel Sinn“): wer nichts verlor (oder geheilt wurde), steht nicht da
+			if g != null and int(k.schnell_verlust[id]) > 0: teile.append("%s −%d %s" % [g.name(lang), int(k.schnell_verlust[id]), t("Leben", "Life")])
 		if not teile.is_empty():
 			vorab = 1
 			lohn.push_front(" · ".join(teile))
