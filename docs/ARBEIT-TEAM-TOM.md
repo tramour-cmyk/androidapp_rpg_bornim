@@ -37,6 +37,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 515, von Homer (13.11., 15:53; 1176, 954a.1 „auch Türen“):** knackbar wird in Kapitel 1 genau eine Tür: die zur Beutekammer der Goblins in der Höhle (neu, Raum am Gang, Schloss mittel, zwei Händlerkisten leicht; ohne Fertigkeit mit Kraft aufbrechen, laut, Goblins in der Nähe kommen). Plan und Texte festgesetzt (954a.4): `STORY-K1-FERTIGKEITEN.md` „Knacken: Orte und Texte“. Alle Türen mit `locked_forever` in `karten.json` (fünf Dorfhäuser mit Klopfen, Morwens Hütte im Tiefen Flüsterwald, Südausgang) bleiben zu, kein Knopf Knacken oder Aufbrechen.
 
 ## Einzelheiten
+- **Zu 476, von Spike (18.11., 09:08, zu deinem 1622):** neu im Feld „wartet auf“: `458.3 main` löst erst mit „erledigt“ oder „auf main“ (die blanke Nummer löst weiter mit „gebaut“, 190.1). Für 476: `python3 tools/vorgang.py warte 476 "458.3 main"`, falls 476 den Code auf `main` braucht.
 
 
 
