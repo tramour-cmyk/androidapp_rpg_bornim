@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 20:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 20:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 64 (61) | 19 | 0 | 0 | 49 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 22 | 0 | 4 | 7 | 1619 (Spike) Held stakst im Film 458.3, sieht nicht nach Gehen… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 22 | 0 | 5 | 7 | 1535 (Tom) Kleidung hängt bei NPCs in der Ruhebewegung an ei… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 5 | 0 | 3 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (11) | 10 | 0 | 5 | 4 | 1700 (Tom) Wiederholrot durchstich_1631: 6× rot in 48 h; Urs… |
@@ -47,11 +47,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1679.md](entscheiden/1679.md) entscheiden; dann 5 weitere |
-| Tom | 1700 Wiederholrot durchstich_1631: 6× rot in 48 h; Ursache nachs… (Muss); dann 2 weitere |
+| **Chef** | [1679.md](entscheiden/1679.md) entscheiden; dann 1 weitere |
+| Tom | 1700 Wiederholrot durchstich_1631: 6× rot in 48 h; Ursache nachs… (Muss); dann 3 weitere |
 | Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 4 weitere |
 | Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
-| Spike | läuft: 1595 (Besetzung); 1619 Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursa… (Muss); dann 3 weitere |
+| Spike | läuft: 1595 (Besetzung); 1649 Zweihandwaffe im Stand: keine Haltung, linke Faust reicht n… (Muss); dann 2 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | läuft: 1608 (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 2 weitere |
@@ -64,7 +64,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | startbar |
 | 2 | 760 | Jerry | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung pa… | M | 2 Kampf passt | startbar |
 | 3 | 1697 | Jerry | dunkle Rechtecke unter Held und Goblin im Kampfort Wald wie Fund 1568; Rückfall… | M | 2 Kampf passt | startbar |
-| 4 | 1619 | Spike | Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursache in Vorschau nach… | M | 3 Kleiderschrank und Modelle | startbar |
+| 4 | 1535 | Tom | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand; alle Figuren mit Kau… | M | 3 Kleiderschrank und Modelle | startbar |
 | 5 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
 | 6 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
 | 7 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
@@ -82,7 +82,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
 | 20 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
 
-Danach 64 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 64 weitere offen. Bei dir zum Testen (vorgelegt): 13. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -101,10 +101,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [1205b](ansehen/1205b-niedrig.md) | Wiese in Grafik Niedrig: Kit-Blumen statt Kleckse? | – | 18.11., 17:04 |
-| [1406](ansehen/1406-jorin-wende.md) | Jorin wendet mit einer halben Drehung (Prüfpunkt 300.10) | – | 18.11., 18:25 |
-| [1535](ansehen/1535-garrick-alt-neu.md) | Garrick: ist der Faden an der Jacke weg? | – | 18.11., 16:58 |
-| [1650](ansehen/1650-stiefel-alt-neu.md) | Hose im Stiefel: sticht sie noch durch den Schaft? | – | 18.11., 17:00 |
 | [1655](ansehen/1655-morwen-kapuze.md) | Morwen: sticht der Kopf durch die Kapuze? | – | 18.11., 17:05 |
 
 ## Zu tun
@@ -392,7 +388,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1205b-niedrig.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1535-garrick-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1650-stiefel-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 ## So geht's
 
