@@ -1046,3 +1046,4 @@
 2026-11-18 21:57:31	commit-pruefung	LISTE-VORGAENGE.md: 1694: Zeile über 400 Zeichen (Einzelheiten als „Zu 1694“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-18 22:01:49	commit-pruefung	LISTE-VORGAENGE.md: 1665: Zeile über 400 Zeichen (Einzelheiten als „Zu 1665“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-18 22:27:25	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1653 schon 1 Probelauf seit deinem Urteil 2026-11-18 21:48:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch	claude/jerry-1653-kleid
+2026-11-18 22:27:47	commit-pruefung	docs/chefsache/ansehen/t300-sammelbuild.md: Laufnachweis fehlt (1128 A): zellen_1484a Testskript endet nur mit quit(0), wird nie rot; wende180_1406 steht nicht im Bauablauf; als Prüffrage am Handy ode	main
