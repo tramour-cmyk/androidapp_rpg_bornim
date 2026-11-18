@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 01:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 01:56, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 7 weitere |
+| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 6 weitere |
 | Tom | 476 Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Kür) |
 | Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
@@ -63,7 +63,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 2 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 3 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
 | 4 | 1614 | Tom | Heldmodelle held_*.bin tragen eine Hilfskugel der Kaufdatei; verfälscht Messung… | K | 3 Kleiderschrank und Modelle | startbar |
-| 5 | 1569.1 | Tom | dunkler Keil an der rechten Schulter auf dem Umhang, grüner Rand Jägerkind am S… | M? | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1569.1 | Tom | dunkler Keil an der rechten Schulter auf dem Umhang, grüner Rand Jägerkind am S… | M? | 3 Kleiderschrank und Modelle | in Arbeit |
 | 6 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 7 | 476 | Tom | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 | 8 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1589.5 | Jerry | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf passt | wartet auf 1589.4 |
 | 20 | 1603 | Jerry | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf passt | Termin 21.11. 20:00 |
 
-Danach 33 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 14. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 110.
+Danach 32 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 15. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 110.
 ## Zu entscheiden
 
 Nichts offen.
@@ -91,20 +91,14 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1484a](billigen/1484a-zellen-bilder.md) | **Muss** | E Technik | 18.11., 01:58 | Alt und neu sehen gleich aus; Zellen in den nächsten Sammelbuild, du misst am Tablet Wald 11/19 und Flüsterwald 9/12, auch mit 3D 50 %. | Sokrates |
+| [1571](billigen/1571-fackel-hand.md) | **Muss** | E Figuren | 18.11., 01:58 | Die Fackel sitzt in der linken Hand; in deinem Bild vom 17.11. war der Held gedreht. Nichts zu bauen; 1571 erledigt, sobald Zauberstab (1587) und Umhang (1569) im Build sind. | Sokrates |
+| [455.2](billigen/4552-groessen.md) | **Muss** | E Figuren | 18.11., 01:58 | Passt: ein Netz je Stück für alle Völker, Ork auf dem Superhelden mit Nachaußenrücken; Bau der Völkerkörper im Spiel bleibt bei 431 (Tom); Durchstich beim Zwerg dort beheben. | Sokrates |
 | [1569](billigen/1569-umhang-robe.md) | **Muss** | E Figuren | 18.11., 01:46 | Robe sticht hinten nicht mehr durch, in den nächsten Sammelbuild; dunkler Keil an der rechten Schulter und grüner Rand beim Jägerkind als 1569.1 (Umhang Schulter) bei Tom. | Sokrates |
-| [1484a](billigen/1484a-welt-zellen.md) | **Muss** | E Technik | 18.11., 00:53 | Spike teilt Dorf und Wald in Stücke von etwa 12 m und rechnet die Durchsicht der Bäume nur nahe am Helden; Aussehen gleich; erst Testbuild und deine Messung am Tablet, dann `main`. | Sokrates |
 | [458.3](billigen/4583-staffel.md) | **Muss** | E Figuren | 18.11., 00:48 | 45 Waffenformen am Helden, Form nach Stufe des Gegenstands, Farbe nach Seltenheit, in den nächsten Sammelbuild; Dorffilm mit Tusche als Prüfpunkt dort. | Sokrates |
 | [1211](billigen/1211-licht-b.md) | Kür | E Welt | 18.11., 00:48 | Funkenlicht B: Abfall 1,0 statt 2,0, Reichweite 8 m statt 6,7 m, Stärke wie heute; Höhle immer voll. | Sokrates |
 
 ## Anzusehen
-
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [1484a](ansehen/1484a-zellen-alt-neu.md) | Welt in Zellen: Bilder alt gegen neu an drei Stellen | Spike | 18.11., 01:30 |
-| [1571](ansehen/1571-fackel-hand.md) | Fackel der Nebenhand: welche Hand | – | 18.11., 01:47 |
-| [455.2](ansehen/4552-groessen.md) | Größen Runde 2: Zwerg dazu, Ork auf dem Superhelden, Helm Hügelvolk; Netzliste je Platz | Tuffy | 18.11., 01:10 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -368,9 +362,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1571-fackel-hand.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); t298-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4552-groessen.md
+Format (Muster: „So geht's“ unten): t298-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 ## So geht's
 
