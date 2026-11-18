@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 17:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 17:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -28,16 +28,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 5 | 0 | 3 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 18 (11) | 9 | 0 | 5 | 4 | 1667 (Spike) auf claude/build-299 nur 1566 und 760 zurücknehme… |
-| **7** Werkzeuge und Abläufe der Firma | 53 (48) | 28 | 0 | 0 | 12 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| **7** Werkzeuge und Abläufe der Firma | 52 (48) | 27 | 0 | 0 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 68 | 114 | 384 | 1244 |
+| erledigt | 69 | 114 | 385 | 1245 |
 | neu | 96 | 116 | 376 | 1266 |
-| **netto** (erledigt − neu) | **−28** | **−2** | **+8** | **−22** |
+| **netto** (erledigt − neu) | **−27** | **−2** | **+9** | **−21** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -52,7 +52,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Spike | läuft: 1645 (Besetzung); 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 5 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | läuft: 1658 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
-| Sokrates | läuft: 1270.5 (Besetzung); 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss); dann 1 weitere |
+| Sokrates | läuft: 1270.5 (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
 | Perikles | M? M? entscheiden: 1679 (Muss) |
 
 **Die nächsten 20**
@@ -72,15 +72,15 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 11 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
 | 12 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
 | 13 | 1667 | Spike | auf claude/build-299 nur 1566 und 760 zurücknehmen, Lauf grün, Merge PR 220, PR… | M | 6 Godot besser nutzen | startbar |
-| 14 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 18 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
-| 19 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
-| 20 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
+| 14 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 15 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 17 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
+| 18 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 19 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
+| 20 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
 
-Danach 64 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 63 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
