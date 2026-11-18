@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 09:54, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 09:56, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -27,7 +27,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 27 (20) | 15 | 2 | 1 | 7 | 1631 (Spike) Durchstechprüfung Kleidung gegen Leib und Arme fü… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 53 (48) | 5 | 0 | 6 | 26 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 12 (11) | 5 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 12 (11) | 6 | 0 | 1 | 4 | 1270.5 (Spike) ganze Technik gegen fremde Praxis abgleichen, nic… |
 | **7** Werkzeuge und Abläufe der Firma | 48 (48) | 32 | 1 | 0 | 11 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -49,36 +49,36 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1631 Übernahme von Spike: Durchstechprüfung Kleidung gegen Leib und Arme für alle Fig… (Muss) |
 | Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
-| Spike | 1640 chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorrat… (Muss); dann 4 weitere |
+| Spike | 1640 chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorrat… (Muss); dann 5 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss) |
-| Perikles | M? M? entscheiden: 1270.5 (Muss) |
+| Perikles | leer, weil 13 Termin, 5 wartet auf Vorgang (1595, 1610, 1388, 870, 1125), 3 wartet auf Test/Build |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1631 | Spike | Durchstechprüfung Kleidung gegen Leib und Arme für alle Figuren mit Kaufkleid j… | M | 3 Kleiderschrank und Modelle | startbar |
-| 2 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 3 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 4 | 1640 | Spike | chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorratspflege „Pflege von… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 5 | 1641 | Spike | Start-Haken neustart-haken.py warnt Vorräte ab 15 KB, CLAUDE.md erlaubt 30 KB;… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 1642 | Spike | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, na… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 7 | 1643 | Spike | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 8 | 1644 | Spike | meldung.sh nimmt „behoben/weg/fertig“ zu einem Fund des Chefs zum Aussehen nur… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 9 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 10 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
-| 11 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
-| 12 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
-| 13 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 14 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1629 | Spike | epische Beute zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Li… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 1 | 1270.5 | Spike | ganze Technik gegen fremde Praxis abgleichen, nicht nur Wald; höchstens drei Vo… | M | 6 Godot besser nutzen | startbar |
+| 2 | 1631 | Spike | Durchstechprüfung Kleidung gegen Leib und Arme für alle Figuren mit Kaufkleid j… | M | 3 Kleiderschrank und Modelle | startbar |
+| 3 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 4 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 1640 | Spike | chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorratspflege „Pflege von… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 6 | 1641 | Spike | Start-Haken neustart-haken.py warnt Vorräte ab 15 KB, CLAUDE.md erlaubt 30 KB;… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 7 | 1642 | Spike | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, na… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 8 | 1643 | Spike | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1644 | Spike | meldung.sh nimmt „behoben/weg/fertig“ zu einem Fund des Chefs zum Aussehen nur… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 10 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 11 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 12 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
+| 13 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
+| 14 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 15 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 
 Danach 48 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 112.
 ## Zu entscheiden
