@@ -44,6 +44,7 @@ func _lauf() -> void:
 		for i in 3: await process_frame
 		var kb := sk.find_bone("Head") if sk.find_bone("Head") >= 0 else sk.find_bone("head")
 		var kopf := (sk.global_transform * sk.get_bone_global_pose(kb)).origin + Vector3(0, 0.08, 0)
+		print("KOPF1655 ", kopf)
 		for w in [0.0, 90.0, 180.0]:
 			var r := deg_to_rad(w)
 			kam.position = kopf + Vector3(sin(r) * 1.1, 0.05, cos(r) * 1.1)
