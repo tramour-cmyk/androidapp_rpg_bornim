@@ -53,6 +53,26 @@ Nach „Renderer wechseln“ (Strahlprobe 415) und Neustart: „Grafik: Samsung 
 
 Lesart (Spike): „mobile“ gegen Kompatibilität: Höhle 63 statt 51, Kampf 18 statt 12 Bilder/s, aber kalter Kampfort 3,0 statt 1,2 s und Wald 3,7 statt 2,7 s Laden (Vulkan baut Shader beim ersten Gebrauch, dagegen 1270.3). Kampf bleibt der langsamste Ort: 200 Zeichenaufrufe und 337k Dreiecke bei 18 Bilder/s heißt teure Bildpunkte, nicht Geometrie. Grundwert A56 (A22 entfällt, Chef 12:30): Kampf 18 bis 20 Bilder/s, Kampfort kalt 3,0 s, warm 0,9 s; die 2,1 s Unterschied sind Aufbau beim ersten Gebrauch (Ziel 1270.3), die 0,9 s Laden der Figuren und des Orts (Ziel 1270.2). Offen: Kampf 2 zeigt höchstens 2917k Dreiecke statt 337k, wohl ein Bild mit der Welt dahinter (Blende); nicht nachgestellt.
 
+## Chef, A56, Build 298 (0.348.559), Renderer „mobile“ (18.11., 14:22, nach dem Goblin-Kampf im Wald; 1664)
+
+```
+Version: 0.348.559
+Gerät: SM-A566B
+Grafik: Samsung Xclipse 540 (Unknown), mobile
+Speicher: 263 MB
+Ort: temple 4/3
+Bilder je Sekunde: 59 im Schnitt der letzten 600, langsamstes 1 %: 40 ms
+Längste Bildpause seit dem Start: 150 ms (village 28/6)
+Blende: bereit nach 6.6 s, längste Bildpause 150 ms; danach 10 s: längste 33 ms, über 50 ms: 0
+Ladezeit je Ort: cave 3038 ms, Erschaffung Tipp 314 ms, inn 1185 ms, village 2852 ms, elder 678 ms, shop 743 ms, temple 521 ms, forest 3863 ms
+Kampfort bereit nach: 2.3 s
+Letzter Kampf (GOBLINS, steinkreis): 42 s, Bilder je Sekunde 40 im Schnitt, langsamstes 1 %: 34 ms, längste Bildpause 142 ms, über 50 ms: 6; höchstens 193 Zeichenaufrufe, 133k Dreiecke, Grafikspeicher 1057 MB
+Grafikstufe: Niedrig (Wahl Automatisch), Sonnenschatten 1024 px, 3D 70 %
+Grafikspeicher: 951 MB, Zeichenaufrufe: 497, Dreiecke: 156k
+Letzte Fehlermeldungen: keine
+```
+Lesart (Sokrates, ungeprüft am Gerät): Kampf 40 statt 18 bis 20 Bilder/s (Grundwert 15.11.). Auffällig: das Einmessen wählt am A56 „Niedrig“ (3D 70 %, Schatten 1024), also sieht der Chef auf seinem Hauptgerät die schwächste Stufe; Grafikspeicher 951–1057 MB statt 505 MB (08.11.). Beides an Spike zu 1270.6, 1270.7.
+
 ## Chef, Samsung Galaxy Tab A9+ (SM-X210, Adreno 619, Android 36), Build 286 (0.348.473), Renderer „mobile“ (16.11., 20:20, „Testspiel auf dem Tablet“; 1484)
 
 Bildschirm 1200 × 1920, 240 dpi, Schrift Faktor 1.09, Breite 800 dp, Rand oben 0; Speicher 197/187 MB; keine Fehlermeldungen. Zwei Texte des Chefs, Auszug:
