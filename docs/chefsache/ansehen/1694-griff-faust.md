@@ -1,5 +1,7 @@
 # 1694 · Griff für alles Gehaltene: schließt die Faust jetzt um den Stiel?
 
+[Bild von 18.11., 17:31](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1731-1694-Spike.png) (eingetragen von meldung.sh, Spike)
+
 Spike · 18.11., 17:31 · E Technik · aus deinem Wort 17:01 („Als Systemlösung“), Funde 1621 (Zweihänder) und 1657 (Stab)
 Kurz: Handbeil in der rechten Hand, nah an der Hand, links alt, rechts neu. Alt: Fingerspitzen 2–3 cm vor dem Stiel, die Faust offen. Neu: Stiel in der Faust, jeder Finger bis an den Stiel gebeugt.
 
