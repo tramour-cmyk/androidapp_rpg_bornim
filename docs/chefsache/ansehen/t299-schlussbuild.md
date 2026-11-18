@@ -27,3 +27,11 @@ Im Bau geprüft: Schildarm und Kleid ohne Fläche über Unterarm–Rumpf bei all
 Gegengelesen: Tom 18.11., 13:10. 299.1 stimmt. 299.2 stimmt. 299.3 stimmt (Jorin geht auf y 3 zwischen x 15 und 20, zwei Felder vor dem Helden; Pim 9 Felder südlich). 299.4 Einwand: „vorraete“ gibt nur Verbrauchsgüter und Fackeln (`testmodus.gd` 301), keinen Umhang; kein Lage-Schlüssel gibt einen (`ruestung` nur Brustrüstungen, `brustruestungen()`); ohne Umhang in der Tasche ist 299.4 nicht prüfbar, Lage-Schlüssel für den Umhang nötig (Spike). 1549 berichtigt (Bildwerkzeug, nicht `kleid_stufe2_431`).
 Einwand 299.4 erledigt (Spike 18.11., 13:16): Weg über Neues Spiel mit Herkunft Wachsoldat (`werte.json` start: cloak), ohne Lage.
 Gegengelesen: Sokrates 18.11., 14:22. 299.1 stimmt. 299.2 stimmt. 299.3 Frage: Jorin geht laut Tom hin und her; „während sie stehen“ dann an seinen Halten prüfen oder einen stehenden Bewohner nennen. 299.4 stimmt (`tools/sim444/werte.json` start Wachsoldat mit cloak). 299.5 stimmt (Lage „vorraete“ gibt jeden Vorrat außer Schlüsseln, also auch den Leuchtfunken, `testmodus.gd` 300). Einwand Kopf: als „bekannt“ aufnehmen, was der Chef heute in Build 298 fand und hier noch drin ist: Goblins gleiten im Kampf (1664, 14:20), Beutel und Detailansicht ohne Wirkung der Tränke (1663, 14:17).
+
+## Ergebnis
+
+- 299.1 ✓
+- 299.2 ✓
+- 299.3 ✗ Kleidung zieht in der Ruhebewegung mit gehobenem Arm (Garrick 15:33, Bewohner im Kittel 15:59; Zu 1535)
+- 299.4 ✓
+- offen: 299.5
