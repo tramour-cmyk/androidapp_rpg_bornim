@@ -1,5 +1,7 @@
 # 1654 · Rowena: sticht das Kleid an der Hüfte sichtbar durch?
 
+[Bild von 18.11., 21:30](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-2130-1654-Jerry.png) (eingetragen von meldung.sh, Jerry)
+
 Jerry · 18.11., 21:30 · E Figuren · aus Toms Durchstechprüfung 1631 (Lauf 560)
 Kurz: Rowena in „Ruhe am Tresen“, Hüfte und Gürtel (0,9 m), vorn, 50° rechts, 50° links. Mein Befund: sichtbar, braune Zacken des Oberkleids stechen unter dem Gürtel seitlich durch die Schürze.
 
