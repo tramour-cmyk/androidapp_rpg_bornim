@@ -2,6 +2,8 @@
 
 Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 
+**Letzter Testbuild:** [Build 299 · 0.348.563 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44301568081/artifacts/14429688295) · 18.11., 14:20 · getestet · Release dagegen nur auf Zuruf
+
 ## Wer wofür
 
 - **Sokrates:** Stab des Chefs: Strategie, Markt, Geschäftsmodell, Chefrunde
