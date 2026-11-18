@@ -50,7 +50,9 @@ on:
 # 894: mehrere Pushes auf einen Testbuild hintereinander, es baut nur der neueste (von Hand gestartete Läufe bleiben)
 concurrency:
   group: godot-${{ github.ref }}-${{ github.event_name }}
-  cancel-in-progress: ${{ github.event_name == 'push' }}
+  # 1716 (Chef 18.11., 22:29: „wie kann hier einfach irgendjemand was neu einmischen und dann fängt alles wieder von vorne an?“):
+  # auf dem Buildzweig bricht ein neuer Push den laufenden Bau nicht ab, er wartet; Teamzweige wie bisher
+  cancel-in-progress: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/claude/build-') }}
 
 jobs:
   apk:
