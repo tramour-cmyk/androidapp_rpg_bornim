@@ -1037,3 +1037,4 @@
 2026-11-18 21:04:14	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-1697-rechtecke
 2026-11-18 21:28:58	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/jerry-1697-rechtecke
 2026-11-18 21:33:00	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/jerry-1319-geheilt
+2026-11-18 21:44:18	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	HEAD
