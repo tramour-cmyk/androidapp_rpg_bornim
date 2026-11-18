@@ -244,6 +244,7 @@ HINTEN = {'dagger': 7, 'shortsword': 8.5, 'scimitar': 8, 'rapier': 8.5, 'longswo
           'spear': 148 * 0.42, 'staff': 70 * 1.45}
 BOEGEN = {'shortbow': 101, 'longbow': 140}
 ARMBRUST = {'light_crossbow': (70, 25)}   # Laenge, Griff ab Kolbenende (Dress.kt baut sie rund, ohne Mass); geschaetzt
+ZWEI_GRIFF = 0.30   # 1621: Zweihaender von der Parierstange bis zum Knaufende mindestens 30 cm (zwei Faeuste 15,5 cm auseinander)
 SCHWERTER = {'dagger', 'shortsword', 'scimitar', 'rapier', 'longsword', 'greatsword'}
 
 
@@ -298,6 +299,19 @@ def lage_spiel(me, fl_kl, art):
             i = int(np.argmax(breit)); unten = [b for b in breit[:max(i, 1)] if b > 0]
             if unten and breit[i] > 1.6 * float(np.median(unten)) and sch[i] - lo[2] > 0.05:
                 zg = float(sch[i]) - 0.056 + 0.01; wie = 'Parierstange'
+                # 1621 (Chef 18.11., 11:56: „beim Zweihänder … dass da die obere Hand nicht wirklich am Griff ist“; griff_mess_1621 GENAU):
+                # die Faeuste stehen in der Bewegung 15,5 cm auseinander; ein Zweihaendergriff unter 30 cm (anker_greatsword 24) laesst
+                # die obere Faust an der Parierstange. Griff unter der Parierstange auf 30 cm strecken, Gesamtlaenge bleibt (Klinge kuerzer)
+                stange = float(sch[i])
+                if art == 'greatsword' and stange - float(lo[2]) < ZWEI_GRIFF:
+                    f = ZWEI_GRIFF / (stange - float(lo[2]))
+                    for vt in me.vertices:
+                        if vt.co.z < stange: vt.co.z = stange - (stange - vt.co.z) * f
+                    me.update(); v = punkte(me); lo, hi = v.min(0), v.max(0)
+                    s2 = ges / 100.0 / float(hi[2] - lo[2])
+                    me.transform(Matrix.Scale(s2, 4)); v = punkte(me); lo, hi = v.min(0), v.max(0); L = float(hi[2] - lo[2])
+                    stange *= s2
+                    zg = stange - 0.056 + 0.01; wie = 'Parierstange, Griff gestreckt'
     # Mitte des Querschnitts in Griffhoehe: Kanten, die die Ebene schneiden (lange Stiele haben nur oben und unten Ecken)
     sp = []
     for e in me.edges:
