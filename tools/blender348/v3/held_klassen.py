@@ -668,14 +668,17 @@ def hose_in_stiefel(arm, netze, fm):
             p = mw @ v.co
             if p.z > oben or p.z < 0.08: continue
             d = (nm @ v.normal).normalized()
-            if bv.ray_cast(p + d * 0.0005, d, SCHAFT_DECKT)[0] is None: continue
+            hit = bv.ray_cast(p + d * 0.0005, d, SCHAFT_DECKT)[0]
+            if hit is None: continue
             best = None
             for a, b in achsen:
                 ab = b - a; t = max(0.0, min(1.0, (p - a).dot(ab) / ab.length_squared))
                 q = a + ab * t
                 if best is None or (p - q).length < (p - best).length: best = q
             r = p - best; L = r.length
-            if L <= SCHAFT_MIN: continue
+            # nur was im Schaft liegt: der Stiefel weiter von der Achse als die Ecke (Borin, Messlauf 18.11.: sein Beinkleid #12 liegt
+            # vorn über dem Schaft, mit Normalen nach innen traf der Strahl den Stiefel darunter; eingezogen stach der Stiefel durch, 196 -> 288)
+            if L <= SCHAFT_MIN or (hit - best).length <= L: continue
             v.co = mi @ (best + r * (max(SCHAFT_MIN, L - SCHAFT_EIN) / L)); n += 1
         o.data.update()
         print('HOSE IM STIEFEL', o.name, n, 'Ecken eingezogen')
