@@ -938,6 +938,40 @@ def arbeitskopie(befehl, cwd):
     return cd_ziel(befehl, cwd, erstes=True)
 
 
+MODELL_PFADE = ("tools/blender348/", "tools/gegenstaende/")
+
+
+def stand_abweichung(wo):
+    """1702 (Sokrates 18.11., 20:59: vier Läufe zu 1655, zuletzt mit alter Fassung des Bildskripts am Rechner): ein Bild oder Film
+    an den Chef (`PROBE=`) kommt nur aus dem Stand, der auf dem Zweig liegt. Anhalten, wenn (1) Spielcode oder Tests unter godot/
+    oder Bauskripte nicht committet sind, (2) der Zweig auf origin neuer ist als die Arbeitskopie, (3) die Modelle (Stempel von
+    bau_am_rechner.py) zu einem Stand gebaut sind, dessen Bauskripte vom jetzigen abweichen. Grund oder None."""
+    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip() if wo else ""
+    if not wurzel or not os.path.isdir(os.path.join(wurzel, "godot")):
+        return None
+    offen = [z[3:] for z in git("status", "--porcelain", "--", "godot", *MODELL_PFADE, cwd=wurzel).stdout.splitlines()
+             if not z.startswith("??") and "/.godot/" not in z and not z.endswith(".uid")]
+    if offen:
+        return ("1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: " + ", ".join(offen[:5]) +
+                ". Erst committen und pushen; eigene Versuche mit `PROBEBILD=` oder `MESS=`.")
+    zweig = git("rev-parse", "--abbrev-ref", "HEAD", cwd=wurzel).stdout.strip()
+    if zweig and zweig != "HEAD":
+        git("fetch", "-q", "origin", zweig, cwd=wurzel, timeout=20)
+        hinten = git("rev-list", "--count", f"HEAD..origin/{zweig}", cwd=wurzel).stdout.strip()
+        if hinten and hinten != "0":
+            return (f"1702: origin/{zweig} hat {hinten} Commits, die der Arbeitskopie fehlen (jemand hat nachgelegt); "
+                    "erst `git merge origin/" + zweig + "`, dann der Lauf.")
+    gd = git("rev-parse", "--git-dir", cwd=wurzel).stdout.strip()
+    stempel = os.path.join(wurzel, gd) if gd and not os.path.isabs(gd) else gd
+    stempel = os.path.join(stempel, "bornim-modellstand") if stempel else ""
+    if stempel and os.path.exists(stempel):
+        c = open(stempel).read().strip()
+        if c and git("diff", "--quiet", c, "HEAD", "--", *MODELL_PFADE, cwd=wurzel).returncode == 1:
+            return ("1702: die Modelle am Rechner sind zum Stand " + c[:9] + " gebaut, die Bauskripte haben sich seither geändert; "
+                    "erst `python3 tools/godot/bau_am_rechner.py --cache --laden`, dann der Lauf.")
+    return None
+
+
 def figur_sperre(wo, rev):
     """513.1: Grund zum Anhalten oder None. Jeder abgenommene Figurencommit aus tools/figurenstand.tsv (main) muss in rev
     enthalten sein; Arbeitskopie ohne godot/: keine Figuren, nichts zu prüfen."""
@@ -1154,6 +1188,12 @@ def main():
             if not m:
                 anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).")
+            try:
+                abw = stand_abweichung(arbeitskopie(befehl, cwd))   # 1702: vor dem Zählen, ein angehaltener Lauf zählt nicht
+            except (OSError, subprocess.SubprocessError, ValueError, Unaufloesbar):
+                abw = None
+            if abw:
+                anhalten(abw)
             nr, art, film = m.group(1), "rechner", filmlauf_rechner(befehl, cwd)
             STAND_REF.update(wo=arbeitskopie(befehl, cwd), rev="HEAD")
         elif (hand := handlauf_bash(befehl)):
