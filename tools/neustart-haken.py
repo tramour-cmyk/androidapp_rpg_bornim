@@ -12,7 +12,7 @@ Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzt
 zwischengespeichert). Seit 383 A zählt die ganze Gesprächslänge (jeder Aufruf liest sie ganz), nicht mehr der Zuwachs.
 
 Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Gesprächslänge in Token, Vorgabe 200000; 383 A, Chef 09.11.; vorher 300000 Zuwachs nach 383.1),
-BORNIM_OFFEN_MAX (Bytes, Vorgabe 15000). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
+BORNIM_OFFEN_MAX (Bytes, Vorgabe 30000 wie CLAUDE.md „Vorräte klein halten“, 1641). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
 Bei der 1., 11., 21. … Nachricht zusätzlich die Kernregel-Zeile aus tools/kernregeln.txt (347, ein Wortlaut, auch notiz.sh).
 """
 import json
@@ -21,7 +21,7 @@ import sys
 
 KERN_ALLE = 10
 AB = int(os.environ.get("BORNIM_NEUSTART_AB", "200000"))
-OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "15000"))
+OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "30000"))   # 1641: wie CLAUDE.md (vorher 15000)
 # 818 (Chef 09.11., 22:27: „Oder ihr lasst halt jetzt die Sitzungen dann doch länger offen, wenn die Gefahr besteht, dass es wieder ein Repo-Problem gibt“):
 # liegt das Kaufrepo in der Sitzung, gilt die doppelte Schwelle (400 Tsd., wie vor 383 A) und die Sitzung nimmt den nächsten eigenen Vorgang selbst.
 KAUF = "/home/user/bornim-kaufmodelle"
