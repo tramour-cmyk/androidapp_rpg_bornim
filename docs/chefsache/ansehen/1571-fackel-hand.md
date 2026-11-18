@@ -1,5 +1,7 @@
 # 1571 · Fackel der Nebenhand: welche Hand
 
+[Bild von 18.11., 01:47](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0147-1571-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 18.11., 01:48 · E Figuren · Fund des Chefs 17.11., 16:35 (Build 297, Bild `t297-stab-fehlt.webp`): „Fackel der Nebenhand sitzt in der rechten Hand“
 Kurz: Die Fackel sitzt in der linken Hand der Figur. Im Bild vom 17.11. ist der Held nach rechts gedreht, darum sieht man sie auf der rechten Bildseite.
 
