@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 16:17, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 16:25, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -28,15 +28,15 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 5 | 0 | 0 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 10 | 0 | 1 | 4 | 1606 (Tom) rand_1022 rot in Lauf 558 und 559 auf claude/buil… |
-| **7** Werkzeuge und Abläufe der Firma | 45 (48) | 30 | 0 | 0 | 12 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| **7** Werkzeuge und Abläufe der Firma | 45 (48) | 29 | 0 | 0 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 55 | 114 | 371 | 1231 |
-| neu | 78 | 116 | 358 | 1248 |
+| erledigt | 56 | 114 | 372 | 1232 |
+| neu | 79 | 116 | 359 | 1249 |
 | **netto** (erledigt − neu) | **−23** | **−2** | **+13** | **−17** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
@@ -49,11 +49,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1606 rand_1022 rot in Lauf 558 und 559 auf claude/build-298, am… (Muss); dann 9 weitere |
 | Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 2 weitere |
 | Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
-| Spike | läuft: 1645 (Besetzung); 1673 Entwurf t300 300.5, 300.6, 300.8 sind Aussehen als Handy, a… (Muss); dann 6 weitere |
+| Spike | läuft: 1645 (Besetzung); 1673 Entwurf t300 300.4, 300.5, 300.6, 300.8, 300.9 sind Aussehe… (Muss); dann 6 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | läuft: 1658 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | läuft: 1270.5 (Besetzung); 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss); dann 1 weitere |
-| Perikles | 1677 Wächter 1672 erkennt nur 300.6, 300.8; Aussehen/Bewegung al… (Muss) |
+| Perikles | M? M? entscheiden: 1678 (Muss) |
 
 **Die nächsten 20**
 
@@ -76,9 +76,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 15 | 1674 | Tom | Bewohner hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegsch… | M | 3 Kleiderschrank und Modelle | startbar |
 | 16 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
 | 17 | 1606 | Tom | rand_1022 rot in Lauf 558 und 559 auf claude/build-298, am Rechner auf demselbe… | M | 6 Godot besser nutzen | gebaut, t299 ohne deine Antwort |
-| 18 | 1667 | Spike | PR 219 rot, darum mit PR 220 nach t299 zusammen auf main: auf claude/build-299… | M | 6 Godot besser nutzen | startbar |
+| 18 | 1667 | Spike | auf claude/build-299 nur 1566 und 760 zurücknehmen, Lauf grün, Merge PR 220, PR… | M | 6 Godot besser nutzen | startbar |
 | 19 | 1670 | Spike | Grafik Hoch im Systemmenü 1. Mal zurück auf Automatisch gesprungen; 2. Mal gesp… | M | 6 Godot besser nutzen | startbar |
-| 20 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 20 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 
 Danach 61 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 19. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
