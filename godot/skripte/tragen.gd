@@ -470,6 +470,35 @@ func _schliessen(sk: Skeleton3D, ih: int, o: Vector3, d: Vector3, r: float) -> v
 				_beuge(sk, kette[j], d, vz * richtung * SCHLIESS_SCHRITT)
 				a = ab.call(j)
 				if (richtung > 0.0 and a <= HAUT) or (richtung < 0.0 and a >= HAUT_MIN): break
+	_daumen_zu(sk, quer, d, r)
+
+# 1694 (Einzelbild 23:08 längs am gezeichneten Netz: Schaft liegt an der Handfläche, Finger darum, der Daumen steht offen über dem
+# Zeigefinger): Mittel- und Endglied des Daumens um die Schaftachse beugen, bis der Daumen anliegt; die Richtung, in der der
+# Abstand kleiner wird (der Daumen hat keine feste Beugeseite wie die Finger)
+const DAUMEN_HAUT := 0.014         # m: Daumenkuppe (Knochen) über der Oberfläche; der Daumen ist dicker als die Finger
+func _daumen_zu(sk: Skeleton3D, quer: Callable, d: Vector3, r: float) -> void:
+	var kette: Array[int] = []
+	for g in ["_02_", "_03_"]:
+		var i := sk.find_bone("thumb" + g + seite)
+		if i >= 0: kette.append(i)
+	if kette.is_empty(): return
+	var ab := func() -> float:
+		var sp := _spitze(sk, kette[-1])
+		var gl := sk.get_bone_global_pose(kette[-1]).origin
+		return minf(float(quer.call(sp)), float(quer.call((sp + gl) * 0.5))) - r
+	for j in kette.size():
+		var a: float = ab.call()
+		if a <= DAUMEN_HAUT: return
+		_beuge(sk, kette[j], d, SCHLIESS_SCHRITT)
+		var vz := 1.0 if float(ab.call()) < a else -1.0
+		if vz < 0.0: _beuge(sk, kette[j], d, -SCHLIESS_SCHRITT)
+		for s in SCHLIESS_HOECHST:
+			var vorher: float = ab.call()
+			if vorher <= DAUMEN_HAUT: return
+			_beuge(sk, kette[j], d, vz * SCHLIESS_SCHRITT)
+			var nach: float = ab.call()
+			if nach < HAUT_MIN or nach >= vorher:   # im Schaft oder kein Fortschritt: zurück und nächstes Glied
+				_beuge(sk, kette[j], d, -vz * SCHLIESS_SCHRITT); break
 
 # Spitze des Endglieds (Skelettraum): Kind des Knochens, sonst Ende in Richtung des Glieds
 static func _spitze(sk: Skeleton3D, l: int) -> Vector3:
@@ -505,8 +534,52 @@ func _radius() -> float:
 # 1694: nach _stelle den Schaft in die Faust und die Finger an den Schaft (Lage der Waffe aus ihrem Knoten, in den Skelettraum).
 # griff_mess_1694 (Kaufstand): die Schaftachse lag 3,7 cm vor dem Mittelfingergrundgelenk (Handbeil, Schwert: die Finger erreichten
 # den Stiel nicht) bzw. 0,6 cm (Stab: Stab durch die Knöchel, 1657); in der Faust liegt sie Radius + FAUST_TIEFE zur Handfläche hin
-const FAUST_TIEFE := 0.02         # m: Grundgelenk (Knochen) bis Schaftoberfläche zur Handinnenseite (Handballen)
+const FAUST_TIEFE := 0.011        # m: Grundgelenk (Knochen) bis Haut der Handinnenseite, wenn das Netz nichts liefert
 const FAUST_VOR := 0.01            # m: Schaft so weit zu den Fingern hin, unter dem Grundglied
+const EINDRUCK := 0.002            # m: der Schaft drückt so weit in die Haut der Handfläche (anliegend, kein Spalt)
+var haut_tiefe := -1.0
+# 1694/1711 (griff_sicht_1694 am gezeichneten Netz, 18.11., 23:05): die Haut der Handinnenseite liegt beim Kaufkörper 1,0-1,1 cm unter
+# dem Mittelfingergrundgelenk, die feste Tiefe 2 cm ließ 1,9 cm Spalt zwischen Schaft und Handfläche, der Stiel hing in den gekrümmten
+# Fingern („an den Fingerspitzen“). Darum die Tiefe aus dem Netz der Figur (Held, Leute, Monster): Ecken mit Hauptgewicht am Handknochen
+# in Ruhelage (Bindepose), in höchstens 1,2 cm Abstand von der Linie durch das Grundgelenk zur Handinnenseite; die tiefste ist die Haut
+func _haut(sk: Skeleton3D, ih: int) -> float:
+	if haut_tiefe >= 0.0: return haut_tiefe
+	haut_tiefe = FAUST_TIEFE * mass() / maxf(0.001, sk.global_basis.get_scale().y)
+	var mf := sk.find_bone("middle_01_" + seite); var zf := sk.find_bone("index_01_" + seite)
+	var kf := sk.find_bone("pinky_01_" + seite); var th := sk.find_bone("thumb_01_" + seite)
+	if mf < 0 or zf < 0 or kf < 0 or th < 0: return haut_tiefe
+	var H := sk.get_bone_global_rest(ih)
+	var mp := sk.get_bone_global_rest(mf).origin; var hp := H.origin
+	var lang := (mp - hp).normalized()
+	var fl := lang.cross((sk.get_bone_global_rest(zf).origin - sk.get_bone_global_rest(kf).origin).normalized()).normalized()
+	if fl.dot(sk.get_bone_global_rest(th).origin - hp) < 0.0: fl = -fl
+	var basis := mp + lang * FAUST_VOR * mass() / maxf(0.001, sk.global_basis.get_scale().y)
+	var tief := -INF
+	for mi in sk.find_children("*", "MeshInstance3D", false, false):
+		var m3 := mi as MeshInstance3D
+		if m3.mesh == null or m3.skin == null or not m3.visible: continue
+		var bind := -1
+		for k in m3.skin.get_bind_count():
+			var nm := m3.skin.get_bind_name(k)
+			if (sk.find_bone(nm) if nm != "" else m3.skin.get_bind_bone(k)) == ih: bind = k
+		if bind < 0: continue
+		var B := m3.skin.get_bind_pose(bind)
+		for su in m3.mesh.get_surface_count():
+			var a := m3.mesh.surface_get_arrays(su)
+			var pos = a[Mesh.ARRAY_VERTEX]; var kn = a[Mesh.ARRAY_BONES]; var gw = a[Mesh.ARRAY_WEIGHTS]
+			if pos == null or kn == null or gw == null or pos.size() == 0: continue
+			var je: int = kn.size() / pos.size()
+			for vi in pos.size():
+				var best := -1; var bw := 0.0
+				for k in je:
+					if gw[vi * je + k] > bw: bw = gw[vi * je + k]; best = int(kn[vi * je + k])
+				if best != bind: continue
+				var p: Vector3 = H * (B * pos[vi])      # Ecke in Ruhelage, Skelettraum
+				var rel := p - basis
+				var t := rel.dot(fl)
+				if t > 0.0 and (rel - fl * t).length() < 0.012 * mass() / maxf(0.001, sk.global_basis.get_scale().y): tief = maxf(tief, t)
+	if tief > 0.0: haut_tiefe = tief
+	return haut_tiefe
 func _an_schaft(sk: Skeleton3D, ih: int) -> void:
 	if waffe == null or not griff_1694: return
 	var m := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
@@ -530,7 +603,7 @@ func _an_schaft(sk: Skeleton3D, ih: int) -> void:
 		var nah := g.origin + d * v.dot(d)                     # Punkt der Achse gegenüber dem Grundgelenk
 		if mp.distance_to(nah) <= HALT_WEIT and fl != Vector3.ZERO:
 			fl = (fl - d * fl.dot(d)).normalized()
-			var ziel := mp + fl * (r + FAUST_TIEFE) + lang * FAUST_VOR
+			var ziel := mp + fl * (r + _haut(sk, ih) - EINDRUCK * mass() / maxf(0.001, sk.global_basis.get_scale().y)) + lang * FAUST_VOR
 			var schub := ziel - nah
 			schub -= d * schub.dot(d)
 			waffe.global_position += G.basis * schub

@@ -5,11 +5,13 @@ extends SceneTree
 #  - Hand echt: Körpernetz mit bake_mesh_from_current_skeleton_pose (so, wie es gezeichnet wird), Ecken mit Hauptgewicht an Hand
 #    oder Finger der Waffenseite; um die echte Schaftachse: Umschlingung (Winkel in 10°-Feldern mit Haut näher als Radius + 2,5 cm),
 #    Spalt Handfläche (nächste Ecke der Hand selbst, ohne Finger) und Eindringen (kleinster Abstand minus Radius)
-#   xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/griff_sicht_1694.gd -- --sicht1694
+#   MESS=1694 xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/griff_sicht_1694.gd   (Exit 1 bei Fehler; ohne Bildschirm ist das Netz leer)
 
 const FOLGE := ["quarterstaff", "handaxe", "longsword"]
 const FELD := 10.0
 const NAH := 0.025
+var fehler_zahl := 0
+var reihe := []   # je Aktualisierung des Skeletts ein Satz Werte (cm, Grad)
 
 func _initialize() -> void:
 	_lauf.call_deferred()
@@ -24,16 +26,37 @@ func _lauf() -> void:
 	spiel.werte = BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", spiel.zustand.neue_uid)
 	var hw = spiel.held_werte()
 	hw.ausruestung.erase("OFF_HAND")
-	var fehler := 0
 	for i in FOLGE.size():
 		hw.ausruestung["MAIN_HAND"] = {"uid": 9600 + i, "base": FOLGE[i], "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": null, "name_seed": 1}
 		spiel.held_figur_neu("")
 		spiel.held.richtung = Vector3.ZERO
-		for f in 40: await process_frame
-		await RenderingServer.frame_post_draw
-		var z := miss(spiel.held.modell)
-		print("SICHT1694 %-12s %s" % [FOLGE[i], z])
-	quit(fehler)
+		for f in 80: await process_frame   # Übergang nach dem Anlegen abwarten (bis 4 Bilder mit hohler Faust)
+		# außerhalb der Änderung gibt get_bone_global_pose die Pose ohne Modifikatoren (auch bake): gemessen wird in skeleton_updated
+		var sk := Gebiet.finde(spiel.held.modell, "Skeleton3D") as Skeleton3D
+		var erg := {}
+		var mod: Node3D = spiel.held.modell
+		var cb := func(): erg["z"] = miss(mod)
+		reihe.clear()
+		sk.skeleton_updated.connect(cb)
+		for f in 20: await process_frame   # die Ruhebewegung bewegt die Hand: Median über 20 Bilder
+		sk.skeleton_updated.disconnect(cb)
+		if not reihe.is_empty() and reihe[0].umschl == 0.0 and reihe[0].haut < -100.0:
+			print("SICHT1694 FEHLER: keine Haut im Netz (ohne Bildschirm gestartet? bake braucht xvfb)"); fehler_zahl += 1; continue
+		if reihe.is_empty():
+			print("SICHT1694 %-12s %s" % [FOLGE[i], erg.get("z", "keine Aktualisierung")]); continue
+		if OS.get_environment("REIHE") != "":
+			for e in reihe: print("  R k=%.1f u=%d t=%.1f h=%.1f a=%.1f r=%.1f" % [e.kontakt, int(e.umschl), e.tief, e.haut, e.achse, e.radius])
+		var med := {}
+		for k in reihe[0]:
+			var a := []
+			for e in reihe: a.append(e[k])
+			a.sort(); med[k] = a[a.size() / 2]
+		var gut: bool = med.kontakt <= 0.3 and med.kontakt >= -0.8 and med.umschl >= 300.0 and med.tief >= -1.0
+		print("SICHT1694 %-12s Spalt Handfläche %.1f cm, Umschlingung %d°, Eindringen %.1f cm, Haut %.1f cm, Achse %.1f cm, Radius %.1f cm, Versatz halt %.1f cm (Median %d Bilder)%s" % [
+			FOLGE[i], med.kontakt, int(med.umschl), med.tief, med.haut, med.achse, med.radius, med.versatz, reihe.size(), "" if gut else "  FEHLER"])
+		fehler_zahl += 0 if gut else 1
+	print("SICHT1694 %d Fehler" % fehler_zahl)
+	quit(1 if fehler_zahl > 0 else 0)
 
 func miss(m: Node3D) -> String:
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
@@ -60,7 +83,7 @@ func miss(m: Node3D) -> String:
 				var v := p - mitte
 				if absf(v.dot(ax)) > 0.06: continue
 				if (v - ax * v.dot(ax)).length() < 0.04: wpts.append(p)
-	if wpts.is_empty(): return "kein Schaft an der Faust"
+	if wpts.is_empty(): return "kein Schaft an der Faust (getragen, nicht gehalten)"
 	var c := Vector3.ZERO
 	for p in wpts: c += p
 	c /= wpts.size()
@@ -70,7 +93,7 @@ func miss(m: Node3D) -> String:
 		var v := p - c
 		rs.append((v - ax * v.dot(ax)).length())
 	rs.sort()
-	var r: float = rs[int(rs.size() * 0.9)]
+	var r: float = rs[rs.size() / 2]   # Median: Parierstange und Klingenansatz zählen nicht
 	var versatz := (c - mitte).length()
 	# --- Hand echt: gezeichnetes Körpernetz
 	var hand_knochen := {}
@@ -85,6 +108,16 @@ func miss(m: Node3D) -> String:
 	var spalt := INF
 	var tief := INF
 	var n_hand := 0
+	# Handinnenseite wie tragen.gd _an_schaft: senkrecht auf Fingerrichtung und Knöchellinie, zur Daumenseite
+	var mp := faust
+	var hp := G * sk.get_bone_global_pose(hb).origin
+	var lang := (mp - hp).normalized()
+	var zf := G * sk.get_bone_global_pose(sk.find_bone("index_01_" + s)).origin
+	var kf := G * sk.get_bone_global_pose(sk.find_bone("pinky_01_" + s)).origin
+	var th := G * sk.get_bone_global_pose(sk.find_bone("thumb_01_" + s)).origin
+	var fl := lang.cross((zf - kf).normalized()).normalized()
+	if fl.dot(th - hp) < 0.0: fl = -fl
+	var haut_innen := -INF   # Haut der Handinnenseite unter dem Mittelfingergrundgelenk (m entlang fl)
 	var quer_x := (G.basis * Vector3.UP).cross(ax).normalized()
 	if quer_x.length() < 0.5: quer_x = ax.cross(Vector3.RIGHT).normalized()
 	var quer_y := ax.cross(quer_x)
@@ -119,8 +152,16 @@ func miss(m: Node3D) -> String:
 				n_hand += 1
 				tief = minf(tief, d)
 				if nur_hand.has(bk): spalt = minf(spalt, d)
+				var vm := p - mp
+				if nur_hand.has(bk) and (vm - fl * vm.dot(fl)).length() < 0.025: haut_innen = maxf(haut_innen, vm.dot(fl))
 				if d < NAH:
 					var w := rad_to_deg(atan2(qv.dot(quer_y), qv.dot(quer_x)))
 					felder[int(floor((w + 180.0) / FELD))] = true
-	return "versatz_halt %.1f cm, radius %.1f cm, hand_ecken %d, umschlingung %d°, spalt_handflaeche %.1f cm, eindringen %.1f cm" % [
+	var achse_innen := (c - mp).dot(fl)
+	# Prüfung (1694): Schaft an der Handfläche (Spalt zwischen Schaftoberfläche und Haut unter dem Grundgelenk höchstens 0,3 cm),
+	# umschlungen (mindestens 300°), nicht tief im Finger (Eindringen höchstens 1 cm)
+	var kontakt := achse_innen - r - haut_innen
+	reihe.append({"kontakt": 100.0 * kontakt, "umschl": felder.size() * FELD, "tief": 100.0 * tief, "haut": 100.0 * haut_innen,
+		"achse": 100.0 * achse_innen, "radius": 100.0 * r, "versatz": 100.0 * versatz})
+	return ("haut_tragen %.2f, haut_innen %.1f cm, achse_innen %.1f cm, " % [t.haut_tiefe, 100.0 * haut_innen, 100.0 * achse_innen]) + "versatz_halt %.1f cm, radius %.1f cm, hand_ecken %d, umschlingung %d°, spalt_handflaeche %.1f cm, eindringen %.1f cm" % [
 		100.0 * versatz, 100.0 * r, n_hand, int(felder.size() * FELD), 100.0 * spalt, 100.0 * tief]

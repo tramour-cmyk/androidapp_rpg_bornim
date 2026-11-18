@@ -1006,6 +1006,15 @@ jobs:
           path: ${{ env.APK_DATEI }}
       # 1268.5 (1268 A, Chef 15.11., 10:51): Bildrate und Ladezeit je Ort (Dorf, Wald, Hoehle, Wolfskampf) in jedem Lauf, im Renderer des
       # Handys (mobile, Lavapipe); Vergleich mit godot/tests/bildrate_grundwert.json, Warnung beim Abfall (Tabelle in der Zusammenfassung)
+      # 1694/1711 (Sokrates 18.11., 22:13: „Messung meldet passt, Bild zeigt Fehler“): Griff am gezeichneten Netz (Haut, nicht Knochen):
+      # Schaft an der Handfläche, umschlungen, Finger nicht tief im Schaft; braucht einen Bildschirm (bake ohne Fenster leer), sperrend
+      - name: Griff am gezeichneten Netz (1694)
+        run: |
+          sudo apt-get install -y -q libgl1-mesa-dri xvfb > /dev/null
+          cd godot
+          # Renderer des Projekts (Compatibility): unter Vulkan in Software las bake je Bild ein anderes, teils leeres Netz (Spike 23:33)
+          set -o pipefail; timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --resolution 540x1170 -s res://tests/griff_sicht_1694.gd 2>&1 | grep -E "SICHT1694|SCRIPT ERROR"
       - name: Bildrate je Ort (1268.5)
         if: ${{ !cancelled() }}
         continue-on-error: true
