@@ -965,3 +965,4 @@
 2026-11-18 11:59:00	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1631 schon 1 Probelauf seit Beginn der Zählung. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch ein Messlauf (	claude/tom-1631-durchstich
 2026-11-18 12:09:07	commit-pruefung	docs/ROLLE-PROJEKT.md: 13818 Bytes, Obergrenze 13200, Commit fügt 646 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-18 12:45:34	probelauf	748: Push angehalten, der letzte Lauf auf claude/tom-1631-durchstich ist rot (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44290500576, Stand 5aac622e1). Erst das Protokoll lesen	claude/tom-1631-durchstich
+2026-11-18 12:45:51	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1631-durchstich
