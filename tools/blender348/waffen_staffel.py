@@ -244,7 +244,7 @@ HINTEN = {'dagger': 7, 'shortsword': 8.5, 'scimitar': 8, 'rapier': 8.5, 'longswo
           'spear': 148 * 0.42, 'staff': 70 * 1.45}
 BOEGEN = {'shortbow': 101, 'longbow': 140}
 ARMBRUST = {'light_crossbow': (70, 25)}   # Laenge, Griff ab Kolbenende (Dress.kt baut sie rund, ohne Mass); geschaetzt
-ZWEI_GRIFF = 0.30   # 1621: Zweihaender von der Parierstange bis zum Knaufende mindestens 30 cm (zwei Faeuste 15,5 cm auseinander)
+ZWEI_GRIFF = float(os.environ.get('ZWEI_GRIFF', '0.30'))  # 1621: Zweihaender von der Parierstange bis zum Knaufende mindestens 30 cm (zwei Faeuste 15,5 cm auseinander)
 SCHWERTER = {'dagger', 'shortsword', 'scimitar', 'rapier', 'longsword', 'greatsword'}
 
 
