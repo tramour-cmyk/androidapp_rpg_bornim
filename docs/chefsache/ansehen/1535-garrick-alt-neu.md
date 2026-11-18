@@ -1,5 +1,7 @@
 # 1535 · Garrick: ist der Faden an der Jacke weg?
 
+[Bild von 18.11., 16:58](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1658-1535-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 18.11., 16:59 · E Figuren · aus deinem Fund 15:33 (Build 299, Garrick hebt in der Ruhe den Arm) und 15:59 (Bewohner im Kittel)
 Kurz: Garrick in der Ruhebewegung mit gehobenem rechtem Arm, links Build 299, rechts neu (Flanke der Jacke unter der Achsel folgt dem Rumpf statt dem Oberarm, für alle Figuren mit Kaufkleid). Die ausgebeulte Fläche unter dem Arm ist kleiner, aber nicht ganz weg.
 
