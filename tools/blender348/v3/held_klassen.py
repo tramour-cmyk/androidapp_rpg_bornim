@@ -641,7 +641,9 @@ def held3_tracht(figur, sex='m', liste='trachten.json'):
 # Beim Helden liegen Hose und Stiefel im selben Schrankplatz LEGS (Teil fällt mit), darum für alle gleich.
 SCHAFT_DECKT = float(os.environ.get('SCHAFT_DECKT', '0.04'))
 SCHAFT_EIN = float(os.environ.get('SCHAFT_EIN', '0.015'))
-SCHAFT_MIN = float(os.environ.get('SCHAFT_MIN', '0.035'))
+SCHAFT_MIN = float(os.environ.get('SCHAFT_MIN', '0.02'))   # Pim (Kind, duennes Bein): 3,5 cm liess die Hose am Knoechel vor dem Stiefel
+SCHAFT_AUS = float(os.environ.get('SCHAFT_AUS', '0.0'))   # auf den Schaft; 2 mm davor: Borin 181 -> 222 (Kante des Beinkleids steht ab)
+SCHAFT_MEHR = float(os.environ.get('SCHAFT_MEHR', '0.3'))
 
 
 def hose_in_stiefel(arm, netze, fm):
@@ -663,8 +665,16 @@ def hose_in_stiefel(arm, netze, fm):
     for o in netze:
         if o.name.split('.')[0] != 'Kleid': continue
         mw = o.matrix_world; mi = mw.inverted()
-        kand = []   # im Schaft: (Ecke, Bein, Punkt auf der Achse, r, L)
-        zahl = {}   # je Bein: [im Schaft, ueber dem Schaft]
+        kand = []   # im Schaft: (Ecke, Stueck, Punkt auf der Achse, r, L)
+        zahl = {}   # je Stueck und Bein: [im Schaft, ueber dem Schaft]
+        # Stuecke (zusammenhaengende Teile des Kleids): Borins Beinkleid #11/#12 liegt ueber dem Schaft, die Hose darunter im Schaft
+        eltern = list(range(len(o.data.vertices)))
+        def wurzel(a):
+            while eltern[a] != a: eltern[a] = eltern[eltern[a]]; a = eltern[a]
+            return a
+        for e in o.data.edges:
+            a, b = wurzel(e.vertices[0]), wurzel(e.vertices[1])
+            if a != b: eltern[a] = b
         for v in o.data.vertices:
             p = mw @ v.co
             if p.z > oben or p.z < 0.08: continue
@@ -678,19 +688,26 @@ def hose_in_stiefel(arm, netze, fm):
             d = r / L
             # nur was im Schaft liegt: Strahl von der Achse weg durch die Ecke, nicht laengs ihrer Normale (Messlauf 18.11.: Borins
             # Beinkleid #12 liegt vorn ueber dem Schaft, Normalen nach innen, eingezogen stach der Stiefel durch, 196 -> 288)
-            drin = bv.ray_cast(p + d * 0.0005, d, SCHAFT_DECKT)[0] is not None
+            treff = bv.ray_cast(p + d * 0.0005, d, SCHAFT_DECKT)[0]
+            drin = treff is not None
             drauf = not drin and bv.ray_cast(p - d * 0.0005, -d, L)[0] is not None
-            z = zahl.setdefault(bi, [0, 0]); z[0] += drin; z[1] += drauf
-            if drin and L > SCHAFT_MIN: kand.append((v, bi, best, r, L))
-        # je Bein (Mehrheit der Ecken): liegt das Beinkleid ueber dem Schaft (Borin, Lauf 18.11. 15:45: 196 -> 216, weil nur
-        # Teile eingezogen wurden und der Stiefel dazwischen durchstach), bleibt das Bein ganz draussen
-        aus = {i for i, (dr, da) in zahl.items() if da > dr}
+            st = (wurzel(v.index), bi)
+            z = zahl.setdefault(st, [0, 0]); z[0] += drin; z[1] += drauf
+            if drin: kand.append((v, st, best, r, L, treff))
+        # je Stueck und Bein (Mehrheit der Ecken): liegt es ueber dem Schaft (Borin, Lauf 18.11. 15:45: 196 -> 216, weil nur Teile
+        # eingezogen wurden und der Stiefel dazwischen durchstach; je Bein allein: 184 zu 137, half nicht), bleibt es ganz draussen
+        aus = {i for i, (dr, da) in zahl.items() if da > dr * SCHAFT_MEHR}
         n = 0
-        for v, bi, best, r, L in kand:
-            if bi in aus: continue
+        raus = 0
+        for v, st, best, r, L, treff in kand:
+            if st in aus:
+                # Stueck ueber dem Schaft: was davon noch im Stiefel liegt, vor den Stiefel (Borin: Stiefel stach durch #11/#12)
+                v.co = mi @ (treff + (r / L) * SCHAFT_AUS); raus += 1
+                continue
+            if L <= SCHAFT_MIN: continue
             v.co = mi @ (best + r * (max(SCHAFT_MIN, L - SCHAFT_EIN) / L)); n += 1
         o.data.update()
-        print('HOSE IM STIEFEL', o.name, n, 'Ecken eingezogen', 'Beine draussen', sorted(aus), zahl)
+        print('HOSE IM STIEFEL', o.name, n, 'Ecken eingezogen,', raus, 'vor den Schaft,', len(aus), 'Stuecke draussen', sorted(v for k, v in zahl.items() if k in aus))
 
 
 def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', kopfteile=()):
