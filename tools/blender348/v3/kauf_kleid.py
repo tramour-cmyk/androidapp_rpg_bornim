@@ -510,6 +510,34 @@ VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
     VK3[i] = (np.linalg.inv(A) @ np.r_[v, 1.0])[:3]
+# 1515 Runde 2 (Chef 17.11., 21:45: „die Aussage, dass der breite weiße Streifen weg sei, ist falsch“): einzelne Saumecken des
+# Kettenhemds an der Huefte trugen am Ende das Gewicht des Daumens (Wache W: 13 Flaechen Oberschenkel-Daumen); in unserer Haltung liegt
+# die Hand neben dem Oberschenkel, zurueck in der T-Haltung sassen die Ecken am Daumen, die Flaechen spannten 70 cm von der Huefte zur
+# Hand, im Hauptmenue als breiter heller Streifen zum Schild. ACHSEL_LANG fing sie nicht (nur Unterarm/Hand an Becken/Rumpf). Regel fuer
+# alle Kleider (1535): eine Ecke mit Gewicht an Unterarm, Hand oder Finger, deren Kante in der Ruhelage mehr als DEHN_MAX lang und mehr
+# als DEHN_FAKTOR mal so lang wird wie in unserer Haltung, nimmt das Mittel ihrer ungedehnten Nachbarn und wird neu zurueckgerechnet
+DEHN_MAX = float(os.environ.get('DEHN_MAX', '0.12')); DEHN_FAKTOR = float(os.environ.get('DEHN_FAKTOR', '3'))
+_fing = ('thumb', 'index', 'middle', 'ring', 'pinky')
+_armk = [k for k, nm in enumerate(Q_KN) if nm.startswith(('lowerarm_', 'hand_') + _fing)]
+_nb = [set() for _ in range(len(VK2))]
+for f_ in KF:
+    for j_ in range(len(f_)):
+        a_, b_ = f_[j_], f_[(j_ + 1) % len(f_)]; _nb[a_].add(b_); _nb[b_].add(a_)
+_n_dehn = 0
+for _runde in range(30):   # Borin: ganze Saumstuecke am Daumen, jede Runde heilt einen Ring vom Rand her
+    _schlecht = set()
+    for i in np.where(WKq[:, _armk].sum(1) > 0.3)[0] if _armk else []:
+        for k in _nb[i]:
+            l3 = float(np.linalg.norm(VK3[i] - VK3[k])); l2 = float(np.linalg.norm(VK2[i] - VK2[k]))
+            if l3 > DEHN_MAX and l3 > DEHN_FAKTOR * max(l2, 1e-4): _schlecht.add(int(i)); break
+    if not _schlecht: break
+    for i in _schlecht:
+        gut = [k for k in _nb[i] if k not in _schlecht]
+        if not gut: continue
+        WKq[i] = WKq[gut].mean(0); WKq[i] /= WKq[i].sum()
+        A = np.tensordot(WKq[i], SA, axes=1)
+        VK3[i] = (np.linalg.inv(A) @ np.r_[VK2[i], 1.0])[:3]; _n_dehn += 1
+print('HAND GEDEHNT 1515', _n_dehn, 'Ecken neu gewichtet (Runden %d)' % (_runde + 1))
 umhang_dbg(VK3, 'Ruhelage')
 for pb in qa.pose.bones:
     pb.matrix_basis = Matrix()
