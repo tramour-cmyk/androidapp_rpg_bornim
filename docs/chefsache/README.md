@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 21:02, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 21:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -182,20 +182,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 622 | K | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | nach dem Meilenstein |
 | 1280 | K | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 6 | nach dem Meilenstein |
 
-**Jerry** – offen 77, Muss 26, startbar 11
+**Jerry** – offen 77, Muss 26, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1331 | M | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen | wartet auf Test (Build) |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | startbar |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | wartet auf Sokrates |
 | 1068 | M | Von Perikles (1048 A, H, D, Chef 12.11., 20:05): Ring bei jedem großen Schlag der Gegner ( | ruht bis 21.11. 20:00 |
-| 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | wartet auf 760 (startbar) |
-| 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | wartet auf 760 (startbar) |
+| 1043 | M | Von Sokrates (Chef 12.11., 15:52, Fund t278.33 Build 280, zu 988): MARS-Probekampf Wölfe, | ruht bis 21.11. 20:00 |
+| 1032 | M | Von Sokrates (Chef 12.11., 14:08, Build 280, MARS-Probekampf Wölfe, Held und Söldner Wachs | ruht bis 21.11. 20:00 |
 | 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar (aus 709 abgetrennt, Chef 10.11., | ruht bis 21.11. 20:00 |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (ruht) |
 | 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | ruht bis 21.11. 20:00 |
 | 1415 | M | Von Jerry (1072 gemessen): Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A); Weg | wartet auf 709 (ruht) |
-| 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | wartet auf 760 (startbar) |
+| 931 | M | Von 784 A (Chef 11.11., 12:15): Wolf vorn – „Anspringen!“ steht, während er sich duckt (ke | ruht bis 21.11. 20:00 |
 | 1566 | M | Von Chef (17.11., 14:50, an Sokrates, Build 296, Bild): Höhlenwasser leuchtet hinter Wände | wartet auf Test (Build 300) |
 | 1588 | M | Von Spike (1556): Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den | ruht bis 21.11. 20:00 |
 | 1589 | M | Von Chef (17.11., 17:45–17:58, an Sokrates): Motor des Kampfs: Gegnerverhalten nach Regeln | wartet auf 1589.5 (startbar) |
@@ -210,7 +210,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1654 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m | startbar |
 | 1664 | M | Von Chef (18.11., 14:19/14:20, Fund): im Kampf (Wald, drei Goblins, Held Zauberlehrling, B | wartet auf Test (Build 300) |
 | 1697 | M | Von Jerry (Film t300.9, Lauf 567): dunkle Rechtecke unter Held und Goblin im Kampfort Wald | startbar |
-| 1698 | M | Von Ford (Befund Spike 18.11., 18:14): frischer Bau des Blocks klassen (held_klassen.py au | startbar |
+| 1698 | M | Von Ford (Befund Spike 18.11., 18:14): frischer Bau des Blocks klassen (held_klassen.py au | wartet auf Test/Build (gebaut) |
 | 1563 | K | Von Chef (17.11., 12:22, an Sokrates, Build 296, nannte 1155): Teich in der Höhle am Ufer | wartet auf 1564 (startbar) |
 | 438a | K | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv | ruht bis 23.11. |
 | 416.6 | K | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.1 | ruht bis 23.11. |
@@ -264,11 +264,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | nach dem Meilenstein |
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 
-**Spike** – offen 27, Muss 18, startbar 5
+**Spike** – offen 29, Muss 20, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1694 | M | Von Chef (18.11., 17:01, „Als Systemlösung, genau“, Votum Sokrates): Griff einmal für alle | wartet auf 1696 (startbar) |
+| 1694 | M | Von Chef (18.11., 17:01, „Als Systemlösung, genau“, Votum Sokrates): Griff einmal für alle | startbar |
 | 1484 | M | Von Sokrates (Chef 16.11., 20:20, Tablet SM-X210, Adreno 619, Build 286): Welt und Kampf 9 | Termin 21.11. 20:00 |
 | 1537 | M | Von Sokrates (1520 so, Chef 17.11., 10:00): Neustart-Haken zusätzlich an jeden Werkzeugauf | Termin 23.11. |
 | 1484a | M | Von Spike (1484, Auswertung Tablet 17.11.): Rückfrage Welt in Zellen teilen, Durchsicht nu | Termin 21.11. 20:00 |
@@ -280,23 +280,25 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1642 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 1 Rollenspiegel: jede Startwarnung m | Termin 25.11. |
 | 1643 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 3 Rollenspiegel, Rest neben 1624: de | Termin 25.11. |
 | 1645 | M | Von Spike (1270.5 Rang 6): Kampfort setzt die Sonnenschattenkarte beim Verlassen fest auf | wartet auf Test (Build 300) |
-| 1649 | M | Von Sokrates (1621, Chef 18.11., 11:55): Zweihandwaffe im Stand: keine Haltung (Stehen_axt | startbar |
+| 1649 | M | Von Sokrates (1621, Chef 18.11., 11:55): Zweihandwaffe im Stand: keine Haltung (Stehen_axt | wartet auf 1694 (startbar) |
 | 1270.6 | M | Von Sokrates (1270.5 A, Chef 18.11., 13:06): Messbuild Technik: Schalter 3D-Auflösung 50 % | wartet auf Test (Build 300) |
 | 1270.7 | M | Von Sokrates (1270.5 A, Chef 18.11., 13:06): nach Messung 1270.6: Texturen komprimiert (Nr | Termin 21.11. 20:00 |
 | 1665 | M | Von Chef (18.11., 14:34, Fund, Build 298/299): Streitkolben in der Haupthand angelegt, am | startbar |
-| 1669 | M | Von Perikles (1668, Chef 18.11., 14:44): nächster Sammelbuild ein Handypunkt Grafikstufe: | startbar |
+| 1669 | M | Von Perikles (1668, Chef 18.11., 14:44): nächster Sammelbuild ein Handypunkt Grafikstufe: | wartet auf Test (Build 300) |
 | 1670 | M | Von Chef (18.11., 15:30, Fund, Build 299): Grafik Hoch im Systemmenü 1. Mal zurück auf Aut | wartet auf Test (Build 300) |
-| 1632 | K | Von Chef (18.11., 09:00, Rollenspiegel Diogenes): Gangprüfung im Bautest: Fußgleiten je Bo | startbar |
+| 1632 | K | Von Chef (18.11., 09:00, Rollenspiegel Diogenes): Gangprüfung im Bautest: Fußgleiten je Bo | wartet auf Test t301 (Chef) |
 | 1630 | K | Von Chef (18.11., 09:00, Rollenspiegel Ford): alle Lichtquellen der Höhle (Fackeln, Glut, | wartet auf Test (Build 300) |
 | 474 | K | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht bis 23.11. |
 | 30 | K | Abstürze beim Testen | ruht bis 23.11. |
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 | 1613 | K | Von Sokrates (458.3, Vorentscheid 18.11.): Waffen episch und höher mit Effekt statt Färbun | Termin 21.11. 20:00 |
 | 1270.8 | K | Von Sokrates (1270.5 A, Chef 18.11., 13:06): nur wenn die Messung es verlangt: Tusche halb | Termin 21.11. 20:00 |
-| 1666 | K | Von Jerry (1652): bau_am_rechner.py --cache bricht ohne Blender ab, sobald nur Block klass | startbar |
+| 1666 | K | Von Jerry (1652): bau_am_rechner.py --cache bricht ohne Blender ab, sobald nur Block klass | wartet auf Test t301 (Chef) |
 | 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
+| 1701 | M | Von Sokrates (Archiv 18.11., 20:27): alte Notizkopie trat wieder auf (Sokrates 20:29: 60 e | startbar |
+| 1702 | M | Von Sokrates (1655, 18.11., 20:59): vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung | startbar |
 
-**Perikles** – offen 23, Muss 17, startbar 1
+**Perikles** – offen 24, Muss 17, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -323,6 +325,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 23.11. |
 | 1396 | K | Von Ford (Tuffy 16.11., 10:00): lauf.py startet Tuffy auf Zeile 1393, die Jerry schon in s | wartet auf Test/Build (gebaut) |
 | 1689 | K | Von Werkzeug (Startwarnung Pflege, 1642, seit 18.11., 10:55): ARBEIT-TAGESBERICHT.md: Tabe | startbar |
+| 1703 | K | Von Werkzeug (Startwarnung 650.2, 1642, seit 18.11., 14:44): Inhaltsverzeichnis docs/READM | startbar |
 
 **Diogenes** – offen 8, Muss 7, startbar 0
 
@@ -348,8 +351,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.2 (ruht) |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | ruht bis 23.11. |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
-| 1696 | M | Von Spike (1694, 👎 Chef 17:38): ein Bildlauf frei für die Hände (Längsblick und Spielnähe, | startbar |
 | 1679 | M | Von Chef (18.11., 16:32, Frage): wer ist zuständig für Kartendesign, Design grundsätzlich, | startbar |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht | startbar |
 | 1625 | K | Von Chef (18.11., 08:17/08:22, Idee): feste Startprompts je Rolle statt Startlektüre; wir | ruht bis 25.11. |
 | 780 | K | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | K | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | Termin 23.11. |
