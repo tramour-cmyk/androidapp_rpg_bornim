@@ -359,7 +359,7 @@ jobs:
             dinge="$dinge longsword shield shortsword quarterstaff round_shield"   # 376.1 Grundausruestung der vier Klassen (heldfigur.gd, auf dem Ruecken)
             # 522 (Chef 04.11., 11:55: „die alte Bewaffnung … war weg, aber die neue ist nicht sichtbar“): jede Waffe, die waffen.py bauen
             # kann, auch fuer den Helden; Streitkolben, Kriegshammer und die uebrigen haben noch kein Modell (458.3)
-            dinge="$dinge dagger scimitar handaxe shortbow longbow quiver"   # 643: Langbogen (auch Held) und Köcher (Garrick, Rücken)
+            dinge="$dinge dagger scimitar handaxe shortbow longbow quiver wand staff"   # 643: Langbogen (auch Held) und Köcher (Garrick, Rücken); 1587 Zauber- und Magierstab
             mkdir -p godot/daten/waffen
             for w in $dinge; do
               OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
@@ -433,7 +433,7 @@ jobs:
           for f in braun schwarz grau; do cp $OUT/giant_bat-$f.glb $D/giant_bat-$f.bin; done; cp $OUT/giant_bat-info.json $D/
           cp $OUT/kampfort-wald.glb $D/kampfort-wald.bin; cp $OUT/wald-maske.png $D/wald-maske.bild
           for o in waldrand teich baum felsen steinkreis; do cp $OUT/kampfort-wald-$o.glb $D/kampfort-wald-$o.bin; cp $OUT/wald-maske-$o.png $D/wald-maske-$o.bild; done
-          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb $D/$w.bin; done
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost wand staff; do cp $OUT/$w.glb $D/$w.bin; done
           for k in leder kappe helm; do cp $OUT/goblin-$k.glb $D/goblin-$k.bin; done; cp $OUT/goblin-info.json $D/
           for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb $D/goblin_archer-$k.bin; done; cp $OUT/goblin_archer-info.json $D/
           for k in robe fell beides; do cp $OUT/goblin_shaman-$k.glb $D/goblin_shaman-$k.bin; done; cp $OUT/goblin_shaman-info.json $D/
@@ -686,6 +686,7 @@ jobs:
           timeout 120 ~/godot/godot --headless --path . -s res://tests/geruest_1215.gd 2>&1 | grep -E "GERUEST1215" | cut -c1-400 || true   # 1215 Gerüste aller Körper im Bau (Äste an der Wurzel, Gliedertafel), nur Auskunft
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/ausholen_1000.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|AUSHOLEN1000|SCRIPT ERROR"   # 1000 Grak hält die Axt oben von der Ansage bis zum Hieb
+          set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/sprung_760.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|SPRUNG760|MESSUNG760|^760 .*Biss|SCRIPT ERROR"   # 760 der Wolf springt bei „Anspringen“ (ducken, Flug, Biss, zurück auf den Platz)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
           set -o pipefail; for s in 7 9 13; do SEED=$s timeout 400 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/biss_1284.gd 2>&1 | grep -E "^BISS1284 ([0-9]|FEHLER)|SCRIPT ERROR"; done   # 1284 Ratte beißt auch daneben sichtbar knapp vorbei; 1284a A: drei Würfe
           set -o pipefail; timeout 200 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/einschlag_6011.gd 2>&1 | grep -E "^(FEHLER|EINSCHLAG6011)|SCRIPT ERROR"   # 601.1 Geschoss trifft den Rumpf, wo der Getroffene zuckt (Jerry)
@@ -713,6 +714,7 @@ jobs:
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Held|Söldner|nach|in den|im Kampf|Atem 453)|SCRIPT ERROR"   # 453.1 (Tuffy)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/atem_rechnung_4531.gd 2>&1 | grep -E "^(ok|FEHLER|Anstrengung|Atemrechnung)|SCRIPT ERROR"   # 453.1 Feld 2 (Tuffy)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/atem_tiere_1166.gd 2>&1 | grep -E "^FEHLER|ATEMTIERE1166|SCRIPT ERROR"   # 1166 Atem für alle Tiere mit Rücken
+          set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/atem_dorftiere_1167.gd 2>&1 | grep -E "^FEHLER|^1167|ATEMDORF1167|SCRIPT ERROR"   # 1167 Dorftiere atmen (Tom)
           # 406 b (Jerry): Schild im Kampf, auch linke Schulter und Oberarm gegen den Schild; 1136 (1128 A Laufnachweis): haelt an
           # (Lauf 427: „SCHILD 406 gut“, Ende 0), traegt 1013 und 1014
           nebenher schild_406 'timeout 900 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/schild_406.gd 2>&1 | grep -E "^(ok|FEHLER|  |SCHILD|Schild|Kampf )|SCRIPT ERROR"'
@@ -923,6 +925,7 @@ jobs:
           timeout 180 ~/godot/godot --headless --path . -s res://tests/zielwahl_78511.gd 2>&1 | tee zielwahl78511.log | grep -E "^FEHLER|ZIELWAHL78511|SCRIPT ERROR"; grep -q "^ZIELWAHL78511 gut" zielwahl78511.log   # 785.11 Zielwahl wie alt (Reihe, Wählbare hell, übrige gedämpft)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tipp_78515.gd 2>&1 | tee tipp78515.log | grep -E "^FEHLER|TIPP78515|SCRIPT ERROR"; grep -q "^TIPP78515 gut" tipp78515.log   # 785.15 Erklärfenster wegtippen, weg während des Rings
           timeout 180 ~/godot/godot --headless --path . -s res://tests/zurueck_kampf_78517.gd 2>&1 | tee zk78517.log | grep -E "^FEHLER|ZURUECKKAMPF78517|SCRIPT ERROR"; grep -q "^ZURUECKKAMPF78517 gut" zk78517.log   # 785.17 Zurück im Kampf schließt die Auswahl
+          timeout 180 ~/godot/godot --headless --path . -s res://tests/mana_1478.gd 2>&1 | tee m1478.log | grep -E "^FEHLER|MANA1478|SCRIPT ERROR"; grep -q "^MANA1478 gut" m1478.log   # 1478 Mana nach dem Sieg (1411 A)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/satt_78522.gd 2>&1 | tee satt78522.log | grep -E "^FEHLER|SATT78522|SCRIPT ERROR"; grep -q "^SATT78522 0 Fehler" satt78522.log   # 785.22 Leiste zeigt „Satt“ wie alt
           timeout 200 ~/godot/godot --headless --path . -s res://tests/renntaste_78523.gd 2>&1 | tee renntaste78523.log | grep -E "^FEHLER|RENNTASTE78523|SCRIPT ERROR"; grep -q "^RENNTASTE78523 0 Fehler" renntaste78523.log   # 785.23 Renntaste geht von selbst aus
           timeout 120 ~/godot/godot --headless --path . --resolution 1080x2340 -s res://tests/faecher_1309.gd 2>&1 | tee faecher1309.log | grep -E "^FEHLER|FAECHER1309|SCRIPT ERROR"; grep -q "^FAECHER1309 0 Fehler" faecher1309.log   # 1309 Fächer der Ausrüstung wie alt, Seite rollt nicht
@@ -1408,6 +1411,27 @@ jobs:
             for s in $(awk '$3=="EVADED"{print $1}' $B/949-ring.log | head -3); do
               ARGS="$ARGS -ss $(awk -v s=$s -v v=${V:-0} 'BEGIN{a=s+v-1.2; printf "%.2f", (a>0?a:0)}') -t 4.5 -i $B/949-ring.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done
             [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/949-ring-kurz.mp4 || true
+            ls -l $B; exit 0
+          fi
+          # 760 und 1000 (Jerry; Chef 15.11., 13:34 „Block 760 und 1000“, ein Filmlauf für beide): der Wolf springt bei „Anspringen“
+          # (ducken, Flug, Biss, zurück auf den Platz), von der Seite; je Sprung 1,5 s davor bis 3,5 s danach, höchstens dreimal, bis 15 s.
+          # Danach Grak wie kampf=1000 (die Axt bleibt beim Ausholen in den Fäusten)
+          if [ "${{ github.event.inputs.kampf }}" = "760" ]; then
+            film 760-sprung sollbild_784 RUNDEN=3 GEGNER=WOLVES ZUG=pounce ZEILEN=1 KAMERA=seite &
+            film 1000-ausholen sollbild_784 RUNDEN=3 GEGNER=GRAK ZUG=heavy ZEILEN=1 KAMERA=seite &
+            wait
+            grep -E "^Filmversatz|^Sprungzeit|SCRIPT ERROR" $B/760-sprung.log | head -30 || true
+            V=$(awk '/^Filmversatz/{print $2}' $B/760-sprung.log | head -1); ARGS=""; FC=""; i=0
+            for z in $(awk '/^Sprungzeit/{print $2}' $B/760-sprung.log | head -3); do
+              st=$(awk -v a=$z -v v=${V:-0} 'BEGIN{ x=a+v-1.5; printf "%.2f", (x>0?x:0) }')
+              ARGS="$ARGS -ss $st -t 5 -i $B/760-sprung.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done
+            [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/760-sprung-kurz.mp4 || true
+            grep -E "^Filmversatz|^==|^  |SCRIPT ERROR" $B/1000-ausholen.log | head -60 || true
+            V=$(awk '/^Filmversatz/{print $2}' $B/1000-ausholen.log | head -1); ARGS=""; FC=""; i=0
+            for z in $(awk '/^ +[0-9.]+ /{ if (a=="" && /kündigt/) {a=$1; w=$2; next} if (a!="" && $2==w && $3=="FOE_STRIKES") {print a":"$1; a=""} }' $B/1000-ausholen.log | head -2); do
+              for st in $(awk -v a=${z%:*} -v e=${z#*:} -v v=${V:-0} 'BEGIN{ if (e-a+2.5 <= 6) { x=a+v-0.5; printf "%.2f,%.2f\n", (x>0?x:0), e-a+2.5 } else printf "%.2f,2.5\n%.2f,3.5\n", a+v-0.5, e+v-1.5 }'); do
+                ARGS="$ARGS -ss ${st%,*} -t ${st#*,} -i $B/1000-ausholen.mp4"; FC="$FC[$i:v]"; i=$((i+1)); done; done
+            [ $i -gt 0 ] && ffmpeg -loglevel error -y $ARGS -filter_complex "${FC}concat=n=$i:v=1:a=0[v]" -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 26 -preset veryfast $B/1000-ausholen-kurz.mp4 || true
             ls -l $B; exit 0
           fi
           # 1000 (Jerry, Film 286.5a): Grak kündigt Schweren Hieb an, hält die Axt oben bis zum Hieb; von der Seite (Ansage verdeckt

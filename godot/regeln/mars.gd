@@ -408,6 +408,7 @@ var numbered := {}
 var easy_gap = null
 var quick_run := false
 var started := false
+var hp_start := {}     # 1567: Leben je Gefährte zu Kampfbeginn (_opening), für [259T.tafel] nach „Schnell ›“ mitten im Kampf
 var knockouts := 0
 var outcome := "ONGOING"
 ## 296.2: who strikes first, as on the map: "AMBUSHED" the foes before the party, "HERO_FIRST" the party first and the
@@ -439,7 +440,7 @@ var smoke_thrown := false
 var smoke_spent := false
 const KROGG := "bugbear"
 const THROWS := ["{0} wirft {1}!", "{0} throws {1}!"]     # Battle.kt Msg.throws
-const MSG532_CURED := ["{0} ist von allen Leiden befreit!", "{0} is cured of all ailments!"]     # Battle.kt Msg.cured
+const MSG532_CURED := ["{0} fühlt sich wieder gesund.", "{0} feels healthy again."]     # Battle.kt Msg.cured; 1319 (Homer): Wortlaut wie draußen (texte.json benutzen.cured), Rausch bleibt
 const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bundle
 const MSG1232_RAUCH := ["{0} hat beißenden Rauch in den Augen. Sein Schlag geht ins Leere.", "{0} has stinging smoke in his eyes. His blow goes astray."]     # [1232.rauch.krogg]
 var aim_spot := {}
@@ -1287,6 +1288,9 @@ func start(react: Callable = Callable(), verjagen := false) -> Array:
 
 func _opening() -> void:
 	started = true
+	for p in all:
+		if p.side == "PARTY":
+			hp_start[p.id] = p.hp
 	if winded:
 		_say(fmt(X.MSG72_WINDED, lang, [lead().name(lang)]))
 	if fed:
@@ -1410,9 +1414,11 @@ func quick() -> Dictionary:
 	_log = []
 	var stopped := outcome == "ONGOING"
 	autopilot = false
+	# 1567 (Chef 17.11., 14:54, Build 296: „Alrik –0 Leben“, Leiste 97/109): seit „Schnell ›“ auch mitten im Kampf geht (785.10)
+	# zählt der Verlust ab Kampfbeginn, nicht erst ab dem Knopf (alt Skirmish.kt quick nur zu Beginn, dort gleich)
 	var lost := {}
 	for p in party:
-		lost[p.id] = before[p.id] - p.hp
+		lost[p.id] = int(hp_start.get(p.id, before[p.id])) - p.hp
 	return {"lost": lost, "stopped": stopped, "events": events}
 
 
@@ -1572,7 +1578,10 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 					_brs_zauber(f, g, z)
 		"Z_WUND":
 			f.wund_genutzt += 1     # 1292 A
-			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0)))
+			# 1478 (1411 A, Chef 16.11., 19:32): Heilung gestreut wie der Waffenschaden (kampf.streuung, 0,8–1,2)
+			var st := float(BrsKampf.w()["kampf"].get("streuung", 0.0))
+			var streu: float = (1.0 - st) + 2.0 * st * float(dice.randf()) if st > 0.0 and dice != null else 1.0
+			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0) * streu))
 			t.hp += n
 			if f == t:
 				_say(fmt(X.MSG72_HEALSSELF, lang, [f.name(lang), n]), f.id, t.id, 0, null, false, false, "HEAL")
@@ -2726,6 +2735,8 @@ func _gegenwirkung(f: Fighter, t: Fighter, typ) -> void:
 		if not all.any(func(x): return x.side == "FOES" and x.standing()):
 			kein_lohn = all.all(func(x): return x.side != "FOES" or x.called_in or x.vor_feuer)
 			outcome = "WON"
+	elif art == "giant_spider" and ty == "feuer" and kerbe and gk != null and gk.netz_verbrennt(f, t):
+		pass     # 1541 (Regel 19): im Kerbensystem verbrennt Feuer das angesagte Netz, die Zeile der Seide sagt brechen()
 	elif art == "giant_spider" and ty == "feuer" and not t.seide_weg:
 		t.seide_weg = true
 		_say(MSG870_GEGEN_SPINNE[lang], f.id, t.id)

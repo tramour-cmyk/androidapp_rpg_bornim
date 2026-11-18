@@ -1304,7 +1304,8 @@ func _ende_833() -> void:
 		var teile: Array = []
 		for id in k.schnell_verlust:
 			var g: Variant = m.find(id)
-			if g != null: teile.append("%s −%d %s" % [g.name(lang), int(k.schnell_verlust[id]), t("Leben", "Life")])
+			# 1567 (Chef 17.11., 14:54: „Minus 0 Leben macht nicht so viel Sinn“): wer nichts verlor (oder geheilt wurde), steht nicht da
+			if g != null and int(k.schnell_verlust[id]) > 0: teile.append("%s −%d %s" % [g.name(lang), int(k.schnell_verlust[id]), t("Leben", "Life")])
 		if not teile.is_empty():
 			vorab = 1
 			lohn.push_front(" · ".join(teile))
@@ -1757,10 +1758,24 @@ func _draw_overlay() -> void:
 
 
 ## 249: ein Treffer, der blutet: [by] schlug [on]; [hurt] wie schwer der Getroffene danach verwundet ist (0..1).
-func bleed(by: String, on: String, crit: bool, hurt: float, monster_id: String) -> void:
+## 760: [an] die Stelle, an der der Schlag den Körper trifft (Welt, figur.treffpunkt_biss); dort beginnt das Blut und geht mit dem
+## Getroffenen mit (Abstand zu seinem Ursprung); Vector3.INF wie bisher in der Mitte des Körpers
+func bleed(by: String, on: String, crit: bool, hurt: float, monster_id: String, an := Vector3.INF) -> void:
 	var gore: String = {"skeleton": "BONE", "zombie": "ICHOR", "ghoul": "ICHOR", "ochre_jelly": "SLIME"}.get(monster_id, "BLOOD")
+	var rel: Variant = null
+	if an != Vector3.INF and kampfort.figures.has(on):
+		rel = kampfort.to_local(an) - kampfort.figures[on].position
 	bleeding = {"by": by, "on": on, "crit": crit, "hurt": clampf(hurt, 0.0, 1.0), "gore": gore,
-		"seed": int(bleeding.get("seed", 0)) + 1, "t0": kampfort.clock_ms}
+		"seed": int(bleeding.get("seed", 0)) + 1, "t0": kampfort.clock_ms, "rel": rel}
+
+
+## 760: Ursprung des Bluts am Schirm: der Treffpunkt, sonst die Mitte des Körpers (wie BattleBlood.kt)
+func blut_ursprung(on: Variant) -> Vector2:
+	var rel: Variant = bleeding.get("rel")
+	if rel is Vector3 and bleeding.get("on") == on.fighter.id:
+		return kampfort.screen_of(on.position + rel)
+	var to := _foot(on)
+	return Vector2(to.x, to.y - _tall(on) * 0.55)
 
 
 var _in_row := {}     # Wirkender und Art -> [Start ms, Nummer in Folge]
@@ -2702,7 +2717,7 @@ func _draw_blood() -> void:
 	var dy := (to.y - from.y) * 0.5 - 0.3 * to.distance_to(from)
 	var base := -25.0 if dx == 0.0 and dy == 0.0 else rad_to_deg(atan2(dy, dx))
 	var unit := tall / 40.0
-	var origin := Vector2(to.x, to.y - tall * 0.55)
+	var origin := blut_ursprung(on)
 	var ground := to.y
 	var cols: Array = GORE[bleeding.gore]
 	var rnd := RandomNumberGenerator.new()
