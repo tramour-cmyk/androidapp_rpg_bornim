@@ -972,6 +972,46 @@ def stand_abweichung(wo):
     return None
 
 
+def modelle_vor_build(befehl, cwd):
+    """1719 (Perikles 18.11., 23:13: Buildzweige in 24 h 3 grün, 4 rot, 3 abgebrochen): 5 von 7 roten oder abgebrochenen Läufen
+    (durchstich_1631 viermal, wende_4168) kamen daher, dass ein gemischter Zweig Bauskripte änderte: der Bauserver baute den Block
+    (klassen) zum ersten Mal frisch, die Prüfungen trafen auf Modelle, die am Rechner nie gemessen wurden (Grenzen aus dem Cache).
+    Darum: ein Push auf claude/build-<n>, dessen neue Commits tools/blender348/ oder tools/gegenstaende/ ändern, braucht Modelle
+    am Rechner zu genau diesen Bauskripten (Stempel von bau_am_rechner.py, 1702) und die Zeile „Kaufmodelle: …“ in der Nachricht
+    (welche Prüfungen mit Kaufmodellen am Rechner grün liefen). Grund oder None."""
+    m = PUSH.search(befehl)
+    if not m:
+        return None
+    wo = wo_von(befehl, m, cwd)
+    teile = [t for t in m.group(2).split() if not t.startswith("-")]
+    ziel = teile[-1].lstrip("+").split(":")[-1] if len(teile) >= 2 else "HEAD"
+    if ziel in ("HEAD", "@"):
+        ziel = git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
+    ziel = ziel.replace("refs/heads/", "")
+    if not re.fullmatch(r"claude/build-\d+", ziel):
+        return None
+    oben = git("rev-parse", "--verify", "-q", f"origin/{ziel}", cwd=wo).stdout.strip() or \
+        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
+    if not oben or git("diff", "--quiet", oben, "HEAD", "--", *MODELL_PFADE, cwd=wo).returncode != 1:
+        return None
+    gd = git("rev-parse", "--git-dir", cwd=wo).stdout.strip()
+    pfad = os.path.join(wo, gd, "bornim-modellstand") if gd else ""
+    c = open(pfad).read().strip() if pfad and os.path.exists(pfad) else ""
+    if not c or git("diff", "--quiet", c, "HEAD", "--", *MODELL_PFADE, cwd=wo).returncode != 0:
+        return ("1719: die neuen Commits auf " + ziel + " ändern Bauskripte (tools/blender348/, tools/gegenstaende/); der Bauserver "
+                "baut den Block dann frisch und die Prüfungen treffen ungeprüfte Modelle. Erst am Rechner "
+                "`python3 tools/godot/bau_am_rechner.py --cache --laden` (baut fehlende Blöcke, Stempel), die Prüfungen mit "
+                "Kaufmodellen laufen lassen, dann pushen.")
+    texte = git("log", "--format=%B", f"{oben}..HEAD", cwd=wo).stdout
+    neu = COMMIT_F.search(befehl[:m.start()]) or COMMIT.search(befehl[:m.start()])
+    if neu:
+        texte += "\n" + (neu.group(2) if neu.re is COMMIT_F else neu.group(1))
+    if not re.search(r"(?m)^Kaufmodelle: \S", texte):
+        return ("1719: Bauskripte geändert; in eine der neuen Commit-Nachrichten die Zeile „Kaufmodelle: <Prüfungen> grün am "
+                "Rechner (Modellstand " + c[:9] + ")“, dann pushen.")
+    return None
+
+
 def figur_sperre(wo, rev):
     """513.1: Grund zum Anhalten oder None. Jeder abgenommene Figurencommit aus tools/figurenstand.tsv (main) muss in rev
     enthalten sein; Arbeitskopie ohne godot/: keine Figuren, nichts zu prüfen."""
@@ -1161,6 +1201,12 @@ def main():
     try:
         grund = rot_vorher(roh, cwd)  # 748: nach rotem Lauf erst Ursache, dann Push
     except (OSError, subprocess.SubprocessError, ValueError):
+        grund = None
+    if grund:
+        anhalten(grund)
+    try:
+        grund = modelle_vor_build(befehl, cwd)  # 1719: neue Bauskripte im Buildzweig erst mit frischen Modellen am Rechner
+    except (OSError, subprocess.SubprocessError, ValueError, Unaufloesbar):
         grund = None
     if grund:
         anhalten(grund)
