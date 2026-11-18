@@ -770,6 +770,7 @@ def main():
     for s in leb:
         r, laufend, ruhig, _ = s["_info"]
         if "BLOCKED" not in s.get("status_bucket", "") or ruhig < FREIGABE_MIN: continue
+        if s.get("session_status") == "SESSION_STATUS_IDLE": continue  # 1617 (D309.1): blocked und idle = Zug zu Ende, Rückfrage an den Chef, keine Freigabe
         m = "Freigabe %s %s" % (s["id"], s["updated_at"][:16])
         if ("Marke " + m) in marke_alt: continue
         ausgabe.append("%s Sitzung wartet auf Freigabe: %s „%s“ seit %s; Chef: in https://claude.ai/code/%s freigeben oder ablehnen (1572)" % (
