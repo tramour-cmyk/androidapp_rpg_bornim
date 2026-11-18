@@ -3,7 +3,7 @@ extends "res://tests/drehteller_film_499.gd"
 # Tempo“): Nachstellung ohne Bild. Je Waffe wie im Film 458.3 (HeldFigur.bewaffne): welche Gehbewegung, Takt (Umtakten 416.4),
 # Schritte je Sekunde, Schrittlänge, Tempo ohne Gleiten am Skelett (stand_tempo) gegen das Tempo, mit dem der Film (1,08 m/s) und das
 # Spiel (karte.gehen × TS auf Gras) den Helden schieben; Gleiten = Anteil, um den der Standfuß über den Boden rutscht.
-# Aufruf: godot --headless --path godot -s res://tests/gang_mess_1619.gd
+# WAFFEN_GEHEN=paket: wie vor 1619 (Paket ganz). Aufruf: godot --headless --path godot -s res://tests/gang_mess_1619.gd
 
 const WAFFEN := [["", 0, ""], ["longsword", 1, "COMMON"], ["mace", 1, "COMMON"], ["greataxe", 1, "COMMON"], ["halberd", 1, "COMMON"],
 	["spear", 11, "RARE"]]
@@ -12,6 +12,8 @@ const SPIEL_V := 1.84 * 1.16  # karte.gd gehen × Karte.TS, Gras
 
 func _lauf() -> void:
 	Sprache.lade()
+	if OS.get_environment("WAFFEN_GEHEN") != "": HeldFigur.waffen_gehen = OS.get_environment("WAFFEN_GEHEN")
+	print("GANG1619 waffen_gehen ", HeldFigur.waffen_gehen)
 	baue_welt()
 	var z := Zustand.new()
 	var hw := BrsHeld.fuer_spiel("Thora", "Mensch", "Wachsoldat", z.neue_uid)
