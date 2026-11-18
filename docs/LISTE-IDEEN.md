@@ -8,6 +8,8 @@ Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört 
 
 ## Reif (Übersicht für Perikles)
 
+- **Effekte wie andere sie bauen** (1270.5, Spike 18.11.: Bildfolgen auf wenigen Flächen für Feuer, Treffer, Rauch; Zauber und Hiebe als bewegte Netze; gemeinsamer Effekt-Shader mit Atlas) → Jerry, Homer; kein Engpass belegt, jedes neue Effektbild ist Aussehen (Chef).
+
 - **Kampfaktion „Helfen“** → Vorrat Jerry, zu 72.10a.9 (unter Kampf).
 - **Hund und Katze reagieren auf den Helden**, **Dorfhund jault** und **Katze im Gasthaus** (Welt, Figuren) → zu **W21** und **W11** (Kleinleben, Tierlaute fehlen), ein Vorgang an Tom (Bild, Verhalten), Klang Jerry; Katzenmodell kauft nur der Chef.
 - **Dorfbewohner mit Tätigkeit** (Welt) → zu **W5**, **W6** (Stammplätze, Gesten fehlen); wer was tut: Homer, sobald Tom fragt.
