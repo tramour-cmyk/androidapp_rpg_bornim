@@ -25,7 +25,7 @@
 			"zug": 11
 		},
 		"Stehen_2": {
-			"durch": 105,
+			"durch": 101,
 			"zug": 23
 		}
 	},
@@ -42,11 +42,11 @@
 	"L_aldric": {
 		"Gesten": {
 			"durch": 45,
-			"zug": 12
+			"zug": 11
 		},
 		"Stehen": {
 			"durch": 48,
-			"zug": 91
+			"zug": 11
 		},
 		"Stehen_2": {
 			"durch": 48,
@@ -60,12 +60,12 @@
 		},
 		"Stehen": {
 			"durch": 196,
-			"zug": 37
+			"zug": 17
 		}
 	},
 	"L_bram": {
 		"Ruhe_Greifen": {
-			"durch": 185,
+			"durch": 183,
 			"zug": 11
 		},
 		"Ruhe_Trinken": {
@@ -74,7 +74,7 @@
 		},
 		"Stehen": {
 			"durch": 182,
-			"zug": 10
+			"zug": 4
 		}
 	},
 	"L_garrick": {
@@ -88,7 +88,7 @@
 		},
 		"Stehen": {
 			"durch": 187,
-			"zug": 19
+			"zug": 16
 		},
 		"Stehen_2": {
 			"durch": 202,
@@ -98,11 +98,11 @@
 	"L_gwenna": {
 		"Ruhe_Weinen": {
 			"durch": 11,
-			"zug": 54
+			"zug": 55
 		},
 		"Stehen": {
 			"durch": 9,
-			"zug": 72
+			"zug": 18
 		},
 		"Stehen_2": {
 			"durch": 9,
@@ -126,13 +126,13 @@
 		},
 		"Stehen": {
 			"durch": 9,
-			"zug": 52
+			"zug": 0
 		}
 	},
 	"L_lyra": {
 		"Stehen": {
 			"durch": 12,
-			"zug": 40
+			"zug": 0
 		},
 		"Stehen_2": {
 			"durch": 22,
@@ -145,8 +145,8 @@
 			"zug": 7
 		},
 		"Stehen": {
-			"durch": 70,
-			"zug": 52
+			"durch": 69,
+			"zug": 8
 		}
 	},
 	"L_osric": {
@@ -156,10 +156,10 @@
 		},
 		"Stehen": {
 			"durch": 232,
-			"zug": 116
+			"zug": 24
 		},
 		"Stehen_2": {
-			"durch": 254,
+			"durch": 256,
 			"zug": 36
 		}
 	},
@@ -192,7 +192,7 @@
 		},
 		"Stehen": {
 			"durch": 43,
-			"zug": 102
+			"zug": 23
 		}
 	},
 	"L_thessa": {
@@ -205,7 +205,7 @@
 			"zug": 5
 		},
 		"Ruhe_Tresen": {
-			"durch": 203,
+			"durch": 190,
 			"zug": 2
 		},
 		"Stehen": {
@@ -229,7 +229,7 @@
 			"zug": 261
 		},
 		"Stehen_2": {
-			"durch": 32,
+			"durch": 35,
 			"zug": 232
 		}
 	},

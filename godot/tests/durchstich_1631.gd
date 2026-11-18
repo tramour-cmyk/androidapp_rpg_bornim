@@ -121,6 +121,13 @@ func _figur(name: String, m: Node3D, ruhe: Array) -> void:
 		if h[0] >= 0: deckt[i] = h[1]
 	var laengen := _kanten(V0, netz["tri"])
 	sk.skeleton_updated.connect(_nach_update.bind(sk))
+	# gleiche Pose in jedem Lauf (561: L_aldric 48/49, L_garrick 187/189): die Bewegung steht (speed_scale 0, sonst läuft sie um die
+	# Bildzeit des Rechners weiter) und die Haltung blendet nicht nach der Uhr aus der vorigen Bewegung über (grund_w, arm_w, dame_w
+	# auf -1 = sofort Sollwert), so hängt kein Bild an Reihenfolge oder Rechenzeit
+	var haltung: Node = null
+	for c in sk.get_children():
+		if c is HeldFigur.Haltung: haltung = c
+	ap.speed_scale = 0.0
 	neu[name] = {}
 	for bew in ruhe:
 		if not ap.has_animation(bew): continue
@@ -128,8 +135,10 @@ func _figur(name: String, m: Node3D, ruhe: Array) -> void:
 		var durch := 0; var zug := 0; var wo := {}
 		for b in BILDER:
 			var t := an.length * float(b) / float(BILDER)
-			ap.play(bew)
+			ap.play(bew, 0.0)
 			ap.seek(t, true)
+			if haltung:
+				haltung.grund_w = -1.0; haltung.arm_w = -1.0; haltung.dame_w = -1.0
 			_posen = []
 			_warte = true
 			await process_frame
