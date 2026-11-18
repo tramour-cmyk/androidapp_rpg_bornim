@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 10:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 10:57, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -45,13 +45,13 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 3 weitere |
+| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 4 weitere |
 | Tom | 1631 Durchstechprüfung Kleidung gegen Leib und Arme für alle Fig… (Muss) |
-| Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
+| Jerry | 1634 Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf l… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
-| Spike | läuft: 1619 (Besetzung); 1642 Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besi… (Muss); dann 1 weitere |
+| Spike | läuft: 1619 (Besetzung); 1643 Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang… (Muss) |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | läuft: 1624 (Besetzung); 1640 chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorrat… (Muss); dann 2 weitere |
+| Diogenes | läuft: 1624 (Besetzung); 1640 chefsache/README „Je Rolle das Nächste“ nennt Jerrys Vorrat… (Muss); dann 3 weitere |
 | Sokrates | läuft: 340.12 (Besetzung); 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss) |
 | Perikles | läuft: Betrieb (Besetzung); M? M? entscheiden: 1645 (Muss) |
 
@@ -62,25 +62,25 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 1631 | Tom | Durchstechprüfung Kleidung gegen Leib und Arme für alle Figuren mit Kaufkleid j… | M | 3 Kleiderschrank und Modelle | startbar |
 | 2 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 3 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 4 | 1642 | Spike | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, na… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 5 | 1643 | Spike | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 7 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
-| 8 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
-| 9 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 11 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 12 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 14 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1629 | Spike | epische Beute zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Li… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
-| 20 | 1645 | Spike | Kampfort setzt die Sonnenschattenkarte beim Verlassen fest auf 4096 statt der G… | M? | 6 Godot besser nutzen | startbar |
+| 4 | 1643 | Spike | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 5 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 6 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 7 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
+| 8 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
+| 9 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 11 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 12 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 13 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1629 | Spike | epische Beute zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Li… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
+| 19 | 1645 | Spike | Kampfort setzt die Sonnenschattenkarte beim Verlassen fest auf 4096 statt der G… | M? | 6 Godot besser nutzen | startbar |
+| 20 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
 
-Danach 46 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 112.
+Danach 45 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 112.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -88,6 +88,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [1270.5](entscheiden/12705-technik-praxis.md) | **Muss** | E Technik | 18.11., 10:48 | Erst messen, wo das Tablet die Zeit verliert, dann gezielt bauen; der Schattenfehler sofort. | Sokrates |
+| [1625](entscheiden/1625-startprompt.md) | Kür | B Abläufe | 18.11., 10:54 | Startprompt aus Kern und einem von vier Schwerpunkten, Rollendatei von 19 auf 7 KB, Lehren von 40 auf 12. | Sokrates |
 
 ## Zu billigen
 
