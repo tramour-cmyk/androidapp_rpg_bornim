@@ -56,6 +56,7 @@ func _ready() -> void:
 		if a.begins_with("--sprache="): Sprache.lang = a.substr(10)
 		elif a.begins_with("--") and a.contains("="): bildlauf = true
 	if bildlauf and Sprache.lang == "": Sprache.lang = "de"
+	if not bildlauf and DisplayServer.get_name() != "headless": Testmodus.takt_setzen(Testmodus.TAKT_SPIEL)   # 1270.6: fest 30
 	licht = Licht.new()
 	add_child(licht)
 	kamera = Kamera.new()
@@ -144,6 +145,7 @@ func _ready() -> void:
 	robe_bilder()
 	bildrate_lauf()
 	grafik_bilder()
+	ueberzeichnung_bilder()
 	if FigurenProbe.an(): add_child(FigurenProbe.new(self))   # 376.1 Probeblatt Quaternius-Figuren (figurenprobe.gd)
 
 # 399: Spielbeginn aus dem Hauptmenue: geladen an den gespeicherten Ort, sonst ein neues Spiel mit frischem Zustand (Test 139: das neue
@@ -3299,6 +3301,44 @@ func grafik_bilder() -> void:
 			await knips("%s/%s_%s.png" % [dir, o[0], Grafik.STUFE_NAME[st]])
 	Grafik.zwang = -1
 	print("GRAFIK698 fertig")
+	get_tree().quit()
+
+# 1270.6 (1270.5 A, Votum Sokrates „Überzeichnungs-Ansicht vorher am Rechner“): --ueberzeichnung1270=<ordner> knipst Wald 11/19 und
+# Tiefer Flüsterwald 9/12 (die Messorte des Chefs) je normal und in Godots Überzeichnungs-Ansicht (je heller, desto öfter wird der
+# Bildpunkt gemalt), Stufe Niedrig wie das Tablet; Zeilen UEBERZ1270 mit der mittleren Helligkeit der Ansicht als Maß
+func ueberzeichnung_bilder() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--ueberzeichnung1270="): dir = a.substr(21)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	ui.leiste.visible = false
+	zustand.minuten = 11 * 60
+	licht_nach_uhr(true)
+	Grafik.zwang = Grafik.NIEDRIG
+	for o in [["wald", "forest", Vector2i(11, 19)], ["tiefwald", "deep_forest", Vector2i(9, 12)]]:
+		betrete(String(o[1]), o[2], "DOWN")
+		if herde: herde.aus = true
+		kamera.springe()
+		await get_tree().create_timer(BILDRATE_RUHE).timeout
+		ui.textfeld.visible = false
+		get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
+		await knips("%s/%s_normal.png" % [dir, o[0]])
+		get_viewport().debug_draw = Viewport.DEBUG_DRAW_OVERDRAW
+		for i in 3: await get_tree().process_frame
+		await knips("%s/%s_ueberzeichnung.png" % [dir, o[0]])
+		var img := get_viewport().get_texture().get_image()
+		img.resize(img.get_width() / 8, img.get_height() / 8)
+		var summe := 0.0
+		for y in img.get_height():
+			for x in img.get_width(): summe += img.get_pixel(x, y).get_luminance()
+		print("UEBERZ1270 %s: mittlere Helligkeit %.3f, Zeichenaufrufe %d, Renderer %s" % [o[0], summe / (img.get_width() * img.get_height()),
+			int(Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)), RenderingServer.get_current_rendering_method()])
+		get_viewport().debug_draw = Viewport.DEBUG_DRAW_DISABLED
+	Grafik.zwang = -1
+	print("UEBERZ1270 fertig")
 	get_tree().quit()
 
 # 558 Robe am Rechner (Chef 04.11., 11:31, Bild Build 257 im Tiefen Fluesterwald): --robe558=<ordner> knipst den Magier wie im Spiel,
