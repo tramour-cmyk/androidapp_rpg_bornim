@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 03:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 03:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -91,21 +91,16 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [1569.1](billigen/15691-umhang-seiten.md) | **Muss** | E Figuren | 18.11., 03:08 | Bild 4 so lassen, mit 1569 in den nächsten Sammelbuild; kein weiterer Bildlauf. Prüfpunkt am Handy: Keil und Wölbung in der Spielkamera. | Sokrates |
 | [1484a](billigen/1484a-zellen-bilder.md) | **Muss** | E Technik | 18.11., 01:58 | Alt und neu sehen gleich aus; Zellen in den nächsten Sammelbuild, du misst am Tablet Wald 11/19 und Flüsterwald 9/12, auch mit 3D 50 %. | Sokrates |
 | [1571](billigen/1571-fackel-hand.md) | **Muss** | E Figuren | 18.11., 01:58 | Die Fackel sitzt in der linken Hand; in deinem Bild vom 17.11. war der Held gedreht. Nichts zu bauen; 1571 erledigt, sobald Zauberstab (1587) und Umhang (1569) im Build sind. | Sokrates |
 | [455.2](billigen/4552-groessen.md) | **Muss** | E Figuren | 18.11., 01:58 | Passt: ein Netz je Stück für alle Völker, Ork auf dem Superhelden mit Nachaußenrücken; Bau der Völkerkörper im Spiel bleibt bei 431 (Tom); Durchstich beim Zwerg dort beheben. | Sokrates |
 | [1569](billigen/1569-umhang-robe.md) | **Muss** | E Figuren | 18.11., 01:46 | Robe sticht hinten nicht mehr durch, in den nächsten Sammelbuild; dunkler Keil an der rechten Schulter und grüner Rand beim Jägerkind als 1569.1 (Umhang Schulter) bei Tom. | Sokrates |
 | [458.3](billigen/4583-staffel.md) | **Muss** | E Figuren | 18.11., 00:48 | 45 Waffenformen am Helden, Form nach Stufe des Gegenstands, Farbe nach Seltenheit, in den nächsten Sammelbuild; Dorffilm mit Tusche als Prüfpunkt dort. | Sokrates |
+| [1613](billigen/1613-glanz.md) | Kür | E Figuren | 18.11., 03:08 | Waffen episch und göttlich bekommen Schein und Glut (C); Umschaltung `glanz_art` streichen; in den nächsten Sammelbuild nach Sa 20:00 mit 458.3. Prüfpunkt am Handy: Funken in der Spielkamera zu sehen, kein Ruckeln. | Sokrates |
 | [1211](billigen/1211-licht-b.md) | Kür | E Welt | 18.11., 00:48 | Funkenlicht B: Abfall 1,0 statt 2,0, Reichweite 8 m statt 6,7 m, Stärke wie heute; Höhle immer voll. | Sokrates |
 
 ## Anzusehen
-
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [1569.1](ansehen/15691-umhang-seiten.md) | Umhang an den Seiten weiter (Bild 4: Keil und grüner Rand) | – | 18.11., 02:42 |
-| [1613](ansehen/1613-glanz.md) | Waffen episch und göttlich: Effekt statt Färbung, drei Fassungen im Dorf | Spike | 18.11., 02:30 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -368,7 +363,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/15691-umhang-seiten.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); t298-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+Format (Muster: „So geht's“ unten): t298-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 ## So geht's
 
