@@ -146,7 +146,7 @@
 		},
 		"Stehen": {
 			"durch": 69,
-			"zug": 8
+			"zug": 9
 		}
 	},
 	"L_osric": {
@@ -240,7 +240,7 @@
 		},
 		"Stehen_2": {
 			"durch": 378,
-			"zug": 132
+			"zug": 133
 		}
 	},
 	"WACHE_W": {
