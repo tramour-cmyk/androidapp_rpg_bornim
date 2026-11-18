@@ -57,6 +57,8 @@ Halt aufgehoben (1589.1 A, Chef 17.11., 22:33; Sokrates 22:36), auch für Spike:
 ## Einzelheiten
 
 
+
+- **Zu 760, von Chef (Fund t300.11, Test Build 300, Automatik B):** Wolf beißt halbwegs ins Schild bzw. erreicht es nicht, Blut ohne Treffer (Chef 22:12)
 - **Zu 1566, von Chef (Fund t298.5, Test Build 298, Automatik B):** Teich leuchtet hell im Dunkeln, ohne Licht in der Nähe (Bild 14:31, `bilder/t298-5-teich-chef.webp`)
 - **Zu 760, von Chef (Fund t298.7, Test Build 298, Automatik B):** zwei von drei Wölfen trafen im ersten Durchlauf; das Blut spritzt dort, wo der Biss hätte treffen sollen, aber der Wolf beißt zu kurz, nicht am Helden („hat einfach zu kurz gebissen … war nicht auf der Person“), bei beiden, einer im Winkel 90 Grad, also klar zu sehen
 - **Zu 760 (Jerry 18.11., 20:43, `claude/jerry-760-biss`, von `main` mit den drei 760-Commits):** `sprung_760` mit Kaufwolf nachgestellt: Sprung-Treffer ohne freien Platz nahm den Teilplatz, Zähne 0,20 m vor dem Körper (Wolf 3). Neu `SPRUNG_TIEF` 0,25: trifft der Sprung, darf der Umriss tiefer an den Helden, Stand ohne `ABWEHR_VOR`; jetzt alle 5 Sprungbisse bis 0,05 m am Körper (MESSUNG760 erfüllt). Offen, nicht in 760: Bisse im Stand mit Schild enden 0,25–0,57 m vor dem Körper (10 von 12 Treffern im Lauf) = 709.1, ruht bis Sa 20:00.
