@@ -47,6 +47,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 10:49 18.11.: Startsperre 10:49 Start Spike (Neustart 58d2d9ca3, 1642)
 - 10:45 18.11.: Startsperre 10:45 Start Sokrates (Neustart d51fa8dd8)
 - 18.11., 10:05 Ford: Lauf 10:04: Start Tom `…761bwC5rf89P8wj6Jc` (1631, Übernahme von Spike); Spike 09:56 „Weiter: 1270.5“ („jetzt“), dann 1642–1644, 13:00 1595.
 - 18.11., 09:19 Ford: Sokrates-Neustart (Chefrunde) `…77LdCgs6NPm9PuwX1n`; alter `…75saV8X5Rzi1yMDgpH` archiviert, 6,40 $ auf 340.12, 1633; 1595 um 13:00 an Spike (1633).
