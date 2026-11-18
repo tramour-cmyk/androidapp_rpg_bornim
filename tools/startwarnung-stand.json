@@ -24,15 +24,20 @@
   "seit": "2026-11-18T14:44+01:00",
   "text": "Inhaltsverzeichnis docs/README.md, toter Link in ARBEIT-TAGESBERICHT.md: chefsache/ansehen/t298-sammelbuild.md"
  },
+ "groesse:docs/ARBEIT-BERATUNG.md": {
+  "besitzer": "Sokrates",
+  "seit": "2026-11-18T16:38+01:00",
+  "text": "docs/ARBEIT-BERATUNG.md hat 30058 Bytes (Grenze 30000), Erledigtes streichen"
+ },
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Ford",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 36139 Bytes (Grenze 30000), Erledigtes streichen"
+  "text": "docs/ARBEIT-BETRIEB.md hat 36215 Bytes (Grenze 30000), Erledigtes streichen"
  },
- "groesse:docs/ARBEIT-TEAM-TOM.md": {
-  "besitzer": "Tom",
-  "seit": "2026-11-18T16:19+01:00",
-  "text": "docs/ARBEIT-TEAM-TOM.md hat 32562 Bytes (Grenze 30000), Erledigtes streichen"
+ "regel:ARBEIT-BERATUNG.md:Übergabe über N Zeichen (nur Getanes und": {
+  "besitzer": "Sokrates",
+  "seit": "2026-11-18T16:38+01:00",
+  "text": "ARBEIT-BERATUNG.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)"
  },
  "regel:ARBEIT-TAGESBERICHT.md:Tabellenzeilen über N Zeichen (Einzelhei": {
   "besitzer": "Perikles",
@@ -42,7 +47,7 @@
  "vorrat:ARBEIT-BERATUNG.md": {
   "besitzer": "Sokrates",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-BERATUNG.md: 2 „Zu“ zu Erledigtem (1288b, 1411), beim Übergeben streichen"
+  "text": "ARBEIT-BERATUNG.md: 1 „Zu“ zu Erledigtem (1589.1), beim Übergeben streichen"
  },
  "vorrat:ARBEIT-PRUEFUNG.md": {
   "besitzer": "Diogenes",
@@ -62,6 +67,6 @@
  "vorrat:ARBEIT-TEAM-TOM.md": {
   "besitzer": "Tom",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TEAM-TOM.md: 8 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515, 1423a …), beim Übergeben streichen"
+  "text": "ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen"
  }
 }
