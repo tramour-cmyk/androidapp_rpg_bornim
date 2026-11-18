@@ -952,3 +952,4 @@
 2026-11-18 10:48:51	commit-pruefung	docs/chefsache/entscheiden/12705-technik-praxis.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-18 10:48:51	commit-pruefung	docs/chefsache/entscheiden/12705-technik-praxis.md: Uhrzeit 10:55 liegt nach jetzt (10:48)	main
 2026-11-18 10:54:38	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1631-durchstich
+2026-11-18 10:55:34	commit-pruefung	LISTE-VORGAENGE.md: 1640: Zeile über 400 Zeichen (Einzelheiten als „Zu 1640“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
