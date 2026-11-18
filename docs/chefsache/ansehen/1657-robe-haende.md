@@ -1,5 +1,7 @@
 # 1657 · Zauberlehrling: stechen die Hände durch die Robe?
 
+[Bild von 18.11., 16:53](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1653-1657-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 18.11., 16:54 · E Figuren · aus Toms Durchstechprüfung 1631 (Lauf 560)
 Kurz: Die Prüfung meldet die Hände in der Robe (0,9–1,0 m). Im Bild hängt die freie Hand neben der Robe, die Stabhand hält den Stab; bei der Frau zeigt sich neben der Faust ein kleiner dunkler Fleck auf der Robe (wohl der Knöchel knapp in der Robe). Sonst nichts sichtbar.
 
