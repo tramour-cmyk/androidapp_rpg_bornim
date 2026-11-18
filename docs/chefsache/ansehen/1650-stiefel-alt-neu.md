@@ -1,5 +1,7 @@
 # 1650 · Hose im Stiefel: sticht sie noch durch den Schaft?
 
+[Bild von 18.11., 17:00](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1700-1650-Tom.png) (eingetragen von meldung.sh, Tom)
+
 Tom · 18.11., 17:00 · E Figuren · aus Toms Durchstechprüfung 1631 (Lauf 560), dein „so weiter“ 15:46
 Kurz: Borin, Pim, Bram, Garrick, Jorin, je Zeile; Spalten alt (Build 299) und neu, von vorn und hinten, Ruhebewegung Stehen. Hinten sind die dunklen Hosenflecken zwischen den Riemen und an der Ferse weniger (Bram, Garrick, Jorin, Pim); vorn sieht man kaum Unterschied. Gemessen: Borin 216 → 181, Pim 106 → 80 durchstechende Ecken.
 
