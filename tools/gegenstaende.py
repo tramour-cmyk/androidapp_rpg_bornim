@@ -26,7 +26,7 @@ AUFBAU = {
     "stufe": (False, "Heldenstufe ab der erhaeltlich (BRS); null = offen"),
     "preis": (False, "Grundpreis in Gold (BRS, vor Ruf); 0 = unverkaeuflich; null = offen"),
     "netz": (False, "Modellnetz (455), z. B. Datei im Kaufrepo"),
-    "teil": (False, "431h Stufe 2: Teile im Kleiderschrank (held_klassen.py SCHRANK_TEILE), Liste; leer = am Helden unsichtbar"),
+    "teil": (False, "431h Stufe 2: Teile im Kleiderschrank (held_klassen.py SCHRANK_TEILE), Liste; leer = das Teil der eigenen Tracht (1569)"),
     "material": (False, "Material des Netzes (455)"),
     "zeichen": (False, "Zeichnung/Tusche des Netzes (455)"),
     "modell": (False, "Quelle und Lizenz des Modells (LISTE-BESTAND.md)"),
