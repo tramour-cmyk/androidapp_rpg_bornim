@@ -11,7 +11,7 @@ import json, os, re, subprocess, sys
 
 ROLLEN = ("Spike", "Tom", "Jerry", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes")
 BUILD = re.compile(r"(?:^|[:/\s])claude/build-\d+(?:$|\s)")
-PUSH = re.compile(r"\bgit\b(?:\s+-C\s+(\S+)|\s+-c\s+\S+)*\s+push\b([^;&|]*)")
+PUSH = re.compile(r"(?:^|[;&|(\n])\s*(?:\w+=\S*\s+)*git\b(?:\s+-C\s+(\S+)|\s+-c\s+\S+)*\s+push\b([^;&|\n]*)")
 MCP_SCHREIBEN = ("push_files", "create_or_update_file", "delete_file")
 
 
@@ -43,20 +43,33 @@ def rolle(text):
     return m.group(1) if m else None
 
 
+def ohne_text(befehl):
+    """1718 (D327.1): Heredoc-Körper und Zeichenketten ('…', "…") entfernen; ein „git push“ darin ist kein Push."""
+    befehl = re.sub(r"<<-?\s*['\"]?(\w+)['\"]?[^\n]*\n.*?\n\s*\1\b", " ", befehl, flags=re.S)
+    return re.sub(r"'[^']*'|\"(?:[^\"\\]|\\.)*\"", " ", befehl)
+
+
+def _zweig(wo):
+    try:
+        return subprocess.run(["git", "-C", wo, "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True, text=True, timeout=5).stdout.strip()
+    except Exception:
+        return ""
+
+
 def ziel_bash(befehl, cwd):
-    """claude/build-<n>, wenn der Befehl dorthin pusht (Refspec oder aktueller Zweig ohne Refspec), sonst None."""
-    for m in PUSH.finditer(befehl):
-        args = m.group(2)
-        b = re.search(r"claude/build-\d+", args)
-        if b:
-            return b.group(0)
-        teile = [t for t in args.split() if not t.startswith("-")]
-        if len(teile) <= 1:   # git push [remote]: der aktuelle Zweig
-            try:
-                z = subprocess.run(["git", "-C", m.group(1) or cwd or ".", "rev-parse", "--abbrev-ref", "HEAD"],
-                                   capture_output=True, text=True, timeout=5).stdout.strip()
-            except Exception:
-                z = ""
+    """claude/build-<n>, wenn der Befehl dorthin pusht (Refspec, HEAD/@ als Refspec oder aktueller Zweig ohne Refspec), sonst None.
+    1718 (D327.1): HEAD und @ werden aufgelöst; nur ein git-Befehl am Anfang eines Befehlsteils zählt, nicht Text in echo, -m, Python."""
+    roh = ohne_text(befehl)
+    for m in PUSH.finditer(roh):
+        vorn = roh[:m.start()]
+        cds = re.findall(r"(?:^|[;&|(\n])\s*cd\s+([^\s;&|]+)", vorn)
+        wo = m.group(1) or (os.path.join(cwd or ".", os.path.expanduser(cds[-1])) if cds else (cwd or "."))
+        teile = [t for t in m.group(2).split() if not t.startswith("-")]
+        ziele = [t.lstrip("+").split(":")[-1] for t in teile[1:]] if len(teile) >= 2 else ["HEAD"]
+        for z in ziele:
+            if z in ("HEAD", "@"):
+                z = _zweig(wo)
+            z = z.replace("refs/heads/", "")
             if re.fullmatch(r"claude/build-\d+", z):
                 return z
     return None
@@ -100,6 +113,12 @@ def test():
     ok(ziel_bash("cd x && git push origin HEAD:claude/build-301 2>&1", ".") == "claude/build-301", "HEAD:Refspec")
     ok(ziel_bash("git -C /tmp push -u origin claude/jerry-760-biss", ".") is None, "Teamzweig")
     ok(ziel_bash("git status && echo push", ".") is None, "kein Push")
+    w = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True, text=True).stdout.strip()
+    ok(ziel_bash("echo 'git push origin claude/build-300'", ".") is None, "Text in echo (1718)")
+    ok(ziel_bash('git commit -q -m "git push origin claude/build-300" && git push origin claude/jerry-x', ".") is None, "Text in -m (1718)")
+    ok(ziel_bash("python3 - <<'EOF'\nprint('git push origin claude/build-300')\nEOF", ".") is None, "Heredoc (1718)")
+    ok(ziel_bash("git push -u origin HEAD", ".") == (w if re.fullmatch(r"claude/build-\d+", w) else None), "HEAD aufgelöst (1718)")
+    ok(ziel_bash("git push origin HEAD:refs/heads/claude/build-302", ".") == "claude/build-302", "refs/heads (1718)")
     ok(rolle("## Kern\n\nDu bist **Spike**, Technik bei BornWire") == "Spike", "Rolle Spike")
     ok(rolle("Jerry – 1697: Rechtecke … Start") == "Jerry", "Rolle Jerry")
     ok(rolle("Bitte mach das") is None, "Chef ohne Rolle")
