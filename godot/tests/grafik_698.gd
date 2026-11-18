@@ -156,7 +156,11 @@ func _lauf() -> void:
 	pruefe("alte Messung ohne Takt: neu einmessen", Grafik.auto_stufe == -1 and Grafik.braucht_messung())
 	c.set_value("grafik", "takt", 30); c.save(Grafik.DATEI)
 	Grafik.wahl = ""; Grafik.lade()
-	pruefe("Messung mit Takt 30 gilt", Grafik.auto_stufe == Grafik.NIEDRIG)
+	pruefe("Messung mit Takt 30, alte Luft 0,8 (Fund t300.1): neu einmessen", Grafik.auto_stufe == -1)
+	c.set_value("grafik", "luft", Grafik.LUFT); c.save(Grafik.DATEI)
+	Grafik.wahl = ""; Grafik.lade()
+	pruefe("Messung mit Takt 30 und jetziger Luft gilt", Grafik.auto_stufe == Grafik.NIEDRIG)
+	pruefe("Luft 10 %: Hoch bei 29,5 ms zugelassen (t300.4)", 29.5 <= Grafik.ziel_ms() * Grafik.LUFT if Engine.max_fps == 30 else 29.5 <= 1000.0 / 30.0 * Grafik.LUFT)
 	DirAccess.remove_absolute(ProjectSettings.globalize_path(Grafik.DATEI))
 	Grafik.probe = false
 	quit(1 if fehler else 0)

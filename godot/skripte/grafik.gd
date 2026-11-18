@@ -37,7 +37,10 @@ const EINMESSEN_WAHL := ["Ändern kannst du sie jederzeit im Systemmenü unter �
 	"You can change this at any time under “Graphics” in the system menu."]   # [1365.einmessen.wahl]
 
 const ZIEL_MS := 1000.0 / 60.0                 # ein Bild bei 60 Hz (ohne Takt)
-const LUFT := 0.8                              # Anfangsmessung: die Stufe muss mit 20 % Luft reichen (der erste Ort ist oft ein Raum)
+# 1270.6 Fund t300.1 (Chef 18.11., 22:49, A56): mit 20 % Luft wählte das Einmessen wieder Niedrig; gemessen Niedrig 22,8 ms, Hoch in
+# der Höhle 29,5 ms bei 30 Bildern/s (t300.4), die Stufen liegen nur ~6 ms auseinander, das Ziel 26,7 ms schloss Mittel und Hoch aus.
+# 10 % Luft (30 ms) lässt Hoch zu; reicht es an einem schweren Ort nicht, senkt bild() nach RUCKEL_SEK eine Stufe (dafür gebaut)
+const LUFT := 0.9                              # Anfangsmessung: die Stufe muss mit 10 % Luft reichen
 const RUCKEL_SEK := 10                         # so viele Sekunden am Stueck ueber ZIEL_MS, dann eine Stufe herunter
 const MESS_VOR := 8                            # Anfangsmessung: Bilder nach dem Umschalten, die nicht zaehlen
 const MESS_BILDER := 30                        # und die gemessenen
@@ -63,6 +66,8 @@ static func lade() -> void:
 	auto_stufe = clampi(int(c.get_value("grafik", "auto", -1)), -1, HOCH) if ok else -1
 	# 1270.6: eine Messung mit dem alten Ziel (60 Hz, vor dem Takt 30) gilt nicht; einmal neu einmessen am naechsten Ort
 	if auto_stufe >= 0 and int(c.get_value("grafik", "takt", 0)) != int(Testmodus.TAKTE[Testmodus.TAKT_SPIEL]): auto_stufe = -1
+	# Fund t300.1: eine Messung mit anderer Luft (vorher 0,8) gilt nicht, sonst bliebe das gespeicherte Niedrig stehen
+	if auto_stufe >= 0 and absf(float(c.get_value("grafik", "luft", 0.8)) - LUFT) > 0.001: auto_stufe = -1
 	aktiv = stufe()
 
 static func speichere() -> void:
@@ -72,6 +77,7 @@ static func speichere() -> void:
 	c.set_value("grafik", "wahl", wahl)
 	c.set_value("grafik", "auto", auto_stufe)
 	c.set_value("grafik", "takt", int(Testmodus.TAKTE[Testmodus.TAKT_SPIEL]))   # 1270.6: Ziel, mit dem gemessen wurde
+	c.set_value("grafik", "luft", LUFT)                                          # Fund t300.1: Luft, mit der gemessen wurde
 	c.save(DATEI)
 
 ## Laeufe mit Argumenten: Hoch wie bisher, oder die Stufe aus --grafik=
