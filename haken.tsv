@@ -1042,3 +1042,4 @@
 2026-11-18 21:44:45	commit-pruefung	CLAUDE.md: 15003 Bytes, Obergrenze 15000, Commit fügt 13 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-18 21:44:45	commit-pruefung	docs/ROLLE-KREATIV.md: 6288 Bytes, Obergrenze 6000, Commit fügt 306 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-18 21:49:42	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-1694-griff ändert Spielcode (godot/skripte/gebiet.gd	claude/spike-1694-griff
+2026-11-18 21:50:54	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 31335 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
