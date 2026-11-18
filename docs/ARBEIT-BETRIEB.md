@@ -47,6 +47,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 14:27 18.11.: Startsperre 14:27 Start Sokrates (Neustart aed08b2d4, Chefrunde, Startprompt 1661)
 - 18.11., 14:26 Ford: Build 299 beim Chef (PR 220). Spike-Neustart `…75jjCiJh8WqQAaStHw` (1270.6, PR-Abo 220 übergeben); alter `…79DaMd5Y4vJQUNUP6v` archiviert, 15,49 $ auf 1595, 1645, 1648, 1658; „Weiter“ Tom 1406, Perikles 1594. Lehre: vor Archivieren `post_turn_summary` lesen (14:06 Tom mit laufendem Bau archiviert, 40 min Bau verloren).
 - 14:24 18.11.: Startsperre 14:24 Start Spike (Neustart 241fd8640e, 1270.6)
 - 18.11., 14:07 Ford: Lauf 14:05: Start Tom `…79yBwFhFs66bCs3c39` (1650), Jerry `…7882wxYj9qxGKUYmLQ` (1652), Perikles `…767Uu7i2DGdoHmqoLJ` (1659, 1660); archiviert Tom (7,82 $ auf 1631, 1650; Bauserver-Lauf 1650 an Nachfolger gemeldet), Perikles (1,48 $ auf 1659, 1660, 1662).
