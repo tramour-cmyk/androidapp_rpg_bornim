@@ -1543,7 +1543,9 @@ func _play_say(e: Dictionary) -> void:
 				var p0_: Vector2 = cam_p if not hit.is_empty() or rand_z >= 1.0 else rand_p
 				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": z0_, "p0": p0_}
 			if wound:
-				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
+				# 760: das Blut beginnt, wo die Zähne den Körper treffen (nicht in der Mitte des Getroffenen)
+				var an: Vector3 = figures[target].treffpunkt_biss(figures.get(actor)) if figures.has(target) else Vector3.INF
+				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else "", an))
 	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf
 	# durch den vorderen“; umweg_399 Lauf 168): greift einer von hinten an, tauscht er mit dem vorderen den Platz (mars.gd
 	# _leap_forward); beide liefen zugleich auf derselben Linie gegeneinander. Wer Platz macht, geht erst, wenn der Angreifer vorbei ist
@@ -1714,8 +1716,14 @@ func _fx_szene2(e: Dictionary, actor: Variant, target: Variant, by: Variant, tg:
 		if by.monster == null and fx == null:
 			namen.append(TrefferFx.fuer_waffe(gruppe, "treffer"))
 		get_tree().create_timer(wann).timeout.connect(func() -> void:
+			# 760: beim Biss am Treffpunkt der Zähne (beim Aufschlag gemessen), sonst vorn an der Brust
+			var bei: Vector3 = brust
+			if is_instance_valid(tf) and is_instance_valid(af):
+				var tp: Vector3 = tf.treffpunkt_biss(af)
+				if tp != Vector3.INF:
+					bei = to_local(tp)
 			for n: String in namen:
-				TrefferFx.zeige(n, self, brust, hoehe, richt))
+				TrefferFx.zeige(n, self, bei, hoehe, richt))
 	elif _missed(e) and tf.blockt() and e.cue != "EVADED":
 		var schild := tf.model.find_child("Schild", true, false) as Node3D if tf.model != null else null
 		var at: Vector3 = to_local(schild.global_position) if schild != null and schild.visible else tf.position + Vector3.UP * hoehe * 0.55 - richt * ui._girth(tf)
