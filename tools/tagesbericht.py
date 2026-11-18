@@ -140,7 +140,21 @@ def rote_laeufe():
         team = collections.Counter(next((t for v, t in (("tom", "tom"), ("spike", "spike"), ("jerry", "jerry"), ("tuffy", "jerry"), ("build", "build"))
                                          if (l.get("head_branch") or "").startswith("claude/" + v)), "sonst") for l in rot)  # 777: tuffy → Jerry; 1328: spike eigene Rolle
         erg[name] = (len(rot), len(gezaehlt), team, dauer(rot), dauer(gezaehlt))
+    erg["bau"] = bau_zahl([l for l in laeufe if l.get("created_at", "") >= grenze])
     return erg
+
+def bau_zahl(ls):
+    """1715 (Chef 18.11., 22:21): Läufe der Buildzweige claude/build-<n> in 24 h: grün, rot, abgebrochen und deren Minuten (verlorene Bauzeit)."""
+    b = [l for l in ls if (l.get("head_branch") or "").startswith("claude/build-")]
+    k = lambda c: [l for l in b if l.get("conclusion") == c]
+    return (len(k("success")), len(k("failure")), len(k("cancelled")), sum(lauf_min(l) for l in k("cancelled")))
+
+def bau_text(z):
+    """1715: eine Teilzeile; rot über grün → Systemfrage an Spike (Vorgang anlegen)."""
+    if not z or not sum(z[:3]): return "; Buildzweige 24 h: keine Läufe"
+    g, r, a, m = z
+    return "; Buildzweige 24 h: **%d grün, %d rot, %d abgebrochen** (%d min Bauzeit verloren)%s" % (
+        g, r, a, round(m), " → **Systemfrage an Spike** (rot über grün, Vorgang anlegen)" if r > g else "")
 
 def lauf_min(l):
     try:
@@ -168,8 +182,8 @@ def wirkung_text(d):
     _, _, t, _, _ = r["24h"]
     name = {"build": "beim Bau eines Test-Builds", "sonst": "sonstige"}
     teams = ", ".join("%s %d" % (name.get(k, k.capitalize()), t[k]) for k in ("tom", "jerry", "spike", "build", "sonst") if t[k])
-    return "%s; %s%s%s%s" % (teil("24h", d["e1"], True), teil("7d", d["e7"], False), "; rot 24 h nach Team: " + teams if teams else "",
-                             rotbuch_kurz(), "; " + d["lz"] if d.get("lz") else "")
+    return "%s; %s%s%s%s%s" % (teil("24h", d["e1"], True), teil("7d", d["e7"], False), "; rot 24 h nach Team: " + teams if teams else "",
+                               bau_text(r.get("bau")), rotbuch_kurz(), "; " + d["lz"] if d.get("lz") else "")
 
 def laufzeiten_kurz():
     """1548 (Chef 17.11., 11:15): Läufe 24 h, Ø, min, max, und ob die vorgerenderten Kaufmodelle griffen (tools/laufzeiten.py)."""

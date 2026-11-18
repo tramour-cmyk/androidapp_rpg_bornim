@@ -29,6 +29,15 @@ T.rotbuch_kurz = lambda: ""
 w = T.wirkung_text(d2)
 for teil in ("**75 % grün** (3 von 4)", "**30 min in roten Läufen** (25 % der Laufzeit)", "**4,0 Läufe je erledigtem Spielvorgang**", "7 Tage 80 % grün", "Tom 1"):
     if teil not in w: fehler.append("Läufe ohne " + teil)
+# 1715: Buildzweige grün, rot, abgebrochen mit verlorener Bauzeit; rot über grün → Systemfrage
+L = lambda b, c, mi: dict(head_branch=b, conclusion=c, created_at="x", run_started_at="2026-11-18T10:00:00Z", updated_at="2026-11-18T10:%02d:00Z" % mi)
+z = T.bau_zahl([L("claude/build-300", "success", 40), L("claude/build-300", "failure", 30), L("claude/build-301", "failure", 20),
+                L("claude/build-301", "cancelled", 25), L("claude/jerry-760", "failure", 10)])
+if z != (1, 2, 1, 25.0): fehler.append("bau_zahl %r" % (z,))
+if "**1 grün, 2 rot, 1 abgebrochen** (25 min Bauzeit verloren) → **Systemfrage an Spike**" not in T.bau_text(z): fehler.append("bau_text " + T.bau_text(z))
+if "Systemfrage" in T.bau_text((2, 2, 0, 0)) or "keine Läufe" not in T.bau_text(None): fehler.append("bau_text Grenze")
+d2["rot"]["bau"] = z
+if "Buildzweige 24 h" not in T.wirkung_text(d2): fehler.append("wirkung ohne Buildzweige")
 v = T.vorrat_satz(["3 Absätze gestrichen"], [("L", "1", "Tom", ""), ("L", "2", "Jerry", ""), ("I", "77", "?", "")])
 for teil in ("behoben: 3 Absätze gestrichen", "Offen: 3 Funde (2 wohl doppelt", "Tom 1", "Für dich: 1 Datei in der Chefsache ohne offenen Vorgang (77)"):
     if teil not in v: fehler.append("Vorrat ohne " + teil)
