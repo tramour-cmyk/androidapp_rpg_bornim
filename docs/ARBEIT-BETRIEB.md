@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1646** (zuletzt 1645 Spike 18.11. 09:43:45 4f18) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1647** (zuletzt 1646 Spike 18.11. 11:05:02 2517) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -47,6 +47,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 11:04 18.11.: Startsperre 11:04 Start Spike (Neustart 7fe267d95, 1645)
 - 18.11., 11:01 Ford: Lauf 11:00: Start Diogenes `…7A6mMgqbeH3RmP6Rqb` (1640–1644), Perikles `…77fPKnKN9Mn9WrXg4S` (M? 1645); archiviert Diogenes alt (1,43 $ auf 1624), Perikles alt (3,21 $ auf 1625, 1633, 448). Spike-Neustart gemeldet (Nachfolger 1595 ab 13:00).
 - 18.11., 10:57 Ford: Tom-Neustart `…77q6iS3aDy6wKb8GJk` (1631); alter `…761bwC5rf89P8wj6Jc` archiviert, 4,67 $ auf 1631, 1417.
 - 18.11., 10:50 Ford: Neustarts Sokrates `…77GoX27eEcyH3qjc8v` (1270.5, 1625) und Spike `…78TrowutmKCt1WPxQ4` (1642); Sokrates alt `…77LdCgs6NPm9PuwX1n` archiviert, 5,59 $ auf 340.12, 1625, 1270.5; Spike alt `…78g6FvasSdn37mNhQH` archiviert 10:55, 29,50 $ auf 1619, 1621, 1640, 1641, 1644.
