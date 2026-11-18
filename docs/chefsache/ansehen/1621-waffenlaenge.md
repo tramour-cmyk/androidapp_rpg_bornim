@@ -1,5 +1,7 @@
 # 1621 · Zweihandwaffen kürzer: alt gegen neu am Helden
 
+[Bild von 18.11., 09:08](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0908-1621-Spike.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 18.11., 09:08](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0907-1621-Spike.png) (eingetragen von meldung.sh, Spike)
 
 Spike · 18.11., 09:08 · aus deinem Wort 07:37 („zu den Langwaffen nehmen wir dann mal A, die ein bisschen kürzer machen“)
