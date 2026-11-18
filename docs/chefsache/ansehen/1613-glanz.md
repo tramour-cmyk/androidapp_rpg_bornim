@@ -1,5 +1,7 @@
 # 1613 · Waffen episch und göttlich: Effekt statt Färbung, drei Fassungen im Dorf · Spike · 18.11., 02:30
 
+[Film von 18.11., 02:29](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261118-022949-1613/2026-11/18-0229-1613-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 E Figuren · Spike · aus deinem Wort 02.11., 11:28 (Archiv 458.3): „dieses Glimmern … sieht man eigentlich nicht … als ob die Waffe einfach orange gefärbt wäre … cool, wenn man da irgendwie noch eine Art Effekt draufkriegen“
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/33b3fa52cf (`claude/spike-1613-glanz`, auf der Waffenstaffel 458.3, Bau am Rechner, Dorf mit Toon-Licht, Tusche und Spielkamera)
