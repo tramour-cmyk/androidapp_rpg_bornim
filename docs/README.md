@@ -69,6 +69,6 @@ Arbeitslisten; du musst sie nicht lesen.
 ## Firma
 
 - [Handbuch](FIRMA.md) und [Regeln für alle](../CLAUDE.md); [Logo und Geschäftspapiere](firma/README.md).
-- Rollen, also wer was tut: [Entwickler](ROLLE-ENTWICKLUNG.md) · [Perikles](ROLLE-PROJEKT.md) · [Homer](ROLLE-KREATIV.md) · [Sokrates](ROLLE-BERATUNG.md) ([Startprompt, Entwurf 1625](ROLLE-BERATUNG-START.md)) · [Diogenes](ROLLE-PRUEFUNG.md) · [Ford](ROLLE-BETRIEB.md).
+- Rollen, also wer was tut: [Entwickler](ROLLE-ENTWICKLUNG.md) ([Spike, Entwurf 1678](ROLLE-TECHNIK.md)) · [Perikles](ROLLE-PROJEKT.md) · [Homer](ROLLE-KREATIV.md) · [Sokrates](ROLLE-BERATUNG.md) ([Startprompt, Entwurf 1625](ROLLE-BERATUNG-START.md)) · [Diogenes](ROLLE-PRUEFUNG.md) · [Ford](ROLLE-BETRIEB.md).
 - Vorräte, also Übergabe und Einzelheiten je Rolle: [Tom](ARBEIT-TEAM-TOM.md) · [Jerry](ARBEIT-TEAM-JERRY.md) · [Spike](ARBEIT-TEAM-SPIKE.md) · [Perikles](ARBEIT-PROJEKT.md) · [Homer](ARBEIT-KREATIV.md) · [Sokrates](ARBEIT-BERATUNG.md) · [Diogenes](ARBEIT-PRUEFUNG.md) · [Betrieb](ARBEIT-BETRIEB.md) · [Besetzung](ARBEIT-BESETZUNG.md).
 - **Abgelegt** in [`alt/`](alt/): Erledigtes und Ruhendes, beim Wiedereinschalten zurückholen, darunter die [Englisch-Korrekturliste](alt/LISTE-ENGLISCH-338-1B.md); die Umstellung der Vorgangsliste beschreibt `tools/umstellung2752/README.md`. Am 21.10. Gelöschtes steht in Git bis `f3ec7200`.
