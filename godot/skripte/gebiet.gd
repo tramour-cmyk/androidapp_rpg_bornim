@@ -216,6 +216,11 @@ static func atem_an(modell: Node3D, anim: AnimationPlayer, seed: int) -> Node:
 	atem.name = "Atem"
 	atem.eigen(seed)
 	sk.add_child(atem)
+	# 1694 (Bild 20:43: Stiel an den Fingerspitzen, Faust hohl, Messung „360° Umschlingung“): der Atem hob nach Tragen Brust und
+	# Schlüsselbein und schob die Faust 1,5-2 cm vom Schaft weg, die Waffe blieb, wo Tragen sie hingestellt hatte. Darum atmet die
+	# Figur vor Tragen; Tragen stellt Arm, Faust und Waffe auf die geatmete Pose
+	for n in sk.get_children():
+		if n is Tragen and n.get_index() < atem.get_index(): sk.move_child(atem, n.get_index())
 	return atem
 
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
