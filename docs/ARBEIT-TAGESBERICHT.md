@@ -5,64 +5,62 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 17.11., 07:42** (Werkzeug `tools/tagesbericht.py`)
+**Stand 18.11., 07:49** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 3 abgenommen, 2 gebaut, 7 in Arbeit, 29 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 197 / 914, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 91 / 539; neu 153 / 850 |
-| 3 | Rest geschätzt | Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“; die festen Kampfplätze (1072) hast du in Build 294 heute um 06:51 bestanden (alle Punkte von 294 ✓). Es fehlt nur dein Wort „Kampf passt“ oder die Liste dessen, was noch nicht passt. Schätzungen von Tom und Jerry liegen nicht vor. | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **2 zu entscheiden**, **1 anzusehen**, **1 Build zum Testen**, **1 zu tun** | ältestes: 1484 seit 16.11., 21:09; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **11** (Tom 3, Jerry 8); rote Läufe 24 h **13 von 31** (Tom 3, Jerry 2, Spike 2, beim Bau eines Test-Builds 6), 7 Tage 109 von 193; rote Tests 48 h: wolf_mess_438 13×, tod_ragdoll_1215 4×, lage_785_8 4×, ausholen_1000 4×, biss_1284 3×, reihe_1305 3× | bei dir zum Testen: Build 295; ein Build nimmt alle fertigen Zweige (317) |
-| 6 | Fehler | **14** offen, davon 6 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche unbekannt; gestern 787 $ Rechenwert, Spiel 65 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
-| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (16.11., 09:33) in Build 293 dreht sich der Wolf nicht zum Helden (Kampfplätze 1072, behoben in 294); bei Garrick (531.2) läuft der Gurt läuft durch die Kapuze und der Bogen schwebt (Bild, 17:34); am Tablet 1516 der Zauberlehrling im Hauptmenü hält den Stab nicht (07:32); zu 1072 … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
-| 9 | Größtes Risiko | die Wolfsmessung (wolf_mess_438) war in 48 Stunden 13-mal rot, obwohl sie am 16.11. als behoben galt (Wolfsmessung 1321); jetzt rücken nach einem Tod drei Wölfe ohne neuen Platz nach (1505, Jerry). (ganz unter „Eingaben“) |  |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 122 / 929, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 83 / 556; neu 126 / 864 |
+| 3 | Rest geschätzt | Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“ wird nicht erreicht: der Kampf ruht nach deinem Wort bis Sa 21.11., 20:00, weil das neue Kampfsystem (1589) den alten Kampfweg ersetzt. (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
+| 4 | Wartet auf dich | **8 zu billigen**, **1 Build zum Testen** | ältestes: 1571 seit 17.11., 00:00; [Chefsache](chefsache/README.md) |
+| 5 | Builds | Änderungen warten auf deinen Test: **14** (Tom 4, Jerry 10); rote Läufe 24 h **5 von 9** (Jerry 1, beim Bau eines Test-Builds 4), 7 Tage 101 von 186; rote Tests 48 h: wolf_mess_438 8×, tod_ragdoll_1215 4×, arkan_993 3×, biss_1284 3×, reihe_1305 3×, rand_1022 2×; APK-Läufe 24 h: **9**, Ø **46 min** (min 25, max 82), vorgerendert **7 von 9** (Ø 39 min, mit Neubau 71 min) | bei dir zum Testen: Build 298; ein Build nimmt alle fertigen Zweige (317) |
+| 6 | Fehler | **17** offen, davon 5 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 7 | Geld | Woche unbekannt; gestern 745 $ Rechenwert, Spiel 72 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (17.11., 07:42): Ford hing zwei Stunden und keiner meldete es (17:02, 1572); der weiße Streifen an der Wache war entgegen der Meldung noch da (21:45, 1515); der Feuerzauber beginnt hinter dem Kopf statt am Stab (21:40, 385.2); die Arbeit lief wieder nur auf zwei Entwickler zu … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
+| 9 | Größtes Risiko | der Stillstand ab Do 19.11. gegen 10:00, wenn das Guthaben 100 % erreicht; geht der Schlussbuild 299 heute rot, hast du bis Samstag nur Build 298, in dem ein Test rot war (Kartenrand rand_1022, 1606). Darum fliegt in 299 jeder rote Zweig hinaus statt repariert zu werden. |  |
 | 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 55 | 12 | 12 | 29 | 215 |
-| Jerry | 72 | 25 | 28 | 37 | 223 |
-| Homer | 1 | 0 | 0 | 11 | 78 |
-| Sokrates | 32 | 6 | 3 | 17 | 108 |
-| Perikles | 25 | 19 | 1 | 55 | 221 |
-| Diogenes | 10 | 8 | 1 | 11 | 23 |
+| Tom | 52 | 13 | 9 | 32 | 217 |
+| Jerry | 73 | 25 | 1 | 32 | 239 |
+| Homer | 1 | 0 | 0 | 4 | 69 |
+| Sokrates | 41 | 8 | 6 | 4 | 104 |
+| Perikles | 24 | 18 | 1 | 34 | 223 |
+| Diogenes | 6 | 5 | 0 | 0 | 19 |
 <!-- /zahlen -->
 
-## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 17.11., 07:39)
+## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 18.11., 07:48)
 
 | Stufe | Was du spielen kannst | Punkte | Stand |
 |---|---|---|---|
 | **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | 1.1 und 1.4 abgenommen (720, 09.11., 14:49); 1.2 Fertigkeiten gebaut (471 in t274 bestanden); 1.3 gebaut |
-| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 17 | 2.14 abgenommen (alle Orte begehbar, Höhle in t282); 2.13, 2.15, 2.16 als Teilhaken gebilligt (1375, 16.11., 18:32); Builds bis 294 getestet und auf `main`; Build 295 bei dir, 296 im Bau |
-| **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog angelegt (458); entschieden: 807 A, 976a, 975a, 1038 A, neu 644a.1 B, 1255 A, 1253, 1135 A (unten); Rest offen |
+| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 17 | 2.14 abgenommen; 2.13, 2.15, 2.16 als Teilhaken gebilligt (1375); Builds 295, 296, 297 gestern getestet; Sammelbuild 298 seit 17.11., 23:45 bei dir; Schlussbuild 299 ab heute 13:00 (1595) |
+| **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog: Waffenstaffel am Helden gebaut (458.3), Langwaffen kürzer (1621, heute 07:37 A); Figurenkatalog Teil A gebilligt (649.2), Teil B ruht mit dem Kampf; Rest offen |
 | **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | in Arbeit (unten); 4.8 keine SRD-Namen in Arbeit (870) |
-| **5 marktreif** | Kapitel 1 im Play Store | 1 | Vorlauf: D-U-N-S beantragt, wartet auf die Bearbeitung bis etwa 08.12. (142.4); AAB des Godot-Builds ruht bis „Kampf passt“ (622) |
+| **5 marktreif** | Kapitel 1 im Play Store | 1 | Vorlauf: D-U-N-S beantragt, Bearbeitung bis etwa 08.12. (142.4); AAB des Godot-Builds ruht bis „Kampf passt“ (622) |
 | **6 SRD im Code abgelöst** | nach dem Marktstart, für dich unsichtbar | 1 | – |
 
-- **Stufe 1:** 1.2 hast du gestern als Teilhaken gebilligt (1375, Haken gesetzt 1474); 1.3 ist gebaut, hat im Build aber noch keinen Weg ohne Vorwissen.
-- **Stufe 2:** Build 293 hast du gestern um 17:50 getestet (293.1 zurück an Jerry), Build 294 heute um 06:51 ganz bestanden, darin die festen Kampfplätze (1072); 293 und 294 sind zusammen auf `main` (PR 214). Build 295 (Glühen, Höhlenlicht, Merkmale am Gegnernamen) liegt seit 07:15 bei dir, Build 296 (Tom, Garrick und Kleidung) ist im Bau. Durchspiel-Build (496) und Kampforte Höhle (507) ruhen bis „Kampf passt“.
-- **Stufe 3:** alles zu Figuren, Helden und Gegenständen an einer Stelle (649b A, 16.11., 18:31): Build 1 jetzt mit Spikes Unterbau (1385) und Homers Namen (1473). Entschieden am 14.11.: Proben ohne Grundwert mit 5 % plus 1 je Punkt (1253), der Grundwert wächst mit der besten Fertigkeit bei 15, 25, 50, 75 und 100 (644a.1 B), jede Fertigkeit gehört zu genau einem Grundwert, fünfter Rang „Vollendeter“ bei 100 (1255 A). Neu gestern: Mana mit Wundsegen ±20 (1411 A), Merkmale je Exemplar (1411b A).
-- **Stufe 4:** von dir gebilligt seit dem letzten Bericht: Glühen und Höhlenlicht (1270.4), Kleidung Stufe 1 (431h), Garrick anliegend (531.2), Schild im Hauptmenü (1417), Fußstaub (1420), Mana-Balken (1439), Pfeiltreffer (601.1), Leiste ohne Wörter (1448). Zu entscheiden: Krogg im Dunkeln (1423a), fremde Rüstungen sichtbar (431h Stufe 2).
+- **Kampf (Block 2) ruht bis Sa 21.11., 20:00** (dein Wort 17.11., 23:21, 1605): keine Arbeit am alten Kampfweg, weil das neue Kampfsystem (Arena, Stellung, Beinarbeit, 1589) ihn ersetzt; 47 Zeilen warten auf diesen Termin, auch Gegenstandskatalog 458.3 und Welt in Zellen 1484a, die in den Sammelbuild danach gehen. Das Wochenziel „Kampf passt“ wird damit in dieser Woche nicht erreicht; ich setze es am Montag neu.
+- **Stufe 2:** Build 295 (10:09), 296 (11:03) und 297 (16:16) hast du gestern getestet; Build 298 (Neues Spiel nur BRS, Wiesen, Dorftiere, Stäbe, Siegtafel, Wolfssprung) liegt seit 23:45 bei dir, ein Test darin war rot (Kartenrand rand_1022, am Rechner grün, Tom 1606). Danach baut Jerry ab 13:00 den Schlussbuild 299 mit allem bis dahin Gebilligten (1595), damit du vor dem Stillstand eine aktuelle App zum Durchspielen hast.
+- **Stufe 3:** Nachts hat Sokrates als dein Vertreter vorentschieden: Waffenstaffel am Helden (458.3), Größen je Volk (455.2), Glanz ab episch (1613), Umhang und Robe (1569, 1569.1), Funkenlicht B (1211), Welt in Zellen (1484a); alles liegt zum Billigen in der Chefsache, „zurück“ heißt Rückbau.
+- **Stufe 4:** gebilligt seit dem letzten Bericht: Höhlenwasser (1566), Siegtafel (1567), Schatten im Kampfort (1568), Stäbe (1587), Streifen an der Wache weg (1515), fremde Rüstungen Stufe 2 (431h), Fackelzug im Vorspann (1530).
 
-## Wer hinkt (17.11., 07:39)
+## Wer hinkt (18.11., 07:48)
 
-- **Arbeit wieder ungleich verteilt** (dein Fund 06:19, 1508): startbar sind Jerry 28, Tom 12, Sokrates 3, Homer 0. Um 06:23 habe ich Jerry gebeten, Arbeit an Spike und Tom abzugeben (Übernahme nach Fach); ob das bis morgen trägt, prüfe ich am 18.11. (1508).
-- **Jerry:** Plätze und Bahnen (1072) erledigt; damit werden die Folgeschritte 1068 und 1224 frei; Treffer sichtbar (709, 709.1) wartete auf 1072 und ist wieder startbar, Jerry prüft, ob 1072 es schon mit erledigt hat. Rot offen: Wolfsmessung (1505) und Typenprüfung mit Arkanpfeil (1514).
-- **Tom:** Build 296 läuft (PR 215, Garrick 531 und mehr); neu dein Fund 1516 (Stab schwebt), als Muss eingestuft.
-- **Ungetestet:** 11 Änderungen (Tom 3, Jerry 8); ohne Build noch Jerry 1331, 1415, 785.12.
-- **Rote Läufe:** 13 von 31 in 24 Stunden (Vortag 15 von 32); wiederholt rot wolf_mess_438 13-mal (1505), tod_ragdoll_1215, lage_785_8, ausholen_1000 je 4-mal.
-- **Geld fürs Spiel:** gestern 787 $ Rechenwert, davon 65 % Spiel (Ziel Z5: 70 %); Sokrates legt dir heute zwei Sparwege vor (Haken ab 300 Tsd. Token, Halt ab 40 $ ohne dein 👍). Ein Bild der Nutzung der Woche fehlt seit 13.11.
-- **Festgefahren** (827.1): 431 Tom (126 $), 709.1 Jerry (83 $), 709 Jerry (64 $), 531 Tom (45 $).
+- **Guthaben:** 71 % am 17.11., 21:50; bei 0,8 % je Stunde 80 % heute gegen 09:00 (dann nur noch Muss), 100 % Do 19.11. gegen 10:00, danach Stillstand bis Sa 20:00. Ein neues Bild der Nutzung hilft mir, die Rechnung zu prüfen.
+- **Verteilung:** startbar sind jetzt Tom 8, Sokrates 6, Spike 2, Jerry 1, Perikles 1; Tuffy ist leer, weil Jerry kein zweites unabhängiges Muss außerhalb des ruhenden Kampfs hat. Nach deinem Wort 23:16 (1604) warnt `vorgang.py` jetzt beim Anlegen, wenn Spike oder Tuffy leer stehen; die Wirkung zähle ich am 23.11.
+- **Zusammenführen:** der Wächter meldet getestete Builds ab 274, die noch nicht ganz auf `main` sind (1608, Sokrates, Muss); er führt heute bis 12:00 zusammen, was grün ist, rote Tests gehen ans Team.
+- **Rote Läufe:** Kartenrand rand_1022 zweimal rot im Lauf, am Rechner grün (1606, Tom).
+- **Hänger:** Ford hing gestern zwei Stunden, ohne dass es dir jemand gemeldet hat (1572, dein Fund 17:02); seitdem meldet der Hängeralarm jede blockierte Sitzung nach 15 Minuten laut (1610, prüft Diogenes am 23.11.).
 
-## Wo du Prioritäten setzen kannst (17.11., 07:39)
+## Wo du Prioritäten setzen kannst (18.11., 07:48)
 
-1. **„Kampf passt“ sagen oder sagen, was fehlt:** die festen Kampfplätze (1072) hast du in Build 294 bestanden; ohne dein Wort bleibt das Wochenziel offen und der Durchspiel-Build (496) und die Kampforte der Höhle (507) ruhen weiter.
-2. **Build 295 testen** (Glühen und Höhlenlicht, Merkmale am Gegnernamen; seit 07:15): erst danach können 295 und 296 zusammen auf `main`.
-3. **Zwei Entscheidungen:** 1423a (darf der Held in der Höhle hinter einer hohen Wand im Dunkeln stehen) und 431h Stufe 2 (fremde Rüstungen sichtbar, 40–70 $).
+1. **Build 298 testen** (seit 17.11., 23:45, [Prüfliste](chefsache/ansehen/t298-sammelbuild.md)): er hält 9 Zeilen; was du dort findest, kommt noch in den Schlussbuild 299 ab 13:00.
+2. **Vorentscheide der Nacht billigen oder „zurück“ sagen** (acht Dateien in `chefsache/billigen/`): ohne Wort gehen sie in den Sammelbuild nach dem Stillstand.
+3. **Mittwochsrunde:** heute schreiben alle sieben Rollen ihren Rollenspiegel; danach bekommst du die Übersicht der Spielvorschläge (Frage 11).
 
-*Stärkstes Gegenargument zu 1:* Treffer sichtbar (709, 709.1) und die Wolfsmessung (1505) sind noch offen, „Kampf passt“ käme zu früh. *Wie es zu entkräften ist:* dann bitte genau diese Punkte als Rest nennen; das Wochenziel bekommt eine kurze Restliste statt einer zweiten Woche ohne Maß.
+*Stärkstes Gegenargument zu 1:* Build 299 kommt heute Abend ohnehin und enthält 298; ein Test von 298 kostet dich doppelt. *Wie es zu entkräften ist:* 298 ist die sichere App, falls 299 rot bleibt, und Funde aus 298 kann Jerry nur bis 13:00 in 299 aufnehmen.
 
 ## Wie das Projekt aufgebaut ist
 
@@ -74,6 +72,6 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
-- Rest geschätzt: Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“; die festen Kampfplätze (1072) hast du in Build 294 heute um 06:51 bestanden (alle Punkte von 294 ✓). Es fehlt nur dein Wort „Kampf passt“ oder die Liste dessen, was noch nicht passt. Schätzungen von Tom und Jerry liegen nicht vor.
-- Von dir zuerst gefunden: seit dem letzten Bericht (16.11., 09:33) in Build 293 dreht sich der Wolf nicht zum Helden (Kampfplätze 1072, behoben in 294); bei Garrick (531.2) läuft der Gurt läuft durch die Kapuze und der Bogen schwebt (Bild, 17:34); am Tablet 1516 der Zauberlehrling im Hauptmenü hält den Stab nicht (07:32); zu 1072 „immer Wölfe“ statt Laufwege für alle Figuren (21:23); im Betrieb „immer noch nichts auf main gelandet“ (20:25, 293 hing an rotem Lauf) und 1508 „die nächsten 20 alles Jerry“ (06:19, Arbeit wieder ungleich verteilt, zweiter Fund nach 1364). 293.7 (Gehen zu schnell) lag am eingeschalteten Testschalter, kein Fehler. Wiederholt statt neu: 1508 ungleich verteilte Arbeit (zweiter Fund), 531 Garrick (Rückläufer). Die Woche zählt Diogenes am 23.11.
-- Größtes Risiko: die Wolfsmessung (wolf_mess_438) war in 48 Stunden 13-mal rot, obwohl sie am 16.11. als behoben galt (Wolfsmessung 1321); jetzt rücken nach einem Tod drei Wölfe ohne neuen Platz nach (1505, Jerry). Rote Läufe 13 von 31 in 24 Stunden, 6 davon beim Bau eines Test-Builds. Ein roter Test hielt gestern Build 293 einen Abend lang von `main` fern; dasselbe droht Build 295 (rot bekannt: 1505, 1514)
+- Rest geschätzt: Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“ wird nicht erreicht: der Kampf ruht nach deinem Wort bis Sa 21.11., 20:00, weil das neue Kampfsystem (1589) den alten Kampfweg ersetzt. Bis dahin zählt der Schlussbuild 299 (1595, Jerry, Bau ab 13:00, Testbitte bis 20:00). Schätzungen von Tom und Jerry liegen nicht vor; Montag neu.
+- Von dir zuerst gefunden: seit dem letzten Bericht (17.11., 07:42): Ford hing zwei Stunden und keiner meldete es (17:02, 1572); der weiße Streifen an der Wache war entgegen der Meldung noch da (21:45, 1515); der Feuerzauber beginnt hinter dem Kopf statt am Stab (21:40, 385.2); die Arbeit lief wieder nur auf zwei Entwickler zu (23:16, 1604, Wiederholung von 1508); die Langwaffen waren zu lang (07:29, 1621) und der Held stakst im Film (07:29, 1619); die Bremse für Vorentscheide zählte falsch (07:32, 1620). Wiederholt statt neu: 1604 (ungleiche Verteilung, dritter Fund), 1515 (Rückläufer). Die Woche zählt Diogenes am 23.11.
+- Größtes Risiko: der Stillstand ab Do 19.11. gegen 10:00, wenn das Guthaben 100 % erreicht; geht der Schlussbuild 299 heute rot, hast du bis Samstag nur Build 298, in dem ein Test rot war (Kartenrand rand_1022, 1606). Darum fliegt in 299 jeder rote Zweig hinaus statt repariert zu werden.
