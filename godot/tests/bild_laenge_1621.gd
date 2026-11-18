@@ -44,15 +44,17 @@ func _lauf() -> void:
 	var hw = spiel.held_werte()
 	hw.ausruestung.erase("OFF_HAND")
 	var bilder := OS.get_environment("BILDER")
+	if OS.get_environment("GANG") != "": HeldFigur.waffen_gehen = OS.get_environment("GANG")   # Prüfhilfe: paket wie vor 1619
 	titel.add_theme_font_size_override("font_size", 44)
 	spiel.kamera.drehe(-120.0)   # schräg von vorn, der Held kommt auf die Kamera zu
 	spiel.kamera.springe()
-	# freie Stelle auf dem Weg (der Start liegt am Brunnen): einmal 80 Bilder gehen, dort beginnt jede Waffe
+	# freie Stelle auf dem Weg: einmal 20 Bilder gehen, dort beginnt jede Waffe; nach 30 weiteren Bildern noch im Gehen (bei 80 stand er
+	# an der Wiese still: Animation Stehen, die linke Faust 39 cm neben dem Schaft)
 	hw.ausruestung["MAIN_HAND"] = {"uid": 9099, "base": "greataxe", "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": null, "name_seed": 1}
 	spiel.held_figur_neu("")
 	for c in spiel.held.stoesst.get_connections(): spiel.held.stoesst.disconnect(c["callable"])
 	spiel.held.richtung = Vector3(0, 0, 1)
-	for f in 80: await process_frame
+	for f in 20: await process_frame
 	var start: Vector3 = spiel.held.position
 	spiel.held.richtung = Vector3.ZERO
 	for f in 10: await process_frame
@@ -65,8 +67,9 @@ func _lauf() -> void:
 		spiel.held.position = start
 		spiel.kamera.springe()
 		spiel.held.richtung = Vector3(0, 0, 1)
-		for f in 40: await process_frame
-		spiel.held.process_mode = Node.PROCESS_MODE_DISABLED   # Gehen anhalten: Tragehaltung wie im Film 458.3
+		for f in 30: await process_frame
+		# Chef 18.11. zu den ersten Bildern (Waffen schweben): der Held geht weiter, das Bild ist ein Augenblick im Gehen. Angehalten
+		# (process_mode DISABLED) liefen Skelett und Waffe auseinander, die linke Faust lag 15 cm neben dem Schaft (Prüfkugeln, MARKE=1)
 		var neu: Node3D = spiel.held.modell
 		var ap0 := Gebiet.finde(neu, "AnimationPlayer") as AnimationPlayer
 		var alt := neu.duplicate() as Node3D
@@ -93,16 +96,38 @@ func _lauf() -> void:
 		print("BILD1621 %s %s: %d Netze getauscht" % [e[0], datei, getauscht])
 		if getauscht == 0: fehler += 1
 		titel.text = "%s · hinten alt %s cm · vorn neu %s cm" % [e[1], e[2], e[3]]
-		for f in 10: await process_frame
+		for f in 2: await process_frame   # noch im Gehen (nach etwa 10 Bildern stand er an der Wiese, Prüfkugeln: Animation Stehen)
+		if OS.get_environment("MARKE") != "":   # Prüfhilfe: Kugeln an den Fingeransätzen (rot rechts, blau links) und am Griff (gelb)
+			for mm in [neu, alt]:
+				var skm := Gebiet.finde(mm, "Skeleton3D") as Skeleton3D
+				for sd in [["r", Color.RED], ["l", Color.BLUE]]:
+					var pm := Vector3.ZERO
+					for bn in ["index_01_", "pinky_01_", "middle_01_"]: pm += skm.global_transform * skm.get_bone_global_pose(skm.find_bone(bn + sd[0])).origin
+					marke(pm / 3.0, sd[1])
+				for n in mm.get_children():
+					if String(n.name).contains("Getragen"): marke((n as Node3D).global_position, Color.YELLOW)
+				marke(skm.global_transform * (Tragen.hand_rahmen(skm, "l") * Tragen.ZWEI_LINKS), Color.GREEN)
+				for tn in skm.get_children():
+					if tn is Tragen:
+						var fl: Vector3 = skm.global_transform * (Tragen.hand_rahmen(skm, "l") * Tragen.ZWEI_LINKS)
+						var o: Vector3 = tn.waffe.global_position; var a: Vector3 = tn.waffe.global_basis.y.normalized(); var q := fl - o
+						print("MARKE %s: zwei_winkel %.1f Grad, ZWEI_LINKS %.1f cm neben dem Schaft, Animation %s, speed %.2f, aktiv %s" % [mm.name, tn.zwei_winkel, 100.0 * (q - a * q.dot(a)).length(), tn.anim.current_animation if tn.anim else "-", tn.anim.speed_scale if tn.anim else 0.0, tn.active])
+				marke(skm.global_transform * (Tragen.hand_rahmen(skm, "r") * Tragen.GRIFF_PUNKT), Color.MAGENTA)
+			for f in 3: await process_frame
 		if bilder != "":
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_png(bilder + "/laenge1621_%s.png" % e[0])
 			print("BILD ", bilder + "/laenge1621_%s.png" % e[0])
 		alt.queue_free()
 		quelle.free()
-		spiel.held.process_mode = Node.PROCESS_MODE_INHERIT
 		spiel.held.richtung = Vector3.ZERO
 		for f in 5: await process_frame
 	spiel.held.richtung = Vector3.ZERO
 	print("BILD1621 %s" % ("gut" if fehler == 0 else "%d Fehler" % fehler))
 	quit(1 if fehler else 0)
+
+func marke(p: Vector3, c: Color) -> void:
+	var k := MeshInstance3D.new(); var sm := SphereMesh.new(); sm.radius = 0.025; sm.height = 0.05; k.mesh = sm
+	var mt := StandardMaterial3D.new(); mt.albedo_color = c; mt.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED; mt.no_depth_test = true
+	k.material_override = mt
+	root.add_child(k); k.global_position = p
