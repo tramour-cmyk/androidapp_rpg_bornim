@@ -56,7 +56,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 ## Wo du Prioritäten setzen kannst (18.11., 07:48)
 
-1. **Build 298 testen** (seit 17.11., 23:45, [Prüfliste](chefsache/ansehen/t298-sammelbuild.md)): er hält 9 Zeilen; was du dort findest, kommt noch in den Schlussbuild 299 ab 13:00.
+1. **Build 298 testen** (seit 17.11., 23:45, Prüfliste `ansehen/t298-sammelbuild.md`, getestet, in Git): er hält 9 Zeilen; was du dort findest, kommt noch in den Schlussbuild 299 ab 13:00.
 2. **Vorentscheide der Nacht billigen oder „zurück“ sagen** (acht Dateien in `chefsache/billigen/`): mit deinem 👍 bis 13:00 kommen sie noch in den Schlussbuild 299, sonst erst in den Sammelbuild nach dem Stillstand (Sa 21.11., 20:00).
 3. **Mittwochsrunde** (dein Wort 18.11., 00:03): heute beantworten Sokrates, Perikles, Homer, Ford, Diogenes, Tom und Jerry den Fragebogen zur eigenen Arbeit (Rollenspiegel); danach bekommst du ihre Vorschläge, wie Kapitel 1 besser wird, als eine Übersicht.
 
