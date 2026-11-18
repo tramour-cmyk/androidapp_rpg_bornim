@@ -1023,3 +1023,4 @@
 2026-11-18 17:45:06	probelauf	621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für 1694 schon 1 Probelauf seit deinem Urteil 2026-11-18 17:38:00. Kein weiterer Lauf: jetzt vorlegen, was da ist, auch	claude/spike-1694-griff
 2026-11-18 18:05:09	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	HEAD
 2026-11-18 18:24:36	commit-pruefung	docs/chefsache/ansehen/1406-jorin-wende.md ohne Bild, Film oder Frage; nur Stand gehört in die Vorgangsliste (`vorgang.py stand`), nicht zum Chef (890, Fall 663)	main
+2026-11-18 18:24:36	commit-pruefung	docs/chefsache/ansehen/1406-jorin-wende.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
