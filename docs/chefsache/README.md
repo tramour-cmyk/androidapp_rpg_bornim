@@ -183,7 +183,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 622 | K | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | nach dem Meilenstein |
 | 1280 | K | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 6 | nach dem Meilenstein |
 
-**Jerry** – offen 77, Muss 26, startbar 9
+**Jerry** – offen 77, Muss 26, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -210,7 +210,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1653 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 | startbar |
 | 1654 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m | startbar |
 | 1664 | M | Von Chef (18.11., 14:19/14:20, Fund): im Kampf (Wald, drei Goblins, Held Zauberlehrling, B | wartet auf Test (Build 300) |
-| 1697 | M | Von Jerry (Film t300.9, Lauf 567): dunkle Rechtecke unter Held und Goblin im Kampfort Wald | startbar |
+| 1697 | M | Von Jerry (Film t300.9, Lauf 567): dunkle Rechtecke unter Held und Goblin im Kampfort Wald | Chef (Datei in der Chefsache) |
 | 1698 | M | Von Ford (Befund Spike 18.11., 18:14): frischer Bau des Blocks klassen (held_klassen.py au | wartet auf Test/Build (gebaut) |
 | 1563 | K | Von Chef (17.11., 12:22, an Sokrates, Build 296, nannte 1155): Teich in der Höhle am Ufer | wartet auf 1564 (startbar) |
 | 438a | K | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv | ruht bis 23.11. |
