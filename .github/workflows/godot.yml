@@ -819,6 +819,7 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/zoom_1118.gd 2>&1 | grep -E "^FEHLER|ZOOM1118|SCRIPT ERROR"   # 1118 Fingerzoom endet bei NAH, Held ganz im Bild
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/ausruestung_522.gd 2>&1 | grep -E "^(gut|FEHLER|AUSRUESTUNG522|ohne)|SCRIPT ERROR"   # 522 Figur nach Ausruestungswechsel
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/waffen_522.gd 2>&1 | grep -E "^FALSCH|^bekannt|WAFFEN522|SCRIPT ERROR"   # 522 jede baubare Waffe am Helden, Dolch nicht als Schild (Tom)
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/gang_1632.gd 2>&1 | grep -E "^FEHLER|GANG1632|SCRIPT ERROR"   # 1632 Gangprüfung: kein Fußgleiten, kein Trippeln je Waffe und Gangart (Spike)
           set -o pipefail; timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/waffe_948.gd 2>&1 | grep -E "^  |WAFFE948|SCRIPT ERROR"   # 948 B jede Klinge 3 cm an der Wurzel, 1 cm dick; Dolch in der Hand je Herkunft (Jerry)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/tasche_521.gd 2>&1 | grep -E "^(gut|FEHLER|TASCHE521)|SCRIPT ERROR"   # 521, 523 Ausruestungszeile wie alt
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/untersuchen_541.gd 2>&1 | grep -E "FEHLER|UNTERSUCHEN|SCRIPT ERROR"   # 541 Untersuchen, Angriff mit dem Knopf
