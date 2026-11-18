@@ -18,6 +18,10 @@ Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört 
 
 Am 17.10. geholt (137): 138, 139, 140, 141, 133, 142.
 
+## Aus dem Rollenspiegel (Frage 11, 1461)
+
+- **Perikles (Rollenspiegel 18.11.):** Vorschlag fürs Spiel: Der Kräutersammler bekommt vor der Blutzahnhöhle eine eigene Herkunftshandlung, in der er aus gesammelten Kräutern einen Trank für den Bosskampf braut. Auslöser: Rechnung 1486 (17.11., 21:26), Kräutersammler gewinnt gegen die Bosse nur 56–62 von 100, Wachsoldat und Klosterschüler 93–100; Abnahmepunkt Stufe 2 „je Herkunft eine Handlung“ und Leitbild „Grinden darf man, muss man nie“. Aufwand etwa 2 Sitzungen (Text Homer, Bau Tom). Stärkstes Gegenargument: Balance liegt beim Chef, und das neue Kampfsystem (1589) misst ab 21.11. ohnehin neu, die Schere kann sich von selbst schließen.
+
 ## Verworfen (der Chef holt zurück)
 
 Zuletzt verworfen (Homer 15.11., 1264): Eigener Name für Fertigkeit 100 (umgesetzt: „Vollendeter“, 1255 A, 1258); 49 Lehrer für Rettungswurf-Übung (kein Rettungswurf im BRS, Lehrmeister in 508); 50 Weitere Klassen (keine Klassen im BRS); 70 Bildsprache Rest (Tusche mit 613 gebaut; Mond bleibt eigene Idee); 79 Kampfhintergründe (= 72u); 283.1 Hohes Gras (doppelt: „Gras weicht aus“ R9 in 816 Dorf und 806 Kampfort, Wiesen 1205, Wald 490).
