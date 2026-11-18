@@ -38,6 +38,7 @@ func _lauf() -> void:
 	pruefe(h.funke_licht.visible and h.funke_licht.light_energy > 0.5, "nachts kein Licht: %.2f" % h.funke_licht.light_energy)
 	pruefe(h.funke_licht.light_energy < 2.2 * 1.0, "heller als die Fackel")
 	pruefe(h.funke_licht.light_color.b > h.funke_licht.light_color.r, "Licht nicht kühl")
+	pruefe(is_equal_approx(h.funke_licht.omni_range, 8.0) and is_equal_approx(h.funke_licht.omni_attenuation, 1.0), "Licht nicht wie 1211 B (8 m, Abfall 1,0): %.1f m, %.1f" % [h.funke_licht.omni_range, h.funke_licht.omni_attenuation])
 	# dreht sich der Held, bleibt der Funke, wo er ist (top_level)
 	var p0 := h.funke.global_position
 	h.rotation.y += PI / 2
@@ -46,6 +47,15 @@ func _lauf() -> void:
 	h.nacht(0.0)
 	h._process(1.0 / 30.0)
 	pruefe(not h.funke_licht.visible, "am Tag Licht an")
+	# 1211 (Chef 17.11., 23:56: „an den Grad der Dunkelheit … nicht an der Uhrzeit“): in der Höhle am Tag volles Licht wie die Fackel
+	h.fackel_neu(false, false, true)
+	h.nacht(0.0)
+	h._process(1.0 / 30.0)
+	var e_hoehle := h.funke_licht.light_energy
+	pruefe(h.funke_licht.visible and e_hoehle > 0.5, "Höhle am Tag ohne Licht: %.2f" % e_hoehle)
+	h.fackel_neu(false, false, false)
+	h._process(1.0 / 30.0)
+	pruefe(not h.funke_licht.visible, "draussen am Tag Licht an (nach der Höhle)")
 	# im Raum sinkt er auf die Schulter
 	h.fackel_neu(false, true)
 	for i in 60: h._process(1.0 / 30.0)
@@ -55,6 +65,11 @@ func _lauf() -> void:
 	z.funke = false
 	h.funke_neu(z.funke)
 	pruefe(not h.funke.visible, "gelöscht noch sichtbar")
+	# 1630: alle Lichtquellen der Höhle nach der Dunkelheit am Ort; die Tusche nach den Lampen bekommt in der Höhle immer „dunkel“
+	pruefe(Licht.dunkel_am_ort("CAVE", 0.0) == 1.0 and Licht.dunkel_am_ort("OUTDOOR", 0.3) == 0.3 and Licht.dunkel_am_ort("INTERIOR", 0.0) == 0.0, "dunkel_am_ort falsch")
+	var sp := FileAccess.get_file_as_string("res://skripte/spiel.gd")
+	var nk := sp.substr(sp.find("func _nacht("), 400)
+	pruefe(nk.contains("kamera.nacht = Licht.dunkel_am_ort("), "Kamera (Tusche nach Lampen) nicht nach der Dunkelheit am Ort")
 	print("Funke 677: draussen %.2f–%.2f m, im Raum %.2f m" % [hmin, hmax, hr])
 	print("FUNKE677 %d Fehler" % fehler)
-	quit(0)
+	quit(1 if fehler else 0)

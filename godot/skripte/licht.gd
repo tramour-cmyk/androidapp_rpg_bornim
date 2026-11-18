@@ -93,6 +93,9 @@ var stimmung: ShaderMaterial
 
 # zur Sonne (Welt), fuer Materialien, die das Licht selbst auswerten (Busch-Tusche)
 static func richtung() -> Vector3: return zur_sonne
+## 1630 (Chef 18.11., 09:00, Erweiterung von 1211): Lichtquellen richten sich nach der Dunkelheit am Ort, nicht nach der Uhr; in der
+## Höhle ist es immer dunkel (alt MapLight dark = 1.0 in CAVE), sonst nach der Nacht
+static func dunkel_am_ort(art: String, nacht_k: float) -> float: return 1.0 if art == "CAVE" else nacht_k
 
 static func stand_um(minute: int) -> Stand:
 	var h := posmod(minute, 24 * 60) / 60
