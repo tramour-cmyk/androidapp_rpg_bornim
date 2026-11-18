@@ -633,8 +633,11 @@ if 'cloak' in TEILNAMEN and 'tabard' in TEILNAMEN and os.environ.get('RUECKBAHN'
 # Frau 17382 -> 15058; Hose und Guertel unter dem Umhang weg Wache Frau 4832 -> 4208, Mann 5844 -> 5556; Aermel und Kette 5 statt 3 cm
 # Wache Mann 5556 -> 4367 (Aermel 1353 -> 387), Frau 4208 -> 4131; keine Loecher dazu. Stiefel unter der Robe und Haut unter Kette und
 # Kragen: kaum Wirkung (Robe Stiefel 1130 -> 1067), nicht eingebaut. „:beide“ hinten: auch Oberlage hinter der Flaeche (Guertel in der Robe)
+# 1653 (Thessa, durchstich_1631 Kleid#15/#16>Kleid#14 1,5 m): die Spangen (held3 'clasp') sitzen halb im Umhang und stachen in
+# Bewegung durch ihn; ihre Hälfte unter dem Umhang weg. 1654 (Rowena, Kleid#0>Kleid#9 0,9 m): an der Hüfte lag der Rock (robe) über
+# den Rändern der Schürze (apron), braune Zacken auf der Schürze; Rock unter und über der Schürze binnen 3 cm weg (die Schürze deckt dort)
 UNTER_WEG = os.environ.get('UNTER_WEG', 'sleeves:chain+cloak+robe:0.05&chain:cloak:0.05&pants:cloak+robe+tabard:0.03&belt:cloak:0.03'
-                           '&robe:belt+buckle+cuff:0.03:beide&sleeves:cuff:0.03')
+                           '&robe:belt+buckle+cuff:0.03:beide&sleeves:cuff:0.03&clasp:cloak:0.03&robe:apron:0.03:beide')
 if UNTER_WEG:
     LT3 = np.zeros(len(kme.vertices), dtype=int); kme.attributes['teil'].data.foreach_get('value', LT3)
     _W = [kleid.matrix_world @ v.co for v in kme.vertices]; _N = kleid.matrix_world.to_3x3()
