@@ -11,7 +11,6 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 18.11.): `tools/rollenspiegel.sh Tom` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Tom | M | erledigt | – | – | – | B Abläufe | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | startbar, gelöst 17.11.: 431h, t297 | 870 | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 1297 | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | Tom | M | wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel | 431 | – | – | E Figuren | – |
@@ -64,7 +63,6 @@
 | 1614 | Von Tuffy (455.2): Heldmodelle held_*.bin tragen eine Hilfskugel der Kaufdatei (Icosphere, 2 m, 42 Ecken, unsichtbar); verfälscht Messungen (pruef_*), weg wie in quaternius.importiere | Tom | K | gebaut, Prüfskripte ohne Knochenform, Geprüft an: d72f5430b | – | claude/tom-1614-kugel | – | E Figuren | – |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | nach Meilenstein | – | – | – | M Veröffentlichung | 2,91 $ |
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Tom | K | nach Meilenstein | – | – | – | E Welt | – |
-| Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 18.11.): `tools/rollenspiegel.sh Jerry` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Jerry | M | startbar | – | – | – | B Abläufe | – |
 | 1595 | Von Perikles (1594, Chef 17.11., 21:53 aktuelle App vor dem Stillstand): Schlussbuild 299 = main nach 1593 und 298, dazu nur bis Mi 18.11., 13:00 Gebilligtes; Bau ab 13:00, Testbitte bis Mi 20:00; roter Zweig fliegt raus statt Reparatur | Jerry | M | startbar | 18.11. 13:00 | – | – | B Abläufe | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | – | – | – | E Technik | 15,96 $ |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) | Jerry | M | zu testen | – | claude/jerry-760-sprung | 298 | E Kampf | 28,71 $ |
@@ -138,7 +136,6 @@
 | Pflege | von Werkzeug (340.3, 18.11.): 11 „Zu“ zu Erledigtem (1488, 1488, 1275, 601.1, 1275, 623.2 …), beim Übergeben streichen (1425) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | nach Meilenstein, Kapitel 2/3 nach Kapitel 1 (Perikles 17.11.) | – | – | – | G Story | – |
 | 1281 | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, 937, 938, 1002; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Jerry | K | nach Meilenstein | – | – | – | E Kampf | – |
-| Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 18.11.): `tools/rollenspiegel.sh Homer` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Homer | M | startbar | – | – | – | B Abläufe | – |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | nach Meilenstein | Chef Gespräch | – | – | G Story | 6,54 $ |
 | 1594 | Von Sokrates (Chef 17.11., 21:53: „Wichtig, dass ich eine aktuelle App zu. Schluss hin bekomme. Zum testen und durchspielen.“): aktuelle App beim Chef vor 100 % Guthaben (Do ≈ 10:00); Reihenfolge im Vorrat | Perikles | M | wartet, Umfang entschieden | 1595 | – | – | B Abläufe | 3,82 $ |
 | 1572 | Von Chef (17.11., 17:02, an Sokrates): Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram; Hängeralarm: blockierte Rolle über 15 Min. → meldung.sh --laut an den Chef (etwa Uhr-Sitzung beim Weiterreichen) | Perikles | M | gebaut, Geprüft an: 239b6745a | 1610, 23.11. | – | – | B Abläufe | 1,38 $ |
@@ -211,7 +208,6 @@
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 19,96 $ |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 4,68 $ |
 | 109 | Repo öffentlich | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | – |
-| Spiegel | von Werkzeug (340.3, Rollenspiegel Woche 18.11.): `tools/rollenspiegel.sh Ford` zeigt die Fragen; Antwort mit `--antwort` anhängen, committen, pushen | Ford | M | startbar | – | – | – | B Abläufe | – |
 | 1507 | Von Sokrates (Chef 17.11., 06:15: Diogenes-Meldungen mit Daumen „nicht kapiert“): Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer; Prüfberichte ohne Daumenzeile | Ford | M | startbar | – | – | – | B Abläufe | 1,89 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $ |
 | 1469 | Von Diogenes (1463, Startwarnung 108): chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11.; verkleinern oder löschen, wenn 415 entschieden | Ford | K | startbar | – | – | – | B Abläufe | – |
