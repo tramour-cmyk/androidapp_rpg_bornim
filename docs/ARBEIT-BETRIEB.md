@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1662** (zuletzt 1661 Ford 18.11. 12:58:12 5732) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1663** (zuletzt 1662 Perikles 18.11. 13:10:45 e4b4) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -47,8 +47,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 18.11., 13:08 Ford: Lauf 13:06: Start Diogenes `…76rBBYAGPiGMVm2GaU` (1658), Perikles `…75tEB699cCr9xdy85o` (M? 1659, 1660); Perikles alt archiviert, 1,69 $ auf 1649, 1659; `--ohne` Jerry (1595 bei Spike, läuft), 1661 (Probe beim nächsten Sokrates-Start); 1661 gebaut.
 - 18.11., 12:32 Ford: Tom-Neustart `…79iYtAvHXSiAgGMdpW` (1631); alter `…77q6iS3aDy6wKb8GJk` archiviert, 5,09 $ auf 1631, 1614; Diogenes `…78ZfZEfBywYU6iCQ7J` archiviert 12:14, 1,32 $ auf 1461, 1658.
-- 12:31 18.11.: Startsperre 12:31 Start Tom (Neustart 31b524e73, 1631)
 - 18.11., 12:06 Ford: Lauf 12:04: Start Diogenes `…78ZfZEfBywYU6iCQ7J` (1461 Rollenspiegel), Perikles `…76h12sqMDi6vdYZgEk` (M? 1649–1657); archiviert Diogenes (2,14 $ auf 1640–1644), Perikles (2,07 $ auf 1645, 1629); GELÖST 1567, 1622 an Spike; 1621 per `--ohne` (beim Chef).
 - 18.11., 11:05 Ford: Spike `…79DaMd5Y4vJQUNUP6v` (1645, 13:00 1595 mit Toms Zweigliste); alter `…78TrowutmKCt1WPxQ4` (236 Tsd.) archiviert, 4,24 $ auf 1642, 1643, 1644.
 - 18.11., 11:01 Ford: Lauf 11:00: Start Diogenes `…7A6mMgqbeH3RmP6Rqb` (1640–1644), Perikles `…77fPKnKN9Mn9WrXg4S` (M? 1645); archiviert Diogenes alt (1,43 $ auf 1624), Perikles alt (3,21 $ auf 1625, 1633, 448). Spike-Neustart gemeldet (Nachfolger 1595 ab 13:00).
@@ -106,6 +106,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
+- 12:31 18.11.: Startsperre 12:31 Start Tom (Neustart 31b524e73, 1631)
 - 11:04 18.11.: Startsperre 11:04 Start Spike (Neustart 7fe267d95, 1645)
 - 10:57 18.11.: Startsperre 10:57 Start Tom (Neustart 21b36bbb1, 1631)
 - 10:49 18.11.: Startsperre 10:49 Start Spike (Neustart 58d2d9ca3, 1642)
@@ -119,8 +120,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 18.11.: Marke Abgleich Vorentscheid-Bremse (194.1): 6 ungebilligt, 0 älter als 7 Ta (lauf.py)
 - 02:04 18.11.: Marke Archiv session_01Hmoj76ZZ4So1LU7Qq4LAv3 (lauf.py)
 - 04:04 18.11.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
-- 07:05 18.11.: Startsperre 07:05 Start Tom, Spike (lauf.py)
-- 07:05 18.11.: Startsperre 07:05 Start Diogenes (lauf.py)
 - 07:41 18.11.: Startsperre 07:41 Start Tom, Spike, Perikles (lauf.py)
 - 07:41 18.11.: Marke Tagesbericht 18.11. (lauf.py)
 - 07:41 18.11.: Marke Start-fehlt Diogenes 18.11.-07:05 (lauf.py)
@@ -163,3 +162,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:05 18.11.: Startsperre 12:05 Start Diogenes, Perikles (lauf.py, Diogenes 1461)
 - 12:05 18.11.: Marke Archiv session_01Hmoj7A6mMgqbeH3RmP6Rqb (lauf.py)
 - 12:05 18.11.: Marke Archiv session_01Hmoj77fPKnKN9Mn9WrXg4S (lauf.py)
+- 13:06 18.11.: Startsperre 13:06 Start Diogenes, Perikles (lauf.py, Diogenes 1658)
+- 13:06 18.11.: Marke Start-fehlt Diogenes 18.11.-12:05 (lauf.py)
+- 13:06 18.11.: Marke Archiv session_01Hmoj76h12sqMDi6vdYZgEk (lauf.py)
