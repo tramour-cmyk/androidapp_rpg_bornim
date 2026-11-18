@@ -24,7 +24,11 @@ def sitzungen(pfad, offen):
     obj, _ = json.JSONDecoder().raw_decode(t[i:])
     c = obj.get("ccr", {})
     if c.get("has_more") or obj.get("has_more"): offen.append(pfad)
-    return c.get("data", [c] if "id" in c else [])
+    aus = c.get("data", [c] if "id" in c else [])
+    for s in aus:  # 1618 (D311.1): blocked und IDLE = Zug zu Ende, Rückfrage an den Chef, keine Freigabe; wie Kurzform need_input (1617)
+        if "BLOCKED" in s.get("status_bucket", "") and s.get("session_status") == "SESSION_STATUS_IDLE":
+            s["status_bucket"] = ""; s.setdefault("post_turn_summary", {})["status_category"] = "need_input"
+    return aus
 
 BEKANNTE_STATUS = {"working", "idle", "blocked", "need_input", "archived"}
 
