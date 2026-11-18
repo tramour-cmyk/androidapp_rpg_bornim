@@ -210,6 +210,17 @@ def warte_chef_nummern(zeile):
         aus.append("%s (%s)" % (nr, ("…" + zusatz[-119:]) if len(zusatz) > 120 else zusatz))
     return aus
 
+def nacht_halt(r, nr, ausgabe, morgen):
+    """1643 (340.12/3): derselbe Vorgang nach zwei Neustarts in einer Nacht angehalten; Zeile „Morgen 1643: …“ im Protokoll für den Morgen."""
+    try:
+        import nachtstarts
+        if not nr or not re.match(r"\d", str(nr)) or not nachtstarts.angehalten(r, str(nr)): return False
+    except Exception:
+        return False
+    ausgabe.append("NICHTS %s: Vorgang %s in dieser Nacht schon %d-mal gestartet, angehalten bis 7 Uhr (1643)" % (r, nr, nachtstarts.GRENZE))
+    morgen.append("Morgen 1643: %s %s nach zwei Neustarts in der Nacht angehalten, Ursache ansehen" % (r, nr))
+    return True
+
 def startmarken():
     """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll. Datum aus dem Zeilenkopf
     „- HH:MM TT.MM.:“ (631: ohne Datum galt eine Marke vom Vortag als heutige); fehlt er: heute, sonst gestern."""
@@ -802,7 +813,7 @@ def main():
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     ausgabe.extend(ohne_ueberholt(ausschluss, leb))
-    sperren = []; neue_warnungen = []
+    sperren = []; neue_warnungen = []; sperr_nr = {}; morgen = []  # 1643: Vorgang je Startsperre, Zeilen für den Morgen
     bekannt = warnungen_bekannt()
     def vorgaenger(r):
         # 261.5 (Chef 18:25): startet ein Nachfolger, archiviert Ford die alten Sitzungen der Rolle gleich danach, nicht erst im nächsten Lauf
@@ -864,13 +875,15 @@ def main():
         elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
             offen_nf = None
+        if offen_nf and nf_nr and nacht_halt(r, nf_nr.group(1), ausgabe, morgen):
+            continue
         if offen_nf:
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             mo, satz, hoch = modell(r, nf_nr.group(1) if nf_nr else None, offen_nf)
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
             ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
-            vorgaenger(r); sperren.append(r); continue
+            vorgaenger(r); sperren.append(r); sperr_nr[r] = nf_nr.group(1) if nf_nr else None; continue
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
         muss = [x for x in muss if x[0] not in ausschluss]; kuer = [x for x in kuer if x[0] not in ausschluss]
@@ -878,6 +891,7 @@ def main():
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
+        if nacht_halt(r, nr, ausgabe, morgen): continue
         # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter WEITER_TOKEN Token liegt und unter 60 Minuten ruht
         mo, satz, hoch = modell(r, nr)
         alte = [] if hoch or mo == startbar.STARK_MODELL else [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
@@ -901,7 +915,7 @@ def main():
         msg += satz
         if JETZT.weekday() == 2 and bericht_heute(): msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
-        vorgaenger(r); sperren.append(r)
+        vorgaenger(r); sperren.append(r); sperr_nr[r] = nr
     # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
     # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
     # Nur Muss (Leiharbeiter „notfalls“). Spike setzt zuerst „in Arbeit bei Spike“, dann nimmt das Team die Zeile nicht (startbar.py);
@@ -1107,9 +1121,13 @@ def main():
     ausgabe = [l + KAUFREPO if l.startswith("START ") else l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1) if l.startswith("WEITER ") else l for l in ausgabe]
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
-    if sperre and (sperren or neue_warnungen or wochen):
+    if sperre and (sperren or neue_warnungen or wochen or morgen):
         p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p).rstrip("\n")
-        if sperren: t += "\n- %s %s: Startsperre %s Start %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren))
+        if sperren:  # 1643: mit Vorgang, damit nachtstarts.py die Neustarts je Vorgang zählt
+            mit = [("%s %s" % (x, sperr_nr[x]) if len(sperren) > 1 else sperr_nr[x]) for x in sperren if sperr_nr.get(x) and re.match(r"\d", str(sperr_nr[x]))]
+            t += "\n- %s %s: Startsperre %s Start %s (lauf.py%s)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
+        for m in morgen:
+            if m not in t: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), m)
         for m in wochen: t += "\n- %s %s: Marke %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), heute, m)
         for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
         open(p, "w", encoding="utf-8").write(t)
