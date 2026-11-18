@@ -2,7 +2,7 @@
 
 Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 
-**Letzter Testbuild:** [Build 299 · 0.348.563 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44301568081/artifacts/14429688295) · 18.11., 14:20 · getestet · Release dagegen nur auf Zuruf
+**Letzter Testbuild:** [Build 300 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44386008426/artifacts/14470518789) · 18.11., 22:28 · zum Testen · Release dagegen nur auf Zuruf
 
 ## Wer wofür
 
@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 22:22, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 22:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -26,20 +26,20 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 64 (61) | 18 | 0 | 1 | 51 | 1635 (Sokrates) Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 34 (20) | 22 | 0 | 6 | 7 | 1694 (Spike) Griff einmal für alle gehaltenen Dinge: fester Gr… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 21 | 0 | 6 | 7 | 1694 (Spike) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (48) | 5 | 0 | 3 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 20 (11) | 11 | 0 | 5 | 4 | 1701 (Spike) alte Notizkopie trat wieder auf; Ursache finden,… |
-| **7** Werkzeuge und Abläufe der Firma | 52 (48) | 28 | 0 | 2 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
+| **7** Werkzeuge und Abläufe der Firma | 54 (48) | 30 | 0 | 2 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 82 | 114 | 398 | 1258 |
-| neu | 115 | 116 | 395 | 1285 |
-| **netto** (erledigt − neu) | **−33** | **−2** | **+3** | **−27** |
+| erledigt | 83 | 114 | 399 | 1259 |
+| neu | 117 | 116 | 397 | 1287 |
+| **netto** (erledigt − neu) | **−34** | **−2** | **+2** | **−28** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -47,15 +47,15 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1655](ansehen/1655-morwen-kapuze.md) ansehen |
+| **Chef** | [t300](ansehen/t300-sammelbuild.md) testen, hält 12 Zeilen; dann 3 weitere |
 | Tom | 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand;… (Muss); dann 2 weitere |
-| Jerry | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss); dann 1 weitere |
-| Tuffy | 1654 Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch;… (Muss von Jerry, neben dessen Arbeit) |
+| Jerry | 168.1 Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapite… (nach dem Meilenstein) |
+| Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | läuft: 1595 (Besetzung); 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 2 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | 1707 ARBEIT-PRUEFUNG.md: 1 „Zu“ zu Erledigtem, beim Übergeben st… (Kür) |
+| Diogenes | 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss) |
 | Sokrates | läuft: 1608 (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
-| Perikles | M? M? entscheiden: 1710, 1711, 1713, 1712, 1714, 1715 (Muss); dann 1 weitere |
+| Perikles | M? M? entscheiden: 1710, 1711, 1712, 1714, 1715, 1713 (Muss); dann 2 weitere |
 
 **Die nächsten 20**
 
@@ -66,23 +66,23 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 1535 | Tom | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand; alle Figuren mit Kau… | M | 3 Kleiderschrank und Modelle | startbar |
 | 4 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
 | 5 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
-| 6 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
-| 7 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 1701 | Spike | alte Notizkopie trat wieder auf; Ursache finden, warum neue Container eine alte… | M | 6 Godot besser nutzen | startbar |
-| 9 | 1702 | Spike | vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung des Bildskripts am Rechne… | M | 6 Godot besser nutzen | startbar |
-| 10 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 11 | 1706 | Perikles | Prüfbilder bekannter Fehler gingen als Frage an den Chef, Figur am Rand, ohne M… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 13 | 1656 | Sokrates | Systemlösung? Kapuze: 2 frühere Vorgänge, neu 1655; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 14 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 1705 | Homer | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergän… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 6 | 1701 | Spike | alte Notizkopie trat wieder auf; Ursache finden, warum neue Container eine alte… | M | 6 Godot besser nutzen | startbar |
+| 7 | 1702 | Spike | vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung des Bildskripts am Rechne… | M | 6 Godot besser nutzen | startbar |
+| 8 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1706 | Perikles | Prüfbilder bekannter Fehler gingen als Frage an den Chef, Figur am Rand, ohne M… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 10 | 1717 | Perikles | LISTE-CHECK-BUILD-TEST 3 Satz „läuft schon ein offener Build ohne Test, kommt d… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 11 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 12 | 1656 | Sokrates | Systemlösung? Kapuze: 2 frühere Vorgänge, neu 1655; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 13 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1705 | Homer | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergän… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 18 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
 
-Danach 61 weitere offen. Bei dir zum Testen (vorgelegt): 17. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 116.
+Danach 61 weitere offen. Bei dir zum Testen (vorgelegt): 17. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 20. Ruhend oder nach dem Meilenstein: 116.
 ## Zu entscheiden
 
 Nichts offen.
@@ -97,7 +97,15 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [1653](ansehen/1653-thessa-spangen.md) | Thessa: Spangen am Kragen, alt gegen neu | – | 18.11. 22:28 |
+| [1654](ansehen/1654-rowena-schuerze.md) | Rowena: Rock auf der Schürze an der Hüfte, alt gegen neu | – | 18.11. 22:28 |
 | [1655](ansehen/1655-morwen-kapuze.md) | Morwen: sticht der Kopf durch die Kapuze? | – | 18.11., 20:58 |
+
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t300-sammelbuild.md) | [Build 300](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44386008426/artifacts/14470518789) | Sammelbuild: Bildrate 30 und Messung, Welt in Zellen, Grafik Hoch und Neuaufbau nach der Wahl, Goblins, Teich, Wenden | Tom, Jerry und Spike | 18.11., 22:28 |
 
 ## Zu tun
 
@@ -389,7 +397,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1653-thessa-spangen.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1654-rowena-schuerze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); t300-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 ## So geht's
 
