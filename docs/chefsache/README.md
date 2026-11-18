@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 04:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 07:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -28,16 +28,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (48) | 5 | 0 | 6 | 25 | 508 (Sokrates) Lehrmeister in Kapitel 1 erreichbar, Magie-Pflich… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 11 (11) | 5 | 0 | 1 | 4 | 1270 (Sokrates) Grafik-Engine Godot ausschöpfen: Laden, Sichtweit… |
-| **7** Werkzeuge und Abläufe der Firma | 41 (48) | 28 | 0 | 0 | 11 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
+| **7** Werkzeuge und Abläufe der Firma | 40 (48) | 27 | 0 | 0 | 11 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 16 | 114 | 332 | 1192 |
+| erledigt | 17 | 114 | 333 | 1193 |
 | neu | 12 | 116 | 292 | 1182 |
-| **netto** (erledigt − neu) | **+4** | **−2** | **+40** | **+10** |
+| **netto** (erledigt − neu) | **+5** | **−2** | **+41** | **+11** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -51,7 +51,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | leer, weil 4 Termin, 3 wartet auf Test/Build, 3 ruht |
 | Homer | leer, weil 1 Chef Gespräch |
-| Diogenes | 1618 D311.1 von Diogenes: lauf.py-Schutz Zeile 773 greift nie, k… (Muss) |
+| Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss) |
 | Perikles | leer, weil 13 Termin, 5 wartet auf Vorgang (1595, 1610, 1388, 870, 1125), 3 wartet auf Test/Build |
 
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 431 | Tom | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Kleiderschrank und Modelle | wartet auf 870 |
 | 20 | 1297 | Tom | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | M | 3 Kleiderschrank und Modelle | wartet auf 431 |
 
-Danach 29 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 110.
+Danach 29 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 110.
 ## Zu entscheiden
 
 Nichts offen.
