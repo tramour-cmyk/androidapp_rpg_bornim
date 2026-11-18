@@ -32,9 +32,10 @@ func _l() -> void:
 	bg.size = reihe.size
 	root.add_child(bg)
 	root.add_child(reihe)
-	var titel := ["alt (Build 297), hinten", "neu, hinten", "neu, vorn", "Jägerkind Frau, neu", "Zauberlehrling, neu"]
-	var faelle := [["Jägerkind", "m", true, true], ["Jägerkind", "m", false, true], ["Jägerkind", "m", false, false],
-		["Jägerkind", "w", false, true], ["Zauberlehrling", "m", false, true]]
+	# 1569.1 (Bild 4): Umhang an den Seiten weiter; alt = Bild 3 (Telegram 18.11., 01:43), darum nur neu
+	var titel := ["Jägerkind, hinten", "Jägerkind, vorn", "Jägerkind Frau, hinten", "Zauberlehrling, hinten", "Zauberlehrling, vorn"]
+	var faelle := [["Jägerkind", "m", false, true], ["Jägerkind", "m", false, false], ["Jägerkind", "w", false, true],
+		["Zauberlehrling", "m", false, true], ["Zauberlehrling", "m", false, false]]
 	var umhang_m: Dictionary = info["schrank"]["M"]["UMHANG"]
 	var umhang_w: Dictionary = info["schrank"].get("W", {}).get("UMHANG", {})
 	for i in faelle.size():
