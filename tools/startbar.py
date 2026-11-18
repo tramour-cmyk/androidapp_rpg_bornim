@@ -778,12 +778,23 @@ def b_offen_streng(d):
     „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
     return [t for t in d["warte"] if not erfuellt(t, d["nr"], streng=art(t) == "nr")]
 
+def spiegel_beantwortet(d):
+    """1624 (Ford 18.11., 08:03): die Spiegelzeile streicht erst der nächste Lauf von pflegehinweis.py; steht die Antwort des Besitzers
+    schon unter „## Woche <TT.MM.>“ in LISTE-ROLLENSPIEGEL.md, ist die Zeile nicht mehr startbar (sonst startet lauf.py ihn dafür)."""
+    m = re.search(r"Woche (\d\d\.\d\d\.)", d.get("titel") or "")
+    if not m: return False
+    try: t = lesen("LISTE-ROLLENSPIEGEL.md")
+    except OSError: return False
+    s = re.search(r"(?ms)^## Woche %s\n(.*?)(?=^## |\Z)" % re.escape(m.group(1)), t)
+    return bool(s) and re.search(r"(?m)^### (?:Team )?%s\b" % re.escape(d["besitzer"]), s.group(1)) is not None
+
 def sperre(d):
     """Grund, warum die Zeile für ihren Besitzer nicht startbar ist, sonst None."""
     w = d["wort"]
     if w is None: return "UNLESBAR"
     if w == "erledigt": return "ERLEDIGT"
     if w in ("aufgeteilt", "Idee"): return w
+    if d["nr"] == "Spiegel" and spiegel_beantwortet(d): return "Spiegel beantwortet (Zeile fällt beim nächsten Pflegelauf weg, 1624)"
     offen = offen_warte(d)
     for t in offen:
         a = art(t)

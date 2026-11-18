@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 08:07, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 08:11, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -51,9 +51,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
 | Spike | 1622 startbar.py zählt „wartet auf X“ als gelöst, sobald X „geba… (Kür) |
 | Homer | leer, weil 1 Chef Gespräch |
-| Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
+| Diogenes | 1624 startbar.py/lauf.py zeigen Zeilen „gebaut“ ohne „wartet auf… (Muss) |
 | Sokrates | 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss); dann 1 weitere |
-| Perikles | 1624 startbar.py/lauf.py zeigen Zeilen „gebaut“ ohne „wartet auf… (Muss) |
+| Perikles | leer, weil 13 Termin, 5 wartet auf Vorgang (1595, 1610, 1388, 870, 1125), 3 wartet auf Test/Build |
 
 **Die nächsten 20**
 
@@ -64,23 +64,23 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 4 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 5 | 1623 | Sokrates | Auswertung Rollenspiegel 18.11.: 7 von 7 Antworten, Vorlage mit Wegen an den Ch… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 6 | 1624 | Perikles | startbar.py/lauf.py zeigen Zeilen „gebaut“ ohne „wartet auf“ und erledigte Spie… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 7 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 9 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 10 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
-| 11 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1622 | Spike | startbar.py zählt „wartet auf X“ als gelöst, sobald X „gebaut“ ist, auch wenn X… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 13 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
-| 14 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | wartet auf 1591 |
-| 15 | 1589.6 | Spike | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd statt nah, fern, weit; e… | M | 2 Kampf passt | wartet auf 1589.2 |
-| 16 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf passt | Termin 21.11. 20:00 |
-| 17 | 1589 | Jerry | Motor des Kampfs: Gegnerverhalten nach Regeln; Bau nach Regelblatt 1589.1 in St… | M | 2 Kampf passt | wartet auf 1589.5 |
-| 18 | 1589.2 | Jerry | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf passt | Termin 21.11. 20:00 |
-| 19 | 1589.4 | Jerry | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Bei… | M | 2 Kampf passt | wartet auf 1589.2 |
-| 20 | 1589.5 | Jerry | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf passt | wartet auf 1589.4 |
+| 6 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 7 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 8 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 9 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
+| 10 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 11 | 1622 | Spike | startbar.py zählt „wartet auf X“ als gelöst, sobald X „gebaut“ ist, auch wenn X… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 12 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
+| 13 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | wartet auf 1591 |
+| 14 | 1589.6 | Spike | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd statt nah, fern, weit; e… | M | 2 Kampf passt | wartet auf 1589.2 |
+| 15 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf passt | Termin 21.11. 20:00 |
+| 16 | 1589 | Jerry | Motor des Kampfs: Gegnerverhalten nach Regeln; Bau nach Regelblatt 1589.1 in St… | M | 2 Kampf passt | wartet auf 1589.5 |
+| 17 | 1589.2 | Jerry | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf passt | Termin 21.11. 20:00 |
+| 18 | 1589.4 | Jerry | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Bei… | M | 2 Kampf passt | wartet auf 1589.2 |
+| 19 | 1589.5 | Jerry | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf passt | wartet auf 1589.4 |
+| 20 | 1603 | Jerry | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf passt | Termin 21.11. 20:00 |
 
-Danach 31 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 16. Ruhend oder nach dem Meilenstein: 112.
+Danach 30 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 17. Ruhend oder nach dem Meilenstein: 112.
 ## Zu entscheiden
 
 Nichts offen.
