@@ -4,10 +4,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (18.11., 09:01):** Lauf 314: 1624 greift; Lauf 315: 1622 greift mit Lücke 1626 (Tom). Nächste Nummer D316. Nachfolger: Diogenes – 1461 Rollenspiegel (ab 18.11., 12:00).
+**Übergabe (18.11., 13:09):** Lauf 324: 1658, 1648, 1644 greifen (Prüfteil isoliert: 709, 689, 1569 gesperrt; 1640 und „Test:“ durch; chef_fund_test grün). Nächste Nummer D325. Nachfolger: Diogenes – 1661: Sokrates-Start nachprüfen (nach dem nächsten Sokrates-Start), sonst Diogenes – Wochenzählung (23.11.).
+- **Zu 1661:** am nächsten Sokrates-Start durch Ford: Startprompt nach `ROLLE-BERATUNG-START.md` (`list_events` der neuen Sokrates-Sitzung, erste Nachricht) → `greift 1661 <Lauf>`.
 - **Zu 340.12, von Sokrates (Chef 18.11., 09:45/09:51), gilt ab sofort:** Änderung 2: Filmpunkte schließt du nur nach eigenem Blick auf ein Standbild, nie allein auf das Daumen-hoch des Chefs; „behoben“ zu einem Fund des Chefs zum Aussehen nur mit Bild oder Film in Spielgröße (Werkzeug 1644). Prüfung Mi 25.11. von dir: 340.12/1 (keine Startwarnung über 6 h ohne Vorgang), /2 (kein Rückläufer nach „behoben“), /3 (kein Start ohne Startbares, keine Schleife über zwei Neustarts); Zeilen in `LISTE-ROLLENSPIEGEL.md` „Änderungen“.
-
-- **Zu 1622 (Lauf 315):** nach 1626 erledigt: `grep "^| 476 |"` zeigt „458.3 main“ → `greift 1622 <Lauf>`. Nachfolger: Diogenes – 1461 Rollenspiegel (ab 18.11., 12:00).
 
 - **Zu 1610 (Lauf 306–309):** nach 1617: Wachlauf ohne Fehlalarm bei einer Sitzung, die nur auf eine Antwort des Chefs wartet (`list_events` `…76ew1cGKY7mCBVHUFx`); dazu erste Zeile „Freigabe“ in `git show origin/meldungen:meldungen.tsv` an einer echten Freigabe-Frage → `greift 1610 <Lauf>`, dann 1572 nachprüfen. Bis 23.11. keine Freigabe-Frage → Wochenzählung nennt es.
 
@@ -15,7 +14,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
 - **Zu 1388 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %) → `greift`.
-- **Zu 1461 (Lauf 305):** ab Mittag 18.11.: `rollenspiegel.sh` Woche 18.11. hat Antworten aller sieben Rollen, je eine Frage-11-Antwort in `LISTE-IDEEN.md` → `greift 1461 <Lauf>`, sonst fehlende Rollen an Perikles.
 - **Zu 1301 (Lauf 290):** 15.–16.11. nur ein 👎 (760, 15.11., 16:08, vor dem Bau 16:57; Chef antwortete 20:33 „Sprung passt“). Am ersten 👎 ohne Wort nach 16.11. (`git show origin/reaktionen:reaktionen.tsv`): Nachfrage per `meldung.sh --frage`, „nachgefragt HH:MM“ oder Wortlaut im Eintrag → `greift 1301 <Lauf>`, sonst Befund an Perikles; bis 23.11. kein 👎 → greift ohne Fall.
 - **Zu 1128.3 (Rest nach Lauf 251):** nur noch 1060 am ersten Lauf, in dem sich nur Dorffelder von `leute.json` ändern (`klassen` „treffer“, unter „geändert“ von dorf/leute `leute.json:felder`) → `bautest 1060 <Lauf>`, dann 1128.3 erledigt. Läufe bis 484 ohne Fall (Prüfbericht Lauf 251); Lauf 487 (Build 287, 13:04) alle fünf Blöcke Treffer, ohne Fall.
 - **Zu 1282 (D251.1):** nach Erledigt: `grep -rn "gradlew" tools/setup-session.sh tools/alt_bilder.sh` leer → `greift 1282 <Lauf>`.

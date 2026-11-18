@@ -41,6 +41,22 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 321–323 · 1461 Rollenspiegel, 1622, 1648 (18.11., 12:08)
+
+- **321, 1461 greift:** `## Woche 18.11.` hat alle sieben Rollen (Perikles 07:52 … Diogenes 07:57), alle nach dem Tagesbericht (Stand 18.11., 07:51), je Zeile „11.“, keine „2.“; `LISTE-IDEEN.md` hat sieben Frage-11-Einträge (Chef 09:00: sechs → 1627–1632, Homer „knicken“). Woche 13.11. bleibt als Vorwoche.
+- **322, 1622 greift:** 476 hat „458.3 main, 23.11.“ im Feld, `vorgang.py --rolle Tom` zeigt sie wartend.
+- **323, 1648 greift mit Lücke:** Prüfteil von `meldung.sh` isoliert ohne Senden: „1569: Umhang behoben“ und „1417: Kapuze behoben“ gesperrt, mit „Test:“ und bei 1640 (B) durch. `chef_fund.vom_chef` sucht den Chef nur in der ersten Klammer: 77 Zeilen in E/G erkannt, 10 mit „Chef“ im Titel nicht, darunter 709 (Luftschlag, Chef 08.11. in zweiter Klammer, M) und 689 („Urteil Chef 25.10.“ ohne Klammer) → D323.1 = 1658 (Spike); 1648 wartet darauf, 1644 weiter auf 1648.
+- Nicht geprüft: echte Sendung von `meldung.sh`; Fehlalarme einer erweiterten Erkennung (623.9 „gebilligt“, 644.2) gehören zu 1658.
+
+## Lauf 316–320 · Werkzeuge Spike 1640–1644 (18.11., 11:06)
+
+- **316, 1640 greift:** frische `ueberblick.py`: „läuft: <Vorgang> (Besetzung)“ bei Tom, Spike, Sokrates wie `ARBEIT-BESETZUNG.md`; Pflegezeilen seit 1642 ganz weg. „Offen je Rolle“ der README zeigt noch „Pflege … von Werkzeug“: Abschnitt nur stündlich neu (1129 A 6), kein Befund.
+- **317, 1641 greift:** `OFFEN_MAX` 30000 (Haken), `GRENZE` 30000 (`startwarnung.py`); Start dieser Sitzung warnte nur `ARBEIT-BETRIEB.md` (32 KB).
+- **318, 1642:** `startwarnung_test.py` grün; Stand ab 18.11., 10:55 mit Besitzer je Warnung (notiz.sh zeigt „Besitzer, seit“); erster echter 6-h-Fall frühestens 16:55, Uhr ab 10:55 neu (ältere Warnungen wie Bilder über 60 KB seit 04.11. zählen von dort). Prüfung 25.11. (340.12/1).
+- **319, 1643:** `nachtstarts_test.py` grün; Protokoll 11:00 „(lauf.py, Diogenes 1640)“, `nachtstarts.py Diogenes 1640` am Tag 0; Sokrates-Schwelle 400 Tsd. im Haken. Echte Nacht ausstehend, Prüfung 25.11. (340.12/3).
+- **320, 1644 greift mit Lücke:** Prüfteil isoliert ohne Senden: „1417: … behoben“ gesperrt, mit „Test:“ durch; „1569: Umhang behoben“ geht durch (Titel „Rest aus 431h (Chef 17.11., …)“). Sperre kennt nur Titel „Von Chef“: in E/G-Bereichen 26 so, 61 mit „Chef TT.MM.“ im Titel → D320.1 = 1648 (Spike), 1644 wartet darauf.
+- Nicht geprüft: echte Sendung von `meldung.sh`, `--pflegen` mit Push.
+
 ## Lauf 315 · 1622 „<Nr> main“ im Feld „wartet auf“ (Spike `c22ae372c`; 18.11., 09:00)
 
 - **1622 greift mit Lücke:** `startbar_main_test.py` gut; Kopie mit `vorgang.py warte 476 "458.3 main, 23.11."`: angenommen, Formprüfung leer, Sperre „wartet auf 458.3 main (gebaut)“; blanke „458.3“ bei sonst startbarer Zeile: keine Sperre (190.1, gewollt). Lücke: 476 trägt noch „458.3, 23.11.“ → D315.1 = 1626 (Tom), 1622 wartet darauf.
