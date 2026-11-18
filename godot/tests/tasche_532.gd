@@ -53,10 +53,14 @@ func _lauf() -> void:
 	held.status = {"POISON": 3, "DRUNK": Mars.LASTING}
 	pruefe("mit Gift: Kräutertrank hilft", m.drink_helps("remedy", held), true)
 	if m.outcome == "ONGOING" and m.current() == held:
-		m.act(["drink", "remedy", "hero"], func(_t, _x): return "NONE")
+		var bericht: Array = m.act(["drink", "remedy", "hero"], func(_t, _x): return "NONE")
 		pruefe("Gift geheilt", held.status.has("POISON"), false)
 		pruefe("Rausch bleibt", held.status.has("DRUNK"), true)
 		pruefe("Kräutertrank verbraucht", int(m.potions["remedy"]), 0)
+		# 1319 (Homer): die Kampfmeldung sagt nicht „von allen Leiden befreit“ (der Rausch bleibt), sondern wie draußen benutzen.cured
+		var cured: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/texte.json")).benutzen.cured
+		var soll: String = String(cured.de).format([held.name(0)])
+		pruefe("Meldung wie draußen (1319)", bericht.any(func(e): return e.cue == "STATUS" and e.text == soll), true)
 	else:
 		f += 1; print("FEHLER Held nicht am Zug (Kräutertrank)")
 
