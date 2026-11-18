@@ -19,6 +19,8 @@ var halm_mmi: MultiMeshInstance3D       # 804: unser Gras, aus, solange das Gras
 var kit_gras: Array[MultiMeshInstance3D] = []
 var kit_stellen: Array[Vector3] = []
 var kit_art := PackedByteArray()
+var blueten: Array = []               # 1205: [MeshInstance3D, Fläche, Stoff] der gezeichneten Blüten (dorf.py flowers, Stoff „bluete“)
+static var _ohne: ShaderMaterial
 var effekte: DorfEffekte             # 814 Effekte Szene 1 (Kaminrauch, Fackeln, Staub, Fahne, Wind, Federn), nach DorfEffekte.an
 var bereit := false                   # 814: aufgebaut (gras_neu darf die Effekte schalten)
 var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte (Fackel der Schenke)
@@ -26,9 +28,17 @@ var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte
 # 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
 func gras_neu() -> void:
 	if GrasBausatz.aktiv() and kit_gras.is_empty() and not kit_stellen.is_empty():
-		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art)
+		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art, karte.id == "village")   # 1205: Blumen im Dorf kleiner
 	for m in kit_gras: m.visible = GrasBausatz.an
 	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
+	# 1205 (Chef 13.11., 18:48: „Blütenfelder, weil die dann nicht so komisch ausschauen wie unsere … geklecksten Blümchen“): steht das
+	# Gras des Kits, blühen nur seine Blumen; die Kleckse aus dorf.py (Kugel auf Stiel) zeichnen dann nichts, ohne Kit wie bisher
+	var kit_an := GrasBausatz.an and not kit_gras.is_empty() and not GrasBausatz.vorher
+	if kit_an and _ohne == null:
+		_ohne = ShaderMaterial.new()
+		_ohne.shader = Shader.new()
+		_ohne.shader.code = "shader_type spatial;\nrender_mode unshaded, cull_disabled;\nvoid vertex() { POSITION = vec4(2.0, 2.0, 2.0, 1.0); }\nvoid fragment() { ALBEDO = vec3(0.0); }\n"
+	for b in blueten: (b[0] as MeshInstance3D).set_surface_override_material(b[1], _ohne if kit_an else b[2])
 	if held and GrasBausatz.an and not kit_gras.is_empty(): GrasBausatz.schieber(held)
 	# 814: bis zum Ende des Umzugs schaltet „Gras“ im Testmenue auch die Effekte der Szene 1 (Bilder/s mit und ohne Pakete);
 	# spiel.gd und testmodus.gd aendert bis dahin nur der Umzug (LISTE-UMZUG-BRS 2.5), danach ein eigener Schalter
@@ -223,6 +233,21 @@ static func atem_an(modell: Node3D, anim: AnimationPlayer, seed: int) -> Node:
 		if n is Tragen and n.get_index() < atem.get_index(): sk.move_child(atem, n.get_index())
 	return atem
 
+# 1167 (Archivprüfung Sokrates, 453.1 Chef 01.11.: „als ob die Leute halt wirklich leben“; 453a B 02.11.: „gilt für alle Vierbeiner“):
+# Dorftiere (kauftier.py, ohne UAL-Gerüst) atmen als Schicht wie die Tiere im Kampf (kampf/atem_tier.gd, figur.gd _atem_an): Rücken aus
+# den Knochen gesucht, Heben nach der Länge des Rückens, je Tier eigener Takt. Ohne erkennbaren Rücken null.
+static func tier_atem_an(modell: Node3D, seed: int) -> Node:
+	var sk := finde(modell, "Skeleton3D") as Skeleton3D
+	var Tier = load("res://kampf/atem_tier.gd")
+	if sk == null or not Tier.passt(sk) or OS.get_environment("ATEM_ALT") != "": return null
+	var atem = Tier.new()
+	atem.name = "Atem"
+	atem.knochen_setzen(sk)
+	if atem.halten_name != Tier.HALTEN: atem.groesse = -1.0
+	atem.eigen(seed)
+	sk.add_child(atem)
+	return atem
+
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
 # davor stehen. Jede Bewegung bekommt fuer jeden fehlenden Knochen eine Spur mit der Ruhepose, dazu Schleife
@@ -405,6 +430,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 					m.set_shader_parameter("glow_col", Vector3(1.0, 0.45, 0.15))
 					if g: g.glut.append(m)
 			mi.set_surface_override_material(i, m)
+			if g and src and String(src.resource_name).begins_with("bluete"): g.blueten.append([mi, i, m])   # 1205 (gras_neu)
 		# 492 Hoehle (Lauf 1, Pruefer: Ausgang und Lichtschacht ohne sichtbare Quelle): Ausblick und Spalt leuchten (Himmel_…), der
 		# Lichtstrahl ist durchscheinend (Strahl_…); beide tags hell, nachts schwach (nacht())
 		if g and (nm.begins_with("Himmel") or nm.begins_with("Strahl")):

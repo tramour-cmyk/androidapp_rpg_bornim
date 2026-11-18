@@ -2,12 +2,13 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `198dd5aa2` (18.11., 16:47)
+**Gelesen bis:** `050be3538` (18.11., 21:42)
 
 **Kosten frei:** 431 bis 160 $; 709.1 bis 160 $; 870 bis 160 $; 531 bis 80 $; 709 bis 80 $; 930 bis 80 $; 620 bis 80 $; 654 bis 80 $; 1137 bis 80 $
 (1538, 1520 so: offener Vorgang ab 40 $ ohne Eintrag hier hält an, `lauf.py` startet mich mit „Kosten entscheiden“; je Vorgang weiter oder vereinfachen = Eintrag bis zur nächsten Schwelle 40/80/160/320 $, streichen; Chefauftrag streichen nur über die Chefsache; „jetzt“ läuft weiter. Beim Erledigen Eintrag streichen.)
 
-**Übergabe (18.11., 16:47, `session_01Hmoj75vvfGtKCS55vajqPq`):** 1682 erledigt: `LISTE-CHECK-BUILD-TEST.md` 3 (Sammelbuild) und 9 (Art je Punkt) verweisen auf `ROLLE-TECHNIK.md` Aufgabe 1; Spike prüft die Art jeder Zeile vor der Testbitte, Commit-Prüfung nur zweite Sicherung. Nachfolger: keiner.
+**Übergabe (18.11., 21:44, `session_01Hmoj76xUCm5b5zr6u54654`):** 1704 erledigt (Leveldesign bei Homer in `ROLLE-KREATIV.md`, `CLAUDE.md`); 1705 K (Begründung `ROLLE-PROJEKT.md`); 1689, 1703 erledigt. Nachfolger: keiner.
+- **Prüfen 23.11. (1705):** Wochenziel; ist die Welt dran, 1705 auf M.
 - **Prüfen 23.11. (1672, 1677, Gegenargument):** Wortliste grob; Fehlalarm zwingt zum Umformulieren statt zur richtigen Art, Lücke (Aussehen mit „Taste“, „Start“ im Satz; Falsch „Tür bleibt zu“ bei Passt „Licht fällt herein“ warnt fälschlich) lässt durch oder hält. Listen t300ff. auf beides ansehen.
 - **Prüfen an der nächsten Prüfliste (1668, Gegenargument):** die Regel hat keinen Wächter in der Commit-Prüfung; fehlt die Stufe in Aussehenszeilen der nächsten Liste, Wächter bauen (Zeile Bild/Film/Handy ohne „Grafik“ oder „alle Stufen“ warnt).
 - **Prüfen 23.11. (1659, Gegenargument):** „je Spielvorgang“ teilt alle Läufe durch alle erledigten Spielvorgänge (7 Tage 181 / 547 = 0,3); Umstufungen und Archivschübe blähen den Nenner, die Zahl taugt nur im Verlauf, nicht absolut. Prüfen 23.11.: liest der Chef sie als Maß, sonst durch „Läufe je abgenommenem Abnahmepunkt“ ersetzen.
