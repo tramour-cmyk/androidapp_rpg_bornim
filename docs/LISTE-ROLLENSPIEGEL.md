@@ -13,20 +13,22 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** mittwochs nac
 7. Wer hat auf dich gewartet, auf wen hast du gewartet? Was hätte das verkürzt?
 8. Was hat am meisten gekostet und am wenigsten gebracht?
 9. Welche Regel war unklar, welche würdest du streichen, welche fehlt?
-10. Wärst du ein Mensch in einer Firma: Rauswurf, ernste Ansage oder Lob? Ein Satz, warum. Dann höchstens drei Schritte zur Besserung. Keinen davon beginnen, bevor der Chef Ja sagt.
+10. Wärst du ein Mensch in einer Firma: Rauswurf, ernste Ansage oder Lob? Ein Satz, warum. Dann höchstens drei Schritte zur Besserung. Schritte, die nur die eigene Arbeit betreffen, gelten sofort; was andere Rollen bindet oder beim Chef liegt, wartet auf sein Ja (340.12 A).
 11. Vorschlag fürs Spiel: Was würde einen Spieler an Kapitel 1 begeistern, das es noch nicht gibt? Genau ein Einfall, wie er im Spiel aussieht, und warum er zu unserem Spiel passt (`DESIGN-LEITBILD.md`); keine Reparatur, keine Prüfung, kein Werkzeug, kein Beleg nötig; nicht schon in `LISTE-IDEEN.md`. (Chef 18.11., 09:03, 340.12; ersetzt Frage 2, 1461; das Werkzeug trägt die Antwort in `LISTE-IDEEN.md` ein.)
 
 ## Änderungen
 
 | Nr. | Rolle | Änderung | erwartet | Prüfdatum | gewirkt |
 |---|---|---|---|---|---|
-| 340.3 | alle | A: Hinweise von `notiz.sh` schreibt das Werkzeug täglich in den Vorrat des Besitzers | Hinweise 8 → höchstens 2 | Mo 09.11. | nein: 4 (Diogenes 09.11., Prüfbericht Lauf 92) |
+| 340.3 | alle | A: Hinweise von `notiz.sh` schreibt das Werkzeug täglich in den Vorrat des Besitzers | Hinweise 8 → höchstens 2 | Mo 09.11. | nein: 4 (Diogenes 09.11., Prüfbericht Lauf 92); ersetzt durch 340.12/1 |
 | 340.4 | alle | B: Pflichtzeile „Geprüft an: <Link>“ in Chefsache und bei „gebaut“ | höchstens 2 Runden je Aussehensfrage bis „passt“ | Mo 09.11. | fehlt (Runden nicht gezählt); Zeile da in 76 von 80 Vorlagen |
 | 340.5 | alle | C: „Uhr: HH:MM“ nach jedem Arbeitsschritt | 0 falsche Zeitstempel in der Woche | Mo 09.11. | nein: 8 von 201 daneben (`LISTE-REGELTREUE.md`) |
 | 340.7 | Perikles, Diogenes | V1: Werkzeug ohne Fund des Chefs ist Kür; Doppelprüfung nur für Regeln mehrerer Rollen | ≤ 100 Werkzeug-Commits Perikles je Woche; Diogenes ≥ ⅓ im Spiel | Mo 23.11. | – |
 | 340.8 | Tom, Jerry | V2: Tests vor Push und Filmlauf bis zum Ende; Filmtests nach Bildern | 0 rote Läufe, 0 Filmläufe ohne Film aus eigenen Testfehlern | Mo 23.11. | – |
 | 340.9, 340.11 | Sokrates, Homer | V3: Vorlage gegen Muster und Archiv; Wahl gegen Knopf; Auswertung am Tag der Runde | ≤ 2 Fehler 341 je Woche; keine Vorlage über 2 Runden | Mo 23.11. | – |
 | 340.10 | Ford | V4: Spiegelzeilen, Betriebskosten, 60 s vor Archivieren im Werkzeug | Nacharbeiten je Nacht 0 | Mo 23.11. | – |
+| 340.12/1 | alle | Startwarnung mit festem Besitzer, nach 6 h Vorgang durchs Werkzeug; Haken-Grenze 30 KB (Bau 1642) | keine Startwarnung älter als 6 h ohne Vorgang | Mi 25.11. | – |
+| 340.12/3 | Ford, Perikles, Diogenes, Sokrates | kein Start ohne Startbares, „gebaut“ nie startbar (1624); nach zwei Neustarts in einer Nacht Halt; Sokrates-Neustart ab 400 Tsd. (1643) | kein Start „nichts startbar“, keine Schleife über zwei Neustarts | Mi 25.11. | – |
 
 ## Woche 13.11.
 

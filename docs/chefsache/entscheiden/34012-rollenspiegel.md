@@ -1,5 +1,5 @@
 # 340.12 · Rollenspiegel 18.11.: welche der drei Änderungen nimmst du an?
-Sokrates · 18.11., 09:08 (Spielvorschläge und Frage 11 entschieden, Rest offen) · B Abläufe · Mittwochsrunde (dein Wort 18.11., 00:03), Auswertung am Tag der Runde (340.6 A)
+Sokrates · 18.11., 09:48 (alles entschieden außer Änderung 2; Rückfrage Kosten 09:45 beantwortet: Bildpflicht nur bei Funden des Chefs zum Aussehen) · B Abläufe · Mittwochsrunde (dein Wort 18.11., 00:03), Auswertung am Tag der Runde (340.6 A)
 Kurz: Alle sieben Rollen haben heute 07:52–07:57 geantwortet. Drei Muster, drei Änderungen, ein Widerspruch in Frage 10, sieben Spielvorschläge.
 Beim Chef, weil: Rollen und Accounts
 
