@@ -172,6 +172,7 @@ func _process_modification() -> void:
 		else: o = G * mitte + dw * 0.18 * ms                           # im Rennen unter der Mitte gefasst
 	elif art == "schulter": o = G * mitte + dw * axt_griff * ms
 	_stelle(x, dw, o)
+	_an_schaft(sk, ih)   # 1694
 
 # 653 (Chef 10.11., 14:22 „653 passt“): die Waffe an ihren Platz, Lage = Ziel · Griffrahmen⁻¹ (Halt.lage): Ziel y = Schaft [dw],
 # z = wohin Modell +X zeigt (Schneide, beim Bogen der Ruecken) [z], Ursprung am Griff [o] (Welt). Ohne Maße wie Modellregel 4
@@ -274,6 +275,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	var x := (G.basis * R.basis.x).normalized()
 	x = (x - dw * x.dot(dw)).normalized()
 	_stelle(x, dw, G * p + (dw * zwei_schieben * mass() if gang == "axt" else Vector3.ZERO))
+	_an_schaft(sk, ih)   # 1694
 
 # Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (rechts schwert_abspreiz, links schild_abspreiz)
 func _abspreizen(sk: Skeleton3D, ih: int, grad: float) -> void:
@@ -422,6 +424,99 @@ func _faust_zu(sk: Skeleton3D, ih: int, d: Vector3) -> Vector3:
 	faust_weite = (q - d * q.dot(d)).length()
 	var m := (k + summe / n) * 0.5
 	return k + (m - k) - d * (m - k).dot(d)   # nur quer zum Schaft verschoben, laengs bleibt der Griff
+
+# 1694 (Chef 18.11., 17:01 „Als Systemlösung“; griff_mess_1694, Kaufstand: mit der festen Beugung FAUST_BEUGE lagen die Fingerspitzen
+# am Handbeil 1,9-3,1 cm vor dem Stiel, die Faust schloss nicht): nach dem Stellen der Waffe jeden Finger weiter beugen (oder öffnen),
+# bis seine Spitze an der Oberfläche des Schafts liegt; Achse [o] + t·[d] und Radius [r] im Skelettraum. Hält die Hand den Schaft nicht
+# (Handfläche weiter als HALT_WEIT von der Achse), bleibt es bei der Beugung aus _faust_zu
+const SCHLIESS_SCHRITT := 4.0      # Grad je Schritt, auf die Glieder verteilt
+const SCHLIESS_HOECHST := 45       # Schritte je Richtung (180° über drei Glieder, mit FAUST_BEUGE höchstens 100° je Glied)
+const HAUT := 0.009                # m: Endgliedspitze (Knochen) so weit über der Oberfläche: die Fingerkuppe liegt an
+const HAUT_MIN := 0.004            # m: näher: Kuppe im Schaft, Finger öffnen
+const HALT_WEIT := 0.07
+var schaft_radius := -1.0
+static var griff_1694 := OS.get_environment("GRIFF1694") != "0"   # 0: wie vorher (Vergleichsbild)
+func _schliessen(sk: Skeleton3D, ih: int, o: Vector3, d: Vector3, r: float) -> void:
+	var mf := sk.find_bone("middle_01_" + seite)
+	var quer := func(p: Vector3) -> float:
+		var v := p - o
+		return (v - d * v.dot(d)).length()
+	if mf < 0 or float(quer.call(sk.get_bone_global_pose(mf).origin)) > HALT_WEIT: return
+	for f in FINGER:
+		var kette: Array[int] = []
+		for g in ["_01_", "_02_", "_03_"]:
+			var i := sk.find_bone(f + g + seite)
+			if i >= 0: kette.append(i)
+		if kette.size() < 2 or not beuge_wahl.has(f): continue
+		var vz: float = beuge_wahl[f]
+		var ab := func() -> float: return float(quer.call(_spitze(sk, kette[-1]))) - r
+		var a: float = ab.call()
+		var richtung := 1.0 if a > HAUT else (-1.0 if a < HAUT_MIN else 0.0)
+		if richtung == 0.0: continue
+		for s in SCHLIESS_HOECHST:
+			for i in kette: _beuge(sk, i, d, vz * richtung * SCHLIESS_SCHRITT / kette.size())
+			a = ab.call()
+			if (richtung > 0.0 and a <= HAUT) or (richtung < 0.0 and a >= HAUT_MIN): break
+
+# Spitze des Endglieds (Skelettraum): Kind des Knochens, sonst Ende in Richtung des Glieds
+static func _spitze(sk: Skeleton3D, l: int) -> Vector3:
+	var ch := sk.get_bone_children(l)
+	if ch.size() > 0: return sk.get_bone_global_pose(ch[0]).origin
+	var gb := sk.get_bone_global_pose(l).origin
+	return gb + (gb - sk.get_bone_global_pose(sk.get_bone_parent(l)).origin) * 0.85
+
+# 1694: Radius des Schafts am Griff (m, Raum des Modells): Median der Abstände zur Achse der Ecken von 10 cm unter bis 2 cm über dem
+# Griffpunkt (dort liegt die Faust; darüber Parierstange und Klinge), nur unter 3 cm; ohne Ecken 1,5 cm
+func _radius() -> float:
+	if schaft_radius >= 0.0: return schaft_radius
+	schaft_radius = 0.015
+	if waffe == null: return schaft_radius
+	var m := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
+	var g := Halt.griff_rahmen(m)
+	var rs := []
+	for mi in waffe.find_children("*", "MeshInstance3D", true, false) + ([waffe] if waffe is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		if me == null: continue
+		var tr := g.affine_inverse() * HeldFigur.im_raum(waffe, mi)
+		for s in me.get_surface_count():
+			for q in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
+				var v: Vector3 = tr * q
+				if v.y < -0.10 or v.y > 0.02: continue
+				var rq := Vector2(v.x, v.z).length()
+				if rq > 0.003 and rq < 0.03: rs.append(rq)
+	if not rs.is_empty():
+		rs.sort()
+		schaft_radius = rs[rs.size() / 2]
+	return schaft_radius
+
+# 1694: nach _stelle den Schaft in die Faust und die Finger an den Schaft (Lage der Waffe aus ihrem Knoten, in den Skelettraum).
+# griff_mess_1694 (Kaufstand): die Schaftachse lag 3,7 cm vor dem Mittelfingergrundgelenk (Handbeil, Schwert: die Finger erreichten
+# den Stiel nicht) bzw. 0,6 cm (Stab: Stab durch die Knöchel, 1657); in der Faust liegt sie Radius + FAUST_TIEFE zur Handfläche hin
+const FAUST_TIEFE := 0.012
+func _an_schaft(sk: Skeleton3D, ih: int) -> void:
+	if waffe == null or not griff_1694: return
+	var m := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
+	var G := sk.global_transform
+	var g := G.affine_inverse() * waffe.global_transform * Halt.griff_rahmen(m)
+	var d := g.basis.y.normalized()
+	var r := _radius() * mass() / maxf(0.001, sk.global_basis.get_scale().y)
+	var mf := sk.find_bone("middle_01_" + seite)
+	if mf >= 0:
+		var fl := _handflaeche(sk, ih, mf)
+		var mp := sk.get_bone_global_pose(mf).origin
+		var v := mp - g.origin
+		var nah := g.origin + d * v.dot(d)                     # Punkt der Achse gegenüber dem Grundgelenk
+		if mp.distance_to(nah) <= HALT_WEIT and fl != Vector3.ZERO:
+			fl = (fl - d * fl.dot(d)).normalized()
+			var ziel := mp + fl * (r + FAUST_TIEFE)
+			var schub := ziel - nah
+			schub -= d * schub.dot(d)
+			waffe.global_position += G.basis * schub
+			g.origin += schub
+	_schliessen(sk, ih, g.origin, d, r)
+	if merken:
+		posen.resize(sk.get_bone_count())
+		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
 
 # 610: Richtung zur Handflaeche (Skelettraum): vom Handknochen zum Daumenansatz, quer zum Finger; ZERO ohne Daumen
 func _handflaeche(sk: Skeleton3D, ih: int, finger: int) -> Vector3:
