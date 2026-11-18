@@ -229,4 +229,4 @@
 | 30 | Abstürze beim Testen | Spike | K | ruht | 23.11. | – | – | Q QS | – |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | Spike | K | ruht | 23.11. | – | – | E Technik | 89,13 $ |
 | 1211 | Von Sokrates (Prüfauftrag Chef 13.11., 19:10): Leuchtfunke mit R7 rocket_trail als Schweif? Ein Film nachts im Dorf, Held läuft: alt (Kotlin) gegen jetzt gegen rocket_trail kühl weiß umgefärbt; dazu Befund, was am Licht schlechter ist als Kotlin | Spike | K | gebaut, Geprüft an: 5b7243fef | – | claude/spike-1211-1484 | – | E Welt | 17,49 $ |
-| 1613 | Von Sokrates (458.3, Vorentscheid 18.11.): Waffen episch und höher mit Effekt statt Färbung (Chef 02.11.), Schwarzstahl liest sich fast schwarz | Spike | K | startbar | – | – | – | E Figuren | – |
+| 1613 | Von Sokrates (458.3, Vorentscheid 18.11.): Waffen episch und höher mit Effekt statt Färbung (Chef 02.11.), Schwarzstahl liest sich fast schwarz | Spike | K | startbar | 18.11. 07:00 | – | – | E Figuren | – |
