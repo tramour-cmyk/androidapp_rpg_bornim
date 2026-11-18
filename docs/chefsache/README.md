@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 17:25, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 17:32, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -27,7 +27,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 32 (20) | 21 | 0 | 4 | 7 | 1694 (Spike) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 5 | 0 | 3 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 18 (11) | 9 | 0 | 5 | 4 | 1667 (Spike) auf claude/build-299 nur 1566 und 760 zurücknehme… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (11) | 9 | 0 | 5 | 4 | 1667 (Spike) auf claude/build-299 nur 1566 und 760 zurücknehme… |
 | **7** Werkzeuge und Abläufe der Firma | 52 (48) | 27 | 0 | 0 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -35,9 +35,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 69 | 114 | 385 | 1245 |
+| erledigt | 70 | 114 | 386 | 1246 |
 | neu | 96 | 116 | 376 | 1266 |
-| **netto** (erledigt − neu) | **−27** | **−2** | **+9** | **−21** |
+| **netto** (erledigt − neu) | **−26** | **−2** | **+10** | **−20** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1679.md](entscheiden/1679.md) entscheiden; dann 4 weitere |
+| **Chef** | [1679.md](entscheiden/1679.md) entscheiden; dann 5 weitere |
 | Tom | 1655 Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sic… (Muss); dann 3 weitere |
 | Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 2 weitere |
 | Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
 | 20 | 1632 | Spike | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtem… | K | 3 Kleiderschrank und Modelle | startbar |
 
-Danach 63 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 63 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 9. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -103,6 +103,7 @@ Nichts offen.
 | [1535](ansehen/1535-garrick-alt-neu.md) | Garrick: ist der Faden an der Jacke weg? | – | 18.11., 16:58 |
 | [1650](ansehen/1650-stiefel-alt-neu.md) | Hose im Stiefel: sticht sie noch durch den Schaft? | – | 18.11., 17:00 |
 | [1655](ansehen/1655-morwen-kapuze.md) | Morwen: sticht der Kopf durch die Kapuze? | – | 18.11., 17:05 |
+| [1694](ansehen/1694-griff-faust.md) | Griff für alles Gehaltene: schließt die Faust jetzt um den Stiel? | – | 18.11., 17:31 |
 
 ## Zu tun
 
@@ -388,7 +389,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1205b-niedrig.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1535-garrick-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1650-stiefel-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1205b-niedrig.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1535-garrick-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1650-stiefel-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1694-griff-faust.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 ## So geht's
 
