@@ -67,7 +67,7 @@ def funde():
         aus.append(("A", nr, nach.get(nr, {}).get("besitzer", "?"), f))
 
     # B Zirkel: Tiefensuche über offene Nummern im Feld
-    kanten = {d["nr"]: [t for t in d["warte"] if S.art(t) == "nr" and t in nach] for d in zs}
+    kanten = {d["nr"]: [S.nr_teil(t) for t in d["warte"] if S.art(t) == "nr" and S.nr_teil(t) in nach] for d in zs}
     gesehen = set()
     for start in kanten:
         weg, stapel = [], [(start, iter(kanten[start]))]
