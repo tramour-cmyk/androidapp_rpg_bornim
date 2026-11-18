@@ -324,7 +324,9 @@ static func kit_material(g: Gebiet) -> ShaderMaterial:
 		m.set_shader_parameter("deep_color", Color.html("06090A"))
 		m.set_shader_parameter("reflection_color", Color.html("3E5A58"))
 		m.set_shader_parameter("reflection_strength", 0.6)
-		m.set_shader_parameter("kit_selbst", 0.6)
+		# 1566 (Chef 17.11., 14:50; t298.5 18.11., 14:31 „fail“: Teich leuchtet hell im Dunkeln, weit vom Pilzlicht): das Eigenlicht 0,6
+		# leuchtete ohne jedes Licht und blieb unter dem Nebel sichtbar; jetzt nur vom Licht der Höhle beleuchtet wie Boden und Fels
+		m.set_shader_parameter("kit_selbst", 0.0)
 	return m
 
 # Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer) und Buesche (eigene Linie), 2 = Held (feinere Linie)
