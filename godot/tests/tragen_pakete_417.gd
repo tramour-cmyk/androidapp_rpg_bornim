@@ -372,6 +372,9 @@ func _initialize() -> void:
 						tiefbild["teil"], wp.x, wp.y, wp.z, iy.x, iy.y])
 				pruefe(innen == 0, "%s %s %s: in %d Bildern tiefer als %.0f cm im Koerper" % [e[1], was, bew, innen, INNEN_ERLAUBT * 100.0])
 				if gang == "axt": pruefe(links < LINKS_ERLAUBT, "%s %s: linke Faust %.1f cm neben dem Schaft" % [e[1], bew, links * 100.0])
+				# 1621 (Chef 18.11.: „Jede Waffe schwebt“): die Zeile AXTGRIFF meldete seit 458.3 „linke Faust unter dem Stielende in 19 von 19
+				# Bildern“, ohne dass ein Test fiel
+				if gang == "axt": pruefe(aus_stiel == 0, "%s %s: linke Faust unter dem Stielende in %d Bildern" % [e[1], bew, aus_stiel])
 		w.queue_free()
 		await process_frame
 	print("PAKETE gut" if fehler == 0 else "PAKETE %d Fehler" % fehler)

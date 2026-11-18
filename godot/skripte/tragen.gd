@@ -215,6 +215,15 @@ const ZWEI_HOECHST := 30.0
 # Lauf 41328184986: 0,30 m mit mehr Luft (Rennen 3,0 cm, Gehen 8,5 cm), darum 0,30
 var zwei_anteil := 1.0
 var zwei_schieben := 0.30
+# 1621 (Chef 18.11., 09:1x zu den Bildern alt/neu: „Auf keinem der Bilder wird die Waffe gehalten. Jede Waffe schwebt“; griff_mess_1621):
+# die rechte Faust sitzt zwei_schieben unter dem Griff (Modell-Ursprung), die linke ZWEI_FAUSTABSTAND darunter. Die 0,30 m galten fuer
+# die Eigenbauwaffen aus waffen.py; die Staffelformen (458.3) enden 23 bis 45 cm unter dem Griff (Großaxt 29, Zweihaender 23 cm): beide
+# Faeuste fassten Luft unter dem Stielende. Jetzt hoechstens so weit, dass die linke Faust ZWEI_RAND ueber dem Ende bleibt (Halt hoehe.x)
+const ZWEI_FAUSTABSTAND := 0.15
+const ZWEI_RAND := 0.04
+func schieben() -> float:
+	if halt.has("hoehe"): return clampf(-(halt["hoehe"] as Vector2).x - ZWEI_FAUSTABSTAND - ZWEI_RAND, 0.0, zwei_schieben)
+	return zwei_schieben
 # Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
 # immer (auch im Gehen, damit beim Wechsel nichts springt) schwert_abspreiz Grad nach aussen. Lauf 41356789633 (Becken nach Beinlaenge):
 # 9 Grad liess den Knauf im Rennen in 1 von 15 Bildern 4,9 cm in den rechten Oberschenkel; Lauf 41359533716: 12 Grad frei 6,0 cm,
@@ -274,7 +283,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	if waffe == null: return
 	var x := (G.basis * R.basis.x).normalized()
 	x = (x - dw * x.dot(dw)).normalized()
-	_stelle(x, dw, G * p + (dw * zwei_schieben * mass() if gang == "axt" else Vector3.ZERO))
+	_stelle(x, dw, G * p + (dw * schieben() * mass() if gang == "axt" else Vector3.ZERO))
 
 # Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (rechts schwert_abspreiz, links schild_abspreiz)
 func _abspreizen(sk: Skeleton3D, ih: int, grad: float) -> void:
