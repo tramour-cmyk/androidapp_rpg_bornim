@@ -641,7 +641,7 @@ def held3_tracht(figur, sex='m', liste='trachten.json'):
 # Beim Helden liegen Hose und Stiefel im selben Schrankplatz LEGS (Teil fällt mit), darum für alle gleich.
 SCHAFT_DECKT = float(os.environ.get('SCHAFT_DECKT', '0.04'))
 SCHAFT_EIN = float(os.environ.get('SCHAFT_EIN', '0.015'))
-SCHAFT_MIN = 0.035
+SCHAFT_MIN = float(os.environ.get('SCHAFT_MIN', '0.035'))
 
 
 def hose_in_stiefel(arm, netze, fm):
@@ -662,26 +662,35 @@ def hose_in_stiefel(arm, netze, fm):
     if not achsen: return
     for o in netze:
         if o.name.split('.')[0] != 'Kleid': continue
-        mw = o.matrix_world; mi = mw.inverted(); nm = mw.to_3x3()
-        n = 0
+        mw = o.matrix_world; mi = mw.inverted()
+        kand = []   # im Schaft: (Ecke, Bein, Punkt auf der Achse, r, L)
+        zahl = {}   # je Bein: [im Schaft, ueber dem Schaft]
         for v in o.data.vertices:
             p = mw @ v.co
             if p.z > oben or p.z < 0.08: continue
-            best = None
-            for a, b in achsen:
+            best, bi = None, -1
+            for i, (a, b) in enumerate(achsen):
                 ab = b - a; t = max(0.0, min(1.0, (p - a).dot(ab) / ab.length_squared))
                 q = a + ab * t
-                if best is None or (p - q).length < (p - best).length: best = q
+                if best is None or (p - q).length < (p - best).length: best, bi = q, i
             r = p - best; L = r.length
-            if L <= SCHAFT_MIN: continue
-            # nur was im Schaft liegt: Strahl von der Achse weg durch die Ecke, nicht längs ihrer Normale (Messlauf 18.11.: Borins
-            # Beinkleid #12 liegt vorn über dem Schaft, Normalen nach innen, eingezogen stach der Stiefel durch, 196 -> 288; die Probe
-            # „Stiefel weiter von der Achse als der Treffer der Normale“ ließ dann bei Bram, Garrick, Jorin, Pim je Bein 90 Ecken stehen)
+            if L <= 0.005: continue
             d = r / L
-            if bv.ray_cast(p + d * 0.0005, d, SCHAFT_DECKT)[0] is None: continue
+            # nur was im Schaft liegt: Strahl von der Achse weg durch die Ecke, nicht laengs ihrer Normale (Messlauf 18.11.: Borins
+            # Beinkleid #12 liegt vorn ueber dem Schaft, Normalen nach innen, eingezogen stach der Stiefel durch, 196 -> 288)
+            drin = bv.ray_cast(p + d * 0.0005, d, SCHAFT_DECKT)[0] is not None
+            drauf = not drin and bv.ray_cast(p - d * 0.0005, -d, L)[0] is not None
+            z = zahl.setdefault(bi, [0, 0]); z[0] += drin; z[1] += drauf
+            if drin and L > SCHAFT_MIN: kand.append((v, bi, best, r, L))
+        # je Bein (Mehrheit der Ecken): liegt das Beinkleid ueber dem Schaft (Borin, Lauf 18.11. 15:45: 196 -> 216, weil nur
+        # Teile eingezogen wurden und der Stiefel dazwischen durchstach), bleibt das Bein ganz draussen
+        aus = {i for i, (dr, da) in zahl.items() if da > dr}
+        n = 0
+        for v, bi, best, r, L in kand:
+            if bi in aus: continue
             v.co = mi @ (best + r * (max(SCHAFT_MIN, L - SCHAFT_EIN) / L)); n += 1
         o.data.update()
-        print('HOSE IM STIEFEL', o.name, n, 'Ecken eingezogen')
+        print('HOSE IM STIEFEL', o.name, n, 'Ecken eingezogen', 'Beine draussen', sorted(aus), zahl)
 
 
 def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', kopfteile=()):
