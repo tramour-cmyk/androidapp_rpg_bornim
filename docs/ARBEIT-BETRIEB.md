@@ -48,7 +48,6 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 18.11., 09:19 Ford: Sokrates-Neustart (Chefrunde) `…77LdCgs6NPm9PuwX1n`; alter `…75saV8X5Rzi1yMDgpH` archiviert, 6,40 $ auf 340.12, 1633; 1595 um 13:00 an Spike (1633).
-- 09:13 18.11.: Startsperre 09:13 Start Sokrates (Neustart 4a0b36b99, Chefrunde)
 - 18.11., 08:57 Ford: Lauf 08:56 (`--nur-muss`): Start Diogenes `…76MR3jM5NKU4Nj26VS` (1624), Perikles `…79fdWCFRtP9PJU8ubg` (M? 1625); Tom 1621 per `--ohne` (Spike hat 1621 nach 1619), kein Stillstand; Warnungen „Start nicht angekommen“ 08:04 irrig (Rollenspiegel liefen und sind archiviert).
 - 18.11., 08:54 Ford: Chef startet Ford `…78M61cNk8nkWNPfU9N` 08:50; alter Ford archiviert (79,59 $ auf 1574), alte Uhr und Erinnerung gelöscht, eigene Uhr `trig_01QxYSSDeefUxtovs2DXhbSo`; Sokrates alt `…777MV8Hv8ps2Js5voW` archiviert (Chef 08:45), 10,46 $ auf 1569.1, 1613, 1619, 1621, 1620, 1625.
 - 17.11., 18:34 Ford: Chef startet Ford `…76dyxkyvfmpM8LcpYk` 18:24 von Hand; Doppel-Ford `…78mrHo3KyeKYwQQYFn` (Starter 18:20, Lauf 18:29) angehalten, archiviert, 0,92 $ auf 1019; Homer `…75XKLrPrbjhwyzzaf3` (1235 trotz „noch nicht“ gestartet, `--ohne` fehlte) archiviert, 0,55 $ auf 1235; eigene Uhr `trig_01Ey145LdtFf268UwRB3MVcF`, Uhr-Sitzung aus; 1574 an Perikles.
@@ -99,17 +98,15 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
+- 09:13 18.11.: Startsperre 09:13 Start Sokrates (Neustart 4a0b36b99, Chefrunde)
 - 08:48 18.11.: Startsperre 08:48 Start Sokrates (Neustart d15cde305, 1625)
 - 07:55 18.11.: Startsperre 07:55 Start Spike (1619)
-- 03:45 18.11.: Startsperre 03:45 Start Perikles (1618)
-- 03:39 18.11.: Startsperre 03:39 Start Diogenes (1610, 1617 nach Wachlauf)
 - 00:04 18.11.: Marke Abgleich Vorentscheid 1602 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
 - 00:04 18.11.: Marke Archiv session_01Hmoj76bxudxAGUfPJBE1Pc (lauf.py)
 - 02:04 18.11.: Marke Rückmeldung 1484 18.11. 01:58 (lauf.py)
 - 02:04 18.11.: Marke Abgleich Vorentscheid-Bremse (194.1): 6 ungebilligt, 0 älter als 7 Ta (lauf.py)
 - 02:04 18.11.: Marke Archiv session_01Hmoj76ZZ4So1LU7Qq4LAv3 (lauf.py)
 - 04:04 18.11.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
-- 04:04 18.11.: Marke Start-fehlt Perikles 18.11.-03:45 (lauf.py)
 - 07:05 18.11.: Startsperre 07:05 Start Tom, Spike (lauf.py)
 - 07:05 18.11.: Startsperre 07:05 Start Diogenes (lauf.py)
 - 07:41 18.11.: Startsperre 07:41 Start Tom, Spike, Perikles (lauf.py)
@@ -139,3 +136,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:56 18.11.: Marke Start-fehlt Diogenes 18.11.-08:04 (lauf.py)
 - 08:56 18.11.: Marke Start-fehlt Jerry 18.11.-08:04 (lauf.py)
 - 08:56 18.11.: Marke Start-fehlt Perikles 18.11.-08:04 (lauf.py)
+- 10:04 18.11.: Startsperre 10:04 Start Tom (lauf.py)
+- 10:04 18.11.: Marke Abgleich Vorentscheid 1613 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
+- 10:04 18.11.: Marke Abgleich Vorentscheid 1569.1 ohne Datei in chefsache/billigen/ und oh (lauf.py)
+- 10:04 18.11.: Marke Abgleich Vorentscheid 455.2 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
+- 10:04 18.11.: Marke Abgleich Vorentscheid 1571 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
+- 10:04 18.11.: Marke Abgleich Vorentscheid 1484a ohne Datei in chefsache/billigen/ und ohn (lauf.py)
+- 10:04 18.11.: Marke Abgleich Vorentscheid 1569 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
+- 10:04 18.11.: Marke Abgleich Vorentscheid 1211 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
+- 10:04 18.11.: Marke Start-fehlt Tom 18.11.-08:04 (lauf.py)
