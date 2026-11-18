@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 23:53, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 23:58, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -29,7 +29,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 32 (20) | 21 | 1 | 5 | 7 | 1535 (Tom) Kleidung hängt bei NPCs in der Ruhebewegung an ei… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 4 | 0 | 1 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 10 | 0 | 1 | 4 | 1702 (Spike) vier Läufe zu 1655 an einem Tag, zuletzt alte Fas… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 10 | 0 | 1 | 4 | 1711 (Spike) Systemlösung? Messung meldet passt, Bild zeigt Fe… |
 | **7** Werkzeuge und Abläufe der Firma | 48 (48) | 29 | 0 | 1 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -51,7 +51,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | läuft: 1535 (Besetzung); 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand;… (Muss); dann 3 weitere |
 | Jerry | 168.1 Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapite… (nach dem Meilenstein) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
-| Spike | läuft: 1694 (Besetzung); 1621 Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115… (Muss); dann 4 weitere |
+| Spike | läuft: 1694 (Besetzung); 1621 Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115… (Muss); dann 1 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | 1718 buildzweig-haken.py lässt „git push [-u] origin HEAD“ vom B… (Muss) |
 | Sokrates | läuft: Betrieb (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 1 weitere |
@@ -68,21 +68,21 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 5 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
 | 6 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
 | 7 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 1702 | Spike | vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung des Bildskripts am Rechne… | M | 6 Godot besser nutzen | startbar |
-| 9 | 1710 | Spike | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unter… | M | 6 Godot besser nutzen | startbar |
-| 10 | 1719 | Spike | Buildzweige 24 h 3 grün, 4 rot, 3 abgebrochen, rot über grün; Systemfrage: eine… | M | 6 Godot besser nutzen | startbar |
-| 11 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 12 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 13 | 1656 | Sokrates | Systemlösung? Kapuze: 2 frühere Vorgänge, neu 1655; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
-| 14 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 15 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 16 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 17 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 18 | 1705 | Homer | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergän… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 19 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 20 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | gebaut, t300 ohne deine Antwort |
+| 8 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 9 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 10 | 1656 | Sokrates | Systemlösung? Kapuze: 2 frühere Vorgänge, neu 1655; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 11 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 12 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 13 | 1637 | Homer | Lyras Fährte zwischen Wald und Höhle, wer sie liest, findet einen verborgenen z… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1638 | Homer | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 15 | 1705 | Homer | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergän… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 16 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 17 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt, Karten, Bild, Ton, Bedienung | gebaut, t300 ohne deine Antwort |
+| 18 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 19 | 1711 | Spike | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694, 760, 1535; Messung… | K | 6 Godot besser nutzen | startbar |
+| 20 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
 
-Danach 56 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 13. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 116.
+Danach 53 weitere offen. Bei dir zum Testen (vorgelegt): 9. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 116.
 ## Zu entscheiden
 
 Nichts offen.
