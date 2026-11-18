@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Nie archivieren:** (keine; Sokrates …777MV8Hv8ps2Js5voW freigegeben, Chef 18.11., 08:45)
 
-**Guthaben (Chef 18.11., 18:24, 87 %, etwa 1 %/h):** Startstopp bis PR 220 aufgehoben (PR 220 gemischt 19:50, Spike); jetzt Regel 287: `--nur-muss`, ab 95 % (gegen 02:30) nur Rückläufer des Chefs.
+**Nacht 18./19.11. sparsam (Chef 23:15, Vorgangsarchiv):** bis 19.11., 07:00 keine Starts außer Ford-Wache; laufende übergeben und enden (Ford 23:16 allen gesagt), dann archivieren und buchen; 300 nicht auf `main` ohne Chefwort. Danach Regel 287 (`--nur-muss`).
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
