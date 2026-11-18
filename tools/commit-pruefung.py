@@ -279,6 +279,12 @@ def srd_neu(dat):
 
 
 MENUEPFAD = re.compile(r"Menü\s*→|\bReiter\b|Lage herstellen")
+# 1672 (Chef 18.11., 15:48 zu t299.1–299.5: Aussehen als Handypunkt): Passt/Falsch urteilen nur übers Aussehen, kein Bedienen
+AUSSEHEN = re.compile(r"(?i)(sehen|sichtbar|abgeschnitten|Streifen|leucht|Licht|hell|dunkel|Farbe|Stoff|Kleid|Schatten|glüh|sticht|ragt|"
+                      r"schwebt|Fleck|versunken|steckt|hängt|spannt|Umriss|Glanz|Nebel|Staub|Funke)")
+BEDIENEN = re.compile(r"(?i)(tipp|drück|Knopf|Taste|Start\b|von selbst|Schaltfl|\bwisch|ablegen|anlegen|ausw[äa]hl|öffnet|schließt|reagiert|Ring\b|Ton\b|Klang|hör|"
+                      r"ruckel|flüssig|hakt|Gefühl|spür|lädt|Lade|Absturz|stürzt|friert|bleibt stehen|kommt (?:nicht )?an|erreich|"
+                      r"Gespräch|Auftrag|Kampf beginnt|Bilder/s|fps|Takt\b|Ziel\b|trifft|ausgelöst|bewegt sich (?:nicht|zu)|steuer|Joystick|langsam|schnell)")
 HANDY_LESEN = re.compile(r"(?i)\b(lesen|liest|durchblättern|Text\w*|Handbuch\w*)\b")
 # 1427 (Chef 16.11., 13:31 zu t291.3 „nicht langsamer da als in Build 290“: „Völlig sinnlose Frage. Die kann ein Mensch nicht beantworten.“):
 # Vergleich mit einem früheren Build oder „wie vorher“ an einer Handy-Zeile nur mit gemessener Zahl (0,7 s, 30 Bilder/s, 12 %)
@@ -298,8 +304,12 @@ def handypunkte(inhalt):
     kopf = next((r for r in tab if "Art" in r), None)
     if not kopf: return None
     sa = kopf.index("Art")
+    sw = next((i for i, c in enumerate(kopf) if c.lower().startswith("wo und wie")), -1)
+    def aussehen(r):  # 1672: Handyzeile, die nur übers Aussehen urteilt, zählt nicht
+        u = " ".join(r[sw + 1:]) if sw >= 0 else ""
+        return bool(AUSSEHEN.search(u)) and not BEDIENEN.search(u)
     return sum(1 for r in tab if r and re.fullmatch(r"\*?\d+\.\d+[a-z]?(\.\d+[a-z]?)*\*?", r[0]) and len(r) > sa
-               and r[sa].lower().startswith("handy"))
+               and r[sa].lower().startswith("handy") and not aussehen(r))
 
 
 def art_weg_befunde(inhalt):
@@ -322,6 +332,11 @@ def art_weg_befunde(inhalt):
         elif art.startswith("handy"):
             m = HANDY_LESEN.search(wo)
             if m: out.append(("warn", "Zeile %s Art Handy mit „%s“: nur Lesen ist Bild oder „ohne dich“, nicht Handy (1398)" % (r[0], m.group(0))))
+            urteil = " ".join(r[sw + 1:]) if sw >= 0 else ""
+            if AUSSEHEN.search(urteil) and not BEDIENEN.search(urteil):
+                out.append(("aussehen", "Zeile %s Art Handy urteilt nur übers Aussehen (Passt/Falsch: „%s“, kein Bedienen); Aussehen ist Bild, "
+                            "Bewegung Film, nie Handy, und zählt nicht für die 4 Handypunkte (1672, Chef 18.11., 15:48 zu t299; "
+                            "LISTE-CHECK-BUILD-TEST.md 9)" % (r[0], AUSSEHEN.search(urteil).group(0))))
         if not re.match(r"(bild|film)\b", art):  # 1446 (D273.1): Regel 10 gilt für jede Zeile; Bild/Film zeigen alt gegen neu selbst
             ganz = re.sub(r"\[[^\]]*\]\([^)]*\)", "", " | ".join(r[sw:])) if sw >= 0 else ""
             m = next((v for v in (VERGLEICH.search(teil) for teil in re.split(r"[;|]", ganz) if not GEMESSEN.search(teil)) if v), None)
@@ -507,7 +522,7 @@ def main():
         # Held, Reiter, Ausrüstung irgendwie testen soll … Telegram schicken, Bilder, Filme, wenig in die APK packen.“)
         if s in ("A", "M") and re.match(r"docs/(chefsache/ansehen|entwurf)/t\d+-[^/]+\.md$", p):
             for f in art_weg_befunde(git("show", ":" + p)):  # 1427: Vergleich hält nur neue Listen an, Nachträge an alten warnen
-                (stop if f[0] == "stop" or (f[0] == "vergleich" and s == "A") else warn).append("%s: %s" % (p, f[1]))
+                (stop if f[0] == "stop" or (f[0] in ("vergleich", "aussehen") and s == "A") else warn).append("%s: %s" % (p, f[1]))
     for s, p in dat:  # 1524 (Chef 17.11., 08:10 zu Build 295 mit einem Handypunkt, 600 MB mobil: „100-mal geregelt“, 783 W2)
         if s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p):
             n = handypunkte(git("show", ":" + p))
