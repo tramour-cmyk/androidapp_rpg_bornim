@@ -1003,3 +1003,4 @@
 2026-11-18 16:33:36	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1679.md: fehlt Berührt, Begründung. Voll	HEAD
 2026-11-18 16:33:44	commit-pruefung	docs/chefsache/entscheiden/1679.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-18 16:34:11	commit-pruefung	LISTE-VORGAENGE.md: 1535: Zeile über 400 Zeichen (Einzelheiten als „Zu 1535“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-18 16:34:26	commit-pruefung	LISTE-VORGAENGE.md: 1535: Zeile über 400 Zeichen (Einzelheiten als „Zu 1535“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
