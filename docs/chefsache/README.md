@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 01:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 01:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -24,10 +24,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 61 (61) | 18 | 0 | 4 | 49 | 1589.6 (Spike) Rechnung 444 in die Arena: sim444 rechnet mit are… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 21 (20) | 11 | 3 | 1 | 7 | 1569 (Tom) Rest aus 431h: angelegter Umhang an der Heldenfig… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 22 (20) | 11 | 3 | 1 | 7 | 1569 (Tom) Rest aus 431h: angelegter Umhang an der Heldenfig… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 5 | 649 (Sokrates) Figurenkatalog: alle Figuren an einer Stelle, Bes… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 48 (48) | 5 | 0 | 6 | 25 | 508 (Sokrates) Lehrmeister in Kapitel 1 erreichbar, Magie-Pflich… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 11 (11) | 5 | 0 | 1 | 4 | 1484a (Spike) Rückfrage Welt in Zellen teilen, Durchsicht nur n… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 11 (11) | 5 | 1 | 1 | 4 | 1484a (Spike) Rückfrage Welt in Zellen teilen, Durchsicht nur n… |
 | **7** Werkzeuge und Abläufe der Firma | 42 (48) | 28 | 0 | 0 | 11 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -36,8 +36,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 11 | 114 | 327 | 1187 |
-| neu | 6 | 116 | 286 | 1176 |
-| **netto** (erledigt − neu) | **+5** | **−2** | **+41** | **+11** |
+| neu | 7 | 116 | 287 | 1177 |
+| **netto** (erledigt − neu) | **+4** | **−2** | **+40** | **+10** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 3 weitere |
+| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 4 weitere |
 | Tom | 1569 Rest aus 431h: angelegter Umhang an der Heldenfigur in der… (Muss); dann 1 weitere |
 | Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
@@ -61,26 +61,26 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|---|---|---|---|---|
 | 1 | 1569 | Tom | Rest aus 431h: angelegter Umhang an der Heldenfigur in der Welt nie zu sehen, a… | M | 3 Kleiderschrank und Modelle | in Arbeit |
 | 2 | 1571 | Tom | Zauberstab in der Haupthand angelegt, an der Figur nicht zu sehen; Fackel der N… | M | 3 Kleiderschrank und Modelle | startbar |
-| 3 | 1484a | Spike | Rückfrage Welt in Zellen teilen, Durchsicht nur nahe am Helden | M | 6 Godot besser nutzen | startbar |
+| 3 | 1484a | Spike | Rückfrage Welt in Zellen teilen, Durchsicht nur nahe am Helden | M | 6 Godot besser nutzen | in Arbeit |
 | 4 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 5 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
 | 6 | 1613 | Spike | Waffen episch und höher mit Effekt statt Färbung, Schwarzstahl liest sich fast… | K | 3 Kleiderschrank und Modelle | startbar |
 | 7 | 1570 | Sokrates | Systemlösung? Umhang: 12 frühere Vorgänge, neu 1569; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
 | 8 | 1406 | Tom | Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden; Held wendet h… | K | 3 Kleiderschrank und Modelle | in Arbeit |
-| 9 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 10 | 476 | Tom | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 11 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 12 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
-| 13 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
-| 14 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
-| 16 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | wartet auf 1591 |
-| 17 | 1589.6 | Spike | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd statt nah, fern, weit; e… | M | 2 Kampf passt | wartet auf 1589.2 |
-| 18 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf passt | Termin 21.11. 20:00 |
-| 19 | 1589 | Jerry | Motor des Kampfs: Gegnerverhalten nach Regeln; Bau nach Regelblatt 1589.1 in St… | M | 2 Kampf passt | wartet auf 1589.5 |
-| 20 | 1589.2 | Jerry | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf passt | Termin 21.11. 20:00 |
+| 9 | 1614 | Tom | Heldmodelle held_*.bin tragen eine Hilfskugel der Kaufdatei; verfälscht Messung… | K | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 508 | Sokrates | Lehrmeister in Kapitel 1 erreichbar, Magie-Pflicht Paladin/Kriegsmagier, Wachso… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 11 | 476 | Tom | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 12 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 13 | 1546 | Tom | Rest aus 531: Garricks Kapuze noch nicht kleiner; alt MapFolk.kt garrick, Dress… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 14 | 1270 | Sokrates | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abzie… | K | 6 Godot besser nutzen | startbar |
+| 15 | 1469 | Ford | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB s… | K | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 16 | 1129 | Sokrates | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schn… | M | 7 Werkzeuge und Abläufe der Firma | wartet auf 1387 |
+| 17 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | wartet auf 1591 |
+| 18 | 1589.6 | Spike | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd statt nah, fern, weit; e… | M | 2 Kampf passt | wartet auf 1589.2 |
+| 19 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf passt | Termin 21.11. 20:00 |
+| 20 | 1589 | Jerry | Motor des Kampfs: Gegnerverhalten nach Regeln; Bau nach Regelblatt 1589.1 in St… | M | 2 Kampf passt | wartet auf 1589.5 |
 
-Danach 35 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 110.
+Danach 36 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 110.
 ## Zu entscheiden
 
 Nichts offen.
@@ -96,6 +96,12 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | [1211](billigen/1211-licht-b.md) | Kür | E Welt | 18.11., 00:48 | Funkenlicht B: Abfall 1,0 statt 2,0, Reichweite 8 m statt 6,7 m, Stärke wie heute; Höhle immer voll. | Sokrates |
 
 ## Anzusehen
+
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [455.2](ansehen/4552-groessen.md) | Größen Runde 2: Zwerg dazu, Ork auf dem Superhelden, Helm Hügelvolk; Netzliste je Platz | Tuffy | 18.11., 01:10 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
@@ -360,6 +366,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t298-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+
+Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/4552-groessen.md
 
 ## So geht's
 
