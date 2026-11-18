@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 15:31, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 15:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -26,7 +26,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | ↳ **2** Kampf passt | 63 (61) | 18 | 0 | 0 | 49 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
 | ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 35 (20) | 23 | 0 | 7 | 7 | 1621 (Spike) Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegs… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (48) | 5 | 0 | 1 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 4 | 0 | 1 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 10 | 0 | 2 | 4 | 1670 (Spike) Grafik Hoch im Systemmenü 1. Mal zurück auf Autom… |
 | **7** Werkzeuge und Abläufe der Firma | 44 (48) | 29 | 0 | 0 | 12 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -35,9 +35,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 46 | 114 | 362 | 1222 |
+| erledigt | 47 | 114 | 363 | 1223 |
 | neu | 70 | 116 | 350 | 1240 |
-| **netto** (erledigt − neu) | **−24** | **−2** | **+12** | **−18** |
+| **netto** (erledigt − neu) | **−23** | **−2** | **+13** | **−17** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t299](ansehen/t299-schlussbuild.md) testen, hält 9 Zeilen; dann 3 weitere |
+| **Chef** | [t299](ansehen/t299-schlussbuild.md) testen, hält 9 Zeilen; dann 4 weitere |
 | Tom | 1650 Durchstechprüfung: Hosen stechen durch den Stiefelschaft be… (Muss); dann 3 weitere |
 | Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 2 weitere |
 | Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
@@ -80,7 +80,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
 | 20 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
 
-Danach 55 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 114.
+Danach 54 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 19. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -99,6 +99,7 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
+| [1650](ansehen/1650-stiefel.md) | Hose sticht nicht mehr durch den Stiefelschaft (Bram, Garrick, Jorin, Wache) | – | 18.11., 15:33 |
 | [1652](ansehen/1652-osric-sonne.md) | Osric: sticht etwas durch die Robe? | – | 18.11., 14:34 |
 | [1663](ansehen/1663-wirkung.md) | Wirkung in Tasche und Detailansicht | – | 18.11., 14:29 |
 
@@ -390,7 +391,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1663-wirkung.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1650-stiefel.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1663-wirkung.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1652-osric-sonne.md
 
