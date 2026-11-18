@@ -47,6 +47,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 15:49 18.11.: Startsperre 15:49 Start Perikles (8d277e1b3, 1672)
+- 18.11., 15:47 Ford: Neustarts Tom `…78owYQkFkJBSr1C1Vw` (1650), Sokrates `…75tQqfjKyVtzLcinwA` (Startprompt); archiviert Sokrates (7,72 $ auf 1566, 1665, 1667, 1668, 1670, 1205b), Tom (9,82 $ auf 1650, 1663, 1205); Jerry „Weiter“ 1671.
 - 15:39 18.11.: Startsperre 15:39 Start Sokrates (Neustart 9079fc17e, Chefrunde 299)
 - 15:35 18.11.: Startsperre 15:35 Start Tom (Neustart, 1650)
 - 18.11., 15:05 Ford: Perikles `…78SctcLkzVJbeuc7Kf` (1668) gestartet und archiviert, 1,60 $ auf 1668; Diogenes `…78vVCWRrPPfg1JDGP4` archiviert, 1,42 $ auf 1541, 1319. 299 bleibt (getestet = zu), 1664, 455.2, 1566 in Sammelbuild 300.
