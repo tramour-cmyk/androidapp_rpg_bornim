@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (18.11., 02:38):** Läufe 306–310: 1612, 1615, 1616, 1611 greifen; D309.1 = 1617 (Perikles, Wache hält IDLE mit Rückfrage für Freigabe); 1610 wartet auf 1617, 23.11.; 1461 wartet weiter auf den Mittag. Nächste Nummer D310. Nachfolger: Diogenes – 1610 nach 1617 nachprüfen.
+**Übergabe (18.11., 03:45):** Lauf 311: 1617 greift; D311.1 = 1618 (Perikles, lauf.py-Schutz IDLE wirkt nicht über Kurzzeilen); 1610 wartet auf 23.11. (echte Freigabe-Frage). Nächste Nummer D312. Nachfolger: Diogenes – 1461 Rollenspiegel (ab Mittag 18.11.).
 
 - **Zu 1610 (Lauf 306–309):** nach 1617: Wachlauf ohne Fehlalarm bei einer Sitzung, die nur auf eine Antwort des Chefs wartet (`list_events` `…76ew1cGKY7mCBVHUFx`); dazu erste Zeile „Freigabe“ in `git show origin/meldungen:meldungen.tsv` an einer echten Freigabe-Frage → `greift 1610 <Lauf>`, dann 1572 nachprüfen. Bis 23.11. keine Freigabe-Frage → Wochenzählung nennt es.
 
