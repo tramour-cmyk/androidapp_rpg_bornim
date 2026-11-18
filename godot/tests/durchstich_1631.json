@@ -1,0 +1,276 @@
+{
+	"BAUER_M": {
+		"Stehen": {
+			"durch": 36,
+			"zug": 28
+		},
+		"Stehen_2": {
+			"durch": 32,
+			"zug": 28
+		}
+	},
+	"BAUER_W": {
+		"Stehen": {
+			"durch": 5,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 5,
+			"zug": 0
+		}
+	},
+	"KLOSTER_M": {
+		"Stehen": {
+			"durch": 105,
+			"zug": 11
+		},
+		"Stehen_2": {
+			"durch": 101,
+			"zug": 23
+		}
+	},
+	"KLOSTER_W": {
+		"Stehen": {
+			"durch": 44,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 43,
+			"zug": 0
+		}
+	},
+	"L_aldric": {
+		"Gesten": {
+			"durch": 45,
+			"zug": 11
+		},
+		"Stehen": {
+			"durch": 48,
+			"zug": 11
+		},
+		"Stehen_2": {
+			"durch": 48,
+			"zug": 55
+		}
+	},
+	"L_borin": {
+		"Ruhe_Trinken": {
+			"durch": 188,
+			"zug": 26
+		},
+		"Stehen": {
+			"durch": 196,
+			"zug": 17
+		}
+	},
+	"L_bram": {
+		"Ruhe_Greifen": {
+			"durch": 183,
+			"zug": 11
+		},
+		"Ruhe_Trinken": {
+			"durch": 186,
+			"zug": 24
+		},
+		"Stehen": {
+			"durch": 182,
+			"zug": 4
+		}
+	},
+	"L_garrick": {
+		"Ruhe_Greifen": {
+			"durch": 188,
+			"zug": 25
+		},
+		"Ruhe_Trinken": {
+			"durch": 187,
+			"zug": 26
+		},
+		"Stehen": {
+			"durch": 187,
+			"zug": 16
+		},
+		"Stehen_2": {
+			"durch": 202,
+			"zug": 65
+		}
+	},
+	"L_gwenna": {
+		"Ruhe_Weinen": {
+			"durch": 11,
+			"zug": 55
+		},
+		"Stehen": {
+			"durch": 9,
+			"zug": 18
+		},
+		"Stehen_2": {
+			"durch": 9,
+			"zug": 24
+		}
+	},
+	"L_jorin": {
+		"Stehen": {
+			"durch": 179,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 191,
+			"zug": 6
+		}
+	},
+	"L_liska": {
+		"Gesten": {
+			"durch": 7,
+			"zug": 0
+		},
+		"Stehen": {
+			"durch": 9,
+			"zug": 0
+		}
+	},
+	"L_lyra": {
+		"Stehen": {
+			"durch": 12,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 22,
+			"zug": 0
+		}
+	},
+	"L_morwen": {
+		"Ruhe_Greifen": {
+			"durch": 65,
+			"zug": 7
+		},
+		"Stehen": {
+			"durch": 69,
+			"zug": 8
+		}
+	},
+	"L_osric": {
+		"Ruhe_Greifen": {
+			"durch": 230,
+			"zug": 30
+		},
+		"Stehen": {
+			"durch": 232,
+			"zug": 24
+		},
+		"Stehen_2": {
+			"durch": 256,
+			"zug": 36
+		}
+	},
+	"L_pim": {
+		"Gesten": {
+			"durch": 108,
+			"zug": 4
+		},
+		"Ruhe_Greifen": {
+			"durch": 108,
+			"zug": 6
+		},
+		"Stehen": {
+			"durch": 109,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 112,
+			"zug": 0
+		}
+	},
+	"L_rowena": {
+		"Gesten": {
+			"durch": 47,
+			"zug": 18
+		},
+		"Ruhe_Tresen": {
+			"durch": 81,
+			"zug": 4
+		},
+		"Stehen": {
+			"durch": 43,
+			"zug": 23
+		}
+	},
+	"L_thessa": {
+		"Gesten": {
+			"durch": 200,
+			"zug": 1
+		},
+		"Ruhe_Greifen": {
+			"durch": 206,
+			"zug": 5
+		},
+		"Ruhe_Tresen": {
+			"durch": 190,
+			"zug": 2
+		},
+		"Stehen": {
+			"durch": 210,
+			"zug": 0
+		}
+	},
+	"ROBE_M": {
+		"Stehen": {
+			"durch": 36,
+			"zug": 285
+		},
+		"Stehen_2": {
+			"durch": 36,
+			"zug": 274
+		}
+	},
+	"ROBE_W": {
+		"Stehen": {
+			"durch": 34,
+			"zug": 261
+		},
+		"Stehen_2": {
+			"durch": 35,
+			"zug": 232
+		}
+	},
+	"WACHE_M": {
+		"Stehen": {
+			"durch": 388,
+			"zug": 102
+		},
+		"Stehen_2": {
+			"durch": 378,
+			"zug": 132
+		}
+	},
+	"WACHE_W": {
+		"Stehen": {
+			"durch": 356,
+			"zug": 125
+		},
+		"Stehen_2": {
+			"durch": 360,
+			"zug": 151
+		}
+	},
+	"WALD_M": {
+		"Stehen": {
+			"durch": 248,
+			"zug": 10
+		},
+		"Stehen_2": {
+			"durch": 248,
+			"zug": 62
+		}
+	},
+	"WALD_W": {
+		"Stehen": {
+			"durch": 153,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 153,
+			"zug": 2
+		}
+	}
+}
