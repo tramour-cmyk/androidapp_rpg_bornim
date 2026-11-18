@@ -234,12 +234,13 @@ def testpakete(wo):
 # Datei <waffenart>_<form>.glb. Ohne SPIEL wie bisher fuer den Film (1 m, ein Bild je Seltenheit).
 SPIEL = bool(os.environ.get('SPIEL'))
 DREIECKE = 800
-# Masse in cm aus Dress.kt (reach: vor der Faust; GRIP_BACK: dahinter; runde Waffen buttPart · reach), Boegen aus waffen.py
-VORN = {'dagger': 28, 'shortsword': 47, 'scimitar': 65, 'rapier': 80, 'longsword': 75, 'greatsword': 103, 'handaxe': 36,
-        'battleaxe': 64, 'greataxe': 96, 'mace': 54, 'morningstar': 66, 'warhammer': 53, 'maul': 85, 'spear': 148, 'halberd': 131,
+# Masse in cm aus Dress.kt (reach: vor der Faust; GRIP_BACK: dahinter; runde Waffen buttPart · reach), Boegen aus waffen.py;
+# 1621 (Chef 18.11., 07:37, A): Zweihaender 128,5 -> 115, Grossaxt 131 -> 110, Kriegshammer (maul) 115 -> 100 cm, Griff im selben Verhaeltnis
+VORN = {'dagger': 28, 'shortsword': 47, 'scimitar': 65, 'rapier': 80, 'longsword': 75, 'greatsword': 92.2, 'handaxe': 36,
+        'battleaxe': 64, 'greataxe': 80.6, 'mace': 54, 'morningstar': 66, 'warhammer': 53, 'maul': 73.9, 'spear': 148, 'halberd': 131,
         'staff': 70}
-HINTEN = {'dagger': 7, 'shortsword': 8.5, 'scimitar': 8, 'rapier': 8.5, 'longsword': 12.5, 'greatsword': 25.5, 'handaxe': 9,
-          'battleaxe': 12, 'greataxe': 35, 'mace': 11.5, 'morningstar': 11.5, 'warhammer': 9, 'maul': 30, 'halberd': 45,
+HINTEN = {'dagger': 7, 'shortsword': 8.5, 'scimitar': 8, 'rapier': 8.5, 'longsword': 12.5, 'greatsword': 22.8, 'handaxe': 9,
+          'battleaxe': 12, 'greataxe': 29.4, 'mace': 11.5, 'morningstar': 11.5, 'warhammer': 9, 'maul': 26.1, 'halberd': 45,
           'spear': 148 * 0.42, 'staff': 70 * 1.45}
 BOEGEN = {'shortbow': 101, 'longbow': 140}
 ARMBRUST = {'light_crossbow': (70, 25)}   # Laenge, Griff ab Kolbenende (Dress.kt baut sie rund, ohne Mass); geschaetzt
