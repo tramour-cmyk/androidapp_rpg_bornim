@@ -55,6 +55,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 
+
+- **Zu 1535, von Chef (Fund t299.3, Test Build 299, Automatik B):** Kleidung zieht in der Ruhebewegung mit gehobenem Arm (Garrick 15:33, Bewohner im Kittel 15:59; Zu 1535)
 - **Zu 1205, von Chef (Fund t298.2, Test Build 298, Automatik B):** „nix da“: kein Gras zu sehen, Blumen die alten Kleckse (Bild 14:24, `bilder/t298-2-wiese-chef.webp`)
 - **Zu 1167, von Chef (Anmerkung t298.3 (✓), Test Build 298, Automatik B):** (an der Ziege; das Rind sucht er noch)
 - **Zu 1650, 1651, 1655, 1657 (Tom, 18.11., 12:00, aus 1631):** Werte aus Bauserver-Lauf 560 (Zeilen `DURCH1631`, Schwelle `godot/tests/durchstich_1631.json`): Paar „A#i>B#j Höhe: Ecken“ heißt Stück i von A liegt in der Bewegung vor Stück j von B. 1650 `Kleid#n>Male_Ranger_Feet_Boots#0/1 0.4 m`; 1651 `Kleid_CHEST#1>Kleid_CLOAK#0 1.3–1.5 m` (Wache W auch `Kleid_CLOAK#1/2>#0`); 1655 `Female_Ranger_Head_Hood#3>Female_Regular#0 1.7 m`; 1657 `Leib_HAND#0/1>Kleid_CHEST#2/3`. Weg: erst Bild an der Stelle (Sichtbarkeit), dann beheben, Wert in der Schwelle senken. Kaufnetze gegen sich selbst (Gürtel, Armschienen Wald, Ritterarme Kloster, Bauernfüße) wohl Bauart, kein Vorgang. 1652–1654 an Jerry (Last, 1604).

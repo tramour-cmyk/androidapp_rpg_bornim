@@ -34,4 +34,4 @@ Gegengelesen: Sokrates 18.11., 14:22. 299.1 stimmt. 299.2 stimmt. 299.3 Frage: J
 - 299.2 ✓
 - 299.3 ✗ Kleidung zieht in der Ruhebewegung mit gehobenem Arm (Garrick 15:33, Bewohner im Kittel 15:59; Zu 1535)
 - 299.4 ✓
-- offen: 299.5
+- 299.5 ✓
