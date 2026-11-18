@@ -4,7 +4,8 @@ extends RefCounted
 # Hoch, Mittel, Niedrig und Automatisch im Systemmenue (Zeichen „Grafik“, Gruppe „Spiel“). Die Signatur bleibt in jeder Stufe
 # (Tuschelinie, Licht aus Quelle, Gold, Nebel am Rand); gespart wird an Schatten, Schaerfe des Spielbilds (nur 3D, Schrift und
 # Menues bleiben scharf) und den gekauften Effekten:
-#   Hoch:    Sonnenschatten 4096 px weich (Stufe 2), Innenschatten, Tusche nach Lampen, 3D voll, Gras und Effekte der Kits
+#   Hoch:    Sonnenschatten 4096 px weich (Stufe 2), Innenschatten, Tusche nach Lampen, 3D voll, Gras und Effekte der Kits,
+#            Glühen von Flammen, Glut, Kristallen und Pilzen (1270.4, licht.gd setze_gluehen)
 #   Mittel:  Sonnenschatten 2048 px weich (Stufe 1), sonst wie Hoch, 3D 85 %
 #   Niedrig: Sonnenschatten 1024 px hart, ohne Innenschatten (Kamin, Fackel, Tageslicht), Tusche nur nach Helligkeit, 3D 70 %,
 #            ohne Kits (unser eigenes Gras, unser Rauch und die Lichtinseln)
@@ -109,6 +110,7 @@ static func weiter(tree: SceneTree) -> void:
 static func innen_schatten() -> bool: return aktiv >= MITTEL
 static func tusche_lampen() -> bool: return aktiv >= MITTEL
 static func kits() -> bool: return aktiv >= MITTEL
+static func gluehen() -> bool: return aktiv >= HOCH       # 1270.4 (Chef 16.11., 17:32)
 
 # ---------------------------------------------------------------- Ladepunkte
 
@@ -133,6 +135,8 @@ static func setze(tree: SceneTree, s: int) -> void:
 	tree.root.scaling_3d_scale = SCHAERFE[aktiv]
 	for n in tree.get_nodes_in_group("grafik_schatten"):
 		if n is Light3D: (n as Light3D).shadow_enabled = innen_schatten()
+	for n in tree.get_nodes_in_group("grafik_gluehen"):
+		if n is WorldEnvironment and (n as WorldEnvironment).environment: Licht.setze_gluehen((n as WorldEnvironment).environment)
 
 ## Automatisch, erste Ladung: unter der Blende kurz je Stufe messen, von Hoch abwaerts, die hoechste mit Luft nehmen
 static func braucht_messung() -> bool: return automatisch() and auto_stufe < 0

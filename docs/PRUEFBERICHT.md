@@ -41,6 +41,86 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 321–323 · 1461 Rollenspiegel, 1622, 1648 (18.11., 12:08)
+
+- **321, 1461 greift:** `## Woche 18.11.` hat alle sieben Rollen (Perikles 07:52 … Diogenes 07:57), alle nach dem Tagesbericht (Stand 18.11., 07:51), je Zeile „11.“, keine „2.“; `LISTE-IDEEN.md` hat sieben Frage-11-Einträge (Chef 09:00: sechs → 1627–1632, Homer „knicken“). Woche 13.11. bleibt als Vorwoche.
+- **322, 1622 greift:** 476 hat „458.3 main, 23.11.“ im Feld, `vorgang.py --rolle Tom` zeigt sie wartend.
+- **323, 1648 greift mit Lücke:** Prüfteil von `meldung.sh` isoliert ohne Senden: „1569: Umhang behoben“ und „1417: Kapuze behoben“ gesperrt, mit „Test:“ und bei 1640 (B) durch. `chef_fund.vom_chef` sucht den Chef nur in der ersten Klammer: 77 Zeilen in E/G erkannt, 10 mit „Chef“ im Titel nicht, darunter 709 (Luftschlag, Chef 08.11. in zweiter Klammer, M) und 689 („Urteil Chef 25.10.“ ohne Klammer) → D323.1 = 1658 (Spike); 1648 wartet darauf, 1644 weiter auf 1648.
+- Nicht geprüft: echte Sendung von `meldung.sh`; Fehlalarme einer erweiterten Erkennung (623.9 „gebilligt“, 644.2) gehören zu 1658.
+
+## Lauf 316–320 · Werkzeuge Spike 1640–1644 (18.11., 11:06)
+
+- **316, 1640 greift:** frische `ueberblick.py`: „läuft: <Vorgang> (Besetzung)“ bei Tom, Spike, Sokrates wie `ARBEIT-BESETZUNG.md`; Pflegezeilen seit 1642 ganz weg. „Offen je Rolle“ der README zeigt noch „Pflege … von Werkzeug“: Abschnitt nur stündlich neu (1129 A 6), kein Befund.
+- **317, 1641 greift:** `OFFEN_MAX` 30000 (Haken), `GRENZE` 30000 (`startwarnung.py`); Start dieser Sitzung warnte nur `ARBEIT-BETRIEB.md` (32 KB).
+- **318, 1642:** `startwarnung_test.py` grün; Stand ab 18.11., 10:55 mit Besitzer je Warnung (notiz.sh zeigt „Besitzer, seit“); erster echter 6-h-Fall frühestens 16:55, Uhr ab 10:55 neu (ältere Warnungen wie Bilder über 60 KB seit 04.11. zählen von dort). Prüfung 25.11. (340.12/1).
+- **319, 1643:** `nachtstarts_test.py` grün; Protokoll 11:00 „(lauf.py, Diogenes 1640)“, `nachtstarts.py Diogenes 1640` am Tag 0; Sokrates-Schwelle 400 Tsd. im Haken. Echte Nacht ausstehend, Prüfung 25.11. (340.12/3).
+- **320, 1644 greift mit Lücke:** Prüfteil isoliert ohne Senden: „1417: … behoben“ gesperrt, mit „Test:“ durch; „1569: Umhang behoben“ geht durch (Titel „Rest aus 431h (Chef 17.11., …)“). Sperre kennt nur Titel „Von Chef“: in E/G-Bereichen 26 so, 61 mit „Chef TT.MM.“ im Titel → D320.1 = 1648 (Spike), 1644 wartet darauf.
+- Nicht geprüft: echte Sendung von `meldung.sh`, `--pflegen` mit Push.
+
+## Lauf 315 · 1622 „<Nr> main“ im Feld „wartet auf“ (Spike `c22ae372c`; 18.11., 09:00)
+
+- **1622 greift mit Lücke:** `startbar_main_test.py` gut; Kopie mit `vorgang.py warte 476 "458.3 main, 23.11."`: angenommen, Formprüfung leer, Sperre „wartet auf 458.3 main (gebaut)“; blanke „458.3“ bei sonst startbarer Zeile: keine Sperre (190.1, gewollt). Lücke: 476 trägt noch „458.3, 23.11.“ → D315.1 = 1626 (Tom), 1622 wartet darauf.
+
+## Lauf 314 · 1624 beantwortete Spiegelzeile nicht startbar (Perikles `60109b0aa`; 18.11., 08:59)
+
+- **1624 greift:** Stand von Fords Lauf 08:03 (`98a934182`) mit dem neuen `startbar.sperre`: Spiegel Diogenes → „Spiegel beantwortet“ (Antwort 07:57 unter „## Woche 18.11.“); `startbar_spiegel_test.py` Exit 0. (b) 1417, 455.2 startbar ist Wortlaut 1312 (Vorgangsarchiv: „nach 6 h für den Besitzer startbar“, `liegt_ohne_vorlage`), kein Fehler; Fords „gebaut gilt nie startbar“ widerspricht 1312. (c) 458.3, 1484a am Stand 08:03 „Termin 21.11. 20:00“ (seit `6d20a79bd` 07:45), Fords Anzeige nicht nachstellbar.
+- Nicht geprüft: echter Ford-Lauf zwischen Spiegelantwort und Pflegelauf (heute schon alle Spiegelzeilen weg).
+
+## Lauf 313 · 1620 Vorentscheid-Bremse nur „zurück“ (Perikles `0b7c028212`; 18.11., 07:59)
+
+- **1620 greift:** `abgleich.py` zählt nur „zurück“ der letzten 7 Tage (oberste 80 Archivzeilen), wie 1129 A 3f (Vorlage `1129-blinde-flecken.md` in `ace1de359~1`: „zählt nur ‚zurück‘, nicht, was du noch nicht gebilligt hast“); Kopfzeile 9 angeglichen. Kopie: 3 „zurück“ → Warnung, 2 → still, 7 Dateien zusätzlich in `billigen/` → still; echter Stand still (Exit 0). Kein weiterer Ort mit der alten Schwelle in Rollendateien, `chefsache/README.md`, `LISTE-*`, `tools/*.py`.
+- Nicht geprüft: nächster Ford-Lauf ohne „Marke Abgleich Vorentscheid-Bremse“ (bis 04:04 noch mit „8 ungebilligt“ in `ARBEIT-BETRIEB.md`).
+
+## Lauf 312 · 1618 Freigabe bei IDLE (18.11., 07:10)
+
+- **1618 greift:** `freigabe_idle_test.py` grün (4 Fälle, Exit 0); `lauf.py` Zeile 773 weg, JSON-Weg macht blocked+IDLE zu need_input. Echter Fall: „Sokrates – Nachtvertretung“ `…777MV8Hv8ps2Js5voW` blocked, IDLE seit 05:05; Ford-Lauf 07:05 ohne „Marke Freigabe“, Wache 05:33 und 06:33 ohne Meldung in `meldungen.tsv`.
+- Bleibt: Kurzzeile `blocked` wird weiter als RUNNING gelesen; still bleibt sie nur, wenn Ford nach `LISTE-BETRIEB.md` 3 `need_input` schreibt (Kurzzeile kennt kein IDLE, gewollt).
+- Nicht geprüft: Freigabe-Alarm an einer echten Freigabe-Frage (1610, kein Fall).
+
+## Lauf 311 · 1617, 1610 Wache (18.11., 03:45)
+
+- **1617 greift:** Wachlauf 03:33 (`…76ew1cGKY7mCBVHUFx`, 02:34 UTC) liest die neue Zeile, `list_sessions` limit 100 (letzte Zeile 16.11., Abbruch nach 1616 richtig), einzige blocked-Sitzung „Sokrates – Nachtvertretung“ mit `session_status` IDLE seit 03:08 → still; kein Fehlalarm in `meldungen.tsv`.
+- **Lücke in `lauf.py`:** die neue Zeile 773 (IDLE überspringen) wirkt nie: `kosten.sitzungen` bildet die Kurzzeile `blocked` immer auf `SESSION_STATUS_RUNNING` ab (nachgestellt: `blocked` → RUNNING/BLOCKED). Still bleibt blocked+IDLE nur, wenn Ford nach `LISTE-BETRIEB.md` 3 `need_input` schreibt; schreibt er `blocked`, meldet `lauf.py` nach `FREIGABE_MIN` „wartet auf Freigabe“. D311.1 → 1618 (Perikles, M).
+- **1610:** ohne Fehlalarm, aber noch keine echte Freigabe-Frage seit dem Bau; `warte 1610 23.11.`.
+
+## Lauf 310 · 1611 Namenprüfung (18.11., 02:38)
+
+- **1611 greift:** `namenpruefung.py` findet am alten `lauf.py` (`e1cb7588c`) „FREIGABE_MIN (in main)“; alle heutigen `tools/*.py` ohne Fund; nachgestellter Commit mit `tools/probe_1611.py` (undefinierter Name) hält an (Exit 1), gutes Werkzeug läuft durch. Der Pre-commit-Haken ruft die Fassung in `bornim-main`.
+
+## Lauf 309 · 1615, 1616 Wache (18.11., 02:36)
+
+- **1615, 1616 greifen:** Wachlauf 02:33 `git pull`, Zeile neu gelesen, `list_sessions` limit 100, eine Seite, Archivierte übersprungen.
+- **Fehlalarm droht:** die Wache nahm Spike 1484a (status_bucket BLOCKED, session_status IDLE, needs_action „Wahl zu 1613 auf Telegram“, schon 02:29 gemeldet) als „blocked seit 02:30“; ab 15 Minuten meldet sie „hängt, freigeben oder ablehnen“. D309.1 → 1617 (Perikles, M); `warte 1610 1617, 23.11.`. Freigabe-Haken richtig still (keine Freigabe-Frage).
+
+## Lauf 308 · 1615 Wache (18.11., 01:41)
+
+- **1615 gebaut, noch nicht im Lauf gesehen:** Zeile „Wache“ jetzt `limit` 100 und „weitere Seiten über `after_id`, bis has_more falsch“ (`8cfc8f4da`). Die Liste führt auch Archivierte (00:22: 20 Sitzungen in 3 h 15), stündlich also alle Sitzungen seit Beginn. D308.1 → 1616 (Perikles, M): Blättern bei `created_at` älter als etwa 24 h abbrechen; `warte 1615 1616`.
+
+## Lauf 307 · 1612 Wache (18.11., 01:36)
+
+- **1612 greift:** Wachlauf 01:33 mit `git pull`, liest die Zeile „Wache“, `get_session` Ford und `list_sessions` (mine), meldet „keine Sitzung blocked“.
+- **Lücke:** `list_sessions` mit `limit` 12; ältere laufende Sitzungen fehlen (00:22 Tom 1569 auf Platz 20). D307.1 → 1615 (Perikles, M); `warte 1610 1615, 23.11.`.
+
+## Lauf 306 · 1610 Hängeralarm (18.11., 00:21–00:38)
+
+- **Freigabe-Haken noch nicht belegt:** Skript läuft (Probe ohne Freigabe schreibt die Spur, Meldetext geht durch `meldung.sh --probe`, Link auf die Sitzung), aber seit `fa6d0a289` keine Sitzung blocked, keine Zeile „Freigabe“ in `meldungen.tsv`. Beleg für „feuert in der Wolke“ ist diese Zeile, nicht `/tmp/freigabe-haken.log` (liegt nur im eigenen Behälter). Haken gilt erst in Sitzungen, die nach 00:15 starteten.
+- **Wache prüft andere Sitzungen nicht:** Lauf 00:33 nur `get_session` Ford, kein `git pull`, kein `list_sessions`; die geänderte Zeile „Wache“ erreicht sie so nie. D306.1 → 1612 (Perikles, M); `warte 1610 1612, 23.11.`.
+- Nicht geprüft: Haken an einer echten Freigabe-Frage (kein Fall), Nachtfall lautlos.
+
+## Lauf 305 · startbare „gebaut“ Perikles: 1389, 1572, 1548, 1543, 1508, 1461, 1574, 1585, 1592, 1542, 1586 (18.11., 00:0x–00:1x)
+
+- **1389, 1244 greifen:** 17.11. zwei Commits „Pflegehinweise“ (15.11.: 38, 13.11.: 79), beide mit neuem Inhalt (`d78fdc6b5` Tageswechsel mit geänderten Befunden, `9e104b38f` eine neue Zeile Ford), kein reines Verschieben; 16.11. nach dem Bau 09:22 drei.
+- **1548 greift:** `laufzeiten.py --tage 2` liest 45 Läufe (Neubau an Lauf 543, 544, 553, 558 erkannt), `tagesbericht.py --probe` und `--telegram` tragen „APK-Läufe 24 h: 14, Ø 49 min (min 25, max 97), vorgerendert 10 von 14“ in Zeile 5.
+- **1543 greift:** bei keinem Besitzer steht eine Muss-Zeile nach der ersten Kür (Tom 50, Jerry 72, Sokrates 39, Perikles 29 offene Zeilen), auch nach den seit 11:13 neu angelegten.
+- **1508 greift:** Übernahme lief (Tom 785.10, Spike 1553–1557); `startbar.py --stand`: startbar Tom 8, Jerry 2, Spike 2. Gegenargument: Jerrys kleine Zahl kommt auch von „ruht bis 21.11.“ (1605), nicht nur von der Abgabe.
+- **1574 greift:** Ford `…76dyxkyvfmpM8LcpYk` seit 17.11., 18:24 eine Sitzung ohne Neustart, 566 Tsd. Token, 37,88 $ (für Perikles’ Kostenvergleich 18.11.). Nebenbefund: `e1cb7588c` löschte `FREIGABE_MIN`, `lauf.py` stürzte 21:03 an der ersten blockierten Sitzung ab (Ford behob 21:05, `07aa399d3`); Vorschlag D305.2 → 1611 (Perikles, K).
+- **1572 noch nicht:** kein echter Fall seit 18:34 (Meldungen ohne Freigabe-Warnung; jetzt keine Sitzung blocked). D305.1 → 1610 (Perikles, M?): `lauf.py` prüft nur um :03, die Wache Ford nur um :33, also Meldung 15–75 statt 15 Minuten nach dem Hängen; `warte 1572 1610, 23.11.`.
+- **1585 greift:** `lauf.py --sperre` legte 00:03 1608 (Sokrates, Zusammenführen) an.
+- **1592 greift:** Überblick 00:10 „in Arbeit“ Block 3: 3 (1569 laut Besetzung, 455.2 „in Arbeit bei Tuffy“, 1406 Stand „in Arbeit“), Block 4: 1 (458.3); 1068 (ruht) und 1593 (erledigt) richtig nicht gezählt.
+- **1586 greift:** sechs Ford-Läufe 19:03–00:03 ohne „Start Homer nicht angekommen“, obwohl 1235 durchgehend gesperrt; `start_noetig_test.py` 9 Fälle grün.
+- **1542 greift:** `vorratspruefung.py` 00:15 ohne Abschnitt K (vorher Fehlalarm 1423a).
+- **1461 noch nicht:** erste Mittwochsrunde heute nach dem Tagesbericht; wartet auf den Mittag. An Perikles: `lauf.py` 871/885 hängt den Satz an jeden Mittwochsstart, auch vor dem Tagesbericht, Nachfolgerstarts bekommen ihn nicht.
+
 ## Lauf 304 · 1547 Sammelbuild 297 (Lauf 554, `d2552e46e`; 17.11., 15:24)
 
 - **Greift:** Lauf 554 grün („ROT: keine“, APK `bornim-0.348.554-build-297.apk`), mit 1552 (Kauf-Cache klassen Treffer, Quelldateien nicht geholt) und 1155. t297: 9 Handypunkte, keine Sprach- oder Textzeile, Offenes aus t295/t296 drin (1423b, 1483, Prüfzeile 1423a als 297.19). Vorlauf 44075989732 durch Neupush ersetzt.

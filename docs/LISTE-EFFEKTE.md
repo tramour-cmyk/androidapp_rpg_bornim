@@ -19,6 +19,7 @@ Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x). Hier steht **je Anl
 | Kritischer Treffer | großer Aufprall, kurzer Halt | R1, R7 critical_hit | Vorschlag |
 | Parade, Block mit Schild | Funken am Schild | R7 parry_block, R1 | Vorschlag |
 | Fehlschlag, Ausweichen | Luftzug | R3 Dash Wind | Vorschlag |
+| Waffe episch und göttlich (1613, Chef 02.11.: Effekt statt Färbung) | Schein (Rand, Streifen vom Griff zur Spitze) und Glut (Funken steigen auf), Farbe der Seltenheit | Schein eigen (`shader/glanz.gdshader`); Funken R7 `vfx_add` in eigenen Teilchen (`staffel.gd` `glanz`) | Probe (Film 18.11.), Zweig `claude/spike-1613-glanz` |
 | Pfeil (Späher, Garrick, Held mit Bogen) | Pfeilspur, auch beim Fehlschuss | R3 Arrow Streak | im Spiel (`kampf_ui.gd` `SPUR_R3`, Build 289); Einschlag 601.1 |
 | Sterben | Todesstoß bei Untoten, Auflösen bei Geistern; Tiere ohne Effekt (Bewegung, 596) | R4 death_burst; Geister verwehen mit R4 spirit_wisps | Vorschlag |
 | Ansage eines harten Schlags | Fläche am Boden | AoE Telegraphs (ungeprüft) oder R1 AoE | Frage |

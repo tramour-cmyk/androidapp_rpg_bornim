@@ -288,6 +288,45 @@ static func mip_aufraeumen() -> void:   # 680: Eintraege, deren Bild schon frei 
 	for id in mipcache.keys():
 		if (mipcache[id] as WeakRef).get_ref() == null: mipcache.erase(id)
 
+# 1155 (Chef 13.11., 15:12; 16.11., 13:49 „das Wasser, das ich entschieden habe, weder in der Höhle noch sonst irgendwo verwendet, noch im
+# Bach, noch im Teich“): R10 Water Shader Kit, „Teich klar“ (623.6, Chef 08.11., 17:02) auf jeder Wasserflaeche (Dorfbach, Teich, Hoehle).
+# Das Kit liegt nur im Bau (godot.yml, privat); fehlt es, bleibt unser Wasser. Sein Shader bekommt die Schablone 1 (keine Tusche auf dem
+# Wasser, wie wasser.gdshader), den weichen Kartenrand und das Licht bei Nacht aus shader/wasser_kit.gdshaderinc
+const KIT_SHADER := "res://addons/water_kit/shaders/lake.gdshader"
+const KIT_VORGABE := "res://addons/water_kit/presets/lake/pond_clear.tres"
+static var _kit: Shader
+static var _kit_geprueft := false
+static func kit_wasser() -> Shader:
+	if _kit_geprueft: return _kit
+	_kit_geprueft = true
+	if not ResourceLoader.exists(KIT_SHADER) or not ResourceLoader.exists(KIT_VORGABE): return null
+	var c := (load(KIT_SHADER) as Shader).code
+	if not c.contains("void fragment()") or not c.contains("ALPHA = 1.0;"): return null   # andere Fassung des Kits: unser Wasser
+	c = c.replace('#include "water_common.gdshaderinc"', '#include "res://addons/water_kit/shaders/water_common.gdshaderinc"\n#include "res://shader/wasser_kit.gdshaderinc"')
+	var rm := c.find("render_mode")
+	var ende := c.find(";", rm)
+	c = c.substr(0, ende + 1) + "\nstencil_mode write, compare_always, 1;" + c.substr(ende + 1)
+	c = c.replace("ALPHA = 1.0;", "float kit_rl = kit_rand(v_world, INV_VIEW_MATRIX);\n\tALBEDO *= mix(1.0, 0.5, night) * kit_rl;\n\tEMISSION = (EMISSION + ALBEDO * kit_selbst + kit_nacht(v_world, INV_VIEW_MATRIX, t)) * kit_rl;\n\tSPECULAR *= kit_rl;\n\tALPHA = 1.0;")
+	_kit = Shader.new()
+	_kit.code = c
+	return _kit
+
+static func kit_material(g: Gebiet) -> ShaderMaterial:
+	var v := load(KIT_VORGABE) as ShaderMaterial
+	var m := v.duplicate() as ShaderMaterial
+	m.shader = kit_wasser()
+	m.set_shader_parameter("rand_karte", g.rand_karte())
+	g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py), fuer die Lichtspur bei Nacht
+	m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
+	if g.info.get("hoehle", false):   # 492 (alt MapCave POOL_S, POOL_D, GLINT: tief und schwarz, matter Glanz): dunkel wie unser Hoehlenteich;
+		# Messlauf 1155: mit Glanz 2A3436 verschwand der Teich im Dunkel der Hoehle, darum matter Glanz (zwischen RIM und GLINT) und Eigenlicht 0,6 (mit GLINT und 1,0 glitzerte er hell)
+		m.set_shader_parameter("shallow_color", Color.html("1E2A2C"))
+		m.set_shader_parameter("deep_color", Color.html("06090A"))
+		m.set_shader_parameter("reflection_color", Color.html("3E5A58"))
+		m.set_shader_parameter("reflection_strength", 0.6)
+		m.set_shader_parameter("kit_selbst", 0.6)
+	return m
+
 # Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer) und Buesche (eigene Linie), 2 = Held (feinere Linie)
 static var markiert := {}
 static func toon_mark(k: int) -> Shader:
@@ -328,6 +367,9 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.boden = m
 				mi.layers = BODEN_SCHICHT
+			elif g and nm.contains("Wasser") and kit_wasser() != null:
+				m = kit_material(g)
+				g.wasser = m
 			elif g and nm.contains("Wasser"):
 				m.shader = load("res://shader/wasser.gdshader")
 				g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py)
@@ -478,7 +520,9 @@ func baue_gruppen(n: Node) -> void:
 	if n is MeshInstance3D and String(n.name).begins_with("Gruppe_"):
 		var mi := n as MeshInstance3D
 		var key := String(mi.name).trim_suffix("_Glas")
-		if not gruppen.has(key): gruppen[key] = {"mats": [], "a": 1.0, "ziel": 1.0}
+		# 1423: hohe Felswand der Hoehle (hoehle.py „Gruppe_Wand_…“): halb durchsichtig deckte der dunkle Fels den Helden weiter; sie
+		# oeffnet ein Loch um ihn wie das Laub im Wald (toon cut_*), nur solange sie ihn verdeckt
+		if not gruppen.has(key): gruppen[key] = {"mats": [], "a": 1.0, "ziel": 1.0, "loch": key.contains("Wand_")}
 		for i in mi.mesh.get_surface_count():
 			var m := mi.get_surface_override_material(i) as ShaderMaterial
 			# eigene Kette (Laub am Haus: Efeu, Blumenkasten) bleibt; sonst kommt sie erst beim Ausblenden dazu
@@ -490,6 +534,9 @@ func baue_gruppen(n: Node) -> void:
 			body.set_meta("gruppe", key)
 			var cs := CollisionShape3D.new()
 			cs.shape = mi.mesh.create_trimesh_shape()
+			# 1423b (t296.1, Chef 17.11., 11:01: kein Loch, Held hinter der Wand): die Felswaende der Hoehle sind einseitig, ihre Rueckseite
+			# zeigt zum Helden; der Strahl von der Brust zur Kamera traf sie nicht (nachgestellt an Gruppe_Wand_N_hoch_2, Kachel 2/11)
+			(cs.shape as ConcavePolygonShape3D).backface_collision = true
 			body.add_child(cs)
 			mi.add_child(body)
 	for c in n.get_children(): baue_gruppen(c)
@@ -520,7 +567,8 @@ func blende_gruppen(dt: float) -> void:
 		var g: Dictionary = gruppen[key]
 		var a: float = g["a"]
 		var z: float = g["ziel"]
-		if a == z: continue
+		var loch: bool = g.get("loch", false)
+		if a == z and not (loch and a < 1.0): continue   # das Loch folgt dem Helden
 		a = move_toward(a, z, dt / 0.3)
 		g["a"] = a
 		for e in g["mats"]:
@@ -535,8 +583,13 @@ func blende_gruppen(dt: float) -> void:
 				elif a >= 1.0: m.next_pass = null
 			var x := m
 			while x:
-				x.set_shader_parameter("weg", 1.0 if a < 1.0 else 0.0)
-				x.set_shader_parameter("durch_a", a)
+				if loch:   # waechst weich mit a (cut_weit hoechstens 1, sonst rechnet toon die Deckkraft wie im Tiefen Wald)
+					x.set_shader_parameter("cut_on", 1.0 if a < 1.0 else 0.0)
+					x.set_shader_parameter("cut_weit", maxf(0.01, (1.0 - a) / (1.0 - DURCH_A)))
+					if held: x.set_shader_parameter("cut_pos", held.global_position + Vector3(0, 0.9, 0))
+				else:
+					x.set_shader_parameter("weg", 1.0 if a < 1.0 else 0.0)
+					x.set_shader_parameter("durch_a", a)
 				x = x.next_pass as ShaderMaterial
 
 # 608 (Chef 07.11., t268: „Pims Hütte am Tag, wenn sie transparent wird, … dann geht das Licht im Haus an“): die Durchgaenge der

@@ -38,7 +38,7 @@ VORRAETE = {"Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md", "Spike
             "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md"}
 RUHEND = ("ruht", "Idee", "nach Meilenstein", "aufgeteilt")
 # Von Hand geprüft (Perikles), meldet L bzw. O nicht wieder: kein Doppel bzw. eigenständige Kür nach Entscheid oder Bestandsaufnahme
-GEPRUEFT_L = {frozenset(p) for p in (("709.1", "506.2"), ("1322", "1323"))}  # 16.11.: anderes Tier; Oberfläche gegen Kampfmeldungen
+GEPRUEFT_L = {frozenset(p) for p in (("709.1", "506.2"), ("1322", "1323"), ("1564", "1570"))}  # 16.11.: anderes Tier; Oberfläche gegen Kampfmeldungen
 GEPRUEFT_O = {"168.1", "623.2", "966.2", "623.9"} | {"785.%d" % i for i in range(9, 19)}  # 16.11.: Umsetzung 168 A, Effekte 623 A, Rest aus Abgleich 785; 17.11. (1539): 966.2, 623.9 gewollt (Übergabe Perikles 07:44)
 GEPRUEFT_P = {"954a.13"}  # 16.11.: „entfällt“ meint den alten Kampf, die Zeile (Wirkung im MARS) lebt
 
@@ -67,7 +67,7 @@ def funde():
         aus.append(("A", nr, nach.get(nr, {}).get("besitzer", "?"), f))
 
     # B Zirkel: Tiefensuche über offene Nummern im Feld
-    kanten = {d["nr"]: [t for t in d["warte"] if S.art(t) == "nr" and t in nach] for d in zs}
+    kanten = {d["nr"]: [S.nr_teil(t) for t in d["warte"] if S.art(t) == "nr" and S.nr_teil(t) in nach] for d in zs}
     gesehen = set()
     for start in kanten:
         weg, stapel = [], [(start, iter(kanten[start]))]
@@ -176,6 +176,9 @@ def funde():
                     if re.search(r"Archiv „%s“" % re.escape(n), vorraete): continue
                     # 1542: Folgeauftrag als „Zu <n>“ in einem Vorrat oder im Titel einer offenen Zeile (1423a A: Prüfzeile in 1547)
                     if folge_da(n, vorraete, zs): continue
+                    # 18.11. (531.1, 531.2): Oberzeile im Archiv erledigt, also nach dem Urteil gebaut und getestet
+                    ober = n.rsplit(".", 1)[0] if "." in n else ""
+                    if ober and ober not in {d["nr"] for d in zs} and "erledigt" in S.VORG.get(ober, ""): continue
                     aus.append(("K", n, "?", "Urteil %s „%s“: keine Zeile %s (Folgeauftrag eingetragen?)" % (w.strftime("%d.%m., %H:%M"), kopf[:60], n)))
                 elif ort.startswith("Liste") and S.wort_von(st) == "Chef":
                     aus.append(("K", n, ort[6:], "Urteil %s „%s“, Zeile steht noch auf „Chef“" % (w.strftime("%d.%m., %H:%M"), kopf[:60])))

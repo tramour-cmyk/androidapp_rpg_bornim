@@ -24,14 +24,15 @@ Ausgabe, Zeile für Zeile auszuführen:
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
+  NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1461) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
-  WARNUNG(-LAUT) Sitzung hängt / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
+  WARNUNG(-LAUT) Sitzung hängt / Sitzung wartet auf Freigabe (blocked ab 15 Min., 1572) / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
   WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
   OHNE-ÜBERHOLT NR: Grund                                           → (1129.1 P1) der Ausschluss gilt nicht mehr (Nummer im Archiv, ruht, oder „in Arbeit“ ohne Sitzung seit 2 h): Ford streicht --ohne NR ab dem nächsten Lauf, auch in seiner Übergabe
   URTEIL <Text>, Nachricht <Kennung>                              → (1228) offenes 👍/👎/✅ des Chefs: Ford erledigt es wie jeder (Archiveintrag mit Wortlaut und „Nachricht <Kennung>“, Datei der Chefsache weg, Stand); steht die Kennung schon im Archiv, nichts
-  GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
+  GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts; „bleibt gesperrt“: nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
   (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
              Steht statt NR ein Rollenname (auch Spike, Tuffy), fällt die Rolle ganz aus dem Lauf: kein START, keine Zusatzentwickler-Zeile, kein ARCHIVIERE, keine Warnung „Start nicht angekommen“ (1148).
@@ -98,11 +99,6 @@ REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten 
 # 1472 (Chef 16.11., 18:07: „Erst in die Startnachricht bei allen Beschäftigten“): add_repo gelang nur mit der Erlaubnis im Gespräch
 # (Tom 17:21, Jerry 10:58), nicht allein mit autoMode.allow (Spike 13:09); darum steht das Chefwort in jeder START- und WEITER-Nachricht
 KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
-# 1551 (Chef 17.11., 12:03/12:07): die Auto-Prüfung lehnte create_trigger und git in bornim-main beim neuen Ford ab; wie KAUFREPO
-# steht die Erlaubnis darum in der ersten Nachricht jedes Ford (Selbstneustart über den Ford-Starter: `lauf.py --fordsatz`)
-FORDSATZ = (" Deine Stundenuhr „Ford-Lauf“ (3 * * * *) legst du selbst mit create_trigger an und verwaltest sie, und deine Notizen in"
-            " /home/user/bornim-main holst und lädst du mit git pull und git push hoch, so wie du es für deine Arbeit als Betriebsleiter"
-            " brauchst, wie es der Chef dir erlaubt hat und wie es in deiner Rollendatei steht.")
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
 AUFWAND_HOCH = re.compile(r"Aufwand hoch\b", re.I)  # 827.1: „Nachfolger: … (Aufwand hoch, weil …)“ in der Übergabe
@@ -148,6 +144,7 @@ def geschuetzt():
     return set(re.findall(r"session_[A-Za-z0-9]+", m.group(1))) if m else set()
 SPERRE_MIN = 20
 WEITER_TOKEN = 200000  # 383 A (Chef 09.11., 18:05): günstigste Länge 200 Tsd. (Rechnung Sokrates); vorher 400000 nach 383.1 (Chef 27.10., 19:19 „nicht mal 2 Seiten lang“): Kontext 1 Mio., Kosten je Arbeit bis 500 Tsd. gleich (Messung Sokrates 18:15); Vorentscheid Perikles 27.10. (vorher 150 Tsd., D40.1)
+FREIGABE_MIN = 15  # 1572: blocked ab 15 Minuten laut an den Chef (Konstante fiel mit e1cb7588c weg, Ford 17.11., 21:04)
 WEITER_MIN = 60  # 261.5 (3): WEITER nur in eine Sitzung, die unter 60 Minuten ruht; fürs Archivieren gibt es keine Wartezeit mehr (Chef 21.10., 16:46)
 
 def z(s):
@@ -158,6 +155,22 @@ def lesen(p):
 
 def berlin(d):
     return d.strftime("%d.%m., %H:%M")
+
+def bericht_heute():
+    """448: Kopf von tools/tagesbericht.py für heute steht."""
+    p = os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")
+    return os.path.exists(p) and ("**Stand %s, " % JETZT.strftime("%d.%m.")) in lesen(p)
+
+SPIEGEL_ROLLEN = (("Sokrates", "Sokrates"), ("Perikles", "Perikles"), ("Homer", "Homer"), ("Ford", "Ford"),
+                  ("Diogenes", "Diogenes"), ("Team Tom", "Tom"), ("Team Jerry", "Jerry"))
+
+def spiegel_offen():
+    """1461 (Chef 18.11., 00:03: „Da kommt ihr nicht aus“): Rollen ohne Antwort unter „## Woche <heute>“ in LISTE-ROLLENSPIEGEL.md."""
+    p = os.path.join(DOCS, "LISTE-ROLLENSPIEGEL.md")
+    t = lesen(p) if os.path.exists(p) else ""
+    m = re.search(r"(?ms)^## Woche %s\n(.*?)(?=^## |\Z)" % re.escape(JETZT.strftime("%d.%m.")), t)
+    da = set(re.findall(r"(?m)^### (Team Tom|Team Jerry|\w+)", m.group(1))) if m else set()
+    return [kurz for lang, kurz in SPIEGEL_ROLLEN if lang not in da]
 
 def laut_nachts():
     """Schritt 9: laut melden, nachts (22–7 Uhr) lautlos (ROLLE-BETRIEB.md)."""
@@ -197,6 +210,17 @@ def warte_chef_nummern(zeile):
         aus.append("%s (%s)" % (nr, ("…" + zusatz[-119:]) if len(zusatz) > 120 else zusatz))
     return aus
 
+def nacht_halt(r, nr, ausgabe, morgen):
+    """1643 (340.12/3): derselbe Vorgang nach zwei Neustarts in einer Nacht angehalten; Zeile „Morgen 1643: …“ im Protokoll für den Morgen."""
+    try:
+        import nachtstarts
+        if not nr or not re.match(r"\d", str(nr)) or not nachtstarts.angehalten(r, str(nr)): return False
+    except Exception:
+        return False
+    ausgabe.append("NICHTS %s: Vorgang %s in dieser Nacht schon %d-mal gestartet, angehalten bis 7 Uhr (1643)" % (r, nr, nachtstarts.GRENZE))
+    morgen.append("Morgen 1643: %s %s nach zwei Neustarts in der Nacht angehalten, Ursache ansehen" % (r, nr))
+    return True
+
 def startmarken():
     """Rolle → letzter Startzeitpunkt aus „Startsperre HH:MM Start <Name>“ im Protokoll. Datum aus dem Zeilenkopf
     „- HH:MM TT.MM.:“ (631: ohne Datum galt eine Marke vom Vortag als heutige); fehlt er: heute, sonst gestern."""
@@ -233,6 +257,16 @@ def start_angekommen(rolle, d, alle):
         if z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN): return True  # Ford schrieb die Sperre auch schon nach dem Start (Jerry 10.11., 10:29/10:32)
         if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
     return False
+
+def start_noetig(rolle, st, ausschluss, nur_muss=False, nf_offen=False):
+    """1586 (Ford 17.11., 18:38): eine fehlende Sitzung nach der Startsperre zählt nur, wenn die Rolle jetzt etwas zu starten hätte
+    (offener Nachfolger oder startbare Zeile, die nicht mit --ohne ausgeschlossen ist, keine Pause). Sonst war der Start gewollt
+    ausgelassen oder lief schon und ist archiviert (Kurzform ohne archivierte Sitzungen; Homer 1235 am 17.11., 1489 am 16.11.)."""
+    if nf_offen: return True
+    muss, kuer, pause, _ = st.get(rolle, ([], [], None, []))
+    if pause: return False
+    if [x for x in muss if x[0] not in ausschluss]: return True
+    return bool(rolle in MIT_KUER and not nur_muss and [x for x in kuer if x[0] not in ausschluss])
 
 def chefdateien_je_rolle():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
@@ -283,6 +317,14 @@ def stand():
             + " (1538: je Vorgang weiter, vereinfachen oder streichen mit einem Satz Grund; weiter/vereinfachen = Zeile „Kosten frei:“ in ARBEIT-PROJEKT.md"
             " bis zur nächsten Schwelle; Chefauftrag streichen nur über die Chefsache)", {}))
     return aus
+
+def fremd_besitzer(rolle, nr, muss):
+    """1662: Besitzer der Zeile nr, wenn sie offen einem anderen gehört und nicht als Übernahme (1364) in muss steht; sonst None."""
+    d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+    if not d or "erledigt" in d.get("stand", ""): return None
+    b = d.get("besitzer", "")
+    if not b or b in (rolle, startbar.ZUSATZ.get(rolle)) or any(x[0] == nr for x in muss): return None
+    return b
 
 def stillstand(st, je_rolle, archiviert, ausschluss):
     """1246: Text der Ursachen, wenn keine Rolle aus START_REIHE startbares Muss hat und keine ihrer Sitzungen arbeitet, aber Muss-Zeilen
@@ -565,8 +607,6 @@ def notizen_frisch():
 
 def main():
     a = sys.argv[1:]
-    if a[:1] == ["--fordsatz"]:  # 1551: Schluss der ersten Nachricht an jeden neuen Ford, wörtlich anhängen
-        return print((FORDSATZ + KAUFREPO).strip())
     if a[:1] == ["--morgen"]:  # 783 W7 (Chef 09.11., 20:16): Fords 7-Uhr-Zeile entfällt, alles steht im Tagesbericht 7:30
         return print("Morgenmeldung entfällt (783 W7); Chefsache-Zahl und Bitte um das Bild der Nutzung stehen im Tagesbericht.")
     if a[:1] == ["--aufraeumen"]:
@@ -744,11 +784,21 @@ def main():
             neue_marken.append("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste))
             ausgabe.append("WARNUNG-LAUT %d Sitzungen im Bereich %s in zwei Läufen hintereinander (seit %s, 261.5)" % (len(offene), r, vor[0].strftime("%H:%M")))
         if not [d for d in zeiten if (JETZT - d).total_seconds() < 1800]: neue_marken.append("Mehrfach " + r.replace(" ", "-"))
-    # 927 (D162.1, Schritt 9): Sitzung hängt = working/blocked, aber seit 60 Minuten ohne neues updated_at (zwei Läufe) und ohne Weckruf; einmal je Sitzung und Stand, nachts lautlos
+    # 1572 (Chef 17.11., 17:02: Ford hing zwei Stunden an einer Freigabe, keiner meldete): blocked = wartet auf eine Freigabe in der Sitzung;
+    # ab 15 Minuten laut an den Chef mit Link, einmal je Sitzung und Stand, nachts lautlos (Ford selbst prüft die Uhr-Sitzung, LISTE-BETRIEB.md)
+    for s in leb:
+        r, laufend, ruhig, _ = s["_info"]
+        if "BLOCKED" not in s.get("status_bucket", "") or ruhig < FREIGABE_MIN: continue
+        m = "Freigabe %s %s" % (s["id"], s["updated_at"][:16])
+        if ("Marke " + m) in marke_alt: continue
+        ausgabe.append("%s Sitzung wartet auf Freigabe: %s „%s“ seit %s; Chef: in https://claude.ai/code/%s freigeben oder ablehnen (1572)" % (
+            laut_nachts(), r, s.get("title", ""), berlin(z(s["updated_at"])), s["id"]))
+        neue_marken.append(m)
+    # 927 (D162.1, Schritt 9): Sitzung hängt = working, aber seit 60 Minuten ohne neues updated_at (zwei Läufe) und ohne Weckruf; einmal je Sitzung und Stand, nachts lautlos
     for s in leb:
         r, laufend, ruhig, _ = s["_info"]
         bucket = s.get("status_bucket", "")
-        if laufend or not ("WORKING" in bucket or "BLOCKED" in bucket or s.get("session_status") == "SESSION_STATUS_RUNNING"): continue
+        if laufend or "BLOCKED" in bucket or not ("WORKING" in bucket or s.get("session_status") == "SESSION_STATUS_RUNNING"): continue
         m = "Hängt %s %s" % (s["id"], s["updated_at"][:16])
         if ("Marke " + m) in marke_alt: continue
         ausgabe.append("%s Sitzung hängt: %s „%s“ seit %s ohne Lebenszeichen, https://claude.ai/code/%s (927)" % (
@@ -759,6 +809,9 @@ def main():
     for name, d in sorted(marken.items()):  # nur die jüngste Sperre je Rolle; ein späterer Start ersetzt einen früheren
         alter = (JETZT - d).total_seconds() / 60
         if alter < START_PRUEF_MIN or alter > START_PRUEF_STD * 60 or start_angekommen(name, d, alle) or name in ohne_rollen: continue  # 1148
+        nf, nf_zeit, _ = nachfolger(name) if name in VORRAT else (None, None, None)
+        nf_offen = bool(nf) and nf_zeit is not None and not any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", "")) == name)
+        if name in VORRAT and not start_noetig(name, st, ausschluss, nur_muss, nf_offen): continue  # 1586 (Ford ohne Vorrat: Warnung wie bisher)
         nicht_da.add(name)
         schl = "Start-fehlt %s %s" % (name, d.strftime("%d.%m.-%H:%M"))
         if schl in marke_alt or schl in neue_marken: continue
@@ -768,7 +821,7 @@ def main():
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     ausgabe.extend(ohne_ueberholt(ausschluss, leb))
-    sperren = []; neue_warnungen = []
+    sperren = []; neue_warnungen = []; sperr_nr = {}; morgen = []  # 1643: Vorgang je Startsperre, Zeilen für den Morgen
     bekannt = warnungen_bekannt()
     def vorgaenger(r):
         # 261.5 (Chef 18:25): startet ein Nachfolger, archiviert Ford die alten Sitzungen der Rolle gleich danach, nicht erst im nächsten Lauf
@@ -830,13 +883,19 @@ def main():
         elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
             offen_nf = None
+        elif nf_nr and (eig := fremd_besitzer(r, nf_nr.group(1), muss)):
+            # 1662 (Ford 18.11., 13:06): Nachfolger auf einer Zeile, die inzwischen einem anderen gehört (1595 an Spike), startete die alte Rolle
+            warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ gehört inzwischen %s, oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, eig))
+            offen_nf = None
+        if offen_nf and nf_nr and nacht_halt(r, nf_nr.group(1), ausgabe, morgen):
+            continue
         if offen_nf:
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             mo, satz, hoch = modell(r, nf_nr.group(1) if nf_nr else None, offen_nf)
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten; steht dort „Letzte Antwort:“, nennt die Startmeldung sie (859).%s" % (r, VORRAT[r], offen_nf, satz)
             ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
-            vorgaenger(r); sperren.append(r); continue
+            vorgaenger(r); sperren.append(r); sperr_nr[r] = nf_nr.group(1) if nf_nr else None; continue
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
         muss = [x for x in muss if x[0] not in ausschluss]; kuer = [x for x in kuer if x[0] not in ausschluss]
@@ -844,6 +903,7 @@ def main():
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
+        if nacht_halt(r, nr, ausgabe, morgen): continue
         # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter WEITER_TOKEN Token liegt und unter 60 Minuten ruht
         mo, satz, hoch = modell(r, nr)
         alte = [] if hoch or mo == startbar.STARK_MODELL else [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
@@ -851,7 +911,7 @@ def main():
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
             ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus der Vorgangsliste (vorgang.py --rolle %s)%s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r,
-                ", Mittwoch: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)" if JETZT.weekday() == 2 else ""))
+                ", Mittwoch: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)" if JETZT.weekday() == 2 and bericht_heute() else ""))  # 1461: erst nach dem Tagesbericht
             if nr in ("M?", "Stillstand", "Kosten"): ausgabe[-1] = "WEITER %s | %s | %s | Weiter: %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, thema)  # 921, 1246
             if thema.startswith("Übernahme von"): ausgabe[-1] = ausgabe[-1].replace("; wird send_message", "; %s; wird send_message" % thema[:120], 1)  # 1364
             sperren.append(r); continue
@@ -865,9 +925,9 @@ def main():
             msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann die Übergabe in %s beachten." % (r, thema, VORRAT[r])
         if thema.startswith("Übernahme von"): msg += " " + thema[:160] + "."  # 1364: die Zeile gehört noch dem Geber
         msg += satz
-        if JETZT.weekday() == 2: msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."
+        if JETZT.weekday() == 2 and bericht_heute(): msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
-        vorgaenger(r); sperren.append(r)
+        vorgaenger(r); sperren.append(r); sperr_nr[r] = nr
     # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
     # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
     # Nur Muss (Leiharbeiter „notfalls“). Spike setzt zuerst „in Arbeit bei Spike“, dann nimmt das Team die Zeile nicht (startbar.py);
@@ -895,7 +955,7 @@ def main():
         zweige = {zweig(x) for x in alle_m if any(gleich(x[0], b) for b in besetzt)} - {"–", "-", ""}
         zweige |= sitzungszweige(team_s) | (frische_zweige(team) if team_s else set())  # 1407: frisch gepushte Teamzweige; 1396 (Tuffy 16.11., 10:00): Zweig einer laufenden Teamsitzung ist belegt, auch wenn der Titel eine andere Nummer nennt
         frei = [x for x in alle_m if x[0] not in ausschluss and not any(gleich(x[0], b) for b in besetzt)
-                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))
+                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + " " + x[3].get("stand", ""))
                 and x[0] not in startbar.SONDER and "Rollenspiegel" not in x[2]]  # 340.10 V4 (a): den Spiegel schreibt der Besitzer selbst
         if besetzt == {"Nachfolger"} or not besetzt and not team_s:
             ausgabe.append("NICHTS %s: Arbeit von %s unbekannt (Nachfolger oder Titel ohne Nummer)" % (zusatz, team)); continue
@@ -1026,6 +1086,39 @@ def main():
         if r.returncode: ausgabe.append("WARNUNG regelcheck.py --rueckmeldung Exit %d: %s (559, Perikles)" % (r.returncode, r.stderr.strip()[-200:]))
     except Exception as e:
         ausgabe.append("WARNUNG Rückmeldungswächter fehlgeschlagen: %s (559, Perikles)" % e)
+    # 1461 (Chef 18.11., 00:03, „jetzt“: Mittwochsrunde nach dem Tagesbericht, alle sieben Rollen, „Da kommt ihr nicht aus“), nach allen anderen START:
+    # läuft die Rolle, Nachricht an ihre Sitzung; sonst START nur für den Spiegel; Ford schreibt selbst. Je Rolle einmal am Tag (Marke).
+    if JETZT.weekday() == 2 and bericht_da:
+        offen_sp = spiegel_offen()
+        for r in offen_sp:
+            marke = "Rollenspiegel %s %s" % (r, heute)
+            if marke in marke_text: continue
+            text = "%s: Mittwochsrunde (1461): jetzt Rollenspiegel mit tools/rollenspiegel.sh %s, Antwort mit --antwort, Datei LISTE-ROLLENSPIEGEL.md nicht öffnen; committen, pushen." % (r, r)
+            if r == "Ford":
+                ausgabe.append("NACHRICHT Ford | - | " + text); wochen.append(marke); continue
+            rr = [r] + (["Spike"] if r == "Tom" else ["Tuffy"] if r == "Jerry" else [])
+            sitz = [s for x in rr for s in laeuft(x)]
+            if any(l.startswith("START %s " % x) or (l.startswith("WEITER ") and " | %s | " % x in l) for x in rr for l in ausgabe):
+                continue  # die Startnachricht trägt den Hinweis; läuft sie im nächsten Lauf ohne Antwort, kommt die Nachricht
+            if sitz:
+                ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], text)); wochen.append(marke); continue
+            if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60: continue
+            mo, satz, hoch = modell(r, None)
+            msg = "%s\n\nNur Rollenspiegel (1461, Mittwochsrunde, Chef 18.11.: „Da kommt ihr nicht aus“): zuerst Start nach deiner Rollendatei, dann tools/rollenspiegel.sh %s, Antwort mit --antwort, Datei LISTE-ROLLENSPIEGEL.md nicht öffnen; committen, pushen; keine andere Arbeit, keine Übergabe.%s" % (r, r, satz)
+            ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, "%s – 1461: Rollenspiegel (%s)" % (r, berlin(JETZT)), msg.replace("\n", "\\n")))
+            vorgaenger(r); sperren.append(r); wochen.append(marke)
+        # Nachtrag 00:04 („Und eure Ideensammlung zur Spieleverbesserung“): nur heute, nach dem letzten Spiegel die Übersicht der Antworten 11
+        if not offen_sp and heute == "18.11." and "Ideensammlung %s" % heute not in marke_text:
+            text = "Perikles: 1461 Ideensammlung: alle sieben Rollenspiegel stehen; Antworten 11 (Vorschlag fürs Spiel) als eine Übersicht an den Chef (Telegram, Link LISTE-IDEEN.md)."
+            psitz = laeuft("Perikles")
+            if any(l.startswith("START Perikles ") for l in ausgabe): pass  # nächster Lauf schickt die Nachricht an diese Sitzung
+            elif psitz: ausgabe.append("NACHRICHT Perikles | %s | %s" % (juengste(psitz)["id"], text))
+            else:
+                mo, satz, hoch = modell("Perikles", None)
+                ausgabe.append("START Perikles | %s%s | %s | %s | %s | %s | %s" % (mo, aufwand(hoch), umgebung("Perikles", hoch), REPO, REVISION, "Perikles – 1461: Ideensammlung (%s)" % berlin(JETZT),
+                               "Perikles\\n\\n%s Zuerst Start nach deiner Rollendatei.%s" % (text[10:], satz)))
+                vorgaenger("Perikles"); sperren.append("Perikles")
+            if not any(l.startswith("START Perikles ") and "Ideensammlung" not in l for l in ausgabe): wochen.append("Ideensammlung %s" % heute)
     wochen += vorentscheid_marken + neue_marken
     try:  # 1228 (Chef 13.11., 21:22: „jeder, der sieht, das erledigt“): offene Urteile auf Telegram, Netz für Sitzungen, die notiz.sh nicht rufen
         import reaktionen
@@ -1040,9 +1133,13 @@ def main():
     ausgabe = [l + KAUFREPO if l.startswith("START ") else l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1) if l.startswith("WEITER ") else l for l in ausgabe]
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
-    if sperre and (sperren or neue_warnungen or wochen):
+    if sperre and (sperren or neue_warnungen or wochen or morgen):
         p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p).rstrip("\n")
-        if sperren: t += "\n- %s %s: Startsperre %s Start %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren))
+        if sperren:  # 1643: mit Vorgang, damit nachtstarts.py die Neustarts je Vorgang zählt
+            mit = [("%s %s" % (x, sperr_nr[x]) if len(sperren) > 1 else sperr_nr[x]) for x in sperren if sperr_nr.get(x) and re.match(r"\d", str(sperr_nr[x]))]
+            t += "\n- %s %s: Startsperre %s Start %s (lauf.py%s)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
+        for m in morgen:
+            if m not in t: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), m)
         for m in wochen: t += "\n- %s %s: Marke %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), heute, m)
         for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
         open(p, "w", encoding="utf-8").write(t)
@@ -1056,6 +1153,12 @@ def main():
         for nr, wer, weg, neu_st in startbar.loesen(True):  # 275.2 Automatik A: erfüllte „wartet auf“ schreiben (Ford pusht)
             # D80.4: „Meldung an den Besitzer“: läuft eine Sitzung der Rolle, ihre Kennung (Ford: send_message); sonst startet lauf.py sie wie jede startbare Zeile
             sitz = [x for x in je_rolle.get(wer, []) if x["id"] not in archiviert]
+            # Ford 18.11., 12:06 (1567 „zu testen“, 1622 „gebaut“): bleibt die Zeile nach dem Leeren gesperrt, keine Meldung „startbar“
+            d_neu = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+            grund = startbar.sperre(d_neu) if d_neu else None
+            if grund:
+                print("GELÖST %s | %s | wartet auf %s erfüllt, bleibt gesperrt (%s) | - (Notizen pushen, keine Meldung)" % (nr, wer, ", ".join(weg), grund))
+                continue
             print("GELÖST %s | %s | wartet auf %s erfüllt%s | %s (Notizen pushen)" % (nr, wer, ", ".join(weg), (" → " + neu_st) if neu_st else "",
                                                                                    ("an " + juengste(sitz)["id"]) if sitz else "-"))
         n = aufraeumen()

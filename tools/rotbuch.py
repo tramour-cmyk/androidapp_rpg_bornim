@@ -65,11 +65,12 @@ def zaehlen(ls=None, speicher=None):
         tests = rote_tests(l, speicher)
         je_commit.setdefault(l["head_sha"], []).append(set(tests))
         for t in tests: rot.setdefault(t, []).append((l["run_number"], l.get("head_branch") or "", l["head_sha"][:9]))
+    zeit = {l["run_number"]: l.get("created_at", "") for l in ls}  # 1583: Rot vor der Erledigung zählt nicht
     aus = {}
     for t, rs in rot.items():
         # am selben Commit ein Lauf mit dem Test rot und einer ohne (grün oder rot aus anderem Grund)
         wackelt = any(any(t not in s for s in je_commit[sha]) for sha in {l["head_sha"] for l in ls if t in set(speicher.get(str(l["id"]), []))})
-        aus[t] = {"rot": rs, "wackelt": wackelt}
+        aus[t] = {"rot": rs, "wackelt": wackelt, "zeit": {n: zeit.get(n, "") for n, _, _ in rs}}
     return aus
 
 
@@ -139,6 +140,28 @@ def bekannt(test):
     return None
 
 
+def erledigt_seit(test):
+    """1583 (Jerry 1578): ISO-Zeit (UTC) der jüngsten Erledigung eines Vorgangs, der den Test im Titel nennt (Liste oder Archiv), sonst ""."""
+    stamm = os.path.basename(test)[:-3]
+    such = re.compile(r"(?<![\w])%s(?![\w])" % re.escape(stamm))
+    nrs = []
+    for name in ("LISTE-VORGAENGE.md", "LISTE-VORGAENGE-ARCHIV.md"):
+        try: zeilen = open(os.path.join(REPO, "docs", name), encoding="utf-8").read().splitlines()
+        except OSError: continue
+        for z in zeilen:
+            f = [x.strip() for x in z.split("|")]
+            if len(f) > 3 and such.search(f[2]) and "erledigt" in z: nrs.append(f[1])
+    beste = ""
+    for nr in nrs:
+        r = subprocess.run(["git", "-C", REPO, "log", "-1", "--format=%cI", "-G", r"^\| %s \|.*erledigt" % re.escape(nr), "--",
+                            "docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md"], capture_output=True, text=True)
+        t = (r.stdout or "").strip()
+        if t:
+            u = datetime.datetime.fromisoformat(t).astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            beste = max(beste, u)
+    return beste
+
+
 GEMEINSAM = re.compile(r"^(main|claude/build-\d+)$")
 
 
@@ -152,8 +175,13 @@ def kandidaten(zahl=None):
     """[(Test, Besitzer, Titel)] für neue Vorgänge: wiederholt (≥ 2× rot) oder Wackeltest, noch ohne offene Zeile."""
     aus = []
     for t, z in sorted((zahl or {}).items()):
-        if not wiederholt(z["rot"]) and not z["wackelt"]: continue
         if bekannt(t): continue
+        seit = erledigt_seit(t)  # 1583: Läufe vor der Erledigung des letzten Vorgangs zum Test zählen nicht
+        if seit:
+            zt = z.get("zeit", {})
+            z = dict(z, rot=[x for x in z["rot"] if zt.get(x[0], "") > seit])
+            if not z["rot"]: continue
+        if not wiederholt(z["rot"]) and not z["wackelt"]: continue
         stamm = os.path.basename(t)[:-3]
         laeufe_ = ", ".join("%d" % n for n, _, _ in z["rot"][:6])
         if z["wackelt"]:

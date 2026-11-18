@@ -1,8 +1,9 @@
 # 492 (Perikles, Wochenziel 03.11. Reihe 3: „Blutzahnhöhle begehbar wie alt (Story.kt:731): Grundriss, Krogg, Grak, Lyra, Tor und
 # Schlüssel“): die Höhle als Grundriss aus dem Export von core (karten.json, art CAVE) wie alt MapCaveIso.kt / MapCave.kt.
 # - Fels steht um den Boden auf, wie alt: an jeder Kante Boden/Fels eine raue Felswand mit Fuß, je Lauf zwei Fassungen wie die
-#   Innenräume (raum.py, raumlicht.gd „waende“): hoch hinter dem Boden (alt TALL 2,4 m, dünne Wand zwischen zwei Räumen MID 1 m),
-#   niedrig davor (alt RIM 0,4 m), nach der Blickrichtung der Kamera; obenauf ein dunkler Deckel, die Decke verliert sich im Dunkel.
+#   Innenräume (raum.py, raumlicht.gd „waende“): hoch hinter dem Boden (alt TALL 2,4 m; 1423: auch die dünne Wand zwischen zwei
+#   Räumen, alt MID 1 m), niedrig davor (alt RIM 0,4 m), nach der Blickrichtung der Kamera; obenauf ein dunkler Deckel, die Decke
+#   verliert sich im Dunkel.
 # - Dinge je Zeichen wie MapCaveIso: Fackel (t) an der Wand, Kristalle (G) violett aus der Wand, Leuchtpilze (g), Tropfsteine (i),
 #   Geröll (%), Knochen (j), Kisten und Fass (u), Schlaflager (e), Truhe (C), Lagerfeuer (F), Stützbalken (H) quer über dem Gang,
 #   Gitter (L) mit zwei Flügeln an Angeln (Gitter_L, Gitter_R: Godot schwenkt sie auf, wenn gate_open), Lichtschacht (*), Teich (~),
@@ -26,7 +27,10 @@ ROWS = K['zeilen']; NR = len(ROWS); NC = K['breite']
 TS = 116.0                                           # cm je Kachel wie dorf.py, raum.py
 FELS = set('XGt')                                    # alt caveRock: CAVE_WALL, CRYSTAL, TORCH (Fog.kt, MapLight opaque)
 TALL = 240.0                                         # alt MapCaveIso TALL 138 / 57 je m
-MID = 80.0                                           # alt MID 58 (1 m); Lauf 1 Strahltest: bei 1 m Knie des Helden hinter der Ecke verdeckt
+# 1423 (Chef 15.11., 20:34 „Wände kniehoch“; 16.11., 13:08 „Die kann nicht auf halber Höhe aufhören“, 13:32 „Zwischenwandproblem“):
+# die dünne Wand zwischen zwei Räumen stand wie alt MID (58 = 1 m, hier 80 cm) nabelhoch, damit sie den Helden im Raum dahinter nicht
+# verdeckt; die Fackel daran hing 70 cm über dem Fels. Jetzt steht sie hoch wie jede Wand (TALL); verdeckt sie den Helden, wird sie
+# als Ganzes halb durchsichtig wie ein Haus im Dorf (Name „Gruppe_…“, gebiet.gd baue_gruppen, Strahlen Hüfte bis Kopf zur Kamera)
 RIM = 38.0                                           # alt RIM 22
 MUND = [c for c in range(NC) if ROWS[NR - 1][c] == '+']   # Ausgang am unteren Rand: dort geht der Gang hinaus weiter
 WALK = {c for c, t in KARTEN['kacheln'].items() if t['begehbar']}
@@ -226,7 +230,7 @@ for r in range(NR + AUSSEN):
             duenn = any(0 <= nb[0] + a_ < NC and 0 <= nb[1] + b_ < NR and not fels(nb[0] + a_, nb[1] + b_) and a_ * d[0] + b_ * d[1] >= 0
                         and (a_, b_) != (-d[0], -d[1]) for a_ in range(-2, 3) for b_ in range(-2, 3) if (a_, b_) != (0, 0))
             schluessel = (s, round(a.y if s in 'NS' else a.x))
-            kanten.setdefault(schluessel, []).append(dict(c=c, r=r, a=a, b=b, nb=nb, hoch=MID if duenn else TALL))
+            kanten.setdefault(schluessel, []).append(dict(c=c, r=r, a=a, b=b, nb=nb, hoch=TALL, duenn=duenn))
 
 def laeufe():
     out = []
@@ -312,7 +316,7 @@ def flaeche(P, a, e, n, L, hoehen, ton, seed, deckel=True):
 for nr_, (s, lauf) in enumerate(laeufe()):
     d, linie, n = SEITEN[s]
     a = lauf[0]['a']; e = (lauf[0]['b'] - lauf[0]['a']).normalized(); L = len(lauf) * TS
-    hoch = 'Wand_%s_hoch_%d' % (s, nr_); tief = 'Wand_%s_tief_%d' % (s, nr_)
+    hoch = ('Gruppe_' if any(k['duenn'] for k in lauf) else '') + 'Wand_%s_hoch_%d' % (s, nr_); tief = 'Wand_%s_tief_%d' % (s, nr_)
     flaeche(part(hoch), a, e, n, L, [k['hoch'] for k in lauf], fels_ton(), nr_ * 7 + 1)
     flaeche(part(tief), a, e, n, L, [RIM] * len(lauf), fels_ton(1.05), nr_ * 7 + 1)
     WANDLISTE.append(dict(hoch=hoch, tief=tief, glas='-', innen=[n.x, -n.y]))
@@ -749,7 +753,7 @@ def build(P, name):
         for j, li in enumerate(poly.loop_indices):
             c = P.C[me.loops[li].vertex_index]
             ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[k][j]
-    if name.startswith('Wand_'):
+    if 'Wand_' in name:
         # 492 (Pruefer 08.11., 19:29: Wandstuecke „grob gerastert“ in Halle, bei Krogg, Westfluegel): jedes Viereck hatte eigene Ecken, also
         # flach schattiert; gemessen Knick zwischen Nachbarn im Mittel 14 Grad, 35 % ueber 15 Grad: unter der Fackel ein Schachbrett.
         # Alt (MapCaveIso.kt relief) malte das Relief weich; jetzt Ecken verschmolzen und weich schattiert, nur Kanten ueber
@@ -791,6 +795,80 @@ for y in range(NR * PX):
         pix[i + 3] = 0.5 + 0.5 * min(1.0, d / (PX * 0.6))
 img.pixels = pix
 img.filepath_raw = os.path.join(OUT, ID + '-boden-maske.png'); img.file_format = 'PNG'; img.save()
+# 1270.4 (1270 A, Chef 15.11., 10:51 „vorberechnetes Licht (Innenräume, Höhle)“; 16.11., 17:32 👍 auf den Film): immer an, GEBACKEN=0 aus.
+# Godot rechnet das Licht der Quellen (Fackel, Feuer, Pilze, Kristalle, Tageslicht) in Echtzeit, aber ohne Rückstrahlung: hinter einer
+# Ecke ist es schwarz, der Fels um das Feuer nimmt keine Farbe vom Feuer an. Hier rechnet Cycles einmal beim Bau nur das indirekte
+# Licht (Lichtfarbe, die von Boden und Wand weitergeworfen wird) aus denselben Quellen wie cave-info.json und legt es in die Eckfarbe:
+# Eckfarbe × (1 + bis GEBACKEN_KRAFT nach dem indirekten Licht). In Godot ändert sich nichts als die Daten (kein Shader, keine Kosten beim Spielen).
+# Wandfassungen hoch und tief stehen am selben Ort: je Fassung ein Durchgang, die andere dabei unsichtbar.
+GEBACKEN = os.environ.get('GEBACKEN', '1') == '1'
+GEBACKEN_KRAFT = float(os.environ.get('GEBACKEN_KRAFT', '0.8'))   # Eckfarbe höchstens +80 %
+def backen():
+    sc_ = bpy.context.scene
+    sc_.render.engine = 'CYCLES'; sc_.cycles.device = 'CPU'
+    sc_.cycles.samples = int(os.environ.get('GEBACKEN_PROBEN', '48')); sc_.cycles.max_bounces = 3
+    welt = bpy.data.worlds.new('dunkel'); sc_.world = welt; welt.use_nodes = True
+    welt.node_tree.nodes['Background'].inputs[1].default_value = 0.0
+    farbe = {'fackel': 'FFB060', 'kamin': 'FF9A48', 'tageslicht': 'FFF4E0'}
+    for k, l in enumerate(LICHTER):
+        a = l['art']
+        if a not in ('fackel', 'kamin', 'schein', 'tageslicht'): continue
+        f = lin(int(l.get('farbe', farbe.get(a, 'FFFFFF')), 16))
+        if a == 'tageslicht':
+            d = bpy.data.lights.new('b%d' % k, 'SPOT'); d.spot_size = math.radians(l.get('winkel', 30) * 2)
+            d.energy = 2000.0 * l.get('kraft', 1.0)
+        else:
+            d = bpy.data.lights.new('b%d' % k, 'POINT'); d.shadow_soft_size = 0.1
+            d.energy = 60.0 * l.get('kraft', 1.0)          # Godot OmniLight Kraft ~1 bei Reichweite 2,4–4,4 Kacheln, grob gleich hell
+        d.color = f
+        o = bpy.data.objects.new('b%d' % k, d); sc_.collection.objects.link(o)
+        o.location = Vector(l['pos']) * 0.01
+        if 'ziel' in l:
+            o.rotation_euler = (Vector(l['ziel']) * 0.01 - o.location).to_track_quat('-Z', 'Y').to_euler()
+    # Rückstrahlung in der Farbe des Bodens und der Wand: Eckfarbe als Grundfarbe, matt
+    bm_ = bpy.data.materials.new('backen'); bm_.use_nodes = True
+    nt = bm_.node_tree; bs = nt.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
+    at = nt.nodes.new('ShaderNodeAttribute'); at.attribute_name = 'albedo'
+    nt.links.new(at.outputs['Color'], bs.inputs['Base Color'])
+    netze_ = [o for o in sc_.objects if o.type == 'MESH']
+    alt_mat = {o.name: list(o.data.materials) for o in netze_}
+    for o in netze_:
+        for i_ in range(len(o.data.materials)): o.data.materials[i_] = bm_   # Fächer bleiben (clear() setzte alle Flächen auf Fach 0)
+        o.data.color_attributes.new('licht', 'FLOAT_COLOR', 'CORNER')
+        o.data.color_attributes.active_color = o.data.color_attributes['licht']
+    tief_ = [o for o in netze_ if '_tief_' in o.name]
+    hoch_ = [o for o in netze_ if '_hoch_' in o.name]
+    for ziele, aus in ((([o for o in netze_ if o not in tief_]), tief_), (tief_, hoch_)):
+        if not ziele: continue
+        for o in netze_: o.hide_render = o in aus
+        bpy.ops.object.select_all(action='DESELECT')
+        for o in ziele: o.select_set(True)
+        bpy.context.view_layer.objects.active = ziele[0]
+        bpy.ops.object.bake(type='DIFFUSE', pass_filter={'INDIRECT'}, target='VERTEX_COLORS', use_clear=True)
+    # Maßstab aus den Werten selbst (Abgleich am Rechner: roh bleichten Steine und Holz am Feuer aus): die hellsten 5 % ergeben
+    # + GEBACKEN_KRAFT, mehr wird gekappt; so hängt das Ergebnis nicht an der Lichtstärke in Blender
+    hell = sorted(max(d.color[0], d.color[1], d.color[2]) for o in netze_ for d in o.data.color_attributes['licht'].data)
+    p95 = max(hell[int(len(hell) * 0.95)], 1e-6)
+    print('GEBACKEN p50 %.4f p95 %.4f max %.4f' % (hell[len(hell) // 2], p95, hell[-1]))
+    for o in netze_:
+        o.hide_render = False
+        me = o.data; al = me.color_attributes['albedo']; li = me.color_attributes['licht']
+        # was selbst leuchtet, bleibt (Glut, Kristalle, Pilze, Himmel, Strahl, Wasser: Abgleich am Rechner, die Glut wurde gelb)
+        if o.name.startswith(('Himmel_', 'Strahl_', 'Wasser_')): continue
+        nm = [m_.name for m_ in alt_mat[o.name]]
+        for poly in me.polygons:
+            if poly.material_index < len(nm) and nm[poly.material_index].startswith(('glut', 'leucht')): continue
+            for i in poly.loop_indices:
+                c = al.data[i].color; l_ = li.data[i].color
+                al.data[i].color = tuple(min(1.0, c[j] * (1.0 + min(GEBACKEN_KRAFT, GEBACKEN_KRAFT * l_[j] / p95))) for j in range(3)) + (c[3],)
+    for o in netze_:
+        me = o.data; li = me.color_attributes['licht']
+        me.color_attributes.remove(li)
+        me.color_attributes.active_color = me.color_attributes['albedo']
+        for i_, m_ in enumerate(alt_mat[o.name]): me.materials[i_] = m_
+    for o in [o for o in sc_.objects if o.type == 'LIGHT']: bpy.data.objects.remove(o)
+    print('GEBACKEN', len(netze_), 'Netze, Kraft', GEBACKEN_KRAFT)
+if GEBACKEN: backen()
 bpy.ops.object.select_all(action='SELECT')
 bpy.ops.export_scene.gltf(filepath=os.path.join(OUT, ID + '.glb'), export_format='GLB', use_selection=True, export_vertex_color='ACTIVE',
                           export_yup=True, export_image_format='JPEG', export_jpeg_quality=88)

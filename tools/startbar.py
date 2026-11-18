@@ -408,9 +408,10 @@ def zusammenfuehren_faellig(jetzt=None):
         return None
     liegt = getestet_nicht_auf_main(jetzt)
     if not liegt: return None
-    builds = ", ".join("%s (%d h)" % b for b in liegt)
-    return ("Zusammenführen: getestet, nicht auf main: Build %s; grün machen und PR zusammenführen (Punkt 13), rote Tests ans Team, "
-            "sonst erben neue Zweige die Behebungen nicht (1424)" % builds, "B Abläufe", "Sokrates")
+    # 1585 (Ford 17.11., 18:38): bei vielen Builds lag der Titel über 400 Zeichen, vorgang.py lehnte ab, die Zeile kam nie
+    builds = ", ".join("%s (%d h)" % b for b in liegt[:6]) + (" und %d weitere" % (len(liegt) - 6) if len(liegt) > 6 else "")
+    return ("Zusammenführen: getestet, nicht auf main: Build %s; grün machen und PR zusammenführen (Punkt 13), rote Tests ans Team (1424)" % builds,
+            "B Abläufe", "Sokrates")
 
 def sammelbuild_faellig():
     """774 (Chef 09.11., 15:29: „wenn jeder auf den anderen wartet …“): warten mindestens 4 fertige Punkte von Tom und Jerry
@@ -551,9 +552,19 @@ def beantwortet():
 DATUM = re.compile(r"^(\d{1,2})\.(\d{1,2})\.(?: (\d{1,2}):(\d\d))?$")
 NUMMER = re.compile(r"^D?\d+[A-Za-z0-9.]*$")
 
+# 1622 (Tom 18.11.: 476 wartet auf 458.3, das „gebaut“ auf einem Zweig liegt; der Weiter-Haken trieb ihn zweimal dorthin): „<Nr> main“
+# im Feld „wartet auf“ löst erst mit „erledigt“ oder „auf main“, auch für die Teams (190.1 bleibt für die blanke Nummer: wer auf
+# gebautem Code weiterbauen kann, schreibt nur die Nummer)
+def nr_teil(token):
+    return token[:-5] if token.endswith(" main") else token
+
+def nur_main(token):
+    return token.endswith(" main")
+
 def art(token):
-    """rolle, chef, datum, nr oder None (ungültig)."""
+    """rolle, chef, datum, nr oder None (ungültig); „<Nr> main“ ist nr (1622)."""
     if token in WARTE_ROLLEN: return "rolle"
+    if nur_main(token): token = nr_teil(token)
     if token == "Chef Gespräch": return "gespraech"  # 1236: großes Vorhaben, Sokrates bündelt in der Chefrunde
     if re.fullmatch(r"Chef(?: [0-9][0-9a-z.]*)?", token): return "chef"
     if DATUM.match(token): return "datum"
@@ -570,6 +581,7 @@ def erfuellt(token, nr="", streng=False):
     """Ist der Teil des Felds erfüllt? Rolle: nie von selbst. Nummer: für die Sperre auch „gebaut“, „zu testen“ (190.1: Wartende dürfen
     weiterbauen); streng (Automatik A schreibt, D80.3): nur „erledigt“, sonst ginge die Abhängigkeit verloren, wenn der Test scheitert."""
     a = art(token)
+    if a == "nr" and nur_main(token): streng = True; token = nr_teil(token)
     if a == "datum":
         try: return datum_von(token) <= JETZT
         except ValueError: return False
@@ -610,7 +622,7 @@ def pruefen_zeile(d, alle_nr=None):
     for t in d["warte"]:
         a = art(t)
         if not a: f.append("„wartet auf %s“: nur Nummer, Rolle, Datum TT.MM.[ HH:MM], Test t<Build> oder „Chef[ <Datei>]“" % t)
-        elif a == "nr" and alle_nr is not None and t not in alle_nr and stand_von(t)[0] is None: f.append("„wartet auf %s“: Nummer unbekannt" % t)
+        elif a == "nr" and alle_nr is not None and nr_teil(t) not in alle_nr and stand_von(nr_teil(t))[0] is None: f.append("„wartet auf %s“: Nummer unbekannt" % t)
         elif a == "datum":
             try: datum_von(t)
             except ValueError: f.append("„wartet auf %s“: Datum unlesbar" % t)
@@ -766,7 +778,7 @@ def haengt(d, tiefe=0):
         a = art(t)
         if a in ("datum", "build", "chef", "gespraech", "rolle"): return False
         if a == "nr":
-            ziel = next((z for z in zeilen_liste() if z["nr"] == t), None)
+            ziel = next((z for z in zeilen_liste() if z["nr"] == nr_teil(t)), None)
             if ziel is None: continue  # Archiv oder unbekannt: kommt nicht voran
             if ziel["wort"] in ("gebaut", "zu testen", "ruht", "nach Meilenstein", "Dauer"): return False
             if tiefe < 8 and not haengt(ziel, tiefe + 1) and ziel["wort"] != "erledigt": return False
@@ -777,12 +789,23 @@ def b_offen_streng(d):
     „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
     return [t for t in d["warte"] if not erfuellt(t, d["nr"], streng=art(t) == "nr")]
 
+def spiegel_beantwortet(d):
+    """1624 (Ford 18.11., 08:03): die Spiegelzeile streicht erst der nächste Lauf von pflegehinweis.py; steht die Antwort des Besitzers
+    schon unter „## Woche <TT.MM.>“ in LISTE-ROLLENSPIEGEL.md, ist die Zeile nicht mehr startbar (sonst startet lauf.py ihn dafür)."""
+    m = re.search(r"Woche (\d\d\.\d\d\.)", d.get("titel") or "")
+    if not m: return False
+    try: t = lesen("LISTE-ROLLENSPIEGEL.md")
+    except OSError: return False
+    s = re.search(r"(?ms)^## Woche %s\n(.*?)(?=^## |\Z)" % re.escape(m.group(1)), t)
+    return bool(s) and re.search(r"(?m)^### (?:Team )?%s\b" % re.escape(d["besitzer"]), s.group(1)) is not None
+
 def sperre(d):
     """Grund, warum die Zeile für ihren Besitzer nicht startbar ist, sonst None."""
     w = d["wort"]
     if w is None: return "UNLESBAR"
     if w == "erledigt": return "ERLEDIGT"
     if w in ("aufgeteilt", "Idee"): return w
+    if d["nr"] == "Spiegel" and spiegel_beantwortet(d): return "Spiegel beantwortet (Zeile fällt beim nächsten Pflegelauf weg, 1624)"
     offen = offen_warte(d)
     for t in offen:
         a = art(t)
@@ -794,7 +817,7 @@ def sperre(d):
         a = art(t)
         if a == "rolle": return "wartet auf " + t
         if a == "nr":
-            n, st = stand_von(t)
+            n, st = stand_von(nr_teil(t))
             return "wartet auf %s (%s)" % (t, wort_von(st) or st or "Nummer unbekannt")
         if a == "datum": return ("ruht bis " if w == "ruht" else "Termin ") + t
         if a == "build": return "wartet auf Test %s (Chef)" % t
@@ -873,8 +896,8 @@ def fremd_wartend():
     for d in zeilen_liste():
         if d["kl"] != "M" or d["wort"] == "erledigt": continue
         for t in offen_warte(d):
-            if art(t) == "nr" and besitz.get(t) not in (None, d["besitzer"]):
-                _FREMD.setdefault(t, []).append(d["besitzer"])
+            if art(t) == "nr" and besitz.get(nr_teil(t)) not in (None, d["besitzer"]):
+                _FREMD.setdefault(nr_teil(t), []).append(d["besitzer"])
     return _FREMD
 
 def jetzt_zeile(d):

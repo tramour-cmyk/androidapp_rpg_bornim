@@ -130,6 +130,7 @@ def kopfsitz(netze, haut, p, gesicht=None):
             weg = [f for f in bm.faces if (lambda c: c.y < p['mitte'][1] - 0.03 and abs(c.x) < bx and p['kinn_z'] - 0.03 < c.z < p['augen_z'] + 0.03)(mw @ f.calc_center_median())]
             bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(o.data); bm.free(); o.data.update()
             print('KOPFSITZ', o.name, 'Gesicht frei:', len(weg), 'Flaechen weg')
+        if 'hood' in n and KAPUZE_ENG < 1.0: kapuze_eng(o, W, N, kopf, kd, p)
         if 'armet' in n:
             bm = bmesh.new(); bm.from_mesh(o.data); mw = o.matrix_world
             # Lauf 2 (Pruefer 21:26: Wangenklappen bis neben die Mundwinkel): nach der Flaechenmitte, auch die Wangenklappen vor dem Gesicht
@@ -150,6 +151,39 @@ def kopfsitz(netze, haut, p, gesicht=None):
         print('KOPFSITZ', o.name, 'unter der Haut vorher %d Ecken (tiefste %.1f mm), alle jetzt 6 mm darueber' % (durch, -tief * 1000))
         if gesicht: kopfsitz_geformt(o, W, N, kopf, p, gesicht)
     return teile
+
+
+# 531 (Chef 16.11., 12:26, Bild Garrick im Profil: „Garrick ist … klein und die Kapuze ist wie für einen Riesen gemacht“): gemessen am
+# Kaufbau held_L_garrick_M (16.11.): die Ranger-Kapuze sitzt wie beim Helden (Jaegerkind) unverändert aus dem Kauf, Kopf bis z 1,81, Kapuze
+# bis 1,865, hinten 11 cm und über der Stirn 8 cm vor dem Kopf (Kopf 12 cm tief, Kapuze 32 cm). Die Leute tragen sie enger: der Abstand
+# über 6 mm zur Haut schrumpft auf KAPUZE_ENG, nach unten (Kragen, Schultern) ausgeblendet, die Verschiebung über die Nachbarn geglättet
+# 531.2 (Chef 16.11., 17:34: Kapuze „größer“; Sokrates: „deutlich kleiner“): 0,3 war zu wenig, jetzt bis 6 mm an die Haut
+KAPUZE_ENG = float(os.environ.get('KAPUZE_ENG', '0.0'))
+
+
+def kapuze_eng(o, W, N, kopf, kd, p, runden=6):
+    V = KO._welt(o); D = np.zeros_like(V); vorher = []; luft = np.zeros(len(V))
+    for k in range(len(V)):
+        q, j, d = kd.find(Vector(V[k]))
+        if q is None or d > 0.25: continue
+        i = kopf[j]; h = float(np.dot(V[k] - W[i], N[i]))
+        luft[k] = max(0.0, h - 0.006)
+        if h <= 0.006: continue
+        unten = np.clip((V[k][2] - (p['kinn_z'] - 0.06)) / 0.08, 0.0, 1.0)   # unter dem Kinn (Kragen) bleibt die Kapuze, wie sie ist
+        D[k] = -N[i] * (h - 0.006) * (1.0 - KAPUZE_ENG) * unten
+        vorher.append(h)
+    nb = [[] for _ in range(len(V))]
+    for e in o.data.edges:
+        a, b = e.vertices; nb[a].append(b); nb[b].append(a)
+    for r in range(runden):
+        D = np.array([(D[k] + D[nb[k]].mean(axis=0)) * 0.5 if nb[k] else D[k] for k in range(len(V))])
+    # Glätten zieht innen liegende Ecken (Futter, Rand) mit hinein: nie weiter als bis 6 mm über die Haut
+    lang = np.linalg.norm(D, axis=1)
+    D *= (np.minimum(lang, luft) / np.maximum(lang, 1e-9))[:, None]
+    KO._zurueck(o, V + D)
+    H = np.array(vorher) if vorher else np.zeros(1)
+    print('KAPUZE ENG', o.name, 'Faktor %.2f, Abstand zur Haut vorher bis %.0f mm (Mitte %.0f), Verschiebung bis %.0f mm' % (
+        KAPUZE_ENG, H.max() * 1000, np.median(H) * 1000, np.linalg.norm(D, axis=1).max() * 1000))
 
 
 def kopfsitz_geformt(o, W, N, kopf, p, ge, runden=8):
@@ -556,7 +590,7 @@ def vorrang_marke(netze, teile):
         print('VORRANG', o.name, n, 'Ecken Umhang,', na, 'Aermel')
 
 
-def exportiere(p, objs, farbe=False):
+def exportiere(p, objs, farbe=False, bild='AUTO'):
     schlank(objs)
     for o in objs:
         if o.type == 'MESH': o.data.name = o.name   # Godot benennt Netze nach den Daten (haare.glb: „Sphere.014_Retopology“)
@@ -564,7 +598,8 @@ def exportiere(p, objs, farbe=False):
     for o in objs: o.select_set(True)
     bpy.ops.export_scene.gltf(filepath=p, export_format='GLB', use_selection=True, export_animations=False, export_apply=False,
                               export_skins=True, export_morph=True, export_morph_normal=True,
-                              export_vertex_color='ACTIVE' if farbe else 'NONE')
+                              export_vertex_color='ACTIVE' if farbe else 'NONE',
+                              **({'export_image_format': 'JPEG', 'export_jpeg_quality': 90} if bild == 'JPEG' else {}))
 
 
 # Pruefer Lauf 1 (Kaempfer von hinten): Haut unter dem Umhangsaum durch die Hose, weisse Splitter an der Sohle, tuerkis im Schritt
@@ -628,8 +663,9 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
         env['OUT'] = held3_tracht('held', G['sex'])   # unser Held (Frau: auf dem Frauenkoerper); 376.1: auch der Mann eigens, ohne Abbau
     if fuesse: ohne = ohne + ['boots']
     env['OHNE_TEIL'] = ','.join(ohne)
+    if SCHRANK and liste == 'trachten.json': env['UNTER_MARKE'] = '1'   # 431h: Kleidung unter anderen Teilen markieren statt weg
     r = subprocess.run([sys.executable, '-I', os.path.join(HIER, 'kauf_kleid.py')], env=env, capture_output=True, text=True)
-    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG', 'SCHALE', 'RUECKBAHN', 'LAGEN', 'UNTER WEG'))))
+    print('\n'.join(l for l in r.stdout.splitlines() if l.startswith(('KAUFKLEID', 'KLEIDUNG', 'HALS', 'UMHANG', 'SCHALE', 'RUECKBAHN', 'LAGEN', 'UNTER WEG', 'ACHSEL'))))
     if r.returncode: print(r.stdout[-3000:], r.stderr[-3000:]); raise SystemExit('kauf_kleid.py %d' % r.returncode)
     bpy.ops.wm.open_mainfile(filepath=os.path.join(roh, 'held_%s.blend' % k))
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
@@ -658,7 +694,9 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
         netze += km
         print('KOPFTEIL', k, kt, len(km), 'Netze')
     haut, augen, brauen = kopfnetze(netze)
-    beine_weg(haut)
+    held = SCHRANK and liste == 'trachten.json'   # 431h: der Held bekommt den Leib (schrank), seine Haut ist nur noch der Kopf
+    if held: nur_kopf_flaechen(haut)
+    else: beine_weg(haut)
     p = KO.merkpunkte(haut, augen)
     ge = {}
     if liste != 'trachten.json':   # 475 Lauf 2: Kleid aus dem Kopf, Tuch eigenes Netz, Kragen ueber der Haut (kopf_frei)
@@ -669,8 +707,13 @@ def kaempfer(k, g, figur='', fuesse='', stiefel_bis=0.0, liste='trachten.json', 
         if 'hood' in o.name.lower(): kragen_unter_kapuze(o, netze, haut, p, ge)
     if liste != 'trachten.json': wange_messen(netze, haut, p, ge)
     schluessel(([haut, augen] if augen else [haut]) + brauen + kopfteile, p, augen)
+    sch = None
+    if held:   # 431h
+        netze, sch = schrank(arm, netze, k, g, json.load(open(os.path.join(env['OUT'], 'teile.json'))))
     statur(arm, netze)
+    schrank_fertig(netze, k, sch)
     vorrang_marke(netze, os.path.join(env['OUT'], 'teile.json'))
+    if held: teil_ablegen(k, netze, arm)   # 431h Stufe 2: Kettenhemd, Robe fuer den Kleiderschrank
     exportiere(os.path.join(ZIEL, 'held_%s.glb' % k), [arm] + netze, farbe=True)
     return arm, netze
 
@@ -759,6 +802,390 @@ def sonne(o, arm):
     print('SONNE', o.name, n, 'Punkte, Mitte', round(mz, 3), 'm, Mass', round(h, 3))
 
 
+# ---------------------------------------------------------------- 431h A: Teile je Platz und Koerper mit Unterwaesche
+# Chef 16.11., 10:08 („431h A“, Archiv): der Held traegt genau das, was in den Ausruestungsplaetzen steht. Je Tracht die Netze nach Platz
+# (teile_je_platz, held-klassen.json trachten.<K>.teile; Kleidung unter einem Teil eines anderen Platzes, frueher weggeschnitten, als
+# eigenes Netz, „unter“); dazu der Kaufkoerper ohne Kopf in acht Stuecken Leib_<STUECK> (leib) und welche Plaetze jedes deckt („leib“,
+# leib_deckung): Godot zeigt ein Stueck, wenn keiner davon gezeigt wird (heldfigur.gd kleide). Unterwaesche des Kaufkoerpers (in die Haut
+# gemalt, schiefergrau) zu ungefaerbtem Leinen abgedunkelt (431h Frage 2). Unter dem Teil eines anderen Platzes zieht der Formschluessel
+# „unter_<PLATZ>“ die Haut ein (sticht nicht durch). SCHRANK=0: wie vor 431h (ganze Tracht, Haut unter der Kleidung weg).
+SCHRANK = os.environ.get('SCHRANK', '1') != '0'
+SCHRANK_INFO = {}   # Tracht -> {PLATZ: [Netze]} fuer held-klassen.json
+PLAETZE = ('HEAD', 'CHEST', 'ARMS', 'LEGS', 'CLOAK')
+# Teile unserer Kleidung (kauf_kleid, Kennung 'teil') je Platz; Teile, die hier fehlen, bleiben immer sichtbar
+KLEID_PLATZ = {'chain': 'CHEST', 'tabard': 'CHEST', 'belt': 'CHEST', 'buckle': 'CHEST', 'robe': 'CHEST',
+               'sleeves': 'ARMS', 'cuff': 'ARMS', 'pants': 'LEGS', 'boots': 'LEGS', 'cloak': 'CLOAK', 'clasp': 'CLOAK'}
+# Robe (Zauberlehrling): Aermel gehoeren zur Robe (431h: „Robe (mit Aermeln) · Arme leer“)
+# Wachsoldat: die Aermel gehoeren zum Kettenhemd (unter der Kette weggeschnitten, ohne sie hingen Fetzen an den Schultern), die
+# Stulpen sitzen an den Stiefeln (Beine); die Arme zeigen kein eigenes Teil
+KLEID_PLATZ_JE = {'ROBE': {'sleeves': 'CHEST', 'cuff': 'CHEST'}, 'WACHE': {'sleeves': 'CHEST', 'cuff': 'LEGS'}}
+# Leib in Stuecke nach dem staerksten Knochen; ein Stueck faellt weg, wenn ein gezeigtes Teil es deckt (leib_deckung)
+LEIB_KNOCHEN = {'RUMPF': ('spine', 'clavicle'), 'OBERARM': ('upperarm',), 'UNTERARM': ('lowerarm',),
+                'HAND': ('hand', 'thumb', 'index', 'middle', 'ring', 'pinky'), 'BECKEN': ('pelvis', 'root'),
+                'OBERSCHENKEL': ('thigh',), 'UNTERSCHENKEL': ('calf',), 'FUSS': ('foot', 'ball')}
+DECKT_AB = 0.5   # Anteil der Ecken eines Stuecks unter einem Platz, ab dem dieser Platz es deckt
+# Robe (Zauberlehrling): unter dem weiten Rock keine Beine (wie vor 431h, 1090: Haut stach im Gehen durch)
+DECKT_JE = {'ROBE': {'CHEST': ['BECKEN', 'OBERSCHENKEL', 'UNTERSCHENKEL']}}
+LEINEN = np.array((0.40, 0.36, 0.30), dtype=np.float32)   # ungefaerbtes Leinen, abgedunkelt (sRGB des Bildes, mal Helligkeit der Waesche)
+UNTER_ZIEH = 0.012   # m: so weit zieht unter_<PLATZ> die verdeckte Haut ein (Pruefung am Rechner, pruef_flecken)
+UNTER_SUCH = 0.05    # m: Kleidung in dieser Entfernung ueber der Haut verdeckt sie
+
+
+def platz_von(name, k):
+    # Platz eines Kaufnetzes nach seinem Namen (Male_Ranger_Head_Hood, Female_Peasant_Arms, Male_Knight_Cloth_Body_Cloth …)
+    n = name.split('.')[0]
+    if n.startswith(('Eye', 'Hair', 'Regular', 'Female_Regular', 'Superhero', 'Leib_')) or 'OnlyHead' in n: return None
+    if '_Head_' in n: return 'HEAD'
+    if '_Body' in n or 'Pauldron' in n or 'Gorget' in n: return 'CHEST'
+    if '_Arms' in n: return 'ARMS'
+    if '_Legs' in n or '_Feet' in n: return 'LEGS'
+    return None
+
+
+def teile_je_platz(netze, k, teilnamen=None):
+    """431h: Netze der Tracht nach Platz; „Kleid“ mit Kennung 'teil' (unsere Kleidung) wird je Platz in eigene Netze geteilt, Flaechen
+    unter einem Teil eines anderen Platzes (kauf_kleid UNTER_MARKE, 'unter_von') in eigene Netze Kleid_<PLATZ>_unter_<PLATZ>.
+    Gibt (netze, {PLATZ: [namen]}, {netz: [platz, platz darueber]}) zurueck."""
+    import bmesh
+    je = dict(KLEID_PLATZ); je.update(KLEID_PLATZ_JE.get(k.rsplit('_', 1)[0], {}))
+    aus, unter = {}, {}
+    neu = []
+    for o in list(netze):
+        if teilnamen and 'teil' in o.data.attributes and not o.name.startswith('Leib_'):
+            tl = np.zeros(len(o.data.vertices), dtype=int); o.data.attributes['teil'].data.foreach_get('value', tl)
+            uv_ = np.zeros(len(o.data.polygons), dtype=np.int32)
+            if 'unter_von' in o.data.attributes: o.data.attributes['unter_von'].data.foreach_get('value', uv_)
+            tn = lambda i: teilnamen[i] if 0 <= i < len(teilnamen) else ''
+            vor = {}
+            for p_ in o.data.polygons:
+                pl = je.get(tn(tl[p_.vertices[0]]), '')
+                ob = je.get(tn(int(uv_[p_.index]) - 1), '') if uv_[p_.index] else ''
+                vor.setdefault((pl, ob if ob != pl else ''), []).append(p_.index)
+            print('TEILE', k, o.name, {'%s/%s' % q: len(v) for q, v in vor.items()},
+                  sorted({tn(i) for i in set(tl.tolist()) if tn(i) not in je}))
+            for (pl, ob), fl in vor.items():
+                if not pl: continue
+                c = o.copy(); c.data = o.data.copy(); c.name = 'Kleid_' + pl + ('_unter_' + ob if ob else '')
+                bpy.context.scene.collection.objects.link(c)
+                bm = bmesh.new(); bm.from_mesh(c.data); bm.faces.ensure_lookup_table()
+                behalte = set(fl)
+                bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.index not in behalte], context='FACES')
+                bm.to_mesh(c.data); bm.free(); c.data.update()
+                neu.append(c)
+                if ob: unter[c.name] = [pl, ob]
+                else: aus.setdefault(pl, []).append(c.name)
+            rest = [i for (pl, _), v in vor.items() if not pl for i in v]
+            if rest:
+                bm = bmesh.new(); bm.from_mesh(o.data); bm.faces.ensure_lookup_table()
+                r = set(rest)
+                bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.index not in r], context='FACES')
+                bm.to_mesh(o.data); bm.free(); o.data.update()
+            else:
+                netze.remove(o); bpy.data.objects.remove(o)
+            continue
+        p = platz_von(o.name, k)
+        if p: aus.setdefault(p, []).append(o.name)
+    netze += neu
+    for p in aus: aus[p] = sorted(aus[p])
+    print('PLAETZE', k, aus, 'UNTER', unter)
+    return netze, aus, unter
+
+
+def waesche_leinen(o):
+    # Unterwaesche im Hautbild (Kaufkoerper „Dark“: schiefergrau, Rot etwa gleich Blau; Haut: Rot 0,3 ueber Blau) -> Leinen mal ihre
+    # relative Helligkeit; ihre Flaechen bekommen ein eigenes Material „Leinen“ (gleiches Bild), damit Godot sie nicht als Haut toent
+    # (heldfigur.gd toene: nur Materialien mit „Regular“ im Namen)
+    im, px = eigenes_bild(o, 1024)
+    c = px[..., :3]
+    l = (0.2126 * c[..., 0] + 0.7152 * c[..., 1] + 0.0722 * c[..., 2])[..., None]
+    w = np.clip((0.14 - (c[..., 0] - c[..., 2])) / 0.06, 0, 1)[..., None]
+    ml = float(np.median(l[w[..., 0] > 0.5])) if (w > 0.5).any() else 1.0
+    px[..., :3] = c * (1 - w) + LEINEN * np.clip(l / max(ml, 1e-3), 0.5, 1.5) * w
+    zurueck_ins_bild(im, px)
+    H, W_ = px.shape[:2]
+    m2 = o.data.materials[0].copy(); m2.name = 'Leinen'; o.data.materials.append(m2)
+    uv = o.data.uv_layers.active.data
+    n = 0
+    def wa(u): return w[min(int(u.y % 1.0 * H), H - 1), min(int(u.x % 1.0 * W_), W_ - 1), 0] > 0.5
+    for f in o.data.polygons:   # nur ganz in der Waesche (Mitte und alle Ecken): sonst ungetoente Hautflecken am Rand
+        u = sum((uv[li].uv for li in f.loop_indices), Vector((0, 0))) / len(f.loop_indices)
+        if wa(u) and all(wa(uv[li].uv) for li in f.loop_indices): f.material_index = 1; n += 1
+    print('WAESCHE LEINEN', o.name, int((w > 0.5).sum()), 'Punkte, Helligkeit', round(ml, 3), n, 'Flaechen')
+
+
+def flaechen_knochen(o):
+    # je Flaeche der staerkste Knochen ueber ihre Ecken (Summe der Gewichte): ganze Flaechen je Stueck, die Grenzecken haben beide
+    # Stuecke (mit Ecken je Knochen fehlten die Flaechen an der Grenze in beiden: dunkle Fugen an Handgelenk, Knie, Knoechel, Hals)
+    gr = {vg.index: vg.name for vg in o.vertex_groups}
+    aus = []
+    for f in o.data.polygons:
+        sm = {}
+        for vi in f.vertices:
+            for e in o.data.vertices[vi].groups: sm[gr.get(e.group, '')] = sm.get(gr.get(e.group, ''), 0.0) + e.weight
+        aus.append(max(sm, key=sm.get) if sm else '')
+    return aus
+
+
+def nur_kopf_flaechen(o):
+    # 431h: von der Haut nur Kopf und Hals, genau das Gegenstueck zu leib (gleiche Regel je Flaeche, keine Fuge am Hals)
+    import bmesh
+    fk = flaechen_knochen(o)
+    bm = bmesh.new(); bm.from_mesh(o.data); bm.faces.ensure_lookup_table()
+    bmesh.ops.delete(bm, geom=[bm.faces[i] for i, k in enumerate(fk) if k not in QT.KOPF_KNOCHEN], context='FACES')
+    bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+    bm.to_mesh(o.data); bm.free(); o.data.update()
+
+
+def leib(arm, g):
+    """431h: Kaufkoerper ohne Kopf und Hals (QT.KOPF_KNOCHEN) an arm, in Stuecke nach dem staerksten Knochen geteilt (LEIB_KNOCHEN)."""
+    import bmesh
+    G = GESCHLECHTER[g]
+    kn, kp = QT.datei(G['koerper'])
+    if not kp: raise SystemExit('FEHLT %s (gekauft, KAUF=)' % G['koerper'])
+    objs = QT.importiere(kp)
+    a2 = next((o for o in objs if o.type == 'ARMATURE'), None)
+    vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+    ms = [o for o in objs if o.type == 'MESH']
+    koerper = max(ms, key=lambda o: len(o.data.vertices))
+    weg = [o.name for o in objs if o is not koerper]
+    QT.an_geruest(objs, arm, vs)   # entfernt das Geruest des Imports
+    for n in weg:
+        if n in bpy.data.objects and bpy.data.objects[n].type == 'MESH': bpy.data.objects.remove(bpy.data.objects[n])
+    waesche_leinen(koerper)
+    fk = flaechen_knochen(koerper)
+    aus = []
+    for teil, kn_ in LEIB_KNOCHEN.items():   # Stuecke ohne Flaechen (kein Knochen dieses Namens) fallen weg
+        c = koerper.copy(); c.data = koerper.data.copy(); c.name = 'Leib_' + teil; bpy.context.scene.collection.objects.link(c)
+        bm = bmesh.new(); bm.from_mesh(c.data); bm.faces.ensure_lookup_table()
+        weg = [bm.faces[i] for i, s_ in enumerate(fk) if s_ in QT.KOPF_KNOCHEN or not s_.lower().startswith(kn_)]
+        bmesh.ops.delete(bm, geom=weg, context='FACES'); bm.to_mesh(c.data); bm.free(); c.data.update()
+        print('LEIB', g, c.name, len(c.data.vertices), 'Ecken')
+        if len(c.data.vertices): aus.append(c)
+        else: bpy.data.objects.remove(c)
+    bpy.data.objects.remove(koerper)
+    return aus
+
+
+def _bvh(teile, knochen=None):
+    from mathutils.bvhtree import BVHTree
+    V, F = [], []
+    for o in teile:
+        W = KO._welt(o); a0 = len(V); V += [Vector(w) for w in W]
+        gr = {vg.index: vg.name for vg in o.vertex_groups}
+        st = [gr.get(max(v.groups, key=lambda x: x.weight).group, '').lower() if v.groups else '' for v in o.data.vertices]
+        F += [tuple(a0 + i for i in f.vertices) for f in o.data.polygons if knochen is None or st[f.vertices[0]].startswith(knochen)]
+    return BVHTree.FromPolygons(V, F) if F else None
+
+
+def _normalen(lo):
+    W = KO._welt(lo)
+    N = np.empty(len(lo.data.vertices) * 3); lo.data.vertices.foreach_get('normal', N)
+    N = N.reshape(-1, 3) @ np.array(lo.matrix_world.to_3x3().inverted().transposed()).T
+    return W, N / np.maximum(np.linalg.norm(N, axis=1, keepdims=True), 1e-9)
+
+
+def leib_deckung(leiber, netze, plaetze, k):
+    """431h: welche Plaetze jedes Leibstueck decken: Anteil der Ecken, ueber denen (entlang der Normale, bis UNTER_SUCH) ein Teil des
+    Platzes liegt, ab DECKT_AB; dazu DECKT_JE. -> {Leib_<STUECK>: [PLATZ …]} (Godot zeigt das Stueck, wenn keiner davon gezeigt wird)"""
+    aus = {lo.name: [] for lo in leiber}
+    for p, namen in plaetze.items():
+        bv = _bvh([o for o in netze if o.name in namen])
+        if bv is None: continue
+        for lo in leiber:
+            W, N = _normalen(lo)
+            # auch deckungsgleich (Kaufarme mit eigener Hand: dieselbe Haut im Teil, der Strahl nach aussen trifft sie nicht)
+            n = sum(1 for i in range(len(W)) if bv.ray_cast(Vector(W[i]) + Vector(N[i]) * 0.0005, Vector(N[i]), UNTER_SUCH)[0] is not None
+                    or bv.find_nearest(Vector(W[i]), 0.006)[0] is not None)
+            if n >= DECKT_AB * len(W): aus[lo.name].append(p)
+            print('DECKUNG', k, lo.name, p, '%d/%d' % (n, len(W)))
+    for p, st in DECKT_JE.get(k.rsplit('_', 1)[0], {}).items():
+        for t in st:
+            if 'Leib_' + t in aus and p not in aus['Leib_' + t]: aus['Leib_' + t].append(p)
+    print('LEIB DECKUNG', k, aus)
+    return aus
+
+
+def unter_schluessel(leiber, netze, plaetze, deckung):
+    # Formschluessel unter_<PLATZ> je Leibstueck, das dieser Platz nicht ganz deckt: Ecken, ueber denen (entlang der Normale, bis
+    # UNTER_SUCH) Kleidung desselben Koerperteils dieses Platzes liegt oder die schon ausserhalb davon liegen (bis 2 cm), um UNTER_ZIEH
+    # (und die Tiefe des Durchstechens) nach innen (Aermel neben dem Oberschenkel zaehlen nicht)
+    alle_kn = tuple(x for v in LEIB_KNOCHEN.values() for x in v)
+    for p, namen in plaetze.items():
+        teile = [o for o in netze if o.name in namen]
+        if not teile: continue
+        for lo in leiber:
+            if p in deckung.get(lo.name, []): continue   # dann ist das Stueck ganz weg
+            st = lo.name[5:]
+            nachbarn = alle_kn if st in ('RUMPF', 'BECKEN') else LEIB_KNOCHEN[st] + (('spine', 'clavicle', 'upperarm') if st == 'OBERARM' else ()) \
+                + (('pelvis', 'thigh') if st == 'OBERSCHENKEL' else ()) + (('thigh', 'calf') if st in ('UNTERSCHENKEL',) else ()) \
+                + (('lowerarm', 'upperarm') if st == 'UNTERARM' else ()) + (('lowerarm',) if st == 'HAND' else ()) + (('calf',) if st == 'FUSS' else ())
+            bv = _bvh(teile, nachbarn)
+            if bv is None: continue
+            W, N = _normalen(lo)
+            D = np.zeros_like(W); n = 0
+            for i in range(len(W)):
+                w = Vector(W[i]); nv = Vector(N[i])
+                if bv.ray_cast(w + nv * 0.0005, nv, UNTER_SUCH)[0] is not None:
+                    D[i] = -N[i] * UNTER_ZIEH; n += 1
+                else:
+                    h = bv.ray_cast(w - nv * 0.0005, -nv, 0.02)
+                    if h[0] is not None: D[i] = -N[i] * (UNTER_ZIEH + h[3]); n += 1
+            if not n: continue
+            if not lo.data.shape_keys: lo.shape_key_add(name='Basis', from_mix=False)
+            B = np.empty(len(W) * 3); lo.data.shape_keys.key_blocks['Basis'].data.foreach_get('co', B)
+            Mi = np.array(lo.matrix_world.inverted())
+            sk = lo.shape_key_add(name='unter_' + p, from_mix=False)
+            sk.data.foreach_set('co', (B.reshape(-1, 3) + D @ Mi[:3, :3].T).ravel())
+            print('UNTER', lo.name, p, n, 'Ecken eingezogen')
+
+
+def schrank(arm, netze, k, g, teilnamen=None):
+    # 431h: Teile je Platz und Leib; vor statur() (Formschluessel auch am Leib), unter_* nach statur() (schrank_fertig)
+    if not SCHRANK: return netze, None
+    netze, plaetze, unter = teile_je_platz(netze, k, teilnamen)
+    leiber = leib(arm, g)
+    return netze + leiber, (plaetze, unter, leiber)
+
+
+def schrank_fertig(netze, k, sch):
+    # nach statur(): Deckung und unter_*; Eintrag fuer held-klassen.json (heldfigur.gd kleide)
+    if not sch: return
+    plaetze, unter, leiber = sch
+    deckung = leib_deckung(leiber, netze, plaetze, k)
+    unter_schluessel(leiber, netze, plaetze, deckung)
+    SCHRANK_INFO[k] = {'teile': plaetze, 'unter': unter, 'leib': deckung}
+
+
+
+
+# ---------------------------------------------------------------- 431h Stufe 2: Kleiderschrank je Koerper (Geschlecht)
+# Chef 17.11., 09:45 („431h A“, Archiv): jede angelegte Ruestung sichtbar, auch Stuecke anderer Trachten und die Ritterteile. Alle Teile
+# je Geschlecht in einer Datei schrank_<G>.glb auf dem Geruest des Kaufkoerpers (alle Kauftrachten und unsere Kleidung haengen am selben
+# Geruest); Godot haengt das Teil eines angelegten Stuecks an das Skelett des Helden, wenn seine Tracht es nicht selbst traegt
+# (heldfigur.gd kleide, Feld „teil“ der Gegenstandsliste). Je Teil: Platz, Netze, welche Leibstuecke es deckt (Leib_<STUECK>, wie
+# leib_deckung). Kettenhemd und Robe kommen aus den Bauten der Trachten WACHE und ROBE (teil_<KENNUNG>_<G>.glb, Kleid_CHEST).
+# Je Geschlecht und Teil eine Datei (schrank_<G>_<KENNUNG>.glb) statt aller Teile in jedem der zehn Heldenmodelle: geladen wird nur,
+# was angelegt ist.
+SCHRANK_TEILE = {   # Kennung -> (Kauftracht oder Tracht unseres Baus, Netzname nach „<Geschlecht>_<Satz>“ beginnt mit, Platz)
+    'RANGER_HOOD': ('{v}_Ranger', ('_Head_Hood',), 'HEAD'),
+    'RANGER_BODY': ('{v}_Ranger', ('_Body', '_Acc_Pauldron'), 'CHEST'),   # mit Guerteln und Schulterstueck, wie die Waldtracht
+    'RANGER_ARMS': ('{v}_Ranger', ('_Arms',), 'ARMS'),
+    'RANGER_LEGS': ('{v}_Ranger', ('_Legs', '_Feet'), 'LEGS'),
+    'PEASANT_BODY': ('{v}_Peasant', ('_Body',), 'CHEST'),
+    'PEASANT_ARMS': ('{v}_Peasant', ('_Arms',), 'ARMS'),
+    'PEASANT_LEGS': ('{v}_Peasant', ('_Legs', '_Feet'), 'LEGS'),
+    'CLOTH_BODY': ('{v}_Knight_Cloth', ('_Body_Cloth', '_Acc_Pauldron_Spike'), 'CHEST'),   # Netze heissen <G>_Knight_…
+    'CLOTH_ARMS': ('{v}_Knight_Cloth', ('_Arms',), 'ARMS'),
+    'KNIGHT_HELM': ('{v}_Knight', ('_Head_Armet',), 'HEAD'),
+    'KNIGHT_BODY': ('{v}_Knight', ('_Body_Armor',), 'CHEST'),
+    'KNIGHT_PAULDRON': ('{v}_Knight', ('_Acc_Pauldron',), 'CHEST'),
+    'KNIGHT_ARMS': ('{v}_Knight', ('_Arms',), 'ARMS'),
+    'KNIGHT_LEGS': ('{v}_Knight', ('_Legs', '_Feet'), 'LEGS'),
+    'NOBLE_CROWN': ('{v}_Noble', ('_Head_Crown',), 'HEAD'),
+    'NOBLE_GORGET': ('{v}_Noble', ('_Acc_Gorget',), 'CHEST'),
+    'KETTE': ('WACHE', (), 'CHEST'),
+    'ROBE': ('ROBE', (), 'CHEST'),
+}
+# Teile, die eine Tracht selbst traegt (dann zeigt sie ihr eigenes Teil, wie Stufe 1); dazu die Startstuecke ihrer Herkuenfte
+EIGEN_TEILE = {'WACHE': ['KETTE'], 'ROBE': ['ROBE'], 'KLOSTER': ['CLOTH_BODY', 'CLOTH_ARMS'],
+               'WALD': ['RANGER_HOOD', 'RANGER_BODY', 'RANGER_ARMS', 'RANGER_LEGS'], 'BAUER': ['PEASANT_BODY', 'PEASANT_ARMS', 'PEASANT_LEGS']}
+SCHRANK_DECKT = {'ROBE': ['Leib_BECKEN', 'Leib_OBERSCHENKEL', 'Leib_UNTERSCHENKEL']}   # wie DECKT_JE ROBE
+
+
+def eigen_stuecke(t):
+    # 431h Stufe 2: Grundformen, die die Tracht t mit ihrem eigenen Teil zeigt: Startstuecke ihrer Herkuenfte (werte.json start) und
+    # Stuecke, deren Teile alle in EIGEN_TEILE stehen
+    wurzel = os.path.dirname(os.path.dirname(HIER))
+    try:
+        start = json.load(open(os.path.join(wurzel, 'sim444', 'werte.json')))
+        start = next((v['start'] for v in start.values() if isinstance(v, dict) and 'start' in v and isinstance(v['start'], dict)), {})
+        gs = json.load(open(os.path.join(wurzel, 'gegenstaende', 'gegenstaende.json')))['gegenstaende']
+    except (OSError, ValueError) as e:
+        print('EIGEN FEHLT', e); return []
+    aus = set()
+    for h, l in start.items():
+        hk = h.upper().replace('Ä', 'AE').replace('Ö', 'OE').replace('Ü', 'UE')
+        if HERKUENFTE.get(hk, {}).get('tracht') == t: aus.update(l)
+    for x in gs:
+        tl = x.get('teil')
+        if tl and all(y in EIGEN_TEILE.get(t, []) for y in tl): aus.add(x['id'])
+    return sorted(aus)
+
+
+def teil_ablegen(k, netze, arm):
+    # 431h Stufe 2: Kleid_CHEST der Trachten WACHE (Kettenhemd) und ROBE fuer den Kleiderschrank der anderen Trachten
+    t, g = k.rsplit('_', 1)
+    kenn = next((n for n, v in SCHRANK_TEILE.items() if v[0] == t), None)
+    if not kenn or not SCHRANK: return
+    ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_CHEST')]   # mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK)
+    if not ms: print('TEIL FEHLT', k, 'Kleid_CHEST'); return
+    exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
+    print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
+
+
+def schrank_datei(g):
+    """431h Stufe 2: alle Teile (SCHRANK_TEILE) fuer Geschlecht g in ZIEL/schrank_<g>.glb; Rueckgabe {Kennung: {platz, netze, leib}}."""
+    G = GESCHLECHTER[g]
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    kn, kp = QT.datei(G['koerper'])
+    if not kp: raise SystemExit('FEHLT %s (gekauft, KAUF=)' % G['koerper'])
+    objs = QT.importiere(kp)
+    arm = next(o for o in objs if o.type == 'ARMATURE'); arm.name = 'Armature'
+    for o in [o for o in objs if o.type == 'MESH']: bpy.data.objects.remove(o)
+    QT.KOPIEN.clear()
+    teile, info = [], {}
+    for kenn, (quelle, enden, platz) in SCHRANK_TEILE.items():
+        if quelle in TRACHTEN:
+            p = os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g))
+            if not os.path.exists(p): print('SCHRANK FEHLT', kenn, g, p); continue
+            ob = QT.importiere(p)
+            ms = [o for o in ob if o.type == 'MESH']
+            a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
+            vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+        else:
+            kleid = quelle.format(v=G['v'])
+            kn2, kp2 = QT.datei(kleid)
+            if not kp2 or kn2 != kleid: print('SCHRANK FEHLT', kenn, kleid); continue
+            ob = QT.importiere(kp2)
+            a2 = next((o for o in ob if o.type == 'ARMATURE'), None)
+            vs = (QT.kopf_pos(arm) - QT.kopf_pos(a2)) if a2 and 'Head' in a2.data.bones else Vector()
+            vor = kleid.replace('_Knight_Cloth', '_Knight')
+            ms = [o for o in ob if o.type == 'MESH' and o.name.split('.')[0].startswith(vor + '_')
+                  and o.name.split('.')[0][len(vor):].startswith(enden)]
+            weg = [o for o in ob if o.type == 'MESH' and o not in ms]
+            ob = [o for o in ob if o not in weg]
+            for o in weg: bpy.data.objects.remove(o)
+        if not ms:
+            print('SCHRANK FEHLT', kenn, g, 'keine Netze'); [bpy.data.objects.remove(o) for o in ob]; continue
+        QT.an_geruest(ob, arm, vs)
+        for o in ms:   # wie tracht(): Schulterstueck Leder, Ritterplatten Stahl, Kloster ohne Gruenstich, Sonne auf der Kutte
+            if 'Pauldron' in o.name: QT.toene(o, lambda n: True, QT.LEDER)
+            elif kenn.startswith('KNIGHT'): QT.toene(o, lambda n: n.startswith('MI_Knight'), QT.STAHL)
+            if kenn == 'CLOTH_ARMS': entgruen(o)
+            if kenn == 'CLOTH_BODY' and 'Body_Cloth' in o.name: sonne(o, arm)
+        namen = []
+        for i, o in enumerate(ms):
+            o.name = 'Teil_%s%s' % (kenn, '_%d' % i if len(ms) > 1 else ''); namen.append(o.name)
+        teile += ms
+        info[kenn] = {'platz': platz, 'netze': namen}
+        print('SCHRANK', g, kenn, namen, sum(len(o.data.polygons) for o in ms), 'Flaechen')
+    leiber = leib(arm, g)
+    statur(arm, teile + leiber)   # gleich geglaettet wie am Helden (Koerper und Kleidung gehen zusammen)
+    dk = leib_deckung(leiber, teile, {kenn: v['netze'] for kenn, v in info.items()}, 'SCHRANK_' + g)
+    for kenn, v in info.items():
+        v['leib'] = sorted(set([lo for lo, ps in dk.items() if kenn in ps] + SCHRANK_DECKT.get(kenn, [])))
+    for lo in leiber: bpy.data.objects.remove(lo)
+    # je Teil eine Datei (Godot laedt nur, was angelegt ist; Messung 17.11.: ein Schrank fuer alles 23 MB, erstes Laden +560 ms), Bilder
+    # als JPEG (Kleidung ohne Durchsicht; die Bilder waren 12,6 von 23 MB)
+    ges = 0
+    for kenn, v in info.items():
+        p = os.path.join(ZIEL, 'schrank_%s_%s.glb' % (g, kenn))
+        exportiere(p, [arm] + [o for o in teile if o.name in v['netze']], farbe=True, bild='JPEG')
+        v['mb'] = round(os.path.getsize(p) / 1e6, 2); ges += v['mb']
+    print('SCHRANK DATEIEN', g, len(info), 'Teile', round(ges, 2), 'MB', {k: v['mb'] for k, v in info.items()})
+    return info
+
+
 def tracht(k, g, f):
     G = GESCHLECHTER[g]
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -793,7 +1220,9 @@ def tracht(k, g, f):
     p = KO.merkpunkte(haut, augen)
     KO.toene_haut(haut, p, (1.0, 1.0, 1.0), 0.0, mat=lambda n: 'Regular' in n)   # glatt rasiert; Bart als Netz (haare.glb)
     schluessel([haut, augen] + brauen if augen else [haut] + brauen, p, augen)
+    netze, sch = schrank(arm, netze, k, g)   # 431h
     statur(arm, netze)
+    schrank_fertig(netze, k, sch)
     exportiere(os.path.join(ZIEL, 'held_%s.glb' % k), [arm] + netze)
     return arm, netze
 
@@ -943,6 +1372,10 @@ def haare(g):
 # rig.py (held.bin) passen nicht: sie sind auf unsere Ruhelage (Arme haengend) umgerechnet, der Kaufkoerper ruht in der T-Pose
 BEWEGUNGEN = [('Stehen', 'Idle_Loop'), ('Gehen', 'Walk_Loop'), ('Rennen', 'Jog_Fwd_Loop'), ('Stehen_2', 'Idle_LookAround_Loop'),
               ('Stehen_3', 'Idle_Tired_Loop'), ('Sitzen', 'Sitting_Idle_Loop'), ('Gesten', 'Idle_Talking_Loop'),
+              # 531 (Chef 04.11., 19:27, Film): Garricks Ruhe am Feuer aus dem Bestand (UAL Pro): am Boden sitzen, einnicken, hocken;
+              # Name der Quelle ohne Endung, gilt auch mit _Loop (der genaue Name steht im Protokoll „UAL531“)
+              ('Bodensitz_rein', 'GroundSit_Enter'), ('Bodensitz', 'GroundSit_Idle'), ('Bodensitz_raus', 'GroundSit_Exit'),
+              ('Sitzen_rein', 'Sitting_Enter'), ('Sitzen_raus', 'Sitting_Exit'), ('Nicken', 'Sitting_Nodding'), ('Hocken', 'Crouch_Idle'),
               # 1044 zurueck (Chef 13.11., 09:35): Ruhebewegungen je Person (heldfigur.gd RUHE_JE), alle aus der UAL Pro
               ('Ruhe_Tresen', 'Counter_Idle_Loop'), ('Ruhe_Trinken', 'Drink'), ('Ruhe_Weinen', 'Crying'),
               ('Ruhe_Greifen', 'Interact')]
@@ -984,12 +1417,15 @@ def bewegungen():
     arm = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
     for o in [o for o in bpy.data.objects if o != arm]: bpy.data.objects.remove(o)
     namen = dict((q, n) for n, q in BEWEGUNGEN)
+    print('UAL531', sorted(a.name for a in bpy.data.actions if any(k in a.name for k in ('Sit', 'Crouch', 'Kneel', 'Warm', 'Fire'))))
     for n, q in WENDE:   # 1040.1: Turn90_L oder Turn90_L_Loop
         qq = next((x for x in (q, q + '_Loop') if x in bpy.data.actions), None)
         if qq: namen[qq] = n
     for a in list(bpy.data.actions):
-        if a.name in namen: a.name = namen[a.name]; a.use_fake_user = True
+        q = a.name if a.name in namen else next((k for k in namen if a.name in (k + '_Loop', k + '_Anim')), None)
+        if q and namen[q] not in bpy.data.actions: a.name = namen[q]; a.use_fake_user = True
         else: bpy.data.actions.remove(a)
+    print('UAL531 fehlt', [n for n, q in BEWEGUNGEN if n not in bpy.data.actions])
     # 417 Runde 4 (Chef 01.11., 12:21; 348.12c): Gehen und Rennen je Waffenart aus den Protofactor-Paketen (waffengang.py, GANG=<ordner>
     # mit Gehen_<art>.glb, Rennen_<art>.glb auf demselben UAL-Geruest), Name wie die Datei
     gang = sorted(glob.glob(os.path.join(os.environ.get('GANG', ''), '*_*.glb'))) if os.environ.get('GANG') else []
@@ -1082,6 +1518,11 @@ if LEUTE_KAUF:
     print('LEUTE KAUF OK', sorted(lk['trachten']))
     raise SystemExit(0)
 
+if os.environ.get('SCHRANK_NUR') == '1':   # 431h Stufe 2 am Rechner: nur den Kleiderschrank neu (teil_*.glb und held-klassen.json liegen)
+    info = json.load(open(os.path.join(ZIEL, 'held-klassen.json')))
+    info['schrank'] = {g: schrank_datei(g) for g in GESCHLECHTER if not NUR_G or g in NUR_G}
+    json.dump(info, open(os.path.join(ZIEL, 'held-klassen.json'), 'w'), indent=1, ensure_ascii=False)
+    raise SystemExit(0)
 info = {'formen': FORMEN, 'statur': list(STATUR), 'haut': {k: list(v) for k, v in KO.HAUT.items()},
         'haarfarben': {k: list(v) for k, v in QT.HAAR.items()}, 'herkuenfte': HERKUENFTE, 'klasse_herkunft': KLASSE_HERKUNFT,
         'trachten': {}, 'geschlechter': {}}
@@ -1094,7 +1535,17 @@ for t, f in TRACHTEN.items():
         arm, netze = tracht(k, g, f) if 'kleid' in f else kaempfer(k, g, '' if f['tracht'] == 'unsere' else f['tracht'], fu, f.get('stiefel_bis', 0.0))
         info['trachten'][k] = {'kleid': (f.get('kleid') or f['tracht']).format(v=GESCHLECHTER[g]['v']), 'geschlecht': g,
                                'kopf': godot(QT.kopf_pos(arm)), 'dreiecke': dreiecke(netze), 'netze': sorted(o.name for o in netze)}
-        print('TRACHT', k, info['trachten'][k]['dreiecke'], 'Dreiecke', info['trachten'][k]['kleid'])
+        if k in SCHRANK_INFO:
+            info['trachten'][k].update(SCHRANK_INFO[k])   # 431h: teile, unter, leib (heldfigur.gd kleide)
+            info['trachten'][k]['eigen'] = eigen_stuecke(t)   # 431h Stufe 2: Stuecke, die das eigene Teil zeigt
+            if t == 'ROBE': info['trachten'][k]['rock'] = 'CHEST'   # Beine richten sich nach der Robe (heldfigur.gd kleide)
+        print('TRACHT', k, info['trachten'][k]['dreiecke'], 'Dreiecke', info['trachten'][k]['kleid'], info['trachten'][k].get('eigen'))
+# 431h Stufe 2: Kleiderschrank je Geschlecht (nach den Trachten: Kettenhemd und Robe aus ihren Bauten); SCHRANK_DATEI=0 ohne
+if SCHRANK and os.environ.get('SCHRANK_DATEI', '1') != '0' and not FREI:
+    info['schrank'] = {}
+    for g in GESCHLECHTER:
+        if NUR_G and g not in NUR_G: continue
+        info['schrank'][g] = schrank_datei(g)
 for g in GESCHLECHTER:
     if NUR_G and g not in NUR_G: continue
     info['geschlechter'][g] = haare(g)

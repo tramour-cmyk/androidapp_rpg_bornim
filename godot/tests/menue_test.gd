@@ -28,12 +28,31 @@ func _lauf() -> void:
 	for soll in ["5/%d" % hw.max_leben(), "Tag 3 · 21:05" if Sprache.aktiv() == "de" else "Day 3 · 21:05"]:
 		if not t.contains(soll): fehler += 1; print("FEHLER Leiste ohne ", soll)
 	if l.zeichen.art != "mond": fehler += 1; print("FEHLER Leiste: nachts kein Mond")
+	# 1448 A (Chef 16.11., 14:47): keine Wörter Leben/Mana/EP vor den Balken, alle Balken beginnen bündig, Erfahrung mit der Stufe
+	var anfang := []
+	for k in ["tp", "zp", "ep"]:
+		if l.balken[k][3].visible: fehler += 1; print("FEHLER 1448 Leiste: Wort vor dem Balken ", k, " sichtbar")
+		anfang.append(roundi(l.balken[k][1].global_position.x))
+	if anfang.min() != anfang.max(): fehler += 1; print("FEHLER 1448 Leiste: Balken beginnen versetzt ", anfang)
+	if not l.balken["ep"][2].text.ends_with(str(hw.stufe)): fehler += 1; print("FEHLER 1448 Leiste: hinter Erfahrung keine Stufe: ", l.balken["ep"][2].text)
 	var m := Menue.new(hw, z)
 	root.add_child(m)
 	await process_frame
 	t = texte(m)
 	for soll in ["MIRA", ": 37", "%d / %d" % [5, hw.max_leben()]]:
 		if not t.contains(soll): fehler += 1; print("FEHLER Held ohne ", soll)
+	# 1448 A: im Heldenmenü kein Wort vor den Balken, Balken gleich lang und bündig, hinter Erfahrung die Stufe
+	var zeilen: Array = m.inhalt.find_children("Balken_*", "HBoxContainer", true, false)
+	if zeilen.size() != 3: fehler += 1; print("FEHLER 1448 Held: ", zeilen.size(), " Balkenzeilen statt 3")
+	var lagen := []
+	for r in zeilen:
+		var b: Control = r.get_child(0)
+		if not b is Leiste.Balken: fehler += 1; print("FEHLER 1448 Held: vor dem Balken steht ", b.get_class())
+		lagen.append("%d:%d" % [roundi(b.global_position.x), roundi(b.size.x)])
+	if lagen.size() > 0 and lagen.count(lagen[0]) != lagen.size(): fehler += 1; print("FEHLER 1448 Held: Balken versetzt oder verschieden lang ", lagen)
+	var ep_text: String = zeilen[-1].get_child(1).text if zeilen.size() == 3 else ""
+	if not ep_text.ends_with(" " + str(hw.stufe)): fehler += 1; print("FEHLER 1448 Held: hinter Erfahrung keine Stufe: ", ep_text)
+	print("1448 Leiste ", anfang, " Held ", lagen, " ", ep_text)
 	# 870.4: Heldenstufe und die sechs Grundwerte nach BRS, keine Attributspunkte mehr
 	for soll in [ErschaffungBrs.heldenstufe(4), ErschaffungBrs.tx(ErschaffungBrs.GRUNDWERT["wille"]), ErschaffungBrs.herkunft_name("Zauberlehrling")]:
 		if not t.contains(soll): fehler += 1; print("FEHLER Held ohne ", soll)

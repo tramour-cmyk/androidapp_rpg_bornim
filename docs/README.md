@@ -21,6 +21,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - [Stil](DESIGN-STIL.md): wie das Spiel aussieht, klingt und sich anfühlt.
 - [Kerbensystem](DESIGN-GLUT.md) (Datei heißt noch „Glut“): die Kampfregeln mit drei Kerben je Zug (Weg, Tun, Haltung), Bauplan und Prüfpunkte (930). Entschieden: bauen (930 A), Name Kerbe (1260 D), Kerben verstreichen (1288a), Lesen spürbar (1288b); gebaut ab Build 291, im Spiel noch ausgeschaltet (nur in den Proben an), noch nicht auf `main`; die übrigen Zahlen sind Entwurf.
 - [Kampf (MARS)](DESIGN-KAMPF.md): Grundgedanken vom 14.10. (Absicht des Gegners zeigen, Reaktion im Gegnerzug, Kulisse) und was zu Waffe, Schild und Kampf im Bild gilt; der Abschnitt „Handgemenge und Abstand (930)“ dort ist durch das Kerbensystem ersetzt.
+- [Gegnerverhalten](DESIGN-GEGNER.md): Regelblatt 1589.1, was Gegner wollen und wie sie sich auf dem Blatt bewegen (Denkweise, Ziel, Rolle, Flucht); Gerüst, im Gegenlesen.
 - [Blende](DESIGN-BLENDE.md): die Übergangsbilder zwischen Orten, bei Rast und Tod.
 - [Entscheidungen zum BRS](DESIGN-BRS-ENTSCHEIDUNGEN.md): die Regelfragen E 1–84 bis 11.11. als nummerierte Liste; spätere Regelentscheide stehen im Vorgangsarchiv, Verlauf und alte Ideen in `alt/DESIGN-SPIELSYSTEM-2-0.md`.
 - [Spielerhandbuch](STORY-HANDBUCH-1.md), ein Buch in drei Dateien (Teil [2](STORY-HANDBUCH-2.md), Teil [3](STORY-HANDBUCH-3.md)): die Regeln aus dem BRS so erklärt, wie der Spieler sie liest (Entwurf vom 01.11.; der Kampf darin noch ohne Kerben).
@@ -60,6 +61,7 @@ Arbeitslisten; du musst sie nicht lesen.
 - [Figurenkatalog, Bauplan](LISTE-FIGURENKATALOG-649.md): Plan für einen Katalog aller Figuren, bis er gebaut ist.
 - [Simulation](LISTE-SIMULATION-444.md): Rechenprobe, wie stark Helden je Herkunft und Stufe werden (Stand 12.11., vor dem Kerbensystem).
 - [Testgeräte](LISTE-TESTGERAETE.md): welche Handys getestet werden und wie schnell das Spiel darauf läuft.
+- [Technik gegen fremde Praxis](LISTE-TECHNIK-PRAXIS.md): wie andere Handyspiele rendern und Effekte bauen, was wir davon nutzen, Rangfolge der Vorschläge (1270.5).
 - [Glossar](LISTE-GLOSSAR.md): unsere Begriffe und Abkürzungen von A bis Z.
 - [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): mittwochs je Rolle, was sie tun soll und was sie getan hat.
 - Handwerk: [Bauen und Testen](LISTE-BAUEN-TESTEN.md) · [Checkliste Build und Test](LISTE-CHECK-BUILD-TEST.md) · [Betrieb](LISTE-BETRIEB.md) · [Prüfen](LISTE-PRUEFUNG.md) · [Auswertung Prüfbögen](LISTE-AUSWERTUNG-PRUEFBOGEN.md) · [Release und Neustart](LISTE-RELEASE-NEUSTART.md) · [Regeltreue](LISTE-REGELTREUE.md).
@@ -67,6 +69,6 @@ Arbeitslisten; du musst sie nicht lesen.
 ## Firma
 
 - [Handbuch](FIRMA.md) und [Regeln für alle](../CLAUDE.md); [Logo und Geschäftspapiere](firma/README.md).
-- Rollen, also wer was tut: [Entwickler](ROLLE-ENTWICKLUNG.md) · [Perikles](ROLLE-PROJEKT.md) · [Homer](ROLLE-KREATIV.md) · [Sokrates](ROLLE-BERATUNG.md) · [Diogenes](ROLLE-PRUEFUNG.md) · [Ford](ROLLE-BETRIEB.md).
+- Rollen, also wer was tut: [Entwickler](ROLLE-ENTWICKLUNG.md) · [Perikles](ROLLE-PROJEKT.md) · [Homer](ROLLE-KREATIV.md) · [Sokrates](ROLLE-BERATUNG.md) ([Startprompt, Entwurf 1625](ROLLE-BERATUNG-START.md)) · [Diogenes](ROLLE-PRUEFUNG.md) · [Ford](ROLLE-BETRIEB.md).
 - Vorräte, also Übergabe und Einzelheiten je Rolle: [Tom](ARBEIT-TEAM-TOM.md) · [Jerry](ARBEIT-TEAM-JERRY.md) · [Spike](ARBEIT-TEAM-SPIKE.md) · [Perikles](ARBEIT-PROJEKT.md) · [Homer](ARBEIT-KREATIV.md) · [Sokrates](ARBEIT-BERATUNG.md) · [Diogenes](ARBEIT-PRUEFUNG.md) · [Betrieb](ARBEIT-BETRIEB.md) · [Besetzung](ARBEIT-BESETZUNG.md).
 - **Abgelegt** in [`alt/`](alt/): Erledigtes und Ruhendes, beim Wiedereinschalten zurückholen, darunter die [Englisch-Korrekturliste](alt/LISTE-ENGLISCH-338-1B.md); die Umstellung der Vorgangsliste beschreibt `tools/umstellung2752/README.md`. Am 21.10. Gelöschtes steht in Git bis `f3ec7200`.

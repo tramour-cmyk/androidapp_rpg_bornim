@@ -105,7 +105,7 @@ func _init() -> void:
 		z.add_theme_constant_override("separation", 0)
 		z.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var n := wort("", 9, ROT if k == "tp" else (BLAU if k == "zp" else GOLD_HELL))
-		n.custom_minimum_size.x = 22 * DP
+		n.visible = false   # 1448 A (Chef 16.11., 14:47): keine Wörter vor den Balken; alle Balken beginnen bündig, dahinter die Zahl
 		z.add_child(n)
 		var b := Balken.new()
 		b.size_flags_vertical = Control.SIZE_SHRINK_CENTER

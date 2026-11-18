@@ -53,6 +53,26 @@ Nach „Renderer wechseln“ (Strahlprobe 415) und Neustart: „Grafik: Samsung 
 
 Lesart (Spike): „mobile“ gegen Kompatibilität: Höhle 63 statt 51, Kampf 18 statt 12 Bilder/s, aber kalter Kampfort 3,0 statt 1,2 s und Wald 3,7 statt 2,7 s Laden (Vulkan baut Shader beim ersten Gebrauch, dagegen 1270.3). Kampf bleibt der langsamste Ort: 200 Zeichenaufrufe und 337k Dreiecke bei 18 Bilder/s heißt teure Bildpunkte, nicht Geometrie. Grundwert A56 (A22 entfällt, Chef 12:30): Kampf 18 bis 20 Bilder/s, Kampfort kalt 3,0 s, warm 0,9 s; die 2,1 s Unterschied sind Aufbau beim ersten Gebrauch (Ziel 1270.3), die 0,9 s Laden der Figuren und des Orts (Ziel 1270.2). Offen: Kampf 2 zeigt höchstens 2917k Dreiecke statt 337k, wohl ein Bild mit der Welt dahinter (Blende); nicht nachgestellt.
 
+## Chef, A56, Build 298 (0.348.559), Renderer „mobile“ (18.11., 14:22, nach dem Goblin-Kampf im Wald; 1664)
+
+```
+Version: 0.348.559
+Gerät: SM-A566B
+Grafik: Samsung Xclipse 540 (Unknown), mobile
+Speicher: 263 MB
+Ort: temple 4/3
+Bilder je Sekunde: 59 im Schnitt der letzten 600, langsamstes 1 %: 40 ms
+Längste Bildpause seit dem Start: 150 ms (village 28/6)
+Blende: bereit nach 6.6 s, längste Bildpause 150 ms; danach 10 s: längste 33 ms, über 50 ms: 0
+Ladezeit je Ort: cave 3038 ms, Erschaffung Tipp 314 ms, inn 1185 ms, village 2852 ms, elder 678 ms, shop 743 ms, temple 521 ms, forest 3863 ms
+Kampfort bereit nach: 2.3 s
+Letzter Kampf (GOBLINS, steinkreis): 42 s, Bilder je Sekunde 40 im Schnitt, langsamstes 1 %: 34 ms, längste Bildpause 142 ms, über 50 ms: 6; höchstens 193 Zeichenaufrufe, 133k Dreiecke, Grafikspeicher 1057 MB
+Grafikstufe: Niedrig (Wahl Automatisch), Sonnenschatten 1024 px, 3D 70 %
+Grafikspeicher: 951 MB, Zeichenaufrufe: 497, Dreiecke: 156k
+Letzte Fehlermeldungen: keine
+```
+Lesart (Sokrates, ungeprüft am Gerät): Kampf 40 statt 18 bis 20 Bilder/s (Grundwert 15.11.). Auffällig: das Einmessen wählt am A56 „Niedrig“ (3D 70 %, Schatten 1024), also sieht der Chef auf seinem Hauptgerät die schwächste Stufe; Grafikspeicher 951–1057 MB statt 505 MB (08.11.). Beides an Spike zu 1270.6, 1270.7.
+
 ## Chef, Samsung Galaxy Tab A9+ (SM-X210, Adreno 619, Android 36), Build 286 (0.348.473), Renderer „mobile“ (16.11., 20:20, „Testspiel auf dem Tablet“; 1484)
 
 Bildschirm 1200 × 1920, 240 dpi, Schrift Faktor 1.09, Breite 800 dp, Rand oben 0; Speicher 197/187 MB; keine Fehlermeldungen. Zwei Texte des Chefs, Auszug:
@@ -66,6 +86,9 @@ Bildschirm 1200 × 1920, 240 dpi, Schrift Faktor 1.09, Breite 800 dp, Rand oben 
 Lesart (Sokrates, nicht nachgestellt): gleicher Build wie A56 am 15.11., dort Dorf 25, Wald 24, Kampf 18–20 („mobile“); das Tablet liegt bei etwa 40 % davon, im Kampf mit 146 Zeichenaufrufen und 359k Dreiecken ebenso langsam wie in der Welt: teure Bildpunkte (Adreno 619 gegen Xclipse 540, ähnlich viele Bildpunkte), wie Spike am A56 las. Kampfort 17,8 s gegen 3,0 s am A56. Build 286 hat noch keine Grafikstufen (698, ab Build 292); erst darauf messen. Der Chef wollte Build 293 installieren (Link Lauf 524, richtig); am Gerät lief trotzdem 286 (1485).
 
 **Build 293 (0.348.524), 16.11., 20:56, Gerätetext des Chefs:** Grafikstufe Automatisch wählt **Niedrig** (Sonnenschatten 1024 px, 3D 70 %). Wald 9/12: 10 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 118 ms, längste Pause 148 ms; Blende danach 10 s: längste 131 ms, 113 über 50 ms; Laden Wald 7409 ms; 409 Zeichenaufrufe, **2997k Dreiecke**, 615 MB Grafik, Speicher 227 MB; keine Fehlermeldungen. Lesart (Sokrates, nicht nachgestellt): gegen Build 286 (Wald 10 Bilder/s, 124 ms, 417 Aufrufe, 2940k Dreiecke) bringt Niedrig mit 3D 70 % (etwa halb so viele Bildpunkte) nichts; damit trägt die Lesart „teure Bildpunkte“ oben nicht. Niedrig senkt weder Dreiecke noch Zeichenaufrufe; Verdacht Dreiecke (3 Mio. auch auf Niedrig) oder Prozessor. Ursache Spike (1484).
+
+**Version 0.348.524 mit „Kampf messen“ (806), 17.11., 21:29, Gerätetext des Chefs („Zu 1484“), Grafikstufe Niedrig (Automatisch), Sonnenschatten 1024 px, 3D 70 %:** Ort forest 11/19, 22 Bilder/s im Schnitt der letzten 600, langsamstes 1 % 108 ms, längste Pause 150 ms (forest 9/12); Blende danach 10 s: längste 114 ms, 13 über 50 ms; Laden Wald 2639 ms; Kampfort bereit 3,6 s. Letzter Kampf (Goblins, Lichtung) 98 s: 25 Bilder/s, langsamstes 1 % 67 ms, längste Pause 148 ms, 132 über 50 ms, höchstens 195 Aufrufe, 153k Dreiecke, 706 MB. Kampf messen (Bild / GPU / CPU in ms, Bilder/s): alles an 44/43/1 (23); ohne unser Gras 44/43/1 (−1 ms, 23); ohne Tusche 47/37/2 (+2, 21); ohne Schatten 56/48/2 (+11, 18); ohne Kantenglättung 47/40/1 (+3, 21); 3D 75 % 36/33/1 (−9, 28); ohne Bäume und Boden 31/28/1 (−13, 32); ohne Bäume 41/40/1 (−4, 25); ohne Boden 33/31/1 (−12, 31); Schattenkarte halb 44/43/1 (0, 23); Schatten bis 20 m 44/43/1 (0, 23); ohne Figuren 42/41/1 (−2, 24); ohne Kampfschirm 42/41/1 (−2, 24); alles aus 11/6/0 (−33, 90). Danach Grafikspeicher 682 MB, 387 Aufrufe, 2680k Dreiecke; Speicher 265 MB; keine Fehlermeldungen.
+Dazu 6 Fotos (21:31), Flüsterwald, Leiste „Bilder/s“, Testschalter nacheinander aus: keiner 10 Bilder/s (100,2 ms, 95 % unter 101,4; Grafikzeit 99,1; 204 Aufrufe, 2729k Dreiecke); Tusche 10 (Grafik 95,3; 198, 2717k); + Tusche nach Lampen 10 (96,6 ms; Grafik 95,3; 206, 2717k); + Nebel 11 (96,4 ms; Grafik 94,6; Rechenzeit 2,2; 208, 2729k); + Schatten 11 (94,1 ms; Grafik 86,7; Rechenzeit 2,0; 148, 1376k); Speicher 241 MB, Grafik 625 MB, Bildschirm 90 Hz. Lesart (Sokrates, nicht nachgestellt): die Welt hängt an der Grafik, nicht an Dreiecken, Aufrufen oder den vier Schaltern; im Kampf kostet der Boden am meisten (−12 ms), Schatten aus macht langsamer. Ursache Spike.
 
 ## Samsung Galaxy A22 5G (SM-A226B, Mali-G57 MC2, Android 33), Build 286 (0.348.473), Renderer „mobile“ (Chef 16.11., 21:03, Gerätetext ohne Wort; 1484)
 

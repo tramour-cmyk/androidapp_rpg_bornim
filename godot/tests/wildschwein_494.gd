@@ -50,10 +50,11 @@ func _kampf(k: String, foe: String, id: String, de: String) -> void:
 	if feinde.size() != 1 or String(feinde[0].monster.id) != id or String(feinde[0].monster.de) != de:
 		fehler += 1
 		print("FEHLER Gegner: %s" % [feinde.map(func(f): return "%s/%s" % [f.monster.id, f.monster.de])])
-	elif feinde[0].max_hp != int(Brs.monster(id).get("leben", -1)):
-		# 922 (Lauf 346): Leben nach BRS aus werte.json (Wildschwein 29), nicht mehr die SRD-Spanne (2W8+2 → 4–18)
+	elif feinde[0].max_hp != maxi(1, roundi(float(Brs.monster(id).get("leben", -1)) * float(feinde[0].b.get("merkmal_fak", {}).get("leben", 1.0)))):
+		# 922 (Lauf 346): Leben nach BRS aus werte.json (Wildschwein 29), nicht mehr die SRD-Spanne (2W8+2 → 4–18); 1488: mal dem
+		# Leben seines Merkmals (jung, kräftig …)
 		fehler += 1
-		print("FEHLER Trefferpunkte %d (werte.json %d)" % [feinde[0].max_hp, int(Brs.monster(id).get("leben", -1))])
+		print("FEHLER Trefferpunkte %d (werte.json %d, Merkmal %s)" % [feinde[0].max_hp, int(Brs.monster(id).get("leben", -1)), feinde[0].b.get("merkmal", "–")])
 	var fig = kf.figures.get(String(feinde[0].id)) if not feinde.is_empty() else null
 	if fig == null or not Figur.vier(fig.fighter):
 		fehler += 1

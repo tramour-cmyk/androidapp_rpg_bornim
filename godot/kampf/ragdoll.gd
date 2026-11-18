@@ -45,7 +45,8 @@ const MIN_BILDRATE := 20.0
 ## null: wo der Winkel 0 ist: "ruhe" (Ruhelage des Gerüsts), "gerade" (in Verlängerung des Glieds darüber), "gegen" (ihm entgegen:
 ## die Beine hängen am Becken nach unten); x: Beugen nach vorn (+) und hinten (−) in Grad, y: Drehen um die eigene Achse (±), z: zur
 ## Seite (±; Knie 12°, Ellbogen 15° vor der Streckung: die Grenze gibt bei schneller Bewegung um etwa 5° je rad/s nach, gemessen
-## gelenk_1215); r: Spannung (Faktor); mit: weitere Kapseln am selben Glied [von, bis, mal] (Fuß)
+## gelenk_1215; der Ellbogen hat 15° Spiel beim Drehen und zur Seite, 1505: als reines Scharnier verkantete er, sobald die Hand am
+## Boden oder an der Brust lag, und Schulter und Ellbogen klafften liegend bis 0,1 m, Unterarm bis 29° über die Grenze); r: Spannung (Faktor); mit: weitere Kapseln am selben Glied [von, bis, mal] (Fuß)
 ## eigenes Gerüst (tools/blender348/v3_kampf/rig.py: je Strecke zwischen zwei Gelenkpunkten ein Knochen „a-b“; Goblin, Späher,
 ## Schamane, Kobold)
 const GLIEDER_STRECKE := [
@@ -53,9 +54,9 @@ const GLIEDER_STRECKE := [
 	{"n": "brust", "k": "belly-chest", "ende": "chestTop-neck", "an": "becken", "form": "kasten", "m": 0.24, "null": "gerade", "x": [-15, 40], "y": 18, "z": 18, "r": 0.8},
 	{"n": "kopf", "k": "neck-neckTop", "an": "brust", "form": "kasten", "m": 0.09, "lang": 0.16, "null": "ruhe", "x": [-60, 45], "y": 45, "z": 30, "r": 0.12},
 	{"n": "oberarm_l", "k": "upL-elL", "ende": "elL-foL", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_l", "k": "elL-foL", "ende": "foL-wrL", "mal": 2.7, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_l", "k": "elL-foL", "ende": "foL-wrL", "mal": 2.7, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "oberarm_r", "k": "upR-elR", "ende": "elR-foR", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_r", "k": "elR-foR", "ende": "foR-wrR", "mal": 2.7, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_r", "k": "elR-foR", "ende": "foR-wrR", "mal": 2.7, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "schenkel_l", "k": "hipL-thighL", "ende": "kneeL-calfL", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
 	{"n": "wade_l", "k": "kneeL-calfL", "ende": "ankleL-heelL", "an": "schenkel_l", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["ankleL-heelL", "ballL-toeL", 1.5]], "r": 0.5},
 	{"n": "schenkel_r", "k": "hipR-thighR", "ende": "kneeR-calfR", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
@@ -67,17 +68,34 @@ const GLIEDER_UAL := [
 	{"n": "brust", "k": "spine_02", "ende": "neck_01", "an": "becken", "form": "kasten", "m": 0.24, "null": "gerade", "x": [-15, 40], "y": 18, "z": 18, "r": 0.8},
 	{"n": "kopf", "k": "Head", "an": "brust", "form": "kasten", "m": 0.08, "lang": 0.13, "null": "ruhe", "x": [-60, 45], "y": 45, "z": 30, "r": 0.12},
 	{"n": "oberarm_l", "k": "upperarm_l", "ende": "lowerarm_l", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_l", "k": "lowerarm_l", "ende": "hand_l", "mal": 1.45, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_l", "k": "lowerarm_l", "ende": "hand_l", "mal": 1.45, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "oberarm_r", "k": "upperarm_r", "ende": "lowerarm_r", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
-	{"n": "unterarm_r", "k": "lowerarm_r", "ende": "hand_r", "mal": 1.45, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 0, "z": 0, "r": 0.04},
+	{"n": "unterarm_r", "k": "lowerarm_r", "ende": "hand_r", "mal": 1.45, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
 	{"n": "schenkel_l", "k": "thigh_l", "ende": "calf_l", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
 	{"n": "wade_l", "k": "calf_l", "ende": "foot_l", "an": "schenkel_l", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["foot_l", "ball_l", 1.6]], "r": 0.5},
 	{"n": "schenkel_r", "k": "thigh_r", "ende": "calf_r", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
 	{"n": "wade_r", "k": "calf_r", "ende": "foot_r", "an": "schenkel_r", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["foot_r", "ball_r", 1.6]], "r": 0.5},
 ]
-const TAFELN := {"strecke": GLIEDER_STRECKE, "ual": GLIEDER_UAL}
+## 1340 Biped (3ds Max: „<Präfix> L Thigh“; Skelett, kaufskelett.py: „SkeletonKnight_ R Hand“, „… Neck1“; Namen ohne Präfix, _knochen)
+const GLIEDER_BIPED := [
+	{"n": "becken", "k": "Pelvis", "ende": "Spine1", "form": "kasten", "m": 0.27},
+	{"n": "brust", "k": "Spine1", "ende": "Neck", "an": "becken", "form": "kasten", "m": 0.24, "null": "gerade", "x": [-15, 40], "y": 18, "z": 18, "r": 0.8},
+	{"n": "kopf", "k": "Head", "an": "brust", "form": "kasten", "m": 0.08, "lang": 0.13, "null": "ruhe", "x": [-60, 45], "y": 45, "z": 30, "r": 0.12},
+	{"n": "oberarm_l", "k": "L UpperArm", "ende": "L Forearm", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
+	{"n": "unterarm_l", "k": "L Forearm", "ende": "L Hand", "mal": 1.45, "an": "oberarm_l", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
+	{"n": "oberarm_r", "k": "R UpperArm", "ende": "R Forearm", "an": "brust", "form": "kapsel", "m": 0.03, "null": "ruhe", "x": [-100, 150], "y": 90, "z": 90, "r": 0.07},
+	{"n": "unterarm_r", "k": "R Forearm", "ende": "R Hand", "mal": 1.45, "an": "oberarm_r", "form": "kapsel", "m": 0.022, "null": "gerade", "x": [15, 140], "y": 15, "z": 15, "r": 0.04},
+	{"n": "schenkel_l", "k": "L Thigh", "ende": "L Calf", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
+	{"n": "wade_l", "k": "L Calf", "ende": "L Foot", "an": "schenkel_l", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["L Foot", "L Toe0", 1.6]], "r": 0.5},
+	{"n": "schenkel_r", "k": "R Thigh", "ende": "R Calf", "an": "becken", "form": "kapsel", "m": 0.1, "null": "gegen", "x": [-20, 95], "y": 35, "z": 45, "r": 0.5},
+	{"n": "wade_r", "k": "R Calf", "ende": "R Foot", "an": "schenkel_r", "form": "kapsel", "m": 0.06, "null": "gerade", "x": [-125, -12], "y": 0, "z": 0, "mit": [["R Foot", "R Toe0", 1.6]], "r": 0.5},
+]
+const TAFELN := {"strecke": GLIEDER_STRECKE, "ual": GLIEDER_UAL, "biped": GLIEDER_BIPED}
 ## Ferse und Ballen je Gerüst (für vorn)
-const VORN_MARKEN := {"strecke": ["ankleL-heelL", "ballL-toeL"], "ual": ["foot_l", "ball_l"]}
+const VORN_MARKEN := {"strecke": ["ankleL-heelL", "ballL-toeL"], "ual": ["foot_l", "ball_l"], "biped": ["L Foot", "L Toe0"]}
+## 1340: Knochen, die ein Bauskript umbenennt (kopfdreh.gd: „hals“, „kopf“; Wiedergänger kaufuntoter.py neck_01, head, Skelett
+## kaufskelett.py Neck1, Head) oder klein schreibt (Gerüst wie UAL, Kopf „head“)
+const ANDERE_NAMEN := {"Head": ["head", "kopf"], "neck_01": ["hals"], "Neck": ["Neck1", "hals"]}
 
 ## Stoß je Art des Treffers: Geschwindigkeit (m/s je m Größe) auf das getroffene Glied, Anteil davon für den ganzen Körper, Drall.
 ## nah: Hieb, Stich, Biss; schwer: Zweihänder, Axt, Keule; pfeil: klein und punktuell; zauber: Druck auf den ganzen Körper;
@@ -139,22 +157,29 @@ func einrichten(s: Skeleton3D, a: AnimationPlayer, groesse_m: float, modell_schl
 	for g in TAFELN:
 		var da := true
 		for z in TAFELN[g]:
-			if sk.find_bone(z.k) < 0 or (z.has("ende") and sk.find_bone(z.ende) < 0):
+			if _knochen(z.k) < 0 or (z.has("ende") and _knochen(z.ende) < 0):
 				da = false
 				break
 		if da:
 			geruest = g
 			break
 	if geruest == "":
+		if OS.get_environment("SCHAU_1340") != "":     # 1340: welche Knochen hat das Gerüst (Namen für eine neue Tafel)
+			var namen := []
+			for i in sk.get_bone_count():
+				namen.append(sk.get_bone_name(i))
+			print("1340 Gerüst unbekannt %s: %s" % [modell_schluessel, ", ".join(namen)])
 		return false
+	if OS.get_environment("SCHAU_1340") != "":
+		print("1340 Gerüst %s: %s" % [modell_schluessel, geruest])
 	var vorn := _vorn()
 	for z in TAFELN[geruest]:
 		var g: Dictionary = z.duplicate()
-		g.b = sk.find_bone(z.k)
+		g.b = _knochen(z.k)
 		var rest := sk.get_bone_global_rest(g.b)
 		var ziel: Vector3 = rest.origin + rest.basis.y.normalized() * float(z.get("lang", 0.12)) * gross / skala
 		if z.has("ende"):
-			ziel = rest.origin + (sk.get_bone_global_rest(sk.find_bone(z.ende)).origin - rest.origin) * float(z.get("mal", 1.0))
+			ziel = rest.origin + (sk.get_bone_global_rest(_knochen(z.ende)).origin - rest.origin) * float(z.get("mal", 1.0))
 		g.lang = maxf((ziel - rest.origin).length(), 0.001)
 		g.ruhe = Transform3D(_rahmen((ziel - rest.origin).normalized(), vorn), rest.origin)
 		nach_name[z.n] = glieder.size()
@@ -183,10 +208,26 @@ func einrichten(s: Skeleton3D, a: AnimationPlayer, groesse_m: float, modell_schl
 	return true
 
 
+## 1340: Knochen [name] im Gerüst: wie er heißt, sonst unter einem seiner anderen Namen (ANDERE_NAMEN), sonst mit Präfix
+## („SkeletonKnight_ L Thigh“ für „L Thigh“: der Name endet auf Leerzeichen und [name]); −1, wenn keiner
+func _knochen(name: String) -> int:
+	var b := sk.find_bone(name)
+	if b >= 0:
+		return b
+	for n2 in ANDERE_NAMEN.get(name, []):
+		b = sk.find_bone(n2)
+		if b >= 0:
+			return b
+	for i in sk.get_bone_count():
+		if sk.get_bone_name(i).ends_with(" " + name):
+			return i
+	return -1
+
+
 ## vorn der Figur im Raum des Gerüsts: von der Ferse zu den Zehen (Ruhelage), sonst +z (glTF schaut nach +z)
 func _vorn() -> Vector3:
-	var f := sk.find_bone(String(VORN_MARKEN[geruest][0]))
-	var z := sk.find_bone(String(VORN_MARKEN[geruest][1]))
+	var f := _knochen(String(VORN_MARKEN[geruest][0]))
+	var z := _knochen(String(VORN_MARKEN[geruest][1]))
 	if f >= 0 and z >= 0:
 		var d := sk.get_bone_global_rest(z).origin - sk.get_bone_global_rest(f).origin
 		d.y = 0.0
@@ -357,7 +398,12 @@ func sterben(nach_s: float, fuss: float, hindernisse := []) -> void:
 	_boden_y = fuss
 	_hindernisse = hindernisse
 	_vor.clear()
-	process_priority = 100      # nach dem AnimationPlayer: die Haltung dieses Bilds
+	# 1505 (Lauf 544/548: je Lauf andere Fehler, am Rechner mit fester Bildrate 30/60/120 nachgestellt): Vorlauf und Übernahme im
+	# Takt der Physik, die Sterbebewegung ebenso; so fällt er bei jeder Bildrate gleich (vorher gab die Bildzeit Zeitpunkt und
+	# Geschwindigkeit der Übernahme vor, auf dem Bauserver unter Last anders als am Rechner und am Handy)
+	if anim != null:
+		anim.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_PHYSICS
+	process_physics_priority = 100      # nach dem AnimationPlayer: die Haltung dieses Takts
 	zugleich += 1
 
 var _hindernisse := []
@@ -379,7 +425,12 @@ func _lage(g: Dictionary) -> Transform3D:
 	return Transform3D(t.basis.orthonormalized(), t.origin)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	if phase == "physik":
+		_nachfuehren()
+
+
+func _physics_process(delta: float) -> void:
 	if phase == "vorlauf":
 		_zeit += delta
 		var jetzt := []
@@ -388,11 +439,7 @@ func _process(delta: float) -> void:
 		if _zeit >= 0.0 and not _vor.is_empty():
 			_los(_vor, jetzt, maxf(delta, 0.001))
 		_vor = jetzt
-	elif phase == "physik":
-		_nachfuehren()
-
-
-func _physics_process(delta: float) -> void:
+		return
 	if phase != "physik":
 		return
 	_zeit += delta
@@ -475,8 +522,8 @@ func _los(vorher: Array, jetzt: Array, dt: float) -> void:
 				cs.position = Vector3(0, l * 0.5, 0)
 		k.add_child(cs)
 		for zus in g.get("mit", []):     # Fuß: Kapsel von der Ferse über den Ballen hinaus, starr an der Wade, wie er jetzt steht
-			var a := sk.find_bone(zus[0])
-			var b := sk.find_bone(zus[1])
+			var a := _knochen(zus[0])
+			var b := _knochen(zus[1])
 			if a < 0 or b < 0:
 				continue
 			var inv: Transform3D = (jetzt[i] as Transform3D).affine_inverse() * sk.global_transform

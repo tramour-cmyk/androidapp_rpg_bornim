@@ -93,7 +93,25 @@ def jetzt_von(d):
     return datetime.datetime(tag.year, tag.month, tag.day, int(m.group(3) or 0), int(m.group(4) or 0))
 
 
-def kurzstand(d, grund):
+def besetzt(text=None):
+    """1592 (Chef 17.11., 17:00/18:50): „in Arbeit“ = Vorgang einer Sitzung laut Besetzung (Spalte Vorgang, lauf.py --besetzung),
+    nicht nur der Stand „in Arbeit“, den kaum eine Zeile trägt; Betrieb zählt nicht."""
+    if text is None:
+        try: text = open(os.path.join(s.DOCS, "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+        except OSError: return set()
+    aus = set()
+    for z in text.splitlines():
+        f = [x.strip() for x in z.strip().strip("|").split("|")]
+        if len(f) >= 3 and f[0] not in ("Rolle", "") and not f[0].startswith("---") and re.fullmatch(r"\d[0-9a-zA-Z.]*", f[2]): aus.add(f[2])
+    return aus
+
+
+def in_arbeit(d, bes):
+    return d["wort"] == "in Arbeit" or (d["nr"] in bes and d["wort"] in ("startbar", "offen", "wartet", "Chef"))  # gebaut, zum Testen, ruhend: Sitzung trägt nur noch den alten Titel
+
+
+def kurzstand(d, grund, bes=frozenset()):
+    if grund is None and in_arbeit(d, bes): return "in Arbeit"  # 1592
     # 1497 (Chef 16.11., 22:24 „17 sind von Jerry, da stimmt doch was nicht“): gebaute Punkte ohne Antwort im Test hießen „startbar“
     m = re.search(r"ohne Rückmeldung (t\d+)", d.get("stand", ""))
     if grund is None and m: return "gebaut, %s ohne deine Antwort" % m.group(1)
@@ -167,6 +185,17 @@ def chef_naechstes():
         ("; dann %d weitere" % (len(kand) - 1) if len(kand) > 1 else "")
 
 
+def besetzt_rolle(rolle):
+    """1640 (Chef 18.11., 09:03: Spike „leer“, obwohl er laut Besetzung an 1619 arbeitete): Vorgang der laufenden Sitzung der Rolle aus
+    ARBEIT-BESETZUNG.md, sonst None."""
+    try: t = open(os.path.join(s.DOCS, "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return None
+    for z in t.splitlines():
+        sp = [x.strip() for x in z.strip().strip("|").split("|")]
+        if len(sp) >= 3 and sp[0] == rolle and sp[2] not in ("", "–", "-"): return sp[2]
+    return None
+
+
 def je_rolle():
     """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand, mit
     Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
@@ -198,13 +227,15 @@ def je_rolle():
                 if m: nrn.setdefault(w, []).append(m.group(1))
             was = "leer, weil " + (", ".join("%d %s" % (n, w) + (" (%s)" % ", ".join(nrn[w]) if w in nrn else "")
                                              for w, n in g.most_common(3)) or "keine offene Zeile")
+        b = besetzt_rolle(r)
+        if b: was = "läuft: %s (Besetzung); %s" % (b, was)
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
         for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
             if team != r: continue
             eigen = [x for x in muss if not x[2].startswith("Übernahme von")]
             zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
             frei = [x for x in eigen[1:] if (x[3].get("zweig") or "–") in ("–", "-", "", None) or x[3].get("zweig") != zw]
-            frei = [x for x in frei if not re.search(r"nur %s\b" % team, x[2] + x[3].get("stand", ""))]
+            frei = [x for x in frei if not re.search(r"nur %s\b" % team, x[2] + " " + x[3].get("stand", ""))]
             if frei: wz = zeile(frei[0], "Muss von %s, neben dessen Arbeit" % team) + ("; dann %d weitere" % (len(frei) - 1) if len(frei) > 1 else "")
             else: wz = "leer, weil %s kein zweites unabhängiges Muss hat" % team + (" (Pause)" if p else "")
             aus.append("| %s | %s |" % (zus, wz.replace("|", "/")))
@@ -290,13 +321,14 @@ def morgen(jetzt=None):
 
 def md():
     zs, kommt, test, pruef, gebaut = rechnen()
+    bes = besetzt()
     # Stand = letzte Änderung der Vorgangsliste (Berliner Zeit), nicht die Uhr: sonst schriebe jeder Lauf die Übersicht neu
     stand = s._git("-c", "log.showSignature=false", "log", "-1", "--date=format-local:%d.%m., %H:%M", "--format=%cd", "--",
                    os.path.join(s.DOCS, s.LISTE)).stdout.strip() or s.JETZT.strftime("%d.%m., %H:%M")
     aus = ["## Überblick", "",
            "Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom %s, neu bei jeder Änderung. "
            "Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. "
-           "Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert." % stand, "",
+           "Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich)." % stand, "",
            "**Themenblöcke**", "", "| Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |", "|---|---|---|---|---|---|---|"]
     erst = {}
     for key, d, grund in kommt:
@@ -312,7 +344,7 @@ def md():
             aus.append("| **%s** | | | | | | |" % KAPITEL1); kopf = True
         n = erst.get(k)
         aus.append("| %s | %s | %d | %d | %d | %d | %s |" % (
-            ("↳ " if kap1 else "") + "**%d** %s" % (nummer(k), name(k)), ("%d (%d)" % (len(je), mo[0].get(k, 0))) if mo else str(len(je)), sum(d["kl"] == "M" for d in je), sum(d["wort"] == "in Arbeit" for d in je),
+            ("↳ " if kap1 else "") + "**%d** %s" % (nummer(k), name(k)), ("%d (%d)" % (len(je), mo[0].get(k, 0))) if mo else str(len(je)), sum(d["kl"] == "M" for d in je), sum(in_arbeit(d, bes) for d in je),
             sum(wartet_auf_test(d) for d in je), sum(d["wort"] in RUHT for d in je),
             ("%s (%s) %s" % (n["nr"], n["besitzer"], worum(n["titel"], 50))) if n else "–"))
     if mo: aus += ["", mo[1]]
@@ -320,7 +352,7 @@ def md():
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):
         aus.append("| %d | %s | %s | %s | %s | %s | %s |" % (i, d["nr"], d["besitzer"], worum(d["titel"]).replace("|", "/"),
-                                                         d["kl"], "%d %s" % (nummer(block(d)), name(block(d)).split(" (")[0].split(":")[0]), kurzstand(d, grund)))
+                                                         d["kl"], "%d %s" % (nummer(block(d)), name(block(d)).split(" (")[0].split(":")[0]), kurzstand(d, grund, bes)))
     aus += ["", "Danach %d weitere offen. Bei dir zum Testen (vorgelegt): %d. Gebaut, fährt mit dem nächsten Build: %d. "
             "Werkzeug gebaut, Prüfung Diogenes: %d. Ruhend oder nach dem Meilenstein: %d." % (
         max(0, len(kommt) - ANZAHL), len(test), len(gebaut), len(pruef), sum(d["wort"] in RUHT for d in zs))]

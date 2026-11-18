@@ -147,6 +147,7 @@ func _lebensflaeche(rahmen: Control) -> Control:
 	c.add_child(rest)
 	licht.draw.connect(func(): _male_licht(licht, int(c.get_meta("bild", -1))))
 	rest.draw.connect(func(): _male_zug(rest, int(c.get_meta("bild", -1))))
+	rahmen.add_child(c)   # 1530: fehlte seit 399.1, der Fackelzug wurde nie gezeichnet
 	return c
 
 static func _lade(pfad: String) -> Texture2D:

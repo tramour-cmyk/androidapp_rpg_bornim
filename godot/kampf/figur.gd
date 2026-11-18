@@ -462,7 +462,8 @@ func _kaufheld() -> Node3D:
 	var k := _herkunft()     # 870.4: Tracht nach der Herkunft (BrsHeld), Probeblätter mit Klasse wie bisher
 	if not HeldFigur.da(k):
 		return null
-	var w := {"herkunft": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {}}
+	var w := {"herkunft": k, "volk": String(fighter.hero.get("race", "HUMAN")), "aussehen": fighter.hero.get("look", {}), "ausruestung": {},
+		"kleid": fighter.hero.get("kleid")}   # 431h: Kleidung nach den Plaetzen des Helden (aufruf.gd); ohne Spielstand die ganze Tracht
 	var m := HeldFigur.baue(w, mats)
 	if m == null:
 		return null
@@ -3496,6 +3497,10 @@ func spell_oder_fern(e: Dictionary) -> bool:
 	return e.spell != null or fighter.ranged()
 
 func strike(other, e: Dictionary) -> int:
+	# 1340 (tod_ragdoll_1215: ein Angriff, der schon in der Reihe stand, lief nach dem Tod und spielte „Gehen“ und „Hieb“ auf dem
+	# liegenden Körper, die Wurzel sprang zurück): ein Toter schlägt nicht mehr
+	if down:
+		return 0
 	_dreh_ab()
 	if ausgeholt() and (spell_oder_fern(e) or kauf or not kann_ausholen()):
 		ausholen(false)     # 1000: nur der Axthieb (_hieb) schlägt aus der gehaltenen Lage
@@ -4964,7 +4969,10 @@ func abwehr(lands_ms: int, art: String, von := Vector3.INF, gelungen := false, t
 		anim.seek(minf(-vor_ms / 1000.0, k), true)
 	_schnaufen(0.6)
 	var rest: float = anim.get_animation(nm).length - maxf(0.0, -vor_ms / 1000.0)
-	get_tree().create_timer(maxf(0.1, rest - 0.1)).timeout.connect(_idle_wenn_frei)
+	# 601.1 (Chef 16.11., 12:24, t291.8: „zucken tut der Held definitiv nicht“; zucken_6011: der Pfeil traf 0,27 s nach Beginn der
+	# Abwehr, SS_GetHitLightFront (1,03 s) brach nach 0,33 s ab, weil das Ende der Abwehr in Ruhe schaltete): nur in Ruhe, wenn
+	# noch die Abwehr läuft
+	get_tree().create_timer(maxf(0.1, rest - 0.1)).timeout.connect(func() -> void: if String(anim.current_animation) == nm: _idle_wenn_frei())
 
 
 func hurt(after_ms: int, dies: bool, schwer := false, art := "") -> void:
@@ -5620,6 +5628,21 @@ func im_schatten(an: bool) -> void:
 	var von := 0.0 if an else IM_SCHATTEN
 	_schatten_tw = create_tween()
 	_schatten_tw.tween_method(func(x: float): _fade_out(x), von, IM_SCHATTEN - von, 0.45)
+
+
+## 785.11 (alt SkirmishScreen.kt 1087: beim Wählen eines Ziels Alpha 0,55 für die, die nicht wählbar sind): gedämpft, solange der
+## Spieler ein Ziel wählt; im Schatten bleibt blasser (IM_SCHATTEN)
+const GEDAEMPFT := 0.45
+var gedaempft_an := false
+
+
+func gedaempft(an: bool) -> void:
+	if an == gedaempft_an or dead_at >= 0:
+		return
+	gedaempft_an = an
+	if _schatten_tw:
+		_schatten_tw.kill()
+	_fade_out(IM_SCHATTEN if schatten_an else (GEDAEMPFT if an else 0.0))
 
 
 func _fade_out(x: float) -> void:

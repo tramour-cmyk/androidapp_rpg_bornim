@@ -13,6 +13,11 @@ func pruefe(ok: bool, was: String) -> void:
 	print(("gut   " if ok else "FEHLER ") + was)
 	if not ok: fehler += 1
 
+# Shader-Parameter, nie gesetzt = 0
+func par(m: ShaderMaterial, k: String) -> float:
+	var v: Variant = m.get_shader_parameter(k)
+	return 0.0 if v == null else float(v)
+
 func _initialize() -> void:
 	_lauf.call_deferred()
 
@@ -80,7 +85,50 @@ func _lauf() -> void:
 		if c is OmniLight3D: arten[String(c.get_meta("art", "schein"))] = arten.get(String(c.get_meta("art", "schein")), 0) + 1
 	pruefe(arten.get("fackel", 0) == 2 and arten.get("kamin", 0) == 1, "zwei Fackeln, ein Lagerfeuer: %s" % arten)
 	pruefe(rl.waende.size() > 20 and rl.waende.all(func(w): return w[0] != null and w[1] != null), "Waende hoch und niedrig je Lauf: %d" % rl.waende.size())
-	pruefe(spiel.held.fackel_kraft > 2.0, "Fackel des Helden brennt in der Hoehle auch am Tag: %.2f" % spiel.held.fackel_kraft)
+	# 1423 (Chef 16.11., 13:08, 13:32 „Zwischenwandproblem“): jede hohe Wand steht hoch, auch die duenne zwischen zwei Raeumen (vorher
+	# 80 cm); verdeckt sie den Helden, wird sie als Ganzes halb durchsichtig (gebiet.gd Gruppe)
+	var niedrig := []
+	for w in rl.waende:
+		var hm := w[0] as MeshInstance3D
+		if hm and hm.get_aabb().size.y < 2.2: niedrig.append("%s %.2f m" % [hm.name, hm.get_aabb().size.y])
+	pruefe(niedrig.is_empty(), "hohe Fassung jeder Wand mindestens 2,2 m: %s" % [niedrig])
+	var wandgruppen: Array = spiel.gebiet.gruppen.keys().filter(func(k): return String(k).contains("Wand_"))
+	pruefe(wandgruppen.size() > 10, "duenne Waende blenden durch (Gruppe): %d" % wandgruppen.size())
+	spiel.held.setze(Vector2i(15, 11), "UP"); spiel.kamera.springe()
+	for i in 6: await physics_frame
+	var durch: Array = wandgruppen.filter(func(k): return float(spiel.gebiet.gruppen[k]["ziel"]) < 1.0)
+	pruefe(durch.size() >= 1, "Held bei Krogg (15, 11) hinter der Wand zum Lager: durchsichtig %s" % [durch])
+	await create_timer(0.5).timeout
+	if durch.size() >= 1:   # 1423: Loch um den Helden (cut_on) statt halb durchsichtig (weg)
+		var wm: ShaderMaterial = spiel.gebiet.gruppen[durch[0]]["mats"][0]["m"]
+		var cp: Vector3 = wm.get_shader_parameter("cut_pos")
+		pruefe(par(wm, "cut_on") > 0.5 and par(wm, "weg") < 0.5 and wm.next_pass != null
+			and cp.distance_to(spiel.held.global_position) < 1.2, "Wand oeffnet ein Loch um den Helden (cut_on, Durchgaenge, cut_pos am Helden)")
+	# 1423b (t296.1, Chef 17.11., 11:01: am Handy kein Loch, Held bis auf den Haaransatz hinter der Wand): Lage 296.1 (Westfluegel,
+	# Kachel 2/11 nach rechts): jede Wand, die Brust oder Kopf zur Kamera hin verdeckt (Dreiecke beidseitig), oeffnet sich; vorher traf der
+	# Strahl die einseitige Wand von hinten nicht (Gruppe_Wand_N_hoch_2)
+	spiel.held.setze(Vector2i(2, 11), "RIGHT"); spiel.kamera.springe()
+	for i in 6: await physics_frame
+	var verdeckt := []
+	var zur: Vector3 = spiel.kamera.global_basis.z
+	for k in wandgruppen:
+		var mi := spiel.gebiet.find_child(String(k), true, false) as MeshInstance3D
+		if mi == null: continue
+		var tm := mi.mesh.generate_triangle_mesh()
+		var inv := mi.global_transform.affine_inverse()
+		for h in [1.4, 1.7]:   # Brust und Kopf (nur die Huefte verdeckt: bleibt, wie beim Haus, gebiet.gd 4 von 9 Strahlen)
+			var von: Vector3 = spiel.held.global_position + Vector3(0, h, 0)
+			var t = tm.intersect_segment(inv * von, inv * (von + zur * 30.0)) if tm else null
+			if t and t.size() > 0 and float(spiel.gebiet.gruppen[k]["ziel"]) >= 1.0: verdeckt.append("%s (%.2f m)" % [k, h]); break
+	pruefe(verdeckt.is_empty(), "Lage 296.1 (2, 11): jede verdeckende Wand oeffnet sich: zu %s" % [verdeckt])
+	spiel.held.setze(Vector2i(10, 18), "UP"); spiel.kamera.springe()
+	for i in 6: await physics_frame
+	durch = wandgruppen.filter(func(k): return float(spiel.gebiet.gruppen[k]["ziel"]) < 1.0)
+	pruefe(durch.is_empty(), "am Eingang (10, 18) deckt jede Wand: %s" % [durch])
+	await create_timer(0.5).timeout
+	var offen: Array = wandgruppen.filter(func(k): return par(spiel.gebiet.gruppen[k]["mats"][0]["m"], "cut_on") > 0.5)
+	pruefe(offen.is_empty(), "am Eingang kein Loch mehr: %s" % [offen])
+	pruefe(spiel.held.fackel_kraft > 2.0,"Fackel des Helden brennt in der Hoehle auch am Tag: %.2f" % spiel.held.fackel_kraft)
 	# Gitter
 	var gl := spiel.gebiet.find_child("Gitter_L", true, false) as Node3D
 	pruefe(gl != null and absf(gl.rotation.y) < 0.01, "Gitter zu (Gitter_L an der Angel)")

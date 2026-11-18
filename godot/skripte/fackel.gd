@@ -29,6 +29,11 @@ static func an(sk: Skeleton3D, kn: String, gr: Vector3, ac: Vector3, wer: Node3D
 	f.name = "Fackel"
 	f.knochen = kn; f.griff = gr; f.achse = ac; f.koerper = wer
 	ba.add_child(f)
+	teile(f)
+	return f
+
+## Stiel, Pechkopf, Flamme und Licht unter f (Stiel längs +Y); auch für Garricks Abwehr (abwehr.gd, 531), die die Fackel selbst führt
+static func teile(f: Fackel) -> void:
 	var t: Node3D = f
 	var stiel := MeshInstance3D.new()
 	var cm := CylinderMesh.new()
@@ -96,7 +101,6 @@ static func an(sk: Skeleton3D, kn: String, gr: Vector3, ac: Vector3, wer: Node3D
 	f.licht.set_meta("reich", 4.0)   # 348.13b: Tusche nach der Fackel (am Tag unsichtbar, zaehlt dann nicht)
 	f.licht.set_meta("kraft", 1.0)
 	f.licht.add_to_group("tuschelicht")
-	return f
 
 ## Stiel quer durch die Faust, zu zwei Dritteln aufgerichtet; Flamme aufrecht, weht mit dem Tempo; Licht vor der Flamme
 func richte() -> void:

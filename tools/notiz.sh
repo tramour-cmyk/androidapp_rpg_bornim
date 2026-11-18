@@ -47,24 +47,11 @@ fi
 neu=$(git rev-parse origin/main)
 alt=$(cat "$mark" 2>/dev/null)
 
-# Wächter Dokumentnamen (77, 13.10.): alte Dateinamen dürfen weder als Datei noch als Verweis zurückkommen.
-# Archiv und Änderungshistorie sind Verlauf und bleiben ausgenommen.
-altnamen='BERATER|DIOGENES|LEITBILD|STIL|ENTWICKLUNG|HELDENBAU|BALANCE|ZWISCHENBILD|STORY1|STORY|THEMEN|MERKLISTE|KAPITEL1|OFFEN|SELBST|ABLAEUFE|UMGEBUNG|ARCHIV'
-alt_dateien=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^docs/($altnamen)\.md$")
-[ -n "$alt_dateien" ] && echo "FEHLER (77): alte Notizdatei wieder da: $(echo $alt_dateien). Inhalt in die neue Datei übernehmen, alte löschen, Nutzer melden."
-alt_verweise=$(git grep -l -P "(?<![\w-])($altnamen)\.md" origin/main -- CLAUDE.md docs tools ':!docs/PRUEFBERICHT-ARCHIV.md' ':!docs/VORGANGSARCHIV.md' ':!docs/alt' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
-[ -n "$alt_verweise" ] && echo "Warnung (77): alte Dateinamen erwähnt in: $(echo $alt_verweise). Neue Namen: Vorsilben ROLLE-/DESIGN-/STORY-/LISTE-/ARBEIT- (CLAUDE.md, erster Absatz)."
-# Wächter Bilder Chefsache (108, D15.4): höchstens 60 KB je Datei, höchstens 3 Bilder je Punkt; Größeres über Telegram.
-gross=$(git ls-tree -r -l origin/main docs/chefsache/ 2>/dev/null | awk '$4>61440 && $5 !~ /\.md$/ {print $5}')
-[ -n "$gross" ] && echo "Warnung (108): Datei über 60 KB in docs/chefsache/: $(echo $gross). Verkleinern (800 px, JPG/WebP) oder über Telegram (--datei), Verlauf bleibt."
-# Regelwerte (969): die Seite folgt werte.json und dem Spielcode auf main; nach dem Mischen eines Builds neu erzeugen.
-[ -f "$wt/tools/regelwerte.py" ] && ! python3 "$wt/tools/regelwerte.py" --pruefen > /dev/null 2>&1 && echo "Warnung (969): docs/LISTE-REGELWERTE.md veraltet (werte.json oder Spielcode auf main geändert); Team Jerry: python3 tools/regelwerte.py in $wt, committen."
-# Wächter Umbau 98 (15.10.) und 117 (16.10.): die alten Vorrats-, Rollen- und Listennamen dürfen nicht zurückkommen.
-altvoll='ARBEIT-OFFEN|ARBEIT-SELBST|ARBEIT-FORD|ROLLE-BERATER|ROLLE-FORD|ROLLE-ENTWICKLER|ROLLE-TESTER|ROLLE-TEAM|ARBEIT-ABLAEUFE|ARBEIT-UMGEBUNG|STORY-K1-W|STORY-K1|LISTE-THEMEN|DESIGN-ZWISCHENBILD|LISTE-KAPITEL1'
-alt98=$(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E "^docs/($altvoll)\.md$")
-[ -n "$alt98" ] && echo "FEHLER (98): alte Datei wieder da: $(echo $alt98). Inhalt in den passenden Vorrat oder die neue Rollendatei (docs/FIRMA.md), alte löschen."
-alt98v=$(git grep -l -E "($altvoll)\.md" origin/main -- CLAUDE.md docs tools .claude ':!docs/PRUEFBERICHT-ARCHIV.md' ':!docs/VORGANGSARCHIV.md' ':!docs/alt' ':!tools/notiz.sh' 2>/dev/null | sed 's/^origin\/main://')
-[ -n "$alt98v" ] && echo "Warnung (98): alte Dateinamen erwähnt in: $(echo $alt98v). Neue Namen in CLAUDE.md „Wo was steht“."
+# Startwarnungen mit festem Besitzer (1642; 340.12 Änderung 1): Wächter 77, 98, 108, 969, 650.2 bei jedem Start, Größe und
+# Pflegefehler einmal am Tag (1129 A 7); Prüfungen und Besitzer nur in tools/startwarnung.py.
+pw="$HOME/.bornim-pflegewarnung-$(TZ=Europe/Berlin date +%Y%m%d)"
+sw_alle=""; [ "$1" != "--kurz" ] && [ ! -f "$pw" ] && { touch "$pw"; sw_alle="--alle"; }
+[ -f "$wt/tools/startwarnung.py" ] && python3 "$wt/tools/startwarnung.py" --zeigen $sw_alle 2>/dev/null
 if [ "$1" = "--kurz" ]; then
     if [ -z "$alt" ]; then was="erster Aufruf, tools/notiz.sh zeigt die letzten Änderungen"
     else was="$(git rev-list --count "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs 2>/dev/null) neue Änderungen seit dem letzten Mal (tools/notiz.sh zeigt sie)"; fi
@@ -82,22 +69,10 @@ else
     echo "Notizen auf main, neu seit dem letzten Aufruf:"
     TZ=Europe/Berlin git log --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
 fi
-# Größenwarnung (65.4c, 98; Grenze 30 KB seit 1129 A 7): jeder Vorrat ARBEIT-*.md (außer dem eingefrorenen Archiv, 117).
-# 1129 A 7: Größe und Pflegefehler nur einmal am Tag, sonst stehen sie bei jedem Start und keiner reagiert; sie stehen auch im Tagesbericht.
-pw="$HOME/.bornim-pflegewarnung-$(TZ=Europe/Berlin date +%Y%m%d)"
-if [ ! -f "$pw" ]; then
-    touch "$pw"
-    for d in $(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E '^docs/ARBEIT-.*\.md$' | grep -v -E 'ARBEIT-ARCHIV\.md'); do
-        n=$(git show "origin/main:$d" 2>/dev/null | wc -c)
-        [ "$n" -gt 30000 ] && echo "Warnung: $d hat $((n/100))00 Bytes (Grenze etwa 30000), kürzen (CLAUDE.md „Vorräte klein halten“)."
-    done
-    # Pflegefehler der Vorräte (167.9): erledigte Zeilen, Größe, lange Zeilen; nur melden, wenn etwas da ist
-    if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
-fi
-if [ -f "$wt/tools/inhalt.py" ]; then ih=$(python3 "$wt/tools/inhalt.py" --kurz 2>/dev/null); [ -n "$ih" ] && printf "Inhaltsverzeichnis docs/README.md (650.2):\n%s\n" "$ih"; fi
-# 340.3: dieselben Hinweise einmal am Tag als Zeile „Pflege“ des Besitzers in der Vorgangsliste (275.2), Rollenspiegel ab Mittwoch nach dem
-# Tagesbericht als Zeile „Spiegel“ (1461; darum ein zweiter Lauf, sobald der Tagesbericht des Tages steht);
-# im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie (tools/pflegehinweis.py)
+# 1642: Startwarnungen fortschreiben (nach 6 h Vorgang beim Besitzer, gelöste schließen) bei jedem Start; Rollenspiegel ab Mittwoch
+# nach dem Tagesbericht als Zeile „Spiegel“ (1461; darum ein zweiter Lauf, sobald der Tagesbericht des Tages steht);
+# im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie
+[ -f "$wt/tools/startwarnung.py" ] && (python3 "$wt/tools/startwarnung.py" --pflegen >/dev/null 2>&1 &)
 pm="$HOME/.bornim-pflege-$(TZ=Europe/Berlin date +%Y%m%d)$(grep -qF "**Stand $(TZ=Europe/Berlin date +%d.%m.), " "$wt/docs/ARBEIT-TAGESBERICHT.md" 2>/dev/null && echo b)"
 if [ -f "$wt/tools/pflegehinweis.py" ] && [ ! -f "$pm" ]; then touch "$pm"; (python3 "$wt/tools/pflegehinweis.py" >/dev/null 2>&1 &); fi
 # Commit-Prüfung (192.1): pre-commit-Haken, gilt für Notizkopie und Arbeitskopie (gemeinsames Verzeichnis); fehlt das Skript im Zweig, tut er nichts

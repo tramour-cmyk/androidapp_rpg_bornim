@@ -95,6 +95,7 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 	var earned := roundi(float(r.gegeben))
 	var lines: Array = []
 	var grau: Array = []
+	var selten := {}     # 785.10: Zeile -> Seltenheit (kampf_ui malt die Beute in ihrer Farbe)
 	if probe:
 		lines.append(PROBE[lang])
 		var was: Array = []
@@ -108,9 +109,10 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 		for it in items:
 			lines.append(_f(LOOT, lang, [[mars.items[it].de, mars.items[it].en][lang]]))
 		for g in gear:
+			selten[lines.size()] = _selten(g)
 			lines.append(_f(GEAR_LOOT, lang, [g.name, g.rarity]))
 		return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": nachher,
-			"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau}
+			"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau, "selten": selten}
 	if kein_lohn and mars.all.any(func(f): return f.get("vor_feuer")):
 		lines.append(VERTRIEBEN[lang])
 	if earned > 0:
@@ -124,6 +126,7 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 	for it in items:
 		lines.append(_f(LOOT, lang, [[mars.items[it].de, mars.items[it].en][lang]]))
 	for g in gear:
+		selten[lines.size()] = _selten(g)
 		lines.append(_f(GEAR_LOOT, lang, [g.name, g.rarity]))
 	for lvl in range(vorher + 1, nachher + 1):
 		lines.append(_f(LEVEL_UP, lang, [name, lvl]))
@@ -134,7 +137,13 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 	if nachher > vorher:
 		lines.append(_f(RESTORED, lang, [name]))
 	return {"xp": earned, "gold": gold, "items": items, "gear": gear.map(func(g): return g.gear), "level": nachher,
-		"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau}
+		"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau, "selten": selten}
+
+
+## 785.10 (alt BattleScreen.kt 1569: Beute in Seltenheitsfarbe): Seltenheit eines Beutestücks ({gear, name, rarity} wie Loot.drops)
+static func _selten(g: Variant) -> String:
+	var ge: Variant = (g as Dictionary).get("gear") if g is Dictionary else null
+	return String(ge.get("rarity", "COMMON")) if ge is Dictionary else "COMMON"
 
 
 ## 1034: Geschichtsgegenstand (Schlüsselding), nie Beute eines Probekampfs mit dem Testhelden

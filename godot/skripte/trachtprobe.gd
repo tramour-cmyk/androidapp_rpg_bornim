@@ -83,7 +83,7 @@ func _streifen(name: String, figuren: Array, x0: Vector3) -> void:
 		if g == "w": a["frisur"] = "Hair_Long"
 		a["statur"] = st
 		var mats := []
-		var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": {}}, mats)
+		var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": a, "ausruestung": {}, "kleid": null}, mats)   # 431h: ganze Tracht
 		if m == null: fp.protokoll.append("FEHLT %s %s" % [h, g]); continue
 		for mt in mats: (mt as ShaderMaterial).set_shader_parameter("fill", 0.42)   # wie klasse_figur (Held)
 		var w := Node3D.new()

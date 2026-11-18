@@ -25,7 +25,7 @@ for a, b in ((0.0, 0.1), (0.1, 0.2), (0.2, 0.3), (0.3, 0.5), (0.5, 2.0)):
     if m.any(): print('UMHANG ARM GEWICHT %.1f-%.1f m unter der Schulter: %d Ecken, Arm > 10 %%: %d, Mittel %.3f, hoechstens %.2f' % (
         a, b, m.sum(), int((armw[m] > 0.1).sum()), armw[m].mean(), armw[m].max()))
 vorher = set(bpy.data.actions)
-bpy.ops.import_scene.gltf(filepath=UAL)
+bpy.ops.import_scene.gltf(filepath=UAL, disable_bone_shape=True)
 for o in [o for o in bpy.data.objects if o not in (qa, kleid) and o.parent != qa and o.type in ('ARMATURE', 'MESH')]:
     bpy.data.objects.remove(o)
 AKT = {a.name.split('|')[-1]: a for a in bpy.data.actions if a not in vorher}

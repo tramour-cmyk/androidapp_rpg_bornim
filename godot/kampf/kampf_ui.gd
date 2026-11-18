@@ -46,6 +46,9 @@ var orders: VBoxContainer
 var full_log: PanelContainer
 var tip: Label
 var verdict: Label
+var verdict_antwort: Label
+var ring_ergebnis := ""     # 785.12: Ergebnis des letzten Rings, solange sein Urteil steht
+var ring_hilfe := false     # 785.12: [219T.jetzt] über dem ersten Ring je Spielstand
 var lines: Array = []
 var pick := "main"
 var pick_arg = null
@@ -224,7 +227,24 @@ func _ready() -> void:
 	tip.add_theme_color_override("font_color", TEXT)
 	tip.add_theme_font_size_override("font_size", sp(14))
 	tip.add_theme_stylebox_override("normal", _box(Color.BLACK, GOLD, 8, 6, 1.0))
+	# 785.15 (alt SkirmishScreen.kt 1354–1358 clickable { tip = null }): ein Tipp auf das Erklärfenster schließt es
+	tip.mouse_filter = Control.MOUSE_FILTER_STOP
+	tip.gui_input.connect(func(ev: InputEvent) -> void:
+		if _pressed(ev):
+			tip_schliessen()
+			tip.accept_event())
 	root.add_child(tip)
+	# 785.10 (259, alt SkirmishScreen.kt 1340–1345): „Schnell ›“ im leichten Kampf am Zug der Gruppe, unten links in der Szene,
+	# schwarz mit Rand wie die Schalter rechts; langes Drücken erklärt ([259T.tip])
+	schnell_knopf = _button(t("Schnell ›", "Quick ›"), true, func() -> void: kampfort.schnell(), false, true, SCHNELL_TIP)
+	schnell_knopf.text = t("Schnell ›", "Quick ›")
+	schnell_knopf.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	schnell_knopf.custom_minimum_size = Vector2(0, 40 * dp)
+	for art in ["normal", "hover", "pressed", "disabled"]:
+		schnell_knopf.add_theme_stylebox_override(art, _box(Color.BLACK, RIM, 10, 6, 1.0))
+	schnell_knopf.add_theme_color_override("font_color", GOLD)
+	schnell_knopf.visible = false
+	root.add_child(schnell_knopf)
 	verdict = Label.new()
 	verdict.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	verdict.add_theme_font_size_override("font_size", sp(20))
@@ -233,6 +253,15 @@ func _ready() -> void:
 	verdict.add_theme_constant_override("outline_size", int(4 * dp))
 	verdict.visible = false
 	root.add_child(verdict)
+	verdict_antwort = Label.new()     # 785.12: die Antwort der Klasse unter dem Urteil (alt SkirmishScreen 1326)
+	verdict_antwort.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	verdict_antwort.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	verdict_antwort.add_theme_font_size_override("font_size", sp(15))
+	verdict_antwort.add_theme_color_override("font_color", GOLD)
+	verdict_antwort.add_theme_color_override("font_outline_color", Color.BLACK)
+	verdict_antwort.add_theme_constant_override("outline_size", int(4 * dp))
+	verdict_antwort.visible = false
+	root.add_child(verdict_antwort)
 	full_log = PanelContainer.new()
 	full_log.set_anchors_preset(Control.PRESET_FULL_RECT)
 	full_log.offset_top = rand_oben()     # 552: der ganze Bericht beginnt unter dem Band über der Kamera
@@ -321,6 +350,9 @@ func _process(_dt: float) -> void:
 		if was != "":
 			show_tip(was)
 			names_until = Time.get_ticks_msec() + NAMES_MS     # 536: wie alt (SkirmishScreen namesUntil) zeigen dann alle ihre Namen
+	# 785.15 (alt SkirmishScreen.kt 1354 tip?.takeIf { ring == null }): solange der Ring auf ein Tippen wartet, ist das Erklärfenster
+	# weg; läuft seine Zeit noch, kommt es danach wieder
+	tip.visible = tip_offen and not kampfort.ring_open and ring_target == ""
 	overlay.queue_redraw()
 
 
@@ -420,6 +452,10 @@ func _draw_log() -> void:
 		var yy: float = block[0]
 		for row in block[1]:
 			for word in row:
+				if word[0] == "◯":     # 785.12: das Ringzeichen gezeichnet wie der Ring (Homer 219T), Alegreya hat kein ◯
+					var rw := font.get_string_size("◯", HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
+					log_area.draw_arc(Vector2(word[2] + rw * 0.5, yy + lh * 0.78 - fs * 0.32), fs * 0.3, 0, TAU, 24, GOLD, 1.5 * dp, true)
+					continue
 				log_area.draw_string(font, Vector2(word[2], yy + lh * 0.78), word[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, word[1])
 			yy += lh
 	if more:
@@ -621,8 +657,24 @@ func refresh() -> void:
 			continue
 		party_row.add_child(_party_box(f))
 	_build_orders()
+	_schnell_knopf_setzen()
 	if log_area:
 		log_area.queue_redraw()
+
+
+var schnell_knopf: Button
+## 785.10: sichtbar im leichten Kampf (mars.easy, ohne Kerben), wenn die Gruppe wählt: begonnen, niemand spielt, kein Ring, offen
+func _schnell_knopf_setzen() -> void:
+	if schnell_knopf == null:
+		return
+	var k: Variant = kampfort
+	var m: Variant = k.mars
+	var zeig: bool = m.easy() and not m.kerbe and m.started and k.tor == "" and not k.busy and not k.ring_open and m.outcome == "ONGOING"
+	schnell_knopf.visible = zeig
+	if zeig:
+		var sr: Rect2 = k.scene_rect()
+		schnell_knopf.reset_size()
+		schnell_knopf.position = Vector2(sr.position.x + 4 * dp, sr.end.y - schnell_knopf.get_combined_minimum_size().y - 4 * dp)
 
 
 ## 565 (Chef 04.11., 17:10: „unten sehe ich gar nicht, welcher von den beiden es ist“), nur Vorschlag, aus: "" wie alt (alle Kästen
@@ -651,6 +703,38 @@ func _party_box_dran(f) -> bool:
 ## das ist schon alles berechnet“): MARS rechnet den Kampf voraus; für den Spieler läuft er, bis alles gezeigt ist (679)
 func laeuft() -> bool:
 	return kampfort.mars.outcome == "ONGOING" or kampfort.busy
+
+
+## 1488 (1411b A, Chef 16.11., 20:59): Name eines Gegners mit seinem Merkmal nach der Lesestufe des Helden: 1 Pfeil (▲ stärker,
+## ▼ schwächer), 2 Name, 3 Name und Wirkung. Arbeitsnamen aus werte.json, bis Homers Texte da sind (1489)
+const MERKMAL_WORT := {"leben": ["Leben", "life"], "angriff": ["Angriff", "attack"], "abwehr": ["Abwehr", "defence"], "schaden": ["Schaden", "damage"]}
+func merkmal_name(f: Variant) -> String:
+	var nm: String = f.name(lang)
+	if f.side != "FOES" or not (f.b is Dictionary) or not f.b.has("merkmal"):
+		return nm
+	var h: Variant = kampfort.mars.find("hero")
+	var st: int = Mars.Kerbe.lesestufe(h.b, kampfort.mars.merkmal_art(f), false) if h != null and h.b is Dictionary and not h.b.is_empty() else 0
+	return nm + merkmal_zusatz(f.b.merkmal, f.b.merkmal_fak, st, lang)
+
+
+## 1488: Zusatz zum Namen für Merkmal [mk] mit Faktoren [fak] auf Lesestufe [st] (leer auf Stufe 0)
+static func merkmal_zusatz(mk: String, fak: Dictionary, st: int, sprache: int) -> String:
+	if st <= 0:
+		return ""
+	var gewicht := {"leben": 1.0, "schaden": 1.0, "angriff": 0.5, "abwehr": 0.5}
+	var s := 0.0
+	for k: String in fak:
+		s += (float(fak[k]) - 1.0) * float(gewicht.get(k, 0.0))
+	if st == 1:
+		return " ▲" if s > 0.0 else " ▼"
+	if st == 2:
+		return " · " + mk
+	var teile: PackedStringArray = []
+	for k: String in ["leben", "angriff", "abwehr", "schaden"]:
+		if fak.has(k):
+			var p := roundi((float(fak[k]) - 1.0) * 100.0)
+			teile.append("%s %s%d %%" % [MERKMAL_WORT[k][mini(sprache, 1)], "+" if p > 0 else "−", absi(p)])
+	return " · %s (%s)" % [mk, ", ".join(teile)]
 
 
 ## PartyBox: Farbmarke, Name; Balken in Lebensfarbe und „hp/max“, bei Zauberern darunter ein blauer Balken „sp/max“ (1439).
@@ -694,12 +778,14 @@ func _party_box(f) -> Control:
 	if f.hero != null and not f.zauber.is_empty():
 		var spv: int = kampfort.shown.sp.get(f.id, f.sp)
 		v.add_child(_balken_zeile(spv, f.max_sp, Leiste.BLAU, zahl_w, zahl_fs))
+	# 785.10 Rückläufer (Chef 17.11., 08:44: „warum taucht jetzt auf einmal der Erfahrungspunkte-Balken im Kampfbildschirm auf? … Wir haben
+	# nur den Lebensbalken und den Mana-Balken. Wofür brauche ich den?“): keine Stufe und kein Erfahrungsbalken im Kasten des Helden
 	return box
 
 
 ## 1439: ein Balken (4 dp) in [farbe] mit „wert/max“ dahinter, rechtsbündig in fester Breite [zahl_w], damit Balken untereinander
 ## gleich lang sind
-func _balken_zeile(wert: int, max_wert: int, farbe: Color, zahl_w: float, zahl_fs: int) -> HBoxContainer:
+func _balken_zeile(wert: int, max_wert: int, farbe: Color, zahl_w: float, zahl_fs: int, text := "") -> HBoxContainer:
 	var low := HBoxContainer.new()
 	low.add_theme_constant_override("separation", int(6 * dp))
 	var bar := ProgressBar.new()
@@ -717,7 +803,7 @@ func _balken_zeile(wert: int, max_wert: int, farbe: Color, zahl_w: float, zahl_f
 	bar.add_theme_stylebox_override("fill", fill)
 	low.add_child(bar)
 	var l := Label.new()
-	l.text = "%d/%d" % [wert, max_wert]
+	l.text = text if text != "" else "%d/%d" % [wert, max_wert]
 	l.add_theme_font_size_override("font_size", zahl_fs)
 	l.add_theme_color_override("font_color", TEXT)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -898,7 +984,28 @@ func _naechster_eigener():
 
 func _target_label(f) -> String:
 	var hp: int = kampfort.shown.hp.get(f.id, f.hp)
+	# 785.11 (alt SkirmishScreen.kt 1556–1561 targetLabel): ab drei Stehenden einer Seite die Reihe dazu, wie die Figur am Kampfort steht
+	if kampfort.mars.standing_of(f.side).size() > 2:
+		return "%s · %s  %d/%d" % [f.name(lang), _spot_name(f.place), maxi(0, hp), f.max_hp]
 	return "%s  %d/%d" % [f.name(lang), maxi(0, hp), f.max_hp]
+
+
+## 785.11 (alt SkirmishScreen.kt 886–891 aimed): wen der Spieler gerade wählen kann, beim Angriff, beim Zauber- und Fähigkeitsziel,
+## beim Trank und beim Wurf; sonst leer
+func _waehlbare(current: Variant) -> Array:
+	var m: Variant = kampfort.mars
+	if current == null:
+		return []
+	match pick:
+		"target":
+			return m.targets(current)
+		"skill_at":
+			return m.aim_at(current, pick_arg)
+		"throw_at":
+			return m.throw_targets(pick_arg)
+		"drink_at":
+			return m.fighters().filter(func(tg: Variant) -> bool: return tg.side == current.side and tg.standing() and m.drink_helps(pick_arg, tg))
+	return []
 
 
 func _spot_name(s: Vector2i) -> String:
@@ -914,6 +1021,12 @@ func _build_orders() -> void:
 		c.queue_free()
 	var k = kampfort
 	var m = k.mars
+	# 785.17 (alt SkirmishBody BackHandler; Abgleich 785): in einer Auswahl (Ziel, Können, Tasche, Wechsel …) führt Android-Zurück
+	# wie der Knopf „Zurück“ ins Hauptmenü des Zugs; sonst nimmt der Kampf die Taste nicht (785.21)
+	if pick != "main" and m.outcome == "ONGOING" and not k.busy:
+		Zurueck.melde(orders, func() -> void: if pick != "main": _set_pick("main"))
+	elif orders.is_in_group(Zurueck.GRUPPE):
+		orders.remove_from_group(Zurueck.GRUPPE)
 	if m.outcome != "ONGOING" and not k.busy and _a833():
 		_ende_833()
 		return
@@ -960,6 +1073,19 @@ func _build_orders() -> void:
 	# sonst immer beschäftigt, und er ließe sich nie mehr abschalten).
 	# 841 (807a A, STORY-K1-FERTIGKEITEN.md „Einschüchtern: Goblin-Späher“): zu Beginn „Kämpfen“ oder den Späher verjagen; der Knopf
 	# nennt die Fertigkeit in Klammern ([807.spaeher.wahl])
+	# 785.10 (259, alt SkirmishScreen.kt 1395–1404): im leichten Kampf zu Beginn „Kämpfen“ oder „Schnell“ ([259T.knoepfe]); langes
+	# Drücken auf „Schnell“ erklärt ([259T.tip])
+	if k.tor == "leicht":
+		var lv: int = int(k.mars.all[0].level())
+		var frage := Label.new()     # [259T.frage] (1513, Homer 17.11.)
+		frage.text = t("Ein leichter Kampf: dein Held Stufe %d, der stärkste Gegner Stufe %d.", "An easy fight: your hero level %d, the strongest foe level %d.") % [lv, roundi(float(lv) - float(k.mars.easy_gap))]
+		frage.add_theme_font_size_override("font_size", sp(14))
+		frage.add_theme_color_override("font_color", TEXT)
+		frage.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		orders.add_child(frage)
+		orders.add_child(_row([_button(t("Kämpfen", "Fight"), true, func() -> void: k.tor_wahl(false)),
+			_button(t("Schnell", "Quick"), true, func() -> void: k.schnell(), false, false, SCHNELL_TIP)], 0, true))
+		return
 	if k.tor == "einschuechtern":
 		orders.add_child(_row([_button(t("Kämpfen", "Fight"), true, func(): k.tor_wahl(false)),
 			_button(t("Verjag den Späher (Einschüchtern)", "Scare off the scout (Intimidation)"), true, func(): k.tor_wahl(true))], 0, true))
@@ -1148,6 +1274,9 @@ func _angreifen(f, id: String) -> void:
 
 ## 833 A: Sieg, Flucht und Niederlage wie die Blenden (661): Titel gesperrt in Gold, Zierlinie, Satz und Lohn mittig; darunter eine
 ## schlichte Linie und die Knöpfe der Schirme (‹ ZURÜCK links, NOCHMAL › rechts im Probekampf)
+const SCHNELL_TIP := ["Nur gegen schwache Gegner: dein Held mindestens 4 Stufen über dem stärksten, nie gegen Bosse. Die Automatik spielt den Kampf für Held und Söldner in einem Rutsch, ohne Bilder. Hält an, wenn dein Held unter ein Drittel seines Lebens fällt; dann übernimmst du. Ab 7 Stufen Abstand nur halber Schaden, ab 10 keiner.",
+	"Weak foes only: your hero at least 4 levels above the strongest, never against bosses. The automatic plays the fight for hero and Söldner in one go, without pictures. Stops when your hero falls below a third of their life; then you take over. From 7 levels apart only half damage, from 10 none."]   # [259T.tip]
+
 func _ende_833() -> void:
 	var k = kampfort
 	var m = k.mars
@@ -1170,12 +1299,24 @@ func _ende_833() -> void:
 		v.add_child(_mittig(satz, Ortsblende.SATZ_SP, TEXT, 0.6, breit))
 	var lohn: Array = k.reward.get("lines", []).duplicate()
 	var grau: Array = k.reward.get("grau", [])     # 1096: „Ein echter Kampf brächte …“ grau
+	var vorab := 0     # Zeilen vor dem Lohn (grau und selten zählen im Lohn)
+	if won and not k.schnell_verlust.is_empty():     # 785.10 [259T.tafel]: nach „Schnell“ je Gefährte, was er an Leben verlor
+		var teile: Array = []
+		for id in k.schnell_verlust:
+			var g: Variant = m.find(id)
+			if g != null: teile.append("%s −%d %s" % [g.name(lang), int(k.schnell_verlust[id]), t("Leben", "Life")])
+		if not teile.is_empty():
+			vorab = 1
+			lohn.push_front(" · ".join(teile))
 	if m.knockouts > 0:
 		lohn.append(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts))
 	if not lohn.is_empty():
 		v.add_child(Stil.luecke(10))
+		var selten: Dictionary = k.reward.get("selten", {})     # 785.10: Beute in Seltenheitsfarbe wie alt (BattleScreen.kt 1569)
 		for i in lohn.size():
-			v.add_child(_mittig(String(lohn[i]), 15, DIM if grau.has(i) else TEXT, 0.0, breit))
+			var j := i - vorab
+			var farbe := DIM if grau.has(j) else (Color(Menue.SELTEN.get(String(selten[j]), "e6ddcb")) if selten.has(j) else TEXT)
+			v.add_child(_mittig(String(lohn[i]), 15, farbe, 0.0, breit))
 	v.add_child(Stil.luecke(12))
 	v.add_child(Spielstaende.linie())
 	var zurueck := Spielstaende.knopf("neben", t("Zurück", "Back"), func(): k.finish(), true)
@@ -1204,15 +1345,23 @@ func show_tip(text: String) -> void:
 	var vs: Vector2 = get_viewport().get_visible_rect().size
 	tip.size = Vector2(vs.x - 16 * dp, 0)
 	tip.text = text
-	tip.visible = true
+	tip_offen = true
+	tip.visible = not kampfort.ring_open and ring_target == ""     # 785.15
 	tip.position = Vector2(8 * dp, kampfort.scene_rect().size.y - 70 * dp)
 	tip.size = Vector2(vs.x - 16 * dp, 0)
 	if _a833():     # 833 A: über den Schaltern Würfel und Raster (40 dp), nicht auf ihnen
 		tip.position.y = kampfort.scene_rect().size.y - 56 * dp - tip.get_combined_minimum_size().y
 	tip_nr += 1
 	var nr := tip_nr     # die Uhr eines früheren Fensters schließt nicht das neue
-	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip.visible = false)
+	get_tree().create_timer(6.0).timeout.connect(func(): if nr == tip_nr: tip_schliessen())
 var tip_nr := 0
+var tip_offen := false     # 785.15: das Erklärfenster steht (während des Rings verborgen)
+
+
+func tip_schliessen() -> void:
+	tip_nr += 1     # die Uhr des geschlossenen Fensters schließt kein späteres
+	tip_offen = false
+	tip.visible = false
 
 
 # ---------------------------------------------------------------- ring, rolls, verdict
@@ -1221,6 +1370,7 @@ func ring_open(target_id: String, _intent: Dictionary) -> void:
 	ring_t0 = uhr.call()
 	ring_stand = -1
 	pick = "main"
+	ring_hilfe = not kampfort.mars.gesehen.has(Mars.GESEHEN_RING_JETZT)
 
 
 func ring_close() -> void:
@@ -1241,15 +1391,49 @@ func ring_ms_bild() -> float:
 	return float((ring_stand if ring_stand >= 0 else int(uhr.call())) - ring_t0)
 
 
+## 785.12 (alt SkirmishScreen 721–725, 1321–1328): Urteil in der Farbe des Ergebnisses ([219.ring.*]), perfekt hell, gut im Text,
+## verpasst warnend; die Antwort der Klasse darunter in Gold (ring_folge)
+const URTEIL_FARBE := {"PERFECT": BRIGHT, "GOOD": TEXT, "NONE": WARN}
+var urteil_nr := 0
+
 func ring_verdict(r: String) -> void:
 	ring_halt()
+	if ring_hilfe:
+		kampfort.mars.gesehen[Mars.GESEHEN_RING_JETZT] = true
+		ring_hilfe = false
+	ring_ergebnis = r
 	verdict.text = {"PERFECT": t("Perfekt: ausgewichen", "Perfect: dodged"), "GOOD": t("Gut: halber Schaden", "Good: half damage"),
 		"NONE": t("Verpasst", "Missed")}[r]
+	verdict.add_theme_color_override("font_color", URTEIL_FARBE[r])
 	verdict.visible = true
+	verdict_antwort.visible = false
 	var vs: Vector2 = get_viewport().get_visible_rect().size
 	verdict.position = Vector2(0, kampfort.scene_rect().size.y * 0.18)
 	verdict.size = Vector2(vs.x, 40 * dp)
-	get_tree().create_timer(2.2 if r == "PERFECT" else 1.2).timeout.connect(func(): verdict.visible = false)
+	verdict_antwort.position = Vector2(16 * dp, verdict.position.y + 38 * dp)
+	verdict_antwort.size = Vector2(vs.x - 32 * dp, 0)
+	urteil_nr += 1
+	var nr := urteil_nr
+	get_tree().create_timer(2.2 if r == "PERFECT" else 1.2).timeout.connect(func():
+		if nr == urteil_nr:
+			verdict.visible = false
+			verdict_antwort.visible = false
+			ring_ergebnis = "")
+
+
+## 785.12: was die Meldung nach dem Ring am Urteil ändert, solange es steht: gut, aber der Schlag verfehlt ohnehin, zeigt nur das
+## Wort ([219.4T.gut]; der Bericht sagt „verfehlt“); die Antwort der Klasse (answer) steht darunter
+func ring_folge(e: Dictionary) -> void:
+	if not verdict.visible or ring_ergebnis == "":
+		return
+	var by: Variant = kampfort.mars.find(String(e.actor)) if e.get("actor") != null else null
+	var r: Variant = e.get("roll")
+	if ring_ergebnis == "GOOD" and r is Array and r.size() > 4 and not bool(r[4]) and by != null and by.side != "PARTY":
+		verdict.text = t("Gut", "Good")
+	if e.get("answer", false) and String(e.get("text", "")) != "":
+		verdict_antwort.text = String(e.text)
+		verdict_antwort.size = Vector2(verdict_antwort.size.x, 0)
+		verdict_antwort.visible = true
 
 
 func show_roll(e: Dictionary) -> void:
@@ -1399,6 +1583,7 @@ func _draw_overlay() -> void:
 	# Hintergrund voraus, der Ausgang steht fest, während die letzten Züge noch spielen; zu Ende ist es erst, wenn alles gezeigt ist
 	var ended: bool = m.outcome != "ONGOING" and not k.busy
 	var current = m.current() if not k.busy and not ended else null
+	var waehlbar: Array = _waehlbare(current)
 	# under the figures: the ring under the one whose turn it is, chosen targets (CamRing)
 	for id in k.figures:
 		var fig = k.figures[id]
@@ -1407,7 +1592,7 @@ func _draw_overlay() -> void:
 		var beast: bool = Figur.vier(fig.fighter)
 		if fig.fighter == current:
 			_ground_ring(fig.position, 0.75 if beast else 0.55, BRIGHT, 2.5 * dp)
-		elif pick == "target" and current != null and m.targets(current).has(fig.fighter):
+		elif waehlbar.has(fig.fighter):
 			_ground_ring(fig.position, 0.75 if beast else 0.55, TEXT, 2.0 * dp)
 	# the grid: the two places of each row on both sides
 	if grid_on:
@@ -1453,16 +1638,16 @@ func _draw_overlay() -> void:
 	named.clear()
 	name_rects.clear()
 	var weich := clampf(float(names_until - Time.get_ticks_msec()) / SOFT_MS, 0.0, 1.0)
-	var waehlbar: Array = m.targets(current) if pick == "target" and current != null else []
 	for id in k.figures:
 		var fig = k.figures[id]
 		var f = fig.fighter
+		fig.gedaempft(not waehlbar.is_empty() and not waehlbar.has(f))     # 785.11: die übrigen gedämpft
 		if not fig.visible or fig.down or k.shown.hp.get(id, f.hp) <= 0:
 			continue
 		var a: float = 1.0 if waehlbar.has(f) else weich
 		if a > 0.0:
 			named[id] = true
-			name_rects[id] = _name_tag(_foot(fig), _tall(fig), f.name(lang), f == current, a, f.side == "FOES")
+			name_rects[id] = _name_tag(_foot(fig), _tall(fig), merkmal_name(f), f == current, a, f.side == "FOES")
 	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
@@ -1558,6 +1743,15 @@ func _draw_overlay() -> void:
 			var a := clampf(1.0 - absf(k1) * 0.4, 0.3, 1.0)
 			overlay.draw_arc(c2, now, 0, TAU, 64, Color(0, 0, 0, 0.5 * a), 6.0 * dp, true)
 			overlay.draw_arc(c2, now, 0, TAU, 64, Color(GOLD, a), 4.0 * dp, true)
+		# 785.12 (alt SkirmishScreen 1257–1262): beim ersten Ring je Spielstand ein Wort darüber, bis getippt oder vorbei ([219T.jetzt])
+		if ring_hilfe and kampfort.ring_open:
+			var wort := t("Tippen, wenn die Ringe aufeinanderliegen!", "Tap when the rings meet!")
+			var ws := font.get_string_size(wort, HORIZONTAL_ALIGNMENT_LEFT, -1, sp(14))
+			var bx := Rect2(Vector2(clampf(c2.x - ws.x * 0.5 - 8 * dp, 4 * dp, maxf(4 * dp, sr.size.x - ws.x - 20 * dp)),
+				maxf(4 * dp, _foot(fig).y - h - 24 * dp - ws.y)), ws + Vector2(16 * dp, 6 * dp))     # wie alt über dem Kopf
+			overlay.draw_rect(bx, Color.BLACK)
+			overlay.draw_rect(bx, GOLD, false, 1.0 * dp)
+			overlay.draw_string(font, bx.position + Vector2(8 * dp, 3 * dp + font.get_ascent(sp(14))), wort, HORIZONTAL_ALIGNMENT_LEFT, -1, sp(14), BRIGHT)
 		var hint := t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one")
 		overlay.draw_string(font, Vector2(0, sr.size.y - 12 * dp), hint, HORIZONTAL_ALIGNMENT_CENTER, sr.size.x, sp(14), DIM)
 
@@ -1613,14 +1807,18 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 ## Von der Stabspitze zur Brust des Ziels, daneben auf den freien Fleck am Boden (_miss_point); er kommt nach Zauber.arrives an wie
 ## bisher, dann zeigt der Kampfort den Treffer. Aufruf des Pakets wie in der Probe 623.5 (effektprobe.gd _projektil, 163f07e84).
 ## Fehlt das Paket (am Rechner, in den Tests ohne Kaufrepo), malt zauber.gd wie bisher.
-const ARKAN_R2 := "res://addons/reeboo_projectiles/elements/arcane/arcane_projectile.tscn"
+## 623.2: Pfad aus werte.json fx (zauber MISSILES → arkan)
+static func arkan_pfad() -> String:
+	return TrefferFx.pfad(TrefferFx.fuer_zauber("MISSILES"))
+
 static var _arkan_szene = null     # PackedScene, false: nicht da
 ## 993, für den Test arkan_993: je Flug [Knoten, Start, Ziel, Ankunft in ms Uhrzeit]
 var arkan_fluege: Array = []
 
 static func arkan_r2() -> PackedScene:
 	if _arkan_szene == null:
-		_arkan_szene = load(ARKAN_R2) if ResourceLoader.exists(ARKAN_R2) else false
+		var pf := arkan_pfad()
+		_arkan_szene = load(pf) if pf != "" and ResourceLoader.exists(pf) else false
 	return _arkan_szene if _arkan_szene is PackedScene else null
 
 
@@ -1639,7 +1837,7 @@ func _arkan_los(by, on, missed: bool) -> void:
 	dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
 	var hand = by.cast_point()
 	var von: Vector3 = hand if hand != null else by.position + Vector3.UP * (by.head().y - by.position.y) * START_UP + dir * (_girth(by) + 0.1)
-	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir)
+	var ziel: Vector3 = _miss_point(by, on, true) if missed else _aim_point(on, dir, von)
 	var s := maxf(Zauber.arrives("MISSILES") / 1000.0, 0.05)
 	var p := arkan_r2().instantiate()
 	for kv in [["fly_on_ready", false], ["collision_mask", 0], ["impact_on_expire", true],
@@ -1659,36 +1857,16 @@ func _arkan_los(by, on, missed: bool) -> void:
 ## beim Lösen fliegt er zum Ziel oder daneben, steckt im Getroffenen (geht mit ihm) oder im Boden und vergeht.
 const PFEIL_AVR := "res://addons/pfeil_avr/mdvl_weapons_arrow_01.glb"
 const PFEIL_AVR_LANG := 0.776     # m, Nocke bis Spitze längs +Y (Ursprung an der Nocke)
-const SPUR_R3 := "res://addons/reeboo_trails/presets/arrow_streak.tres"
-const SPUR_R3_SKRIPT := "res://addons/reeboo_trails/trail_3d.gd"
+const SPUR_R3_SKRIPT := TrefferFx.SPUR_SKRIPT
 ## Länge des Pfeils als Anteil der Größe des Schützen (der Kurzbogen hat 0,48, figur.gd GOB_BOGEN)
 const PFEIL_ANTEIL := 0.5
-## gedämpft: grauweiß, halb durchsichtig, wenig Leuchten (Vorgabe hell weißblau, Energie 1,8)
-const SPUR_FARBE := Color(0.80, 0.77, 0.70, 0.55)
-const SPUR_ENERGIE := 0.55
 const STECKT_S := 1.6
 ## 601, für den Test schuss_601: je Pfeil der Knoten
 var pfeile: Array = []
-static var _spur_stil = null
-
+## gedämpft: grauweiß, halb durchsichtig, wenig Leuchten (Vorgabe hell weißblau, Energie 1,8); 623.2: Stil und Dämpfung aus
+## werte.json fx (waffengruppe Bogen → pfeilspur)
 static func spur_r3():
-	if _spur_stil == null:
-		_spur_stil = false
-		if ResourceLoader.exists(SPUR_R3) and ResourceLoader.exists(SPUR_R3_SKRIPT):
-			var st = load(SPUR_R3)
-			if st != null:
-				st = st.duplicate(true)
-				if "energy" in st:
-					st.energy = SPUR_ENERGIE
-				if "color_ramp" in st and st.color_ramp is Gradient:
-					var g := st.color_ramp as Gradient
-					for i in g.get_point_count():
-						var c := g.get_color(i)
-						g.set_color(i, Color(SPUR_FARBE.r, SPUR_FARBE.g, SPUR_FARBE.b, c.a * SPUR_FARBE.a))
-				if "core_color" in st:
-					st.core_color = SPUR_FARBE
-				_spur_stil = st
-	return _spur_stil if not (_spur_stil is bool) else null
+	return TrefferFx.stil(TrefferFx.fuer_waffe("Bogen", "geschoss"))
 
 
 ## der Pfeil als Körper: Nocke im Ursprung, Spitze nach −Z, [lang] m
@@ -2010,19 +2188,28 @@ func _hidden_by_front(fig, pts: PackedVector2Array, welt := []) -> bool:
 
 
 ## Brust des Ziels, zum Wirkenden hin (Ende der Bahn)
-func _aim_point(on, dir: Vector3) -> Vector3:
+## 601.1 (Chef 15.11., 11:02: Pfeil in der Fußspitze, Zucken oben): mit [von] (Start des Geschosses) die Stelle am Rumpf, die dem
+## Schützen zugewandt ist (Figur.treffpunkt_fern), dort zuckt der Getroffene; _aim_genau sagt, ob es sie gab. Ohne Gerüst geschätzt
+## wie bisher (Höhe des Namensbalkens × 0,55, vor dem Umriss)
+var _aim_genau := false
+func _aim_point(on, dir: Vector3, von := Vector3.INF) -> Vector3:
+	_aim_genau = false
+	if von != Vector3.INF and on.has_method("treffpunkt_fern"):
+		var p: Vector3 = on.treffpunkt_fern(von)
+		if p != Vector3.INF:
+			_aim_genau = true
+			return p
 	return on.position + Vector3.UP * (on.head().y - on.position.y) * 0.55 - dir * _girth(on)
 
 
 ## 1222: der gekaufte Rauch aus R7 (Stylized VFX v2.0, smoke_poof; LISTE-EFFEKTE Krogg „R7“, 1036 im Film „Geblendet“), nur im Bau
 ## (Lizenz: nie ins Repo); er platzt an Kroggs Kopf und läuft aus. Fehlt das Paket (am Rechner, in den Tests), malt zauber.gd die
 ## eigene Wolke. true, wenn der gekaufte Rauch steht
-const RAUCH_R7 := ["res://addons/reeboo_vfx/effects/smoke_poof.tscn", "res://addons/reeboo_vfx/pack3_effects/smoke_poof.tscn"]
 
 func _rauch_r7(on, at: Vector3) -> bool:
 	if OS.get_environment("RAUCH_EIGEN") != "":     # Vergleich im Film: eigene Wolke auch mit Paket
 		return false
-	for pfad in RAUCH_R7:
+	for pfad in TrefferFx.pfade(TrefferFx.fuer_zauber("BOMB_SMOKE")):     # 623.2: werte.json fx (rauch)
 		if not ResourceLoader.exists(pfad):
 			continue
 		var sz = load(pfad)
@@ -2112,7 +2299,8 @@ func _draw_spells() -> void:
 			var hand = by.cast_point() if flying else null
 			sp["from"] = hand if hand != null else by.position + Vector3.UP * h_by * (START_UP if flying else 0.55) + dir * (_girth(by) + 0.1 if flying else 0.0)
 		var a3: Vector3 = sp["from"]
-		var b3: Vector3 = _aim_point(on, dir)
+		var b3: Vector3 = _aim_point(on, dir, a3 if flying else Vector3.INF)
+		Zauber.ziel_genau = _aim_genau and not sp.missed
 		if sp.kind == "BOMB_SMOKE":     # 1222: das Bündel landet vor den Füßen (zauber.gd), der gekaufte Rauch steht davor
 			if not sp.has("r7") and p >= Zauber.SMOKE_FLUG_MS / Zauber.SMOKE_MS:
 				sp["r7"] = _rauch_r7(on, on.position - dir * _girth(on))
@@ -2155,9 +2343,7 @@ func _zustaende_da() -> bool:
 ## nur im Bau unter addons/reeboo_vfx, Lizenz: nie ins Repo); fehlt das Paket, malt zustandsbild.gd wie bisher. Brennend „gefällt
 ## mir gut“, Vergiftet, Blutend (die Lache bringt der Effekt mit), Betäubt („besser als diese Vögelchen“, also nicht stun_stars),
 ## Verlangsamt; Geschwächt, Geblendet, Betrunken bleiben eigen (neue Vorlage)
-const ZUSTAND_PAKET := {"BURN": "res://addons/reeboo_vfx/effects/burning.tscn",
-		"POISON": "res://addons/reeboo_vfx/status_effects/poisoned.tscn", "BLEED": "res://addons/reeboo_vfx/status_effects/bleeding.tscn",
-		"STUN": "res://addons/reeboo_vfx/status_effects/shocked.tscn", "SLOW": "res://addons/reeboo_vfx/status_effects/chilled.tscn"}
+## 623.2: die Pfade stehen in werte.json fx (zustand → effekte)
 ## laufende Effekte aus dem Paket: "<id>|<Zustand>" -> Knoten an der Figur
 var _paket_fx := {}
 static var _paket_szene := {}
@@ -2165,10 +2351,10 @@ static var _paket_szene := {}
 
 ## 1036: die Szene des Pakets zum Zustand st, oder null ohne Paket (einmal geladen)
 static func zustand_szene(st: String):
-	if not ZUSTAND_PAKET.has(st):
+	var pfad := TrefferFx.pfad(TrefferFx.fuer_zustand(st))
+	if pfad == "":
 		return null
 	if not _paket_szene.has(st):
-		var pfad: String = ZUSTAND_PAKET[st]
 		var r = load(pfad) if ResourceLoader.exists(pfad) else null
 		_paket_szene[st] = r if r is PackedScene else null
 	return _paket_szene[st]

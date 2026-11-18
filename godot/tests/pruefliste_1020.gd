@@ -42,7 +42,24 @@ func _lauf() -> void:
 	pruefe(Pruefliste.ergebnis_text() == soll, "Ergebnistext:\n%s" % Pruefliste.ergebnis_text())
 	# bleibt über einen Neustart (neu aus der Datei gelesen)
 	var c := ConfigFile.new()
-	pruefe(c.load(Pruefliste.ERGEBNIS) == OK and String(c.get_value("t9999", "9999.2", "")) == "✗ kein Staub", "nicht in user://pruefliste.cfg")
+	pruefe(c.load(Pruefliste.ERGEBNIS) == OK and String(c.get_value("t9999", "9999.2", "")) == "✗"
+		and String(c.get_value("t9999-notiz", "9999.2", "")) == "kein Staub", "nicht in user://pruefliste.cfg")
+	# 1445 (Chef 16.11., 14:36): Anmerkung auch bei „Passt“, auch vor dem Antippen geschrieben; Zeichen wechseln lässt sie stehen
+	Pruefliste.setze_wort("9999.3", "Neustart ins Hauptmenü")
+	pruefe(Pruefliste.ergebnis("9999.3") == "" and Pruefliste.wort("9999.3") == "Neustart ins Hauptmenü", "Anmerkung vor dem Antippen verloren")
+	pruefe(Pruefliste.ergebnis_text().ends_with("- offen: 9999.3 (Neustart ins Hauptmenü)"), "offene Zeile ohne Anmerkung:\n%s" % Pruefliste.ergebnis_text())
+	Pruefliste.setze_zeichen("9999.3", "✓")
+	pruefe(Pruefliste.ergebnis("9999.3") == "✓ Neustart ins Hauptmenü", "✓ mit Anmerkung: '%s'" % Pruefliste.ergebnis("9999.3"))
+	Pruefliste.setze_zeichen("9999.2", "✓")
+	pruefe(Pruefliste.ergebnis("9999.2") == "✓ kein Staub" and Pruefliste.zaehle() == [3, 0, 3], "Wechsel ✗→✓: '%s' %s" % [Pruefliste.ergebnis("9999.2"), Pruefliste.zaehle()])
+	Pruefliste.setze_zeichen("9999.2", "✗")
+	pruefe(Pruefliste.ergebnis_text() == "Build 9999 · Ergebnis\n- 9999.1 ✓\n- 9999.2 ✗ kein Staub\n- 9999.3 ✓ Neustart ins Hauptmenü", "Ergebnistext mit Anmerkung:\n%s" % Pruefliste.ergebnis_text())
+	# ältere Stände mit dem Wort im selben Wert
+	c.load(Pruefliste.ERGEBNIS)
+	c.set_value("t9999", "9999.1", "✗ alt"); c.save(Pruefliste.ERGEBNIS)
+	pruefe(Pruefliste.ergebnis("9999.1") == "✗ alt", "alter Stand: '%s'" % Pruefliste.ergebnis("9999.1"))
+	Pruefliste.setze("9999.1", "✓")
+	pruefe(Pruefliste.ergebnis("9999.1") == "✓", "setze ✓ nach altem Stand: '%s'" % Pruefliste.ergebnis("9999.1"))
 	# der Reiter baut mit Liste, Zeile aufgeklappt
 	Testmodus.an = true
 	Testmodus.geladen = true
@@ -60,6 +77,13 @@ func _lauf() -> void:
 			if not ms.is_empty():
 				var felder := (ms[0] as Node).find_children("*", "LineEdit", true, false)
 				pruefe(felder.size() == 1 and (felder[0] as LineEdit).text == "kein Staub", "Wortfeld der aufgeklappten Zeile fehlt")
+			# 1445: auch eine Zeile mit „Passt“ hat das Feld
+			if not ms.is_empty():
+				Pruefliste.offen = "9999.3"
+				ms[0].baue()
+				for i in 3: await process_frame
+				var mit := (ms[0] as Node).find_children("*", "LineEdit", true, false).filter(func(f): return not f.is_queued_for_deletion())
+				pruefe(mit.size() == 1 and (mit[0] as LineEdit).text == "Neustart ins Hauptmenü", "Anmerkungsfeld bei Passt fehlt")
 	for n in ["9999.1", "9999.2", "9999.3"]: Pruefliste.setze(n, "")
 	# das Probespiel ohne Hauptmenü speichert in Platz 1; nicht liegen lassen (probekampf_1020 lief danach anders)
 	if not platz1_vorher: Spielstand.loesche(1)

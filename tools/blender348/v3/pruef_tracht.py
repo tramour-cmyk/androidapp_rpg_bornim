@@ -16,7 +16,7 @@ kleid = bpy.data.objects['Kleid']
 TEILNAMEN = json.load(open(os.path.join(os.path.dirname(os.environ.get('HELDOUT', '/home/user/q376/out/x')), 'teile.json')))
 tl = np.zeros(len(kleid.data.vertices), dtype=int); kleid.data.attributes['teil'].data.foreach_get('value', tl)
 vorher = set(bpy.data.actions)
-bpy.ops.import_scene.gltf(filepath=UAL)
+bpy.ops.import_scene.gltf(filepath=UAL, disable_bone_shape=True)
 for o in [o for o in bpy.data.objects if o not in (qa, kleid) and o.parent != qa and o != qa and o.type in ('ARMATURE', 'MESH') and o.name not in [c.name for c in qa.children]]:
     bpy.data.objects.remove(o)
 AKT = {a.name.split('|')[-1]: a for a in bpy.data.actions if a not in vorher}

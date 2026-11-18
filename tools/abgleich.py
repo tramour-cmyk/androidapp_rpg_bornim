@@ -6,7 +6,7 @@ Prüfungen:
   3. Vorgangsarchiv: entschiedener Vorgang mit „Umsetzung“, aber ohne Zeile in der Liste und nicht „erledigt“
   (1. und 3b. entfallen mit 275.2: Nummern und Termine sind Felder, startbar.py prüft und löst sie)
   4. Vorentscheid (194.1): Archivzeile ab 19.10. mit „Vorentscheid“ braucht Datei in chefsache/billigen/ oder den Vermerk „gebilligt TT.MM.“ / „zurück TT.MM.“;
-     Bremse: mehr als fünf Dateien in billigen/ oder eine älter als 7 Tage, mehr als zwei „zurück“ in 7 Tagen (Meldung „Vorentscheid-Bremse“)
+     Bremse: mehr als zwei „zurück“ in 7 Tagen (1129 A 3f; Ungebilligtes und Altes zählen nicht, 1620) (Meldung „Vorentscheid-Bremse“)
 Aufruf: python3 tools/abgleich.py  (Exit 0 immer; Ausgabe leer = alles stimmig)
 """
 import datetime, os, re, subprocess, sys
@@ -65,16 +65,13 @@ def vorentscheide():
         gesehen.add(nr)
         if any(n.lower().startswith(kurz + "-") for n in dateien): continue
         w.append("WARNUNG Abgleich: Vorentscheid %s ohne Datei in chefsache/billigen/ und ohne Vermerk „gebilligt“ oder „zurück“ in der Archivzeile (194.1)" % nr)
-    alt = []
-    for n in dateien:
-        dm = re.search(r"\b(\d\d)\.(\d\d)\.", " ".join(startbar.lesen("chefsache/billigen/" + n).splitlines()[1:2]))
-        if dm and (heute - startbar.jahr_von(int(dm.group(1)), int(dm.group(2)))).days > 7: alt.append(n)
+    # 1620 (1129 A 3f, Chef 13.11.): die Bremse zählt nur „zurück“, nicht Ungebilligtes oder Altes (Billigen hält nichts an)
     zurueck = 0
     for z in startbar.lesen("VORGANGSARCHIV.md").splitlines()[:80]:
         for tag, mon in re.findall(r"zurück (\d\d)\.(\d\d)\.", z):
             if 0 <= (heute - startbar.jahr_von(int(tag), int(mon))).days <= 7: zurueck += 1
-    if len(dateien) > 5 or alt or zurueck > 2:
-        w.append("WARNUNG Abgleich: Vorentscheid-Bremse (194.1): %d ungebilligt, %d älter als 7 Tage, %d „zurück“ in 7 Tagen: keine neuen Vorentscheide, bis der Chef aufgeholt hat" % (len(dateien), len(alt), zurueck))
+    if zurueck > 2:
+        w.append("WARNUNG Abgleich: Vorentscheid-Bremse (194.1, 1129 A 3f): %d „zurück“ in 7 Tagen: keine neuen Vorentscheide, bis der Chef aufgeholt hat" % zurueck)
     return w
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@
 
 Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (458). Ändern nur in der Datendatei, dann das Werkzeug laufen lassen und beides committen. Werte „alt“ stammen aus der alten Fassung (SRD) und gelten nicht für das Bornimer Rollenspielsystem; „–“ heißt noch offen. Wer füllt: Jerry Stufe, Preis, Zustand, Beute (458.2); Tom Netz, Modell, Läden (458.3); Homer Namen und Texte (458.4).
 
-**Stand:** 96 Gegenstände, davon 66 vollständig; Waffen 21, Schilde 3, Rüstung 25, Schmuck 4, Zauberfokus 3, Licht 1, Einzelstücke 15, Tränke 6, Wurfgeschosse 2, Nahrung 1, Rohstoffe 7, Werkzeug 1, Handlungsgegenstände 7.
+**Stand:** 100 Gegenstände, davon 70 vollständig; Waffen 21, Schilde 3, Rüstung 29, Schmuck 4, Zauberfokus 3, Licht 1, Einzelstücke 15, Tränke 6, Wurfgeschosse 2, Nahrung 1, Rohstoffe 7, Werkzeug 1, Handlungsgegenstände 7.
 
 ## Nach Art
 
@@ -40,7 +40,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `round_shield` | Rundschild | nebenhand | 1 | 10 | unser Netz (waffen.py, Jerry) | Laden Thessa; Beute | – |
 | `tower_shield` | Turmschild | nebenhand | 5 | 60 | – | Laden Thessa; Beute | netz, modell |
 
-### Rüstung (25)
+### Rüstung (29)
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
@@ -51,6 +51,10 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `great_helm` | Topfhelm | kopf | 4 | 40 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | – |
 | `robe` | Robe | oberkoerper | 1 | 5 | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | – |
 | `leather` | Lederrüstung | oberkoerper | 1 | 10 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | – |
+| `novice_habit` | Novizenkutte | oberkoerper | 1 | 10 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Fund Startausrüstung Klosterschüler (431h A, Werte wie Lederrüstung) | – |
+| `forager_shirt` | Sammlerhemd | oberkoerper | 1 | 10 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Fund Startausrüstung Kräutersammler (431h A, Werte wie Lederrüstung) | – |
+| `smith_shirt` | Schmiedehemd | oberkoerper | 1 | 10 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Fund Startausrüstung Schmiedelehrling (431h A, Werte wie Lederrüstung) | – |
+| `wayfarer_shirt` | Wanderhemd | oberkoerper | 1 | 10 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Fund Startausrüstung Wanderer (431h A, Werte wie Lederrüstung) | – |
 | `studded_leather` | Nietenleder | oberkoerper | 2 | 45 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | – |
 | `chain_shirt` | Kettenhemd | oberkoerper | 1 | 50 | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | – |
 | `scale_mail` | Schuppenpanzer | oberkoerper | 2 | 50 | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | – |
@@ -209,6 +213,10 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 ### Fund
 
+- **Startausrüstung Klosterschüler (431h A, Werte wie Lederrüstung):** Novizenkutte
+- **Startausrüstung Kräutersammler (431h A, Werte wie Lederrüstung):** Sammlerhemd
+- **Startausrüstung Schmiedelehrling (431h A, Werte wie Lederrüstung):** Schmiedehemd
+- **Startausrüstung Wanderer (431h A, Werte wie Lederrüstung):** Wanderhemd
 - Klinge von Bornim, Glutstab, Flüsterklinge, Morgenröte
 - **Truhe in der Blutzahnhöhle (cave_3, 870.14):** Die Namenlose, Wolfsspieß, Schwarzeibe, Nachtwache
 
@@ -229,6 +237,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `stufe` | nein | Heldenstufe ab der erhaeltlich (BRS); null = offen |
 | `preis` | nein | Grundpreis in Gold (BRS, vor Ruf); 0 = unverkaeuflich; null = offen |
 | `netz` | nein | Modellnetz (455), z. B. Datei im Kaufrepo |
+| `teil` | nein | 431h Stufe 2: Teile im Kleiderschrank (held_klassen.py SCHRANK_TEILE), Liste; leer = am Helden unsichtbar |
 | `material` | nein | Material des Netzes (455) |
 | `zeichen` | nein | Zeichnung/Tusche des Netzes (455) |
 | `modell` | nein | Quelle und Lizenz des Modells (LISTE-BESTAND.md) |
