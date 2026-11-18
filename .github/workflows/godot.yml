@@ -1712,6 +1712,22 @@ jobs:
             [ -f $B/${o}_hoch.png ] && [ -f $B/${o}_niedrig.png ] && convert $B/${o}_hoch.png $B/${o}_niedrig.png +append -resize 50% $B/vergleich_${o}.png
           done
           ls -l $B
+      # 1270.6 Überzeichnung (Spike, Messlauf): Wald 11/19 und Tiefer Flüsterwald 9/12 normal und in der Überzeichnungs-Ansicht
+      # (Zeilen UEBERZ1270), Stufe Niedrig; nur von Hand auf claude/spike-1270…
+      - name: Ueberzeichnung (1270.6)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-1270') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/ueberz1270
+          mkdir -p $B
+          sudo apt-get install -y -qq mesa-vulkan-drivers xvfb > /dev/null || true
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --ueberzeichnung1270=$B 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^UEBERZ1270" | cut -c1-400 || true
+          for o in wald tiefwald; do
+            [ -f $B/${o}_normal.png ] && [ -f $B/${o}_ueberzeichnung.png ] && convert $B/${o}_normal.png $B/${o}_ueberzeichnung.png +append -resize 50% $B/vergleich_${o}.png
+          done
+          ls -l $B
       # 492 Blutzahnhoehle: Eingang, Gang mit Stuetze, Gitter, Krogg im Ostfluegel, Lager, Teich, Graks Halle mit Lyra; dazu um 180 Grad
       # gedreht (Waende wechseln hoch/niedrig); nur bei „492 Hoehlenbilder“ im Commit oder von Hand auf dem Zweig claude/tom-492-…
       - name: Hoehlenbilder (492)

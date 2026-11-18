@@ -112,11 +112,41 @@ static var _leistung_war := false
 # 190: withFrameMillis) bewegte je Takt des Bildschirms, schrieb ein Bild je Takt (Compose), nie ein ungleich langes
 const TAKTE := [0, 60, 40, 30]
 static var takt_i := 0
+# 1270.6 (1270.5 A, Chef 18.11., 13:06, Nr. 5 „Bildrate fest 30“): das Spiel laeuft mit 30 Bildern je Sekunde (gleichmaessig, weniger
+# Waerme und Akku); spiel.gd setzt es beim Start, ausser in Bildlaeufen und ohne Bildschirm. „Takt“ im Testmenue schaltet zum Messen weiter.
+const TAKT_SPIEL := 3
+# 1270.6 Messbuild: 3D in halber Aufloesung (Grafik.setze), um am Geraet zu sehen, ob die Kosten je Bildpunkt die Zeit fressen
+static var aufl_50 := false
+const RENDERER_CFG := "user://renderer_415.cfg"   # project.godot application/config/project_settings_override
 
 ## 1145: Takt reihum (frei, 60, 40, 30); Engine.max_fps gilt sofort, nicht gespeichert
 static func takt_setzen(i: int) -> void:
 	takt_i = posmod(i, TAKTE.size())
 	Engine.max_fps = int(TAKTE[takt_i])
+
+## 1270.6: 3D halb an/aus, gilt sofort
+static func aufl_umschalten() -> void:
+	aufl_50 = not aufl_50
+	var ml := Engine.get_main_loop()
+	Grafik.setze(ml as SceneTree if ml is SceneTree else null, Grafik.aktiv)
+
+## 415, 1270.6: Mobile <-> Kompatibilitaet (OpenGL) fuer den naechsten Start (Godot liest die Datei vor dem Start des Renderers);
+## gibt den Renderer zurueck, der nach dem Neustart gilt
+static func renderer_wechseln() -> String:
+	var neu := "gl_compatibility" if renderer_naechster() != "gl_compatibility" else "mobile"
+	var cfg := ConfigFile.new()
+	cfg.set_value("rendering", "renderer/rendering_method", neu)
+	cfg.set_value("rendering", "renderer/rendering_method.mobile", neu)
+	cfg.save(RENDERER_CFG)
+	return neu
+
+static func renderer_naechster() -> String:
+	var cfg := ConfigFile.new()
+	if cfg.load(RENDERER_CFG) == OK: return String(cfg.get_value("rendering", "renderer/rendering_method", "mobile"))
+	return RenderingServer.get_current_rendering_method()
+
+static func renderer_name(r: String, de: bool) -> String:
+	return ("Kompatibilität" if de else "Compatibility") if r == "gl_compatibility" else "Mobile"
 
 ## 1145: die Schalter „Messen ohne …“ auf Kamera (Tusche, Tuschelampen, Nebel) und alle Lichter (Schatten) anwenden; laeuft nur,
 ## solange einer aus ist, und einmal danach zum Zuruecksetzen
@@ -405,10 +435,19 @@ static func reiter(m: Menue) -> void:
 		zk.call(t.call("Tusche nach Lampen", "Ink by lamps"), an_aus.call(not ohne_tuschelampen), mess_satz, func(): ohne_tuschelampen = not ohne_tuschelampen, "", "✒", not ohne_tuschelampen),
 		zk.call(t.call("Nebel", "Fog"), an_aus.call(not ohne_nebel), mess_satz, func(): ohne_nebel = not ohne_nebel, "", "▒", not ohne_nebel),
 		zk.call(t.call("Schatten", "Shadows"), an_aus.call(not ohne_schatten), mess_satz, func(): ohne_schatten = not ohne_schatten, "", "◐", not ohne_schatten)])
+	var r_jetzt := RenderingServer.get_current_rendering_method()
+	var r_naechst := renderer_naechster()
 	m.zeichenreihe([zk.call(t.call("Takt", "Frame cap"), (t.call("frei", "free") if TAKTE[takt_i] == 0 else "%d" % TAKTE[takt_i]),
-		t.call("Nur zum Messen: begrenzt die Bilder je Sekunde (frei, 60, 40, 30), bis zum Neustart. Läuft die Bewegung mit festem Takt ruhig, kommt das Hakeln vom ungleichen Takt.",
-			"For measuring only: caps the frames per second (free, 60, 40, 30) until restart. If movement runs smoothly with a fixed cap, the stutter comes from uneven pacing."),
-		func(): takt_setzen(takt_i + 1), "FPS", "", TAKTE[takt_i] != 0)])
+		t.call("Das Spiel läuft mit 30 Bildern je Sekunde. Nur zum Messen: weiter reihum (frei, 60, 40, 30), bis zum Neustart.",
+			"The game runs at 30 frames per second. For measuring only: cycles (free, 60, 40, 30) until restart."),
+		func(): takt_setzen(takt_i + 1), "FPS", "", TAKTE[takt_i] != 0),
+		zk.call(t.call("3D halb", "3D half"), an_aus.call(aufl_50), t.call("Nur zum Messen: die Welt in 50 % Auflösung statt der Grafikstufe, bis du es abschaltest oder neu startest. Steigt die Bildrate deutlich, kostet jeder Bildpunkt die Zeit.",
+			"For measuring only: the world at 50 % resolution instead of the graphics level, until you turn it off or restart. If the frame rate rises clearly, the cost per pixel is what eats the time."),
+		aufl_umschalten, "", "½", aufl_50),
+		zk.call("Renderer", renderer_name(r_naechst, de) + ("" if r_naechst == r_jetzt else t.call(" (nach Neustart)", " (after restart)")),
+			t.call("Nur zum Messen: wechselt zwischen Mobile (Vulkan) und Kompatibilität (OpenGL). Gilt erst nach dem Neustart der App und bleibt, bis du zurückwechselst.",
+				"For measuring only: switches between Mobile (Vulkan) and Compatibility (OpenGL). Takes effect after restarting the app and stays until you switch back."),
+			func(): renderer_wechseln(), "", "⚙", r_naechst == "gl_compatibility")])
 	m.geraet_box()
 	m.luecke(6)
 	m.gruppe(t.call("Held · Stufe %d", "Hero · level %d") % hw.stufe)   # 425 (Pruefer 01.11.): die Stufe einmal, nicht unter „+1“
