@@ -452,7 +452,28 @@ def _werte_aus_env():
     return dict((k, v) for k, v in os.environ.items() if k.startswith('KAUF_'))
 
 
-def holen(bloecke=None):
+def juengster(block):
+    # 1666 (Jerry aus 1652): am Rechner ohne Blender kann ein Block ohne Treffer nicht gebaut werden; dann der zuletzt abgelegte
+    # Stand dieses Blocks (Commit-Zeit), Kennung zurück, None ohne Zweig. Nur am Rechner, nie auf dem Bauserver (der baut).
+    alle = _fern('refs/heads/bau/%s-*' % block)
+    if not alle:
+        return None
+    with tempfile.TemporaryDirectory() as t:
+        git('init', '-q', t)
+        if git('fetch', '-q', '--depth', '1', '--filter=blob:none', url(), *alle, cwd=t, check=False).returncode:
+            return None
+        zeit = {}
+        for r, sha in alle.items():
+            z = git('log', '-1', '--format=%ct', sha, cwd=t, capture_output=True, check=False).stdout.strip()
+            if z:
+                zeit[r] = int(z)
+    if not zeit:
+        return None
+    return max(zeit, key=zeit.get)[len('refs/heads/bau/%s-' % block):]
+
+
+def holen(bloecke=None, kennungen=None):
+    kennungen = kennungen or {}
     if bloecke is None:
         bloecke = _zu_holen(_werte_aus_env())
     if not bloecke:
@@ -460,13 +481,13 @@ def holen(bloecke=None):
         return 0
     zusatz = ''
     for block in bloecke:
-        k = kennung(block)
+        k = kennungen.get(block) or kennung(block)
         with tempfile.TemporaryDirectory() as t:
             git('init', '-q', t)
             # 1126: zuerst aus dem Repo, in das pruefen den Treffer gesichert hat; fehlt er dort, wie früher aus dem Kaufrepo
             gesichert = git('rev-parse', '-q', '--verify', 'refs/sicher/' + block, cwd=SICHER, check=False,
-                            capture_output=True).returncode == 0 if os.path.isdir(SICHER) else False
-            quelle = (SICHER, 'refs/sicher/' + block) if gesichert else (url(), zweig(block))
+                            capture_output=True).returncode == 0 if os.path.isdir(SICHER) and block not in kennungen else False
+            quelle = (SICHER, 'refs/sicher/' + block) if gesichert else (url(), zweig(block, k))
             for versuch in range(3):
                 if git('fetch', '-q', '--depth', '1', 'file://' + quelle[0] if gesichert else quelle[0], quelle[1], cwd=t,
                        check=False).returncode == 0:
@@ -847,7 +868,13 @@ if __name__ == '__main__':
     elif befehl == 'merke' and len(a) == 2:
         merke(a[1])
     elif befehl == 'holen':
-        sys.exit(holen())
+        # 1666: holen block=kennung … holt genau diese Stände (am Rechner ohne Blender, Rückfall auf den jüngsten Zweig)
+        kn = dict(x.split('=', 1) for x in a[1:] if '=' in x)
+        sys.exit(holen(list(kn) or None, kn))
+    elif befehl == 'juengster' and len(a) == 2:
+        k = juengster(a[1])
+        print(k or '')
+        sys.exit(0 if k else 1)
     elif befehl == 'nochmal' and len(a) >= 2:
         sys.exit(nochmal(a[1], a[a.index('--env') + 1] if '--env' in a else None))
     elif befehl == 'ablegen':

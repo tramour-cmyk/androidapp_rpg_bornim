@@ -67,6 +67,28 @@ def schritte(namen):
         if r.returncode:
             sys.exit(r.returncode)
 
+def ohne_blender(kc):
+    # 1666 (Jerry aus 1652): ohne Blender am Rechner (bl/bin/python fehlt) bricht „Modelle bauen“ ab, sobald ein Block keinen Treffer
+    # hat (etwa klassen nach einer Änderung an held_klassen.py). Dann je fehlendem Block der jüngste abgelegte Stand, die Treffer wie
+    # sonst; nichts wird gebaut oder abgelegt. Gut genug für Bilder und Messungen, deren Prüfgegenstand nicht in diesem Block liegt.
+    kn, alt = {}, []
+    for b in ('figur', 'dorf', 'klassen', 'leute', 'kampf'):
+        if os.environ.get('KAUF_' + b.upper()) == 'treffer':
+            kn[b] = ''
+            continue
+        r = subprocess.run(kc + ['juengster', b], cwd=REPO, capture_output=True, text=True)
+        k = r.stdout.strip()
+        if not k:
+            sys.exit('ohne Blender: Block %s hat keinen Treffer und keinen abgelegten Stand; --laden und Blender nötig' % b)
+        kn[b] = k
+        alt.append('%s %s' % (b, k))
+    print('KAUF-CACHE ohne Blender (1666): jüngster Stand für', ', '.join(alt), '- nicht der Stand dieses Zweigs', flush=True)
+    os.environ['KAUF_LEUTE'] = 'treffer'
+    schritte(['Leute bauen'])   # legt leute.json hin, baut mit Treffer nichts
+    subprocess.run(kc + ['holen'] + ['%s=%s' % (b, k) if k else b + '=' for b, k in kn.items()], cwd=REPO, check=True)
+    schritte(['Held in den Kampfort'])
+
+
 def cache(mit_laden):
     # 854 Kennung je Block: wie godot.yml; pruefen setzt KAUF_<BLOCK>, KAUF_FIGUR_BAUEN, KAUF_ALLES, KAUF_HOLEN, die Schritte und
     # ihre Teile richten sich danach (am Rechner gelten die Bedingungen „if:“ der Schritte nicht, darum hier)
@@ -76,6 +98,9 @@ def cache(mit_laden):
     e = os.path.join(RT, 'kauf_env'); os.makedirs(RT, exist_ok=True); open(e, 'w').close()
     subprocess.run(kc + ['pruefen', '--env', e], cwd=REPO)
     os.environ.update(dict(z.strip().split('=', 1) for z in open(e) if '=' in z))
+    if os.environ['KAUF_ALLES'] != 'treffer' and not os.path.exists(os.path.join(REPO, 'bl/bin/python')):
+        ohne_blender(kc)
+        return
     if os.environ['KAUF_ALLES'] != 'treffer' and mit_laden:
         laden()
     if os.environ['KAUF_ALLES'] != 'treffer':
