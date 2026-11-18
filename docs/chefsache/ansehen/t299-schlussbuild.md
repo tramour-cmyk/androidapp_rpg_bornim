@@ -7,14 +7,14 @@ Bekannt, schon gemeldet, noch drin: Beutel und Detailansicht zeigen keine Trankw
 
 Verglichen (alt gegen neu): Wachsoldatin im Hauptmenü (Bild 1515 alt gegen neu, 👍), Umhang (Bild 3, `ansehen/1569-umhang.md`), Funkenlicht Höhle (Film A/B/C, `ansehen/1211-licht-abc.md`); alt `WorldScreen.kt` 1443–1458 (Leuchtkugel: Licht in der Höhle immer).
 
-Ein Weg: über Build 298 installieren (sonst 297), Hauptmenü ansehen (299.1, 299.2), „Weiter“ und Lage am Schlagbaum (299.3), Neues Spiel als Wachsoldat (299.4), dann Lage Höhle (299.5).
+Ein Weg: über Build 298 installieren (sonst 297), „Weiter“ und Lage am Schlagbaum (299.3), Neues Spiel als Wachsoldat (299.4), dann Lage Höhle (299.5).
 
 Im Bau geprüft: Schildarm und Kleid ohne Fläche über Unterarm–Rumpf bei allen Figuren mit Kaufkleid (1417, 1515, 1535, `achsel_1515`); Fackel in der Nebenhand links (1571, Messung im Test); Kartenrand je Gebietskarte, auch mit dem Gras-Kit (1606, `rand_1022`); Funkenlicht 8 m, Abfall 1,0, in der Höhle auch am Tag (1211, `funke_677`).
 
 | # | Team | Nr. | Art | Wo und wie | Passt | Falsch |
 |---|---|---|---|---|---|---|
-| 299.1 | Tom | 1417 | Handy | Hauptmenü: die Wachsoldatin links mit Schild ansehen | Schild ganz, nichts abgeschnitten, er steckt nicht im Körper | Schild links wie abgeschnitten oder im Arm versunken |
-| 299.2 | Tom | 1515 | Handy | Hauptmenü wie 299.1, auf die Fläche vor dem Schild der Wachsoldatin achten | vor dem Schild hängt nichts, kein weißer oder heller Streifen zwischen Gürtel und Hand | ein weißer oder heller Streifen vom Gürtel zur Schildhand |
+| 299.1 | Tom | 1417 | Bild | Hauptmenü vom Stand `claude/build-299` (c2f5499da) in Handygröße, alle Stufen; rechts die Wachsoldatin vergrößert, alt Build 297 gegen neu Build 299 ([Bild](../bilder/t299-1-hauptmenue.webp)) | Schild ganz, nichts abgeschnitten, er steckt nicht im Körper | Schild links wie abgeschnitten oder im Arm versunken |
+| 299.2 | Tom | 1515 | Bild | dasselbe Bild wie 299.1, die Fläche vor dem Schild der Wachsoldatin ([Bild](../bilder/t299-1-hauptmenue.webp)) | vor dem Schild hängt nichts, kein weißer oder heller Streifen zwischen Gürtel und Hand | ein weißer oder heller Streifen vom Gürtel zur Schildhand |
 | 299.3 | Tom | 1535 | Handy | Zeile 299.3 → „Lage herstellen“ (Dorf am Schlagbaum, Mittag); Jorin geht vor dir hin und her: wenn er an einem Ende seines Wegs stehen bleibt, einige Sekunden zusehen; ebenso bei zwei weiteren Bewohnern, sobald sie stehen und sich in der Ruhebewegung regen | Kleidung bleibt am Körper, auch an den Armen | Stoff hängt an einer Hand oder spannt sich vom Arm zum Rumpf |
 | 299.4 | Tom | 1569 | Handy | nach 299.3: Hauptmenü → Neues Spiel, Herkunft Wachsoldat (trägt den Umhang von Beginn an); im Dorf ein paar Schritte gehen, dann Menü → Ausrüstung: Umhang ablegen, zurück in die Welt, wieder anlegen | der Umhang ist in der Ausrüstung und in der Welt am Helden zu sehen, nach Ablegen weg, nach Anlegen wieder da; die Kleidung darunter sticht hinten nicht durch | kein Umhang an der Figur in der Welt, oder Kleidung ragt hinten durch den Umhang |
 | 299.5 | Spike | 1211 | Handy | Zeile 299.5 → „Lage herstellen“ (Höhle am Mittag, Vorräte); Menü → Tasche → Leuchtfunke trinken, dann im Gang an den Wänden entlanggehen | der Funke schwebt kühl weiß über dem Kopf und leuchtet die Wände ringsum weich aus, auch am Tag, schwächer als eine Fackel | in der Höhle am Tag kein Licht vom Funken, oder nur ein heller Fleck direkt am Helden |
