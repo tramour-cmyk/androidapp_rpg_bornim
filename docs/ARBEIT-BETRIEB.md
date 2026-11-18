@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nie archivieren:** (keine; Sokrates `session_01Hmoj76gTnkQt77JpdpoGF3` freigegeben, Chef 17.11., 09:08 „Dann Neustart“)
+**Nie archivieren:** Sokrates `session_01Hmoj777MV8Hv8ps2Js5voW` (Chefwort 18.11., 08:09 laut Vorgangsarchiv: bleibt offen, kein ARCHIVIERE, kein Neustart; neue Sokrates-Arbeit per send_message dorthin, `--ohne Sokrates:Chef_08:09` falls lauf.py startet)
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
