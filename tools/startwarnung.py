@@ -34,6 +34,9 @@ FREMD = {"CLAUDE.md": "Perikles", "LISTE-VORGAENGE.md": "Perikles", "Block": "Pe
 TAGLICH = ("groesse", "regel", "vorrat")  # nur mit --alle (einmal am Tag, 1129 A 7)
 
 
+# 1646: Archive sind Verlauf, alte Dateinamen darin bleiben stehen (77, 98)
+VERLAUF = ("docs/PRUEFBERICHT-ARCHIV.md", "docs/VORGANGSARCHIV.md", "docs/LISTE-VORGAENGE-ARCHIV.md")
+
 def git(*a, eingabe=None, env=None):
     return subprocess.run(["git", "-C", ROOT, *a], capture_output=True, text=True, input=eingabe, env=env, timeout=60)
 
@@ -88,7 +91,7 @@ def sammeln(ref="origin/main", taeglich=True):
                 neu(f"{code}-datei:{d}", "Perikles", code, f"alte Notizdatei wieder da: {d}; Inhalt in die neue Datei, alte löschen")
         rx = r"(?<![\w-])(%s)\.md" % muster if code == "77" else r"(%s)\.md" % muster
         r = git("grep", "-l", "-P" if code == "77" else "-E", rx, ref, "--", "CLAUDE.md", "docs", "tools", ".claude",
-                ":!docs/PRUEFBERICHT-ARCHIV.md", ":!docs/VORGANGSARCHIV.md", ":!docs/alt", ":!tools/notiz.sh", ":!tools/startwarnung.py")
+                *[":!" + v for v in VERLAUF], ":!docs/alt", ":!tools/notiz.sh", ":!tools/startwarnung.py")
         for z in r.stdout.split():
             p = z.split(":", 1)[-1]
             if code == "77" and not (p == "CLAUDE.md" or p.startswith(("docs/", "tools/"))): continue

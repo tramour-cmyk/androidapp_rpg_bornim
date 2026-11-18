@@ -42,5 +42,8 @@ else:
 
 # Besitzer fest
 if W.datei_besitzer("docs/ARBEIT-TEAM-SPIKE.md") != "Spike" or W.datei_besitzer("STORY-MERKMALE-TIERE.md") != "Homer": fehler.append("Besitzer")
+# 1646: Archive (Verlauf) nie unter 77/98
+alt = [x["schluessel"] for x in W.sammeln("HEAD", taeglich=False) if x["code"] in ("77", "98")]
+if any(v in k for k in alt for v in W.VERLAUF): fehler.append("Archiv gemeldet: %s" % alt)
 print("startwarnung_test:", "grün" if not fehler else "ROT: " + "; ".join(fehler))
 sys.exit(1 if fehler else 0)
