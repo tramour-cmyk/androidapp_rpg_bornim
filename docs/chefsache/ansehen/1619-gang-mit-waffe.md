@@ -1,5 +1,7 @@
 # 1619 · Gang mit Waffe: Beine aus dem Gehen statt Trippeln
 
+[Film von 18.11., 08:52](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261118-085212-1619/2026-11/18-0852-1619-Spike.mp4) (eingetragen von meldung.sh, Spike)
+
 Spike · 18.11., 08:52 · aus deinem Wort 07:29 zu Film 458.3 („warum der Held gar so stakst … sah gar nicht mehr so nach Gehen aus. Vielleicht lag das an Tempo“)
 Kurz: Zwei Ursachen nachgestellt: der Wiesenfilm 458.3 schob den Helden zu langsam (Füße rutschten), und im Spiel trippelt das Gehen der Waffenpakete mit 4,1 beziehungsweise 3,6 Schritten je Sekunde. Neu: Beine aus dem Gehen ohne Waffe, Arme aus dem Paket. Ein Film im Dorf, je Waffe bisher und neu.
 
