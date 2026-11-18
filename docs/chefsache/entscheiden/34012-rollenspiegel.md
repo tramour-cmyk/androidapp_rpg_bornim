@@ -35,12 +35,12 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/24cd0c
 | Von | Vorschlag | Auslöser | liegt bei dir? | mein Wort |
 |---|---|---|---|---|
 | Homer | verbotene Spielbegriffe (TP, HP, „Bühne“ …) als Kerntest, Build wird rot | du fandest TP/HP am 15.11. | nein | **bauen**, Spike, halbe Sitzung |
-| Tom | Durchstechprüfung Kleidung gegen Leib für alle Figuren mit Kaufkleid | 1515, 1535, 1569, 1569.1 | nein | **bauen**, Tom, 10 bis 15 $ |
-| Diogenes | Gangprüfung: Fußgleiten und Schrittzahl gegen Gehtempo | 1619 (du, 07:29) | Schwelle am Bild ja | **bauen** nach 1619, Spike, etwa ein Tag |
-| Jerry | Trefferbild je Angriff als Pflichtbaustein mit Test | 601.1, 709, 709.1 | nein | in Block 2 Kampf (1589) einordnen, nicht eigens |
+| Tom | Durchstechprüfung Kleidung gegen Leib für alle Figuren mit Kaufkleid | 1515 (weißes Etwas vor dem Schild), 1535 (Kleid hängt an der Hand), 1569 und 1569.1 (Umhang) | nein | **bauen**, Tom, 10 bis 15 $ |
+| Diogenes | Gangprüfung: Fußgleiten und Schrittzahl gegen Gehtempo | 1619 (Gang des Helden, du 07:29) | Schwelle am Bild ja | **bauen** nach 1619 (Gang), Spike, etwa ein Tag |
+| Jerry | Trefferbild je Angriff als Pflichtbaustein mit Test | 601.1 (Zucken), 709 und 709.1 (Luftschlag, Biss vor dem Körper) | nein | in Block 2 Kampf (1589) einordnen, nicht eigens |
 | Perikles | Kräutersammler: eigene Handlung, braut Trank für den Bosskampf | gewinnt nur 56–62 von 100 (1486) | Story und Balance | nach der Messung des neuen Kampfes ab 21.11. |
-| Ford | Höhlenlicht nach Dunkelheit am Ort statt Uhrzeit | dein Entscheid zu 1211 | Aussehen | Ideenliste, Aussehen ruht bis zum Durchspielen (488) |
-| Sokrates | Glanz bei epischer Beute am Fundort | Film 1613 | Aussehen | Ideenliste, wie Ford |
+| Ford | Höhlenlicht nach Dunkelheit am Ort statt Uhrzeit | dein Entscheid zu 1211 (Leuchtfunke) | Aussehen | Ideenliste, Aussehen ruht bis zum Durchspielen (488) |
+| Sokrates | Glanz bei epischer Beute am Fundort | Film 1613 (Effekt epischer Waffen) | Aussehen | Ideenliste, wie Ford |
 
 Die drei „bauen“ sind Prüfungen für Fehler, die du gefunden hast; nach 340.7 dürfen sie damit Muss sein. Spike hat heute nichts Startbares.
 
