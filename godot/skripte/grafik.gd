@@ -61,6 +61,8 @@ static func lade() -> void:
 	wahl = String(c.get_value("grafik", "wahl", "auto")) if ok else "auto"
 	if not wahl in WAHL: wahl = "auto"
 	auto_stufe = clampi(int(c.get_value("grafik", "auto", -1)), -1, HOCH) if ok else -1
+	# 1270.6: eine Messung mit dem alten Ziel (60 Hz, vor dem Takt 30) gilt nicht; einmal neu einmessen am naechsten Ort
+	if auto_stufe >= 0 and int(c.get_value("grafik", "takt", 0)) != int(Testmodus.TAKTE[Testmodus.TAKT_SPIEL]): auto_stufe = -1
 	aktiv = stufe()
 
 static func speichere() -> void:
@@ -69,6 +71,7 @@ static func speichere() -> void:
 	c.load(DATEI)
 	c.set_value("grafik", "wahl", wahl)
 	c.set_value("grafik", "auto", auto_stufe)
+	c.set_value("grafik", "takt", int(Testmodus.TAKTE[Testmodus.TAKT_SPIEL]))   # 1270.6: Ziel, mit dem gemessen wurde
 	c.save(DATEI)
 
 ## Laeufe mit Argumenten: Hoch wie bisher, oder die Stufe aus --grafik=

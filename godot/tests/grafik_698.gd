@@ -145,5 +145,15 @@ func _lauf() -> void:
 	Testmodus.aufl_umschalten()
 	pruefe("3D halb aus: wie die Stufe", is_equal_approx(root.scaling_3d_scale, Grafik.SCHAERFE[Grafik.aktiv]))
 	Testmodus.takt_setzen(0)
+	# 1270.6: gespeicherte Messung ohne Takt (vor 1270.6) gilt nicht, mit Takt 30 schon
+	var c := ConfigFile.new()
+	c.set_value("grafik", "wahl", "auto"); c.set_value("grafik", "auto", Grafik.NIEDRIG)
+	c.save(Grafik.DATEI)
+	Grafik.wahl = ""; Grafik.lade()
+	pruefe("alte Messung ohne Takt: neu einmessen", Grafik.auto_stufe == -1 and Grafik.braucht_messung())
+	c.set_value("grafik", "takt", 30); c.save(Grafik.DATEI)
+	Grafik.wahl = ""; Grafik.lade()
+	pruefe("Messung mit Takt 30 gilt", Grafik.auto_stufe == Grafik.NIEDRIG)
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(Grafik.DATEI))
 	Grafik.probe = false
 	quit(1 if fehler else 0)
