@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 312 · 1618 Freigabe bei IDLE (18.11., 07:10)
+
+- **1618 greift:** `freigabe_idle_test.py` grün (4 Fälle, Exit 0); `lauf.py` Zeile 773 weg, JSON-Weg macht blocked+IDLE zu need_input. Echter Fall: „Sokrates – Nachtvertretung“ `…777MV8Hv8ps2Js5voW` blocked, IDLE seit 05:05; Ford-Lauf 07:05 ohne „Marke Freigabe“, Wache 05:33 und 06:33 ohne Meldung in `meldungen.tsv`.
+- Bleibt: Kurzzeile `blocked` wird weiter als RUNNING gelesen; still bleibt sie nur, wenn Ford nach `LISTE-BETRIEB.md` 3 `need_input` schreibt (Kurzzeile kennt kein IDLE, gewollt).
+- Nicht geprüft: Freigabe-Alarm an einer echten Freigabe-Frage (1610, kein Fall).
+
 ## Lauf 311 · 1617, 1610 Wache (18.11., 03:45)
 
 - **1617 greift:** Wachlauf 03:33 (`…76ew1cGKY7mCBVHUFx`, 02:34 UTC) liest die neue Zeile, `list_sessions` limit 100 (letzte Zeile 16.11., Abbruch nach 1616 richtig), einzige blocked-Sitzung „Sokrates – Nachtvertretung“ mit `session_status` IDLE seit 03:08 → still; kein Fehlalarm in `meldungen.tsv`.
