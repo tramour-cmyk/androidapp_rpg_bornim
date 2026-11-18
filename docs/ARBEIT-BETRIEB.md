@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1677** (zuletzt 1676 Tom 18.11. 16:01:58 3d29) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1678** (zuletzt 1677 Perikles 18.11. 16:17:32 fcd7) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -47,6 +47,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 16:18 18.11.: Startsperre 16:18 Start Perikles (a06eeb1f9, 1677)
+- 18.11., 16:05 Ford: Perikles `…79KP73TmJnieGVtFS2` (1672) gestartet und archiviert, 1,64 $ auf 1672.
 - 15:49 18.11.: Startsperre 15:49 Start Perikles (8d277e1b3, 1672)
 - 18.11., 15:47 Ford: Neustarts Tom `…78owYQkFkJBSr1C1Vw` (1650), Sokrates `…75tQqfjKyVtzLcinwA` (Startprompt); archiviert Sokrates (7,72 $ auf 1566, 1665, 1667, 1668, 1670, 1205b), Tom (9,82 $ auf 1650, 1663, 1205); Jerry „Weiter“ 1671.
 - 15:39 18.11.: Startsperre 15:39 Start Sokrates (Neustart 9079fc17e, Chefrunde 299)
