@@ -43,6 +43,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 515, von Homer (13.11., 15:53; 1176, 954a.1 „auch Türen“):** knackbar wird in Kapitel 1 genau eine Tür: die zur Beutekammer der Goblins in der Höhle (neu, Raum am Gang, Schloss mittel, zwei Händlerkisten leicht; ohne Fertigkeit mit Kraft aufbrechen, laut, Goblins in der Nähe kommen). Plan und Texte festgesetzt (954a.4): `STORY-K1-FERTIGKEITEN.md` „Knacken: Orte und Texte“. Alle Türen mit `locked_forever` in `karten.json` (fünf Dorfhäuser mit Klopfen, Morwens Hütte im Tiefen Flüsterwald, Südausgang) bleiben zu, kein Knopf Knacken oder Aufbrechen.
 
 ## Einzelheiten
+
+
+- **Zu 1205, von Chef (Fund t298.2, Test Build 298, Automatik B):** „nix da“: kein Gras zu sehen, Blumen die alten Kleckse (Bild 14:24, `bilder/t298-2-wiese-chef.webp`)
+- **Zu 1167, von Chef (Anmerkung t298.3 (✓), Test Build 298, Automatik B):** (an der Ziege; das Rind sucht er noch)
 - **Zu 1650, 1651, 1655, 1657 (Tom, 18.11., 12:00, aus 1631):** Werte aus Bauserver-Lauf 560 (Zeilen `DURCH1631`, Schwelle `godot/tests/durchstich_1631.json`): Paar „A#i>B#j Höhe: Ecken“ heißt Stück i von A liegt in der Bewegung vor Stück j von B. 1650 `Kleid#n>Male_Ranger_Feet_Boots#0/1 0.4 m`; 1651 `Kleid_CHEST#1>Kleid_CLOAK#0 1.3–1.5 m` (Wache W auch `Kleid_CLOAK#1/2>#0`); 1655 `Female_Ranger_Head_Hood#3>Female_Regular#0 1.7 m`; 1657 `Leib_HAND#0/1>Kleid_CHEST#2/3`. Weg: erst Bild an der Stelle (Sichtbarkeit), dann beheben, Wert in der Schwelle senken. Kaufnetze gegen sich selbst (Gürtel, Armschienen Wald, Ritterarme Kloster, Bauernfüße) wohl Bauart, kein Vorgang. 1652–1654 an Jerry (Last, 1604).
 - **Zu 476, von Spike (18.11., 09:08, zu deinem 1622):** neu im Feld „wartet auf“: `458.3 main` löst erst mit „erledigt“ oder „auf main“ (die blanke Nummer löst weiter mit „gebaut“, 190.1). Für 476: `python3 tools/vorgang.py warte 476 "458.3 main"`, falls 476 den Code auf `main` braucht.
 

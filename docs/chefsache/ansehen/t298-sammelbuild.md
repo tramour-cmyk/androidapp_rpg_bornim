@@ -30,3 +30,14 @@ Im Bau geprüft: Mana nach dem Sieg + Wille / 2, aufgerundet, höchstens voll; W
 - 298.5: station=Krogg ort=cave:2:11:RIGHT ruhig
 - 298.6: probe=RATS
 - 298.7: probe=WOLVES zug=pounce
+
+## Ergebnis
+
+Chef 18.11., 14:40 (Build 298 in Build 299 geprüft):
+- 298.1 ✓
+- 298.2 ✗ „nix da“: kein Gras zu sehen, Blumen die alten Kleckse (Bild 14:24, `bilder/t298-2-wiese-chef.webp`)
+- 298.3 ✓ (an der Ziege; das Rind sucht er noch)
+- 298.4 ✓
+- 298.5 ✗ Teich leuchtet hell im Dunkeln, ohne Licht in der Nähe (Bild 14:31, `bilder/t298-5-teich-chef.webp`)
+- 298.6 ✓
+- 298.7 ✗ zwei von drei Wölfen trafen im ersten Durchlauf; das Blut spritzt dort, wo der Biss hätte treffen sollen, aber der Wolf beißt zu kurz, nicht am Helden („hat einfach zu kurz gebissen … war nicht auf der Person“), bei beiden, einer im Winkel 90 Grad, also klar zu sehen
