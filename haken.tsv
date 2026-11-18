@@ -959,3 +959,4 @@
 2026-11-18 11:10:15	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-1645-schatten ändert Spielcode (godot/kampf/baustein	claude/spike-1645-schatten
 2026-11-18 11:22:26	probelauf	513.1 (Chef 03.11., 15:56: „513 B“): dieser Stand enthält den abgenommenen Figurenstand nicht: 3b29ac0cb (417), e3789d130 (463). Erst den Figurenstand hineinmischen (Zweig mit allen Abnahmen, Toms 513	claude/spike-1630-hoehlenlicht
 2026-11-18 11:30:28	commit-pruefung	LISTE-VORGAENGE.md: 1648: Zeile über 400 Zeichen (Einzelheiten als „Zu 1648“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-18 11:55:44	probelauf	1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert (7 Dateien, etwa tools/blender348/v3/pruef_flecken.py). Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je 	claude/tom-1631-durchstich
