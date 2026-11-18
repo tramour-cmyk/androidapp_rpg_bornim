@@ -948,3 +948,4 @@
 2026-11-18 09:52:32	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30062 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-18 10:09:38	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/tom-1631-durchstich
 2026-11-18 10:43:49	commit-pruefung	docs/LISTE-TECHNIK-PRAXIS.md: Uhrzeit 11:05 liegt nach jetzt (10:43)	main
+2026-11-18 10:48:26	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md: Uhrzeit 10:58 liegt nach jetzt (10:48)	main
