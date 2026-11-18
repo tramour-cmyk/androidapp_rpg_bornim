@@ -186,8 +186,42 @@ def tafel_ansehen():
                      + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(apks, 1)) + "\n")
     return "\n".join(teile)
 
+def letzter_testbuild():
+    """Chef 18.11., 19:25 („letzten Testbuild immer dabei, nicht ein Release“; Tablet neu laden, ohne nachzufragen): APK-Link aus
+    Zeile 2 der höchsten Prüfliste ansehen/t<n>-….md, offen oder schon getestet (gelöscht, aus Git). Entwürfe zählen nicht."""
+    pfad = os.path.join(ZUG, "ansehen")
+    wurzel = os.path.join(ZUG, "..", "..")
+    kandidaten = {}  # n -> (Text-Lieferant, getestet?)
+    for n in (os.listdir(pfad) if os.path.isdir(pfad) else []):
+        if (m := re.match(r"t(\d+)-.*\.md$", n)):
+            p = os.path.join(pfad, n)
+            kandidaten[int(m.group(1))] = (lambda p=p: open(p, encoding="utf-8").read(), False)
+    try:
+        log = subprocess.run(["git", "log", "--diff-filter=D", "--format=@%H", "--name-only", "--", "docs/chefsache/ansehen/"],
+                             cwd=wurzel, capture_output=True, text=True, timeout=60).stdout
+    except Exception:
+        log = ""
+    commit = ""
+    for z in log.splitlines():
+        z = z.strip()
+        if z.startswith("@"): commit = z[1:]; continue
+        if (m := re.match(r"docs/chefsache/ansehen/t(\d+)-.*\.md$", z)) and int(m.group(1)) not in kandidaten:
+            kandidaten[int(m.group(1))] = (lambda c=commit, f=z: subprocess.run(["git", "show", f"{c}^:{f}"], cwd=wurzel,
+                                                                              capture_output=True, text=True, timeout=60).stdout, True)
+    for n in sorted(kandidaten, reverse=True):
+        lesen, getestet = kandidaten[n]
+        zeilen = [z for z in lesen().splitlines() if z.strip()]
+        if len(zeilen) < 2 or not re.search(rf"\bBuild {n}\b", zeilen[0]): continue  # t3485 u. ä.: alte Namen ohne Buildnummer
+        link = re.search(r"\[APK[^\]]*\]\((https://[^)]+)\)", zeilen[1])
+        if not link: continue
+        v = re.search(r"\b0\.348\.\d+\b", zeilen[0]) or VERSION.search(zeilen[0])
+        wann = re.search(r"\b\d\d\.\d\d\., \d\d:\d\d\b", zeilen[1])
+        return (f"**Letzter Testbuild:** [Build {n}{' · ' + v.group(0) if v else ''} (APK)]({link.group(1)})"
+                f"{' · ' + wann.group(0) if wann else ''} · {'getestet' if getestet else 'zum Testen'} · Release dagegen nur auf Zuruf\n")
+    return ""
+
 DOCS = os.path.join(ZUG, "..")
-TEAMS = ("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
+TEAMS =("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
 
 def formfehler():
     """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Passt | Falsch (1033; alte Listen „Richtig“)."""
@@ -422,7 +456,7 @@ def bilderlinks():
 
 versionen_nachtragen()
 bilderlinks()
-neu = "\n".join([t for t in [KOPF, zustaendig(), ueberblick(), tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
+neu = "\n".join([t for t in [KOPF, letzter_testbuild(), zustaendig(), ueberblick(), tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:
