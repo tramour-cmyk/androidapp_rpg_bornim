@@ -67,7 +67,22 @@ func miss(m: Node3D) -> Dictionary:
 	t.merken = true
 	if OS.get_environment("WER") != "": print("WER w=%s waffe=%s gleich=%s" % [w.get_path(), t.waffe.get_path() if t.waffe else null, w == t.waffe])
 	if t.posen.size() != sk.get_bone_count(): return aus
-	_posen = t.posen
+	# 1694 (Bild 20:43 gegen „360°“): gemessen wird die Endpose nach allen Modifikatoren (skeleton_updated), nicht die in Tragen
+	# gemerkte; ein Modifikator nach Tragen (vorher der Atem) verschob die Faust, die Messung sah es nicht. r_versatz = Hand Endpose
+	# gegen die gemerkte Pose (cm), über 0,3 cm ein Fehler
+	if not sk.has_meta("griff_end"):
+		sk.set_meta("griff_end", [])
+		sk.skeleton_updated.connect(func():
+			var e: Array[Transform3D] = []
+			for i in sk.get_bone_count(): e.append(sk.get_bone_global_pose(i))
+			sk.set_meta("griff_end", e))
+	var ende: Array = sk.get_meta("griff_end")
+	if ende.size() != sk.get_bone_count(): return aus
+	_posen.assign(ende)
+	var hr := sk.find_bone("hand_" + t.seite)
+	if hr >= 0:
+		aus["r_versatz"] = 100.0 * (_posen[hr].origin - t.posen[hr].origin).length()
+		if aus["r_versatz"] > 0.3: print("FEHLER Faust nach Tragen verschoben: %.1f cm" % aus["r_versatz"])
 	var g := w.global_transform * Halt.griff_rahmen(t.halt)
 	var ax := g.basis.y.normalized()
 	var rad: float = t._radius() if t.has_method("_radius") else _radius(w, g)
