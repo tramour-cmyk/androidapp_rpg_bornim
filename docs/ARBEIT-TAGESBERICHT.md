@@ -5,7 +5,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 18.11., 07:49** (Werkzeug `tools/tagesbericht.py`)
+**Stand 18.11., 07:51** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
@@ -38,27 +38,27 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 | **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 17 | 2.14 abgenommen; 2.13, 2.15, 2.16 als Teilhaken gebilligt (1375); Builds 295, 296, 297 gestern getestet; Sammelbuild 298 seit 17.11., 23:45 bei dir; Schlussbuild 299 ab heute 13:00 (1595) |
 | **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog: Waffenstaffel am Helden gebaut (458.3), Langwaffen kürzer (1621, heute 07:37 A); Figurenkatalog Teil A gebilligt (649.2), Teil B ruht mit dem Kampf; Rest offen |
 | **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | in Arbeit (unten); 4.8 keine SRD-Namen in Arbeit (870) |
-| **5 marktreif** | Kapitel 1 im Play Store | 1 | Vorlauf: D-U-N-S beantragt, Bearbeitung bis etwa 08.12. (142.4); AAB des Godot-Builds ruht bis „Kampf passt“ (622) |
+| **5 marktreif** | Kapitel 1 im Play Store | 1 | Vorlauf: Firmennummer für das Play-Konto (D-U-N-S) beantragt, Umstellung des Kontos Wiedervorlage 24.11. (142.4); AAB des Godot-Builds ruht bis „Kampf passt“ (622) |
 | **6 SRD im Code abgelöst** | nach dem Marktstart, für dich unsichtbar | 1 | – |
 
 - **Kampf (Block 2) ruht bis Sa 21.11., 20:00** (dein Wort 17.11., 23:21, 1605): keine Arbeit am alten Kampfweg, weil das neue Kampfsystem (Arena, Stellung, Beinarbeit, 1589) ihn ersetzt; 47 Zeilen warten auf diesen Termin, auch Gegenstandskatalog 458.3 und Welt in Zellen 1484a, die in den Sammelbuild danach gehen. Das Wochenziel „Kampf passt“ wird damit in dieser Woche nicht erreicht; ich setze es am Montag neu.
 - **Stufe 2:** Build 295 (10:09), 296 (11:03) und 297 (16:16) hast du gestern getestet; Build 298 (Neues Spiel nur BRS, Wiesen, Dorftiere, Stäbe, Siegtafel, Wolfssprung) liegt seit 23:45 bei dir, ein Test darin war rot (Kartenrand rand_1022, am Rechner grün, Tom 1606). Danach baut Jerry ab 13:00 den Schlussbuild 299 mit allem bis dahin Gebilligten (1595), damit du vor dem Stillstand eine aktuelle App zum Durchspielen hast.
-- **Stufe 3:** Nachts hat Sokrates als dein Vertreter vorentschieden: Waffenstaffel am Helden (458.3), Größen je Volk (455.2), Glanz ab episch (1613), Umhang und Robe (1569, 1569.1), Funkenlicht B (1211), Welt in Zellen (1484a); alles liegt zum Billigen in der Chefsache, „zurück“ heißt Rückbau.
+- **Stufe 3:** Nachts hat Sokrates als dein Vertreter vorentschieden: Waffenstaffel am Helden (458.3), Größen je Volk (455.2), Glanz ab episch (1613), Umhang und Robe (1569, 1569.1), Fackel in der linken Hand (1571), Funkenlicht B (1211), Welt in Zellen (1484a); alles liegt zum Billigen in der Chefsache, „zurück“ heißt Rückbau.
 - **Stufe 4:** gebilligt seit dem letzten Bericht: Höhlenwasser (1566), Siegtafel (1567), Schatten im Kampfort (1568), Stäbe (1587), Streifen an der Wache weg (1515), fremde Rüstungen Stufe 2 (431h), Fackelzug im Vorspann (1530).
 
 ## Wer hinkt (18.11., 07:48)
 
 - **Guthaben:** 71 % am 17.11., 21:50; bei 0,8 % je Stunde 80 % heute gegen 09:00 (dann nur noch Muss), 100 % Do 19.11. gegen 10:00, danach Stillstand bis Sa 20:00. Ein neues Bild der Nutzung hilft mir, die Rechnung zu prüfen.
-- **Verteilung:** startbar sind jetzt Tom 8, Sokrates 6, Spike 2, Jerry 1, Perikles 1; Tuffy ist leer, weil Jerry kein zweites unabhängiges Muss außerhalb des ruhenden Kampfs hat. Nach deinem Wort 23:16 (1604) warnt `vorgang.py` jetzt beim Anlegen, wenn Spike oder Tuffy leer stehen; die Wirkung zähle ich am 23.11.
-- **Zusammenführen:** der Wächter meldet getestete Builds ab 274, die noch nicht ganz auf `main` sind (1608, Sokrates, Muss); er führt heute bis 12:00 zusammen, was grün ist, rote Tests gehen ans Team.
-- **Rote Läufe:** Kartenrand rand_1022 zweimal rot im Lauf, am Rechner grün (1606, Tom).
+- **Verteilung:** startbar sind jetzt Tom 9, Sokrates 6, Spike 2, Jerry 1, Perikles 1; Tuffy ist leer, weil Jerry kein zweites unabhängiges Muss außerhalb des ruhenden Kampfs hat. Nach deinem Wort 23:16 (1604) warnt `vorgang.py` jetzt beim Anlegen, wenn Spike oder Tuffy leer stehen; die Wirkung zähle ich am 23.11.
+- **Zusammenführen:** getestete Builds (274 und 15 weitere) sind laut Werkzeug noch nicht ganz auf `main`; Sokrates führt zusammen, was grün ist, rote Tests gehen ans Team (1608, Muss, vor dem Schlussbuild 299).
+- **Rote Läufe:** der Test Kartenrand (rand_1022) war in den Läufen 558 und 559 von Build 298 rot; Ursache gefunden (Stoff der Wiesenflecken aus 1205), Tom hat sie behoben, die Behebung fährt im Schlussbuild 299 mit (1606).
 - **Hänger:** Ford hing gestern zwei Stunden, ohne dass es dir jemand gemeldet hat (1572, dein Fund 17:02); seitdem meldet der Hängeralarm jede blockierte Sitzung nach 15 Minuten laut (1610, prüft Diogenes am 23.11.).
 
 ## Wo du Prioritäten setzen kannst (18.11., 07:48)
 
 1. **Build 298 testen** (seit 17.11., 23:45, [Prüfliste](chefsache/ansehen/t298-sammelbuild.md)): er hält 9 Zeilen; was du dort findest, kommt noch in den Schlussbuild 299 ab 13:00.
-2. **Vorentscheide der Nacht billigen oder „zurück“ sagen** (acht Dateien in `chefsache/billigen/`): ohne Wort gehen sie in den Sammelbuild nach dem Stillstand.
-3. **Mittwochsrunde:** heute schreiben alle sieben Rollen ihren Rollenspiegel; danach bekommst du die Übersicht der Spielvorschläge (Frage 11).
+2. **Vorentscheide der Nacht billigen oder „zurück“ sagen** (acht Dateien in `chefsache/billigen/`): mit deinem 👍 bis 13:00 kommen sie noch in den Schlussbuild 299, sonst erst in den Sammelbuild nach dem Stillstand (Sa 21.11., 20:00).
+3. **Mittwochsrunde** (dein Wort 18.11., 00:03): heute beantworten Sokrates, Perikles, Homer, Ford, Diogenes, Tom und Jerry den Fragebogen zur eigenen Arbeit (Rollenspiegel); danach bekommst du ihre Vorschläge, wie Kapitel 1 besser wird, als eine Übersicht.
 
 *Stärkstes Gegenargument zu 1:* Build 299 kommt heute Abend ohnehin und enthält 298; ein Test von 298 kostet dich doppelt. *Wie es zu entkräften ist:* 298 ist die sichere App, falls 299 rot bleibt, und Funde aus 298 kann Jerry nur bis 13:00 in 299 aufnehmen.
 
@@ -73,5 +73,5 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
 - Rest geschätzt: Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“ wird nicht erreicht: der Kampf ruht nach deinem Wort bis Sa 21.11., 20:00, weil das neue Kampfsystem (1589) den alten Kampfweg ersetzt. Bis dahin zählt der Schlussbuild 299 (1595, Jerry, Bau ab 13:00, Testbitte bis 20:00). Schätzungen von Tom und Jerry liegen nicht vor; Montag neu.
-- Von dir zuerst gefunden: seit dem letzten Bericht (17.11., 07:42): Ford hing zwei Stunden und keiner meldete es (17:02, 1572); der weiße Streifen an der Wache war entgegen der Meldung noch da (21:45, 1515); der Feuerzauber beginnt hinter dem Kopf statt am Stab (21:40, 385.2); die Arbeit lief wieder nur auf zwei Entwickler zu (23:16, 1604, Wiederholung von 1508); die Langwaffen waren zu lang (07:29, 1621) und der Held stakst im Film (07:29, 1619); die Bremse für Vorentscheide zählte falsch (07:32, 1620). Wiederholt statt neu: 1604 (ungleiche Verteilung, dritter Fund), 1515 (Rückläufer). Die Woche zählt Diogenes am 23.11.
+- Von dir zuerst gefunden: seit dem letzten Bericht (17.11., 07:42): Ford hing zwei Stunden und keiner meldete es (17:02, 1572); der weiße Streifen an der Wache war entgegen der Meldung noch da (21:45, 1515); der Feuerzauber beginnt hinter dem Kopf statt am Stab (21:40, 385.2); die Arbeit lief wieder nur auf zwei Entwickler zu (23:16, 1604, Wiederholung von 1508); die Langwaffen waren zu lang (07:29, 1621) und der Held stakst im Film (07:29, 1619); die Bremse für Vorentscheide zählte falsch (07:32, 1620). Wiederholt statt neu: 1604 (ungleiche Verteilung, wie schon 1508 am 17.11.), 1515 (Rückläufer). Die Woche zählt Diogenes am 23.11.
 - Größtes Risiko: der Stillstand ab Do 19.11. gegen 10:00, wenn das Guthaben 100 % erreicht; geht der Schlussbuild 299 heute rot, hast du bis Samstag nur Build 298, in dem ein Test rot war (Kartenrand rand_1022, 1606). Darum fliegt in 299 jeder rote Zweig hinaus statt repariert zu werden.
