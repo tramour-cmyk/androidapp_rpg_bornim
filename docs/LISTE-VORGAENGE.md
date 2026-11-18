@@ -179,6 +179,7 @@
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | 23.11. | – | – | Q QM | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen (keine alten Datenwege), Seiten auffindbar für den Chef, Stichprobe im Spiel (Chef 08.11., 14:30) | Diogenes | K | startbar | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | Q QM | – |
+| 1707 | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 15:50): ARBEIT-PRUEFUNG.md: 1 „Zu“ zu Erledigtem (1661), beim Übergeben streichen | Diogenes | K | startbar | – | – | – | B Abläufe | – |
 | 1520 | Von Chef (17.11., 06:18): An den Läufen sparen; A Neustart-Haken auch in langen Zügen, Sperre ab 300 Tsd.; B 40 $ je Vorgang ohne 👍 = Halt | Sokrates | M | ruht, 1537 geprüft 10:53 (Probeprotokoll), Wirkung 24.11. | 24.11. | – | – | B Steuerung | 10,90 $ |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust gingen (Art 1110 Rechte, 1128 Prüffragen; Chef 13.11., 12:53) · „jetzt“ 13.11., 12:53 | Sokrates | M | wartet, 1129.4 ausgewertet, Punkt 6 gerissen | 1387 | – | – | B Abläufe | 26,46 $ |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus (dontAsk von auto aus abgelehnt; default mit Erlaubnisliste) (Chef 10.11., 16:25) · „jetzt“ 10.11., 16:25 | Sokrates | M | ruht, 887a zurückgestellt (Chef 16:53) | 23.11. | – | – | B Werkzeuge | – |
@@ -215,7 +216,7 @@
 | 1564 | Systemlösung? Wasser: 4 frühere Vorgänge (1155, 221, 623.6, 1218), neu 1563; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | G Stil | – |
 | 1635 | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 1656 | Systemlösung? Kapuze: 2 frühere Vorgänge (475a, 1546), neu 1655; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
-| 1693 | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-BERATUNG.md: 1 „Zu“ zu Erledigtem (1589.1), beim Übergeben streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
+| 1693 | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-BERATUNG.md: 1 „Zu“ zu Erledigtem (1589.1), beim Übergeben streichen | Sokrates | K | erledigt, Warnung weg (Werkzeug 1642) | – | – | – | B Abläufe | – |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | Sokrates | K | nach Meilenstein | – | – | – | M Markt | –; +1,26 $ |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Sokrates | K | nach Meilenstein | – | – | – | Q QM | – |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | Sokrates | K | nach Meilenstein | – | – | – | E Kampf | – |
