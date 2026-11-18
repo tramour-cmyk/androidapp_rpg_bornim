@@ -1,5 +1,7 @@
 # 1621 · Zweihandwaffen kürzer: alt gegen neu am Helden
 
+[Bild von 18.11., 10:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1033-1621-Spike-2.png) (eingetragen von meldung.sh, Spike)
+
 [Bild von 18.11., 10:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1033-1621-Spike.png) (eingetragen von meldung.sh, Spike)
 
 [Bild von 18.11., 09:08](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-0908-1621-Spike-2.png) (eingetragen von meldung.sh, Spike)
