@@ -38,6 +38,7 @@ func _lauf() -> void:
 	pruefe(h.funke_licht.visible and h.funke_licht.light_energy > 0.5, "nachts kein Licht: %.2f" % h.funke_licht.light_energy)
 	pruefe(h.funke_licht.light_energy < 2.2 * 1.0, "heller als die Fackel")
 	pruefe(h.funke_licht.light_color.b > h.funke_licht.light_color.r, "Licht nicht kühl")
+	pruefe(is_equal_approx(h.funke_licht.omni_range, 8.0) and is_equal_approx(h.funke_licht.omni_attenuation, 1.0), "Licht nicht wie 1211 B (8 m, Abfall 1,0): %.1f m, %.1f" % [h.funke_licht.omni_range, h.funke_licht.omni_attenuation])
 	# dreht sich der Held, bleibt der Funke, wo er ist (top_level)
 	var p0 := h.funke.global_position
 	h.rotation.y += PI / 2

@@ -514,8 +514,9 @@ void fragment() {
 	_funke_r7()
 	funke_licht = OmniLight3D.new()
 	funke_licht.light_color = FUNKE_FARBE
-	funke_licht.omni_range = 8.0 * 5.2 / 6.2
-	funke_licht.omni_attenuation = 2.0
+	# 1211 B (Vorentscheid Sokrates 18.11., 00:48, Film Höhle A/B/C): weicher Abfall, Reichweite 8 m, Stärke wie bisher (vorher 6,7 m, Abfall 2,0)
+	funke_licht.omni_range = 8.0
+	funke_licht.omni_attenuation = 1.0
 	funke.add_child(funke_licht)
 	funke_licht.set_meta("reich", 4.0 * 5.2 / 6.2)   # Tusche nach dem Licht wie die Fackel (348.13b)
 	funke_licht.set_meta("kraft", 1.05 / 1.35)
