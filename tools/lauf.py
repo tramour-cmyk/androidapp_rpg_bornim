@@ -70,7 +70,7 @@ steht WARNUNG-LAUT „Start <Rolle> nicht angekommen“ (einmal, Marke „Start-
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten, oder offener Weckruf (--wecker, 916) (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Eingang, Leermeldung eines Teams (bleiben bei Ford, LISTE-BETRIEB.md „Jeder Lauf“).
 """
-import os, re, sys, datetime, zoneinfo, subprocess
+import glob, os, re, sys, datetime, zoneinfo, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar, kosten
 
@@ -98,6 +98,37 @@ REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_ur
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
 # 1472 (Chef 16.11., 18:07: „Erst in die Startnachricht bei allen Beschäftigten“): add_repo gelang nur mit der Erlaubnis im Gespräch
 # (Tom 17:21, Jerry 10:58), nicht allein mit autoMode.allow (Spike 13:09); darum steht das Chefwort in jeder START- und WEITER-Nachricht
+def kern(rolle):
+    """1683 (Chef 18.11., 16:54 „Kern über lauf.py, genauso“): Abschnitt „## Kern“ der Rollendatei, deren erste Zeile die Rolle nennt
+    (ROLLE-TECHNIK.md „# Technik (Spike)“, ROLLE-BERATUNG-START.md „# Startprompt Sokrates“), bis zur nächsten „## “-Überschrift;
+    mit „## Schwerpunkte“ dahinter dazu Schwerpunkt A (ohne Angabe A, ROLLE-BERATUNG-START.md 1). Ohne solche Datei leer."""
+    for p in sorted(glob.glob(os.path.join(DOCS, "ROLLE-*.md"))):
+        zeilen = lesen(p).split("\n")
+        if not zeilen or not re.search(r"\b%s\b" % re.escape(rolle), zeilen[0]): continue
+        try: i = next(k for k, z in enumerate(zeilen) if z.startswith("## Kern"))
+        except StopIteration: continue
+        j = next((k for k in range(i + 1, len(zeilen)) if zeilen[k].startswith("## ")), len(zeilen))
+        teil = zeilen[i + 1:j]
+        if j < len(zeilen) and zeilen[j].startswith("## Schwerpunkte"):
+            a = next((k for k in range(j + 1, len(zeilen)) if zeilen[k].startswith("### A ")), None)
+            if a is not None:
+                b = next((k for k in range(a + 1, len(zeilen)) if zeilen[k].startswith(("### ", "## "))), len(zeilen))
+                teil += zeilen[a:b]
+        text = "\n".join(teil).strip().rstrip("-").strip()
+        if text: return text
+    return ""
+
+
+def mit_kern(l):
+    """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht."""
+    if not l.startswith("START "): return l
+    rolle = l[6:].split(" |", 1)[0].strip()
+    k = kern(rolle)
+    if not k: return l
+    kopf, _, msg = l.rpartition(" | ")
+    return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
+
+
 KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
@@ -317,6 +348,14 @@ def stand():
             + " (1538: je Vorgang weiter, vereinfachen oder streichen mit einem Satz Grund; weiter/vereinfachen = Zeile „Kosten frei:“ in ARBEIT-PROJEKT.md"
             " bis zur nächsten Schwelle; Chefauftrag streichen nur über die Chefsache)", {}))
     return aus
+
+def fremd_besitzer(rolle, nr, muss):
+    """1662: Besitzer der Zeile nr, wenn sie offen einem anderen gehört und nicht als Übernahme (1364) in muss steht; sonst None."""
+    d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+    if not d or "erledigt" in d.get("stand", ""): return None
+    b = d.get("besitzer", "")
+    if not b or b in (rolle, startbar.ZUSATZ.get(rolle)) or any(x[0] == nr for x in muss): return None
+    return b
 
 def stillstand(st, je_rolle, archiviert, ausschluss):
     """1246: Text der Ursachen, wenn keine Rolle aus START_REIHE startbares Muss hat und keine ihrer Sitzungen arbeitet, aber Muss-Zeilen
@@ -875,6 +914,10 @@ def main():
         elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
             offen_nf = None
+        elif nf_nr and (eig := fremd_besitzer(r, nf_nr.group(1), muss)):
+            # 1662 (Ford 18.11., 13:06): Nachfolger auf einer Zeile, die inzwischen einem anderen gehört (1595 an Spike), startete die alte Rolle
+            warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ gehört inzwischen %s, oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, eig))
+            offen_nf = None
         if offen_nf and nf_nr and nacht_halt(r, nf_nr.group(1), ausgabe, morgen):
             continue
         if offen_nf:
@@ -1119,6 +1162,7 @@ def main():
     ausgabe = [l for l in ausgabe if not haengt_weg(l)]
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [l + KAUFREPO if l.startswith("START ") else l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1) if l.startswith("WEITER ") else l for l in ausgabe]
+    ausgabe = [mit_kern(l) for l in ausgabe]
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre and (sperren or neue_warnungen or wochen or morgen):

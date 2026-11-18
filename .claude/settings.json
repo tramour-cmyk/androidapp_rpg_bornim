@@ -96,6 +96,16 @@
         ]
       },
       {
+        "matcher": "Bash|mcp__github__push_files|mcp__github__create_or_update_file|mcp__github__delete_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/buildzweig-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/buildzweig-haken.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
+            "timeout": 15
+          }
+        ]
+      },
+      {
         "matcher": "mcp__claude-code-remote__create_session",
         "hooks": [
           {

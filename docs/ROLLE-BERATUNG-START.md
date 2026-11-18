@@ -2,12 +2,7 @@
 
 Gilt seit 18.11., 12:57 (Chef: „1625 … wähle ich A und es geht ab jetzt los damit“), Probe bis 25.11.
 
-**Was Ford tut, bei jedem Start von Sokrates** (START-Zeile von `lauf.py`, Neustart, Zuruf des Chefs):
-1. Schwerpunkt bestimmen: den, den der Chef nennt („Ford, ich brauche einen Sokrates als …“: Chefrunde A, Spieledesigner B, Markt und Strategie C, Nachtvertretung D); nennt er keinen: A.
-2. Erste Nachricht = Kern + dieser Schwerpunkt, vollständig und wörtlich, ausgegeben von
-   `awk '/^## Kern/{p=1} /^## Schwerpunkte/{p=0} p' docs/ROLLE-BERATUNG-START.md; awk -v s="### A " 'index($0,s)==1{p=1;print;next} /^### /{p=0} p' docs/ROLLE-BERATUNG-START.md` (für B, C, D den Buchstaben tauschen).
-3. Darunter eine Zeile „Auftrag: <Vorgang oder Chefwort>“, dann wie bisher der Rest der START-Zeile (Nachfolger aus der Übergabe, Kaufrepo-Satz).
-4. Sonst nichts ändern: Titel, Modell, Umgebung, Haken, Vorrat, Vorgangsliste wie bisher.
+**Start:** `lauf.py` setzt Kern und Schwerpunkt A vor jede START-Nachricht (1683, Chef 18.11., 16:54). Ford von Hand nur, wenn der Chef einen anderen Schwerpunkt nennt („Ford, ich brauche einen Sokrates als …“: Spieledesigner B, Markt und Strategie C, Nachtvertretung D) oder ohne START-Zeile startet: erste Nachricht = `awk '/^## Kern/{p=1} /^## Schwerpunkte/{p=0} p' docs/ROLLE-BERATUNG-START.md; awk -v s="### A " 'index($0,s)==1{p=1;print;next} /^### /{p=0} p' docs/ROLLE-BERATUNG-START.md` (Buchstabe tauschen), darunter „Auftrag: …“.
 
 Haken, Vorrat und Vorgangsliste gelten wie bisher. **Rückfall:** fehlt dieser Text, ist er unvollständig oder startet der Chef selbst, liest Sokrates selbst diesen Kern und Schwerpunkt A (Chefrunde); der Chef kann so auch selbst starten: „Sokrates, Schwerpunkt B“.
 

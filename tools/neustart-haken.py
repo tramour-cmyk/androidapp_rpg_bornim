@@ -125,6 +125,8 @@ def name(pfad, sitzung):
             if not isinstance(inhalt, str) or not inhalt.strip():
                 continue
             m = re.match(r"\W*" + ROLLEN + r"\b", inhalt.strip())
+            # 1683: Startnachricht mit Kern beginnt mit „## Kern … Du bist **Spike**“, nicht mit dem Namen (Haken grüßten mit „Tom“)
+            m = m or re.search(r"Du bist \*\*" + ROLLEN + r"\*\*", inhalt[:2000])
             gefunden = (m.group(1) + (m.group(2) or "")) if m else ""
             break
     if gefunden:

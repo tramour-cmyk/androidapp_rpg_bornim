@@ -1,0 +1,356 @@
+{
+	"BAUER_M": {
+		"Stehen": {
+			"durch": 0,
+			"zug": 28
+		},
+		"Stehen_2": {
+			"durch": 0,
+			"zug": 28
+		}
+	},
+	"BAUER_M+Umhang": {
+		"Stehen": {
+			"durch": 29,
+			"zug": 93
+		},
+		"Stehen_2": {
+			"durch": 38,
+			"zug": 109
+		}
+	},
+	"BAUER_W": {
+		"Stehen": {
+			"durch": 0,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 0,
+			"zug": 0
+		}
+	},
+	"BAUER_W+Umhang": {
+		"Stehen": {
+			"durch": 15,
+			"zug": 89
+		},
+		"Stehen_2": {
+			"durch": 30,
+			"zug": 87
+		}
+	},
+	"KLOSTER_M": {
+		"Stehen": {
+			"durch": 8,
+			"zug": 11
+		},
+		"Stehen_2": {
+			"durch": 8,
+			"zug": 23
+		}
+	},
+	"KLOSTER_M+Umhang": {
+		"Stehen": {
+			"durch": 22,
+			"zug": 79
+		},
+		"Stehen_2": {
+			"durch": 19,
+			"zug": 103
+		}
+	},
+	"KLOSTER_W": {
+		"Stehen": {
+			"durch": 3,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 2,
+			"zug": 0
+		}
+	},
+	"KLOSTER_W+Umhang": {
+		"Stehen": {
+			"durch": 19,
+			"zug": 87
+		},
+		"Stehen_2": {
+			"durch": 35,
+			"zug": 87
+		}
+	},
+	"L_aldric": {
+		"Gesten": {
+			"durch": 3,
+			"zug": 9
+		},
+		"Stehen": {
+			"durch": 5,
+			"zug": 11
+		},
+		"Stehen_2": {
+			"durch": 7,
+			"zug": 52
+		}
+	},
+	"L_borin": {
+		"Ruhe_Trinken": {
+			"durch": 52,
+			"zug": 21
+		},
+		"Stehen": {
+			"durch": 74,
+			"zug": 15
+		}
+	},
+	"L_bram": {
+		"Ruhe_Greifen": {
+			"durch": 31,
+			"zug": 11
+		},
+		"Ruhe_Trinken": {
+			"durch": 29,
+			"zug": 24
+		},
+		"Stehen": {
+			"durch": 25,
+			"zug": 4
+		}
+	},
+	"L_garrick": {
+		"Ruhe_Greifen": {
+			"durch": 28,
+			"zug": 24
+		},
+		"Ruhe_Trinken": {
+			"durch": 27,
+			"zug": 26
+		},
+		"Stehen": {
+			"durch": 27,
+			"zug": 17
+		},
+		"Stehen_2": {
+			"durch": 37,
+			"zug": 66
+		}
+	},
+	"L_gwenna": {
+		"Ruhe_Weinen": {
+			"durch": 0,
+			"zug": 54
+		},
+		"Stehen": {
+			"durch": 0,
+			"zug": 18
+		},
+		"Stehen_2": {
+			"durch": 0,
+			"zug": 24
+		}
+	},
+	"L_jorin": {
+		"Stehen": {
+			"durch": 26,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 36,
+			"zug": 6
+		}
+	},
+	"L_liska": {
+		"Gesten": {
+			"durch": 0,
+			"zug": 0
+		},
+		"Stehen": {
+			"durch": 0,
+			"zug": 0
+		}
+	},
+	"L_lyra": {
+		"Stehen": {
+			"durch": 5,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 14,
+			"zug": 0
+		}
+	},
+	"L_morwen": {
+		"Ruhe_Greifen": {
+			"durch": 57,
+			"zug": 7
+		},
+		"Stehen": {
+			"durch": 61,
+			"zug": 9
+		}
+	},
+	"L_osric": {
+		"Ruhe_Greifen": {
+			"durch": 171,
+			"zug": 30
+		},
+		"Stehen": {
+			"durch": 177,
+			"zug": 24
+		},
+		"Stehen_2": {
+			"durch": 200,
+			"zug": 36
+		}
+	},
+	"L_pim": {
+		"Gesten": {
+			"durch": 14,
+			"zug": 4
+		},
+		"Ruhe_Greifen": {
+			"durch": 14,
+			"zug": 6
+		},
+		"Stehen": {
+			"durch": 14,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 18,
+			"zug": 0
+		}
+	},
+	"L_rowena": {
+		"Gesten": {
+			"durch": 13,
+			"zug": 18
+		},
+		"Ruhe_Tresen": {
+			"durch": 31,
+			"zug": 4
+		},
+		"Stehen": {
+			"durch": 9,
+			"zug": 23
+		}
+	},
+	"L_thessa": {
+		"Gesten": {
+			"durch": 27,
+			"zug": 1
+		},
+		"Ruhe_Greifen": {
+			"durch": 34,
+			"zug": 4
+		},
+		"Ruhe_Tresen": {
+			"durch": 24,
+			"zug": 2
+		},
+		"Stehen": {
+			"durch": 24,
+			"zug": 0
+		}
+	},
+	"ROBE_M": {
+		"Stehen": {
+			"durch": 1,
+			"zug": 285
+		},
+		"Stehen_2": {
+			"durch": 2,
+			"zug": 274
+		}
+	},
+	"ROBE_M+Umhang": {
+		"Stehen": {
+			"durch": 25,
+			"zug": 330
+		},
+		"Stehen_2": {
+			"durch": 31,
+			"zug": 322
+		}
+	},
+	"ROBE_W": {
+		"Stehen": {
+			"durch": 2,
+			"zug": 261
+		},
+		"Stehen_2": {
+			"durch": 2,
+			"zug": 232
+		}
+	},
+	"ROBE_W+Umhang": {
+		"Stehen": {
+			"durch": 50,
+			"zug": 345
+		},
+		"Stehen_2": {
+			"durch": 62,
+			"zug": 310
+		}
+	},
+	"WACHE_M": {
+		"Stehen": {
+			"durch": 106,
+			"zug": 101
+		},
+		"Stehen_2": {
+			"durch": 130,
+			"zug": 120
+		}
+	},
+	"WACHE_W": {
+		"Stehen": {
+			"durch": 76,
+			"zug": 128
+		},
+		"Stehen_2": {
+			"durch": 97,
+			"zug": 132
+		}
+	},
+	"WALD_M": {
+		"Stehen": {
+			"durch": 45,
+			"zug": 10
+		},
+		"Stehen_2": {
+			"durch": 46,
+			"zug": 62
+		}
+	},
+	"WALD_M+Umhang": {
+		"Stehen": {
+			"durch": 98,
+			"zug": 81
+		},
+		"Stehen_2": {
+			"durch": 111,
+			"zug": 116
+		}
+	},
+	"WALD_W": {
+		"Stehen": {
+			"durch": 13,
+			"zug": 0
+		},
+		"Stehen_2": {
+			"durch": 13,
+			"zug": 2
+		}
+	},
+	"WALD_W+Umhang": {
+		"Stehen": {
+			"durch": 99,
+			"zug": 89
+		},
+		"Stehen_2": {
+			"durch": 111,
+			"zug": 87
+		}
+	}
+}

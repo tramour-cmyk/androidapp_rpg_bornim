@@ -33,13 +33,13 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; Diogenes schlägt in der Wochen
 |---|---|---|
 | **Chef** (Nutzer) | entscheidet Grundsätzliches und schwer Umkehrbares; testet Spielcode vor `main` (Feste Regeln) | – |
 | **Sokrates** | Stab des Chefs: Strategie, Markt, Geschäftsmodell, Chefrunde; auf Zuruf oder von `lauf.py` für eine Chefsache-Datei gestartet | `ROLLE-BERATUNG.md` |
-| **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen | `ROLLE-KREATIV.md` |
+| **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Leveldesign, Ideen | `ROLLE-KREATIV.md` |
 | **Perikles** | Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe | `ROLLE-PROJEKT.md` |
 | **Diogenes** | Prüfer: prüft `main`, zählt Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn | `ROLLE-PRUEFUNG.md` |
 | **Ford** | Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung | `ROLLE-BETRIEB.md` |
 | **Team Tom** | Entwickler: Leute, Dorf, Innenräume, Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** | Entwickler: Monster, Höhle, Kampf, Klang | ebenso |
-| **Spike** | Entwickler: Technik | ebenso |
+| **Spike** | Technik, jede APK | `ROLLE-TECHNIK.md` |
 
 - Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …), auch als Systemmeldung (853). Alle laufen auf Toms Account (Max, „Zentrale“).
 
@@ -72,7 +72,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; Diogenes schlägt in der Wochen
 
 ## Notizen nur auf `main`
 
-- Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen und pushen (baut keine APK); Arbeitszweige nur Code.
+- Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: direkt committen und pushen (baut keine APK); Arbeitszweige nur Code.
 - Bearbeiten in `../bornim-main` nur mit Edit/Write, nie mit Bash-Skripten, die Notizen umschreiben (Ausnahmen `tools/vorgang.py`, 275; Bildlink von `meldung.sh`, 450); sofort pushen.
 - Vor jeder Antwort an den Chef `tools/notiz.sh`.
 
