@@ -43,7 +43,7 @@ for i, v in enumerate(rk.data.vertices): kd.insert(rk.matrix_world @ v.co, i)
 kd.balance()
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
-bpy.ops.import_scene.gltf(filepath=GLB)
+bpy.ops.import_scene.gltf(filepath=GLB, disable_bone_shape=True)
 qa = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
 netze = [o for o in bpy.data.objects if o.type == 'MESH' and o.find_armature() == qa]
 kleid = next(o for o in netze if o.name.startswith('Kleid'))
@@ -52,7 +52,7 @@ for i, v in enumerate(kleid.data.vertices):
     _, j, d = kd.find(kleid.matrix_world @ v.co); KT[i] = tl[j]; weit += d > 0.003
 print('TEILE ZUGEORDNET', len(KT), 'Ecken, weiter als 3 mm:', weit)
 vorher = set(bpy.data.actions)
-bpy.ops.import_scene.gltf(filepath=UAL)
+bpy.ops.import_scene.gltf(filepath=UAL, disable_bone_shape=True)
 for o in [o for o in bpy.data.objects if o != qa and o not in netze]: bpy.data.objects.remove(o)
 AKT = {a.name.split('|')[-1]: a for a in bpy.data.actions if a not in vorher}
 dg = bpy.context.evaluated_depsgraph_get()

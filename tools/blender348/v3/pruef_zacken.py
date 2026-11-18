@@ -11,10 +11,10 @@ from mathutils.bvhtree import BVHTree
 FIG = os.environ['FIG']; UAL = os.environ['UAL']
 KOPF = float(os.environ.get('KOPF', '10')); HALS_R = 0.09
 bpy.ops.wm.read_factory_settings(use_empty=True)
-bpy.ops.import_scene.gltf(filepath=FIG)
+bpy.ops.import_scene.gltf(filepath=FIG, disable_bone_shape=True)
 fig = {o.name: o for o in bpy.context.scene.objects}
 arm = next(o for o in fig.values() if o.type == 'ARMATURE')
-bpy.ops.import_scene.gltf(filepath=UAL)
+bpy.ops.import_scene.gltf(filepath=UAL, disable_bone_shape=True)
 act = bpy.data.actions.get('Idle_Loop')
 arm.animation_data_create(); arm.animation_data.action = act
 kleid = next(o for o in fig.values() if o.type == 'MESH' and o.name.startswith('Kleid'))
