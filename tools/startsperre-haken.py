@@ -83,6 +83,19 @@ def aufwand(rolle, effort, jetzt=None):
             "`effort: \"high\"` wiederholen (START-Zeile: Feld „effort high“, LISTE-BETRIEB.md Startzuordnung)." % (b.strftime("%d.%m., %H:%M"), rolle))
 
 
+def nacht(rolle, eingabe):
+    """1643 (340.12/3): derselbe Vorgang (Nummer im Titel „<Rolle> – <Nr>…“) nach zwei Neustarts in einer Nacht angehalten."""
+    m = re.search(r"–\s*(?:[^\W\d][\w-]*\s+)?(\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)", eingabe.get("title") or "")
+    if not m: return None
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import nachtstarts
+        if not nachtstarts.angehalten(rolle, m.group(1), mit_diesem=True): return None
+    except Exception:
+        return None
+    return ("Nachtstopp (1643): %s auf Vorgang %s ist in dieser Nacht schon nach zwei Neustarts; nicht starten bis 7 Uhr. "
+            "Ford: Zeile „- HH:MM TT.MM.: Morgen 1643: %s %s nach zwei Neustarts in der Nacht angehalten, Ursache ansehen“ ins Protokoll, pushen." % (rolle, m.group(1), rolle, m.group(1)))
+
+
 def main():
     if "--rolle" in sys.argv:
         r = sys.argv[sys.argv.index("--rolle") + 1]
@@ -94,6 +107,7 @@ def main():
     rolle = rolle_aus(daten.get("tool_input") or {})
     if not rolle: sys.exit(0)
     f = aufwand(rolle, (daten.get("tool_input") or {}).get("effort")) or pruefen(rolle)
+    f = f or nacht(rolle, daten.get("tool_input") or {})
     if f:
         print(f, file=sys.stderr)
         try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“)

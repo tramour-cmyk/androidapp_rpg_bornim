@@ -204,15 +204,30 @@ def zahlen_md(d):
     zeilen_ = zeilen(d)
     md = ["**Stand %s, %s** (Werkzeug `tools/tagesbericht.py`)" % (JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M")), "",
           "| # | Kennzahl | heute | Bemerkung |", "|---|---|---|---|"]
+    unten = []
     def kurz(i, a, b, c):
-        """Pflege 169 (08.11.): Tabellenzeile höchstens 400 Zeichen; lange Eingaben (Zeilen 3, 8, 9) nur mit dem ersten Satz, ganz unter „Eingaben“ und im Telegram."""
+        """Pflege 169 (08.11.): Tabellenzeile höchstens 400 Zeichen; lange Eingaben (Zeilen 3, 8, 9) nur mit dem ersten Satz, ganz unter „Eingaben“ und im Telegram.
+        1647: andere Zeilen (etwa 5, rote Tests und APK-Läufe) bis zum letzten „; “, das passt, der Rest unter die Tabelle."""
         z = "| %d | %s | %s | %s |" % (i + 1, a, b, c)
-        if len(z) <= 400 or i not in (2, 7, 8): return z
-        rest = 400 - len("| %d | %s |  | %s |" % (i + 1, a, c)) - len(" (ganz unter „Eingaben“)")
-        satz = re.split(r"(?<=[a-zäöüß)]\.)\s(?=[A-ZÄÖÜ])", b, maxsplit=1)[0]  # Satzende, nicht „08.11.“
-        if len(satz) > rest: satz = satz[:rest - 1].rsplit(" ", 1)[0] + " …"
-        return "| %d | %s | %s (ganz unter „Eingaben“) | %s |" % (i + 1, a, satz, c)
+        if len(z) <= 400: return z
+        if i in (2, 7, 8):
+            hinweis = " (ganz unter „Eingaben“)"
+            satz = re.split(r"(?<=[a-zäöüß)]\.)\s(?=[A-ZÄÖÜ])", b, maxsplit=1)[0]  # Satzende, nicht „08.11.“
+        else:
+            hinweis = " (weiter unter der Tabelle)"
+            satz, rest_ = b, ""
+        platz = 400 - len("| %d | %s |  | %s |" % (i + 1, a, c)) - len(hinweis)
+        if i not in (2, 7, 8):
+            teile = b.split("; ")
+            satz = teile[0]
+            for k in range(1, len(teile)):
+                if len("; ".join(teile[:k + 1])) > platz: break
+                satz = "; ".join(teile[:k + 1])
+            unten.append("- Zeile %d (%s), weiter: %s" % (i + 1, a, b[len(satz):].lstrip("; ")))
+        if len(satz) > platz: satz = satz[:platz - 2].rsplit(" ", 1)[0] + " …"
+        return "| %d | %s | %s%s | %s |" % (i + 1, a, satz, hinweis, c)
     md += [kurz(i, a, b, c) for i, (a, b, c) in enumerate(zeilen_)]
+    if unten: md += [""] + unten
     md += ["", "| Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |", "|---|---|---|---|---|---|"]
     for r in ("Tom", "Jerry", "Homer", "Sokrates", "Perikles", "Diogenes"):
         o = d["rollen"].get(r, (0, 0, 0))

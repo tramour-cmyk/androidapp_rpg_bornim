@@ -5,14 +5,14 @@
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
   neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung ab 200 Tsd., Sperre ab 300 Tsd.
-                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo 400/500 Tsd.; nie im Test des Chefs; nie bei Ford, 1574).
+                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo und Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
 zwischengespeichert). Seit 383 A zählt die ganze Gesprächslänge (jeder Aufruf liest sie ganz), nicht mehr der Zuwachs.
 
 Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Gesprächslänge in Token, Vorgabe 200000; 383 A, Chef 09.11.; vorher 300000 Zuwachs nach 383.1),
-BORNIM_OFFEN_MAX (Bytes, Vorgabe 15000). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
+BORNIM_OFFEN_MAX (Bytes, Vorgabe 30000 wie CLAUDE.md „Vorräte klein halten“, 1641). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
 Bei der 1., 11., 21. … Nachricht zusätzlich die Kernregel-Zeile aus tools/kernregeln.txt (347, ein Wortlaut, auch notiz.sh).
 """
 import json
@@ -21,7 +21,7 @@ import sys
 
 KERN_ALLE = 10
 AB = int(os.environ.get("BORNIM_NEUSTART_AB", "200000"))
-OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "15000"))
+OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "30000"))   # 1641: wie CLAUDE.md (vorher 15000)
 # 818 (Chef 09.11., 22:27: „Oder ihr lasst halt jetzt die Sitzungen dann doch länger offen, wenn die Gefahr besteht, dass es wieder ein Repo-Problem gibt“):
 # liegt das Kaufrepo in der Sitzung, gilt die doppelte Schwelle (400 Tsd., wie vor 383 A) und die Sitzung nimmt den nächsten eigenen Vorgang selbst.
 KAUF = "/home/user/bornim-kaufmodelle"
@@ -89,6 +89,15 @@ def ist_ford():
         if m:
             return m.group(1) == kennung
     return False
+
+
+def ist_sokrates(pfad, sitzung):
+    """1643 (340.12 Änderung 3, Chef 18.11., 09:45): Sokrates startet an der Kontextgrenze erst ab 400 Tsd. neu (Sperre 500 Tsd.),
+    vier Neustarts mitten im Gespräch mit dem Chef kosteten je 4 bis 6 $."""
+    try:
+        return name(pfad, sitzung).startswith("Sokrates")
+    except Exception:
+        return False
 
 
 def name(pfad, sitzung):
@@ -209,7 +218,7 @@ def prompt(eingabe):
             z = json.load(f)
     except (OSError, ValueError):
         z = {}
-    ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) else AB  # 818
+    ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) or ist_sokrates(pfad, sitzung) else AB  # 818; 1643: Sokrates ab 400 Tsd.
     ford = False
     try:  # 1574 (Chef 17.11., 18:31): Ford bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
         if name(pfad, sitzung).startswith("Ford") or ist_ford():
@@ -307,7 +316,7 @@ def werkzeug(eingabe, art):
     ford = name(pfad, sitzung).startswith("Ford") or ist_ford()
     if ford:  # 1574: Ford bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
-    doppelt = ford or os.path.isdir(os.path.join(KAUF, ".git"))
+    doppelt = ford or os.path.isdir(os.path.join(KAUF, ".git")) or ist_sokrates(pfad, sitzung)  # 1643 (340.12/3): Sokrates wie Kaufrepo
     ab = AB + (AB if doppelt else 0)            # 200 / 400 Tsd.
     sperre = SPERRE_AB + (AB if doppelt else 0)  # 300 / 500 Tsd.
     if gesamt < ab:
@@ -370,6 +379,11 @@ def kern(sitzung):
             pass
 
 
+BESITZER_VORRAT = {"ARBEIT-KREATIV.md": "Homer", "ARBEIT-TEAM-TOM.md": "Tom", "ARBEIT-TEAM-JERRY.md": "Jerry", "ARBEIT-TEAM-SPIKE.md": "Spike",
+                   "ARBEIT-PROJEKT.md": "Perikles", "ARBEIT-PRUEFUNG.md": "Diogenes", "ARBEIT-BERATUNG.md": "Sokrates", "ARBEIT-BETRIEB.md": "Ford",
+                   "ARBEIT-BESETZUNG.md": "Ford", "ARBEIT-TAGESBERICHT.md": "Perikles"}
+
+
 def start(eingabe):
     wurzel = os.environ.get("CLAUDE_PROJECT_DIR") or eingabe.get("cwd") or "."
     # 98: jeder Vorrat ARBEIT-*.md, außer dem eingefrorenen Archiv (117).
@@ -383,7 +397,8 @@ def start(eingabe):
             continue
         n = os.path.getsize(os.path.join(docs, name))
         if n > OFFEN_MAX:
-            print(f"Bornim: docs/{name} ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB). "
+            wer = BESITZER_VORRAT.get(name, "Perikles")  # 1642: jede Startwarnung mit festem Besitzer (wie startwarnung.py)
+            print(f"Bornim: docs/{name} ist {round(n / 1000)} KB groß (Grenze {round(OFFEN_MAX / 1000)} KB; Besitzer {wer}, nach 6 h Vorgang durchs Werkzeug). "
                   "Nach der Regel „Vorräte klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
 
 
