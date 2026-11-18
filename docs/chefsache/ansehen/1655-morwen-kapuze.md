@@ -1,5 +1,7 @@
 # 1655 · Morwen: sticht der Kopf durch die Kapuze?
 
+[Bild von 18.11., 20:58](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-2058-1655-Tom.png) (eingetragen von meldung.sh, Tom)
+
 [Bild von 18.11., 17:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1705-1655-Tom.png) (eingetragen von meldung.sh, Tom)
 
 Tom · 18.11., 17:06 · E Figuren · aus Toms Durchstechprüfung 1631 (Lauf 560)

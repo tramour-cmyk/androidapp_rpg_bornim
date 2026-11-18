@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 20:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 21:02, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -25,21 +25,21 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf passt | 64 (61) | 19 | 0 | 0 | 49 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 22 | 0 | 4 | 7 | 1619 (Spike) Held stakst im Film 458.3, sieht nicht nach Gehen… |
+| ↳ **2** Kampf passt | 64 (61) | 19 | 0 | 1 | 49 | 1697 (Jerry) dunkle Rechtecke unter Held und Goblin im Kampfor… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 33 (20) | 22 | 0 | 6 | 7 | 1694 (Spike) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 5 | 0 | 3 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 17 (11) | 10 | 0 | 5 | 4 | 1700 (Tom) Wiederholrot durchstich_1631: 6× rot in 48 h; Urs… |
-| **7** Werkzeuge und Abläufe der Firma | 52 (48) | 28 | 0 | 0 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 18 (11) | 11 | 0 | 5 | 4 | 1701 (Spike) alte Notizkopie trat wieder auf; Ursache finden,… |
+| **7** Werkzeuge und Abläufe der Firma | 53 (48) | 28 | 0 | 2 | 12 | 1507 (Ford) Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in St… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 72 | 114 | 388 | 1248 |
-| neu | 100 | 116 | 380 | 1270 |
-| **netto** (erledigt − neu) | **−28** | **−2** | **+8** | **−22** |
+| erledigt | 73 | 114 | 389 | 1249 |
+| neu | 103 | 116 | 383 | 1273 |
+| **netto** (erledigt − neu) | **−30** | **−2** | **+6** | **−24** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -47,11 +47,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1679.md](entscheiden/1679.md) entscheiden; dann 5 weitere |
-| Tom | 1700 Wiederholrot durchstich_1631: 6× rot in 48 h; Ursache nachs… (Muss); dann 2 weitere |
-| Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 4 weitere |
-| Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 3 weitere |
-| Spike | läuft: 1595 (Besetzung); 1619 Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursa… (Muss); dann 3 weitere |
+| **Chef** | [1679.md](entscheiden/1679.md) entscheiden; dann 2 weitere |
+| Tom | 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand;… (Muss); dann 2 weitere |
+| Jerry | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss); dann 2 weitere |
+| Tuffy | 1654 Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch;… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
+| Spike | läuft: 1595 (Besetzung); 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 3 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | läuft: 1608 (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss); dann 2 weitere |
@@ -62,27 +62,27 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | startbar |
-| 2 | 760 | Jerry | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung pa… | M | 2 Kampf passt | startbar |
-| 3 | 1697 | Jerry | dunkle Rechtecke unter Held und Goblin im Kampfort Wald wie Fund 1568; Rückfall… | M | 2 Kampf passt | startbar |
-| 4 | 1619 | Spike | Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursache in Vorschau nach… | M | 3 Kleiderschrank und Modelle | startbar |
-| 5 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
-| 6 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
-| 7 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Kleiderschrank und Modelle | startbar |
-| 9 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
-| 11 | 1698 | Jerry | frischer Bau des Blocks klassen verliert die Wende mit Schritten; wende_4168 au… | M | 3 Kleiderschrank und Modelle | startbar |
-| 12 | 1700 | Tom | Wiederholrot durchstich_1631: 6× rot in 48 h; Ursache nachstellen, beheben · wi… | M | 6 Godot besser nutzen | startbar |
-| 13 | 1696 | Sokrates | ein Bildlauf frei für die Hände; der Lauf nach dem Urteil lief mit unveränderte… | M | 6 Godot besser nutzen | startbar |
-| 14 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 15 | 1679 | Sokrates | wer ist zuständig für Kartendesign, Design grundsätzlich, Ruinen- und Höhlenent… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 18 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
-| 19 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
-| 20 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
+| 2 | 1697 | Jerry | dunkle Rechtecke unter Held und Goblin im Kampfort Wald wie Fund 1568; Rückfall… | M | 2 Kampf passt | startbar |
+| 3 | 1694 | Spike | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Kleiderschrank und Modelle | startbar |
+| 4 | 1535 | Tom | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand; alle Figuren mit Kau… | M | 3 Kleiderschrank und Modelle | startbar |
+| 5 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Kleiderschrank und Modelle | startbar |
+| 6 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Kleiderschrank und Modelle | startbar |
+| 7 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Kleiderschrank und Modelle | startbar |
+| 8 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
+| 9 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 1701 | Spike | alte Notizkopie trat wieder auf; Ursache finden, warum neue Container eine alte… | M | 6 Godot besser nutzen | startbar |
+| 11 | 1702 | Spike | vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung des Bildskripts am Rechne… | M | 6 Godot besser nutzen | startbar |
+| 12 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 13 | 1679 | Sokrates | wer ist zuständig für Kartendesign, Design grundsätzlich, Ruinen- und Höhlenent… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
+| 14 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
+| 15 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
+| 16 | 1634 | Jerry | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist… | K | 2 Kampf passt | startbar |
+| 17 | 1639 | Jerry | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen le… | K | 2 Kampf passt | startbar |
+| 18 | 1656 | Sokrates | Systemlösung? Kapuze: 2 frühere Vorgänge, neu 1655; einmal grundsätzlich lösen? | K | 3 Kleiderschrank und Modelle | startbar |
+| 19 | 1628 | Homer | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank f… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
+| 20 | 1636 | Homer | Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinwe… | K | 5 Welt, Karten, Bild, Ton, Bedienung | startbar |
 
-Danach 64 weitere offen. Bei dir zum Testen (vorgelegt): 12. Gebaut, fährt mit dem nächsten Build: 10. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 60 weitere offen. Bei dir zum Testen (vorgelegt): 17. Gebaut, fährt mit dem nächsten Build: 11. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -101,11 +101,8 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [1205b](ansehen/1205b-niedrig.md) | Wiese in Grafik Niedrig: Kit-Blumen statt Kleckse? | – | 18.11., 17:04 |
-| [1406](ansehen/1406-jorin-wende.md) | Jorin wendet mit einer halben Drehung (Prüfpunkt 300.10) | – | 18.11., 18:25 |
-| [1535](ansehen/1535-garrick-alt-neu.md) | Garrick: ist der Faden an der Jacke weg? | – | 18.11., 16:58 |
-| [1650](ansehen/1650-stiefel-alt-neu.md) | Hose im Stiefel: sticht sie noch durch den Schaft? | – | 18.11., 17:00 |
-| [1655](ansehen/1655-morwen-kapuze.md) | Morwen: sticht der Kopf durch die Kapuze? | – | 18.11., 17:05 |
+| [1655](ansehen/1655-morwen-kapuze.md) | Morwen: sticht der Kopf durch die Kapuze? | – | 18.11., 20:58 |
+| [1694](ansehen/1694-griff-laengs.md) | Griff für alles Gehaltene: liegt der Stiel jetzt in der geschlossenen Faust? | – | 18.11., 20:43 |
 
 ## Zu tun
 
@@ -127,20 +124,28 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1686 | K | Von Werkzeug (Startwarnung 650.2, 1642, seit 18.11., 10:55): Inhaltsverzeichnis docs/READM | startbar |
 | 1687 | K | Von Werkzeug (Startwarnung 650.2, 1642, seit 18.11., 10:55): Inhaltsverzeichnis docs/READM | startbar |
 
-**Tom** – offen 52, Muss 15, startbar 3
+**Tom** – offen 53, Muss 16, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 870 (wartet) |
+| 1700 | M | Von Werkzeug (1334): Wiederholrot durchstich_1631: 6× rot in 48 h (Läufe 570, 568, 567, 56 | wartet auf Test/Build (gebaut) |
+| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 870 (startbar) |
 | 513 | M | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „ | ruht bis 23.11. |
 | 1297 | M | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schil | wartet auf 431 (startbar) |
-| 1535 | M | Von Chef (17.11., 09:18, zu 1515): Kleidung hängt bei NPCs in der Ruhebewegung an einer Ha | wartet auf Test/Build (gebaut) |
+| 1535 | M | Von Chef (17.11., 09:18, zu 1515): Kleidung hängt bei NPCs in der Ruhebewegung an einer Ha | startbar |
 | 1589.3 | M | Von Perikles (1600, 1589.1 A): Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä | Termin 21.11. 20:00 |
 | 1650 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, | wartet auf Test/Build (gebaut) |
 | 1655 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, b | wartet auf Test/Build (gebaut) |
 | 1657 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m | wartet auf 1694 (startbar) |
+| 1205 | M | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | wartet auf Test/Build (gebaut) |
+| 1663 | M | Von Chef (18.11., 14:17, Bild, Fund): Beutel und Detailansicht eines Gegenstands ohne Wirk | wartet auf Test (Build 300) |
+| 1205b | M | Von Chef (18.11., 15:37, 1205b A): in Grafik Niedrig nur die Blumen des Kits, Kleckse über | wartet auf Test/Build (gebaut) |
+| 1674 | M | Von Chef (18.11., 15:59, t299, Bild): Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 | wartet auf Test/Build (gebaut) |
+| 1675 | M | Von Chef (18.11., 15:57, t299): Wachsoldatin im Hauptmenü, Schild schwebt neben ihr; zurüc | Termin 21.11. 20:00 |
+| 1676 | M | Von Chef (18.11., 15:56, t299): angelegter Umhang des Helden deckt den rechten Unterarm te | startbar |
+| 1570 | M | Von Chef (18.11., 17:07, „ich bin auch für die Systemlösung“, Votum Sokrates): Umhang einm | startbar |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht bis 23.11. |
-| 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (wartet) |
+| 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (startbar) |
 | 455.1 | K | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | ruht bis 23.11. |
 | 476 | K | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | wartet auf 458.3 main (gebaut) |
 | 423.1 | K | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | ruht bis 23.11. |
@@ -161,28 +166,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 839 | K | Von Homer (817): Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY- | ruht bis 23.11. |
 | 852 | K | Von Homer (432a A, Chef 10.11., 12:05): Aschgeborene bauen: Modell Mensch mit aschgrauer S | ruht bis 23.11. |
 | 861 | K | Von Sokrates (Chef 10.11., 13:12, Bild t274.14): Umhang des Kämpfers im Kampf rechts am Rü | wartet auf 431 (startbar) |
-| 966.2 | K | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (wartet) |
-| 954a.5 | K | Von Perikles (954a.2): Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsam | wartet auf 870 (wartet) |
-| 954a.7 | K | Von Perikles (954a.2, 954a.3 A): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits de | wartet auf 870 (wartet) |
-| 954a.12 | K | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Lederarb | wartet auf 870 (wartet) |
-| 954a.9 | K | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (wartet) |
+| 966.2 | K | Von Sokrates (966 A neu, Chef 11.11., 15:58): Kochen und Alchemie mit Ring wie Knacken (DE | wartet auf 870 (startbar) |
+| 954a.5 | K | Von Perikles (954a.2): Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsam | wartet auf 870 (startbar) |
+| 954a.7 | K | Von Perikles (954a.2, 954a.3 A): Spähen durch Verweilen: Ring zeigt Heilkräuter abseits de | wartet auf 870 (startbar) |
+| 954a.12 | K | Von Perikles (954a.2): Erschaffung: nicht wählbare Fertigkeiten (Bergbau, Angeln, Lederarb | wartet auf 870 (startbar) |
+| 954a.9 | K | Von Perikles (954a.2, 954a.3 B): Schmiedelehrling flickt selbst an Borins Amboss mit dem R | wartet auf 870 (startbar) |
 | 976 | K | Von Sokrates (Chef 11.11., 16:31): Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS H | wartet auf 966.2 (startbar) |
 | 1157 | K | Von Sokrates (Archivprüfung, 1038 A R1, Chef 12.11., 16:24): Verband herstellen mit dem Re | wartet auf 976 (startbar) |
 | 1158 | K | Von Sokrates (Archivprüfung, 558 Probe 4, Chef 04.11., 19:48): Oberflächen für Leder und M | ruht |
 | 1174 | K | Von Sokrates (Archivprüfung, 348.10 Chef 25.10., 16:36 „brauchen wir auf jeden Fall“; Zwec | wartet auf 431 (startbar) |
-| 1205 | M | Von Sokrates (Chef 13.11., 18:48): Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass | wartet auf Test/Build (gebaut) |
 | 1210 | K | Von Sokrates: Regen wie alt (D3.10) fehlt in Godot; Bild ohne Vorgang (R8 Weather FX statt | ruht |
-| 1406 | K | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 | Chef (Datei in der Chefsache) |
+| 1406 | K | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 | wartet auf Test (Build 300) |
 | 1519 | K | Von Chef (17.11., 07:39, „Hauptmenü lebendig ja … kein Muss, ganz hinten“): vier Helden im | wartet auf 431 (startbar) |
+| 1690 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-TOM.md: 5 „Zu“ zu | startbar |
 | 622 | K | Godot-Build als AAB für Play: dieselbe App de.bornim.game, mit dem Upload-Schlüssel des al | nach dem Meilenstein |
 | 1280 | K | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 6 | nach dem Meilenstein |
-| 1663 | M | Von Chef (18.11., 14:17, Bild, Fund): Beutel und Detailansicht eines Gegenstands ohne Wirk | wartet auf Test (Build 300) |
-| 1205b | M | Von Chef (18.11., 15:37, 1205b A): in Grafik Niedrig nur die Blumen des Kits, Kleckse über | wartet auf Test/Build (gebaut) |
-| 1674 | M | Von Chef (18.11., 15:59, t299, Bild): Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 | wartet auf Test/Build (gebaut) |
-| 1675 | M | Von Chef (18.11., 15:57, t299): Wachsoldatin im Hauptmenü, Schild schwebt neben ihr; zurüc | Termin 21.11. 20:00 |
-| 1676 | M | Von Chef (18.11., 15:56, t299): angelegter Umhang des Helden deckt den rechten Unterarm te | startbar |
-| 1690 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-TOM.md: 5 „Zu“ zu | startbar |
-| 1570 | M | Von Chef (18.11., 17:07, „ich bin auch für die Systemlösung“, Votum Sokrates): Umhang einm | startbar |
 
 **Jerry** – offen 77, Muss 26, startbar 11
 
@@ -210,6 +208,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1652 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Osric innere Stücke stechen durch die Robe (1 | wartet auf Test (Build 300) |
 | 1653 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 | startbar |
 | 1654 | M | Von Tom (1631, Lauf 560): Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m | startbar |
+| 1664 | M | Von Chef (18.11., 14:19/14:20, Fund): im Kampf (Wald, drei Goblins, Held Zauberlehrling, B | wartet auf Test (Build 300) |
+| 1697 | M | Von Jerry (Film t300.9, Lauf 567): dunkle Rechtecke unter Held und Goblin im Kampfort Wald | startbar |
+| 1698 | M | Von Ford (Befund Spike 18.11., 18:14): frischer Bau des Blocks klassen (held_klassen.py au | startbar |
 | 1563 | K | Von Chef (17.11., 12:22, an Sokrates, Build 296, nannte 1155): Teich in der Höhle am Ufer | wartet auf 1564 (startbar) |
 | 438a | K | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv | ruht bis 23.11. |
 | 416.6 | K | Spuren des Helden, auch bei Regen; Blutspuren in der Welt zuerst (Chef 31.10., 20:4x; 03.1 | ruht bis 23.11. |
@@ -230,11 +231,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 644.2 | K | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 S | ruht bis 23.11. |
 | 681 | K | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | ruht bis 23.11. |
 | 930.3 | K | Von Sokrates (930): Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgeme | wartet auf 931 (ruht) |
-| 954a.6 | K | Von Perikles (954a.2): Hinterhalt aus dem Schleichen: unbemerkt bis zum Angriff, Kampf beg | wartet auf 870 (wartet) |
-| 954a.8 | K | Von Perikles (954a.2): Wurfwaffen: Grundform Wurfmesser (auch für die Elstern, Truhe cave_ | wartet auf 870 (wartet) |
-| 954a.10 | K | Von Perikles (954a.2, 954a.3 A): Tiere beruhigen vor dem Kampf: Wolf, Wildschwein, Riesenf | wartet auf 870 (wartet) |
-| 954a.11 | K | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Auftr | wartet auf 870 (wartet) |
-| 954a.13 | K | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (wartet) |
+| 954a.6 | K | Von Perikles (954a.2): Hinterhalt aus dem Schleichen: unbemerkt bis zum Angriff, Kampf beg | wartet auf 870 (startbar) |
+| 954a.8 | K | Von Perikles (954a.2): Wurfwaffen: Grundform Wurfmesser (auch für die Elstern, Truhe cave_ | wartet auf 870 (startbar) |
+| 954a.10 | K | Von Perikles (954a.2, 954a.3 A): Tiere beruhigen vor dem Kampf: Wolf, Wildschwein, Riesenf | wartet auf 870 (startbar) |
+| 954a.11 | K | Von Perikles (954a.2): Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Auftr | wartet auf 870 (startbar) |
+| 954a.13 | K | Von Perikles (954a.2, D): Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf kla | wartet auf 870 (startbar) |
 | 785.9 | K | Von Spike (785): MARS-Probekampf im Systemmenü mit Regelseite (Reihen, Ansagen, Ring, Perf | ruht bis 21.11. 20:00 |
 | 785.13 | K | Von Spike (785): Eingebung beim ersten Schlag von hinten (SK 571–573); Ersthinweis vordere | ruht bis 21.11. 20:00 |
 | 785.14 | K | Von Spike (785): Langes Drücken auf eigene Figur oder Gruppenkasten zeigt Waffe, Mana, „ha | ruht bis 21.11. 20:00 |
@@ -257,28 +258,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1607 | K | Von Sokrates (Chef 17.11., 23:46 „irgendwann … das Glut-System mal umbenennen in Kerbensys | Termin 21.11. 20:00 |
 | 1634 | K | Von Chef (18.11., 09:11, Idee Sokrates 1): Höhle weiß, wie du kommst: entkommt ein Späher | startbar |
 | 1639 | K | Von Chef (18.11., 09:10, Idee): Festklammern: ab drei Goblins klammert einer den Helden, d | startbar |
-| 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | nach dem Meilenstein |
-| 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
-| 1664 | M | Von Chef (18.11., 14:19/14:20, Fund): im Kampf (Wald, drei Goblins, Held Zauberlehrling, B | wartet auf Test (Build 300) |
 | 1684 | K | Von Werkzeug (Startwarnung 108, 1642, seit 18.11., 10:55): Datei über 60 KB: docs/chefsach | startbar |
 | 1685 | K | Von Werkzeug (Startwarnung 108, 1642, seit 18.11., 10:55): Datei über 60 KB: docs/chefsach | startbar |
 | 1691 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-JERRY.md: 8 „Zu“ z | startbar |
-| 1697 | M | Von Jerry (Film t300.9, Lauf 567): dunkle Rechtecke unter Held und Goblin im Kampfort Wald | startbar |
-| 1698 | M | Von Ford (Befund Spike 18.11., 18:14): frischer Bau des Blocks klassen (held_klassen.py au | startbar |
+| 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | nach dem Meilenstein |
+| 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 
-**Spike** – offen 28, Muss 19, startbar 7
+**Spike** – offen 27, Muss 18, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1694 | M | Von Chef (18.11., 17:01, „Als Systemlösung, genau“, Votum Sokrates): Griff einmal für alle | wartet auf 1696 (startbar) |
-| 1667 | M | Von Sokrates (Chef 18.11., 14:42 Build 298 und 16:22 Build 299 „freigegeben mit den Einsch | startbar |
 | 1484 | M | Von Sokrates (Chef 16.11., 20:20, Tablet SM-X210, Adreno 619, Build 286): Welt und Kampf 9 | Termin 21.11. 20:00 |
 | 1537 | M | Von Sokrates (1520 so, Chef 17.11., 10:00): Neustart-Haken zusätzlich an jeden Werkzeugauf | Termin 23.11. |
 | 1484a | M | Von Spike (1484, Auswertung Tablet 17.11.): Rückfrage Welt in Zellen teilen, Durchsicht nu | Termin 21.11. 20:00 |
 | 1589.6 | M | Von Perikles (Chef 17.11., 23:13 „wir haben auch Tuffy und Spike“; 1589.2): Rechnung 444 i | wartet auf 1589.2 (startbar) |
 | 458.3 | M | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | Termin 21.11. 20:00 |
 | 1621 | M | Von Chef (18.11., 07:37, A, Votum Sokrates): Zweihandwaffen kürzer: Großaxt 131→110 cm, Kr | wartet auf 1694 (startbar) |
-| 1619 | M | Von Chef (18.11., 07:29, über Sokrates): Held stakst im Film 458.3, sieht nicht nach Gehen | startbar |
+| 1619 | M | Von Chef (18.11., 07:29, über Sokrates): Held stakst im Film 458.3, sieht nicht nach Gehen | wartet auf Test t301 (Chef) |
 | 649.2 | M | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json (Art und Auft | ruht bis 21.11. 20:00 |
 | 1642 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 1 Rollenspiegel: jede Startwarnung m | Termin 25.11. |
 | 1643 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 3 Rollenspiegel, Rest neben 1624: de | Termin 25.11. |
@@ -286,6 +283,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1649 | M | Von Sokrates (1621, Chef 18.11., 11:55): Zweihandwaffe im Stand: keine Haltung (Stehen_axt | startbar |
 | 1270.6 | M | Von Sokrates (1270.5 A, Chef 18.11., 13:06): Messbuild Technik: Schalter 3D-Auflösung 50 % | wartet auf Test (Build 300) |
 | 1270.7 | M | Von Sokrates (1270.5 A, Chef 18.11., 13:06): nach Messung 1270.6: Texturen komprimiert (Nr | Termin 21.11. 20:00 |
+| 1665 | M | Von Chef (18.11., 14:34, Fund, Build 298/299): Streitkolben in der Haupthand angelegt, am | startbar |
+| 1669 | M | Von Perikles (1668, Chef 18.11., 14:44): nächster Sammelbuild ein Handypunkt Grafikstufe: | startbar |
+| 1670 | M | Von Chef (18.11., 15:30, Fund, Build 299): Grafik Hoch im Systemmenü 1. Mal zurück auf Aut | wartet auf Test (Build 300) |
 | 1632 | K | Von Chef (18.11., 09:00, Rollenspiegel Diogenes): Gangprüfung im Bautest: Fußgleiten je Bo | startbar |
 | 1630 | K | Von Chef (18.11., 09:00, Rollenspiegel Ford): alle Lichtquellen der Höhle (Fackeln, Glut, | wartet auf Test (Build 300) |
 | 474 | K | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, M | ruht bis 23.11. |
@@ -293,11 +293,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 348.13 | K | Tusche nach Licht wie entschieden (Chef 26.10.) | ruht bis 23.11. |
 | 1613 | K | Von Sokrates (458.3, Vorentscheid 18.11.): Waffen episch und höher mit Effekt statt Färbun | Termin 21.11. 20:00 |
 | 1270.8 | K | Von Sokrates (1270.5 A, Chef 18.11., 13:06): nur wenn die Messung es verlangt: Tusche halb | Termin 21.11. 20:00 |
-| 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
-| 1665 | M | Von Chef (18.11., 14:34, Fund, Build 298/299): Streitkolben in der Haupthand angelegt, am | startbar |
 | 1666 | K | Von Jerry (1652): bau_am_rechner.py --cache bricht ohne Blender ab, sobald nur Block klass | startbar |
-| 1669 | M | Von Perikles (1668, Chef 18.11., 14:44): nächster Sammelbuild ein Handypunkt Grafikstufe: | startbar |
-| 1670 | M | Von Chef (18.11., 15:30, Fund, Build 299): Grafik Hoch im Systemmenü 1. Mal zurück auf Aut | wartet auf Test (Build 300) |
+| 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
 
 **Perikles** – offen 23, Muss 17, startbar 1
 
@@ -320,7 +317,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1583 | M | Von Jerry (1578): rotbuch.py --anlegen legt einen Wiederholer neu an, sobald sein Vorgang | wartet auf Test/Build (gebaut) |
 | 1610 | M | D305.1 von Diogenes (1572): Hängeralarm kam 15 bis 75 statt 15 Minuten nach dem Hängen (la | Termin 23.11. |
 | 1662 | M | Von Ford (18.11., 13:06): lauf.py startete Jerry für Nachfolger 1595 (Schlussbuild 299), o | Termin 23.11. |
-| 870.12 | K | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870 (wartet) |
+| 870.12 | K | Von Sokrates (870, Umzug BRS): Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 | wartet auf 870 (startbar) |
 | 341 | K | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug u | Termin 23.11. |
 | 1100 | K | Von Perikles (zu 1098): Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde; Ausgabe von lauf | wartet auf 1125 (gebaut) |
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 23.11. |
@@ -340,7 +337,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 
-**Sokrates** – offen 44, Muss 8, startbar 9
+**Sokrates** – offen 44, Muss 9, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -351,6 +348,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 649 | M | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium ge | wartet auf 649.2 (ruht) |
 | 1137 | M | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf | ruht bis 23.11. |
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
+| 1696 | M | Von Spike (1694, 👎 Chef 17:38): ein Bildlauf frei für die Hände (Längsblick und Spielnähe, | startbar |
+| 1679 | M | Von Chef (18.11., 16:32, Frage): wer ist zuständig für Kartendesign, Design grundsätzlich, | startbar |
 | 1625 | K | Von Chef (18.11., 08:17/08:22, Idee): feste Startprompts je Rolle statt Startlektüre; wir | ruht bis 25.11. |
 | 780 | K | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | K | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | Termin 23.11. |
@@ -378,21 +377,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 | 1564 | K | Systemlösung? Wasser: 4 frühere Vorgänge (1155, 221, 623.6, 1218), neu 1563; einmal grunds | startbar |
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634; einmal grundsätzlich lösen | startbar |
 | 1656 | K | Systemlösung? Kapuze: 2 frühere Vorgänge (475a, 1546), neu 1655; einmal grundsätzlich löse | startbar |
+| 1693 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-BERATUNG.md: 1 „Zu“ zu | startbar |
+| 1486 | K | Von Sokrates (1411.1 Tuffy 16.11., 20:32; 1403): bei gleicher Stufe gewinnen Wachsoldat un | ruht bis 21.11. 20:00 |
 | 327 | K | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraul | nach dem Meilenstein |
 | 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 | 142 | K | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | nach dem Meilenstein |
 | 45 | K | Geschäftsmodell und Umsetzung (Play Store) | nach dem Meilenstein |
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
-| 1679 | M? | Von Chef (18.11., 16:32, Frage): wer ist zuständig für Kartendesign, Design grundsätzlich, | startbar |
-| 1693 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-BERATUNG.md: 1 „Zu“ zu | startbar |
-| 1696 | M | Von Spike (1694, 👎 Chef 17:38): ein Bildlauf frei für die Hände (Längsblick und Spielnähe, | startbar |
-| 1486 | K | Von Sokrates (1411.1 Tuffy 16.11., 20:32; 1403): bei gleicher Stufe gewinnen Wachsoldat un | ruht bis 21.11. 20:00 |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1205b-niedrig.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1535-garrick-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1650-stiefel-alt-neu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): ansehen/1655-morwen-kapuze.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1694-griff-laengs.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 ## So geht's
 
