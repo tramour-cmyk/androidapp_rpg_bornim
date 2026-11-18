@@ -2323,7 +2323,7 @@ def material(name):
             rd = nt.nodes.new('ShaderNodeMath'); rd.operation = 'ROUND'
             nt.links.new(tn.outputs['Alpha'], rd.inputs[0]); nt.links.new(rd.outputs[0], bsdf.inputs['Alpha'])
     return m
-def build(P, name):
+def build(P, name, laut=True):
     me = bpy.data.meshes.new(name); me.from_pydata([tuple(v * 0.01) for v in P.V], [], P.F)   # Modellregel 1: Ausgabe in Metern
     names = sorted(set(P.M)); idx = {n: k for k, n in enumerate(names)}
     for n in names: me.materials.append(material(n))
@@ -2334,11 +2334,52 @@ def build(P, name):
             vi = me.loops[li].vertex_index; c = P.C[vi]
             ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[k][j]
     o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o)
-    print('NETZ', name, len(me.polygons), 'Flaechen', names)
+    if laut: print('NETZ', name, len(me.polygons), 'Flaechen', names)
     return o
-objs = [build(DORF, 'Dorf_Netz'), build(GLAS, 'Dorf_Glas'), build(WASSER, 'Dorf_Wasser'), build(BODEN, 'Dorf_Boden')]
+# 1484a (Vorentscheid A 18.11.): die Welt in Zellen von ZELLE m, je Zelle ein Netz unter einem leeren Knoten mit dem alten Namen
+# (Godot sondert, was nicht im Bild ist, nur je Netz aus; ein Netz ueber die ganze Karte zeichnete Wald 445k Dreiecke, im Bild 22 %).
+# Geteilt wird nach zusammenhaengenden Teilen (gemeinsame Ecken), je Teil nach seiner Mitte, damit rund schattierte Kronen keine Naht
+# bekommen; Aussehen gleich. ZELLE=0: ein Netz wie vorher.
+ZELLE = float(os.environ.get('ZELLE', '12')) * 100.0
+def zellen(P):
+    eltern = list(range(len(P.V)))
+    def wurzel(i):
+        while eltern[i] != i:
+            eltern[i] = eltern[eltern[i]]; i = eltern[i]
+        return i
+    for f in P.F:
+        a = wurzel(f[0])
+        for v in f[1:]:
+            b = wurzel(v)
+            if b != a: eltern[b] = a
+    summe = {}
+    for i, v in enumerate(P.V):
+        w = wurzel(i); s = summe.setdefault(w, [0.0, 0.0, 0])
+        s[0] += v.x; s[1] += v.y; s[2] += 1
+    zelle_von = {w: (math.floor(s[0] / s[2] / ZELLE), math.floor(s[1] / s[2] / ZELLE)) for w, s in summe.items()}
+    teile = {}
+    for k, f in enumerate(P.F):
+        z = zelle_von[wurzel(f[0])]
+        Q, umb = teile.setdefault(z, (Part(), {}))
+        ix = []
+        for v in f:
+            if v not in umb:
+                umb[v] = len(Q.V); Q.V.append(P.V[v]); Q.C.append(P.C[v])
+            ix.append(umb[v])
+        if k in P.S: Q.S.add(len(Q.F))
+        Q.F.append(tuple(ix)); Q.UV.append(P.UV[k]); Q.M.append(P.M[k])
+    return sorted((z, Q) for z, (Q, _) in teile.items())
+def build_zellen(P, name):
+    if ZELLE <= 0 or not P.F: return [build(P, name)]
+    leer = bpy.data.objects.new(name, None); bpy.context.scene.collection.objects.link(leer)
+    out = [leer]
+    for (zx, zy), Q in zellen(P):
+        o = build(Q, '%s_Z%d_%d' % (name, zx, zy), False); o.parent = leer; out.append(o)
+    print('ZELLEN', name, len(out) - 1, 'Zellen,', len(P.F), 'Flaechen')
+    return out
+objs = build_zellen(DORF, 'Dorf_Netz') + [build(GLAS, 'Dorf_Glas'), build(WASSER, 'Dorf_Wasser'), build(BODEN, 'Dorf_Boden')]
 for nm, Pe in EIGENE:
-    if Pe.F: objs.append(build(Pe, nm))   # 490 Vorlage des Heilkrauts, 530 Balken des Schlagbaums
+    if Pe.F: objs += build_zellen(Pe, nm) if nm.startswith('Randwald_') else [build(Pe, nm)]   # 490 Heilkraut, 530 Schlagbaum
 for nm, Pd, Pg in GRUPPEN:
     if Pd.F: objs.append(build(Pd, 'Gruppe_' + nm))
     if Pg.F: objs.append(build(Pg, 'Gruppe_' + nm + '_Glas'))
