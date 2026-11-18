@@ -49,15 +49,9 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 22:30 18.11.: Startsperre 22:30 Start Spike (Neustart, 1694; PR 221 Build 300 beim Chef)
-- 22:05 18.11.: Startsperre 22:05 Start Tom (1535 Rückläufer, dann 1570)
 - 18.11., 22:04 Ford: Sokrates `…7A28496XNYFsbMGkrg` (Chefrunde 21:53); Perikles 1704 erledigt, archiviert (2,07 $).
-- 21:53 18.11.: Startsperre 21:53 Start Sokrates (Neustart 65289624, Chefrunde, offen beim Chef)
-- 21:41 18.11.: Startsperre 21:41 Start Perikles (1704, M? 1705)
 - 18.11., 21:20 Ford: Jerry `…75kYKWo6WGkcdYQsnX` (1697); archiviert Jerry alt (11,96 $), Tom (7,69 $ auf 1700, 1655, 1570); Tom-Nachfolger 1570 wegen Guthaben zurückgestellt.
-- 21:01 18.11.: Startsperre 21:01 Start Jerry (Neustart 51a2fe8a5, 1697)
 - 18.11., 21:01 Ford: Sokrates `…7689qoTpzdEXywSSN3` (Chefrunde, Chef 20:27); archiviert Spike alt (20,79 $), Perikles (1,16 $ auf 1679), Sokrates 1608 (5,30 $); Tom, Jerry, Perikles 20:05 gestartet.
-- 20:28 18.11.: Startsperre 20:28 Start Sokrates (Neustart cb4eeef7c, Chefrunde, Chef 20:27)
 - 18.11., 20:01 Ford: PR 220 (Build 298/299) gemischt 19:50; Startstopp aufgehoben. Archiviert 17:13–18:50: Tom ×2 (20,13 $, 11,10 $), Sokrates 1678 (4,49 $), Jerry (16,93 $); 1698 an Jerry (Wende im frischen Bau klassen).
 - 18.11., 17:05 Ford: Tom-Neustart `…75RSsSMVuCzxsyjp32` (300.10, 1655, 1570, 1674); Diogenes `…76MMaHby73zUmJ8yEE` (1683) gestartet und archiviert, Perikles 1677, 1682 archiviert (1,34 $, 0,91 $, 0,93 $); Startregel auf 1683 (Kern über lauf.py).
 - 18.11., 16:45 Ford: Neustarts Sokrates `…77w4eC1bearZWLwJZf` (1678, fertig), Spike `…789eBk8ZNvZt8H2DoE` (1667, PR 220/221); Spike alt archiviert (18,76 $ auf 1595, 1270.6, 1645, 1664, 1667); 1680 gebaut. Sokrates-Nachfolger 1608 zurückgestellt (Guthaben, Spike merged 299 selbst).
@@ -127,22 +121,14 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
+- 22:30 18.11.: Startsperre 22:30 Start Spike (Neustart, 1694; PR 221 Build 300 beim Chef)
+- 22:05 18.11.: Startsperre 22:05 Start Tom (1535 Rückläufer, dann 1570)
+- 21:53 18.11.: Startsperre 21:53 Start Sokrates (Neustart 65289624, Chefrunde, offen beim Chef)
+- 21:41 18.11.: Startsperre 21:41 Start Perikles (1704, M? 1705)
+- 21:01 18.11.: Startsperre 21:01 Start Jerry (Neustart 51a2fe8a5, 1697)
+- 20:28 18.11.: Startsperre 20:28 Start Sokrates (Neustart cb4eeef7c, Chefrunde, Chef 20:27)
 - 20:01 18.11.: Startsperre 20:01 Start Spike (Neustart 75a32f4e7, 1595)
 - 17:09 18.11.: Startsperre 17:09 Start Sokrates (Neustart 5c413fea5, 1608)
-- 17:01 18.11.: Startsperre 17:01 Start Tom (Neustart a7196e254, 1406)
-- 16:58 18.11.: Startsperre 16:58 Start Diogenes (e13780dd8, 1683)
-- 16:45 18.11.: Startsperre 16:45 Start Perikles (db348e69a, 1682)
-- 16:39 18.11.: Startsperre 16:39 Start Spike (Neustart 3bd32fc16, 1667)
-- 16:37 18.11.: Startsperre 16:37 Start Sokrates (Neustart 35ac3bc16, 1678)
-- 16:23 18.11.: Startsperre 16:23 Start Sokrates (Neustart d9dd3a2b6, Chefrunde)
-- 16:18 18.11.: Startsperre 16:18 Start Perikles (a06eeb1f9, 1677)
-- 15:49 18.11.: Startsperre 15:49 Start Perikles (8d277e1b3, 1672)
-- 15:39 18.11.: Startsperre 15:39 Start Sokrates (Neustart 9079fc17e, Chefrunde 299)
-- 15:35 18.11.: Startsperre 15:35 Start Tom (Neustart, 1650)
-- 14:46 18.11.: Startsperre 14:46 Start Perikles (2053ea481, 1668)
-- 14:43 18.11.: Startsperre 14:43 Start Diogenes (7ff081d1f, 1541, 1319)
-- 14:27 18.11.: Startsperre 14:27 Start Sokrates (Neustart aed08b2d4, Chefrunde, Startprompt 1661)
-- 14:24 18.11.: Startsperre 14:24 Start Spike (Neustart 241fd8640e, 1270.6)
 - 00:04 18.11.: Marke Abgleich Vorentscheid 1602 ohne Datei in chefsache/billigen/ und ohne (lauf.py)
 - 00:04 18.11.: Marke Archiv session_01Hmoj76bxudxAGUfPJBE1Pc (lauf.py)
 - 02:04 18.11.: Marke Rückmeldung 1484 18.11. 01:58 (lauf.py)
@@ -175,8 +161,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:05 18.11.: Marke Archiv session_01Hmoj7A6mMgqbeH3RmP6Rqb (lauf.py)
 - 12:05 18.11.: Marke Archiv session_01Hmoj77fPKnKN9Mn9WrXg4S (lauf.py)
 - 13:06 18.11.: Marke Archiv session_01Hmoj76h12sqMDi6vdYZgEk (lauf.py)
-- 14:05 18.11.: Startsperre 14:05 Start Tom, Jerry, Perikles (lauf.py, Tom 1650, Jerry 1652, Perikles 1659)
 - 14:05 18.11.: Marke Archiv session_01Hmoj79iYtAvHXSiAgGMdpW (lauf.py)
 - 14:05 18.11.: Marke Archiv session_01Hmoj75tEB699cCr9xdy85o (lauf.py)
 - 20:04 18.11.: Startsperre 20:04 Start Tom, Jerry, Perikles (lauf.py, Jerry 1698)
 - 20:04 18.11.: Marke Archiv session_01Hmoj789eBk8ZNvZt8H2DoE (lauf.py)
+- 23:04 18.11.: Startsperre 23:04 Start Diogenes, Perikles (lauf.py, Diogenes 1716)
+- 23:04 18.11.: Marke Start-fehlt Perikles 18.11.-21:41 (lauf.py)
