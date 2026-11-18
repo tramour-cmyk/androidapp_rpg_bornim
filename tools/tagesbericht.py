@@ -136,10 +136,40 @@ def rote_laeufe():
     for name, ls in (("24h", [l for l in laeufe if l.get("created_at", "") >= grenze]), ("7d", laeufe)):
         gezaehlt = [l for l in ls if l.get("conclusion") in ("success", "failure")]
         rot = [l for l in gezaehlt if l["conclusion"] == "failure"]
+        dauer = lambda xs: sum(lauf_min(l) for l in xs)  # 1659: Minuten in roten Läufen gegen alle
         team = collections.Counter(next((t for v, t in (("tom", "tom"), ("spike", "spike"), ("jerry", "jerry"), ("tuffy", "jerry"), ("build", "build"))
                                          if (l.get("head_branch") or "").startswith("claude/" + v)), "sonst") for l in rot)  # 777: tuffy → Jerry; 1328: spike eigene Rolle
-        erg[name] = (len(rot), len(gezaehlt), team)
+        erg[name] = (len(rot), len(gezaehlt), team, dauer(rot), dauer(gezaehlt))
     return erg
+
+def lauf_min(l):
+    try:
+        z = lambda t: datetime.datetime.fromisoformat(t.replace("Z", "+00:00"))
+        return max(0.0, (z(l["updated_at"]) - z(l.get("run_started_at") or l["created_at"])).total_seconds() / 60)
+    except Exception:
+        return 0.0
+
+def je_vorgang(laeufe, ns, jetzt):
+    """1659: Läufe je erledigtem oder abgenommenem Vorgang des Spiels (nur dort baut ein Lauf; verworfene zählen nicht); keiner: „–“."""
+    k = sum(1 for n in ns if jetzt[n]["bereich"] in SPIEL and not jetzt[n]["stand"].strip().lower().startswith("verworfen"))
+    return ("%.1f" % (laeufe / k)).replace(".", ",") if k else "–"
+
+def wirkung_text(d):
+    """1659 (Chef 18.11., 12:10: „wie effektiv ist denn jetzt das mit unseren Runs?“): grüne Läufe in Prozent, Minuten in roten
+    Läufen, Läufe je erledigtem Vorgang, je 24 h und 7 Tage; dahinter rot je Team, rote Tests und die APK-Laufzeiten (1548)."""
+    r = d.get("rot")
+    if not r: return "Läufe unbekannt (Netz)" + ("; " + d["lz"] if d.get("lz") else "")
+    def teil(name, ns, fett):
+        n, g, _, mr, mg = r[name]
+        f = (lambda t: "**%s**" % t) if fett else (lambda t: t)
+        return "%s %s (%d von %d), %s (%d %% der Laufzeit), %s" % (
+            "24 h" if name == "24h" else "7 Tage", f("%d %% grün" % round(100 * (g - n) / g) if g else "keine Läufe"), g - n, g,
+            f("%d min in roten Läufen" % round(mr)), round(100 * mr / mg) if mg else 0, f("%s Läufe je erledigtem Spielvorgang" % je_vorgang(g, ns, d["jetzt"])))
+    _, _, t, _, _ = r["24h"]
+    name = {"build": "beim Bau eines Test-Builds", "sonst": "sonstige"}
+    teams = ", ".join("%s %d" % (name.get(k, k.capitalize()), t[k]) for k in ("tom", "jerry", "spike", "build", "sonst") if t[k])
+    return "%s; %s%s%s%s" % (teil("24h", d["e1"], True), teil("7d", d["e7"], False), "; rot 24 h nach Team: " + teams if teams else "",
+                             rotbuch_kurz(), "; " + d["lz"] if d.get("lz") else "")
 
 def laufzeiten_kurz():
     """1548 (Chef 17.11., 11:15): Läufe 24 h, Ø, min, max, und ob die vorgerenderten Kaufmodelle griffen (tools/laufzeiten.py)."""
@@ -148,14 +178,6 @@ def laufzeiten_kurz():
         return laufzeiten.kurz(24)
     except Exception:
         return "Laufzeiten unbekannt"
-
-def rot_text(r):
-    if not r: return "rote Läufe unbekannt (Netz)"
-    n, g, t = r["24h"]; n7, g7, _ = r["7d"]
-    # 1390: für den Chef lesbar, „Build 8“ hieß „beim Bau eines Test-Builds“
-    name = {"build": "beim Bau eines Test-Builds", "sonst": "sonstige"}
-    teams = ", ".join("%s %d" % (name.get(k, k.capitalize()), t[k]) for k in ("tom", "jerry", "spike", "build", "sonst") if t[k])
-    return "rote Läufe 24 h **%d von %d**%s, 7 Tage %d von %d%s" % (n, g, " (%s)" % teams if teams else "", n7, g7, rotbuch_kurz())
 
 def rotbuch_kurz():
     """1334: Zahl je roten Test der letzten 48 h (tools/rotbuch.py --kurz)."""
@@ -189,7 +211,7 @@ def zeilen(d):
          "Vorgänge erledigt 24 h / 7 Tage: %d / %d, davon Spiel (Entwicklung, Gestaltung, Texte, Design) %d / %d; neu %d / %d" % (len(d["e1"]), len(d["e7"]), d["s1"], d["s7"], d["neu1"], d["neu7"])),
         ("Rest geschätzt", ein.get("Rest geschätzt", "noch keine Schätzung"), "Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu"),
         ("Wartet auf dich", warte or "nichts", "ältestes: %s; [Chefsache](chefsache/README.md)" % aeltest),
-        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d); %s" % (t1 + t2, t1, t2, rot_text(d.get("rot"))) + ("; " + d["lz"] if d.get("lz") else ""),
+        ("Builds", "Änderungen warten auf deinen Test: **%d** (Tom %d, Jerry %d); wie wirksam die Läufe sind: Zeile 10" % (t1 + t2, t1, t2),
          "bei dir zum Testen: %s; ein Build nimmt alle fertigen Zweige (317)" % (", ".join(re.findall(r"\[(Build \d+)\]", lesen("chefsache/README.md"))) or "kein Build")),
         ("Fehler", fehler(d["jetzt"]), "offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3)"),
         ("Geld", ("Woche **%s %%** (dein Bild %s, %s)" % (gut.group(3), gut.group(1), gut.group(2)) if gut else "Woche unbekannt") +
@@ -197,6 +219,7 @@ def zeilen(d):
          ("" if gut and gut.group(1) == JETZT.strftime("%d.%m.") else "; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max)"), "Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal)"),
         ("Von dir zuerst gefunden", ein.get("Von dir zuerst gefunden", "–"), "Woche, zählt Diogenes montags"),
         ("Größtes Risiko", ein.get("Größtes Risiko", "–"), ""),
+        ("Läufe", wirkung_text(d), "alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659)"),
         ("Ausführlich", "[Abnahmeliste und Stand](PROJEKTPLAN.md)", ""),
     ]
 
@@ -250,23 +273,39 @@ def telegram(d):
     """D55.2 (Chef 01.11., 11:09 zu 448: „zehn Zeilen per Telegram, jede mit einer Zahl“): dieselben zehn Zeilen wie der Bericht, ohne Bemerkung."""
     zs = zeilen(d)
     roh = lambda t: re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t).replace("**", "")
-    return "448: Tagesbericht %s (%sARBEIT-TAGESBERICHT.md)\n" % (JETZT.strftime("%d.%m."), GH) + "\n".join(
-        "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:9])) + "\n10. Ausführlich: %sPROJEKTPLAN.md" % GH + vorrat_zeile()
+    # 1659: Zeile 10 = Läufe, 11 = Vorrat auf links (wie der Chef sie zählt); Abnahmeliste als Link im Kopf
+    return "448: Tagesbericht %s (%sARBEIT-TAGESBERICHT.md, Abnahmeliste %sPROJEKTPLAN.md)\n" % (JETZT.strftime("%d.%m."), GH, GH) + "\n".join(
+        "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:10])) + vorrat_zeile()
+
+def vorrat_satz(erg, f):
+    """1660 (Chef 18.11., 12:17: „Punkt 11 … auf links eine Aussage im Bericht“): Klartext statt Kürzel: was der heutige Lauf
+    behoben hat, wie viele Funde offen sind (nach Art, ausgeschrieben, und nach Besitzer), was davon den Chef angeht.
+    Den Chef geht an: I (Datei in seiner Chefsache ohne offenen Vorgang; er sähe eine Frage, die keiner mehr stellt)."""
+    import collections, vorratspruefung as V
+    s = "11. Vorrat auf links (1425): "
+    s += ("heute geprüft und behoben: " + "; ".join(erg)) if erg else "heute noch nicht geprüft"
+    if not f: return s + ". Offen: nichts. Für dich: nichts."
+    art = collections.Counter(x[0] for x in f)
+    wer = collections.Counter(b.strip() for x in f for b in (x[2] if x[2] not in ("?", "–") else "ohne Besitzer").split(","))
+    s += ". Offen: %d %s (%s), bei %s." % (len(f), "Fund" if len(f) == 1 else "Funde",
+                                         ", ".join("%d %s" % (n, V.ARTEN.get(a, a)) for a, n in sorted(art.items(), key=lambda x: -x[1])),
+                                         ", ".join("%s %d" % (b, n) for b, n in wer.most_common()))
+    chef = [x[1] for x in f if x[0] == "I"]
+    return s + (" Für dich: %d Datei%s in der Chefsache ohne offenen Vorgang (%s), räumen wir weg; sonst nichts." % (
+        len(chef), "" if len(chef) == 1 else "en", ", ".join(chef)) if chef else " Für dich: nichts, alles liegt bei uns.")
 
 def vorrat_zeile():
     """1425 (Chef 17.11., 10:14: „Ergebnis der heutigen Leichenprüfung … keine Telegram-Nachricht“): Ergebnis der Vorratsprüfung des
-    Tages aus dem Commit „Vorratsprüfung TT.MM.: …“ und die jetzt noch offenen Funde (ohne J)."""
+    Tages aus dem Commit „Vorratsprüfung TT.MM.: …“ und die jetzt noch offenen Funde (ohne J), als Satz (1660)."""
     import subprocess
     try:
         r = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__)), "log", "--since=%s 00:00" % JETZT.strftime("%Y-%m-%d"),
                             "--format=%s", "--grep=Vorratsprüfung " + JETZT.strftime("%d.%m.")], capture_output=True, text=True, timeout=30)
         erg = [re.sub(r"^.*?Vorratsprüfung \d\d\.\d\d\.:?\s*", "", z) for z in r.stdout.splitlines() if z.strip()]
         import vorratspruefung
-        f = [x for x in vorratspruefung.funde() if x[0] != "J"]
-        offen = ", ".join("%s %s" % (x[0], x[1]) for x in f[:8]) + (" …" if len(f) > 8 else "")
-        return "\nVorrat auf links (1425): %s; offen: %s" % ("; ".join(erg) or "heute kein Lauf eingetragen", offen or "nichts")
+        return "\n" + vorrat_satz(erg, [x for x in vorratspruefung.funde() if x[0] != "J"])
     except Exception as e:
-        return "\nVorrat auf links (1425): nicht lesbar (%s)" % e
+        return "\n11. Vorrat auf links (1425): nicht lesbar (%s)" % e
 
 def main():
     if "--telegram" not in sys.argv and "--probe" not in sys.argv:

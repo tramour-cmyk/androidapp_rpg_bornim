@@ -318,6 +318,14 @@ def stand():
             " bis zur nächsten Schwelle; Chefauftrag streichen nur über die Chefsache)", {}))
     return aus
 
+def fremd_besitzer(rolle, nr, muss):
+    """1662: Besitzer der Zeile nr, wenn sie offen einem anderen gehört und nicht als Übernahme (1364) in muss steht; sonst None."""
+    d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+    if not d or "erledigt" in d.get("stand", ""): return None
+    b = d.get("besitzer", "")
+    if not b or b in (rolle, startbar.ZUSATZ.get(rolle)) or any(x[0] == nr for x in muss): return None
+    return b
+
 def stillstand(st, je_rolle, archiviert, ausschluss):
     """1246: Text der Ursachen, wenn keine Rolle aus START_REIHE startbares Muss hat und keine ihrer Sitzungen arbeitet, aber Muss-Zeilen
     an einer startbaren Zeile einer nicht gestarteten Rolle hängen; sonst None. Warten auf Test, Chef oder Termin ist
@@ -874,6 +882,10 @@ def main():
             offen_nf = None
         elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
+            offen_nf = None
+        elif nf_nr and (eig := fremd_besitzer(r, nf_nr.group(1), muss)):
+            # 1662 (Ford 18.11., 13:06): Nachfolger auf einer Zeile, die inzwischen einem anderen gehört (1595 an Spike), startete die alte Rolle
+            warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ gehört inzwischen %s, oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, eig))
             offen_nf = None
         if offen_nf and nf_nr and nacht_halt(r, nf_nr.group(1), ausgabe, morgen):
             continue
