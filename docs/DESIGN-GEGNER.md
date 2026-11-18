@@ -1,15 +1,17 @@
 # Gegnerverhalten (Regelblatt 1589.1)
 
-**Entschieden 1589.1 A, Lohn A (Chef 17.11., 22:33): „Ansonsten folge ich deinem Votum … Mit A und Lohn können wir auch annehmen.“** Das ganze Blatt gilt mit den Ergänzungen der vier Gegenleser, eingearbeitet unten. Der Chef ergänzte selbst Abschnitt 1 und 1a („wenn du aus meinen Ergänzungen noch was ableiten kannst, dann mach das“). Gebaut wird in vier Stufen (Abschnitt 11) ab Sa 21.11., 20:00. Der Halt bei Jerry (Chef 18:15) ist aufgehoben. Zahlen kommen aus der Rechnung 444.
+**Entschieden 1589.1 A, Lohn A (Chef 17.11., 22:33): „Ansonsten folge ich deinem Votum … Mit A und Lohn können wir auch annehmen.“** **Begriffe (Chef 17.11., 23:44, „Ja, so machen.“, `LISTE-GLOSSAR.md` 5):** **Arena** (bisher „Blatt“), **Stellung**, **Beinarbeit**, **Denkweise**; Code `regeln/arena.gd`. In „Ergänzungen“ (Verlauf) steht noch „Blatt“ = Arena.
 
-## 1. Grundsatz: das Blatt
+Das ganze Regelblatt gilt mit den Ergänzungen der vier Gegenleser, eingearbeitet unten. Der Chef ergänzte selbst Abschnitt 1 und 1a („wenn du aus meinen Ergänzungen noch was ableiten kannst, dann mach das“). Gebaut wird in vier Stufen (Abschnitt 11) ab Sa 21.11., 20:00. Der Halt bei Jerry (Chef 18:15) ist aufgehoben. Zahlen kommen aus der Rechnung 444.
 
-- Intern ist der Kampf ein 2D-Blatt mit X und Y. 3D ist nur die Umsetzung davon: Figuren gehen aneinander vorbei, halten Abstände, Bisse landen, neue Aufstellungen entstehen (Chef 18:15).
+## 1. Grundsatz: die Arena
+
+- Intern ist der Kampf eine flache Arena mit X und Y, unsichtbar unter dem Kampfort. 3D ist nur die Umsetzung davon: Figuren gehen aneinander vorbei, halten Abstände, Bisse landen, neue Aufstellungen entstehen (Chef 18:15).
 - **Fein wie Millimeterpapier, nicht grob wie ein Schachbrett** (Chef 22:33: „Ein Schachbrett ist mir zu grob … Millimeterpapier jetzt nicht wörtlich nehmen“). Jede Figur hat einen Punkt in Metern (x, y) und einen Umriss als Kreis, gemessen am Modell (Jerry). Es gibt keine Felder, an die eine Figur gebunden ist.
-- Die Figuren stehen von oben gesehen maßstabsgetreu auf dem Blatt. Jeder Angriff hat eine Reichweite in Metern, eingetragen in `werte.json`, etwa Klaue, vorgestreckter Biss, Schwert, Speer, Bogen (Chef 18:50).
-- **Abstand wird abgeleitet, nicht gesetzt** (Chef 22:33: „dass eben die Reichweiten da ableitbar sind … wann geht es über von fern in nah“): Nah ist, wer die Reichweite des eigenen Nahangriffs erreicht oder in der des Gegners steht. Fern ist, wer außerhalb davon steht, aber in Schussweite. Weit ist alles darüber. Die drei Stufen aus `DESIGN-GLUT.md` (nah, fern, weit) bleiben als Wörter für den Spieler. Woher sie kommen, entscheidet das Blatt.
-- **Die Plätze im MARS sind nicht mehr bindend** (Chef 22:33: „nicht mehr so ganz fix auf die ursprünglichen Gitterpositionen gebunden, die wir ja einblenden können“). Vorn und hinten, die vier Plätze und das Raster bleiben eine Einblendung zum Lesen; die Regeln rechnen mit den Punkten auf dem Blatt.
-- Jede Regel unten wird auf dem Blatt entschieden, nie im Bild. Der Blickwinkel der Kamera ändert keine Regel (Abschnitt 10).
+- Die Figuren stehen von oben gesehen maßstabsgetreu in der Arena. Jeder Angriff hat eine Reichweite in Metern, eingetragen in `werte.json`, etwa Klaue, vorgestreckter Biss, Schwert, Speer, Bogen (Chef 18:50).
+- **Abstand wird abgeleitet, nicht gesetzt** (Chef 22:33: „dass eben die Reichweiten da ableitbar sind … wann geht es über von fern in nah“): Nah ist, wer die Reichweite des eigenen Nahangriffs erreicht oder in der des Gegners steht. Fern ist, wer außerhalb davon steht, aber in Schussweite. Weit ist alles darüber. Die drei Stufen aus `DESIGN-GLUT.md` (nah, fern, weit) bleiben als Wörter für den Spieler. Woher sie kommen, entscheidet die Arena.
+- **Die Plätze im MARS sind nicht mehr bindend** (Chef 22:33: „nicht mehr so ganz fix auf die ursprünglichen Gitterpositionen gebunden, die wir ja einblenden können“). Vorn und hinten, die vier Plätze und das Raster bleiben eine Einblendung zum Lesen; die Regeln rechnen mit den Punkten in der Arena.
+- Jede Regel unten wird in der Arena entschieden, nie im Bild. Der Blickwinkel der Kamera ändert keine Regel (Abschnitt 10).
 - Das Blatt gilt im MARS auch ohne Kerben. Ob das Kerbensystem ins Spiel kommt, ist ein eigener Entscheid. Bis dahin heißt „3 Kerben“ in Abschnitt 4 und 9 „großer Schlag, angesagt“ (Jerry, Perikles).
 
 ## 1a. Waffe und Abstand (abgeleitet aus Chef 22:33)
@@ -38,7 +40,7 @@ Jede Gegnerart hat eine von vier Denkweisen, passend zu ihrem Gegenwert:
 - **Stur:** der Nächste.
 - **Plan:** die Reihenfolge des Bosses.
 - Das Ziel wird zu Beginn jedes Zugs neu gewählt. Der Gegner bleibt beim bisherigen Ziel, solange kein anderes deutlich besser passt. Ohne diese Trägheit springen die Ziele hin und her.
-- **Versperren** auf dem Blatt ist eine echte Wahl: Wer vorn steht, deckt die hinteren. Ein listiger Gegner kommt an ihnen nur vorbei, wenn eine Lücke frei ist.
+- **Versperren** in der Arena ist eine echte Wahl: Wer vorn steht, deckt die hinteren. Ein listiger Gegner kommt an ihnen nur vorbei, wenn eine Lücke frei ist.
 
 ## 4. Rolle im Kampf
 
@@ -56,7 +58,7 @@ Die Denkweise sagt, was ein Gegner will. Die Rolle sagt, wo er steht und wie er 
 - **Vorn bleibt vorn** (Chef 17:45). Platztausch nur aus gutem Grund, etwa wenn ein hinterer Gegner einen großen Schlag hat, oder wenn der vordere wankt. Beim Platztausch gehen die Figuren nacheinander, nie ineinander; der hintere wartet seitlich, bis der Weg frei ist (Tom).
 - Nach einem Angriff setzt sich der Gegner bis zwei Schritte rückwärts oder schräg rückwärts ab, mit dem Gesicht zum Helden (F7). Weitere Wege: auf der Stelle zum Weg drehen, vorwärts gehen, am Ziel zurückdrehen. Er zeigt nie den Rücken, außer auf der Flucht (Tom).
 - **Ausnahmen** (Homer): Untote setzen sich nicht ab, sie bleiben stehen und drücken nach; nur der Wiedergänger weicht einen Schritt vor Weihwasser oder Licht. Krogg setzt sich nicht ab, er versperrt („an Krogg kommt keiner vorbei“, `[428.krogg]`).
-- **Kein Seitwärtstraben** (Chef 17:45): Wege gehen auf dem kürzesten Weg über das Blatt, ohne Schienen und ohne Bogen. Ein Seitschritt nur als einzelner Ausweichschritt, wenn ein Vorderer Platz macht (Tom).
+- **Kein Seitwärtstraben** (Chef 17:45): Wege gehen auf dem kürzesten Weg durch die Arena, ohne Schienen und ohne Bogen. Ein Seitschritt nur als einzelner Ausweichschritt, wenn ein Vorderer Platz macht (Tom).
 - **1526 geht hierin auf:** Ein vorderer Wolf, der für einen hinteren Platz macht, weicht nur auf den frei gewordenen Platz, nicht ganz nach hinten. Er läuft nicht als Nächster wieder ganz vor („ein bisschen sinnlos“, Chef 17.11., 08:12).
 - **Takt:** Drehen und Absetzen fallen in die Takte der Handlung (F9), nicht davor; Maß ist die Runde des Wolfsrudels, 14,6 s (784 A).
 - **Menschengestalten** brauchen dafür Rückwärtsgehen gerade und schräg sowie den Seitschritt aus dem gekauften Paket UAL2 (Tom). Tiere und Untiere prüft Jerry mit ihren eigenen Bewegungen.
@@ -113,17 +115,17 @@ Die Reihenfolge der Bosse (Abschnitt 3, „Plan“) legt Jerry beim Bau mit Home
 ## 10. Kamera (nicht Teil dieses Blatts)
 
 - Der Chef möchte den Kampf mit wechselndem Blickwinkel aufpeppen (11.11., 20:11; 17.11., 16:07). Heute gibt es im Kampfort kein Drehen, nur den Zoom beim Schlag (`kampfort.gd` 654–682).
-- Die Kamera bleibt ein eigenes großes Vorhaben (1402): erst eine Vorlage, dann das Gespräch, erst dann Code. Weil die Regeln auf dem Blatt gelten (Abschnitt 1), hängt dieses Blatt nicht von ihr ab.
+- Die Kamera bleibt ein eigenes großes Vorhaben (1402): erst eine Vorlage, dann das Gespräch, erst dann Code. Weil die Regeln in der Arena gelten (Abschnitt 1), hängt dieses Regelblatt nicht von ihr ab.
 
 ## 11. Bau (Perikles 22:15, entschieden mit 1589.1 A)
 
 Je Stufe ein Vorgang mit eigenem Build, ab Sa 21.11., 20:00 (vorher Stillstand, 1594); nichts davon in Build 299.
-1. **Blatt unsichtbar** (Jerry): `regeln/blatt.gd` mit Punkt, Umriss, Reichweite; Abstand abgeleitet (Abschnitt 1); Zielwahl je Denkweise mit Trägheit und Versperren (Strecken-Kreis-Prüfung); Flucht; Ungunst der Fernwaffe im Nahkampf (1a); Rechnung 444 lernt das Blatt in derselben Stufe. Prüfbar mit Logiktest gegen die heutigen Wege.
+1. **Arena unsichtbar** (Jerry): `regeln/arena.gd` mit Punkt, Umriss, Reichweite; Abstand abgeleitet (Abschnitt 1); Zielwahl je Denkweise mit Trägheit und Versperren (Strecken-Kreis-Prüfung); Flucht; Ungunst der Fernwaffe im Nahkampf (1a); Rechnung 444 lernt die Arena in derselben Stufe. Prüfbar mit Logiktest gegen die heutigen Wege.
 2. **Bewegung Menschengestalten** (Tom, neben Stufe 1): Rückwärtsgehen gerade und schräg, Seitschritt aus UAL2, einmal gebaut für Welt und Kampf.
-3. **Figuren aufs Blatt** (Jerry): `figur.gd` geht nur noch die Wege des Blatts, Bewegung nach Abschnitt 5 mit 1526 und den Ausnahmen; alte Regeln im Bild raus; Messtests 438, 709 neu; Film.
+3. **Figuren in die Arena** (Jerry): `figur.gd` geht nur noch die Wege der Arena, mit Beinarbeit Bewegung nach Abschnitt 5 mit 1526 und den Ausnahmen; alte Regeln im Bild raus; Messtests 438, 709 neu; Film.
 4. **Reihenfolge der Bosse** (Jerry mit Homer): Grimmzahn, Krogg, Grak.
 
-Nicht auf das Blatt warten 760 (Wolf springt beim Anspringen) und 1068 (Ring bei großen Schlägen): beide in den nächsten Build, mit Stufe 3 neu messen. 1532 (Hinterhalt mit dem Rücken) bleibt eigene Kür.
+Nicht auf die Arena warten 760 (Wolf springt beim Anspringen) und 1068 (Ring bei großen Schlägen): beide in den nächsten Build, mit Stufe 3 neu messen. 1532 (Hinterhalt mit dem Rücken) bleibt eigene Kür.
 
 ## Ergänzungen (Gegenlesen 17.11., eingearbeitet oben)
 

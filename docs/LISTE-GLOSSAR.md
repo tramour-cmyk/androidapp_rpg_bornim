@@ -77,7 +77,13 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Grundriss** | Karte hinter einem Eingang (Haus, Höhle) | Gebietskarte → Ebene | – | `CLAUDE.md` „Begriffe“ |
 | **Ebene** | übereinanderliegende Teile eines Grundrisses | Grundriss | Stockwerk; nie für Kartenstufen | `CLAUDE.md` „Begriffe“ |
 | **MARS** | unser Kampfsystem; nach dem römischen Kriegsgott, zugleich **M**eisterschaft, **A**bsicht, **R**eaktion, **S**tellung (EN Mastery, Aim, Reaction, Stance) | – → Kampfort | – | `LISTE-MARS.md`, Vorgangsarchiv 761 |
-| **Kampfort** | wo gekämpft wird | MARS | Bühne | `LISTE-MARS.md`, `CLAUDE.md` „Begriffe“ |
+| **Kampfort** | wo gekämpft wird; was der Spieler sieht (Wald, Höhle) | MARS | Bühne | `LISTE-MARS.md`, `CLAUDE.md` „Begriffe“ |
+| **Kerbe** | was der Spieler im Zug tut, drei je Zug | MARS | Glut, Aktionspunkt | `DESIGN-GLUT.md` (1260 D) |
+| **Arena** | unsichtbare flache Ebene unter dem Kampfort: jede Figur mit Punkt, Umriss, Reichweite, frei in X und Y ohne Felder (Millimeterpapier); dort entscheiden die Regeln | MARS → Stellung, Beinarbeit | Blatt, Schachbrett, Brett (= Aushangbrett) | `DESIGN-GEGNER.md` 1 (Chef 17.11., 23:44) |
+| **Stellung** | was man in der Arena einnehmen kann und was es bringt: nah, fern, weit; Seite, Rücken, einkreisen, versperren, Abstand halten | Arena | Aufstellung | `DESIGN-GEGNER.md` |
+| **Beinarbeit** | wie eine Figur zu ihrer Stellung kommt und das in 3D zeigt: vorwärts, rückwärts, Seitschritt, vorbeigehen | Arena | – | `DESIGN-GEGNER.md` 5 |
+| **Denkweise** | warum ein Gegner so handelt: Instinkt, List, Stur, Plan | MARS | – | `DESIGN-GEGNER.md` 2 |
+| **Aufstellung** | wer zu Kampfbeginn vorn und hinten steht, wer mit wem tauscht | MARS | Stellung | `LISTE-MARS.md` |
 | **Gefährte**, **Söldner** | Menschen an der Seite des Helden; andere, die mitgehen: **Begleiter** | – | – | `CLAUDE.md` „Begriffe“ |
 | **Hauptmenü** | erster Schirm mit Auswahl | – | Titelbild | `CLAUDE.md` „Begriffe“ (292) |
 | **BRS** | Bornimer Rollenspielsystem, unsere Regeln | – → Glossar des Spielsystems | – | `DESIGN-BRS.md` |

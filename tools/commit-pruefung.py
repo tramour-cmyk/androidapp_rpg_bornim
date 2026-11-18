@@ -10,7 +10,7 @@ Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). E
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
 Gelöschte Vorlage mit „Was du tust: …“ ohne neue Datei in chefsache/tun/ (890; Ausweg BORNIM_GETAN=1); Datei in ansehen/ (außer t<Build>-…) ohne Bild, Film oder Frage (890).
-Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen, Vorgang ohne Wort dazu in der Chefsache (1414). Fasst nur Notizen an; sonst Exit 0. Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen, Vorgang ohne Wort dazu in der Chefsache (1414). Fasst nur Notizen an; sonst Exit 0. Hält an: undefinierter Name in einer geänderten tools/*.py (1611, namenpruefung.py). Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -361,6 +361,14 @@ def main():
             for s in srd_stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
             return 1
     except Exception as e: print("Commit-Prüfung: 870.11/877 übersprungen (%s)" % e, file=sys.stderr)
+    try:  # 1611 (D305.2): undefinierter Name in einem Werkzeug hält an (17.11. FREIGABE_MIN, lauf.py stürzte erst im Lauf ab)
+        import namenpruefung
+        nf = ["%s: undefinierter Name %s (in %s)" % (p, n, b) for s, p in dat if s != "D" and p.startswith("tools/") and p.endswith(".py")
+              for n, b in namenpruefung.befunde(git("show", ":" + p), p)]
+        if nf:
+            for s in nf: print("Commit-Prüfung HÄLT AN: " + s + "; Namen anlegen oder Aufruf ändern (1611)", file=sys.stderr)
+            return 1
+    except Exception as e: print("Commit-Prüfung: 1611 übersprungen (%s)" % e, file=sys.stderr)
     if not dat or not all(p.startswith("docs/") or p in ("CLAUDE.md", "CHANGELOG.md") or p.startswith("tools/") for _, p in dat):
         return 0
     stop, warn = [], []

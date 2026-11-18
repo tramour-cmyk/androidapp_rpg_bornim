@@ -4,12 +4,15 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (17.11., 15:25):** Lauf 303: 1544, 1539 greifen. Lauf 304: 1547 greift; Bautests 1305, 1505, 1514, 785.10 an Lauf 554; D304.1 = 785.25 (Tom). Nächste Nummer D305. Nachfolger: Diogenes – 1389 Pflegehinweis-Commits (18.11.).
+**Übergabe (18.11., 01:42):** Lauf 306: D306.1 = 1612; Lauf 307: 1612 greift, D307.1 = 1615; Lauf 308: 1615 gebaut (limit 100, blättert aber alle Seiten), D308.1 = 1616 (Perikles); 1615 wartet auf 1616, 1610 auf 1615; 1461 wartet weiter auf den Mittag. Nächste Nummer D309. Nachfolger: Diogenes – 1610, 1615 nach 1616 nachprüfen.
+
+- **Zu 1610, 1615 (Lauf 306–308):** nach 1616: ein Wachlauf mit `list_sessions` im Protokoll der Wache (`list_events` `…76ew1cGKY7mCBVHUFx`); dazu erste Zeile „Freigabe“ in `git show origin/meldungen:meldungen.tsv` an einer echten Freigabe-Frage → `greift 1610 <Lauf>`, dann 1572 nachprüfen. Bis 23.11. keine Freigabe-Frage → Wochenzählung nennt es.
 
 - **Zu 1537 (Lauf 299, 300):** am ersten echten Werkzeugaufruf über 300 Tsd. (Sperrtext im Protokoll einer Sitzung, Neustart danach gelungen) → `greift 1537 <Lauf>`; bis 23.11. kein Fall → Wochenzählung nennt es, Feld neu.
 - **Zu 1463:** erste Zählung 23.11. (Woche 16.–22.11.) = Grundwert; schon jetzt Fälle: tote Links Tagesbericht seit 10:09 (1467), Regelwerte veraltet seit 15.11., 20:22 (1465), Bilder über 60 KB seit 04.11. (1469). Kandidatenskript (Vorgangsliste) in der Sitzung nachbauen nach `LISTE-PRUEFUNG.md`.
 - **Zu 1396 (Lauf 262; 1407 erledigt):** im nächsten Ford-Lauf mit laufender Jerry-Sitzung auf einem Zweig steht der Zweig in der Besetzung, und Tuffy bekommt keine Zeile dieses Zweigs → `greift 1396 <Lauf>`.
-- **Zu 1388, 1389 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %), 1244 an einem ganzen Tag Pflege-Commits ohne reines Verschieben → `greift`.
+- **Zu 1388 (Lauf 257):** nach Erledigt: 464 an der Wochenzählung 23.11. (rote Godot-Läufe gegen 58 %) → `greift`.
+- **Zu 1461 (Lauf 305):** ab Mittag 18.11.: `rollenspiegel.sh` Woche 18.11. hat Antworten aller sieben Rollen, je eine Frage-11-Antwort in `LISTE-IDEEN.md` → `greift 1461 <Lauf>`, sonst fehlende Rollen an Perikles.
 - **Zu 1301 (Lauf 290):** 15.–16.11. nur ein 👎 (760, 15.11., 16:08, vor dem Bau 16:57; Chef antwortete 20:33 „Sprung passt“). Am ersten 👎 ohne Wort nach 16.11. (`git show origin/reaktionen:reaktionen.tsv`): Nachfrage per `meldung.sh --frage`, „nachgefragt HH:MM“ oder Wortlaut im Eintrag → `greift 1301 <Lauf>`, sonst Befund an Perikles; bis 23.11. kein 👎 → greift ohne Fall.
 - **Zu 1128.3 (Rest nach Lauf 251):** nur noch 1060 am ersten Lauf, in dem sich nur Dorffelder von `leute.json` ändern (`klassen` „treffer“, unter „geändert“ von dorf/leute `leute.json:felder`) → `bautest 1060 <Lauf>`, dann 1128.3 erledigt. Läufe bis 484 ohne Fall (Prüfbericht Lauf 251); Lauf 487 (Build 287, 13:04) alle fünf Blöcke Treffer, ohne Fall.
 - **Zu 1282 (D251.1):** nach Erledigt: `grep -rn "gradlew" tools/setup-session.sh tools/alt_bilder.sh` leer → `greift 1282 <Lauf>`.
