@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 310 · 1611 Namenprüfung (18.11., 02:38)
+
+- **1611 greift:** `namenpruefung.py` findet am alten `lauf.py` (`e1cb7588c`) „FREIGABE_MIN (in main)“; alle heutigen `tools/*.py` ohne Fund; nachgestellter Commit mit `tools/probe_1611.py` (undefinierter Name) hält an (Exit 1), gutes Werkzeug läuft durch. Der Pre-commit-Haken ruft die Fassung in `bornim-main`.
+
 ## Lauf 309 · 1615, 1616 Wache (18.11., 02:36)
 
 - **1615, 1616 greifen:** Wachlauf 02:33 `git pull`, Zeile neu gelesen, `list_sessions` limit 100, eine Seite, Archivierte übersprungen.
