@@ -1,5 +1,7 @@
 # 455.2 · Größen Runde 2: Zwerg dazu, Ork auf dem Superhelden, Helm Hügelvolk; Netzliste je Platz · Tuffy · 18.11., 01:10
 
+[Film von 18.11., 01:09](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261118-010937-455.2/2026-11/18-0108-455.2-Tuffy.mp4) (eingetragen von meldung.sh, Tuffy)
+
 E Figuren · Tuffy (Übernahme von Spike, 1605) · aus deinem Wort 01.11., 20:4x (Archiv 455.2): „Hügelvolk passt; Helm Hügelvolk anpassen; Zwerg nachreichen; Ork auf Superheld zeigen“
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/c0443ad38 (`claude/jerry-455-2-groesse`, Bau am Rechner, wie im Spiel gezeichnet)
