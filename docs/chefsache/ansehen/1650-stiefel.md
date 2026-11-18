@@ -1,5 +1,7 @@
 # 1650 · Hose sticht nicht mehr durch den Stiefelschaft (Bram, Garrick, Jorin, Wache)
 
+[Bild von 18.11., 15:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/18-1533-1650-Tom.webp) (eingetragen von meldung.sh, Tom)
+
 Tom · 18.11., 15:34 · E Figuren · aus der Durchstechprüfung 1631 (Lauf 560)
 Kurz: Die Hose liegt jetzt im Schaft. Bei Bram, Garrick, Jorin und der Wache sticht sie dort nicht mehr durch. Bei Borin und Pim ist es noch nicht gelöst (siehe „Offen“).
 
