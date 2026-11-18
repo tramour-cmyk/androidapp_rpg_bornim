@@ -11,7 +11,7 @@
 
 | Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |
 |---|---|---|---|---|---|---|---|---|---|
-| 1700 | Von Werkzeug (1334): Wiederholrot durchstich_1631: 6× rot in 48 h (Läufe 570, 568, 567, 566, 564, 561); Ursache nachstellen, beheben · wiederholt | Tom | M | gebaut, Geprüft an: 4df0278b4 (Lauf offen) | – | claude/tom-1700-durchstich | – | E Technik | – |
+| 1700 | Von Werkzeug (1334): Wiederholrot durchstich_1631: 6× rot in 48 h (Läufe 570, 568, 567, 566, 564, 561); Ursache nachstellen, beheben · wiederholt | Tom | M | gebaut, Geprüft an: Lauf 573 (auf main ebe0e3153) | – | claude/tom-1700-durchstich | – | E Technik | – |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk (Chef 31.10., 22:0x; nach dem Umzug, Chef 12.11., 17:42) | Tom | M | startbar, gelöst 17.11.: 431h, t297 | 870 | claude/tom-431-ausruestung | – | E Figuren | 125,77 $ |
 | 513 | Ein Figurenstand für alle Zweige; Schild, Robe Magier, Umhang jetzt (Chef 03.11., 15:56, „513 B“) · „jetzt“ 03.11., 15:56 | Tom | M | ruht | 23.11. | claude/figurenstand-513 | – | E Figuren | 14,01 $ |
 | 1297 | Von Sokrates (431, Chef 15.11., 14:32): Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | Tom | M | wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel | 431 | – | – | E Figuren | – |
