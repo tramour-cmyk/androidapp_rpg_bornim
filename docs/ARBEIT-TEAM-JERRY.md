@@ -53,6 +53,7 @@ Halt aufgehoben (1589.1 A, Chef 17.11., 22:33; Sokrates 22:36), auch für Spike:
 
 
 ## Einzelheiten
+- **Zu 1652, 1653, 1654, von Tom (18.11., 12:00, aus 1631, nach Last an Jerry/Tuffy, 1604):** Werte aus Bauserver-Lauf 560 (Zeilen `DURCH1631`, Schwelle `godot/tests/durchstich_1631.json` auf `claude/tom-1631-durchstich`, bald `main`): „A#i>B#j Höhe: Ecken“ heißt Stück i liegt in der Bewegung vor Stück j. 1652 Osric `Kleid#35/#29>Kleid#1 1.2 m` (246–267); 1653 Thessa `Kleid#16>Kleid#14 1.4–1.5 m` (174–224); 1654 Rowena `Kleid#0>Kleid#9 0.9 m` (181–305, Ruhe_Tresen am meisten). Weg: erst Bild an der Stelle (Sichtbarkeit), dann beheben, Wert in der Schwelle senken. Messweg: `godot/tests/durchstich_1631.gd`.
 
 
 
