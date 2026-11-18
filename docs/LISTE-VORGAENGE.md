@@ -71,6 +71,7 @@
 | 1675 | Von Chef (18.11., 15:57, t299): Wachsoldatin im Hauptmenü, Schild schwebt neben ihr; zurück in die Grundhaltung vor den Körper, ganz sichtbar, nichts durchscheinend; ruht bis Samstag (neues Guthaben), Ursache erst nachstellen | Tom | M | startbar | 21.11. 20:00 | – | – | E Figuren | 0,95 $ |
 | 1676 | Von Chef (18.11., 15:56, t299): angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | Tom | M | startbar | – | – | – | E Figuren | 0,95 $ |
 | 1690 | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
+| 1570 | Von Chef (18.11., 17:07, „ich bin auch für die Systemlösung“, Votum Sokrates): Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 1002, 431g, 1268.1 …), offen 1569, 1651, 1676, 861; gemeinsame Ursache messen, ein Weg, Test im Bau | Tom | M | startbar | – | – | – | E Figuren | – |
 | 1671 | Von Sokrates (18.11., 15:44): ansehen/1652-osric-sonne.md ohne Bild; Bild der Sonne auf Osrics Robe in Spielkamera und Handygröße nachreichen, vorn und gedreht (340.12) | Jerry | M | erledigt | – | – | – | E Figuren | 0,95 $ |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | – | – | – | E Technik | 15,96 $ |
 | 760 | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung passen nicht (Chef 09.11., 14:00, Fund t271) · zurück t298 | Jerry | M | startbar, Fund t298.7 | – | claude/jerry-760-sprung | – | E Kampf | 28,71 $ |
@@ -227,7 +228,6 @@
 | 1534 | Von Chef (17.11., 08:53, Idee): Gegnerkunde: Reiter „Gegner“ in der Chronik, füllt sich mit eigener Erfahrung (Angriffe, Schwäche, Stärke), im Kampf per langem Drücken; Texte Homer; Vorlage Sokrates | Sokrates | K | ruht, Vorlage nach Test Kerbensystem (zur Kenntnis 10:51) | – | – | – | E Oberfläche | – |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | Sokrates | K | ruht, Wiedervorlage 24.11. mit 142.4 (Chef 11:14) | 24.11. | – | – | M Markt | –; +25,65 $ |
 | 1564 | Systemlösung? Wasser: 4 frühere Vorgänge (1155, 221, 623.6, 1218), neu 1563; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | G Stil | – |
-| 1570 | Systemlösung? Umhang: 12 frühere Vorgänge (1006, 1052, 1002, 431g, 1268.1 …), neu 1569; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 1635 | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 1656 | Systemlösung? Kapuze: 2 frühere Vorgänge (475a, 1546), neu 1655; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | Sokrates | K | nach Meilenstein | – | – | – | M Markt | –; +1,26 $ |
