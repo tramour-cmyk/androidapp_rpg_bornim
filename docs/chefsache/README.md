@@ -45,7 +45,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 6 weitere |
+| **Chef** | [t298](ansehen/t298-sammelbuild.md) testen, hält 9 Zeilen; dann 7 weitere |
 | Tom | 1569.1 dunkler Keil an der rechten Schulter auf dem Umhang, grüner… (Muss) |
 | Jerry | Pflege von Werkzeug: 11 „Zu“ zu Erledigtem, beim Übergeben streich… (Kür) |
 | Tuffy | leer, weil Jerry kein zweites unabhängiges Muss hat |
@@ -99,6 +99,12 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | [1211](billigen/1211-licht-b.md) | Kür | E Welt | 18.11., 00:48 | Funkenlicht B: Abfall 1,0 statt 2,0, Reichweite 8 m statt 6,7 m, Stärke wie heute; Höhle immer voll. | Sokrates |
 
 ## Anzusehen
+
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1613](ansehen/1613-glanz.md) | Waffen episch und göttlich: Effekt statt Färbung, drei Fassungen | Spike | 18.11., 02:15 |
 
 **Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
