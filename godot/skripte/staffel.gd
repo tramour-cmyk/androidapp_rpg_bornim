@@ -71,18 +71,18 @@ static func faerbe(n: Node) -> void:
 
 # ---------------------------------------------------------------- 1613 Effekt statt Färbung für episch und höher
 # Chef 02.11., 11:28: „dieses Glimmern … sieht man eigentlich nicht … als ob die Waffe einfach orange gefärbt wäre … cool, wenn man da
-# irgendwie noch eine Art Effekt draufkriegen“. Zwei Bausteine, die Probe zeigt sie einzeln und zusammen (glanz_art):
+# irgendwie noch eine Art Effekt draufkriegen“. Zwei Bausteine zusammen (Fassung C, Vorentscheid Sokrates 18.11., 03:08,
+# billigen/1613-glanz.md: Schein allein liest sich wie Färbung, erst die Funken sind ein Effekt; der Schein macht die Klinge sichtbar):
 #   schein: zweiter Durchgang (shader/glanz.gdshader), Rand und ein Streifen vom Griff zur Spitze, atmet
 #   glut:   Funken steigen von der Waffe auf (GPUParticles3D, Shader vfx_add aus R7 Stylized VFX v2.0, im Bau unter addons/reeboo_vfx;
 #           fehlt das Paket, ein eigener weicher Punkt), bleiben beim Gehen zurück (Weltkoordinaten)
 const GLANZ_FARBE := {"EPIC": Color("f29e50"), "DIVINE": Color("eac650")}   # wie menue.gd SELTEN
 const VFX_ADD := "res://addons/reeboo_vfx/shaders/vfx_add.gdshader"
-static var glanz_art := "beides"   # „schein“, „glut“, „beides“, „aus“ (Probe 1613)
 static var _glanz_mat := {}        # Seltenheit -> ShaderMaterial (Schein), geteilt
 static var _punkt: Shader
 
 static func glanz(n: Node, sel: String) -> void:
-	if not GLANZ_FARBE.has(sel) or glanz_art == "aus": return
+	if not GLANZ_FARBE.has(sel): return
 	var f: Color = GLANZ_FARBE[sel]
 	var netze: Array = n.find_children("*", "MeshInstance3D", true, false) + ([n] if n is MeshInstance3D else [])
 	var box := AABB()
@@ -93,11 +93,10 @@ static func glanz(n: Node, sel: String) -> void:
 		var b: AABB = (n as Node3D).global_transform.affine_inverse() * (mi as MeshInstance3D).global_transform * me.get_aabb() if n.is_inside_tree() else me.get_aabb()
 		box = b if erst else box.merge(b)
 		erst = false
-		if glanz_art in ["schein", "beides"]:
-			for i in me.get_surface_count():
-				var sm := (mi as MeshInstance3D).get_surface_override_material(i) as ShaderMaterial
-				if sm and sm.next_pass == null: sm.next_pass = _schein(sel, f, me.get_aabb())
-	if erst or not glanz_art in ["glut", "beides"]: return
+		for i in me.get_surface_count():
+			var sm := (mi as MeshInstance3D).get_surface_override_material(i) as ShaderMaterial
+			if sm and sm.next_pass == null: sm.next_pass = _schein(sel, f, me.get_aabb())
+	if erst: return
 	var p := GPUParticles3D.new()
 	p.name = "Glanz_Glut"
 	p.amount = 24 if sel == "EPIC" else 32

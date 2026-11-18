@@ -1,15 +1,14 @@
 extends SceneTree
 # 1613 (Chef 02.11., 11:28: „cool, wenn man da irgendwie noch eine Art Effekt draufkriegen“): Effekt statt Färbung für episch und
 # göttlich im Dorf wie im Spiel (spiel.tscn, Spielshader mit Tusche, Spielkamera nah), Aufbau wie film_staffel_4583.gd. Der Held geht
-# auf der Straße hin und her; alle REIHE_S Sekunden die nächste Fassung (Staffel.glanz_art): A Schein, B Glut, C beides am epischen
-# Langschwert, C am göttlichen Langschwert und am epischen Morgenstern, zuletzt selten ohne Effekt.
+# auf der Straße hin und her; alle REIHE_S Sekunden die nächste Waffe: Schein und Glut (Fassung C, Vorentscheid 18.11.) am epischen und
+# göttlichen Langschwert und am epischen Morgenstern, zuletzt selten ohne Effekt. Ohne Bild (headless): prüft die Glut an der Waffe.
 # Nur mit Fenster und --write-movie, im Ordner godot:
 #   xvfb-run -a godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie <x.avi> --fixed-fps 30 \
-#     -s res://tests/film_glanz_1613.gd
+#     -s res://tests/film_glanz_1613.gd -- --film1613
 
-const FOLGE := [["longsword", 11, "EPIC", "schein", "A Schein"], ["longsword", 11, "EPIC", "glut", "B Glut"],
-	["longsword", 11, "EPIC", "beides", "C Schein und Glut"], ["longsword", 11, "DIVINE", "beides", "C göttlich"],
-	["morningstar", 11, "EPIC", "beides", "C episch, Morgenstern"], ["longsword", 11, "RARE", "beides", "selten, ohne Effekt"]]
+const FOLGE := [["longsword", 11, "EPIC", "episch, Langschwert"], ["longsword", 11, "DIVINE", "göttlich, Langschwert"],
+	["morningstar", 11, "EPIC", "episch, Morgenstern"], ["longsword", 11, "RARE", "selten, ohne Effekt"]]
 const REIHE_S := 2.4
 
 var spiel
@@ -50,14 +49,16 @@ func _lauf() -> void:
 		var e: Array = reihe[i]
 		var g := {"uid": 9000 + i, "base": e[0], "rarity": e[2], "ilvl": e[1], "guete": 0, "rolls": [], "unique": null, "name_seed": 1}
 		hw.ausruestung["MAIN_HAND"] = g
-		Staffel.glanz_art = e[3]
 		spiel.held_figur_neu("")
 		var schl := Staffel.schluessel(g)
 		var am: bool = spiel.held.modell != null and (not spiel.held.modell.find_children("Getragen*", "", false, false).is_empty() \
 			or not spiel.held.modell.find_children("Ruecken*", "", true, false).is_empty())
-		print("FILM1613 %s %s %s: %s %s" % [e[0], e[2], e[3], schl, "am Helden" if am else "FEHLT"])
+		print("FILM1613 %s %s: %s %s" % [e[0], e[2], schl, "am Helden" if am else "FEHLT"])
 		if not (am and schl.contains("#")): fehler += 1
-		titel.text = "1613 · %s" % e[4]
+		var glut: bool = spiel.held.modell.find_child("Glanz_Glut", true, false) != null
+		print("FILM1613 Glut %s (soll %s)" % [glut, e[2] != "RARE"])
+		if glut != (e[2] != "RARE"): fehler += 1
+		titel.text = "1613 · %s" % e[3]
 		spiel.held.richtung = Vector3(0, 0, -1) if i % 2 == 0 else Vector3(0, 0, 1)
 		spiel.kamera.drehe(50.0)
 		for f in int(REIHE_S * 30.0): await process_frame
