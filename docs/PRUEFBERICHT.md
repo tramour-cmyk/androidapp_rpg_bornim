@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 327 · 1716 Buildzweig gehört Spike (Spike `c315ec551`; 18.11., 23:10)
+
+- **1716 greift mit Lücke → D327.1 = 1718 (Spike, M), 1716 wartet auf 1718.** `buildzweig-haken.py --test` 0 Fehler; Rolle aus der ersten Nachricht dieser Sitzung richtig „Diogenes“ (Startzeile von Ford). Erkannt: Refspec, `HEAD:refs/heads/claude/build-300`, `+claude/build-300`, `a:claude/build-300`. Lücke 1: `git push -u origin HEAD` vom Buildzweig geht durch (HEAD nur ohne Refspec aufgelöst). Lücke 2: Fehlalarm auf Text, `echo "git push origin claude/build-300"` und `git commit -m "… git push …"` werden angehalten (mein erster Prüfbefehl hielt so an). `godot.yml`: `cancel-in-progress` auf `refs/heads/claude/build-*` aus, Teamzweige wie bisher; nach GitHub-Regel wartet höchstens ein Lauf, ein dritter Push ersetzt den wartenden (nicht den laufenden).
+- Nicht geprüft: echter fremder Push auf einen Buildzweig (seit 22:32 keiner); Sitzungen auf Zweigen älter als `c315ec551` laden den Haken nicht (Eintrag steht in `.claude/settings.json` des Zweigs). Satz in `LISTE-CHECK-BUILD-TEST.md` 3 steht noch alt, 1717 (Perikles) startbar.
+
 ## Lauf 326 · 1683 Kern über lauf.py (Spike `6f2f443ff`, Merge `e13780dd8`; 18.11., 17:01)
 
 - **1683 greift (Test):** `lauf_kern_test.py` Exit 0 an `main`; `kern()` liest aus den echten Rollendateien Spike 3868 und Sokrates 4223 Zeichen (mit Schwerpunkt A), übrige Rollen leer, kein `|` im Kern (Feldtrenner der START-Zeile bleibt heil). Gilt für alle START-Zeilen (Nachfolger 927, Vorrat, Zusatz, Stellungnahme 1099, Spiegel); WEITER an die laufende Sitzung ohne Kern (hat ihn schon). Folgezeilen stehen: `ROLLE-BETRIEB.md` (Handstart Ford), `ROLLE-BERATUNG-START.md`, `ROLLE-TECHNIK.md`.
