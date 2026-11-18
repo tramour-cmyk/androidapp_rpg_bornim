@@ -15,7 +15,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Entwickler: Technik
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 15:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 16:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -24,10 +24,10 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **1** Umzug BRS, SRD ablösen | 2 (2) | 1 | 0 | 0 | 0 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf passt | 63 (61) | 18 | 0 | 0 | 49 | 760 (Jerry) Kampf: Wolf springt beim „Anspringen“ nicht, er b… |
-| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 36 (20) | 24 | 0 | 7 | 7 | 1671 (Jerry) ansehen/1652-osric-sonne.md ohne Bild; Bild der S… |
+| ↳ **3** Kleiderschrank und Modelle (Held, Leute, Monster) | 34 (20) | 22 | 0 | 0 | 7 | 1535 (Tom) Kleidung hängt bei anderen NPCs in der Ruhebewegu… |
 | ↳ **4** Alles an einer Stelle: Figuren, Helden, Gegenstände | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
-| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 51 (48) | 5 | 0 | 1 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 10 | 0 | 2 | 4 | 1670 (Spike) Grafik Hoch im Systemmenü 1. Mal zurück auf Autom… |
+| ↳ **5** Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt) | 50 (48) | 5 | 0 | 0 | 27 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
+| ↳ **6** Godot besser nutzen (Technik, Build, Leistung) | 19 (11) | 10 | 0 | 1 | 4 | 1606 (Tom) rand_1022 rot in Lauf 558 und 559 auf claude/buil… |
 | **7** Werkzeuge und Abläufe der Firma | 44 (48) | 29 | 0 | 0 | 12 | 1608 (Sokrates) Zusammenführen: getestet, nicht auf main: Build 2… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
@@ -35,9 +35,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 18.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 48 | 114 | 364 | 1224 |
-| neu | 73 | 116 | 353 | 1243 |
-| **netto** (erledigt − neu) | **−25** | **−2** | **+11** | **−19** |
+| erledigt | 55 | 114 | 371 | 1231 |
+| neu | 77 | 116 | 357 | 1247 |
+| **netto** (erledigt − neu) | **−22** | **−2** | **+14** | **−16** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -45,15 +45,15 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [t299](ansehen/t299-schlussbuild.md) testen, hält 9 Zeilen; dann 2 weitere |
-| Tom | 1650 Durchstechprüfung: Hosen stechen durch den Stiefelschaft be… (Muss); dann 3 weitere |
-| Jerry | 1671 ansehen/1652-osric-sonne.md ohne Bild; Bild der Sonne auf O… (Muss); dann 3 weitere |
-| Tuffy | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss von Jerry, neben dessen Arbeit); dann 2 weitere |
-| Spike | läuft: 1645 (Besetzung); 1621 Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115… (Muss); dann 5 weitere |
+| **Chef** | [1650](ansehen/1650-stiefel.md) ansehen; dann 1 weitere |
+| Tom | 1606 rand_1022 rot in Lauf 558 und 559 auf claude/build-298, am… (Muss); dann 9 weitere |
+| Jerry | 760 Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur;… (Muss); dann 2 weitere |
+| Tuffy | 1653 Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Si… (Muss von Jerry, neben dessen Arbeit); dann 1 weitere |
+| Spike | läuft: 1645 (Besetzung); 1673 Entwurf t300 300.5, 300.6, 300.8 sind Aussehen als Handy, a… (Muss); dann 7 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | läuft: 1658 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | läuft: 1270.5 (Besetzung); 1608 Zusammenführen: getestet, nicht auf main: Build 274, 280, 2… (Muss); dann 1 weitere |
-| Perikles | 1672 Aussehen als Handypunkt in der Prüfliste, gegen Regel 9 Art… (Muss) |
+| Perikles | leer, weil 13 Termin, 4 wartet auf Vorgang (1610, 1388, 870, 1125), 3 wartet auf Test/Build |
 
 **Die nächsten 20**
 
@@ -61,26 +61,26 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|---|---|---|---|---|
 | 1 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 1 Umzug BRS, SRD ablösen | startbar |
 | 2 | 760 | Jerry | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur; Text und Bewegung pa… | M | 2 Kampf passt | startbar |
-| 3 | 1671 | Jerry | ansehen/1652-osric-sonne.md ohne Bild; Bild der Sonne auf Osrics Robe in Spielk… | M | 3 Kleiderschrank und Modelle | startbar |
-| 4 | 1621 | Spike | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128… | M | 3 Kleiderschrank und Modelle | startbar |
-| 5 | 1619 | Spike | Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursache in Vorschau nach… | M | 3 Kleiderschrank und Modelle | startbar |
-| 6 | 1650 | Tom | Durchstechprüfung: Hosen stechen durch den Stiefelschaft bei Borin, Bram, Garri… | M | 3 Kleiderschrank und Modelle | startbar |
-| 7 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
-| 8 | 1651 | Tom | Durchstechprüfung: Wache M/W Kettenhemd sticht an der Schulter durch den Umhang… | M | 3 Kleiderschrank und Modelle | startbar |
-| 9 | 1655 | Tom | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sichtbarkeit prüfen, da… | M | 3 Kleiderschrank und Modelle | startbar |
-| 10 | 1657 | Tom | Durchstechprüfung: Held Robe M/W Hände durch die Robe und 230–285 gezogene Drei… | M | 3 Kleiderschrank und Modelle | startbar |
-| 11 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
-| 12 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
-| 13 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Kleiderschrank und Modelle | startbar |
-| 14 | 1670 | Spike | Grafik Hoch im Systemmenü 1. Mal zurück auf Automatisch gesprungen; 2. Mal gesp… | M | 6 Godot besser nutzen | startbar |
-| 15 | 1608 | Sokrates | Zusammenführen: getestet, nicht auf main: Build 274, 280, 281, 282, 283, 284 un… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 16 | 1507 | Ford | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 17 | 1672 | Perikles | Aussehen als Handypunkt in der Prüfliste, gegen Regel 9 Art; Gegenlesen ließ es… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 18 | 1669 | Spike | nächster Sammelbuild ein Handypunkt Grafikstufe: Handy-✓ seit Build 292 liefen… | M | 7 Werkzeuge und Abläufe der Firma | startbar |
-| 19 | 1635 | Sokrates | Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634; einmal grundsätzlich lösen? | K | 2 Kampf passt | startbar |
-| 20 | 1319 | Jerry | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht; Wortlaut wie… | K | 2 Kampf passt | startbar |
+| 3 | 1535 | Tom | Kleidung hängt bei anderen NPCs in der Ruhebewegung an einer Hand, „sollte man… | M | 3 Kleiderschrank und Modelle | startbar |
+| 4 | 1549 | Tom | beim Sitzen hat der Held die Waffe in der Hand, „macht keinen Sinn … Logikfrage… | M | 3 Kleiderschrank und Modelle | gebaut, t299 ohne deine Antwort |
+| 5 | 1571 | Tom | Zauberstab in der Haupthand angelegt, an der Figur nicht zu sehen; Fackel der N… | M | 3 Kleiderschrank und Modelle | gebaut, t299 ohne deine Antwort |
+| 6 | 1621 | Spike | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128… | M | 3 Kleiderschrank und Modelle | startbar |
+| 7 | 1650 | Tom | Durchstechprüfung: Hosen stechen durch den Stiefelschaft bei Borin, Bram, Garri… | M | 3 Kleiderschrank und Modelle | startbar |
+| 8 | 1619 | Spike | Held stakst im Film 458.3, sieht nicht nach Gehen aus; Ursache in Vorschau nach… | M | 3 Kleiderschrank und Modelle | startbar |
+| 9 | 1651 | Tom | Durchstechprüfung: Wache M/W Kettenhemd sticht an der Schulter durch den Umhang… | M | 3 Kleiderschrank und Modelle | startbar |
+| 10 | 1655 | Tom | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf; Sichtbarkeit prüfen, da… | M | 3 Kleiderschrank und Modelle | startbar |
+| 11 | 1657 | Tom | Durchstechprüfung: Held Robe M/W Hände durch die Robe und 230–285 gezogene Drei… | M | 3 Kleiderschrank und Modelle | startbar |
+| 12 | 1649 | Spike | Zweihandwaffe im Stand: keine Haltung, linke Faust reicht nicht an den Schaft;… | M | 3 Kleiderschrank und Modelle | startbar |
+| 13 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Kleiderschrank und Modelle | startbar |
+| 14 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Kleiderschrank und Modelle | startbar |
+| 15 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Kleiderschrank und Modelle | startbar |
+| 16 | 1674 | Tom | Bewohner hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegsch… | M | 3 Kleiderschrank und Modelle | startbar |
+| 17 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei; d… | M | 3 Kleiderschrank und Modelle | startbar |
+| 18 | 1606 | Tom | rand_1022 rot in Lauf 558 und 559 auf claude/build-298, am Rechner auf demselbe… | M | 6 Godot besser nutzen | gebaut, t299 ohne deine Antwort |
+| 19 | 1667 | Spike | PR 219 rot, darum mit PR 220 nach t299 zusammen auf main: auf claude/build-299… | M | 6 Godot besser nutzen | startbar |
+| 20 | 1670 | Spike | Grafik Hoch im Systemmenü 1. Mal zurück auf Automatisch gesprungen; 2. Mal gesp… | M | 6 Godot besser nutzen | startbar |
 
-Danach 55 weitere offen. Bei dir zum Testen (vorgelegt): 10. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
+Danach 61 weitere offen. Bei dir zum Testen (vorgelegt): 1. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 18. Ruhend oder nach dem Meilenstein: 114.
 ## Zu entscheiden
 
 Nichts offen.
@@ -96,13 +96,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1650](ansehen/1650-stiefel.md) | Hose sticht nicht mehr durch den Stiefelschaft (Bram, Garrick, Jorin, Wache) | – | 18.11., 15:33 |
-| [1652](ansehen/1652-osric-sonne.md) | Osric: sticht etwas durch die Robe? | – | 18.11., 14:34 |
-
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.1.563](ansehen/t299-schlussbuild.md) | [Build 299](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44301568081/artifacts/14429688295) | Schlussbuild: Schild und Streifen der Wache, Kleidung in der Ruhe, Umhang, Funkenlicht in der Höhle | Tom und Spike | 18.11., 14:20 |
+| [1652](ansehen/1652-osric-sonne.md) | Osric: sticht etwas durch die Robe? | – | 18.11., 15:59 |
 
 ## Zu tun
 
@@ -386,9 +380,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/1650-stiefel.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
-
-Ohne Bild oder Film (450: `meldung.sh --bild/--film` trägt den Link selbst ein; sonst `[Film](bilder:<pfad>)` von Hand): ansehen/1652-osric-sonne.md
+Format (Muster: „So geht's“ unten): ansehen/1650-stiefel.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1652-osric-sonne.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 ## So geht's
 
