@@ -62,7 +62,6 @@
 | 1406 | Von Spike (1386, Chef 16.11. „Drehen auf der Stelle … ganz Entscheidendes“): Wenden ab 135 Grad mit UAL2 Turn180_L/R statt zwei Turn90-Wenden (leute.gd drehe_stehend); Held wendet heute ohne Schritte; Film alt gegen neu an den Chef | Tom | K | zu testen | Chef | claude/tom-1406-wenden | 300 | E Figuren | 12,83 $ |
 | 1519 | Von Chef (17.11., 07:39, „Hauptmenü lebendig ja … kein Muss, ganz hinten“): vier Helden im Hauptmenü mit Ruhebewegung (Atmen, Umsehen), Hände bleiben, wo sie sind; erst nach den Völkern (431), dann eine Probe für den Chef | Tom | K | startbar | 431 | – | – | G Stil | 1,89 $ |
 | 1690 | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen | Tom | K | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 18.11.): 11 „Zu“ zu Erledigtem (431h, 1423a, 531, 531, 431h, 1044 …), beim Übergeben streichen (1425) | Tom | K | startbar | – | – | – | B Abläufe | – |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere Versionsnummer (Sokrates 07.11., aus 142.4) | Tom | K | nach Meilenstein | – | – | – | M Veröffentlichung | 2,91 $ |
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Tom | K | nach Meilenstein | – | – | – | E Welt | – |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“; Prüfliste ansehen/t<n>, build <n> --mit (774) | Jerry | M | zu testen, Build 290 Lauf 506 | – | – | – | E Technik | 15,96 $ |
@@ -140,7 +139,6 @@
 | 1684 | Von Werkzeug (Startwarnung 108, 1642, seit 18.11., 10:55): Datei über 60 KB: docs/chefsache/bilder/415-strahlen-gl.webp; verkleinern (800 px, WebP) oder über Telegram (--datei) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1685 | Von Werkzeug (Startwarnung 108, 1642, seit 18.11., 10:55): Datei über 60 KB: docs/chefsache/bilder/415-strahlen-mobile.webp; verkleinern (800 px, WebP) oder über Telegram (--datei) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 1691 | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-TEAM-JERRY.md: 8 „Zu“ zu Erledigtem (1591, 1478, 1488, 1275, 601.1, 1275 …), beim Übergeben streichen | Jerry | K | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 18.11.): 11 „Zu“ zu Erledigtem (1488, 1488, 1275, 601.1, 1275, 623.2 …), beim Übergeben streichen (1425) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | nach Meilenstein, Kapitel 2/3 nach Kapitel 1 (Perikles 17.11.) | – | – | – | G Story | – |
 | 1281 | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, 937, 938, 1002; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Jerry | K | nach Meilenstein | – | – | – | E Kampf | – |
 | 1628 | Von Chef (18.11., 09:00, Rollenspiegel Perikles): Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank für den Bosskampf (gewinnt nur 56–62 von 100, 1486); Text Homer, Balance beim Chef | Homer | K | startbar | – | – | – | G Story | – |
@@ -173,7 +171,6 @@
 | 1188 | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende oder alte Kür ohne Bewegung einmal dem Besitzer zum Urteil gilt/schließen vorlegen (Zu 1186) | Perikles | K | gebaut, Geprüft an: 24b01a1d5 | 23.11. | – | – | B Abläufe | 6,25 $ |
 | 1396 | Von Ford (Tuffy 16.11., 10:00): lauf.py startet Tuffy auf Zeile 1393, die Jerry schon in seiner Sitzung baut (Stand „wartet auf 1394“ war veraltet); Tuffy-Start soll Zeilen auslassen, deren Zweig in einer laufenden Sitzung (current_branches) bearbeitet wird | Perikles | K | gebaut, Geprüft an: fd2637cd5 | – | – | – | E Technik | – |
 | 1689 | Von Werkzeug (Startwarnung Pflege, 1642, seit 18.11., 10:55): ARBEIT-TAGESBERICHT.md: Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): 16 | Perikles | K | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 18.11.): Tagesbericht 36 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu | Perikles | K | startbar | – | – | – | B Abläufe | – |
 | 1128.3 | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen (12 aus der Liste in 1128), nach 285 Zahlen an Perikles und Chef ohne Wertung | Diogenes | M | startbar | 23.11. | – | – | Q QM | 5,59 $ |
 | 1172 | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte; Ausgangswert Prüfliste t283 mit 18 Punkten | Diogenes | M | startbar | 23.11. | – | – | Q QM | – |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Diogenes | K | ruht | 23.11. | – | – | Q QS | – |
@@ -215,7 +212,6 @@
 | 1635 | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Kampf | – |
 | 1656 | Systemlösung? Kapuze: 2 frühere Vorgänge (475a, 1546), neu 1655; einmal grundsätzlich lösen? (654) | Sokrates | K | startbar | – | – | – | E Figuren | – |
 | 1693 | Von Werkzeug (Startwarnung 1425, 1642, seit 18.11., 10:55): ARBEIT-BERATUNG.md: 1 „Zu“ zu Erledigtem (1589.1), beim Übergeben streichen | Sokrates | K | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 18.11.): Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2); 3 „Zu“ zu Erledigtem (1602, 1288b, 1411), beim Übergeben streichen (1425) | Sokrates | K | startbar | – | – | – | B Abläufe | – |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | Sokrates | K | nach Meilenstein | – | – | – | M Markt | –; +1,26 $ |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Sokrates | K | nach Meilenstein | – | – | – | Q QM | – |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | Sokrates | K | nach Meilenstein | – | – | – | E Kampf | – |
@@ -226,7 +222,6 @@
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $ |
 | 1469 | Von Diogenes (1463, Startwarnung 108): chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11.; verkleinern oder löschen, wenn 415 entschieden | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 1688 | Von Werkzeug (Startwarnung Größe, 1642, seit 18.11., 10:55): docs/ARBEIT-BETRIEB.md hat 36708 Bytes (Grenze 30000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
-| Pflege | von Werkzeug (340.3, 18.11.): 30745 Bytes (Grenze 30000), Erledigtes streichen | Ford | K | startbar | – | – | – | B Abläufe | – |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | Ideen | K | Idee | – | – | – | G Balance | – |
 | 52 | Feinarbeit an den Kampfanimationen | Ideen | K | Idee | – | – | – | E Kampf | – |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | Ideen | K | Idee | – | – | – | G Balance | – |
