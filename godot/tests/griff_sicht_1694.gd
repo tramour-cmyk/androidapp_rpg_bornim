@@ -46,11 +46,7 @@ func _lauf() -> void:
 			print("SICHT1694 %-12s %s" % [FOLGE[i], erg.get("z", "keine Aktualisierung")]); continue
 		if OS.get_environment("REIHE") != "":
 			for e in reihe: print("  R k=%.1f u=%d t=%.1f h=%.1f a=%.1f r=%.1f" % [e.kontakt, int(e.umschl), e.tief, e.haut, e.achse, e.radius])
-		var med := {}
-		for k in reihe[0]:
-			var a := []
-			for e in reihe: a.append(e[k])
-			a.sort(); med[k] = a[a.size() / 2]
+		var med := NetzMess.median(reihe)
 		var gut: bool = med.kontakt <= 0.3 and med.kontakt >= -0.8 and med.umschl >= 300.0 and med.tief >= -1.0
 		print("SICHT1694 %-12s Spalt Handfläche %.1f cm, Umschlingung %d°, Eindringen %.1f cm, Haut %.1f cm, Achse %.1f cm, Radius %.1f cm, Versatz halt %.1f cm (Median %d Bilder)%s" % [
 			FOLGE[i], med.kontakt, int(med.umschl), med.tief, med.haut, med.achse, med.radius, med.versatz, reihe.size(), "" if gut else "  FEHLER"])
@@ -121,42 +117,23 @@ func miss(m: Node3D) -> String:
 	var quer_x := (G.basis * Vector3.UP).cross(ax).normalized()
 	if quer_x.length() < 0.5: quer_x = ax.cross(Vector3.RIGHT).normalized()
 	var quer_y := ax.cross(quer_x)
-	for mi in sk.find_children("*", "MeshInstance3D", true, false):
-		var mi3 := mi as MeshInstance3D
-		if mi3.mesh == null or mi3.skin == null or not mi3.visible: continue
-		var gebacken := mi3.bake_mesh_from_current_skeleton_pose()
-		if gebacken == null: continue
-		var bind := {}
-		for k in mi3.skin.get_bind_count():
-			var nm := mi3.skin.get_bind_name(k)
-			bind[k] = sk.find_bone(nm) if nm != "" else mi3.skin.get_bind_bone(k)
-		for su in mini(mi3.mesh.get_surface_count(), gebacken.get_surface_count()):
-			var roh := mi3.mesh.surface_get_arrays(su)
-			var neu := gebacken.surface_get_arrays(su)
-			var kn = roh[Mesh.ARRAY_BONES]; var gw = roh[Mesh.ARRAY_WEIGHTS]
-			var pos = neu[Mesh.ARRAY_VERTEX]
-			if kn == null or gw == null or pos == null: continue
-			var je: int = kn.size() / maxi(1, pos.size())
-			for vi in pos.size():
-				var best := -1; var bw := 0.0
-				for k in je:
-					if gw[vi * je + k] > bw: bw = gw[vi * je + k]; best = int(kn[vi * je + k])
-				var bk: int = bind.get(best, -1)
-				if not hand_knochen.has(bk): continue
-				var p: Vector3 = mi3.global_transform * pos[vi]
-				var v := p - c
-				var l := v.dot(ax)
-				if absf(l) > 0.05: continue
-				var qv := v - ax * l
-				var d := qv.length() - r
-				n_hand += 1
-				tief = minf(tief, d)
-				if nur_hand.has(bk): spalt = minf(spalt, d)
-				var vm := p - mp
-				if nur_hand.has(bk) and (vm - fl * vm.dot(fl)).length() < 0.025: haut_innen = maxf(haut_innen, vm.dot(fl))
-				if d < NAH:
-					var w := rad_to_deg(atan2(qv.dot(quer_y), qv.dot(quer_x)))
-					felder[int(floor((w + 180.0) / FELD))] = true
+	var nm := NetzMess.new(sk)   # 1711: gemeinsamer Weg für Messungen am gezeichneten Netz
+	nm.nur = hand_knochen
+	for e in nm.ecken():
+		var p: Vector3 = e[0]; var bk: int = e[1]
+		var v := p - c
+		var l := v.dot(ax)
+		if absf(l) > 0.05: continue
+		var qv := v - ax * l
+		var d := qv.length() - r
+		n_hand += 1
+		tief = minf(tief, d)
+		if nur_hand.has(bk): spalt = minf(spalt, d)
+		var vm := p - mp
+		if nur_hand.has(bk) and (vm - fl * vm.dot(fl)).length() < 0.025: haut_innen = maxf(haut_innen, vm.dot(fl))
+		if d < NAH:
+			var w := rad_to_deg(atan2(qv.dot(quer_y), qv.dot(quer_x)))
+			felder[int(floor((w + 180.0) / FELD))] = true
 	var achse_innen := (c - mp).dot(fl)
 	# Prüfung (1694): Schaft an der Handfläche (Spalt zwischen Schaftoberfläche und Haut unter dem Grundgelenk höchstens 0,3 cm),
 	# umschlungen (mindestens 300°), nicht tief im Finger (Eindringen höchstens 1 cm)
