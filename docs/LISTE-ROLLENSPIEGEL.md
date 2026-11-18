@@ -14,7 +14,7 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** mittwochs nac
 8. Was hat am meisten gekostet und am wenigsten gebracht?
 9. Welche Regel war unklar, welche würdest du streichen, welche fehlt?
 10. Wärst du ein Mensch in einer Firma: Rauswurf, ernste Ansage oder Lob? Ein Satz, warum. Dann höchstens drei Schritte zur Besserung. Keinen davon beginnen, bevor der Chef Ja sagt.
-11. Vorschlag fürs Spiel: Lies `DESIGN-LEITBILD.md` und die Abnahmeliste, schau auf deine letzten Tage: genau ein Vorschlag, wie Kapitel 1 besser wird (Inhalt, Technik, Grafik, Klang, Kampf, Bedienung, auch außerhalb deines Fachs), mit Auslöser aus den letzten Tagen (Beleg), Leitbildsatz oder Abnahmepunkt, grobem Aufwand, stärkstem Gegenargument; nicht schon in `LISTE-IDEEN.md`. (Ersetzt Frage 2, 1461; das Werkzeug trägt die Antwort in `LISTE-IDEEN.md` ein.)
+11. Vorschlag fürs Spiel: Was würde einen Spieler an Kapitel 1 begeistern, das es noch nicht gibt? Genau ein Einfall, wie er im Spiel aussieht, und warum er zu unserem Spiel passt (`DESIGN-LEITBILD.md`); keine Reparatur, keine Prüfung, kein Werkzeug, kein Beleg nötig; nicht schon in `LISTE-IDEEN.md`. (Chef 18.11., 09:03, 340.12; ersetzt Frage 2, 1461; das Werkzeug trägt die Antwort in `LISTE-IDEEN.md` ein.)
 
 ## Änderungen
 
