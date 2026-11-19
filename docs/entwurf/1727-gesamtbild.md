@@ -112,6 +112,25 @@ Stand 19.11., Grobablauf 6, erprobt in `auftraege-19-11.md` · höchstens 1,5 KB
 6. **Prüfart und Prüfe vor dem Senden:** drei bis fünf Ja-Nein-Fragen.
 7. **Zurück:** an wen, in welcher Form, mit Beleg; Zweig gepusht, Commit genannt.
 
+### 4.3 Auffang: was Homer heute tut und wer es künftig trägt
+
+Chef 16:47 („Homer … ist ein Macher“), 16:49 („wer kompensiert das Ganze?“), 17:13 („solange wir jetzt nichts komplett unter den Tisch fallen lassen … dann machen wir das so“). Quelle: `ROLLE-KREATIV.md` Aufgaben. Beim Schreiben der Kerne einarbeiten.
+
+| Heute Homer | künftig |
+|---|---|
+| Plot und Texte mit dem Chef festlegen | Chef entscheidet, Sokrates berät und prüft vorher gegen Regeln und Bestand; Homer schreibt als Macher auf Auftrag |
+| Storyplan, Fäden halten, „Entwickler erfinden keine Texte“ | Fachprofil Story (5.3); Sockel Zeile 6 (Spieltexte nur aus der Quelle) |
+| Ideen sonntags: reif, später, verworfen; Liste per Telegram | Sokrates einmal die Woche über `lauf.py`, ohne feste Stunde; Chef holt zurück |
+| Ideen zuordnen, Doppelungen prüfen | Büro beim Eingang („gibt es das schon?“) |
+| Reifes holen (heute montags Perikles) | Arbeitsvorbereitung, nach „ja“ des Chefs |
+| Eigene Ideen einbringen | jeder Macher: je Auftrag eine Idee zurückmelden (Sockel Zeile 5, Zeile im Fachprofil Story) |
+| Stil- und Spielgefühlfragen der Teams; Modell vor dem Bau beschreiben | Arbeitsvorbereitung schreibt das Ziel in den Auftrag (Profil Signatur 5.2); Lücke → Sokrates, Chef entscheidet |
+| Balance vorbereiten | Macher rechnet auf Auftrag; Einzelheiten Sokrates (783 W5), Grundsätzliches Chef |
+| Leveldesign (Gebietskarten, Grundrisse) | Macher auf Auftrag mit Fachprofil Welt; Aussehen Chef |
+| Fremd prüfen, gegen den Code prüfen | Prüfer |
+| Chefsache-Bild auf Telegram | Büro (meldet) |
+| Sonntags Vorratsgrenzen anderer | Werkzeug (`notiz.sh` meldet schon) |
+
 ## 5 Macher
 
 Kein Kern; Sockel plus Auftrag (4.2), Profil bei Bedarf.
