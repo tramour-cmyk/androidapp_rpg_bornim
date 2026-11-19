@@ -184,6 +184,42 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.16.8 *Befund dabei:* Heute gibt es die Reihenfolge **zweimal und verschieden**: acht Themenblöcke fest im Code von `ueberblick.py` und sechs „Teilprojekte bis Kapitel 1 fertig“ in `PROJEKTPLAN.md` (1061), mit anderem Zuschnitt. Beide gehen in der einen Datei auf.
 - 3.16.9 *Gegenargument:* In der Chefsache gilt „beantwortet heißt weg“; eine Dauerdatei passt nicht dazu. *Entkräftet:* Es gibt dort schon feste Dateien (`README.md`, `MUSTER.md`); die Themenblöcke sind dein Lenkrad, keine Frage, und gehören dahin, wo du nachsiehst.
 
+**3.17 Sind die Themenblöcke griffig, und taugen sie als Ansatz für die Profile?** (Chef 12:16). Alle 245 offenen Vorgänge mit dem Werkzeug der Übersicht (`ueberblick.py`) zugeordnet, zwei Blöcke Zeile für Zeile gelesen.
+
+- 3.17.1 *Ergebnis je Block:*
+
+   | Nr. | Block heute | offen | Muss | Urteil |
+   |---|---|---|---|---|
+   | 3.17.2 | 1 Umzug BRS | 2 | 1 | fast fertig; geht in Kampf und Regeln auf |
+   | 3.17.3 | 2 Kampf passt | 69 | 19 | griffig, aber groß |
+   | 3.17.4 | 3 Kleiderschrank und Modelle | 31 | 21 | griffig |
+   | 3.17.5 | 4 Alles an einer Stelle (Kataloge) | 10 | 3 | griffig, klein |
+   | 3.17.6 | 5 Welt, Karten, Bild, Ton, Bedienung | 51 | 4 | **nicht griffig**: Sammelbecken aus Welt 21, Story 9, Stil 8, Oberfläche 6, Prüfung 4, Klang 2 |
+   | 3.17.7 | 6 Godot besser nutzen | 19 | 11 | gemischt: auch Builds (1331, 496), Welt (416.6 Spuren, 1720 Vordergrund) |
+   | 3.17.8 | 7 Werkzeuge und Abläufe der Firma | 53 | 30 | **30 Muss für unsere eigenen Abläufe**; viele davon legten Mahner selbst an (Startwarnung: 1686, 1687, 1688, 1690, 1723); einzelne Spielthemen falsch einsortiert (423.1 Spielerhandbuch im Spiel) |
+   | 3.17.9 | 8 Marktstart | 10 | 0 | griffig |
+
+- 3.17.10 *Ursache der Unschärfe:* Die Blöcke werden aus dem Bereich errechnet; ein falscher Bereich (etwa „E Technik“ oder „B Abläufe“ für ein Spielthema) landet im falschen Block. Mit der Spalte Themenblock (3.16) entscheidet das Büro beim Anlegen, nicht die Rechnung.
+- 3.17.11 *Zweiter Befund:* Block 7 zeigt, warum die Nullbasis nötig ist: fast ein Drittel aller Muss betrifft die Firma, nicht das Spiel, und ein Teil davon erzeugten Mahner. Mit der Nullbasis fallen viele davon weg.
+- 3.17.12 *Vorschlag Zuschnitt, je Block ein Fachprofil:*
+
+   | Nr. | Block neu | Fachprofil |
+   |---|---|---|
+   | 3.17.13 | Kampf und Regeln (mit Umzug BRS) | Kampf |
+   | 3.17.14 | Figuren und Kleidung | Figur |
+   | 3.17.15 | Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | Welt |
+   | 3.17.16 | Klang und Musik | Klang |
+   | 3.17.17 | Bedienung und Oberfläche | Oberfläche |
+   | 3.17.18 | Geschichte und Texte | Story |
+   | 3.17.19 | Kataloge (alles an einer Stelle) | Daten |
+   | 3.17.20 | Technik, Leistung, Build | Technik |
+   | 3.17.21 | Firma: Werkzeuge und Abläufe | Werkzeug |
+   | 3.17.22 | Marktstart | – (Sokrates mit dem Chef) |
+
+- 3.17.23 *Dazu wenige Querschnittsprofile,* die jeder Block braucht: Prüfbild und Film, Build, Spieltext (einbauen), Fremde Inhalte. Der Auftrag nennt das Fachprofil seines Blocks und bei Bedarf eines davon oder ein zweites Fachprofil (760: Kampf und Figur).
+- 3.17.24 *Stärkstes Gegenargument:* Zehn Blöcke sind mehr als acht, und jede Aufteilung macht neue Grenzfälle (Licht im Kampf: Welt oder Kampf?). *Entkräftet:* Grenzfälle entscheidet das Büro einmal beim Anlegen, nicht jede Sitzung neu; Klang und Musik nennt die Oberste Direktive eigens, darum ein eigener Block statt Rest in einem Sammelbecken; der Gewinn ist, dass Block, Profil und Auswertung zusammenpassen.
+- 3.17.25 *Grenze:* Den Zuschnitt der Themenblöcke legst du fest (Chefsache-Übersicht); das hier ist mein Vorschlag.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
