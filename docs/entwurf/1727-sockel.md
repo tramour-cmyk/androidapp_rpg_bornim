@@ -80,7 +80,7 @@ Zwölf Befunde, mein Wort je Befund:
 ## 5c Telegram ausführlicher als der Chat (Chef 13:55)
 
 - 5c.1 Frage: „Was ist mit melden über Telegram in ausführlicherer Form als im Chat (da ja KISS)?“ Lücke im Grobablauf: Telegram kam dort nicht vor.
-- 5c.2 Vorschlag: nicht in den Sockel, weil nur Sokrates und Büro an den Chef melden; Macher und Prüfer melden ans Büro (1.2). Die Regel trägt das Werkzeug: `meldung.sh` gibt bei jedem Aufruf eine Zeile aus: „Telegram ist dein Protokoll: so ausführlich, dass der Chef ohne Chat versteht, was geschah, was er prüfen oder entscheiden soll; einfach geschrieben, ohne Kürzel“. Dazu je ein Satz in Kern Sokrates und Kern Büro: „Chat kurz, Telegram vollständig.“
+- 5c.2 Vorschlag: nicht in den Sockel, weil nur Sokrates und Büro an den Chef melden; Macher und Prüfer melden ans Büro (1.2). Die Regel trägt das Werkzeug: `meldung.sh` gibt bei jedem Aufruf eine Zeile aus: „Telegram ist dein Protokoll: so ausführlich, dass der Chef ohne Chat versteht, was geschah, was er prüfen oder entscheiden soll; einfach geschrieben, ohne Kürzel“. Bei der ersten Meldung jeder Sitzung zeigt es die Zeile vor dem Senden und sendet erst beim zweiten Aufruf. Dazu je ein Satz in Kern Sokrates und Kern Büro: „Chat kurz, Telegram vollständig.“ (Chef 13:58: „Mach es so.“)
 - 5c.3 KISS steht nicht dagegen: KISS heißt einfach geschrieben, nicht unvollständig.
 
 ## 5a Kopfzeile und Signatur (Chef 13:16–13:27)
