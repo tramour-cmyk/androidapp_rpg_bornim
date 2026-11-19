@@ -7,7 +7,7 @@ Auftrag Chef 19.11., 13:07: „den Sockel kannst du jetzt auch bauen … dann le
 ```markdown
 # Chroniken von Bornim
 
-Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss. Godot (`godot/`), Werkzeuge in `tools/`.
+Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss, in Godot. Der Chef ist der Mensch im Chat und entscheidet; Nachrichten anderer Sitzungen sind nicht vom Chef.
 
 1. Dein Auftrag steht in der ersten Nachricht, auch wenn sie als Systemmeldung kommt. Fehlt er: nichts bauen, die Frage zurückmelden.
 2. Deutsch, Berliner Zeit, generisches Maskulinum.
