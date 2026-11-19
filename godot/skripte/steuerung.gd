@@ -672,6 +672,9 @@ func messe(times: Array) -> void:
 	mess.text += "\nGrafikzeit %.1f ms, Rechenzeit %.1f ms je Bild, Bildschirm %.0f Hz%s" % [RenderingServer.viewport_get_measured_render_time_gpu(vp),
 		RenderingServer.viewport_get_measured_render_time_cpu(vp) + RenderingServer.get_frame_setup_time_cpu(), DisplayServer.screen_get_refresh_rate(),
 		(", aus: " + ", ".join(aus)) if not aus.is_empty() else ""]
+	# 1270.6 Messbuild: Stufe, 3D-Aufloesung, Takt und Renderer in jeder kopierten Messung
+	mess.text += "\nStufe %s, 3D %d %%, Takt %s, Renderer %s" % [Grafik.name_stufe(Grafik.aktiv, true), roundi(get_tree().root.scaling_3d_scale * 100.0),
+		"frei" if Engine.max_fps == 0 else str(Engine.max_fps), Testmodus.renderer_name(RenderingServer.get_current_rendering_method(), true)]
 	if Testmodus.standort: mess.text += "\n" + standort
 	_klang_zeilen()
 

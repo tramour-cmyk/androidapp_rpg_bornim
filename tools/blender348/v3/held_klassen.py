@@ -53,6 +53,8 @@ TRACHTEN = {
     'WALD': {'kleid': '{v}_Ranger'},   # Kapuze (Head_Hood) bleibt als eigenes Netz: Godot zeigt sie je Herkunft
     'BAUER': {'kleid': '{v}_Peasant'},
 }
+# 455.2 Groessenfilm (Platte): Ritter in Platte (Quaternius Knight ohne Hoerner), nur mit MIT_RITTER=1, nicht im Spiel
+if os.environ.get('MIT_RITTER') == '1': TRACHTEN['RITTER'] = {'kleid': '{v}_Knight', 'ohne': ['Horns']}
 # Herkunft (Spielsystem 2.0, Entscheidung 68; Archiv 376.1 „Tracht der Heldin“, Stellungnahme Sokrates) -> Tracht; Schuerze fuer den
 # Schmiedelehrling gibt es im Bestand nicht (Modular Character Outfits: Knight, Knight_Cloth, Noble, Peasant, Ranger, Wizard)
 HERKUENFTE = {
@@ -1486,6 +1488,15 @@ BEWEGUNGEN = [('Stehen', 'Idle_Loop'), ('Gehen', 'Walk_Loop'), ('Rennen', 'Jog_F
 # Bild vom Wurzelknochen in UAL1_RM.glb (dort liegen die 90 Grad) -> held-klassen.json wende.<Name>.gier (Grad, gegen den
 # Uhrzeigersinn von oben, 30 Bilder/s); leute.gd dreht den Knoten danach
 WENDE = [('Drehen_L', 'Turn90_L'), ('Drehen_R', 'Turn90_R')]
+# 1406 (Chef 16.11. zu 1386/1416: „den 180-Degree Root Motion Turn … wie sich Figuren vernünftig auf der Stelle drehen können“):
+# Wende ab 135 Grad in einem Zug statt zwei Turn90; Bewegung aus UAL2.glb (Wurzel steht), Drehung je Bild aus UAL2_RM.glb
+WENDE180 = [('Drehen180_L', 'Turn180_L'), ('Drehen180_R', 'Turn180_R')]
+
+
+def ual2(rm=False):
+    d = os.environ.get('KAUF', '')
+    f = sorted(glob.glob(os.path.join(d, '**', 'Unreal-Godot', 'UAL2_RM.glb' if rm else 'UAL2.glb'), recursive=True)) if d else []
+    return f[0] if f else None
 
 
 def schritt_tempo(arm, a, fuesse=('foot_l', 'foot_r'), toleranz=0.02):
@@ -1539,6 +1550,17 @@ def bewegungen():
         if neu: neu[0].name = n; neu[0].use_fake_user = True
         for a in neu[1:]: bpy.data.actions.remove(a)
         print('GANG', n, 'aufgenommen' if neu else 'FEHLT')
+    u2 = ual2()   # 1406: Turn180_L/R aus der UAL2 (gleiches Geruest), sonst bleibt es bei zwei Turn90
+    if u2:
+        vorher, vor_a = set(bpy.data.objects), set(bpy.data.actions)
+        bpy.ops.import_scene.gltf(filepath=u2)
+        for o in [o for o in bpy.data.objects if o not in vorher]: bpy.data.objects.remove(o)
+        quell = dict((q, n) for n, q in WENDE180)
+        for a in [a for a in bpy.data.actions if a not in vor_a]:
+            q = next((k for k in quell if a.name in (k, k + '_Loop')), None)
+            if q and quell[q] not in bpy.data.actions: a.name = quell[q]; a.use_fake_user = True
+            else: bpy.data.actions.remove(a)
+    print('WENDE180', u2, [n for n, _ in WENDE180 if n in bpy.data.actions])
     tempo = {n: schritt_tempo(arm, bpy.data.actions[n]) for n in ('Gehen', 'Rennen') if n in bpy.data.actions}
     for a in bpy.data.actions:
         if a.name.startswith(('Gehen_', 'Rennen_')): tempo[a.name] = schritt_tempo(arm, a, ('ball_l', 'ball_r'), 0.03)
@@ -1554,11 +1576,20 @@ def bewegungen():
 
 
 def wende_gier(pro):
-    """1040.1: je Wende die Drehung des Wurzelknochens in UAL1_RM.glb seit Bild 0, 30 Bilder/s (wie geruest.py wende_gier, dort am Becken)"""
-    import math
+    """1040.1: je Wende die Drehung des Wurzelknochens in UAL1_RM.glb seit Bild 0, 30 Bilder/s (wie geruest.py wende_gier, dort am Becken);
+    1406: dazu Turn180_L/R aus UAL2_RM.glb"""
     rm = os.path.join(os.path.dirname(pro), 'UAL1_RM.glb') if pro else ''
     if not os.path.exists(rm):
         print('WENDE KAUF fehlt', rm or 'ohne UAL Pro'); return {}
+    aus = wende_gier_aus(rm, WENDE)
+    rm2 = ual2(True)
+    if rm2: aus.update(wende_gier_aus(rm2, WENDE180))
+    else: print('WENDE180 KAUF fehlt (ohne UAL2_RM.glb)')
+    return aus
+
+
+def wende_gier_aus(rm, liste):
+    import math
     vor_o, vor_a = set(bpy.data.objects), set(bpy.data.actions)
     bpy.ops.import_scene.gltf(filepath=rm)
     arm = next(o for o in bpy.data.objects if o not in vor_o and o.type == 'ARMATURE')
@@ -1568,7 +1599,7 @@ def wende_gier(pro):
     rb = arm.pose.bones['root']
     R = rb.bone.matrix_local.to_3x3().inverted()
     aus = {}
-    for n, q in WENDE:
+    for n, q in liste:
         a = next((a for a in neu if a.name in (q, q + '_Loop')), None)
         if a is None: continue
         arm.animation_data_create(); arm.animation_data.action = a

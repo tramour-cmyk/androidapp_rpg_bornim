@@ -292,15 +292,9 @@ func _oberflaeche() -> void:
 		k.custom_minimum_size = Vector2(vs.x * 0.4, vs.y * 0.06)
 
 
-## Mobile <-> Kompatibilität (OpenGL); wirkt nach Neustart (Godot liest die Datei vor dem Start des Renderers)
+## Mobile <-> Kompatibilität; wirkt nach Neustart (Testmodus.renderer_wechseln, 1270.6)
 func _renderer_wechseln() -> void:
-	var jetzt_r := RenderingServer.get_current_rendering_method()
-	var neu := "gl_compatibility" if jetzt_r != "gl_compatibility" else "mobile"
-	var cfg := ConfigFile.new()
-	cfg.set_value("rendering", "renderer/rendering_method", neu)
-	cfg.set_value("rendering", "renderer/rendering_method.mobile", neu)
-	cfg.save(RENDERER_CFG)
-	lb.text += "\nNach Neustart der App: %s" % neu
+	lb.text += "\nNach Neustart der App: %s" % Testmodus.renderer_wechseln()
 
 
 ## r4 (Lauf 181, F6: der graue Wolf sprang den Magier im Feuerstrom an, er wich aus, der Strahl kam aus dem Körper): wartet, bis der

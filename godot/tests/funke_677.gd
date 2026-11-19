@@ -65,6 +65,11 @@ func _lauf() -> void:
 	z.funke = false
 	h.funke_neu(z.funke)
 	pruefe(not h.funke.visible, "gelöscht noch sichtbar")
+	# 1630: alle Lichtquellen der Höhle nach der Dunkelheit am Ort; die Tusche nach den Lampen bekommt in der Höhle immer „dunkel“
+	pruefe(Licht.dunkel_am_ort("CAVE", 0.0) == 1.0 and Licht.dunkel_am_ort("OUTDOOR", 0.3) == 0.3 and Licht.dunkel_am_ort("INTERIOR", 0.0) == 0.0, "dunkel_am_ort falsch")
+	var sp := FileAccess.get_file_as_string("res://skripte/spiel.gd")
+	var nk := sp.substr(sp.find("func _nacht("), 400)
+	pruefe(nk.contains("kamera.nacht = Licht.dunkel_am_ort("), "Kamera (Tusche nach Lampen) nicht nach der Dunkelheit am Ort")
 	print("Funke 677: draussen %.2f–%.2f m, im Raum %.2f m" % [hmin, hmax, hr])
 	print("FUNKE677 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

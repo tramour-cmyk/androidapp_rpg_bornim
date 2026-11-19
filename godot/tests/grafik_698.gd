@@ -63,6 +63,9 @@ func _lauf() -> void:
 		Grafik.weiter(self)
 		folge.append(Grafik.wahl)
 	pruefe("Antippen wechselt", folge == ["hoch", "mittel", "niedrig", "auto"], str(folge))
+	pruefe("1670a: nach einer Wahl wird der Ort beim Schliessen neu gebaut", Grafik.neu_laden)
+	pruefe("1670a: spiel.gd baut beim Schliessen des Menüs neu", FileAccess.get_file_as_string("res://skripte/spiel.gd").contains("if Grafik.neu_laden:"))
+	Grafik.neu_laden = false
 	Grafik.weiter(self); Grafik.weiter(self)   # Mittel gewählt
 	pruefe("Wahl Mittel gilt sofort", Grafik.aktiv == Grafik.MITTEL and is_equal_approx(root.scaling_3d_scale, 0.85))
 	for i in 2: Grafik.weiter(self)   # zurück auf Automatisch
@@ -121,5 +124,39 @@ func _lauf() -> void:
 	await Grafik.messen(self)
 	pruefe("Anfangsmessung wählt eine Stufe", Grafik.auto_stufe >= Grafik.NIEDRIG and Grafik.aktiv == Grafik.auto_stufe, str(Grafik.auto_stufe))
 	pruefe("danach keine Messung mehr", not Grafik.braucht_messung())
+	# 1645: Kampfort nimmt höchstens die Karte der Stufe und gibt beim Verlassen die der Stufe zurück, nicht fest 4096
+	var kf = load("res://kampf/kampfort.gd")
+	var karten := []
+	for st in [Grafik.NIEDRIG, Grafik.MITTEL, Grafik.HOCH]:
+		Grafik.setze(self, st)
+		karten.append([kf.schattenkarte(), Grafik.sonne_px()])
+	pruefe("Kampfort-Schattenkarte je Stufe (im Kampf, danach)", karten == [[1024, 1024], [2048, 2048], [2048, 4096]], str(karten))
+	var quelle := FileAccess.get_file_as_string("res://kampf/kampfort.gd")
+	var ende := quelle.substr(quelle.find("func _exit_tree"), 200)
+	pruefe("Kampfort verlässt mit der Karte der Stufe", ende.contains("Grafik.sonne_px()") and not ende.contains("4096)"))
+	# 1270.6: mit Takt 30 gilt ein Bild bei 30/s als Ziel; 30 Bilder je Sekunde senken nicht; „3D halb“ setzt 50 %
+	Testmodus.takt_setzen(Testmodus.TAKT_SPIEL)
+	pruefe("Takt des Spiels 30, Ziel 33,3 ms", Engine.max_fps == 30 and absf(Grafik.ziel_ms() - 1000.0 / 30.0) < 0.01, str(Grafik.ziel_ms()))
+	Grafik.wahl = "auto"; Grafik.auto_stufe = Grafik.HOCH; Grafik.gesenkt = false
+	Grafik.ladepunkt(self)
+	for i in 15 * 30: Grafik.bild(self, 1.0 / 30.0)
+	pruefe("Takt 30: 15 Sekunden mit 30 Bildern senken nicht", not Grafik.gesenkt)
+	await Grafik.messen(self)
+	pruefe("Einmessen stellt den Takt wieder her", Engine.max_fps == 30)
+	Testmodus.aufl_umschalten()
+	pruefe("3D halb: 50 %", is_equal_approx(root.scaling_3d_scale, 0.5))
+	Testmodus.aufl_umschalten()
+	pruefe("3D halb aus: wie die Stufe", is_equal_approx(root.scaling_3d_scale, Grafik.SCHAERFE[Grafik.aktiv]))
+	Testmodus.takt_setzen(0)
+	# 1270.6: gespeicherte Messung ohne Takt (vor 1270.6) gilt nicht, mit Takt 30 schon
+	var c := ConfigFile.new()
+	c.set_value("grafik", "wahl", "auto"); c.set_value("grafik", "auto", Grafik.NIEDRIG)
+	c.save(Grafik.DATEI)
+	Grafik.wahl = ""; Grafik.lade()
+	pruefe("alte Messung ohne Takt: neu einmessen", Grafik.auto_stufe == -1 and Grafik.braucht_messung())
+	c.set_value("grafik", "takt", 30); c.save(Grafik.DATEI)
+	Grafik.wahl = ""; Grafik.lade()
+	pruefe("Messung mit Takt 30 gilt", Grafik.auto_stufe == Grafik.NIEDRIG)
+	DirAccess.remove_absolute(ProjectSettings.globalize_path(Grafik.DATEI))
 	Grafik.probe = false
 	quit(1 if fehler else 0)

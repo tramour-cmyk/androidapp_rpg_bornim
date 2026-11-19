@@ -4,10 +4,10 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Nie archivieren:** (keine; Sokrates …777MV8Hv8ps2Js5voW freigegeben, Chef 18.11., 08:45)
 
-**Guthaben (Chef 19.11., 07:10: 91 %, Reset Sa 19:59; Sokrates 07:12):** bis zum Wort des Chefs höchstens eine Arbeitssitzung gleichzeitig (Sokrates-Chefrunde und Wache ausgenommen), nur Muss mit Chef-Bezug: 1724 (Spike, 300 ohne 760 auf `main`, Chef 07:24), 1694 (Spike, ein Lauf), dann 1535 (Tom); 1694 und 1535 als neue Sitzung mit dem Auftrag aus `entwurf/auftraege-19-11.md` wörtlich, ohne Startlektüre, Ford trägt ein (Probe 1625, Chef 07:31), dann 1270.6; 1711 erst nach dem Reset; keine Kür. Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
+**Guthaben (Chef 19.11., 07:10: 91 %, Reset Sa 19:59; Sokrates 07:12):** bis zum Wort des Chefs höchstens eine Arbeitssitzung gleichzeitig (Sokrates-Chefrunde und Wache ausgenommen), nur Muss mit Chef-Bezug: 1724 (Spike, 300 ohne 760 auf `main`, Chef 07:24), 1694 (Spike, ein Lauf), dann 1535 (Tom); 1694 und 1535 als neue Sitzung mit dem Auftrag aus `entwurf/auftraege-19-11.md` wörtlich, ohne Startlektüre, Ford trägt ein, sortiert Ergebnisse ein und gleicht ab („gibt es schon?“); Aufträge schreiben Perikles und Sokrates (Probe 1625, Chef 07:31, 08:01: zuerst 300 auf `main`), dann 1270.6; 1711 erst nach dem Reset; keine Kür. Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1726** (zuletzt 1725 Sokrates 19.11. 07:24:56 beef) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1727** (zuletzt 1726 Perikles 19.11. 08:06:55 db2d) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -97,6 +97,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 13.11., 15:30 Ford: Läufe 13:39, 13:46, 14:09, 14:29, 14:50, 14:57, 15:28 von Hand nach Meldungen (Uhr „Ford-Lauf“ feuert seit 14:03 nicht); gestartet/Neustart Perikles, Diogenes, Tuffy, Sokrates, Jerry, Tom; alte Sitzungen archiviert und gebucht; Vorgänge 1148 und 1159 an Perikles (Hintergrundlauf Spike 882.1).
 - 13.11., 13:23 Ford (neue Sitzung `…79VeEbfi8Yk1Y2Eb6y`): Uhr `trig_01V6NKSG889Hx9Pc4keu9PxX` neu, alte abgeschaltet (Löschen abgelehnt), Vorgänger archiviert (9,65 $, gebucht), Perikles 1134 gestartet `…79AYXzXxbEysheXSSM`; sonst alle belegt.
+- Fehler 341 19.11., 08:06 (Chef fand ihn): Tagesbericht 448 fehlte (fällig 07:30), Ford hat ihn weder gemeldet noch Perikles gestartet; die Nachtpause bis 07:00 und die Regel „eine Sitzung“ verdeckten die Pflicht. Lehre: Tagesbericht ist Muss trotz Guthabensperre, um 07:30 prüfen.
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
@@ -121,3 +122,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 07:05 19.11.: Startsperre 07:05 Start Tom, Spike, Perikles (lauf.py, Tom 1535, Spike 1711)
+- 08:07 19.11.: Startsperre 08:07 Start Perikles (Chef 08:06 über Sokrates, Tagesbericht 448/1715, Ausnahme zu „eine Sitzung“)

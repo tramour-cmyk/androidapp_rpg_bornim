@@ -513,9 +513,9 @@ func tasche() -> void:
 		var dd := Laden.ding(String(id))
 		var p := posten(Laden.name(String(id)), "×%d" % int(z.taschen[id]), Color(SELTEN.get(String(dd.get("seltenheit", "COMMON")), "e6ddcb")), Menue.vorrat_bild(String(id)))
 		var info := Sprache.t(dd.get("info", ""))
-		if info != "":
-			var spalte: VBoxContainer = p.get_child(1)   # nach dem Bild
-			spalte.add_child(Stil.txt(info, 13, Stil.DIM))
+		var spalte: VBoxContainer = p.get_child(1)   # nach dem Bild
+		for k in LadenSchirm.kurz(String(id), hw): spalte.add_child(Stil.txt(String(k), 13))   # 1663: Wirkung wie im Laden
+		if info != "": spalte.add_child(Stil.txt(info, 13, Stil.DIM))
 		inhalt.add_child(p)
 		tippbar(p, func(): frage_ding(String(id)))
 	luecke(10)
@@ -864,6 +864,7 @@ func frage_ding(id: String) -> void:
 	var sw := Stil.txt(Testmodus.gross_anfang(Sprache.t(BrsHeld.daten()["seltenheiten"].get(sk, {}).get("name", sk))), 14, farbe)
 	sw.name = "Seltenheit"
 	zeilen.append(sw)
+	for k in LadenSchirm.kurz(id, hw): zeilen.append(Stil.txt(String(k), 15))   # 1663 (Chef 18.11., 14:17): die Wirkung
 	var info := Sprache.t(dd.get("info", ""))
 	if info != "": zeilen.append(Stil.txt(info, 15))
 	if trinkbar:
