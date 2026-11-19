@@ -1,6 +1,13 @@
 # Chroniken von Bornim / Chronicles of Bornim
 
-Ein düsteres Fantasy-Rollenspiel für Android, erzählt in Kapiteln. Erkunde das Dorf Bornim, den Flüsterwald und die Höhlen darunter in schräger Sicht von oben, sprich mit den Leuten und stell dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug. Die Regeln sind ein eigenes System, das Bornimer Rollenspielsystem (BRS): Du wirst, was du tust. Auf Deutsch und Englisch.
+Ein düsteres Rollenspiel mit taktischem Kampf, von Anfang an fürs Handy gebaut, erzählt in Kapiteln rund um das Dorf Bornim (ab 16). Den Anfang macht „Der Blutzahn-Stamm“.
+
+- **Du wirst, was du tust.** Keine Klasse zu Beginn: Was du benutzt, wird besser; am Ende jedes Rangs wartet eine Prüfung. Die Regeln sind unser eigenes Bornimer Rollenspielsystem (BRS).
+- **Jeder Kampf ist eine Entscheidung.** Du siehst, was der Gegner vorhat, und antwortest darauf: Stellung, Abwehr, Rudel mit Anführer, Kampforte in 3D (MARS).
+- **Eine Welt, die lebt.** Farbig gezeichnet, Licht nur aus sichtbaren Quellen, Klang nur von dem, was da ist; Tag und Nacht, Monster, die man kommen sieht.
+- **Fair.** Keine Werbung, keine Beutekisten, keine Wartezeiten; grinden darf man, muss man nie.
+
+Für Spieler klassischer Rollenspiele, die unterwegs spielen wollen, ohne Kaufdruck. Auf Deutsch und Englisch.
 
 **Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/DESIGN-LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Notizen](docs/README.md) · [Ideen](docs/LISTE-IDEEN.md) · [Stil](docs/DESIGN-STIL.md) · [Entwicklung](docs/DESIGN-ABNAHME.md) · [Regeln (BRS)](docs/DESIGN-BRS.md) · [Projektplan](docs/PROJEKTPLAN.md)
 
