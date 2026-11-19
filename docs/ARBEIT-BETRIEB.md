@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Nie archivieren:** (keine; Sokrates …777MV8Hv8ps2Js5voW freigegeben, Chef 18.11., 08:45)
 
-**Guthaben (Chef 19.11., 07:10: 91 %, Reset Sa 19:59; Sokrates 07:12):** bis zum Wort des Chefs höchstens eine Arbeitssitzung gleichzeitig (Sokrates-Chefrunde und Wache ausgenommen), nur Muss mit Chef-Bezug: 1694 (Spike, ein Lauf), dann 1535 (Tom), dann 1270.6; 1711 erst nach dem Reset; keine Kür. 300 nicht auf `main` ohne Chefwort.
+**Guthaben (Chef 19.11., 07:10: 91 %, Reset Sa 19:59; Sokrates 07:12):** bis zum Wort des Chefs höchstens eine Arbeitssitzung gleichzeitig (Sokrates-Chefrunde und Wache ausgenommen), nur Muss mit Chef-Bezug: 1694 (Spike, ein Lauf), dann 1535 (Tom), dann 1270.6; 1711 erst nach dem Reset; keine Kür. Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20). 300 nicht auf `main` ohne Chefwort.
 
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
