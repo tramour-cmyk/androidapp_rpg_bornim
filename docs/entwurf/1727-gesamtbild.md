@@ -193,7 +193,7 @@ Geplant: erst das Ziel, dann die Punkte des Auftrags prüfen (Grobablauf 9.2); S
 | `vorgang.py` | Form der Vorgangsliste | besteht |
 | `lauf.py` | Laufbremse (Chef 13:02), Bremse Vorentscheide | Laufbremse **nicht gebaut** |
 
-### 7.1 Bauliste für den schlanken Kern Büro (Vorschlag 18:05, nicht entschieden)
+### 7.1 Bauliste für den schlanken Kern Büro (Chef 19:37: „schlank so Werkzeuge vorher bauen“)
 
 Was aus der langen Fassung (17:52) in Werkzeuge wandert; umstellen erst, wenn gebaut (Grobablauf 1.3).
 
