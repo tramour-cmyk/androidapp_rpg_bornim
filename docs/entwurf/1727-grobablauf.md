@@ -82,15 +82,22 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.5.5 *Büro und Sokrates:* Ja, Ausnahme: Sockel plus Kern von je höchstens 3 KB, weil sie Abläufe halten bzw. mit dem Chef sprechen. Auch dort lädt der Rest bei Anlass.
 - 3.5.6 *Neu je Sitzung:* Macher etwa 2 KB (0,5 Sockel + höchstens 1,5 Auftrag), dazu ein Profil bei Bedarf; Prüfer ebenso; Büro, Sokrates, Arbeitsvorbereitung bis 3,5 KB. Heute: Macher etwa 75 KB.
 
+**3.6 Homer wird Macher, Profil Story** (09:35: „Profil Story nicht mehr bei Homer, er wird Macher“). **Stimmt für das Schreiben; Einwand beim Zusammenhalt der Geschichte.**
+- 3.6.1 *Dafür:* Was für Kapitel 1 an Text fehlt, sind greifbare Aufträge (Dialog einer Figur, Chroniktext, Menütext); die passen in den Baukasten (6). Entscheiden über Story tut ohnehin der Chef („nie selbst: Story“), ein Macher schlägt vor.
+- 3.6.2 *Stärkstes Gegenargument:* Eine Geschichte über sieben Kapitel braucht einen Erzähler mit Überblick; frische Sitzungen je Text schreiben mit wechselnder Stimme und verlieren Fäden.
+- 3.6.3 *Entkräftet:* Das Gedächtnis der Geschichte liegt schon heute in Dateien, nicht in Homers Kopf: `STORY-PLAN.md`, `STORY-PLAN-K1.md`, `STORY-K1-HANDLUNG.md`, `STORY-REGELN.md`. Das Profil Story lädt Ton, Figurenstimmen und den Storyplan; große Würfe (Kapitelentwurf) sind ein großer Auftrag an einen Macher; der Prüfer gleicht gegen Storyplan und Regeln ab, der Chef urteilt.
+- 3.6.4 *Was Homer heute noch tut und wohin es geht:* Ideen urteilen (sonntags) → Sokrates (2.3); Stil und Aussehen → Chef; Leveldesign → Macher mit Profil Leveldesign; Vorentscheide Homer entfallen.
+- 3.6.5 *Zwei Profile, nicht eines:* **Story** (schreiben: Ton, Stimmen, Plan) für den, der Texte verfasst; **Spieltext** (einbauen: wortgetreu aus `STORY-…`, nie erfinden, Begriffe) für jeden, der Texte ins Spiel setzt. Getrennt, damit wer nur einbaut, nicht den ganzen Ton laden muss.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
 |---|---|---|---|
 | 4.1 | **Chef** | entscheidet, testet, gibt Ideen | – |
-| 4.2 | **Sokrates** | Gespräch mit dem Chef; macht aus einem Chefwort einen Auftrag, einen Entscheid oder eine Idee; prüft Ideen gegen Bestand und Leitbild; löst Festgefahrenes (3.3.5) | Sockel, Kern (bis 3 KB) |
+| 4.2 | **Sokrates** | Gespräch mit dem Chef; macht aus einem Chefwort einen Auftrag, einen Entscheid oder eine Idee; prüft und urteilt Ideen gegen Bestand und Leitbild (bisher Homer, 3.6.4); löst Festgefahrenes (3.3.5) | Sockel, Kern (bis 3 KB) |
 | 4.3 | **Büro** (Ford, gestärkt) | Abgleich, Vorgänge, Vorrang (heute Perikles), Starten, Einsortieren, Melden, Kosten, Regelwächter; das Mechanische macht `lauf.py` | Sockel, Kern (bis 3 KB) |
 | 4.4 | **Arbeitsvorbereitung** (heute Perikles; bei Chefthemen Sokrates) | schreibt je Vorgang einen Auftrag nach dem Baukasten (6) | Sockel, Baukasten, Akte des Vorgangs |
-| 4.5 | **Macher** (Pool ohne feste Fächer; die Rolle steht im Auftrag und im Profil: Figur, Level, Kampf, Klang, Werkzeug, Build, Text) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil bei Bedarf |
+| 4.5 | **Macher** (Pool ohne feste Fächer; die Rolle steht im Auftrag und im Profil: Figur, Level, Kampf, Klang, Werkzeug, Build, Story, Spieltext; auch Homer, 3.6) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil bei Bedarf |
 | 4.6 | **Prüfer** (Diogenes) | prüft nach der Prüfart des Auftrags (3.2), bevor der Chef es sieht; meldet Funde außerhalb ans Büro | Sockel, Auftrag, Ergebnis |
 
 - 4.7 Feste Bereiche fallen weg (Chef 08:17): Verantwortung hängt am Vorgang, nicht an „Dorf“ oder „Höhle“. Damit zwei Macher sich nicht in die Quere kommen, sperrt das Büro je Auftrag ein Verzeichnis oder eine Szene.
@@ -128,7 +135,7 @@ Feste Gliederung, erprobt in `auftraege-19-11.md`:
 
 ## 7 Profile (Skills, laden nur bei Bedarf)
 
-- 7.1 Je Arbeit ein Profil mit Handwerk, Prüfung, Abnahmebeleg: Figur und 3D-Modell · Prüfbild und Film · Leveldesign · Kampf und Regeln · Klang · Werkzeug · Build und APK · Spieltext · Fremde Inhalte.
+- 7.1 Je Arbeit ein Profil mit Handwerk, Prüfung, Abnahmebeleg: Figur und 3D-Modell · Prüfbild und Film · Leveldesign · Kampf und Regeln · Klang · Werkzeug · Build und APK · Story (schreiben) · Spieltext (einbauen) · Fremde Inhalte.
 - 7.2 Das erste gibt es schon (`LISTE-HANDWERK-FIGUR-PRUEFBILD.md`).
 - 7.3 Was beim Prüfer zweimal zurückkam, wird eine Zeile im Profil, nicht im Sockel. Der Prüfer schlägt sie vor, das Büro trägt sie ein; je Profil eine Größengrenze.
 
@@ -149,7 +156,7 @@ Feste Gliederung, erprobt in `auftraege-19-11.md`:
 
 - 10.1 **Haken:** heute 14 Einträge in `.claude/settings.json`, hinter denen viele Prüfungen stecken, viele mahnen nur. Neu: ein Haken nur, wenn er etwas verhindert. Ohne das bringt der kleine Sockel wenig, weil die Haken Text nachschieben.
 - 10.2 **Der Prüfer kostet eine Sitzung je Auftrag.** Bei knappem Guthaben nur für Aussehen und Kampf; bei Werkzeugen prüft der Kerntest.
-- 10.3 **Homer und Sokrates sind keine Auftragsarbeiter.** Für Story und Beratung bleibt ein Kern mit Gespräch; der Gedanke gilt für Bauarbeit.
+- 10.3 **Sokrates ist kein Auftragsarbeiter.** Für die Beratung bleibt ein Kern mit Gespräch. Homer wird Macher (3.6).
 - 10.4 **Zusammenstöße im Repo:** Sperre je Verzeichnis oder Szene; die Vorgangsliste schreibt nur ein Werkzeug; bei einem Konflikt geht der Auftrag zurück, keiner löst ihn von Hand.
 - 10.5 **Rückläufer zählen:** Wie oft ein Vorgang beim Prüfer scheiterte (3.3.4, 3.3.5), zählt ein Werkzeug, nicht eine Sitzung.
 
