@@ -106,6 +106,24 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.9.4 *Nicht* nach einem Rückläufer im zweiten Mal (3.3.5): dann frisch, damit der Fehler nicht mitwandert.
 - 3.9.5 *Bestand:* Die Messung „dieselbe Aufgabe frisch gegen groß“ liegt als Vorgang 383.2 bei mir (ruht bis 23.11.). Die Probewoche (12.2) misst damit, ab welcher Größe frisch billiger ist; die 150 Tsd. sind bis dahin eine Annahme.
 
+**3.10 Wie sieht die Vorgangsliste künftig aus?** (Chef 10:06: „bleibt ja und wird nur um eine Bezugsspalte erweitert. Oder wie soll es zukünftig aussehen?“). **Votum: Die Liste bleibt als Verzeichnis, aber nicht nur mit „Bezug“ mehr. Drei Spalten ändern sich, eine Akte je Vorgang kommt dazu.**
+- 3.10.1 *Heute* (19.11., 10:07): 248 offene Zeilen, 70 KB. Spalten: Nr. · Titel · Besitzer · Kl. · Stand · wartet auf · Zweig · Build · Bereich · Kosten. Titel tragen oft Chefzitate (bis 400 Zeichen); Einzelheiten stehen als „Zu NR“ verstreut in den Vorräten der Rollen.
+- 3.10.2 *Neu:*
+
+   | Nr. | Spalte | Änderung | Warum |
+   |---|---|---|---|
+   | 3.10.3 | Titel | kurz, nur was (höchstens etwa 100 Zeichen); Zitat und Herkunft in die Akte | die Liste liest das Büro oft, die Akte nur, wer den Vorgang bearbeitet |
+   | 3.10.4 | Besitzer → **Sitzung** | wer gerade daran arbeitet; leer, wenn niemand | feste Fächer fallen weg (4.7); Verantwortung trägt das Büro bis zur Vergabe |
+   | 3.10.5 | Bereich → **Profil** | welches Profil der Auftrag braucht (Figur, Kampf, Welt, Werkzeug, Story …) | die Bereiche passen schon fast eins zu eins (E Kampf 71, E Figuren 34, E Welt 22 …) |
+   | 3.10.6 | Stand | feste Wörter nach dem Diagramm: neu · Auftrag · in Arbeit · beim Prüfer · abgenommen · im Build · erledigt; dazu ruht, steckt fest | jedes Wort entspricht einem Kasten in 2; das Werkzeug kann so zählen und starten |
+   | 3.10.7 | neu: **Bezug** | verwandte Nummern (3.1) | Abgleich, Wiederholungen sehen |
+   | 3.10.8 | neu: **Runde** | 0, 1, 2: wie oft der Prüfer nein sagte | 3.3.4, 3.3.5; zählt das Werkzeug (10.5) |
+   | 3.10.9 | bleiben | Nr., Kl., wartet auf, Zweig, Build, Kosten | Kosten jetzt mit Schwelle (13.4.3) |
+
+- 3.10.10 *Akte je Vorgang* (`docs/akte/<Nr>.md`): oben der Auftrag nach dem Baukasten (6), darunter Chefworte, Stand mit Ursache, Verlauf. Sie ersetzt die „Zu NR“-Absätze in den Vorräten. Erledigt → kurz ins Vorgangsarchiv, Akte in Git. Das ist „jeder Text an einem Ort“, nur endlich wirklich an einem.
+- 3.10.11 *Stärkstes Gegenargument:* Der Umbau trifft die Werkzeuge, an denen alles hängt (`vorgang.py`, `lauf.py`, `startbar.py`, Haken), und kostet Guthaben; dazu 248 Zeilen umziehen. *Entkräftet:* in drei Schritten, jeder für sich rücknehmbar: (1) Bezug und Runde anfügen, nichts bricht; (2) Akten für neue Vorgänge, alte behalten „Zu NR“ bis zum Abschluss; (3) Besitzer → Sitzung und Bereich → Profil erst, wenn der Pool startet (12.3). Die Umstellung schreibt ein Werkzeug, nicht eine Sitzung von Hand.
+- 3.10.12 *Zweites Gegenargument:* Viele kleine Akten sind unübersichtlich. *Entkräftet:* `vorgang.py <Nr>` sammelt schon heute alles zu einer Nummer aus Liste, Vorräten und Archiv; die Akte macht daraus eine Datei statt einer Suche.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
@@ -192,7 +210,7 @@ Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproble
 
 - 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.6 und 5.7 behalten.
 - 12.2 Ein Macher, eine Woche, nur mit Auftrag, Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet, Guthaben je Auftrag.
-- 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung.
+- 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung. Vorgangsliste: Bezug und Runde ab 12.1, Akten für neue Vorgänge ab 12.2, Sitzung und Profil statt Besitzer und Bereich ab 12.3 (3.10.11).
 - 12.4 Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
 
 ## 13 Durchgespielt an drei echten Fällen (Chef 10:05)
