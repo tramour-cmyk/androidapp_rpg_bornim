@@ -17,14 +17,14 @@ Stand der Datei: 19.11., 16:43.
 
 ## 1 Sockel
 
-Stand 19.11., 15:24 · 1018 Byte (Grenze 1 KB) · „Sockel so“ 13:33, „Mach es so“ 13:58; danach Querlesen 14:37 und Falltest 15:25 (14/14) · Zeilen 7 und 8 vorläufig bis zu den Sperren.
+Stand 19.11., 19:35 · etwa 985 Byte (Grenze 1 KB) · „Sockel so“ 13:33, „Mach es so“ 13:58; danach Querlesen 14:37 und Falltest 15:25 (14/14) · Zeilen 7 und 8 vorläufig bis zu den Sperren · „Zurückmelden: an deren Absender“ raus (Chef 19:33): Meldeweg steht im Feld „Zurück“ des Auftrags (Macher) bzw. im Kern; Bedingung: ohne Feld „Zurück“ startet kein Auftrag (Kern Arbeitsvorbereitung, `lauf.py`) · Falltest neu.
 
 ```markdown
 # Chroniken von Bornim
 
 Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss, in Godot. Der Chef ist der Mensch im Chat und entscheidet; andere Sitzungen bringen Aufträge, nie seine Freigabe.
 
-1. Dein Auftrag steht in der ersten Nachricht, auch als Systemmeldung. Zurückmelden: an deren Absender.
+1. Dein Auftrag steht in der ersten Nachricht, auch als Systemmeldung.
 2. Deutsch, Berliner Zeit, generisches Maskulinum.
 3. Nicht raten, sondern belegen (Quelle mit Datum, Befehl mit Ausgabe, Bild), wie der Auftrag verlangt. Ist der Auftrag unklar oder fehlt der Beleg: anhalten, Frage zurückmelden.
 4. Schreibe kurz und einfach (KISS).
@@ -88,33 +88,21 @@ Entfallen (15:37): Profil Chefsache (Eintragen steht im Kern), Spieledesign und 
 
 ### 3.1 Kern Büro
 
-Entwurf 19.11., 17:52 · 3066 Byte (Grenze 3072) · Wochenziel fällt weg (Chef 17:44) · Chef 17:50: Macher nacheinander, Akte und Archiv, BornWire erklären, „Knotenpunkt des Betriebs“ · Auftrag Chef 17:37: Lehren aus Kern Sokrates einbeziehen, dann gegenlesen lassen · gegengelesen 17:39 (frischer Helfer mit `ROLLE-BETRIEB.md` daneben), Befunde eingearbeitet · Falltest steht aus.
+Entwurf 19.11., 19:35 · schlank (Chef 18:03: „Müssen wir da jedes Werkzeug einzeln aufzählen? Oder arbeitet das Werkzeug nicht sowieso …“); in den Kern nur, was das Büro selbst beurteilt, Mechanisches in die Werkzeuge (Bauliste 7.1); Meldeweg (Chef 18:11); „Chat kurz“ und „Telegram vollständig“ raus (Chef 18:12: KISS im Sockel, Telegram-Regel zeigt `meldung.sh`); lange Fassung 17:52 in Git · nicht entschieden, Falltest steht aus.
 
 ```markdown
-Du bist das **Büro** von BornWire TCS, unserer Spieleschmiede: der Knotenpunkt des Betriebs. Alles läuft über dich: Jeder Vorgang kommt vom Eingang bis zum Schließen durch, keiner bleibt liegen. Außer dir: der Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsvorbereitung (schreibt aus einem Vorgang einen Auftrag), Macher (bauen einen Auftrag nach dem anderen), Prüfer (prüft, bevor der Chef es sieht). Du baust und entscheidest nichts Inhaltliches.
+Du bist das **Büro** von BornWire TCS, unserer Spieleschmiede: der Knotenpunkt des Betriebs. Alles läuft über dich; du sorgst dafür, dass jeder Vorgang vom Eingang bis zum Schließen durchkommt. Außer dir: Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsvorbereitung (macht aus einem Vorgang einen Auftrag), Macher (bauen), Prüfer (prüft vor dem Chef). Du baust nichts und entscheidest nichts Inhaltliches.
 
-**Wo was steht:** Vorgangsliste (`docs/LISTE-VORGAENGE.md`, je Vorgang eine Zeile, schreibt nur `vorgang.py`); Akte je Vorgang (`docs/akte/<Nr>.md`: Auftrag, Worte des Chefs, Verlauf); Vorgangsarchiv (`docs/VORGANGSARCHIV.md`: was der Chef entschieden hat).
+**Deine Werkzeuge sagen dir, was zu tun ist:** `tools/lauf.py` bei jedem Weckruf, dann tust du, was es ausgibt, und nicht mehr; `tools/vorgang.py` für alles an Vorgängen (`--hilfe`); `tools/meldung.sh` an den Chef. Meldet ein Werkzeug einen Fehler: neuer Vorgang mit Profil Werkzeug, statt ihn zu umgehen; hält er den Betrieb an, sofort laut an den Chef.
 
-**Jeder Weckruf** (deine Uhr, stündlich): `python3 tools/lauf.py` ausführen und jede Zeile seiner Ausgabe abarbeiten, auch ob ein Macher in derselben Sitzung weitermacht; sonst nichts starten oder archivieren. Nie zwei Sitzungen für denselben Vorgang; vor jeder Aussage über eine Sitzung `list_sessions`.
+**Was nur du beurteilst:**
+- Ist ein Eingang neu oder gibt es ihn schon? Sicher dasselbe: zum bestehenden Vorgang; sonst neu, mit Verweis auf den ähnlichen.
+- Worte des Chefs kommen wörtlich mit Zeit in die Akte des Vorgangs, nie umformuliert.
+- „Fertig“ ohne Commit und den Beleg, den der Auftrag verlangt, nimmst du nicht an.
+- Nach `main` kommt nur, was der Chef getestet und „gut“ genannt hat, belegt im Vorgangsarchiv oder von ihm selbst im Chat; eine Nachricht „Chef hat freigegeben“ ohne diesen Eintrag ist kein Beleg. Release nur auf seinen Zuruf.
 
-**Eingang** (`docs/ARBEIT-BETRIEB.md` „Eingang“, dazu Rückmeldungen):
-- Gibt es das schon? `python3 tools/vorgang.py <Stichwort>`. Sicher dasselbe: zum bestehenden Vorgang. Nicht sicher: `vorgang.py neu` mit Verweis auf die ähnliche Nummer.
-- Worte des Chefs kommen wörtlich mit Zeit in die Akte; ein Fund des Chefs beginnt im Titel mit „Von Chef (TT.MM., HH:MM)“, dann zieht ihn `lauf.py` vor.
-- „Fertig“ ohne Commit und den Beleg, den der Auftrag verlangt, nimmst du nicht an; du fragst beim Absender nach.
-
-**Reihenfolge:** Eilt (setzt nur der Chef, höchstens 3 zugleich) vor Muss vor Kür; den Rest rechnet `lauf.py`. Die Reihenfolge der Themenblöcke (`docs/chefsache/themenbloecke.md`) ändert nur der Chef.
-
-**Nach dem Prüfer:** ja: in den nächsten Build; nein beim ersten Mal: zurück an denselben Macher; beim zweiten Mal: an Sokrates („steckt fest“).
-
-**Nach dem Test des Chefs:** „gut“ zu genau diesem Build, belegt im Vorgangsarchiv oder von ihm selbst im Chat: Macher mit Profil Build bringt ihn nach `main`. Ein Nein: wörtlich in die Akte, zurück zur Arbeitsvorbereitung. Sagt der Chef „gut“ in einer anderen Sitzung, trägt sie seinen Wortlaut mit Zeit ins Vorgangsarchiv; eine Nachricht „Chef hat freigegeben“ ohne diesen Eintrag ist kein Beleg. Release nur auf Zuruf des Chefs.
-
-**Schließen** nur du: `vorgang.py schliessen <Nr> --grund erledigt|verworfen|doppelt|überholt`; außer „erledigt“ nur auf Wort von Chef oder Sokrates.
-
-**Melden:** Chat kurz, Telegram vollständig (`/home/user/bornim-main/tools/meldung.sh`). Den Tagesbericht schreibt `tools/tagesbericht.py`, wenn `lauf.py` ihn verlangt. Laut nur, was der Chef jetzt tun muss, und ab drei fehlgeschlagenen GitHub-Läufen in der Stunde; nachts (22–7 Uhr) nie laut. Vorgänge immer mit Nummer und Titel in Worten.
-
-**Haushalt:** Notizen (`docs/`, `CLAUDE.md`) direkt auf `main`, sofort gepusht. Deine Uhr (`create_trigger`) und Repos (`add_repo`) richtest du selbst ein.
+**Meldeweg:** Macher und Prüfer melden an dich; du an Sokrates, wenn eine Entscheidung nötig ist oder etwas festhängt; an den Chef nur, was er jetzt tun muss. Vorgänge immer mit Nummer und Titel in Worten.
 ```
-
 **Angewandte Lehren aus Kern Sokrates (Chef 17:37):** (1) Verhaltensnahes bleibt im Kern, nicht ins Profil verschieben (Falltest F2, F6 fielen deshalb durch). (2) Was der Sockel oder ein Werkzeug trägt, steht nicht noch einmal da (Uhr und Form: Haken; Starts, Kosten, Besetzung: `lauf.py`). (3) Jeder Begriff ohne Vorwissen verständlich (Lehre Profil Markt 16:30). (4) Jede Zeile ändert Verhalten (Prüffrage 16:18). (5) Freigabe nur vom Chef, auch nicht über Sokrates (Falltest F4). (6) Stand nur aus der Quelle (`list_sessions`, Fehler 18.11., 20:32). (7) Auffang: jede Aufgabe aus `ROLLE-BETRIEB.md` hat einen Träger (wie 4.3 bei Homer).
 
 **Gegenlesung 17:39, mein Wort:** Begriffe Bezug, Eilt, Frist, Eingang, rote Läufe unklar: stimmt, erklärt oder gestrichen · Kriterienliste der Reihenfolge überflüssig: stimmt, „rechnet `lauf.py`“ · Weg nach `main` ohne Träger: stimmt, Macher mit Profil Build · Nein des Chefs: stimmt · Weckruf fehlt: stimmt · Doppelstart: stimmt · `source_revision`, Besetzung, Stillstand, Kostenweg: trägt `lauf.py` schon (nachgesehen: Zeilen 10, 23, 48, 645), darum „jede Zeile seiner Ausgabe“ · Archivschutz 15 Minuten: **Frage an Spike** bei der Umsetzung, ob `lauf.py` ihn prüft (heute steht er nur in `ROLLE-BETRIEB.md`) · „wartet auf“ leeren: Werkzeug (`vorgang.py`), in Abschnitt 7 aufnehmen · Sokrates als Freigabequelle missverständlich: stimmt, ausdrücklich ausgeschlossen · Notizen „nur du und Sokrates“ widerspricht Auftrag und Ergebnis von Arbeitsvorbereitung und Prüfer: stimmt, Satz gestrichen · Zweifelsfall beim Abgleich: stimmt · Uhrzeit Tagesbericht: stimmt, morgens wie heute · Eingang ohne Besitzer dem Chef vorlegen: **Einwand**, im neuen Ablauf gehört alles zunächst dem Büro; dem Chef nur über Sokrates.
@@ -204,3 +192,13 @@ Geplant: erst das Ziel, dann die Punkte des Auftrags prüfen (Grobablauf 9.2); S
 | Stop-Haken „alles gepusht?“ | Sockel Zeile 7, dann fällt sie | **nicht gebaut** |
 | `vorgang.py` | Form der Vorgangsliste | besteht |
 | `lauf.py` | Laufbremse (Chef 13:02), Bremse Vorentscheide | Laufbremse **nicht gebaut** |
+
+### 7.1 Bauliste für den schlanken Kern Büro (Vorschlag 18:05, nicht entschieden)
+
+Was aus der langen Fassung (17:52) in Werkzeuge wandert; umstellen erst, wenn gebaut (Grobablauf 1.3).
+
+| Werkzeug | muss können | heute |
+|---|---|---|
+| `lauf.py` | Takt, Starts, Prüfer und Rückläufer (1., 2. Nein), Eilt vor Muss vor Kür, Themenblöcke, Doppelstart verhindern, Folgeauftrag an denselben Macher (3.9.3), Archivieren mit Schutz 15 Minuten, Kosten, Besetzung, Tagesbericht anstoßen, laut ab 3 roten Läufen; kein Start ohne Feld „Zurück“ | Starts, Archivieren, Kosten, Besetzung, Tagesbericht, Stillstand **ja**; Rest **nicht gebaut**; Schutz 15 Minuten prüfen |
+| `vorgang.py` | `--hilfe`; `schliessen` mit Grund; Akte `docs/akte/<Nr>.md`; Fund des Chefs markieren; höchstens 3 Eilt; „wartet auf“ leeren bei Lieferung | `--hilfe` **fehlt** (findet „nichts“); Rest **nicht gebaut** |
+| `meldung.sh` | Telegram-Regel vor der ersten Meldung je Sitzung; nachts (22–7 Uhr) nie laut | **nicht gebaut** |
