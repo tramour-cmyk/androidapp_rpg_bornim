@@ -25,12 +25,15 @@ func _lauf() -> void:
 		var m := Gebiet.lade_glb(kf)
 		if m == null: continue
 		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
-		if sk == null or not Griff.hat_hand(sk, "r"):
+		if sk == null or not Griff.hat_hand(sk, "r") or Griff.netz_finger(sk, "r").is_empty():
+			# 1694 (19.11., 10:49): ohne Fingerknochen oder ohne Haut an den Fingern (Faust im Netz: daten/held.bin, daten/leute/*.bin,
+			# Ersatz ohne Kaufmodelle; Goblin, Kobold)
 			if sk != null and sk.get_bone_count() > 20: ohne.append(kf.get_file())
 			m.free(); continue
 		root.add_child(m)
 		Gebiet.male(m, null, 2, [])
 		for id in dinge:
+			if OS.get_environment("DING") != "" and id != OS.get_environment("DING"): continue
 			var h := Halt.gegenstand(id)
 			var d := Halt.anlegen(sk, "faust_r", id, "Gehalten1694")
 			if d == null: continue

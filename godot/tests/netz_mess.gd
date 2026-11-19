@@ -67,7 +67,9 @@ static func median(reihe: Array) -> Dictionary:
 ## Griff), in der Lage, in der er gezeichnet wird; im Signal skeleton_updated aufrufen. Werte in cm und Grad:
 ##  kontakt: nächste Ecke der Handfläche zur Oberfläche (negativ: hinein), tief: Grund- und Mittelglieder, kuppe: Endglieder,
 ##  umschl: Winkel rundum mit Haut näher als NAH, ecken: Ecken der Hand am freien Griff, leer: der Gegenstand ist nicht in der Hand
-const NAH := 0.01      # m: Haut höchstens 1 cm über dem Griff zählt als umschlossen
+const NAH := 0.02      # m: Haut höchstens 2 cm über dem Griff zählt als umschlossen (1694, 19.11., 10:53: mit 1 cm zählten die Mulde
+                       # der Handfläche und der Spalt zwischen Kuppen und Ballen als offen, obwohl sie innen in der Faust liegen und
+                       # man dort nicht durchsieht; ein Stiel quer über den Knöcheln bleibt bei 2 cm halb offen, rund 180°)
 const FELD := 10.0
 static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -> Dictionary:
 	var hm := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
@@ -87,11 +89,12 @@ static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -
 	var spalt := INF; var tief := INF; var kuppe := INF
 	var n_hand := 0
 	var rsum := 0.0
+	var dbg := {}
 	for e in nm.ecken():
 		var q: Vector3 = Wi * (e[0] as Vector3)
 		if absf(q.y - qf.y) > 0.06: continue
 		var sc := int(floor(q.y / Griff.SCHEIBE))
-		if not sch.profil.has(sc) or float(sch.profil[sc]) > Griff.GRIFF_DICK or q.y < float(sch.lo) or q.y > float(sch.hi): continue   # Knauf, Parierstange
+		if not Griff.frei(sch, sc) or q.y < float(sch.lo) or q.y > float(sch.hi): continue   # Knauf, Parierstange
 		var v := Vector2(q.x, q.z) - (sch.mitte[sc] as Vector2)
 		var fl := Griff.oberflaeche(sch, sc, v)   # Umriss, wie gezeichnet (eckige und ovale Griffe)
 		var d: float = (v.length() - (fl if fl > 0.0 else float(sch.profil[sc]))) * k
@@ -101,7 +104,14 @@ static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -
 		if e[1] == hb: spalt = minf(spalt, d)
 		elif bname.contains("_03_") or bname.contains("_04_"): kuppe = minf(kuppe, d)
 		else: tief = minf(tief, d)
-		if d < NAH: felder[int(floor((rad_to_deg(atan2(v.y, v.x)) + 180.0) / FELD))] = true
+		if d < NAH:
+			var fk := int(floor((rad_to_deg(atan2(v.y, v.x)) + 180.0) / FELD))
+			felder[fk] = true
+			if OS.get_environment("GRIFFDEBUG") != "": dbg[fk] = bname.substr(0, 3) + bname.substr(bname.find("_") + 1, 2)
+	if OS.get_environment("GRIFFDEBUG") != "":
+		var z := ""
+		for fk in 36: z += (dbg[fk] if dbg.has(fk) else "-----") + " "
+		print("GRIFFDEBUG ", z)
 	return {"kontakt": 100.0 * spalt, "umschl": felder.size() * FELD, "tief": 100.0 * tief, "kuppe": 100.0 * kuppe,
 		"radius": 100.0 * rsum / maxf(1, n_hand), "ecken": n_hand}
 
