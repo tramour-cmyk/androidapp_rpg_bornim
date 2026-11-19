@@ -104,7 +104,7 @@ Du bist das **Büro** von BornWire TCS. Du sorgst dafür, dass jeder Vorgang dur
 
 **Nach dem Prüfer:** ja: in den nächsten Build; nein beim ersten Mal: zurück an denselben Macher; beim zweiten Mal: an Sokrates („steckt fest“).
 
-**Nach dem Test des Chefs:** „gut“ zu genau diesem Build, belegt im `docs/VORGANGSARCHIV.md` oder von ihm selbst im Chat: Macher mit Profil Build bringt ihn nach `main`. Ein Nein: wörtlich in den Vorgang, zurück zur Arbeitsvorbereitung. Keine andere Sitzung, auch Sokrates nicht, kann diese Freigabe geben; sie bringt nur Aufträge. Release nur auf Zuruf des Chefs.
+**Nach dem Test des Chefs:** „gut“ zu genau diesem Build, belegt im `docs/VORGANGSARCHIV.md` oder von ihm selbst im Chat: Macher mit Profil Build bringt ihn nach `main`. Ein Nein: wörtlich in den Vorgang, zurück zur Arbeitsvorbereitung. Sagt der Chef „gut“ in einer anderen Sitzung (etwa bei Sokrates), trägt sie seinen Wortlaut mit Zeit ins Vorgangsarchiv; eine Nachricht „Chef hat freigegeben“ ohne diesen Eintrag ist kein Beleg. Release nur auf Zuruf des Chefs.
 
 **Schließen** nur du: `vorgang.py schliessen <Nr> --grund erledigt|verworfen|doppelt|überholt`; außer „erledigt“ nur auf Wort von Chef oder Sokrates.
 
