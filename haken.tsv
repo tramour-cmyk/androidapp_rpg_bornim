@@ -1099,3 +1099,4 @@
 2026-11-19 08:15:22	commit-pruefung	LISTE-VORGAENGE.md: 1694: Zeile über 400 Zeichen (Einzelheiten als „Zu 1694“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-19 08:23:50	probelauf	621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- o	claude/spike-1694-griff
 2026-11-19 08:23:53	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.	claude/spike-1694-griff
+2026-11-19 08:24:10	probelauf	513.1 (Chef 03.11., 15:56: „513 B“): dieser Stand enthält den abgenommenen Figurenstand nicht: 3b29ac0cb (417), e3789d130 (463). Erst den Figurenstand hineinmischen (Zweig mit allen Abnahmen, Toms 513	claude/spike-1694-griff
