@@ -87,6 +87,11 @@ Zwölf Befunde, mein Wort je Befund:
 
 Fünfzehn Befunde zu Sockel und Kern Sokrates; mein Wort: 1 Freigabe statt „nicht vom Chef“ stimmt · 2 Absender stimmt · 3 Auftrag statt Prüfart stimmt · 4 KISS streichen: **Einwand**, Chefwort 09:46/09:52, KISS heißt einfach, nicht unvollständig · 5 kommerzielle Nutzung stimmt · 6 Sitzungsende stimmt · 7 Keystore stimmt (dazu „Zugangsdaten“ für API-Schlüssel) · 8 Vertretung Vorbehalt stimmt · 9 Rollen erklärt stimmt · 10 „Was der Chef als Erster findet, ist dein Fehler“ stimmt · 11 BRS und Startwort erklärt stimmt · 12 Weisungen: stimmt, „beide nennen, der Chef entscheidet“ · 13 Gegenlesen: stimmt mit **Einwand**, nur Regeln, Prompts, Abläufe (jede Vorlage kostet sonst einen Helfer) · 14 in derselben Antwort eintragen stimmt · 15 Pfad, Übergabe, Lehren ins Profil stimmt. Den Wortlaut des Chefs „Vertreter des Chefs in seiner Abwesenheit“ habe ich gelassen (nicht umformulieren), der Folgesatz grenzt ein.
 
+## 5e Form für alle (Chef 14:51: „Ist die Form nicht für alle gleich?“)
+
+- 5e.1 Name und Zeit vor jeder Nachricht gilt für alle (der Chef liest jede Sitzung in der App). Das trägt der Uhr-Haken (`neustart-haken.py` Zeile 209, gibt Uhr und Formvorgabe bei jeder Nachricht); er bleibt als Ausnahme von „Mahnhaken abschalten“ (Grobablauf 12.1), weil er die Uhr liefert, die keine Sitzung selbst kennt. Darum weder im Sockel noch im Kern.
+- 5e.2 „Kurz“ trägt Sockel 4 für alle. Im Kern Sokrates bleibt nur, was nur er tut: Chat mit dem Chef, Telegram.
+
 ## 5a Kopfzeile und Signatur (Chef 13:16–13:27)
 
 - 5a.1 Kopfzeile ausgeschrieben statt „immersiv“ (Chef 13:18: „immersiv per se bringt nichts, aber dann halt das auszuschreiben, ist gut“); „erwachsen“ dazu. Gilt für jede Sitzung, weil sie die oberste Leitlinie ist (13:20).
