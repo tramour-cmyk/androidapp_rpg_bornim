@@ -20,25 +20,32 @@ import os, re, sys, datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar as s
 
-# Themenblöcke: Reihenfolge und Zuschnitt legt der Chef fest (Vorlage Perikles 15.11., 1313). Zuordnung ohne Raten:
-# zuerst Nummer (Vorsilbe), sonst Bereich der Zeile; was keinem Block zufällt, steht unter „Übriges“.
-# Reihenfolge wie „Teilprojekte bis Kapitel 1 fertig“ in PROJEKTPLAN.md (1061, Chef 12.11., 17:42).
-# Chef 15.11., 20:08: „Kapitel 1 nach vorne macht keinen Sinn, weil Umzug und Kampf passt und Godot besser nutzen, alles auch
-# zu Kapitel 1 abschließen passt“: Überschrift KAPITEL1 über allen Blöcken mit "kap1"; Abgleich alt (1280, 1281) bei Welt.
+# Themenblöcke (1727, Chef 19.11., 12:24): einzige Quelle ist docs/chefsache/themenbloecke.md (Zuschnitt und Reihenfolge
+# legt der Chef fest, Reihenfolge = Zeilenfolge). Zuordnung ohne Raten: zuerst Vorgangsnummer (Vorsilbe), sonst Bereich der
+# Zeile; was keinem Block zufällt, steht unter „Übriges“. Ersetzt die feste Liste hier und die Teilprojekte (1061).
 KAPITEL1 = "Kapitel 1 fertig (Godot, BRS)"
-BLOECKE = [
-    ("Umzug BRS, SRD ablösen", {"num": 1, "nr": ("870", "882", "1279"), "kap1": True}),
-    ("Kampf passt", {"num": 2, "bereich": ("E Kampf", "G Balance"), "kap1": True}),
-    ("Kleiderschrank und Modelle (Held, Leute, Monster)", {"num": 3, "bereich": ("E Figuren",), "kap1": True}),
-    # 1382 (Chef 16.11., 09:00 „Themenblock bei Pericles anlegen lassen, alles da reinpacken“): Kataloge 649, 644, 458, Unterbau Spike;
-    # über die Nummer, darum vor den Bereichsblöcken gezählt (block() prüft „nr“ zuerst), angezeigt an dieser Stelle
-    ("Alles an einer Stelle: Figuren, Helden, Gegenstände", {"num": 4, "nr": ("649", "644", "458", "1382", "1385", "1386"), "kap1": True}),
-    ("Welt, Karten, Bild, Ton, Bedienung (auch was gegenüber Kotlin fehlt)",
-     {"num": 5, "nr": ("1280", "1281"), "bereich": ("E Welt", "E Oberfläche", "E Klang", "G Stil", "G Story", "Q QS"), "kap1": True}),
-    ("Godot besser nutzen (Technik, Build, Leistung)", {"num": 6, "bereich": ("E Technik",), "kap1": True}),
-    ("Werkzeuge und Abläufe der Firma", {"num": 7, "bereich": ("B Steuerung", "B Abläufe", "B Werkzeuge", "Q QM")}),
-    ("Marktstart", {"num": 8, "bereich": ("M Markt", "M Veröffentlichung")}),
-]
+THEMEN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "chefsache", "themenbloecke.md")
+
+
+def _liste(zelle):
+    return tuple(x.strip() for x in zelle.split(",") if x.strip() and x.strip() not in ("–", "-"))
+
+
+def themen_laden(pfad=THEMEN):
+    """[(Name, {num, nr, bereich, kap1, ruht, profil})] in der Reihenfolge der Datei."""
+    bl = []
+    for z in open(pfad, encoding="utf-8"):
+        c = [x.strip() for x in z.strip().strip("|").split("|")]
+        if len(c) < 7 or not c[0].isdigit():
+            continue
+        bl.append((c[1], {"num": int(c[0]), "profil": c[2], "kap1": c[3].lower() == "ja",
+                          "ruht": "" if c[4] in ("–", "-") else c[4], "bereich": _liste(c[5]), "nr": _liste(c[6])}))
+    if not bl:
+        raise SystemExit("ueberblick.py: keine Themenblöcke in %s" % pfad)
+    return bl
+
+
+BLOECKE = themen_laden()
 UEBRIG = "Übriges"
 # 1440 (Chef 16.11., 14:19): jeder Block trägt eine feste Nummer („num“), damit der Chef „Block 3“ sagen kann; sie bleibt,
 # auch wenn Blöcke umgestellt werden; ein neuer Block bekommt die nächste freie Nummer, nie eine alte.
@@ -59,7 +66,10 @@ def block(d):
 
 
 def name(k):
-    return BLOECKE[k][0] if k < len(BLOECKE) else UEBRIG
+    if k >= len(BLOECKE):
+        return UEBRIG
+    n, r = BLOECKE[k]
+    return n + (" (ruht bis %s)" % r["ruht"] if r.get("ruht") else "")
 
 
 def nummer(k):
