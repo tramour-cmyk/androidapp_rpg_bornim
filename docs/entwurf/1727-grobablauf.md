@@ -244,7 +244,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 | 4.2 | **Sokrates** | Gespräch mit dem Chef; macht aus einem Chefwort einen Auftrag, einen Entscheid oder eine Idee; prüft und urteilt Ideen gegen Bestand und Leitbild (bisher Homer, 3.6.4); löst Festgefahrenes (3.3.5) | Sockel, Kern (bis 3 KB) |
 | 4.3 | **Büro** (Ford, gestärkt) | Abgleich, Vorgänge, Vorrang (heute Perikles), Starten, Einsortieren, Melden, Kosten, Regelwächter; das Mechanische macht `lauf.py` | Sockel, Kern (bis 3 KB) |
 | 4.4 | **Arbeitsvorbereitung** (heute Perikles; bei Chefthemen Sokrates) | schreibt je Vorgang einen Auftrag nach dem Baukasten (6) | Sockel, Baukasten, Akte des Vorgangs |
-| 4.5 | **Macher** (Pool ohne feste Fächer; die Rolle steht im Auftrag und im Profil: Figur, Level, Kampf, Klang, Werkzeug, Build, Story, Spieltext; auch Homer, 3.6) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil bei Bedarf |
+| 4.5 | **Macher** (Pool ohne feste Fächer; die Rolle steht im Auftrag und im Profil: Figur, Level, Kampf, Klang, Werkzeug, Build, Story, Spieltext; heute Tom, Jerry, Tuffy, Spike, auch Homer, 3.6; Tuffy fehlte, Chef 19.11., 22:23) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil bei Bedarf |
 | 4.6 | **Prüfer** (Diogenes) | prüft nach der Prüfart des Auftrags (3.2), bevor der Chef es sieht; meldet Funde außerhalb ans Büro | Sockel, Auftrag, Ergebnis |
 
 - 4.7 Feste Bereiche fallen weg (Chef 08:17): Verantwortung hängt am Vorgang, nicht an „Dorf“ oder „Höhle“. Damit zwei Macher sich nicht in die Quere kommen, sperrt das Büro je Auftrag ein Verzeichnis oder eine Szene.
