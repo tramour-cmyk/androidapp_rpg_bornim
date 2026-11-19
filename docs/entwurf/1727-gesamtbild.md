@@ -196,6 +196,7 @@ Geplant: erst das Ziel, dann die Punkte des Auftrags prüfen (Grobablauf 9.2); S
 | Werkzeug | trägt | Stand |
 |---|---|---|
 | Uhr-Haken (`neustart-haken.py`) | Uhrzeit und „Name fett und Zeit vor jeder Nachricht“, für alle | besteht; bleibt (14:51) |
+| Größenbremse (derselbe `neustart-haken.py`, 1520) | Sitzungsgröße: misst bei jedem Werkzeugaufruf, Erinnerung ab 200 Tsd. Token, Sperre ab 300 Tsd. (Sokrates 400/500, 1643; Ford keine, Verdichtung) | besteht; bei Umsetzung schrumpfen auf Sperre ohne Erinnerungstext, misst auch für Folgeaufträge an denselben Macher (Nullbasis 3.4.13, Grobablauf 3.9.3; Chef 17:45: „nicht, dass das dann unendlich groß wird“) |
 | `meldung.sh` | Telegram-Regel vor der ersten Meldung je Sitzung | **nicht gebaut** (Chef 13:58) |
 | Sperre Keystore, Zugangsdaten, Force-Push, `main` | Sockel Zeile 8, dann fällt sie | **nicht gebaut**; `.gitignore` schützt nur `local.properties` |
 | Stop-Haken „alles gepusht?“ | Sockel Zeile 7, dann fällt sie | **nicht gebaut** |
