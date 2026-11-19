@@ -18,7 +18,7 @@ Ein düsteres Rollenspiel mit eigener Geschichte und taktischem Kampf in einer 3
 
 **Welt**
 
-- **Tag und Nacht**: dunkle Nächte, Fackelschein um den Helden, erleuchtete Fenster; die Leute im Dorf gehen ihrem Tagwerk nach. Nachts kommen die Untoten in den Wald
+- **Tag und Nacht**: dunkle Nächte, Fackelschein um den Helden, erleuchtete Fenster. Nachts kommen die Untoten in den Wald
 - **Nebel über der Wildnis**: man sieht nur, was der Held sieht; das Land deckt sich beim Gehen auf
 - **Klang und Musik**: Geräusche aus echten Aufnahmen, düstere orchestrale Musik; man hört, was in der Nähe ist
 - **Sichtbare Monster** streifen durch Wald und Höhle. Wer von hinten angreift, schlägt zuerst; wer sich erwischen lässt, gerät in einen Hinterhalt
