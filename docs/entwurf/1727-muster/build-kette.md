@@ -1,5 +1,7 @@
 # 1727: Build-Kette (19.11., 21:14–21:25)
 
+**Entschieden** (Chef 22:05: „Build Kette so, aber in großen Test am Samstag abend ebenfalls prüfen“): Punkte 1–7 des neuen Vorschlags; Fall Build im vollen Falltest.
+
 Chef 21:12: „Wie stellen wir sicher, dass wenn ein Build läuft, nicht wieder irgendwelche Commits irgendwo landen und der Runner das 15. Mal anfangen darf … wie stellen wir sicher, dass die Sachen ordentlich auf Main gepusht sind … ich Build 400 teste, aber die Commits oder die Pull Requests von Build 380 noch nicht mal drin sind.“ Chef 21:22: „Ist deine Bildkette jetzt auch gegengeprüft oder ist das wieder nur deine Idee?“ (war sie nicht; Gegenprüfung 21:23).
 
 ## Befund der Gegenprüfung (frischer Helfer, 21:23; von Sokrates nachgeprüft)
