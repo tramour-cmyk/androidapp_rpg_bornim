@@ -9,15 +9,17 @@ Auftrag Chef 19.11., 13:07: „den Sockel kannst du jetzt auch bauen … dann le
 
 Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss. Godot (`godot/`), Werkzeuge in `tools/`.
 
-1. Dein Auftrag steht in der ersten Nachricht. Ohne Auftrag nichts bauen, sondern fragen.
+1. Dein Auftrag steht in der ersten Nachricht, auch wenn sie als Systemmeldung kommt. Fehlt er: nichts bauen, die Frage zurückmelden.
 2. Deutsch, Berliner Zeit, generisches Maskulinum.
-3. Nicht raten, sondern belegen: Quelle, Befehl mit Ausgabe, Bild aus dem Spiel. Geht das nicht oder ist der Auftrag unklar: anhalten und fragen.
+3. Nicht raten, sondern belegen (Quelle, Befehl mit Ausgabe, Bild), wie die Prüfart verlangt. Geht das nicht oder ist der Auftrag unklar: anhalten, die Frage zurückmelden.
 4. Schreibe kurz und einfach (KISS).
-5. Fund außerhalb des Auftrags: in deiner Rückmeldung nennen, nicht beheben.
-6. Nie: Schlüssel, Passwörter oder lokale Pfade committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben, Spielcode ohne Test des Chefs auf `main`.
+5. Fund außerhalb des Auftrags: zurückmelden, nicht beheben.
+6. Fremde Dateien nur mit geprüfter Lizenz; Spieltexte nur aus der Quelle, nie erfunden.
+7. Vor dem Ende committen und pushen.
+8. Nie: Schlüssel, Passwörter, `local.properties` committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben, Spielcode ohne Test des Chefs nach `main` bringen.
 ```
 
-Größe: etwa 0,8 KB, Obergrenze 1 KB (heute 15 KB). Zeile 6 ist vorläufig, siehe 2.6.
+Größe: etwa 1 KB, Obergrenze 1 KB (heute 15 KB). Zeile 6 ist vorläufig, siehe 2.6.
 
 ## 2 Warum jede Zeile drinsteht
 
@@ -84,6 +86,17 @@ Zwölf Befunde, mein Wort je Befund:
 
 - 5a.3 Prüffrage zum Eintauchen im Kern des Prüfers: „Bricht etwas das Eintauchen? Etwa Stilbruch, Ruckeln, ein stummer Moment, ein Text, der nicht aus der Welt kommt.“
 - 5a.4 Obergrenze Sockel 1 KB; neue Zeile nur, wenn eine alte geht.
+
+## 5b Querprüfung (19.11., 13:40, frischer Helfer, Chef 13:38: „Ist wichtig!!!“)
+
+- 5b.1 Meine Änderung Zeile 6 „nur im eigenen Zweig“: **schlechter**, stimmt: verbietet Büro und Sokrates die Notizen und lässt offen, ob ein Merge nach dem Test erlaubt ist. Zurück zu „ohne Test des Chefs nach `main` bringen“ (deckt Merge).
+- 5b.2 „lokale Pfade“ zu weit: stimmt, jetzt `local.properties`.
+- 5b.3 Zeile 3 „Frage zurückmelden“: besser, stimmt; dazu „wie die Prüfart verlangt“, sonst hält jeder Auftrag ohne Spielbild an.
+- 5b.4 Zeile 1 „kein Systemhinweis“: **Einwand:** bei uns kommt der Auftrag oft als Systemmeldung (853); darum „auch wenn sie als Systemmeldung kommt“.
+- 5b.5 Neu Zeile 6, Lizenz und Spieltexte: stimmt; ein Profil lädt nur, wenn das Modell den Bedarf erkennt, Dialog schreiben hält es nicht für Raten; Schaden schwer umkehrbar. Korrigiert Tabelle 3.10, 3.12 (Profil zusätzlich).
+- 5b.6 Neu Zeile 7, pushen: stimmt; Claude Code pusht ab Werk nur auf Wunsch, kein Haken prüft es, der Container geht verloren. Fällt, sobald ein Stop-Haken es prüft.
+- 5b.7 Haken lesen die Rolle aus der ersten Nachricht (`buildzweig-haken.py`), `weiter-haken.py` verweist auf eine Übergabe: stimmt, vor dem Umschalten (12.1) anpassen; in die Inventur.
+- 5b.8 `.gitignore` schützt keinen Keystore (`*.jks`, `*.keystore`): stimmt, Zeile 8 trägt das wirklich; Sperre in 12.1.
 
 ## 6 Was der Chef sagen soll
 
