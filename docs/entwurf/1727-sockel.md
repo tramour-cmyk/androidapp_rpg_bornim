@@ -1,5 +1,7 @@
 # 1727 · Sockel: die neue `CLAUDE.md` (Entwurf Sokrates, 19.11., 13:10)
 
+[Bild von 19.11., 15:21](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/19-1521-1727-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 Auftrag Chef 19.11., 13:07: „den Sockel kannst du jetzt auch bauen … dann leg mal vor, dass ich es nachvollziehen kann.“ Grundlage: Grobablauf 1.1, 3.5, 3.7, 5, 11.4 (`1727-grobablauf.md`). Gilt erst mit deinem Wort; die heutige `CLAUDE.md` bleibt bis dahin.
 
 ## 1 Der Sockel (so käme er in `CLAUDE.md`)
