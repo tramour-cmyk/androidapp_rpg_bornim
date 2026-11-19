@@ -42,7 +42,7 @@ flowchart TD
 | **Macher** (Pool, Namen bleiben: Tom, Jerry, Homer, Spike) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil lädt bei Bedarf |
 | **Prüfer** (Diogenes) | prüft das Ergebnis gegen die Prüfpunkte des Auftrags, bevor der Chef es sieht | Sockel, Auftrag, Ergebnis |
 
-Feste Bereiche fallen weg (Chef 08:17): Verantwortung hängt am Vorgang, nicht an „Dorf“ oder „Höhle“. Damit zwei Macher sich nicht in die Quere kommen, sperrt das Büro je Auftrag die Dateien, die er anfasst.
+Feste Bereiche fallen weg (Chef 08:17): Verantwortung hängt am Vorgang, nicht an „Dorf“ oder „Höhle“. Damit zwei Macher sich nicht in die Quere kommen, sperrt das Büro je Auftrag ein Verzeichnis oder eine Szene.
 
 ## Was in jede Sitzung muss (Sockel, etwa 1,5 KB, statt heute 15 KB)
 
