@@ -135,6 +135,21 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.12.3 *Darum drei Regeln für jedes Werkzeug:* (1) Es **handelt oder sperrt**, es mahnt nicht; Ausgabe nur, wenn die Sitzung etwas tun muss. (2) Je Werkzeug eine Zeile in einem Verzeichnis: was es tut, welche Textregel es ersetzt; ohne ersetzte Regel oder Nutzen fliegt es. (3) Jede Regel im Code hat einen Satz in Deutsch daneben, den der Chef lesen kann.
 - 3.12.4 *Vorgehen:* Inventur als erster Auftrag an einen Macher mit Profil Werkzeug (12.1): je Werkzeug genutzt ja/nein (Aufrufe in Haken, `lauf.py`, Git), ersetzt welche Regel, redet es. Ergebnis: Liste behalten / zusammenlegen / streichen, an Sokrates, Entscheid beim Chef nur, wo eine Regel des Chefs dranhängt.
 
+**3.13 Was im Hintergrund läuft und was es kostet** (Chef 10:17: „Ist Tools der Oberbegriff? … kosten die dann auch Token? … KISS“).
+- 3.13.1 *Oberbegriff:* **Werkzeug** = ein Programm (Skript, meist in `tools/`). Ein **Haken** ist kein eigenes Ding, sondern ein Auslöser: Claude Code startet ein Werkzeug von selbst, wenn etwas passiert.
+- 3.13.2 *Fünf Sorten:*
+
+   | Nr. | Sorte | Beispiele bei uns | Kostet Token? | Verwässert? |
+   |---|---|---|---|---|
+   | 3.13.3 | **A Text, immer geladen** | `CLAUDE.md`, Schreibstil „Knapp“, Systemprompt und Werkzeugliste von Claude Code | ja, bei jeder Antwort (zwischengespeichert billiger) | ja, liest jede Sitzung immer |
+   | 3.13.4 | **B Text, bei Bedarf** | Rollendatei, Vorrat, Profil, Auftrag | erst beim Lesen, dann bis Sitzungsende | nur, wenn es nicht zur Aufgabe passt |
+   | 3.13.5 | **C Haken** | 14 Einträge: Start, jede Nachricht des Chefs, vor und nach jedem Werkzeugaufruf, Ende | das Prüfen nicht (läuft außerhalb des Modells); **was er zurückschreibt, ja** | ja, wenn er redet: „Uhr“ nach jedem Aufruf, „Kernregeln“ bei jeder Nachricht, sieben Warnzeilen beim Start |
+   | 3.13.6 | **D Werkzeug, von der Sitzung aufgerufen** | `vorgang.py`, `meldung.sh`, `lauf.py` | Aufruf und Ausgabe ja, das Rechnen nicht | wenig, wenn die Ausgabe kurz ist |
+   | 3.13.7 | **E Läufe auf GitHub** | 8 Abläufe: APK bauen, Tests, Webseite | nein, ganz autark; erst wer das Ergebnis liest, zahlt | nein |
+
+- 3.13.8 *Wie sie sich beeinflussen:* Haken starten Werkzeuge; Werkzeuge schreiben Dateien, die andere lesen; reden mehrere Haken zugleich, summiert sich ihr Text; sagt ein Haken etwas anderes als `CLAUDE.md`, wählt das Modell beliebig (Quelle in 1625).
+- 3.13.9 *Faustregel:* **Unsichtbar ist nur, was nichts zurückschreibt.** Darum: viel E, Haken nur zum Sperren oder stillen Handeln, A so klein wie möglich (5), D mit kurzer Ausgabe.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
