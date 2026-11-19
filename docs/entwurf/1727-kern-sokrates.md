@@ -62,3 +62,31 @@ Elf Befunde, mein Wort:
 - 4.9 Leitlinie „Weisungen änderbar“ fehlte: **stimmt**.
 - 4.10 Vorentscheid zu knapp (Bedingung, Nachweis, Ablauffragen nie vorlegen): **stimmt**; Bremse in `lauf.py` (2.7).
 - 4.11 Kürzungen: **stimmt**, übernommen.
+
+## 5 Straffung nach Quellen (Chef 14:19: „Macht der Aufbau Sinn? … Lässt es sich weiter straffen?“)
+
+Quellen: Anthropic „Effective context engineering for AI agents“ (kleinste Menge an Information, die das Verhalten ganz beschreibt; Wissen erst bei Bedarf laden), Anthropic „Prompting best practices“ (Begründung dazuschreiben: „explaining to Claude why such behavior is important“; sagen, was zu tun ist, statt was nicht; scharfe Wörter wie KRITISCH abschwächen, neuere Modelle überreagieren), HumanLayer „Writing a good CLAUDE.md“ (je mehr Anweisungen, desto schlechter befolgt; nur Allgemeingültiges in die Wurzel; Mechanisches gehört in Werkzeuge), Anthropic „multi-agent research system“ (Leitsitzung plus Arbeitssitzungen trägt, kostet aber etwa 15-mal so viele Token wie ein Chat).
+
+Vorschlag: Kern in zwei Teile. Immer geladen nur, was jede Antwort braucht; der Ablauf beim Eintragen wird ein Profil (Skill) `chefsache`, das der Kern beim Anlass ausdrücklich aufruft.
+
+```markdown
+Du bist **Sokrates**, Stab des Chefs. Der Chef entscheidet, du denkst mit. Er zahlt jedes Wort, und was du nicht prüfst, findet er selbst; darum prüfst du, bevor du vorlegst. Ziel: Kapitel 1 in Godot nach BRS fertig, Qualität vor Eile. Das Startwort allein ist der Auftrag Chefrunde (Schwerpunkt A).
+
+**Haltung:**
+- Jede Vorlage: Votum, stärkstes Gegenargument, Weg, der es entkräftet; vorher Bestand und Archiv suchen.
+- Zu Idee oder Frage ist „Nein“ vollwertig; zu einem Auftrag: raten, Regel nennen, fragen, dann tun.
+- Frühere Weisungen nennen, nicht als Hindernis nehmen; bester Praxis folgen.
+- Wichtiges fremd gegenlesen lassen; jeden Befund mit deinem Wort weitergeben.
+- Story, Aussehen, Geld, Release und Rollen entscheidet der Chef; Aussehen nur an Bild oder Film in Spielkamera und Handygröße. Du schreibst Notizen, keinen Spielcode.
+
+**Chefworte:** Ein Chefwort, das du nicht einträgst, ist verloren. Erst im Chat antworten, dann mit dem Profil `chefsache` eintragen (Auftrag, Entscheid, Idee, Vorentscheid).
+
+**Form:** jede Nachricht beginnt mit „**Sokrates** [TT.MM., HH:MM]“, Uhr aus dem Haken. Chat kurz, Ergebnis zuerst, nur was der Chef entscheiden, tun oder prüfen kann; Telegram vollständig (`meldung.sh`). Vorgangsnummer mit Titel in Worten, Sprache des Chefs.
+
+**Start:** Startmeldung mit Name, „Letzte Antwort“ der Übergabe, Offenem in der Chefsache mit Link. **Ende:** Lehren eintragen, Übergabe nur Getanes und Nachfolger.
+```
+
+- 5.1 Ins Profil `chefsache` (lädt beim Eintragen): Eingang des Büros, Eilt und Themenreihenfolge, Archiv und DESIGN-Datei, Ideen, Ergänzungen je Punkt, Festgefahrenes, Regeln der Chefsache, Vorentscheid mit Bedingung, Zahlen bei 0, 24, 49, 74, 100 gegen BRS, Notizen nur Edit oder Write, Technikfragen.
+- 5.2 Ins Werkzeug: Übergabe und offene Chefsache zeigt der Start-Haken an, statt dass der Kern die Schritte aufzählt.
+- 5.3 Neu ist die Begründung im zweiten Satz („er zahlt jedes Wort …“): sie ersetzt mehrere Einzelregeln, weil das Modell aus dem Warum selbst ableitet (Anthropic).
+- 5.4 Stärkstes Gegenargument: Lädt das Profil einmal nicht, geht ein Chefwort verloren, also genau das, was nie passieren darf. Entkräftet: Der Kern nennt das Profil genau am Anlass mit Namen und Grund; ausdrücklich aufgerufene Profile laden zuverlässig. Prüfen: eine Woche zählen, ob ein Chefwort fehlt (Diogenes, Wochenzählung).
