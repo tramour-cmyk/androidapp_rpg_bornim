@@ -178,6 +178,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.16.3 *Wirkung im Reihenfolge-Werkzeug (3.15.7):* Eilt vor allem; dann Muss nach **Rang des Blocks**, darin nach den Regeln (Funde des Chefs, Engpass, Wiederholer, Alter); dann Kür ebenso. Ruht ein Block, startet keiner seiner Vorgänge, ohne dass jemand jede Zeile anfasst.
 - 3.16.4 *Stärkstes Gegenargument:* Block und Profil scheinen doppelt. *Entkräftet:* Der Block sagt **wofür** (Ziel, etwa „Kampf passt“), das Profil **womit** (Handwerk, etwa Figur). Der Biss des Wolfs (760) ist Block Kampf, Profil Figur und Kampf. Darum zwei Spalten; der Vorschlag aus dem Profil spart meist die Arbeit.
 - 3.16.5 *Zweites Gegenargument:* Ein Block ganz oben lässt andere verhungern. *Entkräftet:* Das Alter hebt jeden Vorgang mit der Zeit an (3.15.7); und was eilt, setzt der Chef mit „Eilt“ ohnehin vor alles.
+- 3.16.6 *Auswertung* (Chef 11:52: „Wir haben ja zur Auswertung Bereiche. Themenblock wäre dann auch gut, oder?“): **Ja.** Kosten, Läufe, Rückläufer und Alter je Block **und** je Profil (bisher Bereich, 651): der Block sagt, was ein Ziel kostet („Kampf passt“), das Profil, was eine Art Arbeit kostet (Figur). Beides im einen Kostenwerkzeug (Nullbasis 3.3.3), aus denselben Spalten, ohne Handarbeit.
 
 ## 4 Wer was tut
 
