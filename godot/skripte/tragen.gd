@@ -425,193 +425,74 @@ func _faust_zu(sk: Skeleton3D, ih: int, d: Vector3) -> Vector3:
 	var m := (k + summe / n) * 0.5
 	return k + (m - k) - d * (m - k).dot(d)   # nur quer zum Schaft verschoben, laengs bleibt der Griff
 
-# 1694 (Chef 18.11., 17:01 „Als Systemlösung“; griff_mess_1694, Kaufstand: mit der festen Beugung FAUST_BEUGE lagen die Fingerspitzen
-# am Handbeil 1,9-3,1 cm vor dem Stiel, die Faust schloss nicht): nach dem Stellen der Waffe jeden Finger weiter beugen (oder öffnen),
-# bis seine Spitze an der Oberfläche des Schafts liegt; Achse [o] + t·[d] und Radius [r] im Skelettraum. Hält die Hand den Schaft nicht
-# (Handfläche weiter als HALT_WEIT von der Achse), bleibt es bei der Beugung aus _faust_zu
-const SCHLIESS_SCHRITT := 4.0      # Grad je Schritt, auf die Glieder verteilt
-const SCHLIESS_HOECHST := 15       # Schritte je Glied und Richtung (60° zu den 40° aus FAUST_BEUGE: höchstens 100° je Glied)
-const HAUT := 0.009                # m: Endgliedspitze (Knochen) so weit über der Oberfläche: die Fingerkuppe liegt an
-const HAUT_MIN := 0.004            # m: näher: Kuppe im Schaft, Finger öffnen
-const HALT_WEIT := 0.07
+# 1694 (Chef 18.11., 17:01 „Als Systemlösung“): nach dem Stellen der Waffe den Schaft an die Stelle in der Faust und die Finger um den
+# Schaft, für alle Figuren gleich (skripte/griff.gd); Zweihänder: die zweite Hand an den Schaft (griff2 aus halt.json, sonst eine
+# Handbreite unter dem ersten Griff) und dort ebenso geschlossen
 var schaft_radius := -1.0
 static var griff_1694 := OS.get_environment("GRIFF1694") != "0"   # 0: wie vorher (Vergleichsbild)
-func _schliessen(sk: Skeleton3D, ih: int, o: Vector3, d: Vector3, r: float) -> void:
-	var mf := sk.find_bone("middle_01_" + seite)
-	var quer := func(p: Vector3) -> float:
-		var v := p - o
-		return (v - d * v.dot(d)).length()
-	if mf < 0 or float(quer.call(sk.get_bone_global_pose(mf).origin)) > HALT_WEIT: return
-	for f in FINGER:
-		var kette: Array[int] = []
-		for g in ["_01_", "_02_", "_03_"]:
-			var i := sk.find_bone(f + g + seite)
-			if i >= 0: kette.append(i)
-		if kette.size() < 2 or not beuge_wahl.has(f): continue
-		var vz: float = beuge_wahl[f]
-		# 1694 (Chef 17:38: „der Stiel liegt nicht in der geschlossenen Hand“): nicht nur die Spitze, jedes Glied (Gelenke, Mitten,
-		# Spitze) bleibt außerhalb des Schafts; der Finger beugt sich, bis sein nächster Punkt anliegt
-		# Glied für Glied wie eine greifende Hand: erst das Grundgelenk, bis Grund-, Mittel- oder Endglied anliegt, dann das
-		# Mittelgelenk, dann das Endgelenk; ein Glied, das schon im Schaft steckt, öffnet sich
-		var ab := func(von: int) -> float:
-			var pts: Array[Vector3] = []
-			for k in range(von, kette.size()):
-				pts.append(sk.get_bone_global_pose(kette[k]).origin)
-			pts.append(_spitze(sk, kette[-1]))
-			var m := INF
-			for k in range(1, pts.size()):
-				m = minf(m, minf(float(quer.call(pts[k])), float(quer.call((pts[k] + pts[k - 1]) * 0.5))))
-			return m - r
-		for j in kette.size():
-			var a: float = ab.call(j)
-			var richtung := 1.0 if a > HAUT else (-1.0 if a < HAUT_MIN else 0.0)
-			if richtung == 0.0: continue
-			for s in SCHLIESS_HOECHST:
-				_beuge(sk, kette[j], d, vz * richtung * SCHLIESS_SCHRITT)
-				a = ab.call(j)
-				if (richtung > 0.0 and a <= HAUT) or (richtung < 0.0 and a >= HAUT_MIN): break
-	_daumen_zu(sk, quer, d, r)
-
-# 1694 (Einzelbild 23:08 längs am gezeichneten Netz: Schaft liegt an der Handfläche, Finger darum, der Daumen steht offen über dem
-# Zeigefinger): Mittel- und Endglied des Daumens um die Schaftachse beugen, bis der Daumen anliegt; die Richtung, in der der
-# Abstand kleiner wird (der Daumen hat keine feste Beugeseite wie die Finger)
-const DAUMEN_HAUT := 0.014         # m: Daumenkuppe (Knochen) über der Oberfläche; der Daumen ist dicker als die Finger
-func _daumen_zu(sk: Skeleton3D, quer: Callable, d: Vector3, r: float) -> void:
-	var kette: Array[int] = []
-	for g in ["_02_", "_03_"]:
-		var i := sk.find_bone("thumb" + g + seite)
-		if i >= 0: kette.append(i)
-	if kette.is_empty(): return
-	var ab := func() -> float:
-		var sp := _spitze(sk, kette[-1])
-		var gl := sk.get_bone_global_pose(kette[-1]).origin
-		return minf(float(quer.call(sp)), float(quer.call((sp + gl) * 0.5))) - r
-	for j in kette.size():
-		var a: float = ab.call()
-		if a <= DAUMEN_HAUT: return
-		_beuge(sk, kette[j], d, SCHLIESS_SCHRITT)
-		var vz := 1.0 if float(ab.call()) < a else -1.0
-		if vz < 0.0: _beuge(sk, kette[j], d, -SCHLIESS_SCHRITT)
-		for s in SCHLIESS_HOECHST:
-			var vorher: float = ab.call()
-			if vorher <= DAUMEN_HAUT: return
-			_beuge(sk, kette[j], d, vz * SCHLIESS_SCHRITT)
-			var nach: float = ab.call()
-			if nach < HAUT_MIN or nach >= vorher:   # im Schaft oder kein Fortschritt: zurück und nächstes Glied
-				_beuge(sk, kette[j], d, -vz * SCHLIESS_SCHRITT); break
-
-# Spitze des Endglieds (Skelettraum): Kind des Knochens, sonst Ende in Richtung des Glieds
-static func _spitze(sk: Skeleton3D, l: int) -> Vector3:
-	var ch := sk.get_bone_children(l)
-	if ch.size() > 0: return sk.get_bone_global_pose(ch[0]).origin
-	var gb := sk.get_bone_global_pose(l).origin
-	return gb + (gb - sk.get_bone_global_pose(sk.get_bone_parent(l)).origin) * 0.85
-
-# 1694: Radius des Schafts am Griff (m, Raum des Modells): Median der Abstände zur Achse der Ecken von 10 cm unter bis 2 cm über dem
-# Griffpunkt (dort liegt die Faust; darüber Parierstange und Klinge), nur unter 3 cm; ohne Ecken 1,5 cm
+var merk := {}
+var merk2 := {}
 func _radius() -> float:
-	if schaft_radius >= 0.0: return schaft_radius
-	schaft_radius = 0.015
-	if waffe == null: return schaft_radius
-	var m := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
-	var g := Halt.griff_rahmen(m)
-	var rs := []
-	for mi in waffe.find_children("*", "MeshInstance3D", true, false) + ([waffe] if waffe is MeshInstance3D else []):
-		var me := (mi as MeshInstance3D).mesh
-		if me == null: continue
-		var tr := g.affine_inverse() * HeldFigur.im_raum(waffe, mi)
-		for s in me.get_surface_count():
-			for q in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]:
-				var v: Vector3 = tr * q
-				if v.y < -0.10 or v.y > 0.02: continue
-				var rq := Vector2(v.x, v.z).length()
-				if rq > 0.003 and rq < 0.03: rs.append(rq)
-	if not rs.is_empty():
-		rs.sort()
-		schaft_radius = rs[rs.size() / 2]
+	if schaft_radius < 0.0: schaft_radius = Griff.radius(waffe, halt) if waffe else 0.015
 	return schaft_radius
-
-# 1694: nach _stelle den Schaft in die Faust und die Finger an den Schaft (Lage der Waffe aus ihrem Knoten, in den Skelettraum).
-# griff_mess_1694 (Kaufstand): die Schaftachse lag 3,7 cm vor dem Mittelfingergrundgelenk (Handbeil, Schwert: die Finger erreichten
-# den Stiel nicht) bzw. 0,6 cm (Stab: Stab durch die Knöchel, 1657); in der Faust liegt sie Radius + FAUST_TIEFE zur Handfläche hin
-const FAUST_TIEFE := 0.011        # m: Grundgelenk (Knochen) bis Haut der Handinnenseite, wenn das Netz nichts liefert
-const FAUST_VOR := 0.01            # m: Schaft so weit zu den Fingern hin, unter dem Grundglied
-const EINDRUCK := 0.002            # m: der Schaft drückt so weit in die Haut der Handfläche (anliegend, kein Spalt)
-var haut_tiefe := -1.0
-# 1694/1711 (griff_sicht_1694 am gezeichneten Netz, 18.11., 23:05): die Haut der Handinnenseite liegt beim Kaufkörper 1,0-1,1 cm unter
-# dem Mittelfingergrundgelenk, die feste Tiefe 2 cm ließ 1,9 cm Spalt zwischen Schaft und Handfläche, der Stiel hing in den gekrümmten
-# Fingern („an den Fingerspitzen“). Darum die Tiefe aus dem Netz der Figur (Held, Leute, Monster): Ecken mit Hauptgewicht am Handknochen
-# in Ruhelage (Bindepose), in höchstens 1,2 cm Abstand von der Linie durch das Grundgelenk zur Handinnenseite; die tiefste ist die Haut
-func _haut(sk: Skeleton3D, ih: int) -> float:
-	if haut_tiefe >= 0.0: return haut_tiefe
-	haut_tiefe = FAUST_TIEFE * mass() / maxf(0.001, sk.global_basis.get_scale().y)
-	var mf := sk.find_bone("middle_01_" + seite); var zf := sk.find_bone("index_01_" + seite)
-	var kf := sk.find_bone("pinky_01_" + seite); var th := sk.find_bone("thumb_01_" + seite)
-	if mf < 0 or zf < 0 or kf < 0 or th < 0: return haut_tiefe
-	var H := sk.get_bone_global_rest(ih)
-	var mp := sk.get_bone_global_rest(mf).origin; var hp := H.origin
-	var lang := (mp - hp).normalized()
-	var fl := lang.cross((sk.get_bone_global_rest(zf).origin - sk.get_bone_global_rest(kf).origin).normalized()).normalized()
-	if fl.dot(sk.get_bone_global_rest(th).origin - hp) < 0.0: fl = -fl
-	var basis := mp + lang * FAUST_VOR * mass() / maxf(0.001, sk.global_basis.get_scale().y)
-	var tief := -INF
-	for mi in sk.find_children("*", "MeshInstance3D", false, false):
-		var m3 := mi as MeshInstance3D
-		if m3.mesh == null or m3.skin == null or not m3.visible: continue
-		var bind := -1
-		for k in m3.skin.get_bind_count():
-			var nm := m3.skin.get_bind_name(k)
-			if (sk.find_bone(nm) if nm != "" else m3.skin.get_bind_bone(k)) == ih: bind = k
-		if bind < 0: continue
-		var B := m3.skin.get_bind_pose(bind)
-		for su in m3.mesh.get_surface_count():
-			var a := m3.mesh.surface_get_arrays(su)
-			var pos = a[Mesh.ARRAY_VERTEX]; var kn = a[Mesh.ARRAY_BONES]; var gw = a[Mesh.ARRAY_WEIGHTS]
-			if pos == null or kn == null or gw == null or pos.size() == 0: continue
-			var je: int = kn.size() / pos.size()
-			for vi in pos.size():
-				var best := -1; var bw := 0.0
-				for k in je:
-					if gw[vi * je + k] > bw: bw = gw[vi * je + k]; best = int(kn[vi * je + k])
-				if best != bind: continue
-				var p: Vector3 = H * (B * pos[vi])      # Ecke in Ruhelage, Skelettraum
-				var rel := p - basis
-				var t := rel.dot(fl)
-				if t > 0.0 and (rel - fl * t).length() < 0.012 * mass() / maxf(0.001, sk.global_basis.get_scale().y): tief = maxf(tief, t)
-	if tief > 0.0: haut_tiefe = tief
-	return haut_tiefe
 func _an_schaft(sk: Skeleton3D, ih: int) -> void:
-	if waffe == null or not griff_1694: return
+	if waffe == null or not griff_1694 or not Griff.hat_hand(sk, seite): return
 	var m := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
 	var G := sk.global_transform
 	var g := G.affine_inverse() * waffe.global_transform * Halt.griff_rahmen(m)
 	var d := g.basis.y.normalized()
 	var r := _radius() * mass() / maxf(0.001, sk.global_basis.get_scale().y)
-	var mf := sk.find_bone("middle_01_" + seite)
-	if mf >= 0:
-		var mp := sk.get_bone_global_pose(mf).origin
-		# Handinnenseite: senkrecht auf Fingerrichtung und Knöchellinie, zur Seite des Daumens (vorher _handflaeche: seitlich zum
-		# Daumenansatz, der Schaft lag neben der Faust)
-		var fl := Vector3.ZERO
-		var zf := sk.find_bone("index_01_" + seite); var kf := sk.find_bone("pinky_01_" + seite); var th := sk.find_bone("thumb_01_" + seite)
-		var hp := sk.get_bone_global_pose(ih).origin
-		var lang := (mp - hp).normalized()
-		if zf >= 0 and kf >= 0 and th >= 0:
-			fl = lang.cross((sk.get_bone_global_pose(zf).origin - sk.get_bone_global_pose(kf).origin).normalized()).normalized()
-			if fl.dot(sk.get_bone_global_pose(th).origin - hp) < 0.0: fl = -fl
-		var v := mp - g.origin
-		var nah := g.origin + d * v.dot(d)                     # Punkt der Achse gegenüber dem Grundgelenk
-		if mp.distance_to(nah) <= HALT_WEIT and fl != Vector3.ZERO:
-			fl = (fl - d * fl.dot(d)).normalized()
-			var ziel := mp + fl * (r + _haut(sk, ih) - EINDRUCK * mass() / maxf(0.001, sk.global_basis.get_scale().y)) + lang * FAUST_VOR
-			var schub := ziel - nah
-			schub -= d * schub.dot(d)
-			waffe.global_position += G.basis * schub
-			g.origin += schub
-	_schliessen(sk, ih, g.origin, d, r)
+	var w := Griff.schub(sk, seite, g.origin, d, r)
+	if w != Vector3.ZERO:
+		waffe.global_position += G.basis * w
+		g.origin += w
+	Griff.schliessen(sk, seite, g.origin, d, r, merk)
+	if gang == "axt": _zweite_hand(sk, g.origin, d, r)
 	if merken:
 		posen.resize(sk.get_bone_count())
 		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
+
+# 1694, 1649 (linke Faust reicht nicht an den Schaft): die andere Hand mit dem Arm an den Schaft, auf der Höhe des zweiten Griffs
+const ZWEIT_ABSTAND := 0.11        # m längs des Schafts unter dem ersten Griff, wenn halt.json keinen zweiten nennt (eine Handbreite)
+func _zweite_hand(sk: Skeleton3D, o: Vector3, d: Vector3, r: float) -> void:
+	var s2 := "l" if seite == "r" else "r"
+	if not Griff.hat_hand(sk, s2): return
+	var iu := sk.find_bone("upperarm_" + s2); var il := sk.find_bone("lowerarm_" + s2); var ih2 := sk.find_bone("hand_" + s2)
+	if iu < 0 or il < 0: return
+	var u := Griff.einheit(sk, s2)
+	var ab := float(halt.get("griff2", -ZWEIT_ABSTAND)) * u if halt.has("griff2") else -ZWEIT_ABSTAND * u
+	var punkt := o + d * ab
+	# zwei Schritte: die Hand so drehen und verschieben (Arm folgt, Ellbogen wie die Bewegung), dass die Stelle ihrer Faust auf dem Punkt
+	# liegt, dann schließen
+	for _i in 3:
+		var hg := sk.get_bone_global_pose(ih2)
+		var stelle := hg * Griff.stelle_lokal(sk, s2, r)
+		var fehl_v := punkt - stelle
+		if fehl_v.length() < 0.002 * u: break
+		_arm_zu(sk, iu, il, ih2, hg.origin + fehl_v)
+	Griff.schliessen(sk, s2, punkt, d, r, merk2)
+
+# Oberarm und Unterarm so drehen, dass das Handgelenk auf [ziel] kommt (zwei Knochen, Ellbogen bleibt in seiner Ebene); die Hand
+# behält ihre Lage im Raum
+func _arm_zu(sk: Skeleton3D, iu: int, il: int, ih: int, ziel: Vector3) -> void:
+	var hb := sk.get_bone_global_pose(ih).basis
+	var a := sk.get_bone_global_pose(iu).origin
+	var b := sk.get_bone_global_pose(il).origin
+	var c := sk.get_bone_global_pose(ih).origin
+	var la := a.distance_to(b); var lb := b.distance_to(c)
+	var dz := clampf(a.distance_to(ziel), absf(la - lb) + 1e-4, la + lb - 1e-4)
+	var ebene := (b - a).cross(c - b)
+	if ebene.length() < 1e-6: ebene = Vector3.UP.cross(c - a)
+	ebene = ebene.normalized()
+	# Winkel am Ellbogen nach dem Kosinussatz, dann Oberarm zum Ziel ausrichten
+	var cos_a := clampf((la * la + dz * dz - lb * lb) / (2.0 * la * dz), -1.0, 1.0)
+	var zr := (ziel - a).normalized()
+	var oben_r := Basis(ebene, -acos(cos_a)) * zr
+	var neu_b := a + oben_r * la
+	_zeige(sk, iu, il, neu_b)
+	_zeige(sk, il, ih, ziel)
+	var p := sk.get_bone_parent(ih)
+	sk.set_bone_pose_rotation(ih, (sk.get_bone_global_pose(p).basis.orthonormalized().inverse() * hb.orthonormalized()).get_rotation_quaternion())
 
 # 610: Richtung zur Handflaeche (Skelettraum): vom Handknochen zum Daumenansatz, quer zum Finger; ZERO ohne Daumen
 func _handflaeche(sk: Skeleton3D, ih: int, finger: int) -> Vector3:

@@ -7,9 +7,9 @@ extends SceneTree
 #    Spalt Handfläche (nächste Ecke der Hand selbst, ohne Finger) und Eindringen (kleinster Abstand minus Radius)
 #   MESS=1694 xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/griff_sicht_1694.gd   (Exit 1 bei Fehler; ohne Bildschirm ist das Netz leer)
 
-const FOLGE := ["quarterstaff", "handaxe", "longsword"]
+const FOLGE := ["quarterstaff", "handaxe", "longsword", "greatsword", "greataxe"]   # 1694: dazu Zweihänder, beide Hände
 const FELD := 10.0
-const NAH := 0.025
+const NAH := 0.01   # 1694 (19.11.): Haut höchstens 1 cm über dem Schaft zählt als umschlossen (vorher 2,5 cm: zählte auch Finger neben dem Schaft)
 var fehler_zahl := 0
 var reihe := []   # je Aktualisierung des Skeletts ein Satz Werte (cm, Grad)
 
@@ -33,34 +33,40 @@ func _lauf() -> void:
 		for f in 80: await process_frame   # Übergang nach dem Anlegen abwarten (bis 4 Bilder mit hohler Faust)
 		# außerhalb der Änderung gibt get_bone_global_pose die Pose ohne Modifikatoren (auch bake): gemessen wird in skeleton_updated
 		var sk := Gebiet.finde(spiel.held.modell, "Skeleton3D") as Skeleton3D
-		var erg := {}
 		var mod: Node3D = spiel.held.modell
-		var cb := func(): erg["z"] = miss(mod)
-		reihe.clear()
+		var seiten := ["r", "l"] if FOLGE[i] in Tragen.GANG_ZWEI else ["r"]
+		var reihen := {}
+		for s in seiten: reihen[s] = []
+		var cb := func():
+			for s in seiten:
+				reihe = reihen[s]
+				var z := miss(mod, s)
+				if reihe.is_empty(): print("SICHT1694 %s %s: %s" % [FOLGE[i], s, z])
 		sk.skeleton_updated.connect(cb)
-		for f in 20: await process_frame   # die Ruhebewegung bewegt die Hand: Median über 20 Bilder
+		for f in 30: await process_frame   # die Ruhebewegung bewegt die Hand: Median über die Bilder
 		sk.skeleton_updated.disconnect(cb)
-		if not reihe.is_empty() and reihe[0].umschl == 0.0 and reihe[0].haut < -100.0:
-			print("SICHT1694 FEHLER: keine Haut im Netz (ohne Bildschirm gestartet? bake braucht xvfb)"); fehler_zahl += 1; continue
-		if reihe.is_empty():
-			print("SICHT1694 %-12s %s" % [FOLGE[i], erg.get("z", "keine Aktualisierung")]); continue
-		if OS.get_environment("REIHE") != "":
-			for e in reihe: print("  R k=%.1f u=%d t=%.1f h=%.1f a=%.1f r=%.1f" % [e.kontakt, int(e.umschl), e.tief, e.haut, e.achse, e.radius])
-		var med := NetzMess.median(reihe)
-		var gut: bool = med.kontakt <= 0.3 and med.kontakt >= -0.8 and med.umschl >= 300.0 and med.tief >= -1.0
-		print("SICHT1694 %-12s Spalt Handfläche %.1f cm, Umschlingung %d°, Eindringen %.1f cm, Haut %.1f cm, Achse %.1f cm, Radius %.1f cm, Versatz halt %.1f cm (Median %d Bilder)%s" % [
-			FOLGE[i], med.kontakt, int(med.umschl), med.tief, med.haut, med.achse, med.radius, med.versatz, reihe.size(), "" if gut else "  FEHLER"])
-		fehler_zahl += 0 if gut else 1
+		for s in seiten:
+			var gueltig := (reihen[s] as Array).filter(func(e): return e.ecken > 0)   # bake liefert im ersten Bild teils kein Netz
+			if gueltig.size() < 10:
+				print("SICHT1694 FEHLER %s %s: nur %d Bilder mit Netz (ohne Bildschirm gestartet? bake braucht xvfb)" % [FOLGE[i], s, gueltig.size()]); fehler_zahl += 1; continue
+			if gueltig[0].get("leer", false):
+				print("SICHT1694 %-12s %s: kein Schaft an der Faust (getragen, nicht gehalten)" % [FOLGE[i], s]); continue
+			if OS.get_environment("REIHE") != "":
+				for e in gueltig: print("  R k=%.1f u=%d t=%.1f" % [e.kontakt, int(e.umschl), e.tief])
+			var med := NetzMess.median(gueltig)
+			var gut: bool = med.kontakt <= 0.3 and med.umschl >= 300.0 and med.tief >= -0.6
+			print("SICHT1694 %-12s %s Spalt Handfläche %.1f cm, Umschlingung %d°, Eindringen %.1f cm, Radius %.1f cm, Versatz halt %.1f cm (Median %d Bilder)%s" % [
+				FOLGE[i], s, med.kontakt, int(med.umschl), med.tief, med.radius, med.versatz, gueltig.size(), "" if gut else "  FEHLER"])
+			fehler_zahl += 0 if gut else 1
 	print("SICHT1694 %d Fehler" % fehler_zahl)
 	quit(1 if fehler_zahl > 0 else 0)
 
-func miss(m: Node3D) -> String:
+func miss(m: Node3D, s := "r") -> String:
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	var t: Tragen = null
 	for n in sk.get_children():
 		if n is Tragen: t = n
 	if t == null or t.waffe == null: return "kein Tragen"
-	var s := t.seite
 	var hm := t.halt.duplicate() if not t.halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
 	var g := t.waffe.global_transform * Halt.griff_rahmen(hm)
 	var ax := g.basis.y.normalized()
@@ -79,7 +85,9 @@ func miss(m: Node3D) -> String:
 				var v := p - mitte
 				if absf(v.dot(ax)) > 0.06: continue
 				if (v - ax * v.dot(ax)).length() < 0.04: wpts.append(p)
-	if wpts.is_empty(): return "kein Schaft an der Faust (getragen, nicht gehalten)"
+	if wpts.is_empty():
+		reihe.append({"leer": true, "ecken": 1, "kontakt": 0.0, "umschl": 0.0, "tief": 0.0, "radius": 0.0, "versatz": 0.0})
+		return "kein Schaft an der Faust (getragen, nicht gehalten)"
 	var c := Vector3.ZERO
 	for p in wpts: c += p
 	c /= wpts.size()
@@ -135,10 +143,12 @@ func miss(m: Node3D) -> String:
 			var w := rad_to_deg(atan2(qv.dot(quer_y), qv.dot(quer_x)))
 			felder[int(floor((w + 180.0) / FELD))] = true
 	var achse_innen := (c - mp).dot(fl)
-	# Prüfung (1694): Schaft an der Handfläche (Spalt zwischen Schaftoberfläche und Haut unter dem Grundgelenk höchstens 0,3 cm),
-	# umschlungen (mindestens 300°), nicht tief im Finger (Eindringen höchstens 1 cm)
-	var kontakt := achse_innen - r - haut_innen
+	# Prüfung (1694; Einzelbild 19.11., 08:26: Stiel quer über den Fingern bei „Spalt -0,1 cm“): gemessen wurde die Haut unter dem
+	# Grundgelenk, wo in der Faust die Grundglieder liegen, und Eindringen bis 1 cm galt als gut (die Grundglieder steckten 1,4 cm im
+	# Stiel). Jetzt: nächste Ecke der Hand selbst (Handfläche) höchstens 0,3 cm vom Schaft, kein Glied tiefer als 0,6 cm im Schaft
+	# (Fingerkuppen drücken an), umschlossen (Haut näher als 1 cm) über mindestens 300°
+	var kontakt := spalt
 	reihe.append({"kontakt": 100.0 * kontakt, "umschl": felder.size() * FELD, "tief": 100.0 * tief, "haut": 100.0 * haut_innen,
-		"achse": 100.0 * achse_innen, "radius": 100.0 * r, "versatz": 100.0 * versatz})
-	return ("haut_tragen %.2f, haut_innen %.1f cm, achse_innen %.1f cm, " % [t.haut_tiefe, 100.0 * haut_innen, 100.0 * achse_innen]) + "versatz_halt %.1f cm, radius %.1f cm, hand_ecken %d, umschlingung %d°, spalt_handflaeche %.1f cm, eindringen %.1f cm" % [
+		"achse": 100.0 * achse_innen, "radius": 100.0 * r, "versatz": 100.0 * versatz, "ecken": n_hand})
+	return ("haut_innen %.1f cm, achse_innen %.1f cm, " % [100.0 * haut_innen, 100.0 * achse_innen]) + "versatz_halt %.1f cm, radius %.1f cm, hand_ecken %d, umschlingung %d°, spalt_handflaeche %.1f cm, eindringen %.1f cm" % [
 		100.0 * versatz, 100.0 * r, n_hand, int(felder.size() * FELD), 100.0 * spalt, 100.0 * tief]
