@@ -48,8 +48,9 @@ Feste Bereiche fallen weg (Chef 08:17): Verantwortung hängt am Vorgang, nicht a
 
 Nur, was jede Sitzung braucht und nicht selbst sehen kann:
 
-- Wer wir sind (zwei Zeilen), Ziel Kapitel 1, Qualität vor Eile.
-- Deutsch, Berliner Zeit, Name und Zeit vor jeder Nachricht.
+- Deutsch, Berliner Zeit (Name und Zeit vor jeder Nachricht setzt ein Haken).
+- Auftrag unklar oder unmöglich: anhalten und zurückfragen, nicht raten; vorher nachsehen.
+- Fund außerhalb des Auftrags: melden, nicht beheben.
 - Nie committen: Schlüssel, Passwörter; App-Kennung nie ändern; kein Force-Push.
 - Kein Spielcode auf `main` ohne Test des Chefs.
 - Spieltexte nie erfinden, nur aus `STORY-…`.
@@ -73,16 +74,32 @@ Je Arbeit ein Profil mit Handwerk, Prüfung, Abnahmebild: Figur und 3D-Modell ·
 - Jede Sitzung ist kurz und frisch; es gibt keinen Vorrat, den sie pflegen muss.
 - Eine Prüfung durch einen anderen fängt ab, was heute fünf- bis achtmal nachkontrolliert wird.
 
-## Stärkstes Gegenargument
+## Stärkstes Gegenargument (nach dem Gegenlesen)
 
-**Das Büro wird zum Nadelöhr, und frische Sitzungen verlieren Erfahrung.** Ein Macher, der den Auftrag nur kennt, weiß nicht, was gestern schiefging, und das Büro muss alles weiterreichen. Fällt das Büro aus, steht alles.
-**Entkräftet durch:** (1) Erfahrung lebt in Stand und Profil, nicht im Kopf einer Sitzung; der Prüfer schreibt jede Wiederholung dorthin. (2) Das Büro entscheidet fast nichts selbst, was sich regeln lässt, macht `lauf.py`; die Sitzung Büro schreibt nur den Rest. (3) Probe Schritt für Schritt, Rückweg ist der heutige Stand in Git.
+**Alles hängt an der Güte der Aufträge.** Ein frischer Macher weiß nur, was im Auftrag steht. Ist der Auftrag schlecht, misst der Prüfer an denselben schlechten Prüfpunkten, und derselbe blinde Fleck geht zweimal durch. Beispiel 1694: Die Prüfung meldete „grün“, das Bild zeigte den Stiel über dem Fingerrücken.
+**Entkräftet durch:** (1) Der Prüfer prüft nicht nur die Punkte des Auftrags, sondern zuerst das Ziel: Sieht der Spieler, was im Ziel steht? Bei Aussehen immer am Bild. (2) Wir messen den Auftragsschreiber: wie viele Aufträge kommen als unklar zurück, wie viele Läufe bis zur Abnahme. (3) Die Systemfrage und der Stand mit Ursache sind Pflicht; ohne sie startet das Büro keinen Auftrag.
+
+Zweites Gegenargument: **Das Büro wird zum Nadelöhr.** Entkräftet: Was sich regeln lässt, macht `lauf.py`; die Sitzung Büro schreibt nur den Rest. Rückweg ist der heutige Stand in Git.
 
 ## Weitere Einwände, die ich selbst sehe
 
 - **Haken:** heute 14 Einträge in `.claude/settings.json`, hinter denen viele Prüfungen stecken, und viele davon mahnen nur. Neu: ein Haken nur, wenn er etwas verhindert, sonst weg. Ohne das bringt der kleine Sockel wenig, weil die Haken Text nachschieben.
 - **Der Prüfer kostet eine Sitzung je Auftrag.** Bei knappem Guthaben nur für Aussehen und Kampf; bei Werkzeugen prüft der Kerntest.
 - **Homer und Sokrates sind keine Auftragsarbeiter.** Für Story und Beratung bleibt ein Kern mit Gespräch; der Gedanke gilt für Bauarbeit.
+
+- **Zusammenstöße im Repo:** Eine Sperre je Datei greift bei Szenen, Projektdatei und gemeinsamen Skripten schlecht, und vorher weiß keiner genau, was ein Macher anfasst. Darum Sperre je Verzeichnis oder Szene. Die Vorgangsliste schreibt nur ein Werkzeug. Bei einem Konflikt geht der Auftrag zurück, keiner löst ihn von Hand.
+- **Wer pflegt die Profile?** Der Prüfer schlägt die Lehre vor, das Büro trägt sie ein. Je Profil gilt eine Größengrenze, sonst wachsen die Profile wie heute die Vorräte.
+- **Gesamtkosten:** 4 KB Start sind nur die halbe Rechnung, weil Prüfer, Büro und Arbeitsvorbereitung eigene Sitzungen kosten. Gemessen wird darum das Guthaben je abgenommenem Auftrag, nicht die Startgröße.
+
+## Gegenlesen (19.11., 08:32, frischer Helfer ohne meine Begründung)
+
+Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproblem nur verschoben und lässt drei Praxisbrüche offen.“ Fünf Befunde, je mit meinem Wort:
+1. Das stärkste Gegenargument ist der Auftragsschreiber, nicht das Büro. **Stimmt**, oben übernommen.
+2. Zusammenstöße: Sperre je Datei taugt nicht, die Vorgangsliste schreiben mehrere. **Stimmt**, übernommen.
+3. Wer Lehren ins Profil schreibt, fehlt. **Stimmt**, übernommen.
+4. Im Sockel fehlen der Abbruchweg und „melden, nicht beheben“; „wer wir sind“ kann raus. **Stimmt**, übernommen. Der Name vor jeder Nachricht bleibt, aber als Haken.
+5. Die Kosten je Auftrag können steigen. **Stimmt**, Messung übernommen. **Einwand:** Ein Prüfer nur bei Aussehen und Kampf stand schon im Entwurf.
+Zusatz: Die Haken gehören in Schritt 1. **Stimmt**, steht dort.
 
 ## Einführung in Schritten (ab Sa 21.11., 20:00)
 
