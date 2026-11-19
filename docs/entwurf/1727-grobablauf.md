@@ -115,7 +115,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
    | 3.10.3 | Titel | kurz, nur was (höchstens etwa 100 Zeichen); Zitat und Herkunft in die Akte | die Liste liest das Büro oft, die Akte nur, wer den Vorgang bearbeitet |
    | 3.10.4 | Besitzer → **Sitzung** | wer gerade daran arbeitet; leer, wenn niemand | feste Fächer fallen weg (4.7); Verantwortung trägt das Büro bis zur Vergabe |
    | 3.10.5 | Bereich → **Profil** | welches Profil der Auftrag braucht (Figur, Kampf, Welt, Werkzeug, Story …) | die Bereiche passen schon fast eins zu eins (E Kampf 71, E Figuren 34, E Welt 22 …) |
-   | 3.10.6 | Stand | feste Wörter nach dem Diagramm: neu · Auftrag · in Arbeit · beim Prüfer · abgenommen · im Build · erledigt; dazu ruht, steckt fest | jedes Wort entspricht einem Kasten in 2; das Werkzeug kann so zählen und starten |
+   | 3.10.6 | Stand | feste Wörter mit Frist und Wächter, siehe 14.2; Endzustände erledigt, verworfen, doppelt, überholt (14.3) | jedes Wort entspricht einem Kasten in 2; das Werkzeug kann so zählen und starten |
    | 3.10.7 | neu: **Bezug** | verwandte Nummern (3.1) | Abgleich, Wiederholungen sehen |
    | 3.10.8 | neu: **Runde** | 0, 1, 2: wie oft der Prüfer nein sagte | 3.3.4, 3.3.5; zählt das Werkzeug (10.5) |
    | 3.10.9 | bleiben | Nr., Kl., wartet auf, Zweig, Build, Kosten | Kosten jetzt mit Schwelle (13.4.3) |
@@ -218,6 +218,7 @@ Feste Gliederung, erprobt in `auftraege-19-11.md`:
 
 - 9.1 **Alles hängt an der Güte der Aufträge.** Ein frischer Macher weiß nur, was im Auftrag steht. Ist der Auftrag schlecht, misst der Prüfer an denselben schlechten Prüfpunkten, und derselbe blinde Fleck geht zweimal durch (1694: Prüfung „grün“, Bild falsch).
 - 9.2 **Entkräftet durch:** (1) Der Prüfer prüft zuerst das Ziel, dann die Punkte des Auftrags, nach der Prüfart (3.2). (2) Wir messen den Auftragsschreiber: wie viele Aufträge kommen als unklar zurück, wie viele Läufe bis zur Abnahme. (3) Systemfrage und Stand mit Ursache sind Pflicht; ohne sie startet das Büro keinen Auftrag.
+- 9.4 Größte Lücke nach Gegenlesen 2: **Liegenbleiben.** Ohne Frist, Wächter und einen Schließer kann ein Vorgang an fast jedem Kasten still stehen bleiben; geschlossen in 14.
 - 9.3 Zweites Gegenargument: **Das Büro wird zum Nadelöhr.** Entkräftet: Was sich regeln lässt, macht `lauf.py`; die Sitzung Büro schreibt nur den Rest. Rückweg ist der heutige Stand in Git.
 
 ## 10 Weitere Einwände
@@ -274,6 +275,39 @@ Quelle je Fall: `python3 tools/vorgang.py <Nr>` (Liste, Vorräte, Archiv), Stand
 - 13.4.5 *Wann gebucht wird* (Chef 10:12: „Kosten werden im Büro nach Rückläufer eines Machers klargezogen. Richtig?“): **Ja, mit zwei Ergänzungen.** Heute bucht Ford beim Archivieren einer Sitzung ihre Kosten (`cost_usd`, `kosten.py`) auf die Nummern der Übergabe. Neu bucht das Büro bei **jeder** Rückmeldung „fertig“ den Zuwachs seit der letzten Buchung, nicht erst am Sitzungsende; sonst lassen sich Folgeaufträge in einer Sitzung (3.9) nicht trennen. Zweitens zählen auch Prüfer, Arbeitsvorbereitung und Sokrates auf den Vorgang, sonst sieht die Schwelle nur einen Teil (8.4). Buchen tut ein Werkzeug, das Büro prüft nur.
 - 13.4.4 *Was alle drei Fälle zeigen:* Am meisten spart der Prüfer vor dir. In allen drei Fällen kam ein Ergebnis zu dir, das ein zweiter Blick ohne Geschmacksurteil hätte zurückweisen können.
 
-## 14 Was der Chef sagen soll
+## 14 Gegenlesen 2: Bleibt ein Vorgang irgendwo liegen? (19.11., 11:30)
+
+Auftrag Chef 11:29: „dass es liegen bleibt, darf halt nicht sein. Es muss immer … von Erstellung eines Auftrags bis zur Beendigung … durchlaufen, bis irgendeiner beendet sagt.“ Frischer Prozessprüfer, nur mit diesem Blickwinkel. Urteil: „Der Entwurf beschreibt den glücklichen Weg sauber, aber ohne Fristen, Wächter und benannte Endzustände kann ein Vorgang an fast jedem Kasten stillschweigend liegen bleiben.“ **Stimmt; das ist die größte Lücke des Entwurfs.**
+
+**14.1 Grundsatz neu:** Jeder Stand hat einen, der ihn weiterbewegt, eine Frist und einen Wächter, der die Frist prüft. Der Wächter ist Code, nicht eine Sitzung. Und es gibt genau einen Schließer.
+
+**14.2 Stände mit Frist** (ersetzt 3.10.6; Fristen sind Annahmen bis zur Probewoche):
+
+| Nr. | Stand | Bewegt weiter | Frist | Wenn nichts passiert (Wächter) |
+|---|---|---|---|---|
+| 14.2.1 | Fund, Idee (vor dem Anlegen) | wer findet, über `fund.py` | sofort | nur im Chat genannt gilt als verloren; Rückmeldung mit „Fund“ ohne Nummer wird nicht angenommen |
+| 14.2.2 | Ideenliste | Sokrates | wöchentlich | Sokrates urteilt, Liste an den Chef, der Chef holt zurück (wie heute Homer sonntags, 3.6.4) |
+| 14.2.3 | neu | Büro (Abgleich, Vorrang) | 1 Tag | Tagesmeldung „ohne Auftrag“ |
+| 14.2.4 | Auftrag | Büro (Start) | nach Vorrang | Leichenprüfung (heute 1189) |
+| 14.2.5 | in Arbeit | Macher | Höchstdauer und Höchstkosten je Auftrag | Sitzung weg, abgebrochen oder still: Sperre lösen, zurück auf „Auftrag“, ein Neustart; beim zweiten Mal „steckt fest“ |
+| 14.2.6 | beim Prüfer | Prüfer | 1 Tag | neuer Prüfer; bei leerem Guthaben Kerntest statt Sitzung, wo die Prüfart es erlaubt |
+| 14.2.7 | abgenommen | Büro (nächster Build) | bis zum nächsten Build | Tagesmeldung |
+| 14.2.8 | im Build | Macher Profil Build | Build-Lauf | Build rot: eigener Stand, zählt nicht als Runde, zurück ans Büro; zweites Mal Sokrates |
+| 14.2.9 | Chef testet | Chef | 5 Tage Erinnerung (Tagesbericht) | nach 14 Tagen „ruht“ mit Datum, nie still |
+| 14.2.10 | Chefsache | Chef | Chefrunde | **Einwand gegen den Prüfer:** kein „nach 7 Tagen gilt der Vorschlag“; Story, Aussehen, Geld entscheidest nur du. Stattdessen: Zahl und Alter offener Punkte im Tagesbericht, Chefrunde bündelt |
+| 14.2.11 | ruht | – | Pflichtdatum und Grund | ohne Datum lehnt `vorgang.py` ab (heute gibt es „ruht“ ohne Datum, z. B. 1533, 1534); am Datum zurück auf „Auftrag“ |
+| 14.2.12 | steckt fest | Sokrates | 48 h | dann Chefsache von selbst |
+| 14.2.13 | wartet auf | wer das Erwartete liefert | wie dessen Stand | `vorgang.py` lehnt Kreise ab (A wartet auf B wartet auf A) |
+| 14.2.14 | Konflikt beim Zusammenführen | Büro | 1 Tag | zählt nicht als Runde; Auftrag zurück an denselben Profil-Macher |
+
+**14.3 Endzustände und ein Schließer:** `vorgang.py schliessen <Nr> --grund erledigt | verworfen | doppelt | überholt`, nur das Büro. *Erledigt* auf Abnahme nach Prüfart (Prüfer ja, und wo das Urteil beim Chef liegt, sein „gut“). *Verworfen, doppelt, überholt* nur auf Wort von Sokrates oder Chef, bei doppelt und überholt mit der Ersatznummer. **Einwand gegen den Prüfer:** „erledigt braucht immer Prüfer-ja plus Chef-gut“ passt nicht für Abläufe und Werkzeuge; dort reicht die Abnahme nach Prüfart.
+
+**14.4 Wer wacht über den Wächter:** Fällt `lauf.py` aus, bewegt sich nichts, und keiner merkt es. Darum Herzschlag: `lauf.py` schreibt bei jedem Lauf eine Zeitmarke; ein Ablauf auf GitHub (kostet keine Token) meldet per Telegram, wenn sie älter als 2 h ist. Guthaben leer: Büro schaltet auf „nur Muss, nur Kerntest“ und meldet es einmal.
+
+**14.5 Bestand:** Teile gibt es schon und gehen darin auf: Leichenprüfung (1189), Startwarnung nach 6 h als Vorgang (1642), Kostenschwelle (1538), Termin bei „ruht“ im Listenkopf (1129 A, aber nicht erzwungen), Wache-Sitzung (kostet Token; der GitHub-Herzschlag ersetzt sie).
+
+**14.6 Mein Wort zu den acht Befunden:** 1 Macher bricht ab: stimmt. 2 Frist je Stand: stimmt; Meldungen an den Chef gebündelt einmal täglich, nicht einzeln. 3 Chefsache: Einwand (14.2.10). 4 ruht und steckt fest: stimmt. 5 Funde und Ideenliste: stimmt, die fehlende Ideen-Runde war meine Lücke aus 3.6.4; **Einwand** gegen automatisches Verwerfen nach 4 Wochen (deine Ideen wirft kein Werkzeug weg). 6 Kreise, Konflikt, Build rot: stimmt. 7 Herzschlag und Guthaben: stimmt. 8 Endzustände: stimmt, mit Einwand (14.3).
+
+## 15 Was der Chef sagen soll
 
 „Richtung ja“ (dann ab Samstag 12.1) oder dein Einwand mit Nummer.
