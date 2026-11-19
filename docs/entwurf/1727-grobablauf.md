@@ -60,6 +60,8 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
    | 3.2.8 | Spieltext | Abgleich mit `STORY-…` | wortgleich | Prüfer |
    | 3.2.9 | Spielgefühl, Ablauf | Durchspielprotokoll | läuft ohne Fehler durch | Chef |
 
+- 3.2.10 **Rangfolge der Belege** (Chef 19.11., 21:12: „Rangfolge so“, auf Frage 21:04 „erst Bild, dann Film, Hörprobe und wenn gar nichts anderes geht, in der APK“): Bild vor Film vor Hörprobe; Handy (APK, Testbild oder Testraum) nur, wenn keine davon reicht. (1) Die Arbeitsvorbereitung nimmt die erste Art, mit der der Chef allein urteilen kann; bei Handy ein Satz „warum nicht Bild“. (2) Erste Prüffrage des Prüfers: „Hätte eine frühere Art gereicht?“ ja → abgelehnt. (3) Werkzeug (Bauliste 7.1): `vorgang.py` nimmt Handy nur mit Feld „warum nicht Bild“; im Build sind Prüfpunkte nur Vorgänge mit Handy, per Bild oder Film abgenommene fahren ohne Prüfpunkt mit. Handy ist Prüfart des Builds, nicht des Auftrags (Gegenprüfung 21:04, 2.5). Das Büro zählt wöchentlich Handy-Punkte und die, die der Chef als „hätte ein Bild getan“ markiert.
+
 **3.3 Rückläufer: wer legt an, wer fasst an** (09:00). **Stimmt, die Lücke war echt. Zwei Einwände gegen meinen ersten Wurf.**
 - 3.3.1 *Drei Runden sind zu teuer:* Jede Runde ist eine Sitzung, und es gilt schon „nie einen Fehler zweimal mit Vermutung bauen“. Darum stellt derselbe Macher nach dem ersten Nein **erst die Ursache nach**, dann baut er; nach dem zweiten Nein geht es an Sokrates (steckt fest), keine dritte Runde.
 - 3.3.2 *Kleinkram über das Büro kostet mehr als er nützt:* Ausnahme: **Tippfehler und Offensichtliches in den eigenen gesperrten Dateien** behebt der Macher und nennt es in „fertig“; alles andere meldet er.
