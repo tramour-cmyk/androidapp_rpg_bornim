@@ -51,7 +51,7 @@ Auftrag Chef 10:36: „das mit der Nullbasis können wir doch schon mal anfangen
 | 3.4.8 | `zug-haken.py` | zählt nur noch (822) | weg | zählt, handelt nicht |
 | 3.4.9 | `hakenzahl.py` | zählt, wann Haken anhalten | weg | nach dem Zusammenlegen überflüssig |
 | 3.4.10 | `inhalt.py`, `glossar.py` | Inhaltsverzeichnis, Glossar-Fundstellen | weg | Doku-Pflege; Begriffe ins Profil Spieltext |
-| 3.4.11 | `bereiche.py`, `bereichslisten.py` | feste Bereiche | umbauen | werden Profile (3.10.5) |
+| 3.4.11 | `bereiche.py`, `bereichslisten.py` | feste Bereiche | bleibt | Bereiche bleiben (Chef 11:54) |
 | 3.4.12 | `nachtstarts.py` | hält nach zwei Neustarts in einer Nacht an (340.12) | ins Büro | Regel des Chefs, gehört in `lauf.py` |
 | 3.4.13 | `neustart-haken.py` (21 KB) | Erinnerung und Sperre bei großer Sitzung (1520) | schrumpfen | nur noch Sperre an der Grenze, ohne Erinnerungstext; misst auch für 3.9 |
 | 3.4.14 | `nummer_wort.py`, `chef_fund.py` | Nummer ohne Wort an den Chef; Funde des Chefs erkennen | in `meldung.sh` | Nutzen belegt (1414), aber still beim Senden |

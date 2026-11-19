@@ -114,7 +114,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
    |---|---|---|---|
    | 3.10.3 | Titel | kurz, nur was (höchstens etwa 100 Zeichen); Zitat und Herkunft in die Akte | die Liste liest das Büro oft, die Akte nur, wer den Vorgang bearbeitet |
    | 3.10.4 | Besitzer → **Sitzung** | wer gerade daran arbeitet; leer, wenn niemand | feste Fächer fallen weg (4.7); Verantwortung trägt das Büro bis zur Vergabe |
-   | 3.10.5 | Bereich → **Profil** | welches Profil der Auftrag braucht (Figur, Kampf, Welt, Werkzeug, Story …) | die Bereiche passen schon fast eins zu eins (E Kampf 71, E Figuren 34, E Welt 22 …) |
+   | 3.10.5 | Bereich | **bleibt** (Chef 11:54: „Die Bereiche bleiben.“); das Profil steht nicht in der Liste, sondern im Auftrag (6), weil ein Vorgang mehrere Profile brauchen kann (760: Figur und Kampf); Vorschlag des Profils aus dem Bereich | Auswertung wie bisher (651), keine zweite Spalte für fast dasselbe |
    | 3.10.6 | Stand | feste Wörter mit Frist und Wächter, siehe 14.2; Endzustände erledigt, verworfen, doppelt, überholt (14.3) | jedes Wort entspricht einem Kasten in 2; das Werkzeug kann so zählen und starten |
    | 3.10.6a | neu: **Block** | Themenblock als Nummer; Rang der Blöcke ordnet nur der Chef (3.16) | Themen priorisieren, ganze Themen ruhen lassen |
    | 3.10.7 | neu: **Bezug** | verwandte Nummern (3.1) | Abgleich, Wiederholungen sehen |
@@ -122,7 +122,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
    | 3.10.9 | bleiben | Nr., Kl., wartet auf, Zweig, Build, Kosten | Kosten jetzt mit Schwelle (13.4.3) |
 
 - 3.10.10 *Akte je Vorgang* (`docs/akte/<Nr>.md`): oben der Auftrag nach dem Baukasten (6), darunter Chefworte, Stand mit Ursache, Verlauf. Sie ersetzt die „Zu NR“-Absätze in den Vorräten. Erledigt → kurz ins Vorgangsarchiv, Akte in Git. Das ist „jeder Text an einem Ort“, nur endlich wirklich an einem.
-- 3.10.11 *Stärkstes Gegenargument:* Der Umbau trifft die Werkzeuge, an denen alles hängt (`vorgang.py`, `lauf.py`, `startbar.py`, Haken), und kostet Guthaben; dazu 248 Zeilen umziehen. *Entkräftet:* in drei Schritten, jeder für sich rücknehmbar: (1) Bezug und Runde anfügen, nichts bricht; (2) Akten für neue Vorgänge, alte behalten „Zu NR“ bis zum Abschluss; (3) Besitzer → Sitzung und Bereich → Profil erst, wenn der Pool startet (12.3). Die Umstellung schreibt ein Werkzeug, nicht eine Sitzung von Hand.
+- 3.10.11 *Stärkstes Gegenargument:* Der Umbau trifft die Werkzeuge, an denen alles hängt (`vorgang.py`, `lauf.py`, `startbar.py`, Haken), und kostet Guthaben; dazu 248 Zeilen umziehen. *Entkräftet:* in drei Schritten, jeder für sich rücknehmbar: (1) Bezug und Runde anfügen, nichts bricht; (2) Akten für neue Vorgänge, alte behalten „Zu NR“ bis zum Abschluss; (3) Besitzer → Sitzung erst, wenn der Pool startet (12.3); Bereich bleibt. Die Umstellung schreibt ein Werkzeug, nicht eine Sitzung von Hand.
 - 3.10.12 *Zweites Gegenargument:* Viele kleine Akten sind unübersichtlich. *Entkräftet:* `vorgang.py <Nr>` sammelt schon heute alles zu einer Nummer aus Liste, Vorräten und Archiv; die Akte macht daraus eine Datei statt einer Suche.
 
 **3.11 Bild Handwerksbetrieb** (Chef 10:14: „Das Büro vergibt einen Auftrag, der Handwerker fährt zum Kunden, schreibt auf, was er gemacht hat … gibt er wieder ab im Büro und dann werden die Kosten erhoben“). **Stimmt, als Leitbild für den ganzen Ablauf; an zwei Stellen besser als das Vorbild.**
@@ -178,7 +178,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.16.3 *Wirkung im Reihenfolge-Werkzeug (3.15.7):* Eilt vor allem; dann Muss nach **Rang des Blocks**, darin nach den Regeln (Funde des Chefs, Engpass, Wiederholer, Alter); dann Kür ebenso. Ruht ein Block, startet keiner seiner Vorgänge, ohne dass jemand jede Zeile anfasst.
 - 3.16.4 *Stärkstes Gegenargument:* Block und Profil scheinen doppelt. *Entkräftet:* Der Block sagt **wofür** (Ziel, etwa „Kampf passt“), das Profil **womit** (Handwerk, etwa Figur). Der Biss des Wolfs (760) ist Block Kampf, Profil Figur und Kampf. Darum zwei Spalten; der Vorschlag aus dem Profil spart meist die Arbeit.
 - 3.16.5 *Zweites Gegenargument:* Ein Block ganz oben lässt andere verhungern. *Entkräftet:* Das Alter hebt jeden Vorgang mit der Zeit an (3.15.7); und was eilt, setzt der Chef mit „Eilt“ ohnehin vor alles.
-- 3.16.6 *Auswertung* (Chef 11:52: „Wir haben ja zur Auswertung Bereiche. Themenblock wäre dann auch gut, oder?“): **Ja.** Kosten, Läufe, Rückläufer und Alter je Block **und** je Profil (bisher Bereich, 651): der Block sagt, was ein Ziel kostet („Kampf passt“), das Profil, was eine Art Arbeit kostet (Figur). Beides im einen Kostenwerkzeug (Nullbasis 3.3.3), aus denselben Spalten, ohne Handarbeit.
+- 3.16.6 *Auswertung* (Chef 11:52, 11:54: „Die Bereiche bleiben.“): Kosten, Läufe, Rückläufer und Alter je **Block** (was kostet ein Ziel, etwa „Kampf passt“) und je **Bereich** wie bisher (651). Beides im einen Kostenwerkzeug (Nullbasis 3.3.3), aus denselben Spalten.
 
 ## 4 Wer was tut
 
@@ -267,7 +267,7 @@ Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproble
 
 - 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.6 und 5.7 behalten. Dazu Inventur aller Werkzeuge und Haken (3.12.4).
 - 12.2 Ein Macher, eine Woche, nur mit Auftrag, Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet, Guthaben je Auftrag.
-- 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung. Vorgangsliste: Bezug und Runde ab 12.1, Akten für neue Vorgänge ab 12.2, Sitzung und Profil statt Besitzer und Bereich ab 12.3 (3.10.11).
+- 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung. Vorgangsliste: Bezug und Runde ab 12.1, Akten für neue Vorgänge ab 12.2, Sitzung statt Besitzer ab 12.3; Bereich bleibt (3.10.5).
 - 12.3b Spalte Block und Blockliste mit Rang des Chefs (3.16), im selben Werkzeug wie die Reihenfolge.
 - 12.3a Stufen Eilt, Muss, Kür mit Werkzeug für die Reihenfolge (3.15.7) und Durchsicht aller Muss gegen die Abnahmeliste Kapitel 1 (3.15.8).
 - 12.4 Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
