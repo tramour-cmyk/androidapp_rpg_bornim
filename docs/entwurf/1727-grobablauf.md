@@ -124,6 +124,11 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.10.11 *Stärkstes Gegenargument:* Der Umbau trifft die Werkzeuge, an denen alles hängt (`vorgang.py`, `lauf.py`, `startbar.py`, Haken), und kostet Guthaben; dazu 248 Zeilen umziehen. *Entkräftet:* in drei Schritten, jeder für sich rücknehmbar: (1) Bezug und Runde anfügen, nichts bricht; (2) Akten für neue Vorgänge, alte behalten „Zu NR“ bis zum Abschluss; (3) Besitzer → Sitzung und Bereich → Profil erst, wenn der Pool startet (12.3). Die Umstellung schreibt ein Werkzeug, nicht eine Sitzung von Hand.
 - 3.10.12 *Zweites Gegenargument:* Viele kleine Akten sind unübersichtlich. *Entkräftet:* `vorgang.py <Nr>` sammelt schon heute alles zu einer Nummer aus Liste, Vorräten und Archiv; die Akte macht daraus eine Datei statt einer Suche.
 
+**3.11 Bild Handwerksbetrieb** (Chef 10:14: „Das Büro vergibt einen Auftrag, der Handwerker fährt zum Kunden, schreibt auf, was er gemacht hat … gibt er wieder ab im Büro und dann werden die Kosten erhoben“). **Stimmt, als Leitbild für den ganzen Ablauf; an zwei Stellen besser als das Vorbild.**
+- 3.11.1 Passt: Büro = Auftragsannahme und Disposition; Arbeitsvorbereitung = Auftragszettel; Macher = Geselle mit Werkzeugkiste (Profil); Fertigmeldung mit Beleg = Arbeitsbericht; Fund beim Kunden = Nachtrag übers Büro, nicht schwarz nebenbei (5.4).
+- 3.11.2 Besser 1: Die Stunden schreibt nicht der Geselle auf, sie misst das System (`cost_usd`); selbst aufgeschrieben wäre geraten.
+- 3.11.3 Besser 2: Vor dem Kunden nimmt der Meister ab (Prüfer 2.11); der Kunde (Chef) sieht nur, was abgenommen ist, und urteilt über Geschmack.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
