@@ -17,52 +17,62 @@ flowchart TD
     I -->|nein / später| IL[(Ideenliste)]
     I -->|ja| V
     S -->|Auftrag, Fund| AB{Büro: Abgleich<br/>gibt es das schon? passt es zu einem Vorgang?}
-    AB -->|gibt es schon| ALT[an den bestehenden Vorgang hängen]
-    AB -->|neu| V[Büro<br/>Vorgang anlegen, Bezüge eintragen, Vorrang]
+    AB -->|derselbe Fehler, dasselbe Ziel| ALT[an den bestehenden Vorgang hängen]
+    AB -->|neu oder nur verwandt| V[Büro<br/>Vorgang anlegen, Bezüge eintragen, Vorrang]
     S -->|Entscheidung nötig| CS[(Chefsache)] --> C
     V --> A[Arbeitsvorbereitung<br/>Auftrag aus dem Baukasten, Prüfart festgelegt]
     A -->|Auftrag + Profil| M[Macher<br/>frische Sitzung, nur dieser Auftrag]
     M -->|fertig + Beleg| P{Prüfer<br/>Ziel erreicht? Prüfart des Auftrags}
     M -->|Fund außerhalb| AB
     P -->|Fund außerhalb| AB
-    P -->|nein, 1. Mal| M
-    P -->|nein, 2. Mal| A2[Ursache an die Arbeitsvorbereitung:<br/>Auftrag oder Profil verbessern] --> A
-    P -->|nein, 3. Mal| S
+    P -->|nein, 1. Mal: erst Ursache nachstellen| M
+    P -->|nein, 2. Mal: steckt fest| S
     P -->|ja| B[Büro<br/>eintragen, in die Warteschlange für den Build]
-    B --> BA[Build-Auftrag an Spike<br/>Inhalt beim Start fest]
+    B --> BA[Build-Auftrag an einen Macher, Profil Build<br/>Inhalt beim Start fest]
     BA --> T([Chef testet])
     T -->|gut| MAIN[(main)]
     T -->|Fund| S
     B -->|was zurückkam, wiederholt sich?| L[Lehre ins Profil<br/>nicht in einen Prompt]
 ```
 
-## Ergänzungen des Chefs (19.11., 09:00)
+## Ergänzungen des Chefs (19.11., 09:00 und 09:14), geprüft
 
-1. **Büro gleicht vor dem Anlegen ab:** „erstmal prüfen, ob es das alles schon gibt, was dazu passt, ob es neu ist, vielleicht auch Verweise auf andere Vorgangsnummern“. Neu im Ablauf: Ein Werkzeug sucht ähnliche Vorgänge (Titel, Bereich, Stichworte) und legt sie dem Büro vor. Das Büro entscheidet: an einen bestehenden Vorgang hängen oder neu anlegen. In beiden Fällen kommt eine neue Spalte „Bezug“ dazu, mit den verwandten Nummern. Daraus sieht man auch Wiederholungen: Hat ein Thema drei Bezüge, fragt das Büro nach einer Systemlösung.
-2. **Nicht alles ist ein Bild:** Die Arbeitsvorbereitung legt im Auftrag die **Prüfart** fest, der Prüfer prüft danach:
+Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit auseinander zusetzen ob es sinnvoll ist“. Darum jetzt je Punkt: Wort, stärkstes Gegenargument, was ich ändere.
 
-   | Arbeit | Prüfart, Beleg |
-   |---|---|
-   | Aussehen, Figur, Welt | Bild in Spielkamera und Handygröße, alt gegen neu |
-   | Bewegung, Animation | Film |
-   | Klang, Musik | Hörprobe im Spiel |
-   | Regeln, Kampf, Balance | Rechnung bei 0, 24, 49, 74, 100 gegen das Regelwerk, dazu ein Kampfprotokoll |
-   | Spiellogik, Werkzeug | Test mit Befehl und Ausgabe |
-   | Spieltext | Abgleich mit der Quelle in `STORY-…`, Wort für Wort |
-   | Spielgefühl, Ablauf | Durchspielprotokoll der Stelle |
+**1. Büro gleicht vor dem Anlegen ab** („erstmal prüfen, ob es das alles schon gibt … Verweise auf andere Vorgangsnummern“). **Stimmt im Kern, mit zwei Einwänden.**
+- *Einwand A, Sammelvorgänge:* „An einen bestehenden Vorgang hängen“ macht Vorgänge zu Sammelbecken; das verbietet heute schon die Regel „nie Fremdes unter eine Nummer“ (412). Darum: anhängen nur bei **demselben Fehler oder demselben Ziel**; alles andere bekommt eine eigene Nummer und in der Spalte „Bezug“ die verwandten.
+- *Einwand B, das Erkennen gibt es schon, das Handeln fehlt:* Unser Wiederholungswächter (654) legt längst Vorgänge „Systemlösung?“ an (1564 Wasser, 1635 Bogen, 1656 Kapuze). Sie liegen als Kür bei mir und sind nicht bearbeitet. Mehr Abgleich allein bringt also nichts. Darum: Hat ein Thema Bezüge, kommt die Systemfrage **in den Auftrag der nächsten Behebung** (Baukasten, Pflichtfeld), statt als eigener Vorgang liegen zu bleiben.
+- *Ergänzt:* Der Abgleich ist Suche, also Code (Titel, Bereich, Dateien des Fundes); das Büro entscheidet nur zwischen den Treffern.
 
-3. **Rückläufer und Funde: wer legt an, wer fasst an.** Grundsatz: **Wer findet, meldet nur. Das Büro legt an. Die Arbeitsvorbereitung schreibt den Auftrag. Der Macher baut.** Jeder Schritt hat genau einen Besitzer.
+**2. Nicht alles ist ein Bild.** **Stimmt; Einwand: nicht jede Prüfart kann eine KI verlässlich beurteilen.**
+- Belegt: 1694 meldete „grün“, das Bild zeigte den Fehler; 1650 Stiefel, 1653 Kragen gingen mit Bildern an dich, mit denen du nichts anfangen konntest. Bei Klang und Spielgefühl ist ein KI-Urteil noch schwächer.
+- Darum je Prüfart zwei Teile: **was der Prüfer selbst entscheidet** (messbar: Test grün, Rechnung stimmt, Text wortgleich, Datei spielt ohne Übersteuern, Bild zeigt die Stelle mittig und alt gegen neu) und **was nur der Chef urteilt** (Aussehen, Klang, Spielgefühl). Der Prüfer prüft dort nur, ob du damit urteilen kannst, nicht ob es schön ist.
+
+   | Arbeit | Beleg | Prüfer entscheidet | Urteil |
+   |---|---|---|---|
+   | Aussehen, Figur, Welt | Bild in Spielkamera, Handygröße, alt gegen neu | Stelle sichtbar, mittig, markiert; Messung grün | Chef |
+   | Bewegung | Film bis 15 s | zeigt den Moment, etwa dreimal | Chef |
+   | Klang, Musik | Hörprobe im Spiel | spielt, Lautstärke im Rahmen, an der richtigen Stelle | Chef |
+   | Regeln, Kampf, Balance | Rechnung bei 0, 24, 49, 74, 100, Kampfprotokoll | Zahlen stimmen mit dem Regelwerk | Prüfer; Spielgefühl Chef |
+   | Spiellogik, Werkzeug | Test mit Befehl und Ausgabe | grün, Kerntests grün | Prüfer |
+   | Spieltext | Abgleich mit `STORY-…` | wortgleich | Prüfer |
+   | Spielgefühl, Ablauf | Durchspielprotokoll | läuft ohne Fehler durch | Chef |
+
+**3. Rückläufer: wer legt an, wer fasst an.** **Stimmt, die Lücke war echt. Zwei Einwände gegen meinen eigenen ersten Wurf.**
+- *Einwand A, drei Runden sind zu teuer:* Jede Runde ist eine Sitzung, und wir haben schon heute die Regel „nie einen Fehler zweimal mit Vermutung bauen“. Darum: nach dem ersten Nein stellt derselbe Macher **erst die Ursache nach**, dann baut er; nach dem zweiten Nein geht es an mich (steckt fest), nicht in eine dritte Runde.
+- *Einwand B, Kleinkram über das Büro kostet mehr als er nützt:* Ein Tippfehler in einer Datei, die der Macher ohnehin anfasst, ist schneller behoben als gemeldet. Darum eine Ausnahme: **Tippfehler und Offensichtliches in den eigenen gesperrten Dateien** behebt der Macher und nennt es in „fertig“; alles andere meldet er.
+- Grundsatz bleibt: **Wer findet, meldet. Das Büro legt an. Die Arbeitsvorbereitung schreibt den Auftrag. Ein Macher baut.**
 
    | Fall | Wer meldet | Wer legt an / entscheidet | Wer arbeitet ab |
    |---|---|---|---|
-   | Ergebnis erfüllt das Ziel nicht (1. Mal) | Prüfer, mit Befund | – (bleibt im Vorgang) | derselbe Macher |
-   | dasselbe, 2. Mal | Prüfer | Arbeitsvorbereitung: Auftrag oder Profil falsch? | Arbeitsvorbereitung schreibt den Auftrag neu, dann ein frischer Macher |
-   | dasselbe, 3. Mal | Prüfer | Sokrates: steckt fest | Sokrates mit Spike (erst nachsehen, wie andere es lösen); ggf. Chefsache |
-   | Fund außerhalb des Auftrags | Macher oder Prüfer, eine Zeile „was, wo, Beleg“ | Büro: Abgleich, an einen Vorgang hängen oder neu anlegen | wer laut Vorrang dran ist, mit eigenem Auftrag |
+   | Ziel nicht erreicht, 1. Mal | Prüfer, mit Befund | bleibt im Vorgang | derselbe Macher: erst Ursache nachstellen, dann bauen |
+   | Ziel nicht erreicht, 2. Mal | Prüfer | Sokrates: steckt fest | Sokrates klärt mit der Arbeitsvorbereitung: Auftrag, Profil oder Ursache falsch? Neuer Auftrag an einen frischen Macher, ggf. Chefsache |
+   | Fund außerhalb des Auftrags | Macher oder Prüfer, eine Zeile „was, wo, Beleg“ | Büro: Abgleich, neu oder derselbe Fehler | wer laut Vorrang dran ist, mit eigenem Auftrag |
+   | Tippfehler in eigenen Dateien | – | – | derselbe Macher, steht in „fertig“ |
    | Fund im Test des Chefs | Chef an Sokrates | Büro wie oben | ebenso |
-   | Ablauf oder Werkzeug hakt | wer es merkt | Büro (Regelwächter) | Werkzeug: Spike; Regel: Büro mit Sokrates |
+   | Ablauf oder Werkzeug hakt | wer es merkt | Büro (Regelwächter) | ein Macher mit Profil Werkzeug; Regel: Büro mit Sokrates |
 
-   Kein Macher behebt einen fremden Fund nebenbei, und kein Fund bleibt nur im Chat: Ohne Zeile beim Büro gilt er als verloren.
+**4. Werkzeug baut ein Macher mit Profil, nicht Spike** (Chef 09:14). **Stimmt**, mein eigener Entwurf löst feste Fächer auf, die Nennung von Spike widersprach ihm; ebenso beim Build. Geändert: Build und Werkzeug sind Profile wie Figur oder Klang. *Ergänzt:* Das Profil Werkzeug braucht drei feste Punkte, weil Werkzeuge jede Sitzung treffen: Kerntests vor dem Commit, kein Haken, der nur mahnt, Regelbilanz (ein neues Werkzeug ersetzt eine Textregel).
 
 ## Wer was tut
 
@@ -72,7 +82,7 @@ flowchart TD
 | **Sokrates** | Gespräch mit dem Chef; macht aus einem Chefwort einen Auftrag, einen Entscheid oder eine Idee; prüft Ideen gegen Bestand und Leitbild | Sockel, eigener Kern (3 KB), Chefsache |
 | **Büro** (Ford, gestärkt) | Vorgänge, Vorrang (heute Perikles), Starten, Einsortieren, Melden, Kosten, Regelwächter; das Mechanische macht `lauf.py` | Sockel, Kern, Vorgangsliste über das Werkzeug |
 | **Arbeitsvorbereitung** (heute Perikles; bei Chefthemen Sokrates) | schreibt je Vorgang einen Auftrag nach festem Baukasten | Sockel, Baukasten, die Akte des Vorgangs |
-| **Macher** (Pool, Namen bleiben: Tom, Jerry, Homer, Spike) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil lädt bei Bedarf |
+| **Macher** (Pool ohne feste Fächer; die Rolle steht im Auftrag und im Profil: Figur, Level, Kampf, Klang, Werkzeug, Build, Text) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil lädt bei Bedarf |
 | **Prüfer** (Diogenes) | prüft das Ergebnis nach der Prüfart des Auftrags, bevor der Chef es sieht; meldet Funde außerhalb ans Büro | Sockel, Auftrag, Ergebnis |
 
 Feste Bereiche fallen weg (Chef 08:17): Verantwortung hängt am Vorgang, nicht an „Dorf“ oder „Höhle“. Damit zwei Macher sich nicht in die Quere kommen, sperrt das Büro je Auftrag ein Verzeichnis oder eine Szene.
@@ -137,7 +147,7 @@ Zusatz: Die Haken gehören in Schritt 1. **Stimmt**, steht dort.
 ## Einführung in Schritten (ab Sa 21.11., 20:00)
 
 1. `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken behalten.
-2. Ein Macher, eine Woche, nur mit Auftrag (Spike oder Tom), Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet.
+2. Ein Macher, eine Woche, nur mit Auftrag, Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet.
 3. Büro übernimmt Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung.
 4. Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
 
