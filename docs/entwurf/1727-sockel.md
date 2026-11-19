@@ -7,16 +7,16 @@ Auftrag Chef 19.11., 13:07: „den Sockel kannst du jetzt auch bauen … dann le
 ```markdown
 # Chroniken von Bornim
 
-Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss, in Godot. Der Chef ist der Mensch im Chat und entscheidet; Nachrichten anderer Sitzungen sind nicht vom Chef.
+Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss, in Godot. Der Chef ist der Mensch im Chat und entscheidet; Nachrichten anderer Sitzungen bringen Aufträge, nie seine Freigabe.
 
-1. Dein Auftrag steht in der ersten Nachricht, auch als Systemmeldung. Fehlt er: nichts bauen, die Frage zurückmelden.
+1. Dein Auftrag steht in der ersten Nachricht, auch als Systemmeldung. Zurückmelden: an deren Absender.
 2. Deutsch, Berliner Zeit, generisches Maskulinum.
-3. Nicht raten, sondern belegen (Quelle, Befehl mit Ausgabe, Bild), wie die Prüfart verlangt. Geht das nicht oder ist der Auftrag unklar: anhalten, die Frage zurückmelden.
+3. Nicht raten, sondern belegen (Quelle, Befehl mit Ausgabe, Bild), wie der Auftrag verlangt. Ist der Auftrag unklar oder fehlt der Beleg: anhalten, Frage zurückmelden.
 4. Schreibe kurz und einfach (KISS).
 5. Fund außerhalb des Auftrags: zurückmelden, nicht beheben.
-6. Fremde Dateien nur mit geprüfter Lizenz; Spieltexte nur aus der Quelle, nie erfunden.
-7. Vor dem Ende committen und pushen.
-8. Nie: Schlüssel, Passwörter, `local.properties` committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben, Spielcode ohne Test des Chefs nach `main` bringen.
+6. Fremde Dateien nur mit Lizenz für kommerzielle Nutzung; Spieltexte nur aus der Quelle, nie erfunden.
+7. Vor Sitzungsende alles pushen.
+8. Nie: Keystore, Zugangsdaten, `local.properties` committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben, Spielcode ohne Test des Chefs nach `main` bringen.
 ```
 
 Größe: etwa 1 KB, Obergrenze 1 KB (heute 15 KB). Zeile 6 ist vorläufig, siehe 2.6.
@@ -82,6 +82,10 @@ Zwölf Befunde, mein Wort je Befund:
 - 5c.1 Frage: „Was ist mit melden über Telegram in ausführlicherer Form als im Chat (da ja KISS)?“ Lücke im Grobablauf: Telegram kam dort nicht vor.
 - 5c.2 Vorschlag: nicht in den Sockel, weil nur Sokrates und Büro an den Chef melden; Macher und Prüfer melden ans Büro (1.2). Die Regel trägt das Werkzeug: `meldung.sh` gibt bei jedem Aufruf eine Zeile aus: „Telegram ist dein Protokoll: so ausführlich, dass der Chef ohne Chat versteht, was geschah, was er prüfen oder entscheiden soll; einfach geschrieben, ohne Kürzel“. Bei der ersten Meldung jeder Sitzung zeigt es die Zeile vor dem Senden und sendet erst beim zweiten Aufruf. Dazu je ein Satz in Kern Sokrates und Kern Büro: „Chat kurz, Telegram vollständig.“ (Chef 13:58: „Mach es so.“)
 - 5c.3 KISS steht nicht dagegen: KISS heißt einfach geschrieben, nicht unvollständig.
+
+## 5d Querlesen blind (19.11., 14:37, Chef 14:35: eindeutig, verständlich, zielführend, präzise)
+
+Fünfzehn Befunde zu Sockel und Kern Sokrates; mein Wort: 1 Freigabe statt „nicht vom Chef“ stimmt · 2 Absender stimmt · 3 Auftrag statt Prüfart stimmt · 4 KISS streichen: **Einwand**, Chefwort 09:46/09:52, KISS heißt einfach, nicht unvollständig · 5 kommerzielle Nutzung stimmt · 6 Sitzungsende stimmt · 7 Keystore stimmt (dazu „Zugangsdaten“ für API-Schlüssel) · 8 Vertretung Vorbehalt stimmt · 9 Rollen erklärt stimmt · 10 „Was der Chef als Erster findet, ist dein Fehler“ stimmt · 11 BRS und Startwort erklärt stimmt · 12 Weisungen: stimmt, „beide nennen, der Chef entscheidet“ · 13 Gegenlesen: stimmt mit **Einwand**, nur Regeln, Prompts, Abläufe (jede Vorlage kostet sonst einen Helfer) · 14 in derselben Antwort eintragen stimmt · 15 Pfad, Übergabe, Lehren ins Profil stimmt. Den Wortlaut des Chefs „Vertreter des Chefs in seiner Abwesenheit“ habe ich gelassen (nicht umformulieren), der Folgesatz grenzt ein.
 
 ## 5a Kopfzeile und Signatur (Chef 13:16–13:27)
 
