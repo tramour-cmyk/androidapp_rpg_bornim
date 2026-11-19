@@ -43,32 +43,27 @@ Die Absätze „Zu Nr.“ in den Vorräten fallen weg (wandern in die Vorgangsda
 
 **Beziehungen** (Chef 20:07: „In welchen 1:n-Verknüpfungen stehen die jetzt zueinander?“):
 
+Gegengeprüft 20:14 (frischer Helfer, Chef 20:13: „Lass diese Struktur bitte mal gegenprüfen … Feldnamen … unterschiedlich … passt doch gar nicht ineinander“). Urteil: verschiedene Felder sind richtig (Angebotsposition hat Preis, Termin, Stand; Arbeitszettel hat Tätigkeit, worauf achten, wie geprüft; verbunden über die Positionsnummer); falsch war die zweispaltige Tabelle, die Entsprechungen vortäuschte, und Angaben, die doppelt gepflegt wurden. Darum jetzt zwei getrennte Listen; jede Angabe an genau einer Stelle.
+
 | von | zu | Art | Bedeutung |
 |---|---|---|---|
-| Themenblock | Vorgang | 1 : n | ein Block hat viele Vorgänge, jeder Vorgang gehört zu genau einem Block |
-| Vorgang | Vorgangsdatei | 1 : 0..1 | keine Datei, solange nur Idee oder ruhend; genau eine, sobald ein Auftrag entsteht |
-| Vorgang | Auftrag | 1 : n | nacheinander (Nachstellen, Bauen, Nachbessern), immer nur einer offen; alle stehen in der Vorgangsdatei, der aktuelle oben |
-| Macher-Sitzung | Auftrag | 1 : n | nacheinander, wenn Profil gleich und Sitzung klein (Grobablauf 3.9.3), sonst 1 : 1 |
-| Vorgang | Vorgang | n : m | Bezug: verwandte Nummern (derselbe Fehler woanders, Wiederholer) |
+| Themenblock | Vorgang | 1 : n | ein Block hat viele Vorgänge, jeder Vorgang gehört zu genau einem (auch Werkzeuge und Abläufe haben einen Block; Ideen sind keine Vorgänge, sie stehen in der Ideenliste) |
+| Vorgang | Auftrag | 1 : n | nacheinander (Nachstellen, Bauen, Nachbessern), immer nur einer offen |
+| Vorgang | Entscheid des Chefs | 1 : n | im Vorgangsarchiv, über die Nummer |
+| Vorgang | Vorgang | n : m | Bezug: verwandte Nummern |
+| Sitzung | Auftrag | 1 : n | nacheinander, wenn Profil gleich und Sitzung klein (Grobablauf 3.9.3), sonst 1 : 1 |
 
-**Vorgang und Auftrag nebeneinander** (Vorgang: wer, wann, wie wichtig, wie weit, also Verwaltung; Auftrag: was genau, wie geprüft, wohin zurück, also Arbeit; verbunden über die Nummer):
+Die Vorgangsdatei ist kein eigenes Ding, sondern der Ort, an dem Vorgang und Aufträge aufgeschrieben sind (ab dem ersten Auftrag).
 
-| Vorgang (Zeile plus Vorgangsdatei) | Auftrag (oben in der Vorgangsdatei) |
-|---|---|
-| Nr. | trägt die Nr. des Vorgangs |
-| Titel: kurz, nur was | Ziel: was der Spieler sieht, hört, erlebt, in den Worten des Chefs |
-| Klasse: Eilt, Muss, Kür | – |
-| Stand: ein Wort mit Frist (neu, Auftrag, in Arbeit, beim Prüfer, Chef testet, ruht, erledigt …) | **Bisher:** was versucht wurde, warum es nicht hielt, Ursache, Zweig und Commit |
-| Sitzung: wer gerade daran arbeitet | – |
-| wartet auf | – |
-| Bereich, Themenblock | Beachte: bis fünf Punkte, Pfad des Profils |
-| Bezug: verwandte Nummern | Systemfrage: gilt es für alle derselben Art, wie lösen es andere |
-| Runde: wie oft der Prüfer Nein sagte | – |
-| Zweig, Build, Kosten | – |
-| Worte des Chefs, Verlauf | – |
-| – | Umsetzen |
-| – | Prüfart mit Ja-Nein-Fragen |
-| – | Zurück: an das Büro, mit Commit und Beleg |
+**Vorgang** (Verwaltung; Zeile in der Liste, Einzelheiten in der Vorgangsdatei): Nr. · Titel (kurz, nur was) · Themenblock · Bereich · Klasse (Eilt, Muss, Kür) · wartet auf · Bezug · Zweig (einer je Vorgang) · Worte des Chefs mit Zeit.
+
+**Auftrag** (Arbeit; in der Vorgangsdatei, der offene oben):
+- schreibt die Arbeitsvorbereitung: Kennung (Nr.-laufend, etwa 1694-2) · Art (Nachstellen, Bauen, Nachbessern, Varianten) · Datum · Ziel (zitiert die Worte des Chefs mit Zeit) · Profil (Pfad) · Systemfrage · Bisher (kurz, was die früheren Aufträge ergaben; der Macher sieht nur seinen Auftrag) · Beachte · Umsetzen · Prüffragen · Zurück;
+- trägt das Werkzeug ein: wer schreibt, baut, prüft (Sitzungen) · Stand (offen, in Arbeit, beim Prüfer, angenommen, abgelehnt) · Ergebnis (Commit, Build, Beleg, Ja oder Nein des Prüfers je Frage, Kosten).
+
+**Nur abgeleitet, nie eingetragen:** Stand des Vorgangs (aus dem Stand des offenen Auftrags, dazu „Chef testet“, „ruht“, „erledigt“) · Sitzung · Runde (Zahl der abgelehnten Aufträge) · Kosten des Vorgangs (Summe).
+
+**Mein Wort zur Gegenprüfung:** Tabelle täuschte Entsprechung vor: stimmt · Zweig dreifach: stimmt, nur im Vorgang, Commit nur im Ergebnis · Auftrag ohne Stand und Ergebnis: stimmt · Runde, Sitzung, Kosten doppelt: stimmt, abgeleitet · Auftrag ohne Kennung, Art, Datum: stimmt · Profil eigenes Feld: stimmt · Ziel und Chefworte doppelt: stimmt, Ziel zitiert mit Zeit · Vorgangsdatei aus den Beziehungen: stimmt · Entscheid des Chefs fehlte: stimmt · „Bisher“ streichen: **Einwand**, der Macher bekommt nur seinen Auftrag, nicht die Datei; darum kurz · Themenblock 0..1: **Einwand**, alle 245 offenen Vorgänge sind schon einem Block zugeordnet (Grobablauf 3.17), Ideen sind keine Vorgänge.
 
 **Warum das Büro nicht selbst Aufträge schreibt** (19:45): Das Büro ist eine einzige, dauernd laufende Sitzung mit einer Stundenrunde unter einer Minute; ein guter Auftrag verlangt Lesen von Vorgangsdatei, Git, Code und Recherche und würde es dick und teuer machen. Und wer die Prüffragen festlegt, soll nicht der sein, der baut.
 
