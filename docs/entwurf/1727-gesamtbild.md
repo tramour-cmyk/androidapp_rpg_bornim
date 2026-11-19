@@ -69,7 +69,17 @@ Die Vorgangsdatei ist kein eigenes Ding, sondern der Ort, an dem Vorgang und Auf
 
 **Warum das Büro nicht selbst Aufträge schreibt** (19:45): Das Büro ist eine einzige, dauernd laufende Sitzung mit einer Stundenrunde unter einer Minute; ein guter Auftrag verlangt Lesen von Vorgangsdatei, Git, Code und Recherche und würde es dick und teuer machen. Und wer die Prüffragen festlegt, soll nicht der sein, der baut.
 
-**Offen (Vorschläge Sokrates 19:45–19:52):** (1) „Bisher statt Stand im Auftrag“ (gleiches Wort, zwei Bedeutungen). (2) „Vorgangsdatei statt Akte, erst mit Auftrag“. (3) „Arbeitsvorbereitung als Sitzung je Themenblock“: frische Sitzung, die das Büro startet und die Aufträge mehrerer Vorgänge eines Blocks auf einmal schreibt.
+**Offen (Vorschläge Sokrates 19:45–20:52):** (1) „Bisher statt Stand im Auftrag“ (gleiches Wort, zwei Bedeutungen). (2) „Vorgangsdatei statt Akte“; sie entsteht mit dem ersten Chefwort oder ersten Auftrag (Lücke 1 im Durchlauf). (3) „Arbeitsvorbereitung als Sitzung je Themenblock“: frische Sitzung, die das Büro startet und die Aufträge mehrerer Vorgänge eines Blocks auf einmal schreibt. (4) „Ende-Haken in die Bauliste“. (5) Katalog fester Werte (oben).
+
+## 0b Weitere Ergebnisse des Abends (19.11., 19:38–20:53)
+
+Muster und Abläufe zum Nachlesen: `1727-muster/` ([README](1727-muster/README.md): Vorgänge 1694, 1535, 9001; [Durchlauf Zwerg](1727-muster/durchlauf-zwerg.md); [Ablauftabelle](1727-muster/ablauf.md); [Signalkette](1727-muster/signale.md)).
+
+- **Wo die Denkarbeit liegt** (Chef 20:45: „da steckt das Hirnschmalz ja gar nicht im Büro“): stimmt. Die Arbeitsvorbereitung formuliert den Auftrag (Ziel, Systemfrage, Bisher, Prüffragen, Profil); das Büro muss zuverlässig sein, nicht klug (denkt nur beim Abgleich, im Zweifel neu mit Verweis). Folge: Arbeitsvorbereitung und Prüfer das stärkere Modell, Büro das günstigere wie Ford heute.
+- **Wer löst aus, woher weiß es der Nächste** (Chef 20:40): Nur das Büro schaut nach (Stundentakt, Weckruf durch Nachricht). Alle anderen werden gestartet, ihr Auftrag steht in der ersten Nachricht; wer fertig ist, schickt dem Büro eine Nachricht, die weckt es. Einzelheiten: Signalkette.
+- **Zeitverluste** (Chef 20:47): je Übergabe wenige Minuten, wenn die Rückmeldung das Büro weckt (nicht gemessen). Verluste: (1) Sitzung vergisst die Nachricht ans Büro: bis 60 Minuten je Übergabe, häufigster Fall; (2) Sitzung bricht still ab: Stunden, bis die Höchstdauer greift; (3) Guthaben oder Pause: Stunden bis Tage, gewollt, im Tagesbericht; (4) Build-Regel (Grobablauf 3.19.1): bis 2 Tage; (5) Test des Chefs: gewollt. Votum 20:48 gegen (1) und (2): **Ende-Haken**, der am Ende jeder Macher-, Prüfer- und Arbeitsvorbereitungssitzung dem Büro von selbst meldet, auch nach Absturz; zusammen mit dem Haken „alles gepusht?“ (Sockel 7). Gegenargument: Fällt der Haken aus, merkt es keiner; entkräftet durch Stundentakt und Herzschlag.
+- **Token** (Chef 20:51: „wenn doch zielgerichtet gesucht wurde, war es doch auch egal“): stimmt für die Suche; gespart wird an der Startlektüre (heute `CLAUDE.md` 15 KB, Rollendatei, Vorrat bis 30 KB je Start; künftig Macher Sockel 1 KB plus Auftrag etwa 2 KB). Mehrkosten: Arbeitsvorbereitung und Prüfer als eigene Sitzungen. Netto vermutlich günstiger; messen in der Probewoche (Grobablauf 12.2).
+- **Wann ein Build** steht schon im Grobablauf 3.19.1 (5 abgenommene, ältester über 2 Tage, abgenommener Fund des Chefs, Eilt, Wort „Build“); in die Bauliste 7.1 aufnehmen.
 
 ## 1 Sockel
 
