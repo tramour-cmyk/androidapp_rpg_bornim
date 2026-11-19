@@ -7,7 +7,7 @@ Auftrag Chef 19.11., 13:07: „den Sockel kannst du jetzt auch bauen … dann le
 ```markdown
 # Chroniken von Bornim
 
-Düsteres Rollenspiel fürs Handy in Godot (`godot/`), Werkzeuge in `tools/`.
+Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss. Godot (`godot/`), Werkzeuge in `tools/`.
 
 1. Dein Auftrag steht in der ersten Nachricht. Ohne Auftrag nichts bauen, sondern fragen.
 2. Deutsch, Berliner Zeit, generisches Maskulinum.
@@ -17,7 +17,7 @@ Düsteres Rollenspiel fürs Handy in Godot (`godot/`), Werkzeuge in `tools/`.
 6. Nie: Schlüssel, Passwörter oder lokale Pfade committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben, Spielcode ohne Test des Chefs auf `main`.
 ```
 
-Größe: etwa 0,7 KB (heute 15 KB). Zeile 6 ist vorläufig, siehe 2.6.
+Größe: etwa 0,8 KB, Obergrenze 1 KB (heute 15 KB). Zeile 6 ist vorläufig, siehe 2.6.
 
 ## 2 Warum jede Zeile drinsteht
 
@@ -74,6 +74,16 @@ Zwölf Befunde, mein Wort je Befund:
 - 5.10 Testbitten und Eintragen gelten heute für jede Sitzung: **Einwand:** neu nicht mehr, der Macher meldet nur über „Zurück“, das Büro trägt ein (Grobablauf 1.2).
 - 5.11 „Melden“ an wen: **stimmt**, Zeile 5 heißt jetzt „in deiner Rückmeldung nennen“.
 - 5.12 „Bild“ und „KISS“ unklar: **stimmt** teilweise: „Bild aus dem Spiel“, „Schreibe kurz und einfach (KISS)“.
+
+## 5a Kopfzeile und Signatur (Chef 13:16–13:27)
+
+- 5a.1 Kopfzeile ausgeschrieben statt „immersiv“ (Chef 13:18: „immersiv per se bringt nichts, aber dann halt das auszuschreiben, ist gut“); „erwachsen“ dazu. Gilt für jede Sitzung, weil sie die oberste Leitlinie ist (13:20).
+- 5a.2 Signatur nicht im Sockel, weil nur Bildarbeit sie braucht (Votum 13:21, Chef 13:27 ohne Einwand); sie steht im Bildprofil (Figur, Level, Prüfbild), im Kern der Arbeitsvorbereitung und als feste Prüffrage im Kern des Prüfers, nur dort; `DESIGN-STIL.md` „Signatur“ verweist dann darauf. Wortlaut mit Schatten (Chef 13:27; Quelle `DESIGN-STIL.md` Signatur 1, 2 und A2):
+
+  > Unsere Signatur im Bild: (1) Licht hat eine sichtbare Quelle; im Licht warm, im Schatten kaltes Blauschwarz. (2) Tuschelinie um jede Figur und jedes Ding, zur Lichtseite dünn, zur Schattenseite kräftig. (3) Nur Gold, Feuer und Magie glänzen.
+
+- 5a.3 Prüffrage zum Eintauchen im Kern des Prüfers: „Bricht etwas das Eintauchen? Etwa Stilbruch, Ruckeln, ein stummer Moment, ein Text, der nicht aus der Welt kommt.“
+- 5a.4 Obergrenze Sockel 1 KB; neue Zeile nur, wenn eine alte geht.
 
 ## 6 Was der Chef sagen soll
 
