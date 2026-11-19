@@ -226,6 +226,13 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.18.1 Eine Zahl „Macher gleichzeitig“, die nur der Chef setzt (eine Zeile, die `lauf.py` liest); das Büro füllt die Plätze aus dem Auftragsbuch nach der Reihenfolge (3.15, 3.16). Kein Leerlauf, weil kein Macher an ein Fach gebunden ist.
 - 3.18.2 *Gegenargument:* Büro und Prüfer kosten unabhängig von der Zahl der Macher; bei vier Machern wird der Prüfer zum Engpass, bei vier gleichzeitig steigt die Gefahr von Zusammenstößen. *Entkräftet:* Prüfer zählen mit in die Zahl (etwa 3 Macher + 1 Prüfer), die Sperre je Verzeichnis oder Szene (4.7) verhindert Zusammenstöße, und das Büro vergibt nur Aufträge, deren Verzeichnisse frei sind.
 
+**3.19 Wann ein Build, wer baut, wie keiner hineinpfuscht** (Chef 12:46).
+- 3.19.1 *Auslöser (Werkzeug im Büro, keine Sitzung):* Build-Auftrag, sobald eines zutrifft: genug abgenommen (zur Probe 5 Vorgänge), der älteste Abgenommene wartet länger als 2 Tage, oder ein Fund des Chefs ist abgenommen. Oder du sagst „Build“. Zahlen sind Annahmen.
+- 3.19.2 *Inhalt fest beim Start:* Das Büro schreibt die Liste der abgenommenen Zweige in den Build-Auftrag; danach ist der Build zu. Was später fertig wird, kommt in den nächsten.
+- 3.19.3 *Wer:* ein Macher mit Profil Build (Zusammenführen, Tests, APK, Prüfliste für deinen Test), nicht Bilder; Bilder sind Querschnittsprofil Prüfbild.
+- 3.19.4 *Sperre, Bestand:* `buildzweig-haken.py` (1716) lässt heute schon nur Spike auf `claude/build-<n>` pushen; im Pool: nur die Sitzung mit dem Build-Auftrag. Das ist eine Sperre in unseren Sitzungen. *Zusätzlich möglich:* Schutzregeln auf GitHub für `main` und Buildzweige (gelten auch außerhalb unserer Sitzungen); die stellt der Chef in den Einstellungen des Repos ein, Spike schreibt vorher auf, welche.
+- 3.19.5 *Gegenargument:* Ein fester Build-Inhalt lässt eine kleine Behebung, die zwei Stunden später fertig ist, eine Runde warten. *Entkräftet:* Genau das verhindert das Hineinpfuschen; was eilt, setzt du auf „Eilt“, dann löst das Werkzeug sofort den nächsten Build aus.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
