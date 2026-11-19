@@ -1,6 +1,41 @@
-# 1625 · Prompts kürzen, Rollen schärfen (Entwurf Sokrates, 19.11.)
+# 1625 · Rollen, Prompts, Aufträge (Sammelakte Sokrates; mit 1725)
 
-Auftrag Chef 19.11., 07:18: recherchieren, wie man vernünftige Prompts schreibt; Rollen kurz und scharf; Verfahren bei einer eigenen Rolle; Rollenprofile je Arbeit (3D-Modell, Leveldesign, Film).
+Ein Ort für alles zu 1625 (Startprompts, Kern, Kürzen, Aufträge) und 1725 (Ablauf als Flussdiagramm), Chef 19.11., 08:14: „Legen MD an, pack da alles rein, was wir bis jetzt dazu bequatscht haben, und halt dafür den Vorrat kürzer.“ Entschiedenes steht zusätzlich kurz im Vorgangsarchiv.
+
+## Stand und Termine
+
+- **Läuft heute:** Probe „Auftrag statt Startlektüre“ mit 1694 (Spike) nach Build 300 auf `main`, dann 1535 (Tom); Aufträge in `entwurf/auftraege-19-11.md`. Maß: Läufe bis Abnahme, Länge des Starts.
+- **Sa 21.11., ab 20:00 (nach Rücksetzen des Guthabens):** Flussdiagramm (1725), Entwurf `CLAUDE.md` etwa 5 KB, Kern je Rolle, Baukasten.
+- **25.11.:** Auswertung Probe Kern über `lauf.py`; Prüfung `.claude/rules/` und Skills (Chef 18.11., 22:59).
+
+## Verlauf (Chefworte)
+
+- **18.11., 08:17/08:22 (Idee):** feste Startprompts je Rolle statt Startlektüre; je Rolle mehrere Fassungen mit Schwerpunkt („Sokrates als Turbo-Spieledesigner“); Probe zuerst Sokrates.
+- **18.11., 09:48:** „dass wir immer einen Kern haben, der gleich ist und dann eine spezielle Anpassung“ (Chefrunde, Spieledesigner, Markt und Strategie, Nachtvertretung).
+- **18.11., 12:57 (1625 A):** „es muss einfach klar sein, was Ford macht. Aber wenn das klar ist, dann wähle ich A und es geht ab jetzt los damit.“
+- **18.11., 16:54:** „Ja, Kern über lauf.py, genauso.“ (1683 Spike).
+- **18.11., 20:22:** „halte deine Idee mal fest hier, dass [Ford] auch einen Kern kriegt … für die anderen Rollen ja auch machen, irgendwann.“ Schwerpunkte B–D von Sokrates (`ROLLE-BERATUNG-START.md`) nie gestartet.
+- **18.11., 22:39 (Idee):** Memory-Doku von Claude Code „interessant. Hilft uns das …?“ Votum: Auto-Memory nein (im Container, für alle Rollen gleich); `.claude/rules/` mit `paths` und Skills ja zu prüfen. 22:59: „Rules-Prüfung 25.11. ja“.
+- **19.11., 07:10:** „Müssen wir … so einen riesigen Prompt schreiben? … da ist doch dein Prompt deutlich zu groß … wenn man da spezifischer ist.“ Zu den Bildläufen: „dass die Hand halt nun mal um den Gegenstand muss, von der Innenseite … diese Erkenntnis, die muss doch schon vorher eigentlich da sein, du bist eine KI.“ „dass du auch mal recherchierst, ordentlich, wie man einen vernünftigen Prompt schreibt.“
+- **19.11., 07:18:** „Ja, gerne das 50. Mal die Prompts kürzen … Vielleicht brauchen wir auch mehr Rollen … einen, der sich nur darum kümmert, dass … richtig einsortiert wird … die sagen einfach, ich bin fertig, hier hast du … Rollen … kurz machen und schärfen … jetzt habe ich 3D-Modellarbeit. Da brauche ich andere Prompts, als wenn ich das Level-Design mache … Ein Film erstellen.“
+- **19.11., 07:24 (1725):** „so eine Art Flussdiagramm, einen Workflow … wer was machen muss … Regelwächter … die anderen arbeiten tatsächlich am Spiel … wenn Ideen da sind … wäre das dein Job abzugleichen … du musst auch ganz viel … was in deinen Regeldateien steht, gar nicht wissen, um mich beraten zu können.“
+- **19.11., 07:27:** „wie oft haben wir jetzt schon deine Rolle versucht zu schärfen … wir beide inhaltlich nicht wirklich weiter … das 10. Mal jetzt versuchen, den Betrieb so aufzustellen, dass jeder effektiv und effizient … Ergebnisse halt nicht 5, 6, 7, 8 Mal nachkontrolliert werden müssen.“
+- **19.11., 07:31:** gegen „kürzen mit harter Grenze“ als nächsten Schnellschuss: „bevor wir über radikal kürzen, muss einfach klar sein, wie er was macht, und das Essentielle für seine Tätigkeit muss da drin stehen … dann haben wir wieder ständig irgendeinen Haken, der rummosert.“ Stattdessen: Ford gibt beim Start „genau den Prompt so mit … das und das ist zu erledigen … Beachte dabei 1, 2, 3, 4, setze es so und so um und prüfe 1, 2, 3. Dazu muss ich doch nicht wissen, wie viele andere Aufgaben in meinem Vorrat stehen.“
+- **19.11., 07:34:** „das darf keine Einzellösung sein … das Ergebnis muss so sein grundsätzlich, dass das Ergebnis übertragbar wird … Haltepunkte … mit zwei Händen … wir berechnen für alle Heldenarten … alle Klamotten vor … wäre auch eine Möglichkeit.“
+- **19.11., 07:35:** „wer soll diese Prompts schreiben? … ein Modell, das ausreichend hoch eingestuft ist … eine Art Baukasten … vielleicht … eine komplett neue Rolle … die Struktur dieser Prompts … wiederholt sich ja.“
+- **19.11., 08:01:** „bitte den Vorgang 1694 mit Versuch dieses Prompts zu lösen … ob das besser ist. Ohne 50.000 andere Rollendateien“; „das Ergebnis einsortieren und abgleichen … ob das nicht auch ein Ford-Job ist … Pericles und du, ihr könnt euch doch die Aufgabe der Prompterstellung … teilen … funktional uns anlassbezogen zusammenschließen.“
+- **19.11., 08:13:** „lies dich auch mal ein, wie im Internet erfolgreich Prompts geschrieben werden … andere schlaue Leute … Lessons learned … Best Practice“; `CLAUDE.md` „knallhart kürzen …, weil die immer automatisch geladen wird.“
+
+## Entschieden (Archiv)
+
+- 1625 A Startprompt Sokrates (18.11., 12:57); Kern über `lauf.py` (18.11., 16:54); Rules-Prüfung 25.11. (18.11., 22:59).
+- Recherche und Entwurf (19.11., 07:18); Flussdiagramm Sa (07:24); Auftragsprobe mit Pflichtpunkt Systemfrage (07:31/07:34); 1694 als Auftrag nach `main`, Einsortieren und Abgleich bei Ford, Aufträge schreiben Sokrates und Perikles je nach Anlass (08:01).
+
+## Offen (für Samstag)
+
+- Wer schreibt Aufträge (Votum: Perikles als Arbeitsvorbereitung, Sokrates bei Chefthemen); Baukasten: feste Gliederung (Ziel, Systemfrage, Stand, Beachte, Umsetzen, Prüfe vor dem Senden, Zurück) und Bausteine je Fach (erstes: `LISTE-HANDWERK-FIGUR-PRUEFBILD.md`).
+- Rolle für Verfahren: Ford (Votum) statt neuer Rolle.
+- Kein Haken als Längengrenze ohne Klarheit, was in jeden Kern gehört (Chef 07:31).
 
 ## Quellen (gelesen 18./19.11.)
 
