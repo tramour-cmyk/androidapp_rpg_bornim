@@ -180,6 +180,9 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.16.4 *Stärkstes Gegenargument:* Block und Profil scheinen doppelt. *Entkräftet:* Der Block sagt **wofür** (Ziel, etwa „Kampf passt“), das Profil **womit** (Handwerk, etwa Figur). Der Biss des Wolfs (760) ist Block Kampf, Profil Figur und Kampf. Darum steht der Block in der Liste, das Profil im Auftrag.
 - 3.16.5 *Zweites Gegenargument:* Ein Block ganz oben lässt andere verhungern. *Entkräftet:* Das Alter hebt jeden Vorgang mit der Zeit an (3.15.7); und was eilt, setzt der Chef mit „Eilt“ ohnehin vor alles.
 - 3.16.6 *Auswertung* (Chef 11:52, 11:54: „Die Bereiche bleiben.“): Kosten, Läufe, Rückläufer und Alter je **Block** (was kostet ein Ziel, etwa „Kampf passt“) und je **Bereich** wie bisher (651). Beides im einen Kostenwerkzeug (Nullbasis 3.3.3), aus denselben Spalten.
+- 3.16.7 *Wo die Reihenfolge steht* (Chef 12:10: „müssen wir dann auch wo festhalten. Ahh, meine Chefsache, oder?“): **Ja, in der Chefsache, als eine feste Datei** `docs/chefsache/themenbloecke.md`: Nummer, Name, Reihenfolge, ruht bis. Sie ist die Quelle; das Reihenfolge-Werkzeug und die Übersicht lesen sie. Ändern: dein Wort, eingetragen von Sokrates.
+- 3.16.8 *Befund dabei:* Heute gibt es die Reihenfolge **zweimal und verschieden**: acht Themenblöcke fest im Code von `ueberblick.py` und sechs „Teilprojekte bis Kapitel 1 fertig“ in `PROJEKTPLAN.md` (1061), mit anderem Zuschnitt. Beide gehen in der einen Datei auf.
+- 3.16.9 *Gegenargument:* In der Chefsache gilt „beantwortet heißt weg“; eine Dauerdatei passt nicht dazu. *Entkräftet:* Es gibt dort schon feste Dateien (`README.md`, `MUSTER.md`); die Themenblöcke sind dein Lenkrad, keine Frage, und gehören dahin, wo du nachsiehst.
 
 ## 4 Wer was tut
 
