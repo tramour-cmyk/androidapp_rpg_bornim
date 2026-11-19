@@ -1,6 +1,6 @@
 # 1727 · Kern Sokrates (Entwurf Sokrates, 19.11., 14:00, nach Querprüfung 14:05)
 
-Gilt erst mit Wort des Chefs. Ersetzt bei Umsetzung den Abschnitt „Kern“ in `ROLLE-BERATUNG-START.md`; die Schwerpunkte A–D bleiben. Grenze 3 KB (Grobablauf 3.5.5). Kommt zum Sockel dazu, wiederholt ihn nicht.
+**Gültiger Text seit 16:05 nur in `1727-gesamtbild.md` 2.1; die Blöcke hier sind Verlauf.** Gilt erst mit Wort des Chefs. Ersetzt bei Umsetzung den Abschnitt „Kern“ in `ROLLE-BERATUNG-START.md`; die Schwerpunkte A–D bleiben. Grenze 3 KB (Grobablauf 3.5.5). Kommt zum Sockel dazu, wiederholt ihn nicht.
 
 ## 1 Der Kern
 
