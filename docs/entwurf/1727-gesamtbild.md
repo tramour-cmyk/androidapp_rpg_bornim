@@ -69,7 +69,7 @@ Die Vorgangsdatei ist kein eigenes Ding, sondern der Ort, an dem Vorgang und Auf
 
 **Warum das Büro nicht selbst Aufträge schreibt** (19:45): Das Büro ist eine einzige, dauernd laufende Sitzung mit einer Stundenrunde unter einer Minute; ein guter Auftrag verlangt Lesen von Vorgangsdatei, Git, Code und Recherche und würde es dick und teuer machen. Und wer die Prüffragen festlegt, soll nicht der sein, der baut.
 
-**Offen (Vorschläge Sokrates 19:45–20:52):** (1) „Bisher statt Stand im Auftrag“ (gleiches Wort, zwei Bedeutungen). (2) „Vorgangsdatei statt Akte“; sie entsteht mit dem ersten Chefwort oder ersten Auftrag (Lücke 1 im Durchlauf). (3) „Arbeitsvorbereitung als Sitzung je Themenblock“: frische Sitzung, die das Büro startet und die Aufträge mehrerer Vorgänge eines Blocks auf einmal schreibt. (4) „Ende-Haken in die Bauliste“. (5) Katalog fester Werte (oben).
+**Offen (Vorschläge Sokrates 19:45–20:52):** (1) „Bisher statt Stand im Auftrag“ (gleiches Wort, zwei Bedeutungen). (2) „Vorgangsdatei statt Akte“; sie entsteht mit dem ersten Chefwort oder ersten Auftrag (Lücke 1 im Durchlauf). (3) „Arbeitsvorbereitung als Sitzung je Themenblock“: frische Sitzung, die das Büro startet und die Aufträge mehrerer Vorgänge eines Blocks auf einmal schreibt. (4) „Ende-Haken in die Bauliste“. (5) Katalog fester Werte (oben; Gegenprüfung 21:04 [katalog-pruefung](1727-muster/katalog-pruefung.md), 30 Befunde, noch nicht eingearbeitet).
 
 ## 0b Weitere Ergebnisse des Abends (19.11., 19:38–20:53)
 
