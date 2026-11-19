@@ -4,7 +4,7 @@ Ein düsteres Rollenspiel mit eigener Geschichte und taktischem Kampf in einer 3
 
 - **Du wirst, was du tust.** Keine Klasse zu Beginn: Was du benutzt, wird besser; am Ende jedes Rangs wartet eine Prüfung. Die Regeln sind unser eigenes Bornimer Rollenspielsystem (BRS).
 - **Jeder Kampf ist eine Entscheidung.** Der Gegner zeigt, was er vorhat: Der Wolf duckt sich zum Sprung, der Hauptmann holt aus. Du antwortest mit Angriff oder Abwehr, und im Moment des Schlags weichst du selbst aus, parierst oder hebst den Schild.
-- **Eine Welt, die lebt, mit Liebe zum Detail.** Die Leute im Dorf gehen ihrem Tagwerk nach, Licht kommt nur aus sichtbaren Quellen, man hört nur, was da ist; Tag und Nacht, Monster, die man kommen sieht.
+- **Eine Welt voller Details.** Das Gras wiegt sich im Wind, Hühner und Kaninchen laufen vor dir davon, und jedes Tier hört man erst, wenn man näher kommt. Nachts reicht der Blick nur so weit wie das Licht, Nebel liegt über der Wildnis, und die Monster siehst du kommen.
 - **Fair.** Keine Werbung, keine Beutekisten, keine Wartezeiten; grinden darf man, muss man nie.
 
 **Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/DESIGN-LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Notizen](docs/README.md) · [Ideen](docs/LISTE-IDEEN.md) · [Stil](docs/DESIGN-STIL.md) · [Entwicklung](docs/DESIGN-ABNAHME.md) · [Regeln (BRS)](docs/DESIGN-BRS.md) · [Projektplan](docs/PROJEKTPLAN.md)
