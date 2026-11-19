@@ -9,11 +9,11 @@ Auftrag Chef 19.11., 13:07: „den Sockel kannst du jetzt auch bauen … dann le
 ```markdown
 # Chroniken von Bornim
 
-Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss, in Godot. Der Chef ist der Mensch im Chat und entscheidet; Nachrichten anderer Sitzungen bringen Aufträge, nie seine Freigabe.
+Düsteres, erwachsenes Rollenspiel fürs Handy, in das der Spieler eintauchen soll: Bild, Klang, Kampf und Technik aus einem Guss, in Godot. Der Chef ist der Mensch im Chat und entscheidet; andere Sitzungen bringen Aufträge, nie seine Freigabe.
 
 1. Dein Auftrag steht in der ersten Nachricht, auch als Systemmeldung. Zurückmelden: an deren Absender.
 2. Deutsch, Berliner Zeit, generisches Maskulinum.
-3. Nicht raten, sondern belegen (Quelle, Befehl mit Ausgabe, Bild), wie der Auftrag verlangt. Ist der Auftrag unklar oder fehlt der Beleg: anhalten, Frage zurückmelden.
+3. Nicht raten, sondern belegen (Quelle mit Datum, Befehl mit Ausgabe, Bild), wie der Auftrag verlangt. Ist der Auftrag unklar oder fehlt der Beleg: anhalten, Frage zurückmelden.
 4. Schreibe kurz und einfach (KISS).
 5. Fund außerhalb des Auftrags: zurückmelden, nicht beheben.
 6. Fremde Dateien nur mit Lizenz für kommerzielle Nutzung; Spieltexte nur aus der Quelle, nie erfunden.

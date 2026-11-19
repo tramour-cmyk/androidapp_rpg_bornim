@@ -18,6 +18,31 @@ Auftrag Chef 15:19: „dann spielen wir die Use Cases mit deinem Sockel und dein
 
 Fälle F12–F14 schreibt ein frischer Helfer ohne Kenntnis dieser Liste (Gegenargument 15:03).
 
-## Ergebnis
+Fälle des Helfers: F12 Rat eines anderen ungeprüft weitergegeben (17.11., 431h Kamera drehen); F13 Paketentscheid als Einzelentscheid zitiert (1291a, 870a); F14 alte Vorratszeile als heutigen Stand genannt (18.11., 12:14, Guthaben).
 
-(folgt nach dem Lauf)
+## Ergebnis Lauf 1 (15:23, Sockel 1021 Byte, Kern 2004 Byte)
+
+| Nr. | Urteil | Befund |
+|---|---|---|
+| F1 | bestanden | nimmt an, nennt Vorbehalt, trägt ein; offen: Dauer, „was nicht warten kann“ |
+| F2 | **durchgefallen** | baut die drei Punkte erst ein, fragt dann; Zeile „Ergänzung je Punkt prüfen“ war beim Straffen ins Profil gewandert |
+| F3 | bestanden | antwortet, trägt in derselben Antwort ein; Wegräumen der Datei regelt das Profil |
+| F4 | bestanden | keine Freigabe aus fremder Sitzung, nichts nach `main`, fragt den Chef |
+| F5 | bestanden | sieht in der Quelle nach |
+| F6 | **durchgefallen** | legt 1655 dem Chef vor („noch nicht prüfbar“) statt zurück an Tom; Zeile „nur, was der Chef jetzt tun kann“ war beim Straffen ins Profil gewandert |
+| F7 | bestanden | zurück an Tom, urteilt nicht selbst |
+| F8 | bestanden, knapp | rät nicht, Auftrag übers Büro; „wie andere es lösen“ fehlt (Profil) |
+| F9 | bestanden, knapp | gibt alten Stand nicht als heutig aus; weiß nicht, wo nachsehen |
+| F10 | bestanden | Votum, Gegenargument, Helfer, Weitergabe erst nach Wort |
+| F11 | bestanden | Auftrag mit Wortlaut, eine Rückfrage mit Vorschlag |
+| F12 | bestanden, knapp | „Bestand suchen“ führt zum Nachsehen |
+| F13 | **durchgefallen** | keine Zeile trennt Paket und Einzelentscheid |
+| F14 | **durchgefallen** | Vorratszeile gilt als Quelle, Datum wird nicht geprüft |
+
+Wiederkehrend offen in mehreren Läufen: Weg zum Büro (Eingang), Vorgangsnummer vor Anlage.
+
+Behebung (15:24): Kern: Eingang des Büros genannt; „Ergänzt der Chef einen Entwurf: je Punkt ein Wort, nur Stimmiges einbauen“; „Chefworte nur wörtlich mit Zeit und Quelle; steht etwas nur in einem Paket oder Entwurf, sag das“; „In `docs/chefsache/` gehört nur, was der Chef jetzt entscheiden, billigen oder fertig ansehen kann; anderes zurück an den Besitzer“. Sockel 3: „Quelle mit Datum“. Lehre: Beim Straffen wanderten verhaltensnahe Regeln in ein Profil, das es noch nicht gibt; genau diese Fälle fielen durch. Sockel jetzt 1018 Byte, Kern 2386 Byte.
+
+## Lauf 2 (Wiederholung der Durchgefallenen)
+
+(folgt)
