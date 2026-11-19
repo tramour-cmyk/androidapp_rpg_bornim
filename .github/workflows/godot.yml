@@ -683,9 +683,11 @@ jobs:
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/titel_585.gd 2>&1 | grep -E "TITEL585|SCRIPT ERROR"   # 585 Titel ausgewogen umgebrochen
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/sterben_596.gd 2>&1 | grep -E "STERBEN596|SCRIPT ERROR"   # 596 Sterben gespiegelt
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/tod_1141.gd 2>&1 | grep -E "TOD1141|SCRIPT ERROR"   # 1141 jeder Gegnerkörper hat „Tod“, Goblins drei, liegend und verschieden
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/teich_1566.gd 2>&1 | grep -E "TEICH1566|SCRIPT ERROR"   # 1566 Höhlenwasser ohne Eigenlicht (Jerry)
           set -o pipefail; timeout 60 ~/godot/godot --headless --path . -s res://tests/gelenk_1215.gd 2>&1 | grep -E "GELENK1215|SCRIPT ERROR"   # 1215 Gelenk des Physikservers: Vorzeichen der Grenzen, Lage fest, Motor als Reibung
           set -o pipefail; SCHAU_1340=1 timeout 1200 ~/godot/godot --headless --path . -s res://tests/tod_ragdoll_1215.gd 2>&1 | tee tr1215.log | grep -E "TODRAGDOLL1215 .*(FEHLER|Kosten|Tode|alles gut|Fehler$)|^1340 Gerüst|SCRIPT ERROR"; grep -q "^TODRAGDOLL1215 alles gut" tr1215.log   # 1215 physikalisches Sterben am echten Gerüst: Goblin, Späher, Schamane, Kobold, Grak
           timeout 120 ~/godot/godot --headless --path . -s res://tests/geruest_1215.gd 2>&1 | grep -E "GERUEST1215" | cut -c1-400 || true   # 1215 Gerüste aller Körper im Bau (Äste an der Wurzel, Gliedertafel), nur Auskunft
+          set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/hieb_844.gd 2>&1 | grep -E "HIEB844|SCRIPT ERROR"   # 844 Goblins, Kobolde, Schamanen schlagen: über dem Boden, nicht durch sich selbst
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/ausholen_1000.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|AUSHOLEN1000|SCRIPT ERROR"   # 1000 Grak hält die Axt oben von der Ansage bis zum Hieb
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
@@ -913,6 +915,7 @@ jobs:
           set -o pipefail; timeout 200 ~/godot/godot --headless --path . -s res://tests/anmarsch_506_1.gd 2>&1 | tee anmarsch506.log | grep -E "Tempo|FALSCH|ANMARSCH506|SCRIPT ERROR"; grep -q "^ANMARSCH506 0 Fehler" anmarsch506.log   # 506.1 langsame Gegner näher am Helden
           timeout 120 ~/godot/godot --headless --path . -s res://tests/varianten_504.gd 2>&1 | tee varianten504.log | grep -E "FEHLER|VARIANTEN504|SCRIPT ERROR"; grep -q "^VARIANTEN504 0 Fehler" varianten504.log   # 504.1 Gespraeche in Varianten
           timeout 300 ~/godot/godot --headless --path . -s res://tests/wald_490.gd 2>&1 | tee wald490.log | grep -E "FEHLER|WALD490|SCRIPT ERROR"; grep -q "^WALD490 0 Fehler" wald490.log   # 490
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/zellen_1484a.gd 2>&1 | tee zellen1484a.log | grep -E "FEHLER|ZELLEN1484A|SCRIPT ERROR"; grep -q "^ZELLEN1484A 0 Fehler" zellen1484a.log   # 1484a
           timeout 120 ~/godot/godot --headless --path . -s res://tests/wenden_560.gd 2>&1 | tee wenden560.log | grep -E "FEHLER|WENDEN560|SCRIPT ERROR"; grep -q "^WENDEN560 0 Fehler" wenden560.log   # 560 Monster wenden mit Tritten
           timeout 120 ~/godot/godot --headless --path . -s res://tests/gang_744.gd 2>&1 | tee gang744.log | grep -E "FEHLER|GANG744|SCRIPT ERROR"; grep -q "^GANG744 0 Fehler" gang744.log   # 744 A Bewegungsbaustein: Bogen, Verweilen, Ruhebewegung
           timeout 120 ~/godot/godot --headless --path . -s res://tests/tritte_560.gd 2>&1 | tee tritte560.log | grep -E "FALSCH|TRITTE560|SCRIPT ERROR"; grep -q "^TRITTE560 gut" tritte560.log   # 560 Tritte auf der Karte nicht gebremst (Tom)
@@ -1381,6 +1384,13 @@ jobs:
             GEGNER=KROGG timeout 600 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/kamera_992.gd 2>&1 | grep -E "^(  Sprung|  Boden|KAMERA992)|SCRIPT ERROR" | head -80 || true
             exit 0
           fi
+          # 844 (Tuffy, aus 709): kampf=844 Goblins, Kobolde, Schamanen gehen heran und schlagen den Kämpfer mit Schild (Treffer, abgewehrt,
+          # Treffer); erst die Prüfung ohne Bild, dann je Art ein Film; geschnitten nach den Zeilen „Film 844 … Bild a–b“
+          if [ "${{ github.event.inputs.kampf }}" = "844" ]; then
+            timeout 300 ~/godot/godot --headless --path . -s res://tests/hieb_844.gd 2>&1 | grep -E "HIEB844|SCRIPT ERROR" || true
+            for g in GOBLINS KOBOLDS SHAMANS; do film 844-$(echo $g | tr A-Z a-z) film_hieb_844 GEGNER=$g; grep -E "^Film 844" $B/844-$(echo $g | tr A-Z a-z).log || true; done
+            ls -l $B; exit 0
+          fi
           if [ "${{ github.event.inputs.kampf }}" = "784" ]; then
             film sollbild784 sollbild_784 RUNDEN=1 ZEILEN=1
             grep -E "^==|^  |^ÜBER|^SOLLBILD" $B/sollbild784.log || true
@@ -1715,6 +1725,22 @@ jobs:
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/grafik_698_bild.gd -- --aus=$B/systemmenue.png 2>&1 | grep -E "SCRIPT ERROR|^GRAFIK698" || true
           for o in dorf hoehle; do
             [ -f $B/${o}_hoch.png ] && [ -f $B/${o}_niedrig.png ] && convert $B/${o}_hoch.png $B/${o}_niedrig.png +append -resize 50% $B/vergleich_${o}.png
+          done
+          ls -l $B
+      # 1270.6 Überzeichnung (Spike, Messlauf): Wald 11/19 und Tiefer Flüsterwald 9/12 normal und in der Überzeichnungs-Ansicht
+      # (Zeilen UEBERZ1270), Stufe Niedrig; nur von Hand auf claude/spike-1270…
+      - name: Ueberzeichnung (1270.6)
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && contains(github.ref, 'spike-1270') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/ueberz1270
+          mkdir -p $B
+          sudo apt-get install -y -qq mesa-vulkan-drivers xvfb > /dev/null || true
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --ueberzeichnung1270=$B 2>&1 | grep -E "SCRIPT ERROR|SHADER ERROR|^UEBERZ1270" | cut -c1-400 || true
+          for o in wald tiefwald; do
+            [ -f $B/${o}_normal.png ] && [ -f $B/${o}_ueberzeichnung.png ] && convert $B/${o}_normal.png $B/${o}_ueberzeichnung.png +append -resize 50% $B/vergleich_${o}.png
           done
           ls -l $B
       # 492 Blutzahnhoehle: Eingang, Gang mit Stuetze, Gitter, Krogg im Ostfluegel, Lager, Teich, Graks Halle mit Lyra; dazu um 180 Grad
