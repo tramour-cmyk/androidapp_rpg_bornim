@@ -70,6 +70,12 @@ func _lauf() -> void:
 				mat.albedo_color = Color.CYAN if k == "achse" else (Color.YELLOW if k.begins_with("middle_01") else Color.MAGENTA)
 				kugel.material_override = mat; root.add_child(kugel); kugel.global_position = punkte[k]
 				print("MARKE ", k, " ", punkte[k])
+		if OS.get_environment("PRUEFFARBE") != "":   # Sokrates 23:41 „Waffe farbig, nicht schwarz“: Holz 6A4A2E und Leder 3A2A20 (waffen.py)
+			# werden im Bild schwarz (ungeschattet gemessen 30,0C,01); nur zur Prüfung des Griffs: Waffe 4fach aufgehellt, alt wie neu, im Bild vermerkt
+			for q in t.waffe.find_children("*", "MeshInstance3D", true, false) + ([t.waffe] if t.waffe is MeshInstance3D else []):
+				for s in (q as MeshInstance3D).get_surface_override_material_count():
+					var sm := (q as MeshInstance3D).get_surface_override_material(s)
+					if sm is ShaderMaterial: (sm as ShaderMaterial).set_shader_parameter("toenung", Vector3(4.0, 4.0, 4.0))
 		if OS.get_environment("SPIELKAMERA") != "": spiel.kamera.springe()   # Chef 21:37: dieselbe Hand in Spielkamera und Handygröße
 		else: kam.make_current()
 		if OS.get_environment("LAUFEN_LASSEN") == "": spiel.held.process_mode = Node.PROCESS_MODE_DISABLED
