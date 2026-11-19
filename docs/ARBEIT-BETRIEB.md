@@ -122,4 +122,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 07:05 19.11.: Startsperre 07:05 Start Tom, Spike, Perikles (lauf.py, Tom 1535, Spike 1711)
+- 08:16 19.11.: Startsperre 08:16 Start Spike (Auftrag 1694 wörtlich, Probe 1625, Chef 08:01); 300 auf `main` (3db05d4e5, Vollzug 1724)
 - 08:07 19.11.: Startsperre 08:07 Start Perikles (Chef 08:06 über Sokrates, Tagesbericht 448/1715, Ausnahme zu „eine Sitzung“)
