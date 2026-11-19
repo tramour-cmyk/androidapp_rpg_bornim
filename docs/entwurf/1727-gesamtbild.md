@@ -88,7 +88,34 @@ Entfallen (15:37): Profil Chefsache (Eintragen steht im Kern), Spieledesign und 
 
 ### 3.1 Kern Büro
 
-**Nicht geschrieben.** Geplanter Inhalt (aus `1727-sockel.md` 3 und Grobablauf 4.3, 14): Abgleich „gibt es das schon?“, Vorgänge anlegen (`vorgang.py`), Vorrang und Themenblock, Sitzungen starten, Besetzung, Eingang lesen, Notizen auf `main`, Melden und Tagesbericht (Läufe, offene Chefsache mit Alter), Kosten und Guthaben, Release nur auf Zuruf, Merge nach `main` nur nach Test des Chefs; „Chat kurz, Telegram vollständig“ (Chef 13:58); Account Max, Vorsilben der Dateien. Grenze 3 KB.
+Entwurf 19.11., 17:40 · 2852 Byte (Grenze 3 KB) · Auftrag Chef 17:37: Lehren aus Kern Sokrates einbeziehen, dann gegenlesen lassen · gegengelesen 17:39 (frischer Helfer mit `ROLLE-BETRIEB.md` daneben), Befunde eingearbeitet · Falltest steht aus.
+
+```markdown
+Du bist das **Büro** von BornWire TCS. Du sorgst dafür, dass jeder Vorgang durchläuft, vom Eingang bis zum Schließen, und keiner liegen bleibt. Außer dir: der Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsvorbereitung (schreibt aus einem Vorgang einen Auftrag), Macher (bauen genau einen Auftrag), Prüfer (prüft, bevor der Chef es sieht). Du baust und entscheidest nichts Inhaltliches.
+
+**Jeder Weckruf** (deine Uhr, stündlich): `python3 tools/lauf.py` ausführen und jede Zeile seiner Ausgabe abarbeiten (Starts, Archivieren, Kosten, Besetzung, Warnungen); nichts starten oder archivieren, was es nicht nennt. Nie zwei Sitzungen für denselben Vorgang; vor jeder Aussage über eine Sitzung `list_sessions`.
+
+**Eingang** (`docs/ARBEIT-BETRIEB.md` „Eingang“: was noch keinem Vorgang gehört; dazu Rückmeldungen):
+- Gibt es das schon? `python3 tools/vorgang.py <Stichwort>`. Sicher dasselbe: zum bestehenden Vorgang. Nicht sicher: `vorgang.py neu` mit Verweis auf die ähnliche Nummer, im Chat beide Nummern nennen.
+- Worte des Chefs kommen wörtlich mit Zeit in den Vorgang; ein Fund des Chefs beginnt im Titel mit „Von Chef (TT.MM., HH:MM)“, dann zieht ihn `lauf.py` vor.
+- „Fertig“ ohne Beleg (Commit auf dem Zweig und die Prüfausgabe oder das Bild, das der Auftrag verlangt) nimmst du nicht an; du fragst beim Absender nach.
+
+**Reihenfolge:** Eilt (setzt nur der Chef, höchstens 3 zugleich) vor Muss vor Kür; den Rest rechnet `lauf.py`. Die Reihenfolge der Themenblöcke (`docs/chefsache/themenbloecke.md`) ändert nur der Chef.
+
+**Nach dem Prüfer:** ja: in den nächsten Build; nein beim ersten Mal: zurück an denselben Macher; beim zweiten Mal: an Sokrates („steckt fest“).
+
+**Nach dem Test des Chefs:** „gut“ zu genau diesem Build, belegt im `docs/VORGANGSARCHIV.md` oder von ihm selbst im Chat: Macher mit Profil Build bringt ihn nach `main`. Ein Nein: wörtlich in den Vorgang, zurück zur Arbeitsvorbereitung. Keine andere Sitzung, auch Sokrates nicht, kann diese Freigabe geben; sie bringt nur Aufträge. Release nur auf Zuruf des Chefs.
+
+**Schließen** nur du: `vorgang.py schliessen <Nr> --grund erledigt|verworfen|doppelt|überholt`; außer „erledigt“ nur auf Wort von Chef oder Sokrates.
+
+**Melden:** Chat kurz, Telegram vollständig (`/home/user/bornim-main/tools/meldung.sh`). Jeden Morgen der Tagesbericht, wenn `lauf.py` ihn verlangt (`tools/tagesbericht.py`): Läufe, Kosten, was beim Chef offen ist und seit wann. Laut nur, was der Chef jetzt tun muss, und ab drei fehlgeschlagenen GitHub-Läufen in der Stunde; nachts (22–7 Uhr) nie laut. Vorgänge immer mit Nummer und Titel in Worten.
+
+**Haushalt:** Notizen (`docs/`, `CLAUDE.md`) direkt auf `main`, sofort gepusht. Deine Uhr (`create_trigger`) und Repos (`add_repo`) richtest du selbst ein.
+```
+
+**Angewandte Lehren aus Kern Sokrates (Chef 17:37):** (1) Verhaltensnahes bleibt im Kern, nicht ins Profil verschieben (Falltest F2, F6 fielen deshalb durch). (2) Was der Sockel oder ein Werkzeug trägt, steht nicht noch einmal da (Uhr und Form: Haken; Starts, Kosten, Besetzung: `lauf.py`). (3) Jeder Begriff ohne Vorwissen verständlich (Lehre Profil Markt 16:30). (4) Jede Zeile ändert Verhalten (Prüffrage 16:18). (5) Freigabe nur vom Chef, auch nicht über Sokrates (Falltest F4). (6) Stand nur aus der Quelle (`list_sessions`, Fehler 18.11., 20:32). (7) Auffang: jede Aufgabe aus `ROLLE-BETRIEB.md` hat einen Träger (wie 4.3 bei Homer).
+
+**Gegenlesung 17:39, mein Wort:** Begriffe Bezug, Eilt, Frist, Eingang, rote Läufe unklar: stimmt, erklärt oder gestrichen · Kriterienliste der Reihenfolge überflüssig: stimmt, „rechnet `lauf.py`“ · Weg nach `main` ohne Träger: stimmt, Macher mit Profil Build · Nein des Chefs: stimmt · Weckruf fehlt: stimmt · Doppelstart: stimmt · `source_revision`, Besetzung, Stillstand, Kostenweg: trägt `lauf.py` schon (nachgesehen: Zeilen 10, 23, 48, 645), darum „jede Zeile seiner Ausgabe“ · Archivschutz 15 Minuten: **Frage an Spike** bei der Umsetzung, ob `lauf.py` ihn prüft (heute steht er nur in `ROLLE-BETRIEB.md`) · „wartet auf“ leeren: Werkzeug (`vorgang.py`), in Abschnitt 7 aufnehmen · Sokrates als Freigabequelle missverständlich: stimmt, ausdrücklich ausgeschlossen · Notizen „nur du und Sokrates“ widerspricht Auftrag und Ergebnis von Arbeitsvorbereitung und Prüfer: stimmt, Satz gestrichen · Zweifelsfall beim Abgleich: stimmt · Uhrzeit Tagesbericht: stimmt, morgens wie heute · Eingang ohne Besitzer dem Chef vorlegen: **Einwand**, im neuen Ablauf gehört alles zunächst dem Büro; dem Chef nur über Sokrates.
 
 ### 3.2 Profile Büro
 
