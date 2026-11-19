@@ -205,7 +205,8 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 
    | Nr. | Block neu | Fachprofil |
    |---|---|---|
-   | 3.17.13 | Kampf und Regeln (mit Umzug BRS) | Kampf |
+   | 3.17.13 | Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | Kampf |
+   | 3.17.13a | Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | Regeln |
    | 3.17.14 | Figuren und Kleidung | Figur |
    | 3.17.15 | Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | Welt |
    | 3.17.16 | Klang und Musik | Klang |
@@ -216,6 +217,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
    | 3.17.21 | Firma: Werkzeuge und Abläufe | Werkzeug |
    | 3.17.22 | Marktstart | – (Sokrates mit dem Chef) |
 
+- 3.17.22a *Kampf und Regeln getrennt* (Chef 12:22: „Kampf und Regeln würde ich dann auch trennen“). **Stimmt.** Regeln gelten auch außerhalb des Kampfs (Proben, Handel, Schleichen, Erschaffung), und das Handwerk ist ein anderes: Regeln heißt rechnen bei 0, 24, 49, 74, 100 gegen das Regelwerk, Kampf heißt Bewegung, Kampforte, Gefühl. Der Block Kampf (69 offen) wird dadurch kleiner. *Gegenargument:* Fast jede Kampfänderung berührt Zahlen; dann ändert ein Kampf-Macher nebenbei Regeln. *Entkräftet:* Zahlen und Regelwerk (`DESIGN-BRS.md`, Werte-Datei) gehören dem Block Regeln; braucht ein Kampfauftrag andere Zahlen, ist das ein Fund außerhalb (5.4) und ein Regel-Auftrag. Balance der Zahlen ist Regeln, Kampfgefühl ist Kampf. Damit elf Blöcke.
 - 3.17.23 *Dazu wenige Querschnittsprofile,* die jeder Block braucht: Prüfbild und Film, Build, Spieltext (einbauen), Fremde Inhalte. Der Auftrag nennt das Fachprofil seines Blocks und bei Bedarf eines davon oder ein zweites Fachprofil (760: Kampf und Figur).
 - 3.17.24 *Stärkstes Gegenargument:* Zehn Blöcke sind mehr als acht, und jede Aufteilung macht neue Grenzfälle (Licht im Kampf: Welt oder Kampf?). *Entkräftet:* Grenzfälle entscheidet das Büro einmal beim Anlegen, nicht jede Sitzung neu; Klang und Musik nennt die Oberste Direktive eigens, darum ein eigener Block statt Rest in einem Sammelbecken; der Gewinn ist, dass Block, Profil und Auswertung zusammenpassen.
 - 3.17.25 *Grenze:* Den Zuschnitt der Themenblöcke legst du fest (Chefsache-Übersicht); das hier ist mein Vorschlag.
