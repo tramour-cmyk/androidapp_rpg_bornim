@@ -26,6 +26,8 @@ Ein Ort für alles zu 1625 (Startprompts, Kern, Kürzen, Aufträge) und 1725 (Ab
 - **19.11., 08:01:** „bitte den Vorgang 1694 mit Versuch dieses Prompts zu lösen … ob das besser ist. Ohne 50.000 andere Rollendateien“; „das Ergebnis einsortieren und abgleichen … ob das nicht auch ein Ford-Job ist … Pericles und du, ihr könnt euch doch die Aufgabe der Prompterstellung … teilen … funktional uns anlassbezogen zusammenschließen.“
 - **19.11., 08:13:** „lies dich auch mal ein, wie im Internet erfolgreich Prompts geschrieben werden … andere schlaue Leute … Lessons learned … Best Practice“; `CLAUDE.md` „knallhart kürzen …, weil die immer automatisch geladen wird.“
 
+- **19.11., 08:17:** „ob wir feste Themenbereiche zuweisen oder … 6 oder 7 Personen in der Firma … die kriegen halt jeweils den Prompt genau so hin vorgelegt, dass sie spezifische Aufgaben erfüllen können … nicht mehr festklammern an … das ist jetzt der Bereich von A … Was spricht denn da dafür oder dagegen?“ Votum im Chat 08:18: Pool mit Auftrag, Verantwortung je Vorgang statt je Bereich, Sperre je Dateibereich.
+
 ## Entschieden (Archiv)
 
 - 1625 A Startprompt Sokrates (18.11., 12:57); Kern über `lauf.py` (18.11., 16:54); Rules-Prüfung 25.11. (18.11., 22:59).
