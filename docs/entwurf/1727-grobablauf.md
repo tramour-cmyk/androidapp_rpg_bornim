@@ -16,13 +16,18 @@ flowchart TD
     S -->|Idee| I{taugt sie?}
     I -->|nein / später| IL[(Ideenliste)]
     I -->|ja| V
-    S -->|Auftrag, Fund| V[Büro<br/>Vorgang anlegen, Vorrang]
+    S -->|Auftrag, Fund| AB{Büro: Abgleich<br/>gibt es das schon? passt es zu einem Vorgang?}
+    AB -->|gibt es schon| ALT[an den bestehenden Vorgang hängen]
+    AB -->|neu| V[Büro<br/>Vorgang anlegen, Bezüge eintragen, Vorrang]
     S -->|Entscheidung nötig| CS[(Chefsache)] --> C
-    V --> A[Arbeitsvorbereitung<br/>Auftrag aus dem Baukasten]
+    V --> A[Arbeitsvorbereitung<br/>Auftrag aus dem Baukasten, Prüfart festgelegt]
     A -->|Auftrag + Profil| M[Macher<br/>frische Sitzung, nur dieser Auftrag]
-    M -->|fertig + Beleg| P{Prüfer<br/>Prüfpunkte des Auftrags}
+    M -->|fertig + Beleg| P{Prüfer<br/>Ziel erreicht? Prüfart des Auftrags}
+    M -->|Fund außerhalb| AB
+    P -->|Fund außerhalb| AB
     P -->|nein, 1. Mal| M
     P -->|nein, 2. Mal| A2[Ursache an die Arbeitsvorbereitung:<br/>Auftrag oder Profil verbessern] --> A
+    P -->|nein, 3. Mal| S
     P -->|ja| B[Büro<br/>eintragen, in die Warteschlange für den Build]
     B --> BA[Build-Auftrag an Spike<br/>Inhalt beim Start fest]
     BA --> T([Chef testet])
@@ -30,6 +35,34 @@ flowchart TD
     T -->|Fund| S
     B -->|was zurückkam, wiederholt sich?| L[Lehre ins Profil<br/>nicht in einen Prompt]
 ```
+
+## Ergänzungen des Chefs (19.11., 09:00)
+
+1. **Büro gleicht vor dem Anlegen ab:** „erstmal prüfen, ob es das alles schon gibt, was dazu passt, ob es neu ist, vielleicht auch Verweise auf andere Vorgangsnummern“. Neu im Ablauf: Ein Werkzeug sucht ähnliche Vorgänge (Titel, Bereich, Stichworte) und legt sie dem Büro vor. Das Büro entscheidet: an einen bestehenden Vorgang hängen oder neu anlegen. In beiden Fällen kommt eine neue Spalte „Bezug“ dazu, mit den verwandten Nummern. Daraus sieht man auch Wiederholungen: Hat ein Thema drei Bezüge, fragt das Büro nach einer Systemlösung.
+2. **Nicht alles ist ein Bild:** Die Arbeitsvorbereitung legt im Auftrag die **Prüfart** fest, der Prüfer prüft danach:
+
+   | Arbeit | Prüfart, Beleg |
+   |---|---|
+   | Aussehen, Figur, Welt | Bild in Spielkamera und Handygröße, alt gegen neu |
+   | Bewegung, Animation | Film |
+   | Klang, Musik | Hörprobe im Spiel |
+   | Regeln, Kampf, Balance | Rechnung bei 0, 24, 49, 74, 100 gegen das Regelwerk, dazu ein Kampfprotokoll |
+   | Spiellogik, Werkzeug | Test mit Befehl und Ausgabe |
+   | Spieltext | Abgleich mit der Quelle in `STORY-…`, Wort für Wort |
+   | Spielgefühl, Ablauf | Durchspielprotokoll der Stelle |
+
+3. **Rückläufer und Funde: wer legt an, wer fasst an.** Grundsatz: **Wer findet, meldet nur. Das Büro legt an. Die Arbeitsvorbereitung schreibt den Auftrag. Der Macher baut.** Jeder Schritt hat genau einen Besitzer.
+
+   | Fall | Wer meldet | Wer legt an / entscheidet | Wer arbeitet ab |
+   |---|---|---|---|
+   | Ergebnis erfüllt das Ziel nicht (1. Mal) | Prüfer, mit Befund | – (bleibt im Vorgang) | derselbe Macher |
+   | dasselbe, 2. Mal | Prüfer | Arbeitsvorbereitung: Auftrag oder Profil falsch? | Arbeitsvorbereitung schreibt den Auftrag neu, dann ein frischer Macher |
+   | dasselbe, 3. Mal | Prüfer | Sokrates: steckt fest | Sokrates mit Spike (erst nachsehen, wie andere es lösen); ggf. Chefsache |
+   | Fund außerhalb des Auftrags | Macher oder Prüfer, eine Zeile „was, wo, Beleg“ | Büro: Abgleich, an einen Vorgang hängen oder neu anlegen | wer laut Vorrang dran ist, mit eigenem Auftrag |
+   | Fund im Test des Chefs | Chef an Sokrates | Büro wie oben | ebenso |
+   | Ablauf oder Werkzeug hakt | wer es merkt | Büro (Regelwächter) | Werkzeug: Spike; Regel: Büro mit Sokrates |
+
+   Kein Macher behebt einen fremden Fund nebenbei, und kein Fund bleibt nur im Chat: Ohne Zeile beim Büro gilt er als verloren.
 
 ## Wer was tut
 
@@ -40,7 +73,7 @@ flowchart TD
 | **Büro** (Ford, gestärkt) | Vorgänge, Vorrang (heute Perikles), Starten, Einsortieren, Melden, Kosten, Regelwächter; das Mechanische macht `lauf.py` | Sockel, Kern, Vorgangsliste über das Werkzeug |
 | **Arbeitsvorbereitung** (heute Perikles; bei Chefthemen Sokrates) | schreibt je Vorgang einen Auftrag nach festem Baukasten | Sockel, Baukasten, die Akte des Vorgangs |
 | **Macher** (Pool, Namen bleiben: Tom, Jerry, Homer, Spike) | baut genau einen Auftrag in einem Zweig | Sockel, Auftrag; Profil lädt bei Bedarf |
-| **Prüfer** (Diogenes) | prüft das Ergebnis gegen die Prüfpunkte des Auftrags, bevor der Chef es sieht | Sockel, Auftrag, Ergebnis |
+| **Prüfer** (Diogenes) | prüft das Ergebnis nach der Prüfart des Auftrags, bevor der Chef es sieht; meldet Funde außerhalb ans Büro | Sockel, Auftrag, Ergebnis |
 
 Feste Bereiche fallen weg (Chef 08:17): Verantwortung hängt am Vorgang, nicht an „Dorf“ oder „Höhle“. Damit zwei Macher sich nicht in die Quere kommen, sperrt das Büro je Auftrag ein Verzeichnis oder eine Szene.
 
@@ -77,7 +110,7 @@ Je Arbeit ein Profil mit Handwerk, Prüfung, Abnahmebild: Figur und 3D-Modell ·
 ## Stärkstes Gegenargument (nach dem Gegenlesen)
 
 **Alles hängt an der Güte der Aufträge.** Ein frischer Macher weiß nur, was im Auftrag steht. Ist der Auftrag schlecht, misst der Prüfer an denselben schlechten Prüfpunkten, und derselbe blinde Fleck geht zweimal durch. Beispiel 1694: Die Prüfung meldete „grün“, das Bild zeigte den Stiel über dem Fingerrücken.
-**Entkräftet durch:** (1) Der Prüfer prüft nicht nur die Punkte des Auftrags, sondern zuerst das Ziel: Sieht der Spieler, was im Ziel steht? Bei Aussehen immer am Bild. (2) Wir messen den Auftragsschreiber: wie viele Aufträge kommen als unklar zurück, wie viele Läufe bis zur Abnahme. (3) Die Systemfrage und der Stand mit Ursache sind Pflicht; ohne sie startet das Büro keinen Auftrag.
+**Entkräftet durch:** (1) Der Prüfer prüft nicht nur die Punkte des Auftrags, sondern zuerst das Ziel: Erlebt der Spieler, was im Ziel steht? Geprüft nach der Prüfart, bei Aussehen am Bild. (2) Wir messen den Auftragsschreiber: wie viele Aufträge kommen als unklar zurück, wie viele Läufe bis zur Abnahme. (3) Die Systemfrage und der Stand mit Ursache sind Pflicht; ohne sie startet das Büro keinen Auftrag.
 
 Zweites Gegenargument: **Das Büro wird zum Nadelöhr.** Entkräftet: Was sich regeln lässt, macht `lauf.py`; die Sitzung Büro schreibt nur den Rest. Rückweg ist der heutige Stand in Git.
 
