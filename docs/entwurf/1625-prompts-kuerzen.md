@@ -17,6 +17,20 @@ Auftrag Chef 19.11., 07:18: recherchieren, wie man vernünftige Prompts schreibt
 6. **Eine Prüfung geben, Beleg verlangen:** „ask Claude for evidence: the command it ran and its output, or the screenshot“; Prüfung durch einen, der den Code nicht schrieb.
 7. **Spezialisten:** Unteragenten mit eigenem Prompt, Werkzeugen und Modell in `.claude/agents/*.md`.
 
+## Andere Quellen (19.11., 08:14, Chef: „was ist denn hier mit anderen schlauen Leuten“)
+
+Meist Erfahrungsberichte, Zahlen teils ungeprüft; der Kern ist überall gleich.
+
+1. **Context Rot** (Chroma, 2025, 18 Modelle, auch Claude): Treffsicherheit sinkt mit der Länge der Eingabe, schon bei einfachen Aufgaben; unpassende Inhalte („Ablenker“) verschärfen es. research.trychroma.com/context-rot
+2. **„Agent instruction bloat“** steht als Warnung im Thoughtworks Technology Radar. thoughtworks.com/de/radar/techniques/agent-instruction-bloat
+3. **Grenze der Anweisungen:** Praktiker nennen etwa 150 Anweisungen, die ein Modell verlässlich befolgt (Quelle nicht belegt); Mitte langer Dateien wird eher übersehen (Positionseffekt). humanlayer.dev/blog/writing-a-good-claude-md, tianpan.co (14.02.2026)
+4. **Widersprüche:** Bei zwei sich widersprechenden Regeln wählt das Modell beliebig (auch Anthropic).
+5. **Schlanke Unteragenten:** Anthropics Rechercheverbund arbeitet mit einem Leiter, der knappe Aufträge an Unteragenten mit je eigenem schmalem Kontext gibt; „alles vorladen“ hat in Produktion nicht getragen. dev.to (Manus), zenml.io
+6. **Feste Schritte in Code:** Ablauf in Knoten teilen, das Modell nur für Verstehen und Erzeugen, alles regelhaft Entscheidbare in Code und Regeln. besthub.dev
+7. **Dateien als Gedächtnis:** Wissen in Dateien ablegen und gezielt nachladen statt im Prompt mitschleppen (Manus).
+
+**Folgerung für uns:** Unsere 75 KB Ablauf sind für eine Figurenaufgabe genau die „Ablenker“ aus (1); unsere vielen Regeln mit Ausnahmen und Ersetzungen sind (4); Ford mit Werkzeugen ist (6); der Auftrag statt Startlektüre ist (5).
+
 ## Befund bei uns
 
 - Start Tom etwa 75 KB: `CLAUDE.md` 15, Rollendatei 13, Vorrat 30, Checkliste Build 18. Fast alles Ablauf; Handwerk (Griff, Kleidung, Prüfbild) fehlt.
