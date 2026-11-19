@@ -75,7 +75,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 **3.4 Werkzeug baut ein Macher mit Profil, nicht Spike** (09:14). **Stimmt**: Der Entwurf löst feste Fächer auf, die Nennung von Spike widersprach ihm; ebenso beim Build. Build und Werkzeug sind Profile wie Figur oder Klang. *Ergänzt:* Das Profil Werkzeug braucht drei feste Punkte, weil Werkzeuge jede Sitzung treffen: Kerntests vor dem Commit, kein Haken, der nur mahnt, Regelbilanz (ein neues Werkzeug ersetzt eine Textregel).
 
 **3.5 Sind 4 KB für den Macher nicht zu groß?** (09:33: „Für Büro und Sokrates ggf. Ausnahme, aber generell?“). **Beim Sockel ja, beim Auftrag nein.**
-- 3.5.1 *Sockel:* Von den acht Zeilen des ersten Wurfs kann ein Werkzeug fünf übernehmen oder ein Profil tragen (siehe 5). Es bleiben drei Zeilen, etwa 0,5 KB. Hier hattest du recht.
+- 3.5.1 *Sockel:* Von den acht Zeilen des ersten Wurfs kann ein Werkzeug fünf übernehmen oder ein Profil tragen (siehe 5). Es bleiben drei Zeilen, mit 3.7 vier, etwa 0,5 KB. Hier hattest du recht.
 - 3.5.2 *Auftrag:* Er ist kein Ballast, sondern die Arbeit selbst: Ziel, Stand mit Ursache, Prüfpunkte. Kürzer heißt hier: der Macher sucht, was der Auftrag hätte sagen können, oder rät. Bei 1694 lag der Fehler genau im fehlenden Stand. Darum Grenze 1,5 KB als Zucht (höchstens fünf Punkte unter „Beachte“), aber kein Kürzen um jeden Preis.
 - 3.5.3 *Stärkstes Gegenargument gegen mich:* Eine Grenze erzwingt Schärfe; ohne harte Zahl wachsen Aufträge wieder zu Abläufen. Entkräftet: Die Grenze steht im Baukasten, ein Werkzeug misst sie beim Start, und der Prüfer zählt, wie oft ein Auftrag als unklar zurückkommt (9.2).
 - 3.5.4 *Zur Einordnung:* Claude Code lädt selbst schon einen Systemprompt und die Beschreibungen aller Werkzeuge, ein Vielfaches unserer Kilobytes, und während der Arbeit liest der Macher Code und Bilder. Was schadet, sind nicht die Bytes allein, sondern Unpassendes und Widersprüche (Quelle „Context Rot“ in 1625). Darum zählt: jede Zeile im Sockel wird in jeder Sitzung gebraucht, jede Zeile im Auftrag für genau diese Aufgabe.
@@ -88,6 +88,11 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.6.3 *Entkräftet:* Das Gedächtnis der Geschichte liegt schon heute in Dateien, nicht in Homers Kopf: `STORY-PLAN.md`, `STORY-PLAN-K1.md`, `STORY-K1-HANDLUNG.md`, `STORY-REGELN.md`. Das Profil Story lädt Ton, Figurenstimmen und den Storyplan; große Würfe (Kapitelentwurf) sind ein großer Auftrag an einen Macher; der Prüfer gleicht gegen Storyplan und Regeln ab, der Chef urteilt.
 - 3.6.4 *Was Homer heute noch tut und wohin es geht:* Ideen urteilen (sonntags) → Sokrates (2.3); Stil und Aussehen → Chef; Leveldesign → Macher mit Profil Leveldesign; Vorentscheide Homer entfallen.
 - 3.6.5 *Zwei Profile, nicht eines:* **Story** (schreiben: Ton, Stimmen, Plan) für den, der Texte verfasst; **Spieltext** (einbauen: wortgetreu aus `STORY-…`, nie erfinden, Begriffe) für jeden, der Texte ins Spiel setzt. Getrennt, damit wer nur einbaut, nicht den ganzen Ton laden muss.
+
+**3.7 Sockel: „KISS – keep it short and simple. Nicht raten, sondern belegen.“** (09:46). **Beides stimmt; „belegen“ ist besser als mein Satz, KISS braucht eine Klammer.**
+- 3.7.1 *Nicht raten, sondern belegen:* schärfer als mein „nicht raten; vorher nachsehen“, weil es den Nachweis verlangt, den auch die Quellen empfehlen („ask Claude for evidence“, 1625). *Ergänzt:* Was tun, wenn man nicht belegen kann? Anhalten und fragen. Ersetzt 5.2.
+- 3.7.2 *KISS, stärkstes Gegenargument:* Allein stehend beißt es sich mit der Systemfrage (6.2): „einfach“ verleitet zur schnellsten Einzellösung, genau das, was wir bei Griff und Kleidung nicht wollen. Außerdem kennt das Modell den Satz; ohne Klammer bleibt er Schlagwort.
+- 3.7.3 *Entkräftet:* „die einfachste Lösung, **die alle Fälle trägt**“, dazu „kurz schreiben“ für Meldungen und Aufträge. So wirkt KISS gegen Überbau (unsere vielen Regeln und Werkzeuge) und nicht gegen die Systemlösung. Neu als 5.3.
 
 ## 4 Wer was tut
 
@@ -107,20 +112,21 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 Nur, was jede Sitzung braucht, nicht selbst sehen kann und kein Werkzeug erzwingen kann:
 
 - 5.1 Deutsch, Berliner Zeit.
-- 5.2 Auftrag unklar oder unmöglich: anhalten und zurückfragen, nicht raten; vorher nachsehen.
-- 5.3 Fund außerhalb des Auftrags: melden, nicht beheben (außer 3.3.7).
+- 5.2 Nicht raten, sondern belegen (Quelle, Befehl mit Ausgabe, Bild). Geht das nicht oder ist der Auftrag unklar: anhalten und fragen. (3.7)
+- 5.3 Kurz und einfach (KISS): die einfachste Lösung, die alle Fälle trägt; kurz schreiben. (3.7)
+- 5.4 Fund außerhalb des Auftrags: melden, nicht beheben (außer 3.3.7).
 
 Wohin der Rest zieht:
 
 | Nr. | Bisher im Text | Neu |
 |---|---|---|
-| 5.4 | Name und Zeit vor jeder Nachricht | Haken setzt ihn |
-| 5.5 | Nie Schlüssel, Passwörter committen; App-Kennung; kein Force-Push | Sperrhaken (verhindert, mahnt nicht) |
-| 5.6 | Kein Spielcode auf `main` ohne Test des Chefs | Schutz von `main` auf GitHub plus Sperrhaken |
-| 5.7 | Spieltexte nie erfinden; Begriffe | Profil Spieltext |
-| 5.8 | Fremde Inhalte nur mit offener Lizenz | Profil Fremde Inhalte (lädt beim Einbinden von Dateien) |
-| 5.9 | „Fertig“ mit Beleg | Feld „Zurück“ in jedem Auftrag |
-| 5.10 | Melden, Vorgänge, Chefsache, Rollen | Kern Büro bzw. Sokrates |
+| 5.5 | Name und Zeit vor jeder Nachricht | Haken setzt ihn |
+| 5.6 | Nie Schlüssel, Passwörter committen; App-Kennung; kein Force-Push | Sperrhaken (verhindert, mahnt nicht) |
+| 5.7 | Kein Spielcode auf `main` ohne Test des Chefs | Schutz von `main` auf GitHub plus Sperrhaken |
+| 5.8 | Spieltexte nie erfinden; Begriffe | Profil Spieltext |
+| 5.9 | Fremde Inhalte nur mit offener Lizenz | Profil Fremde Inhalte (lädt beim Einbinden von Dateien) |
+| 5.10 | „Fertig“ mit Beleg | Feld „Zurück“ in jedem Auftrag |
+| 5.11 | Melden, Vorgänge, Chefsache, Rollen | Kern Büro bzw. Sokrates |
 
 ## 6 Der Auftrag (Baukasten, höchstens 1,5 KB)
 
@@ -172,7 +178,7 @@ Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproble
 
 ## 12 Einführung in Schritten (ab Sa 21.11., 20:00)
 
-- 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.5 und 5.6 behalten.
+- 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.6 und 5.7 behalten.
 - 12.2 Ein Macher, eine Woche, nur mit Auftrag, Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet, Guthaben je Auftrag.
 - 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung.
 - 12.4 Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
