@@ -41,6 +41,16 @@ Aus dem Gespräch Chef und Sokrates 19.11., 19:44–19:53 (Chef 19:53: „mal ir
 
 Die Absätze „Zu Nr.“ in den Vorräten fallen weg (wandern in die Vorgangsdatei); beim Schließen bleibt die Vorgangsdatei in Git, ins Archiv eine kurze Zeile. Ideen und ruhende Vorgänge bleiben eine Zeile, ohne Datei. Das Wort „Akte“ entfällt: beim Chef umfasst eine Akte viele Vorgänge (19:51).
 
+**Beziehungen** (Chef 20:07: „In welchen 1:n-Verknüpfungen stehen die jetzt zueinander?“):
+
+| von | zu | Art | Bedeutung |
+|---|---|---|---|
+| Themenblock | Vorgang | 1 : n | ein Block hat viele Vorgänge, jeder Vorgang gehört zu genau einem Block |
+| Vorgang | Vorgangsdatei | 1 : 0..1 | keine Datei, solange nur Idee oder ruhend; genau eine, sobald ein Auftrag entsteht |
+| Vorgang | Auftrag | 1 : n | nacheinander (Nachstellen, Bauen, Nachbessern), immer nur einer offen; alle stehen in der Vorgangsdatei, der aktuelle oben |
+| Macher-Sitzung | Auftrag | 1 : n | nacheinander, wenn Profil gleich und Sitzung klein (Grobablauf 3.9.3), sonst 1 : 1 |
+| Vorgang | Vorgang | n : m | Bezug: verwandte Nummern (derselbe Fehler woanders, Wiederholer) |
+
 **Vorgang und Auftrag nebeneinander** (Vorgang: wer, wann, wie wichtig, wie weit, also Verwaltung; Auftrag: was genau, wie geprüft, wohin zurück, also Arbeit; verbunden über die Nummer):
 
 | Vorgang (Zeile plus Vorgangsdatei) | Auftrag (oben in der Vorgangsdatei) |
