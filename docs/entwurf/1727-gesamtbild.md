@@ -219,5 +219,5 @@ Was aus der langen Fassung (17:52) in Werkzeuge wandert; umstellen erst, wenn ge
 | Werkzeug | muss können | heute |
 |---|---|---|
 | `lauf.py` | Takt, Starts, Prüfer und Rückläufer (1., 2. Nein), Eilt vor Muss vor Kür, Themenblöcke, Doppelstart verhindern, Folgeauftrag an denselben Macher (3.9.3), Archivieren mit Schutz 15 Minuten, Kosten, Besetzung, Tagesbericht anstoßen, laut ab 3 roten Läufen; kein Start ohne Feld „Zurück“ | Starts, Archivieren, Kosten, Besetzung, Tagesbericht, Stillstand **ja**; Rest **nicht gebaut**; Schutz 15 Minuten prüfen |
-| `vorgang.py` | `--hilfe`; `schliessen` mit Grund; Akte `docs/akte/<Nr>.md`; Fund des Chefs markieren; höchstens 3 Eilt; „wartet auf“ leeren bei Lieferung | `--hilfe` **fehlt** (findet „nichts“); Rest **nicht gebaut** |
+| `vorgang.py` | `--hilfe`; `auftrag <Nr>` gibt die sieben Felder vor und prüft Pflichtfelder (Zurück) und Größe (etwa 2 KB); `schliessen` mit Grund; Akte `docs/akte/<Nr>.md`; Fund des Chefs markieren; höchstens 3 Eilt; „wartet auf“ leeren bei Lieferung | `--hilfe` **fehlt** (findet „nichts“); Rest **nicht gebaut** |
 | `meldung.sh` | Telegram-Regel vor der ersten Meldung je Sitzung; nachts (22–7 Uhr) nie laut | **nicht gebaut** |
