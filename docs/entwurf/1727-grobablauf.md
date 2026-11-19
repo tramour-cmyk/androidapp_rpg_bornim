@@ -29,6 +29,7 @@ flowchart TD
     P -->|nein, 2. Mal: steckt fest| S
     P -->|ja| B[2.12 Büro<br/>eintragen, Warteschlange für den Build]
     B -->|wiederholt sich ein Fehler?| L[2.13 Lehre ins Profil<br/>nicht in einen Prompt]
+    B -->|nächster Auftrag passt, Sitzung klein (3.9)| M
     B --> BA[2.14 Build-Auftrag an einen Macher<br/>Profil Build, Inhalt beim Start fest]
     BA --> T([2.15 Chef testet])
     T -->|gut| MAIN[(2.16 main)]
@@ -96,6 +97,13 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 
 **3.8 „Nur Sokrates fabuliert, ansonsten KISS. Sokrates darf, aber muss nicht fabulieren“** (09:47). **Stimmt**; deckt sich mit der heutigen Regel „nur Sokrates begründet ausführlich“.
 - 3.8.1 *Gegenargument:* Eine Ausnahme im Sockel kostet jede Sitzung eine Zeile für eine Rolle. *Darum:* Sockel nur KISS (5.3); die Erlaubnis steht allein im Kern Sokrates: „ausführlich nur, wo der Chef entscheiden soll und die Begründung trägt; sonst KISS“.
+
+**3.9 Folgeauftrag an denselben Macher, wenn er noch klein ist** (Idee 09:56: „nicht immer gleich neue Sitzung, um Kosten zu sparen wenn möglich“). **Ja, unter drei Bedingungen.**
+- 3.9.1 *Dafür:* Ein Start kostet: Claude Code lädt Systemprompt und Werkzeuge, der Macher liest Profil und Code erneut. Arbeitet er im selben Feld weiter, ist das schon da.
+- 3.9.2 *Stärkstes Gegenargument:* Der alte Auftrag bleibt im Kontext, mit seinen Dateien, Ausgaben und Annahmen. Genau diese Ablenkung wollen wir loswerden (1.1). Und jeder weitere Schritt schickt den ganzen bisherigen Kontext mit; eine große Sitzung kostet je Schritt mehr als eine frische.
+- 3.9.3 *Darum nur, wenn alles zutrifft:* (1) dasselbe Profil; (2) dasselbe Feld, also Bezug oder dieselben Verzeichnisse (3.1); (3) Kontext unter einer Grenze, zur Probe 150 Tsd. Token (Größe liefert `get_session`, das Büro entscheidet per Werkzeug). Sonst frische Sitzung.
+- 3.9.4 *Nicht* nach einem Rückläufer im zweiten Mal (3.3.5): dann frisch, damit der Fehler nicht mitwandert.
+- 3.9.5 *Bestand:* Die Messung „dieselbe Aufgabe frisch gegen groß“ liegt als Vorgang 383.2 bei mir (ruht bis 23.11.). Die Probewoche (12.2) misst damit, ab welcher Größe frisch billiger ist; die 150 Tsd. sind bis dahin eine Annahme.
 
 ## 4 Wer was tut
 
