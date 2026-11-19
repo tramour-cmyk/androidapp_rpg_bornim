@@ -1051,10 +1051,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 2,
-   "netz": "waffen.py dagger",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1073,7 +1073,21 @@
     "preis": 2,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_dagger"
+    },
+    {
+     "ab": 5,
+     "netz": "avramania_mdvl_weapons_dagger_01"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_dagger"
+    }
+   ]
   },
   {
    "id": "shortsword",
@@ -1085,10 +1099,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 10,
-   "netz": "waffen.py shortsword",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1107,7 +1121,17 @@
     "preis": 10,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "avramania_mdvl_weapons_shortsword_01"
+    },
+    {
+     "ab": 8,
+     "netz": "omie_sm_shortsword"
+    }
+   ]
   },
   {
    "id": "scimitar",
@@ -1119,10 +1143,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 25,
-   "netz": "waffen.py scimitar",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1141,7 +1165,21 @@
     "preis": 25,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_falchion"
+    },
+    {
+     "ab": 5,
+     "netz": "anker_messer"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_scimitar"
+    }
+   ]
   },
   {
    "id": "handaxe",
@@ -1153,10 +1191,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 5,
-   "netz": "waffen.py handaxe",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1175,7 +1213,21 @@
     "preis": 5,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_axe"
+    },
+    {
+     "ab": 5,
+     "netz": "avramania_mdvl_weapons_handaxe_01"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_hand_axe"
+    }
+   ]
   },
   {
    "id": "mace",
@@ -1187,10 +1239,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 5,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1209,7 +1261,17 @@
     "preis": 5,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_mace"
+    },
+    {
+     "ab": 8,
+     "netz": "avramania_mdvl_weapons_mace_01"
+    }
+   ]
   },
   {
    "id": "spear",
@@ -1221,10 +1283,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 1,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1243,7 +1305,21 @@
     "preis": 1,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_spear"
+    },
+    {
+     "ab": 5,
+     "netz": "avramania_mdvl_weapons_spear_01"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_spear"
+    }
+   ]
   },
   {
    "id": "quarterstaff",
@@ -1323,10 +1399,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 15,
-   "netz": "waffen.py longsword",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1345,7 +1421,21 @@
     "preis": 15,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_sword"
+    },
+    {
+     "ab": 5,
+     "netz": "avramania_mdvl_weapons_armingsword_01"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_long_sword"
+    }
+   ]
   },
   {
    "id": "battleaxe",
@@ -1357,10 +1447,10 @@
    "platz": "haupthand",
    "stufe": 1,
    "preis": 10,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1379,7 +1469,17 @@
     "preis": 10,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_battle_axe"
+    },
+    {
+     "ab": 8,
+     "netz": "omie_sm_battle_axe"
+    }
+   ]
   },
   {
    "id": "morningstar",
@@ -1391,10 +1491,10 @@
    "platz": "haupthand",
    "stufe": 3,
    "preis": 15,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1413,7 +1513,21 @@
     "preis": 15,
     "stufe": 3,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_spiked_club"
+    },
+    {
+     "ab": 5,
+     "netz": "anker_spiked_mace"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_mace"
+    }
+   ]
   },
   {
    "id": "warhammer",
@@ -1425,10 +1539,10 @@
    "platz": "haupthand",
    "stufe": 2,
    "preis": 15,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1447,7 +1561,21 @@
     "preis": 15,
     "stufe": 2,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_hammer"
+    },
+    {
+     "ab": 8,
+     "netz": "omie_sm_war_hammer"
+    },
+    {
+     "ab": 15,
+     "netz": "omie_sm_war_pick"
+    }
+   ]
   },
   {
    "id": "wand",
@@ -1493,10 +1621,10 @@
    "platz": "beide_haende",
    "stufe": 3,
    "preis": 50,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1515,7 +1643,21 @@
     "preis": 50,
     "stufe": 3,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_greatsword"
+    },
+    {
+     "ab": 5,
+     "netz": "anker_claymore"
+    },
+    {
+     "ab": 11,
+     "netz": "anker_two_handed_sword"
+    }
+   ]
   },
   {
    "id": "greataxe",
@@ -1527,10 +1669,10 @@
    "platz": "beide_haende",
    "stufe": 3,
    "preis": 30,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1549,7 +1691,21 @@
     "preis": 30,
     "stufe": 3,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_two_handed_axe"
+    },
+    {
+     "ab": 5,
+     "netz": "anker_bardiche"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_greataxe"
+    }
+   ]
   },
   {
    "id": "maul",
@@ -1561,10 +1717,10 @@
    "platz": "beide_haende",
    "stufe": 4,
    "preis": 10,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1583,7 +1739,17 @@
     "preis": 10,
     "stufe": 4,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_two_handed_hammer"
+    },
+    {
+     "ab": 8,
+     "netz": "anker_warhammer"
+    }
+   ]
   },
   {
    "id": "halberd",
@@ -1595,10 +1761,10 @@
    "platz": "beide_haende",
    "stufe": 2,
    "preis": 20,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1617,7 +1783,21 @@
     "preis": 20,
     "stufe": 2,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_halberd"
+    },
+    {
+     "ab": 5,
+     "netz": "anker_polearm"
+    },
+    {
+     "ab": 11,
+     "netz": "omie_sm_halberd"
+    }
+   ]
   },
   {
    "id": "staff",
@@ -1629,10 +1809,10 @@
    "platz": "beide_haende",
    "stufe": 2,
    "preis": 40,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Avramania, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1651,7 +1831,17 @@
     "preis": 40,
     "stufe": 2,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "avramania_mdvl_weapons_staff_01"
+    },
+    {
+     "ab": 8,
+     "netz": "omie_sm_staff_magic"
+    }
+   ]
   },
   {
    "id": "shortbow",
@@ -1663,10 +1853,10 @@
    "platz": "beide_haende",
    "stufe": 1,
    "preis": 25,
-   "netz": "waffen.py shortbow",
-   "material": null,
-   "zeichen": null,
-   "modell": "unser Netz (waffen.py, Jerry)",
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1685,7 +1875,17 @@
     "preis": 25,
     "stufe": 1,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_recurve_bow"
+    },
+    {
+     "ab": 8,
+     "netz": "omie_sm_bow"
+    }
+   ]
   },
   {
    "id": "longbow",
@@ -1697,10 +1897,10 @@
    "platz": "beide_haende",
    "stufe": 3,
    "preis": 50,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1719,7 +1919,13 @@
     "preis": 50,
     "stufe": 3,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_long_bow"
+    }
+   ]
   },
   {
    "id": "light_crossbow",
@@ -1731,10 +1937,10 @@
    "platz": "beide_haende",
    "stufe": 2,
    "preis": 25,
-   "netz": null,
-   "material": null,
-   "zeichen": null,
-   "modell": null,
+   "netz": "waffen_staffel.py (Spalte formen)",
+   "material": "je Seltenheit (Block seltenheit)",
+   "zeichen": "je Seltenheit (Block seltenheit)",
+   "modell": "Kauf: Anker, Omie (Staffel 458.3, LISTE-BESTAND „Waffen und Schilde“)",
    "bezug": [
     {
      "weg": "laden",
@@ -1753,7 +1959,17 @@
     "preis": 25,
     "stufe": 2,
     "quelle": "Kotlin"
-   }
+   },
+   "formen": [
+    {
+     "ab": 1,
+     "netz": "anker_crossbow"
+    },
+    {
+     "ab": 8,
+     "netz": "omie_sm_crossbow"
+    }
+   ]
   },
   {
    "id": "amulet",
@@ -3468,5 +3684,32 @@
     "quelle": "Kotlin"
    }
   }
- ]
+ ],
+ "seltenheit": {
+  "_aufbau": "458.3 (Archiv 458.3): Seltenheit über Material und Zeichen, dieselbe Form über alle Seltenheiten; Farben je Klasse in tools/blender348/waffen_staffel.py (PALETTE, GLIMMEN), hier nur in Worten",
+  "COMMON": {
+   "material": "Eisen, rohes Holz, Rindsleder",
+   "zeichen": "schlicht"
+  },
+  "UNCOMMON": {
+   "material": "Stahl, gebeiztes Holz",
+   "zeichen": "rote Wicklung, geschwärzte Beschläge"
+  },
+  "RARE": {
+   "material": "blanker Stahl, dunkles Holz, Schwarzleder",
+   "zeichen": "Messingbeschläge, nachtblauer Stein"
+  },
+  "VERY_RARE": {
+   "material": "brünierter Stahl, Schwarzholz",
+   "zeichen": "Messing, glimmt violett (verzaubert)"
+  },
+  "EPIC": {
+   "material": "Schwarzstahl, Ochsenblutleder",
+   "zeichen": "Goldbeschläge, glimmt orange"
+  },
+  "DIVINE": {
+   "material": "Silberstahl",
+   "zeichen": "Gold, glimmt golden"
+  }
+ }
 }

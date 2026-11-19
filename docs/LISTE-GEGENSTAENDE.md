@@ -245,6 +245,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `zustand` | nein | true = nutzt sich ab (Abnutzung, Reparatur); null = offen |
 | `text` | nein | {de, en}, ein Satz (Homer) |
 | `grundform` | nein | bei Einzelstuecken: id der Grundform |
+| `formen` | nein | Waffen (458.3): Liste {ab, netz}, Form ab Heldenstufe ab, netz = Kennung paket_datei (waffen_staffel.py); erste ab 1, aufsteigend, 2-4 Formen (1, wo der Bestand nicht mehr hat: Langbogen); Material und Zeichen je Seltenheit im Block seltenheit |
 | `alt` | nein | Werte der alten Fassung (SRD), gelten nicht; Hilfe beim Uebertragen, faellt mit Stufe 6 |
 
 Arten: waffe, schild, ruestung, schmuck, fokus, licht, einzelstueck, trank, wurf, nahrung, rohstoff, werkzeug, handlung. Plätze: arme, beide_haende, beine, finger, hals, haupthand, kopf, nebenhand, oberkoerper, umhang. Bezugswege: laden, beute, herstellen, sammeln, fund, handlung.

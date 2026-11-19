@@ -677,7 +677,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var paare := [[waffe, gang, "r"]] + ([[schild, "schildarm", "l"]] if gang == "schild" else [])
 		if gang == "bogen": paare[0][2] = "l"
 		for p in paare:
-			var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+			var d := Staffel.lade(String(p[0]))
 			if d == null: continue
 			d.name = "Getragen"
 			d.top_level = true
@@ -690,7 +690,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		m.set_meta("gang", gang)
 		return
 	if art != "":   # 417: Stab, Axt, Bogen unterwegs in der Hand (tragen.gd)
-		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % waffe)
+		var d := Staffel.lade(waffe)
 		if d == null: return
 		d.name = "Getragen"
 		d.top_level = true
@@ -702,7 +702,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		sk.add_child(t)
 		return
 	if waffe != "":
-		var lang := waffe in ["quarterstaff", "staff", "spear", "greataxe"]
+		var lang := Staffel.art(waffe) in ["quarterstaff", "staff", "spear", "greataxe"]
 		var achse := Vector3(0.42, -1.0, 0.0).normalized() if not lang else Vector3(0.62, -1.0, 0.0).normalized()   # Klinge zur linken Huefte
 		var griff := Vector3(-0.17, y + 0.22, aussen - 0.03) if not lang else Vector3(-0.05, y + 0.05, aussen - 0.03)
 		var quer := Vector3.FORWARD
@@ -753,7 +753,7 @@ static func ruecken_tragen(m: Node3D, sk: Skeleton3D, was: Array) -> void:
 ## Ecken eines Modells aus daten/waffen (Raum des Modells)
 static func _modell_ecken(was: String) -> PackedVector3Array:
 	var aus := PackedVector3Array()
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return aus
 	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
 		var tr := im_raum(d, mi)
@@ -1177,7 +1177,7 @@ static func dolch_anlegen(m: Node3D, sk: Skeleton3D, was: String, pts: PackedVec
 		var sy := (im_raum(m, sk) * sk.get_bone_global_rest(sh).origin).y if sh >= 0 else yp + 0.5
 		var mund := Vector3(0.0, hy + 0.22 * (sy - hy) - 0.01, becken.origin.z + 0.035)
 		# Maße der Scheide aus der Klinge dieses Dolchs (Chef 14.11., 10:12), vor dem Anhängen aus einem Probestück des Modells
-		var probe := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was) if FileAccess.file_exists("res://daten/waffen/%s.bin" % was) else null
+		var probe := Staffel.lade(was) if FileAccess.file_exists(Staffel.WAFFE % Staffel.datei(was)) else null
 		var rg := scheide_ringe_aus(klinge_mass(probe)) if probe else []
 		if probe: probe.free()
 		var s_mund: float = rg[0][0] + 0.002 if rg.size() > 0 else 0.054
@@ -1430,7 +1430,7 @@ static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInst
 
 ## 406: wie weit der Schild außerhalb der Mitte (mehr als 15 cm seitlich der Fessel) hinter die Fessel reicht (glTF: vorn +z), in m
 static func rand_hinten(was: String) -> float:
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return 0.0
 	var h := 0.0
 	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
@@ -1445,7 +1445,7 @@ static func rand_hinten(was: String) -> float:
 
 ## 499: Unter- und Oberkante des Schilds (y im Raum des Modells, Vector2(unten, oben))
 static func schild_hoehe(was: String) -> Vector2:
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return Vector2(-0.24, 0.24)
 	var r := Vector2(INF, -INF)
 	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
@@ -1487,15 +1487,14 @@ static func ruecken_linie(pts: PackedVector3Array, y0: float, y1: float) -> Arra
 
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""
-	var b := String(g.get("base", ""))
-	return b if FileAccess.file_exists("res://daten/waffen/%s.bin" % b) else ""
+	return Staffel.schluessel(g)   # 458.3: Form nach Stufe, Seltenheit als Marke
 
 static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was: String, t: Transform3D, nm: String) -> void:
 	var ba := BoneAttachment3D.new()
 	ba.name = nm
 	ba.bone_name = sk.get_bone_name(bi)
 	sk.add_child(ba)
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return
 	d.transform = brust.affine_inverse() * t
 	ba.add_child(d)

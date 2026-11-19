@@ -446,6 +446,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			g.himmel.append(sm)
 	for c in n.get_children(): male(c, g, mark, aus)
+	if n.has_meta("staffel"): Staffel.faerbe(n)   # 458.3: Waffenstaffel, Farbe der Seltenheit
 
 var nacht_jetzt := 0.0
 func nacht(k: float) -> void:
