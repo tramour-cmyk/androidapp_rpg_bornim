@@ -116,7 +116,8 @@ func _lauf() -> void:
 	var ohne := []   # 1040.1 (Lauf 427: Kaufleute ohne Drehen_L/R, hier still uebergangen): mit gebautem Kaufkoerper muss jede Person wenden koennen
 	for l in spiel.leute_liste():
 		if not (l is Leute and l.visible and not l.daten.has("tier") and not l.monster and l.anim): continue
-		if l.wende_kurve.size() == 2:
+		# 1698: seit 1406 tragen Kaufleute dazu Drehen180_L/R (4 Kurven); die Wende mit Schritten sind Drehen_L und Drehen_R
+		if l.wende_kurve.has("Drehen_L") and l.wende_kurve.has("Drehen_R"):
 			if echt == null: echt = l
 		else: ohne.append(String(l.daten.get("id", "?")))
 	if FileAccess.file_exists("res://daten/bewegungen.bin"):

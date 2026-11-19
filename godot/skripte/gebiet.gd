@@ -60,6 +60,13 @@ var feuer: Array = []                 # 490 Lagerfeuer: {licht, flammen, rauch, 
 var glut: Array[ShaderMaterial] = []  # 490 Glut im Feuer
 var strahl_basis := 0.035   # 492: der Lichtstrahl atmet (alt WorldScreen 2315: Fleck am Boden atmet)
 var himmel: Array[StandardMaterial3D] = []   # 492 Ausblick, Spalt und Lichtstrahl der Hoehle
+# 1484a (Vorentscheid A 18.11.): Welt in Zellen (dorf.py ZELLE, Netze „<Name>_Z<x>_<y>“ unter dem Knoten mit dem alten Namen). Die
+# Zellen teilen sich die Stoffe (zell_mat), und die Durchsicht (TIEFE, DURCH) rechnet nur in Zellen nahe der Linie Held–Kamera; die
+# anderen zeichnen den deckenden Zwilling ohne die beiden Durchgaenge (aussen um das Loch malen diese nichts, Aussehen gleich)
+var zell_mat := {}                    # Netzname ohne Zelle | Stoff -> ShaderMaterial
+var zwilling := {}                    # Stoff mit Durchsicht -> derselbe ohne (cut_on 0, ohne next_pass)
+var zellen: Array = []                # {mi, box, durch: Array, deck: Array, nah}
+static var zell_muster: RegEx
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -86,6 +93,7 @@ func _ready() -> void:
 	male(netz, self)
 	if kraut_netz: male(kraut_netz, null, 1)   # Schablone 1 wie Blueten: ohne Bildschirmlinie
 	baue_gruppen(netz)
+	baue_zellen(netz)
 	schlagbaum(karte.flaggen.has("barrier_open"))
 	var wiese := MeshInstance3D.new()          # Waldboden ausserhalb der Karte: Bodenmaske am Rand fortgesetzt
 	var pm := PlaneMesh.new()
@@ -349,7 +357,9 @@ static func kit_material(g: Gebiet) -> ShaderMaterial:
 		m.set_shader_parameter("deep_color", Color.html("06090A"))
 		m.set_shader_parameter("reflection_color", Color.html("3E5A58"))
 		m.set_shader_parameter("reflection_strength", 0.6)
-		m.set_shader_parameter("kit_selbst", 0.6)
+		# 1566 (Chef 17.11., 14:50; t298.5 18.11., 14:31 „fail“: Teich leuchtet hell im Dunkeln, weit vom Pilzlicht): das Eigenlicht 0,6
+		# leuchtete ohne jedes Licht und blieb unter dem Nebel sichtbar; jetzt nur vom Licht der Höhle beleuchtet wie Boden und Fels
+		m.set_shader_parameter("kit_selbst", 0.0)
 	return m
 
 # Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer) und Buesche (eigene Linie), 2 = Held (feinere Linie)
@@ -362,6 +372,18 @@ static func toon_mark(k: int) -> Shader:
 		markiert[k] = sh
 	return markiert[k]
 
+## 1566 (Chef 17.11., 14:50, Bild Blutzahnhoehle: „Warum sehe ich da das Wasser durch, obwohl das ja nicht in meiner Sichtlinie ist?“):
+## wasser.gdshader ist unbeleuchtet (draussen wie alt: Farbe fest, nachts gedimmt); in der dunklen Hoehle blieb der Teich darum hell,
+## wo Boden und Fels ohne Licht schwarz sind, und hinter Waenden schimmerte er durch den Nebel (Deckung 0,92). Hier dieselbe Farbe,
+## aber vom Licht der Hoehle beleuchtet (Feuer, Fackel, Pilze, Kristalle): ohne Licht dunkel wie der Boden ringsum
+static var _wasser_hoehle: Shader = null
+static func wasser_hoehle() -> Shader:
+	if _wasser_hoehle == null:
+		_wasser_hoehle = Shader.new()
+		_wasser_hoehle.code = (load("res://shader/wasser.gdshader") as Shader).code.replace(
+			"render_mode specular_disabled, unshaded;", "render_mode specular_disabled;")
+	return _wasser_hoehle
+
 # jedes Netz bekommt den Look der Probe; g (Gebiet) merkt sich Boden, Wasser, Glas und die Dorfmaterialien;
 # mark = Schablone fuer alles (2 Held), sonst 1 fuer Blueten; aus sammelt die Materialien (Held: Aufhellung im Schatten)
 static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
@@ -369,8 +391,13 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 	if n is MeshInstance3D:
 		var mi := n as MeshInstance3D
 		var nm := String(mi.name)
+		var zk := zell_basis(nm) if g else ""
 		for i in mi.mesh.get_surface_count():
 			var src := mi.mesh.surface_get_material(i)
+			var zs := (zk + "|" + String(src.resource_name if src else "")) if zk != "" else ""
+			if zs != "" and g.zell_mat.has(zs):
+				mi.set_surface_override_material(i, g.zell_mat[zs])
+				continue
 			var m := ShaderMaterial.new()
 			if g: m.set_shader_parameter("rand_karte", g.rand_karte())   # 1022: vor durchsicht (kette nimmt ihn mit)
 			if g and nm.contains("Boden"):
@@ -388,6 +415,8 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				g.rand_maske(m)   # Alpha: Wassertiefe (dorf.py)
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
+				if g.info.get("hoehle", false):   # 1566: in der Hoehle vom Licht der Hoehle beleuchtet (siehe wasser_hoehle)
+					m.shader = wasser_hoehle()
 				if g.info.get("hoehle", false):   # 492 Abgleich (Pruefer 03.11.: Teich hell tuerkis, heller als ringsum, glaenzt): alt MapCave POOL_S, POOL_D, GLINT, tief und schwarz
 					m.set_shader_parameter("rim", Color.html("1E2A2C"))
 					m.set_shader_parameter("deep", Color.html("06090A"))
@@ -425,6 +454,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 					m.set_shader_parameter("glow_col", Vector3(1.0, 0.45, 0.15))
 					if g: g.glut.append(m)
 			mi.set_surface_override_material(i, m)
+			if zs != "": g.zell_mat[zs] = m
 			if g and src and String(src.resource_name).begins_with("bluete"): g.blueten.append([mi, i, m])   # 1205 (gras_neu)
 		# 492 Hoehle (Lauf 1, Pruefer: Ausgang und Lichtschacht ohne sichtbare Quelle): Ausblick und Spalt leuchten (Himmel_…), der
 		# Lichtstrahl ist durchscheinend (Strahl_…); beide tags hell, nachts schwach (nacht())
@@ -514,6 +544,62 @@ func durchsicht(m: ShaderMaterial, mark := 0) -> void:
 
 func nah(_an: bool, held_pos: Vector3) -> void:
 	for m in laub: m.set_shader_parameter("cut_pos", held_pos + Vector3(0, 0.9, 0))
+	zellen_nah(held_pos)
+
+# 1484a: Name ohne Zelle („Dorf_Netz_Z3_-2“ -> „Dorf_Netz“), sonst leer
+static func zell_basis(nm: String) -> String:
+	if zell_muster == null:
+		zell_muster = RegEx.new()
+		zell_muster.compile("^(.+)_Z-?\\d+_-?\\d+$")
+	var r := zell_muster.search(nm)
+	return r.get_string(1) if r else ""
+
+# 1484a: Zellen mit Durchsicht merken, jede Durchsicht bekommt einen deckenden Zwilling; erst alle deckend, nah() schaltet
+func baue_zellen(n: Node) -> void:
+	if n is MeshInstance3D and zell_basis(String(n.name)) != "":
+		var mi := n as MeshInstance3D
+		var durch: Array = []
+		var deck: Array = []
+		var mit := false
+		for i in mi.mesh.get_surface_count():
+			var m := mi.get_surface_override_material(i) as ShaderMaterial
+			durch.append(m)
+			if m and m in laub:
+				mit = true
+				if not zwilling.has(m):
+					var d := m.duplicate() as ShaderMaterial
+					d.next_pass = null
+					d.set_shader_parameter("cut_on", 0.0)
+					if d.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
+					zwilling[m] = d
+				deck.append(zwilling[m])
+			else: deck.append(m)
+		if mit:
+			var z := {"mi": mi, "box": mi.global_transform * mi.get_aabb(), "durch": durch, "deck": deck, "nah": true}
+			zellen.append(z)
+			zelle_setzen(z, false)
+	for c in n.get_children(): baue_zellen(c)
+
+func zelle_setzen(z: Dictionary, an: bool) -> void:
+	if z["nah"] == an: return
+	z["nah"] = an
+	var mi: MeshInstance3D = z["mi"]
+	var liste: Array = z["durch"] if an else z["deck"]
+	for i in liste.size(): mi.set_surface_override_material(i, liste[i])
+
+# 1484a: Durchsicht in den Zellen, die das Loch beruehren koennen: Strecke vom Helden (1,2 m dahinter) zur Kamera bis 25 m ueber ihm,
+# Zelle um den Lochrand (toon.gdshader deck: 2 × cut_weit quer) und 0,5 m Spiel erweitert
+const ZELL_RAND := 2.0 * 1.3 + 0.5
+func zellen_nah(held_pos: Vector3) -> void:
+	if zellen.is_empty(): return
+	var cam := kamera if kamera else get_viewport().get_camera_3d()
+	if cam == null: return
+	var zur := cam.global_transform.basis.z.normalized()   # vom Bild zur Kamera
+	var mitte := held_pos + Vector3(0, 0.9, 0)
+	var a := mitte - zur * 1.2
+	var b := mitte + zur * (25.0 / maxf(zur.y, 0.2))
+	for z in zellen:
+		zelle_setzen(z, (z["box"] as AABB).grow(ZELL_RAND).intersects_segment(a, b) != null)
 
 # ---------------------------------------------------------------- Durchsicht als Ganzes (DESIGN-STIL „Karte und Raeume“, alt WorldScreen.hides)
 # Haus, Stand, Brunnen, Laterne, Schild: verdeckt das Ding den Oberkoerper des Helden (Strahlen von Huefte bis Kopf zur Kamera),
