@@ -116,6 +116,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
    | 3.10.4 | Besitzer → **Sitzung** | wer gerade daran arbeitet; leer, wenn niemand | feste Fächer fallen weg (4.7); Verantwortung trägt das Büro bis zur Vergabe |
    | 3.10.5 | Bereich → **Profil** | welches Profil der Auftrag braucht (Figur, Kampf, Welt, Werkzeug, Story …) | die Bereiche passen schon fast eins zu eins (E Kampf 71, E Figuren 34, E Welt 22 …) |
    | 3.10.6 | Stand | feste Wörter mit Frist und Wächter, siehe 14.2; Endzustände erledigt, verworfen, doppelt, überholt (14.3) | jedes Wort entspricht einem Kasten in 2; das Werkzeug kann so zählen und starten |
+   | 3.10.6a | neu: **Block** | Themenblock als Nummer; Rang der Blöcke ordnet nur der Chef (3.16) | Themen priorisieren, ganze Themen ruhen lassen |
    | 3.10.7 | neu: **Bezug** | verwandte Nummern (3.1) | Abgleich, Wiederholungen sehen |
    | 3.10.8 | neu: **Runde** | 0, 1, 2: wie oft der Prüfer nein sagte | 3.3.4, 3.3.5; zählt das Werkzeug (10.5) |
    | 3.10.9 | bleiben | Nr., Kl., wartet auf, Zweig, Build, Kosten | Kosten jetzt mit Schwelle (13.4.3) |
@@ -170,6 +171,13 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 
 - 3.15.7 *Reihenfolge innerhalb Muss* rechnet das Büro-Werkzeug, nicht eine Sitzung: zuerst Funde des Chefs aus dem Test, dann Engpässe (worauf viele warten), dann Wiederholer (Bezüge, 3.1), dann nach Alter. Alter steigt von selbst, so verhungert nichts.
 - 3.15.8 *Stärkstes Gegenargument:* Stufen blähen sich auf; schon heute sind 88 von 242 offenen Vorgängen Muss, Muss bedeutet also kaum noch etwas. *Entkräftet:* (1) Eilt ist hart begrenzt und nur Chefwort. (2) Einmal alle Muss gegen die Abnahmeliste von Kapitel 1 prüfen (Nullbasis wie bei den Werkzeugen): was Kapitel 1 nicht braucht, wird Kür. (3) Die Reihenfolge entscheidet ein Werkzeug nach festen Regeln, darum kein Feilschen um Stufen.
+
+**3.16 Themenblöcke in die Vorgänge, Themen priorisieren** (Chef 11:51: „so dass ich nicht nur Vorgänge, sondern auch Themen priorisieren kann?“). **Ja.**
+- 3.16.1 *Bestand:* Es gibt acht Themenblöcke mit fester Nummer (1440), etwa Block 2 „Kampf passt“, Block 3 „Kleiderschrank und Modelle“, Block 7 „Werkzeuge und Abläufe“. Sie stehen aber nicht im Vorgang, sondern `ueberblick.py` errät sie aus Bereich oder Nummer. Ganze Themen ruhen schon heute, aber von Hand je Vorgang („ruht, Block 2 (1605)“; 1714 Kampf ruht bis zur Arena).
+- 3.16.2 *Neu:* Spalte **Block** (Nummer) in jedem Vorgang, vom Büro beim Anlegen gesetzt (Vorschlag aus dem Profil, das Büro bestätigt). Dazu eine kurze **Blockliste**, die nur der Chef ordnet: Rang je Block, und ein Block kann als Ganzes ruhen (mit Datum oder Bedingung).
+- 3.16.3 *Wirkung im Reihenfolge-Werkzeug (3.15.7):* Eilt vor allem; dann Muss nach **Rang des Blocks**, darin nach den Regeln (Funde des Chefs, Engpass, Wiederholer, Alter); dann Kür ebenso. Ruht ein Block, startet keiner seiner Vorgänge, ohne dass jemand jede Zeile anfasst.
+- 3.16.4 *Stärkstes Gegenargument:* Block und Profil scheinen doppelt. *Entkräftet:* Der Block sagt **wofür** (Ziel, etwa „Kampf passt“), das Profil **womit** (Handwerk, etwa Figur). Der Biss des Wolfs (760) ist Block Kampf, Profil Figur und Kampf. Darum zwei Spalten; der Vorschlag aus dem Profil spart meist die Arbeit.
+- 3.16.5 *Zweites Gegenargument:* Ein Block ganz oben lässt andere verhungern. *Entkräftet:* Das Alter hebt jeden Vorgang mit der Zeit an (3.15.7); und was eilt, setzt der Chef mit „Eilt“ ohnehin vor alles.
 
 ## 4 Wer was tut
 
@@ -259,6 +267,7 @@ Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproble
 - 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.6 und 5.7 behalten. Dazu Inventur aller Werkzeuge und Haken (3.12.4).
 - 12.2 Ein Macher, eine Woche, nur mit Auftrag, Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet, Guthaben je Auftrag.
 - 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung. Vorgangsliste: Bezug und Runde ab 12.1, Akten für neue Vorgänge ab 12.2, Sitzung und Profil statt Besitzer und Bereich ab 12.3 (3.10.11).
+- 12.3b Spalte Block und Blockliste mit Rang des Chefs (3.16), im selben Werkzeug wie die Reihenfolge.
 - 12.3a Stufen Eilt, Muss, Kür mit Werkzeug für die Reihenfolge (3.15.7) und Durchsicht aller Muss gegen die Abnahmeliste Kapitel 1 (3.15.8).
 - 12.4 Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
 
