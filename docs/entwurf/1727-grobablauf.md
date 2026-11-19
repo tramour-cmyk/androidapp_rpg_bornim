@@ -129,6 +129,12 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.11.2 Besser 1: Die Stunden schreibt nicht der Geselle auf, sie misst das System (`cost_usd`); selbst aufgeschrieben wäre geraten.
 - 3.11.3 Besser 2: Vor dem Kunden nimmt der Meister ab (Prüfer 2.11); der Kunde (Chef) sieht nur, was abgenommen ist, und urteilt über Geschmack.
 
+**3.12 Werkzeuge und Haken zusammenlegen, mehr in Code statt in Prompts** (Chef 10:15). **Stimmt, mit einer Bedingung: Code darf nicht reden.**
+- 3.12.1 *Bestand* (19.11., 10:15): `tools/` hat 102 Dateien, davon 83 Skripte mit zusammen etwa 900 KB, 27 davon Tests; 14 Haken-Einträge in `.claude/settings.json`.
+- 3.12.2 *Stärkstes Gegenargument:* Code ist nicht automatisch schlank. Jeder Haken, der Warnungen in die Sitzung schreibt, ist wieder Prompt, nur unsichtbar für den Chef (die Startmeldungen heute früh: sieben Warnzeilen, die keiner der Sitzung zu tun gaben). Und eine falsche Regel in Python kann der Chef nicht lesen und nicht ändern.
+- 3.12.3 *Darum drei Regeln für jedes Werkzeug:* (1) Es **handelt oder sperrt**, es mahnt nicht; Ausgabe nur, wenn die Sitzung etwas tun muss. (2) Je Werkzeug eine Zeile in einem Verzeichnis: was es tut, welche Textregel es ersetzt; ohne ersetzte Regel oder Nutzen fliegt es. (3) Jede Regel im Code hat einen Satz in Deutsch daneben, den der Chef lesen kann.
+- 3.12.4 *Vorgehen:* Inventur als erster Auftrag an einen Macher mit Profil Werkzeug (12.1): je Werkzeug genutzt ja/nein (Aufrufe in Haken, `lauf.py`, Git), ersetzt welche Regel, redet es. Ergebnis: Liste behalten / zusammenlegen / streichen, an Sokrates, Entscheid beim Chef nur, wo eine Regel des Chefs dranhängt.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
@@ -213,7 +219,7 @@ Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproble
 
 ## 12 Einführung in Schritten (ab Sa 21.11., 20:00)
 
-- 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.6 und 5.7 behalten.
+- 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.6 und 5.7 behalten. Dazu Inventur aller Werkzeuge und Haken (3.12.4).
 - 12.2 Ein Macher, eine Woche, nur mit Auftrag, Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet, Guthaben je Auftrag.
 - 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung. Vorgangsliste: Bezug und Runde ab 12.1, Akten für neue Vorgänge ab 12.2, Sitzung und Profil statt Besitzer und Bereich ab 12.3 (3.10.11).
 - 12.4 Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
