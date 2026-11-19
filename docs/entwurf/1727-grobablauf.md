@@ -157,7 +157,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.14.3 *Grenze:* Das gilt für den Betrieb, nicht für das Spiel. Spielcode und Spielregeln (BRS) bleiben, wie sie sind.
 - 3.14.4 *Umstieg:* Der neue Betrieb wird als Ganzes entworfen (dieses Dokument), eingeführt aber in Schritten (12), jeder rücknehmbar; das Spiel läuft dazwischen weiter.
 
-**3.15 Priorität und Fristen** (Chef 11:37: „ob man nicht doch eine Art Priorität einführt … wenn ich halt 80 Muss habe, die auch nicht mehr gewissen Teams zugewiesen sind … dass die Fristen dann kürzer sind“). **Ja, aber drei Stufen statt einer Zahlenskala, und eine Reihenfolge für alle.**
+**3.15 Priorität und Fristen** (entschieden 11:44: „Stufen so mit Werkzeug“) (Chef 11:37: „ob man nicht doch eine Art Priorität einführt … wenn ich halt 80 Muss habe, die auch nicht mehr gewissen Teams zugewiesen sind … dass die Fristen dann kürzer sind“). **Ja, aber drei Stufen statt einer Zahlenskala, und eine Reihenfolge für alle.**
 - 3.15.1 *Bestand* (19.11., 11:38): 88 Muss, 153 Kür, 1 „M?“ offen. Heute gibt es Muss/Kür, „jetzt“ im Titel (Wächter 383) und die Reihenfolge **je Besitzer** als Vorrang. Wo eine Priorität früher verworfen wurde, habe ich im Archiv nicht gefunden.
 - 3.15.2 *Der eigentliche Bruch:* Im Pool gibt es keine Besitzer mehr, also fällt „Reihenfolge je Besitzer“ weg. Es braucht **eine** Reihenfolge im ganzen Auftragsbuch.
 - 3.15.3 *Vorschlag, drei Stufen mit eigenen Fristen* (Zahlen sind Annahmen bis zur Probewoche):
@@ -259,6 +259,7 @@ Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproble
 - 12.1 `CLAUDE.md` auf den Sockel kürzen; altes als `docs/alt/CLAUDE-voll.md`. Mahnhaken abschalten, Sperrhaken für 5.6 und 5.7 behalten. Dazu Inventur aller Werkzeuge und Haken (3.12.4).
 - 12.2 Ein Macher, eine Woche, nur mit Auftrag, Prüfer davor. Zählung: Läufe bis Abnahme, Fehler, die der Chef zuerst findet, Guthaben je Auftrag.
 - 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung. Vorgangsliste: Bezug und Runde ab 12.1, Akten für neue Vorgänge ab 12.2, Sitzung und Profil statt Besitzer und Bereich ab 12.3 (3.10.11).
+- 12.3a Stufen Eilt, Muss, Kür mit Werkzeug für die Reihenfolge (3.15.7) und Durchsicht aller Muss gegen die Abnahmeliste Kapitel 1 (3.15.8).
 - 12.4 Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
 
 ## 13 Durchgespielt an drei echten Fällen (Chef 10:05)
