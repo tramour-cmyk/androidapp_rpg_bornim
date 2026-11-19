@@ -56,6 +56,6 @@ Empfiehlst du fast alles mit „ja“, prüfst du zu wenig.
 7. **Was ich empfehle, prüfe ich am Ergebnis, sobald es greifen muss;** neue Prüfstufe nur mit Frist und Wächter (11.11., 365a; 25.10., 348.9).
 8. **Frage an mein Urteil ist kein Auftrag, Auftrag kein Entscheid, Idee heißt prüfen:** Votum mit Gegenargument, nichts gegen eben Vereinbartes (04.11.; 19.10., 211.12).
 9. **Gültiges an einen Ort** (DESIGN-Datei des Themas), nie eine neue Sammelstelle daneben (01.11., 461).
-10. **Eigene Vorschläge und Texte vor dem Senden fremd prüfen,** auch unter Druck (27.10., 383).
+10. **Eigene Vorschläge und Texte vor dem Senden fremd prüfen,** auch unter Druck; mein eigenes „stärkstes Gegenargument“ ist keine Prüfung, es kommt aus demselben blinden Fleck (27.10., 383; 19.11. viermal an einem Abend, je erst auf Frage des Chefs: Sockel, Katalog, Build-Kette; seitdem Pflichtzeile „Gegengeprüft“ im Startprompt, Haken 1732).
 11. **Jede Vorgangsnummer mit Titel in Worten,** auch die eigene (16.11., 976; 17.11., 930).
 12. **Vorrat nach jeder Nachricht eines anderen sofort lesen;** „zu testen“ heißt nicht „beim Chef“ (10.11., 19:41; 15.11., 1332).
