@@ -15,6 +15,55 @@ Stand der Datei: 19.11., 16:43.
 | ebenso | **Prüfer** (heute Diogenes) | [6.1](#61-kern-prüfer): **nicht geschrieben**, zwei Prüffragen stehen (Stand 13:21, 13:27) | Prüfarten Bild und Film, Test und Code, Text: **nicht geschrieben** | Auftrag und Ergebnis → ja (über Büro zum Chef), nein (neuer Macher), 2. Nein (Sokrates) |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
+## 0a Ordnung der Arbeit: Themenblock, Vorgang, Auftrag
+
+Aus dem Gespräch Chef und Sokrates 19.11., 19:44–19:53 (Chef 19:53: „mal irgendwo nachhalten, dass ich das wieder lesen kann … das ist ja schon was Elementares“). Stand 19:54; offen sind die drei Worte am Ende.
+
+**Heute** gibt es nur Vorgänge: eine Zeile in `docs/LISTE-VORGAENGE.md`, dazu verstreut Absätze „Zu Nr.“ in den Vorräten der Rollen (oft in zwei oder drei zugleich), Entscheide im Vorgangsarchiv, Offenes beim Chef in der Chefsache. `vorgang.py <Nr>` sucht das zusammen.
+
+**Künftig:**
+
+| Handwerksbetrieb (Chef 19:46) | bei uns | Beispiel | wer |
+|---|---|---|---|
+| Kundenprojekt: Bad renovieren | **Themenblock** | Block 2 „Kampf passt“ | Reihenfolge nur der Chef (`docs/chefsache/themenbloecke.md`) |
+| Position im Angebot: Dusche neu | **Vorgang** | 1694 „Jede Figur hält jeden Gegenstand richtig“ | Büro legt an, sortiert ein, startet, schließt |
+| Arbeitszettel: Fliesen abschlagen, dann Leitung verlegen | **Auftrag** (ein Arbeitsschritt; ein Vorgang hat oft mehrere nacheinander) | erst „Ursache nachstellen“, dann „bauen“ | Arbeitsvorbereitung schreibt, Macher baut |
+| Meister prüft vor der Übergabe | **Prüfer** | prüft nach den Ja-Nein-Fragen des Auftrags | Prüfer |
+| Kunde nimmt ab | **Chef testet** | „gut“, dann nach `main` | Chef |
+
+**Wo was steht:**
+
+| Ort | Inhalt | schreibt |
+|---|---|---|
+| Vorgangsliste (`docs/LISTE-VORGAENGE.md`) | eine Zeile je Vorgang | nur `vorgang.py`, aufgerufen vom Büro |
+| Vorgangsdatei (`docs/vorgang/<Nr>.md`), erst sobald ein Auftrag entsteht | oben der aktuelle Auftrag, darunter Worte des Chefs mit Zeit, Verlauf | Büro legt an und trägt Chefworte ein; Arbeitsvorbereitung schreibt den Auftrag; Macher und Prüfer melden ans Büro |
+| Vorgangsarchiv (`docs/VORGANGSARCHIV.md`) | was der Chef entschieden hat | Sokrates, Büro |
+
+Die Absätze „Zu Nr.“ in den Vorräten fallen weg (wandern in die Vorgangsdatei); beim Schließen bleibt die Vorgangsdatei in Git, ins Archiv eine kurze Zeile. Ideen und ruhende Vorgänge bleiben eine Zeile, ohne Datei. Das Wort „Akte“ entfällt: beim Chef umfasst eine Akte viele Vorgänge (19:51).
+
+**Vorgang und Auftrag nebeneinander** (Vorgang: wer, wann, wie wichtig, wie weit, also Verwaltung; Auftrag: was genau, wie geprüft, wohin zurück, also Arbeit; verbunden über die Nummer):
+
+| Vorgang (Zeile plus Vorgangsdatei) | Auftrag (oben in der Vorgangsdatei) |
+|---|---|
+| Nr. | trägt die Nr. des Vorgangs |
+| Titel: kurz, nur was | Ziel: was der Spieler sieht, hört, erlebt, in den Worten des Chefs |
+| Klasse: Eilt, Muss, Kür | – |
+| Stand: ein Wort mit Frist (neu, Auftrag, in Arbeit, beim Prüfer, Chef testet, ruht, erledigt …) | **Bisher:** was versucht wurde, warum es nicht hielt, Ursache, Zweig und Commit |
+| Sitzung: wer gerade daran arbeitet | – |
+| wartet auf | – |
+| Bereich, Themenblock | Beachte: bis fünf Punkte, Pfad des Profils |
+| Bezug: verwandte Nummern | Systemfrage: gilt es für alle derselben Art, wie lösen es andere |
+| Runde: wie oft der Prüfer Nein sagte | – |
+| Zweig, Build, Kosten | – |
+| Worte des Chefs, Verlauf | – |
+| – | Umsetzen |
+| – | Prüfart mit Ja-Nein-Fragen |
+| – | Zurück: an das Büro, mit Commit und Beleg |
+
+**Warum das Büro nicht selbst Aufträge schreibt** (19:45): Das Büro ist eine einzige, dauernd laufende Sitzung mit einer Stundenrunde unter einer Minute; ein guter Auftrag verlangt Lesen von Vorgangsdatei, Git, Code und Recherche und würde es dick und teuer machen. Und wer die Prüffragen festlegt, soll nicht der sein, der baut.
+
+**Offen (Vorschläge Sokrates 19:45–19:52):** (1) „Bisher statt Stand im Auftrag“ (gleiches Wort, zwei Bedeutungen). (2) „Vorgangsdatei statt Akte, erst mit Auftrag“. (3) „Arbeitsvorbereitung als Sitzung je Themenblock“: frische Sitzung, die das Büro startet und die Aufträge mehrerer Vorgänge eines Blocks auf einmal schreibt.
+
 ## 1 Sockel
 
 Stand 19.11., 19:35 · etwa 985 Byte (Grenze 1 KB) · „Sockel so“ 13:33, „Mach es so“ 13:58; danach Querlesen 14:37 und Falltest 15:25 (14/14) · Zeilen 7 und 8 vorläufig bis zu den Sperren · „Zurückmelden: an deren Absender“ raus (Chef 19:33): Meldeweg steht im Feld „Zurück“ des Auftrags (Macher) bzw. im Kern; Bedingung: ohne Feld „Zurück“ startet kein Auftrag (Kern Arbeitsvorbereitung, `lauf.py`) · Falltest neu.
