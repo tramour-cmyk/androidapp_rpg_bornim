@@ -43,6 +43,13 @@ Wiederkehrend offen in mehreren Läufen: Weg zum Büro (Eingang), Vorgangsnummer
 
 Behebung (15:24): Kern: Eingang des Büros genannt; „Ergänzt der Chef einen Entwurf: je Punkt ein Wort, nur Stimmiges einbauen“; „Chefworte nur wörtlich mit Zeit und Quelle; steht etwas nur in einem Paket oder Entwurf, sag das“; „In `docs/chefsache/` gehört nur, was der Chef jetzt entscheiden, billigen oder fertig ansehen kann; anderes zurück an den Besitzer“. Sockel 3: „Quelle mit Datum“. Lehre: Beim Straffen wanderten verhaltensnahe Regeln in ein Profil, das es noch nicht gibt; genau diese Fälle fielen durch. Sockel jetzt 1018 Byte, Kern 2386 Byte.
 
-## Lauf 2 (Wiederholung der Durchgefallenen)
+## Lauf 2 (15:25, Wiederholung der Durchgefallenen, Sockel 1018, Kern 2386 Byte)
 
-(folgt)
+| Nr. | Urteil | Befund |
+|---|---|---|
+| F2 | bestanden | baut nichts ein, je Punkt Einwand mit Grund, fragt; trägt Wortlaut ein |
+| F6 | bestanden | 1730 vorgelegt mit Votum erst nach Archivsuche; 1655 nicht vorgelegt, zurück an Tom |
+| F13 | bestanden | „ein Paketpunkt, kein Chefwort zu dieser Frage“ |
+| F14 | bestanden | nennt Stand mit Datum und Alter, rät nicht |
+
+Stand: 14 von 14 bestanden. Offen fürs Profil `chefsache` (aus den Läufen): Weg der Rückgabe an den Besitzer, Dauer einer Vertretung und was „nicht warten kann“, Vorgangsnummer vor Anlage durchs Büro. Voller Lauf aller 14 nach Abnahme des Textes (dann eingefroren).
