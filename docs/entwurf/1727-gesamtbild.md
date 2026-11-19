@@ -77,6 +77,16 @@ Stand 19.11., 16:43 (Chef 16:43: „verabschieden wir uns vom Profil Markt und S
 > - Kein Geschäftsmodell mit Werbung, Beutekisten oder Wartezeiten gegen Geld empfehlen, auch wenn der Markt es belohnt; nichts darf ohne Zahlung künstlich schlechter werden.
 > - Ergebnisse nur in private claude.ai-Artefakte (Links in `docs/ROLLE-BERATUNG.md` „Begründungen“); ins Repo nur Vorgangsnummer und Stand.
 
+**Steckbrief des Spiels (Entwurf 19.11., 16:50, Chef 16:48: „mach mal einen Steckbrief zum Spiel, was es wirklich auszeichnet … in der README an oberster Stelle … Oder in unserem Internetauftritt“)** · Ort nach Votum: `README.md` oben; Profil 2.3 bekommt dazu die Zeile „Was wir vergleichen: Steckbrief oben in `README.md`; ist er älter als der Spielstand, zuerst melden.“ Quellen: `DESIGN-LEITBILD.md`, `README.md` Features, Marktvergleich 13.10.
+
+> **Chroniken von Bornim** ist ein düsteres Rollenspiel mit taktischem Kampf, von Anfang an fürs Handy gebaut, erzählt in sieben Kapiteln rund um das Dorf Bornim (ab 16).
+> - **Du wirst, was du tust.** Keine Klasse zu Beginn: Was du benutzt, wird besser; wer übt, den lädt ein Lehrmeister auf seinen Pfad.
+> - **Jeder Kampf ist eine Entscheidung.** Du siehst, was der Gegner vorhat, und antwortest darauf: Stellung, Abwehr, Rudel mit Anführer, Kampforte in 3D (MARS).
+> - **Eine Welt, die lebt.** Gezeichnet in Schwarz und Gold, Licht nur aus sichtbaren Quellen, Klang nur von dem, was da ist; Tag und Nacht, Monster, die man kommen sieht.
+> - **Fair.** Keine Werbung, keine Beutekisten, keine Wartezeiten; grinden darf man, muss man nie.
+>
+> Für Spieler klassischer Rollenspiele, die unterwegs spielen wollen, ohne Kaufdruck. Im Play Store gibt es kaum ein Rollenspiel, das fürs Handy gebaut ist und eine erwachsene Geschichte mit eigenem Look erzählt (Marktvergleich 13.10.).
+
 Entfallen (15:37): Profil Chefsache (Eintragen steht im Kern), Spieledesign und Vertretung als Profile (trägt der Kern).
 
 ## 3 Büro
