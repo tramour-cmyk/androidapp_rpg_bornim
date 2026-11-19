@@ -77,6 +77,12 @@ Zwölf Befunde, mein Wort je Befund:
 - 5.11 „Melden“ an wen: **stimmt**, Zeile 5 heißt jetzt „in deiner Rückmeldung nennen“.
 - 5.12 „Bild“ und „KISS“ unklar: **stimmt** teilweise: „Bild aus dem Spiel“, „Schreibe kurz und einfach (KISS)“.
 
+## 5c Telegram ausführlicher als der Chat (Chef 13:55)
+
+- 5c.1 Frage: „Was ist mit melden über Telegram in ausführlicherer Form als im Chat (da ja KISS)?“ Lücke im Grobablauf: Telegram kam dort nicht vor.
+- 5c.2 Vorschlag: nicht in den Sockel, weil nur Sokrates und Büro an den Chef melden; Macher und Prüfer melden ans Büro (1.2). Die Regel trägt das Werkzeug: `meldung.sh` gibt bei jedem Aufruf eine Zeile aus: „Telegram ist dein Protokoll: so ausführlich, dass der Chef ohne Chat versteht, was geschah, was er prüfen oder entscheiden soll; einfach geschrieben, ohne Kürzel“. Dazu je ein Satz in Kern Sokrates und Kern Büro: „Chat kurz, Telegram vollständig.“
+- 5c.3 KISS steht nicht dagegen: KISS heißt einfach geschrieben, nicht unvollständig.
+
 ## 5a Kopfzeile und Signatur (Chef 13:16–13:27)
 
 - 5a.1 Kopfzeile ausgeschrieben statt „immersiv“ (Chef 13:18: „immersiv per se bringt nichts, aber dann halt das auszuschreiben, ist gut“); „erwachsen“ dazu. Gilt für jede Sitzung, weil sie die oberste Leitlinie ist (13:20).
