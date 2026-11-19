@@ -157,6 +157,20 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.14.3 *Grenze:* Das gilt für den Betrieb, nicht für das Spiel. Spielcode und Spielregeln (BRS) bleiben, wie sie sind.
 - 3.14.4 *Umstieg:* Der neue Betrieb wird als Ganzes entworfen (dieses Dokument), eingeführt aber in Schritten (12), jeder rücknehmbar; das Spiel läuft dazwischen weiter.
 
+**3.15 Priorität und Fristen** (Chef 11:37: „ob man nicht doch eine Art Priorität einführt … wenn ich halt 80 Muss habe, die auch nicht mehr gewissen Teams zugewiesen sind … dass die Fristen dann kürzer sind“). **Ja, aber drei Stufen statt einer Zahlenskala, und eine Reihenfolge für alle.**
+- 3.15.1 *Bestand* (19.11., 11:38): 88 Muss, 153 Kür, 1 „M?“ offen. Heute gibt es Muss/Kür, „jetzt“ im Titel (Wächter 383) und die Reihenfolge **je Besitzer** als Vorrang. Wo eine Priorität früher verworfen wurde, habe ich im Archiv nicht gefunden.
+- 3.15.2 *Der eigentliche Bruch:* Im Pool gibt es keine Besitzer mehr, also fällt „Reihenfolge je Besitzer“ weg. Es braucht **eine** Reihenfolge im ganzen Auftragsbuch.
+- 3.15.3 *Vorschlag, drei Stufen mit eigenen Fristen* (Zahlen sind Annahmen bis zur Probewoche):
+
+   | Nr. | Stufe | Wer setzt | Start | Beim Prüfer | Grenze |
+   |---|---|---|---|---|---|
+   | 3.15.4 | **Eilt** | nur der Chef (heute „jetzt“) | binnen 2 h | binnen 4 h | höchstens 3 gleichzeitig |
+   | 3.15.5 | **Muss** | Büro nach Regeln, Chef kann ändern | nach Reihenfolge | binnen 1 Tag | – |
+   | 3.15.6 | **Kür** | Büro | wenn kein Muss startbar | binnen 2 Tagen | „ruht“ nur mit Datum |
+
+- 3.15.7 *Reihenfolge innerhalb Muss* rechnet das Büro-Werkzeug, nicht eine Sitzung: zuerst Funde des Chefs aus dem Test, dann Engpässe (worauf viele warten), dann Wiederholer (Bezüge, 3.1), dann nach Alter. Alter steigt von selbst, so verhungert nichts.
+- 3.15.8 *Stärkstes Gegenargument:* Stufen blähen sich auf; schon heute sind 88 von 242 offenen Vorgängen Muss, Muss bedeutet also kaum noch etwas. *Entkräftet:* (1) Eilt ist hart begrenzt und nur Chefwort. (2) Einmal alle Muss gegen die Abnahmeliste von Kapitel 1 prüfen (Nullbasis wie bei den Werkzeugen): was Kapitel 1 nicht braucht, wird Kür. (3) Die Reihenfolge entscheidet ein Werkzeug nach festen Regeln, darum kein Feilschen um Stufen.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
@@ -282,7 +296,7 @@ Auftrag Chef 11:29: „dass es liegen bleibt, darf halt nicht sein. Es muss imme
 
 **14.1 Grundsatz neu:** Jeder Stand hat einen, der ihn weiterbewegt, eine Frist und einen Wächter, der die Frist prüft. Der Wächter ist Code, nicht eine Sitzung. Und es gibt genau einen Schließer.
 
-**14.2 Stände mit Frist** (ersetzt 3.10.6; Fristen sind Annahmen bis zur Probewoche):
+**14.2 Stände mit Frist** (ersetzt 3.10.6; Fristen sind Annahmen bis zur Probewoche; je Stufe kürzer oder länger, 3.15):
 
 | Nr. | Stand | Bewegt weiter | Frist | Wenn nichts passiert (Wächter) |
 |---|---|---|---|---|
