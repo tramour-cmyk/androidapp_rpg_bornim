@@ -126,6 +126,7 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 
 **3.11 Bild Handwerksbetrieb** (Chef 10:14: „Das Büro vergibt einen Auftrag, der Handwerker fährt zum Kunden, schreibt auf, was er gemacht hat … gibt er wieder ab im Büro und dann werden die Kosten erhoben“). **Stimmt, als Leitbild für den ganzen Ablauf; an zwei Stellen besser als das Vorbild.**
 - 3.11.1 Passt: Büro = Auftragsannahme und Disposition; Arbeitsvorbereitung = Auftragszettel; Macher = Geselle mit Werkzeugkiste (Profil); Fertigmeldung mit Beleg = Arbeitsbericht; Fund beim Kunden = Nachtrag übers Büro, nicht schwarz nebenbei (5.4).
+- 3.11.4 Chef 11:35: Vorgänge sind die Aufträge, die Vorgangsliste ist das Auftragsbuch; „was ist, wenn der Macher auf dem Weg verunfallt und sich nie wieder meldet? Das muss irgendjemandem mal auffallen.“ Geregelt in 14.2.5 (Frist je Auftrag, Wächter im Code).
 - 3.11.2 Besser 1: Die Stunden schreibt nicht der Geselle auf, sie misst das System (`cost_usd`); selbst aufgeschrieben wäre geraten.
 - 3.11.3 Besser 2: Vor dem Kunden nimmt der Meister ab (Prüfer 2.11); der Kunde (Chef) sieht nur, was abgenommen ist, und urteilt über Geschmack.
 
