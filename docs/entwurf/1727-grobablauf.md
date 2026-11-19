@@ -222,6 +222,10 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.17.24 *Stärkstes Gegenargument:* Zehn Blöcke sind mehr als acht, und jede Aufteilung macht neue Grenzfälle (Licht im Kampf: Welt oder Kampf?). *Entkräftet:* Grenzfälle entscheidet das Büro einmal beim Anlegen, nicht jede Sitzung neu; Klang und Musik nennt die Oberste Direktive eigens, darum ein eigener Block statt Rest in einem Sammelbecken; der Gewinn ist, dass Block, Profil und Auswertung zusammenpassen.
 - 3.17.25 *Entschieden* (Chef 12:24 „Jupp“ auf den Zuschnitt mit Kampf und Regeln getrennt): elf Themenblöcke, je mit Fachprofil. Die Datei `chefsache/themenbloecke.md` entsteht mit der Umsetzung (12.3b) zusammen mit dem Werkzeug, damit es nicht zwei Quellen gibt; bis dahin gilt die alte Liste in `ueberblick.py`.
 
+**3.18 Zahl der Macher als Regler** (Chef 12:42: „wir fahren mit 4 Machern oder nur 2 … je nachdem, was das Guthaben hergibt … wie viele Monteure wir auf die Baustellen schicken“). **Stimmt; das ist der größte Sparhebel des Pools.**
+- 3.18.1 Eine Zahl „Macher gleichzeitig“, die nur der Chef setzt (eine Zeile, die `lauf.py` liest); das Büro füllt die Plätze aus dem Auftragsbuch nach der Reihenfolge (3.15, 3.16). Kein Leerlauf, weil kein Macher an ein Fach gebunden ist.
+- 3.18.2 *Gegenargument:* Büro und Prüfer kosten unabhängig von der Zahl der Macher; bei vier Machern wird der Prüfer zum Engpass, bei vier gleichzeitig steigt die Gefahr von Zusammenstößen. *Entkräftet:* Prüfer zählen mit in die Zahl (etwa 3 Macher + 1 Prüfer), die Sperre je Verzeichnis oder Szene (4.7) verhindert Zusammenstöße, und das Büro vergibt nur Aufträge, deren Verzeichnisse frei sind.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
