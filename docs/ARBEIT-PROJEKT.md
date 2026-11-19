@@ -7,7 +7,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 **Kosten frei:** 431 bis 160 $; 709.1 bis 160 $; 870 bis 160 $; 531 bis 80 $; 709 bis 80 $; 930 bis 80 $; 620 bis 80 $; 654 bis 80 $; 1137 bis 80 $
 (1538, 1520 so: offener Vorgang ab 40 $ ohne Eintrag hier hält an, `lauf.py` startet mich mit „Kosten entscheiden“; je Vorgang weiter oder vereinfachen = Eintrag bis zur nächsten Schwelle 40/80/160/320 $, streichen; Chefauftrag streichen nur über die Chefsache; „jetzt“ läuft weiter. Beim Erledigen Eintrag streichen.)
 
-**Übergabe (18.11., 23:16, `session_01Hmoj77aLTwbCawAXvjgrm2`):** M?-Entscheid 1710 M, 1711 K, 1712 M, 1714 M, 1715 M, 1708 M (Gründe `ROLLE-PROJEKT.md`); 1712, 1717 erledigt (Checkliste Build 3: Build ist zu); 1714 erledigt (15 Zeilen auf 1589.4); 1715 gebaut (`tagesbericht.py` Buildzweige), daraus 1719 Spike; 1706 erledigt (`ROLLE-ENTWICKLUNG.md`). Vollzug 1706, 1712, 1714, 1715 per Telegram. Nachfolger: keiner.
+**Übergabe (19.11., 07:09, `session_01Hmoj77d6ubUKQLxRNUBxKr`):** M?-Entscheid 1720 M, 1709 M (Gründe `ROLLE-PROJEKT.md`). Nachfolger: keiner.
 - **Prüfen 23.11. (1705):** Wochenziel; ist die Welt dran, 1705 auf M.
 - **Prüfen 23.11. (1672, 1677, Gegenargument):** Wortliste grob; Fehlalarm zwingt zum Umformulieren statt zur richtigen Art, Lücke (Aussehen mit „Taste“, „Start“ im Satz; Falsch „Tür bleibt zu“ bei Passt „Licht fällt herein“ warnt fälschlich) lässt durch oder hält. Listen t300ff. auf beides ansehen.
 - **Prüfen an der nächsten Prüfliste (1668, Gegenargument):** die Regel hat keinen Wächter in der Commit-Prüfung; fehlt die Stufe in Aussehenszeilen der nächsten Liste, Wächter bauen (Zeile Bild/Film/Handy ohne „Grafik“ oder „alle Stufen“ warnt).

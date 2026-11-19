@@ -31,6 +31,7 @@ Inhaltsverzeichnis: jede Zeile sagt in einem Satz, was in der Datei steht und wo
 - Spieltexte nach dem BRS (aus dem Umzug 870, Quelle für den Bau): [Kampf](STORY-BRS-KAMPF.md), [Kampfhandlungen und Zauber](STORY-BRS-KOENNEN.md), [Held, Truhe, Schwächen](STORY-BRS-HELD.md), [Handbuch im Spiel](STORY-BRS-ANLEITUNG.md), [Oberfläche und Namen](STORY-BRS-OBERFLAECHE.md), [Erklärungen in der Erschaffung](STORY-BRS-ERSCHAFFUNG.md).
 - [Roter Faden](STORY-ROTER-FADEN.md) und [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md): die Geschichte über alle Kapitel in Kürze und die Texte der Chronik im Spiel.
 - [Figuren](LISTE-FIGUREN.md): nur das Aussehen wiederkehrender Leute und Monster, damit man sie überall wiedererkennt.
+- [Handwerk Figur und Prüfbild](LISTE-HANDWERK-FIGUR-PRUEFBILD.md): wie eine Hand hält, Kleidung sitzt, was gemessen wird und wie ein Bild für den Chef aussieht.
 - [Gegenstände](LISTE-GEGENSTAENDE.md): alles, was man finden, kaufen oder tragen kann, nach Art und woher man es bekommt (rechnet ein Werkzeug aus; Werte teils noch aus der alten Fassung, BRS-Werte kommen mit dem Katalog 644).
 - [Regelwerte](LISTE-REGELWERTE.md): jede Zahl der Spielregeln mit Regel, Formel, heutigem Wert und wo sie wirkt, etwa wie Fertigkeiten wachsen, auch die Werte jedes Monsters (rechnet ein Werkzeug aus).
 - [Bestiarium](LISTE-BESTIARIUM.md): Angriffe, Beute und Hintergrund jeder Monsterart, gelesen aus der alten Fassung am 31.10.; die heutigen Kampfwerte stehen in den Regelwerten, das Aussehen unter Figuren. Beide gehen im Figurenkatalog auf (649).
