@@ -27,6 +27,8 @@ Ein Ort für alles zu 1625 (Startprompts, Kern, Kürzen, Aufträge) und 1725 (Ab
 - **19.11., 08:13:** „lies dich auch mal ein, wie im Internet erfolgreich Prompts geschrieben werden … andere schlaue Leute … Lessons learned … Best Practice“; `CLAUDE.md` „knallhart kürzen …, weil die immer automatisch geladen wird.“
 
 - **19.11., 08:17:** „ob wir feste Themenbereiche zuweisen oder … 6 oder 7 Personen in der Firma … die kriegen halt jeweils den Prompt genau so hin vorgelegt, dass sie spezifische Aufgaben erfüllen können … nicht mehr festklammern an … das ist jetzt der Bereich von A … Was spricht denn da dafür oder dagegen?“ Votum im Chat 08:18: Pool mit Auftrag, Verantwortung je Vorgang statt je Bereich, Sperre je Dateibereich.
+- **19.11., 08:18:** „ich habe sie gesagt, ich kann sie ja auch ändern … Frisch denken … Egal, ob es Weisungen gibt.“ (Leitlinie im Archiv)
+- **19.11., 08:19:** „Und dann wäre es auch kein Problem mehr, wie wir Sammelbuilds erstellen … es gibt spezifisch die Aufgabe und die macht halt dann einer. Aber dann packen da nicht wieder 50 Sachen rein und kommen sich in die Quere.“ Folgerung: Build ist ein Auftrag an einen; Inhalt beim Start festgelegt (Liste fertiger Zweige), danach zu.
 
 ## Entschieden (Archiv)
 
