@@ -17,6 +17,7 @@ flowchart TD
     I -->|nein / später| IL[(2.4 Ideenliste)]
     I -->|ja| AB
     S -->|Entscheidung nötig| CS[(2.5 Chefsache)] --> C
+    AB -->|braucht Entscheidung des Chefs| S
     S -->|Auftrag, Fund| AB{2.6 Büro: Abgleich<br/>gibt es das schon?}
     AB -->|derselbe Fehler, dasselbe Ziel| ALT[2.7 an den bestehenden Vorgang]
     AB -->|neu oder nur verwandt| V[2.8 Büro<br/>Vorgang anlegen, Bezüge, Vorrang]
@@ -51,8 +52,8 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 
    | Nr. | Arbeit | Beleg | Prüfer entscheidet | Urteil |
    |---|---|---|---|---|
-   | 3.2.3 | Aussehen, Figur, Welt | Bild in Spielkamera, Handygröße, alt gegen neu | Stelle sichtbar, mittig, markiert; Messung grün | Chef |
-   | 3.2.4 | Bewegung | Film bis 15 s | zeigt den Moment, etwa dreimal | Chef |
+   | 3.2.3 | Aussehen, Figur, Welt | Bild in Spielkamera, Handygröße, alt gegen neu | Beleg taugt (Stelle mittig, markiert); **Sachverhalt** (liegt X in Y, sticht etwas durch) | Chef nur **Geschmack** (13.4.1) |
+   | 3.2.4 | Bewegung | Film bis 15 s | zeigt den Moment, etwa dreimal; Sachverhalt (trifft er?) | Chef nur Geschmack |
    | 3.2.5 | Klang, Musik | Hörprobe im Spiel | spielt, Lautstärke im Rahmen, an der richtigen Stelle | Chef |
    | 3.2.6 | Regeln, Kampf, Balance | Rechnung bei 0, 24, 49, 74, 100, Kampfprotokoll | Zahlen stimmen mit dem Regelwerk | Prüfer; Spielgefühl Chef |
    | 3.2.7 | Spiellogik, Werkzeug | Test mit Befehl und Ausgabe | grün, Kerntests grün | Prüfer |
@@ -194,6 +195,34 @@ Urteil: „Die Richtung … trägt. Der Entwurf löst aber das Verwaltungsproble
 - 12.3 Büro übernimmt Abgleich, Vorrang und Einsortieren; Perikles wird Arbeitsvorbereitung.
 - 12.4 Dann die übrigen Macher; Rollendateien schrumpfen auf den Kern.
 
-## 13 Was der Chef sagen soll
+## 13 Durchgespielt an drei echten Fällen (Chef 10:05)
+
+Quelle je Fall: `python3 tools/vorgang.py <Nr>` (Liste, Vorräte, Archiv), Stand 19.11., 10:05.
+
+**13.1 Griff, 1694** (seit 18.11., 17:01; 14,80 $; drei Fehlschläge: 👎 17:38 „Stiel liegt nicht in der geschlossenen Hand“, 21:37 „nix zu erkennen“, 19.11. 07:4x vom Macher selbst nicht vorgelegt).
+- 13.1.1 *Neu:* Chefwort → 2.2 → 2.6 Abgleich findet 1621 Zweihänder und 1657 Stab (derselbe Fehler) → ein Vorgang mit Systemfrage im Auftrag (6.2). So geschah es auch, aber erst auf Votum im Gespräch, nicht von selbst.
+- 13.1.2 Fehlschlag 17:38 wäre beim Prüfer (2.11) hängen geblieben, nicht bei dir: „liegt der Stiel in der Faust?“ ist ein sichtbarer Sachverhalt. Das Bild 21:37 (unbeschriftet, schwarz, ohne Spielkamera) hätte der Prüfer als Beleg abgelehnt.
+- 13.1.3 Zweites Nein → 3.3.5 „steckt fest“ → Ursache nachstellen statt neuem Lauf. Real kam die Ursache (Messung am Knochen statt am gezeichneten Netz) erst nach dem dritten Versuch.
+- 13.1.4 **Lücke A:** In 3.2.3 steht „Aussehen: Urteil Chef“. Ob der Stiel in der Faust liegt, ist aber kein Geschmack, sondern ein Sachverhalt. Ohne Trennung schiebt der Prüfer alles Sichtbare an dich weiter.
+- 13.1.5 **Lücke B:** Der Macher fand nebenbei, dass Holz und Leder schwarz wirken; ob heller, ist Aussehen, also deine Entscheidung. Im Diagramm führt vom Büro kein Weg zu dir.
+
+**13.2 Wolfssprung, 760** (seit 09.11.; 37,07 $; 👎 15.11., Fund t298.7, t300.11 „Fail“; Messung „5 von 5 Bissen am Körper“ gegen dein Auge; musste aus Build 300 wieder heraus, 1724).
+- 13.2.1 *Neu:* Ziel im Auftrag: „Der Spieler sieht, wie der Wolf springt und den Helden oder den Schild trifft; Blut dort, wo die Zähne treffen“. Prüfart Film (3.2.4); der Prüfer prüft am Film den Sachverhalt (trifft er?), nicht die Messung. Der Widerspruch Messung gegen Film wäre beim Prüfer aufgefallen.
+- 13.2.2 Nach dem zweiten Nein (spätestens t298.7) → Sokrates, steckt fest; real liefen danach weitere Läufe und ein Build.
+- 13.2.3 Build (2.14): Inhalt beim Start fest, nur aus „Prüfer ja“. 760 hatte kein Ja, wäre nicht in Build 300 gekommen; die Rücknahme 1724 entfällt.
+- 13.2.4 **Lücke C:** 37 $ auf einem Vorgang, ohne dass jemand die Summe sah. Der Ablauf zählt Rückläufer, aber keine Kosten.
+
+**13.3 Kleid sticht durch, 1653 und 1654** (Fund aus Toms Werkzeug, Durchstechprüfung; Bilder 18.11. 21:30 an dich als Frage „sichtbar?“; 21:48 „das sind ja keine Bilder … was soll ich denn damit anfangen?“; gebilligt erst 22:37).
+- 13.3.1 *Neu:* Das Werkzeug meldet den Fund → 3.3.6 Büro, Abgleich, Vorgang → Auftrag „sichtbar? wenn ja beheben, Beleg alt gegen neu“. Der Macher entscheidet „sichtbar“ selbst an Bild und Messung; an dich geht keine Frage, sondern nur das Ergebnis.
+- 13.3.2 Die beiden Bilder 21:30 hätte der Prüfer abgelehnt (Stelle nicht mittig, mehr freie Fläche als Figur). Die Lehre „Fehler mit eigenem Befund nicht als Frage vorlegen, beheben“ kommt nach 2.13 ins Profil Prüfbild, nicht in einen Prompt.
+- 13.3.3 Funktioniert ohne Lücke.
+
+**13.4 Was daraus folgt**
+- 13.4.1 *Lücke A, Sachverhalt gegen Geschmack:* 3.2 bekommt die Trennung: **Sachverhalt** (liegt X in Y, trifft er, sticht etwas durch, ist die Stelle sichtbar) entscheidet der Prüfer; **Geschmack** (schön, passend, düster genug, Farbe) urteilt der Chef. Gegenargument: Der Prüfer ist auch eine KI und hat bei 1694 schon einmal „grün“ gemeldet. Entkräftet: Damals prüfte eine Messung, nicht ein zweites Auge am Bild; der Prüfer sieht sich das Bild an und gibt bei Zweifel an den Chef.
+- 13.4.2 *Lücke B, Weg zum Chef:* neuer Pfeil 2.6 → 2.2: braucht ein Fund deine Entscheidung, geht er über Sokrates in die Chefsache, nie direkt vom Büro oder Macher.
+- 13.4.3 *Lücke C, Kosten:* Das Büro sieht je Vorgang die Kosten (gibt es schon in der Liste, Spalte Kosten) und meldet ab einer Schwelle an Sokrates, wie beim zweiten Nein. Schwelle zur Probe 10 $ (Annahme; 760 lag bei 37 $, 1694 bei 15 $).
+- 13.4.4 *Was alle drei Fälle zeigen:* Am meisten spart der Prüfer vor dir. In allen drei Fällen kam ein Ergebnis zu dir, das ein zweiter Blick ohne Geschmacksurteil hätte zurückweisen können.
+
+## 14 Was der Chef sagen soll
 
 „Richtung ja“ (dann ab Samstag 12.1) oder dein Einwand mit Nummer.
