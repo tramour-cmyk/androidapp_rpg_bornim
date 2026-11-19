@@ -150,6 +150,12 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 - 3.13.8 *Wie sie sich beeinflussen:* Haken starten Werkzeuge; Werkzeuge schreiben Dateien, die andere lesen; reden mehrere Haken zugleich, summiert sich ihr Text; sagt ein Haken etwas anderes als `CLAUDE.md`, wählt das Modell beliebig (Quelle in 1625).
 - 3.13.9 *Faustregel:* **Unsichtbar ist nur, was nichts zurückschreibt.** Darum: viel E, Haken nur zum Sperren oder stillen Handeln, A so klein wie möglich (5), D mit kurzer Ausgabe.
 
+**3.14 Neu anfangen, frisch denken, ohne Bindungen** (Chef 10:29: „viel Potential zum mal neu anfangen, überdenken, konsolidieren und vor allem frisch denken ohne Bindungen aus best practise“). **Ja, als Nullbasis, nicht als Abriss.**
+- 3.14.1 *Stärkstes Gegenargument:* Alles wegwerfen ist die bekannte Falle beim Neubau: Was heute still trägt, geht mit verloren (APK-Bau auf GitHub, Kerntests, Signatur, Sperren gegen echten Schaden), und während des Umbaus steht die Arbeit an Kapitel 1.
+- 3.14.2 *Darum Nullbasis:* Jede Regel, jedes Werkzeug, jeder Haken startet bei null und muss sich neu begründen: Welchen Fehler verhindert es, belegt? Was die Begründung nicht schafft, fällt; was sie schafft, bleibt, auch wenn es alt ist. Frühere Weisungen werden genannt, binden aber nicht (Leitlinie 08:18).
+- 3.14.3 *Grenze:* Das gilt für den Betrieb, nicht für das Spiel. Spielcode und Spielregeln (BRS) bleiben, wie sie sind.
+- 3.14.4 *Umstieg:* Der neue Betrieb wird als Ganzes entworfen (dieses Dokument), eingeführt aber in Schritten (12), jeder rücknehmbar; das Spiel läuft dazwischen weiter.
+
 ## 4 Wer was tut
 
 | Nr. | Wer | Tut | Liest beim Start |
