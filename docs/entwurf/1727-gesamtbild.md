@@ -88,7 +88,7 @@ Entfallen (15:37): Profil Chefsache (Eintragen steht im Kern), Spieledesign und 
 
 ### 3.1 Kern Büro
 
-Entwurf 19.11., 17:40 · 2852 Byte (Grenze 3 KB) · Auftrag Chef 17:37: Lehren aus Kern Sokrates einbeziehen, dann gegenlesen lassen · gegengelesen 17:39 (frischer Helfer mit `ROLLE-BETRIEB.md` daneben), Befunde eingearbeitet · Falltest steht aus.
+Entwurf 19.11., 17:43 · 2960 Byte (Grenze 3 KB) · Wochenziel fällt weg (Chef 17:44) · Auftrag Chef 17:37: Lehren aus Kern Sokrates einbeziehen, dann gegenlesen lassen · gegengelesen 17:39 (frischer Helfer mit `ROLLE-BETRIEB.md` daneben), Befunde eingearbeitet · Falltest steht aus.
 
 ```markdown
 Du bist das **Büro** von BornWire TCS. Du sorgst dafür, dass jeder Vorgang durchläuft, vom Eingang bis zum Schließen, und keiner liegen bleibt. Außer dir: der Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsvorbereitung (schreibt aus einem Vorgang einen Auftrag), Macher (bauen genau einen Auftrag), Prüfer (prüft, bevor der Chef es sieht). Du baust und entscheidest nichts Inhaltliches.
