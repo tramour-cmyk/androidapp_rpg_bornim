@@ -4,7 +4,7 @@ extends SceneTree
 # SPIELKAMERA=1 die Spielkamera (mit --resolution 540x1170 wie das Handy).
 #   GRIFF1694=0|1 BILDER=<ordner> xvfb-run -a godot --path . --resolution 900x900 -s res://tests/bild_griff_1694.gd -- --bild1694
 
-const FOLGE := ["quarterstaff", "handaxe", "longsword"]
+const FOLGE := ["quarterstaff", "handaxe", "longsword", "greatsword", "greataxe"]   # 1694: dazu Zweihänder (458.3)
 
 func _initialize() -> void:
 	_lauf.call_deferred()
@@ -31,10 +31,17 @@ func _lauf() -> void:
 	for i in FOLGE.size():
 		if OS.get_environment("NUR") != "" and FOLGE[i] != OS.get_environment("NUR"): continue   # Einzelbild (783 W1)
 		hw.ausruestung["MAIN_HAND"] = {"uid": 9500 + i, "base": FOLGE[i], "rarity": "COMMON", "ilvl": 1, "guete": 0, "rolls": [], "unique": null, "name_seed": 1}
+		spiel.held.process_mode = Node.PROCESS_MODE_INHERIT
 		spiel.held_figur_neu("")
 		spiel.held.richtung = Vector3.ZERO
-		for f in 40: await process_frame
 		var sk := Gebiet.finde(spiel.held.modell, "Skeleton3D") as Skeleton3D
+		var bew := OS.get_environment("GANG")   # 1694: Zweihänder im Gehen (Gehen_axt), beide Hände am Schaft; Bild bei Stelle STELLE s
+		if bew != "" and FOLGE[i] in Tragen.GANG_ZWEI:
+			preload("res://tests/griff_sicht_1694.gd").geh(spiel, sk, bew)
+			var ap := Gebiet.finde(spiel.held.modell, "AnimationPlayer") as AnimationPlayer
+			ap.seek(float(OS.get_environment("STELLE")) if OS.get_environment("STELLE") != "" else 0.3, true)
+			ap.speed_scale = 0.0
+		for f in 40: await process_frame
 		var t: Tragen = null
 		for n in sk.get_children():
 			if n is Tragen: t = n
@@ -45,7 +52,8 @@ func _lauf() -> void:
 		var hand: Vector3 = sk.global_transform * t.posen[sk.find_bone("middle_01_r")].origin
 		var vorn: Vector3 = spiel.held.modell.global_basis * Vector3.BACK
 		var rechts: Vector3 = spiel.held.modell.global_basis * Vector3.LEFT
-		kam.global_position = hand + (vorn * 0.55 + rechts * 0.45 + Vector3.UP * 0.12)
+		var weit := float(OS.get_environment("WEIT")) if OS.get_environment("WEIT") != "" else 1.0   # 1694: Zweihänder, beide Hände im Bild
+		kam.global_position = hand + (vorn * 0.55 + rechts * 0.45 + Vector3.UP * 0.12) * weit
 		kam.look_at(hand, Vector3.UP)
 		if OS.get_environment("LAENGS") != "":   # Ursache (Chef 17:38): Blick längs des Schafts auf die Faust
 			var m := t.halt.duplicate() if not t.halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
@@ -83,6 +91,6 @@ func _lauf() -> void:
 		await RenderingServer.frame_post_draw
 		var datei := "%s/%s-%s.png" % [ordner, FOLGE[i], art]
 		root.get_viewport().get_texture().get_image().save_png(datei)
-		print("BILD1694 ", datei)
+		print("BILD1694 ", datei, " gang=", t.gang, " zweite Faust neben dem Schaft %.1f cm" % (100.0 * t.zweit_fehl))
 		spiel.held.process_mode = Node.PROCESS_MODE_INHERIT
 	quit(0)

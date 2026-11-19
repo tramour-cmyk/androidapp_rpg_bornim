@@ -61,3 +61,53 @@ static func median(reihe: Array) -> Dictionary:
 		for e in reihe: a.append(e[k])
 		a.sort(); med[k] = a[a.size() / 2]
 	return med
+
+## 1694: Griff am gezeichneten Netz. Hand (Hand und Finger der Seite [s]) gegen die Oberfläche des Gegenstands aus seinen Dreiecken
+## (Griff.schaft: Querschnitt je 5 mm, Umriss der Schnittkanten; die Ecken allein gaben bei der low-poly-Staffel 458.3 den Knauf als
+## Griff), in der Lage, in der er gezeichnet wird; im Signal skeleton_updated aufrufen. Werte in cm und Grad:
+##  kontakt: nächste Ecke der Handfläche zur Oberfläche (negativ: hinein), tief: Grund- und Mittelglieder, kuppe: Endglieder,
+##  umschl: Winkel rundum mit Haut näher als NAH, ecken: Ecken der Hand am freien Griff, leer: der Gegenstand ist nicht in der Hand
+const NAH := 0.01      # m: Haut höchstens 1 cm über dem Griff zählt als umschlossen
+const FELD := 10.0
+static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -> Dictionary:
+	var hm := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
+	var W := ding.global_transform * Halt.griff_rahmen(hm)
+	var k := W.basis.y.length()            # Welt je Modellmeter
+	var Wi := W.affine_inverse()
+	var sch := Griff.schaft(ding, halt)
+	var G := skel.global_transform
+	var hb := skel.find_bone("hand_" + s)
+	var faust := G * ((skel.get_bone_global_pose(skel.find_bone("index_01_" + s)).origin + skel.get_bone_global_pose(skel.find_bone("pinky_01_" + s)).origin) * 0.5)
+	var qf := Wi * faust
+	if Vector2(qf.x, qf.z).length() * k > 0.08 or qf.y < float(sch.lo) - 0.06 or qf.y > float(sch.hi) + 0.06:
+		return {"leer": true, "ecken": 1, "kontakt": 0.0, "umschl": 0.0, "tief": 0.0, "kuppe": 0.0, "radius": 0.0}
+	var nm := NetzMess.new(skel)
+	nm.knochen_unter("hand_" + s)
+	var felder := {}
+	var spalt := INF; var tief := INF; var kuppe := INF
+	var n_hand := 0
+	var rsum := 0.0
+	for e in nm.ecken():
+		var q: Vector3 = Wi * (e[0] as Vector3)
+		if absf(q.y - qf.y) > 0.06: continue
+		var sc := int(floor(q.y / Griff.SCHEIBE))
+		if not sch.profil.has(sc) or float(sch.profil[sc]) > Griff.GRIFF_DICK or q.y < float(sch.lo) or q.y > float(sch.hi): continue   # Knauf, Parierstange
+		var v := Vector2(q.x, q.z) - (sch.mitte[sc] as Vector2)
+		var fl := Griff.oberflaeche(sch, sc, v)   # Umriss, wie gezeichnet (eckige und ovale Griffe)
+		var d: float = (v.length() - (fl if fl > 0.0 else float(sch.profil[sc]))) * k
+		n_hand += 1
+		rsum += float(sch.profil[sc]) * k
+		var bname := skel.get_bone_name(e[1])
+		if e[1] == hb: spalt = minf(spalt, d)
+		elif bname.contains("_03_") or bname.contains("_04_"): kuppe = minf(kuppe, d)
+		else: tief = minf(tief, d)
+		if d < NAH: felder[int(floor((rad_to_deg(atan2(v.y, v.x)) + 180.0) / FELD))] = true
+	return {"kontakt": 100.0 * spalt, "umschl": felder.size() * FELD, "tief": 100.0 * tief, "kuppe": 100.0 * kuppe,
+		"radius": 100.0 * rsum / maxf(1, n_hand), "ecken": n_hand}
+
+## Prüfung (1694): Handfläche am Griff (Spalt höchstens 0,3 cm; hinein höchstens 1,2 cm: die Handfläche ist 2,5 cm dick, gebeugte Finger
+## ziehen die Haut am Grundgelenk nach innen), umschlossen (mindestens 300°), Grund- und Mittelglieder nicht tiefer als 0,6 cm im Griff
+## (das war der Fehler: Grundglieder 1,4 cm im Stiel, der Stiel sichtbar über den Fingern), Fingerkuppen (weich, dem Griff zugewandt)
+## bis 1,2 cm
+static func griff_gut(w: Dictionary) -> bool:
+	return w.kontakt <= 0.3 and w.kontakt >= -1.2 and w.umschl >= 300.0 and w.tief >= -0.6 and w.kuppe >= -1.2
