@@ -91,8 +91,8 @@ Chef 09:14: „hast du wieder mein Feedback einfach eingebaut ohne dich damit au
 
 **3.7 Sockel: „KISS – keep it short and simple. Nicht raten, sondern belegen.“** (09:46). **Beides stimmt; „belegen“ ist besser als mein Satz, KISS braucht eine Klammer.**
 - 3.7.1 *Nicht raten, sondern belegen:* schärfer als mein „nicht raten; vorher nachsehen“, weil es den Nachweis verlangt, den auch die Quellen empfehlen („ask Claude for evidence“, 1625). *Ergänzt:* Was tun, wenn man nicht belegen kann? Anhalten und fragen. Ersetzt 5.2.
-- 3.7.2 *KISS, stärkstes Gegenargument:* Allein stehend beißt es sich mit der Systemfrage (6.2): „einfach“ verleitet zur schnellsten Einzellösung, genau das, was wir bei Griff und Kleidung nicht wollen. Außerdem kennt das Modell den Satz; ohne Klammer bleibt er Schlagwort.
-- 3.7.3 *Entkräftet:* „die einfachste Lösung, **die alle Fälle trägt**“, dazu „kurz schreiben“ für Meldungen und Aufträge. So wirkt KISS gegen Überbau (unsere vielen Regeln und Werkzeuge) und nicht gegen die Systemlösung. Neu als 5.3.
+- 3.7.2 *KISS meint den Schreibstil* (Chef 09:52: „KISS bezieht sich primär auf den Schreibstil“). Damit entfällt mein Einwand, KISS verleite zur Einzellösung; meine Klammer „einfachste Lösung, die alle Fälle trägt“ ist gestrichen. Gegen Überbau bei Lösungen wirken schon die Systemfrage im Auftrag (6.2) und die Regelbilanz im Profil Werkzeug (3.4); das doppelt in den Sockel zu schreiben, wäre selbst gegen KISS.
+- 3.7.3 *Was „kurz schreiben“ heißt,* steht nicht im Sockel, sondern zeigt sich am Baukasten (6) und an jeder Rückmeldung: Ergebnis zuerst, ein Gedanke je Satz, kein Füllwerk.
 
 **3.8 „Nur Sokrates fabuliert, ansonsten KISS. Sokrates darf, aber muss nicht fabulieren“** (09:47). **Stimmt**; deckt sich mit der heutigen Regel „nur Sokrates begründet ausführlich“.
 - 3.8.1 *Gegenargument:* Eine Ausnahme im Sockel kostet jede Sitzung eine Zeile für eine Rolle. *Darum:* Sockel nur KISS (5.3); die Erlaubnis steht allein im Kern Sokrates: „ausführlich nur, wo der Chef entscheiden soll und die Begründung trägt; sonst KISS“.
@@ -116,7 +116,7 @@ Nur, was jede Sitzung braucht, nicht selbst sehen kann und kein Werkzeug erzwing
 
 - 5.1 Deutsch, Berliner Zeit.
 - 5.2 Nicht raten, sondern belegen (Quelle, Befehl mit Ausgabe, Bild). Geht das nicht oder ist der Auftrag unklar: anhalten und fragen. (3.7)
-- 5.3 Kurz und einfach (KISS): die einfachste Lösung, die alle Fälle trägt; kurz schreiben. (3.7)
+- 5.3 Kurz und einfach schreiben (KISS). (3.7)
 - 5.4 Fund außerhalb des Auftrags: melden, nicht beheben (außer 3.3.7).
 
 Wohin der Rest zieht:
