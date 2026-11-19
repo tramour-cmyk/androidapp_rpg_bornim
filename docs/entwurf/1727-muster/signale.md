@@ -16,7 +16,7 @@ Auftrag Chef 19.11., 20:40: „woher weiß das Büro jetzt das? Woher weiß die 
 | S8 | Büro → Prüfer | `lauf.py`: Auftrag mit Ergebnis ohne Urteil → `START Prüfer 9001-1` | `create_session`, erste Nachricht = Kern Prüfer + Auftrag + Ergebnis | wird damit gestartet | Zweig, Beleg (Bild, Prüfausgabe) |
 | S9 | Prüfer → Büro | Prüfer | `send_message` an das Büro „9001-1 ja“ oder „nein, weil …“; Urteil in den Auftrag (Werkzeug) | die Nachricht weckt das Büro | – |
 | S10 | Büro → Arbeitsvorbereitung (nächster Auftrag) bzw. Macher (Nachbessern) | `lauf.py` | wie S4 bzw. S6 | wie S4 bzw. S6 | wie S4 bzw. S6 |
-| S11 | Büro → Macher Build | `lauf.py`, wenn die Regel für Builds greift (**offen, Chef**) | `create_session` mit Profil Build und Liste der Zweige | wird damit gestartet | Zweige in der Warteschlange |
+| S11 | Büro → Macher Build | `lauf.py`, wenn die Regel für Builds greift (Grobablauf 3.19.1) | `create_session` mit Profil Build und Liste der Zweige | wird damit gestartet | Zweige in der Warteschlange |
 | S12 | GitHub → Büro | GitHub-Lauf endet | Büro liest bei jedem Durchlauf `actions_list`; rot ab 3 in der Stunde laut an den Chef | Durchlauf des Büros | GitHub Actions |
 | S13 | Büro → Chef | Büro, Build grün | `meldung.sh`: Link und Prüfpunkte, mit Ton | Telegram auf dem Handy | Telegram |
 | S14 | Chef → Sokrates | Chef nach dem Test | Chat (oder 👍/👎 in Telegram, das liest das Büro) | Sokrates ist im Gespräch | Chat |
