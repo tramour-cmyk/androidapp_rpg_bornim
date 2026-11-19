@@ -194,7 +194,7 @@
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | Sokrates | K | ruht | 23.11. | – | – | M Markt | – |
 | 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | Sokrates | K | ruht | 23.11. | – | – | M Veröffentlichung | – |
 | 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | Sokrates | K | ruht, Wiedervorlage 24.11. mit 366 (Chef 11:14) | 24.11. | – | – | M Veröffentlichung | – |
-| 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | K | ruht, 340 A 16.11.: mittwochs, Frage 11 (Bau 1461) | 26.11. | – | – | B Abläufe | 6,39 $ |
+| 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | Sokrates | K | ruht, fällt mit Umsetzung 1727 (Chef 10:53) | 26.11. | – | – | B Abläufe | 6,39 $ |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | Sokrates | K | ruht, ohne Vorratszeile, Liste „entschieden“ (275.2) | 23.11. | – | – | E Welt | – |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel (Chef 08.11., 11:05–12:39) | Sokrates | K | wartet, entschieden A B C (Chef 14:28) | 644.1, 644.2, 644.4 | – | – | E Kampf | 32,25 $ |
 | 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die teuersten Vorgänge (Chef 08.11., 14:39) | Sokrates | K | startbar, Runde 16.11. erledigt, nächste 23.11. | 23.11. | – | – | B Abläufe | 60,67 $ |

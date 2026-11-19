@@ -44,7 +44,7 @@ Auftrag Chef 10:36: „das mit der Nullbasis können wir doch schon mal anfangen
 | 3.4.3 | `abgleich.py` | Warnzeilen für Ford | weg | was sperren muss, ins Büro-Werkzeug |
 | 3.4.4 | `vorratspruefung.py` | prüft Vorräte | weg | Vorräte entfallen (Akte, 3.10.10) |
 | 3.4.5 | `pflegehinweis.py` | Rollenspiegel-Zeilen | weg | mit dem Rollenspiegel |
-| 3.4.6 | `rollenspiegel.sh` | zehn Fragen an alle Rollen (340) | **Chef** | dein Vorgang; im Pool ohne feste Rollen kaum noch sinnvoll |
+| 3.4.6 | `rollenspiegel.sh` | zehn Fragen an alle Rollen (340) | **streichen bei Umsetzung** (Chef 10:53) | im Pool ohne feste Rollen kaum noch sinnvoll |
 | 3.4.7 | `weiter-haken.py` | Stop-Haken: weiterarbeiten | weg | ein Macher endet mit dem Auftrag |
 | 3.4.8 | `zug-haken.py` | zählt nur noch (822) | weg | zählt, handelt nicht |
 | 3.4.9 | `hakenzahl.py` | zählt, wann Haken anhalten | weg | nach dem Zusammenlegen überflüssig |
@@ -56,13 +56,13 @@ Auftrag Chef 10:36: „das mit der Nullbasis können wir doch schon mal anfangen
 | 3.4.15 | `vorlage_pruefen.py` | Form einer Vorlage (799) | in die Commit-Sperre | betrifft nur Chefsache |
 | 3.4.16 | `freigabe-haken.py` | sagt dir, wenn eine Sitzung auf Freigabe wartet (1610) | bleibt | redet mit dir, nicht mit der Sitzung |
 | 3.4.17 | `laufzeiten.py` | Zeiten der Läufe (1548) | prüfen | Messung; nur behalten, wenn jemand sie liest |
-| 3.4.18 | `probelauf.py` (71 KB) | eine Probe je Aussehen-Thema vor dir (621 A) | **Chef** | deine Regel; der Prüfer vor dir übernimmt ihren Zweck |
+| 3.4.18 | `probelauf.py` (71 KB) | eine Probe je Aussehen-Thema vor dir (621 A) | **streichen bei Umsetzung** (Chef 10:53) | der Prüfer vor dem Chef übernimmt ihren Zweck |
 
 ## 4 Ergebnis, wenn alles so kommt
 
 - 4.1 Haken: von 14 Einträgen auf etwa 6 (Start-Einrichtung, Buildzweig, Startsperre, Sitzungsgröße, Freigabe, Commit-Sperre); keiner davon schreibt im Normalfall etwas in die Sitzung. Die „Uhr“-Zeile nach jedem Schritt prüfe ich gesondert: sie kostet bei jedem Werkzeugaufruf, ein Stempel einmal je Antwort reicht.
 - 4.2 Werkzeuge: Gruppe 2.4 von 213 KB auf etwa 30 KB, Gruppe 2.3 von 416 KB auf etwa 200 KB (Annahmen bis zur Umsetzung).
-- 4.3 Zwei Punkte entscheidest du: 3.4.6 Rollenspiegel und 3.4.18 Probelauf-Regel.
+- 4.3 Entschieden (Chef 10:53: „Dann bei Umsetzung 1 streichen, 2 streichen“): Rollenspiegel (3.4.6) und Probelauf-Regel 621 A (3.4.18) fallen mit der Umsetzung.
 
 ## 5 Stärkstes Gegenargument
 
