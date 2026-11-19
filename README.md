@@ -3,7 +3,7 @@
 Ein düsteres Rollenspiel mit taktischem Kampf, von Anfang an fürs Handy gebaut, erzählt in Kapiteln rund um das Dorf Bornim (ab 16). Den Anfang macht „Der Blutzahn-Stamm“.
 
 - **Du wirst, was du tust.** Keine Klasse zu Beginn: Was du benutzt, wird besser; am Ende jedes Rangs wartet eine Prüfung. Die Regeln sind unser eigenes Bornimer Rollenspielsystem (BRS).
-- **Jeder Kampf ist eine Entscheidung.** Du siehst, was der Gegner vorhat, und antwortest darauf: Stellung, Abwehr, Rudel mit Anführer, Kampforte in 3D (MARS).
+- **Jeder Kampf ist eine Entscheidung.** Der Gegner zeigt, was er vorhat: Der Wolf duckt sich zum Sprung, der Hauptmann holt aus. Du antwortest mit Angriff oder Abwehr, und im Moment des Schlags weichst du selbst aus, parierst oder hebst den Schild.
 - **Eine Welt, die lebt.** Farbig gezeichnet, Licht nur aus sichtbaren Quellen, Klang nur von dem, was da ist; Tag und Nacht, Monster, die man kommen sieht.
 - **Fair.** Keine Werbung, keine Beutekisten, keine Wartezeiten; grinden darf man, muss man nie.
 
