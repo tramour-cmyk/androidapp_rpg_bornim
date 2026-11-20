@@ -353,6 +353,32 @@ Erster Fall (07:03, Chef: „unbedingt einen Vorgang“): 1735 Federknochen für
 
 Chef 20.11., 07:13 auf Gedanke Sokrates 07:11 (niemand spielt Kapitel 1 als Ganzes): „ein Tester … Den kann man dann spezielle Testaufgaben geben oder halt dann sagen, ja, teste das ganze Ding durch und auch dann eben sein Profil wiederum schärfen, worauf der gucken soll … aber nenn es nicht Prüfer.“ Gruppe Abnahme, Kern Abnahme (aus 6.1) plus Profil Tester (07:55, überholt „kein Kern“ 07:13 und 07:23); meldet ans Büro, das Büro legt den Vorgang an; Testaufträge schreibt der Arbeitsplaner (Prüfung 08:05, Befund 5). **Nicht geschrieben.** Ungeprüfter Entwurf (Sokrates): Aufträge „Testaufgabe“ (einzelner Ablauf) oder „Durchspielen“ (Kapitel 1 gegen Abnahmeliste und Leitbild); meldet Sachverhalte (Weg blockiert, Text fehlt, Kampf zu kurz), Spielgefühl urteilt der Chef; Bestand 26.1 Durchspielbogen. Abgrenzung (Chef 07:15–07:16, „selbstständig denken“, schärfen): Prüfer = ein Auftrag gegen seine Prüffragen; Tester = QS über einen Komplex (Themenblock, Szene, Kapitel), zwei Arten: Sonderauftrag („spiel durch, was fällt dir auf“) oder Komplexabnahme. **Entwurf Sokrates 07:17:** Wert des Testers liegt dort, wo kein Auftrag hinschaut: Rückschritte (Bau A bricht B; heute findet sie der Chef zuerst, 620), Nahtstellen zwischen Blöcken (Klang, Licht, Text, Kampf passen in der Szene zusammen), Lücken, die kein Auftrag hatte. Takt: vor jeder Testbitte an den Chef über die Komplexe, die der Build berührt; Durchspielen einmal die Woche. Befund wird neuer Vorgang, keine Rückgabe; Aussehen nur als Hinweis, Urteil Chef. Gegenargument: Kosten je Build; entkräftet durch Beschränkung auf berührte Komplexe, Maß Erstfunde des Chefs je Build. Offen: Takt (je Build, wöchentlich), Katalogwerte der Art; Gegenprüfung ab 21.11., 20:00.
 
+## 6d Routine Wochenzählung (Befund 9)
+
+Anlass: Befund 9 der Gegenprüfung 20.11.; ersetzt die Wochenzählung von Diogenes (`LISTE-PRUEFUNG.md` „Wochenzählung“) und die Zielvereinbarung 341 je Rolle (Rollen fallen, Regelbilanz). Chef 09:33: „Ja“ zum Schreiben. **Entwurf Sokrates 09:40, ungeprüft; Gegenprüfung ab 21.11., 20:00.** Start: montags 8 Uhr durch das Werkzeug (Befund 8), Sockel + dieser Auftrag, ohne Gruppe und Kern.
+
+```markdown
+Ziel: die Kennzahlen der Woche zählen, damit die Leitung sieht, ob die Firma besser wird (gemeinsames Maß: was der Chef als Erster findet). Du zählst, du bewertest nicht; bewerten tut Sokrates.
+
+Zähle für die Woche Mo 0 Uhr bis So 24 Uhr, je Zahl mit Quelle; fehlt eine, schreib „fehlt“ und warum:
+1. Erstfunde des Chefs: Zahl je Build und je Woche, je Profil der Werkstatt, das die Arbeit machte (Vorgänge „Von Chef … Fund“, Testrückmeldungen in den Vorgangsdateien).
+2. Wiederholungen: Läufe bis „abgenommen“ je Auftrag; Anteil der Aufträge mit mehr als einem Lauf, je Profil.
+3. Rückgaben: Anteil „nein“ des Prüfers je Profil; über 20 % als Hinweis „Auftrag oder Profil nachbessern“.
+4. Liegezeit: Median der Zeit je Übergabe (Ziel etwa 5 Minuten); Fälle über 6 h, obwohl gesehen (Regeln wie bisher, 1463).
+5. Bremsen: Aufträge über Laufbremse oder Höchstdauer.
+6. Guthaben: Verbrauch der Woche; Anteil Spiel (Bereiche E und G) gegen Overhead (Q, B, M), nach Bereich, nicht nach Sitzung.
+7. Fortschritt: Abnahmeliste „ganze Punkte x von n“ mit Teilhaken; Stand je Themenblock.
+8. Testrunden des Chefs; Funde des Testers vor der Testbitte gegen Erstfunde des Chefs danach.
+9. Leitung: Entscheide von Sokrates, davon vom Chef zurückgedreht.
+10. Rundblick: Vorschläge, angenommen, umgesetzt (seit Beginn).
+
+Dazu: jeden Vorgang im Bereich B auf „gebaut“ prüfen, ob er greift (greift nicht → Befund); höchstens einen Vorschlag für „Bekannte Fehler“ („nie X, stattdessen Y“) aus Wiederholungen.
+
+Ergebnis: neue Spalte in der Tabelle oben in `docs/PRUEFBERICHT.md`, eine Zeile per Telegram; jeden Befund mit Beleg ans Büro, das legt den Vorgang an. Verschlechtert sich dieselbe Zahl zwei Wochen hintereinander, dazu „zwei Wochen schlechter: <Zahl>“; die Vorlage schreibt Sokrates.
+```
+
+Fällt weg: Zielvereinbarung 341 je Rolle, „Ersparte Fragen“ (98.2, ersetzt durch 9), „Wochenziel erreicht“ (Wochenziel fällt, Archiv 19.11., 17:44). Bleibt: Liegengebliebenes über 6 h, Abnahmeliste, Testrunden, „greift“ (724), Vorschlag „Bekannte Fehler“ (347; einträgt Sokrates). Offen: Quelle für 2 bis 5 entsteht erst mit Vorgangsdatei und Auftragsfeldern (Bauliste 7.1).
+
 ## 7 Werkzeuge, die Regeln tragen
 
 | Werkzeug | trägt | Stand |
