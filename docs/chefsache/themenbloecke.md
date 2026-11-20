@@ -1,6 +1,6 @@
 # Themenblöcke
 
-Dein Lenkrad (1727, Chef 19.11., 12:10/12:24): Zuschnitt und Reihenfolge der Themenblöcke legst du fest; geändert wird nur auf dein Wort. Diese Datei ist die einzige Quelle; die Übersicht in `README.md` (`tools/ueberblick.py`) liest sie. Reihenfolge = Zeilenfolge. Nummern bleiben fest, ein neuer Block bekommt die nächste freie Nummer, nie eine alte (1440). Bis zur Spalte „Themenblock“ in der Vorgangsliste ordnet das Werkzeug jeden Vorgang über Vorgangsnummer oder Bereich zu (Spalten unten); „ruht bis“ zeigt die Übersicht an, den Start steuert es erst mit der Umsetzung von 1727.
+Dein Lenkrad (1727, Chef 19.11., 12:10/12:24): Zuschnitt und Reihenfolge der Themenblöcke legst du fest; geändert wird nur auf dein Wort. Diese Datei ist die einzige Quelle; die Übersicht in `README.md` (`tools/ueberblick.py`) liest sie. Reihenfolge = Zeilenfolge. Nummern bleiben fest, ein neuer Block bekommt die nächste freie Nummer, nie eine alte (1440). Das Werkzeug ordnet jeden Vorgang über seinen Bereich zu, eine Spalte „Themenblock“ gibt es nicht (Chef 20.11., 07:47); Block 4 bis zu seinem eigenen Bereich über Vorgangsnummern (Spalten unten); „ruht bis“ zeigt die Übersicht an, den Start steuert es erst mit der Umsetzung von 1727.
 
 | Nr. | Themenblock | Fachprofil | Kapitel 1 | ruht bis | Bereiche | Vorgänge |
 |---|---|---|---|---|---|---|
