@@ -522,6 +522,24 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Beleg.** „Ort fertig“ 1–9 je ein Wort; Bild vom Helden über den Rand nach außen; Tag und Nacht; jede berührte Grafikstufe, auch Niedrig; Bilder/s nie schlechter.
 ```
 
+**Chef 13:40:** „wir haben frei rotierbare Kamera. Das heißt, müssen wir jetzt eigentlich zwangsweise immer alles nach Süden und Osten, nichts Hohes davor und frei ausrichten? … Eigentlich nicht mehr … müssen wir uns dann mal überlegen, wie wir das wollen. Aber soweit, glaube ich, passt. Ich denke, man könnte es sicherlich noch ein bisschen eindampfen.“ Belegt: `godot/skripte/kamera.gd` dreht in 45-Grad-Schritten und mit zwei Fingern. Süden und Osten raus; Ausrichtung als Frage an Homer (1745, Vorlage mit Bild). Eingedampft ohne neue Festlegung; gestrichen: Glossar (Sockel und Kern tragen Wörter), Ellipse 2:1 und Wand zur Seite hell (stehen in „Karte und Räume“ und 1289a), „nie Toon“ (in „klar“).
+
+**Fassung 3 (13:43)**, etwa 950 Byte, nicht erneut gegengeprüft (nur gekürzt):
+
+```markdown
+**Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild (5.1). Es gilt „Ort fertig“ (`docs/DESIGN-ABNAHME.md`) und `docs/DESIGN-STIL.md` „Richtung“, „Karte und Räume“ (außer „schwarze Schrägen“ und Süden, Osten).
+
+**Blick.** Wichtiges (Leute, Questziele, Eingänge, Schilder, Feuer) frei im Blick; Vordergrund deckt nie die Spielfläche. Außer Sicht: draußen gedämpft, in Höhle und Dungeon schwarz. Maßstab des Helden.
+
+**Rand.** Bäume, Fels, Zaun oder Wasser, sanft ins Dunkel; keine Kante, Wege laufen davor aus.
+
+**Wasser.** Klar, Glanz wandert mit der Strömung, Ufer rund. Kampfort zeigt Wasser, Fels, Feuer, Licht der Karte an derselben Stelle.
+
+**Bestand.** Effekt oder Shader erst in `docs/LISTE-EFFEKTE.md`, `docs/LISTE-BESTAND.md` suchen, Neues dort eintragen. Innen kein Staub im Licht. Alte Fassung je Ort: `docs/LISTE-ABGLEICH-ALT.md`.
+
+**Beleg.** „Ort fertig“ 1–9 je ein Wort; Bild über den Rand; Tag, Nacht, jede berührte Grafikstufe; Bilder/s nie schlechter.
+```
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
