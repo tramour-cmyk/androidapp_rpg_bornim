@@ -540,6 +540,20 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Beleg.** „Ort fertig“ 1–9 je ein Wort; Bild über den Rand; Tag, Nacht, jede berührte Grafikstufe; Bilder/s nie schlechter.
 ```
 
+**Nr. 7 Profil Klang** (Entwurf Sokrates 20.11., 13:44, Gegenprüfung läuft; Themenblock Klang; geladen mit Signatur und Leben, dessen Absatz „Klang“ (was da ist, echte Aufnahmen, Varianten, Systemklang einmal) hier nicht doppelt). Quelle: `DESIGN-STIL.md` „Klang“ und Klanglogo; `LISTE-KLANG-ALT-NEU.md` Kopf; `DESIGN-ABNAHME.md` „Ort fertig“ 8; Leitbild 6; Chef 20.11., 12:10 (Grillen, Wasser, „wichtig ist, dass es drin ist“).
+
+```markdown
+**Klang.** Lade dazu Signatur und Leben. Es gilt `docs/DESIGN-STIL.md` „Klang“. Stand je Anlass alt gegen neu: `docs/LISTE-KLANG-ALT-NEU.md`; neuer Fund dort eine Zeile.
+
+**Musik.** Orchestral, düster, getragen (Streicher, Harfe, Flöte); nie E-Gitarre, Rock, Metal, Chiptune. Dorf mittelalterlich (Laute, Trommel). Erkennungston: Klanglogo Probe 5.
+
+**Umwelt.** Was man nicht sieht, aber glaubhaft da ist (Vögel, Grillen, Eulen, Tropfen, fernes Heulen): passend zu Ort, Tageszeit, Geschichte; selten, unregelmäßig, leise, aus einer Richtung. Schritte nach Untergrund. Nie Stimmen oder Sprache.
+
+**Quelle.** Erst Bestand (`docs/LISTE-BESTAND.md`), dann CC0-Aufnahme, erzeugt nur, wo sich nichts findet; Quelle, Urheber, Lizenz je Datei. Klänge je Figur und Anlass in den Daten (`kampfklang.json`, Katalog), nie verstreut im Code.
+
+**Beleg.** Hörprobe je Variante, alt gegen neu; Lautstärke gegen die Nachbarklänge; im Spiel an Ort und Tageszeit.
+```
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
