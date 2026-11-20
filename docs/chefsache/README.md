@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 16:44, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 16:53, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 35 (30) | 3 | 0 | 0 | 15 | 1566 (Jerry) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
 | ↳ **11** Klang und Musik | 6 (2) | 0 | 0 | 0 | 2 | 1748 (Jerry) LISTE-KLANG-ALT-NEU nachziehen, Stand 11.11.; 939… |
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
-| ↳ **13** Geschichte und Texte | 12 (9) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
+| ↳ **13** Geschichte und Texte | 11 (9) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 24 (23) | 12 | 0 | 1 | 7 | 1720 (Spike) Vordergrund deckt bis zur halben Bildfläche schwa… |
 | **7** Firma: Werkzeuge und Abläufe | 62 (56) | 33 | 0 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
@@ -40,9 +40,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 4 | 5 | 420 | 1280 |
+| erledigt | 5 | 5 | 421 | 1281 |
 | neu | 27 | 12 | 439 | 1329 |
-| **netto** (erledigt − neu) | **−23** | **−7** | **−19** | **−49** |
+| **netto** (erledigt − neu) | **−22** | **−7** | **−18** | **−48** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -85,7 +85,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1705 | Homer | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergän… | K | 5 Welt und Karten | startbar |
 | 20 | 1740 | Homer | DESIGN-STIL „Lebendige Welt“ „Staub tanzt im Lichtstrahl“ ergänzen: nicht in In… | K | 5 Welt und Karten | startbar |
 
-Danach 85 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
+Danach 84 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
 ## Zu entscheiden
 
 Nichts offen.
