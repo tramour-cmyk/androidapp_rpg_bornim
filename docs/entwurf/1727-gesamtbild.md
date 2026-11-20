@@ -187,6 +187,18 @@ Regel der Zuordnung: braucht es jede Sitzung → Sockel; jede einer Tätigkeit (
 
 **Fassung 2 (12:18):** Mittelweg statt Verteilen auf Einzelprofile: Signatur 5.2 wird Querprofil **„Signatur und Leben“** (etwa 600 Byte: Licht, nie niedlich, echte Formen; nie starr, keine Kulisse, drei Varianten je Figur und Zeile; man hört, was da ist; Verstecktes belohnt Erkunden, Wichtiges frei im Blick; Effekte kosten keine Bilder pro Sekunde). Der Arbeitsplaner hängt es an jeden Auftrag mit Bild oder Klang; Kern Abnahme prüft „starr“ und „Stille“ als Sachverhalt. Übrige Zeilen wie oben, mit 1–8. Leitbild danach: Kompass für Chef, Sokrates, Tester; je Grundsatz ein Satz mit „→ Profil“; Arbeitsregeln 7–11 und 8 raus.
 
+**Entwurf Querprofil „Signatur und Leben“** (12:22, ungeprüft, etwa 900 Byte; Chef 12:21: „Was steht in Signatur und Leben drin?“; Quelle 5.2, Leitbild 1, 2, 5, 6, 12, `DESIGN-STIL.md` Abwechslung, Lebendige Welt, Klang; Funde 249, 990, 221, 401). Nicht drin: „Effekte anbieten“ (Kern Arbeitsplaner), Musik (Profil Klang). Widerspruch gefunden: `DESIGN-STIL.md` „Staub tanzt im Lichtstrahl“ gegen 990 (Chef 12.11.: in Innenräumen raus).
+
+```markdown
+**Signatur.** Licht hat eine sichtbare Quelle; im Licht warm, im Schatten kaltes Blauschwarz. Tuschelinie um jede Figur und jedes Ding, zur Lichtseite dünn, zur Schattenseite kräftig. Nur Gold, Feuer und Magie glänzen. Düster durch Licht und Schatten, nicht durch Dunkelheit; echte Formen, nie niedlich, nie quietschbunt.
+
+**Leben.** Jede lebende Figur atmet immer, im eigenen Takt; Übergänge sind weich; keine Figur gleitet oder steht starr. Kein Ort wirkt wie Kulisse: Licht flackert, Rauch steigt, Dinge liegen wie benutzt. Drei Varianten je Bewegung, Geräusch, wiederholbarer Zeile und Gegnerart (Bosse eine Form, Systemklänge einer).
+
+**Klang.** Man hört nur, was da ist, das aber voll: Wind, Feuer, Wasser, Tiere, Schritte, Arbeit der Leute; echte Aufnahmen.
+
+**Blick.** Wichtiges steht frei im Blick, Verstecktes belohnt das Erkunden. Kein Effekt kostet Bilder pro Sekunde auf dem Handy.
+```
+
 ## 2 Sokrates
 
 ### 2.1 Kern Sokrates
