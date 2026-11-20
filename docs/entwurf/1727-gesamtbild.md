@@ -336,7 +336,7 @@ Stand 19.11., Grobablauf 6, erprobt in `auftraege-19-11.md` · höchstens 1,5 KB
 6. **Prüfart und Prüfe vor dem Senden:** drei bis fünf Ja-Nein-Fragen.
 7. **Zurück:** an wen, in welcher Form, mit Beleg; Zweig gepusht, Commit genannt.
 
-**Chef 20.11., 15:34 (Idee):** „bevor irgendein Werkstattmitarbeiter zum Kunden fährt, klar ist, auf welchem Modell er fährt und mit welchem Aufwand … Am Standard … wäre für Aufträge ja grundsätzlich mal Opus-Mittel. Aber da sollte man die Möglichkeit haben, das auch hochzustellen … wenn wir das übergeben würden … an denen die … Fachkräfte losschickt“. **Vorschlag Sokrates 15:36 (Gegenprüfung läuft):** Feld 8 **Modell und Aufwand** im Auftrag, vom Arbeitsplaner gesetzt: Standard opus, Mittel; höher nur mit einem Satz Grund (wie heute „Aufwand hoch, weil …“, 827.1); anderes Modell als opus nur nach Gespräch mit dem Chef (`LISTE-BETRIEB.md`, Chef 13.11., 22:08). Der Disponent startet genau so; Startmeldung der Sitzung nennt beides (Chef 13:13); die Wochenzählung zählt Aufträge je Aufwand mit Kosten und Rückgabequote. Offen: welcher Wert wirkt (1742).
+**Chef 20.11., 15:34 (Idee):** „bevor irgendein Werkstattmitarbeiter zum Kunden fährt, klar ist, auf welchem Modell er fährt und mit welchem Aufwand … Am Standard … wäre für Aufträge ja grundsätzlich mal [Standardmodell]-Mittel. Aber da sollte man die Möglichkeit haben, das auch hochzustellen … wenn wir das übergeben würden … an denen die … Fachkräfte losschickt“. **Vorschlag Sokrates 15:36 (Gegenprüfung läuft):** Feld 8 **Modell und Aufwand** im Auftrag, vom Arbeitsplaner gesetzt: Standard das Standardmodell aus `LISTE-BETRIEB.md`, Aufwand Mittel; höher nur mit einem Satz Grund (wie heute „Aufwand hoch, weil …“, 827.1); anderes Modell nur nach Gespräch mit dem Chef (`LISTE-BETRIEB.md`, Chef 13.11., 22:08). Der Disponent startet genau so; Startmeldung der Sitzung nennt beides (Chef 13:13); die Wochenzählung zählt Aufträge je Aufwand mit Kosten und Rückgabequote. Offen: welcher Wert wirkt (1742).
 
 ### 4.3 Auffang: was Homer heute tut und wer es künftig trägt
 
@@ -433,7 +433,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 6 | Welt | Fach | Fassung 3, entschieden 13:51 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
 | 7 | Klang | Fach | Fassung 4, entschieden 14:45 | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
 | 8 | Oberfläche | Fach | Fassung 2, entschieden 15:32 | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
-| 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
+| 9 | Story (Werkstatt Text) | Fach | Fassung 2, 15:37, gegengeprüft 15:34 | `STORY-REGELN.md`, 4.3 |
 | 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
 | 11 | Werkzeug | Fach | fehlt | `LISTE-BETRIEB.md`, Bauliste 7 |
 | 12 | Fremde Inhalte; Spieltext einbauen | quer | fehlt | `CLAUDE.md` „Technik und Sicherheit“, `LISTE-QUELLEN.md`; `STORY-REGELN.md`, `LISTE-GLOSSAR.md` |
@@ -634,7 +634,7 @@ Gemessen 14:12: Fassung 3 hat 1.597 Byte (nicht 1.250); Sitzung mit Profil Klang
 
 Chef 15:26–15:31 zum Handy: Quelle ist 1128 A (13.11., 13:36, Handy für Ablauf, Bedienung, Gefühl, Klang), nicht 1170 (nur Klang ohne APK; falsch genannt 14:50); Chef 15:31: „wenn es ums Bedienen geht, benötige ich dafür sicherlich ein mobiles Endgerät“. Satz geschärft: Handy nur, wenn sich das Bedienen ändert.
 
-**Nr. 9 Profil Story** (Entwurf Sokrates 20.11., 15:34, Gegenprüfung läuft; Themenblock G Story; für die Werkstatt Text, die auf Auftrag Spieltexte entwirft; Einbau von Text ins Spiel ist Nr. 12). Quelle: `STORY-REGELN.md` Regeln; `CLAUDE.md` „Story und Dialoge“; Gesamtbild 4.3 (Plot und Texte Chef, Werkstatt schreibt auf Auftrag, je Auftrag eine Idee) und 1a (Leitbild 1 Härte und Freigabe 16, Kapitel ohne Zahl, Leitbild 7).
+**Nr. 9 Profil Story** (Fassung 2, 20.11., 15:37, gegengeprüft 15:34; Themenblock G Story; für die Werkstatt Text, die auf Auftrag Spieltexte entwirft; Einbau von Text ins Spiel ist Nr. 12). Quelle: `STORY-REGELN.md` Regeln; `CLAUDE.md` „Story und Dialoge“; Gesamtbild 4.3 (Plot und Texte Chef, Werkstatt schreibt auf Auftrag, je Auftrag eine Idee) und 1a (Leitbild 1 Härte und Freigabe 16, Kapitel ohne Zahl, Leitbild 7).
 
 ```markdown
 **Story.** Du schreibst Entwürfe; was gilt, legt der Chef fest. Regeln und Verzeichnis: `docs/STORY-REGELN.md`, Handlung: `docs/STORY-PLAN.md`. Schreibe nur in die Teildatei, die der Auftrag nennt; jeder Text bekommt eine Marke `[Thema.kurz]`, die Bedingung dahinter, und bleibt Entwurf bis zum Wort des Chefs.
@@ -642,6 +642,18 @@ Chef 15:26–15:31 zum Handy: Quelle ist 1128 A (13.11., 13:36, Handy für Ablau
 **Ton.** Düster, erwachsen, glaubwürdig, nie niedlich. Härte über Blut hinaus nur nach Prüfung, Freigabe ab 16. Feste Namen und Begriffe nach `STORY-REGELN.md` und `docs/LISTE-GLOSSAR.md`; Englisch in US-Schreibung. Bornim hat etwa 50 Einwohner; die Geschichte hat Kapitel ohne feste Zahl.
 
 **Beleg.** Je Text Deutsch und Englisch nebeneinander, mit Marke und Ort im Spiel; Widerspruch zu Plan, Namen oder BRS als Befund. Je Auftrag eine eigene Idee zurückmelden.
+```
+
+**Gegenprüfung 15:34** (frischer Helfer mit Auftrag, jede Quelle selbst zu öffnen; 11 Befunde; Fälle 1320 TP/LP nicht sicher vermieden, 423 feste Zahlen nicht, 857a vermieden). Quellen von mir geöffnet: `DESIGN-LEITBILD.md` 1 und Kopf, `LISTE-GLOSSAR.md` Kopf, Archiv 423 und 338.1a. Mein Wort: 1 Härte nicht wortgleich, Killerschlag fehlt: **stimmt** · 2 Freigabe 16 ist Ziel: **stimmt** · 3 Spielnamen nicht im Glossar, sondern `DESIGN-BRS.md` 12: **stimmt** · 4 Zahlen als Platzhalter (423): **stimmt** · 5 Englisch mehr als US-Schreibung; unsichere Stellen dem Chef (338.1a): **stimmt** · 6 Widerspruch zu Sockel 6 („nie erfunden“): **stimmt**, Ausnahme ausdrücklich · 7 50 Einwohner doppelt: **stimmt** · 8 Bedingung unklar: **stimmt** · 9 Meldeweg steht im Auftrag: **stimmt** · 10 keine Quelle zur Zeilenlänge, keine Zahl erfunden: **stimmt** · 11 Form: **stimmt**.
+
+**Fassung 2 (15:37)**, etwa 950 Byte:
+
+```markdown
+**Story.** Du schreibst Entwürfe auf Auftrag; gelten wird erst, was der Chef festlegt, dann ist es Quelle. Regeln, feste Namen, Verzeichnis: `docs/STORY-REGELN.md`; Handlung: `docs/STORY-PLAN.md`; Spielnamen: `docs/DESIGN-BRS.md` Abschnitt 12. Schreibe nur in die Teildatei, die der Auftrag nennt; jeder Text bekommt eine Marke `[Thema.kurz]`, dahinter in Klammern, wann er erscheint.
+
+**Ton.** Düster, erwachsen, glaubwürdig, nie niedlich. Blut und Killerschlag ja, Härteres nur nach vorheriger Prüfung (Ziel: Freigabe ab 16). Zahlen aus den Regeln nie fest in den Text, sondern als Platzhalter, die das Spiel füllt. Englisch nach den Regeln in `STORY-REGELN.md` (US-Schreibung, Life, keine SRD-Wörter).
+
+**Beleg.** Je Text Deutsch und Englisch nebeneinander, mit Marke und Ort im Spiel; unsichere englische Stellen markieren. Widerspruch zu Plan, Namen oder BRS als Befund. Je Auftrag eine eigene Idee zurückmelden.
 ```
 
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
