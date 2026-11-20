@@ -429,7 +429,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | Fassung 2, 12:56, gegengeprüft 12:55 | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
 | 6 | Welt | Fach | Fassung 2, 13:21, gegengeprüft 13:19 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
-| 7 | Klang | Fach | Fassung 2, 13:48, gegengeprüft 13:46 | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
+| 7 | Klang | Fach | Fassung 4, entschieden 14:45 | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
 | 8 | Oberfläche | Fach | fehlt | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
 | 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
 | 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
@@ -594,6 +594,18 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Alt gegen neu.** Welche Klänge der alten Fassung noch fehlen, steht in `docs/LISTE-KLANG-ALT-NEU.md`. Was du nachbaust, trägst du dort unter „Gleich“ ein, einen neuen Fund als eigene Zeile.
 
 **Beleg.** Zur Auswahl eine Hörprobe auf Telegram, nie eine APK; Klang zur Bewegung als Film mit Ton; Klang beim Bedienen (Tippen, Ring) am Handy. Pegel vorher und nachher als Zahl. `klang_test.gd` und `figurenpruefung.py --pruefen` grün.
+```
+
+Gemessen 14:12: Fassung 3 hat 1.597 Byte (nicht 1.250); Sitzung mit Profil Klang fest etwa 5,1 KB, mit `DESIGN-STIL.md` Klang und Liste alt gegen neu etwa 13 KB. Fassung 4 streicht, was `DESIGN-STIL.md` schon trägt (Musik, Umwelt).
+
+**Fassung 4 (14:12), etwa 750 Byte; entschieden 14:45 (Chef „Fassung 4 für Profil Klang“, Archiv):**
+
+```markdown
+**Klang.** Lade dazu Signatur und Leben. Regeln: `docs/DESIGN-STIL.md` Abschnitt „Klang“, dazu bis zum Nachtrag dort: Raumklang je Ort, dunkle Streicherspur bei nahendem Jäger, Ortsklang im Kampf etwa halb so laut unter der Kampfmusik. Der Klang einer Handlung kommt mit der Bewegung und nur, wenn die Figur da ist. Fehlendes aus der alten Fassung: `docs/LISTE-KLANG-ALT-NEU.md`.
+
+**Quelle.** Erst `tools/klang/QUELLEN.md` durchsuchen; neue Datei dort eintragen, bauen mit `tools/klang/`. Keine neue Klangliste im Code.
+
+**Beleg.** Hörprobe auf Telegram, nie APK; Klang zur Bewegung als Film mit Ton; Pegel als Zahl; `klang_test.gd` grün.
 ```
 
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
