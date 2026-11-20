@@ -26,23 +26,23 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 19.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 1 | 0 | 0 | 4 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 60 (60) | 19 | 0 | 1 | 47 | 1635 (Sokrates) Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 31 (32) | 21 | 0 | 2 | 8 | 1676 (Tom) angelegter Umhang des Helden deckt den rechten Un… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 31 (31) | 21 | 0 | 2 | 8 | 1676 (Tom) angelegter Umhang des Helden deckt den rechten Un… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 30 (30) | 3 | 0 | 0 | 15 | 1566 (Jerry) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
 | ↳ **11** Klang und Musik | 2 (2) | 0 | 0 | 0 | 2 | – |
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 23 (23) | 12 | 0 | 1 | 7 | 1720 (Spike) Vordergrund deckt bis zur halben Bildfläche schwa… |
-| **7** Firma: Werkzeuge und Abläufe | 56 (48) | 32 | 0 | 1 | 12 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **7** Firma: Werkzeuge und Abläufe | 56 (56) | 32 | 0 | 1 | 12 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 5 | 95 | 416 | 1276 |
-| neu | 12 | 120 | 412 | 1302 |
-| **netto** (erledigt − neu) | **−7** | **−25** | **+4** | **−26** |
+| erledigt | 0 | 5 | 416 | 1276 |
+| neu | 0 | 12 | 412 | 1302 |
+| **netto** (erledigt − neu) | **+0** | **−7** | **+4** | **−26** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -104,7 +104,7 @@ Nichts offen.
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 8, Muss 0, startbar 7
 
@@ -177,7 +177,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.11.; „star
 | 1280 | K | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 6 | nach dem Meilenstein |
 | 1730 | K | Von Werkzeug (Startwarnung Pflege, 1642, seit 19.11., 08:08): ARBEIT-TEAM-TOM.md: Übergabe | startbar |
 
-**Jerry** – offen 74, Muss 24, startbar 7
+**Jerry** – offen 74, Muss 24, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -235,7 +235,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.11.; „star
 | 785.16 | K | Von Spike (785): Raster- und Würfelschalter im Kampf über Kämpfe gemerkt (GameViewModel.kt | ruht bis 21.11. 20:00 |
 | 785.18 | K | Von Spike (785): Stufenaufstieg im Endfeld des Kampfes hervorgehoben (alt eigenes Feld „St | ruht bis 21.11. 20:00 |
 | 999.2 | K | Von 999: Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow); | ruht bis 23.11. |
-| 1036.1 | K | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände, jeder Zustand des Codes mit a | ruht bis 20.11. |
+| 1036.1 | K | Von Tuffy (1036, Chef 12.11., 20:52): neue Vorlage Zustände, jeder Zustand des Codes mit a | startbar |
 | 1165 | K | Von Sokrates (Archivprüfung, 490/493 Chef 03.11. „nach dem Durchspielen“): Prüferbefunde K | wartet auf 496 (ruht) |
 | 1224 | K | Von Tom (aus 1041, Rest Commit d1cfba877): Berührungsprüfung beim Platztausch (Netze beide | wartet auf 1589.4 (startbar) |
 | 1319 | K | Von Homer (1318): Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht (Rausc | wartet auf Test t301 (Chef) |
