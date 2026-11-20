@@ -106,7 +106,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 13, Muss 0, startbar 12
+**Homer** – offen 14, Muss 0, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -123,6 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1744 | K | Von Sokrates (1727, Prüfung Profil Welt 13:19): DESIGN-STIL Zeile 142 „dahinter schwarze S | startbar |
 | 1745 | K | Von Sokrates (Chef 20.11., 13:40, Frage: „frei rotierbare Kamera … müssen wir jetzt eigent | startbar |
 | 1747 | K | Von Sokrates (1727, Prüfung Profil Klang 13:46): DESIGN-STIL Abschnitt Klang nachtragen: 1 | startbar |
+| 1757 | K | Von Sokrates (1727, Prüfung Profil Oberfläche 14:48): DESIGN-STIL „Fenster und Schirme“ Sa | startbar |
 
 **Tom** – offen 53, Muss 16, startbar 4
 
@@ -307,7 +308,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1735 | K | Von Sokrates (1734, Chef 20.11., 07:03: „unbedingt einen Vorgang“): Federknochen für losen | startbar |
 | 1738 | K | Von Sokrates (1727, Befund 6 der Gegenprüfung 20.11.): Wie spielt eine Sitzung ohne Handy | startbar |
 | 1739 | M | Von Sokrates (1727, Chef 20.11., 10:31: ab Sa 20 Uhr nur 1727): Werkzeuge der Bauliste ab | Termin 21.11. 20:00 |
-| 1742 | K | Von Sokrates (Chef 20.11., 13:13: „ergänzen lassen von dem Werkzeug, mit welchem Aufwand d | startbar |
+| 1742 | M? | Von Sokrates (Chef 20.11., 13:13: „ergänzen lassen von dem Werkzeug, mit welchem Aufwand d | startbar |
 | 1749 | K | Von Sokrates (Chef 20.11., 14:09: „ob wir wenigstens einen Präfix vorbauen … dann weiß ich | startbar |
 | 1751 | K | Von Sokrates (20.11.): vorgang.py neu meldet beim Querschnitt-Stichwort „keine neue Zeile“ | startbar |
 
