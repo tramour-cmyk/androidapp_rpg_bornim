@@ -31,7 +31,7 @@ Aus dem Gespräch Chef und Sokrates 19.11., 19:44–19:53 (Chef 19:53: „mal ir
 | Position im Angebot: Dusche neu | **Vorgang** | 1694 „Jede Figur hält jeden Gegenstand richtig“ | Büro legt an, sortiert ein, startet, schließt |
 | Arbeitszettel: Fliesen abschlagen, dann Leitung verlegen | **Auftrag** (ein Arbeitsschritt; ein Vorgang hat oft mehrere nacheinander) | erst „Ursache nachstellen“, dann „bauen“ | Arbeitsvorbereitung schreibt, Macher baut |
 | Meister prüft vor der Übergabe | **Prüfer** | prüft nach den Ja-Nein-Fragen des Auftrags | Prüfer |
-| Kunde nimmt ab | **Chef testet** | „gut“, dann nach `main` | Chef |
+| Kunde testet (nicht „nimmt ab“: Abnahme ist seit 20.11., 07:55 die Gruppe) | **Chef testet** | „gut“, dann nach `main` | Chef |
 
 **Wo was steht:**
 
