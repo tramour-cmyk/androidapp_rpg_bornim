@@ -2,19 +2,20 @@
 
 Auftrag Chef 19.11., 16:00: jede Spalte mit Stand und mit Inhalt, damit er sieht, was fehlt und was Sinn macht. **Diese Datei ist bis zur Umsetzung die einzige Quelle der Texte**; Begründungen, Prüfrunden und Falltest stehen in `1727-sockel.md`, `1727-kern-sokrates.md`, `1727-falltest.md`. Ändern: Wort an Sokrates oder direkt hier, dann Falltest neu.
 
-Stand der Datei: 19.11., 16:43.
+Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach Archiv 20.11., 07:30: Leitung, Büro mit Disponent und Arbeitsplaner, Werkstatt, Abnahme; in den Abschnitten unten stehen teils noch die alten).
 
 ## 0 Überblick
 
-| Sockel (jede Sitzung) | Rolle | Kern (immer geladen) | Profile (nur bei Bedarf) | rein → raus |
+| Sockel (jede Sitzung) | Gruppe, Funktion | Kern (immer geladen) | Profile (nur bei Bedarf) | rein → raus |
 |---|---|---|---|---|
-| [1 Sockel](#1-sockel), 1018 Byte, Stand 19.11., 15:24, Falltest 14/14 | **Sokrates** | [2.1](#21-kern-sokrates), 2601 Byte, Stand 15:53 | [2.2 Chefrunde](#22-profil-chefrunde) (Stand 18.11., 16:57), [2.3 Markt und Recherche](#23-profil-markt-und-recherche) (Stand 19.11., 16:43); beide nur auf Zuruf | Chefwort → Antwort, Eintrag (Vorgang, Idee, Archiv), Telegram |
-| ebenso | **Büro** (heute Ford) | [3.1](#31-kern-büro): Entwurf 19.11., 19:35, Falltest `1727-muster/kerne-falltest.md` | [3.2](#32-profile-büro): **nicht geschrieben** | Aufträge, Funde, Rückmeldungen → Vorgang, Start, Meldung, nach Test des Chefs nach `main` |
-| ebenso | **Arbeitsvorbereitung** (heute Perikles; Chefthemen Sokrates) | [4.1](#41-kern-arbeitsvorbereitung): Entwurf 19.11., 19:41, Falltest ebenda; [4.2 Auftragsvorlage](#42-auftragsvorlage-baukasten) Stand 19.11., Grobablauf 6 | liest das Fachprofil des Themas | Vorgang mit Akte → Auftrag (bis 1,5 KB) |
-| ebenso | **Macher** (heute Tom, Jerry, Tuffy, Homer, Spike; Tuffy fehlte, Chef 22:23) | kein Kern: der Auftrag (4.2) | [5.1 Figur und Prüfbild](#51-profil-figur-und-prüfbild) (Stand 19.11., 07:19), [5.2 Signatur](#52-profil-signatur-im-bild) (Stand 13:27); [5.3](#53-weitere-profile): neun **nicht geschrieben** | Auftrag → Zweig, Beleg, Rückmeldung |
-| ebenso | **Prüfer** (heute Diogenes) | [6.1](#61-kern-prüfer): Fassung 3b, 19.11., 22:51, Falltest 8/9 (3b nicht erneut gelaufen) | Prüfarten Bild und Film, Test und Code, Text: **nicht geschrieben** | Auftrag und Ergebnis → ja (über Büro zum Chef), nein (neuer Macher), 2. Nein (Sokrates) |
-| ebenso | **Rundblick** (neu, 1734; Routine, 07:53: Sockel, fester Auftrag, Takt; keine Gruppe) | kein Kern | [6b](#6b-rundblick-1734-routine): **nicht geschrieben**, wöchentlich | Schwächen der Woche, Stand draußen → höchstens drei Vorschläge als Vorgang |
-| ebenso | **Tester** (neu, Chef 20.11., 07:13; nicht „Prüfer“; 07:55: Gruppe Abnahme) | Kern Abnahme (aus 6.1) | [6c](#6c-tester-1727): **nicht geschrieben** | Testaufgabe oder Durchspielen → Befunde als Sachverhalte |
+| [1 Sockel](#1-sockel): **oberstes Ziel entschieden 20.11., 12:06**; etwa 1.110 Byte (Grenze 1,2 KB); Falltest 14/14 vom 19.11., **neu fällig** | **Leitung: Sokrates** (mit dem Chef) | [2.1](#21-kern-sokrates), etwa 2,6 KB, Ziel-Satz 20.11., 12:06 angepasst; offen: Lauffreigabe gegen ruhenden Block (Fall 760) | [2.2 Chefrunde](#22-profil-chefrunde) (18.11.), [2.3 Markt und Recherche](#23-profil-markt-und-recherche) (19.11.); nur auf Zuruf | Chefwort → Antwort, Eintrag (Vorgang, Idee, Archiv), Telegram |
+| ebenso | **Büro: Disponent** (heute Ford) | [3.1](#31-kern-büro): Entwurf 19.11., 19:35 (umbenennen) | [3.2](#32-profile-büro): **nicht geschrieben** | Aufträge, Funde, Rückmeldungen → Vorgang, Start, Meldung, nach Test des Chefs nach `main` |
+| ebenso | **Büro: Arbeitsplaner** (heute Perikles; Chefthemen Sokrates) | [4.1](#41-kern-arbeitsvorbereitung): Entwurf 19.11., 19:41 (umbenennen; nachtragen: vier Fragen, Effekte und Klänge anbieten, Ziel nennt ein Glied des obersten Ziels); [4.2 Auftragsvorlage](#42-auftragsvorlage-baukasten) | lädt Fachprofil und bei Bild oder Klang das Querprofil zu | Vorgang → Auftrag (bis 1,5 KB) |
+| ebenso | **Werkstatt** (heute Tom, Jerry, Tuffy, Homer, Spike) | kein Kern: der Auftrag (4.2) | Querprofil **[Signatur und Leben](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen) entschieden 20.11., 12:37** (ersetzt 5.2); Fach: [5.1 Figur](#51-profil-figur-und-prüfbild) (Entwurf 19.11.), [5.3](#53-weitere-profile) Nr. 2 **Regeln** und Nr. 3 **Kampf** Fassung 2, gegengeprüft; **nicht geschrieben:** Kataloge, Welt, Klang, Oberfläche, Story, Technik, Werkzeug, Fremde Inhalte | Auftrag → Zweig, Beleg, Rückmeldung |
+| ebenso | **Abnahme: Prüfer** (heute Diogenes) | [6.2 Kern Abnahme](#62-kern-abnahme-profil-prüfer-profil-tester-entwurf-2011-1045), Fassung 2, gegengeprüft 20.11., 10:42 (ersetzt 6.1; nachtragen: Verweis auf Querprofil, „starr“, „Stille“, Eintauchen, Ziel) | Profil Prüfer in 6.2 (6 von 6 Fällen) | Auftrag und Ergebnis → ja (über Büro zum Chef), nein (neue Werkstatt), 2. Nein (Sokrates) |
+| ebenso | **Abnahme: Tester** (neu, Chef 20.11., 07:13 und 07:55) | Kern Abnahme | Profil Tester in 6.2 (Falltest 0 von 2, **erneut fällig**) | Testaufgabe oder Durchspielen → Befunde als Sachverhalte |
+| ebenso | **Routinen** (Rundblick 1734, Wochenzählung, Tagesbericht, Wache; ohne Gruppe) | kein Kern | [6b Rundblick](#6b-rundblick-1734-routine) **nicht geschrieben**; [6d Wochenzählung](#6d-routine-wochenzählung-befund-9) Entwurf; Tagesbericht, Wache fehlen | fester Auftrag mit Takt → Bericht, höchstens drei Vorschläge |
+| – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
 ## 0a Ordnung der Arbeit: Themenblock, Vorgang, Auftrag
