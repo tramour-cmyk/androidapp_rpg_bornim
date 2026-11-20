@@ -627,8 +627,10 @@ Gemessen 14:12: Fassung 3 hat 1.597 Byte (nicht 1.250); Sitzung mit Profil Klang
 
 **Bedienung.** Vor jeder Änderung an Bedienung oder Ablauf die vier Fragen aus „Spielerfreundlich“; Antworten in die Rückmeldung. Menüeintrag: Zeichen mit ein bis zwei Wörtern. Jede Wahl zeigt sichtbar, wie es weiter und zurück geht, auch im Gespräch. Nie Werbung, Beutekisten, Wartezeit; Käufe drängen sich nie auf.
 
-**Beleg.** Jeder geänderte Schirm als Bild auf 360 dp, alt gegen neu, nach den Bildregeln aus Figur und Prüfbild. Neuer Schirm in den Maßtest `gruppe_mass_557`, grün. Grund rein schwarz, ohne Lichthof? Nichts umgebrochen oder abgeschnitten, auch der Held nicht? Tippen, Ziehen, Zurück am Handy.
+**Beleg.** Jeder geänderte Schirm als Bild auf 360 dp, alt gegen neu, nach den Bildregeln aus Figur und Prüfbild. Neuer Schirm in den Maßtest `gruppe_mass_557`, grün. Grund rein schwarz, ohne Lichthof? Nichts umgebrochen oder abgeschnitten, auch der Held nicht? Ändert sich das Bedienen (Tippen, Ziehen, Zurück): am Handy.
 ```
+
+Chef 15:26–15:31 zum Handy: Quelle ist 1128 A (13.11., 13:36, Handy für Ablauf, Bedienung, Gefühl, Klang), nicht 1170 (nur Klang ohne APK; falsch genannt 14:50); Chef 15:31: „wenn es ums Bedienen geht, benötige ich dafür sicherlich ein mobiles Endgerät“. Satz geschärft: Handy nur, wenn sich das Bedienen ändert.
 
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
