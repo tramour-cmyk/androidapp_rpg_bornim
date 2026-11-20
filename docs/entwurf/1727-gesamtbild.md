@@ -608,6 +608,16 @@ Gemessen 14:12: Fassung 3 hat 1.597 Byte (nicht 1.250); Sitzung mit Profil Klang
 **Beleg.** Hörprobe auf Telegram, nie APK; Klang zur Bewegung als Film mit Ton; Pegel als Zahl; `klang_test.gd` grün.
 ```
 
+**Nr. 8 Profil Oberfläche** (Entwurf Sokrates 20.11., 14:47, Gegenprüfung läuft; Themenblock E Oberfläche: Menüs, Fenster, Bedienung, Schrift; kurz und verständlich nach Chef 13:55 und 14:02). Quelle: `DESIGN-STIL.md` „Spielerfreundlich“ (vier Fragen), „Oberfläche“, „Fenster und Schirme ohne Kasten“ (549a), „Zeichen“ (326, 426); `DESIGN-BLENDE.md`; `LISTE-ABGLEICH-OBERFLAECHE.md` Kopf (785, alte Fassung Untergrenze); `CLAUDE.md` (nie Werbung, Beutekisten, Warten gegen Geld); Gesamtbild 1a (Leitbild 3 und 13).
+
+```markdown
+**Oberfläche.** Lade dazu Figur und Prüfbild. Regeln: `docs/DESIGN-STIL.md` „Oberfläche“ mit „Fenster und Schirme ohne Kasten“ und „Zeichen“; Blende, Vorspann, Hauptmenü in `docs/DESIGN-BLENDE.md`. Baue nur mit den Bausteinen in `godot/skripte/spielstaende.gd` und den Farben in `stil.gd`. Die alte Fassung ist die Untergrenze: `docs/LISTE-ABGLEICH-OBERFLAECHE.md`, Urteil je Zeile nachtragen.
+
+**Bedienung.** Vor jeder Änderung an Bedienung oder Ablauf die vier Fragen aus „Spielerfreundlich“ (Freiheit, wenige Schritte, bekannte Bedienung, Wachstum), Antworten in die Rückmeldung. Zeichen statt Text. Nie Werbung, Beutekisten, Warten gegen Geld.
+
+**Beleg.** Bild auf 360 dp Breite: nichts überlappt, Schrift mindestens 13 sp, Tippfläche mindestens 48 dp, Maßtest `gruppe_mass_557` grün; alt gegen neu nebeneinander. Bedienen (Tippen, Ziehen, Zurück) am Handy.
+```
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
