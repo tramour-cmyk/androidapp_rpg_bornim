@@ -107,9 +107,10 @@ Entwurf Sokrates 09:50, ungeprüft. Je neue Regel aus den Entscheiden 19.–20.1
 | Testbitte schreibt das Werkzeug (A13) | „Testbitten stellen die Teams selbst“ (`CLAUDE.md` Zusammenarbeit 4) |
 | Bereich am Vorgang, Block abgeleitet | geplante Spalte „Themenblock“ (Archiv 19.11., 12:24) |
 | Tester vor jeder Testbitte | – (neu ohne Ersatz; Gegenrechnung: Erstfunde des Chefs, 6d Zahl 8) |
-| Rundblick (Routine) | Systemrunde montags (654) geht darin auf? **offen**, Chef 07:03: „müssen wir dafür nichts wegstreichen“ (bezog sich auf die Chefrunde) |
+| Rundblick (Routine) | – (Systemrunde nicht hierhin, siehe nächste Zeile) |
+| Systemfrage im Ablauf (Chef 10:24: „haben wir das irgendwie schon implementiert pauschal, dann braucht man die Systemrunde sowieso nicht mehr“): Wiederholungswächter `vorgang.py` legt „Systemlösung?“ an (bleibt); Arbeitsplaner liest ähnliche Vorgänge und füllt Feld „Systemfrage“ in jedem Auftrag (4.1 Schritt 2); Routine Wochenzählung meldet Wiederholungen und Rückgaben je Profil (6d Zahlen 2, 3), Sokrates bewertet | Systemrunde montags (654; `ROLLE-BERATUNG.md` „Vorausdenken“). Vorschlag 10:27, Wort Chef offen. Offene „Systemlösung?“ bei Sokrates (1564, 1635, 1656, 1736) mit Umsetzung an den Disponenten |
 
-Bilanz: elf neue, etwa zwanzig alte fallen; offen nur Tester (ohne Ersatz, gemessen) und Systemrunde.
+Bilanz: zwölf neue, etwa zwanzig alte fallen; offen nur Tester (ohne Ersatz, gemessen).
 
 ## 1 Sockel
 
