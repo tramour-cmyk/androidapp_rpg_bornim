@@ -90,6 +90,27 @@ Muster und Abläufe zum Nachlesen: `1727-muster/` ([README](1727-muster/README.m
   - **Zu D** (Chef 07:49: „klassische Stabs- und Beratungsfunktion. Kein Entscheidungsträger“; „Da brauchen wir auch keine Angliederung … Das ist eine Funktionalität, die ich benötige. Genauso, wenn ich sage, ich brauche meinen Morgenbericht. Dafür haben wir ja auch kein Profil“). Prüfung 07:52: keine Gruppe: stimmt. Einwand zu „kein Profil“: eine einmalige Frage trägt ihr Auftrag; ein Lauf, der jede Woche gleich kommt, braucht einen festen Text, sonst jedes Mal anders. Vorschlag: eigene Art **Routine** = Sockel + fester Auftrag + Takt, ohne Gruppe; dazu gehören auch Ford-Wache, Wochenzählung Diogenes (Kennzahlen, 07:11 ohne Ort) und ein Morgenbericht. Ersetzt „Profil Rundblick“ von 07:37 nur im Namen. **Chef 07:50: „Ja, okay“** (Routine; ob auch C gemeint, nachgefragt).
   - **Zu E** (Chef 07:50: Namen weg, aber bei 20 Werkstatt-Sitzungen „Mary, da müssen wir das und das machen“ leichter als „Vorgangsnummer 27, 11, 23“). Vorschlag 07:53: **Rufname je laufende Sitzung**, nicht je Rolle: das Büro vergibt beim Start einen Vornamen aus fester Liste (nicht wiederholt am selben Tag), steht im Sitzungstitel, in der Besetzung und in jeder Meldung („Mary, Werkstatt Figur, 1535 Kleidung an der Hand“), endet mit der Sitzung. Dazu darf der Chef das Thema in Worten nennen („die am Umhang“), Sokrates oder Büro ordnen zu. Gegenargument: Name täuscht Gedächtnis vor („Mary hat doch gestern …“); entkräftet: Name immer mit Vorgang, nie über die Sitzung hinaus. **Entschieden 07:57 (Archiv);** Grund des Chefs: er sieht laufende Sitzungen und schaut hinein; darum Rufname vorn im Sitzungstitel. Idee Chef 08:03: je Tag ein Buchstabe (A-Namen, dann B-Namen …). Votum 08:04: nein, umgekehrt: innerhalb des Tages das Alphabet durch (erste Sitzung A, zweite B …), damit gleichzeitig laufende verschiedene Anfangsbuchstaben haben; den Vortag zeigt das Datum im Titel. Chef 08:04: „die Alphabetsachen an einem Tag durchgehen. Der erste ist ein A, der nächste ist ein B“ → entschieden (Archiv); nach Z von vorn mit zweitem Namen je Buchstabe; Sperrliste Spielfiguren und alte Rollennamen (Prüfung 08:05, Befund 11).
 
+## 0c Regelbilanz (Befund 15; `CLAUDE.md` Haltung 6)
+
+Entwurf Sokrates 09:50, ungeprüft. Je neue Regel aus den Entscheiden 19.–20.11., was dafür fällt; Quelle der alten Regel in Klammern.
+
+| Neu | Fällt dafür |
+|---|---|
+| Gruppen Leitung, Büro, Werkstatt, Abnahme; Kerne und Profile | Rollentabelle `CLAUDE.md` „Rollen“; Rollendateien `ROLLE-*.md` (außer Kern Sokrates als Startprompt); Vorräte `ARBEIT-*.md` je Rolle (ersetzt durch Vorgangsdatei) |
+| Rufname je Sitzung, Alphabet je Tag | Startwort je Rolle (853, „wer man ist, sagt die erste Nachricht“); Sitzungstitel „<Rolle> – …“ (436) |
+| Disponent teilt jeden Auftrag zu | Übernahme zwischen den Teams (`CLAUDE.md` Zusammenarbeit 6, `ROLLE-ENTWICKLUNG.md`); Zuständigkeit Tom/Jerry nach Orten |
+| Reihenfolge der Themenblöcke (Lenkrad) | Wochenziel und Perikles' Wochentermin (Archiv 19.11., 17:44); „M?“ entscheidet Perikles |
+| Leitung: Sokrates entscheidet, Chef billigt | Vorentscheid-Recht Perikles und Homer (`CLAUDE.md` Zusammenarbeit 3); Bremse „mehr als zwei zurück“ bleibt |
+| Laufbremse und Höchstdauer je Auftrag | Freigabe ab 40 $ (1538) |
+| Prüfer mit Prüfart Text bei jeder Änderung an Kern, Sockel, Profil | Doppelpack 421 (Perikles → Diogenes) |
+| Routine Wochenzählung (6d) | Zielvereinbarung 341 je Rolle; „Ersparte Fragen“ (98.2); `LISTE-PRUEFUNG.md` „Wochenzählung“ |
+| Testbitte schreibt das Werkzeug (A13) | „Testbitten stellen die Teams selbst“ (`CLAUDE.md` Zusammenarbeit 4) |
+| Bereich am Vorgang, Block abgeleitet | geplante Spalte „Themenblock“ (Archiv 19.11., 12:24) |
+| Tester vor jeder Testbitte | – (neu ohne Ersatz; Gegenrechnung: Erstfunde des Chefs, 6d Zahl 8) |
+| Rundblick (Routine) | Systemrunde montags (654) geht darin auf? **offen**, Chef 07:03: „müssen wir dafür nichts wegstreichen“ (bezog sich auf die Chefrunde) |
+
+Bilanz: elf neue, etwa zwanzig alte fallen; offen nur Tester (ohne Ersatz, gemessen) und Systemrunde.
+
 ## 1 Sockel
 
 Stand 19.11., 19:35 · etwa 985 Byte (Grenze 1 KB) · „Sockel so“ 13:33, „Mach es so“ 13:58; danach Querlesen 14:37 und Falltest 15:25 (14/14) · Zeilen 7 und 8 vorläufig bis zu den Sperren · „Zurückmelden: an deren Absender“ raus (Chef 19:33): Meldeweg steht im Feld „Zurück“ des Auftrags (Macher) bzw. im Kern; Bedingung: ohne Feld „Zurück“ startet kein Auftrag (Kern Arbeitsvorbereitung, `lauf.py`) · Falltest neu.
