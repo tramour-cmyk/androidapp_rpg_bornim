@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 10:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 10:46, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,16 +33,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 10 (9) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 24 (23) | 12 | 0 | 1 | 7 | 1720 (Spike) Vordergrund deckt bis zur halben Bildfläche schwa… |
-| **7** Firma: Werkzeuge und Abläufe | 59 (56) | 33 | 0 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **7** Firma: Werkzeuge und Abläufe | 58 (56) | 33 | 0 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 0 | 5 | 416 | 1276 |
+| erledigt | 1 | 5 | 417 | 1277 |
 | neu | 7 | 12 | 419 | 1309 |
-| **netto** (erledigt − neu) | **−7** | **−7** | **−3** | **−33** |
+| **netto** (erledigt − neu) | **−6** | **−7** | **−2** | **−32** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -85,7 +85,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1630 | Spike | alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uhrzeit, Erweiterung v… | K | 5 Welt und Karten | gebaut, t300 ohne deine Antwort |
 | 20 | 1564 | Sokrates | Systemlösung? Wasser: 4 frühere Vorgänge, neu 1563; einmal grundsätzlich lösen? | K | 5 Welt und Karten | startbar |
 
-Danach 69 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
+Danach 68 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
 ## Zu entscheiden
 
 Nichts offen.
@@ -257,7 +257,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 | 1729 | K | Von Werkzeug (Startwarnung 969, 1642, seit 19.11., 08:17): docs/LISTE-REGELWERTE.md veralt | startbar |
 
-**Spike** – offen 35, Muss 22, startbar 6
+**Spike** – offen 36, Muss 23, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -296,6 +296,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1732 | M | Von Sokrates (Chef 19.11., 21:25): Stop-Haken für Sokrates: Nachricht mit „Votum“ ohne Zei | startbar |
 | 1735 | K | Von Sokrates (1734, Chef 20.11., 07:03: „unbedingt einen Vorgang“): Federknochen für losen | startbar |
 | 1738 | K | Von Sokrates (1727, Befund 6 der Gegenprüfung 20.11.): Wie spielt eine Sitzung ohne Handy | startbar |
+| 1739 | M | Von Sokrates (1727, Chef 20.11., 10:31: ab Sa 20 Uhr nur 1727): Werkzeuge der Bauliste ab | Termin 21.11. 20:00 |
 
 **Perikles** – offen 24, Muss 19, startbar 1
 
@@ -340,7 +341,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 
-**Sokrates** – offen 46, Muss 8, startbar 9
+**Sokrates** – offen 45, Muss 8, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -366,7 +367,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 340 | K | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Che | ruht bis 26.11. |
 | 344 | K | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23 | ruht bis 23.11. |
 | 644 | K | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, | wartet auf 644.1 (wartet) |
-| 654 | K | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | Termin 23.11. |
+| 654 | K | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, | ruht bis 23.11. |
 | 930 | K | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerr | wartet auf 930.3 (ruht) |
 | 1270 | K | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder; Vo | startbar |
 | 1509 | K | Systemlösung? Nebel: 6 frühere Vorgänge (502, 505, 1091, 785.7, 1145 …), neu 623.9; einmal | ruht bis 21.11. 20:00 |
@@ -386,7 +387,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 45 | K | Geschäftsmodell und Umsetzung (Play Store) | nach dem Meilenstein |
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
 | 1725 | M? | Von Chef (19.11., 07:24): Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren u | Termin 21.11. 20:00 |
-| 1733 | K | Von Werkzeug (Startwarnung Pflege, 1642, seit 19.11., 20:54): ARBEIT-BERATUNG.md: Übergabe | startbar |
 | 1734 | K | Von Chef (20.11., 06:46, Idee): Forschung und Entwicklung bei Sokrates, wöchentlich oder a | startbar |
 | 1486 | K | Von Sokrates (1411.1 Tuffy 16.11., 20:32; 1403): bei gleicher Stufe gewinnen Wachsoldat un | ruht bis 21.11. 20:00 |
 | 1736 | K | Systemlösung? Umhang: 19 frühere Vorgänge (1648, 1569, 1571, 1569.1, 1651 …), neu 1735; ei | wartet auf 1735 (startbar) |
