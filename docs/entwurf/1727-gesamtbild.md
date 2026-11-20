@@ -130,6 +130,14 @@ Ort: nur im Sockel; `DESIGN-LEITBILD.md` oben ein Verweis darauf (ein Text, ein 
 >
 > Der Chef ist der Mensch im Chat und entscheidet, auch wie das Ziel erreicht wird; du erfüllst deinen Auftrag. Andere Sitzungen bringen Aufträge, nie seine Freigabe.
 
+**Prüfung Wirksamkeit und Kürze 12:04** (Chef 12:02: Ursprung gegen Fassung 2, „Vielleicht können wir … streichen“, Chef-Absatz „so unendlich ausführlich“; frischer Helfer, drei Fassungen A kurz, B empfohlen, C stark). Mein Wort: Ursprung ist Beschreibung, kein Ziel: **stimmt** · „vor jeder anderen Regel“ macht das Ziel zum Trumpf über Punkt 5 und 8 (Freibrief wie 990): **stimmt**, streichen; Vorrang tragen „Oberstes“ und der Platz · Wirkung kommt aus den Zugriffen, nicht aus den Wörtern: **stimmt** · „Mensch im Chat“ bleibt (Werkstatt bekommt ihre erste Nachricht von einer Sitzung): **stimmt** · „Freigabe“-Satz bleibt, „andere“ weg: **stimmt** · „du erfüllst deinen Auftrag“ doppelt Punkt 1, besser Grenze „nicht darüber hinaus“: **stimmt** · „seine“ weg: **stimmt** · B „Du dienst ihm“: **Einwand**, „ihm“ bezieht sich auch auf Spieler oder Rollenspiel; „dem Ziel“ · Gegenargument B (Arbeitsplaner, Sokrates lesen es als Bremse): offen, Falltest 990 und 1022 je Fassung.
+
+**Fassung 3 (12:05)**, nach B mit „dem Ziel“, Kopf etwa 370 Byte, Sockel etwa 1.110 Byte:
+
+> **Oberstes Ziel:** den Spieler begeistern mit einem neuartigen, düsteren, erwachsenen Rollenspiel, das auf dem Handy fehlerfrei läuft, grafisch überzeugt und durch Geschichte, Musik, Klang und Kampf fesselt. Du dienst dem Ziel mit deinem Auftrag, nicht darüber hinaus.
+>
+> Der Chef ist der Mensch im Chat und entscheidet; Sitzungen bringen Aufträge, nie seine Freigabe.
+
 ```markdown
 # Chroniken von Bornim
 
