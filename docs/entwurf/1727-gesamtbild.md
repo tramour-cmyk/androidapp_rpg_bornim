@@ -18,6 +18,30 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
+### 0.1 Größen (Stand 20.11., 16:52; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+
+Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen.
+
+| Teil | Byte | Grenze | Stand |
+|---|---|---|---|
+| Sockel | 1.110 | 1,2 KB | abgenommen 12:06 |
+| Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
+| Kern Sokrates | 2.990 | – | Entwurf |
+| Kern Büro | 2.410 | – | Entwurf |
+| Kern Arbeitsvorbereitung | 3.110 | 3 KB (**über**) | Entwurf (19.11.: 2.450) |
+| Kern Prüfer | 2.570 | – | Entwurf |
+| Kern Abnahme, Profil Prüfer, Profil Tester | 1.860 | – | Entwurf |
+| Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
+| Profil Regeln | 1.740 | – | gegengeprüft |
+| Profil Kampf | 1.480 | – | gegengeprüft |
+| Profil Kataloge | 1.450 | – | gegengeprüft |
+| Profil Welt | 1.170 | – | abgenommen 13:51, 16:43 |
+| Profil Klang | 650 | – | abgenommen 14:45 |
+| Profil Oberfläche | 1.040 | – | abgenommen 15:32 |
+| Profil Story | 1.440 | – | abgenommen 16:43 |
+
+**Vorher, was eine Sitzung beim Start liest** (Stand 20.11., ohne Haken und Lektüre bei Anlass): `CLAUDE.md` 15,0 KB + Rollendatei + Vorrat. Perikles 15,0 + 12,7 + 23,1 = 50,8 KB; Ford 15,0 + 8,7 + 35,3 = 59,0 KB; Homer 15,0 + 6,0 + 4,3 = 25,3 KB; Tom, Jerry je 15,0 + 13,1 + 27,1 = 55,2 KB. **Neu:** Arbeitsvorbereitung Sockel + Kern 4,2 KB + Auftrag; Werkstatt Text Sockel + Profil Story 2,6 KB + Auftrag; Werkstatt Welt Sockel + Signatur + Welt 3,2 KB + Figur und Prüfbild + Auftrag.
+
 ## 0a Ordnung der Arbeit: Themenblock, Vorgang, Auftrag
 
 Aus dem Gespräch Chef und Sokrates 19.11., 19:44–19:53 (Chef 19:53: „mal irgendwo nachhalten, dass ich das wieder lesen kann … das ist ja schon was Elementares“). Stand 19:54; offen sind die drei Worte am Ende.
