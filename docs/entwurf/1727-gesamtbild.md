@@ -524,14 +524,14 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 
 **Chef 13:40:** „wir haben frei rotierbare Kamera. Das heißt, müssen wir jetzt eigentlich zwangsweise immer alles nach Süden und Osten, nichts Hohes davor und frei ausrichten? … Eigentlich nicht mehr … müssen wir uns dann mal überlegen, wie wir das wollen. Aber soweit, glaube ich, passt. Ich denke, man könnte es sicherlich noch ein bisschen eindampfen.“ Belegt: `godot/skripte/kamera.gd` dreht mit zwei Fingern frei (Chef 13:49: „nicht in 45 Grad Schritten, sondern völlig frei“; der Kopf der Datei nennt noch 45-Grad-Schritte); Grundansicht Nordwest, Türen und Fronten zum Betrachter (Chefrunde 25.10., 13:26, 3486 a), Windrose dreht zurück. Süden und Osten raus; Ausrichtung als Frage an Homer (1745, Vorlage mit Bild). Eingedampft ohne neue Festlegung; gestrichen: Glossar (Sockel und Kern tragen Wörter), Ellipse 2:1 und Wand zur Seite hell (stehen in „Karte und Räume“ und 1289a), „nie Toon“ (in „klar“).
 
-**Fassung 3 (13:43)**, etwa 950 Byte, nicht erneut gegengeprüft (nur gekürzt); Chef 13:50: „reicht, wenn man da schreibt, lade dazu Signatur und Leben, Figur und Prüfbild“ (ohne Abschnittsnummer; ebenso im Profil Kampf); Nebel des Krieges nach Chef 13:43:
+**Fassung 3 (13:43)**, etwa 950 Byte, nicht erneut gegengeprüft (nur gekürzt); Chef 13:50: „reicht, wenn man da schreibt, lade dazu Signatur und Leben, Figur und Prüfbild“ (ohne Abschnittsnummer; ebenso im Profil Kampf); Nebel des Krieges nach Chef 13:43; Rand nach Chef 13:51 („Die Wege mögen doch bitte im Rand, im Dunkel auslaufen, dass man das Gefühl hat, man kann halt da lang gehen“; so schon 13.11., 10:15 zu 282.5; Befund 1 des Prüfers hatte 282.5 verkehrt gelesen); „passt“ 13:51:
 
 ```markdown
 **Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild. Es gilt „Ort fertig“ (`docs/DESIGN-ABNAHME.md`) und `docs/DESIGN-STIL.md` „Richtung“, „Karte und Räume“ (außer „schwarze Schrägen“ und Süden, Osten).
 
 **Blick.** Wichtiges (Leute, Questziele, Eingänge, Schilder, Feuer) frei im Blick; Vordergrund deckt nie die Spielfläche. Nebel des Krieges: nie Gesehenes schwarz; Gesehenes außer Sicht draußen gedämpft, in Höhle und Dungeon schwarz. Maßstab des Helden.
 
-**Rand.** Bäume, Fels, Zaun oder Wasser, sanft ins Dunkel; keine Kante, Wege laufen davor aus.
+**Rand.** Bäume, Fels, Zaun oder Wasser, sanft ins Dunkel; keine Kante. Wege laufen weiter und enden im Dunkel, als ginge es dort weiter.
 
 **Wasser.** Klar, Glanz wandert mit der Strömung, Ufer rund. Kampfort zeigt Wasser, Fels, Feuer, Licht der Karte an derselben Stelle.
 
