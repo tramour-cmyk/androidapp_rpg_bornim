@@ -13,6 +13,7 @@ Stand der Datei: 19.11., 16:43.
 | ebenso | **Arbeitsvorbereitung** (heute Perikles; Chefthemen Sokrates) | [4.1](#41-kern-arbeitsvorbereitung): **nicht geschrieben**; [4.2 Auftragsvorlage](#42-auftragsvorlage-baukasten) Stand 19.11., Grobablauf 6 | liest das Fachprofil des Themas | Vorgang mit Akte → Auftrag (bis 1,5 KB) |
 | ebenso | **Macher** (heute Tom, Jerry, Tuffy, Homer, Spike; Tuffy fehlte, Chef 22:23) | kein Kern: der Auftrag (4.2) | [5.1 Figur und Prüfbild](#51-profil-figur-und-prüfbild) (Stand 19.11., 07:19), [5.2 Signatur](#52-profil-signatur-im-bild) (Stand 13:27); [5.3](#53-weitere-profile): neun **nicht geschrieben** | Auftrag → Zweig, Beleg, Rückmeldung |
 | ebenso | **Prüfer** (heute Diogenes) | [6.1](#61-kern-prüfer): **nicht geschrieben**, zwei Prüffragen stehen (Stand 13:21, 13:27) | Prüfarten Bild und Film, Test und Code, Text: **nicht geschrieben** | Auftrag und Ergebnis → ja (über Büro zum Chef), nein (neuer Macher), 2. Nein (Sokrates) |
+| ebenso | **Rundblick** (neu, 1734, Name offen) | kein Kern | [6b](#6b-rundblick-1734-arbeitsname): **nicht geschrieben**, wöchentlich | Schwächen der Woche, Stand draußen → höchstens drei Vorschläge als Vorgang |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
 ## 0a Ordnung der Arbeit: Themenblock, Vorgang, Auftrag
@@ -287,6 +288,14 @@ Alle Mängel meldest du auf einmal.
 
 **Meldung**, erstes Wort: „ja“, „nein“, „Beleg fehlt“ oder „nein, Auftrag“ (zählt nicht als Runde). Je Mangel ein Satz zum Nachbessern. Meldest du „nein“ und steht unter „Bisher“ schon ein „nein“ eines Prüfers oder des Chefs zu dieser Arbeit („Beleg fehlt“ zählt nicht): dazu „steckt fest“ und ein Satz, welche Handwerksregel fehlte. Anderes Gesehenes: „Hinweis: was, wo“.
 ```
+
+## 6b Rundblick (1734, Arbeitsname)
+
+Chef 20.11., 06:46–07:03: eigenes Profil, keine Person, nicht in der Chefrunde, nichts wird dafür gestrichen; einmal die Woche gestartet, „das arbeitet dann, liefert Ergebnisse“; Name offen („der Inhalt sollte da rein“). Inhalt (Chef): Wie arbeiten andere (Abläufe, Prompts, Kerne und Sockel klein), Neues in Grafik, 3D, Technik, Werkzeugen; Vorschläge gegen unsere Schwächen; „komm du mal um die Ecke mit einer Idee“.
+
+**Ungeprüfter Entwurf (Sokrates 07:05, Gegenprüfung ab Sa 21.11., 20:00):** von innen nach außen: Eingang die drei teuersten Schwächen der Woche (Wiederholfunde, Funde des Chefs zuerst, teuerste Vorgänge), dann wie andere genau das lösen; höchstens drei Vorschläge je Lauf, je Schwäche, Quelle, kleine Probe, Kosten, Maß; jeder Vorschlag wird Vorgang „Von Rundblick“ beim Besitzer (Technik: Spike). Nachhalten: nach vier Läufen Anteil umgesetzt und Wirkung auf Wiederholfunde und Kosten; zu wenig → Profil weg. Offen: Abgrenzung zu 2.3 Markt und Recherche; wer startet (Büro, Wochentakt); Kostengrenze je Lauf.
+
+Erster Fall (07:03, Chef: „unbedingt einen Vorgang“): 1735 Federknochen für losen Stoff bei Spike; Systemfrage Umhang 1736 (19 frühere Vorgänge) wartet darauf.
 
 ## 7 Werkzeuge, die Regeln tragen
 
