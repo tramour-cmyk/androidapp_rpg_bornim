@@ -434,10 +434,10 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 3 | Kampf | Fach | Fassung 2, 11:28, gegengeprüft 11:26 | `DESIGN-KAMPF.md` „Was gilt“, `DESIGN-GEGNER.md`, `DESIGN-GLUT.md`, `LISTE-MARS.md`, Archiv |
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | Fassung 2, 12:56, gegengeprüft 12:55 | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
-| 6 | Welt | Fach | Fassung 3, entschieden 13:51 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
+| 6 | Welt | Fach | Fassung 3, entschieden 13:51, Wegweiser-Satz 16:43 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
 | 7 | Klang | Fach | Fassung 4, entschieden 14:45 | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
 | 8 | Oberfläche | Fach | Fassung 2, entschieden 15:32 | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
-| 9 | Story (Werkstatt Text) | Fach | Fassung 2, 15:37, gegengeprüft 15:34 | `STORY-REGELN.md`, 4.3 |
+| 9 | Story (Werkstatt Text) | Fach | Fassung 3, entschieden 16:43 | `STORY-REGELN.md`, 4.3 |
 | 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
 | 11 | Werkzeug | Fach | fehlt | `LISTE-BETRIEB.md`, Bauliste 7 |
 | 12 | Fremde Inhalte; Spieltext einbauen | quer | fehlt | `CLAUDE.md` „Technik und Sicherheit“, `LISTE-QUELLEN.md`; `STORY-REGELN.md`, `LISTE-GLOSSAR.md` |
@@ -543,7 +543,7 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 ```markdown
 **Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild. Es gilt „Ort fertig“ (`docs/DESIGN-ABNAHME.md`) und `docs/DESIGN-STIL.md` „Richtung“, „Karte und Räume“ (außer „schwarze Schrägen“ und Süden, Osten).
 
-**Blick.** Wichtiges (Leute, Questziele, Eingänge, Schilder, Feuer) frei im Blick; Vordergrund deckt nie die Spielfläche. Nebel des Krieges: nie Gesehenes schwarz; Gesehenes außer Sicht draußen gedämpft, in Höhle und Dungeon schwarz. Maßstab des Helden.
+**Blick.** Wichtiges (Leute, Questziele, Eingänge, Schilder, Feuer) frei im Blick; Vordergrund deckt nie die Spielfläche. Nebel des Krieges: nie Gesehenes schwarz; Gesehenes außer Sicht draußen gedämpft, in Höhle und Dungeon schwarz. Maßstab des Helden. Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen.
 
 **Rand.** Bäume, Fels, Zaun oder Wasser, sanft ins Dunkel; keine Kante. Wege laufen weiter und enden im Dunkel, als ginge es dort weiter.
 
