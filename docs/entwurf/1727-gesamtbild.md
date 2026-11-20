@@ -339,7 +339,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | Nr. | Text | Art | Stand | Quelle |
 |---|---|---|---|---|
 | 1 | Kern Abnahme, Profil Prüfer, Profil Tester | Kern, Profil | aus 6.1 zu teilen | 6.1, 6c, Falltest `kerne-falltest.md` |
-| 2 | Regeln | Fach | fehlt | `DESIGN-BRS.md`, `DESIGN-BRS-ENTSCHEIDUNGEN.md`, `LISTE-REGELTREUE.md`, `LISTE-REGELWERTE.md` |
+| 2 | Regeln | Fach | Entwurf 10:59, Gegenprüfung offen | `DESIGN-BRS.md`, `DESIGN-BRS-ENTSCHEIDUNGEN.md`, `LISTE-REGELWERTE.md`, Archiv (Funde des Chefs zu Regeln) |
 | 3 | Kampf | Fach | fehlt | `DESIGN-KAMPF.md`, `DESIGN-AKTIONSPUNKTE.md`, `DESIGN-GEGNER.md`, `LISTE-MARS.md` |
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | fehlt | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
@@ -356,6 +356,18 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 16 | Chefrunde; Markt und Recherche | Profil Sokrates | Entwurf 2.2, 2.3 | – |
 
 Vorgehen je Text: Entwurf aus der Quelle, frischer Prüfer gegen Quelle und Funde des Chefs, ein Fall aus echten Vorkommnissen, dann Falltest mit allen.
+
+**Nr. 2 Profil Regeln** (Entwurf Sokrates 20.11., 10:59; Themenblock 10 = G Regeln + G Balance; geladen von Arbeitsplaner, Werkstatt, Abnahme). Quelle der Regeln: `DESIGN-BRS.md` (Kopf, 4, 3 „Wie Fertigkeiten wachsen“, 12, 13), `LISTE-REGELWERTE.md` (Kopf), Archiv 1172 (erst rechnen), 829 A (keine Regel für Selbstverständliches), 1320 (Leben statt Trefferpunkte), 870 (kein SRD), 966 (nichts nebenbei), 276.5 (Leben vorher ablesen), 1727 G Regeln (Regel gegen Balance), Fehler 341 vom 18.11. (Seltenheit vier statt sechs Stufen) und 17.11. (Licht ohne Leuchtfunke), 1533 (Schwelle über dem, was Kapitel 1 hergibt). Quelle in der Tabelle oben berichtigt: `LISTE-REGELTREUE.md` zählt Nachrichtenregeln, nicht Spielregeln.
+
+```markdown
+**Regeln.** Was gilt, steht in `docs/DESIGN-BRS.md`, Abschnitte 1 bis 12; Entwürfe A bis F, „Vorschlag“ und Abschnitt 13 „Offen“ gelten nicht. Jede Zahl steht nur in `tools/sim444/werte.json` (lesbar in `docs/LISTE-REGELWERTE.md`), nie als eigene Zahl im Code. Aufzählungen (Stufen, Seltenheiten, Fertigkeiten, Namen) schreibst du aus der Quelle ab, nie aus dem Gedächtnis; Wörter nach Abschnitt 12 und `docs/LISTE-GLOSSAR.md`, nie aus dem SRD (Leben, nie Trefferpunkte).
+
+**Nichts erfinden.** Fehlt eine Regel oder Zahl, ist das ein Befund, keine Lücke zum Füllen; neue Regel und neuer Wert nur mit Entscheid des Chefs, im Auftrag genannt. Selbstverständliches (ein Magier zaubert) braucht keine Regel. Nichts übt nebenbei: Übung nur, wo der Held selbst etwas leistet. Regel ist, wie etwas wirkt; Balance, wie hoch ein Wert ist: eine Zahl in `werte.json` ändern ist keine neue Regel, aber auch nur auf Auftrag.
+
+**Rechnen vor Bauen.** Jede neue oder geänderte Zahl erst mit `tools/sim444` messen, dann bauen. Rechne bei Fertigkeit 0, 24, 49, 74, 100 und gegen das, was Kapitel 1 wirklich hergibt (Zahl der Gegner, Kräuter, Proben): eine Schwelle, die dort keiner erreicht, ist ein Fehler. „Immer“ oder „nie“ erst, wenn alle Quellen im Spiel durchsucht sind (Gegenstände, Zauber, Tränke, Herkünfte).
+
+**Beleg.** Testausgabe mit dem Wert vorher und nachher, gerechnet aus der Formel in `LISTE-REGELWERTE.md`; Werte mit Herkunft A (Annahme) als solche nennen. Muss der Chef es im Spiel sehen, nennt die Prüfliste den Wert vorher, damit er ihn ablesen kann (Leben vor dem Heiltrank). Weicht der Code vom BRS ab, gilt das BRS; `DESIGN-BRS.md` ändert nicht, wer baut.
+```
 
 Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogredaktion.“ Gedanke Sokrates 08:24 (ungeprüft): Name des Profils bleibt „Kataloge“ (alle Profile heißen nach dem Gegenstand); übernommen wird die Aufgabe einer Redaktion: Pflege statt einmaliger Bau, darum Prüffrage im Kern Abnahme „Neue Figur, neuer Gegenstand, neuer Wert: im Katalog?“.
 
