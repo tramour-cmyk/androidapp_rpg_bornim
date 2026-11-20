@@ -340,7 +340,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 |---|---|---|---|---|
 | 1 | Kern Abnahme, Profil Prüfer, Profil Tester | Kern, Profil | aus 6.1 zu teilen | 6.1, 6c, Falltest `kerne-falltest.md` |
 | 2 | Regeln | Fach | Fassung 2, 11:05, gegengeprüft 11:02 | `DESIGN-BRS.md`, `DESIGN-BRS-ENTSCHEIDUNGEN.md`, `LISTE-REGELWERTE.md`, Archiv (Funde des Chefs zu Regeln) |
-| 3 | Kampf | Fach | fehlt | `DESIGN-KAMPF.md`, `DESIGN-AKTIONSPUNKTE.md`, `DESIGN-GEGNER.md`, `LISTE-MARS.md` |
+| 3 | Kampf | Fach | Entwurf 11:24, Gegenprüfung offen | `DESIGN-KAMPF.md` „Was gilt“, `DESIGN-GEGNER.md`, `DESIGN-GLUT.md`, `LISTE-MARS.md`, Archiv |
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | fehlt | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
 | 6 | Welt | Fach | fehlt | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
@@ -369,6 +369,20 @@ Vorgehen je Text: Entwurf aus der Quelle, frischer Prüfer gegen Quelle und Fund
 **Rechnen vor Bauen.** Jede neue Zahl mit Rechnung und Ausgabe (`python3 tools/sim444/sim.py` oder eigenes Skript im Zweig): bei Fertigkeit 0, 24, 49, 74, 100, je Herkunft und Kampfstil, Heldenstufe 1 bis zur Kapitelgrenze, gegen das, was Kapitel 1 hergibt (Gegner, Kräuter, Proben). Eine Schwelle, die dort keiner erreicht, ist ein Fehler. „Immer“ oder „nie“ erst nach allen Quellen im Spiel (Gegenstände, Zauber, Tränke, Herkünfte).
 
 **Beleg.** Wert vorher und nachher aus der Formel; Annahmen (Herkunft A) nennen. Regel gegen das BRS, Zahl gegen `werte.json`. Soll der Chef es im Spiel sehen, steht in der Prüffrage der Wert vorher und der Deckel (Leben vor dem Heiltrank, Höchstleben).
+```
+
+**Nr. 3 Profil Kampf** (Entwurf Sokrates 20.11., 11:24; Themenblock 2 Kampf; geladen von Arbeitsplaner, Werkstatt, Abnahme; Zahlen und Rechnen aus Profil Regeln, Halten und Treffen aus 5.1, nicht doppelt). Quelle: `DESIGN-KAMPF.md` „Was gilt“ E, F; `DESIGN-GEGNER.md` 1, 1a, 8, 10 (1589.1 A); `DESIGN-GLUT.md` Kopf, 1, 8, 9 (fehlte in der Tabelle, Kerben); Leitbild Profil 72a; Archiv 1714 und 760 (18.11., 22:13–22:17, Kampf ruht bis zur Arena: „den Shit, den wir dann nochmal nachmachen müssen“), 760 t300.11 (Film, Perspektive nicht beurteilbar, Blut am Schild), 1072 (16.11., 21:23, „nicht immer Wölfe … für alle Modelle“), 1532 (Umdrehen muss gut aussehen), 930 (Wolf muss in die richtige Richtung gucken), 296 (17.11., 10:03, was im Code steht, am Code prüfen), Fehler 341 vom 17.11., 16:01 (Kamera drehen gibt es nicht). `DESIGN-AKTIONSPUNKTE.md` ist Gesprächsverlauf, keine Quelle für Regeln.
+
+```markdown
+**Kampf.** Was gilt: Kampf im Bild `docs/DESIGN-KAMPF.md` „Was gilt“ (Tabellen E, F; Punkte mit „Prüfer ja“ prüft, wer baut, selbst vor dem Versand); Gegnerverhalten `docs/DESIGN-GEGNER.md`; Kerben `docs/DESIGN-GLUT.md`, nur was dort entschieden ist. Übrige Abschnitte in `DESIGN-KAMPF.md` und `DESIGN-AKTIONSPUNKTE.md` sind Gesprächsstand, keine Regel. Wörter: Kampfort, Arena, MARS, Kerbe (`docs/LISTE-GLOSSAR.md`).
+
+**Arena zuerst.** Regeln gelten in der Arena (Punkt in Metern, Reichweite aus `werte.json`), nie im Bild; die Plätze sind nur Einblendung, die Kamera ändert keine Regel. Bis die Arena steht, nichts am alten Platzsystem bauen, was sie ersetzt; im Zweifel Befund.
+
+**Echte Wahl.** Kein Kampf langweilig, jede Wahl hat eine Folge. Jeder große Schlag ist angesagt; Flucht steht immer zur Wahl, nie vor dem Boss. Wird eine Handlung immer die beste oder ein Kampf länger ohne neue Wahl: Befund mit Rechnung.
+
+**Alle Arten.** Bauen und prüfen für alle Gegnerarten von Kapitel 1 und gemischte Gruppen, nicht nur am Wolf. Jede Figur schaut zu ihrem Ziel; Umdrehen und Treffer von hinten sehen gut aus. Takt nach F9, gemessen mit `godot/tests/sollbild_784.gd`.
+
+**Beleg.** Film so, dass Biss und Schild, Treffer und Körper klar zu sehen sind, meist von der Seite; lässt der Blickwinkel kein Urteil zu, ist es kein Beleg. Was im Code steht (Text, Sprache, Wert, Reihenfolge), belegt Code oder Test, nicht das Gerät. Was es im Kampf schon gibt (Zoom, Ansage, Ring), erst im Code nachsehen, dann vorschlagen.
 ```
 
 Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogredaktion.“ Gedanke Sokrates 08:24 (ungeprüft): Name des Profils bleibt „Kataloge“ (alle Profile heißen nach dem Gegenstand); übernommen wird die Aufgabe einer Redaktion: Pflege statt einmaliger Bau, darum Prüffrage im Kern Abnahme „Neue Figur, neuer Gegenstand, neuer Wert: im Katalog?“.
