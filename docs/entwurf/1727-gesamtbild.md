@@ -459,7 +459,7 @@ Vorgehen je Text: Entwurf aus der Quelle, frischer Prüfer gegen Quelle und Fund
 **Nr. 3 Profil Kampf** (Fassung 2, 20.11., 11:28, nach Gegenprüfung 11:26; Themenblock 2 Kampf; geladen von Arbeitsplaner, Werkstatt, Abnahme; Zahlen und Rechnen aus Profil Regeln, Halten und Treffen aus 5.1, nicht doppelt). Quelle: `DESIGN-KAMPF.md` „Was gilt“ E, F; `DESIGN-GEGNER.md` 1, 1a, 8, 10 (1589.1 A); `DESIGN-GLUT.md` Kopf, 1, 8, 9 (fehlte in der Tabelle, Kerben); Leitbild Profil 72a; Archiv 1714 und 760 (18.11., 22:13–22:17, Kampf ruht bis zur Arena: „den Shit, den wir dann nochmal nachmachen müssen“), 760 t300.11 (Film, Perspektive nicht beurteilbar, Blut am Schild), 1072 (16.11., 21:23, „nicht immer Wölfe … für alle Modelle“), 1048 A (Ring), 1402 (Kamera), 1589.4 (Arena), Fehler 341 vom 17.11., 16:01 (Kamera drehen gibt es nicht). `DESIGN-AKTIONSPUNKTE.md` ist Gesprächsverlauf, keine Quelle für Regeln.
 
 ```markdown
-**Kampf.** Lade dazu Figur und Prüfbild (5.1) und Regeln. Was gilt: `docs/DESIGN-KAMPF.md` „Was gilt“ (E, F), `docs/DESIGN-GEGNER.md` (außer dem Satz „nicht auf die Arena warten“ in 11), Entschiedenes im Archiv; alles Übrige in `DESIGN-KAMPF.md` und `DESIGN-AKTIONSPUNKTE.md` ist Gesprächsstand. Kerben sind im Spiel aus; „3 Kerben“ heißt großer Schlag, angesagt. Stand je Teil: `docs/LISTE-MARS.md`. Wörter nach `docs/LISTE-GLOSSAR.md`.
+**Kampf.** Lade dazu Figur und Prüfbild, Regeln. Was gilt: `docs/DESIGN-KAMPF.md` „Was gilt“ (E, F), `docs/DESIGN-GEGNER.md` (außer dem Satz „nicht auf die Arena warten“ in 11), Entschiedenes im Archiv; alles Übrige in `DESIGN-KAMPF.md` und `DESIGN-AKTIONSPUNKTE.md` ist Gesprächsstand. Kerben sind im Spiel aus; „3 Kerben“ heißt großer Schlag, angesagt. Stand je Teil: `docs/LISTE-MARS.md`. Wörter nach `docs/LISTE-GLOSSAR.md`.
 
 **Arena.** Bis Vorgang 1589.4 (Figuren in der Arena) ruht alles zu Plätzen und Bewegungen im Kampf: kein Auftrag, kein Lauf; heute rechnet `mars.gd` mit Reihen. Danach gelten Regeln in der Arena, nie im Bild. Kamera ist ein eigenes Vorhaben (1402): erst Vorlage und Gespräch, dann Code.
 
@@ -524,10 +524,10 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 
 **Chef 13:40:** „wir haben frei rotierbare Kamera. Das heißt, müssen wir jetzt eigentlich zwangsweise immer alles nach Süden und Osten, nichts Hohes davor und frei ausrichten? … Eigentlich nicht mehr … müssen wir uns dann mal überlegen, wie wir das wollen. Aber soweit, glaube ich, passt. Ich denke, man könnte es sicherlich noch ein bisschen eindampfen.“ Belegt: `godot/skripte/kamera.gd` dreht mit zwei Fingern frei (Chef 13:49: „nicht in 45 Grad Schritten, sondern völlig frei“; der Kopf der Datei nennt noch 45-Grad-Schritte); Grundansicht Nordwest, Türen und Fronten zum Betrachter (Chefrunde 25.10., 13:26, 3486 a), Windrose dreht zurück. Süden und Osten raus; Ausrichtung als Frage an Homer (1745, Vorlage mit Bild). Eingedampft ohne neue Festlegung; gestrichen: Glossar (Sockel und Kern tragen Wörter), Ellipse 2:1 und Wand zur Seite hell (stehen in „Karte und Räume“ und 1289a), „nie Toon“ (in „klar“).
 
-**Fassung 3 (13:43)**, etwa 950 Byte, nicht erneut gegengeprüft (nur gekürzt):
+**Fassung 3 (13:43)**, etwa 950 Byte, nicht erneut gegengeprüft (nur gekürzt); Chef 13:50: „reicht, wenn man da schreibt, lade dazu Signatur und Leben, Figur und Prüfbild“ (ohne Abschnittsnummer; ebenso im Profil Kampf); Nebel des Krieges nach Chef 13:43:
 
 ```markdown
-**Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild (5.1). Es gilt „Ort fertig“ (`docs/DESIGN-ABNAHME.md`) und `docs/DESIGN-STIL.md` „Richtung“, „Karte und Räume“ (außer „schwarze Schrägen“ und Süden, Osten).
+**Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild. Es gilt „Ort fertig“ (`docs/DESIGN-ABNAHME.md`) und `docs/DESIGN-STIL.md` „Richtung“, „Karte und Räume“ (außer „schwarze Schrägen“ und Süden, Osten).
 
 **Blick.** Wichtiges (Leute, Questziele, Eingänge, Schilder, Feuer) frei im Blick; Vordergrund deckt nie die Spielfläche. Nebel des Krieges: nie Gesehenes schwarz; Gesehenes außer Sicht draußen gedämpft, in Höhle und Dungeon schwarz. Maßstab des Helden.
 
