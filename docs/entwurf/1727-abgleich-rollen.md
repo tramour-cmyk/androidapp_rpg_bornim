@@ -2,7 +2,7 @@
 
 Anlass: Chef 20.11., 16:35: „ob wir sichergestellt haben, dass die ganzen Rollendateien … sich wiederfinden in dem neuen Konzept. Weil das stellen wir ja gerade mit Homer fest“. Helfer 16:42, Stand de483a419, gegen `1727-gesamtbild.md` (Profil Story Fassung 3 eingerechnet). Nachgesehen von Sokrates: `add_repo` steht nur als Zuordnung in `1727-sockel.md` 47, nicht im Text (Befund 1 bleibt).
 
-**Bedingung der Umstellung (Gedanke Sokrates, Gegenprüfung offen):** eine Rollendatei wird erst gelöscht, wenn jede Zeile hier ein Ziel hat und im geschriebenen Text steht oder „fällt, weil …“; der Falltest prüft das.
+**Keine Bedingung, dass jede Zeile ein Ziel hat** (Chef 20.11., 16:50: „wenn wir feststellen, dass wir das nicht mehr brauchen … werden wir sicherlich kein zwangsweise ein Ziel dafür finden“). Die Liste dient dem Durchsehen: je Punkt ein Wort, übernehmen (wohin) oder „fällt“, ohne Begründungspflicht.
 
 Kurzzeichen: NZ = nur zugeordnet (Tabelle oder Befund, nicht im geschriebenen Text) · F = fehlt · X = fällt.
 
