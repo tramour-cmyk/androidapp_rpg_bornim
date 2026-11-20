@@ -18,7 +18,7 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 20.11., 16:53; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 20.11., 17:05; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
 Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen.
 
@@ -28,7 +28,7 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 | Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
 | Kern Sokrates | 2.990 | – | Entwurf |
 | Kern Büro | 2.410 | – | Entwurf |
-| Kern Arbeitsvorbereitung | 3.110 | 3 KB (**über**) | Entwurf (19.11.: 2.450) |
+| Kern Arbeitsvorbereitung | 2.370 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft (vorher 3.110; 19.11.: 2.450) |
 | Kern Prüfer | 2.570 | – | Entwurf |
 | Kern Abnahme, Profil Prüfer, Profil Tester | 1.860 | – | Entwurf |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
@@ -40,7 +40,7 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 | Profil Oberfläche | 1.040 | – | abgenommen 15:32 |
 | Profil Story | 1.410 | – | abgenommen 16:43; 16:53 ohne Sprechweise (vorher 1.440) |
 
-**Vorher, was eine Sitzung beim Start liest** (Stand 20.11., ohne Haken und Lektüre bei Anlass): `CLAUDE.md` 15,0 KB + Rollendatei + Vorrat. Perikles 15,0 + 12,7 + 23,1 = 50,8 KB; Ford 15,0 + 8,7 + 35,3 = 59,0 KB; Homer 15,0 + 6,0 + 4,3 = 25,3 KB; Tom, Jerry je 15,0 + 13,1 + 27,1 = 55,2 KB. **Neu:** Arbeitsvorbereitung Sockel + Kern 4,2 KB + Auftrag; Werkstatt Text Sockel + Profil Story 2,6 KB + Auftrag; Werkstatt Welt Sockel + Signatur + Welt 3,2 KB + Figur und Prüfbild + Auftrag.
+**Vorher, was eine Sitzung beim Start liest** (Stand 20.11., ohne Haken und Lektüre bei Anlass): `CLAUDE.md` 15,0 KB + Rollendatei + Vorrat. Perikles 15,0 + 12,7 + 23,1 = 50,8 KB; Ford 15,0 + 8,7 + 35,3 = 59,0 KB; Homer 15,0 + 6,0 + 4,3 = 25,3 KB; Tom, Jerry je 15,0 + 13,1 + 27,1 = 55,2 KB. **Neu:** Arbeitsvorbereitung Sockel + Kern 3,5 KB + Auftrag; Werkstatt Text Sockel + Profil Story 2,6 KB + Auftrag; Werkstatt Welt Sockel + Signatur + Welt 3,2 KB + Figur und Prüfbild + Auftrag.
 
 ## 0a Ordnung der Arbeit: Themenblock, Vorgang, Auftrag
 
@@ -347,6 +347,27 @@ Du bist die **Arbeitsvorbereitung** von BornWire TCS, unserer Spieleschmiede. Du
 ```
 
 **Gegenlesung 19:40, mein Wort:** Profil ohne Pfad: stimmt, Pfad im Auftrag · „Büro“ unklar: stimmt, „die Sitzung, die dich gestartet hat“ · 1,5 KB verbietet den besseren Probeauftrag (1694: 1990 Byte): stimmt, Größe gibt das Werkzeug vor · „ohne Zurück startet nichts“ und Startbedingungen sind Werkzeug bzw. Büro: stimmt, raus · „Ein Nein: nicht senden“, Prüfung über alle Fälle vor genau einem Beleglauf, Messung gegen Bild, alt gegen neu, Zweig und Commit, Stand aus Git: stimmt, alles aus den Probeaufträgen übernommen · wer die Systemfrage beantwortet: stimmt, festgelegt · Nachstellauftrag mit Rückgabe Ursache: stimmt · Signatur im Ziel widerspricht „Worte des Chefs“: stimmt, nach „Beachte“ · Meldeweg widersprüchlich: stimmt, alles an das Büro · Hörprobe fehlte: stimmt · Geschmacksziel hält zu Unrecht an: stimmt, Varianten zur Wahl · fehlender Spieltext, wer liefert: stimmt, Auftrag Profil Story (Tabelle 4.3) · Abbruchregel für den Macher: **Einwand**, steht im Auftrag selbst (Nachstellauftrag gibt Ursache zurück) und im Sockel 3, keine eigene Zeile.
+
+**Kürzung 20.11., 17:05 (Chef 16:52 „ob das nicht schon wieder zu groß ist“, 17:01 „Make it so“).** Wachstum 2.450 → 3.110 Byte kam aus Chefentscheiden 19.11., 22:30–22:54 (Prüfart-Rangfolge, erstes Wort, Bisher, Vorgangsdatei, Ziel mit Herkunft); gekürzt woanders. **Gegenprüfung 17:04** (frischer Helfer, alt gegen neu Satz für Satz, Fälle 1650, t299, 1694). Mein Wort: Belegmaße als bloßer Verweis reichen nicht (1650 „fehlte Name der Figur“, 1535 „fehlte Commit“; Prüfer-Kern 6.1 nimmt Maße aus dem Auftrag): **stimmt**, kurz zurück · „ein Chefwort gilt“ doppeldeutig gegen 22:54: **stimmt**, „geht vor“ · „genau ein Beleglauf“ (Laufbremse 13:02): **stimmt** · „Signatur“ veraltet seit 12:37: **stimmt**, Querprofil · erste Prüffrage „oder Build“ (22:07): **stimmt** · Film von der Seite (Falltest 760): **stimmt** · entbehrlich bestätigt (Firmenname, „was bisher geschah“, Fund-Herkunft in Klammern, Handy-Satz, „gemessen wird“, „keine Einzellösung“, „keine Ausnahme“): **stimmt** · Glied nur mit Chefwort oder Maß: nicht eingebaut (16:49).
+
+**Fassung 2 (17:05), 2.372 Byte (vorher 3.110):**
+
+```markdown
+Du bist die **Arbeitsvorbereitung**. Du machst aus einem Vorgang einen Auftrag, den ein Macher ohne Rückfrage bauen kann; er kennt nur den Sockel und deinen Auftrag. Du baust nichts. Meldungen gehen an das Büro (die Sitzung, die dich gestartet hat): erstes Wort „Auftrag steht“ oder „Frage“, Vorgangsnummer und Titel in Worten.
+
+**Lies zuerst** die Vorgangsdatei (`docs/vorgang/<Nr>.md`), ähnliche Vorgänge (`tools/vorgang.py <Nr>`) und in Git, was gebaut wurde. Jedes frühere Nein des Chefs oder Prüfers steht wörtlich unter „Bisher“ und wird eine Prüffrage.
+
+**Der Auftrag** (oben in die Vorgangsdatei; Felder und Größe: `vorgang.py auftrag <Nr>`):
+1. **Ziel:** was der Spieler sieht, hört oder erlebt, mit Herkunft (Chef, Sokrates, Fund mit Beleg); ein Chefwort geht vor. Keine eigene Auslegung.
+2. **Systemfrage:** Gilt es für alles derselben Art? Wie lösen es andere Spiele? Mit Quelle, sonst erster Schritt des Machers.
+3. **Bisher:** was versucht wurde, warum es nicht hielt, Zweig und Commit. Ursache unbekannt: Nachstellauftrag, der den Fehler rot zeigt und die Ursache zurückgibt, kein Bau.
+4. **Beachte:** höchstens fünf Punkte und der Pfad des Profils; bei Bild oder Klang das Querprofil Signatur und Leben.
+5. **Umsetzen:** erst eine Prüfung über alle Fälle derselben Art, dann genau ein Beleglauf. Widersprechen sich Messung und Bild, gilt das Bild.
+6. **Prüfart:** die erste, mit der der Chef allein urteilt: Bild, Film, Hörprobe; sonst Prüfung mit Ausgabe, Rechnung, Durchspielprotokoll, Textabgleich. Handy nur mit Satz „warum nicht Bild“. Drei bis fünf Ja-Nein-Fragen, zuerst „Ist das Neue nachweislich im Beleg oder Build?“, bei Spieltext „jeder Satz wortgleich in der Quelle?“; ein Nein: nicht senden. Beleg: Spielkamera in Handygröße, Stelle markiert, alt gegen neu in einem Bild, beschriftet mit Figur und Commit; Film von der Seite, bis 15 s, der Moment dreimal.
+7. **Zurück:** an das Büro, erstes Wort „fertig“, „Frage“ oder „abgebrochen“, mit Commit, Zahl der geprüften Fälle, Beleg.
+
+**Nicht deins:** Story, Aussehen, Klang, Balance im Grundsatz, Geld. Geschmack ohne Maß („düsterer“): zwei bis drei Varianten zur Wahl des Chefs. Fehlender Spieltext: eigener Auftrag mit Profil Story, nie ein Platzhalter. Fehlt ein Chefwort zu seiner Frage: Frage an Sokrates statt Auftrag.
+```
 
 ### 4.2 Auftragsvorlage (Baukasten)
 
