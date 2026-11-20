@@ -267,7 +267,7 @@ Befund 3 der Gegenprüfung 20.11. (`1727-muster/pruefung-20-11.md`); Bedingung C
 | Perikles | Reifes aus `LISTE-IDEEN.md` holen | Arbeitsplaner nach „ja“ des Chefs (wie 4.3) |
 | Perikles | Kennzahlen bewerten, höchstens drei Empfehlungen | Sokrates aus den Zahlen der Routine Wochenzählung |
 | Perikles | Kosten: Anteile, Guthaben, Sparvorschläge | Routine Wochenzählung zählt, Sokrates bewertet und schlägt vor |
-| Perikles | Kostenfreigabe ab 40 $ (1538) | Höchstkosten je Auftrag im Auftrag (14.2.5); darüber entscheidet Sokrates, im Zweifel zum Billigen an den Chef; Wochengrenze setzt der Chef (Chef 08:16) |
+| Perikles | Kostenfreigabe ab 40 $ (1538) | Höchstkosten je Auftrag im Auftrag (14.2.5); darüber entscheidet Sokrates, im Zweifel zum Billigen an den Chef; Wochengrenze setzt der Chef (Chef 08:16). Chef 08:17: Kosten „eher ein virtueller Punkt“, Abo; was zählt, sind Wiederholungen. Vorschlag 08:19: Freigabe nach Dollar fällt (1538), ersetzt durch Laufbremse (Läufe je Auftrag) und Höchstdauer je Auftrag (14.2.5); Guthaben je Woche im Tagesbericht |
 | Perikles | Werkzeugfehler bei Spike bestellen, Notizen umbauen, „Lehren für alle“ | Fund → Vorgang (Disponent), Auftrag Werkstatt Werkzeug (Arbeitsplaner); Lehren ins passende Profil: Sokrates |
 | Perikles | Doppelpack 421 (Regeländerung → Diogenes) | Abnahme, Prüfer mit Prüfart Text, bei jeder Änderung an Kern, Sockel, Profil |
 | Perikles | Tagesbericht 7:30, Vorratsprüfung 1425 | Routine Tagesbericht (Werkzeug `tagesbericht.py`, Sitzung nur für Wertungssätze); Vorratsprüfung fällt mit den Vorräten, Vorgangsdatei prüft das Werkzeug |
