@@ -15,7 +15,7 @@ Auftrag Chef 08:00: „noch einen quer gucken lassen, ob dem was auffällt, was 
 11. Rufnamen brauchen Sperrliste (Spielfiguren Garrick, Morwen, Thessa …, alte Rollennamen) und eine Titelform, die 436 ersetzt. — **stimmt**; Sa mit Rufnamen-Liste.
 12. Bereichsentscheid widerspricht 0a (Vorgang trägt Themenblock und Bereich), Katalog, Kopf `themenbloecke.md`; `bereiche.py` 17 Werte, Glossar 16. — **stimmt**; Sa nachziehen.
 13. Alte Wörter (Macher, Arbeitsvorbereitung, Akte, 1,5 gegen 2 KB) in Kernen und Grobablauf; Falltest läuft an diesen Texten. — **stimmt**; vor dem Falltest einmal umbenennen, Sa.
-14. Befugnisgrenze „Leitung“ nicht im Kern 2.1; „Ergebnis an die Leitung“ ohne Empfänger. — **stimmt**; Satz in 2.1: Leitung heißt nicht entscheiden, Ergebnisse gehen an Sokrates, an den Chef nur, was er tun kann; Sa.; 08:22 in 2.1 eingefügt.
+14. Befugnisgrenze „Leitung“ nicht im Kern 2.1; „Ergebnis an die Leitung“ ohne Empfänger. — **stimmt**; Satz in 2.1: Leitung heißt nicht entscheiden, Ergebnisse gehen an Sokrates, an den Chef nur, was er tun kann; Sa.; 08:22 in 2.1 eingefügt, 08:17 berichtigt (Chef: Sokrates entscheidet, Chef billigt im Zweifel).
 15. Regelbilanz fehlt; Archiveinträge 350–600 Zeichen statt etwa 250. — **stimmt** zur Regelbilanz (Spalte „ersetzt“, Kandidaten Rollentabelle, 853, Team-Übernahme); **Einwand** zum Kürzen: Archiveinträge werden nicht geändert (461b), künftige kürzer.
 
 Nicht geprüft (Helfer): Grobablauf außer Fundstellen, `ablauf.md`, `signale.md`, `durchlauf-zwerg.md`, `1727-sockel.md`, `1727-kern-sokrates.md`; ob `lauf.py` und `startbar.py` Sitzungen über den Titel zuordnen.
