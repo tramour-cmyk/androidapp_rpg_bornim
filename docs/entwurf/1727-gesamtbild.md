@@ -201,6 +201,20 @@ Regel der Zuordnung: braucht es jede Sitzung → Sockel; jede einer Tätigkeit (
 **Blick.** Wichtiges steht frei im Blick, Verstecktes belohnt das Erkunden. Kein Effekt kostet Bilder pro Sekunde auf dem Handy.
 ```
 
+**Gegenprüfung 12:29** (frischer Helfer; 13 Befunde; Fall 249 vermieden, aber Abnahme hätte ihn nicht gefunden; Fall 221 nicht vermieden, „Kulisse“ ist Geschmack). Mein Wort: 1 „nicht durch Dunkelheit“ gegen 1423a A, 1289 (Dunkelheit erlaubt): **stimmt**, „nie ohne Quelle aufhellen“ · 2 Tuschelinie nur Neues, mitgezeichnet, nie Filter (302.3): **stimmt** · 3 Atmen Tier und Monster, nie 1 s regungslos, kein Gleichtakt: **stimmt**; „nach Anstrengung schneller“ ins Profil Figur · 4 alle Blickrichtungen: **stimmt** · 5 „Bosse ein Aussehen“: **stimmt** · 6 Klangvarianten nicht Tonhöhe: **stimmt**; Varianten für Dinge (348.6) mit Profil Welt · 7 „nur, was da ist“ gegen Umweltklang (Grillen, Chef 12:10): **stimmt** · 8 „Kulisse“ Geschmack → „Wasser, Feuer, Rauch bewegen sich“: **stimmt** · 9 Bildrate nur gemessen prüfbar: **stimmt** · 10 „Blick“ ist Leveldesign → Profil Welt: **stimmt** · 11 Geschmack beim Chef: **stimmt** · 12 Kern Abnahme schreibt Signatur ab, 5.2 doppelt: **stimmt**; 6.2 verweist künftig auf das Querprofil, 5.2 geht darin auf · 13 Länge: **stimmt** · Gegenfassung: **Einwand** zu zwei Stellen: Liste der Weltklänge bleibt kurz (Chef 12:10 „dass es drin ist“), „nie aufhellen“ zu absolut.
+
+**Fassung 2 (12:30)**, etwa 830 Byte:
+
+```markdown
+**Signatur** (Neues). Licht aus sichtbarer Quelle, darin warm, sonst kaltes Blauschwarz; Dunkelheit erlaubt, nie ohne Quelle aufhellen. Tuschelinie mitgezeichnet, nie als Filter: Lichtseite dünn, Schattenseite kräftig. Nur Gold, Feuer, Magie glänzen. Echte Formen, nie niedlich.
+
+**Leben.** Alles Lebende, auch Tier und Monster, atmet immer im eigenen Takt; nie 1 s regungslos, nie zwei im Gleichtakt; Übergänge weich, nichts gleitet. Haltung aus allen Blickrichtungen prüfen. Wasser, Feuer, Rauch bewegen sich. Drei Varianten je Bewegung, Geräusch, wiederholbarer Zeile, Gegnerart; Bosse ein Aussehen.
+
+**Klang.** Man hört, was da ist oder glaubhaft wäre (Wind, Wasser, Grillen, Tiere, Schritte); kein Stimmengewirr. Echte Aufnahmen; Varianten echt verschieden, nicht nur Tonhöhe; Systemklang einmal.
+
+**Leistung.** Effekt nur mit gemessener Bildrate auf dem Handy.
+```
+
 ## 2 Sokrates
 
 ### 2.1 Kern Sokrates
