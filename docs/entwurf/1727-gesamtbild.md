@@ -248,6 +248,48 @@ Chef 16:47 („Homer … ist ein Macher“), 16:49 („wer kompensiert das Ganze
 | Chefsache-Bild auf Telegram | Büro (meldet) |
 | Sonntags Vorratsgrenzen anderer | Werkzeug (`notiz.sh` meldet schon) |
 
+### 4.4 Auffang: Ford, Perikles, Diogenes, Spike, Teams
+
+Befund 3 der Gegenprüfung 20.11. (`1727-muster/pruefung-20-11.md`); Bedingung Chef 19.11., 17:13 („nichts komplett unter den Tisch fallen lassen“). Quelle je Zeile: die Rollendateien Stand 20.11. Neue Namen (Archiv 20.11.): Leitung, Büro (Disponent, Arbeitsplaner), Werkstatt, Abnahme (Prüfer, Tester), Routine. **Entwurf Sokrates 08:20, ungeprüft; Gegenprüfung ab 21.11., 20:00.** „Fällt“ = Regel entfällt (Regelbilanz, Befund 15).
+
+| Heute | Aufgabe | künftig |
+|---|---|---|
+| Ford | Sitzungen und Nachfolger starten nach `lauf.py`, Muss vor Kür, „Pause bis“ | Disponent führt `lauf.py` aus; Reihenfolge aus Themenblock und Klasse |
+| Ford | Neustart-Meldungen, Kosten je Vorgang beim Archivieren, Archivregel 261.5 | Disponent; Kosten nach Bereich und Profil (Befund 4) |
+| Ford | „wartet auf“ vererbt die Klasse (`startbar.py`) | Werkzeug, unverändert |
+| Ford | Eingang zuteilen, was keinem gehört, dem Chef vorlegen | Disponent; was keinem gehört, an Sokrates (Leitung), nur Entscheidbares an den Chef |
+| Ford | Anstöße, Befunde, Lehren täglich auf Alter prüfen (107) | Werkzeug (Fristen 14.2, Ende-Haken), Disponent handelt |
+| Ford | Besetzung schreiben, Stillstand mit Ursache | Werkzeug schreibt, Disponent prüft |
+| Ford | Telegram: „du bist dran“, Sitzung hängt, ab 3 roten Läufen je Stunde | Routine Wache (Werkzeug), Disponent bei Handlungsbedarf |
+| Ford | Repos, eigene Uhr, Notizen holen und pushen | Disponent; Uhr und Wache startet ein Werkzeug, nicht das Büro (Befund 8) |
+| Perikles | Wochenziel, Muss und Kür, „M?“ | fällt (Archiv 19.11., 17:44: Reihenfolge der Themenblöcke); Klasse Eilt, Muss, Kür setzt der Disponent nach Katalog |
+| Perikles | Vorrang der Vorräte | Disponent nach Themenblock-Reihenfolge des Chefs |
+| Perikles | Reifes aus `LISTE-IDEEN.md` holen | Arbeitsplaner nach „ja“ des Chefs (wie 4.3) |
+| Perikles | Kennzahlen bewerten, höchstens drei Empfehlungen | Sokrates aus den Zahlen der Routine Wochenzählung |
+| Perikles | Kosten: Anteile, Guthaben, Sparvorschläge | Routine Wochenzählung zählt, Sokrates bewertet und schlägt vor |
+| Perikles | Kostenfreigabe ab 40 $ (1538) | **offen**: Vorschlag Höchstkosten je Auftrag im Auftrag (14.2.5), darüber Sokrates, über Wochengrenze Chef |
+| Perikles | Werkzeugfehler bei Spike bestellen, Notizen umbauen, „Lehren für alle“ | Fund → Vorgang (Disponent), Auftrag Werkstatt Werkzeug (Arbeitsplaner); Lehren ins passende Profil: Sokrates |
+| Perikles | Doppelpack 421 (Regeländerung → Diogenes) | Abnahme, Prüfer mit Prüfart Text, bei jeder Änderung an Kern, Sockel, Profil |
+| Perikles | Tagesbericht 7:30, Vorratsprüfung 1425 | Routine Tagesbericht (Werkzeug `tagesbericht.py`, Sitzung nur für Wertungssätze); Vorratsprüfung fällt mit den Vorräten, Vorgangsdatei prüft das Werkzeug |
+| Perikles | Vorentscheid zu kleinen Abläufen | fällt; Vorentscheide nur Sokrates (`CLAUDE.md` Zusammenarbeit 3 anpassen) |
+| Perikles | „Stillstand lösen“ (`lauf.py` alle 3 h) | Disponent; hängt es an einer Entscheidung, Sokrates |
+| Diogenes | Vergleichsbilder messen (348.9, 373) | Abnahme, Prüfer mit Prüfart Bild |
+| Diogenes | `main` prüfen vor Release, bei „fertig“, nach großem Umbau | Abnahme, Tester (Komplexabnahme) |
+| Diogenes | Regeländerungen gegen Archiv prüfen | Abnahme, Prüfer mit Prüfart Text (wie Doppelpack) |
+| Diogenes | Wochenzählung QM, Stichprobe 373, Liegengebliebenes über 6 h | Routine Wochenzählung; Liegezeit misst das Werkzeug |
+| Diogenes | Befundvorgänge, „greift“ prüfen (724) | Tester und Prüfer melden ans Büro, das legt an; „greift“ prüft die Routine Wochenzählung |
+| Diogenes | „Bekannte Fehler“ vorschlagen (347) | Routine Wochenzählung schlägt vor, Sokrates trägt ein (statt Perikles) |
+| Spike | Prüfstelle jeder APK, Sammelbuild, Prüfliste, Handypunkte | Werkstatt Technik mit Build-Auftrag (Build-Kette 19.11., 22:05); Tester vor der Testbitte (6c, Befund 6) |
+| Spike | Kaufmodell-Cache je Block, Ablage nach Merge eines Bauskripts | Werkstatt Technik; Auftrag schreibt das Werkzeug nach dem Merge |
+| Spike | Technik, Grafik, Leistung am A56, Firmenwerkzeuge | Werkstatt mit Profil Technik bzw. Werkzeug |
+| Spike | Systemfrage bei rot über grün (1715), Release auf Zuruf | Werkstatt Technik auf Vorgang; Release nur auf Chefwort |
+| Tom, Jerry | Testbitten selbst stellen | Werkzeug aus dem Build-Auftrag (A13, Archiv 19.11., 22:04) |
+| Tom, Jerry | Übernahme zwischen den Teams (`ROLLE-ENTWICKLUNG.md`) | fällt; Disponent teilt jeden Auftrag zu |
+| Tom, Jerry | Zuständigkeit Leute, Dorf gegen Monster, Höhle, Kampf, Klang | Themenblöcke und Fachprofile |
+| alle | Rollendatei, Vorrat je Rolle, Startwort (853), Rollentabelle `CLAUDE.md` | fallen; Kern oder Profil, Vorgangsdatei, Rufname (Regelbilanz) |
+
+Lücken für den Falltest: Kostenfreigabe (oben offen); Wertung der Wochenzählung bei Sokrates erhöht dessen Last, gegenrechnen; Routine Tagesbericht und Wochenzählung brauchen festen Auftrag (6b-Muster).
+
 ## 5 Macher
 
 Kein Kern; Sockel plus Auftrag (4.2), Profil bei Bedarf.
