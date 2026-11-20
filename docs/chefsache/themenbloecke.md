@@ -7,7 +7,7 @@ Dein Lenkrad (1727, Chef 19.11., 12:10/12:24): Zuschnitt und Reihenfolge der The
 | 10 | Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | Regeln | ja | – | G Balance | 870, 882, 1279 |
 | 2 | Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | Kampf | ja | – | E Kampf | – |
 | 3 | Figuren und Kleidung (Held, Leute, Monster) | Figur | ja | – | E Figuren | – |
-| 4 | Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | Daten | ja | – | – | 649, 644, 458, 1382, 1385, 1386 |
+| 4 | Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | Kataloge | ja | – | – | 649, 644, 458, 1382, 1385, 1386 |
 | 5 | Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | Welt | ja | – | E Welt, G Stil | 1280, 1281 |
 | 11 | Klang und Musik | Klang | ja | – | E Klang | – |
 | 12 | Bedienung und Oberfläche | Oberfläche | ja | – | E Oberfläche | – |
