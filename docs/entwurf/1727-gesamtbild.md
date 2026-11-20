@@ -488,6 +488,20 @@ Vorgehen je Text: Entwurf aus der Quelle, frischer Prüfer gegen Quelle und Fund
 
 Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogredaktion.“ Gedanke Sokrates 08:24 (ungeprüft): Name des Profils bleibt „Kataloge“ (alle Profile heißen nach dem Gegenstand); übernommen wird die Aufgabe einer Redaktion: Pflege statt einmaliger Bau, darum Prüffrage im Kern Abnahme „Neue Figur, neuer Gegenstand, neuer Wert: im Katalog?“.
 
+**Nr. 6 Profil Welt** (Entwurf Sokrates 20.11., 13:18, Gegenprüfung läuft; Themenblock Welt (E Welt: Orte, Dorf, Wald, Höhle, Innenräume, Karten); geladen mit dem Querprofil Signatur und Leben, das Licht, Tusche, Leben, Klang, Leistung trägt, hier nicht doppelt). Quelle: `DESIGN-STIL.md` „Richtung“, „Karte und Räume“, „Muster“; `DESIGN-ABNAHME.md` „Ort fertig“; Leitbild 5; `LISTE-EFFEKTE.md` Kopf und „Orte und Welt“; `LISTE-ABGLEICH-ALT.md` Kopf; Archiv 77e.3 (Karte und Kampfort), 990 (kein Staub innen), 1022 (Kartenrand „sanfter Übergang und dann dunkel“), 1423a A (kein Aufhellen), 1484a (Zellen, Durchsicht nahe am Helden), 698 (Grafikstufen), 512 (alt gegen neu), 221 (Wasser „langweilig“); Wiederholer Wasser, Nebel, Teich (1564, 1509, 1510).
+
+```markdown
+**Welt.** Lade dazu Signatur und Leben. Was gilt: `docs/DESIGN-STIL.md` „Richtung“ und „Karte und Räume“, „Ort fertig“ in `docs/DESIGN-ABNAHME.md`; Abgenommenes aus `DESIGN-STIL.md` „Muster“ nachbauen, nicht neu erfinden. Wörter: Gebietskarte, Grundriss, Ebene, Kampfort (`docs/LISTE-GLOSSAR.md`).
+
+**Blick.** Alles für die schräge Kamera gebaut, nie gekippt. Leute, Questziele, Eingänge, Schilder, Feuer frei im Blick, zur Kamera (Süden, Osten) nichts Hohes davor; Durchsicht nur nahe am Helden; Verstecktes darf unter Bäumen liegen. Maßstab des Helden, waagerechte Kreise als Ellipse 2:1. Räume klein und dicht, Möbel zum Bewohner. Rand mit Abschluss (Bäume, Fels, Zaun, Wasser), weich ins Dunkel.
+
+**Karte und Kampfort.** Wasser, Fels, Feuer, Lichtschacht, Fackel der Karte stehen im Kampfort an derselben Stelle mit demselben Licht; nie ausgewürfelt.
+
+**Bestand vor Eigenbau.** Effekt, Shader, Teilchen: erst `docs/LISTE-EFFEKTE.md` und `docs/LISTE-BESTAND.md`, ein neuer bekommt zuerst dort eine Zeile. Was die alte Fassung je Ort hatte: `docs/LISTE-ABGLEICH-ALT.md`; Fehlendes ist ein Befund. Wasser, Ufer, Nebel, Teich fand der Chef mehrfach: vorher die letzte Abnahme im Vorgangsarchiv lesen. Kein Staub im Licht in Innenräumen.
+
+**Beleg.** Alt gegen neu, Spielkamera, Handygröße, Tag und Nacht, je berührte Grafikstufe; Bilder/s am Handy vor und nach, nie schlechter. Kollision 0, Tippen trifft das gezeichnete Ding; Bewegtes im Film.
+```
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
