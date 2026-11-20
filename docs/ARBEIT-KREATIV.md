@@ -5,6 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 **Gelesen bis:** `0a908737b` (17.11., 09:11)
 
 **Übergabe (17.11., 09:48, `session_01Hmoj79rLgkQVZ7GEDAFVcw`):** 1525 C: Namen in `STORY-MERKMALE-TIERE.md` (drei je Tiermerkmal), fremd geprüft; Einbau 1536 bei Jerry. Nachfolger: keiner (1235 nach dem Meilenstein).
+- **Zu 1745 (Chef 20.11., 13:40 und 13:57, an Sokrates):** „Irgendeine Standardperspektive brauchen wir ja … Konnten wir in Kotlin nicht, da mussten wir ja eine feste Sichtachse bauen, jetzt ist halt die Frage, wollen wir die Türen dann zum Beispiel im Dorf auch mal an eine andere Seite packen?“ Kamera dreht mit zwei Fingern frei (13:49), Grundansicht Nordwest mit Türen zum Betrachter (3486 a, 25.10.). Vorlage mit Bild Grundansicht und gedreht, Votum gegengeprüft.
 - **Zu 1404 (Homer 16.11., 10:50, aus 1291a D):** den Weg mit zwei Waffen nennen Pfad- und Lehrmeistertexte erst nach „machbar“ der Studie.
 
 ## Zeilen
