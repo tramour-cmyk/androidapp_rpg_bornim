@@ -428,7 +428,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 3 | Kampf | Fach | Fassung 2, 11:28, gegengeprüft 11:26 | `DESIGN-KAMPF.md` „Was gilt“, `DESIGN-GEGNER.md`, `DESIGN-GLUT.md`, `LISTE-MARS.md`, Archiv |
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | Fassung 2, 12:56, gegengeprüft 12:55 | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
-| 6 | Welt | Fach | fehlt | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
+| 6 | Welt | Fach | Fassung 2, 13:21, gegengeprüft 13:19 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
 | 7 | Klang | Fach | fehlt | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
 | 8 | Oberfläche | Fach | fehlt | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
 | 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
@@ -488,7 +488,7 @@ Vorgehen je Text: Entwurf aus der Quelle, frischer Prüfer gegen Quelle und Fund
 
 Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogredaktion.“ Gedanke Sokrates 08:24 (ungeprüft): Name des Profils bleibt „Kataloge“ (alle Profile heißen nach dem Gegenstand); übernommen wird die Aufgabe einer Redaktion: Pflege statt einmaliger Bau, darum Prüffrage im Kern Abnahme „Neue Figur, neuer Gegenstand, neuer Wert: im Katalog?“.
 
-**Nr. 6 Profil Welt** (Entwurf Sokrates 20.11., 13:18, Gegenprüfung läuft; Themenblock Welt (E Welt: Orte, Dorf, Wald, Höhle, Innenräume, Karten); geladen mit dem Querprofil Signatur und Leben, das Licht, Tusche, Leben, Klang, Leistung trägt, hier nicht doppelt). Quelle: `DESIGN-STIL.md` „Richtung“, „Karte und Räume“, „Muster“; `DESIGN-ABNAHME.md` „Ort fertig“; Leitbild 5; `LISTE-EFFEKTE.md` Kopf und „Orte und Welt“; `LISTE-ABGLEICH-ALT.md` Kopf; Archiv 77e.3 (Karte und Kampfort), 990 (kein Staub innen), 1022 (Kartenrand „sanfter Übergang und dann dunkel“), 1423a A (kein Aufhellen), 1484a (Zellen, Durchsicht nahe am Helden), 698 (Grafikstufen), 512 (alt gegen neu), 221 (Wasser „langweilig“); Wiederholer Wasser, Nebel, Teich (1564, 1509, 1510).
+**Nr. 6 Profil Welt** (Fassung 2, 20.11., 13:21, gegengeprüft 13:19; Themenblock Welt (E Welt: Orte, Dorf, Wald, Höhle, Innenräume, Karten); geladen mit dem Querprofil Signatur und Leben, das Licht, Tusche, Leben, Klang, Leistung trägt, hier nicht doppelt). Quelle: `DESIGN-STIL.md` „Richtung“, „Karte und Räume“, „Muster“; `DESIGN-ABNAHME.md` „Ort fertig“; Leitbild 5; `LISTE-EFFEKTE.md` Kopf und „Orte und Welt“; `LISTE-ABGLEICH-ALT.md` Kopf; Archiv 77e.3 (Karte und Kampfort), 990 (kein Staub innen), 1022 (Kartenrand „sanfter Übergang und dann dunkel“), 1423a A (kein Aufhellen), 1484a (Zellen, Durchsicht nahe am Helden), 698 (Grafikstufen), 512 (alt gegen neu), 221 (Wasser „langweilig“); Wiederholer Wasser, Nebel, Teich (1564, 1509, 1510).
 
 ```markdown
 **Welt.** Lade dazu Signatur und Leben. Was gilt: `docs/DESIGN-STIL.md` „Richtung“ und „Karte und Räume“, „Ort fertig“ in `docs/DESIGN-ABNAHME.md`; Abgenommenes aus `DESIGN-STIL.md` „Muster“ nachbauen, nicht neu erfinden. Wörter: Gebietskarte, Grundriss, Ebene, Kampfort (`docs/LISTE-GLOSSAR.md`).
@@ -500,6 +500,26 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Bestand vor Eigenbau.** Effekt, Shader, Teilchen: erst `docs/LISTE-EFFEKTE.md` und `docs/LISTE-BESTAND.md`, ein neuer bekommt zuerst dort eine Zeile. Was die alte Fassung je Ort hatte: `docs/LISTE-ABGLEICH-ALT.md`; Fehlendes ist ein Befund. Wasser, Ufer, Nebel, Teich fand der Chef mehrfach: vorher die letzte Abnahme im Vorgangsarchiv lesen. Kein Staub im Licht in Innenräumen.
 
 **Beleg.** Alt gegen neu, Spielkamera, Handygröße, Tag und Nacht, je berührte Grafikstufe; Bilder/s am Handy vor und nach, nie schlechter. Kollision 0, Tippen trifft das gezeichnete Ding; Bewegtes im Film.
+```
+
+**Gegenprüfung 13:19** (frischer Helfer; 11 Befunde; Fälle 990 vermieden, 1022 nur teils (geladene Quelle sagt noch „schwarze Schrägen“), 1563 und 221 nicht vermieden). Mein Wort: 1 „schwarze Schrägen“ in `DESIGN-STIL.md` überholt durch 1022: **stimmt**, Ausnahme im Profil, Satz berichtigen 1744 (Homer) · 2 „Durchsicht nur nahe am Helden“ erzeugte 1720 (Chef 18.11., 23:14): **stimmt**, „Vordergrund deckt nie die Spielfläche“ · 3 „nie Gesehenes schwarz“ (492): **Einwand**, in Höhlen gilt 1289a C (15.11., 22:03): Gesehenes außer Sicht schwarz; nach Ort getrennt · 4 „letzte Abnahme lesen“ nicht prüfbar: **stimmt**, drei Sachverhalte (623.6, 221, 1563) · 5 77e.3 nicht im Archiv: **stimmt**, Quelle `DESIGN-STIL.md` · 6 Beleg doppelt 5.1 und Querprofil: **stimmt**, 5.1 laden · 7 Grafikstufe auch Niedrig (698a, 1205b): **stimmt** · 8 Muster ohne Orte: **stimmt**, gestrichen · 9 nur Teil von „Ort fertig“: **stimmt**, 1–9 je ein Wort, Abgleich alt Spalte Godot · 10 „nie ausgewürfelt“ strenger als Quelle: **stimmt** · 11 Bestätigtes: **stimmt**. Räume-Zeile gestrichen (trägt „Karte und Räume“): **stimmt**.
+
+**Fassung 2 (13:21)**, etwa 1.430 Byte:
+
+```markdown
+**Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild (5.1). Was gilt: „Ort fertig“ in `docs/DESIGN-ABNAHME.md`, `docs/DESIGN-STIL.md` „Richtung“ und „Karte und Räume“ (außer „schwarze Schrägen“, überholt). Wörter nach `docs/LISTE-GLOSSAR.md`.
+
+**Blick.** Für die schräge Kamera gebaut, nie gekippt. Leute, Questziele, Eingänge, Schilder, Feuer frei; nach Süden und Osten nichts Hohes davor. Durchsicht nahe am Helden; Vordergrund deckt nie die Spielfläche. Gesehenes außer Sicht: draußen gedämpft, in Höhle und Dungeon schwarz, Wand nur zur Seite des Helden hell. Maßstab des Helden, Kreise Ellipse 2:1.
+
+**Rand.** Abschluss aus Bäumen, Fels, Zaun, Wasser, an allen Seiten sanft ins Dunkel; keine Kante, kein Strich. Wege laufen davor aus.
+
+**Wasser.** Teich klar, nie Toon; Glanz wandert mit der Strömung; Ufer rund, nie Kachelkante.
+
+**Karte und Kampfort.** Wasser, Fels, Feuer, Lichtschacht, Fackel stehen im Kampfort an derselben Stelle mit demselben Licht.
+
+**Bestand vor Eigenbau.** Effekt, Shader, Teilchen: erst `docs/LISTE-EFFEKTE.md`, `docs/LISTE-BESTAND.md`, neu zuerst dort eine Zeile. Innen kein Staub im Licht. Je Ort `docs/LISTE-ABGLEICH-ALT.md`, Spalte Godot ein Wort.
+
+**Beleg.** „Ort fertig“ 1–9 je ein Wort; Bild vom Helden über den Rand nach außen; Tag und Nacht; jede berührte Grafikstufe, auch Niedrig; Bilder/s nie schlechter.
 ```
 
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
