@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 13:20, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 13:42, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -28,7 +28,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 60 (60) | 19 | 0 | 1 | 47 | 1635 (Sokrates) Systemlösung? Bogen: 2 frühere Vorgänge, neu 1634… |
 | ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 33 (31) | 21 | 0 | 2 | 8 | 1676 (Tom) angelegter Umhang des Helden deckt den rechten Un… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
-| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 33 (30) | 3 | 0 | 0 | 15 | 1566 (Jerry) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
+| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 34 (30) | 3 | 0 | 0 | 15 | 1566 (Jerry) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
 | ↳ **11** Klang und Musik | 2 (2) | 0 | 0 | 0 | 2 | – |
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 10 (9) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
@@ -40,9 +40,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 1 | 5 | 417 | 1277 |
-| neu | 12 | 12 | 424 | 1314 |
-| **netto** (erledigt − neu) | **−11** | **−7** | **−7** | **−37** |
+| erledigt | 2 | 5 | 418 | 1278 |
+| neu | 14 | 12 | 426 | 1316 |
+| **netto** (erledigt − neu) | **−12** | **−7** | **−8** | **−38** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -85,7 +85,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1743 | Homer | DESIGN-STIL „Karte und Räume“ „dahinter schwarze Schrägen“ überholt durch 1022;… | K | 5 Welt und Karten | startbar |
 | 20 | 1744 | Homer | DESIGN-STIL Zeile 142 „dahinter schwarze Schrägen“ überholt durch 1022; Satz be… | K | 5 Welt und Karten | startbar |
 
-Danach 73 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
+Danach 74 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
 ## Zu entscheiden
 
 Nichts offen.
@@ -106,7 +106,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 10, Muss 0, startbar 9
+**Homer** – offen 13, Muss 0, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -120,6 +120,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1705 | K | Von Sokrates (1679 A, Chef 18.11., 21:39): Leveldesign Kapitel 1, Bestandsaufnahme: alle G | startbar |
 | 1737 | K | Von Sokrates (1727, Chef 20.11., 08:09: „Testspieler passt.“): menschliche Tester heißen T | startbar |
 | 1740 | K | Von Sokrates (1727): DESIGN-STIL „Lebendige Welt“ „Staub tanzt im Lichtstrahl“ ergänzen: n | startbar |
+| 1743 | K | Von Sokrates (1727, Prüfung Profil Welt 13:19): DESIGN-STIL „Karte und Räume“ „dahinter sc | startbar |
+| 1744 | K | Von Sokrates (1727, Prüfung Profil Welt 13:19): DESIGN-STIL Zeile 142 „dahinter schwarze S | startbar |
+| 1745 | K | Von Sokrates (Chef 20.11., 13:40, Frage: „frei rotierbare Kamera … müssen wir jetzt eigent | startbar |
 
 **Tom** – offen 53, Muss 16, startbar 4
 
@@ -258,7 +261,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 | 1729 | K | Von Werkzeug (Startwarnung 969, 1642, seit 19.11., 08:17): docs/LISTE-REGELWERTE.md veralt | startbar |
 
-**Spike** – offen 36, Muss 23, startbar 6
+**Spike** – offen 37, Muss 23, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -298,8 +301,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1735 | K | Von Sokrates (1734, Chef 20.11., 07:03: „unbedingt einen Vorgang“): Federknochen für losen | startbar |
 | 1738 | K | Von Sokrates (1727, Befund 6 der Gegenprüfung 20.11.): Wie spielt eine Sitzung ohne Handy | startbar |
 | 1739 | M | Von Sokrates (1727, Chef 20.11., 10:31: ab Sa 20 Uhr nur 1727): Werkzeuge der Bauliste ab | Termin 21.11. 20:00 |
+| 1742 | K | Von Sokrates (Chef 20.11., 13:13: „ergänzen lassen von dem Werkzeug, mit welchem Aufwand d | startbar |
 
-**Perikles** – offen 24, Muss 19, startbar 1
+**Perikles** – offen 25, Muss 19, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -327,6 +331,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1188 | K | Von Sokrates (1186, Chef 13.11., 16:28): Wächter gegen still veraltete Zeilen: ruhende ode | Termin 23.11. |
 | 1396 | K | Von Ford (Tuffy 16.11., 10:00): lauf.py startet Tuffy auf Zeile 1393, die Jerry schon in s | wartet auf Test/Build (gebaut) |
 | 1728 | M | Von Sokrates (1727, Chef 19.11., 12:24/12:27): Teilprojekte im Projektplan durch Verweis a | startbar |
+| 1741 | K | Von Sokrates (1727, Prüfung 12:55): Block 4 Kataloge Zeilen nachziehen: 649.2 Titel nennt | startbar |
 
 **Diogenes** – offen 9, Muss 8, startbar 1
 
