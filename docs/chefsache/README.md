@@ -106,7 +106,7 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 14, Muss 0, startbar 13
+**Homer** – offen 16, Muss 0, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -124,6 +124,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.11.; „star
 | 1745 | K | Von Sokrates (Chef 20.11., 13:40, Frage: „frei rotierbare Kamera … müssen wir jetzt eigent | startbar |
 | 1747 | K | Von Sokrates (1727, Prüfung Profil Klang 13:46): DESIGN-STIL Abschnitt Klang nachtragen: 1 | startbar |
 | 1757 | K | Von Sokrates (1727, Prüfung Profil Oberfläche 14:48): DESIGN-STIL „Fenster und Schirme“ Sa | startbar |
+| 1758 | K | Von Sokrates (20.11., 16:38, Chef: Kapitel ohne feste Zahl, „weil ich mich daran nicht bin | startbar |
+| 1759 | K | Von Sokrates (20.11., 16:43, Chef: Duktus der NPCs „zu den Figuren dazu“): Spalte „Sprechw | startbar |
 
 **Tom** – offen 53, Muss 16, startbar 4
 
