@@ -428,9 +428,9 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 3 | Kampf | Fach | Fassung 2, 11:28, gegengeprüft 11:26 | `DESIGN-KAMPF.md` „Was gilt“, `DESIGN-GEGNER.md`, `DESIGN-GLUT.md`, `LISTE-MARS.md`, Archiv |
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | Fassung 2, 12:56, gegengeprüft 12:55 | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
-| 6 | Welt | Fach | Fassung 2, 13:21, gegengeprüft 13:19 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
+| 6 | Welt | Fach | Fassung 3, entschieden 13:51 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
 | 7 | Klang | Fach | Fassung 4, entschieden 14:45 | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
-| 8 | Oberfläche | Fach | Fassung 2, 14:50, gegengeprüft 14:48 | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
+| 8 | Oberfläche | Fach | Fassung 2, entschieden 15:32 | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
 | 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
 | 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
 | 11 | Werkzeug | Fach | fehlt | `LISTE-BETRIEB.md`, Bauliste 7 |
