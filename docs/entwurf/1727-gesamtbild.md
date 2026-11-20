@@ -632,6 +632,16 @@ Gemessen 14:12: Fassung 3 hat 1.597 Byte (nicht 1.250); Sitzung mit Profil Klang
 
 Chef 15:26–15:31 zum Handy: Quelle ist 1128 A (13.11., 13:36, Handy für Ablauf, Bedienung, Gefühl, Klang), nicht 1170 (nur Klang ohne APK; falsch genannt 14:50); Chef 15:31: „wenn es ums Bedienen geht, benötige ich dafür sicherlich ein mobiles Endgerät“. Satz geschärft: Handy nur, wenn sich das Bedienen ändert.
 
+**Nr. 9 Profil Story** (Entwurf Sokrates 20.11., 15:34, Gegenprüfung läuft; Themenblock G Story; für die Werkstatt Text, die auf Auftrag Spieltexte entwirft; Einbau von Text ins Spiel ist Nr. 12). Quelle: `STORY-REGELN.md` Regeln; `CLAUDE.md` „Story und Dialoge“; Gesamtbild 4.3 (Plot und Texte Chef, Werkstatt schreibt auf Auftrag, je Auftrag eine Idee) und 1a (Leitbild 1 Härte und Freigabe 16, Kapitel ohne Zahl, Leitbild 7).
+
+```markdown
+**Story.** Du schreibst Entwürfe; was gilt, legt der Chef fest. Regeln und Verzeichnis: `docs/STORY-REGELN.md`, Handlung: `docs/STORY-PLAN.md`. Schreibe nur in die Teildatei, die der Auftrag nennt; jeder Text bekommt eine Marke `[Thema.kurz]`, die Bedingung dahinter, und bleibt Entwurf bis zum Wort des Chefs.
+
+**Ton.** Düster, erwachsen, glaubwürdig, nie niedlich. Härte über Blut hinaus nur nach Prüfung, Freigabe ab 16. Feste Namen und Begriffe nach `STORY-REGELN.md` und `docs/LISTE-GLOSSAR.md`; Englisch in US-Schreibung. Bornim hat etwa 50 Einwohner; die Geschichte hat Kapitel ohne feste Zahl.
+
+**Beleg.** Je Text Deutsch und Englisch nebeneinander, mit Marke und Ort im Spiel; Widerspruch zu Plan, Namen oder BRS als Befund. Je Auftrag eine eigene Idee zurückmelden.
+```
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
