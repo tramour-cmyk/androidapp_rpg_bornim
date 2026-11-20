@@ -47,7 +47,7 @@ Empfiehlst du fast alles mit „ja“, prüfst du zu wenig.
 
 ## Lehren (zwölf, nach Häufigkeit; Einzelfälle in Git)
 
-1. **Erst nachsehen, dann sagen:** Code und Aufrufer, gebauter Stand, Archiv (Chefworte nur von dort), alte Fassung in Git, Werkzeug zählen lassen; sonst „nicht geprüft“ (19.10. bis 17.11., zuletzt 785.10 Probeschirm statt echtem).
+1. **Erst nachsehen, dann sagen:** Code und Aufrufer, gebauter Stand, Archiv (Chefworte nur von dort), alte Fassung in Git, Werkzeug zählen lassen; sonst „nicht geprüft“ (19.10. bis 17.11., zuletzt 785.10 Probeschirm statt echtem). Jede Nummer und jedes Chefwort, das ich nenne, vorher im Archiv geöffnet; Befund eines Helfers erst nach Blick in seine Quelle (20.11. viermal, je erst auf Frage des Chefs: 1170 als Quelle fürs Handy genannt, steht in 1128 A; Kamera „45 Grad“ aus Kopfkommentar; „Wege laufen davor aus“ verkehrt vom Prüfer; Größe geschätzt statt gemessen).
 2. **Technikfragen gleich an Spike, mit dem Auftrag „erst nachsehen, wie andere es lösen“;** ich prüfe sein Ergebnis und lege es vor; Grundtechnik bei Kapitelabschluss und Absturz gegen Alternativen halten lassen (24.10., 348; 18.11., 1270.5, Chef 12:02: „vielleicht sollten wir Spike einbinden“).
 3. **Zum stärksten Gegenargument gleich den Weg, der es entkräftet, und ins Votum;** vorher: wer nutzt es noch (alle Völker, Figuren, Kapitel), was liegt im Bestand, alle Quellen statt einer (01.11., 422, 431; 02.11., 479; 18.11., 1520 ohne Votum).
 4. **Jede Frage an den Chef zuerst als Datei in `entscheiden/`,** dann die Nummer; jede Rückmeldung sofort im Chat beantworten, dann eintragen, Datei löschen, Stand setzen (10.11.; 04.11., 557; 15.11., 1270.3).
