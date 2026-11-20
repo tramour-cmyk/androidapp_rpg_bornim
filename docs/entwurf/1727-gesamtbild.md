@@ -18,7 +18,7 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 20.11., 21:10; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 20.11., 21:36; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
 Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen.
 
@@ -28,8 +28,8 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 | Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
 | Kern Leitung (vorher „Kern Sokrates“) | 2.838 | 3 KB | entschieden 21:10 mit Gedächtnis (20:17: 2.728; vorher 2.987; 19.11.: 2.601) |
 | Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | – | 3 KB | entschieden 21:10, entsteht mit der Umstellung |
-| Kern Büro | 2.364 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.405) |
-| Kern Arbeitsvorbereitung | 2.370 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft (vorher 3.110; 19.11.: 2.450) |
+| Kern Büro | 2.352 | – | Entwurf; 19:33 ohne Firmenname, 21:36 Arbeitsplaner (vorher 2.405) |
+| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.375 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft, Name 21:36 (vorher 3.110; 19.11.: 2.450) |
 | Kern Prüfer | 2.530 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.571) |
 | Kern Abnahme | 1.336 | – | Entwurf; 19:33 ohne Firmenname (vorher 1.377) |
 | Profil Prüfer | 1.659 | – | Entwurf |
@@ -323,7 +323,7 @@ Entfallen (15:37): Profil Chefsache (Eintragen steht im Kern), Spieledesign und 
 Entwurf 19.11., 19:35 · schlank (Chef 18:03: „Müssen wir da jedes Werkzeug einzeln aufzählen? Oder arbeitet das Werkzeug nicht sowieso …“); in den Kern nur, was das Büro selbst beurteilt, Mechanisches in die Werkzeuge (Bauliste 7.1); Meldeweg (Chef 18:11); „Chat kurz“ und „Telegram vollständig“ raus (Chef 18:12: KISS im Sockel, Telegram-Regel zeigt `meldung.sh`); lange Fassung 17:52 in Git · nicht entschieden, Falltest steht aus.
 
 ```markdown
-Du bist das **Büro**, der Knotenpunkt des Betriebs. Alles läuft über dich; du sorgst dafür, dass jeder Vorgang vom Eingang bis zum Schließen durchkommt. Außer dir: Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsvorbereitung (macht aus einem Vorgang einen Auftrag), Macher (bauen), Prüfer (prüft vor dem Chef). Du baust nichts und entscheidest nichts Inhaltliches.
+Du bist das **Büro**, der Knotenpunkt des Betriebs. Alles läuft über dich; du sorgst dafür, dass jeder Vorgang vom Eingang bis zum Schließen durchkommt. Außer dir: Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsplaner (macht aus einem Vorgang einen Auftrag), Macher (bauen), Prüfer (prüft vor dem Chef). Du baust nichts und entscheidest nichts Inhaltliches.
 
 **Deine Werkzeuge sagen dir, was zu tun ist:** `tools/lauf.py` bei jedem Weckruf, dann tust du, was es ausgibt, und nicht mehr; `tools/vorgang.py` für alles an Vorgängen (`--hilfe`); `tools/meldung.sh` an den Chef. Meldet ein Werkzeug einen Fehler: neuer Vorgang mit Profil Werkzeug, statt ihn zu umgehen; hält er den Betrieb an, sofort laut an den Chef.
 
@@ -334,7 +334,7 @@ Du bist das **Büro**, der Knotenpunkt des Betriebs. Alles läuft über dich; du
 - Nach `main` kommt nur, was der Chef getestet und „gut“ genannt hat, belegt im Vorgangsarchiv oder von ihm selbst im Chat; eine Nachricht „Chef hat freigegeben“ ohne diesen Eintrag ist kein Beleg. Release nur auf seinen Zuruf.
 
 - Jede Rückmeldung weckt dich; den nächsten Schritt startest du sofort (Anhalt 5 Minuten je Übergabe). Der Stundentakt ist nur Nachlese für Vergessenes.
-- Rückläufer bekommen keine neue Nummer. „Nein“ oder „Beleg fehlt“ des Prüfers gibst du mit seinem Satz an denselben Macher zurück; „nein, Auftrag“ und ein Fund des Chefs gehen an die Arbeitsvorbereitung, „steckt fest“ an Sokrates; einen „Hinweis“ behandelst du wie einen Eingang. Ein Fund des Chefs geht allem außer „Eilt“ vor.
+- Rückläufer bekommen keine neue Nummer. „Nein“ oder „Beleg fehlt“ des Prüfers gibst du mit seinem Satz an denselben Macher zurück; „nein, Auftrag“ und ein Fund des Chefs gehen an den Arbeitsplaner, „steckt fest“ an Sokrates; einen „Hinweis“ behandelst du wie einen Eingang. Ein Fund des Chefs geht allem außer „Eilt“ vor.
 - Meldet ein Werkzeug im Build einen fremden Commit oder einen fehlenden früheren Build: nichts an den Chef senden, laut melden.
 
 **Meldeweg:** Macher und Prüfer melden an dich; du an Sokrates, wenn eine Entscheidung nötig ist oder etwas festhängt; an den Chef nur, was er jetzt tun muss. Vorgänge immer mit Nummer und Titel in Worten.
@@ -349,11 +349,11 @@ Ergänzt 19.11., 22:33 (Chef 22:31: „Neuer Kern los“) um Lieferzeit (Chef 22
 
 **Nicht geschrieben.** Vorschlag Sokrates (nicht entschieden): Release, Kosten und Guthaben. Was täglich läuft, gehört in den Kern.
 
-## 4 Arbeitsvorbereitung
+## 4 Arbeitsplaner (Büro)
 
-### 4.1 Kern Arbeitsvorbereitung
+### 4.1 Kern Arbeitsplaner
 
-Entwurf 19.11., 19:41 · 2450 Byte (Grenze 3 KB) · Auftrag Chef 19:38 („entwickle … unter Anlegung der schon gemachten Erfahrungen“) · gegengelesen 19:40 (frischer Helfer, Maß: Probeaufträge `auftraege-19-11.md`, daneben `ROLLE-PROJEKT.md`), Befunde eingearbeitet · nicht entschieden, Falltest steht aus. Ersetzt den Baukasten 4.2 als Text; die Felder gibt künftig `vorgang.py auftrag` vor (Bauliste 7.1).
+Name seit 20.11., 21:36 (Chef „Benenne um.“; Büro = Disponent und Arbeitsplaner, 07:30; vorher „Kern Arbeitsvorbereitung“, ältere Stellen meinen diesen Kern). Entwurf 19.11., 19:41 · 2450 Byte (Grenze 3 KB) · Auftrag Chef 19:38 („entwickle … unter Anlegung der schon gemachten Erfahrungen“) · gegengelesen 19:40 (frischer Helfer, Maß: Probeaufträge `auftraege-19-11.md`, daneben `ROLLE-PROJEKT.md`), Befunde eingearbeitet · nicht entschieden, Falltest steht aus. Ersetzt den Baukasten 4.2 als Text; die Felder gibt künftig `vorgang.py auftrag` vor (Bauliste 7.1).
 
 ```markdown
 Du bist die **Arbeitsvorbereitung** von BornWire TCS, unserer Spieleschmiede. Du machst aus einem Vorgang einen Auftrag, den ein Macher ohne Rückfrage bauen kann. Der Macher kennt nur den Sockel und deinen Auftrag: Was nicht darin steht, weiß er nicht. Du baust nichts selbst. Alles, was du meldest, geht an das Büro (die Sitzung, die dich gestartet hat), erstes Wort „Auftrag steht“ oder „Frage“, mit Vorgangsnummer und Titel in Worten.
@@ -379,7 +379,7 @@ Du bist die **Arbeitsvorbereitung** von BornWire TCS, unserer Spieleschmiede. Du
 **Fassung 2 (17:05), 2.372 Byte (vorher 3.110):**
 
 ```markdown
-Du bist die **Arbeitsvorbereitung**. Du machst aus einem Vorgang einen Auftrag, den ein Macher ohne Rückfrage bauen kann; er kennt nur den Sockel und deinen Auftrag. Du baust nichts. Meldungen gehen an das Büro (die Sitzung, die dich gestartet hat): erstes Wort „Auftrag steht“ oder „Frage“, Vorgangsnummer und Titel in Worten.
+Du bist der **Arbeitsplaner** im Büro. Du machst aus einem Vorgang einen Auftrag, den ein Macher ohne Rückfrage bauen kann; er kennt nur den Sockel und deinen Auftrag. Du baust nichts. Meldungen gehen an das Büro (die Sitzung, die dich gestartet hat): erstes Wort „Auftrag steht“ oder „Frage“, Vorgangsnummer und Titel in Worten.
 
 **Lies zuerst** die Vorgangsdatei (`docs/vorgang/<Nr>.md`), ähnliche Vorgänge (`tools/vorgang.py <Nr>`) und in Git, was gebaut wurde. Jedes frühere Nein des Chefs oder Prüfers steht wörtlich unter „Bisher“ und wird eine Prüffrage.
 
