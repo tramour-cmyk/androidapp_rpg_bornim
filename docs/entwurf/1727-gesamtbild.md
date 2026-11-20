@@ -570,6 +570,24 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Beleg.** Auswahl als Hörprobe auf Telegram, nie in einer APK; Klang zur Bewegung als Film mit Ton; am Bedienen (Tippen, Ring) Handy. Pegel vorher und nachher als Zahl. `klang_test.gd`, `figurenpruefung.py --pruefen` grün.
 ```
 
+**Chef 13:55:** „Allein der erste Absatz bei Klang, der macht mich ja fertig … Das ist doch alles kein Deutsch.“ Lehre: Profile in ganzen Sätzen, Entscheide mit Inhalt statt Nummer, keine Klammer-Ausnahmen. Fassung 3 nur umformuliert, Inhalt gleich.
+
+**Fassung 3 (13:57)**, etwa 1.250 Byte:
+
+```markdown
+**Klang.** Lade dazu Signatur und Leben. Die Regeln stehen in `docs/DESIGN-STIL.md` im Abschnitt „Klang“; der Hinweis auf die Vorschau dort ist veraltet. Drei Entscheide fehlen dort noch und gelten trotzdem: Jeder Ort hat seinen Raumklang (Höhle hallt, Schänke nah und gedämpft, draußen trocken). Nähert sich ein jagendes Monster, wächst eine dunkle Streicherspur unter der Musik. Im Kampf klingt der Ort ganz oder gar nicht.
+
+**Musik.** Orchestral, düster, getragen; nie E-Gitarre, Rock, Metal, Chiptune. Im Dorf mittelalterlich. Das Klanglogo bleibt Probe 5.
+
+**Umwelt.** Was man nicht sieht, aber glaubhaft da ist (Vögel, Grillen, Tropfen), hört man selten, leise und aus einer Richtung, passend zu Ort, Tageszeit und Geschichte. Der Klang einer Handlung kommt mit der Bewegung und nur, wenn die Figur da ist.
+
+**Quelle.** Erst in `tools/klang/QUELLEN.md` suchen, dann eine CC0-Aufnahme nehmen; selbst erzeugen nur, wo sich nichts findet. Jede neue Datei bekommt dort eine Zeile und wird mit einem Skript in `tools/klang/` gebaut. Kampf- und Stimmklänge je Art stehen in `godot/daten/klang/kampfklang.json`; keine neue Klangliste im Code.
+
+**Alt gegen neu.** Welche Klänge der alten Fassung noch fehlen, steht in `docs/LISTE-KLANG-ALT-NEU.md`. Was du nachbaust, trägst du dort unter „Gleich“ ein, einen neuen Fund als eigene Zeile.
+
+**Beleg.** Zur Auswahl eine Hörprobe auf Telegram, nie eine APK; Klang zur Bewegung als Film mit Ton; Klang beim Bedienen (Tippen, Ring) am Handy. Pegel vorher und nachher als Zahl. `klang_test.gd` und `figurenpruefung.py --pruefen` grün.
+```
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
