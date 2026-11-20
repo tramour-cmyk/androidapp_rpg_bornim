@@ -366,7 +366,7 @@ Zähle für die Woche Mo 0 Uhr bis So 24 Uhr, je Zahl mit Quelle; fehlt eine, sc
 3. Rückgaben: Anteil „nein“ des Prüfers je Profil; über 20 % als Hinweis „Auftrag oder Profil nachbessern“.
 4. Liegezeit: Median der Zeit je Übergabe (Ziel etwa 5 Minuten); Fälle über 6 h, obwohl gesehen (Regeln wie bisher, 1463).
 5. Bremsen: Aufträge über Laufbremse oder Höchstdauer.
-6. Guthaben: Verbrauch der Woche; Anteil Spiel (Bereiche E und G) gegen Overhead (Q, B, M), nach Bereich, nicht nach Sitzung.
+6. Guthaben: Verbrauch der Woche in drei Teilen nach Bereich, nicht nach Sitzung: Spiel (E, G), Qualität (Q), Verwaltung (B, M); dazu Qualitätskosten: Prüfen (Abnahme) gegen Nacharbeit (Läufe nach „nein“ und nach Erstfunden des Chefs).
 7. Fortschritt: Abnahmeliste „ganze Punkte x von n“ mit Teilhaken; Stand je Themenblock.
 8. Testrunden des Chefs; Funde des Testers vor der Testbitte gegen Erstfunde des Chefs danach.
 9. Leitung: Entscheide von Sokrates, davon vom Chef zurückgedreht.
