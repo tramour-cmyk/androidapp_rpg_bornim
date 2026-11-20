@@ -203,7 +203,7 @@ Regel der Zuordnung: braucht es jede Sitzung → Sockel; jede einer Tätigkeit (
 
 **Gegenprüfung 12:29** (frischer Helfer; 13 Befunde; Fall 249 vermieden, aber Abnahme hätte ihn nicht gefunden; Fall 221 nicht vermieden, „Kulisse“ ist Geschmack). Mein Wort: 1 „nicht durch Dunkelheit“ gegen 1423a A, 1289 (Dunkelheit erlaubt): **stimmt**, „nie ohne Quelle aufhellen“ · 2 Tuschelinie nur Neues, mitgezeichnet, nie Filter (302.3): **stimmt** · 3 Atmen Tier und Monster, nie 1 s regungslos, kein Gleichtakt: **stimmt**; „nach Anstrengung schneller“ ins Profil Figur · 4 alle Blickrichtungen: **stimmt** · 5 „Bosse ein Aussehen“: **stimmt** · 6 Klangvarianten nicht Tonhöhe: **stimmt**; Varianten für Dinge (348.6) mit Profil Welt · 7 „nur, was da ist“ gegen Umweltklang (Grillen, Chef 12:10): **stimmt** · 8 „Kulisse“ Geschmack → „Wasser, Feuer, Rauch bewegen sich“: **stimmt** · 9 Bildrate nur gemessen prüfbar: **stimmt** · 10 „Blick“ ist Leveldesign → Profil Welt: **stimmt** · 11 Geschmack beim Chef: **stimmt** · 12 Kern Abnahme schreibt Signatur ab, 5.2 doppelt: **stimmt**; 6.2 verweist künftig auf das Querprofil, 5.2 geht darin auf · 13 Länge: **stimmt** · Gegenfassung: **Einwand** zu zwei Stellen: Liste der Weltklänge bleibt kurz (Chef 12:10 „dass es drin ist“), „nie aufhellen“ zu absolut.
 
-**Fassung 2 (12:30)**, etwa 830 Byte:
+**Fassung 2 (12:30)**, etwa 830 Byte; **entschieden 12:37 (Chef „Passt.“, Archiv)**; Staub-Satz in `DESIGN-STIL.md`: 1740 (Homer):
 
 ```markdown
 **Signatur** (Neues). Licht aus sichtbarer Quelle, darin warm, sonst kaltes Blauschwarz; Dunkelheit erlaubt, nie ohne Quelle aufhellen. Tuschelinie mitgezeichnet, nie als Filter: Lichtseite dünn, Schattenseite kräftig. Nur Gold, Feuer, Magie glänzen. Echte Formen, nie niedlich.
