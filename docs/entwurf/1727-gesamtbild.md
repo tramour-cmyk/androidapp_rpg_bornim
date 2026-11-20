@@ -312,6 +312,8 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 
 ### 5.3 Weitere Profile
 
+Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogredaktion.“ Gedanke Sokrates 08:24 (ungeprüft): Name des Profils bleibt „Kataloge“ (alle Profile heißen nach dem Gegenstand); übernommen wird die Aufgabe einer Redaktion: Pflege statt einmaliger Bau, darum Prüffrage im Kern Abnahme „Neue Figur, neuer Gegenstand, neuer Wert: im Katalog?“.
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
