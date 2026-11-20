@@ -583,7 +583,7 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Fassung 3 (13:57)**, etwa 1.250 Byte:
 
 ```markdown
-**Klang.** Lade dazu Signatur und Leben. Die Regeln stehen in `docs/DESIGN-STIL.md` im Abschnitt „Klang“; der Hinweis auf die Vorschau dort ist veraltet. Drei Entscheide fehlen dort noch und gelten trotzdem: Jeder Ort hat seinen Raumklang (Höhle hallt, Schänke nah und gedämpft, draußen trocken). Nähert sich ein jagendes Monster, wächst eine dunkle Streicherspur unter der Musik. Im Kampf klingt der Ort ganz oder gar nicht.
+**Klang.** Lade dazu Signatur und Leben. Die Regeln stehen in `docs/DESIGN-STIL.md` im Abschnitt „Klang“; der Hinweis auf die Vorschau dort ist veraltet. Drei Entscheide fehlen dort noch und gelten trotzdem: Jeder Ort hat seinen Raumklang (Höhle hallt, Schänke nah und gedämpft, draußen trocken). Nähert sich ein jagendes Monster, wächst eine dunkle Streicherspur unter der Musik. Im Kampf klingt der Ort weiter, etwa halb so laut unter der Kampfmusik (Chef 14:11).
 
 **Musik.** Orchestral, düster, getragen; nie E-Gitarre, Rock, Metal, Chiptune. Im Dorf mittelalterlich. Das Klanglogo bleibt Probe 5.
 
