@@ -650,12 +650,12 @@ Chef 15:26–15:31 zum Handy: Quelle ist 1128 A (13.11., 13:36, Handy für Ablau
 
 **Gegenprüfung 15:34** (frischer Helfer mit Auftrag, jede Quelle selbst zu öffnen; 11 Befunde; Fälle 1320 TP/LP nicht sicher vermieden, 423 feste Zahlen nicht, 857a vermieden). Quellen von mir geöffnet: `DESIGN-LEITBILD.md` 1 und Kopf, `LISTE-GLOSSAR.md` Kopf, Archiv 423 und 338.1a. Mein Wort: 1 Härte nicht wortgleich, Killerschlag fehlt: **stimmt** · 2 Freigabe 16 ist Ziel: **stimmt** · 3 Spielnamen nicht im Glossar, sondern `DESIGN-BRS.md` 12: **stimmt** · 4 Zahlen als Platzhalter (423): **stimmt** · 5 Englisch mehr als US-Schreibung; unsichere Stellen dem Chef (338.1a): **stimmt** · 6 Widerspruch zu Sockel 6 („nie erfunden“): **stimmt**, Ausnahme ausdrücklich · 7 50 Einwohner doppelt: **stimmt** · 8 Bedingung unklar: **stimmt** · 9 Meldeweg steht im Auftrag: **stimmt** · 10 keine Quelle zur Zeilenlänge, keine Zahl erfunden: **stimmt** · 11 Form: **stimmt**.
 
-**Fassung 2 (15:37)**, etwa 900 Byte; Chef 15:39: „Blut- und Killerschlag bezog sich auf die grafische Darstellung. Ich dachte, wir sind jetzt beim Texte entwerfen.“ → Satz gestrichen, im Ton nur „Ziel ist eine Freigabe ab 16“ (Blut im Bild gehört zu Kampf und Figur):
+**Fassung 2 (15:37)**, etwa 900 Byte; Chef 15:39: „Blut- und Killerschlag bezog sich auf die grafische Darstellung. Ich dachte, wir sind jetzt beim Texte entwerfen.“ → Satz gestrichen (Blut im Bild gehört zu Kampf und Figur); Chef 15:51: „da das ganze Spiel eingestuft wird, brauchen wir es doch wohl nicht bei Text erwähnen“ → Freigabe 16 auch raus:
 
 ```markdown
 **Story.** Du schreibst Entwürfe auf Auftrag; gelten wird erst, was der Chef festlegt, dann ist es Quelle. Regeln, feste Namen, Verzeichnis: `docs/STORY-REGELN.md`; Handlung: `docs/STORY-PLAN.md`; Spielnamen: `docs/DESIGN-BRS.md` Abschnitt 12. Schreibe nur in die Teildatei, die der Auftrag nennt; jeder Text bekommt eine Marke `[Thema.kurz]`, dahinter in Klammern, wann er erscheint.
 
-**Ton.** Düster, erwachsen, glaubwürdig, nie niedlich; Ziel ist eine Freigabe ab 16. Zahlen aus den Regeln nie fest in den Text, sondern als Platzhalter, die das Spiel füllt. Englisch nach den Regeln in `STORY-REGELN.md` (US-Schreibung, Life, keine SRD-Wörter).
+**Ton.** Düster, erwachsen, glaubwürdig, nie niedlich. Zahlen aus den Regeln nie fest in den Text, sondern als Platzhalter, die das Spiel füllt. Englisch nach den Regeln in `STORY-REGELN.md` (US-Schreibung, Life, keine SRD-Wörter).
 
 **Beleg.** Je Text Deutsch und Englisch nebeneinander, mit Marke und Ort im Spiel; unsichere englische Stellen markieren. Widerspruch zu Plan, Namen oder BRS als Befund. Je Auftrag eine eigene Idee zurückmelden.
 ```
