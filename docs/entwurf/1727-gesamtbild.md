@@ -370,7 +370,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | fehlt | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
 | 6 | Welt | Fach | fehlt | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
-| 7 | Klang | Fach | fehlt | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang |
+| 7 | Klang | Fach | fehlt | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
 | 8 | Oberfläche | Fach | fehlt | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
 | 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
 | 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
