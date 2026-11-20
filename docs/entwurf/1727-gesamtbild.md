@@ -334,6 +334,29 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 
 ### 5.3 Weitere Profile
 
+**Liste aller Texte bis zur Umstellung** (Chef 20.11., 10:32: „bis dahin brauchen wir alle Profile“; Reihenfolge nach Bedarf, dann Themenblock-Reihenfolge; Quelle = woraus das Profil gezogen wird, Maß wie 5.1: Regeln aus den Funden des Chefs, je Profil eine Prüffrage „klingt es anders als die anderen?“, Chef 19.11., 16:17):
+
+| Nr. | Text | Art | Stand | Quelle |
+|---|---|---|---|---|
+| 1 | Kern Abnahme, Profil Prüfer, Profil Tester | Kern, Profil | aus 6.1 zu teilen | 6.1, 6c, Falltest `kerne-falltest.md` |
+| 2 | Regeln | Fach | fehlt | `DESIGN-BRS.md`, `DESIGN-BRS-ENTSCHEIDUNGEN.md`, `LISTE-REGELTREUE.md`, `LISTE-REGELWERTE.md` |
+| 3 | Kampf | Fach | fehlt | `DESIGN-KAMPF.md`, `DESIGN-AKTIONSPUNKTE.md`, `DESIGN-GEGNER.md`, `LISTE-MARS.md` |
+| 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
+| 5 | Kataloge | Fach | fehlt | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
+| 6 | Welt | Fach | fehlt | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
+| 7 | Klang | Fach | fehlt | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang |
+| 8 | Oberfläche | Fach | fehlt | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
+| 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
+| 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
+| 11 | Werkzeug | Fach | fehlt | `LISTE-BETRIEB.md`, Bauliste 7 |
+| 12 | Fremde Inhalte; Spieltext einbauen | quer | fehlt | `CLAUDE.md` „Technik und Sicherheit“, `LISTE-QUELLEN.md`; `STORY-REGELN.md`, `LISTE-GLOSSAR.md` |
+| 13 | Signatur im Bild | quer | Entwurf 5.2 | `DESIGN-STIL.md` |
+| 14 | Kern Disponent, Kern Arbeitsplaner | Kern | Entwurf 3.1, 4.1 (umbenennen) | – |
+| 15 | Rundblick; Wochenzählung; Tagesbericht; Wache | Routine | 6b offen, 6d Entwurf, zwei fehlen | 6b, 6d, `ROLLE-PROJEKT.md` Tagesbericht, `LISTE-BETRIEB.md` Wache |
+| 16 | Chefrunde; Markt und Recherche | Profil Sokrates | Entwurf 2.2, 2.3 | – |
+
+Vorgehen je Text: Entwurf aus der Quelle, frischer Prüfer gegen Quelle und Funde des Chefs, ein Fall aus echten Vorkommnissen, dann Falltest mit allen.
+
 Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogredaktion.“ Gedanke Sokrates 08:24 (ungeprüft): Name des Profils bleibt „Kataloge“ (alle Profile heißen nach dem Gegenstand); übernommen wird die Aufgabe einer Redaktion: Pflege statt einmaliger Bau, darum Prüffrage im Kern Abnahme „Neue Figur, neuer Gegenstand, neuer Wert: im Katalog?“.
 
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
