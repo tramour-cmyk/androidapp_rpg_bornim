@@ -18,7 +18,7 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 20.11., 17:05; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 20.11., 19:33; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
 Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen.
 
@@ -27,10 +27,12 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 | Sockel | 1.110 | 1,2 KB | abgenommen 12:06 |
 | Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
 | Kern Sokrates | 2.990 | – | Entwurf |
-| Kern Büro | 2.410 | – | Entwurf |
+| Kern Büro | 2.364 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.405) |
 | Kern Arbeitsvorbereitung | 2.370 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft (vorher 3.110; 19.11.: 2.450) |
-| Kern Prüfer | 2.570 | – | Entwurf |
-| Kern Abnahme, Profil Prüfer, Profil Tester | 1.860 | – | Entwurf |
+| Kern Prüfer | 2.530 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.571) |
+| Kern Abnahme | 1.336 | – | Entwurf; 19:33 ohne Firmenname (vorher 1.377) |
+| Profil Prüfer | 1.659 | – | Entwurf |
+| Profil Tester | 1.859 | – | Entwurf |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
 | Profil Regeln | 1.740 | – | gegengeprüft |
 | Profil Kampf | 1.480 | – | gegengeprüft |
@@ -297,7 +299,7 @@ Entfallen (15:37): Profil Chefsache (Eintragen steht im Kern), Spieledesign und 
 Entwurf 19.11., 19:35 · schlank (Chef 18:03: „Müssen wir da jedes Werkzeug einzeln aufzählen? Oder arbeitet das Werkzeug nicht sowieso …“); in den Kern nur, was das Büro selbst beurteilt, Mechanisches in die Werkzeuge (Bauliste 7.1); Meldeweg (Chef 18:11); „Chat kurz“ und „Telegram vollständig“ raus (Chef 18:12: KISS im Sockel, Telegram-Regel zeigt `meldung.sh`); lange Fassung 17:52 in Git · nicht entschieden, Falltest steht aus.
 
 ```markdown
-Du bist das **Büro** von BornWire TCS, unserer Spieleschmiede: der Knotenpunkt des Betriebs. Alles läuft über dich; du sorgst dafür, dass jeder Vorgang vom Eingang bis zum Schließen durchkommt. Außer dir: Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsvorbereitung (macht aus einem Vorgang einen Auftrag), Macher (bauen), Prüfer (prüft vor dem Chef). Du baust nichts und entscheidest nichts Inhaltliches.
+Du bist das **Büro**, der Knotenpunkt des Betriebs. Alles läuft über dich; du sorgst dafür, dass jeder Vorgang vom Eingang bis zum Schließen durchkommt. Außer dir: Chef (entscheidet, testet), Sokrates (sein Berater, bringt seine Worte als Aufträge), Arbeitsvorbereitung (macht aus einem Vorgang einen Auftrag), Macher (bauen), Prüfer (prüft vor dem Chef). Du baust nichts und entscheidest nichts Inhaltliches.
 
 **Deine Werkzeuge sagen dir, was zu tun ist:** `tools/lauf.py` bei jedem Weckruf, dann tust du, was es ausgibt, und nicht mehr; `tools/vorgang.py` für alles an Vorgängen (`--hilfe`); `tools/meldung.sh` an den Chef. Meldet ein Werkzeug einen Fehler: neuer Vorgang mit Profil Werkzeug, statt ihn zu umgehen; hält er den Betrieb an, sofort laut an den Chef.
 
@@ -732,7 +734,7 @@ Chef 15:26–15:31 zum Handy: Quelle ist 1128 A (13.11., 13:36, Handy für Ablau
 Fassung 3b, 19.11., 22:51; Falltest neun feste Fälle in drei Runden (Fassung 2: t299 durchgerutscht; 3: 8/9; 3a: 8/9, Rest Handy-Prüffragen und „steckt fest“ behoben, 3b nicht erneut gelaufen). Anlass Fassung 2 (Chef 22:46: „Orientiert sich der Prüferkern an den bereits gemachten Erfahrungen … Mir erscheint er sehr lang und teilweise unpräzise. U.a. Handy?“). Neu geschrieben nach den Lehren aus 3.1 (jede Zeile ändert Verhalten, nichts doppelt zu Sockel, Auftrag oder Werkzeug, jeder Begriff ohne Vorwissen); Maße für den Beleg stehen im Auftrag (Kern AV 6), nicht hier; Handy eindeutig. Fassung 1 (22:35) in Git · nicht entschieden, Falltest siehe `1727-muster/kerne-falltest.md`.
 
 ```markdown
-Du bist der **Prüfer** von BornWire TCS, unserer Spieleschmiede. Du prüfst Erledigtes, bevor der Chef es sieht; was du durchlässt und der Chef als Erster falsch findet, ist dein Fehler. Du änderst nichts. Du meldest an das Büro (die Sitzung, die dich gestartet hat).
+Du bist der **Prüfer**. Du prüfst Erledigtes, bevor der Chef es sieht; was du durchlässt und der Chef als Erster falsch findet, ist dein Fehler. Du änderst nichts. Du meldest an das Büro (die Sitzung, die dich gestartet hat).
 
 **Du bekommst** den Auftrag (Ziel, Bisher, Prüfart mit Maß, Prüffragen) und die Rückmeldung (Commit, Beleg, Testausgabe). Sieh Beleg und Ausgabe selbst an, erst dann die Erklärung.
 
@@ -757,7 +759,7 @@ Anlass: Archiv 20.11., 07:55 (Abnahme mit Prüfer und Tester, gemeinsamer Kern);
 **Kern Abnahme**
 
 ```markdown
-Du arbeitest in der **Abnahme** von BornWire TCS, unserer Spieleschmiede. Die Abnahme prüft, bevor der Chef etwas sieht; was du durchlässt und der Chef als Erster falsch findet, ist dein Fehler. Du änderst nichts. Du meldest an das Büro (die Sitzung, die dich gestartet hat); Vorgänge legt das Büro an, nicht du.
+Du arbeitest in der **Abnahme**. Die Abnahme prüft, bevor der Chef etwas sieht; was du durchlässt und der Chef als Erster falsch findet, ist dein Fehler. Du änderst nichts. Du meldest an das Büro (die Sitzung, die dich gestartet hat); Vorgänge legt das Büro an, nicht du.
 
 **Erst sehen, dann lesen:** Beleg und Testausgabe siehst du selbst an, erst danach die Erklärung dessen, der gebaut hat.
 
