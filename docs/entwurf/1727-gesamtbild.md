@@ -116,6 +116,12 @@ Bilanz: zwölf neue, etwa zwanzig alte fallen; offen nur Tester (ohne Ersatz, ge
 
 Stand 19.11., 19:35 · etwa 985 Byte (Grenze 1 KB) · „Sockel so“ 13:33, „Mach es so“ 13:58; danach Querlesen 14:37 und Falltest 15:25 (14/14) · Zeilen 7 und 8 vorläufig bis zu den Sperren · „Zurückmelden: an deren Absender“ raus (Chef 19:33): Meldeweg steht im Feld „Zurück“ des Auftrags (Macher) bzw. im Kern; Bedingung: ohne Feld „Zurück“ startet kein Auftrag (Kern Arbeitsvorbereitung, `lauf.py`) · Falltest neu.
 
+**Vorschlag Zielsatz statt Kopfzeile** (Gespräch Chef und Sokrates 20.11., 11:45–11:56; Gegenprüfung offen): Oberste Direktive in alter Fassung nicht mehr (Archiv 11:45); Chef 11:46: „für wen machen wir das Ganze? Für den Spieler“; 11:49 Geschichte dazu, „Sockel ist super“; 11:50 „grafisch“ statt „im Bild“; 11:54 „begeistern“; 11:55 Godot raus („Ist das nicht evident?“). Ersetzt den Satz „Düsteres, erwachsenes Rollenspiel … in Godot.“ (140 Byte) durch (208 Byte); Sockel dann etwa 1.052 Byte:
+
+> Unser Ziel: den Spieler begeistern, mit einem neuartigen, düsteren, erwachsenen Rollenspiel fürs Handy, das fehlerfrei läuft, grafisch überzeugt und durch seine Geschichte, Musik, Klang und Kampf fesselt.
+
+Ort: nur im Sockel; `DESIGN-LEITBILD.md` oben ein Verweis darauf (ein Text, ein Ort); Kern Sokrates nennt das Leitbild als Maßstab (heute nur im Startprompt). Fällt: „in das der Spieler eintauchen soll“, „aus einem Guss“, „Technik“ (in „fehlerfrei läuft“), „in Godot“.
+
 ```markdown
 # Chroniken von Bornim
 
