@@ -529,7 +529,7 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 ```markdown
 **Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild (5.1). Es gilt „Ort fertig“ (`docs/DESIGN-ABNAHME.md`) und `docs/DESIGN-STIL.md` „Richtung“, „Karte und Räume“ (außer „schwarze Schrägen“ und Süden, Osten).
 
-**Blick.** Wichtiges (Leute, Questziele, Eingänge, Schilder, Feuer) frei im Blick; Vordergrund deckt nie die Spielfläche. Außer Sicht: draußen gedämpft, in Höhle und Dungeon schwarz. Maßstab des Helden.
+**Blick.** Wichtiges (Leute, Questziele, Eingänge, Schilder, Feuer) frei im Blick; Vordergrund deckt nie die Spielfläche. Nebel des Krieges: nie Gesehenes schwarz; Gesehenes außer Sicht draußen gedämpft, in Höhle und Dungeon schwarz. Maßstab des Helden.
 
 **Rand.** Bäume, Fels, Zaun oder Wasser, sanft ins Dunkel; keine Kante, Wege laufen davor aus.
 
