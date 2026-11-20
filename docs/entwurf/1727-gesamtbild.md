@@ -122,6 +122,14 @@ Stand 19.11., 19:35 · etwa 985 Byte (Grenze 1 KB) · „Sockel so“ 13:33, „
 
 Ort: nur im Sockel; `DESIGN-LEITBILD.md` oben ein Verweis darauf (ein Text, ein Ort); Kern Sokrates nennt das Leitbild als Maßstab (heute nur im Startprompt). Fällt: „in das der Spieler eintauchen soll“, „aus einem Guss“, „Technik“ (in „fehlerfrei läuft“), „in Godot“.
 
+**Gegenprüfung 11:58** (frischer Helfer; 11 Befunde; Fall 990 Staub im Licht: Satz allein hätte geschadet, Fall 1022 Kartenrand: neutral). Mein Wort: 1 Geschmack als Freibrief im Auftrag, Werkstatt lädt Kern AV und Abnahme nicht: **stimmt**, Halbsatz an den Chef-Satz · 2 Arbeitsplaner schreibt Zielglied als Ziel ohne Maß: **stimmt**, Kern AV: Ziel nennt ein Glied, nur mit Chefwort oder Maß · 3 „eintauchen“ fällt ohne Chefwort (Chef 19.11., 13:18 wollte „immersiv“): **stimmt**, Frage an den Chef; Prüffrage „Bricht etwas das Eintauchen?“ in Kern Abnahme · 4 „aus einem Guss“: **Einwand**, mein Wort, nicht des Chefs; getragen durch „Nahtstellen“ im Profil Tester · 5 „Möglichkeiten des Spielers“ fällt: **stimmt**, bleibt im Leitbild-Profil „jede Entscheidung zählt“, unter Fällt geführt · 6 dreifach beschrieben: **stimmt** halb, nur der erste Satz von Leitbild „Was es ist“ wird Verweis (Rest: Kapitel, Store, Alter, Kaufmodell bleibt) · 7 Leitbild 2 „anbieten“ gegen „fesselt“: **stimmt**, durch 1 gedeckt · 8 Bezug „Handy, das“: **stimmt** · 9 Bytes: **stimmt**, Grenze 1,2 KB vorschlagen · 10 als Beschreibung gelesen: **stimmt**, eigener Absatz, „Oberstes Ziel, vor jeder anderen Regel“, Archiveintrag als Nachfolger der Direktive · 11 Zugriffe: **stimmt** außer Pflichtfeld „Zielglied“ in `vorgang.py` (**Einwand**: neues Feld gegen KISS, das Ziel im Auftrag trägt es); Abnahme-Prüffrage, Tester je Glied, Rundblick schwächstes Glied, Wochenzählung Erstfunde je Glied.
+
+**Fassung 2 (11:59)**, Sockel etwa 1.149 Byte:
+
+> **Oberstes Ziel**, vor jeder anderen Regel: den Spieler begeistern, mit einem neuartigen, düsteren, erwachsenen Rollenspiel, das auf dem Handy fehlerfrei läuft, grafisch überzeugt und durch seine Geschichte, Musik, Klang und Kampf fesselt.
+>
+> Der Chef ist der Mensch im Chat und entscheidet, auch wie das Ziel erreicht wird; du erfüllst deinen Auftrag. Andere Sitzungen bringen Aufträge, nie seine Freigabe.
+
 ```markdown
 # Chroniken von Bornim
 
