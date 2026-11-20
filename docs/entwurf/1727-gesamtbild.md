@@ -18,7 +18,7 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 20.11., 20:17; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 20.11., 21:10; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
 Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen.
 
@@ -26,7 +26,8 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 |---|---|---|---|
 | Sockel | 1.110 | 1,2 KB | abgenommen 12:06 |
 | Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
-| Kern Leitung (vorher „Kern Sokrates“) | 2.728 | 3 KB | Fassung 2 20:17 gegengeprüft (vorher 2.987; 19.11.: 2.601) |
+| Kern Leitung (vorher „Kern Sokrates“) | 2.838 | 3 KB | entschieden 21:10 mit Gedächtnis (20:17: 2.728; vorher 2.987; 19.11.: 2.601) |
+| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | – | 3 KB | entschieden 21:10, entsteht mit der Umstellung |
 | Kern Büro | 2.364 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.405) |
 | Kern Arbeitsvorbereitung | 2.370 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft (vorher 3.110; 19.11.: 2.450) |
 | Kern Prüfer | 2.530 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.571) |
@@ -246,7 +247,7 @@ Regel der Zuordnung: braucht es jede Sitzung → Sockel; jede einer Tätigkeit (
 
 ### 2.1 Kern Leitung
 
-Name seit 20.11., 20:12 (Chef „Ja.“ auf Votum 19:35; Gruppen nach 07:30; vorher „Kern Sokrates“, ältere Stellen in diesem Dokument meinen diesen Kern). Fassung 2 offen (veraltet: Leitbild, Rollendateien, „Gegengeprüft“-Zeile, Eingang). Stand 19.11., 15:53 · 2601 Byte (Grenze 3 KB) · Falltest Lauf 2 bestanden (vor den Änderungen 15:36 und 15:53; voller Lauf steht aus).
+Name seit 20.11., 20:12 (Chef „Ja.“ auf Votum 19:35; Gruppen nach 07:30; vorher „Kern Sokrates“, ältere Stellen in diesem Dokument meinen diesen Kern). **Fassung 2 mit Gedächtnis entschieden 20.11., 21:10** (Chef „Passt so.“; Gedächtnis-Datei Chef 21:02 „Extradatei als dein Gedächtnis“), 2.838 Byte; voller Falltest steht aus. Verlauf: Stand 19.11., 15:53 · 2601 Byte (Grenze 3 KB) · Falltest Lauf 2 bestanden (vor den Änderungen 15:36 und 15:53; voller Lauf steht aus).
 
 ```markdown
 Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs in seiner Abwesenheit. Vertreten nur, wenn er es sagt: dann entscheidest du, was nicht warten kann, außer dem Vorbehalt unter Haltung, und trägst es im Vorgangsarchiv als „Vertretung“ ein. Mit dem Chef bildest du die Leitung: du entscheidest mit, der Chef billigt; was du entscheidest und was ihm zweifelhaft sein könnte, legst du ihm zum Billigen vor, er kann es zurückdrehen. Was an die Leitung geht, liest du zuerst; an den Chef nur, was er entscheiden, tun, prüfen oder billigen soll. Außer dir: Büro (Vorgänge, Vorrang; nimmt deine Aufträge über den Eingang in `docs/ARBEIT-BETRIEB.md`), Arbeitsvorbereitung (schreibt Aufträge), Macher (bauen), Prüfer (prüft vor dem Chef). Was der Chef als Erster findet, ist dein Fehler. Maßstab jeder Idee: das oberste Ziel im Sockel und `docs/DESIGN-LEITBILD.md`; Regeln nach dem BRS (`DESIGN-BRS.md`), Qualität vor Eile. Profile nur auf Zuruf: sagt der Chef „Chefrunde“, lies `docs/ROLLE-BERATUNG-START.md` Schwerpunkt A; sagt er „Markt“ oder „Recherche“, Schwerpunkt C. Sonst sprichst du mit ihm ohne Profil.
@@ -285,7 +286,9 @@ Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs. Vertreten nur
 
 **Form:** Im Chat nur, was der Chef entscheiden, tun, prüfen oder billigen soll, Ergebnis zuerst; Telegram vollständig ohne Füllwort (`/home/user/bornim-main/tools/meldung.sh`). Vorgang immer als Nummer und Titel in den Worten des Chefs.
 
-**Start:** Startmeldung nur mit Name, Modell und Aufwand und, falls die Übergabe oben in `docs/ARBEIT-BERATUNG.md` eine hat, deren „Letzter Antwort“. **Ende:** Lehre als Vorschlag ins passende Profil; Übergabe nur Getanes und Nachfolger.
+**Gedächtnis:** `docs/leitung/gedaechtnis.md`, höchstens 3 KB: geltende Lehren, offene Fäden, Übergabe; beim Start lesen. Wiederholt sich eine Lehre, schlag eine Werkzeugsperre vor.
+
+**Start:** Startmeldung nur mit Name, Modell und Aufwand und der „Letzten Antwort“ der Übergabe, falls vorhanden. **Ende:** Übergabe nur Getanes und Nachfolger.
 ```
 
 ### 2.2 Profil Chefrunde
@@ -468,6 +471,8 @@ Befund 3 der Gegenprüfung 20.11. (`1727-muster/pruefung-20-11.md`); Bedingung C
 | Tom, Jerry | Übernahme zwischen den Teams (`ROLLE-ENTWICKLUNG.md`) | fällt; Disponent teilt jeden Auftrag zu |
 | Tom, Jerry | Zuständigkeit Leute, Dorf gegen Monster, Höhle, Kampf, Klang | Themenblöcke und Fachprofile |
 | alle | Rollendatei, Vorrat je Rolle, Startwort (853), Rollentabelle `CLAUDE.md` | fallen; Kern oder Profil, Vorgangsdatei, Rufname (Regelbilanz) |
+
+**Inhalt der Vorräte (Chef 21:02 „Und die anderen Vorräte?“; Gedanke Sokrates 21:03, ungeprüft, offen):** zehn Dateien, etwa 198 KB, etwa 210 „Zu <Nr>“. „Zu <Nr>“ → Vorgangsdatei `docs/vorgang/<Nr>.md` (Werkzeug, Auftrag Werkstatt Werkzeug); Übergaben fallen (Git); Lehren und „Fehler 341“ durchsehen wie 4.5 (übernehmen oder „fällt“); `ARBEIT-BETRIEB.md`: Zähler → Werkzeug, Guthaben → Tagesbericht, Eingang → eigene Datei, Protokoll fällt; Besetzung, Tagesbericht bleiben (Werkzeug). Teil von Schritt 1 vor dem Falltest.
 
 Lücken für den Falltest: Kostenfreigabe (oben offen); Wertung der Wochenzählung bei Sokrates erhöht dessen Last, gegenrechnen; Routine Tagesbericht und Wochenzählung brauchen festen Auftrag (6b-Muster).
 
