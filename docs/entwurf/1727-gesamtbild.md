@@ -430,7 +430,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 5 | Kataloge | Fach | Fassung 2, 12:56, gegengeprüft 12:55 | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
 | 6 | Welt | Fach | Fassung 2, 13:21, gegengeprüft 13:19 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
 | 7 | Klang | Fach | Fassung 4, entschieden 14:45 | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
-| 8 | Oberfläche | Fach | fehlt | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
+| 8 | Oberfläche | Fach | Fassung 2, 14:50, gegengeprüft 14:48 | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
 | 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
 | 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
 | 11 | Werkzeug | Fach | fehlt | `LISTE-BETRIEB.md`, Bauliste 7 |
@@ -608,7 +608,7 @@ Gemessen 14:12: Fassung 3 hat 1.597 Byte (nicht 1.250); Sitzung mit Profil Klang
 **Beleg.** Hörprobe auf Telegram, nie APK; Klang zur Bewegung als Film mit Ton; Pegel als Zahl; `klang_test.gd` grün.
 ```
 
-**Nr. 8 Profil Oberfläche** (Entwurf Sokrates 20.11., 14:47, Gegenprüfung läuft; Themenblock E Oberfläche: Menüs, Fenster, Bedienung, Schrift; kurz und verständlich nach Chef 13:55 und 14:02). Quelle: `DESIGN-STIL.md` „Spielerfreundlich“ (vier Fragen), „Oberfläche“, „Fenster und Schirme ohne Kasten“ (549a), „Zeichen“ (326, 426); `DESIGN-BLENDE.md`; `LISTE-ABGLEICH-OBERFLAECHE.md` Kopf (785, alte Fassung Untergrenze); `CLAUDE.md` (nie Werbung, Beutekisten, Warten gegen Geld); Gesamtbild 1a (Leitbild 3 und 13).
+**Nr. 8 Profil Oberfläche** (Fassung 2, 20.11., 14:50, gegengeprüft 14:48; Themenblock E Oberfläche: Menüs, Fenster, Bedienung, Schrift; kurz und verständlich nach Chef 13:55 und 14:02). Quelle: `DESIGN-STIL.md` „Spielerfreundlich“ (vier Fragen), „Oberfläche“, „Fenster und Schirme ohne Kasten“ (549a), „Zeichen“ (326, 426); `DESIGN-BLENDE.md`; `LISTE-ABGLEICH-OBERFLAECHE.md` Kopf (785, alte Fassung Untergrenze); `CLAUDE.md` (nie Werbung, Beutekisten, Warten gegen Geld); Gesamtbild 1a (Leitbild 3 und 13).
 
 ```markdown
 **Oberfläche.** Lade dazu Figur und Prüfbild. Regeln: `docs/DESIGN-STIL.md` „Oberfläche“ mit „Fenster und Schirme ohne Kasten“ und „Zeichen“; Blende, Vorspann, Hauptmenü in `docs/DESIGN-BLENDE.md`. Baue nur mit den Bausteinen in `godot/skripte/spielstaende.gd` und den Farben in `stil.gd`. Die alte Fassung ist die Untergrenze: `docs/LISTE-ABGLEICH-OBERFLAECHE.md`, Urteil je Zeile nachtragen.
@@ -616,6 +616,18 @@ Gemessen 14:12: Fassung 3 hat 1.597 Byte (nicht 1.250); Sitzung mit Profil Klang
 **Bedienung.** Vor jeder Änderung an Bedienung oder Ablauf die vier Fragen aus „Spielerfreundlich“ (Freiheit, wenige Schritte, bekannte Bedienung, Wachstum), Antworten in die Rückmeldung. Zeichen statt Text. Nie Werbung, Beutekisten, Warten gegen Geld.
 
 **Beleg.** Bild auf 360 dp Breite: nichts überlappt, Schrift mindestens 13 sp, Tippfläche mindestens 48 dp, Maßtest `gruppe_mass_557` grün; alt gegen neu nebeneinander. Bedienen (Tippen, Ziehen, Zurück) am Handy.
+```
+
+**Gegenprüfung 14:48** (frischer Helfer; 8 Befunde; Fälle Lichthof Rast nicht sicher gefunden, Textwände vermieden ohne Maß, 618 vermieden, 842 Gespräch nicht, 630 nur im Bild). Mein Wort: 1 `ANGABE`, `MANGEL` in `spielstaende.gd`, DESIGN-STIL Zweig-Satz veraltet: **stimmt**, Satz berichtigen 1757 (Homer) · 2 Maßtest misst nur Gruppe 557: **stimmt**, neuer Schirm hinein · 3 Figur und Prüfbild nur halb passend: **stimmt**, nur Bildregeln · 4 Leitbild 13 Wortlaut, Kaufmodell: **stimmt** für Wortlaut; „Kaufmodell nie ins Repo“ gehört in Kern Sokrates (nur Leitung kennt es), nicht in ein Werkstattprofil · 5 Weiter und Zurück, auch im Gespräch (557, 618, 842): **stimmt** halb, **Einwand** zur Lage links/rechts im Gespräch: Gesprächskasten ist von der Regel ausgenommen, Aussehen entscheidet der Chef; nur „sichtbar“ · 6 Lichthof und Umbruch als Prüffragen: **stimmt** · 7 Klammer, „Urteil je Zeile“ unklar: **stimmt**; „Handy streichen“: **Einwand**, 1170 und `LISTE-CHECK-BUILD-TEST.md` 9: Bedienen ist genau, was am Handy geprüft wird · 8 Bestätigtes: **stimmt**.
+
+**Fassung 2 (14:50)**, etwa 1.000 Byte:
+
+```markdown
+**Oberfläche.** Regeln: `docs/DESIGN-STIL.md` „Oberfläche“, „Fenster und Schirme ohne Kasten“, „Zeichen“; Blende, Vorspann, Hauptmenü in `docs/DESIGN-BLENDE.md`. Baue nur mit Bausteinen und Farbnamen aus `godot/skripte/spielstaende.gd` und `stil.gd`. Die alte Fassung ist die Untergrenze: Zeile in `docs/LISTE-ABGLEICH-OBERFLAECHE.md` suchen, Urteil eintragen.
+
+**Bedienung.** Vor jeder Änderung an Bedienung oder Ablauf die vier Fragen aus „Spielerfreundlich“; Antworten in die Rückmeldung. Menüeintrag: Zeichen mit ein bis zwei Wörtern. Jede Wahl zeigt sichtbar, wie es weiter und zurück geht, auch im Gespräch. Nie Werbung, Beutekisten, Wartezeit; Käufe drängen sich nie auf.
+
+**Beleg.** Jeder geänderte Schirm als Bild auf 360 dp, alt gegen neu, nach den Bildregeln aus Figur und Prüfbild. Neuer Schirm in den Maßtest `gruppe_mass_557`, grün. Grund rein schwarz, ohne Lichthof? Nichts umgebrochen oder abgeschnitten, auch der Held nicht? Tippen, Ziehen, Zurück am Handy.
 ```
 
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
