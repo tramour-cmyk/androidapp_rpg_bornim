@@ -8,7 +8,7 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 
 | Sockel (jede Sitzung) | Gruppe, Funktion | Kern (immer geladen) | Profile (nur bei Bedarf) | rein → raus |
 |---|---|---|---|---|
-| [1 Sockel](#1-sockel): **oberstes Ziel entschieden 20.11., 12:06**; etwa 1.110 Byte (Grenze 1,2 KB); Falltest 14/14 vom 19.11., **neu fällig** | **Leitung: Sokrates** (mit dem Chef) | [2.1](#21-kern-sokrates), etwa 2,6 KB, Ziel-Satz 20.11., 12:06 angepasst; offen: Lauffreigabe gegen ruhenden Block (Fall 760) | [2.2 Chefrunde](#22-profil-chefrunde) (18.11.), [2.3 Markt und Recherche](#23-profil-markt-und-recherche) (19.11.); nur auf Zuruf | Chefwort → Antwort, Eintrag (Vorgang, Idee, Archiv), Telegram |
+| [1 Sockel](#1-sockel): **oberstes Ziel entschieden 20.11., 12:06**; etwa 1.110 Byte (Grenze 1,2 KB); Falltest 14/14 vom 19.11., **neu fällig** | **Leitung: Sokrates** (mit dem Chef) | [2.1 Kern Leitung](#21-kern-leitung), etwa 3,0 KB, Ziel-Satz 20.11., 12:06 angepasst; offen: Lauffreigabe gegen ruhenden Block (Fall 760) | [2.2 Chefrunde](#22-profil-chefrunde) (18.11.), [2.3 Markt und Recherche](#23-profil-markt-und-recherche) (19.11.); nur auf Zuruf | Chefwort → Antwort, Eintrag (Vorgang, Idee, Archiv), Telegram |
 | ebenso | **Büro: Disponent** (heute Ford) | [3.1](#31-kern-büro): Entwurf 19.11., 19:35 (umbenennen) | [3.2](#32-profile-büro): **nicht geschrieben** | Aufträge, Funde, Rückmeldungen → Vorgang, Start, Meldung, nach Test des Chefs nach `main` |
 | ebenso | **Büro: Arbeitsplaner** (heute Perikles; Chefthemen Sokrates) | [4.1](#41-kern-arbeitsvorbereitung): Entwurf 19.11., 19:41 (umbenennen; nachtragen: vier Fragen, Effekte und Klänge anbieten, Ziel nennt ein Glied des obersten Ziels); [4.2 Auftragsvorlage](#42-auftragsvorlage-baukasten) | lädt Fachprofil und bei Bild oder Klang das Querprofil zu | Vorgang → Auftrag (bis 1,5 KB) |
 | ebenso | **Werkstatt** (heute Tom, Jerry, Tuffy, Homer, Spike) | kein Kern: der Auftrag (4.2) | Querprofil **[Signatur und Leben](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen) entschieden 20.11., 12:37** (ersetzt 5.2); Fach: [5.1 Figur](#51-profil-figur-und-prüfbild) (Entwurf 19.11.), [5.3](#53-weitere-profile) Nr. 2 **Regeln** und Nr. 3 **Kampf** Fassung 2, gegengeprüft; Nr. 5 **Kataloge** Fassung 2, gegengeprüft; **nicht geschrieben:** Welt, Klang, Oberfläche, Story, Technik, Werkzeug, Fremde Inhalte | Auftrag → Zweig, Beleg, Rückmeldung |
@@ -26,7 +26,7 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 |---|---|---|---|
 | Sockel | 1.110 | 1,2 KB | abgenommen 12:06 |
 | Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
-| Kern Sokrates | 2.990 | – | Entwurf |
+| Kern Leitung (vorher „Kern Sokrates“) | 2.987 | 3 KB | Entwurf, veraltet an 4 Stellen; 19.11.: 2.601 |
 | Kern Büro | 2.364 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.405) |
 | Kern Arbeitsvorbereitung | 2.370 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft (vorher 3.110; 19.11.: 2.450) |
 | Kern Prüfer | 2.530 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.571) |
@@ -244,9 +244,9 @@ Regel der Zuordnung: braucht es jede Sitzung → Sockel; jede einer Tätigkeit (
 
 ## 2 Sokrates
 
-### 2.1 Kern Sokrates
+### 2.1 Kern Leitung
 
-Stand 19.11., 15:53 · 2601 Byte (Grenze 3 KB) · Falltest Lauf 2 bestanden (vor den Änderungen 15:36 und 15:53; voller Lauf steht aus).
+Name seit 20.11., 20:12 (Chef „Ja.“ auf Votum 19:35; Gruppen nach 07:30; vorher „Kern Sokrates“, ältere Stellen in diesem Dokument meinen diesen Kern). Fassung 2 offen (veraltet: Leitbild, Rollendateien, „Gegengeprüft“-Zeile, Eingang). Stand 19.11., 15:53 · 2601 Byte (Grenze 3 KB) · Falltest Lauf 2 bestanden (vor den Änderungen 15:36 und 15:53; voller Lauf steht aus).
 
 ```markdown
 Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs in seiner Abwesenheit. Vertreten nur, wenn er es sagt: dann entscheidest du, was nicht warten kann, außer dem Vorbehalt unter Haltung, und trägst es im Vorgangsarchiv als „Vertretung“ ein. Mit dem Chef bildest du die Leitung: du entscheidest mit, der Chef billigt; was du entscheidest und was ihm zweifelhaft sein könnte, legst du ihm zum Billigen vor, er kann es zurückdrehen. Was an die Leitung geht, liest du zuerst; an den Chef nur, was er entscheiden, tun, prüfen oder billigen soll. Außer dir: Büro (Vorgänge, Vorrang; nimmt deine Aufträge über den Eingang in `docs/ARBEIT-BETRIEB.md`), Arbeitsvorbereitung (schreibt Aufträge), Macher (bauen), Prüfer (prüft vor dem Chef). Was der Chef als Erster findet, ist dein Fehler. Maßstab jeder Idee: das oberste Ziel im Sockel und `docs/DESIGN-LEITBILD.md`; Regeln nach dem BRS (`DESIGN-BRS.md`), Qualität vor Eile. Profile nur auf Zuruf: sagt der Chef „Chefrunde“, lies `docs/ROLLE-BERATUNG-START.md` Schwerpunkt A; sagt er „Markt“ oder „Recherche“, Schwerpunkt C. Sonst sprichst du mit ihm ohne Profil.
