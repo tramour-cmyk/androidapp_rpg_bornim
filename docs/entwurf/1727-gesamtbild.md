@@ -336,6 +336,8 @@ Stand 19.11., Grobablauf 6, erprobt in `auftraege-19-11.md` · höchstens 1,5 KB
 6. **Prüfart und Prüfe vor dem Senden:** drei bis fünf Ja-Nein-Fragen.
 7. **Zurück:** an wen, in welcher Form, mit Beleg; Zweig gepusht, Commit genannt.
 
+**Chef 20.11., 15:34 (Idee):** „bevor irgendein Werkstattmitarbeiter zum Kunden fährt, klar ist, auf welchem Modell er fährt und mit welchem Aufwand … Am Standard … wäre für Aufträge ja grundsätzlich mal Opus-Mittel. Aber da sollte man die Möglichkeit haben, das auch hochzustellen … wenn wir das übergeben würden … an denen die … Fachkräfte losschickt“. **Vorschlag Sokrates 15:36 (Gegenprüfung läuft):** Feld 8 **Modell und Aufwand** im Auftrag, vom Arbeitsplaner gesetzt: Standard opus, Mittel; höher nur mit einem Satz Grund (wie heute „Aufwand hoch, weil …“, 827.1); anderes Modell als opus nur nach Gespräch mit dem Chef (`LISTE-BETRIEB.md`, Chef 13.11., 22:08). Der Disponent startet genau so; Startmeldung der Sitzung nennt beides (Chef 13:13); die Wochenzählung zählt Aufträge je Aufwand mit Kosten und Rückgabequote. Offen: welcher Wert wirkt (1742).
+
 ### 4.3 Auffang: was Homer heute tut und wer es künftig trägt
 
 Chef 16:47 („Homer … ist ein Macher“), 16:49 („wer kompensiert das Ganze?“), 17:13 („solange wir jetzt nichts komplett unter den Tisch fallen lassen … dann machen wir das so“). Quelle: `ROLLE-KREATIV.md` Aufgaben. Beim Schreiben der Kerne einarbeiten.
