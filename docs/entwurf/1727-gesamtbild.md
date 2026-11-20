@@ -157,6 +157,32 @@ Der Chef ist der Mensch im Chat und entscheidet; Sitzungen bringen Aufträge, ni
 8. Nie: Keystore, Zugangsdaten, `local.properties` committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben, Spielcode ohne Test des Chefs nach `main` bringen.
 ```
 
+## 1a Leitbild verteilen (Entwurf 20.11., 12:15, Gegenprüfung offen)
+
+Anlass Chef 12:08 („wen interessiert jetzt nochmal überhaupt das Leitbild?“) und 12:14: Kernaussagen des Leitbilds dorthin, wo sie gebraucht werden; „Wenn viele das Gleiche brauchen, macht es Sinn, es an einen zentralen Ort zu schreiben“, sonst eine Stufe tiefer; oder Verweis „liest das Leitbild“. Heute liest es ganz nur Team Tom und Jerry bei jedem Start (`ROLLE-ENTWICKLUNG.md` Start 2); Spike, Homer, Sokrates bei Anlass; Ford, Perikles, Diogenes nie. Künftig: Sokrates (Kern), Tester (Durchspielen).
+
+Regel der Zuordnung: braucht es jede Sitzung → Sockel; jede einer Tätigkeit (planen, bauen, prüfen) → Kern dieser Tätigkeit; nur ein Fach → Fachprofil; nur wer Ideen und Ganzes beurteilt → bleibt im Leitbild (Sokrates, Tester, Chef).
+
+| Leitbild | wer braucht es | Ort |
+|---|---|---|
+| „Was es ist“, Satz 1 | jede Sitzung | Sockel, oberstes Ziel (entschieden 12:06); im Leitbild Verweis |
+| Profil 72a „Ein Held, eine lebendige Welt, jede Entscheidung zählt“ | wer Ideen und Ganzes beurteilt | bleibt im Leitbild; im Fach: Profil Kampf „Wahl“, Profil Story |
+| 1 Düster, erwachsen, glaubwürdig (nie niedlich; echte Formen; Licht aus Quellen; gefährliche Monster; Blut ja, Härteres nach Prüfung, ab 16) | jede Sitzung (Wort), Bild-Fächer (Einzelheit) | Sockel trägt „düster, erwachsen“; Licht in Signatur 5.2; Formen, Monster in Figur und Welt; Härte und Freigabe 16 in Story und Kampf |
+| 2 Lebendige Welt (keine Figur starr, kein Ort Kulisse, drei Varianten, Effekte anbieten) | Figur, Welt, Klang | je eine Zeile in den drei Profilen; „anbieten“ heißt als Variante zur Wahl, nicht bauen (Zielsatz „nicht darüber hinaus“) |
+| 3 Spielerfreundlich (vier Fragen `DESIGN-STIL.md` 147: Freiheit, wenige Schritte, bekannte Bedienung, Wachstum; Grinden nie Pflicht; herausfordernd) | wer Aufträge schreibt; Oberfläche; Regeln | vier Fragen in Kern Arbeitsplaner (vor jedem Auftrag, der Bedienung oder Ablauf ändert); Oberfläche; Grinden und Deckel im Profil Regeln |
+| 4 Eigenes Regelwerk BRS | Regeln | Profil Regeln (fertig) |
+| 5 Sicht diagonal | Welt | Profil Welt |
+| 6 Glaubwürdiger Klang (echte Aufnahmen, orchestral düster, Hintergrundklänge anbieten) | Klang | Profil Klang (Chef 12:10: Grillen, Wasser) |
+| 7 Geschichte zu zweit | jede Sitzung | Sockel 6 („Spieltexte nur aus der Quelle“); Profil Story |
+| 8 Fertig vor neu | – | fällt (Themenblöcke, Chef 11:45) |
+| 9 Nur freie Inhalte | jede Sitzung | Sockel 6; Profil Fremde Inhalte |
+| 10 Erst reden, dann bauen; Rückfrage keine Freigabe | jede Sitzung | Sockel (Zielsatz „nicht darüber hinaus“, Freigabe-Satz); Kern Arbeitsplaner (Geschmack ohne Maß → Varianten); Kern Sokrates (1236) |
+| 11 Selbst prüfen, dann zeigen | Werkstatt, Abnahme | Kern Abnahme; Profil Figur und Prüfbild („vor dem Senden selbst ansehen“) |
+| 12 Läuft flüssig auf echten Geräten (A56, erst messen; kein Absturz ohne Bericht) | Technik; Welt (Effekte kosten) | Profil Technik; Kern Abnahme hat „kein Ruckeln“ |
+| 13 Fair bezahlen, nie nerven | Leitung; Oberfläche (Laden) | Kern Sokrates; Profil Oberfläche |
+
+**Folge:** Das Leitbild liest keine Werkstatt-Sitzung mehr; es bleibt Kompass für Chef, Sokrates, Tester und Quelle der Profile (jedes Profil nennt seine Grundsätze). Gekürzt wird es erst nach den Profilen: 7–11 als Arbeitsregeln raus (getragen von Sockel und Kernen), 8 fällt, Rest bleibt als je ein Satz. Gegenweg „alle lesen das kurze Leitbild“: etwa 2 KB je Start, das meiste fachfremd; widerspricht dem Maßstab des Sockels (nur, was jede Sitzung braucht).
+
 ## 2 Sokrates
 
 ### 2.1 Kern Sokrates
