@@ -429,7 +429,7 @@ Stand 19.11., 13:27 (Chef 13:27, Quelle `DESIGN-STIL.md` Signatur 1, 2, A2) · g
 | 4 | Figur und Prüfbild | Fach | Entwurf 5.1 | `LISTE-HANDWERK-FIGUR-PRUEFBILD.md` |
 | 5 | Kataloge | Fach | Fassung 2, 12:56, gegengeprüft 12:55 | `LISTE-FIGURENKATALOG-649.md`, `LISTE-GEGENSTAENDE.md`, `LISTE-BESTIARIUM.md` |
 | 6 | Welt | Fach | Fassung 2, 13:21, gegengeprüft 13:19 | `DESIGN-STIL.md`, `LISTE-ABGLEICH-ALT.md`, `LISTE-EFFEKTE.md`; Signatur 5.2 |
-| 7 | Klang | Fach | fehlt | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
+| 7 | Klang | Fach | Fassung 2, 13:48, gegengeprüft 13:46 | `LISTE-KLANG-ALT-NEU.md`, `DESIGN-STIL.md` Klang; Leitbild 2 und 6 (Chef 20.11., 12:10: Klänge der Welt sind auch Effekte, „Zirpen der Grillen, das Plätschern des Wassers … wichtig ist, dass es drin ist“) |
 | 8 | Oberfläche | Fach | fehlt | `LISTE-ABGLEICH-OBERFLAECHE.md`, `DESIGN-BLENDE.md` |
 | 9 | Story (Werkstatt Text) | Fach | fehlt | `STORY-REGELN.md`, 4.3 |
 | 10 | Technik (mit Build) | Fach | fehlt | `LISTE-CHECK-BUILD-TEST.md`, `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md`, Build-Kette |
@@ -540,7 +540,7 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Beleg.** „Ort fertig“ 1–9 je ein Wort; Bild über den Rand; Tag, Nacht, jede berührte Grafikstufe; Bilder/s nie schlechter.
 ```
 
-**Nr. 7 Profil Klang** (Entwurf Sokrates 20.11., 13:44, Gegenprüfung läuft; Themenblock Klang; geladen mit Signatur und Leben, dessen Absatz „Klang“ (was da ist, echte Aufnahmen, Varianten, Systemklang einmal) hier nicht doppelt). Quelle: `DESIGN-STIL.md` „Klang“ und Klanglogo; `LISTE-KLANG-ALT-NEU.md` Kopf; `DESIGN-ABNAHME.md` „Ort fertig“ 8; Leitbild 6; Chef 20.11., 12:10 (Grillen, Wasser, „wichtig ist, dass es drin ist“).
+**Nr. 7 Profil Klang** (Fassung 2, 20.11., 13:48, gegengeprüft 13:46; Themenblock Klang; geladen mit Signatur und Leben, dessen Absatz „Klang“ (was da ist, echte Aufnahmen, Varianten, Systemklang einmal) hier nicht doppelt). Quelle: `DESIGN-STIL.md` „Klang“ und Klanglogo; `LISTE-KLANG-ALT-NEU.md` Kopf; `DESIGN-ABNAHME.md` „Ort fertig“ 8; Leitbild 6; Chef 20.11., 12:10 (Grillen, Wasser, „wichtig ist, dass es drin ist“).
 
 ```markdown
 **Klang.** Lade dazu Signatur und Leben. Es gilt `docs/DESIGN-STIL.md` „Klang“. Stand je Anlass alt gegen neu: `docs/LISTE-KLANG-ALT-NEU.md`; neuer Fund dort eine Zeile.
@@ -552,6 +552,22 @@ Chef 20.11., 08:21: „Bei mir hier in der Firma haben wir auch eine Katalogreda
 **Quelle.** Erst Bestand (`docs/LISTE-BESTAND.md`), dann CC0-Aufnahme, erzeugt nur, wo sich nichts findet; Quelle, Urheber, Lizenz je Datei. Klänge je Figur und Anlass in den Daten (`kampfklang.json`, Katalog), nie verstreut im Code.
 
 **Beleg.** Hörprobe je Variante, alt gegen neu; Lautstärke gegen die Nachbarklänge; im Spiel an Ort und Tageszeit.
+```
+
+**Gegenprüfung 13:46** (frischer Helfer; 10 Befunde; Fälle 598 Schänke ohne Gäste nicht vermieden, 401/402 Geschmack, Weg Hörprobe gedeckt, 786/939 vermieden nur mit gepflegter Liste). Mein Wort: 1 `LISTE-BESTAND.md` hat keinen Klang, Nachweis in `tools/klang/QUELLEN.md`: **stimmt** · 2 „nie verstreut im Code“ heute falsch (Tabellen in `klang.gd`): **stimmt**, Übergang wie Kataloge · 3 DESIGN-STIL ohne 119, 120, D3a, 598; „SOUNDS=“ veraltet: **stimmt**, Nummern ins Profil; Nachtrag als Fund in `LISTE-KLANG-ALT-NEU.md` (Werkzeug verweist auf Querschnitt 786, keine neue Zeile) · 4 Beleg gegen 1170 (Klang nie in APK): **stimmt** · 5 Lautstärke Geschmack: **stimmt**, Pegel als Zahl · 6 Werkzeuge fehlen: **stimmt** · 7 Liste alt gegen neu Stand 11.11.: **stimmt**, Fund dort · 8 Doppelungen: **stimmt** · 9 Lizenz CC0 stimmt: **stimmt** · 10 Bestätigtes: **stimmt**.
+
+**Fassung 2 (13:48)**, etwa 1.120 Byte:
+
+```markdown
+**Klang.** Lade dazu Signatur und Leben. Es gilt `docs/DESIGN-STIL.md` „Klang“ (außer „SOUNDS=“) und Entschiedenes im Archiv: Raumklang 119, Musik in Schichten 120, Ortsklang im Kampf D3a. Stand alt gegen neu: `docs/LISTE-KLANG-ALT-NEU.md`; Gebautes nach „Gleich“, Neues eine Zeile.
+
+**Musik.** Orchestral, düster, getragen; nie E-Gitarre, Rock, Metal, Chiptune. Dorf mittelalterlich. Klanglogo bleibt Probe 5.
+
+**Umwelt.** Unsichtbares nach „Ausnahme Umweltklang“: zu Ort, Tageszeit, Geschichte; selten, leise, aus einer Richtung. Klang einer Handlung kommt mit der Bewegung und nur, wenn die Figur da ist.
+
+**Quelle.** Erst `tools/klang/QUELLEN.md`, dann CC0-Aufnahme, erzeugt nur, wo sich nichts findet; je Datei dort eine Zeile, gebaut mit Skript in `tools/klang/`. Kampf- und Stimmklang je Art in `godot/daten/klang/kampfklang.json`; keine neue Klangliste im Code.
+
+**Beleg.** Auswahl als Hörprobe auf Telegram, nie in einer APK; Klang zur Bewegung als Film mit Ton; am Bedienen (Tippen, Ring) Handy. Pegel vorher und nachher als Zahl. `klang_test.gd`, `figurenpruefung.py --pruefen` grün.
 ```
 
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
