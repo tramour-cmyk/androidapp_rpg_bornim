@@ -664,6 +664,20 @@ Chef 15:26–15:31 zum Handy: Quelle ist 1128 A (13.11., 13:36, Handy für Ablau
 
 **Chef 16:33:** „Woher wusste denn Homer, wie er zu schreiben hatte und wie er an die Story anknüpft? … nachgucken, was wir bei dem Homer geschrieben hatten … damit … nicht zu viel verloren geht“. Befund 16:33 (`ROLLE-KREATIV.md`): fürs Profil Story Fäden halten (Kult mit weitergegebenem Titel; „sieben Kapitel“ widerspricht „ohne feste Zahl“), Kapitel 2 Hinweise doppelt, Anreiz statt Pfeil, zweiter Weg; keine Wegweiser, Spieler erwachsen; Wahl gegen Knopf im Code; Muster sofort festschreiben; Kapitel-1-Texte teils nur in `Story.kt`/`Jobs.kt`. Andere Profile: Leveldesign (Welt), Ideen (Disponent). Korrektur zu 16:29: Spalte „Charakter“ in `LISTE-FIGUREN.md` („Dialoge und Gesten folgen ihm“) gibt es; Sprechweise fehlt. Gegenprüfung läuft.
 
+**Gegenprüfung 16:35/16:36** (frischer Helfer, 30 Befunde, gegen Story-Dateien, `LISTE-FIGUREN.md`, Bauplan 649, Leitbild, `ROLLE-KREATIV.md`). Mein Wort: Verzeichnis unvollständig, `Story.kt`/`Jobs.kt` gibt es nicht mehr, Texte in `geschichte.gd` und `texte.json`: **stimmt** · „sieben Kapitel“ (`ROLLE-KREATIV.md` 7, 29, 65; `STORY-ROTER-FADEN.md` 4) gegen „ohne feste Zahl“: **stimmt**, Vorgang Homer · Nebenquests legen Fäden (Gwennas Ring): **stimmt** · Vorausdeuten ja, erklären nein: **stimmt** · drei Wortlaute fehlten: **stimmt** · Englisch, Spielnamen nur Verweis: **stimmt** · „kurz, zeigen statt erklären“ ohne Quelle: **stimmt**, raus · Kopf `LISTE-FIGUREN.md` „einzige Quelle fürs Aussehen“: **stimmt**, Folgeauftrag · Sprechweise später Freitextfeld im Katalog: **stimmt** · Fäden und Titel, Hinweise doppelt, Anreiz statt Pfeil, zweiter Weg, Wegweiser, Wahl gegen Knopf fehlten: **stimmt**, eingebaut · Muster festschreiben ins Büro, im Profil „abgenommene Szenen sind das Maß“: **stimmt** · Wegweiser auch im Profil Welt fehlt: **stimmt**, Welt ist entschieden (Archiv 13:51), nur mit Wort des Chefs · übrige Lücken aus 4.3 (Begründungen, Kosten je Bildvorschlag, `story.sh`, „Fragen ohne Zuruf“): **stimmt**, in 4.5 (Abgleich aller Rollendateien, läuft).
+
+**Fassung 3 (16:37)**, etwa 1.300 Byte:
+
+```markdown
+**Geschichte.** Roter Faden: `docs/STORY-ROTER-FADEN.md`, Handlung: `docs/STORY-PLAN.md`. Jeder Text knüpft an die offenen Fäden an; jedes Kapitel deckt ein Stück auf und lässt eine neue Frage offen. Die Hauptquest trägt den Faden, Nebenquests zeigen Dorf und Leute und dürfen einen Faden anlegen. Vorausdeuten ja, erklären nein: kein Text verrät mehr, als der Held wissen kann. Kein Text zeigt den Weg, den man finden kann; wichtige Hinweise aus zwei Quellen, Anreiz statt Pfeil, wo es geht zwei Wege.
+
+**Stimme.** Düster, erwachsen, glaubwürdig, nie niedlich. Jede Figur spricht nach ihrer Sprechweise in `docs/LISTE-FIGUREN.md`; ihre bisherigen Zeilen findest du über die Marke. Fehlt die Sprechweise oder widerspricht sie den Zeilen: Befund, nicht selbst festlegen. Was man öfter hört, braucht drei Wortlaute (`docs/STORY-VARIANTEN-K1.md`). Abgenommene Szenen sind das Maß.
+
+**Wo.** Regeln, Namen, Verzeichnis: `docs/STORY-REGELN.md`; Kapitel 2: `docs/kapitel2/`; Texte im Spiel: `godot/skripte/geschichte.gd`, `godot/daten/texte.json`. Schreibe nur in die Teildatei des Auftrags, jeder Text mit Marke `[Thema.kurz]` und Bedingung, Entwurf bis zum Wort des Chefs. Zahlen als Platzhalter; jede Wahl nennt nur Knöpfe, die es im Spiel gibt, neue als Befund.
+
+**Beleg.** Deutsch und Englisch nebeneinander, unsichere englische Stellen markiert; Widerspruch zu Plan, Namen oder BRS als Befund; je Auftrag eine eigene Idee.
+```
+
 **Nicht geschrieben** (Fachprofile je Themenblock, Chef 12:24): Regeln · Kampf · Kataloge · Welt · Klang · Oberfläche · Story · Technik · Werkzeug; quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`).
 
 ## 6 Prüfer
