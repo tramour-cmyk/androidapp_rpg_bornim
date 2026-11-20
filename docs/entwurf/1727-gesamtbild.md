@@ -14,6 +14,7 @@ Stand der Datei: 19.11., 16:43.
 | ebenso | **Macher** (heute Tom, Jerry, Tuffy, Homer, Spike; Tuffy fehlte, Chef 22:23) | kein Kern: der Auftrag (4.2) | [5.1 Figur und Prüfbild](#51-profil-figur-und-prüfbild) (Stand 19.11., 07:19), [5.2 Signatur](#52-profil-signatur-im-bild) (Stand 13:27); [5.3](#53-weitere-profile): neun **nicht geschrieben** | Auftrag → Zweig, Beleg, Rückmeldung |
 | ebenso | **Prüfer** (heute Diogenes) | [6.1](#61-kern-prüfer): Fassung 3b, 19.11., 22:51, Falltest 8/9 (3b nicht erneut gelaufen) | Prüfarten Bild und Film, Test und Code, Text: **nicht geschrieben** | Auftrag und Ergebnis → ja (über Büro zum Chef), nein (neuer Macher), 2. Nein (Sokrates) |
 | ebenso | **Rundblick** (neu, 1734, Name offen) | kein Kern | [6b](#6b-rundblick-1734-arbeitsname): **nicht geschrieben**, wöchentlich | Schwächen der Woche, Stand draußen → höchstens drei Vorschläge als Vorgang |
+| ebenso | **Tester** (neu, Chef 20.11., 07:13; nicht „Prüfer“) | kein Kern | [6c](#6c-tester-1727): **nicht geschrieben** | Testaufgabe oder Durchspielen → Befunde als Sachverhalte |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
 ## 0a Ordnung der Arbeit: Themenblock, Vorgang, Auftrag
@@ -296,6 +297,10 @@ Chef 20.11., 06:46–07:03: eigenes Profil, keine Person, nicht in der Chefrunde
 **Ungeprüfter Entwurf (Sokrates 07:05, Gegenprüfung ab Sa 21.11., 20:00):** von innen nach außen: Eingang die drei teuersten Schwächen der Woche (Wiederholfunde, Funde des Chefs zuerst, teuerste Vorgänge), dann wie andere genau das lösen; höchstens drei Vorschläge je Lauf, je Schwäche, Quelle, kleine Probe, Kosten, Maß; jeder Vorschlag wird Vorgang „Von Rundblick“ beim Besitzer (Technik: Spike). Nachhalten: nach vier Läufen Anteil umgesetzt und Wirkung auf Wiederholfunde und Kosten; zu wenig → Profil weg. Offen: Abgrenzung zu 2.3 Markt und Recherche; wer startet (Büro, Wochentakt); Kostengrenze je Lauf; Katalog „Art“ (heute Nachstellen, Bauen, Nachbessern, Varianten, Build) kennt weder „Probe“ (neue Technik an einem Beispiel, Maß vorher/nachher) noch „Recherche“ (Lauf des Rundblicks); Chef 07:06: „ich weiß nicht, ob es da schon sowas gibt wie Probe“ → mit Katalog-Befund ab 21.11., 20:00.
 
 Erster Fall (07:03, Chef: „unbedingt einen Vorgang“): 1735 Federknochen für losen Stoff bei Spike; Systemfrage Umhang 1736 (19 frühere Vorgänge) wartet darauf.
+
+## 6c Tester (1727)
+
+Chef 20.11., 07:13 auf Gedanke Sokrates 07:11 (niemand spielt Kapitel 1 als Ganzes): „ein Tester … Den kann man dann spezielle Testaufgaben geben oder halt dann sagen, ja, teste das ganze Ding durch und auch dann eben sein Profil wiederum schärfen, worauf der gucken soll … aber nenn es nicht Prüfer.“ Eigenes Profil, kein Kern (Sockel, Auftrag, Profil). **Nicht geschrieben.** Ungeprüfter Entwurf (Sokrates): Aufträge „Testaufgabe“ (einzelner Ablauf) oder „Durchspielen“ (Kapitel 1 gegen Abnahmeliste und Leitbild); meldet Sachverhalte (Weg blockiert, Text fehlt, Kampf zu kurz), Spielgefühl urteilt der Chef; Bestand 26.1 Durchspielbogen. Offen: Takt (je Build, wöchentlich), Katalogwerte der Art, Abgrenzung zum Prüfer; Gegenprüfung ab 21.11., 20:00.
 
 ## 7 Werkzeuge, die Regeln tragen
 
