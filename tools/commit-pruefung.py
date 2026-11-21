@@ -449,12 +449,22 @@ def veraltet():
     if not alte: return []
     kopf = git("rev-parse", "HEAD").strip()
     alte = [c for c in dict.fromkeys(alte) if c != kopf]
-    aus = []
+    aus, seit = [], {}
+    def veraltet_seit(c, p):
+        """1786: Löschen zählt nur als Rückfall, wenn der Index keine Datei kennt, die sich seit c geändert hat (Bild eines
+        veralteten Index). Sonst gleicht ein gewolltes Löschen bloß einem Stand, in dem die Datei noch fehlte."""
+        if c not in seit: seit[c] = [q for q in git("diff", "--name-only", "--no-renames", c, "HEAD").splitlines() if q.strip()]
+        andere = [q for q in seit[c] if q != p]
+        if not andere and p.startswith("docs/chefsache/"): return False  # beantwortete Chefsache: ohne weiteren Beleg kein Rückfall
+        return all(_blob("", q) != _blob("HEAD", q) for q in andere)
     for l in git("diff", "--cached", "--name-only", "--no-renames", "HEAD").splitlines():
         p = l.strip()
         if not p: continue
         ix, hd = _blob("", p), _blob("HEAD", p)
-        if ix != hd and any(_blob(c, p) == ix for c in alte): aus.append(p)
+        if ix == hd: continue
+        if ix: treffer = any(_blob(c, p) == ix for c in alte)
+        else: treffer = any(not _blob(c, p) and veraltet_seit(c, p) for c in alte)
+        if treffer: aus.append(p)
     return aus
 
 def auffrischen():

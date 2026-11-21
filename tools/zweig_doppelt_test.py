@@ -59,5 +59,23 @@ with tempfile.TemporaryDirectory() as t:
     g(b, "commit", "-qam", "b: werk2"); g(b, "checkout", "-q", "--detach")
     open(os.path.join(a, "werk"), "w").write("selbst\n")
     soll("auffrischen lässt selbst Geändertes stehen (Exit 1)", pruefen(a, "auffrischen") == 1 and lies(a, "werk") == "selbst\n")
+    # 1786: gewolltes Löschen einer beantworteten Chefsache, die erst vor kurzem dazukam, ist kein Rückfall
+    g(a, "reset", "-q", "--hard", "HEAD")
+    cs = "docs/chefsache/ansehen/1535-flanke.md"
+    os.makedirs(os.path.join(a, os.path.dirname(cs)), exist_ok=True)
+    open(os.path.join(a, cs), "w").write("Bild\n"); g(a, "add", cs); g(a, "commit", "-q", "--no-verify", "-m", "a: chefsache")
+    g(a, "rm", "-q", cs)
+    soll("Löschen einer frisch angelegten Chefsache: kein Rückfall", pruefen(a, "veraltet") == [], repr(pruefen(a, "veraltet")))
+    open(os.path.join(a, "f"), "w").write("4\n"); g(a, "add", "f"); g(a, "commit", "-q", "--no-verify", "-m", "a: chefsache weg, f4")
+    os.makedirs(os.path.join(a, os.path.dirname(cs)), exist_ok=True)
+    open(os.path.join(a, cs), "w").write("Bild\n"); g(a, "add", cs); g(a, "commit", "-q", "--no-verify", "-m", "a: chefsache neu")
+    open(os.path.join(a, "notiz"), "w").write("n2\n"); g(a, "commit", "-q", "--no-verify", "-am", "a: notiz2")
+    g(a, "rm", "-q", cs)
+    soll("Löschen einer Chefsache nach weiteren Commits: kein Rückfall", pruefen(a, "veraltet") == [], repr(pruefen(a, "veraltet")))
+    g(a, "reset", "-q", "--hard", "HEAD")
+    # veralteter Index, der eine neue Datei löschen würde, bleibt erkannt: b legt neu an, a steht auf dem alten Stand
+    g(b, "checkout", "-q", "--ignore-other-worktrees", "-B", "main", "main"); open(os.path.join(b, "neu"), "w").write("x\n")
+    open(os.path.join(b, "f"), "w").write("5\n"); g(b, "add", "neu", "f"); g(b, "commit", "-qm", "b: neu"); g(b, "checkout", "-q", "--detach")
+    soll("veralteter Index löscht neue Datei: erkannt", sorted(pruefen(a, "veraltet")) == ["f", "neu"], repr(pruefen(a, "veraltet")))
 print("ZWEIG-DOPPELT %s" % ("gut" if not fehler else "%d rot" % fehler))
 sys.exit(1 if fehler else 0)
