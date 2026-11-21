@@ -10,4 +10,7 @@ Träger: Sokrates („Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`). Dem Ch
 6. Zweites „steckt fest“: entschieden 20:59 (Archiv), Sokrates legt die Chefsache an und trägt vor.
 7. L-U15 „gut“ und „Release“ aus fremder Sitzung an den Disponenten; L-T6 Profil Technik „ans Team“; Ersatz Figurenstand-Sperre (`werkzeuge.md` C).
 8. Beim Chef zu tun: GitHub-Secret `TELEGRAM_BOT_TOKEN` für den Herzschlag (Spike, Zu 1764); GitHub-Regel gegen Force-Push auf Buildzweige (G:923).
+10. Kern Arbeitsplaner (Abgenommenes, Gespräch nötig): unter „Beachte“ „bei Firmenwerkzeugen … Profil Werkzeug“ und „bei fremder Datei oder Spieltext … Querprofil Fremde Inhalte“; Prüffrage Spieltext „außer markierter Übersetzung“ (G:419).
+11. Unity Asset Store: neue Käufe ja oder nein (`LISTE-QUELLEN.md` Lücke 1; Janpec-Nachfrage „Zu 780“).
+12. Höchstkosten 30 $ und Höchstdauer 8 h je Auftrag (`hoechstdauer-1774.md` F2, Vorentscheid nach Nachprüfung).
 9. Leistungsstufe je Auftrag: erst nach Ergebnis 1742 vorlegen (Chef 20.11., 15:52).

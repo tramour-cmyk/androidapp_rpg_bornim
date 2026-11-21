@@ -33,12 +33,12 @@ Quellen: `CLAUDE.md` (Feste Regeln „Jeder Schritt“, „Notizen nur auf `main
 
 **Grenzen.** Notizen (`docs/`, `CLAUDE.md`, `CHANGELOG.md`) änderst du nur mit Edit/Write, nie per Bash-Skript. Soll ein Werkzeug Notizen schreiben und steht das nicht in der Bauliste 7.1, oder braucht es eine Erlaubnis in `.claude/settings.json`: „Frage“ zurück. Haken trägst du ein, wenn die Bauliste ihn nennt; Erlaubnisse schreibt sich keine Sitzung selbst.
 
-**Nach `main`.** Vor jedem Code-Commit die Kerntests mit Exit-Code (`tools/t logik`) und der Test des Werkzeugs; fehlt er, schreibst du ihn zuerst. Sind beide grün, geht das Werkzeug sofort nach `main`, ohne Test des Chefs; dann „fertig“ mit dem Commit auf `main`. Der Prüfer prüft am Stand von `main` mit den Fällen des Auftrags; sein Nein bessert du dort nach.
+**Nach `main`.** Vor jedem Code-Commit die Kerntests mit Exit-Code (`tools/t logik`) und der Test des Werkzeugs; fehlt er, schreibst du ihn zuerst und trägst ihn in `werkzeuge.yml` ein. Sind beide grün, geht das Werkzeug sofort nach `main`, ohne Test des Chefs; dann „fertig“ mit dem Commit auf `main`. Der Prüfer prüft am Stand von `main` mit den Fällen des Auftrags; sein Nein bessert du dort nach.
 ```
 
 ## Teil B: Bauliste 7.1, Profil Arbeitsplaner
 
-**Neu in 7.1** (beim Zusammenführen, nicht jetzt in G einfügen, sonst verschieben sich die G-Zeilenverweise): „Notizschreiber: `vorgang.py`, `rueckmeldung.py`, `uebergabe.py`, `chefwort.py`, `lauf.py` (Zähler, Besetzung, Protokoll), `zug-index.yml` (`chefsache/README.md`), Bildlink von `meldung.sh`“. Sonst keine neue Zeile (die Werkzeuge stehen in `werkzeuge.md` A/B). **Gesprächspunkt, nicht einbauen:** der Kern Arbeitsplaner ist „Abgenommenes, Gespräch nötig, bevor geändert wird“ (`reihenfolge.md`:14, Archiv 20.11., 16:49; künftig Profil Arbeitsplaner, `ein-ausgang.md` Zeile 23). Für den Text des Arbeitsplaners (G 4.1), Punkt 4 „Beachte“, **neu:** „bei Firmenwerkzeugen außerhalb der Spielcode-Pfade von `godot.yml` das Profil Werkzeug“.
+**Neu in 7.1** (beim Zusammenführen, nicht jetzt in G einfügen, sonst verschieben sich die G-Zeilenverweise): „Notizschreiber: `vorgang.py`, `rueckmeldung.py`, `uebergabe.py`, `chefwort.py`, `lauf.py` (Zähler, Besetzung, Protokoll), `zug-index.yml` mit `zug-index.py` (`chefsache/README.md`), `tagesbericht.py` (`ARBEIT-TAGESBERICHT.md`), `startbar.py` („wartet auf“ in `LISTE-VORGAENGE.md`), `kostenbericht.py` (`LISTE-KOSTEN.md`), `vorratspruefung.py`, `bereichslisten.py`, Bildlink von `meldung.sh`“. Sonst keine neue Zeile (die Werkzeuge stehen in `werkzeuge.md` A/B). **Gesprächspunkt, nicht einbauen:** der Kern Arbeitsplaner ist „Abgenommenes, Gespräch nötig, bevor geändert wird“ (`reihenfolge.md`:14, Archiv 20.11., 16:49; künftig Profil Arbeitsplaner, `ein-ausgang.md` Zeile 23). Für den Text des Arbeitsplaners (G 4.1), Punkt 4 „Beachte“, **neu:** „bei Firmenwerkzeugen außerhalb der Spielcode-Pfade von `godot.yml` das Profil Werkzeug“.
 
 ## Eigene Prüfung (20:19)
 
@@ -79,3 +79,7 @@ Größe Fassung 3 (`wc -c`, Codeblock Teil A): 994 Byte; Teil B 87 + 36 Byte. La
 1 „Frage“ geht nach C an Sokrates, nicht an den Disponenten: **stimmt**, Raster nach C und VA 20:52 · 2 viele Werkzeuge ohne Test, Quelle fehlt: **stimmt**, „fehlt er, schreibst du ihn zuerst“, Quelle Satz 6 · 3 Bau-, Probe-, Release-Läufe fielen unter Werkzeug: **stimmt**, in Teil A ausgenommen · 4 Werkzeuge von 1727 schreiben Notizen ohne 7.1: **stimmt**, Liste der Notizschreiber in Teil B für 7.1 · 5 „Sammelvorlage“ ohne Träger: **stimmt**, Zeile „Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md` · 6 Prüfart-Satz ändert nichts: **stimmt**, gestrichen · 7 Fall Kerntest-Marke veraltet: **stimmt**, neu nach `commit-pruefung.py` · 8 alte Größen: **stimmt**, als überholt gekennzeichnet.
 
 Größe Fassung 4 (`wc -c`, Codeblock Teil A): 1.041 Byte. Ladesumme Fachkraft bis etwa 4,2 KB.
+
+## Nachprüfung 21:03 (frischer Helfer, Fassung 4), mein Wort, eingearbeitet (Fassung 4a)
+
+1 Liste der Notizschreiber unvollständig: **stimmt**, ergänzt (`tagesbericht.py`, `startbar.py`, `kostenbericht.py`, `vorratspruefung.py`, `bereichslisten.py`, `zug-index.py`) · 2 Satz unter „Beachte“ ohne Träger: **stimmt**, Sammelvorlage Nr. 10 · 3 neuer Test läuft nie auf `main`: **stimmt**, „trägst ihn in `werkzeuge.yml` ein“ · Form (Kopfzeit, `KERNTEST_CODE`): **stimmt**, Form. Teil A 1.080 Byte. Nachprüfung der Fassung 4a offen.

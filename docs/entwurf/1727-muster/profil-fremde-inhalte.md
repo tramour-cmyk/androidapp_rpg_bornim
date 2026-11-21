@@ -29,7 +29,7 @@ Quellen: Archiv 21.11., 20:52 „Kauf und Lizenz“; `CLAUDE.md` „Technik und 
 ## Teil A: Querprofil Fremde Inhalte; Spieltext einbauen
 
 ```markdown
-**Fremde Dateien.** Gekauft nur, wenn die Lizenz den Verkauf in jeder Engine erlaubt, unbefristet, ohne Nennung und Umsatzgrenze. Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die des Originals. Neue Quelle erst nach dem Prüfschema in `docs/LISTE-QUELLEN.md`. Je Datei Quelle, Urheber, Lizenz im selben Commit festhalten (Ort je Art: dort „Alle Quellen im Bestand“). Rohdateien, deren Lizenz die Weitergabe verbietet (gekauft, QAL), nur im privaten Repo `bornim-kaufmodelle` (Zugang `add_repo`), nie hier. Kaufen tut nur der Chef: Kauf oder unsichere Lizenz → „Frage“ zurück.
+**Fremde Dateien.** Gekauft nur, wenn die Lizenz den Verkauf in jeder Engine erlaubt, unbefristet, ohne Nennung und Umsatzgrenze. Lizenz auf der Quellseite prüfen, bei Bearbeitungen auch die des Originals. Neue Quelle erst nach dem Prüfschema in `docs/LISTE-QUELLEN.md`. Je Datei Quelle, Urheber, Lizenz im selben Commit festhalten (Ort je Art: dort „Alle Quellen im Bestand“). Öffentlich nur CC0 und Lizenzen, die die Weitergabe ausdrücklich erlauben (etwa OFL); andere Rohdateien nur im privaten Repo `bornim-kaufmodelle` (Zugang `add_repo`), nie hier. Kaufen tut nur der Chef: Kauf oder unsichere Lizenz → „Frage“ zurück.
 
 **Spieltext.** Verzeichnis `docs/STORY-REGELN.md`, Suche über die Marke `[Thema.kurz]`, wortgetreu. Fehlt das Englische, übersetzt du nach den Regeln dort und markierst es. Begriffe nach `docs/LISTE-GLOSSAR.md`. Fehlt ein Text: kein Platzhalter, „Frage“ mit Stelle zurück. Tippfehler in einem Spieltext, den dein Auftrag einbaut, direkt, Commit „Text:“. Beleg: jeder Satz wortgleich in der Quelle, außer markierter Übersetzung.
 ```
@@ -80,3 +80,7 @@ Nachtrag 20:52 (b339bd3d1): Raster „Nächster Empfänger“ nach Archiv „Kau
 1 „außer CC0 nur privat“ verbietet OFL-Schriften im Repo: **stimmt**, „deren Lizenz die Weitergabe verbietet (gekauft, QAL)“ · 2 Prüffrage verneint jede Übersetzung: **stimmt**, in den Gesprächspunkt Kern Arbeitsplaner · 3 Chefsachen ohne Träger, Unity hat „Zu 780“: **stimmt**, Unity auf „Zu 780“, frei/gekauft auf „Zu 1727, Sammelvorlage“, Weg VA 20:52 · 4 Story-Weg überzogen „steht nirgends“: **stimmt**, Lücke genau benannt (C führt zu Sokrates, nicht zum Arbeitsplaner, G:422) · 5 fehlender Text doppelt, 20:52 nicht vermerkt: **stimmt**, Raster einmal, Quelle und Vermerk · 6 Zitate 11, 12 und alte Größe: **stimmt**, angeglichen, alte Größe als überholt.
 
 Größe Fassung 4 (`wc -c`, Codeblock Teil A): 1.042 Byte.
+
+## Nachprüfung 21:03 (frischer Helfer, Fassung 4), mein Wort, eingearbeitet (Fassung 4a)
+
+1 Ablage als Verbotsliste nimmt die offene Lizenzfrage vorweg: **stimmt**, bis zum Wort „öffentlich nur CC0 und Lizenzen, die die Weitergabe ausdrücklich erlauben (etwa OFL); sonst privat“ · 2 Ausnahme Übersetzung und „Beachte“-Satz ohne Träger: **stimmt**, Sammelvorlage Nr. 10 · Unity ohne Träger: **stimmt**, Sammelvorlage Nr. 11 · teils doppelt zu Sockel 3, 6: **Einwand**, bleibt, weil die Fälle (Text fehlt, Kauf) das „Frage“ erst konkret machen. Teil A 1.082 Byte. Nachprüfung der Fassung 4a offen.

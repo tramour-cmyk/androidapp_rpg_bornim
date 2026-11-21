@@ -10,7 +10,7 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 
 | Feld | Inhalt | Fundstelle |
 |---|---|---|
-| Auslöser | Ab der Umstellung legt das Werkzeug einmal die Woche einen Vorgang „Wochentermin TT.MM.: Rundblick (719)“ an, wie heute die Wochentermine (`startbar.WOCHENTERMINE`, `lauf.py --sperre`, 719 A, als Muss); der Disponent startet ihn ohne Arbeitsplaner: Teil A ist der Auftrag, ausgenommen vom Feld „Zurück“ (`tools/auftrag.py`:19, :44; Nachtrag im Profil Disponent, Vorgang 1773) | VA 07:03 (Takt); startbar:161–176; 3.3 F2 Nr. 5 |
+| Auslöser | Ab der Umstellung legt das Werkzeug einmal die Woche einen Vorgang „Wochentermin TT.MM.: Rundblick (719)“ an, wie heute die Wochentermine (`startbar.WOCHENTERMINE`, `lauf.py --sperre`, 719 A, als Muss); der Disponent startet ihn ohne Arbeitsplaner: Teil A ist der Auftrag, ausgenommen vom Feld „Zurück“ (neue Ausnahme: heute verlangt `tools/auftrag.py`:19, :44 das Feld für jeden Start; Nachtrag im Profil Disponent, Vorgang 1773) | VA 07:03 (Takt); startbar:161–176; 3.3 F2 Nr. 5 |
 | Arbeit | Teil A | 6b; Zu 1734 |
 | Ende | höchstens drei Vorschläge in der Vorgangsdatei des Laufs; erstes Wort „fertig“ | 6b („höchstens drei Vorschläge je Lauf“); G:420 |
 | Meldung | Zeile über `vorgang.py` an das Büro, Nachricht nur Wecker; kein eigenes Telegram, an den Chef meldet das Büro nur, was er jetzt tun muss | 3.3 F2 Nr. 2, 5; Meldeweg G:341, VA 11:46 |
@@ -36,7 +36,7 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 
 **Arbeit:** je Schwäche nachsehen, wie andere genau das lösen: Abläufe, Prompts, kleine Kerne und Sockel; Neues in Grafik, 3D, Technik, Werkzeugen. Eine eigene Idee darf dabei sein. Du baust nichts.
 
-**Ergebnis:** höchstens drei Vorschläge, je Schwäche, Quelle, eine kleine Probe mit dem Maß, das sie vorher und nachher messen soll, Kosten; was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du „Entscheidung“. In die Vorgangsdatei des Laufs, dann „fertig“ über `vorgang.py` an das Büro.
+**Ergebnis:** höchstens drei Vorschläge, je Schwäche, Quelle, eine kleine Probe mit dem Maß, das sie vorher und nachher messen soll, Kosten; was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du „Entscheidung“. Jeden Vorschlag als Eingang über `vorgang.py` ans Büro, dann „fertig“.
 ```
 
 ## Teil B: Bauliste 7.1, Wochentermine
@@ -82,3 +82,7 @@ Größe Fassung 3 (`wc -c`, Codeblock Teil A): 1.036 Byte. Ladesumme: Sockel 1.1
 1 Teil B kommt bei Spike nicht an, Zeile fehlt in 7.1: **stimmt**, „Zu 1766 von Sokrates“ bei Spike, 7.1 beim Zusammenführen (nicht jetzt in G: Zeilenverschiebung) · 2 eigenes Telegram gegen Meldeweg: **stimmt**, gestrichen · 3 Katalog Art gegen `reihenfolge.md`:13: **stimmt**, Arten „Recherche“ und „Probe“ · 4 Start ohne Arbeitsplaner, Feld „Zurück“: **stimmt**, Raster, Nachtrag Profil Disponent 1773 · 5 Tag und Stunde ohne Träger: **stimmt**, Montag nach der Wochenzählung in Teil B, Träger Sokrates · 6 Zeilennummer im Vorrat: **stimmt**, Eintragsname · 7 alte Größe, Kopfzeit: **stimmt**.
 
 Größe Fassung 4 (`wc -c`, Codeblock Teil A): 998 Byte. Ladesumme etwa 2,1 KB.
+
+## Nachprüfung 21:03 (frischer Helfer, Fassung 4), mein Wort, eingearbeitet (Fassung 4a)
+
+1 „fertig“ legt keine Vorgänge an: **stimmt**, Vorschläge als Eingang über `vorgang.py` ans Büro, dann „fertig“ (Raster „Nächster Empfänger“ entsprechend lesen: das Büro legt aus dem Eingang an) · 2 „Zu 1766“ nimmt nur den Rundblick aus: **stimmt**, alle drei Routinen · Form `auftrag.py`: **stimmt**, als neue Ausnahme gekennzeichnet. Teil A 992 Byte. Nachprüfung der Fassung 4a offen.
