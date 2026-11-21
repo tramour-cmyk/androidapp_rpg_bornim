@@ -1,5 +1,7 @@
 # 1535 · Beult die Kleidung bei gehobenem Arm noch aus?
 
+[Bild von 21.11., 21:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/21-2139-1535-Sokrates-2.png) (eingetragen von meldung.sh, Sokrates)
+
 [Bild von 21.11., 21:39](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/21-2139-1535-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
 
 [Bild von 21.11., 20:38](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/21-2038-1535-Tom-2.png) (eingetragen von meldung.sh, Tom)
