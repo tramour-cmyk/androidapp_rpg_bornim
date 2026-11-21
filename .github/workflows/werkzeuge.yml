@@ -35,3 +35,4 @@ jobs:
           python3 tools/rufname_test.py         # 1739 Rufnamen (lauf.py nur scharf, kosten.py)
           python3 tools/kostenbericht_test.py   # 1739 Kosten in drei Teilen
           python3 tools/lehren_test.py          # 1739 Lehrenbuch
+          python3 tools/lieferung_test.py       # 1739 wartet auf leeren bei Lieferung
