@@ -1,4 +1,4 @@
-# 1727, Routine Rundblick (Gesamtbild 6b, Vorgang 1734; Fassung 2, Sokrates 21.11., 20:40, Befunde Gegenprüfung 20:23 eingearbeitet, Nachprüfung offen)
+# 1727, Routine Rundblick (Gesamtbild 6b, Vorgang 1734; Fassung 3, Sokrates 21.11., 20:50, Befunde Nachprüfung 20:43 eingearbeitet, Nachprüfung offen)
 
 Auftrag: Chef 20.11., 07:03 (Archiv 1734): „Das soll auch nicht in die Chefrunde integriert werden, sondern ein eigenes Profil sein. Das wir einmal die Woche starten“; 06:46 (Zu 1734): „wie arbeiten andere, wie strukturieren andere ihre Arbeit, wie bauen andere ihre Prompts … Kerne und den Sockel klein halten?“, „komm du mal um die Ecke mit einer Idee“; 06:50 Name egal, „der Inhalt sollte da rein“. Art: Routine = Sockel + fester Auftrag + Takt, ohne Gruppe und Kern (Archiv 20.11., 07:53; ersetzt 07:37 „Sockel + Profil“ nur im Namen, G 0b „Zu D“; Haltung „prüfen statt zustimmen“ ins Profil, 07:37). Form wie `profil-technik.md` F12; neue Texte kurz (Archiv 20.11., 14:02).
 
@@ -20,7 +20,7 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 
 ## Aufbau
 
-- **Meldeweg „Entscheidung“ (Chefsache, mit Perikles' Sammelfrage C):** C (`lauf.py`, gebaut `17623dce7`) startet Sokrates nur bei „steckt fest“, „Frage“, „wirkt nein“; ein Vorschlag „Entscheidung“ fällt durch wie L-T5. Vorschlag: C um „Entscheidung“ erweitern; vorlegen zusammen mit der Sammelfrage C.
+- **Meldeweg „Entscheidung“ (Chefsache, mit Perikles' Sammelfrage C):** C (`lauf.py`, gebaut `17623dce7`) startet Sokrates nur bei „steckt fest“, „Frage“, „wirkt nein“; ein Vorschlag „Entscheidung“ fällt durch wie L-T5. Vorschlag: C um „Entscheidung“ erweitern; vorlegen zusammen mit der Sammelfrage C (Profil Disponent F3, `profil-disponent.md`:48, nennt den Rundblick noch nicht: Nachtrag Vorgang 1773, Perikles).
 - **Tag und Stunde:** Der Chef hat nur „einmal die Woche“ entschieden. **Vorschlag:** Montag nach der Wochenzählung (montags 8 Uhr, 6d), weil der Rundblick deren Spalte als Eingang liest. „Wartet auf die Wochenzählung desselben Montags“ kann `WOCHENTERMINE` heute nicht (Felder: Tag, Stunde, Besitzer, Name, Bereich); dafür Code, Zeile in 7.1 (Teil B). Kein Chefwort nötig (Ablauf), aber offen.
 - **Kosten je Lauf:** 6b „Kostengrenze je Lauf“ offen; Höchstdauer je Auftrag ist entschieden (Archiv 20.11., 08:19, 14.2.5), Wert fehlt (L-O17). Teil A setzt keinen Wert.
 - **Nachhalten:** 6b (Entwurf): „nach vier Läufen Anteil umgesetzt und Wirkung …; zu wenig → Profil weg“. Zählen tut die Wochenzählung (Zahl 10), bewerten „tut Sokrates“ (6d), dessen Start dafür fehlt (L-T5). **Chefsache, sobald es so weit ist:** den Rundblick abschaffen kann nur der Chef, der ihn eingerichtet hat (Archiv 07:03); nicht im Text.
@@ -32,31 +32,31 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 ```markdown
 **Rundblick** (einmal die Woche). Ziel: Vorschläge gegen unsere teuersten Schwächen, aus dem, wie andere arbeiten. Prüfen statt zustimmen, auch gegen unsere eigenen Regeln, Kerne und den Sockel.
 
-**Eingang:** die neueste Spalte der Wochenzählung (`docs/PRUEFBERICHT.md`) und die Vorgänge der Woche. Wähle die drei teuersten Schwächen: Funde des Chefs zuerst, dann Wiederholfunde, dann teuerste Vorgänge.
+**Eingang:** die neueste Spalte der Wochenzählung (`docs/PRUEFBERICHT.md`), die „Systemlösung?“-Vorgänge des Wiederholungswächters und die Kosten je Vorgang der Woche. Wähle die drei teuersten Schwächen: Funde des Chefs zuerst, dann Wiederholfunde, dann teuerste Vorgänge.
 
-**Arbeit:** je Schwäche nachsehen, wie andere genau das lösen: Abläufe, Prompts, kleine Kerne und Sockel; Neues in Grafik, 3D, Technik, Werkzeugen. Jede Aussage mit Quelle und Datum. Eine eigene Idee darf dabei sein. Du baust nichts; eine Probe beschreibst du.
+**Arbeit:** je Schwäche nachsehen, wie andere genau das lösen: Abläufe, Prompts, kleine Kerne und Sockel; Neues in Grafik, 3D, Technik, Werkzeugen. Eine eigene Idee darf dabei sein. Du baust nichts.
 
-**Ergebnis:** höchstens drei Vorschläge, je Schwäche, Quelle, kleine Probe mit Maß vorher und nachher, Kosten; was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du „Entscheidung“. In die Vorgangsdatei des Laufs, dann „fertig“ über `vorgang.py` an das Büro und eine Zeile per `tools/meldung.sh`.
+**Ergebnis:** höchstens drei Vorschläge, je Schwäche, Quelle, eine kleine Probe mit dem Maß, das sie vorher und nachher messen soll, Kosten; was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du „Entscheidung“. In die Vorgangsdatei des Laufs, dann „fertig“ über `vorgang.py` an das Büro und eine Zeile per `tools/meldung.sh`.
 ```
 
 ## Teil B: Bauliste 7.1, Wochentermine
 
-**Neu** in 7.1, Zeile `lauf.py` (dort fehlt sie, `werkzeuge.md`:15, :140 „Rundblick neu“): „Wochentermin Rundblick: einmal die Woche ein Vorgang, wartet auf die Wochenzählung desselben Tages, Start durch den Disponenten“. **Erst mit der Umstellung einbauen:** heute legte die Zeile jede Woche ein Muss bei Sokrates an (719 A), gegen „gilt ab der Umstellung“, 1734 als Kür und den Vorrang 21.11., 20:06 (Werkzeuge zuerst). Umsetzung im Bestand: Zeile in `startbar.WOCHENTERMINE` (`tools/startbar.py`:164), Wochentag und Stunde nach Aufbau, Bereich „B Steuerung“ (wie 1734), Besitzer bis zur Umstellung die heutige Rolle von 1734, danach Bereich (rückwärtsverträglich, Zu 1739).
+**Neu** in 7.1, Zeile `lauf.py` (dort fehlt sie, `werkzeuge.md`:15, :140 „Rundblick neu“): „Wochentermin Rundblick: einmal die Woche ein Vorgang, wartet auf die Wochenzählung desselben Tages, Start durch den Disponenten“. **Jetzt bauen, scharf erst über `tools/1727-SCHARF`:** der Starter gehört zu 1766 (Spike, M; Titel „… Starter der Routinen Wochenzählung, Rundblick (L-T5, L-T7)“, `LISTE-VORGAENGE.md`:259; Reihenfolge 1739, 1764, 1766, `ARBEIT-TEAM-SPIKE.md`:9), und umgeschaltet wird erst nach grünen Werkzeugen (VA 21.11., 14:37 D); ohne Schalter legte die Zeile heute jede Woche ein Muss bei Sokrates an (719 A), gegen 1734 als Kür. Umsetzung im Bestand: Zeile in `startbar.WOCHENTERMINE` (`tools/startbar.py`:164), Wochentag und Stunde nach Aufbau, Bereich „B Steuerung“ (wie 1734), Besitzer ab dem Schalter der Bereich (vor dem Schalter legt die Zeile nichts an).
 
 ## Eigene Prüfung (20:19)
 
 - **Größe** (UTF-8, Inhalt des Codeblocks Teil A, gemessen mit `wc -c`): Teil A 970 Byte (Ziel bis etwa 1.200). Die Sitzung lädt Sockel 1.110 + 970, zusammen etwa 2,1 KB. Teil B eine Zeile in 7.1 und eine Zeile Code. Regelbilanz: 1734 als Kür-Vorgang bei Sokrates und der Entwurf 6b entfallen mit der Umstellung; 6b verweist dann auf diese Datei.
 - **Quellen je Satz (Teil A):**
   1. „Rundblick (einmal die Woche)“: Archiv 1734 07:03.
-  2. „Ziel: Vorschläge gegen unsere teuersten Schwächen, aus dem, wie andere arbeiten“: Zu 1734 („Vorschläge gegen unsere Defizite“, „wie arbeiten andere“); 6b („von innen nach außen … drei teuersten Schwächen … wie andere genau das lösen“).
+  2. „Ziel: Vorschläge gegen unsere teuersten Schwächen, aus dem, wie andere arbeiten“: Titel 1734 („Vorschläge gegen unsere Defizite“, „wie arbeiten andere“); 6b („von innen nach außen … drei teuersten Schwächen … wie andere genau das lösen“).
   3. „Prüfen statt zustimmen, auch gegen unsere eigenen Regeln, Kerne und den Sockel“: Archiv 1734 07:37 (Haltung ins Profil); G 0b Nachprüfung 07:34 (1) („er soll auch unsere Arbeitsweise prüfen, Kerne und Sockel“, Einwand Sokrates, Rundblick darum ohne Kern Sokrates, Archiv 07:37 „wir nehmen nicht deinen Kern“).
-  4. „Eingang: neueste Spalte der Wochenzählung … und die Vorgänge der Woche“: Ableitung: 6b nennt als Eingang Wiederholfunde, Funde des Chefs, teuerste Vorgänge; genau diese zählt 6d (Zahlen 1, 2, 6) und schreibt sie in `PRUEFBERICHT.md`. Fehlt die Spalte einer Woche, bleiben die Vorgänge der Woche (heute läuft die Wochenzählung als Wochentermin, startbar:166; L-O7 betrifft nur den Starter 6d nach der Umstellung).
+  4. „Eingang: neueste Spalte der Wochenzählung …, die ‚Systemlösung?‘-Vorgänge des Wiederholungswächters und die Kosten je Vorgang der Woche“: 6b nennt als Eingang Funde des Chefs, Wiederholfunde, teuerste Vorgänge. Die Wochenzählung liefert Funde des Chefs (6d Zahl 1); Wiederholfunde über Vorgänge hinweg liefert der Wächter („Systemlösung?“, `vorgang.py` `waechter`), nicht 6d Zahl 2 (Läufe bis „abgenommen“, G:884); teuerste Vorgänge die Kosten je Vorgang („Kosten auf“), nicht 6d Zahl 6 (Guthaben je Bereich, G:888). Fehlt eine Spalte der Wochenzählung, bleiben die beiden anderen Eingänge.
   5. „Wähle die drei teuersten Schwächen: Funde des Chefs zuerst, dann Wiederholfunde, dann teuerste Vorgänge“: 6b (Reihenfolge „Funde des Chefs zuerst“; Folge der anderen beiden nach 6b-Wortlaut „Wiederholfunde, Funde des Chefs zuerst, teuerste Vorgänge“).
   6. „je Schwäche nachsehen, wie andere genau das lösen: Abläufe, Prompts, kleine Kerne und Sockel; Neues in Grafik, 3D, Technik, Werkzeugen“: Chef 06:46–07:03 (6b Kopf, Zu 1734).
-  7. „Jede Aussage mit Quelle und Datum“: Sockel 3 („Quelle mit Datum“); 6b („je Schwäche, Quelle“).
+  7. (gestrichen in Fassung 3: „Jede Aussage mit Quelle und Datum“ trägt Sockel 3, G:181.)
   8. „Eine eigene Idee darf dabei sein“: Chef 06:46 „komm du mal um die Ecke mit einer Idee“.
-  9. „Du baust nichts; eine Probe beschreibst du“: Sockel 5 („Fund außerhalb des Auftrags: zurückmelden, nicht beheben“); erster Fall 1735 (Probe als Vorgang bei der Technik, 6b).
-  10. „höchstens drei Vorschläge, je Schwäche, Quelle, kleine Probe mit Maß vorher und nachher, Kosten“: 6b („höchstens drei Vorschläge je Lauf, je Schwäche, Quelle, kleine Probe, Kosten, Maß“); „vorher und nachher“: 6b Katalog-Satz („Probe (neue Technik an einem Beispiel, Maß vorher/nachher)“).
+  9. „Du baust nichts“: Sockel 5 („Fund außerhalb des Auftrags: zurückmelden, nicht beheben“); erster Fall 1735 (Probe als Vorgang bei der Technik, 6b).
+  10. „höchstens drei Vorschläge, je Schwäche, Quelle, eine kleine Probe mit dem Maß, das sie vorher und nachher messen soll, Kosten“: 6b („höchstens drei Vorschläge je Lauf, je Schwäche, Quelle, kleine Probe, Kosten, Maß“); „vorher und nachher“: 6b Katalog-Satz („Probe (neue Technik an einem Beispiel, Maß vorher/nachher)“).
   11. „was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du ‚Entscheidung‘“: Ableitung aus dem Meldeweg des Büros („an Sokrates, wenn eine Entscheidung nötig ist“, G:341, Archiv 21.11., 11:46) und Vorbehalt Kern/Profil (G:284; Archiv 20.11., 16:49 „Abgenommenes nur nach Gespräch“). Das Kennzeichen ist neu (Vorschlag), es ändert nichts Entschiedenes.
   12. „In die Vorgangsdatei des Laufs, dann ‚fertig‘ über `vorgang.py` an das Büro“: 3.3 F2 Nr. 2, 5; G:420.
   13. „eine Zeile per `tools/meldung.sh`“: Muster 6d („eine Zeile per Telegram“, Entwurf); Kern Büro schmal nennt `meldung.sh` (Archiv 11:46).
@@ -70,3 +70,9 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 ## Gegenprüfung 20:23 (frischer Helfer, Fassung 1), mein Wort und Einarbeitung in Fassung 2
 
 1 „Entscheidung“ reißt am Meldeweg wie L-T5: **stimmt**, als Chefsache mit Sammelfrage C gekennzeichnet, L-T7 nur halb geschlossen · 2 Wochentermin legt sofort Muss bei Sokrates an: **stimmt**, Teil B erst mit der Umstellung · 3 „Woche ohne Wochenzählung (heute)“ falsch: **stimmt**, berichtigt · 4 „wartet auf“ kann `WOCHENTERMINE` nicht: **stimmt**, Code in 7.1 · 5 Form (LISTE-BETRIEB 11, Titelform, Zitat 1734, werkzeuge.md:15): **stimmt**, eingearbeitet · 6 „Du baust nichts“ gegen „kleine Probe“: **stimmt**, „eine Probe beschreibst du“. Teil A danach 997 Byte (vorher 970).
+
+## Nachprüfung 20:43 (frischer Helfer, Fassung 2), mein Wort und Einarbeitung in Fassung 3
+
+Querbefund G-Zeilen: **stimmt**, behoben 20:44 · 1 „erst mit der Umstellung“ gegen 1766 und „erst nach grünen Werkzeugen umschalten“: **stimmt**, jetzt bauen, scharf über `tools/1727-SCHARF` · 2 Teil B widersprüchlich: **stimmt**, eine Fassung (Schalter) · 3 „baust nichts“ gegen „Maß nachher“: **stimmt**, „Maß, das sie vorher und nachher messen soll“ · 4 Sammelfrage C nennt den Rundblick nicht: **stimmt**, Nachtrag 1773 (Perikles) · 5 6d Zahl 2 und 6 liefern keine Wiederholfunde und teuersten Vorgänge: **stimmt**, Eingang um Wächter und Kosten je Vorgang ergänzt · 6 „Quelle und Datum“ doppelt zum Sockel 3: **stimmt**, gestrichen · 7 G-Verschiebung: **stimmt**, behoben · 8 Größe: **stimmt**, unten · 9 Titel 1734: **stimmt**.
+
+Größe Fassung 3 (`wc -c`, Codeblock Teil A): 1.036 Byte. Ladesumme: Sockel 1.110 + 1.036, etwa 2,1 KB.
