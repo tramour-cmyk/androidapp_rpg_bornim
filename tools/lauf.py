@@ -582,6 +582,13 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
 def ist_scharf():
     return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
 
+ARCHIV_SCHUTZ_MIN = 15
+def schutz_min(scharf=None):
+    """1739 (7.1 „Archivieren mit Schutz 15 Minuten“; Büro-Gegenüberstellung: „nie binnen 15 Minuten nach der letzten Chefnachricht“):
+    Minuten Ruhe, bevor eine Sitzung archiviert wird. list_sessions nennt die letzte Chefnachricht nicht, darum zählt das letzte
+    Ereignis (updated_at; enger als verlangt, nie weiter). Bis zur Umschaltung (tools/1727-SCHARF) 1 Minute (340.10 (c))."""
+    return ARCHIV_SCHUTZ_MIN if (ist_scharf() if scharf is None else scharf) else 1
+
 AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)\)")
 
 def auftrag_seit(text, jetzt=None):
@@ -906,7 +913,7 @@ def main():
         for s in ss:
             _, laufend, ruhig, hinder = s["_info"]
             if s["id"] in schutz: continue  # 1531
-            if laufend or ruhig < 1: continue  # 340.10 V4 (c): unter 60 s nach dem letzten Ereignis nicht archivieren (Sokrates 13.11., 03:41)
+            if laufend or ruhig < schutz_min(): continue  # 340.10 V4 (c): unter 60 s nach dem letzten Ereignis nicht archivieren (Sokrates 13.11., 03:41); 1739: scharf 15 Min.
             # (2) nur mit neuerer Sitzung desselben Bereichs, ohne Wartezeit (261.5, Chef 16:46; ersetzt 60 Minuten aus 238)
             # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
             if s is juengste(ss): continue
@@ -984,7 +991,7 @@ def main():
     def vorgaenger(r):
         # 261.5 (Chef 18:25): startet ein Nachfolger, archiviert Ford die alten Sitzungen der Rolle gleich danach, nicht erst im nächsten Lauf
         for s in je_rolle.get(r, []):
-            if s["id"] in archiviert or s["id"] in schutz or s["_info"][1] or s["_info"][2] < 1: continue  # 340.10 (c): 60 s Ruhe  (1531: geschützte nie)
+            if s["id"] in archiviert or s["id"] in schutz or s["_info"][1] or s["_info"][2] < schutz_min(): continue  # 340.10 (c): 60 s Ruhe, scharf 15 Min. (1739)  (1531: geschützte nie)
             archiviert.add(s["id"])
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))

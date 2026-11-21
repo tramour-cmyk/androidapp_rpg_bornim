@@ -142,6 +142,7 @@ open(seite, "w").write("session_TOM | idle | 2026-11-21T19:30:00Z | Tom – 9005
 aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
 soll("Frist ab, Halter ruht: wieder offen, Zeile NICHTS", frei == ["9005-Ü1"] and "| offen |" in datei("9005") and aus and aus[0].startswith("NICHTS Übergabe: 9005-Ü1 wieder offen"), (frei, aus, datei("9005")))
 os.environ["BORNIM_JETZT"] = "21.11., 20:30"
+soll("Archivschutz: 1 Min. bis zur Umschaltung, scharf 15 Min. (1739, 7.1)", lauf.schutz_min(False) == 1 and lauf.schutz_min(True) == 15)
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
