@@ -131,6 +131,28 @@ def mit_kern(l):
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 
+def mit_rufnamen(ausgabe, sitzungen, jetzt=None):
+    """1739 Rufnamen (erst mit tools/1727-SCHARF): jede START-Zeile außer Sokrates bekommt den nächsten freien Rufnamen des
+    Tages (rufname.py) als erstes Wort des Titels statt der Rolle, und die erste Nachricht nennt ihn. Die Rolle bleibt im
+    ersten Feld (Startsperre, Kern, Profil); Kosten und Archivregel finden den Bereich über den Vorgang im Titel."""
+    import rufname
+    belegt = rufname.heute_vergeben([(s.get("title", ""), s.get("created_at", "")) for s in sitzungen], jetzt or JETZT)
+    aus = []
+    for l in ausgabe:
+        teile = l.split(" | ", 6)
+        if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() == "Sokrates":
+            aus.append(l); continue
+        n = rufname.naechster(belegt)
+        if not n:
+            aus.append(l); aus.append("WARNUNG Rufname: alle Namen heute vergeben, Titel mit Rolle (1739)"); continue
+        belegt.append(n)
+        t = teile[5]
+        teile[5] = n + t[t.index(" – "):] if " – " in t else "%s – %s" % (n, t)
+        teile[6] = "Dein Rufname: %s (Titel, Besetzung, Meldung).\\n\\n%s" % (n, teile[6])
+        aus.append(" | ".join(teile))
+    return aus
+
+
 KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
@@ -1342,6 +1364,7 @@ def main():
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [l + KAUFREPO if l.startswith("START ") else l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1) if l.startswith("WEITER ") else l for l in ausgabe]
     ausgabe = [mit_kern(l) for l in ausgabe]
+    if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values())
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre and (sperren or neue_warnungen or wochen or morgen):

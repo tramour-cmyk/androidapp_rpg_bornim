@@ -58,6 +58,15 @@ def kurzzeilen(t):
 def rolle(titel):
     for r in ROLLEN:
         if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r  # 360: „Homer, 279 …“ blieb als Klon stehen
+    # 1739 Rufnamen: „Anna – 1739: …“ zählt beim Besitzer des Vorgangs im Titel (Bereich), alte Titel wie bisher
+    try:
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import rufname
+        b = rufname.bereich(titel)
+        if b: return b
+    except Exception:
+        pass
     return "Sonstige"
 
 def tag(s):
