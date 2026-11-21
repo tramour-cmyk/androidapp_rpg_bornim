@@ -14,7 +14,11 @@ import json, os, re, subprocess, sys
 ROLLEN = ("Build-Macher", "Spike", "Tom", "Jerry", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes")
 BUILD_NAME = r"claude/build-[^\s:;&|]+"
 ERLAUBT = ("Spike", "Build-Macher")
-PUSH = re.compile(r"(?:^|[;&|(\n])\s*(?:\w+=\S*\s+)*git\b(?:\s+-C\s+(\S+)|\s+-c\s+\S+)*\s+push\b([^;&|\n]*)")
+# 1768 (D328.1): vor git dürfen Shell-Schlüsselwörter und Vorsätze stehen (do, then, else, if, while, until, !, {, time, nohup,
+# exec, command, env, timeout [-k N] DAUER, VAR=wert), etwa „for i in 1 2; do git push …“ oder „timeout 60 git push …“
+VORSATZ = (r"(?:(?:do|then|else|elif|if|while|until|!|\{|time(?:\s+-p)?|nohup|exec|command|builtin|env(?:\s+-\S+)*"
+           r"|timeout(?:\s+--?[\w-]+(?:=\S+)?|\s+-[ks]\s+\S+)*\s+\d[\w.]*|\w+=\S*)\s+)*")
+PUSH = re.compile(r"(?:^|[;&|(`\n])\s*" + VORSATZ + r"git\b(?:\s+-C\s+(\S+)|\s+-c\s+\S+)*\s+push\b([^;&|`)\n]*)")
 MCP_SCHREIBEN = ("push_files", "create_or_update_file", "delete_file")
 
 
@@ -128,6 +132,20 @@ def test():
     ok(ziel_bash("git push origin claude/build-496a", ".") == "claude/build-496a", "Buchstabe im Namen (1765)")
     ok(ziel_bash("git push origin HEAD:claude/build-497 && echo x", ".") == "claude/build-497", "Name ohne Anhang (1765)")
     ok(rolle("Du bist **Build-Macher**") == "Build-Macher", "Rolle Build-Macher (1765)")
+    for b in ("for i in 1 2 3 4; do git push -u origin claude/build-399 && break; sleep 2; done",
+              "if true; then git push origin claude/build-399; fi", "if ok; then :; else git push origin claude/build-399; fi",
+              "until git push origin claude/build-399; do sleep 1; done", "while ! git push origin claude/build-399; do sleep 1; done",
+              "! git push origin claude/build-399", "{ git push origin claude/build-399; }", "timeout 60 git push origin claude/build-399",
+              "timeout -k 5 60s git push origin claude/build-399", "time git push origin claude/build-399",
+              "nohup git push origin claude/build-399 &", "env GIT_TRACE=1 git push origin claude/build-399",
+              "x=$(git push origin claude/build-399)", "x=`git push origin claude/build-399`",
+              "if git push origin claude/build-399; then echo ok; fi"):
+        ok(ziel_bash(b, ".") == "claude/build-399", "Schlüsselwort (1768): " + b)
+    for b in ("echo do git push origin claude/build-399", "echo then git push origin claude/build-399",
+              "grep -n 'timeout 60 git push origin claude/build-399' x", "echo '! git push origin claude/build-399'",
+              "printf '%s\\n' \"do git push origin claude/build-399\"", "git log --grep=push claude/build-399",
+              "for i in 1 2; do git push -u origin claude/jerry-1768; done", "timeout 60 git push origin HEAD:claude/tom-1"):
+        ok(ziel_bash(b, ".") is None, "Text ohne Fehlalarm (1768): " + b)
     print("BUILDZWEIG1716 %d Fehler" % f)
     return 1 if f else 0
 
