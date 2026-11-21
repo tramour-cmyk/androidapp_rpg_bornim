@@ -3,14 +3,17 @@
 irgendjemand was neu einmischen und dann fängt alles wieder von vorne an? Du bist hier verantwortlich für den Build und nicht
 irgendwelche Dödel von der Seite.“): der Buildzweig gehört Spike. PreToolUse-Haken für Bash und die GitHub-Schreibwerkzeuge: ein
 Push auf claude/build-<n> aus einer Sitzung, deren erste Nachricht eine andere Rolle nennt, hält an (Exit 2); Nachträge kommen in
-den nächsten Build, ein roter Test des Builds geht über Spike (send_message). Unbekannte Rolle (Chef, fremde Sitzung): durchlassen.
-Jeder Fehler im Haken lässt durch.
+den nächsten Build, ein roter Test des Builds geht über Spike (send_message). 1765 (Build-Kette 2, Chef 19.11., 22:05): Muster
+claude/build-<Name> (auch build-496a), unbekannte Rolle hält an; pushen darf Spike, nach der Umstellung der Build-Macher (beide
+gelten bis dahin, 1727 rückwärtsverträglich). Nur gegen Versehen: die Sicherung ist der Vergleich im Build-Werkzeug
+(buildwerkzeug.py spitze). Jeder Fehler im Haken lässt durch.
 Prüfen von Hand: buildzweig-haken.py --test
 """
 import json, os, re, subprocess, sys
 
-ROLLEN = ("Spike", "Tom", "Jerry", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes")
-BUILD = re.compile(r"(?:^|[:/\s])claude/build-\d+(?:$|\s)")
+ROLLEN = ("Build-Macher", "Spike", "Tom", "Jerry", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes")
+BUILD_NAME = r"claude/build-[^\s:;&|]+"
+ERLAUBT = ("Spike", "Build-Macher")
 PUSH = re.compile(r"(?:^|[;&|(\n])\s*(?:\w+=\S*\s+)*git\b(?:\s+-C\s+(\S+)|\s+-c\s+\S+)*\s+push\b([^;&|\n]*)")
 MCP_SCHREIBEN = ("push_files", "create_or_update_file", "delete_file")
 
@@ -70,7 +73,7 @@ def ziel_bash(befehl, cwd):
             if z in ("HEAD", "@"):
                 z = _zweig(wo)
             z = z.replace("refs/heads/", "")
-            if re.fullmatch(r"claude/build-\d+", z):
+            if re.fullmatch(BUILD_NAME, z):
                 return z
     return None
 
@@ -82,7 +85,7 @@ def ziel(e):
         return ziel_bash(t.get("command", ""), e.get("cwd"))
     if name.startswith("mcp__github__") and name.split("__")[-1] in MCP_SCHREIBEN:
         b = str(t.get("branch", ""))
-        return b if re.fullmatch(r"claude/build-\d+", b) else None
+        return b if re.fullmatch(BUILD_NAME, b) else None
     return None
 
 
@@ -93,11 +96,11 @@ def main():
         if not z:
             return 0
         r = rolle(erste_nachricht(e.get("transcript_path", "")))
-        if r is None or r == "Spike":
+        if r in ERLAUBT:
             return 0
         print("1716 (Chef 18.11., 22:29: „Du bist hier verantwortlich für den Build und nicht irgendwelche Dödel von der Seite.“): "
-              "%s gehört Spike, %s pusht dort nicht; jeder Push startet den laufenden Bau neu. Nachtrag in den nächsten Build "
-              "(Zweig gebaut lassen, Spike mischt ihn); roter Test dieses Builds: send_message an Spike." % (z, r), file=sys.stderr)
+              "%s gehört Spike (nach der Umstellung dem Build-Macher), %s pusht dort nicht; jeder Push startet den laufenden Bau neu. Nachtrag in den nächsten Build "
+              "(Zweig gebaut lassen, Spike mischt ihn); roter Test dieses Builds: send_message an Spike." % (z, r or "eine Sitzung ohne Rolle"), file=sys.stderr)
         return 2
     except Exception:
         return 0
@@ -122,6 +125,9 @@ def test():
     ok(rolle("## Kern\n\nDu bist **Spike**, Technik bei BornWire") == "Spike", "Rolle Spike")
     ok(rolle("Jerry – 1697: Rechtecke … Start") == "Jerry", "Rolle Jerry")
     ok(rolle("Bitte mach das") is None, "Chef ohne Rolle")
+    ok(ziel_bash("git push origin claude/build-496a", ".") == "claude/build-496a", "Buchstabe im Namen (1765)")
+    ok(ziel_bash("git push origin HEAD:claude/build-497 && echo x", ".") == "claude/build-497", "Name ohne Anhang (1765)")
+    ok(rolle("Du bist **Build-Macher**") == "Build-Macher", "Rolle Build-Macher (1765)")
     print("BUILDZWEIG1716 %d Fehler" % f)
     return 1 if f else 0
 
