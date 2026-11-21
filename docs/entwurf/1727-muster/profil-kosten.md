@@ -1,4 +1,4 @@
-# 1727, Profil Kosten (Gesamtbild 3.2; Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27)
+# 1727, Profil Kosten (Gesamtbild 3.2; Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27) · Fassung 4 (21.11., 22:16): 1727e als entschieden vermerkt (Offen 1, kein Haken); Byte 3.490 → 3.721 (ganze Datei ohne Kopfzeile, kein Profiltext)
 
 Auftrag: 1767 (Sokrates, Chef 21.11., 20:09). Raster `ein-ausgang.md`. **Nur Anschauung, nicht in Betrieb.** Vorschlag Sokrates „Release, Kosten und Guthaben“ war nicht entschieden (G:351).
 
@@ -22,7 +22,7 @@ Quellen: VA 20.11., 08:19 (Dollar-Freigabe weg, Laufbremse und Höchstdauer je A
 
 ## Offen, Fragen
 
-1. **Quelle der Guthabenzahl:** nur der Chef (Bild der App). `ARBEIT-BETRIEB.md` fällt (G:502), die Zahl wandert in den Tagesbericht. Vorschlag: der Chef nennt sie im Chat, Haken D trägt sie ein, `lauf.py` liest sie. Haken D trägt heute nur Freigabe und Antwort auf eine Frage (VA 21.11., 14:37 D); die Guthabenzahl ist eine **Erweiterung von D, Chefsache** (über Sokrates). Ohne Zahl keine Stufe.
+1. **Quelle der Guthabenzahl:** nur der Chef (Bild der App). `ARBEIT-BETRIEB.md` fällt (G:502), die Zahl wandert in den Tagesbericht. Vorschlag: der Chef nennt sie im Chat, Haken D trägt sie ein, `lauf.py` liest sie. Haken D trägt heute nur Freigabe und Antwort auf eine Frage (VA 21.11., 14:37 D); die Guthabenzahl ist eine **Erweiterung von D, Chefsache** (über Sokrates). Ohne Zahl keine Stufe. **Entschieden 1727e** (VA 21.11., 21:31): Chef nennt die Nutzung nur Sokrates, Sokrates trägt sie ein; kein Haken. Damit fällt der Vorschlag Haken D; Ort des Satzes offen (naheliegend Kern Leitung, abgenommen, Gespräch nötig).
 2. **Laufbremse, Höchstdauer:** nicht gebaut (G:911, L-O12).
 3. Die Bedingung „bei knappem Guthaben pausieren die Teams zuerst“ (Prüfung 20.11., 10:40) ist mit 21.11., 20:06 überholt; 287 regelt die Folge.
 

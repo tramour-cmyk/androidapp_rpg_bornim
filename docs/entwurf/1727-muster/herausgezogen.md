@@ -2,25 +2,27 @@
 
 Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung der Datei; danach unverändert). Je Datei: Kopfzeile, Leerzeile, dann der Text Zeichen für Zeichen. Byte = Text ohne Kopfzeile, UTF-8. Beleg: Python liest beide Dateien, Text == Zeilen a–b des Gesamtbilds und `Text in Gesamtbild`, nur lesend.
 
-| Teil | Datei | Byte | Quelle (Abschnitt, Zeilen) | Beleg exakt |
-|---|---|---|---|---|
-| Kern Büro | `kern-buero.md` | 2.351 | 3.1, 327–341 | ja |
-| Kern Arbeitsplaner (Fassung 2, vor 1727f) | `kern-arbeitsplaner.md` | 2.374 | 4.1, 409–422 | ja |
-| Kern Prüfer | `kern-pruefer.md` | 2.529 | 6.1, 790–805 | ja |
-| Kern Abnahme | `kern-abnahme.md` | 1.335 | 6.2, 815–823 | ja |
-| Profil Prüfer | `profil-pruefer.md` | 1.658 | 6.2, 829–839 | ja |
-| Profil Tester | `profil-tester.md` | 1.858 | 6.2, 845–858 | ja |
-| Querprofil Signatur und Leben (Fassung 2) | `querprofil-signatur-und-leben.md` | 876 | 1a, 238–244 | ja |
-| Profil Figur und Prüfbild | `profil-figur-und-pruefbild.md` | 1.303 | 5.1, 514–518 | ja |
-| Profil Regeln (Fassung 2) | `profil-regeln.md` | 1.743 | 5.3 Nr. 2, 556–562 | ja |
-| Profil Kampf (Fassung 2) | `profil-kampf.md` | 1.482 | 5.3 Nr. 3, 568–576 | ja |
-| Profil Kataloge (Fassung 2) | `profil-kataloge.md` | 1.448 | 5.3 Nr. 5, 584–590 | ja |
-| Profil Welt (Fassung 3) | `profil-welt.md` | 1.165 | 5.3 Nr. 6, 644–654 | ja |
-| Profil Klang (Fassung 4) | `profil-klang.md` | 645 | 5.3 Nr. 7, 710–714 | ja |
-| Profil Oberfläche (Fassung 2) | `profil-oberflaeche.md` | 1.035 | 5.3 Nr. 8, 732–736 | ja |
-| Profil Story (Fassung 3) | `profil-story.md` | 1.410 | 5.3 Nr. 9, 772–778 | ja |
-| Profil Chefrunde | `profil-chefrunde.md` | 553 | 2.2, 299 | ja |
-| Profil Markt und Recherche | `profil-markt-und-recherche.md` | 1.279 | 2.3, 305–312 | ja |
+| Teil | Datei | Byte | Quelle (Abschnitt, Zeilen) | Beleg exakt | nach Schritt 2 (21.11., 22:16) |
+|---|---|---|---|---|---|
+| Kern Büro | `kern-buero.md` | 2.351 | 3.1, 327–341 | ja | unverändert (3.3 Nr. 8 offen) |
+| Kern Arbeitsplaner (Fassung 2, vor 1727f) | `kern-arbeitsplaner.md` | 2.374 | 4.1, 409–422 | ja | 2.556 (1727f) |
+| Kern Prüfer | `kern-pruefer.md` | 2.529 | 6.1, 790–805 | ja | unverändert |
+| Kern Abnahme | `kern-abnahme.md` | 1.335 | 6.2, 815–823 | ja | unverändert (3.3 Nr. 8 offen) |
+| Profil Prüfer | `profil-pruefer.md` | 1.658 | 6.2, 829–839 | ja | unverändert |
+| Profil Tester | `profil-tester.md` | 1.858 | 6.2, 845–858 | ja | unverändert |
+| Querprofil Signatur und Leben (Fassung 2) | `querprofil-signatur-und-leben.md` | 876 | 1a, 238–244 | ja | unverändert |
+| Profil Figur und Prüfbild | `profil-figur-und-pruefbild.md` | 1.303 | 5.1, 514–518 | ja | unverändert |
+| Profil Regeln (Fassung 2) | `profil-regeln.md` | 1.743 | 5.3 Nr. 2, 556–562 | ja | unverändert |
+| Profil Kampf (Fassung 2) | `profil-kampf.md` | 1.482 | 5.3 Nr. 3, 568–576 | ja | unverändert |
+| Profil Kataloge (Fassung 2) | `profil-kataloge.md` | 1.448 | 5.3 Nr. 5, 584–590 | ja | unverändert |
+| Profil Welt (Fassung 3) | `profil-welt.md` | 1.165 | 5.3 Nr. 6, 644–654 | ja | unverändert |
+| Profil Klang (Fassung 4) | `profil-klang.md` | 645 | 5.3 Nr. 7, 710–714 | ja | unverändert |
+| Profil Oberfläche (Fassung 2) | `profil-oberflaeche.md` | 1.035 | 5.3 Nr. 8, 732–736 | ja | unverändert |
+| Profil Story (Fassung 3) | `profil-story.md` | 1.410 | 5.3 Nr. 9, 772–778 | ja | unverändert |
+| Profil Chefrunde | `profil-chefrunde.md` | 553 | 2.2, 299 | ja | 574 (1727d L-U10) |
+| Profil Markt und Recherche | `profil-markt-und-recherche.md` | 1.279 | 2.3, 305–312 | ja | unverändert |
+
+**Schritt 2, weitere Dateien** (nicht herausgezogen, Byte der ganzen Datei ohne Kopfzeile): `profil-technik.md` 16.543 → 16.594 (1727d L-T6, Vorschlagstext Checkliste 13); `profil-disponent.md` 7.614 → 7.993, Profiltext unverändert 2.275 (1727c nur vermerkt, Wortlaut offen); `profil-kosten.md` 3.490 → 3.721 (1727e vermerkt, kein Profiltext). Offen: 1727d L-S2/L-U8, L-U15 (3.3 ohne Arbeitsdatei), L-O1 (Kern Leitung, Gespräch); 3.3 Nr. 8 ohne Wortlaut.
 
 Abweichung zu Tabelle 0.1 je 1 bis 5 Byte (dort mit Zeilenende oder gerundet); Markt und Recherche fehlt in 0.1.
 

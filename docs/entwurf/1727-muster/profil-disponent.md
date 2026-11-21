@@ -1,4 +1,4 @@
-# 1727, Profil Disponent (Gesamtbild 3.2, 3.3; Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27)
+# 1727, Profil Disponent (Gesamtbild 3.2, 3.3; Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27) · Fassung 4 (21.11., 22:16): 1727c als entschieden vermerkt (Offen 1), Text unverändert 2.275; Byte 7.614 → 7.993 (ganze Datei ohne Kopfzeile)
 
 Auftrag: 1767 (Sokrates, Chef 21.11., 20:09 „weitere Dateien … Profile“). Raster `ein-ausgang.md`. **Nur Anschauung, nicht in Betrieb;** gilt ab der Umstellung, bis dahin `ROLLE-BETRIEB.md`. Wirkt erst, wenn die Werkzeugzeilen gebaut sind (VA 19.11., 19:37: Kern Büro gilt erst mit Bauliste 7.1).
 
@@ -45,7 +45,7 @@ Größe Text: 2275 Byte (Fassung 2: 2.118). Die Sitzung lädt dazu Sockel (etwa 
 
 ## Offen, Fragen
 
-1. **Sammelfrage C (Chefsache, ändert VA 21.11., 14:37 C):** weitere Startgründe für Sokrates, die die Entwürfe brauchen: was keinem Bereich gehört (4.4), Höchstdauer überschritten (Profil Kosten), „zwei Wochen schlechter“ (Wochenzählung), Stillstand, der an einer Entscheidung hängt, und „Release“ vor 622 (Rückfrage, ob 622 vorgezogen wird; `LISTE-RELEASE-NEUSTART.md`:13). Bis zum Wort des Chefs stehen beide nicht im Text. Ohne sie erreichen diese Zeilen Sokrates nur, wenn er gerade läuft. Bitte Sokrates beim Zusammenführen als eine Chefsache.
+1. **Sammelfrage C (Chefsache, ändert VA 21.11., 14:37 C):** weitere Startgründe für Sokrates, die die Entwürfe brauchen: was keinem Bereich gehört (4.4), Höchstdauer überschritten (Profil Kosten), „zwei Wochen schlechter“ (Wochenzählung), Stillstand, der an einer Entscheidung hängt, und „Release“ vor 622 (Rückfrage, ob 622 vorgezogen wird; `LISTE-RELEASE-NEUSTART.md`:13). Bis zum Wort des Chefs stehen beide nicht im Text. Ohne sie erreichen diese Zeilen Sokrates nur, wenn er gerade läuft. Bitte Sokrates beim Zusammenführen als eine Chefsache. **Entschieden 1727c** (VA 21.11., 21:43, „1727c ja“): jede offene Übergabezeile an Sokrates startet ihn (wie `lauf.py` gebaut); Eingang ohne Bereich, „zwei Wochen schlechter“, Stillstand an Entscheidung als Zeile an ihn; ersetzt die drei Wörter in C. Satz :22 im Text noch nicht geändert: Wortlaut nicht in der Vorlage („Text wie gebaut“), Gespräch mit Sokrates.
 2. **Klasse „nach dem Katalog“:** wo der Katalog der Klassen steht, ist offen; bis dahin nur „Eilt setzt der Chef, sonst Muss oder Kür“.
 3. **Nachfolger:** Ford hat heute keine Größenbremse, sondern Verdichtung; Neustart über den Chef bei etwa 400–500 Tsd. Token (`ARBEIT-BETRIEB.md`). Für den Disponenten keine Grenze entschieden; Vorschlag: wie heute.
 4. „Systemlösung?“ an den Arbeitsplaner weitergeben ist Auslegung von VA 20.11., 10:27 (BG:13, L-U6).
