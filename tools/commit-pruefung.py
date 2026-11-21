@@ -10,7 +10,8 @@ Frage trotz Antwort offen, setzt er die Zeit in Zeile 1 oder 2 der Datei neu). E
 Neuer Archiveintrag zu einer Nummer aus der Spalte „Woher“ der Kennungen A–G ohne Änderung an DESIGN-STIL/-KAMPF/-ABNAHME (461b; Ausweg
 „461 unverändert“ im Eintrag); warnt bei geänderter alter Archivzeile und bei neuer Vorlage ohne berührte Kennung.
 Gelöschte Vorlage mit „Was du tust: …“ ohne neue Datei in chefsache/tun/ (890; Ausweg BORNIM_GETAN=1); Datei in ansehen/ (außer t<Build>-…) ohne Bild, Film oder Frage (890).
-Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen, Vorgang ohne Wort dazu in der Chefsache (1414). Fasst nur Notizen an; sonst Exit 0. Hält an: undefinierter Name in einer geänderten tools/*.py (1611, namenpruefung.py). Jeder Fehler im Haken lässt durch."""
+Vorlage in docs/chefsache/ansehen/ mit „ohne Toon“, „Tusche fehlt“ u. ä. ohne Vergleich „mit Tusche“ (457, D56.1–2; Ausnahme „Chef erlaubt ohne Signatur“). Hält immer an (auch im Code): gekaufte Rohdatei (449: Kaufordner, Endung eines Kaufpakets, Inhalt wie im geklonten Kaufrepo). Hält an: CLAUDE.md oder ROLLE-*.md über der Obergrenze (OBERGRENZE), die der Commit vergrößert (822); neues „Zu <Nr> … von <Rolle>“, während <Nr> noch auf diese Rolle wartet (1124, Ausweg BORNIM_WARTET=1). Warnt (Exit 0): Modellnamen, Zeilen über 1500 Zeichen, Vorgang ohne Wort dazu in der Chefsache (1414). Fasst nur Notizen an; sonst Exit 0. Hält an: undefinierter Name in einer geänderten tools/*.py (1611, namenpruefung.py). Hält an (1765): Code unter godot/, den der letzte
+grüne Kerntest (tools/t logik) nicht in diesem Inhalt hatte; Spielcode auf main außer über einen Buildzweig. Jeder Fehler im Haken lässt durch."""
 import datetime, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -198,16 +199,68 @@ def wachstum(dat):
             aus.append("%s: %d Bytes, Obergrenze %d, Commit fügt %d hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)" % (p, neu, OBERGRENZE[p], neu - alt))
     return aus
 
-def kerntest_warn(dat):
-    """192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code (882.2: Godot statt Kotlin)."""
-    code = [p for s, p in dat if s != "D" and re.match(r"godot/.*\.gd$", p)]
+# 1765 (Kerntest-Haken, 1727 Bauliste 7.1; CLAUDE.md „vor jedem Code-Commit Kerntests mit Exit-Code“): Code-Commit ohne grünen
+# Kerntest hält an, für jede Sitzung mit Code. Die Marke (tools/t logik, voller Lauf, Exit 0) hält den Inhalt jeder Code-Datei unter
+# godot/ fest; der Commit geht nur durch, wenn jede bereitgestellte Code-Datei genau so getestet wurde (vorher nur Warnung nach Uhrzeit).
+KERNTEST_CODE = re.compile(r"godot/.*\.(gd|tscn|tres|gdshader|json|cfg|godot)$")
+
+
+def kerntest_marke_pfad():
+    return os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")
+
+
+def kerntest_marke_schreiben():
+    """Aufruf aus tools/t logik nach grünem vollem Lauf: Inhalt (Blob-Kennung) jeder Code-Datei der Arbeitskopie."""
+    pfade = [p for p in git("ls-files", "-co", "--exclude-standard", "godot").splitlines() if KERNTEST_CODE.match(p) and os.path.isfile(p)]
+    kenn = subprocess.run(["git", "hash-object", "--stdin-paths"], input="\n".join(pfade), capture_output=True, text=True).stdout.split()
+    with open(kerntest_marke_pfad(), "w", encoding="utf-8") as f:
+        f.write("".join("%s %s\n" % (k, p) for k, p in zip(kenn, pfade)))
+    return 0
+
+
+def kerntest_stop(dat):
+    """1765: bereitgestellte Code-Dateien, deren Inhalt der letzte grüne Kerntest nicht hatte."""
+    code = [p for s, p in dat if s != "D" and KERNTEST_CODE.match(p)]
     if not code: return []
-    marke = os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")
-    try: neuster = max(os.path.getmtime(p) for p in code if os.path.exists(p))
-    except ValueError: neuster = 0
-    if not os.path.exists(marke) or os.path.getmtime(marke) < neuster:
-        return ["Code ohne grünen Kerntest seit der letzten Änderung (tools/t logik, Exit-Code prüfen)"]
-    return []
+    try:
+        marke = dict(reversed(z.split(" ", 1)) for z in open(kerntest_marke_pfad(), encoding="utf-8").read().splitlines() if " " in z)
+    except OSError:
+        marke = {}
+    neu = [p for p in code if marke.get(p) != (git("ls-files", "-s", "--", p).split() or ["", ""])[1]]
+    if not neu: return []
+    return ["Code ohne grünen Kerntest in diesem Stand (%s%s): tools/t logik bis Exit 0, dann committen (1765)"
+            % (", ".join(neu[:5]), " …" if len(neu) > 5 else "")]
+
+
+# 1765 (Build-Kette 4, Chef 19.11., 22:05: „Spielcode-Pfade auf main nur über einen Buildzweig“): Commit auf main mit Spielcode-Pfaden
+# (Pfadfilter von godot.yml) hält an; frei: Merge eines Buildzweigs claude/build-…, Tests und uid-Dateien (godot/tests/, *.uid).
+# Bis zur Umstellung (1727, rückwärtsverträglich, Chef 20.11., 10:38) nur Warnung beim Merge eines Teamzweigs (Checkliste 3:
+# „ohne dich“ und Kleinkram gehen nach grünem Lauf auf main); ALTER_WEG = False schaltet das ab.
+ALTER_WEG = True
+
+
+def spielcode_pfade():
+    import fnmatch, yaml
+    d = yaml.safe_load(open(".github/workflows/godot.yml", encoding="utf-8"))
+    on = d.get("on", d.get(True)) or {}
+    muster = [m for m in (on.get("push") or {}).get("paths", []) if m != ".github/workflows/godot.yml"]
+    return lambda p: any(fnmatch.fnmatch(p, m) for m in muster)
+
+
+def main_spielcode(dat):
+    """(stop, warn) für einen Commit auf main mit Spielcode-Pfaden."""
+    if git("rev-parse", "--abbrev-ref", "HEAD").strip() != "main": return [], []
+    ist = spielcode_pfade()
+    sc = [p for s, p in dat if ist(p) and not p.startswith("godot/tests/") and not p.endswith(".uid")]
+    if not sc: return [], []
+    kopf = git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip()
+    if kopf:
+        zweige = git("branch", "-a", "--contains", kopf, "--format=%(refname:short)").split()
+        if any(re.search(r"(^|/)claude/build-\S+$", z) for z in zweige): return [], []
+        if ALTER_WEG and any(re.search(r"(^|/)claude/", z) for z in zweige):
+            return [], ["Merge mit Spielcode auf main ohne Buildzweig (%s); nach der Umstellung nur über claude/build-… (1765)" % ", ".join(sc[:3])]
+    return ["Spielcode auf main nur über einen Buildzweig (%s%s; Build-Kette 4, 1765): auf einen Zweig claude/…, er fährt im nächsten Build"
+            % (", ".join(sc[:3]), " …" if len(sc) > 3 else "")], []
 
 
 SRD_DAZU = ["RK", "ZP", "Übungsbonus", "Rettungswurf", "Zauberplatz", "W20", "d20", "STR", "DEX", "CON", "INT", "WIS", "CHA",
@@ -377,6 +430,13 @@ def main():
     video = [p for s, p in dat if s != "D" and p.lower().endswith((".mp4", ".webm"))]
     if video:  # 374 (373 b): Videos gehören auf den Zweig „bilder“ (meldung.sh legt sie dort ab), nie auf main
         print("Commit-Prüfung HÄLT AN: Video auf main (%s); auf den Zweig „bilder“ (374)" % ", ".join(video), file=sys.stderr); return 1
+    try:  # 1765: Spielcode auf main nur über einen Buildzweig
+        ms, mw = main_spielcode(dat)
+        for w in mw: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
+        if ms:
+            for w in ms: print("Commit-Prüfung HÄLT AN: " + w, file=sys.stderr)
+            return 1
+    except Exception as e: print("Commit-Prüfung: 1765 übersprungen (%s)" % e, file=sys.stderr)
     kauf = kaufdateien([(s, p) for s, p in dat if s != "D"])
     if kauf:  # 449: gekaufte Rohdateien nur im privaten Repo bornim-kaufmodelle, nie hier (CLAUDE.md „Fremde Inhalte“, 348.12c a)
         print("Commit-Prüfung HÄLT AN: gekaufte Rohdatei (%s); gehört nur ins private Repo bornim-kaufmodelle (449)" % "; ".join(kauf), file=sys.stderr); return 1
@@ -385,7 +445,9 @@ def main():
     except Exception as e: print("Commit-Prüfung: 623.3 übersprungen (%s)" % e, file=sys.stderr)
     # 877 (D134.1): Code-Prüfungen vor dem Ausstieg für Code-Commits, sonst erreichte sie nie ein Commit unter core/, app/, godot/
     try:
-        for w in kerntest_warn(dat): print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
+        kt = kerntest_stop(dat)
+        for w in kt: print("Commit-Prüfung HÄLT AN: " + w, file=sys.stderr)
+        if kt: return 1
         srd_stop, srd_warn = srd_neu(dat)
         for w in srd_warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
         if srd_stop:
@@ -735,6 +797,8 @@ def srd_bestand():
     return 1 if n else 0
 
 
+if __name__ == "__main__" and "--kerntest-marke" in sys.argv:
+    sys.exit(kerntest_marke_schreiben())
 if __name__ == "__main__":
     if "--srd-bestand" in sys.argv: sys.exit(srd_bestand())
     try: sys.exit(main())

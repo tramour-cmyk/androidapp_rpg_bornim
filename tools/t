@@ -12,8 +12,9 @@ logik)
     [ -x ~/godot/godot ] || tools/setup-session.sh >/dev/null
     if [ -n "$2" ]; then timed python3 tools/godot/logik.py "$2"; else
         timed python3 tools/godot/logik.py; rc=$?
-        # Kerntest-Marke (192.3): vollständiger Lauf mit Exit 0; der Commit-Haken warnt, wenn Code neuer ist als die Marke
-        [ $rc -eq 0 ] && touch "$(git rev-parse --git-common-dir)/kerntest-ok"
+        # Kerntest-Marke (192.3, 1765): vollständiger Lauf mit Exit 0 hält den Inhalt jeder Code-Datei fest; der Commit-Haken hält
+        # einen Code-Commit an, dessen Dateien so nicht getestet wurden
+        [ $rc -eq 0 ] && python3 tools/commit-pruefung.py --kerntest-marke
         exit $rc
     fi ;;
 pruef|check)
