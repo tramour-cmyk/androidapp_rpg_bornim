@@ -50,7 +50,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | nichts offen in der Chefsache |
+| **Chef** | [1764](tun/1764-telegram-secret.md) tun |
 | Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 4 weitere |
 | Jerry | läuft: 1786 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
@@ -100,7 +100,11 @@ Nichts offen.
 
 ## Zu tun
 
-Nichts offen.
+Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1764](tun/1764-telegram-secret.md) | **Muss** | B Werkzeuge | 21.11., 22:41 | Nur du hast die Rechte. Ohne das Secret meldet der Herzschlag einen Ausfall von Ford bzw. Disponent nur als roten Lauf auf GitHub, nicht auf Telegram. | Sokrates |
 
 ## Offen je Rolle
 
