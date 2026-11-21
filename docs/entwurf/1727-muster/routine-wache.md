@@ -1,4 +1,4 @@
-# 1727, Routine Wache mit Herzschlag (Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27)
+# 1727, Routine Wache mit Herzschlag (Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27) · Fassung 4 (Sokrates 21.11., 23:25, Falltest Lauf 1 R2/R3, `falltest-ergebnis-22-11.md`): Fall 7 „Liegt“ (Zahlen 6 h und 1 h Annahme: 6 h wie `CLAUDE.md` Haltung 4, 1 h nach Chef 15.11., 19:13 zu 1311); Text nach Messregel 1.144 Byte (Kopfzahl 950 unten war vor Fall 7); Werkzeug für die Zählung offen; Nachprüfung offen
 
 Auftrag: 1767 (Sokrates, Chef 21.11., 20:09). Raster `ein-ausgang.md`, schließt L-O9; L-T1 nur zur Hälfte (unten). **Nur Anschauung, nicht in Betrieb;** bis zur Umstellung trägt Ford mit der Wache-Uhr :33 (`LISTE-BETRIEB.md`:64, `ARBEIT-BETRIEB.md`:27).
 
@@ -22,6 +22,7 @@ Bei jedem Wecken deiner Uhr, je Fall höchstens eine Meldung je Stunde (Stand in
 4. **Rote Läufe:** ab 3 fehlgeschlagenen GitHub-Läufen in der Stunde → laut an den Chef mit Zahl, Zweigen, Link; Wecker an den Disponenten.
 5. **Du bist dran:** neue Testbitte oder Chefsache ohne Telegram → laut an den Chef.
 6. **Tagesbericht fehlt** um 10 Uhr (Sa/So 12 Uhr) → Wecker an den Disponenten.
+7. **Liegt:** ein Vorgang ist abgenommen und seit 6 h in keinem Build, oder vom Chef freigegeben und seit 1 h nicht auf `main` → Wecker „Liegt“ an den Disponenten mit Nummer, Stand, Alter.
 Dann schreibst du deine Zeitmarke und wartest auf den nächsten Wecker.
 ```
 
