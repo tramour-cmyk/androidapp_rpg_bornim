@@ -1,27 +1,27 @@
-# 1727c · Soll der Disponent Sokrates auch bei drei weiteren Anlässen starten?
-Sokrates · 21.11., 21:20 · 7 Firma · aus 1727, Profil Disponent (Sammelfrage C, `profil-disponent.md`:48), Routine Rundblick
-Kurz: C (14:37) startet Sokrates nur bei „steckt fest“, „Frage“, „wirkt nein“; die Entwürfe brauchen drei weitere Anlässe.
-Beim Chef, weil: Rollen und Accounts (wann Sokrates startet); ändert Entschiedenes (Archiv 21.11., 14:37 C, „Disponent startet Sokrates bei ‚steckt fest‘, ‚Frage‘, ‚wirkt nein‘“)
+# 1727c · Soll Sokrates bei jeder offenen Übergabezeile an ihn starten, und sollen drei weitere Anlässe als solche Zeile an ihn gehen?
+Sokrates · 21.11., 21:19 · 7 Firma · aus 1727 (Umbau der Arbeitsweise), Profil Disponent (`profil-disponent.md`:22, :48)
+Kurz: Entschieden sind drei Wörter (C, 14:37); `lauf.py` startet Sokrates schon heute bei jeder offenen Zeile an ihn; drei Anlässe haben noch keinen Weg zu ihm.
+Beim Chef, weil: Rollen und Accounts (wann Sokrates startet); ändert Entschiedenes (Archiv 21.11., 14:37 C „Disponent startet Sokrates bei ‚steckt fest‘, ‚Frage‘, ‚wirkt nein‘“)
 
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef86e3 (`docs/entwurf/1727-muster/profil-disponent.md`:22, :48; `routine-rundblick.md`:23; `routine-wochenzaehlung.md`:43; `profil-kosten.md`; `tools/lauf.py`:512 (`sokrates_zeilen`)
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef86e3 (`tools/lauf.py`:511–535, :1260; `tools/uebergabe.py`:232–241; `docs/entwurf/1727-muster/profil-disponent.md`:22, :48; `routine-wochenzaehlung.md`:43)
 
-**Frage:** Nach C startet der Disponent Sokrates nur bei drei Wörtern. Die Entwürfe geben Sokrates aber weitere Zeilen: (1) Eingang, der keinem Bereich gehört (Gesamtbild 4.4); (2) Höchstdauer zum zweiten Mal überschritten („steckt fest“, schon in C gedeckt, nur zur Klarheit); (3) Wochenzählung „zwei Wochen schlechter“; (4) Stillstand, der an einer Entscheidung hängt. Ohne Startgrund erreichen diese Zeilen Sokrates nur, wenn er gerade läuft. Sollen (1), (3), (4) Startgründe werden? (Ein Vorschlag des Rundblicks, der eine Entscheidung braucht, geht als „Frage“; die deckt C schon.)
+**Frage:** C sagt: Sokrates startet bei „steckt fest“, „Frage“, „wirkt nein“. Gebaut ist mehr: `lauf.py` startet oder weckt Sokrates bei jeder offenen Übergabezeile an ihn, gleich mit welchem Wort (läuft heute schon). Drei Anlässe aus den Entwürfen haben noch keine Zeile an Sokrates: (1) Eingang, der keinem Bereich gehört; (2) Wochenzählung „zwei Wochen schlechter“; (3) Stillstand, der an einer Entscheidung hängt. Soll gelten: jede offene Zeile an Sokrates startet ihn (Text wie gebaut), und diese drei gehen als Zeile an ihn?
 
-**Votum:** „1727c A“: ja, alle drei; eine Zeile `lauf.py` je Anlass wie C.
+**Votum:** „1727c A“: ja.
 
-**Berührt:** Profil Disponent, `lauf.py` (Spike), Routinen Wochenzählung und Rundblick (1727).
+**Berührt:** Profil Disponent :22 (Text), Routinen Wochenzählung und Büro (Zeile an Sokrates); kein Bau in `lauf.py`.
 
-**Begründung:** sonst tote Enden (Lehre Prozessprüfung 21.11., 14:30: Raster Einheit × Auslöser bis Empfänger).
+**Begründung:** Text und Werkzeug sagen dann dasselbe; ohne Zeile bleiben die drei Anlässe liegen (Chef 20.11., 22:17: „Rückläufer … dürfen nicht durchrutschen“).
 
 **Sachverhalt:**
-- C entschieden 21.11., 14:37; `lauf.py` `sokrates_zeilen` liest offene Übergabezeilen an Sokrates (:512).
-- Rundblick montags, Wochenzählung montags: höchstens je einmal die Woche; (1) und (4) selten.
+- `sokrates_zeilen` holt über `uebergabe.offen_lokal("Sokrates")` jede offene Zeile, nur nach Zustand und Empfänger, nie nach dem Wort; nicht an den Umschalter gebunden.
+- (2) höchstens einmal die Woche, (1) und (3) selten.
 
 **Auswertung:**
-- **A (Empfehlung):** drei Startgründe; geschätzt ein bis drei Sokrates-Starts mehr je Woche (je etwa 3–5 $ Startlesen).
-- **B:** keine; Zeilen warten, bis Sokrates ohnehin läuft (Gespräch mit dem Chef); Gefahr, dass sie liegen bleiben.
-- **Stärkstes Gegenargument gegen A:** jeder Start kostet Guthaben, und (3) könnte Sokrates im Wochengespräch lesen. Entkräftung: ein Wochengespräch ist nicht festgelegt; Chef 22:17 (20.11.): „Rückläufer … dürfen nicht durchrutschen“.
+- **A (Empfehlung):** zwei Sätze Text, drei Zeilen in den Routinen.
+- **B:** `lauf.py` auf die drei Wörter einschränken (Bau, Spike) und die drei Anlässe im Gespräch mit dir lesen.
+- **Stärkstes Gegenargument gegen A:** jeder Start kostet Guthaben, und jeder Entwurf kann künftig Arbeit an Sokrates schieben. Entkräftung: Zeilen an Sokrates schreiben nur Werkzeuge und Routinen, die im Text stehen; die Wochenzählung zählt Sokrates-Starts.
 
-**Folgerungen:** A: Vorgang an Spike (Startgründe in `lauf.py`), Text in Profil Disponent (Sokrates).
+**Folgerungen:** A: Sokrates ändert Profil Disponent und die Routinen.
 
 Antwort: …

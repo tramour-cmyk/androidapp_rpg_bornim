@@ -1,28 +1,27 @@
-# 1727b · Gilt für freie Lizenzen weiter nur „kommerzielle Nutzung erlaubt“, mit Lizenzhinweis im Spiel, wo die Lizenz ihn verlangt?
-Sokrates · 21.11., 21:20 · 7 Firma · aus 1727, Querprofil Fremde Inhalte F4a
-Kurz: `LISTE-QUELLEN.md` ist strenger als `CLAUDE.md`; angleichen, MIT- und OFL-Hinweis in „Über das Spiel“.
+# 1727b · Gelten „ohne Nennung, jede Engine, unbefristet, ohne Umsatzgrenze“ nur für Gekauftes, für freie Inhalte nur „kommerzielle Nutzung erlaubt“?
+Sokrates · 21.11., 21:19 · 7 Firma · aus 1727 (Umbau der Arbeitsweise), Querprofil Fremde Inhalte F4a
+Kurz: `CLAUDE.md` ist zweideutig, `LISTE-QUELLEN.md` liest es streng für alles; unsere OFL-Schriften und der MIT-Teil im Spiel brauchen die milde Lesart.
 Beim Chef, weil: Lizenz
 
-Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef86e3 (`CLAUDE.md` „Technik und Sicherheit“; `docs/LISTE-QUELLEN.md`:5, :82–88 (Lücken 2, 4); `docs/LISTE-BESTAND.md`:7; `docs/entwurf/1727-muster/profil-fremde-inhalte.md`:24
+Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef86e3 (`CLAUDE.md` „Technik und Sicherheit“; `docs/LISTE-QUELLEN.md`:5, :82–88; `docs/LISTE-BESTAND.md`:7; `godot/skripte/hauptmenue.gd`:472, :497, :502; `godot/tests/lizenz_497.gd`)
 
-**Frage:** `CLAUDE.md` verlangt von freien Inhalten nur „offene Lizenz, die kommerzielle Nutzung erlaubt“; die strengen Bedingungen (jede Engine, unbefristet, ohne Nennung, ohne Umsatzgrenze) gelten für Gekauftes. `LISTE-QUELLEN.md`:5 nennt die strengen Bedingungen für alles. Im Spiel liegen schon Schriften unter OFL und Shader-Teile unter MIT (REEBOO), die einen Lizenzhinweis verlangen. Soll `CLAUDE.md` gelten (Liste angleichen, Hinweis in „Über das Spiel“ wie bei Godot), oder sollen die strengen Bedingungen auch für Freies gelten?
+**Frage:** `CLAUDE.md` sagt: fremde Inhalte „nur mit offener Lizenz, die kommerzielle Nutzung erlaubt (z. B. CC0), oder gekauft …, wenn die Lizenz den Verkauf in jeder Engine erlaubt, unbefristet, ohne Nennung und Umsatzgrenze“. Man kann das „wenn …“ nur auf Gekauftes beziehen oder auf beides. `LISTE-QUELLEN.md`:5 bezieht es auf alles. Im Spiel stehen aber schon die Schriften Alegreya und Fondamento (SIL Open Font License, verlangt Hinweis) und Shader-Teile von David Hoskins (MIT, verlangt Hinweis); die Hinweise stehen im Hauptmenü (`hauptmenue.gd`:497, :502; 781, von dir freigegeben 10.11.). Gilt die strenge Bedingung nur für Gekauftes?
 
-**Votum:** „1727b A“: `CLAUDE.md` gilt; `LISTE-QUELLEN.md`:5 angleichen; Lizenzhinweise für MIT und OFL in „Über das Spiel“ (wie Godot, 497); öffentlich ablegen darf man CC0 und Lizenzen, die die Weitergabe erlauben (OFL, MIT), sonst nur privat (`LISTE-BESTAND.md`:7).
+**Votum:** „1727b A“: ja, nur für Gekauftes; für Freies reicht „kommerzielle Nutzung erlaubt“, Hinweis im Hauptmenü, wo die Lizenz ihn verlangt. Sokrates stellt den Satz in `CLAUDE.md` klar und gleicht `LISTE-QUELLEN.md`:5 und `LISTE-BESTAND.md`:7 an (öffentlich: CC0 und Lizenzen, die die Weitergabe erlauben, etwa OFL, MIT).
 
-**Berührt:** `LISTE-QUELLEN.md`, `LISTE-BESTAND.md` (Sokrates), „Über das Spiel“ (Tom, Vorgang bei A), Querprofil Fremde Inhalte (1727).
+**Berührt:** `CLAUDE.md`, `LISTE-QUELLEN.md`, `LISTE-BESTAND.md`, Querprofil Fremde Inhalte (Sokrates); kein Bau.
 
-**Begründung:** `CLAUDE.md` ist die Quelle der Regel (348.12c a); die Liste hat sie verschärft abgeschrieben. Nennung ist bei Freiem billig (eine Zeile im Menü), Verzicht kostet die Schriften Fondamento und Alegreya.
+**Begründung:** so ist es seit 781 gebaut und von dir freigegeben; die Liste hat die Regel strenger abgeschrieben, als sie gelebt wird.
 
 **Sachverhalt:**
-- OFL-Schriften im öffentlichen Repo: `godot/daten/fondamento.ttf`, `godot/kampf/schrift/alegreya_*.ttf` (`tools/schrift/QUELLEN.md`:3).
-- MIT-Teil in REEBOO (Hashfunktionen in Grass, Water, Surface; `LISTE-QUELLEN.md` Lücke 2).
-- Fondamento hat einen Reserved Font Name; wir ändern die Schrift nicht, also unschädlich; Kopf von `QUELLEN.md` berichtigt Sokrates (Lücke 4, Text).
+- Hinweise stehen und sind getestet (`lizenz_497.gd`:35, :39, :62–63).
+- Fondamento hat einen geschützten Schriftnamen; wir ändern die Schrift nicht, also unschädlich (Lücke 4, Text, Sokrates).
 
 **Auswertung:**
-- **A (Empfehlung):** angleichen, eine Zeile Lizenzhinweise; kein Inhalt fällt weg.
-- **B:** strenge Bedingungen für alles; OFL-Schriften und REEBOO-Teil müssen ersetzt werden.
-- **Stärkstes Gegenargument gegen A:** zwei Maßstäbe sind fehleranfälliger als einer. Entkräftung: das Querprofil Fremde Inhalte schickt jede Lizenz, die nicht sicher passt, als „Frage“ an Sokrates (Archiv 21.11., 20:52).
+- **A (Empfehlung):** nur Text klarstellen; nichts wird ausgebaut.
+- **B:** streng für alles: 781 und die Schriftzeile zurückbauen, Alegreya, Fondamento und die Hoskins-Teile ersetzen.
+- **Stärkstes Gegenargument gegen A:** künftig sind auch Lizenzen mit Nennungspflicht (etwa CC-BY) zulässig, die Liste der Nennungen wächst, und zwei Maßstäbe sind fehleranfälliger. Entkräftung: jede Lizenz, die nicht sicher passt, geht als „Frage“ an Sokrates (Archiv 21.11., 20:52); eine Nennung ist eine Zeile im Hauptmenü.
 
-**Folgerungen:** A: Sokrates gleicht beide Listen an; Vorgang an Tom „Lizenzhinweise MIT/OFL in ‚Über das Spiel‘“.
+**Folgerungen:** A: Sokrates ändert die drei Texte im selben Commit wie die Antwort.
 
 Antwort: …

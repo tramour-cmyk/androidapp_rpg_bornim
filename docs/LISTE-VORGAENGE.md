@@ -244,7 +244,7 @@
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 4,68 $ |
 | 109 | Repo öffentlich | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | – |
 | 1774 | Von Spike (1766): Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läufe je Auftrag) festlegen; Wert fehlt laut L-O17, routine-rundblick.md:25 – Vorentscheid oder Chef | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| 1727a | Rückfrage Sokrates (1727): Satz 1311 aus Profil Technik streichen, sobald Profil Werkzeug gilt? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727a | Rückfrage Sokrates (1727): Satz 1311 aus Profil Technik streichen, sobald Profil Werkzeug gilt? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727b | Rückfrage Sokrates (1727): Lizenz frei: nur kommerziell erlaubt, Hinweis MIT/OFL im Spiel, Listen angleichen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727c | Rückfrage Sokrates (1727): Drei weitere Startgründe für Sokrates (Eingang ohne Bereich, zwei Wochen schlechter, Stillstand an Entscheidung)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727d | Rückfrage Sokrates (1727): Fünf Lücken im Abgenommenen schließen (L-S2, L-O1, L-U15, L-T6, L-U10)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |

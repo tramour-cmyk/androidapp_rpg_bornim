@@ -1,12 +1,12 @@
-# 1727, Sammelvorlage für die Chefrunde (Fassung 2, Sokrates 21.11., 21:20; Gegenprüfung 21:12 eingearbeitet, Nachprüfung offen)
+# 1727, Sammelvorlage für die Chefrunde (Fassung 2, Sokrates 21.11., 21:19; Gegenprüfung 21:12 eingearbeitet, Nachprüfung offen)
 
 Träger: Sokrates („Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`). Jede Entscheidung des Chefs hat eine Chefsache (Archiv 21.11., 20:59); je Punkt eine Datei. „G:“ = `docs/entwurf/1727-gesamtbild.md`.
 
 ## Beim Chef zu entscheiden (`chefsache/entscheiden/`)
 
-- **1727a** Satz 1311 in Profil Technik streichen, sobald Profil Werkzeug gilt.
-- **1727b** Lizenz: für Freies nur „kommerziell erlaubt“ (`CLAUDE.md`), Liste angleichen, MIT/OFL-Hinweis in „Über das Spiel“, Ablage öffentlich auch OFL/MIT (Lücken 2, 4 eingeschlossen).
-- **1727c** Drei weitere Startgründe für Sokrates (Eingang ohne Bereich, zwei Wochen schlechter, Stillstand an Entscheidung); Rundblick-Vorschlag mit Entscheidung geht als „Frage“ (Nachprüfung Texte 21:15, Rundblick 6).
+- ~~1727a~~ zurückgezogen (Nachprüfung 21:18): Profil Werkzeug gilt nur für Firmenwerkzeuge, der Satz 1311 in Profil Technik trägt die Spielbau-Werkzeuge; bleibt.
+- **1727b** Strenge Lizenzbedingungen nur für Gekauftes; Hinweise MIT/OFL stehen schon im Hauptmenü (781); nur Text klarstellen (`CLAUDE.md`, Listen).
+- **1727c** Jede offene Zeile an Sokrates startet ihn (wie gebaut, `lauf.py`:511–535); drei Anlässe gehen als Zeile an ihn; kein Bau.
 - **1727d** Fünf Lücken im Abgenommenen (L-S2, L-O1, L-U15, L-T6, L-U10).
 - **1727e** Guthabenzahl über Haken D.
 - **1727f** Kern Arbeitsplaner +170 Byte (zwei Ladehinweise, Ausnahme Übersetzung).
@@ -31,7 +31,6 @@ Träger: Sokrates („Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`). Jede E
 - Leistungsstufe je Auftrag: erst nach Ergebnis 1742 (Chef 20.11., 15:52).
 - Unity Asset Store (780): im Gespräch nach Antwort Janpec, Nachfrage bis 23.11. (Archiv 21.11., 20:52).
 - Ersatz Figurenstand-Sperre (513 B) und Torprüfung der Vorlagen (`werkzeuge.md`:102–103): Ersatzvorschlag fehlt, Sokrates bereitet vor.
-- Prüfung auf Rückschritt fremder Dateien beim Commit (Diogenes D329, 21:09, zu 1776): Systemfrage, Sokrates prüft.
 - L-O22 „ja“ ohne Build an den Chef (`ein-ausgang.md`:94): Vorschlag, noch nicht geprüft.
 
 ## Gegenprüfung 21:12 (frischer Helfer, Fassung 1), mein Wort

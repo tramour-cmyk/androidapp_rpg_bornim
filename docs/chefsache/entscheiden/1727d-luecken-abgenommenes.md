@@ -1,5 +1,5 @@
 # 1727d · Fünf Lücken im schon Abgenommenen so schließen?
-Sokrates · 21.11., 21:20 · 7 Firma · aus 1727, Raster Ein- und Ausgang (`ein-ausgang.md` L-O1, L-S2, L-U10, L-U15, L-T6)
+Sokrates · 21.11., 21:19 · 7 Firma · aus 1727, Raster Ein- und Ausgang (`ein-ausgang.md` L-O1, L-S2, L-U10, L-U15, L-T6)
 Kurz: Fünf Stellen in abgenommenen Texten (3.3, Profil Technik, Chefrunde, Eingang) führen ins Leere; je ein Satz schließt sie.
 Beim Chef, weil: Rollen und Accounts (Profile, Übergabe zwischen Rollen); ändert Abgenommenes (Archiv 20.11., 16:49 „Abgenommenes nur nach Gespräch“; 3.3 Archiv 21.11., 10:11; Profil Technik 21.11., 15:15)
 
@@ -7,7 +7,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef8
 
 **Frage:** Das Raster hat fünf tote Enden in Abgenommenem gefunden. Je eine Antwort, A heißt Vorschlag:
 1. **L-S2 Wiederwecken (3.3):** Frist abgelaufen, Empfänger `idle` → Zeile offen, aber ohne Zahl. Vorschlag: ein Neustart, beim zweiten Mal „steckt fest“ (wie die gebaute Höchstdauer, `lauf.py`:583–607).
-2. **L-O1 Eingang ohne Ort:** „über den Eingang des Büros“, aber `ARBEIT-BETRIEB.md` fällt. Vorschlag: wer etwas ans Büro gibt, legt es mit `vorgang.py neu` an und weckt den Disponenten.
+2. **L-O1 Eingang ohne Ort:** „über den Eingang des Büros“, aber `ARBEIT-BETRIEB.md` fällt. Vorschlag (wie `ein-ausgang.md`:74): Sokrates legt es mit `vorgang.py neu` an und weckt den Disponenten.
 3. **L-U15 „gut“ aus fremder Sitzung:** geht laut 3.3 an den Arbeitsplaner, Profil Technik erwartet den Disponenten. Vorschlag: einheitlich an den Disponenten, der den Build-Macher startet.
 4. **L-T6 Profil Technik „ans Team zurück“:** Teams fallen weg. Vorschlag: zurück an die Fachkraft des Vorgangs über eine Übergabezeile; Fund mit Mangel beim Bereich statt beim Besitzer.
 5. **L-U10 Profil Chefrunde (2.2) nach altem Stand:** Vorschlag: „Rückbau beim Besitzer“ → „beim Bereich über den Disponenten“.
