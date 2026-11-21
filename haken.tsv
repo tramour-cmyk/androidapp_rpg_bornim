@@ -1139,3 +1139,4 @@
 2026-11-21 15:16:18	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30080 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-21 20:06:34	commit-pruefung	LISTE-VORGAENGE.md: 1484: Zeile über 400 Zeichen (Einzelheiten als „Zu 1484“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-21 20:06:34	commit-pruefung	LISTE-VORGAENGE.md: 1068: Zeile über 400 Zeichen (Einzelheiten als „Zu 1068“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-21 20:14:15	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30271 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
