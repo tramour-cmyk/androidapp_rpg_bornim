@@ -14,7 +14,10 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
     "| 9001 | Zwerg auf dem Tisch | Tom | M | startbar | – | – | – | E Welt | – |\n"
     "| 9002 | Schatten im Wald | Spike | M | startbar | – | – | – | T Technik | – |\n"
-    "| 9003 | Höhlenklang | Jerry | M | startbar | – | – | – | K Klang | – |\n")
+    "| 9003 | Höhlenklang | Jerry | M | startbar | – | – | – | K Klang | – |\n"
+    "| 9005 | Treppe knarrt | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9006 | Treppe zu steil | Tom | K | startbar | – | – | – | E Welt | – |\n")
+open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("**Nächste freie Vorgangsnummer: 9100**\n")
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Prüfer | [P](https://claude.ai/code/session_PR1) | – | – | 21.11. |\n")
 g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
@@ -81,6 +84,14 @@ t = datei("9003")
 soll("Chefwort im eigenen Abschnitt", "Hall kürzer" in rm.uebergabe.abschnitt(t, "Chefworte") if hasattr(rm, "uebergabe") else "Hall kürzer" in rm.ue.abschnitt(t, "Chefworte"), t)
 soll("Rückmeldungen ohne Chefwort", "Hall kürzer" not in rm.ue.abschnitt(t, "Rückmeldungen") and rm.zaehlen(t)["nein"] == 3, t)
 soll("Übergaben bleiben unten", t.rstrip().endswith("| offen |"), t)
+
+# 5a 1739 (7.1, F3): Wiederholungswächter auch auf jedes Nein
+rc, out = lauf("rueckmeldung", "9002", "nein: Treppe im Turm wirft keinen Schatten")
+liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), encoding="utf-8").read()
+soll("Nein mit Stichwort: Systemlösung? für Sokrates", rc == 0 and "Systemlösung? Treppe" in liste and "LISTE docs/LISTE-VORGAENGE.md geändert" in out, out)
+g("checkout", "-q", "--", "docs", cwd=A); g("pull", "-q", "origin", "main", cwd=A)
+rc, out = lauf("rueckmeldung", "9002", "ja: Treppe passt")
+soll("Ja ohne Wächter", rc == 0 and "Systemlösung" not in out, out)
 
 # 6 C: lauf.py startet oder weckt Sokrates
 sys.argv = [sys.argv[0]]

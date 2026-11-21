@@ -109,6 +109,19 @@ def liste_ruht(nr, grund):
         print("LISTE nicht geändert (%s)" % e)
 
 
+def nein_waechter(nr, text):
+    """1739 (7.1, Büro-Gegenüberstellung F3): Wiederholungswächter auch auf jedes Nein; Treffer „Systemlösung?“ in der Liste."""
+    if not worte(text) & {"nein", "nein, Auftrag"}: return
+    try:
+        import vorgang, startbar, bereiche
+        d = [x["bereich"] for x in startbar.zeilen_liste() if x["nr"] == nr and bereiche.gueltig(x["bereich"])]
+        vor = vorgang.text_liste()
+        vorgang.waechter(nr, text, d[0] if d else "B Abläufe")
+        if vorgang.text_liste() != vor: print("LISTE docs/LISTE-VORGAENGE.md geändert: committen und pushen")
+    except SystemExit as e:
+        print("Wächter nicht gelaufen (%s)" % e)
+
+
 def haupt(a):
     a = list(a[1:]) if a[:1] == ["rueckmeldung"] else list(a)
     wer = None
@@ -126,11 +139,14 @@ def haupt(a):
     except ue.Fehler as e:
         sys.exit("vorgang.py rueckmeldung: %s; nichts geschrieben" % e)
     if not k:
-        print("EINGETRAGEN %s: %s" % (a[0], grund)); return
+        print("EINGETRAGEN %s: %s" % (a[0], grund))
+        if grund != "schon eingetragen": nein_waechter(a[0], a[1])
+        return
     zeile = [x for x in ue.zeilen(open(os.path.join(ue.WURZEL, ue._pfad(a[0])), encoding="utf-8").read()) if x["k"] == k]
     an = zeile[0]["an"] if zeile else "?"
     print("EINGETRAGEN %s, OFFEN %s an %s%s" % (a[0], k, an, (" (%s → %s)" % (grund, RUHT)) if grund else ""))
     if grund: liste_ruht(a[0], grund)
+    nein_waechter(a[0], a[1])
     for s in ue.besetzung(an): print("WECKER %s | sieh in %s (%s)" % (s, a[0], k))
     if an == SOKRATES and not ue.besetzung(an):
         print("KEINE SITZUNG Sokrates läuft: lauf.py startet ihn (1763 C)")
