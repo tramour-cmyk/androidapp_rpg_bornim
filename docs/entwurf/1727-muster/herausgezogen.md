@@ -1,10 +1,10 @@
-# 1727 Schritt 1, herausgezogen (21.11., 22:13, Sokrates-Helfer; Auftrag Sokrates, `reihenfolge.md` Schritt 1) · Fassung 2 (21.11., 22:26, Gegenprüfung 22:22 B6, B11): Übergabekette nach Messregel (ohne Kopfzeile, Leerzeile, letztes Zeilenende) 2.134 → 2.290 → 2.399, Absatz „Schritt 2“ auf Stand; Byte der Datei 5.241 → 5.457
+# 1727 Schritt 1, herausgezogen (21.11., 22:13, Sokrates-Helfer; Auftrag Sokrates, `reihenfolge.md` Schritt 1) · Fassung 2 (21.11., 22:26, Gegenprüfung 22:22 B6, B11): Übergabekette nach Messregel (ohne Kopfzeile, Leerzeile, letztes Zeilenende) 2.134 → 2.290 → 2.399, Absatz „Schritt 2“ auf Stand; Byte der Datei 5.241 → 5.457 · Fassung 3 (21.11., 22:39, Nachprüfung 22:29 H1, H2): Messregel an beiden Stellen, Wochenzählung 6.318 → 6.561, Hinweis `kern-buero.md`:11 unter „3.3 Nr. 8 offen“; Byte 5.457 → 6.332 (Messregel)
 
-Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung der Datei; danach unverändert). Je Datei: Kopfzeile, Leerzeile, dann der Text Zeichen für Zeichen. Byte = Text ohne Kopfzeile, UTF-8. Beleg: Python liest beide Dateien, Text == Zeilen a–b des Gesamtbilds und `Text in Gesamtbild`, nur lesend.
+Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung der Datei; danach unverändert). Je Datei: Kopfzeile, Leerzeile, dann der Text Zeichen für Zeichen. Byte = Text nach Messregel (ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende), UTF-8. Beleg: Python liest beide Dateien, Text == Zeilen a–b des Gesamtbilds und `Text in Gesamtbild`, nur lesend.
 
 | Teil | Datei | Byte | Quelle (Abschnitt, Zeilen) | Beleg exakt | nach Schritt 2 (21.11., 22:16) |
 |---|---|---|---|---|---|
-| Kern Büro | `kern-buero.md` | 2.351 | 3.1, 327–341 | ja | unverändert (3.3 Nr. 8 offen) |
+| Kern Büro | `kern-buero.md` | 2.351 | 3.1, 327–341 | ja | unverändert (3.3 Nr. 8 offen; dazu `kern-buero.md`:11 nur „gut“ mit Beleg, gegen „gut“, „passt“, „freigegeben“ in `uebergabekette.md` Nr. 7 und Profil Technik 13) |
 | Kern Arbeitsplaner (Fassung 2, vor 1727f) | `kern-arbeitsplaner.md` | 2.374 | 4.1, 409–422 | ja | 2.556 (1727f) |
 | Kern Prüfer | `kern-pruefer.md` | 2.529 | 6.1, 790–805 | ja | unverändert |
 | Kern Abnahme | `kern-abnahme.md` | 1.335 | 6.2, 815–823 | ja | unverändert (3.3 Nr. 8 offen) |
@@ -23,7 +23,7 @@ Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung 
 | Profil Markt und Recherche | `profil-markt-und-recherche.md` | 1.279 | 2.3, 305–312 | ja | unverändert |
 | Übergabekette 3.3 (Fassung 2; herausgezogen 21.11., 22:18) | `uebergabekette.md` | 2.134 | 3.3, 369–377 | ja | 2.290 (1727d L-S2/L-U8 Nr. 3, L-U15 Nr. 7); 2.399 (Fassung 4, Freigabewörter Nr. 7, 22:25) |
 
-**Schritt 2, weitere Dateien** (nicht herausgezogen, Byte der ganzen Datei ohne Kopfzeile): `profil-technik.md` 16.543 → 16.594 (1727d L-T6, Vorschlagstext Checkliste 13); `profil-disponent.md` 7.614 → 7.993 → 8.162 → 8.558, Profiltext 2.275 → 2.422 → 2.433 (1727c in Satz :22 eingebaut, Wortlaut Vorschlag Sokrates; „gut“ in :20); `profil-kosten.md` 3.490 → 3.721 (1727e vermerkt, kein Profiltext); 3.3 als `uebergabekette.md` mit 1727d L-S2/L-U8 (Nr. 3) und L-U15 (Nr. 7) eingebaut. Stand 22:25 (Gegenprüfung 22:22): `profil-technik.md` 17.090. Offen: L-O1 (Kern Leitung, Gespräch); 3.3 Nr. 8 ohne Wortlaut.
+**Schritt 2, weitere Dateien** (nicht herausgezogen, Byte der ganzen Datei nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende): `profil-technik.md` 16.543 → 16.594 (1727d L-T6, Vorschlagstext Checkliste 13); `profil-disponent.md` 7.614 → 7.993 → 8.162 → 8.558, Profiltext 2.275 → 2.422 → 2.433 (1727c in Satz :22 eingebaut, Wortlaut Vorschlag Sokrates; „gut“ in :20); `profil-kosten.md` 3.490 → 3.721 (1727e vermerkt, kein Profiltext); `routine-wochenzaehlung.md` 6.318 → 6.561 (1727c als entschieden vermerkt, Text unverändert 1.938); 3.3 als `uebergabekette.md` mit 1727d L-S2/L-U8 (Nr. 3) und L-U15 (Nr. 7) eingebaut. Stand 22:25 (Gegenprüfung 22:22): `profil-technik.md` 17.090. Offen: L-O1 (Kern Leitung, Gespräch); 3.3 Nr. 8 ohne Wortlaut.
 
 Abweichung zu Tabelle 0.1 je 1 bis 5 Byte (dort mit Zeilenende oder gerundet); Markt und Recherche fehlt in 0.1.
 
@@ -51,3 +51,7 @@ Abweichung zu Tabelle 0.1 je 1 bis 5 Byte (dort mit Zeilenende oder gerundet); M
 | Abnahme: Prüfer | Sockel + Kern Abnahme 1.335 + Profil Prüfer 1.658 | 4.103 + Auftrag (heute Kern Prüfer: 3.639) |
 | Abnahme: Tester | Sockel + Kern Abnahme 1.335 + Profil Tester 1.858 | 4.303 |
 | Routinen | Sockel + fester Auftrag | offen |
+
+## Nachprüfung 22:29/22:30, mein Wort
+
+Mein Wort (Sokrates): alle **stimmt**. H1 Messregel: **stimmt, eingearbeitet**, an beiden Stellen (Kopf „Byte = …“ und „Schritt 2“) „ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende“ · H2 Wochenzählung: **stimmt, eingearbeitet**, `routine-wochenzaehlung.md` 6.318 → 6.561 in „Schritt 2“ · Hinweis aus `uebergabekette.md` (`kern-buero.md`:11 nur „gut“, Beleg): **stimmt, eingearbeitet**, Zeile Kern Büro unter „3.3 Nr. 8 offen“.

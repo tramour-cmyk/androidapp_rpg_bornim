@@ -1,4 +1,4 @@
-# 1727, Routine Wochenzählung (Gesamtbild 6d; Fassung 3, Perikles 21.11., 20:35, nach Gegenprüfung 20:18 und Nachprüfung Sokrates 20:27) · Fassung 4 (21.11., 22:26, Gegenprüfung 22:22 B11): Frage 1 als entschieden 1727c vermerkt, Text unverändert 1.938; Byte 6.318 → 6.561 (ohne Kopfzeile, Leerzeile, letztes Zeilenende)
+# 1727, Routine Wochenzählung (Gesamtbild 6d; Fassung 3, Perikles 21.11., 20:35, nach Gegenprüfung 20:18 und Nachprüfung Sokrates 20:27) · Fassung 4 (21.11., 22:26, Gegenprüfung 22:22 B11): Frage 1 als entschieden 1727c vermerkt, Text unverändert 1.938; Byte 6.318 → 6.561 (ohne Kopfzeile, Leerzeile, letztes Zeilenende) · Fassung 5 (21.11., 22:39, Nachprüfung 22:29 W1–W4): Raster L-T5 geschlossen, Größe 1.938 (Messregel), Frage 3 offen, Frage 5 L-O1 entschieden 1727d; Text unverändert 1.938; Byte 6.561 → 7.080 (Messregel)
 
 Auftrag: 1767 (Sokrates, Chef 21.11., 20:09). Raster `ein-ausgang.md`, schließt L-O7 und legt L-T5 als Frage vor. Fassung 1: Gesamtbild 6d (Sokrates 20.11., 09:40, Chef 09:33 „Ja“ zum Schreiben). **Nur Anschauung, nicht in Betrieb;** bis zur Umstellung zählt Diogenes nach `LISTE-PRUEFUNG.md` „Wochenzählung“.
 
@@ -30,21 +30,21 @@ Ergebnis: neue Spalte in der Tabelle oben in `docs/PRUEFBERICHT.md`, eine Zeile 
 
 **Geändert gegen Fassung 1:** (a) „bewerten tut Sokrates“ aus dem Text: die Routine braucht es nicht zu wissen, der Weg steht im letzten Satz. (b) Quellenangaben in Nr. 1 (Vorgänge „Von Chef … Fund“, Testrückmeldungen) gestrichen: die Vorgangsdatei markiert Funde des Chefs (7.1), dann gibt es eine Quelle; bis dahin „fehlt“. (c) „greift“ nur für noch nicht mit `greift` Geschlossenes (Gegenprüfung 20:18, Befund 16); Stichprobe 373 aufgenommen (4.4, G:490; Befund 15). (d) Telegram lautlos (nichts für den Chef zu tun). (e) „zwei Wochen schlechter“ geht ans Büro statt „die Vorlage schreibt Sokrates“: wer Sokrates weckt, stand nicht (L-T5). (f) Gestrichen aus Fassung 1 (Liste Sokrates 20:27): „Regeln wie bisher, 1463“, „nicht nach Sitzung“, „Qualitätskosten:“, „das legt den Vorgang an“; Nr. 6 trägt die Qualitätskosten, der letzte Satz den Weg ans Büro.
 
-Größe Text: 1.939 Byte.
+Größe Text: 1.938 Byte (Messregel).
 
 ## Raster
 
 | 1 Einheit | 2 Auslöser | 3 Arbeit, Eingang | 4 Ende, Ausgang | 5 Meldung | 6 Nächster Empfänger | 7 Lücke |
 |---|---|---|---|---|---|---|
-| **Routine Wochenzählung** | montags 8 Uhr: `lauf.py` gibt die Startzeile aus, der Disponent startet (wie heute `startbar.py` den Wochentermin für Diogenes anlegt, 719 A) | Vorgangsliste, Vorgangsdateien, `kostenbericht.py`, Abnahmeliste, Archiv, GitHub | Spalte in `PRUEFBERICHT.md` gepusht; Sitzung endet | eine Zeile Telegram, lautlos | Büro (Befunde, „zwei Wochen schlechter“) → Sokrates | L-T5 geschlossen, wenn Frage 1 entschieden; offen: Quellen für 2–5 entstehen erst mit Vorgangsdatei und Auftragsfeldern (7.1) |
+| **Routine Wochenzählung** | montags 8 Uhr: `lauf.py` gibt die Startzeile aus, der Disponent startet (wie heute `startbar.py` den Wochentermin für Diogenes anlegt, 719 A) | Vorgangsliste, Vorgangsdateien, `kostenbericht.py`, Abnahmeliste, Archiv, GitHub | Spalte in `PRUEFBERICHT.md` gepusht; Sitzung endet | eine Zeile Telegram, lautlos | Büro (Befunde, „zwei Wochen schlechter“) → Sokrates | L-T5 geschlossen (1727c, VA 21.11., 21:43); offen: Quellen für 2–5 entstehen erst mit Vorgangsdatei und Auftragsfeldern (7.1) |
 
 ## Offen, Fragen
 
 1. **Chefsache (ändert C, VA 21.11., 14:37):** „zwei Wochen schlechter“ als vierter Grund, aus dem der Disponent Sokrates startet. Sonst liest Sokrates die Spalte erst im nächsten Gespräch mit dem Chef (Vorschlag Sokrates, L-T5). Mein Votum: vierter Grund, weil sonst niemand bewertet, solange der Chef nicht fragt. Gegenargument: mehr Starts der teuersten Sitzung; dagegen höchstens einer je Woche. **Entschieden 1727c** (VA 21.11., 21:43, „1727c ja“): „zwei Wochen schlechter“ geht als Zeile an Sokrates, jede offene Zeile an ihn startet ihn; Text :28 (Zeile ans Büro, das Büro gibt sie an Sokrates) widerspricht nicht und bleibt.
 2. **Starter (L-O7):** `lauf.py` statt eigener GitHub-Zeitplan, weil der Disponent alle Starts hält (Startsperre, 3.3 F2 Nr. 5) und `lauf.py` Montag 8 Uhr heute schon kennt (`startbar.py`, 719 A).
-3. **Wer trägt „Bekannte Fehler“ ein?** 4.4: Sokrates (statt Perikles). Kommt mit Frage 1 zu ihm.
+3. **Wer trägt „Bekannte Fehler“ ein?** 4.4: Sokrates (statt Perikles). Offen, eigene Frage (1727c regelt nur „zwei Wochen schlechter“).
 4. **Zahl 4 Liegezeit** misst laut 4.4 das Werkzeug (G:490); die Routine übernimmt die Zahl. Quellen heute auch Vorgangsliste, `meldungen.tsv`, Werkzeugwarnungen (`LISTE-PRUEFUNG.md`:22–26).
-5. **Befund ans Büro** heißt: `tools/vorgang.py neu` mit Bereich und Beleg, Absender „Wochenzählung“, dann Wecker an den Disponenten (L-O1 bis zum Ort des Eingangs).
+5. **Befund ans Büro** heißt: `tools/vorgang.py neu` mit Bereich und Beleg, Absender „Wochenzählung“, dann Wecker an den Disponenten (L-O1, Ort des Eingangs: entschieden 1727d, Einbau offen (Kern Leitung)).
 
 ## Nachprüfung Sokrates 20:27, mein Wort
 
@@ -57,3 +57,7 @@ Kopf „ungeprüft“ weg: **stimmt** · „fett markiert“ weg: **stimmt** · 
 ## Stärkstes Gegenargument
 
 Zehn Zahlen, von denen vier (2–5) bis zum Bau der Auftragsfelder „fehlt“ zeigen; die Routine kostet jede Woche eine Sitzung für eine halbleere Spalte. **Dagegen:** 1, 6, 7, 8, 9 gibt es heute schon (Diogenes zählt sie); die leeren zeigen, was 7.1 noch bauen muss. Maß: nach vier Wochen Anteil „fehlt“ unter 20 %, sonst Zahlen streichen statt weiterzählen.
+
+## Nachprüfung 22:29/22:30, mein Wort
+
+Mein Wort (Sokrates): alle **stimmt**. W1 Raster: **stimmt, eingearbeitet**, „L-T5 geschlossen (1727c, VA 21.11., 21:43)“ · W2 Größe: **stimmt, eingearbeitet**, „1.938 (Messregel)“ · W3 Frage 3: **stimmt, eingearbeitet**, „offen, eigene Frage“ · W4 Frage 5 L-O1: **stimmt, eingearbeitet**, „entschieden 1727d, Einbau offen (Kern Leitung)“ wie Profil Disponent.
