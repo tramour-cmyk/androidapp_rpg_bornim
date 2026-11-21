@@ -6,7 +6,7 @@ name: Werkzeugtests (1775)
 on:
   push:
     branches: ["main"]
-    paths: ["tools/*.py", "tools/*.sh", "tools/*.txt", ".github/workflows/werkzeuge.yml"]
+    paths: ["tools/*.py", "tools/*.sh", "tools/*.txt", ".github/workflows/werkzeuge.yml", ".github/workflows/herzschlag.yml"]
   workflow_dispatch:
 
 concurrency:
@@ -38,3 +38,4 @@ jobs:
           python3 tools/lehren_test.py          # 1739 Lehrenbuch
           python3 tools/lieferung_test.py       # 1739 wartet auf leeren bei Lieferung
           python3 tools/tagesbericht_test.py    # 1739 Tagesbericht: Wo stehen wir, Fristen
+          python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag
