@@ -25,8 +25,9 @@ with tempfile.TemporaryDirectory() as t:
     open(os.path.join(a, "f"), "w").write("1\n"); g(a, "add", "f"); g(a, "commit", "-qm", "c1")
     g(a, "worktree", "add", "-q", "--detach", b)
     soll("abgelöste zweite Arbeitskopie: kein Halt", pruefen(a) == "" and pruefen(b) == "")
-    r = g(b, "checkout", "-q", "-B", "main")  # so geschehen am 21.11.: -B übergeht die Sperre von git
-    soll("checkout -B main gelingt trotz Sperre (Ausgangslage)", r.returncode == 0, r.stderr)
+    # so geschehen am 21.11. (git 2.43: -B übergeht die Sperre); neuere git sperren, die Lage entsteht dort mit --ignore-other-worktrees
+    r = g(b, "checkout", "-q", "--ignore-other-worktrees", "-B", "main")
+    soll("zweite Arbeitskopie auf main (Ausgangslage)", r.returncode == 0, r.stderr)
     soll("Halt in der Notizkopie, nennt die andere", os.path.realpath(b) == pruefen(a), pruefen(a))
     soll("Halt in der Arbeitskopie, nennt die andere", os.path.realpath(a) == pruefen(b), pruefen(b))
     g(b, "checkout", "-q", "--detach")
