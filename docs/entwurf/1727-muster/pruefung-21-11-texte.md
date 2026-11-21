@@ -2,7 +2,14 @@
 
 Sammelt Befunde frischer Prüfer, die noch nicht eingearbeitet sind; je Datei nach dem Einarbeiten den Abschnitt in die Datei selbst („mein Wort“) und hier streichen.
 
-Stand 21:05: Gegenprüfung 20:41 (unten) ist in `werkzeuge.md` F5 eingearbeitet. **Offen zum Einarbeiten: Nachprüfung 21:03 der Werkzeugübersicht F5 (direkt hier).** Die drei Texte Profil Werkzeug, Fremde Inhalte, Rundblick: F4a, Nachprüfung offen. 1774: `hoechstdauer-1774.md` F2, Nachprüfung offen (Spike hat 1766 schon mit `HOECHSTDAUER_MIN` = None gebaut, Folge erstes Mal „Hinweis“, zweites „steckt fest“, `19bf8c8d4`; F2 daran angleichen: Maß Kosten braucht eigene Konstante).
+Stand 21:17: Nachprüfung 21:03 wird in `werkzeuge.md` F6 eingearbeitet (Helfer, dann Nachprüfung). 1774: F4, Befunde 21:10 und 21:15 eingearbeitet, Umbau an Spike (1779). **Offen zum Einarbeiten: Nachprüfung 21:15 der drei Texte F4a (unten).**
+
+## Nachprüfung 21:15: drei Texte F4a (frischer Helfer, an `dcbb29a98`; Teil A Werkzeug 1.080, Fremde Inhalte 1.082, Rundblick 992 Byte stimmt)
+
+Mein Wort (Sokrates 21:17): alle **stimmt**, außer FI 4 und RB 6 (**stimmt**, schon so in der Sammelvorlage F2 umgesetzt). Votum Prüfer: Werkzeug vorlegbar nach 1; Fremde Inhalte nach 3; Rundblick nicht vorlegbar (1–3).
+- **Werkzeug:** 1 Notizschreiber fehlen `auftrag.py` (:52–56), `gegenstaende.py` (:18, :168), `regelwerte.py` (:21, :306), `rollenspiegel.sh` (:88, :92–99), oder Satz 5 auf „neu schreibend“ (Fehler) · 2 `rueckmeldung.py`:87–88 → :91–92 · 3 L-U9 überholt: Starter Wochenzählung gebaut 1766 (`startbar.py`:178–183) · 4 `werkzeuge.yml` Pfadfilter nur oberste Ebene (:7–8): „nötigenfalls mit Pfad“ · 5 „Beachte“ in Teil B „bis zum Zuschnitt“ · 6 Kopfzeile 4a.
+- **Fremde Inhalte:** 1 Quelle 5 und Aufbau (:24, :49) auf Ablage 4a angleichen · 2 Unity zwei Träger (:23/:86): „Nachfrage Janpec: Zu 780; Kauf: Gespräch“ · 3 Tippfehler „in der Quelle auf `main` (Commit ‚Text:‘) und im Einbau“, sonst Nein des Prüfers (Fehler) · 4 „Text fehlt“ kein Chefwort (Vorentscheid, erledigt) · 5 Kopfzeile.
+- **Rundblick:** 1 Teil B vom Bau 1766 überholt, Abweichungen Besitzer Sokrates, Bereich „B Abläufe“, Titel (`startbar.py`:173–183) → Teil B auf Gebautes, Rest an Spike (Fehler) · 2 Auslöser tot: `lauf.py` startet Sokrates nicht aus Zeilen (:57, :592, :839); Start als Sokrates hängt Kern Leitung an gegen Archiv 20.11., 07:37 „nicht deinen Kern“ → eigener Start mit Sockel und Teil A, Vorgang an Spike (Fehler) · 3 kein Befehl „Eingang“ in `vorgang.py` → `vorgang.py uebergabe <Nr> Disponent "Vorschlag: …"`, dann `rueckmeldung … fertig` (Fehler) · 4 Raster und Quelle 12 (:15, :17, :61) angleichen · 5 Fundstellen: „Zu 1766 (Spike, 21:04)“, „Zu 1739“ 20:14/20:40, `LISTE-VORGAENGE.md`:263, `werkzeuge.md`:148, `startbar.py`:162–171/:173–183 · 6 C-Erweiterung unnötig: Vorschlag mit Entscheidung als „Frage“ · 7 Eingänge ohne Ort: `vorgangskosten.py`/`kostenbericht.py`, `vorgang.py` „Systemlösung?“ :493–494 · 8 Kopfzeile.
 
 ## Nachprüfung 21:03: werkzeuge.md Fassung 5 (frischer Helfer, an `986d3d340`; Vorrunde 1–20 stimmt, außer 10 teils überholt; Zählung A 44, B 17, C 25, D 37 stimmt)
 

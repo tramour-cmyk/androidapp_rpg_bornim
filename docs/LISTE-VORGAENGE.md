@@ -244,6 +244,13 @@
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | 4,68 $ |
 | 109 | Repo öffentlich | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | – |
 | 1774 | Von Spike (1766): Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läufe je Auftrag) festlegen; Wert fehlt laut L-O17, routine-rundblick.md:25 – Vorentscheid oder Chef | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727a | Rückfrage Sokrates (1727): Satz 1311 aus Profil Technik streichen, sobald Profil Werkzeug gilt? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727b | Rückfrage Sokrates (1727): Lizenz frei: nur kommerziell erlaubt, Hinweis MIT/OFL im Spiel, Listen angleichen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727c | Rückfrage Sokrates (1727): Drei weitere Startgründe für Sokrates (Eingang ohne Bereich, zwei Wochen schlechter, Stillstand an Entscheidung)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727d | Rückfrage Sokrates (1727): Fünf Lücken im Abgenommenen schließen (L-S2, L-O1, L-U15, L-T6, L-U10)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727e | Rückfrage Sokrates (1727): Guthabenzahl über Haken D eintragen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727f | Rückfrage Sokrates (1727): Kern Arbeitsplaner +170 Byte (Ladehinweise, Ausnahme Übersetzung)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727g | Rückfrage Sokrates (1727): GitHub-Regel gegen Force-Push auf claude/build-* anlegen (Chef tut) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1507 | Von Sokrates (Chef 17.11., 06:15: Diogenes-Meldungen mit Daumen „nicht kapiert“): Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer; Prüfberichte ohne Daumenzeile | Ford | M | startbar | – | – | – | B Abläufe | 1,89 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $ |
 | 1469 | Von Diogenes (1463, Startwarnung 108): chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11.; verkleinern oder löschen, wenn 415 entschieden | Ford | K | startbar | – | – | – | B Abläufe | – |
@@ -302,3 +309,5 @@
 | 1629 | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Lichtsäule; Effekt aus 1613; nach dem Meilenstein | Spike | K | nach Meilenstein, episch erst ab Kap. 3 (Spike: werte.json decke_besonders, 644 C2) | – | – | – | E Welt | 1,03 $ |
 | 1769 | Von Diogenes (D328.2, Lauf 328 zu 1762): chefwort.vorgaenge übersieht eine Nummer mit Komma dahinter („1716, 1718 passen“ findet 1716 nicht), übliche Form des Chefs (Archiv 9 Fälle); in chefwort_test aufnehmen | Spike | M | erledigt, greift Lauf 328 | – | – | – | B Werkzeuge | 1,89 $ |
 | 1772 | Von Diogenes (1763, Ford 20:32): Signalwort in rueckmeldung.py auch hinter Stempel „**Name** [TT.MM., HH:MM]“ erkennen | Spike | K | gebaut, Geprüft an: 1db38639d | – | – | – | B Werkzeuge | 2,27 $ |
+| 1779 | Von Sokrates (1774): Höchstdauer Werte setzen (Mittel 360, Hoch 300) und Gebautes nachbessern: Test :26, Weckruf-idle nicht prüfen, nach Hinweis Uhr neu statt auslassen, neue Rollennamen in kosten.ROLLEN; Einzelheiten hoechstdauer-1774.md Punkt 6 | Spike | M | startbar | – | – | – | B Werkzeuge | – |
+| 1780 | Von Sokrates (1727, Nachprüfung werkzeuge 21:03 Nr. 6): herzschlag.yml:64 meldet immer laut an meldung.sh vorbei, auch nachts; über meldung.sh oder Uhrzeit, vor dem Secret | Spike | M | startbar | – | – | – | B Werkzeuge | – |
