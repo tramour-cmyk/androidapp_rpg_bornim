@@ -708,7 +708,9 @@ def build_abschluss(n, datei=None, probe=False):
         if neu_d is d: continue
         alt = finden(d["nr"], d["besitzer"] if d["nr"] in startbar.SONDER else None)
         ersetzen(alt, neu_d)
-        for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
+        for k, e, f in durch:
+            zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
+            if f: waechter(d["nr"], f, d["bereich"])  # 1739 (7.1, F3): Wächter prüft auch jeden Fund des Chefs
         # 1445 (Chef 16.11., 14:36): eine Anmerkung bei „Passt“ („- n.k ✓ <Anmerkung>“) geht als Absatz an den Besitzer, nie verloren
         for k, e, f in [x for x in je.get(d["nr"], []) if x[1] == "✓" and x[2] and not x[2].startswith("👍")]:
             zu_absatz(d["besitzer"], d["nr"], "Anmerkung t%s (✓), Test Build %s, Automatik B" % (k, n), f)

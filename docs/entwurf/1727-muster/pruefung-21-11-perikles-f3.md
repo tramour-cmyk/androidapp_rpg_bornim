@@ -1,0 +1,35 @@
+# 1727, Gegenlesen Perikles Fassung 3 (Diogenes, 21.11., 20:45)
+
+Auftrag Sokrates 20:38. Gegenstand: `profil-disponent`, `profil-kosten`, `profil-release`, `routine-tagesbericht`, `routine-wache`, `routine-wochenzaehlung` an `3089d4465` und `c32f3fe84`; Befundliste Sokrates 20:27 aus `ARBEIT-PROJEKT.md` an `29d3a3948`. Nur gelesen, nichts geändert.
+
+## (1) Befunde Sokrates 20:27 gelöst?
+
+Inhaltlich alle aufgenommen. Nicht gelöst oder neu falsch: Disponent (1) Folge der Büro-Liste nur verdeckt (Befund 4); Release „:13–14“ ist in Fassung 3 auf :14–15 verschoben und jetzt falsch (6c); Wache „:66“ und die Folgerung aus Probe D (Befund 1, 6b); Kosten „fällt, G:502“ (Befund 7). Die Fehler in 1, 6b und 7 stehen schon in der Befundliste 20:27.
+
+## Befunde, schwerste zuerst
+
+1. **Wache: die Begründung für die dauerhafte Sitzung trägt nicht.** `LISTE-BETRIEB.md`:65 (zitiert :66) betrifft Routinen der Plattform (Uhr mit `create_new_session_on_fire`, Proben 15.10., Probe D 13.11.). Eine Sitzung, die der Disponent mit `create_session` startet, hat `list_sessions`, `send_message` und `get_session`. Beleg: diese Sitzung (`parent_session_id` `…M61cNk8nkWNPfU9N`, Tiefe 1, alle drei Werkzeuge da). Die Wahl zwischen dauerhaft und frisch je Lauf ist damit offen und braucht einen anderen Grund (Kosten, Startsperre, 3.3 F2 Nr. 4). Die Folgerung „neue Sitzung ohne `list_sessions`“ steht schon in der Befundliste 20:27.
+2. **Wache widerspricht Entschiedenem.** (a) 3.3 F2 Nr. 4 (VA 21.11., 10:11): dauerhaft läuft nur der Disponent, Arbeitsplaner, Prüfer, Tester frisch je Auftrag (Fassung 1 Nr. 3: „Routinen je Lauf neu“). Eine zweite dauerhafte Sitzung ist eine neue Abweichung: als Chefsache kennzeichnen. (b) Gesamtbild 4.4 Zeile Ford (G:475 an `3089d4465`): „Uhr und Wache startet ein Werkzeug, nicht das Büro (Befund 8)“. Dagegen Wache „Gestartet einmal vom Disponenten“ und Disponent „außer der Wache“. Die Wache nennt G:474–475 als Quelle und weicht davon ab, ohne es zu sagen.
+3. **Disponent widerspricht sich und 3.3 F2 Nr. 5.** Absatz 1: „urteilst nur über Eingang, ‚Frage‘, ‚steckt fest‘ und Guthaben“. Absatz „Fertig“ urteilt über „fertig“ (Commit, Beleg, Beleg der Freigabe). Nach 3.3 F2 Nr. 2 und 5 gibt das Werkzeug „fertig“ ohne den Disponenten an den Prüfer. Dazu ein totes Ende: „nimmst du nicht an“ nennt keinen Ausgang (an wen zurück, mit welchem Satz). Nach dem Entscheid „Kern Büro schmal“ (11:46) muss das Profil es sagen.
+4. **Folge der Büro-Liste: das Entschiedene widerspricht sich, das Profil entscheidet still.** 3.3 F2 Nr. 5 und BG:14: „Fund des Chefs, Eilt, …“. 3.3 F2 Nr. 6 und G:375: „vor allem außer Eilt“, also Eilt zuerst. Das Profil folgt Nr. 6 und nennt BG:14 als Beleg, obwohl BG:14 die andere Folge hat (ebenso Befund 1 von Sokrates). Als Auslegung kennzeichnen, in die Sammel-Chefsache.
+5. **Routinen legen Vorgänge selbst an** (Tagesbericht Nr. 3, Wochenzählung Frage 5: `vorgang.py neu`). Damit fällt das einzige Eingangsurteil des Disponenten weg („Gibt es ihn schon?“), und Sockel 2.5 („Rückmeldung, das Büro legt an“) gilt nicht mehr. Doppelte Vorgänge werden möglich. Vorschlag: Befund als Rückmeldung beziehungsweise Eingang an den Disponenten.
+6. **Fundstellen mit falscher Zeile.**
+   a. Alle G:-Angaben der sechs Dateien stimmen nur an `3089d4465`. Seit `c2c1548b5` (Sokrates) sind es drei Zeilen mehr: G:480 zeigt heute „Vorrang der Vorräte“, G:488 „Vorentscheid“, G:502 „Tom, Jerry“. Den Stand nennen oder nachziehen.
+   b. `LISTE-BETRIEB.md`: Neustart-Haken steht auf :61 (zitiert :62), „Keine Routinen“ auf :65 (zitiert :66, die Zeile ist leer). Übernommen aus der Befundliste 20:27.
+   c. `LISTE-RELEASE-NEUSTART.md`: „bis 622“ steht auf :12 (zitiert :13 in Release und in Disponent Frage 1); Schritt 2 auf :13 (zitiert :14), Schritt 3 auf :14 (zitiert :15). Im Raster muss es :13–14 heißen, nicht :14–15 (Sokrates hatte :13–14 richtig).
+7. **Kosten: ein Gedanke steht als Tatsache.** „`ARBEIT-BETRIEB.md` fällt (G:502)“: G:502 an `3089d4465` ist „Gedanke Sokrates 21:03, ungeprüft, offen“ (ebenso `ein-ausgang.md` L-O1: „nur Gedanke“). Frage 1 und die Zeile „Wochenguthaben → Tagesbericht“ hängen daran. Als offen kennzeichnen.
+8. **Wochenzählung „greift“: es fehlt der Ausgang.** „prüfen, ob er greift (greift nicht → Befund)“: wer schließt mit `vorgang.py greift`? Heute ich; die Rolle fällt (4.4). Zudem ist „greift“ ein Urteil, der Text sagt aber „du bewertest nicht“.
+9. **Release: totes Ende nach Befunden des Testers.** „legst du als Vorgang an“, danach führt kein Weg zurück zum Release (wer stößt nach der Behebung erneut an?).
+10. **Disponent, zweites „steckt fest“: wer trägt es?** „geht als Chefsache an den Chef“, aber wer schreibt die Datei? Heute legt jeder nur seine eigene an, Sokrates auch fremde. VA 14:37 B sagt „danach an den Chef“ und nennt keinen Träger.
+11. **Disponent, Start von Sokrates:** Es fehlt „wenn keine Sitzung läuft“ (Gegenprüfer 14:33 (3), `prozesspruefung-21-11.md`:29). Ein doppelter Start ist möglich, wenn der Schutz vor Doppelstart in 7.1 Sokrates nicht erfasst.
+12. **Wochenzählung Nr. 5:** Sie zählt Laufbremse und Höchstdauer, nicht aber die Obergrenze A (VA 21.11., 14:37 A: „ruht, Chefsache“).
+13. **Größen** (Chef 20.11., 16:49: der Teil vorher und nachher, dazu die Summe dessen, was die Sitzung lädt). Release nennt keine Größe (gemessen 713 Byte). Tagesbericht, Wache und Wochenzählung nennen keine Summe (Sockel 1.110 plus Text), die Wochenzählung auch kein „vorher“. Beim Disponenten ist der Sockel 1.110 Byte groß, nicht „etwa 1 KB“, die Summe also etwa 3,9 KB. Die Quelle `1727-sockel.md` ist Verlauf, gültig ist Gesamtbild 1. Die genannten Textgrößen stimmen (gemessen 2.275, 868, 950, 1.939).
+14. **Laut gegen lautlos:** Wache Fall 5 („Chefsache ohne Telegram → laut“) gegen Disponent („lautlos eine Zeile zu einer neuen Chefsache“): Was der Disponent vergessen hat, kommt laut an.
+
+## (3) Abgleich mit Entschiedenem, ohne Befund
+
+Sockel G 1 (außer 5); Kern Büro schmal 11:46 (der Disponent darf Eingang, Fertig und `main` tragen); Eilt 11:36; C, B, D 14:37 (außer 10, 11); Profil Technik F12 15:15 (Release an Profil Technik, kein Merge durch den Disponenten); 287 (`ARBEIT-BETRIEB.md`:20); 20.11., 07:53, 08:16, 08:19, 09:45, 10:27; 19.11., 13:02, 17:44, 19:37; 20:06 ersetzt 10:40 (Kosten Frage 3 stimmt).
+
+## Ungeprüft
+
+Umfang von Haken D (Kosten Frage 1: „trägt heute nur Freigabe und Antwort auf eine Frage“) nicht am Code von 1762 geprüft; ob Gesamtbild 4.4 entschieden ist; `buero-gegenueberstellung`, `signale`, `ablauf`, `ein-ausgang`, `werkzeuge` nur an den zitierten Zeilen (BG:13, 14, 18, 20; S12, S18; A3, A13, A18; L-O1, L-O7–9, L-O12, L-O16, L-S2, L-T1, L-T5, L-U6, L-U15 stimmen). Geöffnet und stimmig: `tagesbericht.py`:87, :227, :235, :325–335, :345; `ROLLE-PROJEKT.md`:48; `freigabe-haken.py`:2–6; `LISTE-BETRIEB.md`:60, :64; `ARBEIT-BETRIEB.md`:20, :27; `LISTE-CHECK-BUILD-TEST.md` 3, 9, 13; keine Modellnamen in den sechs Dateien.
