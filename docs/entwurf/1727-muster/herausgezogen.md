@@ -21,6 +21,7 @@ Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung 
 | Profil Story (Fassung 3) | `profil-story.md` | 1.410 | 5.3 Nr. 9, 772–778 | ja | unverändert |
 | Profil Chefrunde | `profil-chefrunde.md` | 553 | 2.2, 299 | ja | 574 (1727d L-U10) |
 | Profil Markt und Recherche | `profil-markt-und-recherche.md` | 1.279 | 2.3, 305–312 | ja | unverändert |
+| Übergabekette 3.3 (Fassung 2; herausgezogen 21.11., 22:18) | `uebergabekette.md` | 2.135 | 3.3, 369–377 | ja | 2.291 (1727d L-S2/L-U8 Nr. 3, L-U15 Nr. 7) |
 
 **Schritt 2, weitere Dateien** (nicht herausgezogen, Byte der ganzen Datei ohne Kopfzeile): `profil-technik.md` 16.543 → 16.594 (1727d L-T6, Vorschlagstext Checkliste 13); `profil-disponent.md` 7.614 → 7.993, Profiltext unverändert 2.275 (1727c nur vermerkt, Wortlaut offen); `profil-kosten.md` 3.490 → 3.721 (1727e vermerkt, kein Profiltext). Offen: 1727d L-S2/L-U8, L-U15 (3.3 ohne Arbeitsdatei), L-O1 (Kern Leitung, Gespräch); 3.3 Nr. 8 ohne Wortlaut.
 
