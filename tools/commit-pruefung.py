@@ -424,7 +424,27 @@ def art_weg_befunde(inhalt):
     return out
 
 
+def zweig_doppelt():
+    """1776 (222.2): derselbe Zweig in zwei Arbeitskopien; rückt die eine ihn vor, hat die andere einen veralteten Index und
+    ihr nächster Commit setzt fremde Dateien zurück (023edc9b7, 21.11.). Gibt die andere Arbeitskopie zurück oder ''."""
+    zw = git("symbolic-ref", "-q", "HEAD").strip()
+    if not zw: return ""
+    hier = os.path.realpath(git("rev-parse", "--show-toplevel").strip())
+    pfad = ""
+    for l in git("worktree", "list", "--porcelain").splitlines():
+        if l.startswith("worktree "): pfad = os.path.realpath(l[9:])
+        elif l == "branch " + zw and pfad != hier: return pfad
+    return ""
+
 def main():
+    try:
+        anders = zweig_doppelt()
+        if anders:
+            print("Commit-Prüfung HÄLT AN: dieser Zweig ist auch in %s ausgecheckt (222.2, 1776); der Index hier kann veraltet sein "
+                  "und der Commit fremde Dateien zurücksetzen. In der Arbeitskopie: git stash, git checkout --detach origin/main" % anders,
+                  file=sys.stderr)
+            return 1
+    except Exception as e: print("Commit-Prüfung: 1776 übersprungen (%s)" % e, file=sys.stderr)
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
     video = [p for s, p in dat if s != "D" and p.lower().endswith((".mp4", ".webm"))]

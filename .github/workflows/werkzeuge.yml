@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       # 1765, 1771: Übergabe (1760), Chefwort (1762), Rückmeldung (1763), Telegram-Regel (1739), Auftrag
-      - name: Werkzeugtests (Übergabe, Chefwort, Rückmeldung, Meldung, Auftrag)
+      - name: Werkzeugtests (Übergabe, Chefwort, Rückmeldung, Meldung, Auftrag, Zweig doppelt)
         run: |
           git config --global user.email "ci@bornim" && git config --global user.name "ci"
           python3 tools/uebergabe_test.py
@@ -27,3 +27,4 @@ jobs:
           python3 tools/rueckmeldung_test.py
           python3 tools/meldung_regel_test.py
           python3 tools/auftrag_test.py
+          python3 tools/zweig_doppelt_test.py   # 1776
