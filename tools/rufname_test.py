@@ -73,5 +73,42 @@ soll("kosten: alter Titel", kosten.rolle("Spike – 1739: x") == "Spike")
 soll("kosten: Rufname → Besitzer", kosten.rolle("Anna – 1694: Griff") == "Tom", kosten.rolle("Anna – 1694: Griff"))
 soll("kosten: fremd bleibt Sonstige", kosten.rolle("irgendwas") == "Sonstige")
 
+# startsperre-haken.py: Rufnamen-Start wird der Rolle zugeordnet (sonst ungeprüft durch)
+import importlib.util
+sp = importlib.util.spec_from_file_location("sperrhaken", os.path.join(HIER, "startsperre-haken.py"))
+sh = importlib.util.module_from_spec(sp); sp.loader.exec_module(sh)
+soll("Haken: Rolle aus der Nachricht", sh.rolle_aus({"title": aus[0].split(" | ")[5], "prompt": aus[0].split(" | ")[6]}) == "Spike")
+soll("Haken: Rolle über den Vorgang", sh.rolle_aus({"title": "Anna – 1694: Griff", "prompt": "x"}) == "Tom")
+soll("Haken: alter Titel wie bisher", sh.rolle_aus({"title": "Perikles – 775: x", "prompt": ""}) == "Perikles")
+
+# chefwort.py: Kopf „**Anna** [“ und die Startnachricht sind nicht vom Chef
+import chefwort
+soll("Chefwort: Rufnamen-Kopf nicht vom Chef", not chefwort.vom_chef("**Anna** [21.11., 21:40] fertig"))
+soll("Chefwort: Startnachricht nicht vom Chef", not chefwort.vom_chef(aus[0].split(" | ")[6].replace("\\n", "\n")))
+soll("Chefwort: Chef bleibt Chef", chefwort.vom_chef("Mach das bitte so"))
+
+# neustart-haken.py: Rolle aus der ersten Nachricht einer Rufnamen-Sitzung
+import json as _j
+nh_spec = importlib.util.spec_from_file_location("neustarthaken", os.path.join(HIER, "neustart-haken.py"))
+nh = importlib.util.module_from_spec(nh_spec); nh_spec.loader.exec_module(nh)
+prot = os.path.join(tempfile.mkdtemp(), "p.jsonl")
+open(prot, "w").write(_j.dumps({"type": "user", "message": {"content": "Dein Rufname: Britta (Rolle Spike; Titel)\n\nAuftrag: x"}}) + "\n")
+sid = "rufname-test-%d" % os.getpid()
+soll("Neustart-Haken: Rolle aus Rufnamen-Start", nh.name(prot, sid) == "Spike", nh.name(prot, sid))
+try: os.remove("/tmp/bornim-name-%s" % sid)
+except OSError: pass
+
+# uebergabe.py: Empfänger als Rufname oder Bereich findet die Sitzung in der Besetzung
+import uebergabe as ue
+w = tempfile.mkdtemp(); os.makedirs(os.path.join(w, "docs"))
+open(os.path.join(w, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
+    "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n"
+    "| Spike | [Anna – 1739: Werkzeuge (21.11., 21:30)](https://claude.ai/code/session_01AAA) | 1739 | – | 21.11., 21:30 |\n")
+alt = ue.WURZEL; ue.WURZEL = w
+soll("Übergabe: an Rufname", ue.besetzung("Anna") == ["session_01AAA"], ue.besetzung("Anna"))
+soll("Übergabe: an Bereich", ue.besetzung("Spike") == ["session_01AAA"])
+soll("Übergabe: anderer Name leer", ue.besetzung("Britta") == [])
+ue.WURZEL = alt
+
 print("rufname_test: %s" % ("grün" if not fehl else "%d rot" % fehl))
 sys.exit(1 if fehl else 0)

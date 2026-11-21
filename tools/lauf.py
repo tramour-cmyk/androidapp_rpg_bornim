@@ -148,7 +148,7 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None):
         belegt.append(n)
         t = teile[5]
         teile[5] = n + t[t.index(" – "):] if " – " in t else "%s – %s" % (n, t)
-        teile[6] = "Dein Rufname: %s (Titel, Besetzung, Meldung).\\n\\n%s" % (n, teile[6])
+        teile[6] = "Dein Rufname: %s (Rolle %s; Titel, Besetzung, Meldung).\\n\\n%s" % (n, teile[0][6:].strip(), teile[6])  # „Rolle“ liest startsperre-haken.py
         aus.append(" | ".join(teile))
     return aus
 

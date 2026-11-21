@@ -19,6 +19,16 @@ MAIN = "/home/user/bornim-main"
 
 
 def rolle_aus(eingabe):
+    # 1739 Rufnamen („Anna – 1739: …“): Rolle aus „Rolle <Name>“ der ersten Nachricht (lauf.mit_rufnamen), sonst Besitzer
+    # des Vorgangs im Titel; sonst ginge eine Rufnamen-Sitzung ungeprüft durch
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import rufname
+        if rufname.aus_titel(eingabe.get("title") or ""):
+            m = re.search(r"\(Rolle (%s)\b" % "|".join(ROLLEN), eingabe.get("prompt") or "")
+            b = m.group(1) if m else rufname.bereich(eingabe.get("title") or "")
+            if b in ROLLEN: return b
+    except Exception:
+        pass
     for text in (eingabe.get("title") or "", eingabe.get("prompt") or ""):
         t = re.sub(r"^\W*(Team\s+)?", "", text.strip())
         w = re.match(r"([A-ZÄÖÜ][a-zäöüß]+)", t)

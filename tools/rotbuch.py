@@ -124,6 +124,11 @@ def besitzer(test):
     erst = zeilen[-1] if zeilen else ""
     sha, _, erst = erst.partition(" ")
     if sha in grenzen(): erst = anleger_netz(test)
+    try:  # 1739 Rufnamen: „Anna: 1739 …“ zählt beim Besitzer der Nummer dahinter
+        import rufname
+        if rufname.aus_titel(erst): erst = re.sub(r"^\w+[:,]?\s*", "", erst, count=1)
+    except Exception:
+        pass
     m = re.match(r"(%s)\b" % "|".join(ROLLEN), erst)
     wer = m.group(1) if m else None
     if not wer and (n := re.match(r"(\d+[a-z]?(?:\.\d+[a-z]?)*)\b", erst)): wer = besitzer_von_nr(n.group(1))
