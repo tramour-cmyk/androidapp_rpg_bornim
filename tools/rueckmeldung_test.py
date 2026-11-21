@@ -71,15 +71,29 @@ soll("1. nein, Auftrag → Arbeitsplaner", "OFFEN 9002-Ü1 an Arbeitsplaner" in 
 rc, out = lauf("rueckmeldung", "9002", "nein, Auftrag: Text fehlt in der Quelle", zeit="21.11., 20:40")
 soll("2. nein, Auftrag → ruht, Sokrates an den Chef", "OFFEN 9002-Ü2 an Sokrates (Obergrenze A: 2. „nein, Auftrag“ → ruht, beim Chef)" in out, out)
 
-# 4 A: dritter abgelehnter Auftrag; „Beleg fehlt“ zählt nicht
-for i, (t_, z) in enumerate([("nein: Hall zu lang", "20:31"), ("Beleg fehlt", "20:32"), ("nein: Hall noch zu lang", "20:33"), ("fertig", "20:34")]):
+# 4 A: dritter abgelehnter Auftrag; „Beleg fehlt“ zählt nicht; 1739 Rückläufer an denselben Macher
+def tom(*a, zeit):
+    return lauf(*(list(a) + ["--sitzung", "Tom"]), zeit=zeit)
+rc, out = tom("rueckmeldung", "9003", "fertig: Hall 1,5 s, Commit 1a2b3c4d", zeit="21.11., 20:30")
+soll("fertig mit Commit → Prüfer", "OFFEN 9003-Ü1 an Prüfer" in out and "WECKER session_PR1" in out, out)
+for i, (t_, z) in enumerate([("nein: Hall zu lang", "20:31"), ("Beleg fehlt", "20:32"), ("nein: Hall noch zu lang", "20:33")]):
     rc, out = lauf("rueckmeldung", "9003", t_, zeit="21.11., " + z)
-soll("1766 Laufbremse: zweites nein → steckt fest an Sokrates", "| 9003-Ü1 | Sokrates | steckt fest (Laufbremse, 2. Nein; Chef 19.11., 13:02): Rückmeldung 21.11., 20:33 von Prüfer lesen (1766) |" in datei("9003") and datei("9003").count("Laufbremse") == 1, datei("9003"))
-soll("zwei nein, Beleg fehlt, fertig: läuft weiter", "Zustand: ruht" not in datei("9003") and out.startswith("EINGETRAGEN 9003: eingetragen"), datei("9003") + out)
+t = datei("9003")
+soll("1. nein → derselbe Macher mit Satz", "| 9003-Ü2 | Tom | Rückläufer (nein des Prüfers, Rückmeldung 21.11., 20:31 von Prüfer): „nein: Hall zu lang“;" in t, t)
+soll("Beleg fehlt → derselbe Macher", "| 9003-Ü3 | Tom | Rückläufer (Beleg fehlt des Prüfers" in t, t)
+soll("1766 Laufbremse: zweites nein → steckt fest an Sokrates", "| 9003-Ü4 | Sokrates | steckt fest (Laufbremse, 2. Nein; Chef 19.11., 13:02): Rückmeldung 21.11., 20:33 von Prüfer lesen (1766) |" in t and t.count("Laufbremse") == 1, t)
+rc, out = tom("rueckmeldung", "9003", "fertig", zeit="21.11., 20:34")
+soll("fertig ohne Commit → Disponent", "OFFEN 9003-Ü5 an Disponent" in out and "„fertig“ ohne Commit" in datei("9003") and "Zustand: ruht" not in datei("9003"), datei("9003") + out)
 rc, out = lauf("rueckmeldung", "9003", "nein: Hall immer noch", zeit="21.11., 20:35")
 soll("drittes nein → ruht", "Obergrenze A: 3. abgelehnter Auftrag → ruht, beim Chef" in out, out)
 rc, out = lauf("rueckmeldung", "9003", "nein: Hall immer noch", zeit="21.11., 20:35")
 soll("gleiche Rückmeldung zur gleichen Minute: einmal", "schon eingetragen" in out and datei("9003").count("Hall immer noch") == 1, out)
+rc, out = lauf("rueckmeldung", "9006", "nein: Stufe zu hoch", zeit="21.11., 20:36")
+soll("nein ohne fertig: Disponent, Macher unbekannt", "OFFEN 9006-Ü1 an Disponent" in out and "Macher unbekannt" in datei("9006"), out)
+rc, out = lauf("rueckmeldung", "9006", "Hinweis: Geländer fehlt auch", zeit="21.11., 20:37")
+soll("Hinweis → Disponent wie Eingang", "OFFEN 9006-Ü2 an Disponent" in out and "wie einen Eingang" in datei("9006"), out)
+rc, out = lauf("rueckmeldung", "9006", "Notiz ohne Signalwort", zeit="21.11., 20:38")
+soll("ohne Signalwort: nur eingetragen", out.startswith("EINGETRAGEN 9006: eingetragen, kein Signalwort"), out)
 
 # 5 Chefworte und Rückmeldungen bleiben getrennt
 import chefwort as cw
@@ -94,8 +108,8 @@ rc, out = lauf("rueckmeldung", "9002", "nein: Treppe im Turm wirft keinen Schatt
 liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), encoding="utf-8").read()
 soll("Nein mit Stichwort: Systemlösung? für Sokrates", rc == 0 and "Systemlösung? Treppe" in liste and "LISTE docs/LISTE-VORGAENGE.md geändert" in out, out)
 g("checkout", "-q", "--", "docs", cwd=A); g("pull", "-q", "origin", "main", cwd=A)
-rc, out = lauf("rueckmeldung", "9002", "ja: Treppe passt")
-soll("Ja ohne Wächter", rc == 0 and "Systemlösung" not in out, out)
+rc, out = lauf("rueckmeldung", "9007", "ja: Treppe passt")
+soll("Ja ohne Wächter, an den Disponenten", rc == 0 and "Systemlösung" not in out and "an Disponent" in out and "an den Chef vorlegen" in datei("9007"), out)
 
 # 6 C: lauf.py startet oder weckt Sokrates
 sys.argv = [sys.argv[0]]
@@ -104,7 +118,7 @@ import lauf
 g("pull", "-q", "origin", "main", cwd=A)
 aus = []
 z = lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
-soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9002-Ü2", "9003-Ü1", "9003-Ü2"], z)
+soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9002-Ü2", "9003-Ü4", "9003-Ü6"], z)
 soll("keine Sitzung: START Sokrates", len(aus) == 1 and aus[0].startswith("START Sokrates |") and "9001-Ü2 an den Chef" in aus[0] and "\n" not in aus[0], aus)
 so = {"id": "session_SOK", "_info": (0, True, 0), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "context_usage": {"used_tokens": 50000}}
 aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [so]}, set(), docs=os.path.join(A, "docs"))
@@ -118,6 +132,10 @@ soll("schon eine Sokrates-Zeile: angehängt, nie zwei", len(aus) == 1 and "1763 
 # 7 1739 F4 (1): offene Zeilen an andere (Arbeitsplaner = Ford bis zur Umschaltung)
 aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
 soll("Arbeitsplaner-Zeilen an Ford", "Arbeitsplaner" in je and any(z.startswith("NACHRICHT Ford | - | Offene Zeilen an Arbeitsplaner") for z in aus) and not any("Sokrates" in z.split("|")[0] for z in aus), (je, aus))
+soll("Disponent bis zur Umschaltung Ford", any(z.startswith("NACHRICHT Ford | - | Offene Zeilen an Disponent") for z in aus), aus)
+soll("Prüfer bis zur Umschaltung Diogenes (keine Sitzung: Ford)", any("keine Sitzung Diogenes" in z and "Offene Zeilen an Prüfer" in z for z in aus), aus)
+aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen0.append(r) or True) if (gerufen0 := []) == [] else None
+soll("Prüfer ohne Sitzung: Start Diogenes", "Diogenes" in gerufen0 and "Tom" in gerufen0, gerufen0)
 
 # 8 1739 Befund 1: Empfänger ohne Sitzung starten (start-Rückruf), sonst Ford; Fristen je Lauf
 rc, out = vg("uebergabe", "9005", "Tom", "Treppe im Turm prüfen")
@@ -125,11 +143,11 @@ soll("Zeile an Tom angelegt", rc == 0 and "9005-Ü1" in datei("9005"), out)
 g("pull", "-q", "origin", "main", cwd=A)
 gerufen = []
 aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen.append((r, nr)) or True)
-soll("Tom ohne Sitzung: start gerufen, keine NACHRICHT Ford für Tom", ("Tom", "9005") in gerufen and not any("keine Sitzung Tom" in z for z in aus), (gerufen, aus))
+soll("Tom ohne Sitzung: start gerufen, keine NACHRICHT Ford für Tom", ("Tom", "9003") in gerufen and not any("keine Sitzung Tom" in z for z in aus), (gerufen, aus))
 aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: False)
 soll("start kann nicht: NACHRICHT Ford „keine Sitzung Tom“", any(z.startswith("NACHRICHT Ford | - | keine Sitzung Tom") for z in aus), aus)
 tom = {"id": "session_TOM", "_info": (0, False, 30), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "title": "Tom – 9005"}
-aus = []; lauf.uebergabe_zeilen(aus, {"Tom": [tom]}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen.append("falsch") or True)
+aus = []; lauf.uebergabe_zeilen(aus, {"Tom": [tom]}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: (r == "Tom" and gerufen.append("falsch")) or True)
 soll("Tom mit Sitzung: NACHRICHT an sie, kein Start", any(z.startswith("NACHRICHT Tom | session_TOM | ") for z in aus) and "falsch" not in gerufen, aus)
 rc, out = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "annehmen", "9005-Ü1", "--frist", "5"], env=dict(ENV, BORNIM_SITZUNG="session_TOM"), capture_output=True, text=True, cwd=A).returncode, ""
 soll("Tom nimmt an (Frist 5 Min.)", rc == 0 and "angenommen session_TOM" in datei("9005"), datei("9005"))
