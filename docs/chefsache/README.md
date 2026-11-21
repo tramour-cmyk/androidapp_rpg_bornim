@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 16:53, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 21.11., 09:44, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 11 (11) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 7 | 1720 (Spike) Vordergrund deckt bis zur halben Bildfläche schwa… |
-| **7** Firma: Werkzeuge und Abläufe | 62 (62) | 33 | 0 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **7** Firma: Werkzeuge und Abläufe | 63 (62) | 34 | 0 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -41,8 +41,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 20.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 0 | 5 | 421 | 1281 |
-| neu | 0 | 27 | 439 | 1329 |
-| **netto** (erledigt − neu) | **+0** | **−22** | **−18** | **−48** |
+| neu | 1 | 27 | 440 | 1330 |
+| **netto** (erledigt − neu) | **−1** | **−22** | **−19** | **−49** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -85,7 +85,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1705 | Homer | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergän… | K | 5 Welt und Karten | startbar |
 | 20 | 1740 | Homer | DESIGN-STIL „Lebendige Welt“ „Staub tanzt im Lichtstrahl“ ergänzen: nicht in In… | K | 5 Welt und Karten | startbar |
 
-Danach 84 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
+Danach 85 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 21. Ruhend oder nach dem Meilenstein: 118.
 ## Zu entscheiden
 
 Nichts offen.
@@ -269,7 +269,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.11.; „star
 | 1754 | K | Von Sokrates (Chef 20.11., 14:45: „Auf jeden Fall ein Klangkatalog … Gerne gestuft“), Stuf | startbar |
 | 1755 | K | Von Sokrates (Chef 20.11., 14:45), Klangkatalog Stufe 2: Spiel liest nur den Katalog (Figu | wartet auf 649.3 (ruht) |
 
-**Spike** – offen 39, Muss 23, startbar 10
+**Spike** – offen 40, Muss 24, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -312,6 +312,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.11.; „star
 | 1742 | M? | Von Sokrates (Chef 20.11., 13:13: „ergänzen lassen von dem Werkzeug, mit welchem Aufwand d | startbar |
 | 1749 | K | Von Sokrates (Chef 20.11., 14:09: „ob wir wenigstens einen Präfix vorbauen … dann weiß ich | startbar |
 | 1751 | K | Von Sokrates (20.11.): vorgang.py neu meldet beim Querschnitt-Stichwort „keine neue Zeile“ | startbar |
+| 1760 | M | Von Sokrates (1727, Chef 21.11., 09:43 „so prüfen“): Übergabe zwischen laufenden Sitzungen | Termin 21.11. 20:00 |
 
 **Perikles** – offen 25, Muss 19, startbar 2
 
