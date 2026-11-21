@@ -5,7 +5,8 @@ name: Godot (Umzug 348)
 on:
   push:
     # 894 (Chef 10.11., 19:31: Build 275 eine Stunde verloren): auch jeder Testbuild claude/build-<n> baut von selbst
-    branches: ["claude/tom-348-**", "claude/jerry-348-**", "claude/build-**"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
+    # 1765 (Build-Kette 4): auf main nach jedem Merge mit Spielcode nur der Kerntest (Job kerntest-main), keine APK
+    branches: ["claude/tom-348-**", "claude/jerry-348-**", "claude/build-**", "main"]   # 461.1: Grundstand nur von Hand (wie godot-kampf.yml)
     paths: ["godot/**", "tools/blender348/**", "tools/gegenstaende/**", "tools/sim444/**", "tools/karten/**", ".github/workflows/godot.yml"]
   workflow_dispatch:
     inputs:
@@ -52,10 +53,30 @@ concurrency:
   group: godot-${{ github.ref }}-${{ github.event_name }}
   # 1716 (Chef 18.11., 22:29: „wie kann hier einfach irgendjemand was neu einmischen und dann fängt alles wieder von vorne an?“):
   # auf dem Buildzweig bricht ein neuer Push den laufenden Bau nicht ab, er wartet; Teamzweige wie bisher
-  cancel-in-progress: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/claude/build-') }}
+  cancel-in-progress: ${{ github.event_name == 'push' && !startsWith(github.ref, 'refs/heads/claude/build-') && github.ref != 'refs/heads/main' }}
 
 jobs:
+  # 1765 (Build-Kette 4, Chef 19.11., 22:05: „Nach jedem Merge ein Kerntestlauf auf main“): Godot-Logiksatz wie tools/t logik,
+  # ohne Kaufmodelle; rot heißt main ist rot (Build-Werkzeug, Build-Macher)
+  kerntest-main:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - name: Godot
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          curl -sSL --retry 5 --retry-delay 10 --retry-all-errors -o g.zip https://github.com/godotengine/godot/releases/download/$GODOT-stable/Godot_v$GODOT-stable_linux.x86_64.zip
+          unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip
+      - name: Kerntest (tools/t logik)
+        run: |
+          python3 -c "import yaml" 2>/dev/null || pip install pyyaml
+          python3 tools/godot/logik.py
+
   apk:
+    if: github.event_name != 'push' || github.ref != 'refs/heads/main'
     runs-on: ubuntu-24.04
     env:
       GODOT: "4.7.2"
