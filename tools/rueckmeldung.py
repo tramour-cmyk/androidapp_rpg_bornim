@@ -26,15 +26,13 @@ SOKRATES = "Sokrates"
 PLANER = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
 RUHT = "ruht, beim Chef"
 MAX_NEIN_AUFTRAG, MAX_NEIN, MAX_FEST = 2, 3, 2
-SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis"}
 
 
 def worte(text):
     """Signalworte am Anfang (Meldung Prüfer: „nein“ + „steckt fest“ in einer Meldung)."""
     t = (text or "").strip()
     # Stempel davor („**Spike** [21.11., 20:41]“, „Spike [..]:“) zählt nicht (Hinweis Diogenes zu 1763)
-    m = re.match(r"^\W*?(?:\*\*([A-ZÄÖÜ][\wäöüß]*(?: \d+)?)\*\*|([A-ZÄÖÜ][\wäöüß]*(?: \d+)?)(?=\s*\[\d))\s*(\[\d{1,2}\.\d{1,2}\.(?:\d{4})?,? ?\d{1,2}:\d{2}\])?\s*", t)
-    if m and (m.group(3) or (m.group(1) and m.group(1).lower() not in SIGNAL)): t = t[m.end():]  # D329.2: fettes Signalwort bleibt
+    t = re.sub(r"^\W*(?:\*\*[^*\n]+\*\*\s*(?:\[\d{1,2}\.\d{1,2}\.,? ?\d{1,2}:\d{2}\])?|[A-ZÄÖÜ][\wäöüß]*(?: \d+)?\s*\[\d{1,2}\.\d{1,2}\.,? ?\d{1,2}:\d{2}\])\s*", "", t)
     t = re.sub(r"^\W+", "", t).lower()
     w = set()
     if re.match(r"nein,?\s+auftrag\b", t): w.add("nein, Auftrag")

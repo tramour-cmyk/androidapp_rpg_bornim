@@ -1,4 +1,4 @@
-# 1727, Routine Rundblick (Gesamtbild 6b, Vorgang 1734; Fassung 4, Sokrates 21.11., 21:00, Befunde Nachprüfung 20:54 eingearbeitet, Nachprüfung offen)
+# 1727, Routine Rundblick (Gesamtbild 6b, Vorgang 1734; Fassung 3, Sokrates 21.11., 20:50, Befunde Nachprüfung 20:43 eingearbeitet, Nachprüfung offen)
 
 Auftrag: Chef 20.11., 07:03 (Archiv 1734): „Das soll auch nicht in die Chefrunde integriert werden, sondern ein eigenes Profil sein. Das wir einmal die Woche starten“; 06:46 (Zu 1734): „wie arbeiten andere, wie strukturieren andere ihre Arbeit, wie bauen andere ihre Prompts … Kerne und den Sockel klein halten?“, „komm du mal um die Ecke mit einer Idee“; 06:50 Name egal, „der Inhalt sollte da rein“. Art: Routine = Sockel + fester Auftrag + Takt, ohne Gruppe und Kern (Archiv 20.11., 07:53; ersetzt 07:37 „Sockel + Profil“ nur im Namen, G 0b „Zu D“; Haltung „prüfen statt zustimmen“ ins Profil, 07:37). Form wie `profil-technik.md` F12; neue Texte kurz (Archiv 20.11., 14:02).
 
@@ -10,10 +10,10 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 
 | Feld | Inhalt | Fundstelle |
 |---|---|---|
-| Auslöser | Ab der Umstellung legt das Werkzeug einmal die Woche einen Vorgang „Wochentermin TT.MM.: Rundblick (719)“ an, wie heute die Wochentermine (`startbar.WOCHENTERMINE`, `lauf.py --sperre`, 719 A, als Muss); der Disponent startet ihn ohne Arbeitsplaner: Teil A ist der Auftrag, ausgenommen vom Feld „Zurück“ (`tools/auftrag.py`:19, :44; Nachtrag im Profil Disponent, Vorgang 1773) | VA 07:03 (Takt); startbar:161–176; 3.3 F2 Nr. 5 |
+| Auslöser | Ab der Umstellung legt das Werkzeug einmal die Woche einen Vorgang „Wochentermin TT.MM.: Rundblick (719)“ an, wie heute die Wochentermine (`startbar.WOCHENTERMINE`, `lauf.py --sperre`, 719 A, als Muss); der Disponent startet ihn wie jeden Vorgang (Starts bleiben beim Disponenten) | VA 07:03 (Takt); startbar:161–176; 3.3 F2 Nr. 5 |
 | Arbeit | Teil A | 6b; Zu 1734 |
 | Ende | höchstens drei Vorschläge in der Vorgangsdatei des Laufs; erstes Wort „fertig“ | 6b („höchstens drei Vorschläge je Lauf“); G:420 |
-| Meldung | Zeile über `vorgang.py` an das Büro, Nachricht nur Wecker; kein eigenes Telegram, an den Chef meldet das Büro nur, was er jetzt tun muss | 3.3 F2 Nr. 2, 5; Meldeweg G:341, VA 11:46 |
+| Meldung | Zeile über `vorgang.py` an das Büro, Nachricht nur Wecker; eine Zeile per Telegram | 3.3 F2 Nr. 2, 5; Telegram wie 6d (Entwurf) |
 | Nächster Empfänger | Büro: legt je Vorschlag einen Vorgang „Von Rundblick“ mit Bereich an (wie Befunde der Abnahme und der Wochenzählung, G:815, 6d), schließt den Lauf; Vorschlag mit Kennzeichen „Entscheidung“ → Leitung über den Meldeweg des Büros (VA 21.11., 11:46), **Weg offen:** C startet Sokrates heute nur bei „steckt fest“, „Frage“, „wirkt nein“ (siehe Aufbau); Nachhalten: Wochenzählung Zahl 10 „Rundblick: Vorschläge, angenommen, umgesetzt“ | G:815; 6d; VA 11:46; 6d Nr. 10 |
 
 **Lücken aus `ein-ausgang.md`:** **L-T7** (kein Auslöser; Ausgang an „Besitzer (Technik: Spike)“, Rollen fallen): halb geschlossen, ohne Änderung von Entschiedenem: Auslöser über die vorhandene Mechanik der Wochentermine (Teil B, Zeile in 7.1), Ausgang ans Büro statt an einen Besitzer (Vorschlag L-T7 „Vorschläge als Befund ans Büro“). Offen bleibt der Weg „Entscheidung“ vom Büro zur Leitung (wie L-T5). Zeile Rundblick „Meldung steht nicht“: geschlossen (Raster). **Offen, nicht hier:** Wochentermine legen heute einen Vorgang je Rolle als Besitzer an (startbar:164); nach der Umstellung braucht die Zeile einen Bereich statt einer Rolle, wie alle Vorgänge (Umstellung Vorgangsliste, `werkzeuge.md` B). Ob „Vorschlag mit Entscheidung“ beim Disponenten oder bei der Leitung landet, regelt der Meldeweg des Büros; das Profil Disponent ist nicht geschrieben (L-O2).
@@ -21,10 +21,10 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 ## Aufbau
 
 - **Meldeweg „Entscheidung“ (Chefsache, mit Perikles' Sammelfrage C):** C (`lauf.py`, gebaut `17623dce7`) startet Sokrates nur bei „steckt fest“, „Frage“, „wirkt nein“; ein Vorschlag „Entscheidung“ fällt durch wie L-T5. Vorschlag: C um „Entscheidung“ erweitern; vorlegen zusammen mit der Sammelfrage C (Profil Disponent F3, `profil-disponent.md`:48, nennt den Rundblick noch nicht: Nachtrag Vorgang 1773, Perikles).
-- **Tag und Stunde:** Der Chef hat nur „einmal die Woche“ entschieden. **Vorschlag:** Montag nach der Wochenzählung (montags 8 Uhr, 6d), weil der Rundblick deren Spalte als Eingang liest. „Wartet auf die Wochenzählung desselben Montags“ kann `WOCHENTERMINE` heute nicht (Felder: Tag, Stunde, Besitzer, Name, Bereich); dafür Code, Zeile in 7.1 (Teil B). Kein Chefwort nötig (Ablauf); Träger: Sokrates (Vorentscheid oder Sammelvorlage, „Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`); bis dahin steht der Vorschlag in Teil B.
+- **Tag und Stunde:** Der Chef hat nur „einmal die Woche“ entschieden. **Vorschlag:** Montag nach der Wochenzählung (montags 8 Uhr, 6d), weil der Rundblick deren Spalte als Eingang liest. „Wartet auf die Wochenzählung desselben Montags“ kann `WOCHENTERMINE` heute nicht (Felder: Tag, Stunde, Besitzer, Name, Bereich); dafür Code, Zeile in 7.1 (Teil B). Kein Chefwort nötig (Ablauf), aber offen.
 - **Kosten je Lauf:** 6b „Kostengrenze je Lauf“ offen; Höchstdauer je Auftrag ist entschieden (Archiv 20.11., 08:19, 14.2.5), Wert fehlt (L-O17). Teil A setzt keinen Wert.
 - **Nachhalten:** 6b (Entwurf): „nach vier Läufen Anteil umgesetzt und Wirkung …; zu wenig → Profil weg“. Zählen tut die Wochenzählung (Zahl 10), bewerten „tut Sokrates“ (6d), dessen Start dafür fehlt (L-T5). **Chefsache, sobald es so weit ist:** den Rundblick abschaffen kann nur der Chef, der ihn eingerichtet hat (Archiv 07:03); nicht im Text.
-- **Katalog „Art“:** die Arten „Probe“ und „Recherche“ kommen in 0a (`reihenfolge.md`:13, entschieden 21.11., 11:17; `katalog-pruefung.md`:48); der Lauf ist Art „Recherche“, die Probe eines Vorschlags Art „Probe“.
+- **Katalog „Art“:** kennt weder „Recherche“ (Lauf des Rundblicks) noch „Probe“ (6b; `katalog-pruefung.md`:48). Vorschlag: der Lauf läuft als Wochentermin ohne Art aus dem Katalog; die Probe eines Vorschlags bekommt der Arbeitsplaner als „Bauen“ oder „Nachstellen“. Offen mit dem Katalog-Befund.
 - **Haltung „prüfen statt zustimmen“:** Archiv 07:37 („ins Profil“), mit 07:53 nur umbenannt (G 0b „Ersetzt ‚Profil Rundblick‘ von 07:37 nur im Namen“); übernommen. Der Archivanhang „→ ersetzt durch Routine“ steht dagegen ohne Einschränkung; ich lese ihn wie G 0b.
 
 ## Teil A: Routine Rundblick
@@ -36,16 +36,16 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 
 **Arbeit:** je Schwäche nachsehen, wie andere genau das lösen: Abläufe, Prompts, kleine Kerne und Sockel; Neues in Grafik, 3D, Technik, Werkzeugen. Eine eigene Idee darf dabei sein. Du baust nichts.
 
-**Ergebnis:** höchstens drei Vorschläge, je Schwäche, Quelle, eine kleine Probe mit dem Maß, das sie vorher und nachher messen soll, Kosten; was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du „Entscheidung“. In die Vorgangsdatei des Laufs, dann „fertig“ über `vorgang.py` an das Büro.
+**Ergebnis:** höchstens drei Vorschläge, je Schwäche, Quelle, eine kleine Probe mit dem Maß, das sie vorher und nachher messen soll, Kosten; was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du „Entscheidung“. In die Vorgangsdatei des Laufs, dann „fertig“ über `vorgang.py` an das Büro und eine Zeile per `tools/meldung.sh`.
 ```
 
 ## Teil B: Bauliste 7.1, Wochentermine
 
-**Neu** in 7.1, Zeile `lauf.py` (dort fehlt sie, `werkzeuge.md`:15, :140 „Rundblick neu“; beim Zusammenführen eintragen, nicht jetzt in G, sonst verschieben sich die G-Zeilenverweise): „Wochentermin Rundblick: montags nach der Wochenzählung ein Vorgang, wartet auf sie, Start durch den Disponenten ohne Arbeitsplaner“. An Spike als „Zu 1766 von Sokrates“ (`ARBEIT-TEAM-SPIKE.md`). **Jetzt bauen, scharf erst über `tools/1727-SCHARF`:** der Starter gehört zu 1766 (Spike, M; Titel „… Starter der Routinen Wochenzählung, Rundblick (L-T5, L-T7)“, `LISTE-VORGAENGE.md`:259; Reihenfolge 1739, 1764, 1766, „Zu 1739 (Spike, 21.11., 20:28)“ in `ARBEIT-TEAM-SPIKE.md`), und umgeschaltet wird erst nach grünen Werkzeugen (VA 21.11., 14:37 D); ohne Schalter legte die Zeile heute jede Woche ein Muss bei Sokrates an (719 A), gegen 1734 als Kür. Umsetzung im Bestand: Zeile in `startbar.WOCHENTERMINE` (`tools/startbar.py`:164), Wochentag und Stunde nach Aufbau, Bereich „B Steuerung“ (wie 1734), Besitzer ab dem Schalter der Bereich (vor dem Schalter legt die Zeile nichts an).
+**Neu** in 7.1, Zeile `lauf.py` (dort fehlt sie, `werkzeuge.md`:15, :140 „Rundblick neu“): „Wochentermin Rundblick: einmal die Woche ein Vorgang, wartet auf die Wochenzählung desselben Tages, Start durch den Disponenten“. **Jetzt bauen, scharf erst über `tools/1727-SCHARF`:** der Starter gehört zu 1766 (Spike, M; Titel „… Starter der Routinen Wochenzählung, Rundblick (L-T5, L-T7)“, `LISTE-VORGAENGE.md`:259; Reihenfolge 1739, 1764, 1766, `ARBEIT-TEAM-SPIKE.md`:9), und umgeschaltet wird erst nach grünen Werkzeugen (VA 21.11., 14:37 D); ohne Schalter legte die Zeile heute jede Woche ein Muss bei Sokrates an (719 A), gegen 1734 als Kür. Umsetzung im Bestand: Zeile in `startbar.WOCHENTERMINE` (`tools/startbar.py`:164), Wochentag und Stunde nach Aufbau, Bereich „B Steuerung“ (wie 1734), Besitzer ab dem Schalter der Bereich (vor dem Schalter legt die Zeile nichts an).
 
 ## Eigene Prüfung (20:19)
 
-- **Größe Fassung 1, überholt (gültig: letzter Abschnitt)** (UTF-8, Inhalt des Codeblocks Teil A, gemessen mit `wc -c`): Teil A 970 Byte (Ziel bis etwa 1.200). Die Sitzung lädt Sockel 1.110 + 970, zusammen etwa 2,1 KB. Teil B eine Zeile in 7.1 und eine Zeile Code. Regelbilanz: 1734 als Kür-Vorgang bei Sokrates und der Entwurf 6b entfallen mit der Umstellung; 6b verweist dann auf diese Datei.
+- **Größe** (UTF-8, Inhalt des Codeblocks Teil A, gemessen mit `wc -c`): Teil A 970 Byte (Ziel bis etwa 1.200). Die Sitzung lädt Sockel 1.110 + 970, zusammen etwa 2,1 KB. Teil B eine Zeile in 7.1 und eine Zeile Code. Regelbilanz: 1734 als Kür-Vorgang bei Sokrates und der Entwurf 6b entfallen mit der Umstellung; 6b verweist dann auf diese Datei.
 - **Quellen je Satz (Teil A):**
   1. „Rundblick (einmal die Woche)“: Archiv 1734 07:03.
   2. „Ziel: Vorschläge gegen unsere teuersten Schwächen, aus dem, wie andere arbeiten“: Titel 1734 („Vorschläge gegen unsere Defizite“, „wie arbeiten andere“); 6b („von innen nach außen … drei teuersten Schwächen … wie andere genau das lösen“).
@@ -59,7 +59,7 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
   10. „höchstens drei Vorschläge, je Schwäche, Quelle, eine kleine Probe mit dem Maß, das sie vorher und nachher messen soll, Kosten“: 6b („höchstens drei Vorschläge je Lauf, je Schwäche, Quelle, kleine Probe, Kosten, Maß“); „vorher und nachher“: 6b Katalog-Satz („Probe (neue Technik an einem Beispiel, Maß vorher/nachher)“).
   11. „was Sockel, Kern, Profil oder Ablauf ändert, kennzeichnest du ‚Entscheidung‘“: Ableitung aus dem Meldeweg des Büros („an Sokrates, wenn eine Entscheidung nötig ist“, G:341, Archiv 21.11., 11:46) und Vorbehalt Kern/Profil (G:284; Archiv 20.11., 16:49 „Abgenommenes nur nach Gespräch“). Das Kennzeichen ist neu (Vorschlag), es ändert nichts Entschiedenes.
   12. „In die Vorgangsdatei des Laufs, dann ‚fertig‘ über `vorgang.py` an das Büro“: 3.3 F2 Nr. 2, 5; G:420.
-  13. (gestrichen in Fassung 4: „eine Zeile per `tools/meldung.sh`“; an den Chef meldet nur das Büro, was er jetzt tun muss, G:341, VA 11:46.)
+  13. „eine Zeile per `tools/meldung.sh`“: Muster 6d („eine Zeile per Telegram“, Entwurf); Kern Büro schmal nennt `meldung.sh` (Archiv 11:46).
 - **Fälle:**
   - 1735 Federknochen (Chef 07:03 „unbedingt einen Vorgang“): Vorschlag → Büro legt Vorgang an (Raster), Probe baut eine Fachkraft, nicht der Rundblick (Satz 9).
   - 1736 Systemfrage Umhang (19 frühere Vorgänge): die Systemfrage trägt der Wächter (Kopf „Nicht hier“); im Rundblick erscheint der Umhang als Wiederholfund unter den drei teuersten Schwächen, gefragt wird dann, wie andere losen Stoff lösen.
@@ -76,9 +76,3 @@ Quellen: Archiv 1734 (20.11., 07:03, 07:37), 1727 Routine (07:53), Systemrunde f
 Querbefund G-Zeilen: **stimmt**, behoben 20:44 · 1 „erst mit der Umstellung“ gegen 1766 und „erst nach grünen Werkzeugen umschalten“: **stimmt**, jetzt bauen, scharf über `tools/1727-SCHARF` · 2 Teil B widersprüchlich: **stimmt**, eine Fassung (Schalter) · 3 „baust nichts“ gegen „Maß nachher“: **stimmt**, „Maß, das sie vorher und nachher messen soll“ · 4 Sammelfrage C nennt den Rundblick nicht: **stimmt**, Nachtrag 1773 (Perikles) · 5 6d Zahl 2 und 6 liefern keine Wiederholfunde und teuersten Vorgänge: **stimmt**, Eingang um Wächter und Kosten je Vorgang ergänzt · 6 „Quelle und Datum“ doppelt zum Sockel 3: **stimmt**, gestrichen · 7 G-Verschiebung: **stimmt**, behoben · 8 Größe: **stimmt**, unten · 9 Titel 1734: **stimmt**.
 
 Größe Fassung 3 (`wc -c`, Codeblock Teil A): 1.036 Byte. Ladesumme: Sockel 1.110 + 1.036, etwa 2,1 KB.
-
-## Nachprüfung 20:54 (frischer Helfer, Fassung 3), mein Wort und Einarbeitung in Fassung 4
-
-1 Teil B kommt bei Spike nicht an, Zeile fehlt in 7.1: **stimmt**, „Zu 1766 von Sokrates“ bei Spike, 7.1 beim Zusammenführen (nicht jetzt in G: Zeilenverschiebung) · 2 eigenes Telegram gegen Meldeweg: **stimmt**, gestrichen · 3 Katalog Art gegen `reihenfolge.md`:13: **stimmt**, Arten „Recherche“ und „Probe“ · 4 Start ohne Arbeitsplaner, Feld „Zurück“: **stimmt**, Raster, Nachtrag Profil Disponent 1773 · 5 Tag und Stunde ohne Träger: **stimmt**, Montag nach der Wochenzählung in Teil B, Träger Sokrates · 6 Zeilennummer im Vorrat: **stimmt**, Eintragsname · 7 alte Größe, Kopfzeit: **stimmt**.
-
-Größe Fassung 4 (`wc -c`, Codeblock Teil A): 998 Byte. Ladesumme etwa 2,1 KB.
