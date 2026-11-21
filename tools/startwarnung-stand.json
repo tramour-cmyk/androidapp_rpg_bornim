@@ -20,14 +20,19 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Ford",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 35370 Bytes (Grenze 30000), Erledigtes streichen",
+  "text": "docs/ARBEIT-BETRIEB.md hat 35005 Bytes (Grenze 30000), Erledigtes streichen",
   "vorgang": "1688"
  },
  "regel:ARBEIT-TAGESBERICHT.md:Tagesbericht N Stunden alt (höchstens N ": {
   "besitzer": "Perikles",
   "seit": "2026-11-20T10:46+01:00",
-  "text": "ARBEIT-TAGESBERICHT.md: Tagesbericht 49 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu",
+  "text": "ARBEIT-TAGESBERICHT.md: Tagesbericht 60 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu",
   "vorgang": "1761"
+ },
+ "regel:ARBEIT-TEAM-SPIKE.md:Übergabe über N Zeichen (nur Getanes und": {
+  "besitzer": "Spike",
+  "seit": "2026-11-21T20:17+01:00",
+  "text": "ARBEIT-TEAM-SPIKE.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)"
  },
  "regel:ARBEIT-TEAM-TOM.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Tom",
@@ -40,12 +45,6 @@
   "seit": "2026-11-18T21:54+01:00",
   "text": "ARBEIT-TEAM-JERRY.md: 4 „Zu“ zu Erledigtem (1275, 1275, 623.2, 1275), beim Übergeben streichen",
   "vorgang": "1723"
- },
- "vorrat:ARBEIT-TEAM-SPIKE.md": {
-  "besitzer": "Spike",
-  "seit": "2026-11-19T07:07+01:00",
-  "text": "ARBEIT-TEAM-SPIKE.md: 2 „Zu“ zu Erledigtem (1669, 1484a), beim Übergeben streichen",
-  "vorgang": "1731"
  },
  "vorrat:ARBEIT-TEAM-TOM.md": {
   "besitzer": "Tom",
