@@ -2,8 +2,9 @@
 
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
-**Übergabe (21.11., 20:28, `session_01Hmoj77hZ3Zk592t1Ezr3Sb`, Neustart-Haken 420 Tsd.):** Getan: Profil Technik F12 entschieden; `werkzeuge.md` F3/F4; 1762–1767 angelegt; drei Entwürfe. Kosten auf: 1727. Letzte Antwort: 20:27. Nachfolger: Sokrates – 1727 (läuft seit 20:30)
-- **Zu 1727, Sammelvorlage:** `docs/entwurf/1727-muster/sammelvorlage.md` (9 Punkte, 20:58).
+**Übergabe (21.11., 21:05, `session_01Hmoj76QoCL4KiWMeDEe6Rh`, Neustart-Haken 427 Tsd.):** Getan: Archiv Wache bleibt, Kauf und Lizenz, Eilt zuerst, zweites „steckt fest“ (20:50–20:59); drei Texte F4a; `werkzeuge.md` F5; 1773 (Perikles), 1776 (Jerry); Rücksetzung 023edc9b7 behoben. Kosten auf: 1727. Letzte Antwort: 21:02. Nachfolger: Sokrates – 1727: Nachprüfungen (werkzeuge F5, drei Texte F4a, 1774 F2), dann Sammelvorlage vortragen
+- **Zu 1727, Sammelvorlage:** `docs/entwurf/1727-muster/sammelvorlage.md` (12 Punkte); offen zum Einarbeiten: `pruefung-21-11-texte.md` oben.
+- **Lehre (21.11., 20:43):** in G nichts über verwiesene Zeilen einfügen.
 - **Fehler 341 (21.11., 15:39, Prozessprüfung 14:30):** 4 tote Enden erst durch Tabelle des Chefs. Lehre: Raster Einheit × Auslöser bis Empfänger, ganzer Überblick, Prüfer nennt Ungeprüftes; „komplett“ per grep.
 - **Fehler 341 (21.11., 10:00, 1727 3.3):** Gegenargument „gegen Kapitel 1“ vom Helfer übernommen und dem Chef vorgelegt; Kapitel 1 hat seit 20.11., 11:45/12:06 keinen Vorrang (Ab Sa 20:00 Vorrang 1727). Chef: „Das solltest du jetzt auch schon langsam wissen.“ Lehre: Vorrang nur aus Archiv, nie aus `CLAUDE.md` oder Helfertext.
 - **Fehler 341 (21.11., 14:22–14:26, Lehrenbuch-Tabelle, auch 11:29, 10:35):** Befunde eingearbeitet, dabei neu entworfen, Ergebnis ungeprüft „gegengeprüft“ genannt; Nachprüfung fand 8 Fehler, davon etwa 5 von mir neu (Bestand „Profil Prüfer unverändert“ nicht nachgesehen, Weg zweites Nein gegen eigene Tabelle). Chef: „Wie geht das?“ Lehre 19.11., 15:02 galt schon. Lehre: „gegengeprüft“ nur für genau die vorgelegte Fassung; nach dem Einarbeiten frische Nachprüfung, bis eine Runde nichts Neues findet.
