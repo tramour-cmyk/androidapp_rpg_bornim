@@ -16,16 +16,37 @@ Chef 12:57: „muss die Möglichkeit geben, eine Lessons Learned Datei … zu ha
 1. **Datei `docs/LISTE-LEHREN.md`, nie geladen, nur durchsucht.** Eine Zeile je Lehre: **Stichworte** (Tätigkeit und Gegenstand, wie ein Handwerker sucht: „Waffe halten“, „Kleidung Stoff“, „Biss Treffer“, „Wasser Licht“, „Merge“) · **Fälle** (Vorgangsnummern; Wortlaut bleibt in der Vorgangsdatei) · **Ursache** (nachgestellt) · **Lehre** als Arbeitsschritte („erst …, dann …“ oder „nie X, stattdessen Y“) · **zuletzt bewährt / wirkt nein** (Build).
 2. **Wer nutzt es:** der **Arbeitsplaner** bei jedem Auftrag: `vorgang.py auftrag <Nr>` gibt die Lehren **des Bereichs** aus (feste Liste `bereiche.py`), Stichworte bestimmen nur die Rangfolge; die passenden übernimmt er in „Beachte“ und „Umsetzen“, höchstens fünf, weitere nur als Nummer; das Werkzeug schreibt die Treffernummern in die Vorgangsdatei. So wird der Auftrag verfeinert, nicht der Kern. Die **Fachkraft** bekommt die Lehren über den Auftrag; selbst sucht sie (`vorgang.py lehre suche <Wort>`) nur, wenn beim Bau eine Frage entsteht, die der Auftrag nicht beantwortet.
 3. **Nie in einen Kern.** Sockel und Kerne bekommen keine Lehren. **Ausnahme Leitung:** das Gedächtnis (entschieden 20.11., 21:10, 3 KB) ist ein geladener Lehrenspeicher nur für Sokrates. **Frage an den Chef, bestehende Lehren in geladenen Texten:** das Profil Figur (`LISTE-HANDWERK-FIGUR-PRUEFBILD.md`, 1.940 Byte) besteht ganz aus Lehren der Funde 1535, 1694, 760; im Profil Arbeitsplaner stehen „Film von der Seite“ und „gilt das Bild“. Bleiben sie geladen (Handwerk, das jeder Auftrag dieser Art braucht) oder ziehen sie ins Lehrenbuch? Ohne Wort bleiben sie.
-4. **Füllen:** je Rückläufer (dein Fund, Fund des Testers, zweites Nein) ordnet der Arbeitsplaner nach nachgestellter Ursache den Fall einer Lehre zu oder legt eine an; der Prüfer bestätigt. „Keine Lehre: Einzelfall, weil …“ erlaubt. Bis das Werkzeug steht, von Hand.
+4. **Füllen:** siehe Tabelle „Wer sucht, gibt vor, trägt ein“. Bis das Werkzeug steht, von Hand.
 5. **Wirkung:** kommt derselbe Fehler wieder, zeigen die Treffernummern in der Vorgangsdatei, was los war: Lehre stand im Auftrag → „wirkt nein“ (Lehre falsch oder nicht befolgt, dann Werkzeug statt Text); Lehre stand nicht drin, obwohl gleicher Bereich → „nicht gefunden“ (Bereich oder Stichworte berichtigen). Beides geht an Sokrates.
 6. **Nichts gestrichen:** Zählungen bleiben (auch „Rückläufer: n“, 76f); „Fehler 341“ der Teams und des Büros ins Buch, die von Sokrates ins Gedächtnis; „Bekannte Fehler“: Platz nach Wegfall von `CLAUDE.md` im Abgleich mit dem Chef.
-7. **Größe:** Auftragsvorlage (Profil Arbeitsplaner) ein Halbsatz „Treffer aus `vorgang.py auftrag` in Beachte und Umsetzen“ (etwa 80 Byte); sonst nichts Geladenes. Werkzeug in die Bauliste 7.1 (`auftrag` sucht mit, `lehre suche`, `lehre` anlegen und zuordnen).
+7. **Größe:** siehe Tabelle; das Lehrenbuch selbst lädt niemand.
+
+## Wer sucht, gibt vor, trägt ein (Fassung 2, 14:23, gegengeprüft 14:21; auf Chef 14:19 „Nummer 3, diskutiert halt da mal nochmal drüber. Wer wie, wo, wann, was sucht und einträgt und vorgibt“)
+
+Grundsatz: **ein Schreiber, der Arbeitsplaner**; das Werkzeug sammelt roh, der Prüfer bestätigt nur Sachverhalte (Kern Abnahme: „Du änderst nichts“).
+
+| Was | Wer | Wann | Wie, wo |
+|---|---|---|---|
+| Suchen, Pflicht | Werkzeug | bei jedem `vorgang.py auftrag <Nr>` | alle Lehren des Bereichs, auch rohe, Rangfolge nach Stichworten |
+| Vorgeben | Arbeitsplaner | beim Schreiben des Auftrags | passende Lehren in „Beachte“ und „Umsetzen“, höchstens fünf, weitere als Nummer; Werkzeug schreibt die Treffernummern in die Vorgangsdatei |
+| Suchen, frei | Fachkraft | nur wenn beim Bau eine Frage entsteht, die der Auftrag nicht beantwortet | `vorgang.py lehre suche <Wort>`; genutzte Lehre nennt sie in der Rückmeldung |
+| Ursache mit Beleg | Fachkraft | nur im Nachstell- oder Nachbesserungsauftrag | Feld „Ursache:“ mit der Prüfung, die den Fehler rot zeigte; keine Lehre aus jedem „fertig“ (keine Selbstauskunft, kein Füllwert) |
+| Bestätigen | Prüfer | bei seinem Urteil | Sachverhalt „Ursache belegt: ja/nein“; beim zweiten Nein sein Satz „welche Handwerksregel fehlte“ (Profil Prüfer, besteht) |
+| Roh sammeln | Werkzeug | bei „ja“, zweitem Nein, Fund des Chefs oder Testers, Abbruch und Schließen | hängt Fall, Ursache und Satz des Prüfers als rohe Zeile an das Lehrenbuch, Bereich aus dem Vorgang; nichts geht verloren, auch ohne „ja“ |
+| Zuordnen, formulieren | Arbeitsplaner | beim Rückläufer-Auftrag sofort, sonst beim nächsten Auftrag desselben Bereichs (er sieht die rohen Zeilen ohnehin) | rohe Zeile an bestehende Lehre hängen oder als Lehre fassen („erst …, dann …“), oder „keine Lehre: Einzelfall, weil …“ |
+| Wirkung | Werkzeug | beim Anhängen eines Falls | vergleicht mit den Treffernummern des früheren Auftrags: „wirkt nein“ oder „nicht gefunden“, Meldung an Sokrates |
+| Pflegen | Sokrates | bei „wirkt nein“, „nicht gefunden“ oder rohen Zeilen älter als eine Woche | Bereich, Stichworte, Zusammenlegen, Werkzeug statt Text vorschlagen |
+| Ins Profil heben | Sokrates schlägt vor, Chef entscheidet | wenn eine Lehre für jeden Auftrag dieser Art gilt (Grundgriff) | mit Größe vorher und nachher (16:49) |
+
+Größe (geladen, vorher → nachher): Profil Arbeitsplaner 2.372 → etwa 2.470 Byte (ein Satz: Treffer vorgeben, rohe Zeilen fassen); Auftragsvorlage Feld „Zurück“ um „Ursache:“ nur im Nachstellauftrag, etwa 40 Byte; Profil Prüfer unverändert (Satz zur Handwerksregel besteht). Bauliste 7.1: `auftrag` sucht mit und schreibt Treffer, `lehre suche`, rohes Anhängen bei den genannten Ereignissen, Wirkungsvergleich.
 
 ## Stärkstes Gegenargument
 
 Gesucht wird nur, was man zu suchen weiß: falsche Stichworte, und die Lehre wird nicht gefunden (wie der Stichwort-Wächter heute 760 nicht findet). Abhilfe: gesucht wird zuerst nach dem Bereich aus der festen Liste, nicht nach Wörtern (der Titel von 760 „Wolf springt beim ‚Anspringen‘ nicht, er beißt nur“ trifft kein Stichwort, wohl aber den Bereich Kampf); die festgehaltenen Treffer zeigen jede verpasste Lehre.
 
 ## Gegenprüfungen, mein Wort
+
+**14:21 (Tabelle, 5 Befunde):** Doppel Prüfer und Arbeitsplaner schreiben, Altstand Punkt 4, Lücken ohne „ja“ und „Einzelfall“: **stimmt**, ein Schreiber, Werkzeug sammelt roh auch bei Abbruch · Prüfer trägt ein widerspricht Kern Abnahme und Unabhängigkeit: **stimmt** · „Gelernt“ aus jedem „fertig“ ist Selbstauskunft und Füllwert, widerspricht 12:31: **stimmt**, nur Ursache mit Beleg im Nachstellauftrag · Größe vorher/nachher, Bauliste: **stimmt** · einfacher: **stimmt**.
 
 **14:15 (Fassung 6, 8 Befunde):** Chefwort getroffen: **stimmt** · Fachkraft sucht selbst, zweiter Weg neben dem Auftrag: **stimmt** zum Teil, Hauptweg Auftrag, eigene Suche nur bei Frage (Chef 12:57 „betrifft … die Handwerker“) · bestehende Lehren in geladenen Profilen: **stimmt**, Frage an den Chef · Gedächtnis ist geladener Lehrenspeicher: **stimmt**, als Ausnahme benannt · „Beachte“ höchstens fünf: **stimmt** · Suche nach Stichwort verfehlt 760: **stimmt**, Bereich zuerst · „wirkt nein“ ohne festgehaltene Treffer unprüfbar: **stimmt**, Treffer in die Vorgangsdatei · Gegenargument unvollständig: **stimmt**.
 
