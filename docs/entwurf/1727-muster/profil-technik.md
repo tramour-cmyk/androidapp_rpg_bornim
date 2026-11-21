@@ -52,6 +52,10 @@ Punkt 13, Zusatz am Ende von 13, **neu (Fall des Chefs 21.11., 15:04, „freigeg
 
 Chef: „Wenn ich jetzt wie früher immer sage, ja, der Testbuild ist freigegeben und passt mit Einschränkungen.“ Prüfer: F8 hat eine Lücke (ohne ✗ wird alles samt Mangel zusammengeführt); im Archiv beides: t268, t269 ganz rein, Funde neu (vor Checkliste 12, 09.11.); 89, 298–300 mit Revert; seit 12 jedes ✗ Revert, Fund ohne ✗ bleibt (t299: neue Funde 1674–1676). Mein Entwurf 15:05 unvollständig: Fund, der drinbleibt (**stimmt**), Rückfrage nur mit Datei (**stimmt**), Build-Macher nur mit 235 (**stimmt**, neutral „wer zusammenführt“), Haken D (**stimmt**), „ohne Abzug“ (**stimmt**). Fassung des Prüfers übernommen als Zusatz zu 13.
 
+## Nachprüfung 15:12 (Fassung 12): keine neuen Fehler
+
+Prüfer: Einarbeitung 15:10 stimmt (Checkliste 11, 12; D; 3.3 Nr. 7; Vollzug 1724); Größen 1.220 / 4.182 / 861 Byte; Zitat 235 stimmt. Hinweis Aufbau „Haken D“ ohne Bedingung: im vorgeschlagenen Ablauf kommt die Freigabe immer aus fremder Sitzung, nicht falsch.
+
 ## Nachprüfung 15:10 (Fassung 11, 2 Befunde, beide neu von mir), mein Wort
 
 1 jedes ✓ mit Zusatz würde neuer Vorgang (auch „noch nicht fertig geprüft“, gegen 11 und 412): **stimmt**, nur Zusatz mit Mangel, sonst 11 · 2 „Haken D, wie oben“ ohne 235 ins Leere, Haken nur für fremde Sitzung: **stimmt**, beide Fälle ausgeschrieben, auch im neuen Anfang von 13.
