@@ -125,6 +125,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:07 21.11.: Startsperre 22:07 Start Diogenes (1786, 1783 lesend; Chef 20:20)
 - 22:17 21.11.: Startsperre 22:17 Start Spike (Ausnahme 1784 A, Start 3/8; Übergabe 0e3036f26 nennt fd53ce41c, 24a029770, 194e9647f, b45137faa mit tools/ und .github/; 1739 Teil 9, dazu 1789)
 - 22:17 21.11.: Startsperre 22:17 Start Diogenes (1780, 1787, 1788 lesend; Chef 20:20)
+- 22:27 21.11.: Startsperre 22:27 Start Spike (Ausnahme 1784 A, Start 4/8; Übergabe c6b06a908 nennt 60b49ffbb mit tools/ und .github/, dazu 1e38d1a2d; 1739 Teil 10)
 - 22:06 21.11.: Startsperre 22:06 Start Spike (Ausnahme 1784 A, Start 2/8; Übergabe e51d2b920 nennt dbf44708a mit .github/ und tools/; 1739 Teil 8)
 - 21:55 21.11.: Startsperre 21:55 Start Spike (Ausnahme 1784 A, Start 1/8 bis 03:00; Übergabe 723e0b4ab nennt 0b6b8f46c mit tools/; 1739 Teil 7)
 - 21:52 21.11.: Startsperre 21:52 Start Sokrates (Neustart 420488e64, 1727)
