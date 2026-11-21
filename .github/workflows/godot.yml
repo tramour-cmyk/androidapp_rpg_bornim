@@ -74,6 +74,14 @@ jobs:
         run: |
           python3 -c "import yaml" 2>/dev/null || pip install pyyaml
           python3 tools/godot/logik.py
+      # 1765 (Spike über Ford 21.11., 20:30): Werkzeugtests Übergabe (1760), Chefwort (1762), Rückmeldung (1763); laufen auch bei rotem Kerntest
+      - name: Werkzeugtests (Übergabe, Chefwort, Rückmeldung)
+        if: ${{ !cancelled() }}
+        run: |
+          git config --global user.email "ci@bornim" && git config --global user.name "ci"
+          python3 tools/uebergabe_test.py
+          python3 tools/chefwort_test.py
+          python3 tools/rueckmeldung_test.py
 
   apk:
     if: github.event_name != 'push' || github.ref != 'refs/heads/main'
