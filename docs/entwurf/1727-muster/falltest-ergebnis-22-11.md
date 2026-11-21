@@ -58,6 +58,42 @@ Ausziehen: Ladetexte nach Messregel (Codeblock bzw. bis erstes „##“; Sockel 
 - T1 (Schalter „Schnell“): Testhilfen aus, Zustand im Beleg – **besteht**; „Befunde:“ geht nirgends hin (1795).
 - T2 (Bildrate nebenbei): **Lücke:** kein Maß für Bildrate beim Tester; Nebenfund Befund oder Hinweis.
 
-## Noch ausstehend
+## Bewertung gegen Soll (Sokrates, 21.11., 23:23)
 
-Prüfer und Tester (P1–P7, T1–T2): mit denselben Ladetexten neu spielen lassen (Auszug: `python3` nach Messregel aus den Dateien, Fälle nur Spalte „Eingang“), dann alles gegen Soll bewerten.
+Maß: bestanden = alle Kernpunkte des Solls und das „NICHT“ getroffen; teilweise = NICHT getroffen, ein Kernpunkt fehlt oder ist aus der Zusammenfassung nicht belegt; nicht = NICHT verfehlt oder Kernpunkt falsch; ungültig = Fall falsch aufgesetzt. Grundlage: Zusammenfassung oben (Wortlaut der Helfer nicht gesichert, Lehre: in Lauf 2 Antworten je Fall als Datei sichern).
+
+| Fall | Urteil | Ursache | Maßnahme |
+|---|---|---|---|
+| L1 | nicht | Kern Leitung verlangt Prüfung nur „vor der Vorlage“, nicht nach jedem Einarbeiten; Größe nicht verlangt | Satz für Kern Leitung (abgenommen): Gespräch 10:00 |
+| L2 | teilweise | NICHT getroffen; Archiv mit Datum nicht genannt (nur „Frage“ nach Quelle) | Lauf 2 mit Prüffrage wiederholen |
+| L3 | bestanden | – | Lauffreigabe nur in `probelauf.py`: Werkzeug genügt |
+| L4 | teilweise | Archiv und Nummer richtig; Zeile an Tom „genau ein Lauf“ nicht belegt; „Eingang des Büros“ ohne Befehl (L-O1) | L-O1 im Gespräch 10:00 |
+| D1 | bestanden | – | – |
+| D2 | ungültig | „steckt fest“ geht nach 3.3/1727c an Sokrates; Soll erwartet, dass der Disponent fachlich antwortet | Fall als Kette Disponent → Leitung (Leitung verbietet Reset, verlangt Sicherung) |
+| D3 | nicht | Profil sagt nicht, wer nach `main` bringt; Werkzeug gibt „fertig“ mit Commit immer an den Prüfer, auch bei Werkzeug | Profil Disponent: wer zusammenführt; Werkzeugvorgang Spike (Weg „Werkzeug fertig“) |
+| D4 | nicht | Chefwort übersteuert die Werkzeugstufe im Text nicht | Profil Disponent Guthaben: Chefwort geht vor |
+| D5 | bestanden | „Betrieb steht“ ohne Maß | Kern Büro: Maß nennen |
+| A1 | bestanden | Feld 7 nennt Wörter, die das Werkzeug nicht kennt (1797) | Kern Arbeitsplaner Feld 7 an Werkzeug |
+| A2 | teilweise | Beleg-Bedingungen stehen im Kern; „erst nachstellen“ nicht belegt | Lauf 2 |
+| A3 | bestanden | Zählung „unter vier keine APK“ nicht belegt; Besitzer Build-Prüfliste offen | Lauf 2 |
+| A4 | bestanden | 👎 = falsch nur in `reaktionen.py` | Kern Büro: 👎/👍 |
+| A5 | bestanden | Lesart in Klammern nicht belegt | Lauf 2 |
+| A (alle) | nicht | Feld 6 heißt im Kern „Prüfart“, `auftrag.py` verlangt „Prüfart und Prüfe vor dem Senden“: jeder Auftrag nach Kern wird abgelehnt; Profilpfade unbekannt (keine Ablage der Profile festgelegt) | Kern Arbeitsplaner Feld 6 wie Werkzeug; Ablage der Profile in die Bauliste |
+| W1–W5 | ungültig | ohne Auftrag gespielt; die Werkstatt kennt nur Sockel und Auftrag | Lauf 2 mit Aufträgen, die ein blinder Arbeitsplaner schreibt (prüft A zugleich) |
+| W1 | (Lücke) | „nur eigene Dateien“ steht nirgends; Sockel 7 „alles pushen“ mehrdeutig | Sockel 7 (abgenommen): Gespräch; Werkzeugsperre 1776 |
+| W5 | (Lücke) | `add_repo` für Fachkraft in keinem Text | Profil Figur und Prüfbild oder Sockel: Gespräch |
+| P1 | ungültig | Eingang ohne Commit; Disponent nimmt „fertig“ ohne Commit nicht an, Prüfer sähe ihn nie | Eingang mit Commit, Lauf 2 |
+| P2 | teilweise | Schweben erkannt, aber „nein, Auftrag“ statt „nein“ (Mangel ist bei der Arbeit behebbar) | Profil Prüfer 3: „nein, Auftrag“ nur, wenn die Arbeit den Mangel nicht beheben kann; Lauf 2 |
+| P3 | nicht | Testbitte-Gegenlesen kennt kein Text; Handy-Absatz prüft den Weg zur Stelle nicht am Code | Profil Prüfer Handy: Lage und Weg am Code, Stelle nennen |
+| P4 | ungültig | ohne Auftrag; Helfer prüfte Ruhen statt Herkunft des Belegs | Lauf 2 mit Auftrag |
+| P5 | nicht | Tusche als „Hinweis“ statt „Beleg fehlt“ | Profil Prüfer 2: Beleg ohne Spielansicht mit Signatur = „Beleg fehlt“ |
+| P6 | bestanden | Fachkraft erfährt das „steckt fest“ nicht | Werkzeug (Spike) |
+| P7 | ungültig | ohne Auftrag (wie P4) | Lauf 2 |
+| T1 | bestanden | „Befunde:“ hat kein Ziel im Werkzeug (1795) | – |
+| T2 | teilweise | ohne Maß für Bildrate unsicher, ob „Fehler“ | Profil Tester 4: Maß aus der Abnahmeliste, sonst als Fehler mit Messwert |
+| R1 | teilweise | Wiederholer gewählt, aber nur als Vorschlag ans Büro; Systemfrage geht nach 1727 (20.11., 10:27) über Wächter → Disponent → Arbeitsplaner | Soll an neue Ordnung: Vorschlag mit Fundzahlen genügt |
+| R2, R3 | nicht | Liegengebliebenes („gebaut“ ohne Build über Frist, getestet nicht auf `main`) fängt kein Text: Rundblick schlägt nur vor, Wochenzählung zählt nur, Wache sieht nur Sitzungen | Routine Wache Nr. 7: Vorgang über der Frist seines Stands (14.2) → Wecker an den Disponenten; Fälle zur Wache |
+
+**Zählung Lauf 1:** 31 Fälle: bestanden 9 (L3, D1, D5, A1, A3, A4, A5, P6, T1), teilweise 6 (L2, L4, A2, P2, T2, R1), nicht 7 (L1, D3, D4, P3, P5, R2, R3), ungültig 9 (D2, W1–W5, P1, P4, P7); dazu der Werkzeugfehler Feld 6, der jeden Auftrag trifft. Ketten K1–K3 noch nicht gespielt.
+
+**Pflichtpunkte des Chefs** (Vorrat „ab Sa 20:00“): Wiederholer 1694 (K3), 1535 (K2, P1), 760 (L3, P7), t299 (A3, P3) in Lauf 2 als Ketten mit Liegezeit je Übergabe; Rückläufer nicht durchrutschen (R2/R3 → Wache 7).
