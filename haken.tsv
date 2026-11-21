@@ -1187,3 +1187,4 @@
 2026-11-21 22:27:37	startsperre	Nachtstopp (1643): Spike auf Vorgang 1784 ist in dieser Nacht schon nach zwei Neustarts; nicht starten bis 7 Uhr. Ford: Zeile „- HH:MM TT.MM.: Morgen 1643: Spike 1784 nach zwei Neustarts in der Nacht 	ccr-0946d916-eqon7p
 2026-11-21 23:16:41	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30790 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-21 23:23:38	commit-pruefung	docs/entwurf/1727-muster/falltest-ergebnis-22-11.md: Uhrzeit 23:35 liegt nach jetzt (23:23)	main
+2026-11-21 23:59:45	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 31798 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
