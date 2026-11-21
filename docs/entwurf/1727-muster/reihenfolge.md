@@ -1,27 +1,26 @@
-# 1727, Reihenfolge bis zur Umstellung (Entwurf Sokrates 21.11., 10:15)
+# 1727, Reihenfolge bis zur Umstellung (Fassung 2, Sokrates 21.11., 10:18, gegengeprüft)
 
-Anlass: Vorschlag 20.11., 21:41 „Aufräumen → Arbeitsdateien → Profil Technik → Bauliste → Feste Regeln → Falltest“, ohne Wort des Chefs. Maßstab Chef 20.11., 16:50: „Der Falltest kann erst kommen, wenn wir doch die ganzen Rollendateien umgemünzt haben auf Sockel, Kern, Profildateien, respektive dann Arbeitsdateien zum Testen.“ Befunde: `pruefung-20-11-abend.md` (Abend) und `pruefung-20-11.md`.
-
-## Änderung gegen 21:41
-
-„Aufräumen“ als eigener Schritt fällt: das Gesamtbild (150 KB, etwa 81 % Verlauf, Befund 1) aufzuräumen und danach die Arbeitsdateien herauszuziehen, ist doppelte Arbeit. Stattdessen wird das Gesamtbild eingefroren (Verlauf, nur noch Verweise), aufgeräumt wird beim Herausziehen.
+Anlass: Vorschlag 20.11., 21:41 „Aufräumen → Arbeitsdateien → Profil Technik → Bauliste → Feste Regeln → Falltest“, ohne Wort des Chefs. Maßstab Chef 20.11., 16:50: „Der Falltest kann erst kommen, wenn wir doch die ganzen Rollendateien umgemünzt haben auf Sockel, Kern, Profildateien, respektive dann Arbeitsdateien zum Testen.“ 16:49: Abgenommenes nur nach Gespräch, Größe je Änderung.
 
 ## Reihenfolge
 
-1. **Umgemünzt fertig schreiben** (16:50 Schritt 1), im Gesamtbild als letzte Fassungen:
-   a. Abgleich `1727-abgleich-rollen.md` je Punkt durchsehen: übernehmen (wohin) oder „fällt“ (16:50, ohne Zwangsziel).
-   b. Fehlende Texte: Profil Technik zuerst (Befund 4: Build, Merge, Release ohne Träger), dann Werkzeug, Fremde Inhalte, Spieltext einbauen, Büro-Profile, Routinen Tagesbericht und Wache, Chefrunde.
-   c. Feste Regeln mit Ort (Befund 5, Tabelle 0c „bleibt, wo“), Lücken nach Wegfall von Leitbild, Rollen, `CLAUDE.md` (Befund 8), Meldewege je erstes Wort (Befund 10).
-   d. Was zu 3.3 folgt (Fassung 2 Nr. 8): Kern Büro, Kern Arbeitsplaner, Kern Abnahme anpassen.
-   Je Text Größe vorher/nachher und Ladesumme (16:49); Abgenommenes nur nach Gespräch.
-2. **Arbeitsdateien** (16:50 Schritt 2, Befund 1): je Sockel, Kern, Profil eine Datei nur mit gültigem Text; dabei berichtigen: eine Feldliste nur im Werkzeug (Befund 6), keine Doppeltexte (Befund 7), „Fachkraft“ statt „Macher“ (Befund 9), Kleineres (Befund 14). Gesamtbild danach Verlauf; Übersicht der Größen per Skript.
-3. **Falltest** (16:50 Schritt 3) auf den Arbeitsdateien: Fälle in `1727-falltest.md` und Übergabe-Vorrat „Zu 1727, ab Sa 21.11., 20:00“; Übergaben zählen wie Prüfung 20.11. (Befund 2), Bremsen auf zwei (Befund 13), Verweisprüfung per grep (Befund 8).
-4. **Werkzeuge** (Befund 3, Bauliste 7.1): Spike baut ab Schritt 2 nebenher (1760 läuft schon); die Bauliste wird in Schritt 1 vollständig. Umstellung erst, wenn Falltest bestanden und jedes Werkzeug grün läuft.
+1. **Herausziehen, nur kopieren:** je Sockel, Kern, Profil die letzte gültige Fassung aus dem Gesamtbild in eine eigene Arbeitsdatei, Text unverändert (Unterschied per diff belegt); Größen und Ladesumme per Skript (frische Vorher-Zahlen für 16:49). Gesamtbild danach eingefroren (Verlauf). Kein Aufräumen im Gesamtbild (doppelte Arbeit, Befund 1).
+2. **Umgemünzt fertig schreiben, direkt in den Arbeitsdateien:**
+   - Abgleich der Rollendateien je Punkt: übernehmen (wohin) oder „fällt“ (16:50); vorher gegen die Entscheide seit 16:42 auffrischen.
+   - Inhalt der Vorräte (Gesamtbild 4, „Teil von Schritt 1 vor dem Falltest“): „Zu <Nr>“ in Vorgangsdateien, Lehren durchsehen wie der Abgleich.
+   - Fehlende Texte: Profil Technik zuerst (Build, Merge, Release ohne Träger), Profil Disponent und Kern Büro nach 3.3, Werkzeug, Fremde Inhalte, Spieltext einbauen, Büro-Profile Release und Kosten, Rundblick, Routinen Tagesbericht und Wache, Chefrunde.
+   - Feste Regeln mit Ort: Tabelle „bleibt, wo“ neu in 0c; Lücken nach Wegfall von Leitbild, Rollen, `CLAUDE.md`; Meldewege je erstes Wort; Regler „Zahl der Werkstätten“.
+   - Berichtigungen als eigene Commits mit Größe: eine Feldliste nur im Werkzeug, keine Doppeltexte, „Fachkraft“ statt „Macher“, Kleineres; Rest aus dem Vorrat („ab Sa 20:00“: Vorgänge auf Bereich, Arten „Probe“ und „Recherche“ in 0a, Wortliste 1732, Sperrliste Rufnamen).
+   - **Gespräch nötig, bevor geändert wird** (Abgenommenes): Sockel (`add_repo`, 1.110 von 1.200 Byte), Kern Leitung (Lehren), Profil 2.3, Profil Welt, Kern Arbeitsplaner (Fassung 2 vor 3.3 geschrieben, jetzt Profil).
+3. **Gegenprüfung aller ungeprüften Teile:** 0c, 1a Leitbild verteilen, 6b Rundblick, 6d Wochenzählung und alle Texte aus Schritt 2, je frischer Prüfer gegen den ganzen Entwurf.
+4. **Falltest auf den Arbeitsdateien:** Fälle Sokrates (F1–F14), Abnahme und Tester, Build-Kette (Archiv 19.11., 22:05), Wiederholer und Liegezeit (Vorrat), Übergaben zählen wie Prüfung 20.11., Bremsen auf zwei, Verweisprüfung per grep.
 
-## Was offen beim Chef bleibt (eigene Wörter, nicht Teil dieser Reihenfolge)
-
-Kern Arbeitsplaner Fassung 2; Liste „Offen beim Chef“ in `pruefung-20-11-abend.md`.
+**Nebenher:** Werkzeuge nach Bauliste 7.1 (Spike, 1760 läuft); die Bauliste wird in Schritt 2 vollständig (je Werkzeug eine Zeile, auch Rufnamen). Umstellung erst, wenn Falltest bestanden und jedes Werkzeug grün.
 
 ## Stärkstes Gegenargument
 
-Schritt 1 schreibt weiter ins 150-KB-Gesamtbild, die unzuverlässige Quelle (Befund 1); jeder neue Text muss in Schritt 2 noch einmal angefasst werden. Gegenweg: neue Texte aus Schritt 1 gleich als Arbeitsdatei schreiben, nur die alten in Schritt 2 herausziehen.
+Beim Herausziehen kann sich Abgenommenes unbemerkt ändern, und eine Arbeitsdatei je Text vervielfacht die Dateien. Abhilfe: Schritt 1 nur kopieren mit diff-Beleg; Änderungen erst in Schritt 2, je eigener Commit mit Größe.
+
+## Gegenprüfung 10:16 (frischer Helfer, 7 Befunde), mein Wort
+
+1 Getrennte Schritte nur meine Lesart von 16:50: **stimmt**, Falltest bleibt zuletzt · 2 Abgenommenes nicht genannt: **stimmt**, Liste „Gespräch nötig“ · 3 Folgen aus 3.3 nicht nachgezogen (Profil Disponent): **stimmt** · 4 fehlen Vorräte, Gegenprüfungen, Vorrat ab Sa 20:00, Regler, Fall Build, Abnahme und Tester: **stimmt**, eingebaut; Befund 12 (Grundsatz 07:22) erledigt durch 3.3 · 5 Aufräumen fällt, kleine Pflege nötig: **stimmt**, Auffrischen in Schritt 1 und 2 · 6 „erst herausziehen“ stärker: **stimmt**, übernommen · 7 vier Schritte: **stimmt**.
