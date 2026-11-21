@@ -37,3 +37,4 @@ jobs:
           python3 tools/kostenbericht_test.py   # 1739 Kosten in drei Teilen
           python3 tools/lehren_test.py          # 1739 Lehrenbuch
           python3 tools/lieferung_test.py       # 1739 wartet auf leeren bei Lieferung
+          python3 tools/tagesbericht_test.py    # 1739 Tagesbericht: Wo stehen wir, Fristen
