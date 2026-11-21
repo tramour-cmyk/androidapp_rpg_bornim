@@ -2050,6 +2050,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1727e | Rückfrage Sokrates (1727): Guthabenzahl über Haken D eintragen? | B Abläufe | M | – | Sokrates | erledigt |
 | 1727f | Rückfrage Sokrates (1727): Kern Arbeitsplaner +170 Byte (Ladehinweise, Ausnahme Übersetzung)? | B Abläufe | M | – | Sokrates | erledigt |
 | 1727g | Rückfrage Sokrates (1727): GitHub-Regel gegen Force-Push auf claude/build-* anlegen (Chef tut) | B Abläufe | M | – | Sokrates | erledigt |
-| 1784 | Rückfrage Sokrates (1739, Ford 21:41): Nachtstopp 1643 heute Nacht für Spike 1739 aussetzen? | B Abläufe | M | – | Sokrates | erledigt |
+| 1784 | Rückfrage Sokrates (1739, Ford 21:41): Nachtstopp 1643 heute Nacht für Spike 1739 aussetzen? | B Abläufe | M | 15,52 $ | Sokrates | erledigt |
 | 1731 | Von Werkzeug (Startwarnung 1425, 1642, seit 19.11., 07:07): ARBEIT-TEAM-SPIKE.md: 2 „Zu“ zu Erledigtem (1669, 1484a), beim Übergeben streichen | B Abläufe | K | – | Spike | erledigt |
 | 1769 | Von Diogenes (D328.2, Lauf 328 zu 1762): chefwort.vorgaenge übersieht eine Nummer mit Komma dahinter („1716, 1718 passen“ findet 1716 nicht), übliche Form des Chefs (Archiv 9 Fälle); in chefwort_test aufnehmen | B Werkzeuge | M | 1,89 $ | Spike | erledigt, greift Lauf 328 |
