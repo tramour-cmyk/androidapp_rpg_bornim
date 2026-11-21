@@ -1161,3 +1161,4 @@
 2026-11-21 21:11:53	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30215 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-21 21:12:23	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30006 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-21 21:16:49	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1727a-satz-1311.md: fehlt hinter „Beim C	HEAD
+2026-11-21 21:17:32	commit-pruefung	docs/chefsache/entscheiden/1727e-guthabenzahl.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
