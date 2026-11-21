@@ -82,6 +82,15 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/gepusht-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/gepusht-haken.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
+            "timeout": 20
+          }
+        ]
       }
     ],
     "PreToolUse": [
