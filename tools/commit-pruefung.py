@@ -436,15 +436,58 @@ def zweig_doppelt():
         elif l == "branch " + zw and pfad != hier: return pfad
     return ""
 
+def _blob(rev, p):
+    return git("rev-parse", "-q", "--verify", "%s:%s" % (rev, p)).strip()
+
+def veraltet():
+    """1778 (D329.4): Dateien, die im Index auf einen früheren Stand des Zweigs zurückfallen (Blob gleich einem der letzten
+    zehn Stände laut Reflog, aber anders als HEAD). So sieht ein veralteter Index aus, nachdem eine andere Arbeitskopie den
+    Zweig vorgerückt hat; auch nach `checkout --detach` dort bleibt er hier stehen."""
+    zw = git("symbolic-ref", "-q", "HEAD").strip()
+    if not zw: return []
+    alte = git("rev-list", "--walk-reflogs", "--max-count=11", zw).split()[1:]
+    if not alte: return []
+    kopf = git("rev-parse", "HEAD").strip()
+    alte = [c for c in dict.fromkeys(alte) if c != kopf]
+    aus = []
+    for l in git("diff", "--cached", "--name-only", "--no-renames", "HEAD").splitlines():
+        p = l.strip()
+        if not p: continue
+        ix, hd = _blob("", p), _blob("HEAD", p)
+        if ix != hd and any(_blob(c, p) == ix for c in alte): aus.append(p)
+    return aus
+
+def auffrischen():
+    """1778: veraltete Dateien (veraltet()) im Index und in der Arbeitskopie auf HEAD; selbst Geändertes bleibt und wird genannt."""
+    wurzel = git("rev-parse", "--show-toplevel").strip()
+    n, eigen = 0, []
+    for p in veraltet():
+        if subprocess.run(["git", "diff", "--quiet", "--", p], cwd=wurzel).returncode:  # Datei weicht vom Index ab: selbst geändert
+            eigen.append(p); continue
+        if _blob("HEAD", p): subprocess.run(["git", "checkout", "-q", "HEAD", "--", p], cwd=wurzel)
+        else: subprocess.run(["git", "rm", "-q", "-f", "--", p], cwd=wurzel)
+        n += 1
+    print("Auffrischen (1778): %d Dateien auf HEAD gesetzt" % n + ("; selbst geändert, bitte prüfen: " + ", ".join(eigen) if eigen else ""))
+    return 1 if eigen else 0
+
+HILFE_1778 = "danach in der Arbeitskopie mit dem Zweig: python3 tools/commit-pruefung.py --auffrischen (setzt den veralteten Index auf HEAD)"
+
 def main():
     try:
         anders = zweig_doppelt()
         if anders:
             print("Commit-Prüfung HÄLT AN: dieser Zweig ist auch in %s ausgecheckt (222.2, 1776); der Index hier kann veraltet sein "
-                  "und der Commit fremde Dateien zurücksetzen. In der Arbeitskopie: git stash, git checkout --detach origin/main" % anders,
-                  file=sys.stderr)
+                  "und der Commit fremde Dateien zurücksetzen. In der Arbeitskopie, die nicht die Notizkopie ist: git stash, "
+                  "git checkout --detach origin/main; %s" % (anders, HILFE_1778), file=sys.stderr)
             return 1
-    except Exception as e: print("Commit-Prüfung: 1776 übersprungen (%s)" % e, file=sys.stderr)
+        if os.environ.get("BORNIM_ZURUECK") != "1" and not git("rev-parse", "-q", "--verify", "MERGE_HEAD").strip():
+            alt = veraltet()
+            if alt:
+                print("Commit-Prüfung HÄLT AN: %d Dateien fallen auf einen früheren Stand des Zweigs zurück (%s%s; veralteter Index, 1778). "
+                      "python3 tools/commit-pruefung.py --auffrischen; gewollte Rücknahme: BORNIM_ZURUECK=1"
+                      % (len(alt), ", ".join(alt[:6]), " …" if len(alt) > 6 else ""), file=sys.stderr)
+                return 1
+    except Exception as e: print("Commit-Prüfung: 1776/1778 übersprungen (%s)" % e, file=sys.stderr)
     ge = git("diff", "--cached", "--name-status", "--no-renames").splitlines()
     dat = [(l.split("\t")[0], l.split("\t")[1]) for l in ge if "\t" in l]
     video = [p for s, p in dat if s != "D" and p.lower().endswith((".mp4", ".webm"))]
@@ -821,6 +864,7 @@ if __name__ == "__main__" and "--kerntest-marke" in sys.argv:
     sys.exit(kerntest_marke_schreiben())
 if __name__ == "__main__":
     if "--srd-bestand" in sys.argv: sys.exit(srd_bestand())
+    if "--auffrischen" in sys.argv: sys.exit(auffrischen())
     try: sys.exit(main())
     except Exception as e:
         print("Commit-Prüfung übersprungen: %s" % e, file=sys.stderr); sys.exit(0)
