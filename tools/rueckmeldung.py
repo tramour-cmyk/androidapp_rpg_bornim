@@ -10,7 +10,7 @@ im selben Commit eine offene Übergabezeile (1760):
   „nein, Auftrag“ → an den Arbeitsplaner (Gesamtbild 6.1)
   zweites „nein“ je Vorgang → an Sokrates „steckt fest (Laufbremse)“ (1766, Archiv 19.11., 13:02)
   1739 (Gesamtbild 3.3 Nr. 5, Kern Büro „Rückläufer“): „fertig“ mit Commit → an den Prüfer; „fertig“ ohne Commit → an den Disponenten
-  (nimmt es nicht an); erstes „nein“ und „Beleg fehlt“ → mit dem Satz an denselben Macher (wer zuletzt „fertig“ meldete; unbekannt →
+  (nimmt es nicht an; Routine, Titel „(Routine, Auftrag …)“: „fertig“ ohne Commit → Disponent legt die Vorschläge an und schließt, 1789); erstes „nein“ und „Beleg fehlt“ → mit dem Satz an denselben Macher (wer zuletzt „fertig“ meldete; unbekannt →
   Disponent); „ja“ des Prüfers → Disponent (an den Chef nur nach diesem Ja); „Hinweis“ → Disponent (wie ein Eingang)
   Empfänger „Prüfer“ und „Disponent“ sind bis zur Umschaltung Diogenes und Ford (lauf.py, tools/1727-SCHARF)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
@@ -74,7 +74,16 @@ def macher(text):
     return w if w and w != "unbekannt" else None
 
 
-def weitergabe(w, t, zeit, wer, text, vorher):
+def ist_routine(nr):
+    """1789: Vorgang nr ist eine Routine (Titel „(Routine, Auftrag …)“, auftrag.routine); sie baut nichts, „fertig“ ohne Commit gilt."""
+    try:
+        import auftrag, startbar
+        return any(d["nr"] == nr and auftrag.routine(d["titel"]) for d in startbar.vorgangsliste(startbar.lesen(startbar.LISTE)))
+    except Exception:
+        return False
+
+
+def weitergabe(w, t, zeit, wer, text, vorher, routine=False):
     """1739 (3.3 Nr. 5): Empfänger und Zeile für „fertig“, „nein“, „Beleg fehlt“, „ja“, „Hinweis“; (None, None) sonst."""
     satz = ue._rein(text)[:160]
     von = "Rückmeldung %s von %s" % (zeit, wer or "unbekannt")
@@ -84,6 +93,8 @@ def weitergabe(w, t, zeit, wer, text, vorher):
         if m: return m, "Rückläufer (%s des Prüfers, %s): „%s“; nachbessern, dann `vorgang.py rueckmeldung` „fertig“ mit Commit (1739)" % (wort, von, satz)
         return DISPONENT, "Rückläufer (%s, %s), Macher unbekannt (kein „fertig“ in der Vorgangsdatei): an denselben Macher zurückgeben (1739)" % (wort, von)
     if "fertig" in w:
+        if routine and not COMMIT.search(text):  # 1789: Rundblick endet ohne Commit (routine-rundblick.md Teil A „Ergebnis“)
+            return DISPONENT, "Routine fertig (%s): Vorschläge aus den offenen Übergabezeilen als Vorgänge anlegen, dann `vorgang.py schliessen` (1789)" % von
         if COMMIT.search(text): return PRUEFER, "prüfen: „fertig“ (%s): „%s“ (1739)" % (von, satz)
         return DISPONENT, "„fertig“ ohne Commit (%s): nicht annehmen, Macher nennt Commit und Beleg (1739)" % von
     if "ja" in w: return DISPONENT, "ja des Prüfers (%s): an den Chef vorlegen (Testbitte), nicht selbst nach main (1739)" % von
@@ -126,7 +137,7 @@ def eintragen(nr, text, wer, sid=""):
         elif "nein, Auftrag" in w:
             an, was = PLANER, "nein, Auftrag: Rückmeldung %s von %s lesen" % (zeit, wer or "unbekannt")
         else:
-            an, was = weitergabe(w, t, zeit, wer, text, vorher)
+            an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr))
         if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)

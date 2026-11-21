@@ -40,3 +40,4 @@ jobs:
           python3 tools/tagesbericht_test.py    # 1739 Tagesbericht: Wo stehen wir, Fristen
           python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag
           python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
+          python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“

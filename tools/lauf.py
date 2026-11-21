@@ -125,6 +125,7 @@ def mit_kern(l):
     """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht."""
     if not l.startswith("START "): return l
     rolle = l[6:].split(" |", 1)[0].strip()
+    if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
     k = kern(rolle)
     if not k: return l
     kopf, _, msg = l.rpartition(" | ")
@@ -140,7 +141,7 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None):
     aus = []
     for l in ausgabe:
         teile = l.split(" | ", 6)
-        if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() == "Sokrates":
+        if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() in ("Sokrates",) + tuple(ROUTINE_ROLLEN):
             aus.append(l); continue
         n = rufname.naechster(belegt)
         if not n:
@@ -190,6 +191,7 @@ VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "A
           "Spike": "ARBEIT-TEAM-SPIKE.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: Tuffy Vorrat des Teams; 1328: Spike eigener Vorrat
 START_REIHE = ["Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"}
+ROUTINE_ROLLEN = {"Rundblick"}  # 1789: Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
 NIE_ARCHIV = {"Ford"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 
 def geschuetzt():
@@ -558,6 +560,33 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
     return so_z
 
 
+def rundblick_zeilen(ausgabe, je_rolle, archiviert, marken, zeilen=None, scharf=None, wurzel=None):
+    """1789 (routine-rundblick.md:13, :46; Archiv 20.11., 07:37, 07:53): den Wochentermin „Rundblick (Routine, …)“ (Besitzer
+    Sokrates, startbar.WOCHENTERMINE_1727) startet der Disponent selbst: frische Sitzung mit Sockel (CLAUDE.md) und Teil A als
+    Auftrag, ohne Kern der Leitung (mit_kern), ohne Arbeitsplaner, ohne Feld „Zurück“ (auftrag.routine), ohne Rufname.
+    Rolle in der START-Zeile „Rundblick“ (Startsperre, kosten.rolle, Archivregel). Nur mit tools/1727-SCHARF.
+    Rückgabe: Vorgangsnummer, wenn eine START-Zeile steht, sonst None."""
+    if not (ist_scharf() if scharf is None else scharf): return None
+    import auftrag as _a
+    zs = [d for d in (startbar.zeilen_liste() if zeilen is None else zeilen) if "Rundblick (Routine" in d.get("titel", "")
+          and d.get("besitzer") == "Sokrates" and str(d.get("stand", "")).startswith("startbar") and not d.get("warte")]
+    if not zs: return None
+    d = zs[0]; nr = d["nr"]
+    ss = [s for s in je_rolle.get("Rundblick", []) if s["id"] not in archiviert]
+    if [s for s in ss if s["_info"][1] or s["_info"][2] < SPERRE_MIN]:
+        ausgabe.append("NICHTS Rundblick: läuft (1789)"); return None
+    if [s for s in ss if nummer_aus_titel(s.get("title", "")) == nr]:
+        ausgabe.append("NICHTS Rundblick: Lauf zu %s ist zu Ende, wartet auf das Büro (Vorschläge anlegen, Vorgang schließen; 1789)" % nr); return None
+    if "Rundblick" in marken and (JETZT - marken["Rundblick"]).total_seconds() < SPERRE_MIN * 60:
+        ausgabe.append("NICHTS Rundblick: Startmarke %s jünger als %d Minuten" % (marken["Rundblick"].strftime("%H:%M"), SPERRE_MIN)); return None
+    text = _a.routine_text(d["titel"], wurzel or os.path.normpath(os.path.join(DOCS, "..")))
+    if not text:
+        ausgabe.append("WARNUNG Rundblick %s nicht gestartet: Teil A nicht lesbar (%s; 1789, Spike)" % (nr, (_a.routine(d["titel"]) or ("?",))[0])); return None
+    msg = "Routine Rundblick, Vorgang %s (Wochentermin; ohne Kern, Teil A ist dein Auftrag, 1789).\n\n%s\n\n<Nr> ist %s." % (nr, text, nr)
+    ausgabe.append("START Rundblick | %s%s | %s | %s | %s | Rundblick – %s: Routine (%s) | %s" % (MODELL["Sokrates"], aufwand(), umgebung("Rundblick"), REPO, REVISION, nr, berlin(JETZT), msg.replace("\n", "\\n")))
+    return nr
+
+
 def fristen_runde(ausgabe, seiten, docs=None):
     """1739 (Befund 1, werkzeuge.md A): in jedem Lauf mit --sperre `vorgang.py offen --sitzungen` (still): eine angenommene Zeile mit
     abgelaufener Frist, deren Halter nicht arbeitet, wird wieder offen (atomar auf origin/main, lokal nachgezogen), damit
@@ -607,11 +636,15 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
 def ist_scharf():
     return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
 
-def auftrag_fehlt(nr, docs=None):
+def auftrag_fehlt(nr, docs=None, titel=None):
     """1739 (7.1 „kein Start ohne Feld Zurück“): Grund, warum Vorgang nr keinen gültigen Auftrag hat (jüngster Abschnitt
     „## Auftrag (…)“ in docs/vorgang/<Nr>.md, geprüft mit auftrag.pruefen: sieben Felder, „Zurück“ mit Inhalt, höchstens 2 KB),
     sonst None. Zeilen ohne Nummer (M?, Stillstand, Kosten) brauchen keinen."""
     if not re.match(r"\d", str(nr)): return None
+    try:  # 1789: Routinen (Titel „(Routine, Auftrag <Datei> …)“) sind vom Feld „Zurück“ ausgenommen, Teil A ist der Auftrag
+        import auftrag as _a
+        if _a.routine(titel if titel is not None else next((d["titel"] for d in startbar.zeilen_liste() if d["nr"] == nr), "")): return None
+    except Exception: pass
     p = os.path.join(docs or DOCS, "vorgang", "%s.md" % nr)
     text = lesen(p) if os.path.isfile(p) else ""
     ms = list(AUFTRAG_KOPF.finditer(text))
@@ -679,6 +712,11 @@ def hoechstdauer_zeilen(ausgabe, je_rolle, archiviert, docs=None, jetzt=None, gr
     ausgabe += neu
     return neu
 
+
+def routine_offen(s):
+    """1789: Vorgang im Titel der Routinensitzung steht noch offen (nicht erledigt) in der Vorgangsliste."""
+    nr = nummer_aus_titel(s.get("title", ""))
+    return any(d["nr"] == nr and not str(d.get("stand", "")).startswith("erledigt") for d in startbar.zeilen_liste())
 
 def juengste(ss):
     """Die zuletzt tätige Sitzung eines Bereichs (261.6): späteres updated_at, bei Gleichstand späteres created_at."""
@@ -959,7 +997,8 @@ def main():
             if laufend or ruhig < schutz_min(): continue  # 340.10 V4 (c): unter 60 s nach dem letzten Ereignis nicht archivieren (Sokrates 13.11., 03:41); 1739: scharf 15 Min.
             # (2) nur mit neuerer Sitzung desselben Bereichs, ohne Wartezeit (261.5, Chef 16:46; ersetzt 60 Minuten aus 238)
             # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
-            if s is juengste(ss): continue
+            # 1789: eine Routine bleibt nur, solange ihr Vorgang offen ist (eine Sitzung je Woche, keine neuere löst sie ab)
+            if s is juengste(ss) and not (r in ROUTINE_ROLLEN and not routine_offen(s)): continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             nrn = nummern_aus_titel(s.get("title", "")) or "Betrieb"
             if r == "Sokrates":  # (4) Kostenbuchung bleibt eigene Regel (197): Kosten auf die Nummern der Übergabe
@@ -1283,6 +1322,9 @@ def main():
                 vorgaenger("Sokrates")  # 261.5 (2): die ruhende alte Sitzung gleich danach archivieren, nicht zwei Sokrates nebeneinander
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
     sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger)  # 1763 C
+    try:
+        if (rb := rundblick_zeilen(ausgabe, je_rolle, archiviert, marken)): sperren.append("Rundblick"); sperr_nr["Rundblick"] = rb
+    except Exception as e: ausgabe.append("WARNUNG Rundblick nicht geprüft: %s (1789, Spike)" % e)
     if sperre: fristen_runde(ausgabe, seiten)  # 1739 Befund 1: abgelaufene Fristen je Lauf
     def ue_start(r, nr, teil):  # 1739 Befund 1: Empfänger ohne Sitzung starten
         if r not in START_REIHE or r in ohne_rollen or lauf_laeuft(r): return False
@@ -1362,7 +1404,7 @@ def main():
     haengt_weg = lambda l: " Sitzung hängt: " in l and any(l.endswith("code/%s (927)" % a) for a in archiviert)
     ausgabe = [l for l in ausgabe if not haengt_weg(l)]
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
-    ausgabe = [l + KAUFREPO if l.startswith("START ") else l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1) if l.startswith("WEITER ") else l for l in ausgabe]
+    ausgabe = [l + KAUFREPO if l.startswith("START ") and l[6:].split(" |", 1)[0] not in ROUTINE_ROLLEN else l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1) if l.startswith("WEITER ") else l for l in ausgabe]
     ausgabe = [mit_kern(l) for l in ausgabe]
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values())
     for l in ausgabe: print(l)

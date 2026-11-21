@@ -22,6 +22,29 @@ HINWEIS = ["was der Spieler sieht, hört oder erlebt", "keine Einzellösung; wie
            "drei bis fünf Ja-Nein-Fragen", "an wen, in welcher Form, mit Beleg; Zweig gepusht, Commit genannt"]
 GRENZE = 2048
 
+# 1789 (Sokrates, routine-rundblick.md:13, „Zu 1766“: alle drei Routinen): Routinen sind vom Feld „Zurück“ ausgenommen; ihr Auftrag ist
+# der feste Text (Teil A), das Zurück steht darin (Übergabezeilen ans Büro, dann „fertig“). Erkannt am Titel des Wochentermins.
+ROUTINE = re.compile(r"\(Routine, Auftrag (\S+?\.md)(?: (Teil [A-Z]))?\)")
+
+def routine(titel):
+    """1789: (Pfad, Teil oder None), wenn der Titel eine Routine nennt, sonst None."""
+    m = ROUTINE.search(titel or "")
+    return (m.group(1), m.group(2)) if m else None
+
+def routine_text(titel, wurzel):
+    """1789: fester Auftrag der Routine: erster ```markdown-Block unter „## <Teil>“ (ohne Teil: erster Block der Datei); None, wenn er fehlt."""
+    r = routine(titel)
+    if not r: return None
+    p = os.path.join(wurzel, r[0])
+    if not os.path.isfile(p): return None
+    text = open(p, encoding="utf-8").read()
+    if r[1]:
+        m = re.search(r"(?m)^## %s\b.*$" % re.escape(r[1]), text)
+        if not m: return None
+        text = text[m.end():]
+    m = re.search(r"(?ms)^```markdown\n(.*?)^```", text)
+    return m.group(1).strip() if m else None
+
 def vorlage(nr, titel=""):
     kopf = "Auftrag %s%s\n\n" % (nr, (": " + titel) if titel else "")
     return kopf + "\n".join("%d. **%s:** <%s>" % (i, f, h) for i, (f, h) in enumerate(zip(FELDER, HINWEIS), 1)) + "\n"

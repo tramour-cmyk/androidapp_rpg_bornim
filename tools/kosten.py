@@ -11,7 +11,7 @@ import json, sys, re, datetime
 from collections import defaultdict
 
 SPIEL = {"Tom", "Jerry", "Homer"}
-ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy"]
+ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy", "Rundblick"]  # 1789: Routine Rundblick (lauf.rundblick_zeilen)
 TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigene Rolle; 394 (Chef 28.10., 10:26): Zusatzentwickler, eigene Sitzung, Vorrat und Kosten ihres Teams
 
 def sitzungen(pfad, offen):
