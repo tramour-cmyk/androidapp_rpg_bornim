@@ -5,11 +5,11 @@ Träger: Sokrates („Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`). Jede E
 ## Beim Chef zu entscheiden (`chefsache/entscheiden/`)
 
 - ~~1727a~~ zurückgezogen (Nachprüfung 21:18): Profil Werkzeug gilt nur für Firmenwerkzeuge, der Satz 1311 in Profil Technik trägt die Spielbau-Werkzeuge; bleibt.
-- **1727b** Strenge Lizenzbedingungen nur für Gekauftes; Hinweise MIT/OFL stehen schon im Hauptmenü (781); nur Text klarstellen (`CLAUDE.md`, Listen).
-- **1727c** Jede offene Zeile an Sokrates startet ihn (wie gebaut, `lauf.py`:511–535); drei Anlässe gehen als Zeile an ihn; kein Bau.
+- **1727b** entschieden (Archiv 21:31). Strenge Lizenzbedingungen nur für Gekauftes; Hinweise MIT/OFL stehen schon im Hauptmenü (781); nur Text klarstellen (`CLAUDE.md`, Listen).
+- **1727c** entschieden (Archiv 21:43). Jede offene Zeile an Sokrates startet ihn (wie gebaut, `lauf.py`:534–558); drei Anlässe gehen als Zeile an ihn; kein Bau.
 - **1727d** Fünf Lücken im Abgenommenen (L-S2, L-O1, L-U15, L-T6, L-U10).
 - **1727e** Guthabenzahl über Haken D.
-- **1727f** Kern Arbeitsplaner +170 Byte (zwei Ladehinweise, Ausnahme Übersetzung).
+- **1727f** entschieden (Archiv 21:33). Kern Arbeitsplaner +170 Byte (zwei Ladehinweise, Ausnahme Übersetzung).
 
 ## Beim Chef zu tun (`chefsache/tun/`)
 
