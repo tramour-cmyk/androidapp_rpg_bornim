@@ -33,7 +33,7 @@ Dann endest du.
 
 ## Offen, Fragen
 
-1. **Takt:** „15 Minuten blocked“ verlangt einen Lauf alle 15 Minuten (1610); heute stündlich. Vorschlag: Wache alle 15 Minuten, dafür sehr kurz (sonnet, nur dieser Auftrag). Annahme, Kosten im Falltest messen.
+1. **Takt:** „15 Minuten blocked“ verlangt einen Lauf alle 15 Minuten (1610); heute stündlich. Vorschlag: Wache alle 15 Minuten, dafür sehr kurz (kleines Modell, nur dieser Auftrag). Annahme, Kosten im Falltest messen.
 2. **Rote Läufe an einer Stelle:** Bauliste 7.1 legt „laut ab 3 roten Läufen“ auch auf `lauf.py` (G:919). Vorschlag: nur Wache; G:919 streichen.
 3. **„Du bist dran“ ohne Telegram:** heute meldet der Absender selbst; die Wache fängt nur Vergessenes. Ab wann „vergessen“ gilt, ist offen (Annahme: nächster Lauf).
 4. Zahlen „eine Meldung je Stunde“ und „Takt 15 Minuten“ sind Annahmen.
