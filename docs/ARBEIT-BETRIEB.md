@@ -101,6 +101,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 21:41 21.11.: Morgen 1643: Spike 1739 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen (Haken Nachtstopp; sieben Spike-Sitzungen seit 20:08, Neustart-Grenze 200 Tsd. nach je 10 Min.)
 - 23:21 16.11.: Diogenes (…75vVcD77XixJkEaw7D) nach Neustart-Meldung 120f7ecac archiviert, 6,02 $ auf 1485, 1498, 1500, 1499 gebucht; Nachfolger „1485 APK-Dateiname am Build-Zweig“ startet lauf.py, sobald 1485 startbar (Jerry 1501)
 - 23:05 16.11.: Lauf 23:03: Start Spike 1499 (session_01Hmoj77pzGpWBZo1H1FppQo, Übernahme von Jerry), Start Perikles M? 1500 (session_01Hmoj76CDuBaNGRkJoRGqaj), alte Spike …76zAeRQxR3Re8uoBTU archiviert, 13,37 $ auf 1385, 1445, 1476, 1481, 1490, 1491 gebucht; beide Starts mit Kaufrepo-Satz und Telegram-Chefwort; Diogenes wartet auf Build 294 (1485 mit --ohne ausgeschlossen); Tom, Jerry, Tuffy, Sokrates laufen
 - 22:50 16.11.: Tom Neustart (session_01Hmoj78CY54jy3o4vF8uRur, Kaufrepo-Satz, Telegram-Chefwort), alte …76RwQwh6oCCpcPppGf archiviert, 32,28 $ auf 1420, 431h, 531, 1044 gebucht; Weiter 1501 an Jerry (Diogenes 22:47)
@@ -120,12 +121,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:37 16.11.: Lauf 19:35: Start Diogenes 1385 (session_01Hmoj76ZXZhJrxTbHvQ4FiN), Start Perikles M? 1478 (session_01Hmoj7A9JQitciHyQxAs6gq, erste Nachricht mit Kaufrepo-Satz); alte Perikles archiviert, 4,55 $ auf 1474; Neustart Sokrates (cb4a0255a) offen: alte …78yKr84GyQjcDaM636 arbeitet noch, Start nach ihrem Ende; Tom bleibt (Weckrufe 1417/1420)
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
-- 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
-- 14:47 21.11.: Startsperre 14:47 Start Sokrates (Neustart c019b53f1, 1727, Chef im Gespräch)
 - 21:59 21.11.: Startsperre 21:59 Start Jerry (1786, dann 1783; Werkzeuge, Chef 20:06)
 - 21:55 21.11.: Startsperre 21:55 Start Spike (Ausnahme 1784 A, Start 1/8 bis 03:00; Übergabe 723e0b4ab nennt 0b6b8f46c mit tools/; 1739 Teil 7)
 - 21:52 21.11.: Startsperre 21:52 Start Sokrates (Neustart 420488e64, 1727)
-- 21:41 21.11.: Morgen 1643: Spike 1739 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen (Haken Nachtstopp; sieben Spike-Sitzungen seit 20:08, Neustart-Grenze 200 Tsd. nach je 10 Min.)
 - 21:22 21.11.: Startsperre 21:22 Start Spike (Nachfolger 1739 Teil 6, 69673a07a)
 - 21:13 21.11.: Startsperre 21:13 Start Spike (Nachfolger 1739 Teil 5, 43c433d09)
 - 21:07 21.11.: Startsperre 21:07 Start Diogenes (1776, 1777 lesend; Chef 20:20)
@@ -150,3 +148,11 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:06 21.11.: Marke Tagesbericht fehlt 21.11. (lauf.py)
 - 20:06 21.11.: Marke Abgleich ganz 21.11. (lauf.py)
 - 20:06 21.11.: Nachfolger-Warnung Spike (Übergabe 19.11., 11:17) (lauf.py)
+- 22:04 21.11.: Startsperre 22:04 Start Tom, Diogenes, Homer, Perikles, Tuffy (lauf.py, Tom 1535, Diogenes 1775, Homer 1636, Perikles 1773)
+- 22:04 21.11.: Marke Archiv session_01Hmoj792CjL1M4Es8CUXxjB (lauf.py)
+- 22:04 21.11.: Marke Start-fehlt Diogenes 21.11.-21:07 (lauf.py)
+- 22:04 21.11.: Marke Start-fehlt Homer 21.11.-20:06 (lauf.py)
+- 22:04 21.11.: Marke Start-fehlt Perikles 21.11.-20:33 (lauf.py)
+- 22:04 21.11.: Marke Start-fehlt Tom 21.11.-20:06 (lauf.py)
+- 22:04 21.11.: Marke Start-fehlt Tuffy 21.11.-20:06 (lauf.py)
+- 22:04 21.11.: Nachfolger-Warnung Perikles (Übergabe 21.11., 20:40) (lauf.py)
