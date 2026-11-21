@@ -8,6 +8,7 @@ Schreibt die Rückmeldung wörtlich mit Zeit und Sitzung in docs/vorgang/NR.md (
 im selben Commit eine offene Übergabezeile (1760):
   „steckt fest“ (auch „nein … steckt fest“ des Prüfers), „Frage“, „wirkt nein“ → an Sokrates (C)
   „nein, Auftrag“ → an den Arbeitsplaner (Gesamtbild 6.1)
+  zweites „nein“ je Vorgang → an Sokrates „steckt fest (Laufbremse)“ (1766, Archiv 19.11., 13:02)
   andere Worte („fertig“, „ja“, „nein“, „Beleg fehlt“, „Hinweis“) werden nur eingetragen und gezählt; ihre Weitergabe baut 1739 (3.3 Nr. 5)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
   A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde; „Beleg fehlt“ und „nein, Auftrag“ zählen nicht)
@@ -26,6 +27,7 @@ SOKRATES = "Sokrates"
 PLANER = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
 RUHT = "ruht, beim Chef"
 MAX_NEIN_AUFTRAG, MAX_NEIN, MAX_FEST = 2, 3, 2
+LAUFBREMSE_NEIN = 2  # 1766 (Archiv 19.11., 13:02 Laufbremse): zweites „nein“ des Prüfers → „steckt fest“ an Sokrates; drittes ist Obergrenze A
 SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis"}
 
 
@@ -88,6 +90,8 @@ def eintragen(nr, text, wer, sid=""):
             an = was = None
         elif w & {"steckt fest", "Frage", "wirkt nein"}:
             an, was = SOKRATES, "%s: Rückmeldung %s von %s lesen (1763 C)" % (" und ".join(sorted(w & {"steckt fest", "Frage", "wirkt nein"})), zeit, wer or "unbekannt")
+        elif "nein" in w and z["nein"] == LAUFBREMSE_NEIN:
+            an, was = SOKRATES, "steckt fest (Laufbremse, %d. Nein; Chef 19.11., 13:02): Rückmeldung %s von %s lesen (1766)" % (z["nein"], zeit, wer or "unbekannt")
         elif "nein, Auftrag" in w:
             an, was = PLANER, "nein, Auftrag: Rückmeldung %s von %s lesen" % (zeit, wer or "unbekannt")
         else:

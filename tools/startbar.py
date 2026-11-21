@@ -172,13 +172,30 @@ WOCHENTERMINE = [  # (Wochentag 0 = Mo, ab Stunde, Besitzer, Name, Bereich)
     (6, 9, "Homer", "Ideenspeicher", "B Abläufe"),
 ]
 
-def wochentermine_faellig(jetzt):
+# 1766 (1727, L-T5, L-T7; routine-rundblick.md „Auslöser“, routine-wochenzaehlung.md), erst mit tools/1727-SCHARF:
+# Starter der Routinen über dieselbe Mechanik. Sechstes Feld „nach“: legt sich erst an, wenn der Wochentermin dieses Namens vom selben
+# Tag erledigt ist (im Archiv der Liste); der Rundblick liest die neue Spalte der Wochenzählung (Vorschlag routine-rundblick.md „Tag und Stunde“).
+WOCHENTERMINE_1727 = [
+    (0, 8, "Sokrates", "Rundblick (Routine, Auftrag docs/entwurf/1727-muster/routine-rundblick.md Teil A)", "B Abläufe", "Wochenzählung"),
+]
+ERSETZT_1727 = {"Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720)":
+                "Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md)"}
+
+def scharf_1727():
+    return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
+
+def wochentermine_faellig(jetzt, scharf=None):
     """719: [(Titel, Bereich, Besitzer)] heute fällig und noch ohne Zeile in Liste oder Archiv."""
     jetzt = jetzt.replace(tzinfo=None)  # 1372: lauf.py gibt Berliner Zeit mit Zone, startbar rechnet ohne (Absturz am ersten Montag 08:00 von urteil_faellig)
     tag = jetzt.strftime("%d.%m.")
-    da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md")
-    return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber in WOCHENTERMINE
+    archiv = lesen("LISTE-VORGAENGE-ARCHIV.md")
+    da = lesen(LISTE) + archiv
+    scharf = scharf_1727() if scharf is None else scharf
+    termine = [(wt, h, wer, ERSETZT_1727.get(name, name) if scharf else name, ber, None) for wt, h, wer, name, ber in WOCHENTERMINE]
+    termine += WOCHENTERMINE_1727 if scharf else []
+    return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber, nach in termine
             if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
+            and (not nach or ("Wochentermin %s: %s" % (tag, nach)) in archiv)
             ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da) + spiegel_auswertung_faellig(jetzt, da)
 
 # 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen

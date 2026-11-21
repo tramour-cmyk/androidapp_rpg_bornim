@@ -313,11 +313,35 @@ def urteil(nr):
     return beste
 
 
+SCHARF = os.path.join(REPO, "tools", "1727-SCHARF")
+RUECK_KOPF = re.compile(r"(?m)^- \*\*(\d\d)\.(\d\d)\., (\d\d):(\d\d)\*\*, [^\n]*:\n> (.*)$")
+
+
+def pruefer_frei(nr, text=None):
+    """1766 Laufbremse (Archiv 19.11., 13:02: „den nächsten gibt der Prüfer frei“), erst mit tools/1727-SCHARF: Zeit der jüngsten
+    Rückmeldung des Prüfers („ja“, „nein“, „Beleg fehlt“) in docs/vorgang/<nr>.md auf main, sonst None; Minute zählt bis :59 (D50.5)."""
+    if text is None:
+        if not os.path.exists(SCHARF):
+            return None
+        _, text = zweig_lesen(f"docs/vorgang/{nr}.md", "main")
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import rueckmeldung
+    heute = datetime.datetime.now(BERLIN)
+    beste = None
+    for t, m, h, mi, satz in RUECK_KOPF.findall(text or ""):
+        if not rueckmeldung.worte(satz) & {"ja", "nein", "Beleg fehlt"}:
+            continue
+        jahr = heute.year if (int(m), int(t)) <= (heute.month, heute.day) else heute.year - 1
+        beste = max(beste or "", f"{jahr}-{m}-{t} {h}:{mi}:59")
+    return beste
+
+
 def stand(nr):
-    """(Läufe seit dem letzten Urteil des Chefs zu nr, Zeit des Urteils oder None); 407: eine Vorlage allein gibt nichts frei."""
+    """(Läufe seit dem letzten Urteil des Chefs zu nr, Zeit des Urteils oder None); 407: eine Vorlage allein gibt nichts frei.
+    Mit tools/1727-SCHARF gibt auch die Rückmeldung des Prüfers frei (1766 Laufbremse, pruefer_frei)."""
     _, laeufe = zweig_lesen(DATEI)
     lokal = open(LOKAL, encoding="utf-8").read() if os.path.exists(LOKAL) else ""
-    frei = urteil(nr)
+    frei = max([x for x in (urteil(nr), pruefer_frei(nr)) if x], default=None)
     gesehen = set()
     for z in zeilen(laeufe) + zeilen(lokal):
         if z[1] == nr and z[3] != "mess" and (frei is None or z[0] > frei):  # 1129 A 3b: Messläufe sind frei
@@ -1272,6 +1296,11 @@ def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
         zaehlen(nr, wer, "hand-messfrage")
         return hinweis_geben(f"654.2: erster Messlauf ohne Bild zu {nr} heute, frei wegen „Messfrage:“; gezählt. Der nächste "
                              "Lauf heute braucht wieder „<Nr>, Läufe frei“ von Sokrates.")
+    if n >= GRENZE and os.path.exists(SCHARF):
+        anhalten(f"Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf): für {nr} schon {n} Lauf seit "
+                 f"{'der Freigabe ' + vorlage if vorlage else 'Beginn der Zählung'}. Den nächsten gibt der Prüfer frei: seine Rückmeldung "
+                 f"(„ja“, „nein“, „Beleg fehlt“) mit `vorgang.py rueckmeldung {nr} …` in docs/vorgang/{nr}.md auf main. Jetzt mit Beleg "
+                 "an den Prüfer melden, bis dahin an einem anderen Auftrag weiter.")
     if n >= GRENZE:
         anhalten(f"621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für {nr} "
                  f"schon {n} Probelauf seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "

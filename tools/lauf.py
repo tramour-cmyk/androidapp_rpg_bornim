@@ -25,6 +25,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1461) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
+  HÖCHSTDAUER <session_id> | <Rolle> | <Nr> | <Text>                → (1766, erst mit tools/1727-SCHARF und Wert in HOECHSTDAUER_MIN) interrupt_session, dann `vorgang.py rueckmeldung <Nr> "<Text>" --sitzung Ford`, pushen
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
   WARNUNG(-LAUT) Sitzung hängt / Sitzung wartet auf Freigabe (blocked ab 15 Min., 1572) / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
@@ -177,6 +178,10 @@ SPERRE_MIN = 20
 WEITER_TOKEN = 200000  # 383 A (Chef 09.11., 18:05): günstigste Länge 200 Tsd. (Rechnung Sokrates); vorher 400000 nach 383.1 (Chef 27.10., 19:19 „nicht mal 2 Seiten lang“): Kontext 1 Mio., Kosten je Arbeit bis 500 Tsd. gleich (Messung Sokrates 18:15); Vorentscheid Perikles 27.10. (vorher 150 Tsd., D40.1)
 FREIGABE_MIN = 15  # 1572: blocked ab 15 Minuten laut an den Chef (Konstante fiel mit e1cb7588c weg, Ford 17.11., 21:04)
 WEITER_MIN = 60  # 261.5 (3): WEITER nur in eine Sitzung, die unter 60 Minuten ruht; fürs Archivieren gibt es keine Wartezeit mehr (Chef 21.10., 16:46)
+# 1766 (Archiv 20.11., 08:19 „Höchstdauer je Auftrag“; Sokrates 21.11., 20:55 „nicht warten … dann nur die Konstante setzen“): Minuten je
+# Auftrag nach Leistungsstufe, gezählt ab Sitzungsstart oder jüngstem „## Auftrag“ der Vorgangsdatei, auch bei working. None = Wert fehlt
+# (liefert Sokrates in 1774), dann prüft lauf.py nichts. Scharf erst mit tools/1727-SCHARF.
+HOECHSTDAUER_MIN = {"Mittel": None, "Hoch": None}
 
 def z(s):
     return datetime.datetime.fromisoformat(s.replace("Z", "+00:00")).astimezone(BERLIN)
@@ -552,6 +557,57 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None):
         if sitz: ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], teil))
         else: ausgabe.append("NACHRICHT Ford | - | " + (teil if r == "Ford" else "keine Sitzung %s: starten oder zuteilen. %s" % (r, teil)))
     return je
+
+
+def ist_scharf():
+    return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
+
+AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)\)")
+
+def auftrag_seit(text, jetzt=None):
+    """Zeit des jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ der Vorgangsdatei (auftrag.py), sonst None."""
+    j = jetzt or JETZT; beste = None
+    for t, m, h, mi in AUFTRAG_KOPF.findall(text or ""):
+        try: d = datetime.datetime(j.year if (int(m), int(t)) <= (j.month, j.day) else j.year - 1, int(m), int(t), int(h), int(mi), tzinfo=BERLIN)
+        except ValueError: continue
+        beste = max(beste or d, d)
+    return beste
+
+def leistungsstufe(s, text):
+    """„Hoch“ bei Umgebung HOCH oder „Leistungsstufe: Hoch“ im jüngsten Auftrag (Feld 8 nach 1742), sonst „Mittel“."""
+    if s.get("environment_id") == HOCH: return "Hoch"
+    ms = list(AUFTRAG_KOPF.finditer(text or ""))
+    teil = (text or "")[ms[-1].start():] if ms else ""
+    return "Hoch" if re.search(r"(?i)Leistungsstufe\W{0,4}hoch\b", teil) else "Mittel"
+
+def hoechstdauer_zeilen(ausgabe, je_rolle, archiviert, docs=None, jetzt=None, grenzen=None, scharf=None):
+    """1766: laufende Sitzung (working/blocked) über der Höchstdauer ihres Auftrags → Zeile HÖCHSTDAUER für Ford: anhalten
+    (interrupt_session) und Rückmeldung in die Vorgangsdatei. Erstes Mal „Hinweis“ (Abbruch, ein Neustart; Muster ablauf.md A6),
+    zweites Mal je Vorgang „steckt fest“ → rueckmeldung.py gibt es an Sokrates (1763 C), er entscheidet über die Grenze (Profil Kosten).
+    Steht die Sitzungskennung schon in einer Rückmeldung „Höchstdauer“, nichts (Ford hat es getan)."""
+    grenzen = HOECHSTDAUER_MIN if grenzen is None else grenzen
+    if not (ist_scharf() if scharf is None else scharf) or not any(grenzen.values()): return []
+    j = jetzt or JETZT; d = os.path.join(docs or DOCS, "vorgang"); neu = []
+    for r, ss in sorted(je_rolle.items()):
+        if r in ("Ford", "Sokrates", "Sonstige"): continue
+        for s in ss:
+            if s["id"] in archiviert or not s["_info"][1]: continue
+            nr = nummer_aus_titel(s.get("title", ""))
+            if not nr: continue
+            p = os.path.join(d, "%s.md" % nr); text = lesen(p) if os.path.isfile(p) else ""
+            st = leistungsstufe(s, text); g = grenzen.get(st)
+            if not g: continue
+            seit = max([x for x in (z(s["created_at"]).astimezone(BERLIN), auftrag_seit(text, j)) if x])
+            dauer = int((j - seit).total_seconds() // 60)
+            if dauer <= g: continue
+            hd = [b for b in re.split(r"(?m)^- \*\*", text) if "Höchstdauer" in b]
+            if any(s["id"] in b for b in hd): continue
+            wort = "steckt fest" if hd else "Hinweis"
+            msg = "%s: Höchstdauer %d Min. (%s) überschritten, %d Min. seit %s, Sitzung %s angehalten (1766)%s" % (
+                wort, g, st, dauer, seit.strftime("%d.%m., %H:%M"), s["id"], ", zweites Mal" if hd else "; ein Neustart wie sonst")
+            neu.append("HÖCHSTDAUER %s | %s | %s | %s" % (s["id"], r, nr, msg))
+    ausgabe += neu
+    return neu
 
 
 def juengste(ss):
@@ -1152,6 +1208,8 @@ def main():
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
     sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger)  # 1763 C
     uebergabe_zeilen(ausgabe, je_rolle, archiviert)  # 1739, F4 (1)
+    try: hoechstdauer_zeilen(ausgabe, je_rolle, archiviert)  # 1766
+    except Exception as e: ausgabe.append("WARNUNG Höchstdauer nicht geprüft: %s (1766, Spike)" % e)
     try:  # 383: Wartewächter
         ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
     except Exception as e:

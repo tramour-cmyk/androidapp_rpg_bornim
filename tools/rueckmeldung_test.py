@@ -73,6 +73,7 @@ soll("2. nein, Auftrag → ruht, Sokrates an den Chef", "OFFEN 9002-Ü2 an Sokra
 # 4 A: dritter abgelehnter Auftrag; „Beleg fehlt“ zählt nicht
 for i, (t_, z) in enumerate([("nein: Hall zu lang", "20:31"), ("Beleg fehlt", "20:32"), ("nein: Hall noch zu lang", "20:33"), ("fertig", "20:34")]):
     rc, out = lauf("rueckmeldung", "9003", t_, zeit="21.11., " + z)
+soll("1766 Laufbremse: zweites nein → steckt fest an Sokrates", "| 9003-Ü1 | Sokrates | steckt fest (Laufbremse, 2. Nein; Chef 19.11., 13:02): Rückmeldung 21.11., 20:33 von Prüfer lesen (1766) |" in datei("9003") and datei("9003").count("Laufbremse") == 1, datei("9003"))
 soll("zwei nein, Beleg fehlt, fertig: läuft weiter", "Zustand: ruht" not in datei("9003") and out.startswith("EINGETRAGEN 9003: eingetragen"), datei("9003") + out)
 rc, out = lauf("rueckmeldung", "9003", "nein: Hall immer noch", zeit="21.11., 20:35")
 soll("drittes nein → ruht", "Obergrenze A: 3. abgelehnter Auftrag → ruht, beim Chef" in out, out)
@@ -102,13 +103,13 @@ import lauf
 g("pull", "-q", "origin", "main", cwd=A)
 aus = []
 z = lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
-soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9002-Ü2", "9003-Ü1"], z)
+soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9002-Ü2", "9003-Ü1", "9003-Ü2"], z)
 soll("keine Sitzung: START Sokrates", len(aus) == 1 and aus[0].startswith("START Sokrates |") and "9001-Ü2 an den Chef" in aus[0] and "\n" not in aus[0], aus)
 so = {"id": "session_SOK", "_info": (0, True, 0), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "context_usage": {"used_tokens": 50000}}
 aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [so]}, set(), docs=os.path.join(A, "docs"))
 soll("Sokrates läuft, klein: WEITER", len(aus) == 1 and aus[0].startswith("WEITER session_SOK | Sokrates | 1763 C | "), aus)
 aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [dict(so, context_usage={"used_tokens": 900000})]}, set(), docs=os.path.join(A, "docs"))
-soll("Sokrates läuft, groß: NICHTS", len(aus) == 1 and aus[0].startswith("NICHTS Sokrates: 4 offene"), aus)
+soll("Sokrates läuft, groß: NICHTS", len(aus) == 1 and aus[0].startswith("NICHTS Sokrates: 5 offene"), aus)
 aus = ["START Sokrates | opus | env | repo | main | Sokrates – Stellungnahme (x) | Sokrates\\n\\nStellungnahme …"]
 lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
 soll("schon eine Sokrates-Zeile: angehängt, nie zwei", len(aus) == 1 and "1763 C" in aus[0], aus)
