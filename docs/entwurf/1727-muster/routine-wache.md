@@ -49,7 +49,7 @@ Der Herzschlag merkt, dass der Disponent ausfällt. Offen bleiben: wer den **Nac
 
 ## Stärkstes Gegenargument
 
-Eine dauerhafte Wache kostet Gesprächslänge und braucht selbst Nachfolger. **Dagegen:** so läuft sie heute (Ford-Wache, sonnet, klein); eine frische Routine je Lauf kann `list_sessions` nicht (Probe D). Bleibt die Wache stündlich und greift der Haken nicht, Fall 1 ehrlich „bis 75 Minuten“ nennen.
+Eine dauerhafte Wache kostet Gesprächslänge und braucht selbst Nachfolger. **Dagegen:** so läuft sie heute (Ford-Wache, kleines Modell); eine frische Routine je Lauf kann `list_sessions` nicht (Probe D). Bleibt die Wache stündlich und greift der Haken nicht, Fall 1 ehrlich „bis 75 Minuten“ nennen.
 
 ## Nachprüfung Sokrates 20:27, mein Wort
 
