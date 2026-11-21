@@ -41,6 +41,11 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py rueckmeldung NR "Text" [--sitzung ROLLE]   Rückmeldung wörtlich in docs/vorgang/NR.md; „steckt fest“, „Frage“,
                                        „wirkt nein“ → Zeile an Sokrates, „nein, Auftrag“ → Arbeitsplaner; Obergrenzen A, B → ruht, beim
                                        Chef (1763; Einzelheiten: tools/rueckmeldung.py)
+Auftrag und Schließen (1739, Bauliste 1727 Gesamtbild 7.1; Einzelheiten: tools/auftrag.py):
+  vorgang.py auftrag NR [--datei PFAD|- [--pruefen]]   ohne Datei die Vorlage mit den sieben Feldern; mit Datei prüfen (Felder,
+                                       „Zurück“, höchstens 2 KB) und als „## Auftrag“ in docs/vorgang/NR.md eintragen (gepusht)
+  vorgang.py schliessen NR "Grund"     Stand „erledigt“ wie fertig, Grund als Zeile „Geschlossen“ in docs/vorgang/NR.md
+  vorgang.py --hilfe                   diese Hilfe
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
 import os, re, sys, subprocess
@@ -786,6 +791,10 @@ def haupt(a):
         if not a or a[0] == "--startbar": return ansicht(rolle, bool(a))
     if not a: print(__doc__); sys.exit(2)
     b = a[0]
+    if b in ("--hilfe", "-h", "--help", "hilfe"):  # 1739 (Bauliste 7.1): fand „nichts“
+        print(__doc__); return
+    if b in ("auftrag", "schliessen"):  # 1739
+        import auftrag; return auftrag.haupt(a, fertig=lambda nr: fertig(nr, rolle))
     if b in uebergabe.BEFEHLE:  # 1760
         r = uebergabe.haupt(a); sys.exit(3 if r == "BELEGT" else 0)
     if b == "chefwort":  # 1762
@@ -820,7 +829,7 @@ def haupt(a):
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
 
-SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "ordnen", "neu", "build")
+SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "schliessen", "rang", "ordnen", "neu", "build")
 
 def liegt_melden(vorher):
     """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung
