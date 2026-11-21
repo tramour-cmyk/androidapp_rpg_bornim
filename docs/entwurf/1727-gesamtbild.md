@@ -349,7 +349,7 @@ Ergänzt 19.11., 22:33 (Chef 22:31: „Neuer Kern los“) um Lieferzeit (Chef 22
 
 **Nicht geschrieben.** Vorschlag Sokrates (nicht entschieden): Release, Kosten und Guthaben. Was täglich läuft, gehört in den Kern.
 
-### 3.3 Übergabekette, laufende Sitzungen, Quittung (Fassung 2 21.11., 09:47, gegengeprüft; Werkzeug 1760 Spike)
+### 3.3 Übergabekette, laufende Sitzungen, Quittung (Fassung 2 21.11., 09:47, gegengeprüft; entschieden 21.11., 10:11 „3.3 so“; Werkzeug 1760 Spike)
 
 Anlass: Prüfung 20.11., 21:40 Befund 2 (8–10 Übergaben über das Büro, heute etwa 3). Chef 20.11., 23:45: „Aber Büroprofile sind doch bewusst unterschiedlich gehalten“ (Zusammenlegen von Disponent und Arbeitsplaner zurückgezogen); 21.11., 08:31: „es muss doch nicht zwangsläufig jedes Mal eine neue Sitzung aufgemacht werden. Manche Arbeitsbereiche laufen doch einfach“; 09:41: „darf nicht passieren, dass … eine Nachricht in die Sitzung geschickt wird und gleichzeitig ein Neustart läuft und die Nachricht untergeht … zig Nachrichten im Büro … muss ja auch koordiniert werden … zur Fehlerbehebung zurück muss, aber die schon einen anderen Job hat“; 09:43 „so prüfen“.
 
