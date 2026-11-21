@@ -263,7 +263,8 @@ def _status(dateien):
             st[s["id"]] = "working" if re.search(r"WORKING|RUNNING|working", b) else "ruht"
     return st
 
-def offen(an=None, sitzungen_dateien=()):
+def offen(an=None, sitzungen_dateien=(), still=False):
+    """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)]."""
     st = _status(list(sitzungen_dateien)); jz = jetzt(); liste = []
     for nr, t in list(_alle_dateien()):
         frei = []
@@ -290,6 +291,7 @@ def offen(an=None, sitzungen_dateien=()):
         w = x[0]["was"].lower()
         return (0 if "fund des chefs" in w else 1 if "eilt" in w else 2, _zeit(x[0]["seit"], jz.year))
     liste.sort(key=rang)
+    if still: return liste
     for z, nr, wie in liste:
         print("%s | an %s | %s | seit %s | %s" % (z["k"], z["an"], z["was"], z["seit"], wie))
     print("vorgang.py offen: %d Zeile(n)%s" % (len(liste), (" an " + an) if an else ""))

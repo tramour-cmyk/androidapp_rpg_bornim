@@ -34,6 +34,7 @@ def datei(nr):
 def lauf(*a, zeit="21.11., 20:30"):
     p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py")] + list(a), env=dict(ENV, BORNIM_JETZT=zeit), capture_output=True, text=True, cwd=A)
     return p.returncode, p.stdout + p.stderr
+vg = lauf
 os.environ.update(ENV)
 sys.path.insert(0, os.path.join(A, "tools"))
 import rueckmeldung as rm
@@ -117,6 +118,30 @@ soll("schon eine Sokrates-Zeile: angehängt, nie zwei", len(aus) == 1 and "1763 
 # 7 1739 F4 (1): offene Zeilen an andere (Arbeitsplaner = Ford bis zur Umschaltung)
 aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
 soll("Arbeitsplaner-Zeilen an Ford", "Arbeitsplaner" in je and any(z.startswith("NACHRICHT Ford | - | Offene Zeilen an Arbeitsplaner") for z in aus) and not any("Sokrates" in z.split("|")[0] for z in aus), (je, aus))
+
+# 8 1739 Befund 1: Empfänger ohne Sitzung starten (start-Rückruf), sonst Ford; Fristen je Lauf
+rc, out = vg("uebergabe", "9005", "Tom", "Treppe im Turm prüfen")
+soll("Zeile an Tom angelegt", rc == 0 and "9005-Ü1" in datei("9005"), out)
+g("pull", "-q", "origin", "main", cwd=A)
+gerufen = []
+aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen.append((r, nr)) or True)
+soll("Tom ohne Sitzung: start gerufen, keine NACHRICHT Ford für Tom", ("Tom", "9005") in gerufen and not any("keine Sitzung Tom" in z for z in aus), (gerufen, aus))
+aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: False)
+soll("start kann nicht: NACHRICHT Ford „keine Sitzung Tom“", any(z.startswith("NACHRICHT Ford | - | keine Sitzung Tom") for z in aus), aus)
+tom = {"id": "session_TOM", "_info": (0, False, 30), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "title": "Tom – 9005"}
+aus = []; lauf.uebergabe_zeilen(aus, {"Tom": [tom]}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen.append("falsch") or True)
+soll("Tom mit Sitzung: NACHRICHT an sie, kein Start", any(z.startswith("NACHRICHT Tom | session_TOM | ") for z in aus) and "falsch" not in gerufen, aus)
+rc, out = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "annehmen", "9005-Ü1", "--frist", "5"], env=dict(ENV, BORNIM_SITZUNG="session_TOM"), capture_output=True, text=True, cwd=A).returncode, ""
+soll("Tom nimmt an (Frist 5 Min.)", rc == 0 and "angenommen session_TOM" in datei("9005"), datei("9005"))
+seite = os.path.join(d, "seite.txt")
+open(seite, "w").write("session_TOM | working | 2026-11-21T19:30:00Z | Tom – 9005 | - | 2026-11-21T18:00:00Z\n# has_more: nein\n")
+os.environ["BORNIM_JETZT"] = "21.11., 20:50"
+aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+soll("Frist ab, Halter arbeitet: bleibt angenommen", frei == [] and "angenommen session_TOM" in datei("9005") and not aus, (frei, aus))
+open(seite, "w").write("session_TOM | idle | 2026-11-21T19:30:00Z | Tom – 9005 | - | 2026-11-21T18:00:00Z\n# has_more: nein\n")
+aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+soll("Frist ab, Halter ruht: wieder offen, Zeile NICHTS", frei == ["9005-Ü1"] and "| offen |" in datei("9005") and aus and aus[0].startswith("NICHTS Übergabe: 9005-Ü1 wieder offen"), (frei, aus, datei("9005")))
+os.environ["BORNIM_JETZT"] = "21.11., 20:30"
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

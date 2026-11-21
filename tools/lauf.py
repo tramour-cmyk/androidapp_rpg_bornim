@@ -25,6 +25,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1461) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
+  (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
   HÖCHSTDAUER <session_id> | <Rolle> | <Nr> | <Text>                → (1766, erst mit tools/1727-SCHARF und Wert in HOECHSTDAUER_MIN) interrupt_session, dann `vorgang.py rueckmeldung <Nr> "<Text>" --sitzung Ford`, pushen
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
   WARNUNG(-LAUT) Sitzung hängt / Sitzung wartet auf Freigabe (blocked ab 15 Min., 1572) / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
@@ -535,10 +536,28 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
     return so_z
 
 
-def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None):
+def fristen_runde(ausgabe, seiten, docs=None):
+    """1739 (Befund 1, werkzeuge.md A): in jedem Lauf mit --sperre `vorgang.py offen --sitzungen` (still): eine angenommene Zeile mit
+    abgelaufener Frist, deren Halter nicht arbeitet, wird wieder offen (atomar auf origin/main, lokal nachgezogen), damit
+    uebergabe_zeilen sie im selben Lauf weitergibt. Arbeitet der Halter, wird gewartet. Rückgabe: Kennungen, die wieder offen sind."""
+    try:
+        import uebergabe as _ue
+        alt = _ue.WURZEL; _ue.WURZEL = os.path.normpath(os.path.join(docs or DOCS, ".."))
+        try: liste = _ue.offen(None, list(seiten), still=True)
+        finally: _ue.WURZEL = alt
+    except Exception as e:
+        ausgabe.append("WARNUNG Fristen der Übergabezeilen nicht geprüft: %s (1739)" % e); return []
+    frei = [z["k"] for z, _nr, wie in liste if wie.startswith("wieder offen")]
+    if frei: ausgabe.append("NICHTS Übergabe: %s wieder offen (Frist abgelaufen, Halter ruht; 1739), schon auf origin/main" % ", ".join(frei))
+    return frei
+
+
+def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     """1739 (Sokrates 21.11., 20:43, F4 (1)): offene Übergabezeilen an andere als Sokrates (etwa „Arbeitsplaner“ aus chefwort.py,
-    rueckmeldung.py) → NACHRICHT an die laufende Sitzung des Empfängers, sonst an Ford. Bis zur Umschaltung (tools/1727-SCHARF)
-    ist der Arbeitsplaner Ford."""
+    rueckmeldung.py) → NACHRICHT an die Sitzung des Empfängers. Hat er keine, startet ihn start(r, nr, teil) (Befund 1: Start statt
+    nur NACHRICHT an Ford; hängt an eine START-Zeile dieses Laufs an, nie zwei Starts); kann start nicht (nicht startbare Rolle,
+    --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an Ford. Bis zur Umschaltung
+    (tools/1727-SCHARF) ist der Arbeitsplaner Ford."""
     try:
         import uebergabe as _ue
         d = os.path.join(docs or DOCS, "vorgang")
@@ -555,6 +574,7 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None):
         teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, "; ".join("%s %s" % (k, w) for k, w in zs[:6]))
         sitz = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert] if r != "Ford" else []
         if sitz: ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], teil))
+        elif r != "Ford" and start and start(r, zs[0][0].split("-Ü")[0], teil): pass
         else: ausgabe.append("NACHRICHT Ford | - | " + (teil if r == "Ford" else "keine Sitzung %s: starten oder zuteilen. %s" % (r, teil)))
     return je
 
@@ -1207,7 +1227,21 @@ def main():
                 vorgaenger("Sokrates")  # 261.5 (2): die ruhende alte Sitzung gleich danach archivieren, nicht zwei Sokrates nebeneinander
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
     sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger)  # 1763 C
-    uebergabe_zeilen(ausgabe, je_rolle, archiviert)  # 1739, F4 (1)
+    if sperre: fristen_runde(ausgabe, seiten)  # 1739 Befund 1: abgelaufene Fristen je Lauf
+    def ue_start(r, nr, teil):  # 1739 Befund 1: Empfänger ohne Sitzung starten
+        if r not in START_REIHE or r in ohne_rollen or lauf_laeuft(r): return False
+        i = next((j for j, l in enumerate(ausgabe) if l.startswith("START %s |" % r)), None)
+        if i is not None: ausgabe[i] += "\\n\\n" + teil; return True
+        if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60:
+            ausgabe.append("NICHTS %s: Start unterwegs (Startsperre %s), offene Zeilen gehen im nächsten Lauf per NACHRICHT (1739)" % (r, marken[r].strftime("%H:%M"))); return True
+        if nacht_halt(r, nr, ausgabe, morgen): return True
+        mo, satz, hoch = modell(r, nr)
+        msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (r, teil, satz)
+        ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION,
+                       "%s – %s: offene Übergabe (%s)" % (r, nr, berlin(JETZT)), msg.replace("\n", "\\n")))
+        vorgaenger(r); sperren.append(r); sperr_nr[r] = nr
+        return True
+    uebergabe_zeilen(ausgabe, je_rolle, archiviert, start=ue_start)  # 1739, F4 (1)
     try: hoechstdauer_zeilen(ausgabe, je_rolle, archiviert)  # 1766
     except Exception as e: ausgabe.append("WARNUNG Höchstdauer nicht geprüft: %s (1766, Spike)" % e)
     try:  # 383: Wartewächter
