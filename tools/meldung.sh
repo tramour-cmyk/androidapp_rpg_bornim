@@ -101,6 +101,20 @@ fi
 # 1414 (Chef 16.11., 12:09): Vorgang ohne Wort dazu (MUSTER.md 9); nur Warnung, die Meldung geht raus
 printf '%s' "$text" | python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import nummer_wort; [print("meldung: Warnung: " + w, file=sys.stderr) for w in nummer_wort.melden(sys.stdin.read().replace("\\n", "\n"))]' "$(dirname "$(realpath "$0")")" || true
 if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
+# 1739 (1727 Sockel 5c, Chef 19.11., 13:58 „Mach es so.“): Telegram-Regel bei jedem Aufruf; die erste Meldung je Sitzung
+# zeigt sie vor dem Senden und geht erst beim zweiten Aufruf raus. Anhalten erst mit tools/1727-SCHARF (rückwärtsverträglich,
+# Sokrates 20.11.); Werkzeuge ohne Sitzung (freigabe-haken.py) setzen MELDUNG_WERKZEUG=1.
+TELEGRAM_REGEL="Telegram ist dein Protokoll: so ausführlich, dass der Chef ohne Chat versteht, was geschah, was er prüfen oder entscheiden soll; einfach geschrieben, ohne Kürzel."
+if [ $probe = 0 ] && [ -z "$MELDUNG_WERKZEUG" ]; then
+  echo "meldung: $TELEGRAM_REGEL" >&2
+  kennung="${CLAUDE_CODE_REMOTE_SESSION_ID:-$CLAUDE_CODE_SESSION_ID}"
+  marke="${MELDUNG_MARKEN:-/tmp/bornim-meldung-regel}/${kennung:-ohne}"
+  if [ -f "${MELDUNG_SCHARF:-$(dirname "$(realpath "$0")")/1727-SCHARF}" ] && [ ! -f "$marke" ]; then
+    mkdir -p "$(dirname "$marke")" && : > "$marke"
+    echo "meldung: erste Meldung dieser Sitzung, nichts gesendet; Text nach der Regel oben prüfen, dann denselben Aufruf noch einmal (1739)" >&2
+    exit 3
+  fi
+fi
 zeit=$(TZ=Europe/Berlin date "+%d.%m. %H:%M"); stunde=$(TZ=Europe/Berlin date +%H)
 if [ $laut = 1 ]; then
   text="⚠ $text"
