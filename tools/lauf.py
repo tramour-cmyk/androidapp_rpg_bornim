@@ -530,6 +530,30 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
     return so_z
 
 
+def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None):
+    """1739 (Sokrates 21.11., 20:43, F4 (1)): offene Übergabezeilen an andere als Sokrates (etwa „Arbeitsplaner“ aus chefwort.py,
+    rueckmeldung.py) → NACHRICHT an die laufende Sitzung des Empfängers, sonst an Ford. Bis zur Umschaltung (tools/1727-SCHARF)
+    ist der Arbeitsplaner Ford."""
+    try:
+        import uebergabe as _ue
+        d = os.path.join(docs or DOCS, "vorgang")
+        je = {}
+        for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if not n.endswith(".md"): continue
+            for z in _ue.zeilen(open(os.path.join(d, n), encoding="utf-8").read()):
+                if z["z"] == "offen" and z["an"].lower() != "sokrates": je.setdefault(z["an"], []).append((z["k"], z["was"]))
+    except Exception as e:
+        ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
+    scharf = os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
+    for an, zs in sorted(je.items()):
+        r = "Ford" if an == "Arbeitsplaner" and not scharf else an
+        teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, "; ".join("%s %s" % (k, w) for k, w in zs[:6]))
+        sitz = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert] if r != "Ford" else []
+        if sitz: ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], teil))
+        else: ausgabe.append("NACHRICHT Ford | - | " + (teil if r == "Ford" else "keine Sitzung %s: starten oder zuteilen. %s" % (r, teil)))
+    return je
+
+
 def juengste(ss):
     """Die zuletzt tätige Sitzung eines Bereichs (261.6): späteres updated_at, bei Gleichstand späteres created_at."""
     return max(ss, key=lambda x: (z(x["updated_at"]), z(x["created_at"])))
@@ -1127,6 +1151,7 @@ def main():
                 vorgaenger("Sokrates")  # 261.5 (2): die ruhende alte Sitzung gleich danach archivieren, nicht zwei Sokrates nebeneinander
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
     sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger)  # 1763 C
+    uebergabe_zeilen(ausgabe, je_rolle, archiviert)  # 1739, F4 (1)
     try:  # 383: Wartewächter
         ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
     except Exception as e:
