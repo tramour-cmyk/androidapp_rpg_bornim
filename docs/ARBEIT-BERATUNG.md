@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 **Übergabe (21.11., 21:52, `session_01Hmoj792CjL1M4Es8CUXxjB`, Neustart-Haken 402 Tsd.):** Getan: Chefrunde 1727, entschieden 1727b–f, 1781 Sockel (Archiv 21:31–21:43); 1727a zurück; 1727b in `CLAUDE.md`, Listen; 1779–1782 Spike, 1785 Tom; `werkzeuge.md` F6. Kosten auf: 1727, 1784. Letzte Antwort: 21:52 (1784 vorgelegt). Nachfolger: Sokrates – 1727: Antworten einarbeiten, 1774 F4 berichtigen, Nachprüfungen
-- **Zu 1727, Nacht (Chef 21.11., 22:06/22:12):** „morgen um 10 Uhr die finalen Tests“; nachts Schritte 1–4; 10:00 erst Gespräch (Sockel, Kern Leitung, Profil Markt, Welt, Kern Arbeitsplaner; im Kern Leitung 1727d L-O1, 1727e), dann Tests.
+- **Zu 1727, Nacht (Chef 21.11., 22:06/22:12):** „morgen um 10 Uhr die finalen Tests“; nachts Schritte 1–4; 10:00 erst Gespräch (Sockel, Kern Leitung, Profil Markt, Welt, Kern Arbeitsplaner; Kern Leitung: 1727d L-O1, 1727e; Freigabewörter 3.3 Nr. 7; drittes „Beleg fehlt“ = Nein?; Tester Takt, Release), dann Tests.
 - **Zu 1727:** Teil B Werkzeug, Fremde Inhalte an 1727f angleichen; 1774 F4: (d) überholt durch 287f96046, G = Grobablauf bei :367/:375, Punkt 6 kein Vorentscheid; Nachprüfung `werkzeuge.md` F6.
 - **Lehre (21.11., 20:43):** in G nichts über verwiesene Zeilen einfügen.
 - **Fehler 341 (21.11., 15:39, Prozessprüfung 14:30):** 4 tote Enden erst durch Tabelle des Chefs. Lehre: Raster Einheit × Auslöser bis Empfänger, ganzer Überblick, Prüfer nennt Ungeprüftes; „komplett“ per grep.
