@@ -121,17 +121,10 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
-- 07:05 19.11.: Startsperre 07:05 Start Tom, Spike, Perikles (lauf.py, Tom 1535, Spike 1711)
 - 14:47 21.11.: Startsperre 14:47 Start Sokrates (Neustart c019b53f1, 1727, Chef im Gespräch)
-- 10:02 21.11.: Startsperre 10:02 Start Sokrates (Neustart 5c066f76f, 1727, Chef im Gespräch)
-- 16:31 20.11.: Startsperre 16:31 Start Sokrates (Neustart 92b4bc775, 1727, Chef im Gespräch)
-- 13:04 20.11.: Startsperre 13:04 Start Sokrates (Neustart 2bbaa7365, 1727, Chef im Gespräch)
-- 10:45 20.11.: Startsperre 10:45 Start Sokrates (Neustart 18f26e58a, 1727, Chef im Gespräch)
-- 06:43 20.11.: Startsperre 06:43 Start Sokrates (Chef 06:41 „Starte Sokrates“, 1727, Übergabe 3dd33be65)
-- 20:53 19.11.: Startsperre 20:53 Start Sokrates (Neustart 098d9b421, 1727, Chef im Gespräch)
-- 16:04 19.11.: Startsperre 16:04 Start Sokrates (Neustart e627b23a6, 1727, Chef im Gespräch)
-- 12:34 19.11.: Startsperre 12:34 Start Sokrates (Neustart 6da2fc513, 1727, Chefrunde)
-- 10:24 19.11.: Startsperre 10:24 Start Spike (Nachfolger 1694, Chef 10:23 „Ja“)
-- 08:24 19.11.: Startsperre 08:24 Start Sokrates (Neustart, Chef 08:22, 1625)
-- 08:16 19.11.: Startsperre 08:16 Start Spike (Auftrag 1694 wörtlich, Probe 1625, Chef 08:01); 300 auf `main` (3db05d4e5, Vollzug 1724)
-- 08:07 19.11.: Startsperre 08:07 Start Perikles (Chef 08:06 über Sokrates, Tagesbericht 448/1715, Ausnahme zu „eine Sitzung“)
+- 20:06 21.11.: Startsperre 20:06 Start Tom, Jerry, Spike, Diogenes, Homer, Perikles, Tuffy (lauf.py, Tom 1535, Jerry 1068, Spike 458.3, Diogenes 1718, Homer 1628)
+- 20:06 21.11.: Marke Tagesbericht 21.11. (lauf.py)
+- 20:06 21.11.: Marke Nachhalten 21.11. (lauf.py)
+- 20:06 21.11.: Marke Tagesbericht fehlt 21.11. (lauf.py)
+- 20:06 21.11.: Marke Abgleich ganz 21.11. (lauf.py)
+- 20:06 21.11.: Nachfolger-Warnung Spike (Übergabe 19.11., 11:17) (lauf.py)
