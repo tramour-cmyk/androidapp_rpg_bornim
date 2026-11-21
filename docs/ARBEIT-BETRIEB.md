@@ -122,6 +122,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 14:47 21.11.: Startsperre 14:47 Start Sokrates (Neustart c019b53f1, 1727, Chef im Gespräch)
+- 21:55 21.11.: Startsperre 21:55 Start Spike (Ausnahme 1784 A, Start 1/8 bis 03:00; Übergabe 723e0b4ab nennt 0b6b8f46c mit tools/; 1739 Teil 7)
 - 21:52 21.11.: Startsperre 21:52 Start Sokrates (Neustart 420488e64, 1727)
 - 21:41 21.11.: Morgen 1643: Spike 1739 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen (Haken Nachtstopp; sieben Spike-Sitzungen seit 20:08, Neustart-Grenze 200 Tsd. nach je 10 Min.)
 - 21:22 21.11.: Startsperre 21:22 Start Spike (Nachfolger 1739 Teil 6, 69673a07a)
