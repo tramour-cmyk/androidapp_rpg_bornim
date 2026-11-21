@@ -15,7 +15,7 @@ Anlass: Vorschlag 20.11., 21:41 „Aufräumen → Arbeitsdateien → Profil Tech
 3. **Gegenprüfung aller ungeprüften Teile:** 0c, 1a Leitbild verteilen, 6b Rundblick, 6d Wochenzählung und alle Texte aus Schritt 2, je frischer Prüfer gegen den ganzen Entwurf.
 4. **Falltest auf den Arbeitsdateien:** Fälle Sokrates (F1–F14), Abnahme und Tester, Build-Kette (Archiv 19.11., 22:05), Wiederholer und Liegezeit (Vorrat), Übergaben zählen wie Prüfung 20.11., Bremsen auf zwei, Verweisprüfung per grep.
 
-**Nebenher:** Werkzeuge nach Bauliste 7.1 (Spike, 1760 läuft); die Bauliste wird in Schritt 2 vollständig (je Werkzeug eine Zeile, auch Rufnamen). Umstellung erst, wenn Falltest bestanden und jedes Werkzeug grün.
+**Nebenher:** Werkzeuge nach Bauliste 7.1 (Spike; 1760 startbar ab 21.11., 20:00, läuft noch nicht); die Bauliste wird in Schritt 2 vollständig (je Werkzeug eine Zeile, auch Rufnamen). Umstellung erst, wenn Falltest bestanden und jedes Werkzeug grün.
 
 ## Stärkstes Gegenargument
 
