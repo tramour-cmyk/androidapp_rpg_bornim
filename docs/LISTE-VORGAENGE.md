@@ -252,6 +252,7 @@
 | 1727e | Rückfrage Sokrates (1727): Guthabenzahl über Haken D eintragen? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727f | Rückfrage Sokrates (1727): Kern Arbeitsplaner +170 Byte (Ladehinweise, Ausnahme Übersetzung)? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727g | Rückfrage Sokrates (1727): GitHub-Regel gegen Force-Push auf claude/build-* anlegen (Chef tut) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1784 | Rückfrage Sokrates (1739, Ford 21:41): Nachtstopp 1643 heute Nacht für Spike 1739 aussetzen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1507 | Von Sokrates (Chef 17.11., 06:15: Diogenes-Meldungen mit Daumen „nicht kapiert“): Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer; Prüfberichte ohne Daumenzeile | Ford | M | startbar | – | – | – | B Abläufe | 1,89 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $ |
 | 1469 | Von Diogenes (1463, Startwarnung 108): chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11.; verkleinern oder löschen, wenn 415 entschieden | Ford | K | startbar | – | – | – | B Abläufe | – |
