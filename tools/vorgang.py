@@ -36,6 +36,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
   vorgang.py annehmen KENNUNG [--frist MIN] · verlaengern KENNUNG [--frist MIN] · erledigt KENNUNG · freigeben (vor „Nachfolger:“)
   vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen; abgelaufene Frist eines ruhenden Halters wird wieder offen
                                        (Einzelheiten: tools/uebergabe.py)
+  vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE]   Chefwort wörtlich in docs/vorgang/NR.md und
+                                       offene Zeile an den Arbeitsplaner (1762 Haken D; Einzelheiten: tools/chefwort.py)
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
 import os, re, sys, subprocess
@@ -783,6 +785,8 @@ def haupt(a):
     b = a[0]
     if b in uebergabe.BEFEHLE:  # 1760
         r = uebergabe.haupt(a); sys.exit(3 if r == "BELEGT" else 0)
+    if b == "chefwort":  # 1762
+        import chefwort; return chefwort.haupt(a)
     if b == "pruefen":
         f = startbar.pruefen_liste()
         for nr, x in f: print("%s: %s" % (nr, x))

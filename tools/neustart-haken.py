@@ -6,6 +6,7 @@
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
   neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung ab 200 Tsd., Sperre ab 300 Tsd.
                              außer Übergabe, Push, Nachricht an Ford (Kaufrepo und Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
+                             1762: ruft chefwort.haken() (Haken D, Chefwort aus fremder Sitzung).
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
@@ -211,6 +212,12 @@ def prompt(eingabe):
     except Exception:
         pass
     kern(sitzung)
+    try:  # 1762 Haken D: Chefwort zu fremdem Vorgang in die Vorgangsdatei (scharf erst mit tools/1727-SCHARF)
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import chefwort
+        chefwort.haken(eingabe, name(pfad, sitzung))
+    except Exception:
+        pass
     if not pfad or not os.path.exists(pfad) or geschuetzt():
         return
     plus, gesamt = zuwachs(groessen(pfad))
