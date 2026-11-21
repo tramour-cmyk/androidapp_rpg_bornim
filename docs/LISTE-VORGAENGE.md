@@ -252,7 +252,7 @@
 | 1727d | Rückfrage Sokrates (1727): Fünf Lücken im Abgenommenen schließen (L-S2, L-O1, L-U15, L-T6, L-U10)? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727e | Rückfrage Sokrates (1727): Guthabenzahl über Haken D eintragen? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727f | Rückfrage Sokrates (1727): Kern Arbeitsplaner +170 Byte (Ladehinweise, Ausnahme Übersetzung)? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
-| 1727g | Rückfrage Sokrates (1727): GitHub-Regel gegen Force-Push auf claude/build-* anlegen (Chef tut) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727g | Rückfrage Sokrates (1727): GitHub-Regel gegen Force-Push auf claude/build-* anlegen (Chef tut) | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1784 | Rückfrage Sokrates (1739, Ford 21:41): Nachtstopp 1643 heute Nacht für Spike 1739 aussetzen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1507 | Von Sokrates (Chef 17.11., 06:15: Diogenes-Meldungen mit Daumen „nicht kapiert“): Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer; Prüfberichte ohne Daumenzeile | Ford | M | startbar | – | – | – | B Abläufe | 1,89 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $ |
