@@ -41,6 +41,14 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 330 · 1783, 1786, 1760, 1764, Spike 1739 (lesend, Chef 21.11., 20:20; main `de51136f9`; 21.11., 22:07–22:13)
+
+- 1783 greift: `gegengelesen_test.py` 11/11, werkzeuge.yml Lauf 21 (`30736b6f6`) grün. Rufname ohne Rolle hält auch neben gültiger fremder Zeile an (strenger als 1410, vertretbar).
+- 1786 Lücke: Anlegen der Chefsache samt Vorratszeile, dann Löschen samt Folgeauftrag im selben Vorrat ohne Commit dazwischen → `veraltet()` meldet Rückfall, `--auffrischen` stellt her (nachgestellt) → 1787 D330.1 (Jerry).
+- 1760 greift technisch (`uebergabe_test` grün), im Betrieb noch ungenutzt (`docs/vorgang/` leer, bis Umstellung).
+- 1764 greift (Zeitmarke 22:03, herzschlag.yml grün); `herzschlag.py --test` in keinem Workflow → 1788 D330.2 (Spike, M?).
+- Spike 1739 `dbf44708a`, `4fc81e0bd`, `e68cceefe`, `4cb004338`, `fd53ce41c`: ohne Befund; werkzeuge.yml Läufe 16–21 grün, lokal alle 15 Aufrufe Exit 0.
+
 ## Lauf 328 · 1718 Buildzweig-Haken (Spike `689d4d351`; 21.11., 20:26)
 
 - **1718 greift nicht → D328.1 = 1768 (Jerry, M; Haken seit 1765 bei Jerry), 1718 wartet auf 1768, 1716 weiter auf 1718.** `--test` 0 Fehler. Eigene Proben (Probe-Repo im Scratchpad, Zweig `claude/build-399`): gelöst sind `git push -u origin HEAD`, `@`, ohne Argumente, `--set-upstream`, `-o`, `git -C`, `cd … &&`, Rohr; kein Fehlalarm mehr bei `echo '…'`, `-m "…"`, Heredoc, `#`-Kommentar. Live in dieser Sitzung angehalten: `git -C … push -u origin HEAD`. **Rückschritt:** `PUSH` verlangt git direkt nach `;&|(\n`; nach `do`, `then`, `until`, `while`, `!`, `{`, `timeout 60` geht der Push durch, live: `for i in 1 2; do git -C … push -u origin HEAD && break; …; done` hat auf `claude/build-399` gepusht. Unter 1716 (ganzer Text) wurde das angehalten; die Wiederholschleife ist die Form, die die Systemvorgabe für Pushes verlangt. `git push origin HEAD:` ist in git ungültig (fatal: invalid refspec), keine Lücke.
