@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 331 · 1780, 1787, 1788 (lesend, Chef 21.11., 20:20, Auftrag Ford; main `abc0a538c`; 21.11., 22:18–22:21)
+
+- 1780 greift: herzschlag.yml schaltet 22–06 Uhr Berliner Zeit lautlos (`disable_notification=true`), gleiche Stunden wie `meldung.sh` (Muster für 00, 06, 07, 21, 22, 23 nachgeprüft); tags laut bleibt (Alarm, Chef dran).
+- 1788 greift: `herzschlag.py --test` in werkzeuge.yml, Lauf 23 (`194e9647f`) grün; Fehlschlag gibt Exit 1, Schritt bricht ab; Auslöser deckt tools/herzschlag.py und herzschlag.yml.
+- **1787 greift nicht → D331.1 = 1791 (Jerry, M).** `zweig_doppelt_test` grün; genannter Fall (Anlegen samt Vorratszeile, Löschen samt Folgeauftrag, nichts dazwischen) frei. Nachgestellt (Probe-Repo im Scratchpad): liegt dazwischen ein fremdes `vorgang.py neu` (LISTE-VORGAENGE, ARBEIT-BETRIEB) und legt das Löschen selbst einen Folgevorgang an, meldet `veraltet()` die Chefsache als Rückfall. Ausgenommen sind nur Dateien des Anlege-Commits. Jerrys Restlücke (zweite Arbeitskopie legt nur Chefsache samt Vorratszeile an) deckt 1776, ohne Befund.
+- Nicht geprüft: echter Herzschlag-Alarm nachts (keiner); `--auffrischen` am Fall 1791.
+
 ## Lauf 330 · 1783, 1786, 1760, 1764, Spike 1739 (lesend, Chef 21.11., 20:20; main `de51136f9`; 21.11., 22:07–22:13)
 
 - 1783 greift: `gegengelesen_test.py` 11/11, werkzeuge.yml Lauf 21 (`30736b6f6`) grün. Rufname ohne Rolle hält auch neben gültiger fremder Zeile an (strenger als 1410, vertretbar).

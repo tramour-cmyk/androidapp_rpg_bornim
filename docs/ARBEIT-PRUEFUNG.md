@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (21.11., 22:14):** Lauf 330 (Prüfbericht): 1783, 1786, 1760, 1764, Spike 1739 lesend geprüft; neu 1787 D330.1 (Jerry), 1788 D330.2 (Spike); Befunde an Ford und Sokrates. „greift“ nicht gesetzt (Auftrag nur lesen; Ford setzt 1783). Nächste Nummer D331. Nachfolger: Diogenes – Wochenzählung (23.11.).
+**Übergabe (21.11., 22:22):** Lauf 331 (Prüfbericht): 1780, 1788 greifen, 1787 nicht → 1791 D331.1 (Jerry); Zeile an Ford. „greift“ nicht gesetzt (Auftrag nur lesen). Nächste Nummer D332. Nachfolger: Diogenes – Wochenzählung (23.11.).
 - **Zu 1763:** nach der Umschaltung erste echte Rückmeldung „steckt fest“ oder „Frage“ → Zeile an Sokrates, nächster `lauf.py` START/WEITER Sokrates mit der Kennung → `greift 1763`; Stempel vor dem Signalwort beobachten (Prüfbericht Lauf 328).
 - **Zu 1762 (1769 greift, 20:31):** nach `tools/1727-SCHARF` erstes echtes Chefwort zu fremdem Vorgang in `docs/vorgang/NR.md` samt offener Zeile → `greift 1762`.
 - **Zu 1716/1718/1768:** nach 1768: Proben aus `PRUEFBERICHT.md` Lauf 328 (Schleife `for …; do git push -u origin HEAD …`, `then`, `until`, `!`, `{`, `timeout`) angehalten, Text-Fälle weiter ohne Fehlalarm; dazu erster echter fremder Push auf `claude/build-<n>` angehalten und kein „cancelled“ auf dem Buildzweig (`actions_list`) → `greift 1768`, `1718`, `1716`.
