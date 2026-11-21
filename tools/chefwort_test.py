@@ -57,6 +57,10 @@ soll("Uhrzeit, Datum, Betrag zählen nicht", sorted(cw.vorgaenge("21.11., 20:06:
 soll("Build 301 = alle Vorgänge mit Build 301", sorted(cw.vorgaenge("Build 301 passt")) == ["9001", "9003.2"], sorted(cw.vorgaenge("Build 301 passt")))
 soll("t301.4 ebenso", sorted(cw.vorgaenge("t301.4 ✓")) == ["9001", "9003.2"])
 soll("Pfad und unbekannte Nummer nicht", cw.vorgaenge("docs/vorgang/9001.md und 9999") == {})
+soll("Nummer mit Komma dahinter (1769)", sorted(cw.vorgaenge("9001, ein Lauf frei")) == ["9001"], sorted(cw.vorgaenge("9001, ein Lauf frei")))
+soll("Aufzählung mit Komma (1769)", sorted(cw.vorgaenge("9001, 9002 passen")) == ["9001", "9002"], sorted(cw.vorgaenge("9001, 9002 passen")))
+soll("Nummer am Satzende", sorted(cw.vorgaenge("Gebilligt: 9001.")) == ["9001"], sorted(cw.vorgaenge("Gebilligt: 9001.")))
+soll("Dezimalzahl mit Komma nicht (1769)", cw.vorgaenge("9001,5 Punkte") == {}, sorted(cw.vorgaenge("9001,5 Punkte")))
 
 # 3 Nicht scharf: nichts
 nrs = cw.haken({"prompt": "9001 freigegeben"}, "Sokrates")

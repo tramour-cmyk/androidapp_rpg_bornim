@@ -72,7 +72,7 @@ def vorgaenge(text):
             if str(d.get("build") or "").strip() == m.group(1):
                 aus[d["nr"]] = d
     t = re.sub(r"(?i)(\bBuild\s+|(?<![\w.])t)\d{2,4}(\.\d+)?", " ", t)
-    for m in re.finditer(r"(?<![\d.,/#\w-])(\d{3,4}(?:\.\d+)?)[a-z]?(?![\d,]|\.\d)", t):
+    for m in re.finditer(r"(?<![\d.,/#\w-])(\d{3,4}(?:\.\d+)?)[a-z]?(?!\d|[.,]\d)", t):            # „1716, 1718“ ja, Dezimal „1716,5“ nein (1769)
         nr = m.group(1)
         while nr not in liste and "." in nr:
             nr = nr.rsplit(".", 1)[0]
