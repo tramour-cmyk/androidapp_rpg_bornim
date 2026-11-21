@@ -471,20 +471,34 @@ def veraltet():
     if not alte: return []
     kopf = git("rev-parse", "HEAD").strip()
     alte = [c for c in dict.fromkeys(alte) if c != kopf]
-    aus, seit = [], {}
+    aus, seit, anl = [], {}, {}
+    def anlage(c, p):
+        """1787: Dateien der Commits nach c, die die Chefsache p anlegten (dort steht meist die Vorratszeile)."""
+        if (c, p) not in anl:
+            anl[(c, p)] = set()
+            for h in git("log", "--format=%H", "--diff-filter=A", "%s..HEAD" % c, "--", p).split():
+                anl[(c, p)] |= {q for q in git("show", "--name-only", "--format=", "--no-renames", h).splitlines() if q.strip()}
+        return anl[(c, p)]
     def veraltet_seit(c, p):
         """1786: Löschen zählt nur als Rückfall, wenn der Index keine Datei kennt, die sich seit c geändert hat (Bild eines
         veralteten Index). Sonst gleicht ein gewolltes Löschen bloß einem Stand, in dem die Datei noch fehlte."""
         if c not in seit: seit[c] = [q for q in git("diff", "--name-only", "--no-renames", c, "HEAD").splitlines() if q.strip()]
         andere = [q for q in seit[c] if q != p]
-        if not andere and p.startswith("docs/chefsache/"): return False  # beantwortete Chefsache: ohne weiteren Beleg kein Rückfall
+        if p.startswith("docs/chefsache/"):
+            # 1787: was der Commit änderte, der die Chefsache anlegte (Vorratszeile), ist kein Beleg; das Löschen ändert es
+            # oft mit (Folgeauftrag). Beleg nur aus späteren Commits; ohne Beleg kein Rückfall.
+            andere = [q for q in andere if q not in anlage(c, p)]
+            if not andere: return False
         return all(_blob("", q) != _blob("HEAD", q) for q in andere)
-    for l in git("diff", "--cached", "--name-only", "--no-renames", "HEAD").splitlines():
-        p = l.strip()
-        if not p: continue
+    namen = [l.strip() for l in git("diff", "--cached", "--name-only", "--no-renames", "HEAD").splitlines() if l.strip()]
+    weg_cs = [p for p in namen if p.startswith("docs/chefsache/") and not _blob("", p) and _blob("HEAD", p)]
+    mit_cs = set()  # 1787: Vorratszeile samt Chefsache wieder weg ist kein Rückfall der Vorratsdatei
+    if weg_cs and alte:
+        for d in weg_cs: mit_cs |= anlage(alte[-1], d) - {d}
+    for p in namen:
         ix, hd = _blob("", p), _blob("HEAD", p)
         if ix == hd: continue
-        if ix: treffer = any(_blob(c, p) == ix for c in alte)
+        if ix: treffer = p not in mit_cs and any(_blob(c, p) == ix for c in alte)
         else: treffer = any(not _blob(c, p) and veraltet_seit(c, p) for c in alte)
         if treffer: aus.append(p)
     return aus
