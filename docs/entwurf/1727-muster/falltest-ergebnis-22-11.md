@@ -96,4 +96,41 @@ Maß: bestanden = alle Kernpunkte des Solls und das „NICHT“ getroffen; teilw
 
 **Zählung Lauf 1:** 31 Fälle: bestanden 9 (L3, D1, D5, A1, A3, A4, A5, P6, T1), teilweise 6 (L2, L4, A2, P2, T2, R1), nicht 7 (L1, D3, D4, P3, P5, R2, R3), ungültig 9 (D2, W1–W5, P1, P4, P7); dazu der Werkzeugfehler Feld 6, der jeden Auftrag trifft. Ketten K1–K3 noch nicht gespielt.
 
-**Pflichtpunkte des Chefs** (Vorrat „ab Sa 20:00“): Wiederholer 1694 (K3), 1535 (K2, P1), 760 (L3, P7), t299 (A3, P3) in Lauf 2 als Ketten mit Liegezeit je Übergabe; Rückläufer nicht durchrutschen (R2/R3 → Wache 7).
+**Pflichtpunkte des Chefs** (Vorrat „ab Sa 20:00“): Wiederholer 1694 (K3), 1535 (K2, P1), 760 (L3, P7), t299 (A3, P3) in Lauf 2 als Ketten mit Liegezeit je Übergabe; Rückläufer nicht durchrutschen (R2/R3 → Wache 7; nach Nachprüfung 1 → `lauf.py` LIEGT, 1799).
+
+## Lauf 2 (21.11., 23:28–23:47), Bewertung Sokrates
+
+Verfahren wie Lauf 1, aber: Ladetexte nach Einarbeitung (Disponent F11, Prüfer F4, Tester F4, Wache F4) und Vorschläge V1, V2 (erste Fassung) und Feld 6 im Kern Arbeitsplaner wie Werkzeug; Fälle nur „Eingang“, neue Fälle für die Ketten (Leitung L5–L10, Disponent D6–D11, Arbeitsplaner A6–A16 schreibt die Aufträge, Werkstatt W6–W8 und Prüfer P8–P9 mit diesen Aufträgen). Antworten im Wortlaut, Fälle und Aufträge: `falltest-lauf2/`. Liegezeit: am Tisch nicht messbar; geprüft wird, ob jede Übergabe sofort eine Zeile und einen Wecker erzeugt.
+
+| Fall | Urteil | Befund | Maßnahme |
+|---|---|---|---|
+| L1 (V1) | bestanden | neue Runde nach Einarbeiten, Größe vorher/nachher | V1 ins Gespräch |
+| L2 | bestanden | Archiv 20.11., 11:45/12:06 als Quelle, Argument neu gefasst | – |
+| L3 | bestanden | „nein“ mit 1714, 1605, t300.11; Zeile zurück, Hinweis ans Büro | – |
+| L4 | bestanden | Archiv unter 1535, Chefwort über `chefwort` an den Arbeitsplaner | L-O1 „Eingang des Büros“ im Gespräch |
+| L5 (D2) | bestanden | kein Reset, Sicherung über `notiz.sh` (1701), Hinweis an Spike | – |
+| L6 (K1.1) | bestanden | Antwort „Build 300 freigegeben“ in Worten des Chefs | – |
+| L7, L8 (K2.1, K2.8) | bestanden | Funde wörtlich, keine Freigabe für `main` | – |
+| L9 (K3.3) | bestanden | Richtung mit Deckel, kein dritter Versuch | – |
+| L10 (K3.6) | teilweise | Chefsache richtig, aber ohne Nachprüfung (Text deckt Chefsache nicht) | V1 Fassung 2: „oder in die Chefsache geht“ |
+| D1–D5 | bestanden | D2 nur weitergeleitet (richtig nach 1727c); D3 erst mit Stundenuhr bemerkt | D3: `lauf.py` LIEGT (1799) |
+| D6, D7 | bestanden | Werkzeugfehler in D7 belegt statt blind verteilt | – |
+| D8, D9 | bestanden | D9: drei verschiedene Folgen in Werkzeugen | 1796 |
+| D10, D11 (K3.2, K3.5) | bestanden gegen Werkzeug | `lauf.py` gibt nach „steckt fest“ weiter START der Fachkraft; Disponent hält mit `--ohne` an | Werkzeug 1800; Profil Disponent F12 |
+| A1–A4 | bestanden | Aufträge mit Bisher, Systemfrage, Prüffragen; A4 „Frage“ | – |
+| A5 | teilweise | „Frage“ ohne Lesart [235] | nach Gespräch nicht nötig (NICHT getroffen) |
+| A6–A16 | bestanden | 13 Aufträge gültig; A12 (Aussehen ohne Chefwort), A16 (760 ruht) richtig als Entwurf mit „Frage“ | Werkzeug 1798 (Auftrag oben, archivierte Nummer, Größe in der Vorlage) |
+| W1–W7 | bestanden | nur eigene Dateien, erst beheben, Logursache, Modell vor dem Lauf belegt, `add_repo` selbst, Chefwort in der Vorgangsdatei | W4: Weg Kaufmodell → Bauserver nur im Profil Technik |
+| W8 (K3.1, K3.4) | nicht | „Frage“ statt „steckt fest“, weil Feld 7 das Wort nicht anbietet: Obergrenze B greift nie | V3 ins Gespräch |
+| P1, P2, P5, P6 | bestanden | Urteil am Bild, Schweben trotz Längenfrage, „Beleg fehlt“ trotz Vermerk, „steckt fest“ nach Chef-Nein | – |
+| P3 | bestanden | je Punkt mit Codestelle; 299.4 „nein“, weil `vorraete` keinen Umhang gibt (wie Tom 18.11.) | – |
+| P4 | teilweise | Herkunft geprüft, aber „nein“ statt „Beleg fehlt“ (Profil Schritt 1) | Profil Prüfer F6 |
+| P7 | teilweise | Schritt 1 „nichts weiter prüfen“ verdeckte Angriff 3 „nicht beurteilbar“ | Profil Prüfer F6 |
+| P8, P9 | gültig, Fall schief | P9 „Beleg fehlt“, weil der Nachstellauftrag A7 Prüfausgabe verlangt | – |
+| T1, T2 | bestanden | Testhilfen aus; Bildrate als gezählter Fehler mit Messwert | Werkzeug 1795 („Befunde:“) |
+| R1 | bestanden | Wiederholer gewählt, drei Vorschläge | Routine braucht Titelmarke (1789) für `fertig` ohne Commit |
+| R2, R3 (Wache 7) | bestanden | Wache meldet „Liegt“ | nach Nachprüfung 1 in `lauf.py` (1799), Wache F5 ohne Fall 7 |
+
+**Zählung Lauf 2:** 59 Wertungen (L 10, D 11, A 16, W 8, P 9, T 2, R 3): bestanden 52, teilweise 4 (L10, A5, P4, P7), nicht 1 (W8), Fall schief 2 (P8, P9), dazu D10/D11 bestanden nur gegen das Werkzeug. Gegen Lauf 1: ungültige Fälle 9 → 0.
+
+**Werkzeugfehler aus Lauf 2** (an Spike, ruht bis 07:00): 1798 (Auftrag an Kern angleichen), 1799 (LIEGT), 1800 („steckt fest“ hält keinen Start an, Obergrenze B ungepusht), 1801 (Nachtstopp zählt Sokrates-Starts unter „1763 C“, zu prüfen); bekannt 1795, 1796, 1797. Weiter offen ohne Vorgang: Empfängernamen Disponent/Arbeitsplaner/Prüfer bis `tools/1727-SCHARF` nur in `lauf.py` (`ALT_EMPFAENGER`), nicht in `uebergabe.besetzung`; Gedächtnis `docs/leitung/gedaechtnis.md` fehlt (entsteht mit der Umstellung); Ablage der Profile.
