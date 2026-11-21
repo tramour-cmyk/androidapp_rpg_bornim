@@ -1,4 +1,4 @@
-# 1727, Routine Wochenzählung (Gesamtbild 6d; Fassung 2, Perikles 21.11., 20:15, ungeprüft)
+# 1727, Routine Wochenzählung (Gesamtbild 6d; Fassung 3, Perikles 21.11., 20:35, nach Gegenprüfung 20:18 und Nachprüfung Sokrates 20:27)
 
 Auftrag: 1767 (Sokrates, Chef 21.11., 20:09). Raster `ein-ausgang.md`, schließt L-O7 und legt L-T5 als Frage vor. Fassung 1: Gesamtbild 6d (Sokrates 20.11., 09:40, Chef 09:33 „Ja“ zum Schreiben). **Nur Anschauung, nicht in Betrieb;** bis zur Umstellung zählt Diogenes nach `LISTE-PRUEFUNG.md` „Wochenzählung“.
 
@@ -6,7 +6,7 @@ Lädt: Sockel + dieser Auftrag, ohne Gruppe und Kern.
 
 Quellen: Gesamtbild 6d, 4.4 Zeilen Perikles und Diogenes; VA 20.11., 09:45 (drei Kostenteile, Qualitätskosten), 10:27 (Systemrunde fällt, Wochenzählung trägt mit), 19.11., 17:44 (Wochenziel fällt); `LISTE-PRUEFUNG.md` „Wochenzählung“ (heutige Zahlen und Quellen); `ein-ausgang.md` L-T5, L-O7.
 
-## Text (Änderungen gegen Fassung 1 fett markiert unten)
+## Text (Änderungen gegen Fassung 1 unter dem Text)
 
 ```markdown
 Ziel: die Kennzahlen der Woche zählen, damit die Leitung sieht, ob die Firma besser wird (gemeinsames Maß: was der Chef als Erster findet). Du zählst, du bewertest nicht.
@@ -28,7 +28,9 @@ Dazu: jeden Vorgang im Bereich B auf „gebaut“, der noch nicht mit `greift` g
 Ergebnis: neue Spalte in der Tabelle oben in `docs/PRUEFBERICHT.md`, eine Zeile per Telegram (lautlos); jeden Befund mit Beleg ans Büro. Wird dieselbe Zahl zwei Wochen hintereinander schlechter, schreibst du die Zeile „zwei Wochen schlechter: <Zahl>“ ans Büro; das Büro gibt sie an Sokrates.
 ```
 
-**Geändert gegen Fassung 1:** (a) „bewerten tut Sokrates“ aus dem Text: die Routine braucht es nicht zu wissen, der Weg steht im letzten Satz. (b) Quellenangaben in Nr. 1 (Vorgänge „Von Chef … Fund“, Testrückmeldungen) gestrichen: die Vorgangsdatei markiert Funde des Chefs (7.1), dann gibt es eine Quelle; bis dahin „fehlt“. (c) „greift“ nur für noch nicht mit `greift` Geschlossenes (Gegenprüfung 20:18, Befund 16); Stichprobe 373 aufgenommen (4.4, G:490; Befund 15). (d) Telegram lautlos (nichts für den Chef zu tun). (e) „zwei Wochen schlechter“ geht ans Büro statt „die Vorlage schreibt Sokrates“: wer Sokrates weckt, stand nicht (L-T5).
+**Geändert gegen Fassung 1:** (a) „bewerten tut Sokrates“ aus dem Text: die Routine braucht es nicht zu wissen, der Weg steht im letzten Satz. (b) Quellenangaben in Nr. 1 (Vorgänge „Von Chef … Fund“, Testrückmeldungen) gestrichen: die Vorgangsdatei markiert Funde des Chefs (7.1), dann gibt es eine Quelle; bis dahin „fehlt“. (c) „greift“ nur für noch nicht mit `greift` Geschlossenes (Gegenprüfung 20:18, Befund 16); Stichprobe 373 aufgenommen (4.4, G:490; Befund 15). (d) Telegram lautlos (nichts für den Chef zu tun). (e) „zwei Wochen schlechter“ geht ans Büro statt „die Vorlage schreibt Sokrates“: wer Sokrates weckt, stand nicht (L-T5). (f) Gestrichen aus Fassung 1 (Liste Sokrates 20:27): „Regeln wie bisher, 1463“, „nicht nach Sitzung“, „Qualitätskosten:“, „das legt den Vorgang an“; Nr. 6 trägt die Qualitätskosten, der letzte Satz den Weg ans Büro.
+
+Größe Text: 1.939 Byte.
 
 ## Raster
 
@@ -43,6 +45,10 @@ Ergebnis: neue Spalte in der Tabelle oben in `docs/PRUEFBERICHT.md`, eine Zeile 
 3. **Wer trägt „Bekannte Fehler“ ein?** 4.4: Sokrates (statt Perikles). Kommt mit Frage 1 zu ihm.
 4. **Zahl 4 Liegezeit** misst laut 4.4 das Werkzeug (G:490); die Routine übernimmt die Zahl. Quellen heute auch Vorgangsliste, `meldungen.tsv`, Werkzeugwarnungen (`LISTE-PRUEFUNG.md`:22–26).
 5. **Befund ans Büro** heißt: `tools/vorgang.py neu` mit Bereich und Beleg, Absender „Wochenzählung“, dann Wecker an den Disponenten (L-O1 bis zum Ort des Eingangs).
+
+## Nachprüfung Sokrates 20:27, mein Wort
+
+Kopf „ungeprüft“ weg: **stimmt** · „fett markiert“ weg: **stimmt** · Streichungen nennen: **stimmt**, (f) · Größe: **stimmt**.
 
 ## Gegenprüfung 20:18, mein Wort
 

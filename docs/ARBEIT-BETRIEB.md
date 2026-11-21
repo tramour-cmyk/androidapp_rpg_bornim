@@ -7,7 +7,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 **Guthaben zurückgesetzt Sa 21.11., 19:59; Uhren wieder an.** **Chef 21.11., 20:06 (über Sokrates, Archiv):** „Tom und Jerry machen nur mal fertig, was sie jetzt noch offen haben … Ansonsten machen sie nichts. … Uns fehlen die restlichen Werkzeuge. Die müssen wir jetzt machen.“ → Spike nur 1727-Werkzeuge (1760, 1739, 1742, 1749 und neue von Sokrates); Tom nur 1535 zu Ende; Jerry nur 1765 (Chef 20:20); Diogenes nur lesend (1718, Gegenlesen 1727); Perikles 1767; keine anderen Team-Vorgänge, keine Kür; `lauf.py`-Starts nur für Spike (Rest per `--ohne`). Umgeschaltet wird nach Falltest (14:37). 21.11. tagsüber lief Mehrnutzung („isUsingOverage“), Chef gemeldet 15:09. Aufträge (Probe 1625) als neue Sitzung mit dem Auftrag aus `entwurf/` wörtlich, ohne Startlektüre; Ford trägt ein, sortiert ein, gleicht ab („gibt es schon?“); Aufträge schreiben Perikles und Sokrates. Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1770** (zuletzt 1769 Spike 21.11. 20:28:17 0abf) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1771** (zuletzt 1770 Perikles 21.11. 20:29:50 acfc) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -122,6 +122,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 14:47 21.11.: Startsperre 14:47 Start Sokrates (Neustart c019b53f1, 1727, Chef im Gespräch)
+- 20:33 21.11.: Startsperre 20:33 Start Perikles (Nachfolger 1761 Tagesbericht, c32f3fe84)
+- 20:30 21.11.: Startsperre 20:30 Start Sokrates (Neustart c616a909d, 1727)
 - 20:29 21.11.: Startsperre 20:29 Start Spike (Nachfolger 1739, 53cd6b8b9; 1762, 1763 gebaut)
 - 20:23 21.11.: Startsperre 20:23 Start Perikles (Nachfolger 1761 Tagesbericht, d67dc870a)
 - 20:22 21.11.: Startsperre 20:22 Start Diogenes (1718 lesend, Chef 20:20)
