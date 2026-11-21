@@ -1395,7 +1395,17 @@ def besetzung_schreiben(leb):
     neu = re.sub(r"\| Rolle \| Sitzung.*?(?=\n\n|\Z)", lambda m: tabelle, t, count=1, flags=re.S)
     neu_ohne = re.sub(r"\*\*Stand:\*\*[^\n]*", "", neu)
     alt_ohne = re.sub(r"\*\*Stand:\*\*[^\n]*", "", t)
-    if neu_ohne == alt_ohne: print("Besetzung unverändert."); return
+    if neu_ohne == alt_ohne:
+        # 1764 Herzschlag: Zeitmarke spätestens nach 60 Minuten erneuern, auch ohne geänderte Tabelle (herzschlag.py, herzschlag.yml)
+        try:
+            import herzschlag
+            d = herzschlag.marke(t, JETZT)
+            alt = d is None or (JETZT - d).total_seconds() >= 3600
+        except Exception:
+            alt = False
+        if not alt or "**Stand:**" not in t:
+            print("Besetzung unverändert."); return
+        print("Besetzung unverändert, Zeitmarke erneuert (1764 Herzschlag).")
     neu = re.sub(r"\*\*Stand:\*\*[^\n]*", "**Stand:** %s (lauf.py)" % berlin(JETZT), neu, count=1)
     open(p, "w", encoding="utf-8").write(neu)
     print("Besetzung geschrieben.")
