@@ -16,6 +16,7 @@ Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef8
 **Sachverhalt:**
 - `sokrates_zeilen` holt über `uebergabe.offen_lokal("Sokrates")` jede offene Zeile, nur nach Zustand und Empfänger, nie nach dem Wort; nicht an den Umschalter gebunden.
 - (2) höchstens einmal die Woche, (1) und (3) selten.
+- Die Höchstdauer gibt beim zweiten Mal „steckt fest“ an Sokrates (gedeckt); „Release“ vor 622 braucht keinen Startgrund: wer das Wort hört, fragt zurück, ob 622 vorgezogen wird (`LISTE-RELEASE-NEUSTART.md`:12).
 
 **Auswertung:**
 - **A (Empfehlung):** zwei Sätze Text, drei Zeilen in den Routinen.

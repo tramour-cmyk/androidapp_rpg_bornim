@@ -6,7 +6,7 @@ Beim Chef, weil: Rollen und Accounts (Profile, Übergabe zwischen Rollen); ände
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef86e3 (`docs/entwurf/1727-muster/ein-ausgang.md`:53, :58, :67, :70, :74; `1727-gesamtbild.md` 2.2, 3.3 (:370–373)
 
 **Frage:** Das Raster hat fünf tote Enden in Abgenommenem gefunden. Je eine Antwort, A heißt Vorschlag:
-1. **L-S2 Wiederwecken (3.3):** Frist abgelaufen, Empfänger `idle` → Zeile offen, aber ohne Zahl. Vorschlag: ein Neustart, beim zweiten Mal „steckt fest“ (wie die gebaute Höchstdauer, `lauf.py`:583–607).
+1. **L-S2 Wiederwecken (3.3):** Frist abgelaufen, Empfänger `idle` → Zeile offen, aber ohne Zahl. Vorschlag: ein Neustart, beim zweiten Mal „steckt fest“ (wie die Höchstdauer, gebaut, noch ohne Wert, `lauf.py`:631–634); gilt ebenso für „abgebrochen“ (L-U8, `ein-ausgang.md`:65).
 2. **L-O1 Eingang ohne Ort:** „über den Eingang des Büros“, aber `ARBEIT-BETRIEB.md` fällt. Vorschlag (wie `ein-ausgang.md`:74): Sokrates legt es mit `vorgang.py neu` an und weckt den Disponenten.
 3. **L-U15 „gut“ aus fremder Sitzung:** geht laut 3.3 an den Arbeitsplaner, Profil Technik erwartet den Disponenten. Vorschlag: einheitlich an den Disponenten, der den Build-Macher startet.
 4. **L-T6 Profil Technik „ans Team zurück“:** Teams fallen weg. Vorschlag: zurück an die Fachkraft des Vorgangs über eine Übergabezeile; Fund mit Mangel beim Bereich statt beim Besitzer.

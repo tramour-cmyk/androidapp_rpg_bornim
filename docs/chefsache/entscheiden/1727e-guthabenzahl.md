@@ -1,7 +1,7 @@
 # 1727e · Soll ein Haken deine Nutzungszahl („81 Prozent Nutzung“) aus jeder Sitzung eintragen?
 Sokrates · 21.11., 21:19 · 7 Firma · aus 1727 (Umbau der Arbeitsweise), Profil Kosten (`profil-kosten.md` „Offen, Fragen“ 1)
 Kurz: Ohne Nutzungszahl keine Guthabenstufe; heute steht sie in `ARBEIT-BETRIEB.md`, das fällt.
-Beim Chef, weil: Geld; ändert Entschiedenes (Archiv 21.11., 14:37 D: der Haken trägt nur Freigabe und Antwort auf eine Frage aus fremder Sitzung ein)
+Beim Chef, weil: Geld; ändert Entschiedenes (Archiv 21.11., 14:37 D: „Haken trägt Chefwort aus fremder Sitzung in die Vorgangsdatei“; eine Nutzungszahl hat keine Vorgangsnummer, D greift dann nicht)
 
 Geprüft an: https://github.com/tramour-cmyk/androidapp_rpg_bornim/commit/74cef86e3 (`docs/entwurf/1727-muster/profil-kosten.md`:20–26; `profil-disponent.md`:24; `docs/ARBEIT-BETRIEB.md`:20)
 
