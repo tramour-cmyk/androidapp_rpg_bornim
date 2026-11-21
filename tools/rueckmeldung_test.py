@@ -142,6 +142,13 @@ open(seite, "w").write("session_TOM | idle | 2026-11-21T19:30:00Z | Tom – 9005
 aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
 soll("Frist ab, Halter ruht: wieder offen, Zeile NICHTS", frei == ["9005-Ü1"] and "| offen |" in datei("9005") and aus and aus[0].startswith("NICHTS Übergabe: 9005-Ü1 wieder offen"), (frei, aus, datei("9005")))
 os.environ["BORNIM_JETZT"] = "21.11., 20:30"
+import auftrag as _af
+ad = os.path.join(d, "adocs"); os.makedirs(os.path.join(ad, "vorgang"))
+soll("ohne Vorgangsdatei: kein Auftrag; M? braucht keinen", lauf.auftrag_fehlt("9001", ad) == "kein Auftrag" and lauf.auftrag_fehlt("M?", ad) is None)
+open(os.path.join(ad, "vorgang", "9001.md"), "w").write("# Vorgang 9001\n\n## Auftrag (21.11., 20:00)\n\n" + _af.vorlage("9001", "x"))
+soll("leere Vorlage: Auftrag ungültig", (lauf.auftrag_fehlt("9001", ad) or "").startswith("Auftrag: Feld 1"))
+open(os.path.join(ad, "vorgang", "9001.md"), "a").write("\n## Auftrag (21.11., 20:30)\n\nAuftrag 9001\n\n" + "\n".join("%d. **%s:** etwas Inhalt hier" % (i, f) for i, f in enumerate(_af.FELDER, 1)) + "\n\n## Übergaben\n\nx\n")
+soll("jüngster Auftrag gültig: Start erlaubt", lauf.auftrag_fehlt("9001", ad) is None)
 soll("Archivschutz: 1 Min. bis zur Umschaltung, scharf 15 Min. (1739, 7.1)", lauf.schutz_min(False) == 1 and lauf.schutz_min(True) == 15)
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))

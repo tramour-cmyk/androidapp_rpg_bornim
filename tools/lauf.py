@@ -582,6 +582,24 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
 def ist_scharf():
     return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
 
+def auftrag_fehlt(nr, docs=None):
+    """1739 (7.1 „kein Start ohne Feld Zurück“): Grund, warum Vorgang nr keinen gültigen Auftrag hat (jüngster Abschnitt
+    „## Auftrag (…)“ in docs/vorgang/<Nr>.md, geprüft mit auftrag.pruefen: sieben Felder, „Zurück“ mit Inhalt, höchstens 2 KB),
+    sonst None. Zeilen ohne Nummer (M?, Stillstand, Kosten) brauchen keinen."""
+    if not re.match(r"\d", str(nr)): return None
+    p = os.path.join(docs or DOCS, "vorgang", "%s.md" % nr)
+    text = lesen(p) if os.path.isfile(p) else ""
+    ms = list(AUFTRAG_KOPF.finditer(text))
+    if not ms: return "kein Auftrag"
+    teil = text[ms[-1].end():]
+    n = re.search(r"(?m)^## ", teil)
+    try:
+        import auftrag as _a
+        f = _a.pruefen((teil[:n.start()] if n else teil).strip())
+    except Exception as e:
+        return "Auftrag nicht geprüft (%s)" % e
+    return ("Auftrag: " + "; ".join(f[:2])) if f else None
+
 ARCHIV_SCHUTZ_MIN = 15
 def schutz_min(scharf=None):
     """1739 (7.1 „Archivieren mit Schutz 15 Minuten“; Büro-Gegenüberstellung: „nie binnen 15 Minuten nach der letzten Chefnachricht“):
@@ -1064,6 +1082,12 @@ def main():
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
         muss = [x for x in muss if x[0] not in ausschluss]; kuer = [x for x in kuer if x[0] not in ausschluss]
+        if ist_scharf():  # 1739 (7.1): kein Start ohne Feld „Zurück“ (gültiger Auftrag in docs/vorgang/<Nr>.md)
+            ohne_a = [(x[0], g) for x in muss + kuer if (g := auftrag_fehlt(x[0]))]
+            if ohne_a:
+                weg = {n for n, _ in ohne_a}
+                muss = [x for x in muss if x[0] not in weg]; kuer = [x for x in kuer if x[0] not in weg]
+                ausgabe.append("NICHTS %s: ohne gültigen Auftrag nicht gestartet (7.1, `vorgang.py auftrag <Nr>`): %s" % (r, "; ".join("%s %s" % x for x in ohne_a[:5])))
         wahl = (muss[0] if muss else None) or (kuer[0] if kuer and r in MIT_KUER and not nur_muss else None)
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
