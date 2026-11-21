@@ -44,7 +44,9 @@ for t, w in [("nein, Auftrag: Prüffrage am Ziel vorbei", {"nein, Auftrag"}), ("
              ("„steckt fest“ beim Licht", {"steckt fest"}), ("neinsager", set()),
              ("**Spike** [21.11., 20:41] nein, Auftrag: x", {"nein, Auftrag"}), ("Spike [21.11., 20:41]: steckt fest", {"steckt fest"}),
              ("**Jerry** [21.11., 20:41]\nnein", {"nein"}), ("**Tom**: Frage zum Licht", {"Frage"}), ("Tom 2 [21.11., 20:41] fertig", {"fertig"}),
-             ("Nein [Hof] steckt fest", {"nein", "steckt fest"})]:
+             ("Nein [Hof] steckt fest", {"nein", "steckt fest"}),
+             ("**nein, Auftrag**: falsch", {"nein, Auftrag"}), ("**steckt fest**: Licht", {"steckt fest"}), ("**Frage:** welcher Text?", {"Frage"}),
+             ("**Nein.** steckt fest", {"nein", "steckt fest"}), ("**Frage** zum Licht", {"Frage"}), ("**Spike** [21.11.2026, 20:41] nein", {"nein"})]:
     soll("Wort %r" % t[:25], rm.worte(t) == w, rm.worte(t))
 
 # 2 B: erstes „steckt fest“ an Sokrates, zweites an den Chef (ruht)
