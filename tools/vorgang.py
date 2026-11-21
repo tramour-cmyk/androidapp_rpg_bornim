@@ -31,12 +31,18 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        committen; sonst hält die Commit-Prüfung an.
   vorgang.py archivbereich [NR=Bereich …]   Bereichsfeld im Archiv (LISTE-VORGAENGE-ARCHIV.md): jedes ungültige nach
                                        bereiche.einordnen(), die genannten Nummern fest (686, D90.3); meldet, was „? unbekannt“ bleibt
+Übergabe (1760, 1727 Gesamtbild 3.3 Fassung 2; Zeile in docs/vorgang/NR.md, gepusht wie der Zähler, Nachricht nur Wecker):
+  vorgang.py uebergabe NR AN "was"     Zeile „offen“, dann WECKER-Zeilen (send_message „sieh in NR (Kennung)“ an die Sitzung aus der Besetzung)
+  vorgang.py annehmen KENNUNG [--frist MIN] · verlaengern KENNUNG [--frist MIN] · erledigt KENNUNG · freigeben (vor „Nachfolger:“)
+  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen; abgelaufene Frist eines ruhenden Halters wird wieder offen
+                                       (Einzelheiten: tools/uebergabe.py)
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
 import os, re, sys, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar
 import bereiche  # 651
+import uebergabe  # 1760
 
 DOCS = startbar.DOCS
 ROLLEN = startbar.BESITZER
@@ -775,6 +781,8 @@ def haupt(a):
         if not a or a[0] == "--startbar": return ansicht(rolle, bool(a))
     if not a: print(__doc__); sys.exit(2)
     b = a[0]
+    if b in uebergabe.BEFEHLE:  # 1760
+        r = uebergabe.haupt(a); sys.exit(3 if r == "BELEGT" else 0)
     if b == "pruefen":
         f = startbar.pruefen_liste()
         for nr, x in f: print("%s: %s" % (nr, x))
