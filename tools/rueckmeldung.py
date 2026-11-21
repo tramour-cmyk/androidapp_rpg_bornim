@@ -102,6 +102,16 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False):
     return None, None
 
 
+def _datei(nr):
+    """Vorgangsdatei nach dem Eintrag: lokal, sonst von origin/main (1789: neue Datei, Notizkopie mit ungepushten Änderungen
+    zog nicht nach; Absturz FileNotFoundError nach erfolgreichem Push, ein zweiter Aufruf trug doppelt ein)."""
+    p = os.path.join(ue.WURZEL, ue._pfad(nr))
+    if os.path.exists(p): return open(p, encoding="utf-8").read()
+    import subprocess
+    r = subprocess.run(["git", "-C", ue.WURZEL, "show", "origin/main:" + ue._pfad(nr)], capture_output=True, text=True)
+    return r.stdout if r.returncode == 0 else ""
+
+
 def ruht(text):
     return re.search(r"(?m)^Zustand: " + re.escape(RUHT), text) is not None
 
@@ -188,14 +198,14 @@ def haupt(a):
         sys.exit("vorgang.py rueckmeldung: %s; nichts geschrieben" % e)
     if grund != "schon eingetragen":  # 1739 Lehrenbuch, „Roh sammeln“: ja mit Ursache, zweites Nein
         import lehren
-        dt = open(os.path.join(ue.WURZEL, ue._pfad(a[0])), encoding="utf-8").read() if os.path.exists(os.path.join(ue.WURZEL, ue._pfad(a[0]))) else ""
+        dt = _datei(a[0])
         r = lehren.roh_aus_rueckmeldung(a[0], a[1], wer, dt, zaehlen(dt)["nein"])
         if r: print("LEHRENBUCH %s angehängt" % r)
     if not k:
         print("EINGETRAGEN %s: %s" % (a[0], grund))
         if grund != "schon eingetragen": nein_waechter(a[0], a[1])
         return
-    zeile = [x for x in ue.zeilen(open(os.path.join(ue.WURZEL, ue._pfad(a[0])), encoding="utf-8").read()) if x["k"] == k]
+    zeile = [x for x in ue.zeilen(_datei(a[0])) if x["k"] == k]
     an = zeile[0]["an"] if zeile else "?"
     print("EINGETRAGEN %s, OFFEN %s an %s%s" % (a[0], k, an, (" (%s → %s)" % (grund, RUHT)) if grund else ""))
     if grund: liste_ruht(a[0], grund)
