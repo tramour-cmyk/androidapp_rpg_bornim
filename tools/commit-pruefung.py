@@ -439,6 +439,28 @@ def zweig_doppelt():
 def _blob(rev, p):
     return git("rev-parse", "-q", "--verify", "%s:%s" % (rev, p)).strip()
 
+ROLLEN_GL = ("Sokrates", "Perikles", "Homer", "Diogenes", "Ford", "Tom", "Jerry", "Spike", "Tuffy")
+try:  # 1783 (1739): Gegenleser auch mit Rufnamen
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import rufname as _rufname
+    RUFNAMEN = sorted(_rufname.ALLE)
+except Exception: _rufname, RUFNAMEN = None, []
+GEGENGELESEN = re.compile(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(%s)\b.*\d\d?:\d\d" % "|".join(ROLLEN_GL + tuple(RUFNAMEN)))
+
+def gegenleser_rolle(g):
+    """1783: Rolle des Gegenlesers einer Zeile „Gegengelesen: …“: Rollenname selbst; beim Rufnamen die Rolle in Klammern
+    („Anna (Tom) 21.11., 22:00“, auch „(Rolle Tom; …)“) oder der Besitzer des Vorgangs („Anna – 1739 …“); sonst None."""
+    n = g.group(1)
+    if n in ROLLEN_GL: return n
+    rest = g.group(0)[g.end(1) - g.start(0):]
+    m = re.match(r"\s*\(\s*(?:Rolle\s+)?(%s)\b" % "|".join(ROLLEN_GL), rest)
+    if m: return m.group(1)
+    if _rufname and re.match(r"\s*–\s*\d", rest):
+        try: b = _rufname.bereich(n + " " + rest.strip().split(":")[0].strip())
+        except Exception: b = None
+        if b: return b.strip("*").split()[0]
+    return None
+
 def veraltet():
     """1778 (D329.4): Dateien, die im Index auf einen früheren Stand des Zweigs zurückfallen (Blob gleich einem der letzten
     zehn Stände laut Reflog, aber anders als HEAD). So sieht ein veralteter Index aus, nachdem eine andere Arbeitskopie den
@@ -697,7 +719,7 @@ def main():
     for s, p in dat:  # 866 (Chef 10.11., 13:34, t274: 7 von 18 Prüfzeilen fehlerhaft): neue Prüfliste nur gegengelesen
         if not (s == "A" and re.match(r"docs/chefsache/ansehen/t\d+-[^/]+\.md$", p)): continue
         inhalt = git("show", ":" + p)
-        gl = re.search(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(Sokrates|Perikles|Homer|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)\b.*\d\d?:\d\d", inhalt)
+        gl = GEGENGELESEN.search(inhalt)
         if not gl:
             stop.append("%s: Zeile „Gegengelesen: <Rolle> <TT.MM., HH:MM>“ fehlt; Entwurf zuerst nach docs/entwurf/, eine Sitzung außerhalb des Teams prüft je Punkt "
                         "(aus frischem Spielstand am Gerät erreichbar, Weg genannt, sinnvoll) und trägt die Zeile im Entwurf ein; nach ansehen/ "
@@ -706,11 +728,15 @@ def main():
         # 881 (D139.1): nie das eigene Team; Team aus Zeile 1 („# <Team oder „Tom und Jerry“> · Build …“), Spike zählt zu Tom, Tuffy zu Jerry
         kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
         def eigen(g):
-            team = {"Tuffy": "Jerry"}.get(g.group(1), g.group(1))  # 1328: Spike eigenes Team
+            team = {"Tuffy": "Jerry"}.get(gegenleser_rolle(g), gegenleser_rolle(g))  # 1328: Spike eigenes Team
             return team in ("Tom", "Jerry", "Spike") and re.search(r"\b(%s)\b" % "|".join([team] + (["Tuffy"] if team == "Jerry" else [])), kopf)
         # 1410 (Jerry, t292): jede Zeile „Gegengelesen“ zählt; eine von außerhalb des Teams genügt (Sokrates bei Listen beider Teams)
-        alle = list(re.finditer(r"(?m)^\W*Gegengelesen:?\**\s*(?:von\s+)?(Sokrates|Perikles|Homer|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)\b.*\d\d?:\d\d", inhalt))
-        if all(eigen(g) for g in alle):
+        alle = list(GEGENGELESEN.finditer(inhalt))
+        ohne = [g.group(1) for g in alle if not gegenleser_rolle(g)]
+        if ohne:  # 1783: Rufname ohne Bereich: das eigene Team ließe sich nicht ausschließen
+            stop.append("%s: „Gegengelesen: %s“ ohne Rolle; mit Rufnamen „Gegengelesen: <Rufname> (<Rolle>) <TT.MM., HH:MM>“ oder "
+                        "„<Rufname> – <Nr> …“ (Bereich = Besitzer des Vorgangs; 881, 1783)" % (p, ", ".join(ohne)))
+        elif all(eigen(g) for g in alle):
             stop.append("%s: gegengelesen vom eigenen Team (%s, Zeile 1: %s); eine Sitzung außerhalb des Teams liest gegen (881)" % (p, gl.group(1), kopf.strip("# ").strip()))
         # 1199 (Chef 13.11., 18:30: „Wenn etwas zu tun ist durch mich, dann bitte den Eintrag, aber doch nicht vorher“): nach ansehen/
         # erst mit APK-Link in Zeile 2; bis dahin liegt die gegengelesene Liste in docs/entwurf/, der Bau liest sie dort (pruefliste.py)
