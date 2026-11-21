@@ -38,6 +38,9 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        (Einzelheiten: tools/uebergabe.py)
   vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE]   Chefwort wörtlich in docs/vorgang/NR.md und
                                        offene Zeile an den Arbeitsplaner (1762 Haken D; Einzelheiten: tools/chefwort.py)
+  vorgang.py rueckmeldung NR "Text" [--sitzung ROLLE]   Rückmeldung wörtlich in docs/vorgang/NR.md; „steckt fest“, „Frage“,
+                                       „wirkt nein“ → Zeile an Sokrates, „nein, Auftrag“ → Arbeitsplaner; Obergrenzen A, B → ruht, beim
+                                       Chef (1763; Einzelheiten: tools/rueckmeldung.py)
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
 import os, re, sys, subprocess
@@ -787,6 +790,8 @@ def haupt(a):
         r = uebergabe.haupt(a); sys.exit(3 if r == "BELEGT" else 0)
     if b == "chefwort":  # 1762
         import chefwort; return chefwort.haupt(a)
+    if b == "rueckmeldung":  # 1763
+        import rueckmeldung; return rueckmeldung.haupt(a)
     if b == "pruefen":
         f = startbar.pruefen_liste()
         for nr, x in f: print("%s: %s" % (nr, x))

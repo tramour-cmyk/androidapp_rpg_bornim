@@ -503,6 +503,33 @@ def sokrates_ziel(s, ss):
     neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
     return ",".join(kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"])))
 
+def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, docs=None):
+    """1763 C (Chef 21.11., 14:37): offene Übergabezeilen an Sokrates („steckt fest“, „Frage“, „wirkt nein“, Obergrenze A/B → an den Chef)
+    → Sokrates wecken (WEITER) oder starten; steht schon eine Sokrates-Zeile dieses Laufs, kommt der Auftrag dazu (nie zwei Sokrates)."""
+    try:
+        import uebergabe as _ue
+        so_z = _ue.offen_lokal("Sokrates", docs or DOCS)
+    except Exception:
+        so_z = []
+    if so_z:
+        teil = "Offene Zeilen an dich (1763 C): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; „an den Chef“: Chefsache-Datei nach Muster, nicht selbst lösen; fertig: `vorgang.py erledigt <Kennung>`." % "; ".join("%s %s" % (k, w) for k, w in so_z[:6])
+        i = next((j for j, z in enumerate(ausgabe) if z.startswith("START Sokrates |") or (z.startswith("WEITER ") and " | Sokrates | " in z)), None)
+        if i is not None:
+            ausgabe[i] = ausgabe[i].replace(" | Stellungnahme | ", " | Stellungnahme | %s " % teil, 1) if ausgabe[i].startswith("WEITER ") else ausgabe[i] + "\\n\\n" + teil
+        else:
+            tok_so = lambda s: s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9
+            laeuft_so = [s for s in je_rolle.get("Sokrates", []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
+            klein = [s for s in laeuft_so if tok_so(s) < WEITER_TOKEN] if laeuft_so else [s for s in je_rolle.get("Sokrates", []) if s["id"] not in archiviert and s["_info"][2] < WEITER_MIN and tok_so(s) < WEITER_TOKEN]
+            if klein:
+                ausgabe.append("WEITER %s | Sokrates | 1763 C | %s" % (juengste(klein)["id"], teil))
+            elif laeuft_so:
+                ausgabe.append("NICHTS Sokrates: %d offene Zeile(n) warten (1763 C), Sokrates läuft (Token über %d Tsd. oder unbekannt)" % (len(so_z), WEITER_TOKEN // 1000))
+            else:
+                ausgabe.append("START Sokrates | opus%s | %s | %s | %s | Sokrates – 1763 C: offene Zeilen (%s) | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), ("Sokrates\n\n" + teil + " Zuerst Start nach deiner Rollendatei.").replace("\n", "\\n")))
+                vorgaenger("Sokrates")
+    return so_z
+
+
 def juengste(ss):
     """Die zuletzt tätige Sitzung eines Bereichs (261.6): späteres updated_at, bei Gleichstand späteres created_at."""
     return max(ss, key=lambda x: (z(x["updated_at"]), z(x["created_at"])))
@@ -1099,6 +1126,7 @@ def main():
                 ausgabe.append("START Sokrates | opus%s | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
                 vorgaenger("Sokrates")  # 261.5 (2): die ruhende alte Sitzung gleich danach archivieren, nicht zwei Sokrates nebeneinander
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
+    sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger)  # 1763 C
     try:  # 383: Wartewächter
         ww, wm = waechter(je_rolle, marke_text); ausgabe += ww; wochen += wm
     except Exception as e:

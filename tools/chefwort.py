@@ -106,12 +106,7 @@ def eintragen(nr, wort, zeit, wer, sid=""):
         t = ue._mit_abschnitt(alt, nr)
         if block in t:
             return alt, None
-        teile = t.split("\n## Übergaben\n", 1)
-        vorn = teile[0].rstrip("\n")
-        if "\n## Chefworte\n" not in "\n" + vorn + "\n":
-            vorn += "\n\n## Chefworte\n\nWörtlich, mit Zeit; trägt `chefwort.py` ein (Haken D, 1762).\n"
-        vorn = vorn.rstrip("\n") + "\n\n" + block
-        t = vorn + "\n## Übergaben\n" + teile[1]
+        t = ue.anhaengen(t, "Chefworte", "Wörtlich, mit Zeit; trägt `chefwort.py` ein (Haken D, 1762).", block)
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
         was = ue._rein("Chefwort %s aus Sitzung %s lesen (Abschnitt Chefworte)" % (zeit, wer or "unbekannt"))
