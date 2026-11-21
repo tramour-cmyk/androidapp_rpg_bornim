@@ -122,6 +122,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 14:47 21.11.: Startsperre 14:47 Start Sokrates (Neustart c019b53f1, 1727, Chef im Gespräch)
+- 20:22 21.11.: Startsperre 20:22 Start Jerry 1765, Diogenes 1718 lesend (Chef 20:20 „Jerry, ja, Diogenes, ja“, ea88cd39f)
 - 20:17 21.11.: Startsperre 20:17 Start Spike (Neustart nach 1760 gebaut b40f2d8b2; weiter 1762, 1763, 1739 …)
 - 20:06 21.11.: Startsperre 20:06 Start Tom, Jerry, Spike, Diogenes, Homer, Perikles, Tuffy (lauf.py, Tom 1535, Jerry 1068, Spike 458.3, Diogenes 1718, Homer 1628)
 - 20:06 21.11.: Marke Tagesbericht 21.11. (lauf.py)
