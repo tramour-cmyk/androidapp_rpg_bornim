@@ -73,6 +73,17 @@ with tempfile.TemporaryDirectory() as t:
     g(a, "rm", "-q", cs)
     soll("Löschen einer Chefsache nach weiteren Commits: kein Rückfall", pruefen(a, "veraltet") == [], repr(pruefen(a, "veraltet")))
     g(a, "reset", "-q", "--hard", "HEAD")
+    # 1787 (Diogenes): Anlegen samt Vorratszeile, dann Löschen samt Folgeauftrag im Vorrat (auch: Zeile nur wieder weg)
+    cs2, vr = "docs/chefsache/entscheiden/1787-probe.md", "docs/ARBEIT-TEAM-JERRY.md"
+    os.makedirs(os.path.join(a, os.path.dirname(cs2)), exist_ok=True)
+    open(os.path.join(a, vr), "w").write("v0\n"); g(a, "add", vr); g(a, "commit", "-q", "--no-verify", "-m", "a: vorrat")
+    open(os.path.join(a, cs2), "w").write("Frage\n"); open(os.path.join(a, vr), "w").write("v0\nZeile 1787\n")
+    g(a, "add", cs2, vr); g(a, "commit", "-q", "--no-verify", "-m", "a: chefsache samt vorratszeile")
+    g(a, "rm", "-q", cs2); open(os.path.join(a, vr), "w").write("v0\nZu 1787: Folgeauftrag\n"); g(a, "add", vr)
+    soll("Löschen samt Folgeauftrag im Vorrat: kein Rückfall", pruefen(a, "veraltet") == [], repr(pruefen(a, "veraltet")))
+    open(os.path.join(a, vr), "w").write("v0\n"); g(a, "add", vr)
+    soll("Löschen samt Vorratszeile weg (wie vorher): kein Rückfall", pruefen(a, "veraltet") == [], repr(pruefen(a, "veraltet")))
+    g(a, "reset", "-q", "--hard", "HEAD")
     # veralteter Index, der eine neue Datei löschen würde, bleibt erkannt: b legt neu an, a steht auf dem alten Stand
     g(b, "checkout", "-q", "--ignore-other-worktrees", "-B", "main", "main"); open(os.path.join(b, "neu"), "w").write("x\n")
     open(os.path.join(b, "f"), "w").write("5\n"); g(b, "add", "neu", "f"); g(b, "commit", "-qm", "b: neu"); g(b, "checkout", "-q", "--detach")

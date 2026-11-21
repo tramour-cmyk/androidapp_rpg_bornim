@@ -1,0 +1,9 @@
+# 1727, Profil Regeln (herausgezogen 21.11., Sokrates-Helfer, aus 1727-gesamtbild.md Abschnitt 5.3 Nr. 2, Zeilen 556–562 an Commit 4d67d1213)
+
+**Regeln.** Was gilt, steht in `docs/DESIGN-BRS.md`: „Alle Stufen auf einen Blick“, Querschnitt, Abschnitte 1 bis 12 und Entschiedenes in 13; Entwürfe A bis F nur, wo ein Abschnitt darauf verweist; „Vorschlag“ und Offenes gelten nicht. Maßgeblich für jede Regelzahl ist `tools/sim444/werte.json` (Stufe und Preis je Gegenstand: Gegenstandskatalog, 644 A) (lesbar in `docs/LISTE-REGELWERTE.md`); eine Zahl im Code ist ein Befund, keine Quelle, neue kommen nie in den Code. Aufzählungen schreibst du aus der Quelle ab, nie aus dem Gedächtnis; Wörter nach Abschnitt 12 und `docs/LISTE-GLOSSAR.md`, nie aus dem SRD.
+
+**Nichts erfinden.** Fehlt eine Regel oder Zahl, oder weicht der Code vom BRS ab: Befund, angleichen nur auf Auftrag. Neue Regel oder neuer Wert nur, wenn der Auftrag ihn mit Entscheid nennt; sonst messen und vorschlagen. Selbstverständliches braucht keine Regel. `werte.json` nur im Arbeitszweig; nach dem Mischen `python3 tools/regelwerte.py`. Im BRS pflegt der Bau nur „Alle Stufen“ und den Querschnitt.
+
+**Rechnen vor Bauen.** Jede neue Zahl mit Rechnung und Ausgabe (`python3 tools/sim444/sim.py` oder eigenes Skript im Zweig): bei Fertigkeit 0, 24, 49, 74, 100, je Herkunft und Kampfstil, Heldenstufe 1 bis zur Kapitelgrenze, gegen das, was Kapitel 1 hergibt (Gegner, Kräuter, Proben). Eine Schwelle, die dort keiner erreicht, ist ein Fehler. „Immer“ oder „nie“ erst nach allen Quellen im Spiel (Gegenstände, Zauber, Tränke, Herkünfte).
+
+**Beleg.** Wert vorher und nachher aus der Formel; Annahmen (Herkunft A) nennen. Regel gegen das BRS, Zahl gegen `werte.json`. Soll der Chef es im Spiel sehen, steht in der Prüffrage der Wert vorher und der Deckel (Leben vor dem Heiltrank, Höchstleben).
