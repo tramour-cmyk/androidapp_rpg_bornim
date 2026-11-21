@@ -94,7 +94,7 @@ Allgemeine Lücken (gelten für mehrere Fälle):
 
 1. Schritte:
    1. `python3 tools/vorgang.py offen Sokrates` bestätigt beide Zeilen.
-   2. `list_sessions` → Kurzform → `python3 tools/lauf.py --sperre --besetzung /tmp/s.txt`. `sokrates_zeilen()` gibt genau eine `START Sokrates | opus | … | Sokrates – 1763 C: offene Zeilen (21.11., 23:10) | Sokrates\n\nOffene Zeilen an dich (1763 C): <K1> Frage …; <K2> Frage …` aus, mit beiden Zeilen in einem Start.
+   2. `list_sessions` → Kurzform → `python3 tools/lauf.py --sperre --besetzung /tmp/s.txt`. `sokrates_zeilen()` gibt genau eine `START Sokrates | <Modell> | … | Sokrates – 1763 C: offene Zeilen (21.11., 23:10) | Sokrates\n\nOffene Zeilen an dich (1763 C): <K1> Frage …; <K2> Frage …` aus, mit beiden Zeilen in einem Start.
    3. Notizen pushen (die Startsperre steht dann auf `main`).
    4. `create_session` mit allen Feldern der Zeile (source_url, source_revision main, environment_id, Titel, erste Nachricht).
 2. Was ich nicht tue:
