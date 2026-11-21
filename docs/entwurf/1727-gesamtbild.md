@@ -349,6 +349,20 @@ Ergänzt 19.11., 22:33 (Chef 22:31: „Neuer Kern los“) um Lieferzeit (Chef 22
 
 **Nicht geschrieben.** Vorschlag Sokrates (nicht entschieden): Release, Kosten und Guthaben. Was täglich läuft, gehört in den Kern.
 
+### 3.3 Übergabekette, laufende Sitzungen, Quittung (Entwurf 21.11., 09:43, Gegenprüfung läuft; Werkzeug 1760 Spike)
+
+Anlass: Prüfung 20.11., 21:40 Befund 2 (8–10 Übergaben über das Büro, heute etwa 3). Chef 20.11., 23:45: „Aber Büroprofile sind doch bewusst unterschiedlich gehalten“ (Zusammenlegen von Disponent und Arbeitsplaner zurückgezogen); 21.11., 08:31: „es muss doch nicht zwangsläufig jedes Mal eine neue Sitzung aufgemacht werden. Manche Arbeitsbereiche laufen doch einfach“; 09:41: „darf nicht passieren, dass … eine Nachricht in die Sitzung geschickt wird und gleichzeitig ein Neustart läuft und die Nachricht untergeht … zig Nachrichten im Büro … muss ja auch koordiniert werden … zur Fehlerbehebung zurück muss, aber die schon einen anderen Job hat“; 09:43 „so prüfen“.
+
+1. **Aufbau Büro:** Kern Büro = Gemeinsames (Meldeweg, Vorgangsdatei, Sperre `main`, Rückläufer); Profil Disponent (Eingang, verteilen, Vorrang, Guthaben); Profil Arbeitsplaner (heute Kern Arbeitsplaner 4.1).
+2. **Weiterreichen im Werkzeug:** `lauf.py` liest das erste Wort der Rückmeldung und gibt weiter („fertig“ → Prüfer, „ja“ → Testbitte bzw. Tester, „nein“ → dieselbe Fachkraft, „nein, Auftrag“ und Fund des Chefs → Arbeitsplaner); der Disponent nur für Urteile (neuer Eingang, „Frage“, „steckt fest“, Guthaben).
+3. **Laufende Sitzungen:** Disponent, Arbeitsplaner, Prüfer laufen, solange Arbeit da ist; Fachkraft je Themenblock; Leitung im Gespräch; Tester und Routinen je Lauf neu. Übergabe an eine laufende Sitzung = Nachricht; neue Sitzung nur, wenn keine läuft, bei neuem Block oder Profil oder nach Neustart-Haken.
+4. **Datei ist Gedächtnis, Nachricht nur Wecker:** jede Übergabe zuerst als Zeile in die Vorgangsdatei (Kennung, an wen, was, Zeit, „offen“), dann Nachricht; Empfänger setzt „angenommen“; nach einigen Minuten „offen“ → erneut wecken oder neue Sitzung; während eines Neustarts Bereich „im Neustart“, Übergaben warten in der Datei, die neue Sitzung liest alle offenen Zeilen ihres Bereichs; feste Kennung: „angenommen“ wird nie zweimal ausgeführt.
+5. **Büro-Liste:** Urteilsfälle in fester Folge (Fund des Chefs, „Eilt“, Eingangszeit); das Büro nimmt die oberste, eine nach der anderen.
+6. **Bindung der Fachkraft:** an ihren Auftrag gebunden bis „ja“ des Prüfers, erst dann der nächste; andere Aufträge desselben Blocks an eine zweite Fachkraft; fällt sie aus, übernimmt eine neue Sitzung aus der Vorgangsdatei (Auftrag, Bisher, Satz des Prüfers).
+7. **Kette meist:** Arbeitsplaner → Fachkraft → Prüfer → Chef (3 Übergaben, Nachrichten), bei neuem Eingang Disponent davor. Falltest misst Zeit je Übergabe (Anhalt 5 Minuten, Chef 19.11., 22:16) und Kosten gegen heute.
+
+Stärkstes Gegenargument: neue Mechanik (Quittung, erneutes Wecken, „im Neustart“) kann selbst Fehler haben, etwa Doppelarbeit; lange laufende Sitzungen werden je Zug teurer. Abhilfe: Kennung gegen Doppelausführung, Test mit Neustart und doppelter Nachricht (1760), Neustart-Haken begrenzt die Länge.
+
 ## 4 Arbeitsplaner (Büro)
 
 ### 4.1 Kern Arbeitsplaner
