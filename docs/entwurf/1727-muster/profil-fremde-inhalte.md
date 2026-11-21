@@ -1,4 +1,4 @@
-# 1727, Querprofil Fremde Inhalte; Spieltext einbauen (Gesamtbild 5.3 Nr. 12; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.169 → 1.169 Byte; ganze Datei 18.050 → 19.499 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 8 (Sokrates 21.11., 22:51, Nachprüfung 22:47): Ladesumme Arbeitsplaner mit Kern Büro (Stand 43b57854c), Quelle 1 Archiv 348.12c a; Teil A unverändert 1.169; ganze Datei 19.499 → 20.234 Byte (Messregel)
+# 1727, Querprofil Fremde Inhalte; Spieltext einbauen (Gesamtbild 5.3 Nr. 12; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.169 → 1.169 Byte; ganze Datei 18.050 → 19.499 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 8 (Sokrates 21.11., 22:51, Nachprüfung 22:47): Ladesumme Arbeitsplaner mit Kern Büro (Stand 43b57854c), Quelle 1 Archiv 348.12c a; Teil A unverändert 1.169; ganze Datei 19.499 → 20.234 Byte (Messregel) · Fassung 9 (Sokrates 21.11., 22:5x, Konsolidierung): Teil A 1.168 Byte (Messregel; vorher mit Zeilenende 1.169); Ladesumme Arbeitsplaner mit Kern Büro 680 = 5.514; ganze Datei 20.234 → 20.976 Byte (Messregel)
 
 Auftrag: Gesamtbild 5.3 Nr. 12 „Fremde Inhalte; Spieltext einbauen, quer, fehlt“ (Quellen `CLAUDE.md` „Technik und Sicherheit“, `LISTE-QUELLEN.md`; `STORY-REGELN.md`, `LISTE-GLOSSAR.md`); G:781 „quer: Fremde Inhalte (Lizenz, Quelle, Urheber je Datei) · Spieltext einbauen (Wortlaut aus `STORY-REGELN.md`, Begriffe aus `LISTE-GLOSSAR.md`)“; Reihenfolge Schritt 2 (`reihenfolge.md`:11). Form wie `profil-technik.md` F12; neue Profile kurz (Archiv 20.11., 14:02).
 
@@ -105,3 +105,9 @@ Mein Wort (Sokrates): alle **stimmt**. 1 Zitate aus `CLAUDE.md` „Technik und S
 ## Nachprüfung 22:47, mein Wort
 
 Mein Wort (Sokrates): alle **stimmt**. 1 Ladesumme Arbeitsplaner ohne Kern Büro: **stimmt, eingearbeitet**, in „Größe Fassung 6“: Sockel 1.110 + Kern Büro 2.351 (`kern-buero.md` nach Messregel, Stand 43b57854c) + Kern Arbeitsplaner 2.556 + Teil A 1.169 = 7.186 Byte; der schmale Kern Büro (etwa 0,5 KB) ist in Arbeit und noch nicht an `main` · 2 Quelle 1 „348.12c a“ als Verweis in `CLAUDE.md`: **stimmt, eingearbeitet**, „(Archiv 348.12c a; seit 4c59553b3 ohne Verweis)“, an `main` geprüft (`CLAUDE.md` ohne „348.12c“). Teil A unverändert 1.169 Byte.
+
+Größe Fassung 9: Teil A 1.168 Byte (Messregel; vorher mit Zeilenende 1.169). Ladesumme Arbeitsplaner mit diesem Querprofil: Sockel 1.110 + Kern Büro 680 (`kern-buero.md` Fassung 2, Ladetext bis „## Verlauf“, Messregel, Stand 8c4da3b8d) + Kern Arbeitsplaner 2.556 + Teil A 1.168 = 5.514 Byte (ohne Kern Büro 4.834). Ladesumme Fachkraft: Sockel 1.110 + Auftrag bis etwa 2 KB + Fachprofil (650–1.740) + 1.168, bis etwa 6,0 KB.
+
+## Konsolidierung 22:5x, mein Wort
+
+Mein Wort (Sokrates), Fassung 9: **stimmt, eingearbeitet**. Teil A nach Messregel 1.168 statt 1.169 (vorher mit Zeilenende) · Ladesumme Arbeitsplaner mit schmalem Kern Büro 680 Byte (Stand 8c4da3b8d): 7.186 → 5.514 Byte; ohne Kern Büro 4.835 → 4.834 (Messregel).

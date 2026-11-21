@@ -1,4 +1,4 @@
-# 1727, Profil Werkzeug (Gesamtbild 5.3 Nr. 11; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.104 → 1.104 Byte; ganze Datei 19.198 → 20.547 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 8 (Sokrates 21.11., 22:51, Nachprüfung 22:47): Ladesumme mit „Stand 43b57854c“, „F7 (22:39)“; Teil A unverändert 1.104; ganze Datei 20.547 → 20.971 Byte (Messregel)
+# 1727, Profil Werkzeug (Gesamtbild 5.3 Nr. 11; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.104 → 1.104 Byte; ganze Datei 19.198 → 20.547 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 8 (Sokrates 21.11., 22:51, Nachprüfung 22:47): Ladesumme mit „Stand 43b57854c“, „F7 (22:39)“; Teil A unverändert 1.104; ganze Datei 20.547 → 20.971 Byte (Messregel) · Fassung 9 (Sokrates 21.11., 22:5x, Konsolidierung): :24 Profil Disponent F9 (1794); Teil A 1.103 Byte (Messregel; vorher mit Zeilenende 1.104); Ladesumme Arbeitsplaner mit Kern Büro 680 = 5.449; ganze Datei 20.971 → 21.621 Byte (Messregel)
 
 Auftrag: Gesamtbild 5.3 Nr. 11 „Werkzeug, Fach, fehlt“ (Quelle `LISTE-BETRIEB.md`, Bauliste 7); Reihenfolge Schritt 2 vor dem Falltest (`reihenfolge.md`:11); Chef 21.11., 20:06: „Uns fehlen die restlichen Werkzeuge. Die müssen wir jetzt machen.“ Form wie `profil-technik.md` F12; neue Profile kurz (Archiv 20.11., 14:02).
 
@@ -21,10 +21,10 @@ Quellen: `CLAUDE.md` (Feste Regeln „Jeder Schritt“, „Notizen nur auf `main
 ## Aufbau
 
 - **Profil Technik Teil A, Satz „Ein Werkzeug (nicht Spielcode) geht nach grünem Lauf sofort nach `main`.“** bleibt (1727a zurückgezogen, 21:18; `sammelvorlage.md`:7): Profil Werkzeug gilt nur für Firmenwerkzeuge, der Satz 1311 in Profil Technik trägt die Werkzeuge im Spielbau.
-- **Profil Disponent F7, Teil A „Fertig“** (`profil-disponent.md`:20) nennt als Ausnahmen vom Test des Chefs nur „ohne dich“ und Kleinkram; die Ausnahme 1311 (Werkzeug) fehlt (dort vermerkt als Offen 5). Nachtrag beim Besitzer des Entwurfs (Perikles, Vorgang 1773).
+- **Profil Disponent F9:** Ausnahme 1311 als Vorschlag in :20, Perikles prüft (1794).
 - **Notizen schreibende Werkzeuge:** `CLAUDE.md` nennt als Ausnahmen nur `vorgang.py` (275) und den Bildlink von `meldung.sh` (450); `lauf.py` schreibt aber Zähler, Besetzung, Protokoll (`LISTE-BETRIEB.md` 4). Teil A schickt ein schreibendes Werkzeug, das die Bauliste 7.1 nicht so nennt, als „Frage“ zurück, statt eine Ausnahme zu erfinden. Damit die Werkzeuge von 1727 selbst nicht jedes Mal „Frage“ werden, kommt die Liste der Notizschreiber vor der Umstellung in 7.1 (Teil B).
 - **Zuschnitt:** „Werkzeuge der Teams“ in E Technik oder B Werkzeuge ist offen (G 0b „Offen für Sa“); bis dahin lädt der Arbeitsplaner Profil Werkzeug für Firmenwerkzeuge (B Werkzeuge), Werkzeuge im Spielbau (Bauskripte, Blender) bleiben bei Profil Technik bzw. dem Fachprofil.
-- **Auslöser im Kern Büro:** der Satz „Meldet ein Werkzeug einen Fehler: neuer Vorgang mit Profil Werkzeug“ (G:329, Entwurf 3.1) steht in der Gegenüberstellung F3 in der Spalte Kern Büro (`buero-gegenueberstellung.md`:10, Zeile „Werkzeuge“; Kern Büro schmal, Archiv 21.11., 11:46, auf BG F3 entschieden); dort übernehmen. Profil Disponent F7 (`profil-disponent.md`:28) führt ihn auch; ein Ort: Kern Büro, Streichen im Disponent als Nachtrag beim Besitzer (Vorgang 1773).
+- **Auslöser im Kern Büro:** der Satz „Meldet ein Werkzeug einen Fehler: neuer Vorgang mit Profil Werkzeug“ (G:329, Entwurf 3.1) steht in der Gegenüberstellung F3 in der Spalte Kern Büro (`buero-gegenueberstellung.md`:10, Zeile „Werkzeuge“; Kern Büro schmal, Archiv 21.11., 11:46, auf BG F3 entschieden); dort übernehmen. Profil Disponent F9 (`profil-disponent.md`:28) führt ihn auch; ein Ort: Kern Büro, Streichen im Disponent als Nachtrag beim Besitzer (Vorgang 1773).
 
 ## Teil A: Profil Werkzeug
 
@@ -105,3 +105,9 @@ Größe Fassung 7: Teil A 1.104 Byte (unverändert). Ladesumme Arbeitsplaner mit
 ## Nachprüfung 22:47, mein Wort
 
 Mein Wort (Sokrates): alle **stimmt**. Ladesumme Arbeitsplaner: **stimmt, eingearbeitet**, Kern Büro 2.351 Byte nach Messregel mit „Stand 43b57854c“ (der schmale Kern Büro ist in Arbeit, noch nicht an `main`); Summe 7.121 Byte unverändert · Fassung Profil Disponent: **stimmt, eingearbeitet**, „F7 (22:39)“ statt „22:3x“. Teil A unverändert 1.104 Byte.
+
+Größe Fassung 9: Teil A 1.103 Byte (Messregel; vorher mit Zeilenende 1.104). Ladesumme Arbeitsplaner mit diesem Profil: Sockel 1.110 + Kern Büro 680 (`kern-buero.md` Fassung 2, Ladetext bis „## Verlauf“, Messregel, Stand 8c4da3b8d) + Kern Arbeitsplaner 2.556 + Teil A 1.103 = 5.449 Byte (ohne Kern Büro 4.769). Ladesumme Fachkraft: Sockel 1.110 + Auftrag bis etwa 2 KB + 1.103, bis etwa 4,2 KB.
+
+## Konsolidierung 22:5x, mein Wort
+
+Mein Wort (Sokrates), Fassung 9: **stimmt, eingearbeitet**. :24 Profil Disponent auf F9 („Ausnahme 1311 als Vorschlag in :20, Perikles prüft (1794)“; vorher F7, 1773); :27 „F7“ → „F9“ (Satz :28 dort unverändert) · Teil A nach Messregel 1.103 statt 1.104 (vorher mit Zeilenende) · Ladesumme Arbeitsplaner mit schmalem Kern Büro 680 Byte (Stand 8c4da3b8d): 7.121 → 5.449 Byte.
