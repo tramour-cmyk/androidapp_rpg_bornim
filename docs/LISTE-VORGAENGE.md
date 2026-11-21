@@ -30,7 +30,7 @@
 | 568 | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | Tom | K | ruht | 23.11. | – | – | E Oberfläche | – |
 | 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | Tom | K | ruht | 870, 23.11. | – | – | E Welt | – |
 | 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | Tom | K | ruht | 23.11. | claude/spike-455-1-baukasten | – | E Figuren | 30,05 $ |
-| 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | ruht, bis 458.3 auf main (Modelle fehlen dort, kein Neues 10.11.) | 458.3 main, 23.11. | – | – | E Oberfläche | – |
+| 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | Tom | K | ruht, bis 458.3 auf main (Modelle fehlen dort, kein Neues 10.11.) | 458.3, 23.11. | – | – | E Oberfläche | – |
 | 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | Tom | K | ruht | 23.11. | – | – | B Werkzeuge | – |
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | Tom | K | ruht | 23.11. | claude/tom-2923-titelmodus | – | G Stil | – |
 | 145 | Karten je Kapitel zum Drucken | Tom | K | ruht | 23.11. | claude/tom-145-kartenmappe | – | E Welt | 6,22 $ |
