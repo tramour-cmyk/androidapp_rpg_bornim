@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **Tagesbericht, Herzschlag, Ladesumme** (Spike, 1739, 1780, 1788; Bauliste 1727): `tagesbericht.py` liest „Wo stehen wir“ neben „Rest geschätzt“, neue Zeile 11 „Fristen“ (Testbitten über 5 Tage, Fragen an den Chef mit Alter, Vorgänge ohne Auftrag, Einträge unter „Unveröffentlicht“, letztes Release), mit `tools/1727-SCHARF` ohne Halt der Vorratsprüfung; `herzschlag.yml` nachts (22–7 Uhr) lautlos, Test in `werkzeuge.yml`; neu `tools/ladesumme.py` (Byte je Sockel, Kern, Profil, Summe je Sitzung, vorher/nachher, `--alt` Startlektüre heute).
+
 - **Build-Werkzeug und Kerntest-Haken** (Jerry, 1765, Chef 21.11., 20:20; Build-Kette 1727): `tools/buildwerkzeug.py` prüft Spitze des Buildzweigs gegen den gepushten Stand und den Auftrag (`spitze`), frühere offene Builds enthalten samt Zeile „enthält alle früheren Builds“ (`zug`), Spielcode-Pfade getestet gegen Merge mit Kerntests (`pfade`), gebilligte Vorgänge auf `main` ohne Revert und ohne Verlust im Merge (`gebilligt`, Fall 1566); `commit-pruefung.py` hält Code ohne grünen Kerntest an (Marke nach Inhalt aus `tools/t logik`) und Spielcode auf `main` außer über `claude/build-…`; `buildzweig-haken.py` mit Muster `claude/build-<Name>`, unbekannte Rolle hält an; `godot.yml` Kerntestlauf auf `main` (Job `kerntest-main`).
 
 - **Buildzweig gehört Spike** (Spike, 1716, Chef 18.11., 22:29): `tools/buildzweig-haken.py` hält jeden Push einer anderen Rolle auf `claude/build-<n>` an; `godot.yml` bricht auf dem Buildzweig den laufenden Bau bei einem neuen Push nicht mehr ab, der neue wartet.
