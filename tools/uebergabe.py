@@ -118,6 +118,28 @@ def _mit_abschnitt(text, nr):
         text = text.rstrip("\n") + "\n\n## Übergaben\n\n" + KOPF
     return text
 
+def anhaengen(text, titel, einleitung, block):
+    """1762/1763: BLOCK ans Ende des Abschnitts „## TITEL“ (angelegt vor „## Übergaben“, falls er fehlt); Übergaben bleiben unten."""
+    text = _mit_abschnitt(text, "")
+    kopf = "\n## %s\n" % titel
+    if kopf not in "\n" + text:
+        i = text.index("\n## Übergaben\n")
+        text = text[:i].rstrip("\n") + "\n" + kopf + "\n" + einleitung + "\n" + text[i:]
+    a = ("\n" + text).index(kopf) - 1 + len(kopf)
+    n = text.find("\n## ", a)
+    vorn, hinten = text[:n], text[n:]
+    return vorn.rstrip("\n") + "\n\n" + block.rstrip("\n") + "\n" + hinten
+
+
+def abschnitt(text, titel):
+    """Inhalt des Abschnitts „## TITEL“ ("" wenn er fehlt)."""
+    kopf = "\n## %s\n" % titel
+    t = "\n" + text
+    if kopf not in t: return ""
+    a = t.index(kopf) + len(kopf); n = t.find("\n## ", a)
+    return t[a:] if n < 0 else t[a:n]
+
+
 def zeilen(text): return [m.groupdict() | {"m": m} for m in ZEILE.finditer(text)]
 
 def _ersetzen(text, z, zustand):
@@ -206,6 +228,17 @@ def _alle_dateien():
         rc, t, _ = _git("show", "origin/main:" + _pfad(nr))
         if rc: t = open(os.path.join(d, nr + ".md"), encoding="utf-8").read()
         yield nr, t
+
+def offen_lokal(an, docs=None):
+    """1763 C: offene Zeilen an AN aus den lokalen Vorgangsdateien, ohne Netz und ohne zu schreiben (für lauf.py): [(Kennung, was)]."""
+    d = os.path.join(docs, "vorgang") if docs else os.path.join(WURZEL, ORDNER)
+    aus = []
+    for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if not n.endswith(".md"): continue
+        try: t = open(os.path.join(d, n), encoding="utf-8").read()
+        except OSError: continue
+        aus += [(z["k"], z["was"]) for z in zeilen(t) if z["z"] == "offen" and z["an"].lower() == an.lower()]
+    return aus
 
 def freigeben():
     sid = sitzung(); n = 0
