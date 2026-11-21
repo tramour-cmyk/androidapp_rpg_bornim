@@ -1,20 +1,20 @@
-# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 6, Sokrates 21.11., 14:58)
+# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 7, Sokrates 21.11., 15:00)
 
 Auftrag Chef 21.11., 14:37: „Dann lass doch mal das Profil Technik erstellen, von dem wir so viel reden … Leg mal vor, check selbst, lass es gegenchecken und dann lass es mich sehen.“
 
 Geladen von: Fachkraft mit Profil Technik (Technik, Grafik, Leistung; Build-Macher), Arbeitsplaner und Prüfer bei Aufträgen dieser Art. Nicht hier: Firmenwerkzeuge im Einzelnen (Profil Werkzeug, Nr. 11; bis es steht, trägt Teil A die Regel 1311); wann ein Build fällig ist (Grobablauf 3.19.1) und wer den Build-Macher startet: Disponent. Was der Sockel trägt (Keystore, Zugangsdaten, App-Kennung, Verlauf, Spielcode nur nach Test), steht hier nicht. **Gilt ab der Umstellung;** bis dahin bleiben Checkliste und `ROLLE-TECHNIK.md` wie sie sind.
 
-Quellen: `ROLLE-TECHNIK.md` (Haltung, Aufgabe 2), `LISTE-CHECK-BUILD-TEST.md` (einzige Stelle für Build und Test, 903 B), `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md` (1270.5), `LISTE-RELEASE-NEUSTART.md`, `1727-muster/build-kette.md` (entschieden 19.11., 22:05: „Build Kette so, aber in großen Test am Samstag abend ebenfalls prüfen“), Gesamtbetrachtung (Prüfpunkt, entschieden 21.11., 11:17), Archiv 21.11., 14:37 D (Haken trägt Chefwort in die Vorgangsdatei).
+Quellen: `ROLLE-TECHNIK.md` (Haltung, Aufgaben 2 und 3), `LISTE-CHECK-BUILD-TEST.md` (einzige Stelle für Build und Test, 903 B), `LISTE-BAUEN-TESTEN.md`, `LISTE-TECHNIK-PRAXIS.md` (1270.5), `LISTE-RELEASE-NEUSTART.md`, `1727-muster/build-kette.md` (entschieden 19.11., 22:05: „Build Kette so, aber in großen Test am Samstag abend ebenfalls prüfen“), Gesamtbetrachtung (Prüfpunkt, entschieden 21.11., 11:17), Archiv 21.11., 14:37 D (Haken trägt Chefwort in die Vorgangsdatei).
 
 ## Aufbau
 
 - **Build-Kette 1–7 kommt in die Checkliste** (Teil B), nicht ins Profil; „Spike“ heißt dort künftig „Build-Macher“. Was dort „Werkzeug“ heißt, steht als Zeile „Build-Werkzeug“ in der Bauliste 7.1 (Gesamtbild); bis es gebaut ist, prüft der Build-Macher von Hand. Ihr Fall Build bleibt Pflicht im großen Falltest.
-- **Dein Wort nötig, 235** (20.10.: „Wer die Freigabe des Chefs hört, führt den PR selbst zusammen (meist Sokrates; Merge, nie Squash/Rebase)“; Grund damals: jede Prüfung sieht nur die eigene Sitzung). Vorschlag: die Freigabe trägt der Haken D in die Vorgangsdatei, der Disponent startet den Build-Macher, der führt zusammen. Das ersetzt die ersten beiden Sätze von Checkliste 13 („Nach „passt“ …“ und „Sonst: PR selbst zusammenführen, sobald er grün ist“); der Rest von 13 bleibt ab „(Merge, nie Squash/Rebase; 108a.1)“ (`CHANGELOG.md`, `main` nur grün, 919). Ohne dein Wort bleibt 235, und der Absatz „Nach `main`“ in Teil A entfällt.
+- **Dein Wort nötig, 235** (20.10.: „Wer die Freigabe des Chefs hört, führt den PR selbst zusammen (meist Sokrates; Merge, nie Squash/Rebase)“; Grund damals: jede Prüfung sieht nur die eigene Sitzung). Vorschlag: die Freigabe trägt der Haken D in die Vorgangsdatei, der Disponent startet den Build-Macher, der führt zusammen. Das ersetzt Checkliste 13 vom Anfang bis „(die Prüfliste ist seit 11 weg).“ (beide Sätze, Merge-Art und `CHANGELOG.md` stehen im neuen Text); der Rest von 13 bleibt ab „`main` nur grün und vom Chef getestet“ (919). Ohne dein Wort bleibt 235, und der Absatz „Nach `main`“ in Teil A entfällt.
 
 ## Teil A: Profil Technik
 
 ```markdown
-**Technik.** Godot-Technik, Licht, Shader, Leistung, Ladezeit, Build. Erst nachsehen, wie andere es lösen (`docs/LISTE-TECHNIK-PRAXIS.md`, Quelle in die Rückmeldung). Einen Fehler erst nachstellen (Test oder Vorschau zeigt ihn rot), dann beheben. Leistung misst du am Rechner nur vorläufig; es gilt die Messung auf dem Handy A56, das Tablet ist Untergrenze. Rückmeldung: Messung vorher und nachher.
+**Technik.** Godot-Technik, Licht, Shader, Leistung, Ladezeit, Build. Erst nachsehen, wie andere es lösen (`docs/LISTE-TECHNIK-PRAXIS.md`, Quelle in die Rückmeldung). Einen Fehler erst nachstellen (Test oder Vorschau zeigt ihn rot), dann beheben. Maß für Leistung ist das Handy A56, das Tablet nur Untergrenze. Rückmeldung: Messung vorher und nachher.
 
 **Vor jedem Code-Commit** die Kerntests mit Exit-Code (`tools/t logik`). Ein Werkzeug (nicht Spielcode) geht nach grünem Lauf sofort nach `main`.
 
@@ -37,15 +37,19 @@ Wortlaut der Build-Kette (entschieden 19.11., 22:05) ohne Zusatz, nur „Spike�
 - **Zeile in der Telegram-Meldung** „enthält alle früheren Builds: ja“ erzeugt das Werkzeug.
 
 Punkt 12 ergänzt (Build-Kette 7): der durchgefallene Punkt fliegt per Revert heraus, auch im aufsetzenden Build; Kerntests; Rest nach `main`; ganz verwerfen nur, wenn er verflochten ist.
-Punkt 13, Anfang bis „Sonst: … grün ist“ ersetzt, **neu, nur mit deinem Wort zu 235:** „Nach der Freigabe des ganzen Builds oder dem Ergebnis nach 11 und 12 führt der Build-Macher, den der Disponent startet, den PR zusammen, sobald er grün ist; die Freigabe steht in der Vorgangsdatei (Haken); bei Konflikt geht er ans Team zurück, das Team holt danach `main`.“ Der Rest von 13 bleibt ab „(Merge, nie Squash/Rebase; 108a.1)“.
+Punkt 13, Anfang bis „(die Prüfliste ist seit 11 weg).“ ersetzt, **neu, nur mit deinem Wort zu 235:** „Nach der Freigabe des ganzen Builds oder dem Ergebnis nach 11 und 12 führt der Build-Macher, den der Disponent startet, den PR zusammen, sobald er grün ist (Merge, nie Squash/Rebase; 108a.1); die Freigabe steht in der Vorgangsdatei (Haken); bei Konflikt geht er ans Team zurück, das Team holt danach `main`. Ergebnis in `CHANGELOG.md` (die Prüfliste ist seit 11 weg).“ Der Rest von 13 bleibt ab „`main` nur grün und vom Chef getestet“.
 ```
 
-## Eigene Prüfung (14:58)
+## Eigene Prüfung (15:00)
 
-- Größe (UTF-8, Inhalt der Codeblöcke, nachgemessen): Teil A etwa 1.270 Byte (Oberfläche 1.000); Teil B etwa 2.900 Byte, davon ersetzt Punkt 13 die alten ersten beiden Sätze von 13; dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz). Teil B ist länger als F4, weil Werkzeug, Haken und GitHub-Regel wieder im Wortlaut stehen.
-- Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung und Aufgabe 2, Archiv 1270.6 (A56 Maß; „Tablet Untergrenze“ nur in `ROLLE-TECHNIK.md`), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 11–13 (Wörter des Chefs); B = Build-Kette 1–7 wörtlich, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert), 918, 919.
+- Größe (UTF-8, Inhalt der Codeblöcke, nachgemessen): Teil A etwa 1.270 Byte (Oberfläche 1.000); Teil B etwa 2.900 Byte, davon ersetzt Punkt 13 den alten Anfang von 13 bis „seit 11 weg“; dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz). Teil B ist länger als F4, weil Werkzeug, Haken und GitHub-Regel wieder im Wortlaut stehen.
+- Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung, Aufgabe 2 und 3 (Technikliste, A56 Maß, Tablet Untergrenze; Archiv 1270.6), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 11–13 (Wörter des Chefs); B = Build-Kette 1–7 wörtlich, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert), 918, 919.
 - Fälle: Build 300 (Merge `3db05d4e5` ≠ getesteter Stand): Pfadvergleich fängt ihn · Build 400 ohne 380: Werkzeug hält an · 1566: Prüfung „Änderung nicht zurückgenommen“ (Build-Werkzeug, neu in Bauliste 7.1; bis dahin `git diff` je Vorgangs-Commit von Hand) · t300 (Ergebnis mit ✗, kein „passt“): Teil A deckt den Rest nach Revert · 1664: ob er nicht auf `main` kam, ist unbelegt (Liste: „erledigt, t300 bestanden“), darum nicht als Beleg genannt.
 - Offen: „Ohne dich“ und Kleinkram gehen nach Checkliste 3 und 9 ohne Test des Chefs nach `main`, unverändert; Kerntests vor dem Commit gelten für jede Fachkraft mit Code, nicht nur Technik: als Werkzeug (Commit-Haken) in die Bauliste. Neue Begriffe Build-Macher, Disponent, Vorgangsdatei kommen mit der Umstellung ins Glossar.
+
+## Nachprüfung 14:58 (Fassung 6, 3 Befunde, davon 1 neu von mir), mein Wort
+
+1 Naht in 13: „Sonst“-Satz läuft bis „seit 11 weg“, Rest ohne Verb: **stimmt**, Ersatz bis dorthin, Merge-Art und `CHANGELOG.md` im neuen Satz · 2 Aufgabe 3 als Quelle fehlt, „am Rechner nur vorläufig“ ohne Quelle: **stimmt**, Quelle ergänzt, Satz gestrichen · 3 Kerntest-Warnung kommt aus `commit-pruefung.py`, nicht `tools/t`: **stimmt**, berichtigt.
 
 ## Nachprüfung 14:55 (Fassung 5, 4 Befunde, davon 2 neu von mir), mein Wort
 
