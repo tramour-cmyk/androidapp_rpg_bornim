@@ -161,7 +161,8 @@ def besetzung(an):
     aus = []
     for z in t.splitlines():
         f = [x.strip() for x in z.split("|")]
-        if len(f) > 3 and f[1].lower() == an.lower():
+        # Rolle bzw. Bereich (Spalte 1; Rufnamen-Sitzungen trägt lauf.py über den Vorgang ein) oder Rufname im Titel (1739)
+        if len(f) > 3 and (f[1].lower() == an.lower() or f[2].startswith("[%s – " % an)):
             aus += re.findall(r"code/(session_\w+)", f[2])
     return aus
 

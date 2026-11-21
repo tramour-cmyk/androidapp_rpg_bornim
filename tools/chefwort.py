@@ -29,6 +29,11 @@ AN = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
 SCHARF = os.path.join(ue.WURZEL, "tools", "1727-SCHARF")
 LANG = 6000  # Zeichen je Eintrag; längeres steht im Protokoll der Sitzung
 ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)"
+try:  # 1739 Rufnamen: „**Anna** [21.11., 21:40]“ ist eine Sitzung, nicht der Chef
+    import rufname
+    ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy|%s)" % "|".join(sorted(rufname.ALLE))
+except Exception:
+    pass
 FEHLER = os.environ.get("BORNIM_CHEFWORT_FEHLER", "/tmp/bornim-chefwort-fehler.txt")
 
 
@@ -37,7 +42,7 @@ def vom_chef(text, pfad=None):
     t = (text or "").lstrip()
     if not t:
         return False
-    if t.startswith(("<", "[SYSTEM", "Du bist **", "## Kern")) or re.match(r"\W{0,3}\*\*" + ROLLEN + r"( \d)?\*\*\s*\[", t):
+    if t.startswith(("<", "[SYSTEM", "Du bist **", "## Kern", "Dein Rufname:")) or re.match(r"\W{0,3}\*\*" + ROLLEN + r"( \d)?\*\*\s*\[", t):
         return False
     if re.match(r"(Weiter( in)?|Auftrag|sieh in)\b", t):
         return False
