@@ -122,6 +122,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 19:05 16.11.: Sokrates Neustart (session_01Hmoj78yKr84GyQjcDaM636), alte archiviert, 3,72 $ auf 1403, 1472, 1475
 - 14:47 21.11.: Startsperre 14:47 Start Sokrates (Neustart c019b53f1, 1727, Chef im Gespräch)
+- 20:54 21.11.: Startsperre 20:54 Start Spike (Nachfolger 1739 Teil 3, 0a35ff006)
 - 20:53 21.11.: Startsperre 20:53 Start Jerry (1775, Befund Diogenes zu 1771, Werkzeug; Chef 20:06/20:20)
 - 20:48 21.11.: Startsperre 20:48 Start Diogenes (Nachfolger 1771, 1768 lesend, c4db13ec4)
 - 20:41 21.11.: Startsperre 20:41 Start Spike (Nachfolger 1739 Teil 2, c8dc21b3c)
