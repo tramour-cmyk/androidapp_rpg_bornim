@@ -1,4 +1,4 @@
-# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 4, Sokrates 21.11., 14:48)
+# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 5, Sokrates 21.11., 14:55)
 
 Auftrag Chef 21.11., 14:37: „Dann lass doch mal das Profil Technik erstellen, von dem wir so viel reden … Leg mal vor, check selbst, lass es gegenchecken und dann lass es mich sehen.“
 
@@ -8,8 +8,8 @@ Quellen: `ROLLE-TECHNIK.md` (Haltung, Aufgabe 2), `LISTE-CHECK-BUILD-TEST.md` (e
 
 ## Aufbau
 
-- **Build-Kette 1–7 kommt in die Checkliste** (Teil B), nicht ins Profil; „Spike“ heißt dort künftig „Build-Macher“. Ihr Fall Build bleibt Pflicht im großen Falltest.
-- **Dein Wort nötig, 235** (20.10.: „Wer die Freigabe des Chefs hört, führt den PR selbst zusammen (meist Sokrates)“; Grund damals: jede Prüfung sieht nur die eigene Sitzung). Vorschlag: die Freigabe trägt der Haken D in die Vorgangsdatei, der Disponent startet den Build-Macher, der führt zusammen. Ohne dein Wort bleibt 235, und der Satz „Nach `main`“ in Teil A entfällt.
+- **Build-Kette 1–7 kommt in die Checkliste** (Teil B), nicht ins Profil; „Spike“ heißt dort künftig „Build-Macher“. Was dort „Werkzeug“ heißt, steht als Zeile „Build-Werkzeug“ in der Bauliste 7.1 (Gesamtbild); bis es gebaut ist, prüft der Build-Macher von Hand. Ihr Fall Build bleibt Pflicht im großen Falltest.
+- **Dein Wort nötig, 235** (20.10.: „Wer die Freigabe des Chefs hört, führt den PR selbst zusammen (meist Sokrates; Merge, nie Squash/Rebase)“; Grund damals: jede Prüfung sieht nur die eigene Sitzung). Vorschlag: die Freigabe trägt der Haken D in die Vorgangsdatei, der Disponent startet den Build-Macher, der führt zusammen. Das ersetzt nur den ersten Satz von Checkliste 13; der Rest von 13 bleibt (sobald grün, Konflikt zurück ans Team, nie Squash, `CHANGELOG.md`, `main` nur grün). Ohne dein Wort bleibt 235, und der Absatz „Nach `main`“ in Teil A entfällt.
 
 ## Teil A: Profil Technik
 
@@ -20,31 +20,36 @@ Quellen: `ROLLE-TECHNIK.md` (Haltung, Aufgabe 2), `LISTE-CHECK-BUILD-TEST.md` (e
 
 **Build.** Nennt dein Auftrag einen Build, bist du der Build-Macher: Regeln ganz in `docs/LISTE-CHECK-BUILD-TEST.md`. Vor dem Sammelbuild: gebaute Kaufmodelle je Block und Cache-Treffer da; nach dem Merge einer Änderung an einem Bauskript den Block zum Stand von `main` neu ablegen, damit der Bauserver ohne Blender läuft; Laufzeit in die Testbitte.
 
-**Nach `main`** führst du zusammen, wenn dein Auftrag es nennt: nach der Freigabe des ganzen Builds („gut“, „passt“, „freigegeben“; ein 👍 gilt nur für einen Punkt), belegt in der Vorgangsdatei. Release nur auf Zuruf des Chefs (`docs/LISTE-RELEASE-NEUSTART.md`).
+**Nach `main`** führst du zusammen, wenn dein Auftrag es nennt: nach der Freigabe des ganzen Builds („gut“, „passt“, „freigegeben“; ein 👍 gilt nur für einen Punkt) oder nach dem Ergebnis mit Durchfall (Checkliste 11, 12: Revert, Rest nach `main`), belegt in der Vorgangsdatei. Release nur auf Zuruf des Chefs (`docs/LISTE-RELEASE-NEUSTART.md`).
 ```
 
 ## Teil B: Checkliste, neue und geänderte Punkte
 
-Wortlaut der Build-Kette (entschieden 19.11., 22:05) ohne Zusatz; **neu** markiert, was nicht aus ihr stammt.
+Wortlaut der Build-Kette (entschieden 19.11., 22:05) ohne Zusatz, nur „Spike“ → „Build-Macher“; **neu** markiert, was nicht aus ihr stammt.
 
 ```markdown
 **Build-Kette** (1727, Chef 19.11., 22:05):
 - **Einfrieren:** der Build-Auftrag nennt je Vorgang die Commit-Kennung; Konflikte zwischen Vorgängen löst der Besitzer des späteren Zweigs vor dem Einfrieren; was danach fertig wird, fährt im nächsten Build.
-- **Vergleich:** vor der Testbitte und vor dem Merge die Spitze von `claude/build-<n>` mit dem vergleichen, was der Build-Macher laut Auftrag gepusht hat; jeder fremde Commit macht den Build ungültig: laut an den Chef, keine Testbitte.
-- **Roter Build:** fremd ist rot in einem Test, den der Build-Macher nicht geändert hat → Vorgang zurück, nächster Build; selbst verursacht (Zusammenführen, Konflikt) → einmal nachbessern; zweites Rot → abgebrochen, Nummer verbraucht. Roter Start- oder Absturztest: Notfallweg, ein Eilt-Build darf überholen. Sonst gilt weiter 918, 919 (Testbitte trotz Rot, rote Tests oben in der Prüfliste).
-- **Nach `main` mit Nachweis:** vor dem Merge den Buildzweig noch einmal auf `main` bringen; ändern sich dabei Dateien unter den Pfaden, die `godot.yml` baut, gegen die getestete Spitze, Kerntests auf dem Merge, rot: kein Merge. Spielcode-Pfade kommen auf `main` nur über einen Buildzweig (Commit-Prüfung). Nach jedem Merge ein Kerntestlauf auf `main`; **neu (Gesamtbetrachtung 21.11.):** dazu je gebilligtem Vorgang prüfen, ob seine Commits auf `main` sind und seine Änderung nicht zurückgenommen ist (Fall 1566).
-- **Zug:** Build n+1 setzt auf Build n auf, solange n beim Chef liegt; höchstens zwei offen. Fehlt einem neuen Build ein früherer, nicht verworfener (`git merge-base --is-ancestor`; „verworfen“ als feste Archivzeile): anhalten. Die Meldung trägt „enthält alle früheren Builds: ja“.
+- **Sicherung durch Vergleich statt Haken:** Werkzeug vergleicht vor der Testbitte und vor dem Merge die Spitze von `claude/build-<n>` mit dem, was der Build-Macher laut Auftrag gepusht hat; jeder fremde Commit, gleich auf welchem Weg, macht den Build ungültig (laut an den Chef, nicht senden). Haken bleibt nur gegen Versehen: Muster `claude/build-\S+`, unbekannte Rolle hält an. Regel auf GitHub gegen Force-Push und Löschen der Buildzweige (stellt der Chef ein, der Build-Macher prüft vorher, ob der Plan es hat).
+- **Roter Build:** fremd ist rot in einem Test, den der Build-Macher nicht geändert hat → Vorgang zurück, nächster Build; selbst verursacht (Zusammenführen, Konflikt) → einmal nachbessern; zweites Rot → abgebrochen, Nummer verbraucht. Roter Start- oder Absturztest: Notfallweg (Eilt-Build darf überholen). **Neu:** sonst gilt weiter 918, 919 (Testbitte trotz Rot, rote Tests oben in der Prüfliste).
+- **Nach `main` mit Nachweis:** vor dem Merge den Buildzweig noch einmal auf `main` bringen; Werkzeug vergleicht die Spielcode-Pfade (Pfadfilter von `godot.yml`) zwischen getesteter Spitze und Merge; leer → Merge; nicht leer → Kerntests auf dem Merge, rot → kein Merge. Dazu Commit-Prüfung: Spielcode-Pfade auf `main` nur über einen Buildzweig. Nach jedem Merge ein Kerntestlauf auf `main`. **Neu (Gesamtbetrachtung 21.11.):** dazu je gebilligtem Vorgang prüfen, ob seine Commits auf `main` sind und seine Änderung nicht zurückgenommen ist (Fall 1566).
+- **Zug statt Einer-Sperre:** Build n+1 setzt auf Build n auf, solange n beim Chef liegt; höchstens zwei offen. Werkzeug hält an, wenn ein neuer Build einen früheren, nicht verworfenen Build nicht enthält (`git merge-base --is-ancestor`); „verworfen“ als feste Archivzeile.
+- **Zeile in der Telegram-Meldung** „enthält alle früheren Builds: ja“ erzeugt das Werkzeug.
 
 Punkt 12 ergänzt (Build-Kette 7): der durchgefallene Punkt fliegt per Revert heraus, auch im aufsetzenden Build; Kerntests; Rest nach `main`; ganz verwerfen nur, wenn er verflochten ist.
-Punkt 13, **neu, nur mit deinem Wort zu 235:** „Nach der Freigabe des ganzen Builds führt der Build-Macher zusammen, den der Disponent startet; die Freigabe steht in der Vorgangsdatei (Haken).“
+Punkt 13, erster Satz, **neu, nur mit deinem Wort zu 235:** „Nach der Freigabe des ganzen Builds oder dem Ergebnis nach 11 und 12 führt der Build-Macher zusammen, den der Disponent startet; die Freigabe steht in der Vorgangsdatei (Haken).“ Der Rest von 13 bleibt.
 ```
 
-## Eigene Prüfung (14:45)
+## Eigene Prüfung (14:55)
 
-- Größe: Teil A etwa 1.150 Byte (Oberfläche 1.000); Teil B wächst die Checkliste um etwa 1.300 Byte, dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz).
-- Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung und Aufgabe 2, Archiv 1270.6 (A56 Maß; „Tablet Untergrenze“ nur in `ROLLE-TECHNIK.md`), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 13 und 11 (Wörter des Chefs); B = Build-Kette 1–7, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert).
-- Fälle: Build 300 (Merge `3db05d4e5` ≠ getesteter Stand): Pfadvergleich fängt ihn · Build 400 ohne 380: „Enthält“ hält an · 1566: Prüfung „Änderung nicht zurückgenommen“ (braucht Werkzeug, Bauliste 7.1, bis dahin `git diff` je Vorgangs-Commit von Hand) · 1664: ob er nicht auf `main` kam, ist unbelegt (Liste: „erledigt, t300 bestanden“), darum nicht als Beleg genannt.
-- Offen: „Ohne dich“ und Kleinkram gehen nach Checkliste 3 und 9 ohne Test des Chefs nach `main`, unverändert; Kerntests vor dem Commit gelten für jede Fachkraft mit Code, nicht nur Technik: als Werkzeug (Commit-Haken) in die Bauliste.
+- Größe (UTF-8, Inhalt der Codeblöcke, nachgemessen): Teil A etwa 1.270 Byte (Oberfläche 1.000); Teil B etwa 2.600 Byte, davon ersetzt Punkt 13 nur den alten ersten Satz von 13; dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz). Teil B ist länger als F4, weil Werkzeug, Haken und GitHub-Regel wieder im Wortlaut stehen.
+- Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung und Aufgabe 2, Archiv 1270.6 (A56 Maß; „Tablet Untergrenze“ nur in `ROLLE-TECHNIK.md`), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 11–13 (Wörter des Chefs); B = Build-Kette 1–7 wörtlich, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert), 918, 919.
+- Fälle: Build 300 (Merge `3db05d4e5` ≠ getesteter Stand): Pfadvergleich fängt ihn · Build 400 ohne 380: Werkzeug hält an · 1566: Prüfung „Änderung nicht zurückgenommen“ (Build-Werkzeug, neu in Bauliste 7.1; bis dahin `git diff` je Vorgangs-Commit von Hand) · t300 (Ergebnis mit ✗, kein „passt“): Teil A deckt den Rest nach Revert · 1664: ob er nicht auf `main` kam, ist unbelegt (Liste: „erledigt, t300 bestanden“), darum nicht als Beleg genannt.
+- Offen: „Ohne dich“ und Kleinkram gehen nach Checkliste 3 und 9 ohne Test des Chefs nach `main`, unverändert; Kerntests vor dem Commit gelten für jede Fachkraft mit Code, nicht nur Technik: als Werkzeug (Commit-Haken) in die Bauliste. Neue Begriffe Build-Macher, Disponent, Vorgangsdatei kommen mit der Umstellung ins Glossar.
+
+## Nachprüfung 14:51 (Fassung 4, 5 Befunde, alle neu), mein Wort
+
+1 Teil B nahm der Build-Kette „Werkzeug“, Haken und GitHub-Regel; Werkzeuge fehlen in Bauliste 7.1: **stimmt**, Wortlaut zurück, Zeile „Build-Werkzeug“ in 7.1 · 2 918/919 ohne „neu“: **stimmt** · 3 Rest nach Revert ohne Zuständigen (t300): **stimmt**, Teil A und 13 ergänzt · 4 Zitat 235 ohne „Merge, nie Squash/Rebase“, Umfang 13 unklar: **stimmt**, nur erster Satz · 5 Größe Teil B falsch: **stimmt**, neu gemessen.
 
 ## Nachprüfung 14:44 (Fassung 3, 13 Befunde), mein Wort
 
