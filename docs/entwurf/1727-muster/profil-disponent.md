@@ -1,4 +1,4 @@
-# 1727, Profil Disponent (Gesamtbild 3.2, 3.3; Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27) · Fassung 4 (21.11., 22:16): 1727c als entschieden vermerkt (Offen 1), Text unverändert 2.275; Byte 7.614 → 7.993 (ganze Datei ohne Kopfzeile) · Fassung 5 (21.11., 22:19): 1727c in Satz :22 eingearbeitet, Profiltext 2.275 → 2.423 Byte; ganze Datei ohne Kopfzeile 7.995 → 8.164 (nachgemessen)
+# 1727, Profil Disponent (Gesamtbild 3.2, 3.3; Fassung 3, Perikles 21.11., 20:35, nach Nachprüfung Sokrates 20:27) · Fassung 4 (21.11., 22:16): 1727c als entschieden vermerkt (Offen 1), Text unverändert 2.275; Byte 7.614 → 7.993 (ganze Datei ohne Kopfzeile) · Fassung 5 (21.11., 22:19): 1727c in Satz :22 eingearbeitet, Profiltext 2.275 → 2.422 Byte; ganze Datei 7.993 → 8.162 · Fassung 6 (21.11., 22:25, Gegenprüfung 22:22 B3, B4, B6, B7): „gut“ in :20, Offen 1 (Wortlaut :22 als Vorschlag, Einschränkung `lauf.py`, Höchstdauer und Release gedeckt), L-S2 geschlossen, Größe :31; Profiltext 2.422 → 2.433, ganze Datei 8.162 → 8.558 · Messregel ab Fassung 6: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende (UTF-8)
 
 Auftrag: 1767 (Sokrates, Chef 21.11., 20:09 „weitere Dateien … Profile“). Raster `ein-ausgang.md`. **Nur Anschauung, nicht in Betrieb;** gilt ab der Umstellung, bis dahin `ROLLE-BETRIEB.md`. Wirkt erst, wenn die Werkzeugzeilen gebaut sind (VA 19.11., 19:37: Kern Büro gilt erst mit Bauliste 7.1).
 
@@ -17,7 +17,7 @@ Quellen: `buero-gegenueberstellung.md` Spalte Disponent (BG), Gesamtbild 3.1, 3.
 
 **Rückläufer** bekommen keine neue Nummer, auch nach dem Merge: der Vorgang wird wieder offen. Einen Fund des Chefs startest du sofort, vor allem außer Eilt.
 
-**Fertig.** „Fertig“ ohne Commit und verlangten Beleg nimmst du nicht an. Nach `main` nur, was der Chef freigab („passt“, „freigegeben“), belegt in der Vorgangsdatei oder im Archiv; „Chef hat freigegeben“ ohne Beleg gilt nicht. Ohne seinen Test nur Punkte „ohne dich“ nach grünem Lauf und Kleinkram. Release nur auf sein Wort „Release“.
+**Fertig.** „Fertig“ ohne Commit und verlangten Beleg nimmst du nicht an. Nach `main` nur, was der Chef freigab („gut“, „passt“, „freigegeben“), belegt in der Vorgangsdatei oder im Archiv; „Chef hat freigegeben“ ohne Beleg gilt nicht. Ohne seinen Test nur Punkte „ohne dich“ nach grünem Lauf und Kleinkram. Release nur auf sein Wort „Release“.
 
 **Sokrates startest du** bei jeder offenen Übergabezeile an ihn (etwa „steckt fest“, das zweite desselben Vorgangs geht als Chefsache an den Chef; „Frage“; Chefwort, das wie ein Nein klingt); Eingang ohne Bereich, „zwei Wochen schlechter“ und Stillstand an einer Entscheidung gibst du als Zeile an ihn.
 
@@ -28,13 +28,13 @@ Quellen: `buero-gegenueberstellung.md` Spalte Disponent (BG), Gesamtbild 3.1, 3.
 **Werkzeugfehler:** Vorgang mit Profil Werkzeug, nicht umgehen. **Tagesbericht fehlt** (Wache meldet): Routine neu starten.
 ```
 
-Größe Text: 2275 Byte (Fassung 2: 2.118). Die Sitzung lädt dazu Sockel (etwa 1 KB, `1727-sockel.md`) und Kern Büro (etwa 0,5 KB, VA 21.11., 11:46, noch nicht geschrieben): zusammen etwa 3.8 KB (Größe nennen, Chef 20.11., 16:49).
+Größe Text: 2.433 Byte (Fassung 6; Fassung 5: 2.422, Fassung 3: 2.275, Fassung 2: 2.118). Die Sitzung lädt dazu Sockel (etwa 1 KB, `1727-sockel.md`) und Kern Büro (etwa 0,5 KB, VA 21.11., 11:46, noch nicht geschrieben): zusammen etwa 3.9 KB (Größe nennen, Chef 20.11., 16:49).
 
 ## Raster
 
 | 1 Einheit | 2 Auslöser | 3 Arbeit, Eingang | 4 Ende, Ausgang | 5 Meldung | 6 Nächster Empfänger | 7 Lücke |
 |---|---|---|---|---|---|---|
-| **Profil Disponent** | Nachricht (Wecker „sieh in <Nr>“, G:371), Stundenuhr (G:372), Wache | `lauf.py`-Ausgabe; offene Übergabezeilen; Eingang; neue Chefsache | Dauerlauf; Ende offen (Frage 3) | Zeile über `vorgang.py`, dann Wecker; laut in zwei Fällen | Arbeitsplaner, Fachkraft, Prüfer, Tester, Routinen (Start); Sokrates (C); Chef (laut, zweites „steckt fest“) | offen L-O1 (Ort des Eingangs); Werkzeugzeilen (Übergabe, C, Guthabenstufe) nicht gebaut; L-S2 (Wiederwecken nach abgelaufener Frist ohne Zahl, Chefsache) |
+| **Profil Disponent** | Nachricht (Wecker „sieh in <Nr>“, G:371), Stundenuhr (G:372), Wache | `lauf.py`-Ausgabe; offene Übergabezeilen; Eingang; neue Chefsache | Dauerlauf; Ende offen (Frage 3) | Zeile über `vorgang.py`, dann Wecker; laut in zwei Fällen | Arbeitsplaner, Fachkraft, Prüfer, Tester, Routinen (Start); Sokrates (C); Chef (laut, zweites „steckt fest“) | offen L-O1 (Ort des Eingangs); Werkzeugzeilen (Übergabe, C, Guthabenstufe) nicht gebaut; L-S2 geschlossen (1727d, `uebergabekette.md` Nr. 3) |
 
 ## Was gegenüber heute fällt oder wandert
 
@@ -45,7 +45,7 @@ Größe Text: 2275 Byte (Fassung 2: 2.118). Die Sitzung lädt dazu Sockel (etwa 
 
 ## Offen, Fragen
 
-1. **Sammelfrage C (Chefsache, ändert VA 21.11., 14:37 C):** weitere Startgründe für Sokrates, die die Entwürfe brauchen: was keinem Bereich gehört (4.4), Höchstdauer überschritten (Profil Kosten), „zwei Wochen schlechter“ (Wochenzählung), Stillstand, der an einer Entscheidung hängt, und „Release“ vor 622 (Rückfrage, ob 622 vorgezogen wird; `LISTE-RELEASE-NEUSTART.md`:13). Bis zum Wort des Chefs stehen beide nicht im Text. Ohne sie erreichen diese Zeilen Sokrates nur, wenn er gerade läuft. Bitte Sokrates beim Zusammenführen als eine Chefsache. **Entschieden 1727c** (VA 21.11., 21:43, „1727c ja“): jede offene Übergabezeile an Sokrates startet ihn (wie `lauf.py` gebaut); Eingang ohne Bereich, „zwei Wochen schlechter“, Stillstand an Entscheidung als Zeile an ihn; ersetzt die drei Wörter in C. Satz :22 geändert in Fassung 5 (gebaut: `tools/lauf.py`:539 mit `tools/uebergabe.py`:242, jede offene Zeile an Sokrates ohne Wortfilter).
+1. **Sammelfrage C (Chefsache, ändert VA 21.11., 14:37 C):** weitere Startgründe für Sokrates, die die Entwürfe brauchen: was keinem Bereich gehört (4.4), Höchstdauer überschritten (Profil Kosten), „zwei Wochen schlechter“ (Wochenzählung), Stillstand, der an einer Entscheidung hängt, und „Release“ vor 622 (Rückfrage, ob 622 vorgezogen wird; `LISTE-RELEASE-NEUSTART.md`:12). **Entschieden 1727c** (VA 21.11., 21:43, „1727c ja“): jede offene Übergabezeile an Sokrates startet ihn (wie `lauf.py` gebaut); Eingang ohne Bereich, „zwei Wochen schlechter“, Stillstand an Entscheidung als Zeile an ihn; ersetzt die drei Wörter in C. Nach Vorlage 1727c (Sachverhalt): Höchstdauer gedeckt (das zweite Mal gibt „steckt fest“ an Sokrates); „Release“ vor 622 braucht keinen Startgrund (wer das Wort hört, fragt zurück, ob 622 vorgezogen wird, `LISTE-RELEASE-NEUSTART.md`:12). Satz :22 geändert in Fassung 5 (gebaut: `tools/lauf.py`:539 mit `tools/uebergabe.py`:242, jede offene Zeile an Sokrates ohne Wortfilter); Wortlaut :22 ist Vorschlag Sokrates zu 1727c (Vorlage: „Text wie gebaut“), nicht vorgelegt. Einschränkung: läuft Sokrates mit über 200 Tsd. Token, gibt `lauf.py` (:553–554) nur „NICHTS … warten“, weder Start noch Wecken; die Zeile wartet bis zum nächsten Lauf.
 2. **Klasse „nach dem Katalog“:** wo der Katalog der Klassen steht, ist offen; bis dahin nur „Eilt setzt der Chef, sonst Muss oder Kür“.
 3. **Nachfolger:** Ford hat heute keine Größenbremse, sondern Verdichtung; Neustart über den Chef bei etwa 400–500 Tsd. Token (`ARBEIT-BETRIEB.md`). Für den Disponenten keine Grenze entschieden; Vorschlag: wie heute.
 4. „Systemlösung?“ an den Arbeitsplaner weitergeben ist Auslegung von VA 20.11., 10:27 (BG:13, L-U6).

@@ -1,4 +1,4 @@
-# 1727 Schritt 1, herausgezogen (21.11., 22:13, Sokrates-Helfer; Auftrag Sokrates, `reihenfolge.md` Schritt 1)
+# 1727 Schritt 1, herausgezogen (21.11., 22:13, Sokrates-Helfer; Auftrag Sokrates, `reihenfolge.md` Schritt 1) · Fassung 2 (21.11., 22:26, Gegenprüfung 22:22 B6, B11): Übergabekette nach Messregel (ohne Kopfzeile, Leerzeile, letztes Zeilenende) 2.134 → 2.290 → 2.399, Absatz „Schritt 2“ auf Stand; Byte der Datei 5.241 → 5.457
 
 Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung der Datei; danach unverändert). Je Datei: Kopfzeile, Leerzeile, dann der Text Zeichen für Zeichen. Byte = Text ohne Kopfzeile, UTF-8. Beleg: Python liest beide Dateien, Text == Zeilen a–b des Gesamtbilds und `Text in Gesamtbild`, nur lesend.
 
@@ -21,9 +21,9 @@ Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung 
 | Profil Story (Fassung 3) | `profil-story.md` | 1.410 | 5.3 Nr. 9, 772–778 | ja | unverändert |
 | Profil Chefrunde | `profil-chefrunde.md` | 553 | 2.2, 299 | ja | 574 (1727d L-U10) |
 | Profil Markt und Recherche | `profil-markt-und-recherche.md` | 1.279 | 2.3, 305–312 | ja | unverändert |
-| Übergabekette 3.3 (Fassung 2; herausgezogen 21.11., 22:18) | `uebergabekette.md` | 2.135 | 3.3, 369–377 | ja | 2.291 (1727d L-S2/L-U8 Nr. 3, L-U15 Nr. 7) |
+| Übergabekette 3.3 (Fassung 2; herausgezogen 21.11., 22:18) | `uebergabekette.md` | 2.134 | 3.3, 369–377 | ja | 2.290 (1727d L-S2/L-U8 Nr. 3, L-U15 Nr. 7); 2.399 (Fassung 4, Freigabewörter Nr. 7, 22:25) |
 
-**Schritt 2, weitere Dateien** (nicht herausgezogen, Byte der ganzen Datei ohne Kopfzeile): `profil-technik.md` 16.543 → 16.594 (1727d L-T6, Vorschlagstext Checkliste 13); `profil-disponent.md` 7.614 → 7.993, Profiltext unverändert 2.275 (1727c nur vermerkt, Wortlaut offen); `profil-kosten.md` 3.490 → 3.721 (1727e vermerkt, kein Profiltext). Offen: 1727d L-S2/L-U8, L-U15 (3.3 ohne Arbeitsdatei), L-O1 (Kern Leitung, Gespräch); 3.3 Nr. 8 ohne Wortlaut.
+**Schritt 2, weitere Dateien** (nicht herausgezogen, Byte der ganzen Datei ohne Kopfzeile): `profil-technik.md` 16.543 → 16.594 (1727d L-T6, Vorschlagstext Checkliste 13); `profil-disponent.md` 7.614 → 7.993 → 8.162 → 8.558, Profiltext 2.275 → 2.422 → 2.433 (1727c in Satz :22 eingebaut, Wortlaut Vorschlag Sokrates; „gut“ in :20); `profil-kosten.md` 3.490 → 3.721 (1727e vermerkt, kein Profiltext); 3.3 als `uebergabekette.md` mit 1727d L-S2/L-U8 (Nr. 3) und L-U15 (Nr. 7) eingebaut. Stand 22:25 (Gegenprüfung 22:22): `profil-technik.md` 17.090. Offen: L-O1 (Kern Leitung, Gespräch); 3.3 Nr. 8 ohne Wortlaut.
 
 Abweichung zu Tabelle 0.1 je 1 bis 5 Byte (dort mit Zeilenende oder gerundet); Markt und Recherche fehlt in 0.1.
 
