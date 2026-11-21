@@ -43,9 +43,6 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 | Profil Oberfläche | 1.040 | – | abgenommen 15:32 |
 | Profil Story | 1.410 | – | abgenommen 16:43; 16:53 ohne Sprechweise (vorher 1.440) |
 | Profil Technik | 1.220 | – | abgenommen 21.11., 15:15 (`1727-muster/profil-technik.md` F12); dazu Checkliste +4.182 (Build-Kette, Freigabe mit Einschränkungen) |
-| Profil Werkzeug | 937 | – | Entwurf F2 21.11., 20:40 (`1727-muster/profil-werkzeug.md`; F1 838), Nachprüfung offen |
-| Querprofil Fremde Inhalte; Spieltext einbauen | 995 | – | Entwurf F2 21.11., 20:40 (`1727-muster/profil-fremde-inhalte.md`; F1 963), Nachprüfung offen |
-| Routine Rundblick (Auftrag) | 997 | – | Entwurf F2 21.11., 20:40 (`1727-muster/routine-rundblick.md`; F1 970), Nachprüfung offen |
 
 **Vorher, was eine Sitzung beim Start liest** (Stand 20.11., ohne Haken und Lektüre bei Anlass): `CLAUDE.md` 15,0 KB + Rollendatei + Vorrat. Perikles 15,0 + 12,7 + 23,1 = 50,8 KB; Ford 15,0 + 8,7 + 35,3 = 59,0 KB; Homer 15,0 + 6,0 + 4,3 = 25,3 KB; Tom, Jerry je 15,0 + 13,1 + 27,1 = 55,2 KB. **Neu:** Arbeitsvorbereitung Sockel + Kern 3,5 KB + Auftrag; Werkstatt Text Sockel + Profil Story 2,6 KB + Auftrag; Werkstatt Welt Sockel + Signatur + Welt 3,2 KB + Figur und Prüfbild + Auftrag.
 

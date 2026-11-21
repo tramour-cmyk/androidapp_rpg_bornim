@@ -20,7 +20,7 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Ford",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 35715 Bytes (Grenze 30000), Erledigtes streichen",
+  "text": "docs/ARBEIT-BETRIEB.md hat 35895 Bytes (Grenze 30000), Erledigtes streichen",
   "vorgang": "1688"
  },
  "regel:ARBEIT-BERATUNG.md:Übergabe über N Zeichen (nur Getanes und": {
@@ -28,17 +28,10 @@
   "seit": "2026-11-21T20:29+01:00",
   "text": "ARBEIT-BERATUNG.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)"
  },
- "regel:ARBEIT-TAGESBERICHT.md:Tagesbericht N Stunden alt (höchstens N ": {
-  "besitzer": "Perikles",
-  "seit": "2026-11-20T10:46+01:00",
-  "text": "ARBEIT-TAGESBERICHT.md: Tagesbericht 60 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu",
-  "vorgang": "1761"
- },
- "regel:ARBEIT-TEAM-TOM.md:Übergabe über N Zeichen (nur Getanes und": {
-  "besitzer": "Tom",
-  "seit": "2026-11-19T08:08+01:00",
-  "text": "ARBEIT-TEAM-TOM.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)",
-  "vorgang": "1730"
+ "regel:ARBEIT-PRUEFUNG.md:Übergabe über N Zeichen (nur Getanes und": {
+  "besitzer": "Diogenes",
+  "seit": "2026-11-21T20:40+01:00",
+  "text": "ARBEIT-PRUEFUNG.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)"
  },
  "vorrat:ARBEIT-TEAM-TOM.md": {
   "besitzer": "Tom",
