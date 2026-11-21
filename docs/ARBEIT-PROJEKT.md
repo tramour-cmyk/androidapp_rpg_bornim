@@ -2,12 +2,12 @@
 
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
-**Gelesen bis:** `5f2c9314c` (19.11., 08:13)
+**Gelesen bis:** `c8f418fcb` (21.11., 20:31)
 
 **Kosten frei:** 431 bis 160 $; 709.1 bis 160 $; 870 bis 160 $; 531 bis 80 $; 709 bis 80 $; 930 bis 80 $; 620 bis 80 $; 654 bis 80 $; 1137 bis 80 $
 (1538, 1520 so: offener Vorgang ab 40 $ ohne Eintrag hier hält an, `lauf.py` startet mich mit „Kosten entscheiden“; je Vorgang weiter oder vereinfachen = Eintrag bis zur nächsten Schwelle 40/80/160/320 $, streichen; Chefauftrag streichen nur über die Chefsache; „jetzt“ läuft weiter. Beim Erledigen Eintrag streichen.)
 
-**Übergabe (19.11., 08:14, `session_01Hmoj76msUXqSV51wJcyDWu`):** Tagesbericht 19.11. gemeldet (1726, 448; mit Laufzahl 1715); Vorratsprüfung: build 300 nachgezogen, 8 erledigte „Zu“ gestrichen; nicht fremd geprüft (Guthaben, Auftrag „nur dieser Bericht“). Nachfolger: keiner.
+**Übergabe (21.11., 20:32, `session_01Hmoj78Ef4rbtv1MUv6NhUL`):** 1767 Fassung 3 aller sechs Dateien in `entwurf/1727-muster/` nach Nachprüfung Sokrates 20:27 (je Datei Abschnitt „Nachprüfung Sokrates 20:27, mein Wort“), an Sokrates gemeldet; Profil Release als eigener Vorgang 1770 (ruht, wartet auf 622). Vorratsprüfung 20:25 gelaufen (44 Funde, alle bei fremden Besitzern; 476 Feld berichtigt). Nachfolger: Perikles – 1761: Tagesbericht 21.11.
 - **Prüfen 23.11. (1705):** Wochenziel; ist die Welt dran, 1705 auf M.
 - **Prüfen 23.11. (1672, 1677, Gegenargument):** Wortliste grob; Fehlalarm zwingt zum Umformulieren statt zur richtigen Art, Lücke (Aussehen mit „Taste“, „Start“ im Satz; Falsch „Tür bleibt zu“ bei Passt „Licht fällt herein“ warnt fälschlich) lässt durch oder hält. Listen t300ff. auf beides ansehen.
 - **Prüfen an der nächsten Prüfliste (1668, Gegenargument):** die Regel hat keinen Wächter in der Commit-Prüfung; fehlt die Stufe in Aussehenszeilen der nächsten Liste, Wächter bauen (Zeile Bild/Film/Handy ohne „Grafik“ oder „alle Stufen“ warnt).
