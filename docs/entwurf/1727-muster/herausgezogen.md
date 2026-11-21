@@ -1,4 +1,4 @@
-# 1727 Schritt 1, herausgezogen (21.11., 22:13, Sokrates-Helfer; Auftrag Sokrates, `reihenfolge.md` Schritt 1) · Fassung 2 (21.11., 22:26, Gegenprüfung 22:22 B6, B11): Übergabekette nach Messregel (ohne Kopfzeile, Leerzeile, letztes Zeilenende) 2.134 → 2.290 → 2.399, Absatz „Schritt 2“ auf Stand; Byte der Datei 5.241 → 5.457 · Fassung 3 (21.11., 22:39, Nachprüfung 22:29 H1, H2): Messregel an beiden Stellen, Wochenzählung 6.318 → 6.561, Hinweis `kern-buero.md`:11 unter „3.3 Nr. 8 offen“; Byte 5.457 → 6.332 (Messregel) · Fassung 4 (21.11., 22:50, Gegenprüfung 22:44): Kern Büro schmal, Kern Abnahme, Profil Prüfer, Profil Tester, Kopf Kern Prüfer; Ladesummen Abnahme und Disponent; Byte 6.332 → 7.711 (Messregel) · Fassung 5 (21.11., 22:5x, Konsolidierung Sokrates): Messregel-Wortlaut an beiden Stellen (Ladetext bzw. Teil A); Stände Stand 8c4da3b8d; Ladesummen Disponent 4.858, Arbeitsplaner 4.346 (ohne Kern Büro 3.666); Byte 7.711 → 10.161 (Messregel)
+# 1727 Schritt 1, herausgezogen (21.11., 22:13, Sokrates-Helfer; Auftrag Sokrates, `reihenfolge.md` Schritt 1) · Fassung 2 (21.11., 22:26, Gegenprüfung 22:22 B6, B11): Übergabekette nach Messregel (ohne Kopfzeile, Leerzeile, letztes Zeilenende) 2.134 → 2.290 → 2.399, Absatz „Schritt 2“ auf Stand; Byte der Datei 5.241 → 5.457 · Fassung 3 (21.11., 22:39, Nachprüfung 22:29 H1, H2): Messregel an beiden Stellen, Wochenzählung 6.318 → 6.561, Hinweis `kern-buero.md`:11 unter „3.3 Nr. 8 offen“; Byte 5.457 → 6.332 (Messregel) · Fassung 4 (21.11., 22:50, Gegenprüfung 22:44): Kern Büro schmal, Kern Abnahme, Profil Prüfer, Profil Tester, Kopf Kern Prüfer; Ladesummen Abnahme und Disponent; Byte 6.332 → 7.711 (Messregel) · Fassung 5 (21.11., 22:5x, Konsolidierung Sokrates): Messregel-Wortlaut an beiden Stellen (Ladetext bzw. Teil A); Stände Stand 8c4da3b8d; Ladesummen Disponent 4.858, Arbeitsplaner 4.346 (ohne Kern Büro 3.666); Byte 7.711 → 10.161 (Messregel) · Fassung 6 (21.11., 23:12): Ladesummen bereinigt (Nachprüfungen 23:00/23:03), Sockel 1.109, Kern Leitung 2.837, Chefrunde 574 nachgemessen; kein Ladetext, ganze Datei Byte 10.161 → 11.122 (Messregel: ohne Kopfzeile und Leerzeile danach, ohne letztes Zeilenende)
 
 Quelle: `docs/entwurf/1727-gesamtbild.md` an Commit 4d67d1213 (letzte Änderung der Datei; danach unverändert). Je Datei: Kopfzeile, Leerzeile, dann der Text Zeichen für Zeichen. Byte nach Messregel: ohne Kopfzeile und die Leerzeile danach, ohne letztes Zeilenende, UTF-8; bei Dateien mit Prüfabschnitten zählt der Ladetext (bis zum ersten „##“ bzw. der Codeblock Teil A, wie in der Datei angegeben). Beleg: Python liest beide Dateien, Text == Zeilen a–b des Gesamtbilds und `Text in Gesamtbild`, nur lesend.
 
@@ -51,18 +51,18 @@ Abweichung zu Tabelle 0.1 je 1 bis 5 Byte (dort mit Zeilenende oder gerundet); M
 - Kern Büro, Kern Arbeitsplaner, Kern Abnahme: Folgen aus 3.3 Fassung 2 Nr. 8 („Jede Rückmeldung weckt dich“, „die Sitzung, die dich gestartet hat“). Stand 22:50 (Gegenprüfung 22:44): Kern Abnahme eingearbeitet (Meldung über `vorgang.py rueckmeldung`); Kern Büro schmal trägt den Satz nicht mehr, er steht seit Profil Disponent F9 (22:5x) als Vorschlag Sokrates in :14 („sofort, Anhalt 5 Minuten, Stundenuhr nur Nachlese“; `kern-buero.md`, Gegenprüfung, Liste Nr. 3); Kern Arbeitsplaner offen.
 - Kern Prüfer (6.1) wird durch Kern Abnahme mit Profil Prüfer (6.2) ersetzt, sobald der Falltest besteht.
 
-**Ladesumme je Sitzungsart** (Byte, aus Tabelle 0.1 und den Messungen oben; ohne Haken):
+**Ladesumme je Sitzungsart** (Byte nach Messregel; Sockel 1.109 und Kern Leitung 2.837 aus den Codeblöcken von `1727-gesamtbild.md` 1 und 2.1 Fassung 2, Chefrunde 574 aus `profil-chefrunde.md`, neu gemessen 21.11., 23:10; übrige aus den Messungen oben und Tabelle 0.1; ohne Haken):
 
 | Sitzungsart | Teile | Summe |
 |---|---|---|
-| Leitung | Sockel 1.110 + Kern Leitung 2.838 | 3.948; dazu Gedächtnis bis 3 KB, auf Zuruf Chefrunde 553 oder Markt und Recherche 1.279 |
-| Büro: Disponent | Sockel 1.110 + Kern Büro 680 (schmal) + Profil Disponent 3.068 (Profiltext F9, mit den Nachträgen aus `kern-buero.md`) | 4.858 (vor F9: 1.110 + 680 + 2.644 = 4.434) |
-| Büro: Arbeitsplaner | Sockel 1.110 + Kern Büro 680 + Kern Arbeitsplaner 2.556 (1727f) | 4.346 (ohne Kern Büro 3.666); + Profil Werkzeug Teil A 1.103 = 5.449, + Querprofil Fremde Inhalte Teil A 1.168 = 5.514; Profil Arbeitsplaner nach 3.3: offen |
-| Werkstatt Welt | Sockel + Signatur und Leben 876 + Welt 1.165 + Figur und Prüfbild 1.303 | 4.454 + Auftrag (bis 1,5 KB) |
-| Werkstatt Text | Sockel + Story 1.410 | 2.520 + Auftrag |
+| Leitung | Sockel 1.109 + Kern Leitung 2.837 | 3.946; dazu Gedächtnis bis 3 KB, auf Zuruf Chefrunde 574 oder Markt und Recherche 1.279 |
+| Büro: Disponent | Sockel 1.109 + Kern Büro 680 (schmal) + Profil Disponent 3.040 (Profiltext F10) | 4.829 (F9: 1.110 + 680 + 3.068 = 4.858) |
+| Büro: Arbeitsplaner | Sockel 1.109 + Kern Büro 680 + Kern Arbeitsplaner 2.649 (F4) | 4.438 (ohne Kern Büro 3.758); + Profil Werkzeug Teil A 1.103 = 5.541, + Querprofil Fremde Inhalte Teil A 1.168 = 5.606; Profil Arbeitsplaner nach 3.3: offen |
+| Werkstatt Welt | Sockel + Signatur und Leben 876 + Welt 1.165 + Figur und Prüfbild 1.303 | 4.453 + Auftrag (bis 1,5 KB) |
+| Werkstatt Text | Sockel + Story 1.410 | 2.519 + Auftrag |
 | Werkstatt andere Fächer | Sockel + Fachprofil (+ Querprofil bei Bild oder Klang, + geladene Profile) | je Auftrag, offen |
-| Abnahme: Prüfer | Sockel + Kern Abnahme 1.183 + Profil Prüfer 1.854 (+ Querprofil Signatur und Leben 876, wenn der Auftrag es zulädt) | 4.147, mit Querprofil 5.023, + Auftrag (heute Kern Prüfer: 3.639; vor 22:44: 4.103) |
-| Abnahme: Tester | Sockel + Kern Abnahme 1.183 + Profil Tester 1.962 (+ Querprofil 876, wenn geladen) | 4.255, mit Querprofil 5.131 (vor 22:44: 4.303) |
+| Abnahme: Prüfer | Sockel + Kern Abnahme 1.567 (F3) + Profil Prüfer 2.030 (F3) (+ Querprofil Signatur und Leben 876, + Querprofil Fremde Inhalte Teil A 1.168, wenn der Auftrag sie zulädt) | 4.706, mit Signatur und Leben 5.582, mit beiden 6.750, + Auftrag (heute Kern Prüfer: 3.638) |
+| Abnahme: Tester | Sockel + Kern Abnahme 1.567 + Profil Tester 2.473 (F3) (+ Querprofil 876, wenn geladen) | 5.149, mit Querprofil 6.025 |
 | Routinen | Sockel + fester Auftrag | offen |
 
 ## Nachprüfung 22:29/22:30, mein Wort
@@ -76,3 +76,9 @@ Byte nachgezogen: stimmt, eingearbeitet (Kern Büro 680, Kern Abnahme 1.183, Pro
 ## Konsolidierung 22:5x, mein Wort
 
 Mein Wort (Sokrates), Fassung 5: **stimmt, eingearbeitet**. Messregel-Wortlaut an beiden Stellen (Kopf „Byte nach Messregel“ und Standliste vor „Schritt 2“): ohne Kopfzeile und die Leerzeile danach, ohne letztes Zeilenende, UTF-8; Ladetext bis zum ersten „##“ bzw. Codeblock Teil A · Stände auf Stand 8c4da3b8d als Liste (Übergabekette, Disponent F9, Wochenzählung, Technik, Kern Büro, Kern Abnahme, Prüfer, Tester, Werkzeug F9, Fremde Inhalte F9, Rundblick); Rundblick Teil A nach Messregel 1.168 (dort im Kopf 1.169 mit Zeilenende, nicht meine Datei) · Ladesummen: Disponent 1.110 + 680 + 3.068 = 4.858; Arbeitsplaner 1.110 + 680 + 2.556 = 4.346, ohne Kern Büro 3.666 (statt „etwa 3.668“), mit Werkzeug 5.449, mit Fremde Inhalte 5.514 · Kern Büro, Sätze für den Disponenten: in Profil Disponent F9 als Vorschlag Sokrates (Tabelle, „3.3 Nr. 8“) · Kern Arbeitsplaner 2.556 statt „etwa 2.558“.
+
+## Runde 23:05, mein Wort
+
+- Nur die Tabelle „Ladesumme je Sitzungsart“ und ihr Einleitungssatz geändert: statt „aus Tabelle 0.1“ jetzt Sockel 1.109 und Kern Leitung 2.837 (Codeblöcke `1727-gesamtbild.md` :173–:186 und Fassung 2 :275–:292) und Chefrunde 574 (`profil-chefrunde.md`), nach Messregel nachgemessen, nur lesend. Dazu die Ladetexte dieser Runde: Disponent 3.040, Kern Arbeitsplaner 2.649, Kern Abnahme 1.567, Profil Prüfer 2.030, Profil Tester 2.473; Kern Büro 680 unverändert. Prüfer mit beiden Querprofilen ergänzt (Kern Abnahme Fassung 3 lädt Fremde Inhalte zu).
+- Standliste „Stand 8c4da3b8d“, Tabelle oben und Abschnitt „Entschieden, aber …“ nicht nachgezogen (Begleittext).
+- Kein vom Chef abgenommener Text berührt.

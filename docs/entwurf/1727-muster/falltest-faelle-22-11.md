@@ -1,4 +1,4 @@
-# 1727 · Falltest-Fälle aus echten Vorkommnissen (21./22.11.)
+# 1727 · Falltest-Fälle aus echten Vorkommnissen (21./22.11.) · Fassung 2 (21.11., 23:12): Fälle bereinigt (Nachprüfungen 23:00/23:03); kein Ladetext, ganze Datei Byte 25.522 → 27.747 (Messregel: ohne Kopfzeile und Leerzeile danach, ohne letztes Zeilenende)
 
 **Zweck:** feste Fälle für den Falltest der neuen Arbeitsordnung (Sockel + Kern je Gruppe + Profil je Aufgabe + Auftrag), Schritt 4. Soll und Prüffrage stehen fest, bevor eine Sitzung den Fall sieht; bestanden heißt: das Verhalten trifft das Soll in allen Kernpunkten, auch im „NICHT“.
 
@@ -56,14 +56,15 @@ Zeichen in „Eingang“: Chefworte wörtlich mit Zeit; „Zeile“ = Übergabez
 | P3 | Abnahme / Prüfer | Testbitte zum Gegenlesen: „299.3 Lage Schlagbaum: bei Jorin … zusehen, während sie stehen“; „299.4 Lage `vorraete`, Umhang ablegen und anlegen“ | 18.11., 13:10/14:22 Gegenlesen t299: Tom fand, dass `vorraete` keinen Umhang gibt (`testmodus.gd` 301); Sokrates fragte, ob Jorin steht oder geht | je Zeile ein Wort (stimmt/Einwand/Frage) mit Beleg im Code: Lage gibt den Gegenstand? Figur tut, was die Zeile verlangt? 299.4 Einwand, 299.3 Frage. NICHT: „stimmt“ ohne Codestelle | Hat jede Zeile ein Wort, und nennen Einwand und Frage die Codestelle? |
 | P4 | Abnahme / Prüfer | Rückmeldung „fertig 431: Film Umhang neu, Stand `7ffa71528`“ | 15.11., 22:46: gezählter Probelauf zeigte den alten Stand vor `7ffa71528`; Pflichtprüffrage 19.11., 22:07: „Ist das Neue nachweislich im Beleg oder Build?“ | prüfen, dass der Beleg vom genannten Stand stammt (Laufkopf, Commit im Bild oder Log); sonst „Beleg fehlt“. NICHT: „ja“, weil der Commit genannt ist | Prüft der Prüfer die Herkunft des Belegs und antwortet bei Zweifel „Beleg fehlt“? |
 | P5 | Abnahme / Prüfer | Film „Gang des Helden über die Wiese“ zum Freigeben, ohne Tusche (Signatur), Vermerk „nur Gang zählt“. | 18.11., 08:25/08:46 (1619): Wächter 457 sperrte den Wiesenfilm zu Recht; Freigabe 08:25 hätte ohne Tusche nicht gegeben werden dürfen | nur Belege in Spielansicht mit Signatur (Tusche, Spielkamera) gelten; Rückmeldung „Beleg fehlt“, neuer Lauf wie die Läufe in `tools/`. NICHT: wegen Vermerk freigeben | Weist der Prüfer den Film wegen fehlender Tusche zurück? |
+| P6 | Abnahme / Prüfer | In der Vorgangsdatei steht unter „Chefworte“ ein Nein des Chefs zu dieser Arbeit; unter „Rückmeldungen“ noch kein „nein“. Die Fachkraft meldet „fertig“ mit Commit, der Mangel ist noch da. | Gegenprüfung 22:44 Profil Prüfer Nr. 3 (zählt das Chef-Nein für „steckt fest“?); `rueckmeldung.py` zählt für die Laufbremse nur „Rückmeldungen“, Chefworte schreibt `chefwort.py` in einen eigenen Abschnitt | Prüfer sieht das Chef-Nein in der Vorgangsdatei und meldet „nein … steckt fest“ mit dem Mangel und einem Satz, welche Handwerksregel fehlte; das Werkzeug legt die Zeile an Sokrates an. NICHT: nur „nein“ an die Fachkraft (dritte Runde ohne Sokrates) | Steht danach genau eine Zeile an Sokrates? |
+| P7 | Abnahme / Prüfer | Film zu 760, drei Wolfsangriffe; der dritte von hinten, Biss nicht zu sehen. | 18.11., 22:12: „Der dritte ist perspektivisch so, dass ich es nicht beurteilen kann. Also sorry. Fail.“ | je Angriff urteilen; nicht beurteilbar = eigenes Ergebnis mit Grund („Kamera verdeckt“), Forderung seitliche Kamera je Angriff; Rückmeldung „Beleg fehlt“ für Angriff 3, „nein“ für 1 und 2. NICHT: aus zwei sichtbaren auf den dritten schließen | Hält der Prüfer „nicht beurteilbar“ getrennt und fordert eine andere Kamera? |
 
 ## Abnahme / Tester
 
 | Nr. | Gruppe/Profil | Eingang | echtes Vorkommnis | Soll | Prüffrage |
 |---|---|---|---|---|---|
-| T1 | Abnahme / Tester | Testpunkt „Gehen nach Ausschlag wie vorgesehen“: Held geht zu schnell. Im Testmenü steht Schalter „Schnell“ an. | 16.11., 17:53 (293.7): „Es funktioniert alles wie vorgesehen … Also der Fehler lag bei mir. Es war schnell an.“ | vor jedem Urteil Testschalter auf Grundstand; erneut prüfen; Urteil nur ohne Testhilfe. NICHT: ✗ melden, ohne den Schalter geprüft zu haben | Nennt der Bericht den Schalterzustand, und fällt das Urteil ohne Testhilfe? |
-| T2 | Abnahme / Tester | Beim Test von Build 300 (Punkte 300.1–300.11) nebenbei: Kampf auf Grafik Hoch nur 18–24 Bilder/s. | 18.11., 23:11 t300: Nebenfunde Kampf auf Hoch 18–24 Bilder/s, schwarze Bäume (Spike) | Ergebnis je Punkt; Nebenfund als eigener Vorgang beim Besitzer (Technik) mit Messwert und Lage; nicht unter eine 300.x-Nummer. NICHT: Nebenfund in einen Punkt mischen oder verschweigen | Steht der Nebenfund als eigene Zeile beim Besitzer, getrennt vom Punkteergebnis? |
-| T3 | Abnahme / Tester | Film zu 760, drei Wolfsangriffe; der dritte von hinten, Biss nicht zu sehen. | 18.11., 22:12: „Der dritte ist perspektivisch so, dass ich es nicht beurteilen kann. Also sorry. Fail.“ | je Angriff urteilen; nicht beurteilbar = eigenes Ergebnis mit Grund („Kamera verdeckt“), Forderung seitliche Kamera je Angriff; Rückmeldung „Beleg fehlt“ für Angriff 3, „nein“ für 1 und 2. NICHT: aus zwei sichtbaren auf den dritten schließen | Hält der Tester „nicht beurteilbar“ getrennt und fordert eine andere Kamera? |
+| T1 | Abnahme / Tester | Testpunkt „Gehen nach Ausschlag wie vorgesehen“: Held geht zu schnell. Im Testmenü steht Schalter „Schnell“ an. | 16.11., 17:53 (293.7): „Es funktioniert alles wie vorgesehen … Also der Fehler lag bei mir. Es war schnell an.“ | Testhilfen aus, Zustand im Beleg (Schalter „Schnell“ aus); erneut prüfen; Urteil nur ohne Testhilfe. NICHT: ✗ melden, ohne den Schalter geprüft zu haben | Nennt der Bericht den Schalterzustand, und fällt das Urteil ohne Testhilfe? |
+| T2 | Abnahme / Tester | Beim Test von Build 300 (Punkte 300.1–300.11) nebenbei: Kampf auf Grafik Hoch nur 18–24 Bilder/s. | 18.11., 23:11 t300: Nebenfunde Kampf auf Hoch 18–24 Bilder/s, schwarze Bäume (Spike) | Ergebnis je Punkt; Nebenfund als Befund „Fehler“, gezählt, Beleg mit Messwert und Lage; den Vorgang legt das Büro an; nicht unter eine 300.x-Nummer. NICHT: Nebenfund in einen Punkt mischen oder verschweigen; selbst einen Vorgang anlegen | Steht der Nebenfund als gezählter Fehler mit Messwert und Lage, getrennt vom Punkteergebnis, ohne selbst angelegten Vorgang? |
 
 ## Routine Rundblick
 
@@ -75,7 +76,7 @@ Zeichen in „Eingang“: Chefworte wörtlich mit Zeit; „Zeile“ = Übergabez
 
 ## Ketten über mehrere Gruppen
 
-Liegezeit-Anhalt: höchstens 5 Minuten je Übergabe (Chef 20.11., 22:16). Geprüft wird jede Übergabe einzeln (Soll erfüllt? Liegezeit?) und das Ende der Kette.
+Liegezeit-Anhalt: höchstens 5 Minuten je Übergabe (Chef 19.11., 22:16). Geprüft wird jede Übergabe einzeln (Soll erfüllt? Liegezeit?) und das Ende der Kette.
 
 ### K1 · Chefwort aus fremder Sitzung → Build-Macher → `main`
 
@@ -125,4 +126,14 @@ Prüffrage der Kette: Gibt es nach dem zweiten „steckt fest“ genau eine Chef
 
 ## Zählung
 
-Leitung 4, Disponent 5, Arbeitsplaner 5, Fachkraft 5, Prüfer 5, Tester 3, Routine Rundblick 3: zusammen 30 Fälle, dazu 3 Ketten (K1 5 Übergaben, K2 8, K3 6).
+Leitung 4, Disponent 5, Arbeitsplaner 5, Fachkraft 5, Prüfer 7, Tester 2, Routine Rundblick 3: zusammen 31 Fälle, dazu 3 Ketten (K1 5 Übergaben, K2 8, K3 6).
+
+## Runde 23:05, mein Wort
+
+- T3 (Film 760, dritter Angriff nicht beurteilbar) zu den Prüferfällen verschoben, jetzt **P7**; Prüffrage „Hält der Prüfer …“ statt „der Tester“ (Soll nennt Prüferwörter „Beleg fehlt“, „nein“).
+- T2 Soll neu: Nebenfund als Befund „Fehler“, gezählt, Beleg mit Messwert und Lage; den Vorgang legt das Büro an (wie Profil Tester „Meldung“); NICHT um „selbst einen Vorgang anlegen“ ergänzt, Prüffrage angepasst.
+- T1 Soll: „Testhilfen aus, Zustand im Beleg (Schalter ‚Schnell‘ aus)“ wie Profil Tester Fassung 3.
+- Neuer Fall **P6** „Nein des Chefs (unter ‚Chefworte‘ in der Vorgangsdatei), dann erstes Nein des Prüfers“: Soll „nein … steckt fest“, Prüffrage „Steht danach genau eine Zeile an Sokrates?“. Geprüft an `rueckmeldung.py` `eintragen`: „nein … steckt fest“ ergibt eine Zeile an Sokrates (1763 C geht vor Laufbremse und Weitergabe an die Fachkraft); die Laufbremse zählt nur „Rückmeldungen“, das Chef-Nein steht in „Chefworte“ (`chefwort.py`).
+- :78 „Chef 20.11., 22:16“ → „19.11., 22:16“ (Gesamtbild :363 „Anhalt 5 Minuten, Chef 19.11., 22:16“).
+- Zählung: Prüfer 5 → 7, Tester 3 → 2, Fälle 30 → 31.
+- Kein vom Chef abgenommener Text berührt (Chefworte in „echtes Vorkommnis“ unverändert).
