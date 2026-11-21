@@ -1173,3 +1173,4 @@
 2026-11-21 21:32:18	commit-pruefung	CLAUDE.md: 15049 Bytes, Obergrenze 15000, Commit fügt 54 hinzu; im selben Commit ebenso viel streichen (Wachstumsstopp 822, Regelbilanz)	main
 2026-11-21 21:34:25	startsperre	Startsperre fehlt (750 A): für Spike steht in den letzten 10 Minuten keine „Startsperre … Start Spike“ auf main (letzte 21.11., 21:22). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, pushen,	main
 2026-11-21 21:39:12	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30497 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-21 21:39:32	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30231 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
