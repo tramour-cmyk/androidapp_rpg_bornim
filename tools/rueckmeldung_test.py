@@ -38,7 +38,10 @@ import rueckmeldung as rm
 # 1 Erstes Wort
 for t, w in [("nein, Auftrag: Prüffrage am Ziel vorbei", {"nein, Auftrag"}), ("Nein. Bart fehlt. steckt fest: Handwerksregel Bart", {"nein", "steckt fest"}),
              ("Beleg fehlt", {"Beleg fehlt"}), ("wirkt nein", {"wirkt nein"}), ("Frage: welcher Text?", {"Frage"}), ("ja", {"ja"}), ("fertig, Commit abc", {"fertig"}),
-             ("„steckt fest“ beim Licht", {"steckt fest"}), ("neinsager", set())]:
+             ("„steckt fest“ beim Licht", {"steckt fest"}), ("neinsager", set()),
+             ("**Spike** [21.11., 20:41] nein, Auftrag: x", {"nein, Auftrag"}), ("Spike [21.11., 20:41]: steckt fest", {"steckt fest"}),
+             ("**Jerry** [21.11., 20:41]\nnein", {"nein"}), ("**Tom**: Frage zum Licht", {"Frage"}), ("Tom 2 [21.11., 20:41] fertig", {"fertig"}),
+             ("Nein [Hof] steckt fest", {"nein", "steckt fest"})]:
     soll("Wort %r" % t[:25], rm.worte(t) == w, rm.worte(t))
 
 # 2 B: erstes „steckt fest“ an Sokrates, zweites an den Chef (ruht)

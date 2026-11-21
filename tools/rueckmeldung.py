@@ -30,7 +30,10 @@ MAX_NEIN_AUFTRAG, MAX_NEIN, MAX_FEST = 2, 3, 2
 
 def worte(text):
     """Signalworte am Anfang (Meldung Prüfer: „nein“ + „steckt fest“ in einer Meldung)."""
-    t = re.sub(r"^\W+", "", (text or "").strip()).lower()
+    t = (text or "").strip()
+    # Stempel davor („**Spike** [21.11., 20:41]“, „Spike [..]:“) zählt nicht (Hinweis Diogenes zu 1763)
+    t = re.sub(r"^\W*(?:\*\*[^*\n]+\*\*\s*(?:\[\d{1,2}\.\d{1,2}\.,? ?\d{1,2}:\d{2}\])?|[A-ZÄÖÜ][\wäöüß]*(?: \d+)?\s*\[\d{1,2}\.\d{1,2}\.,? ?\d{1,2}:\d{2}\])\s*", "", t)
+    t = re.sub(r"^\W+", "", t).lower()
     w = set()
     if re.match(r"nein,?\s+auftrag\b", t): w.add("nein, Auftrag")
     elif re.match(r"beleg fehlt\b", t): w.add("Beleg fehlt")
