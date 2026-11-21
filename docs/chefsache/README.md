@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 21.11., 21:17, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 21.11., 21:24, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -40,8 +40,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 21.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 8 | 5 | 429 | 1289 |
-| neu | 28 | 27 | 467 | 1357 |
+| erledigt | 9 | 5 | 430 | 1290 |
+| neu | 29 | 27 | 468 | 1358 |
 | **netto** (erledigt − neu) | **−20** | **−22** | **−38** | **−68** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
@@ -50,14 +50,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Rolle | als Nächstes |
 |---|---|
-| **Chef** | [1727a](entscheiden/1727a-satz-1311.md) entscheiden; dann 7 weitere |
+| **Chef** | [1727b](entscheiden/1727b-lizenz-frei.md) entscheiden; dann 6 weitere |
 | Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 3 weitere |
 | Jerry | läuft: 1775 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
-| Spike | läuft: 1739 (Besetzung); 1739 Werkzeuge der Bauliste ab 21.11., 20:00 bauen; ohne commit-… (Muss); dann 8 weitere |
+| Spike | läuft: 1739 (Besetzung); 1739 Werkzeuge der Bauliste ab 21.11., 20:00 bauen; ohne commit-… (Muss); dann 9 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | 1768 buildzweig-haken.py lässt git push nach Shell-Schlüsselwort… (Muss); dann 4 weitere |
-| Sokrates | läuft: 1727 (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 11 weitere |
+| Sokrates | läuft: 1727 (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 10 weitere |
 | Perikles | 1728 Teilprojekte im Projektplan durch Verweis auf chefsache/the… (Muss); dann 1 weitere |
 
 **Die nächsten 20**
@@ -92,12 +92,11 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1727a](entscheiden/1727a-satz-1311.md) | **Muss** | B Abläufe | 21.11., 21:20 | Doppelter Satz zum Werkzeugweg in Profil Technik fällt, wenn Profil Werkzeug gilt. | Sokrates |
-| [1727b](entscheiden/1727b-lizenz-frei.md) | **Muss** | B Abläufe | 21.11., 21:20 | `LISTE-QUELLEN.md` ist strenger als `CLAUDE.md`; angleichen, MIT- und OFL-Hinweis in „Über das Spiel“. | Sokrates |
-| [1727c](entscheiden/1727c-startgruende-sokrates.md) | **Muss** | B Abläufe | 21.11., 21:20 | C (14:37) startet Sokrates nur bei „steckt fest“, „Frage“, „wirkt nein“; die Entwürfe brauchen drei weitere Anlässe. | Sokrates |
-| [1727d](entscheiden/1727d-luecken-abgenommenes.md) | **Muss** | B Abläufe | 21.11., 21:20 | Fünf Stellen in abgenommenen Texten (3.3, Profil Technik, Chefrunde, Eingang) führen ins Leere; je ein Satz schließt sie. | Sokrates |
-| [1727e](entscheiden/1727e-guthabenzahl.md) | **Muss** | B Abläufe | 21.11., 21:20 | Ohne Guthabenzahl gibt es keine Guthabenstufe; heute steht sie in `ARBEIT-BETRIEB.md`, das fällt. | Sokrates |
-| [1727f](entscheiden/1727f-kern-arbeitsplaner.md) | **Muss** | B Abläufe | 21.11., 21:20 | Der Arbeitsplaner muss wissen, wann er Profil Werkzeug oder Querprofil Fremde Inhalte dazulädt; Prüffrage Spieltext braucht „außer markierter Übersetzung“. | Sokrates |
+| [1727b](entscheiden/1727b-lizenz-frei.md) | **Muss** | B Abläufe | 21.11., 21:19 | `CLAUDE.md` ist zweideutig, `LISTE-QUELLEN.md` liest es streng für alles; unsere OFL-Schriften und der MIT-Teil im Spiel brauchen die milde Lesart. | Sokrates |
+| [1727c](entscheiden/1727c-startgruende-sokrates.md) | **Muss** | B Abläufe | 21.11., 21:19 | Entschieden sind drei Wörter (C, 14:37); `lauf.py` startet Sokrates schon heute bei jeder offenen Zeile an ihn; drei Anlässe haben noch keinen Weg zu ihm. | Sokrates |
+| [1727d](entscheiden/1727d-luecken-abgenommenes.md) | **Muss** | B Abläufe | 21.11., 21:19 | Fünf Stellen in abgenommenen Texten (3.3, Profil Technik, Chefrunde, Eingang) führen ins Leere; je ein Satz schließt sie. | Sokrates |
+| [1727e](entscheiden/1727e-guthabenzahl.md) | **Muss** | B Abläufe | 21.11., 21:19 | Ohne Nutzungszahl keine Guthabenstufe; heute steht sie in `ARBEIT-BETRIEB.md`, das fällt. | Sokrates |
+| [1727f](entscheiden/1727f-kern-arbeitsplaner.md) | **Muss** | B Abläufe | 21.11., 21:19 | Der Arbeitsplaner muss wissen, wann er Profil Werkzeug oder Querprofil Fremde Inhalte dazulädt; die Prüffrage Spieltext braucht „außer markierter Übersetzung“. | Sokrates |
 
 ## Zu billigen
 
@@ -117,7 +116,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1727g](tun/1727g-github.md) | **Muss** | B Abläufe | 21.11., 21:20 | Nur du hast die Rechte. Regel (Branch protection / Ruleset) auf `claude/build-*`: Force-Push und Löschen verbieten. | Sokrates |
+| [1727g](tun/1727g-github.md) | **Muss** | B Abläufe | 21.11., 21:19 | Nur du hast die Rechte. Regel (Branch protection / Ruleset) auf `claude/build-*`: Force-Push und Löschen verbieten. | Sokrates |
 
 ## Offen je Rolle
 
