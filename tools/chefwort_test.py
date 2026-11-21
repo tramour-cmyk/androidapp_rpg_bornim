@@ -59,6 +59,7 @@ soll("t301.4 ebenso", sorted(cw.vorgaenge("t301.4 ✓")) == ["9001", "9003.2"])
 soll("Nummer mit Komma dahinter (1769)", sorted(cw.vorgaenge("9001, ein Lauf frei")) == ["9001"] and sorted(cw.vorgaenge("9001, 9002 passen")) == ["9001", "9002"], sorted(cw.vorgaenge("9001, 9002 passen")))
 soll("Dezimalzahl zählt nicht", cw.vorgaenge("9001,50 € und 9002,5") == {}, cw.vorgaenge("9001,50 € und 9002,5"))
 soll("Pfad und unbekannte Nummer nicht", cw.vorgaenge("docs/vorgang/9001.md und 9999") == {})
+soll("Nummer am Satzende", sorted(cw.vorgaenge("Gebilligt: 9001.")) == ["9001"], sorted(cw.vorgaenge("Gebilligt: 9001.")))
 
 # 3 Nicht scharf: nichts
 nrs = cw.haken({"prompt": "9001 freigegeben"}, "Sokrates")
