@@ -1144,3 +1144,4 @@
 2026-11-21 20:15:32	commit-pruefung	docs/entwurf/1727-muster/routine-wache.md: Uhrzeit 20:32 liegt nach jetzt (20:15)	main
 2026-11-21 20:19:26	commit-pruefung	docs/entwurf/1727-muster/profil-fremde-inhalte.md: Uhrzeit 20:25 liegt nach jetzt (20:19)	main
 2026-11-21 20:19:26	commit-pruefung	docs/entwurf/1727-muster/routine-rundblick.md: Uhrzeit 20:30 liegt nach jetzt (20:19)	main
+2026-11-21 20:21:39	startsperre	Startsperre fehlt (750 A): für Diogenes steht in den letzten 10 Minuten keine „Startsperre … Start Diogenes“ auf main (letzte 21.11., 20:06). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, p	ccr-0946d916-eqon7p
