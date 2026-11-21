@@ -1,4 +1,4 @@
-# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 9, Sokrates 21.11., 15:07)
+# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 10, Sokrates 21.11., 15:10)
 
 Auftrag Chef 21.11., 14:37: „Dann lass doch mal das Profil Technik erstellen, von dem wir so viel reden … Leg mal vor, check selbst, lass es gegenchecken und dann lass es mich sehen.“
 
@@ -38,19 +38,23 @@ Wortlaut der Build-Kette (entschieden 19.11., 22:05) ohne Zusatz, nur „Spike�
 
 Punkt 12 ergänzt (Build-Kette 7): der durchgefallene Punkt fliegt per Revert heraus, auch im aufsetzenden Build; Kerntests; Rest nach `main`; ganz verwerfen nur, wenn er verflochten ist.
 Punkt 13, Anfang bis „(die Prüfliste ist seit 11 weg).“ ersetzt, **neu, nur mit deinem Wort zu 235:** „**Nach der Freigabe des ganzen Builds** („gut“, „passt“, „freigegeben“; ein 👍 gilt nur für einen Punkt) oder dem Ergebnis nach 11 und 12 führt der Build-Macher, den der Disponent startet, den PR zusammen, sobald er grün ist (Merge, nie Squash/Rebase; 108a.1); die Freigabe steht in der Vorgangsdatei (Haken); bei Konflikt geht er ans Team zurück, das Team holt danach `main`. Ergebnis in `CHANGELOG.md` (die Prüfliste ist seit 11 weg).“ Der Rest von 13 bleibt ab „**`main` nur grün und vom Chef getestet**“ (samt Fettdruck).
-Punkt 13, Zusatz, **neu (Fall des Chefs 21.11., 15:04, „freigegeben und passt mit Einschränkungen“; gilt mit und ohne Wort zu 235):** „**Freigabe mit Einschränkungen:** eine Einschränkung, die einen Prüfpunkt betrifft, steht als ✗-Zeile im Ergebnis (11) und wird per Revert zurückgenommen (12); ein Fund ohne ✗ bleibt drin und wird als neuer Vorgang angelegt. Vor dem Merge steht das Chefwort in der Vorgangsdatei (Haken D), und wer zusammenführt, meldet auf Telegram ‚Build <n> freigegeben ohne <Nummern>‘ (oder ‚ohne Abzug‘); lässt sich eine Einschränkung weder einem Punkt noch einem neuen Fund zuordnen, legt er eine Datei in `entscheiden/` an und führt erst nach der Antwort zusammen.“
+Punkt 13, Zusatz am Ende von 13, **neu (Fall des Chefs 21.11., 15:04, „freigegeben und passt mit Einschränkungen“; gilt mit und ohne Wort zu 235):** „**Freigabe mit Einschränkungen:** was der Chef mit ✗ oder 👎 gibt, fliegt per Revert heraus (12); ein ✓ mit Zusatz und ein Fund außerhalb der Prüfpunkte bleiben drin, und wer zusammenführt, legt sie vor dem Merge mit `vorgang.py neu` beim Besitzer an. Vor dem Merge steht das Chefwort in der Vorgangsdatei (Haken D); danach die Vollzugszeile ‚Vollzug t<n>: Build <n> auf `main` ohne <n.k> (oder ‚ohne Abzug‘), Geprüft an: <Merge>‘. Lässt sich eine Einschränkung keinem Punkt und keinem Fund zuordnen, legt er eine Datei in `entscheiden/` an und führt erst nach der Antwort zusammen.“
 ```
 
-## Eigene Prüfung (15:00)
+## Eigene Prüfung (15:10)
 
-- Größe (UTF-8, Inhalt der Codeblöcke, nachgemessen): Teil A etwa 1.220 Byte (Oberfläche 1.000); Teil B etwa 3.850 Byte (davon Zusatz Einschränkungen etwa 740), davon ersetzt Punkt 13 den alten Anfang von 13 bis „seit 11 weg“; dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz). Teil B ist länger als F4, weil Werkzeug, Haken und GitHub-Regel wieder im Wortlaut stehen.
+- Größe (UTF-8, Inhalt der Codeblöcke, nachgemessen): Teil A etwa 1.220 Byte (Oberfläche 1.000); Teil B etwa 3.890 Byte (davon Zusatz Einschränkungen, Zitat allein, etwa 610), davon ersetzt Punkt 13 den alten Anfang von 13 bis „seit 11 weg“; dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz). Teil B ist länger als F4, weil Werkzeug, Haken und GitHub-Regel wieder im Wortlaut stehen.
 - Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung, Aufgabe 2 und 3 (Technikliste, A56 Maß, Tablet Untergrenze; Archiv 1270.6), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 11–13; Freigabeworte in B Punkt 13: „passt“, „freigegeben“ aus Checkliste 13, „gut“ aus Kern Büro (`1727-gesamtbild.md`, A14 in `1727-muster/ablauf.md`), 👍 je Punkt aus Checkliste 11; B sonst = Build-Kette 1–7 wörtlich, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert), 918, 919.
 - Fälle: Build 300 (Merge `3db05d4e5` ≠ getesteter Stand): Pfadvergleich fängt ihn · Build 400 ohne 380: Werkzeug hält an · 1566: Prüfung „Änderung nicht zurückgenommen“ (Build-Werkzeug, neu in Bauliste 7.1; bis dahin `git diff` je Vorgangs-Commit von Hand) · t300 (Ergebnis mit ✗, kein „passt“): Teil A deckt den Rest nach Revert (nur mit Wort zu 235; sonst bleibt das alte „Sonst:“ in 13) · 1664: ob er nicht auf `main` kam, ist unbelegt (Liste: „erledigt, t300 bestanden“), darum nicht als Beleg genannt.
 - Offen: „Ohne dich“ und Kleinkram gehen nach Checkliste 3 und 9 ohne Test des Chefs nach `main`, unverändert; Kerntests vor dem Commit gelten für jede Fachkraft mit Code, nicht nur Technik: als Werkzeug (Commit-Haken) in die Bauliste. Neue Begriffe Build-Macher, Disponent, Vorgangsdatei kommen mit der Umstellung ins Glossar.
 
 ## Fall des Chefs 15:04 und Prüfung 15:06 (Fassung 8 → 9), mein Wort
 
-Chef: „Wenn ich jetzt wie früher immer sage, ja, der Testbuild ist freigegeben und passt mit Einschränkungen.“ Prüfer: F8 hat eine Lücke (ohne ✗ wird alles samt Mangel zusammengeführt); im Archiv beides: t268, t269 ganz rein, Funde neu (vor Checkliste 12, 09.11.); 89, 298–300 mit Revert; seit 12 jedes ✗ Revert, Fund ohne ✗ bleibt (298.2). Mein Entwurf 15:05 unvollständig: Fund, der drinbleibt (**stimmt**), Rückfrage nur mit Datei (**stimmt**), Build-Macher nur mit 235 (**stimmt**, neutral „wer zusammenführt“), Haken D (**stimmt**), „ohne Abzug“ (**stimmt**). Fassung des Prüfers übernommen als Zusatz zu 13.
+Chef: „Wenn ich jetzt wie früher immer sage, ja, der Testbuild ist freigegeben und passt mit Einschränkungen.“ Prüfer: F8 hat eine Lücke (ohne ✗ wird alles samt Mangel zusammengeführt); im Archiv beides: t268, t269 ganz rein, Funde neu (vor Checkliste 12, 09.11.); 89, 298–300 mit Revert; seit 12 jedes ✗ Revert, Fund ohne ✗ bleibt (t299: neue Funde 1674–1676). Mein Entwurf 15:05 unvollständig: Fund, der drinbleibt (**stimmt**), Rückfrage nur mit Datei (**stimmt**), Build-Macher nur mit 235 (**stimmt**, neutral „wer zusammenführt“), Haken D (**stimmt**), „ohne Abzug“ (**stimmt**). Fassung des Prüfers übernommen als Zusatz zu 13.
+
+## Nachprüfung 15:08 (Fassung 9, 6 Befunde, alle neu), mein Wort
+
+1 „✓ mit Zusatz“ würde zum ✗ umgedeutet (298.3; nie Chefurteil umformulieren): **stimmt**, nur ✗ oder 👎 des Chefs ist Revert · 2 wer den Vorgang anlegt: **stimmt**, wer zusammenführt, `vorgang.py neu` · 3 Telegram-Zeile doppelt zum Vollzug: **stimmt**, eine Vollzugszeile mit Prüfpunkten n.k · 4 Beleg 298.2 falsch: **stimmt**, t299 · 5 Größe, Uhrzeit: **stimmt** · 6 Stelle in 13: **stimmt**, am Ende.
 
 ## Nachprüfung 15:02 (Fassung 8, keine Fehler in Tatsache, Regel, Quelle, Entscheid; 2 Formbefunde), mein Wort
 
