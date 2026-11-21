@@ -2,7 +2,22 @@
 
 Sammelt Befunde frischer Prüfer, die noch nicht eingearbeitet sind; je Datei nach dem Einarbeiten den Abschnitt in die Datei selbst („mein Wort“) und hier streichen.
 
-Leer: Gegenprüfung 20:23 (Profil Werkzeug, Fremde Inhalte, Rundblick) am 21.11., 20:40 eingearbeitet, Wort je Befund in den Dateien; Nachprüfung der Fassung 2 offen.
+Stand 21:05: Gegenprüfung 20:41 (unten) ist in `werkzeuge.md` F5 eingearbeitet. **Offen zum Einarbeiten: Nachprüfung 21:03 der Werkzeugübersicht F5 (direkt hier).** Die drei Texte Profil Werkzeug, Fremde Inhalte, Rundblick: F4a, Nachprüfung offen. 1774: `hoechstdauer-1774.md` F2, Nachprüfung offen (Spike hat 1766 schon mit `HOECHSTDAUER_MIN` = None gebaut, Folge erstes Mal „Hinweis“, zweites „steckt fest“, `19bf8c8d4`; F2 daran angleichen: Maß Kosten braucht eigene Konstante).
+
+## Nachprüfung 21:03: werkzeuge.md Fassung 5 (frischer Helfer, an `986d3d340`; Vorrunde 1–20 stimmt, außer 10 teils überholt; Zählung A 44, B 17, C 25, D 37 stimmt)
+
+Mein Wort (Sokrates 21:05): alle **stimmt**, Einarbeiten in Fassung 6 offen.
+1 B Herzschlag/Wache, A `lauf.py` Zeitmarke: 1764 gebaut (`c526199e2`); Zeitmarke ist „**Stand:**“ in `ARBEIT-BESETZUNG.md` (`lauf.py`:1398–1408); `herzschlag.yml` liegt vor, beim Chef nur Secret `TELEGRAM_BOT_TOKEN`; G:475 ist durch Archiv 20:50 „Wache bleibt“ ersetzt; gegen `routine-wache.md`:47 schreibt `lauf.py` stündlich neu.
+2 Totes Ende: Wache selbst (Schicht 2) und ihre Zeitmarke nicht gebaut, `herzschlag.py`:37 prüft nur `lauf.py` → „Vorgang fehlt“ oder Rest von 1764.
+3 A `startbar.py` Reihenfolge „Fund, Eilt“ gegen Archiv 20:54 „Eilt zuerst“.
+4 Neu nicht eingeordnet: `herzschlag.py` (Rollenname „Ford“ :37 → A), `herzschlag.yml`, `werkzeuge.yml`; Abhängigkeit `lauf.py`:1400 → `herzschlag.marke`; Raster neu (255 Dateien, 10 Workflows).
+5 A `godot.yml` und „Lauf auf `main`“: seit 1775 Werkzeugtests in `werkzeuge.yml`:25–29, nur 5 von 33 `*_test.py`, Auslöser nur oberste Ebene `tools/`.
+6 `herzschlag.yml`:64 immer laut, an `meldung.sh` vorbei (gegen „nachts nie laut“, `meldung.sh`:121, G:921) → Vorgang an Spike.
+7 Form: 1772 jetzt `1db38639d`; `nein_waechter` :114.
+8 Spur Spike: 1764 gebaut, 1766 gebaut (`19bf8c8d4`, Werte über 1774).
+9 Anschluss Rundblick: „wartet auf“ in `WOCHENTERMINE` und Start ohne „Zurück“ (`auftrag.py`:40–43) in A `startbar.py`, `auftrag.py` mit 1766; Rundblick zitiert `werkzeuge.md`:140, jetzt :148.
+10 Liste der Notizschreiber (`profil-werkzeug.md` Teil B) fehlt unter „In A/B, fehlt in 7.1“.
+11 Form: `commit-pruefung.py` `BESITZER` :24. 12 Form: `notiz.sh` → `startwarnung.py` :88.
 
 ## Gegenprüfung 20:41: werkzeuge.md Fassung 4 (frischer Helfer; grep-Raster selbst gelaufen, 250 Dateien, 120 mit Treffern, stimmt mit Anhang)
 
