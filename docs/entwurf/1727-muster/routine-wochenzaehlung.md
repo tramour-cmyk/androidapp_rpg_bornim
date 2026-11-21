@@ -23,12 +23,12 @@ Zähle für die Woche Mo 0 Uhr bis So 24 Uhr, je Zahl mit Quelle; fehlt eine, sc
 9. Leitung: Entscheide von Sokrates, davon vom Chef zurückgedreht.
 10. Rundblick: Vorschläge, angenommen, umgesetzt (seit Beginn).
 
-Dazu: jeden Vorgang im Bereich B, der seit der Vorwoche als gebaut gilt, prüfen, ob er greift (greift nicht → Befund); höchstens einen Vorschlag für „Bekannte Fehler“ („nie X, stattdessen Y“) aus Wiederholungen.
+Dazu: jeden Vorgang im Bereich B auf „gebaut“, der noch nicht mit `greift` geschlossen ist, prüfen, ob er greift (greift nicht → Befund); Stichprobe der Vorlagen an den Chef (Fassungsblatt, Fehlerrunden, Wortlaut, Vorgabe; 373); höchstens einen Vorschlag für „Bekannte Fehler“ („nie X, stattdessen Y“) aus Wiederholungen.
 
 Ergebnis: neue Spalte in der Tabelle oben in `docs/PRUEFBERICHT.md`, eine Zeile per Telegram (lautlos); jeden Befund mit Beleg ans Büro. Wird dieselbe Zahl zwei Wochen hintereinander schlechter, schreibst du die Zeile „zwei Wochen schlechter: <Zahl>“ ans Büro; das Büro gibt sie an Sokrates.
 ```
 
-**Geändert gegen Fassung 1:** (a) „bewerten tut Sokrates“ aus dem Text: die Routine braucht es nicht zu wissen, der Weg steht im letzten Satz. (b) Quellenangaben in Nr. 1 (Vorgänge „Von Chef … Fund“, Testrückmeldungen) gestrichen: die Vorgangsdatei markiert Funde des Chefs (7.1), dann gibt es eine Quelle; bis dahin „fehlt“. (c) „greift“ nur für seit der Vorwoche Gebautes, sonst prüft sie jede Woche alles. (d) Telegram lautlos (nichts für den Chef zu tun). (e) „zwei Wochen schlechter“ geht ans Büro statt „die Vorlage schreibt Sokrates“: wer Sokrates weckt, stand nicht (L-T5).
+**Geändert gegen Fassung 1:** (a) „bewerten tut Sokrates“ aus dem Text: die Routine braucht es nicht zu wissen, der Weg steht im letzten Satz. (b) Quellenangaben in Nr. 1 (Vorgänge „Von Chef … Fund“, Testrückmeldungen) gestrichen: die Vorgangsdatei markiert Funde des Chefs (7.1), dann gibt es eine Quelle; bis dahin „fehlt“. (c) „greift“ nur für noch nicht mit `greift` Geschlossenes (Gegenprüfung 20:18, Befund 16); Stichprobe 373 aufgenommen (4.4, G:490; Befund 15). (d) Telegram lautlos (nichts für den Chef zu tun). (e) „zwei Wochen schlechter“ geht ans Büro statt „die Vorlage schreibt Sokrates“: wer Sokrates weckt, stand nicht (L-T5).
 
 ## Raster
 
@@ -41,7 +41,12 @@ Ergebnis: neue Spalte in der Tabelle oben in `docs/PRUEFBERICHT.md`, eine Zeile 
 1. **Chefsache (ändert C, VA 21.11., 14:37):** „zwei Wochen schlechter“ als vierter Grund, aus dem der Disponent Sokrates startet. Sonst liest Sokrates die Spalte erst im nächsten Gespräch mit dem Chef (Vorschlag Sokrates, L-T5). Mein Votum: vierter Grund, weil sonst niemand bewertet, solange der Chef nicht fragt. Gegenargument: mehr Starts der teuersten Sitzung; dagegen höchstens einer je Woche.
 2. **Starter (L-O7):** `lauf.py` statt eigener GitHub-Zeitplan, weil der Disponent alle Starts hält (Startsperre, 3.3 F2 Nr. 5) und `lauf.py` Montag 8 Uhr heute schon kennt (`startbar.py`, 719 A).
 3. **Wer trägt „Bekannte Fehler“ ein?** 4.4: Sokrates (statt Perikles). Kommt mit Frage 1 zu ihm.
-4. **Zahl 4 „obwohl gesehen“** (1462/1463) braucht heute das Lesen der Vorräte; die fallen. Ohne Feld „gesehen von“ in der Übergabezeile „fehlt“.
+4. **Zahl 4 Liegezeit** misst laut 4.4 das Werkzeug (G:490); die Routine übernimmt die Zahl. Quellen heute auch Vorgangsliste, `meldungen.tsv`, Werkzeugwarnungen (`LISTE-PRUEFUNG.md`:22–26).
+5. **Befund ans Büro** heißt: `tools/vorgang.py neu` mit Bereich und Beleg, Absender „Wochenzählung“, dann Wecker an den Disponenten (L-O1 bis zum Ort des Eingangs).
+
+## Gegenprüfung 20:18, mein Wort
+
+15 Stichprobe 373 fehlte: **stimmt**, aufgenommen · 16 (c) verliert Fälle: **stimmt**, berichtigt · 17 „zwei Wochen schlechter“ ins Leere, Liegezeit: **stimmt**, hängt an Sammelfrage C (Profil Disponent Frage 1), Liegezeit Werkzeug · 14 Weg ans Büro: **stimmt**, Frage 5.
 
 ## Stärkstes Gegenargument
 
