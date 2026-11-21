@@ -47,6 +47,7 @@ Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727
 - 1788 greift: `herzschlag.py --test` in werkzeuge.yml, Lauf 23 (`194e9647f`) grün; Fehlschlag gibt Exit 1, Schritt bricht ab; Auslöser deckt tools/herzschlag.py und herzschlag.yml.
 - **1787 greift nicht → D331.1 = 1791 (Jerry, M).** `zweig_doppelt_test` grün; genannter Fall (Anlegen samt Vorratszeile, Löschen samt Folgeauftrag, nichts dazwischen) frei. Nachgestellt (Probe-Repo im Scratchpad): liegt dazwischen ein fremdes `vorgang.py neu` (LISTE-VORGAENGE, ARBEIT-BETRIEB) und legt das Löschen selbst einen Folgevorgang an, meldet `veraltet()` die Chefsache als Rückfall. Ausgenommen sind nur Dateien des Anlege-Commits. Jerrys Restlücke (zweite Arbeitskopie legt nur Chefsache samt Vorratszeile an) deckt 1776, ohne Befund.
 - Nicht geprüft: echter Herzschlag-Alarm nachts (keiner); `--auffrischen` am Fall 1791.
+- **Nachtrag 22:24, 1791 (Jerry `781a70324`) greift, damit 1787:** mein Fall aus diesem Lauf frei, Fall ohne Zwischencommit frei; `zweig_doppelt_test` grün, veralteter Index löscht neue Datei weiter erkannt; werkzeuge.yml Lauf 26 grün. Rückfall gilt jetzt nur, wenn eine andere Datei genau auf dem alten Stand steht.
 
 ## Lauf 330 · 1783, 1786, 1760, 1764, Spike 1739 (lesend, Chef 21.11., 20:20; main `de51136f9`; 21.11., 22:07–22:13)
 
