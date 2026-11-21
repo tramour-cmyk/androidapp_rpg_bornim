@@ -1,4 +1,4 @@
-# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 7, Sokrates 21.11., 15:00)
+# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 8, Sokrates 21.11., 15:01)
 
 Auftrag Chef 21.11., 14:37: „Dann lass doch mal das Profil Technik erstellen, von dem wir so viel reden … Leg mal vor, check selbst, lass es gegenchecken und dann lass es mich sehen.“
 
@@ -20,7 +20,7 @@ Quellen: `ROLLE-TECHNIK.md` (Haltung, Aufgaben 2 und 3), `LISTE-CHECK-BUILD-TEST
 
 **Build.** Nennt dein Auftrag einen Build, bist du der Build-Macher: Regeln ganz in `docs/LISTE-CHECK-BUILD-TEST.md`. Vor dem Sammelbuild: gebaute Kaufmodelle je Block und Cache-Treffer da; nach dem Merge einer Änderung an einem Bauskript den Block zum Stand von `main` neu ablegen, damit der Bauserver ohne Blender läuft; Laufzeit in die Testbitte.
 
-**Nach `main`** führst du zusammen, wenn dein Auftrag es nennt: nach der Freigabe des ganzen Builds („gut“, „passt“, „freigegeben“; ein 👍 gilt nur für einen Punkt) oder nach dem Ergebnis mit Durchfall (Checkliste 11, 12: Revert, Rest nach `main`), belegt in der Vorgangsdatei. Release nur auf Zuruf des Chefs (`docs/LISTE-RELEASE-NEUSTART.md`).
+**Nach `main`** führst du zusammen, wenn dein Auftrag es nennt: nach der Freigabe des ganzen Builds (welche Worte gelten: Checkliste 13) oder nach dem Ergebnis mit Durchfall (Checkliste 11, 12: Revert, Rest nach `main`), belegt in der Vorgangsdatei. Release nur auf Zuruf des Chefs (`docs/LISTE-RELEASE-NEUSTART.md`).
 ```
 
 ## Teil B: Checkliste, neue und geänderte Punkte
@@ -37,15 +37,19 @@ Wortlaut der Build-Kette (entschieden 19.11., 22:05) ohne Zusatz, nur „Spike�
 - **Zeile in der Telegram-Meldung** „enthält alle früheren Builds: ja“ erzeugt das Werkzeug.
 
 Punkt 12 ergänzt (Build-Kette 7): der durchgefallene Punkt fliegt per Revert heraus, auch im aufsetzenden Build; Kerntests; Rest nach `main`; ganz verwerfen nur, wenn er verflochten ist.
-Punkt 13, Anfang bis „(die Prüfliste ist seit 11 weg).“ ersetzt, **neu, nur mit deinem Wort zu 235:** „Nach der Freigabe des ganzen Builds oder dem Ergebnis nach 11 und 12 führt der Build-Macher, den der Disponent startet, den PR zusammen, sobald er grün ist (Merge, nie Squash/Rebase; 108a.1); die Freigabe steht in der Vorgangsdatei (Haken); bei Konflikt geht er ans Team zurück, das Team holt danach `main`. Ergebnis in `CHANGELOG.md` (die Prüfliste ist seit 11 weg).“ Der Rest von 13 bleibt ab „`main` nur grün und vom Chef getestet“.
+Punkt 13, Anfang bis „(die Prüfliste ist seit 11 weg).“ ersetzt, **neu, nur mit deinem Wort zu 235:** „**Nach der Freigabe des ganzen Builds** („gut“, „passt“, „freigegeben“; ein 👍 gilt nur für einen Punkt) oder dem Ergebnis nach 11 und 12 führt der Build-Macher, den der Disponent startet, den PR zusammen, sobald er grün ist (Merge, nie Squash/Rebase; 108a.1); die Freigabe steht in der Vorgangsdatei (Haken); bei Konflikt geht er ans Team zurück, das Team holt danach `main`. Ergebnis in `CHANGELOG.md` (die Prüfliste ist seit 11 weg).“ Der Rest von 13 bleibt ab „`main` nur grün und vom Chef getestet“.
 ```
 
 ## Eigene Prüfung (15:00)
 
-- Größe (UTF-8, Inhalt der Codeblöcke, nachgemessen): Teil A etwa 1.220 Byte (Oberfläche 1.000); Teil B etwa 3.000 Byte, davon ersetzt Punkt 13 den alten Anfang von 13 bis „seit 11 weg“; dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz). Teil B ist länger als F4, weil Werkzeug, Haken und GitHub-Regel wieder im Wortlaut stehen.
-- Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung, Aufgabe 2 und 3 (Technikliste, A56 Maß, Tablet Untergrenze; Archiv 1270.6), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 11–13 (Wörter des Chefs); B = Build-Kette 1–7 wörtlich, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert), 918, 919.
+- Größe (UTF-8, Inhalt der Codeblöcke, nachgemessen): Teil A etwa 1.180 Byte (Oberfläche 1.000); Teil B etwa 3.100 Byte, davon ersetzt Punkt 13 den alten Anfang von 13 bis „seit 11 weg“; dafür fällt `1727-muster/build-kette.md` als Ort weg (Regelbilanz). Teil B ist länger als F4, weil Werkzeug, Haken und GitHub-Regel wieder im Wortlaut stehen.
+- Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung, Aufgabe 2 und 3 (Technikliste, A56 Maß, Tablet Untergrenze; Archiv 1270.6), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 11–13; Freigabeworte in B Punkt 13: „passt“, „freigegeben“ aus Checkliste 13, „gut“ aus Kern Büro (`1727-gesamtbild.md`, A14 in `1727-muster/ablauf.md`), 👍 je Punkt aus Checkliste 11; B sonst = Build-Kette 1–7 wörtlich, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert), 918, 919.
 - Fälle: Build 300 (Merge `3db05d4e5` ≠ getesteter Stand): Pfadvergleich fängt ihn · Build 400 ohne 380: Werkzeug hält an · 1566: Prüfung „Änderung nicht zurückgenommen“ (Build-Werkzeug, neu in Bauliste 7.1; bis dahin `git diff` je Vorgangs-Commit von Hand) · t300 (Ergebnis mit ✗, kein „passt“): Teil A deckt den Rest nach Revert · 1664: ob er nicht auf `main` kam, ist unbelegt (Liste: „erledigt, t300 bestanden“), darum nicht als Beleg genannt.
 - Offen: „Ohne dich“ und Kleinkram gehen nach Checkliste 3 und 9 ohne Test des Chefs nach `main`, unverändert; Kerntests vor dem Commit gelten für jede Fachkraft mit Code, nicht nur Technik: als Werkzeug (Commit-Haken) in die Bauliste. Neue Begriffe Build-Macher, Disponent, Vorgangsdatei kommen mit der Umstellung ins Glossar.
+
+## Nachprüfung 14:59 (Fassung 7, 2 Befunde, davon 1 neu von mir), mein Wort
+
+1 Ersatz von 13 nimmt die Freigabeworte aus der Checkliste (gegen 903 B): **stimmt**, Worte in den neuen Satz 13, Teil A verweist · 2 „gut“ steht nicht in Checkliste 11–13: **stimmt**, Quelle Kern Büro (A14) ergänzt. „Grafik-Engine ausschöpfen“ bleibt draußen (Ziel, keine Regel).
 
 ## Nachprüfung 14:58 (Fassung 6, 3 Befunde, davon 1 neu von mir), mein Wort
 
