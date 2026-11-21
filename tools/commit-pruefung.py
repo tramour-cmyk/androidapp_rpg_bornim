@@ -489,7 +489,9 @@ def veraltet():
             # oft mit (Folgeauftrag). Beleg nur aus späteren Commits; ohne Beleg kein Rückfall.
             andere = [q for q in andere if q not in anlage(c, p)]
             if not andere: return False
-        return all(_blob("", q) != _blob("HEAD", q) for q in andere)
+        # 1791: „anders als HEAD“ reicht nicht (ein eigenes `vorgang.py neu` ändert Liste und Zähler weiter); ein veralteter
+        # Index steht bei mindestens einer Datei genau auf dem Stand c
+        return all(_blob("", q) != _blob("HEAD", q) for q in andere) and any(_blob("", q) == _blob(c, q) for q in andere)
     namen = [l.strip() for l in git("diff", "--cached", "--name-only", "--no-renames", "HEAD").splitlines() if l.strip()]
     weg_cs = [p for p in namen if p.startswith("docs/chefsache/") and not _blob("", p) and _blob("HEAD", p)]
     mit_cs = set()  # 1787: Vorratszeile samt Chefsache wieder weg ist kein Rückfall der Vorratsdatei

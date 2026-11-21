@@ -84,6 +84,19 @@ with tempfile.TemporaryDirectory() as t:
     open(os.path.join(a, vr), "w").write("v0\n"); g(a, "add", vr)
     soll("Löschen samt Vorratszeile weg (wie vorher): kein Rückfall", pruefen(a, "veraltet") == [], repr(pruefen(a, "veraltet")))
     g(a, "reset", "-q", "--hard", "HEAD")
+    # 1791 (D331.1): dazwischen ein fremdes `vorgang.py neu` (Liste, Zähler), das Löschen legt selbst einen Folgevorgang an
+    cs3, li, be = "docs/chefsache/entscheiden/1791-probe.md", "docs/LISTE-VORGAENGE.md", "docs/ARBEIT-BETRIEB.md"
+    open(os.path.join(a, li), "w").write("| 1 |\n"); open(os.path.join(a, be), "w").write("Zähler 1\n")
+    g(a, "add", li, be); g(a, "commit", "-q", "--no-verify", "-m", "a: liste")
+    open(os.path.join(a, cs3), "w").write("Frage\n"); open(os.path.join(a, vr), "w").write("v0\nZeile 1791\n")
+    g(a, "add", cs3, vr); g(a, "commit", "-q", "--no-verify", "-m", "a: chefsache 1791")
+    open(os.path.join(a, li), "w").write("| 1 |\n| 2 |\n"); open(os.path.join(a, be), "w").write("Zähler 2\n")
+    g(a, "add", li, be); g(a, "commit", "-q", "--no-verify", "-m", "fremd: vorgang neu 2")
+    g(a, "rm", "-q", cs3); open(os.path.join(a, vr), "w").write("v0\nZu 3: Folgeauftrag\n")
+    open(os.path.join(a, li), "w").write("| 1 |\n| 2 |\n| 3 |\n"); open(os.path.join(a, be), "w").write("Zähler 3\n")
+    g(a, "add", vr, li, be)
+    soll("Löschen nach fremdem Vorgang, samt Folgevorgang: kein Rückfall", pruefen(a, "veraltet") == [], repr(pruefen(a, "veraltet")))
+    g(a, "reset", "-q", "--hard", "HEAD")
     # veralteter Index, der eine neue Datei löschen würde, bleibt erkannt: b legt neu an, a steht auf dem alten Stand
     g(b, "checkout", "-q", "--ignore-other-worktrees", "-B", "main", "main"); open(os.path.join(b, "neu"), "w").write("x\n")
     open(os.path.join(b, "f"), "w").write("5\n"); g(b, "add", "neu", "f"); g(b, "commit", "-qm", "b: neu"); g(b, "checkout", "-q", "--detach")
