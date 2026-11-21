@@ -45,6 +45,11 @@ Auftrag und Schließen (1739, Bauliste 1727 Gesamtbild 7.1; Einzelheiten: tools/
   vorgang.py auftrag NR [--datei PFAD|- [--pruefen]]   ohne Datei die Vorlage mit den sieben Feldern; mit Datei prüfen (Felder,
                                        „Zurück“, höchstens 2 KB) und als „## Auftrag“ in docs/vorgang/NR.md eintragen (gepusht)
   vorgang.py schliessen NR "Grund"     Stand „erledigt“ wie fertig, Grund als Zeile „Geschlossen“ in docs/vorgang/NR.md
+Lehrenbuch docs/LISTE-LEHREN.md (1739, Archiv „Lehrenbuch“ 21.11., 14:19; Einzelheiten: tools/lehren.py):
+  vorgang.py lehre suche WORT …        freie Suche · lehre bereich NR  Lehren des Bereichs von NR nach Rangfolge
+  vorgang.py lehre roh NR "Anlass" "Ursache und Satz"   rohe Zeile anhängen (sonst automatisch bei Rückmeldung und Schließen)
+  vorgang.py lehre zuordnen R<n> L<n> | --neu "Stichworte" "Lehre" | --keine "Grund"   Wirkung „wirkt nein“/„nicht gefunden“
+                                       an Sokrates
   vorgang.py --hilfe                   diese Hilfe
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
 """
@@ -803,6 +808,8 @@ def haupt(a):
         import chefwort; return chefwort.haupt(a)
     if b == "rueckmeldung":  # 1763
         import rueckmeldung; return rueckmeldung.haupt(a)
+    if b == "lehre":  # 1739 Lehrenbuch
+        import lehren; return lehren.haupt(a)
     if b == "pruefen":
         f = startbar.pruefen_liste()
         for nr, x in f: print("%s: %s" % (nr, x))

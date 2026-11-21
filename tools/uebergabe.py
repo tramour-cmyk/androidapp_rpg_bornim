@@ -65,11 +65,12 @@ def _systemzeilen():
     except Fehler: cs = None
     return "\n".join(x for x in (co, cs) if x)
 
-def atomar(nr, aendern, nachricht):
-    """aendern(alter_text) → (neuer_text, ergebnis); alter_text "" wenn die Datei fehlt. Schreibt nur docs/vorgang/NR.md auf origin/main."""
+def atomar(nr, aendern, nachricht, pfad=None):
+    """aendern(alter_text) → (neuer_text, ergebnis); alter_text "" wenn die Datei fehlt. Schreibt nur docs/vorgang/NR.md auf origin/main
+    (1739: oder PFAD, etwa das Lehrenbuch; Sperre wie beim Zähler: Push nur auf den gelesenen Stand, sonst neu lesen)."""
     if os.environ.get("BORNIM_OHNE_PUSH"): raise Fehler("BORNIM_OHNE_PUSH gesetzt: Übergaben gehen nur über origin/main")
     if _git("rev-parse", "--abbrev-ref", "HEAD")[1] != "main": raise Fehler("nicht auf main (Übergaben nur in der Notizkopie, ../bornim-main)")
-    pfad = _pfad(nr)
+    pfad = pfad or _pfad(nr)
     for versuch in range(VERSUCHE):
         if versuch: time.sleep(random.uniform(0.1, 0.4) * versuch)
         rc, _, err = _git("fetch", "-q", "origin", "main")

@@ -175,6 +175,11 @@ def haupt(a):
         k, grund = eintragen(a[0], a[1], wer, sid)
     except ue.Fehler as e:
         sys.exit("vorgang.py rueckmeldung: %s; nichts geschrieben" % e)
+    if grund != "schon eingetragen":  # 1739 Lehrenbuch, „Roh sammeln“: ja mit Ursache, zweites Nein
+        import lehren
+        dt = open(os.path.join(ue.WURZEL, ue._pfad(a[0])), encoding="utf-8").read() if os.path.exists(os.path.join(ue.WURZEL, ue._pfad(a[0]))) else ""
+        r = lehren.roh_aus_rueckmeldung(a[0], a[1], wer, dt, zaehlen(dt)["nein"])
+        if r: print("LEHRENBUCH %s angehängt" % r)
     if not k:
         print("EINGETRAGEN %s: %s" % (a[0], grund))
         if grund != "schon eingetragen": nein_waechter(a[0], a[1])

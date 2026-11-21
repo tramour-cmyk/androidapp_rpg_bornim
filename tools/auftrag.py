@@ -49,11 +49,13 @@ def pruefen(text):
     if len(punkte) > 5: f.append("Feld 4 „Beachte“ hat %d Punkte, höchstens fünf" % len(punkte))
     return f
 
-def eintragen(nr, text):
+def eintragen(nr, text, treffer=None):
+    """treffer: Zeile „Lehren-Treffer (Zeit): …“ (1739 Lehrenbuch), steht im selben Commit unter dem Auftrag."""
     zeit = ue.fmt(ue.jetzt())
     def aendern(alt):
         kopf = "" if alt else "# Vorgang %s\n\n" % nr
-        return alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "## Auftrag (%s)\n\n%s\n" % (zeit, text.strip()), zeit
+        return alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "## Auftrag (%s)\n\n%s\n%s" % (
+            zeit, text.strip(), ("\n" + treffer + "\n") if treffer else ""), zeit
     return ue.atomar(nr, aendern, "%s: Auftrag (%s, vorgang.py auftrag)" % (nr, zeit))
 
 def schliessen(nr, grund):
@@ -82,13 +84,19 @@ def haupt(a, fertig=None):
         nr = rest[0]
         titel = _titel(nr)
         if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste" % nr)
-        if datei is None: print(vorlage(nr, titel), end=""); return
+        import lehren
+        liste, treffer = lehren.treffer_zeile(nr, titel)
+        if datei is None:
+            print(vorlage(nr, titel), end="")
+            print("\nLehren des Bereichs (Lehrenbuch, 1739; passende in „Beachte“ und „Umsetzen“, höchstens fünf, weitere als Nummer):")
+            print("\n".join("- " + lehren.zeigen(x) for x in liste) if liste else "- keine")
+            return
         text = sys.stdin.read() if datei == "-" else open(datei, encoding="utf-8").read()
         f = pruefen(text)
         if f:
             print("vorgang.py auftrag %s hält an:\n- " % nr + "\n- ".join(f)); sys.exit(1)
         if nur: print("vorgang.py auftrag %s: gültig (%d Byte)" % (nr, len(text.encode("utf-8")))); return
-        try: zeit = eintragen(nr, text)
+        try: zeit = eintragen(nr, text, treffer)
         except ue.Fehler as e: sys.exit("vorgang.py auftrag: %s; nichts geschrieben" % e)
         print("vorgang.py: Auftrag %s eingetragen (%s, %s, gepusht)" % (nr, ue._pfad(nr), zeit)); return
     if b == "schliessen":
@@ -99,6 +107,9 @@ def haupt(a, fertig=None):
         fertig(nr)  # hält bei Rest ohne Folgevorgang an (1143), bevor der Grund geschrieben wird
         try: schliessen(nr, grund)
         except ue.Fehler as e: sys.exit("vorgang.py schliessen: Liste auf erledigt, Grund nicht geschrieben (%s); nachholen" % e)
+        import lehren  # 1739 Lehrenbuch, „Roh sammeln“ beim Schließen
+        try: print("LEHRENBUCH %s angehängt (Schließen)" % lehren.roh(nr, "geschlossen", grund))
+        except ue.Fehler as e: print("LEHRENBUCH nicht geschrieben (%s); von Hand: vorgang.py lehre roh %s geschlossen …" % (e, nr))
         print("vorgang.py: Grund in %s (gepusht); Liste committen und pushen" % ue._pfad(nr)); return
     sys.exit(__doc__)
 
