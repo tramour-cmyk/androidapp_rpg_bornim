@@ -245,10 +245,10 @@
 | 109 | Repo öffentlich | Sokrates | K | nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür | – | – | – | M Veröffentlichung | – |
 | 1774 | Von Spike (1766): Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läufe je Auftrag) festlegen; Wert fehlt laut L-O17, routine-rundblick.md:25 – Vorentscheid oder Chef | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727a | Rückfrage Sokrates (1727): Satz 1311 aus Profil Technik streichen, sobald Profil Werkzeug gilt? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
-| 1727b | Rückfrage Sokrates (1727): Lizenz frei: nur kommerziell erlaubt, Hinweis MIT/OFL im Spiel, Listen angleichen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727b | Rückfrage Sokrates (1727): Lizenz frei: nur kommerziell erlaubt, Hinweis MIT/OFL im Spiel, Listen angleichen? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727c | Rückfrage Sokrates (1727): Drei weitere Startgründe für Sokrates (Eingang ohne Bereich, zwei Wochen schlechter, Stillstand an Entscheidung)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| 1727d | Rückfrage Sokrates (1727): Fünf Lücken im Abgenommenen schließen (L-S2, L-O1, L-U15, L-T6, L-U10)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| 1727e | Rückfrage Sokrates (1727): Guthabenzahl über Haken D eintragen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727d | Rückfrage Sokrates (1727): Fünf Lücken im Abgenommenen schließen (L-S2, L-O1, L-U15, L-T6, L-U10)? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
+| 1727e | Rückfrage Sokrates (1727): Guthabenzahl über Haken D eintragen? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727f | Rückfrage Sokrates (1727): Kern Arbeitsplaner +170 Byte (Ladehinweise, Ausnahme Übersetzung)? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727g | Rückfrage Sokrates (1727): GitHub-Regel gegen Force-Push auf claude/build-* anlegen (Chef tut) | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1507 | Von Sokrates (Chef 17.11., 06:15: Diogenes-Meldungen mit Daumen „nicht kapiert“): Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer; Prüfberichte ohne Daumenzeile | Ford | M | startbar | – | – | – | B Abläufe | 1,89 $ |
@@ -312,3 +312,4 @@
 | 1779 | Von Sokrates (1774): Höchstdauer Werte setzen (Mittel 360, Hoch 300) und Gebautes nachbessern: Test :26, Weckruf-idle nicht prüfen, nach Hinweis Uhr neu statt auslassen, neue Rollennamen in kosten.ROLLEN; Einzelheiten hoechstdauer-1774.md Punkt 6 | Spike | M | startbar | – | – | – | B Werkzeuge | – |
 | 1780 | Von Sokrates (1727, Nachprüfung werkzeuge 21:03 Nr. 6): herzschlag.yml:64 meldet immer laut an meldung.sh vorbei, auch nachts; über meldung.sh oder Uhrzeit, vor dem Secret | Spike | M | startbar | – | – | – | B Werkzeuge | – |
 | 1781 | Von Sokrates (1727, Chef 21.11., 21:22 „Leute, die die Kaufmodell-Repo brauchen, das Wording so haben, wie wir das aktuell mit Tom und Jerry haben“): nach der Umstellung trägt jeder Start (Fachkraft, Build-Macher, Tester, auch aus auftrag.py) den Satz KAUFREPO (lauf.py:134) wörtlich; Test | Spike | M | startbar | – | – | – | B Werkzeuge | – |
+| 1782 | Von Sokrates (1727d, Chef 21.11., 21:31): Wiederwecken in Werkzeug: Frist abgelaufen und idle oder abgebrochen → ein Neustart, zweites Mal „steckt fest“ (L-S2, L-U8); „gut“ aus fremder Sitzung als Zeile an den Disponenten (L-U15); mit 1739 | Spike | M | startbar | – | – | – | B Werkzeuge | – |

@@ -2,7 +2,7 @@
 
 Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x: „Wir bräuchten einerseits eine Ressourcenseite und andererseits eine Zuordnungsseite. Dieses Schema sollten wir auf bisher geprüfte Internetseiten … und kommende Internetseiten anwenden.“). Hier steht **jede geprüfte Quelle** mit Link und Urteil nach dem Prüfschema. Was wir besitzen, steht in `LISTE-BESTAND.md`; wofür wir es im Spiel nehmen, in `LISTE-EFFEKTE.md` (Zuordnung). Modelle und Bewegungen der Umzugszeit stehen noch in `LISTE-CC0-MODELLE.md` und ziehen nach und nach hierher (623.1).
 
-**Lizenzregel:** `CLAUDE.md` „Technik und Sicherheit“: kommerziell, in jeder Engine, unbefristet, ohne Pflicht zur Nennung, ohne Umsatzgrenze; gekaufte Rohdateien nur im privaten Repo `bornim-kaufmodelle`, nie im öffentlichen (dieses Repo ist öffentlich).
+**Lizenzregel:** `CLAUDE.md` „Technik und Sicherheit“: frei (offene Lizenz) reicht kommerzielle Nutzung, verlangte Nennung im Hauptmenü; gekauft: kommerziell, in jeder Engine, unbefristet, ohne Pflicht zur Nennung, ohne Umsatzgrenze (1727b, Chef 21.11., 21:31); gekaufte Rohdateien nur im privaten Repo `bornim-kaufmodelle`, nie im öffentlichen (dieses Repo ist öffentlich).
 
 ## Prüfschema (für jede Quelle, jedes Paket)
 
