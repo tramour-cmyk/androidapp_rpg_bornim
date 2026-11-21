@@ -122,6 +122,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
 - 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
 - 21:59 21.11.: Startsperre 21:59 Start Jerry (1786, dann 1783; Werkzeuge, Chef 20:06)
+- 22:07 21.11.: Startsperre 22:07 Start Diogenes (1786, 1783 lesend; Chef 20:20)
 - 22:06 21.11.: Startsperre 22:06 Start Spike (Ausnahme 1784 A, Start 2/8; Übergabe e51d2b920 nennt dbf44708a mit .github/ und tools/; 1739 Teil 8)
 - 21:55 21.11.: Startsperre 21:55 Start Spike (Ausnahme 1784 A, Start 1/8 bis 03:00; Übergabe 723e0b4ab nennt 0b6b8f46c mit tools/; 1739 Teil 7)
 - 21:52 21.11.: Startsperre 21:52 Start Sokrates (Neustart 420488e64, 1727)
