@@ -46,6 +46,18 @@ Verfahren: je Gruppe ein frischer Helfer, kennt nur die Ladetexte (Stand e8e1865
 
 Ausziehen: Ladetexte nach Messregel (Codeblock bzw. bis erstes „##“; Sockel = erster Codeblock im Gesamtbild, Kern Leitung = letzter Codeblock in 2.1) in den Scratchpad; je Gruppe ein frischer Helfer nur mit Ladetexten + Werkzeughilfe, Fälle nur Spalte „Eingang“. Dann Bewertung gegen Soll hier; Fachkraft mit Muster-Auftrag (Feld „Zurück“) wiederholen; Ketten K1–K3 spielen. Bekannte Fehler aus Lauf 1: Feld 6 gegen `auftrag.py`; Kern Leitung ohne Nachprüfung nach Einarbeiten (Gespräch 10:00); Disponent D3, D4.
 
-## Noch ausstehend (Lauf 1 von dieser Sitzung gestartet, Ergebnis kam nach der Übergabe nicht mehr an)
+## Prüfer und Tester (P1–P7, T1–T2; kam 23:17 noch an)
+
+- Werkzeug heute: Vorgangsdateien fehlen (nur `1789.md`) → Macher unbekannt → Rückläufer gehen an den Disponenten; Rolle ohne Sitzung bekommt keinen WECKER, ohne Hinweis; `--sitzung` fehlt im Profil (Absender „unbekannt“); Chef-Neins stehen in Archiv/Vorrat, nicht in Vorgangsdateien → zählen nicht.
+- P1 (fertig ohne Commit): „nein“ + „Hinweis“ – gut; **Lücke:** Wort für „kein Commit“ (nein/Beleg fehlt).
+- P2 (Prüffrage „kürzer?“): „nein, Auftrag“ bei Frage am Ziel vorbei – gut; **Lücke:** Glanz an Neuem Mangel oder Hinweis.
+- P3 (Testbitte gegenlesen): **Lücke:** Prüfer kennt kein „Testbitte gegenlesen“, keine Nummer für Buildpunkte.
+- P4/P7 (ruhende Vorgänge 431, 760): prüft, meldet Ruhen als „Hinweis“ – gut; **Lücke:** fehlt Auftrag → kein Wort (Sockel 3 „Frage“ gegen Kern „statt Frage …“).
+- P5 (Vermerk „nur Gang zählt“, Tusche fehlt): prüft Geändertes, Tusche als Hinweis – gut.
+- P6 (Chef-Nein, dann Prüfer-Nein): „nein, steckt fest“ → genau eine Zeile an Sokrates – **besteht**; **Lücke:** Macher erfährt nichts; woher die Handwerksregel.
+- T1 (Schalter „Schnell“): Testhilfen aus, Zustand im Beleg – **besteht**; „Befunde:“ geht nirgends hin (1795).
+- T2 (Bildrate nebenbei): **Lücke:** kein Maß für Bildrate beim Tester; Nebenfund Befund oder Hinweis.
+
+## Noch ausstehend
 
 Prüfer und Tester (P1–P7, T1–T2): mit denselben Ladetexten neu spielen lassen (Auszug: `python3` nach Messregel aus den Dateien, Fälle nur Spalte „Eingang“), dann alles gegen Soll bewerten.
