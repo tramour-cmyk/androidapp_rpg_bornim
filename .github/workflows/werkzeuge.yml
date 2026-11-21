@@ -29,3 +29,5 @@ jobs:
           python3 tools/auftrag_test.py
           python3 tools/zweig_doppelt_test.py   # 1776
           python3 tools/laufbremse_test.py      # 1777 (Spike, 1766)
+          python3 tools/sperre-haken.py --test  # 1739 Sperre Force-Push, Keystore
+          python3 tools/buildzweig-haken.py --test
