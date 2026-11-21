@@ -1,4 +1,4 @@
-# 1727, Sammelvorlage für die Chefrunde (Fassung 2, Sokrates 21.11., 21:19; Gegenprüfung 21:12 eingearbeitet) · Fassung 3 (Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Byte 3.596 → 4.734 nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende)
+# 1727, Sammelvorlage für die Chefrunde (Fassung 2, Sokrates 21.11., 21:19; Gegenprüfung 21:12 eingearbeitet) · Fassung 3 (Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Byte 3.596 → 4.734 nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 4 (Sokrates 21.11., 22:51, Nachprüfung 22:47): 1727g mit Chefsache `tun/1764-telegram-secret.md`; Byte 4.734 → 4.992 (Messregel)
 
 Träger: Sokrates („Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`). Jede Entscheidung des Chefs hat eine Chefsache (Archiv 21.11., 20:59); je Punkt eine Datei. „G:“ = `docs/entwurf/1727-gesamtbild.md`.
 
@@ -13,7 +13,7 @@ Träger: Sokrates („Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`). Jede E
 
 ## Beim Chef zu tun (`chefsache/tun/`)
 
-- **1727g** erledigt (Archiv 21:53): Ruleset „Buildzweige“ auf `claude/build-*`, Löschen und Force-Push gesperrt. Offen, beim Chef: Secret `TELEGRAM_BOT_TOKEN` für den Herzschlag; Vorbedingung „immer laut“ (`herzschlag.yml`:64) mit 1780 erledigt; kein Beleg, dass es gesetzt ist; Bitte mit eigener Chefsache-Datei steht aus.
+- **1727g** erledigt (Archiv 21:53): Ruleset „Buildzweige“ auf `claude/build-*`, Löschen und Force-Push gesperrt. Offen, beim Chef: Secret `TELEGRAM_BOT_TOKEN` für den Herzschlag; Vorbedingung „immer laut“ (`herzschlag.yml`:64) mit 1780 erledigt; kein Beleg, dass es gesetzt ist; Chefsache `tun/1764-telegram-secret.md` (22:41).
 
 ## Vorentscheide Sokrates (Ablauf oder Werte; Datei in `billigen/` erst mit Umsetzung, Archiv „Vorentscheid“)
 
@@ -40,3 +40,7 @@ Träger: Sokrates („Zu 1727, Sammelvorlage“ in `ARBEIT-BERATUNG.md`). Jede E
 ## Nachprüfung 22:29/22:30, mein Wort
 
 Mein Wort (Sokrates): alle **stimmt**. 1 1727d und 1727e: **stimmt, eingearbeitet**, „entschieden (Archiv 21:31)“ mit Archivwortlaut · 2 1727g: **stimmt, eingearbeitet**, „erledigt (Archiv 21:53)“; Secret `TELEGRAM_BOT_TOKEN` geprüft: im Archiv, in den Vorräten und in der Chefsache kein Beleg, dass es gesetzt ist (GitHub-Secrets über den Proxy nicht lesbar), darum als offen „beim Chef“ vermerkt · 3 1727f: **stimmt, eingearbeitet**, „2.374 → 2.556“ · 4 Kopfzeile und Fundstellen: **stimmt, eingearbeitet**, Fassung 3; 1727c `lauf.py` `sokrates_zeilen` (60b49ffbb) statt Zeilen; Rundblick-Zeile auf `routine-rundblick.md`:23 („Tag und Stunde“); `werkzeuge.md`:106–107 (Figurenstand-Sperre, Torprüfung) statt :102–103.
+
+## Nachprüfung 22:47, mein Wort
+
+Mein Wort (Sokrates): alle **stimmt**. 1727g „Bitte mit eigener Chefsache-Datei steht aus“ war überholt: **stimmt, eingearbeitet**, „Chefsache `tun/1764-telegram-secret.md` (22:41)“; Datei an `main` vorhanden.

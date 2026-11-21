@@ -1,4 +1,4 @@
-# 1727, Profil Werkzeug (Gesamtbild 5.3 Nr. 11; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.104 → 1.104 Byte; ganze Datei 19.198 → 20.547 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende)
+# 1727, Profil Werkzeug (Gesamtbild 5.3 Nr. 11; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.104 → 1.104 Byte; ganze Datei 19.198 → 20.547 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 8 (Sokrates 21.11., 22:51, Nachprüfung 22:47): Ladesumme mit „Stand 43b57854c“, „F7 (22:39)“; Teil A unverändert 1.104; ganze Datei 20.547 → 20.971 Byte (Messregel)
 
 Auftrag: Gesamtbild 5.3 Nr. 11 „Werkzeug, Fach, fehlt“ (Quelle `LISTE-BETRIEB.md`, Bauliste 7); Reihenfolge Schritt 2 vor dem Falltest (`reihenfolge.md`:11); Chef 21.11., 20:06: „Uns fehlen die restlichen Werkzeuge. Die müssen wir jetzt machen.“ Form wie `profil-technik.md` F12; neue Profile kurz (Archiv 20.11., 14:02).
 
@@ -98,6 +98,10 @@ Größe Fassung 6 (`wc -c`, Codeblock Teil A): 1.104 Byte (unverändert). Ladesu
 
 ## Nachprüfung 22:29/22:30, mein Wort
 
-Mein Wort (Sokrates): alle **stimmt**. 1 `rueckmeldung.py`-Zeilen: **stimmt, eingearbeitet**, mit Funktionsname und Commit 1e38d1a2d: Testbitte bei „ja“ (`weitergabe`), Weitergabe an Sokrates (`eintragen`), Aufruf `lehren` (`haupt`) · 2 Fassung Profil Disponent: **stimmt, eingearbeitet**, „F7“ (aktuelle Fassung, 22:3x) an beiden Stellen · 3 Ladesumme Arbeitsplaner ohne Kern Büro: **stimmt, eingearbeitet**: der Arbeitsplaner gehört zum Büro und lädt Kern Büro (`uebergabekette.md` Nr. 1 „Büro: Kern Büro (Gemeinsames), Profil Disponent, Profil Arbeitsplaner“; Archiv 21.11., 11:46 „Kern Büro schmal“: Kern Büro bleibt, „alles andere Profil Disponent bzw. Arbeitsplaner“). Kern Büro heute `kern-buero.md` 2.351 Byte (Messregel, herausgezogene Fassung 3.1; der schmale Kern, etwa 0,5 KB, ist noch nicht geschrieben).
+Mein Wort (Sokrates): alle **stimmt**. 1 `rueckmeldung.py`-Zeilen: **stimmt, eingearbeitet**, mit Funktionsname und Commit 1e38d1a2d: Testbitte bei „ja“ (`weitergabe`), Weitergabe an Sokrates (`eintragen`), Aufruf `lehren` (`haupt`) · 2 Fassung Profil Disponent: **stimmt, eingearbeitet**, „F7 (22:39)“ (aktuelle Fassung) an beiden Stellen · 3 Ladesumme Arbeitsplaner ohne Kern Büro: **stimmt, eingearbeitet**: der Arbeitsplaner gehört zum Büro und lädt Kern Büro (`uebergabekette.md` Nr. 1 „Büro: Kern Büro (Gemeinsames), Profil Disponent, Profil Arbeitsplaner“; Archiv 21.11., 11:46 „Kern Büro schmal“: Kern Büro bleibt, „alles andere Profil Disponent bzw. Arbeitsplaner“). Kern Büro heute `kern-buero.md` 2.351 Byte (Messregel, herausgezogene Fassung 3.1; der schmale Kern, etwa 0,5 KB, ist noch nicht geschrieben).
 
-Größe Fassung 7: Teil A 1.104 Byte (unverändert). Ladesumme Arbeitsplaner mit diesem Profil: Sockel 1.110 + Kern Büro 2.351 + Kern Arbeitsplaner 2.556 + Teil A 1.104 = 7.121 Byte; mit schmalem Kern Büro (etwa 500) etwa 5,3 KB.
+Größe Fassung 7: Teil A 1.104 Byte (unverändert). Ladesumme Arbeitsplaner mit diesem Profil: Sockel 1.110 + Kern Büro 2.351 (Stand 43b57854c) + Kern Arbeitsplaner 2.556 + Teil A 1.104 = 7.121 Byte; mit schmalem Kern Büro (etwa 500) etwa 5,3 KB.
+
+## Nachprüfung 22:47, mein Wort
+
+Mein Wort (Sokrates): alle **stimmt**. Ladesumme Arbeitsplaner: **stimmt, eingearbeitet**, Kern Büro 2.351 Byte nach Messregel mit „Stand 43b57854c“ (der schmale Kern Büro ist in Arbeit, noch nicht an `main`); Summe 7.121 Byte unverändert · Fassung Profil Disponent: **stimmt, eingearbeitet**, „F7 (22:39)“ statt „22:3x“. Teil A unverändert 1.104 Byte.

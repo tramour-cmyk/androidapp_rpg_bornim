@@ -1,4 +1,4 @@
-# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 12, Sokrates 21.11., 15:12) · Fassung 13 (21.11., 22:16): 1727d L-T6 eingebaut (Punkt 13 Konflikt an die Fachkraft über Übergabezeile; Zusatz 13 „beim Bereich“); Byte 16.543 → 16.594 (ganze Datei ohne Kopfzeile) · Fassung 14 (21.11., 22:25, Gegenprüfung 22:22 B2, B12): „die Fachkraft holt danach `main`“ als nicht vorgelegte Folgeänderung zu L-T6 vermerkt, Lücke :32 (Eigene Prüfung); Teil A und B unverändert; Byte 16.594 → 17.090 (ohne Kopfzeile, Leerzeile, letztes Zeilenende) · Fassung 15 (21.11., 22:39, Nachprüfung 22:29 T1): Vermerk der Gegenprüfung 22:22 als eigener Abschnitt, Abschnitt Nachprüfung; Teil A und B unverändert; Byte 17.090 → 17.402 (Messregel)
+# 1727, Profil Technik (Gesamtbild 5.3 Nr. 10; Fassung 12, Sokrates 21.11., 15:12) · Fassung 13 (21.11., 22:16): 1727d L-T6 eingebaut (Punkt 13 Konflikt an die Fachkraft über Übergabezeile; Zusatz 13 „beim Bereich“); Byte 16.543 → 16.594 (ganze Datei ohne Kopfzeile) · Fassung 14 (21.11., 22:25, Gegenprüfung 22:22 B2, B12): „die Fachkraft holt danach `main`“ als nicht vorgelegte Folgeänderung zu L-T6 vermerkt, Lücke :32 (Eigene Prüfung); Teil A und B unverändert; Byte 16.594 → 17.090 (ohne Kopfzeile, Leerzeile, letztes Zeilenende) · Fassung 15 (21.11., 22:39, Nachprüfung 22:29 T1): Vermerk der Gegenprüfung 22:22 als eigener Abschnitt, Abschnitt Nachprüfung; Teil A und B unverändert; Byte 17.090 → 17.402 (Messregel) · Fassung 16 (21.11., 22:51, Nachprüfung 22:47): Abschnitt Nachprüfung 22:29/22:30 an die absteigende Stelle verschoben, Abschnitt Nachprüfung 22:47; Teil A und B unverändert; Byte 17.402 → 17.781 (Messregel)
 
 Auftrag Chef 21.11., 14:37: „Dann lass doch mal das Profil Technik erstellen, von dem wir so viel reden … Leg mal vor, check selbst, lass es gegenchecken und dann lass es mich sehen.“
 
@@ -47,6 +47,14 @@ Punkt 13, Zusatz am Ende von 13, **neu (Fall des Chefs 21.11., 15:04, „freigeg
 - Quellen je Satz: A = `ROLLE-TECHNIK.md` Haltung, Aufgabe 2 und 3 (Technikliste, A56 Maß, Tablet Untergrenze; Archiv 1270.6), `CLAUDE.md` „Jeder Schritt“ (Kerntests mit Exit-Code), Checkliste 11–13; Freigabeworte in B Punkt 13: „passt“, „freigegeben“ aus Checkliste 13, „gut“ aus Kern Büro (`1727-gesamtbild.md`, A14 in `1727-muster/ablauf.md`), 👍 je Punkt aus Checkliste 11; B sonst = Build-Kette 1–7 wörtlich, Gesamtbetrachtung (Prüfpunkt), Checkliste 12 (Revert), 918, 919.
 - Fälle: Build 300 (Merge `3db05d4e5` ≠ getesteter Stand): Pfadvergleich fängt ihn · Build 400 ohne 380: Werkzeug hält an · 1566: Prüfung „Änderung nicht zurückgenommen“ (Build-Werkzeug, neu in Bauliste 7.1; bis dahin `git diff` je Vorgangs-Commit von Hand) · t300 (Ergebnis mit ✗, kein „passt“): Teil A deckt den Rest nach Revert (nur mit Wort zu 235; sonst bleibt das alte „Sonst:“ in 13) · 1664: ob er nicht auf `main` kam, ist unbelegt (Liste: „erledigt, t300 bestanden“), darum nicht als Beleg genannt.
 - Offen: „Ohne dich“ und Kleinkram gehen nach Checkliste 3 und 9 ohne Test des Chefs nach `main`, unverändert; Kerntests vor dem Commit gelten für jede Fachkraft mit Code, nicht nur Technik: als Werkzeug (Commit-Haken) in die Bauliste. Neue Begriffe Build-Macher, Disponent, Vorgangsdatei kommen mit der Umstellung ins Glossar.
+
+## Nachprüfung 22:47, mein Wort
+
+Mein Wort (Sokrates): alle **stimmt**. Abschnitt „Nachprüfung 22:29/22:30“ stand am Dateiende statt in der absteigenden Folge der Prüfabschnitte: **stimmt, eingearbeitet**, nur verschoben (vor „Gegenprüfung 22:22“), Wortlaut unverändert; dieser Abschnitt steht aus demselben Grund vor ihm, nicht am Ende. Teil A und B unverändert.
+
+## Nachprüfung 22:29/22:30, mein Wort
+
+Mein Wort (Sokrates): alle **stimmt**. T1 Vermerk der Gegenprüfung 22:22 ohne eigene Überschrift: **stimmt, eingearbeitet**, eigener Abschnitt „Gegenprüfung 22:22 (Fassung 14), Vermerk“ statt Punkt unter „Eigene Prüfung (15:10)“; Wortlaut unverändert.
 
 ## Gegenprüfung 22:22 (Fassung 14), Vermerk
 
@@ -103,7 +111,3 @@ Prüfer: Einarbeitung 15:10 stimmt (Checkliste 11, 12; D; 3.3 Nr. 7; Vollzug 172
 ## Gegenprüfung 14:40 (Fassung 1, 8 Befunde), mein Wort
 
 1 Build-Kette nur im Profil gegen 903 B, Merge-Sätze doppelt: **stimmt**, Teil B in die Checkliste · 2 „steckt fest ans Büro“ gegen „laut an den Chef“ (Build-Kette 2, Gegenüberstellung Meldeweg): **stimmt**, zurück auf laut · 3 nur „gut“ zu eng: **stimmt** · 4 Zusammenführen doppelt (Checkliste 13 Sokrates): **stimmt**, Checkliste 13 wird angepasst · 5 fehlt Kaufmodelle und Cache, Notfallweg, Folge bei fehlendem „enthält“, „selbst verursacht“, A56 als Handypunkt, Kerntests vor Commit; Haken und Rulesets einmalig: **stimmt** · 6 Rot-Regel gegen 918/919, Revert ausdrücklich: **stimmt** · 7 1566 fängt Abstammung nicht, 1664 unbelegt: **stimmt** · 8 doppelt „Messung“, Begriffe: **stimmt**.
-
-## Nachprüfung 22:29/22:30, mein Wort
-
-Mein Wort (Sokrates): alle **stimmt**. T1 Vermerk der Gegenprüfung 22:22 ohne eigene Überschrift: **stimmt, eingearbeitet**, eigener Abschnitt „Gegenprüfung 22:22 (Fassung 14), Vermerk“ statt Punkt unter „Eigene Prüfung (15:10)“; Wortlaut unverändert.
