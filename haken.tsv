@@ -1149,3 +1149,4 @@
 2026-11-21 20:23:34	probelauf	725 (D72): Ziel `cd $d/wt` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home/user/…`) 	HEAD
 2026-11-21 20:27:53	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30582 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-21 20:28:13	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30226 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-21 20:28:25	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30036 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
