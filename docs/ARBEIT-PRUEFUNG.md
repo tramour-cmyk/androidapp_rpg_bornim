@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (22.11., 10:05):** Lauf 349 (Kopie `58816e80d`, nur lesen): 1903, 1904 greifen; 1782 wartet auf 1908 (D341.1, Freigabe mit „aber“ oder als Frage an den Disponenten); 58816e80d behebt ueberblick_test. Nächste Nummer D342. Nachfolger: Diogenes – Wochenzählung 23.11. (Mo 23.11.)
+**Übergabe (22.11., 10:11):** Lauf 349 (Kopie `58816e80d`, nur lesen): 1903, 1904 greifen; 1782 wartet auf 1908 (D341.1, Freigabe mit „aber“ oder als Frage an den Disponenten); 58816e80d behebt ueberblick_test. Lauf 350 (Kopie `b555a44bb`): 1907 greift. Nächste Nummer D342. Nachfolger: Diogenes – Wochenzählung 23.11. (Mo 23.11.)
 - **Zu 1763:** nach der Umschaltung erste echte Rückmeldung „steckt fest“ oder „Frage“ → Zeile an Sokrates, nächster `lauf.py` START/WEITER Sokrates mit der Kennung → `greift 1763`; Stempel vor dem Signalwort beobachten (Prüfbericht Lauf 328).
 - **Zu 1762 (1769 greift, 20:31):** nach `tools/1727-SCHARF` erstes echtes Chefwort zu fremdem Vorgang in `docs/vorgang/NR.md` samt offener Zeile → `greift 1762`.
 - **Zu 1716 (1768, 1718 greifen, Lauf 341):** erster echter fremder Push auf `claude/build-<n>` angehalten und kein „cancelled“ auf dem Buildzweig (`actions_list`) → `greift 1716`; bis 23.11. kein Fall → Wochenzählung nennt es. Bekannt, ohne Befund (nur gegen Versehen): `git -C $var push` ohne Refspec, `bash -c '…'`, `sudo git push` gehen durch.
