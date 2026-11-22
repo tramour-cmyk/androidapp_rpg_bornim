@@ -3,6 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 **Übergabe (22.11., 16:26, `session_01Hmoj75WtnahrGRxTf79xEr`, Neustart-Haken 400 Tsd.):** Getan: 1727 Korrektur nach Lauf 4 (sechs Runden, Endvorlage frei 15:57), Nachtest 4/4, umgeschaltet (1871, `d8956b678`, Chefsache-Übersicht geprüft), 1727 erledigt (Reste: 1958 Leistungsstufe, Rufnamen in 1861); 1952–1955 angelegt; Ford: Halt 1850–1868 aufgehoben, Klasse setzt Disponent. Kosten auf: 1727. Letzte Antwort: Chef nach Guthaben-Prozent gefragt (Lauf-Werkzeug kennt den Wert nicht), Antwort an Ford weitergeben; Tagesbericht-Routine von Auto-Prüfung abgelehnt (Ford legt Werkzeugvorgang an). Nachfolger: Sokrates – Leitung nach dem Umschalten: Guthaben, erste Läufe
+- **Fehler 341 (22.11., 17:39–17:43, 1967):** „reihum je Fachprofil“ als Chefentscheid 12:06 ausgegeben; es war mein Votum in 1727j Frage 16 (Lesart gegen seine Blockfolge 21.11., 20:51), sein „16 wie Votum“ trug es nur mit. Chef: „wo habe ich denn jetzt entschieden, dass das Reihung nach Fachgebiet geht?“ Lehre: „du hast entschieden“ nur mit seinem Wortlaut; was aus meinem Votum stammt, so nennen; Lesart gegen ein älteres Chefwort im Votum ausdrücklich als Abweichung kennzeichnen.
 - **Fehler 341 (22.11., 15:06–15:38, Vorlagen 1727):** vier Vorschlagsfassungen in Folge vom Prüfer widerlegt; „deine Regel 709.1“ aus Helferbericht ungeprüft als Chefwort vorgelegt (war Einzelfall Sokrates), Spike fand es. Chef 15:27: „was heißt denn, du willst 4 Wörter von mir? … warum kannst du mir nichts vorschlagen?“ Lehre: Vorschlag mit Votum statt Frage; jede Quelle aus Helferbericht vor der Vorlage selbst öffnen.
 - **Fehler 341 (22.11., 11:25, 1727j 4–7):** „4 bis 7 ja“ zu W-Fragen, Votum 4 „Nein“. Lehre: Wort gegen jede Frage lesen. 12:42: Prüfer gegen alte Rollen statt Gesamtbild.
 - **Lehre (22.11.):** im Zweifel „teilweise“; vor Änderung an Zählregeln Grundlage lesen.
@@ -27,6 +28,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Kaufrepo (Chef 06:52, 07:00):** `add_repo` damals abgelehnt („classifier“). **Fehler 341 (07:00):** Eintragen im Umfeld empfohlen, obwohl schon oft probiert; Chef: „Erst denken, dann schreiben. Und zu denken gehört prüfen.“ Lehre: vor jedem Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen.
 
 ## Zeilen
+
+- **1966 (Chef 22.11., 17:27):** im Rundblick Mo 23.11. Vorlage KISS (kleine Werkzeugfehler ohne Planer, Rückmeldung etwa 600 Zeichen), Einzelheiten `docs/vorgang/1966.md`.
 
 - **von Perikles (02.11., zu 447.4):** offen nur noch (2): fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Ändert eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`; (1) erstes Rezept ohne Quest, Chef 11.11., 16:31.
 

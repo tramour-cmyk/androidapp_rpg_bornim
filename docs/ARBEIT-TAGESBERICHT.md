@@ -5,32 +5,34 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 21.11., 20:37** (Werkzeug `tools/tagesbericht.py`)
+**Stand 22.11., 17:43** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 3 abgenommen, 2 gebaut, 7 in Arbeit, 29 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 2 / 634, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 0 / 359; neu 11 / 586 |
-| 3 | Rest geschätzt | Das Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“ ist nicht erreicht: seit deinem Wort vom 19.11., 08:30 stand die Spielarbeit, und seit heute 20:06 bauen Tom und Jerry nur ihr Offenes fertig, Spike die Büro-Werkzeuge (1727). (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 60 / 545, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 6 / 262; neu 166 / 664 |
+| 3 | Wo stehen wir | Oberster Block ist 10 Regeln (`chefsache/themenbloecke.md`); seit gestern ist nichts abgenommen (Zeile 2: 0) und seit Build 300 vom 18.11. kein Build bei dir; als Nächstes kommt 870 „Umstellung ganz auf BRS“, das einzige Muss im Block (Überblick in … (ganz unter „Eingaben“) | Themenblock oben, seit gestern abgenommen, als Nächstes (Routine Tagesbericht) |
 | 4 | Wartet auf dich | nichts | ältestes: –; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **2** (Tom 0, Jerry 2); wie wirksam die Läufe sind: Zeile 10 | bei dir zum Testen: kein Build; ein Build nimmt alle fertigen Zweige (317) |
-| 6 | Fehler | **14** offen, davon 9 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche unbekannt; gestern 82 $ Rechenwert, Spiel 4 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
-| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (19.11., 08:12) kein neuer Fund im Spiel, weil kein Build bei dir war. Fehler bleibt, dass dieser Bericht am 20. und 21.11. fehlte, obwohl ihn Fehler 341 vom 19.11. auch unter Sperre zur Pflicht machte. Die Woche zählt Diogenes am 23.11. | Woche, zählt Diogenes montags |
-| 9 | Größtes Risiko | das neue Guthaben (zurückgesetzt heute 19:59) geht zuerst in den Umbau zum Büro (1727), nicht ins Spiel; dauert der Umbau über Montag hinaus, steht Kapitel 1 eine zweite Woche. Heute tagsüber lief dazu Mehrnutzung über das Abo hinaus (15:09 gemeldet). |  |
-| 10 | Läufe | 24 h **keine Läufe** (0 von 0), **0 min in roten Läufen** (0 % der Laufzeit), **– Läufe je erledigtem Spielvorgang** (weiter unter der Tabelle) | alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659) |
-| 11 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
+| 5 | Builds | Änderungen warten auf deinen Test: **0** (Tom 0, Jerry 0); wie wirksam die Läufe sind: Zeile 10 | bei dir zum Testen: kein Build; ein Build nimmt alle fertigen Zweige (317) |
+| 6 | Fehler | **10** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 7 | Geld | Woche unbekannt; gestern 1119 $ Rechenwert, Spiel 1 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (21.11., 20:37) kein Fund im Spiel, weil kein Build bei dir war, aber vier im Büro, alle 22.11.: Fachkräfte fragen dich in ihrer Sitzung (17:19, 1963), eine Planerin lehnt einen Folgeauftrag ab (17:25, 1965), „startbar“ je Block fehlt im Überblick (17:35, 1954), Höhlenwasser läuft … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
+| 9 | Größtes Risiko | in den letzten 24 h liefen 1119 $ Rechenwert, davon 1 % fürs Spiel (Zeile 7), und du bist 23.–27.11. abwesend (1961); bleibt das so, geht das Guthaben ins Büro, bevor Regeln (870) und Kampf anlaufen. |  |
+| 10 | Läufe | 24 h **100 % grün** (945 von 947), **1 min in roten Läufen** (0 % der Laufzeit), **157,8 Läufe je erledigtem Spielvorgang** (weiter unter der Tabelle) | alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659) |
+| 11 | Fristen | Testbitten über 5 Tage **0**; Fragen an dich ohne Antwort **1** (älteste 1959-tagesbericht-satz, 0 Tage); Vorgänge ohne Auftrag über 1 Tag **289** (26.1, 30, 39, 41.2, 45 …) (weiter unter der Tabelle) | Testbitte 5 Tage (A13), Vorgang ohne Auftrag 1 Tag (A3, erst nach der Umstellung), Frage an dich ohne Frist (L-O16); Release nur auf dein Wort |
+| 12 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
-- Zeile 10 (Läufe), weiter: 7 Tage 57 % grün (57 von 100), 2112 min in roten Läufen (49 % der Laufzeit), 0,3 Läufe je erledigtem Spielvorgang; Buildzweige 24 h: keine Läufe; rote Tests 48 h: keine; APK-Läufe 24 h: keine Läufe
+- Zeile 10 (Läufe), weiter: 7 Tage 96 % grün (983 von 1023), 1920 min in roten Läufen (55 % der Laufzeit), 3,9 Läufe je erledigtem Spielvorgang; rot 24 h nach Team: sonstige 2; Buildzweige 24 h: keine Läufe; rote Tests 48 h: keine; APK-Läufe 24 h: **4**, Ø **4 min** (min 4, max 5), vorgerendert **4 von 4**
+- Zeile 11 (Fristen), weiter: unter „Unveröffentlicht“ **151** Einträge; letztes Release v0.1.867 vor **35 Tagen**
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 53 | 16 | 13 | 0 | 148 |
-| Jerry | 82 | 28 | 31 | 0 | 144 |
-| Homer | 15 | 0 | 14 | 0 | 36 |
-| Sokrates | 46 | 10 | 12 | 0 | 67 |
-| Perikles | 28 | 20 | 3 | 0 | 141 |
-| Diogenes | 9 | 8 | 1 | 0 | 14 |
+| Tom | 0 | 0 | 0 | 1 | 90 |
+| Jerry | 0 | 0 | 0 | 11 | 111 |
+| Homer | 0 | 0 | 0 | 9 | 34 |
+| Sokrates | 0 | 0 | 0 | 8 | 64 |
+| Perikles | 0 | 0 | 0 | 1 | 122 |
+| Diogenes | 0 | 0 | 0 | 0 | 12 |
 <!-- /zahlen -->
 
 ## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 21.11., 20:37; seit 19.11. unverändert, weil das Spiel stand)
@@ -70,8 +72,8 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 ## Eingaben
 
-Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
+Von Hand (Tagesbericht-Routine, 448), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
-- Rest geschätzt: Das Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“ ist nicht erreicht: seit deinem Wort vom 19.11., 08:30 stand die Spielarbeit, und seit heute 20:06 bauen Tom und Jerry nur ihr Offenes fertig, Spike die Büro-Werkzeuge (1727). Am Spiel kommt diese Woche nichts mehr dazu; das neue Wochenziel setze ich Montag 23.11. mit Schätzungen von Tom und Jerry.
-- Von dir zuerst gefunden: seit dem letzten Bericht (19.11., 08:12) kein neuer Fund im Spiel, weil kein Build bei dir war. Fehler bleibt, dass dieser Bericht am 20. und 21.11. fehlte, obwohl ihn Fehler 341 vom 19.11. auch unter Sperre zur Pflicht machte. Die Woche zählt Diogenes am 23.11.
-- Größtes Risiko: das neue Guthaben (zurückgesetzt heute 19:59) geht zuerst in den Umbau zum Büro (1727), nicht ins Spiel; dauert der Umbau über Montag hinaus, steht Kapitel 1 eine zweite Woche. Heute tagsüber lief dazu Mehrnutzung über das Abo hinaus (15:09 gemeldet).
+- Wo stehen wir: Oberster Block ist 10 Regeln (`chefsache/themenbloecke.md`); seit gestern ist nichts abgenommen (Zeile 2: 0) und seit Build 300 vom 18.11. kein Build bei dir; als Nächstes kommt 870 „Umstellung ganz auf BRS“, das einzige Muss im Block (Überblick in `chefsache/README.md`, 22.11., 17:27), das der Disponent nach deinem Fund 1967 vor den Werkzeug-Vorgängen starten soll.
+- Von dir zuerst gefunden: seit dem letzten Bericht (21.11., 20:37) kein Fund im Spiel, weil kein Build bei dir war, aber vier im Büro, alle 22.11.: Fachkräfte fragen dich in ihrer Sitzung (17:19, 1963), eine Planerin lehnt einen Folgeauftrag ab (17:25, 1965), „startbar“ je Block fehlt im Überblick (17:35, 1954), Höhlenwasser läuft vor höheren Blöcken (17:35, 1967).
+- Größtes Risiko: in den letzten 24 h liefen 1119 $ Rechenwert, davon 1 % fürs Spiel (Zeile 7), und du bist 23.–27.11. abwesend (1961); bleibt das so, geht das Guthaben ins Büro, bevor Regeln (870) und Kampf anlaufen.

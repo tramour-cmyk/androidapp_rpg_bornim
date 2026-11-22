@@ -4,8 +4,8 @@
   neustart-haken.py prompt   bei jeder Nachricht des Nutzers (UserPromptSubmit): misst, wie stark das Gespräch
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
-  neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung ab 200 Tsd., Sperre ab 300 Tsd.
-                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo und Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
+  neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung und Sperre je Rolle (SCHWELLEN, 1520; sonst 200/300 Tsd.)
+                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo +200 Tsd., 818; Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
                              1762: ruft chefwort.haken() (Haken D, Chefwort aus fremder Sitzung).
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
@@ -63,7 +63,7 @@ def zuwachs(werte):
 
 def text(stufe, plus, gesamt, ab=AB, ford=False):
     k = lambda n: f"{round(n / 1000)} Tsd."
-    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, 383 A{', doppelt: Kaufrepo eingebunden 818 oder Ford 1019' if ab != AB else ''}; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
+    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, je Rolle 1520; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
         rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
@@ -90,15 +90,6 @@ def ist_ford():
         if m:
             return m.group(1) == kennung
     return False
-
-
-def ist_sokrates(pfad, sitzung):
-    """1643 (340.12 Änderung 3, Chef 18.11., 09:45): Sokrates startet an der Kontextgrenze erst ab 400 Tsd. neu (Sperre 500 Tsd.),
-    vier Neustarts mitten im Gespräch mit dem Chef kosteten je 4 bis 6 $."""
-    try:
-        return name(pfad, sitzung).startswith("Sokrates")
-    except Exception:
-        return False
 
 
 def name(pfad, sitzung):
@@ -228,7 +219,7 @@ def prompt(eingabe):
             z = json.load(f)
     except (OSError, ValueError):
         z = {}
-    ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) or ist_sokrates(pfad, sitzung) else AB  # 818; 1643: Sokrates ab 400 Tsd.
+    ab = schwellen(rolle(pfad, sitzung), kauf())[0]  # 1520: je Rolle (818 Kaufrepo, 1643 Sokrates)
     ford = False
     try:  # 1574 (Chef 17.11., 18:31): Ford bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
         if name(pfad, sitzung).startswith("Ford") or ist_ford():
@@ -268,6 +259,54 @@ FREI_BASH = (r"^\s*(do\s+|then\s+)?(cd \S+\s*$|git( -C \S+)? (add|commit|push|pu
              r"|python3 (\S*/)?tools/(vorgang|regelcheck|startbar|zug-haken)\.py|(\S*/)?tools/(notiz|meldung)\.sh"
              r"|(grep|sed -n|cat|head|tail)\b.*\bdocs/LISTE-RELEASE-NEUSTART\.md"
              r"|for \w+ in [\w ]+$|(break|done|fi|true|sleep \d+)\s*$|if git\b)")  # Push mit Wiederholschleife (1540)
+
+
+# 1520 (Chef 22.11., 13:34 „nicht ständig neue Sitzungen … nicht ewig lang“): Erinnerung und Sperre je Rolle in Token, aus der Erneuerungsrechnung
+# (Startlast gegen wachsenden Verlauf, Messung 22.11. in docs/vorgang/1520.md): günstigste Sperre aus 300/450/600 Tsd., Erinnerung bei 2/3.
+# Fehlt die Rolle, gilt STANDARD. Ausnahmen nach Chefentscheid, nicht aus der Rechnung: Sokrates (1643), Kaufrepo +200 Tsd. (818); Ford nie (1574).
+# Je Rolle: Kosten je Schritt bei Sperre 300/450/600 Tsd. (Opus 5.5, 1h-Cache 8 $, Lesen 0,20 $, Ausgabe 20 $ je MTok; 76 Sitzungen 22.11. ab 07:00).
+STANDARD = (AB, SPERRE_AB)
+SCHWELLEN = {
+    "Spike": STANDARD,         # 27 Sitzungen: 6,75 / 8,01 / 9,42 ct, Minimum 199 Tsd.
+    "Diogenes": STANDARD,      # 14: 6,45 / 7,74 / 9,15 ct, Minimum 192 Tsd.
+    "Arbeitsplaner": STANDARD,  # 9: 6,92 / 8,17 / 9,57 ct, Minimum 197 Tsd.
+    "Werkzeug": STANDARD,      # 3: 7,29 / 8,55 / 9,94 ct, Minimum 197 Tsd.
+    "Prüfer": STANDARD,        # 2: 7,18 / 8,41 / 9,79 ct, Minimum 204 Tsd.
+    "Wache": STANDARD,         # 2: 9,51 / 10,44 / 11,70 ct, Minimum 256 Tsd.
+    "Homer": STANDARD,         # 1: 7,34 / 8,59 / 9,99 ct
+    "Tagesbericht": STANDARD,  # 1: 6,39 / 7,70 / 9,12 ct
+    "Welt": STANDARD,          # 1: 5,74 / 7,11 / 8,55 ct
+    "Sokrates": (400000, 500000),  # Chefentscheid 1643; Rechnung (9): 7,30 / 8,62 / 10,04 ct, Minimum 188 Tsd. (Frage 1520)
+}
+KAUF_PLUS = 200000
+
+
+def kauf():
+    return os.path.isdir(os.path.join(os.environ.get("BORNIM_KAUF", KAUF), ".git"))
+
+
+def schwellen(wer, mit_kauf=False):
+    """1520: (Erinnerung, Sperre) für die Rolle wer; mit Kaufrepo je +KAUF_PLUS (818)."""
+    e, s = SCHWELLEN.get(wer, STANDARD)
+    return (e + KAUF_PLUS, s + KAUF_PLUS) if mit_kauf else (e, s)
+
+
+def rolle(pfad, sitzung):
+    """1520: Rolle für die Schwellen: name() oder, in der Neustruktur, „Dein Rufname: X (Rolle Werkzeug …“ bzw. „Du bist **Disponent**“."""
+    import re
+    try:
+        wer = name(pfad, sitzung)
+    except Exception:
+        wer = ""
+    if wer:
+        return re.sub(r" \d$", "", wer)
+    try:
+        with open(pfad, encoding="utf-8", errors="replace") as f:
+            kopf = f.read(200000)
+    except (OSError, TypeError):
+        return ""
+    m = re.search(r"Dein Rufname: \w+ \(Rolle (\w+)", kopf) or re.search(r"Du bist \*\*(\w+)\*\*", kopf)
+    return m.group(1) if m else ""
 
 
 def letzte_groesse(pfad, rueck=3_000_000):
@@ -315,8 +354,8 @@ def frei(eingabe):
 
 def werkzeug(eingabe, art):
     """1537 (1520 so, Chef 17.11., 10:00): Neustart-Haken an jedem Werkzeugaufruf, damit lange Züge ohne Nachricht nicht ungemessen bleiben.
-    art „vor“ (PreToolUse): ab SPERRE_AB (mit Kaufrepo oder Ford doppelt) Rückgabe 2 = Aufruf gesperrt, außer frei();
-    art „nach“ (PostToolUse): ab AB (doppelt ebenso) alle WERKZEUG_ALLE Aufrufe eine Erinnerung, zählt die Stufe weiter (Weiter-Haken 195).
+    art „vor“ (PreToolUse): ab der Sperre aus schwellen() (1520, je Rolle) Rückgabe 2 = Aufruf gesperrt, außer frei();
+    art „nach“ (PostToolUse): ab der Erinnerung aus schwellen() alle WERKZEUG_ALLE Aufrufe eine Erinnerung, zählt die Stufe weiter (Weiter-Haken 195).
     Nie, solange der Chef einen Build der Sitzung testet (812, 865) oder die Sitzung geschützt ist (1531)."""
     pfad = eingabe.get("transcript_path")
     if not pfad or not os.path.exists(pfad) or geschuetzt():
@@ -326,9 +365,7 @@ def werkzeug(eingabe, art):
     ford = name(pfad, sitzung).startswith("Ford") or ist_ford()
     if ford:  # 1574: Ford bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
-    doppelt = ford or os.path.isdir(os.path.join(KAUF, ".git")) or ist_sokrates(pfad, sitzung)  # 1643 (340.12/3): Sokrates wie Kaufrepo
-    ab = AB + (AB if doppelt else 0)            # 200 / 400 Tsd.
-    sperre = SPERRE_AB + (AB if doppelt else 0)  # 300 / 500 Tsd.
+    ab, sperre = schwellen(rolle(pfad, sitzung), kauf())  # 1520: Tabelle je Rolle (818 Kaufrepo, 1643 Sokrates)
     if gesamt < ab:
         return 0
     zpfad = f"/tmp/bornim-neustart-{sitzung}.json"
