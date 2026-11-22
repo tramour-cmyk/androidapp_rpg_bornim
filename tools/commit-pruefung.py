@@ -236,7 +236,7 @@ def kerntest_stop(dat):
 # (Pfadfilter von godot.yml) hält an; frei: Merge eines Buildzweigs claude/build-…, Tests und uid-Dateien (godot/tests/, *.uid).
 # Bis zur Umstellung (1727, rückwärtsverträglich, Chef 20.11., 10:38) nur Warnung beim Merge eines Teamzweigs (Checkliste 3:
 # „ohne dich“ und Kleinkram gehen nach grünem Lauf auf main); ALTER_WEG = False schaltet das ab.
-ALTER_WEG = True
+ALTER_WEG = False
 
 
 def spielcode_pfade():

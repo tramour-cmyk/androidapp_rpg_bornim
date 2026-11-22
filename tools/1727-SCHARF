@@ -1,0 +1,1 @@
+Umschaltung 1727 (Bauliste Schritt 8, 1871). Diese Datei schaltet Haken D (chefwort.py), Telegram-Regel (meldung.sh), Rufnamen, Arbeitsplaner/Disponent/Prüfer in lauf.py, LIEGT, Guthabenstufe und Laufbremse scharf. Rückweg: git revert des Umschalt-Commits.
