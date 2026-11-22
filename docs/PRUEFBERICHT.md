@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 383 · 1732 nach 1942 (lesend, Auftrag Ford beim Neustart; `main` `b34316e88`; 22.11., 13:24–13:25)
+
+- Greift (erledigt). D382.1 aufgelöst: `ROLLE-BERATUNG-START.md`:25 sagt jetzt „Gilt nur bis zum Umschalten 1727“ (Chef 22.11., 10:39); Haken und Regel stimmen bis dahin überein, das Schweigen ab `tools/1727-SCHARF` baut Spike in 1943. `zug_haken_test` grün, Stop-Haken in `.claude/settings.json`:81. 1943 prüfe ich nach Bau.
+
 ## Lauf 382 · 1732 Stop-Haken Votum ohne „Gegengeprüft:“ (lesend, Weiter-Haken; `main` `a5353fdad`; 22.11., 13:18–13:20)
 
 - Gebaut wie der Auftrag: `zug_haken_test` grün (9 Fälle, auch Zitat/Code, andere Rolle, zweites Beenden ohne Schleife); in `.claude/settings.json` läuft `zug-haken.py` schon als Stop-Haken.
