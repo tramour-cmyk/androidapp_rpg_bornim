@@ -20,7 +20,7 @@ im selben Commit eine offene Übergabezeile (1760):
   Empfänger „Prüfer“ und „Disponent“ sind bis zur Umschaltung Diogenes und Ford (lauf.py, tools/1727-SCHARF)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
   A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde, auch Chef-Nein; „nein, Auftrag“ zählt nicht, „Beleg fehlt“ erst jedes dritte je Auftrag, 1926)
-  B  zweites „steckt fest“
+  B  zweites „steckt fest“ (1927: dazu „Kosten bisher“ aus der Kostenspalte der Liste in den Kopf der Vorgangsdatei)
 → Zustand „ruht, beim Chef“ in der Vorgangsdatei, Stand in der Vorgangsliste (solange sie Stände trägt), Zeile an Sokrates
   „an den Chef: Chefsache anlegen, nicht selbst lösen“ statt der normalen Weitergabe. Weitere Rückmeldungen danach: nur eingetragen.
 
@@ -99,6 +99,36 @@ def zaehlen(text):
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, Chef[^\n]*:\n((?:> .*\n?)+)", ue.abschnitt(text, "Chefworte")):
         if chefwort.chef_nein("\n".join(l[2:] for l in m.group(1).splitlines())): z["nein"] += 1
     return z
+
+
+def kosten_summe(kost):
+    """Kostenspalte als Zahl wie vorgangskosten.py (Freitext „8,97 $; Jerry 1,26 $; +1,25 $“: alle Beträge addiert); None ohne Betrag."""
+    zahlen = [float(z.replace(",", ".")) for z in re.findall(r"(\d+(?:,\d+)?)\s*\$?", kost or "")]
+    return sum(zahlen) if zahlen else None
+
+
+def kosten_bisher(nr):
+    """1927 (1727j Frage 5, Chef 22.11., 11:31): Summe der Sitzungen auf dem Vorgang aus der Kostenspalte der Vorgangsliste
+    (alte und umgestellte Liste, startbar liest beide), None, wenn die Zeile fehlt oder keinen Betrag trägt (nie „0 $“)."""
+    try:
+        import startbar
+        d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+    except Exception:
+        d = None
+    return kosten_summe(d.get("kosten")) if d else None
+
+
+def kopf_kosten(t, nr, zeit):
+    """1927: Zeile „Kosten bisher: …“ in den Kopf der Vorgangsdatei (vor dem ersten „## “; eine alte Zeile wird ersetzt), damit die
+    Leitung sie in die Chefsache übernimmt (Soll K3.6)."""
+    k = kosten_bisher(nr)
+    wert = ("%.2f $" % k).replace(".", ",") if k is not None else "kein Betrag in der Vorgangsliste"
+    zeile = "Kosten bisher: %s (Stand %s, Summe der Sitzungen laut Vorgangsliste; 1927)" % (wert, zeit)
+    if re.search(r"(?m)^Kosten bisher: .*$", t):
+        return re.sub(r"(?m)^Kosten bisher: .*$", lambda m: zeile, t, count=1)
+    i = t.find("\n## ")
+    if i < 0: return t.rstrip("\n") + "\n\n" + zeile + "\n"
+    return t[:i].rstrip("\n") + "\n\n" + zeile + "\n" + t[i:]
 
 
 def zustand_ruht(t, zeit, grund):
@@ -277,6 +307,7 @@ def eintragen(nr, text, wer, sid=""):
             elif "steckt fest" in w and z["steckt fest"] >= MAX_FEST: grund = "Obergrenze B: %d. „steckt fest“" % z["steckt fest"]
         if grund:
             t = zustand_ruht(t, zeit, grund)
+            if grund.startswith("Obergrenze B"): t = kopf_kosten(t, nr, zeit)  # 1927
             an, was = SOKRATES, "an den Chef: Chefsache anlegen, nicht selbst lösen (%s; Rückmeldung %s von %s)" % (grund, zeit, wer or "unbekannt")
         elif schon:
             an = was = None

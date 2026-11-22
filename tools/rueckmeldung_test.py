@@ -12,7 +12,7 @@ for f in ("rueckmeldung.py", "chefwort.py", "uebergabe.py", "startbar.py", "bere
     os.symlink(os.path.join(HIER, f), os.path.join(A, "tools", f))
 open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
-    "| 9001 | Zwerg auf dem Tisch | Tom | M | startbar | – | – | – | E Welt | – |\n"
+    "| 9001 | Zwerg auf dem Tisch | Tom | M | startbar | – | – | – | E Welt | 3,50 $; Jerry 1,25 $ |\n"
     "| 9002 | Schatten im Wald | Spike | M | startbar | – | – | – | T Technik | – |\n"
     "| 9003 | Höhlenklang | Jerry | M | startbar | – | – | – | K Klang | – |\n"
     "| 9005 | Treppe knarrt | Tom | K | startbar | – | – | – | E Welt | – |\n"
@@ -62,6 +62,7 @@ rc, out = lauf("rueckmeldung", "9001", "steckt fest: Licht im Keller, Regel fehl
 soll("1. steckt fest → Sokrates", rc == 0 and "OFFEN 9001-Ü1 an Sokrates" in out and "KEINE SITZUNG Sokrates" in out, out)
 t = datei("9001")
 soll("Rückmeldung wörtlich mit Zeit und Sitzung", "- **21.11., 20:30**, Prüfer (`session_PR1`):\n> steckt fest: Licht im Keller, Regel fehlt\n" in t, t)
+soll("1927: erstes steckt fest schreibt keine Kosten", "Kosten bisher" not in t, t)
 soll("Zeile an Sokrates (C)", "| 9001-Ü1 | Sokrates | steckt fest: Rückmeldung 21.11., 20:30 von Prüfer lesen (1763 C); gelöst: `vorgang.py warte 9001 –` | 21.11., 20:30 | offen |" in t, t)
 def liste_origin():
     g("fetch", "-q", "origin", cwd=A); return g("show", "origin/main:docs/LISTE-VORGAENGE.md", cwd=A)
@@ -70,6 +71,7 @@ rc, out = lauf("rueckmeldung", "9001", "nein: Keller zu hell. steckt fest: wiede
 t = datei("9001")
 soll("2. steckt fest → ruht, an den Chef", "OFFEN 9001-Ü2 an Sokrates (Obergrenze B: 2. „steckt fest“ → ruht, beim Chef)" in out, out)
 soll("Zustand in der Vorgangsdatei", "Zustand: ruht, beim Chef seit 21.11., 21:00 (Obergrenze B: 2. „steckt fest“, 1763)" in t, t)
+soll("1927: Kosten bisher im Kopf der Vorgangsdatei (Summe der Kostenspalte)", "\n\nKosten bisher: 4,75 $ (Stand 21.11., 21:00, Summe der Sitzungen laut Vorgangsliste; 1927)\n" in t.split("\n## ", 1)[0] + "\n", t)
 soll("Zeile sagt: an den Chef, nicht selbst lösen", "| 9001-Ü2 | Sokrates | an den Chef: Chefsache anlegen, nicht selbst lösen" in t, t)
 soll("Liste: ruht, beim Chef", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) |" in open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read())
 soll("1800: ruht gepusht", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates |" in liste_origin(), out)
