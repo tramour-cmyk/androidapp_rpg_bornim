@@ -42,4 +42,5 @@ jobs:
           python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
           python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid
+          python3 tools/liegt_test.py           # 1799 LIEGT nach Grobablauf 14.2
           python3 tools/umstellung1727_test.py  # 1739 Umstellung Vorgangsliste (an Kopie)

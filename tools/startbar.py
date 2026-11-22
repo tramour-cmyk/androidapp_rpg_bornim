@@ -222,7 +222,20 @@ def ohne_bewegung(zs=None, jetzt=None):
     Änderung der Zeile nach git blame -M (verschobene Zeilen zählen nicht), ohne Sammel-Commits."""
     jetzt = jetzt or JETZT
     zs = zeilen_liste() if zs is None else zs
-    pfad = os.path.join(DOCS, LISTE)
+    zeit = zeilen_zeiten(jetzt)
+    if not zeit: return []  # kein Git: lieber nichts vorlegen als alles
+    aus = []
+    for d in zs:
+        if not _vorlegbar(d, jetzt) or d["i"] >= len(zeit) or zeit[d["i"]] is None: continue
+        tage = (jetzt - datetime.datetime.fromtimestamp(zeit[d["i"]])).days
+        if tage >= URTEIL_TAGE: aus.append((tage, d))
+    return sorted(aus, key=lambda x: -x[0])
+
+def zeilen_zeiten(jetzt=None, pfad=None):
+    """Je Zeile der Liste (Index wie d["i"]) die Zeit der letzten Änderung (Unix-Sekunden) nach git blame -M, ohne Sammel-Commits
+    (über SAMMEL Zeilen, 60 Tage); [] ohne Git (1188, 1799)."""
+    jetzt = jetzt or JETZT
+    pfad = pfad or os.path.join(DOCS, LISTE)
     seit = (jetzt - datetime.timedelta(days=60)).strftime("%Y-%m-%d")
     gross = []; c = None
     for z in _git("log", "--since=" + seit, "--format=@%H", "--numstat", "--", pfad).stdout.splitlines():
@@ -239,13 +252,7 @@ def ohne_bewegung(zs=None, jetzt=None):
     for z in out.splitlines():
         if z.startswith("committer-time "): cur = int(z.split()[1])
         elif z.startswith("\t"): zeit.append(cur)
-    if not zeit: return []  # kein Git: lieber nichts vorlegen als alles
-    aus = []
-    for d in zs:
-        if not _vorlegbar(d, jetzt) or d["i"] >= len(zeit) or zeit[d["i"]] is None: continue
-        tage = (jetzt - datetime.datetime.fromtimestamp(zeit[d["i"]])).days
-        if tage >= URTEIL_TAGE: aus.append((tage, d))
-    return sorted(aus, key=lambda x: -x[0])
+    return zeit
 
 def mutter_fertig(zs=None, jetzt=None):
     """1188 (b): vorlegbare Zeilen, deren Unternummern (Nr.k, eine Stufe tiefer) es gibt und alle erledigt sind (Archiv oder Liste)."""
