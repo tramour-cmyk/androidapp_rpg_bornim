@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 362 · 1855, 1866 (lesend, Auftrag Ford; Kopie `b90ec6c4f`; 22.11., 11:07–11:10)
+
+- 1855 greift: `check-env.sh` an der Kopie: „OK CLAUDE.md, docs/LISTE-VORGAENGE.md, docs/DESIGN-STIL.md“, 9 in Ordnung, 0 fehlen. Übrige Verweise auf `ARBEIT-TEAM-TOM.md` (lauf.py, startbar.py, startwarnung.py, regelcheck.py, neustart-haken.py, vorratspruefung.py) nicht Gegenstand von 1855; die Vorräte bestehen an der Kopie weiter.
+- 1866 greift nicht: `ladesumme.py --test` grün, alle Werte gleich `herausgezogen.md` (Sockel 1.109, Kern Leitung 2.837, Disponent 5.564, Arbeitsplaner 4.438, Prüfer 5.507, Tester 5.302, Wache 2.058); `--gegen 8c4da3b8d` zeigt vorher/nachher je Teil. **D362.1** → 1922 (Spike): b90ec6c4f ersetzt das `ladesumme.py` aus 1739 (b45137faa, schon auf `main`), lässt `tools/ladesumme_test.py` und seine Zeile in `werkzeuge.yml` stehen: `AttributeError: module 'ladesumme' has no attribute 'messen'`, Exit 1 → Werkzeuglauf nach Merge rot. `--alt` (Startlektüre je Rolle) und `laden.json` entfallen ohne Wort. Über Grenze nur Hinweis, Exit 0 (ohne Befund, Vorgang verlangt kein Anhalten).
+
 ## Lauf 361 · 1898, 1894, 1919 (lesend, Weiter Ford 11:03; Kopie `f9fc83125`; 22.11., 11:03–11:06)
 
 - Alle 46 `tools/*_test.py` an der Kopie grün, dazu `gepusht-haken.py --test` und `herzschlag.py --test`.
