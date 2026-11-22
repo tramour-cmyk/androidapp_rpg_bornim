@@ -304,7 +304,7 @@ def morgen(jetzt=None):
         return st if st and st[1] else None   # 1496: vor 08.11. hatte die Liste kein Feld Stand, offen las sich als 0
     def erster_lesbarer(t):
         """frühester Stand der Vorgangsliste nach t mit lesbaren offenen Zeilen (Halbierung über die Commits der Liste)."""
-        cs = s._git("log", "--reverse", "--format=%H", "--since=" + t.isoformat(), "HEAD", "--", os.path.join(s.DOCS, s.LISTE)).stdout.split()
+        cs = s._git("log", "--reverse", "--format=%H", "--since=" + t.isoformat(), "HEAD", "--", ":/docs/" + s.LISTE).stdout.split()  # Pfad im Repo des Werkzeugs: lauf setzt s.DOCS auf ../bornim-main (Nebenfund 1893)
         lo, hi = 0, len(cs)
         while lo < hi:
             m = (lo + hi) // 2
@@ -342,7 +342,7 @@ def md():
     bes = besetzt()
     # Stand = letzte Änderung der Vorgangsliste (Berliner Zeit), nicht die Uhr: sonst schriebe jeder Lauf die Übersicht neu
     stand = s._git("-c", "log.showSignature=false", "log", "-1", "--date=format-local:%d.%m., %H:%M", "--format=%cd", "--",
-                   os.path.join(s.DOCS, s.LISTE)).stdout.strip() or s.JETZT.strftime("%d.%m., %H:%M")
+                   ":/docs/" + s.LISTE).stdout.strip() or s.JETZT.strftime("%d.%m., %H:%M")
     aus = ["## Überblick", "",
            "Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom %s, neu bei jeder Änderung. "
            "Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. "
