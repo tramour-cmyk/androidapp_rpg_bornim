@@ -1213,3 +1213,4 @@
 2026-11-22 08:13:02	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30138 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-22 08:21:22	commit-pruefung	LISTE-VORGAENGE.md: 1893: Zeile über 400 Zeichen (Einzelheiten als „Zu 1893“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
 2026-11-22 08:21:40	commit-pruefung	LISTE-VORGAENGE.md: 1893: Zeile über 400 Zeichen (Einzelheiten als „Zu 1893“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-22 08:29:35	commit-pruefung	docs/entwurf/1727-muster/vorlage-1727j-vorschlaege.md: Uhrzeit 08:55 liegt nach jetzt (08:29)	main
