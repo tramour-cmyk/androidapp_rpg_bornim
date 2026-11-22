@@ -42,14 +42,16 @@ def letzter_text(pfad):
 
 # 54 gilt nur für Tom und Jerry (Nutzer 14.10., 17:3x, 65.9; Ford seit D5.3): Perikles, Homer, Sokrates, Diogenes und Ford starten mit ihrem Namen als
 # erster Nachricht (bei Ford-Starts steht er im angehängten Text); dort schweigt der Haken.
-ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|ford)\b", re.IGNORECASE)
+ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|ford|disponent)\b", re.IGNORECASE)  # 1893: Disponent = Fords Sitzung an der neuen Liste
 # 195 (Chef 19.10.): „Solange Arbeit da ist, arbeiten.“ Auch Perikles, Homer, Diogenes, Tom, Jerry: ist laut startbar.py eine Zeile startbar, hält der Haken einmal an
 ROLLE_STARTBAR = re.compile(r"\b(perikles|homer|diogenes|tom|jerry|spike|tuffy)\b", re.IGNORECASE)
 TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigener Vorrat; 394: Zusatzentwickler arbeiten aus dem Vorrat ihres Teams
 
 
-def startbar_nr(rolle):
-    """Nummer der obersten startbaren Zeile der Rolle (Muss, Kür, nach dem Meilenstein) laut startbar.py auf frischem main, sonst None."""
+def startbar_nr(rolle, erste=""):
+    """Nummer der obersten startbaren Zeile der Rolle (Muss, Kür, nach dem Meilenstein) laut startbar.py auf frischem main, sonst None.
+    1893: an der umgestellten Liste nennt startbar.py Profile („  Technik:“); ohne Rolle gilt das Profil, das allein in der ersten Zeile
+    der ersten Nachricht steht (lauf.py beginnt jede Startnachricht mit dem Profilnamen)."""
     import subprocess
     wurzel = os.path.join(os.path.dirname(os.environ.get("CLAUDE_PROJECT_DIR", ".")), "bornim-main")
     if not os.path.isdir(wurzel):
@@ -59,6 +61,11 @@ def startbar_nr(rolle):
         o = subprocess.run([sys.executable, os.path.join(wurzel, "tools", "startbar.py")], cwd=wurzel, capture_output=True, text=True, timeout=30).stdout
     except Exception:
         return None
+    namen = [m.group(1) for m in re.finditer(r"(?m)^  ([^\s:][^:]*):", o)]
+    if rolle not in namen:
+        kopf = (erste or "").strip().split("\n", 1)[0].strip().strip("*").strip()
+        rolle = kopf if kopf in namen else None
+        if not rolle: return None
     for z in o.splitlines():
         if z.startswith("  " + rolle + ":"):
             if "PAUSE" in z:
@@ -142,7 +149,7 @@ def main():
             print(json.dumps({"decision": "block", "reason": "Weiter-Haken (195): zweite Erinnerung des Neustart-Hakens ist da. Übergabe mit „Nachfolger: <Titel>“ pushen und Ford „Neustart <Name>, <Commit>“ per send_message schicken (LISTE-RELEASE-NEUSTART.md 1a); erst dann darfst du gehen."}))
             return
         rm = ROLLE_STARTBAR.search(erste)
-        nr = startbar_nr(TEAM.get(rm.group(1).capitalize(), rm.group(1).capitalize())) if rm else None
+        nr = startbar_nr(TEAM.get(rm.group(1).capitalize(), rm.group(1).capitalize()) if rm else None, erste)
         if nr:
             print(json.dumps({"decision": "block", "reason": "Weiter-Haken (195): weiter mit %s (startbar laut startbar.py, Muss vor Kür vor „nach dem Meilenstein“). Sofort anfangen, ohne Ankündigung; nur wenn sie wirklich nicht geht, „Vorrat leer“ schreiben und den Grund nennen." % nr}))
             return
