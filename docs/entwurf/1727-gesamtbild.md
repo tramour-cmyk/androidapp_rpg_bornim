@@ -4,7 +4,7 @@ Auftrag Chef 19.11., 16:00: jede Spalte mit Stand und mit Inhalt, damit er sieht
 
 Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach Archiv 20.11., 07:30: Leitung, Büro mit Disponent und Arbeitsplaner, Werkstatt, Abnahme; in den Abschnitten unten stehen teils noch die alten).
 
-Fassung 22.11., 13:02 (Sokrates, 1931): Kern Leitung (2.1, Codeblock Fassung 2) mit Satz zum Eingang (1727d L-O1, 1727i: „mit `vorgang.py neu`, dann weckst du den Disponenten“ statt „über den Eingang des Büros“), V1 nur Größe mit Frage 10 („Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.“) und Regelbilanz (Abgleich 1933 Nr. 6); Kern Leitung Byte 2.837 → 2.988 UTF-8 (Grenze 3 KB hält, keine Kürzung); Tabelle 0.1 Zeilen Kern Leitung, Kern Büro, Kern Arbeitsplaner nachgezogen.
+Fassung 22.11., 13:14 (Sokrates, 1931): Kern Leitung (2.1, Codeblock Fassung 2) mit V1 nur Größe und Frage 10 („Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.“) und dem Satz zum Eingang (1727d L-O1 „wie Vorlage“: „legt mit `vorgang.py neu` an und weckt den Disponenten“; 1727i: Byte vorlegen), 2.837 → 2.923 Byte UTF-8; Regelbilanz (Abgleich 1933 Nr. 6, ohne Chefwort) wieder heraus, zur Vorlage `chefsache/entscheiden/1931a-luecken-abgleich.md`; Tabelle 0.1 nachgezogen.
 
 ## 0 Überblick
 
@@ -28,24 +28,28 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` 
 |---|---|---|---|
 | Sockel | 1.109 | 1,2 KB | abgenommen 20.11., 12:06; mit V2 (Vorlage 10:00) 1.129 |
 | Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
-| Kern Leitung (vorher „Kern Sokrates“) | 2.988 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit Eingang (1727i), V1 nur Größe, Regelbilanz (1931; vorher 2.837) |
-| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | – | 3 KB | entschieden 21:10, entsteht mit der Umstellung |
+| Kern Leitung (vorher „Kern Sokrates“) | 2.923 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Regelbilanz zur Vorlage 1931a |
+| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | siehe Datei | 3 KB | entschieden 21:10, angelegt 22.11. (1931) |
 | Kern Büro | 759 | – | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`); mit V6 (1931; vorher 680) |
-| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 3.156 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 5); mit V3, V4, Fragen 11, 12, Abgleich 1933 Nr. 1–3 (1931; vorher 2.649), **über der Grenze** |
+| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.784 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 5a); mit V3, V4, Fragen 11, 12 (1931; vorher 2.649); Abgleich 1933 Nr. 1–3 zur Vorlage 1931a |
 | Kern Prüfer | 2.530 | – | Verlauf, ersetzt durch Kern Abnahme und Profil Prüfer |
 | Kern Abnahme | 1.567 | – | Entwurf, Fassung 3 (`1727-muster/kern-abnahme.md`) |
-| Profil Prüfer | 2.817 | – | Entwurf, Fassung 9 22.11., 07:22 (`1727-muster/profil-pruefer.md`) |
+| Profil Prüfer | 2.935 | – | Entwurf, Fassung 9 22.11., 07:22 (`1727-muster/profil-pruefer.md`); 1727j Fragen 2, 3 (1931; vorher 2.817 bzw. laut Kopf 2.831) |
 | Profil Tester | 2.626 | – | Entwurf, Fassung 6 22.11., 07:05 (`1727-muster/profil-tester.md`) |
-| Profil Disponent | 3.775 | – | Entwurf, Fassung 15 22.11., 07:22 (`1727-muster/profil-disponent.md`) |
+| Profil Disponent | 4.083 | – | Entwurf, Fassung 15 22.11., 07:22 (`1727-muster/profil-disponent.md`); 1727j Frage 8, Marke 1934 (1931; vorher 3.775) |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
-| Profil Regeln | 1.740 | – | gegengeprüft |
-| Profil Kampf | 1.480 | – | gegengeprüft |
+| Rollensätze (1933, 22.11., 12:44) | je 135–229 | – | in Technik, Werkzeug, Welt, Kampf, Regeln, Klang, Oberfläche, Story (1931) |
+| Profil Regeln | 1.922 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.743) |
+| Profil Kampf | 1.655 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.482) |
 | Profil Kataloge | 1.450 | – | gegengeprüft |
-| Profil Welt | 1.170 | – | abgenommen 13:51, 16:43 |
-| Profil Klang | 650 | – | abgenommen 14:45 |
-| Profil Oberfläche | 1.040 | – | abgenommen 15:32 |
-| Profil Story | 1.410 | – | abgenommen 16:43; 16:53 ohne Sprechweise (vorher 1.440) |
-| Profil Technik | 1.220 | – | abgenommen 21.11., 15:15 (`1727-muster/profil-technik.md` F12); dazu Checkliste +4.182 (Build-Kette, Freigabe mit Einschränkungen) |
+| Profil Welt | 1.354 | – | abgenommen 13:51, 16:43; mit Rollensatz (1931; vorher 1.165) |
+| Profil Klang | 814 | – | abgenommen 14:45; mit Rollensatz (1931; vorher 645) |
+| Profil Oberfläche | 1.194 | – | abgenommen 15:32; mit Rollensatz (1931; vorher 1.035) |
+| Profil Story | 1.641 | – | abgenommen 16:43; 16:53 ohne Sprechweise; mit Rollensatz (1931; vorher 1.410) |
+| Profil Technik | 1.356 | – | abgenommen 21.11., 15:15 (`1727-muster/profil-technik.md` F17); mit Rollensatz (1931; vorher 1.219); dazu Checkliste +4.182 (Build-Kette, Freigabe mit Einschränkungen) |
+| Profil Werkzeug | 1.267 | – | mit Rollensatz (1931; vorher 1.103) |
+| Profil Zugang Kaufrepo | 512 | – | neu, V7 (1727j, 22.11., 11:09; 1931) |
+| Profil Chefrunde | 959 | – | mit Chef-Lesung (Archiv 22.11., 12:50; 1931; vorher 574) |
 
 **Vorher, was eine Sitzung beim Start liest** (Stand 20.11., ohne Haken und Lektüre bei Anlass): `CLAUDE.md` 15,0 KB + Rollendatei + Vorrat. Perikles 15,0 + 12,7 + 23,1 = 50,8 KB; Ford 15,0 + 8,7 + 35,3 = 59,0 KB; Homer 15,0 + 6,0 + 4,3 = 25,3 KB; Tom, Jerry je 15,0 + 13,1 + 27,1 = 55,2 KB. **Neu:** Arbeitsvorbereitung Sockel + Kern 3,5 KB + Auftrag; Werkstatt Text Sockel + Profil Story 2,6 KB + Auftrag; Werkstatt Welt Sockel + Signatur + Welt 3,2 KB + Figur und Prüfbild + Auftrag.
 
@@ -284,7 +288,7 @@ Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs. Vertreten nur
 - Ergänzt der Chef einen Entwurf: je Punkt ein Wort (stimmt, Einwand), nur Stimmiges einbauen.
 - Chefworte nur wörtlich mit Zeit und Quelle; steht etwas nur in einem Paket oder Entwurf, sag das.
 - Was etwas festlegt (Regel, Ablauf, Werte, Werkzeug, Prompt), prüft vor der Vorlage ein frischer Helfer gegen Repo und ganzen Entwurf, ohne deine Begründung; im Chat „Gegengeprüft: <Datei>“ und je Befund „stimmt“, „Einwand“ oder „Frage“. Sonst nur als „ungeprüfter Gedanke“, ohne Votum.
-- Eine neue Regel ersetzt oder streicht eine alte, an einem Ort. Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.
+- Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.
 - Vorbehalt: Story, Aussehen, Geld, Lizenz, Release, Accounts, Kerne und Profile entscheidet der Chef; Aussehen nur an Bild oder Film in Spielkamera und Handygröße. Du schreibst Notizen, keinen Spielcode.
 
 **Chefworte:** Trag jedes in derselben Antwort ein: einen Auftrag als Vorgang mit `vorgang.py neu`, dann weckst du den Disponenten, eine Idee in `docs/LISTE-IDEEN.md`, einen Entscheid, auch deinen, oben ins `docs/VORGANGSARCHIV.md`. In `docs/chefsache/` gehört nur, was der Chef jetzt entscheiden, billigen oder fertig ansehen kann; anderes geht zurück an den Besitzer.
