@@ -201,12 +201,14 @@ def seit_text(iso):
 
 def zeigen(alle):
     stand = stand_laden()
+    liste = zeige("origin/main", LISTE)
     for w in sammeln(taeglich=alle):
         if not alle and w["schluessel"].split(":")[0] in TAGLICH: continue
         s = stand.get(w["schluessel"], {})
         zusatz = ", seit " + seit_text(s["seit"]) if s.get("seit") else ""
         zusatz += ", Vorgang " + s["vorgang"] if s.get("vorgang") else ""
-        print(f"Warnung ({w['code']}; Besitzer {w['besitzer']}{zusatz}): {w['text']}")
+        b = (liste_neu(liste) and s.get("vorgang") and besitzer_nr(s["vorgang"], liste)) or w["besitzer"]  # 1893: Profil des Vorgangs
+        print(f"Warnung ({w['code']}; Besitzer {b}{zusatz}): {w['text']}")
 
 
 def offen_in_liste(nr, liste):

@@ -419,7 +419,30 @@ def stand():
         aus[PLANER][0].insert(0, ("Kosten", "M", "Kosten entscheiden: " + ", ".join("%s (%s, %s)" % (n, b, k) for n, b, k, _ in ko)
             + " (1538: je Vorgang weiter, vereinfachen oder streichen mit einem Satz Grund; weiter/vereinfachen = Zeile „Kosten frei:“ in ARBEIT-PROJEKT.md"
             " bis zur nächsten Schwelle; Chefauftrag streichen nur über die Chefsache)", {}))
+    if NEU_LISTE and PLANER in aus and ist_scharf():
+        aus[PLANER][0][len([x for x in aus[PLANER][0] if x[0] in ("M?", "Kosten")]):0] = auftrag_zeilen(aus)
     return aus
+
+AUFTRAG_PLANER = 1  # 1893 (Sokrates 22.11., 08:33): Arbeitsplaner zugleich für Aufträge; vorläufig 1, Wert legt Sokrates dem Chef vor (10:00)
+
+def auftrag_zeilen(st, n=None):
+    """1893 (Gesamtbild 3.3 Fassung 2 Nr. 4, Archiv 21.11., 10:11 „3.3 so“; Sokrates 22.11., 08:33): startbare Zeilen ohne gültigen
+    „## Auftrag“ bekommen ihren Auftrag vom Arbeitsplaner, frisch je Auftrag: je Zeile eine Muss-Zeile „Auftrag“ für den Planer, Vorrang
+    wie die Liste (Muss aller Profile vor Kür, Eilt zuerst, sonst Zeilenfolge), höchstens n (AUFTRAG_PLANER). lauf.py startet je Lauf eine Sitzung
+    je Profil, belegt hält die nächste an: mehr als 1 zugleich braucht mehrere Planer-Sitzungen (nicht gebaut)."""
+    folge = {d["nr"]: (not d.get("eilt"), i) for i, d in enumerate(startbar.zeilen_liste())}  # Eilt vor Muss (wie „jetzt“)
+    offen = []
+    for rang, teil in ((0, 0), (1, 1)):
+        for r, x in st.items():
+            for z in x[teil]:
+                if z[0] in ("M?", "Kosten", "Stillstand") or not re.match(r"\d", str(z[0])): continue
+                if (g := auftrag_fehlt(z[0])): offen.append((rang, folge.get(z[0], (True, 10 ** 6)), z[0], r, z[2], g))
+    aus, gesehen = [], set()
+    for _, _, nr, r, titel, g in sorted(offen):
+        if nr in gesehen: continue
+        gesehen.add(nr)
+        aus.append(("Auftrag", "M", "Auftrag schreiben für %s (%s, %s): %s (`vorgang.py auftrag %s`; 3.3 Nr. 4, ein Auftrag je Sitzung)" % (nr, r, g, titel, nr), {"auftrag_fuer": nr}))
+    return aus[:AUFTRAG_PLANER if n is None else n]
 
 def fremd_besitzer(rolle, nr, muss):
     """1662: Besitzer der Zeile nr, wenn sie offen einem anderen gehört und nicht als Übernahme (1364) in muss steht; sonst None."""
@@ -1231,7 +1254,7 @@ def main():
         if nacht_halt(r, nr, ausgabe, morgen): continue
         # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter WEITER_TOKEN Token liegt und unter 60 Minuten ruht
         mo, satz, hoch = modell(r, nr)
-        alte = [] if hoch or mo == startbar.STARK_MODELL else [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
+        alte = [] if hoch or mo == startbar.STARK_MODELL or nr == "Auftrag" else [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
                 and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
@@ -1248,6 +1271,10 @@ def main():
         if nr in ("M?", "Stillstand", "Kosten"):  # 921, 1246, 1538: die Zeile hat keine Nummer in der Liste; Auftrag steht im Thema
             titel = "%s – %s (%s)" % (r, "M? entscheiden" if nr == "M?" else "Kosten entscheiden" if nr == "Kosten" else "1246: Stillstand lösen", berlin(JETZT))
             msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann %s." % (r, thema, vorrat_hinweis(r))
+        if nr == "Auftrag":  # 1893 (Sokrates 22.11., 08:33): frisch je Auftrag, nie WEITER
+            fn = wahl[3].get("auftrag_fuer")
+            titel = "%s – Auftrag %s (%s)" % (r, fn, berlin(JETZT))
+            msg = "%s\n\n%s; zuerst Start nach deinem Ladetext, dann %s, den Auftrag schreiben, pushen und enden." % (r, thema, vorrat_hinweis(r, fn))
         if thema.startswith("Übernahme von"): msg += " " + thema[:160] + "."  # 1364: die Zeile gehört noch dem Geber
         msg += satz
         if JETZT.weekday() == 2 and bericht_heute(): msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."

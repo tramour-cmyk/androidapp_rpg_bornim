@@ -137,9 +137,18 @@ def besitzer(test):
     return wer if wer in startbar.BESITZER and wer != "Ideen" else "Ford"
 
 
-def zeile_von_nr(nr):
+def zeile_von_nr(nr, archiv=False):
+    """Zeile der Liste; mit archiv=True sonst aus LISTE-VORGAENGE-ARCHIV.md (Nr., Bereich, Besitzer = Fachprofil des Blocks, 1893)."""
     for d in startbar.zeilen_liste():
         if d["nr"] == nr: return d
+    if not archiv: return None
+    try: zeilen = open(os.path.join(startbar.DOCS, "LISTE-VORGAENGE-ARCHIV.md"), encoding="utf-8").read().splitlines()
+    except OSError: return None
+    for z in zeilen:
+        f = [x.strip() for x in z.split("|")]
+        if len(f) > 4 and f[1] == nr:
+            block = startbar.block_von(nr, f[3])
+            return {"nr": nr, "bereich": f[3], "block": block, "besitzer": startbar.themenbloecke()[0].get(block, "Arbeitsplaner")}
     return None
 
 
@@ -158,7 +167,7 @@ def ziel(test):
     for z in re.findall(r"_(\d{3,})(?=_|$)", os.path.basename(test)[:-3]):
         nrs += [z] + [z[:i] + "." + z[i:] for i in range(len(z) - 1, 0, -1)]
     for k in nrs:
-        d = zeile_von_nr(k)
+        d = zeile_von_nr(k, archiv=True)  # 1893: erledigte Mutter steht im Archiv
         if d and d.get("besitzer") not in startbar.BUERO + ["Arbeitsplaner"] and d.get("bereich"): return d["besitzer"], d["bereich"]
     return "Technik", "E Technik"
 

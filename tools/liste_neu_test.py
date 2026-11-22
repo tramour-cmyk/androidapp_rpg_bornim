@@ -54,14 +54,41 @@ soll("lauf: Profil ohne Vorrat (Nachfolger, Hintergrundlauf)", lauf.nachfolger("
 soll("lauf: Nachricht nennt Vorgangsdatei statt Vorrat", "docs/vorgang/1484.md" in lauf.vorrat_hinweis("Technik", "1484"))
 _k = lauf.mit_kern("START Technik | opus | e | r | main | T | Technik\\n\\nArbeite 1484; zuerst Start nach deiner Rollendatei, dann x.")
 soll("lauf: ohne Ladetext kein Verweis auf die Rollendatei", "Rollendatei" not in _k and _k.endswith("zuerst x."), _k)
+startbar.DOCS = A; open(os.path.join(A, "LISTE-VORGAENGE.md"), "w").write(neu); startbar._LISTE = None
+_docs = lauf.DOCS; lauf.DOCS = A  # 1893 (Sokrates 08:33): Aufträge für Zeilen ohne „## Auftrag“ schreibt der Arbeitsplaner
+open(os.path.join(A, "vorgang", "513.md"), "w").write("# 513\n\n## Auftrag (22.11., 08:00)\n\nunvollständig\n")
+_st = {"Technik": ([("1484", "M", "Welt", {})], [], None, []), "Kataloge": ([("513", "M", "Figurenstand", {})], [("458.3", "K", "Katalog", {})], None, []),
+       "Arbeitsplaner": ([("M?", "M", "M? entscheiden", {})], [("45", "K", "Geschäftsmodell", {})], None, [])}
+_a = lauf.auftrag_zeilen(_st, 9)
+soll("lauf: Auftrag-Zeilen Eilt, Muss vor Kür, Zeilenfolge, ohne M?", [x[3]["auftrag_fuer"] for x in _a] == ["513", "1484", "458.3", "45"], [x[3] for x in _a])
+soll("lauf: Auftrag-Zeile nennt Profil und Grund", _a[1][0] == "Auftrag" and "(Technik, kein Auftrag)" in _a[1][2] and "(Kataloge, Auftrag:" in _a[0][2], _a[:2])
+soll("lauf: höchstens AUFTRAG_PLANER zugleich", len(lauf.auftrag_zeilen(_st)) == lauf.AUFTRAG_PLANER == 1)
+lauf.DOCS = _docs
 # 1893 Teil 3: übrige Werkzeuge an der neuen Liste
 import startwarnung, rotbuch, chefwort
 soll("startwarnung: Rolle → Profil", [startwarnung.profil(r) for r in ("Ford", "Perikles", "Diogenes", "Tom")] == ["Disponent", "Arbeitsplaner", "Prüfer", "Arbeitsplaner"])
+_sl = startwarnung.stand_laden; _sz = startwarnung.zeige; _ss = startwarnung.sammeln
+startwarnung.stand_laden = lambda *a: {"969:x": {"vorgang": "1484"}}; startwarnung.zeige = lambda ref, p: neu
+startwarnung.sammeln = lambda taeglich=True: [dict(schluessel="969:x", besitzer="Arbeitsplaner", code="969", text="t")]
+import io, contextlib
+_o = io.StringIO()
+with contextlib.redirect_stdout(_o): startwarnung.zeigen(True)
+soll("startwarnung: Anzeige nennt Profil des Vorgangs", "Besitzer Technik, Vorgang 1484" in _o.getvalue(), _o.getvalue())
+startwarnung.stand_laden, startwarnung.zeige, startwarnung.sammeln = _sl, _sz, _ss
 soll("startwarnung: Besitzer der Nummer = Profil", startwarnung.besitzer_nr("1484", neu) == "Technik", startwarnung.besitzer_nr("1484", neu))
 startbar.DOCS = A  # lauf.py setzt DOCS auf die Notizkopie
 open(os.path.join(A, "LISTE-VORGAENGE.md"), "w").write(neu); startbar._LISTE = None
 soll("rotbuch: Bereich aus der Nummer im Testnamen", rotbuch.ziel("tests/probe_513.gd") == ("Kataloge", "E Kataloge"), rotbuch.ziel("tests/probe_513.gd"))
 soll("rotbuch: ohne Nummer Technik", rotbuch.ziel("tests/probe.gd") == ("Technik", "E Technik"), rotbuch.ziel("tests/probe.gd"))
+open(os.path.join(A, "LISTE-VORGAENGE-ARCHIV.md"), "w").write("| Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |\n|---|---|---|---|---|---|---|\n"
+                                                     "| 1777 | Erledigte Mutter | E Technik | M | – | Spike | erledigt |\n")
+soll("rotbuch: Nummer nur im Archiv (erledigte Mutter)", rotbuch.ziel("tests/probe_1777.gd") == ("Technik", "E Technik"), rotbuch.ziel("tests/probe_1777.gd"))
+soll("rotbuch: Archiv-Zeile mit Block und Profil", (rotbuch.zeile_von_nr("1777", archiv=True) or {}).get("block") == "6" and rotbuch.zeile_von_nr("1777") is None)
+import liegt, datetime, zoneinfo  # 1893: lauf.py gibt JETZT mit Zeitzone
+_j = datetime.datetime(2026, 11, 24, 9, 0, tzinfo=zoneinfo.ZoneInfo("Europe/Berlin"))
+try: _l = liegt.zeilen(startbar.vorgangsliste(neu), [0] * 20, _j, None, lambda c: True); _ok = any(x.startswith("LIEGT 513 | ruht") for x in _l)
+except TypeError as e: _l, _ok = str(e), False
+soll("liegt: JETZT mit Zeitzone (lauf.py) bricht nicht ab", _ok, _l)
 startbar._LISTE = None
 soll("chefwort: Profil-Kopf ist keine Chefnachricht", chefwort.vom_chef("**Technik** [22.11., 09:00] Stand") is False)
 startbar.NEU = None
