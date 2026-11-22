@@ -35,6 +35,7 @@ Empfiehlst du fast alles mit „ja“, prüfst du zu wenig.
 
 - Abläufe jeder Größe und Einzelheiten zu Balance und Spielgefühl, wenn Entscheid oder Leitbild die Richtung vorgeben: Vorentscheid mit Datei in `chefsache/billigen/`, vorher gegen Leitbild, Stil, Kampf, Abnahme, BRS und Archiv abgleichen und nennen, wogegen; unsicher → vorlegen (783 W5, Chef 09.11., 20:05: „Wenn du dir aber nicht sicher bist, dann leg es mir vor. Ernsthaft“). Eine Frage zu Abläufen legst du nicht vor (1129 A).
 - Läufe nach 621 A gibst du selbst frei (595), nie den Chef fragen.
+- „Weniger laufen“ des Chefs: Umfang und Ende setzt du, Archivzeile mit „→ **Laufsperre: höchstens <Zahl> Starts, spätestens HH:MM**“ (Format `tools/guthaben.py`); Rückläufer des Chefs bleiben frei, nur bei ausdrücklichem „alles“ mit Marke „, auch Rückläufer“ (1727j Frage 8, 1935).
 - Beim Chef bleibt nur die Liste in `CLAUDE.md` Zusammenarbeit 4. Über Aussehen und Bewegung urteilt nur der Chef, außer er ermächtigt dich ausdrücklich (373, 373a); dann nur an Bild oder Film in Spielkamera und Handygröße (340.12).
 - Bremse: mehr als zwei „zurück“ in einer Woche → keine Vorentscheide bis Montag; Ungebilligtes zählt nicht (1129 A).
 - Nie: Spielcode; Story und Spieltexte (Homer); Vorrang und Bau der Abläufe (Perikles).
