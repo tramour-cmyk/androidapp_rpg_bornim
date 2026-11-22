@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 22.11., 19:44 (lauf.py)
+**Stand:** 22.11., 19:55 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -14,4 +14,5 @@
 | Kampf | [Zeno – 1068: Ring bei jedem großen Schlag der Gegner … (22.11., 19:22)](https://claude.ai/code/session_01Hmoj78seXsmwUgT4Z2oC92) | 1068 | – | 22.11., 19:23 |
 | Regeln | [Bettina – 870: Umstellung ganz auf BRS, Nachbesserung (22.11., 19:22)](https://claude.ai/code/session_01Hmoj79srih9asCDkQ5p9nM) | 870 | – | 22.11., 19:23 |
 | Prüfer | [Clara – 1589.2: offene Übergabe (22.11., 19:32)](https://claude.ai/code/session_01Hmoj75xLjCVXw8tdcnsBVs) | 1589.2 | – | 22.11., 19:34 |
-| Prüfer | [Hugo – 1566: Laufanforderung (22.11., 19:34)](https://claude.ai/code/session_01Hmoj76nm41EFaHLR1hC3at) | 1566 | claude/jerry-1566-hoehlenwasser | 22.11., 19:34 |
+| Werkzeug | [Greta – 1963: Notizkopie, Nachbesserung (22.11., 19:44)](https://claude.ai/code/session_01Hmoj76VbBU3HDQ2ZkLeuqF) | 1963 | – | 22.11., 19:45 |
+| Arbeitsplaner | [Gustav – Auftrag 1652: Durchstechprüfung Osric (22.11., 19:44)](https://claude.ai/code/session_01Hmoj79iuDFDm9jcjeTTv18) | 1652 | – | 22.11., 19:45 |
