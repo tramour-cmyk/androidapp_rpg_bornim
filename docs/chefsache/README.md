@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 20:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 22:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 8 (6) | 1 | 1 | 0 | 5 | 870 (Regeln) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (61) | 19 | 1 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (35) | 21 | 1 | 2 | 8 | 1570 (Figur) Umhang einmal grundsätzlich lösen statt Einzelfli… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (35) | 21 | 0 | 2 | 9 | 1675 (Figur) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (35) | 3 | 1 | 0 | 14 | 1566 (Welt) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -59,7 +59,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Arbeitsplaner | 45 Geschäftsmodell und Umsetzung (nach dem Meilenstein) |
 | Regeln | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
 | Kampf | läuft: 1068 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 3 weitere |
-| Figur | läuft: 1570 (Besetzung); 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 7 weitere |
+| Figur | läuft: 1570 (Besetzung); 1675 Wachsoldatin im Hauptmenü, Schild schwebt neben ihr (Muss); dann 6 weitere |
 | Kataloge | leer, weil 7 wartet auf Vorgang (649.2, 1331, 644.1, 649.2, 644.1, 644.1, 649.2), 2 ruht, 1 wartet auf Test/Build |
 | Welt | läuft: 1566 (Besetzung); 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
@@ -79,23 +79,23 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
 | 4 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
 | 5 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
-| 6 | 1570 | Figur | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Figuren und Kleidung | in Arbeit |
-| 7 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | startbar |
-| 8 | 1676 | Figur | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Figuren und Kleidung | startbar |
-| 9 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | startbar |
-| 10 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
-| 11 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
-| 12 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
-| 13 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
-| 14 | 1566 | Welt | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne… | M | 5 Welt und Karten | in Arbeit |
-| 15 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 16 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 17 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 18 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 19 | 1963 | Werkzeug | Fachkräfte fragen den Chef in ihrer Sitzung nach Erlaubnis; Kopie /home/user/bo… | M | 7 Firma | in Arbeit |
-| 20 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
+| 6 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | startbar |
+| 7 | 1676 | Figur | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Figuren und Kleidung | startbar |
+| 8 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | startbar |
+| 9 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
+| 10 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
+| 11 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
+| 12 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
+| 13 | 1566 | Welt | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne… | M | 5 Welt und Karten | in Arbeit |
+| 14 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 15 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 16 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 17 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
+| 18 | 1963 | Werkzeug | Fachkräfte fragen den Chef in ihrer Sitzung nach Erlaubnis; Kopie /home/user/bo… | M | 7 Firma | in Arbeit |
+| 19 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
+| 20 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
 
-Danach 130 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 111.
+Danach 129 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 112.
 ## Zu entscheiden
 
 Nichts offen.
@@ -212,13 +212,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634 | startbar |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 
-**Figur** – offen 34, Muss 21, startbar 12
+**Figur** – offen 34, Muss 21, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 513 | M | Ein Figurenstand für alle Zweige | ruht bis 23.11. |
 | 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | wartet auf Test/Build (gebaut) |
-| 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | startbar |
+| 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | ruht |
 | 1619 | M | Held stakst im Film 458.3, sieht nicht nach Gehen aus („vielleicht Tempo“) | wartet auf Test t301 (Chef) |
 | 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (startbar) |
 | 1665 | M | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel | wartet auf 458.3 (gebaut) |
