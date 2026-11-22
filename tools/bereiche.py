@@ -12,15 +12,16 @@ import re
 import sys
 
 BEREICHE = {
-    "E": ("Entwicklung", ["Welt", "Figuren", "Kampf", "Klang", "Oberfläche", "Technik"]),
-    "G": ("Gestaltung", ["Story", "Stil", "Balance"]),
+    "E": ("Entwicklung", ["Welt", "Figuren", "Kampf", "Klang", "Oberfläche", "Technik", "Kataloge"]),  # Kataloge: VA 1727 20.11., 08:21
+    "G": ("Gestaltung", ["Story", "Stil", "Balance", "Regeln"]),  # Regeln: VA 1727 20.11., 09:27
     "Q": ("Qualität", ["QS", "QM"]),
     "B": ("Betrieb", ["Steuerung", "Abläufe", "Werkzeuge"]),
     "M": ("Markt", ["Markt", "Veröffentlichung"]),
 }
 ERKLAERUNG = {
     "E Welt": "Orte, Dorf, Wald, Höhle, Innenräume, Karten", "E Figuren": "Leute, Held, Monster, Tiere, Bewegungen",
-    "E Kampf": "MARS, Regeln, Kampfort", "E Klang": "Musik, Geräusche", "E Oberfläche": "Menüs, Fenster, Bedienung, Schrift",
+    "E Kampf": "MARS, Kampfort, Einbau der Regeln", "E Kataloge": "Figuren-, Gegenstandskatalog, erzeugte Seiten",
+    "G Regeln": "Regelwerk BRS", "E Klang": "Musik, Geräusche", "E Oberfläche": "Menüs, Fenster, Bedienung, Schrift",
     "E Technik": "Godot, Umzug, Build, Speichern, Werkzeuge der Teams", "G Story": "Handlung, Spieltexte, Englisch",
     "G Stil": "Aussehen, Licht, Farbe, Design", "G Balance": "Werte, Geld, Handel, Spielgefühl",
     "Q QS": "Builds, Prüflisten, Rückläufer, Tests", "Q QM": "Prüfläufe, Kennzahlen, Diogenes",
@@ -32,7 +33,7 @@ ERKLAERUNG = {
 WORT = {
     "Welt": "E Welt", "Dorf": "E Welt", "Wald": "E Welt", "Höhle": "E Welt", "Innenräume": "E Welt", "Orte": "E Welt",
     "Figuren": "E Figuren", "Leute": "E Figuren", "Monster": "E Figuren",
-    "Kampf": "E Kampf", "Regeln": "E Kampf", "Klang": "E Klang",
+    "Kampf": "E Kampf", "Regeln": "G Regeln", "Kataloge": "E Kataloge", "Katalog": "E Kataloge", "Klang": "E Klang",
     "Oberfläche": "E Oberfläche", "Bedienung": "E Oberfläche", "Spiel": "E Oberfläche",
     "Technik": "E Technik", "Umzug": "E Technik", "Entwicklung": "E Technik",
     "Story": "G Story", "Texte": "G Story", "Text": "G Story", "Inhalt": "G Story",
@@ -46,7 +47,7 @@ WORT = {
 }
 # Buchstabe + Wort, wo das Wort allein in einen anderen Bereich führt
 PAAR = {("Q", "Ablauf"): "Q QM", ("Q", "Abläufe"): "Q QM", ("Q", "Werkzeug"): "Q QM", ("B", "Technik"): "B Werkzeuge",
-        ("A", "Technik"): "B Werkzeuge", ("B", "Umzug"): "E Technik", ("G", "Kampf"): "G Balance", ("G", "Welt"): "G Stil",
+        ("A", "Technik"): "B Werkzeuge", ("B", "Umzug"): "E Technik", ("G", "Kampf"): "G Balance", ("E", "Regeln"): "E Kampf", ("G", "Welt"): "G Stil",
         ("G", "Höhle"): "G Stil", ("G", "Bedienung"): "E Oberfläche", ("E", "Story"): "G Story", ("E", "Text"): "G Story",
         ("B", "Strategie"): "M Markt"}
 
