@@ -387,5 +387,12 @@ rc, out = vg("rueckmeldung", "9017", "nein: Tor schief", zeit="21.11., 23:35")
 t = datei("9017")
 soll("1926: danach ein „nein“ = zweiter Fehlversuch → Laufbremse", re.search(r"\| 9017-Ü\d+ \| Sokrates \| steckt fest \(Laufbremse, 2\. Nein", t), (out, t[-500:]))
 
+# 1892-Fehler (Spike 22.11., 11:40): lokales Schreiben der Startsperre ließ ARBEIT-BETRIEB.md leer bis auf die Sperrzeile
+import tempfile as _tf92
+_d92 = _tf92.mkdtemp(); _p92 = os.path.join(_d92, "ARBEIT-BETRIEB.md")
+open(_p92, "w", encoding="utf-8").write("# Betrieb (Ford)\n\nZeile 1\n- alt\n")
+lauf.protokoll_lokal(_p92, lambda t: t.rstrip("\n") + "\n- 11:40 22.11.: Startsperre 11:40 Start Spike (lauf.py)\n")
+soll("1892-Fehler: lokale Sperre hängt an, Datei bleibt ganz", open(_p92, encoding="utf-8").read() == "# Betrieb (Ford)\n\nZeile 1\n- alt\n- 11:40 22.11.: Startsperre 11:40 Start Spike (lauf.py)\n", open(_p92, encoding="utf-8").read())
+
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

@@ -706,6 +706,13 @@ def protokoll_pushen(anhaengen, nachricht):
         return False
 
 
+def protokoll_lokal(p, anhaengen):
+    """1892-Fehler (Spike 22.11., 11:40 nachgestellt): erst lesen, dann schreiben; open(p, "w").write(anhaengen(lesen(p))) leerte die
+    Datei vor dem Lesen (Python wertet open(…, "w") vor dem Argument aus), ARBEIT-BETRIEB.md blieb mit der Sperrzeile allein."""
+    neu = anhaengen(lesen(p))
+    with open(p, "w", encoding="utf-8") as f: f.write(neu)
+
+
 def stellungnahme_start(ohne, msg):
     """1891 (D336.1): START-Zeile der Stellungnahme (194.2) mit der Nummer der ersten Chefsache-Datei im Titel („1727j-vorschlaege.md“
     → 1727j), damit Startsperre und Nachtdeckel (1643) einen Vorgang tragen; (Zeile, Nummer oder None)."""
@@ -1654,7 +1661,7 @@ def main():
             print("STARTSPERRE gepusht (1892): %s; create_session jetzt erlaubt; vor dem nächsten eigenen Commit `git pull --rebase`" % ", ".join(sperren))
         else:
             if scharf_push: print("STARTSPERRE NICHT GEPUSHT (1892): lokal geschrieben, selbst committen und pushen, erst dann create_session")
-            open(p, "w", encoding="utf-8").write(anhaengen(lesen(p)))
+            protokoll_lokal(p, anhaengen)
             print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
     if sperre:
         for nr in STARK_GESTARTET:  # 827 A, Bau 828: Marke „stärkstes Modell TT.MM.“ am Titel; zählt Sokrates für die Auswertung nach drei
