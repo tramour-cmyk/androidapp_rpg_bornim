@@ -10,8 +10,10 @@ Laufsperre (Chefwort „weniger laufen“): Zeile im Vorgangsarchiv im Format de
 „- **<Nr>, …** (TT.MM., HH:MM, Chef …) → **Laufsperre: höchstens <Zahl> Starts[, spätestens HH:MM]**“ (Zahl als Ziffer oder Wort,
 „keine“ = 0). Umfang und Ende setzt Sokrates (Profil Disponent F15). Ab der Entscheidzeit zählen die Startsperren des Protokolls;
 frei sind Wache, Sokrates (auch Rundblick) und Rückläufer des Chefs. Ohne „spätestens“ gilt sie STANDARD_STUNDEN und lauf.py warnt.
-Ohne „Chef“ in der Klammer keine Laufsperre. 1930 (1727j Frage 8, Chef 22.11., 11:48): steht im Chefwort der Zeile (in „…“ vor
-dem Pfeil) das Wort „alles“, sperrt sie auch die Rückläufer des Chefs; frei bleiben dann nur Wache und Sokrates (FREI_ROLLEN).
+Ohne „Chef“ in der Klammer keine Laufsperre. 1930 (1727j Frage 8, Chef 22.11., 11:48): sagt der Chef „alles“, sperrt sie auch die
+Rückläufer des Chefs; frei bleiben dann nur Wache und Sokrates (FREI_ROLLEN). 1934 (D371.1): das Werkzeug liest das nicht aus dem
+Zitat („alles klar“ stand in 51 von 1184 Archivzitaten), sondern aus der Marke „, auch Rückläufer“ in der fetten Laufsperre nach dem
+Pfeil, die Sokrates nur bei diesem Chefwort setzt: „→ **Laufsperre: höchstens zwei Starts, spätestens 18:00, auch Rückläufer**“.
 
 Vorbild (erst nachsehen, wie andere es lösen): Budget-Aktionen in Cloud-Konten (Schwellen 80/100 % lösen gestufte Aktionen aus, bis
 zum Sperren neuer Starts) und Ausgabegrenzen von CI-Diensten (bei 100 % keine neuen Läufe); beide werten einen Messwert nur in
@@ -84,9 +86,11 @@ def laufsperren(archiv, jahr):
 
 
 def alles(zeile):
-    """1930: Chefwort „alles“ in einem Zitat „…“ vor dem Pfeil der Archivzeile (nicht im Text danach, den Sokrates schreibt)."""
-    vor = zeile.split("→", 1)[0]
-    return any(re.search(r"\balles\b", z, re.I) for z in re.findall(r"„([^“]*)“", vor))
+    """1930/1934: Marke „auch Rückläufer“ in der fetten Laufsperre nach dem Pfeil (setzt Sokrates nur beim Chefwort „alles“);
+    ein „alles“ im Zitat allein („alles klar“) sperrt nichts."""
+    nach = zeile.split("→", 1)[1] if "→" in zeile else ""
+    m = re.search(r"\*\*Laufsperre:?[^*]*\*\*", nach)
+    return bool(m and re.search(r",\s*auch Rückläufer\b", m.group(0)))
 
 
 def laufsperre(jetzt, archiv=None):
