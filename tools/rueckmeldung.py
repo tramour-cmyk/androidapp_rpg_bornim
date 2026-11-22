@@ -12,6 +12,7 @@ im selben Commit eine offene Übergabezeile (1760):
   1739 (Gesamtbild 3.3 Nr. 5, Kern Büro „Rückläufer“): „fertig“ mit Commit → an den Prüfer; „fertig“ ohne Commit → an den Disponenten
   (nimmt es nicht an; Routine, Titel „(Routine, Auftrag …)“: „fertig“ ohne Commit → Disponent legt die Vorschläge an und schließt, 1789); erstes „nein“ und „Beleg fehlt“ → mit dem Satz an denselben Macher (wer zuletzt „fertig“ meldete; unbekannt →
   Disponent); „ja“ des Prüfers → Disponent (an den Chef nur nach diesem Ja); „Hinweis“ → Disponent (wie ein Eingang)
+  1795: „Befunde: n“ des Testers → Disponent (je Befund ohne Nummer Vorgang anlegen), je Befund mit Nummer Rückläufer an den Arbeitsplaner
   Empfänger „Prüfer“ und „Disponent“ sind bis zur Umschaltung Diogenes und Ford (lauf.py, tools/1727-SCHARF)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
   A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde; „Beleg fehlt“ und „nein, Auftrag“ zählen nicht)
@@ -55,6 +56,7 @@ def worte(text):
     elif re.match(r"ja\b", t): w.add("ja")
     elif re.match(r"hinweis\b", t): w.add("Hinweis")
     elif re.match(r"abgebrochen\b", t): w.add("abgebrochen")  # 1782: Kern Arbeitsplaner Feld 7
+    elif re.match(r"befunde:\s*\d+", t): w.add("Befunde")  # 1795: Meldung des Testers (profil-tester.md „Meldung“)
     if "nein" in w and re.search(r"\bsteckt fest\b", t): w.add("steckt fest")
     return w
 
@@ -82,6 +84,45 @@ def ist_routine(nr):
         return any(d["nr"] == nr and auftrag.routine(d["titel"]) for d in startbar.vorgangsliste(startbar.lesen(startbar.LISTE)))
     except Exception:
         return False
+
+
+NR_BEFUND = re.compile(r"(?:\bNr\.?\s*|\bVorgang\s+|#)(\d{1,4}[a-z]?(?:\.\d+[a-z]?)*)\b|,\s*(\d{1,4}[a-z]?(?:\.\d+[a-z]?)*)\s*\.?\s*$")
+
+
+def befunde(text):
+    """1795 (profil-tester.md „Meldung“): (n, [(Zeile, Nummer oder None)]) aus „Befunde: n“; je Befund eine Zeile (Art, Ort, Sachverhalt,
+    Beleg, gegebenenfalls Nummer) bis zur Leerzeile, zur Abnahmeliste oder zum ersten „Hinweis:“. Nummer: „Nr. X“, „Vorgang X“, „#X“
+    oder letztes Feld nach Komma."""
+    L = (text or "").strip().splitlines()
+    m = re.search(r"(?i)befunde:\s*(\d+)", L[0] if L else "")
+    n = int(m.group(1)) if m else 0
+    rest = (L[0][m.end():] if m else "").strip(" :–-")
+    aus = []
+    for z in ([rest] if rest else []) + L[1:]:
+        zz = z.strip()
+        if not zz:
+            if aus: break
+            continue
+        if re.match(r"(?i)\W*(abnahmeliste|hinweis\b|nicht prüfbar)", zz): break
+        zz = re.sub(r"^(?:[-*•]|\d+[.)])\s+", "", zz)
+        g = NR_BEFUND.search(zz)
+        aus.append((zz, (g.group(1) or g.group(2)) if g else None))
+    return n, aus
+
+
+def befund_weitergabe(nr, text, zeit, wer):
+    """1795: [(an, was)]: eine Zeile „Befunde: n“ an den Disponenten (ohne Nummer: Vorgang anlegen), je Befund mit Nummer ein Rückläufer
+    an den Arbeitsplaner dieses Vorgangs; weicht n von der Zahl der Zeilen ab, steht es in der Zeile an den Disponenten."""
+    n, bs = befunde(text)
+    von = "Befunde des Testers zu %s (Rückmeldung %s von %s)" % (nr, zeit, wer or "unbekannt")
+    ohne = [b for b, x in bs if not x]
+    satz = "Befunde: %d (%s)" % (n, von)
+    if len(bs) != n: satz += "; %d Zeilen gelesen, nachsehen" % len(bs)
+    satz += ("; ohne Nummer je Befund einen Vorgang anlegen: " + " | ".join(ue._rein(b)[:120] for b in ohne)) if ohne else "; nichts anzulegen"
+    aus = [(DISPONENT, satz)]
+    for b, x in bs:
+        if x: aus.append((PLANER, "Rückläufer zu %s (%s): „%s“; Auftrag nachbessern oder neu (1795)" % (x, von, ue._rein(b)[:160])))
+    return aus
 
 
 def ist_werkzeug(nr):
@@ -159,12 +200,18 @@ def eintragen(nr, text, wer, sid=""):
             an, was = SOKRATES, "steckt fest (Laufbremse, %d. Nein; Chef 19.11., 13:02): Rückmeldung %s von %s lesen (1766)" % (z["nein"], zeit, wer or "unbekannt")
         elif "nein, Auftrag" in w:
             an, was = PLANER, "nein, Auftrag: Rückmeldung %s von %s lesen" % (zeit, wer or "unbekannt")
+        elif "Befunde" in w:  # 1795
+            mehr = befund_weitergabe(nr, text, zeit, wer); an, was = mehr[0]
         else:
             an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr), "ja" in w and ist_werkzeug(nr))
         if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
-        k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
-        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, ue._rein(was), zeit), (k, grund or "")
+        start = max(ks, default=0) + 1
+        k = "%s-Ü%d" % (nr, start)
+        t = t.rstrip("\n") + "\n"
+        for j, (a2, w2) in enumerate(mehr if "Befunde" in w and not schon else [(an, was)]):
+            t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + j, a2, ue._rein(w2), zeit)
+        return t, (k, grund or "")
     return ue.atomar(nr, f, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
 
 

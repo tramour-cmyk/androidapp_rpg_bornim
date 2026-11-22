@@ -1,7 +1,7 @@
 # 1763: Rückmeldung in die Vorgangsdatei, Obergrenzen A (zweites „nein, Auftrag“, dritter abgelehnter Auftrag) und B (zweites
 # „steckt fest“) → ruht, beim Chef; „steckt fest“, „Frage“, „wirkt nein“ → Zeile an Sokrates, lauf.py startet oder weckt ihn (C).
 # Echtes Git mit nacktem origin. Aufruf: python3 tools/rueckmeldung_test.py
-import os, subprocess, sys, tempfile
+import os, re, subprocess, sys, tempfile
 HIER = os.path.dirname(os.path.abspath(__file__))
 d = tempfile.mkdtemp(); o = os.path.join(d, "origin.git"); A = os.path.join(d, "a")
 def g(*a, cwd=None): return subprocess.run(["git"] + list(a), cwd=cwd, check=True, capture_output=True, text=True).stdout
@@ -184,6 +184,20 @@ soll("leere Vorlage: Auftrag ungültig", (lauf.auftrag_fehlt("9001", ad) or "").
 open(os.path.join(ad, "vorgang", "9001.md"), "a").write("\n## Auftrag (21.11., 20:30)\n\nAuftrag 9001\n\n" + "\n".join("%d. **%s:** etwas Inhalt hier" % (i, f) for i, f in enumerate(_af.FELDER, 1)) + "\n\n## Übergaben\n\nx\n")
 soll("jüngster Auftrag gültig: Start erlaubt", lauf.auftrag_fehlt("9001", ad) is None)
 soll("Archivschutz: 1 Min. bis zur Umschaltung, scharf 15 Min. (1739, 7.1)", lauf.schutz_min(False) == 1 and lauf.schutz_min(True) == 15)
+
+# 1795: „Befunde: n“ des Testers → Disponent (ohne Nummer anlegen), je Befund mit Nummer Rückläufer an den Arbeitsplaner
+soll("Wort Befunde", rm.worte("Befunde: 2") == {"Befunde"} and rm.worte("**Tester** [21.11., 22:00] Befunde: 0") == {"Befunde"} and rm.worte("Befunde ohne Zahl") == set())
+_bt = "Befunde: 2\n- Fehler, Keller, Bildrate 7 statt 9, Messung t301, Nr. 1484\n- Lücke, Hof, Tür ohne Klang, Film t301\n\nAbnahmeliste\n- 1: erfüllt\nHinweis: Text klein"
+soll("befunde: zwei Zeilen, Nummer nur bei der ersten", rm.befunde(_bt) == (2, [("Fehler, Keller, Bildrate 7 statt 9, Messung t301, Nr. 1484", "1484"), ("Lücke, Hof, Tür ohne Klang, Film t301", None)]), rm.befunde(_bt))
+soll("befunde: Nummer als letztes Feld", rm.befunde("Befunde: 1\n1. Rückschritt, Dorf, Gras fehlt, Bild, 1566")[1][0][1] == "1566")
+rc, out = vg("rueckmeldung", "9077", _bt, zeit="21.11., 22:00")
+t = datei("9077")
+soll("Befunde: Zeile an den Disponenten mit Befund ohne Nummer", rc == 0 and re.search(r"\| 9077-Ü\d+ \| Disponent \| Befunde: 2 \(Befunde des Testers zu 9077[^|]*\); ohne Nummer je Befund einen Vorgang anlegen: Lücke, Hof", t), (out, t[-600:]))
+soll("Befunde: Rückläufer zu 1484 an den Arbeitsplaner", re.search(r"\| 9077-Ü\d+ \| Arbeitsplaner \| Rückläufer zu 1484 \(Befunde des Testers", t) and "Hinweis: Text klein" not in t.split("## Übergaben")[-1], t[-600:])
+_n = [z for z in t.splitlines() if z.startswith("| 9077-Ü")]
+soll("Befunde: Kennungen fortlaufend", len({z.split(" | ")[0] for z in _n}) == len(_n), _n)
+rc, out = vg("rueckmeldung", "9077", "Befunde: 0", zeit="21.11., 22:10")
+soll("Befunde: 0 → nur Disponent, nichts anzulegen", "Befunde: 0 (Befunde des Testers zu 9077" in datei("9077") and "nichts anzulegen" in datei("9077"), out)
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
