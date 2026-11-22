@@ -7,6 +7,7 @@ alles ist“, 16:52 Tabelle nachhalten).
                                                        und Summe je Sitzungsart (Tabelle SITZUNGEN), mit REV vorher/nachher
   python3 tools/ladesumme.py PFAD … [--gegen REV]      freie Messung: Byte je Datei oder je Block ```markdown; Summe je Sitzung
                                                        nach laden.json im (ersten) Ordner, falls vorhanden
+  python3 tools/ladesumme.py --anlegen                 1928: docs/profile/<Profil>.md je Teil mit Profilnamen aus dem Entwurf (Umschalt-Commit)
   python3 tools/ladesumme.py --alt                     heute: was jede Rolle beim Start liest (CLAUDE.md + Rollendatei + Vorrat)
 (--vor REV wie --gegen REV.) Test: python3 tools/ladesumme_test.py
 
@@ -40,6 +41,15 @@ TEILE = {
     "Profil Welt": (M + "profil-welt.md", "Welt", None),
     "Profil Figur und Prüfbild": (M + "profil-figur-und-pruefbild.md", "Figur", None),  # 1928: Profilname wie Fachprofil in chefsache/themenbloecke.md (lauf.ladetext)
     "Profil Story": (M + "profil-story.md", "Story", None),
+    # 1928 (D366.1): jedes Profil, das lauf.startblock laden kann, mit dem Namen aus lauf.py (KERN_VON, Fachprofil, QUER_AUS_AUFTRAG,
+    # KAUFREPO_PROFIL); --anlegen schreibt daraus docs/profile/<Profil>.md
+    "Profil Technik A": (M + "profil-technik.md|## Teil A", "Technik", None),
+    "Profil Kampf": (M + "profil-kampf.md", "Kampf", None),
+    "Profil Kataloge": (M + "profil-kataloge.md", "Kataloge", None),
+    "Profil Klang": (M + "profil-klang.md", "Klang", None),
+    "Profil Oberfläche": (M + "profil-oberflaeche.md", "Oberfläche", None),
+    "Profil Regeln": (M + "profil-regeln.md", "Regeln", None),
+    "Profil Zugang Kaufrepo": (M + "profil-zugang-kaufrepo.md", "Zugang Kaufrepo", None),
     "Routine Wache": (M + "routine-wache.md|## Text", "Wache", None),
 }
 # Sitzungsart: Teile (herausgezogen.md „Ladesumme je Sitzungsart“); Auftrag kommt je Start dazu
@@ -66,18 +76,29 @@ def byte(text):
     return len(text.encode("utf-8"))
 
 
-def messregel(text):
-    """Ladetext nach Messregel in Byte."""
+def messtext(text):
+    """Ladetext nach Messregel (ohne Kopfzeile und Leerzeile, bis vor „## “, ohne letztes Zeilenende)."""
     z = text.split("\n")
     if z and z[0].startswith("# "):
         z = z[1:]
         if z and not z[0].strip(): z = z[1:]
     j = next((k for k, x in enumerate(z) if x.startswith("## ")), len(z))
-    return byte("\n".join(z[:j]).rstrip("\n"))
+    return "\n".join(z[:j]).rstrip("\n")
+
+
+def messregel(text):
+    """Ladetext nach Messregel in Byte."""
+    return byte(messtext(text))
 
 
 def block(text, kopf, n=1):
-    """Inhalt des n-ten Codeblocks unter der Überschrift KOPF (bis zur nächsten gleich hohen oder höheren); Byte oder None."""
+    """Inhalt des n-ten Codeblocks unter der Überschrift KOPF in Byte oder None (blocktext)."""
+    t = blocktext(text, kopf, n)
+    return None if t is None else byte(t)
+
+
+def blocktext(text, kopf, n=1):
+    """Inhalt des n-ten Codeblocks unter der Überschrift KOPF (bis zur nächsten gleich hohen oder höheren); Text oder None."""
     z = text.split("\n")
     i = next((k for k, x in enumerate(z) if x.startswith(kopf)), None)
     if i is None: return None
@@ -89,7 +110,7 @@ def block(text, kopf, n=1):
             if drin: bl.append(cur); cur = []
             drin = not drin
         elif drin: cur.append(x)
-    return byte("\n".join(bl[n - 1])) if len(bl) >= n else None
+    return "\n".join(bl[n - 1]) if len(bl) >= n else None
 
 
 def lesen(pfad, rev=None):
@@ -103,6 +124,33 @@ def lesen(pfad, rev=None):
 
 
 # --- Tabelle der Teile und Sitzungsarten (1866)
+
+def entwurf_text(name, rev=None):
+    """Ladetext des Teils aus dem Entwurf (nie aus docs/profile/), Text oder None."""
+    pfad, _, rest = TEILE[name][0].partition("|")
+    t = lesen(pfad, rev)
+    if t is None: return None
+    if not rest: return messtext(t)
+    kopf, _, n = rest.partition("|")
+    return blocktext(t, kopf, int(n or 1))
+
+
+def anlegen(ziel=None):
+    """1928: docs/profile/<Profil>.md je Teil mit Profilnamen aus dem Entwurf: „# <Profil>“, Leerzeile, Ladetext, dann „## Herkunft“
+    mit der Quelle (lauf.ladetext liest bis vor „## “). Gibt [(Profil, Byte, Pfad)] zurück; fehlt eine Quelle: SystemExit."""
+    ziel = ziel or os.path.join(ROOT, "docs", "profile")
+    os.makedirs(ziel, exist_ok=True)
+    aus = []
+    for name, (quelle, profil, _) in TEILE.items():
+        if not profil: continue
+        t = entwurf_text(name)
+        if not t: raise SystemExit("ladesumme --anlegen: %s ohne Ladetext (%s)" % (name, quelle))
+        p = os.path.join(ziel, "%s.md" % profil)
+        with open(p, "w", encoding="utf-8") as f:
+            f.write("# %s\n\n%s\n\n## Herkunft\n\nAngelegt von `tools/ladesumme.py --anlegen` (1928) aus `%s`; dort ändern und neu anlegen.\n" % (profil, t, quelle))
+        aus.append((profil, byte(t), os.path.relpath(p, ROOT)))
+    return aus
+
 
 def teil_byte(name, rev=None):
     """(Byte oder None, Quelle)."""
@@ -242,6 +290,9 @@ def main(argv):
         print(__doc__); return 0
     if "--alt" in argv:
         print(tabelle_alt()); return 0
+    if "--anlegen" in argv:  # 1928
+        for profil, b, p in anlegen(): print("%s: %s Byte (%s)" % (profil, zahl(b), p))
+        return 0
     rev = None
     for k in ("--gegen", "--vor"):
         if k in argv:

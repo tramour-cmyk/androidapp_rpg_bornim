@@ -64,5 +64,17 @@ import startbar as _sb, lauf as _lf
 _ladbar = set(_sb.profile()) | {k for v in _lf.KERN_VON.values() for k in v} | {n for n, _ in _lf.QUER_AUS_AUFTRAG} | {_lf.KAUFREPO_PROFIL, "Wache"}
 _fremd = sorted(p for _, p, _ in L.TEILE.values() if p and p not in _ladbar)
 soll("Profilnamen wie lauf.py (%s)" % ", ".join(_fremd), not _fremd)
+_ohne = sorted(_ladbar - {p for _, p, _ in L.TEILE.values() if p})
+soll("jedes ladbare Profil hat eine Quelle in TEILE (%s)" % ", ".join(_ohne), not _ohne)
+# 1928 (c): --anlegen schreibt aus dem echten Entwurf je Profil docs/profile/<Name>.md; lauf.ladetext liest denselben Text
+_echt = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+L.ROOT = _echt
+import tempfile as _tf
+_z = _tf.mkdtemp()
+_an = L.anlegen(os.path.join(_z, "profile"))
+soll("--anlegen: alle Profile mit Text", len(_an) == len([1 for _, p, _ in L.TEILE.values() if p]) and all(b > 200 for _, b, _ in _an))
+_ab = [n for n, (q, p, _) in L.TEILE.items() if p and _lf.ladetext(p, _z) != L.entwurf_text(n)]
+soll("lauf.ladetext liest den Entwurfstext unverändert (%s)" % ", ".join(_ab), not _ab)
+soll("Zugang Kaufrepo ohne den add_repo-Satz (Sokrates 12:04 a)", "add_repo" not in _lf.ladetext("Zugang Kaufrepo", _z))
 print("ladesumme_test:", "grün" if not fehler else "ROT: " + "; ".join(fehler))
 sys.exit(1 if fehler else 0)
