@@ -95,6 +95,11 @@ if [ ! -f "$hk" ] || ! grep -q "commit-pruefung (D55.4)" "$hk" 2>/dev/null; then
     mkdir -p "$(dirname "$hk")"
     printf '#!/bin/sh\n# commit-pruefung (D55.4)\nf=/home/user/bornim-main/tools/commit-pruefung.py; [ -f "$f" ] || f=tools/commit-pruefung.py\nif [ -f "$f" ]; then python3 "$f" || exit 1; fi\nexit 0\n' > "$hk" && chmod +x "$hk"
 fi
+# 1937: pre-push-Haken mit den Push-Prüfungen aus probelauf.py (647, 464, 748, 1719), ebenso immer die Fassung von main
+hp="$(git rev-parse --git-common-dir)/hooks/pre-push"
+if [ ! -f "$hp" ] || ! grep -q "vorpush (1937)" "$hp" 2>/dev/null; then
+    printf '#!/bin/sh\n# vorpush (1937)\nf=/home/user/bornim-main/tools/vorpush.py; [ -f "$f" ] || f=tools/vorpush.py\nif [ -f "$f" ]; then python3 "$f" "$@" || exit 1; fi\nexit 0\n' > "$hp" && chmod +x "$hp"
+fi
 echo "$neu" > "$mark"
 # 658: Reaktionen und Nachrichten des Chefs auf Telegram (👍 gebilligt, 👎 falsch, ✅ erledigt; Prüfpunkte t<n>.<k> je Build eine Zeile, 1217), letzte 120 Minuten; nur Text, still ohne Schlüssel
 [ -f "$wt/tools/reaktionen.py" ] && timeout 40 python3 "$wt/tools/reaktionen.py" 2>/dev/null
