@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 386 · 1944–1950 Werkzeuglücken Falltest 1727 Lauf 4 (lesend, Weiter Ford 15:05; Kopie `1c5ac8fd8`; 22.11., 15:06–15:09)
+
+- Alle 43 `tools/*_test.py` an der Kopie grün, `werkzeugluecken_lauf4_test` 38 Fälle; keine Haltzeile aus Testläufen in `origin/haken`.
+- Greifen (erledigt): 1944 (`--pruefen` lehnt Nummer ohne Liste und Archiv ab; `wieder_offen` liest nur), 1945 (`--help` vor jeder Prüfung), 1946 (AN geprüft, Liste in Hilfe und Fehler; alte Namen nach `1727-SCHARF` Fehler mit neuem Namen), 1947 (Routine-Sitzung „fertig“ ohne Commit unter fremdem Vorgang), 1949 (B<n> in auftrag, rueckmeldung, uebergabe, lauf; bloße Nummer mit „Build n“ hält an), 1950 (Werkzeug-Commit nicht auf `origin/main` → zweite Zeile an die Fachkraft).
+- 1948 greift nicht: **D386.1** → 1951 (Spike, M). `ABLEHNUNG` trifft „daneben“ als Ortsangabe und lobendes „kein Unterschied … gut so“ (Proben im Vorrat Spike „Zu 1951“), auch über `bisher_nein`; ein falsches Chef-Nein zählt für Obergrenze A. 1948 wartet auf 1951.
+
 ## Lauf 385 · 1923 Startblock nach 1928 (lesend, Weiter Ford 14:00; Kopie `1d0b66272`; 22.11., 14:00)
 
 - Greift (erledigt). `lauf_kern_test` grün. Nachgestellt mit den 20 Profilen aus `ladesumme.py --anlegen` (Lauf 384), `NEU_LISTE`, `mit_kaufrepo` (scharf) dann `mit_kern`: Prüfer mit Auftrag „Querprofil „Signatur und Leben““ → Kern Abnahme, Prüfer, Signatur und Leben, Zugang Kaufrepo; Prüfer mit „Profil Werkzeug“ → ohne Kaufrepo; Kampf → Kampf, Werkzeug, Zugang Kaufrepo; Tester → mit Kern Abnahme. Je Nachricht `add_repo` genau einmal (Satz am Ende, Sockel-Fassung), kein Sockeltext, keine „## Herkunft“, Auftrag wörtlich, „Rollendatei“ ersetzt; `STARTBLOCK_FEHLT` leer.
