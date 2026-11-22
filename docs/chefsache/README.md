@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 11:50, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 11:55, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -271,7 +271,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | nach dem Meilenstein |
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 
-**Spike** – offen 75, Muss 44, startbar 45
+**Spike** – offen 70, Muss 38, startbar 41
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -279,7 +279,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1762 | M | Von Sokrates (1727, Chef 21.11., 14:37 D; 20:06 „Werkzeuge jetzt“): Haken D trägt Chefwort | wartet auf 1727 (startbar) |
 | 1763 | M | Von Sokrates (1727, Chef 21.11., 14:37 A, B, C): lauf.py startet Sokrates bei „steckt fest | wartet auf 1727 (startbar) |
 | 1739 | M | Von Sokrates (1727, Chef 20.11., 10:31: ab Sa 20 Uhr nur 1727): Werkzeuge der Bauliste ab | startbar |
-| 1764 | M | Von Sokrates (1727, Lücke L-T1 ein-ausgang.md): Herzschlag und Wache des Disponenten (Ausf | wartet auf 1894 (startbar) |
+| 1764 | M | Von Sokrates (1727, Lücke L-T1 ein-ausgang.md): Herzschlag und Wache des Disponenten (Ausf | wartet auf 1894 (gebaut), dann Diogenes (greift?) |
 | 1766 | M | Von Sokrates (1727, Chef 20.11. Höchstdauer, 13:02 Laufbremse): Laufbremse und Höchstdauer | wartet auf 1774 (startbar) |
 | 1716 | M | Von Chef (18.11., 22:29, „jetzt“ 18.11., 22:29): Buildzweig gehört Spike: nur Spike pusht | wartet auf Diogenes |
 | 1694 | M | Von Chef (18.11., 17:01, „Als Systemlösung, genau“, Votum Sokrates): Griff einmal für alle | ruht |
@@ -302,19 +302,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1719 | M | Von Perikles (1715, Tagesbericht 18.11., 23:13): Buildzweige 24 h 3 grün, 4 rot, 3 abgebro | wartet auf Test/Build (gebaut) |
 | 1720 | M | Von Sokrates (Chef 18.11., 23:14, Bilder t300.3 Wald 12:23, t300.4 Höhle 12:25): Vordergru | startbar |
 | 1732 | M | Von Sokrates (Chef 19.11., 21:25): Stop-Haken für Sokrates: Nachricht mit „Votum“ ohne Zei | startbar |
-| 1779 | M | Von Sokrates (1774): Höchstdauer Werte setzen (Mittel 360, Hoch 300) und Gebautes nachbess | startbar |
 | 1781 | M | Von Sokrates (1727, Chef 21.11., 21:22 und 21:38 „Sockel, ja“): nach der Umstellung trägt | wartet auf 1727 (startbar) |
 | 1790 | M | Von Sokrates (1727 Nachprüfung 22:20): rueckmeldung.py:89 gibt „ja“ des Prüfers bei einem | startbar |
 | 1793 | M | Von Sokrates (1727 Rundblick, Nachprüfung 22:30): startbar.py:196–198 Feld „nach“ legt den | startbar |
-| 1855 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 44): check-env.sh prüft docs/ARBEIT-T | startbar |
-| 1858 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 49, 72): Testbitte-Schreiber: Testbit | startbar |
+| 1858 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 49, 72): Testbitte-Schreiber: Testbit | wartet auf 1864 (startbar) |
 | 1859 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 50): .claude/settings.json: Haken wei | startbar |
-| 1866 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 77): Größen- und Ladesummen-Skript: B | startbar |
-| 1879 | M | Von Spike (1739, Lauf 3 Arbeitsplaner L7, ergebnis.md; Prüfer-1 L8): vorgang.py auftrag -- | wartet auf 1917 (gebaut), dann Diogenes (greift?) |
 | 1890 | M | Von Sokrates (1727, werkzeuge.md Z. 37): bereiche.py um „E Kataloge“, „G Regeln“ und Lehre | startbar |
-| 1892 | M | Von Sokrates (1727 Lauf 3 Disponent L1): lauf.py setzt bei START die Startsperre und pusht | wartet auf 1918 (gebaut), dann Diogenes (greift?) |
-| 1894 | M | Von Diogenes (D337.1, Lauf 343 zu 1764): herzschlag.yml prüft nur bei Push auf docs/ (nach | startbar |
-| 1898 | M | Von Sokrates (1727, Nachprüfung 4 zu 1727j V2): gepusht-haken.py hält bei jeder geänderten | startbar |
+| 1894 | M | Von Diogenes (D337.1, Lauf 343 zu 1764): herzschlag.yml prüft nur bei Push auf docs/ (nach | wartet auf 1871 (in Arbeit) |
 | 1850 | M? | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 27–29): Workflows godot-kampf.yml, to | startbar |
 | 1851 | M? | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 30): neustart-haken.py umbauen: Brems | startbar |
 | 1852 | M? | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 33, 38, 41, 43): Quelle Protokoll ARB | startbar |
@@ -346,10 +340,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1869 | K | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 81): Stop-Haken „alles gepusht?“ hält | startbar |
 | 1870 | K | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 82): PreToolUse-Sperre Keystore, Zuga | startbar |
 | 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
-| 1917 | M | Von Diogenes (D347.1, Lauf 357 zu 1879): auftrag.FEHLWORT trifft Spielfunde: „Im Hof fehlt | wartet auf 1920 (startbar) |
-| 1918 | M | Von Diogenes (D348.1, Lauf 358 zu 1892): protokoll_pushen meldet „gepusht“, lokale ARBEIT- | wartet auf Diogenes |
-| 1919 | M | Von Spike (Fund 22.11., 10:48 an 1913): vorgang.py stand lässt eine Zeile über 400 Zeichen | startbar |
-| 1920 | M | Von Diogenes (D349.1, Lauf 359 zu 1917): FEHLWORT jetzt zu eng und zu weit: frei „Das Ziel | startbar |
+| 1923 | M | Von Sokrates (1727j, Chef 22.11., 11:09): Startblock in lauf.py: Startnachricht setzt Kern | wartet auf 1928 (startbar) |
+| 1924 | K | Von Diogenes (D363.1, Lauf 363 zu 1779): Restsperre 1143 (vorgang.rest_offen) liest den Üb | startbar |
+| 1927 | M | Von Sokrates (1727j Frage 5, Chef 22.11., 11:31): nach zweitem „steckt fest“ schreibt ein | startbar |
+| 1928 | M | Von Diogenes (D366.1, Lauf 366 zu 1923): Startblock: Kaufrepo-Satz doppelt (mit_kaufrepo h | startbar |
+| 1930 | M | Von Sokrates (1727j Frage 8, Chef 22.11., 11:48): Laufsperre („weniger laufen“) lässt Rück | startbar |
 
 **Perikles** – offen 29, Muss 22, startbar 4
 
@@ -385,7 +380,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1741 | K | Von Sokrates (1727, Prüfung 12:55): Block 4 Kataloge Zeilen nachziehen: 649.2 Titel nennt | startbar |
 | 1770 | K | Von Perikles (1767, Nachprüfung Sokrates 21.11., 20:27): Profil Release als Auftrag schrei | wartet auf 622 (nach Meilenstein) |
 
-**Diogenes** – offen 10, Muss 9, startbar 1
+**Diogenes** – offen 9, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -394,7 +389,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1716 | M | Von Chef (18.11., 22:29, „jetzt“ 18.11., 22:29): Buildzweig gehört Spike: nur Spike pusht | Termin 23.11. |
 | 1642 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 1 Rollenspiegel: jede Startwarnung m | Termin 25.11. |
 | 1643 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 3 Rollenspiegel, Rest neben 1624: de | Termin 25.11. |
-| 1918 | M | Von Diogenes (D348.1, Lauf 358 zu 1892): protokoll_pushen meldet „gepusht“, lokale ARBEIT- | startbar |
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | Termin 23.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
