@@ -61,15 +61,31 @@ def freigabe(w):
 
 # 1948 (Falltest Lauf 4 P1, P7): Ablehnung ohne „nein“ am Anfang („Also fail.“, „Wieder daneben.“, „kein Unterschied zwischen alt und
 # neu“, „Film t300.11 Fail“); ✗ hinter einem Prüfpunkt auch mitten im Satz („Nein des Chefs: ‚299.3 ✗‘“)
-ABLEHNUNG = re.compile(r"(?i)\bfail\b|\bdaneben\b|\bkein(?:en)? unterschied\b|\bnicht besser\b|\bwieder falsch\b|(?:\d+(?:\.\d+)?|Rest)\s*✗")
+ABLEHNUNG = re.compile(r"(?i)\bfail\b|\bnicht besser\b|\bwieder falsch\b|(?:\d+(?:\.\d+)?|Rest)\s*✗")
+# 1951 (D386.1): „daneben“ ist auch Ortsangabe („Die Truhe sitzt, daneben fehlt die Fackel.“, „Licht ok, daneben die Bank etwas höher.“,
+# „Die Fackel steht daneben.“); als Urteil nur am Ende des Satzteils und allein oder nach einem Urteilswort („Wieder daneben.“,
+# „Das ist daneben.“, „Total daneben!“)
+DANEBEN = re.compile(r"(?i)(?:^|[,.;:!?\n–—]|\b(?:wieder|total|völlig|komplett|voll|leider|ganz|echt|schon|gründlich|ist|war|sind|waren|alles|geht|ging|gegangen))\s*daneben\s*(?:[,.;:!?\n–—)]|$)")
+# 1951: „kein Unterschied“ zählt nicht, wenn derselbe Satz es lobt („Kein Unterschied zu gestern beim Laden, gut so.“)
+UNTERSCHIED = re.compile(r"(?i)\bkein(?:en)? unterschied\b")
+LOB = re.compile(r"(?i)\b(gut so|gut|passt|prima|super|schön|bestens|perfekt|top|ok|okay|in ordnung|wie gewünscht|wie gewollt|soll so)\b")
+
+def _ablehnung(w):
+    if ABLEHNUNG.search(w) or DANEBEN.search(w): return True
+    for satz in re.split(r"[.!?\n]+", w):
+        if UNTERSCHIED.search(satz):
+            lob = [t for t in TEIL.split(satz) if t and LOB.search(t) and not VERNEINT.search(UNTERSCHIED.sub("", t))]
+            if not lob: return True
+    return False
 
 def chef_nein(w):
     """1872: Chefwort lehnt ab (zählt für Obergrenze A wie ein „nein“ des Prüfers): beginnt mit „nein“, 👎, Ergebnis mit ✗ oder ein
     verneintes Freigabewort („passt nicht“, „nicht freigegeben“); eine Freigabe ohne Verneinung nie. 1948: auch ABLEHNUNG
-    („fail“, „daneben“, „kein Unterschied“) irgendwo im Wortlaut."""
+    („fail“, „daneben“, „kein Unterschied“) irgendwo im Wortlaut; 1951: „daneben“ nur als Urteil, nicht als Ortsangabe,
+    „kein Unterschied“ nicht, wenn derselbe Satz lobt."""
     w = w or ""
     if freigabe(w): return False
-    if re.match(r"(?i)^\W*nein\b", w) or "👎" in w or re.search(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*✗", w) or ABLEHNUNG.search(w): return True
+    if re.match(r"(?i)^\W*nein\b", w) or "👎" in w or re.search(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*✗", w) or _ablehnung(w): return True
     return any(t and re.search(r"(?i)\b(passt|freigegeben|gut)\b", t) and VERNEINT.search(t) for t in TEIL.split(w))
 
 

@@ -106,6 +106,14 @@ txt = "# 9001\n\n## Auftrag (22.11., 14:00)\n\n" + GUT.replace("Höhe fest einge
 soll("1948: zaehlen zählt das Nein unter Bisher einmal", rm.zaehlen(txt)["nein"] == 1, rm.zaehlen(txt))
 txt2 = txt + "\n## Chefworte\n\n- **18.11., 17:38**, Chef (`s`):\n> Wieder daneben.\n"
 soll("1948: nicht doppelt, wenn „Chefworte“ es schon zählt", rm.zaehlen(txt2)["nein"] == 1, rm.zaehlen(txt2))
+# 1951 (D386.1): „daneben“ als Ortsangabe und lobendes „kein Unterschied“ sind kein Nein
+for w in ("Die Truhe sitzt, daneben fehlt noch die Fackel.", "Licht ok, daneben die Bank etwas höher.", "Kein Unterschied zu gestern beim Laden, gut so.",
+          "Die Fackel steht daneben.", "Kein Unterschied beim Laden. Passt."):
+    soll("1951: kein chef_nein „%s“" % w, not cw.chef_nein(w))
+for w in ("Wieder daneben.", "Daneben.", "Das ist total daneben!", "Kein Unterschied zwischen alt und neu, schade.", "Kein Unterschied, gut ist das nicht."):
+    soll("1951: chef_nein „%s“" % w, cw.chef_nein(w))
+soll("1951: kein bisher_nein mit Ortsangabe", not cw.bisher_nein("Chef 18.11., 17:38: „Die Truhe sitzt, daneben fehlt die Fackel.“"))
+soll("1951: kein bisher_nein mit Lob", not cw.bisher_nein("Chef 18.11., 17:38: „Kein Unterschied zu gestern beim Laden, gut so.“"))
 soll("1948: ohne Chef-Nein unter Bisher 0", rm.zaehlen("# x\n\n## Auftrag (22.11., 14:00)\n\n" + GUT)["nein"] == 0)
 
 # 1949: Build-Auftrag B<n>
