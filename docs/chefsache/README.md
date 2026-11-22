@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 20:31, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 20:34, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -144,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 64, Muss 20, startbar 20
+**Kampf** – offen 63, Muss 19, startbar 19
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,7 +167,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1589.6 | M | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt n | wartet auf 1589.2 (startbar) |
 | 1603 | M | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in ke | startbar |
 | 1708 | M | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_u | wartet auf 1589.4 (startbar) |
-| 1750 | M | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmusik, Vögel | startbar |
 | 1402 | K | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel | startbar |
 | 1404 | K | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UAL2/Protofac | startbar |
 | 1526 | K | vorderer Wolf weicht nach Angriff eines hinteren ganz nach hinten und läuft als Nächster w | wartet auf 1589.4 (startbar) |
@@ -213,7 +212,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634 | startbar |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 
-**Figur** – offen 35, Muss 22, startbar 13
+**Figur** – offen 34, Muss 21, startbar 12
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -232,7 +231,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1297 | M | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | wartet auf 431 (startbar) |
 | 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (startbar) |
 | 1650 | M | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, | wartet auf 1535 (gebaut) |
-| 1652 | M | Durchstechprüfung: Osric innere Stücke stechen durch die Robe (1,2 m, bis 267 Ecken) (1332 | startbar |
 | 1653 | M | Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 m, bis 224 Ecken) | startbar |
 | 1654 | M | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tr | startbar |
 | 1655 | M | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | wartet auf Test/Build (gebaut) |
@@ -268,12 +266,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 649.3 | K | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen … | wartet auf 649.2 (ruht) |
 | 649.4 | K | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | ruht bis 23.11. |
 
-**Welt** – offen 31, Muss 3, startbar 6
+**Welt** – offen 31, Muss 3, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1205b | M | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser alte | wartet auf 1535 (gebaut) |
-| 1566 | M | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | ruht |
+| 1566 | M | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | startbar |
 | 1205 | M | Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass & Wind Kit … | wartet auf 1535 (gebaut) |
 | 1519 | K | vier Helden im Hauptmenü mit Ruhebewegung (Atmen, Umsehen), Hände bleiben, wo sie sind | wartet auf 431 (startbar) |
 | 1563 | K | Teich in der Höhle am Ufer noch eckig und kantig | wartet auf 1564 (startbar) |
@@ -377,7 +375,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1716 | M | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten B | wartet auf Prüfer |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | ruht bis 23.11. |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |
-| 1967 | M | Reihenfolge Klasse vor Themenblock (Eilt, Fund, Muss, Kür je in Blockfolge, Kür im Block n | startbar |
 | 1963 | M | Fachkräfte fragen den Chef in ihrer Sitzung nach Erlaubnis (Lena 17:16, Doris 16:55: Reset | startbar |
 | 1961 | M | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann | startbar |
 | 1960 | M | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla – Auftrag 16 | startbar |
@@ -414,7 +411,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1762 | M | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Fra | wartet auf Diogenes (greift?) |
 | 1763 | M | lauf.py startet Sokrates bei „steckt fest“, „Frage“, „wirkt nein“ (C) | wartet auf Diogenes (greift?) |
 | 1764 | M | Herzschlag und Wache des Disponenten (Ausfall, Nachfolger ohne Vorräte) | wartet auf 1894 (gebaut) |
-| 1765 | M | Build-Werkzeug … | wartet auf 1566 (ruht) |
+| 1765 | M | Build-Werkzeug … | wartet auf 1566 (startbar) |
 | 1766 | M | Laufbremse und Höchstdauer je Auftrag in lauf.py, auch bei working (prozesspruefung-21-11. | wartet auf 1774 (startbar) |
 | 1767 | M | Profile Büro 3.2 (Disponent, Release, Kosten), Routinen Tagesbericht, Wache, Wochenzählung | wartet auf Sokrates |
 | 1773 | M | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Satz nur Kern | startbar |
@@ -483,6 +480,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1972 | M | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, | startbar |
 | 1974 | M | Von Sokrates (22.11., 18:56): Archiv-Schutz – keine Sitzung archivieren, die auf eine Frei | startbar |
 | 1975 | M | Von Sokrates (22.11., 18:57): Verweis bl → ~/bl aus bau_am_rechner.py (Zeile 5) im Repo; r | startbar |
+| 1976 | M | Von Sokrates (22.11., 20:02): vorgang.py legt bei einer Laufanforderung nach „ruht schon, | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
