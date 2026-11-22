@@ -1233,3 +1233,4 @@
 2026-11-22 09:29:28	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1727h-umschalten.md: fehlt Nummer 1727h 	HEAD
 2026-11-22 09:29:44	probelauf	799 (Chef 09.11., 20:46, Aufbau 364, Muster docs/chefsache/MUSTER.md), 1129 A 1 (Torprüfung neuer Vorlagen): Vorlage unvollständig – docs/chefsache/entscheiden/1727h-umschalten.md: fehlt Nummer 1727h 	HEAD
 2026-11-22 09:30:58	commit-pruefung	LISTE-VORGAENGE.md: 1782: Zeile über 400 Zeichen (Einzelheiten als „Zu 1782“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-22 09:31:15	commit-pruefung	LISTE-VORGAENGE.md: 1895: Zeile über 400 Zeichen (Einzelheiten als „Zu 1895“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
