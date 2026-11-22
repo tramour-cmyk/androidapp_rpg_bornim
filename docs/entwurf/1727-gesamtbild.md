@@ -6,6 +6,16 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 
 Fassung 22.11., 13:14 (Sokrates, 1931): Kern Leitung (2.1, Codeblock Fassung 2) mit V1 nur Größe und Frage 10 („Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.“) und dem Satz zum Eingang (1727d L-O1 „wie Vorlage“: „legt mit `vorgang.py neu` an und weckt den Disponenten“; 1727i: Byte vorlegen), 2.837 → 2.926 Byte UTF-8 (13:28: Eingang in Klammern, Gegenprüfung 13:26 Nr. 3, 5); Regelbilanz (Abgleich 1933 Nr. 6, ohne Chefwort) wieder heraus, zur Vorlage `chefsache/entscheiden/1931a-luecken-abgleich.md`. Sockel Zeile 7 nach 1727i A und 1727j V7 (22.11., 11:09): „Das Kaufrepo schaltest du bei Bedarf selbst mit `add_repo` frei, so wie es der Chef festgelegt hat.“ statt „Vor Sitzungsende alles pushen.“, 1.109 → 1.178. Tabelle 0.1 nachgezogen.
 
+Fassung 22.11., 15:11 (Sokrates, 1727 Korrektur nach Falltest Lauf 4, Chef 14:51; Auftrag `1727-muster/falltest-lauf4/korrektur-auftrag.md`): Kern Leitung (2.1, Codeblock Fassung 2) ohne Helferpflicht außerhalb des Umbaus (1727j V1, 10:39; die Umbauregel steht nur noch im Gedächtnis), Verweis auf die Chef-Lesung (12:50, Ort Profil Chefrunde), `vorgang.py chefwort` zu bestehendem Vorgang, „steckt fest“ und „Frage“ (21.11., 14:37 B, 20:59), Regelbilanz (nur `CLAUDE.md` Haltung 6, strittig, 1931a nie angelegt), 2.926 → 2.958; Profil Figur und Prüfbild (5.1 = Musterdatei) mit „Vor jeder Vorlage“ (461) und Kerntests, 1.303 → 1.551; Gedächtnis, Kern Arbeitsplaner, Profil Disponent, Profil Prüfer in ihren Dateien. Tabelle 0.1 nachgezogen.
+
+Fassung 22.11., 15:20 (Sokrates, Korrektur Lauf 4, Runde 2, Nachprüfung): Kern Leitung (2.1, Codeblock Fassung 2) mit Kurzform der Chef-Lesung (Archiv 12:50: frischer Leser, nur Nachricht, Ziel und Entscheide 48 h, vier Fragen), „Schlägt der Chef etwas vor oder ergänzt er …: Gegenargument, Bestand“ (gestrichene Gedächtnis-Lehre), `vorgang.py chefwort` heraus (Satz wie vor Runde 1; 21.11., 14:37 D gibt das Chefwort-Eintragen dem Haken für fremde Sitzungen), 2.909 → 2.987; Profil Figur und Prüfbild (5.1 = Musterdatei) ohne Kerntests (Commit-Haken), 1.551 → 1.466; Gedächtnis, Kern Arbeitsplaner, Profil Disponent, Profil Prüfer in ihren Dateien. Tabelle 0.1 nachgezogen.
+
+Fassung 22.11., 15:29 (Sokrates, Korrektur Lauf 4, Runde 3, Nachprüfung 3): Kern Leitung (2.1, Codeblock Fassung 2) Vorbehalt „Sockel, Kerne und Profile“ (Chef 15:16); Zeile zur Ergänzung des Chefs: „Schlägt der Chef etwas vor“ und „Bestand“ heraus (ohne Chefwort; „Bestand“ steht schon in „Jede Vorlage“), „Gegenargument“ bleibt, Quelle Chef 19.11., 09:14 („wieder mein Feedback einfach eingebaut ohne dich damit auseinander zusetzen ob es sinnvoll ist“, `1727-grobablauf.md`:42; `ARBEIT-BERATUNG.md` Fehler 341); „Steckt fest“ und „Frage“: „(großes Vorhaben: Chefgespräch)“ (1236, Archiv 13.11., 21:41); 2.987 → 2.996; Profil Figur und Prüfbild (5.1): Vermerk Chef 14:51 hebt Sperre 16:49 für Offensichtliches auf, 461 trägt den Verweis (Ladetext unverändert 1.466); 0c und Tabelle „fällt oder wandert“ (Lehren: „zur Vorlage beim Chef“, 15:16) mit Vermerk; Gedächtnis, Kern Arbeitsplaner, Profil Disponent (nur Größenzeile), Falltestfall L11 in ihren Dateien. Tabelle 0.1 nachgezogen.
+
+Fassung 22.11., 15:38 (Sokrates, Korrektur Lauf 4, Runde 4, nach Chef 15:31 und 15:34): Kern Leitung unverändert (2.996); Kern Arbeitsplaner Feld 7 mit „Laufanforderung“ (15:31), 2.997 → 2.991; 4.1 Vermerk zu „abgebrochen“ in den alten Fassungen; Gedächtnis Reset-Lehre nach 18.11., 20:27 (15:34), 2.929 → 2.943; Kern Büro „sonst ‚Frage‘“ (V6), 759 → 778; Profil Regeln Regelentscheid ins BRS (02.11., 19:19), 1.922 → 1.991; 5.1 Vermerk Grundlage 461; Bauliste 7.1 Zeile Arbeitsplaner-Auftrag (verwandte Vorgänge). Tabelle 0.1 nachgezogen; Endvorlage `1727-muster/falltest-lauf4/endvorlage.md`.
+
+Fassung 22.11., 15:47 (Sokrates, Korrektur Lauf 4, Runde 5, Nachprüfung der Endvorlage): Kern Leitung unverändert (2.996); Gedächtnis Fäden und Übergabe „(beim Umschalten aus `ARBEIT-BERATUNG.md` übertragen)“ statt „(keine)“, Umbau-Lehre ohne Doppelung zum Vorbehalt, 2.943 → 2.939; Kern Arbeitsplaner „(trotz Behebung)“, „Frage“ statt Auftrag als Wenn-Satz, 2.991 → 2.999; Profil Prüfer „Profil in Feld 4“, Laufanforderung gibt der Prüfer frei (15:31), 2.979 → 3.120; Profil Disponent Laufanforderung an den Prüfer, laut auch bei Stillstand (Kern Büro), 4.206 → 4.328; Profil Regeln Satz geglättet, 1.991 → 2.001; Kern Büro Grenze 3 KB. Endvorlage mit Abschnitt „Neue Regeln“ (Nr. 11, 19, 20, 21, 22). Tabelle 0.1 nachgezogen.
+
 ## 0 Überblick
 
 | Sockel (jede Sitzung) | Gruppe, Funktion | Kern (immer geladen) | Profile (nur bei Bedarf) | rein → raus |
@@ -20,7 +30,7 @@ Fassung 22.11., 13:14 (Sokrates, 1931): Kern Leitung (2.1, Codeblock Fassung 2) 
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 22.11., 07:23, Messregel ohne Kopfzeile, Leerzeile, letztes Zeilenende; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 22.11., 15:47, Messregel ohne Kopfzeile, Leerzeile, letztes Zeilenende; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
 Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` (herausgezogen), Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen. Ladesummen: `1727-muster/herausgezogen.md`.
 
@@ -29,21 +39,21 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` 
 | Sockel | 1.178 | 1,2 KB | abgenommen 20.11., 12:06; Zeile 7 = Kaufrepo-Satz (1727i A, 1727j V7; 1931; vorher 1.109); V2 entfallen |
 | Querprofil Signatur und Leben | 876 | – | abgenommen 12:37 (nachgemessen 22.11., vorher 880) |
 | Querprofil Fremde Inhalte (Teil A) | 1.168 | – | Fassung 10a; Frage 12 ohne Textwechsel (1931) |
-| Kern Leitung (vorher „Kern Sokrates“) | 2.926 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Regelbilanz zur Vorlage 1931a |
-| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | 2.904 | 3 KB | entschieden 21:10, angelegt 22.11. (1931) |
-| Kern Büro | 759 | – | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`); mit V6 (1931; vorher 680) |
-| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.866 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 5a); mit V3, V4, Frage 11 (1931; vorher 2.649); Frage 12 ohne Textwechsel; Abgleich 1933 Nr. 1–3 zur Vorlage 1931a |
+| Kern Leitung (vorher „Kern Sokrates“) | 2.996 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Korrektur Lauf 4 (15:11; vorher 2.926); Regelbilanz raus (Chef 15:16; vorher 2.958); Runde 2: Kurzform Chef-Lesung, „Vorschlag“, `chefwort` heraus (15:20; vorher 2.909); Runde 3: „Sockel“ im Vorbehalt, „Vorschlag“ und „Bestand“ heraus, großes Vorhaben: Chefgespräch (15:29; vorher 2.987) |
+| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | 2.949 | 3 KB | Runde 6 Umbau-Lehre „Nie …; stattdessen …“ (15:50; vorher 2.939); entschieden 21:10, angelegt 22.11. (1931); Korrektur Lauf 4 (15:11; vorher 2.904); Runde 2 Umbau-Lehre (15:20; vorher 2.939); Runde 3 „mit Datum“ heraus (15:29; vorher 2.940); Runde 4 Reset-Lehre nach 18.11., 20:27 und 15:34 (15:38; vorher 2.929); Runde 5 Fäden und Übergabe aus `ARBEIT-BERATUNG.md` übertragen, Umbau-Lehre ohne Doppelung (15:47; vorher 2.943) |
+| Kern Büro | 778 | 3 KB | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`); mit V6 (1931; vorher 680); Runde 4 „sonst ‚Frage‘“ aus V6 (15:38; vorher 759), Zusatz zur Vorlage |
+| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.999 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 6d); Runde 5: „(trotz Behebung)“, „Frage“ als Wenn-Satz (15:47; vorher 2.991); Runde 4: „Laufanforderung“ in Feld 7 (Chef 15:31), Platz aus knapperen Fassungen (15:38; vorher 2.997), verwandte Vorgänge in Bauliste 7.1; mit V3, V4, Frage 11 (1931; vorher 2.649); Frage 12 ohne Textwechsel; Korrektur Lauf 4: ruht, wartet, großes Vorhaben (15:11; vorher 2.866); Runde 2: „wartet“ heraus, „groß“ nach 1236 (15:20; vorher 2.991); Runde 3: „ohne Chefgespräch vor erstem Code-Commit“ (15:29; vorher 2.999), „auch beschlossen“ passt nicht; Alt und Bestand, verwandte Vorgänge passen nicht in die Grenze |
 | Kern Prüfer | 2.529 | – | Verlauf, ersetzt durch Kern Abnahme und Profil Prüfer |
 | Kern Abnahme | 1.567 | – | Entwurf, Fassung 3 (`1727-muster/kern-abnahme.md`) |
-| Profil Prüfer | 2.935 | – | Entwurf, Fassung 12 (`1727-muster/profil-pruefer.md`); 1727j Fragen 2, 3 (1931; vorher 2.817 bzw. laut Kopf 2.831) |
+| Profil Prüfer | 3.222 | – | Runde 6 „ja, Lauf frei“ (15:50; vorher 3.120); Entwurf, Fassung 14 (`1727-muster/profil-pruefer.md`); 1727j Fragen 2, 3 (1931; vorher 2.817 bzw. laut Kopf 2.831); Handwerksregel aus Feld 4 (15:11; vorher 2.935); „Fachprofil“ (15:20; vorher 2.975); Runde 5 „Profil“ statt „Fachprofil“, Laufanforderung (15:47; vorher 2.979) |
 | Profil Tester | 2.626 | – | Entwurf, Fassung 6 22.11., 07:05 (`1727-muster/profil-tester.md`) |
-| Profil Disponent | 4.083 | – | Entwurf, Fassung 16 (`1727-muster/profil-disponent.md`); 1727j Frage 8, Marke 1934 (1931; vorher 3.775) |
+| Profil Disponent | 4.399 | – | Runde 6 Build-Halt laut wie bisher, keine Testbitte bei „ja, Lauf frei“ (15:50; vorher 4.328); Entwurf, Fassung 17b (`1727-muster/profil-disponent.md`); 1727j Frage 8, Marke 1934 (1931; vorher 3.775); Korrektur Lauf 4 (15:11; vorher 4.083); Runde 2: Anhalt 5 Minuten statt Hindernisvermerk (15:20; vorher 4.279); Runde 5: Laufanforderung an den Prüfer, laut auch bei Stillstand (15:47; vorher 4.206) |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
 | Rollensätze (1933, 22.11., 12:44) | je 135–229 | – | in Technik, Werkzeug, Welt, Kampf, Regeln, Klang, Oberfläche, Story (1931) |
-| Profil Regeln | 1.922 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.743) |
+| Profil Regeln | 2.001 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.743); Runde 4 Regelentscheid im selben Schritt ins BRS (Chef 02.11., 19:19; 15:38; vorher 1.922), neue Regel zur Vorlage; Runde 5 Satz geglättet (15:47; vorher 1.991) |
 | Profil Kampf | 1.655 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.482) |
 | Profil Kataloge | 1.448 | – | gegengeprüft (nachgemessen 22.11., vorher 1.450) |
-| Profil Figur und Prüfbild | 1.303 | – | Entwurf 19.11.; Abgleich 1933 Nr. 4 zur Vorlage 1931a |
+| Profil Figur und Prüfbild | 1.466 | – | Entwurf 19.11.; „Vor jeder Vorlage“ (461) und Kerntests, Korrektur Lauf 4 (15:11; vorher 1.303); Kerntests wieder heraus (15:20; vorher 1.551); Runde 3 nur Vermerk Grundlage (Chef 14:51, 461), Ladetext unverändert; Runde 4 Vermerk: Grundlage 461, zur Vorlage beim Chef nach 15:16 |
 | Profil Markt und Recherche | 1.279 | – | abgenommen 1727i Gruppe 4 |
 | Profil Welt | 1.354 | – | abgenommen 13:51, 16:43; mit Rollensatz (1931; vorher 1.165) |
 | Profil Klang | 814 | – | abgenommen 14:45; mit Rollensatz (1931; vorher 645) |
@@ -130,7 +140,7 @@ Muster und Abläufe zum Nachlesen: `1727-muster/` ([README](1727-muster/README.m
   - **Zu D** (Chef 07:49: „klassische Stabs- und Beratungsfunktion. Kein Entscheidungsträger“; „Da brauchen wir auch keine Angliederung … Das ist eine Funktionalität, die ich benötige. Genauso, wenn ich sage, ich brauche meinen Morgenbericht. Dafür haben wir ja auch kein Profil“). Prüfung 07:52: keine Gruppe: stimmt. Einwand zu „kein Profil“: eine einmalige Frage trägt ihr Auftrag; ein Lauf, der jede Woche gleich kommt, braucht einen festen Text, sonst jedes Mal anders. Vorschlag: eigene Art **Routine** = Sockel + fester Auftrag + Takt, ohne Gruppe; dazu gehören auch Ford-Wache, Wochenzählung Diogenes (Kennzahlen, 07:11 ohne Ort) und ein Morgenbericht. Ersetzt „Profil Rundblick“ von 07:37 nur im Namen. **Chef 07:50: „Ja, okay“** (Routine; ob auch C gemeint, nachgefragt).
   - **Zu E** (Chef 07:50: Namen weg, aber bei 20 Werkstatt-Sitzungen „Mary, da müssen wir das und das machen“ leichter als „Vorgangsnummer 27, 11, 23“). Vorschlag 07:53: **Rufname je laufende Sitzung**, nicht je Rolle: das Büro vergibt beim Start einen Vornamen aus fester Liste (nicht wiederholt am selben Tag), steht im Sitzungstitel, in der Besetzung und in jeder Meldung („Mary, Werkstatt Figur, 1535 Kleidung an der Hand“), endet mit der Sitzung. Dazu darf der Chef das Thema in Worten nennen („die am Umhang“), Sokrates oder Büro ordnen zu. Gegenargument: Name täuscht Gedächtnis vor („Mary hat doch gestern …“); entkräftet: Name immer mit Vorgang, nie über die Sitzung hinaus. **Entschieden 07:57 (Archiv);** Grund des Chefs: er sieht laufende Sitzungen und schaut hinein; darum Rufname vorn im Sitzungstitel. Idee Chef 08:03: je Tag ein Buchstabe (A-Namen, dann B-Namen …). Votum 08:04: nein, umgekehrt: innerhalb des Tages das Alphabet durch (erste Sitzung A, zweite B …), damit gleichzeitig laufende verschiedene Anfangsbuchstaben haben; den Vortag zeigt das Datum im Titel. Chef 08:04: „die Alphabetsachen an einem Tag durchgehen. Der erste ist ein A, der nächste ist ein B“ → entschieden (Archiv); nach Z von vorn mit zweitem Namen je Buchstabe; Sperrliste Spielfiguren und alte Rollennamen (Prüfung 08:05, Befund 11).
 
-## 0c Regelbilanz (Befund 15; `CLAUDE.md` Haltung 6)
+## 0c Regelbilanz (Befund 15; `CLAUDE.md` Haltung 6; Vermerk 22.11.: Regelbilanz nach Chef 15:16 nicht in Ladetexten)
 
 Entwurf Sokrates 09:50, ungeprüft. Je neue Regel aus den Entscheiden 19.–20.11., was dafür fällt; Quelle der alten Regel in Klammern.
 
@@ -286,16 +296,17 @@ Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs in seiner Abwe
 Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs. Vertreten nur, wenn er es sagt: dann entscheidest du, was nicht warten kann, außer dem Vorbehalt unter Haltung, und trägst es im Vorgangsarchiv als „Vertretung“ ein. Mit dem Chef bildest du die Leitung: du entscheidest, im Zweifel legst du es ihm zum Billigen vor; er kann es zurückdrehen. Was an die Leitung geht, liest du zuerst. Außer dir: Büro (Disponent: Vorgänge, Vorrang; Arbeitsplaner: Aufträge), Werkstatt (baut), Abnahme (prüft vor dem Chef). Was der Chef als Erster findet, ist dein Fehler. Maßstab jeder Idee: das oberste Ziel im Sockel; Regeln nach dem BRS (`docs/DESIGN-BRS.md`), Qualität vor Eile. Profile nur auf Zuruf: „Chefrunde“ lädt das Profil Chefrunde, „Markt“ oder „Recherche“ das Profil Markt und Recherche.
 
 **Haltung:**
-- Jede Vorlage: Votum, stärkstes Gegenargument, Weg, der es entkräftet; vorher Bestand und Archiv suchen.
+- Jede Vorlage: Votum, stärkstes Gegenargument, Weg, der es entkräftet; vorher Bestand und Archiv suchen; an den Chef erst nach der Chef-Lesung: frischer Leser, nur Nachricht, Ziel und Entscheide 48 h, vier Fragen (Profil Chefrunde).
 - Zu Idee oder Frage ist „Nein“ vollwertig. Einen Auftrag führst du aus; hast du einen Einwand, nennst du ihn mit Grund vorher einmal.
 - Steht eine frühere Weisung bester Praxis im Weg: beide nennen, der Chef entscheidet.
-- Ergänzt der Chef einen Entwurf: je Punkt ein Wort (stimmt, Einwand), nur Stimmiges einbauen.
+- Ergänzt der Chef einen Entwurf: je Punkt ein Wort (stimmt, Einwand) und Gegenargument; nur Stimmiges einbauen.
 - Chefworte nur wörtlich mit Zeit und Quelle; steht etwas nur in einem Paket oder Entwurf, sag das.
-- Was etwas festlegt (Regel, Ablauf, Werte, Werkzeug, Prompt), prüft vor der Vorlage ein frischer Helfer gegen Repo und ganzen Entwurf, ohne deine Begründung; im Chat „Gegengeprüft: <Datei>“ und je Befund „stimmt“, „Einwand“ oder „Frage“. Sonst nur als „ungeprüfter Gedanke“, ohne Votum.
 - Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.
-- Vorbehalt: Story, Aussehen, Geld, Lizenz, Release, Accounts, Kerne und Profile entscheidet der Chef; Aussehen nur an Bild oder Film in Spielkamera und Handygröße. Du schreibst Notizen, keinen Spielcode.
+- Vorbehalt: Story, Aussehen, Geld, Lizenz, Release, Accounts, Sockel, Kerne und Profile entscheidet der Chef; Aussehen nur an Bild oder Film in Spielkamera und Handygröße. Du schreibst Notizen, keinen Spielcode.
 
 **Chefworte:** Trag jedes in derselben Antwort ein: einen Auftrag als Vorgang mit `vorgang.py neu` (dann weckst du den Disponenten), eine Idee in `docs/LISTE-IDEEN.md`, einen Entscheid, auch deinen, oben ins `docs/VORGANGSARCHIV.md`. In `docs/chefsache/` gehört nur, was der Chef jetzt entscheiden, billigen oder fertig ansehen kann; anderes geht zurück an den Besitzer.
+
+**„Steckt fest“ und „Frage“** an dich beantwortest du als Zeile (großes Vorhaben: Chefgespräch); das erste „steckt fest“ eines Vorgangs entscheidest du, zum zweiten legst du eine Chefsache an und trägst sie vor.
 
 **Form:** Im Chat nur, was der Chef entscheiden, tun, prüfen oder billigen soll, Ergebnis zuerst; Telegram vollständig ohne Füllwort (`/home/user/bornim-main/tools/meldung.sh`). Vorgang immer als Nummer und Titel in den Worten des Chefs.
 
@@ -392,7 +403,7 @@ Stärkstes Gegenargument: neue Mechanik (Quittung, erneutes Wecken, „im Neusta
 
 ### 4.1 Kern Arbeitsplaner
 
-Name seit 20.11., 21:36 (Chef „Benenne um.“; Büro = Disponent und Arbeitsplaner, 07:30; vorher „Kern Arbeitsvorbereitung“, ältere Stellen meinen diesen Kern). Entwurf 19.11., 19:41 · 2450 Byte (Grenze 3 KB) · Auftrag Chef 19:38 („entwickle … unter Anlegung der schon gemachten Erfahrungen“) · gegengelesen 19:40 (frischer Helfer, Maß: Probeaufträge `auftraege-19-11.md`, daneben `ROLLE-PROJEKT.md`), Befunde eingearbeitet · nicht entschieden, Falltest steht aus. Ersetzt den Baukasten 4.2 als Text; die Felder gibt künftig `vorgang.py auftrag` vor (Bauliste 7.1).
+Name seit 20.11., 21:36 (Chef „Benenne um.“; Büro = Disponent und Arbeitsplaner, 07:30; vorher „Kern Arbeitsvorbereitung“, ältere Stellen meinen diesen Kern). Entwurf 19.11., 19:41 · 2450 Byte (Grenze 3 KB) · Auftrag Chef 19:38 („entwickle … unter Anlegung der schon gemachten Erfahrungen“) · gegengelesen 19:40 (frischer Helfer, Maß: Probeaufträge `auftraege-19-11.md`, daneben `ROLLE-PROJEKT.md`), Befunde eingearbeitet · nicht entschieden, Falltest steht aus. Ersetzt den Baukasten 4.2 als Text; die Felder gibt künftig `vorgang.py auftrag` vor (Bauliste 7.1). Vermerk 22.11.: „abgebrochen“ in Feld 7 beider Fassungen unten ersetzt durch Laufanforderung (15:31); geltende Fassung `1727-muster/kern-arbeitsplaner.md`.
 
 ```markdown
 Du bist die **Arbeitsvorbereitung** von BornWire TCS, unserer Spieleschmiede. Du machst aus einem Vorgang einen Auftrag, den ein Macher ohne Rückfrage bauen kann. Der Macher kennt nur den Sockel und deinen Auftrag: Was nicht darin steht, weiß er nicht. Du baust nichts selbst. Alles, was du meldest, geht an das Büro (die Sitzung, die dich gestartet hat), erstes Wort „Auftrag steht“ oder „Frage“, mit Vorgangsnummer und Titel in Worten.
@@ -491,7 +502,7 @@ Befund 3 der Gegenprüfung 20.11. (`1727-muster/pruefung-20-11.md`); Bedingung C
 | Perikles | Kennzahlen bewerten, höchstens drei Empfehlungen | Sokrates aus den Zahlen der Routine Wochenzählung |
 | Perikles | Kosten: Anteile, Guthaben, Sparvorschläge | Routine Wochenzählung zählt, Sokrates bewertet und schlägt vor |
 | Perikles | Kostenfreigabe ab 40 $ (1538) | Höchstkosten je Auftrag im Auftrag (14.2.5); darüber entscheidet Sokrates, im Zweifel zum Billigen an den Chef; Wochengrenze setzt der Chef (Chef 08:16). Chef 08:17: Kosten „eher ein virtueller Punkt“, Abo; was zählt, sind Wiederholungen. Vorschlag 08:19: Freigabe nach Dollar fällt (1538), ersetzt durch Laufbremse (Läufe je Auftrag) und Höchstdauer je Auftrag (14.2.5); Guthaben je Woche im Tagesbericht |
-| Perikles | Werkzeugfehler bei Spike bestellen, Notizen umbauen, „Lehren für alle“ | Fund → Vorgang (Disponent), Auftrag Werkstatt Werkzeug (Arbeitsplaner); Lehren ins passende Profil: Sokrates |
+| Perikles | Werkzeugfehler bei Spike bestellen, Notizen umbauen, „Lehren für alle“ | Fund → Vorgang (Disponent), Auftrag Werkstatt Werkzeug (Arbeitsplaner); Lehren ins passende Profil: Sokrates zur Vorlage beim Chef (Chef 22.11., 15:16) |
 | Perikles | Doppelpack 421 (Regeländerung → Diogenes) | Abnahme, Prüfer mit Prüfart Text, bei jeder Änderung an Kern, Sockel, Profil |
 | Perikles | Tagesbericht 7:30, Vorratsprüfung 1425 | Routine Tagesbericht (Werkzeug `tagesbericht.py`, Sitzung nur für Wertungssätze); Vorratsprüfung fällt mit den Vorräten, Vorgangsdatei prüft das Werkzeug |
 | Perikles | Vorentscheid zu kleinen Abläufen | fällt; Vorentscheide nur Sokrates (`CLAUDE.md` Zusammenarbeit 3 anpassen) |
@@ -521,13 +532,13 @@ Kein Kern; Sockel plus Auftrag (4.2), Profil bei Bedarf.
 
 ### 5.1 Profil Figur und Prüfbild
 
-Stand 19.11., 07:19 (`LISTE-HANDWERK-FIGUR-PRUEFBILD.md`, aus den Funden des Chefs vom 18.11.).
+Stand 19.11., 07:19 (`LISTE-HANDWERK-FIGUR-PRUEFBILD.md`, aus den Funden des Chefs vom 18.11.). Fassung wie `1727-muster/profil-figur-und-pruefbild.md` (dort Verlauf); Verweis „Vor jeder Vorlage“: Grundlage 461; Korrektur nach Chef 14:51, zur Vorlage beim Chef nach 15:16.
 
 > **Figur.** Halten: Der Gegenstand liegt in der Handinnenfläche; die Finger schließen sich ganz um ihn, der Daumen liegt gegen die Finger. Kein Spalt zwischen Fläche und Griff, keine Fingerspitzen am Rand, kein Griff durch die Knöchel. · Kleidung: liegt über dem Körper, nie hindurch (Kopf durch Kapuze, Haut durch Stoff). Bei gehobenem Arm beult die Flanke nicht über Körperbreite aus. · Waffe am Ziel: Ein Treffer berührt den Körper sichtbar; Blut nur bei sichtbarem Treffer am Körper, nie bei Schild oder Fehlschlag. · Farbe: Ist etwas tiefschwarz, das farbig gebaut ist, ist das ein Darstellungsfehler; erst klären, dann zeigen.
 >
 > **Messen.** Gemessen wird, was man sieht: das gezeichnete Netz der Figur in der Endpose, die das Bild zeigt, nie Knochen oder Vorgaben. · Widerspruch Messung gegen Bild: Das Bild gilt.
 >
-> **Prüfbild und Film.** Ein Gegenstand je Bild, mittig, groß genug, die Stelle markiert; nichts davor. · Spielkamera in Handygröße, bei Kleinem ein Ausschnitt dazu. · Alt gegen neu nebeneinander, beschriftet, gleiche Kamera, gleiche Pose. · Film: nur Bewegung, Prüfgegenstand von der Seite, bis 15 s. · Vor dem Senden selbst ansehen, ohne Erwartung aus der Messung. · Sichtbarer eigener Fehler ist keine Frage an den Chef: beheben, dann alt gegen neu.
+> **Prüfbild und Film.** Ein Gegenstand je Bild, mittig, groß genug, die Stelle markiert; nichts davor. · Spielkamera in Handygröße, bei Kleinem ein Ausschnitt dazu. · Alt gegen neu nebeneinander, beschriftet, gleiche Kamera, gleiche Pose. · Film: nur Bewegung, Prüfgegenstand von der Seite, bis 15 s. · Vor dem Senden selbst ansehen, ohne Erwartung aus der Messung, und jeden Punkt aus `docs/DESIGN-ABNAHME.md` „Vor jeder Vorlage“ prüfen, der im Bild vorkommt (461), zuerst Spiel-Shader, Tusche, Schatten unter dem Körper. · Sichtbarer eigener Fehler ist keine Frage an den Chef: beheben, dann alt gegen neu.
 
 ### 5.2 Profil Signatur im Bild
 
@@ -933,3 +944,4 @@ Was aus der langen Fassung (17:52) in Werkzeuge wandert; umstellen erst, wenn ge
 | `meldung.sh` | Telegram-Regel vor der ersten Meldung je Sitzung; nachts (22–7 Uhr) nie laut | **nicht gebaut** |
 | Kerntest-Haken (Profil Technik F6) | Code-Commit ohne grünen Kerntest (`tools/t logik`, Exit-Code) hält an, für jede Fachkraft mit Code | Commit-Prüfung (`tools/commit-pruefung.py`) warnt über die Kerntest-Marke aus `tools/t logik`; Sperre **nicht gebaut** |
 | Build-Werkzeug (Build-Kette 2, 4–6; Profil Technik F6) | Spitze `claude/build-<n>` gegen Auftrag vergleichen (vor Testbitte und Merge); Spielcode-Pfade getestete Spitze gegen Merge, nicht leer → Kerntests auf dem Merge, rot → kein Merge; nach jedem Merge Kerntestlauf auf `main`; Commit-Prüfung Spielcode nur über Buildzweig; anhalten, wenn ein früherer nicht verworfener Build fehlt; Zeile „enthält alle früheren Builds: ja“; je gebilligtem Vorgang Commits auf `main` und nicht zurückgenommen (1566); Haken `claude/build-\S+`, unbekannte Rolle hält an | Haken `buildzweig-haken.py` mit Lücken (Muster `\d+`, lässt durch); Rest **nicht gebaut**; Lauf auf `main` fehlt (`godot.yml` baut nur Team- und Buildzweige); GitHub-Regel gegen Force-Push stellt der Chef ein |
+| Arbeitsplaner-Auftrag (`vorgang.py auftrag`; Korrektur Lauf 4, Runde 4: Satz „verwandte Vorgänge mit `vorgang.py warte` verknüpfen“ passt nicht in den Kern Arbeitsplaner) | zeigt verwandte offene Vorgänge (Stichwortwächter 654 wiederverwenden) | **nicht gebaut** |

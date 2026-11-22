@@ -41,6 +41,32 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 389 · 1871 „ja, Lauf frei“ (lesend, Weiter Ford 16:01; Kopie `128da4ed4`; 22.11., 16:01–16:03)
+
+- Ohne Befund (1871 bleibt in Arbeit). Alle 43 `tools/*_test.py` grün. Gegen Endvorlage Lauf 4 Nr. 21, 22: „ja, Lauf frei“ im KATALOG und in `worte` („Ja. Lauf frei“ ebenso); mit offener Laufanforderung → Disponent startet einmal neu, ohne → Disponent fragt den Prüfer, in beiden Fällen keine Testbitte, auch vor dem Werkzeugzweig. „nein“ des Prüfers nach jüngster Laufanforderung zählt nicht in `zaehlen` (damit weder Laufbremse noch Obergrenze A); „nein“ nach jüngerem „fertig“ zählt weiter; Laufanforderung ohne Commit setzt den Bezug nicht. Endlos-Nein ausgeschlossen: nächste Laufanforderung ist die zweite → Sokrates.
+- Nicht als Befund: bloßes „ja“ zu offener Laufanforderung gibt weiter frei (wie Lauf 388, nachsichtig).
+
+## Lauf 388 · 1952 Laufanforderung und Katalog (lesend, Neustart Ford 15:37; Kopie `7084767d4`; 22.11., 15:38–15:42)
+
+- Greift (erledigt). Alle 43 `tools/*_test.py` grün. Gegen Archiv 15:31: „Laufanforderung“ ersetzt „abgebrochen“ (altes Wort ohne Signal, zurückgewiesen); nur mit Commit, sonst ZURÜCKGEWIESEN, Exit 1, zählt nicht; mit Commit → Prüfer, „ja“ → Disponent startet einmal neu, „nein“ → Rückläufer an die Fachkraft; zweite je Vorgang → Sokrates, zählt als „steckt fest“ (danach „steckt fest“ → Obergrenze B); KATALOG 13 Wörter, alle in `worte` erkannt; unbekanntes erstes Wort bleibt eingetragen, Liste in der Fehlermeldung; Chefworte nie (gehen ohnehin über `chefwort.py`). Fremder Abbruch bleibt bei `uebergabe.frei`.
+- **D388.1** → 1953 (Sokrates, M): Gesamtbild Z. 416, 439, `profil-werkzeug.md`, `profil-fremde-inhalte.md` („Ende“) sagen noch „abgebrochen“; die Fachkraft würde nach dem Umschalten zurückgewiesen. `kern-arbeitsplaner.md` Z. 26 veraltet.
+- Nicht als Befund: Kopfkommentar sagt „Exit 2“, tatsächlich Exit 1 (wie Auftrag); `uebergabe.abgebrochen()` hat keinen Aufrufer mehr.
+
+## Lauf 387 · 1951, damit 1948 (lesend, Weiter Ford 15:15; Kopie `36a66b176`; 22.11., 15:15–15:17)
+
+- Greifen (erledigt). Alle 43 `tools/*_test.py` grün, keine Haltzeile aus Testläufen. Proben aus Lauf 386 jetzt kein Nein (Truhe/Fackel, Bank, „Kein Unterschied zu gestern beim Laden, gut so.“, „Daneben steht der Brunnen, passt.“), auch `bisher_nein`; weiter Nein: „Wieder daneben.“, „Daneben.“, „Völlig daneben, nochmal.“, „Also fail.“, „Film t300.11 Fail“, „kein Unterschied zwischen alt und neu“, „Ich sehe keinen Unterschied.“, „Nicht besser.“, „299.3 ✗“ mitten im Satz.
+- Nicht als Befund: „Das ist daneben gegangen.“ zählt nicht als Nein (Urteilswort nach „daneben“ nicht erfasst); fällt in die vorsichtige Richtung.
+
+## Lauf 386 · 1944–1950 Werkzeuglücken Falltest 1727 Lauf 4 (lesend, Weiter Ford 15:05; Kopie `1c5ac8fd8`; 22.11., 15:06–15:09)
+
+- Alle 43 `tools/*_test.py` an der Kopie grün, `werkzeugluecken_lauf4_test` 38 Fälle; keine Haltzeile aus Testläufen in `origin/haken`.
+- Greifen (erledigt): 1944 (`--pruefen` lehnt Nummer ohne Liste und Archiv ab; `wieder_offen` liest nur), 1945 (`--help` vor jeder Prüfung), 1946 (AN geprüft, Liste in Hilfe und Fehler; alte Namen nach `1727-SCHARF` Fehler mit neuem Namen), 1947 (Routine-Sitzung „fertig“ ohne Commit unter fremdem Vorgang), 1949 (B<n> in auftrag, rueckmeldung, uebergabe, lauf; bloße Nummer mit „Build n“ hält an), 1950 (Werkzeug-Commit nicht auf `origin/main` → zweite Zeile an die Fachkraft).
+- 1948 greift nicht: **D386.1** → 1951 (Spike, M). `ABLEHNUNG` trifft „daneben“ als Ortsangabe und lobendes „kein Unterschied … gut so“ (Proben im Vorrat Spike „Zu 1951“), auch über `bisher_nein`; ein falsches Chef-Nein zählt für Obergrenze A. 1948 wartet auf 1951.
+
+## Lauf 385 · 1923 Startblock nach 1928 (lesend, Weiter Ford 14:00; Kopie `1d0b66272`; 22.11., 14:00)
+
+- Greift (erledigt). `lauf_kern_test` grün. Nachgestellt mit den 20 Profilen aus `ladesumme.py --anlegen` (Lauf 384), `NEU_LISTE`, `mit_kaufrepo` (scharf) dann `mit_kern`: Prüfer mit Auftrag „Querprofil „Signatur und Leben““ → Kern Abnahme, Prüfer, Signatur und Leben, Zugang Kaufrepo; Prüfer mit „Profil Werkzeug“ → ohne Kaufrepo; Kampf → Kampf, Werkzeug, Zugang Kaufrepo; Tester → mit Kern Abnahme. Je Nachricht `add_repo` genau einmal (Satz am Ende, Sockel-Fassung), kein Sockeltext, keine „## Herkunft“, Auftrag wörtlich, „Rollendatei“ ersetzt; `STARTBLOCK_FEHLT` leer.
+
 ## Lauf 384 · 1941, 1938, 1928, 1943 (lesend, Weiter Ford 13:56; Kopie `d8e970103`, `1d0b66272`, `main` `2e9612acd`; 22.11., 13:56–13:59)
 
 - 1941 greift, damit 1938: `laufbremse_test` und `gegengelesen_test` setzen `BORNIM_HAKEN_TROCKEN` (auch in der env des echten Hakenaufrufs). Alle `tools/*_test.py` an `1d0b66272` grün (13:57:04–13:57:39), `origin/haken` danach ohne Zeile aus meinem Lauf (einzige neue Zeile 13:57:10 auf Zweig `main`, echt; mein Lauf stand losgelöst).

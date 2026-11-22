@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 13:52, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 16:03, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -32,17 +32,17 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Jerry) Streicherspur nach 120 bauen, nur bei Jägern; Hör… |
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 7 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
-| **7** Firma: Werkzeuge und Abläufe | 99 (88) | 56 | 2 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 8 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
+| **7** Firma: Werkzeuge und Abläufe | 93 (88) | 50 | 2 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 90 | 22 | 533 | 1393 |
-| neu | 95 | 49 | 583 | 1473 |
-| **netto** (erledigt − neu) | **−5** | **−27** | **−50** | **−80** |
+| erledigt | 106 | 22 | 549 | 1409 |
+| neu | 105 | 49 | 593 | 1483 |
+| **netto** (erledigt − neu) | **+1** | **−27** | **−44** | **−74** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -54,17 +54,17 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 5 weitere |
 | Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
-| Spike | läuft: 1871 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 10 weitere |
+| Spike | 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 7 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | läuft: 1871 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
-| Sokrates | läuft: 1727j (Besetzung); 1933 Abgleich aller Rollendateien gegen Kerne, Profile, Sockel:… (Muss); dann 7 weitere |
+| Diogenes | läuft: 1952 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
+| Sokrates | läuft: 1727 (Besetzung); 1933 Abgleich aller Rollendateien gegen Kerne, Profile, Sockel:… (Muss); dann 6 weitere |
 | Perikles | M? M? entscheiden: 1850, 1851, 1852, 1853, 1854, 1856, 1857, 1… (Muss); dann 3 weitere |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1727 | Sokrates | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts,… | M | 7 Firma | startbar |
+| 1 | 1727 | Sokrates | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts,… | M | 7 Firma | in Arbeit |
 | 2 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 10 Regeln | startbar |
 | 3 | 1068 | Jerry | Ring bei jedem großen Schlag der Gegner, diese Schläge härter, Ring beim eigene… | M | 2 Kampf | startbar |
 | 4 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
@@ -85,7 +85,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1753 | Jerry | Streicherspur nach 120 bauen, nur bei Jägern; Hörprobe auf Telegram, Bewegung a… | M | 11 Klang und Musik | startbar |
 | 20 | 1484 | Spike | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grundwert Tablet in LISTE… | M | 6 Technik, Leistung, Build | startbar |
 
-Danach 121 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 102.
+Danach 117 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 103.
 ## Zu entscheiden
 
 Nichts offen.
@@ -263,7 +263,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 | 1939 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 22.11., 07:02): ARBEIT-TEAM-JERRY.md: 1 „Zu“ z | startbar |
 
-**Spike** – offen 69, Muss 38, startbar 36
+**Spike** – offen 64, Muss 33, startbar 33
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -292,7 +292,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1702 | M | Von Sokrates (1655, 18.11., 20:59): vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung | wartet auf Test/Build (gebaut) |
 | 1710 | M | Von Chef (18.11., 22:08, über Sokrates): Bildvergleich-Wächter in meldung.sh: Meldung alt | wartet auf Test/Build (gebaut) |
 | 1719 | M | Von Perikles (1715, Tagesbericht 18.11., 23:13): Buildzweige 24 h 3 grün, 4 rot, 3 abgebro | wartet auf Test/Build (gebaut) |
-| 1720 | M | Von Sokrates (Chef 18.11., 23:14, Bilder t300.3 Wald 12:23, t300.4 Höhle 12:25): Vordergru | startbar |
+| 1720 | M | Von Sokrates (Chef 18.11., 23:14, Bilder t300.3 Wald, t300.4 Höhle): Vordergrund deckt bis | wartet auf 1871 (in Arbeit) |
 | 1781 | M | Von Sokrates (1727, Chef 21.11., 21:22 und 21:38 „Sockel, ja“): nach der Umstellung trägt | wartet auf 1727 (startbar) |
 | 1790 | M | Von Sokrates (1727 Nachprüfung 22:20): rueckmeldung.py:89 gibt „ja“ des Prüfers bei einem | startbar |
 | 1793 | M | Von Sokrates (1727 Rundblick, Nachprüfung 22:30): startbar.py:196–198 Feld „nach“ legt den | startbar |
@@ -329,13 +329,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1869 | K | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 81): Stop-Haken „alles gepusht?“ hält | startbar |
 | 1870 | K | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 82): PreToolUse-Sperre Keystore, Zuga | startbar |
 | 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
-| 1923 | M | Von Sokrates (1727j, Chef 22.11., 11:09): Startblock in lauf.py: Startnachricht setzt Kern | wartet auf 1928 (startbar) |
 | 1924 | K | Von Diogenes (D363.1, Lauf 363 zu 1779): Restsperre 1143 (vorgang.rest_offen) liest den Üb | startbar |
-| 1928 | M | Von Diogenes (D366.1, Lauf 366 zu 1923): Startblock: Kaufrepo-Satz doppelt (mit_kaufrepo h | startbar |
 | 1937 | M | Von Sokrates (1727k A, Chef 22.11., 12:28): Probelauf-Haken bleibt; Ersatz je Prüfung (Lau | wartet auf 1871 (in Arbeit) |
-| 1938 | M | Von Diogenes (D377.1, zu 1859): laufbremse-haken.py ruft probelauf.main() ohne Fang von Un | wartet auf 1941 (gebaut), dann Diogenes (greift?) |
-| 1941 | M | Von Diogenes (D381.1, Lauf 381 zu 1938): laufbremse_test pusht je Testlauf eine Haltzeile | wartet auf 1871 (in Arbeit) |
-| 1943 | M | Von Sokrates (1942, Chef 22.11., 10:39 Gegenprüfen nur für den Umbau 1727): Stop-Haken 173 | startbar |
 
 **Perikles** – offen 30, Muss 22, startbar 5
 
@@ -386,12 +381,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 
-**Sokrates** – offen 49, Muss 13, startbar 16
+**Sokrates** – offen 48, Muss 12, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1933 | M | Von Chef (22.11., 12:14): Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht | startbar |
-| 1931 | M | Ladetexte nach docs/profile/ für Startblock 1923: Profil „Zugang Kaufrepo“ neu (V7), Einba | startbar |
 | 1727 | M | Von Chef (19.11., 08:30, „jetzt“ 19.11., 08:30): Neustrukturierung frei gedacht: Grobablau | startbar |
 | 1520 | M | Von Chef (17.11., 06:18): An den Läufen sparen; A Neustart-Haken auch in langen Zügen, Spe | startbar |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |

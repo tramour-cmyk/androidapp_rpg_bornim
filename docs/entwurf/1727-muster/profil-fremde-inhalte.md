@@ -12,7 +12,7 @@ Quellen: Archiv 21.11., 20:52 „Kauf und Lizenz“; Archiv 1727b (21.11., 21:31
 |---|---|---|
 | Auslöser | Der Arbeitsplaner hängt das Querprofil unter „Beachte“ an jeden Auftrag, der eine fremde Datei oder einen Spieltext einbaut (wie das Querprofil Signatur und Leben bei Bild oder Klang, Archiv 20.11., 12:37); der Disponent startet die Fachkraft | G:417; VA 20.11., 12:37 (Muster); G:374 |
 | Arbeit | Teil A, neben dem Fachprofil | — |
-| Ende | wie Fachkraft: „fertig“, „Frage“ oder „abgebrochen“ mit Commit, Fällen, Beleg; dazu je neuer Datei die Nachweiszeile, je Text der Abgleich mit der Quelle | G:420; Teil A |
+| Ende | wie Fachkraft (Kern Arbeitsplaner Feld 7): „fertig“, „Frage“, „steckt fest“ oder „Laufanforderung“ mit Commit, Fällen, Beleg (V3 10:42, 22.11., 15:31); dazu je neuer Datei die Nachweiszeile, je Text der Abgleich mit der Quelle | G:420; Teil A |
 | Meldung | wie Fachkraft: Zeile über `vorgang.py` an das Büro, Nachricht nur Wecker | 3.3 F2 Nr. 2, 5 |
 | Nächster Empfänger | „fertig“ → Prüfer (Prüffrage „jeder Satz wortgleich in der Quelle, außer markierter Übersetzung?“, G 4.1 Nr. 6; Ausnahme entschieden 1727f, 21:33, eingebaut in `kern-arbeitsplaner.md` (84061cd95)); „Frage“ geht über `vorgang.py` an Sokrates (C, VA 21.11., 14:37): Kauf und Lizenz klärt er im Gespräch mit dem Chef, Entscheidungsfrage im Zweifel als Datei in `entscheiden/` (VA 20:52); fehlender Text: den Auftrag mit Profil Story plant der Arbeitsplaner (G:422 „Fehlender Spieltext: eigener Auftrag mit Profil Story“); C führt „Frage“ zu Sokrates, nicht zum Arbeitsplaner; Träger: Vorentscheid Sokrates (`sammelvorlage.md`:20): Sokrates gibt sie als Eingang ans Büro | G:420, 422; 3.3 F2; VA 14:37 C, 20:52 |
 
