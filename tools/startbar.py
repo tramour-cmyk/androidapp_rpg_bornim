@@ -43,7 +43,7 @@ SPALTEN = ["Nr.", "Titel", "Besitzer", "Kl.", "Stand", "wartet auf", "Zweig", "B
 KOPF = "| " + " | ".join(SPALTEN) + " |"
 # Wortliste 275 (Chef 27.10., 15:09: festes Wort); Reihenfolge = vom offensten zum geschlossensten
 WORTE = ["in Arbeit", "startbar", "offen", "nach Meilenstein", "wartet", "Chef", "Dauer", "ruht", "gebaut", "zu testen", "aufgeteilt", "Idee", "erledigt"]
-SONDER = ("Pflege", "Spiegel")  # 340.3: Zeilen des Werkzeugs, je Besitzer eine
+SONDER = ("Pflege",)  # 340.3: Zeilen des Werkzeugs, je Besitzer eine (Spiegel fiel mit 340, 1871 Stilllegung C)
 CHEF_ORDNER = ("entscheiden", "ansehen", "billigen", "tun")
 
 def blank(t):
@@ -242,13 +242,9 @@ _LISTE = None
 # 719 A (Chef 09.11., 11:26): jeder Wochentermin legt sich an seinem Tag selbst als Muss beim Besitzer an; Ford startet ihn wie jeden Vorgang.
 # lauf.py --sperre legt an (vorgang.neu), ersetzt WOCHENSTART; erledigt setzt der Besitzer. Neue Termine nur hier eintragen. Ab 10.11. (09.11. lief von Hand).
 WOCHENTERMINE = [  # (Wochentag 0 = Mo, ab Stunde, Besitzer, Name, Bereich)
-    (0, 8, "Perikles", "Wochenziel", "B Steuerung"),
+    # 1871 Stilllegung C: „Perikles Wochenziel“, „Haken-Frage (720)“ (VA „Wochenziel fällt weg“ 19.11., 17:44) und die Rollenspiegel
+    # je Rolle (VA „340 Rollenspiegel und 621 A Probelauf fallen“ 19.11., 10:53) fallen
     (0, 8, "Diogenes", "Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720)", "Q QM"),
-    (0, 8, "Perikles", "Haken-Frage Abnahmeliste als ansehen/-Datei (720)", "Q QS"),
-] + [  # 759 (Chef 09.11., 14:36): je Rolle eine Zeile, sonst holt nur Perikles nach
-    (4, 8, r, "Rollenspiegel %s (rollenspiegel.sh %s)" % (r, r), "B Abläufe")
-    for r in ("Sokrates", "Perikles", "Homer", "Ford", "Diogenes", "Tom", "Jerry")
-] + [
     (6, 9, "Homer", "Ideenspeicher", "B Abläufe"),
 ]
 
@@ -314,7 +310,7 @@ def wochentermine_faellig(jetzt, scharf=None):
             tg = t.strftime("%d.%m.")
             if ("Wochentermin %s: %s" % (tg, name)) in da: continue
             if nach_erledigt("Wochentermin %s: %s" % (tg, nach), archiv): aus.append(("Wochentermin %s: %s (719)" % (tg, name), ber, wer))
-    return aus + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da) + spiegel_auswertung_faellig(jetzt, da)
+    return aus + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da)
 
 # 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen
 # veralten still (99 ruhte seit 17.10. überholt; Chefurteil nie nachgezogen, Arbeit unter Unternummern erledigt, Richtungswechsel).
@@ -327,7 +323,7 @@ SAMMEL = 25  # Commits, die mehr Zeilen der Liste ändern (Wochenziel, Klassen, 
 RUHIG = (None, "in Arbeit", "Dauer", "Idee", "erledigt", "aufgeteilt")  # wird nicht vorgelegt
 
 def _vorlegbar(d, jetzt):
-    """1188: offene Zeile, die ein Urteil braucht: nicht in Arbeit oder fertig, nicht Ideen (Homer sonntags), nicht Pflege/Spiegel,
+    """1188: offene Zeile, die ein Urteil braucht: nicht in Arbeit oder fertig, nicht Ideen (Homer sonntags), nicht Pflege,
     kein Datum in der Zukunft im Feld „wartet auf“ (schon geurteilt). „gebaut“ und „zu testen“ nur ohne Build (Sokrates 16:55: (d)
     gebaut außerhalb von Bereich B, „greift“ schließt nur B, 866, 896; (e) „zu testen“ ohne Build schließt keiner, 1079, 1122);
     mit Build wartet die Zeile auf den Test (test_vorbei, wenn er im Archiv steht)."""
@@ -434,30 +430,6 @@ def urteil_faellig(jetzt, da=None):
 # kommt sie am nächsten, der Abstand bleibt mindestens 48 h. Rückstufung auf montags prüft Sokrates am 27.11.
 LEICHEN_AB = datetime.date(2026, 11, 17)
 LEICHEN_ABSTAND = 2  # Tage
-
-# 340.9 (340.6 A, Chef 15.11., 18:30, V3): liegen Antworten im Rollenspiegel ohne Auswertung, legt lauf.py --sperre am selben Tag
-# eine Muss-Zeile bei Sokrates an: sobald alle sieben geantwortet haben, sonst am Termintag ab 20 Uhr (oder später) mit dem, was da ist.
-# Termintag seit 1461 mittwochs (Kopf „## Woche <Mittwoch>“), erste Runde 18.11.
-SPIEGEL_AB = datetime.date(2026, 11, 18)
-SPIEGEL_ROLLEN = 7
-
-def spiegel_auswertung_faellig(jetzt, da=None, text=None):
-    """340.9: [(Titel, Bereich, Besitzer)] für Sokrates, wenn die jüngste Woche im Rollenspiegel Antworten hat und keine Auswertung."""
-    if jetzt.date() < SPIEGEL_AB: return []
-    text = lesen("LISTE-ROLLENSPIEGEL.md") if text is None else text
-    wochen = re.findall(r"(?ms)^## Woche (\d{1,2})\.(\d{1,2})\.\n(.*?)(?=^## |\Z)", text)
-    if not wochen: return []
-    t, m, block = wochen[-1]
-    try: freitag = jahr_von(int(t), int(m))
-    except ValueError: return []
-    zahl = len(re.findall(r"(?m)^### ", block))
-    if not zahl or freitag > jetzt.date() or (jetzt.date() - freitag).days > 3: return []  # ältere Wochen: Mo zählt Diogenes
-    if zahl < SPIEGEL_ROLLEN and freitag == jetzt.date() and jetzt.hour < 20: return []
-    tag = "%02d.%02d." % (int(t), int(m))
-    da = (lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da) + lesen("VORGANGSARCHIV.md")
-    if re.search(r"Auswertung Rollenspiegel %s|Rollenspiegel %s ausgewertet" % (re.escape(tag), re.escape(tag)), da): return []
-    return [("Auswertung Rollenspiegel %s (340.9): %d von %d Antworten, Vorlage mit Wegen an den Chef (ROLLE-BERATUNG.md)"
-             % (tag, zahl, SPIEGEL_ROLLEN), "B Abläufe", "Sokrates")]
 
 def leichenpruefung_faellig(jetzt, da=None):
     """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
@@ -780,7 +752,7 @@ def pruefen_zeile(d, alle_nr=None):
     return f
 
 def pruefen_liste(zs=None):
-    """[(Nr, Fehler)] aller Zeilen; doppelte Nummern (außer Pflege, Spiegel je Besitzer)."""
+    """[(Nr, Fehler)] aller Zeilen; doppelte Nummern (außer Pflege je Besitzer)."""
     zs = zeilen_liste() if zs is None else zs
     alle = set(VORG) | {d["nr"] for d in zs}
     aus, gesehen = [], set()
@@ -932,23 +904,12 @@ def b_offen_streng(d):
     „zu testen“ (882.1 vor dem Test) zählt hier nicht als erfüllt, sonst startet lauf.py Diogenes stündlich für nichts."""
     return [t for t in d["warte"] if not erfuellt(t, d["nr"], streng=art(t) == "nr")]
 
-def spiegel_beantwortet(d):
-    """1624 (Ford 18.11., 08:03): die Spiegelzeile streicht erst der nächste Lauf von pflegehinweis.py; steht die Antwort des Besitzers
-    schon unter „## Woche <TT.MM.>“ in LISTE-ROLLENSPIEGEL.md, ist die Zeile nicht mehr startbar (sonst startet lauf.py ihn dafür)."""
-    m = re.search(r"Woche (\d\d\.\d\d\.)", d.get("titel") or "")
-    if not m: return False
-    try: t = lesen("LISTE-ROLLENSPIEGEL.md")
-    except OSError: return False
-    s = re.search(r"(?ms)^## Woche %s\n(.*?)(?=^## |\Z)" % re.escape(m.group(1)), t)
-    return bool(s) and re.search(r"(?m)^### (?:Team )?%s\b" % re.escape(d["besitzer"]), s.group(1)) is not None
-
 def sperre(d):
     """Grund, warum die Zeile für ihren Besitzer nicht startbar ist, sonst None."""
     w = d["wort"]
     if w is None: return "UNLESBAR"
     if w == "erledigt": return "ERLEDIGT"
     if w in ("aufgeteilt", "Idee"): return w
-    if d["nr"] == "Spiegel" and spiegel_beantwortet(d): return "Spiegel beantwortet (Zeile fällt beim nächsten Pflegelauf weg, 1624)"
     offen = offen_warte(d)
     for t in offen:
         a = art(t)

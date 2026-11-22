@@ -8,8 +8,8 @@ Warnung weg, setzt es diesen Vorgang auf „erledigt“. Muster 1 des Rollenspie
   startwarnung.py --zeigen [--alle]   Warnungen mit Besitzer, seit wann und Vorgang (notiz.sh); ohne --alle nur die Wächter
                                       (77, 98, 108, 969, 650.2), Größe und Pflegefehler einmal am Tag (1129 A 7, notiz.sh gibt --alle)
   startwarnung.py --pflegen [--probe] Stand fortschreiben, nach 6 h Vorgang anlegen, gelöste schließen; Commit auf origin/main ohne
-                                      Arbeitskopie (eigener Index, wie meldung.sh), bei abgelehntem Push neu gerechnet; dazu die
-                                      Rollenspiegel-Zeilen (pflegehinweis.py, 1461). --probe: nur zeigen.
+                                      Arbeitskopie (eigener Index, wie meldung.sh), bei abgelehntem Push neu gerechnet. --probe: nur
+                                      zeigen.
 
 Stand (erstes Auftreten je Warnung, Vorgangsnummer) in `tools/startwarnung-stand.json` auf main. Schlüssel je Warnung fest
 (Art und Datei), damit eine Zahl im Text (Bytes) die Uhr nicht neu stellt.
@@ -274,7 +274,7 @@ def berechnen(basis, warnungen, zeit):
                     d = dict(d, stand="erledigt, Warnung weg (Werkzeug 1642)")
                     L[i] = startbar.zeile_text(d)
                     meldungen.append(f"{nr} erledigt (Warnung weg)")
-    # 340.3 fällt weg (340.12 A): alte Pflegezeilen entfernen; Spiegelzeilen (1461) bleiben bei pflegehinweis.py
+    # 340.3 fällt weg (340.12 A): alte Pflegezeilen entfernen
     L = [z for z in L if not z.startswith("| Pflege |")]
     aus = {}
     neu_liste = "\n".join(L)

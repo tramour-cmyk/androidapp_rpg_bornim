@@ -77,7 +77,7 @@ soll("ohne 1727-SCHARF liest pruefer_frei nichts", os.path.exists(probelauf.SCHA
 
 # 7 Starter der Routinen (startbar.WOCHENTERMINE_1727): Rundblick montags nach erledigter Wochenzählung, nur scharf
 import startbar
-startbar.DOCS = docs; startbar.urteil_faellig = lambda j, d: []; startbar.leichenpruefung_faellig = lambda j, d: []; startbar.spiegel_auswertung_faellig = lambda j, d: []
+startbar.DOCS = docs; startbar.urteil_faellig = lambda j, d: []; startbar.leichenpruefung_faellig = lambda j, d: []
 open(os.path.join(docs, "LISTE-VORGAENGE.md"), "w").write("| 9100 | Wochentermin 23.11.: Wochenziel (719) | Perikles |\n")
 open(os.path.join(docs, "LISTE-VORGAENGE-ARCHIV.md"), "w").write("")
 mo = datetime.datetime(2026, 11, 23, 9, 0)

@@ -51,7 +51,7 @@ Lehrenbuch docs/LISTE-LEHREN.md (1739, Archiv „Lehrenbuch“ 21.11., 14:19; Ei
   vorgang.py lehre zuordnen R<n> L<n> | --neu "Stichworte" "Lehre" | --keine "Grund"   Wirkung „wirkt nein“/„nicht gefunden“
                                        an Sokrates
   vorgang.py --hilfe                   diese Hilfe
-  --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
+  --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege).
 """
 import os, re, sys, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
