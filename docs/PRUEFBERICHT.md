@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 376 · 1937 Teil Push-Prüfungen (lesend, Weiter Ford 12:44; `main` `c6bea7050`, Werkzeuglauf 45018686353; 22.11., 12:44–12:47)
+
+- Ohne Befund. `vorpush.py --test`, `sperre-haken.py --test`, `probelauf_*_test`, `laufbremse_test` grün. Echter `git push` mit dem Haken wie aus `notiz.sh` nachgestellt: Teamzweig mit Spielcode ohne „Alt:“ angehalten (Exit 1), nach `--amend` mit „Alt:“ durch.
+- 647, 464, 748, 1719 inhaltsgleich zu den gestrichenen Stellen in `probelauf.py` (gleiche Zweigmuster, Pfade, Texte); 748 holt den Lauf auch hier über den Proxy (Probe auf `main`: success). `probelauf.py` ohne verwaiste Aufrufe. `--no-verify`/`-n` beim Commit wird angehalten, `tail -n`, `sort -n` nach `&&`/`|` und `-n` im Nachrichtentext nicht.
+- Der Haken steht in bestehenden Arbeitskopien erst nach dem nächsten `notiz.sh`. 1937 bleibt in Arbeit (Rest wartet auf Sokrates).
+
 ## Lauf 375 · 1871 Tagesbericht als Routine (lesend, Weiter Ford 12:32; Kopie `42b8fb85e`; 22.11., 12:34–12:37)
 
 - Alle `tools/*_test.py` an der Kopie grün, `rundblick_test` +6.
