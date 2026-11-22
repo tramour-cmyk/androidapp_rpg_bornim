@@ -1183,35 +1183,6 @@ def eigen_stuecke(t):
     return sorted(aus)
 
 
-# 1569.1 (Sokrates 18.11., Bild 3: dunkler Keil an der rechten Schulter, grüner Rand Jägerkind): in „Stehen“ drückt der hängende Oberarm
-# die Seitenbahn des Umhangs nach außen, man sieht ihre Rückseite und den Ärmel davor. Gemessen (Blender, Blick von hinten wie der Teller):
-# Seiten 4 cm nach außen, Rückseite 30 → 10 Treffer, Kleidung an Schulter und Oberarm 617 → 374. Nur das Schrankteil, nicht die Wachtracht
-UMHANG_WEIT = 0.04    # m: Umhang an den Seiten (|x| ab UMHANG_SEITE) zwischen Hüfte und Schulter so weit entlang der Normale nach außen
-UMHANG_SEITE = (0.08, 0.16)            # m: |x| von – bis (weicher Übergang)
-UMHANG_HOEHE = (0.90, 1.00, 1.50, 1.60)  # m: z ein, voll, voll, aus
-
-
-def _stufe(x, a, b):
-    t = np.clip((x - a) / (b - a), 0.0, 1.0)
-    return t * t * (3 - 2 * t)
-
-
-def umhang_weiten(ms):
-    for o in ms:
-        n = len(o.data.vertices)
-        W, N = _normalen(o)
-        h = UMHANG_HOEHE
-        g = _stufe(np.abs(W[:, 0]), *UMHANG_SEITE) * _stufe(W[:, 2], h[0], h[1]) * (1 - _stufe(W[:, 2], h[2], h[3]))
-        D = N * (UMHANG_WEIT * g)[:, None] @ np.array(o.matrix_world.inverted())[:3, :3].T
-        B = np.empty(n * 3); o.data.vertices.foreach_get('co', B)
-        o.data.vertices.foreach_set('co', (B.reshape(-1, 3) + D).ravel())
-        if o.data.shape_keys:
-            for kb in o.data.shape_keys.key_blocks:
-                kb.data.foreach_get('co', B); kb.data.foreach_set('co', (B.reshape(-1, 3) + D).ravel())
-        o.data.update()
-        print('UMHANG WEIT', o.name, int((g > 0.01).sum()), 'Ecken')
-
-
 def teil_ablegen(k, netze, arm):
     # 431h Stufe 2: Kleid_<PLATZ> der Trachten WACHE (Kettenhemd, 1569 Umhang) und ROBE fuer den Kleiderschrank der anderen Trachten
     t, g = k.rsplit('_', 1)
@@ -1221,7 +1192,6 @@ def teil_ablegen(k, netze, arm):
         # Kleid_CHEST mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK); Kleid_CLOAK ohne fremde Teile darunter
         ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_' + platz)]
         if not ms: print('TEIL FEHLT', k, 'Kleid_' + platz); continue
-        if kenn == 'UMHANG': umhang_weiten(ms)
         exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
         print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')
 

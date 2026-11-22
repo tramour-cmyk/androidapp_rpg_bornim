@@ -295,6 +295,56 @@ if HUELLE.any():
     print('SCHALE HINAUS', len(_noetig), 'Ecken der Huelle im Koerper,', _mit, 'mitgeschoben')
 print('KLEIDUNG HINAUS', raus, 'von', len(VK2))
 umhang_dbg(VK2, 'hinaus')
+# 1570 (Chef 12.11.: „Jeder, dem ich eine Ausrüstung Umhang gebe, kann Umhang tragen“; 18.11. Systemlösung; Neins 861 Beule links,
+# 1676 rechter Unterarm): Umhang am Rücken, ein Weg für alle Trachten (das Schrankteil UMHANG ist dieses Netz), Welt und Kampf (beide der
+# Kaufkörper). Wie Spiele Umhänge binden: an einem Knochen des Rumpfs, der Rest folgt danach (Puddle Knights, Game Developer 13.05.2020,
+# „cape bone“, nach der Animation in LateUpdate); Tuchknoten treiben Knochen, Arme stoßen als Kapseln an (Valve Source 2 Cloth,
+# developer.valvesoftware.com/wiki/Cloth_Simulation, abgerufen 22.11.2026). Ohne Simulation im Spiel heißt das: (1) Form: hinten ist
+# der Umhang nicht breiter als Rumpf und Beine in derselben Höhe (über der Achsel nicht über das Schultergelenk), der Raum der Arme
+# bleibt frei, über den Schulterblättern etwas Luft; (2) Gewichte (unten, Schritt 8) von der Wirbelkette nach der Höhe, oben auf der
+# Schulter vom Schlüsselbein, am Hals vom Hals. Ersetzt FOLGT am Umhang (376.1:
+# Umhang folgte Kette, Ärmel, Hose), UMHANG_ARM (656: Armgewichte ans Schlüsselbein, das mit dem Schildarm hebt: 861) und UMHANG_WEIT
+# (held_klassen.py 1569.1). Gemessen: godot/tests/umhang_1570.gd
+UMHANG_BAND = 0.04    # m Höhe je Band der Körperbreite
+def _st(x, a, b):
+    t = float(np.clip((x - a) / (b - a), 0.0, 1.0)); return t * t * (3 - 2 * t)
+UMHANG_RAND = 0.01    # m innerhalb der Körperkante
+UMHANG_LUFT = 0.02    # m hinter dem Rücken, wo die Kante zurückgeht
+UMHANG_BLATT = 0.02   # m mehr Luft über den Schulterblättern (sie gehen mit dem Schlüsselbein nach hinten)
+UMHANG_SCHULTER = 0.05   # m innerhalb des Schultergelenks endet der Umhang oben (Schulterstücke daneben)
+_KNARM = [k for k, nm in enumerate(Q_KN) if nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky'))]
+if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
+    _ic = TEILNAMEN.index('cloak'); _cl = np.where(_lt == _ic)[0]
+    _kv = QV[WQ[:, _KNARM].sum(1) < 0.2]   # Rumpf, Beine, Kopf ohne Arme
+    _band = np.floor(_kv[:, 2] / UMHANG_BAND).astype(int)
+    _halb = {}; _mitte = {}
+    for b in set(_band.tolist()):
+        q = _kv[_band == b]; _halb[b] = float(np.abs(q[:, 0]).max()); _mitte[b] = float(q[:, 1].mean())
+    _za = QP_MAT['upperarm_l'].translation.z; _xa = abs(QP_MAT['upperarm_l'].translation.x)
+    _dv = {}
+    for i in _cl:
+        p = VK2[i]; b = int(np.floor(p[2] / UMHANG_BAND))
+        if b not in _halb or not (p[1] > _mitte[b] or p[2] < _za - 0.05): continue   # vorn über der Achsel: Spange, Kragen
+        q = p.copy()
+        if p[1] > _mitte[b]: q[1] += UMHANG_BLATT * _st(p[2], _za - 0.40, _za - 0.20) * (1.0 - _st(p[2], _za - 0.02, _za + 0.06))
+        lim = _halb[b] - UMHANG_RAND
+        if p[2] > _za: lim = min(lim, _xa - UMHANG_SCHULTER)
+        if abs(p[0]) > lim: q[0] = np.sign(p[0]) * lim
+        else:
+            if q[1] != p[1]: _dv[int(i)] = q - p
+            continue
+        hier = _kv[(np.abs(_kv[:, 2] - p[2]) < UMHANG_BAND) & (np.abs(_kv[:, 0] - q[0]) < 0.03)]
+        if len(hier): q[1] = max(q[1], float(hier[:, 1].max()) + UMHANG_LUFT)   # hinten ist +Y
+        _dv[int(i)] = q - p
+    # beide Lagen gleich (wie SCHALE HINAUS): je Ecke die größte Verschiebung binnen SCHALE_R
+    _kd = KDTree(len(_cl))
+    for i in _cl: _kd.insert(Vector(VK2[i]), int(i))
+    _kd.balance(); _neu = {}
+    for i in _cl:
+        nb = [k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R) if k in _dv]
+        if nb: _neu[int(i)] = _dv[max(nb, key=lambda k: float(np.linalg.norm(_dv[k])))]
+    for i, d in _neu.items(): VK2[i] = VK2[i] + d
+    print('UMHANG AM RUECKEN Form', len(_dv), 'Ecken an die Koerperkante,', len(_neu), 'mit der anderen Lage, hoechstens %.1f cm' % (100 * max([np.linalg.norm(d) for d in _dv.values()] or [0])))
 # 475 Lauf 2 (Chef 04.11., 20:49: „mit irgendwelchen Verhüllungen im Gesicht … genau der gleiche Scheiß wie das letzte Mal“), am Rechner
 # nachgestellt (Kopfbilder Garrick, Liska, Jorin, Morwen aus Lauf 1 nachgebaut): unsere Kopfteile aus held3 (Kapuze, Gugel, Helm,
 # Ringpanzer am Helm, Kopftuch) sind fuer unseren Kopf gebaut und lagen am Kaufkopf binnen VERDECKT vor dem Gesicht; Schritt 7 nahm die
@@ -398,9 +448,7 @@ WKq[:, iHals] += WKq[:, iKopf]; WKq[:, iKopf] = 0.0
 # und Umhang haben unsere Gewichte, das Kettenhemd die des Koerpers, in Bewegung laufen sie auseinander. Ueber der Huefte folgen sie
 # darum der Lage darunter (deren Gewichte an der Stelle, die der Strahl nach innen trifft), darunter gleitend die eigenen (Saum frei)
 FOLGT_AB = float(os.environ.get('FOLGT_AB', '0.05')); FOLGT_BREIT = float(os.environ.get('FOLGT_BREIT', '0.17'))
-FOLGT = [('tabard', ('chain', 'sleeves')), ('robe', ('chain', 'sleeves')), ('cloak', ('tabard', 'robe', 'chain', 'belt', 'buckle', 'sleeves', 'clasp') + tuple(t for t in os.environ.get('UMHANG_FOLGT', 'pants').split(',') if t))]
-# 376.1 (pruef_flecken.py, Rennen von hinten: Hose am Gesaess 2-3 cm durch den Umhang): der Umhang folgt auch der Hose, bis UMHANG_FOLGT_AB unter der Huefte
-FOLGT_AB_U = float(os.environ.get('UMHANG_FOLGT_AB', '0.15'))
+FOLGT = [('tabard', ('chain', 'sleeves')), ('robe', ('chain', 'sleeves'))]   # 1570: der Umhang folgt der Wirbelkette (UMHANG AM RUECKEN)
 LTk = tl[ist_kleid]; TID = {n: i for i, n in enumerate(TEILNAMEN)}
 kme.vertices.foreach_set('co', VK2.ravel()); kme.update()
 NK2 = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', NK2); NK2 = NK2.reshape(-1, 3)
@@ -413,7 +461,7 @@ for a_teil, unter in FOLGT:
     bv = BVHTree.FromPolygons([Vector(v) for v in VK2], [KF[j] for j in fl])
     n_ok = 0
     for i in np.where(LTk == TID[a_teil])[0]:
-        a = float(np.clip((VK2[i, 2] - (hz - (FOLGT_AB_U if a_teil == 'cloak' else FOLGT_AB))) / FOLGT_BREIT, 0, 1)); a = a * a * (3 - 2 * a)
+        a = float(np.clip((VK2[i, 2] - (hz - FOLGT_AB)) / FOLGT_BREIT, 0, 1)); a = a * a * (3 - 2 * a)
         if a <= 0: continue
         n = Vector(NK2[i])
         h = bv.ray_cast(Vector(VK2[i]) - n * 0.001, -n, 0.06)
@@ -440,72 +488,27 @@ if (HUELLE & _GEW).any():
         _W[i] = WKq[nb].mean(0)
     WKq = _W / _W.sum(1, keepdims=True)
     print('SCHALE GEWICHTE', len(_sch), 'Ecken gemittelt')
-# 463 (Pruefer Film 23:03: „roter Aermel schneidet seitlich durch den Umhang, Oberarm, Ellbogen“; Lauf 41366192062, pruef_tracht ORT:
-# sleeves>cloak schon in Ruhe, 1,1-1,3 m hoch, hinten, beide Seiten, 5-25 mm tief): der Umhang liegt hinten am Oberarm nicht ueber dem
-# Aermel, und er folgt dem Arm nicht (der Strahl nach innen trifft den Ruecken, nicht den Arm; FOLGT). Darum (1) jede Umhangecke binnen
-# ARM_R am Aermel mindestens ARM_LUFT m vor die Aermelflaeche (entlang deren Normale), (2) bis ARM_GEW der Aermelgewichte (naeher mehr,
-# Oberarm schiebt den Umhang). Beide Lagen gleich: je Ecke die staerkste Verschiebung und Gewichtung binnen SCHALE_R (wie SCHALE GEWICHTE)
-# Lauf 41368485277 (ARM_LUFT 0,012, ARM_GEW 0,6): schlechter, darum aus (ARM_LUFT=0): sleeves>cloak Ruhe Mann 104 -> 104, Frau 48 -> 112,
-# Gehen 256 -> 215, 238 -> 233; Flecken Mann chain 368 -> 4865, sleeves 1372 -> 2903; in Ruhe liegt der Durchstoss jetzt auf 1,4 m (Schulter)
-# Versuch 2 (Lauf 41374143498, nur Aermelgewichte ARM_GEW 0,6, ARM_LUFT 0): kaum Wirkung (Ruhe 104/48 unveraendert, Flecken mehr).
-# Ursache (Tom 02.11., 03:2x): beide Versuche liefen auf VK3, der Kleidung schon zurueck in der T-Pose der Kauffigur; dort liegen die Arme
-# waagerecht, der Umhang beruehrt den Aermel nur an der Schulter (darum Durchstoss danach auf 1,4 m). Jetzt auf VK2, in unserer Haltung mit
-# haengenden Armen, wo der Aermel hinten am Ellbogen durch den Umhang sticht, vor der Rueckrechnung in die Ruhelage (Gewichte gelten mit)
-# Lauf 41377342833 (auf VK2, 12 mm, 60 %): Ruhe Mann sleeves>cloak 104 -> 32, Frau 48 -> 56; in Bewegung kaum anders (Gehen 231/222 statt
-# 256/238, Idle 283/469, Jog 235/301); Flecken Kette Mann 368 -> 2893. Der Arm schwingt in Bewegung in den Umhang, den die Form in Ruhe
-# nicht erreicht: darum wieder aus (ARM_LUFT=0.012 ARM_GEW=0.6 zum Nachstellen); naechster Ansatz im Zeichnen (Umhang gewinnt die Tiefe)
-ARM_LUFT = float(os.environ.get('ARM_LUFT', '0')); ARM_GEW = float(os.environ.get('ARM_GEW', '0')); ARM_R = float(os.environ.get('ARM_R', '0.06'))
-if (ARM_LUFT > 0 or ARM_GEW > 0) and 'cloak' in TEILNAMEN and 'sleeves' in TEILNAMEN:
-    _ic = TEILNAMEN.index('cloak'); _is = TEILNAMEN.index('sleeves')
-    _sf = [f for f in KF if _lt[f[0]] == _is]
-    kme.vertices.foreach_set('co', VK2.ravel()); kme.update()   # Normalen wie normalen() unten (dort erst spaeter definiert)
-    _NA = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', _NA); _NA = _NA.reshape(-1, 3)
-    _bv = BVHTree.FromPolygons([Vector(v) for v in VK2], _sf)
-    _cl = np.where(_lt == _ic)[0]
-    _dv = np.zeros((len(VK2), 3)); _a = np.zeros(len(VK2)); _neu = {}
+# 1570 Gewichte von Umhang und Spange (ersetzt 463 ARM_LUFT/ARM_GEW und 656 UMHANG_ARM): die Wirbelkette nach der Höhe (unter dem Becken
+# das Becken, über spine_03 spine_03); oben auf der Schulter das Schlüsselbein der Seite (die Schulter hebt den Umhang, nicht der Arm),
+# am Hals der Hals; kein Arm, kein Bein, unter der Achsel kein Schlüsselbein (861)
+if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01')):
+    _kette = ['pelvis', 'spine_01', 'spine_02', 'spine_03']; _kz = [QP_MAT[n].translation.z for n in _kette]
+    _za = QP_MAT['upperarm_l'].translation.z; _zn = QP_MAT['neck_01'].translation.z
+    _cl = np.where(np.isin(LTk, [TID[t] for t in ('cloak', 'clasp') if t in TID]))[0]
     for i in _cl:
-        h = _bv.find_nearest(Vector(VK2[i]), ARM_R)
-        if h[0] is None: continue
-        ecken = list(_sf[h[2]]); d = np.linalg.norm(VK2[ecken] - np.array(h[0]), axis=1)
-        n = Vector(_NA[ecken].mean(0)).normalized()   # Normale der Aermelecken (nach aussen wie pruef_tracht), nicht die Wicklung der Flaeche
-        sd = (Vector(VK2[i]) - h[0]).dot(n)
-        if ARM_LUFT > 0 and -0.035 < sd < ARM_LUFT: _dv[i] = np.array(n) * (ARM_LUFT - sd)   # tiefer als 3,5 cm: kein Umhang am Aermel
-        w = 1.0 / np.maximum(d, 1e-4); _neu[i] = (w[:, None] * WKq[ecken]).sum(0) / w.sum()
-        a = float(np.clip(1.0 - h[3] / ARM_R, 0, 1)); _a[i] = ARM_GEW * a * a * (3 - 2 * a)
-    _kd = KDTree(len(_cl))
-    for i in _cl: _kd.insert(Vector(VK2[i]), int(i))
-    _kd.balance()
-    _dv2 = _dv.copy(); _W = WKq.copy(); n_auf = n_gew = 0
-    for i in _cl:
-        nb = [k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R)]
-        kv = max(nb, key=lambda k: float(np.linalg.norm(_dv[k]))); _dv2[i] = _dv[kv]; n_auf += bool(np.linalg.norm(_dv[kv]) > 0)
-        ka = max(nb, key=lambda k: _a[k])
-        if _a[ka] > 0 and ka in _neu: _W[i] = (1 - _a[ka]) * WKq[i] + _a[ka] * _neu[ka]; n_gew += 1
-    tief = float(np.linalg.norm(_dv, axis=1).max()) if len(_cl) else 0.0
-    VK2 = VK2 + _dv2; WKq = _W / _W.sum(1, keepdims=True)
-    print('UMHANG UEBER AERMEL', n_auf, 'Ecken vor (hoechstens %.1f cm), %d folgen dem Arm (bis %.0f %%)' % (tief * 100, n_gew, ARM_GEW * 100))
-# 656 (Chef 08.11., 14:52: „wo die ganzen Beulen herkommen in dem Mantel. Vor allem unter dem Schlagarm“; nachgesehen an den Siegerposen,
-# Lauf 300 Bild 2 und 3: hebt der Schwertarm, hebt sich der Umhang darunter wie ein Fluegel bis zum Ellbogen): ueber FOLGT nahm der Umhang
-# an Schulter und Seite die Gewichte des Aermels, also von Ober- und Unterarm. Armgewichte am Umhang gehen an das Schluesselbein derselben
-# Seite, nur auf der Schulterhoehe (bis UMHANG_ARM_BIS unter dem Schultergelenk) bleibt ein Rest, der die Schulter mitnimmt; der Aermel
-# liegt im Bild ohnehin hinter dem Umhang (463, toon.gdshader UV2). Vor der Rueckrechnung in die Ruhelage, damit die Form in unserer
-# Haltung bleibt. UMHANG_ARM=1: wie vorher
-if 'cloak' in TID and os.environ.get('UMHANG_ARM', '') != '1':
-    _ic = TID['cloak']; _bis = float(os.environ.get('UMHANG_ARM_BIS', '0.04'))
-    _finger = ('thumb', 'index', 'middle', 'ring', 'pinky')
-    _n_arm = 0
-    for _seite in ('l', 'r'):
-        _arm = [k for k, nm in enumerate(Q_KN) if nm.endswith('_' + _seite) and nm.startswith(('upperarm', 'lowerarm', 'hand') + _finger)]
-        _sch = 'clavicle_' + _seite
-        if _sch not in Q_KN or not _arm or 'upperarm_' + _seite not in QP_MAT: continue
-        _js = Q_KN.index(_sch); _sz = QP_MAT['upperarm_' + _seite].translation.z
-        for i in np.where(LTk == _ic)[0]:
-            w_arm = float(WKq[i, _arm].sum())
-            if w_arm < 1e-4: continue
-            k_ = float(np.clip((_sz - VK2[i, 2]) / max(_bis, 1e-3), 0.0, 1.0))   # 0 auf der Schulter, 1 ab _bis darunter
-            WKq[i, _js] += w_arm * k_; WKq[i, _arm] *= (1.0 - k_); _n_arm += 1
-    WKq = WKq / WKq.sum(1, keepdims=True)
-    print('UMHANG OHNE ARM', _n_arm, 'Ecken (Armgewichte an das Schluesselbein)')
+        z = VK2[i, 2]; w = np.zeros(len(Q_KN))
+        if z <= _kz[0]: w[Q_KN.index('pelvis')] = 1.0
+        elif z >= _kz[3]: w[Q_KN.index('spine_03')] = 1.0
+        else:
+            for k in range(3):
+                if z <= _kz[k + 1]:
+                    t = (z - _kz[k]) / (_kz[k + 1] - _kz[k]); w[Q_KN.index(_kette[k])] = 1 - t; w[Q_KN.index(_kette[k + 1])] = t; break
+        sw = _st(abs(VK2[i, 0]), 0.03, 0.07) * _st(z, _za - 0.03, _za + 0.04)
+        w *= (1.0 - sw); w[Q_KN.index('clavicle_l' if VK2[i, 0] > 0 else 'clavicle_r')] += sw   # links +X
+        hw = (1.0 - _st(abs(VK2[i, 0]), 0.02, 0.05)) * _st(z, _za, _zn)
+        w *= (1.0 - hw); w[Q_KN.index('neck_01')] += hw
+        WKq[i] = w
+    print('UMHANG AM RUECKEN Gewichte', len(_cl), 'Ecken (Umhang, Spange) an Wirbelkette, Schulter, Hals')
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)

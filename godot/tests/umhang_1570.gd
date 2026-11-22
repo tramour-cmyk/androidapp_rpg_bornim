@@ -7,8 +7,9 @@
 #    (Welt: Blick 30 Grad von oben, von vorn, schräg vorn und von der Seite des Arms; Kampf: Spielkamera 25 Grad von hinten, nur die Beule und das
 #    Durchstechen zählen dort, hinten deckt der Umhang den Arm zu Recht).
 #  DURCH: wie durchstich_1631 (Grundlage), nur Paare mit dem Umhang (Körper und Kleidung durch den Umhang oder Umhang durch sie).
-# Welt: Gehen mit Zweihänder (Gehen_axt); Kampf: Kampfbewegungen wie kampf/figur.gd _kaufheld (SS_IdleCombat, Hieb, Abwehr: Handaxt und
-# Schild). Rot (Ende 1), wenn eine Zahl über ihrer Grenze liegt (BEULE 0, UNTERARM GRENZE_ARM, DURCH GRENZE_DURCH je Figur und Bewegung).
+# Welt: Gehen mit Zweihänder (Gehen_axt) und ohne (Gehen); Kampf: Kampfbewegungen wie kampf/figur.gd _kaufheld (SS_IdleCombat, Hieb, Abwehr: Handaxt und
+# Schild). Rot (Ende 1), wenn eine Zahl über ihrer Grenze liegt: BEULE 0, UNTERARM GRENZE_ARM; DURCH nicht über dem Wert an main
+# (umhang_1570.json, gemessen am Stand vor 1570 mit den Kaufmodellen des Bauservers, Spielraum wie durchstich_1631 spielraum).
 # Run: godot --headless --path godot -s res://tests/umhang_1570.gd [-- --nur=<Herkunft>]   (ohne Kaufdateien „ohne Kauf“, 0)
 extends SceneTree
 
@@ -20,11 +21,12 @@ const DURCH_MIN := 0.005
 const RAND_WEIT := 0.03
 const BEULE_MARGE := 0.05     # m über die Körperbreite (Stofflage, Falte)
 const GRENZE_ARM := 0         # Ecken von Unterarm/Hand unter dem Umhang (Welt, Blick von vorn bis seitlich)
-const GRENZE_DURCH := 2       # Rechenrauschen wie durchstich_1631 spielraum
+const MAIN_DURCH := "res://tests/umhang_1570.json"   # je „Herkunft G Ort Bewegung“: durch am Stand vor 1570
 const AUSSER := ["Eye", "Brow", "Hair", "Haar", "Bart", "Beard", "Lash", "Teeth", "Tongue"]
 const HERKUENFTE := ["Wachsoldat", "Zauberlehrling", "Jägerkind", "Klosterschüler", "Wanderer"]
+const WELT := ["Gehen_axt", "Gehen"]   # mit Zweihänder (tragen.gd GANG_ZWEI) und ohne Waffe (1676: Schankraum, Waffe abgelegt)
 const KAMPF := ["SS_IdleCombat", "Hieb", "Abwehr"]
-const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03", "neck_01", "neck_02", "clavicle_l", "clavicle_r", "upperarm_l", "upperarm_r"]
+const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03", "neck_01", "neck_02", "clavicle_l", "clavicle_r", "upperarm_l", "upperarm_r", "thigh_l", "thigh_r"]
 const FINGER := ["thumb", "index", "middle", "ring", "pinky"]
 
 var fehler := 0
@@ -32,6 +34,7 @@ var _posen: Array = []
 var _warte := false
 var netz_lage := PackedInt32Array()
 var zeilen := []
+var main_durch := {}
 
 func _initialize() -> void:
 	_lauf.call_deferred()
@@ -44,6 +47,9 @@ func _lauf() -> void:
 		print("UMHANG1570 ohne Kauf, 0 Fehler")
 		quit(0)
 		return
+	if FileAccess.file_exists(MAIN_DURCH):
+		var j = JSON.parse_string(FileAccess.get_file_as_string(MAIN_DURCH))
+		if j is Dictionary: main_durch = j
 	var nur := ""
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--nur="): nur = a.substr(6)
@@ -57,7 +63,7 @@ func _lauf() -> void:
 			var aus := hw.ausruestung.duplicate()
 			aus["CLOAK"] = {"base": "cloak"}; aus["MAIN_HAND"] = {"base": "greatsword"}; aus.erase("OFF_HAND")
 			var m := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": {"geschlecht": g}, "ausruestung": aus}, [])
-			if m != null: await _figur("%s %s Welt" % [h, g.to_upper()], m, ["Gehen_axt"], false)
+			if m != null: await _figur("%s %s Welt" % [h, g.to_upper()], m, WELT, false)
 			# Kampf: wie _kaufheld (ohne Ausrüstung unterwegs), Handaxt und Schild halten die Kampfbewegungen
 			var ak := hw.ausruestung.duplicate(); ak["CLOAK"] = {"base": "cloak"}
 			var mk := HeldFigur.baue({"herkunft": h, "volk": "HUMAN", "aussehen": {"geschlecht": g}, "ausruestung": {}, "kleid": ak}, [])
@@ -180,8 +186,9 @@ func _figur(name: String, m: Node3D, bewegungen: Array, kampf: bool) -> void:
 		if arm["l"] > GRENZE_ARM or arm["r"] > GRENZE_ARM:
 			print("FEHLER %s %s: Umhang über dem Unterarm (links %d, rechts %d Ecken)" % [name, bew, arm["l"], arm["r"]])
 			fehler += 1
-		if durch > GRENZE_DURCH:
-			print("FEHLER %s %s: %d Ecken stechen durch (Umhang)" % [name, bew, durch])
+		var gd := int(main_durch.get("%s %s" % [name, bew], 0))
+		if durch > gd + maxi(2, ceili(gd * 0.02)):
+			print("FEHLER %s %s: %d Ecken stechen durch (Umhang), an main %d" % [name, bew, durch, gd])
 			fehler += 1
 	sk.skeleton_updated.disconnect(_nach_update)
 	m.queue_free()
