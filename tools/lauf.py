@@ -739,7 +739,13 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     rueckmeldung.py) → NACHRICHT an die Sitzung des Empfängers. Hat er keine, startet ihn start(r, nr, teil) (Befund 1: Start statt
     nur NACHRICHT an Ford; hängt an eine START-Zeile dieses Laufs an, nie zwei Starts); kann start nicht (nicht startbare Rolle,
     --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an Ford. Bis zur Umschaltung
-    (tools/1727-SCHARF) sind Arbeitsplaner und Disponent Ford, der Prüfer Diogenes (ALT_EMPFAENGER)."""
+    (tools/1727-SCHARF) sind Arbeitsplaner und Disponent Ford, der Prüfer Diogenes (ALT_EMPFAENGER).
+    1911 (D343.1): wartet der Vorgang (Feld „wartet auf“, etwa Sokrates nach „steckt fest“), bleibt eine Zeile an eine Fachkraft
+    liegen (kein Start ohne Startbares, 340.12/3); Zeilen an das Büro (startbar.BUERO) gehen weiter."""
+    try:
+        wartet = {x["nr"]: x["warte"] for x in startbar.vorgangsliste(lesen(os.path.join(docs or DOCS, startbar.LISTE))) if x.get("warte")}
+    except Exception:
+        wartet = {}
     try:
         import uebergabe as _ue
         d = os.path.join(docs or DOCS, "vorgang")
@@ -747,7 +753,11 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
         for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
             if not n.endswith(".md"): continue
             for z in _ue.zeilen(open(os.path.join(d, n), encoding="utf-8").read()):
-                if _ue.ist_offen(z["z"]) and z["an"].lower() != "sokrates": je.setdefault(z["an"], []).append((z["k"], z["was"]))
+                if not _ue.ist_offen(z["z"]) or z["an"].lower() == "sokrates": continue
+                w = wartet.get(z["k"].split("-Ü")[0])
+                if w and z["an"] not in startbar.BUERO:
+                    ausgabe.append("NICHTS Übergabe: %s an %s liegt, Vorgang wartet auf %s (1911)" % (z["k"], z["an"], ", ".join(w))); continue
+                je.setdefault(z["an"], []).append((z["k"], z["was"]))
     except Exception as e:
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
     scharf = ist_scharf()

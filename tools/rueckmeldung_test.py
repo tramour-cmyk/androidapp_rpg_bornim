@@ -267,6 +267,17 @@ rc, out = vg("rueckmeldung", "9015", "nein: Fackel zu dunkel", zeit="21.11., 22:
 open(_bp, "w", encoding="utf-8").write(_b)
 soll("1888: Rolle der Sitzung aus der Besetzung von jetzt (Fachkraft) vor dem Listenbesitzer", re.search(r"\| 9015-Ü\d+ \| Fachkraft \| Rückläufer", datei("9015")), (out, datei("9015")[-500:]))
 
+# 1911 (D343.1): Zeile an den Macher nach „nein … steckt fest“ liegt, solange der Vorgang auf Sokrates wartet
+g("pull", "-q", "origin", "main", cwd=A)
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+soll("1911: 9011-Ü3 an Tom nicht zugestellt", not any(k == "9011-Ü3" for zs in je.values() for k, _ in zs) and any("NICHTS Übergabe: 9011-Ü3 an Tom liegt, Vorgang wartet auf Sokrates (1911)" in z for z in aus), (je.get("Tom"), aus))
+soll("1911: Büro-Zeilen gehen weiter (9012 Arbeitsplaner)", any(k.startswith("9012-Ü") for k, _ in je.get("Arbeitsplaner", [])), je.get("Arbeitsplaner"))
+_l = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), encoding="utf-8").read()
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l.replace("| startbar, steckt fest | Sokrates |", "| startbar | – |"))
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l)
+soll("1911: nach Sokrates (wartet auf –) wird zugestellt", any(k == "9011-Ü3" for k, _ in je.get("Tom", [])), je.get("Tom"))
+
 # 1910 (D342.1): Chef-Nein zählt für Obergrenze A, nicht für die Laufbremse (V5 offen)
 cw.eintragen("9016", "Nein, Tür klemmt", "21.11., 23:00", "Sokrates")
 rc, out = vg("rueckmeldung", "9016", "nein: Tür klemmt noch", zeit="21.11., 23:05")
