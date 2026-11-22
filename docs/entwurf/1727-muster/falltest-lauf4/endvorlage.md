@@ -1,4 +1,4 @@
-# 1727 Endvorlage: Ladetexte nach Falltest Lauf 4 (Sokrates, 22.11., 15:47, Runde 5)
+# 1727 Endvorlage: Ladetexte nach Falltest Lauf 4 (Sokrates, 22.11., 15:52, Runde 6, nachgeprüft)
 
 **Dein Wort:** zu den neuen Regeln (11, 19–22) je Nummer ja oder nein; zu den Korrekturen „abschließend frei“ oder Nummer mit Einwand.
 
