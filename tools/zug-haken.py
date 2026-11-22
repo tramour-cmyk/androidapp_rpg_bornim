@@ -127,8 +127,14 @@ VOTUM = re.compile(r"\bVotum\b")
 GEGENGEPRUEFT = re.compile(r"(?m)^[\W_]*Gegengepr(?:ü|ue)ft\b[^\n]*:")
 
 
-def votum_ohne_gegenpruefung(t):
-    """Grund zum Anhalten oder None (1732)."""
+SCHARF = os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF")
+
+
+def votum_ohne_gegenpruefung(t, scharf=None):
+    """Grund zum Anhalten oder None (1732). 1943 (Chef 22.11., 10:39: Gegenprüfen nur für den Umbau 1727): schweigt, sobald
+    tools/1727-SCHARF steht."""
+    if (os.path.isfile(SCHARF) if scharf is None else scharf):
+        return None
     if not t or not SOKRATES_KOPF.match(t.lstrip()):
         return None
     ohne = re.sub(r"```.*?```|`[^`\n]*`|„[^“\n]*“", " ", t, flags=re.S)  # Code und Zitate („Votum“ als Wort im Zitat) zählen nicht
