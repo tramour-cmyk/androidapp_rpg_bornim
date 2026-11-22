@@ -40,6 +40,7 @@ jobs:
           python3 tools/lieferung_test.py       # 1739 wartet auf leeren bei Lieferung
           python3 tools/tagesbericht_test.py    # 1739 Tagesbericht: Wo stehen wir, Fristen
           python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag
+          python3 tools/ladesumme.py --test     # 1866 Größen und Ladesummen
           python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
           python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid
