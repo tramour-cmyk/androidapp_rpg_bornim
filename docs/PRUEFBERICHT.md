@@ -41,6 +41,14 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 354 · 1795 Rest, 1887, 1888 (lesend, Auftrag Ford; Kopie `451d38ca8`; 22.11., 10:28–10:33)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1888 greift: „fertig“ als „unbekannt“ → Rolle der Sitzung aus der Besetzung von jetzt, sonst Listenbesitzer (auch über die Kopfzeile, wo `weitergabe` ohne Nummer ruft); ohne „fertig“ weiter Disponent.
+- 1795 greift nicht: **D344.1** → 1912 (Spike): ohne Nummer im Titel nimmt `lauf.mit_kern` die erste drei- oder vierstellige Zahl der Nachricht; der Tester bekommt stets einen Build. Nachgestellt: „Teste Build 312, Vorgang 1990.“ und „Teste Build 312 (Abnahme Kapitel 1)“ → `rueckmeldung 312`. Mit Nummer im Titel („Tester – 1484: …“) richtig.
+- 1887 greift nicht: **D344.2** → 1913 (Spike): die Liste bleibt unverändert, aber `waechter_funde` sieht nur Listenzeilen; jedes weitere Nein mit demselben Stichwort gibt eine weitere Zeile „anlegen: `vorgang.py neu "Systemlösung? …"`“ an den Disponenten, solange die erste offen ist. Nachgestellt im Testaufbau: Nein zu 9002, dann zu 9007, beide „Treppe“ → zweite Zeile 9007-Ü3; `neu` prüft bei „Systemlösung?“ nicht auf Doppel. Vorher verhinderte die sofort angelegte Listenzeile das.
+- Nicht geprüft: echte Läufe (nichts scharf).
+
 ## Lauf 353 · 1873, 1877 (lesend, Weiter von Ford; Kopie `4ac384c95`; 22.11., 10:22–10:25)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün.
