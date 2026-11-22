@@ -68,13 +68,12 @@ def worte(text):
 def zaehlen(text):
     """Zählt die Signalworte der Rückmeldungen einer Vorgangsdatei; 1872: jedes Chef-Nein unter „Chefworte“ (chefwort.chef_nein,
     ganzer Wortlaut) zählt als abgelehnter Auftrag („nein“), sonst stoppt „Prüfer ja, Chef nein“ nie.
-    1910 (D342.1): „nein Prüfer“ zählt nur die Rückmeldungen, für die Laufbremse; ob ein Chef-Nein auch dort zählt, ist V5
-    (vorschlaege-10-00.md, beim Chef offen)."""
-    z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0, "nein Prüfer": 0}
+    1925 (1727j Frage 1, Chef 22.11., 11:21 „Frage 1 ja.“): das Chef-Nein zählt auch für die Laufbremse (Rückbau 1910): Chef-Nein,
+    ein Versuch der Fachkraft, beim nächsten Nein „steckt fest“ an Sokrates."""
+    z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0}
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", ue.abschnitt(text, "Rückmeldungen")):
         for w in worte(m.group(1)):
             if w in z: z[w] += 1
-    z["nein Prüfer"] = z["nein"]
     import chefwort
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, Chef[^\n]*:\n((?:> .*\n?)+)", ue.abschnitt(text, "Chefworte")):
         if chefwort.chef_nein("\n".join(l[2:] for l in m.group(1).splitlines())): z["nein"] += 1
@@ -264,8 +263,8 @@ def eintragen(nr, text, wer, sid=""):
             m = macher(vorher, nr) if "nein" in w else None
             if m:  # 1873 (Lauf 3 Prüfer-2 Lücke 1): die Mängelsätze erreichen auch den Macher; er wartet, bis Sokrates löst
                 aus = [(an, was), (m, "Rückläufer (nein des Prüfers, steckt fest, Rückmeldung %s von %s): „%s“; erst nach Sokrates (`wartet auf`) nachbessern, dann `vorgang.py rueckmeldung` „fertig“ mit Commit (1873)" % (zeit, wer or "unbekannt", ue._rein(text)[:160]))]
-        elif "nein" in w and z["nein Prüfer"] == LAUFBREMSE_NEIN:  # 1910: Chef-Nein zählt hier erst mit V5
-            an, was = SOKRATES, "steckt fest (Laufbremse, %d. Nein; Chef 19.11., 13:02): Rückmeldung %s von %s lesen (1766)" % (z["nein Prüfer"], zeit, wer or "unbekannt")
+        elif "nein" in w and z["nein"] == LAUFBREMSE_NEIN:  # 1925: Chef-Nein zählt mit (Chef 22.11., 11:21)
+            an, was = SOKRATES, "steckt fest (Laufbremse, %d. Nein; Chef 19.11., 13:02): Rückmeldung %s von %s lesen (1766)" % (z["nein"], zeit, wer or "unbekannt")
         elif "nein, Auftrag" in w:
             an, was = PLANER, "nein, Auftrag: Rückmeldung %s von %s lesen" % (zeit, wer or "unbekannt")
         elif "Befunde" in w:  # 1795

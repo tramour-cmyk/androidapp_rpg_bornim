@@ -321,14 +321,15 @@ aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"
 os.remove(_tb); lauf.ist_scharf = _s
 soll("1875: Fachkraft scharf → Fachprofil des Themenblocks (Welt)", any("Fackel heller" in w for k, w in je.get("Welt", [])) and "Fachkraft" not in je, (je.keys(), aus))
 
-# 1910 (D342.1): Chef-Nein zählt für Obergrenze A, nicht für die Laufbremse (V5 offen)
+# 1925 (1727j Frage 1, Chef 22.11., 11:21): Chef-Nein zählt für die Laufbremse (Rückbau 1910) und weiter für Obergrenze A (1872)
 cw.eintragen("9016", "Nein, Tür klemmt", "21.11., 23:00", "Sokrates")
 rc, out = vg("rueckmeldung", "9016", "nein: Tür klemmt noch", zeit="21.11., 23:05")
 t = datei("9016")
-soll("1910: Chef-Nein + erstes Prüfer-Nein: keine Laufbremse", "Laufbremse" not in t and rm.zaehlen(t)["nein"] == 2 and rm.zaehlen(t)["nein Prüfer"] == 1, (out, t[-500:]))
+soll("1925: Chef-Nein + erstes Prüfer-Nein: Laufbremse, steckt fest an Sokrates", re.search(r"\| 9016-Ü\d+ \| Sokrates \| steckt fest \(Laufbremse, 2\. Nein", t) and rm.zaehlen(t)["nein"] == 2, (out, t[-500:]))
 rc, out = vg("rueckmeldung", "9016", "nein: klemmt immer noch", zeit="21.11., 23:10")
 t = datei("9016")
-soll("1910: drittes Nein (eins vom Chef) → Obergrenze A", "Obergrenze A: 3. abgelehnter Auftrag" in t, t[-500:])
+soll("1925: drittes Nein (eins vom Chef) → Obergrenze A", "Obergrenze A: 3. abgelehnter Auftrag" in t, t[-500:])
+soll("1925: Laufbremse nur einmal (beim 2. Nein)", len(re.findall(r"Laufbremse, \d\. Nein", t)) == 1, t[-500:])
 
 # 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht sie
 import uebergabe as _ue92, datetime as _dt92
