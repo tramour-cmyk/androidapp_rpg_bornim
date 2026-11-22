@@ -45,7 +45,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1725 | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,21 $* |
 | 1933 | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, fehlt etwas, das Fehler … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1954 | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten netto Vorgänge und Aufträge … | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | Sokrates | – | – | *startbar, steckt fest* | *–* | *0* | *103,93 $* |
+| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | – | – | – | *startbar, Weg Sokrates 20:13* | *–* | *0* | *103,93 $* |
 | 506.2 | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, 506; Chef 10.11., 19:26) | 2 | E Kampf | M | 709.1, 1589.4 | 506 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen … | 2 | E Kampf | M | 1589.4 | – | claude/jerry-709-treffen | *ruht, Block 2 (1605)* | *–* | *0* | *64,31 $* |
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | 2 | E Kampf | M | 1589.4 | 709 | claude/jerry-709-1-wolfsbiss-c | *ruht, Block 2 (1605)* | *–* | *0* | *83,22 $* |
