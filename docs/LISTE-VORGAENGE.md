@@ -264,6 +264,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1396 | lauf.py startet Tuffy auf Zeile 1393, die Jerry schon in seiner Sitzung baut (Stand „wartet auf 1394“ war veraltet) | 6 | E Technik | K | – | 1394 | – | *gebaut, Geprüft an: fd2637cd5* | *–* | *0* | *–* |
 | 1711 | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), 760 … | 6 | E Technik | K | – | 1694, 760, 1535 | – | *startbar* | *–* | *0* | *6,23 $* |
 | 1738 | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildschirm mit Skriptsteuerung … | 6 | Q QS | K | – | 1727 | – | *startbar* | *–* | *0* | *–* |
+| 1955 | Von Spike (1871): LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Liste“; auf Build-Macher und Prüfer umstellen; werkzeuge.md :74 veraltet (1858) | 6 | Q QS | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $* |
 | 102 | Dokumente BornWire TCS nachziehen | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
