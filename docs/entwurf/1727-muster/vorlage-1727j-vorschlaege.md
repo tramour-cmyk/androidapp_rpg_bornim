@@ -1,15 +1,15 @@
-# 1727j · Nimmst du die fünf Textänderungen V1 bis V4 und V6 an, und wie entscheidest du die vierzehn offenen Fragen aus dem Falltest?
-Sokrates · 22.11., 08:29 · B Abläufe · aus dem Falltest Lauf 1 bis 3 und deinem Wort 20.11., 16:49 (Abgenommenes nur nach Gespräch ergänzen, je Änderung Größe)
-Kurz: fünf kleine Änderungen an abgenommenen Ladetexten mit Byte, dazu vierzehn Fragen je mit Votum.
+# 1727j · Nimmst du die fünf Textänderungen V1 bis V4 und V6 an, und wie entscheidest du die fünfzehn offenen Fragen aus Falltest und Umbau?
+Sokrates · 22.11., 08:40 · B Abläufe · aus dem Falltest Lauf 1 bis 3 und deinem Wort 20.11., 16:49 (Abgenommenes nur nach Gespräch ergänzen, je Änderung Größe)
+Kurz: fünf kleine Änderungen an abgenommenen Ladetexten mit Byte, dazu fünfzehn Fragen je mit Votum.
 Beim Chef, weil: Rollen und Accounts (Änderung an abgenommenen Ladetexten)
 
 Geprüft an: <Commit vor dem Anlegen>
 
-**Frage:** Der Falltest hat an abgenommenen Ladetexten (1727i) fünf Stellen gezeigt, an denen eine Sitzung falsch oder gar nicht weiterkam, und vierzehn Fragen offengelassen, die kein Text beantwortet. Nimmst du die fünf Änderungen an, und wie entscheidest du die Fragen? Wortlaut alt und neu, Fall und Gegenargument je Änderung: `docs/entwurf/1727-muster/vorschlaege-10-00.md`.
+**Frage:** Der Falltest hat an abgenommenen Ladetexten (1727i) fünf Stellen gezeigt, an denen eine Sitzung falsch oder gar nicht weiterkam, und Fragen offengelassen, die kein Text beantwortet; eine weitere (Frage 14) kam beim Umbau der Werkzeuge. Nimmst du die fünf Änderungen an, und wie entscheidest du die Fragen? Wortlaut alt und neu, Fall und Gegenargument je Änderung: `docs/entwurf/1727-muster/vorschlaege-10-00.md`.
 
 **Votum:** „1727j A“: V1, V2, V3, V4, V6 ja; die Fragen wie mein Votum je Zeile unten.
 
-**Berührt:** Sockel (V2), Kern Leitung (V1), Kern Arbeitsplaner (V3, V4, Frage 11), Kern Büro (V6), Profil Prüfer (Fragen 3 und 4), Profil Disponent (Frage 8); Spike (Werkzeuge zu Fragen 2, 3, 5, 6 und 7); Themenblöcke (Frage 14).
+**Berührt:** Sockel (V2), Kern Leitung (V1), Kern Arbeitsplaner (V3, V4, Frage 11), Kern Büro (V6), Profil Prüfer (Fragen 2 und 3), Profil Disponent (Frage 8); Spike (Werkzeuge zu Fragen 1, 2, 5, 6 und 7); Themenblöcke (Frage 14).
 
 **Begründung:** Jede Änderung hat einen Fall, in dem die Sitzung mit dem alten Text falsch handelte; ohne Antwort auf die Fragen entscheidet nach dem Umschalten jede Sitzung selbst.
 
@@ -22,8 +22,8 @@ Geprüft an: <Commit vor dem Anlegen>
 - **V5** ist keine Textänderung, sondern Frage 1.
 - Zusammen wachsen vier Texte um 409 Byte (mit Fragen 10 und 11: 456); der Kern Arbeitsplaner um 185, mit Frage 11 um 217. Die Grenzen halten (Sockel 1,2 KB, Kern 3 KB). Ladesumme mit allen Änderungen: Arbeitsplaner 4.438 → 4.754, Leitung 3.946 → 4.106, Disponent 5.564 → 5.663.
 
-**Fragen, je mit Votum** (Herkunft und Gegenargument je Frage in `vorschlaege-10-00.md`):
-1. Zählt ein Nein von dir unter „Bisher“ im Vorgang als erster Fehlversuch für „steckt fest“ (deine Obergrenze 21.11., 14:37)? **Votum ja:** nach deinem Fund ein Versuch der Fachkraft, beim nächsten Nein Sokrates, beim zweiten „steckt fest“ du (dein Wort 19.11., 22:17 „Rückläufer müssen aber auch weiter bearbeitet werden und dürfen nicht durchrutschen“).
+**Fragen, je mit Votum** (Herkunft und Gegenargument der Fragen 1 bis 13 und 15 in `vorschlaege-10-00.md`, Frage 14 aus `docs/vorgang/1893.md`):
+1. Zählt ein Nein von dir unter „Bisher“ im Vorgang als erster Fehlversuch für „steckt fest“ (deine Obergrenze 21.11., 14:37)? **Votum ja:** nach deinem Fund ein Versuch der Fachkraft, beim nächsten Nein Sokrates, beim zweiten „steckt fest“ du (dein Wort 19.11., 22:17 „Rückläufer müssen aber auch weiter bearbeitet werden und dürfen nicht durchrutschen“). Daran hängt bei Spike 1872 (Obergrenze zählt auch dein Nein).
 2. Ist das dritte „Beleg fehlt“ des Prüfers ein „nein“? **Ja,** sonst schleift ein schlechter Beleg ohne Grenze; Profil Prüfer etwa +60 Byte, Werkzeug bei Spike (neu anzulegen).
 3. Fehlt in der Rückmeldung nur eine Angabe (Zahl der Fälle, Quelle, Testausgabe), ist das „Beleg fehlt“, nicht „nein“? **Ja;** Profil Prüfer etwa +45 Byte.
 4. Darf der Prüfer einen fehlenden Beleg durch eigene Prüfung im Repo ersetzen? **Nein,** der Beleg ist für dich und das Archiv; kein Textwechsel.
@@ -35,15 +35,16 @@ Geprüft an: <Commit vor dem Anlegen>
 10. Gilt „Byte und Ladesumme“ aus V1 nur bei Ladetexten? **Ja** (+15 Byte); für Chefsache-Dateien prüft die Größe schon `vorlage_pruefen.py`.
 11. Gehören Deckel (etwa „ein Versuch“) und Lauffreigabe mit Quelle in jeden Auftrag? **Ja,** Kern Arbeitsplaner +32 Byte; sonst baut die Fachkraft darüber hinaus oder fragt zurück. Ungespielt.
 12. Ist ein Bauskript am Kaufmodell eine „fremde Datei“, sodass das Querprofil Fremde Inhalte zugeladen wird? **Ja,** nur wenn der Auftrag Kaufmodell oder Bauskript ändert (`CLAUDE.md`: Lizenz auch bei Bearbeitung des Originals).
-13. Deckel für V1: höchstens drei Prüfrunden, dann mit Restbefunden vorlegen? **Nein,** dein Wort 21.11., 21:37 und „Qualität vor Eile“; offen, ob „eine Runde ohne neuen Befund am Ladetext“ als Ende reicht: das entscheidest du.
+13. Deckel für V1: höchstens drei Prüfrunden, dann mit Restbefunden vorlegen? **Nein,** dein Wort 21.11., 21:37 und „Qualität vor Eile“; als Ende gilt eine Runde, die nichts Neues mit Ladetext-Wirkung findet (**Votum ja**).
 14. Themenblöcke 8 (Marktstart) und 9 (Übriges) haben kein Fachprofil; Spike gibt sie an der Kopie vorläufig dem Arbeitsplaner (`docs/vorgang/1893.md`). Bekommt Block 8 das Profil Markt und Recherche? **Ja für 8,** es ist das Fachprofil dafür; 9 bleibt beim Arbeitsplaner. Den Zuschnitt änderst nur du (`chefsache/themenbloecke.md`).
+15. Bekommt jeder offene Vorgang nach dem Umzug eine Vorgangsdatei, auch ohne Absatz „Zu …“? **Ja,** kein Textwechsel; an der Kopie hat jeder eine (Spike 08:23).
 - Ohne Votum, nur zur Kenntnis: im Falltest verknüpfte der Arbeitsplaner verwandte Vorgänge nicht; das verlangt kein Text, die Liste führt der Disponent. Wenn du es willst, ist es eine neue Zeile im Kern Arbeitsplaner.
 
 **Auswertung:**
 - **A (Empfehlung):** alles wie Votum; ich baue die Texte ein, je Commit mit Byte, danach frische Nachprüfung, bis nichts Neues kommt.
-- **B:** nur die gespielten Änderungen (V1, V2, V3); V4, V6 und die Textfragen 2, 3, 10, 11 erst nach dem Umschalten am ersten echten Fall.
+- **B:** nur die gespielten Änderungen (V1, V2, V3); V4, V6 und die Textfragen 2, 3, 10, 11 erst nach dem Umschalten am ersten echten Fall; die Fragen ohne Textwechsel (1, 4 bis 9, 12 bis 15) gelten wie bei A.
 - **Stärkstes Gegenargument gegen A:** V4, V6 und Frage 11 sind nicht gespielt, und jede Änderung an abgenommenen Kernen ist das „Aufblähen“, vor dem du am 20.11., 16:49 gewarnt hast (zusammen 456 Byte, mit den Fragen 2 und 3 zum Profil Prüfer etwa 560). Entkräftet: jede Änderung hat einen Fall, in dem der alte Text falsch führte, und die Grenzen halten; wer das Ungespielte nicht will, nimmt B.
 
-**Folgerungen:** bei A Einbau durch Sokrates, Archivzeile je Änderung und Frage, Werkzeugaufträge an Spike (Fragen 2, 5 neu; 6 ist 1868, 7 ist 1879), Themenblock 8 in `chefsache/themenbloecke.md`; dann Umschalten nach 1727h. Bei B nur V1 bis V3.
+**Folgerungen:** bei A Einbau durch Sokrates, Archivzeile je Änderung und Frage, Werkzeugaufträge an Spike (Fragen 2, 5 neu; 1 ist 1872, 6 ist 1868, 7 ist 1879), Themenblock 8 in `chefsache/themenbloecke.md`; dann Umschalten nach 1727h. Bei B nur V1 bis V3.
 
 Antwort: …
