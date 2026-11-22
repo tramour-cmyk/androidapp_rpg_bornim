@@ -45,6 +45,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 17:05 22.11.: gestartet Werkzeug Lena 1960 (1960-Ü1); Tagesbericht nicht (1959). 1957 fertig, Hand-Sperre 16:50 im lauf.py-Format (1957-Ü4); archiviert Elke(Prüfer), Dirk (1957 1,57 $, 2,90 $), Frieda (1520 0,71 $), Doris (1960 0,90 $). Wartet: 1520-Ü1 (Werkzeug belegt), 1675-Ü1 (Figur belegt, Dana 1570).
 - 16:58 22.11.: gestartet Emil Welt 1566 (1566-Ü1), Planer Doris 1960, Frieda 1520 (Sperre 16:56 von lauf.py); Tagesbericht nicht (1959).
 - 16:50 22.11.: von Hand gestartet (Sperre unten im lauf.py-Format, 1957-Ü4: Prüfer Elke 1957-Ü2, Planer Carla 1675, Doris 1566; ohne 1676: in 1570 enthalten; ohne Tagesbericht: 1959, lauf.py gibt den START trotz --ohne aus). Dirk 1957 fertig auf main 02a87d983; Anna, Elke(Planer), Diogenes, Sokrates alt archiviert (0,96 $ 1727, 1,05 $ 1957, 1,60 $ 1952, 41,56 $ 1727)
 - 16:32 22.11.: Startsperre 16:32 Start Werkzeug (1957 nach 1957-Ü1, von Hand wegen 1957); Start Sokrates `…78cQFrwz9xMJtEJtun`; neu 1959 (Werkzeug, Tagesbericht-Start abgelehnt)
