@@ -30,6 +30,12 @@ pruefe(l.endswith('Meldung: `vorgang.py rueckmeldung 1484 "Befunde: n …" --sit
 pruefe("\n" not in l, "Tester: echter Zeilenumbruch")
 l = lauf.mit_kern("START Tester | opus | env | repo | main | Tester | Durchspielen 22.11., 10:00, Vorgang 1990.")
 pruefe("rueckmeldung 1990 " in l, "Tester: Nummer aus der Nachricht (nicht Datum, Uhrzeit): " + l[-120:])
+# 1912 (D344.1): Zahl nach „Build“ oder „t“ ist der Build, nicht der Vorgang
+for _m in ("Teste Build 312, Vorgang 1990.", "Teste t312 für 1990.", "Teste Build 312 und dann 1990."):
+    l = lauf.mit_kern("START Tester | opus | env | repo | main | Tester | %s" % _m)
+    pruefe("rueckmeldung 1990 " in l, "1912: Tester meldet unter dem Build statt dem Vorgang (%s): %s" % (_m, l[-120:]))
+l = lauf.mit_kern("START Tester | opus | env | repo | main | Tester | Teste Build 312.")
+pruefe("rueckmeldung <Nr> " in l, "1912: nur Build genannt: Platzhalter statt Buildnummer: " + l[-120:])
 pruefe("Meldung:" not in lauf.mit_kern("START Tom | opus | env | repo | main | Tom – 1484: x | x"), "Meldezeile nur beim Tester")
 print("lauf_kern_test: %s" % ("gut" if not fehler else "%d Fehler" % fehler))
 sys.exit(1 if fehler else 0)
