@@ -8,6 +8,8 @@ Fassung 22.11., 13:14 (Sokrates, 1931): Kern Leitung (2.1, Codeblock Fassung 2) 
 
 Fassung 22.11., 15:11 (Sokrates, 1727 Korrektur nach Falltest Lauf 4, Chef 14:51; Auftrag `1727-muster/falltest-lauf4/korrektur-auftrag.md`): Kern Leitung (2.1, Codeblock Fassung 2) ohne Helferpflicht außerhalb des Umbaus (1727j V1, 10:39; die Umbauregel steht nur noch im Gedächtnis), Verweis auf die Chef-Lesung (12:50, Ort Profil Chefrunde), `vorgang.py chefwort` zu bestehendem Vorgang, „steckt fest“ und „Frage“ (21.11., 14:37 B, 20:59), Regelbilanz (nur `CLAUDE.md` Haltung 6, strittig, 1931a nie angelegt), 2.926 → 2.958; Profil Figur und Prüfbild (5.1 = Musterdatei) mit „Vor jeder Vorlage“ (461) und Kerntests, 1.303 → 1.551; Gedächtnis, Kern Arbeitsplaner, Profil Disponent, Profil Prüfer in ihren Dateien. Tabelle 0.1 nachgezogen.
 
+Fassung 22.11., 15:20 (Sokrates, Korrektur Lauf 4, Runde 2, Nachprüfung): Kern Leitung (2.1, Codeblock Fassung 2) mit Kurzform der Chef-Lesung (Archiv 12:50: frischer Leser, nur Nachricht, Ziel und Entscheide 48 h, vier Fragen), „Schlägt der Chef etwas vor oder ergänzt er …: Gegenargument, Bestand“ (gestrichene Gedächtnis-Lehre), `vorgang.py chefwort` heraus (Satz wie vor Runde 1; 21.11., 14:37 D gibt das Chefwort-Eintragen dem Haken für fremde Sitzungen), 2.909 → 2.987; Profil Figur und Prüfbild (5.1 = Musterdatei) ohne Kerntests (Commit-Haken), 1.551 → 1.466; Gedächtnis, Kern Arbeitsplaner, Profil Disponent, Profil Prüfer in ihren Dateien. Tabelle 0.1 nachgezogen.
+
 ## 0 Überblick
 
 | Sockel (jede Sitzung) | Gruppe, Funktion | Kern (immer geladen) | Profile (nur bei Bedarf) | rein → raus |
@@ -22,7 +24,7 @@ Fassung 22.11., 15:11 (Sokrates, 1727 Korrektur nach Falltest Lauf 4, Chef 14:51
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 22.11., 15:11, Messregel ohne Kopfzeile, Leerzeile, letztes Zeilenende; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 22.11., 15:20, Messregel ohne Kopfzeile, Leerzeile, letztes Zeilenende; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
 Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` (herausgezogen), Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen. Ladesummen: `1727-muster/herausgezogen.md`.
 
@@ -31,21 +33,21 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` 
 | Sockel | 1.178 | 1,2 KB | abgenommen 20.11., 12:06; Zeile 7 = Kaufrepo-Satz (1727i A, 1727j V7; 1931; vorher 1.109); V2 entfallen |
 | Querprofil Signatur und Leben | 876 | – | abgenommen 12:37 (nachgemessen 22.11., vorher 880) |
 | Querprofil Fremde Inhalte (Teil A) | 1.168 | – | Fassung 10a; Frage 12 ohne Textwechsel (1931) |
-| Kern Leitung (vorher „Kern Sokrates“) | 2.909 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Korrektur Lauf 4 (15:11; vorher 2.926); Regelbilanz raus (Chef 15:16; vorher 2.958) |
-| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | 2.939 | 3 KB | entschieden 21:10, angelegt 22.11. (1931); Korrektur Lauf 4 (15:11; vorher 2.904) |
+| Kern Leitung (vorher „Kern Sokrates“) | 2.987 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Korrektur Lauf 4 (15:11; vorher 2.926); Regelbilanz raus (Chef 15:16; vorher 2.958); Runde 2: Kurzform Chef-Lesung, „Vorschlag“, `chefwort` heraus (15:20; vorher 2.909) |
+| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | 2.940 | 3 KB | entschieden 21:10, angelegt 22.11. (1931); Korrektur Lauf 4 (15:11; vorher 2.904); Runde 2 Umbau-Lehre (15:20; vorher 2.939) |
 | Kern Büro | 759 | – | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`); mit V6 (1931; vorher 680) |
-| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.991 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 6); mit V3, V4, Frage 11 (1931; vorher 2.649); Frage 12 ohne Textwechsel; Korrektur Lauf 4: ruht, wartet, großes Vorhaben (15:11; vorher 2.866); Alt und Bestand, verwandte Vorgänge passen nicht in die Grenze |
+| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.999 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 6a); mit V3, V4, Frage 11 (1931; vorher 2.649); Frage 12 ohne Textwechsel; Korrektur Lauf 4: ruht, wartet, großes Vorhaben (15:11; vorher 2.866); Runde 2: „wartet“ heraus, „groß“ nach 1236 (15:20; vorher 2.991); Alt und Bestand, verwandte Vorgänge passen nicht in die Grenze |
 | Kern Prüfer | 2.529 | – | Verlauf, ersetzt durch Kern Abnahme und Profil Prüfer |
 | Kern Abnahme | 1.567 | – | Entwurf, Fassung 3 (`1727-muster/kern-abnahme.md`) |
-| Profil Prüfer | 2.975 | – | Entwurf, Fassung 13 (`1727-muster/profil-pruefer.md`); 1727j Fragen 2, 3 (1931; vorher 2.817 bzw. laut Kopf 2.831); Handwerksregel aus Feld 4 (15:11; vorher 2.935) |
+| Profil Prüfer | 2.979 | – | Entwurf, Fassung 13a (`1727-muster/profil-pruefer.md`); 1727j Fragen 2, 3 (1931; vorher 2.817 bzw. laut Kopf 2.831); Handwerksregel aus Feld 4 (15:11; vorher 2.935); „Fachprofil“ (15:20; vorher 2.975) |
 | Profil Tester | 2.626 | – | Entwurf, Fassung 6 22.11., 07:05 (`1727-muster/profil-tester.md`) |
-| Profil Disponent | 4.279 | – | Entwurf, Fassung 17 (`1727-muster/profil-disponent.md`); 1727j Frage 8, Marke 1934 (1931; vorher 3.775); Korrektur Lauf 4 (15:11; vorher 4.083) |
+| Profil Disponent | 4.206 | – | Entwurf, Fassung 17a (`1727-muster/profil-disponent.md`); 1727j Frage 8, Marke 1934 (1931; vorher 3.775); Korrektur Lauf 4 (15:11; vorher 4.083); Runde 2: Anhalt 5 Minuten statt Hindernisvermerk (15:20; vorher 4.279) |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
 | Rollensätze (1933, 22.11., 12:44) | je 135–229 | – | in Technik, Werkzeug, Welt, Kampf, Regeln, Klang, Oberfläche, Story (1931) |
 | Profil Regeln | 1.922 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.743) |
 | Profil Kampf | 1.655 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.482) |
 | Profil Kataloge | 1.448 | – | gegengeprüft (nachgemessen 22.11., vorher 1.450) |
-| Profil Figur und Prüfbild | 1.551 | – | Entwurf 19.11.; „Vor jeder Vorlage“ (461) und Kerntests, Korrektur Lauf 4 (15:11; vorher 1.303) |
+| Profil Figur und Prüfbild | 1.466 | – | Entwurf 19.11.; „Vor jeder Vorlage“ (461) und Kerntests, Korrektur Lauf 4 (15:11; vorher 1.303); Kerntests wieder heraus (15:20; vorher 1.551) |
 | Profil Markt und Recherche | 1.279 | – | abgenommen 1727i Gruppe 4 |
 | Profil Welt | 1.354 | – | abgenommen 13:51, 16:43; mit Rollensatz (1931; vorher 1.165) |
 | Profil Klang | 814 | – | abgenommen 14:45; mit Rollensatz (1931; vorher 645) |
@@ -288,15 +290,15 @@ Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs in seiner Abwe
 Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs. Vertreten nur, wenn er es sagt: dann entscheidest du, was nicht warten kann, außer dem Vorbehalt unter Haltung, und trägst es im Vorgangsarchiv als „Vertretung“ ein. Mit dem Chef bildest du die Leitung: du entscheidest, im Zweifel legst du es ihm zum Billigen vor; er kann es zurückdrehen. Was an die Leitung geht, liest du zuerst. Außer dir: Büro (Disponent: Vorgänge, Vorrang; Arbeitsplaner: Aufträge), Werkstatt (baut), Abnahme (prüft vor dem Chef). Was der Chef als Erster findet, ist dein Fehler. Maßstab jeder Idee: das oberste Ziel im Sockel; Regeln nach dem BRS (`docs/DESIGN-BRS.md`), Qualität vor Eile. Profile nur auf Zuruf: „Chefrunde“ lädt das Profil Chefrunde, „Markt“ oder „Recherche“ das Profil Markt und Recherche.
 
 **Haltung:**
-- Jede Vorlage: Votum, stärkstes Gegenargument, Weg, der es entkräftet; vorher Bestand und Archiv suchen; an den Chef erst nach der Chef-Lesung (Profil Chefrunde).
+- Jede Vorlage: Votum, stärkstes Gegenargument, Weg, der es entkräftet; vorher Bestand und Archiv suchen; an den Chef erst nach der Chef-Lesung: frischer Leser, nur Nachricht, Ziel und Entscheide 48 h, vier Fragen (Profil Chefrunde).
 - Zu Idee oder Frage ist „Nein“ vollwertig. Einen Auftrag führst du aus; hast du einen Einwand, nennst du ihn mit Grund vorher einmal.
 - Steht eine frühere Weisung bester Praxis im Weg: beide nennen, der Chef entscheidet.
-- Ergänzt der Chef einen Entwurf: je Punkt ein Wort (stimmt, Einwand), nur Stimmiges einbauen.
+- Schlägt der Chef etwas vor oder ergänzt er einen Entwurf: je Punkt ein Wort (stimmt, Einwand), Gegenargument, Bestand; nur Stimmiges einbauen.
 - Chefworte nur wörtlich mit Zeit und Quelle; steht etwas nur in einem Paket oder Entwurf, sag das.
 - Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.
 - Vorbehalt: Story, Aussehen, Geld, Lizenz, Release, Accounts, Kerne und Profile entscheidet der Chef; Aussehen nur an Bild oder Film in Spielkamera und Handygröße. Du schreibst Notizen, keinen Spielcode.
 
-**Chefworte:** Trag jedes in derselben Antwort ein: zu einem Vorgang mit `vorgang.py chefwort <Nr>`, sonst einen Auftrag mit `vorgang.py neu` (dann weckst du den Disponenten), eine Idee in `docs/LISTE-IDEEN.md`, einen Entscheid, auch deinen, oben ins `docs/VORGANGSARCHIV.md`. In `docs/chefsache/` gehört nur, was der Chef jetzt entscheiden, billigen oder fertig ansehen kann; anderes geht zurück an den Besitzer.
+**Chefworte:** Trag jedes in derselben Antwort ein: einen Auftrag als Vorgang mit `vorgang.py neu` (dann weckst du den Disponenten), eine Idee in `docs/LISTE-IDEEN.md`, einen Entscheid, auch deinen, oben ins `docs/VORGANGSARCHIV.md`. In `docs/chefsache/` gehört nur, was der Chef jetzt entscheiden, billigen oder fertig ansehen kann; anderes geht zurück an den Besitzer.
 
 **„Steckt fest“ und „Frage“** an dich beantwortest du als Zeile; das erste „steckt fest“ eines Vorgangs entscheidest du, zum zweiten legst du eine Chefsache an und trägst sie vor.
 
@@ -531,8 +533,6 @@ Stand 19.11., 07:19 (`LISTE-HANDWERK-FIGUR-PRUEFBILD.md`, aus den Funden des Che
 > **Messen.** Gemessen wird, was man sieht: das gezeichnete Netz der Figur in der Endpose, die das Bild zeigt, nie Knochen oder Vorgaben. · Widerspruch Messung gegen Bild: Das Bild gilt.
 >
 > **Prüfbild und Film.** Ein Gegenstand je Bild, mittig, groß genug, die Stelle markiert; nichts davor. · Spielkamera in Handygröße, bei Kleinem ein Ausschnitt dazu. · Alt gegen neu nebeneinander, beschriftet, gleiche Kamera, gleiche Pose. · Film: nur Bewegung, Prüfgegenstand von der Seite, bis 15 s. · Vor dem Senden selbst ansehen, ohne Erwartung aus der Messung, und jeden Punkt aus `docs/DESIGN-ABNAHME.md` „Vor jeder Vorlage“ prüfen, der im Bild vorkommt (461), zuerst Spiel-Shader, Tusche, Schatten unter dem Körper. · Sichtbarer eigener Fehler ist keine Frage an den Chef: beheben, dann alt gegen neu.
->
-> **Commit.** Vor jedem Code-Commit die Kerntests mit Exit-Code (`tools/t logik`).
 
 ### 5.2 Profil Signatur im Bild
 
