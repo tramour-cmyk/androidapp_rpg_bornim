@@ -39,7 +39,7 @@ LAUFBREMSE_NEIN = 2  # 1766 (Archiv 19.11., 13:02 Laufbremse): zweites „nein�
 SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis", "abgebrochen"}
 PRUEFER, DISPONENT = "Prüfer", "Disponent"  # 1739: neue Profile; lauf.py setzt bis tools/1727-SCHARF Diogenes, Ford ein
 COMMIT = re.compile(r"\b[0-9a-f]{7,40}\b")
-BLOCK = re.compile(r"(?m)^- \*\*(?P<zeit>[^*]+)\*\*, (?P<wer>[^\n]*?)(?: \(`[^`]*`\))?:\n> (?P<text>.*)$")
+BLOCK = re.compile(r"(?m)^- \*\*(?P<zeit>[^*]+)\*\*, (?P<wer>[^\n]*?)(?: \(`(?P<sid>[^`]*)`\))?:\n> (?P<text>.*)$")
 
 
 def worte(text):
@@ -85,11 +85,36 @@ def zustand_ruht(t, zeit, grund):
     return t.replace("\n## Rückmeldungen\n", "\n## Rückmeldungen\n\nZustand: %s seit %s (%s, 1763)\n" % (RUHT, zeit, grund), 1)
 
 
-def macher(text):
-    """1739: wer zuletzt „fertig“ meldete (Rückmeldungen der Datei, ohne die gerade eingetragene); None, wenn keiner."""
+def _listen_besitzer(nr):
+    try:
+        import startbar
+        b = next((d.get("besitzer") for d in startbar.zeilen_liste() if d["nr"] == nr), None)
+    except Exception:
+        b = None
+    b = (b or "").strip()
+    return b if b and b not in ("-", "–") else None
+
+
+def macher(text, nr=None):
+    """1739: wer zuletzt „fertig“ meldete (Rückmeldungen der Datei, ohne die gerade eingetragene); None, wenn keiner.
+    1888 (Lauf 3 Prüfer-1 L9): steht dort „unbekannt“ (Sitzung ohne Besetzungszeile), die Rolle ihrer Sitzung aus der Besetzung
+    von jetzt, sonst der Besitzer des Vorgangs in der Liste (Nummer aus der Kopfzeile „# NR · …“); erst dann None (Disponent)."""
     ms = [m for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")) if "fertig" in worte(m.group("text"))]
-    w = ms[-1].group("wer").strip() if ms else ""
-    return w if w and w != "unbekannt" else None
+    if not ms: return None
+    w = ms[-1].group("wer").strip()
+    if w and w != "unbekannt": return w
+    sid = ms[-1].group("sid") or ""
+    if sid:
+        try:
+            import chefwort
+            r = chefwort._rolle_aus_besetzung(sid)
+            if r: return r
+        except Exception:
+            pass
+    if nr is None:
+        k = re.match(r"#\s*(\d+(?:\.\d+)?[a-z]?)\b", text or "")
+        nr = k.group(1) if k else None
+    return _listen_besitzer(nr) if nr else None
 
 
 def ist_routine(nr):
@@ -154,13 +179,7 @@ PRUEFFRAGE_FEHLT = re.compile(r"(?i)^\W*hinweis\W+pr(ü|ue)ffrage\w*\s+fehl")
 
 def besitzer(nr, vorher):
     """1877: Besitzer des Vorgangs aus der Liste (bis zur Umschaltung); ohne Besitzer der Macher (letztes „fertig“), sonst None."""
-    try:
-        import startbar
-        b = next((d.get("besitzer") for d in startbar.zeilen_liste() if d["nr"] == nr), None)
-    except Exception:
-        b = None
-    b = (b or "").strip()
-    return b if b and b not in ("-", "–") else macher(vorher)
+    return _listen_besitzer(nr) or macher(vorher, nr)
 
 
 def hinweis_weitergabe(nr, text, zeit, wer, vorher):
@@ -239,7 +258,7 @@ def eintragen(nr, text, wer, sid=""):
         elif w & {"steckt fest", "Frage", "wirkt nein"}:
             an, was = SOKRATES, "%s: Rückmeldung %s von %s lesen (1763 C)%s" % (" und ".join(sorted(w & {"steckt fest", "Frage", "wirkt nein"})), zeit, wer or "unbekannt",
                                                                             "; gelöst: `vorgang.py warte %s –`" % nr if "steckt fest" in w else "")
-            m = macher(vorher) if "nein" in w else None
+            m = macher(vorher, nr) if "nein" in w else None
             if m:  # 1873 (Lauf 3 Prüfer-2 Lücke 1): die Mängelsätze erreichen auch den Macher; er wartet, bis Sokrates löst
                 aus = [(an, was), (m, "Rückläufer (nein des Prüfers, steckt fest, Rückmeldung %s von %s): „%s“; erst nach Sokrates (`wartet auf`) nachbessern, dann `vorgang.py rueckmeldung` „fertig“ mit Commit (1873)" % (zeit, wer or "unbekannt", ue._rein(text)[:160]))]
         elif "nein" in w and z["nein"] == LAUFBREMSE_NEIN:

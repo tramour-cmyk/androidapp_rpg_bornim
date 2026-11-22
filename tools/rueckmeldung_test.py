@@ -19,7 +19,9 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "| 9006 | Treppe zu steil | Tom | K | startbar | – | – | – | E Welt | – |\n"
     "| 9011 | Kerze im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n"
     "| 9012 | Kerze im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
-    "| 9013 | Nachtstopp-Haken | Spike | K | startbar | – | – | – | B Werkzeuge | – |\n")
+    "| 9013 | Nachtstopp-Haken | Spike | K | startbar | – | – | – | B Werkzeuge | – |\n"
+    "| 9014 | Fackel im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9015 | Fackel im Keller | Jerry | K | startbar | – | – | – | E Welt | – |\n")
 open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("**Nächste freie Vorgangsnummer: 9100**\n")
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Prüfer | [P](https://claude.ai/code/session_PR1) | – | – | 21.11. |\n")
@@ -248,6 +250,21 @@ soll("1877: dazu Zeile Hinweis an Sokrates", re.search(r"\| 9013-Ü2 \| Sokrates
 soll("1877: keine Zeile an den Disponenten", "| Disponent |" not in t, t[-600:])
 rc, out = vg("rueckmeldung", "9013", "Hinweis: Text klein", "--sitzung", "Disponent", zeit="21.11., 22:41")
 soll("1877: auch unter dem neuen Profilnamen", re.search(r"\| 9013-Ü3 \| Spike \|", datei("9013")), datei("9013")[-400:])
+
+# 1888 (Lauf 3 Prüfer-1 L9): „fertig“ einer Sitzung ohne Besetzungszeile („unbekannt“) → Rückläufer trotzdem an die Fachkraft
+def lauf_als(sid, *a, zeit="21.11., 22:50"):
+    p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py")] + list(a), env=dict(ENV, BORNIM_JETZT=zeit, BORNIM_SITZUNG=sid), capture_output=True, text=True, cwd=A)
+    return p.returncode, p.stdout + p.stderr
+lauf_als("session_FREMD", "rueckmeldung", "9014", "fertig, Commit abc1234, Bild t301")
+soll("1888: fertig ohne Besetzung als „unbekannt“ eingetragen", "unbekannt (`session_FREMD`)" in datei("9014"), datei("9014")[-400:])
+rc, out = vg("rueckmeldung", "9014", "nein: Fackel zu hell", zeit="21.11., 22:55")
+soll("1888: Rückläufer an den Besitzer der Liste (Tom), nicht an den Disponenten", re.search(r"\| 9014-Ü\d+ \| Tom \| Rückläufer \(nein des Prüfers", datei("9014")) and "Macher unbekannt" not in datei("9014"), (out, datei("9014")[-500:]))
+_bp = os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"); _b = open(_bp, encoding="utf-8").read()
+lauf_als("session_FK2", "rueckmeldung", "9015", "fertig, Commit def5678", zeit="21.11., 22:56")
+open(_bp, "w", encoding="utf-8").write(_b + "| Fachkraft | [F](https://claude.ai/code/session_FK2) | 9015 | – | 21.11. |\n")  # Zeile kommt nach dem fertig dazu
+rc, out = vg("rueckmeldung", "9015", "nein: Fackel zu dunkel", zeit="21.11., 22:57")
+open(_bp, "w", encoding="utf-8").write(_b)
+soll("1888: Rolle der Sitzung aus der Besetzung von jetzt (Fachkraft) vor dem Listenbesitzer", re.search(r"\| 9015-Ü\d+ \| Fachkraft \| Rückläufer", datei("9015")), (out, datei("9015")[-500:]))
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
