@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 356 · 1910, damit 1872; 1911; 1876 (lesend, Weiter-Haken; Kopie `acd9e7b08`; 22.11., 10:35–10:38)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1910 greift: Laufbremse liest „nein Prüfer“ (nur Rückmeldungen), Obergrenze A weiter „nein“ mit Chef-Nein. Damit greift 1872 (D342.1 geschlossen).
+- 1911 greift nicht: **D345.1** → 1914 (Spike): `uebergabe_zeilen` liest das rohe Feld „wartet auf“, nicht `startbar.offen_warte`, und hält auch, wenn der Vorgang auf den Empfänger selbst wartet. Nachgestellt (Testaufbau 9011, Zeile an Tom): „wartet auf Tom“, „20.11.“ (vergangen), „1001“ → jeweils NICHTS, nie zugestellt.
+- 1876 greift nicht: **D345.2** → 1915 (Spike): `chefwort.BETRIEB` trifft Spielfunde: „Die Wachen sollen nicht mehr laufen, sondern stehen.“, „Gegner im Wald sollen weniger laufen, mehr lauern.“ → Sokrates statt Arbeitsplaner. `--an` und „B Abläufe“ → Sokrates wirken.
+
 ## Lauf 355 · 1875 Empfänger „Fachkraft“ (lesend, Weiter-Haken; Kopie `5643b49f8`; 22.11., 10:33–10:35)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün.
