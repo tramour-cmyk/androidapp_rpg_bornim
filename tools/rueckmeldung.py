@@ -337,11 +337,14 @@ def eintragen(nr, text, wer, sid=""):
             aus = hinweis_weitergabe(nr, text, zeit, wer, vorher); an, was = aus[0]
         elif "abgebrochen" in w and z["abgebrochen"] >= MAX_ABBRUCH:
             an, was = SOKRATES, "steckt fest (%d. „abgebrochen“, AB:12): Rückmeldung %s von %s lesen (1797)" % (z["abgebrochen"], zeit, wer or "unbekannt")
+        elif "abgebrochen" in w and sid and any((m_ := ue.ANG.match(x["z"])) and m_.group("sid") == sid for x in ue.zeilen(t)):
+            an = was = None  # 1871 (1782 mit 1797): eigene angenommene Zeile wird wieder offen, lauf.py startet neu; kein zweiter Neustart
         elif "abgebrochen" in w:
             an, was = DISPONENT, "abgebrochen (Rückmeldung %s von %s): einmal neu starten, Auftrag unverändert; beim zweiten Mal geht es an Sokrates (1797, AB:12)" % (zeit, wer or "unbekannt")
         else:
             an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr), "ja" in w and ist_werkzeug(nr))
-        if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, kein Signalwort zum Weitergeben")
+        if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, Neustart über die eigene Übergabezeile (1782)"
+                              if "abgebrochen" in w else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
         start = max(ks, default=0) + 1
         k = "%s-Ü%d" % (nr, start)

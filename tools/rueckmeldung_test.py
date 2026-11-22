@@ -23,7 +23,8 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "| 9014 | Fackel im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
     "| 9015 | Fackel im Keller | Jerry | K | startbar | – | – | – | E Welt | – |\n"
     "| 9016 | Tür im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n"
-    "| 9017 | Tor im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n")
+    "| 9017 | Tor im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9018 | Tür im Turm | Tom | K | startbar | – | – | – | E Welt | – |\n")
 open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("**Nächste freie Vorgangsnummer: 9100**\n")
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Prüfer | [P](https://claude.ai/code/session_PR1) | – | – | 21.11. |\n")
@@ -411,6 +412,19 @@ soll("1797 kein Auftrag nötig → Disponent", "OFFEN 9008-Ü2 an Disponent" in 
 rc, out = rm_lauf("rueckmeldung", "9009", "fertig 1a2b3c4d. Hinweis: Prüffrage 3 fehlt", zeit="21.11., 20:44")
 soll("1797 fertig mit Hinweis: Prüfer und zweite Zeile an Disponent", "OFFEN 9009-Ü1 an Prüfer" in out
      and "| 9009-Ü2 | Disponent | Hinweis (Rückmeldung 21.11., 20:44" in datei("9009") and "Prüffrage 3 fehlt" in datei("9009"), datei("9009"))
+
+# 1871 (Merge 1782 mit 1797): Halter einer angenommenen Übergabezeile meldet „abgebrochen“ → nur ein Neustart (Zeile wieder offen,
+# lauf.py gibt sie weiter), keine zweite Neustart-Bitte an den Disponenten
+vg("uebergabe", "9018", "Tom", "Tür im Turm ölen", zeit="21.11., 23:30")
+lauf_als("session_TUER", "annehmen", "9018-Ü1", "--frist", "30", zeit="21.11., 23:31")
+soll("1871: Tom nimmt 9018-Ü1 an", "angenommen session_TUER" in datei("9018"), datei("9018")[-400:])
+rc, out = lauf_als("session_TUER", "rueckmeldung", "9018", "abgebrochen: Godot hängt beim Import", zeit="21.11., 23:35")
+t = datei("9018")
+soll("1871: abgebrochen mit eigener Übergabezeile → wieder offen, kein Disponent", "wieder 1" in t and "| Disponent |" not in t, (out, t[-600:]))
+lauf_als("session_TUER2", "annehmen", "9018-Ü1", "--frist", "30", zeit="21.11., 23:40")
+rc, out = lauf_als("session_TUER2", "rueckmeldung", "9018", "abgebrochen: wieder hängt der Import", zeit="21.11., 23:50")
+t = datei("9018")
+soll("1871: zweites abgebrochen → genau eine Zeile steckt fest an Sokrates, kein Disponent", t.count("| Sokrates |") == 1 and "| Disponent |" not in t, (out, t[-700:]))
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
