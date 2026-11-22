@@ -20,8 +20,13 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Ford",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 40864 Bytes (Grenze 30000), Erledigtes streichen",
+  "text": "docs/ARBEIT-BETRIEB.md hat 41406 Bytes (Grenze 30000), Erledigtes streichen",
   "vorgang": "1688"
+ },
+ "groesse:docs/ARBEIT-TEAM-SPIKE.md": {
+  "besitzer": "Spike",
+  "seit": "2026-11-22T08:09+01:00",
+  "text": "docs/ARBEIT-TEAM-SPIKE.md hat 30139 Bytes (Grenze 30000), Erledigtes streichen"
  },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Jerry",
