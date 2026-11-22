@@ -128,18 +128,30 @@ def atomar_dateien(pfade, aendern, nachricht):
         if rc or not c: raise Fehler("commit-tree fehlgeschlagen")
         rc, _, err = _git("push", "-q", "origin", "%s:refs/heads/main" % c)
         if rc == 0:
-            _nachziehen(c, neu)
+            _nachziehen(c, neu, basis)
             return ergebnis
         if not re.search(r"rejected|fetch first|non-fast-forward|stale info|cannot lock ref", err): raise Fehler("Push abgelehnt: " + err.strip()[:200])
     raise Fehler("nach %d Versuchen nicht gepusht (zu viele gleichzeitige Schreiber)" % VERSUCHE)
 
-def _nachziehen(c, dateien):
-    """Lokale Kopie auf den neuen Stand: schnell vorspulen, wenn möglich; sonst nur die Dateien ({pfad: text}), damit die Sitzung sie gleich liest."""
+def _nachziehen(c, dateien, basis=None):
+    """Lokale Kopie auf den neuen Stand: schnell vorspulen, wenn möglich; sonst nur die Dateien ({pfad: text}), damit die Sitzung sie gleich liest.
+    1918 (D348.1): eine Datei, deren lokaler Stand (HEAD) vom gepushten Ausgangsstand BASIS abweicht (eigener Commit voraus), bleibt stehen;
+    überschreiben löschte den eigenen Commit aus der Arbeitskopie. Der nächste `git pull --rebase` führt beide zusammen."""
     _git("fetch", "-q", "origin", "main")
     if _git("merge", "--ff-only", "-q", "origin/main")[0] == 0: return
     for pfad, neu in dateien.items():
-        if _git("status", "--porcelain", "--", pfad)[1] == "" and _git("ls-files", "--error-unmatch", pfad)[0] == 0:
-            open(os.path.join(WURZEL, pfad), "w", encoding="utf-8").write(neu)
+        if _git("status", "--porcelain", "--", pfad)[1] != "" or _git("ls-files", "--error-unmatch", pfad)[0] != 0: continue
+        if basis and _git("rev-parse", "HEAD:" + pfad)[1] != _git("rev-parse", "%s:%s" % (basis, pfad))[1]:
+            print("Hinweis: %s lokal mit eigenem Commit voraus, nicht nachgezogen; vor dem nächsten Commit `git pull --rebase` (1918)" % pfad)
+            continue
+        open(os.path.join(WURZEL, pfad), "w", encoding="utf-8").write(neu)
+
+def ungepusht(pfad):
+    """1918 (D348.1): Grund, warum PFAD in der lokalen Kopie Ungepushtes hat („geändert, nicht committet“, „eigener Commit voraus“), sonst ""."""
+    if _git("status", "--porcelain", "--", pfad)[1].strip(): return "geändert, nicht committet"
+    _git("fetch", "-q", "origin", "main")
+    if _git("log", "--format=%h", "origin/main..HEAD", "--", pfad)[1].strip(): return "eigener Commit voraus"
+    return ""
 
 def _titel(nr):
     try:

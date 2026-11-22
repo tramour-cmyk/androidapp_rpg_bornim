@@ -649,9 +649,15 @@ def startsperre_zeile(sperren, sperr_nr, jetzt=None):
 
 def protokoll_pushen(anhaengen, nachricht):
     """1892: ARBEIT-BETRIEB.md auf origin/main um anhaengen(alter_text) ändern, ein Commit, gepusht (uebergabe.atomar_dateien, auf den gelesenen
-    Stand); die lokale Datei bleibt unverändert. True bei Erfolg, sonst False (Grund ausgegeben)."""
+    Stand); die lokale Datei bleibt unverändert. True bei Erfolg, sonst False (Grund ausgegeben).
+    1918 (D348.1): hat die lokale ARBEIT-BETRIEB.md Ungepushtes (geändert oder eigener Commit voraus), kein Push von fern: False, der
+    Aufrufer schreibt die Sperre lokal dazu und der Disponent pusht beides selbst (sonst Konflikt beim pull oder Fords Zeile fällt weg)."""
     try:
         import uebergabe as _ue
+        grund = _ue.ungepusht("docs/ARBEIT-BETRIEB.md")
+        if grund:
+            print("WARNUNG Startsperre nicht von fern gepusht: lokale ARBEIT-BETRIEB.md %s (1918)" % grund)
+            return False
         _ue.atomar_dateien(["docs/ARBEIT-BETRIEB.md"], lambda alt: ({"docs/ARBEIT-BETRIEB.md": anhaengen(alt["docs/ARBEIT-BETRIEB.md"]).rstrip("\n") + "\n"}, True), nachricht)
         return True
     except Exception as e:

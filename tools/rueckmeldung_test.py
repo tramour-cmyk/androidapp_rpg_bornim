@@ -345,6 +345,20 @@ import importlib.util as _iu
 _spec = _iu.spec_from_file_location("sh92", os.path.join(HIER, "startsperre-haken.py")); _sh = _iu.module_from_spec(_spec); _spec.loader.exec_module(_sh)
 _jz = _j.replace(tzinfo=lauf.BERLIN) + _dt92.timedelta(minutes=2)
 soll("1892: Startsperre-Haken erkennt die gepushte Sperre", _sh.letzte_sperre(_orig, "Sokrates", _jz) is not None, _orig[-200:])
+# 1918 (D348.1, Lauf 358 zu 1892): lokale ARBEIT-BETRIEB.md mit Ungepushtem → nicht fern pushen (False, lauf.py schreibt lokal)
+_pb = os.path.join(A, "docs", "ARBEIT-BETRIEB.md")
+open(_pb, "a").write("- 10:50 22.11.: Ford lokal, nicht committet\n")
+_vor = g("rev-parse", "origin/main", cwd=A)
+soll("1918 (a): geändert, nicht committet → False, origin unverändert, lokale Zeile bleibt",
+     lauf.protokoll_pushen(lambda t: t.rstrip("\n") + "\n" + _z + "\n", "x") is False and (g("fetch", "-q", "origin", "main", cwd=A) or g("rev-parse", "origin/main", cwd=A)) == _vor
+     and "Ford lokal, nicht committet" in open(_pb).read(), g("log", "--oneline", "-2", "origin/main", cwd=A))
+g("commit", "-qam", "Betrieb: Ford lokal", cwd=A)
+soll("1918 (b): eigener Commit voraus → False, origin unverändert, Fords Zeile bleibt",
+     lauf.protokoll_pushen(lambda t: t.rstrip("\n") + "\n" + _z + "\n", "x") is False and (g("fetch", "-q", "origin", "main", cwd=A) or g("rev-parse", "origin/main", cwd=A)) == _vor
+     and "Ford lokal, nicht committet" in open(_pb).read(), g("log", "--oneline", "-2", "origin/main", cwd=A))
+# 1918 (b) allgemein: _nachziehen überschreibt keine Datei, deren lokaler Stand vom gepushten Ausgangsstand abweicht
+_ue92.atomar_dateien(["docs/ARBEIT-BETRIEB.md"], lambda alt: ({"docs/ARBEIT-BETRIEB.md": alt["docs/ARBEIT-BETRIEB.md"] + "- fern\n"}, True), "Test 1918 fern")
+soll("1918 (b): atomar_dateien bei eigenem Commit voraus: lokale Datei behält Fords Zeile", "Ford lokal, nicht committet" in open(_pb).read(), open(_pb).read()[-300:])
 _ue92.WURZEL = "/gibt/es/nicht"
 soll("1892: Push scheitert: False (lauf.py schreibt dann lokal)", lauf.protokoll_pushen(lambda t: t + "x", "x") is False)
 _ue92.WURZEL = _alt_w
