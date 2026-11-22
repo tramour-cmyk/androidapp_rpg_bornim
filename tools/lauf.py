@@ -635,7 +635,10 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
         for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
             if not n.endswith(".md"): continue
             for z in _ue.zeilen(open(os.path.join(d, n), encoding="utf-8").read()):
-                if z["z"] == "offen" and z["an"].lower() != "sokrates": je.setdefault(z["an"], []).append((z["k"], z["was"]))
+                if z["z"] == "offen" and z["an"].lower() != "sokrates": je.setdefault(z["an"], []).append((z["k"], z["was"], z["seit"]))
+        rang = _ue.buero_rang(docs or DOCS)  # 1796: Büro-Folge Eilt, Fund des Chefs, Themenblock, Eingangszeit
+        for an in je:
+            je[an] = [(k, w) for k, w, s in sorted(je[an], key=lambda x: rang(_ue.nr_aus(x[0]), x[1], x[2]))]
     except Exception as e:
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
     scharf = os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
