@@ -522,7 +522,8 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     eigen, ende = gruppe(L, besitzer)
     L.insert(eigen[0] if oben and eigen else ende, startbar.zeile_text(d))
     schreiben(startbar.LISTE, "\n".join(L))
-    print("vorgang.py: %s angelegt (%s, %s, %s); Einzelheiten als „Zu %s“ in den Vorrat, dann pushen, dann die Nummer nennen" % (nr, bereich, kl, besitzer, nr))
+    wohin = "in docs/vorgang/%s.md (Vorräte fallen, 1871)" % nr if startbar.NEU else "als „Zu %s“ in den Vorrat" % nr
+    print("vorgang.py: %s angelegt (%s, %s, %s); Einzelheiten %s, dann pushen, dann die Nummer nennen" % (nr, bereich, kl, besitzer, wohin))
     if not titel.startswith(SYSTEM): waechter(nr, titel, bereich)
     return nr
 
