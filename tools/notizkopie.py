@@ -5,7 +5,7 @@ Zweig main um, obwohl die Notizkopie ihn hält; deren Index bleibt auf dem alten
 `notiz.sh` tat bei schmutziger Kopie nichts, der Stop-Haken drängte zum Pushen, das Zurücksetzen lehnte die Auto-Prüfung ab, die
 Sitzung fragte den Chef.
 Abhilfe: Eine geänderte Datei ist alt, wenn Index und Datei je dem Stand von HEAD oder einem früheren Stand auf origin/main gleichen
-(fehlend zählt als früherer Stand) oder die Datei älter als 2 h ist. Alte Dateien: erst Sicherung (Zweig backup-notiz-<Zeit>, enthält
+(fehlend nur, wenn main laut Reflog früher ohne die Datei stand) oder die Datei älter als 2 h ist. Alte Dateien: erst Sicherung (Zweig backup-notiz-<Zeit>, enthält
 Index und Dateien), dann auf HEAD zurück. Junge eigene Änderungen bleiben. Muster: rueckschritt() in gepusht-haken.py, Sicherung
 wie 1701 in notiz.sh; `git stash create` legt die Sicherung an, ohne die Kopie zu ändern.
   notizkopie.py [PFAD]   räumt PFAD (Vorgabe ../bornim-main) auf, eine Zeile Ausgabe, wenn etwas geschah oder Junges bleibt.
@@ -24,14 +24,28 @@ def _git(wo, *a, ok=False):
 
 def _blob(wo, ref, rel):
     """Blob von REL in REF (\":\" = Index), None, wenn dort nicht vorhanden."""
-    return _git(wo, "rev-parse", "-q", "--verify", "%s:%s" % (ref, rel), ok=True).strip() or None
+    return _git(wo, "rev-parse", "-q", "--verify", (":0:" if ref == ":" else ref + ":") + rel, ok=True).strip() or None
 
 
 def _geaendert(wo):
-    aus = []
-    for z in _git(wo, "status", "--porcelain", "-z", "--untracked-files=no").split("\0"):
-        if len(z) > 3: aus.append(z[3:])
+    """Geänderte Pfade aus `status -z`; bei Umbenennung/Kopie (R, C) folgt der alte Pfad ohne Statusvorsatz (Pit 19:14, 1963-Ü5)."""
+    aus, teile, i = [], _git(wo, "status", "--porcelain", "-z", "--untracked-files=no").split("\0"), 0
+    while i < len(teile):
+        z = teile[i]; i += 1
+        if len(z) < 4: continue
+        aus.append(z[3:])
+        if "R" in z[:2] or "C" in z[:2]:
+            if i < len(teile) and teile[i]: aus.append(teile[i])
+            i += 1
     return aus
+
+
+def _fehlte_frueher(wo, rel):
+    """Fehlte REL in einem früheren Stand von main (Reflog, also wo main vor `checkout -B` stand)? Nur dann ist eine Löschung
+    ein Altstand; eine junge eigene Löschung (git rm, rm) einer Datei, die main immer hatte, bleibt (Pit 19:14, 1963-Ü3)."""
+    for c in dict.fromkeys(_git(wo, "log", "-g", "-n", "50", "--format=%H", "refs/heads/main", ok=True).split()):
+        if _blob(wo, c, rel) is None: return True
+    return False
 
 
 def alt(wo, rel):
@@ -47,7 +61,9 @@ def alt(wo, rel):
     if not frueher: return False  # ohne Geschichte auf main: nicht von dort, also eigen
     datei = _git(wo, "hash-object", "--", rel).strip() if os.path.isfile(pfad) else None
     for b in (_blob(wo, ":", rel), datei):
-        if b != kopf and b is not None and b not in frueher: return False
+        if b is None:
+            if kopf is not None and not _fehlte_frueher(wo, rel): return False  # junge Löschung
+        elif b != kopf and b not in frueher: return False
     return True
 
 
