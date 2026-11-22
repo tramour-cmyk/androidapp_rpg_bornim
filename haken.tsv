@@ -1287,3 +1287,4 @@
 2026-11-22 13:13:01	probelauf	725 (D72): Ziel `cd $UNBEKANNT_1938` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home	claude/spike-1871-umschalten
 2026-11-22 13:13:10	probelauf	725 (D72): Ziel `cd $UNBEKANNT_1938` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home	claude/spike-1871-umschalten
 2026-11-22 13:17:13	probelauf	725 (D72): Ziel `cd $UNBEKANNT_1938` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home	HEAD
+2026-11-22 13:19:37	commit-pruefung	LISTE-VORGAENGE.md: 1942: Zeile über 400 Zeichen (Einzelheiten als „Zu 1942“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
