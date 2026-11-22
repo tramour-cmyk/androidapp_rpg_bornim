@@ -1217,3 +1217,4 @@
 2026-11-22 08:29:35	commit-pruefung	docs/entwurf/1727-muster/vorlage-1727h-umschalten.md: Uhrzeit 08:45 liegt nach jetzt (08:29)	main
 2026-11-22 08:29:35	commit-pruefung	docs/entwurf/1727-muster/vorlage-1727i-texte.md: Uhrzeit 08:50 liegt nach jetzt (08:29)	main
 2026-11-22 08:31:35	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30450 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
+2026-11-22 08:34:04	probelauf	647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen … übernehmen und besser machen“): Push auf claude/spike-1893-probe ändert Spielcode (godot/project.godot), a	HEAD
