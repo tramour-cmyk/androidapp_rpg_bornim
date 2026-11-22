@@ -17,17 +17,19 @@ Geprüft an: <Commit vor dem Anlegen>
 - Archiv 21.11., 11:17 (Reihenfolge mit Falltest) und 14:37 (im Eintrag A–D: „umgeschaltet erst nach Falltest und grünen Werkzeugen“).
 - Lauf 3, die 9 „teilweise“: 3 Werkzeuglücken mit Vorgang (D1, D3, D5; D5 ungeprüft gegen 1760), 4 Gesprächsfragen (A3, A5, A7 in 1727j; A1 ohne Vorschlag), 2 an ungespielten Texten (P1, P7: Profil Prüfer F9 bzw. F11); dazu „nicht“ P6 (Text, ungespielt). Ungespielt insgesamt: Profil Prüfer F8–F11, V4 Feld 7, Profil Disponent F15.
 - Umschalt-Commit an der Kopie (Spike 08:00, `docs/vorgang/1871.md`; Zweig `claude/spike-1871-umschalten`, `425c46a00`): Umzug von 220 „Zu“-Absätzen, `1727-SCHARF`, Build-Sperre nur Build-Macher; Werkzeugtests 48/48 grün, aber an eigenen Daten. **Befund: die umgestellte Liste ist nicht lesbar** für `startbar.py`, `vorgang.py --rolle` und die Commit-Prüfung (verlangen die Spalte Besitzer); Umbau von rund 15 Werkzeugen als 1893, der größte Brocken: **ohne 1893 startet nach dem Umschalten nichts.** `probelauf.py` fällt erst mit `settings.json` (1859), das schreibt nur du.
-- Werkzeuge mit „vor Umstellung: ja“ und noch nicht gebaut (`werkzeuge.md`): <Liste und Dauer aus Spikes Stand 09:25>.
+- Rest bis umschaltbar (Spike 08:12, Schätzung): 1893 etwa 4 h; Ladetexte nach `docs/profile/`, `docs/leitung/gedaechtnis.md`, Grund „Obergrenze A/B“ in `MUSTER.md` 30 Min.; Stilllegung der alten Routinen (C, Rest) 2 h; übrige Muss aus `werkzeuge.md` (Rufnamen Rest 1739, Testbitte-Schreiber 1858, Größen-Skript 1866) 2–3 h; `settings.json` dein Wort (1727k). Summe etwa 8–9 h: frühestens heute Nachmittag. **Mindestfassung** (nur 1893 und Ladetexte, Rest danach): etwa 13:00; dann laufen alte Spiegelzeilen und die Mittwochsrunde weiter und schreiben falsche Zeilen an Perikles, bis C fertig ist.
+- Umzug an der Kopie: 325 offene Vorgänge, jeder bekommt eine Vorgangsdatei (fehlende legt der Umschalt-Lauf an).
 - Nachprüfungen dieses Entwurfs: 1: 18, 2: 13, 3a: 12, 3b: 12, 3c: 6, 3d: 6 neue Befunde.
 
 **Auswertung:**
 - **A (Empfehlung):** kein Lauf 4; umschalten nach grünen Werkzeugen und 1727i, 1727j. Kosten: nur die Werkzeuge.
 - **B:** Lauf 4 nur für den Prüfertext (P1, P4, P6, P7 gegen F11), eine Sitzung, etwa 15 Minuten; dann wie A.
 - **C:** Lauf 4 für alle ungespielten Texte (Prüfer F8–F11, V4 Feld 7, Disponent F15), zwei bis drei Sitzungen; dann wie A.
-- **D:** heute umschalten mit dem, was steht; fehlende Werkzeuge als Muss danach. Ohne Rufnamen und ohne umgestellte Liste greifen Disponent und Arbeitsplaner ins Leere.
+- **A′ (Mindestfassung):** wie A, aber umschalten schon nach 1893 und den Ladetexten (etwa 13:00), C und Rest danach. Schneller; bis C fertig ist, falsche Zeilen an Perikles.
+- **D:** jetzt umschalten mit dem, was steht. Nicht machbar: ohne 1893 kann kein Werkzeug die neue Liste lesen, es startet nichts.
 - **Stärkstes Gegenargument gegen A:** die Texte, an denen P1, P4, P6, P7 hängen, wurden viermal ungespielt geändert (F8–F11); jeder Fehler dort zeigt sich erst am echten Rückläufer, und den findest du als Erster (Haltung 7). Entkräftet nur teilweise: jede Fassung ging durch eine Nachprüfung, die die Soll-Fälle am Text nachvollzog (3d: P1, P4, P6, P7 liefern das Soll); gespielt ist das nicht. Wer das nicht hinnehmen will, nimmt B: eine Sitzung.
-- **Rückweg:** `git revert` des Umschalt-Commits stellt Liste und Vorräte zurück, nicht aber die Einträge, die danach in Vorgangsdateien und in der neuen Liste entstehen. Darum gilt der Rückweg ohne Nacharbeit nur bis zum ersten neuen Eintrag; danach braucht er einen Rückumzug (Werkzeug 1871 an der Kopie mitbauen).
+- **Rückweg:** `git revert` des Umschalt-Commits stellt Liste und Vorräte zurück, nicht aber die Einträge, die danach in Vorgangsdateien und in der neuen Liste entstehen. Am selben Tag reicht der Revert (30 Min.); danach braucht es ein Rückumzug-Skript (nicht gebaut, etwa 1 h; jeder umgezogene Absatz trägt seine Quelle, jede Vorgangsdatei die alte Listenzeile), Nacharbeit 1–2 h je Tag Betrieb (Spike 08:12).
 
-**Folgerungen:** bei A: Spike baut die Liste fertig, meldet „grün“ je Werkzeug; Sokrates arbeitet 1727i, 1727j ein und meldet dir den Umschalt-Commit zum Wort „scharf“. Bei B oder C vorher der Lauf heute Vormittag. Bei D Umschalt-Commit sofort, Spike baut nach.
+**Folgerungen:** bei A: Spike baut die Liste fertig, meldet „grün“ je Werkzeug; Sokrates arbeitet 1727i, 1727j ein und meldet dir den Umschalt-Commit zum Wort „scharf“. Bei B oder C vorher der Lauf heute Vormittag. Bei A′ Umschalten gegen 13:00 auf dein Wort „scharf“.
 
 Antwort: …
