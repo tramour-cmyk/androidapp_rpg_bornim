@@ -11,6 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| 1967 | Muss reihum: innerhalb jeder Runde nach Themenblock-Reihenfolge (chefsache/themenbloecke.md) statt Listenposition; Schlüssel (Runde, Blockrang, Position) in lauf.auftrag_offen, Kommentar Zeile 517 berichtigen (Chef 17:35; Plan 1727-gesamtbild:500) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1963 | Fachkräfte fragen den Chef in ihrer Sitzung nach Erlaubnis (Lena 17:16, Doris 16:55: Reset der Notizkopie, Auto-Prüfung lehnt ab); Kopie /home/user/bornim-main mit veraltetem vorgemerktem Stand, Ursache finden, Weg ohne Chef, Frage nur per Rückmeldung (Chef 17:19) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1959 | Von Ford (22.11., 16:21, Sokrates 16:26): Start der Tagesbericht-Routine (448) lehnt die Auto-Prüfung ab (10:05 Perikles, 16:21 Routine); lauf.py gibt in jedem Lauf TAGESBERICHT-FEHLT und START Tagesbericht aus; Abhilfe oder Start durch den Chef | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *0,77 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *95,17 $* |
