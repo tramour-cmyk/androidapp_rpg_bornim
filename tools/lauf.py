@@ -257,7 +257,8 @@ WEITER_MIN = 60  # 261.5 (3): WEITER nur in eine Sitzung, die unter 60 Minuten r
 # 1766 (Archiv 20.11., 08:19 „Höchstdauer je Auftrag“; Sokrates 21.11., 20:55 „nicht warten … dann nur die Konstante setzen“): Minuten je
 # Auftrag nach Leistungsstufe, gezählt ab Sitzungsstart oder jüngstem „## Auftrag“ der Vorgangsdatei, auch bei working. None = Wert fehlt
 # (liefert Sokrates in 1774), dann prüft lauf.py nichts. Scharf erst mit tools/1727-SCHARF.
-HOECHSTDAUER_MIN = {"Mittel": None, "Hoch": None}
+# 1779 (Vorentscheid 1774, hoechstdauer-1774.md 6a): Mittel 360, Hoch 300 Minuten (Hoch enger: festgefahrene Aufgaben); Probewoche zeigt, ob 360 zu eng ist.
+HOECHSTDAUER_MIN = {"Mittel": 360, "Hoch": 300}
 
 def z(s):
     return datetime.datetime.fromisoformat(s.replace("Z", "+00:00")).astimezone(BERLIN)
@@ -895,28 +896,39 @@ def leistungsstufe(s, text):
     teil = (text or "")[ab[0]:ab[1]] if ab else ""
     return "Hoch" if re.search(r"(?i)Leistungsstufe\W{0,4}hoch\b", teil) else "Mittel"
 
+def block_zeit(b, jetzt):
+    """1779 c: Zeit „TT.MM., HH:MM“ am Anfang eines Rückmeldeblocks („- **21.11., 21:00**, Ford:“, ohne „- **“), sonst None."""
+    m = re.match(r"(\d\d?)\.(\d\d?)\., (\d\d?):(\d\d)", b)
+    if not m: return None
+    t, mo, h, mi = map(int, m.groups())
+    try: return datetime.datetime(jetzt.year if (mo, t) <= (jetzt.month, jetzt.day) else jetzt.year - 1, mo, t, h, mi, tzinfo=BERLIN)
+    except ValueError: return None
+
 def hoechstdauer_zeilen(ausgabe, je_rolle, archiviert, docs=None, jetzt=None, grenzen=None, scharf=None):
     """1766: laufende Sitzung (working/blocked) über der Höchstdauer ihres Auftrags → Zeile HÖCHSTDAUER für Ford: anhalten
     (interrupt_session) und Rückmeldung in die Vorgangsdatei. Erstes Mal „Hinweis“ (Abbruch, ein Neustart; Muster ablauf.md A6),
     zweites Mal je Vorgang „steckt fest“ → rueckmeldung.py gibt es an Sokrates (1763 C), er entscheidet über die Grenze (Profil Kosten).
-    Steht die Sitzungskennung schon in einer Rückmeldung „Höchstdauer“, nichts (Ford hat es getan)."""
+    Steht die Sitzungskennung schon in einer Rückmeldung „Höchstdauer“, läuft die Uhr ab deren Zeit neu (1779 c: Weckruf oder WEITER
+    ließ die Sitzung sonst ohne Grenze weiterlaufen); über der Grenze dann „steckt fest“, nach „steckt fest“ mit ihrer Kennung nichts mehr.
+    1779 b: Sitzung, die nur ein offener Weckruf hält (idle, wartet etwa auf den Build), prüft sie nicht; „Ford 2“ nie."""
     grenzen = HOECHSTDAUER_MIN if grenzen is None else grenzen
     if not (ist_scharf() if scharf is None else scharf) or not any(grenzen.values()): return []
     j = jetzt or JETZT; d = os.path.join(docs or DOCS, "vorgang"); neu = []
     for r, ss in sorted(je_rolle.items()):
-        if r in ("Ford", "Sokrates", "Sonstige"): continue
+        if r in ("Ford", "Ford 2", "Sokrates", "Sonstige"): continue
         for s in ss:
-            if s["id"] in archiviert or not s["_info"][1]: continue
+            if s["id"] in archiviert or not s["_info"][1] or s.get("_nur_wecker"): continue
             nr = nummer_aus_titel(s.get("title", ""))
             if not nr: continue
             p = os.path.join(d, "%s.md" % nr); text = lesen(p) if os.path.isfile(p) else ""
             st = leistungsstufe(s, text); g = grenzen.get(st)
             if not g: continue
-            seit = max([x for x in (z(s["created_at"]).astimezone(BERLIN), auftrag_seit(text, j)) if x])
+            hd = [b for b in re.split(r"(?m)^- \*\*", text) if "Höchstdauer" in b]
+            eigen = [b for b in hd if s["id"] in b]
+            if any("steckt fest" in b for b in eigen): continue
+            seit = max([x for x in (z(s["created_at"]).astimezone(BERLIN), auftrag_seit(text, j)) + tuple(block_zeit(b, j) for b in eigen) if x])
             dauer = int((j - seit).total_seconds() // 60)
             if dauer <= g: continue
-            hd = [b for b in re.split(r"(?m)^- \*\*", text) if "Höchstdauer" in b]
-            if any(s["id"] in b for b in hd): continue
             wort = "steckt fest" if hd else "Hinweis"
             msg = "%s: Höchstdauer %d Min. (%s) überschritten, %d Min. seit %s, Sitzung %s angehalten (1766)%s" % (
                 wort, g, st, dauer, seit.strftime("%d.%m., %H:%M"), s["id"], ", zweites Mal" if hd else "; ein Neustart wie sonst")
@@ -1154,7 +1166,7 @@ def main():
         ruhig = (JETZT - upd).total_seconds() / 60
         bucket = s.get("status_bucket", "")
         laufend = ("WORKING" in bucket or "BLOCKED" in bucket or s.get("session_status") == "SESSION_STATUS_RUNNING") and ruhig < 60
-        if s["id"] in wecker: laufend = True  # 916: offener Weckruf hält die Sitzung, sonst START und ARCHIVIERE, der Wecker ginge verloren
+        if s["id"] in wecker and not laufend: laufend = True; s["_nur_wecker"] = True  # 916: offener Weckruf hält die Sitzung, sonst START und ARCHIVIERE, der Wecker ginge verloren; 1779 b: Höchstdauer prüft sie nicht
         pts = s.get("post_turn_summary") or s.get("external_metadata", {}).get("post_turn_summary") or {}
         hinder = []
         nr_s = nummer_aus_titel(s.get("title", ""))

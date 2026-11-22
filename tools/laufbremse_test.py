@@ -23,7 +23,7 @@ hz = lambda je, **k: lauf.hoechstdauer_zeilen([], je, set(), docs=docs, jetzt=J,
 t1 = sitz("session_T1", "Tom – 9001: Zwerg (21.11., 19:00)", "2026-11-21T18:00:00Z")  # 19:00 Berlin, 180 Min.
 soll("ohne 1727-SCHARF nichts", hz({"Tom": [t1]}, grenzen=G, scharf=False) == [])
 soll("Wert fehlt (None): nichts", hz({"Tom": [t1]}, grenzen={"Mittel": None, "Hoch": None}, scharf=True) == [])
-soll("Konstante steht oben, Wert fehlt bis 1774", lauf.HOECHSTDAUER_MIN == {"Mittel": None, "Hoch": None}, lauf.HOECHSTDAUER_MIN)
+soll("1779 a: Werte aus 1774 (Mittel 360, Hoch 300)", lauf.HOECHSTDAUER_MIN == {"Mittel": 360, "Hoch": 300}, lauf.HOECHSTDAUER_MIN)
 
 # 2 über der Grenze, auch bei working: erstes Mal Hinweis
 z = hz({"Tom": [t1]}, grenzen=G, scharf=True)
@@ -50,6 +50,19 @@ soll("schon eingetragen: nichts", hz({"Tom": [t1]}, grenzen=G, scharf=True) == [
 t6 = sitz("session_T6", "Tom – 9001: Zwerg, Neustart", "2026-11-21T19:00:00Z")  # 20:00 Berlin, 120 Min.
 z = hz({"Tom": [t6]}, grenzen=G, scharf=True)
 soll("zweites Mal je Vorgang: steckt fest (geht an Sokrates)", len(z) == 1 and "| 9001 | steckt fest: Höchstdauer 90 Min." in z[0] and "zweites Mal" in z[0], z)
+# 1779 c: nach dem Hinweis läuft die Uhr derselben Sitzung ab der Rückmeldung neu (21:00), über der Grenze steckt fest
+J2 = datetime.datetime(2026, 11, 21, 22, 40, tzinfo=B)
+z2 = lauf.hoechstdauer_zeilen([], {"Tom": [t1]}, set(), docs=docs, jetzt=J2, grenzen=G, scharf=True)
+soll("1779 c: dieselbe Sitzung 100 Min. nach dem Hinweis: steckt fest", len(z2) == 1 and "| 9001 | steckt fest: Höchstdauer 90 Min." in z2[0] and "seit 21.11., 21:00" in z2[0], z2)
+datei("9006", "# 9006\n\n## Rückmeldungen\n\n- **21.11., 20:00**, Ford:\n> steckt fest: Höchstdauer 90 Min. (Mittel) überschritten, Sitzung session_T7 angehalten (1766), zweites Mal\n")
+soll("1779 c: nach steckt fest mit eigener Kennung nichts mehr", hz({"Tom": [sitz("session_T7", "Tom – 9006: x", "2026-11-21T10:00:00Z")]}, grenzen=G, scharf=True) == [])
+# 1779 b: nur der Weckruf hält die Sitzung (idle): nicht prüfen
+tw = sitz("session_T8", "Tom – 9008: x", "2026-11-21T10:00:00Z"); tw["_nur_wecker"] = True
+soll("1779 b: nur Weckruf (idle): nichts", hz({"Tom": [tw]}, grenzen=G, scharf=True) == [])
+soll("1779 b: lauf.py markiert Weckruf-Sitzungen", '"_nur_wecker"' in open(os.path.join(HIER, "lauf.py"), encoding="utf-8").read())
+soll("1779: Ford 2 nie", hz({"Ford 2": [t1]}, grenzen=G, scharf=True) == [])
+import kosten
+soll("1779 d: neue Rollennamen in kosten.ROLLEN", all(kosten.rolle(r + " – 9001: x") == r for r in ("Prüfer", "Büro", "Arbeitsplaner", "Tester")))
 import rueckmeldung
 soll("rueckmeldung.py liest es als steckt fest", rueckmeldung.worte(z[0].split(" | ", 3)[3]) == {"steckt fest"}, z)
 soll("erstes Mal nur Hinweis (zählt nicht)", rueckmeldung.worte("Hinweis: Höchstdauer 90 Min.") == {"Hinweis"})
