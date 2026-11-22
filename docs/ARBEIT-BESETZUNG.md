@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 22.11., 17:16 (lauf.py)
+**Stand:** 22.11., 17:21 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -13,3 +13,5 @@
 | Werkzeug | [Lena – 1960 (22.11., 17:04)](https://claude.ai/code/session_01Hmoj77Pyd6JdrG1AyQNLZT) | 1960 | – | 22.11., 17:05 |
 | Disponent | [Disponent – Betrieb (22.11., 17:10)](https://claude.ai/code/session_01Hmoj78swtcWnfPZeEocJxd) | Betrieb | – | 22.11., 17:10 |
 | Prüfer | [Marta – 1566: offene Übergabe (22.11., 17:13)](https://claude.ai/code/session_01Hmoj79TvK79BhE8thDVp26) | 1566 | claude/jerry-1566-hoehlenwasser | 22.11., 17:14 |
+| Arbeitsplaner | [Nora – Auftrag 1959: Start der Tagesbericht-Routine (22.11., 17:16)](https://claude.ai/code/session_01Hmoj77J6uJAaNn8KhozyjY) | 1959 | – | 22.11., 17:17 |
+| Arbeitsplaner | [Olga – Auftrag 1961: Ford heißt Disponent (22.11., 17:16)](https://claude.ai/code/session_01Hmoj79ZgpMW1THsZbYBzJZ) | 1961 | – | 22.11., 17:17 |
