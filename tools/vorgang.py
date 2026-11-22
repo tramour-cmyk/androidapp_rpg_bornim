@@ -79,9 +79,14 @@ def finden(nr, rolle=None):
 def fehler_oder(d, alt=None):
     alle = set(startbar.VORG) | {x["nr"] for x in startbar.zeilen_liste()}
     f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN_NEU if startbar.NEU else startbar.SPALTEN)), alle)
-    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert
+    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert.
+    # 1919: nur wenn sie vorher schon über 400 lag (alter Fehler, die Commit-Prüfung hält nur neue an); wird sie erst durch Stand oder
+    # „wartet auf“ zu lang, hält vorgang.py an, statt dass der Commit danach scheitert
     if alt is not None and d.get("titel") == alt.get("titel"):
-        f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
+        if len(startbar.zeile_text(alt)) > 400:
+            f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
+        else:
+            f = [(x + "; Titel kürzen: vorgang.py setze %s titel=… (1919)" % d["nr"]) if x.startswith("Zeile über 400 Zeichen") else x for x in f]
     # Chef nur mit Datei (275.2): beim Schreiben streng, beim Lesen erfüllt sie sich (Datei weg)
     for t in d["warte"]:
         if startbar.art(t) == "chef" and (alt is None or t not in alt["warte"]):

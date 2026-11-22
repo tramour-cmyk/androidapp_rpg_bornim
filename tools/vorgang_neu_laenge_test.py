@@ -33,4 +33,20 @@ try:
 except SystemExit as e:
     ergebnis = str(e)
 soll("1916: kurze Zeile wird angelegt (Nummer 1914)", ergebnis == "angelegt 1914" and gezogen == ["1914"], (ergebnis, gezogen))
+# 1919: Stand macht die Zeile erst über 400 → vorgang.py hält an (wie die Commit-Prüfung); war sie schon zu lang, geht es weiter (1492)
+def zeile(titel, stand):
+    d = dict(nr="1914", titel=titel, besitzer="Spike", kl="M", stand=stand, warte=[], zweig="–", build="–", bereich="B Werkzeuge", kosten="–")
+    d["wort"] = s.wort_von(stand); d["zusatz"] = s.zusatz_von(stand); return d
+def pruef(neu, alt):
+    try: vorgang.fehler_oder(neu, alt); return "durch"
+    except SystemExit as e: return str(e)
+b2 = len(s.zeile_text(zeile("x", "startbar"))) - 1
+t3 = "x" * (398 - b2)
+alt3 = zeile(t3, "startbar"); neu3 = zeile(t3, "gebaut, Geprüft an: 1e6b2d697")
+soll("Aufbau 1919: vorher höchstens 400, danach über 400", len(s.zeile_text(alt3)) <= 400 < len(s.zeile_text(neu3)))
+e = pruef(neu3, alt3)
+soll("1919: Stand macht Zeile zu lang → hält an mit Hinweis Titel kürzen", "400" in e and "1919" in e and "setze 1914 titel" in e, e)
+t4 = "x" * (410 - b2)
+e = pruef(zeile(t4, "gebaut, Geprüft an: 1e6b2d697"), zeile(t4, "startbar"))
+soll("1492: Zeile war schon zu lang → Stand geht weiter", e == "durch", e)
 sys.exit(1 if fehl else 0)
