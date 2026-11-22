@@ -499,7 +499,7 @@ if (HUELLE & _GEW).any():
 # 1570 Gewichte von Umhang und Spange (ersetzt 463 ARM_LUFT/ARM_GEW, 656 UMHANG_ARM und FOLGT am Umhang): der Umhang folgt dem Rumpf
 # unter ihm, wie die Kleidung darunter (Kutte, Schulterstück, Hemd), sonst sticht sie in Bewegung durch (Jana 22.11.: an der Wirbelkette
 # allein 1,3-1,5 m hoch). Gewichte der Haut am nächsten Punkt, aber: Arm an das Schlüsselbein derselben Seite (der Arm hebt den Umhang
-# nicht: 1676 rechter Unterarm), Bein an das Becken (Seitenbahnen schwingen nicht mit dem Oberschenkel), Kopf und oberer Hals an neck_01; das
+# nicht: 1676 rechter Unterarm), Bein an das Becken (Seitenbahnen schwingen nicht mit dem Oberschenkel), Kopf an den Hals; das
 # Schlüsselbein nur über der Achsel, darunter (bis UMHANG_ACHSEL) an spine_03 (861: die Flanke hob sich mit dem Schildarm)
 UMHANG_ACHSEL = (0.20, 0.08)   # m unter dem Schultergelenk: Schlüsselbein aus – voll
 if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l', 'clavicle_r', 'upperarm_l')):
@@ -509,7 +509,7 @@ if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l'
         if nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky')) and nm[-2:] in ('_l', '_r'):
             _zu[k] = Q_KN.index('clavicle' + nm[-2:])
         elif nm.startswith(('thigh', 'calf', 'foot', 'ball')): _zu[k] = iBe
-        elif nm in ('Head', 'neck_02') and 'neck_01' in Q_KN: _zu[k] = Q_KN.index('neck_01')   # Kopf und oberer Hals an den unteren Hals (die Kleidung am Kragen geht nicht mit dem Kopf)
+        elif nm == 'Head': _zu[k] = iHals
     _isch = [Q_KN.index('clavicle_l'), Q_KN.index('clavicle_r')]
     _cl = np.where(np.isin(LTk, [TID[t] for t in ('cloak', 'clasp') if t in TID]))[0]
     for i in _cl:
