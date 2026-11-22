@@ -20,7 +20,30 @@ import json, os, re, subprocess, sys
 SCHREIBER = {"vorgang.py": ("docs/LISTE-VORGAENGE.md", "docs/ARBEIT-BETRIEB.md", "docs/vorgang/"),
              "lauf.py": ("docs/ARBEIT-BETRIEB.md", "docs/ARBEIT-BESETZUNG.md", "docs/LISTE-VORGAENGE.md"),
              "uebergabe.py": ("docs/vorgang/",), "rueckmeldung.py": ("docs/vorgang/", "docs/LISTE-VORGAENGE.md"),
-             "regelwerte.py": ("docs/LISTE-REGELWERTE.md",), "meldung.sh": ("docs/",)}
+             "regelwerte.py": ("docs/LISTE-REGELWERTE.md",)}
+# 1921 (D350.1): meldung.sh schreibt nur über commit-tree auf Refs, nie in die Arbeitskopie, und ist darum kein Schreiber. Lesende Aufrufe
+# zählen nicht: vorgang.py ohne Unterbefehl, mit --rolle/--startbar/--hilfe, mit Nummern, pruefen, auftrag ohne --datei oder mit --pruefen;
+# Lesebefehle (cat, grep, git show …) ohne Umleitung und ohne -i.
+_VORGANG_LESEN = re.compile(r"^(?:--rolle\s+\S+\s*)?(?!--rolle)(?:$|--?\w|hilfe\b|pruefen\b|[\dt][\d.]*\b|auftrag\b(?!.*--datei)|auftrag\b.*--pruefen)")
+_LESEN = re.compile(r"^\s*(?:\w+=\S*\s+)*(?:cat|head|tail|less|more|grep|rg|egrep|wc|ls|stat|file|diff|cmp|md5sum|sha\w*sum|du|find|"
+                    r"git\s+(?:-C\s+\S+\s+)?(?:show|log|diff|status|blame|grep|ls-files|ls-tree|cat-file|rev-parse)|sed(?!.*\s-i)|awk(?!.*-i\s*inplace)|"
+                    r"python3?\s+\S*(?:_test\.py|--test)|echo|printf|test|\[)\b")
+
+
+def _segmente(befehl):
+    return [x for x in re.split(r"&&|\|\||[;\n|]", befehl) if x.strip()]
+
+
+def _schreibt(seg):
+    """True, wenn der Befehlsteil schreiben kann (kein reiner Lesebefehl, Umleitung > zählt als Schreiben)."""
+    return bool(re.search(r"(?<![0-9&<>])>(?!&)", seg)) or not _LESEN.match(seg)
+
+
+def _schreiber_ruf(w, seg):
+    """1921: Ruf des Werkzeugs W im Befehlsteil SEG, der schreibt (vorgang.py lesend zählt nicht)."""
+    m = re.search(r"(?<![\w-])%s(?![\w-])\s*(.*)" % re.escape(w), seg)
+    if not m: return False
+    return not (w == "vorgang.py" and _VORGANG_LESEN.match(m.group(1).strip()))
 
 
 def verlauf(pfad):
@@ -50,9 +73,10 @@ def eigen(wo, rel, spur):
     if os.path.realpath(os.path.join(wo, rel)) in dateien: return True
     name = os.path.basename(rel)
     for b in befehle:
-        if rel in b or re.search(r"(?<![\w.-])%s(?![\w-])" % re.escape(name), b): return True
-        for w, ziele in SCHREIBER.items():
-            if w in b and any(rel == z or (z.endswith("/") and rel.startswith(z)) for z in ziele): return True
+        for seg in _segmente(b):
+            if (rel in seg or re.search(r"(?<![\w.-])%s(?![\w-])" % re.escape(name), seg)) and _schreibt(seg): return True
+            for w, ziele in SCHREIBER.items():
+                if _schreiber_ruf(w, seg) and any(rel == z or (z.endswith("/") and rel.startswith(z)) for z in ziele): return True
     return False
 
 
@@ -91,20 +115,23 @@ def orte():
     return aus
 
 
-def befund(wege, spur=None):
+def befund(wege, spur=None, art=None):
+    """Teile des Befunds; ART (Liste) bekommt je Teil „eigen“, „fremd“, „rueckschritt“ oder „commit“."""
     teile = []
+    art = [] if art is None else art
     for wo in wege:
         o = offen(wo)
         if not o: continue
         g, n = o
         mein = [x for x in g if eigen(wo, x, spur)]
         fremd = [x for x in g if x not in mein]
-        if mein: teile.append("%s: %d Datei(en) geändert, nicht committet (%s)" % (wo, len(mein), ", ".join(mein[:4]) + (" …" if len(mein) > 4 else "")))
+        if mein: art.append("eigen"); teile.append("%s: %d Datei(en) geändert, nicht committet (%s)" % (wo, len(mein), ", ".join(mein[:4]) + (" …" if len(mein) > 4 else "")))
         if fremd:
             rs = [x for x in fremd if rueckschritt(wo, x)]
+            art.append("rueckschritt" if rs else "fremd")
             teile.append("%s: %d Datei(en) fremd, nicht mitpushen (%s)%s" % (wo, len(fremd), ", ".join(fremd[:4]) + (" …" if len(fremd) > 4 else ""),
                          ("; Rückschritt auf alten Stand: %s (1776; ansehen, dann `git checkout -- <pfad>`)" % ", ".join(rs[:4])) if rs else ""))
-        if n: teile.append("%s: %d Commit(s) nicht gepusht" % (wo, n))
+        if n: art.append("commit"); teile.append("%s: %d Commit(s) nicht gepusht" % (wo, n))
     return teile
 
 
@@ -112,13 +139,26 @@ def main():
     try:
         e = json.load(sys.stdin)
         if e.get("stop_hook_active"): return 0
-        t = befund(orte(), verlauf(e.get("transcript_path")))
+        art = []
+        t = befund(orte(), verlauf(e.get("transcript_path")), art)
         if not t: return 0
-        print("Gepusht? (1739, Gesamtbild 7): %s. Vor dem Zugende committen und pushen (Notizen direkt auf main, Code auf den Arbeitszweig); "
-              "ist es gewollt (Push abgewiesen, wartet auf Chef), einfach noch einmal beenden." % "; ".join(t), file=sys.stderr)
+        m = meldung(t, art)
+        if not m: return 0
+        print(m, file=sys.stderr)
         return 2
     except Exception:
         return 0
+
+
+def meldung(t, art):
+    """1921 (D350.1): nur fremde Dateien ohne Rückschritt lassen durch (None); nur fremde mit Rückschritt nennen das, ohne zum Pushen zu
+    drängen; sonst wie vorher."""
+    if not any(a in ("eigen", "commit") for a in art):
+        if "rueckschritt" not in art: return None
+        return ("Gepusht? (1739, 1776): %s. Nichts davon committen oder pushen, es ist nicht deins; ansehen, ob es fremde Arbeit "
+                "zurücksetzen würde, dann einfach noch einmal beenden." % "; ".join(t))
+    return ("Gepusht? (1739, Gesamtbild 7): %s. Vor dem Zugende committen und pushen (Notizen direkt auf main, Code auf den Arbeitszweig); "
+              "ist es gewollt (Push abgewiesen, wartet auf Chef), einfach noch einmal beenden." % "; ".join(t))
 
 
 def test():
@@ -160,6 +200,26 @@ def test():
     ok(any("geändert, nicht committet (docs/LISTE-VORGAENGE.md)" in x for x in b), "1898 eigen über Schreiber vorgang.py")
     ok(any("geändert, nicht committet" in x and "LISTE-VORGAENGE" in x for x in befund([a], None)), "1898 ohne Verlauf alles eigen")
     ok(verlauf(os.path.join(d, "fehlt.jsonl")) is None, "1898 Verlauf fehlt → None")
+    # 1921 (D350.1): lesende Aufrufe und meldung.sh machen nichts eigen; nur Fremdes hält nicht an
+    run("git", "checkout", "--", "x", cwd=a)
+    for c in ('tools/meldung.sh Jerry "1535: Stand"', "python3 tools/vorgang.py --rolle Spike", "python3 tools/vorgang.py --rolle Spike | head -40",
+              "python3 tools/vorgang.py 1898", "python3 tools/vorgang.py auftrag 1 --datei a.md --pruefen", "cat docs/LISTE-VORGAENGE.md",
+              "grep -n 1898 docs/LISTE-VORGAENGE.md | head", "git diff docs/LISTE-VORGAENGE.md"):
+        art = []; b = befund([a], spur({"command": c}), art)
+        ok(art == ["fremd"] and meldung(b, art) is None, "1921 lesend/meldung.sh nicht eigen, lässt durch: %s %s" % (c, b))
+    for c in ("python3 tools/vorgang.py --rolle Spike stand 1 gebaut", "echo b > docs/LISTE-VORGAENGE.md", "sed -i s/a/b/ docs/LISTE-VORGAENGE.md",
+              "cd x && python3 tools/vorgang.py neu T Spike M B"):
+        art = []; b = befund([a], spur({"command": c}), art)
+        ok(art == ["eigen"] and "committen und pushen" in (meldung(b, art) or ""), "1921 schreibend eigen: %s %s" % (c, b))
+    open(os.path.join(a, "docs", "LISTE-VORGAENGE.md"), "w").write("c")
+    run("git", "commit", "-qam", "4", cwd=a); run("git", "push", "-q", "origin", "HEAD:main", cwd=a)
+    open(os.path.join(a, "docs", "LISTE-VORGAENGE.md"), "w").write("a")
+    art = []; b = befund([a], spur({"command": 'tools/meldung.sh Jerry "x"'}), art)
+    m = meldung(b, art) or ""
+    ok(art == ["rueckschritt"] and "Rückschritt" in m and "committen und pushen" not in m and "nicht deins" in m, "1921 nur fremd mit Rückschritt: Hinweis ohne Pushen %s" % m)
+    open(os.path.join(a, "x"), "w").write("1")
+    art = []; b = befund([a], spur({"file_path": os.path.join(a, "x")}), art)
+    ok("eigen" in art and "fremd" in " ".join(b) and "committen und pushen" in meldung(b, art), "1921 eigen und fremd: drängt nur zum Eigenen")
     print("GEPUSHT1739 %d Fehler" % f)
     return 1 if f else 0
 
