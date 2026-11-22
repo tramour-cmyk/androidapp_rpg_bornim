@@ -76,7 +76,9 @@ def zeilen(zs, zeiten, jetzt, empfaenger=None, auf_main_fn=auf_main):
         if st == "ruht":
             if any(startbar.art(w) == "nr" for w in warte): continue  # ruht, bis ein anderer Vorgang fertig ist: 14.2.13
             daten = [startbar.datum_von(w) for w in warte if startbar.art(w) == "datum"]
-            daten += [startbar.datum_von(m.group(0)) for m in re.finditer(r"\b\d\d?\.\d\d?\.", d.get("zusatz") or "") if startbar.DATUM.match(m.group(0))]
+            # 1874 (D335.1): nur ein Datum hinter „bis“ im Zusatz ist Termin, nie das Datum eines Chefworts („Chef 04.11.“,
+            # „bis Kapitel 1 fertig (Chef 18.11.)“); Klammern und Komma beenden die Suche nach dem Datum
+            daten += [startbar.datum_von(m.group(1)) for m in re.finditer(r"\bbis\b[^,;()]*?\b(\d\d?\.\d\d?\.)", d.get("zusatz") or "") if startbar.DATUM.match(m.group(1))]
             if not daten: aus.append("LIEGT %s | ruht | %s | an %s: ruht ohne Datum, Datum und Grund setzen (14.2.11)" % (d["nr"], alter_text(alter), an("Arbeitsplaner")))
             elif max(daten) <= jetzt: aus.append("LIEGT %s | ruht | %s | an %s: Datum %s erreicht, zurück auf „Auftrag“ (14.2.11)" % (d["nr"], alter_text(alter), an("Disponent"), max(daten).strftime("%d.%m.")))
             continue
