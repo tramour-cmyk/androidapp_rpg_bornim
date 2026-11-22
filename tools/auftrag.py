@@ -13,7 +13,8 @@ Prüfe vor dem Senden · 7 Zurück. Feld 8 „Leistungsstufe“ erst nach 1742 (
 Größe: Bauliste 7.1 „etwa 2 KB“ (Vorlage 4.2 nannte 1,5 KB); über 2048 Byte hält an. 1878 (Lauf 3 Arbeitsplaner L4): wörtliche
 Zitate in Feld 3 „Bisher“ („…“ oder "…"; Kern: jedes frühere Nein wörtlich) zählen nicht mit, haben eine eigene Grenze von 2048 Byte.
 1879 (Lauf 3 Arbeitsplaner L7, Prüfer-1 L8): Inhalt, nicht nur Form: kein Platzhalter <…> (außer in Pfaden wie docs/vorgang/<Nr>.md),
-in Ziel, Umsetzen, Prüfart und Zurück keine Fehlwörter („fehlt“, „unklar“, „erst mit der Antwort“ …), Ziel und Zurück ohne Frage,
+in Ziel, Umsetzen, Prüfart und Zurück keine Fehlwörter über den Auftrag selbst („Ziel fehlt“, „Herkunft unklar“, „erst mit der
+Antwort“, TODO; 1917: „Im Hof fehlt die Fackel“ ist ein Spielfund und gilt), Ziel und Zurück ohne Frage,
 Feld 6 mit drei bis fünf Prüffragen (Kern Arbeitsplaner, Vorlage 4.2).
 """
 import os, re, sys
@@ -68,9 +69,13 @@ def _feld(text, i, name):
 
 # 1879: Platzhalter wie <Nr>, <Commit>, <was der Spieler sieht>; nicht in Pfaden (docs/vorgang/<Nr>.md) und nicht <-> o. Ä.
 PLATZHALTER = re.compile(r"(?<![/\w])<[^<>\n/]*[A-Za-zÄÖÜäöüß][^<>\n/]*>(?![/.\w])")
-# 1879: Wörter, die sagen, dass der Inhalt noch fehlt (A3 Feld 1: „Ziel und Herkunft fehlen, „Frage“ an Sokrates; … erst mit der Antwort“)
-FEHLWORT = re.compile(r"\b(?:fehl(?:t|en)\b(?![- ]?(?:er|end))|unklar|ungeklärt|noch offen|noch zu klären|zu klären|TODO|tbd|später ergänzen"
-                      r"|erst mit der Antwort|nach der Antwort|„?Frage“? an \w+)|\?\?|…\s*$", re.I | re.M)
+# 1879, 1917 (D347.1): Wörter, die sagen, dass der AUFTRAG noch fehlt (A3 Feld 1: „Ziel und Herkunft fehlen, „Frage“ an Sokrates; … erst mit
+# der Antwort“). „fehlt“ zählt nur als Aussage über einen Teil des Auftrags (Ziel, Herkunft, Quelle …), nie über das Spiel („Im Hof fehlt
+# die Fackel“, „Fehlt der Schatten noch?“).
+_META = r"(?:Ziel|Herkunft|Quelle|Angaben?|Auftrag|Prüffragen?|Prüfart|Commit|Zweig|Empfänger|(?:Vorgangs)?[Nn]ummer|Beleg|Systemfrage)"
+FEHLWORT = re.compile(r"\b%s(?:\s*(?:,|und|oder)\s*%s)*\s+(?:fehl(?:t|en)|unklar|ungeklärt|offen)\b" % (_META, _META)
+                      + r"|\bTODO\b|\btbd\b|\?\?|\bspäter ergänzen\b|\bnoch zu klären\b|\berst (?:mit|nach) der Antwort\b"
+                      + r"|„Frage“ an (?:Sokrates|den Chef|Chef|Ford|Perikles|Homer|den Disponenten|den Arbeitsplaner)\b")
 FEHLWORT_FELDER = (1, 5, 6, 7)   # Ziel, Umsetzen, Prüfart, Zurück; in Bisher und Systemfrage ist „Ursache unbekannt“, „Quelle fehlt“ Auftrag
 FRAGEN_MIN, FRAGEN_MAX = 3, 5
 
@@ -90,7 +95,7 @@ def inhalt_fehler(text):
         p = sorted(set(m.group(0) for m in PLATZHALTER.finditer(_ohne_zitate(re.sub(r"`[^`]*/[^`]*`", "", t)))))
         if p: f.append("Feld %d „%s“ hat Platzhalter %s" % (i, name, ", ".join(p)))
         if i in FEHLWORT_FELDER:
-            w = sorted(set(m.group(0).strip() for m in FEHLWORT.finditer(_ohne_zitate(t))))
+            w = sorted(set(m.group(0).strip() for m in FEHLWORT.finditer(t)))
             if w: f.append("Feld %d „%s“ sagt, dass etwas fehlt (%s): erst klären („Frage“), dann den Auftrag schreiben" % (i, name, ", ".join(w)))
         if i in (1, 7) and "?" in _ohne_zitate(t): f.append("Feld %d „%s“ ist eine Frage, keine Angabe" % (i, name))
     if _feld(text, 6, FELDER[5]):
