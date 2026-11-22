@@ -36,6 +36,7 @@ jobs:
           python3 tools/vorpush.py --test       # 1937 pre-push (647, 464, 748, 1719)
           python3 tools/buildzweig-haken.py --test
           python3 tools/gepusht-haken.py --test # 1739 Stop-Haken alles gepusht
+          python3 tools/notizkopie_test.py      # 1963 Notizkopie räumt veralteten vorgemerkten Stand selbst auf
           python3 tools/rufname_test.py         # 1739 Rufnamen (lauf.py nur scharf, kosten.py)
           python3 tools/rufname_rolle_test.py   # 1957 Rufname → Startrolle aus der Startsperre
           python3 tools/titel_thema_test.py     # 1960 START-Titel mit Thema aus dem Vorgangstitel

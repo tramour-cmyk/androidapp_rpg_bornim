@@ -22,32 +22,32 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 17:59, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 19:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
 | Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
-| ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 8 (6) | 1 | 0 | 0 | 5 | 870 (Regeln) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (61) | 20 | 0 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 35 (35) | 22 | 1 | 2 | 7 | 1570 (Figur) Umhang einmal grundsätzlich lösen statt Einzelfli… |
+| ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 8 (6) | 1 | 1 | 0 | 5 | 870 (Regeln) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (61) | 20 | 1 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 36 (35) | 23 | 1 | 2 | 7 | 1570 (Figur) Umhang einmal grundsätzlich lösen statt Einzelfli… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
-| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (35) | 3 | 0 | 0 | 14 | 1566 (Welt) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
+| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (35) | 3 | 0 | 0 | 15 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
 | ↳ **12** Bedienung und Oberfläche | 6 (5) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (24) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 106 (88) | 69 | 1 | 1 | 15 | 1967 (Werkzeug) Reihenfolge Klasse vor Themenblock; lauf.auftrag_… |
+| **7** Firma: Werkzeuge und Abläufe | 110 (88) | 73 | 2 | 1 | 15 | 1967 (Werkzeug) Reihenfolge Klasse vor Themenblock; lauf.auftrag_… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 110 | 22 | 553 | 1410 |
-| neu | 121 | 49 | 609 | 1499 |
-| **netto** (erledigt − neu) | **−11** | **−27** | **−56** | **−89** |
+| erledigt | 111 | 22 | 554 | 1411 |
+| neu | 127 | 49 | 615 | 1505 |
+| **netto** (erledigt − neu) | **−16** | **−27** | **−61** | **−94** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -58,25 +58,25 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | nichts offen in der Chefsache |
 | Arbeitsplaner | 45 Geschäftsmodell und Umsetzung (nach dem Meilenstein) |
 | Regeln | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
-| Kampf | 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 4 weitere |
-| Figur | läuft: 1570 (Besetzung); 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 9 weitere |
+| Kampf | läuft: 1589.2 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 4 weitere |
+| Figur | läuft: 1570 (Besetzung); 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 10 weitere |
 | Kataloge | leer, weil 7 wartet auf Vorgang (649.2, 1331, 644.1, 649.2, 644.1, 644.1, 649.2), 2 ruht, 1 wartet auf Test/Build |
-| Welt | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss) |
+| Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | leer, weil 3 ruht, 2 wartet auf Vorgang (458.3, 870), 1 Idee |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | läuft: 1520 (Besetzung); 1967 Reihenfolge Klasse vor Themenblock; lauf.auftrag_offen und… (Muss); dann 27 weitere |
-| Prüfer | leer, weil keine offene Zeile |
+| Werkzeug | 1967 Reihenfolge Klasse vor Themenblock; lauf.auftrag_offen und… (Muss); dann 31 weitere |
+| Prüfer | läuft: 1963 (Besetzung); leer, weil keine offene Zeile |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 870 | Regeln | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 10 Regeln | startbar |
+| 1 | 870 | Regeln | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 10 Regeln | in Arbeit |
 | 2 | 1068 | Kampf | Ring bei jedem großen Schlag der Gegner … | M | 2 Kampf | startbar |
-| 3 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
+| 3 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | in Arbeit |
 | 4 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
 | 5 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
 | 6 | 1750 | Kampf | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmu… | M | 2 Kampf | startbar |
@@ -90,12 +90,12 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 14 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
 | 15 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
 | 16 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
-| 17 | 1566 | Welt | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne… | M | 5 Welt und Karten | gebaut, t300 ohne deine Antwort |
+| 17 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
 | 18 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
 | 19 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
 | 20 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
 
-Danach 129 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 110.
+Danach 133 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 111.
 ## Zu entscheiden
 
 Nichts offen.
@@ -268,12 +268,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 649.3 | K | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen … | wartet auf 649.2 (ruht) |
 | 649.4 | K | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | ruht bis 23.11. |
 
-**Welt** – offen 31, Muss 3, startbar 7
+**Welt** – offen 31, Muss 3, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1205b | M | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser alte | wartet auf 1535 (gebaut) |
-| 1566 | M | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht (1332 | startbar |
+| 1566 | M | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | Chef (Datei in der Chefsache) |
 | 1205 | M | Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass & Wind Kit … | wartet auf 1535 (gebaut) |
 | 1519 | K | vier Helden im Hauptmenü mit Ruhebewegung (Atmen, Umsehen), Hände bleiben, wo sie sind | wartet auf 431 (startbar) |
 | 1563 | K | Teich in der Höhle am Ufer noch eckig und kantig | wartet auf 1564 (startbar) |
@@ -370,7 +370,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 105, Muss 69, startbar 48
+**Werkzeug** – offen 108, Muss 72, startbar 51
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -414,7 +414,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1762 | M | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Fra | wartet auf Diogenes (greift?) |
 | 1763 | M | lauf.py startet Sokrates bei „steckt fest“, „Frage“, „wirkt nein“ (C) | wartet auf Diogenes (greift?) |
 | 1764 | M | Herzschlag und Wache des Disponenten (Ausfall, Nachfolger ohne Vorräte) | wartet auf 1894 (gebaut) |
-| 1765 | M | Build-Werkzeug … | wartet auf 1566 (zu testen) |
+| 1765 | M | Build-Werkzeug … | wartet auf 1566 (ruht) |
 | 1766 | M | Laufbremse und Höchstdauer je Auftrag in lauf.py, auch bei working (prozesspruefung-21-11. | wartet auf 1774 (startbar) |
 | 1767 | M | Profile Büro 3.2 (Disponent, Release, Kosten), Routinen Tagesbericht, Wache, Wochenzählung | wartet auf Sokrates |
 | 1773 | M | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Satz nur Kern | startbar |
@@ -479,6 +479,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1939 | K | ARBEIT-TEAM-JERRY.md: 1 „Zu“ zu Erledigtem (1776), beim Übergeben streichen | startbar |
 | 1940 | K | ARBEIT-PROJEKT.md: 2 „Zu“ zu Erledigtem (1624, 1605), beim Übergeben streichen | startbar |
 | 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
+| 1970 | M | Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt | startbar |
+| 1971 | M | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Ti | startbar |
+| 1972 | M | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 

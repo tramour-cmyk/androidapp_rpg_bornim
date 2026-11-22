@@ -3,7 +3,7 @@
 während in der Arbeitskopie (CLAUDE_PROJECT_DIR) oder der Notizkopie (../bornim-main) geänderte, nicht committete Dateien oder
 Commits liegen, die auf keinem Zweig von origin stehen, hält er einmal an und nennt sie (CLAUDE.md „am Ende alles committen und
 pushen“; Container werden abgeräumt). Beim zweiten Mal lässt er durch (stop_hook_active), also nie eine Schleife; wer begründet
-wartet (Push abgewiesen, Chef fragt), beendet einfach noch einmal. Unversionierte Dateien zählen nicht (Probebilder, Zwischenstände).
+wartet (Push abgewiesen, Frage per Rückmeldung), beendet einfach noch einmal. Unversionierte Dateien zählen nicht (Probebilder, Zwischenstände).
 Jeder Fehler lässt durch. Prüfen von Hand: gepusht-haken.py --test
 Muster (erst nachsehen, wie andere es lösen): „git status“-Prompt mit ahead-Zähler (oh-my-zsh, starship) und pre-push/Shell-Exit-
 Warnungen; hier dieselbe Zählung am Zugende.
@@ -140,6 +140,13 @@ def main():
         e = json.load(sys.stdin)
         if e.get("stop_hook_active"): return 0
         art = []
+        try:  # 1963: veralteten vorgemerkten Stand der Notizkopie erst sichern und zurücksetzen, statt dafür anzuhalten
+            import importlib.util
+            s = importlib.util.spec_from_file_location("notizkopie", os.path.join(os.path.dirname(os.path.abspath(__file__)), "notizkopie.py"))
+            nk = importlib.util.module_from_spec(s); s.loader.exec_module(nk)
+            for wo in orte()[1:]: nk.aufraeumen(wo)
+        except Exception:
+            pass
         t = befund(orte(), verlauf(e.get("transcript_path")), art)
         if not t: return 0
         m = meldung(t, art)
@@ -156,9 +163,9 @@ def meldung(t, art):
     if not any(a in ("eigen", "commit") for a in art):
         if "rueckschritt" not in art: return None
         return ("Gepusht? (1739, 1776): %s. Nichts davon committen oder pushen, es ist nicht deins; ansehen, ob es fremde Arbeit "
-                "zurücksetzen würde, dann einfach noch einmal beenden." % "; ".join(t))
+                "zurücksetzen würde, dann einfach noch einmal beenden; unklar → Frage per `vorgang.py rueckmeldung <Nr> \"Frage …\"` (1963)." % "; ".join(t))
     return ("Gepusht? (1739, Gesamtbild 7): %s. Vor dem Zugende committen und pushen (Notizen direkt auf main, Code auf den Arbeitszweig); "
-              "ist es gewollt (Push abgewiesen, wartet auf Chef), einfach noch einmal beenden." % "; ".join(t))
+              "ist es gewollt (Push abgewiesen), einfach noch einmal beenden; unklar → Frage per `vorgang.py rueckmeldung <Nr> \"Frage …\"` (1963)." % "; ".join(t))
 
 
 def test():
