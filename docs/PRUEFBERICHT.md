@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 355 · 1875 Empfänger „Fachkraft“ (lesend, Weiter-Haken; Kopie `5643b49f8`; 22.11., 10:33–10:35)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1875 greift: `lauf.uebergabe_zeilen` stellt eine Zeile an „Fachkraft“ bis zur Umschaltung dem Listenbesitzer zu, scharf dem Fachprofil des Themenblocks (`block_von`, Nummer vor Bereich); Block ohne Fachprofil oder ohne Besitzer → bleibt „Fachkraft“, Nachricht an Ford „starten oder zuteilen“. Die Sperre 1911 („wartet auf“) prüft den abgebildeten Empfänger.
+- Hinweis ohne Befund: `uebergabe.wecker` beim Schreiben bildet „Fachkraft“ nicht ab (meldet „keine Sitzung Fachkraft“, weckt den Disponenten); zugestellt wird im nächsten `lauf.py`.
+
 ## Lauf 354 · 1795 Rest, 1887, 1888 (lesend, Auftrag Ford; Kopie `451d38ca8`; 22.11., 10:28–10:33)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün.
