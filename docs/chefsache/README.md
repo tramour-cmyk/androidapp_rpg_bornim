@@ -6,86 +6,96 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Wer wofür
 
-- **Sokrates:** Stab des Chefs: Strategie, Markt, Geschäftsmodell, Chefrunde
-- **Homer:** Kreativdirektor: Story, Texte, Stil, Spielgefühl, Leveldesign, Ideen
-- **Perikles:** Projektmanager: Wochenziel, Vorrang, Kosten, Abläufe
-- **Diogenes:** Prüfer: prüft `main`, zählt Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn
-- **Ford:** Betriebsleiter: startet Sitzungen, verteilt Arbeit, schreibt die Besetzung
-- **Tom:** Entwickler: Leute, Dorf, Innenräume, Blende
-- **Jerry:** Entwickler: Monster, Höhle, Kampf, Klang
-- **Tuffy:** Aushilfe bei Jerry, nimmt dessen Muss-Zeilen auf anderem Zweig
-- **Spike:** Technik, jede APK
+- **Sokrates:** Leitung mit dir, bringt deine Worte als Aufträge
+- **Büro:** Disponent (Takt, Eingang, Guthaben) und Arbeitsplaner (aus dem Vorgang ein Auftrag)
+- **Abnahme:** Prüfer (prüft einen Auftrag) und Tester (testet ein Ganzes)
+- **Regeln:** Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS
+- **Kampf:** Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl
+- **Figur:** Held, Leute, Monster
+- **Kataloge:** Figuren, Helden, Gegenstände
+- **Welt:** Gelände, Licht, Wetter, Stil der Welt
+- **Klang:** Klang und Musik
+- **Oberfläche:** Bedienung und Oberfläche
+- **Story:** Geschichte und Texte
+- **Technik:** Technik, Leistung, Build
+- **Werkzeug:** Firma: Werkzeuge und Abläufe
+- **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 16:10, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 16:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
 | Block | offen | Muss | in Arbeit | zum Testen | ruht | nächster |
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
-| ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 1 | 0 | 0 | 3 | 870 (Sokrates) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 61 (61) | 20 | 0 | 1 | 33 | 1068 (Jerry) Ring bei jedem großen Schlag der Gegner, diese Sc… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 35 (35) | 22 | 0 | 2 | 8 | 1675 (Tom) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
-| ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644.5 (Diogenes) Abnahme Gegenstands- und Figurenkatalog: Prüfunge… |
-| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (35) | 3 | 0 | 0 | 14 | 1566 (Jerry) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
-| ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Jerry) Streicherspur nach 120 bauen, nur bei Jägern; Hör… |
-| ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
-| ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
-| ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 8 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
-| **7** Firma: Werkzeuge und Abläufe | 94 (88) | 51 | 2 | 1 | 13 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
-| **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
+| ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 8 (6) | 1 | 0 | 0 | 5 | 870 (Regeln) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (61) | 20 | 0 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 35 (35) | 22 | 0 | 2 | 8 | 1570 (Figur) Umhang einmal grundsätzlich lösen statt Einzelfli… |
+| ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
+| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (35) | 3 | 0 | 0 | 14 | 1566 (Welt) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
+| ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
+| ↳ **12** Bedienung und Oberfläche | 6 (5) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
+| ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
+| ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
+| **7** Firma: Werkzeuge und Abläufe | 96 (88) | 51 | 2 | 1 | 15 | 1727 (Werkzeug) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 106 | 22 | 549 | 1409 |
+| erledigt | 106 | 22 | 549 | 1406 |
 | neu | 106 | 49 | 594 | 1484 |
-| **netto** (erledigt − neu) | **+0** | **−27** | **−45** | **−75** |
+| **netto** (erledigt − neu) | **+0** | **−27** | **−45** | **−78** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
-**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)
+**Je Profil das Nächste** (wie der Disponent startet, 1893)
 
-| Rolle | als Nächstes |
+| Profil | als Nächstes |
 |---|---|
 | **Chef** | nichts offen in der Chefsache |
-| Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 5 weitere |
-| Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
-| Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
-| Spike | 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 7 weitere |
-| Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | läuft: 1952 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
-| Sokrates | läuft: 1727 (Besetzung); 1933 Abgleich aller Rollendateien gegen Kerne, Profile, Sockel:… (Muss); dann 6 weitere |
-| Perikles | M? M? entscheiden: 1850, 1851, 1852, 1853, 1854, 1856, 1857, 1… (Muss); dann 3 weitere |
+| Arbeitsplaner | 45 Geschäftsmodell und Umsetzung (nach dem Meilenstein) |
+| Regeln | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
+| Kampf | 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 4 weitere |
+| Figur | 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 8 weitere |
+| Kataloge | leer, weil 7 wartet auf Vorgang (649.2, 1331, 644.1, 649.2, 644.1, 644.1, 649.2), 2 ruht, 1 wartet auf Test/Build |
+| Welt | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss) |
+| Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
+| Oberfläche | leer, weil 3 ruht, 2 wartet auf Vorgang (458.3, 870), 1 Idee |
+| Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
+| Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 1 weitere |
+| Werkzeug | 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 10 weitere |
+| Prüfer | leer, weil keine offene Zeile |
+| Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1727 | Sokrates | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts,… | M | 7 Firma | in Arbeit |
-| 2 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 10 Regeln | startbar |
-| 3 | 1068 | Jerry | Ring bei jedem großen Schlag der Gegner, diese Schläge härter, Ring beim eigene… | M | 2 Kampf | startbar |
-| 4 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
-| 5 | 1589.2 | Jerry | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
-| 6 | 1603 | Jerry | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
-| 7 | 1750 | Jerry | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmu… | M | 2 Kampf | startbar |
-| 8 | 1675 | Tom | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr; zurück in die Grundhaltung… | M | 3 Figuren und Kleidung | startbar |
-| 9 | 1676 | Tom | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Figuren und Kleidung | startbar |
-| 10 | 1570 | Tom | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Figuren und Kleidung | startbar |
-| 11 | 1709 | Tom | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell, Ziel vorhe… | M | 3 Figuren und Kleidung | startbar |
-| 12 | 1785 | Tom | Weg aus 4fd7055c8 in die Handwerksliste Figur, Teil von 1535 | M | 3 Figuren und Kleidung | startbar |
-| 13 | 455.2 | Jerry | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
-| 14 | 1652 | Jerry | Durchstechprüfung: Osric innere Stücke stechen durch die Robe; Sichtbarkeit prü… | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
-| 15 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Figuren und Kleidung | startbar |
-| 16 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Figuren und Kleidung | startbar |
-| 17 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Figuren und Kleidung | startbar |
-| 18 | 1566 | Jerry | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne… | M | 5 Welt und Karten | gebaut, t300 ohne deine Antwort |
-| 19 | 1753 | Jerry | Streicherspur nach 120 bauen, nur bei Jägern; Hörprobe auf Telegram, Bewegung a… | M | 11 Klang und Musik | startbar |
-| 20 | 1484 | Spike | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grundwert Tablet in LISTE… | M | 6 Technik, Leistung, Build | startbar |
+| 1 | 870 | Regeln | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 10 Regeln | startbar |
+| 2 | 1068 | Kampf | Ring bei jedem großen Schlag der Gegner … | M | 2 Kampf | startbar |
+| 3 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
+| 4 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
+| 5 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
+| 6 | 1750 | Kampf | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmu… | M | 2 Kampf | startbar |
+| 7 | 1570 | Figur | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Figuren und Kleidung | startbar |
+| 8 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | startbar |
+| 9 | 1676 | Figur | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Figuren und Kleidung | startbar |
+| 10 | 1709 | Figur | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell, Ziel vorhe… | M | 3 Figuren und Kleidung | startbar |
+| 11 | 455.2 | Figur | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
+| 12 | 1652 | Figur | Durchstechprüfung: Osric innere Stücke stechen durch die Robe | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
+| 13 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
+| 14 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
+| 15 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
+| 16 | 1566 | Welt | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne… | M | 5 Welt und Karten | gebaut, t300 ohne deine Antwort |
+| 17 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 18 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 19 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 20 | 1727 | Werkzeug | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts,… | M | 7 Firma | in Arbeit |
 
-Danach 118 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 103.
+Danach 118 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 111.
 ## Zu entscheiden
 
 Nichts offen.
