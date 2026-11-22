@@ -58,6 +58,7 @@ KATALOG = [
     ("steckt fest", "jede Rolle, nach Ursache und Behebung geht es nicht weiter → Sokrates"),
     ("Laufanforderung", "Fachkraft, Lauf endete ohne Ergebnis; Ursache und Commit der Behebung → Prüfer gibt frei"),
     ("ja", "Prüfer → Disponent"),
+    ("ja, Lauf frei", "Prüfer gibt eine Laufanforderung frei → Disponent startet neu, keine Testbitte"),
     ("nein", "Prüfer, je Mangel ein Satz → dieselbe Fachkraft"),
     ("nein, Auftrag", "Prüfer → Arbeitsplaner"),
     ("Beleg fehlt", "Prüfer → dieselbe Fachkraft"),
@@ -87,7 +88,9 @@ def worte(text):
     elif re.match(r"steckt fest\b", t): w.add("steckt fest")
     elif re.match(r"frage\b", t): w.add("Frage")
     elif re.match(r"fertig\b", t): w.add("fertig")
-    elif re.match(r"ja\b", t): w.add("ja")
+    elif re.match(r"ja\b", t):
+        w.add("ja")
+        if re.match(r"ja\W+lauf\s+frei\b", t): w.add("Lauf frei")  # 1952 (Endvorlage Lauf 4 Nr. 21, 22): keine Testbitte
     elif re.match(r"hinweis\b", t): w.add("Hinweis")
     elif re.match(r"laufanforderung\b", t): w.add("Laufanforderung")  # 1952 (ersetzt „abgebrochen“, 1782/1797)
     elif re.match(r"befunde:\s*\d+", t): w.add("Befunde")  # 1795: Meldung des Testers (profil-tester.md „Meldung“)
@@ -125,9 +128,13 @@ def zaehlen(text):
     1925 (1727j Frage 1, Chef 22.11., 11:21 „Frage 1 ja.“): das Chef-Nein zählt auch für die Laufbremse (Rückbau 1910): Chef-Nein,
     ein Versuch der Fachkraft, beim nächsten Nein „steckt fest“ an Sokrates."""
     z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0, "Laufanforderung": 0}
+    zuletzt = None  # 1952: jüngste Meldung der Fachkraft (fertig/Laufanforderung mit Commit)
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", ue.abschnitt(text, "Rückmeldungen")):
         ws = worte(m.group(1))
         if "Laufanforderung" in ws and not COMMIT.search(m.group(1)): continue  # 1952: ohne Commit zurückgewiesen, zählt nicht
+        if ws & {"fertig", "Laufanforderung"} and COMMIT.search(m.group(1)): zuletzt = "Laufanforderung" if "Laufanforderung" in ws else "fertig"
+        if "nein" in ws and zuletzt == "Laufanforderung":  # Profil Prüfer: dieses „nein“ zählt nicht (zählt die Laufanforderung)
+            ws = ws - {"nein"}
         for w in ws:
             if w in z: z[w] += 1
     z["steckt fest"] += max(0, z["Laufanforderung"] - (MAX_LAUF - 1))  # 1952: zweite und jede weitere zählt als „steckt fest“
@@ -341,9 +348,11 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
             return DISPONENT, "Routine fertig (%s): Vorschläge aus den offenen Übergabezeilen als Vorgänge anlegen, dann `vorgang.py schliessen` (1789)" % von
         if COMMIT.search(text): return PRUEFER, "prüfen: „fertig“ (%s): „%s“ (1739)" % (von, satz)
         return DISPONENT, "„fertig“ ohne Commit (%s): nicht annehmen, Fachkraft nennt Commit und Beleg (1739)" % von
-    if "ja" in w and lauf_offen(vorher):  # 1952: Prüfer gibt die Laufanforderung frei
+    if "ja" in w and (lauf_offen(vorher) or "Lauf frei" in w):  # 1952: Prüfer gibt die Laufanforderung frei, nie Testbitte
         m = macher(vorher)
-        return DISPONENT, "Laufanforderung freigegeben (ja des Prüfers, %s): %s einmal neu starten, Auftrag unverändert (1952)" % (von, m or "dieselbe Fachkraft")
+        if not lauf_offen(vorher):
+            return DISPONENT, "ja, Lauf frei (%s) ohne offene Laufanforderung: keine Testbitte; Prüfer fragen, welcher Lauf gemeint ist (1952)" % von
+        return DISPONENT, "Laufanforderung freigegeben (ja, Lauf frei des Prüfers, %s): %s einmal neu starten, Auftrag unverändert; keine Testbitte (1952)" % (von, m or "dieselbe Fachkraft")
     if "ja" in w and werkzeug:  # 1790 (Sokrates 1727 Nachprüfung 22:20): Werkzeug, keine Testbitte an den Chef
         return DISPONENT, "ja des Prüfers (%s): Werkzeug (Bereich B), kein Test des Chefs (1311): liegt der Zweig nicht auf main, mischt der Macher jetzt; dann `vorgang.py fertig`" % von
     if "ja" in w: return DISPONENT, "ja des Prüfers (%s): an den Chef vorlegen (Testbitte), nicht selbst nach main (1739)" % von
