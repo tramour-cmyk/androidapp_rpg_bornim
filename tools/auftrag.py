@@ -12,6 +12,9 @@ Felder (Gesamtbild 4.2): 1 Ziel · 2 Systemfrage · 3 Bisher · 4 Beachte (höch
 Prüfe vor dem Senden · 7 Zurück. Feld 8 „Leistungsstufe“ erst nach 1742 (Gesamtbild 4.2 Fassung 2).
 Größe: Bauliste 7.1 „etwa 2 KB“ (Vorlage 4.2 nannte 1,5 KB); über 2048 Byte hält an. 1878 (Lauf 3 Arbeitsplaner L4): wörtliche
 Zitate in Feld 3 „Bisher“ („…“ oder "…"; Kern: jedes frühere Nein wörtlich) zählen nicht mit, haben eine eigene Grenze von 2048 Byte.
+1879 (Lauf 3 Arbeitsplaner L7, Prüfer-1 L8): Inhalt, nicht nur Form: kein Platzhalter <…> (außer in Pfaden wie docs/vorgang/<Nr>.md),
+in Ziel, Umsetzen, Prüfart und Zurück keine Fehlwörter („fehlt“, „unklar“, „erst mit der Antwort“ …), Ziel und Zurück ohne Frage,
+Feld 6 mit drei bis fünf Prüffragen (Kern Arbeitsplaner, Vorlage 4.2).
 """
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -63,6 +66,39 @@ def _feld(text, i, name):
     m = re.search(r"(?m)^[ \t]*%d\.[ \t]*\**%s\**[ \t]*:?\**[ \t]*:?(.*?)(?=^[ \t]*\d\.[ \t]*\**(?:%s)\b|\Z)" % (i, _name_re(name), weiter), text, re.S)
     return None if not m else m.group(1).strip()
 
+# 1879: Platzhalter wie <Nr>, <Commit>, <was der Spieler sieht>; nicht in Pfaden (docs/vorgang/<Nr>.md) und nicht <-> o. Ä.
+PLATZHALTER = re.compile(r"(?<![/\w])<[^<>\n/]*[A-Za-zÄÖÜäöüß][^<>\n/]*>(?![/.\w])")
+# 1879: Wörter, die sagen, dass der Inhalt noch fehlt (A3 Feld 1: „Ziel und Herkunft fehlen, „Frage“ an Sokrates; … erst mit der Antwort“)
+FEHLWORT = re.compile(r"\b(?:fehl(?:t|en)\b(?![- ]?(?:er|end))|unklar|ungeklärt|noch offen|noch zu klären|zu klären|TODO|tbd|später ergänzen"
+                      r"|erst mit der Antwort|nach der Antwort|„?Frage“? an \w+)|\?\?|…\s*$", re.I | re.M)
+FEHLWORT_FELDER = (1, 5, 6, 7)   # Ziel, Umsetzen, Prüfart, Zurück; in Bisher und Systemfrage ist „Ursache unbekannt“, „Quelle fehlt“ Auftrag
+FRAGEN_MIN, FRAGEN_MAX = 3, 5
+
+def _ohne_zitate(t):
+    return ZITAT.sub("", t or "")
+
+def prueffragen(text):
+    """1879: Zahl der Prüffragen in Feld 6 (Fragezeichen außerhalb wörtlicher Zitate)."""
+    return _ohne_zitate(_feld(text, 6, FELDER[5]) or "").count("?")
+
+def inhalt_fehler(text):
+    """1879: Fehler im Inhalt (Platzhalter, Fehl- und Fragewörter, Zahl der Prüffragen)."""
+    f = []
+    for i, name in enumerate(FELDER, 1):
+        t = _feld(text, i, name)
+        if not t or re.fullmatch(r"<[^>]*>|[-–—]?|…", t): continue   # fehlt oder leer: meldet pruefen schon
+        p = sorted(set(m.group(0) for m in PLATZHALTER.finditer(_ohne_zitate(re.sub(r"`[^`]*/[^`]*`", "", t)))))
+        if p: f.append("Feld %d „%s“ hat Platzhalter %s" % (i, name, ", ".join(p)))
+        if i in FEHLWORT_FELDER:
+            w = sorted(set(m.group(0).strip() for m in FEHLWORT.finditer(_ohne_zitate(t))))
+            if w: f.append("Feld %d „%s“ sagt, dass etwas fehlt (%s): erst klären („Frage“), dann den Auftrag schreiben" % (i, name, ", ".join(w)))
+        if i in (1, 7) and "?" in _ohne_zitate(t): f.append("Feld %d „%s“ ist eine Frage, keine Angabe" % (i, name))
+    if _feld(text, 6, FELDER[5]):
+        n = prueffragen(text)
+        if not FRAGEN_MIN <= n <= FRAGEN_MAX:
+            f.append("Feld 6 hat %d Prüffragen, verlangt %d bis %d Ja-Nein-Fragen (Kern Arbeitsplaner)" % (n, FRAGEN_MIN, FRAGEN_MAX))
+    return f
+
 def groesse(text):
     """1878: (Byte ohne die wörtlichen Zitate in Feld 3, Byte dieser Zitate)."""
     gesamt = len(text.encode("utf-8"))
@@ -86,7 +122,7 @@ def pruefen(text):
     bea = _feld(text, 4, "Beachte") or ""
     punkte = [z for z in bea.splitlines() if re.match(r"\s*(?:[-*•]|\d+[.)])\s", z)]
     if len(punkte) > 5: f.append("Feld 4 „Beachte“ hat %d Punkte, höchstens fünf" % len(punkte))
-    return f
+    return f + inhalt_fehler(text)
 
 def eintragen(nr, text, treffer=None, wieder=False):
     """treffer: Zeile „Lehren-Treffer (Zeit): …“ (1739 Lehrenbuch), steht im selben Commit unter dem Auftrag.

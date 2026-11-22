@@ -41,7 +41,7 @@ GUT = """1. **Ziel:** Der Zwerg steht auf dem Tisch, nicht darin.
    - nur Tom-Bereich
    - Kerntests
 5. **Umsetzen:** Stellfläche aus dem Netz lesen.
-6. **Prüfart und Prüfe vor dem Senden:** Bild in Spielkamera; steht er auf der Fläche? Ja/Nein.
+6. **Prüfart und Prüfe vor dem Senden:** Bild in Spielkamera; steht er auf der Fläche? Ist nichts im Tisch? Zeigt das Bild den Commit?
 7. **Zurück:** an das Büro, erstes Wort „fertig“, mit Commit und Bild.
 """
 
@@ -72,6 +72,25 @@ soll("1878: Zitat außerhalb „Bisher“ zählt mit", any("ohne Zitate" in x fo
 zuviel = GUT.replace("3. **Bisher:**", "3. **Bisher:** " + nein + nein + nein, 1)
 soll("1878: Zitate über 2048 Byte halten an", any("Zitate unter „Bisher“" in x for x in au.pruefen(zuviel)), au.pruefen(zuviel))
 soll("1878: groesse trennt Zitate", au.groesse(mit_zitat)[1] == len(nein.encode()) and sum(au.groesse(mit_zitat)) == len(mit_zitat.encode()))
+# 1879 (Lauf 3 Arbeitsplaner L7, Prüfer-1 L8): Inhalt statt nur Form
+a3_ziel = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Ziel und Herkunft fehlen, „Frage“ an Sokrates; dieser Auftrag wird erst mit der Antwort eingetragen.")
+soll("1879: Fehlwörter im Ziel halten an (A3)", any("Feld 1" in x and "fehlt" in x for x in au.pruefen(a3_ziel)), au.pruefen(a3_ziel))
+a3_zur = GUT.replace("an das Büro, erstes Wort", "`vorgang.py rueckmeldung <Nr> \"fertig …\"` an das Büro, erstes Wort")
+soll("1879: Platzhalter <Nr> in Zurück hält an (A3)", any("Platzhalter <Nr>" in x for x in au.pruefen(a3_zur)), au.pruefen(a3_zur))
+pfad = GUT.replace("Stellfläche aus dem Netz lesen.", "Stellfläche aus dem Netz lesen, Muster `docs/vorgang/<Nr>.md` und docs/profil/<Name>.md.")
+soll("1879: Platzhalter in Pfaden zählt nicht", au.pruefen(pfad) == [], au.pruefen(pfad))
+zitat = GUT.replace("Höhe fest eingetragen", "Chef: „steht <wieder> drin“, Ursache unbekannt, Quelle fehlt; Höhe fest eingetragen")
+soll("1879: in Bisher sind „unbekannt“, „fehlt“ und Zitate erlaubt", au.pruefen(zitat) == [], au.pruefen(zitat))
+eine = GUT.replace("steht er auf der Fläche? Ist nichts im Tisch? Zeigt das Bild den Commit?", "steht er auf der Fläche? Ja/Nein.")
+soll("1879: eine Prüffrage hält an", any("1 Prüffragen" in x for x in au.pruefen(eine)), au.pruefen(eine))
+sechsf = GUT.replace("Zeigt das Bild den Commit?", "Zeigt das Bild den Commit? A? B? C?")
+soll("1879: sechs Prüffragen halten an", any("6 Prüffragen" in x for x in au.pruefen(sechsf)), au.pruefen(sechsf))
+frage = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Steht der Zwerg auf dem Tisch?")
+soll("1879: Ziel als Frage hält an", any("Feld 1" in x and "Frage" in x for x in au.pruefen(frage)), au.pruefen(frage))
+offen = GUT.replace("Stellfläche aus dem Netz lesen.", "Weg noch offen, TODO.")
+soll("1879: „noch offen“, TODO in Umsetzen halten an", any("Feld 5" in x for x in au.pruefen(offen)), au.pruefen(offen))
+gefehlt = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Der Zwerg steht auf dem Tisch; fehlerhafte Höhe weg.")
+soll("1879: „fehlerhaft“ ist kein Fehlwort", au.pruefen(gefehlt) == [], au.pruefen(gefehlt))
 sechs = GUT.replace("   - Kerntests\n", "   - a\n   - b\n   - c\n   - d\n   - e\n")
 soll("Beachte mit sechs Punkten hält an", any("Beachte" in x for x in au.pruefen(sechs)), au.pruefen(sechs))
 num = GUT.replace("   - nur Tom-Bereich\n   - Kerntests\n", "   1. nur Tom\n   2. Kerntests\n")

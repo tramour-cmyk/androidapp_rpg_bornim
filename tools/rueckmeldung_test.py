@@ -210,7 +210,7 @@ ad = os.path.join(d, "adocs"); os.makedirs(os.path.join(ad, "vorgang"))
 soll("ohne Vorgangsdatei: kein Auftrag; M? braucht keinen", lauf.auftrag_fehlt("9001", ad) == "kein Auftrag" and lauf.auftrag_fehlt("M?", ad) is None)
 open(os.path.join(ad, "vorgang", "9001.md"), "w").write("# Vorgang 9001\n\n## Auftrag (21.11., 20:00)\n\n" + _af.vorlage("9001", "x"))
 soll("leere Vorlage: Auftrag ungültig", (lauf.auftrag_fehlt("9001", ad) or "").startswith("Auftrag: Feld 1"))
-open(os.path.join(ad, "vorgang", "9001.md"), "a").write("\n## Auftrag (21.11., 20:30)\n\nAuftrag 9001\n\n" + "\n".join("%d. **%s:** etwas Inhalt hier" % (i, f) for i, f in enumerate(_af.FELDER, 1)) + "\n\n## Übergaben\n\nx\n")
+open(os.path.join(ad, "vorgang", "9001.md"), "a").write("\n## Auftrag (21.11., 20:30)\n\nAuftrag 9001\n\n" + "\n".join("%d. **%s:** %s" % (i, f, "Steht es? Hält es? Gilt es?" if i == 6 else "etwas Inhalt hier") for i, f in enumerate(_af.FELDER, 1)) + "\n\n## Übergaben\n\nx\n")
 soll("jüngster Auftrag gültig: Start erlaubt", lauf.auftrag_fehlt("9001", ad) is None)
 soll("Archivschutz: 1 Min. bis zur Umschaltung, scharf 15 Min. (1739, 7.1)", lauf.schutz_min(False) == 1 and lauf.schutz_min(True) == 15)
 
