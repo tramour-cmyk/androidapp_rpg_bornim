@@ -10,7 +10,8 @@
 
 Felder (Gesamtbild 4.2): 1 Ziel · 2 Systemfrage · 3 Bisher · 4 Beachte (höchstens fünf Punkte) · 5 Umsetzen · 6 Prüfart und
 Prüfe vor dem Senden · 7 Zurück. Feld 8 „Leistungsstufe“ erst nach 1742 (Gesamtbild 4.2 Fassung 2).
-Größe: Bauliste 7.1 „etwa 2 KB“ (Vorlage 4.2 nannte 1,5 KB); über 2048 Byte hält an.
+Größe: Bauliste 7.1 „etwa 2 KB“ (Vorlage 4.2 nannte 1,5 KB); über 2048 Byte hält an. 1878 (Lauf 3 Arbeitsplaner L4): wörtliche
+Zitate in Feld 3 „Bisher“ („…“ oder "…"; Kern: jedes frühere Nein wörtlich) zählen nicht mit, haben eine eigene Grenze von 2048 Byte.
 """
 import os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -21,6 +22,8 @@ HINWEIS = ["was der Spieler sieht, hört oder erlebt", "keine Einzellösung; wie
            "was schon versucht wurde, mit Ursache", "höchstens fünf Punkte", "was zu tun ist",
            "drei bis fünf Ja-Nein-Fragen", "an wen, in welcher Form, mit Beleg; Zweig gepusht, Commit genannt"]
 GRENZE = 2048
+GRENZE_ZITATE = 2048  # 1878: wörtliche Zitate unter „Bisher“, getrennt von GRENZE
+ZITAT = re.compile(r'„[^“”„]*[“”]|"[^"\n]*"')
 
 # 1789 (Sokrates, routine-rundblick.md:13, „Zu 1766“: alle drei Routinen): Routinen sind vom Feld „Zurück“ ausgenommen; ihr Auftrag ist
 # der feste Text (Teil A), das Zurück steht darin (Übergabezeilen ans Büro, dann „fertig“). Erkannt am Titel des Wochentermins.
@@ -46,7 +49,8 @@ def routine_text(titel, wurzel):
     return m.group(1).strip() if m else None
 
 def vorlage(nr, titel=""):
-    kopf = "Auftrag %s%s (höchstens %d Byte, etwa 2 KB; oben in docs/vorgang/%s.md)\n\n" % (nr, (": " + titel) if titel else "", GRENZE, nr)
+    kopf = ("Auftrag %s%s (höchstens %d Byte, etwa 2 KB; wörtliche Zitate unter „Bisher“ zählen nicht mit, eigene Grenze %d Byte; "
+            "oben in docs/vorgang/%s.md)\n\n") % (nr, (": " + titel) if titel else "", GRENZE, GRENZE_ZITATE, nr)
     return kopf + "\n".join("%d. **%s:** <%s>" % (i, f, h) for i, (f, h) in enumerate(zip(FELDER, HINWEIS), 1)) + "\n"
 
 def _name_re(name):
@@ -59,11 +63,19 @@ def _feld(text, i, name):
     m = re.search(r"(?m)^[ \t]*%d\.[ \t]*\**%s\**[ \t]*:?\**[ \t]*:?(.*?)(?=^[ \t]*\d\.[ \t]*\**(?:%s)\b|\Z)" % (i, _name_re(name), weiter), text, re.S)
     return None if not m else m.group(1).strip()
 
+def groesse(text):
+    """1878: (Byte ohne die wörtlichen Zitate in Feld 3, Byte dieser Zitate)."""
+    gesamt = len(text.encode("utf-8"))
+    bis = _feld(text, 3, FELDER[2]) or ""
+    z = sum(len(m.group(0).encode("utf-8")) for m in ZITAT.finditer(bis))
+    return gesamt - z, z
+
 def pruefen(text):
     """Liste der Fehler (leer = gut)."""
     f = []
-    n = len(text.encode("utf-8"))
-    if n > GRENZE: f.append("%d Byte, höchstens %d (Bauliste 7.1 „etwa 2 KB“)" % (n, GRENZE))
+    n, z = groesse(text)
+    if n > GRENZE: f.append("%d Byte ohne Zitate unter „Bisher“, höchstens %d (Bauliste 7.1 „etwa 2 KB“)" % (n, GRENZE))
+    if z > GRENZE_ZITATE: f.append("Zitate unter „Bisher“ %d Byte, höchstens %d (1878); ältere Neins als Verweis auf docs/vorgang/NR.md" % (z, GRENZE_ZITATE))
     for i, name in enumerate(FELDER, 1):
         inhalt = _feld(text, i, name)
         if inhalt is None: f.append("Feld %d „%s“ fehlt" % (i, name)); continue
@@ -137,7 +149,7 @@ def haupt(a, fertig=None, wieder=None):
             f = pruefen(text)
             if f:
                 print("vorgang.py auftrag %s hält an:\n- " % nr + "\n- ".join(f)); sys.exit(1)
-            if nur: print("vorgang.py auftrag %s: gültig (%d Byte)" % (nr, len(text.encode("utf-8")))); return
+            if nur: print("vorgang.py auftrag %s: gültig (%d Byte, davon Zitate unter „Bisher“ %d)" % ((nr, len(text.encode("utf-8"))) + groesse(text)[1:])); return
             zurueck = titel is None and wieder is not None
             if zurueck: titel = wieder(nr)  # 1798: Rückläufer zu archivierter Nummer, Vorgang wird wieder offen (Liste und Archiv in eintragen, 1899)
         if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv" % nr)
