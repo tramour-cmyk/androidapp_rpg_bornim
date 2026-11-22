@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 389 · 1871 „ja, Lauf frei“ (lesend, Weiter Ford 16:01; Kopie `128da4ed4`; 22.11., 16:01–16:03)
+
+- Ohne Befund (1871 bleibt in Arbeit). Alle 43 `tools/*_test.py` grün. Gegen Endvorlage Lauf 4 Nr. 21, 22: „ja, Lauf frei“ im KATALOG und in `worte` („Ja. Lauf frei“ ebenso); mit offener Laufanforderung → Disponent startet einmal neu, ohne → Disponent fragt den Prüfer, in beiden Fällen keine Testbitte, auch vor dem Werkzeugzweig. „nein“ des Prüfers nach jüngster Laufanforderung zählt nicht in `zaehlen` (damit weder Laufbremse noch Obergrenze A); „nein“ nach jüngerem „fertig“ zählt weiter; Laufanforderung ohne Commit setzt den Bezug nicht. Endlos-Nein ausgeschlossen: nächste Laufanforderung ist die zweite → Sokrates.
+- Nicht als Befund: bloßes „ja“ zu offener Laufanforderung gibt weiter frei (wie Lauf 388, nachsichtig).
+
 ## Lauf 388 · 1952 Laufanforderung und Katalog (lesend, Neustart Ford 15:37; Kopie `7084767d4`; 22.11., 15:38–15:42)
 
 - Greift (erledigt). Alle 43 `tools/*_test.py` grün. Gegen Archiv 15:31: „Laufanforderung“ ersetzt „abgebrochen“ (altes Wort ohne Signal, zurückgewiesen); nur mit Commit, sonst ZURÜCKGEWIESEN, Exit 1, zählt nicht; mit Commit → Prüfer, „ja“ → Disponent startet einmal neu, „nein“ → Rückläufer an die Fachkraft; zweite je Vorgang → Sokrates, zählt als „steckt fest“ (danach „steckt fest“ → Obergrenze B); KATALOG 13 Wörter, alle in `worte` erkannt; unbekanntes erstes Wort bleibt eingetragen, Liste in der Fehlermeldung; Chefworte nie (gehen ohnehin über `chefwort.py`). Fremder Abbruch bleibt bei `uebergabe.frei`.
