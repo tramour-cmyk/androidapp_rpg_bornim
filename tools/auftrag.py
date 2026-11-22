@@ -5,6 +5,7 @@
   vorgang.py auftrag NR --datei PFAD     Auftrag prüfen (sieben Felder, Pflichtfeld „Zurück“ mit Inhalt, höchstens 2 KB)
                                          und als Abschnitt „## Auftrag (TT.MM., HH:MM)“ in docs/vorgang/NR.md eintragen (gepusht wie
                                          die Übergabezeilen); „-“ liest von der Standardeingabe; --pruefen: nur prüfen, nichts schreiben
+  NR muss in der Vorgangsliste oder im Archiv stehen, auch mit --pruefen (1944); Build n: B<n> (Datei docs/vorgang/B<n>.md, 1949)
   vorgang.py schliessen NR "Grund"       Vorgang schließen mit Grund (mindestens drei Wörter): Stand „erledigt“ wie `fertig`
                                          (Rest-Sperre 1143 gilt), Grund als Zeile „Geschlossen“ in docs/vorgang/NR.md
 
@@ -200,6 +201,14 @@ def schliessen(nr, grund):
         return alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "Geschlossen (%s): %s\n" % (zeit, grund.strip()), zeit
     return ue.atomar(nr, aendern, "%s: geschlossen (%s): %s" % (nr, zeit, grund.strip()[:120]))
 
+BUILD = re.compile(r"B(\d+)")
+
+def build_titel(nr):
+    """1949 (Falltest Lauf 4 A3, D6, T2; build-kette.md 1 „Build-Auftrag B<n>“): Build-Aufträge und Testmeldungen tragen die
+    Nummer B<n>, nie die bloße Buildnummer (Vorgang 300 ≠ Build 300); Titel „Build n“, keine Zeile in der Vorgangsliste nötig."""
+    m = BUILD.fullmatch(nr or "")
+    return "Build %s" % m.group(1) if m else None
+
 def _titel(nr):
     import startbar
     z = [d for d in startbar.zeilen_liste() if d["nr"] == nr]
@@ -217,15 +226,17 @@ def haupt(a, fertig=None, wieder=None):
             datei = rest[i + 1]; del rest[i:i + 2]
         if len(rest) != 1: sys.exit(__doc__)
         nr = rest[0]
-        titel = _titel(nr)
+        titel = build_titel(nr) or _titel(nr)  # 1949: B<n> ohne Listenzeile
         text = None
         if datei is not None:
             text = sys.stdin.read() if datei == "-" else open(datei, encoding="utf-8").read()
             f = pruefen(text)
             if f:
                 print("vorgang.py auftrag %s hält an:\n- " % nr + "\n- ".join(f)); sys.exit(1)
+            if nur and titel is None and (wieder is None or wieder(nr) is None):  # 1944: unbekannte Nummer nie „gültig“
+                sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv (Build n: B<n>, 1949); nichts geprüft" % nr)
             if nur: print("vorgang.py auftrag %s: gültig (%d Byte, davon Zitate unter „Bisher“ %d)" % ((nr, len(text.encode("utf-8"))) + groesse(text)[1:])); return
-            zurueck = titel is None and wieder is not None
+            zurueck = titel is None and wieder is not None and not BUILD.fullmatch(nr)
             if zurueck: titel = wieder(nr)  # 1798: Rückläufer zu archivierter Nummer, Vorgang wird wieder offen (Liste und Archiv in eintragen, 1899)
         if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv" % nr)
         import lehren

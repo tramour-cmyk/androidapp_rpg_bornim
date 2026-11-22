@@ -59,13 +59,29 @@ def freigabe(w):
     return not any(t and re.search(r"(?i)\b(passt|freigegeben|gut)\b", t) and VERNEINT.search(t) for t in TEIL.split(w))
 
 
+# 1948 (Falltest Lauf 4 P1, P7): Ablehnung ohne „nein“ am Anfang („Also fail.“, „Wieder daneben.“, „kein Unterschied zwischen alt und
+# neu“, „Film t300.11 Fail“); ✗ hinter einem Prüfpunkt auch mitten im Satz („Nein des Chefs: ‚299.3 ✗‘“)
+ABLEHNUNG = re.compile(r"(?i)\bfail\b|\bdaneben\b|\bkein(?:en)? unterschied\b|\bnicht besser\b|\bwieder falsch\b|(?:\d+(?:\.\d+)?|Rest)\s*✗")
+
 def chef_nein(w):
     """1872: Chefwort lehnt ab (zählt für Obergrenze A wie ein „nein“ des Prüfers): beginnt mit „nein“, 👎, Ergebnis mit ✗ oder ein
-    verneintes Freigabewort („passt nicht“, „nicht freigegeben“); eine Freigabe ohne Verneinung nie."""
+    verneintes Freigabewort („passt nicht“, „nicht freigegeben“); eine Freigabe ohne Verneinung nie. 1948: auch ABLEHNUNG
+    („fail“, „daneben“, „kein Unterschied“) irgendwo im Wortlaut."""
     w = w or ""
     if freigabe(w): return False
-    if re.match(r"(?i)^\W*nein\b", w) or "👎" in w or re.search(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*✗", w): return True
+    if re.match(r"(?i)^\W*nein\b", w) or "👎" in w or re.search(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*✗", w) or ABLEHNUNG.search(w): return True
     return any(t and re.search(r"(?i)\b(passt|freigegeben|gut)\b", t) and VERNEINT.search(t) for t in TEIL.split(w))
+
+
+def bisher_nein(bisher):
+    """1948: Feld „Bisher“ eines Auftrags nennt ein Nein des Chefs: „Nein des Chefs“, „Chef-Nein“, „👎 des Chefs“ oder ein Zitat
+    („…“) in einem Satz mit „Chef“, das chef_nein ist („Chef 18.11., 17:38: „… Also fail.““)."""
+    b = bisher or ""
+    if re.search(r"(?i)\bnein des chefs\b|\bchef-?nein\b|👎 des chefs|\bchef\b[^.\n]{0,40}👎", b): return True
+    for m in re.finditer(r'„[^“”„]*[“”]|"[^"\n]*"', b):  # Zitat, davor im selben Absatz binnen 60 Zeichen „Chef“
+        vor = b[max(0, m.start() - 60):m.start()].split("\n")[-1]
+        if re.search(r"\bChef", vor) and not re.search(r"[„“”\"]", vor) and chef_nein(m.group(0).strip("„“”\"")): return True
+    return False
 
 
 def _build_am_vorgang(nr, d):

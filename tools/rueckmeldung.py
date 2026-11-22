@@ -20,6 +20,11 @@ im selben Commit eine offene Übergabezeile (1760):
   1797: „abgebrochen“ → Disponent (ein Neustart), zweites je Vorgang → Sokrates „steckt fest“ (AB:12); „Auftrag steht“ → Disponent startet
   die Fachkraft; „kein Auftrag nötig“ → Disponent schließt oder fragt Sokrates; „Hinweis:“ hinter einem anderen Signalwort → zweite Zeile
   an den Disponenten
+  1947: „fertig“ ohne Commit einer Routine-Sitzung (Rundblick, Ideenlauf, Wache, Tagesbericht, Wochenzählung) gilt wie unter einem
+  Routine-Titel, auch unter einem anderen Vorgang · 1950: „fertig“ mit Commit zu einem Werkzeug (Bereich B), dessen Commit nicht auf
+  origin/main steht: im selben Commit dazu eine Zeile an die meldende Fachkraft „auf main, Vollzug mit Commit“ · 1949: Build n meldet
+  man unter B<n>; bloße Nummer n mit „Build n“/„tn“ im Text, die kein offener Vorgang ist, hält an · 1948: Chef-Nein auch ohne
+  „nein“ am Anfang („fail“, „daneben“, „kein Unterschied“, „n.k ✗“) und einmal aus Feld „Bisher“ des jüngsten Auftrags
   Empfänger „Prüfer“ und „Disponent“ sind bis zur Umschaltung Diogenes und Ford (lauf.py, tools/1727-SCHARF)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
   A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde, auch Chef-Nein; „nein, Auftrag“ zählt nicht, „Beleg fehlt“ erst jedes dritte je Auftrag, 1926)
@@ -104,9 +109,24 @@ def zaehlen(text):
             if w in z: z[w] += 1
     z["nein"] += beleg_als_nein(text)  # 1926
     import chefwort
+    vorher = z["nein"]
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, Chef[^\n]*:\n((?:> .*\n?)+)", ue.abschnitt(text, "Chefworte")):
         if chefwort.chef_nein("\n".join(l[2:] for l in m.group(1).splitlines())): z["nein"] += 1
+    if z["nein"] == vorher and nein_unter_bisher(text): z["nein"] += 1  # 1948: einmal, wenn „Chefworte“ es nicht schon zählte
     return z
+
+
+def nein_unter_bisher(text):
+    """1948 (Falltest Lauf 4 P1, P2, P6; Profil Prüfer: „jedes Nein unter ‚Bisher‘ oder in der Vorgangsdatei“; 1727j Frage 1, Chef
+    22.11., 11:21: dein Nein unter „Bisher“ zählt als erster Fehlversuch): Feld 3 „Bisher“ des jüngsten Auftrags nennt ein Nein des Chefs
+    (chefwort.bisher_nein)."""
+    import auftrag, chefwort
+    auf = [m for m in re.finditer(r"(?m)^## Auftrag \([^)]*\)\n", text or "")]
+    if not auf: return False
+    best = max(auf, key=lambda m: _zeit(m.group(0)) or (0, 0, 0, 0))
+    teil = text[best.end():]
+    n = re.search(r"(?m)^## ", teil)
+    return chefwort.bisher_nein(auftrag._feld(teil[:n.start()] if n else teil, 3, "Bisher") or "")
 
 
 def kosten_summe(kost):
@@ -178,7 +198,16 @@ def macher(text, nr=None):
     return _listen_besitzer(nr) if nr else None
 
 
-def ist_routine(nr):
+ROUTINEN = ("Rundblick", "Ideenlauf", "Wache", "Tagesbericht", "Wochenzählung")  # 1947: Rolle der Routine-Sitzung (lauf.py START)
+
+def ist_routine(nr, wer=None):
+    """1947 (Falltest Lauf 4 R1): auch wenn die meldende Sitzung eine Routine ist (Rolle aus der Besetzung oder --sitzung), gleich unter
+    welchem Vorgang sie meldet; der Titel trägt die Marke dann nicht (Rundblick unter 1734)."""
+    if re.sub(r" \d+$", "", wer or "") in ROUTINEN: return True
+    return _ist_routine(nr)
+
+
+def _ist_routine(nr):
     """1789: Vorgang nr ist eine Routine (Titel „(Routine, Auftrag …)“, auftrag.routine); sie baut nichts, „fertig“ ohne Commit gilt."""
     try:
         import auftrag, startbar
@@ -233,6 +262,24 @@ def ist_werkzeug(nr):
         return any(d["nr"] == nr and d.get("bereich", "").startswith("B ") for d in startbar.vorgangsliste(startbar.lesen(startbar.LISTE)))
     except Exception:
         return False
+
+
+def nicht_auf_main(text, nr, zeit, wer):
+    """1950 (Falltest Lauf 4 D3; Chef 19.11., 22:16 Anhalt 5 Minuten): „fertig“ mit Commit zu einem Werkzeug (Bereich B, nach grünem Lauf
+    sofort auf main, 1311): steht der Commit nicht auf origin/main, im selben Commit eine Zeile an die Fachkraft (wer meldete; unbekannt:
+    Disponent) „auf main, Vollzug mit Commit“; (an, was) oder None, wenn er dort steht."""
+    import liegt
+    try: ue._git("fetch", "-q", "origin", "main")
+    except Exception: pass
+    for c in COMMIT.findall(text or ""):
+        r = liegt.auf_main(c, ue.WURZEL)
+        if r is True: return None
+        if r is False or r is None:
+            an = re.sub(r" \d+$", "", wer or "")
+            an = an if an and an not in ("unbekannt", DISPONENT, "Ford") else DISPONENT
+            grund = "steht nicht auf origin/main" if r is False else "ist auf origin nicht bekannt (nicht gepusht?)"
+            return an, "auf main, Vollzug mit Commit: %s %s (Prüfung beim Eintrag %s, 1950); Werkzeug nach grünem Lauf sofort auf main (1311), dann `vorgang.py rueckmeldung %s` „fertig“ mit dem Commit auf main" % (c, grund, zeit, nr)
+    return None
 
 
 PRUEFFRAGE_FEHLT = re.compile(r"(?i)^\W*hinweis\W+pr(ü|ue)ffrage\w*\s+fehl")
@@ -342,7 +389,10 @@ def eintragen(nr, text, wer, sid=""):
         elif "abgebrochen" in w:
             an, was = DISPONENT, "abgebrochen (Rückmeldung %s von %s): einmal neu starten, Auftrag unverändert; beim zweiten Mal geht es an Sokrates (1797, AB:12)" % (zeit, wer or "unbekannt")
         else:
-            an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr), "ja" in w and ist_werkzeug(nr))
+            an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr, wer), "ja" in w and ist_werkzeug(nr))
+            if "fertig" in w and an == PRUEFER and ist_werkzeug(nr):  # 1950: Werkzeug sofort auf main prüfen, nicht beim nächsten Wecker
+                z2 = nicht_auf_main(text, nr, zeit, wer)
+                if z2: aus = [(an, was), z2]
         if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, Neustart über die eigene Übergabezeile (1782)"
                               if "abgebrochen" in w else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
@@ -439,6 +489,19 @@ def nein_waechter(nr, text):
         print("Wächter nicht gelaufen (%s)" % e)
 
 
+def build_falsch(nr, text):
+    """1949 (Falltest Lauf 4 T2: Tester meldete zu Build 300 in den fremden, erledigten Vorgang 300): bloße Nummer n, der Text nennt
+    „Build n“ oder „tn“, und n ist kein offener Vorgang der Liste → Grund zum Anhalten (Meldung unter B<n>), sonst None."""
+    if not re.fullmatch(r"\d+", nr or "") or not re.search(r"(?i)\bbuild\s+%s\b|(?<![\w.])t%s\b" % (nr, nr), text or ""): return None
+    try:
+        import startbar
+        d = next((x for x in startbar.vorgangsliste(startbar.lesen(startbar.LISTE)) if x["nr"] == nr), None)
+    except Exception:
+        d = None
+    if d and d.get("wort") not in (None, "erledigt", "verworfen", "aufgeteilt"): return None
+    return "%s ist kein offener Vorgang, der Text meint Build %s: Build-Meldungen unter B%s (`vorgang.py rueckmeldung B%s …`, 1949)" % (nr, nr, nr, nr)
+
+
 def haupt(a):
     a = list(a[1:]) if a[:1] == ["rueckmeldung"] else list(a)
     wer = None
@@ -451,6 +514,8 @@ def haupt(a):
     if wer is None:
         import chefwort
         wer = chefwort._rolle_aus_besetzung(sid) or "unbekannt"
+    f = build_falsch(a[0], a[1])
+    if f: sys.exit("vorgang.py rueckmeldung: %s; nichts geschrieben" % f)
     try:
         k, grund = eintragen(a[0], a[1], wer, sid)
     except ue.Fehler as e:

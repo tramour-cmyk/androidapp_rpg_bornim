@@ -885,6 +885,7 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     wartet = {n: x["warte"] for n, x in zl.items() if x.get("warte")}
     scharf = ist_scharf()
     def fachkraft(nr):
+        if re.fullmatch(r"B\d+", nr): return "Technik" if scharf else "Spike"  # 1949: Build-Auftrag B<n> geht an den Build-Macher
         x = zl.get(nr) or {}
         b = (x.get("besitzer") or "").strip()
         if not scharf and b and b not in ("-", "–"): return b
@@ -938,7 +939,7 @@ def auftrag_fehlt(nr, docs=None, titel=None):
     """1739 (7.1 „kein Start ohne Feld Zurück“): Grund, warum Vorgang nr keinen gültigen Auftrag hat (jüngster Abschnitt
     „## Auftrag (…)“ in docs/vorgang/<Nr>.md, geprüft mit auftrag.pruefen: sieben Felder, „Zurück“ mit Inhalt, höchstens 2 KB),
     sonst None. Zeilen ohne Nummer (M?, Stillstand, Kosten) brauchen keinen."""
-    if not re.match(r"\d", str(nr)): return None
+    if not re.match(r"B?\d", str(nr)): return None  # 1949: Build-Auftrag B<n> braucht ebenso einen Auftrag
     try:  # 1789: Routinen (Titel „(Routine, Auftrag <Datei> …)“) sind vom Feld „Zurück“ ausgenommen, Teil A ist der Auftrag
         import auftrag as _a
         if _a.routine(titel if titel is not None else next((d["titel"] for d in startbar.zeilen_liste() if d["nr"] == nr), "")): return None
@@ -1175,6 +1176,8 @@ def notizen_frisch():
 
 def main():
     a = sys.argv[1:]
+    if any(x in ("--help", "-h", "--hilfe", "hilfe") for x in a):  # 1945: Hilfe vor jeder Prüfung (Notizkopie, Stellung)
+        return print(__doc__)
     if a[:1] == ["--haken"] and len(a) > 1:  # 1895: für weiter-haken.py, nur die Nummer (leer = nichts)
         return print(haken_naechste(a[1]) or "")
     if a[:1] == ["--morgen"]:  # 783 W7 (Chef 09.11., 20:16): Fords 7-Uhr-Zeile entfällt, alles steht im Tagesbericht 7:30

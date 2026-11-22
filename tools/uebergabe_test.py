@@ -10,7 +10,7 @@ g("init", "-q", "--bare", "-b", "main", o)
 g("clone", "-q", o, A); g("config", "user.email", "t@t", cwd=A); g("config", "user.name", "t", cwd=A)
 os.makedirs(os.path.join(A, "docs")); g("checkout", "-q", "-b", "main", cwd=A)
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
-    "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Tom | [Tom](https://claude.ai/code/session_TOM1) | 9001 | – | 21.11. |\n")
+    "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Figur | [Figur](https://claude.ai/code/session_TOM1) | 9001 | – | 21.11. |\n")
 g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 g("clone", "-q", o, B); g("config", "user.email", "t@t", cwd=B); g("config", "user.name", "t", cwd=B)
 fehl = 0
@@ -30,12 +30,12 @@ def sitzungen(**st):
     return p
 
 # 1 Neustart während offener Übergabe: Empfänger nimmt nie an, neue Sitzung liest offene Zeilen ihres Bereichs
-rc, t = lauf(A, "session_ABS", "21.11., 20:00", "uebergabe", "9001", "Tom", "Auftrag 9001-1 bauen")
+rc, t = lauf(A, "session_ABS", "21.11., 20:00", "uebergabe", "9001", "Figur", "Auftrag 9001-1 bauen")
 soll("Übergabe offen, Wecker an laufende Sitzung aus der Besetzung", rc == 0 and "OFFEN 9001-Ü1" in t and "WECKER session_TOM1 | sieh in 9001 (9001-Ü1)" in t, t)
-soll("Zeile steht auf origin/main", "| 9001-Ü1 | Tom | Auftrag 9001-1 bauen | 21.11., 20:00 | offen |" in datei(), datei())
+soll("Zeile steht auf origin/main", "| 9001-Ü1 | Figur | Auftrag 9001-1 bauen | 21.11., 20:00 | offen |" in datei(), datei())
 soll("lokale Kopie nachgezogen", os.path.exists(os.path.join(A, "docs/vorgang/9001.md")))
-rc, t = lauf(B, "session_NEU", "21.11., 20:10", "offen", "Tom")
-soll("neue Sitzung sieht die offene Zeile", "9001-Ü1 | an Tom" in t and "1 Zeile" in t, t)
+rc, t = lauf(B, "session_NEU", "21.11., 20:10", "offen", "Figur")
+soll("neue Sitzung sieht die offene Zeile", "9001-Ü1 | an Figur" in t and "1 Zeile" in t, t)
 rc, t = lauf(B, "session_NEU", "21.11., 20:10", "annehmen", "9001-Ü1")
 soll("neue Sitzung nimmt an", rc == 0 and t.startswith("ANGENOMMEN 9001-Ü1 (bis 21.11., 20:40)"), t)
 
@@ -64,7 +64,7 @@ soll("Frist abgelaufen, Halter idle → wieder offen (1782: zählt)", "9001-Ü2"
 rc, t = lauf(A, "session_ERS", "21.11., 21:11", "annehmen", "9001-Ü2")
 soll("Ersatzsitzung nimmt an, Zähler bleibt", t.startswith("ANGENOMMEN") and "angenommen session_ERS bis 21.11., 21:41 (wieder 1) |" in datei(), datei())
 # 4 Wecker während eines Zugs von 40 Minuten: Frist abgelaufen, Halter working → es wird gewartet
-lauf(A, "session_ABS", "21.11., 21:00", "uebergabe", "9001", "Tom", "Auftrag 9001-2 bauen")
+lauf(A, "session_ABS", "21.11., 21:00", "uebergabe", "9001", "Figur", "Auftrag 9001-2 bauen")
 lauf(B, "session_BAU", "21.11., 21:00", "annehmen", "9001-Ü3")
 rc, t = lauf(A, "session_DISP", "21.11., 21:40", "offen", "--sitzungen", sitzungen(session_BAU="working"))
 soll("Halter working nach 40 Minuten: bleibt angenommen", "arbeitet (warten)" in t and "angenommen session_BAU" in datei(), t)
@@ -77,8 +77,8 @@ soll("Halter verlängert die Frist", t.startswith("VERLÄNGERT") and "angenommen
 
 # 5 zwei Schreiber: 8 gleichzeitige Übergaben aus zwei Kopien, dann 6 gleichzeitige Quittungen auf dieselbe Zeile
 with ThreadPoolExecutor(8) as ex:
-    r = list(ex.map(lambda i: lauf(A if i % 2 else B, "session_S%d" % i, "21.11., 22:00", "uebergabe", "9001", "Jerry", "Teil %d" % i), range(8)))
-ks = re.findall(r"\| (9001-Ü\d+) \| Jerry \| Teil (\d) ", datei())
+    r = list(ex.map(lambda i: lauf(A if i % 2 else B, "session_S%d" % i, "21.11., 22:00", "uebergabe", "9001", "Kampf", "Teil %d" % i), range(8)))
+ks = re.findall(r"\| (9001-Ü\d+) \| Kampf \| Teil (\d) ", datei())
 soll("8 gleichzeitige Übergaben: alle da, Kennungen eindeutig", all(x[0] == 0 for x in r) and len(ks) == 8 and len({k for k, _ in ks}) == 8 and {n for _, n in ks} == set("01234567"), [x[1] for x in r if x[0]])
 ziel = ks[0][0]
 with ThreadPoolExecutor(6) as ex:
@@ -87,24 +87,24 @@ an = [t for _, t in r if t.startswith("ANGENOMMEN")]
 soll("6 gleichzeitige Quittungen: genau eine ANGENOMMEN, Rest BELEGT", len(an) == 1 and sum(1 for c, t in r if c == 3) == 5, [t for _, t in r])
 
 # 1760 Rückläufer (Sokrates 22.11., 07:08): Zeile an Rolle ohne Sitzung → Wecker an den Disponenten, der den Start ausgibt
-rc, t = lauf(A, "session_ABS", "21.11., 22:06", "uebergabe", "9002", "Jerry", "Auftrag 9002-1 bauen")
-soll("ohne Sitzung und ohne Disponent: KEIN DISPONENT", rc == 0 and "KEINE SITZUNG Jerry" in t and "KEIN DISPONENT" in t and "WECKER" not in t, t)
+rc, t = lauf(A, "session_ABS", "21.11., 22:06", "uebergabe", "9002", "Kampf", "Auftrag 9002-1 bauen")
+soll("ohne Sitzung und ohne Disponent: KEIN DISPONENT", rc == 0 and "KEINE SITZUNG Kampf" in t and "KEIN DISPONENT" in t and "WECKER" not in t, t)
 g("pull", "-q", "--no-rebase", "origin", "main", cwd=A)
 with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f: f.write("| Ford | [Ford](https://claude.ai/code/session_FORD1) | – | – | 21.11. |\n")
 g("commit", "-qam", "Ford", cwd=A); g("push", "-q", "origin", "main", cwd=A)
-rc, t = lauf(B, "session_ABS", "21.11., 22:07", "uebergabe", "9002", "Jerry", "Auftrag 9002-2 bauen")
-soll("ohne Sitzung: WECKER an den Disponenten (Ford bis zur Umschaltung)", rc == 0 and "WECKER session_FORD1 | sieh in 9002 (9002-Ü2): keine Sitzung Jerry, Start ausgeben" in t, t)
-rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Tom", "Auftrag 9002-3 bauen")
+rc, t = lauf(B, "session_ABS", "21.11., 22:07", "uebergabe", "9002", "Kampf", "Auftrag 9002-2 bauen")
+soll("ohne Sitzung: WECKER an den Disponenten (Ford bis zur Umschaltung)", rc == 0 and "WECKER session_FORD1 | sieh in 9002 (9002-Ü2): keine Sitzung Kampf, Start ausgeben" in t, t)
+rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Figur", "Auftrag 9002-3 bauen")
 soll("mit Sitzung: kein Wecker an den Disponenten", "WECKER session_TOM1 | sieh in 9002 (9002-Ü3)" in t and "FORD1" not in t, t)
 rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Disponent", "Auftrag 9002-4")
 soll("an den Disponenten: Wecker an Ford, kein zweiter", t.count("WECKER session_FORD1") == 1, t)
 
 # Nachfolger: freigeben macht eigene Zeilen sofort wieder offen
 rc, t = lauf(B, "session_BAU", "21.11., 22:10", "freigeben")
-soll("freigeben vor Nachfolger", "FREIGEGEBEN: 1" in t and "| 9001-Ü3 | Tom | Auftrag 9001-2 bauen | 21.11., 21:00 | offen |" in datei(), t)
+soll("freigeben vor Nachfolger", "FREIGEGEBEN: 1" in t and "| 9001-Ü3 | Figur | Auftrag 9001-2 bauen | 21.11., 21:00 | offen |" in datei(), t)
 rc, t = lauf(A, "session_DISP", "21.11., 22:11", "offen")
 reihen = [l.split(" | ")[0] for l in t.splitlines() if l.startswith("9001-Ü")]
-soll("Büro-Liste nach Eingangszeit", reihen[:2] == ["9001-Ü2", "9001-Ü3"] and "9001-Ü3 | an Tom | Auftrag 9001-2 bauen | seit 21.11., 21:00 | offen" in t, t)
+soll("Büro-Liste nach Eingangszeit", reihen[:2] == ["9001-Ü2", "9001-Ü3"] and "9001-Ü3 | an Figur | Auftrag 9001-2 bauen | seit 21.11., 21:00 | offen" in t, t)
 soll("Commits tragen nur die Vorgangsdatei", set(g("log", "--format=", "--name-only", "origin/main", "-n", "25", cwd=A).split()) <= {"docs/vorgang/9001.md", "docs/vorgang/9002.md", "docs/ARBEIT-BESETZUNG.md"})
 # 3b 1782 (3.3 Nr. 3): zweites Mal ohne Ergebnis → „steckt fest“, kein weiterer Neustart
 lauf(A, "session_ABS", "21.11., 23:00", "uebergabe", "9001", "Prüfer", "Auftrag 9001-9 prüfen")
@@ -119,11 +119,11 @@ soll("„steckt fest“ nicht annehmbar", t.startswith("FEST"), t)
 rc, t = lauf(A, "session_DISP", "22.11., 00:22", "offen", "Prüfer")
 soll("steckt fest bleibt sichtbar, nicht offen", "steckt fest (Frist" in t, t)
 # 3c 1782: Halter abgebrochen (Zug mit Fehler) → ohne die Frist abzuwarten wieder offen
-lauf(A, "session_ABS", "22.11., 00:30", "uebergabe", "9001", "Tom", "Auftrag 9001-3 bauen")
-k3 = re.findall(r"\| (9001-Ü\d+) \| Tom \| Auftrag 9001-3 bauen", datei())[0]
+lauf(A, "session_ABS", "22.11., 00:30", "uebergabe", "9001", "Figur", "Auftrag 9001-3 bauen")
+k3 = re.findall(r"\| (9001-Ü\d+) \| Figur \| Auftrag 9001-3 bauen", datei())[0]
 lauf(B, "session_ABB", "22.11., 00:31", "annehmen", k3)
 rc, t = lauf(A, "session_DISP", "22.11., 00:35", "offen", "--sitzungen", sitzungen(session_ABB="failed"))
-soll("abgebrochen vor der Frist → wieder offen", "wieder offen (Halter abgebrochen)" in t and "| %s | Tom | Auftrag 9001-3 bauen | 22.11., 00:30 | offen (wieder 1) |" % k3 in datei(), (t, datei()))
+soll("abgebrochen vor der Frist → wieder offen", "wieder offen (Halter abgebrochen)" in t and "| %s | Figur | Auftrag 9001-3 bauen | 22.11., 00:30 | offen (wieder 1) |" % k3 in datei(), (t, datei()))
 lauf(B, "session_ABB2", "22.11., 00:36", "annehmen", k3)
 rc, t = lauf(A, "session_DISP", "22.11., 00:38", "offen", "--sitzungen", sitzungen(session_ABB2="working"))
 soll("working vor der Frist: nichts", "angenommen session_ABB2" in datei(), datei())

@@ -2,7 +2,7 @@
 """1760 (1727 Gesamtbild 3.3 Fassung 2, Chef 21.11., 10:11 „3.3 so“): Übergabe als Zeile in der Vorgangsdatei, Nachricht nur Wecker.
 
 Aufruf über vorgang.py (oder direkt):
-  vorgang.py uebergabe NR AN "was"           neue Zeile „offen“ in docs/vorgang/NR.md; gibt WECKER-Zeilen aus (Kennung des Empfängers frisch
+  vorgang.py uebergabe NR AN "was"           (AN: siehe „Empfänger“ unten; NR auch B<n> für Build n, 1949) neue Zeile „offen“ in docs/vorgang/NR.md; gibt WECKER-Zeilen aus (Kennung des Empfängers frisch
                                               aus ARBEIT-BESETZUNG.md); der Absender schickt den Wecker per send_message „sieh in NR (Kennung)“
   vorgang.py annehmen KENNUNG [--frist MIN]  Quittung: offen → angenommen (diese Sitzung, Frist, Vorgabe 30 Minuten); ANGENOMMEN = jetzt tun;
                                               SCHON DEINE = doppelter Wecker, nichts neu beginnen; BELEGT (Exit 3) = eine andere Sitzung hat sie
@@ -14,6 +14,11 @@ Aufruf über vorgang.py (oder direkt):
                                               nicht working ist, wieder offen (Stundenrunde, verlorene Wecker); working: es wird gewartet.
                                               1782 (3.3 Nr. 3, 1727d L-S2/L-U8): beim ersten Mal „offen (wieder 1)“ (ein Neustart), beim
                                               zweiten Mal „steckt fest“; ebenso, ohne die Frist abzuwarten, wenn der Halter abgebrochen ist
+
+Empfänger AN (1946): die Profile der Themenblöcke und das Büro (startbar.profile(): Arbeitsplaner, Regeln, Kampf, Figur, Kataloge,
+Welt, Klang, Oberfläche, Story, Technik, Werkzeug, Disponent, Prüfer, Tester), dazu Sokrates und „Fachkraft“ (= Fachprofil des
+Themenblocks, lauf.py setzt es ein). Alte Rollennamen gelten nur bis zur Umschaltung (ohne tools/1727-SCHARF): Spike → Technik,
+Diogenes → Prüfer, Ford → Disponent, Perikles → Arbeitsplaner, Tom und Jerry → Fachkraft, Homer → Story; danach hält das Werkzeug an.
 
 Muster (erst nachsehen, wie andere es lösen): Warteschlange mit Sichtbarkeitsfrist (Amazon SQS visibility timeout, Celery acks_late):
 mindestens einmal zustellen, Quittung mit Frist statt „nie zweimal“, feste Kennung macht doppeltes Wecken harmlos. Zwei Schreiber: wie
@@ -33,7 +38,7 @@ ORDNER = "docs/vorgang"
 FRIST_MIN = 30
 VERSUCHE = 8
 KOPF = "| Ü | an | was | seit | Zustand |\n|---|---|---|---|---|\n"
-ZEILE = re.compile(r"^\| (?P<k>\d+(?:\.\d+)?[a-z]?-Ü\d+) \| (?P<an>[^|]*?) \| (?P<was>.*) \| (?P<seit>\d\d\.\d\d\., \d\d:\d\d) \| (?P<z>[^|]*?) \|$", re.M)
+ZEILE = re.compile(r"^\| (?P<k>B?\d+(?:\.\d+)?[a-z]?-Ü\d+) \| (?P<an>[^|]*?) \| (?P<was>.*) \| (?P<seit>\d\d\.\d\d\., \d\d:\d\d) \| (?P<z>[^|]*?) \|$", re.M)
 ANG = re.compile(r"angenommen (?P<sid>session_\w+) bis (?P<bis>\d\d\.\d\d\., \d\d:\d\d)")
 WIEDER = re.compile(r"\(wieder (\d+)\)")  # 1782: wie oft die Zeile nach abgelaufener Frist oder Abbruch wieder offen wurde
 FEST = "steckt fest"
@@ -200,7 +205,7 @@ def _ersetzen(text, z, zustand):
 def _rein(s): return re.sub(r"\s+", " ", s.replace("|", "/")).strip()
 
 def nr_aus(kennung):
-    m = re.fullmatch(r"(\d+(?:\.\d+)?[a-z]?)-Ü\d+", kennung)
+    m = re.fullmatch(r"(B?\d+(?:\.\d+)?[a-z]?)-Ü\d+", kennung)  # 1949: B<n> = Build-Auftrag
     if not m: raise Fehler("Kennung „%s“ ungültig (Form NR-Ük, etwa 1760-Ü1)" % kennung)
     return m.group(1)
 
@@ -217,6 +222,38 @@ def besetzung(an):
     return aus
 
 # ---- Befehle -------------------------------------------------------------
+
+ALTE_NAMEN = {"Spike": "Technik", "Diogenes": "Prüfer", "Ford": "Disponent", "Perikles": "Arbeitsplaner", "Tom": "Fachkraft",
+              "Jerry": "Fachkraft", "Tuffy": "Fachkraft", "Homer": "Story"}  # 1946
+
+FACHPROFILE = ["Regeln", "Kampf", "Figur", "Kataloge", "Welt", "Klang", "Oberfläche", "Story", "Technik", "Werkzeug"]  # themenbloecke.md 22.11.
+
+def _scharf():
+    return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
+
+def gueltige_empfaenger(scharf=None):
+    """1946: gültige AN für `vorgang.py uebergabe` (neue Namen; alte nur ohne tools/1727-SCHARF)."""
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import startbar
+        neu = list(startbar.profile())
+    except Exception:
+        neu = ["Arbeitsplaner", "Disponent", "Prüfer", "Tester"]
+    if not [x for x in neu if x not in ("Arbeitsplaner", "Disponent", "Prüfer", "Tester")]:  # themenbloecke.md fehlt (Klon, Test)
+        neu += FACHPROFILE
+    neu += [x for x in ("Sokrates", "Fachkraft") if x not in neu]
+    return neu + ([] if (_scharf() if scharf is None else scharf) else list(ALTE_NAMEN))
+
+def empfaenger(an, scharf=None):
+    """1946 (Falltest Lauf 4: Disponent, Prüfer, Rundblick fragten, ob Technik, Spike oder Figur gilt): AN in der festen Schreibung,
+    sonst Fehler mit der Liste der gültigen Namen; alter Rollenname nach der Umschaltung: Fehler mit dem neuen Namen."""
+    scharf = _scharf() if scharf is None else scharf
+    alle = gueltige_empfaenger(scharf)
+    for x in alle:
+        if x.lower() == (an or "").strip().lower(): return x
+    alt = next((n for k, n in ALTE_NAMEN.items() if k.lower() == (an or "").strip().lower()), None)
+    if alt and scharf: raise Fehler("Empfänger „%s“ gilt nach der Umschaltung nicht mehr, heißt jetzt „%s“" % (an, alt))
+    raise Fehler("Empfänger „%s“ unbekannt; gültig: %s" % (an, ", ".join(alle)))
 
 def uebergabe(nr, an, was):
     an, was = _rein(an), _rein(was)
@@ -416,7 +453,7 @@ def haupt(a):
         i = a.index("--frist"); frist = int(a[i + 1]); del a[i:i + 2]
     try:
         b = a[0] if a else ""
-        if b == "uebergabe" and len(a) == 4: return uebergabe(a[1], a[2], a[3])
+        if b == "uebergabe" and len(a) == 4: return uebergabe(a[1], empfaenger(a[2]), a[3])  # 1946
         if b == "annehmen" and len(a) == 2: return annehmen(a[1], frist)
         if b == "verlaengern" and len(a) == 2: return annehmen(a[1], frist, True)
         if b == "erledigt" and len(a) == 2: return erledigt(a[1])

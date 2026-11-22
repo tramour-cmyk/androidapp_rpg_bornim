@@ -33,6 +33,11 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        bereiche.einordnen(), die genannten Nummern fest (686, D90.3); meldet, was „? unbekannt“ bleibt
 Übergabe (1760, 1727 Gesamtbild 3.3 Fassung 2; Zeile in docs/vorgang/NR.md, gepusht wie der Zähler, Nachricht nur Wecker):
   vorgang.py uebergabe NR AN "was"     Zeile „offen“, dann WECKER-Zeilen (send_message „sieh in NR (Kennung)“ an die Sitzung aus der Besetzung)
+                                       AN (1946): Arbeitsplaner, Disponent, Prüfer, Tester, Sokrates, Fachkraft oder ein Fachprofil
+                                       (Regeln, Kampf, Figur, Kataloge, Welt, Klang, Oberfläche, Story, Technik, Werkzeug); alte Namen
+                                       (Spike = Technik, Diogenes = Prüfer, Ford = Disponent …) nur bis zur Umschaltung
+Build-Aufträge und Testmeldungen (1949): Nummer B<n> für Build n (B300, nie 300: das ist ein anderer Vorgang); auftrag, rueckmeldung,
+  uebergabe nehmen B<n> ohne Zeile in der Vorgangsliste, Datei docs/vorgang/B<n>.md; Empfänger des Build-Auftrags: Technik
   vorgang.py annehmen KENNUNG [--frist MIN] · verlaengern KENNUNG [--frist MIN] · erledigt KENNUNG · freigeben (vor „Nachfolger:“)
   vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen; abgelaufene Frist eines ruhenden Halters wird wieder offen
                                        (Einzelheiten: tools/uebergabe.py)
@@ -43,7 +48,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        Chef (1763; Einzelheiten: tools/rueckmeldung.py)
 Auftrag und Schließen (1739, Bauliste 1727 Gesamtbild 7.1; Einzelheiten: tools/auftrag.py):
   vorgang.py auftrag NR [--datei PFAD|- [--pruefen]]   ohne Datei die Vorlage mit den sieben Feldern; mit Datei prüfen (Felder,
-                                       „Zurück“, höchstens 2 KB) und als „## Auftrag“ in docs/vorgang/NR.md eintragen (gepusht)
+                                       „Zurück“, höchstens 2 KB) und als „## Auftrag“ in docs/vorgang/NR.md eintragen (gepusht); NR muss in
+                                       der Liste oder im Archiv stehen, auch mit --pruefen (1944), oder B<n> sein (1949)
   vorgang.py schliessen NR "Grund"     Stand „erledigt“ wie fertig, Grund als Zeile „Geschlossen“ in docs/vorgang/NR.md
 Lehrenbuch docs/LISTE-LEHREN.md (1739, Archiv „Lehrenbuch“ 21.11., 14:19; Einzelheiten: tools/lehren.py):
   vorgang.py lehre suche WORT …        freie Suche · lehre bereich NR  Lehren des Bereichs von NR nach Rangfolge
