@@ -320,12 +320,6 @@ if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
     _halb = {}; _mitte = {}
     for b in set(_band.tolist()):
         q = _kv[_band == b]; _halb[b] = float(np.abs(q[:, 0]).max()); _mitte[b] = float(q[:, 1].mean())
-    # unter der Achsel auch nicht schmaler als die Kleidung darunter (Rock, Robe, Wappenrock der Leute stachen seitlich heraus, Jana 22.11.)
-    _za0 = QP_MAT['upperarm_l'].translation.z
-    _ku = np.isin(_lt, [k for k, n in enumerate(TEILNAMEN) if n not in ('cloak', 'clasp', 'sleeves', 'handL', 'handR', 'wristL', 'wristR', 'cuff', 'shield', 'boss')])
-    _kk = VK2[_ku & (VK2[:, 2] < _za0 - 0.10)]
-    for b in set(np.floor(_kk[:, 2] / UMHANG_BAND).astype(int).tolist()):
-        if b in _halb: _halb[b] = max(_halb[b], float(np.abs(_kk[np.floor(_kk[:, 2] / UMHANG_BAND).astype(int) == b][:, 0]).max()) + 2 * UMHANG_RAND)
     _za = QP_MAT['upperarm_l'].translation.z; _xa = abs(QP_MAT['upperarm_l'].translation.x)
     _dv = {}
     for i in _cl:
@@ -525,6 +519,7 @@ if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l'
         g = 1.0 / np.maximum(d, 1e-4); wh = (g[:, None] * WQ[ecken]).sum(0) / g.sum()
         w = np.zeros(len(Q_KN)); np.add.at(w, _zu, wh)
         k_ = _st(VK2[i, 2], _za - UMHANG_ACHSEL[0], _za - UMHANG_ACHSEL[1])
+        k_ *= _st(abs(VK2[i, 0]), 0.02, 0.08)   # Mitte des Rückens ohne Schlüsselbein (beide ziehen nach vorn: L_gwenna Weinen gedehnt)
         for j in _isch: w[iS3] += w[j] * (1.0 - k_); w[j] *= k_
         WKq[i] = w / max(w.sum(), 1e-6)
     # beide Lagen gleich (wie SCHALE GEWICHTE): Mittel binnen SCHALE_R
