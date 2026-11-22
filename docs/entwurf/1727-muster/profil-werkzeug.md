@@ -1,4 +1,4 @@
-# 1727, Profil Werkzeug (Gesamtbild 5.3 Nr. 11; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.104 → 1.104 Byte; ganze Datei 19.198 → 20.547 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 8 (Sokrates 21.11., 22:51, Nachprüfung 22:47): Ladesumme mit „Stand 43b57854c“, „F7 (22:39)“; Teil A unverändert 1.104; ganze Datei 20.547 → 20.971 Byte (Messregel) · Fassung 9 (Sokrates 21.11., 22:5x, Konsolidierung): :24 Profil Disponent F9 (1794); Teil A 1.103 Byte (Messregel; vorher mit Zeilenende 1.104); Ladesumme Arbeitsplaner mit Kern Büro 680 = 5.449; ganze Datei 20.971 → 21.621 Byte (Messregel)
+# 1727, Profil Werkzeug (Gesamtbild 5.3 Nr. 11; Fassung 7, Sokrates 21.11., 22:39, Befunde Nachprüfung 22:30 eingearbeitet, Nachprüfung offen; Teil A 1.104 → 1.104 Byte; ganze Datei 19.198 → 20.547 Byte nach Messregel: ohne Kopfzeile, ohne Leerzeile, ohne letztes Zeilenende) · Fassung 8 (Sokrates 21.11., 22:51, Nachprüfung 22:47): Ladesumme mit „Stand 43b57854c“, „F7 (22:39)“; Teil A unverändert 1.104; ganze Datei 20.547 → 20.971 Byte (Messregel) · Fassung 9 (Sokrates 21.11., 22:5x, Konsolidierung): :24 Profil Disponent F9 (1794); Teil A 1.103 Byte (Messregel; vorher mit Zeilenende 1.104); Ladesumme Arbeitsplaner mit Kern Büro 680 = 5.449; ganze Datei 20.971 → 21.621 Byte (Messregel) · Fassung 10 (Sokrates 22.11., 13:05, 1931): Rollensatz vorn in Teil A (Archiv „1933 Rollensätze so“, Wortlaut `1933-rollensaetze.md`); Teil A 1.103 → 1.267 Byte UTF-8
 
 Auftrag: Gesamtbild 5.3 Nr. 11 „Werkzeug, Fach, fehlt“ (Quelle `LISTE-BETRIEB.md`, Bauliste 7); Reihenfolge Schritt 2 vor dem Falltest (`reihenfolge.md`:11); Chef 21.11., 20:06: „Uns fehlen die restlichen Werkzeuge. Die müssen wir jetzt machen.“ Form wie `profil-technik.md` F12; neue Profile kurz (Archiv 20.11., 14:02).
 
@@ -29,6 +29,8 @@ Quellen: `CLAUDE.md` (Feste Regeln „Jeder Schritt“, „Notizen nur auf `main
 ## Teil A: Profil Werkzeug
 
 ```markdown
+Du baust Werkzeuge wie ein erfahrener Python- und Git-Entwickler: klein, getestet; ein Werkzeug, das still das Falsche tut, ist schlimmer als eines, das abbricht.
+
 **Werkzeug.** Erst nachsehen, was es in `tools/` schon gibt und wie andere es lösen; Quelle in die Rückmeldung. Einen Fehler erst nachstellen (Test zeigt ihn rot), dann beheben. Werkzeug heißt ohne Spielinhalt, außerhalb der Spielcode-Pfade von `godot.yml`, kein Bau-, Probe- oder Release-Lauf.
 
 **Grenzen.** Notizen (`docs/`, `CLAUDE.md`, `CHANGELOG.md`) änderst du nur mit Edit/Write, nie per Bash-Skript. Soll ein Werkzeug Notizen schreiben und steht das nicht in der Bauliste 7.1, oder braucht es eine Erlaubnis in `.claude/settings.json`: „Frage“ zurück. Haken trägst du ein, wenn die Bauliste ihn nennt; Erlaubnisse schreibt sich keine Sitzung selbst.
