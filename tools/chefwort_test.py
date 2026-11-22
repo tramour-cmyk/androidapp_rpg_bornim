@@ -16,7 +16,8 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "| 9001 | Zwerg auf dem Tisch | Tom | M | gebaut | – | – | 301 | E Welt | – |\n"
     "| 9002 | Schatten im Wald | Spike | M | startbar | – | – | – | T Technik | – |\n"
     "| 9003.2 | Höhlenklang | Jerry | M | gebaut | – | – | 301 | K Klang | – |\n"
-    "| 9004 | Tür im Turm | Tom | M | gebaut | – | – | – | E Welt | – |\n")
+    "| 9004 | Tür im Turm | Tom | M | gebaut | – | – | – | E Welt | – |\n"
+    + "".join("| %s | Fall 1962 | Tom | M | startbar | – | – | – | B Werkzeuge | – |\n" % n for n in ("1520", "1871", "1959", "1961")))
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Arbeitsplaner | [AP](https://claude.ai/code/session_AP1) | – | – | 21.11. |\n"
     "| Sokrates | [S](https://claude.ai/code/session_SOK) | – | – | 21.11. |\n")
@@ -159,6 +160,39 @@ soll("drittes Chef-Nein: Obergrenze A, Zeile an Sokrates, ruht", "Zustand: ruht,
      and "| Sokrates | an den Chef: Chefsache anlegen, nicht selbst lösen (Obergrenze A: 3." in t and "OFFEN 9004-Ü4 an Sokrates" in out, (out, t))
 rc, out = lauf("chefwort", "9004", "Nein, immer noch", "--zeit", "21.11., 21:40")
 soll("ruht schon: Zeile wieder an den Arbeitsplaner, keine zweite Obergrenze", datei("9004").count("Obergrenze A") == 2 and "an Arbeitsplaner" in out, (out, datei("9004")))
+
+# 12 1962: Startnachrichten (Disponent, Wache, Routine) sind nie Chefwort, auch wenn das Protokoll beim Haken leer oder frisch ist.
+# Beleg 22.11., 18:15 (Protokoll dieser Sitzung): beim Haken steht dort zuerst nur „queue-operation“ (enqueue, Inhalt ohne origin);
+# die Zeile „user“ mit origin task-notification folgt erst danach. Wortlaut der vier Fälle aus docs/vorgang/{1520,1959,1871,1961}.md.
+START = json.load(open(os.path.join(HIER, "chefwort_test_start.json"), encoding="utf-8"))
+def protokoll(*zeilen):
+    p = os.path.join(d, "s%d.jsonl" % protokoll.n); protokoll.n += 1
+    open(p, "w").write("".join(json.dumps(z, ensure_ascii=False) + "\n" for z in zeilen)); return p
+protokoll.n = 0
+def warteschlange(text): return {"type": "queue-operation", "operation": "enqueue", "content": text}
+def nutzer(text, art=None, quelle=None):
+    z = {"type": "user", "message": {"role": "user", "content": text}}
+    if art: z["origin"] = {"kind": art}
+    if quelle: z["promptSource"] = quelle
+    return z
+for fall, text in START.items():
+    nr = fall.split()[0]
+    for wie, p in (("leeres Protokoll", protokoll()), ("frisches Protokoll (nur Warteschlange)", protokoll(warteschlange(text))),
+                   ("Protokoll mit task-notification", protokoll(warteschlange(text), nutzer(text, "task-notification", "system")))):
+        nrs = cw.haken({"prompt": text, "transcript_path": p}, "Sokrates")
+        soll("1962 Startnachricht %s, %s: kein Chefwort" % (fall, wie), nrs == [], nrs)
+time.sleep(3)
+soll("1962 Startnachrichten: keine Vorgangsdatei geschrieben", all(datei(n) == "" for n in ("1520", "1871", "1959", "1961")),
+     [n for n in ("1520", "1871", "1959", "1961") if datei(n)])
+wort = "1520 so nicht, der Text ist zu lang"
+p = protokoll(warteschlange(START["1520 22.11., 17:10"]), nutzer(START["1520 22.11., 17:10"], "task-notification", "system"), warteschlange(wort), nutzer(wort))
+nrs = cw.haken({"prompt": wort, "transcript_path": p}, "Sokrates")
+t = ""
+for _ in range(60):
+    t = datei("1520")
+    if "1520-Ü1" in t: break
+    time.sleep(0.5)
+soll("1962 echtes Chefwort nach der Startnachricht wird eingetragen", nrs == ["1520"] and "> " + wort in t, (nrs, t))
 
 print("chefwort_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
