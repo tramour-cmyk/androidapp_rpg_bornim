@@ -1,0 +1,32 @@
+name: Herzschlag-Kette
+
+# 1894 (D337.1, Lauf 343 zu 1764): Auslöser des Herzschlags unabhängig von Ford. Zeitpläne laufen bei GitHub ohne Gewähr (21.11.,
+# 20:50 bis 22.11., 10:00 nur 2 von 14 Läufen), Pushes auf docs/ kommen nachts fast nur von Ford. Darum eine Kette auf GitHub selbst:
+# jeder Lauf stößt herzschlag.yml an, wartet 55 Minuten und stößt sich selbst wieder an (workflow_dispatch über GITHUB_TOKEN löst
+# Läufe aus). Muster: „keepalive“-Ketten gegen ausfallende Zeitpläne; Totmannschalter wie healthchecks.io bräuchten ein Konto.
+# Öffentliches Repo: Standard-Runner kosten nichts. Reißt die Kette (GitHub-Ausfall), startet herzschlag.yml sie beim nächsten
+# Zeitplan- oder Push-Lauf neu. Höchstens ein Glied wartet: gleiche Gruppe, ein neueres wartendes ersetzt ein älteres.
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+concurrency:
+  group: herzschlag-kette
+  cancel-in-progress: false
+
+jobs:
+  glied:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - name: Herzschlag anstoßen, warten, nächstes Glied
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh workflow run herzschlag.yml --ref main
+          sleep 3300
+          gh workflow run herzschlag-kette.yml --ref main

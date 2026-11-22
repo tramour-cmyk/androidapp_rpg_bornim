@@ -51,6 +51,16 @@ def test():
         rc, z = pruefen(text, jetzt)
         ok = rc == soll; f += not ok
         print(("ok  " if ok else "FEHL"), text, "→", rc, z)
+    # 1894: Kette unabhängig von Ford (herzschlag-kette.yml stößt Herzschlag und sich selbst an; herzschlag.yml startet sie neu)
+    wf = os.path.join(WURZEL, ".github", "workflows")
+    try: k = open(os.path.join(wf, "herzschlag-kette.yml"), encoding="utf-8").read(); h = open(os.path.join(wf, "herzschlag.yml"), encoding="utf-8").read()
+    except OSError: k = h = ""
+    for was, b in [("1894: Kette stößt Herzschlag an", "gh workflow run herzschlag.yml" in k),
+                   ("1894: Kette stößt sich nach Wartezeit unter 60 Min. selbst an", re.search(r"sleep (\d+)\n\s*gh workflow run herzschlag-kette.yml", k) is not None
+                    and int(re.search(r"sleep (\d+)", k).group(1)) < 3600),
+                   ("1894: Kette nur mit workflow_dispatch, eigene Gruppe ohne Abbruch", "workflow_dispatch" in k and "group: herzschlag-kette" in k and "cancel-in-progress: false" in k and "actions: write" in k),
+                   ("1894: herzschlag.yml startet fehlende Kette", "gh workflow run herzschlag-kette.yml" in h and "--workflow herzschlag-kette.yml" in h)]:
+        f += not b; print(("ok  " if b else "FEHL"), was)
     print("herzschlag --test: %s" % ("alles grün" if not f else "%d FEHL" % f))
     return 1 if f else 0
 

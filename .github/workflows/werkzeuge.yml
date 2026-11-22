@@ -6,7 +6,7 @@ name: Werkzeugtests (1775)
 on:
   push:
     branches: ["main"]
-    paths: ["tools/*.py", "tools/*.sh", "tools/*.txt", "tools/umstellung1727/*.py", ".github/workflows/werkzeuge.yml", ".github/workflows/herzschlag.yml"]
+    paths: ["tools/*.py", "tools/*.sh", "tools/*.txt", "tools/umstellung1727/*.py", ".github/workflows/werkzeuge.yml", ".github/workflows/herzschlag.yml", ".github/workflows/herzschlag-kette.yml"]
   workflow_dispatch:
 
 concurrency:
