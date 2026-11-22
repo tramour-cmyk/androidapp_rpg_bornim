@@ -64,11 +64,19 @@ soll("lauf: Auftrag-Zeilen Eilt, Muss vor Kür, Zeilenfolge, ohne M?", [x[3]["au
 soll("lauf: Auftrag-Zeile nennt Profil und Grund", _a[1][0] == "Auftrag" and "(Technik, kein Auftrag)" in _a[1][2] and "(Kataloge, Auftrag:" in _a[0][2], _a[:2])
 soll("lauf: höchstens AUFTRAG_PLANER zugleich", len(lauf.auftrag_zeilen(_st)) == lauf.AUFTRAG_PLANER == 1)
 # 1897 (D338.3): Auftrag nach Klasse eingereiht, nie Auftrag zu Kür vor eigenes Muss des Planers
-_pl = ([("M?", "M", "M?", {}), ("1484", "M", "eigenes Muss", {"nr": "1484"})], [("45", "K", "eigene Kür", {"nr": "45"})], None, [])
+_pl = ([("1484", "M", "eigenes Muss", {"nr": "1484"})], [("45", "K", "eigene Kür", {"nr": "45"})], None, [])
 lauf.auftrag_einreihen(_pl, [("Auftrag", "K", "Auftrag 458.3", {"auftrag_fuer": "458.3"}), ("Auftrag", "M", "Auftrag 513", {"auftrag_fuer": "513"})])
-soll("Planer: Auftrag zu Kür hinter eigenes Muss, Eilt-Auftrag vor eigenes Muss, M? zuerst",
-     [x[0] for x in _pl[0]] == ["M?", "Auftrag", "1484"] and _pl[0][1][3]["auftrag_fuer"] == "513"
+soll("Planer: Auftrag zu Kür hinter eigenes Muss, Eilt-Auftrag vor eigenes Muss (M? fällt, 1871)",
+     [x[0] for x in _pl[0]] == ["Auftrag", "1484"] and _pl[0][0][3]["auftrag_fuer"] == "513"
      and [x[3].get("auftrag_fuer", x[0]) for x in _pl[1]] == ["458.3", "45"], (_pl[0], _pl[1]))
+# 1871 Stilllegung C (g): M? geht als Zeile KLASSE an den Disponenten, keine Muss-Zeile „M? entscheiden“ beim Planer
+Z5 = "| 1900 | Probe Klasse | 6 | E Technik | M? | – | – | – | *startbar* | *–* | *0* | *–* |"
+open(os.path.join(A, "LISTE-VORGAENGE.md"), "w").write(neu.rstrip("\n") + "\n" + Z5 + "\n"); startbar._LISTE = None
+_m = lauf.stand()
+soll("1871: M? ohne Muss-Zeile beim Planer, gesammelt für KLASSE", not [x for r in _m for x in _m[r][0] if x[0] == "M?"]
+     and any(f.startswith("1900 (") for f in lauf.M_FRAGEN), (lauf.M_FRAGEN, {r: [x[0] for x in _m[r][0]] for r in _m}))
+open(os.path.join(A, "LISTE-VORGAENGE.md"), "w").write(neu); startbar._LISTE = None; lauf.M_FRAGEN[:] = []
+soll("1871: Kostenschwelle und Kosten auf fallen", not hasattr(startbar, "kosten_offen") and not hasattr(lauf, "kosten_auf") and not hasattr(lauf, "sokrates_ziel"))
 _k = [x for x in lauf.auftrag_zeilen(_st, 9)]
 soll("Auftrag-Zeile trägt die Klasse ihrer Zeile", [x[1] for x in _k] == ["M", "M", "K", "K"], [x[1] for x in _k])
 lauf.DOCS = _docs
