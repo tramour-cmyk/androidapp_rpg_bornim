@@ -320,13 +320,19 @@ if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
     _halb = {}; _mitte = {}
     for b in set(_band.tolist()):
         q = _kv[_band == b]; _halb[b] = float(np.abs(q[:, 0]).max()); _mitte[b] = float(q[:, 1].mean())
+    # unter der Achsel auch nicht schmaler als die Kleidung darunter (Rock, Robe, Wappenrock der Leute stachen seitlich heraus, Jana 22.11.)
+    _za0 = QP_MAT['upperarm_l'].translation.z
+    _ku = np.isin(_lt, [k for k, n in enumerate(TEILNAMEN) if n not in ('cloak', 'clasp', 'sleeves', 'handL', 'handR', 'wristL', 'wristR', 'cuff', 'shield', 'boss')])
+    _kk = VK2[_ku & (VK2[:, 2] < _za0 - 0.10)]
+    for b in set(np.floor(_kk[:, 2] / UMHANG_BAND).astype(int).tolist()):
+        if b in _halb: _halb[b] = max(_halb[b], float(np.abs(_kk[np.floor(_kk[:, 2] / UMHANG_BAND).astype(int) == b][:, 0]).max()) + 2 * UMHANG_RAND)
     _za = QP_MAT['upperarm_l'].translation.z; _xa = abs(QP_MAT['upperarm_l'].translation.x)
     _dv = {}
     for i in _cl:
         p = VK2[i]; b = int(np.floor(p[2] / UMHANG_BAND))
         if b not in _halb or not (p[1] > _mitte[b] or p[2] < _za - 0.05): continue   # vorn über der Achsel: Spange, Kragen
         q = p.copy()
-        if p[1] > _mitte[b]: q[1] += UMHANG_BLATT * _st(p[2], _za - 0.40, _za - 0.20) * (1.0 - _st(p[2], _za - 0.02, _za + 0.06))
+        if p[1] > _mitte[b]: q[1] += UMHANG_BLATT * _st(p[2], _za - 0.40, _za - 0.20) * (1.0 - _st(p[2], _za + 0.06, _za + 0.14))
         lim = _halb[b] - UMHANG_RAND
         if p[2] > _za: lim = min(lim, _xa - UMHANG_SCHULTER)
         if abs(p[0]) > lim: q[0] = np.sign(p[0]) * lim
@@ -344,6 +350,14 @@ if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
         nb = [k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R) if k in _dv]
         if nb: _neu[int(i)] = _dv[max(nb, key=lambda k: float(np.linalg.norm(_dv[k])))]
     for i, d in _neu.items(): VK2[i] = VK2[i] + d
+    # Spangen an den Schultern (held3, Gold) gehen mit dem Umhang darunter (sonst ragen sie über seinen Rand, Jana 22.11.)
+    if 'clasp' in TEILNAMEN and _neu:
+        _sp = np.where(_lt == TEILNAMEN.index('clasp'))[0]; _ks = np.array(list(_neu.keys()))
+        for s_ in (1, -1):
+            e_ = _sp[VK2[_sp, 0] * s_ > 0]
+            if not len(e_): continue
+            j = _ks[np.argmin(np.linalg.norm(VK2[_ks] - VK2[e_].mean(0), axis=1))]
+            VK2[e_] = VK2[e_] + _neu[int(j)]
     print('UMHANG AM RUECKEN Form', len(_dv), 'Ecken an die Koerperkante,', len(_neu), 'mit der anderen Lage, hoechstens %.1f cm' % (100 * max([np.linalg.norm(d) for d in _dv.values()] or [0])))
 # 475 Lauf 2 (Chef 04.11., 20:49: „mit irgendwelchen Verhüllungen im Gesicht … genau der gleiche Scheiß wie das letzte Mal“), am Rechner
 # nachgestellt (Kopfbilder Garrick, Liska, Jorin, Morwen aus Lauf 1 nachgebaut): unsere Kopfteile aus held3 (Kapuze, Gugel, Helm,
