@@ -56,7 +56,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
 | Spike | läuft: 1871 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 11 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | läuft: Betrieb (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
+| Diogenes | läuft: 1871 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | läuft: 1727j (Besetzung); 1933 Abgleich aller Rollendateien gegen Kerne, Profile, Sockel:… (Muss); dann 6 weitere |
 | Perikles | M? M? entscheiden: 1850, 1851, 1852, 1853, 1854, 1856, 1857, 1… (Muss); dann 3 weitere |
 
