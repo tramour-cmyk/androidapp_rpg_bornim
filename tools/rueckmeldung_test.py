@@ -288,6 +288,15 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write
 aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
 open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l)
 soll("1911: nach Sokrates (wartet auf –) wird zugestellt", any(k == "9011-Ü3" for k, _ in je.get("Tom", [])), je.get("Tom"))
+# 1914 (D345.1): erfülltes „wartet auf“ (altes Datum) und Warten auf den Empfänger selbst halten nicht
+for _w, _name in (("01.11.", "erfülltes Datum 01.11."), ("Tom", "wartet auf den Empfänger Tom selbst")):
+    open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l.replace("| startbar, steckt fest | Sokrates |", "| startbar, steckt fest | %s |" % _w))
+    aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+    soll("1914: %s: 9011-Ü3 zugestellt" % _name, any(k == "9011-Ü3" for k, _ in je.get("Tom", [])), (je.get("Tom"), aus))
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l.replace("| startbar, steckt fest | Sokrates |", "| startbar, steckt fest | Sokrates, 01.11. |"))
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l)
+soll("1914: offenes Sokrates neben erfülltem Datum hält, nennt nur Sokrates", not any(k == "9011-Ü3" for k, _ in je.get("Tom", [])) and any("9011-Ü3 an Tom liegt, Vorgang wartet auf Sokrates (1911)" in z for z in aus), aus)
 
 # 1875 (Lauf 3 Disponent L4): Empfänger „Fachkraft“ → Besitzer (vor der Umschaltung) bzw. Fachprofil des Themenblocks (scharf)
 rc, out = vg("uebergabe", "9014", "Fachkraft", "Fackel heller", zeit="21.11., 23:20")

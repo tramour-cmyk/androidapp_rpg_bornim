@@ -770,7 +770,8 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an Ford. Bis zur Umschaltung
     (tools/1727-SCHARF) sind Arbeitsplaner und Disponent Ford, der Prüfer Diogenes (ALT_EMPFAENGER).
     1911 (D343.1): wartet der Vorgang (Feld „wartet auf“, etwa Sokrates nach „steckt fest“), bleibt eine Zeile an eine Fachkraft
-    liegen (kein Start ohne Startbares, 340.12/3); Zeilen an das Büro (startbar.BUERO) gehen weiter.
+    liegen (kein Start ohne Startbares, 340.12/3); Zeilen an das Büro (startbar.BUERO) gehen weiter. 1914 (D345.1): nur offene
+    Wartegründe zählen (erfülltes Datum, erledigte Nummer nicht), und ein Warten auf den Empfänger selbst hält nie.
     1875 (Lauf 3 Disponent L4): Empfänger „Fachkraft“ (vorgang.py uebergabe) ist keine Rolle: bis zur Umschaltung der Besitzer des
     Vorgangs in der Liste, danach das Fachprofil seines Themenblocks (startbar.block_von, themenbloecke.md); sonst bleibt „Fachkraft“."""
     try:
@@ -800,6 +801,11 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
                 nr = z["k"].split("-Ü")[0]
                 an = fachkraft(nr) if z["an"] == "Fachkraft" else z["an"]
                 w = wartet.get(nr)
+                if w:  # 1914 (D345.1): nur offene Wartegründe (startbar.offen_warte), und nie, wenn der Vorgang auf den Empfänger selbst wartet
+                    try: w = startbar.offen_warte(zl[nr])
+                    except Exception: pass
+                    r_an = an if scharf else ALT_EMPFAENGER.get(an, an)
+                    w = [t for t in w if t not in (an, r_an)]
                 if w and an not in startbar.BUERO:
                     ausgabe.append("NICHTS Übergabe: %s an %s liegt, Vorgang wartet auf %s (1911)" % (z["k"], an, ", ".join(w))); continue
                 je.setdefault(an, []).append((z["k"], z["was"]))
