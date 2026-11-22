@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 09:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 09:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 11 (11) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 7 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
-| **7** Firma: Werkzeuge und Abläufe | 116 (88) | 73 | 2 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **7** Firma: Werkzeuge und Abläufe | 116 (88) | 73 | 3 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -54,9 +54,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 5 weitere |
 | Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
-| Spike | läuft: 1893 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 34 weitere |
+| Spike | läuft: 1781 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 34 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | läuft: 1893 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
+| Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
 | Sokrates | läuft: 1727 (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 5 weitere |
 | Perikles | M? M? entscheiden: 1850, 1851, 1852, 1853, 1854, 1856, 1857, 1… (Muss); dann 3 weitere |
 
