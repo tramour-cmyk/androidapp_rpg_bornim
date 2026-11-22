@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 10:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 10:57, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,16 +33,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 7 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
-| **7** Firma: Werkzeuge und Abläufe | 113 (88) | 71 | 2 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **7** Firma: Werkzeuge und Abläufe | 104 (88) | 63 | 2 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 52 | 22 | 495 | 1355 |
-| neu | 71 | 49 | 559 | 1449 |
-| **netto** (erledigt − neu) | **−19** | **−27** | **−64** | **−94** |
+| erledigt | 62 | 22 | 505 | 1365 |
+| neu | 72 | 49 | 560 | 1450 |
+| **netto** (erledigt − neu) | **−10** | **−27** | **−55** | **−85** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -54,9 +54,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 5 weitere |
 | Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
-| Spike | läuft: 1878 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 20 weitere |
+| Spike | läuft: 1918 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 19 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | läuft: 1892 (Besetzung); 1912 lauf.mit_kern nimmt ohne Nummer im Titel die erste Zahl der… (Muss); dann 4 weitere |
+| Diogenes | läuft: 1892 (Besetzung); 1918 protokoll_pushen meldet „gepusht“, lokale ARBEIT-BETRIEB.md… (Muss) |
 | Sokrates | läuft: 1727 (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 7 weitere |
 | Perikles | M? M? entscheiden: 1850, 1851, 1852, 1853, 1854, 1856, 1857, 1… (Muss); dann 3 weitere |
 
@@ -85,7 +85,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1753 | Jerry | Streicherspur nach 120 bauen, nur bei Jägern; Hörprobe auf Telegram, Bewegung a… | M | 11 Klang und Musik | startbar |
 | 20 | 1484 | Spike | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grundwert Tablet in LISTE… | M | 6 Technik, Leistung, Build | startbar |
 
-Danach 126 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 19. Werkzeug gebaut, Prüfung Diogenes: 37. Ruhend oder nach dem Meilenstein: 103.
+Danach 126 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 103.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
@@ -271,7 +271,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | nach dem Meilenstein |
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 
-**Spike** – offen 85, Muss 54, startbar 56
+**Spike** – offen 75, Muss 44, startbar 45
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -304,26 +304,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1732 | M | Von Sokrates (Chef 19.11., 21:25): Stop-Haken für Sokrates: Nachricht mit „Votum“ ohne Zei | startbar |
 | 1779 | M | Von Sokrates (1774): Höchstdauer Werte setzen (Mittel 360, Hoch 300) und Gebautes nachbess | startbar |
 | 1781 | M | Von Sokrates (1727, Chef 21.11., 21:22 und 21:38 „Sockel, ja“): nach der Umstellung trägt | wartet auf 1727 (startbar) |
-| 1782 | M | Von Sokrates (1727d, 21:31; 22:30): Wiederwecken: Frist abgelaufen und idle oder abgebroch | wartet auf Diogenes (greift?) |
 | 1790 | M | Von Sokrates (1727 Nachprüfung 22:20): rueckmeldung.py:89 gibt „ja“ des Prüfers bei einem | startbar |
 | 1793 | M | Von Sokrates (1727 Rundblick, Nachprüfung 22:30): startbar.py:196–198 Feld „nach“ legt den | startbar |
-| 1795 | M | Von Sokrates (1727 Profil Tester): rueckmeldung.py erkennt „Befunde: n“ des Testers nicht; | startbar |
 | 1855 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 44): check-env.sh prüft docs/ARBEIT-T | startbar |
 | 1858 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 49, 72): Testbitte-Schreiber: Testbit | startbar |
 | 1859 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 50): .claude/settings.json: Haken wei | startbar |
 | 1866 | M | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 77): Größen- und Ladesummen-Skript: B | startbar |
-| 1872 | M | Von Sokrates (1727 Nachprüfung 3b Nr. 2, Rückläufer 1763): Obergrenze A zählt auch ein Che | startbar |
-| 1873 | M | Von Sokrates (1727 Nachprüfung 3b Nr. 6, Lauf 3 Prüfer-2 Lücken 1, 3): bei „nein … steckt | startbar |
-| 1875 | M | Von Spike (1739, Lauf 3 Disponent L4, ergebnis.md): Empfängername „Fachkraft“ bei vorgang. | startbar |
-| 1876 | M | Von Spike (1739, Lauf 3 Disponent L5, ergebnis.md): Chefwort zum Betrieb („weniger laufen“ | startbar |
-| 1877 | M | Von Spike (1739, Lauf 3 Disponent L9, ergebnis.md): „Hinweis“ zu einem bestehenden Vorgang | startbar |
-| 1878 | M | Von Spike (1739, Lauf 3 Arbeitsplaner L4, ergebnis.md): vorgang.py auftrag hält über 2048 | startbar |
-| 1879 | M | Von Spike (1739, Lauf 3 Arbeitsplaner L7, ergebnis.md; Prüfer-1 L8): vorgang.py auftrag -- | startbar |
-| 1887 | M | Von Sokrates (1727 Lauf 3 Prüfer-1 L4): rueckmeldung.py nein_waechter ändert die Vorgangsl | startbar |
-| 1888 | M | Von Sokrates (1727 Lauf 3 Prüfer-1 L9): Macher aus „wer“ der letzten fertig-Rückmeldung; o | startbar |
+| 1879 | M | Von Spike (1739, Lauf 3 Arbeitsplaner L7, ergebnis.md; Prüfer-1 L8): vorgang.py auftrag -- | wartet auf 1917 (gebaut), dann Diogenes (greift?) |
 | 1890 | M | Von Sokrates (1727, werkzeuge.md Z. 37): bereiche.py um „E Kataloge“, „G Regeln“ und Lehre | startbar |
-| 1891 | M | Von Diogenes (D336.1, Lauf 339 zu 1801/1807): START „Sokrates – Stellungnahme“ ohne offene | startbar |
-| 1892 | M | Von Sokrates (1727 Lauf 3 Disponent L1): lauf.py setzt bei START die Startsperre und pusht | startbar |
+| 1892 | M | Von Sokrates (1727 Lauf 3 Disponent L1): lauf.py setzt bei START die Startsperre und pusht | wartet auf 1918 (gebaut), dann Diogenes (greift?) |
 | 1894 | M | Von Diogenes (D337.1, Lauf 343 zu 1764): herzschlag.yml prüft nur bei Push auf docs/ (nach | startbar |
 | 1898 | M | Von Sokrates (1727, Nachprüfung 4 zu 1727j V2): gepusht-haken.py hält bei jeder geänderten | startbar |
 | 1850 | M? | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 27–29): Workflows godot-kampf.yml, to | startbar |
@@ -357,9 +346,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1869 | K | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 81): Stop-Haken „alles gepusht?“ hält | startbar |
 | 1870 | K | Von Spike (1739, Chef 22.11., 07:14; werkzeuge.md Z. 82): PreToolUse-Sperre Keystore, Zuga | startbar |
 | 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
-| 1903 | M | Von Diogenes (D340.1, Lauf 347 zu 1782): chefwort.empfaenger gibt Verneinung und Einzelpun | wartet auf Diogenes (greift?) |
-| 1904 | M | Von Diogenes (D340.2, Lauf 347 zu 1782): „steckt fest“ verloren: uebergabe.offen schreibt | wartet auf Diogenes (greift?) |
-| 1907 | M | Von Sokrates (1727, Chef 22.11., 09:55 „sichergestellt, dass wir … noch eine Ideenliste ha | startbar |
+| 1917 | M | Von Diogenes (D347.1, Lauf 357 zu 1879): auftrag.FEHLWORT trifft Spielfunde: „Im Hof fehlt | wartet auf 1920 (startbar) |
+| 1918 | M | Von Diogenes (D348.1, Lauf 358 zu 1892): protokoll_pushen meldet „gepusht“, lokale ARBEIT- | wartet auf Diogenes |
+| 1919 | M | Von Spike (Fund 22.11., 10:48 an 1913): vorgang.py stand lässt eine Zeile über 400 Zeichen | startbar |
+| 1920 | M | Von Diogenes (D349.1, Lauf 359 zu 1917): FEHLWORT jetzt zu eng und zu weit: frei „Das Ziel | startbar |
 
 **Perikles** – offen 29, Muss 22, startbar 4
 
@@ -395,7 +385,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1741 | K | Von Sokrates (1727, Prüfung 12:55): Block 4 Kataloge Zeilen nachziehen: 649.2 Titel nennt | startbar |
 | 1770 | K | Von Perikles (1767, Nachprüfung Sokrates 21.11., 20:27): Profil Release als Auftrag schrei | wartet auf 622 (nach Meilenstein) |
 
-**Diogenes** – offen 12, Muss 11, startbar 3
+**Diogenes** – offen 10, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -404,15 +394,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1716 | M | Von Chef (18.11., 22:29, „jetzt“ 18.11., 22:29): Buildzweig gehört Spike: nur Spike pusht | Termin 23.11. |
 | 1642 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 1 Rollenspiegel: jede Startwarnung m | Termin 25.11. |
 | 1643 | M | Von Sokrates (340.12 A, Chef 18.11., 09:45): Änderung 3 Rollenspiegel, Rest neben 1624: de | Termin 25.11. |
-| 1782 | M | Von Sokrates (1727d, 21:31; 22:30): Wiederwecken: Frist abgelaufen und idle oder abgebroch | startbar |
-| 1903 | M | Von Diogenes (D340.1, Lauf 347 zu 1782): chefwort.empfaenger gibt Verneinung und Einzelpun | startbar |
-| 1904 | M | Von Diogenes (D340.2, Lauf 347 zu 1782): „steckt fest“ verloren: uebergabe.offen schreibt | startbar |
+| 1918 | M | Von Diogenes (D348.1, Lauf 358 zu 1892): protokoll_pushen meldet „gepusht“, lokale ARBEIT- | startbar |
 | 1128.3 | M | Von Sokrates (1128 A, Chef 13.11., 13:36): ab Build 283 Funde und Rückschritte je Prüfart | Termin 23.11. |
 | 1172 | M | Von Sokrates (Kleinkram A, Chef 13.11., 15:40): montags zählen: Kleinkram-Punkte ohne Chef | Termin 23.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen auswerten | ruht bis 23.11. |
 | 644.5 | M | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noc | wartet auf 644.1 (wartet) |
 
-**Sokrates** – offen 51, Muss 15, startbar 17
+**Sokrates** – offen 50, Muss 14, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -426,6 +414,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1189 | M | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes | Termin 27.11. |
 | 1725 | M | Von Chef (19.11., 07:24): Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren u | startbar |
 | 1774 | M | Von Spike (1766): Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läuf | startbar |
+| 1727j | M | Rückfrage Sokrates (1727): Textänderungen V1, V3, V4, V6, Wortlaut V7 und sechzehn Fragen | startbar |
+| 1727k | M | Rückfrage Sokrates (1727): settings.json für die neue Arbeitsweise frei, Probelauf-Haken b | startbar |
 | 1625 | K | Von Chef (18.11., 08:17/08:22, Idee): feste Startprompts je Rolle statt Startlektüre; wir | ruht bis 25.11. |
 | 780 | K | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für uns | Termin 23.11. |
 | 620 | K | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build | Termin 23.11. |
@@ -461,10 +451,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 142 | K | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | nach dem Meilenstein |
 | 45 | K | Geschäftsmodell und Umsetzung (Play Store) | nach dem Meilenstein |
 | 109 | K | Repo öffentlich | nach dem Meilenstein |
-| 1727h | M | Rückfrage Sokrates (1727): Umschalten ohne bestandenen Falltest, sobald acht Bedingungen e | startbar |
-| 1727i | M | Rückfrage Sokrates (1727): Ladetexte ohne Wort oder nach Wort geändert in Gruppen abnehmen | startbar |
-| 1727j | M | Rückfrage Sokrates (1727): Textänderungen V1, V3, V4, V6, Wortlaut V7 und sechzehn Fragen | startbar |
-| 1727k | M | Rückfrage Sokrates (1727): settings.json für die neue Arbeitsweise frei, Probelauf-Haken b | startbar |
+| 1909 | M | Von Spike (1907): Teil A für den Ideenlauf fehlt: docs/entwurf/1727-muster/routine-ideenla | startbar |
 | 1767 | M | Von Sokrates (1727, Chef 21.11., 20:09 „weitere Dateien … Profile“): Profile Büro 3.2 (Dis | startbar |
 | 1486 | K | Von Sokrates (1411.1 Tuffy 16.11., 20:32; 1403): bei gleicher Stufe gewinnen Wachsoldat un | ruht |
 ## So geht's
