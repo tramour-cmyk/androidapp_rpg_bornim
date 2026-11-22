@@ -12,7 +12,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
-| 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *598,15 $* |
+| 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *604,91 $* |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | 23.11. | – | – | *ruht, 887a zurückgestellt (Chef 16:53)* | *–* | *0* | *–* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | Eilt | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
 | 1967 | Reihenfolge Klasse vor Themenblock (Eilt, Fund, Muss, Kür je in Blockfolge, Kür im Block nach Liegezeit); lauf.auftrag_offen und uebergabe.buero_rang (Chef 22.11., 17:43, 17:46) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *3,28 $* |
@@ -45,7 +45,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1725 | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,21 $* |
 | 1933 | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, fehlt etwas, das Fehler … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1954 | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten netto Vorgänge und Aufträge … | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | – | – | – | *startbar, Weg Sokrates 20:13* | *–* | *0* | *103,93 $* |
+| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | – | – | – | *startbar, Weg Sokrates 20:13* | *–* | *0* | *104,96 $* |
 | 506.2 | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, 506; Chef 10.11., 19:26) | 2 | E Kampf | M | 709.1, 1589.4 | 506 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen … | 2 | E Kampf | M | 1589.4 | – | claude/jerry-709-treffen | *ruht, Block 2 (1605)* | *–* | *0* | *64,31 $* |
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | 2 | E Kampf | M | 1589.4 | 709 | claude/jerry-709-1-wolfsbiss-c | *ruht, Block 2 (1605)* | *–* | *0* | *83,22 $* |
@@ -53,7 +53,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 931 | Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss 0,6 s, Absetzen 0,8 s … | 2 | E Kampf | M | 760, 1589.4 | 784, 863 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1032 | nach dem eigenen Angriff taumelt ein Wachsoldat getroffen, im Bericht steht ein Angriff, aber der Angreifer macht keine … | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1032-treffer | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1043 | MARS-Probekampf Wölfe, Klosterschüler, „Ausweichen“ erzwungen: „davon hab ich nix gesehen. Da weicht nichts“ | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1043-sprung | *ruht, Block 2 (1605)* | *–* | *0* | *29,65 $* |
-| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | – | 1048, 444 | – | *startbar* | *–* | *0* | *3,52 $* |
+| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | – | 1048, 444 | – | *startbar* | *–* | *0* | *8,88 $* |
 | 1415 | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | 2 | E Kampf | M | 709, 1589.4 | 1072, 784 | claude/jerry-1415-takt | *ruht, Block 2 (1605)* | *–* | *0* | *9,72 $* |
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *startbar* | *–* | *0* | *8,73 $* |
