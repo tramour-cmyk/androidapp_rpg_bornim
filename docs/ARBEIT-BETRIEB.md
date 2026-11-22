@@ -48,9 +48,6 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 09:59 22.11.: Startsperre 09:59 Start Diogenes (1903, 1904, 1782 lesend, Spike 58816e80d)
-- 09:42 22.11.: Startsperre 09:42 Start Homer (Neustart, 5048ab51a, 1628; 09:43 wieder beendet, 1905)
-- 09:41 22.11.: Startsperre 09:41 Start Spike (Neustart, 920b4cb61, 1903, 1904 zuerst)
 - 22.11., 07:55 Ford: Spike `…787KJ4un4X2q9HM7Fe` archiviert (4,10 $ auf 1804, 1807), Nachfolger `…79tQTiER1tcELHt1vz` (1871 zuerst); Diogenes `…75RZKDwbGpBQvdoTJd` archiviert (4,29 $ auf 1801, 1807, 1760, 1799), Nachfolger Wochenzählung erst 23.11.; Warnung „Start Diogenes nicht angekommen“ (07:16) irrig, lief und ist archiviert.
 - 22.11., 07:45 Ford: übernommen (`…75isNEtDyWupWmoFTR`); alter Ford archiviert (208,46 $ auf 1574), Sokrates `…75SrwmjpvNxeNEdckU` archiviert (27,76 $ auf 1727), Nachfolger `…766KCj14w54LxrDwYN`; Spike `…778HYhvtMFZAaJ8bQm` archiviert (5,70 $ auf 1739), Nachfolger `…787KJ4un4X2q9HM7Fe` (1871 zuerst); Diogenes 1760, 1799. Uhr neu `trig_01GL9hSYfk6n7WN8ABr4WeVf`, alte aus. Offen: Kosten Diogenes 22:07 (Lauf 330) ungebucht.
 
@@ -127,6 +124,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:21 16.11.: Planabweichung: lauf.py plante Tuffy 1408, Start stattdessen auf 1411.1 (Sokrates 20:20, Chef 20:19 „kann das ein freier Entwickler machen“; 1411.1 laut Vorgangsliste „startbar, Tuffy“)
 - 19:43 16.11.: Sokrates Neustart (session_01Hmoj7A8bEWynsHcFDiq9Qy), alte …78yKr84GyQjcDaM636 archiviert, 5,39 $ auf 1411, 1478 gebucht
 - 19:37 16.11.: Lauf 19:35: Start Diogenes 1385 (session_01Hmoj76ZXZhJrxTbHvQ4FiN), Start Perikles M? 1478 (session_01Hmoj7A9JQitciHyQxAs6gq, erste Nachricht mit Kaufrepo-Satz); alte Perikles archiviert, 4,55 $ auf 1474; Neustart Sokrates (cb4a0255a) offen: alte …78yKr84GyQjcDaM636 arbeitet noch, Start nach ihrem Ende; Tom bleibt (Weckrufe 1417/1420)
+- 09:59 22.11.: Startsperre 09:59 Start Diogenes (1903, 1904, 1782 lesend, Spike 58816e80d)
+- 09:42 22.11.: Startsperre 09:42 Start Homer (Neustart, 5048ab51a, 1628; 09:43 wieder beendet, 1905)
+- 09:41 22.11.: Startsperre 09:41 Start Spike (Neustart, 920b4cb61, 1903, 1904 zuerst)
 - 09:21 22.11.: Startsperre 09:21 Start Spike (Neustart, 1a917d744, 1895–1899 zuerst)
 - 09:20 22.11.: Startsperre 09:20 Start Diogenes (1782 lesend, Spike b0de2ea39)
 - 09:11 22.11.: Startsperre 09:11 Start Sokrates (Neustart 400 Tsd., f51b732a1, 1727)
@@ -150,3 +150,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:28 22.11.: Startsperre 09:28 Start Homer (lauf.py, 1900)
 - 09:28 22.11.: Marke Nachhalten 22.11. (lauf.py)
 - 09:28 22.11.: Marke Abgleich ganz 22.11. (lauf.py)
+- 10:04 22.11.: Marke Tagesbericht 22.11. (lauf.py)
