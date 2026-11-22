@@ -666,8 +666,8 @@ def main():
                         "Stand mit `vorgang.py stand|fertig` (275 Stufe 2; Diogenes zählt die Warnungen, danach hält sie an)")
             try:  # 734 (D92.1): je Warnung eine Zeile in warnungen-275.tsv im Zweig probelaeufe, sonst nicht zählbar
                 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-                import probelauf
-                probelauf.zaehlen("275", (git("config", "user.name").strip() or "?")[:20], "liste-hand", datei="warnungen-275.tsv",
+                import zaehlzeile  # 1937 (Sokrates 22.11., 12:48): eigene Zählzeile, nicht mehr über probelauf.py
+                zaehlzeile.zaehlen("275", (git("config", "user.name").strip() or "?")[:20], "liste-hand", datei="warnungen-275.tsv",
                                   lokal=os.path.expanduser("~/.bornim-warnungen-275.tsv"), extra=(h[:10], git("rev-parse", "--abbrev-ref", "HEAD").strip()))
             except Exception:
                 pass
