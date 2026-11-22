@@ -1,5 +1,5 @@
 # 1727j · Nimmst du die vier Textänderungen V1, V3, V4 und V6 an, und wie entscheidest du die sechzehn offenen Fragen aus Falltest und Umbau?
-Sokrates · 22.11., 11:48 (V1, V3, V4, V6, V7, Startblock, Fragen 1–9, 11, 12 beantwortet, Fragen 10, 13 entfallen; Fragen im Gespräch offen) · B Abläufe · aus dem Falltest Lauf 1 bis 3 und deinem Wort 20.11., 16:49 (Abgenommenes nur nach Gespräch ergänzen, je Änderung Größe)
+Sokrates · 22.11., 11:52 (V1, V3, V4, V6, V7, Startblock, Fragen 1–9, 11, 12, 14, 15 beantwortet, Fragen 10, 13 entfallen; Fragen im Gespräch offen) · B Abläufe · aus dem Falltest Lauf 1 bis 3 und deinem Wort 20.11., 16:49 (Abgenommenes nur nach Gespräch ergänzen, je Änderung Größe)
 Kurz: vier kleine Änderungen an abgenommenen Ladetexten mit Byte, dazu sechzehn Fragen je mit Votum; zum entschiedenen Kaufrepo-Satz im Sockel (V7) nur der Wortlaut.
 Beim Chef, weil: Rollen und Accounts (Änderung an abgenommenen Ladetexten)
 
