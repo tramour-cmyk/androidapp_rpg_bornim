@@ -85,7 +85,28 @@ _st2 = {"Technik": ([("2001", "M", "a", {}), ("2002", "M", "b", {}), ("2003", "M
         "Kataloge": ([("513", "M", "eilt", {})], [], None, []), "Arbeitsplaner": ([], [], None, [])}
 _lz = lauf._liegezeiten; lauf._liegezeiten = lambda: {"2010": 200, "2011": 100}
 _a2 = [x[3]["auftrag_fuer"] for x in lauf.auftrag_zeilen(_st2, 99)]
-soll("1932: Folge Eilt, Fund, Muss reihum je Profil, Kür älteste zuerst", _a2 == ["513", "2005", "2001", "2004", "2002", "2003", "2011", "2010"], _a2)
+soll("1932/1967: Folge Eilt, Fund, Muss (gleicher Block: Listenfolge, dann Nr.), Kür älteste zuerst", _a2 == ["513", "2005", "2001", "2002", "2003", "2004", "2011", "2010"], _a2)
+# 1967 (Chef 22.11., 17:43, 17:46): Schlüssel (Klasse, Blockrang, Rest); Blockrang = Zeilenfolge in chefsache/themenbloecke.md, nicht Nummer
+_tb = os.path.join(A, "chefsache", "themenbloecke.md"); _tb_alt = open(_tb).read()
+open(_tb, "w").write("| Nr. | Themenblock | Fachprofil | Kapitel 1 | ruht bis | Bereiche | Vorgänge |\n|---|---|---|---|---|---|---|\n"
+    "| 10 | Regeln | Regeln | ja | – | G Regeln | – |\n| 2 | Kampf | Kampf | ja | – | E Kampf | – |\n| 5 | Klang | Klang | ja | – | E Klang | – |\n")
+_st3 = {"Klang": ([("3001", "M", "e5", {"eilt": True, "bereich": "E Klang"}), ("3011", "M", "m5", {"bereich": "E Klang"})],
+                  [("3021", "K", "k5", {"bereich": "E Klang"})], None, []),
+        "Kampf": ([("3002", "M", "e2", {"eilt": True, "bereich": "E Kampf"}), ("3012", "M", "m2", {"bereich": "E Kampf"})],
+                  [("3022", "K", "k2a", {"bereich": "E Kampf"}), ("3023", "K", "k2b", {"bereich": "E Kampf"}), ("3031", "N", "n2", {"bereich": "E Kampf"})], None, []),
+        "Regeln": ([("3003", "M", "e10", {"eilt": True, "bereich": "G Regeln"}),
+                    ("3013", "M", "f10", {"titel": "Von Chef (22.11., 17:00, Fund, Build 300): x", "bereich": "G Regeln"})],
+                   [("3024", "K", "k10", {"bereich": "G Regeln"}), ("3032", "N", "n10", {"bereich": "G Regeln"})], None, [])}
+lauf._liegezeiten = lambda: {"3021": 50, "3022": 300, "3023": 100, "3024": 400}
+_o3 = lauf.auftrag_offen(_st3)
+_g = lambda k: [o[2] for o in _o3 if o[0] == k]
+soll("1967: drei Eilt aus Block 5, 2, 10 → 10, 2, 5 (Zeilenfolge der Themenblöcke)", _g(0) == ["3003", "3002", "3001"], _g(0))
+soll("1967: Block 10 nur Fund und Kür, Block 2 Muss → Muss aus 2 vor Muss aus 5, vor jeder Kür", _g(2) == ["3012", "3011"]
+     and max(i for i, o in enumerate(_o3) if o[0] == 2) < min(i for i, o in enumerate(_o3) if o[0] == 3), _g(2))
+soll("1967: Eilt aus Block 5 vor Fund aus Block 10 vor jedem Muss", [o[2] for o in _o3][:4] == ["3003", "3002", "3001", "3013"], [o[2] for o in _o3])
+soll("1967: Kür in Blockfolge, im Block älteste zuerst; nach dem Meilenstein in Blockfolge",
+     _g(3) == ["3024", "3023", "3022", "3021"] and _g(4) == ["3032", "3031"], (_g(3), _g(4)))
+open(_tb, "w").write(_tb_alt)
 lauf.AUFTRAG_IN_ARBEIT.add("513")
 soll("1932: Auftrag in Arbeit fällt weg", lauf.auftrag_zeilen(_st2)[0][3]["auftrag_fuer"] == "2005", lauf.auftrag_zeilen(_st2))
 lauf.AUFTRAG_IN_ARBEIT.clear()
