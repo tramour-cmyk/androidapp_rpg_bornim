@@ -33,6 +33,9 @@ FREIGABE = re.compile(r"(?i)\b(passt|freigegeben)\b|^\W*gut\b")  # Profil Techni
 # 1903 (D340.1): Verneinung im selben Satzteil („passt nicht“, „noch nicht freigegeben“, „gut ist das nicht“) ist keine Freigabe
 VERNEINT = re.compile(r"(?i)\b(nicht|nichts|kein\w*|nie)\b")
 TEIL = re.compile(r"(?i)[,.;:!?\n–—]|\b(?:aber|doch|sondern|jedoch)\b")
+# 1908 (D341.1): Einschränkung („Passt, aber Schatten zu dunkel“, „mit Einschränkungen“, „bis auf“) oder Frage („Passt das?“)
+# ist keine Freigabe des Builds; im Zweifel Arbeitsplaner
+EINSCHRAENKUNG = re.compile(r"(?i)\b(aber|doch|jedoch|sondern|allerdings|außer|ausser|bis auf|nur noch|einschränkung\w*|vorbehalt\w*)\b|\?")
 # Checkliste 11: „- n.k ✓“, „- n.k ✗ <Fund>“, „- Rest ✓“. Ein 👍/👎 gilt nur für einen Punkt (Profil Technik 13): Fund, Arbeitsplaner;
 # die 👍/👎 der Bild- und Filmpunkte trägt das Werkzeug ins Ergebnis, erst das Ergebnis geht an den Disponenten (1903)
 ERGEBNIS = re.compile(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*[✓✗]")
@@ -40,10 +43,11 @@ BUILD_IM_TEXT = re.compile(r"(?i)\bBuild\s+\d|(?<![\w.])t\d{2,4}\b")
 
 
 def freigabe(w):
-    """1903: Freigabewort und kein Satzteil, der eins verneint („Gut gemeint, aber nicht freigegeben“); im Zweifel Arbeitsplaner,
+    """1903, 1908: Freigabewort, keine Einschränkung oder Frage („Passt, aber …“, „Passt das?“) und kein Satzteil, der eins
+    verneint („Gut gemeint, aber nicht freigegeben“); im Zweifel Arbeitsplaner,
     denn eine falsche Freigabe führt zusammen, ein falscher Fund kostet nur eine Weitergabe."""
     w = w or ""
-    if not FREIGABE.search(w): return False
+    if not FREIGABE.search(w) or EINSCHRAENKUNG.search(w): return False
     return not any(t and re.search(r"(?i)\b(passt|freigegeben|gut)\b", t) and VERNEINT.search(t) for t in TEIL.split(w))
 
 

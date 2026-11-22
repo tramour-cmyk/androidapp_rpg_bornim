@@ -70,28 +70,28 @@ open(cw.SCHARF, "w").write("1727\n")
 # 4 Eigener Vorgang (Besitzer): nichts; fremder: im Hintergrund eingetragen
 soll("eigener Vorgang (Besitzer Spike) bleibt in der Sitzung", cw.haken({"prompt": "9002 so lassen"}, "Spike") == [])
 soll("Sitzungsnachricht nicht", cw.haken({"prompt": "**Tom** [21.11., 20:29] 9001 fertig"}, "Sokrates") == [])
-nrs = cw.haken({"prompt": "9001 freigegeben, passt mit Einschränkungen:\nBart zu hell"}, "Sokrates")
+nrs = cw.haken({"prompt": "9001 freigegeben, Build 312:\nBart passt jetzt"}, "Sokrates")
 soll("fremder Vorgang erkannt", nrs == ["9001"], nrs)
 t = ""
 for _ in range(60):
     t = datei("9001")
     if "Ü1" in t: break
     time.sleep(0.5)
-soll("Chefwort wörtlich mit Zeit und Sitzung", "- **21.11., 20:30**, Chef in Sitzung Sokrates (`session_SOK`):\n> 9001 freigegeben, passt mit Einschränkungen:\n> Bart zu hell\n" in t, t)
+soll("Chefwort wörtlich mit Zeit und Sitzung", "- **21.11., 20:30**, Chef in Sitzung Sokrates (`session_SOK`):\n> 9001 freigegeben, Build 312:\n> Bart passt jetzt\n" in t, t)
 soll("Freigabe des Builds: offene Zeile an den Disponenten im selben Stand (1782)", "| 9001-Ü1 | Disponent | Chefwort 21.11., 20:30 aus Sitzung Sokrates lesen (Abschnitt Chefworte); Freigabe oder Ergebnis des Builds: Build-Macher starten (3.3 Nr. 7, 1782) | 21.11., 20:30 | offen |" in t, t)
 soll("ein Commit für beides", g("log", "-1", "--format=%s", "origin/main", cwd=A).strip() == "Chefwort 9001 aus Sitzung Sokrates (Haken D, 1762)")
 soll("Abschnitt Chefworte vor Übergaben", t.index("## Chefworte") < t.index("## Übergaben"), t)
 
 # 5 Gleicher Wortlaut zur gleichen Minute: einmal
-k = cw.eintragen("9001", "9001 freigegeben, passt mit Einschränkungen:\nBart zu hell", "21.11., 20:30", "Sokrates", "session_SOK")
-soll("doppelt: nichts neu", k is None and datei("9001").count("Bart zu hell") == 1, datei("9001"))
+k = cw.eintragen("9001", "9001 freigegeben, Build 312:\nBart passt jetzt", "21.11., 20:30", "Sokrates", "session_SOK")
+soll("doppelt: nichts neu", k is None and datei("9001").count("Bart passt jetzt") == 1, datei("9001"))
 
 # 6 Von Hand über vorgang.py, mit Wecker an den Arbeitsplaner
 rc, out = lauf("chefwort", "9003.2", "Nein, der Hall ist zu lang", "--zeit", "21.11., 20:31")
 soll("vorgang.py chefwort", rc == 0 and "CHEFWORT 9003.2 eingetragen, OFFEN 9003.2-Ü1 an Arbeitsplaner" in out and "WECKER session_AP1 | sieh in 9003.2 (9003.2-Ü1)" in out, out)
 soll("Rolle aus der Besetzung", "Chef in Sitzung Sokrates" in datei("9003.2"), datei("9003.2"))
 rc, out = lauf("offen", "Arbeitsplaner")
-soll("Arbeitsplaner sieht nur den Fund (Freigabe ging an den Disponenten)", "1 Zeile" in out and "9003.2-Ü1" in out, out)
+soll("Arbeitsplaner sieht nur den Fund (Freigabe ging an den Disponenten; Einschränkung oder Frage dagegen an ihn, 1908)", "1 Zeile" in out and "9003.2-Ü1" in out, out)
 
 # 7 Halter einer angenommenen Zeile gilt als eigen (nach der Umschaltung ohne Besitzer)
 rc, out = lauf("annehmen", "9001-Ü1")
@@ -125,7 +125,13 @@ soll("„3 ✓“ ohne Build → Arbeitsplaner", cw.empfaenger("3 ✓", "9002", 
 soll("„3 ✓“ mit Build am Vorgang → Disponent", cw.empfaenger("3 ✓", "9001", mit) == "Disponent")
 soll("„Ergebnis t301“ ohne Build am Vorgang → Disponent", cw.empfaenger("t301\n- 1 ✓\n- Rest ✓", "9002", ohne) == "Disponent")
 soll("gemischt „passt nicht, freigegeben ist der Rest“ → Arbeitsplaner (im Zweifel)", cw.empfaenger("Tür passt nicht, freigegeben ist der Rest", "9001", mit) == "Arbeitsplaner")
-soll("„freigegeben und passt mit Einschränkungen“ → Disponent", cw.empfaenger("Testbuild freigegeben und passt mit Einschränkungen", "9001", mit) == "Disponent")
+soll("„freigegeben und passt mit Einschränkungen“ → Arbeitsplaner (1908)", cw.empfaenger("Testbuild freigegeben und passt mit Einschränkungen", "9001", mit) == "Arbeitsplaner")
+for _t in ("Passt, aber Schatten zu dunkel. Build 312", "Gut gemeint, aber zu laut, Build 312", "Passt, aber noch nicht freigeben, Build 312",
+           "Passt das? Build 312", "Build 312 passt, bis auf die Tür", "Passt allerdings flackert die Fackel, Build 312"):
+    soll("1908 Einschränkung/Frage „%s“ → Arbeitsplaner" % _t, cw.empfaenger(_t, "9001", mit) == "Arbeitsplaner")
+soll("1908 „Passt. Build 312“ → Disponent", cw.empfaenger("Passt. Build 312", "9002", ohne) == "Disponent")
+soll("1908 Ergebnis mit Frage im Fund bleibt Ergebnis → Disponent", cw.empfaenger("t312\n- 1 ✗ warum flackert die Tür?\n- Rest ✓", "9002", ohne) == "Disponent")
+soll("1908 chef_nein: „Passt, aber …“ ist kein Nein", not cw.chef_nein("Passt, aber Schatten zu dunkel. Build 312"))
 soll("Wort „Gutachten“ zählt nicht", cw.empfaenger("Gutachten zu 9001", "9001", mit) == "Arbeitsplaner")
 
 # 11 1872: Chef-Nein zählt für Obergrenze A („Prüfer ja, Chef nein“ stoppt beim dritten)
