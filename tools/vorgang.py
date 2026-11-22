@@ -569,24 +569,38 @@ QUERSCHNITT = {"Menü": "785", "Knopf": "785", "Fenster": "785", "Kasten": "785"
 # 793 (D116.1): Wortanfänge, die ein anderes Wort sind (Beispiel Halt/Haltung, Halt gestrichen 654.1)
 NICHT = {}
 
-def waechter(nr, titel, bereich):
+def waechter_funde(nr, titel, laut=True):
+    """654: [(Stichwort, frühere Nummern)], für die waechter() eine Zeile „Systemlösung?“ anlegen würde; ändert nichts (1887)."""
     def hat(t, w): return re.search(r"(?<![\w])" + w + NICHT.get(w, ""), t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
     titel_alle = []
     for name in (startbar.LISTE, "LISTE-VORGAENGE-ARCHIV.md"):
         for m in re.finditer(r"(?m)^\| ([^|\s]+) \| ([^|]*) \|", startbar.lesen(name)):
             if m.group(1) not in (nr, "Nr.") and not m.group(2).startswith(SYSTEM): titel_alle.append((m.group(1), m.group(2)))
     offen = " ".join(d["titel"] for d in startbar.zeilen_liste() if d["titel"].startswith(SYSTEM))
+    aus = []
     for w in STICHWORTE:
         if not hat(titel, w): continue
         frueher = [n for n, t in titel_alle if hat(t, w)]
         if len(frueher) < 2: continue
         if w in QUERSCHNITT:
-            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen; gehört zum Querschnitt %s (654 A), keine neue Zeile" % (w, len(frueher), QUERSCHNITT[w])); continue
+            if laut: print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen; gehört zum Querschnitt %s (654 A), keine neue Zeile" % (w, len(frueher), QUERSCHNITT[w]))
+            continue
         if re.search(re.escape(SYSTEM) + " " + w + r"\b", offen):
-            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w)); continue
-        zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
-        n2 = neu("%s %s: %d frühere Vorgänge (%s), neu %s; einmal grundsätzlich lösen? (654)" % (SYSTEM, w, len(frueher), zeige, nr), bereich, "K", "Sokrates")
+            if laut: print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w))
+            continue
         offen += " %s %s" % (SYSTEM, w)
+        aus.append((w, frueher))
+    return aus
+
+
+def waechter_titel(w, frueher, nr):
+    zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
+    return "%s %s: %d frühere Vorgänge (%s), neu %s; einmal grundsätzlich lösen? (654)" % (SYSTEM, w, len(frueher), zeige, nr)
+
+
+def waechter(nr, titel, bereich):
+    for w, frueher in waechter_funde(nr, titel):
+        n2 = neu(waechter_titel(w, frueher, nr), bereich, "K", "Sokrates")
         print("vorgang.py: Wiederholung „%s“ → %s für Sokrates (654); vor dem Bauen die Systemfrage" % (w, n2))
 
 # ---------------------------------------------------------------- Automatik B

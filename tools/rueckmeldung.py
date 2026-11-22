@@ -322,14 +322,19 @@ def fest_an_sokrates(nr, kennung, an, grund):
 
 
 def nein_waechter(nr, text):
-    """1739 (7.1, Büro-Gegenüberstellung F3): Wiederholungswächter auch auf jedes Nein; Treffer „Systemlösung?“ in der Liste."""
+    """1739 (7.1, Büro-Gegenüberstellung F3): Wiederholungswächter auch auf jedes Nein; Treffer „Systemlösung?“.
+    1887 (Lauf 3 Prüfer-1 L4): der Prüfer ändert nichts und committet nur Eigenes; darum ändert der Wächter hier die Liste nicht,
+    sondern gibt je Treffer eine Zeile an den Disponenten, der die Zeile „Systemlösung?“ für Sokrates anlegt (`vorgang.py neu`)."""
     if not worte(text) & {"nein", "nein, Auftrag"}: return
     try:
         import vorgang, startbar, bereiche
         d = [x["bereich"] for x in startbar.zeilen_liste() if x["nr"] == nr and bereiche.gueltig(x["bereich"])]
-        vor = vorgang.text_liste()
-        vorgang.waechter(nr, text, d[0] if d else "B Abläufe")
-        if vorgang.text_liste() != vor: print("LISTE docs/LISTE-VORGAENGE.md geändert: committen und pushen")
+        bereich = d[0] if d else "B Abläufe"
+        for w, frueher in vorgang.waechter_funde(nr, text):
+            ue.uebergabe(nr, DISPONENT, "Wiederholungswächter (654, 1887): Stichwort „%s“ im Nein, %d frühere Vorgänge; anlegen: `vorgang.py neu \"%s\" \"%s\" K Sokrates`"
+                         % (w, len(frueher), vorgang.waechter_titel(w, frueher, nr).replace('"', "'"), bereich))
+    except ue.Fehler as e:
+        print("Wächter: Zeile an den Disponenten nicht geschrieben (%s)" % e)
     except SystemExit as e:
         print("Wächter nicht gelaufen (%s)" % e)
 

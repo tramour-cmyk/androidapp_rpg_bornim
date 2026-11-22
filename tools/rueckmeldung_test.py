@@ -113,7 +113,9 @@ soll("Übergaben bleiben unten", t.rstrip().endswith("| offen |"), t)
 # 5a 1739 (7.1, F3): Wiederholungswächter auch auf jedes Nein
 rc, out = lauf("rueckmeldung", "9002", "nein: Treppe im Turm wirft keinen Schatten")
 liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), encoding="utf-8").read()
-soll("Nein mit Stichwort: Systemlösung? für Sokrates", rc == 0 and "Systemlösung? Treppe" in liste and "LISTE docs/LISTE-VORGAENGE.md geändert" in out, out)
+soll("1887: Nein mit Stichwort ändert die Liste nicht", rc == 0 and "Systemlösung? Treppe" not in liste and "LISTE docs/LISTE-VORGAENGE.md geändert" not in out
+     and not g("status", "--porcelain", "--", "docs", cwd=A).strip(), (out, g("status", "--porcelain", cwd=A)))
+soll("1887: Zeile an den Disponenten mit Befehl für Systemlösung? Treppe", re.search(r"\| 9002-Ü\d+ \| Disponent \| Wiederholungswächter \(654, 1887\): Stichwort „Treppe“.*vorgang.py neu \"Systemlösung\? Treppe: .*\" \"[^\"]+\" K Sokrates", datei("9002")), (out, datei("9002")[-600:]))
 g("checkout", "-q", "--", "docs", cwd=A); g("pull", "-q", "origin", "main", cwd=A)
 rc, out = lauf("rueckmeldung", "9007", "ja: Treppe passt")
 soll("Ja ohne Wächter, an den Disponenten", rc == 0 and "Systemlösung" not in out and "an Disponent" in out and "an den Chef vorlegen" in datei("9007"), out)
