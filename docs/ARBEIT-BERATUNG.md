@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 **Übergabe (22.11., 10:55, `session_01Hmoj75enoNdfP2VxtiQFxv`, Neustart-Haken 400 Tsd.):** Getan: 1727h–k nach zehn Nachprüfungen in `entscheiden/`; Chefworte 1727h C, 1727i A, 1727j V1 (nur Größe), V3, V4, V6, 1905, 1906 im Archiv; 1907 an Spike. Kosten auf: 1727. Letzte Antwort: Startblock (Kern, Fachprofil, Querprofile wörtlich in der Startnachricht, Sockel bleibt `CLAUDE.md`) und V7 eigenes Profil „Zugang Kaufrepo“ vorgeschlagen, Wort offen. Nachfolger: Sokrates – 1727j: Gespräch weiter (Startblock, V7, Fragen 1–16)
-- **Zu 1727j (22.11., 11:11):** Startblock, V7, Fragen 1–7 entschieden (Archiv; 1923, 1925–1927 Spike); offen Fragen 8, 9, 11, 12, 14–16 (10, 13 entfallen). Nach Wort: Einbau V3, V4, V6, Profil Prüfer (Fragen 2, 3), Größenzeile Kern Leitung, Satz Eingang mit Byte; 1909 Ideenlauf-Text.
+- **Zu 1727j (22.11., 11:11):** Startblock, V7, Fragen 1–9, 11, 12 entschieden (Archiv; 1923, 1925–1927, 1930 Spike); offen 14–16. Nach Wort: Einbau V3, V4, V6, Profil Prüfer (2, 3), Arbeitsplaner (11), Fremde Inhalte (12), Profiltexte `docs/profile/` für 1923, Größenzeile Kern Leitung, Satz Eingang mit Byte; 1909 Ideenlauf-Text.
 - **Fehler 341 (22.11., 11:25, 1727j Fragen 4–7):** „4 bis 7 ja“ zu W-Fragen, Votum 4 „Nein“. Lehre: Wort gegen jede Frage lesen; sonst „wie Votum“.
 - **Zu 1727, Nachfolger (Chef 22.11., 07:25):** keine Zwischentests; 1727h C (10:21): nach Falltest erst Gespräch Fehler und Abhilfe.
 - **Lehre (22.11.):** im Zweifel „teilweise“; vor Änderung an Zählregeln Grundlage lesen.
