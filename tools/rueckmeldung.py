@@ -62,12 +62,23 @@ def worte(text):
 
 
 def zaehlen(text):
-    """Zählt die Signalworte der Rückmeldungen einer Vorgangsdatei."""
+    """Zählt die Signalworte der Rückmeldungen einer Vorgangsdatei; 1872: jedes Chef-Nein unter „Chefworte“ (chefwort.chef_nein,
+    ganzer Wortlaut) zählt als abgelehnter Auftrag („nein“), sonst stoppt „Prüfer ja, Chef nein“ nie."""
     z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0}
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", ue.abschnitt(text, "Rückmeldungen")):
         for w in worte(m.group(1)):
             if w in z: z[w] += 1
+    import chefwort
+    for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, Chef[^\n]*:\n((?:> .*\n?)+)", ue.abschnitt(text, "Chefworte")):
+        if chefwort.chef_nein("\n".join(l[2:] for l in m.group(1).splitlines())): z["nein"] += 1
     return z
+
+
+def zustand_ruht(t, zeit, grund):
+    """Zeile „Zustand: ruht, beim Chef …“ oben in „## Rückmeldungen“ (legt den Abschnitt an, falls er fehlt; 1763, 1872)."""
+    if "\n## Rückmeldungen\n" not in t:
+        t = ue.anhaengen(t, "Rückmeldungen", "Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).", "")
+    return t.replace("\n## Rückmeldungen\n", "\n## Rückmeldungen\n\nZustand: %s seit %s (%s, 1763)\n" % (RUHT, zeit, grund), 1)
 
 
 def macher(text):
@@ -189,7 +200,7 @@ def eintragen(nr, text, wer, sid=""):
             elif "nein" in w and z["nein"] >= MAX_NEIN: grund = "Obergrenze A: %d. abgelehnter Auftrag" % z["nein"]
             elif "steckt fest" in w and z["steckt fest"] >= MAX_FEST: grund = "Obergrenze B: %d. „steckt fest“" % z["steckt fest"]
         if grund:
-            t = t.replace("\n## Rückmeldungen\n", "\n## Rückmeldungen\n\nZustand: %s seit %s (%s, 1763)\n" % (RUHT, zeit, grund), 1)
+            t = zustand_ruht(t, zeit, grund)
             an, was = SOKRATES, "an den Chef: Chefsache anlegen, nicht selbst lösen (%s; Rückmeldung %s von %s)" % (grund, zeit, wer or "unbekannt")
         elif schon:
             an = was = None

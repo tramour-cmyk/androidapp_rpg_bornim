@@ -47,6 +47,15 @@ def freigabe(w):
     return not any(t and re.search(r"(?i)\b(passt|freigegeben|gut)\b", t) and VERNEINT.search(t) for t in TEIL.split(w))
 
 
+def chef_nein(w):
+    """1872: Chefwort lehnt ab (zählt für Obergrenze A wie ein „nein“ des Prüfers): beginnt mit „nein“, 👎, Ergebnis mit ✗ oder ein
+    verneintes Freigabewort („passt nicht“, „nicht freigegeben“); eine Freigabe ohne Verneinung nie."""
+    w = w or ""
+    if freigabe(w): return False
+    if re.match(r"(?i)^\W*nein\b", w) or "👎" in w or re.search(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*✗", w): return True
+    return any(t and re.search(r"(?i)\b(passt|freigegeben|gut)\b", t) and VERNEINT.search(t) for t in TEIL.split(w))
+
+
 def _build_am_vorgang(nr, d):
     if d is None and nr:
         try:
@@ -158,12 +167,20 @@ def eintragen(nr, wort, zeit, wer, sid="", an=None):
         t = ue._mit_abschnitt(alt, nr)
         if block in t:
             return alt, None
+        import rueckmeldung as rm
+        schon = rm.ruht(ue.abschnitt(t, "Rückmeldungen"))
         t = ue.anhaengen(t, "Chefworte", "Wörtlich, mit Zeit; trägt `chefwort.py` ein (Haken D, 1762).", block)
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
-        was = ue._rein("Chefwort %s aus Sitzung %s lesen (Abschnitt Chefworte)%s" % (zeit, wer or "unbekannt",
-                       "; Freigabe oder Ergebnis des Builds: Build-Macher starten (3.3 Nr. 7, 1782)" if an == DISPONENT else ""))
-        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, ue.fmt(ue.jetzt())), k
+        n = rm.zaehlen(t)["nein"]
+        if chef_nein(wort) and not schon and n >= rm.MAX_NEIN:  # 1872: „Prüfer ja, Chef nein“ stoppt an Obergrenze A wie drei „nein“ des Prüfers
+            grund = "Obergrenze A: %d. abgelehnter Auftrag, zuletzt Chefwort" % n
+            t = rm.zustand_ruht(t, zeit, grund)
+            a2, was = rm.SOKRATES, ue._rein("an den Chef: Chefsache anlegen, nicht selbst lösen (%s; Chefwort %s aus Sitzung %s)" % (grund, zeit, wer or "unbekannt"))
+        else:
+            a2, was = an, ue._rein("Chefwort %s aus Sitzung %s lesen (Abschnitt Chefworte)%s" % (zeit, wer or "unbekannt",
+                           "; Freigabe oder Ergebnis des Builds: Build-Macher starten (3.3 Nr. 7, 1782)" if an == DISPONENT else ""))
+        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, a2, was, ue.fmt(ue.jetzt())), k
     return ue.atomar(nr, f, "Chefwort %s aus Sitzung %s (Haken D, 1762)" % (nr, wer or "unbekannt"))
 
 
@@ -171,6 +188,9 @@ def melden(nr, k, an=AN):
     if not k:
         print("SCHON EINGETRAGEN %s: gleicher Wortlaut zur gleichen Zeit" % nr)
         return
+    try:  # 1872: an Obergrenze A geht die Zeile an Sokrates statt an AN
+        an = next((z["an"] for z in ue.zeilen(open(os.path.join(ue.WURZEL, ue._pfad(nr)), encoding="utf-8").read()) if z["k"] == k), an)
+    except OSError: pass
     print("CHEFWORT %s eingetragen, OFFEN %s an %s" % (nr, k, an))
     ue.wecker(nr, k, an)  # 1760: läuft keine Sitzung, Wecker an den Disponenten
 

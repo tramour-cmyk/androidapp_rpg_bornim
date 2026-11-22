@@ -9,13 +9,14 @@ def g(*a, cwd=None): return subprocess.run(["git"] + list(a), cwd=cwd, check=Tru
 g("init", "-q", "--bare", "-b", "main", o)
 g("clone", "-q", o, A); g("config", "user.email", "t@t", cwd=A); g("config", "user.name", "t", cwd=A); g("checkout", "-q", "-b", "main", cwd=A)
 os.makedirs(os.path.join(A, "docs")); os.makedirs(os.path.join(A, "tools"))
-for f in ("chefwort.py", "uebergabe.py", "startbar.py", "bereiche.py", "vorgang.py", "neustart-haken.py", "kernregeln.txt"):
+for f in ("chefwort.py", "rueckmeldung.py", "uebergabe.py", "startbar.py", "bereiche.py", "vorgang.py", "neustart-haken.py", "kernregeln.txt"):
     if os.path.exists(os.path.join(HIER, f)): os.symlink(os.path.join(HIER, f), os.path.join(A, "tools", f))
 open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
     "| 9001 | Zwerg auf dem Tisch | Tom | M | gebaut | – | – | 301 | E Welt | – |\n"
     "| 9002 | Schatten im Wald | Spike | M | startbar | – | – | – | T Technik | – |\n"
-    "| 9003.2 | Höhlenklang | Jerry | M | gebaut | – | – | 301 | K Klang | – |\n")
+    "| 9003.2 | Höhlenklang | Jerry | M | gebaut | – | – | 301 | K Klang | – |\n"
+    "| 9004 | Tür im Turm | Tom | M | gebaut | – | – | – | E Welt | – |\n")
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Arbeitsplaner | [AP](https://claude.ai/code/session_AP1) | – | – | 21.11. |\n"
     "| Sokrates | [S](https://claude.ai/code/session_SOK) | – | – | 21.11. |\n")
@@ -126,6 +127,21 @@ soll("„Ergebnis t301“ ohne Build am Vorgang → Disponent", cw.empfaenger("t
 soll("gemischt „passt nicht, freigegeben ist der Rest“ → Arbeitsplaner (im Zweifel)", cw.empfaenger("Tür passt nicht, freigegeben ist der Rest", "9001", mit) == "Arbeitsplaner")
 soll("„freigegeben und passt mit Einschränkungen“ → Disponent", cw.empfaenger("Testbuild freigegeben und passt mit Einschränkungen", "9001", mit) == "Disponent")
 soll("Wort „Gutachten“ zählt nicht", cw.empfaenger("Gutachten zu 9001", "9001", mit) == "Arbeitsplaner")
+
+# 11 1872: Chef-Nein zählt für Obergrenze A („Prüfer ja, Chef nein“ stoppt beim dritten)
+soll("chef_nein: „nein“, 👎, ✗, „passt nicht“", all(cw.chef_nein(x) for x in ("Nein, Tür klemmt", "👎 Tür", "- 1 ✗ Tür", "Das passt nicht")), True)
+soll("chef_nein: Freigabe, Frage, Fund ohne Nein nicht", not any(cw.chef_nein(x) for x in ("passt", "Gut, Build 301", "Warum ist die Tür blau?")))
+import rueckmeldung as rm
+for i, (zeit, wort) in enumerate([("21.11., 21:00", "Nein, Tür klemmt"), ("21.11., 21:10", "Gut so, freigegeben"), ("21.11., 21:20", "👎 Tür klemmt weiter")]):
+    rc, out = lauf("chefwort", "9004", wort, "--zeit", zeit)
+t = datei("9004")
+soll("zwei Chef-Nein, eine Freigabe: Zählung 2, keine Obergrenze", rm.zaehlen(t)["nein"] == 2 and "Obergrenze A" not in t, t)
+rc, out = lauf("chefwort", "9004", "Das passt nicht, Tür klemmt immer noch", "--zeit", "21.11., 21:30")
+t = datei("9004")
+soll("drittes Chef-Nein: Obergrenze A, Zeile an Sokrates, ruht", "Zustand: ruht, beim Chef seit 21.11., 21:30 (Obergrenze A: 3. abgelehnter Auftrag, zuletzt Chefwort" in t
+     and "| Sokrates | an den Chef: Chefsache anlegen, nicht selbst lösen (Obergrenze A: 3." in t and "OFFEN 9004-Ü4 an Sokrates" in out, (out, t))
+rc, out = lauf("chefwort", "9004", "Nein, immer noch", "--zeit", "21.11., 21:40")
+soll("ruht schon: Zeile wieder an den Arbeitsplaner, keine zweite Obergrenze", datei("9004").count("Obergrenze A") == 2 and "an Arbeitsplaner" in out, (out, datei("9004")))
 
 print("chefwort_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
