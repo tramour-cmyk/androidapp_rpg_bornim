@@ -55,8 +55,8 @@ P_TAEUSCH = 0.3
 TAEUSCHER = {"Goblin-Späher", "Grimmzahn", "Grak"}
 # Gegenwert („undurchschaubar“): Tiere niedrig, Goblins mittel, Untote etwas höher, Bosse hoch (DESIGN-GLUT.md 5)
 GEGENWERT = {"Riesenratte": 1, "Wolf": 1, "Jungwolf": 1, "Wildschwein": 1, "Riesen-Hundertfüßer": 1, "Riesenspinne": 1,
-             "Riesenfledermaus": 1, "Blutflügler": 1, "Goblin": 3, "Goblin-Späher": 3, "Goblin-Schamane": 3, "Kobold": 3,
-             "Skelett": 4, "Wiedergänger": 4, "Grabhund": 4, "Ockerschleim": 2, "Krogg": 6, "Grimmzahn": 6, "Grak": 8}
+             "Riesenfledermaus": 1, "Riesenegel": 1, "Goblin": 3, "Goblin-Späher": 3, "Goblin-Schamane": 3, "Kobold": 3,
+             "Skelett": 4, "Wiedergänger": 4, "Grabhund": 4, "Säureschnecke": 2, "Krogg": 6, "Grimmzahn": 6, "Grak": 8}
 
 
 def lesewert(held, spaehen=None):

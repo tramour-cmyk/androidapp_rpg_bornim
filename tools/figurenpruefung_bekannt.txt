@@ -7,5 +7,3 @@ absichten: kobold ohne eigene Absichten (nimmt „_sonst“)
 absichten: ochre_jelly ohne eigene Absichten (nimmt „_sonst“)
 absichten: skeleton ohne eigene Absichten (nimmt „_sonst“)
 absichten: stirge ohne eigene Absichten (nimmt „_sonst“)
-name: ochre_jelly: Art „Ockerschleim“, Anzeigename „Säureschnecke“
-name: stirge: Art „Blutflügler“, Anzeigename „Riesenegel“
