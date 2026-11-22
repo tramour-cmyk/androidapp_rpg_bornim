@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 379 · 1871 Umschalt-Kopie bis `f1e247f2f` (lesend, Auftrag Ford beim Neustart; neu `d99e91caa`, `f1e247f2f`; 22.11., 13:10–13:15)
+
+- Ohne Befund. Alle 41 `tools/*_test.py` an der Kopie grün, dazu `--test` von vorpush, sperre-haken, buildzweig-haken, gepusht-haken; `probelauf_messfrage_test.py` gestrichen, kein Verweis mehr in `.github/`, `tools/`.
+- `d99e91caa` wie Sokrates 12:41/12:48 (`docs/vorgang/1937.md`): 621 A, 654.2 (`messlauf_frei`, `HAND`, `bild_nein`) ausgetragen, Laufbremse ohne Schalterbedingung; die Freigabe durch den Prüfer (`pruefer_frei`) hängt weiter an `tools/1727-SCHARF`, die Kopie hat die Datei. Am Haken nachgestellt (`laufbremse-haken.py`, trocken): `PROBEBILD=` Exit 2 mit Weg `PROBE=`/`MESS=`, `MESS=` ohne Bild frei, Bildlauf ohne Nummer Exit 2.
+- `f1e247f2f`: „abgebrochen“ des Halters einer angenommenen Übergabezeile → keine Zeile an den Disponenten, die Zeile wird über `ue.abgebrochen` wieder offen (ein Neustart); zweites → genau eine Zeile an Sokrates (Doppelprüfung `x["k"] == k`). Fall „Zeile nach Fristablauf schon einmal wieder offen, dann erstes abgebrochen“ gelesen: eine Zeile an Sokrates, kein Disponent.
+- Nicht als Befund: Hilfetext `probelauf.py --probebild` (Z. 836) und Kopf Z. 33 nennen noch Probebild/Einzelbild.
+
 ## Lauf 378 · 1937 Zählung 275 eigenständig (lesend, Weiter Ford 13:01; `main` `c52385e64`; 22.11., 13:02–13:04)
 
 - Ohne Befund. Alle 45 `tools/*_test.py` grün, dazu `--test` von vorpush, sperre-haken, buildzweig-haken, gepusht-haken.
