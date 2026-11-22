@@ -278,7 +278,9 @@ def nacht_halt(r, nr, ausgabe, morgen):
         if not nr or not re.match(r"\d", str(nr)) or not nachtstarts.angehalten(r, str(nr)): return False
     except Exception:
         return False
-    ausgabe.append("NICHTS %s: Vorgang %s in dieser Nacht schon %d-mal gestartet, angehalten bis 7 Uhr (1643)" % (r, nr, nachtstarts.GRENZE))
+    try: g = nachtstarts.grenze(r, str(nr))[1]  # 1792: Deckel aus Ausnahme des Chefs
+    except Exception: g = nachtstarts.GRENZE
+    ausgabe.append("NICHTS %s: Vorgang %s in dieser Nacht schon %d-mal gestartet, angehalten bis 7 Uhr (1643)" % (r, nr, g))
     morgen.append("Morgen 1643: %s %s nach zwei Neustarts in der Nacht angehalten, Ursache ansehen" % (r, nr))
     return True
 

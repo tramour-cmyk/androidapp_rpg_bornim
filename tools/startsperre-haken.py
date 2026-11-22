@@ -95,15 +95,26 @@ def aufwand(rolle, effort, jetzt=None):
 
 def nacht(rolle, eingabe):
     """1643 (340.12/3): derselbe Vorgang (Nummer im Titel „<Rolle> – <Nr>…“) nach zwei Neustarts in einer Nacht angehalten."""
-    m = re.search(r"–\s*(?:[^\W\d][\w-]*\s+)?(\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)", eingabe.get("title") or "")
+    titel = eingabe.get("title") or ""
+    m = re.search(r"–\s*(?:[^\W\d][\w-]*\s+)?(\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)", titel)
     if not m: return None
+    nr = m.group(1)
     try:
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import nachtstarts
-        if not nachtstarts.angehalten(rolle, m.group(1), mit_diesem=True): return None
+        # 1792: steht im Titel vor dem Doppelpunkt eine weitere Nummer mit Ausnahme des Chefs (etwa „1792, 1739: …“), gilt deren Deckel
+        kopf = titel[m.start():].split(":")[0]
+        for n in re.findall(r"(?<![\w.])(\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)(?![\w])", kopf):
+            if nachtstarts.ausnahme(rolle, n):
+                nr = n; break
+        if not nachtstarts.angehalten(rolle, nr, mit_diesem=True): return None
+        z, g, a = nachtstarts.grenze(rolle, nr)
     except Exception:
         return None
+    if a:
+        return ("Nachtstopp (1792): %s auf Vorgang %s hat den Deckel aus %s erreicht (%d von %d Starts); nicht starten bis 7 Uhr. "
+                "Ford: Zeile „- HH:MM TT.MM.: Morgen 1643: %s %s Deckel %s erreicht“ ins Protokoll, pushen." % (rolle, nr, a["quelle"], z - 1, g, rolle, nr, a["quelle"]))
     return ("Nachtstopp (1643): %s auf Vorgang %s ist in dieser Nacht schon nach zwei Neustarts; nicht starten bis 7 Uhr. "
-            "Ford: Zeile „- HH:MM TT.MM.: Morgen 1643: %s %s nach zwei Neustarts in der Nacht angehalten, Ursache ansehen“ ins Protokoll, pushen." % (rolle, m.group(1), rolle, m.group(1)))
+            "Ford: Zeile „- HH:MM TT.MM.: Morgen 1643: %s %s nach zwei Neustarts in der Nacht angehalten, Ursache ansehen“ ins Protokoll, pushen." % (rolle, nr, rolle, nr))
 
 
 def main():
