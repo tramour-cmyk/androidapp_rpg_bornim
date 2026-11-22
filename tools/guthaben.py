@@ -10,7 +10,8 @@ Laufsperre (Chefwort „weniger laufen“): Zeile im Vorgangsarchiv im Format de
 „- **<Nr>, …** (TT.MM., HH:MM, Chef …) → **Laufsperre: höchstens <Zahl> Starts[, spätestens HH:MM]**“ (Zahl als Ziffer oder Wort,
 „keine“ = 0). Umfang und Ende setzt Sokrates (Profil Disponent F15). Ab der Entscheidzeit zählen die Startsperren des Protokolls;
 frei sind Wache, Sokrates (auch Rundblick) und Rückläufer des Chefs. Ohne „spätestens“ gilt sie STANDARD_STUNDEN und lauf.py warnt.
-Ohne „Chef“ in der Klammer keine Laufsperre.
+Ohne „Chef“ in der Klammer keine Laufsperre. 1930 (1727j Frage 8, Chef 22.11., 11:48): steht im Chefwort der Zeile (in „…“ vor
+dem Pfeil) das Wort „alles“, sperrt sie auch die Rückläufer des Chefs; frei bleiben dann nur Wache und Sokrates (FREI_ROLLEN).
 
 Vorbild (erst nachsehen, wie andere es lösen): Budget-Aktionen in Cloud-Konten (Schwellen 80/100 % lösen gestufte Aktionen aus, bis
 zum Sperren neuer Starts) und Ausgabegrenzen von CI-Diensten (bei 100 % keine neuen Läufe); beide werten einen Messwert nur in
@@ -78,8 +79,14 @@ def laufsperren(archiv, jahr):
         else:
             bis = ab + datetime.timedelta(hours=STANDARD_STUNDEN)
         q = re.match(r"- \*\*([^,*]+)", l)
-        aus.append(dict(deckel=deckel, ab=ab, bis=bis, ende=bool(m.group(2)), quelle=q.group(1) if q else "?"))
+        aus.append(dict(deckel=deckel, ab=ab, bis=bis, ende=bool(m.group(2)), quelle=q.group(1) if q else "?", alles=alles(l)))
     return aus
+
+
+def alles(zeile):
+    """1930: Chefwort „alles“ in einem Zitat „…“ vor dem Pfeil der Archivzeile (nicht im Text danach, den Sokrates schreibt)."""
+    vor = zeile.split("→", 1)[0]
+    return any(re.search(r"\balles\b", z, re.I) for z in re.findall(r"„([^“]*)“", vor))
 
 
 def laufsperre(jetzt, archiv=None):
@@ -105,7 +112,7 @@ def gezaehlt(sperre, jetzt, protokoll=None, rueck=lambda nr: False):
         gesehen.add((t, m.group(3)))
         nr_je = dict(re.findall(r"\b(\w+) (\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)\b", m.group(4)))
         for r in m.group(3).split(", "):
-            if r in FREI_ROLLEN or (r in nr_je and rueck(nr_je[r])): continue
+            if r in FREI_ROLLEN or (not sperre.get("alles") and r in nr_je and rueck(nr_je[r])): continue
             n += 1
     return n
 
@@ -136,10 +143,17 @@ class Bremse:
             aus.append("GUTHABEN %d %% (Chef %s): Stufe %s (287)" % (self.prozent, self.zeit.strftime("%d.%m., %H:%M"), self.stufe))
         if self.sperre:
             s = self.sperre
-            aus.append("LAUFSPERRE %s (Chef %s): noch %d von %d Starts bis %s; frei: Wache, Sokrates, Rückläufer des Chefs%s" % (
-                s["quelle"], s["ab"].strftime("%d.%m., %H:%M"), max(self.rest, 0), s["deckel"], s["bis"].strftime("%d.%m., %H:%M"),
+            aus.append("LAUFSPERRE %s (Chef %s): noch %d von %d Starts bis %s; frei: %s%s" % (
+                s["quelle"], s["ab"].strftime("%d.%m., %H:%M"), max(self.rest, 0), s["deckel"], s["bis"].strftime("%d.%m., %H:%M"), self.frei_text(),
                 "" if s["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens HH:MM“" % STANDARD_STUNDEN))
         return aus
+
+    def frei_text(self):
+        return "Wache, Sokrates (Chef „alles“: auch Rückläufer gesperrt, 1930)" if self.sperre and self.sperre.get("alles") else "Wache, Sokrates, Rückläufer des Chefs"
+
+    def rueck_frei(self, zeile):
+        """Rückläufer des Chefs zählt nicht und läuft weiter, außer die Laufsperre trägt das Chefwort „alles“ (1930)."""
+        return ruecklaeufer(zeile) and not (self.sperre and self.sperre.get("alles"))
 
     def nur_muss(self):
         return self.stufe in ("nur Muss", "nur Rückläufer", "Stillstand")
@@ -154,13 +168,13 @@ class Bremse:
             return "Guthaben %d %%, nur Rückläufer des Chefs (287)" % self.prozent
         if self.stufe == "nur Muss" and kl != "M" and not rueck:
             return "Guthaben %d %%, nur Muss (287)" % self.prozent
-        if self.sperre and not frei and not rueck and self.rest <= 0:
-            return "Laufsperre %s, alle %d Starts verbraucht, bis %s nur Wache, Sokrates, Rückläufer des Chefs" % (
-                self.sperre["quelle"], self.sperre["deckel"], self.sperre["bis"].strftime("%d.%m., %H:%M"))
+        if self.sperre and not frei and not self.rueck_frei(zeile) and self.rest <= 0:
+            return "Laufsperre %s, alle %d Starts verbraucht, bis %s nur %s" % (
+                self.sperre["quelle"], self.sperre["deckel"], self.sperre["bis"].strftime("%d.%m., %H:%M"), self.frei_text())
         return None
 
     def zaehle(self, rolle, zeile):
-        if self.sperre and rolle not in FREI_ROLLEN and not ruecklaeufer(zeile): self.rest -= 1
+        if self.sperre and rolle not in FREI_ROLLEN and not self.rueck_frei(zeile): self.rest -= 1
 
 
 if __name__ == "__main__":
