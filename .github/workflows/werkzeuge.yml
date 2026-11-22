@@ -29,6 +29,7 @@ jobs:
           python3 tools/meldung_regel_test.py
           python3 tools/auftrag_test.py
           python3 tools/zug_haken_test.py       # 1732 Votum ohne Gegengeprüft
+          python3 tools/neustart-haken_test.py  # 1520 Schwellen je Rolle, Ford und Übergabe frei
           python3 tools/zweig_doppelt_test.py   # 1776
           python3 tools/laufbremse_test.py      # 1777 (Spike, 1766)
           python3 tools/sperre-haken.py --test  # 1739 Sperre Force-Push, Keystore
