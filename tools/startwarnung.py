@@ -162,17 +162,6 @@ def sammeln(ref="origin/main", taeglich=True):
         datei, was = (m.group(1), m.group(2)) if m else (f.split(":")[0], f)
         art = re.sub(r"[\d.,]+", "N", was)[:40]
         neu(f"regel:{datei}:{art}", datei_besitzer(datei), "Pflege", f"{datei}: {was}")
-    # 1425: „Zu <Nr>“ zu Erledigtem im Vorrat
-    try:
-        import vorratspruefung
-        zahl = {}
-        for a, nr, _, t in vorratspruefung.funde():
-            if a == "J": zahl.setdefault(t.split(":")[0], []).append(nr)
-        for datei, nrn in zahl.items():
-            neu(f"vorrat:{datei}", datei_besitzer(datei), "1425",
-                "%s: %d „Zu“ zu Erledigtem (%s), beim Übergeben streichen" % (datei, len(nrn), ", ".join(nrn[:6]) + (" …" if len(nrn) > 6 else "")))
-    except Exception:
-        pass
     return aus_einmal(aus)
 
 

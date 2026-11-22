@@ -8,7 +8,7 @@ Quellen: PROJEKTPLAN.md (Punkte; „· Stand: in Arbeit|gebaut“ am Zeilenende,
 (Git-Stand vor 24 h und 7 Tagen), startbar.py --stand, chefsache/README.md, Zeile „Guthaben:“ in ARBEIT-BETRIEB.md.
 1739 (1727 `routine-tagesbericht.md` „Werkzeug“, `werkzeuge.md` A): Eingabe „Wo stehen wir“ neben „Rest geschätzt“ (Vorlage erst mit
 tools/1727-SCHARF), Zeile „Fristen“ (Testbitten über 5 Tage, Fragen an den Chef mit Alter, Vorgänge ohne Auftrag über 1 Tag, Einträge
-unter „Unveröffentlicht“, Alter des letzten Release); Halt der Vorratsprüfung (1425) fällt mit tools/1727-SCHARF."""
+unter „Unveröffentlicht“, Alter des letzten Release); Vorratsprüfung (1425) gestrichen (1871 Stilllegung C)."""
 import collections, datetime, json, os, re, subprocess, sys, zoneinfo
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -359,51 +359,9 @@ def telegram(d):
     # 1659: Zeile 10 = Läufe, 11 = Vorrat auf links (wie der Chef sie zählt); Abnahmeliste als Link im Kopf
     return "448: Tagesbericht %s (%sARBEIT-TAGESBERICHT.md, Abnahmeliste %sPROJEKTPLAN.md)\n" % (JETZT.strftime("%d.%m."), GH, GH) + "\n".join(
         "%d. %s: %s" % (i + 1, a, roh(b)) for i, (a, b, c) in enumerate(zs[:10])) + (
-        "\n11. Fristen: " + roh(zs[10][1]) if os.path.exists(SCHARF) else vorrat_zeile())  # 1739: Vorratsprüfung fällt mit den Vorräten
-
-def vorrat_satz(erg, f):
-    """1660 (Chef 18.11., 12:17: „Punkt 11 … auf links eine Aussage im Bericht“): Klartext statt Kürzel: was der heutige Lauf
-    behoben hat, wie viele Funde offen sind (nach Art, ausgeschrieben, und nach Besitzer), was davon den Chef angeht.
-    Den Chef geht an: I (Datei in seiner Chefsache ohne offenen Vorgang; er sähe eine Frage, die keiner mehr stellt)."""
-    import collections, vorratspruefung as V
-    s = "11. Vorrat auf links (1425): "
-    s += ("heute geprüft und behoben: " + "; ".join(erg)) if erg else "heute noch nicht geprüft"
-    if not f: return s + ". Offen: nichts. Für dich: nichts."
-    art = collections.Counter(x[0] for x in f)
-    wer = collections.Counter(b.strip() for x in f for b in (x[2] if x[2] not in ("?", "–") else "ohne Besitzer").split(","))
-    s += ". Offen: %d %s (%s), bei %s." % (len(f), "Fund" if len(f) == 1 else "Funde",
-                                         ", ".join("%d %s" % (n, V.ARTEN.get(a, a)) for a, n in sorted(art.items(), key=lambda x: -x[1])),
-                                         ", ".join("%s %d" % (b, n) for b, n in wer.most_common()))
-    chef = [x[1] for x in f if x[0] == "I"]
-    return s + (" Für dich: %d Datei%s in der Chefsache ohne offenen Vorgang (%s), räumen wir weg; sonst nichts." % (
-        len(chef), "" if len(chef) == 1 else "en", ", ".join(chef)) if chef else " Für dich: nichts, alles liegt bei uns.")
-
-def vorrat_zeile():
-    """1425 (Chef 17.11., 10:14: „Ergebnis der heutigen Leichenprüfung … keine Telegram-Nachricht“): Ergebnis der Vorratsprüfung des
-    Tages aus dem Commit „Vorratsprüfung TT.MM.: …“ und die jetzt noch offenen Funde (ohne J), als Satz (1660)."""
-    import subprocess
-    try:
-        r = subprocess.run(["git", "-C", os.path.dirname(os.path.abspath(__file__)), "log", "--since=%s 00:00" % JETZT.strftime("%Y-%m-%d"),
-                            "--format=%s", "--grep=Vorratsprüfung " + JETZT.strftime("%d.%m.")], capture_output=True, text=True, timeout=30)
-        erg = [re.sub(r"^.*?Vorratsprüfung \d\d\.\d\d\.:?\s*", "", z) for z in r.stdout.splitlines() if z.strip()]
-        import vorratspruefung
-        return "\n" + vorrat_satz(erg, [x for x in vorratspruefung.funde() if x[0] != "J"])
-    except Exception as e:
-        return "\n11. Vorrat auf links (1425): nicht lesbar (%s)" % e
+        "\n11. Fristen: " + roh(zs[10][1]))  # 1739; 1871 Stilllegung C: Vorratsprüfung (1425) fällt mit den Vorräten
 
 def main():
-    if "--telegram" not in sys.argv and "--probe" not in sys.argv and not os.path.exists(SCHARF):  # 1739: Halt fällt mit den Vorräten
-        # 1425 (Chef 16.11., 13:44/13:47): vor jedem Tagesbericht den ganzen Vorrat auf Fehler prüfen und sie ausmerzen
-        try:
-            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-            import vorratspruefung
-            f = [x for x in vorratspruefung.funde() if x[0] != "J"]
-            if f and os.environ.get("BORNIM_VORRAT_GEPRUEFT") != "1":
-                print("tagesbericht HÄLT AN: Vorratsprüfung (1425) hat %d Funde; erst beheben oder dem Besitzer in den Vorrat, "
-                      "`python3 tools/vorratspruefung.py`; danach mit BORNIM_VORRAT_GEPRUEFT=1" % len(f), file=sys.stderr)
-                return 1
-        except Exception as e:
-            print("tagesbericht: Vorratsprüfung übersprungen (%s)" % e, file=sys.stderr)
     d = rechnen()
     if "--telegram" in sys.argv: print(telegram(d)); return 0
     md = zahlen_md(d)

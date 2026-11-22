@@ -38,10 +38,6 @@ if "**1 grün, 2 rot, 1 abgebrochen** (25 min Bauzeit verloren) → **Systemfrag
 if "Systemfrage" in T.bau_text((2, 2, 0, 0)) or "keine Läufe" not in T.bau_text(None): fehler.append("bau_text Grenze")
 d2["rot"]["bau"] = z
 if "Buildzweige 24 h" not in T.wirkung_text(d2): fehler.append("wirkung ohne Buildzweige")
-v = T.vorrat_satz(["3 Absätze gestrichen"], [("L", "1", "Tom", ""), ("L", "2", "Jerry", ""), ("I", "77", "?", "")])
-for teil in ("behoben: 3 Absätze gestrichen", "Offen: 3 Funde (2 wohl doppelt", "Tom 1", "Für dich: 1 Datei in der Chefsache ohne offenen Vorgang (77)"):
-    if teil not in v: fehler.append("Vorrat ohne " + teil)
-if "Für dich: nichts" not in T.vorrat_satz([], []) or "noch nicht geprüft" not in T.vorrat_satz([], []): fehler.append("Vorrat leer falsch")
 # 1739: „Wo stehen wir“ neben „Rest geschätzt“, Zeile Fristen, Umschaltung über tools/1727-SCHARF
 import tempfile
 T.SCHARF = os.path.join(tempfile.mkdtemp(), "1727-SCHARF")

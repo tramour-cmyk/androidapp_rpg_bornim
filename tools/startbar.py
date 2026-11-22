@@ -431,7 +431,7 @@ LEICHEN_ABSTAND = 2  # Tage
 
 def leichenpruefung_faellig(jetzt, da=None):
     """1192: [(Titel, Bereich, Besitzer)] für Diogenes, wenn die Leichenprüfung fällig ist (siehe oben)."""
-    return []  # 1425 (Chef 16.11., 13:59): entfällt, Perikles prüft täglich mit vorratspruefung.py (G, K)
+    return []  # 1425 (Chef 16.11., 13:59): entfällt; vorratspruefung.py gestrichen (1871 Stilllegung C)
     if jetzt.date() < LEICHEN_AB or jetzt.hour < 8: return []
     da = lesen(LISTE) + lesen("LISTE-VORGAENGE-ARCHIV.md") if da is None else da
     if any(re.match(r"Leichenprüfung \d", d.get("titel", "")) and d["wort"] not in ("erledigt", "verworfen", "aufgeteilt") for d in zeilen_liste()):
