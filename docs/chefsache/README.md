@@ -272,12 +272,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 649.3 | K | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen … | wartet auf 649.2 (ruht) |
 | 649.4 | K | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo | ruht bis 23.11. |
 
-**Welt** – offen 31, Muss 3, startbar 7
+**Welt** – offen 31, Muss 3, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1205b | M | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser alte | wartet auf 1535 (gebaut) |
-| 1566 | M | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht (1332 | startbar |
+| 1566 | M | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | Chef (Datei in der Chefsache) |
 | 1205 | M | Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass & Wind Kit … | wartet auf 1535 (gebaut) |
 | 1519 | K | vier Helden im Hauptmenü mit Ruhebewegung (Atmen, Umsehen), Hände bleiben, wo sie sind | wartet auf 431 (startbar) |
 | 1563 | K | Teich in der Höhle am Ufer noch eckig und kantig | wartet auf 1564 (startbar) |
@@ -374,7 +374,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 105, Muss 69, startbar 48
+**Werkzeug** – offen 108, Muss 72, startbar 51
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -418,7 +418,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1762 | M | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Fra | wartet auf Diogenes (greift?) |
 | 1763 | M | lauf.py startet Sokrates bei „steckt fest“, „Frage“, „wirkt nein“ (C) | wartet auf Diogenes (greift?) |
 | 1764 | M | Herzschlag und Wache des Disponenten (Ausfall, Nachfolger ohne Vorräte) | wartet auf 1894 (gebaut) |
-| 1765 | M | Build-Werkzeug … | wartet auf 1566 (zu testen) |
+| 1765 | M | Build-Werkzeug … | wartet auf 1566 (ruht) |
 | 1766 | M | Laufbremse und Höchstdauer je Auftrag in lauf.py, auch bei working (prozesspruefung-21-11. | wartet auf 1774 (startbar) |
 | 1767 | M | Profile Büro 3.2 (Disponent, Release, Kosten), Routinen Tagesbericht, Wache, Wochenzählung | wartet auf Sokrates |
 | 1773 | M | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Satz nur Kern | startbar |
@@ -483,6 +483,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1939 | K | ARBEIT-TEAM-JERRY.md: 1 „Zu“ zu Erledigtem (1776), beim Übergeben streichen | startbar |
 | 1940 | K | ARBEIT-PROJEKT.md: 2 „Zu“ zu Erledigtem (1624, 1605), beim Übergeben streichen | startbar |
 | 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
+| 1970 | M | Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt | startbar |
+| 1971 | M | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Ti | startbar |
+| 1972 | M | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
