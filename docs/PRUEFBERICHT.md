@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 370 · 1928 (b) (lesend, Weiter Ford 12:05; Kopie `73b4ca640`; 22.11., 12:05–12:07)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün; neue Prüfung „Profilnamen wie lauf.py“ ohne fremden Namen.
+- (b) ohne Befund: `ladesumme.py` misst „Figur“ wie `lauf.ladetext`. Teil A gleich: liegt `docs/profile/<Name>.md` vor, messen beide nach Messregel bis vor „## “; nur ohne Profildatei misst `ladesumme` den Codeblock unter „## Teil A“ im Entwurf (Rückfall, kein Start). 1928 wartet weiter auf 1931 für (a), (c).
+
 ## Lauf 369 · 1871 Stilllegung C (g), 1860 (lesend, Weiter Ford 12:02; Kopie `48699c11e`; 22.11., 12:02–12:05)
 
 - Alle 41 `tools/*_test.py` an der Kopie grün; `projektplan_test.py` steht in `werkzeuge.yml`.
