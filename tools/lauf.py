@@ -4,7 +4,7 @@
 Aufruf: python3 tools/lauf.py [--sperre] [--besetzung] [--nur-muss] [--ohne NR:Grund …] SEITE [SEITE …]
 SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more falsch, wie bei kosten.py)
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
-  `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -) | created_at | used_tokens (context_usage, für WEITER, 261.5)`
+  `Kennung | working|idle|blocked|need_input|archived|failed | updated_at (ISO) | Titel | Kosten $ (oder -) | created_at | used_tokens (context_usage, für WEITER, 261.5)`
   Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | [effort high] | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
@@ -679,7 +679,18 @@ def fristen_runde(ausgabe, seiten, docs=None):
     except Exception as e:
         ausgabe.append("WARNUNG Fristen der Übergabezeilen nicht geprüft: %s (1739)" % e); return []
     frei = [z["k"] for z, _nr, wie in liste if wie.startswith("wieder offen")]
-    if frei: ausgabe.append("NICHTS Übergabe: %s wieder offen (Frist abgelaufen, Halter ruht; 1739), schon auf origin/main" % ", ".join(frei))
+    if frei: ausgabe.append("NICHTS Übergabe: %s wieder offen (Frist abgelaufen oder Halter abgebrochen; 1739, 1782: ein Neustart), schon auf origin/main" % ", ".join(frei))
+    for z, nr, wie in liste:  # 1782 (3.3 Nr. 3): zweites Mal → „steckt fest“ an Sokrates, Vorgang wartet auf Sokrates (wie 1800)
+        if not wie.startswith(_ue.FEST + " (zweites Mal"): continue
+        import contextlib, io
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                _ue.uebergabe(nr, "Sokrates", "steckt fest: Übergabe %s an %s zweimal ohne Ergebnis (%s; 1782); gelöst: `vorgang.py warte %s –`" % (z["k"], z["an"], wie.split(": ", 1)[-1].rstrip(")").split(";")[0], nr))
+                import rueckmeldung as _rm
+                _rm.liste_fest(nr)
+            ausgabe.append("NICHTS Übergabe: %s steckt fest (zweites Mal), Zeile an Sokrates, %s wartet auf Sokrates (1782)" % (z["k"], nr))
+        except Exception as e:
+            ausgabe.append("WARNUNG Übergabe %s steckt fest, Zeile an Sokrates nicht geschrieben: %s; von Hand `vorgang.py uebergabe %s Sokrates …` (1782)" % (z["k"], str(e)[:120], nr))
     return frei
 
 
@@ -699,7 +710,7 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
         for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
             if not n.endswith(".md"): continue
             for z in _ue.zeilen(open(os.path.join(d, n), encoding="utf-8").read()):
-                if z["z"] == "offen" and z["an"].lower() != "sokrates": je.setdefault(z["an"], []).append((z["k"], z["was"]))
+                if _ue.ist_offen(z["z"]) and z["an"].lower() != "sokrates": je.setdefault(z["an"], []).append((z["k"], z["was"]))
     except Exception as e:
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
     scharf = ist_scharf()
@@ -1446,11 +1457,11 @@ def main():
     def _so_sperre(nr):  # 1801
         if "Sokrates" not in sperren: sperren.append("Sokrates")
         sperr_nr["Sokrates"] = nr
+    if sperre: fristen_runde(ausgabe, seiten)  # 1739 Befund 1: abgelaufene Fristen je Lauf; 1782: vor Sokrates, damit „steckt fest“ im selben Lauf ankommt
     sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger, sperre=_so_sperre)  # 1763 C
     try:
         if (rb := rundblick_zeilen(ausgabe, je_rolle, archiviert, marken)): sperren.append("Rundblick"); sperr_nr["Rundblick"] = rb
     except Exception as e: ausgabe.append("WARNUNG Rundblick nicht geprüft: %s (1789, Spike)" % e)
-    if sperre: fristen_runde(ausgabe, seiten)  # 1739 Befund 1: abgelaufene Fristen je Lauf
     def ue_start(r, nr, teil):  # 1739 Befund 1: Empfänger ohne Sitzung starten
         if r not in START_REIHE or r in ohne_rollen or lauf_laeuft(r): return False
         i = next((j for j, l in enumerate(ausgabe) if l.startswith("START %s |" % r)), None)

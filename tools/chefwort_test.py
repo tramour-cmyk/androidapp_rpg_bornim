@@ -77,7 +77,7 @@ for _ in range(60):
     if "Ü1" in t: break
     time.sleep(0.5)
 soll("Chefwort wörtlich mit Zeit und Sitzung", "- **21.11., 20:30**, Chef in Sitzung Sokrates (`session_SOK`):\n> 9001 freigegeben, passt mit Einschränkungen:\n> Bart zu hell\n" in t, t)
-soll("offene Zeile an den Arbeitsplaner im selben Stand", "| 9001-Ü1 | Arbeitsplaner | Chefwort 21.11., 20:30 aus Sitzung Sokrates lesen (Abschnitt Chefworte) | 21.11., 20:30 | offen |" in t, t)
+soll("Freigabe des Builds: offene Zeile an den Disponenten im selben Stand (1782)", "| 9001-Ü1 | Disponent | Chefwort 21.11., 20:30 aus Sitzung Sokrates lesen (Abschnitt Chefworte); Freigabe oder Ergebnis des Builds: Build-Macher starten (3.3 Nr. 7, 1782) | 21.11., 20:30 | offen |" in t, t)
 soll("ein Commit für beides", g("log", "-1", "--format=%s", "origin/main", cwd=A).strip() == "Chefwort 9001 aus Sitzung Sokrates (Haken D, 1762)")
 soll("Abschnitt Chefworte vor Übergaben", t.index("## Chefworte") < t.index("## Übergaben"), t)
 
@@ -90,7 +90,7 @@ rc, out = lauf("chefwort", "9003.2", "Nein, der Hall ist zu lang", "--zeit", "21
 soll("vorgang.py chefwort", rc == 0 and "CHEFWORT 9003.2 eingetragen, OFFEN 9003.2-Ü1 an Arbeitsplaner" in out and "WECKER session_AP1 | sieh in 9003.2 (9003.2-Ü1)" in out, out)
 soll("Rolle aus der Besetzung", "Chef in Sitzung Sokrates" in datei("9003.2"), datei("9003.2"))
 rc, out = lauf("offen", "Arbeitsplaner")
-soll("Arbeitsplaner sieht beide Zeilen", "2 Zeile" in out, out)
+soll("Arbeitsplaner sieht nur den Fund (Freigabe ging an den Disponenten)", "1 Zeile" in out and "9003.2-Ü1" in out, out)
 
 # 7 Halter einer angenommenen Zeile gilt als eigen (nach der Umschaltung ohne Besitzer)
 rc, out = lauf("annehmen", "9001-Ü1")
@@ -103,6 +103,17 @@ import io, contextlib
 buf = io.StringIO()
 with contextlib.redirect_stdout(buf): cw.haken({"prompt": "hallo"}, "Sokrates")
 soll("Fehler gemeldet und Datei weg", "Eintragen fehlgeschlagen" in buf.getvalue() and "9001 (21.11., 20:40)" in buf.getvalue() and not os.path.exists(cw.FEHLER), buf.getvalue())
+
+# 9 1782 (3.3 Nr. 7, L-U15): Freigabe des Builds oder Ergebnis nach Checkliste 11, 12 → Disponent, sonst Arbeitsplaner
+mit, ohne = {"build": "301"}, {"build": "–"}
+soll("„passt“ mit Build am Vorgang → Disponent", cw.empfaenger("9001 passt", "9001", mit) == "Disponent")
+soll("„freigegeben“ ohne Build → Arbeitsplaner", cw.empfaenger("9002 freigegeben", "9002", ohne) == "Arbeitsplaner")
+soll("„gut“ als erstes Wort, Build im Text → Disponent", cw.empfaenger("Gut, Build 301 kann so", "9002", ohne) == "Disponent")
+soll("„gut“ mitten im Satz → Arbeitsplaner", cw.empfaenger("9001 sieht nicht gut aus, Bart zu hell", "9001", mit) == "Arbeitsplaner")
+soll("Ergebnis „- 301.2 ✗ Bart“ → Disponent", cw.empfaenger("## Ergebnis\n- 301.1 ✓\n- 301.2 ✗ Bart zu hell\n- Rest ✓", "9001", mit) == "Disponent")
+soll("👎 auf Telegram → Disponent", cw.empfaenger("👎 9001", "9001", ohne) == "Disponent")
+soll("Fund ohne Freigabe → Arbeitsplaner", cw.empfaenger("Nein, der Hall ist zu lang", "9003.2", mit) == "Arbeitsplaner")
+soll("Wort „Gutachten“ zählt nicht", cw.empfaenger("Gutachten zu 9001", "9001", mit) == "Arbeitsplaner")
 
 print("chefwort_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

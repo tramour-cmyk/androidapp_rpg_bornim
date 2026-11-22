@@ -3,7 +3,9 @@
 
 Sagt der Chef in einer Sitzung etwas zu einem Vorgang, der einer anderen Rolle gehört (Freigabe, Fund, Antwort auf eine Frage),
 trägt der Haken es wörtlich mit Zeit und Sitzung in docs/vorgang/NR.md ein (Abschnitt „Chefworte“) und legt im selben Commit
-eine offene Übergabezeile an den Arbeitsplaner an (1760, `uebergabe.py`); keine Fachkraft baut es am Prüfer vorbei.
+eine offene Übergabezeile an den Arbeitsplaner an (1760, `uebergabe.py`); keine Fachkraft baut es am Prüfer vorbei. Bei Freigabe
+des Builds („gut“, „passt“, „freigegeben“) oder Ergebnis nach Checkliste 11, 12 geht die Zeile an den Disponenten, der den
+Build-Macher startet (3.3 Nr. 7, L-U15, 1782).
 
   vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE]   von Hand (verpasstes Chefwort, Rückfrage im Chat)
   neustart-haken.py prompt                     ruft haken() bei jeder Nachricht (UserPromptSubmit); schreibt im Hintergrund,
@@ -26,6 +28,25 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import uebergabe as ue
 
 AN = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
+DISPONENT = "Disponent"  # 1782 (3.3 Nr. 7, L-U15): Freigabe des Builds oder Ergebnis nach Checkliste 11, 12 startet den Build-Macher
+FREIGABE = re.compile(r"(?i)\b(passt|freigegeben)\b|^\W*gut\b")  # Profil Technik 13; „gut“ nur als erstes Wort (sonst zu oft im Satz)
+ERGEBNIS = re.compile(r"(?m)(^\W*(\d+(\.\d+)?|Rest)\s*[✓✗]|👍|👎)")  # Checkliste 11: „- n.k ✓“, „- n.k ✗ <Fund>“, „- Rest ✓“, Telegram 👍/👎
+
+
+def empfaenger(wort, nr=None, d=None):
+    """1782: Disponent bei Freigabe eines Builds („gut“, „passt“, „freigegeben“; nur wenn der Text einen Build nennt oder der Vorgang
+    einen Build trägt) oder bei einem Ergebnis nach Checkliste 11, 12; sonst der Arbeitsplaner (AN)."""
+    w = wort or ""
+    if ERGEBNIS.search(w): return DISPONENT
+    if FREIGABE.search(w):
+        if re.search(r"(?i)\bBuild\s+\d|(?<![\w.])t\d{2,4}\b", w): return DISPONENT
+        if d is None and nr:
+            try:
+                import startbar
+                d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+            except Exception: d = None
+        if d and str(d.get("build") or "").strip() not in ("", "-", "–"): return DISPONENT
+    return AN
 SCHARF = os.path.join(ue.WURZEL, "tools", "1727-SCHARF")
 LANG = 6000  # Zeichen je Eintrag; längeres steht im Protokoll der Sitzung
 ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)"
@@ -104,9 +125,11 @@ def eigen(nr, d, wer, sid):
     return bool(sid) and any((ue.ANG.match(z["z"]) or {}) and ue.ANG.match(z["z"]).group("sid") == sid for z in ue.zeilen(t))
 
 
-def eintragen(nr, wort, zeit, wer, sid=""):
-    """Chefwort und offene Zeile an AN in einem Commit. Rückgabe: Kennung der Zeile oder None (schon eingetragen)."""
+def eintragen(nr, wort, zeit, wer, sid="", an=None):
+    """Chefwort und offene Zeile an an (Vorgabe empfaenger(): Arbeitsplaner, bei Freigabe oder Ergebnis Disponent) in einem Commit.
+    Rückgabe: Kennung der Zeile oder None (schon eingetragen)."""
     wort = (wort or "").strip()
+    an = an or empfaenger(wort, nr)
     if len(wort) > LANG:
         wort = wort[:LANG] + " … (gekürzt; ganz im Protokoll der Sitzung)"
     zitat = "\n".join("> " + z for z in wort.splitlines()) or "> (leer)"
@@ -119,17 +142,18 @@ def eintragen(nr, wort, zeit, wer, sid=""):
         t = ue.anhaengen(t, "Chefworte", "Wörtlich, mit Zeit; trägt `chefwort.py` ein (Haken D, 1762).", block)
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
-        was = ue._rein("Chefwort %s aus Sitzung %s lesen (Abschnitt Chefworte)" % (zeit, wer or "unbekannt"))
-        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, AN, was, ue.fmt(ue.jetzt())), k
+        was = ue._rein("Chefwort %s aus Sitzung %s lesen (Abschnitt Chefworte)%s" % (zeit, wer or "unbekannt",
+                       "; Freigabe oder Ergebnis des Builds: Build-Macher starten (3.3 Nr. 7, 1782)" if an == DISPONENT else ""))
+        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, ue.fmt(ue.jetzt())), k
     return ue.atomar(nr, f, "Chefwort %s aus Sitzung %s (Haken D, 1762)" % (nr, wer or "unbekannt"))
 
 
-def melden(nr, k):
+def melden(nr, k, an=AN):
     if not k:
         print("SCHON EINGETRAGEN %s: gleicher Wortlaut zur gleichen Zeit" % nr)
         return
-    print("CHEFWORT %s eingetragen, OFFEN %s an %s" % (nr, k, AN))
-    ue.wecker(nr, k, AN)  # 1760: läuft keine Sitzung, Wecker an den Disponenten
+    print("CHEFWORT %s eingetragen, OFFEN %s an %s" % (nr, k, an))
+    ue.wecker(nr, k, an)  # 1760: läuft keine Sitzung, Wecker an den Disponenten
 
 
 def _rolle_aus_besetzung(sid):
@@ -163,13 +187,14 @@ def haken(eingabe, wer):
     nrs = [nr for nr, d in vorgaenge(text).items() if not eigen(nr, d, wer, sid)]
     if not nrs:
         return []
+    an = empfaenger(text, nrs[0])  # 1782: nur für den Hinweis; eintragen bestimmt ihn je Vorgang
     zeit = ue.fmt(ue.jetzt())
     pfad = os.path.join("/tmp", "bornim-chefwort-%d.txt" % os.getpid())
     open(pfad, "w", encoding="utf-8").write(text)
     subprocess.Popen([sys.executable, os.path.abspath(__file__), "hintergrund", pfad, zeit, wer or "unbekannt", sid] + nrs,
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True, cwd=ue.WURZEL)
     print("Haken D (1762): Chefwort zu %s gehört nicht dieser Sitzung (%s); wird wörtlich in docs/vorgang/<Nr>.md eingetragen, "
-          "offene Zeile an %s (`vorgang.py offen %s`). Nicht selbst bauen; eigener Anteil wie sonst." % (", ".join(nrs), wer or "Rolle unbekannt", AN, AN))
+          "offene Zeile an %s (`vorgang.py offen %s`). Nicht selbst bauen; eigener Anteil wie sonst." % (", ".join(nrs), wer or "Rolle unbekannt", an, an))
     return nrs
 
 
@@ -208,7 +233,8 @@ def haupt(a):
     if wer is None:
         wer = _rolle_aus_besetzung(sid)
     try:
-        melden(a[0], eintragen(a[0], a[1], zeit or ue.fmt(ue.jetzt()), wer or "unbekannt", sid))
+        an = empfaenger(a[1], a[0])
+        melden(a[0], eintragen(a[0], a[1], zeit or ue.fmt(ue.jetzt()), wer or "unbekannt", sid, an), an)
     except ue.Fehler as e:
         sys.exit("vorgang.py chefwort: %s; nichts geschrieben" % e)
 

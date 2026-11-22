@@ -11,7 +11,9 @@ Aufruf über vorgang.py (oder direkt):
   vorgang.py freigeben                       alle von dieser Sitzung angenommenen Zeilen wieder offen (vor „Nachfolger:“, schneller als die Frist)
   vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen (Büro-Liste: Fund des Chefs, „Eilt“, Eingangszeit); mit --sitzungen
                                               (list_sessions-Seiten oder Kurzform wie lauf.py) wird jede abgelaufene Frist eines Halters, der
-                                              nicht working ist, wieder offen (Stundenrunde, verlorene Wecker); working: es wird gewartet
+                                              nicht working ist, wieder offen (Stundenrunde, verlorene Wecker); working: es wird gewartet.
+                                              1782 (3.3 Nr. 3, 1727d L-S2/L-U8): beim ersten Mal „offen (wieder 1)“ (ein Neustart), beim
+                                              zweiten Mal „steckt fest“; ebenso, ohne die Frist abzuwarten, wenn der Halter abgebrochen ist
 
 Muster (erst nachsehen, wie andere es lösen): Warteschlange mit Sichtbarkeitsfrist (Amazon SQS visibility timeout, Celery acks_late):
 mindestens einmal zustellen, Quittung mit Frist statt „nie zweimal“, feste Kennung macht doppeltes Wecken harmlos. Zwei Schreiber: wie
@@ -33,6 +35,29 @@ VERSUCHE = 8
 KOPF = "| Ü | an | was | seit | Zustand |\n|---|---|---|---|---|\n"
 ZEILE = re.compile(r"^\| (?P<k>\d+(?:\.\d+)?[a-z]?-Ü\d+) \| (?P<an>[^|]*?) \| (?P<was>.*) \| (?P<seit>\d\d\.\d\d\., \d\d:\d\d) \| (?P<z>[^|]*?) \|$", re.M)
 ANG = re.compile(r"angenommen (?P<sid>session_\w+) bis (?P<bis>\d\d\.\d\d\., \d\d:\d\d)")
+WIEDER = re.compile(r"\(wieder (\d+)\)")  # 1782: wie oft die Zeile nach abgelaufener Frist oder Abbruch wieder offen wurde
+FEST = "steckt fest"
+
+def ist_offen(zu): return zu == "offen" or zu.startswith("offen (wieder ")
+def wieder(zu):
+    m = WIEDER.search(zu or ""); return int(m.group(1)) if m else 0
+def mit_wieder(zustand, n): return zustand + (" (wieder %d)" % n if n else "")
+def zurueck(zu, grund, jz, sid):
+    """1782: nächster Zustand einer angenommenen Zeile ohne Ergebnis: erstes Mal „offen (wieder 1)“, zweites Mal „steckt fest (…)“."""
+    return "offen (wieder 1)" if wieder(zu) == 0 else "%s (%s %s, %s)" % (FEST, grund, fmt(jz), sid)
+
+def abgebrochen(nr, sid=None):
+    """1782 (3.3 Nr. 3 „ebenso nach ‚abgebrochen‘“): Rückmeldung „abgebrochen“ des Halters → seine angenommenen Zeilen in NR wie
+    nach abgelaufener Frist (erstes Mal wieder offen, zweites Mal „steckt fest“). Rückgabe [(Kennung, neuer Zustand)]."""
+    sid = sid or sitzung(); jz = jetzt()
+    def f(alt):
+        aus = []
+        for z in reversed(zeilen(alt)):
+            m = ANG.match(z["z"])
+            if m and m.group("sid") == sid:
+                neu = zurueck(z["z"], "abgebrochen", jz, sid); alt = _ersetzen(alt, z, neu); aus.append((z["k"], neu))
+        return alt, list(reversed(aus))
+    return atomar(nr, f, "Übergaben %s: Halter abgebrochen (1782)" % nr)
 
 class Fehler(Exception): pass
 
@@ -211,7 +236,8 @@ def annehmen(kennung, frist=FRIST_MIN, nur_verlaengern=False):
         if zu.startswith("erledigt"): return alt, ("ERLEDIGT", zu)
         if m and m.group("sid") != sid: return alt, ("BELEGT", zu)
         if nur_verlaengern and not m: return alt, ("NICHT DEINE", zu)
-        neu = _ersetzen(alt, z, "angenommen %s bis %s" % (sid, bis))
+        if zu.startswith(FEST): return alt, ("FEST", zu)
+        neu = _ersetzen(alt, z, mit_wieder("angenommen %s bis %s" % (sid, bis), wieder(zu)))
         return neu, ("SCHON DEINE" if m and not nur_verlaengern else ("VERLÄNGERT" if m else "ANGENOMMEN"), "bis " + bis)
     wort, rest = atomar(nr, f, "Übergabe %s angenommen (1760)" % kennung)
     hinweis = {"ANGENOMMEN": "jetzt tun; fertig: vorgang.py erledigt %s" % kennung,
@@ -219,6 +245,7 @@ def annehmen(kennung, frist=FRIST_MIN, nur_verlaengern=False):
                "VERLÄNGERT": "Frist erneuert",
                "BELEGT": "eine andere Sitzung hat sie; nichts tun (abgelaufene Frist gibt erst `vorgang.py offen --sitzungen …` frei)",
                "ERLEDIGT": "schon erledigt; nichts tun",
+               "FEST": "steckt fest (zweimal Frist abgelaufen oder abgebrochen, 1782): nichts tun, Sokrates klärt",
                "NICHT DEINE": "nur eigene Zeilen verlängern"}[wort]
     print("%s %s (%s): %s" % (wort, kennung, rest, hinweis))
     return wort
@@ -253,7 +280,7 @@ def offen_lokal(an, docs=None):
         if not n.endswith(".md"): continue
         try: t = open(os.path.join(d, n), encoding="utf-8").read()
         except OSError: continue
-        aus += [(z["k"], z["was"]) for z in zeilen(t) if z["z"] == "offen" and z["an"].lower() == an.lower()]
+        aus += [(z["k"], z["was"]) for z in zeilen(t) if ist_offen(z["z"]) and z["an"].lower() == an.lower()]
     return aus
 
 def freigeben():
@@ -263,7 +290,7 @@ def freigeben():
         def f(alt):
             for z in reversed(zeilen(alt)):
                 m = ANG.match(z["z"])
-                if m and m.group("sid") == sid: alt = _ersetzen(alt, z, "offen")
+                if m and m.group("sid") == sid: alt = _ersetzen(alt, z, mit_wieder("offen", wieder(z["z"])))  # freiwillig: zählt nicht
             return alt, None
         atomar(nr, f, "Übergaben %s freigegeben (1760)" % nr); n += 1
     print("FREIGEGEBEN: %d Vorgangsdatei(en); die Nachfolgesitzung liest `vorgang.py offen`" % n)
@@ -276,32 +303,41 @@ def _status(dateien):
     for p in dateien:
         for s in kosten.sitzungen(p, []):
             b = s.get("status_bucket", "") + " " + s.get("session_status", "") + " " + s.get("_status", "")
-            st[s["id"]] = "working" if re.search(r"WORKING|RUNNING|working", b) else "ruht"
+            st[s["id"]] = "working" if re.search(r"WORKING|RUNNING|working", b) else "abgebrochen" if re.search(r"failed|FAILED|abgebrochen", b) else "ruht"
     return st
 
 def offen(an=None, sitzungen_dateien=(), still=False):
-    """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)]."""
+    """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)].
+    1782: Frist abgelaufen und Halter ruht, oder Halter abgebrochen (auch vor der Frist) → beim ersten Mal „offen (wieder 1)“,
+    beim zweiten Mal „steckt fest“ (wie „wieder offen …“ bzw. „steckt fest …“ in wie; lauf.py gibt es an Sokrates)."""
     st = _status(list(sitzungen_dateien)); jz = jetzt(); liste = []
+    def frei_ab(z, m):
+        h = (st or {}).get(m.group("sid"), "unbekannt" if st is None else "ruht")
+        if h == "abgebrochen": return h
+        if _zeit(m.group("bis"), jz.year) > jz: return None
+        return h
     for nr, t in list(_alle_dateien()):
-        frei = []
+        frei = {}
         for z in zeilen(t):
             m = ANG.match(z["z"])
-            if m and _zeit(m.group("bis"), jz.year) <= jz:
-                h = (st or {}).get(m.group("sid"), "unbekannt" if st is None else "ruht")
-                if h == "ruht": frei.append(z["k"])
-                else:
-                    liste.append((z, nr, "Frist abgelaufen, Halter %s%s" % (m.group("sid"), " arbeitet (warten)" if h == "working" else ", Status unbekannt (mit --sitzungen prüfen)")))
-            elif z["z"] == "offen": liste.append((z, nr, "offen"))
+            h = frei_ab(z, m) if m else None
+            if h in ("ruht", "abgebrochen"): frei[z["k"]] = h
+            elif h:
+                liste.append((z, nr, "Frist abgelaufen, Halter %s%s" % (m.group("sid"), " arbeitet (warten)" if h == "working" else ", Status unbekannt (mit --sitzungen prüfen)")))
+            elif ist_offen(z["z"]): liste.append((z, nr, "offen"))
+            elif z["z"].startswith(FEST): liste.append((z, nr, z["z"]))
         if frei:
             def f(alt, frei=frei):
                 for z in reversed(zeilen(alt)):
                     m = ANG.match(z["z"])
-                    if z["k"] in frei and m and _zeit(m.group("bis"), jz.year) <= jz: alt = _ersetzen(alt, z, "offen")
+                    if z["k"] in frei and m and frei_ab(z, m) in ("ruht", "abgebrochen"):
+                        alt = _ersetzen(alt, z, zurueck(z["z"], "abgebrochen" if frei[z["k"]] == "abgebrochen" else "Frist abgelaufen", jz, m.group("sid")))
                 return alt, None
-            atomar(nr, f, "Übergaben %s wieder offen: Frist abgelaufen, Halter ruht (1760)" % ", ".join(frei))
-            for k in frei:
+            atomar(nr, f, "Übergaben %s: Frist abgelaufen oder Halter abgebrochen (1760, 1782)" % ", ".join(sorted(frei)))
+            for k, h in sorted(frei.items()):
                 z = next(x for x in zeilen(t) if x["k"] == k)
-                liste.append((z, nr, "wieder offen (Frist abgelaufen, Halter ruht)"))
+                grund = "Halter abgebrochen" if h == "abgebrochen" else "Frist abgelaufen, Halter ruht"
+                liste.append((z, nr, ("wieder offen (%s)" % grund) if wieder(z["z"]) == 0 else "%s (zweites Mal: %s; 1782)" % (FEST, grund)))
     if an: liste = [x for x in liste if x[0]["an"].lower() == an.lower()]
     def rang(x):
         w = x[0]["was"].lower()

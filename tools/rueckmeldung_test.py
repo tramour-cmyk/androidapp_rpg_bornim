@@ -174,7 +174,7 @@ aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
 soll("Frist ab, Halter arbeitet: bleibt angenommen", frei == [] and "angenommen session_TOM" in datei("9005") and not aus, (frei, aus))
 open(seite, "w").write("session_TOM | idle | 2026-11-21T19:30:00Z | Tom – 9005 | - | 2026-11-21T18:00:00Z\n# has_more: nein\n")
 aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
-soll("Frist ab, Halter ruht: wieder offen, Zeile NICHTS", frei == ["9005-Ü1"] and "| offen |" in datei("9005") and aus and aus[0].startswith("NICHTS Übergabe: 9005-Ü1 wieder offen"), (frei, aus, datei("9005")))
+soll("Frist ab, Halter ruht: wieder offen, Zeile NICHTS", frei == ["9005-Ü1"] and "| offen (wieder 1) |" in datei("9005") and aus and aus[0].startswith("NICHTS Übergabe: 9005-Ü1 wieder offen"), (frei, aus, datei("9005")))
 os.environ["BORNIM_JETZT"] = "21.11., 20:30"
 import auftrag as _af
 ad = os.path.join(d, "adocs"); os.makedirs(os.path.join(ad, "vorgang"))

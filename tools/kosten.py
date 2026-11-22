@@ -30,11 +30,11 @@ def sitzungen(pfad, offen):
             s["status_bucket"] = ""; s.setdefault("post_turn_summary", {})["status_category"] = "need_input"
     return aus
 
-BEKANNTE_STATUS = {"working", "idle", "blocked", "need_input", "archived"}
+BEKANNTE_STATUS = {"working", "idle", "blocked", "need_input", "archived", "failed"}  # failed: Zug mit Fehler beendet (status_bucket, 1782)
 
 def kurzzeilen(t):
     """Kurzform statt Seiten-JSON (Ford kann Ausgaben nicht in Dateien umleiten, 167.2): je Sitzung eine Zeile
-    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at [| used_tokens]]`, Status working|idle|blocked|need_input|archived,
+    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at [| used_tokens]]`, Status working|idle|blocked|need_input|archived|failed (status_bucket „failed“, 1782),
     Kosten leer oder „-“ = unbekannt. Zeilen mit # und Leerzeilen fallen weg."""
     aus = []
     for z in t.splitlines():
@@ -46,7 +46,7 @@ def kurzzeilen(t):
             raise ValueError("Kurzzeile %s: unbekannter Status „%s“ (erlaubt: %s)" % (f[0], f[1], ", ".join(sorted(BEKANNTE_STATUS))))
         s = {"id": f[0], "title": f[3], "updated_at": f[2], "created_at": f[5] if len(f) > 5 and f[5] else f[2],
              "session_status": {"working": "SESSION_STATUS_RUNNING", "blocked": "SESSION_STATUS_RUNNING", "archived": "SESSION_STATUS_ARCHIVED"}.get(st, "SESSION_STATUS_IDLE"),
-             "status_bucket": {"working": "WORKING", "blocked": "BLOCKED"}.get(st, "")}
+             "status_bucket": {"working": "WORKING", "blocked": "BLOCKED", "failed": "FAILED"}.get(st, "")}
         if st == "need_input": s["post_turn_summary"] = {"status_category": "need_input"}
         k = f[4].replace(",", ".").replace("$", "").strip() if len(f) > 4 else ""
         if k not in ("", "-", "–"): s["external_metadata"] = {"usage": {"cost_usd": float(k)}}

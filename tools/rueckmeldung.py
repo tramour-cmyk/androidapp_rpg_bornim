@@ -31,7 +31,7 @@ PLANER = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
 RUHT = "ruht, beim Chef"
 MAX_NEIN_AUFTRAG, MAX_NEIN, MAX_FEST = 2, 3, 2
 LAUFBREMSE_NEIN = 2  # 1766 (Archiv 19.11., 13:02 Laufbremse): zweites „nein“ des Prüfers → „steckt fest“ an Sokrates; drittes ist Obergrenze A
-SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis"}
+SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis", "abgebrochen"}
 PRUEFER, DISPONENT = "Prüfer", "Disponent"  # 1739: neue Profile; lauf.py setzt bis tools/1727-SCHARF Diogenes, Ford ein
 COMMIT = re.compile(r"\b[0-9a-f]{7,40}\b")
 BLOCK = re.compile(r"(?m)^- \*\*(?P<zeit>[^*]+)\*\*, (?P<wer>[^\n]*?)(?: \(`[^`]*`\))?:\n> (?P<text>.*)$")
@@ -54,6 +54,7 @@ def worte(text):
     elif re.match(r"fertig\b", t): w.add("fertig")
     elif re.match(r"ja\b", t): w.add("ja")
     elif re.match(r"hinweis\b", t): w.add("Hinweis")
+    elif re.match(r"abgebrochen\b", t): w.add("abgebrochen")  # 1782: Kern Arbeitsplaner Feld 7
     if "nein" in w and re.search(r"\bsteckt fest\b", t): w.add("steckt fest")
     return w
 
@@ -223,6 +224,15 @@ def haupt(a):
         dt = _datei(a[0])
         r = lehren.roh_aus_rueckmeldung(a[0], a[1], wer, dt, zaehlen(dt)["nein"])
         if r: print("LEHRENBUCH %s angehängt" % r)
+    if "abgebrochen" in worte(a[1]) and sid:  # 1782: eigene angenommene Zeilen wie nach abgelaufener Frist
+        try:
+            for kz, neu in ue.abgebrochen(a[0], sid) or []:
+                print("ÜBERGABE %s: %s%s" % (kz, neu, " (lauf.py gibt es an Sokrates)" if neu.startswith(ue.FEST) else " (lauf.py startet neu)"))
+                if neu.startswith(ue.FEST):
+                    ue.uebergabe(a[0], SOKRATES, "steckt fest: Übergabe %s zweimal ohne Ergebnis (abgebrochen; 1782); gelöst: `vorgang.py warte %s –`" % (kz, a[0]))
+                    liste_fest(a[0])
+        except ue.Fehler as e:
+            print("ÜBERGABE nicht zurückgegeben (%s); von Hand: vorgang.py freigeben" % e)
     if not k:
         print("EINGETRAGEN %s: %s" % (a[0], grund))
         if grund != "schon eingetragen": nein_waechter(a[0], a[1])
