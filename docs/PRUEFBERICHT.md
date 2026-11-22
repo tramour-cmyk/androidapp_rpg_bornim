@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 352 · 1908, damit 1782 (lesend, Weiter von Ford; Kopie `297d14ffe`; 22.11., 10:20–10:22)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1908 greift: die vier Fälle aus D341.1 („Passt, aber Schatten zu dunkel“, „Gut gemeint, aber zu laut“, „Passt, aber noch nicht freigeben“, „Passt das?“, je mit Build 312) → Arbeitsplaner; „passt“, „Gut“, „Freigegeben“, „- 3 ✓“ mit Build → Disponent.
+- 1782 greift: D340.1 (1903), D340.2 (1904), D341.1 (1908) geschlossen.
+- Hinweis ohne Befund (zu 1872, wartet ohnehin auf 1910): „Nein, passt doch“ ist seit 1908 keine Freigabe mehr und zählt nun als Chef-Nein für Obergrenze A.
+
 ## Lauf 351 · 1872 Chef-Nein für Obergrenze A (lesend, Weiter von Ford; Kopie `4e8df7634`; 22.11., 10:15–10:17)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün. Obergrenze A selbst wirkt: drittes Chef-Nein → „ruht, beim Chef“, Zeile an Sokrates; Freigabe zählt nicht (chefwort_test).
