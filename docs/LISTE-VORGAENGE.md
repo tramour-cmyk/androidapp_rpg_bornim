@@ -26,12 +26,12 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1621 | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffen_staffel.py VORN/HINTEN) | 3 | E Figuren | M | 1694 | – | claude/spike-1621-griff | *startbar, Rückläufer 👎 16:50: rechte Faust umfasst Griff nicht* | *–* | *0* | *10,74 $* |
 | 1665 | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel links sichtbar) | 3 | E Figuren | M | 458.3 | 522 | – | *wartet* | *–* | *0* | *1,29 $* |
 | 1674 | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegschubsen … | 3 | E Figuren | M | – | – | claude/tom-1674-bank | *gebaut, Geprüft an: afe4a4329 (bank_1674 grün)* | *–* | *0* | *3,72 $* |
-| 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *0,95 $* |
+| 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,83 $* |
 | 1676 | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *0,95 $* |
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *ruht, bis Sa 21.11.* | *–* | *0* | *33,37 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | – | 1535 | – | *startbar* | *–* | *0* | *0,67 $* |
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715 (Bild 👍 17:12)* | *–* | *0* | *1,64 $* |
-| 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/jerry-1566-hoehlenwasser | *zu testen, ohne Rückmeldung t300* | *–* | *0* | *5,83 $* |
+| 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/jerry-1566-hoehlenwasser | *zu testen, ohne Rückmeldung t300* | *–* | *0* | *6,76 $* |
 | 1398 | Prüfliste mischt wieder Bild/Film mit APK-Wegen | 6 | Q QS | M | – | 1128, 1217 | – | *gebaut, Geprüft an: 68b53e087* | *–* | *0* | *2,25 $* |
 | 1710 | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unterschied im markierten Ausschnitt hält an | 6 | E Technik | M | – | – | – | *gebaut, Geprüft an: 46922ae71* | *–* | *0* | *6,23 $* |
 | 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | 23.11. | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
