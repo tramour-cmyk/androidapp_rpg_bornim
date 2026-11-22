@@ -1,4 +1,4 @@
-# Antworten Disponent (Falltest Lauf 3, 22.11., 07:14; Falldatum der Nachtfälle von Sokrates auf 21.11. gesetzt, Fall nannte keins)
+# Antworten Disponent (Falltest Lauf 3, 22.11., 07:14; Falldatum der Nachtfälle von Sokrates auf 21.11. gesetzt, Fall nannte keins; Anmerkung 22.11., 07:59: das Datum steht in der Antwort selbst (:42–48), das Datum der Sitzung ist nicht erhalten, die Antwort ist an diesen Stellen nicht mehr Wortlaut)
 
 Ladetext: `lt3/sockel.md`, `lt3/kern-buero.md`, `lt3/profil-disponent.md`. Repo nur gelesen (Stand `4adc85374`). Was ich täte, steht als Befehl oder Wortlaut. `<Nr>` heißt: Nummer fehlt im Fall. „(Ladetext: …)“ nennt die Stelle, nach der ich handle.
 
