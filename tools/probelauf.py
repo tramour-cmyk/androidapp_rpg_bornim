@@ -43,7 +43,6 @@ import re
 import subprocess
 import sys
 import tempfile
-import time
 import uuid
 import zoneinfo
 
@@ -699,148 +698,6 @@ def handlauf_bash(befehl):
     return None
 
 
-GODOT_BIN = [os.path.expanduser("~/godot/godot"), "/usr/local/bin/godot", "/usr/bin/godot"]
-
-
-ENDE = time.monotonic() + 80  # Haken-Zeitgrenze 90 s (.claude/settings.json), 10 s Rand für das Zählen
-UNGEPRUEFT = []  # 464.1 (D61.2): .gd-Dateien, die aus Zeitgründen nicht gelesen wurden; der Haken nennt sie
-
-
-def ungeprueft_hinweis():
-    if not UNGEPRUEFT:
-        return ""
-    return (f"464: {len(UNGEPRUEFT)} geänderte .gd-Dateien aus Zeitgründen nicht auf Parsefehler gelesen "
-            f"({', '.join(UNGEPRUEFT[:4])}{' …' if len(UNGEPRUEFT) > 4 else ''}); vor dem Push selbst prüfen: "
-            "godot --headless --path godot --check-only -s res://<datei>.")
-
-
-def parse_pruefen(befehl, cwd):
-    """464 (Chef 01.11., 20:4x: „irgendwer produziert hier abends brutal viele Fehler … fast 20 E-Mails“): vor jedem Push auf
-    einen Zweig `claude/…` jede geänderte .gd-Datei mit Godot `--check-only` lesen (nach `--import`, sonst fehlen die
-    Klassennamen); Parsefehler hält den Push an. Nachgestellt an Lauf ef817fa (Tom, 13:31 UTC): gleicher Fehler wie in CI.
-    Gibt den Grund zum Anhalten zurück oder None."""
-    m = PUSH.search(befehl)
-    if not m:
-        return None
-    wo = wo_von(befehl, m, cwd)
-    ziel = re.search(r"claude/[\w./-]+", m.group(2))
-    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
-    if not zweig.startswith("claude/"):
-        return None
-    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
-    if not wurzel or not os.path.isdir(os.path.join(wurzel, "godot")):
-        return None
-    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
-        git("merge-base", "HEAD", "origin/main", cwd=wo).stdout.strip()
-    if not oben:
-        return None
-    pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
-    if COMMIT.search(befehl[:m.start()]):  # Commit im selben Befehl: Arbeitsbaum zählt mit
-        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
-        pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
-    gd = sorted({p[len("godot/"):] for p in pfade if p.startswith("godot/") and p.endswith(".gd")
-                 and os.path.isfile(os.path.join(wurzel, p))})
-    if not gd:
-        return None
-    godot = next((b for b in GODOT_BIN if os.path.isfile(b)), None)
-    if not godot:  # Jerrys Sitzung darf Godot nicht immer laden (01.11.): nicht anhalten, sonst steht der Push ganz
-        return None
-    pfad = os.path.join(wurzel, "godot")
-    vorher = set(git("ls-files", "--others", "--exclude-standard", "godot", cwd=wurzel).stdout.split())
-    try:
-        subprocess.run([godot, "--headless", "--import", "--path", pfad], capture_output=True, timeout=45)
-    except subprocess.TimeoutExpired:
-        pass
-    for neu in set(git("ls-files", "--others", "--exclude-standard", "godot", cwd=wurzel).stdout.split()) - vorher:
-        if neu.endswith(".uid"):  # vom Import angelegt: Arbeitsbaum bleibt, wie er war
-            try:
-                os.remove(os.path.join(wurzel, neu))
-            except OSError:
-                pass
-    fehler = []
-    for datei in gd:  # 464.1 (D61.2): alle Dateien, bis die Hakenzeit (90 s) knapp wird; Rest als Hinweis
-        rest = ENDE - time.monotonic()
-        if rest < 5:
-            UNGEPRUEFT.append(datei)
-            continue
-        try:
-            r = subprocess.run([godot, "--headless", "--path", pfad, "--check-only", "-s", "res://" + datei],
-                               capture_output=True, text=True, timeout=min(20, rest - 2))
-        except subprocess.TimeoutExpired:
-            UNGEPRUEFT.append(datei)
-            continue
-        zeilen = [z.strip() for z in (r.stdout + r.stderr).splitlines() if "Parse Error" in z or "GDScript::reload" in z]
-        if r.returncode != 0 and zeilen:
-            fehler.append(datei + ": " + " ".join(zeilen[:2]))
-    if fehler:
-        return ("464: Push angehalten, Parsefehler in GDScript (CI würde rot, der Chef bekommt eine E-Mail). Erst beheben, "
-                "dann erneut pushen:\n" + "\n".join(fehler[:6]))
-    return None
-
-
-ROT_ZEILE = re.compile(r"^Rot:\s*\S", re.M)
-GITHUB_LAEUFE = "https://api.github.com/repos/tramour-cmyk/androidapp_rpg_bornim/actions/runs"
-
-
-def letzter_lauf(zweig):
-    """748: jüngster abgeschlossener CI-Lauf auf zweig (öffentliches Repo, ohne Anmeldung), sonst None."""
-    import urllib.parse
-    import urllib.request
-    url = GITHUB_LAEUFE + "?" + urllib.parse.urlencode({"branch": zweig, "status": "completed", "per_page": 1})
-    with urllib.request.urlopen(urllib.request.Request(url, headers={"Accept": "application/vnd.github+json"}), timeout=6) as r:
-        laeufe = json.load(r).get("workflow_runs") or []
-    return laeufe[0] if laeufe else None
-
-
-def rot_vorher(befehl, cwd, lauf_holen=letzter_lauf):
-    """748 (D95.1, zu 464): rote Läufe am 08.11. kamen aus Tests, nicht aus Parsefehlern, und kehrten wieder (Atem 453.1
-    dreimal auf drei Zweigen, AUFTRAEGE zweimal, 6236 dreimal in 13 Minuten). Die Tests lokal vor jedem Push laufen zu
-    lassen geht nicht (Schritt „Skripte pruefen“ 9 min nach 30 min Modellbau, Kaufmodelle nur in CI; Hakengrenze 90 s).
-    Darum: ist der letzte abgeschlossene Lauf auf dem Zweig rot, hält ein Push mit CI-Pfaden an, bis einer der neuen
-    Commits die Zeile „Rot: <was scheiterte> – <Ursache, nachgestellt>“ trägt. Grund zum Anhalten oder None."""
-    m = PUSH.search(befehl)
-    if not m:
-        return None
-    vorn = befehl[:m.start()]
-    wo = wo_von(befehl, m, cwd)
-    ziel = CI_ZWEIG.search(m.group(2))
-    if not ziel and len([a for a in m.group(2).split() if not a.startswith("-")]) >= 2:
-        return None  # ausdrücklich ein anderer Zweig (git push origin main)
-    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
-    if not CI_ZWEIG.fullmatch(zweig):
-        return None
-    neu_f = COMMIT_F.search(vorn)
-    neu = neu_f or COMMIT.search(vorn)
-    nachricht = neu_f.group(2) if neu_f else (neu.group(1) if neu else "")
-    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
-        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
-    if not oben:
-        return None
-    pfade = git("diff", "--name-only", f"{oben}..HEAD", cwd=wo).stdout.split()
-    if neu:
-        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
-        pfade += git("ls-files", "--others", "--exclude-standard", cwd=wo).stdout.split()
-    alle = nachricht + "\n" + git("log", "--format=%B", f"{oben}..HEAD", cwd=wo).stdout
-    if "[skip ci]" in alle or "[ci skip]" in alle or not any(p.startswith(CI_PFADE) for p in pfade):
-        return None
-    try:
-        lauf = lauf_holen(zweig)
-    except Exception:  # Netz weg: nicht anhalten, sonst steht jeder Push
-        return None
-    if not lauf or lauf.get("conclusion") != "failure":
-        return None
-    sha = lauf.get("head_sha") or ""
-    if sha and git("cat-file", "-e", sha + "^{commit}", cwd=wo).returncode == 0:
-        alle += git("log", "--format=%B", f"{sha}..HEAD", cwd=wo).stdout
-    if ROT_ZEILE.search(alle):
-        return None
-    return (f"748: Push angehalten, der letzte Lauf auf {zweig} ist rot ({lauf.get('html_url', '')}, Stand {sha[:9]}). "
-            "Erst das Protokoll lesen (GitHub-Werkzeug get_job_logs mit run_id und failed_only), die Ursache nachstellen "
-            "(Bekannte Fehler: nie zweimal mit Vermutung bauen), dann in einem der neuen Commits die Zeile "
-            "„Rot: <welcher Test, welche Zeile> – <Ursache, wie nachgestellt>“, dann pushen. Scheitert ein Test, der nicht "
-            "dir gehört: Vorgang an den Besitzer (vorgang.py neu) und die Zeile „Rot: <Test> – fremd, Vorgang <Nr>“.")
-
-
 TEAMZWEIG = re.compile(r"claude/(?:tom|jerry|spike|tuffy)-[\w./-]+")
 ALT_ZEILE = re.compile(r"^Alt:\s*\S", re.M)
 
@@ -870,41 +727,6 @@ def alt_fehlt_mcp(d):
     return alt_meldung(zweig, spiel).replace("(git commit --amend, solange nicht gepusht)", "(Feld message)")
 
 
-def alt_fehlt(befehl, cwd):
-    """647 (Chef 08.11., 12:44: „Alter Code, neuer Code. Nicht 1:1 kopieren, aber die guten Sachen, die schon da sind,
-    übernehmen und besser machen“): ein Push auf einen Teamzweig mit Spielcode unter godot/ (ohne tests/) braucht in einer
-    seiner Commit-Nachrichten die Zeile „Alt: <Datei:Zeilen der alten Fassung, was übernommen, was besser>“ oder
-    „Alt: keine (<Grund>)“. Grund zum Anhalten oder None."""
-    m = PUSH.search(befehl)
-    if not m:
-        return None
-    wo = wo_von(befehl, m, cwd)
-    ziel = CI_ZWEIG.search(m.group(2))
-    teile = [t for t in m.group(2).split() if not t.startswith("-")]
-    if not ziel and len(teile) >= 2:  # `git push origin main`: ausdrücklich ein anderer Zweig
-        return None
-    zweig = ziel.group(0).split(":")[-1] if ziel else git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
-    if not TEAMZWEIG.fullmatch(zweig):
-        return None
-    oben = git("rev-parse", "--verify", "-q", f"origin/{zweig}", cwd=wo).stdout.strip() or \
-        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
-    if not oben:
-        return None
-    # 692: Pfade wie Nachrichten nur aus eigenen Commits; nach `git merge origin/main` lagen sonst Dateien aus main im Diff
-    eigen = [f"{oben}..HEAD"] + (["^origin/main"] if git("rev-parse", "--verify", "-q", "origin/main", cwd=wo).stdout.strip() else [])
-    pfade = git("log", "--no-merges", "--name-only", "--format=", *eigen, cwd=wo).stdout.split()
-    texte = git("log", "--no-merges", "--format=%B%x00", *eigen, cwd=wo).stdout
-    neu_f = COMMIT_F.search(befehl[:m.start()])
-    neu = neu_f or COMMIT.search(befehl[:m.start()])
-    if neu:
-        pfade += git("diff", "--name-only", "HEAD", cwd=wo).stdout.split()
-        texte += "\n" + (neu_f.group(2) if neu_f else neu.group(1))
-    spiel = spielcode(pfade)
-    if not spiel or ALT_ZEILE.search(texte):
-        return None
-    return alt_meldung(zweig, spiel)
-
-
 def filmlauf_rechner(befehl, cwd):
     """511: filmt dieser Bildlauf am Rechner? Marke im Befehl oder ein Laufskript, das filmt (`--write-movie`, mp4, ffmpeg)."""
     if FILM.search(befehl):
@@ -917,24 +739,6 @@ def filmlauf_rechner(befehl, cwd):
                     return True
                 break
     return False
-
-
-def alte_einstellungen(befehl, cwd):
-    """511 (Spike 03.11., 13:4x: Lauf 244 über `actions_run_trigger` nicht gezählt): die Sitzung liest Haken aus
-    `.claude/settings.json` ihrer Arbeitskopie; ein Zweig von vor ff8821827 (02.11., 11:19) kennt den Haken für Starts über
-    den GitHub-Server nicht, Zählung und Filmsperre greifen dort nicht. Grund zum Anhalten oder None; git-Befehle gehen
-    immer durch (zum Mischen)."""
-    if re.match(r"\s*(?:cd\s+\S+\s*&&\s*)?git\b", befehl):
-        return None
-    wurzel = os.environ.get("CLAUDE_PROJECT_DIR") or git("rev-parse", "--show-toplevel", cwd=cwd).stdout.strip()
-    datei = os.path.join(wurzel, ".claude", "settings.json") if wurzel else ""
-    if not datei or not os.path.isfile(datei) or "probelauf" not in open(datei, encoding="utf-8").read():
-        return None
-    if "actions_run_trigger" in open(datei, encoding="utf-8").read():
-        return None
-    return ("511: diese Arbeitskopie hat eine alte `.claude/settings.json` ohne den Haken für Abläufe über den GitHub-Server "
-            "(Starts von Hand würden nicht gezählt und nicht gesperrt). Erst `git fetch origin main && git merge origin/main`, "
-            "dann weiter; greift der Haken danach nicht, Sitzung über Ford neu starten.")
 
 
 HEREDOC = re.compile(r"^(?P<kopf>[^\n]*?)<<-?\s*(?P<q>['\"]?)(?P<ende>\w+)(?P=q)[^\n]*\n", re.M)
@@ -996,46 +800,6 @@ def stand_abweichung(wo):
     return None
 
 
-def modelle_vor_build(befehl, cwd):
-    """1719 (Perikles 18.11., 23:13: Buildzweige in 24 h 3 grün, 4 rot, 3 abgebrochen): 5 von 7 roten oder abgebrochenen Läufen
-    (durchstich_1631 viermal, wende_4168) kamen daher, dass ein gemischter Zweig Bauskripte änderte: der Bauserver baute den Block
-    (klassen) zum ersten Mal frisch, die Prüfungen trafen auf Modelle, die am Rechner nie gemessen wurden (Grenzen aus dem Cache).
-    Darum: ein Push auf claude/build-<n>, dessen neue Commits tools/blender348/ oder tools/gegenstaende/ ändern, braucht Modelle
-    am Rechner zu genau diesen Bauskripten (Stempel von bau_am_rechner.py, 1702) und die Zeile „Kaufmodelle: …“ in der Nachricht
-    (welche Prüfungen mit Kaufmodellen am Rechner grün liefen). Grund oder None."""
-    m = PUSH.search(befehl)
-    if not m:
-        return None
-    wo = wo_von(befehl, m, cwd)
-    teile = [t for t in m.group(2).split() if not t.startswith("-")]
-    ziel = teile[-1].lstrip("+").split(":")[-1] if len(teile) >= 2 else "HEAD"
-    if ziel in ("HEAD", "@"):
-        ziel = git("rev-parse", "--abbrev-ref", "HEAD", cwd=wo).stdout.strip()
-    ziel = ziel.replace("refs/heads/", "")
-    if not re.fullmatch(r"claude/build-\d+", ziel):
-        return None
-    oben = git("rev-parse", "--verify", "-q", f"origin/{ziel}", cwd=wo).stdout.strip() or \
-        git("merge-base", "origin/main", "HEAD", cwd=wo).stdout.strip()
-    if not oben or git("diff", "--quiet", oben, "HEAD", "--", *MODELL_PFADE, cwd=wo).returncode != 1:
-        return None
-    gd = git("rev-parse", "--git-dir", cwd=wo).stdout.strip()
-    pfad = os.path.join(wo, gd, "bornim-modellstand") if gd else ""
-    c = open(pfad).read().strip() if pfad and os.path.exists(pfad) else ""
-    if not c or git("diff", "--quiet", c, "HEAD", "--", *MODELL_PFADE, cwd=wo).returncode != 0:
-        return ("1719: die neuen Commits auf " + ziel + " ändern Bauskripte (tools/blender348/, tools/gegenstaende/); der Bauserver "
-                "baut den Block dann frisch und die Prüfungen treffen ungeprüfte Modelle. Erst am Rechner "
-                "`python3 tools/godot/bau_am_rechner.py --cache --laden` (baut fehlende Blöcke, Stempel), die Prüfungen mit "
-                "Kaufmodellen laufen lassen, dann pushen.")
-    texte = git("log", "--format=%B", f"{oben}..HEAD", cwd=wo).stdout
-    neu = COMMIT_F.search(befehl[:m.start()]) or COMMIT.search(befehl[:m.start()])
-    if neu:
-        texte += "\n" + (neu.group(2) if neu.re is COMMIT_F else neu.group(1))
-    if not re.search(r"(?m)^Kaufmodelle: \S", texte):
-        return ("1719: Bauskripte geändert; in eine der neuen Commit-Nachrichten die Zeile „Kaufmodelle: <Prüfungen> grün am "
-                "Rechner (Modellstand " + c[:9] + ")“, dann pushen.")
-    return None
-
-
 def figur_sperre(wo, rev):
     """513.1: Grund zum Anhalten oder None. Jeder abgenommene Figurencommit aus tools/figurenstand.tsv (main) muss in rev
     enthalten sein; Arbeitskopie ohne godot/: keine Figuren, nichts zu prüfen."""
@@ -1072,7 +836,7 @@ GIT_SCHREIBT = re.compile(r"\bgit\s+(?:-C\s+(\S+)\s+)?(?:commit|push)\b")
 
 
 def vorlage_unvollstaendig(befehl, cwd, d=None):
-    """799 (Chef 09.11., 20:46): eine Vorlage in docs/chefsache/entscheiden/ oder billigen/ ohne die Teile nach 364 kommt
+    """799 (Chef 09.11., 20:46), nur noch Push über den GitHub-Server (git-Weg: commit-pruefung.py, 1937): eine Vorlage in docs/chefsache/entscheiden/ oder billigen/ ohne die Teile nach 364 kommt
     nicht nach main. Bash: vor `git commit`/`git push` in einer Arbeitskopie auf main jede solche Datei, die von origin/main
     abweicht (Arbeitsstand);
     GitHub-Server: Inhalt aus push_files/create_or_update_file. Grund zum Anhalten oder None."""
@@ -1093,31 +857,7 @@ def vorlage_unvollstaendig(befehl, cwd, d=None):
             if fehlt:
                 befunde.append((f["path"], fehlt))
         return vp.meldung(befunde) if befunde else None
-    m = GIT_SCHREIBT.search(befehl)
-    if not m:
-        return None
-    wo = wo_von(befehl, m, cwd)
-    wurzel = git("rev-parse", "--show-toplevel", cwd=wo).stdout.strip()
-    if not wurzel or not os.path.isdir(os.path.join(wurzel, "docs", "chefsache")):
-        return None
-    if git("rev-parse", "--abbrev-ref", "HEAD", cwd=wurzel).stdout.strip() != "main":  # Notizen nur auf main
-        return None
-    sp = ["--", "docs/chefsache/entscheiden", "docs/chefsache/billigen"]
-    pfade = git("diff", "--name-only", "origin/main", *sp, cwd=wurzel).stdout.split() + \
-        git("ls-files", "--others", "--exclude-standard", *sp, cwd=wurzel).stdout.split()
-    for p in sorted(set(pfade)):
-        datei = os.path.join(wurzel, p)
-        o = vp.ordner_von(p)
-        if not (o and os.path.isfile(datei)):
-            continue
-        inhalt = open(datei, encoding="utf-8").read()
-        fehlt = vp.luecken(inhalt, o)
-        if git("cat-file", "-e", "origin/main:" + p, cwd=wurzel).returncode != 0:  # 1129 A 1: neue Datei
-            fehlt += vp.tor(inhalt, p, wurzel)
-            _abk_warnung(p, vp.warnungen(inhalt))
-        if fehlt:
-            befunde.append((p, fehlt))
-    return vp.meldung(befunde) if befunde else None
+    return None  # Bash-Weg: commit-pruefung.py vorlage_799 (1937)
 
 
 WARNUNG = {"text": ""}
@@ -1198,42 +938,6 @@ def main():
         except (OSError, subprocess.SubprocessError, ValueError):
             pass
         return hinweis_geben()
-    try:
-        alt = alte_einstellungen(befehl, cwd)
-    except (OSError, subprocess.SubprocessError, ValueError):
-        alt = None
-    if alt:
-        anhalten(alt)
-    try:
-        grund = vorlage_unvollstaendig(befehl, cwd)  # 799: Vorlage nach 364
-    except (OSError, subprocess.SubprocessError, ValueError, ImportError):
-        grund = None
-    if grund:
-        anhalten(grund)
-    try:
-        grund = alt_fehlt(roh, cwd)  # 647: Fundstelle der alten Fassung vor dem Push
-    except (OSError, subprocess.SubprocessError, ValueError):
-        grund = None
-    if grund:
-        anhalten(grund)
-    try:
-        grund = parse_pruefen(roh, cwd)  # 464: vor dem Zählen, ein angehaltener Push ist kein Lauf
-    except (OSError, subprocess.SubprocessError, ValueError):
-        grund = None
-    if grund:
-        anhalten(grund)
-    try:
-        grund = rot_vorher(roh, cwd)  # 748: nach rotem Lauf erst Ursache, dann Push
-    except (OSError, subprocess.SubprocessError, ValueError):
-        grund = None
-    if grund:
-        anhalten(grund)
-    try:
-        grund = modelle_vor_build(befehl, cwd)  # 1719: neue Bauskripte im Buildzweig erst mit frischen Modellen am Rechner
-    except (OSError, subprocess.SubprocessError, ValueError, Unaufloesbar):
-        grund = None
-    if grund:
-        anhalten(grund)
     film = False
     try:
         if bildlauf(befehl, cwd, roh) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
@@ -1336,7 +1040,7 @@ def bereich_merken(pfade, befehl, sitzung, cwd="."):
 
 def hinweis_geben(text=""):
     """Zusatztext an die Sitzung (PreToolUse additionalContext): Zählstand 389, falls nötig Ungeprüftes 464.1, Liste je Bereich 822."""
-    text = " ".join(t for t in (text, WARNUNG["text"].strip(), ungeprueft_hinweis(), BEREICH["text"]) if t)
+    text = " ".join(t for t in (text, WARNUNG["text"].strip(), BEREICH["text"]) if t)
     if text:
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse", "additionalContext": text}}, ensure_ascii=False))
 

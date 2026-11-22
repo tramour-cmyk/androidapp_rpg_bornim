@@ -2,7 +2,7 @@
 
 Für `entscheiden/` und `billigen/`. Chef 09.11., 20:45 zu 758: „Ich verstehe die Frage, ich sehe ein Votum, ich sehe, was betroffen ist, ich sehe eine Begründung, ich sehe einen Sachverhalt, ich sehe eine Auswertung dazu. Also perfekt. So soll es sein.“
 
-`tools/probelauf.py` hält einen Commit oder Push an, der eine Datei ohne diese Teile nach `main` bringt; die Übersicht meldet Altbestand unter „Lücken“. Prüfen von Hand: `python3 tools/vorlage_pruefen.py <Datei>`. Entwurf außerhalb der beiden Ordner schreiben, dann vollständig anlegen.
+`tools/commit-pruefung.py` (pre-commit, 1937) hält einen Commit an, der eine Datei ohne diese Teile nach `main` bringt; die Übersicht meldet Altbestand unter „Lücken“. Prüfen von Hand: `python3 tools/vorlage_pruefen.py <Datei>`. Entwurf außerhalb der beiden Ordner schreiben, dann vollständig anlegen.
 
 ## Zum Kopieren
 

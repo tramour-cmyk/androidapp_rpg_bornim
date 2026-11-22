@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import vorgang
 s = vorgang.startbar
 s.lesen = lambda p: "**Nächste freie Vorgangsnummer: 1914**\n" if p == "ARBEIT-BETRIEB.md" else ""
 s.zeilen_liste = lambda *a, **k: []
+s.VORG = set()  # echte Nummern ab 1914 gäbe es schon (Test hing am Stand von main)
 vorgang.fern_zaehler = lambda: []
 vorgang.fern_nummern = lambda: set()
 gezogen = []

@@ -912,7 +912,10 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
                     w = [t for t in w if t not in (an, r_an)]
                 if w and an not in startbar.BUERO:
                     ausgabe.append("NICHTS Übergabe: %s an %s liegt, Vorgang wartet auf %s (1911)" % (z["k"], an, ", ".join(w))); continue
-                je.setdefault(an, []).append((z["k"], z["was"]))
+                je.setdefault(an, []).append((z["k"], z["was"], z["seit"]))
+        rang = _ue.buero_rang(docs or DOCS)  # 1796: Büro-Folge Eilt, Fund des Chefs, Themenblock, Eingangszeit
+        for an in je:
+            je[an] = [(k, w) for k, w, s in sorted(je[an], key=lambda x: rang(_ue.nr_aus(x[0]), x[1], x[2]))]
     except Exception as e:
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
     for an, zs in sorted(je.items()):

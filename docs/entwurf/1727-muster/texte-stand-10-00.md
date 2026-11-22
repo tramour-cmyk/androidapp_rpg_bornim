@@ -15,7 +15,7 @@ Byte nach Messregel, mit Python gemessen: ohne Kopfzeile und die Leerzeile danac
 | Profil Disponent | `profil-disponent.md`, Codeblock „## Text“ | Fassung 15 (22.11., 07:22) | 3.775 / 3.775 / 0 | – | ohne Chefwort |
 | Übergabekette 3.3 | `uebergabekette.md` | Fassung 7 (21.11., 23:12) | 2.622 / 2.622 / 0 | 21.11., 10:11 „3.3 so“ (Fassung 2) | abgenommen, danach geändert (F3 `2d5b1fa22` 22:19 1727d 2.134 → 2.290; F4 `2ecfeb3ec` 22:25 → 2.399; F5 `4fc1340d5` 22:39 → 2.442; F7 `e8e18657e` 23:12 → 2.622) |
 | Profil Release (ab 622) | `profil-release.md`, Codeblock „## Text“ | Fassung 3 (Perikles 21.11., 20:35) | 712 / – (keine Angabe) / – | – | ohne Chefwort |
-| Profil Prüfer | `profil-pruefer.md` | Fassung 10 (22.11., 07:36) | 2.826 / 2.826; 2.817 (0.1, F9) / 0 bzw. +9 | – | ohne Chefwort |
+| Profil Prüfer | `profil-pruefer.md` | Fassung 11 (22.11., 07:52) | 2.831 / 2.831; 2.817 (0.1, F9) / 0 bzw. +14 | – | ohne Chefwort |
 | Profil Tester | `profil-tester.md` | Fassung 6 (22.11., 07:05) | 2.626 / 2.626 / 0 | – (20.11., 07:13 nur Auftrag „nenn es nicht Prüfer“) | ohne Chefwort |
 | Querprofil Signatur und Leben | `querprofil-signatur-und-leben.md` | Fassung 2 (20.11., 12:18) | 876 / 876 (herausgezogen); 880 (0.1) / 0 bzw. −4 | 20.11., 12:37 „Passt.“ | abgenommen, unverändert seit dem Wort (im Gesamtbild seit `cfe49157e` 12:29 gleich) |
 | Profil Figur und Prüfbild | `profil-figur-und-pruefbild.md` | Stand 19.11., 07:19 | 1.303 / 1.303 (herausgezogen) / 0 | – | ohne Chefwort |

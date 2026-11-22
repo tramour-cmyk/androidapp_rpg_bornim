@@ -10,13 +10,16 @@ im selben Commit eine offene Übergabezeile (1760):
   „nein, Auftrag“ → an den Arbeitsplaner (Gesamtbild 6.1)
   zweites „nein“ je Vorgang → an Sokrates „steckt fest (Laufbremse)“ (1766, Archiv 19.11., 13:02)
   1739 (Gesamtbild 3.3 Nr. 5, Kern Büro „Rückläufer“): „fertig“ mit Commit → an den Prüfer; „fertig“ ohne Commit → an den Disponenten
-  (nimmt es nicht an; Routine, Titel „(Routine, Auftrag …)“: „fertig“ ohne Commit → Disponent legt die Vorschläge an und schließt, 1789); erstes „nein“ und „Beleg fehlt“ → mit dem Satz an denselben Macher (wer zuletzt „fertig“ meldete; unbekannt →
+  (nimmt es nicht an; Routine, Titel „(Routine, Auftrag …)“: „fertig“ ohne Commit → Disponent legt die Vorschläge an und schließt, 1789); erstes „nein“ und „Beleg fehlt“ → mit dem Satz an dieselbe Fachkraft (wer zuletzt „fertig“ meldete; unbekannt →
   Disponent); „ja“ des Prüfers → Disponent (an den Chef nur nach diesem Ja); „Hinweis“ → Disponent (wie ein Eingang)
   1873: „nein … steckt fest“ → an Sokrates und mit den Mängelsätzen an denselben Macher (wartet, bis Sokrates löst);
   „Hinweis: Prüffrage fehlt“ → an den Arbeitsplaner (er schreibt die Prüffragen)
   1877: „Hinweis“ des Disponenten (Ford) zu einem bestehenden Vorgang → an dessen Besitzer (Liste; ohne Besitzer der Macher, sonst
   der Arbeitsplaner) und eine Zeile „Hinweis“ an Sokrates (Soll D1), nicht an den Disponenten selbst
   1795: „Befunde: n“ des Testers → Disponent (je Befund ohne Nummer Vorgang anlegen), je Befund mit Nummer Rückläufer an den Arbeitsplaner
+  1797: „abgebrochen“ → Disponent (ein Neustart), zweites je Vorgang → Sokrates „steckt fest“ (AB:12); „Auftrag steht“ → Disponent startet
+  die Fachkraft; „kein Auftrag nötig“ → Disponent schließt oder fragt Sokrates; „Hinweis:“ hinter einem anderen Signalwort → zweite Zeile
+  an den Disponenten
   Empfänger „Prüfer“ und „Disponent“ sind bis zur Umschaltung Diogenes und Ford (lauf.py, tools/1727-SCHARF)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
   A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde, auch Chef-Nein; „nein, Auftrag“ zählt nicht, „Beleg fehlt“ erst jedes dritte je Auftrag, 1926)
@@ -37,6 +40,7 @@ RUHT = "ruht, beim Chef"
 MAX_NEIN_AUFTRAG, MAX_NEIN, MAX_FEST = 2, 3, 2
 LAUFBREMSE_NEIN = 2  # 1766 (Archiv 19.11., 13:02 Laufbremse): zweites „nein“ des Prüfers → „steckt fest“ an Sokrates; drittes ist Obergrenze A
 SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis", "abgebrochen"}
+MAX_ABBRUCH = 2  # 1797 (EA L-U8 wie L-S2, AB:12): erstes „abgebrochen“ → ein Neustart durch den Disponenten, zweites → „steckt fest“
 PRUEFER, DISPONENT = "Prüfer", "Disponent"  # 1739: neue Profile; lauf.py setzt bis tools/1727-SCHARF Diogenes, Ford ein
 COMMIT = re.compile(r"\b[0-9a-f]{7,40}\b")
 BLOCK = re.compile(r"(?m)^- \*\*(?P<zeit>[^*]+)\*\*, (?P<wer>[^\n]*?)(?: \(`(?P<sid>[^`]*)`\))?:\n> (?P<text>.*)$")
@@ -61,7 +65,11 @@ def worte(text):
     elif re.match(r"hinweis\b", t): w.add("Hinweis")
     elif re.match(r"abgebrochen\b", t): w.add("abgebrochen")  # 1782: Kern Arbeitsplaner Feld 7
     elif re.match(r"befunde:\s*\d+", t): w.add("Befunde")  # 1795: Meldung des Testers (profil-tester.md „Meldung“)
+    elif re.match(r"auftrag steht\b", t): w.add("Auftrag steht")  # 1797 Kern Arbeitsplaner :3
+    elif re.match(r"kein auftrag nötig\b", t): w.add("kein Auftrag nötig")  # 1797 Ausgang des Arbeitsplaners
     if "nein" in w and re.search(r"\bsteckt fest\b", t): w.add("steckt fest")
+    if "Hinweis" not in w and re.search(r"(?:^|[\s.;,(])hinweis:", t):  # 1797: „Hinweis:“ auch hinter dem ersten Wort
+        w.add("Hinweis im Text" if w else "Hinweis")
     return w
 
 
@@ -90,7 +98,7 @@ def zaehlen(text):
     ganzer Wortlaut) zählt als abgelehnter Auftrag („nein“), sonst stoppt „Prüfer ja, Chef nein“ nie.
     1925 (1727j Frage 1, Chef 22.11., 11:21 „Frage 1 ja.“): das Chef-Nein zählt auch für die Laufbremse (Rückbau 1910): Chef-Nein,
     ein Versuch der Fachkraft, beim nächsten Nein „steckt fest“ an Sokrates."""
-    z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0}
+    z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0, "abgebrochen": 0}
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", ue.abschnitt(text, "Rückmeldungen")):
         for w in worte(m.group(1)):
             if w in z: z[w] += 1
@@ -256,16 +264,18 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
         m = macher(vorher)
         wort = "nein" if "nein" in w else "Beleg fehlt"
         if m: return m, "Rückläufer (%s des Prüfers, %s): „%s“; nachbessern, dann `vorgang.py rueckmeldung` „fertig“ mit Commit (1739)" % (wort, von, satz)
-        return DISPONENT, "Rückläufer (%s, %s), Macher unbekannt (kein „fertig“ in der Vorgangsdatei): an denselben Macher zurückgeben (1739)" % (wort, von)
+        return DISPONENT, "Rückläufer (%s, %s), Fachkraft unbekannt (kein „fertig“ in der Vorgangsdatei): an dieselbe Fachkraft zurückgeben (1739)" % (wort, von)
     if "fertig" in w:
         if routine and not COMMIT.search(text):  # 1789: Rundblick endet ohne Commit (routine-rundblick.md Teil A „Ergebnis“)
             return DISPONENT, "Routine fertig (%s): Vorschläge aus den offenen Übergabezeilen als Vorgänge anlegen, dann `vorgang.py schliessen` (1789)" % von
         if COMMIT.search(text): return PRUEFER, "prüfen: „fertig“ (%s): „%s“ (1739)" % (von, satz)
-        return DISPONENT, "„fertig“ ohne Commit (%s): nicht annehmen, Macher nennt Commit und Beleg (1739)" % von
+        return DISPONENT, "„fertig“ ohne Commit (%s): nicht annehmen, Fachkraft nennt Commit und Beleg (1739)" % von
     if "ja" in w and werkzeug:  # 1790 (Sokrates 1727 Nachprüfung 22:20): Werkzeug, keine Testbitte an den Chef
         return DISPONENT, "ja des Prüfers (%s): Werkzeug (Bereich B), kein Test des Chefs (1311): liegt der Zweig nicht auf main, mischt der Macher jetzt; dann `vorgang.py fertig`" % von
     if "ja" in w: return DISPONENT, "ja des Prüfers (%s): an den Chef vorlegen (Testbitte), nicht selbst nach main (1739)" % von
     if "Hinweis" in w: return DISPONENT, "Hinweis (%s): wie einen Eingang behandeln (1739)" % von
+    if "Auftrag steht" in w: return DISPONENT, "Auftrag steht (%s): Fachkraft nach Profil des Auftrags starten (1797)" % von
+    if "kein Auftrag nötig" in w: return DISPONENT, "kein Auftrag nötig (%s): Begründung lesen, Vorgang schließen (`vorgang.py schliessen`) oder an Sokrates (1797)" % von
     return None, None
 
 
@@ -325,6 +335,10 @@ def eintragen(nr, text, wer, sid=""):
             aus = befund_weitergabe(nr, text, zeit, wer); an, was = aus[0]
         elif "Hinweis" in w:  # 1873, 1877
             aus = hinweis_weitergabe(nr, text, zeit, wer, vorher); an, was = aus[0]
+        elif "abgebrochen" in w and z["abgebrochen"] >= MAX_ABBRUCH:
+            an, was = SOKRATES, "steckt fest (%d. „abgebrochen“, AB:12): Rückmeldung %s von %s lesen (1797)" % (z["abgebrochen"], zeit, wer or "unbekannt")
+        elif "abgebrochen" in w:
+            an, was = DISPONENT, "abgebrochen (Rückmeldung %s von %s): einmal neu starten, Auftrag unverändert; beim zweiten Mal geht es an Sokrates (1797, AB:12)" % (zeit, wer or "unbekannt")
         else:
             an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr), "ja" in w and ist_werkzeug(nr))
         if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, kein Signalwort zum Weitergeben")
@@ -334,6 +348,9 @@ def eintragen(nr, text, wer, sid=""):
         t = t.rstrip("\n") + "\n"
         for j, (a2, w2) in enumerate(aus or [(an, was)]):
             t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + j, a2, ue._rein(w2), zeit)
+        if "Hinweis im Text" in w and not grund:  # 1797: Hinweis hinter einem anderen Signalwort → zweite Zeile an den Disponenten
+            h = re.search(r"hinweis:\s*(.*)", text, re.I | re.S)
+            t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + len(aus or [1]), DISPONENT, ue._rein("Hinweis (Rückmeldung %s von %s): „%s“; wie einen Eingang behandeln (1797)" % (zeit, wer or "unbekannt", ue._rein(h.group(1))[:160] if h else "")), zeit)
         return t, (k, grund or "")
     return ue.atomar(nr, f, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
 
@@ -444,9 +461,9 @@ def haupt(a):
         try:
             for kz, neu in ue.abgebrochen(a[0], sid) or []:
                 print("ÜBERGABE %s: %s%s" % (kz, neu, " (lauf.py gibt es an Sokrates)" if neu.startswith(ue.FEST) else " (lauf.py startet neu)"))
-                if neu.startswith(ue.FEST):
+                if neu.startswith(ue.FEST) and not any(x["k"] == k and x["an"] == SOKRATES for x in ue.zeilen(_datei(a[0]))):  # 1797 gab schon „steckt fest“ an Sokrates
                     ue.uebergabe(a[0], SOKRATES, "steckt fest: Übergabe %s zweimal ohne Ergebnis (abgebrochen; 1782); gelöst: `vorgang.py warte %s –`" % (kz, a[0]))
-                    liste_fest(a[0])
+                if neu.startswith(ue.FEST): liste_fest(a[0])
         except ue.Fehler as e:
             print("ÜBERGABE nicht zurückgegeben (%s); von Hand: vorgang.py freigeben" % e)
     if not k:

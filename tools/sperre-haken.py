@@ -5,6 +5,8 @@ und die GitHub-Schreibwerkzeuge. Hält an (Exit 2):
      (`git push origin +main`); die Regeln `deny` in .claude/settings.json fangen nur das Präfix `git push --force…`,
      `git push origin main --force` ging durch (werkzeuge.md „Abgleich mit Bauliste 7.1“).
   2. Löschen eines Zweigs auf GitHub: --delete, -d, --prune, `:zweig` (CLAUDE.md „Keine Verlaufsänderung, kein Force-Push“).
+  4. Umgehen der git-Haken (1937): `git push --no-verify`, `git commit --no-verify` oder `-n` (pre-commit commit-pruefung.py,
+     pre-push vorpush.py mit den Prüfungen aus probelauf.py).
   3. Keystore und Zugangsdaten ins Repo (CLAUDE.md „Nie committen: Keystore, Signatur-Passwort, local.properties, SDK-Pfad“):
      `git add` mit so einem Pfad, `git commit` mit so einer Datei im Index (bei -a auch geänderte), GitHub-Schreibwerkzeug mit
      so einem Pfad. Muster in GEHEIM.
@@ -35,6 +37,7 @@ def push_grund(args):
         lang = t.split("=", 1)[0]
         if lang in LANG_FORCE: return "Force-Push (%s)" % t
         if lang in LANG_LOESCH: return "Zweig löschen (%s)" % t
+        if lang == "--no-verify": return "Push ohne git-Haken (%s)" % t
         if re.fullmatch(r"-[A-Za-z]+", t):
             if "f" in t[1:]: return "Force-Push (%s)" % t
             if "d" in t[1:]: return "Zweig löschen (%s)" % t
@@ -60,6 +63,8 @@ def geheim_bash(roh, cwd):
     for m in GIT.finditer(roh):
         wo = _wo(roh, m, cwd, m.group(1))
         args = m.group(3).split()
+        if m.group(2) == "commit" and any(a == "--no-verify" or re.fullmatch(r"-[A-Za-z]*n[A-Za-z]*", a) for a in args):
+            return "--no-verify"
         if m.group(2) == "add":
             for p in (a for a in args if not a.startswith("-")):
                 if GEHEIM.search(p.rstrip("/")): return p
@@ -78,6 +83,7 @@ def grund_bash(befehl, cwd):
         g = push_grund(m.group(2))
         if g: return g
     p = geheim_bash(roh, cwd)
+    if p == "--no-verify": return "Commit ohne git-Haken (--no-verify, -n)"
     return "Keystore oder Zugangsdaten ins Repo (%s)" % p if p else None
 
 
@@ -97,7 +103,7 @@ def main():
         g = grund(json.load(sys.stdin))
         if not g: return 0
         print("Sperre (1739, Gesamtbild 7; CLAUDE.md „Technik und Sicherheit“): %s ist verboten. Keine Verlaufsänderung, kein Force-Push, "
-              "kein Löschen von Zweigen; Keystore, Signatur-Passwort, local.properties nie ins Repo (nur GitHub-Secrets). Anders lösen; "
+              "kein Löschen von Zweigen, kein Umgehen der git-Haken (Grund beheben, den der Haken nennt); Keystore, Signatur-Passwort, local.properties nie ins Repo (nur GitHub-Secrets). Anders lösen; "
               "geht es nicht ohne, an den Chef." % g, file=sys.stderr)
         return 2
     except Exception:
@@ -124,6 +130,9 @@ def test():
     for b in ("git add app/release.jks", "git add -f local.properties", "git add android/keystore.properties", "cd x && git add .env"):
         ok((grund_bash(b, ".") or "").startswith("Keystore"), "add: " + b)
     ok(grund_bash("git add godot/skripte/held.gd docs/x.md", ".") is None, "add harmlos")
+    for b in ("git push --no-verify origin x", "git commit --no-verify -m x", "git commit -nm x", "cd a && git commit -an -m x"):
+        ok("git-Haken" in (grund_bash(b, ".") or ""), "Haken umgehen: " + b)
+    ok(grund_bash("git commit -m 'kein --no-verify'", ".") is None, "no-verify nur im Text")
     d = tempfile.mkdtemp()
     subprocess.run(["git", "init", "-q", d]); open(os.path.join(d, "a.txt"), "w").write("a")
     subprocess.run(["git", "-C", d, "add", "a.txt"])

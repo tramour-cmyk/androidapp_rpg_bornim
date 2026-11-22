@@ -14,6 +14,11 @@ on:
     paths:
       - "docs/**"
   workflow_dispatch:
+    inputs:
+      test:
+        description: "Probeknopf (1936): nur eine Testmeldung über Telegram senden, ohne Prüfung der Zeitmarke"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -24,7 +29,33 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # 1936 (Chef 22.11., 12:26): Probeknopf. Actions → Herzschlag → Run workflow → „test“ anhaken: sendet eine Testmeldung über
+  # das Secret TELEGRAM_BOT_TOKEN (prüft den Alarmweg aus 1764); fehlt das Secret oder lehnt Telegram ab, roter Lauf mit Hinweis.
+  probe:
+    if: github.event_name == 'workflow_dispatch' && inputs.test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testmeldung
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "::error::Secret TELEGRAM_BOT_TOKEN fehlt (Settings → Secrets and variables → Actions); der Alarm käme nur als roter Lauf (1764)"
+            exit 1
+          fi
+          zeit=$(TZ=Europe/Berlin date "+%d.%m., %H:%M")
+          antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=false" \
+            --data-urlencode "text=Herzschlag (GitHub): Testmeldung über den Probeknopf ($zeit, 1936). Der Alarmweg aus 1764 funktioniert.")
+          if echo "$antwort" | grep -q '"ok":true'; then
+            echo "Testmeldung gesendet ($zeit)"
+          else
+            echo "::error::Telegram lehnt ab: $(echo "$antwort" | grep -o '"description":"[^"]*"' || echo "$antwort" | head -c 200)"
+            exit 1
+          fi
+
   pruefen:
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.test) }}
     runs-on: ubuntu-latest
     steps:
       - name: Kette läuft? (1894)

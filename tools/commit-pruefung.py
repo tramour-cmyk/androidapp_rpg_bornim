@@ -527,6 +527,32 @@ def auffrischen():
 
 HILFE_1778 = "danach in der Arbeitskopie mit dem Zweig: python3 tools/commit-pruefung.py --auffrischen (setzt den veralteten Index auf HEAD)"
 
+def vorlage_799(dat):
+    """799 (Chef 09.11., 20:46; 1937 aus probelauf.py hierher): eine Vorlage in docs/chefsache/entscheiden/ oder billigen/ ohne die
+    Teile nach 364 kommt nicht nach main; geprüft wird der Stand im Index. Gibt (Halt, Warnungen) zurück."""
+    if git("rev-parse", "--abbrev-ref", "HEAD").strip() != "main":  # Notizen nur auf main
+        return None, []
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import vorlage_pruefen as vp
+    wurzel = git("rev-parse", "--show-toplevel").strip() or "."
+    befunde, warn = [], []
+    for st, p in dat:
+        o = vp.ordner_von(p)
+        if st == "D" or not o:
+            continue
+        inhalt = git("show", ":" + p)
+        fehlt = vp.luecken(inhalt, o)
+        if subprocess.run(["git", "cat-file", "-e", "origin/main:" + p], capture_output=True).returncode != 0:  # 1129 A 1: neue Datei
+            fehlt += vp.tor(inhalt, p, wurzel)
+            ab = vp.warnungen(inhalt)
+            if ab:  # MUSTER.md Checkliste 9 (1129.3): nur Hinweis
+                warn.append("Checkliste 9 (MUSTER.md): %s enthält Abkürzungen (%s); im Text an den Chef ausschreiben "
+                            "(Wortliste vorlage_pruefen.ABKUERZUNGEN)" % (p, ", ".join(ab)))
+        if fehlt:
+            befunde.append((p, fehlt))
+    return (vp.meldung(befunde) if befunde else None), warn
+
+
 def main():
     try:
         anders = zweig_doppelt()
@@ -558,6 +584,12 @@ def main():
     kauf = kaufdateien([(s, p) for s, p in dat if s != "D"])
     if kauf:  # 449: gekaufte Rohdateien nur im privaten Repo bornim-kaufmodelle, nie hier (CLAUDE.md „Fremde Inhalte“, 348.12c a)
         print("Commit-Prüfung HÄLT AN: gekaufte Rohdatei (%s); gehört nur ins private Repo bornim-kaufmodelle (449)" % "; ".join(kauf), file=sys.stderr); return 1
+    try:
+        v, vw = vorlage_799(dat)
+        for w in vw: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
+        if v:
+            print("Commit-Prüfung HÄLT AN: " + v, file=sys.stderr); return 1
+    except Exception as e: print("Commit-Prüfung: 799 übersprungen (%s)" % e, file=sys.stderr)
     try:
         for w in effekt_ohne_liste(dat): print("Commit-Prüfung Warnung: " + w, file=sys.stderr)  # 623.3 (623 E): nur Warnung
     except Exception as e: print("Commit-Prüfung: 623.3 übersprungen (%s)" % e, file=sys.stderr)

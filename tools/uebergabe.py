@@ -9,7 +9,7 @@ Aufruf über vorgang.py (oder direkt):
   vorgang.py verlaengern KENNUNG [--frist MIN]   eigene Frist neu setzen (langer Zug)
   vorgang.py erledigt KENNUNG                angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
   vorgang.py freigeben                       alle von dieser Sitzung angenommenen Zeilen wieder offen (vor „Nachfolger:“, schneller als die Frist)
-  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen (Büro-Liste: Fund des Chefs, „Eilt“, Eingangszeit); mit --sitzungen
+  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen (Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
                                               (list_sessions-Seiten oder Kurzform wie lauf.py) wird jede abgelaufene Frist eines Halters, der
                                               nicht working ist, wieder offen (Stundenrunde, verlorene Wecker); working: es wird gewartet.
                                               1782 (3.3 Nr. 3, 1727d L-S2/L-U8): beim ersten Mal „offen (wieder 1)“ (ein Neustart), beim
@@ -330,6 +330,45 @@ def _status(dateien):
             st[s["id"]] = "working" if re.search(r"WORKING|RUNNING|working", b) else "abgebrochen" if re.search(r"failed|FAILED|abgebrochen", b) else "ruht"
     return st
 
+FUND = re.compile(r"fund des chefs|\bchefwort\b|\bnein des chefs\b", re.I)
+
+def buero_rang(docs=None):
+    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Eilt, dann Fund des
+    Chefs, dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann Eingangszeit. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
+    im Titel (Liste vor 1727, 383) oder „Eilt“ im Text; Fund: Titel „Von Chef“, Zeile aus `chefwort.py` („Chefwort … lesen“) oder „Fund
+    des Chefs“ im Text. Liest Liste und Themenblöcke einmal; fehlt etwas, zählt die Zeile als „Übriges“."""
+    docs = docs or os.path.join(WURZEL, "docs")
+    liste, folge, nach_bereich, nach_nr = {}, [], {}, {}
+    try:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "umstellung1727"))
+        import umstellen as _u, bereiche as _b
+        folge, nach_bereich, nach_nr, _ = _u.bloecke(docs)
+        for z in open(os.path.join(docs, "LISTE-VORGAENGE.md"), encoding="utf-8"):
+            if not re.match(r"\| \d", z): continue
+            c = _u.zellen(z)
+            if len(c) == len(_u.KOPF_ALT): d = dict(zip(_u.KOPF_ALT, c)); kl = "Eilt" if d["Kl."] == "M" and "„jetzt“" in d["Titel"] else d["Kl."]
+            elif len(c) == len(_u.KOPF_NEU): d = dict(zip(_u.KOPF_NEU, c)); kl = d["Kl."]
+            else: continue
+            herkunft = d["Titel"]
+            if len(c) == len(_u.KOPF_NEU):  # 1727: der alte Titel (Chefzitat) steht in der Vorgangsdatei unter „Herkunft:“
+                try:
+                    m = re.search(r"^Herkunft: (.*)$", open(os.path.join(docs, "vorgang", d["Nr."] + ".md"), encoding="utf-8").read(), re.M)
+                    if m: herkunft = m.group(1)
+                except OSError: pass
+            block = _u.block_nr(d["Nr."], nach_nr) or nach_bereich.get(_b.einordnen(d["Bereich"]), "9")
+            liste[d["Nr."]] = (kl, bool(re.match(r"Von Chef\b", herkunft)), block)
+    except Exception:
+        pass
+    jahr = jetzt().year
+    def schluessel(nr, was, seit):
+        kl, fund, block = liste.get(nr, ("", False, "9"))
+        eilt = kl == "Eilt" or bool(re.search(r"\beilt\b", was or "", re.I))
+        fund = fund or bool(FUND.search(was or ""))
+        try: z = _zeit(seit, jahr)
+        except (ValueError, TypeError): z = datetime.datetime.max
+        return (0 if eilt else 1, 0 if fund else 1, folge.index(block) if block in folge else len(folge), z)
+    return schluessel
+
 def offen(an=None, sitzungen_dateien=(), still=False):
     """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)].
     1782: Frist abgelaufen und Halter ruht, oder Halter abgebrochen (auch vor der Frist) → beim ersten Mal „offen (wieder 1)“,
@@ -363,10 +402,8 @@ def offen(an=None, sitzungen_dateien=(), still=False):
                 grund = "Halter abgebrochen" if h == "abgebrochen" else "Frist abgelaufen, Halter ruht"
                 liste.append((z, nr, ("wieder offen (%s)" % grund) if wieder(z["z"]) == 0 else "%s (zweites Mal: %s; 1782)" % (FEST, grund)))
     if an: liste = [x for x in liste if x[0]["an"].lower() == an.lower()]
-    def rang(x):
-        w = x[0]["was"].lower()
-        return (0 if "fund des chefs" in w else 1 if "eilt" in w else 2, _zeit(x[0]["seit"], jz.year))
-    liste.sort(key=rang)
+    r = buero_rang()
+    liste.sort(key=lambda x: r(x[1], x[0]["was"], x[0]["seit"]))
     if still: return liste
     for z, nr, wie in liste:
         print("%s | an %s | %s | seit %s | %s" % (z["k"], z["an"], z["was"], z["seit"], wie))
