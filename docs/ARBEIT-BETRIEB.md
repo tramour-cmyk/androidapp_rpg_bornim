@@ -48,6 +48,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 07:50 22.11.: Startsperre 07:50 Start Spike (Neustart, 775c171a2, 1871 zuerst wegen Frist 09:30)
 - 22.11., 07:45 Ford: übernommen (`…75isNEtDyWupWmoFTR`); alter Ford archiviert (208,46 $ auf 1574), Sokrates `…75SrwmjpvNxeNEdckU` archiviert (27,76 $ auf 1727), Nachfolger `…766KCj14w54LxrDwYN`; Spike `…778HYhvtMFZAaJ8bQm` archiviert (5,70 $ auf 1739), Nachfolger `…787KJ4un4X2q9HM7Fe` (1871 zuerst); Diogenes 1760, 1799. Uhr neu `trig_01GL9hSYfk6n7WN8ABr4WeVf`, alte aus. Offen: Kosten Diogenes 22:07 (Lauf 330) ungebucht.
 - 07:36 22.11.: Startsperre 07:36 Start Spike (Neustart, 24ba5be7f, 1804)
 - 07:31 22.11.: Startsperre 07:31 Start Sokrates (Neustart 401 Tsd., 9d19b2671, 1727)
