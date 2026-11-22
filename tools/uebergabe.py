@@ -179,10 +179,24 @@ def uebergabe(nr, an, was):
         return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, fmt(jetzt())), k
     k = atomar(nr, f, "Übergabe %s an %s (1760)" % (nr, an))
     print("OFFEN %s an %s: %s" % (k, an, was))
-    ss = besetzung(an)
-    for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
-    if not ss: print("KEINE SITZUNG %s läuft (ARBEIT-BESETZUNG.md): die Zeile wartet; Start über den Disponenten (Ford), die neue Sitzung liest `vorgang.py offen %s`" % (an, an))
+    wecker(nr, k, an)
     return k
+
+DISPONENT_ALT = "Ford"  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
+ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPONENT_ALT}
+
+def wecker(nr, k, an, alt=None):
+    """WECKER an die laufenden Sitzungen von AN (sonst der alten Rolle ALT); läuft keine, WECKER an den Disponenten, der den Start
+    ausgibt (1760, Sokrates 22.11., 07:08). Gibt die geweckten Kennungen zurück."""
+    alt = ALT.get(an, "") if alt is None else alt
+    ss = besetzung(an) or (besetzung(alt) if alt else [])
+    for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
+    if ss: return ss
+    print("KEINE SITZUNG %s läuft (ARBEIT-BESETZUNG.md): die Zeile wartet; Start über den Disponenten, die neue Sitzung liest `vorgang.py offen %s`" % (an, an))
+    ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
+    for s in ds: print("WECKER %s | sieh in %s (%s): keine Sitzung %s, Start ausgeben" % (s, nr, k, an))
+    if not ds: print("KEIN DISPONENT läuft: Wache bzw. Herzschlag meldet (1764)")
+    return ds
 
 def _finde(t, kennung):
     z = [z for z in zeilen(t) if z["k"] == kennung]
