@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 364 · 1920, 1921 (lesend, Weiter Ford 11:17; Kopie `cde4b1eeb`; 22.11., 11:17–11:20)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün, `gepusht-haken.py --test` 0 Fehler.
+- 1920 greift, damit 1917 und 1879: hält „Das Ziel ist unklar.“, „Es fehlt das Ziel“, „Unklar, was gebaut werden soll“, „Ziel: noch offen.“, „ziel fehlt“, „ZIEL FEHLT“, „Das Ziel ist nicht klar.“, „Herkunft unbekannt“, „Ziel offen, Quelle fehlt“, „Prüffragen fehlen noch.“; frei „Das Ziel fehlt auf der Gebietskarte“, „Die Quelle fehlt im Dorf“, „Der Zweig fehlt am Baum“, „Im Hof fehlt die Fackel“, „Fehlt der Schatten noch?“, „Die Tür bleibt offen, wenn man geht“. Rest ohne Befund: „Die Quelle ist offen“ (Quelle im Spiel) hält an; nur Felder 1, 5, 6, 7.
+- 1921 greift, damit 1898: nur fremde Dateien lassen durch, nur fremde mit Rückschritt nennen ihn ohne „committen und pushen“; `meldung.sh`, `vorgang.py --rolle … | head`, `cat`, `grep`, `git diff` machen nichts eigen; `vorgang.py greift/setze/warte` (auch mit `VAR=…` davor), `cp … docs/X`, `> docs/X` eigen. Rest ohne Befund (Rückgang gegen vorher, selten): `find … -exec sed -i` und `grep -l … | xargs sed -i` zählen nicht als eigen, die eigene Änderung ginge ohne Mahnung durch.
+
 ## Lauf 363 · 1779, 1866 erneut (lesend, Weiter-Haken; Kopie `6ac934e9a`; 22.11., 11:12–11:15)
 
 - Alle 46 `tools/*_test.py` an der Kopie grün.
