@@ -27,6 +27,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1461) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
   HÖCHSTDAUER <session_id> | <Rolle> | <Nr> | <Text>                → (1766, erst mit tools/1727-SCHARF und Wert in HOECHSTDAUER_MIN) interrupt_session, dann `vorgang.py rueckmeldung <Nr> "<Text>" --sitzung Ford`, pushen
+  GUTHABEN … / LAUFSPERRE …                                         → (1804, erst mit tools/1727-SCHARF; tools/guthaben.py) Stufe nach 287 und Laufsperre aus Chefwort; lauf.py hält die Starts selbst an („NICHTS <Rolle>: Guthaben …“), Ford startet nicht von Hand vorbei
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
   WARNUNG(-LAUT) Sitzung hängt / Sitzung wartet auf Freigabe (blocked ab 15 Min., 1572) / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
   TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile daneben startet Perikles erneut
@@ -643,6 +644,9 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     return je
 
 
+def startbar_zeile(nr):
+    return next((d for d in startbar.zeilen_liste() if d["nr"] == nr), None)
+
 def ist_scharf():
     return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
 
@@ -881,6 +885,12 @@ def main():
         vorab.append("STELLUNG Co-Pilot: START nicht ausführen; nur Neustart-Meldungen, „Auftrag Diogenes“ und Push-Meldungen (LISTE-BETRIEB.md „Stellung“, 81g)")
     if not stellung: vorab.append("WARNUNG Stellung „**Ford: …**“ oben in ARBEIT-BETRIEB.md nicht gefunden; Lauf wie Pilot (81g)")
     nur_muss = "--nur-muss" in a
+    bremse = None
+    if ist_scharf():  # 1804: Guthabenstufe (287) und Laufsperre aus Chefwort, erst mit tools/1727-SCHARF
+        import guthaben
+        zl = {d["nr"]: d for d in startbar.zeilen_liste()}
+        bremse = guthaben.Bremse(JETZT, lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")), rueck=lambda n: guthaben.ruecklaeufer(zl.get(n)))
+        vorab.extend(bremse.zeilen()); nur_muss = nur_muss or bremse.nur_muss()
     sperre = "--sperre" in a; besetz = "--besetzung" in a
     liegt = "--liegt" in a  # 891: Lauf auf „Start <Rolle> <Nr>“; eine ruhende Sitzung unter 20 Minuten belegt dann nicht, sie bekommt WEITER
     ausschluss = {}; wecker = set()
@@ -1146,6 +1156,11 @@ def main():
             offen_nf = None
         if offen_nf and nf_nr and nacht_halt(r, nf_nr.group(1), ausgabe, morgen):
             continue
+        if offen_nf and bremse:  # 1804: Nachfolger wie seine Zeile (ohne Zeile Muss)
+            nz = next((x for x in muss + kuer if nf_nr and x[0] == nf_nr.group(1)), None)
+            if (g := bremse.erlaubt(r, nz[1] if nz else "M", nz[3] if nz else None)):
+                ausgabe.append("NICHTS %s: Nachfolger „%s“ angehalten: %s" % (r, offen_nf, g)); continue
+            bremse.zaehle(r, nz[3] if nz else None)
         if offen_nf:
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
@@ -1162,7 +1177,13 @@ def main():
                 weg = {n for n, _ in ohne_a}
                 muss = [x for x in muss if x[0] not in weg]; kuer = [x for x in kuer if x[0] not in weg]
                 ausgabe.append("NICHTS %s: ohne gültigen Auftrag nicht gestartet (7.1, `vorgang.py auftrag <Nr>`): %s" % (r, "; ".join("%s %s" % x for x in ohne_a[:5])))
+        if bremse:  # 1804
+            gr = {x[0]: g for x in muss + kuer if (g := bremse.erlaubt(r, x[1], x[3]))}
+            muss = [x for x in muss if x[0] not in gr]; kuer = [x for x in kuer if x[0] not in gr]
+            if gr and not muss and not (kuer and r in MIT_KUER and not nur_muss):
+                ausgabe.append("NICHTS %s: %s" % (r, next(iter(gr.values())))); continue
         wahl = (muss[0] if muss else None) or (kuer[0] if kuer and r in MIT_KUER and not nur_muss else None)
+        if bremse and wahl: bremse.zaehle(r, wahl[3])
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
@@ -1226,6 +1247,10 @@ def main():
         eigen = [n for n in eigen if n not in ausschluss]  # 916 (1): --ohne gilt auch für die eigene Zeile des Zusatzentwicklers
         if eigen: frei = [(eigen[0], "M", "", {})]
         if not frei: ausgabe.append("NICHTS %s: kein zweites unabhängiges Muss bei %s" % (zusatz, team)); continue
+        if bremse:  # 1804
+            frei = [x for x in frei if not bremse.erlaubt(zusatz, x[1], x[3] or startbar_zeile(x[0]))]
+            if not frei: ausgabe.append("NICHTS %s: Guthaben oder Laufsperre (1804)" % zusatz); continue
+            bremse.zaehle(zusatz, frei[0][3] or startbar_zeile(frei[0][0]))
         nr, kl, thema, _ = frei[0]
         titel = "%s – %s (%s)" % (zusatz, nr, berlin(JETZT))
         msg = ("%s\n\nArbeite Vorgang %s (Muss) aus der Vorgangsliste von Team %s (`vorgang.py %s`) als Zusatzentwickler (433, ROLLE-ENTWICKLUNG.md); %s arbeitet an %s, das fasst du nicht an. "
