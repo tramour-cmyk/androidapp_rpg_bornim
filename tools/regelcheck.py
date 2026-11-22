@@ -53,7 +53,8 @@ def rueckmeldung(um=None):
     def neu(key, d, her):
         if d and d <= jetzt and (key not in rueck or d > rueck[key][0]): rueck[key] = (d, her)
     CHEF = re.compile(r"Chef (\d\d)\.(\d\d)\.,? (\d\d):(\d\d)(?:\s*[–-]\s*(\d\d):(\d\d))?")
-    for datei, rolle in startbar.ROLLEN + [("ARBEIT-BETRIEB.md", "Ford")]:
+    # 1893: nach dem Umzug 1727 stehen die „Zu <Nr>“ in docs/vorgang/<Nr>.md (Abschnitt „Aus dem Vorrat“), Vorräte bleiben bis zum Streichen
+    for datei in [d for d, _ in startbar.ROLLEN] + ["ARBEIT-BETRIEB.md"] + ["vorgang/%s.md" % nr for nr, _, _ in wartend.values()]:
         for z in inhalt(datei).splitlines():
             m = re.match(r"^- \*\*Zu ([^:(]*?)(?:, von [^:(]*)?(?: \(|:)", z)
             if not m: continue

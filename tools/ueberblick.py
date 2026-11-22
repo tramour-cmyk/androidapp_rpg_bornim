@@ -163,6 +163,13 @@ def rechnen():
 
 
 ROLLEN_REIHE = ["Tom", "Jerry", "Spike", "Homer", "Diogenes", "Sokrates", "Perikles"]
+
+
+def reihe():
+    """1893: alte Liste ROLLEN_REIHE, umgestellte Liste je Profil ohne Disponent (startet selbst, hat keine Zeilen). Liest die
+    Liste neu: startbar.NEU gilt für die zuletzt gelesene, `morgen()` liest den Stand von 0:00 (am Umschalttag noch alt)."""
+    s.vorgangsliste(s.lesen(s.LISTE))
+    return [p for p in s.profile() if p != "Disponent"] if s.NEU else ROLLEN_REIHE
 CHEF_ART = ("test", "entscheiden", "tun", "ansehen", "billigen")  # 1391: Folge nach Vorschlag Sokrates (Testbitte hält die meisten Zeilen)
 
 
@@ -210,9 +217,10 @@ def je_rolle():
     """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand, mit
     Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
     import collections, lauf
+    rr = reihe()  # 1893: vor lauf.stand(), das sich nach der zuletzt gelesenen Liste richtet
     st = lauf.stand()
     aus = ["| **Chef** | %s |" % chef_naechstes().replace("|", "/")]  # 1391
-    for r in ROLLEN_REIHE:
+    for r in rr:
         if r not in st: continue
         muss, kuer, p, _ = st[r]
         def zeile(x, art):
@@ -240,7 +248,7 @@ def je_rolle():
         b = besetzt_rolle(r)
         if b: was = "läuft: %s (Besetzung); %s" % (b, was)
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
-        for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
+        for zus, team in ({} if s.NEU else s.ZUSATZ).items():  # 1371; 1893: an der neuen Liste kein Zusatzentwickler (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
             if team != r: continue
             eigen = [x for x in muss if not x[2].startswith("Übernahme von")]
             zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
@@ -358,7 +366,9 @@ def md():
             sum(wartet_auf_test(d) for d in je), sum(d["wort"] in RUHT for d in je),
             ("%s (%s) %s" % (n["nr"], n["besitzer"], worum(n["titel"], 50))) if n else "–"))
     if mo: aus += ["", mo[1]]
-    aus += ["", "**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"] + je_rolle()
+    je = je_rolle()
+    aus += (["", "**Je Profil das Nächste** (wie der Disponent startet, 1893)", "", "| Profil | als Nächstes |", "|---|---|"] if s.NEU else
+            ["", "**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"]) + je
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):
         aus.append("| %d | %s | %s | %s | %s | %s | %s |" % (i, d["nr"], d["besitzer"], worum(d["titel"]).replace("|", "/"),

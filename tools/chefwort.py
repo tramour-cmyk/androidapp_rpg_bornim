@@ -34,6 +34,11 @@ try:  # 1739 Rufnamen: „**Anna** [21.11., 21:40]“ ist eine Sitzung, nicht de
     ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy|%s)" % "|".join(sorted(rufname.ALLE))
 except Exception:
     pass
+try:  # 1893: Sitzungen der umgestellten Liste melden sich auch mit dem Profil („**Technik** [22.11., 09:00]“)
+    import startbar as _sb
+    ROLLEN = ROLLEN[:-1] + "|" + "|".join(re.escape(p) for p in _sb.profile()) + ")"
+except Exception:
+    pass
 FEHLER = os.environ.get("BORNIM_CHEFWORT_FEHLER", "/tmp/bornim-chefwort-fehler.txt")
 
 

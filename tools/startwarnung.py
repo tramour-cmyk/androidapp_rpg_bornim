@@ -45,8 +45,36 @@ def jetzt():
     return datetime.datetime.now(BERLIN)
 
 
+# 1893: an der umgestellten Liste (Kopf ohne Besitzer) ist der Besitzer ein Profil; Rollen wie umstellen.py PROFIL, Homer → Fachprofil
+# des Blocks „G Story“, übrige Rollen (Vorräte fallen mit 1727) → Arbeitsplaner. Bereich der Werkzeugzeile: Story bei Story, sonst Abläufe.
+PROFIL = {"Diogenes": "Prüfer", "Ford": "Disponent", "Perikles": "Arbeitsplaner"}
+
+
+def liste_neu(liste):
+    import startbar
+    return startbar.KOPF_NEU in (liste or "")
+
+
+def profil(rolle):
+    import startbar
+    if rolle in PROFIL: return PROFIL[rolle]
+    if rolle == "Homer": return startbar.themenbloecke()[0].get(startbar.block_von("", "G Story"), "Arbeitsplaner")
+    return rolle if rolle in startbar.profile() else "Arbeitsplaner"
+
+
+def bereich_von(besitzer):
+    import startbar
+    story = startbar.themenbloecke()[0].get(startbar.block_von("", "G Story"))
+    return "G Story" if besitzer in ("Homer", story) else "B Abläufe"
+
+
 def besitzer_nr(nr, liste, archiv=""):
-    """Besitzer eines Vorgangs aus Liste, sonst Archiv (Spalte Besitzer ist dort die vorletzte)."""
+    """Besitzer eines Vorgangs aus Liste, sonst Archiv (Spalte Besitzer ist dort die vorletzte); umgestellte Liste: Profil der Zeile."""
+    if liste_neu(liste):
+        import startbar
+        d = next((x for x in startbar.vorgangsliste(liste) if x["nr"] == nr), None)
+        if d: return d["besitzer"]
+        liste = ""
     m = re.search(r"(?m)^\| %s \|[^|]*\| ([^|]+) \|" % re.escape(nr), liste)
     if m:
         return m.group(1).strip()
@@ -77,8 +105,10 @@ def sammeln(ref="origin/main", taeglich=True):
     aus = []
     liste, archiv = zeige(ref, LISTE), zeige(ref, "docs/LISTE-VORGAENGE-ARCHIV.md")
 
+    neue = liste_neu(liste)  # 1893
+
     def neu(schluessel, besitzer, code, text):
-        aus.append(dict(schluessel=schluessel, besitzer=besitzer, code=code, text=text))
+        aus.append(dict(schluessel=schluessel, besitzer=profil(besitzer) if neue else besitzer, code=code, text=text))
 
     dateien = git("ls-tree", "--name-only", ref, "docs/").stdout.split()
     # 77: alte Notizdateinamen (Wächter Dokumentnamen, 13.10.)
@@ -219,8 +249,15 @@ def berechnen(basis, warnungen, zeit):
             titel = (titel if len(titel) <= 300 else titel[:297] + " …").replace("|", "/")
             d = dict(nr=nr, titel=titel, besitzer=w["besitzer"], kl="K", stand="startbar", warte=[], zweig="–", build="–",
                      bereich="B Abläufe", kosten="–")
-            _, ende = vorgang.gruppe(L, w["besitzer"])
-            L.insert(ende, startbar.zeile_text(d))
+            if liste_neu(liste):  # 1893: Block aus dem Bereich, Zeile ans Ende ihres Blocks (Folge Eilt, Muss, Kür bleibt bei vorgang.py ordnen)
+                d["bereich"] = bereich_von(w["besitzer"])
+                d["block"] = startbar.block_von(nr, d["bereich"])
+                zs = startbar.vorgangsliste("\n".join(L))
+                im = [x["i"] for x in zs if x.get("block") == d["block"]]
+                ende = (max(im) + 1) if im else ((max(x["i"] for x in zs) + 1) if zs else len(L))
+            else:
+                _, ende = vorgang.gruppe(L, w["besitzer"])
+            L.insert(ende, startbar.zeile_text(d, neu=liste_neu(liste)))
             s["vorgang"] = nr
             meldungen.append(f"{nr} bei {w['besitzer']}: {w['text'][:80]}")
         neu_stand[k] = s
