@@ -488,44 +488,38 @@ if (HUELLE & _GEW).any():
         _W[i] = WKq[nb].mean(0)
     WKq = _W / _W.sum(1, keepdims=True)
     print('SCHALE GEWICHTE', len(_sch), 'Ecken gemittelt')
-# 1570 Gewichte von Umhang und Spange (ersetzt 463 ARM_LUFT/ARM_GEW und 656 UMHANG_ARM): die Wirbelkette nach der Höhe (unter dem Becken
-# das Becken, über spine_03 spine_03); oben auf der Schulter das Schlüsselbein der Seite (die Schulter hebt den Umhang, nicht der Arm),
-# am Hals der Hals; kein Arm, kein Bein, unter der Achsel kein Schlüsselbein (861)
-if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01')):
-    _kette = ['pelvis', 'spine_01', 'spine_02', 'spine_03']; _kz = [QP_MAT[n].translation.z for n in _kette]
-    _za = QP_MAT['upperarm_l'].translation.z; _zn = QP_MAT['neck_01'].translation.z
-    _cl = np.where(np.isin(LTk, [TID[t] for t in ('cloak', 'clasp') if t in TID]))[0]
-    # Schulterblatt (Jana 22.11.: an Wirbelkette allein stachen Kutte, Schulterstück und Kapuze, die mit dem Schlüsselbein gehen, in
-    # Bewegung bei 1,3-1,5 m durch den Umhang): hinten zwischen Achsel und Schulter, innerhalb des Schultergelenks, die Gewichte der Haut
-    # darunter, Arm an das Schlüsselbein derselben Seite (der Arm hebt den Umhang nicht, 861), Kopf an den Hals
-    _xa = abs(QP_MAT['upperarm_l'].translation.x)
-    _zuS = np.arange(len(Q_KN))
+# 1570 Gewichte von Umhang und Spange (ersetzt 463 ARM_LUFT/ARM_GEW, 656 UMHANG_ARM und FOLGT am Umhang): der Umhang folgt dem Rumpf
+# unter ihm, wie die Kleidung darunter (Kutte, Schulterstück, Hemd), sonst sticht sie in Bewegung durch (Jana 22.11.: an der Wirbelkette
+# allein 1,3-1,5 m hoch). Gewichte der Haut am nächsten Punkt, aber: Arm an das Schlüsselbein derselben Seite (der Arm hebt den Umhang
+# nicht: 1676 rechter Unterarm), Bein an das Becken (Seitenbahnen schwingen nicht mit dem Oberschenkel), Kopf an den Hals; das
+# Schlüsselbein nur über der Achsel, darunter (bis UMHANG_ACHSEL) an spine_03 (861: die Flanke hob sich mit dem Schildarm)
+UMHANG_ACHSEL = (0.20, 0.08)   # m unter dem Schultergelenk: Schlüsselbein aus – voll
+if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l', 'clavicle_r', 'upperarm_l')):
+    _za = QP_MAT['upperarm_l'].translation.z
+    _zu = np.arange(len(Q_KN)); iBe = Q_KN.index('pelvis'); iS3 = Q_KN.index('spine_03')
     for k, nm in enumerate(Q_KN):
         if nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky')) and nm[-2:] in ('_l', '_r'):
-            _zuS[k] = Q_KN.index('clavicle' + nm[-2:])
-        elif nm == 'Head': _zuS[k] = iHals
+            _zu[k] = Q_KN.index('clavicle' + nm[-2:])
+        elif nm.startswith(('thigh', 'calf', 'foot', 'ball')): _zu[k] = iBe
+        elif nm == 'Head': _zu[k] = iHals
+    _isch = [Q_KN.index('clavicle_l'), Q_KN.index('clavicle_r')]
+    _cl = np.where(np.isin(LTk, [TID[t] for t in ('cloak', 'clasp') if t in TID]))[0]
     for i in _cl:
-        z = VK2[i, 2]; w = np.zeros(len(Q_KN))
-        if z <= _kz[0]: w[Q_KN.index('pelvis')] = 1.0
-        elif z >= _kz[3]: w[Q_KN.index('spine_03')] = 1.0
-        else:
-            for k in range(3):
-                if z <= _kz[k + 1]:
-                    t = (z - _kz[k]) / (_kz[k + 1] - _kz[k]); w[Q_KN.index(_kette[k])] = 1 - t; w[Q_KN.index(_kette[k + 1])] = t; break
-        bw = _st(z, _za - 0.22, _za - 0.08) * (1.0 - _st(abs(VK2[i, 0]), _xa - 0.06, _xa - 0.02))
-        if bw > 0:
-            c, _, fi, _ = qbvh.find_nearest(Vector(VK2[i]))
-            if fi is not None:
-                ecken = list(QF[fi]); d = np.linalg.norm(QV[ecken] - np.array(c), axis=1)
-                g = 1.0 / np.maximum(d, 1e-4); wh = (g[:, None] * WQ[ecken]).sum(0) / g.sum()
-                wb = np.zeros(len(Q_KN)); np.add.at(wb, _zuS, wh)
-                w = (1.0 - bw) * w + bw * wb / max(wb.sum(), 1e-6)
-        sw = _st(abs(VK2[i, 0]), 0.03, 0.07) * _st(z, _za - 0.03, _za + 0.04)
-        w *= (1.0 - sw); w[Q_KN.index('clavicle_l' if VK2[i, 0] > 0 else 'clavicle_r')] += sw   # links +X
-        hw = (1.0 - _st(abs(VK2[i, 0]), 0.02, 0.05)) * _st(z, _za, _zn)
-        w *= (1.0 - hw); w[Q_KN.index('neck_01')] += hw
-        WKq[i] = w
-    print('UMHANG AM RUECKEN Gewichte', len(_cl), 'Ecken (Umhang, Spange) an Wirbelkette, Schulter, Hals')
+        c, _, fi, _ = qbvh.find_nearest(Vector(VK2[i]))
+        if fi is None: continue
+        ecken = list(QF[fi]); d = np.linalg.norm(QV[ecken] - np.array(c), axis=1)
+        g = 1.0 / np.maximum(d, 1e-4); wh = (g[:, None] * WQ[ecken]).sum(0) / g.sum()
+        w = np.zeros(len(Q_KN)); np.add.at(w, _zu, wh)
+        k_ = _st(VK2[i, 2], _za - UMHANG_ACHSEL[0], _za - UMHANG_ACHSEL[1])
+        for j in _isch: w[iS3] += w[j] * (1.0 - k_); w[j] *= k_
+        WKq[i] = w / max(w.sum(), 1e-6)
+    # beide Lagen gleich (wie SCHALE GEWICHTE): Mittel binnen SCHALE_R
+    _kd = KDTree(len(_cl))
+    for i in _cl: _kd.insert(Vector(VK2[i]), int(i))
+    _kd.balance(); _W = WKq.copy()
+    for i in _cl: _W[i] = WKq[[k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R)]].mean(0)
+    WKq = _W / _W.sum(1, keepdims=True)
+    print('UMHANG AM RUECKEN Gewichte', len(_cl), 'Ecken (Umhang, Spange) wie der Rumpf darunter, ohne Arm und Bein')
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
