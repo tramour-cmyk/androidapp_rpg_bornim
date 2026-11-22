@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Probelauf-Haken (621 A, Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef; ersetzt die Rundenzahl 389).
+"""Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf; den nächsten gibt der Prüfer frei). Ersetzt seit dem
+Umschalten 621 A (je Aussehen-Thema eine Probe vor dem Chef), 654.2 (Messfrage) und `PROBEBILD=` (783 W1); Ersatz je Prüfung 1937.
 
-PreToolUse-Haken für Bash, alle Rollen. Je Vorlage höchstens ein Probelauf, dann vorlegen: beim zweiten Lauf für denselben
-Vorgang hält der Haken den Befehl an (Exit 2), ohne Ausweg. Seit 407 (Chef 29.10., 10:05: „nach 2 ist maximal Schluss …
-Ich habe noch nichts geguckt und freigegeben. Also, warten, bis ich gucke.“) gibt erst das Urteil des Chefs (nach „nein“: seine Wahl aus der Rückfrage mit Wegen und Kosten, 621 A) einen neuen Lauf frei,
-nicht schon die Vorlage: Urteil = Eintrag im Vorgangsarchiv (`origin/main`), dessen fette Kopfzeile die Nummer nennt, mit Datum
-nach dem letzten gezählten Lauf; gilt für jeden Zweig `claude/tom-…` und `claude/jerry-…`.
+PreToolUse-Haken (über `laufbremse-haken.py`), alle Profile. Je Vorgang ein Lauf, dann mit Beleg an den Prüfer: beim zweiten Lauf
+hält der Haken den Befehl an (Exit 2). Frei gibt die Rückmeldung des Prüfers („ja“, „nein“, „Beleg fehlt“ in
+`docs/vorgang/<Nr>.md` auf `main`) oder ein Urteil des Chefs im Vorgangsarchiv (407), dessen fette Kopfzeile die Nummer nennt.
 
 Probelauf heißt:
 - ein Bildlauf am Rechner: Godot mit Fenster (xvfb-run oder `godot --path` ohne `--import`) oder ein Laufskript aus
@@ -24,9 +23,8 @@ Neustart) und hilfsweise in ~/.bornim-probelaeufe.tsv. Bei eigenem Fehler (kein 
 
 Auch von Hand: `python3 tools/probelauf.py --stand <Nr>` zeigt die Zählung.
 
-783 W1 (Chef 09.11., 20:12, ersetzt 511, 511a, 578): Bewegung geht gleich als Film, ohne Probebild und ohne Freigabe.
-Vorher macht der Ersteller für sich ein Einzelbild am Rechner (`PROBEBILD=<Nr> <Befehl ohne Film>`, zählt nicht als Probelauf)
-und sieht selbst nach, ob Inhalt da ist; kein Helfer. Die Zahl der Läufe begrenzt weiter 621 A (früher 389).
+783 W1 (Chef 09.11., 20:12): Bewegung geht gleich als Film. `PROBEBILD=` fiel mit dem Umschalten (1937); eigene Läufe ohne
+Bild und Film mit `MESS=<Nr>` (1129 A 3b), frei.
 - Filmlauf: Bildlauf am Rechner mit `--write-movie`, `FILM=`/`WALKFILM=`/`IDLEFILM=`/`FOEFILM=`/`FILMBATCH=`, `tools/t film`
   `.mp4`, `ffmpeg` oder einem Laufskript, dessen Name „film“ enthält oder das so filmt; jeder von Hand gestartete Ablauf mit
   Bild; jeder Push, der einen Ablauf mit `--write-movie` auslöst. Gezählt als „-film“ wie jeder Probelauf.
@@ -44,7 +42,7 @@ import subprocess
 import sys
 import zoneinfo
 
-GRENZE = 1  # 621 A (Chef 07.11., 16:4x), vorher 2 (389)
+GRENZE = 1  # Laufbremse 1766 (vorher 621 A, 389)
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 LOKAL = os.environ.get("BORNIM_PROBELAEUFE") or os.path.expanduser("~/.bornim-probelaeufe.tsv")
@@ -515,7 +513,6 @@ def vorgang_aus_ref(ref, ablauf):
         sha = git("rev-parse", "FETCH_HEAD").stdout.strip()
         STAND_REF.update(wo=REPO, rev=sha)
         nachricht = git("log", "-1", "--format=%B", "FETCH_HEAD").stdout
-        HAND["nachricht"] = nachricht  # 654.2: Zeile „Messfrage:“
         if ablauf and not ablauf.isdigit():
             datei = ablauf if "/" in ablauf else ".github/workflows/" + ablauf
             name = (re.search(r"^name:\s*(.+)$", git("show", f"FETCH_HEAD:{datei}").stdout, re.M) or [None, ""])[1]
@@ -595,29 +592,6 @@ def ohne_film(eingaben):
     return any(str(eingaben.get(k, "")).strip().lower() == "nein" for k in ("bild", "film"))
 
 
-HAND = {"bild_nein": False, "nachricht": ""}  # 654.2: Handlauf auf dem Bauserver ohne Bild, Nachricht oben auf dem Zweig
-MESSFRAGE = re.compile(r"(?m)^\s*Messfrage:\s*\S")
-
-
-def bild_nein(eingaben):
-    """654.2: Messlauf ohne Bild heißt Eingabe bild=nein (film=nein allein filmt nicht, zeigt aber Bilder)."""
-    HAND["bild_nein"] = str(eingaben.get("bild", "")).strip().lower() == "nein"
-
-
-def messfrage_heute(nr, datei=DATEI, lokal=LOKAL):
-    """654.2: schon ein freier Messlauf („hand-messfrage“) zu nr heute (Berliner Datum)?"""
-    _, laeufe = zweig_lesen(datei)
-    eigen = open(lokal, encoding="utf-8").read() if os.path.exists(lokal) else ""
-    tag = jetzt()[:10]
-    return any(z[1] == nr and z[3] == "hand-messfrage" and z[0].startswith(tag) for z in zeilen(laeufe) + zeilen(eigen))
-
-
-def messlauf_frei(nr, art, film):
-    """654.2 (Vorentscheid Sokrates 16.11., billigen/6542): der erste Handlauf ohne Bild (bild=nein) je Vorgang und Tag braucht
-    keine Freigabe, wenn der oberste Commit eine Zeile „Messfrage: …“ trägt; er wird gezählt, der zweite am Tag braucht sie."""
-    return art == "hand" and not film and HAND["bild_nein"] and bool(MESSFRAGE.search(HAND["nachricht"])) and not messfrage_heute(nr)
-
-
 SAMMELBUILD = re.compile(r"(?:refs/heads/)?claude/build-\d+")  # 646: Sammelbuild für den Gerätetest des Chefs ist keine Probe
 
 
@@ -638,7 +612,6 @@ def handlauf_mcp(d):
         return RERUN
     if methode != "run_workflow" or sammelbuild_frei(e.get("ref"), e.get("inputs") or {}):
         return None
-    bild_nein(e.get("inputs") or {})
     return vorgang_aus_ref(e.get("ref"), str(e.get("workflow_id") or "")), "hand", not ohne_film(e.get("inputs") or {})
 
 
@@ -655,7 +628,6 @@ def handlauf_bash(befehl):
         ref = ref.group(1).strip("\"'") if ref else ""
         if sammelbuild_frei(ref, eing):
             return None
-        bild_nein(eing)
         return vorgang_aus_ref(ref, ablauf), "hand", not ohne_film(eing)
     m = API_LAUF.search(befehl)
     if m:
@@ -669,7 +641,6 @@ def handlauf_bash(befehl):
         alle.update(re.findall(r"(?:-f|-F|--field|--raw-field)[=\s]+[\"']?inputs\[(\w+)\]=([^\s\"']*)", befehl))
         if sammelbuild_frei(ref, alle):
             return None
-        bild_nein(eing)
         return vorgang_aus_ref(ref, m.group(1)), "hand", not ohne_film(eing)
     return None
 
@@ -757,7 +728,7 @@ def stand_abweichung(wo):
              if not z.startswith("??") and "/.godot/" not in z and not z.endswith(".uid")]
     if offen:
         return ("1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: " + ", ".join(offen[:5]) +
-                ". Erst committen und pushen; eigene Versuche mit `PROBEBILD=` oder `MESS=`.")
+                ". Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.")
     zweig = git("rev-parse", "--abbrev-ref", "HEAD", cwd=wurzel).stdout.strip()
     if zweig and zweig != "HEAD":
         git("fetch", "-q", "origin", zweig, cwd=wurzel, timeout=20)
@@ -917,17 +888,12 @@ def main():
     film = False
     try:
         if bildlauf(befehl, cwd, roh) and not PROBE.search(befehl) and (pb := PROBEBILD.search(befehl)):
-            if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
-                anhalten(fs)
-            if filmlauf_rechner(befehl, cwd):  # 783 W1: Probebild ist ein Einzelbild, kein Film
-                anhalten(f"783 W1: `PROBEBILD={pb.group(1)}` gilt nur für ein Einzelbild; dieser Befehl filmt. Für den Film "
-                         f"`PROBE={pb.group(1)}`.")
-            return hinweis_geben(f"783 W1: Einzelbild zu {pb.group(1)}, zählt nicht als Probelauf. Selbst ansehen, ob Inhalt da "
-                                 "ist (kein Weißbild, richtiger Ort), dann gleich Film; nicht an den Chef, kein Helfer.")
+            anhalten(f"`PROBEBILD=` fiel mit dem Umschalten (1937, 783 W1, Sokrates 22.11., 12:48). Bild oder Film mit "
+                     f"`PROBE={pb.group(1)}` (Laufbremse 1766); `MESS=` nur ohne Bild und Film (1129 A 3b).")
         if bildlauf(befehl, cwd, roh) and not PROBE.search(befehl) and (ms := MESS.search(befehl)):
             if filmlauf_rechner(befehl, cwd) or BILDBEFEHL.search(befehl) or bild_im_test(befehl, cwd, roh):
                 anhalten("1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. "
-                         "Für ein Bild oder einen Film an den Chef `PROBE=<Nr>`; die Grenze 621 A gilt nur dafür.")
+                         "Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.")
             if (fs := figur_sperre(arbeitskopie(befehl, cwd), "HEAD")):
                 anhalten(fs)
             zaehlen(ms.group(1), wer, "mess")
@@ -936,7 +902,7 @@ def main():
         if bildlauf(befehl, cwd, roh):
             m = PROBE.search(befehl)
             if not m:
-                anhalten("621 A (Chef 07.11., höchstens eine Probe je Aussehen-Thema): Bildlauf erkannt. "
+                anhalten("Laufbremse (1766): Bildlauf erkannt. "
                          "Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).")
             try:
                 abw = stand_abweichung(arbeitskopie(befehl, cwd))   # 1702: vor dem Zählen, ein angehaltener Lauf zählt nicht
@@ -966,36 +932,17 @@ def pruefen_und_zaehlen(nr, art, wer, film=False, befehl=""):
         sperre = figur_sperre(STAND_REF.get("wo"), STAND_REF.get("rev"))
     except (OSError, subprocess.SubprocessError, ValueError):
         return hinweis_geben()
-    try:
-        frei = messlauf_frei(nr, art, film)
-    except (OSError, subprocess.SubprocessError, ValueError, IndexError):
-        frei = False
-    if frei:
-        if sperre:
-            anhalten(sperre)
-        zaehlen(nr, wer, "hand-messfrage")
-        return hinweis_geben(f"654.2: erster Messlauf ohne Bild zu {nr} heute, frei wegen „Messfrage:“; gezählt. Der nächste "
-                             "Lauf heute braucht wieder „<Nr>, Läufe frei“ von Sokrates.")
-    if n >= GRENZE and os.path.exists(SCHARF):
+    if n >= GRENZE:  # 1937: 621 A fiel mit dem Umschalten, die Laufbremse (1766) ersetzt sie
         anhalten(f"Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf): für {nr} schon {n} Lauf seit "
                  f"{'der Freigabe ' + vorlage if vorlage else 'Beginn der Zählung'}. Den nächsten gibt der Prüfer frei: seine Rückmeldung "
                  f"(„ja“, „nein“, „Beleg fehlt“) mit `vorgang.py rueckmeldung {nr} …` in docs/vorgang/{nr}.md auf main. Jetzt mit Beleg "
                  "an den Prüfer melden, bis dahin an einem anderen Auftrag weiter.")
-    if n >= GRENZE:
-        anhalten(f"621 A (Chef 07.11., 16:4x: je Aussehen-Thema höchstens eine Probe vor dem Chef): für {nr} "
-                 f"schon {n} Probelauf seit {'deinem Urteil ' + vorlage if vorlage else 'Beginn der Zählung'}. Kein weiterer Lauf: "
-                 f"jetzt vorlegen, was da ist, auch ein Messlauf (646; Datei in docs/chefsache/ansehen/, Sitz und Aussehen `meldung.sh --bild`, Bewegung `--film`, mit „{nr}:“ und offenen Punkten als Vermerk), "
-                 "Befund der Fehlerprüfung danach als Text (396). Passt die Probe nicht: Rückfrage mit Wegen und Kosten in docs/chefsache/entscheiden/, keine neue Runde (621 A). Erst das Urteil des Chefs (Eintrag im Vorgangsarchiv) gibt einen neuen "
-                 "Lauf frei (407), oder Sokrates mit einem Archiveintrag „<Nr>, Läufe frei“ (480.1; Bitte an ihn per Vorrat, nie "
-                 "Chefsache); bis dahin an einem anderen Vorgang weiter. Ausnahme 654.2: der erste Handlauf ohne Bild (bild=nein) je Vorgang "
-                 "und Tag ist frei, wenn der oberste Commit eine Zeile „Messfrage: <was der Lauf klären soll>“ trägt.")
     if sperre:
         anhalten(sperre)
     zaehlen(nr, wer, art + ("-film" if film else ""))
-    hinweis_geben(f"621 A: Probelauf {n + 1} von {GRENZE} für {nr}" + (
-        "; danach geht das Ergebnis an den Chef, auch mit offenen Punkten (Vermerk: Punkt, warum offen; 646): Sitz und "
-        "Aussehen als Bild, Bewegung als Film. Nachstellen am Rechner nur zur Ursache eines Fehlers, den der Chef gemeldet hat."
-        if n + 1 == GRENZE else "."))
+    hinweis_geben(f"Laufbremse (1766): Lauf {n + 1} von {GRENZE} für {nr}" + (
+        "; danach mit Beleg an den Prüfer melden, seine Rückmeldung gibt den nächsten frei. Sitz und Aussehen als Bild, "
+        "Bewegung als Film (646)." if n + 1 == GRENZE else "."))
 
 
 BEREICH = {"text": ""}  # 822: Liste je Bereich, einmal je Sitzung (tools/bereichslisten.py)
