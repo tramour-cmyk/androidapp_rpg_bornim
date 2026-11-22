@@ -63,6 +63,14 @@ _a = lauf.auftrag_zeilen(_st, 9)
 soll("lauf: Auftrag-Zeilen Eilt, Muss vor Kür, Zeilenfolge, ohne M?", [x[3]["auftrag_fuer"] for x in _a] == ["513", "1484", "458.3", "45"], [x[3] for x in _a])
 soll("lauf: Auftrag-Zeile nennt Profil und Grund", _a[1][0] == "Auftrag" and "(Technik, kein Auftrag)" in _a[1][2] and "(Kataloge, Auftrag:" in _a[0][2], _a[:2])
 soll("lauf: höchstens AUFTRAG_PLANER zugleich", len(lauf.auftrag_zeilen(_st)) == lauf.AUFTRAG_PLANER == 1)
+# 1897 (D338.3): Auftrag nach Klasse eingereiht, nie Auftrag zu Kür vor eigenes Muss des Planers
+_pl = ([("M?", "M", "M?", {}), ("1484", "M", "eigenes Muss", {"nr": "1484"})], [("45", "K", "eigene Kür", {"nr": "45"})], None, [])
+lauf.auftrag_einreihen(_pl, [("Auftrag", "K", "Auftrag 458.3", {"auftrag_fuer": "458.3"}), ("Auftrag", "M", "Auftrag 513", {"auftrag_fuer": "513"})])
+soll("Planer: Auftrag zu Kür hinter eigenes Muss, Eilt-Auftrag vor eigenes Muss, M? zuerst",
+     [x[0] for x in _pl[0]] == ["M?", "Auftrag", "1484"] and _pl[0][1][3]["auftrag_fuer"] == "513"
+     and [x[3].get("auftrag_fuer", x[0]) for x in _pl[1]] == ["458.3", "45"], (_pl[0], _pl[1]))
+_k = [x for x in lauf.auftrag_zeilen(_st, 9)]
+soll("Auftrag-Zeile trägt die Klasse ihrer Zeile", [x[1] for x in _k] == ["M", "M", "K", "K"], [x[1] for x in _k])
 lauf.DOCS = _docs
 # 1893 Teil 3: übrige Werkzeuge an der neuen Liste
 import startwarnung, rotbuch, chefwort
@@ -91,6 +99,36 @@ except TypeError as e: _l, _ok = str(e), False
 soll("liegt: JETZT mit Zeitzone (lauf.py) bricht nicht ab", _ok, _l)
 startbar._LISTE = None
 soll("chefwort: Profil-Kopf ist keine Chefnachricht", chefwort.vom_chef("**Technik** [22.11., 09:00] Stand") is False)
+# 1895 (D338.1): weiter-haken.py schickt wie lauf.py nur auf Zeilen mit gültigem Auftrag, die Planer-Sitzung „Auftrag“ nie weiter
+_stand, _fehlt, _scharf, _nl = lauf.stand, lauf.auftrag_fehlt, lauf.ist_scharf, lauf.neue_liste
+lauf.neue_liste = lambda: True; lauf.ist_scharf = lambda: True
+lauf.auftrag_fehlt = lambda nr, docs=None, titel=None: None if nr in ("458.3",) else "kein Auftrag"
+lauf.stand = lambda: {"Kataloge": ([("513", "M", "x", {})], [("458.3", "K", "y", {})], None, []),
+                      "Arbeitsplaner": ([("Auftrag", "M", "Auftrag schreiben für 513", {})], [("45", "K", "z", {})], None, []),
+                      "Technik": ([("1484", "M", "w", {})], [], "23.11.", [])}
+soll("haken: oberste Zeile mit gültigem Auftrag (513 ohne → 458.3)", lauf.haken_naechste("Kataloge") == "458.3", lauf.haken_naechste("Kataloge"))
+soll("haken: nie Zeile „Auftrag“, ohne Auftrag nichts", lauf.haken_naechste("Arbeitsplaner") is None, lauf.haken_naechste("Arbeitsplaner"))
+soll("haken: Pause hält an", lauf.haken_naechste("Technik") is None)
+lauf.ist_scharf = lambda: False
+soll("haken: ohne Schalter wie bisher (513)", lauf.haken_naechste("Kataloge") == "513")
+lauf.stand, lauf.auftrag_fehlt, lauf.ist_scharf, lauf.neue_liste = _stand, _fehlt, _scharf, _nl
+import importlib.util
+_sp = importlib.util.spec_from_file_location("weiter_haken", os.path.join(os.path.dirname(os.path.abspath(__file__)), "weiter-haken.py"))
+_wh = importlib.util.module_from_spec(_sp); _in = sys.stdin; sys.stdin = io.StringIO("")
+try: _sp.loader.exec_module(_wh)
+finally: sys.stdin = _in
+_msg = "Ladetext Arbeitsplaner\n" + "x" * 400 + "\n\nAuftrag: Arbeitsplaner\n\nAuftrag schreiben für 513 (Kataloge, kein Auftrag): Figurenstand (`vorgang.py auftrag 513`)"
+soll("haken: Planer-Sitzung „Auftrag“ erkannt, auch hinter langem Ladetext", bool(_wh.AUFTRAG_SITZUNG.search(_msg))
+     and not _wh.AUFTRAG_SITZUNG.search("Arbeitsplaner\n\nM? entscheiden: 1 (Technik)"))
+# 1896 (D338.2): Planer-Start „Auftrag“ zählt unter der Nummer des Auftrags (Startsperre, Nachtdeckel 1643)
+import nachtstarts
+_ang = nachtstarts.angehalten; nachtstarts.angehalten = lambda r, n: (r, n) == ("Arbeitsplaner", "513")
+_z = lauf.sperr_nummer("Auftrag", {"auftrag_fuer": "513"}); _aus, _mo = [], []
+soll("Nachtdeckel: Auftrag zählt unter 513", _z == "513" and lauf.nacht_halt("Arbeitsplaner", _z, _aus, _mo) and "513" in _aus[0], (_z, _aus))
+soll("Nachtdeckel: andere Zeilen unverändert", lauf.sperr_nummer("1484", {}) == "1484" and lauf.sperr_nummer("M?", {}) == "M?")
+nachtstarts.angehalten = _ang
+_src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
+soll("Startschleife nutzt sperr_nummer für Deckel und Sperre", "nacht_halt(r, zaehl_nr, ausgabe, morgen)" in _src and "sperr_nr[r] = zaehl_nr" in _src)
 startbar.NEU = None
 
 alt_z = "| 1484 | Welt | Spike | M | startbar | 1270.6 | – | – | E Technik | 3,10 $ |"

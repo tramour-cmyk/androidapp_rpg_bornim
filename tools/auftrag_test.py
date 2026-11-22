@@ -93,7 +93,15 @@ soll("lauf: jüngster Auftrag nach Zeit, nicht nach Ort", ab and "Zweiter Auftra
 alt_unten = "# 1\n\n## Auftrag (20.11., 10:00)\n\nalt\n\n## Rückmeldung\n\nx\n\n## Auftrag (21.11., 10:00)\n\nneu\n"
 ab = _lauf.juengster_auftrag(alt_unten, _dt.datetime(2026, 11, 22))
 soll("lauf: alte Datei mit Auftrag unten", ab and alt_unten[ab[0]:ab[1]].strip() == "neu", ab)
+_vor = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read()  # 1899: scheitert der Push, bleibt die Liste auch lokal unverändert
+ENV["BORNIM_OHNE_PUSH"] = "1"; c, t = lauf("auftrag", "8001", "--datei", "-", eingabe=GUT); ENV.pop("BORNIM_OHNE_PUSH")
+soll("Rückläufer: Push scheitert, Liste und Archiv unverändert", c != 0 and open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read() == _vor
+     and "| 8001 |" in open(os.path.join(A, "docs", "LISTE-VORGAENGE-ARCHIV.md")).read() and not g("status", "--porcelain", "docs", cwd=A).strip(), (t, g("status", "--porcelain", cwd=A)))
 c, t = lauf("auftrag", "8001", "--datei", "-", eingabe=GUT)
+g("fetch", "-q", "origin", cwd=A)
+_ol = g("show", "origin/main:docs/LISTE-VORGAENGE.md", cwd=A); _oa = g("show", "origin/main:docs/LISTE-VORGAENGE-ARCHIV.md", cwd=A)
+soll("Rückläufer: Liste und Archiv auf origin/main, ein Commit mit dem Auftrag", "| 8001 | Alte Laterne | Tom | M | startbar |" in _ol and "| 8001 |" not in _oa
+     and set(g("show", "--name-only", "--format=", "origin/main", cwd=A).split()) == {"docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md", "docs/vorgang/8001.md"}, t)
 liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read(); arch = open(os.path.join(A, "docs", "LISTE-VORGAENGE-ARCHIV.md")).read()
 soll("archivierte Nummer: wieder offen, Auftrag eingetragen", c == 0 and "| 8001 | Alte Laterne | Tom | M | startbar |" in liste and "| 8001 |" not in arch
      and "## Auftrag (21.11., 21:10)" in datei("8001"), (t, liste[-300:]))

@@ -478,10 +478,18 @@ def leer_text(nr, besitzer, leer):
 ARCHIV = "LISTE-VORGAENGE-ARCHIV.md"
 
 def wieder_offen(nr):
-    """1798 (Kern Arbeitsplaner, Rückläufer zu archivierter Nummer): Zeile aus dem Archiv zurück in die Liste, Stand „startbar“
-    (Kl. wie archiviert, „–“ → K); alte Liste: Besitzer aus Spalte Vorrat (keine Rolle → Perikles), neue: Fachprofil des Blocks.
-    Titel oder None, wenn die Nummer nicht im Archiv steht. Liste und Archiv committet der Aufrufer."""
-    A = startbar.lesen(ARCHIV).split("\n")
+    """1798 (Kern Arbeitsplaner, Rückläufer zu archivierter Nummer): Titel der archivierten Nummer, sonst None. Nur lesen: Liste und
+    Archiv ändert auftrag.eintragen mit wieder_texte im selben Commit wie den Auftrag, gepusht (1899)."""
+    for z in startbar.lesen(ARCHIV).split("\n"):
+        f = [x.strip() for x in z.split("|")]
+        if z.startswith("| ") and len(f) > 8 and f[1] == nr: return f[2]
+    return None
+
+def wieder_texte(nr, liste, archiv):
+    """1798, 1899 (D339.1): Zeile nr aus dem Archivtext zurück in den Listentext, Stand „startbar“ (Kl. wie archiviert, „–“ → K); alte Liste:
+    Besitzer aus Spalte Vorrat (keine Rolle → Perikles), neue: Fachprofil des Blocks. (Liste, Archiv, Besitzer) oder None, wenn die Nummer
+    nicht im Archiv steht."""
+    A = archiv.split("\n")
     for i, z in enumerate(A):
         f = [x.strip() for x in z.split("|")]
         if not (z.startswith("| ") and len(f) > 8 and f[1] == nr): continue
@@ -490,17 +498,15 @@ def wieder_offen(nr):
         if besitzer not in ROLLEN: besitzer = "Perikles"
         d = dict(nr=nr, titel=titel, besitzer=besitzer, kl=kl if kl in ("M", "K", "M?") else "K", stand="startbar", warte=[], zweig="–",
                  build="–", bereich=bereich, kosten=(kosten.split(";")[0].strip() or "–"), wort="startbar", zusatz="")
+        startbar.vorgangsliste(liste)  # NEU folgt der gelesenen Liste
         if startbar.NEU:
             d["block"] = startbar.block_von(nr, bereich); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
             d["runde"] = "0"; d["sitzung"] = "–"
-        L = text_liste().split("\n")
+        L = liste.split("\n")
         _, ende = gruppe(L, d["besitzer"])
         L.insert(ende, startbar.zeile_text(d))
-        schreiben(startbar.LISTE, "\n".join(L))
-        del A[i]; schreiben(ARCHIV, "\n".join(A))
-        startbar.neu_laden()
-        print("vorgang.py: %s aus dem Archiv wieder offen (startbar, %s); Liste und Archiv committen und pushen" % (nr, d["besitzer"]))
-        return titel
+        del A[i]
+        return "\n".join(L), "\n".join(A), d["besitzer"]
     return None
 
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):

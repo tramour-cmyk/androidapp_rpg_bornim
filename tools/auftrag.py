@@ -76,13 +76,28 @@ def pruefen(text):
     if len(punkte) > 5: f.append("Feld 4 „Beachte“ hat %d Punkte, höchstens fünf" % len(punkte))
     return f
 
-def eintragen(nr, text, treffer=None):
-    """treffer: Zeile „Lehren-Treffer (Zeit): …“ (1739 Lehrenbuch), steht im selben Commit unter dem Auftrag."""
+def eintragen(nr, text, treffer=None, wieder=False):
+    """treffer: Zeile „Lehren-Treffer (Zeit): …“ (1739 Lehrenbuch), steht im selben Commit unter dem Auftrag.
+    wieder (1798, 1899): Rückläufer zu archivierter Nummer; Zeile aus dem Archiv zurück in die Liste im selben Commit, gepusht
+    (vorher nur lokal: auf origin/main blieb der Rückläufer im Archiv, scheiterte der Auftrag, blieb die Liste lokal geändert)."""
     zeit = ue.fmt(ue.jetzt())
     abschnitt = "## Auftrag (%s)\n\n%s\n%s\n" % (zeit, text.strip(), ("\n" + treffer + "\n") if treffer else "")
+    pv = ue._pfad(nr)
+    if not wieder:
+        return ue.atomar(nr, lambda alt: (oben(alt, nr, abschnitt), zeit), "%s: Auftrag (%s, vorgang.py auftrag)" % (nr, zeit))
+    import startbar, vorgang
+    pl, pa = "docs/" + startbar.LISTE, "docs/" + vorgang.ARCHIV
     def aendern(alt):
-        return oben(alt, nr, abschnitt), zeit
-    return ue.atomar(nr, aendern, "%s: Auftrag (%s, vorgang.py auftrag)" % (nr, zeit))
+        neu = {pv: oben(alt[pv], nr, abschnitt)}
+        if any(d["nr"] == nr for d in startbar.vorgangsliste(alt[pl])): return neu, zeit  # schon wieder offen (anderer Schreiber)
+        w = vorgang.wieder_texte(nr, alt[pl], alt[pa])
+        if not w: raise ue.Fehler("%s auf origin/main weder in der Liste noch im Archiv" % nr)
+        neu[pl], neu[pa] = w[0], w[1]
+        print("vorgang.py: %s aus dem Archiv wieder offen (startbar, %s; gepusht)" % (nr, w[2]))
+        return neu, zeit
+    z = ue.atomar_dateien([pv, pl, pa], aendern, "%s: Auftrag (%s, vorgang.py auftrag), aus dem Archiv wieder offen (1798, 1899)" % (nr, zeit))
+    startbar.neu_laden()
+    return z
 
 def oben(alt, nr, abschnitt):
     """1798 (Kern Arbeitsplaner: „oben in die Vorgangsdatei“): Abschnitt nach Kopfzeile und Vorspann, vor dem ersten „## “."""
@@ -123,7 +138,8 @@ def haupt(a, fertig=None, wieder=None):
             if f:
                 print("vorgang.py auftrag %s hält an:\n- " % nr + "\n- ".join(f)); sys.exit(1)
             if nur: print("vorgang.py auftrag %s: gültig (%d Byte)" % (nr, len(text.encode("utf-8")))); return
-            if titel is None and wieder: titel = wieder(nr)  # 1798: Rückläufer zu archivierter Nummer, Vorgang wird wieder offen
+            zurueck = titel is None and wieder is not None
+            if zurueck: titel = wieder(nr)  # 1798: Rückläufer zu archivierter Nummer, Vorgang wird wieder offen (Liste und Archiv in eintragen, 1899)
         if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv" % nr)
         import lehren
         liste, treffer = lehren.treffer_zeile(nr, titel)
@@ -132,7 +148,7 @@ def haupt(a, fertig=None, wieder=None):
             print("\nLehren des Bereichs (Lehrenbuch, 1739; passende in „Beachte“ und „Umsetzen“, höchstens fünf, weitere als Nummer):")
             print("\n".join("- " + lehren.zeigen(x) for x in liste) if liste else "- keine")
             return
-        try: zeit = eintragen(nr, text, treffer)
+        try: zeit = eintragen(nr, text, treffer, wieder=zurueck and titel is not None)
         except ue.Fehler as e: sys.exit("vorgang.py auftrag: %s; nichts geschrieben" % e)
         print("vorgang.py: Auftrag %s eingetragen (%s, %s, gepusht)" % (nr, ue._pfad(nr), zeit)); return
     if b == "schliessen":

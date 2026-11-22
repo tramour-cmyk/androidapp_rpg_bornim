@@ -93,41 +93,53 @@ def _systemzeilen():
 def atomar(nr, aendern, nachricht, pfad=None):
     """aendern(alter_text) → (neuer_text, ergebnis); alter_text "" wenn die Datei fehlt. Schreibt nur docs/vorgang/NR.md auf origin/main
     (1739: oder PFAD, etwa das Lehrenbuch; Sperre wie beim Zähler: Push nur auf den gelesenen Stand, sonst neu lesen)."""
+    pfad = pfad or _pfad(nr)
+    def f(alt):
+        n, e = aendern(alt[pfad]); return {pfad: n}, e
+    return atomar_dateien([pfad], f, nachricht)
+
+def atomar_dateien(pfade, aendern, nachricht):
+    """1899 (D339.1): wie atomar, mehrere Dateien in einem Commit auf origin/main. aendern({pfad: alter_text}) → ({pfad: neuer_text}, ergebnis);
+    fehlende Pfade im Ergebnis bleiben unverändert. Gelingt der Push nicht, ist nichts geschrieben (auch lokal nicht)."""
     if os.environ.get("BORNIM_OHNE_PUSH"): raise Fehler("BORNIM_OHNE_PUSH gesetzt: Übergaben gehen nur über origin/main")
     if _git("rev-parse", "--abbrev-ref", "HEAD")[1] != "main": raise Fehler("nicht auf main (Übergaben nur in der Notizkopie, ../bornim-main)")
-    pfad = pfad or _pfad(nr)
     for versuch in range(VERSUCHE):
         if versuch: time.sleep(random.uniform(0.1, 0.4) * versuch)
         rc, _, err = _git("fetch", "-q", "origin", "main")
         if rc and "cannot lock ref" in err: continue  # zweiter Aufruf in derselben Kopie holt gerade
         if rc: raise Fehler("origin/main nicht erreichbar: " + err.strip()[:200])
         _, basis, _ = _git("rev-parse", "origin/main")
-        rc, alt, _ = _git("show", "origin/main:" + pfad)
-        alt = alt + "\n" if rc == 0 and alt else ""
-        neu, ergebnis = aendern(alt)
-        if neu == alt: return ergebnis
-        _, blob, _ = _git("hash-object", "-w", "--stdin", eingabe=neu)
+        alt = {}
+        for p in pfade:
+            rc, t, _ = _git("show", "origin/main:" + p)
+            alt[p] = t + "\n" if rc == 0 and t else ""
+        neu, ergebnis = aendern(dict(alt))
+        neu = {p: t for p, t in neu.items() if t != alt.get(p, "")}
+        if not neu: return ergebnis
         with tempfile.TemporaryDirectory() as t:
             env = dict(os.environ, GIT_INDEX_FILE=os.path.join(t, "index"))
             _git("read-tree", basis, env=env)
-            _git("update-index", "--add", "--cacheinfo", "100644,%s,%s" % (blob, pfad), env=env)
+            for p, inhalt in neu.items():
+                _, blob, _ = _git("hash-object", "-w", "--stdin", eingabe=inhalt)
+                _git("update-index", "--add", "--cacheinfo", "100644,%s,%s" % (blob, p), env=env)
             _, baum, _ = _git("write-tree", env=env)
         anhang = _systemzeilen()
         rc, c, _ = _git("commit-tree", baum, "-p", basis, "-m", nachricht + ("\n\n" + anhang if anhang else ""))
         if rc or not c: raise Fehler("commit-tree fehlgeschlagen")
         rc, _, err = _git("push", "-q", "origin", "%s:refs/heads/main" % c)
         if rc == 0:
-            _nachziehen(c, pfad, neu)
+            _nachziehen(c, neu)
             return ergebnis
         if not re.search(r"rejected|fetch first|non-fast-forward|stale info|cannot lock ref", err): raise Fehler("Push abgelehnt: " + err.strip()[:200])
     raise Fehler("nach %d Versuchen nicht gepusht (zu viele gleichzeitige Schreiber)" % VERSUCHE)
 
-def _nachziehen(c, pfad, neu):
-    """Lokale Kopie auf den neuen Stand: schnell vorspulen, wenn möglich; sonst nur die Datei, damit die Sitzung sie gleich liest."""
+def _nachziehen(c, dateien):
+    """Lokale Kopie auf den neuen Stand: schnell vorspulen, wenn möglich; sonst nur die Dateien ({pfad: text}), damit die Sitzung sie gleich liest."""
     _git("fetch", "-q", "origin", "main")
     if _git("merge", "--ff-only", "-q", "origin/main")[0] == 0: return
-    if _git("status", "--porcelain", "--", pfad)[1] == "" and _git("ls-files", "--error-unmatch", pfad)[0] == 0:
-        open(os.path.join(WURZEL, pfad), "w", encoding="utf-8").write(neu)
+    for pfad, neu in dateien.items():
+        if _git("status", "--porcelain", "--", pfad)[1] == "" and _git("ls-files", "--error-unmatch", pfad)[0] == 0:
+            open(os.path.join(WURZEL, pfad), "w", encoding="utf-8").write(neu)
 
 def _titel(nr):
     try:

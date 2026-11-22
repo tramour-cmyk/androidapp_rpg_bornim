@@ -45,6 +45,7 @@ def letzter_text(pfad):
 ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|ford|disponent)\b", re.IGNORECASE)  # 1893: Disponent = Fords Sitzung an der neuen Liste
 # 195 (Chef 19.10.): „Solange Arbeit da ist, arbeiten.“ Auch Perikles, Homer, Diogenes, Tom, Jerry: ist laut startbar.py eine Zeile startbar, hält der Haken einmal an
 ROLLE_STARTBAR = re.compile(r"\b(perikles|homer|diogenes|tom|jerry|spike|tuffy)\b", re.IGNORECASE)
+AUFTRAG_SITZUNG = re.compile(r"(?m)^Auftrag schreiben für \S+ \(")  # 1895: Startnachricht lauf.py nr == "Auftrag" (hinter dem Ladetext, darum ganz gelesen)
 TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigener Vorrat; 394: Zusatzentwickler arbeiten aus dem Vorrat ihres Teams
 
 
@@ -66,6 +67,12 @@ def startbar_nr(rolle, erste=""):
         kopf = (erste or "").strip().split("\n", 1)[0].strip().strip("*").strip()
         rolle = kopf if kopf in namen else None
         if not rolle: return None
+    if os.path.isfile(os.path.join(wurzel, "tools", "1727-SCHARF")):  # 1895 (D338.1): wie lauf.py, nur Zeilen mit gültigem Auftrag
+        try:
+            return subprocess.run([sys.executable, os.path.join(wurzel, "tools", "lauf.py"), "--haken", rolle], cwd=wurzel,
+                                  capture_output=True, text=True, timeout=30).stdout.strip() or None
+        except Exception:
+            return None
     for z in o.splitlines():
         if z.startswith("  " + rolle + ":"):
             if "PAUSE" in z:
@@ -136,7 +143,7 @@ def main():
         e = json.load(sys.stdin)
         if e.get("stop_hook_active"):
             return
-        erste = erste_nachricht(e["transcript_path"])[:300]
+        voll = erste_nachricht(e["transcript_path"]); erste = voll[:300]
         if ist_ford() or ROLLE_OHNE_HAKEN.search(erste):
             return
         t = e.get("last_assistant_message") or letzter_text(e["transcript_path"])
@@ -147,6 +154,8 @@ def main():
             return
         if neustart_pflicht(e):
             print(json.dumps({"decision": "block", "reason": "Weiter-Haken (195): zweite Erinnerung des Neustart-Hakens ist da. Übergabe mit „Nachfolger: <Titel>“ pushen und Ford „Neustart <Name>, <Commit>“ per send_message schicken (LISTE-RELEASE-NEUSTART.md 1a); erst dann darfst du gehen."}))
+            return
+        if AUFTRAG_SITZUNG.search(voll):  # 1895 (D338.1): Planer-Sitzung „Auftrag“ schreibt einen Auftrag und endet (3.3 Nr. 4)
             return
         rm = ROLLE_STARTBAR.search(erste)
         nr = startbar_nr(TEAM.get(rm.group(1).capitalize(), rm.group(1).capitalize()) if rm else None, erste)

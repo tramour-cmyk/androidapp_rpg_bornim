@@ -426,8 +426,19 @@ def stand():
             + " (1538: je Vorgang weiter, vereinfachen oder streichen mit einem Satz Grund; weiter/vereinfachen = Zeile „Kosten frei:“ in ARBEIT-PROJEKT.md"
             " bis zur nächsten Schwelle; Chefauftrag streichen nur über die Chefsache)", {}))
     if NEU_LISTE and PLANER in aus and ist_scharf():
-        aus[PLANER][0][len([x for x in aus[PLANER][0] if x[0] in ("M?", "Kosten")]):0] = auftrag_zeilen(aus)
+        auftrag_einreihen(aus[PLANER], auftrag_zeilen(aus))
     return aus
+
+def auftrag_einreihen(planer, auftraege):
+    """1897 (D338.3): Zeilen „Auftrag“ nach Klasse unter die eigenen Zeilen des Planers: Auftrag zu Muss in seine Muss-Liste hinter M? und
+    Kosten, Auftrag zu Kür (und nach dem Meilenstein) in seine Kür-Liste; innerhalb der Liste Eilt zuerst, sonst Zeilenfolge der Vorgangsliste
+    (Auftrag an der Stelle seiner Zeile), „nach dem Meilenstein“ zuletzt. So geht nie ein Auftrag zu Kür vor eigenes Muss."""
+    folge = {d["nr"]: (not d.get("eilt"), i) for i, d in enumerate(startbar.zeilen_liste())}
+    def rang(x): return (x[1] == "N", folge.get((x[3].get("auftrag_fuer") if x[0] == "Auftrag" else None) or x[0], (True, 10 ** 6)))
+    muss, kuer = planer[0], planer[1]
+    k = len([x for x in muss if x[0] in ("M?", "Kosten")])
+    muss[k:] = sorted(muss[k:] + [x for x in auftraege if x[1] == "M"], key=rang)
+    kuer[:] = sorted(kuer + [x for x in auftraege if x[1] != "M"], key=rang)
 
 AUFTRAG_PLANER = 1  # 1893 (Sokrates 22.11., 08:33): Arbeitsplaner zugleich für Aufträge; vorläufig 1, Wert legt Sokrates dem Chef vor (10:00)
 
@@ -442,13 +453,31 @@ def auftrag_zeilen(st, n=None):
         for r, x in st.items():
             for z in x[teil]:
                 if z[0] in ("M?", "Kosten", "Stillstand") or not re.match(r"\d", str(z[0])): continue
-                if (g := auftrag_fehlt(z[0])): offen.append((rang, folge.get(z[0], (True, 10 ** 6)), z[0], r, z[2], g))
+                kl = "M" if teil == 0 else "N" if z[1] == "N" else "K"  # 1897: Klasse der Zeile, für die der Auftrag ist
+                if (g := auftrag_fehlt(z[0])): offen.append((2 if kl == "N" else rang, folge.get(z[0], (True, 10 ** 6)), z[0], r, z[2], g, kl))
     aus, gesehen = [], set()
-    for _, _, nr, r, titel, g in sorted(offen):
+    for _, _, nr, r, titel, g, kl in sorted(offen):
         if nr in gesehen: continue
         gesehen.add(nr)
-        aus.append(("Auftrag", "M", "Auftrag schreiben für %s (%s, %s): %s (`vorgang.py auftrag %s`; 3.3 Nr. 4, ein Auftrag je Sitzung)" % (nr, r, g, titel, nr), {"auftrag_fuer": nr}))
+        aus.append(("Auftrag", kl, "Auftrag schreiben für %s (%s, %s): %s (`vorgang.py auftrag %s`; 3.3 Nr. 4, ein Auftrag je Sitzung)" % (nr, r, g, titel, nr), {"auftrag_fuer": nr}))
     return aus[:AUFTRAG_PLANER if n is None else n]
+
+def sperr_nummer(nr, d):
+    """1896 (D338.2): Nummer für Startsperre und Nachtdeckel (1643): bei der Zeile „Auftrag“ die Nummer aus auftrag_fuer, sonst nr."""
+    return (d.get("auftrag_fuer") if isinstance(d, dict) else None) or nr if nr == "Auftrag" else nr
+
+def haken_naechste(rolle):
+    """1895 (D338.1): Nummer, auf die weiter-haken.py eine Sitzung der Rolle schickt, nach denselben Regeln wie der Start: Muss vor Kür
+    (Kür nur mit MIT_KUER), Pause hält an, mit tools/1727-SCHARF nur Zeilen mit gültigem Auftrag (auftrag_fehlt); Zeilen „Auftrag“
+    nie (frisch je Auftrag, eigene Sitzung). M? und Kosten zählen (Arbeit des Planers). Sonst None."""
+    neue_liste()
+    muss, kuer, pause, _ = stand().get(rolle, ([], [], None, []))
+    if pause: return None
+    scharf = ist_scharf()
+    for x in muss + (kuer if rolle in MIT_KUER else []):
+        if x[0] == "Auftrag" or scharf and auftrag_fehlt(x[0]): continue
+        return x[0]
+    return None
 
 def fremd_besitzer(rolle, nr, muss):
     """1662: Besitzer der Zeile nr, wenn sie offen einem anderen gehört und nicht als Übernahme (1364) in muss steht; sonst None."""
@@ -960,6 +989,8 @@ def notizen_frisch():
 
 def main():
     a = sys.argv[1:]
+    if a[:1] == ["--haken"] and len(a) > 1:  # 1895: für weiter-haken.py, nur die Nummer (leer = nichts)
+        return print(haken_naechste(a[1]) or "")
     if a[:1] == ["--morgen"]:  # 783 W7 (Chef 09.11., 20:16): Fords 7-Uhr-Zeile entfällt, alles steht im Tagesbericht 7:30
         return print("Morgenmeldung entfällt (783 W7); Chefsache-Zahl und Bitte um das Bild der Nutzung stehen im Tagesbericht.")
     if a[:1] == ["--aufraeumen"]:
@@ -1281,7 +1312,8 @@ def main():
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
-        if nacht_halt(r, nr, ausgabe, morgen): continue
+        zaehl_nr = sperr_nummer(nr, wahl[3])  # 1896 (D338.2): Zeile „Auftrag“ zählt unter der Nummer, für die der Auftrag ist
+        if nacht_halt(r, zaehl_nr, ausgabe, morgen): continue
         # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter WEITER_TOKEN Token liegt und unter 60 Minuten ruht
         mo, satz, hoch = modell(r, nr)
         alte = [] if hoch or mo == startbar.STARK_MODELL or nr == "Auftrag" else [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
@@ -1309,7 +1341,7 @@ def main():
         msg += satz
         if JETZT.weekday() == 2 and bericht_heute(): msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
-        vorgaenger(r); sperren.append(r); sperr_nr[r] = nr
+        vorgaenger(r); sperren.append(r); sperr_nr[r] = zaehl_nr
     # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
     # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
     # Nur Muss (Leiharbeiter „notfalls“). Spike setzt zuerst „in Arbeit bei Spike“, dann nimmt das Team die Zeile nicht (startbar.py);
