@@ -79,6 +79,37 @@ open(os.path.join(A, "LISTE-VORGAENGE.md"), "w").write(neu); startbar._LISTE = N
 soll("1871: Kostenschwelle und Kosten auf fallen", not hasattr(startbar, "kosten_offen") and not hasattr(lauf, "kosten_auf") and not hasattr(lauf, "sokrates_ziel"))
 _k = [x for x in lauf.auftrag_zeilen(_st, 9)]
 soll("Auftrag-Zeile trägt die Klasse ihrer Zeile", [x[1] for x in _k] == ["M", "M", "K", "K"], [x[1] for x in _k])
+# 1932 (Archiv 1727j Frage 16, Chef 22.11., 12:06): Eilt, Funde des Chefs, Muss reihum je Fachprofil, Kür nach Liegezeit; bis zu 2 Planer
+_st2 = {"Technik": ([("2001", "M", "a", {}), ("2002", "M", "b", {}), ("2003", "M", "c", {})], [("2010", "K", "k1", {})], None, []),
+        "Welt": ([("2004", "M", "d", {}), ("2005", "M", "e", {"titel": "Von Chef (18.11., 14:34, Fund, Build 298): x", "stand": "startbar"})], [("2011", "K", "k2", {})], None, []),
+        "Kataloge": ([("513", "M", "eilt", {})], [], None, []), "Arbeitsplaner": ([], [], None, [])}
+_lz = lauf._liegezeiten; lauf._liegezeiten = lambda: {"2010": 200, "2011": 100}
+_a2 = [x[3]["auftrag_fuer"] for x in lauf.auftrag_zeilen(_st2, 99)]
+soll("1932: Folge Eilt, Fund, Muss reihum je Profil, Kür älteste zuerst", _a2 == ["513", "2005", "2001", "2004", "2002", "2003", "2011", "2010"], _a2)
+lauf.AUFTRAG_IN_ARBEIT.add("513")
+soll("1932: Auftrag in Arbeit fällt weg", lauf.auftrag_zeilen(_st2)[0][3]["auftrag_fuer"] == "2005", lauf.auftrag_zeilen(_st2))
+lauf.AUFTRAG_IN_ARBEIT.clear()
+soll("1932: ein Planer bis 10 dringende ohne Auftrag", lauf.planer_zahl(_st2) == 1 and lauf.ZWEITER_PLANER_AB == 10 and lauf.MAX_PLANER == 2)
+_ab = lauf.ZWEITER_PLANER_AB; lauf.ZWEITER_PLANER_AB = 3
+soll("1932: zwei Planer über der Schwelle (6 dringende > 3)", lauf.planer_zahl(_st2) == 2)
+_fn = (lauf.ist_scharf, lauf.nacht_halt, lauf.umgebung)
+lauf.ist_scharf = lambda *a: True; lauf.nacht_halt = lambda *a: False; lauf.umgebung = lambda r, h=False: "env_x"
+_au = ["START Arbeitsplaner | opus | env_x | r | main | Arbeitsplaner – Auftrag 513 (22.11., 12:00) | x"]; _sp = []; _sn = {}
+lauf.zweiter_planer(_au, _st2, {}, set(), {}, None, _sp, _sn, [])
+soll("1932: zweiter Planer startet mit dem nächsten Auftrag, den keiner schreibt", len(_au) == 2 and "| Arbeitsplaner 2 – Auftrag 2005 (" in _au[1]
+     and _au[1].startswith("START Arbeitsplaner |") and _sp == ["Arbeitsplaner"] and _sn == {"Arbeitsplaner": "2005"}, _au[1:])
+_au = ["START Arbeitsplaner | opus | env_x | r | main | Arbeitsplaner – Auftrag 513 (22.11., 12:00) | x"]
+_jr = {"Arbeitsplaner": [{"id": "s1", "_info": ("Arbeitsplaner", True, 5, [])}]}
+lauf.zweiter_planer(_au, _st2, _jr, set(), {}, None, [], {}, [])
+soll("1932: nie mehr als zwei Planer", len(_au) == 1, _au)
+_au = []
+lauf.zweiter_planer(_au, _st2, {}, set(), {}, None, [], {}, [])
+soll("1932: ohne ersten Planer kein zweiter", _au == [], _au)
+lauf.ZWEITER_PLANER_AB = _ab
+_au = ["START Arbeitsplaner | opus | env_x | r | main | Arbeitsplaner – Auftrag 513 (22.11., 12:00) | x"]
+lauf.zweiter_planer(_au, _st2, {}, set(), {}, None, [], {}, [])
+soll("1932: unter der Schwelle kein zweiter", len(_au) == 1, _au)
+lauf.ist_scharf, lauf.nacht_halt, lauf.umgebung = _fn; lauf._liegezeiten = _lz
 lauf.DOCS = _docs
 # 1893 Teil 3: übrige Werkzeuge an der neuen Liste
 import startwarnung, rotbuch, chefwort

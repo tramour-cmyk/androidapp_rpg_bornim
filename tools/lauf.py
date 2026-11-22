@@ -476,27 +476,96 @@ def auftrag_einreihen(planer, auftraege):
     muss[:] = sorted(muss + [x for x in auftraege if x[1] == "M"], key=rang)
     kuer[:] = sorted(kuer + [x for x in auftraege if x[1] != "M"], key=rang)
 
-AUFTRAG_PLANER = 1  # 1893 (Sokrates 22.11., 08:33): Arbeitsplaner zugleich für Aufträge; vorläufig 1, Wert legt Sokrates dem Chef vor (10:00)
+AUFTRAG_PLANER = 1  # 1893; 1932 (Archiv 1727j Frage 16, Chef 22.11., 12:06): ein Planer, zweiter zugleich ab ZWEITER_PLANER_AB
+ZWEITER_PLANER_AB = 10  # 1932: zweiter Planer, solange mehr als 10 Eilt-, Fund- oder Muss-Zeilen ohne gültigen Auftrag sind (Schwelle Sokrates)
+MAX_PLANER = 2  # 1932: „bis zu 2 Planern“ (Chef 22.11., 12:06)
+AUFTRAG_IN_ARBEIT = set()  # 1932: Nummern, deren Auftrag eine laufende Planer-Sitzung gerade schreibt (Titel „… Auftrag <Nr> …“), main() füllt sie
 
-def auftrag_zeilen(st, n=None):
-    """1893 (Gesamtbild 3.3 Fassung 2 Nr. 4, Archiv 21.11., 10:11 „3.3 so“; Sokrates 22.11., 08:33): startbare Zeilen ohne gültigen
-    „## Auftrag“ bekommen ihren Auftrag vom Arbeitsplaner, frisch je Auftrag: je Zeile eine Muss-Zeile „Auftrag“ für den Planer, Vorrang
-    wie die Liste (Muss aller Profile vor Kür, Eilt zuerst, sonst Zeilenfolge), höchstens n (AUFTRAG_PLANER). lauf.py startet je Lauf eine Sitzung
-    je Profil, belegt hält die nächste an: mehr als 1 zugleich braucht mehrere Planer-Sitzungen (nicht gebaut)."""
-    folge = {d["nr"]: (not d.get("eilt"), i) for i, d in enumerate(startbar.zeilen_liste())}  # Eilt vor Muss (wie „jetzt“)
-    offen = []
-    for rang, teil in ((0, 0), (1, 1)):
+def _liegezeiten():
+    """1932: Zeile → Unix-Sekunden der letzten Änderung (Maß wie liegt.py, startbar.zeilen_zeiten); {} ohne Git."""
+    try:
+        zeiten = startbar.zeilen_zeiten(JETZT)
+    except Exception:
+        zeiten = []
+    return {d["nr"]: zeiten[d["i"]] for d in startbar.zeilen_liste() if d.get("i") is not None and d["i"] < len(zeiten) and zeiten[d["i"]] is not None}
+
+def auftrag_offen(st, ohne=()):
+    """1932: [(Gruppe, Rang, Nr, Profil, Titel, Grund, Klasse)] der startbaren Zeilen ohne gültigen „## Auftrag“ in der Folge des Chefs
+    (Archiv 1727j Frage 16): 0 Eilt, 1 Funde des Chefs (Rückläufer, guthaben.ruecklaeufer), 2 Muss reihum je Fachprofil (oberste
+    startbare Muss-Zeile je Profil, dann die nächste; in einer Runde Zeilenfolge der Liste), 3 Kür nach Liegezeit (älteste zuerst,
+    Maß wie liegt.py), 4 nach dem Meilenstein. Nummern in ohne (Auftrag in Arbeit) fallen weg."""
+    import guthaben
+    liste = {d["nr"]: (i, d) for i, d in enumerate(startbar.zeilen_liste())}
+    offen, gesehen, runde, kuer = [], set(), {}, []
+    for teil in (0, 1):
         for r, x in st.items():
             for z in x[teil]:
-                if not re.match(r"\d", str(z[0])): continue
+                nr = z[0]
+                if not re.match(r"\d", str(nr)) or nr in gesehen or nr in ohne: continue
+                g = auftrag_fehlt(nr)
+                if not g: continue
+                gesehen.add(nr)
+                i, d = liste.get(nr, (10 ** 6, {}))
+                d = d or (z[3] if isinstance(z[3], dict) else {})
                 kl = "M" if teil == 0 else "N" if z[1] == "N" else "K"  # 1897: Klasse der Zeile, für die der Auftrag ist
-                if (g := auftrag_fehlt(z[0])): offen.append((2 if kl == "N" else rang, folge.get(z[0], (True, 10 ** 6)), z[0], r, z[2], g, kl))
-    aus, gesehen = [], set()
-    for _, _, nr, r, titel, g, kl in sorted(offen):
-        if nr in gesehen: continue
-        gesehen.add(nr)
+                if d.get("eilt"): offen.append((0, (i,), nr, r, z[2], g, kl))
+                elif guthaben.ruecklaeufer(d): offen.append((1, (i,), nr, r, z[2], g, kl))
+                elif kl == "M":
+                    k = runde.get(r, 0); runde[r] = k + 1  # Folge in x[0] = Vorrang des Profils
+                    offen.append((2, (k, i), nr, r, z[2], g, kl))
+                elif kl == "N": offen.append((4, (i,), nr, r, z[2], g, kl))
+                else: kuer.append((i, nr, r, z[2], g, kl))
+    if kuer:
+        zeit = _liegezeiten()
+        for i, nr, r, titel, g, kl in kuer: offen.append((3, (zeit.get(nr, float("inf")), i), nr, r, titel, g, kl))
+    return sorted(offen)
+
+def planer_zahl(st, ohne=()):
+    """1932: wie viele Planer zugleich: MAX_PLANER, solange mehr als ZWEITER_PLANER_AB Eilt-, Fund- oder Muss-Zeilen ohne Auftrag sind, sonst AUFTRAG_PLANER."""
+    n = len([o for o in auftrag_offen(st, ohne) if o[0] <= 2])
+    return MAX_PLANER if n > ZWEITER_PLANER_AB else AUFTRAG_PLANER
+
+def auftrag_zeilen(st, n=None, ohne=None):
+    """1893 (Gesamtbild 3.3 Fassung 2 Nr. 4, Archiv 21.11., 10:11 „3.3 so“; Sokrates 22.11., 08:33): startbare Zeilen ohne gültigen
+    „## Auftrag“ bekommen ihren Auftrag vom Arbeitsplaner, frisch je Auftrag: je Zeile eine Zeile „Auftrag“ für den Planer, höchstens
+    n (AUFTRAG_PLANER). Folge nach 1932 (auftrag_offen): Eilt, Funde des Chefs, Muss reihum je Fachprofil, Kür nach Liegezeit.
+    Aufträge, die eine laufende Planer-Sitzung schreibt (AUFTRAG_IN_ARBEIT), fallen weg; den zweiten Planer startet main() (1932)."""
+    aus = []
+    for _, _, nr, r, titel, g, kl in auftrag_offen(st, AUFTRAG_IN_ARBEIT if ohne is None else ohne):
         aus.append(("Auftrag", kl, "Auftrag schreiben für %s (%s, %s): %s (`vorgang.py auftrag %s`; 3.3 Nr. 4, ein Auftrag je Sitzung)" % (nr, r, g, titel, nr), {"auftrag_fuer": nr}))
     return aus[:AUFTRAG_PLANER if n is None else n]
+
+def auftrag_aus_titel(titel):
+    """1932: Nummer aus einem Planer-Titel „<Name> – Auftrag <Nr> (…)“, sonst None."""
+    m = re.search(r"\bAuftrag (\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)\b", titel or "")
+    return m.group(1) if m else None
+
+def zweiter_planer(ausgabe, st, je_rolle, archiviert, ausschluss, bremse, sperren, sperr_nr, morgen):
+    """1932 (Archiv 1727j Frage 16, Chef 22.11., 12:06 „bis zu 2 Planern“): arbeitet schon ein Planer (laufende Sitzung oder START in
+    diesem Lauf) und sind mehr als ZWEITER_PLANER_AB Eilt-, Fund- oder Muss-Zeilen ohne Auftrag, startet eine zweite Planer-Sitzung
+    mit dem nächsten Auftrag, den keiner schreibt (Titel „<Planer> 2 – Auftrag <Nr>“; Rolle im ersten Feld bleibt der Planer).
+    Nur an der neuen Liste mit tools/1727-SCHARF; Guthaben, Laufsperre und Nachtdeckel gelten wie beim ersten."""
+    if not (NEU_LISTE and ist_scharf() and PLANER in st): return
+    laufend = [s for s in je_rolle.get(PLANER, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
+    start1 = [l for l in ausgabe if l.startswith("START %s |" % PLANER) or (l.startswith("WEITER ") and " | %s | " % PLANER in l)]
+    zahl = len(laufend) + len(start1)
+    if zahl == 0 or zahl >= MAX_PLANER: return
+    in_arbeit = set(AUFTRAG_IN_ARBEIT) | {n for l in start1 if (n := auftrag_aus_titel(l))}
+    if planer_zahl(st, in_arbeit) < MAX_PLANER: return
+    wahl = next((a for a in auftrag_zeilen(st, 10 ** 6, in_arbeit) if a[1] == "M" and a[3]["auftrag_fuer"] not in ausschluss), None)
+    if not wahl:
+        return
+    fn = wahl[3]["auftrag_fuer"]
+    if bremse and (g := bremse.erlaubt(PLANER, wahl[1], wahl[3])):
+        ausgabe.append("NICHTS %s 2: %s" % (PLANER, g)); return
+    if nacht_halt(PLANER, fn, ausgabe, morgen): return
+    if bremse: bremse.zaehle(PLANER, wahl[3])
+    mo, satz, hoch = modell(PLANER, "Auftrag")
+    titel = "%s 2 – Auftrag %s (%s)" % (PLANER, fn, berlin(JETZT))
+    msg = "%s\n\n%s; zweiter Planer (1932, über %d Eilt, Funde, Muss ohne Auftrag); zuerst Start nach deinem Ladetext, dann %s, den Auftrag schreiben, pushen und enden.%s" % (
+        PLANER, re.sub(r"\*\*|`", "", wahl[2]), ZWEITER_PLANER_AB, vorrat_hinweis(PLANER, fn), satz)
+    ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (PLANER, mo, aufwand(hoch), umgebung(PLANER, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
+    sperren.append(PLANER); sperr_nr.setdefault(PLANER, fn)
 
 def sperr_nummer(nr, d):
     """1896 (D338.2): Nummer für Startsperre und Nachtdeckel (1643): bei der Zeile „Auftrag“ die Nummer aus auftrag_fuer, sonst nr."""
@@ -1168,6 +1237,12 @@ def main():
         except SystemExit as e:
             ausgabe.append("WARNUNG Zusammenführen nicht angelegt: %s (1424, Perikles)" % e)
     neue_liste()  # 1893
+    AUFTRAG_IN_ARBEIT.clear()  # 1932: Aufträge, die eine Planer-Sitzung gerade schreibt, bekommt kein zweiter Planer
+    for s_ in leb:
+        if kosten.rolle(s_.get("title", "")) != PLANER or not (n_ := auftrag_aus_titel(s_.get("title", ""))): continue
+        ruhig_ = (JETZT - z(s_["updated_at"])).total_seconds() / 60
+        if ("WORKING" in s_.get("status_bucket", "") or "BLOCKED" in s_.get("status_bucket", "")) and ruhig_ < 60 or ruhig_ < SPERRE_MIN:
+            AUFTRAG_IN_ARBEIT.add(n_)
     st = stand(); chefd = chefdateien_je_rolle(); marken = startmarken()
     je_rolle = {}
     for s in leb:
@@ -1429,6 +1504,7 @@ def main():
         msg += satz
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r); sperr_nr[r] = zaehl_nr
+    zweiter_planer(ausgabe, st, je_rolle, archiviert, ausschluss, bremse, sperren, sperr_nr, morgen)  # 1932
     # 433 Zusatzentwickler fällt (1871 Stilllegung C; Disponent teilt jeden Auftrag zu, G:128, G:130).
     vorentscheid_marken = []
     try:
