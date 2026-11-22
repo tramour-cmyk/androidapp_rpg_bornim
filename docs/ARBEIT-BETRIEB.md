@@ -48,7 +48,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 09:42 22.11.: Startsperre 09:42 Start Homer (Neustart, 5048ab51a, 1628)
+- 09:59 22.11.: Startsperre 09:59 Start Diogenes (1903, 1904, 1782 lesend, Spike 58816e80d)
+- 09:42 22.11.: Startsperre 09:42 Start Homer (Neustart, 5048ab51a, 1628; 09:43 wieder beendet, 1905)
 - 09:41 22.11.: Startsperre 09:41 Start Spike (Neustart, 920b4cb61, 1903, 1904 zuerst)
 - 22.11., 07:55 Ford: Spike `…787KJ4un4X2q9HM7Fe` archiviert (4,10 $ auf 1804, 1807), Nachfolger `…79tQTiER1tcELHt1vz` (1871 zuerst); Diogenes `…75RZKDwbGpBQvdoTJd` archiviert (4,29 $ auf 1801, 1807, 1760, 1799), Nachfolger Wochenzählung erst 23.11.; Warnung „Start Diogenes nicht angekommen“ (07:16) irrig, lief und ist archiviert.
 - 22.11., 07:45 Ford: übernommen (`…75isNEtDyWupWmoFTR`); alter Ford archiviert (208,46 $ auf 1574), Sokrates `…75SrwmjpvNxeNEdckU` archiviert (27,76 $ auf 1727), Nachfolger `…766KCj14w54LxrDwYN`; Spike `…778HYhvtMFZAaJ8bQm` archiviert (5,70 $ auf 1739), Nachfolger `…787KJ4un4X2q9HM7Fe` (1871 zuerst); Diogenes 1760, 1799. Uhr neu `trig_01GL9hSYfk6n7WN8ABr4WeVf`, alte aus. Offen: Kosten Diogenes 22:07 (Lauf 330) ungebucht.
