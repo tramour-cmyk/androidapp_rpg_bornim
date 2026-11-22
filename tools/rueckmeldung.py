@@ -12,6 +12,10 @@ im selben Commit eine offene Übergabezeile (1760):
   1739 (Gesamtbild 3.3 Nr. 5, Kern Büro „Rückläufer“): „fertig“ mit Commit → an den Prüfer; „fertig“ ohne Commit → an den Disponenten
   (nimmt es nicht an; Routine, Titel „(Routine, Auftrag …)“: „fertig“ ohne Commit → Disponent legt die Vorschläge an und schließt, 1789); erstes „nein“ und „Beleg fehlt“ → mit dem Satz an denselben Macher (wer zuletzt „fertig“ meldete; unbekannt →
   Disponent); „ja“ des Prüfers → Disponent (an den Chef nur nach diesem Ja); „Hinweis“ → Disponent (wie ein Eingang)
+  1873: „nein … steckt fest“ → an Sokrates und mit den Mängelsätzen an denselben Macher (wartet, bis Sokrates löst);
+  „Hinweis: Prüffrage fehlt“ → an den Arbeitsplaner (er schreibt die Prüffragen)
+  1877: „Hinweis“ des Disponenten (Ford) zu einem bestehenden Vorgang → an dessen Besitzer (Liste; ohne Besitzer der Macher, sonst
+  der Arbeitsplaner) und eine Zeile „Hinweis“ an Sokrates (Soll D1), nicht an den Disponenten selbst
   1795: „Befunde: n“ des Testers → Disponent (je Befund ohne Nummer Vorgang anlegen), je Befund mit Nummer Rückläufer an den Arbeitsplaner
   Empfänger „Prüfer“ und „Disponent“ sind bis zur Umschaltung Diogenes und Ford (lauf.py, tools/1727-SCHARF)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
@@ -145,6 +149,33 @@ def ist_werkzeug(nr):
         return False
 
 
+PRUEFFRAGE_FEHLT = re.compile(r"(?i)^\W*hinweis\W+pr(ü|ue)ffrage\w*\s+fehl")
+
+
+def besitzer(nr, vorher):
+    """1877: Besitzer des Vorgangs aus der Liste (bis zur Umschaltung); ohne Besitzer der Macher (letztes „fertig“), sonst None."""
+    try:
+        import startbar
+        b = next((d.get("besitzer") for d in startbar.zeilen_liste() if d["nr"] == nr), None)
+    except Exception:
+        b = None
+    b = (b or "").strip()
+    return b if b and b not in ("-", "–") else macher(vorher)
+
+
+def hinweis_weitergabe(nr, text, zeit, wer, vorher):
+    """1873, 1877: [(an, was)] für „Hinweis“: Prüffrage fehlt → Arbeitsplaner; vom Disponenten → Besitzer und Sokrates; sonst Disponent."""
+    satz = ue._rein(text)[:160]
+    von = "Rückmeldung %s von %s" % (zeit, wer or "unbekannt")
+    if PRUEFFRAGE_FEHLT.match(re.sub(r"^\W*?\*\*[^*]+\*\*\s*(\[[^\]]*\])?\s*", "", text or "")):
+        return [(PLANER, "Hinweis Prüffrage fehlt (%s): „%s“; Prüffragen des Auftrags ergänzen (1873)" % (von, satz))]
+    if re.sub(r" \d$", "", wer or "") in (DISPONENT, "Ford"):
+        b = besitzer(nr, vorher) or PLANER
+        return [(b, "Hinweis des Disponenten (%s): „%s“; im Vorgang bearbeiten (1877)" % (von, satz)),
+                (SOKRATES, "Hinweis (%s, an %s weitergegeben): „%s“ (1877, Soll D1)" % (von, b, satz))]
+    return [(DISPONENT, "Hinweis (%s): wie einen Eingang behandeln (1739)" % von)]
+
+
 def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     """1739 (3.3 Nr. 5): Empfänger und Zeile für „fertig“, „nein“, „Beleg fehlt“, „ja“, „Hinweis“; (None, None) sonst."""
     satz = ue._rein(text)[:160]
@@ -195,6 +226,7 @@ def eintragen(nr, text, wer, sid=""):
         t = ue.anhaengen(t, "Rückmeldungen", "Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).", block)
         z = zaehlen(t)
         grund = None
+        aus = None  # mehrere Zeilen in einem Commit (1795 Befunde, 1873, 1877); sonst nur (an, was)
         if not schon:
             if "nein, Auftrag" in w and z["nein, Auftrag"] >= MAX_NEIN_AUFTRAG: grund = "Obergrenze A: %d. „nein, Auftrag“" % z["nein, Auftrag"]
             elif "nein" in w and z["nein"] >= MAX_NEIN: grund = "Obergrenze A: %d. abgelehnter Auftrag" % z["nein"]
@@ -207,12 +239,17 @@ def eintragen(nr, text, wer, sid=""):
         elif w & {"steckt fest", "Frage", "wirkt nein"}:
             an, was = SOKRATES, "%s: Rückmeldung %s von %s lesen (1763 C)%s" % (" und ".join(sorted(w & {"steckt fest", "Frage", "wirkt nein"})), zeit, wer or "unbekannt",
                                                                             "; gelöst: `vorgang.py warte %s –`" % nr if "steckt fest" in w else "")
+            m = macher(vorher) if "nein" in w else None
+            if m:  # 1873 (Lauf 3 Prüfer-2 Lücke 1): die Mängelsätze erreichen auch den Macher; er wartet, bis Sokrates löst
+                aus = [(an, was), (m, "Rückläufer (nein des Prüfers, steckt fest, Rückmeldung %s von %s): „%s“; erst nach Sokrates (`wartet auf`) nachbessern, dann `vorgang.py rueckmeldung` „fertig“ mit Commit (1873)" % (zeit, wer or "unbekannt", ue._rein(text)[:160]))]
         elif "nein" in w and z["nein"] == LAUFBREMSE_NEIN:
             an, was = SOKRATES, "steckt fest (Laufbremse, %d. Nein; Chef 19.11., 13:02): Rückmeldung %s von %s lesen (1766)" % (z["nein"], zeit, wer or "unbekannt")
         elif "nein, Auftrag" in w:
             an, was = PLANER, "nein, Auftrag: Rückmeldung %s von %s lesen" % (zeit, wer or "unbekannt")
         elif "Befunde" in w:  # 1795
-            mehr = befund_weitergabe(nr, text, zeit, wer); an, was = mehr[0]
+            aus = befund_weitergabe(nr, text, zeit, wer); an, was = aus[0]
+        elif "Hinweis" in w:  # 1873, 1877
+            aus = hinweis_weitergabe(nr, text, zeit, wer, vorher); an, was = aus[0]
         else:
             an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr), "ja" in w and ist_werkzeug(nr))
         if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, kein Signalwort zum Weitergeben")
@@ -220,7 +257,7 @@ def eintragen(nr, text, wer, sid=""):
         start = max(ks, default=0) + 1
         k = "%s-Ü%d" % (nr, start)
         t = t.rstrip("\n") + "\n"
-        for j, (a2, w2) in enumerate(mehr if "Befunde" in w and not schon else [(an, was)]):
+        for j, (a2, w2) in enumerate(aus or [(an, was)]):
             t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + j, a2, ue._rein(w2), zeit)
         return t, (k, grund or "")
     return ue.atomar(nr, f, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
@@ -341,6 +378,11 @@ def haupt(a):
     if an == SOKRATES and not ue.besetzung(an):
         print("KEINE SITZUNG Sokrates läuft: lauf.py startet ihn (1763 C)")
     ue.wecker(a[0], k, an, alt)  # 1760: läuft keine Sitzung, Wecker an den Disponenten
+    n0 = int(k.rsplit("Ü", 1)[1])  # 1795, 1873, 1877: weitere Zeilen desselben Commits ebenso wecken
+    for x in ue.zeilen(_datei(a[0])):
+        if x["k"] != k and x["k"].startswith(a[0] + "-Ü") and int(x["k"].rsplit("Ü", 1)[1]) > n0 and x.get("seit") == (zeile[0].get("seit") if zeile else None):
+            print("OFFEN %s an %s" % (x["k"], x["an"]))
+            ue.wecker(a[0], x["k"], x["an"], {"Prüfer": "Diogenes", "Disponent": "Ford", PLANER: "Ford"}.get(x["an"], ""))
 
 
 if __name__ == "__main__":

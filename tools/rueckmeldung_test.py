@@ -16,7 +16,10 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "| 9002 | Schatten im Wald | Spike | M | startbar | – | – | – | T Technik | – |\n"
     "| 9003 | Höhlenklang | Jerry | M | startbar | – | – | – | K Klang | – |\n"
     "| 9005 | Treppe knarrt | Tom | K | startbar | – | – | – | E Welt | – |\n"
-    "| 9006 | Treppe zu steil | Tom | K | startbar | – | – | – | E Welt | – |\n")
+    "| 9006 | Treppe zu steil | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9011 | Kerze im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9012 | Kerze im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9013 | Nachtstopp-Haken | Spike | K | startbar | – | – | – | B Werkzeuge | – |\n")
 open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("**Nächste freie Vorgangsnummer: 9100**\n")
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Prüfer | [P](https://claude.ai/code/session_PR1) | – | – | 21.11. |\n")
@@ -219,6 +222,30 @@ _n = [z for z in t.splitlines() if z.startswith("| 9077-Ü")]
 soll("Befunde: Kennungen fortlaufend", len({z.split(" | ")[0] for z in _n}) == len(_n), _n)
 rc, out = vg("rueckmeldung", "9077", "Befunde: 0", zeit="21.11., 22:10")
 soll("Befunde: 0 → nur Disponent, nichts anzulegen", "Befunde: 0 (Befunde des Testers zu 9077" in datei("9077") and "nichts anzulegen" in datei("9077"), out)
+
+# 1873 (Lauf 3 Prüfer-2 Lücke 1): „nein … steckt fest“ → Sokrates und die Mängelsätze an denselben Macher
+vg("rueckmeldung", "9011", "fertig, Commit abc1234, Bild t301", "--sitzung", "Tom", zeit="21.11., 22:20")
+rc, out = vg("rueckmeldung", "9011", "nein: Zahl und Quelle fehlen. steckt fest: wie zuvor", zeit="21.11., 22:30")
+t = datei("9011")
+soll("1873: nein … steckt fest → erste Zeile an Sokrates", re.search(r"\| 9011-Ü2 \| Sokrates \| steckt fest: Rückmeldung", t) and "OFFEN 9011-Ü2 an Sokrates" in out, (out, t[-700:]))
+soll("1873: Mängelsätze auch an den Macher (Tom), wartet auf Sokrates", re.search(r"\| 9011-Ü3 \| Tom \| Rückläufer \(nein des Prüfers, steckt fest.*Zahl und Quelle fehlen.*erst nach Sokrates", t), t[-700:])
+soll("1873: zweite Zeile genannt (Wecker)", "OFFEN 9011-Ü3 an Tom" in out, out)
+soll("1873: Liste steckt fest, wartet auf Sokrates", "| 9011 | Kerze im Keller | Tom | K | startbar, steckt fest | Sokrates |" in liste_origin(), out)
+rc, out = vg("rueckmeldung", "9012", "steckt fest: Regel fehlt", zeit="21.11., 22:31")
+soll("1873: steckt fest ohne nein: nur Sokrates", "| 9012-Ü1 | Sokrates |" in datei("9012") and "9012-Ü2" not in datei("9012"), datei("9012")[-500:])
+# 1873 (Lücke 3): „Hinweis: Prüffrage fehlt“ an den Arbeitsplaner
+rc, out = vg("rueckmeldung", "9012", "Hinweis: Prüffrage fehlt: Kerze flackert, keine Frage dazu", zeit="21.11., 22:32")
+soll("1873: Hinweis Prüffrage fehlt → Arbeitsplaner", re.search(r"\| 9012-Ü2 \| Arbeitsplaner \| Hinweis Prüffrage fehlt", datei("9012")) and "an Arbeitsplaner" in out, (out, datei("9012")[-500:]))
+rc, out = vg("rueckmeldung", "9012", "**Prüfer** [21.11., 22:33] Hinweis: Prüffragen fehlen zur Tür", zeit="21.11., 22:33")
+soll("1873: mit Stempel und Mehrzahl ebenso", re.search(r"\| 9012-Ü3 \| Arbeitsplaner \|", datei("9012")), datei("9012")[-400:])
+# 1877 (Lauf 3 Disponent L9, Soll D1): Hinweis des Disponenten → Besitzer und Sokrates, nicht an sich selbst
+rc, out = vg("rueckmeldung", "9013", "Hinweis: Haken kennt die entschiedene Ausnahme 1784 A nicht, Start 4/8", "--sitzung", "Ford", zeit="21.11., 22:40")
+t = datei("9013")
+soll("1877: Hinweis des Disponenten → Besitzer (Spike)", re.search(r"\| 9013-Ü1 \| Spike \| Hinweis des Disponenten .*1784 A", t) and "OFFEN 9013-Ü1 an Spike" in out, (out, t[-600:]))
+soll("1877: dazu Zeile Hinweis an Sokrates", re.search(r"\| 9013-Ü2 \| Sokrates \| Hinweis \(.*an Spike weitergegeben", t), t[-600:])
+soll("1877: keine Zeile an den Disponenten", "| Disponent |" not in t, t[-600:])
+rc, out = vg("rueckmeldung", "9013", "Hinweis: Text klein", "--sitzung", "Disponent", zeit="21.11., 22:41")
+soll("1877: auch unter dem neuen Profilnamen", re.search(r"\| 9013-Ü3 \| Spike \|", datei("9013")), datei("9013")[-400:])
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
