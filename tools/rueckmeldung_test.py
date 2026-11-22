@@ -312,5 +312,26 @@ rc, out = vg("rueckmeldung", "9016", "nein: klemmt immer noch", zeit="21.11., 23
 t = datei("9016")
 soll("1910: drittes Nein (eins vom Chef) → Obergrenze A", "Obergrenze A: 3. abgelehnter Auftrag" in t, t[-500:])
 
+# 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht sie
+import uebergabe as _ue92, datetime as _dt92
+_alt_w = _ue92.WURZEL; _ue92.WURZEL = A
+_j = _dt92.datetime(2026, 11, 22, 10, 45)
+_z = lauf.startsperre_zeile(["Sokrates", "Tom"], {"Sokrates": "1727j", "Tom": "9001"}, _j)
+soll("1892: Sperrzeile mit Rollen und Nummern", _z == "- 10:45 22.11.: Startsperre 10:45 Start Sokrates, Tom (lauf.py, Sokrates 1727j, Tom 9001)", _z)
+g("pull", "-q", "--rebase", cwd=A)
+_lokal = open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md")).read()
+ok = lauf.protokoll_pushen(lambda t: t.rstrip("\n") + "\n" + _z + "\n", "Betrieb: Startsperre (Test 1892)")
+_orig = g("show", "origin/main:docs/ARBEIT-BETRIEB.md", cwd=A) if not g("fetch", "-q", "origin", "main", cwd=A) else ""
+soll("1892: Startsperre auf origin/main gepusht, lokale Kopie nachgezogen", ok and _orig.rstrip().endswith(_z) and open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md")).read() == _orig and _lokal != _orig, (ok, _orig[-300:]))
+import importlib.util as _iu
+_spec = _iu.spec_from_file_location("sh92", os.path.join(HIER, "startsperre-haken.py")); _sh = _iu.module_from_spec(_spec); _spec.loader.exec_module(_sh)
+_jz = _j.replace(tzinfo=lauf.BERLIN) + _dt92.timedelta(minutes=2)
+soll("1892: Startsperre-Haken erkennt die gepushte Sperre", _sh.letzte_sperre(_orig, "Sokrates", _jz) is not None, _orig[-200:])
+_ue92.WURZEL = "/gibt/es/nicht"
+soll("1892: Push scheitert: False (lauf.py schreibt dann lokal)", lauf.protokoll_pushen(lambda t: t + "x", "x") is False)
+_ue92.WURZEL = _alt_w
+_src92 = open(os.path.join(HIER, "lauf.py"), encoding="utf-8").read()
+soll("1892: nur scharf (ist_scharf) und nur bei Startsperren", "scharf_push = ist_scharf() and bool(sperren)" in _src92)
+
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

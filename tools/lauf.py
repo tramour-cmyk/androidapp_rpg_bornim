@@ -45,6 +45,7 @@ Ausgabe, Zeile für Zeile auszuführen:
 --ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
+             Scharf (tools/1727-SCHARF, 1892): bei jedem START setzt lauf.py die Startsperre selbst und pusht sie (auch ohne --sperre).
 --aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute, Startsperren auch von gestern, solange lauf.py sie prüft, 1187) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --liegt     Lauf auf eine Meldung „Start <Rolle> <Nr>, <Commit>“ (891): ruhende Sitzungen (nicht working/blocked) unter 20 Minuten belegen die Rolle nicht;
              neue Arbeit geht per WEITER in sie (unter 200 Tsd. Token), sonst START. Startmarke und laufende Sitzungen gelten wie sonst.
@@ -636,6 +637,25 @@ def sokrates_ziel(s, ss):
     """„Kosten auf“ aus der Übergabe der Sokrates-Sitzung s (Stand vor dem Start der nächsten aus ss, 197.1) als „361,89“, sonst ""."""
     neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
     return ",".join(kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"])))
+
+def startsperre_zeile(sperren, sperr_nr, jetzt=None):
+    """Protokollzeile „- HH:MM TT.MM.: Startsperre HH:MM Start <Rollen> (lauf.py, <Nr>)“ (750 A, 1643: mit Vorgang je Rolle)."""
+    j = jetzt or JETZT
+    mit = [("%s %s" % (x, sperr_nr[x]) if len(sperren) > 1 else sperr_nr[x]) for x in sperren if sperr_nr.get(x) and re.match(r"\d", str(sperr_nr[x]))]
+    return "- %s %s: Startsperre %s Start %s (lauf.py%s)" % (j.strftime("%H:%M"), j.strftime("%d.%m."), j.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
+
+
+def protokoll_pushen(anhaengen, nachricht):
+    """1892: ARBEIT-BETRIEB.md auf origin/main um anhaengen(alter_text) ändern, ein Commit, gepusht (uebergabe.atomar_dateien, auf den gelesenen
+    Stand); die lokale Datei bleibt unverändert. True bei Erfolg, sonst False (Grund ausgegeben)."""
+    try:
+        import uebergabe as _ue
+        _ue.atomar_dateien(["docs/ARBEIT-BETRIEB.md"], lambda alt: ({"docs/ARBEIT-BETRIEB.md": anhaengen(alt["docs/ARBEIT-BETRIEB.md"]).rstrip("\n") + "\n"}, True), nachricht)
+        return True
+    except Exception as e:
+        print("WARNUNG Startsperre nicht gepusht: %s (1892, Spike)" % e)
+        return False
+
 
 def stellungnahme_start(ohne, msg):
     """1891 (D336.1): START-Zeile der Stellungnahme (194.2) mit der Nummer der ersten Chefsache-Datei im Titel („1727j-vorschlaege.md“
@@ -1631,17 +1651,25 @@ def main():
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values())
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
-    if sperre and (sperren or neue_warnungen or wochen or morgen):
-        p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p).rstrip("\n")
-        if sperren:  # 1643: mit Vorgang, damit nachtstarts.py die Neustarts je Vorgang zählt
-            mit = [("%s %s" % (x, sperr_nr[x]) if len(sperren) > 1 else sperr_nr[x]) for x in sperren if sperr_nr.get(x) and re.match(r"\d", str(sperr_nr[x]))]
-            t += "\n- %s %s: Startsperre %s Start %s (lauf.py%s)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
-        for m in morgen:
-            if m not in t: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), m)
-        for m in wochen: t += "\n- %s %s: Marke %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), heute, m)
-        for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
-        open(p, "w", encoding="utf-8").write(t)
-        print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
+    scharf_push = ist_scharf() and bool(sperren)  # 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht
+    if (sperre or scharf_push) and (sperren or neue_warnungen or wochen or morgen):
+        def anhaengen(t):
+            t = t.rstrip("\n")
+            if sperren:  # 1643: mit Vorgang, damit nachtstarts.py die Neustarts je Vorgang zählt
+                t += "\n" + startsperre_zeile(sperren, sperr_nr) + "\n"
+            if sperre:  # Marken und Warnungen weiter nur mit --sperre
+                for m in morgen:
+                    if m not in t: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), m)
+                for m in wochen: t += "\n- %s %s: Marke %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), heute, m)
+                for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
+            return t
+        p = os.path.join(DOCS, "ARBEIT-BETRIEB.md")
+        if scharf_push and protokoll_pushen(anhaengen, "Betrieb: Startsperre %s (lauf.py, 1892)" % ", ".join(sperren)):
+            print("STARTSPERRE gepusht (1892): %s; create_session jetzt erlaubt; vor dem nächsten eigenen Commit `git pull --rebase`" % ", ".join(sperren))
+        else:
+            if scharf_push: print("STARTSPERRE NICHT GEPUSHT (1892): lokal geschrieben, selbst committen und pushen, erst dann create_session")
+            open(p, "w", encoding="utf-8").write(anhaengen(lesen(p)))
+            print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
     if sperre:
         for nr in STARK_GESTARTET:  # 827 A, Bau 828: Marke „stärkstes Modell TT.MM.“ am Titel; zählt Sokrates für die Auswertung nach drei
             d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
