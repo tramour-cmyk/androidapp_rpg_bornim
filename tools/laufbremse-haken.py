@@ -9,4 +9,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import probelauf  # noqa: E402
 
 if __name__ == "__main__":
-    probelauf.main()
+    try:
+        probelauf.main()
+    except probelauf.Unaufloesbar as e:  # 725, 1938 (D377.1): wie probelauf.py, sonst Exit 1 und der Befehl ginge durch
+        probelauf.anhalten(str(e))

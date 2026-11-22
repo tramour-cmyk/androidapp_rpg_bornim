@@ -103,5 +103,12 @@ soll("1907 ohne Schalter: Ideenspeicher bei Homer, kein Ideenlauf", any(t.endswi
 soll("1907 scharf: Ideenlauf bei Sokrates, kein Ideenspeicher", [w for t, _, w in alle(True) if "Ideenlauf (Routine" in t] == ["Sokrates"] and not any("Ideenspeicher" in t for t, _, _ in alle(True)), alle(True))
 soll("1907 scharf: Ideenlauf fällt nie als „nach“ aus", startbar.nach_ausgefallen(datetime.datetime(2026, 12, 1, 9, 0), scharf=True) == [])
 
+# 1938 (D377.1): unauflösbares `cd $VAR` hält auch über laufbremse-haken.py an (Exit 2), nicht Exit 1 (ginge durch)
+import json, subprocess
+_ein = json.dumps({"tool_name": "Bash", "tool_input": {"command": "cd $UNBEKANNT_1938 && git push -u origin claude/x"}, "cwd": HIER})
+_r = subprocess.run([sys.executable, os.path.join(HIER, "laufbremse-haken.py")], input=_ein, capture_output=True, text=True,
+                    env={k: v for k, v in os.environ.items() if k != "UNBEKANNT_1938"})
+soll("1938: cd $VAR unauflösbar → Exit 2 mit 725", _r.returncode == 2 and "725" in _r.stderr, (_r.returncode, _r.stderr[-200:]))
+
 print("laufbremse_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
