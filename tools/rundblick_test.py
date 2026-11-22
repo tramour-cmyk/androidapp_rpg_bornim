@@ -42,6 +42,16 @@ soll("ohne Rufname", r == a, r)
 soll("Kaufrepo-Satz an der Routine (1803)", a and lauf.mit_kaufrepo(a[0]).endswith(lauf.kaufrepo_satz()) and lauf.mit_kaufrepo(lauf.mit_kaufrepo(a[0])) == lauf.mit_kaufrepo(a[0]), a)
 soll("Kaufrepo-Satz an START Tom", lauf.mit_kaufrepo("START Tom | opus | x | y").endswith(lauf.kaufrepo_satz()))
 soll("Kaufrepo-Satz bei WEITER vor send_message", lauf.KAUFREPO.strip() + " Wird send_message" in lauf.mit_kaufrepo("WEITER Tom | x; wird send_message an y", False))
+# 1907: Ideenlauf (Sokrates, Gesamtbild 4.3 G:451) über denselben Starter; ohne Teil A WARNUNG
+ZI = [{"nr": "9060", "titel": "Wochentermin 29.11.: Ideenlauf (Routine, Auftrag r/x.md Teil A) (719)", "besitzer": "Sokrates", "stand": "startbar", "warte": []}]
+a = []; nr = lauf.rundblick_zeilen(a, {}, set(), {}, zeilen=ZI, scharf=True, wurzel=d, name="Ideenlauf")
+soll("1907: START Ideenlauf mit Teil A", nr == "9060" and len(a) == 1 and a[0].startswith("START Ideenlauf | opus") and "| Ideenlauf – 9060: Routine (" in a[0] and "Routine Ideenlauf, Vorgang 9060" in a[0], a)
+a = []; nr = lauf.rundblick_zeilen(a, {}, set(), {}, zeilen=ZI, scharf=True, wurzel=d)
+soll("1907: Rundblick-Starter nimmt den Ideenlauf nicht", nr is None and a == [], a)
+ZI2 = [dict(ZI[0], titel=ZI[0]["titel"].replace("r/x.md", "r/fehlt.md"))]
+a = []; nr = lauf.rundblick_zeilen(a, {}, set(), {}, zeilen=ZI2, scharf=True, wurzel=d, name="Ideenlauf")
+soll("1907: Teil A fehlt → WARNUNG Ideenlauf", nr is None and a and a[0].startswith("WARNUNG Ideenlauf 9060 nicht gestartet: Teil A nicht lesbar"), a)
+soll("1907: Rolle Ideenlauf in kosten, Routine ohne Kern", "Ideenlauf" in kosten.ROLLEN and "Ideenlauf" in lauf.ROUTINE_ROLLEN)
 # 1781: nach der Umschaltung „Sockel“ statt „Rollendatei“, ohne Schalter der alte Satz; nie zwei Sätze
 soll("1781 ohne Schalter: Rollendatei", lauf.mit_kaufrepo("START Tom | opus | x | y", False).endswith("in deiner Rollendatei steht."))
 soll("1781 scharf: Sockel", lauf.mit_kaufrepo("START Tom | opus | x | y", True).endswith("in deinem Sockel steht."))

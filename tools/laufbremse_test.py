@@ -83,5 +83,12 @@ open(os.path.join(docs, "LISTE-VORGAENGE.md"), "a").write("| 9102 | %s | Sokrate
 soll("angelegt: nichts ausgefallen", startbar.nach_ausgefallen(datetime.datetime(2026, 11, 25, 9, 0), scharf=True) == [])
 soll("ohne Schalter: keine Meldung", startbar.nach_ausgefallen(datetime.datetime(2026, 11, 25, 9, 0), scharf=False) == [])
 
+# 1907: sonntags Ideenlauf (Sokrates) statt Ideenspeicher (Homer), nur scharf
+so = datetime.datetime(2026, 11, 29, 10, 0)
+alle = lambda sch: startbar.wochentermine_faellig(so, scharf=sch)
+soll("1907 ohne Schalter: Ideenspeicher bei Homer, kein Ideenlauf", any(t.endswith("Ideenspeicher (719)") and w == "Homer" for t, _, w in alle(False)) and not any("Ideenlauf" in t for t, _, _ in alle(False)), alle(False))
+soll("1907 scharf: Ideenlauf bei Sokrates, kein Ideenspeicher", [w for t, _, w in alle(True) if "Ideenlauf (Routine" in t] == ["Sokrates"] and not any("Ideenspeicher" in t for t, _, _ in alle(True)), alle(True))
+soll("1907 scharf: Ideenlauf fällt nie als „nach“ aus", startbar.nach_ausgefallen(datetime.datetime(2026, 12, 1, 9, 0), scharf=True) == [])
+
 print("laufbremse_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

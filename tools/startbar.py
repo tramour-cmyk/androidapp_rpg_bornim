@@ -257,7 +257,11 @@ WOCHENTERMINE = [  # (Wochentag 0 = Mo, ab Stunde, Besitzer, Name, Bereich)
 # Tag erledigt ist (im Archiv der Liste); der Rundblick liest die neue Spalte der Wochenzählung (Vorschlag routine-rundblick.md „Tag und Stunde“).
 WOCHENTERMINE_1727 = [
     (0, 8, "Sokrates", "Rundblick (Routine, Auftrag docs/entwurf/1727-muster/routine-rundblick.md Teil A)", "B Abläufe", "Wochenzählung"),
+    # 1907 (Chef 22.11., 09:55; Gesamtbild 4.3 G:451, L-O15): Ideenspeicher urteilt Sokrates einmal die Woche über lauf.py statt Homer
+    # (Stunde nur frühester Start; lauf.rundblick_zeilen startet, sobald frei); ersetzt den Wochentermin „Ideenspeicher“ (WEG_1727)
+    (6, 9, "Sokrates", "Ideenlauf (Routine, Auftrag docs/entwurf/1727-muster/routine-ideenlauf.md Teil A)", "B Abläufe", None),
 ]
+WEG_1727 = {"Ideenspeicher"}  # 1907: alte Wochentermine, die scharf durch WOCHENTERMINE_1727 ersetzt sind
 ERSETZT_1727 = {"Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720)":
                 "Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md)"}
 
@@ -277,6 +281,7 @@ def nach_ausgefallen(jetzt, scharf=None):
     if not scharf: return []
     archiv = lesen("LISTE-VORGAENGE-ARCHIV.md"); da = lesen(LISTE) + archiv; aus = []
     for wt, h, wer, name, ber, nach in WOCHENTERMINE_1727:
+        if not nach: continue  # 1907: ohne „nach“ kein Nachholen, nichts auszufallen
         for zurueck in (2,):  # nur am Tag nach der Frist, sonst jeder Lauf eine Woche lang
             t = jetzt - datetime.timedelta(days=zurueck)
             if t.weekday() != wt or t.date() < datetime.date(2026, 11, 23): continue
@@ -291,7 +296,8 @@ def wochentermine_faellig(jetzt, scharf=None):
     archiv = lesen("LISTE-VORGAENGE-ARCHIV.md")
     da = lesen(LISTE) + archiv
     scharf = scharf_1727() if scharf is None else scharf
-    termine = [(wt, h, wer, ERSETZT_1727.get(name, name) if scharf else name, ber, None) for wt, h, wer, name, ber in WOCHENTERMINE]
+    termine = [(wt, h, wer, ERSETZT_1727.get(name, name) if scharf else name, ber, None) for wt, h, wer, name, ber in WOCHENTERMINE
+               if not (scharf and name in WEG_1727)]
     termine += WOCHENTERMINE_1727 if scharf else []
     aus = []
     for wt, h, wer, name, ber, nach in termine:

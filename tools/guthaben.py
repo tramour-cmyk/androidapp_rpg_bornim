@@ -25,7 +25,7 @@ import nachtstarts
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 RESET = (5, 19, 59)  # Sa 19:59 Berliner Zeit (ARBEIT-BETRIEB.md „Guthaben“: „Reset Sa 19:59“)
 STUFEN = ((100, "Stillstand"), (95, "nur Rückläufer"), (80, "nur Muss"))
-FREI_ROLLEN = {"Sokrates", "Rundblick", "Wache", "Ford"}
+FREI_ROLLEN = {"Sokrates", "Rundblick", "Ideenlauf", "Wache", "Ford"}  # 1907: Ideenlauf ist Sokrates
 STANDARD_STUNDEN = 24
 ZAHLWORT = dict(nachtstarts.ZAHLWORT, keine=0, null=0, keinen=0)
 
