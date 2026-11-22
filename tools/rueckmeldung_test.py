@@ -22,7 +22,8 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "| 9013 | Nachtstopp-Haken | Spike | K | startbar | – | – | – | B Werkzeuge | – |\n"
     "| 9014 | Fackel im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
     "| 9015 | Fackel im Keller | Jerry | K | startbar | – | – | – | E Welt | – |\n"
-    "| 9016 | Tür im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n")
+    "| 9016 | Tür im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9017 | Tor im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n")
 open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("**Nächste freie Vorgangsnummer: 9100**\n")
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Prüfer | [P](https://claude.ai/code/session_PR1) | – | – | 21.11. |\n")
@@ -365,6 +366,26 @@ soll("1892: Push scheitert: False (lauf.py schreibt dann lokal)", lauf.protokoll
 _ue92.WURZEL = _alt_w
 _src92 = open(os.path.join(HIER, "lauf.py"), encoding="utf-8").read()
 soll("1892: nur scharf (ist_scharf) und nur bei Startsperren", "scharf_push = ist_scharf() and bool(sperren)" in _src92)
+
+# 1926 (1727j Frage 2, Chef 22.11., 11:22): drittes „Beleg fehlt“ je Auftrag gilt als „nein“ (Laufbremse, Obergrenze A)
+def _rm(*xs):
+    return "# 9 · x\n\n## Auftrag (21.11., 20:00)\n\nA1\n\n## Auftrag (21.11., 22:00)\n\nA2\n\n## Rückmeldungen\n\n" + "".join(
+        "- **21.11., %s**, Prüfer:\n> %s\n\n" % (z, w) for z, w in xs)
+_b = "Beleg fehlt: Bild zeigt den Stand nicht"
+soll("1926: zwei „Beleg fehlt“ zählen nicht", rm.zaehlen(_rm(("20:10", _b), ("20:20", _b)))["nein"] == 0)
+soll("1926: drittes „Beleg fehlt“ je Auftrag = ein „nein“", rm.zaehlen(_rm(("20:10", _b), ("20:20", _b), ("20:30", _b)))["nein"] == 1)
+soll("1926: je Auftrag gezählt (2 + 2 über zwei Aufträge = kein nein)", rm.zaehlen(_rm(("20:10", _b), ("20:20", _b), ("22:10", _b), ("22:20", _b)))["nein"] == 0)
+soll("1926: „nein“ und drittes „Beleg fehlt“ = 2", rm.zaehlen(_rm(("22:05", "nein: Tor schief"), ("22:10", _b), ("22:20", _b), ("22:30", _b)))["nein"] == 2)
+for _z in ("21.11., 23:20", "21.11., 23:25"):
+    rc, out = vg("rueckmeldung", "9017", _b, zeit=_z)
+t = datei("9017")
+soll("1926: zwei „Beleg fehlt“: keine Laufbremse, kein nein", "Laufbremse" not in t and rm.zaehlen(t)["nein"] == 0, (out, t[-400:]))
+rc, out = vg("rueckmeldung", "9017", _b, zeit="21.11., 23:30")
+t = datei("9017")
+soll("1926: drittes „Beleg fehlt“ geht wie ein „nein“ weiter (Rückläufer)", rm.zaehlen(t)["nein"] == 1 and re.search(r"\| 9017-Ü\d+ \| [^|]+ \| Rückläufer \(nein", t), (out, t[-500:]))
+rc, out = vg("rueckmeldung", "9017", "nein: Tor schief", zeit="21.11., 23:35")
+t = datei("9017")
+soll("1926: danach ein „nein“ = zweiter Fehlversuch → Laufbremse", re.search(r"\| 9017-Ü\d+ \| Sokrates \| steckt fest \(Laufbremse, 2\. Nein", t), (out, t[-500:]))
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

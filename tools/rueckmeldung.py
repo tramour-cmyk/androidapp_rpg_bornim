@@ -19,7 +19,7 @@ im selben Commit eine offene Übergabezeile (1760):
   1795: „Befunde: n“ des Testers → Disponent (je Befund ohne Nummer Vorgang anlegen), je Befund mit Nummer Rückläufer an den Arbeitsplaner
   Empfänger „Prüfer“ und „Disponent“ sind bis zur Umschaltung Diogenes und Ford (lauf.py, tools/1727-SCHARF)
 Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei):
-  A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde; „Beleg fehlt“ und „nein, Auftrag“ zählen nicht)
+  A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde, auch Chef-Nein; „nein, Auftrag“ zählt nicht, „Beleg fehlt“ erst jedes dritte je Auftrag, 1926)
   B  zweites „steckt fest“
 → Zustand „ruht, beim Chef“ in der Vorgangsdatei, Stand in der Vorgangsliste (solange sie Stände trägt), Zeile an Sokrates
   „an den Chef: Chefsache anlegen, nicht selbst lösen“ statt der normalen Weitergabe. Weitere Rückmeldungen danach: nur eingetragen.
@@ -65,6 +65,26 @@ def worte(text):
     return w
 
 
+BELEG_ALS_NEIN = 3  # 1926 (1727j Frage 2, Chef 22.11., 11:22): drittes „Beleg fehlt“ je Auftrag gilt als „nein“
+_ZEIT = re.compile(r"(\d\d)\.(\d\d)\.,? (\d\d):(\d\d)")
+
+def _zeit(s):
+    m = _ZEIT.search(s or "")
+    return tuple(int(x) for x in (m.group(2), m.group(1), m.group(3), m.group(4))) if m else None
+
+def beleg_als_nein(text):
+    """1926: „Beleg fehlt“ des Prüfers zählt je Auftrag (Rückmeldungen ab dem jüngsten Abschnitt „## Auftrag (TT.MM., HH:MM)“ davor);
+    jedes dritte gilt als „nein“ und zählt so für Laufbremse und Obergrenze A. Zahl solcher „nein“ in der Datei."""
+    auftraege = sorted(t for t in (_zeit(m.group(0)) for m in re.finditer(r"(?m)^## Auftrag \([^)]*\)", text or "")) if t)
+    je = {}
+    for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")):
+        if "Beleg fehlt" not in worte(m.group("text")): continue
+        t = _zeit(m.group("zeit"))
+        a = max((x for x in auftraege if t and x <= t), default=None)
+        je[a] = je.get(a, 0) + 1
+    return sum(n // BELEG_ALS_NEIN for n in je.values())
+
+
 def zaehlen(text):
     """Zählt die Signalworte der Rückmeldungen einer Vorgangsdatei; 1872: jedes Chef-Nein unter „Chefworte“ (chefwort.chef_nein,
     ganzer Wortlaut) zählt als abgelehnter Auftrag („nein“), sonst stoppt „Prüfer ja, Chef nein“ nie.
@@ -74,6 +94,7 @@ def zaehlen(text):
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", ue.abschnitt(text, "Rückmeldungen")):
         for w in worte(m.group(1)):
             if w in z: z[w] += 1
+    z["nein"] += beleg_als_nein(text)  # 1926
     import chefwort
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, Chef[^\n]*:\n((?:> .*\n?)+)", ue.abschnitt(text, "Chefworte")):
         if chefwort.chef_nein("\n".join(l[2:] for l in m.group(1).splitlines())): z["nein"] += 1
@@ -246,6 +267,8 @@ def eintragen(nr, text, wer, sid=""):
         vorher = t
         t = ue.anhaengen(t, "Rückmeldungen", "Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).", block)
         z = zaehlen(t)
+        if "Beleg fehlt" in w and beleg_als_nein(t) > beleg_als_nein(vorher):  # 1926: drittes „Beleg fehlt“ je Auftrag gilt als „nein“
+            w.discard("Beleg fehlt"); w.add("nein")
         grund = None
         aus = None  # mehrere Zeilen in einem Commit (1795 Befunde, 1873, 1877); sonst nur (an, was)
         if not schon:
