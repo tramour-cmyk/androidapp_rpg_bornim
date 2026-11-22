@@ -11,6 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| 1957 | Von Ford (22.11., 16:23): lauf.py erkennt eigene Rufnamen-Sitzungen nicht (Titel „Anna – Auftrag 1727“): „keine Rolle im Titel“, „Start nicht angekommen“ und erneuter START Arbeitsplaner trotz laufender Anna, Britta | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
 | 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *startbar* | *–* | *0* | *535,99 $* |
 | 513 | Ein Figurenstand für alle Zweige | 3 | E Figuren | Eilt | 23.11. | – | claude/figurenstand-513 | *ruht* | *–* | *0* | *14,01 $* |
