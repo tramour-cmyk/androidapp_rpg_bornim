@@ -48,6 +48,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 10:27 22.11.: Startsperre 10:27 Start Diogenes (1795, 1887, 1888 lesend)
 - 10:16 22.11.: Startsperre 10:16 Start Spike (Neustart, 68541efe8, 1908 zuerst)
 - 10:05 22.11.: Startsperre 10:05 Start Perikles (Tagesbericht 22.11., 448; Start von der Auto-Prüfung abgelehnt, Chef gefragt)
 - 22.11., 07:55 Ford: Spike `…787KJ4un4X2q9HM7Fe` archiviert (4,10 $ auf 1804, 1807), Nachfolger `…79tQTiER1tcELHt1vz` (1871 zuerst); Diogenes `…75RZKDwbGpBQvdoTJd` archiviert (4,29 $ auf 1801, 1807, 1760, 1799), Nachfolger Wochenzählung erst 23.11.; Warnung „Start Diogenes nicht angekommen“ (07:16) irrig, lief und ist archiviert.
