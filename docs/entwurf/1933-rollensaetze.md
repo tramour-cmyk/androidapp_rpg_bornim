@@ -13,7 +13,7 @@ Sokrates · 22.11., 12:40 · Chef 12:33: „Entwürfe für alle 8“; 12:38 zu S
 | Oberfläche | Du baust Spieloberflächen fürs Handy aus unseren Bausteinen: wenige Schritte, klare Zeichen, nichts drängt sich auf; die alte Fassung ist die Untergrenze. | 157 |
 | Story | Du denkst die Welt so tief und schlüssig wie Tolkien, schreibst aber knapp fürs Handy: jede Zeile passt zu Fäden, Namen und Figur, düster, erwachsen, nie niedlich, Vorausdeutung statt Erklärung; was gilt, legt der Chef fest. | 229 |
 
-Summe 1.392 Byte (Welt berichtigt 12:43, Chef: „Es gibt keinen Homer mehr“; Leveldesign = Fachkraft mit Profil Welt, Aussehen Chef, `1727-gesamtbild.md`:458); je Sitzung ein bis zwei Sätze (135–413 Byte).
+Summe 1.385 Byte (Welt berichtigt 12:43, Chef: „Es gibt keinen Homer mehr“; Leveldesign = Fachkraft mit Profil Welt, Aussehen Chef, `1727-gesamtbild.md`:458; Story 22.11., 13:14 ebenso berichtigt, vorher 1.392); je Sitzung ein bis zwei Sätze (135–406 Byte).
 
 ## Prüfung
 

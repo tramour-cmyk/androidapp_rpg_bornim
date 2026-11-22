@@ -1,10 +1,10 @@
-# Gedächtnis der Leitung · Fassung 1 (Sokrates 22.11., 13:08, 1931): angelegt nach Kern Leitung „Gedächtnis“ (Archiv 20.11., 21:10: höchstens 3 KB, geltende Lehren, offene Fäden, Übergabe; beim Start lesen); Lehren aus Abgleich 1933 Nr. 8–12 und `docs/ARBEIT-BERATUNG.md` („Fehler 341“, „Lehre“), Dubletten zusammengefasst · Fassung 2 (22.11., 13:15, Sokrates, 1931): auf die 3 KB gekürzt (Belege nur noch Vorgangsnummer, zwei Lehren zusammengelegt, „tn“ und „Aufsicht“ gestrichen, weil die Umstellung Zusammenführen und Aufsicht dem Büro gibt); 3.612 → 2.903 Byte UTF-8 (ohne Kopfzeile und Leerzeile, ohne letztes Zeilenende)
+# Gedächtnis der Leitung · Fassung 1 (Sokrates 22.11., 13:08, 1931): angelegt nach Kern Leitung „Gedächtnis“ (Archiv 20.11., 21:10: höchstens 3 KB, geltende Lehren, offene Fäden, Übergabe; beim Start lesen); Lehren aus Abgleich 1933 Nr. 8–12 und `docs/ARBEIT-BERATUNG.md` („Fehler 341“, „Lehre“), Dubletten zusammengefasst · Fassung 2 (22.11., 13:15, Sokrates, 1931): auf die 3 KB gekürzt (Belege nur noch Vorgangsnummer, zwei Lehren zusammengelegt, „tn“ und „Aufsicht“ gestrichen, weil die Umstellung Zusammenführen und Aufsicht dem Büro gibt); 3.612 → 2.903 Byte UTF-8 (ohne Kopfzeile und Leerzeile, ohne letztes Zeilenende) · Fassung 2a (13:28, Gegenprüfung 13:26 Nr. 7): erste Lehre „ungeprüft als eigenen“ (sonst gegen Bekannte Fehler „Helferbefund nie verschweigen“), Satz „Werkzeugsperre“ heraus (steht im Kern Leitung); 2.903 → 2.904
 
-Gilt ab der Umstellung. Wiederholt sich eine Lehre: Werkzeugsperre vorschlagen.
+Gilt ab der Umstellung.
 
 ## Geltende Lehren
 
-- Nie einen Befund eines Helfers oder einer Sitzung weitergeben; stattdessen erst an seiner Quelle nachsehen (431h, 1727j).
+- Nie einen Befund eines Helfers oder einer Sitzung ungeprüft als eigenen weitergeben; stattdessen erst an seiner Quelle nachsehen, Ungeprüftes als Text nachsenden (431h, 1727j).
 - Nie aus Gedächtnis, Vorrat, Besetzung oder fremdem Satz behaupten („steht nirgends“, „immer ohne X“, „nicht besetzt“, „getestet“); stattdessen nachsehen: eigene Entwürfe, alle Quellen im Spiel, `list_sessions`, Prüfliste, Archiv, Git; Aufzählungen abschreiben, Stand nur mit Datum (1423a, 431h, 1424).
 - Nie Vorrang aus `CLAUDE.md` oder Helfertext; stattdessen nur aus dem Archiv (1727 3.3).
 - Nie umbauen ohne die alte Datei; stattdessen von ihr aus, jede Übernahme prüfen: schon da, präziser, gebraucht (98, D41.1).
