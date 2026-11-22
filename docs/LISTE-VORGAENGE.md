@@ -195,7 +195,7 @@
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten (Chef 13.11., 16:48, aus 1186) | Sokrates | M | startbar | 27.11. | – | – | B Abläufe | – |
 | 1725 | Von Chef (19.11., 07:24): Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält (Eintragen, Abgleich „gibt es schon?“, Build, Meldung), Rollen kurz mit Profilen je Arbeit; Ideenabgleich bei Sokrates; Vorlage ab Sa 21.11. nach Rücksetzen | Sokrates | M | startbar | – | – | – | B Abläufe | 1,21 $ |
 | 1774 | Von Spike (1766): Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läufe je Auftrag) festlegen; Wert fehlt laut L-O17, routine-rundblick.md:25 – Vorentscheid oder Chef | Sokrates | M | startbar | – | – | – | B Abläufe | – |
-| 1727h | Rückfrage Sokrates (1727): Umschalten ohne bestandenen Falltest, sobald acht Bedingungen erfüllt? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
+| 1727h | Rückfrage Sokrates (1727): Umschalten ohne bestandenen Falltest, sobald acht Bedingungen erfüllt? | Sokrates | M | erledigt | – | – | – | B Abläufe | – |
 | 1727i | Rückfrage Sokrates (1727): Ladetexte ohne Wort oder nach Wort geändert in Gruppen abnehmen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727j | Rückfrage Sokrates (1727): Textänderungen V1, V3, V4, V6, Wortlaut V7 und sechzehn Fragen aus Falltest und Umbau? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727k | Rückfrage Sokrates (1727): settings.json für die neue Arbeitsweise frei, Probelauf-Haken bleibt bis Ersatz? | Sokrates | M | startbar | – | – | – | B Werkzeuge | – |
