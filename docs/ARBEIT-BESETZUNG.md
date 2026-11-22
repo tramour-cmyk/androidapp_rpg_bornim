@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 22.11., 19:12 (lauf.py)
+**Stand:** 22.11., 19:16 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -12,3 +12,6 @@
 | Kampf | [Moritz – 1589.2: Stufe 1 Gegnerverhalten, Arena unsichtbar (22.11., 19:00)](https://claude.ai/code/session_01Hmoj78DJDGjrsXBUVxqkNB) | 1589.2 | – | 22.11., 19:01 |
 | Prüfer | [Pit – 1963: offene Übergabe (22.11., 19:10)](https://claude.ai/code/session_01Hmoj7786PEym3XBTarwj4v) | 1963 | – | 22.11., 19:12 |
 | Prüfer | [Petra – 870: offene Übergabe (22.11., 19:11)](https://claude.ai/code/session_01Hmoj78vsmHLS61eGXFstze) | 870 | – | 22.11., 19:12 |
+| Werkzeug | [Rudi – 1967: Reihenfolge Klasse vor Themenblock (22.11., 19:12)](https://claude.ai/code/session_01Hmoj79afNQEgVMwAxqEK7w) | 1967 | – | 22.11., 19:13 |
+| Arbeitsplaner | [Otto – Auftrag 1750: Kampfort klingt wie seine Stelle der Karte (22.11., 19:10)](https://claude.ai/code/session_01Hmoj76cBZQbFUE4QMbp7sd) | 1750 | – | 22.11., 19:13 |
+| Welt | [Silke – 1566: Höhlenwasser leuchtet hinter Wänden im Dunkeln … (22.11., 19:14)](https://claude.ai/code/session_01Hmoj76dq2qNQSYQ2j6HreY) | 1566 | claude/jerry-1566-hoehlenwasser | 22.11., 19:14 |
