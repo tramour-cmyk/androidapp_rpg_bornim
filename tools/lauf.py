@@ -142,6 +142,9 @@ def mit_kern(l):
     if NEU_LISTE and rolle != "Sokrates":
         msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
             "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
+    if rolle == "Tester":  # 1795 (Sokrates 22.11., 09:41): der Tester meldet als Absender „Tester“, unter der Nummer des Auftrags
+        m = re.search(r"–\s*(\d{3,4}(?:\.\d+)?)\b", kopf.rpartition(" | ")[2]) or re.search(r"(?<![\d.:,])(\d{3,4}(?:\.\d+)?)\b", msg)
+        msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
     if not k: return "%s | %s" % (kopf, msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
