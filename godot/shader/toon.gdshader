@@ -9,6 +9,8 @@ uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räum
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
 uniform float cut_weit = 1.0;      // 491 (353a, Tiefer Wald: Held halb unter Laub): Loch weiter und freier (Wald 1,3, Dorf 1)
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
+uniform float vorn_ab = -1.0;      // 1720 (Chef 18.11., 23:14): Vordergrund ab so vielen Metern vor dem Helden (zur Kamera) dunkel durchscheinend; < 0 aus
+uniform float vorn_a = 0.4;        // 1720: Deckkraft dort
 uniform float weg = 0.0;           // Durchsicht als Ganzes (gebiet.gd, Gruppe: Haus, Stand, Laterne verdeckt den Helden): deckend aus, nur DURCH
 uniform float durch_a = 0.5;       // dabei Deckkraft (alt WorldScreen: zusammen halb)
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
@@ -100,7 +102,7 @@ void fragment() {
 	// Laub zwischen Kamera und Held: innen fast frei, nach aussen weich dicht. Der deckende Durchgang laesst das Loch aus (Schatten bleibt),
 	// die Durchgaenge TIEFE und DURCH (gebiet.gd, nach der Tusche) malen es halbdurchsichtig, je Bildpunkt nur die vorderste Lage, und decken
 	// ueber den Lochrand hinaus deckend, damit die Tusche an der Lochkante (beidseitig) verschwindet.
-	float durch = 0.0, loch = 0.0, deck = 0.0;
+	float durch = 0.0, loch = 0.0, deck = 0.0, vorn = 0.0;
 	if (cut_on > 0.5 && wpos.y > cut_ab) {
 		vec3 d = wpos - cut_pos;
 		float along = dot(d, CAMERA_DIRECTION_WORLD);   // > 0: zur Kamera hin (nachgestellt 25.10.)
@@ -110,13 +112,23 @@ void fragment() {
 		loch = step(side, 1.65 * cut_weit) * step(-0.95, along);
 		deck = step(side, 2.0 * cut_weit) * step(-1.15, along);
 	}
+	// 1720: Kronen und Fels zwischen Spielflaeche und Kamera deckten bis zur halben Bildflaeche schwarz ab (ausserhalb des Lichts),
+	// weil das Loch nur die Linie Held-Kamera freigibt. Was weiter als vorn_ab vor der Ebene des Helden liegt, malen TIEFE und DURCH
+	// wie das Loch (vorderste Lage, nach der Tusche) mit Deckkraft vorn_a; weich ueber 1,2 m Tiefe, Rand deckend gegen die Tusche.
+	// Ganz, auch der Stamm unter cut_ab (sonst blieben abgesaegte schwarze Stuempfe stehen)
+	if (vorn_ab >= 0.0) {   // Laub (gebiet.gd durchsicht) und Felswand der Hoehle (gruppen_vorn), unabhaengig vom Loch
+		float vor = dot(wpos - cut_pos, CAMERA_DIRECTION_WORLD);
+		vorn = smoothstep(vorn_ab, vorn_ab + 1.2, vor);
+		loch = max(loch, step(vorn_ab + 0.05, vor));
+		deck = max(deck, step(vorn_ab - 0.3, vor));
+	}
 	if (weg > 0.5) { loch = 1.0; deck = 1.0; }
 #ifdef DURCH
 	if (deck < 0.5) discard;
 #ifdef TIEFE
 	ALPHA = 0.0;
 #else
-	ALPHA = weg > 0.5 ? durch_a : 1.0 - (cut_weit > 1.0 ? 0.95 : 0.85) * durch;
+	ALPHA = weg > 0.5 ? durch_a : min(1.0 - (cut_weit > 1.0 ? 0.95 : 0.85) * durch, mix(1.0, vorn_a, vorn));   // 1720
 #endif
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;

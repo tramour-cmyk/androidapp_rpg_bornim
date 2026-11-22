@@ -524,13 +524,16 @@ static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 		var d := ShaderMaterial.new()
 		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col", "rand_karte", "schnitt"]:
+		for k in ["tex", "sway", "cut_ab", "vorn_ab", "vorn_a", "kontur", "licht_dir", "glow", "glow_col", "rand_karte", "schnitt"]:
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
 		vor = d
 	return vor
 
+# 1720 (Chef 18.11., 23:14, Bilder t300.3 Wald, t300.4 Hoehle): Laub vor der Ebene des Helden (zur Kamera) ab diesem Abstand dunkel
+# durchscheinend, damit die Spielflaeche sichtbar bleibt; wie andere Draufsicht-Spiele Verdecker zwischen Kamera und Spielflaeche ausblenden
+const VORN_AB := 0.8
 func durchsicht(m: ShaderMaterial, mark := 0) -> void:
 	var sh := durch_shaders(mark, "cull_back")
 	m.shader = sh[0]
@@ -538,13 +541,49 @@ func durchsicht(m: ShaderMaterial, mark := 0) -> void:
 	var x := m
 	while x:
 		x.set_shader_parameter("cut_on", 1.0)
+		x.set_shader_parameter("vorn_ab", VORN_AB)   # 1720: Vordergrund dunkel durchscheinend
 		if String(karte.daten.get("art", "")) == "FOREST": x.set_shader_parameter("cut_weit", 1.3)   # 491 (353a): Held ganz zu sehen
 		laub.append(x)
 		x = x.next_pass as ShaderMaterial
 
+var vorn_stand := Vector3(INF, INF, INF)   # 1720: Zellen und Gruppen im Vordergrund nur nach Bewegung neu waehlen
 func nah(_an: bool, held_pos: Vector3) -> void:
 	for m in laub: m.set_shader_parameter("cut_pos", held_pos + Vector3(0, 0.9, 0))
+	var cam := kamera if kamera else get_viewport().get_camera_3d()
+	var stand := held_pos + (cam.global_transform.basis.z * 1000.0 if cam else Vector3.ZERO)
+	if stand.distance_to(vorn_stand) < 0.05: return
+	vorn_stand = stand
 	zellen_nah(held_pos)
+	gruppen_vorn(held_pos)
+
+# 1720 (t300.4, Hoehle): hohe Felswand zwischen Spielflaeche und Kamera deckte das Bild schwarz ab, das Loch (blende_gruppen) oeffnet nur,
+# wenn sie den Helden verdeckt. Reicht die Wand vor die Ebene des Helden und liegt sie im Bild, haengt die Kette (TIEFE, DURCH) dauerhaft
+# und toon malt den Teil vor vorn_ab dunkel durchscheinend wie das Laub
+func gruppen_vorn(held_pos: Vector3) -> void:
+	var cam := kamera if kamera else get_viewport().get_camera_3d()
+	if cam == null: return
+	var zur := cam.global_transform.basis.z.normalized()
+	var mitte := held_pos + Vector3(0, 0.9, 0)
+	var ebene := cam.get_frustum()
+	for key in gruppen:
+		var g: Dictionary = gruppen[key]
+		if not g.get("loch", false) or not g.has("box"): continue
+		var v := zelle_vorn(g["box"], mitte, zur, ebene)
+		for e in g["mats"]:
+			var m: ShaderMaterial = e["m"]
+			if v and not e["eigen"] and m.next_pass == null:
+				if e["kette"] == null:
+					kette(m, durch_shaders(0, "cull_disabled"))
+					e["kette"] = m.next_pass
+				else: m.next_pass = e["kette"]
+				glanz_kette(m)
+			elif not v and g["vorn"] and not e["eigen"] and float(g["a"]) >= 1.0: m.next_pass = null
+			var x := m
+			while x:
+				x.set_shader_parameter("vorn_ab", VORN_AB if v else -1.0)
+				if v: x.set_shader_parameter("cut_pos", mitte)
+				x = x.next_pass as ShaderMaterial
+		g["vorn"] = v
 
 # 1484a: Name ohne Zelle („Dorf_Netz_Z3_-2“ -> „Dorf_Netz“), sonst leer
 static func zell_basis(nm: String) -> String:
@@ -598,8 +637,27 @@ func zellen_nah(held_pos: Vector3) -> void:
 	var mitte := held_pos + Vector3(0, 0.9, 0)
 	var a := mitte - zur * 1.2
 	var b := mitte + zur * (25.0 / maxf(zur.y, 0.2))
+	var ebene := cam.get_frustum()
 	for z in zellen:
-		zelle_setzen(z, (z["box"] as AABB).grow(ZELL_RAND).intersects_segment(a, b) != null)
+		var box := z["box"] as AABB
+		zelle_setzen(z, box.grow(ZELL_RAND).intersects_segment(a, b) != null or zelle_vorn(box, mitte, zur, ebene))
+
+# 1720: Zelle reicht vor die Ebene des Helden (zur Kamera, ab VORN_AB mit Rand) und liegt im Bild: dort malt die Durchsicht den Vordergrund
+static func zelle_vorn(box: AABB, mitte: Vector3, zur: Vector3, ebene: Array) -> bool:
+	var vorne := false
+	for i in 8:
+		if (box.get_endpoint(i) - mitte).dot(zur) > VORN_AB - 0.5:
+			vorne = true
+			break
+	if not vorne: return false
+	for p in ebene:   # ganz ausserhalb einer Ebene des Sichtkegels: nicht im Bild
+		var aussen := true
+		for i in 8:
+			if not (p as Plane).is_point_over(box.get_endpoint(i)):
+				aussen = false
+				break
+		if aussen: return false
+	return true
 
 # ---------------------------------------------------------------- Durchsicht als Ganzes (DESIGN-STIL „Karte und Raeume“, alt WorldScreen.hides)
 # Haus, Stand, Brunnen, Laterne, Schild: verdeckt das Ding den Oberkoerper des Helden (Strahlen von Huefte bis Kopf zur Kamera),
@@ -620,7 +678,9 @@ func baue_gruppen(n: Node) -> void:
 		var key := String(mi.name).trim_suffix("_Glas")
 		# 1423: hohe Felswand der Hoehle (hoehle.py „Gruppe_Wand_…“): halb durchsichtig deckte der dunkle Fels den Helden weiter; sie
 		# oeffnet ein Loch um ihn wie das Laub im Wald (toon cut_*), nur solange sie ihn verdeckt
-		if not gruppen.has(key): gruppen[key] = {"mats": [], "a": 1.0, "ziel": 1.0, "loch": key.contains("Wand_")}
+		if not gruppen.has(key): gruppen[key] = {"mats": [], "a": 1.0, "ziel": 1.0, "loch": key.contains("Wand_"), "vorn": false}
+		var gb := mi.global_transform * mi.get_aabb()   # 1720: Lage der Gruppe fuer gruppen_vorn
+		gruppen[key]["box"] = (gruppen[key]["box"] as AABB).merge(gb) if gruppen[key].has("box") else gb
 		for i in mi.mesh.get_surface_count():
 			var m := mi.get_surface_override_material(i) as ShaderMaterial
 			# eigene Kette (Laub am Haus: Efeu, Blumenkasten) bleibt; sonst kommt sie erst beim Ausblenden dazu
@@ -678,7 +738,7 @@ func blende_gruppen(dt: float) -> void:
 						e["kette"] = m.next_pass
 					else: m.next_pass = e["kette"]
 					glanz_kette(m)
-				elif a >= 1.0: m.next_pass = null
+				elif a >= 1.0 and not g.get("vorn", false): m.next_pass = null   # 1720: Felswand im Vordergrund behaelt die Kette
 			var x := m
 			while x:
 				if loch:   # waechst weich mit a (cut_weit hoechstens 1, sonst rechnet toon die Deckkraft wie im Tiefen Wald)
