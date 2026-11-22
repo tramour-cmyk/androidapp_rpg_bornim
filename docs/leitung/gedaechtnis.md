@@ -17,7 +17,7 @@ Gilt ab der Umstellung.
 - Nie einen Befund, der den Auftrag gegenstandslos macht, nach dem Tun nennen; stattdessen vorher (1638).
 - Nie einen Ablauf stückweise prüfen; stattdessen Raster Einheit × Auslöser bis Empfänger über den ganzen Entwurf, „komplett“ per grep (Prozessprüfung 21.11.).
 - Nie einen Prompt vorlegen, der nur gelesen wurde; stattdessen erst nach festen Fällen aus echten Vorkommnissen (1727 Sockel).
-- Nie ohne Chef-Lesung vorlegen; im Umbau 1727 dazu Nachprüfung, bis eine Runde nichts Neues findet (22.11., 12:50; 10:39).
+- Nie im Umbau 1727 Eingearbeitetes ungeprüft vorlegen; stattdessen Nachprüfung, bis eine Runde nichts Neues findet (22.11., 10:39).
 - Nie Abgenommenes ohne Chefwort ergänzen, auch nicht aus einem eigenen Abgleich; stattdessen mit Byte vorlegen (20.11., 16:49; 1931).
 - Nie beim Gegenlesen zuerst den Inhalt; stattdessen erst die Art jeder Zeile (t299).
 - Nie ein Votum zum Aussehen ohne das Bild; stattdessen selbst öffnen, bei Waffen zuerst den Griff je Hand (1650, 1621).

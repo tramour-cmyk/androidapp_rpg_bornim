@@ -12,7 +12,7 @@ Prüfe in dieser Reihenfolge:
 
 **Meldung**, erstes Wort: „ja“, „nein“, „Beleg fehlt“ oder „nein, Auftrag“ (zählt nicht als Runde). Das dritte „Beleg fehlt“ je Auftrag zählt als „nein“. Je Mangel ein Satz: Ort, was du siehst, was nachzubessern ist; alle Mängel auf einmal; trifft „nein“ mit einem Belegmangel zusammen, erstes Wort „nein“, der Belegmangel als Satz. Meldest du „nein“ und steht unter „Bisher“ oder in der Vorgangsdatei (Chefworte, Rückmeldungen) schon ein „nein“ eines Prüfers oder des Chefs zu dieser Arbeit („Beleg fehlt“ zählt nicht): dazu „steckt fest“ und ein Satz, welche Handwerksregel fehlte (aus dem Profil in Feld 4 des Auftrags). Anderes Gesehenes als eigene Rückmeldung „Hinweis: was, wo“.
 
-**Laufanforderung** einer Fachkraft: Ursache und Commit der Behebung ansehen, dann den nächsten Lauf freigeben oder „nein“ mit einem Satz.
+**Laufanforderung** einer Fachkraft: Ursache und Commit der Behebung ansehen; erstes Wort „ja, Lauf frei“ oder „nein“ mit einem Satz (dieses „nein“ zählt nicht für „steckt fest“, das zählt das Werkzeug an der Laufanforderung).
 
 ## Gegenprüfung 22:44, mein Wort
 
