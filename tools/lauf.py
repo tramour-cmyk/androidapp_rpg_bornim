@@ -169,10 +169,16 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None):
 
 
 KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
-def mit_kaufrepo(l):
-    """1472/1803: Kaufrepo-Satz an jede Startnachricht (START: letztes Feld, auch Routinen; Archiv 1472, 1781), bei WEITER vor dem Hinweis auf send_message."""
-    if l.startswith("START "): return l if l.endswith(KAUFREPO) else l + KAUFREPO
-    if l.startswith("WEITER ") and KAUFREPO not in l: return l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1)
+KAUFREPO_SCHARF = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deinem Sockel steht."  # 1781 (Chef 21.11., 21:38 „Sockel, ja“), erst mit tools/1727-SCHARF
+def kaufrepo_satz(scharf=None):
+    """1781: nach der Umschaltung (tools/1727-SCHARF) gibt es keine Rollendateien mehr; der Satz verweist dann auf den Sockel."""
+    return KAUFREPO_SCHARF if (ist_scharf() if scharf is None else scharf) else KAUFREPO
+def mit_kaufrepo(l, scharf=None):
+    """1472/1803/1781: Kaufrepo-Satz an jede Startnachricht (START: letztes Feld, auch Routinen und Starts aus auftrag.py; Archiv 1472,
+    1781), bei WEITER vor dem Hinweis auf send_message. Steht schon einer der beiden Sätze darin, bleibt die Zeile, wie sie ist."""
+    k = kaufrepo_satz(scharf)
+    if l.startswith("START "): return l if l.endswith(KAUFREPO) or l.endswith(KAUFREPO_SCHARF) else l + k
+    if l.startswith("WEITER ") and KAUFREPO not in l and KAUFREPO_SCHARF not in l: return l.replace("; wird send_message", ";" + k + " Wird send_message", 1)
     return l
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
@@ -696,7 +702,7 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
                 if z["z"] == "offen" and z["an"].lower() != "sokrates": je.setdefault(z["an"], []).append((z["k"], z["was"]))
     except Exception as e:
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
-    scharf = os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
+    scharf = ist_scharf()
     for an, zs in sorted(je.items()):
         r = "Ford" if an == "Disponent" else an if scharf else ALT_EMPFAENGER.get(an, an)  # 1893: Disponent ist Fords Sitzung
         teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, "; ".join("%s %s" % (k, w) for k, w in zs[:6]))

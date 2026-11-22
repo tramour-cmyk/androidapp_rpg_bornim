@@ -143,13 +143,15 @@ gesperrt = []; aus = ["WEITER session_SOK | Sokrates | Stellungnahme | Stellungn
 lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
 soll("1807: WEITER bleibt ohne neue Sperre", gesperrt == [] and "1763 C" in aus[0], (gesperrt, aus))
 
-# 7 1739 F4 (1): offene Zeilen an andere (Arbeitsplaner = Ford bis zur Umschaltung)
+# 7 1739 F4 (1): offene Zeilen an andere (Arbeitsplaner = Ford bis zur Umschaltung); Stand vor der Umschaltung auch an der Kopie mit tools/1727-SCHARF
+_scharf = lauf.ist_scharf; lauf.ist_scharf = lambda: False
 aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
 soll("Arbeitsplaner-Zeilen an Ford", "Arbeitsplaner" in je and any(z.startswith("NACHRICHT Ford | - | Offene Zeilen an Arbeitsplaner") for z in aus) and not any("Sokrates" in z.split("|")[0] for z in aus), (je, aus))
 soll("Disponent bis zur Umschaltung Ford", any(z.startswith("NACHRICHT Ford | - | Offene Zeilen an Disponent") for z in aus), aus)
 soll("Prüfer bis zur Umschaltung Diogenes (keine Sitzung: Ford)", any("keine Sitzung Diogenes" in z and "Offene Zeilen an Prüfer" in z for z in aus), aus)
 aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen0.append(r) or True) if (gerufen0 := []) == [] else None
 soll("Prüfer ohne Sitzung: Start Diogenes", "Diogenes" in gerufen0 and "Tom" in gerufen0, gerufen0)
+lauf.ist_scharf = _scharf
 
 # 8 1739 Befund 1: Empfänger ohne Sitzung starten (start-Rückruf), sonst Ford; Fristen je Lauf
 rc, out = vg("uebergabe", "9005", "Tom", "Treppe im Turm prüfen")
