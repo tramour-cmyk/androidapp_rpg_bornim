@@ -211,9 +211,9 @@ def haupt(a):
     if grund: liste_ruht(a[0], grund)
     nein_waechter(a[0], a[1])
     alt = {"Prüfer": "Diogenes", "Disponent": "Ford", PLANER: "Ford"}.get(an, "")  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
-    for s in ue.besetzung(an) or (ue.besetzung(alt) if alt else []): print("WECKER %s | sieh in %s (%s)" % (s, a[0], k))
     if an == SOKRATES and not ue.besetzung(an):
         print("KEINE SITZUNG Sokrates läuft: lauf.py startet ihn (1763 C)")
+    ue.wecker(a[0], k, an, alt)  # 1760: läuft keine Sitzung, Wecker an den Disponenten
 
 
 if __name__ == "__main__":

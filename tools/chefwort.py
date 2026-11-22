@@ -124,8 +124,7 @@ def melden(nr, k):
         print("SCHON EINGETRAGEN %s: gleicher Wortlaut zur gleichen Zeit" % nr)
         return
     print("CHEFWORT %s eingetragen, OFFEN %s an %s" % (nr, k, AN))
-    for s in ue.besetzung(AN):
-        print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
+    ue.wecker(nr, k, AN)  # 1760: läuft keine Sitzung, Wecker an den Disponenten
 
 
 def _rolle_aus_besetzung(sid):

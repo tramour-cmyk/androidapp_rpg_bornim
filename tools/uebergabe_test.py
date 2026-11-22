@@ -87,12 +87,25 @@ with ThreadPoolExecutor(6) as ex:
 an = [t for _, t in r if t.startswith("ANGENOMMEN")]
 soll("6 gleichzeitige Quittungen: genau eine ANGENOMMEN, Rest BELEGT", len(an) == 1 and sum(1 for c, t in r if c == 3) == 5, [t for _, t in r])
 
+# 1760 Rückläufer (Sokrates 22.11., 07:08): Zeile an Rolle ohne Sitzung → Wecker an den Disponenten, der den Start ausgibt
+rc, t = lauf(A, "session_ABS", "21.11., 22:06", "uebergabe", "9002", "Jerry", "Auftrag 9002-1 bauen")
+soll("ohne Sitzung und ohne Disponent: KEIN DISPONENT", rc == 0 and "KEINE SITZUNG Jerry" in t and "KEIN DISPONENT" in t and "WECKER" not in t, t)
+g("pull", "-q", "--no-rebase", "origin", "main", cwd=A)
+with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f: f.write("| Ford | [Ford](https://claude.ai/code/session_FORD1) | – | – | 21.11. |\n")
+g("commit", "-qam", "Ford", cwd=A); g("push", "-q", "origin", "main", cwd=A)
+rc, t = lauf(B, "session_ABS", "21.11., 22:07", "uebergabe", "9002", "Jerry", "Auftrag 9002-2 bauen")
+soll("ohne Sitzung: WECKER an den Disponenten (Ford bis zur Umschaltung)", rc == 0 and "WECKER session_FORD1 | sieh in 9002 (9002-Ü2): keine Sitzung Jerry, Start ausgeben" in t, t)
+rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Tom", "Auftrag 9002-3 bauen")
+soll("mit Sitzung: kein Wecker an den Disponenten", "WECKER session_TOM1 | sieh in 9002 (9002-Ü3)" in t and "FORD1" not in t, t)
+rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Disponent", "Auftrag 9002-4")
+soll("an den Disponenten: Wecker an Ford, kein zweiter", t.count("WECKER session_FORD1") == 1, t)
+
 # Nachfolger: freigeben macht eigene Zeilen sofort wieder offen
 rc, t = lauf(B, "session_BAU", "21.11., 22:10", "freigeben")
 soll("freigeben vor Nachfolger", "FREIGEGEBEN: 1" in t and "| 9001-Ü3 | Tom | Auftrag 9001-2 bauen | 21.11., 21:00 | offen |" in datei(), t)
 rc, t = lauf(A, "session_DISP", "21.11., 22:11", "offen")
 reihen = [l.split(" | ")[0] for l in t.splitlines() if l.startswith("9001-Ü")]
 soll("Büro-Liste nach Eingangszeit", reihen[:2] == ["9001-Ü2", "9001-Ü3"] and "9001-Ü3 | an Tom | Auftrag 9001-2 bauen | seit 21.11., 21:00 | offen" in t, t)
-soll("Commits tragen nur die Vorgangsdatei", set(g("log", "--format=", "--name-only", "origin/main", "-n", "25", cwd=A).split()) <= {"docs/vorgang/9001.md", "docs/ARBEIT-BESETZUNG.md"})
+soll("Commits tragen nur die Vorgangsdatei", set(g("log", "--format=", "--name-only", "origin/main", "-n", "25", cwd=A).split()) <= {"docs/vorgang/9001.md", "docs/vorgang/9002.md", "docs/ARBEIT-BESETZUNG.md"})
 print("uebergabe_test: %s" % ("grün" if not fehl else "%d Fehler" % fehl))
 sys.exit(fehl)
