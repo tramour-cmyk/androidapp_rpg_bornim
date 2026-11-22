@@ -12,7 +12,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
-| 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *startbar* | *–* | *0* | *535,99 $* |
+| 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *535,99 $* |
 | 513 | Ein Figurenstand für alle Zweige | 3 | E Figuren | Eilt | 23.11. | – | claude/figurenstand-513 | *ruht* | *–* | *0* | *14,01 $* |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | 23.11. | – | – | *ruht, 887a zurückgestellt (Chef 16:53)* | *–* | *0* | *–* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | Eilt | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
@@ -107,15 +107,15 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1662 | lauf.py startete Jerry für Nachfolger 1595 (Schlussbuild 299), obwohl die Zeile seit 1633 Spike gehört | 7 | B Abläufe | M | 23.11. | 1595, 299, 1633 | – | *gebaut, Geprüft an: b74f9d0f6* | *–* | *0* | *0,49 $* |
 | 1728 | Teilprojekte im Projektplan durch Verweis auf chefsache/themenbloecke.md ersetzen (eine Quelle für Themenblöcke) | 7 | B Abläufe | M | – | 1727 | – | *startbar* | *–* | *0* | *–* |
 | 1739 | Werkzeuge der Bauliste ab 21.11., 20:00 bauen … | 7 | B Werkzeuge | M | – | 1727, 1765 | – | *startbar* | *–* | *0* | *36,69 $* |
-| 1762 | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Frage) | 7 | B Werkzeuge | M | 1727 | 1727 | – | *gebaut, Geprüft an: 34de71832* | *–* | *0* | *3,15 $* |
-| 1763 | lauf.py startet Sokrates bei „steckt fest“, „Frage“, „wirkt nein“ (C) | 7 | B Werkzeuge | M | 1727 | 1727 | – | *gebaut, Geprüft an: 17623dce7* | *–* | *0* | *3,15 $* |
+| 1762 | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Frage) | 7 | B Werkzeuge | M | – | 1727 | – | *gebaut, Geprüft an: 34de71832* | *–* | *0* | *3,15 $* |
+| 1763 | lauf.py startet Sokrates bei „steckt fest“, „Frage“, „wirkt nein“ (C) | 7 | B Werkzeuge | M | – | 1727 | – | *gebaut, Geprüft an: 17623dce7* | *–* | *0* | *3,15 $* |
 | 1764 | Herzschlag und Wache des Disponenten (Ausfall, Nachfolger ohne Vorräte) | 7 | B Werkzeuge | M | 1894 | 1727 | – | *gebaut, Geprüft an: c526199e2* | *–* | *0* | *2,27 $* |
-| 1765 | Build-Werkzeug … | 7 | B Werkzeuge | M | 1727 | 1727, 1566, 1739 | – | *wartet* | *–* | *0* | *5,72 $* |
+| 1765 | Build-Werkzeug … | 7 | B Werkzeuge | M | 1566, 1739 | 1727, 1566, 1739 | – | *wartet* | *–* | *0* | *5,72 $* |
 | 1766 | Laufbremse und Höchstdauer je Auftrag in lauf.py, auch bei working (prozesspruefung-21-11.md Nr. 4) | 7 | B Werkzeuge | M | 1774 | 1727 | – | *gebaut, Geprüft an: 19bf8c8d4* | *–* | *0* | *2,01 $* |
 | 1767 | Profile Büro 3.2 (Disponent, Release, Kosten), Routinen Tagesbericht, Wache, Wochenzählung 6d | 7 | B Abläufe | M | Sokrates | 1727 | – | *gebaut, Geprüft an: c32f3fe84* | *–* | *0* | *9,25 $* |
 | 1773 | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Satz nur Kern Büro, Rundblick in … | 7 | B Steuerung | M | – | 1727, 1767, 1311 | – | *startbar* | *–* | *0* | *–* |
 | 1774 | Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läufe je Auftrag) festlegen | 7 | B Abläufe | M | – | 1766 | – | *startbar* | *–* | *0* | *–* |
-| 1781 | nach der Umstellung trägt jeder Start (Fachkraft, Build-Macher, Tester, auch aus auftrag.py) den Satz KAUFREPO … | 7 | B Werkzeuge | M | 1727 | 1727, 134 | – | *wartet* | *–* | *0* | *6,33 $* |
+| 1781 | nach der Umstellung trägt jeder Start (Fachkraft, Build-Macher, Tester, auch aus auftrag.py) den Satz KAUFREPO … | 7 | B Werkzeuge | M | – | 1727, 134 | – | *startbar, umgeschaltet 1871* | *–* | *0* | *6,33 $* |
 | 1790 | rueckmeldung.py:89 gibt „ja“ des Prüfers bei einem Werkzeug als Testbitte an den Chef weiter | 7 | B Werkzeuge | M | – | 1727, 1311 | claude/spike-1871-umschalten | *gebaut, Geprüft an: d526b0a68* | *–* | *0* | *–* |
 | 1793 | startbar.py:196–198 Feld „nach“ legt den Rundblick nur an, wenn die Wochenzählung am selben Montag erledigt ist | 7 | B Werkzeuge | M | – | 1727 | claude/spike-1871-umschalten | *gebaut, Geprüft an: 69abfefa0* | *–* | *0* | *–* |
 | 1794 | Profil Disponent :20 und Kern Büro „fertig ohne Commit nimmst du nicht an“: Ausnahmen fehlen: Werkzeug nach grünem Lauf … | 7 | B Abläufe | M | – | 1773, 1311, 1789 | – | *startbar* | *–* | *0* | *–* |
@@ -380,3 +380,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1916 | Von Diogenes (D346.1, Nebenfund Lauf 356): vorgang.py neu prüft die Zeilenlänge mit Nummer „?“ statt der echten; Zeile mit 398 Zeichen dort wird mit 1914 401, Commit-Prüfung hält an (nachgestellt); mit echter Nummer prüfen; Test | 7 | B Werkzeuge | K | – | 398, 1914, 401 | – | *erledigt, greift Lauf 359* | *–* | *0* | *–* |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 1956 | Von Ford (22.11., 16:18): lauf.py pusht scharf die Startsperre schon ohne --sperre; ein zweiter Lauf kurz danach (zum Abschreiben der START-Zeilen) setzte eine zweite Sperre Tagesbericht 16:19 und gab Arbeitsplaner nicht mehr aus; Ausgabe ohne Push (Probelauf) oder Wiederholung der START-Zeilen bei offener eigener Sperre | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1958 | Von Chef (20.11., 15:52; Rest aus 1727): Leistungsstufe je Auftrag, nach Ergebnis 1742 Fassung 2 (Gesamtbild 4.2) dem Chef vorlegen | 7 | B Abläufe | M | 1742 | – | – | *startbar* | *–* | *0* | *–* |
