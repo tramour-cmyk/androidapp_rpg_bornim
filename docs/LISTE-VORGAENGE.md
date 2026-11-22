@@ -11,6 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| 1957 | Von Ford (22.11., 16:23): lauf.py erkennt eigene Rufnamen-Sitzungen nicht (Titel „Anna – Auftrag 1727“): „keine Rolle im Titel“, „Start nicht angekommen“ und erneuter START Arbeitsplaner trotz laufender Anna, Britta | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
 | 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *535,99 $* |
 | 513 | Ein Figurenstand für alle Zweige | 3 | E Figuren | Eilt | 23.11. | – | claude/figurenstand-513 | *ruht* | *–* | *0* | *14,01 $* |
@@ -121,7 +122,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1794 | Profil Disponent :20 und Kern Büro „fertig ohne Commit nimmst du nicht an“: Ausnahmen fehlen: Werkzeug nach grünem Lauf … | 7 | B Abläufe | M | – | 1773, 1311, 1789 | – | *startbar* | *–* | *0* | *–* |
 | 1858 | Testbitte-Schreiber: Testbitte aus dem Build-Auftrag als chefsache/ansehen/t<n>.md und Telegram auf Grundlage … | 7 | B Werkzeuge | M | 1864 | 1739 | – | *startbar* | *–* | *0* | *–* |
 | 1859 | .claude/settings.json: Haken weiter-haken, zug-haken, autoMode-Sätze (ARBEIT-*, Ford archiviert, startet) auf neue … | 7 | B Werkzeuge | M | 1871 | 1739, 797, 222, 235 | – | *gebaut, Geprüft an: e47128837* | *–* | *0* | *2,67 $* |
-| 1871 | Umschalt-Commit (werkzeuge.md Schritt 8) samt Umzug „Zu <Nr>“ in Vorgangsdateien (aus 1865) an einer Kopie bauen und … | 7 | B Werkzeuge | M | – | 1727, 1865, 1739 | – | *gebaut, Geprüft an: d8956b678* | *–* | *0* | *18,67 $* |
+| 1871 | Umschalt-Commit (werkzeuge.md Schritt 8) samt Umzug „Zu <Nr>“ in Vorgangsdateien (aus 1865) an einer Kopie bauen und … | 7 | B Werkzeuge | M | – | 1727, 1865, 1739 | – | *gebaut, Geprüft an: d8956b678* | *–* | *0* | *23,21 $* |
 | 1894 | herzschlag.yml prüft nur bei Push auf docs/ (nachts fast nur von Ford) und per Zeitplan (seit 21.11., 20:50 nur 1 Lauf) | 7 | B Werkzeuge | M | 1871 | 1764 | – | *gebaut, Geprüft an: 85966407c* | *–* | *0* | *–* |
 | 1937 | Probelauf-Haken bleibt | 7 | B Werkzeuge | M | 1871 | 1727k, 513, 799, 647, 464, 748, 822 | – | *wartet, Rest im Umschalt-Commit* | *–* | *1* | *12,55 $* |
 | 1936 | Von Chef (22.11., 12:26, „jetzt“ 22.11., 12:26): herzschlag.yml Probeknopf: workflow_dispatch mit Eingabe „test“ sendet eine Testmeldung über TELEGRAM_BOT_TOKEN (fehlt es: roter Lauf mit Hinweis); prüft 1764 | 7 | B Werkzeuge | M | – | 1764 | – | *erledigt, greift Lauf 374* | *–* | *1* | *–* |
