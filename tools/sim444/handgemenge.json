@@ -7,11 +7,11 @@
   "tempo_gegner": {
     "_quelle": "Entwurf 930 Regel 2: Schleim und Wiedergänger langsam, Goblin und Grak normal, Wolf, Grimmzahn, Wildschwein schnell; übrige A",
     "Riesenratte": "schnell", "Kobold": "normal", "Blutflügler": "schnell", "Wolf": "schnell", "Wildschwein": "schnell",
-    "Riesen-Hundertfüßer": "normal", "Goblin": "normal", "Goblin-Späher": "normal", "Skelett": "normal", "Zombie": "langsam",
-    "Riesenfledermaus": "schnell", "Goblin-Schamane": "normal", "Riesenspinne": "normal", "Ghul": "normal", "Ockerschleim": "langsam",
+    "Riesen-Hundertfüßer": "normal", "Goblin": "normal", "Goblin-Späher": "normal", "Skelett": "normal", "Wiedergänger": "langsam",
+    "Riesenfledermaus": "schnell", "Goblin-Schamane": "normal", "Riesenspinne": "normal", "Grabhund": "normal", "Ockerschleim": "langsam",
     "Krogg": "normal", "Grimmzahn": "schnell", "Grak": "normal"
   },
-  "ohne_atem": ["Skelett", "Zombie", "Ghul", "Ockerschleim"],
+  "ohne_atem": ["Skelett", "Wiedergänger", "Grabhund", "Ockerschleim"],
   "held_tempo": {
     "_quelle": "Entwurf 930 I.3: Gewandtheit, Rüstung, Last; A: schnell ab Gewandtheit 6 ohne schwere Rüstung, schwere Rüstung eine Stufe langsamer; Last nicht gerechnet",
     "schnell_ab_gewandtheit": 6,

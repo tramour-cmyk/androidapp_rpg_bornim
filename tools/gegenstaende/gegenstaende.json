@@ -2650,7 +2650,7 @@
     },
     {
      "weg": "beute",
-     "wo": "Zombie"
+     "wo": "Wiedergänger"
     }
    ],
    "zustand": false,
@@ -2706,7 +2706,7 @@
     },
     {
      "weg": "beute",
-     "wo": "Ghul"
+     "wo": "Grabhund"
     },
     {
      "weg": "beute",
@@ -2978,11 +2978,11 @@
     },
     {
      "weg": "beute",
-     "wo": "Zombie"
+     "wo": "Wiedergänger"
     },
     {
      "weg": "beute",
-     "wo": "Ghul"
+     "wo": "Grabhund"
     }
    ],
    "zustand": false,
