@@ -44,7 +44,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
 - 16:58 22.11.: gestartet Emil Welt 1566 (1566-Ü1), Planer Doris 1960, Frieda 1520 (Sperre 16:56 von lauf.py); Tagesbericht nicht (1959).
-- 16:50 22.11.: Startsperre 16:50 Start Prüfer, Arbeitsplaner, Arbeitsplaner (von Hand: Prüfer Elke 1957-Ü2, Planer Carla 1675, Doris 1566; ohne 1676: in 1570 enthalten; ohne Tagesbericht: 1959, lauf.py gibt den START trotz --ohne aus). Dirk 1957 fertig auf main 02a87d983; Anna, Elke(Planer), Diogenes, Sokrates alt archiviert (0,96 $ 1727, 1,05 $ 1957, 1,60 $ 1952, 41,56 $ 1727)
+- 16:50 22.11.: von Hand gestartet (Sperre unten im lauf.py-Format, 1957-Ü4: Prüfer Elke 1957-Ü2, Planer Carla 1675, Doris 1566; ohne 1676: in 1570 enthalten; ohne Tagesbericht: 1959, lauf.py gibt den START trotz --ohne aus). Dirk 1957 fertig auf main 02a87d983; Anna, Elke(Planer), Diogenes, Sokrates alt archiviert (0,96 $ 1727, 1,05 $ 1957, 1,60 $ 1952, 41,56 $ 1727)
 - 16:32 22.11.: Startsperre 16:32 Start Werkzeug (1957 nach 1957-Ü1, von Hand wegen 1957); Start Sokrates `…78cQFrwz9xMJtEJtun`; neu 1959 (Werkzeug, Tagesbericht-Start abgelehnt)
 - 16:30 22.11.: Startsperre 16:30 Start Sokrates (Neustart 400 Tsd., 6b551daf7, Leitung nach dem Umschalten); Start Figur Dana `…77eawfwxZTjnt3cZap`, Arbeitsplaner Elke `…7ABizvCYsSqPn7zCpC`; Britta archiviert (1,05 $ auf 1570); Anna angehalten (1727 erledigt)
 - 16:27 22.11.: Startsperre 16:27 Start Figur, Arbeitsplaner (von Hand wegen 1957: Figur Dana 1570 nach 1570-Ü1, Arbeitsplaner Elke 1957; lauf.py wollte zusätzlich Carla 1727 doppelt und Tagesbericht, beides nicht)
@@ -213,4 +213,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:04 22.11.: Marke Tagesbericht 22.11. (lauf.py)
 - 16:18 22.11.: Startsperre 16:18 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 1727, Arbeitsplaner 1727, Tagesbericht 448)
 - 16:19 22.11.: Startsperre 16:19 Start Tagesbericht (lauf.py, 448)
+- 16:50 22.11.: Startsperre 16:50 Start Prüfer, Arbeitsplaner, Arbeitsplaner (lauf.py, Prüfer 1957 Elke, Arbeitsplaner 1675 Carla, Arbeitsplaner 1566 Doris)
 - 16:56 22.11.: Startsperre 16:56 Start Arbeitsplaner, Welt, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 1960 Doris, Welt 1566 Emil, Arbeitsplaner 1520 Frieda, Tagesbericht 448)
