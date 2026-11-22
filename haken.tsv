@@ -1279,3 +1279,4 @@
 2026-11-22 13:03:45	probelauf	`PROBEBILD=` fiel mit dem Umschalten (1937, 783 W1, Sokrates 22.11., 12:48). Bild oder Film mit `PROBE=1694` (Laufbremse 1766); `MESS=` nur ohne Bild und Film (1129 A 3b).	claude/spike-1871-umschalten
 2026-11-22 13:03:57	probelauf	`PROBEBILD=` fiel mit dem Umschalten (1937, 783 W1, Sokrates 22.11., 12:48). Bild oder Film mit `PROBE=1694` (Laufbremse 1766); `MESS=` nur ohne Bild und Film (1129 A 3b).	claude/spike-1871-umschalten
 2026-11-22 13:03:58	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/spike-1871-umschalten
+2026-11-22 13:09:13	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30295 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
