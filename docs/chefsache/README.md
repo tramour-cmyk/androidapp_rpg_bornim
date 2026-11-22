@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 09:16, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 09:22, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -54,10 +54,10 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 5 weitere |
 | Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
-| Spike | läuft: 1781 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 34 weitere |
+| Spike | läuft: 1781 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 33 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
-| Sokrates | läuft: 1727 (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 5 weitere |
+| Diogenes | 1782 Wiederwecken: Frist abgelaufen und idle oder abgebrochen →… (Muss) |
+| Sokrates | läuft: 1727 (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 4 weitere |
 | Perikles | M? M? entscheiden: 1850, 1851, 1852, 1853, 1854, 1856, 1857, 1… (Muss); dann 3 weitere |
 
 **Die nächsten 20**
@@ -85,7 +85,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1753 | Jerry | Streicherspur nach 120 bauen, nur bei Jägern; Hörprobe auf Telegram, Bewegung a… | M | 11 Klang und Musik | startbar |
 | 20 | 1484 | Spike | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grundwert Tablet in LISTE… | M | 6 Technik, Leistung, Build | startbar |
 
-Danach 148 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 103.
+Danach 147 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 103.
 ## Zu entscheiden
 
 Nichts offen.
