@@ -243,7 +243,7 @@
 | 1727i | Rückfrage Sokrates (1727): Ladetexte ohne Wort oder nach Wort geändert in Gruppen abnehmen? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727j | Rückfrage Sokrates (1727): Textänderungen V1, V3, V4, V6, Wortlaut V7 und sechzehn Fragen aus Falltest und Umbau? | Sokrates | M | startbar | – | – | – | B Abläufe | – |
 | 1727k | Rückfrage Sokrates (1727): settings.json für die neue Arbeitsweise frei, Probelauf-Haken bleibt bis Ersatz? | Sokrates | M | startbar | – | – | – | B Werkzeuge | – |
-| 1905 | Von Chef („jetzt“ 22.11., 09:41, über Sokrates): Homer kein Neustart bis zur Umstellung 1727; Nachfolger und Kür sperren, Muss an Homer meldet Ford an Sokrates | Ford | M | startbar | – | – | – | B Steuerung | – |
+| 1905 | Von Chef („jetzt“ 22.11., 09:41, über Sokrates): Homer kein Neustart bis zur Umstellung 1727; Nachfolger und Kür sperren, Muss an Homer meldet Ford an Sokrates | Ford | M | erledigt | – | – | – | B Steuerung | – |
 | 1507 | Von Sokrates (Chef 17.11., 06:15: Diogenes-Meldungen mit Daumen „nicht kapiert“): Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer; Prüfberichte ohne Daumenzeile | Ford | M | startbar | – | – | – | B Abläufe | 1,89 $ |
 | Betrieb | Läufe von Ford und Ford 2 | Ford | – | Dauer | – | – | – | B Steuerung | Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $ |
 | 1469 | Von Diogenes (1463, Startwarnung 108): chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11.; verkleinern oder löschen, wenn 415 entschieden | Ford | K | startbar | – | – | – | B Abläufe | – |
