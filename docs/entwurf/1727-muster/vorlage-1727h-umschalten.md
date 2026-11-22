@@ -7,7 +7,7 @@ Geprüft an: <Commit vor dem Anlegen>
 
 **Frage:** Am 21.11. hast du zweimal festgelegt, dass vor dem Umschalten ein Falltest besteht: 11:17 die Reihenfolge „herausziehen → umgemünzt fertig → Gegenprüfung → Falltest, Werkzeuge nebenher“, 14:37 „umgeschaltet erst nach Falltest und grünen Werkzeugen“. Heute 07:25: keine Testläufe mehr. Der Falltest steht nach Lauf 3 bei 6 bestanden, 9 teilweise, 1 nicht, 1 Fall schief (17 Fälle, `falltest-lauf3/ergebnis.md`). Endet der Falltest damit, sodass wir umschalten, sobald die Werkzeuge der Umstellung grün sind und dein Wort zu den Texten (1727i, 1727j) eingearbeitet ist?
 
-**Votum:** „1727h A“: Falltest endet mit Lauf 3; Umschalten (Umschalt-Commit 1871 mit `tools/1727-SCHARF`), sobald die Werkzeuge mit „vor Umstellung: ja“ grün sind und 1727i, 1727j eingearbeitet sind.
+**Votum:** „1727h A“: Falltest endet mit Lauf 3; Umschalten (Umschalt-Commit 1871 mit `tools/1727-SCHARF`), sobald die Werkzeuge mit „vor Umstellung: ja“ grün sind (zuerst 1893, Leser der neuen Liste) und 1727i, 1727j eingearbeitet sind. Um 10:00 ist das noch nicht so weit.
 
 **Berührt:** alle Rollen (fallen weg, Rufnamen); Spike (1871, 1739 Rufnamen, 1890 und die Lauf-3-Lücken wie `ergebnis.md` „Werkzeuglücken“: 1796, 1797, 1798, 1799, 1804, 1864, 1872, 1873, 1875–1879, 1887, 1888, 1892); Ford (wird Disponent); Vorräte (Umzug in Vorgangsdateien).
 
@@ -16,7 +16,8 @@ Geprüft an: <Commit vor dem Anlegen>
 **Sachverhalt:**
 - Archiv 21.11., 11:17 (Reihenfolge mit Falltest) und 14:37 (im Eintrag A–D: „umgeschaltet erst nach Falltest und grünen Werkzeugen“).
 - Lauf 3, die 9 „teilweise“: 3 Werkzeuglücken mit Vorgang (D1, D3, D5; D5 ungeprüft gegen 1760), 4 Gesprächsfragen (A3, A5, A7 in 1727j; A1 ohne Vorschlag), 2 an ungespielten Texten (P1, P7: Profil Prüfer F9 bzw. F11); dazu „nicht“ P6 (Text, ungespielt). Ungespielt insgesamt: Profil Prüfer F8–F11, V4 Feld 7, Profil Disponent F15.
-- Werkzeuge mit „vor Umstellung: ja“ und noch nicht gebaut (`werkzeuge.md`): <Liste aus Spikes Stand 09:30>.
+- Umschalt-Commit an der Kopie (Spike 08:00, `docs/vorgang/1871.md`; Zweig `claude/spike-1871-umschalten`, `425c46a00`): Umzug von 220 „Zu“-Absätzen, `1727-SCHARF`, Build-Sperre nur Build-Macher; Werkzeugtests 48/48 grün, aber an eigenen Daten. **Befund: die umgestellte Liste ist nicht lesbar** für `startbar.py`, `vorgang.py --rolle` und die Commit-Prüfung (verlangen die Spalte Besitzer); Umbau von rund 15 Werkzeugen als 1893, der größte Brocken: **ohne 1893 startet nach dem Umschalten nichts.** `probelauf.py` fällt erst mit `settings.json` (1859), das schreibt nur du.
+- Werkzeuge mit „vor Umstellung: ja“ und noch nicht gebaut (`werkzeuge.md`): <Liste und Dauer aus Spikes Stand 09:25>.
 - Nachprüfungen dieses Entwurfs: 1: 18, 2: 13, 3a: 12, 3b: 12, 3c: 6, 3d: 6 neue Befunde.
 
 **Auswertung:**
