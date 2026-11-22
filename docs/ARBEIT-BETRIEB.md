@@ -48,6 +48,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 14:24 22.11.: Start Sokrates `…77phAJFWjArJhz3Zn6` (1727 Falltest, 14:06); Sokrates `…791kx5` archiviert (17,18 $ auf 1931)
 - 14:06 22.11.: Startsperre 14:06 Start Sokrates (Neustart, b47758e52, 1727 Falltest)
 - 14:04 22.11.: Lauf (--besetzung --nur-muss): nichts zu starten; Spike, Diogenes auf Abruf bis zum Falltest (Sokrates 14:00); 1923, 1928, 1938, 1941, 1943, 1732 greifen; Tagesbericht weiter beim Chef
 - 13:44 22.11.: Fehler 341 (13:42, Chef fand ihn zuerst): Spike `…75Tbbx` nahm nach 1732 die „oberste startbare Muss-Zeile“ 1720 (Spielcode) statt nur 1727-Werkzeuge; Ford hatte die Ankündigung 13:15 („sonst 1739“) nicht gegen die Sperre bis zum Umschalten geprüft. Angehalten 13:43, weiter 1941, 1928, 1938, 1943, 1871
